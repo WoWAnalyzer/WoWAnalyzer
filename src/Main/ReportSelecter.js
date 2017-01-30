@@ -48,7 +48,7 @@ class ReportSelecter extends Component {
           <strong>Enter your Warcraft Logs report code.</strong><br />
           https://www.warcraftlogs.com/reports/<input type="text" name="code" ref={(elem) => { this.codeInput = elem; }} />/<br /><br />
 
-          Enter your API key: <input type="text" name="apiKey" ref={(elem) => { this.apiKeyInput = elem; }} value={apiKey} /> (this is temporary)<br />
+          Enter your API key: <input type="text" name="apiKey" ref={(elem) => { this.apiKeyInput = elem; }} defaultValue={apiKey} /> (this is temporary)<br />
           <a href="#" onClick={() => this.setState({ apiKeyInfoExpanded: !this.state.apiKeyInfoExpanded })}>Click here to learn how to get one.</a><br />
           {this.state.apiKeyInfoExpanded && (
             <div style={{ paddingTop: 5, paddingRight: 15, paddingBottom: 5, background: '#c2d4e0', borderRadius: 5 }}>

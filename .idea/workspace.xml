@@ -18,12 +18,11 @@
       <file leaf-file-name="ReportSelecter.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Main/ReportSelecter.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="35" lean-forward="false" selection-start-line="4" selection-start-column="35" selection-end-line="4" selection-end-column="35" />
+            <state relative-caret-position="124">
+              <caret line="28" column="38" lean-forward="true" selection-start-line="28" selection-start-column="38" selection-end-line="28" selection-end-column="38" />
               <folding>
                 <element signature="n#!!block;n#constructor#0;n#ReportSelecter#0" expanded="true" />
                 <element signature="n#!!block;n#componentDidMount#0;n#ReportSelecter#0" expanded="true" />
-                <element signature="n#!!block;n#handleSubmit#0;n#ReportSelecter#0" expanded="true" />
                 <element signature="n#!!block;n#render#0;n#ReportSelecter#0" expanded="true" />
               </folding>
             </state>
@@ -50,11 +49,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="App.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="App.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Main/App.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-68">
-              <caret line="8" column="48" lean-forward="false" selection-start-line="8" selection-start-column="48" selection-end-line="8" selection-end-column="48" />
+            <state relative-caret-position="1751">
+              <caret line="118" column="13" lean-forward="true" selection-start-line="118" selection-start-column="13" selection-end-line="118" selection-end-column="13" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
                 <element signature="n#!!doc;n#App#0" expanded="true" />
@@ -64,10 +63,10 @@
                 <element signature="n#!!block;n#handleSelectFight#0;n#App#0" expanded="true" />
                 <element signature="n#!!block;n#parse#0;n#App#0" expanded="true" />
                 <element signature="n#!!block;n#parseNextBatch#0;n#App#0" expanded="true" />
-                <element signature="e#2165#2926#0" expanded="true" />
-                <element signature="e#2236#2916#0" expanded="true" />
+                <element signature="e#2195#3014#0" expanded="true" />
+                <element signature="e#2266#3004#0" expanded="true" />
                 <element signature="n#!!block;n#fetchFights#0;n#App#0" expanded="true" />
-                <element signature="e#3166#3388#0" expanded="true" />
+                <element signature="e#3254#3476#0" expanded="true" />
                 <element signature="n#!!block;n#fetchEvents#0;n#App#0" expanded="true" />
                 <element signature="n#!!block;n#render#0;n#App#0" expanded="true" />
               </folding>
@@ -75,18 +74,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CombatLogParser.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="CombatLogParser.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Main/CombatLogParser.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-51">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="715">
+              <caret line="126" column="16" lean-forward="false" selection-start-line="126" selection-start-column="16" selection-end-line="126" selection-end-column="16" />
               <folding>
                 <element signature="n#!!block;n#constructor#0;n#CombatLogParser#0" expanded="true" />
                 <element signature="n#!!block;n#parseEvents#0;n#CombatLogParser#0" expanded="true" />
-                <element signature="e#1108#1489#0" expanded="true" />
-                <element signature="e#1140#1308#0" expanded="true" />
+                <element signature="e#1183#1693#0" expanded="true" />
+                <element signature="e#1215#1463#0" expanded="true" />
                 <element signature="n#!!block;n#parse_heal#0;n#CombatLogParser#0" expanded="true" />
                 <element signature="n#!!block;n#parse_combatantinfo#0;n#CombatLogParser#0" expanded="true" />
+                <element signature="n#!!block;n#parse_absorbed#0;n#CombatLogParser#0" expanded="true" />
                 <element signature="n#!!block;n#calculateDistance#0;n#CombatLogParser#0" expanded="true" />
                 <element signature="n#!!block;n#calculateMasteryEffectiveness#0;n#CombatLogParser#0" expanded="true" />
                 <element signature="n#!!block;n#calculateMasteryPercentage#0;n#CombatLogParser#0" expanded="true" />
@@ -110,8 +110,8 @@
       <file leaf-file-name="Fight.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Main/Fight.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="31" lean-forward="false" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
+            <state relative-caret-position="187">
+              <caret line="11" column="45" lean-forward="false" selection-start-line="11" selection-start-column="45" selection-end-line="11" selection-end-column="45" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -164,7 +164,6 @@
       <find>CombatLogParser</find>
       <find>parser</find>
       <find>maxPotentialHealingWithFullMastery</find>
-      <find>totalMaxPotentialMasteryHealing</find>
       <find>totalHealingDoneWithMasteryAffectedAbilities</find>
       <find>totalActualMasteryHealing</find>
       <find>playerMasteryPerc</find>
@@ -178,6 +177,7 @@
       <find>fetchFights</find>
       <find>apikey</find>
       <find>reportCode</find>
+      <find>totalMaxPotentialMasteryHealing</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -191,15 +191,15 @@
         <option value="$PROJECT_DIR$/src/Main/DIFFICULTIES.js" />
         <option value="$PROJECT_DIR$/src/Main/ApiKeyForm.js" />
         <option value="$PROJECT_DIR$/src/Main/FightSelecter.js" />
-        <option value="$PROJECT_DIR$/src/Main/Fight.js" />
         <option value="$PROJECT_DIR$/src/Main/PlayerSelecter.js" />
         <option value="$PROJECT_DIR$/public/index.html" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/src/Main/App.js" />
+        <option value="$PROJECT_DIR$/src/Main/Fight.js" />
         <option value="$PROJECT_DIR$/src/Main/ReportSelecter.js" />
         <option value="$PROJECT_DIR$/src/Main/CombatLogParser.js" />
-        <option value="$PROJECT_DIR$/src/Main/App.js" />
       </list>
     </option>
   </component>
@@ -375,12 +375,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1485737942228</updated>
-      <workItem from="1485737943871" duration="26700000" />
+      <workItem from="1485737943871" duration="27765000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26700000" />
+    <option name="totallyTimeSpent" value="27765000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1186" extended-state="6" />
@@ -474,16 +474,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main/Fight.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="31" lean-forward="false" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
@@ -516,14 +506,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main/PlayerSelecter.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="12" lean-forward="true" selection-start-line="20" selection-start-column="12" selection-end-line="22" selection-end-column="56" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cra-README.md">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -540,41 +522,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main/ReportSelecter.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="35" lean-forward="false" selection-start-line="4" selection-start-column="35" selection-end-line="4" selection-end-column="35" />
-          <folding>
-            <element signature="n#!!block;n#constructor#0;n#ReportSelecter#0" expanded="true" />
-            <element signature="n#!!block;n#componentDidMount#0;n#ReportSelecter#0" expanded="true" />
-            <element signature="n#!!block;n#handleSubmit#0;n#ReportSelecter#0" expanded="true" />
-            <element signature="n#!!block;n#render#0;n#ReportSelecter#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main/CombatLogParser.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-51">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!block;n#constructor#0;n#CombatLogParser#0" expanded="true" />
-            <element signature="n#!!block;n#parseEvents#0;n#CombatLogParser#0" expanded="true" />
-            <element signature="e#1108#1489#0" expanded="true" />
-            <element signature="e#1140#1308#0" expanded="true" />
-            <element signature="n#!!block;n#parse_heal#0;n#CombatLogParser#0" expanded="true" />
-            <element signature="n#!!block;n#parse_combatantinfo#0;n#CombatLogParser#0" expanded="true" />
-            <element signature="n#!!block;n#calculateDistance#0;n#CombatLogParser#0" expanded="true" />
-            <element signature="n#!!block;n#calculateMasteryEffectiveness#0;n#CombatLogParser#0" expanded="true" />
-            <element signature="n#!!block;n#calculateMasteryPercentage#0;n#CombatLogParser#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Main/App.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-68">
-          <caret line="8" column="48" lean-forward="false" selection-start-line="8" selection-start-column="48" selection-end-line="8" selection-end-column="48" />
+        <state relative-caret-position="1751">
+          <caret line="118" column="13" lean-forward="true" selection-start-line="118" selection-start-column="13" selection-end-line="118" selection-end-column="13" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
             <element signature="n#!!doc;n#App#0" expanded="true" />
@@ -584,12 +535,61 @@
             <element signature="n#!!block;n#handleSelectFight#0;n#App#0" expanded="true" />
             <element signature="n#!!block;n#parse#0;n#App#0" expanded="true" />
             <element signature="n#!!block;n#parseNextBatch#0;n#App#0" expanded="true" />
-            <element signature="e#2165#2926#0" expanded="true" />
-            <element signature="e#2236#2916#0" expanded="true" />
+            <element signature="e#2195#3014#0" expanded="true" />
+            <element signature="e#2266#3004#0" expanded="true" />
             <element signature="n#!!block;n#fetchFights#0;n#App#0" expanded="true" />
-            <element signature="e#3166#3388#0" expanded="true" />
+            <element signature="e#3254#3476#0" expanded="true" />
             <element signature="n#!!block;n#fetchEvents#0;n#App#0" expanded="true" />
             <element signature="n#!!block;n#render#0;n#App#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main/Fight.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="45" lean-forward="false" selection-start-line="11" selection-start-column="45" selection-end-line="11" selection-end-column="45" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main/ReportSelecter.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="124">
+          <caret line="28" column="38" lean-forward="true" selection-start-line="28" selection-start-column="38" selection-end-line="28" selection-end-column="38" />
+          <folding>
+            <element signature="n#!!block;n#constructor#0;n#ReportSelecter#0" expanded="true" />
+            <element signature="n#!!block;n#componentDidMount#0;n#ReportSelecter#0" expanded="true" />
+            <element signature="n#!!block;n#render#0;n#ReportSelecter#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main/PlayerSelecter.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" column="12" lean-forward="true" selection-start-line="20" selection-start-column="12" selection-end-line="22" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main/CombatLogParser.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="715">
+          <caret line="126" column="16" lean-forward="false" selection-start-line="126" selection-start-column="16" selection-end-line="126" selection-end-column="16" />
+          <folding>
+            <element signature="n#!!block;n#constructor#0;n#CombatLogParser#0" expanded="true" />
+            <element signature="n#!!block;n#parseEvents#0;n#CombatLogParser#0" expanded="true" />
+            <element signature="e#1183#1693#0" expanded="true" />
+            <element signature="e#1215#1463#0" expanded="true" />
+            <element signature="n#!!block;n#parse_heal#0;n#CombatLogParser#0" expanded="true" />
+            <element signature="n#!!block;n#parse_combatantinfo#0;n#CombatLogParser#0" expanded="true" />
+            <element signature="n#!!block;n#parse_absorbed#0;n#CombatLogParser#0" expanded="true" />
+            <element signature="n#!!block;n#calculateDistance#0;n#CombatLogParser#0" expanded="true" />
+            <element signature="n#!!block;n#calculateMasteryEffectiveness#0;n#CombatLogParser#0" expanded="true" />
+            <element signature="n#!!block;n#calculateMasteryPercentage#0;n#CombatLogParser#0" expanded="true" />
           </folding>
         </state>
       </provider>

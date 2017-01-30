@@ -20,6 +20,8 @@ class CombatLogParser {
   // The total (so from all abilities) max potential mastery healing if we had a mastery effectiveness of 100% on all abilities. This does NOT include the base healing
   // Example: a heal that did 1,324 healing with 32.4% mastery with 100% mastery effectiveness will have a max potential mastery healing of 324.
   totalMaxPotentialMasteryHealing = 0;
+  // Tracking total healing seen as a sanity check
+  totalHealingSeen = 0;
 
   players = {};
 
@@ -42,12 +44,15 @@ class CombatLogParser {
         const method = this[methodName];
         if (method) {
           method.call(this, event);
+        } else {
+          console.warn("Didn't recognize", event.type, event);
         }
       });
 
       resolve({
         totalActualMasteryHealing: this.totalActualMasteryHealing,
         totalMaxPotentialMasteryHealing: this.totalMaxPotentialMasteryHealing,
+        totalHealingSeen: this.totalHealingSeen,
       });
     });
   }
@@ -56,7 +61,14 @@ class CombatLogParser {
     this.lastCast = event;
   }
   parse_heal(event) {
+    if (event.sourceID !== this.player.id) {
+      return;
+    }
+
     const isAbilityAffectedByMastery = ABILITIES_AFFECTED_BY_MASTERY.indexOf(event.ability.guid) !== -1;
+
+    // The actual heal as shown in the log
+    const healingDone = event.amount;
 
     if (isAbilityAffectedByMastery) {
       const distance = CombatLogParser.calculateDistance(this.lastCast.x, this.lastCast.y, event.x, event.y) / 100;
@@ -64,8 +76,6 @@ class CombatLogParser {
       // We calculate the mastery effectiveness of this *one* heal
       const masteryEffectiveness = CombatLogParser.calculateMasteryEffectiveness(distance, hasRuleOfLaw);
 
-      // The actual heal as shown in the log
-      const healingDone = event.amount;
       // The base healing of the spell (excluding any healing added by mastery)
       const baseHealingDone = healingDone / (1 + this.playerMasteryPerc * masteryEffectiveness);
       const masteryHealingDone = healingDone - baseHealingDone;
@@ -84,8 +94,9 @@ class CombatLogParser {
       // });
       console.log(event.ability.name,
         `healing:${event.amount},distance:${distance},hasRuleOfLaw:${hasRuleOfLaw},masteryEffectiveness:${masteryEffectiveness}`,
-        `playerMasteryPerc:${this.playerMasteryPerc},baseHealingDone:${baseHealingDone},masteryHealingDone:${masteryHealingDone},maxPotentialMasteryHealing=${maxPotentialMasteryHealing}`);
+        `playerMasteryPerc:${this.playerMasteryPerc}`, event);
     }
+    this.totalHealingSeen += healingDone;
   }
   parse_applybuff(event) {
     const { ability: { guid } } = event;
@@ -112,6 +123,13 @@ class CombatLogParser {
     if (event.sourceID === this.player.id) {
       this.playerMasteryPerc = CombatLogParser.calculateMasteryPercentage(event.mastery);
     }
+  }
+  parse_absorbed(event) {
+    if (event.sourceID !== this.player.id) {
+      return;
+    }
+
+    this.totalHealingSeen += event.amount;
   }
 
   static calculateDistance(x1, y1, x2, y2) {

@@ -8,6 +8,8 @@ const Fight = ({ difficulty, name, kill, start_time, end_time, ...others }) => {
   delete others.boss;
   delete others.bossPercentage;
   delete others.partial;
+  delete others.fightPercentage;
+  delete others.lastPhaseForPercentageDisplay;
 
   return (
     <div {...others}>

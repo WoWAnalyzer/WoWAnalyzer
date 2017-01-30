@@ -36,6 +36,7 @@ class App extends Component {
       finished: false,
       totalActualMasteryHealing: null,
       totalMaxPotentialMasteryHealing: null,
+      totalHealingSeen: null,
     };
 
     this.handleReportSelecterSubmit = this.handleReportSelecterSubmit.bind(this);
@@ -83,6 +84,7 @@ class App extends Component {
             this.setState({
               totalActualMasteryHealing: results.totalActualMasteryHealing,
               totalMaxPotentialMasteryHealing: results.totalMaxPotentialMasteryHealing,
+              totalHealingSeen: results.totalHealingSeen,
             });
             if (json.nextPageTimestamp) {
               if (json.nextPageTimestamp > end) {
@@ -120,7 +122,7 @@ class App extends Component {
   }
 
   render() {
-    const { reportCode, report, selectedFight, selectedPlayer, finished, totalActualMasteryHealing, totalMaxPotentialMasteryHealing } = this.state;
+    const { reportCode, report, selectedFight, selectedPlayer, finished, totalActualMasteryHealing, totalMaxPotentialMasteryHealing, totalHealingSeen } = this.state;
 
     return (
       <div className="App">
@@ -135,7 +137,7 @@ class App extends Component {
 
             {!finished && <div>Working...</div>}
 
-            Mastery effectiveness: {Math.round(totalActualMasteryHealing / (totalMaxPotentialMasteryHealing || 1) * 100)}%<br /><br />
+            Mastery effectiveness: {Math.round(totalActualMasteryHealing / (totalMaxPotentialMasteryHealing || 1) * 100)}% (saw {Math.round(totalHealingSeen/100000)/10}m healing)<br /><br />
 
             <input type="button" value="Change fight" onClick={() => this.setState({ selectedFight: null })} />
           </div>
