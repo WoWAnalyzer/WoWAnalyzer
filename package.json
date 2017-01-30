@@ -2,7 +2,7 @@
   "name": "logparser",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://martijnhols.github.io/",
+  "homepage": "https://martijnhols.github.io/MasteryEffectivenessCalculator/build/",
   "devDependencies": {
     "react-scripts": "0.8.5"
   },
