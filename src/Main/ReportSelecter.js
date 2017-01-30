@@ -65,7 +65,7 @@ class ReportSelecter extends Component {
 
           <br /><br />
 
-          <font color="red">Currently only accurate with Beacon of Faith and when there is only 1 Paladin healing.</font>
+          <font color="red">Currently only accurate with Beacon of Faith. This is still 90% likely to contain bugs and there are no guarantees it is accurate.</font>
         </form>
       </div>
     );

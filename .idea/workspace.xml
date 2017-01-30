@@ -15,15 +15,15 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ReportSelecter.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ReportSelecter.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Main/ReportSelecter.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="124">
-              <caret line="28" column="38" lean-forward="true" selection-start-line="28" selection-start-column="38" selection-end-line="28" selection-end-column="38" />
+            <state relative-caret-position="787">
+              <caret line="67" column="149" lean-forward="false" selection-start-line="67" selection-start-column="149" selection-end-line="67" selection-end-column="149" />
               <folding>
                 <element signature="n#!!block;n#constructor#0;n#ReportSelecter#0" expanded="true" />
                 <element signature="n#!!block;n#componentDidMount#0;n#ReportSelecter#0" expanded="true" />
-                <element signature="n#!!block;n#render#0;n#ReportSelecter#0" expanded="true" />
+                <element signature="n#!!block;n#handleSubmit#0;n#ReportSelecter#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -74,7 +74,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CombatLogParser.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CombatLogParser.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Main/CombatLogParser.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="715">
@@ -198,8 +198,8 @@
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/Main/App.js" />
         <option value="$PROJECT_DIR$/src/Main/Fight.js" />
-        <option value="$PROJECT_DIR$/src/Main/ReportSelecter.js" />
         <option value="$PROJECT_DIR$/src/Main/CombatLogParser.js" />
+        <option value="$PROJECT_DIR$/src/Main/ReportSelecter.js" />
       </list>
     </option>
   </component>
@@ -375,12 +375,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1485737942228</updated>
-      <workItem from="1485737943871" duration="27765000" />
+      <workItem from="1485737943871" duration="27864000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27765000" />
+    <option name="totallyTimeSpent" value="27864000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1186" extended-state="6" />
@@ -555,18 +555,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main/ReportSelecter.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="124">
-          <caret line="28" column="38" lean-forward="true" selection-start-line="28" selection-start-column="38" selection-end-line="28" selection-end-column="38" />
-          <folding>
-            <element signature="n#!!block;n#constructor#0;n#ReportSelecter#0" expanded="true" />
-            <element signature="n#!!block;n#componentDidMount#0;n#ReportSelecter#0" expanded="true" />
-            <element signature="n#!!block;n#render#0;n#ReportSelecter#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Main/PlayerSelecter.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
@@ -590,6 +578,18 @@
             <element signature="n#!!block;n#calculateDistance#0;n#CombatLogParser#0" expanded="true" />
             <element signature="n#!!block;n#calculateMasteryEffectiveness#0;n#CombatLogParser#0" expanded="true" />
             <element signature="n#!!block;n#calculateMasteryPercentage#0;n#CombatLogParser#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main/ReportSelecter.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="787">
+          <caret line="67" column="149" lean-forward="false" selection-start-line="67" selection-start-column="149" selection-end-line="67" selection-end-column="149" />
+          <folding>
+            <element signature="n#!!block;n#constructor#0;n#ReportSelecter#0" expanded="true" />
+            <element signature="n#!!block;n#componentDidMount#0;n#ReportSelecter#0" expanded="true" />
+            <element signature="n#!!block;n#handleSubmit#0;n#ReportSelecter#0" expanded="true" />
           </folding>
         </state>
       </provider>
