@@ -39,7 +39,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="68">
@@ -62,11 +62,41 @@
       <file leaf-file-name="PlayerSelecter.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Main/PlayerSelecter.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+            <state relative-caret-position="340">
+              <caret line="20" column="12" lean-forward="true" selection-start-line="20" selection-start-column="12" selection-end-line="22" selection-end-column="56" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="App.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Main/App.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="804">
+              <caret line="267" column="104" lean-forward="false" selection-start-line="267" selection-start-column="104" selection-end-line="267" selection-end-column="104" />
               <folding>
-                <element signature="n#!!block;n#render#0;n#PlayerSelecter#0" expanded="true" />
-                <marker date="1485816857433" expanded="true" signature="115:1205" ph="{...}" />
+                <element signature="e#0#41#0" expanded="true" />
+                <element signature="n#!!block;n#constructor#0;n#CombatLogParser#0" expanded="true" />
+                <element signature="n#!!block;n#parseEvents#0;n#CombatLogParser#0" expanded="true" />
+                <element signature="e#1354#1735#0" expanded="true" />
+                <element signature="e#1386#1554#0" expanded="true" />
+                <element signature="n#!!block;n#parse_heal#0;n#CombatLogParser#0" expanded="true" />
+                <element signature="n#!!block;n#parse_combatantinfo#0;n#CombatLogParser#0" expanded="true" />
+                <element signature="n#!!block;n#calculateDistance#0;n#CombatLogParser#0" expanded="true" />
+                <element signature="n#!!block;n#calculateMasteryEffectiveness#0;n#CombatLogParser#0" expanded="true" />
+                <element signature="n#!!block;n#calculateMasteryPercentage#0;n#CombatLogParser#0" expanded="true" />
+                <element signature="n#!!doc;n#App#0" expanded="true" />
+                <element signature="n#!!block;n#constructor#0;n#App#0" expanded="true" />
+                <element signature="n#!!block;n#handleReportSelecterSubmit#0;n#App#0" expanded="true" />
+                <element signature="n#!!block;n#handleSelectPlayer#0;n#App#0" expanded="true" />
+                <element signature="n#!!block;n#handleSelectFight#0;n#App#0" expanded="true" />
+                <element signature="n#!!block;n#parse#0;n#App#0" expanded="true" />
+                <element signature="n#!!block;n#parseNextBatch#0;n#App#0" expanded="true" />
+                <element signature="e#6679#7440#0" expanded="true" />
+                <element signature="e#6750#7430#0" expanded="true" />
+                <element signature="n#!!block;n#fetchFights#0;n#App#0" expanded="true" />
+                <element signature="e#7680#7902#0" expanded="true" />
+                <element signature="n#!!block;n#fetchEvents#0;n#App#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -166,7 +196,6 @@
         <option value="$PROJECT_DIR$/src/Main/LogSelecter.js" />
         <option value="$PROJECT_DIR$/src/Main/DIFFICULTIES.js" />
         <option value="$PROJECT_DIR$/src/Main/ApiKeyForm.js" />
-        <option value="$PROJECT_DIR$/src/Main/App.js" />
         <option value="$PROJECT_DIR$/src/Main/FightSelecter.js" />
         <option value="$PROJECT_DIR$/src/Main/Fight.js" />
         <option value="$PROJECT_DIR$/src/Main/PlayerSelecter.js" />
@@ -175,6 +204,7 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/src/Main/App.js" />
       </list>
     </option>
   </component>
@@ -350,12 +380,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1485737942228</updated>
-      <workItem from="1485737943871" duration="25533000" />
+      <workItem from="1485737943871" duration="25731000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="25533000" />
+    <option name="totallyTimeSpent" value="25731000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1186" extended-state="6" />
@@ -383,6 +413,9 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="processedProjectFiles" value="true" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.md" />
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -456,52 +489,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main/PlayerSelecter.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!block;n#render#0;n#PlayerSelecter#0" expanded="true" />
-            <marker date="1485816857433" expanded="true" signature="115:1205" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main/App.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="246" column="41" lean-forward="false" selection-start-line="246" selection-start-column="41" selection-end-line="246" selection-end-column="41" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-            <element signature="n#!!block;n#constructor#0;n#CombatLogParser#0" expanded="true" />
-            <element signature="n#!!block;n#parseEvents#0;n#CombatLogParser#0" expanded="true" />
-            <element signature="e#1354#1735#0" expanded="true" />
-            <element signature="e#1386#1554#0" expanded="true" />
-            <element signature="n#!!block;n#parse_heal#0;n#CombatLogParser#0" expanded="true" />
-            <element signature="n#!!block;n#parse_combatantinfo#0;n#CombatLogParser#0" expanded="true" />
-            <element signature="n#!!block;n#calculateDistance#0;n#CombatLogParser#0" expanded="true" />
-            <element signature="n#!!block;n#calculateMasteryEffectiveness#0;n#CombatLogParser#0" expanded="true" />
-            <element signature="n#!!block;n#calculateMasteryPercentage#0;n#CombatLogParser#0" expanded="true" />
-            <element signature="n#!!doc;n#App#0" expanded="true" />
-            <element signature="n#!!block;n#constructor#0;n#App#0" expanded="true" />
-            <element signature="n#!!block;n#handleReportSelecterSubmit#0;n#App#0" expanded="true" />
-            <element signature="n#!!block;n#handleSelectPlayer#0;n#App#0" expanded="true" />
-            <element signature="n#!!block;n#handleSelectFight#0;n#App#0" expanded="true" />
-            <element signature="n#!!block;n#parse#0;n#App#0" expanded="true" />
-            <element signature="n#!!block;n#parseNextBatch#0;n#App#0" expanded="true" />
-            <element signature="e#6679#7440#0" expanded="true" />
-            <element signature="e#6750#7430#0" expanded="true" />
-            <element signature="n#!!block;n#fetchFights#0;n#App#0" expanded="true" />
-            <element signature="e#7680#7902#0" expanded="true" />
-            <element signature="n#!!block;n#render#0;n#App#0" expanded="true" />
-            <marker date="1485816630616" expanded="true" signature="8344:9162" ph="..." />
-            <marker date="1485816630616" expanded="true" signature="8344:9555" ph="..." />
-            <marker date="1485816630616" expanded="true" signature="8776:9162" ph="..." />
-            <marker date="1485816630616" expanded="true" signature="9141:9162" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
@@ -559,6 +546,45 @@
         <state relative-caret-position="68">
           <caret line="4" column="158" lean-forward="false" selection-start-line="4" selection-start-column="158" selection-end-line="4" selection-end-column="158" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main/PlayerSelecter.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" column="12" lean-forward="true" selection-start-line="20" selection-start-column="12" selection-end-line="22" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="804">
+          <caret line="267" column="104" lean-forward="false" selection-start-line="267" selection-start-column="104" selection-end-line="267" selection-end-column="104" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+            <element signature="n#!!block;n#constructor#0;n#CombatLogParser#0" expanded="true" />
+            <element signature="n#!!block;n#parseEvents#0;n#CombatLogParser#0" expanded="true" />
+            <element signature="e#1354#1735#0" expanded="true" />
+            <element signature="e#1386#1554#0" expanded="true" />
+            <element signature="n#!!block;n#parse_heal#0;n#CombatLogParser#0" expanded="true" />
+            <element signature="n#!!block;n#parse_combatantinfo#0;n#CombatLogParser#0" expanded="true" />
+            <element signature="n#!!block;n#calculateDistance#0;n#CombatLogParser#0" expanded="true" />
+            <element signature="n#!!block;n#calculateMasteryEffectiveness#0;n#CombatLogParser#0" expanded="true" />
+            <element signature="n#!!block;n#calculateMasteryPercentage#0;n#CombatLogParser#0" expanded="true" />
+            <element signature="n#!!doc;n#App#0" expanded="true" />
+            <element signature="n#!!block;n#constructor#0;n#App#0" expanded="true" />
+            <element signature="n#!!block;n#handleReportSelecterSubmit#0;n#App#0" expanded="true" />
+            <element signature="n#!!block;n#handleSelectPlayer#0;n#App#0" expanded="true" />
+            <element signature="n#!!block;n#handleSelectFight#0;n#App#0" expanded="true" />
+            <element signature="n#!!block;n#parse#0;n#App#0" expanded="true" />
+            <element signature="n#!!block;n#parseNextBatch#0;n#App#0" expanded="true" />
+            <element signature="e#6679#7440#0" expanded="true" />
+            <element signature="e#6750#7430#0" expanded="true" />
+            <element signature="n#!!block;n#fetchFights#0;n#App#0" expanded="true" />
+            <element signature="e#7680#7902#0" expanded="true" />
+            <element signature="n#!!block;n#fetchEvents#0;n#App#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
