@@ -258,21 +258,14 @@ class App extends Component {
         {selectedPlayer && !selectedFight && <FightSelecter report={report} onSelectFight={this.handleSelectFight} />}
 
         {selectedPlayer && selectedFight && (
-          <div>
+          <div style={{ background: '#eee', margin: '15px auto', border: '1px solid #ddd', borderRadius: 5, maxWidth: 600, padding: 15 }}>
             <h1>{DIFFICULTIES[selectedFight.difficulty]} {selectedFight.name} ({selectedFight.kill ? 'Kill' : 'Wipe'})</h1>
 
             {!finished && <div>Working...</div>}
 
-            Mastery effectiveness: {Math.round(totalActualMasteryHealing / (totalMaxPotentialMasteryHealing || 1) * 100)}%
+            Mastery effectiveness: {Math.round(totalActualMasteryHealing / (totalMaxPotentialMasteryHealing || 1) * 100)}%<br /><br />
 
-            {/*{this.state.results && (*/}
-              {/*<pre>*/}
-                {/*{`Ability\tHealed\tDistance\tRule of Law active?\n`}*/}
-                {/*{this.state.results.map(({ type, ability, amount, targetID, distance, hasRuleOfLaw }) => {*/}
-                  {/*return `${ability.name}\t${amount}\t${distance}\t${hasRuleOfLaw ? 'Yes' : 'No'}\n`;*/}
-                {/*})}*/}
-              {/*</pre>*/}
-            {/*)}*/}
+            <input type="button" value="Change fight" onClick={() => this.setState({ selectedFight: null })} />
           </div>
         )}
       </div>
