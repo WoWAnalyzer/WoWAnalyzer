@@ -252,7 +252,7 @@ class App extends Component {
 
     return (
       <div className="App">
-        {!reportCode && <ReportSelecter onSubmit={this.handleReportSelecterSubmit} />}
+        {!reportCode && <ReportSelecter onSubmit={this.handleReportSelecterSubmit} apiKey={this.apiKey} />}
         {reportCode && !report && 'Loading...'}
         {report && !selectedPlayer && <PlayerSelecter report={report} onSelectPlayer={this.handleSelectPlayer} />}
         {selectedPlayer && !selectedFight && <FightSelecter report={report} onSelectFight={this.handleSelectFight} />}
@@ -268,6 +268,8 @@ class App extends Component {
             <input type="button" value="Change fight" onClick={() => this.setState({ selectedFight: null })} />
           </div>
         )}
+
+        <center>{reportCode && <input type="button" value="Change report" onClick={() => this.setState({ reportCode: null, report: null, selectedPlayer: null, selectedFight: null })} />}</center>
       </div>
     );
   }

@@ -15,15 +15,16 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ReportSelecter.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ReportSelecter.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Main/ReportSelecter.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="41" column="43" lean-forward="false" selection-start-line="41" selection-start-column="43" selection-end-line="41" selection-end-column="43" />
+            <state relative-caret-position="68">
+              <caret line="4" column="35" lean-forward="false" selection-start-line="4" selection-start-column="35" selection-end-line="4" selection-end-column="35" />
               <folding>
                 <element signature="n#!!block;n#constructor#0;n#ReportSelecter#0" expanded="true" />
                 <element signature="n#!!block;n#componentDidMount#0;n#ReportSelecter#0" expanded="true" />
                 <element signature="n#!!block;n#handleSubmit#0;n#ReportSelecter#0" expanded="true" />
+                <element signature="n#!!block;n#render#0;n#ReportSelecter#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -69,11 +70,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="App.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="App.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Main/App.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="804">
-              <caret line="267" column="104" lean-forward="false" selection-start-line="267" selection-start-column="104" selection-end-line="267" selection-end-column="104" />
+            <state relative-caret-position="562">
+              <caret line="254" column="102" lean-forward="false" selection-start-line="254" selection-start-column="102" selection-end-line="254" selection-end-column="102" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
                 <element signature="n#!!block;n#constructor#0;n#CombatLogParser#0" expanded="true" />
@@ -184,6 +185,7 @@
       <find>&lt;reportselect</find>
       <find>fetchFights</find>
       <find>apikey</find>
+      <find>reportCode</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -200,10 +202,10 @@
         <option value="$PROJECT_DIR$/src/Main/Fight.js" />
         <option value="$PROJECT_DIR$/src/Main/PlayerSelecter.js" />
         <option value="$PROJECT_DIR$/public/index.html" />
-        <option value="$PROJECT_DIR$/src/Main/ReportSelecter.js" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/src/Main/ReportSelecter.js" />
         <option value="$PROJECT_DIR$/src/Main/App.js" />
       </list>
     </option>
@@ -380,12 +382,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1485737942228</updated>
-      <workItem from="1485737943871" duration="25731000" />
+      <workItem from="1485737943871" duration="26104000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="25731000" />
+    <option name="totallyTimeSpent" value="26104000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1186" extended-state="6" />
@@ -529,18 +531,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main/ReportSelecter.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="41" column="43" lean-forward="false" selection-start-line="41" selection-start-column="43" selection-end-line="41" selection-end-column="43" />
-          <folding>
-            <element signature="n#!!block;n#constructor#0;n#ReportSelecter#0" expanded="true" />
-            <element signature="n#!!block;n#componentDidMount#0;n#ReportSelecter#0" expanded="true" />
-            <element signature="n#!!block;n#handleSubmit#0;n#ReportSelecter#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -559,8 +549,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Main/App.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="804">
-          <caret line="267" column="104" lean-forward="false" selection-start-line="267" selection-start-column="104" selection-end-line="267" selection-end-column="104" />
+        <state relative-caret-position="562">
+          <caret line="254" column="102" lean-forward="false" selection-start-line="254" selection-start-column="102" selection-end-line="254" selection-end-column="102" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
             <element signature="n#!!block;n#constructor#0;n#CombatLogParser#0" expanded="true" />
@@ -584,6 +574,19 @@
             <element signature="n#!!block;n#fetchFights#0;n#App#0" expanded="true" />
             <element signature="e#7680#7902#0" expanded="true" />
             <element signature="n#!!block;n#fetchEvents#0;n#App#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main/ReportSelecter.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="35" lean-forward="false" selection-start-line="4" selection-start-column="35" selection-end-line="4" selection-end-column="35" />
+          <folding>
+            <element signature="n#!!block;n#constructor#0;n#ReportSelecter#0" expanded="true" />
+            <element signature="n#!!block;n#componentDidMount#0;n#ReportSelecter#0" expanded="true" />
+            <element signature="n#!!block;n#handleSubmit#0;n#ReportSelecter#0" expanded="true" />
+            <element signature="n#!!block;n#render#0;n#ReportSelecter#0" expanded="true" />
           </folding>
         </state>
       </provider>
