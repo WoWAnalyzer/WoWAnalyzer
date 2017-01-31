@@ -144,11 +144,15 @@ class App extends Component {
 
             <a href={`https://www.warcraftlogs.com/reports/${reportCode}/#fight=${selectedFight.id}`} target="_blank">{`https://www.warcraftlogs.com/reports/${reportCode}/#fight=${selectedFight.id}`}</a><br /><br />
 
-            <input type="button" value="Change fight" onClick={() => this.setState({ selectedFight: null })} />
+            <input type="button" className="btn btn-primary" value="Change fight" onClick={() => this.setState({ selectedFight: null })} />
           </div>
         )}
 
-        <center>{reportCode && <input type="button" value="Change report" onClick={() => this.setState({ reportCode: null, report: null, selectedPlayer: null, selectedFight: null })} />}</center>
+          {reportCode && (
+            <center>
+              <input type="button" className="btn" style={{ marginTop: '1em' }} value="Change report" onClick={() => this.setState({ reportCode: null, report: null, selectedPlayer: null, selectedFight: null })} />
+            </center>
+          )}
       </div>
     );
   }

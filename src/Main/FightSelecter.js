@@ -23,20 +23,22 @@ class FightSelecter extends Component {
     const { report, onSelectFight } = this.props;
 
     return (
-      <div style={{ background: '#eee', margin: '15px auto', border: '1px solid #ddd', borderRadius: 5, maxWidth: 600, padding: 15 }}>
-        <h1 style={{ marginTop: 0 }}>{report.title}</h1>
+      <div className="panel panel-default" style={{ background: '#eee', maxWidth: 600, margin: '0 auto' }}>
+        <div className="panel-body">
+          <h1 style={{ marginTop: 0 }}>{report.title}</h1>
 
-        Select a fight to process.<br /><br />
+          Select a fight to process.<br /><br />
 
-        {
-          report.fights
-            .filter(fight => fight.boss !== 0)
-            .map(fight => (
-              <a href="#" onClick={() => onSelectFight(fight)} key={`${fight.id}`}>
-                <Fight {...fight} style={{ marginBottom: 15 }} />
-              </a>
-            ))
-        }
+          {
+            report.fights
+              .filter(fight => fight.boss !== 0)
+              .map(fight => (
+                <a href="#" onClick={() => onSelectFight(fight)} key={`${fight.id}`}>
+                  <Fight {...fight} style={{ marginBottom: 15 }} />
+                </a>
+              ))
+          }
+        </div>
       </div>
     );
   }

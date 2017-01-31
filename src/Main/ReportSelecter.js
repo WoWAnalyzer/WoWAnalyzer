@@ -41,14 +41,16 @@ class ReportSelecter extends Component {
     const { apiKey } = this.props;
 
     return (
-      <div style={{ background: '#eee', margin: '15px auto', border: '1px solid #ddd', borderRadius: 5, maxWidth: 600, padding: 15 }}>
-        <form onSubmit={this.handleSubmit}>
+      <div className="panel panel-default" style={{ background: '#eee', maxWidth: 600, margin: '0 auto' }}>
+        <div className="panel-body">
+        <form onSubmit={this.handleSubmit} className="form-inline">
           <h1 style={{ marginTop: 0 }}>Parse your report</h1>
 
           <strong>Enter your Warcraft Logs report code.</strong><br />
-          https://www.warcraftlogs.com/reports/<input type="text" name="code" ref={(elem) => { this.codeInput = elem; }} />/<br /><br />
+          https://www.warcraftlogs.com/reports/<input type="text" name="code" className="form-control" ref={(elem) => { this.codeInput = elem; }} />/<br /><br />
 
-          Enter your API key: <input type="text" name="apiKey" ref={(elem) => { this.apiKeyInput = elem; }} defaultValue={apiKey} /> (this is temporary)<br />
+          <strong>Enter your API key</strong> (this is temporary)<br />
+          Public key: <input type="text" name="apiKey" className="form-control" ref={(elem) => { this.apiKeyInput = elem; }} defaultValue={apiKey} />{' '}
           <a href="#" onClick={() => this.setState({ apiKeyInfoExpanded: !this.state.apiKeyInfoExpanded })}>Click here to learn how to get one.</a><br />
           {this.state.apiKeyInfoExpanded && (
             <div style={{ paddingTop: 5, paddingRight: 15, paddingBottom: 5, background: '#c2d4e0', borderRadius: 5 }}>
@@ -59,14 +61,18 @@ class ReportSelecter extends Component {
                 <li>Scroll down and copy the public API key.<br /><img src="./api-key.png" style={{ maxWidth: '100%' }} alt="API keys" /></li>
               </ol>
             </div>
-          )}
+          )}<br />
 
-          <input type="submit" value="Continue" />
+          <input type="submit" className="btn btn-primary" value="Continue" /><br /><br />
 
-          <br /><br />
+          <div className="alert alert-danger">Currently only accurate with Beacon of Faith. This is still likely to contain bugs and there are no guarantees regarding its accuracy.</div>
 
-          <font color="red">Currently only accurate with Beacon of Faith. This is still 90% likely to contain bugs and there are no guarantees it is accurate.</font>
+          <div className="text-muted">
+            Created by Zerotorescue for the #holy Discord. There is currently <b>no support</b> on this tool. If you can't figure it out
+            please wait for a release. Feedback regarding accuracy is welcome.
+          </div>
         </form>
+      </div>
       </div>
     );
   }
