@@ -136,7 +136,7 @@ class App extends Component {
 
         {selectedPlayer && selectedFight && (
           <div style={{ background: '#eee', margin: '15px auto', border: '1px solid #ddd', borderRadius: 5, maxWidth: 600, padding: 15 }}>
-            <h1 style={{ marginTop: 0 }}>{DIFFICULTIES[selectedFight.difficulty]} {selectedFight.name} ({selectedFight.kill ? 'Kill' : 'Wipe'}) for {selectedPlayer.name}</h1>
+            <h1 style={{ margin: 0 }}>{DIFFICULTIES[selectedFight.difficulty]} {selectedFight.name} ({selectedFight.kill ? 'Kill' : 'Wipe'}) for {selectedPlayer.name}</h1><br />
 
             {!finished && <div>Working...</div>}
 

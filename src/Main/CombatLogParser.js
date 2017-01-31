@@ -40,16 +40,16 @@ class CombatLogParser {
     // console.log('Received events', events);
     return new Promise((resolve, reject) => {
       events.forEach(event => {
+        // Report all events
+        // console.log(Math.round(event.timestamp / 100) / 10, event.type, [event.x, event.y], event.sourceID, event);
         const methodName = `parse_${event.type}`;
         const method = this[methodName];
         if (method) {
-          if (event.sourceID !== this.player.id) {
-            return;
-          }
 
           method.call(this, event);
         } else {
-          console.warn("Didn't recognize", event.type, event.ability && event.ability.name, event);
+          // Report unrecognized events
+          // console.warn("Didn't recognize", event.type, event.ability && event.ability.name, event);
         }
       });
 
@@ -62,63 +62,84 @@ class CombatLogParser {
   }
 
   parse_cast(event) {
-    if (event.x && event.y) {
-      this.lastCast = event;
+    if (this.byPlayer(event)) {
+      this.playerEvent(event);
     }
   }
   parse_damage(event) {
-    if (event.x && event.y) {
-      this.lastCast = event;
+    if (this.toPlayer(event)) {
+      // Damage coordinates are for the target, so they are only accurate when done TO player
+      this.playerEvent(event);
+    }
+  }
+  parse_energize(event) {
+    if (this.toPlayer(event)) {
+      this.playerEvent(event);
     }
   }
   parse_heal(event) {
-    const isAbilityAffectedByMastery = ABILITIES_AFFECTED_BY_MASTERY.indexOf(event.ability.guid) !== -1;
+    if (this.byPlayer(event)) {
+      if (!this.lastCast) {
+        console.error('Received a heal before we detected a cast. Can\'t process since player location is still unknown.', event);
+        return;
+      }
+      const isAbilityAffectedByMastery = ABILITIES_AFFECTED_BY_MASTERY.indexOf(event.ability.guid) !== -1;
 
-    // The actual heal as shown in the log
-    const healingDone = event.amount;
+      // The actual heal as shown in the log
+      const healingDone = event.amount;
 
-    if (isAbilityAffectedByMastery) {
-      // TODO: Verify that lastCast x/y usage is accurate, especially questionable for damage events and judgment of light
-      const distance = CombatLogParser.calculateDistance(this.lastCast.x, this.lastCast.y, event.x, event.y) / 100;
-      const hasRuleOfLaw = this.lastRuleOfLaw !== null;
-      // We calculate the mastery effectiveness of this *one* heal
-      const masteryEffectiveness = CombatLogParser.calculateMasteryEffectiveness(distance, hasRuleOfLaw);
+      if (isAbilityAffectedByMastery) {
+        // TODO: Verify that lastCast x/y usage is accurate, especially questionable for damage events and judgment of light
+        const distance = CombatLogParser.calculateDistance(this.lastCast.x, this.lastCast.y, event.x, event.y) / 100;
+        const hasRuleOfLaw = this.lastRuleOfLaw !== null;
+        // We calculate the mastery effectiveness of this *one* heal
+        const masteryEffectiveness = CombatLogParser.calculateMasteryEffectiveness(distance, hasRuleOfLaw);
 
-      // The base healing of the spell (excluding any healing added by mastery)
-      const baseHealingDone = healingDone / (1 + this.playerMasteryPerc * masteryEffectiveness);
-      const masteryHealingDone = healingDone - baseHealingDone;
-      const maxPotentialMasteryHealing = baseHealingDone * this.playerMasteryPerc; // * 100% mastery effectiveness
+        // The base healing of the spell (excluding any healing added by mastery)
+        const baseHealingDone = healingDone / (1 + this.playerMasteryPerc * masteryEffectiveness);
+        const masteryHealingDone = healingDone - baseHealingDone;
+        const maxPotentialMasteryHealing = baseHealingDone * this.playerMasteryPerc; // * 100% mastery effectiveness
 
-      // Keep track of the total healing done to get an average
-      this.totalActualMasteryHealing += masteryHealingDone;
-      this.totalMaxPotentialMasteryHealing += maxPotentialMasteryHealing;
+        // Keep track of the total healing done to get an average
+        this.totalActualMasteryHealing += masteryHealingDone;
+        this.totalMaxPotentialMasteryHealing += maxPotentialMasteryHealing;
 
-      // If we want to make charts we'll have to keep a log
-      // this.results.push({
-      //   ...event,
-      //   distance,
-      //   hasRuleOfLaw,
-      //   masteryEffectiveness,
-      // });
-      console.log(event.ability.name,
-        `healing:${event.amount},distance:${distance},hasRuleOfLaw:${hasRuleOfLaw},masteryEffectiveness:${masteryEffectiveness}`,
-        `playerMasteryPerc:${this.playerMasteryPerc}`, event);
+        // If we want to make charts we'll have to keep a log
+        // this.results.push({
+        //   ...event,
+        //   distance,
+        //   hasRuleOfLaw,
+        //   masteryEffectiveness,
+        // });
+        // console.log(event.ability.name,
+        //   `healing:${event.amount},distance:${distance},hasRuleOfLaw:${hasRuleOfLaw},masteryEffectiveness:${masteryEffectiveness}`,
+        //   `playerMasteryPerc:${this.playerMasteryPerc}`, event);
+      }
+      this.totalHealingSeen += healingDone;
     }
-    this.totalHealingSeen += healingDone;
+    if (this.toPlayer(event)) {
+      this.playerEvent(event);
+    }
   }
   parse_applybuff(event) {
+    if (!this.byPlayer(event)) return;
+
     const { ability: { guid } } = event;
     if (guid === SPELL_ID_RULE_OF_LAW) {
       this.lastRuleOfLaw = event;
     }
   }
   parse_refreshbuff(event) {
+    if (!this.byPlayer(event)) return;
+
     const { ability: { guid } } = event;
     if (guid === SPELL_ID_RULE_OF_LAW) {
       this.lastRuleOfLaw = event;
     }
   }
   parse_removebuff(event) {
+    if (!this.byPlayer(event)) return;
+
     const { ability: { guid } } = event;
     if (guid === SPELL_ID_RULE_OF_LAW) {
       this.lastRuleOfLaw = null;
@@ -126,10 +147,41 @@ class CombatLogParser {
   }
   parse_combatantinfo(event) {
     console.log('combatantinfo', event, `(looking for ${this.player.id})`, this.player);
-    this.playerMasteryPerc = CombatLogParser.calculateMasteryPercentage(event.mastery);
+
+    this.players[event.sourceID] = event;
+
+    if (this.byPlayer(event)) {
+      this.playerMasteryPerc = CombatLogParser.calculateMasteryPercentage(event.mastery);
+    }
   }
   parse_absorbed(event) {
+    if (!this.byPlayer(event)) return;
+
     this.totalHealingSeen += event.amount;
+  }
+
+  byPlayer(event) {
+    return (event.sourceID === this.player.id);
+  }
+  toPlayer(event) {
+    return (event.targetID === this.player.id);
+  }
+  playerEvent(event) {
+    if (!event.x || !event.y) {
+      return;
+    }
+    this.verifyCast(event);
+    this.lastCast = event;
+  }
+  verifyCast(event) {
+    if (!event.x || !event.y || !this.lastCast) {
+      return;
+    }
+    const distance = CombatLogParser.calculateDistance(this.lastCast.x, this.lastCast.y, event.x, event.y) / 100;
+    if (distance > 5) {
+      const timeSince = event.timestamp - this.lastCast.timestamp;
+      console.warn('Distance since previous event (' + (Math.round(timeSince / 100) / 10) + 's ago) was ' + Math.round(distance) + ' yards:', event.type, event, this.lastCast.type, this.lastCast);
+    }
   }
 
   static calculateDistance(x1, y1, x2, y2) {
