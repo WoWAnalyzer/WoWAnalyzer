@@ -13,3 +13,6 @@ coverage
 .DS_Store
 .env
 npm-debug.log
+
+# Regularly changing or system specific IDE files
+/.idea/workspace.xml
