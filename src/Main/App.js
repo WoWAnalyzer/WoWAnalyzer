@@ -136,11 +136,13 @@ class App extends Component {
 
         {selectedPlayer && selectedFight && (
           <div style={{ background: '#eee', margin: '15px auto', border: '1px solid #ddd', borderRadius: 5, maxWidth: 600, padding: 15 }}>
-            <h1>{DIFFICULTIES[selectedFight.difficulty]} {selectedFight.name} ({selectedFight.kill ? 'Kill' : 'Wipe'})</h1>
+            <h1 style={{ marginTop: 0 }}>{DIFFICULTIES[selectedFight.difficulty]} {selectedFight.name} ({selectedFight.kill ? 'Kill' : 'Wipe'}) for {selectedPlayer.name}</h1>
 
             {!finished && <div>Working...</div>}
 
             Mastery effectiveness: {Math.round(totalActualMasteryHealing / (totalMaxPotentialMasteryHealing || 1) * 100)}% (saw {Math.round(totalHealingSeen/100000)/10}m healing)<br /><br />
+
+            <a href={`https://www.warcraftlogs.com/reports/${reportCode}/#fight=${selectedFight.id}`} target="_blank">{`https://www.warcraftlogs.com/reports/${reportCode}/#fight=${selectedFight.id}`}</a><br /><br />
 
             <input type="button" value="Change fight" onClick={() => this.setState({ selectedFight: null })} />
           </div>
