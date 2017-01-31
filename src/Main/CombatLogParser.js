@@ -155,9 +155,9 @@ class CombatLogParser {
     }
   }
   parse_absorbed(event) {
-    if (!this.byPlayer(event)) return;
-
-    this.totalHealingSeen += event.amount;
+    if (this.byPlayer(event)) {
+      this.totalHealingSeen += event.amount;
+    }
   }
 
   byPlayer(event) {
