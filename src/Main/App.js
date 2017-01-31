@@ -72,6 +72,9 @@ class App extends Component {
 
     this.setState({
       finished: false,
+      totalActualMasteryHealing: null,
+      totalMaxPotentialMasteryHealing: null,
+      totalHealingSeen: null,
     });
     this.parseNextBatch(parser, code, player, fight.start_time, fight.end_time);
   }
