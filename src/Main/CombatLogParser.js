@@ -43,9 +43,13 @@ class CombatLogParser {
         const methodName = `parse_${event.type}`;
         const method = this[methodName];
         if (method) {
+          if (event.sourceID !== this.player.id) {
+            return;
+          }
+
           method.call(this, event);
         } else {
-          console.warn("Didn't recognize", event.type, event);
+          console.warn("Didn't recognize", event.type, event.ability && event.ability.name, event);
         }
       });
 
@@ -58,19 +62,23 @@ class CombatLogParser {
   }
 
   parse_cast(event) {
-    this.lastCast = event;
+    if (event.x && event.y) {
+      this.lastCast = event;
+    }
+  }
+  parse_damage(event) {
+    if (event.x && event.y) {
+      this.lastCast = event;
+    }
   }
   parse_heal(event) {
-    if (event.sourceID !== this.player.id) {
-      return;
-    }
-
     const isAbilityAffectedByMastery = ABILITIES_AFFECTED_BY_MASTERY.indexOf(event.ability.guid) !== -1;
 
     // The actual heal as shown in the log
     const healingDone = event.amount;
 
     if (isAbilityAffectedByMastery) {
+      // TODO: Verify that lastCast x/y usage is accurate, especially questionable for damage events and judgment of light
       const distance = CombatLogParser.calculateDistance(this.lastCast.x, this.lastCast.y, event.x, event.y) / 100;
       const hasRuleOfLaw = this.lastRuleOfLaw !== null;
       // We calculate the mastery effectiveness of this *one* heal
@@ -118,17 +126,9 @@ class CombatLogParser {
   }
   parse_combatantinfo(event) {
     console.log('combatantinfo', event, `(looking for ${this.player.id})`, this.player);
-    this.players[event.sourceID] = event;
-
-    if (event.sourceID === this.player.id) {
-      this.playerMasteryPerc = CombatLogParser.calculateMasteryPercentage(event.mastery);
-    }
+    this.playerMasteryPerc = CombatLogParser.calculateMasteryPercentage(event.mastery);
   }
   parse_absorbed(event) {
-    if (event.sourceID !== this.player.id) {
-      return;
-    }
-
     this.totalHealingSeen += event.amount;
   }
 
