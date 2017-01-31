@@ -27,9 +27,10 @@ class PlayerSelecter extends Component {
         {
           report.friendlies
             .filter(friendly => friendly.type === PALADIN_TYPE)
+            .sort((a, b) => a.name > b.name)
             .map(friendly => (
               <a href="#" onClick={() => onSelectPlayer(friendly)} key={`${friendly.id}`}>
-                <div>
+                <div style={{ paddingBottom: 5 }}>
                   {friendly.name}
                 </div>
               </a>
