@@ -8,15 +8,6 @@ import DIFFICULTIES from './DIFFICULTIES';
 
 import CombatLogParser from './CombatLogParser';
 
-/**
- * TODO:
- * Get player names and merge them with events
- * -> show mastery effectiveness per player (so you can shout at your hunters)
- * Time per heal
- * Add support for BotLB (a lot of work)
- * URL routing (this seems pretty obvious)
- */
-
 class App extends Component {
   apiKey = null;
 

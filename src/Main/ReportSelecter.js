@@ -81,13 +81,12 @@ class ReportSelecter extends Component {
         <div className="alert alert-danger">
           This tool is currently only accurate with{' '}
           <a href="http://www.wowhead.com/spell=156910/beacon-of-faith">Beacon of Faith</a>. If
-          you run this tool on a log with <a href="http://www.wowhead.com/spell=197446/beacon-of-the-lightbringer">Beacon of the
+          you run this on a log with <a href="http://www.wowhead.com/spell=197446/beacon-of-the-lightbringer">Beacon of the
           Lightbringer</a> it will calculate your mastery effectiveness without taking the beacon radius into consideration.
         </div>
 
         <div className="text-muted">
-          Created by Zerotorescue for the #holy Discord. There is currently <b>no support</b> on this tool. If you can't figure it out
-          please wait for a release. Feedback regarding accuracy is welcome.
+          Created by Zerotorescue for the #holy Discord. You can usually find helpful people there.
         </div>
       </form>
     );
