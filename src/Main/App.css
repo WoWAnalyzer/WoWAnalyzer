@@ -1,3 +1,78 @@
-.App {
+body {
   line-height: 1.6;
+  font-family: 'Roboto', sans-serif;
+}
+.navbar-default {
+  background-color: transparent;
+}
+h1 {
+  font-weight: 600;
+}
+.navbar-default h1 {
+  margin: 0;
+  line-height: 69px;
+}
+
+.navbar-nav > li > a {
+  line-height: 39px;
+}
+.btn-primary {
+  border: 0;
+  padding: 9px 20px;
+}
+
+.panel-default {
+  margin: 60px auto;
+  padding: 20px 25px;
+  border: 1px solid #ccc;
+  background: #fff;
+  width: 66%;
+  max-width: 700px;
+  border-top: 2px solid #f48024;
+  box-shadow: 0 3px 0 rgba(80, 80, 80, .1);
+}
+.panel-default h1 {
+  margin-top: 0;
+}
+
+.alert-danger {
+  padding: 20px;
+  background-color: rgba(203, 73, 71, .2);
+  border-color: transparent;
+  line-height: 1.5;
+  color: #cb4947;
+  border-radius: 0;
+}
+.text-muted {
+  color: #999;
+}
+
+/* Source: http://tobiasahlin.com/spinkit/ */
+.spinner {
+  width: 40px;
+  height: 40px;
+  background-color: #d35400;
+
+  margin: 50px auto;
+  -webkit-animation: sk-rotateplane 1.2s infinite ease-in-out;
+  animation: sk-rotateplane 1.2s infinite ease-in-out;
+}
+
+@-webkit-keyframes sk-rotateplane {
+  0% { -webkit-transform: perspective(120px) }
+  50% { -webkit-transform: perspective(120px) rotateY(180deg) }
+  100% { -webkit-transform: perspective(120px) rotateY(180deg)  rotateX(180deg) }
+}
+
+@keyframes sk-rotateplane {
+  0% {
+    transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+    -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg)
+  } 50% {
+      transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+      -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg)
+    } 100% {
+        transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+        -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+      }
 }
