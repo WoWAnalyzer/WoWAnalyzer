@@ -13,13 +13,10 @@ import CombatLogParser from './CombatLogParser';
  * Progress bars
  * Pretty interface
  * Handle connection issues
- * Hide API key (step 1: config file, step 2: proxy)
- * Calculate mastery effectiveness without spreadsheet
  * Get player names and merge them with events
  * -> show mastery effectiveness per player (so you can shout at your hunters)
  * Time per heal
  * Add support for BotLB (a lot of work)
- * Add support for multiple holy paladins
  */
 
 class App extends Component {
@@ -105,7 +102,7 @@ class App extends Component {
 
   fetchFights(code) {
     console.log('Fetching fights for report', code);
-    fetch(`https://www.warcraftlogs.com:443/v1/report/fights/${code}?api_key=${this.apiKey}`)
+    fetch(`https://www.warcraftlogs.com/v1/report/fights/${code}?api_key=${this.apiKey}`)
       .then(response => response.json())
       .then((json) => {
         console.log('Received fights for', code, json);
