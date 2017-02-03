@@ -26,13 +26,31 @@ h1 {
   padding: 20px 25px;
   border: 1px solid #ccc;
   background: #fff;
-  width: 66%;
+  width: 98%;
   max-width: 700px;
   border-top: 2px solid #f48024;
   box-shadow: 0 3px 0 rgba(80, 80, 80, .1);
 }
 .panel-default h1 {
   margin-top: 0;
+}
+@media screen and (max-width: 767px) {
+  .panel-default {
+    margin: 20px auto;
+  }
+  .navbar-default h1 {
+    font-size: 24px;
+  }
+  .navbar-header {
+    float: left;
+  }
+  .navbar-right {
+    float: right !important;
+    margin-right: -15px;
+  }
+  .panel-body {
+    word-wrap: break-word;
+  }
 }
 
 .alert-danger {
