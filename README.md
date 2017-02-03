@@ -6,6 +6,7 @@ Run it:
 
 # TODO
 
+ * Rank mastery effectiveness with colors like WCL (100% = legendary, 85+ is epic, etc)
  * Get player names and merge them with events
  * -> show mastery effectiveness per player (so you can shout at your hunters)
  * Time per heal
