@@ -78,6 +78,10 @@ class CombatLogParser {
     }
   }
   parse_heal(event) {
+    if (this.toPlayer(event)) {
+      // Do this before checking if this was done by player so that self-heals will apply full mastery properly
+      this.playerEvent(event);
+    }
     if (this.byPlayer(event)) {
       if (!this.lastCast) {
         console.error('Received a heal before we detected a cast. Can\'t process since player location is still unknown.', event);
@@ -119,9 +123,6 @@ class CombatLogParser {
         //   `playerMasteryPerc:${this.playerMasteryPerc}`, event);
       }
       this.totalHealingSeen += healingDone;
-    }
-    if (this.toPlayer(event)) {
-      this.playerEvent(event);
     }
   }
   parse_applybuff(event) {

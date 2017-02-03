@@ -6,7 +6,6 @@ Run it:
 
 # TODO
 
- * Pretty sure self-heals aren't being included in the calculation
  * Get player names and merge them with events
  * -> show mastery effectiveness per player (so you can shout at your hunters)
  * Time per heal
