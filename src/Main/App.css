@@ -20,6 +20,12 @@ h1 {
   border: 0;
   padding: 9px 20px;
 }
+.btn-muted {
+  background-color: #ddd;
+}
+.btn-muted:hover {
+  background-color: #ccc;
+}
 
 .panel-default {
   margin: 60px auto;

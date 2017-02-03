@@ -136,7 +136,9 @@ class App extends Component {
       <div className="panel panel-default">
         <div className="panel-body">
           {reportCode && (
-            <input type="button" className="btn pull-right" value="Change report" onClick={this.reset} />
+            <button type="button" className="btn btn-muted pull-right" onClick={this.reset}>
+              <span className="glyphicon glyphicon-repeat" aria-hidden="true" /> Change report
+            </button>
           )}
 
           {(() => {

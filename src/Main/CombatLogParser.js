@@ -82,6 +82,9 @@ class CombatLogParser {
       if (!this.lastCast) {
         console.error('Received a heal before we detected a cast. Can\'t process since player location is still unknown.', event);
         return;
+      } else if (this.playerMasteryPerc === null) {
+        console.error('Received a heal before finding out player\'s mastery percentage.', event);
+        return;
       }
       const isAbilityAffectedByMastery = ABILITIES_AFFECTED_BY_MASTERY.indexOf(event.ability.guid) !== -1;
 
