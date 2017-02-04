@@ -19,7 +19,7 @@ class PlayerSelecter extends Component {
     const { report, onSelectPlayer } = this.props;
 
     return (
-      <div>
+      <div style={{ width: 650 }}>
         <h1>{report.title}</h1>
 
         Select a Paladin to analyze.<br /><br />

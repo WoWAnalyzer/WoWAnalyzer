@@ -16,14 +16,11 @@ const ABILITIES_AFFECTED_BY_MASTERY = [
 class CombatLogParser {
   lastCast = null;
   lastRuleOfLaw = null;
-  totalActualMasteryHealing = 0;
-  // The total (so from all abilities) max potential mastery healing if we had a mastery effectiveness of 100% on all abilities. This does NOT include the base healing
-  // Example: a heal that did 1,324 healing with 32.4% mastery with 100% mastery effectiveness will have a max potential mastery healing of 324.
-  totalMaxPotentialMasteryHealing = 0;
   // Tracking total healing seen as a sanity check
-  totalHealingSeen = 0;
+  totalHealing = 0;
 
   players = {};
+  masteryHealEvents = [];
 
   player = null;
   playerMasteryPerc = null;
@@ -34,18 +31,12 @@ class CombatLogParser {
     this.fight = fight;
   }
 
-  // results = [];
-
   parseEvents(events) {
-    // console.log('Received events', events);
     return new Promise((resolve, reject) => {
       events.forEach(event => {
-        // Report all events
-        // console.log(Math.round(event.timestamp / 100) / 10, event.type, [event.x, event.y], event.sourceID, event);
         const methodName = `parse_${event.type}`;
         const method = this[methodName];
         if (method) {
-
           method.call(this, event);
         } else {
           // Report unrecognized events
@@ -53,11 +44,7 @@ class CombatLogParser {
         }
       });
 
-      resolve({
-        totalActualMasteryHealing: this.totalActualMasteryHealing,
-        totalMaxPotentialMasteryHealing: this.totalMaxPotentialMasteryHealing,
-        totalHealingSeen: this.totalHealingSeen,
-      });
+      resolve(events.length);
     });
   }
 
@@ -96,7 +83,10 @@ class CombatLogParser {
       const healingDone = event.amount;
 
       if (isAbilityAffectedByMastery) {
-        // TODO: Verify that lastCast x/y usage is accurate, especially questionable for damage events and judgment of light
+        // console.log(event.ability.name,
+        //   `healing:${event.amount},distance:${distance},hasRuleOfLaw:${hasRuleOfLaw},masteryEffectiveness:${masteryEffectiveness}`,
+        //   `playerMasteryPerc:${this.playerMasteryPerc}`, event);
+
         const distance = CombatLogParser.calculateDistance(this.lastCast.x, this.lastCast.y, event.x, event.y) / 100;
         const hasRuleOfLaw = this.lastRuleOfLaw !== null;
         // We calculate the mastery effectiveness of this *one* heal
@@ -105,24 +95,20 @@ class CombatLogParser {
         // The base healing of the spell (excluding any healing added by mastery)
         const baseHealingDone = healingDone / (1 + this.playerMasteryPerc * masteryEffectiveness);
         const masteryHealingDone = healingDone - baseHealingDone;
+        // The max potential mastery healing if we had a mastery effectiveness of 100% on this spell. This does NOT include the base healing
+        // Example: a heal that did 1,324 healing with 32.4% mastery with 100% mastery effectiveness will have a max potential mastery healing of 324.
         const maxPotentialMasteryHealing = baseHealingDone * this.playerMasteryPerc; // * 100% mastery effectiveness
 
-        // Keep track of the total healing done to get an average
-        this.totalActualMasteryHealing += masteryHealingDone;
-        this.totalMaxPotentialMasteryHealing += maxPotentialMasteryHealing;
-
-        // If we want to make charts we'll have to keep a log
-        // this.results.push({
-        //   ...event,
-        //   distance,
-        //   hasRuleOfLaw,
-        //   masteryEffectiveness,
-        // });
-        // console.log(event.ability.name,
-        //   `healing:${event.amount},distance:${distance},hasRuleOfLaw:${hasRuleOfLaw},masteryEffectiveness:${masteryEffectiveness}`,
-        //   `playerMasteryPerc:${this.playerMasteryPerc}`, event);
+        this.masteryHealEvents.push({
+          ...event,
+          distance,
+          masteryEffectiveness,
+          baseHealingDone,
+          masteryHealingDone,
+          maxPotentialMasteryHealing,
+        });
       }
-      this.totalHealingSeen += healingDone;
+      this.totalHealing += healingDone;
     }
   }
   parse_applybuff(event) {
@@ -160,7 +146,7 @@ class CombatLogParser {
   }
   parse_absorbed(event) {
     if (this.byPlayer(event)) {
-      this.totalHealingSeen += event.amount;
+      this.totalHealing += event.amount;
     }
   }
 

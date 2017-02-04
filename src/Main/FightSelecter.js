@@ -23,7 +23,7 @@ class FightSelecter extends Component {
     const { report, onSelectFight } = this.props;
 
     return (
-      <div>
+      <div style={{ width: 650 }}>
         <h1>{report.title}</h1>
 
         Select the fight to parse.<br /><br />

@@ -8,32 +8,29 @@ body {
 h1 {
   font-weight: 600;
 }
+dfn {
+  border-bottom: 1px dashed currentColor;
+  font-style: normal;
+  cursor: help;
+}
 .navbar-default h1 {
   margin: 0;
   line-height: 69px;
 }
-
 .navbar-nav > li > a {
   line-height: 39px;
 }
-.btn-primary {
-  border: 0;
-  padding: 9px 20px;
-}
-.btn-muted {
-  background-color: #ddd;
-}
-.btn-muted:hover {
-  background-color: #ccc;
-}
 
+.App {
+  text-align: center;
+}
 .panel-default {
-  margin: 60px auto;
+  margin: 30px 0;
   padding: 20px 25px;
   border: 1px solid #ccc;
   background: #fff;
-  width: 98%;
-  max-width: 700px;
+  display: inline-block;
+  text-align: left;
   border-top: 2px solid #f48024;
   box-shadow: 0 3px 0 rgba(80, 80, 80, .1);
 }
@@ -57,6 +54,17 @@ h1 {
   .panel-body {
     word-wrap: break-word;
   }
+}
+
+.btn-primary {
+  border: 0;
+  padding: 9px 20px;
+}
+.btn-muted {
+  background-color: #ddd;
+}
+.btn-muted:hover {
+  background-color: #ccc;
 }
 
 .alert-danger {
@@ -99,4 +107,52 @@ h1 {
         transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
         -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
       }
+}
+
+.DeathKnight { color: #c41f3b }
+.Druid { color: #ff7d0a }
+.Hunter { color: #abd473 }
+.Mage { color: #69ccf0 }
+.Monk { color: #2D9B78 }
+.Paladin { color: #f58cba }
+.Priest { color: #ffffff }
+.Rogue { color: #fff569 }
+.Shaman { color: #2459ff }
+.Warlock { color: #9482c9 }
+.Warrior { color: #c79c6e }
+.DemonHunter { color: #a330c9 }
+
+.DeathKnight-bg { background-color: #c41f3b }
+.Druid-bg { background-color: #ff7d0a }
+.Hunter-bg { background-color: #9ec76b }
+.Mage-bg { background-color: #69ccf0 }
+.Monk-bg { background-color: #2D9B78 }
+.Paladin-bg { background-color: #f58cba }
+.Priest-bg { background-color: #ffffff }
+.Rogue-bg { background-color: #fff569 }
+.Shaman-bg  { background-color: #2459ff }
+.Warlock-bg { background-color: #9482c9 }
+.Warrior-bg  { background-color: #c79c6e }
+.DemonHunter-bg { background-color: #a330c9 }
+
+table th {
+  font-weight: 600;
+}
+table tr {
+  background: #f9f9f9;
+}
+table thead tr, table tbody tr:not(:last-child) {
+  border-bottom: 1px solid #000;
+}
+table tr:nth-child(odd) {
+  background: #fff;
+}
+table tr th, table tr td {
+  padding: 7px;
+}
+table .performance-bar {
+  opacity: .9;
+  height: 1.3em;
+  min-width: 1px;
+  border: 1px solid #000;
 }
