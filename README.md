@@ -6,12 +6,9 @@ Run it:
 
 # TODO
 
- * Rank mastery effectiveness with colors like WCL (100% = legendary, 85+ is epic, etc)
- * Get player names and merge them with events
- * -> show mastery effectiveness per player (so you can shout at your hunters)
  * Time per heal
  * Add support for BotLB (a lot of work)
- * URL routing (this is probably most handy)
+ * URL routing (this is probably most handy) - wait but how would I do API keys? probably have to add a prompt. Sounds like a lot of work for something that doesn't really improve the tool that much
  * Mobile support (lol people using these kind of tools on smartphones - what happened to these kids?!)
 
 I no longer have any plans to remove the need for an API key. I wanted to make a proxy to prevent abuse of my API key but with a proxy they
