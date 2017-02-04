@@ -82,7 +82,8 @@ class ReportSelecter extends Component {
           This tool is currently only accurate with{' '}
           <a href="http://www.wowhead.com/spell=156910/beacon-of-faith">Beacon of Faith</a>. If
           you run this on a log with <a href="http://www.wowhead.com/spell=197446/beacon-of-the-lightbringer">Beacon of the
-          Lightbringer</a> it will calculate your mastery effectiveness without taking the beacon radius into consideration.
+          Lightbringer</a> it will calculate your mastery effectiveness without taking the beacon radius into consideration.<br />
+          Effects that temporarily increase your mastery are also currently not supported.
         </div>
 
         <div className="text-muted">
