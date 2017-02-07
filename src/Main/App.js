@@ -3,6 +3,7 @@ import './App.css';
 
 import DIFFICULTIES from './DIFFICULTIES';
 import SPEC_IDS from './SPEC_IDS';
+import WCL_API_KEY from './WCL_API_KEY';
 
 import ReportSelecter from './ReportSelecter';
 import FightSelecter from './FightSelecter';
@@ -12,8 +13,6 @@ import Progress from './Progress';
 import CombatLogParser from './CombatLogParser';
 
 class App extends Component {
-  apiKey = null;
-
   static calculateStats(parser) {
     let totalHealingWithMasteryAffectedAbilities = 0;
     let totalHealingFromMastery = 0;
@@ -73,9 +72,8 @@ class App extends Component {
     this.reset = this.reset.bind(this);
   }
 
-  handleReportSelecterSubmit(apiKey, code) {
+  handleReportSelecterSubmit(code) {
     console.log('Selected report:', code);
-    this.apiKey = apiKey;
     this.setState({
       reportCode: code,
     });
@@ -174,7 +172,7 @@ class App extends Component {
   fetchFights(code) {
     console.log('Fetching fights for report', code);
 
-    fetch(`https://www.warcraftlogs.com/v1/report/fights/${code}?api_key=${this.apiKey}`)
+    fetch(`https://www.warcraftlogs.com/v1/report/fights/${code}?api_key=${WCL_API_KEY}`)
       .then(response => response.json())
       .then((json) => {
         console.log('Received fights for', code, json);
@@ -213,7 +211,7 @@ class App extends Component {
   }
 
   fetchEvents(code, actorId, start, end) {
-    return fetch(`https://www.warcraftlogs.com/v1/report/events/${code}?start=${start}&end=${end}&api_key=${this.apiKey}${actorId ? `&actorid=${actorId}` : ''}`)
+    return fetch(`https://www.warcraftlogs.com/v1/report/events/${code}?start=${start}&end=${end}&api_key=${WCL_API_KEY}${actorId ? `&actorid=${actorId}` : ''}`)
       .then(response => response.json());
   }
 
@@ -226,7 +224,7 @@ class App extends Component {
           <div className="panel-body">
             {(() => {
               if (!reportCode) {
-                return <ReportSelecter onSubmit={this.handleReportSelecterSubmit} apiKey={this.apiKey} />;
+                return <ReportSelecter onSubmit={this.handleReportSelecterSubmit} />;
               }
               if (!report) {
                 return (
