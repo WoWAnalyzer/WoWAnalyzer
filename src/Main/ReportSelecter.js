@@ -34,7 +34,7 @@ class ReportSelecter extends Component {
       return;
     }
 
-    onSubmit(apiKey, code);
+    onSubmit(apiKey.trim(), code.trim());
   }
 
   render() {
