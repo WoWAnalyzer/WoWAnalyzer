@@ -178,8 +178,8 @@ class App extends Component {
       .then(response => response.json())
       .then((json) => {
         console.log('Received fights for', code, json);
-        if (json.status === 401) {
-          alert(json.error);
+        if (json.status === 400 || json.status === 401) {
+          throw json.error;
         } else {
           this.setState({
             report: json,
@@ -187,7 +187,11 @@ class App extends Component {
         }
       })
       .catch((err) => {
-        alert('An error occured. I\'m so terribly sorry. Try again later or in an updated Google Chrome.');
+        if (err) {
+          alert(err);
+        } else {
+          alert('An error occured. I\'m so terribly sorry. Try again later or in an updated Google Chrome.');
+        }
         console.error(err);
         this.reset();
       });
