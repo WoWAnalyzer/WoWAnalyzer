@@ -8,15 +8,13 @@ Run it:
 
  * Time per heal
  * Add support for BotLB (a lot of work)
- * URL routing (this is probably most handy) - wait but how would I do API keys? probably have to add a prompt. Sounds like a lot of work for something that doesn't really improve the tool that much
- * Mobile support (lol people using these kind of tools on smartphones - what happened to these kids?!)
+ * URL routing so reports can easily be shared
+ * Mobile support
  * Show Rule of Law uptime & mastery effectiveness contribution
- * Check other stuff too to just make this a general Holy Paladin log analyzer. E.g. too many LOTM casts, too much direct healing tanks, not using spells on cooldown, not using cooldowns on cooldown. All pretty easy to analyze
-
-I no longer have any plans to remove the need for an API key. I wanted to make a proxy to prevent abuse of my API key but with a proxy they
-could still abuse my API key by abusing my proxy which would be double bad. I could just hardcode my API key and reset when someone starts
-abusing it, but then the harm would have been done. Letting the user enter his API key seems the best for now and so far I don't think
-anybody had any difficulty finding his.
+   * Tracking RoL uptime would mean we have buff uptime tracking which makes it easier to do an automated performance analysis.
+   * Calculating mastery effectiveness contribution is slightly tricky, probably not worth it
+ * Show WCL performance ranking & HPS on the report
+ * Check other stuff too to just make this a general Holy Paladin log analyzer. E.g. too many LOTM casts, too much direct healing tanks, not using spells on cooldown, not using cooldowns on cooldown, going OOM, not going OOM. All pretty easy to analyze
 
 # License
 
