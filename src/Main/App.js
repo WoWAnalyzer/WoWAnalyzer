@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
+
 import './App.css';
 
 import DIFFICULTIES from './DIFFICULTIES';
-import SPEC_IDS from './SPEC_IDS';
 import WCL_API_KEY from './WCL_API_KEY';
 
 import ReportSelecter from './ReportSelecter';
@@ -14,6 +15,17 @@ import PlayerBreakdown from './PlayerBreakdown';
 import CombatLogParser from './CombatLogParser';
 
 class App extends Component {
+  static propTypes = {
+    router: React.PropTypes.shape({
+      push: React.PropTypes.func.isRequired,
+    }).isRequired,
+    params: React.PropTypes.shape({
+      reportCode: React.PropTypes.string,
+      playerName: React.PropTypes.string,
+      fightId: React.PropTypes.string,
+    }),
+  };
+
   static calculateStats(parser) {
     let totalHealingWithMasteryAffectedAbilities = 0;
     let totalHealingFromMastery = 0;
@@ -51,13 +63,27 @@ class App extends Component {
     };
   }
 
+  get reportCode() {
+    return this.props.params.reportCode;
+  }
+  get playerName() {
+    return this.props.params.playerName;
+  }
+  get fightId() {
+    return this.props.params.fightId;
+  }
+
+  getPlayerFromReport(report, playerName) {
+    return report.friendlies.find(friendly => friendly.name === playerName);
+  }
+  getFightFromReport(report, fightId) {
+    return report.fights.find(fight => fight.id === fightId);
+  }
+
   constructor() {
     super();
     this.state = {
-      reportCode: null,
       report: null,
-      selectedPlayer: null,
-      selectedFight: null,
       results: null,
       finished: false,
       progress: 0,
@@ -68,34 +94,19 @@ class App extends Component {
     };
 
     this.handleReportSelecterSubmit = this.handleReportSelecterSubmit.bind(this);
-    this.handleSelectPlayer = this.handleSelectPlayer.bind(this);
-    this.handleSelectFight = this.handleSelectFight.bind(this);
     this.reset = this.reset.bind(this);
   }
 
   handleReportSelecterSubmit(code) {
     console.log('Selected report:', code);
-    this.setState({
-      reportCode: code,
-    });
-    return this.fetchFights(code);
-  }
-  handleSelectPlayer(player) {
-    console.log('Selected player:', player);
-    this.setState({
-      selectedPlayer: player,
-    });
-  }
-  handleSelectFight(fight) {
-    console.log('Selected fight:', fight);
-    this.setState({
-      selectedFight: fight,
-    });
 
-    return this.parse(this.state.reportCode, this.state.selectedPlayer, fight);
+    this.props.router.push(`/report/${code}`);
   }
 
-  parse(code, player, fight) {
+  parse(report, playerName, fightId) {
+    const player = this.getPlayerFromReport(report, playerName);
+    const fight = this.getFightFromReport(report, fightId);
+
     const parser = new CombatLogParser(player, fight);
 
     this.setState({
@@ -106,7 +117,7 @@ class App extends Component {
       totalHealing: 0,
       friendlyStats: null,
     });
-    this.parseNextBatch(parser, code, player, fight.start_time, fight.end_time);
+    this.parseNextBatch(parser, report.code, player, fight.start_time, fight.end_time);
   }
   parseNextBatch(parser, code, player, fightStart, fightEnd, nextPageTimestamp = null) {
     const isFirstBatch = nextPageTimestamp === null;
@@ -150,17 +161,20 @@ class App extends Component {
       return obj;
     }, {});
     const friendlyStats = [];
-    Object.keys(statsByTargetId).forEach(targetId => {
-      const playerStats = statsByTargetId[targetId];
-      const playerInfo = playersById[targetId];
+    Object.keys(statsByTargetId)
+      .forEach(targetId => {
+        const playerStats = statsByTargetId[targetId];
+        const playerInfo = playersById[targetId];
 
-      friendlyStats.push({
-        ...playerInfo,
-        ...playerStats,
-        masteryEffectiveness: playerStats.healingFromMastery / (playerStats.maxPotentialHealingFromMastery || 1),
-        healingReceivedPercentage: playerStats.healingReceived / stats.totalHealingWithMasteryAffectedAbilities,
+        if (playerInfo) {
+          friendlyStats.push({
+            ...playerInfo,
+            ...playerStats,
+            masteryEffectiveness: playerStats.healingFromMastery / (playerStats.maxPotentialHealingFromMastery || 1),
+            healingReceivedPercentage: playerStats.healingReceived / stats.totalHealingWithMasteryAffectedAbilities,
+          });
+        }
       });
-    });
 
     console.log(friendlyStats)
 
@@ -170,18 +184,25 @@ class App extends Component {
     });
   }
 
-  fetchFights(code) {
-    console.log('Fetching fights for report', code);
+  fetchReport(code) {
+    console.log('Fetching report:', code);
 
-    fetch(`https://www.warcraftlogs.com/v1/report/fights/${code}?api_key=${WCL_API_KEY}`)
+    this.setState({
+      report: null,
+    });
+
+    return fetch(`https://www.warcraftlogs.com/v1/report/fights/${code}?api_key=${WCL_API_KEY}`)
       .then(response => response.json())
       .then((json) => {
-        console.log('Received fights for', code, json);
+        console.log('Received report', code, ':', json);
         if (json.status === 400 || json.status === 401) {
           throw json.error;
         } else {
           this.setState({
-            report: json,
+            report: {
+              ...json,
+              code: code,
+            },
           });
         }
       })
@@ -198,10 +219,7 @@ class App extends Component {
 
   reset() {
     this.setState({
-      reportCode: null,
       report: null,
-      selectedPlayer: null,
-      selectedFight: null,
       finished: false,
       progress: 0,
       totalHealingFromMastery: 0,
@@ -216,15 +234,41 @@ class App extends Component {
       .then(response => response.json());
   }
 
+  componentWillMount() {
+    if (this.reportCode) {
+      this.fetchReport(this.reportCode);
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log(prevProps, '=>', this.props);
+    console.log(prevState, '=>', this.state);
+
+    const prevParams = prevProps.params;
+    if (this.reportCode !== prevParams.reportCode) {
+      if (this.reportCode) {
+        this.fetchReport(this.reportCode);
+      }
+    }
+    if (this.state.report !== prevState.report || this.fightId !== prevParams.fightId || this.playerName !== prevParams.playerName) {
+      if (this.state.report && this.playerName && this.fightId) {
+        this.parse(this.state.report, this.playerName, Number(this.fightId));
+      }
+    }
+  }
+
   render() {
-    const { reportCode, report, selectedFight, selectedPlayer, finished, totalHealingFromMastery, totalMaxPotentialMasteryHealing, totalHealing, friendlyStats } = this.state;
+    const { report, finished, totalHealingFromMastery, totalMaxPotentialMasteryHealing, totalHealing, friendlyStats } = this.state;
+
+    const player = this.playerName && this.state.report && this.getPlayerFromReport(this.state.report, this.playerName);
+    const fight = this.fightId && this.state.report && this.getFightFromReport(this.state.report, Number(this.fightId));
 
     return (
       <div className="App">
         <div className="panel panel-default">
           <div className="panel-body">
             {(() => {
-              if (!reportCode) {
+              if (!this.reportCode) {
                 return <ReportSelecter onSubmit={this.handleReportSelecterSubmit} />;
               }
               if (!report) {
@@ -234,26 +278,26 @@ class App extends Component {
 
                     <div className="spinner"></div>
 
-                    <div className="text-muted">
-                      This should only take a brief moment. Not minutes. Never minutes. If it takes minutes something might have crashed. Try
-                      Google Chrome if you're using some ancient, broken and insecure browser. Maybe WCL is down.{' '}
-                      <a href="https://www.warcraftlogs.com/" target="_blank">Is it down?</a> You know I could have written some code to
-                      automatically check if it is down. Nah, it shouldn't happen that often. Now that you have gotten this far reading this I
-                      think it's fairly safe to say something crashed. If this happens in an updated Google Chrome it may be that the log is
-                      broken. Please send me the log link if you think that's the case. It may also be that this tool broke due to changes to
-                      WCLs API. If you think that's the case make a ticket{' '}
-                      <a href="https://github.com/MartijnHols/MasteryEffectivenessCalculator/issues">here</a>. Even if I stop playing WoW I'm
-                      pretty active on GitHub so it's extremely likely I'll see the ticket there. Doesn't mean I'll decide to respond or act
-                      on it though. But usually does. No promises.
-                    </div>
+                    {/*<div className="text-muted">*/}
+                      {/*This should only take a brief moment. Not minutes. Never minutes. If it takes minutes something might have crashed. Try*/}
+                      {/*Google Chrome if you're using some ancient, broken and insecure browser. Maybe WCL is down.{' '}*/}
+                      {/*<a href="https://www.warcraftlogs.com/" target="_blank">Is it down?</a> You know I could have written some code to*/}
+                      {/*automatically check if it is down. Nah, it shouldn't happen that often. Now that you have gotten this far reading this I*/}
+                      {/*think it's fairly safe to say something crashed. If this happens in an updated Google Chrome it may be that the log is*/}
+                      {/*broken. Please send me the log link if you think that's the case. It may also be that this tool broke due to changes to*/}
+                      {/*WCLs API. If you think that's the case make a ticket{' '}*/}
+                      {/*<a href="https://github.com/MartijnHols/MasteryEffectivenessCalculator/issues">here</a>. Even if I stop playing WoW I'm*/}
+                      {/*pretty active on GitHub so it's extremely likely I'll see the ticket there. Doesn't mean I'll decide to respond or act*/}
+                      {/*on it though. But usually does. No promises.*/}
+                    {/*</div>*/}
                   </div>
                 );
               }
-              if (!selectedPlayer) {
-                return <PlayerSelecter report={report} onSelectPlayer={this.handleSelectPlayer} />;
+              if (!this.playerName) {
+                return <PlayerSelecter report={report} />;
               }
-              if (!selectedFight) {
-                return <FightSelecter report={report} onSelectFight={this.handleSelectFight} />;
+              if (!this.fightId) {
+                return <FightSelecter report={report} playerName={this.playerName} />;
               }
 
               const progress = Math.floor(this.state.progress * 100);
@@ -263,7 +307,7 @@ class App extends Component {
               return (
                 <div style={{ width: 800 }}>
                   <h1 style={{ margin: 0 }}>
-                    <a href={`https://www.warcraftlogs.com/reports/${reportCode}/#fight=${selectedFight.id}`} target="_blank">{DIFFICULTIES[selectedFight.difficulty]} {selectedFight.name} ({selectedFight.kill ? 'Kill' : 'Wipe'})</a> for {selectedPlayer.name}
+                    <a href={`https://www.warcraftlogs.com/reports/${this.reportCode}/#fight=${fight.id}`} target="_blank">{DIFFICULTIES[fight.difficulty]} {fight.name} ({fight.kill ? 'Kill' : 'Wipe'})</a> for {player.name}
                   </h1><br />
 
                   {!finished && <Progress progress={progress} />}
@@ -314,18 +358,18 @@ class App extends Component {
                   )}
 
                   <br />
-                  <button type="button" className="btn btn-primary" onClick={() => this.setState({ selectedFight: null })} >
+                  <Link to={`/report/${this.reportCode}/${this.playerName}`} className="btn btn-primary">
                     <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" /> Change fight
-                  </button>
+                  </Link>
                 </div>
               )
             })()}
           </div>
         </div><br />
-        {reportCode && (
-          <button type="button" className="btn btn-muted" onClick={this.reset}>
+        {this.reportCode && (
+          <Link to="/" className="btn btn-muted">
             <span className="glyphicon glyphicon-repeat" aria-hidden="true" /> Change report
-          </button>
+          </Link>
         )}
       </div>
     );

@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 
 const PALADIN_TYPE = 'Paladin';
 
 class PlayerSelecter extends Component {
   static propTypes = {
     report: React.PropTypes.shape({
+      code: React.PropTypes.string.isRequired,
       title: React.PropTypes.string.isRequired,
       friendlies: React.PropTypes.arrayOf(React.PropTypes.shape({
         id: React.PropTypes.number.isRequired,
@@ -12,11 +14,10 @@ class PlayerSelecter extends Component {
         name: React.PropTypes.string.isRequired,
       })),
     }),
-    onSelectPlayer: React.PropTypes.func.isRequired,
   };
 
   render() {
-    const { report, onSelectPlayer } = this.props;
+    const { report } = this.props;
 
     return (
       <div style={{ width: 650 }}>
@@ -30,9 +31,9 @@ class PlayerSelecter extends Component {
             .sort((a, b) => a.name > b.name)
             .map(friendly => (
               <div style={{ marginBottom: 10 }} key={`${friendly.id}`}>
-                <a href="#" onClick={() => onSelectPlayer(friendly)}>
-                    {friendly.name}
-                </a>
+                <Link to={`/report/${report.code}/${friendly.name}`}>
+                  {friendly.name}
+                </Link>
               </div>
             ))
         }

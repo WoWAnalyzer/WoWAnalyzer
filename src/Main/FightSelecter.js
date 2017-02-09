@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 
 import Fight from './Fight';
 
 class FightSelecter extends Component {
   static propTypes = {
     report: React.PropTypes.shape({
+      code: React.PropTypes.string.isRequired,
       title: React.PropTypes.string.isRequired,
       fights: React.PropTypes.arrayOf(React.PropTypes.shape({
         id: React.PropTypes.number.isRequired,
@@ -16,11 +18,11 @@ class FightSelecter extends Component {
         kill: React.PropTypes.bool,
       })),
     }),
-    onSelectFight: React.PropTypes.func.isRequired,
+    playerName: React.PropTypes.string.isRequired,
   };
 
   render() {
-    const { report, onSelectFight } = this.props;
+    const { report, playerName } = this.props;
 
     return (
       <div style={{ width: 650 }}>
@@ -32,9 +34,9 @@ class FightSelecter extends Component {
           report.fights
             .filter(fight => fight.boss !== 0)
             .map(fight => (
-              <a href="#" onClick={() => onSelectFight(fight)} key={`${fight.id}`}>
+              <Link to={`/report/${report.code}/${playerName}/${fight.id}`} key={`${fight.id}`}>
                 <Fight {...fight} style={{ marginBottom: 15 }} />
-              </a>
+              </Link>
             ))
         }
       </div>

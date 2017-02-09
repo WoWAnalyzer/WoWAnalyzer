@@ -13,7 +13,6 @@ const PlayerBreakdown = ({ friendlyStats, highestHealingFromMastery, totalHealin
     </thead>
     <tbody>
     {friendlyStats
-      .filter(player => !!player.name)
       .sort((a, b) => b.masteryEffectiveness - a.masteryEffectiveness)
       .map(player => {
         const spec = SPEC_IDS[player.specID];
@@ -55,7 +54,9 @@ const PlayerBreakdown = ({ friendlyStats, highestHealingFromMastery, totalHealin
 );
 PlayerBreakdown.propTypes = {
   friendlyStats: React.PropTypes.arrayOf(React.PropTypes.shape({
+    name: React.PropTypes.string.isRequired,
     specID: React.PropTypes.number.isRequired,
+    masteryEffectiveness: React.PropTypes.number.isRequired,
   })),
   highestHealingFromMastery: React.PropTypes.number.isRequired,
   totalHealingFromMastery: React.PropTypes.number.isRequired,

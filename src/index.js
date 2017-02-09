@@ -1,11 +1,18 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
+import { Router, Route, hashHistory } from 'react-router';
 
 import './bootstrap/css/bootstrap.css';
 
 import App from './Main/App';
 
-ReactDOM.render(
-  <App />,
+render(
+  <Router history={hashHistory}>
+    <Route path='/' component={App}>
+      <Route path='report/:reportCode' />
+      <Route path='report/:reportCode/:playerName' />
+      <Route path='report/:reportCode/:playerName/:fightId' />
+    </Route>
+  </Router>,
   document.getElementById('root')
 );
