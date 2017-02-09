@@ -241,9 +241,6 @@ class App extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log(prevProps, '=>', this.props);
-    console.log(prevState, '=>', this.state);
-
     const prevParams = prevProps.params;
     if (this.reportCode !== prevParams.reportCode) {
       if (this.reportCode) {

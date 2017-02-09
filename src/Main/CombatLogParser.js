@@ -136,7 +136,7 @@ class CombatLogParser {
     }
   }
   parse_combatantinfo(event) {
-    console.log('combatantinfo', event, `(looking for ${this.player.id})`, this.player);
+    console.log('combatantinfo', event);
 
     this.players[event.sourceID] = event;
 
