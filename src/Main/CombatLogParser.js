@@ -168,9 +168,10 @@ class CombatLogParser {
       return;
     }
     const distance = CombatLogParser.calculateDistance(this.lastCast.x, this.lastCast.y, event.x, event.y) / 100;
-    if (distance > 5) {
-      const timeSince = event.timestamp - this.lastCast.timestamp;
-      console.warn('Distance since previous event (' + (Math.round(timeSince / 100) / 10) + 's ago) was ' + Math.round(distance) + ' yards:', event.type, event, this.lastCast.type, this.lastCast);
+    const timeSince = event.timestamp - this.lastCast.timestamp;
+    const maxDistance = Math.max(1, timeSince / 1000 * 10 * 1.1); // 10 yards per second + 10% margin of error
+    if (distance > maxDistance) {
+      console.warn('Distance since previous event (' + (Math.round(timeSince / 100) / 10) + 's ago) was ' + (Math.round(distance * 10) / 10) + ' yards:', event.type, event, this.lastCast.type, this.lastCast);
     }
   }
 
