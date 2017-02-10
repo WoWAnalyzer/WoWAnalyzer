@@ -15,7 +15,6 @@ const ABILITIES_AFFECTED_BY_MASTERY = [
 
 class CombatLogParser {
   lastCast = null;
-  lastRuleOfLaw = null;
   // Tracking total healing seen as a sanity check
   totalHealing = 0;
 
@@ -25,6 +24,12 @@ class CombatLogParser {
   player = null;
   playerMasteryPerc = null;
   fight = null;
+
+  /**
+   * Contains all buffs which are active right now.
+   * @type {Array}
+   */
+  activeBuffs = [];
 
   constructor(player, fight) {
     this.player = player;
@@ -88,7 +93,7 @@ class CombatLogParser {
         //   `playerMasteryPerc:${this.playerMasteryPerc}`, event);
 
         const distance = CombatLogParser.calculateDistance(this.lastCast.x, this.lastCast.y, event.x, event.y) / 100;
-        const hasRuleOfLaw = this.lastRuleOfLaw !== null;
+        const hasRuleOfLaw = this.hasBuff(SPELL_ID_RULE_OF_LAW);
         // We calculate the mastery effectiveness of this *one* heal
         const masteryEffectiveness = CombatLogParser.calculateMasteryEffectiveness(distance, hasRuleOfLaw);
 
@@ -111,30 +116,6 @@ class CombatLogParser {
       this.totalHealing += healingDone;
     }
   }
-  parse_applybuff(event) {
-    if (!this.byPlayer(event)) return;
-
-    const { ability: { guid } } = event;
-    if (guid === SPELL_ID_RULE_OF_LAW) {
-      this.lastRuleOfLaw = event;
-    }
-  }
-  parse_refreshbuff(event) {
-    if (!this.byPlayer(event)) return;
-
-    const { ability: { guid } } = event;
-    if (guid === SPELL_ID_RULE_OF_LAW) {
-      this.lastRuleOfLaw = event;
-    }
-  }
-  parse_removebuff(event) {
-    if (!this.byPlayer(event)) return;
-
-    const { ability: { guid } } = event;
-    if (guid === SPELL_ID_RULE_OF_LAW) {
-      this.lastRuleOfLaw = null;
-    }
-  }
   parse_combatantinfo(event) {
     console.log('combatantinfo', event);
 
@@ -142,6 +123,16 @@ class CombatLogParser {
 
     if (this.byPlayer(event)) {
       this.playerMasteryPerc = CombatLogParser.calculateMasteryPercentage(event.mastery);
+
+      event.auras.forEach(aura => {
+        this.applyActiveBuff({
+          ability: {
+            abilityIcon: aura.icon,
+            guid: aura.ability,
+          },
+          sourceID: aura.source,
+        });
+      });
     }
   }
   parse_absorbed(event) {
@@ -174,6 +165,41 @@ class CombatLogParser {
       console.warn('Distance since previous event (' + (Math.round(timeSince / 100) / 10) + 's ago) was ' + (Math.round(distance * 10) / 10) + ' yards:', event.type, event, this.lastCast.type, this.lastCast);
     }
   }
+
+  // region Buffs
+
+  hasBuff(buffAbilityId) {
+    return this.activeBuffs.find(buff => buff.ability.guid === buffAbilityId) !== undefined;
+  }
+  applyActiveBuff(buff) {
+    this.activeBuffs.push(buff);
+  }
+  removeActiveBuff(activeBuff) {
+    const activeBuffIndex = this.activeBuffs.findIndex(buff => buff.ability.guid === activeBuff.ability.guid);
+    if (activeBuffIndex !== -1) {
+      this.activeBuffs.splice(activeBuffIndex, 1);
+    } else {
+      console.error('Tried to remove buff', activeBuff, ', but couldn\'t find it in activeBuffs.');
+    }
+  }
+  parse_applybuff(event) {
+    if (!this.toPlayer(event)) return;
+
+    this.applyActiveBuff(event);
+  }
+  parse_refreshbuff(event) {
+    if (!this.toPlayer(event)) return;
+
+    this.removeActiveBuff(event);
+    this.applyActiveBuff(event);
+  }
+  parse_removebuff(event) {
+    if (!this.toPlayer(event)) return;
+
+    this.removeActiveBuff(event);
+  }
+
+  // endregion
 
   static calculateDistance(x1, y1, x2, y2) {
     return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
