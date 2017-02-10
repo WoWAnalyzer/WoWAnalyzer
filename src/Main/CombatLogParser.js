@@ -1,4 +1,4 @@
-const SPELL_ID_RULE_OF_LAW = 214202;
+export const SPELL_ID_RULE_OF_LAW = 214202;
 
 const ABILITIES_AFFECTED_BY_MASTERY = [
   225311, // Light of Dawn
@@ -25,11 +25,9 @@ class CombatLogParser {
   playerMasteryPerc = null;
   fight = null;
 
-  /**
-   * Contains all buffs which are active right now.
-   * @type {Array}
-   */
-  activeBuffs = [];
+  get fightDuration() {
+    return this.fight.end_time - this.fight.start_time;
+  }
 
   constructor(player, fight) {
     this.player = player;
@@ -168,20 +166,49 @@ class CombatLogParser {
 
   // region Buffs
 
+  /**
+   * Contains all buffs which are active right now.
+   * @type {Array}
+   */
+  activeBuffs = [];
+  /**
+   * Keeps track of all buffs that have been applied during the fight.
+   * @type {Array}
+   */
+  buffHistory = [];
+
   hasBuff(buffAbilityId) {
     return this.activeBuffs.find(buff => buff.ability.guid === buffAbilityId) !== undefined;
   }
+  getBuffUptime(buffAbilityId) {
+    return this.buffHistory.reduce((uptime, buff) => {
+      if (buff.ability.guid === buffAbilityId) {
+        uptime += buff.uptime;
+      }
+      return uptime;
+    }, 0);
+  }
+
   applyActiveBuff(buff) {
     this.activeBuffs.push(buff);
   }
   removeActiveBuff(activeBuff) {
     const activeBuffIndex = this.activeBuffs.findIndex(buff => buff.ability.guid === activeBuff.ability.guid);
+    let appliedAtTimestamp = null;
     if (activeBuffIndex !== -1) {
-      this.activeBuffs.splice(activeBuffIndex, 1);
+      const removedBuff = this.activeBuffs.splice(activeBuffIndex, 1)[0];
+      appliedAtTimestamp = removedBuff.timestamp;
     } else {
       console.error('Tried to remove buff', activeBuff, ', but couldn\'t find it in activeBuffs.');
+      appliedAtTimestamp = this.fight.start_time;
     }
+
+    this.buffHistory.push({
+      ...activeBuff,
+      uptime: activeBuff.timestamp - appliedAtTimestamp,
+    });
   }
+
   parse_applybuff(event) {
     if (!this.toPlayer(event)) return;
 

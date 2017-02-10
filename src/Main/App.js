@@ -12,7 +12,7 @@ import PlayerSelecter from './PlayerSelecter';
 import Progress from './Progress';
 import PlayerBreakdown from './PlayerBreakdown';
 
-import CombatLogParser from './CombatLogParser';
+import CombatLogParser, { SPELL_ID_RULE_OF_LAW } from './CombatLogParser';
 
 class App extends Component {
   static propTypes = {
@@ -60,6 +60,7 @@ class App extends Component {
       totalHealingWithMasteryAffectedAbilities,
       totalHealingFromMastery,
       totalMaxPotentialMasteryHealing,
+      ruleOfLawUptimePercentage: parser.getBuffUptime(SPELL_ID_RULE_OF_LAW) / parser.fightDuration,
     };
   }
 
@@ -89,6 +90,7 @@ class App extends Component {
       progress: 0,
       totalHealingFromMastery: 0,
       totalMaxPotentialMasteryHealing: 0,
+      ruleOfLawUptimePercentage: 0,
       totalHealing: 0,
       friendlyStats: null,
     };
@@ -114,6 +116,7 @@ class App extends Component {
       progress: 0,
       totalHealingFromMastery: 0,
       totalMaxPotentialMasteryHealing: 0,
+      ruleOfLawUptimePercentage: 0,
       totalHealing: 0,
       friendlyStats: null,
     });
@@ -138,6 +141,7 @@ class App extends Component {
               totalHealing: parser.totalHealing,
               totalHealingFromMastery: stats.totalHealingFromMastery,
               totalMaxPotentialMasteryHealing: stats.totalMaxPotentialMasteryHealing,
+              ruleOfLawUptimePercentage: stats.ruleOfLawUptimePercentage,
             });
 
             if (json.nextPageTimestamp) {
@@ -175,8 +179,6 @@ class App extends Component {
           });
         }
       });
-
-    console.log(friendlyStats)
 
     this.setState({
       finished: true,
@@ -224,6 +226,7 @@ class App extends Component {
       progress: 0,
       totalHealingFromMastery: 0,
       totalMaxPotentialMasteryHealing: 0,
+      ruleOfLawUptimePercentage: 0,
       totalHealing: 0,
       friendlyStats: null,
     });
@@ -255,7 +258,7 @@ class App extends Component {
   }
 
   render() {
-    const { report, finished, totalHealingFromMastery, totalMaxPotentialMasteryHealing, totalHealing, friendlyStats } = this.state;
+    const { report, finished, totalHealingFromMastery, totalMaxPotentialMasteryHealing, ruleOfLawUptimePercentage, totalHealing, friendlyStats } = this.state;
 
     const player = this.playerName && this.state.report && this.getPlayerFromReport(this.state.report, this.playerName);
     const fight = this.fightId && this.state.report && this.getFightFromReport(this.state.report, Number(this.fightId));
@@ -343,6 +346,27 @@ class App extends Component {
                           </div>
                         </div>
                       </div>
+                    </div>
+                  </div>
+                  <div className="row" style={{ marginTop: 15 }}>
+                    <div className="col-xs-6">
+                      <div style={{ width: '100%', backgroundColor: '#d9762f', borderRadius: 3, padding: '10px 15px', color: '#fff' }}>
+                        <div className="row">
+                          <div className="col-xs-3">
+                            <img src="./ruleoflaw.jpg" style={{ height: 74 }} alt="Healing" />
+                          </div>
+                          <div className="col-xs-9 text-right">
+                            <div style={{ fontSize: '2.5em' }}>
+                              {(Math.round(ruleOfLawUptimePercentage * 100))} %
+                            </div>
+                            <div style={{ marginTop: '-0.3em' }}>
+                              Rule of Law uptime
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-xs-6">
                     </div>
                   </div>
 
