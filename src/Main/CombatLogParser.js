@@ -87,7 +87,6 @@ class CombatLogParser {
         return;
       }
       const isAbilityAffectedByMastery = ABILITIES_AFFECTED_BY_MASTERY.indexOf(event.ability.guid) !== -1;
-      console.log(isAbilityAffectedByMastery, event.ability.name, event);
 
       // The actual heal as shown in the log
       const healingDone = event.amount;
