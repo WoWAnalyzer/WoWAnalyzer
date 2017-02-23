@@ -1,15 +1,21 @@
 export const SPELL_ID_RULE_OF_LAW = 214202;
 
 const ABILITIES_AFFECTED_BY_MASTERY = [
-  225311, // Light of Dawn
-  20473, // Holy Shock
+  225311, // Light of Dawn (heal)
+  85222, // Light of Dawn (cast)
+  25914, // Holy Shock (heal)
+  20473, // Holy Shock (cast)
   82326, // Holy Light
   19750, // Flash of Light
+  183998, // Light of the Martyr (WCL)
   196917, // Light of the Martyr
-  114165, // Holy Prism
-  114158, // Light's Hammer
-  183811, // Judgment of Light
-  200652, // Tyr's Deliverance
+  114852, // Holy Prism (heal)
+  114165, // Holy Prism (cast)
+  119952, // Light's Hammer (heal)
+  114158, // Light's Hammer (cast)
+  183811, // Judgment of Light (heal)
+  200654, // Tyr's Deliverance (heal)
+  200652, // Tyr's Deliverance (cast)
   223306, // Bestow Faith
 ];
 
@@ -81,6 +87,7 @@ class CombatLogParser {
         return;
       }
       const isAbilityAffectedByMastery = ABILITIES_AFFECTED_BY_MASTERY.indexOf(event.ability.guid) !== -1;
+      console.log(isAbilityAffectedByMastery, event.ability.name, event);
 
       // The actual heal as shown in the log
       const healingDone = event.amount;
