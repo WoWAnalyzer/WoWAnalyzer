@@ -156,3 +156,8 @@ table .performance-bar {
   min-width: 1px;
   border: 1px solid #000;
 }
+
+.__react_component_tooltip {
+  text-align: left;
+  max-width: 600px;
+}

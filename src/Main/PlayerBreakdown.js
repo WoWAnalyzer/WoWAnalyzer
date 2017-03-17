@@ -8,7 +8,7 @@ const PlayerBreakdown = ({ friendlyStats, highestHealingFromMastery, totalHealin
     <tr>
       <th>Name</th>
       <th colSpan="2">Mastery effectiveness</th>
-      <th colSpan="2"><dfn title="This is the amount of healing done with abilities that are affected by mastery. Things like beacons are NOT included.">Healing done</dfn></th>
+      <th colSpan="2"><dfn data-tip="This is the amount of healing done with abilities that are affected by mastery. Things like beacons are NOT included.">Healing done</dfn></th>
     </tr>
     </thead>
     <tbody>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+import ReactTooltip from 'react-tooltip'
 
 import './App.css';
 
@@ -11,6 +12,7 @@ import FightSelecter from './FightSelecter';
 import PlayerSelecter from './PlayerSelecter';
 import Progress from './Progress';
 import PlayerBreakdown from './PlayerBreakdown';
+import StatisticBox from './StatisticBox';
 
 import CombatLogParser, { SPELL_ID_RULE_OF_LAW } from './CombatLogParser';
 
@@ -92,6 +94,9 @@ class App extends Component {
       totalMaxPotentialMasteryHealing: 0,
       ruleOfLawUptimePercentage: 0,
       totalHealing: 0,
+      hasRuleOfLaw: false,
+      hasDrapeOfShame: false,
+      drapeHealing: 0,
       friendlyStats: null,
     };
 
@@ -118,6 +123,9 @@ class App extends Component {
       totalMaxPotentialMasteryHealing: 0,
       ruleOfLawUptimePercentage: 0,
       totalHealing: 0,
+      hasRuleOfLaw: false,
+      hasDrapeOfShame: false,
+      drapeHealing: 0,
       friendlyStats: null,
     });
     this.parseNextBatch(parser, report.code, player, fight.start_time, fight.end_time);
@@ -139,6 +147,9 @@ class App extends Component {
             this.setState({
               progress: (pageTimestamp - fightStart) / (fightEnd - fightStart),
               totalHealing: parser.totalHealing,
+              hasRuleOfLaw: parser.hasRuleOfLaw,
+              hasDrapeOfShame: parser.hasDrapeOfShame,
+              drapeHealing: parser.drapeHealing,
               totalHealingFromMastery: stats.totalHealingFromMastery,
               totalMaxPotentialMasteryHealing: stats.totalMaxPotentialMasteryHealing,
               ruleOfLawUptimePercentage: stats.ruleOfLawUptimePercentage,
@@ -228,6 +239,9 @@ class App extends Component {
       totalMaxPotentialMasteryHealing: 0,
       ruleOfLawUptimePercentage: 0,
       totalHealing: 0,
+      hasRuleOfLaw: false,
+      hasDrapeOfShame: false,
+      drapeHealing: 0,
       friendlyStats: null,
     });
   }
@@ -255,10 +269,11 @@ class App extends Component {
         this.parse(this.state.report, this.playerName, Number(this.fightId));
       }
     }
+    ReactTooltip.rebuild();
   }
 
   render() {
-    const { report, finished, totalHealingFromMastery, totalMaxPotentialMasteryHealing, ruleOfLawUptimePercentage, totalHealing, friendlyStats } = this.state;
+    const { report, finished, totalHealingFromMastery, totalMaxPotentialMasteryHealing, ruleOfLawUptimePercentage, totalHealing, hasRuleOfLaw, hasDrapeOfShame, drapeHealing, friendlyStats } = this.state;
 
     const player = this.playerName && this.state.report && this.getPlayerFromReport(this.state.report, this.playerName);
     const fight = this.fightId && this.state.report && this.getFightFromReport(this.state.report, Number(this.fightId));
@@ -277,19 +292,6 @@ class App extends Component {
                     <h1>Fetching report information...</h1>
 
                     <div className="spinner"></div>
-
-                    {/*<div className="text-muted">*/}
-                      {/*This should only take a brief moment. Not minutes. Never minutes. If it takes minutes something might have crashed. Try*/}
-                      {/*Google Chrome if you're using some ancient, broken and insecure browser. Maybe WCL is down.{' '}*/}
-                      {/*<a href="https://www.warcraftlogs.com/" target="_blank">Is it down?</a> You know I could have written some code to*/}
-                      {/*automatically check if it is down. Nah, it shouldn't happen that often. Now that you have gotten this far reading this I*/}
-                      {/*think it's fairly safe to say something crashed. If this happens in an updated Google Chrome it may be that the log is*/}
-                      {/*broken. Please send me the log link if you think that's the case. It may also be that this tool broke due to changes to*/}
-                      {/*WCLs API. If you think that's the case make a ticket{' '}*/}
-                      {/*<a href="https://github.com/MartijnHols/MasteryEffectivenessCalculator/issues">here</a>. Even if I stop playing WoW I'm*/}
-                      {/*pretty active on GitHub so it's extremely likely I'll see the ticket there. Doesn't mean I'll decide to respond or act*/}
-                      {/*on it though. But usually does. No promises.*/}
-                    {/*</div>*/}
                   </div>
                 );
               }
@@ -313,61 +315,38 @@ class App extends Component {
                   {!finished && <Progress progress={progress} />}
 
                   <div className="row">
-                    <div className="col-xs-6">
-                      <div style={{ width: '100%', backgroundColor: '#7e9e3a', borderRadius: 3, padding: '10px 15px', color: '#fff' }}>
-                        <div className="row">
-                          <div className="col-xs-3">
-                            <img src="./healing.png" style={{ height: 74 }} alt="Healing" />
-                          </div>
-                          <div className="col-xs-9 text-right">
-                            <div style={{ fontSize: '2.5em' }}>
-                              {(totalHealing + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}
-                            </div>
-                            <div style={{ marginTop: '-0.3em' }}>
-                              Healing done
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-xs-6">
-                      <div style={{ width: '100%', backgroundColor: '#1C538D', borderRadius: 3, padding: '10px 15px', color: '#fff' }}>
-                        <div className="row">
-                          <div className="col-xs-3">
-                            <img src="./mastery-radius.png" style={{ height: 74 }} alt="Mastery effectiveness" />
-                          </div>
-                          <div className="col-xs-9 text-right">
-                            <div style={{ fontSize: '2.5em' }}>
-                              {(Math.round(totalMasteryEffectiveness * 100))} %
-                            </div>
-                            <div style={{ marginTop: '-0.3em' }}>
-                              Mastery effectiveness
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="row" style={{ marginTop: 15 }}>
-                    <div className="col-xs-6">
-                      <div style={{ width: '100%', backgroundColor: '#d9762f', borderRadius: 3, padding: '10px 15px', color: '#fff' }}>
-                        <div className="row">
-                          <div className="col-xs-3">
-                            <img src="./ruleoflaw.jpg" style={{ height: 74 }} alt="Healing" />
-                          </div>
-                          <div className="col-xs-9 text-right">
-                            <div style={{ fontSize: '2.5em' }}>
-                              {(Math.round(ruleOfLawUptimePercentage * 100))} %
-                            </div>
-                            <div style={{ marginTop: '-0.3em' }}>
-                              Rule of Law uptime
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-xs-6">
-                    </div>
+                    <StatisticBox
+                      color="#7e9e3a"
+                      icon={<img src="./healing.png" style={{ height: 74 }} alt="Healing" />}
+                      value={(totalHealing + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}
+                      label="Healing done"
+                    />
+                    <StatisticBox
+                      color="#1C538D"
+                      icon={<img src="./mastery-radius.png" style={{ height: 74 }} alt="Mastery effectiveness" />}
+                      value={`${(Math.round(totalMasteryEffectiveness * 10000) / 100).toFixed(2)} %`}
+                      label="Mastery effectiveness"
+                    />
+                    {hasRuleOfLaw && (
+                      <StatisticBox
+                        color="#d9762f"
+                        icon={<img src="./ruleoflaw.jpg" style={{ height: 74, borderRadius: 5, border: '1px solid #000' }} alt="Rule of Law" />}
+                        value={`${(Math.round(ruleOfLawUptimePercentage * 10000) / 100).toFixed(2)} %`}
+                        label="Rule of Law uptime"
+                      />
+                    )}
+                    {hasDrapeOfShame && (
+                      <StatisticBox
+                        color="#ad58ca"
+                        icon={<img src="./drapeofshame.jpg" style={{ height: 74, borderRadius: 5, border: '1px solid #000' }} alt="Drape of Shame" />}
+                        value={`${((Math.round(drapeHealing / totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
+                        label={(
+                          <dfn data-tip="The actual effective healing contributed by the Drape of Shame equip effect.<br /><br />This may be lower than you might have expected since a large part of the healing gain from the Drape of Shame turns out to be overhealing. This makes sense as the overhealing percentage on critical heals is already high, and DoS would only become more overhealing.<br /><br />Please note that the value shown here is only about 80-90% accurate. The most notable issue is that beacon transfers are based on raw healing, so if the beacon transfer didn't overheal then the DoS was fully effective (at the reduced beacon transfer rate).">
+                            Drape of Shame healing
+                          </dfn>
+                        )}
+                      />
+                    )}
                   </div>
 
                   {friendlyStats && (
@@ -392,6 +371,7 @@ class App extends Component {
             <span className="glyphicon glyphicon-repeat" aria-hidden="true" /> Change report
           </Link>
         )}
+        <ReactTooltip html={true} place="bottom" />
       </div>
     );
   }

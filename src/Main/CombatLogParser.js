@@ -1,9 +1,10 @@
 export const SPELL_ID_RULE_OF_LAW = 214202;
 
+const HOLY_SHOCK_SPELL_ID = 25914;
 const ABILITIES_AFFECTED_BY_MASTERY = [
   225311, // Light of Dawn (heal)
   85222, // Light of Dawn (cast)
-  25914, // Holy Shock (heal)
+  HOLY_SHOCK_SPELL_ID, // Holy Shock (heal)
   20473, // Holy Shock (cast)
   82326, // Holy Light
   19750, // Flash of Light
@@ -18,6 +19,22 @@ const ABILITIES_AFFECTED_BY_MASTERY = [
   200652, // Tyr's Deliverance (cast)
   223306, // Bestow Faith
 ];
+const TRAITS = {
+  SHOCK_TREATMENT: 200315,
+};
+const TALENTS = {
+  LV30: 1,
+};
+const GEAR_SLOTS = {
+  CLOAK: 14,
+};
+const DRAPE_OF_SHAME_ID = 142170;
+const DRAPE_OF_SHAME_CRIT_EFFECT = 0.1;
+const HIT_TYPES = {
+  NORMAL: 1,
+  CRIT: 2,
+  NOCLUEWHATTHISIS: 3, // seen at Aura of Sacrifice
+};
 
 class CombatLogParser {
   lastCast = null;
@@ -26,6 +43,10 @@ class CombatLogParser {
 
   players = {};
   masteryHealEvents = [];
+  drapeHealing = 0;
+  hasDrapeOfShame = false;
+  hasRuleOfLaw = false;
+  traits = {};
 
   player = null;
   playerMasteryPerc = null;
@@ -79,45 +100,11 @@ class CombatLogParser {
       this.playerEvent(event);
     }
     if (this.byPlayer(event)) {
-      if (!this.lastCast) {
-        console.error('Received a heal before we detected a cast. Can\'t process since player location is still unknown.', event);
-        return;
-      } else if (this.playerMasteryPerc === null) {
-        console.error('Received a heal before finding out player\'s mastery percentage.', event);
-        return;
-      }
-      const isAbilityAffectedByMastery = ABILITIES_AFFECTED_BY_MASTERY.indexOf(event.ability.guid) !== -1;
+      this.processForMasteryEffectiveness(event);
+      this.processForDrapeOfShameHealing(event);
 
-      // The actual heal as shown in the log
-      const healingDone = event.amount;
-
-      if (isAbilityAffectedByMastery) {
-        // console.log(event.ability.name,
-        //   `healing:${event.amount},distance:${distance},hasRuleOfLaw:${hasRuleOfLaw},masteryEffectiveness:${masteryEffectiveness}`,
-        //   `playerMasteryPerc:${this.playerMasteryPerc}`, event);
-
-        const distance = CombatLogParser.calculateDistance(this.lastCast.x, this.lastCast.y, event.x, event.y) / 100;
-        const hasRuleOfLaw = this.hasBuff(SPELL_ID_RULE_OF_LAW);
-        // We calculate the mastery effectiveness of this *one* heal
-        const masteryEffectiveness = CombatLogParser.calculateMasteryEffectiveness(distance, hasRuleOfLaw);
-
-        // The base healing of the spell (excluding any healing added by mastery)
-        const baseHealingDone = healingDone / (1 + this.playerMasteryPerc * masteryEffectiveness);
-        const masteryHealingDone = healingDone - baseHealingDone;
-        // The max potential mastery healing if we had a mastery effectiveness of 100% on this spell. This does NOT include the base healing
-        // Example: a heal that did 1,324 healing with 32.4% mastery with 100% mastery effectiveness will have a max potential mastery healing of 324.
-        const maxPotentialMasteryHealing = baseHealingDone * this.playerMasteryPerc; // * 100% mastery effectiveness
-
-        this.masteryHealEvents.push({
-          ...event,
-          distance,
-          masteryEffectiveness,
-          baseHealingDone,
-          masteryHealingDone,
-          maxPotentialMasteryHealing,
-        });
-      }
-      this.totalHealing += healingDone;
+      // event.amount is the actual heal as shown in the log
+      this.totalHealing += event.amount;
     }
   }
   parse_combatantinfo(event) {
@@ -137,12 +124,85 @@ class CombatLogParser {
           sourceID: aura.source,
         });
       });
+
+      this.hasRuleOfLaw = event.talents[TALENTS.LV30] && event.talents[TALENTS.LV30].id === SPELL_ID_RULE_OF_LAW;
+      this.hasDrapeOfShame = event.gear[GEAR_SLOTS.CLOAK] && event.gear[GEAR_SLOTS.CLOAK].id === DRAPE_OF_SHAME_ID;
+      this.parseTraits(event.artifact);
     }
+  }
+  parseTraits(traits) {
+    traits.forEach(({ spellID, rank }) => {
+      this.traits[spellID] = rank;
+    });
   }
   parse_absorbed(event) {
     if (this.byPlayer(event)) {
       this.totalHealing += event.amount;
     }
+  }
+
+  processForMasteryEffectiveness(event) {
+    if (!this.lastCast) {
+      console.error('Received a heal before we detected a cast. Can\'t process since player location is still unknown.', event);
+      return;
+    } else if (this.playerMasteryPerc === null) {
+      console.error('Received a heal before finding out player\'s mastery percentage.', event);
+      return;
+    }
+    const isAbilityAffectedByMastery = ABILITIES_AFFECTED_BY_MASTERY.indexOf(event.ability.guid) !== -1;
+
+    const healingDone = event.amount;
+
+    if (isAbilityAffectedByMastery) {
+      // console.log(event.ability.name,
+      //   `healing:${event.amount},distance:${distance},hasRuleOfLaw:${hasRuleOfLaw},masteryEffectiveness:${masteryEffectiveness}`,
+      //   `playerMasteryPerc:${this.playerMasteryPerc}`, event);
+
+      const distance = CombatLogParser.calculateDistance(this.lastCast.x, this.lastCast.y, event.x, event.y) / 100;
+      const hasRuleOfLaw = this.hasBuff(SPELL_ID_RULE_OF_LAW);
+      // We calculate the mastery effectiveness of this *one* heal
+      const masteryEffectiveness = CombatLogParser.calculateMasteryEffectiveness(distance, hasRuleOfLaw);
+
+      // The base healing of the spell (excluding any healing added by mastery)
+      const baseHealingDone = healingDone / (1 + this.playerMasteryPerc * masteryEffectiveness);
+      const masteryHealingDone = healingDone - baseHealingDone;
+      // The max potential mastery healing if we had a mastery effectiveness of 100% on this spell. This does NOT include the base healing
+      // Example: a heal that did 1,324 healing with 32.4% mastery with 100% mastery effectiveness will have a max potential mastery healing of 324.
+      const maxPotentialMasteryHealing = baseHealingDone * this.playerMasteryPerc; // * 100% mastery effectiveness
+
+      this.masteryHealEvents.push({
+        ...event,
+        distance,
+        masteryEffectiveness,
+        baseHealingDone,
+        masteryHealingDone,
+        maxPotentialMasteryHealing,
+      });
+    }
+  }
+  processForDrapeOfShameHealing(event) {
+    if (event.hitType !== HIT_TYPES.CRIT) {
+      return;
+    }
+
+    let critModifier = 2 + DRAPE_OF_SHAME_CRIT_EFFECT;
+
+    if (event.ability.guid === HOLY_SHOCK_SPELL_ID) {
+      const shockTreatmentTraits = this.traits[TRAITS.SHOCK_TREATMENT];
+      // Shock Treatment increases critical healing of Holy Shock by 8%: http://www.wowhead.com/spell=200315/shock-treatment
+      // This critical healing works on both the regular part and the critical part (unlike Drape of Shame), so we double it.
+      critModifier += shockTreatmentTraits * 0.08 * 2;
+    }
+
+    const amount = event.amount;
+    const overheal = event.overheal || 0;
+    const raw = amount + overheal;
+    const rawNormalPart = raw / critModifier;
+    const rawDrapeHealing = rawNormalPart * DRAPE_OF_SHAME_CRIT_EFFECT;
+
+    const drapeHealing = Math.max(0, rawDrapeHealing - overheal);
+
+    this.drapeHealing += drapeHealing;
   }
 
   byPlayer(event) {
