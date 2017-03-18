@@ -58,7 +58,11 @@ class ReportSelecter extends Component {
           </div>
 
           <div className="text-muted">
-            Created by Zerotorescue for the #holy Discord. You can usually find helpful people there.
+            Created by Zerotorescue for the <a href="https://discordapp.com/invite/hammerofwrath">#holy Discord</a>. You can usually find helpful people there.<br /><br />
+
+            <strong>Changes:</strong><br />
+            18-03-2017 - The Drape of Shame healing statistic now includes the DoS contribution to beacon transfer. <br />
+            17-03-2017 - Added Drape of Shame effective healing statistic. This feature is not yet finished as beacon transfer is not included.
           </div>
         </form>
       </div>

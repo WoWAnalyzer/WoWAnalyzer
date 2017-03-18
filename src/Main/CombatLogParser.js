@@ -1,29 +1,66 @@
+// Talents
 export const SPELL_ID_RULE_OF_LAW = 214202;
+const BEACON_OF_FAITH_SPELL_ID = 156910;
+const BEACON_OF_THE_LIGHTBRINGER_SPELL_ID = 197446;
+const BEACON_OF_VIRTUE_SPELL_ID = 200025;
 
 const HOLY_SHOCK_SPELL_ID = 25914;
+const LIGHT_OF_DAWN_SPELL_ID = 225311;
+const HOLY_LIGHT_SPELL_ID = 82326;
+const FLASH_OF_LIGHT_SPELL_ID = 19750;
+const LIGHT_OF_THE_MARTYR_SPELL_ID = 183998;
+const HOLY_PRISM_SPELL_ID = 114852;
+const LIGHTS_HAMMER_SPELL_ID = 119952;
+const TYRS_DELIVERANCE_SPELL_ID = 200654;
+const BESTOW_FAITH_SPELL_ID = 223306;
+
+// All beacons use this spell id for their healing events.
+const BEACON_TRANSFER_SPELL_ID = 53652;
+
 const ABILITIES_AFFECTED_BY_MASTERY = [
-  225311, // Light of Dawn (heal)
-  85222, // Light of Dawn (cast)
-  HOLY_SHOCK_SPELL_ID, // Holy Shock (heal)
+  HOLY_SHOCK_SPELL_ID,
   20473, // Holy Shock (cast)
-  82326, // Holy Light
-  19750, // Flash of Light
-  183998, // Light of the Martyr (WCL)
+  LIGHT_OF_DAWN_SPELL_ID, // Light of Dawn (heal)
+  85222, // Light of Dawn (cast)
+  HOLY_LIGHT_SPELL_ID, // Holy Light
+  FLASH_OF_LIGHT_SPELL_ID, // Flash of Light
+  LIGHT_OF_THE_MARTYR_SPELL_ID, // Light of the Martyr (WCL)
   196917, // Light of the Martyr
-  114852, // Holy Prism (heal)
+  HOLY_PRISM_SPELL_ID, // Holy Prism (heal)
   114165, // Holy Prism (cast)
-  119952, // Light's Hammer (heal)
+  LIGHTS_HAMMER_SPELL_ID, // Light's Hammer (heal)
   114158, // Light's Hammer (cast)
   183811, // Judgment of Light (heal)
-  200654, // Tyr's Deliverance (heal)
+  TYRS_DELIVERANCE_SPELL_ID, // Tyr's Deliverance (heal)
   200652, // Tyr's Deliverance (cast)
-  223306, // Bestow Faith
+  BESTOW_FAITH_SPELL_ID, // Bestow Faith
 ];
+const BEACON_TRANSFERING_ABILITIES = {
+  [HOLY_SHOCK_SPELL_ID]: 1,
+  [LIGHT_OF_DAWN_SPELL_ID]: 0.5,
+  [HOLY_LIGHT_SPELL_ID]: 1,
+  [FLASH_OF_LIGHT_SPELL_ID]: 1,
+  [HOLY_PRISM_SPELL_ID]: 0.5,
+  [LIGHTS_HAMMER_SPELL_ID]: 0.5,
+  [TYRS_DELIVERANCE_SPELL_ID]: 1,
+  [BESTOW_FAITH_SPELL_ID]: 1,
+};
+const BEACON_TYPES = {
+  BEACON_OF_FATH: BEACON_OF_FAITH_SPELL_ID,
+  BEACON_OF_THE_LIGHTBRINGER: BEACON_OF_THE_LIGHTBRINGER_SPELL_ID,
+  BEACON_OF_VIRTUE: BEACON_OF_VIRTUE_SPELL_ID,
+};
 const TRAITS = {
   SHOCK_TREATMENT: 200315,
 };
-const TALENTS = {
+const TALENT_SLOTS = {
+  LV15: 0,
   LV30: 1,
+  LV45: 2,
+  LV60: 3,
+  LV75: 4,
+  LV90: 5,
+  LV100: 6,
 };
 const GEAR_SLOTS = {
   CLOAK: 14,
@@ -46,7 +83,8 @@ class CombatLogParser {
   drapeHealing = 0;
   hasDrapeOfShame = false;
   hasRuleOfLaw = false;
-  traits = {};
+  talentsByRow = {};
+  traitsBySpellId = {};
 
   player = null;
   playerMasteryPerc = null;
@@ -54,6 +92,10 @@ class CombatLogParser {
 
   get fightDuration() {
     return this.fight.end_time - this.fight.start_time;
+  }
+  _timestamp = null;
+  get currentTimestamp() {
+    return this._timestamp;
   }
 
   constructor(player, fight) {
@@ -64,6 +106,8 @@ class CombatLogParser {
   parseEvents(events) {
     return new Promise((resolve, reject) => {
       events.forEach(event => {
+        this._timestamp = event.timestamp;
+
         const methodName = `parse_${event.type}`;
         const method = this[methodName];
         if (method) {
@@ -102,6 +146,7 @@ class CombatLogParser {
     if (this.byPlayer(event)) {
       this.processForMasteryEffectiveness(event);
       this.processForDrapeOfShameHealing(event);
+      this.processForBeaconHealing(event);
 
       // event.amount is the actual heal as shown in the log
       this.totalHealing += event.amount;
@@ -125,14 +170,21 @@ class CombatLogParser {
         });
       });
 
-      this.hasRuleOfLaw = event.talents[TALENTS.LV30] && event.talents[TALENTS.LV30].id === SPELL_ID_RULE_OF_LAW;
-      this.hasDrapeOfShame = event.gear[GEAR_SLOTS.CLOAK] && event.gear[GEAR_SLOTS.CLOAK].id === DRAPE_OF_SHAME_ID;
+      this.parseTalents(event.talents);
       this.parseTraits(event.artifact);
+
+      this.hasDrapeOfShame = event.gear[GEAR_SLOTS.CLOAK] && event.gear[GEAR_SLOTS.CLOAK].id === DRAPE_OF_SHAME_ID;
+      this.hasRuleOfLaw = this.talentsByRow[TALENT_SLOTS.LV30] === SPELL_ID_RULE_OF_LAW;
     }
+  }
+  parseTalents(talents) {
+    talents.forEach(({ id }, index) => {
+      this.talentsByRow[index] = id;
+    });
   }
   parseTraits(traits) {
     traits.forEach(({ spellID, rank }) => {
-      this.traits[spellID] = rank;
+      this.traitsBySpellId[spellID] = rank;
     });
   }
   parse_absorbed(event) {
@@ -159,9 +211,9 @@ class CombatLogParser {
       //   `playerMasteryPerc:${this.playerMasteryPerc}`, event);
 
       const distance = CombatLogParser.calculateDistance(this.lastCast.x, this.lastCast.y, event.x, event.y) / 100;
-      const hasRuleOfLaw = this.hasBuff(SPELL_ID_RULE_OF_LAW);
+      const isRuleOfLawActive = this.hasBuff(SPELL_ID_RULE_OF_LAW);
       // We calculate the mastery effectiveness of this *one* heal
-      const masteryEffectiveness = CombatLogParser.calculateMasteryEffectiveness(distance, hasRuleOfLaw);
+      const masteryEffectiveness = CombatLogParser.calculateMasteryEffectiveness(distance, isRuleOfLawActive);
 
       // The base healing of the spell (excluding any healing added by mastery)
       const baseHealingDone = healingDone / (1 + this.playerMasteryPerc * masteryEffectiveness);
@@ -180,29 +232,105 @@ class CombatLogParser {
       });
     }
   }
+  beaconTransferEnabledHealsBacklog = [];
+  processForBeaconHealing(event) {
+    const spellId = event.ability.guid;
+    if (spellId === BEACON_TRANSFER_SPELL_ID) {
+      this.processBeaconHealing(event);
+    }
+    const beaconTransferFactor = BEACON_TRANSFERING_ABILITIES[spellId];
+    if (!beaconTransferFactor) {
+      return;
+    }
+
+    const remainingBeaconTransfers = this.beaconType === BEACON_TYPES.BEACON_OF_FATH ? 2 : 1;
+    // TODO: Check if the target of this event had a beacon, in that case reduce remainingBeaconTransfers by 1
+
+    this.beaconTransferEnabledHealsBacklog.push({
+      ...event,
+      beaconTransferFactor,
+      remainingBeaconTransfers,
+    });
+  }
+  processBeaconHealing(beaconTransferEvent) {
+    // This should make it near impossible to match the wrong spells as we usually don't cast multiple heals within 500ms while the beacon transfer usually happens within 100ms
+    this.beaconTransferEnabledHealsBacklog = this.beaconTransferEnabledHealsBacklog.filter(healEvent => (this.currentTimestamp - healEvent.timestamp) < 500);
+
+    const beaconTransferRaw = beaconTransferEvent.amount + (beaconTransferEvent.overheal || 0);
+    const index = this.beaconTransferEnabledHealsBacklog.findIndex((healEvent) => {
+      const raw = healEvent.amount + (healEvent.overheal || 0);
+      const expectedBeaconTransfer = Math.round(raw * this.beaconTransferFactor * healEvent.beaconTransferFactor);
+      //TODO: Absorbed healing (e.g. Time Release) are probably not working as intended
+
+      return Math.abs(expectedBeaconTransfer - beaconTransferRaw) <= 1; // allow for rounding errors on Blizzard's end
+    });
+
+    const hasMatch = index !== -1;
+    if (!hasMatch) {
+      // Here's a fun fact for you. Fury Warriors with the legendary "Kazzalax, Fujieda's Fury" (http://www.wowhead.com/item=137053/kazzalax-fujiedas-fury)
+      // get a 8% healing received increase for almost the entire fight (tooltip states it's 1%, this is a tooltip bug). What's messed up
+      // is that this healing increase doesn't beacon transfer. So we won't be able to recognize the heal in here since it's off by 8%, so
+      // this will be triggered. While I could implement code to track it, I chose not to because things would get way more complicated and
+      // fragile and the accuracy loss for not including this kind of healing is minimal. I expect other healing received increases likely
+      // also don't beacon transfer, but right now this isn't common. Fury warrior log:
+      // https://www.warcraftlogs.com/reports/TLQ14HfhjRvNrV2y/#view=events&type=healing&source=10&start=7614145&end=7615174&fight=39
+      console.error('Failed to match', beaconTransferEvent, 'to a heal. Healing backlog:', this.beaconTransferEnabledHealsBacklog);
+    } else {
+      const matchedHeal = this.beaconTransferEnabledHealsBacklog[index];
+      // console.log('Matched beacon transfer', beaconTransferEvent, 'to heal', matchedHeal);
+      this.processBeaconHealingForDrapeOfShameHealing(beaconTransferEvent, matchedHeal);
+
+      matchedHeal.remainingBeaconTransfers -= 1;
+      if (matchedHeal.remainingBeaconTransfers < 1) {
+        this.beaconTransferEnabledHealsBacklog.splice(index, 1);
+      }
+    }
+  }
+  get beaconType() {
+    return this.getTalent(TALENT_SLOTS.LV100);
+  }
+  get beaconTransferFactor() {
+    return this.beaconType === BEACON_TYPES.BEACON_OF_FATH ? 0.32 : 0.4;
+  }
   processForDrapeOfShameHealing(event) {
     if (event.hitType !== HIT_TYPES.CRIT) {
       return;
     }
 
-    let critModifier = 2 + DRAPE_OF_SHAME_CRIT_EFFECT;
-
-    if (event.ability.guid === HOLY_SHOCK_SPELL_ID) {
-      const shockTreatmentTraits = this.traits[TRAITS.SHOCK_TREATMENT];
-      // Shock Treatment increases critical healing of Holy Shock by 8%: http://www.wowhead.com/spell=200315/shock-treatment
-      // This critical healing works on both the regular part and the critical part (unlike Drape of Shame), so we double it.
-      critModifier += shockTreatmentTraits * 0.08 * 2;
-    }
-
     const amount = event.amount;
     const overheal = event.overheal || 0;
     const raw = amount + overheal;
-    const rawNormalPart = raw / critModifier;
+    const rawNormalPart = raw / this.getCritHealingBonus(event);
     const rawDrapeHealing = rawNormalPart * DRAPE_OF_SHAME_CRIT_EFFECT;
 
     const drapeHealing = Math.max(0, rawDrapeHealing - overheal);
 
     this.drapeHealing += drapeHealing;
+  }
+  processBeaconHealingForDrapeOfShameHealing(beaconTransferEvent, healEvent) {
+    if (healEvent.hitType !== HIT_TYPES.CRIT) {
+      return;
+    }
+
+    const amount = beaconTransferEvent.amount;
+    const overheal = beaconTransferEvent.overheal || 0;
+    const raw = amount + overheal;
+    const rawNormalPart = raw / this.getCritHealingBonus(healEvent);
+    const rawDrapeHealing = rawNormalPart * DRAPE_OF_SHAME_CRIT_EFFECT;
+
+    const drapeHealing = Math.max(0, rawDrapeHealing - overheal);
+
+    this.drapeHealing += drapeHealing;
+  }
+  getCritHealingBonus(event) {
+    let critModifier = 2 + DRAPE_OF_SHAME_CRIT_EFFECT;
+    if (event.ability.guid === HOLY_SHOCK_SPELL_ID) {
+      const shockTreatmentTraits = this.traitsBySpellId[TRAITS.SHOCK_TREATMENT];
+      // Shock Treatment increases critical healing of Holy Shock by 8%: http://www.wowhead.com/spell=200315/shock-treatment
+      // This critical healing works on both the regular part and the critical part (unlike Drape of Shame), so we double it.
+      critModifier += shockTreatmentTraits * 0.08 * 2;
+    }
+    return critModifier;
   }
 
   byPlayer(event) {
@@ -255,6 +383,13 @@ class CombatLogParser {
     }, 0);
   }
 
+  getTalent(row) {
+    return this.talentsByRow[row];
+  }
+  hasTalent(row, talentSpellId) {
+    return this.getTalent(row) === talentSpellId;
+  }
+
   applyActiveBuff(buff) {
     this.activeBuffs.push(buff);
   }
@@ -297,9 +432,9 @@ class CombatLogParser {
   static calculateDistance(x1, y1, x2, y2) {
     return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
   }
-  static calculateMasteryEffectiveness(distance, hasRuleOfLaw) {
-    const fullEffectivenessRadius = hasRuleOfLaw ? 15 : 10;
-    const falloffRadius = hasRuleOfLaw ? 60 : 40;
+  static calculateMasteryEffectiveness(distance, isRuleOfLawActive) {
+    const fullEffectivenessRadius = isRuleOfLawActive ? 15 : 10;
+    const falloffRadius = isRuleOfLawActive ? 60 : 40;
 
     return Math.min(1, Math.max(0, 1 - (distance - fullEffectivenessRadius) / (falloffRadius - fullEffectivenessRadius)));
   }

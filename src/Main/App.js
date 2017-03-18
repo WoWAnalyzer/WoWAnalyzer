@@ -341,7 +341,7 @@ class App extends Component {
                         icon={<img src="./drapeofshame.jpg" style={{ height: 74, borderRadius: 5, border: '1px solid #000' }} alt="Drape of Shame" />}
                         value={`${((Math.round(drapeHealing / totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
                         label={(
-                          <dfn data-tip="The actual effective healing contributed by the Drape of Shame equip effect.<br /><br />This may be lower than you might have expected since a large part of the healing gain from the Drape of Shame turns out to be overhealing. This makes sense as the overhealing percentage on critical heals is already high, and DoS would only become more overhealing.<br /><br />Please note that the value shown here is only about 80-90% accurate. The most notable issue is that beacon transfers are based on raw healing, so if the beacon transfer didn't overheal then the DoS was fully effective (at the reduced beacon transfer rate).">
+                          <dfn data-tip="The actual effective healing contributed by the Drape of Shame equip effect. This is a bit inaccurate if you are using Beacon of Virtue.">
                             Drape of Shame healing
                           </dfn>
                         )}
