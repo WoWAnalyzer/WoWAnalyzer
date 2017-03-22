@@ -16,6 +16,9 @@ import StatisticBox from './StatisticBox';
 
 import CombatLogParser, { SPELL_ID_RULE_OF_LAW } from './CombatLogParser';
 
+const DRAPE_OF_SHAME_ITEM_ID = 142170;
+const ILTERENDI_ITEM_ID = 137046;
+
 class App extends Component {
   static propTypes = {
     router: React.PropTypes.shape({
@@ -93,10 +96,7 @@ class App extends Component {
       totalHealingFromMastery: 0,
       totalMaxPotentialMasteryHealing: 0,
       ruleOfLawUptimePercentage: 0,
-      totalHealing: 0,
-      hasRuleOfLaw: false,
-      hasDrapeOfShame: false,
-      drapeHealing: 0,
+      parser: null,
       friendlyStats: null,
     };
 
@@ -122,10 +122,7 @@ class App extends Component {
       totalHealingFromMastery: 0,
       totalMaxPotentialMasteryHealing: 0,
       ruleOfLawUptimePercentage: 0,
-      totalHealing: 0,
-      hasRuleOfLaw: false,
-      hasDrapeOfShame: false,
-      drapeHealing: 0,
+      parser: null,
       friendlyStats: null,
     });
     this.parseNextBatch(parser, report.code, player, fight.start_time, fight.end_time);
@@ -146,10 +143,7 @@ class App extends Component {
             // Update the interface with progress
             this.setState({
               progress: (pageTimestamp - fightStart) / (fightEnd - fightStart),
-              totalHealing: parser.totalHealing,
-              hasRuleOfLaw: parser.hasRuleOfLaw,
-              hasDrapeOfShame: parser.hasDrapeOfShame,
-              drapeHealing: parser.drapeHealing,
+              parser,
               totalHealingFromMastery: stats.totalHealingFromMastery,
               totalMaxPotentialMasteryHealing: stats.totalMaxPotentialMasteryHealing,
               ruleOfLawUptimePercentage: stats.ruleOfLawUptimePercentage,
@@ -238,10 +232,7 @@ class App extends Component {
       totalHealingFromMastery: 0,
       totalMaxPotentialMasteryHealing: 0,
       ruleOfLawUptimePercentage: 0,
-      totalHealing: 0,
-      hasRuleOfLaw: false,
-      hasDrapeOfShame: false,
-      drapeHealing: 0,
+      parser: null,
       friendlyStats: null,
     });
   }
@@ -273,8 +264,9 @@ class App extends Component {
   }
 
   render() {
-    const { report, finished, totalHealingFromMastery, totalMaxPotentialMasteryHealing, ruleOfLawUptimePercentage, totalHealing, hasRuleOfLaw, hasDrapeOfShame, drapeHealing, friendlyStats } = this.state;
+    const { report, finished, totalHealingFromMastery, totalMaxPotentialMasteryHealing, ruleOfLawUptimePercentage, parser: optParser, friendlyStats } = this.state;
 
+    const parser = optParser || {};
     const player = this.playerName && this.state.report && this.getPlayerFromReport(this.state.report, this.playerName);
     const fight = this.fightId && this.state.report && this.getFightFromReport(this.state.report, Number(this.fightId));
 
@@ -318,7 +310,7 @@ class App extends Component {
                     <StatisticBox
                       color="#7e9e3a"
                       icon={<img src="./healing.png" style={{ height: 74 }} alt="Healing" />}
-                      value={(totalHealing + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}
+                      value={((parser.totalHealing || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}
                       label="Healing done"
                     />
                     <StatisticBox
@@ -327,22 +319,46 @@ class App extends Component {
                       value={`${(Math.round(totalMasteryEffectiveness * 10000) / 100).toFixed(2)} %`}
                       label="Mastery effectiveness"
                     />
-                    {hasRuleOfLaw && (
+                    {parser.selectedCombatant && parser.selectedCombatant.lv30Talent === SPELL_ID_RULE_OF_LAW && (
                       <StatisticBox
                         color="#d9762f"
-                        icon={<img src="./ruleoflaw.jpg" style={{ height: 74, borderRadius: 5, border: '1px solid #000' }} alt="Rule of Law" />}
+                        icon={(
+                          <a href="http://www.wowhead.com/spell=214202" target="_blank">
+                            <img src="./ruleoflaw.jpg" style={{ height: 74, borderRadius: 5, border: '1px solid #000' }} alt="Rule of Law" />
+                          </a>
+                        )}
                         value={`${(Math.round(ruleOfLawUptimePercentage * 10000) / 100).toFixed(2)} %`}
                         label="Rule of Law uptime"
                       />
                     )}
-                    {hasDrapeOfShame && (
+                    {parser.selectedCombatant && parser.selectedCombatant.hasBack(DRAPE_OF_SHAME_ITEM_ID) && (
                       <StatisticBox
                         color="#ad58ca"
-                        icon={<img src="./drapeofshame.jpg" style={{ height: 74, borderRadius: 5, border: '1px solid #000' }} alt="Drape of Shame" />}
-                        value={`${((Math.round(drapeHealing / totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
+                        icon={(
+                          <a href="http://www.wowhead.com/item=142170" target="_blank">
+                            <img src="./drapeofshame.jpg" style={{ height: 74, borderRadius: 5, border: '1px solid #000' }} alt="Drape of Shame" />
+                          </a>
+                        )}
+                        value={`${((Math.round(parser.drapeHealing / parser.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
                         label={(
                           <dfn data-tip="The actual effective healing contributed by the Drape of Shame equip effect. This is a bit inaccurate if you are using Beacon of Virtue.">
-                            Drape of Shame healing
+                            Drape of Shame healing contribution
+                          </dfn>
+                        )}
+                      />
+                    )}
+                    {parser.selectedCombatant && parser.selectedCombatant.hasRing(ILTERENDI_ITEM_ID) && (
+                      <StatisticBox
+                        color="#a65c5a"
+                        icon={(
+                          <a href="http://www.wowhead.com/spell=207589" target="_blank">
+                            <img src="./ilterendi.jpg" style={{ height: 74, borderRadius: 5, border: '1px solid #000' }} alt="Ilterendi, Crown Jewel of Silvermoon" />
+                          </a>
+                        )}
+                        value={`${((Math.round(parser.ilterendiHealing / parser.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
+                        label={(
+                          <dfn data-tip="The actual effective healing contributed by the Ilterendi, Crown Jewel of Silvermoon equip effect. This is a bit inaccurate if you are using Beacon of Virtue.">
+                            Ilterendi healing contribution
                           </dfn>
                         )}
                       />
