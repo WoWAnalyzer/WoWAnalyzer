@@ -14,10 +14,10 @@ import Progress from './Progress';
 import PlayerBreakdown from './PlayerBreakdown';
 import StatisticBox from './StatisticBox';
 
-import CombatLogParser, { SPELL_ID_RULE_OF_LAW } from './CombatLogParser';
+import CombatLogParser, { SPELL_ID_RULE_OF_LAW, DRAPE_OF_SHAME_ITEM_ID } from './CombatLogParser';
 
-const DRAPE_OF_SHAME_ITEM_ID = 142170;
 const ILTERENDI_ITEM_ID = 137046;
+const VELENS_ITEM_ID = 144258;
 
 class App extends Component {
   static propTypes = {
@@ -363,6 +363,22 @@ class App extends Component {
                         )}
                       />
                     )}
+                    {parser.selectedCombatant && parser.selectedCombatant.hasTrinket(VELENS_ITEM_ID) && (
+                      <StatisticBox
+                        color="#ebc505"
+                        icon={(
+                          <a href="http://www.wowhead.com/spell=235966" target="_blank">
+                            <img src="./velens.jpg" style={{ height: 74, borderRadius: 5, border: '1px solid #000' }} alt="Velen's Future Sight" />
+                          </a>
+                        )}
+                        value={`${((Math.round(parser.velensHealing / parser.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
+                        label={(
+                          <dfn data-tip="The actual effective healing contributed by the Velen's Future Sight use effect. This is a bit inaccurate if you are using Beacon of Virtue.">
+                            Velen's Future Sight healing contribution
+                          </dfn>
+                        )}
+                      />
+                    )}
                   </div>
 
                   {friendlyStats && (
@@ -383,7 +399,7 @@ class App extends Component {
           </div>
         </div><br />
         {this.reportCode && (
-          <Link to="/" className="btn btn-muted">
+          <Link to="/" className="btn btn-muted" style={{ marginBottom: '2em' }}>
             <span className="glyphicon glyphicon-repeat" aria-hidden="true" /> Change report
           </Link>
         )}

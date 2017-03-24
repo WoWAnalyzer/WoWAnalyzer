@@ -9,6 +9,10 @@ const BEACON_OF_VIRTUE_SPELL_ID = 200025;
 const LEGENDARY_ILTERENDI_BUFF_SPELL_ID = 207589;
 const LEGENDARY_ILTERENDI_HEALING_INCREASE = 0.2;
 
+const LEGENDARY_VELENS_BUFF_SPELL_ID = 235966;
+const LEGENDARY_VELENS_HEAL_SPELL_ID = 235967;
+const LEGENDARY_VELENS_HEALING_INCREASE = 0.15;
+
 const HOLY_SHOCK_SPELL_ID = 25914;
 const LIGHT_OF_DAWN_SPELL_ID = 225311;
 const HOLY_LIGHT_SPELL_ID = 82326;
@@ -71,6 +75,7 @@ const BEACON_TYPES = {
 const TRAITS = {
   SHOCK_TREATMENT: 200315,
 };
+export const DRAPE_OF_SHAME_ITEM_ID = 142170;
 const DRAPE_OF_SHAME_CRIT_EFFECT = 0.1;
 const HIT_TYPES = {
   NORMAL: 1,
@@ -86,6 +91,7 @@ class CombatLogParser {
   players = {};
   masteryHealEvents = [];
   ilterendiHealing = 0;
+  velensHealing = 0;
   drapeHealing = 0;
 
   player = null;
@@ -149,6 +155,7 @@ class CombatLogParser {
       this.processForDrapeOfShameHealing(event);
       this.processForBeaconHealing(event);
       this.processForIlterendiHealing(event);
+      this.processForVelensHealing(event);
 
       // event.amount is the actual heal as shown in the log
       this.totalHealing += event.amount;
@@ -325,7 +332,10 @@ class CombatLogParser {
     this.drapeHealing += effectiveHealing;
   }
   getCritHealingBonus(event) {
-    let critModifier = 2 + DRAPE_OF_SHAME_CRIT_EFFECT;
+    let critModifier = 2;
+    if (this.selectedCombatant.hasBack(DRAPE_OF_SHAME_ITEM_ID)) {
+      critModifier += DRAPE_OF_SHAME_CRIT_EFFECT;
+    }
     if (event.ability.guid === HOLY_SHOCK_SPELL_ID) {
       const shockTreatmentTraits = this.selectedCombatant.traitsBySpellId[TRAITS.SHOCK_TREATMENT];
       // Shock Treatment increases critical healing of Holy Shock by 8%: http://www.wowhead.com/spell=200315/shock-treatment
@@ -347,12 +357,39 @@ class CombatLogParser {
     const absorbed = event.absorbed || 0;
     const overheal = event.overheal || 0;
     const raw = amount + absorbed + overheal;
-    const ilterendiFactor = 1 + LEGENDARY_ILTERENDI_HEALING_INCREASE;
-    const ilterendiHealing = raw - raw / ilterendiFactor;
+    const healingIncreaseFactor = 1 + LEGENDARY_ILTERENDI_HEALING_INCREASE;
+    const healingIncrease = raw - raw / healingIncreaseFactor;
 
-    const effectiveHealing = Math.max(0, ilterendiHealing - overheal);
+    const effectiveHealing = Math.max(0, healingIncrease - overheal);
 
     this.ilterendiHealing += effectiveHealing;
+  }
+  processForVelensHealing(event) {
+    const spellId = event.ability.guid;
+    if (ABILITIES_AFFECTED_BY_HEALING_INCREASES.indexOf(spellId) === -1 && spellId !== LEGENDARY_VELENS_HEAL_SPELL_ID) {
+      return;
+    }
+
+    if (spellId === LEGENDARY_VELENS_HEAL_SPELL_ID) {
+      // This is the overhealing part of Velen's Future Sight, just include its amount and we're done
+      this.velensHealing += event.amount;
+      return;
+    }
+
+    if (!this.hasBuff(LEGENDARY_VELENS_BUFF_SPELL_ID)) {
+      return;
+    }
+
+    const amount = event.amount;
+    const absorbed = event.absorbed || 0;
+    const overheal = event.overheal || 0;
+    const raw = amount + absorbed + overheal;
+    const healingIncreaseFactor = 1 + LEGENDARY_VELENS_HEALING_INCREASE;
+    const healingIncrease = raw - raw / healingIncreaseFactor;
+
+    const effectiveHealing = Math.max(0, healingIncrease - overheal);
+
+    this.velensHealing += effectiveHealing;
   }
 
   byPlayer(event) {
