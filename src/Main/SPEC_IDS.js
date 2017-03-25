@@ -22,7 +22,7 @@ const SPEC_IDS = {
   257: { className: 'Priest', spec: 'Holy', },
   258: { className: 'Priest', spec: 'Shadow', },
   259: { className: 'Rogue', spec: 'Assassination', },
-  260: { className: 'Rogue', spec: 'Combat', },
+  260: { className: 'Rogue', spec: 'Outlaw', },
   261: { className: 'Rogue', spec: 'Subtlety', },
   262: { className: 'Shaman', spec: 'Elemental', },
   263: { className: 'Shaman', spec: 'Enhancement', },

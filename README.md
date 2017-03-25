@@ -6,15 +6,13 @@ Run it:
 
 # TODO
 
- * Time per heal
  * Add support for BotLB (a lot of work)
- * URL routing so reports can easily be shared
  * Mobile support
- * Show Rule of Law uptime & mastery effectiveness contribution
-   * Tracking RoL uptime would mean we have buff uptime tracking which makes it easier to do an automated performance analysis.
-   * Calculating mastery effectiveness contribution is slightly tricky, probably not worth it
  * Show WCL performance ranking & HPS on the report
  * Check other stuff too to just make this a general Holy Paladin log analyzer. E.g. too many LOTM casts, too much direct healing tanks, not using spells on cooldown, not using cooldowns on cooldown, going OOM, not going OOM. All pretty easy to analyze
+ * Misused GCD statistic, dead GCD statistic
+ * Show CPMs / cast delays for spreadsheet
+ * Cast ratios
 
 # License
 

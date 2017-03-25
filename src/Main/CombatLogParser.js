@@ -29,6 +29,10 @@ const LEECH_SPELL_ID = 143924;
 // All beacons use this spell id for their healing events.
 const BEACON_TRANSFER_SPELL_ID = 53652;
 
+const T19_4SET_BUFF_ID = 211438;
+const INFUSION_OF_LIGHT_SPELL_ID = 54149;
+const INFUSION_OF_LIGHT_BUFF_EXPIRATION_BUFFER = 50; // the buff expiration can occur several MS before the heal event is logged, this is the buffer time that an IoL charge may have dropped during which it will still be considered active.
+
 const ABILITIES_AFFECTED_BY_MASTERY = [
   HOLY_SHOCK_SPELL_ID,
   LIGHT_OF_DAWN_SPELL_ID,
@@ -97,6 +101,20 @@ class CombatLogParser {
   player = null;
   fight = null;
 
+  casts = {
+    flashOfLight: 0,
+    holyLight: 0,
+    flashOfLightWithIol: 0,
+    holyLightWithIol: 0,
+    flashOfLightOnBeacon: 0,
+    holyLightOnBeacon: 0,
+    lightOfTheMartyr: 0,
+    holyShock: 0,
+    holyShockCriticals: 0,
+  };
+
+  iolProcs = 0;
+
   get fightDuration() {
     return this.fight.end_time - this.fight.start_time;
   }
@@ -156,6 +174,7 @@ class CombatLogParser {
       this.processForBeaconHealing(event);
       this.processForIlterendiHealing(event);
       this.processForVelensHealing(event);
+      this.processForCastRatios(event);
 
       // event.amount is the actual heal as shown in the log
       this.totalHealing += event.amount;
@@ -176,6 +195,7 @@ class CombatLogParser {
             guid: aura.ability,
           },
           sourceID: aura.source,
+          timestamp: this.currentTimestamp,
         });
       });
     }
@@ -391,6 +411,40 @@ class CombatLogParser {
 
     this.velensHealing += effectiveHealing;
   }
+  processForCastRatios(event) {
+    const spellId = event.ability.guid;
+
+    if (spellId === HOLY_SHOCK_SPELL_ID) {
+      this.casts.holyShock += 1;
+      if (event.hitType === HIT_TYPES.CRIT) {
+        this.casts.holyShockCriticals += 1;
+      }
+    } else if (spellId === FLASH_OF_LIGHT_SPELL_ID || spellId === HOLY_LIGHT_SPELL_ID) {
+      const hasIol = this.hasBuff(INFUSION_OF_LIGHT_SPELL_ID, INFUSION_OF_LIGHT_BUFF_EXPIRATION_BUFFER);
+      // TODO: target hasBeaconOfLight
+
+      switch (spellId) {
+        case FLASH_OF_LIGHT_SPELL_ID:
+          this.casts.flashOfLight += 1;
+          if (hasIol) {
+            this.casts.flashOfLightWithIol += 1;
+          }
+          break;
+        case HOLY_LIGHT_SPELL_ID:
+          this.casts.holyLight += 1;
+          if (hasIol) {
+            this.casts.holyLightWithIol += 1;
+          }
+          break;
+        default: break;
+      }
+    } else if (spellId === LIGHT_OF_THE_MARTYR_SPELL_ID) {
+      this.casts.lightOfTheMartyr += 1;
+    }
+  }
+  get iolProcsPerHolyShockCrit() {
+    return this.hasBuff(T19_4SET_BUFF_ID) ? 2 : 1;
+  }
 
   byPlayer(event) {
     return (event.sourceID === this.player.id);
@@ -419,47 +473,44 @@ class CombatLogParser {
 
   // region Buffs
 
-  /**
-   * Contains all buffs which are active right now.
-   * @type {Array}
-   */
-  activeBuffs = [];
-  /**
-   * Keeps track of all buffs that have been applied during the fight.
-   * @type {Array}
-   */
-  buffHistory = [];
+  buffs = [];
 
-  hasBuff(buffAbilityId) {
-    return this.activeBuffs.find(buff => buff.ability.guid === buffAbilityId) !== undefined;
+  /**
+   * @param spellId
+   * @param bufferTime Time (in MS) the buff may have expired. There's a bug in the combat log where if a spell consumes a buff that buff may disappear a few MS earlier than the heal event is logged. I've seen this go up to 32ms.
+   * @returns {boolean}
+   */
+  hasBuff(spellId, bufferTime = 0) {
+    const currentTimestamp = this.currentTimestamp;
+    return this.buffs.find(buff => buff.ability.guid === spellId && buff.start < currentTimestamp && (buff.end === null || (buff.end + bufferTime) >= currentTimestamp)) !== undefined;
   }
   getBuffUptime(buffAbilityId) {
-    return this.buffHistory.reduce((uptime, buff) => {
+    return this.buffs.reduce((uptime, buff) => {
       if (buff.ability.guid === buffAbilityId) {
-        uptime += buff.uptime;
+        uptime += (buff.end || this.currentTimestamp) - buff.start;
       }
       return uptime;
     }, 0);
   }
 
   applyActiveBuff(buff) {
-    this.activeBuffs.push(buff);
-  }
-  removeActiveBuff(activeBuff) {
-    const activeBuffIndex = this.activeBuffs.findIndex(buff => buff.ability.guid === activeBuff.ability.guid);
-    let appliedAtTimestamp = null;
-    if (activeBuffIndex !== -1) {
-      const removedBuff = this.activeBuffs.splice(activeBuffIndex, 1)[0];
-      appliedAtTimestamp = removedBuff.timestamp;
-    } else {
-      console.error('Tried to remove buff', activeBuff, ', but couldn\'t find it in activeBuffs.');
-      appliedAtTimestamp = this.fight.start_time;
-    }
-
-    this.buffHistory.push({
-      ...activeBuff,
-      uptime: activeBuff.timestamp - appliedAtTimestamp,
+    this.buffs.push({
+      ...buff,
+      start: buff.timestamp,
+      end: null,
     });
+  }
+  removeActiveBuff(buff) {
+    const existingBuff = this.buffs.find(item => item.ability.guid === buff.ability.guid && item.end === null);
+    if (existingBuff) {
+      existingBuff.end = buff.timestamp;
+    } else {
+      this.buffs.push({
+        ...buff,
+        start: this.fight.start_time,
+        end: buff.timestamp,
+      });
+    }
   }
 
   parse_applybuff(event) {

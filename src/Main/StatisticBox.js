@@ -1,8 +1,8 @@
 import React from 'react';
 
-const StatisticBox = ({ color, icon, value, label }) => (
-  <div className="col-xs-6">
-    <div style={{ width: '100%', backgroundColor: color, borderRadius: 5, padding: '10px 15px', color: '#fff', marginBottom: 15 }}>
+const StatisticBox = ({ color, icon, value, label, inverse }) => (
+  <div className="col-xs-4">
+    <div style={{ width: '100%', backgroundColor: color, borderRadius: 5, padding: '10px 15px', color: inverse ? '#000' : '#fff', marginBottom: 15 }}>
       <div className="row">
         <div className="col-xs-3">
           {icon}
@@ -25,6 +25,7 @@ StatisticBox.propTypes = {
   icon: React.PropTypes.node.isRequired,
   value: React.PropTypes.node.isRequired,
   label: React.PropTypes.node.isRequired,
+  inverse: React.PropTypes.bool,
 };
 
 export default StatisticBox;
