@@ -380,7 +380,7 @@ class App extends Component {
                           )}
                         />
                         <StatisticBox
-                          color="#b1cced"
+                          color="#ccdef5"
                           inverse
                           icon={(
                             <a href="http://www.wowhead.com/spell=19750" target="_blank">
