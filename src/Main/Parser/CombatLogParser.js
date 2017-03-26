@@ -1,5 +1,6 @@
 import Buffs from './Modules/Core/Buffs';
 import Combatants from './Modules/Core/Combatants';
+import BeaconHealing from './Modules/Core/BeaconHealing';
 import RefactorMe from './RefactorMe';
 
 import DrapeOfShame from './Modules/Legendaries/DrapeOfShame';
@@ -13,6 +14,7 @@ export const DRAPE_OF_SHAME_ITEM_ID = 142170;
 
 class CombatLogParser {
   static enabledModules = {
+    beaconHealing: BeaconHealing,
     buffs: Buffs,
     combatants: Combatants,
     refactorMe: RefactorMe,
