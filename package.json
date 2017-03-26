@@ -1,8 +1,8 @@
 {
-  "name": "logparser",
+  "name": "Holy Paladin Analyzer",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://martijnhols.github.io/MasteryEffectivenessCalculator/build/",
+  "homepage": "https://martijnhols.github.io/HolyPaladinAnalyzer/build/",
   "devDependencies": {
     "autoprefixer": "6.5.1",
     "babel-core": "6.17.0",

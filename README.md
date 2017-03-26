@@ -2,7 +2,7 @@
 
 Run it:
 
-[https://martijnhols.github.io/MasteryEffectivenessCalculator/build/index.html](https://martijnhols.github.io/MasteryEffectivenessCalculator/build/index.html)
+[https://martijnhols.github.io/HolyPaladinAnalyzer/build/index.html](https://martijnhols.github.io/HolyPaladinAnalyzer/build/index.html)
 
 # TODO
 
