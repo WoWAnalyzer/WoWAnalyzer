@@ -6,7 +6,7 @@ class Combatants extends Module {
   players = {};
   selected = null;
 
-  parse_combatantinfo(event) {
+  on_combatantinfo(event) {
     console.log('combatantinfo', event);
 
     this.players[event.sourceID] = event;

@@ -7,7 +7,7 @@ const LEGENDARY_ILTERENDI_HEALING_INCREASE = 0.2;
 class Ilterendi extends Module {
   healing = 0;
 
-  parse_heal(event) {
+  on_heal(event) {
     if (this.owner.byPlayer(event)) {
       this.processForIlterendiHealing(event);
     }

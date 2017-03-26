@@ -8,7 +8,7 @@ const LEGENDARY_VELENS_HEALING_INCREASE = 0.15;
 class Velens extends Module {
   healing = 0;
 
-  parse_heal(event) {
+  on_heal(event) {
     if (this.owner.byPlayer(event)) {
       this.processForVelensHealing(event);
     }

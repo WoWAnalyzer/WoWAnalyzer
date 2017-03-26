@@ -6,23 +6,23 @@ class MasteryEffectiveness extends Module {
 
   masteryHealEvents = [];
 
-  parse_cast(event) {
+  on_cast(event) {
     if (this.owner.byPlayer(event)) {
       this.updatePlayerPosition(event);
     }
   }
-  parse_damage(event) {
+  on_damage(event) {
     if (this.owner.toPlayer(event)) {
       // Damage coordinates are for the target, so they are only accurate when done TO player
       this.updatePlayerPosition(event);
     }
   }
-  parse_energize(event) {
+  on_energize(event) {
     if (this.owner.toPlayer(event)) {
       this.updatePlayerPosition(event);
     }
   }
-  parse_heal(event) {
+  on_heal(event) {
     if (this.owner.toPlayer(event)) {
       // Do this before checking if this was done by player so that self-heals will apply full mastery properly
       this.updatePlayerPosition(event);

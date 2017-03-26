@@ -61,7 +61,7 @@ class CombatLogParser {
     });
   }
   triggerEvent(eventType, event) {
-    const methodName = `parse_${eventType}`;
+    const methodName = `on_${eventType}`;
     this.constructor.tryCall(this, methodName, event);
     Object.keys(this.modules).forEach(key => {
       const module = this.modules[key];
@@ -83,12 +83,12 @@ class CombatLogParser {
   }
 
   totalHealing = 0;
-  parse_heal(event) {
+  on_heal(event) {
     if (this.byPlayer(event)) {
       this.totalHealing += event.amount; // event.absorbed contains absorbed healing (e.g. by Time Release), should we include that?
     }
   }
-  parse_absorbed(event) {
+  on_absorbed(event) {
     if (this.byPlayer(event)) {
       this.totalHealing += event.amount;
     }

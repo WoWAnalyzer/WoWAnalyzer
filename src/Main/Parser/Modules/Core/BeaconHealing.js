@@ -2,7 +2,7 @@ import Module from 'Main/Parser/Module';
 import { BEACON_TRANSFER_SPELL_ID, BEACON_TRANSFERING_ABILITIES, BEACON_TYPES } from 'Main/Parser/Constants';
 
 class BeaconHealing extends Module {
-  parse_heal(event) {
+  on_heal(event) {
     if (this.owner.byPlayer(event)) {
       this.processForBeaconHealing(event);
     }

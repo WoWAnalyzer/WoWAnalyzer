@@ -3,7 +3,7 @@ import Module from 'Main/Parser/Module';
 class Buffs extends Module {
   buffs = [];
 
-  parse_combatantinfo(event) {
+  on_combatantinfo(event) {
     if (this.owner.byPlayer(event)) {
       event.auras.forEach(aura => {
         this.applyActiveBuff({
@@ -16,6 +16,22 @@ class Buffs extends Module {
         });
       });
     }
+  }
+  on_applybuff(event) {
+    if (!this.owner.toPlayer(event)) return;
+
+    this.applyActiveBuff(event);
+  }
+  on_refreshbuff(event) {
+    if (!this.owner.toPlayer(event)) return;
+
+    this.removeActiveBuff(event);
+    this.applyActiveBuff(event);
+  }
+  on_removebuff(event) {
+    if (!this.owner.toPlayer(event)) return;
+
+    this.removeActiveBuff(event);
   }
 
   /**
@@ -54,23 +70,6 @@ class Buffs extends Module {
         end: buff.timestamp,
       });
     }
-  }
-
-  parse_applybuff(event) {
-    if (!this.owner.toPlayer(event)) return;
-
-    this.applyActiveBuff(event);
-  }
-  parse_refreshbuff(event) {
-    if (!this.owner.toPlayer(event)) return;
-
-    this.removeActiveBuff(event);
-    this.applyActiveBuff(event);
-  }
-  parse_removebuff(event) {
-    if (!this.owner.toPlayer(event)) return;
-
-    this.removeActiveBuff(event);
   }
 }
 

@@ -7,12 +7,12 @@ export const DRAPE_OF_SHAME_CRIT_EFFECT = 0.1;
 class DrapeOfShame extends Module {
   healing = 0;
 
-  parse_heal(event) {
+  on_heal(event) {
     if (this.owner.byPlayer(event)) {
       this.processForDrapeOfShameHealing(event);
     }
   }
-  parse_beacon_heal({ beaconTransferEvent, matchedHeal }) {
+  on_beacon_heal({ beaconTransferEvent, matchedHeal }) {
     this.processBeaconHealingForDrapeOfShameHealing(beaconTransferEvent, matchedHeal);
   }
   processForDrapeOfShameHealing(event) {

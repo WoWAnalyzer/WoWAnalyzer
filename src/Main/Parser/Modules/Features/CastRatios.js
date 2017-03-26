@@ -18,7 +18,7 @@ class BeaconHealing extends Module {
     holyShockCriticals: 0,
   };
 
-  parse_heal(event) {
+  on_heal(event) {
     if (this.owner.byPlayer(event)) {
       this.processForCastRatios(event);
     }
