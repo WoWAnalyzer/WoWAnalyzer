@@ -40,8 +40,11 @@ class Buffs extends Module {
    * @returns {boolean}
    */
   hasBuff(spellId, bufferTime = 0) {
+    return this.getBuff(spellId, bufferTime) !== undefined;
+  }
+  getBuff(spellId, bufferTime = 0) {
     const currentTimestamp = this.owner.currentTimestamp;
-    return this.buffs.find(buff => buff.ability.guid === spellId && buff.start < currentTimestamp && (buff.end === null || (buff.end + bufferTime) >= currentTimestamp)) !== undefined;
+    return this.buffs.find(buff => buff.ability.guid === spellId && buff.start < currentTimestamp && (buff.end === null || (buff.end + bufferTime) >= currentTimestamp));
   }
   getBuffUptime(buffAbilityId) {
     return this.buffs.reduce((uptime, buff) => {

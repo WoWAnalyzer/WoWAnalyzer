@@ -1,0 +1,8345 @@
+{
+	"events": [
+		{
+			"timestamp": 6305146,
+			"type": "applybuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 21,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210372,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			}
+		},
+		{
+			"timestamp": 6305197,
+			"type": "heal",
+			"sourceID": 3,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Cultivation",
+				"guid": 200389,
+				"type": 8,
+				"abilityIcon": "ability_druid_nourish.jpg"
+			},
+			"hitType": 2,
+			"amount": 119823,
+			"tick": true,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 547851,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 3634979,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281247,
+			"y": -6364,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6305197,
+			"type": "removebuff",
+			"sourceID": 3,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Cultivation",
+				"guid": 200389,
+				"type": 8,
+				"abilityIcon": "ability_druid_nourish.jpg"
+			}
+		},
+		{
+			"timestamp": 6305197,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 8,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Obsidian Stone Spaulders",
+				"guid": 210999,
+				"type": 2,
+				"abilityIcon": "spell_holy_spiritualguidence.jpg"
+			},
+			"hitType": 1,
+			"amount": 17973,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 313,
+					"max": 1850,
+					"type": 6
+				}
+			],
+			"hitPoints": 7078558,
+			"maxHitPoints": 7183872,
+			"attackPower": 48482,
+			"spellPower": 4002,
+			"resolve": 0,
+			"x": -279912,
+			"y": -7738,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6305197,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 6,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Obsidian Stone Spaulders",
+				"guid": 210999,
+				"type": 2,
+				"abilityIcon": "spell_holy_spiritualguidence.jpg"
+			},
+			"hitType": 1,
+			"amount": 17974,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 640,
+					"max": 1000,
+					"type": 18
+				}
+			],
+			"hitPoints": 4487369,
+			"maxHitPoints": 6021977,
+			"attackPower": 45961,
+			"spellPower": 5000,
+			"resolve": 0,
+			"x": -281206,
+			"y": -8336,
+			"itemLevel": 905
+		},
+		{
+			"timestamp": 6305378,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 11,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Judgment of Light",
+				"guid": 183811,
+				"type": 2,
+				"abilityIcon": "spell_holy_divineprovidence.jpg"
+			},
+			"hitType": 1,
+			"amount": 26745,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 48,
+					"max": 170,
+					"type": 3
+				}
+			],
+			"hitPoints": 3302379,
+			"maxHitPoints": 3475020,
+			"attackPower": 34527,
+			"spellPower": 5000,
+			"resolve": 0,
+			"x": -280524,
+			"y": -7623,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6305378,
+			"type": "heal",
+			"sourceID": 1,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Healing Storm",
+				"guid": 215257,
+				"type": 2,
+				"abilityIcon": "spell_priest_divinestar.jpg"
+			},
+			"hitType": 2,
+			"amount": 16068,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 549417,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 3651047,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281247,
+			"y": -6364,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6305412,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 8,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Obsidian Stone Spaulders",
+				"guid": 210999,
+				"type": 2,
+				"abilityIcon": "spell_holy_spiritualguidence.jpg"
+			},
+			"hitType": 1,
+			"amount": 2410,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 313,
+					"max": 1850,
+					"type": 6
+				}
+			],
+			"hitPoints": 7080968,
+			"maxHitPoints": 7183872,
+			"attackPower": 48482,
+			"spellPower": 4002,
+			"resolve": 0,
+			"x": -279929,
+			"y": -7705,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6305412,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 6,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Obsidian Stone Spaulders",
+				"guid": 210999,
+				"type": 2,
+				"abilityIcon": "spell_holy_spiritualguidence.jpg"
+			},
+			"hitType": 1,
+			"amount": 2410,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 640,
+					"max": 1000,
+					"type": 18
+				}
+			],
+			"hitPoints": 4807443,
+			"maxHitPoints": 6021977,
+			"attackPower": 45961,
+			"spellPower": 5000,
+			"resolve": 0,
+			"x": -281206,
+			"y": -8336,
+			"itemLevel": 905
+		},
+		{
+			"timestamp": 6305441,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Leech",
+				"guid": 143924,
+				"type": 1,
+				"abilityIcon": "spell_shadow_lifedrain02.jpg"
+			},
+			"hitType": 1,
+			"amount": 508687,
+			"overheal": 68525,
+			"resourceActor": 1,
+			"classResources": [
+				{
+					"amount": 549417,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 4159734,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281247,
+			"y": -6364,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6305441,
+			"type": "applybuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 19,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210372,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			}
+		},
+		{
+			"timestamp": 6305516,
+			"type": "damage",
+			"sourceID": 3,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210380,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 68278,
+			"absorbed": 0,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 549805,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 4091456,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281247,
+			"y": -6364,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6305516,
+			"type": "damage",
+			"sourceID": 5,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210380,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 81085,
+			"absorbed": 0,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 549805,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 4010371,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281247,
+			"y": -6364,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6305516,
+			"type": "damage",
+			"sourceID": 18,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210380,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 87418,
+			"absorbed": 0,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 549805,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 3922953,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281247,
+			"y": -6364,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6305516,
+			"type": "damage",
+			"sourceID": 10,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210380,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 82095,
+			"absorbed": 0,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 549805,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 3840858,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281247,
+			"y": -6364,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6305516,
+			"type": "damage",
+			"sourceID": 8,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210380,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 72639,
+			"absorbed": 0,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 549805,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 3768219,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281247,
+			"y": -6364,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6305734,
+			"type": "damage",
+			"sourceID": 6,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210380,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 95792,
+			"absorbed": 0,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 549805,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 3672427,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281247,
+			"y": -6364,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6305765,
+			"type": "damage",
+			"sourceID": 8,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210380,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 110794,
+			"absorbed": 0,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 549805,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 3561633,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281247,
+			"y": -6364,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6305833,
+			"type": "applybuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 14,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Protection of Tyr",
+				"guid": 211210,
+				"type": 1,
+				"abilityIcon": "spell_holy_auramastery.jpg"
+			}
+		},
+		{
+			"timestamp": 6305833,
+			"type": "applybuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 19,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Protection of Tyr",
+				"guid": 211210,
+				"type": 1,
+				"abilityIcon": "spell_holy_auramastery.jpg"
+			}
+		},
+		{
+			"timestamp": 6305833,
+			"type": "applybuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 21,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Protection of Tyr",
+				"guid": 211210,
+				"type": 1,
+				"abilityIcon": "spell_holy_auramastery.jpg"
+			}
+		},
+		{
+			"timestamp": 6305833,
+			"type": "applybuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 3,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Protection of Tyr",
+				"guid": 211210,
+				"type": 1,
+				"abilityIcon": "spell_holy_auramastery.jpg"
+			}
+		},
+		{
+			"timestamp": 6305859,
+			"type": "energize",
+			"sourceID": 1,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Greater Blessing of Wisdom",
+				"guid": 203539,
+				"type": 2,
+				"abilityIcon": "spell_holy_greaterblessingofwisdom.jpg"
+			},
+			"resourceChange": 2234,
+			"resourceChangeType": 0,
+			"otherResourceChange": 0,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 555805,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 3572704,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281247,
+			"y": -6364,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6305859,
+			"type": "heal",
+			"sourceID": 1,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Greater Blessing of Wisdom",
+				"guid": 203539,
+				"type": 2,
+				"abilityIcon": "spell_holy_greaterblessingofwisdom.jpg"
+			},
+			"hitType": 1,
+			"amount": 11071,
+			"tick": true,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 555805,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 3572704,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281247,
+			"y": -6364,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6305859,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 8,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Obsidian Stone Spaulders",
+				"guid": 210999,
+				"type": 2,
+				"abilityIcon": "spell_holy_spiritualguidence.jpg"
+			},
+			"hitType": 1,
+			"amount": 1661,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 313,
+					"max": 1850,
+					"type": 6
+				}
+			],
+			"hitPoints": 5616205,
+			"maxHitPoints": 7183872,
+			"attackPower": 48482,
+			"spellPower": 4002,
+			"resolve": 0,
+			"x": -279932,
+			"y": -7697,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6305859,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 6,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Obsidian Stone Spaulders",
+				"guid": 210999,
+				"type": 2,
+				"abilityIcon": "spell_holy_spiritualguidence.jpg"
+			},
+			"hitType": 1,
+			"amount": 1661,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 222,
+					"max": 1000,
+					"type": 18
+				}
+			],
+			"hitPoints": 5492487,
+			"maxHitPoints": 6021977,
+			"attackPower": 39966,
+			"spellPower": 5000,
+			"resolve": 0,
+			"x": -281206,
+			"y": -8336,
+			"itemLevel": 905
+		},
+		{
+			"timestamp": 6305896,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 16,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Judgment of Light",
+				"guid": 183811,
+				"type": 2,
+				"abilityIcon": "spell_holy_divineprovidence.jpg"
+			},
+			"hitType": 2,
+			"amount": 65396,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 630,
+					"max": 1000,
+					"type": 6
+				}
+			],
+			"hitPoints": 1568336,
+			"maxHitPoints": 3517140,
+			"attackPower": 51798,
+			"spellPower": 4001,
+			"resolve": 0,
+			"x": -280392,
+			"y": -7989,
+			"itemLevel": 905
+		},
+		{
+			"timestamp": 6305931,
+			"type": "cast",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 13,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Light of the Martyr",
+				"guid": 183998,
+				"type": 2,
+				"abilityIcon": "ability_paladin_lightofthemartyr.jpg"
+			},
+			"resourceActor": 1,
+			"classResources": [
+				{
+					"amount": 556500,
+					"max": 1100000,
+					"type": 0,
+					"cost": 16500
+				}
+			],
+			"hitPoints": 3572704,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281247,
+			"y": -6364,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6305931,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 13,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Light of the Martyr",
+				"guid": 183998,
+				"type": 2,
+				"abilityIcon": "ability_paladin_lightofthemartyr.jpg"
+			},
+			"hitType": 1,
+			"amount": 424367,
+			"overheal": 698651,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 1000,
+					"max": 1000,
+					"type": 6
+				}
+			],
+			"hitPoints": 4010073,
+			"maxHitPoints": 4010073,
+			"attackPower": 38745,
+			"spellPower": 4002,
+			"resolve": 0,
+			"x": -281163,
+			"y": -4463,
+			"itemLevel": 904
+		},
+		{
+			"timestamp": 6305931,
+			"type": "removebuffstack",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Maraad's Dying Breath",
+				"guid": 234862,
+				"type": 2,
+				"abilityIcon": "paladin_icon_speedoflight.jpg"
+			},
+			"stack": 4
+		},
+		{
+			"timestamp": 6305960,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Maraad's Dying Breath",
+				"guid": 234862,
+				"type": 2,
+				"abilityIcon": "paladin_icon_speedoflight.jpg"
+			}
+		},
+		{
+			"timestamp": 6305960,
+			"type": "damage",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Light of the Martyr",
+				"guid": 196917,
+				"type": 2,
+				"abilityIcon": "spell_holy_power.jpg"
+			},
+			"hitType": 1,
+			"amount": 325290,
+			"absorbed": 0,
+			"resourceActor": 1,
+			"classResources": [
+				{
+					"amount": 540123,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 3247414,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281247,
+			"y": -6364,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6305960,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 8,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Beacon of Light",
+				"guid": 53652,
+				"type": 2,
+				"abilityIcon": "ability_paladin_beaconoflight.jpg"
+			},
+			"hitType": 1,
+			"amount": 359366,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 313,
+					"max": 1850,
+					"type": 6
+				}
+			],
+			"hitPoints": 5975571,
+			"maxHitPoints": 7183872,
+			"attackPower": 48482,
+			"spellPower": 4002,
+			"resolve": 0,
+			"x": -279932,
+			"y": -7697,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6305960,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 6,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Beacon of Light",
+				"guid": 53652,
+				"type": 2,
+				"abilityIcon": "ability_paladin_beaconoflight.jpg"
+			},
+			"hitType": 1,
+			"amount": 359366,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 222,
+					"max": 1000,
+					"type": 18
+				}
+			],
+			"hitPoints": 5851853,
+			"maxHitPoints": 6021977,
+			"attackPower": 39966,
+			"spellPower": 5000,
+			"resolve": 0,
+			"x": -281206,
+			"y": -8336,
+			"itemLevel": 905
+		},
+		{
+			"timestamp": 6305991,
+			"type": "removedebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 22,
+			"targetIsFriendly": false,
+			"ability": {
+				"name": "Judgment of Light",
+				"guid": 196941,
+				"type": 2,
+				"abilityIcon": "spell_holy_divineprovidence.jpg"
+			}
+		},
+		{
+			"timestamp": 6306017,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 149100,
+			"resourceActor": 1,
+			"classResources": [
+				{
+					"amount": 540669,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 3396514,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281247,
+			"y": -6364,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6306017,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 8,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 149100,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 313,
+					"max": 1850,
+					"type": 6
+				}
+			],
+			"hitPoints": 6124671,
+			"maxHitPoints": 7183872,
+			"attackPower": 48482,
+			"spellPower": 4002,
+			"resolve": 0,
+			"x": -279932,
+			"y": -7697,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6306017,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 15,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 149100,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 65,
+					"max": 100,
+					"type": 3
+				}
+			],
+			"hitPoints": 1595758,
+			"maxHitPoints": 1644518,
+			"attackPower": 3238,
+			"spellPower": 49064,
+			"resolve": 0,
+			"x": -279891,
+			"y": -7892,
+			"itemLevel": 905
+		},
+		{
+			"timestamp": 6306017,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 16,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 149099,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 630,
+					"max": 1000,
+					"type": 6
+				}
+			],
+			"hitPoints": 1717435,
+			"maxHitPoints": 3517140,
+			"attackPower": 51798,
+			"spellPower": 4001,
+			"resolve": 0,
+			"x": -280392,
+			"y": -7989,
+			"itemLevel": 905
+		},
+		{
+			"timestamp": 6306017,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 20,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 149100,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 368912,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 4139389,
+			"maxHitPoints": 4181538,
+			"attackPower": 9028,
+			"spellPower": 46418,
+			"resolve": 0,
+			"x": -283483,
+			"y": -4620,
+			"itemLevel": 904
+		},
+		{
+			"timestamp": 6306017,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 10,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 149100,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 1022774,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 3419049,
+			"maxHitPoints": 4122543,
+			"attackPower": 0,
+			"spellPower": 49967,
+			"resolve": 0,
+			"x": -281694,
+			"y": -3638,
+			"itemLevel": 909
+		},
+		{
+			"timestamp": 6306017,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 18,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 149100,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 7200,
+					"max": 10000,
+					"type": 13
+				}
+			],
+			"hitPoints": 3736407,
+			"maxHitPoints": 4132203,
+			"attackPower": 0,
+			"spellPower": 50108,
+			"resolve": 0,
+			"x": -282070,
+			"y": -3806,
+			"itemLevel": 908
+		},
+		{
+			"timestamp": 6306017,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 19,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 149099,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 690,
+					"max": 1000,
+					"type": 8
+				}
+			],
+			"hitPoints": 4088733,
+			"maxHitPoints": 4088733,
+			"attackPower": 9032,
+			"spellPower": 47140,
+			"resolve": 0,
+			"x": -281628,
+			"y": -3188,
+			"itemLevel": 905
+		},
+		{
+			"timestamp": 6306017,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 5,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 149100,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 7562,
+					"max": 10000,
+					"type": 13
+				}
+			],
+			"hitPoints": 3657380,
+			"maxHitPoints": 4048161,
+			"attackPower": 0,
+			"spellPower": 47275,
+			"resolve": 0,
+			"x": -282242,
+			"y": -4039,
+			"itemLevel": 906
+		},
+		{
+			"timestamp": 6306017,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 11,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 137927,
+			"overheal": 11173,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 48,
+					"max": 170,
+					"type": 3
+				}
+			],
+			"hitPoints": 3475020,
+			"maxHitPoints": 3475020,
+			"attackPower": 34527,
+			"spellPower": 5000,
+			"resolve": 0,
+			"x": -280524,
+			"y": -7623,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6306017,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 23,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 149100,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 844,
+					"max": 1000,
+					"type": 1
+				}
+			],
+			"hitPoints": 4955739,
+			"maxHitPoints": 5014047,
+			"attackPower": 36416,
+			"spellPower": 4999,
+			"resolve": 0,
+			"x": -283457,
+			"y": -3244,
+			"itemLevel": 902
+		},
+		{
+			"timestamp": 6306017,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 6,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 149100,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 222,
+					"max": 1000,
+					"type": 18
+				}
+			],
+			"hitPoints": 6000953,
+			"maxHitPoints": 6021977,
+			"attackPower": 39966,
+			"spellPower": 5000,
+			"resolve": 0,
+			"x": -281206,
+			"y": -8336,
+			"itemLevel": 905
+		},
+		{
+			"timestamp": 6306017,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 12,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 149100,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 65,
+					"max": 130,
+					"type": 17
+				}
+			],
+			"hitPoints": 4097634,
+			"maxHitPoints": 4097634,
+			"attackPower": 36492,
+			"spellPower": 5325,
+			"resolve": 0,
+			"x": -282241,
+			"y": -4173,
+			"itemLevel": 908
+		},
+		{
+			"timestamp": 6306017,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 1,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 149100,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 220000,
+					"max": 220000,
+					"type": 0
+				}
+			],
+			"hitPoints": 4190374,
+			"maxHitPoints": 4265925,
+			"attackPower": 40873,
+			"spellPower": 7328,
+			"resolve": 0,
+			"x": -281427,
+			"y": -4811,
+			"itemLevel": 912
+		},
+		{
+			"timestamp": 6306017,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 17,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 149100,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 16,
+					"max": 170,
+					"type": 3
+				}
+			],
+			"hitPoints": 2990416,
+			"maxHitPoints": 3337140,
+			"attackPower": 32451,
+			"spellPower": 5000,
+			"resolve": 0,
+			"x": -280368,
+			"y": -7958,
+			"itemLevel": 899
+		},
+		{
+			"timestamp": 6306017,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 7,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 149100,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 68,
+					"max": 120,
+					"type": 2
+				}
+			],
+			"hitPoints": 3469560,
+			"maxHitPoints": 3469560,
+			"attackPower": 37474,
+			"spellPower": 6005,
+			"resolve": 0,
+			"x": -281360,
+			"y": -6445,
+			"itemLevel": 902
+		},
+		{
+			"timestamp": 6306017,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 26,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 149100,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 5000,
+					"max": 10000,
+					"type": 13
+				}
+			],
+			"hitPoints": 4032774,
+			"maxHitPoints": 4032774,
+			"attackPower": 0,
+			"spellPower": 47619,
+			"resolve": 0,
+			"x": -282436,
+			"y": -5290,
+			"itemLevel": 904
+		},
+		{
+			"timestamp": 6306017,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 13,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 149100,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 1000,
+					"max": 1000,
+					"type": 6
+				}
+			],
+			"hitPoints": 4010073,
+			"maxHitPoints": 4010073,
+			"attackPower": 38745,
+			"spellPower": 4002,
+			"resolve": 0,
+			"x": -281186,
+			"y": -4451,
+			"itemLevel": 904
+		},
+		{
+			"timestamp": 6306017,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 14,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 149100,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 301521,
+					"max": 1372078,
+					"type": 0
+				}
+			],
+			"hitPoints": 4128947,
+			"maxHitPoints": 4244466,
+			"attackPower": 0,
+			"spellPower": 50002,
+			"resolve": 0,
+			"x": -282478,
+			"y": -3557,
+			"itemLevel": 911
+		},
+		{
+			"timestamp": 6306017,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 21,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 149100,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 856537,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 3348183,
+			"maxHitPoints": 4111296,
+			"attackPower": 0,
+			"spellPower": 49064,
+			"resolve": 0,
+			"x": -282837,
+			"y": -3381,
+			"itemLevel": 905
+		},
+		{
+			"timestamp": 6306017,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 3,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 149100,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 646877,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 3517279,
+			"maxHitPoints": 3999171,
+			"attackPower": 9032,
+			"spellPower": 46203,
+			"resolve": 0,
+			"x": -282337,
+			"y": -3874,
+			"itemLevel": 903
+		},
+		{
+			"timestamp": 6306017,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 36,
+			"targetInstance": 5,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 149100,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 0,
+					"max": 0,
+					"type": 1
+				}
+			],
+			"hitPoints": 363612,
+			"maxHitPoints": 363612,
+			"attackPower": 0,
+			"spellPower": 46418,
+			"resolve": 0,
+			"x": -280923,
+			"y": -7473,
+			"itemLevel": 904
+		},
+		{
+			"timestamp": 6306017,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 25,
+			"targetInstance": 4,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 149100,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 924734,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 358482,
+			"maxHitPoints": 358482,
+			"attackPower": 0,
+			"spellPower": 49967,
+			"resolve": 0,
+			"x": -280838,
+			"y": -6165,
+			"itemLevel": 909
+		},
+		{
+			"timestamp": 6306017,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 25,
+			"targetInstance": 5,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 149100,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 924718,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 358482,
+			"maxHitPoints": 358482,
+			"attackPower": 0,
+			"spellPower": 49967,
+			"resolve": 0,
+			"x": -280448,
+			"y": -6333,
+			"itemLevel": 909
+		},
+		{
+			"timestamp": 6306017,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 25,
+			"targetInstance": 6,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 149100,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 924668,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 358482,
+			"maxHitPoints": 358482,
+			"attackPower": 0,
+			"spellPower": 49967,
+			"resolve": 0,
+			"x": -280280,
+			"y": -5944,
+			"itemLevel": 909
+		},
+		{
+			"timestamp": 6306017,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 24,
+			"targetInstance": 4,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 149100,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 0,
+					"max": 0,
+					"type": 1
+				}
+			],
+			"hitPoints": 5,
+			"maxHitPoints": 5,
+			"attackPower": 0,
+			"spellPower": 46203,
+			"resolve": 0,
+			"x": -280452,
+			"y": -8037,
+			"itemLevel": 903
+		},
+		{
+			"timestamp": 6306017,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 50,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 149100,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 0,
+					"max": 0,
+					"type": 1
+				}
+			],
+			"hitPoints": 3724140,
+			"maxHitPoints": 4111296,
+			"attackPower": 0,
+			"spellPower": 0,
+			"resolve": 0,
+			"x": -283545,
+			"y": -3540,
+			"itemLevel": 905
+		},
+		{
+			"timestamp": 6306031,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 51,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 149100,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 0,
+					"max": 0,
+					"type": 1
+				}
+			],
+			"hitPoints": 3724140,
+			"maxHitPoints": 4111296,
+			"attackPower": 0,
+			"spellPower": 0,
+			"resolve": 0,
+			"x": -281517,
+			"y": -6981,
+			"itemLevel": 905
+		},
+		{
+			"timestamp": 6306031,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 37,
+			"targetInstance": 4,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 149100,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 0,
+					"max": 0,
+					"type": 1
+				}
+			],
+			"hitPoints": 363612,
+			"maxHitPoints": 363612,
+			"attackPower": 0,
+			"spellPower": 46418,
+			"resolve": 0,
+			"x": -280923,
+			"y": -7473,
+			"itemLevel": 904
+		},
+		{
+			"timestamp": 6306031,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 40,
+			"targetInstance": 4,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 149100,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 0,
+					"max": 0,
+					"type": 1
+				}
+			],
+			"hitPoints": 1760070,
+			"maxHitPoints": 1760070,
+			"attackPower": 0,
+			"spellPower": 47275,
+			"resolve": 0,
+			"x": -282111,
+			"y": -4723,
+			"itemLevel": 906
+		},
+		{
+			"timestamp": 6306031,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 29,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 149100,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 0,
+					"max": 0,
+					"type": 1
+				}
+			],
+			"hitPoints": 2428692,
+			"maxHitPoints": 2428692,
+			"attackPower": 40516,
+			"spellPower": 7046,
+			"resolve": 0,
+			"x": -282169,
+			"y": -6617,
+			"itemLevel": 902
+		},
+		{
+			"timestamp": 6306031,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 4,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 149100,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 37,
+					"max": 120,
+					"type": 2
+				}
+			],
+			"hitPoints": 2428692,
+			"maxHitPoints": 2428692,
+			"attackPower": 21139,
+			"spellPower": 21139,
+			"resolve": 0,
+			"x": -282240,
+			"y": -4214,
+			"itemLevel": 902
+		},
+		{
+			"timestamp": 6306063,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 6,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Judgment of Light",
+				"guid": 183811,
+				"type": 2,
+				"abilityIcon": "spell_holy_divineprovidence.jpg"
+			},
+			"hitType": 1,
+			"amount": 21024,
+			"overheal": 4897,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 222,
+					"max": 1000,
+					"type": 18
+				}
+			],
+			"hitPoints": 6021977,
+			"maxHitPoints": 6021977,
+			"attackPower": 39966,
+			"spellPower": 5000,
+			"resolve": 0,
+			"x": -281206,
+			"y": -8336,
+			"itemLevel": 905
+		},
+		{
+			"timestamp": 6306632,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Leech",
+				"guid": 143924,
+				"type": 1,
+				"abilityIcon": "spell_shadow_lifedrain02.jpg"
+			},
+			"hitType": 1,
+			"amount": 130158,
+			"resourceActor": 1,
+			"classResources": [
+				{
+					"amount": 542561,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 3526672,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281334,
+			"y": -6368,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6306745,
+			"type": "damage",
+			"sourceID": 6,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210380,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 92917,
+			"absorbed": 0,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 542561,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 3433755,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281334,
+			"y": -6368,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6306796,
+			"type": "damage",
+			"sourceID": 8,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210380,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 100242,
+			"absorbed": 0,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 542561,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 3333513,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281334,
+			"y": -6368,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6306965,
+			"type": "damage",
+			"sourceID": 20,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210380,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 51913,
+			"absorbed": 0,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 542561,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 3281600,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281334,
+			"y": -6368,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6307073,
+			"type": "damage",
+			"sourceID": 6,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210380,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 74871,
+			"absorbed": 0,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 549504,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 3206729,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281334,
+			"y": -6368,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6307188,
+			"type": "applybuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 31,
+			"targetInstance": 28,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210372,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			}
+		},
+		{
+			"timestamp": 6307310,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 20,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210372,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			}
+		},
+		{
+			"timestamp": 6307649,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Divine Purpose",
+				"guid": 216411,
+				"type": 1,
+				"abilityIcon": "spell_holy_divinepurpose.jpg"
+			}
+		},
+		{
+			"timestamp": 6307649,
+			"type": "cast",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 16,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Holy Shock",
+				"guid": 20473,
+				"type": 2,
+				"abilityIcon": "spell_holy_searinglight.jpg"
+			},
+			"resourceActor": 1,
+			"classResources": [
+				{
+					"amount": 555013,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 3206729,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281334,
+			"y": -6368,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6307649,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 16,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Holy Shock",
+				"guid": 25914,
+				"type": 2,
+				"abilityIcon": "spell_holy_searinglight.jpg"
+			},
+			"hitType": 2,
+			"amount": 1525646,
+			"overheal": 330260,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 710,
+					"max": 1000,
+					"type": 6
+				}
+			],
+			"hitPoints": 3517140,
+			"maxHitPoints": 3517140,
+			"attackPower": 51798,
+			"spellPower": 4001,
+			"resolve": 0,
+			"x": -280392,
+			"y": -7989,
+			"itemLevel": 905
+		},
+		{
+			"timestamp": 6307684,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 8,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Beacon of Light",
+				"guid": 53652,
+				"type": 2,
+				"abilityIcon": "ability_paladin_beaconoflight.jpg"
+			},
+			"hitType": 1,
+			"amount": 593890,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 313,
+					"max": 1850,
+					"type": 6
+				}
+			],
+			"hitPoints": 6659241,
+			"maxHitPoints": 7183872,
+			"attackPower": 48482,
+			"spellPower": 4002,
+			"resolve": 0,
+			"x": -279909,
+			"y": -7754,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6307684,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 6,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Beacon of Light",
+				"guid": 53652,
+				"type": 2,
+				"abilityIcon": "ability_paladin_beaconoflight.jpg"
+			},
+			"hitType": 1,
+			"amount": 593890,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 420,
+					"max": 1000,
+					"type": 18
+				}
+			],
+			"hitPoints": 8479907,
+			"maxHitPoints": 8731866,
+			"attackPower": 39966,
+			"spellPower": 5000,
+			"resolve": 0,
+			"x": -281206,
+			"y": -8336,
+			"itemLevel": 905
+		},
+		{
+			"timestamp": 6307734,
+			"type": "damage",
+			"sourceID": 6,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210380,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 84658,
+			"absorbed": 0,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 555145,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 3122071,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281334,
+			"y": -6368,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6307780,
+			"type": "damage",
+			"sourceID": 8,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210380,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 2211,
+			"absorbed": 0,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 555145,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 3119860,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281334,
+			"y": -6368,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6307820,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Rule of Law",
+				"guid": 214202,
+				"type": 2,
+				"abilityIcon": "ability_paladin_longarmofthelaw.jpg"
+			}
+		},
+		{
+			"timestamp": 6307844,
+			"type": "energize",
+			"sourceID": 1,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Greater Blessing of Wisdom",
+				"guid": 203539,
+				"type": 2,
+				"abilityIcon": "spell_holy_greaterblessingofwisdom.jpg"
+			},
+			"resourceChange": 2234,
+			"resourceChangeType": 0,
+			"otherResourceChange": 0,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 559077,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 3130931,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281334,
+			"y": -6368,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6307844,
+			"type": "heal",
+			"sourceID": 1,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Greater Blessing of Wisdom",
+				"guid": 203539,
+				"type": 2,
+				"abilityIcon": "spell_holy_greaterblessingofwisdom.jpg"
+			},
+			"hitType": 1,
+			"amount": 11071,
+			"tick": true,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 559077,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 3130931,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281334,
+			"y": -6368,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6307844,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 8,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Obsidian Stone Spaulders",
+				"guid": 210999,
+				"type": 2,
+				"abilityIcon": "spell_holy_spiritualguidence.jpg"
+			},
+			"hitType": 1,
+			"amount": 1660,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 313,
+					"max": 1850,
+					"type": 6
+				}
+			],
+			"hitPoints": 5525502,
+			"maxHitPoints": 7183872,
+			"attackPower": 48482,
+			"spellPower": 4002,
+			"resolve": 0,
+			"x": -279909,
+			"y": -7754,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6307844,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 6,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Obsidian Stone Spaulders",
+				"guid": 210999,
+				"type": 2,
+				"abilityIcon": "spell_holy_spiritualguidence.jpg"
+			},
+			"hitType": 1,
+			"amount": 1661,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 580,
+					"max": 1000,
+					"type": 18
+				}
+			],
+			"hitPoints": 7982051,
+			"maxHitPoints": 8731866,
+			"attackPower": 39966,
+			"spellPower": 5000,
+			"resolve": 0,
+			"x": -281206,
+			"y": -8336,
+			"itemLevel": 905
+		},
+		{
+			"timestamp": 6307844,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Leech",
+				"guid": 143924,
+				"type": 1,
+				"abilityIcon": "spell_shadow_lifedrain02.jpg"
+			},
+			"hitType": 1,
+			"amount": 204589,
+			"resourceActor": 1,
+			"classResources": [
+				{
+					"amount": 559077,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 3335520,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281334,
+			"y": -6368,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6308002,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 353925,
+			"resourceActor": 1,
+			"classResources": [
+				{
+					"amount": 560512,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 3689445,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281334,
+			"y": -6368,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6308002,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 8,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 353926,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 313,
+					"max": 1850,
+					"type": 6
+				}
+			],
+			"hitPoints": 5890744,
+			"maxHitPoints": 7183872,
+			"attackPower": 48482,
+			"spellPower": 4002,
+			"resolve": 0,
+			"x": -279909,
+			"y": -7754,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6308002,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 16,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 353925,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 710,
+					"max": 1000,
+					"type": 6
+				}
+			],
+			"hitPoints": 3517140,
+			"maxHitPoints": 3517140,
+			"attackPower": 51798,
+			"spellPower": 4001,
+			"resolve": 0,
+			"x": -280410,
+			"y": -7952,
+			"itemLevel": 905
+		},
+		{
+			"timestamp": 6308002,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 10,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 46159,
+			"overheal": 307766,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 1059305,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 4122543,
+			"maxHitPoints": 4122543,
+			"attackPower": 0,
+			"spellPower": 49967,
+			"resolve": 0,
+			"x": -281634,
+			"y": -3653,
+			"itemLevel": 909
+		},
+		{
+			"timestamp": 6308002,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 18,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 353925,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 7900,
+					"max": 10000,
+					"type": 13
+				}
+			],
+			"hitPoints": 4132203,
+			"maxHitPoints": 4132203,
+			"attackPower": 0,
+			"spellPower": 50108,
+			"resolve": 0,
+			"x": -281726,
+			"y": -4449,
+			"itemLevel": 908
+		},
+		{
+			"timestamp": 6308002,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 19,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 353925,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 200,
+					"max": 1000,
+					"type": 1
+				}
+			],
+			"hitPoints": 6044193,
+			"maxHitPoints": 6044193,
+			"attackPower": 49173,
+			"spellPower": 47140,
+			"resolve": 0,
+			"x": -280838,
+			"y": -4560,
+			"itemLevel": 905
+		},
+		{
+			"timestamp": 6308002,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 5,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 353925,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 5240,
+					"max": 10000,
+					"type": 13
+				}
+			],
+			"hitPoints": 4048161,
+			"maxHitPoints": 4048161,
+			"attackPower": 0,
+			"spellPower": 47275,
+			"resolve": 0,
+			"x": -282332,
+			"y": -4101,
+			"itemLevel": 906
+		},
+		{
+			"timestamp": 6308002,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 11,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 353926,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 82,
+					"max": 170,
+					"type": 3
+				}
+			],
+			"hitPoints": 3475020,
+			"maxHitPoints": 3475020,
+			"attackPower": 34527,
+			"spellPower": 5000,
+			"resolve": 0,
+			"x": -280524,
+			"y": -7623,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6308002,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 23,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 353926,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 977,
+					"max": 1000,
+					"type": 1
+				}
+			],
+			"hitPoints": 5014047,
+			"maxHitPoints": 5014047,
+			"attackPower": 36416,
+			"spellPower": 4999,
+			"resolve": 0,
+			"x": -283440,
+			"y": -3097,
+			"itemLevel": 902
+		},
+		{
+			"timestamp": 6308002,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 6,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 353925,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 580,
+					"max": 1000,
+					"type": 18
+				}
+			],
+			"hitPoints": 8351785,
+			"maxHitPoints": 8731866,
+			"attackPower": 39966,
+			"spellPower": 5000,
+			"resolve": 0,
+			"x": -281206,
+			"y": -8336,
+			"itemLevel": 905
+		},
+		{
+			"timestamp": 6308002,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 12,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 353925,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 65,
+					"max": 130,
+					"type": 17
+				}
+			],
+			"hitPoints": 4097634,
+			"maxHitPoints": 4097634,
+			"attackPower": 36492,
+			"spellPower": 5325,
+			"resolve": 0,
+			"x": -281389,
+			"y": -4427,
+			"itemLevel": 908
+		},
+		{
+			"timestamp": 6308002,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 1,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 353925,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 220000,
+					"max": 220000,
+					"type": 0
+				}
+			],
+			"hitPoints": 4265925,
+			"maxHitPoints": 4265925,
+			"attackPower": 40873,
+			"spellPower": 7328,
+			"resolve": 0,
+			"x": -281406,
+			"y": -4588,
+			"itemLevel": 912
+		},
+		{
+			"timestamp": 6308002,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 17,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 149681,
+			"overheal": 204244,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 61,
+					"max": 170,
+					"type": 3
+				}
+			],
+			"hitPoints": 3337140,
+			"maxHitPoints": 3337140,
+			"attackPower": 32451,
+			"spellPower": 5000,
+			"resolve": 0,
+			"x": -280417,
+			"y": -7988,
+			"itemLevel": 899
+		},
+		{
+			"timestamp": 6308002,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 7,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 353925,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 108,
+					"max": 120,
+					"type": 2
+				}
+			],
+			"hitPoints": 3469560,
+			"maxHitPoints": 3469560,
+			"attackPower": 37474,
+			"spellPower": 6005,
+			"resolve": 0,
+			"x": -280180,
+			"y": -6581,
+			"itemLevel": 902
+		},
+		{
+			"timestamp": 6308002,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 26,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 353925,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 6600,
+					"max": 10000,
+					"type": 13
+				}
+			],
+			"hitPoints": 4032774,
+			"maxHitPoints": 4032774,
+			"attackPower": 0,
+			"spellPower": 47619,
+			"resolve": 0,
+			"x": -282188,
+			"y": -5329,
+			"itemLevel": 904
+		},
+		{
+			"timestamp": 6308002,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 13,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 353925,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 1000,
+					"max": 1000,
+					"type": 6
+				}
+			],
+			"hitPoints": 4010073,
+			"maxHitPoints": 4010073,
+			"attackPower": 33691,
+			"spellPower": 4002,
+			"resolve": 0,
+			"x": -281056,
+			"y": -4568,
+			"itemLevel": 904
+		},
+		{
+			"timestamp": 6308002,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 14,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 353925,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 187242,
+					"max": 1372078,
+					"type": 0
+				}
+			],
+			"hitPoints": 4244466,
+			"maxHitPoints": 4244466,
+			"attackPower": 0,
+			"spellPower": 50002,
+			"resolve": 0,
+			"x": -281909,
+			"y": -4812,
+			"itemLevel": 911
+		},
+		{
+			"timestamp": 6308002,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 21,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 353925,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 810975,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 3976760,
+			"maxHitPoints": 4111296,
+			"attackPower": 0,
+			"spellPower": 49064,
+			"resolve": 0,
+			"x": -282062,
+			"y": -5324,
+			"itemLevel": 905
+		},
+		{
+			"timestamp": 6308002,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 3,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 353925,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 619878,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 3999171,
+			"maxHitPoints": 3999171,
+			"attackPower": 9032,
+			"spellPower": 46203,
+			"resolve": 0,
+			"x": -281935,
+			"y": -5207,
+			"itemLevel": 903
+		},
+		{
+			"timestamp": 6308002,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 25,
+			"targetInstance": 4,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 353925,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 956997,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 358482,
+			"maxHitPoints": 358482,
+			"attackPower": 0,
+			"spellPower": 49967,
+			"resolve": 0,
+			"x": -280838,
+			"y": -6165,
+			"itemLevel": 909
+		},
+		{
+			"timestamp": 6308002,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 25,
+			"targetInstance": 5,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 353925,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 956997,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 358482,
+			"maxHitPoints": 358482,
+			"attackPower": 0,
+			"spellPower": 49967,
+			"resolve": 0,
+			"x": -280448,
+			"y": -6333,
+			"itemLevel": 909
+		},
+		{
+			"timestamp": 6308002,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 25,
+			"targetInstance": 6,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 353925,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 956964,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 358482,
+			"maxHitPoints": 358482,
+			"attackPower": 0,
+			"spellPower": 49967,
+			"resolve": 0,
+			"x": -280280,
+			"y": -5944,
+			"itemLevel": 909
+		},
+		{
+			"timestamp": 6308002,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 24,
+			"targetInstance": 4,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 353925,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 0,
+					"max": 0,
+					"type": 1
+				}
+			],
+			"hitPoints": 5,
+			"maxHitPoints": 5,
+			"attackPower": 0,
+			"spellPower": 46203,
+			"resolve": 0,
+			"x": -280452,
+			"y": -8037,
+			"itemLevel": 903
+		},
+		{
+			"timestamp": 6308002,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 50,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 353925,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 0,
+					"max": 0,
+					"type": 1
+				}
+			],
+			"hitPoints": 4078065,
+			"maxHitPoints": 4111296,
+			"attackPower": 0,
+			"spellPower": 0,
+			"resolve": 0,
+			"x": -283545,
+			"y": -3540,
+			"itemLevel": 905
+		},
+		{
+			"timestamp": 6308002,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 51,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 353926,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 0,
+					"max": 0,
+					"type": 1
+				}
+			],
+			"hitPoints": 4078066,
+			"maxHitPoints": 4111296,
+			"attackPower": 0,
+			"spellPower": 0,
+			"resolve": 0,
+			"x": -281517,
+			"y": -6981,
+			"itemLevel": 905
+		},
+		{
+			"timestamp": 6308002,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 40,
+			"targetInstance": 4,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 353925,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 0,
+					"max": 0,
+					"type": 1
+				}
+			],
+			"hitPoints": 2024081,
+			"maxHitPoints": 2024081,
+			"attackPower": 0,
+			"spellPower": 47275,
+			"resolve": 0,
+			"x": -282111,
+			"y": -4723,
+			"itemLevel": 906
+		},
+		{
+			"timestamp": 6308002,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 29,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 353926,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 0,
+					"max": 0,
+					"type": 1
+				}
+			],
+			"hitPoints": 2428692,
+			"maxHitPoints": 2428692,
+			"attackPower": 43095,
+			"spellPower": 7495,
+			"resolve": 0,
+			"x": -282451,
+			"y": -5139,
+			"itemLevel": 902
+		},
+		{
+			"timestamp": 6308002,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 31,
+			"targetInstance": 28,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 353925,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 0,
+					"max": 0,
+					"type": 1
+				}
+			],
+			"hitPoints": 693912,
+			"maxHitPoints": 693912,
+			"attackPower": 52464,
+			"spellPower": 7495,
+			"resolve": 0,
+			"x": -280959,
+			"y": -4421,
+			"itemLevel": 902
+		},
+		{
+			"timestamp": 6308002,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 4,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 353926,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 68,
+					"max": 120,
+					"type": 2
+				}
+			],
+			"hitPoints": 2428692,
+			"maxHitPoints": 2428692,
+			"attackPower": 22484,
+			"spellPower": 22484,
+			"resolve": 0,
+			"x": -282201,
+			"y": -4061,
+			"itemLevel": 902
+		},
+		{
+			"timestamp": 6308002,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 15,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 3586,
+			"overheal": 350339,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 100,
+					"max": 100,
+					"type": 3
+				}
+			],
+			"hitPoints": 1644518,
+			"maxHitPoints": 1644518,
+			"attackPower": 3238,
+			"spellPower": 49064,
+			"resolve": 0,
+			"x": -280885,
+			"y": -6630,
+			"itemLevel": 905
+		},
+		{
+			"timestamp": 6308251,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 20,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Protection of Tyr",
+				"guid": 211210,
+				"type": 1,
+				"abilityIcon": "spell_holy_auramastery.jpg"
+			}
+		},
+		{
+			"timestamp": 6308324,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 23,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210372,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			}
+		},
+		{
+			"timestamp": 6308517,
+			"type": "damage",
+			"source": {
+				"name": "Environment",
+				"id": -1,
+				"guid": 0,
+				"type": "NPC",
+				"icon": "NPC"
+			},
+			"sourceIsFriendly": false,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Orb of Destruction",
+				"guid": 205348,
+				"type": 4,
+				"abilityIcon": "spell_fire_felflamestrike.jpg"
+			},
+			"hitType": 1,
+			"amount": 1576593,
+			"absorbed": 0,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 562694,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 2112852,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281219,
+			"y": -6419,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6308531,
+			"type": "damage",
+			"sourceID": 3,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210380,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 160458,
+			"absorbed": 0,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 562694,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 1952394,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281219,
+			"y": -6419,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6308531,
+			"type": "damage",
+			"sourceID": 21,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210380,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 195737,
+			"absorbed": 0,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 562694,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 1756657,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281219,
+			"y": -6419,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6308531,
+			"type": "damage",
+			"sourceID": 14,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210380,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 198567,
+			"absorbed": 0,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 562694,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 1558090,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281219,
+			"y": -6419,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6308648,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 23,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Protection of Tyr",
+				"guid": 211210,
+				"type": 1,
+				"abilityIcon": "spell_holy_auramastery.jpg"
+			}
+		},
+		{
+			"timestamp": 6308985,
+			"type": "begincast",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"target": {
+				"name": "Environment",
+				"id": -1,
+				"guid": 0,
+				"type": "NPC",
+				"icon": "NPC"
+			},
+			"targetIsFriendly": false,
+			"ability": {
+				"name": "Flash of Light",
+				"guid": 19750,
+				"type": 2,
+				"abilityIcon": "spell_holy_flashheal.jpg"
+			}
+		},
+		{
+			"timestamp": 6309078,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Leech",
+				"guid": 143924,
+				"type": 1,
+				"abilityIcon": "spell_shadow_lifedrain02.jpg"
+			},
+			"hitType": 1,
+			"amount": 223,
+			"resourceActor": 1,
+			"classResources": [
+				{
+					"amount": 569312,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 1558313,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281205,
+			"y": -6425,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6309846,
+			"type": "energize",
+			"sourceID": 1,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Greater Blessing of Wisdom",
+				"guid": 203539,
+				"type": 2,
+				"abilityIcon": "spell_holy_greaterblessingofwisdom.jpg"
+			},
+			"resourceChange": 2235,
+			"resourceChangeType": 0,
+			"otherResourceChange": 0,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 578921,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 1569384,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281205,
+			"y": -6425,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6309846,
+			"type": "heal",
+			"sourceID": 1,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Greater Blessing of Wisdom",
+				"guid": 203539,
+				"type": 2,
+				"abilityIcon": "spell_holy_greaterblessingofwisdom.jpg"
+			},
+			"hitType": 1,
+			"amount": 11071,
+			"tick": true,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 578921,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 1569384,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281205,
+			"y": -6425,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6309878,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 8,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Obsidian Stone Spaulders",
+				"guid": 210999,
+				"type": 2,
+				"abilityIcon": "spell_holy_spiritualguidence.jpg"
+			},
+			"hitType": 1,
+			"amount": 1661,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 313,
+					"max": 1850,
+					"type": 6
+				}
+			],
+			"hitPoints": 4005237,
+			"maxHitPoints": 7183872,
+			"attackPower": 42159,
+			"spellPower": 4002,
+			"resolve": 0,
+			"x": -279909,
+			"y": -7754,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6309878,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 6,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Obsidian Stone Spaulders",
+				"guid": 210999,
+				"type": 2,
+				"abilityIcon": "spell_holy_spiritualguidence.jpg"
+			},
+			"hitType": 1,
+			"amount": 1661,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 955,
+					"max": 1000,
+					"type": 18
+				}
+			],
+			"hitPoints": 5667911,
+			"maxHitPoints": 8731866,
+			"attackPower": 39966,
+			"spellPower": 5000,
+			"resolve": 0,
+			"x": -281092,
+			"y": -8366,
+			"itemLevel": 905
+		},
+		{
+			"timestamp": 6310270,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Leech",
+				"guid": 143924,
+				"type": 1,
+				"abilityIcon": "spell_shadow_lifedrain02.jpg"
+			},
+			"hitType": 1,
+			"amount": 224,
+			"resourceActor": 1,
+			"classResources": [
+				{
+					"amount": 582635,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 1569608,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281205,
+			"y": -6425,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6310344,
+			"type": "cast",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 8,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Flash of Light",
+				"guid": 19750,
+				"type": 2,
+				"abilityIcon": "spell_holy_flashheal.jpg"
+			},
+			"resourceActor": 1,
+			"classResources": [
+				{
+					"amount": 583268,
+					"max": 1100000,
+					"type": 0,
+					"cost": 39600
+				}
+			],
+			"hitPoints": 1569608,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281205,
+			"y": -6425,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6310344,
+			"type": "begincast",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"target": {
+				"name": "Environment",
+				"id": -1,
+				"guid": 0,
+				"type": "NPC",
+				"icon": "NPC"
+			},
+			"targetIsFriendly": false,
+			"ability": {
+				"name": "Flash of Light",
+				"guid": 19750,
+				"type": 2,
+				"abilityIcon": "spell_holy_flashheal.jpg"
+			}
+		},
+		{
+			"timestamp": 6310344,
+			"type": "energize",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Beacon of Light",
+				"guid": 88852,
+				"type": 1,
+				"abilityIcon": "ability_paladin_beaconoflight.jpg"
+			},
+			"resourceChange": 11880,
+			"resourceChangeType": 0,
+			"otherResourceChange": 0,
+			"resourceActor": 1,
+			"classResources": [
+				{
+					"amount": 555680,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 1569608,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281205,
+			"y": -6425,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6310344,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 8,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Flash of Light",
+				"guid": 19750,
+				"type": 2,
+				"abilityIcon": "spell_holy_flashheal.jpg"
+			},
+			"hitType": 1,
+			"amount": 934546,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 488,
+					"max": 1850,
+					"type": 6
+				}
+			],
+			"hitPoints": 5404079,
+			"maxHitPoints": 7183872,
+			"attackPower": 48482,
+			"spellPower": 4002,
+			"resolve": 0,
+			"x": -279909,
+			"y": -7754,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6310376,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 6,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Beacon of Light",
+				"guid": 53652,
+				"type": 2,
+				"abilityIcon": "ability_paladin_beaconoflight.jpg"
+			},
+			"hitType": 1,
+			"amount": 299055,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 1000,
+					"max": 1000,
+					"type": 18
+				}
+			],
+			"hitPoints": 6068282,
+			"maxHitPoints": 8731866,
+			"attackPower": 39966,
+			"spellPower": 5000,
+			"resolve": 0,
+			"x": -281092,
+			"y": -8366,
+			"itemLevel": 905
+		},
+		{
+			"timestamp": 6311014,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 160904,
+			"resourceActor": 1,
+			"classResources": [
+				{
+					"amount": 561409,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 1730512,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281205,
+			"y": -6425,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6311015,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 8,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 160904,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 488,
+					"max": 1850,
+					"type": 6
+				}
+			],
+			"hitPoints": 5387051,
+			"maxHitPoints": 7183872,
+			"attackPower": 48482,
+			"spellPower": 4002,
+			"resolve": 0,
+			"x": -279909,
+			"y": -7754,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6311015,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 16,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 160904,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 690,
+					"max": 1000,
+					"type": 6
+				}
+			],
+			"hitPoints": 2503414,
+			"maxHitPoints": 3517140,
+			"attackPower": 51798,
+			"spellPower": 4001,
+			"resolve": 0,
+			"x": -280421,
+			"y": -7931,
+			"itemLevel": 905
+		},
+		{
+			"timestamp": 6311015,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 10,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 160904,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 1068138,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 2116475,
+			"maxHitPoints": 4122543,
+			"attackPower": 0,
+			"spellPower": 49967,
+			"resolve": 0,
+			"x": -281833,
+			"y": -4143,
+			"itemLevel": 909
+		},
+		{
+			"timestamp": 6311015,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 18,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 160904,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 9652,
+					"max": 10000,
+					"type": 13
+				}
+			],
+			"hitPoints": 3057696,
+			"maxHitPoints": 4132203,
+			"attackPower": 0,
+			"spellPower": 50108,
+			"resolve": 0,
+			"x": -281741,
+			"y": -4743,
+			"itemLevel": 908
+		},
+		{
+			"timestamp": 6311015,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 19,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 160905,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 320,
+					"max": 1000,
+					"type": 8
+				}
+			],
+			"hitPoints": 3306374,
+			"maxHitPoints": 4088733,
+			"attackPower": 9032,
+			"spellPower": 47140,
+			"resolve": 0,
+			"x": -281712,
+			"y": -4707,
+			"itemLevel": 905
+		},
+		{
+			"timestamp": 6311015,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 5,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 160904,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 5065,
+					"max": 10000,
+					"type": 13
+				}
+			],
+			"hitPoints": 2724632,
+			"maxHitPoints": 4048161,
+			"attackPower": 0,
+			"spellPower": 47275,
+			"resolve": 0,
+			"x": -282089,
+			"y": -4698,
+			"itemLevel": 906
+		},
+		{
+			"timestamp": 6311015,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 11,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 160905,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 26,
+					"max": 170,
+					"type": 3
+				}
+			],
+			"hitPoints": 2373587,
+			"maxHitPoints": 3475020,
+			"attackPower": 34527,
+			"spellPower": 5000,
+			"resolve": 0,
+			"x": -280524,
+			"y": -7623,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6311015,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 6,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 160905,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 600,
+					"max": 1000,
+					"type": 18
+				}
+			],
+			"hitPoints": 5572664,
+			"maxHitPoints": 8731866,
+			"attackPower": 39966,
+			"spellPower": 5000,
+			"resolve": 0,
+			"x": -281092,
+			"y": -8366,
+			"itemLevel": 905
+		},
+		{
+			"timestamp": 6311015,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 12,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 160904,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 118,
+					"max": 130,
+					"type": 17
+				}
+			],
+			"hitPoints": 2637565,
+			"maxHitPoints": 4097634,
+			"attackPower": 36492,
+			"spellPower": 5325,
+			"resolve": 0,
+			"x": -280485,
+			"y": -8078,
+			"itemLevel": 908
+		},
+		{
+			"timestamp": 6311015,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 1,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 160905,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 220000,
+					"max": 220000,
+					"type": 0
+				}
+			],
+			"hitPoints": 3049284,
+			"maxHitPoints": 4265925,
+			"attackPower": 40873,
+			"spellPower": 7328,
+			"resolve": 0,
+			"x": -281525,
+			"y": -3271,
+			"itemLevel": 912
+		},
+		{
+			"timestamp": 6311015,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 17,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 160905,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 37,
+					"max": 170,
+					"type": 3
+				}
+			],
+			"hitPoints": 2128766,
+			"maxHitPoints": 3337140,
+			"attackPower": 32451,
+			"spellPower": 5000,
+			"resolve": 0,
+			"x": -280424,
+			"y": -7993,
+			"itemLevel": 899
+		},
+		{
+			"timestamp": 6311015,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 7,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 160904,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 120,
+					"max": 120,
+					"type": 2
+				}
+			],
+			"hitPoints": 2340891,
+			"maxHitPoints": 3469560,
+			"attackPower": 37474,
+			"spellPower": 6005,
+			"resolve": 0,
+			"x": -280531,
+			"y": -6119,
+			"itemLevel": 902
+		},
+		{
+			"timestamp": 6311015,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 26,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 160905,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 7500,
+					"max": 10000,
+					"type": 13
+				}
+			],
+			"hitPoints": 2813109,
+			"maxHitPoints": 4032774,
+			"attackPower": 0,
+			"spellPower": 47619,
+			"resolve": 0,
+			"x": -282300,
+			"y": -5331,
+			"itemLevel": 904
+		},
+		{
+			"timestamp": 6311015,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 13,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 160904,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 1000,
+					"max": 1000,
+					"type": 6
+				}
+			],
+			"hitPoints": 2382825,
+			"maxHitPoints": 4010073,
+			"attackPower": 33691,
+			"spellPower": 4002,
+			"resolve": 0,
+			"x": -281094,
+			"y": -5028,
+			"itemLevel": 904
+		},
+		{
+			"timestamp": 6311015,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 14,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 160905,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 281857,
+					"max": 1372078,
+					"type": 0
+				}
+			],
+			"hitPoints": 2659167,
+			"maxHitPoints": 4244466,
+			"attackPower": 0,
+			"spellPower": 50002,
+			"resolve": 0,
+			"x": -282218,
+			"y": -5581,
+			"itemLevel": 911
+		},
+		{
+			"timestamp": 6311015,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 21,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 160905,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 809776,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 1800714,
+			"maxHitPoints": 4111296,
+			"attackPower": 0,
+			"spellPower": 49064,
+			"resolve": 0,
+			"x": -282038,
+			"y": -5382,
+			"itemLevel": 905
+		},
+		{
+			"timestamp": 6311015,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 3,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 160904,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 580366,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 2168715,
+			"maxHitPoints": 3999171,
+			"attackPower": 9032,
+			"spellPower": 46203,
+			"resolve": 0,
+			"x": -281744,
+			"y": -5760,
+			"itemLevel": 903
+		},
+		{
+			"timestamp": 6311015,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 25,
+			"targetInstance": 4,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 53772,
+			"overheal": 107132,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 997538,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 412254,
+			"maxHitPoints": 412254,
+			"attackPower": 0,
+			"spellPower": 49967,
+			"resolve": 0,
+			"x": -280838,
+			"y": -6165,
+			"itemLevel": 909
+		},
+		{
+			"timestamp": 6311031,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 25,
+			"targetInstance": 5,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 53772,
+			"overheal": 107132,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 997521,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 412254,
+			"maxHitPoints": 412254,
+			"attackPower": 0,
+			"spellPower": 49967,
+			"resolve": 0,
+			"x": -280448,
+			"y": -6333,
+			"itemLevel": 909
+		},
+		{
+			"timestamp": 6311031,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 25,
+			"targetInstance": 6,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 53772,
+			"overheal": 107132,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 997505,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 412254,
+			"maxHitPoints": 412254,
+			"attackPower": 0,
+			"spellPower": 49967,
+			"resolve": 0,
+			"x": -280280,
+			"y": -5944,
+			"itemLevel": 909
+		},
+		{
+			"timestamp": 6311031,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 24,
+			"targetInstance": 5,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 160905,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 0,
+					"max": 0,
+					"type": 1
+				}
+			],
+			"hitPoints": 5,
+			"maxHitPoints": 5,
+			"attackPower": 0,
+			"spellPower": 46203,
+			"resolve": 0,
+			"x": -280579,
+			"y": -7733,
+			"itemLevel": 903
+		},
+		{
+			"timestamp": 6311031,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 50,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 33231,
+			"overheal": 127674,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 0,
+					"max": 0,
+					"type": 1
+				}
+			],
+			"hitPoints": 4111296,
+			"maxHitPoints": 4111296,
+			"attackPower": 0,
+			"spellPower": 0,
+			"resolve": 0,
+			"x": -283545,
+			"y": -3540,
+			"itemLevel": 905
+		},
+		{
+			"timestamp": 6311031,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 51,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 33230,
+			"overheal": 127674,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 0,
+					"max": 0,
+					"type": 1
+				}
+			],
+			"hitPoints": 4111296,
+			"maxHitPoints": 4111296,
+			"attackPower": 0,
+			"spellPower": 0,
+			"resolve": 0,
+			"x": -281517,
+			"y": -6981,
+			"itemLevel": 905
+		},
+		{
+			"timestamp": 6311031,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 40,
+			"targetInstance": 4,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 160904,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 0,
+					"max": 0,
+					"type": 1
+				}
+			],
+			"hitPoints": 2024081,
+			"maxHitPoints": 2024081,
+			"attackPower": 0,
+			"spellPower": 47275,
+			"resolve": 0,
+			"x": -282111,
+			"y": -4723,
+			"itemLevel": 906
+		},
+		{
+			"timestamp": 6311031,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 29,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 160904,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 0,
+					"max": 0,
+					"type": 1
+				}
+			],
+			"hitPoints": 2428692,
+			"maxHitPoints": 2428692,
+			"attackPower": 43095,
+			"spellPower": 7495,
+			"resolve": 0,
+			"x": -282161,
+			"y": -5343,
+			"itemLevel": 902
+		},
+		{
+			"timestamp": 6311031,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 31,
+			"targetInstance": 28,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 160905,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 0,
+					"max": 0,
+					"type": 1
+				}
+			],
+			"hitPoints": 693912,
+			"maxHitPoints": 693912,
+			"attackPower": 52464,
+			"spellPower": 7495,
+			"resolve": 0,
+			"x": -282759,
+			"y": -4108,
+			"itemLevel": 902
+		},
+		{
+			"timestamp": 6311031,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 4,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 160905,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 110,
+					"max": 120,
+					"type": 2
+				}
+			],
+			"hitPoints": 2428692,
+			"maxHitPoints": 2428692,
+			"attackPower": 22484,
+			"spellPower": 22484,
+			"resolve": 0,
+			"x": -282081,
+			"y": -4853,
+			"itemLevel": 902
+		},
+		{
+			"timestamp": 6311031,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 15,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 160905,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 86,
+					"max": 100,
+					"type": 3
+				}
+			],
+			"hitPoints": 1644518,
+			"maxHitPoints": 1644518,
+			"attackPower": 3238,
+			"spellPower": 49064,
+			"resolve": 0,
+			"x": -281922,
+			"y": -5306,
+			"itemLevel": 905
+		},
+		{
+			"timestamp": 6311085,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 40,
+			"targetInstance": 4,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210372,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			}
+		},
+		{
+			"timestamp": 6311293,
+			"type": "applybuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 31,
+			"targetInstance": 29,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210372,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			}
+		},
+		{
+			"timestamp": 6311488,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Leech",
+				"guid": 143924,
+				"type": 1,
+				"abilityIcon": "spell_shadow_lifedrain02.jpg"
+			},
+			"hitType": 1,
+			"amount": 82919,
+			"resourceActor": 1,
+			"classResources": [
+				{
+					"amount": 563609,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 1813431,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281205,
+			"y": -6425,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6311684,
+			"type": "cast",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 17,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Flash of Light",
+				"guid": 19750,
+				"type": 2,
+				"abilityIcon": "spell_holy_flashheal.jpg"
+			},
+			"resourceActor": 1,
+			"classResources": [
+				{
+					"amount": 567402,
+					"max": 1100000,
+					"type": 0,
+					"cost": 39600
+				}
+			],
+			"hitPoints": 1813431,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281205,
+			"y": -6425,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6311697,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Infusion of Light",
+				"guid": 54149,
+				"type": 2,
+				"abilityIcon": "ability_paladin_infusionoflight.jpg"
+			}
+		},
+		{
+			"timestamp": 6311721,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 17,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Flash of Light",
+				"guid": 19750,
+				"type": 2,
+				"abilityIcon": "spell_holy_flashheal.jpg"
+			},
+			"hitType": 2,
+			"amount": 1208374,
+			"overheal": 1154138,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 46,
+					"max": 170,
+					"type": 3
+				}
+			],
+			"hitPoints": 3337140,
+			"maxHitPoints": 3337140,
+			"attackPower": 32451,
+			"spellPower": 5000,
+			"resolve": 0,
+			"x": -280424,
+			"y": -7993,
+			"itemLevel": 899
+		},
+		{
+			"timestamp": 6311721,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 8,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Beacon of Light",
+				"guid": 53652,
+				"type": 2,
+				"abilityIcon": "ability_paladin_beaconoflight.jpg"
+			},
+			"hitType": 1,
+			"amount": 756003,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 663,
+					"max": 1850,
+					"type": 6
+				}
+			],
+			"hitPoints": 6462807,
+			"maxHitPoints": 7183872,
+			"attackPower": 48482,
+			"spellPower": 4002,
+			"resolve": 0,
+			"x": -279909,
+			"y": -7754,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6311721,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 6,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Beacon of Light",
+				"guid": 53652,
+				"type": 2,
+				"abilityIcon": "ability_paladin_beaconoflight.jpg"
+			},
+			"hitType": 1,
+			"amount": 756004,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 690,
+					"max": 1000,
+					"type": 18
+				}
+			],
+			"hitPoints": 4685358,
+			"maxHitPoints": 6021977,
+			"attackPower": 39966,
+			"spellPower": 5000,
+			"resolve": 0,
+			"x": -281123,
+			"y": -8338,
+			"itemLevel": 905
+		},
+		{
+			"timestamp": 6311785,
+			"type": "cast",
+			"sourceID": 3,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Rejuvenation",
+				"guid": 774,
+				"type": 8,
+				"abilityIcon": "spell_nature_rejuvenation.jpg"
+			},
+			"resourceActor": 1,
+			"classResources": [
+				{
+					"amount": 590319,
+					"max": 1100000,
+					"type": 0,
+					"cost": 22000
+				}
+			],
+			"hitPoints": 2187676,
+			"maxHitPoints": 3999171,
+			"attackPower": 9032,
+			"spellPower": 46203,
+			"resolve": 0,
+			"x": -281778,
+			"y": -5695,
+			"itemLevel": 903
+		},
+		{
+			"timestamp": 6311785,
+			"type": "applybuff",
+			"sourceID": 3,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Rejuvenation",
+				"guid": 774,
+				"type": 8,
+				"abilityIcon": "spell_nature_rejuvenation.jpg"
+			}
+		},
+		{
+			"timestamp": 6311785,
+			"type": "heal",
+			"sourceID": 3,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Rejuvenation",
+				"guid": 774,
+				"type": 8,
+				"abilityIcon": "spell_nature_rejuvenation.jpg"
+			},
+			"hitType": 1,
+			"amount": 54654,
+			"tick": true,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 528664,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 1868085,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281205,
+			"y": -6425,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6311813,
+			"type": "applybuff",
+			"sourceID": 3,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Cultivation",
+				"guid": 200389,
+				"type": 8,
+				"abilityIcon": "ability_druid_nourish.jpg"
+			}
+		},
+		{
+			"timestamp": 6311813,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 8,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Obsidian Stone Spaulders",
+				"guid": 210999,
+				"type": 2,
+				"abilityIcon": "spell_holy_spiritualguidence.jpg"
+			},
+			"hitType": 1,
+			"amount": 8199,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 663,
+					"max": 1850,
+					"type": 6
+				}
+			],
+			"hitPoints": 6554164,
+			"maxHitPoints": 7183872,
+			"attackPower": 48482,
+			"spellPower": 4002,
+			"resolve": 0,
+			"x": -279909,
+			"y": -7754,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6311813,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 6,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Obsidian Stone Spaulders",
+				"guid": 210999,
+				"type": 2,
+				"abilityIcon": "spell_holy_spiritualguidence.jpg"
+			},
+			"hitType": 1,
+			"amount": 8198,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 850,
+					"max": 1000,
+					"type": 18
+				}
+			],
+			"hitPoints": 3977979,
+			"maxHitPoints": 6021977,
+			"attackPower": 39966,
+			"spellPower": 5000,
+			"resolve": 0,
+			"x": -281154,
+			"y": -8311,
+			"itemLevel": 905
+		},
+		{
+			"timestamp": 6311843,
+			"type": "energize",
+			"sourceID": 1,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Greater Blessing of Wisdom",
+				"guid": 203539,
+				"type": 2,
+				"abilityIcon": "spell_holy_greaterblessingofwisdom.jpg"
+			},
+			"resourceChange": 2234,
+			"resourceChangeType": 0,
+			"otherResourceChange": 0,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 531444,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 1879156,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281205,
+			"y": -6425,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6311843,
+			"type": "heal",
+			"sourceID": 1,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Greater Blessing of Wisdom",
+				"guid": 203539,
+				"type": 2,
+				"abilityIcon": "spell_holy_greaterblessingofwisdom.jpg"
+			},
+			"hitType": 1,
+			"amount": 11071,
+			"tick": true,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 531444,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 1879156,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281205,
+			"y": -6425,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6311843,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 8,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Obsidian Stone Spaulders",
+				"guid": 210999,
+				"type": 2,
+				"abilityIcon": "spell_holy_spiritualguidence.jpg"
+			},
+			"hitType": 1,
+			"amount": 1661,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 663,
+					"max": 1850,
+					"type": 6
+				}
+			],
+			"hitPoints": 6555825,
+			"maxHitPoints": 7183872,
+			"attackPower": 48482,
+			"spellPower": 4002,
+			"resolve": 0,
+			"x": -279909,
+			"y": -7754,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6311843,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 6,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Obsidian Stone Spaulders",
+				"guid": 210999,
+				"type": 2,
+				"abilityIcon": "spell_holy_spiritualguidence.jpg"
+			},
+			"hitType": 1,
+			"amount": 1661,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 850,
+					"max": 1000,
+					"type": 18
+				}
+			],
+			"hitPoints": 3979640,
+			"maxHitPoints": 6021977,
+			"attackPower": 39966,
+			"spellPower": 5000,
+			"resolve": 0,
+			"x": -281164,
+			"y": -8302,
+			"itemLevel": 905
+		},
+		{
+			"timestamp": 6311878,
+			"type": "applybuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 20,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210372,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			}
+		},
+		{
+			"timestamp": 6311996,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 354832,
+			"resourceActor": 1,
+			"classResources": [
+				{
+					"amount": 532887,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 2233988,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281205,
+			"y": -6425,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6312022,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura Mastery",
+				"guid": 31821,
+				"type": 2,
+				"abilityIcon": "spell_holy_auramastery.jpg"
+			}
+		},
+		{
+			"timestamp": 6312022,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Protection of Tyr",
+				"guid": 211210,
+				"type": 1,
+				"abilityIcon": "spell_holy_auramastery.jpg"
+			}
+		},
+		{
+			"timestamp": 6312022,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 8,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 354832,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 663,
+					"max": 1850,
+					"type": 6
+				}
+			],
+			"hitPoints": 6783994,
+			"maxHitPoints": 7183872,
+			"attackPower": 48482,
+			"spellPower": 4002,
+			"resolve": 0,
+			"x": -279909,
+			"y": -7754,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6312022,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 16,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 354832,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 790,
+					"max": 1000,
+					"type": 6
+				}
+			],
+			"hitPoints": 3005225,
+			"maxHitPoints": 3517140,
+			"attackPower": 51798,
+			"spellPower": 4001,
+			"resolve": 0,
+			"x": -280421,
+			"y": -7931,
+			"itemLevel": 905
+		},
+		{
+			"timestamp": 6312022,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 20,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 354832,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 404885,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 4052040,
+			"maxHitPoints": 4181538,
+			"attackPower": 9028,
+			"spellPower": 46418,
+			"resolve": 0,
+			"x": -284018,
+			"y": -3565,
+			"itemLevel": 904
+		},
+		{
+			"timestamp": 6312022,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 10,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 354832,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 1085381,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 2488262,
+			"maxHitPoints": 4122543,
+			"attackPower": 0,
+			"spellPower": 49967,
+			"resolve": 0,
+			"x": -281831,
+			"y": -4132,
+			"itemLevel": 909
+		},
+		{
+			"timestamp": 6312022,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 18,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 354832,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 9814,
+					"max": 10000,
+					"type": 13
+				}
+			],
+			"hitPoints": 3553615,
+			"maxHitPoints": 4132203,
+			"attackPower": 0,
+			"spellPower": 50108,
+			"resolve": 0,
+			"x": -281573,
+			"y": -4414,
+			"itemLevel": 908
+		},
+		{
+			"timestamp": 6312022,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 19,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 354833,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 400,
+					"max": 1000,
+					"type": 8
+				}
+			],
+			"hitPoints": 3665740,
+			"maxHitPoints": 4088733,
+			"attackPower": 9032,
+			"spellPower": 47140,
+			"resolve": 0,
+			"x": -281466,
+			"y": -4823,
+			"itemLevel": 905
+		},
+		{
+			"timestamp": 6312022,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 5,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 354833,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 4811,
+					"max": 10000,
+					"type": 13
+				}
+			],
+			"hitPoints": 3096662,
+			"maxHitPoints": 4048161,
+			"attackPower": 0,
+			"spellPower": 47275,
+			"resolve": 0,
+			"x": -282089,
+			"y": -4698,
+			"itemLevel": 906
+		},
+		{
+			"timestamp": 6312022,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 11,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 314967,
+			"overheal": 39865,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 7,
+					"max": 170,
+					"type": 3
+				}
+			],
+			"hitPoints": 3475020,
+			"maxHitPoints": 3475020,
+			"attackPower": 34527,
+			"spellPower": 5000,
+			"resolve": 0,
+			"x": -280524,
+			"y": -7623,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6312022,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 6,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 354832,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 850,
+					"max": 1000,
+					"type": 18
+				}
+			],
+			"hitPoints": 4334472,
+			"maxHitPoints": 6021977,
+			"attackPower": 39966,
+			"spellPower": 5000,
+			"resolve": 0,
+			"x": -281169,
+			"y": -8297,
+			"itemLevel": 905
+		},
+		{
+			"timestamp": 6312022,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 12,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 354833,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 118,
+					"max": 130,
+					"type": 17
+				}
+			],
+			"hitPoints": 2992398,
+			"maxHitPoints": 4097634,
+			"attackPower": 36492,
+			"spellPower": 5325,
+			"resolve": 0,
+			"x": -280392,
+			"y": -7886,
+			"itemLevel": 908
+		},
+		{
+			"timestamp": 6312022,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 1,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 354832,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 220000,
+					"max": 220000,
+					"type": 0
+				}
+			],
+			"hitPoints": 3404116,
+			"maxHitPoints": 4265925,
+			"attackPower": 40873,
+			"spellPower": 7328,
+			"resolve": 0,
+			"x": -281833,
+			"y": -3265,
+			"itemLevel": 912
+		},
+		{
+			"timestamp": 6312022,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 17,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 354832,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 60,
+					"max": 170,
+					"type": 3
+				}
+			],
+			"hitPoints": 3337140,
+			"maxHitPoints": 3337140,
+			"attackPower": 32451,
+			"spellPower": 5000,
+			"resolve": 0,
+			"x": -280424,
+			"y": -7993,
+			"itemLevel": 899
+		},
+		{
+			"timestamp": 6312022,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 7,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 354832,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 120,
+					"max": 120,
+					"type": 2
+				}
+			],
+			"hitPoints": 2695723,
+			"maxHitPoints": 3469560,
+			"attackPower": 37474,
+			"spellPower": 6005,
+			"resolve": 0,
+			"x": -280663,
+			"y": -5977,
+			"itemLevel": 902
+		},
+		{
+			"timestamp": 6312022,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 26,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 354833,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 9100,
+					"max": 10000,
+					"type": 13
+				}
+			],
+			"hitPoints": 3260885,
+			"maxHitPoints": 4032774,
+			"attackPower": 0,
+			"spellPower": 47619,
+			"resolve": 0,
+			"x": -282300,
+			"y": -5331,
+			"itemLevel": 904
+		},
+		{
+			"timestamp": 6312022,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 13,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 354832,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 1000,
+					"max": 1000,
+					"type": 6
+				}
+			],
+			"hitPoints": 2890128,
+			"maxHitPoints": 4010073,
+			"attackPower": 33691,
+			"spellPower": 4002,
+			"resolve": 0,
+			"x": -281194,
+			"y": -5711,
+			"itemLevel": 904
+		},
+		{
+			"timestamp": 6312032,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 14,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 354832,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 298816,
+					"max": 1372078,
+					"type": 0
+				}
+			],
+			"hitPoints": 3041939,
+			"maxHitPoints": 4244466,
+			"attackPower": 0,
+			"spellPower": 50002,
+			"resolve": 0,
+			"x": -282362,
+			"y": -5712,
+			"itemLevel": 911
+		},
+		{
+			"timestamp": 6312032,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 21,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 354832,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 785774,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 2025831,
+			"maxHitPoints": 4111296,
+			"attackPower": 0,
+			"spellPower": 49064,
+			"resolve": 0,
+			"x": -282240,
+			"y": -5249,
+			"itemLevel": 905
+		},
+		{
+			"timestamp": 6312032,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 3,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 354832,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 570460,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 2542508,
+			"maxHitPoints": 3999171,
+			"attackPower": 9032,
+			"spellPower": 46203,
+			"resolve": 0,
+			"x": -281787,
+			"y": -5678,
+			"itemLevel": 903
+		},
+		{
+			"timestamp": 6312032,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 25,
+			"targetInstance": 4,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 354833,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 1023151,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 412254,
+			"maxHitPoints": 412254,
+			"attackPower": 0,
+			"spellPower": 49967,
+			"resolve": 0,
+			"x": -280838,
+			"y": -6165,
+			"itemLevel": 909
+		},
+		{
+			"timestamp": 6312032,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 25,
+			"targetInstance": 5,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 354832,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 1023118,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 412254,
+			"maxHitPoints": 412254,
+			"attackPower": 0,
+			"spellPower": 49967,
+			"resolve": 0,
+			"x": -280448,
+			"y": -6333,
+			"itemLevel": 909
+		},
+		{
+			"timestamp": 6312032,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 25,
+			"targetInstance": 6,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 354832,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 1023102,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 412254,
+			"maxHitPoints": 412254,
+			"attackPower": 0,
+			"spellPower": 49967,
+			"resolve": 0,
+			"x": -280280,
+			"y": -5944,
+			"itemLevel": 909
+		},
+		{
+			"timestamp": 6312032,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 24,
+			"targetInstance": 5,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 354833,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 0,
+					"max": 0,
+					"type": 1
+				}
+			],
+			"hitPoints": 5,
+			"maxHitPoints": 5,
+			"attackPower": 0,
+			"spellPower": 46203,
+			"resolve": 0,
+			"x": -280579,
+			"y": -7733,
+			"itemLevel": 903
+		},
+		{
+			"timestamp": 6312032,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 50,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 354832,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 0,
+					"max": 0,
+					"type": 1
+				}
+			],
+			"hitPoints": 4111296,
+			"maxHitPoints": 4111296,
+			"attackPower": 0,
+			"spellPower": 0,
+			"resolve": 0,
+			"x": -283545,
+			"y": -3540,
+			"itemLevel": 905
+		},
+		{
+			"timestamp": 6312032,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 51,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 354833,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 0,
+					"max": 0,
+					"type": 1
+				}
+			],
+			"hitPoints": 4111296,
+			"maxHitPoints": 4111296,
+			"attackPower": 0,
+			"spellPower": 0,
+			"resolve": 0,
+			"x": -281517,
+			"y": -6981,
+			"itemLevel": 905
+		},
+		{
+			"timestamp": 6312032,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 29,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 354832,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 0,
+					"max": 0,
+					"type": 1
+				}
+			],
+			"hitPoints": 2428692,
+			"maxHitPoints": 2428692,
+			"attackPower": 43095,
+			"spellPower": 7495,
+			"resolve": 0,
+			"x": -282589,
+			"y": -4673,
+			"itemLevel": 902
+		},
+		{
+			"timestamp": 6312032,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 31,
+			"targetInstance": 28,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 354833,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 0,
+					"max": 0,
+					"type": 1
+				}
+			],
+			"hitPoints": 693912,
+			"maxHitPoints": 693912,
+			"attackPower": 52464,
+			"spellPower": 7495,
+			"resolve": 0,
+			"x": -283107,
+			"y": -3557,
+			"itemLevel": 902
+		},
+		{
+			"timestamp": 6312032,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 31,
+			"targetInstance": 29,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 354832,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 0,
+					"max": 0,
+					"type": 1
+				}
+			],
+			"hitPoints": 693912,
+			"maxHitPoints": 693912,
+			"attackPower": 52464,
+			"spellPower": 7495,
+			"resolve": 0,
+			"x": -283529,
+			"y": -3442,
+			"itemLevel": 902
+		},
+		{
+			"timestamp": 6312032,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 4,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 354832,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 120,
+					"max": 120,
+					"type": 2
+				}
+			],
+			"hitPoints": 2428692,
+			"maxHitPoints": 2428692,
+			"attackPower": 22484,
+			"spellPower": 22484,
+			"resolve": 0,
+			"x": -282602,
+			"y": -4191,
+			"itemLevel": 902
+		},
+		{
+			"timestamp": 6312032,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 15,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210383,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 354833,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 86,
+					"max": 100,
+					"type": 3
+				}
+			],
+			"hitPoints": 1644518,
+			"maxHitPoints": 1644518,
+			"attackPower": 3238,
+			"spellPower": 49064,
+			"resolve": 0,
+			"x": -281922,
+			"y": -5306,
+			"itemLevel": 905
+		},
+		{
+			"timestamp": 6312032,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 18,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Protection of Tyr",
+				"guid": 211210,
+				"type": 1,
+				"abilityIcon": "spell_holy_auramastery.jpg"
+			}
+		},
+		{
+			"timestamp": 6312032,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 1,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Protection of Tyr",
+				"guid": 211210,
+				"type": 1,
+				"abilityIcon": "spell_holy_auramastery.jpg"
+			}
+		},
+		{
+			"timestamp": 6312032,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 17,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Protection of Tyr",
+				"guid": 211210,
+				"type": 1,
+				"abilityIcon": "spell_holy_auramastery.jpg"
+			}
+		},
+		{
+			"timestamp": 6312032,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 14,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Protection of Tyr",
+				"guid": 211210,
+				"type": 1,
+				"abilityIcon": "spell_holy_auramastery.jpg"
+			}
+		},
+		{
+			"timestamp": 6312032,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 7,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Protection of Tyr",
+				"guid": 211210,
+				"type": 1,
+				"abilityIcon": "spell_holy_auramastery.jpg"
+			}
+		},
+		{
+			"timestamp": 6312032,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 4,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Protection of Tyr",
+				"guid": 211210,
+				"type": 1,
+				"abilityIcon": "spell_holy_auramastery.jpg"
+			}
+		},
+		{
+			"timestamp": 6312032,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 19,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Protection of Tyr",
+				"guid": 211210,
+				"type": 1,
+				"abilityIcon": "spell_holy_auramastery.jpg"
+			}
+		},
+		{
+			"timestamp": 6312032,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 10,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Protection of Tyr",
+				"guid": 211210,
+				"type": 1,
+				"abilityIcon": "spell_holy_auramastery.jpg"
+			}
+		},
+		{
+			"timestamp": 6312032,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 8,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Protection of Tyr",
+				"guid": 211210,
+				"type": 1,
+				"abilityIcon": "spell_holy_auramastery.jpg"
+			}
+		},
+		{
+			"timestamp": 6312032,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 6,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Protection of Tyr",
+				"guid": 211210,
+				"type": 1,
+				"abilityIcon": "spell_holy_auramastery.jpg"
+			}
+		},
+		{
+			"timestamp": 6312032,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 21,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Protection of Tyr",
+				"guid": 211210,
+				"type": 1,
+				"abilityIcon": "spell_holy_auramastery.jpg"
+			}
+		},
+		{
+			"timestamp": 6312032,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 15,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Protection of Tyr",
+				"guid": 211210,
+				"type": 1,
+				"abilityIcon": "spell_holy_auramastery.jpg"
+			}
+		},
+		{
+			"timestamp": 6312032,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 26,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Protection of Tyr",
+				"guid": 211210,
+				"type": 1,
+				"abilityIcon": "spell_holy_auramastery.jpg"
+			}
+		},
+		{
+			"timestamp": 6312032,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 3,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Protection of Tyr",
+				"guid": 211210,
+				"type": 1,
+				"abilityIcon": "spell_holy_auramastery.jpg"
+			}
+		},
+		{
+			"timestamp": 6312032,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 12,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Protection of Tyr",
+				"guid": 211210,
+				"type": 1,
+				"abilityIcon": "spell_holy_auramastery.jpg"
+			}
+		},
+		{
+			"timestamp": 6312032,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 11,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Protection of Tyr",
+				"guid": 211210,
+				"type": 1,
+				"abilityIcon": "spell_holy_auramastery.jpg"
+			}
+		},
+		{
+			"timestamp": 6312032,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 13,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Protection of Tyr",
+				"guid": 211210,
+				"type": 1,
+				"abilityIcon": "spell_holy_auramastery.jpg"
+			}
+		},
+		{
+			"timestamp": 6312032,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 16,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Protection of Tyr",
+				"guid": 211210,
+				"type": 1,
+				"abilityIcon": "spell_holy_auramastery.jpg"
+			}
+		},
+		{
+			"timestamp": 6312032,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 5,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Protection of Tyr",
+				"guid": 211210,
+				"type": 1,
+				"abilityIcon": "spell_holy_auramastery.jpg"
+			}
+		},
+		{
+			"timestamp": 6312048,
+			"type": "begincast",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"target": {
+				"name": "Environment",
+				"id": -1,
+				"guid": 0,
+				"type": "NPC",
+				"icon": "NPC"
+			},
+			"targetIsFriendly": false,
+			"ability": {
+				"name": "Flash of Light",
+				"guid": 19750,
+				"type": 2,
+				"abilityIcon": "spell_holy_flashheal.jpg"
+			}
+		},
+		{
+			"timestamp": 6312078,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 20,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210372,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			}
+		},
+		{
+			"timestamp": 6312078,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 17,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210372,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			}
+		},
+		{
+			"timestamp": 6312078,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 16,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210372,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			}
+		},
+		{
+			"timestamp": 6312078,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 5,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210372,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			}
+		},
+		{
+			"timestamp": 6312078,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 8,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210372,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			}
+		},
+		{
+			"timestamp": 6312078,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 6,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210372,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			}
+		},
+		{
+			"timestamp": 6312078,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 21,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210372,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			}
+		},
+		{
+			"timestamp": 6312078,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 26,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210372,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			}
+		},
+		{
+			"timestamp": 6312078,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 11,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210372,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			}
+		},
+		{
+			"timestamp": 6312078,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 14,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210372,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			}
+		},
+		{
+			"timestamp": 6312078,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 18,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210372,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			}
+		},
+		{
+			"timestamp": 6312078,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 19,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210372,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			}
+		},
+		{
+			"timestamp": 6312078,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 25,
+			"targetInstance": 6,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210372,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			}
+		},
+		{
+			"timestamp": 6312078,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 1,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210372,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			}
+		},
+		{
+			"timestamp": 6312107,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 10,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210372,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			}
+		},
+		{
+			"timestamp": 6312161,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 12,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210372,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			}
+		},
+		{
+			"timestamp": 6312270,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 15,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210372,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			}
+		},
+		{
+			"timestamp": 6312317,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 31,
+			"targetInstance": 29,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210372,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			}
+		},
+		{
+			"timestamp": 6312317,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 31,
+			"targetInstance": 28,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210372,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			}
+		},
+		{
+			"timestamp": 6312317,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 29,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210372,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			}
+		},
+		{
+			"timestamp": 6312317,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 4,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210372,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			}
+		},
+		{
+			"timestamp": 6312719,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Leech",
+				"guid": 143924,
+				"type": 1,
+				"abilityIcon": "spell_shadow_lifedrain02.jpg"
+			},
+			"hitType": 1,
+			"amount": 261760,
+			"resourceActor": 1,
+			"classResources": [
+				{
+					"amount": 535369,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 2495748,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281205,
+			"y": -6425,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6313162,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 3,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210372,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			}
+		},
+		{
+			"timestamp": 6313377,
+			"type": "cast",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 3,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Flash of Light",
+				"guid": 19750,
+				"type": 2,
+				"abilityIcon": "spell_holy_flashheal.jpg"
+			},
+			"resourceActor": 1,
+			"classResources": [
+				{
+					"amount": 544952,
+					"max": 1100000,
+					"type": 0,
+					"cost": 39600
+				}
+			],
+			"hitPoints": 2495748,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281205,
+			"y": -6425,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6313377,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 3,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Flash of Light",
+				"guid": 19750,
+				"type": 2,
+				"abilityIcon": "spell_holy_flashheal.jpg"
+			},
+			"hitType": 1,
+			"amount": 582834,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 578687,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 3288609,
+			"maxHitPoints": 3999171,
+			"attackPower": 9032,
+			"spellPower": 46203,
+			"resolve": 0,
+			"x": -281878,
+			"y": -5497,
+			"itemLevel": 903
+		},
+		{
+			"timestamp": 6313411,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 8,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Beacon of Light",
+				"guid": 53652,
+				"type": 2,
+				"abilityIcon": "ability_paladin_beaconoflight.jpg"
+			},
+			"hitType": 1,
+			"amount": 31355,
+			"overheal": 155152,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 343,
+					"max": 1850,
+					"type": 6
+				}
+			],
+			"hitPoints": 7183872,
+			"maxHitPoints": 7183872,
+			"attackPower": 48482,
+			"spellPower": 4002,
+			"resolve": 0,
+			"x": -279940,
+			"y": -7595,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6313411,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 6,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Beacon of Light",
+				"guid": 53652,
+				"type": 2,
+				"abilityIcon": "ability_paladin_beaconoflight.jpg"
+			},
+			"hitType": 1,
+			"amount": 186507,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 835,
+					"max": 1000,
+					"type": 18
+				}
+			],
+			"hitPoints": 4485705,
+			"maxHitPoints": 6021977,
+			"attackPower": 39966,
+			"spellPower": 5000,
+			"resolve": 0,
+			"x": -281048,
+			"y": -8161,
+			"itemLevel": 905
+		},
+		{
+			"timestamp": 6313841,
+			"type": "energize",
+			"sourceID": 1,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Greater Blessing of Wisdom",
+				"guid": 203539,
+				"type": 2,
+				"abilityIcon": "spell_holy_greaterblessingofwisdom.jpg"
+			},
+			"resourceChange": 2235,
+			"resourceChangeType": 0,
+			"otherResourceChange": 0,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 511679,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 2505375,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281294,
+			"y": -6459,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6313844,
+			"type": "heal",
+			"sourceID": 1,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Greater Blessing of Wisdom",
+				"guid": 203539,
+				"type": 2,
+				"abilityIcon": "spell_holy_greaterblessingofwisdom.jpg"
+			},
+			"hitType": 1,
+			"amount": 9627,
+			"tick": true,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 511679,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 2505375,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281294,
+			"y": -6459,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6313844,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 8,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Obsidian Stone Spaulders",
+				"guid": 210999,
+				"type": 2,
+				"abilityIcon": "spell_holy_spiritualguidence.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 1444,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 343,
+					"max": 1850,
+					"type": 6
+				}
+			],
+			"hitPoints": 7183872,
+			"maxHitPoints": 7183872,
+			"attackPower": 48482,
+			"spellPower": 4002,
+			"resolve": 0,
+			"x": -279940,
+			"y": -7595,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6313844,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 6,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Obsidian Stone Spaulders",
+				"guid": 210999,
+				"type": 2,
+				"abilityIcon": "spell_holy_spiritualguidence.jpg"
+			},
+			"hitType": 1,
+			"amount": 1444,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 386,
+					"max": 1000,
+					"type": 18
+				}
+			],
+			"hitPoints": 5246289,
+			"maxHitPoints": 6021977,
+			"attackPower": 43736,
+			"spellPower": 5000,
+			"resolve": 0,
+			"x": -281048,
+			"y": -8161,
+			"itemLevel": 905
+		},
+		{
+			"timestamp": 6313870,
+			"type": "cast",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 6,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Bestow Faith",
+				"guid": 223306,
+				"type": 2,
+				"abilityIcon": "ability_paladin_blessedmending.jpg"
+			},
+			"resourceActor": 1,
+			"classResources": [
+				{
+					"amount": 511908,
+					"max": 1100000,
+					"type": 0,
+					"cost": 13200
+				}
+			],
+			"hitPoints": 2505375,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281294,
+			"y": -6459,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6313879,
+			"type": "applybuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 6,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Bestow Faith",
+				"guid": 223306,
+				"type": 2,
+				"abilityIcon": "ability_paladin_blessedmending.jpg"
+			}
+		},
+		{
+			"timestamp": 6313924,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Leech",
+				"guid": 143924,
+				"type": 1,
+				"abilityIcon": "spell_shadow_lifedrain02.jpg"
+			},
+			"hitType": 1,
+			"amount": 64443,
+			"resourceActor": 1,
+			"classResources": [
+				{
+					"amount": 498708,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 2569818,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281294,
+			"y": -6459,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6314014,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Vindicator",
+				"guid": 200376,
+				"type": 1,
+				"abilityIcon": "spell_holy_avenginewrath.jpg"
+			}
+		},
+		{
+			"timestamp": 6314329,
+			"type": "heal",
+			"sourceID": 3,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Rejuvenation",
+				"guid": 774,
+				"type": 8,
+				"abilityIcon": "spell_nature_rejuvenation.jpg"
+			},
+			"hitType": 2,
+			"amount": 110068,
+			"tick": true,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 502729,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 2679886,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281329,
+			"y": -6371,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6314329,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 8,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Obsidian Stone Spaulders",
+				"guid": 210999,
+				"type": 2,
+				"abilityIcon": "spell_holy_spiritualguidence.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 16510,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 353,
+					"max": 1850,
+					"type": 6
+				}
+			],
+			"hitPoints": 7183872,
+			"maxHitPoints": 7183872,
+			"attackPower": 48482,
+			"spellPower": 4002,
+			"resolve": 0,
+			"x": -279940,
+			"y": -7595,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6314329,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 6,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Obsidian Stone Spaulders",
+				"guid": 210999,
+				"type": 2,
+				"abilityIcon": "spell_holy_spiritualguidence.jpg"
+			},
+			"hitType": 1,
+			"amount": 16510,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 406,
+					"max": 1000,
+					"type": 18
+				}
+			],
+			"hitPoints": 5730969,
+			"maxHitPoints": 6021977,
+			"attackPower": 43736,
+			"spellPower": 5000,
+			"resolve": 0,
+			"x": -281048,
+			"y": -8161,
+			"itemLevel": 905
+		},
+		{
+			"timestamp": 6314363,
+			"type": "heal",
+			"sourceID": 3,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Cultivation",
+				"guid": 200389,
+				"type": 8,
+				"abilityIcon": "ability_druid_nourish.jpg"
+			},
+			"hitType": 1,
+			"amount": 57427,
+			"tick": true,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 502861,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 2737313,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281335,
+			"y": -6360,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6314363,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 8,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Obsidian Stone Spaulders",
+				"guid": 210999,
+				"type": 2,
+				"abilityIcon": "spell_holy_spiritualguidence.jpg"
+			},
+			"hitType": 1,
+			"amount": 0,
+			"overheal": 8614,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 353,
+					"max": 1850,
+					"type": 6
+				}
+			],
+			"hitPoints": 7183872,
+			"maxHitPoints": 7183872,
+			"attackPower": 48482,
+			"spellPower": 4002,
+			"resolve": 0,
+			"x": -279940,
+			"y": -7595,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6314363,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 6,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Obsidian Stone Spaulders",
+				"guid": 210999,
+				"type": 2,
+				"abilityIcon": "spell_holy_spiritualguidence.jpg"
+			},
+			"hitType": 1,
+			"amount": 8614,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 406,
+					"max": 1000,
+					"type": 18
+				}
+			],
+			"hitPoints": 5746845,
+			"maxHitPoints": 6021977,
+			"attackPower": 43736,
+			"spellPower": 5000,
+			"resolve": 0,
+			"x": -281048,
+			"y": -8161,
+			"itemLevel": 905
+		},
+		{
+			"timestamp": 6314409,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 13,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210372,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			}
+		},
+		{
+			"timestamp": 6314484,
+			"type": "damage",
+			"source": {
+				"name": "Environment",
+				"id": -1,
+				"guid": 0,
+				"type": "NPC",
+				"icon": "NPC"
+			},
+			"sourceIsFriendly": false,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Slam",
+				"guid": 225362,
+				"type": 1,
+				"abilityIcon": "spell_holy_fistofjustice.jpg"
+			},
+			"hitType": 1,
+			"amount": 1777142,
+			"absorbed": 0,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 502861,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 960171,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281365,
+			"y": -6316,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6314591,
+			"type": "applybuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 3,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210372,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			}
+		},
+		{
+			"timestamp": 6314918,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 3,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210372,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			}
+		},
+		{
+			"timestamp": 6314942,
+			"type": "cast",
+			"sourceID": 3,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Regrowth",
+				"guid": 8936,
+				"type": 8,
+				"abilityIcon": "spell_nature_resistnature.jpg"
+			},
+			"resourceActor": 1,
+			"classResources": [
+				{
+					"amount": 599656,
+					"max": 1100000,
+					"type": 0,
+					"cost": 40986
+				}
+			],
+			"hitPoints": 1039432,
+			"maxHitPoints": 3999171,
+			"attackPower": 9032,
+			"spellPower": 46203,
+			"resolve": 0,
+			"x": -281878,
+			"y": -5497,
+			"itemLevel": 903
+		},
+		{
+			"timestamp": 6314942,
+			"type": "heal",
+			"sourceID": 3,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Regrowth",
+				"guid": 8936,
+				"type": 8,
+				"abilityIcon": "spell_nature_resistnature.jpg"
+			},
+			"hitType": 2,
+			"amount": 596264,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 508185,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 1556435,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281252,
+			"y": -6443,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6314942,
+			"type": "applybuff",
+			"sourceID": 3,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Regrowth",
+				"guid": 8936,
+				"type": 8,
+				"abilityIcon": "spell_nature_resistnature.jpg"
+			}
+		},
+		{
+			"timestamp": 6314981,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 8,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Obsidian Stone Spaulders",
+				"guid": 210999,
+				"type": 2,
+				"abilityIcon": "spell_holy_spiritualguidence.jpg"
+			},
+			"hitType": 1,
+			"amount": 89440,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 518,
+					"max": 1850,
+					"type": 6
+				}
+			],
+			"hitPoints": 5515803,
+			"maxHitPoints": 7183872,
+			"attackPower": 48482,
+			"spellPower": 4002,
+			"resolve": 0,
+			"x": -279940,
+			"y": -7595,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6314981,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 6,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Obsidian Stone Spaulders",
+				"guid": 210999,
+				"type": 2,
+				"abilityIcon": "spell_holy_spiritualguidence.jpg"
+			},
+			"hitType": 1,
+			"amount": 89440,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 405,
+					"max": 1000,
+					"type": 18
+				}
+			],
+			"hitPoints": 4375848,
+			"maxHitPoints": 6021977,
+			"attackPower": 45961,
+			"spellPower": 5000,
+			"resolve": 0,
+			"x": -281048,
+			"y": -8161,
+			"itemLevel": 905
+		},
+		{
+			"timestamp": 6314995,
+			"type": "applybuff",
+			"sourceID": 3,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Living Seed",
+				"guid": 48504,
+				"type": 8,
+				"abilityIcon": "ability_druid_giftoftheearthmother.jpg"
+			}
+		},
+		{
+			"timestamp": 6315140,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Leech",
+				"guid": 143924,
+				"type": 1,
+				"abilityIcon": "spell_shadow_lifedrain02.jpg"
+			},
+			"hitType": 1,
+			"amount": 15401,
+			"resourceActor": 1,
+			"classResources": [
+				{
+					"amount": 508185,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 1571836,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281285,
+			"y": -6466,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6315171,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 25,
+			"targetInstance": 4,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210372,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			}
+		},
+		{
+			"timestamp": 6315171,
+			"type": "removebuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 25,
+			"targetInstance": 5,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Aura of Sacrifice",
+				"guid": 210372,
+				"type": 2,
+				"abilityIcon": "ability_deathwing_bloodcorruption_earth.jpg"
+			}
+		},
+		{
+			"timestamp": 6315723,
+			"type": "cast",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 21,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Holy Shock",
+				"guid": 20473,
+				"type": 2,
+				"abilityIcon": "spell_holy_searinglight.jpg"
+			},
+			"resourceActor": 1,
+			"classResources": [
+				{
+					"amount": 514961,
+					"max": 1100000,
+					"type": 0,
+					"cost": 22000
+				}
+			],
+			"hitPoints": 1571836,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281247,
+			"y": -6522,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6315723,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 21,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Holy Shock",
+				"guid": 25914,
+				"type": 2,
+				"abilityIcon": "spell_holy_searinglight.jpg"
+			},
+			"hitType": 2,
+			"amount": 1181705,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 798611,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 1855945,
+			"maxHitPoints": 3575040,
+			"attackPower": 0,
+			"spellPower": 49064,
+			"resolve": 0,
+			"x": -281892,
+			"y": -5192,
+			"itemLevel": 905
+		},
+		{
+			"timestamp": 6315723,
+			"type": "applybuff",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Infusion of Light",
+				"guid": 54149,
+				"type": 2,
+				"abilityIcon": "ability_paladin_infusionoflight.jpg"
+			}
+		},
+		{
+			"timestamp": 6315764,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 8,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Beacon of Light",
+				"guid": 53652,
+				"type": 2,
+				"abilityIcon": "ability_paladin_beaconoflight.jpg"
+			},
+			"hitType": 1,
+			"amount": 378146,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 528,
+					"max": 1850,
+					"type": 6
+				}
+			],
+			"hitPoints": 5948754,
+			"maxHitPoints": 7183872,
+			"attackPower": 48482,
+			"spellPower": 4002,
+			"resolve": 0,
+			"x": -279940,
+			"y": -7595,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6315764,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 6,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Beacon of Light",
+				"guid": 53652,
+				"type": 2,
+				"abilityIcon": "ability_paladin_beaconoflight.jpg"
+			},
+			"hitType": 1,
+			"amount": 378146,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 503,
+					"max": 1000,
+					"type": 18
+				}
+			],
+			"hitPoints": 4992674,
+			"maxHitPoints": 6021977,
+			"attackPower": 45961,
+			"spellPower": 5000,
+			"resolve": 0,
+			"x": -281048,
+			"y": -8161,
+			"itemLevel": 905
+		},
+		{
+			"timestamp": 6315849,
+			"type": "energize",
+			"sourceID": 1,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Greater Blessing of Wisdom",
+				"guid": 203539,
+				"type": 2,
+				"abilityIcon": "spell_holy_greaterblessingofwisdom.jpg"
+			},
+			"resourceChange": 2234,
+			"resourceChangeType": 0,
+			"otherResourceChange": 0,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 496375,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 1581463,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281247,
+			"y": -6522,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6315849,
+			"type": "heal",
+			"sourceID": 1,
+			"sourceIsFriendly": true,
+			"targetID": 2,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Greater Blessing of Wisdom",
+				"guid": 203539,
+				"type": 2,
+				"abilityIcon": "spell_holy_greaterblessingofwisdom.jpg"
+			},
+			"hitType": 1,
+			"amount": 9627,
+			"tick": true,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 496375,
+					"max": 1100000,
+					"type": 0
+				}
+			],
+			"hitPoints": 1581463,
+			"maxHitPoints": 4159734,
+			"attackPower": 50502,
+			"spellPower": 50502,
+			"resolve": 0,
+			"x": -281247,
+			"y": -6522,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6315849,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 8,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Obsidian Stone Spaulders",
+				"guid": 210999,
+				"type": 2,
+				"abilityIcon": "spell_holy_spiritualguidence.jpg"
+			},
+			"hitType": 1,
+			"amount": 1444,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 693,
+					"max": 1850,
+					"type": 6
+				}
+			],
+			"hitPoints": 5981502,
+			"maxHitPoints": 7183872,
+			"attackPower": 48482,
+			"spellPower": 4002,
+			"resolve": 0,
+			"x": -279940,
+			"y": -7595,
+			"itemLevel": 907
+		},
+		{
+			"timestamp": 6315849,
+			"type": "heal",
+			"sourceID": 2,
+			"sourceIsFriendly": true,
+			"targetID": 6,
+			"targetIsFriendly": true,
+			"ability": {
+				"name": "Obsidian Stone Spaulders",
+				"guid": 210999,
+				"type": 2,
+				"abilityIcon": "spell_holy_spiritualguidence.jpg"
+			},
+			"hitType": 1,
+			"amount": 1444,
+			"resourceActor": 2,
+			"classResources": [
+				{
+					"amount": 503,
+					"max": 1000,
+					"type": 18
+				}
+			],
+			"hitPoints": 4994118,
+			"maxHitPoints": 6021977,
+			"attackPower": 45961,
+			"spellPower": 5000,
+			"resolve": 0,
+			"x": -281048,
+			"y": -8161,
+			"itemLevel": 905
+		}
+	],
+	"nextPageTimestamp": 6316369
+}

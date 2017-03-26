@@ -22,6 +22,7 @@ import { VELENS_ITEM_ID } from './Parser/Modules/Legendaries/Velens';
 import { CHAIN_OF_THRAYN_ITEM_ID } from './Parser/Modules/Legendaries/ChainOfThrayn';
 import { PRYDAZ_ITEM_ID } from './Parser/Modules/Legendaries/Prydaz';
 import { OBSIDION_STONE_SPAULDERS_ITEM_ID } from './Parser/Modules/Legendaries/ObsidianStoneSpaulders';
+import { MARAADS_DYING_BREATH_ITEM_ID } from './Parser/Modules/Legendaries/MaraadsDyingBreath';
 
 class App extends Component {
   static propTypes = {
@@ -499,6 +500,22 @@ class App extends Component {
                             label={(
                               <dfn data-tip="The actual effective healing contributed by the Obsidian Stone Spaulders equip effect.">
                                 Shoulders healing
+                              </dfn>
+                            )}
+                          />
+                        )}
+                        {parser.modules.combatants.selected && parser.modules.combatants.selected.hasBack(MARAADS_DYING_BREATH_ITEM_ID) && (
+                          <StatisticBox
+                            color="#4c0c41"
+                            icon={(
+                              <a href="http://www.wowhead.com/item=144273/maraads-dying-breath" target="_blank">
+                                <img src="./maraadsdyingbreath.jpg" style={{ height: 74, borderRadius: 5, border: '1px solid #000' }} alt="Maraad's Dying Breath" />
+                              </a>
+                            )}
+                            value={`${((Math.round(parser.modules.maraadsDyingBreath.healing / parser.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
+                            label={(
+                              <dfn data-tip="The actual effective healing contributed by the Maraad's Dying Breath equip effect. This is fairly inaccurate if you are using Beacon of Virtue.">
+                                Maraad's healing
                               </dfn>
                             )}
                           />

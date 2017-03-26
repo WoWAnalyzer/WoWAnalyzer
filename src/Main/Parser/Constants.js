@@ -60,6 +60,8 @@ export const BEACON_TRANSFERING_ABILITIES = {
   [LIGHTS_HAMMER_SPELL_ID]: 0.5,
   [TYRS_DELIVERANCE_SPELL_ID]: 1,
   [BESTOW_FAITH_SPELL_ID]: 1,
+  // While this only beacon transfers with Maraad's, adding it by default shouldn't interfere with anything
+  [LIGHT_OF_THE_MARTYR_SPELL_ID]: 1,
 };
 
 export const BEACON_TYPES = {

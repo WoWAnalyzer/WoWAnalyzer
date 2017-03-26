@@ -11,6 +11,7 @@ import Velens from './Modules/Legendaries/Velens';
 import ChainOfThrayn from './Modules/Legendaries/ChainOfThrayn';
 import Prydaz from './Modules/Legendaries/Prydaz';
 import ObsidianStoneSpaulders from './Modules/Legendaries/ObsidianStoneSpaulders';
+import MaraadsDyingBreath from './Modules/Legendaries/MaraadsDyingBreath';
 
 class CombatLogParser {
   static enabledModules = {
@@ -26,6 +27,7 @@ class CombatLogParser {
     chainOfThrayn: ChainOfThrayn,
     prydaz: Prydaz,
     obsidianStoneSpaulders: ObsidianStoneSpaulders,
+    maraadsDyingBreath: MaraadsDyingBreath,
   };
 
   report = null;
