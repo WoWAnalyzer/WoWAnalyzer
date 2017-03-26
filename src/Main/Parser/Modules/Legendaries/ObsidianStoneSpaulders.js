@@ -1,5 +1,4 @@
 import Module from 'Main/Parser/Module';
-import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from 'Main/Parser/Constants';
 
 export const OBSIDION_STONE_SPAULDERS_ITEM_ID = 137076;
 const OBSIDION_STONE_SPAULDERS_HEAL_SPELL_ID = 210999;

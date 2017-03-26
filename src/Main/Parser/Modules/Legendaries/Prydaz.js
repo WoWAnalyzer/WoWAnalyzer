@@ -1,5 +1,4 @@
 import Module from 'Main/Parser/Module';
-import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from 'Main/Parser/Constants';
 
 export const PRYDAZ_ITEM_ID = 132444;
 const PRYDAZ_HEAL_SPELL_ID = 207472;
