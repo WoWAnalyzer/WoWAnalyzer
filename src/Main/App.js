@@ -20,6 +20,8 @@ import { DRAPE_OF_SHAME_ITEM_ID } from './Parser/Modules/Legendaries/DrapeOfSham
 import { ILTERENDI_ITEM_ID } from './Parser/Modules/Legendaries/Ilterendi';
 import { VELENS_ITEM_ID } from './Parser/Modules/Legendaries/Velens';
 import { CHAIN_OF_THRAYN_ITEM_ID } from './Parser/Modules/Legendaries/ChainOfThrayn';
+import { PRYDAZ_ITEM_ID } from './Parser/Modules/Legendaries/Prydaz';
+import { OBSIDION_STONE_SPAULDERS_ITEM_ID } from './Parser/Modules/Legendaries/ObsidianStoneSpaulders';
 
 class App extends Component {
   static propTypes = {
@@ -465,6 +467,38 @@ class App extends Component {
                             label={(
                               <dfn data-tip="The actual effective healing contributed by the Chain of Thrayn equip effect. This is a bit inaccurate if you are using Beacon of Virtue.">
                                 Chain of Thrayn healing
+                              </dfn>
+                            )}
+                          />
+                        )}
+                        {parser.modules.combatants.selected && parser.modules.combatants.selected.hasNeck(PRYDAZ_ITEM_ID) && (
+                          <StatisticBox
+                            color="#1d4337"
+                            icon={(
+                              <a href="http://www.wowhead.com/item=132444/prydaz-xavarics-magnum-opus" target="_blank">
+                                <img src="./prydaz.jpg" style={{ height: 74, borderRadius: 5, border: '1px solid #000' }} alt="Prydaz, Xavaric's Magnum Opus" />
+                              </a>
+                            )}
+                            value={`${((Math.round(parser.modules.prydaz.healing / parser.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
+                            label={(
+                              <dfn data-tip="The actual effective healing contributed by the Prydaz, Xavaric's Magnum Opus equip effect.">
+                                Prydaz healing
+                              </dfn>
+                            )}
+                          />
+                        )}
+                        {parser.modules.combatants.selected && parser.modules.combatants.selected.hasShoulder(OBSIDION_STONE_SPAULDERS_ITEM_ID) && (
+                          <StatisticBox
+                            color="#1c1a21"
+                            icon={(
+                              <a href="http://www.wowhead.com/item=137076/obsidian-stone-spaulders" target="_blank">
+                                <img src="./obsidianstonespaulders.jpg" style={{ height: 74, borderRadius: 5, border: '1px solid #000' }} alt="Obsidian Stone Spaulders" />
+                              </a>
+                            )}
+                            value={`${((Math.round(parser.modules.obsidianStoneSpaulders.healing / parser.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
+                            label={(
+                              <dfn data-tip="The actual effective healing contributed by the Obsidian Stone Spaulders equip effect.">
+                                Shoulders healing
                               </dfn>
                             )}
                           />

@@ -9,6 +9,8 @@ import DrapeOfShame from './Modules/Legendaries/DrapeOfShame';
 import Ilterendi from './Modules/Legendaries/Ilterendi';
 import Velens from './Modules/Legendaries/Velens';
 import ChainOfThrayn from './Modules/Legendaries/ChainOfThrayn';
+import Prydaz from './Modules/Legendaries/Prydaz';
+import ObsidianStoneSpaulders from './Modules/Legendaries/ObsidianStoneSpaulders';
 
 class CombatLogParser {
   static enabledModules = {
@@ -22,6 +24,8 @@ class CombatLogParser {
     ilterendi: Ilterendi,
     velens: Velens,
     chainOfThrayn: ChainOfThrayn,
+    prydaz: Prydaz,
+    obsidianStoneSpaulders: ObsidianStoneSpaulders,
   };
 
   report = null;
