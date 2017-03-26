@@ -1,11 +1,8 @@
-import Module from './Module';
+import Module from 'Main/Parser/Module';
+import { ABILITIES_AFFECTED_BY_MASTERY, RULE_OF_LAW_SPELL_ID } from 'Main/Parser/Constants';
 
-import { ABILITIES_AFFECTED_BY_MASTERY, RULE_OF_LAW_SPELL_ID, HIT_TYPES, HOLY_SHOCK_SPELL_ID, FLASH_OF_LIGHT_SPELL_ID, HOLY_LIGHT_SPELL_ID, INFUSION_OF_LIGHT_SPELL_ID, INFUSION_OF_LIGHT_BUFF_EXPIRATION_BUFFER, LIGHT_OF_THE_MARTYR_SPELL_ID, T19_4SET_BUFF_ID } from './Constants';
-
-class RefactorMe extends Module {
+class MasteryEffectiveness extends Module {
   lastCast = null;
-  // Tracking total healing seen as a sanity check
-  totalHealing = 0;
 
   masteryHealEvents = [];
 
@@ -32,17 +29,8 @@ class RefactorMe extends Module {
     }
     if (this.owner.byPlayer(event)) {
       this.processForMasteryEffectiveness(event);
-
-      // event.amount is the actual heal as shown in the log
-      this.totalHealing += event.amount;
     }
   }
-  parse_absorbed(event) {
-    if (this.owner.byPlayer(event)) {
-      this.totalHealing += event.amount;
-    }
-  }
-  // TODO: Damage taken from LOTM
 
   processForMasteryEffectiveness(event) {
     if (!this.lastCast) {
@@ -114,4 +102,4 @@ class RefactorMe extends Module {
   }
 }
 
-export default RefactorMe;
+export default MasteryEffectiveness;

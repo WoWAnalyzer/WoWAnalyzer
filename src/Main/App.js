@@ -36,7 +36,7 @@ class App extends Component {
     let totalHealingFromMastery = 0;
     let totalMaxPotentialMasteryHealing = 0;
 
-    const statsByTargetId = parser.modules.refactorMe.masteryHealEvents.reduce((obj, event) => {
+    const statsByTargetId = parser.modules.masteryEffectiveness.masteryHealEvents.reduce((obj, event) => {
       // Update the fight-totals
       totalHealingWithMasteryAffectedAbilities += event.amount;
       totalHealingFromMastery += event.masteryHealingDone;
@@ -320,7 +320,7 @@ class App extends Component {
                         <StatisticBox
                           color="#7e9e3a"
                           icon={<img src="./healing.png" style={{ height: 74 }} alt="Healing" />}
-                          value={((parser.modules.refactorMe.totalHealing || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}
+                          value={((parser.totalHealing || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}
                           label="Healing done"
                         />
                         <StatisticBox
@@ -414,7 +414,7 @@ class App extends Component {
                                 <img src="./drapeofshame.jpg" style={{ height: 74, borderRadius: 5, border: '1px solid #000' }} alt="Drape of Shame" />
                               </a>
                             )}
-                            value={`${((Math.round(parser.modules.drapeOfShame.healing / parser.modules.refactorMe.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
+                            value={`${((Math.round(parser.modules.drapeOfShame.healing / parser.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
                             label={(
                               <dfn data-tip="The actual effective healing contributed by the Drape of Shame equip effect. This is a bit inaccurate if you are using Beacon of Virtue.">
                                 Drape of Shame healing
@@ -430,7 +430,7 @@ class App extends Component {
                                 <img src="./ilterendi.jpg" style={{ height: 74, borderRadius: 5, border: '1px solid #000' }} alt="Ilterendi, Crown Jewel of Silvermoon" />
                               </a>
                             )}
-                            value={`${((Math.round(parser.modules.ilterendi.healing / parser.modules.refactorMe.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
+                            value={`${((Math.round(parser.modules.ilterendi.healing / parser.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
                             label={(
                               <dfn data-tip="The actual effective healing contributed by the Ilterendi, Crown Jewel of Silvermoon equip effect. This is a bit inaccurate if you are using Beacon of Virtue.">
                                 Ilterendi healing
@@ -446,7 +446,7 @@ class App extends Component {
                                 <img src="./velens.jpg" style={{ height: 74, borderRadius: 5, border: '1px solid #000' }} alt="Velen's Future Sight" />
                               </a>
                             )}
-                            value={`${((Math.round(parser.modules.refactorMe.velensHealing / parser.modules.refactorMe.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
+                            value={`${((Math.round(parser.modules.masteryEffectiveness.velensHealing / parser.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
                             label={(
                               <dfn data-tip="The actual effective healing contributed by the Velen's Future Sight use effect. This is a bit inaccurate if you are using Beacon of Virtue.">
                                 Velen's Future Sight healing contribution

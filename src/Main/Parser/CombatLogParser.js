@@ -1,8 +1,9 @@
 import Buffs from './Modules/Core/Buffs';
 import Combatants from './Modules/Core/Combatants';
 import BeaconHealing from './Modules/Core/BeaconHealing';
-import CastRatios from './Modules/Core/CastRatios';
-import RefactorMe from './RefactorMe';
+
+import CastRatios from './Modules/Features/CastRatios';
+import MasteryEffectiveness from './Modules/Features/MasteryEffectiveness';
 
 import DrapeOfShame from './Modules/Legendaries/DrapeOfShame';
 import Ilterendi from './Modules/Legendaries/Ilterendi';
@@ -19,7 +20,7 @@ class CombatLogParser {
     buffs: Buffs,
     castRatios: CastRatios,
     combatants: Combatants,
-    refactorMe: RefactorMe,
+    masteryEffectiveness: MasteryEffectiveness,
     drapeOfShame: DrapeOfShame,
     ilterendi: Ilterendi,
     velens: Velens,
@@ -80,6 +81,19 @@ class CombatLogParser {
   toPlayer(event) {
     return (event.targetID === this.player.id);
   }
+
+  totalHealing = 0;
+  parse_heal(event) {
+    if (this.byPlayer(event)) {
+      this.totalHealing += event.amount; // event.absorbed contains absorbed healing (e.g. by Time Release), should we include that?
+    }
+  }
+  parse_absorbed(event) {
+    if (this.byPlayer(event)) {
+      this.totalHealing += event.amount;
+    }
+  }
+  // TODO: Damage taken from LOTM
 }
 
 export default CombatLogParser;
