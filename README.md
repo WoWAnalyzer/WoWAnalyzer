@@ -1,4 +1,4 @@
-# Holy Paladin mastery effectiveness calculator
+# Holy Paladin Analyzer
 
 Run it:
 

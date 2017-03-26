@@ -14,7 +14,7 @@ import Progress from './Progress';
 import PlayerBreakdown from './PlayerBreakdown';
 import StatisticBox from './StatisticBox';
 
-import CombatLogParser, { SPELL_ID_RULE_OF_LAW, DRAPE_OF_SHAME_ITEM_ID } from './CombatLogParser';
+import CombatLogParser, { SPELL_ID_RULE_OF_LAW, DRAPE_OF_SHAME_ITEM_ID } from './Parser/CombatLogParser';
 
 const ILTERENDI_ITEM_ID = 137046;
 const VELENS_ITEM_ID = 144258;
@@ -36,7 +36,7 @@ class App extends Component {
     let totalHealingFromMastery = 0;
     let totalMaxPotentialMasteryHealing = 0;
 
-    const statsByTargetId = parser.masteryHealEvents.reduce((obj, event) => {
+    const statsByTargetId = parser.modules.refactorMe.masteryHealEvents.reduce((obj, event) => {
       // Update the fight-totals
       totalHealingWithMasteryAffectedAbilities += event.amount;
       totalHealingFromMastery += event.masteryHealingDone;
@@ -44,7 +44,7 @@ class App extends Component {
 
       // Update the player-totals
       if (!obj[event.targetID]) {
-        const playerInfo = parser.players[event.targetID];
+        const playerInfo = parser.modules.combatants.players[event.targetID];
         obj[event.targetID] = {
           ...playerInfo,
           healingReceived: 0,
@@ -65,7 +65,7 @@ class App extends Component {
       totalHealingWithMasteryAffectedAbilities,
       totalHealingFromMastery,
       totalMaxPotentialMasteryHealing,
-      ruleOfLawUptimePercentage: parser.getBuffUptime(SPELL_ID_RULE_OF_LAW) / parser.fightDuration,
+      ruleOfLawUptimePercentage: parser.modules.buffs.getBuffUptime(SPELL_ID_RULE_OF_LAW) / parser.fightDuration,
     };
   }
 
@@ -320,16 +320,20 @@ class App extends Component {
                         <StatisticBox
                           color="#7e9e3a"
                           icon={<img src="./healing.png" style={{ height: 74 }} alt="Healing" />}
-                          value={((parser.totalHealing || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}
+                          value={((parser.modules.refactorMe.totalHealing || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}
                           label="Healing done"
                         />
                         <StatisticBox
                           color="#1C538D"
                           icon={<img src="./mastery-radius.png" style={{ height: 74 }} alt="Mastery effectiveness" />}
                           value={`${(Math.round(totalMasteryEffectiveness * 10000) / 100).toFixed(2)} %`}
-                          label="Mastery effectiveness"
+                          label={(
+                            <dfn data-tip="The Mastery Effectiveness shown by this tool is currently only accurate with Beacon of Faith. If you run this on a log with Beacon of the Lightbringer it will calculate your mastery effectiveness without taking the beacon radius into consideration.<br />Effects that temporarily increase your mastery are also currently not supported.">
+                              Mastery effectiveness
+                            </dfn>
+                          )}
                         />
-                        {parser.selectedCombatant && parser.selectedCombatant.lv30Talent === SPELL_ID_RULE_OF_LAW && (
+                        {parser.modules.combatants.selected && parser.modules.combatants.selected.lv30Talent === SPELL_ID_RULE_OF_LAW && (
                           <StatisticBox
                             color="#d9762f"
                             icon={(
@@ -357,9 +361,9 @@ class App extends Component {
                               <img src="./infusionoflight.jpg" style={{ height: 74, borderRadius: 5, border: '1px solid #000' }} alt="Infusion of Light" />
                             </a>
                           )}
-                          value={`${this.constructor.formatPercentage(parser.casts.flashOfLightWithIol / (parser.casts.flashOfLightWithIol + parser.casts.holyLightWithIol))} %`}
+                          value={`${this.constructor.formatPercentage(parser.modules.refactorMe.casts.flashOfLightWithIol / (parser.modules.refactorMe.casts.flashOfLightWithIol + parser.modules.refactorMe.casts.holyLightWithIol))} %`}
                           label={(
-                            <dfn data-tip={`The Infusion of Light Flash of Light to Infusion of Light Holy Light usage ratio is how many Flash of Lights you cast compared to Holy Lights during the Infusion of Light proc. You cast ${parser.casts.flashOfLightWithIol} Flash of Lights and ${parser.casts.holyLightWithIol} Holy Lights during Infusion of Light.`}>
+                            <dfn data-tip={`The Infusion of Light Flash of Light to Infusion of Light Holy Light usage ratio is how many Flash of Lights you cast compared to Holy Lights during the Infusion of Light proc. You cast ${parser.modules.refactorMe.casts.flashOfLightWithIol} Flash of Lights and ${parser.modules.refactorMe.casts.holyLightWithIol} Holy Lights during Infusion of Light.`}>
                               IoL FoL to IoL HL cast ratio
                             </dfn>
                           )}
@@ -372,9 +376,9 @@ class App extends Component {
                               <img src="./infusionoflight-bw.png" style={{ height: 74, borderRadius: 5, border: '1px solid #000' }} alt="Wasted Infusion of Light" />
                             </a>
                           )}
-                          value={`${this.constructor.formatPercentage(1 - (parser.casts.flashOfLightWithIol + parser.casts.holyLightWithIol) / (parser.casts.holyShockCriticals * parser.iolProcsPerHolyShockCrit))} %`}
+                          value={`${this.constructor.formatPercentage(1 - (parser.modules.refactorMe.casts.flashOfLightWithIol + parser.modules.refactorMe.casts.holyLightWithIol) / (parser.modules.refactorMe.casts.holyShockCriticals * parser.modules.refactorMe.iolProcsPerHolyShockCrit))} %`}
                           label={(
-                            <dfn data-tip={`The amount of Infusion of Lights you did not use out of the total available. You cast ${parser.casts.holyShock} Holy Shocks with a ${this.constructor.formatPercentage(parser.casts.holyShockCriticals / parser.casts.holyShock)}% crit ratio. This gave you ${parser.casts.holyShockCriticals * parser.iolProcsPerHolyShockCrit} Infusion of Light procs, of which you used ${parser.casts.flashOfLightWithIol + parser.casts.holyLightWithIol}.`}>
+                            <dfn data-tip={`The amount of Infusion of Lights you did not use out of the total available. You cast ${parser.modules.refactorMe.casts.holyShock} Holy Shocks with a ${this.constructor.formatPercentage(parser.modules.refactorMe.casts.holyShockCriticals / parser.modules.refactorMe.casts.holyShock)}% crit ratio. This gave you ${parser.modules.refactorMe.casts.holyShockCriticals * parser.modules.refactorMe.iolProcsPerHolyShockCrit} Infusion of Light procs, of which you used ${parser.modules.refactorMe.casts.flashOfLightWithIol + parser.modules.refactorMe.casts.holyLightWithIol}.`}>
                               Infusion of Light wasted ratio
                             </dfn>
                           )}
@@ -387,9 +391,9 @@ class App extends Component {
                               <img src="./flashoflight.jpg" style={{ height: 74, borderRadius: 5, border: '1px solid #000' }} alt="Flash of Light" />
                             </a>
                           )}
-                          value={`${this.constructor.formatPercentage((parser.casts.flashOfLight - parser.casts.flashOfLightWithIol) / (parser.casts.flashOfLight - parser.casts.flashOfLightWithIol + parser.casts.holyLight - parser.casts.holyLightWithIol))} %`}
+                          value={`${this.constructor.formatPercentage((parser.modules.refactorMe.casts.flashOfLight - parser.modules.refactorMe.casts.flashOfLightWithIol) / (parser.modules.refactorMe.casts.flashOfLight - parser.modules.refactorMe.casts.flashOfLightWithIol + parser.modules.refactorMe.casts.holyLight - parser.modules.refactorMe.casts.holyLightWithIol))} %`}
                           label={(
-                            <dfn data-tip={`The ratio at which you cast Flash of Lights versus Holy Lights. You cast ${parser.casts.flashOfLight - parser.casts.flashOfLightWithIol} filler Flash of Lights and ${parser.casts.holyLight - parser.casts.holyLightWithIol} filler Holy Lights.`}>
+                            <dfn data-tip={`The ratio at which you cast Flash of Lights versus Holy Lights. You cast ${parser.modules.refactorMe.casts.flashOfLight - parser.modules.refactorMe.casts.flashOfLightWithIol} filler Flash of Lights and ${parser.modules.refactorMe.casts.holyLight - parser.modules.refactorMe.casts.holyLightWithIol} filler Holy Lights.`}>
                               Filler cast ratio
                             </dfn>
                           )}
@@ -402,7 +406,7 @@ class App extends Component {
                         </div>
                       </div>
                       <div className="row">
-                        {parser.selectedCombatant && parser.selectedCombatant.hasBack(DRAPE_OF_SHAME_ITEM_ID) && (
+                        {parser.modules.combatants.selected && parser.modules.combatants.selected.hasBack(DRAPE_OF_SHAME_ITEM_ID) && (
                           <StatisticBox
                             color="#ad58ca"
                             icon={(
@@ -410,7 +414,7 @@ class App extends Component {
                                 <img src="./drapeofshame.jpg" style={{ height: 74, borderRadius: 5, border: '1px solid #000' }} alt="Drape of Shame" />
                               </a>
                             )}
-                            value={`${((Math.round(parser.drapeHealing / parser.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
+                            value={`${((Math.round(parser.modules.refactorMe.drapeHealing / parser.modules.refactorMe.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
                             label={(
                               <dfn data-tip="The actual effective healing contributed by the Drape of Shame equip effect. This is a bit inaccurate if you are using Beacon of Virtue.">
                                 Drape of Shame healing
@@ -418,7 +422,7 @@ class App extends Component {
                             )}
                           />
                         )}
-                        {parser.selectedCombatant && parser.selectedCombatant.hasRing(ILTERENDI_ITEM_ID) && (
+                        {parser.modules.combatants.selected && parser.modules.combatants.selected.hasRing(ILTERENDI_ITEM_ID) && (
                           <StatisticBox
                             color="#a65c5a"
                             icon={(
@@ -426,7 +430,7 @@ class App extends Component {
                                 <img src="./ilterendi.jpg" style={{ height: 74, borderRadius: 5, border: '1px solid #000' }} alt="Ilterendi, Crown Jewel of Silvermoon" />
                               </a>
                             )}
-                            value={`${((Math.round(parser.ilterendiHealing / parser.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
+                            value={`${((Math.round(parser.modules.ilterendi.healing / parser.modules.refactorMe.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
                             label={(
                               <dfn data-tip="The actual effective healing contributed by the Ilterendi, Crown Jewel of Silvermoon equip effect. This is a bit inaccurate if you are using Beacon of Virtue.">
                                 Ilterendi healing
@@ -434,7 +438,7 @@ class App extends Component {
                             )}
                           />
                         )}
-                        {parser.selectedCombatant && parser.selectedCombatant.hasTrinket(VELENS_ITEM_ID) && (
+                        {parser.modules.combatants.selected && parser.modules.combatants.selected.hasTrinket(VELENS_ITEM_ID) && (
                           <StatisticBox
                             color="#ebc505"
                             icon={(
@@ -442,7 +446,7 @@ class App extends Component {
                                 <img src="./velens.jpg" style={{ height: 74, borderRadius: 5, border: '1px solid #000' }} alt="Velen's Future Sight" />
                               </a>
                             )}
-                            value={`${((Math.round(parser.velensHealing / parser.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
+                            value={`${((Math.round(parser.modules.refactorMe.velensHealing / parser.modules.refactorMe.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
                             label={(
                               <dfn data-tip="The actual effective healing contributed by the Velen's Future Sight use effect. This is a bit inaccurate if you are using Beacon of Virtue.">
                                 Velen's Future Sight healing contribution
