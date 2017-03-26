@@ -8,6 +8,7 @@ import MasteryEffectiveness from './Modules/Features/MasteryEffectiveness';
 import DrapeOfShame from './Modules/Legendaries/DrapeOfShame';
 import Ilterendi from './Modules/Legendaries/Ilterendi';
 import Velens from './Modules/Legendaries/Velens';
+import ChainOfThrayn from './Modules/Legendaries/ChainOfThrayn';
 
 class CombatLogParser {
   static enabledModules = {
@@ -16,9 +17,11 @@ class CombatLogParser {
     castRatios: CastRatios,
     combatants: Combatants,
     masteryEffectiveness: MasteryEffectiveness,
+
     drapeOfShame: DrapeOfShame,
     ilterendi: Ilterendi,
     velens: Velens,
+    chainOfThrayn: ChainOfThrayn,
   };
 
   report = null;

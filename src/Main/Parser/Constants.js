@@ -75,3 +75,6 @@ export const HIT_TYPES = {
   CRIT: 2,
   NOCLUEWHATTHISIS: 3, // seen at Aura of Sacrifice
 };
+
+export const AVENGING_WRATH_SPELL_ID = 31842;
+export const AVENGING_WRATH_HEALING_INCREASE = 0.35;

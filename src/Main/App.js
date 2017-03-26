@@ -19,6 +19,7 @@ import { RULE_OF_LAW_SPELL_ID } from './Parser/Constants';
 import { DRAPE_OF_SHAME_ITEM_ID } from './Parser/Modules/Legendaries/DrapeOfShame';
 import { ILTERENDI_ITEM_ID } from './Parser/Modules/Legendaries/Ilterendi';
 import { VELENS_ITEM_ID } from './Parser/Modules/Legendaries/Velens';
+import { CHAIN_OF_THRAYN_ITEM_ID } from './Parser/Modules/Legendaries/ChainOfThrayn';
 
 class App extends Component {
   static propTypes = {
@@ -422,9 +423,9 @@ class App extends Component {
                         )}
                         {parser.modules.combatants.selected && parser.modules.combatants.selected.hasRing(ILTERENDI_ITEM_ID) && (
                           <StatisticBox
-                            color="#a65c5a"
+                            color="#3eab90"
                             icon={(
-                              <a href="http://www.wowhead.com/spell=207589" target="_blank">
+                              <a href="http://www.wowhead.com/item=137046" target="_blank">
                                 <img src="./ilterendi.jpg" style={{ height: 74, borderRadius: 5, border: '1px solid #000' }} alt="Ilterendi, Crown Jewel of Silvermoon" />
                               </a>
                             )}
@@ -440,14 +441,30 @@ class App extends Component {
                           <StatisticBox
                             color="#ebc505"
                             icon={(
-                              <a href="http://www.wowhead.com/spell=235966" target="_blank">
+                              <a href="http://www.wowhead.com/item=144258" target="_blank">
                                 <img src="./velens.jpg" style={{ height: 74, borderRadius: 5, border: '1px solid #000' }} alt="Velen's Future Sight" />
                               </a>
                             )}
-                            value={`${((Math.round(parser.modules.masteryEffectiveness.velensHealing / parser.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
+                            value={`${((Math.round(parser.modules.velens.healing / parser.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
                             label={(
                               <dfn data-tip="The actual effective healing contributed by the Velen's Future Sight use effect. This is a bit inaccurate if you are using Beacon of Virtue.">
-                                Velen's Future Sight healing contribution
+                                Velen's Future Sight healing
+                              </dfn>
+                            )}
+                          />
+                        )}
+                        {parser.modules.combatants.selected && parser.modules.combatants.selected.hasWaist(CHAIN_OF_THRAYN_ITEM_ID) && (
+                          <StatisticBox
+                            color="#984d16"
+                            icon={(
+                              <a href="http://www.wowhead.com/item=137086" target="_blank">
+                                <img src="./chainOfThrayn.jpg" style={{ height: 74, borderRadius: 5, border: '1px solid #000' }} alt="Chain of Thrayn" />
+                              </a>
+                            )}
+                            value={`${((Math.round(parser.modules.chainOfThrayn.healing / parser.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
+                            label={(
+                              <dfn data-tip="The actual effective healing contributed by the Chain of Thrayn equip effect. This is a bit inaccurate if you are using Beacon of Virtue.">
+                                Chain of Thrayn healing
                               </dfn>
                             )}
                           />
