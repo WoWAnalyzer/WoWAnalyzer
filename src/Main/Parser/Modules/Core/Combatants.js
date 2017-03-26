@@ -4,16 +4,12 @@ import Combatant from './Combatant';
 
 class Combatants extends Module {
   players = {};
-  selected = null;
+  get selected() {
+    return this.players[this.owner.player.id];
+  }
 
   on_combatantinfo(event) {
-    console.log('combatantinfo', event);
-
-    this.players[event.sourceID] = event;
-
-    if (this.owner.byPlayer(event)) {
-      this.selected = new Combatant(event);
-    }
+    this.players[event.sourceID] = new Combatant(this.owner.playersById[event.sourceID], event);
   }
 }
 

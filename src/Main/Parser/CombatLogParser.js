@@ -9,11 +9,6 @@ import DrapeOfShame from './Modules/Legendaries/DrapeOfShame';
 import Ilterendi from './Modules/Legendaries/Ilterendi';
 import Velens from './Modules/Legendaries/Velens';
 
-// Talents
-export const SPELL_ID_RULE_OF_LAW = 214202;
-
-export const DRAPE_OF_SHAME_ITEM_ID = 142170;
-
 class CombatLogParser {
   static enabledModules = {
     beaconHealing: BeaconHealing,
@@ -26,6 +21,7 @@ class CombatLogParser {
     velens: Velens,
   };
 
+  report = null;
   player = null;
   fight = null;
 
@@ -38,8 +34,15 @@ class CombatLogParser {
   get currentTimestamp() {
     return this._timestamp;
   }
+  get playersById() {
+    return this.report.friendlies.reduce((obj, player) => {
+      obj[player.id] = player;
+      return obj;
+    }, {});
+  }
 
-  constructor(player, fight) {
+  constructor(report, player, fight) {
+    this.report = report;
     this.player = player;
     this.fight = fight;
 

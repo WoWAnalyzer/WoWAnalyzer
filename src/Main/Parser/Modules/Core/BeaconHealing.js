@@ -1,6 +1,8 @@
 import Module from 'Main/Parser/Module';
 import { BEACON_TRANSFER_SPELL_ID, BEACON_TRANSFERING_ABILITIES, BEACON_TYPES } from 'Main/Parser/Constants';
 
+const debug = false;
+
 class BeaconHealing extends Module {
   on_heal(event) {
     if (this.owner.byPlayer(event)) {
@@ -55,7 +57,9 @@ class BeaconHealing extends Module {
       // fragile and the accuracy loss for not including this kind of healing is minimal. I expect other healing received increases likely
       // also don't beacon transfer, but right now this isn't common. Fury warrior log:
       // https://www.warcraftlogs.com/reports/TLQ14HfhjRvNrV2y/#view=events&type=healing&source=10&start=7614145&end=7615174&fight=39
-      console.error('Failed to match', beaconTransferEvent, 'to a heal. Healing backlog:', this.beaconTransferEnabledHealsBacklog);
+      if (debug) {
+        console.error('Failed to match', beaconTransferEvent, 'to a heal. Healing backlog:', this.beaconTransferEnabledHealsBacklog);
+      }
     } else {
       const matchedHeal = this.beaconTransferEnabledHealsBacklog[index];
       // console.log('Matched beacon transfer', beaconTransferEvent, 'to heal', matchedHeal);

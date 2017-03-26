@@ -10,6 +10,7 @@ export const BESTOW_FAITH_SPELL_ID = 223306;
 export const JUDGMENT_OF_LIGHT_SPELL_ID = 183811;
 export const AURA_OF_MERCY_SPELL_ID = 210291;
 export const LEECH_SPELL_ID = 143924;
+export const AURA_OF_SACRIFICE_SPELL_ID = 210383;
 
 // All beacons use this spell id for their healing events.
 export const BEACON_TRANSFER_SPELL_ID = 53652;
@@ -28,15 +29,14 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   // While the following spells don't double dip in healing increases, they gain the same percentual bonus from the transfer
   BEACON_TRANSFER_SPELL_ID,
   LEECH_SPELL_ID,
+  // AURA_OF_SACRIFICE_SPELL_ID, // while AoS sorta is included, it's based on effective healing and any overhealing from the original spell would have to be reduced to get an accurate result. Not including it doesn't have a big impact.
 ];
-
 
 export const RULE_OF_LAW_SPELL_ID = 214202;
 
 export const BEACON_OF_FAITH_SPELL_ID = 156910;
 export const BEACON_OF_THE_LIGHTBRINGER_SPELL_ID = 197446;
 export const BEACON_OF_VIRTUE_SPELL_ID = 200025;
-
 
 export const ABILITIES_AFFECTED_BY_MASTERY = [
   HOLY_SHOCK_SPELL_ID,

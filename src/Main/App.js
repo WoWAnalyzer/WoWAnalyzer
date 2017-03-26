@@ -14,10 +14,11 @@ import Progress from './Progress';
 import PlayerBreakdown from './PlayerBreakdown';
 import StatisticBox from './StatisticBox';
 
-import CombatLogParser, { SPELL_ID_RULE_OF_LAW, DRAPE_OF_SHAME_ITEM_ID } from './Parser/CombatLogParser';
-
-const ILTERENDI_ITEM_ID = 137046;
-const VELENS_ITEM_ID = 144258;
+import CombatLogParser from './Parser/CombatLogParser';
+import { RULE_OF_LAW_SPELL_ID } from './Parser/Constants';
+import { DRAPE_OF_SHAME_ITEM_ID } from './Parser/Modules/Legendaries/DrapeOfShame';
+import { ILTERENDI_ITEM_ID } from './Parser/Modules/Legendaries/Ilterendi';
+import { VELENS_ITEM_ID } from './Parser/Modules/Legendaries/Velens';
 
 class App extends Component {
   static propTypes = {
@@ -44,9 +45,9 @@ class App extends Component {
 
       // Update the player-totals
       if (!obj[event.targetID]) {
-        const playerInfo = parser.modules.combatants.players[event.targetID];
+        const combatant = parser.modules.combatants.players[event.targetID];
         obj[event.targetID] = {
-          ...playerInfo,
+          combatant,
           healingReceived: 0,
           healingFromMastery: 0,
           maxPotentialHealingFromMastery: 0,
@@ -65,7 +66,7 @@ class App extends Component {
       totalHealingWithMasteryAffectedAbilities,
       totalHealingFromMastery,
       totalMaxPotentialMasteryHealing,
-      ruleOfLawUptimePercentage: parser.modules.buffs.getBuffUptime(SPELL_ID_RULE_OF_LAW) / parser.fightDuration,
+      ruleOfLawUptimePercentage: parser.modules.buffs.getBuffUptime(RULE_OF_LAW_SPELL_ID) / parser.fightDuration,
     };
   }
 
@@ -114,7 +115,7 @@ class App extends Component {
     const player = this.getPlayerFromReport(report, playerName);
     const fight = this.getFightFromReport(report, fightId);
 
-    const parser = new CombatLogParser(player, fight);
+    const parser = new CombatLogParser(report, player, fight);
 
     this.setState({
       finished: false,
@@ -165,10 +166,7 @@ class App extends Component {
     console.log('Finished. Parser:', parser);
 
     const statsByTargetId = stats.statsByTargetId;
-    const playersById = this.state.report.friendlies.reduce((obj, player) => {
-      obj[player.id] = player;
-      return obj;
-    }, {});
+    const playersById = parser.playersById;
     const friendlyStats = [];
     Object.keys(statsByTargetId)
       .forEach(targetId => {
@@ -333,7 +331,7 @@ class App extends Component {
                             </dfn>
                           )}
                         />
-                        {parser.modules.combatants.selected && parser.modules.combatants.selected.lv30Talent === SPELL_ID_RULE_OF_LAW && (
+                        {parser.modules.combatants.selected && parser.modules.combatants.selected.lv30Talent === RULE_OF_LAW_SPELL_ID && (
                           <StatisticBox
                             color="#d9762f"
                             icon={(

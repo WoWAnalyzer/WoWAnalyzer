@@ -15,7 +15,7 @@ const PlayerBreakdown = ({ friendlyStats, highestHealingFromMastery, totalHealin
     {friendlyStats
       .sort((a, b) => b.masteryEffectiveness - a.masteryEffectiveness)
       .map(player => {
-        const spec = SPEC_IDS[player.specID];
+        const spec = SPEC_IDS[player.combatant.specId];
         const specClassName = spec.className.replace(' ', '');
         // We want the performance bar to show a full bar for whatever healing done percentage is highest to make
         // it easier to see relative amounts.
@@ -23,10 +23,10 @@ const PlayerBreakdown = ({ friendlyStats, highestHealingFromMastery, totalHealin
         const actualHealingReceivedPercentage = player.healingFromMastery / (totalHealingFromMastery || 1);
 
         return (
-          <tr key={player.name}>
+          <tr key={player.combatant.name}>
             <td style={{ width: '20%'}}>
               <img src={`./specs/${specClassName}-${spec.spec.replace(' ', '')}.jpg`} style={{ width: '20px', height: '20px', border: '1px solid #000' }} alt="Spec logo" />{' '}
-              {player.name}
+              {player.combatant.name}
             </td>
             <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>
               {(Math.round(player.masteryEffectiveness * 10000) / 100).toFixed(2)}%
@@ -54,8 +54,10 @@ const PlayerBreakdown = ({ friendlyStats, highestHealingFromMastery, totalHealin
 );
 PlayerBreakdown.propTypes = {
   friendlyStats: React.PropTypes.arrayOf(React.PropTypes.shape({
+    combatant: React.PropTypes.shape({
+      specId: React.PropTypes.number.isRequired,
+    }).isRequired,
     name: React.PropTypes.string.isRequired,
-    specID: React.PropTypes.number.isRequired,
     masteryEffectiveness: React.PropTypes.number.isRequired,
   })),
   highestHealingFromMastery: React.PropTypes.number.isRequired,

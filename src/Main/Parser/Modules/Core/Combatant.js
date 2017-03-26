@@ -29,21 +29,34 @@ export const GEAR_SLOTS = {
 };
 
 class Combatant {
-  masteryRating = null;
+  get masteryRating() {
+    return this._combatantInfo.mastery;
+  }
   get masteryPercentage() {
     return Combatant.calculateMasteryPercentage(this.masteryRating);
+  }
+  get name() {
+    return this._combatantInfo.name;
+  }
+  get specId() {
+    return this._combatantInfo.specID;
   }
 
   talentsByRow = {};
   traitsBySpellId = {};
   gearBySlotId = {};
 
-  constructor(event) {
-    this.masteryRating = event.mastery;
+  _combatantInfo = null;
+  constructor(playerInfo, combatantInfo) {
+    this._combatantInfo = {
+      name: playerInfo.name,
+      type: playerInfo.type,
+      ...combatantInfo,
+    };
 
-    this.parseTalents(event.talents);
-    this.parseTraits(event.artifact);
-    this.parseGear(event.gear);
+    this.parseTalents(combatantInfo.talents);
+    this.parseTraits(combatantInfo.artifact);
+    this.parseGear(combatantInfo.gear);
   }
 
   //region Talents
