@@ -53,6 +53,7 @@ class ReportSelecter extends Component {
             Created by Zerotorescue for the <a href="https://discordapp.com/invite/hammerofwrath">#holy Discord</a>. You can usually find helpful people there.<br /><br />
 
             <strong>Changes:</strong><br />
+            26-03-2017 - Completely refactor the core, rename to Holy Paladin Analyzer.<br />
             25-03-2017 - Added cast ratios statistic.<br />
             24-03-2017 - Added Velen's Future Sight healing statistic.<br />
             22-03-2017 - Fixed an issue where DoS / Ilterendi healing statistics didn't work well with absorbed healing (Chronomatic Anomaly).<br />
