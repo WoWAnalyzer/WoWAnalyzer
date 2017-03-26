@@ -2,6 +2,7 @@ import Buffs from './Modules/Core/Buffs';
 import Combatants from './Modules/Core/Combatants';
 import RefactorMe from './RefactorMe';
 
+import DrapeOfShame from './Modules/Legendaries/DrapeOfShame';
 import Ilterendi from './Modules/Legendaries/Ilterendi';
 import Velens from './Modules/Legendaries/Velens';
 
@@ -15,6 +16,7 @@ class CombatLogParser {
     buffs: Buffs,
     combatants: Combatants,
     refactorMe: RefactorMe,
+    drapeOfShame: DrapeOfShame,
     ilterendi: Ilterendi,
     velens: Velens,
   };
@@ -47,14 +49,14 @@ class CombatLogParser {
       events.forEach(event => {
         this._timestamp = event.timestamp;
 
-        this.parseEvent(event);
+        this.triggerEvent(event.type, event);
       });
 
       resolve(events.length);
     });
   }
-  parseEvent(event) {
-    const methodName = `parse_${event.type}`;
+  triggerEvent(eventType, event) {
+    const methodName = `parse_${eventType}`;
     this.constructor.tryCall(this, methodName, event);
     Object.keys(this.modules).forEach(key => {
       const module = this.modules[key];

@@ -1,6 +1,6 @@
 import Module from './Module';
 
-import { BEACON_TRANSFER_SPELL_ID, ABILITIES_AFFECTED_BY_MASTERY, RULE_OF_LAW_SPELL_ID, BEACON_TRANSFERING_ABILITIES, BEACON_TYPES, ABILITIES_AFFECTED_BY_HEALING_INCREASES, HIT_TYPES, DRAPE_OF_SHAME_CRIT_EFFECT, DRAPE_OF_SHAME_ITEM_ID, HOLY_SHOCK_SPELL_ID, TRAITS, FLASH_OF_LIGHT_SPELL_ID, HOLY_LIGHT_SPELL_ID, INFUSION_OF_LIGHT_SPELL_ID, INFUSION_OF_LIGHT_BUFF_EXPIRATION_BUFFER, LIGHT_OF_THE_MARTYR_SPELL_ID, T19_4SET_BUFF_ID } from './Constants';
+import { BEACON_TRANSFER_SPELL_ID, ABILITIES_AFFECTED_BY_MASTERY, RULE_OF_LAW_SPELL_ID, BEACON_TRANSFERING_ABILITIES, BEACON_TYPES, HIT_TYPES, HOLY_SHOCK_SPELL_ID, FLASH_OF_LIGHT_SPELL_ID, HOLY_LIGHT_SPELL_ID, INFUSION_OF_LIGHT_SPELL_ID, INFUSION_OF_LIGHT_BUFF_EXPIRATION_BUFFER, LIGHT_OF_THE_MARTYR_SPELL_ID, T19_4SET_BUFF_ID } from './Constants';
 
 class RefactorMe extends Module {
   lastCast = null;
@@ -8,7 +8,6 @@ class RefactorMe extends Module {
   totalHealing = 0;
 
   masteryHealEvents = [];
-  drapeHealing = 0;
 
   casts = {
     flashOfLight: 0,
@@ -45,7 +44,6 @@ class RefactorMe extends Module {
     }
     if (this.owner.byPlayer(event)) {
       this.processForMasteryEffectiveness(event);
-      this.processForDrapeOfShameHealing(event);
       this.processForBeaconHealing(event);
       this.processForCastRatios(event);
 
@@ -150,7 +148,10 @@ class RefactorMe extends Module {
     } else {
       const matchedHeal = this.beaconTransferEnabledHealsBacklog[index];
       // console.log('Matched beacon transfer', beaconTransferEvent, 'to heal', matchedHeal);
-      this.processBeaconHealingForDrapeOfShameHealing(beaconTransferEvent, matchedHeal);
+      this.owner.triggerEvent('beacon_heal', {
+        beaconTransferEvent,
+        matchedHeal,
+      });
 
       matchedHeal.remainingBeaconTransfers -= 1;
       if (matchedHeal.remainingBeaconTransfers < 1) {
@@ -163,59 +164,6 @@ class RefactorMe extends Module {
   }
   get beaconTransferFactor() {
     return this.beaconType === BEACON_TYPES.BEACON_OF_FATH ? 0.32 : 0.4;
-  }
-  processForDrapeOfShameHealing(event) {
-    const spellId = event.ability.guid;
-    if (ABILITIES_AFFECTED_BY_HEALING_INCREASES.indexOf(spellId) === -1 || spellId === BEACON_TRANSFER_SPELL_ID) {
-      return;
-    }
-    if (event.hitType !== HIT_TYPES.CRIT) {
-      return;
-    }
-
-    const amount = event.amount;
-    const absorbed = event.absorbed || 0;
-    const overheal = event.overheal || 0;
-    const raw = amount + absorbed + overheal;
-    const rawNormalPart = raw / this.getCritHealingBonus(event);
-    const rawDrapeHealing = rawNormalPart * DRAPE_OF_SHAME_CRIT_EFFECT;
-
-    const effectiveHealing = Math.max(0, rawDrapeHealing - overheal);
-
-    this.drapeHealing += effectiveHealing;
-  }
-  processBeaconHealingForDrapeOfShameHealing(beaconTransferEvent, healEvent) {
-    const spellId = healEvent.ability.guid;
-    if (ABILITIES_AFFECTED_BY_HEALING_INCREASES.indexOf(spellId) === -1 || spellId === BEACON_TRANSFER_SPELL_ID) {
-      return;
-    }
-    if (healEvent.hitType !== HIT_TYPES.CRIT) {
-      return;
-    }
-
-    const amount = beaconTransferEvent.amount;
-    const absorbed = beaconTransferEvent.absorbed || 0;
-    const overheal = beaconTransferEvent.overheal || 0;
-    const raw = amount + absorbed + overheal;
-    const rawNormalPart = raw / this.getCritHealingBonus(healEvent);
-    const rawDrapeHealing = rawNormalPart * DRAPE_OF_SHAME_CRIT_EFFECT;
-
-    const effectiveHealing = Math.max(0, rawDrapeHealing - overheal);
-
-    this.drapeHealing += effectiveHealing;
-  }
-  getCritHealingBonus(event) {
-    let critModifier = 2;
-    if (this.owner.modules.combatants.selected.hasBack(DRAPE_OF_SHAME_ITEM_ID)) {
-      critModifier += DRAPE_OF_SHAME_CRIT_EFFECT;
-    }
-    if (event.ability.guid === HOLY_SHOCK_SPELL_ID) {
-      const shockTreatmentTraits = this.owner.modules.combatants.selected.traitsBySpellId[TRAITS.SHOCK_TREATMENT];
-      // Shock Treatment increases critical healing of Holy Shock by 8%: http://www.wowhead.com/spell=200315/shock-treatment
-      // This critical healing works on both the regular part and the critical part (unlike Drape of Shame), so we double it.
-      critModifier += shockTreatmentTraits * 0.08 * 2;
-    }
-    return critModifier;
   }
   processForCastRatios(event) {
     const spellId = event.ability.guid;

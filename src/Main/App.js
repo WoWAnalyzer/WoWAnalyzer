@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-import ReactTooltip from 'react-tooltip'
+import ReactTooltip from 'react-tooltip';
 
 import './App.css';
 
@@ -414,7 +414,7 @@ class App extends Component {
                                 <img src="./drapeofshame.jpg" style={{ height: 74, borderRadius: 5, border: '1px solid #000' }} alt="Drape of Shame" />
                               </a>
                             )}
-                            value={`${((Math.round(parser.modules.refactorMe.drapeHealing / parser.modules.refactorMe.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
+                            value={`${((Math.round(parser.modules.drapeOfShame.healing / parser.modules.refactorMe.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
                             label={(
                               <dfn data-tip="The actual effective healing contributed by the Drape of Shame equip effect. This is a bit inaccurate if you are using Beacon of Virtue.">
                                 Drape of Shame healing

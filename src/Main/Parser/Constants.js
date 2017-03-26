@@ -54,7 +54,6 @@ export const ABILITIES_AFFECTED_BY_MASTERY = [
   BESTOW_FAITH_SPELL_ID,
 ];
 
-export const DRAPE_OF_SHAME_ITEM_ID = 142170;
 export const BEACON_TRANSFERING_ABILITIES = {
   [HOLY_SHOCK_SPELL_ID]: 1,
   [LIGHT_OF_DAWN_SPELL_ID]: 0.5,
@@ -74,7 +73,6 @@ export const BEACON_TYPES = {
 export const TRAITS = {
   SHOCK_TREATMENT: 200315,
 };
-export const DRAPE_OF_SHAME_CRIT_EFFECT = 0.1;
 export const HIT_TYPES = {
   NORMAL: 1,
   CRIT: 2,
