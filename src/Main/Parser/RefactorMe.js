@@ -9,18 +9,6 @@ class RefactorMe extends Module {
 
   masteryHealEvents = [];
 
-  casts = {
-    flashOfLight: 0,
-    holyLight: 0,
-    flashOfLightWithIol: 0,
-    holyLightWithIol: 0,
-    flashOfLightOnBeacon: 0,
-    holyLightOnBeacon: 0,
-    lightOfTheMartyr: 0,
-    holyShock: 0,
-    holyShockCriticals: 0,
-  };
-
   parse_cast(event) {
     if (this.owner.byPlayer(event)) {
       this.updatePlayerPosition(event);
@@ -44,7 +32,6 @@ class RefactorMe extends Module {
     }
     if (this.owner.byPlayer(event)) {
       this.processForMasteryEffectiveness(event);
-      this.processForCastRatios(event);
 
       // event.amount is the actual heal as shown in the log
       this.totalHealing += event.amount;
@@ -95,40 +82,6 @@ class RefactorMe extends Module {
         maxPotentialMasteryHealing,
       });
     }
-  }
-  processForCastRatios(event) {
-    const spellId = event.ability.guid;
-
-    if (spellId === HOLY_SHOCK_SPELL_ID) {
-      this.casts.holyShock += 1;
-      if (event.hitType === HIT_TYPES.CRIT) {
-        this.casts.holyShockCriticals += 1;
-      }
-    } else if (spellId === FLASH_OF_LIGHT_SPELL_ID || spellId === HOLY_LIGHT_SPELL_ID) {
-      const hasIol = this.owner.modules.buffs.hasBuff(INFUSION_OF_LIGHT_SPELL_ID, INFUSION_OF_LIGHT_BUFF_EXPIRATION_BUFFER);
-      // TODO: target hasBeaconOfLight
-
-      switch (spellId) {
-        case FLASH_OF_LIGHT_SPELL_ID:
-          this.casts.flashOfLight += 1;
-          if (hasIol) {
-            this.casts.flashOfLightWithIol += 1;
-          }
-          break;
-        case HOLY_LIGHT_SPELL_ID:
-          this.casts.holyLight += 1;
-          if (hasIol) {
-            this.casts.holyLightWithIol += 1;
-          }
-          break;
-        default: break;
-      }
-    } else if (spellId === LIGHT_OF_THE_MARTYR_SPELL_ID) {
-      this.casts.lightOfTheMartyr += 1;
-    }
-  }
-  get iolProcsPerHolyShockCrit() {
-    return this.owner.modules.buffs.hasBuff(T19_4SET_BUFF_ID) ? 2 : 1;
   }
 
   updatePlayerPosition(event) {

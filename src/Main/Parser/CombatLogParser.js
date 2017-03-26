@@ -1,6 +1,7 @@
 import Buffs from './Modules/Core/Buffs';
 import Combatants from './Modules/Core/Combatants';
 import BeaconHealing from './Modules/Core/BeaconHealing';
+import CastRatios from './Modules/Core/CastRatios';
 import RefactorMe from './RefactorMe';
 
 import DrapeOfShame from './Modules/Legendaries/DrapeOfShame';
@@ -16,6 +17,7 @@ class CombatLogParser {
   static enabledModules = {
     beaconHealing: BeaconHealing,
     buffs: Buffs,
+    castRatios: CastRatios,
     combatants: Combatants,
     refactorMe: RefactorMe,
     drapeOfShame: DrapeOfShame,

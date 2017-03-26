@@ -37,9 +37,6 @@ export const BEACON_OF_FAITH_SPELL_ID = 156910;
 export const BEACON_OF_THE_LIGHTBRINGER_SPELL_ID = 197446;
 export const BEACON_OF_VIRTUE_SPELL_ID = 200025;
 
-export const T19_4SET_BUFF_ID = 211438;
-export const INFUSION_OF_LIGHT_SPELL_ID = 54149;
-export const INFUSION_OF_LIGHT_BUFF_EXPIRATION_BUFFER = 50; // the buff expiration can occur several MS before the heal event is logged, this is the buffer time that an IoL charge may have dropped during which it will still be considered active.
 
 export const ABILITIES_AFFECTED_BY_MASTERY = [
   HOLY_SHOCK_SPELL_ID,
