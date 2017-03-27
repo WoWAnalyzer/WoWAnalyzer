@@ -33,6 +33,13 @@ class Buffs extends Module {
 
     this.removeActiveBuff(event);
   }
+  on_removebuffstack(event) {
+    if (!this.owner.toPlayer(event)) return;
+
+    // In the case of Maraad's Dying Breath it calls a `removebuffstack` that removes all additional stacks from the buff before it calls a `removebuff`, with this we can find the amount of stacks it had. The `event.stacks` only includes the amount of removed stacks, which (at least for Maraad's) are all stacks minus one since the original buff is also considered a stack.
+    const existingBuff = this.buffs.find(item => item.ability.guid === event.ability.guid && item.end === null);
+    existingBuff.stacks = event.stack + 1;
+  }
 
   /**
    * @param spellId

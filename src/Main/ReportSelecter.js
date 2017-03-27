@@ -53,6 +53,7 @@ class ReportSelecter extends Component {
             Created by Zerotorescue for the <a href="https://discordapp.com/invite/hammerofwrath">#holy Discord</a>. You can usually find helpful people there.<br /><br />
 
             <strong>Changes:</strong><br />
+            27-03-2017 - Added Maraad's Dying Breath healing statistic.<br />
             27-03-2017 - Added Prydaz and Obsidian Stone Spaulders healing statistic.<br />
             26-03-2017 - Added Chain of Thrayn healing statistic.<br />
             26-03-2017 - Completely refactor the core, rename to Holy Paladin Analyzer.<br />

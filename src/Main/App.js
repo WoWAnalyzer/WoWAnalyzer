@@ -514,7 +514,7 @@ class App extends Component {
                             )}
                             value={`${((Math.round(parser.modules.maraadsDyingBreath.healing / parser.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
                             label={(
-                              <dfn data-tip="The actual effective healing contributed by the Maraad's Dying Breath equip effect. This is fairly inaccurate if you are using Beacon of Virtue.">
+                              <dfn data-tip="The actual effective healing contributed by the Maraad's Dying Breath equip effect when compared to casting an unbuffed LotM instead. The damage taken is ignored as this doesn't change with Maraad's and therefore doesn't impact the healing gain. This is fairly inaccurate if you are using Beacon of Virtue.">
                                 Maraad's healing
                               </dfn>
                             )}
