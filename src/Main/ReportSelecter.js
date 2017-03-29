@@ -53,6 +53,7 @@ class ReportSelecter extends Component {
             Created by Zerotorescue for the <a href="https://discordapp.com/invite/hammerofwrath">#holy Discord</a>. You can usually find helpful people there.<br /><br />
 
             <strong>Changes:</strong><br />
+            29-03-2017 - Fixed a bug where Maraad's healing statistic would show 0% healing after getting only 1 Maraad's charge.<br />
             29-03-2017 - Update healing bonuses to the 7.2 values (DoS & Ilterendi nerfs).<br />
             27-03-2017 - Added Maraad's Dying Breath healing statistic.<br />
             27-03-2017 - Added Prydaz and Obsidian Stone Spaulders healing statistic.<br />

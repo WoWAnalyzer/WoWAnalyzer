@@ -32,12 +32,13 @@ class MaraadsDyingBreath extends Module {
     // In the case of Maraad's Dying Breath each LotM can consumes the stacks of the buff remaining. So this event is only called once per buffed LotM. When the buff is removed it first calls a `removebuffstack` that removes all additional stacks from the buff before it calls a `removebuff`, `removebuffstack` is the only way we can find the amount of stacks it had.
     const heal = this._lastHeal;
     const buff = this.owner.modules.buffs.getBuff(MARAADS_HEALING_BUFF_ID);
+    const stacks = buff.stacks || 1;
 
     const amount = heal.amount;
     const absorbed = heal.absorbed || 0;
     const overheal = heal.overheal || 0;
     const raw = amount + absorbed + overheal;
-    const healingIncreaseFactor = 1 + buff.stacks * MARAADS_HEALING_INCREASE_PER_STACK;
+    const healingIncreaseFactor = 1 + stacks * MARAADS_HEALING_INCREASE_PER_STACK;
     const healingIncrease = raw - raw / healingIncreaseFactor;
 
     const effectiveHealing = Math.max(0, healingIncrease - overheal);
