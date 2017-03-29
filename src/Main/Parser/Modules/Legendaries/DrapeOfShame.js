@@ -2,7 +2,7 @@ import Module from 'Main/Parser/Module';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES, HIT_TYPES, TRAITS, BEACON_TRANSFER_SPELL_ID, HOLY_SHOCK_SPELL_ID } from 'Main/Parser/Constants';
 
 export const DRAPE_OF_SHAME_ITEM_ID = 142170;
-export const DRAPE_OF_SHAME_CRIT_EFFECT = 0.1;
+export const DRAPE_OF_SHAME_CRIT_EFFECT = 0.05;
 
 class DrapeOfShame extends Module {
   healing = 0;

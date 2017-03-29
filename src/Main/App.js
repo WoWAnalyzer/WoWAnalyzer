@@ -351,7 +351,7 @@ class App extends Component {
 
                       <div className="row">
                         <div className="col-md-12">
-                          <h3>Cast ratios</h3>
+                          <h3>Cast behavior</h3>
                         </div>
                       </div>
                       <div className="row">

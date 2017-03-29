@@ -12,7 +12,7 @@ Run it:
  * Check other stuff too to just make this a general Holy Paladin log analyzer. E.g. too many LOTM casts, too much direct healing tanks, not using spells on cooldown, not using cooldowns on cooldown, going OOM, not going OOM. All pretty easy to analyze
  * Misused GCD statistic, dead GCD statistic
  * Show CPMs / cast delays for spreadsheet
- * Cast ratios
+ * Only load optional modules when the required item is equipped.
 
 # License
 

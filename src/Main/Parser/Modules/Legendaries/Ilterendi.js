@@ -3,7 +3,7 @@ import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from 'Main/Parser/Constants';
 
 export const ILTERENDI_ITEM_ID = 137046;
 const LEGENDARY_ILTERENDI_BUFF_SPELL_ID = 207589;
-const LEGENDARY_ILTERENDI_HEALING_INCREASE = 0.2;
+const LEGENDARY_ILTERENDI_HEALING_INCREASE = 0.15;
 
 class Ilterendi extends Module {
   healing = 0;
