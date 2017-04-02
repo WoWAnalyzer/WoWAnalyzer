@@ -1,5 +1,5 @@
 import Module from 'Main/Parser/Module';
-import { ABILITIES_AFFECTED_BY_HEALING_INCREASES, HIT_TYPES, TRAITS, BEACON_TRANSFER_SPELL_ID, HOLY_SHOCK_SPELL_ID } from 'Main/Parser/Constants';
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES, HIT_TYPES, TRAITS, BEACON_TRANSFER_SPELL_ID, HOLY_SHOCK_HEAL_SPELL_ID } from 'Main/Parser/Constants';
 
 export const DRAPE_OF_SHAME_ITEM_ID = 142170;
 export const DRAPE_OF_SHAME_CRIT_EFFECT = 0.05;
@@ -60,7 +60,7 @@ class DrapeOfShame extends Module {
     if (this.owner.modules.combatants.selected.hasBack(DRAPE_OF_SHAME_ITEM_ID)) {
       critModifier += DRAPE_OF_SHAME_CRIT_EFFECT;
     }
-    if (event.ability.guid === HOLY_SHOCK_SPELL_ID) {
+    if (event.ability.guid === HOLY_SHOCK_HEAL_SPELL_ID) {
       const shockTreatmentTraits = this.owner.modules.combatants.selected.traitsBySpellId[TRAITS.SHOCK_TREATMENT];
       // Shock Treatment increases critical healing of Holy Shock by 8%: http://www.wowhead.com/spell=200315/shock-treatment
       // This critical healing works on both the regular part and the critical part (unlike Drape of Shame), so we double it.

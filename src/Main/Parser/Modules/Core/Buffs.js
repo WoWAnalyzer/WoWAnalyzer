@@ -44,14 +44,15 @@ class Buffs extends Module {
   /**
    * @param spellId
    * @param bufferTime Time (in MS) the buff may have expired. There's a bug in the combat log where if a spell consumes a buff that buff may disappear a few MS earlier than the heal event is logged. I've seen this go up to 32ms.
+   * @param forTimestamp
    * @returns {boolean}
    */
-  hasBuff(spellId, bufferTime = 0) {
-    return this.getBuff(spellId, bufferTime) !== undefined;
+  hasBuff(spellId, bufferTime = 0, forTimestamp = null) {
+    return this.getBuff(spellId, bufferTime, forTimestamp) !== undefined;
   }
-  getBuff(spellId, bufferTime = 0) {
-    const currentTimestamp = this.owner.currentTimestamp;
-    return this.buffs.find(buff => buff.ability.guid === spellId && buff.start < currentTimestamp && (buff.end === null || (buff.end + bufferTime) >= currentTimestamp));
+  getBuff(spellId, bufferTime = 0, forTimestamp = null) {
+    const currentTimestamp = forTimestamp || this.owner.currentTimestamp;
+    return this.buffs.find(buff => buff.ability.guid === Number(spellId) && buff.start < currentTimestamp && (buff.end === null || (buff.end + bufferTime) >= currentTimestamp));
   }
   getBuffUptime(buffAbilityId) {
     return this.buffs.reduce((uptime, buff) => {

@@ -4,6 +4,7 @@ import BeaconHealing from './Modules/Core/BeaconHealing';
 
 import CastRatios from './Modules/Features/CastRatios';
 import MasteryEffectiveness from './Modules/Features/MasteryEffectiveness';
+import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 
 import DrapeOfShame from './Modules/Legendaries/DrapeOfShame';
 import Ilterendi from './Modules/Legendaries/Ilterendi';
@@ -15,12 +16,17 @@ import MaraadsDyingBreath from './Modules/Legendaries/MaraadsDyingBreath';
 
 class CombatLogParser {
   static enabledModules = {
+    // Core
     beaconHealing: BeaconHealing,
     buffs: Buffs,
-    castRatios: CastRatios,
     combatants: Combatants,
-    masteryEffectiveness: MasteryEffectiveness,
 
+    // Features
+    castRatios: CastRatios,
+    masteryEffectiveness: MasteryEffectiveness,
+    alwaysBeCasting: AlwaysBeCasting,
+
+    // Legendaries:
     drapeOfShame: DrapeOfShame,
     ilterendi: Ilterendi,
     velens: Velens,
@@ -67,10 +73,19 @@ class CombatLogParser {
         this._timestamp = event.timestamp;
 
         this.triggerEvent(event.type, event);
+        if (this.byPlayer(event)) {
+          this.triggerEvent(`byPlayer_${event.type}`, event);
+        }
+        if (this.toPlayer(event)) {
+          this.triggerEvent(`toPlayer_${event.type}`, event);
+        }
       });
 
       resolve(events.length);
     });
+  }
+  finished() {
+    this.triggerEvent('finished', null);
   }
   triggerEvent(eventType, event) {
     const methodName = `on_${eventType}`;

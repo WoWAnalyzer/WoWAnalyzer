@@ -1,5 +1,5 @@
 import Module from 'Main/Parser/Module';
-import { HOLY_SHOCK_SPELL_ID, FLASH_OF_LIGHT_SPELL_ID, HOLY_LIGHT_SPELL_ID, LIGHT_OF_THE_MARTYR_SPELL_ID, HIT_TYPES } from 'Main/Parser/Constants';
+import { HOLY_SHOCK_HEAL_SPELL_ID, FLASH_OF_LIGHT_SPELL_ID, HOLY_LIGHT_SPELL_ID, LIGHT_OF_THE_MARTYR_SPELL_ID, HIT_TYPES } from 'Main/Parser/Constants';
 
 const T19_4SET_BUFF_ID = 211438;
 const INFUSION_OF_LIGHT_SPELL_ID = 54149;
@@ -27,7 +27,7 @@ class BeaconHealing extends Module {
   processForCastRatios(event) {
     const spellId = event.ability.guid;
 
-    if (spellId === HOLY_SHOCK_SPELL_ID) {
+    if (spellId === HOLY_SHOCK_HEAL_SPELL_ID) {
       this.casts.holyShock += 1;
       if (event.hitType === HIT_TYPES.CRIT) {
         this.casts.holyShockCriticals += 1;

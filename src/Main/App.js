@@ -161,6 +161,7 @@ class App extends Component {
               }
               this.parseNextBatch(parser, code, player, fightStart, fightEnd, json.nextPageTimestamp);
             } else {
+              parser.finished();
               this.onParsingFinished(parser, stats);
             }
           });
@@ -397,6 +398,34 @@ class App extends Component {
                           label={(
                             <dfn data-tip={`The ratio at which you cast Flash of Lights versus Holy Lights. You cast ${parser.modules.castRatios.casts.flashOfLight - parser.modules.castRatios.casts.flashOfLightWithIol} filler Flash of Lights and ${parser.modules.castRatios.casts.holyLight - parser.modules.castRatios.casts.holyLightWithIol} filler Holy Lights.`}>
                               Filler cast ratio
+                            </dfn>
+                          )}
+                        />
+                        <StatisticBox
+                          color="#000"
+                          icon={(
+                            <a href="http://www.wowhead.com/spell=53576" target="_blank">
+                              <img src="./infusionoflight-bw.png" style={{ height: 74, borderRadius: 5, border: '1px solid #000' }} alt="Wasted Infusion of Light" />
+                            </a>
+                          )}
+                          value={`${this.constructor.formatPercentage(parser.modules.alwaysBeCasting.totalTimeWasted / (parser.fight.end_time - parser.fight.start_time))} %`}
+                          label={(
+                            <dfn data-tip={`The ratio at which you cast Flash of Lights versus Holy Lights. You cast ${parser.modules.castRatios.casts.flashOfLight - parser.modules.castRatios.casts.flashOfLightWithIol} filler Flash of Lights and ${parser.modules.castRatios.casts.holyLight - parser.modules.castRatios.casts.holyLightWithIol} filler Holy Lights.`}>
+                              Dead GCDs
+                            </dfn>
+                          )}
+                        />
+                        <StatisticBox
+                          color="#000"
+                          icon={(
+                            <a href="http://www.wowhead.com/spell=53576" target="_blank">
+                              <img src="./infusionoflight-bw.png" style={{ height: 74, borderRadius: 5, border: '1px solid #000' }} alt="Wasted Infusion of Light" />
+                            </a>
+                          )}
+                          value={`${this.constructor.formatPercentage(parser.modules.alwaysBeCasting.totalHealingTimeWasted / (parser.fight.end_time - parser.fight.start_time))} %`}
+                          label={(
+                            <dfn data-tip={`The ratio at which you cast Flash of Lights versus Holy Lights. You cast ${parser.modules.castRatios.casts.flashOfLight - parser.modules.castRatios.casts.flashOfLightWithIol} filler Flash of Lights and ${parser.modules.castRatios.casts.holyLight - parser.modules.castRatios.casts.holyLightWithIol} filler Holy Lights.`}>
+                              Misused GCDs
                             </dfn>
                           )}
                         />

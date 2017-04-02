@@ -29,17 +29,72 @@ export const GEAR_SLOTS = {
 };
 
 class Combatant {
-  get masteryRating() {
-    return this._combatantInfo.mastery;
-  }
-  get masteryPercentage() {
-    return Combatant.calculateMasteryPercentage(this.masteryRating);
-  }
   get name() {
     return this._combatantInfo.name;
   }
   get specId() {
     return this._combatantInfo.specID;
+  }
+
+  // Primaries
+  get stamina() {
+    return this._combatantInfo.stamina;
+  }
+  get agility() {
+    return this._combatantInfo.agility;
+  }
+  get strength() {
+    return this._combatantInfo.strength;
+  }
+  get intellect() {
+    return this._combatantInfo.intellect;
+  }
+
+  // Secondaries
+  get critRating() {
+    return this._combatantInfo.critSpell;
+  }
+  get critPercentage() {
+    // TODO: Look for a way to include Blood Elf racial
+    return 0.08 + this.critRating / 40000;
+  }
+  get hasteRating() {
+    return this._combatantInfo.hasteSpell;
+  }
+  get hastePercentage() {
+    return this.hasteRating / 37500;
+  }
+  get masteryRating() {
+    return this._combatantInfo.mastery;
+  }
+  get masteryPercentage() {
+    return 0.12 + this.masteryRating / 26667;
+  }
+  get versatilityRating() {
+    return this._combatantInfo.versatilityHealingDone;
+  }
+  get versatilityPercentage() {
+    return this.masteryRating / 47500;
+  }
+  
+  // Others
+  get armorRating() {
+    return this._combatantInfo.armor;
+  }
+  get blockRating() {
+    return this._combatantInfo.block;
+  }
+  get parryRating() {
+    return this._combatantInfo.parry;
+  }
+  get avoidanceRating() {
+    return this._combatantInfo.avoidance;
+  }
+  get leechRating() {
+    return this._combatantInfo.leech;
+  }
+  get speedRating() {
+    return this._combatantInfo.speed;
   }
 
   talentsByRow = {};
@@ -184,11 +239,6 @@ class Combatant {
     return this.trinket1 === itemId || this.trinket2 === itemId;
   }
   //endregion
-
-  static calculateMasteryPercentage(masteryRating) {
-    // For paladins:
-    return 0.12 + masteryRating / 26667;
-  }
 }
 
 export default Combatant;
