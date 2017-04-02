@@ -1,5 +1,6 @@
 import Module from 'Main/Parser/Module';
 import { FLASH_OF_LIGHT_SPELL_ID, HOLY_LIGHT_SPELL_ID, HOLY_SHOCK_CAST_SPELL_ID, JUDGMENT_CAST_SPELL_ID, LIGHT_OF_DAWN_CAST_SPELL_ID, LIGHT_OF_THE_MARTYR_SPELL_ID, BESTOW_FAITH_SPELL_ID, TYRS_DELIVERANCE_CAST_SPELL_ID, HOLY_PRISM_CAST_SPELL_ID, CRUSADER_STRIKE_SPELL_ID, LIGHTS_HAMMER_CAST_SPELL_ID } from 'Main/Parser/Constants';
+import { TALENT_ROWS } from 'Main/Parser/Modules/Core/Combatant';
 
 const HEALING_ABILITIES_ON_GCD = [
   FLASH_OF_LIGHT_SPELL_ID,
@@ -12,10 +13,11 @@ const HEALING_ABILITIES_ON_GCD = [
   TYRS_DELIVERANCE_CAST_SPELL_ID,
   HOLY_PRISM_CAST_SPELL_ID,
   LIGHTS_HAMMER_CAST_SPELL_ID,
-  CRUSADER_STRIKE_SPELL_ID, // Only with Crusader's Might
+  // CRUSADER_STRIKE_SPELL_ID, // Only with Crusader's Might, is added in on_combatantinfo if applicable
 ];
 const ABILITIES_ON_GCD = [
   ...HEALING_ABILITIES_ON_GCD,
+  CRUSADER_STRIKE_SPELL_ID, // Only with Crusader's Might
   225141, // http://www.wowhead.com/spell=225141/fel-crazed-rage (Draught of Souls)
   190784, // Divine Steed
   26573, // Consecration
@@ -42,6 +44,7 @@ const HASTE_BUFFS = {
   [146555]: 0.25, // Drums of Rage
   [105809]: 0.3, // Holy Avenger
 };
+const CRUSADERS_MIGHT_SPELL_ID = 196926;
 
 const debug = true;
 
@@ -85,11 +88,15 @@ class AlwaysBeCasting extends Module {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     const isOnGcd = ABILITIES_ON_GCD.indexOf(spellId) !== -1;
-    const isHealingAbilityOnGcd = HEALING_ABILITIES_ON_GCD.indexOf(spellId) !== -1;
+    let countsAsHealingAbility = HEALING_ABILITIES_ON_GCD.indexOf(spellId) !== -1;
 
     if (!isOnGcd) {
       debug && console.log(`%cABC: ${event.ability.name} (${spellId}) ignored`, 'color: gray');
       return;
+    }
+    if (countsAsHealingAbility && spellId === HOLY_SHOCK_CAST_SPELL_ID && !event.targetIsFriendly) {
+      debug && console.log(`%cABC: ${event.ability.name} (${spellId}) skipped for healing time; target is not friendly`, 'color: orange');
+      countsAsHealingAbility = false;
     }
 
     const log = this._currentlyCasting || {
@@ -109,7 +116,7 @@ class AlwaysBeCasting extends Module {
     const timeWasted = timestamp - (this.lastCastFinishedTimestamp || this.owner.fight.start_time);
     this.totalTimeWasted += timeWasted;
 
-    if (isHealingAbilityOnGcd) {
+    if (countsAsHealingAbility) {
       const healTimeWasted = timestamp - (this.lastHealingCastFinishedTimestamp || this.owner.fight.start_time);
       this.totalHealingTimeWasted += healTimeWasted;
     }
@@ -117,18 +124,12 @@ class AlwaysBeCasting extends Module {
     const gcd = this.constructor.calculateGlobalCooldown(this.currentHaste) * 1000;
 
     //TODO: ~~Adjust GCD based on cast time of spells, since they reveal haste levels~~ not necessary, but we can make a method verifying if the cast times match the expected cast times to detect haste buffs not supported
+    // Confirmed not necessary
 
-    debug && console.log(
-      Math.floor(this.totalTimeWasted),
-      Math.floor(timeWasted),
-      `${event.ability.name} (${event.ability.guid}): ${log.begincast ? 'channeled' : 'instant'}`,
-      Math.floor(gcd)/1000,
-      event.timestamp - begincast.timestamp,
-      timestamp - this.owner.fight.start_time
-    );
+    debug && console.log(`ABC: tot.:${Math.floor(this.totalTimeWasted)}\tthis:${Math.floor(timeWasted)}\t%c${event.ability.name} (${event.ability.guid}): ${log.begincast ? 'channeled' : 'instant'}\t%cgcd:${Math.floor(gcd)}\t%ccasttime:${event.timestamp - begincast.timestamp}\tfighttime:${timestamp - this.owner.fight.start_time}`, 'color:red', 'color:green', 'color:black', event);
 
     this.lastCastFinishedTimestamp = Math.max(begincast.timestamp + gcd, event.timestamp);
-    if (isHealingAbilityOnGcd) {
+    if (countsAsHealingAbility) {
       this.lastHealingCastFinishedTimestamp = Math.max(begincast.timestamp + gcd, event.timestamp);
     }
     this._currentlyCasting = null;
@@ -136,10 +137,15 @@ class AlwaysBeCasting extends Module {
   baseHaste = null;
   currentHaste = null;
   on_byPlayer_combatantinfo() {
-    this.baseHaste = this.owner.modules.combatants.selected.hastePercentage;
+    const combatant = this.owner.modules.combatants.selected;
+    this.baseHaste = combatant.hastePercentage;
     this.currentHaste = this.baseHaste;
 
     debug && console.log(`ABC: Current haste: ${this.currentHaste}`);
+
+    if (combatant.hasTalent(TALENT_ROWS.LV15, CRUSADERS_MIGHT_SPELL_ID)) {
+      HEALING_ABILITIES_ON_GCD.push(CRUSADER_STRIKE_SPELL_ID);
+    }
   }
   on_toPlayer_applybuff(event) {
     const spellId = event.ability.guid;
@@ -160,6 +166,10 @@ class AlwaysBeCasting extends Module {
   //TODO: This won't work properly with a prepull Bloodlust as it will remove 30% Haste while it was never applied in the first place
 
   on_finished() {
+    const fightDuration = this.owner.fight.end_time - this.owner.fight.start_time;
+    console.log('totalTimeWasted:', this.totalTimeWasted, 'totalTime:', fightDuration, (this.totalTimeWasted / fightDuration));
+    console.log('totalHealingTimeWasted:', this.totalHealingTimeWasted, 'totalTime:', fightDuration, (this.totalHealingTimeWasted / fightDuration));
+
     const buffs = this.owner.modules.buffs;
 
     let lastCastTimestamp = this.owner.fight.start_time;
@@ -205,7 +215,7 @@ class AlwaysBeCasting extends Module {
 
       //TODO: ~~Adjust GCD based on cast time of spells, since they reveal haste levels~~ not necessary, but we can make a method verifying if the cast times match the expected cast times to detect haste buffs not supported
 
-      console.log(Math.floor(this.totalTimeWasted), Math.floor(timeWasted), `${event.ability.name} (${event.ability.guid}): ${event.begincast ? 'channeled' : 'instant'}`, Math.floor(gcd)/1000, event.cast.timestamp - timestamp, timestamp - this.owner.fight.start_time);
+      // console.log(Math.floor(this.totalTimeWasted), Math.floor(timeWasted), `${event.ability.name} (${event.ability.guid}): ${event.begincast ? 'channeled' : 'instant'}`, Math.floor(gcd)/1000, event.cast.timestamp - timestamp, timestamp - this.owner.fight.start_time);
       // TODO: Add GCD time to `timestamp` of the `cast` or if available
       lastCastTimestamp = Math.max(timestamp + gcd, event.cast.timestamp);
       if (isHealOnGcd) {
@@ -213,7 +223,6 @@ class AlwaysBeCasting extends Module {
       }
     });
     // TODO: add time until end of fight
-    const fightDuration = this.owner.fight.end_time - this.owner.fight.start_time;
     console.log('totalTimeWasted:', this.totalTimeWasted, 'totalTime:', fightDuration, (this.totalTimeWasted / fightDuration));
     console.log('totalHealingTimeWasted:', this.totalHealingTimeWasted, 'totalTime:', fightDuration, (this.totalHealingTimeWasted / fightDuration));
   }
