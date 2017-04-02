@@ -85,7 +85,7 @@ class MasteryEffectiveness extends Module {
     }
     const distance = this.constructor.calculateDistance(this.lastCast.x, this.lastCast.y, event.x, event.y) / 100;
     const timeSince = event.timestamp - this.lastCast.timestamp;
-    const maxDistance = Math.max(1, timeSince / 1000 * 10 * 1.1); // 10 yards per second + 10% margin of error
+    const maxDistance = Math.max(1, timeSince / 1000 * 10 * 1.5); // 10 yards per second + 50% margin of error
     if (distance > maxDistance) {
       console.warn('Distance since previous event (' + (Math.round(timeSince / 100) / 10) + 's ago) was ' + (Math.round(distance * 10) / 10) + ' yards:', event.type, event, this.lastCast.type, this.lastCast);
     }
