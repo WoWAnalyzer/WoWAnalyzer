@@ -16,4 +16,4 @@ Run it:
 
 # License
 
-Contact me (e.g. make a ticket) if you want to use my code for anything. I haven't decided what license to use yet.
+You are free to use pieces of this project for your own open source non-commercial projects. Other uses will be assessed on a case-by-case basis.
