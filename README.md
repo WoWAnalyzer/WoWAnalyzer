@@ -17,3 +17,5 @@ Run it:
 # License
 
 You are free to use pieces of this project for your own open source non-commercial projects. Other uses will be assessed on a case-by-case basis.
+
+Usage of any API keys found in the source is not allowed. You must at all times use your own API keys.
