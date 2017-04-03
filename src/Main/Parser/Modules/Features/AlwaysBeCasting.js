@@ -66,7 +66,7 @@ class AlwaysBeCasting extends Module {
   // only the `removebuff` event is recognized as being on since pull) to then get accurate haste values (= accurate GCD values) and find
   // the real dead GCD count and misused GCD count.
 
-  castLog = [];
+  eventLog = [];
 
   totalTimeWasted = 0;
   totalHealingTimeWasted = 0;
@@ -82,7 +82,7 @@ class AlwaysBeCasting extends Module {
     };
 
     this._currentlyCasting = cast;
-    this.castLog.push(cast);
+    this.eventLog.push(cast);
   }
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
@@ -97,19 +97,22 @@ class AlwaysBeCasting extends Module {
       this._currentlyCasting = null;
     }
 
-    const log = this._currentlyCasting || {
+    const logEntry = this._currentlyCasting || {
       begincast: null,
     };
-    log.cast = event;
+    logEntry.cast = event;
     if (!this._currentlyCasting) {
-      this.castLog.push(log);
+      this.eventLog.push(logEntry);
     }
 
-    this.processCast(log);
+    this.processCast(logEntry);
     this._currentlyCasting = null;
   }
 
   processCast({ begincast, cast }) {
+    if (!cast) {
+      return;
+    }
     const spellId = cast.ability.guid;
     const isOnGcd = ABILITIES_ON_GCD.indexOf(spellId) !== -1;
     let countsAsHealingAbility = HEALING_ABILITIES_ON_GCD.indexOf(spellId) !== -1;
@@ -184,67 +187,33 @@ class AlwaysBeCasting extends Module {
     }
   }
 
-  // on_finished() {
-  //   const fightDuration = this.owner.fight.end_time - this.owner.fight.start_time;
-  //   console.log('totalTimeWasted:', this.totalTimeWasted, 'totalTime:', fightDuration, (this.totalTimeWasted / fightDuration));
-  //   console.log('totalHealingTimeWasted:', this.totalHealingTimeWasted, 'totalTime:', fightDuration, (this.totalHealingTimeWasted / fightDuration));
-  //
-  //   const buffs = this.owner.modules.buffs;
-  //
-  //   let lastCastTimestamp = this.owner.fight.start_time;
-  //   let lastHealCastTimestamp = this.owner.fight.start_time;
-  //   this.totalTimeWasted = 0;
-  //   this.totalHealingTimeWasted = 0;
-  //
-  //   const baseHaste = this.owner.modules.combatants.selected.hastePercentage;
-  //
-  //   this.castLog.forEach((event) => {
-  //     if (!event.cast) {
-  //       console.log(`%c${event.ability.name} (${event.ability.guid}) interrupted`, 'color: red');
-  //       return;
-  //     }
-  //     const spellId = event.ability.guid;
-  //     const isOnGcd = ABILITIES_ON_GCD.indexOf(spellId) !== -1;
-  //     const isHealOnGcd = HEALING_ABILITIES_ON_GCD.indexOf(spellId) !== -1;
-  //
-  //     if (!isOnGcd) {
-  //       console.log(`%c${event.ability.name} (${event.ability.guid}) ignored`, 'color: gray');
-  //       return;
-  //     }
-  //     const begincast = event.begincast || event.cast;
-  //     const timestamp = begincast.timestamp;
-  //     const timeWasted = timestamp - lastCastTimestamp;
-  //     this.totalTimeWasted += timeWasted;
-  //     if (isHealOnGcd) {
-  //       const healTimeWasted = timestamp - lastHealCastTimestamp;
-  //       this.totalHealingTimeWasted += healTimeWasted;
-  //     }
-  //
-  //     // TODO: Fitler out damaging HS by checking the target
-  //     // TODO: Fitler out CS when not CM
-  //
-  //     let haste = baseHaste;
-  //     // TODO: Would be nicer if we would just apply the haste buffs as they happened. Takes less CPU and allows us to adjust the GCD/haste based on the spell cast times
-  //     Object.keys(HASTE_BUFFS).forEach((spellId) => {
-  //       if (buffs.hasBuff(spellId, 0, timestamp)) {
-  //         haste = this.constructor.applyHasteGain(haste, HASTE_BUFFS[spellId]);
-  //       }
-  //     });
-  //     const gcd = this.constructor.calculateGlobalCooldown(haste) * 1000;
-  //
-  //     //TODO: ~~Adjust GCD based on cast time of spells, since they reveal haste levels~~ not necessary, but we can make a method verifying if the cast times match the expected cast times to detect haste buffs not supported
-  //
-  //     // console.log(Math.floor(this.totalTimeWasted), Math.floor(timeWasted), `${event.ability.name} (${event.ability.guid}): ${event.begincast ? 'channeled' : 'instant'}`, Math.floor(gcd)/1000, event.cast.timestamp - timestamp, timestamp - this.owner.fight.start_time);
-  //     // TODO: Add GCD time to `timestamp` of the `cast` or if available
-  //     lastCastTimestamp = Math.max(timestamp + gcd, event.cast.timestamp);
-  //     if (isHealOnGcd) {
-  //       lastHealCastTimestamp = Math.max(timestamp + gcd, event.cast.timestamp);
-  //     }
-  //   });
-  //   // TODO: add time until end of fight
-  //   console.log('totalTimeWasted:', this.totalTimeWasted, 'totalTime:', fightDuration, (this.totalTimeWasted / fightDuration));
-  //   console.log('totalHealingTimeWasted:', this.totalHealingTimeWasted, 'totalTime:', fightDuration, (this.totalHealingTimeWasted / fightDuration));
-  // }
+  on_finished() {
+    const fightDuration = this.owner.fight.end_time - this.owner.fight.start_time;
+    console.log('totalTimeWasted:', this.totalTimeWasted, 'totalTime:', fightDuration, (this.totalTimeWasted / fightDuration));
+    console.log('totalHealingTimeWasted:', this.totalHealingTimeWasted, 'totalTime:', fightDuration, (this.totalHealingTimeWasted / fightDuration));
+
+    const buffs = this.owner.modules.buffs;
+
+    this.totalTimeWasted = 0;
+    this.totalHealingTimeWasted = 0;
+
+    this.lastCastFinishedTimestamp = null;
+    this.lastHealingCastFinishedTimestamp = null;
+
+    this.eventLog.forEach((logEntry) => {
+      this.currentHaste = this.baseHaste;
+      Object.keys(HASTE_BUFFS).forEach((spellId) => {
+        if (buffs.hasBuff(spellId, 0, (logEntry.begincast || logEntry.cast).timestamp)) {
+          this.currentHaste = this.constructor.applyHasteGain(this.currentHaste, HASTE_BUFFS[spellId]);
+        }
+      });
+
+      this.processCast(logEntry);
+    });
+
+    console.log('totalTimeWasted:', this.totalTimeWasted, 'totalTime:', fightDuration, (this.totalTimeWasted / fightDuration));
+    console.log('totalHealingTimeWasted:', this.totalHealingTimeWasted, 'totalTime:', fightDuration, (this.totalHealingTimeWasted / fightDuration));
+  }
 
   static calculateGlobalCooldown(haste) {
     return 1.5 / (1 + haste);
