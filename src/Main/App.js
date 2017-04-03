@@ -381,7 +381,7 @@ class App extends Component {
                           )}
                           value={`${this.constructor.formatPercentage(1 - (parser.modules.castRatios.casts.flashOfLightWithIol + parser.modules.castRatios.casts.holyLightWithIol) / (parser.modules.castRatios.casts.holyShockCriticals * parser.modules.castRatios.iolProcsPerHolyShockCrit))} %`}
                           label={(
-                            <dfn data-tip={`The amount of Infusion of Lights you did not use out of the total available. You cast ${parser.modules.castRatios.casts.holyShock} Holy Shocks with a ${this.constructor.formatPercentage(parser.modules.castRatios.casts.holyShockCriticals / parser.modules.castRatios.casts.holyShock)}% crit ratio. This gave you ${parser.modules.castRatios.casts.holyShockCriticals * parser.modules.castRatios.iolProcsPerHolyShockCrit} Infusion of Light procs, of which you used ${parser.modules.castRatios.casts.flashOfLightWithIol + parser.modules.castRatios.casts.holyLightWithIol}.<br /><br />This number may be below zero if you used Infusion of Light procs from damaging Holy Shocks (e.g. cast on boss), or from casting Holy Shock before the fight started. <b>It is accurate to enter this negative value in your spreadsheet!</b>`}>
+                            <dfn data-tip={`The amount of Infusion of Lights you did not use out of the total available. You cast ${parser.modules.castRatios.casts.holyShock} Holy Shocks with a ${this.constructor.formatPercentage(parser.modules.castRatios.casts.holyShockCriticals / parser.modules.castRatios.casts.holyShock)}% crit ratio. This gave you ${parser.modules.castRatios.casts.holyShockCriticals * parser.modules.castRatios.iolProcsPerHolyShockCrit} Infusion of Light procs, of which you used ${parser.modules.castRatios.casts.flashOfLightWithIol + parser.modules.castRatios.casts.holyLightWithIol}.<br /><br />The ratio may be below zero if you used Infusion of Light procs from damaging Holy Shocks (e.g. cast on boss), or from casting Holy Shock before the fight started. <b>It is accurate to enter this negative value in your spreadsheet!</b> The spreadsheet will consider these bonus Infusion of Light procs and consider it appropriately.`}>
                               Infusion of Light wasted ratio
                             </dfn>
                           )}
@@ -402,11 +402,9 @@ class App extends Component {
                           )}
                         />
                         <StatisticBox
-                          color="#000"
+                          color="#151515"
                           icon={(
-                            <a href="http://www.wowhead.com/spell=53576" target="_blank">
-                              <img src="./infusionoflight-bw.png" style={{ height: 74, borderRadius: 5, border: '1px solid #000' }} alt="Wasted Infusion of Light" />
-                            </a>
+                            <img src="./nonhealingtime.jpg" style={{ height: 74, borderRadius: 5, border: '1px solid #000' }} alt="Non healing time" />
                           )}
                           value={`${this.constructor.formatPercentage(parser.modules.alwaysBeCasting.totalHealingTimeWasted / (parser.fight.end_time - parser.fight.start_time))} %`}
                           label={(
