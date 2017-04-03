@@ -46,7 +46,7 @@ const HASTE_BUFFS = {
 };
 const CRUSADERS_MIGHT_SPELL_ID = 196926;
 
-const debug = true;
+const debug = false;
 
 class AlwaysBeCasting extends Module {
   // TODO: Pause on death
@@ -189,8 +189,8 @@ class AlwaysBeCasting extends Module {
 
   on_finished() {
     const fightDuration = this.owner.fight.end_time - this.owner.fight.start_time;
-    console.log('totalTimeWasted:', this.totalTimeWasted, 'totalTime:', fightDuration, (this.totalTimeWasted / fightDuration));
-    console.log('totalHealingTimeWasted:', this.totalHealingTimeWasted, 'totalTime:', fightDuration, (this.totalHealingTimeWasted / fightDuration));
+    debug && console.log('totalTimeWasted:', this.totalTimeWasted, 'totalTime:', fightDuration, (this.totalTimeWasted / fightDuration));
+    debug && console.log('totalHealingTimeWasted:', this.totalHealingTimeWasted, 'totalTime:', fightDuration, (this.totalHealingTimeWasted / fightDuration));
 
     const buffs = this.owner.modules.buffs;
 
@@ -211,8 +211,8 @@ class AlwaysBeCasting extends Module {
       this.processCast(logEntry);
     });
 
-    console.log('totalTimeWasted:', this.totalTimeWasted, 'totalTime:', fightDuration, (this.totalTimeWasted / fightDuration));
-    console.log('totalHealingTimeWasted:', this.totalHealingTimeWasted, 'totalTime:', fightDuration, (this.totalHealingTimeWasted / fightDuration));
+    debug && console.log('totalTimeWasted:', this.totalTimeWasted, 'totalTime:', fightDuration, (this.totalTimeWasted / fightDuration));
+    debug && console.log('totalHealingTimeWasted:', this.totalHealingTimeWasted, 'totalTime:', fightDuration, (this.totalHealingTimeWasted / fightDuration));
   }
 
   static calculateGlobalCooldown(haste) {
