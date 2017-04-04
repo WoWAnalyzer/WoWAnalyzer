@@ -367,7 +367,7 @@ class App extends Component {
                           value={`${this.constructor.formatPercentage(parser.modules.castRatios.casts.flashOfLightWithIol / (parser.modules.castRatios.casts.flashOfLightWithIol + parser.modules.castRatios.casts.holyLightWithIol))} %`}
                           label={(
                             <dfn data-tip={`The Infusion of Light Flash of Light to Infusion of Light Holy Light usage ratio is how many Flash of Lights you cast compared to Holy Lights during the Infusion of Light proc. You cast ${parser.modules.castRatios.casts.flashOfLightWithIol} Flash of Lights and ${parser.modules.castRatios.casts.holyLightWithIol} Holy Lights during Infusion of Light.`}>
-                              IoL FoL to IoL HL cast ratio
+                              IoL FoL to HL cast ratio
                             </dfn>
                           )}
                         />
@@ -382,7 +382,7 @@ class App extends Component {
                           value={`${this.constructor.formatPercentage(1 - (parser.modules.castRatios.casts.flashOfLightWithIol + parser.modules.castRatios.casts.holyLightWithIol) / (parser.modules.castRatios.casts.holyShockCriticals * parser.modules.castRatios.iolProcsPerHolyShockCrit))} %`}
                           label={(
                             <dfn data-tip={`The amount of Infusion of Lights you did not use out of the total available. You cast ${parser.modules.castRatios.casts.holyShock} Holy Shocks with a ${this.constructor.formatPercentage(parser.modules.castRatios.casts.holyShockCriticals / parser.modules.castRatios.casts.holyShock)}% crit ratio. This gave you ${parser.modules.castRatios.casts.holyShockCriticals * parser.modules.castRatios.iolProcsPerHolyShockCrit} Infusion of Light procs, of which you used ${parser.modules.castRatios.casts.flashOfLightWithIol + parser.modules.castRatios.casts.holyLightWithIol}.<br /><br />The ratio may be below zero if you used Infusion of Light procs from damaging Holy Shocks (e.g. cast on boss), or from casting Holy Shock before the fight started. <b>It is accurate to enter this negative value in your spreadsheet!</b> The spreadsheet will consider these bonus Infusion of Light procs and consider it appropriately.`}>
-                              Infusion of Light wasted ratio
+                              Unused Infusion of Lights
                             </dfn>
                           )}
                         />
