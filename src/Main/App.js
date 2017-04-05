@@ -381,12 +381,6 @@ class App extends Component {
                         />
                       )}
                     </div>
-
-                    <div className="row">
-                      <div className="col-md-12">
-                        <h3>Cast behavior</h3>
-                      </div>
-                    </div>
                     <div className="row">
                       <StatisticBox
                         color="#000"
@@ -442,12 +436,6 @@ class App extends Component {
                           </dfn>
                         )}
                       />
-                    </div>
-
-                    <div className="row">
-                      <div className="col-md-12">
-                        <h3>Item bonuses</h3>
-                      </div>
                     </div>
                     <div className="row">
                       {parser.modules.combatants.selected && parser.modules.combatants.selected.hasBack(DRAPE_OF_SHAME_ITEM_ID) && (
@@ -566,7 +554,7 @@ class App extends Component {
 
                     {friendlyStats && (
                       <div>
-                        <h3 style={{ fontWeight: 700 }}>Player breakdown:</h3>
+                        <h1>Player breakdown:</h1>
 
                         <PlayerBreakdown friendlyStats={friendlyStats} highestHealingFromMastery={highestHealingFromMastery} totalHealingFromMastery={totalHealingFromMastery} />
                       </div>

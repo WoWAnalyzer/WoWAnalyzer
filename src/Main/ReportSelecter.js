@@ -33,11 +33,11 @@ class ReportSelecter extends Component {
 
   render() {
     return (
-      <div style={{ width: 650 }}>
+      <div>
         <form onSubmit={this.handleSubmit} className="form-inline">
           <h1>Analyze your Holy Paladin</h1>
 
-          Use this tool to analyze your performance as a Holy Paladin based on relevant metrics. You will need a Warcraft Logs report with
+          Use this tool to analyze your performance as a Holy Paladin based on important metrics. You will need a Warcraft Logs report with
           advanced combat logging enabled to start.<br /><br />
 
           <strong>Enter your Warcraft Logs report code.</strong><br />
@@ -46,7 +46,7 @@ class ReportSelecter extends Component {
           }} style={{ width: 175 }} />/<br /><br />
 
           <button type="submit" className="btn btn-primary">
-            Continue <span className="glyphicon glyphicon-chevron-right" aria-hidden="true" />
+            Start <span className="glyphicon glyphicon-chevron-right" aria-hidden="true" />
           </button><br /><br />
 
           <div className="text-muted">

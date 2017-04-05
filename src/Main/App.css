@@ -84,7 +84,7 @@ h1 {
 
 .navbar-default {
   line-height: 66px;
-  background: #0f1c23;
+  background: rgba(15, 28, 35, 0.85);
   border: 0;
   box-shadow: 2px 0 3px rgba(0,0,0,.5);
   margin-bottom: 1.75em;
@@ -246,13 +246,12 @@ table th {
   font-weight: 600;
 }
 table tr {
-  background: #f9f9f9;
 }
 table thead tr, table tbody tr:not(:last-child) {
   border-bottom: 1px solid #000;
 }
 table tr:nth-child(odd) {
-  background: #fff;
+  background: rgba(0,0,0,0.1);
 }
 table tr th, table tr td {
   padding: 7px;
