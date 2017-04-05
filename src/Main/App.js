@@ -306,9 +306,9 @@ class App extends Component {
             <div className="navbar-header">
               <ol className="breadcrumb">
                 <li className="breadcrumb-item"><Link to={this.makeUrl()}>Analyzer</Link></li>
-                {report && <li className="breadcrumb-item"><Link to={this.makeUrl(this.reportCode)}>{report.title}</Link></li>}
+                {this.reportCode && report && <li className="breadcrumb-item"><Link to={this.makeUrl(this.reportCode)}>{report.title}</Link></li>}
                 {this.playerName && <li className="breadcrumb-item"><Link to={this.makeUrl(this.reportCode, this.playerName)}>{this.playerName}</Link></li>}
-                {fight && <li className="breadcrumb-item"><Link to={this.makeUrl(this.reportCode, this.playerName, this.fightId)}>{this.getFightName(fight)}</Link></li>}
+                {this.fightId && fight && <li className="breadcrumb-item"><Link to={this.makeUrl(this.reportCode, this.playerName, this.fightId)}>{this.getFightName(fight)}</Link></li>}
               </ol>
 
             </div>
