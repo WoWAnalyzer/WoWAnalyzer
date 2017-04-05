@@ -21,9 +21,9 @@ class PlayerSelecter extends Component {
 
     return (
       <div style={{ width: 650 }}>
-        <h1>{report.title}</h1>
+        <h1>Paladin selection</h1>
 
-        Select a Paladin to analyze.<br /><br />
+        Select the Paladin you wish to analyze.<br /><br />
 
         {
           report.friendlies

@@ -33,6 +33,7 @@ const ABILITIES_ON_GCD = [
   853, // Hammer of Justice
   62124, // Hand of Reckoning
 ];
+/* eslint-disable no-useless-computed-key */
 const HASTE_BUFFS = {
   [2825]: 0.3, // Bloodlust
   [32182]: 0.3, // Heroism

@@ -395,11 +395,12 @@
     "input-groups.less",
     "navs.less",
     "navbar.less",
+    "breadcrumbs.less",
     "labels.less",
     "alerts.less",
     "progress-bars.less",
     "panels.less"
   ],
   "js": [],
-  "customizerUrl": "http://getbootstrap.com/customize/?id=f338ac940aa1c13cdf71b2763a0dcd44"
+  "customizerUrl": "http://getbootstrap.com/customize/?id=e6187c12ea53bea0c3a297906f9c0c07"
 }

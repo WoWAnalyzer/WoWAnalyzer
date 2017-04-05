@@ -35,10 +35,10 @@ class ReportSelecter extends Component {
     return (
       <div style={{ width: 650 }}>
         <form onSubmit={this.handleSubmit} className="form-inline">
-          <h1>Analyze your Holy Paladin game</h1>
+          <h1>Analyze your Holy Paladin</h1>
 
-          <img src="./mastery.png" className="pull-right" style={{ margin: 5 }} alt="Mastery: Lightbringer" />
-          What started as a mastery effectiveness calculator has grown to be a more general Holy Paladin Analyzer. Use this tool to analyze your game from a Warcraft Logs report.<br /><br />
+          Use this tool to analyze your performance as a Holy Paladin based on relevant metrics. You will need a Warcraft Logs report with
+          advanced combat logging enabled to start.<br /><br />
 
           <strong>Enter your Warcraft Logs report code.</strong><br />
           https://www.warcraftlogs.com/reports/<input type="text" name="code" className="form-control" ref={(elem) => {

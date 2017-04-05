@@ -1,17 +1,17 @@
 import React from 'react';
 
 const StatisticBox = ({ color, icon, value, label, inverse }) => (
-  <div className="col-xs-4">
-    <div style={{ width: '100%', backgroundColor: color, borderRadius: 5, padding: '10px 15px', color: inverse ? '#000' : '#fff', marginBottom: 15 }}>
+  <div className="col-xs-3">
+    <div className="statistic-box">
       <div className="row">
         <div className="col-xs-3">
           {icon}
         </div>
         <div className="col-xs-9 text-right">
-          <div style={{ fontSize: '2.5em' }}>
+          <div className="statistic-value">
             {value}
           </div>
-          <div style={{ marginTop: '-0.3em' }}>
+          <div className="statistic-label">
             {label}
           </div>
         </div>
