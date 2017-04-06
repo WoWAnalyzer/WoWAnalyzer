@@ -67,8 +67,8 @@ class ReportSelecter extends Component {
             <div className="panel-heading">
               <h2>Changes</h2>
             </div>
-            <div className="panel-body">
-              <div className="text-muted">
+            <div className="panel-body text-muted">
+                07-04-2017 - Rework the interface.<br />
                 04-04-2017 - Add an Always Be Casting (ABC) module that checks your <i>Non healing time</i> and dead GCD time (this is shown in the tooltip).<br />
                 29-03-2017 - Fixed a bug where Maraad's healing statistic would show 0% healing after getting only 1 Maraad's charge.<br />
                 29-03-2017 - Update healing bonuses to the 7.2 values (DoS & Ilterendi nerfs).<br />
@@ -78,12 +78,13 @@ class ReportSelecter extends Component {
                 26-03-2017 - Completely refactor the core, rename to Holy Paladin Analyzer.<br />
                 25-03-2017 - Added cast ratios statistic.<br />
                 24-03-2017 - Added Velen's Future Sight healing statistic.<br />
-                22-03-2017 - Fixed an issue where DoS / Ilterendi healing statistics didn't work well with absorbed healing (Chronomatic Anomaly).<br /><br />
-
-                Created by Zerotorescue for the <a href="https://discordapp.com/invite/hammerofwrath">#holy Discord</a>. You can usually find helpful people there.
+                22-03-2017 - Fixed an issue where DoS / Ilterendi healing statistics didn't work well with absorbed healing (Chronomatic Anomaly).
               </div>
             </div>
-          </div>
+
+            <div className="text-muted">
+              Created by Zerotorescue for the <a href="https://discordapp.com/invite/hammerofwrath">#holy Discord</a>. You can usually find helpful people there.
+            </div>
         </form>
       </div>
     );
