@@ -28,17 +28,26 @@ class FightSelecter extends Component {
       <div style={{ width: 650 }}>
         <h1>{report.title}</h1>
 
-        Select the fight to parse.<br /><br />
-
-        {
-          report.fights
-            .filter(fight => fight.boss !== 0)
-            .map(fight => (
-              <Link to={`/report/${report.code}/${playerName}/${fight.id}`} key={`${fight.id}`}>
-                <Fight {...fight} style={{ marginBottom: 15 }} />
-              </Link>
-            ))
-        }
+        <div className="panel">
+          <div className="panel-heading">
+            <h2>Select the fight to parse</h2>
+          </div>
+          <div className="panel-body">
+            <ul className="list">
+              {
+                report.fights
+                  .filter(fight => fight.boss !== 0)
+                  .map(fight => (
+                    <li key={`${fight.id}`}>
+                      <Link to={`/report/${report.code}/${playerName}/${fight.id}`}>
+                        <Fight {...fight} />
+                      </Link>
+                    </li>
+                  ))
+              }
+            </ul>
+          </div>
+        </div>
       </div>
     );
   }

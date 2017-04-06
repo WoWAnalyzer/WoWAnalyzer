@@ -23,20 +23,27 @@ class PlayerSelecter extends Component {
       <div style={{ width: 650 }}>
         <h1>Paladin selection</h1>
 
-        Select the Paladin you wish to analyze.<br /><br />
-
-        {
-          report.friendlies
-            .filter(friendly => friendly.type === PALADIN_TYPE)
-            .sort((a, b) => a.name > b.name)
-            .map(friendly => (
-              <div style={{ marginBottom: 10 }} key={`${friendly.id}`}>
-                <Link to={`/report/${report.code}/${friendly.name}`}>
-                  {friendly.name}
-                </Link>
-              </div>
-            ))
-        }
+        <div className="panel">
+          <div className="panel-heading">
+            <h2>Select the Paladin you wish to analyze</h2>
+          </div>
+          <div className="panel-body">
+            <ul className="list">
+              {
+                report.friendlies
+                  .filter(friendly => friendly.type === PALADIN_TYPE)
+                  .sort((a, b) => a.name > b.name)
+                  .map(friendly => (
+                    <li key={`${friendly.id}`}>
+                      <Link to={`/report/${report.code}/${friendly.name}`}>
+                        {friendly.name}
+                      </Link>
+                    </li>
+                  ))
+              }
+            </ul>
+          </div>
+        </div>
       </div>
     );
   }

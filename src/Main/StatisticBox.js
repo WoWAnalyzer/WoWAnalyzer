@@ -2,17 +2,19 @@ import React from 'react';
 
 const StatisticBox = ({ color, icon, value, label, inverse }) => (
   <div className="col-xs-3">
-    <div className="statistic-box">
-      <div className="row">
-        <div className="col-xs-3">
-          {icon}
-        </div>
-        <div className="col-xs-9 text-right">
-          <div className="statistic-value">
-            {value}
+    <div className="panel statistic-box">
+      <div className="panel-body">
+        <div className="row">
+          <div className="col-xs-3">
+            {icon}
           </div>
-          <div className="statistic-label">
-            {label}
+          <div className="col-xs-9 text-right">
+            <div className="statistic-value">
+              {value}
+            </div>
+            <div className="statistic-label">
+              {label}
+            </div>
           </div>
         </div>
       </div>

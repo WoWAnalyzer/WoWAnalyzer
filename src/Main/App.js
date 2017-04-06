@@ -305,7 +305,7 @@ class App extends Component {
           <div className="container">
             <div className="navbar-header">
               <ol className="breadcrumb">
-                <li className="breadcrumb-item"><Link to={this.makeUrl()}>Analyzer</Link></li>
+                <li className="breadcrumb-item"><Link to={this.makeUrl()}>Holy Paladin Analyzer</Link></li>
                 {this.reportCode && report && <li className="breadcrumb-item"><Link to={this.makeUrl(this.reportCode)}>{report.title}</Link></li>}
                 {this.playerName && <li className="breadcrumb-item"><Link to={this.makeUrl(this.reportCode, this.playerName)}>{this.playerName}</Link></li>}
                 {this.fightId && fight && <li className="breadcrumb-item"><Link to={this.makeUrl(this.reportCode, this.playerName, this.fightId)}>{this.getFightName(fight)}</Link></li>}
@@ -553,10 +553,13 @@ class App extends Component {
                     </div>
 
                     {friendlyStats && (
-                      <div>
-                        <h1>Player breakdown:</h1>
-
-                        <PlayerBreakdown friendlyStats={friendlyStats} highestHealingFromMastery={highestHealingFromMastery} totalHealingFromMastery={totalHealingFromMastery} />
+                      <div className="panel">
+                        <div className="panel-heading">
+                          <h2>Player breakdown</h2>
+                        </div>
+                        <div className="panel-body">
+                          <PlayerBreakdown friendlyStats={friendlyStats} highestHealingFromMastery={highestHealingFromMastery} totalHealingFromMastery={totalHealingFromMastery} />
+                        </div>
                       </div>
                     )}
                   </div>

@@ -6,15 +6,25 @@ body {
   line-height: 1.6;
   font-family: 'Roboto', sans-serif;
   background: #305361;
-  background: linear-gradient(rgba(48, 83, 97, 0.8), rgba(48, 83, 97, 0.9)), url(/background.jpg) center no-repeat;
+  /*background: linear-gradient(rgba(48, 83, 97, 0.8), rgba(48, 83, 97, 0.9)), url(/background.jpg) center no-repeat;*/
+  /*background: url(/background-pattern.png), url(/background.jpg) center no-repeat;*/
+  /*background-size: 15px 15px, cover;*/
+  /*background: url(/background-pattern.png), linear-gradient(rgba(94, 131, 146, 0.8), rgba(51, 73, 82, 0.9)), url(/background.jpg) center no-repeat;*/
+  /*background-size: 15px 15px, cover, cover;*/
+  background: url(/background-merged.png) center no-repeat;
   background-size: cover;
   color: #fff;
 }
-@media (min-width: 1400px) {
+@media (min-width: 1200px) {
   .container {
     transition: width 1000ms;
-    width: 900px;
+    width: 800px;
   }
+  .larger  .container {
+    width: 1170px;
+  }
+}
+@media (min-width: 1400px) {
   .larger  .container {
     width: 1370px;
   }
@@ -58,13 +68,28 @@ h1 {
   left: 0;
 }
 
-.statistic-box {
+.panel {
   width: 100%;
   border-radius: 5px;
-  padding: 10px 15px;
-  margin-bottom: 15px;
-  background: rgba(0, 0, 0, 0.15);
+  border: none;
+  margin-bottom: 30px;
+  background: rgba(0, 0, 0, 0.3);
   box-shadow: 0 5px 5px 0 rgba(0,0,0,.25);
+}
+.panel > .panel-heading {
+  border-bottom: 1px solid rgba(0, 0, 0, .4);
+  box-shadow: 0 1px 0 0 rgba(255, 255, 255, .1);
+  padding: 16px 22px 14px;
+}
+.panel > .panel-heading > h2 {
+  font-weight: 400;
+  opacity: .9;
+  text-transform: uppercase;
+  margin: 0;
+  font-size: 1.2em;
+}
+.panel > .panel-body {
+  padding: 15px 22px;
 }
 .statistic-box .statistic-value {
   margin-top: .3em;
@@ -144,6 +169,26 @@ h1 {
   z-index: 1;
 }
 
+.list {
+  list-style: none;
+  padding: 0;
+  margin: -5px -22px;
+}
+.list > li {
+  margin: 0;
+  padding: 0 22px;
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+}
+.list > li a {
+  display: block;
+  padding: 10px 0;
+}
+.list > li:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-top-color: rgba(0, 0, 0, 0.4);
+  border-bottom-color: rgba(0, 0, 0, 0.4);
+}
 
 
 
@@ -188,11 +233,11 @@ dfn {
 
 /* Source: http://tobiasahlin.com/spinkit/ */
 .spinner {
-  width: 40px;
-  height: 40px;
-  background-color: #d35400;
+  width: 100px;
+  height: 100px;
+  background-color: #e45a5a;
 
-  margin: 50px auto;
+  margin: 150px auto;
   -webkit-animation: sk-rotateplane 1.2s infinite ease-in-out;
   animation: sk-rotateplane 1.2s infinite ease-in-out;
 }
@@ -242,19 +287,26 @@ dfn {
 .Warrior-bg  { background-color: #c79c6e }
 .DemonHunter-bg { background-color: #a330c9 }
 
-table th {
-  font-weight: 600;
+table {
+  margin: 0 -22px;
 }
-table tr {
+table th {
+  font-weight: 400;
 }
 table thead tr, table tbody tr:not(:last-child) {
   border-bottom: 1px solid #000;
 }
-table tr:nth-child(odd) {
-  background: rgba(0,0,0,0.1);
+table tr:nth-child(even) {
+  background: rgba(255,255,255,0.05);
 }
 table tr th, table tr td {
   padding: 7px;
+}
+table tr th:first-of-type, table tr td:first-of-type {
+  padding-left: 22px;
+}
+table tr th:last-of-type, table tr td:last-of-type {
+  padding-right: 22px;
 }
 table .performance-bar {
   opacity: .9;
@@ -266,4 +318,10 @@ table .performance-bar {
 .__react_component_tooltip {
   text-align: left;
   max-width: 600px;
+}
+.__react_component_tooltip.type-dark {
+  background: rgba(10, 10, 10, 0.8) !important;
+}
+.__react_component_tooltip.type-dark.place-bottom:after {
+  border-bottom-color: rgba(10, 10, 10, 0.8) !important;
 }
