@@ -20,7 +20,7 @@ class PlayerSelecter extends Component {
     const { report } = this.props;
 
     return (
-      <div style={{ width: 650 }}>
+      <div>
         <h1>Paladin selection</h1>
 
         <div className="panel">

@@ -2,6 +2,8 @@ import React from 'react';
 
 import DIFFICULTIES from './DIFFICULTIES';
 
+const formatDuration = (duration) => `${Math.floor(duration / 60)}:${duration % 60 < 10 ? `0${duration % 60}` : duration % 60}`;
+
 const Fight = ({ difficulty, name, kill, start_time, end_time, ...others }) => {
   const duration = Math.round((end_time - start_time) / 1000);
 
@@ -13,7 +15,7 @@ const Fight = ({ difficulty, name, kill, start_time, end_time, ...others }) => {
 
   return (
     <div {...others}>
-      {DIFFICULTIES[difficulty]} {name} - {duration}s ({kill ? 'Kill' : 'Wipe'})
+      {name} {DIFFICULTIES[difficulty]} - <span className={kill ? 'kill' : 'wipe'}>{kill ? 'Kill' : 'Wipe'} ({formatDuration(duration)})</span>
     </div>
   );
 };

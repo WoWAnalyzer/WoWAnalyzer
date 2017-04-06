@@ -25,8 +25,8 @@ class FightSelecter extends Component {
     const { report, playerName } = this.props;
 
     return (
-      <div style={{ width: 650 }}>
-        <h1>{report.title}</h1>
+      <div>
+        <h1>{report.title} › {playerName}</h1>
 
         <div className="panel">
           <div className="panel-heading">

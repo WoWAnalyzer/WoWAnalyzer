@@ -17,7 +17,7 @@ body {
 }
 @media (min-width: 1200px) {
   .container {
-    transition: width 1000ms;
+    transition: width 600ms;
     width: 800px;
   }
   .larger  .container {
@@ -324,4 +324,11 @@ table .performance-bar {
 }
 .__react_component_tooltip.type-dark.place-bottom:after {
   border-bottom-color: rgba(10, 10, 10, 0.8) !important;
+}
+
+.kill {
+  color: #1d9c07;
+}
+.wipe {
+  color: #fb6d35;
 }
