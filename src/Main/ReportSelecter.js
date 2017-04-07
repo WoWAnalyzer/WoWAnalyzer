@@ -39,7 +39,7 @@ class ReportSelecter extends Component {
 
           <div className="panel">
             <div className="panel-body">
-              <img src="/mastery-radius.png" alt="Mastery radius" className="pull-right" style={{ margin: 15 }} />
+              <img src="./mastery-radius.png" alt="Mastery radius" className="pull-right" style={{ margin: 15 }} />
               Use this tool to analyze your performance as a Holy Paladin based on important metrics for the spec.<br /><br />
 
               You will need a Warcraft Logs report with
