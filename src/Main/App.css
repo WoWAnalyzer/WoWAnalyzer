@@ -18,7 +18,7 @@ body {
 @media (min-width: 1200px) {
   .container {
     transition: width 600ms;
-    width: 800px;
+    width: 900px;
   }
   .larger  .container {
     width: 1170px;
@@ -74,7 +74,7 @@ h1 {
   border: none;
   margin-bottom: 30px;
   background: rgba(0, 0, 0, 0.3);
-  box-shadow: 0 5px 5px 0 rgba(0,0,0,.25);
+  box-shadow: 0 5px 5px 0 rgba(0,0,0,.15);
 }
 .panel > .panel-heading {
   border-bottom: 1px solid rgba(0, 0, 0, .4);
@@ -91,6 +91,9 @@ h1 {
 .panel > .panel-body {
   padding: 15px 22px;
 }
+.panel.statistic-box > .panel-body {
+  padding: 10px 22px;
+}
 .statistic-box .statistic-value {
   margin-top: .3em;
   font-size: 2em;
@@ -98,8 +101,32 @@ h1 {
 .statistic-box .statistic-label {
   margin-top: -0.3em;
 }
-
-
+.btn-default {
+  border: 1px solid #fff;
+  background: transparent;
+  padding: 8px 30px;
+}
+.btn-primary {
+  border: none;
+  background: #d84141;
+  padding: 7px 30px;
+}
+.btn-primary:hover, .btn-primary:focus {
+  background: #912f2f;
+}
+.btn-primary:active, .btn-primary:active:hover, .btn-primary:active:focus {
+  background: #6e2a2a;
+}
+.form-control {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid transparent;
+  box-shadow: none;
+  color: #fff;
+}
+.form-control:focus {
+  box-shadow: none;
+  border: 1px solid #e45a5a;
+}
 
 
 
@@ -189,9 +216,34 @@ h1 {
   border-top-color: rgba(0, 0, 0, 0.4);
   border-bottom-color: rgba(0, 0, 0, 0.4);
 }
-
-
-
+h1 {
+  position: relative;
+}
+.back-button {
+  position: absolute;
+  left: 0;
+  transform: translateX(-100%);
+}
+li.item {
+  border-bottom: 1px solid rgba(0, 0, 0, .4);
+  box-shadow: 0 1px 0 0 rgba(255, 255, 255, .1);
+}
+li.item:first-of-type {
+  margin-top: -14px;
+}
+li.item img {
+  float: left;
+  height: 60px;
+  border-radius: 50%;
+  margin: 10px 22px 10px 0;
+}
+li.item a {
+  display: inline;
+  padding: 0;
+}
+.item header {
+  margin-top: 20px;
+}
 
 
 
@@ -206,17 +258,6 @@ dfn {
   border-bottom: 1px dashed currentColor;
   font-style: normal;
   cursor: help;
-}
-
-.btn-primary {
-  border: 0;
-  padding: 9px 20px;
-}
-.btn-muted {
-  background-color: #ddd;
-}
-.btn-muted:hover {
-  background-color: #ccc;
 }
 
 .alert-danger {
@@ -286,6 +327,13 @@ dfn {
 .Warlock-bg { background-color: #9482c9 }
 .Warrior-bg  { background-color: #c79c6e }
 .DemonHunter-bg { background-color: #a330c9 }
+
+.epic {
+  color: #a335ee;
+}
+.legendary {
+  color: #ff8000;
+}
 
 table {
   margin: 0 -22px;

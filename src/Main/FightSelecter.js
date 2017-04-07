@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+import ReactTooltip from 'react-tooltip';
 
 import Fight from './Fight';
 
@@ -21,12 +22,23 @@ class FightSelecter extends Component {
     playerName: React.PropTypes.string.isRequired,
   };
 
+  componentWillUnmount() {
+    ReactTooltip.hide();
+  }
+
   render() {
     const { report, playerName } = this.props;
 
     return (
       <div>
-        <h1>{report.title} › {playerName}</h1>
+        <h1>
+          <div className="back-button">
+            <Link to={`/report/${report.code}`} data-tip="Back to Paladin selection">
+              <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
+            </Link>
+          </div>
+          {report.title} › {playerName}
+          </h1>
 
         <div className="panel">
           <div className="panel-heading">

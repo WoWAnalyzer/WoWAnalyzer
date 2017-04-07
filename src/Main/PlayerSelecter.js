@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+import ReactTooltip from 'react-tooltip';
 
 const PALADIN_TYPE = 'Paladin';
 
@@ -16,12 +17,23 @@ class PlayerSelecter extends Component {
     }),
   };
 
+  componentWillUnmount() {
+    ReactTooltip.hide();
+  }
+
   render() {
     const { report } = this.props;
 
     return (
       <div>
-        <h1>Paladin selection</h1>
+        <h1>
+          <div className="back-button">
+            <Link to="/" data-tip="Change report">
+              <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
+            </Link>
+          </div>
+          Paladin selection
+        </h1>
 
         <div className="panel">
           <div className="panel-heading">

@@ -55,7 +55,7 @@ class ReportSelecter extends Component {
               <strong>Enter your Warcraft Logs report code.</strong><br />
               https://www.warcraftlogs.com/reports/<input type="text" name="code" className="form-control" ref={(elem) => {
                 this.codeInput = elem;
-              }} style={{ width: 175 }} placeholder="Report code" />/<br /><br />
+              }} style={{ width: 175 }} placeholder="Report code" autoCorrect="off" autoCapitalize="off" spellCheck="false" />/<br /><br />
 
               <button type="submit" className="btn btn-primary">
                 Start <span className="glyphicon glyphicon-chevron-right" aria-hidden="true" />
