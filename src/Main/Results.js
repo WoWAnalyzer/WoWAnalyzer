@@ -10,7 +10,7 @@ import { ILTERENDI_ITEM_ID } from './Parser/Modules/Legendaries/Ilterendi';
 import { VELENS_ITEM_ID } from './Parser/Modules/Legendaries/Velens';
 import { CHAIN_OF_THRAYN_ITEM_ID } from './Parser/Modules/Legendaries/ChainOfThrayn';
 import { PRYDAZ_ITEM_ID } from './Parser/Modules/Legendaries/Prydaz';
-import { OBSIDION_STONE_SPAULDERS_ITEM_ID } from './Parser/Modules/Legendaries/ObsidianStoneSpaulders';
+import { OBSIDIAN_STONE_SPAULDERS_ITEM_ID } from './Parser/Modules/Legendaries/ObsidianStoneSpaulders';
 import { MARAADS_DYING_BREATH_ITEM_ID } from './Parser/Modules/Legendaries/MaraadsDyingBreath';
 
 class Results extends React.Component {
@@ -248,7 +248,7 @@ class Results extends React.Component {
                     {(() => {
                       const items = [
                         parser.modules.combatants.selected.hasBack(DRAPE_OF_SHAME_ITEM_ID) && (
-                          <li className="item clearfix">
+                          <li className="item clearfix" key={DRAPE_OF_SHAME_ITEM_ID}>
                             <a href="http://www.wowhead.com/item=142170" target="_blank">
                               <img
                                 src="./drapeofshame.jpg"
@@ -266,7 +266,7 @@ class Results extends React.Component {
                           </li>
                         ),
                         parser.modules.combatants.selected.hasRing(ILTERENDI_ITEM_ID) && (
-                          <li className="item clearfix">
+                          <li className="item clearfix" key={ILTERENDI_ITEM_ID}>
                             <a href="http://www.wowhead.com/item=137046" target="_blank">
                               <img
                                 src="./ilterendi.jpg"
@@ -284,7 +284,7 @@ class Results extends React.Component {
                           </li>
                         ),
                         parser.modules.combatants.selected.hasTrinket(VELENS_ITEM_ID) && (
-                          <li className="item clearfix">
+                          <li className="item clearfix" key={VELENS_ITEM_ID}>
                             <a href="http://www.wowhead.com/item=144258" target="_blank">
                               <img
                                 src="./velens.jpg"
@@ -302,7 +302,7 @@ class Results extends React.Component {
                           </li>
                         ),
                         parser.modules.combatants.selected.hasWaist(CHAIN_OF_THRAYN_ITEM_ID) && (
-                          <li className="item clearfix">
+                          <li className="item clearfix" key={CHAIN_OF_THRAYN_ITEM_ID}>
                             <a href="http://www.wowhead.com/item=137086" target="_blank">
                               <img
                                 src="./chainOfThrayn.jpg"
@@ -320,7 +320,7 @@ class Results extends React.Component {
                           </li>
                         ),
                         parser.modules.combatants.selected.hasNeck(PRYDAZ_ITEM_ID) && (
-                          <li className="item clearfix">
+                          <li className="item clearfix" key={PRYDAZ_ITEM_ID}>
                             <a href="http://www.wowhead.com/item=132444/prydaz-xavarics-magnum-opus" target="_blank">
                               <img src="./prydaz.jpg"
                                 alt="Prydaz, Xavaric's Magnum Opus" />
@@ -335,8 +335,8 @@ class Results extends React.Component {
                             </main>
                           </li>
                         ),
-                        parser.modules.combatants.selected.hasShoulder(OBSIDION_STONE_SPAULDERS_ITEM_ID) && (
-                          <li className="item clearfix">
+                        parser.modules.combatants.selected.hasShoulder(OBSIDIAN_STONE_SPAULDERS_ITEM_ID) && (
+                          <li className="item clearfix" key={OBSIDIAN_STONE_SPAULDERS_ITEM_ID}>
                             <a href="http://www.wowhead.com/item=137076/obsidian-stone-spaulders" target="_blank">
                               <img
                                 src="./obsidianstonespaulders.jpg"
@@ -354,7 +354,7 @@ class Results extends React.Component {
                           </li>
                         ),
                         parser.modules.combatants.selected.hasBack(MARAADS_DYING_BREATH_ITEM_ID) && (
-                          <li className="item clearfix">
+                          <li className="item clearfix" key={MARAADS_DYING_BREATH_ITEM_ID}>
                             <a href="http://www.wowhead.com/item=144273/maraads-dying-breath" target="_blank">
                               <img
                                 src="./maraadsdyingbreath.jpg"
