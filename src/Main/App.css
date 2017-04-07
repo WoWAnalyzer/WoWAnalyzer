@@ -6,12 +6,12 @@ body {
   line-height: 1.6;
   font-family: 'Roboto', sans-serif;
   background: #305361;
-  /*background: linear-gradient(rgba(48, 83, 97, 0.8), rgba(48, 83, 97, 0.9)), url(/background.jpg) center no-repeat;*/
-  /*background: url(/background-pattern.png), url(/background.jpg) center no-repeat;*/
+  /*background: linear-gradient(rgba(48, 83, 97, 0.8), rgba(48, 83, 97, 0.9)), url(./background.jpg) center no-repeat;*/
+  /*background: url(./background-pattern.png), url(./background.jpg) center no-repeat;*/
   /*background-size: 15px 15px, cover;*/
-  /*background: url(/background-pattern.png), linear-gradient(rgba(94, 131, 146, 0.8), rgba(51, 73, 82, 0.9)), url(/background.jpg) center no-repeat;*/
+  /*background: url(./background-pattern.png), linear-gradient(rgba(94, 131, 146, 0.8), rgba(51, 73, 82, 0.9)), url(./background.jpg) center no-repeat;*/
   /*background-size: 15px 15px, cover, cover;*/
-  background: url(/background-merged.png) center no-repeat;
+  background: url(./background-merged.png) center no-repeat;
   background-size: cover;
   color: #fff;
 }
