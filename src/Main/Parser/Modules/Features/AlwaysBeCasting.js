@@ -50,23 +50,6 @@ const CRUSADERS_MIGHT_SPELL_ID = 196926;
 const debug = false;
 
 class AlwaysBeCasting extends Module {
-  // TODO: Pause on death
-
-  // TODO: Fight start
-  // TODO: Bloodlust haste
-  // TODO: HA haste
-
-  // I'm working on an AlwaysBeCasting module for the Holy Paladin Analyzer. One that can ignore non healing spells. Primary reason for this
-  // is that my spreadsheet is only 90% or so accurate and I want something I trust. And it's a fun challenge.
-  // So what I figured is that we need to track Haste. But logs don't show current Haste values I'm afraid. So we're going to need to take
-  // the default haste value (it's shown when you start a boss fight) and assume that's the GCD. Then to make things more accurate we'll
-  // want to adjust haste for things like Bloodlust, which should be pretty easy. And as this module grows we can make it recognize more
-  // things. One downside though is that some groups pop Bloodlust before the pull. This makes it so the `applybuff` is never recorded in
-  // the combatlog. But there would still be a `removebuff`. This sucks. But we can work with this by recording all the casts
-  // and only after we finish processing the combatlog we go back through this log and combine it with the buffs log (where a buff with
-  // only the `removebuff` event is recognized as being on since pull) to then get accurate haste values (= accurate GCD values) and find
-  // the real dead GCD count and misused GCD count.
-
   eventLog = [];
 
   totalTimeWasted = 0;
@@ -151,7 +134,7 @@ class AlwaysBeCasting extends Module {
       return;
     }
     const castTime = cast.timestamp - begincast.timestamp;
-    if (!this.constructor.inRange(castTime, gcd, 30)) { // cast times seem to fluctuate by 30ms, not sure if it depends on player latency, in that case it could be a lot more flexible
+    if (!this.constructor.inRange(castTime, gcd, 50)) { // cast times seem to fluctuate by 50ms, not sure if it depends on player latency, in that case it could be a lot more flexible
       console.warn(`Expected Flash of Light cast time (${castTime}) to match GCD (${Math.round(gcd)}) @${cast.timestamp - this.owner.fight.start_time}`);
     }
   }
