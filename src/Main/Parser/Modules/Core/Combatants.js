@@ -5,7 +5,7 @@ import Combatant from './Combatant';
 class Combatants extends Module {
   players = {};
   get selected() {
-    return this.players[this.owner.player.id];
+    return this.players[this.owner.playerId];
   }
 
   on_combatantinfo(event) {

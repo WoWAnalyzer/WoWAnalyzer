@@ -1,6 +1,7 @@
 import Buffs from './Modules/Core/Buffs';
 import Combatants from './Modules/Core/Combatants';
 import BeaconHealing from './Modules/Core/BeaconHealing';
+import BeaconTargets from './Modules/Core/BeaconTargets';
 
 import CastRatios from './Modules/Features/CastRatios';
 import MasteryEffectiveness from './Modules/Features/MasteryEffectiveness';
@@ -17,9 +18,12 @@ import MaraadsDyingBreath from './Modules/Legendaries/MaraadsDyingBreath';
 class CombatLogParser {
   static enabledModules = {
     // Core
-    beaconHealing: BeaconHealing,
     buffs: Buffs,
     combatants: Combatants,
+
+    // Semi-core
+    beaconHealing: BeaconHealing,
+    beaconTargets: BeaconTargets,
 
     // Features
     castRatios: CastRatios,
@@ -40,7 +44,18 @@ class CombatLogParser {
   player = null;
   fight = null;
 
+  get playerId() {
+    return this.player.id;
+  }
+
   modules = {};
+
+  get buffs() {
+    return this.modules.buffs;
+  }
+  get combatants() {
+    return this.modules.combatants;
+  }
 
   get fightDuration() {
     return this.fight.end_time - this.fight.start_time;
@@ -84,9 +99,6 @@ class CombatLogParser {
       resolve(events.length);
     });
   }
-  finished() {
-    this.triggerEvent('finished', null);
-  }
   triggerEvent(eventType, event) {
     const methodName = `on_${eventType}`;
     this.constructor.tryCall(this, methodName, event);
@@ -101,6 +113,9 @@ class CombatLogParser {
       method.call(object, event);
     }
   }
+  finished() {
+    this.triggerEvent('finished', null);
+  }
 
   byPlayer(event) {
     return (event.sourceID === this.player.id);
@@ -110,15 +125,11 @@ class CombatLogParser {
   }
 
   totalHealing = 0;
-  on_heal(event) {
-    if (this.byPlayer(event)) {
-      this.totalHealing += event.amount; // event.absorbed contains absorbed healing (e.g. by Time Release), should we include that?
-    }
+  on_byPlayer_heal(event) {
+    this.totalHealing += event.amount + (event.absorbed || 0);
   }
-  on_absorbed(event) {
-    if (this.byPlayer(event)) {
-      this.totalHealing += event.amount;
-    }
+  on_byPlayer_absorbed(event) {
+    this.totalHealing += event.amount + (event.absorbed || 0);
   }
   // TODO: Damage taken from LOTM
 }
