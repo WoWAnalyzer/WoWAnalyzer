@@ -42,8 +42,7 @@ class ReportSelecter extends Component {
               <img src="./mastery-radius.png" alt="Mastery radius" className="pull-right" style={{ margin: 15 }} />
               Use this tool to analyze your performance as a Holy Paladin based on important metrics for the spec.<br /><br />
 
-              You will need a Warcraft Logs report with
-                advanced combat logging enabled to start. Private logs can not be used, if your guild has private logs you will have to <a href="https://www.warcraftlogs.com/help/start/">upload your own logs</a> or change the existing logs to the <i>unlisted</i> privacy option instead.
+              You will need a Warcraft Logs report with advanced combat logging enabled to start. Private logs can not be used, if your guild has private logs you will have to <a href="https://www.warcraftlogs.com/help/start/">upload your own logs</a> or change the existing logs to the <i>unlisted</i> privacy option instead.
             </div>
           </div>
 
