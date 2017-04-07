@@ -3,7 +3,6 @@ import { Link } from 'react-router';
 
 import PlayerBreakdown from './PlayerBreakdown';
 import StatisticBox from './StatisticBox';
-import CircularProgressBar from './CircularProgressBar';
 
 import { RULE_OF_LAW_SPELL_ID } from './Parser/Constants';
 import { DRAPE_OF_SHAME_ITEM_ID } from './Parser/Modules/Legendaries/DrapeOfShame';
@@ -173,7 +172,11 @@ class Results extends React.Component {
               <div className="col-xs-4">
                 <StatisticBox
                   icon={(
-                    <CircularProgressBar percent={parser.modules.castRatios.casts.flashOfLightWithIol / (parser.modules.castRatios.casts.flashOfLightWithIol + parser.modules.castRatios.casts.holyLightWithIol)} />
+                    <a href="http://www.wowhead.com/spell=53576" target="_blank">
+                      <img src="./infusionoflight.jpg"
+                        style={{ height: 74, borderRadius: 5, border: '1px solid #000' }}
+                        alt="Unused Infusion of Light" />
+                    </a>
                   )}
                   value={`${this.constructor.formatPercentage(parser.modules.castRatios.casts.flashOfLightWithIol / (parser.modules.castRatios.casts.flashOfLightWithIol + parser.modules.castRatios.casts.holyLightWithIol))} %`}
                   label={(
