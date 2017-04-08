@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import PlayerBreakdown from './PlayerBreakdown';
 import StatisticBox from './StatisticBox';
 
-import { RULE_OF_LAW_SPELL_ID, T19_4SET_BONUS_BUFF_ID, FLASH_OF_LIGHT_SPELL_ID, HOLY_LIGHT_SPELL_ID, HOLY_SHOCK_HEAL_SPELL_ID } from './Parser/Constants';
+import { RULE_OF_LAW_SPELL_ID, T19_4SET_BONUS_BUFF_ID, FLASH_OF_LIGHT_SPELL_ID, HOLY_LIGHT_SPELL_ID, HOLY_SHOCK_HEAL_SPELL_ID, BEACON_TYPES } from './Parser/Constants';
 import { DRAPE_OF_SHAME_ITEM_ID } from './Parser/Modules/Legendaries/DrapeOfShame';
 import { ILTERENDI_ITEM_ID } from './Parser/Modules/Legendaries/Ilterendi';
 import { VELENS_ITEM_ID } from './Parser/Modules/Legendaries/Velens';
@@ -12,6 +12,15 @@ import { CHAIN_OF_THRAYN_ITEM_ID } from './Parser/Modules/Legendaries/ChainOfThr
 import { PRYDAZ_ITEM_ID } from './Parser/Modules/Legendaries/Prydaz';
 import { OBSIDIAN_STONE_SPAULDERS_ITEM_ID } from './Parser/Modules/Legendaries/ObsidianStoneSpaulders';
 import { MARAADS_DYING_BREATH_ITEM_ID } from './Parser/Modules/Legendaries/MaraadsDyingBreath';
+
+function getBeaconIcon(spellId) {
+  switch (spellId) {
+    case BEACON_TYPES.BEACON_OF_FATH: return 'beaconOfFaith';
+    case BEACON_TYPES.BEACON_OF_THE_LIGHTBRINGER: return 'beaconOfTheLightbringer';
+    case BEACON_TYPES.BEACON_OF_VIRTUE: return 'beaconOfVirtue';
+    default: return '';
+  }
+}
 
 class Results extends React.Component {
   static propTypes = {
@@ -126,6 +135,16 @@ class Results extends React.Component {
 
     const flashOfLightHeals = getCastCounter(FLASH_OF_LIGHT_SPELL_ID).hits || 0;
     const holyLightHeals = getCastCounter(HOLY_LIGHT_SPELL_ID).hits || 0;
+    const totalFolsAndHls = flashOfLightHeals + holyLightHeals;
+    const fillerFlashOfLights = flashOfLightHeals - iolFlashOfLights;
+    const fillerHolyLights = holyLightHeals - iolHolyLights;
+    const totalFillers = fillerFlashOfLights + fillerHolyLights;
+    const fillerCastRatio = fillerFlashOfLights / totalFillers;
+
+    const beaconFlashOfLights = getCastCounter(FLASH_OF_LIGHT_SPELL_ID).withBeacon || 0;
+    const beaconHolyLights = getCastCounter(HOLY_LIGHT_SPELL_ID).withBeacon || 0;
+    const totalFolsAndHlsOnBeacon = beaconFlashOfLights + beaconHolyLights;
+    const healsOnBeacon = totalFolsAndHlsOnBeacon / totalFolsAndHls;
 
     const holyShockHeals = getCastCounter(HOLY_SHOCK_HEAL_SPELL_ID).hits || 0;
     const holyShockCrits = getCastCounter(HOLY_SHOCK_HEAL_SPELL_ID).crits || 0;
@@ -229,14 +248,35 @@ class Results extends React.Component {
                         alt="Flash of Light" />
                     </a>
                   )}
-                  value={`${this.constructor.formatPercentage((flashOfLightHeals - iolFlashOfLights) / (flashOfLightHeals - iolFlashOfLights + holyLightHeals - iolHolyLights))} %`}
+                  value={`${this.constructor.formatPercentage(fillerCastRatio)} %`}
                   label={(
-                    <dfn data-tip={`The ratio at which you cast Flash of Lights versus Holy Lights. You cast ${flashOfLightHeals - iolFlashOfLights} filler Flash of Lights and ${holyLightHeals - iolHolyLights} filler Holy Lights.`}>
+                    <dfn data-tip={`The ratio at which you cast Flash of Lights versus Holy Lights. You cast ${fillerFlashOfLights} filler Flash of Lights and ${fillerHolyLights} filler Holy Lights.`}>
                       Filler cast ratio
                     </dfn>
                   )}
                 />
               </div>
+              {parser.selectedCombatant && (
+                <div className="col-xs-4">
+                  <StatisticBox
+                    icon={(
+                      <a href={`http://www.wowhead.com/spell=${parser.selectedCombatant && parser.selectedCombatant.lv100Talent}`} target="_blank">
+                        <img
+                          src={`./${getBeaconIcon(parser.selectedCombatant && parser.selectedCombatant.lv100Talent)}.jpg`}
+                          style={{ height: 74, borderRadius: 5, border: '1px solid #000' }}
+                          alt="Beacon"
+                        />
+                      </a>
+                    )}
+                    value={`${this.constructor.formatPercentage(healsOnBeacon)} %`}
+                    label={(
+                      <dfn data-tip={`The amount of Flash of Lights and Holy Lights cast on beacon targets. You cast ${beaconFlashOfLights} Flash of Lights and ${beaconHolyLights} Holy Lights on beacon targets.`}>
+                        Heals on beacon
+                      </dfn>
+                    )}
+                  />
+                </div>
+              )}
               <div className="col-xs-4">
                 <StatisticBox
                   icon={(
