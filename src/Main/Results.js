@@ -254,10 +254,10 @@ class Results extends React.Component {
                                 src="./drapeofshame.jpg"
                                 alt="Drape of Shame"
                               />
+                              <header className="epic">
+                                Drape of Shame
+                              </header>
                             </a>
-                            <header className="epic">
-                              Drape of Shame
-                            </header>
                             <main>
                               <dfn data-tip="The actual effective healing contributed by the Drape of Shame equip effect.">
                                 {`${((Math.round(parser.modules.drapeOfShame.healing / parser.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
@@ -272,10 +272,10 @@ class Results extends React.Component {
                                 src="./ilterendi.jpg"
                                 alt="Ilterendi, Crown Jewel of Silvermoon"
                               />
+                              <header className="legendary">
+                                Ilterendi, Crown Jewel of Silvermoon
+                              </header>
                             </a>
-                            <header className="legendary">
-                              Ilterendi, Crown Jewel of Silvermoon
-                            </header>
                             <main>
                               <dfn data-tip="The actual effective healing contributed by the Ilterendi, Crown Jewel of Silvermoon equip effect.">
                                 {`${((Math.round(parser.modules.ilterendi.healing / parser.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
@@ -290,10 +290,10 @@ class Results extends React.Component {
                                 src="./velens.jpg"
                                 alt="Velen's Future Sight"
                               />
+                              <header className="legendary">
+                                Velen's Future Sight
+                              </header>
                             </a>
-                            <header className="legendary">
-                              Velen's Future Sight
-                            </header>
                             <main>
                               <dfn data-tip="The actual effective healing contributed by the Velen's Future Sight use effect.">
                                 {`${((Math.round(parser.modules.velens.healing / parser.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
@@ -308,10 +308,10 @@ class Results extends React.Component {
                                 src="./chainOfThrayn.jpg"
                                 alt="Chain of Thrayn"
                               />
+                              <header className="legendary">
+                                Chain of Thrayn
+                              </header>
                             </a>
-                            <header className="legendary">
-                              Chain of Thrayn
-                            </header>
                             <main>
                               <dfn data-tip="The actual effective healing contributed by the Chain of Thrayn equip effect.">
                                 {`${((Math.round(parser.modules.chainOfThrayn.healing / parser.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
@@ -322,12 +322,14 @@ class Results extends React.Component {
                         parser.modules.combatants.selected.hasNeck(PRYDAZ_ITEM_ID) && (
                           <li className="item clearfix" key={PRYDAZ_ITEM_ID}>
                             <a href="http://www.wowhead.com/item=132444/prydaz-xavarics-magnum-opus" target="_blank">
-                              <img src="./prydaz.jpg"
-                                alt="Prydaz, Xavaric's Magnum Opus" />
+                              <img
+                                src="./prydaz.jpg"
+                                alt="Prydaz, Xavaric's Magnum Opus"
+                              />
+                              <header className="legendary">
+                                Prydaz, Xavaric's Magnum Opus
+                              </header>
                             </a>
-                            <header className="legendary">
-                              Prydaz, Xavaric's Magnum Opus
-                            </header>
                             <main>
                               <dfn data-tip="The actual effective healing contributed by the Prydaz, Xavaric's Magnum Opus equip effect.">
                                 {`${((Math.round(parser.modules.prydaz.healing / parser.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
@@ -342,10 +344,10 @@ class Results extends React.Component {
                                 src="./obsidianstonespaulders.jpg"
                                 alt="Obsidian Stone Spaulders"
                               />
+                              <header className="legendary">
+                                Obsidian Stone Spaulders
+                              </header>
                             </a>
-                            <header className="legendary">
-                              Obsidian Stone Spaulders
-                            </header>
                             <main>
                               <dfn data-tip="The actual effective healing contributed by the Obsidian Stone Spaulders equip effect.">
                                 {`${((Math.round(parser.modules.obsidianStoneSpaulders.healing / parser.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
@@ -360,10 +362,10 @@ class Results extends React.Component {
                                 src="./maraadsdyingbreath.jpg"
                                 alt="Maraad's Dying Breath"
                               />
+                              <header className="legendary">
+                                Maraad's Dying Breath
+                              </header>
                             </a>
-                            <header className="legendary">
-                              Maraad's Dying Breath
-                            </header>
                             <main>
                               <dfn data-tip="The actual effective healing contributed by the Maraad's Dying Breath equip effect when compared to casting an unbuffed LotM instead. The damage taken is ignored as this doesn't change with Maraad's and therefore doesn't impact the healing gain.">
                                 {`${((Math.round(parser.modules.maraadsDyingBreath.healing / parser.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}

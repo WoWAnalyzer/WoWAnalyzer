@@ -335,28 +335,28 @@ dfn {
   color: #ff8000;
 }
 
-table {
+table.data-table {
   margin: 0 -22px;
 }
-table th {
+table.data-table th {
   font-weight: 400;
 }
-table thead tr, table tbody tr:not(:last-child) {
+table.data-table thead tr, table.data-table tbody tr:not(:last-child) {
   border-bottom: 1px solid #000;
 }
-table tr:nth-child(even) {
+table.data-table tr:nth-child(even) {
   background: rgba(255,255,255,0.05);
 }
-table tr th, table tr td {
+table.data-table tr th, table.data-table tr td {
   padding: 7px;
 }
-table tr th:first-of-type, table tr td:first-of-type {
+table.data-table tr th:first-of-type, table.data-table tr td:first-of-type {
   padding-left: 22px;
 }
-table tr th:last-of-type, table tr td:last-of-type {
+table.data-table tr th:last-of-type, table.data-table tr td:last-of-type {
   padding-right: 22px;
 }
-table .performance-bar {
+table.data-table .performance-bar {
   opacity: .9;
   height: 1.3em;
   min-width: 1px;

@@ -3,7 +3,7 @@ import React from 'react';
 import SPEC_IDS from './SPEC_IDS';
 
 const PlayerBreakdown = ({ friendlyStats, highestHealingFromMastery, totalHealingFromMastery }) => (
-  <table>
+  <table className="data-table">
     <thead>
       <tr>
         <th>Name</th>
