@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import PlayerBreakdown from './PlayerBreakdown';
 import StatisticBox from './StatisticBox';
 
-import { RULE_OF_LAW_SPELL_ID, T19_4SET_BONUS_BUFF_ID } from './Parser/Constants';
+import { RULE_OF_LAW_SPELL_ID, T19_4SET_BONUS_BUFF_ID, FLASH_OF_LIGHT_SPELL_ID, HOLY_LIGHT_SPELL_ID, HOLY_SHOCK_HEAL_SPELL_ID } from './Parser/Constants';
 import { DRAPE_OF_SHAME_ITEM_ID } from './Parser/Modules/Legendaries/DrapeOfShame';
 import { ILTERENDI_ITEM_ID } from './Parser/Modules/Legendaries/Ilterendi';
 import { VELENS_ITEM_ID } from './Parser/Modules/Legendaries/Velens';
@@ -103,6 +103,9 @@ class Results extends React.Component {
   static formatPercentage(percentage) {
     return (Math.round((percentage || 0) * 10000) / 100).toFixed(2);
   }
+  get iolProcsPerHolyShockCrit() {
+    return this.props.parser.buffs.hasBuff(T19_4SET_BONUS_BUFF_ID) ? 2 : 1;
+  }
 
   render() {
     const { parser } = this.props;
@@ -111,8 +114,22 @@ class Results extends React.Component {
     const stats = this.constructor.calculateStats(parser);
 
     const totalMasteryEffectiveness = stats.totalHealingFromMastery / (stats.totalMaxPotentialMasteryHealing || 1);
-    const highestHealingFromMastery = friendlyStats && friendlyStats.reduce((highest,
-                                                                             player) => Math.max(highest, player.healingFromMastery), 1);
+    const highestHealingFromMastery = friendlyStats && friendlyStats.reduce((highest, player) => Math.max(highest, player.healingFromMastery), 1);
+
+    const castCounter = parser.modules.castCounter;
+    const getCastCounter = spellId => castCounter.casts[spellId] || {};
+
+    const iolFlashOfLights = getCastCounter(FLASH_OF_LIGHT_SPELL_ID).withIol || 0;
+    const iolHolyLights = getCastCounter(HOLY_LIGHT_SPELL_ID).withIol || 0;
+    const totalIols = iolFlashOfLights + iolHolyLights;
+    const unusedIolRate = iolFlashOfLights / totalIols;
+
+    const flashOfLightHeals = getCastCounter(FLASH_OF_LIGHT_SPELL_ID).hits || 0;
+    const holyLightHeals = getCastCounter(HOLY_LIGHT_SPELL_ID).hits || 0;
+
+    const holyShockHeals = getCastCounter(HOLY_SHOCK_HEAL_SPELL_ID).hits || 0;
+    const holyShockCrits = getCastCounter(HOLY_SHOCK_HEAL_SPELL_ID).crits || 0;
+    const iolProcsPerHolyShockCrit = this.iolProcsPerHolyShockCrit;
 
     return (
       <div style={{ width: '100%' }}>
@@ -178,9 +195,9 @@ class Results extends React.Component {
                         alt="Unused Infusion of Light" />
                     </a>
                   )}
-                  value={`${this.constructor.formatPercentage(parser.modules.castRatios.casts.flashOfLightWithIol / (parser.modules.castRatios.casts.flashOfLightWithIol + parser.modules.castRatios.casts.holyLightWithIol))} %`}
+                  value={`${this.constructor.formatPercentage(unusedIolRate)} %`}
                   label={(
-                    <dfn data-tip={`The Infusion of Light Flash of Light to Infusion of Light Holy Light usage ratio is how many Flash of Lights you cast compared to Holy Lights during the Infusion of Light proc. You cast ${parser.modules.castRatios.casts.flashOfLightWithIol} Flash of Lights and ${parser.modules.castRatios.casts.holyLightWithIol} Holy Lights during Infusion of Light.`}>
+                    <dfn data-tip={`The Infusion of Light Flash of Light to Infusion of Light Holy Light usage ratio is how many Flash of Lights you cast compared to Holy Lights during the Infusion of Light proc. You cast ${iolFlashOfLights} Flash of Lights and ${iolHolyLights} Holy Lights during Infusion of Light.`}>
                       IoL FoL to HL cast ratio
                     </dfn>
                   )}
@@ -195,9 +212,9 @@ class Results extends React.Component {
                         alt="Unused Infusion of Light" />
                     </a>
                   )}
-                  value={`${this.constructor.formatPercentage(1 - (parser.modules.castRatios.casts.flashOfLightWithIol + parser.modules.castRatios.casts.holyLightWithIol) / (parser.modules.castRatios.casts.holyShockCriticals * parser.modules.castRatios.iolProcsPerHolyShockCrit))} %`}
+                  value={`${this.constructor.formatPercentage(1 - totalIols / (holyShockCrits * iolProcsPerHolyShockCrit))} %`}
                   label={(
-                    <dfn data-tip={`The amount of Infusion of Lights you did not use out of the total available. You cast ${parser.modules.castRatios.casts.holyShock} Holy Shocks with a ${this.constructor.formatPercentage(parser.modules.castRatios.casts.holyShockCriticals / parser.modules.castRatios.casts.holyShock)}% crit ratio. This gave you ${parser.modules.castRatios.casts.holyShockCriticals * parser.modules.castRatios.iolProcsPerHolyShockCrit} Infusion of Light procs, of which you used ${parser.modules.castRatios.casts.flashOfLightWithIol + parser.modules.castRatios.casts.holyLightWithIol}.<br /><br />The ratio may be below zero if you used Infusion of Light procs from damaging Holy Shocks (e.g. cast on boss), or from casting Holy Shock before the fight started. <b>It is accurate to enter this negative value in your spreadsheet!</b> The spreadsheet will consider these bonus Infusion of Light procs and consider it appropriately.`}>
+                    <dfn data-tip={`The amount of Infusion of Lights you did not use out of the total available. You cast ${holyShockHeals} (healing) Holy Shocks with a ${this.constructor.formatPercentage(holyShockCrits / holyShockHeals)}% crit ratio. This gave you ${holyShockCrits * iolProcsPerHolyShockCrit} Infusion of Light procs, of which you used ${totalIols}.<br /><br />The ratio may be below zero if you used Infusion of Light procs from damaging Holy Shocks (e.g. cast on boss), or from casting Holy Shock before the fight started. <b>It is accurate to enter this negative value in your spreadsheet!</b> The spreadsheet will consider these bonus Infusion of Light procs and consider it appropriately.`}>
                       Unused Infusion of Lights
                     </dfn>
                   )}
@@ -212,9 +229,9 @@ class Results extends React.Component {
                         alt="Flash of Light" />
                     </a>
                   )}
-                  value={`${this.constructor.formatPercentage((parser.modules.castRatios.casts.flashOfLight - parser.modules.castRatios.casts.flashOfLightWithIol) / (parser.modules.castRatios.casts.flashOfLight - parser.modules.castRatios.casts.flashOfLightWithIol + parser.modules.castRatios.casts.holyLight - parser.modules.castRatios.casts.holyLightWithIol))} %`}
+                  value={`${this.constructor.formatPercentage((flashOfLightHeals - iolFlashOfLights) / (flashOfLightHeals - iolFlashOfLights + holyLightHeals - iolHolyLights))} %`}
                   label={(
-                    <dfn data-tip={`The ratio at which you cast Flash of Lights versus Holy Lights. You cast ${parser.modules.castRatios.casts.flashOfLight - parser.modules.castRatios.casts.flashOfLightWithIol} filler Flash of Lights and ${parser.modules.castRatios.casts.holyLight - parser.modules.castRatios.casts.holyLightWithIol} filler Holy Lights.`}>
+                    <dfn data-tip={`The ratio at which you cast Flash of Lights versus Holy Lights. You cast ${flashOfLightHeals - iolFlashOfLights} filler Flash of Lights and ${holyLightHeals - iolHolyLights} filler Holy Lights.`}>
                       Filler cast ratio
                     </dfn>
                   )}
@@ -385,7 +402,7 @@ class Results extends React.Component {
                               </header>
                             </a>
                             <main>
-                              {parser.modules.castRatios.casts.holyShockCriticals * (parser.modules.castRatios.iolProcsPerHolyShockCrit - 1)} bonus Infusion of Light charges gained
+                              {holyShockCrits * (iolProcsPerHolyShockCrit - 1)} bonus Infusion of Light charges gained
                             </main>
                           </li>
                         ),

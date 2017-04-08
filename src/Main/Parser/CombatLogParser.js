@@ -1,10 +1,11 @@
 import Initialize from './Modules/Core/Initialize';
 import Buffs from './Modules/Core/Buffs';
 import Combatants from './Modules/Core/Combatants';
+import CastCounter from './Modules/Core/CastCounter';
+
 import BeaconHealing from './Modules/PaladinCore/BeaconHealing';
 import BeaconTargets from './Modules/PaladinCore/BeaconTargets';
 
-import CastRatios from './Modules/Features/CastRatios';
 import MasteryEffectiveness from './Modules/Features/MasteryEffectiveness';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 
@@ -22,13 +23,13 @@ class CombatLogParser {
     initialize: Initialize,
     buffs: Buffs,
     combatants: Combatants,
+    castCounter: CastCounter,
 
     // PaladinCore
     beaconHealing: BeaconHealing,
     beaconTargets: BeaconTargets,
 
     // Features
-    castRatios: CastRatios,
     masteryEffectiveness: MasteryEffectiveness,
     alwaysBeCasting: AlwaysBeCasting,
 
@@ -125,7 +126,7 @@ class CombatLogParser {
     }
   }
   finished() {
-    this.triggerEvent('finished', null);
+    this.triggerEvent('finished');
   }
 
   byPlayer(event, playerId = this.player.id) {
