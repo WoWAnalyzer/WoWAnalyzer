@@ -1,5 +1,4 @@
 import Module from 'Main/Parser/Module';
-import { BEACON_TRANSFER_SPELL_ID, BEACON_TRANSFERING_ABILITIES, BEACON_TYPES } from 'Main/Parser/Constants';
 
 const BEACON_OF_LIGHT_BUFF_ID = 53563;
 const BEACON_OF_FAITH_BUFF_ID = 156910;
