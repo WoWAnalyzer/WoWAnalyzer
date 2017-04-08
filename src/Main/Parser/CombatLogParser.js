@@ -1,7 +1,8 @@
+import Initialize from './Modules/Core/Initialize';
 import Buffs from './Modules/Core/Buffs';
 import Combatants from './Modules/Core/Combatants';
-import BeaconHealing from './Modules/Core/BeaconHealing';
-import BeaconTargets from './Modules/Core/BeaconTargets';
+import BeaconHealing from './Modules/PaladinCore/BeaconHealing';
+import BeaconTargets from './Modules/PaladinCore/BeaconTargets';
 
 import CastRatios from './Modules/Features/CastRatios';
 import MasteryEffectiveness from './Modules/Features/MasteryEffectiveness';
@@ -18,10 +19,11 @@ import MaraadsDyingBreath from './Modules/Legendaries/MaraadsDyingBreath';
 class CombatLogParser {
   static enabledModules = {
     // Core
+    initialize: Initialize,
     buffs: Buffs,
     combatants: Combatants,
 
-    // Semi-core
+    // PaladinCore
     beaconHealing: BeaconHealing,
     beaconTargets: BeaconTargets,
 
@@ -53,8 +55,13 @@ class CombatLogParser {
   get buffs() {
     return this.modules.buffs;
   }
+
+  /** @returns Combatants */
   get combatants() {
     return this.modules.combatants;
+  }
+  get selectedCombatant() {
+    return this.combatants.selected;
   }
 
   get fightDuration() {
@@ -87,6 +94,8 @@ class CombatLogParser {
       events.forEach(event => {
         this._timestamp = event.timestamp;
 
+        // Triggering a lot of events here for development pleasure; does this have a significant performance impact?
+        this.triggerEvent('event', event);
         this.triggerEvent(event.type, event);
         if (this.byPlayer(event)) {
           this.triggerEvent(`byPlayer_${event.type}`, event);
@@ -102,10 +111,12 @@ class CombatLogParser {
   triggerEvent(eventType, event) {
     const methodName = `on_${eventType}`;
     this.constructor.tryCall(this, methodName, event);
-    Object.keys(this.modules).forEach(key => {
-      const module = this.modules[key];
-      this.constructor.tryCall(module, methodName, event);
-    });
+    Object.keys(this.modules)
+      .map(key => this.modules[key])
+      .filter(module => module.active)
+      .forEach(module => {
+        this.constructor.tryCall(module, methodName, event);
+      });
   }
   static tryCall(object, methodName, event) {
     const method = object[methodName];
@@ -117,11 +128,11 @@ class CombatLogParser {
     this.triggerEvent('finished', null);
   }
 
-  byPlayer(event) {
-    return (event.sourceID === this.player.id);
+  byPlayer(event, playerId = this.player.id) {
+    return (event.sourceID === playerId);
   }
-  toPlayer(event) {
-    return (event.targetID === this.player.id);
+  toPlayer(event, playerId = this.player.id) {
+    return (event.targetID === playerId);
   }
 
   totalHealing = 0;

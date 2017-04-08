@@ -78,7 +78,7 @@ class BeaconHealing extends Module {
     }
   }
   get beaconType() {
-    return this.owner.modules.combatants.selected.lv100Talent;
+    return this.owner.selectedCombatant.lv100Talent;
   }
   get beaconTransferFactor() {
     return this.beaconType === BEACON_TYPES.BEACON_OF_FATH ? 0.32 : 0.4;

@@ -148,7 +148,7 @@ class Results extends React.Component {
                   icon={<img src="./mastery-radius.png" style={{ height: 74 }} alt="Mastery effectiveness" />}
                   value={`${(Math.round(totalMasteryEffectiveness * 10000) / 100).toFixed(2)} %`}
                   label={(
-                    <dfn data-tip="The Mastery Effectiveness shown by this tool is currently only accurate with Beacon of Faith. If you run this on a log with Beacon of the Lightbringer it will calculate your mastery effectiveness without taking the beacon radius into consideration.<br />Effects that temporarily increase your mastery are also currently not supported.">
+                    <dfn data-tip="Effects that temporarily increase your mastery are currently not supported and will skew results.">
                       Mastery effectiveness
                     </dfn>
                   )}

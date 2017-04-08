@@ -4,6 +4,7 @@ import Combatant from './Combatant';
 
 class Combatants extends Module {
   players = {};
+  /** @returns Combatant */
   get selected() {
     return this.players[this.owner.playerId];
   }

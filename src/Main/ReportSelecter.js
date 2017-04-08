@@ -67,7 +67,9 @@ class ReportSelecter extends Component {
               <h2>Changes</h2>
             </div>
             <div className="panel-body text-muted">
+                08-04-2017 - Add Beacon of the Lightbringer mastery radius support!<br />
                 08-04-2017 - Improve beacon healing tracking accuracy and it now works properly with Beacon of Virtue.<br />
+                08-04-2017 - Total healing done count now includes absorbed healing.<br />
                 07-04-2017 - New layout with many usability improvements!<br />
                 04-04-2017 - Add an Always Be Casting (ABC) module that checks your <i>Non healing time</i> and dead GCD time (this is shown in the tooltip).<br />
                 29-03-2017 - Fixed a bug where Maraad's healing statistic would show 0% healing after getting only 1 Maraad's charge.<br />
@@ -76,9 +78,7 @@ class ReportSelecter extends Component {
                 27-03-2017 - Added Prydaz and Obsidian Stone Spaulders healing statistic.<br />
                 26-03-2017 - Added Chain of Thrayn healing statistic.<br />
                 26-03-2017 - Completely refactor the core, rename to Holy Paladin Analyzer.<br />
-                25-03-2017 - Added cast ratios statistic.<br />
-                24-03-2017 - Added Velen's Future Sight healing statistic.<br />
-                22-03-2017 - Fixed an issue where DoS / Ilterendi healing statistics didn't work well with absorbed healing (Chronomatic Anomaly).
+                25-03-2017 - Added cast ratios statistic.
               </div>
             </div>
 
