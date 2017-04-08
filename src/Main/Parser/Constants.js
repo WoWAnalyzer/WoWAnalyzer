@@ -87,4 +87,4 @@ export const HIT_TYPES = {
 export const AVENGING_WRATH_SPELL_ID = 31842;
 export const AVENGING_WRATH_HEALING_INCREASE = 0.35;
 
-export const T20_4SET_BONUS_BUFF_ID = 211438;
+export const T19_4SET_BONUS_BUFF_ID = 211438;
