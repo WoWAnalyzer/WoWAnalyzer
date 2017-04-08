@@ -4,10 +4,8 @@ import { BEACON_TRANSFER_SPELL_ID, BEACON_TRANSFERING_ABILITIES, BEACON_TYPES } 
 const debug = false;
 
 class BeaconHealing extends Module {
-  on_heal(event) {
-    if (this.owner.byPlayer(event)) {
-      this.processForBeaconHealing(event);
-    }
+  on_byPlayer_heal(event) {
+    this.processForBeaconHealing(event);
   }
 
   beaconTransferEnabledHealsBacklog = [];
@@ -21,8 +19,13 @@ class BeaconHealing extends Module {
       return;
     }
 
-    const remainingBeaconTransfers = this.beaconType === BEACON_TYPES.BEACON_OF_FATH ? 2 : 1;
-    // TODO: Check if the target of this event had a beacon, in that case reduce remainingBeaconTransfers by 1
+    const beaconTargets = this.owner.modules.beaconTargets;
+
+    let remainingBeaconTransfers = beaconTargets.numBeaconsActive;
+    if (beaconTargets.hasBeacon(event.targetID)) {
+      remainingBeaconTransfers -= 1;
+      debug && console.log(`${this.owner.combatants.players[event.targetID].name} has beacon, remaining beacon transfers reduced by 1 and is now ${remainingBeaconTransfers}`);
+    }
 
     this.beaconTransferEnabledHealsBacklog.push({
       ...event,

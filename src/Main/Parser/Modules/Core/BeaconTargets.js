@@ -15,6 +15,13 @@ const debug = true;
 class BeaconTargets extends Module {
   currentBeaconTargets = [];
 
+  hasBeacon(playerId) {
+    return this.currentBeaconTargets.indexOf(playerId) !== -1;
+  }
+  get numBeaconsActive() {
+    return this.currentBeaconTargets.length;
+  }
+
   on_combatantinfo(event) {
     const playerId = this.owner.playerId;
     if (event.sourceID === playerId) return;
@@ -22,7 +29,8 @@ class BeaconTargets extends Module {
       const { source, ability } = aura;
       if (source === playerId && BEACONS.indexOf(ability) !== -1) {
         this.currentBeaconTargets.push(event.sourceID);
-        debug && console.log(`%c${this.owner.combatants.players[event.sourceID].name} has a beacon`, 'color:green', this.currentBeaconTargets)
+        debug && console.log(`%c${this.owner.combatants.players[event.sourceID].name} has a beacon`, 'color:green', this.currentBeaconTargets);
+        this.owner.triggerEvent('beacon_changed', event);
       }
     });
   }
@@ -34,7 +42,8 @@ class BeaconTargets extends Module {
     }
     const targetId = event.targetID;
     this.currentBeaconTargets.push(targetId);
-    debug && console.log(`%c${this.owner.combatants.players[targetId].name} gained a beacon`, 'color:green', this.currentBeaconTargets)
+    debug && console.log(`%c${this.owner.combatants.players[targetId].name} gained a beacon`, 'color:green', this.currentBeaconTargets);
+    this.owner.triggerEvent('beacon_changed', event);
   }
   on_byPlayer_removebuff(event) {
     const spellId = event.ability.guid;
@@ -43,7 +52,8 @@ class BeaconTargets extends Module {
     }
     const targetId = event.targetID;
     this.currentBeaconTargets = this.currentBeaconTargets.filter(id => id !== targetId);
-    debug && console.log(`%c${this.owner.combatants.players[targetId].name} lost a beacon`, 'color:red', this.currentBeaconTargets)
+    debug && console.log(`%c${this.owner.combatants.players[targetId].name} lost a beacon`, 'color:red', this.currentBeaconTargets);
+    this.owner.triggerEvent('beacon_changed', event);
   }
 }
 
