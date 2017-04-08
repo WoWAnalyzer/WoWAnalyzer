@@ -259,7 +259,7 @@ class Results extends React.Component {
                               Drape of Shame
                             </header>
                             <main>
-                              <dfn data-tip="The actual effective healing contributed by the Drape of Shame equip effect. This is a bit inaccurate if you are using Beacon of Virtue.">
+                              <dfn data-tip="The actual effective healing contributed by the Drape of Shame equip effect.">
                                 {`${((Math.round(parser.modules.drapeOfShame.healing / parser.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
                               </dfn>
                             </main>
@@ -277,7 +277,7 @@ class Results extends React.Component {
                               Ilterendi, Crown Jewel of Silvermoon
                             </header>
                             <main>
-                              <dfn data-tip="The actual effective healing contributed by the Ilterendi, Crown Jewel of Silvermoon equip effect. This is a bit inaccurate if you are using Beacon of Virtue.">
+                              <dfn data-tip="The actual effective healing contributed by the Ilterendi, Crown Jewel of Silvermoon equip effect.">
                                 {`${((Math.round(parser.modules.ilterendi.healing / parser.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
                               </dfn>
                             </main>
@@ -295,7 +295,7 @@ class Results extends React.Component {
                               Velen's Future Sight
                             </header>
                             <main>
-                              <dfn data-tip="The actual effective healing contributed by the Velen's Future Sight use effect. This is a bit inaccurate if you are using Beacon of Virtue.">
+                              <dfn data-tip="The actual effective healing contributed by the Velen's Future Sight use effect.">
                                 {`${((Math.round(parser.modules.velens.healing / parser.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
                               </dfn>
                             </main>
@@ -313,7 +313,7 @@ class Results extends React.Component {
                               Chain of Thrayn
                             </header>
                             <main>
-                              <dfn data-tip="The actual effective healing contributed by the Chain of Thrayn equip effect. This is a bit inaccurate if you are using Beacon of Virtue.">
+                              <dfn data-tip="The actual effective healing contributed by the Chain of Thrayn equip effect.">
                                 {`${((Math.round(parser.modules.chainOfThrayn.healing / parser.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
                               </dfn>
                             </main>
@@ -365,7 +365,7 @@ class Results extends React.Component {
                               Maraad's Dying Breath
                             </header>
                             <main>
-                              <dfn data-tip="The actual effective healing contributed by the Maraad's Dying Breath equip effect when compared to casting an unbuffed LotM instead. The damage taken is ignored as this doesn't change with Maraad's and therefore doesn't impact the healing gain. This is fairly inaccurate if you are using Beacon of Virtue.">
+                              <dfn data-tip="The actual effective healing contributed by the Maraad's Dying Breath equip effect when compared to casting an unbuffed LotM instead. The damage taken is ignored as this doesn't change with Maraad's and therefore doesn't impact the healing gain.">
                                 {`${((Math.round(parser.modules.maraadsDyingBreath.healing / parser.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
                               </dfn>
                             </main>

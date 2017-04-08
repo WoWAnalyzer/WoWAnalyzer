@@ -67,7 +67,8 @@ class ReportSelecter extends Component {
               <h2>Changes</h2>
             </div>
             <div className="panel-body text-muted">
-                07-04-2017 - Rework the interface.<br />
+                08-04-2017 - Improve beacon healing tracking accuracy and it now works properly with Beacon of Virtue.<br />
+                07-04-2017 - New layout with many usability improvements!<br />
                 04-04-2017 - Add an Always Be Casting (ABC) module that checks your <i>Non healing time</i> and dead GCD time (this is shown in the tooltip).<br />
                 29-03-2017 - Fixed a bug where Maraad's healing statistic would show 0% healing after getting only 1 Maraad's charge.<br />
                 29-03-2017 - Update healing bonuses to the 7.2 values (DoS & Ilterendi nerfs).<br />
