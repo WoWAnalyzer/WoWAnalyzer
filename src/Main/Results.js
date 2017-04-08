@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import PlayerBreakdown from './PlayerBreakdown';
 import StatisticBox from './StatisticBox';
 
-import { RULE_OF_LAW_SPELL_ID } from './Parser/Constants';
+import { RULE_OF_LAW_SPELL_ID, T20_4SET_BONUS_BUFF_ID } from './Parser/Constants';
 import { DRAPE_OF_SHAME_ITEM_ID } from './Parser/Modules/Legendaries/DrapeOfShame';
 import { ILTERENDI_ITEM_ID } from './Parser/Modules/Legendaries/Ilterendi';
 import { VELENS_ITEM_ID } from './Parser/Modules/Legendaries/Velens';
@@ -372,7 +372,23 @@ class Results extends React.Component {
                               </dfn>
                             </main>
                           </li>
-                        )
+                        ),
+                        parser.modules.buffs.hasBuff(T20_4SET_BONUS_BUFF_ID) && (
+                          <li className="item clearfix" key={T20_4SET_BONUS_BUFF_ID}>
+                            <a href="http://www.wowhead.com/spell=211438/item-paladin-t19-holy-4p-bonus" target="_blank">
+                              <img
+                                src="./infusionoflight.jpg"
+                                alt="Infusion of Light"
+                              />
+                              <header>
+                                T20 4 set bonus
+                              </header>
+                            </a>
+                            <main>
+                              {parser.modules.castRatios.casts.holyShockCriticals * (parser.modules.castRatios.iolProcsPerHolyShockCrit - 1)} bonus Infusion of Light charges gained
+                            </main>
+                          </li>
+                        ),
                       ];
 
                       if (items.length === 0) {
