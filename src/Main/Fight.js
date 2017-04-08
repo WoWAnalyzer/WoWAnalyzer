@@ -2,7 +2,10 @@ import React from 'react';
 
 import DIFFICULTIES from './DIFFICULTIES';
 
-const formatDuration = (duration) => `${Math.floor(duration / 60)}:${duration % 60 < 10 ? `0${duration % 60}` : duration % 60}`;
+const formatDuration = (duration) => {
+  const seconds = Math.floor(duration % 60);
+  return `${Math.floor(duration / 60)}:${seconds < 10 ? `0${seconds}` : seconds}`;
+};
 
 const Fight = ({ difficulty, name, kill, start_time, end_time, ...others }) => {
   const duration = Math.round((end_time - start_time) / 1000);

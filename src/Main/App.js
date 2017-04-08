@@ -14,6 +14,11 @@ import Results from './Results';
 
 import CombatLogParser from './Parser/CombatLogParser';
 
+const formatDuration = (duration) => {
+  const seconds = Math.floor(duration % 60);
+  return `${Math.floor(duration / 60)}:${seconds < 10 ? `0${seconds}` : seconds}`;
+};
+
 class App extends Component {
   static propTypes = {
     router: React.PropTypes.shape({
@@ -234,7 +239,7 @@ class App extends Component {
     return url;
   }
   getFightName(fight) {
-    return `${DIFFICULTIES[fight.difficulty]} ${fight.name} (${fight.kill ? 'Kill' : 'Wipe'})`;
+    return `${DIFFICULTIES[fight.difficulty]} ${fight.name} (${fight.kill ? 'Kill' : 'Wipe'} ${formatDuration((fight.end_time - fight.start_time) / 1000)})`;
   }
 
   render() {
