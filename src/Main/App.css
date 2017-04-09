@@ -304,39 +304,6 @@ dfn {
   }
 }
 
-.DeathKnight { color: #c41f3b }
-.Druid { color: #ff7d0a }
-.Hunter { color: #abd473 }
-.Mage { color: #69ccf0 }
-.Monk { color: #2D9B78 }
-.Paladin { color: #f58cba }
-.Priest { color: #ffffff }
-.Rogue { color: #fff569 }
-.Shaman { color: #2459ff }
-.Warlock { color: #9482c9 }
-.Warrior { color: #c79c6e }
-.DemonHunter { color: #a330c9 }
-
-.DeathKnight-bg { background-color: #c41f3b }
-.Druid-bg { background-color: #ff7d0a }
-.Hunter-bg { background-color: #9ec76b }
-.Mage-bg { background-color: #69ccf0 }
-.Monk-bg { background-color: #2D9B78 }
-.Paladin-bg { background-color: #f58cba }
-.Priest-bg { background-color: #ffffff }
-.Rogue-bg { background-color: #fff569 }
-.Shaman-bg  { background-color: #2459ff }
-.Warlock-bg { background-color: #9482c9 }
-.Warrior-bg  { background-color: #c79c6e }
-.DemonHunter-bg { background-color: #a330c9 }
-
-.epic {
-  color: #a335ee;
-}
-.legendary {
-  color: #ff8000;
-}
-
 table.data-table {
   width: 100%;
 }
@@ -365,9 +332,12 @@ table.data-table img {
 }
 table.data-table .performance-bar {
   opacity: .9;
-  height: 1.3em;
+  height: 1.2em;
   min-width: 1px;
-  border: 1px solid #000;
+  will-change: background-color;
+  transition: background-color 400ms;
+  background-color: #ffffff;
+  margin-top: .1em;
 }
 
 .__react_component_tooltip {
@@ -381,9 +351,35 @@ table.data-table .performance-bar {
   border-bottom-color: rgba(10, 10, 10, 0.8) !important;
 }
 
-.kill {
-  color: #1d9c07;
-}
-.wipe {
-  color: #fb6d35;
-}
+
+.DeathKnight { color: #c41f3b !important }
+.Druid { color: #ff7d0a !important }
+.Hunter { color: #abd473 !important }
+.Mage { color: #69ccf0 !important }
+.Monk { color: #2D9B78 !important }
+.Paladin { color: #f58cba !important }
+.Priest { color: #ffffff !important }
+.Rogue { color: #fff569 !important }
+.Shaman { color: #2459ff !important }
+.Warlock { color: #9482c9 !important }
+.Warrior { color: #c79c6e !important }
+.DemonHunter { color: #a330c9 !important }
+
+.DeathKnight-bg { background-color: #c41f3b !important }
+.Druid-bg { background-color: #ff7d0a !important }
+.Hunter-bg { background-color: #9ec76b !important }
+.Mage-bg { background-color: #69ccf0 !important }
+.Monk-bg { background-color: #2D9B78 !important }
+.Paladin-bg { background-color: #f58cba !important }
+.Priest-bg { background-color: #ffffff !important }
+.Rogue-bg { background-color: #fff569 !important }
+.Shaman-bg  { background-color: #2459ff !important }
+.Warlock-bg { background-color: #9482c9 !important }
+.Warrior-bg  { background-color: #c79c6e !important }
+.DemonHunter-bg { background-color: #a330c9 !important }
+
+.epic { color: #a335ee !important }
+.legendary { color: #ff8000 !important }
+
+.kill { color: #1d9c07 !important }
+.wipe { color: #fb6d35 !important }

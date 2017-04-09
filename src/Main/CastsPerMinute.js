@@ -32,6 +32,7 @@ const CPM_ABILITIES = [
     name: 'Bestow Faith',
     getCooldown: haste => 12,
     isActive: combatant => combatant.lv15Talent === BESTOW_FAITH_SPELL_ID,
+    recommendedCastEfficiency: 0.65,
   },
   {
     spellId: LIGHTS_HAMMER_CAST_SPELL_ID,
@@ -137,6 +138,7 @@ const CastsPerMinute = ({ parser }) => {
         <th>Spell</th>
         <th><dfn data-tip="Casts Per Minute">CPM</dfn></th>
         <th><dfn data-tip="Max possible Casts Per Minute with your Haste. This is a super simplified calculation based on your Haste from your gear. Haste increasers like Holy Avenger, Bloodlust and from boss abilities are not taken into consideration, so this is <b>always</b> lower than actually possible for abilities affected by Haste.">Max CPM</dfn></th>
+        <th colSpan="2">Cast efficiency</th>
         <th></th>
       </tr>
       </thead>
@@ -151,21 +153,34 @@ const CastsPerMinute = ({ parser }) => {
           const cooldown = ability.getCooldown(hastePercentage);
           // By dividing the fight duration by the cooldown we get the max amount of casts during this particular fight, we round this up because you would be able to cast once at the start of the fight and once at the end since abilities always start off cooldown (e.g. fight is 100 seconds long, you could cast 2 Holy Avengers with a 90 sec cooldown). Good players should be able to reasonably predict this and maximize their casts.
           const maxCpm = cooldown === null ? null : Math.ceil(fightDuration / 1000 / cooldown) / minutes;
-          const castRatio = cpm / maxCpm;
+          const castEfficiency = cpm / maxCpm;
+
+          const canBeImproved = castEfficiency < (ability.recommendedCastEfficiency || 0.8);
 
           return (
             <tr key={ability.name}>
-              <td style={{ width: '50%' }}>
+              <td>
                 <img src={`./img/icons/${ability.icon}.jpg`} alt={ability.name} /> {ability.name}
               </td>
-              <td style={{ width: '10%' }}>
+              <td style={{ width: 100 }}>
                 {cpm.toFixed(2)}
               </td>
-              <td style={{ width: '10%' }}>
+              <td style={{ width: 100 }}>
                 {maxCpm === null ? '-' : maxCpm.toFixed(2)}
               </td>
-              <td style={{ width: '30%', color: 'orange' }}>
-                {castRatio < 0.8 && 'Can be improved.'}
+              <td className="text-right" style={{ width: 50, paddingRight: 5 }}>
+                {maxCpm === null ? '' : `${(castEfficiency * 100).toFixed(2)}%`}
+              </td>
+              <td style={{ width: '20%' }}>
+                {maxCpm === null ? '' : (
+                  <div
+                    className="performance-bar"
+                    style={{ width: `${castEfficiency * 100}%`, backgroundColor: canBeImproved ? '#ffbf48' : '#70b570' }}
+                  ></div>
+                )}
+              </td>
+              <td style={{ width: '25%', color: 'orange' }}>
+                {canBeImproved && 'Can be improved.'}
               </td>
             </tr>
           );
