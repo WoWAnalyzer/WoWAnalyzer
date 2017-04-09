@@ -175,7 +175,7 @@ const CastsPerMinute = ({ parser }) => {
                 {maxCpm === null ? '' : (
                   <div
                     className="performance-bar"
-                    style={{ width: `${castEfficiency * 100}%`, backgroundColor: canBeImproved ? '#ffbf48' : '#70b570' }}
+                    style={{ width: `${castEfficiency * 100}%`, backgroundColor: canBeImproved ? '#ff8000' : '#70b570' }}
                   ></div>
                 )}
               </td>

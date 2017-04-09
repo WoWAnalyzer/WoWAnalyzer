@@ -334,8 +334,6 @@ table.data-table .performance-bar {
   opacity: .9;
   height: 1.2em;
   min-width: 1px;
-  will-change: background-color;
-  transition: background-color 400ms;
   background-color: #ffffff;
   margin-top: .1em;
 }
