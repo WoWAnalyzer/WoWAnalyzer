@@ -34,11 +34,11 @@ class CastCounter extends Module {
       if (hasIol) {
         cast.withIol = (cast.withIol || 0) + 1;
       }
+    }
 
-      const hasBeacon = this.owner.modules.beaconTargets.hasBeacon(event.targetID);
-      if (hasBeacon) {
-        cast.withBeacon = (cast.withBeacon || 0) + 1;
-      }
+    const hasBeacon = this.owner.modules.beaconTargets.hasBeacon(event.targetID);
+    if (hasBeacon) {
+      cast.withBeacon = (cast.withBeacon || 0) + 1;
     }
   }
 

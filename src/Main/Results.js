@@ -472,7 +472,7 @@ class Results extends React.Component {
           <div className="panel-heading">
             <h2>Casts per minute</h2>
           </div>
-          <div className="panel-body" style={{ padding: '15px 0' }}>
+          <div className="panel-body" style={{ padding: '10px 0 15px' }}>
             <CastsPerMinute
               parser={parser}
             />
@@ -484,7 +484,7 @@ class Results extends React.Component {
             <div className="panel-heading">
               <h2>Mastery effectiveness player breakdown</h2>
             </div>
-            <div className="panel-body" style={{ padding: '15px 0' }}>
+            <div className="panel-body" style={{ padding: '10px 0 15px' }}>
               <PlayerBreakdown
                 friendlyStats={friendlyStats}
                 highestHealingFromMastery={highestHealingFromMastery}
