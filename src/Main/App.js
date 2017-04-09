@@ -125,6 +125,9 @@ class App extends Component {
               parser.finished();
               this.onParsingFinished(parser);
             }
+          })
+          .catch((err) => {
+            alert(`The report could not be parsed. ${err.message}`);
           });
       });
   }

@@ -93,6 +93,9 @@ class CombatLogParser {
   parseEvents(events) {
     return new Promise((resolve, reject) => {
       events.forEach(event => {
+        if (this.error) {
+          throw new Error(this.error);
+        }
         this._timestamp = event.timestamp;
 
         // Triggering a lot of events here for development pleasure; does this have a significant performance impact?
@@ -134,6 +137,15 @@ class CombatLogParser {
   }
   toPlayer(event, playerId = this.player.id) {
     return (event.targetID === playerId);
+  }
+
+  initialized = false;
+  error = null;
+  on_initialized() {
+    this.initialized = true;
+    if (!this.selectedCombatant) {
+      this.error = 'The selected player could not be found in this fight. Make sure the log is recorded with Advanced Combat Logging enabled.';
+    }
   }
 
   totalHealing = 0;
