@@ -15,10 +15,6 @@ class CastCounter extends Module {
     this.registerHit(event);
   }
 
-  on_finished() {
-    console.log(this.casts);
-  }
-
   registerCast(event) {
     const cast = this._getCastFromAbility(event.ability);
     cast.casts = (cast.casts || 0) + 1;

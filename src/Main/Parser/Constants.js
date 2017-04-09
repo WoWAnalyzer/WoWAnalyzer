@@ -18,9 +18,15 @@ export const AURA_OF_MERCY_SPELL_ID = 210291;
 export const LEECH_SPELL_ID = 143924;
 export const AURA_OF_SACRIFICE_SPELL_ID = 210383;
 export const CRUSADER_STRIKE_SPELL_ID = 35395;
+export const HOLY_AVENGER_SPELL_ID = 105809;
+export const AURA_MASTERY_SPELL_ID = 31821;
 
 // All beacons use this spell id for their healing events.
 export const BEACON_TRANSFER_SPELL_ID = 53652;
+
+// Talents:
+export const CRUSADERS_MIGHT_SPELL_ID = 196926;
+export const JUDGMENT_OF_LIGHT_SPELL_ID = 183778;
 
 export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   HOLY_SHOCK_HEAL_SPELL_ID,

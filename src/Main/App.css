@@ -338,7 +338,7 @@ dfn {
 }
 
 table.data-table {
-  margin: 0 -22px;
+  width: 100%;
 }
 table.data-table th {
   font-weight: 400;
@@ -357,6 +357,11 @@ table.data-table tr th:first-of-type, table.data-table tr td:first-of-type {
 }
 table.data-table tr th:last-of-type, table.data-table tr td:last-of-type {
   padding-right: 22px;
+}
+table.data-table img {
+  width: 1.6em;
+  height: 1.6em;
+  margin-top: -.1em;
 }
 table.data-table .performance-bar {
   opacity: .9;

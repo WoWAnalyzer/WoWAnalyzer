@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-import PlayerBreakdown from './PlayerBreakdown';
 import StatisticBox from './StatisticBox';
+import PlayerBreakdown from './PlayerBreakdown';
+import CastsPerMinute from './CastsPerMinute';
 
 import { RULE_OF_LAW_SPELL_ID, T19_4SET_BONUS_BUFF_ID, FLASH_OF_LIGHT_SPELL_ID, HOLY_LIGHT_SPELL_ID, HOLY_SHOCK_HEAL_SPELL_ID, BEACON_TYPES } from './Parser/Constants';
 import { DRAPE_OF_SHAME_ITEM_ID } from './Parser/Modules/Legendaries/DrapeOfShame';
@@ -126,29 +127,31 @@ class Results extends React.Component {
     const highestHealingFromMastery = friendlyStats && friendlyStats.reduce((highest, player) => Math.max(highest, player.healingFromMastery), 1);
 
     const castCounter = parser.modules.castCounter;
-    const getCastCounter = spellId => castCounter.casts[spellId] || {};
+    const getCastCount = spellId => castCounter.casts[spellId] || {};
 
-    const iolFlashOfLights = getCastCounter(FLASH_OF_LIGHT_SPELL_ID).withIol || 0;
-    const iolHolyLights = getCastCounter(HOLY_LIGHT_SPELL_ID).withIol || 0;
+    const iolFlashOfLights = getCastCount(FLASH_OF_LIGHT_SPELL_ID).withIol || 0;
+    const iolHolyLights = getCastCount(HOLY_LIGHT_SPELL_ID).withIol || 0;
     const totalIols = iolFlashOfLights + iolHolyLights;
     const unusedIolRate = iolFlashOfLights / totalIols;
 
-    const flashOfLightHeals = getCastCounter(FLASH_OF_LIGHT_SPELL_ID).hits || 0;
-    const holyLightHeals = getCastCounter(HOLY_LIGHT_SPELL_ID).hits || 0;
+    const flashOfLightHeals = getCastCount(FLASH_OF_LIGHT_SPELL_ID).hits || 0;
+    const holyLightHeals = getCastCount(HOLY_LIGHT_SPELL_ID).hits || 0;
     const totalFolsAndHls = flashOfLightHeals + holyLightHeals;
     const fillerFlashOfLights = flashOfLightHeals - iolFlashOfLights;
     const fillerHolyLights = holyLightHeals - iolHolyLights;
     const totalFillers = fillerFlashOfLights + fillerHolyLights;
     const fillerCastRatio = fillerFlashOfLights / totalFillers;
 
-    const beaconFlashOfLights = getCastCounter(FLASH_OF_LIGHT_SPELL_ID).withBeacon || 0;
-    const beaconHolyLights = getCastCounter(HOLY_LIGHT_SPELL_ID).withBeacon || 0;
+    const beaconFlashOfLights = getCastCount(FLASH_OF_LIGHT_SPELL_ID).withBeacon || 0;
+    const beaconHolyLights = getCastCount(HOLY_LIGHT_SPELL_ID).withBeacon || 0;
     const totalFolsAndHlsOnBeacon = beaconFlashOfLights + beaconHolyLights;
     const healsOnBeacon = totalFolsAndHlsOnBeacon / totalFolsAndHls;
 
-    const holyShockHeals = getCastCounter(HOLY_SHOCK_HEAL_SPELL_ID).hits || 0;
-    const holyShockCrits = getCastCounter(HOLY_SHOCK_HEAL_SPELL_ID).crits || 0;
+    const holyShockHeals = getCastCount(HOLY_SHOCK_HEAL_SPELL_ID).hits || 0;
+    const holyShockCrits = getCastCount(HOLY_SHOCK_HEAL_SPELL_ID).crits || 0;
     const iolProcsPerHolyShockCrit = this.iolProcsPerHolyShockCrit;
+
+    const fightDuration = parser.currentTimestamp - parser.fight.start_time;
 
     return (
       <div style={{ width: '100%' }}>
@@ -284,9 +287,9 @@ class Results extends React.Component {
                       style={{ height: 74, borderRadius: 5, border: '1px solid #000' }}
                       alt="Non healing time" />
                   )}
-                  value={`${this.constructor.formatPercentage(parser.modules.alwaysBeCasting.totalHealingTimeWasted / (parser.currentTimestamp - parser.fight.start_time))} %`}
+                  value={`${this.constructor.formatPercentage(parser.modules.alwaysBeCasting.totalHealingTimeWasted / fightDuration)} %`}
                   label={(
-                    <dfn data-tip={`Non healing time is available casting time not used for a spell that helps you heal. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), DPSing, etc. Damaging Holy Shocks are considered non healing time, Crusader Strike is only considered non healing time if you do not have the Crusader's Might talent.<br /><br />You spent ${this.constructor.formatPercentage(parser.modules.alwaysBeCasting.totalTimeWasted / (parser.currentTimestamp - parser.fight.start_time))} % of your time casting nothing at all.`}>
+                    <dfn data-tip={`Non healing time is available casting time not used for a spell that helps you heal. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), DPSing, etc. Damaging Holy Shocks are considered non healing time, Crusader Strike is only considered non healing time if you do not have the Crusader's Might talent.<br /><br />You spent ${this.constructor.formatPercentage(parser.modules.alwaysBeCasting.totalTimeWasted / fightDuration)} % of your time casting nothing at all.`}>
                       Non healing time
                     </dfn>
                   )}
@@ -465,15 +468,28 @@ class Results extends React.Component {
           </div>
         </div>
 
+        <div className="panel">
+          <div className="panel-heading">
+            <h2>Casts per minute</h2>
+          </div>
+          <div className="panel-body" style={{ padding: '15px 0' }}>
+            <CastsPerMinute
+              parser={parser}
+            />
+          </div>
+        </div>
+
         {friendlyStats && (
           <div className="panel">
             <div className="panel-heading">
-              <h2>Player breakdown</h2>
+              <h2>Mastery effectiveness player breakdown</h2>
             </div>
-            <div className="panel-body">
-              <PlayerBreakdown friendlyStats={friendlyStats}
+            <div className="panel-body" style={{ padding: '15px 0' }}>
+              <PlayerBreakdown
+                friendlyStats={friendlyStats}
                 highestHealingFromMastery={highestHealingFromMastery}
-                totalHealingFromMastery={stats.totalHealingFromMastery} />
+                totalHealingFromMastery={stats.totalHealingFromMastery}
+              />
             </div>
           </div>
         )}

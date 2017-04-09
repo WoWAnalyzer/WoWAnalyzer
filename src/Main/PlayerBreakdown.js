@@ -25,7 +25,7 @@ const PlayerBreakdown = ({ friendlyStats, highestHealingFromMastery, totalHealin
           return (
             <tr key={player.combatant.name}>
               <td style={{ width: '20%'}}>
-                <img src={`./specs/${specClassName}-${spec.spec.replace(' ', '')}.jpg`} style={{ width: '20px', height: '20px', border: '1px solid #000' }} alt="Spec logo" />{' '}
+                <img src={`./specs/${specClassName}-${spec.spec.replace(' ', '')}.jpg`} alt="Spec logo" />{' '}
                 {player.combatant.name}
               </td>
               <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>
