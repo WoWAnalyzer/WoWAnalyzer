@@ -124,7 +124,7 @@ const CPM_ABILITIES = [
   },
 ];
 
-const CastsPerMinute = ({ parser }) => {
+const CastEfficiency = ({ parser }) => {
   const fightDuration = parser.currentTimestamp - parser.fight.start_time;
   const minutes = fightDuration / 1000 / 60;
 
@@ -146,7 +146,7 @@ const CastsPerMinute = ({ parser }) => {
         <th>Spell</th>
         <th className="text-center"><dfn data-tip="Casts Per Minute">CPM</dfn></th>
         <th colSpan="3"><dfn data-tip="The max possible casts is a super simplified calculation based on the Haste you get from your gear alone. Haste increasers like Holy Avenger, Bloodlust and from boss abilities are not taken into consideration, so this is <b>always</b> lower than actually possible for abilities affected by Haste.">Cast efficiency</dfn></th>
-        <th>Note</th>
+        <th></th>
       </tr>
       </thead>
       <tbody>
@@ -200,8 +200,8 @@ const CastsPerMinute = ({ parser }) => {
     </table>
   );
 };
-CastsPerMinute.propTypes = {
+CastEfficiency.propTypes = {
   parser: React.PropTypes.object.isRequired,
 };
 
-export default CastsPerMinute;
+export default CastEfficiency;

@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 
 import StatisticBox from './StatisticBox';
 import PlayerBreakdown from './PlayerBreakdown';
-import CastsPerMinute from './CastsPerMinute';
+import CastEfficiency from './CastEfficiency';
 
 import { RULE_OF_LAW_SPELL_ID, T19_4SET_BONUS_BUFF_ID, FLASH_OF_LIGHT_SPELL_ID, HOLY_LIGHT_SPELL_ID, HOLY_SHOCK_HEAL_SPELL_ID, BEACON_TYPES } from './Parser/Constants';
 import { DRAPE_OF_SHAME_ITEM_ID } from './Parser/Modules/Legendaries/DrapeOfShame';
@@ -470,10 +470,10 @@ class Results extends React.Component {
 
         <div className="panel">
           <div className="panel-heading">
-            <h2>Casts per minute</h2>
+            <h2>Cast efficiency</h2>
           </div>
           <div className="panel-body" style={{ padding: '10px 0 15px' }}>
-            <CastsPerMinute
+            <CastEfficiency
               parser={parser}
             />
           </div>
