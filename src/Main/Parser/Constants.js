@@ -20,6 +20,7 @@ export const AURA_OF_SACRIFICE_SPELL_ID = 210383;
 export const CRUSADER_STRIKE_SPELL_ID = 35395;
 export const HOLY_AVENGER_SPELL_ID = 105809;
 export const AURA_MASTERY_SPELL_ID = 31821;
+export const ARCANE_TORRENT_SPELL_ID = 155145;
 
 // All beacons use this spell id for their healing events.
 export const BEACON_TRANSFER_SPELL_ID = 53652;

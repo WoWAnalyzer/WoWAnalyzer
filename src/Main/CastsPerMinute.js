@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {
-  HOLY_SHOCK_HEAL_SPELL_ID, LIGHT_OF_DAWN_CAST_SPELL_ID, JUDGMENT_CAST_SPELL_ID, BESTOW_FAITH_SPELL_ID, LIGHT_OF_THE_MARTYR_SPELL_ID, TYRS_DELIVERANCE_CAST_SPELL_ID, AVENGING_WRATH_SPELL_ID, HOLY_AVENGER_SPELL_ID, AURA_MASTERY_SPELL_ID, CRUSADER_STRIKE_SPELL_ID, HOLY_PRISM_CAST_SPELL_ID, LIGHTS_HAMMER_CAST_SPELL_ID, FLASH_OF_LIGHT_SPELL_ID, HOLY_LIGHT_SPELL_ID,
+  HOLY_SHOCK_HEAL_SPELL_ID, LIGHT_OF_DAWN_CAST_SPELL_ID, JUDGMENT_CAST_SPELL_ID, BESTOW_FAITH_SPELL_ID, LIGHT_OF_THE_MARTYR_SPELL_ID, TYRS_DELIVERANCE_CAST_SPELL_ID, AVENGING_WRATH_SPELL_ID, HOLY_AVENGER_SPELL_ID, AURA_MASTERY_SPELL_ID, CRUSADER_STRIKE_SPELL_ID, HOLY_PRISM_CAST_SPELL_ID, LIGHTS_HAMMER_CAST_SPELL_ID, FLASH_OF_LIGHT_SPELL_ID, HOLY_LIGHT_SPELL_ID, ARCANE_TORRENT_SPELL_ID,
   JUDGMENT_OF_LIGHT_SPELL_ID, CRUSADERS_MIGHT_SPELL_ID,
 } from './Parser/Constants';
 
@@ -25,6 +25,7 @@ const CPM_ABILITIES = [
     name: 'Judgment',
     getCooldown: haste => 12 / (1 + haste),
     isActive: combatant => combatant.lv90Talent === JUDGMENT_OF_LIGHT_SPELL_ID,
+    recommendedCastEfficiency: 0.85, // this rarely overheals, so keeping this on cooldown is pretty much always best
   },
   {
     spellId: BESTOW_FAITH_SPELL_ID,
@@ -79,6 +80,13 @@ const CPM_ABILITIES = [
     icon: 'spell_holy_auramastery',
     name: 'Aura Mastery',
     getCooldown: haste => 180,
+  },
+  {
+    spellId: ARCANE_TORRENT_SPELL_ID,
+    icon: 'spell_shadow_teleport',
+    name: 'Arcane Torrent',
+    getCooldown: haste => 90,
+    hideWithZeroCasts: true,
   },
   {
     spellId: LIGHT_OF_THE_MARTYR_SPELL_ID,
@@ -136,10 +144,9 @@ const CastsPerMinute = ({ parser }) => {
       <thead>
       <tr>
         <th>Spell</th>
-        <th><dfn data-tip="Casts Per Minute">CPM</dfn></th>
-        <th><dfn data-tip="Max possible Casts Per Minute with your Haste. This is a super simplified calculation based on your Haste from your gear. Haste increasers like Holy Avenger, Bloodlust and from boss abilities are not taken into consideration, so this is <b>always</b> lower than actually possible for abilities affected by Haste.">Max CPM</dfn></th>
-        <th colSpan="2">Cast efficiency</th>
-        <th></th>
+        <th className="text-center"><dfn data-tip="Casts Per Minute">CPM</dfn></th>
+        <th colSpan="3"><dfn data-tip="The max possible casts is a super simplified calculation based on the Haste you get from your gear alone. Haste increasers like Holy Avenger, Bloodlust and from boss abilities are not taken into consideration, so this is <b>always</b> lower than actually possible for abilities affected by Haste.">Cast efficiency</dfn></th>
+        <th>Note</th>
       </tr>
       </thead>
       <tbody>
@@ -148,11 +155,15 @@ const CastsPerMinute = ({ parser }) => {
         .map((ability) => {
           const castCount = getCastCount(ability.spellId);
           const casts = (ability.getCasts ? ability.getCasts(castCount) : castCount.casts) || 0;
+          if (ability.hideWithZeroCasts && casts === 0) {
+            return null;
+          }
           const cpm = casts/minutes;
 
           const cooldown = ability.getCooldown(hastePercentage);
           // By dividing the fight duration by the cooldown we get the max amount of casts during this particular fight, we round this up because you would be able to cast once at the start of the fight and once at the end since abilities always start off cooldown (e.g. fight is 100 seconds long, you could cast 2 Holy Avengers with a 90 sec cooldown). Good players should be able to reasonably predict this and maximize their casts.
-          const maxCpm = cooldown === null ? null : Math.ceil(fightDuration / 1000 / cooldown) / minutes;
+          const maxCasts = Math.ceil(fightDuration / 1000 / cooldown);
+          const maxCpm = cooldown === null ? null : maxCasts / minutes;
           const castEfficiency = cpm / maxCpm;
 
           const canBeImproved = castEfficiency < (ability.recommendedCastEfficiency || 0.8);
@@ -162,14 +173,11 @@ const CastsPerMinute = ({ parser }) => {
               <td>
                 <img src={`./img/icons/${ability.icon}.jpg`} alt={ability.name} /> {ability.name}
               </td>
-              <td style={{ width: 100 }}>
+              <td className="text-center" style={{ width: 80 }}>
                 {cpm.toFixed(2)}
               </td>
-              <td style={{ width: 100 }}>
-                {maxCpm === null ? '-' : maxCpm.toFixed(2)}
-              </td>
-              <td className="text-right" style={{ width: 50, paddingRight: 5 }}>
-                {maxCpm === null ? '' : `${(castEfficiency * 100).toFixed(2)}%`}
+              <td className="text-right" style={{ width: 100 }}>
+                {casts}{maxCasts === Infinity ? '' : `/${Math.floor(maxCasts)}`} casts
               </td>
               <td style={{ width: '20%' }}>
                 {maxCpm === null ? '' : (
@@ -178,6 +186,9 @@ const CastsPerMinute = ({ parser }) => {
                     style={{ width: `${castEfficiency * 100}%`, backgroundColor: canBeImproved ? '#ff8000' : '#70b570' }}
                   ></div>
                 )}
+              </td>
+              <td className="text-right" style={{ width: 50, paddingRight: 5 }}>
+                {maxCpm === null ? '' : `${(castEfficiency * 100).toFixed(2)}%`}
               </td>
               <td style={{ width: '25%', color: 'orange' }}>
                 {canBeImproved && 'Can be improved.'}
