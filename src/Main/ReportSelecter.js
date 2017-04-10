@@ -69,6 +69,7 @@ class ReportSelecter extends Component {
               <h2>Changes</h2>
             </div>
             <div className="panel-body text-muted">
+              10-04-2017 - Show an error when parsing crashes (usually caused by not having advanced combat logging on). Renamed Casts Per Minute to Cast Efficiency. Show absolute amount of casts in Cast Efficiency. Added Arcane Torrent to Cast Efficiency (only shown if you cast it at least once).<br />
               09-04-2017 - Added <i>Casts Per Minute</i> table with very basic recommendations.<br />
               08-04-2017 - Added <i>Heals on beacon</i> statistic.<br />
               08-04-2017 - Added Wowhead tooltips and show T19 4 set bonus gain.<br />
