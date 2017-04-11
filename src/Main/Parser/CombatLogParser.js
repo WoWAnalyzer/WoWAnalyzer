@@ -128,9 +128,6 @@ class CombatLogParser {
       method.call(object, event);
     }
   }
-  finished() {
-    this.triggerEvent('finished');
-  }
 
   byPlayer(event, playerId = this.player.id) {
     return (event.sourceID === playerId);
@@ -146,6 +143,10 @@ class CombatLogParser {
     if (!this.selectedCombatant) {
       this.error = 'The selected player could not be found in this fight. Make sure the log is recorded with Advanced Combat Logging enabled.';
     }
+  }
+  finished = false;
+  on_finished() {
+    this.finished = true;
   }
 
   totalHealing = 0;

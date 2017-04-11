@@ -122,7 +122,7 @@ class App extends Component {
               }
               this.parseNextBatch(parser, code, player, fightStart, fightEnd, json.nextPageTimestamp);
             } else {
-              parser.finished();
+              parser.triggerEvent('finished');
               this.onParsingFinished(parser);
             }
           })
