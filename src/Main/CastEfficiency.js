@@ -207,7 +207,9 @@ const CastEfficiency = ({ parser }) => {
                 return (
                   <tr key={ability.name}>
                     <td style={{ width: '35%' }}>
-                      <img src={`./img/icons/${ability.icon}.jpg`} alt={ability.name} /> {ability.name}
+                      <a href={`http://www.wowhead.com/spell=${ability.spellId}`} target="_blank">
+                        <img src={`./img/icons/${ability.icon}.jpg`} alt={ability.name} /> {ability.name}
+                      </a>
                     </td>
                     <td className="text-center" style={{ width: 80 }}>
                       {cpm.toFixed(2)}
