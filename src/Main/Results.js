@@ -23,6 +23,12 @@ function getBeaconIcon(spellId) {
   }
 }
 
+const TABS = {
+  ISSUES: 'ISSUES',
+  CAST_EFFICIENCY: 'CAST_EFFICIENCY',
+  PLAYER_BREAKDOWN: 'PLAYER_BREAKDOWN',
+};
+
 class Results extends React.Component {
   static propTypes = {
     parser: React.PropTypes.object.isRequired,
@@ -70,6 +76,7 @@ class Results extends React.Component {
     super();
     this.state = {
       friendlyStats: null,
+      activeTab: TABS.ISSUES,
     };
   }
 
@@ -469,30 +476,73 @@ class Results extends React.Component {
         </div>
 
         <div className="panel">
-          <div className="panel-heading">
-            <h2>Cast efficiency</h2>
-          </div>
-          <div className="panel-body" style={{ padding: '10px 0 15px' }}>
-            <CastEfficiency
-              parser={parser}
-            />
+          <div className="panel-body flex" style={{ padding: '0' }}>
+            <div className="navigation" style={{ flex: '0 0 auto', width: 200 }}>
+              <div className="panel-heading">
+                <h2>Menu</h2>
+              </div>
+              <div style={{ padding: '10px 0' }}>
+                <ul>
+                  <li
+                    className={this.state.activeTab === TABS.ISSUES ? 'active' : ''}
+                    onClick={() => this.setState({ activeTab: TABS.ISSUES })}
+                  >
+                    Issues <span className="badge">6</span>
+                  </li>
+                  <li
+                    className={this.state.activeTab === TABS.CAST_EFFICIENCY ? 'active' : ''}
+                    onClick={() => this.setState({ activeTab: TABS.CAST_EFFICIENCY })}
+                  >
+                    Cast efficiency
+                  </li>
+                  <li
+                    className={this.state.activeTab === TABS.PLAYER_BREAKDOWN ? 'active' : ''}
+                    onClick={() => this.setState({ activeTab: TABS.PLAYER_BREAKDOWN })}
+                  >
+                    Mastery effectiveness player breakdown
+                  </li>
+                </ul>
+              </div>
+            </div>
+            {this.state.activeTab === TABS.ISSUES && (
+              <div>
+                <div className="panel-heading">
+                  <h2>Issues</h2>
+                </div>
+                <div style={{ padding: '10px 22px' }}>
+                  No issues found, good job!
+                </div>
+              </div>
+            )}
+            {this.state.activeTab === TABS.CAST_EFFICIENCY && (
+              <div>
+                <div className="panel-heading">
+                  <h2>Cast efficiency</h2>
+                </div>
+                <div style={{ padding: '10px 0' }}>
+                  <CastEfficiency
+                    parser={parser}
+                  />
+                </div>
+              </div>
+            )}
+            {this.state.activeTab === TABS.PLAYER_BREAKDOWN && (
+              <div>
+                <div className="panel-heading">
+                  <h2>Mastery effectiveness player breakdown</h2>
+                </div>
+                <div style={{ padding: '10px 0 15px' }}>
+                  <PlayerBreakdown
+                    friendlyStats={friendlyStats}
+                    highestHealingFromMastery={highestHealingFromMastery}
+                    totalHealingFromMastery={stats.totalHealingFromMastery}
+                  />
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
-        {friendlyStats && (
-          <div className="panel">
-            <div className="panel-heading">
-              <h2>Mastery effectiveness player breakdown</h2>
-            </div>
-            <div className="panel-body" style={{ padding: '10px 0 15px' }}>
-              <PlayerBreakdown
-                friendlyStats={friendlyStats}
-                highestHealingFromMastery={highestHealingFromMastery}
-                totalHealingFromMastery={stats.totalHealingFromMastery}
-              />
-            </div>
-          </div>
-        )}
       </div>
     );
   }

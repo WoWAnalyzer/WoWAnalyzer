@@ -76,12 +76,12 @@ h1 {
   background: rgba(0, 0, 0, 0.3);
   box-shadow: 0 5px 5px 0 rgba(0,0,0,.15);
 }
-.panel > .panel-heading {
+.panel-heading {
   border-bottom: 1px solid rgba(0, 0, 0, .4);
   box-shadow: 0 1px 0 0 rgba(255, 255, 255, .1);
   padding: 16px 22px 14px;
 }
-.panel > .panel-heading > h2 {
+.panel-heading > h2 {
   font-weight: 400;
   opacity: .9;
   text-transform: uppercase;
@@ -244,8 +244,45 @@ li.item a {
 .item header {
   margin-top: 20px;
 }
-
-
+.panel-body > .navigation {
+  border-right: 1px solid rgba(0,0,0,.12);
+  box-shadow: 1px 0 0 0 rgba(255,255,255,.12);
+}
+.panel-body > .navigation ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.panel-body > .navigation ul > li {
+  cursor: pointer;
+  font-weight: 300;
+  font-size: 14px;
+  padding: 10px 10px 10px 22px;
+}
+.panel-body > .navigation ul > li:hover {
+  background: rgba(0, 0, 0, .1);
+}
+.panel-body > .navigation ul > li.active {
+  background: rgba(0, 0, 0, .3);
+  transition: background-color .4s ease;
+}
+.panel-body > .navigation ul > li.active:hover {
+  background: rgba(0, 0, 0, .4);
+}
+.panel-body > .navigation ul > li .badge {
+  float: right;
+  border-radius: 50%;
+  background: #c9312c;
+  width: 1.5em;
+  height: 1.5em;
+  text-align: center;
+}
+.flex {
+  display: flex;
+}
+.flex > * {
+  flex: 1;
+}
 
 
 h3 {
