@@ -44,7 +44,7 @@ class ReportSelecter extends Component {
 
               You will need a Warcraft Logs report with advanced combat logging enabled to start. Private logs can not be used, if your guild has private logs you will have to
               {' '}<a href="https://www.warcraftlogs.com/help/start/">upload your own logs</a> or change the existing logs to the
-              <i>unlisted</i> privacy option instead.
+              {' '}<i>unlisted</i> privacy option instead.
             </div>
           </div>
 

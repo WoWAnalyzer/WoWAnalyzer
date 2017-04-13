@@ -207,25 +207,25 @@ const CastEfficiency = ({ parser }) => {
                 return (
                   <tr key={ability.name}>
                     <td style={{ width: '35%' }}>
-                      <a href={`http://www.wowhead.com/spell=${ability.spellId}`} target="_blank">
+                      <a href={`http://www.wowhead.com/spell=${ability.spellId}`} target="_blank" style={{ color: '#fff' }}>
                         <img src={`./img/icons/${ability.icon}.jpg`} alt={ability.name} /> {ability.name}
                       </a>
                     </td>
-                    <td className="text-center" style={{ width: 80 }}>
+                    <td className="text-center" style={{ minWidth: 80 }}>
                       {cpm.toFixed(2)}
                     </td>
-                    <td className="text-right" style={{ width: 100 }}>
+                    <td className="text-right" style={{ minWidth: 90 }}>
                       {casts}{maxCasts === Infinity ? '' : `/${Math.floor(maxCasts)}`} casts
                     </td>
                     <td style={{ width: '20%' }}>
                       {maxCpm === null ? '' : (
-                          <div
-                            className="performance-bar"
-                            style={{ width: `${castEfficiency * 100}%`, backgroundColor: canBeImproved ? '#ff8000' : '#70b570' }}
-                          ></div>
-                        )}
+                        <div
+                          className="performance-bar"
+                          style={{ width: `${castEfficiency * 100}%`, backgroundColor: canBeImproved ? '#ff8000' : '#70b570' }}
+                        />
+                      )}
                     </td>
-                    <td className="text-right" style={{ width: 50, paddingRight: 5 }}>
+                    <td className="text-right" style={{ minWidth: 50, paddingRight: 5 }}>
                       {maxCpm === null ? '' : `${(castEfficiency * 100).toFixed(2)}%`}
                     </td>
                     <td style={{ width: '25%', color: 'orange' }}>
