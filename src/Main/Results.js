@@ -250,7 +250,7 @@ class Results extends React.Component {
       this.issues.push(`Your non healing time can be improved. Try to cast heals more regularly (${Math.round(nonHealingTimePercentage * 100)}% non healing time).`);
     }
     if (deadTimePercentage > 0.2) {
-      this.issues.push(`Your dead GCD time can be improved. Try to always be cast something (ABC); when you're not healing try to contribute some damage (${Math.round(nonHealingTimePercentage * 100)}% dead GCD time).`);
+      this.issues.push(`Your dead GCD time can be improved. Try to Always Be Casting (ABC); when you're not healing try to contribute some damage (${Math.round(nonHealingTimePercentage * 100)}% dead GCD time).`);
     }
     if (totalHealsOnBeaconPercentage > 0.2) {
       this.issues.push(`Try to avoid directly healing your tanks; it is ineffecient and beacon transfers are usually enough (${Math.round(totalHealsOnBeaconPercentage * 100)}% of all your heals were on a beacon).`);
@@ -621,7 +621,7 @@ class Results extends React.Component {
             {this.state.activeTab === TABS.ISSUES && (
               <div>
                 <div className="panel-heading">
-                  <h2>Suggestions</h2>
+                  <h2>Suggestions (BETA)</h2>
                 </div>
                 <div style={{ padding: '0 0' }}>
                   <ul className="list">
