@@ -39,7 +39,7 @@ class PlayerSelecter extends Component {
           <div className="panel-heading">
             <h2>Select the Paladin you wish to analyze</h2>
           </div>
-          <div className="panel-body">
+          <div className="panel-body" style={{ padding: 0 }}>
             <ul className="list">
               {
                 report.friendlies

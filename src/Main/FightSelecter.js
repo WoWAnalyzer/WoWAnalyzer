@@ -44,7 +44,7 @@ class FightSelecter extends Component {
           <div className="panel-heading">
             <h2>Select the fight to parse</h2>
           </div>
-          <div className="panel-body">
+          <div className="panel-body" style={{ padding: 0 }}>
             <ul className="list">
               {
                 report.fights
