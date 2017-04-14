@@ -250,7 +250,7 @@ class Results extends React.Component {
       this.issues.push(`Your non healing time can be improved. Try to cast heals more regularly (${Math.round(nonHealingTimePercentage * 100)}% non healing time).`);
     }
     if (deadTimePercentage > 0.2) {
-      this.issues.push(`Your dead GCD time can be improved. Try to Always Be Casting (ABC); when you're not healing try to contribute some damage (${Math.round(nonHealingTimePercentage * 100)}% dead GCD time).`);
+      this.issues.push(`Your dead GCD time can be improved. Try to Always Be Casting (ABC); when you're not healing try to contribute some damage (${Math.round(deadTimePercentage * 100)}% dead GCD time).`);
     }
     if (totalHealsOnBeaconPercentage > 0.2) {
       this.issues.push(`Try to avoid directly healing your tanks; it is ineffecient and beacon transfers are usually enough (${Math.round(totalHealsOnBeaconPercentage * 100)}% of all your heals were on a beacon).`);
@@ -628,8 +628,8 @@ class Results extends React.Component {
                     {this.issues.map(issue => (
                       <li className="item" style={{ padding: '10px 22px' }} dangerouslySetInnerHTML={{ __html: issue }} />
                     ))}
-                    <li className="text-muted" style={{ paddingTop: 10 }}>
-                      Some of these suggestions may be nitpicky depending on the fight, but often it's still something you could improve. You will have to figure out yourself what you should focus on improving <b>first</b>. Don't try to do everything at once.
+                    <li className="text-muted" style={{ paddingTop: 10, paddingBottom: 10 }}>
+                      Some of these suggestions may be nitpicky or fight dependent but often it's still something you could look to improve. You will have to figure out yourself what you should focus on improving <b>first</b>. Don't try to do everything at once.
                     </li>
                   </ul>
                 </div>
