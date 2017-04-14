@@ -164,7 +164,7 @@ class Results extends React.Component {
         const canBeImproved = castEfficiency < (ability.recommendedCastEfficiency || 0.8);
 
         if (canBeImproved) {
-          this.issues.push(`Try to cast <a href="http://www.wowhead.com/spell=${ability.spellId}" target="_blank">${ability.name}</a> more often (${Math.round(castEfficiency * 100)}% cast efficiency). ${ability.extraSuggestion || ''}`);
+          this.issues.push(`Try to cast <a href="http://www.wowhead.com/spell=${ability.spellId}" target="_blank">${ability.name}</a> more often (${casts}/${maxCasts} casts: ${Math.round(castEfficiency * 100)}% cast efficiency). ${ability.extraSuggestion || ''}`);
         }
 
         return {
@@ -176,7 +176,8 @@ class Results extends React.Component {
           castEfficiency,
           canBeImproved,
         };
-      });
+      })
+      .filter(item => item !== null);
   }
   getTotalHealsOnBeaconPercentage(parser) {
     const castCounter = parser.modules.castCounter;
@@ -244,6 +245,7 @@ class Results extends React.Component {
     const nonHealingTimePercentage = parser.modules.alwaysBeCasting.totalHealingTimeWasted / fightDuration;
     const deadTimePercentage = parser.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
     const totalHealsOnBeaconPercentage = this.getTotalHealsOnBeaconPercentage(parser);
+    const hasIlterendi = parser.selectedCombatant && parser.selectedCombatant.hasRing(ILTERENDI_ITEM_ID);
     const ilterendiHealingPercentage = parser.modules.ilterendi.healing / parser.totalHealing;
 
     if (nonHealingTimePercentage > 0.3) {
@@ -267,7 +269,7 @@ class Results extends React.Component {
     if (unusedIolRate > 0.3) {
       this.issues.push(`Your usage of <a href="http://www.wowhead.com/spell=53576" target="_blank">Infusion of Light</a> procs can be improved. Try to use your Infusion of Light procs whenever it wouldn't overheal (${Math.round(unusedIolRate * 100)}% unused Infusion of Lights).`);
     }
-    if (ilterendiHealingPercentage < 0.04) {
+    if (hasIlterendi && ilterendiHealingPercentage < 0.04) {
       this.issues.push(`Your usage of <a href="http://www.wowhead.com/item=137046" target="_blank" class="legendary">Ilterendi, Crown Jewel of Silvermoon</a> can be improved. Try to line Light of Dawn and Holy Shock up with the buff (${(ilterendiHealingPercentage * 100).toFixed(2)}% healing contributed).`);
     }
 
@@ -296,14 +298,14 @@ class Results extends React.Component {
         <div className="row">
           <div className="col-md-8">
             <div className="row">
-              <div className="col-xs-4">
+              <div className="col-lg-4 col-sm-6 col-xs-12">
                 <StatisticBox
                   icon={<img src="./healing.png" style={{ height: 74 }} alt="Healing" />}
                   value={((parser.totalHealing || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}
                   label="Healing done"
                 />
               </div>
-              <div className="col-xs-4">
+              <div className="col-lg-4 col-sm-6 col-xs-12">
                 <StatisticBox
                   icon={<img src="./mastery-radius.png" style={{ height: 74 }} alt="Mastery effectiveness" />}
                   value={`${(Math.round(totalMasteryEffectiveness * 10000) / 100).toFixed(2)} %`}
@@ -314,8 +316,8 @@ class Results extends React.Component {
                   )}
                 />
               </div>
-              {parser.modules.combatants.selected && parser.modules.combatants.selected.lv30Talent === RULE_OF_LAW_SPELL_ID && (
-                <div className="col-xs-4">
+              {parser.selectedCombatant && parser.selectedCombatant.lv30Talent === RULE_OF_LAW_SPELL_ID && (
+                <div className="col-lg-4 col-sm-6 col-xs-12">
                   <StatisticBox
                     icon={(
                       <a href="http://www.wowhead.com/spell=214202" target="_blank">
@@ -329,7 +331,7 @@ class Results extends React.Component {
                   />
                 </div>
               )}
-              <div className="col-xs-4">
+              <div className="col-lg-4 col-sm-6 col-xs-12">
                 <StatisticBox
                   icon={(
                     <a href="http://www.wowhead.com/spell=53576" target="_blank">
@@ -346,7 +348,7 @@ class Results extends React.Component {
                   )}
                 />
               </div>
-              <div className="col-xs-4">
+              <div className="col-lg-4 col-sm-6 col-xs-12">
                 <StatisticBox
                   icon={(
                     <a href="http://www.wowhead.com/spell=53576" target="_blank">
@@ -363,7 +365,7 @@ class Results extends React.Component {
                   )}
                 />
               </div>
-              <div className="col-xs-4">
+              <div className="col-lg-4 col-sm-6 col-xs-12">
                 <StatisticBox
                   icon={(
                     <a href="http://www.wowhead.com/spell=19750" target="_blank">
@@ -381,7 +383,7 @@ class Results extends React.Component {
                 />
               </div>
               {parser.selectedCombatant && (
-                <div className="col-xs-4">
+                <div className="col-lg-4 col-sm-6 col-xs-12">
                   <StatisticBox
                     icon={(
                       <a href={`http://www.wowhead.com/spell=${parser.selectedCombatant && parser.selectedCombatant.lv100Talent}`} target="_blank">
@@ -394,14 +396,14 @@ class Results extends React.Component {
                     )}
                     value={`${this.constructor.formatPercentage(healsOnBeacon)} %`}
                     label={(
-                      <dfn data-tip={`The amount of Flash of Lights and Holy Lights cast on beacon targets. You cast ${beaconFlashOfLights} Flash of Lights and ${beaconHolyLights} Holy Lights on beacon targets. Your total heals on beacons was ${(totalHealsOnBeaconPercentage * 100).toFixed(2)}% (this includes spell other than FoL and HL).`}>
-                        Heals on beacon
+                      <dfn data-tip={`The amount of Flash of Lights and Holy Lights cast on beacon targets. You cast ${beaconFlashOfLights} Flash of Lights and ${beaconHolyLights} Holy Lights on beacon targets.<br /><br />Your total heals on beacons was <b>${(totalHealsOnBeaconPercentage * 100).toFixed(2)}%</b> (this includes spell other than FoL and HL).`}>
+                        FoL/HL cast on beacon
                       </dfn>
                     )}
                   />
                 </div>
               )}
-              <div className="col-xs-4">
+              <div className="col-lg-4 col-sm-6 col-xs-12">
                 <StatisticBox
                   icon={(
                     <img src="./nonhealingtime.jpg"
@@ -424,11 +426,11 @@ class Results extends React.Component {
                 <h2>Items</h2>
               </div>
               <div className="panel-body" style={{ padding: 0 }}>
-                {parser.modules.combatants.selected && (
+                {parser.selectedCombatant && (
                   <ul className="list">
                     {(() => {
                       const items = [
-                        parser.modules.combatants.selected.hasBack(DRAPE_OF_SHAME_ITEM_ID) && (
+                        parser.selectedCombatant.hasBack(DRAPE_OF_SHAME_ITEM_ID) && (
                           <li className="item clearfix" key={DRAPE_OF_SHAME_ITEM_ID}>
                             <a href="http://www.wowhead.com/item=142170" target="_blank">
                               <img
@@ -446,7 +448,7 @@ class Results extends React.Component {
                             </main>
                           </li>
                         ),
-                        parser.modules.combatants.selected.hasRing(ILTERENDI_ITEM_ID) && (
+                        hasIlterendi && (
                           <li className="item clearfix" key={ILTERENDI_ITEM_ID}>
                             <a href="http://www.wowhead.com/item=137046" target="_blank">
                               <img
@@ -464,7 +466,7 @@ class Results extends React.Component {
                             </main>
                           </li>
                         ),
-                        parser.modules.combatants.selected.hasTrinket(VELENS_ITEM_ID) && (
+                        parser.selectedCombatant.hasTrinket(VELENS_ITEM_ID) && (
                           <li className="item clearfix" key={VELENS_ITEM_ID}>
                             <a href="http://www.wowhead.com/item=144258" target="_blank">
                               <img
@@ -482,7 +484,7 @@ class Results extends React.Component {
                             </main>
                           </li>
                         ),
-                        parser.modules.combatants.selected.hasWaist(CHAIN_OF_THRAYN_ITEM_ID) && (
+                        parser.selectedCombatant.hasWaist(CHAIN_OF_THRAYN_ITEM_ID) && (
                           <li className="item clearfix" key={CHAIN_OF_THRAYN_ITEM_ID}>
                             <a href="http://www.wowhead.com/item=137086" target="_blank">
                               <img
@@ -500,7 +502,7 @@ class Results extends React.Component {
                             </main>
                           </li>
                         ),
-                        parser.modules.combatants.selected.hasNeck(PRYDAZ_ITEM_ID) && (
+                        parser.selectedCombatant.hasNeck(PRYDAZ_ITEM_ID) && (
                           <li className="item clearfix" key={PRYDAZ_ITEM_ID}>
                             <a href="http://www.wowhead.com/item=132444/prydaz-xavarics-magnum-opus" target="_blank">
                               <img
@@ -518,7 +520,7 @@ class Results extends React.Component {
                             </main>
                           </li>
                         ),
-                        parser.modules.combatants.selected.hasShoulder(OBSIDIAN_STONE_SPAULDERS_ITEM_ID) && (
+                        parser.selectedCombatant.hasShoulder(OBSIDIAN_STONE_SPAULDERS_ITEM_ID) && (
                           <li className="item clearfix" key={OBSIDIAN_STONE_SPAULDERS_ITEM_ID}>
                             <a href="http://www.wowhead.com/item=137076/obsidian-stone-spaulders" target="_blank">
                               <img
@@ -536,7 +538,7 @@ class Results extends React.Component {
                             </main>
                           </li>
                         ),
-                        parser.modules.combatants.selected.hasBack(MARAADS_DYING_BREATH_ITEM_ID) && (
+                        parser.selectedCombatant.hasBack(MARAADS_DYING_BREATH_ITEM_ID) && (
                           <li className="item clearfix" key={MARAADS_DYING_BREATH_ITEM_ID}>
                             <a href="http://www.wowhead.com/item=144273/maraads-dying-breath" target="_blank">
                               <img
@@ -618,49 +620,51 @@ class Results extends React.Component {
                 </ul>
               </div>
             </div>
-            {this.state.activeTab === TABS.ISSUES && (
-              <div>
-                <div className="panel-heading">
-                  <h2>Suggestions (BETA)</h2>
+            <div>
+              {this.state.activeTab === TABS.ISSUES && (
+                <div>
+                  <div className="panel-heading">
+                    <h2>Suggestions (BETA)</h2>
+                  </div>
+                  <div style={{ padding: '0 0' }}>
+                    <ul className="list">
+                      {this.issues.map(issue => (
+                        <li className="item" style={{ padding: '10px 22px' }} dangerouslySetInnerHTML={{ __html: issue }} />
+                      ))}
+                      <li className="text-muted" style={{ paddingTop: 10, paddingBottom: 10 }}>
+                        Some of these suggestions may be nitpicky or fight dependent but often it's still something you could look to improve. You will have to figure out yourself what you should focus on improving <b>first</b>, don't try to improve everything at once.
+                      </li>
+                    </ul>
+                  </div>
                 </div>
-                <div style={{ padding: '0 0' }}>
-                  <ul className="list">
-                    {this.issues.map(issue => (
-                      <li className="item" style={{ padding: '10px 22px' }} dangerouslySetInnerHTML={{ __html: issue }} />
-                    ))}
-                    <li className="text-muted" style={{ paddingTop: 10, paddingBottom: 10 }}>
-                      Some of these suggestions may be nitpicky or fight dependent but often it's still something you could look to improve. You will have to figure out yourself what you should focus on improving <b>first</b>. Don't try to do everything at once.
-                    </li>
-                  </ul>
+              )}
+              {this.state.activeTab === TABS.CAST_EFFICIENCY && (
+                <div>
+                  <div className="panel-heading">
+                    <h2>Cast efficiency</h2>
+                  </div>
+                  <div style={{ padding: '10px 0' }}>
+                    <CastEfficiency
+                      abilities={castEfficiency}
+                    />
+                  </div>
                 </div>
-              </div>
-            )}
-            {this.state.activeTab === TABS.CAST_EFFICIENCY && (
-              <div>
-                <div className="panel-heading">
-                  <h2>Cast efficiency</h2>
+              )}
+              {this.state.activeTab === TABS.PLAYER_BREAKDOWN && (
+                <div>
+                  <div className="panel-heading">
+                    <h2>Mastery effectiveness player breakdown</h2>
+                  </div>
+                  <div style={{ padding: '10px 0 15px' }}>
+                    <PlayerBreakdown
+                      friendlyStats={friendlyStats}
+                      highestHealingFromMastery={highestHealingFromMastery}
+                      totalHealingFromMastery={stats.totalHealingFromMastery}
+                    />
+                  </div>
                 </div>
-                <div style={{ padding: '10px 0' }}>
-                  <CastEfficiency
-                    abilities={castEfficiency}
-                  />
-                </div>
-              </div>
-            )}
-            {this.state.activeTab === TABS.PLAYER_BREAKDOWN && (
-              <div>
-                <div className="panel-heading">
-                  <h2>Mastery effectiveness player breakdown</h2>
-                </div>
-                <div style={{ padding: '10px 0 15px' }}>
-                  <PlayerBreakdown
-                    friendlyStats={friendlyStats}
-                    highestHealingFromMastery={highestHealingFromMastery}
-                    totalHealingFromMastery={stats.totalHealingFromMastery}
-                  />
-                </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </div>
       </div>
