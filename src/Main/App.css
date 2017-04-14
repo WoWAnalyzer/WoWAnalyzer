@@ -14,6 +14,7 @@ body {
   background: url(./background-merged.png) center no-repeat;
   background-size: cover;
   color: #fff;
+  min-width: 600px;
 }
 @media (min-width: 1200px) {
   .container {
@@ -150,6 +151,8 @@ h1 {
 }
 .navbar-right {
   margin-right: auto;
+  text-align: right;
+  float: right;
 }
 .navbar-default .navbar-nav > li > a {
   color: #fff;
@@ -165,6 +168,9 @@ h1 {
   background: none;
   padding: 0;
   margin-bottom: 0;
+}
+.breadcrumb > li {
+  float: left;
 }
 .breadcrumb > li:first-of-type {
   font-size: 24px;
@@ -222,6 +228,13 @@ h1 {
   position: absolute;
   left: 0;
   transform: translateX(-100%);
+}
+@media (max-width: 620px) {
+  .back-button {
+    position: static;
+    display: inline-block;
+    transform: none;
+  }
 }
 li.item {
   border-bottom: 1px solid rgba(0, 0, 0, .4);

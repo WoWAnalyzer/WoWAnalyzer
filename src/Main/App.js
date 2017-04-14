@@ -254,8 +254,12 @@ class App extends Component {
     return (
       <div className={parser ? 'larger' : ''}>
         <nav className="navbar navbar-default">
-          <div className="navbar-progress" style={{ width: `${progress}%`, opacity: progress === 0 || progress === 100 ? 0 : 1 }}></div>
+          <div className="navbar-progress" style={{ width: `${progress}%`, opacity: progress === 0 || progress === 100 ? 0 : 1 }} />
           <div className="container">
+            <ul className="nav navbar-nav navbar-right">
+              <li><a href="https://github.com/MartijnHols/HolyPaladinAnalyzer"><span className="hidden-xs"> View on GitHub </span><img src="GitHub-Mark-Light-32px.png" alt="GitHub logo" /></a></li>
+            </ul>
+
             <div className="navbar-header">
               <ol className="breadcrumb">
                 <li className="breadcrumb-item"><Link to={this.makeUrl()}>Holy Paladin Analyzer</Link></li>
@@ -263,12 +267,7 @@ class App extends Component {
                 {this.playerName && <li className="breadcrumb-item"><Link to={this.makeUrl(this.reportCode, this.playerName)}>{this.playerName}</Link></li>}
                 {this.fight && <li className="breadcrumb-item"><Link to={this.makeUrl(this.reportCode, this.playerName, this.fightId)}>{this.getFightName(this.fight)}</Link></li>}
               </ol>
-
             </div>
-
-            <ul className="nav navbar-nav navbar-right">
-              <li><a href="https://github.com/MartijnHols/HolyPaladinAnalyzer"><span className="hidden-xs"> View on GitHub </span><img src="GitHub-Mark-Light-32px.png" alt="GitHub logo" /></a></li>
-            </ul>
           </div>
         </nav>
         <div className="container">
