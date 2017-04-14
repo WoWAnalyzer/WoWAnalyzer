@@ -5,13 +5,13 @@ import {
   JUDGMENT_OF_LIGHT_SPELL_ID, CRUSADERS_MIGHT_SPELL_ID,
 } from './Parser/Constants';
 
-const SPELL_CATEGORY = {
+export const SPELL_CATEGORY = {
   ROTATIONAL: 'Rotational Spell',
   COOLDOWNS: 'Cooldown',
   OTHERS: 'Spell',
 };
 
-const CPM_ABILITIES = [
+export const CPM_ABILITIES = [
   {
     spellId: HOLY_SHOCK_HEAL_SPELL_ID,
     icon: 'spell_holy_searinglight',
@@ -75,6 +75,7 @@ const CPM_ABILITIES = [
     name: 'Tyr\'s Deliverance',
     category: SPELL_CATEGORY.COOLDOWNS,
     getCooldown: haste => 90,
+    extraSuggestion: '',
   },
   {
     spellId: AVENGING_WRATH_SPELL_ID,
@@ -156,20 +157,10 @@ const CPM_ABILITIES = [
   },
 ];
 
-const CastEfficiency = ({ parser }) => {
-  const fightDuration = (parser.finished ? parser.fight.end_time : parser.currentTimestamp) - parser.fight.start_time;
-  const minutes = fightDuration / 1000 / 60;
-
-  const castCounter = parser.modules.castCounter;
-  const getCastCount = spellId => castCounter.casts[spellId] || {};
-
-  const selectedCombatant = parser.selectedCombatant;
-
-  if (!selectedCombatant) {
-    return null;
+const CastEfficiency = ({ abilities }) => {
+  if (!abilities) {
+    return <div>Loading...</div>;
   }
-
-  const hastePercentage = selectedCombatant ? selectedCombatant.hastePercentage : 0;
 
   return (
     <div style={{ marginTop: -10, marginBottom: -10 }}>
@@ -185,55 +176,37 @@ const CastEfficiency = ({ parser }) => {
             </tr>
             </thead>
             <tbody>
-            {CPM_ABILITIES
-              .filter(ability => ability.category === SPELL_CATEGORY[key])
-              .filter(ability => !ability.isActive || ability.isActive(selectedCombatant))
-              .map((ability) => {
-                const castCount = getCastCount(ability.spellId);
-                const casts = (ability.getCasts ? ability.getCasts(castCount) : castCount.casts) || 0;
-                if (ability.hideWithZeroCasts && casts === 0) {
-                  return null;
-                }
-                const cpm = casts/minutes;
-
-                const cooldown = ability.getCooldown(hastePercentage);
-                // By dividing the fight duration by the cooldown we get the max amount of casts during this particular fight, we round this up because you would be able to cast once at the start of the fight and once at the end since abilities always start off cooldown (e.g. fight is 100 seconds long, you could cast 2 Holy Avengers with a 90 sec cooldown). Good players should be able to reasonably predict this and maximize their casts.
-                const maxCasts = Math.ceil(fightDuration / 1000 / cooldown) + (ability.charges ? ability.charges - 1 : 0);
-                const maxCpm = cooldown === null ? null : maxCasts / minutes;
-                const castEfficiency = cpm / maxCpm;
-
-                const canBeImproved = castEfficiency < (ability.recommendedCastEfficiency || 0.8);
-
-                return (
-                  <tr key={ability.name}>
-                    <td style={{ width: '35%' }}>
-                      <a href={`http://www.wowhead.com/spell=${ability.spellId}`} target="_blank" style={{ color: '#fff' }}>
-                        <img src={`./img/icons/${ability.icon}.jpg`} alt={ability.name} /> {ability.name}
-                      </a>
-                    </td>
-                    <td className="text-center" style={{ minWidth: 80 }}>
-                      {cpm.toFixed(2)}
-                    </td>
-                    <td className="text-right" style={{ minWidth: 90 }}>
-                      {casts}{maxCasts === Infinity ? '' : `/${Math.floor(maxCasts)}`} casts
-                    </td>
-                    <td style={{ width: '20%' }}>
-                      {maxCpm === null ? '' : (
-                        <div
-                          className="performance-bar"
-                          style={{ width: `${castEfficiency * 100}%`, backgroundColor: canBeImproved ? '#ff8000' : '#70b570' }}
-                        />
-                      )}
-                    </td>
-                    <td className="text-right" style={{ minWidth: 50, paddingRight: 5 }}>
-                      {maxCpm === null ? '' : `${(castEfficiency * 100).toFixed(2)}%`}
-                    </td>
-                    <td style={{ width: '25%', color: 'orange' }}>
-                      {canBeImproved && 'Can be improved.'}
-                    </td>
-                  </tr>
-                );
-              })}
+            {abilities
+              .filter(item => item.ability.category === SPELL_CATEGORY[key])
+              .map(({ ability, cpm, maxCpm, casts, maxCasts, castEfficiency, canBeImproved }) => (
+                <tr key={ability.name}>
+                  <td style={{ width: '35%' }}>
+                    <a href={`http://www.wowhead.com/spell=${ability.spellId}`} target="_blank" style={{ color: '#fff' }}>
+                      <img src={`./img/icons/${ability.icon}.jpg`} alt={ability.name} /> {ability.name}
+                    </a>
+                  </td>
+                  <td className="text-center" style={{ minWidth: 80 }}>
+                    {cpm.toFixed(2)}
+                  </td>
+                  <td className="text-right" style={{ minWidth: 90 }}>
+                    {casts}{maxCasts === Infinity ? '' : `/${Math.floor(maxCasts)}`} casts
+                  </td>
+                  <td style={{ width: '20%' }}>
+                    {maxCasts === null ? '' : (
+                      <div
+                        className="performance-bar"
+                        style={{ width: `${castEfficiency * 100}%`, backgroundColor: canBeImproved ? '#ff8000' : '#70b570' }}
+                      />
+                    )}
+                  </td>
+                  <td className="text-right" style={{ minWidth: 50, paddingRight: 5 }}>
+                    {maxCpm === null ? '' : `${(castEfficiency * 100).toFixed(2)}%`}
+                  </td>
+                  <td style={{ width: '25%', color: 'orange' }}>
+                    {canBeImproved && 'Can be improved.'}
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         );
@@ -242,7 +215,19 @@ const CastEfficiency = ({ parser }) => {
   );
 };
 CastEfficiency.propTypes = {
-  parser: React.PropTypes.object.isRequired,
+  abilities: React.PropTypes.arrayOf(React.PropTypes.shape({
+    ability: React.PropTypes.shape({
+      name: React.PropTypes.string.isRequired,
+      spellId: React.PropTypes.number.isRequired,
+      icon: React.PropTypes.string.isRequired,
+    }),
+    cpm: React.PropTypes.number.isRequired,
+    maxCpm: React.PropTypes.number,
+    casts: React.PropTypes.number.isRequired,
+    maxCasts: React.PropTypes.number.isRequired,
+    castEfficiency: React.PropTypes.number.isRequired,
+    canBeImproved: React.PropTypes.bool.isRequired,
+  })).isRequired,
 };
 
 export default CastEfficiency;

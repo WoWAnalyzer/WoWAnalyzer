@@ -14,6 +14,8 @@ import { PRYDAZ_ITEM_ID } from './Parser/Modules/Legendaries/Prydaz';
 import { OBSIDIAN_STONE_SPAULDERS_ITEM_ID } from './Parser/Modules/Legendaries/ObsidianStoneSpaulders';
 import { MARAADS_DYING_BREATH_ITEM_ID } from './Parser/Modules/Legendaries/MaraadsDyingBreath';
 
+import { CPM_ABILITIES, SPELL_CATEGORY } from './CastEfficiency';
+
 function getBeaconIcon(spellId) {
   switch (spellId) {
     case BEACON_TYPES.BEACON_OF_FATH: return 'beaconOfFaith';
@@ -72,6 +74,7 @@ class Results extends React.Component {
     };
   }
 
+  issues = [];
   constructor() {
     super();
     this.state = {
@@ -124,14 +127,91 @@ class Results extends React.Component {
     return this.props.parser.buffs.hasBuff(T19_4SET_BONUS_BUFF_ID) ? 2 : 1;
   }
 
+  getFightDuration(parser) {
+    return (parser.finished ? parser.fight.end_time : parser.currentTimestamp) - parser.fight.start_time;
+  }
+
+  getCastEfficiency(parser) {
+    const fightDuration = this.getFightDuration(parser);
+    const minutes = fightDuration / 1000 / 60;
+
+    const castCounter = parser.modules.castCounter;
+    const getCastCount = spellId => castCounter.casts[spellId] || {};
+
+    const selectedCombatant = parser.selectedCombatant;
+    if (!selectedCombatant) {
+      return null;
+    }
+
+    const hastePercentage = selectedCombatant ? selectedCombatant.hastePercentage : 0;
+
+    return CPM_ABILITIES
+      .filter(ability => !ability.isActive || ability.isActive(selectedCombatant))
+      .map((ability) => {
+        const castCount = getCastCount(ability.spellId);
+        const casts = (ability.getCasts ? ability.getCasts(castCount) : castCount.casts) || 0;
+        if (ability.hideWithZeroCasts && casts === 0) {
+          return null;
+        }
+        const cpm = casts/minutes;
+
+        const cooldown = ability.getCooldown(hastePercentage);
+        // By dividing the fight duration by the cooldown we get the max amount of casts during this particular fight, we round this up because you would be able to cast once at the start of the fight and once at the end since abilities always start off cooldown (e.g. fight is 100 seconds long, you could cast 2 Holy Avengers with a 90 sec cooldown). Good players should be able to reasonably predict this and maximize their casts.
+        const maxCasts = Math.ceil(fightDuration / 1000 / cooldown) + (ability.charges ? ability.charges - 1 : 0);
+        const maxCpm = cooldown === null ? null : maxCasts / minutes;
+        const castEfficiency = cpm / maxCpm;
+
+        const canBeImproved = castEfficiency < (ability.recommendedCastEfficiency || 0.8);
+
+        if (canBeImproved) {
+          this.issues.push(`Try to cast <a href="http://www.wowhead.com/spell=${ability.spellId}" target="_blank">${ability.name}</a> more often (${Math.round(castEfficiency * 100)}% cast efficiency). ${ability.extraSuggestion || ''}`);
+        }
+
+        return {
+          ability,
+          cpm,
+          maxCpm,
+          casts,
+          maxCasts,
+          castEfficiency,
+          canBeImproved,
+        };
+      });
+  }
+  getTotalHealsOnBeaconPercentage(parser) {
+    const castCounter = parser.modules.castCounter;
+    const getCastCount = spellId => castCounter.casts[spellId] || {};
+
+    const selectedCombatant = parser.selectedCombatant;
+    if (!selectedCombatant) {
+      return null;
+    }
+
+    let casts = 0;
+    let castsOnBeacon = 0;
+
+    CPM_ABILITIES
+      .filter(ability => !ability.isActive || ability.isActive(selectedCombatant))
+      .forEach((ability) => {
+        const castCount = getCastCount(ability.spellId);
+        casts += (ability.getCasts ? ability.getCasts(castCount) : castCount.casts) || 0;
+        castsOnBeacon += castCount.withBeacon || 0;
+      });
+
+    return castsOnBeacon / casts;
+  }
+
   render() {
     const { parser } = this.props;
     const { friendlyStats } = this.state;
+
+    this.issues = [];
 
     const stats = this.constructor.calculateStats(parser);
 
     const totalMasteryEffectiveness = stats.totalHealingFromMastery / (stats.totalMaxPotentialMasteryHealing || 1);
     const highestHealingFromMastery = friendlyStats && friendlyStats.reduce((highest, player) => Math.max(highest, player.healingFromMastery), 1);
+    const ruleOfLawUptime = parser.modules.buffs.getBuffUptime(RULE_OF_LAW_SPELL_ID) / parser.fightDuration;
 
     const castCounter = parser.modules.castCounter;
     const getCastCount = spellId => castCounter.casts[spellId] || {};
@@ -139,7 +219,7 @@ class Results extends React.Component {
     const iolFlashOfLights = getCastCount(FLASH_OF_LIGHT_SPELL_ID).withIol || 0;
     const iolHolyLights = getCastCount(HOLY_LIGHT_SPELL_ID).withIol || 0;
     const totalIols = iolFlashOfLights + iolHolyLights;
-    const unusedIolRate = iolFlashOfLights / totalIols;
+    const iolFoLToHLCastRatio = iolFlashOfLights / totalIols;
 
     const flashOfLightHeals = getCastCount(FLASH_OF_LIGHT_SPELL_ID).hits || 0;
     const holyLightHeals = getCastCount(HOLY_LIGHT_SPELL_ID).hits || 0;
@@ -157,8 +237,42 @@ class Results extends React.Component {
     const holyShockHeals = getCastCount(HOLY_SHOCK_HEAL_SPELL_ID).hits || 0;
     const holyShockCrits = getCastCount(HOLY_SHOCK_HEAL_SPELL_ID).crits || 0;
     const iolProcsPerHolyShockCrit = this.iolProcsPerHolyShockCrit;
+    const unusedIolRate = 1 - totalIols / (holyShockCrits * iolProcsPerHolyShockCrit);
 
-    const fightDuration = parser.currentTimestamp - parser.fight.start_time;
+    const fightDuration = this.getFightDuration(parser);
+
+    const nonHealingTimePercentage = parser.modules.alwaysBeCasting.totalHealingTimeWasted / fightDuration;
+    const deadTimePercentage = parser.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
+    const totalHealsOnBeaconPercentage = this.getTotalHealsOnBeaconPercentage(parser);
+    const ilterendiHealingPercentage = parser.modules.ilterendi.healing / parser.totalHealing;
+
+    if (nonHealingTimePercentage > 0.3) {
+      this.issues.push(`Your non healing time can be improved. Try to cast heals more regularly (${Math.round(nonHealingTimePercentage * 100)}% non healing time).`);
+    }
+    if (deadTimePercentage > 0.2) {
+      this.issues.push(`Your dead GCD time can be improved. Try to always be cast something (ABC); when you're not healing try to contribute some damage (${Math.round(nonHealingTimePercentage * 100)}% dead GCD time).`);
+    }
+    if (totalHealsOnBeaconPercentage > 0.2) {
+      this.issues.push(`Try to avoid directly healing your tanks; it is ineffecient and beacon transfers are usually enough (${Math.round(totalHealsOnBeaconPercentage * 100)}% of all your heals were on a beacon).`);
+    }
+    if (totalMasteryEffectiveness < 0.7) {
+      this.issues.push(`Your Mastery Effectiveness can be improved. Try to improve your positioning, usually by sticking with melee (${Math.round(totalMasteryEffectiveness * 100)}% mastery effectiveness).`);
+    }
+    if (ruleOfLawUptime < 0.25) {
+      this.issues.push(`Your <a href="http://www.wowhead.com/spell=214202" target="_blank">Rule of Law</a> uptime can be improved. Try keeping at least 1 charge on cooldown; you should (almost) never be at max charges (${Math.round(ruleOfLawUptime * 100)}% uptime).`);
+    }
+    if (iolFoLToHLCastRatio < 0.6) {
+      this.issues.push(`Your <i>IoL FoL to HL cast ratio</i> can likely be improved. When you get an <a href="http://www.wowhead.com/spell=53576" target="_blank">Infusion of Light</a> proc try to cast Flash of Light as much as possible, it is a considerably stronger heal (${Math.round(iolFoLToHLCastRatio * 100)}% Flash of Lights to Holy Lighs cast with Infusion of Light).`);
+    }
+    if (unusedIolRate > 0.3) {
+      this.issues.push(`Your usage of <a href="http://www.wowhead.com/spell=53576" target="_blank">Infusion of Light</a> procs can be improved. Try to use your Infusion of Light procs whenever it wouldn't overheal (${Math.round(unusedIolRate * 100)}% unused Infusion of Lights).`);
+    }
+    if (ilterendiHealingPercentage < 0.04) {
+      this.issues.push(`Your usage of <a href="http://www.wowhead.com/item=137046" target="_blank" class="legendary">Ilterendi, Crown Jewel of Silvermoon</a> can be improved. Try to line Light of Dawn and Holy Shock up with the buff (${(ilterendiHealingPercentage * 100).toFixed(2)}% healing contributed).`);
+    }
+
+    const castEfficiency = this.getCastEfficiency(parser);
+
 
     return (
       <div style={{ width: '100%' }}>
@@ -210,7 +324,7 @@ class Results extends React.Component {
                           alt="Rule of Law" />
                       </a>
                     )}
-                    value={`${(Math.round(parser.modules.buffs.getBuffUptime(RULE_OF_LAW_SPELL_ID) / parser.fightDuration * 10000) / 100).toFixed(2)} %`}
+                    value={`${this.constructor.formatPercentage(ruleOfLawUptime)} %`}
                     label="Rule of Law uptime"
                   />
                 </div>
@@ -224,7 +338,7 @@ class Results extends React.Component {
                         alt="Unused Infusion of Light" />
                     </a>
                   )}
-                  value={`${this.constructor.formatPercentage(unusedIolRate)} %`}
+                  value={`${this.constructor.formatPercentage(iolFoLToHLCastRatio)} %`}
                   label={(
                     <dfn data-tip={`The Infusion of Light Flash of Light to Infusion of Light Holy Light usage ratio is how many Flash of Lights you cast compared to Holy Lights during the Infusion of Light proc. You cast ${iolFlashOfLights} Flash of Lights and ${iolHolyLights} Holy Lights during Infusion of Light.`}>
                       IoL FoL to HL cast ratio
@@ -241,7 +355,7 @@ class Results extends React.Component {
                         alt="Unused Infusion of Light" />
                     </a>
                   )}
-                  value={`${this.constructor.formatPercentage(1 - totalIols / (holyShockCrits * iolProcsPerHolyShockCrit))} %`}
+                  value={`${this.constructor.formatPercentage(unusedIolRate)} %`}
                   label={(
                     <dfn data-tip={`The amount of Infusion of Lights you did not use out of the total available. You cast ${holyShockHeals} (healing) Holy Shocks with a ${this.constructor.formatPercentage(holyShockCrits / holyShockHeals)}% crit ratio. This gave you ${holyShockCrits * iolProcsPerHolyShockCrit} Infusion of Light procs, of which you used ${totalIols}.<br /><br />The ratio may be below zero if you used Infusion of Light procs from damaging Holy Shocks (e.g. cast on boss), or from casting Holy Shock before the fight started. <b>It is accurate to enter this negative value in your spreadsheet!</b> The spreadsheet will consider these bonus Infusion of Light procs and consider it appropriately.`}>
                       Unused Infusion of Lights
@@ -280,7 +394,7 @@ class Results extends React.Component {
                     )}
                     value={`${this.constructor.formatPercentage(healsOnBeacon)} %`}
                     label={(
-                      <dfn data-tip={`The amount of Flash of Lights and Holy Lights cast on beacon targets. You cast ${beaconFlashOfLights} Flash of Lights and ${beaconHolyLights} Holy Lights on beacon targets.`}>
+                      <dfn data-tip={`The amount of Flash of Lights and Holy Lights cast on beacon targets. You cast ${beaconFlashOfLights} Flash of Lights and ${beaconHolyLights} Holy Lights on beacon targets. Your total heals on beacons was ${(totalHealsOnBeaconPercentage * 100).toFixed(2)}% (this includes spell other than FoL and HL).`}>
                         Heals on beacon
                       </dfn>
                     )}
@@ -294,9 +408,9 @@ class Results extends React.Component {
                       style={{ height: 74, borderRadius: 5, border: '1px solid #000' }}
                       alt="Non healing time" />
                   )}
-                  value={`${this.constructor.formatPercentage(parser.modules.alwaysBeCasting.totalHealingTimeWasted / fightDuration)} %`}
+                  value={`${this.constructor.formatPercentage(nonHealingTimePercentage)} %`}
                   label={(
-                    <dfn data-tip={`Non healing time is available casting time not used for a spell that helps you heal. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), DPSing, etc. Damaging Holy Shocks are considered non healing time, Crusader Strike is only considered non healing time if you do not have the Crusader's Might talent.<br /><br />You spent ${this.constructor.formatPercentage(parser.modules.alwaysBeCasting.totalTimeWasted / fightDuration)} % of your time casting nothing at all.`}>
+                    <dfn data-tip={`Non healing time is available casting time not used for a spell that helps you heal. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), DPSing, etc. Damaging Holy Shocks are considered non healing time, Crusader Strike is only considered non healing time if you do not have the Crusader's Might talent.<br /><br />You spent ${this.constructor.formatPercentage(deadTimePercentage)} % of your time casting nothing at all.`}>
                       Non healing time
                     </dfn>
                   )}
@@ -309,7 +423,7 @@ class Results extends React.Component {
               <div className="panel-heading">
                 <h2>Items</h2>
               </div>
-              <div className="panel-body">
+              <div className="panel-body" style={{ padding: 0 }}>
                 {parser.modules.combatants.selected && (
                   <ul className="list">
                     {(() => {
@@ -345,7 +459,7 @@ class Results extends React.Component {
                             </a>
                             <main>
                               <dfn data-tip="The actual effective healing contributed by the Ilterendi, Crown Jewel of Silvermoon equip effect.">
-                                {`${((Math.round(parser.modules.ilterendi.healing / parser.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
+                                {`${((ilterendiHealingPercentage * 100) || 0).toFixed(2)} %`}
                               </dfn>
                             </main>
                           </li>
@@ -477,7 +591,7 @@ class Results extends React.Component {
 
         <div className="panel">
           <div className="panel-body flex" style={{ padding: '0' }}>
-            <div className="navigation" style={{ flex: '0 0 auto', width: 200 }}>
+            <div className="navigation" style={{ flex: '0 0 auto', width: 200, minHeight: 400 }}>
               <div className="panel-heading">
                 <h2>Menu</h2>
               </div>
@@ -487,7 +601,7 @@ class Results extends React.Component {
                     className={this.state.activeTab === TABS.ISSUES ? 'active' : ''}
                     onClick={() => this.setState({ activeTab: TABS.ISSUES })}
                   >
-                    Issues <span className="badge">6</span>
+                    Suggestions <span className="badge">{this.issues.length}</span>
                   </li>
                   <li
                     className={this.state.activeTab === TABS.CAST_EFFICIENCY ? 'active' : ''}
@@ -507,10 +621,17 @@ class Results extends React.Component {
             {this.state.activeTab === TABS.ISSUES && (
               <div>
                 <div className="panel-heading">
-                  <h2>Issues</h2>
+                  <h2>Suggestions</h2>
                 </div>
-                <div style={{ padding: '10px 22px' }}>
-                  No issues found, good job!
+                <div style={{ padding: '0 0' }}>
+                  <ul className="list">
+                    {this.issues.map(issue => (
+                      <li className="item" style={{ padding: '10px 22px' }} dangerouslySetInnerHTML={{ __html: issue }} />
+                    ))}
+                    <li className="text-muted" style={{ paddingTop: 10 }}>
+                      Some of these suggestions may be nitpicky depending on the fight, but often it's still something you could improve. You will have to figure out yourself what you should focus on improving <b>first</b>. Don't try to do everything at once.
+                    </li>
+                  </ul>
                 </div>
               </div>
             )}
@@ -521,7 +642,7 @@ class Results extends React.Component {
                 </div>
                 <div style={{ padding: '10px 0' }}>
                   <CastEfficiency
-                    parser={parser}
+                    abilities={castEfficiency}
                   />
                 </div>
               </div>
@@ -542,7 +663,6 @@ class Results extends React.Component {
             )}
           </div>
         </div>
-
       </div>
     );
   }
