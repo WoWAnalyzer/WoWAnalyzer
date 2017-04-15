@@ -265,6 +265,7 @@ class Results extends React.Component {
     const totalHealsOnBeaconPercentage = this.getTotalHealsOnBeaconPercentage(parser);
     const hasIlterendi = parser.selectedCombatant && parser.selectedCombatant.hasRing(ILTERENDI_ITEM_ID);
     const ilterendiHealingPercentage = parser.modules.ilterendi.healing / parser.totalHealing;
+    const hasRuleOfLaw = parser.selectedCombatant && parser.selectedCombatant.lv30Talent === RULE_OF_LAW_SPELL_ID;
 
     if (nonHealingTimePercentage > 0.3) {
       this.issues.push(`Your non healing time can be improved. Try to cast heals more regularly (${Math.round(nonHealingTimePercentage * 100)}% non healing time).`);
@@ -278,7 +279,7 @@ class Results extends React.Component {
     if (totalMasteryEffectiveness < 0.7) {
       this.issues.push(`Your Mastery Effectiveness can be improved. Try to improve your positioning, usually by sticking with melee (${Math.round(totalMasteryEffectiveness * 100)}% mastery effectiveness).`);
     }
-    if (ruleOfLawUptime < 0.25) {
+    if (hasRuleOfLaw && ruleOfLawUptime < 0.25) {
       this.issues.push(`Your <a href="http://www.wowhead.com/spell=214202" target="_blank">Rule of Law</a> uptime can be improved. Try keeping at least 1 charge on cooldown; you should (almost) never be at max charges (${Math.round(ruleOfLawUptime * 100)}% uptime).`);
     }
     if (iolFoLToHLCastRatio < 0.6) {
@@ -345,7 +346,7 @@ class Results extends React.Component {
                   )}
                 />
               </div>
-              {parser.selectedCombatant && parser.selectedCombatant.lv30Talent === RULE_OF_LAW_SPELL_ID && (
+              {hasRuleOfLaw && (
                 <div className="col-lg-4 col-sm-6 col-xs-12">
                   <StatisticBox
                     icon={(
