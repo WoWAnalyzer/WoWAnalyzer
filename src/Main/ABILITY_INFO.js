@@ -57,7 +57,7 @@ export default {
   183416: {
     name: 'Aura of Sacrifice',
     icon: 'ability_deathwing_bloodcorruption_earth',
-    description: '<a href="http://www.wowhead.com/spell=183416" target="_blank">Aura of Sacrifice</a> works as a decent raid cooldown with <a href="http://www.wowhead.com/spell=31821" target="_blank">Aura Mastery</a> it is best to use it during <a href="http://www.wowhead.com/spell=31842" target="_blank">Avenging Wrath</a> and/or <a href="http://www.wowhead.com/spell=105809" target="_blank">Holy Avenger</a>. For this reason it is more situationally useful as not all encounters work out such that you can line up all your cool downs at once, and have it not be wasted. *note* healing done by <a href="http://www.wowhead.com/spell=85222" target="_blank">Light of Dawn</a> does not transfer through Aura of Sacrifice\'s empowered effect.',
+    description: '<a href="http://www.wowhead.com/spell=183416" target="_blank">Aura of Sacrifice</a> works as a decent raid cooldown with <a href="http://www.wowhead.com/spell=31821" target="_blank">Aura Mastery</a>. It is best to use it during <a href="http://www.wowhead.com/spell=31842" target="_blank">Avenging Wrath</a> and/or <a href="http://www.wowhead.com/spell=105809" target="_blank">Holy Avenger</a>. For this reason it is more situationally useful as not all encounters work out such that you can line up all your cool downs at once, and have it not be wasted. *note* healing done by <a href="http://www.wowhead.com/spell=85222" target="_blank">Light of Dawn</a> does not transfer through Aura of Sacrifice\'s empowered effect.',
   },
   183415: {
     name: 'Aura of Mercy',

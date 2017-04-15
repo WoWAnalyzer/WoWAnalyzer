@@ -5,6 +5,7 @@ import CastCounter from './Modules/Core/CastCounter';
 
 import BeaconHealing from './Modules/PaladinCore/BeaconHealing';
 import BeaconTargets from './Modules/PaladinCore/BeaconTargets';
+import VerifySpec from './Modules/PaladinCore/VerifySpec';
 
 import MasteryEffectiveness from './Modules/Features/MasteryEffectiveness';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
@@ -28,6 +29,7 @@ class CombatLogParser {
     // PaladinCore
     beaconHealing: BeaconHealing,
     beaconTargets: BeaconTargets,
+    verifySpec: VerifySpec,
 
     // Features
     masteryEffectiveness: MasteryEffectiveness,
@@ -61,6 +63,8 @@ class CombatLogParser {
   get combatants() {
     return this.modules.combatants;
   }
+
+  /** @returns {Combatant} */
   get selectedCombatant() {
     return this.combatants.selected;
   }
