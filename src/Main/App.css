@@ -73,7 +73,7 @@ h1 {
   width: 100%;
   border-radius: 5px;
   border: none;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   background: rgba(0, 0, 0, 0.3);
   box-shadow: 0 5px 5px 0 rgba(0,0,0,.15);
 }
@@ -93,7 +93,7 @@ h1 {
   padding: 15px 22px;
 }
 .panel.statistic-box > .panel-body {
-  padding: 10px 14px;
+  padding: 10px 12px;
 }
 .statistic-box .statistic-value {
   margin-top: .3em;
@@ -101,6 +101,11 @@ h1 {
 }
 .statistic-box .statistic-label {
   margin-top: -0.3em;
+}
+.statistic-box img {
+  height: 74px;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.6);
 }
 .btn-default {
   border: 1px solid #fff;

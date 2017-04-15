@@ -300,14 +300,25 @@ class Results extends React.Component {
             <div className="row">
               <div className="col-lg-4 col-sm-6 col-xs-12">
                 <StatisticBox
-                  icon={<img src="./healing.png" style={{ height: 74 }} alt="Healing" />}
+                  icon={(
+                    <img
+                      src="./healing.png"
+                      style={{ border: 0 }}
+                      alt="Healing"
+                    />)}
                   value={((parser.totalHealing || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}
                   label="Healing done"
                 />
               </div>
               <div className="col-lg-4 col-sm-6 col-xs-12">
                 <StatisticBox
-                  icon={<img src="./mastery-radius.png" style={{ height: 74 }} alt="Mastery effectiveness" />}
+                  icon={(
+                    <img
+                      src="./mastery-radius.png"
+                      style={{ border: 0 }}
+                      alt="Mastery effectiveness"
+                    />
+                  )}
                   value={`${(Math.round(totalMasteryEffectiveness * 10000) / 100).toFixed(2)} %`}
                   label={(
                     <dfn data-tip="Effects that temporarily increase your mastery are currently not supported and will skew results.">
@@ -322,7 +333,6 @@ class Results extends React.Component {
                     icon={(
                       <a href="http://www.wowhead.com/spell=214202" target="_blank">
                         <img src="./ruleoflaw.jpg"
-                          style={{ height: 74, borderRadius: 5, border: '1px solid #000' }}
                           alt="Rule of Law" />
                       </a>
                     )}
@@ -336,7 +346,6 @@ class Results extends React.Component {
                   icon={(
                     <a href="http://www.wowhead.com/spell=53576" target="_blank">
                       <img src="./infusionoflight.jpg"
-                        style={{ height: 74, borderRadius: 5, border: '1px solid #000' }}
                         alt="Unused Infusion of Light" />
                     </a>
                   )}
@@ -352,9 +361,10 @@ class Results extends React.Component {
                 <StatisticBox
                   icon={(
                     <a href="http://www.wowhead.com/spell=53576" target="_blank">
-                      <img src="./infusionoflight-bw.png"
-                        style={{ height: 74, borderRadius: 5, border: '1px solid #000' }}
-                        alt="Unused Infusion of Light" />
+                      <img
+                        src="./infusionoflight-bw.png"
+                        alt="Unused Infusion of Light"
+                      />
                     </a>
                   )}
                   value={`${this.constructor.formatPercentage(unusedIolRate)} %`}
@@ -369,9 +379,10 @@ class Results extends React.Component {
                 <StatisticBox
                   icon={(
                     <a href="http://www.wowhead.com/spell=19750" target="_blank">
-                      <img src="./flashoflight.jpg"
-                        style={{ height: 74, borderRadius: 5, border: '1px solid #000' }}
-                        alt="Flash of Light" />
+                      <img
+                        src="./flashoflight.jpg"
+                        alt="Flash of Light"
+                      />
                     </a>
                   )}
                   value={`${this.constructor.formatPercentage(fillerCastRatio)} %`}
@@ -389,7 +400,6 @@ class Results extends React.Component {
                       <a href={`http://www.wowhead.com/spell=${parser.selectedCombatant && parser.selectedCombatant.lv100Talent}`} target="_blank">
                         <img
                           src={`./${getBeaconIcon(parser.selectedCombatant && parser.selectedCombatant.lv100Talent)}.jpg`}
-                          style={{ height: 74, borderRadius: 5, border: '1px solid #000' }}
                           alt="Beacon"
                         />
                       </a>
@@ -406,9 +416,10 @@ class Results extends React.Component {
               <div className="col-lg-4 col-sm-6 col-xs-12">
                 <StatisticBox
                   icon={(
-                    <img src="./nonhealingtime.jpg"
-                      style={{ height: 74, borderRadius: 5, border: '1px solid #000' }}
-                      alt="Non healing time" />
+                    <img
+                      src="./nonhealingtime.jpg"
+                      alt="Non healing time"
+                    />
                   )}
                   value={`${this.constructor.formatPercentage(nonHealingTimePercentage)} %`}
                   label={(
