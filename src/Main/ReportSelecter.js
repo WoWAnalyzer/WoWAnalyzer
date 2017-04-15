@@ -69,6 +69,7 @@ class ReportSelecter extends Component {
               <h2>Changes</h2>
             </div>
             <div className="panel-body text-muted">
+              15-04-2017 - Add Tyr's Deliverance healing contribution.<br />
               15-04-2017 - Add Sacred Dawn healing contribution.<br />
               15-04-2017 - Cast efficiency now takes the extra amount of fight time you had to cast an ability into consideration (e.g. a single cast of 3 minute cooldown during a 3:30 fight will have a higher cast efficiency than during a 5:30 fight).<br />
               15-04-2017 - Added a <b>Talents</b> tab.<br />

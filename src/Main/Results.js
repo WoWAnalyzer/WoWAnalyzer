@@ -14,6 +14,7 @@ import {
   HOLY_SHOCK_HEAL_SPELL_ID,
   BEACON_TYPES
 } from './Parser/Constants';
+import { SACRED_DAWN_TRAIT_ID } from './Parser/Modules/Features/SacredDawn';
 import { DRAPE_OF_SHAME_ITEM_ID } from './Parser/Modules/Legendaries/DrapeOfShame';
 import { ILTERENDI_ITEM_ID } from './Parser/Modules/Legendaries/Ilterendi';
 import { VELENS_ITEM_ID } from './Parser/Modules/Legendaries/Velens';
@@ -265,8 +266,11 @@ class Results extends React.Component {
     const totalHealsOnBeaconPercentage = this.getTotalHealsOnBeaconPercentage(parser);
     const hasIlterendi = parser.selectedCombatant && parser.selectedCombatant.hasRing(ILTERENDI_ITEM_ID);
     const ilterendiHealingPercentage = parser.modules.ilterendi.healing / parser.totalHealing;
+    const hasSacredDawn = parser.selectedCombatant && parser.selectedCombatant.traitsBySpellId[SACRED_DAWN_TRAIT_ID] === 1;
     const sacredDawnPercentage = parser.modules.sacredDawn.healing / parser.totalHealing;
-    const hasSacredDawn = sacredDawnPercentage > 0; // TODO: Implement trait detection
+    const tyrsDeliveranceHealHealingPercentage = parser.modules.tyrsDeliverance.healHealing / parser.totalHealing;
+    const tyrsDeliveranceBuffFoLHLHealingPercentage = parser.modules.tyrsDeliverance.buffFoLHLHealing / parser.totalHealing;
+    const tyrsDeliverancePercentage = tyrsDeliveranceHealHealingPercentage + tyrsDeliveranceBuffFoLHLHealingPercentage;
     const hasRuleOfLaw = parser.selectedCombatant && parser.selectedCombatant.lv30Talent === RULE_OF_LAW_SPELL_ID;
 
     if (nonHealingTimePercentage > 0.3) {
@@ -443,8 +447,26 @@ class Results extends React.Component {
                   )}
                   value={`${this.constructor.formatPercentage(nonHealingTimePercentage)} %`}
                   label={(
-                    <dfn data-tip={`Non healing time is available casting time not used for a spell that helps you heal. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), DPSing, etc. Damaging Holy Shocks are considered non healing time, Crusader Strike is only considered non healing time if you do not have the Crusader's Might talent.<br /><br />You spent ${this.constructor.formatPercentage(deadTimePercentage)} % of your time casting nothing at all.`}>
+                    <dfn data-tip={`Non healing time is available casting time not used for a spell that helps you heal. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), DPSing, etc. Damaging Holy Shocks are considered non healing time, Crusader Strike is only considered non healing time if you do not have the Crusader's Might talent.<br /><br />You spent ${this.constructor.formatPercentage(deadTimePercentage)}% of your time casting nothing at all.`}>
                       Non healing time
+                    </dfn>
+                  )}
+                />
+              </div>
+              <div className="col-lg-4 col-sm-6 col-xs-12">
+                <StatisticBox
+                  icon={(
+                    <a href="http://www.wowhead.com/spell=200652" target="_blank">
+                      <img
+                        src="./img/icons/inv_mace_2h_artifactsilverhand_d_01.jpg"
+                        alt="Tyr's Deliverance"
+                      />
+                    </a>
+                  )}
+                  value={`${this.constructor.formatPercentage(tyrsDeliverancePercentage)} %`}
+                  label={(
+                    <dfn data-tip={`The total actual effective healing contributed by Tyr's Deliverance. This includes the gained from the increase to healing by Flash of Light and Holy Light.<br /><br />The actual healing done by the effect was ${this.constructor.formatPercentage(tyrsDeliveranceHealHealingPercentage)}% of your healing done, and the healing contribution from the Flash of Light and Holy Light heal increase was ${this.constructor.formatPercentage(tyrsDeliveranceBuffFoLHLHealingPercentage)}% of your healing done.`}>
+                      Tyr's Deliverance healing
                     </dfn>
                   )}
                 />
