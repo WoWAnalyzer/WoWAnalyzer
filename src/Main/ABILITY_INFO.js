@@ -68,7 +68,7 @@ export default {
   197646: {
     name: 'Divine Purpose',
     icon: 'spell_holy_divinepurpose',
-    description: '<a href="http://www.wowhead.com/spell=197646" target="_blank">Divine Purpose</a> provides a small chance for a free Holy Shock or Light of Dawn, which reduces your mana usage. The downside to Divine Purpose is that it is not very reliable, unlike <a href="http://www.wowhead.com/spell=105809" target="_blank">Holy Avenger</a>. This tier is mostly preference.',
+    description: '<a href="http://www.wowhead.com/spell=197646" target="_blank">Divine Purpose</a> provides a small chance for a free Holy Shock or Light of Dawn, which saves mana by not having to cast something that consumes mana. The downside to Divine Purpose is that it is not very reliable, unlike <a href="http://www.wowhead.com/spell=105809" target="_blank">Holy Avenger</a>. This tier is mostly preference.',
   },
   105809: {
     name: 'Holy Avenger',
