@@ -9,6 +9,7 @@ import VerifySpec from './Modules/PaladinCore/VerifySpec';
 
 import MasteryEffectiveness from './Modules/Features/MasteryEffectiveness';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
+import SacredDawn from './Modules/Features/SacredDawn';
 
 import DrapeOfShame from './Modules/Legendaries/DrapeOfShame';
 import Ilterendi from './Modules/Legendaries/Ilterendi';
@@ -34,6 +35,7 @@ class CombatLogParser {
     // Features
     masteryEffectiveness: MasteryEffectiveness,
     alwaysBeCasting: AlwaysBeCasting,
+    sacredDawn: SacredDawn,
 
     // Legendaries:
     drapeOfShame: DrapeOfShame,

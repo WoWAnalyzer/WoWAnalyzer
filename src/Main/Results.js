@@ -265,6 +265,8 @@ class Results extends React.Component {
     const totalHealsOnBeaconPercentage = this.getTotalHealsOnBeaconPercentage(parser);
     const hasIlterendi = parser.selectedCombatant && parser.selectedCombatant.hasRing(ILTERENDI_ITEM_ID);
     const ilterendiHealingPercentage = parser.modules.ilterendi.healing / parser.totalHealing;
+    const sacredDawnPercentage = parser.modules.sacredDawn.healing / parser.totalHealing;
+    const hasSacredDawn = sacredDawnPercentage > 0; // TODO: Implement trait detection
     const hasRuleOfLaw = parser.selectedCombatant && parser.selectedCombatant.lv30Talent === RULE_OF_LAW_SPELL_ID;
 
     if (nonHealingTimePercentage > 0.3) {
@@ -293,7 +295,6 @@ class Results extends React.Component {
     }
 
     const castEfficiency = this.getCastEfficiency(parser);
-
 
     return (
       <div style={{ width: '100%' }}>
@@ -448,6 +449,26 @@ class Results extends React.Component {
                   )}
                 />
               </div>
+              {hasSacredDawn && (
+                <div className="col-lg-4 col-sm-6 col-xs-12">
+                  <StatisticBox
+                    icon={(
+                      <a href="http://www.wowhead.com/spell=238132" target="_blank">
+                        <img
+                          src="./img/icons/spell_paladin_lightofdawn.jpg"
+                          alt="Sacred Dawn"
+                        />
+                      </a>
+                    )}
+                    value={`${this.constructor.formatPercentage(sacredDawnPercentage)} %`}
+                    label={(
+                      <dfn data-tip={`The actual effective healing contributed by the Sacred Dawn effect.`}>
+                        Sacred Dawn contribution
+                      </dfn>
+                    )}
+                  />
+                </div>
+              )}
             </div>
           </div>
           <div className="col-md-4">

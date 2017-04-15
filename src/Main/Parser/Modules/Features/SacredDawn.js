@@ -1,18 +1,19 @@
 import Module from 'Main/Parser/Module';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from 'Main/Parser/Constants';
 
-export const ILTERENDI_ITEM_ID = 137046;
-const LEGENDARY_ILTERENDI_BUFF_SPELL_ID = 207589;
-const LEGENDARY_ILTERENDI_HEALING_INCREASE = 0.15;
+export const SACRED_DAWN_TRAIT_ID = 238132;
+const SACRED_DAWN_BUFF_SPELL_ID = 243174;
+const SACRED_DAWN_HEALING_INCREASE = 0.1;
 
-class Ilterendi extends Module {
+class SacredDawn extends Module {
   healing = 0;
+
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
     if (ABILITIES_AFFECTED_BY_HEALING_INCREASES.indexOf(spellId) === -1) {
       return;
     }
-    if (!this.owner.modules.buffs.hasBuff(LEGENDARY_ILTERENDI_BUFF_SPELL_ID)) {
+    if (!this.owner.modules.buffs.hasBuff(SACRED_DAWN_BUFF_SPELL_ID)) {
       return;
     }
 
@@ -20,7 +21,7 @@ class Ilterendi extends Module {
     const absorbed = event.absorbed || 0;
     const overheal = event.overheal || 0;
     const raw = amount + absorbed + overheal;
-    const healingIncreaseFactor = 1 + LEGENDARY_ILTERENDI_HEALING_INCREASE;
+    const healingIncreaseFactor = 1 + SACRED_DAWN_HEALING_INCREASE;
     const healingIncrease = raw - raw / healingIncreaseFactor;
 
     const effectiveHealing = Math.max(0, healingIncrease - overheal);
@@ -29,4 +30,4 @@ class Ilterendi extends Module {
   }
 }
 
-export default Ilterendi;
+export default SacredDawn;
