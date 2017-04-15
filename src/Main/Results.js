@@ -283,7 +283,7 @@ class Results extends React.Component {
       this.issues.push(`Your <a href="http://www.wowhead.com/spell=214202" target="_blank">Rule of Law</a> uptime can be improved. Try keeping at least 1 charge on cooldown; you should (almost) never be at max charges (${Math.round(ruleOfLawUptime * 100)}% uptime).`);
     }
     if (iolFoLToHLCastRatio < 0.6) {
-      this.issues.push(`Your <i>IoL FoL to HL cast ratio</i> can likely be improved. When you get an <a href="http://www.wowhead.com/spell=53576" target="_blank">Infusion of Light</a> proc try to cast Flash of Light as much as possible, it is a considerably stronger heal (${Math.round(iolFoLToHLCastRatio * 100)}% Flash of Lights to Holy Lighs cast with Infusion of Light).`);
+      this.issues.push(`Your <i>IoL FoL to HL cast ratio</i> can likely be improved. When you get an <a href="http://www.wowhead.com/spell=53576" target="_blank">Infusion of Light</a> proc try to cast Flash of Light as much as possible, it is a considerably stronger heal (${iolFlashOfLights} Flash of Lights (${Math.round(iolFoLToHLCastRatio * 100)}%) to ${iolHolyLights} Holy Lights (${Math.round(100 - iolFoLToHLCastRatio * 100)}%) cast with Infusion of Light).`);
     }
     if (unusedIolRate > 0.3) {
       this.issues.push(`Your usage of <a href="http://www.wowhead.com/spell=53576" target="_blank">Infusion of Light</a> procs can be improved. Try to use your Infusion of Light procs whenever it wouldn't overheal (${Math.round(unusedIolRate * 100)}% unused Infusion of Lights).`);
