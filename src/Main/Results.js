@@ -275,8 +275,8 @@ class Results extends React.Component {
     if (deadTimePercentage > 0.2) {
       this.issues.push(`Your dead GCD time can be improved. Try to Always Be Casting (ABC); when you're not healing try to contribute some damage (${Math.round(deadTimePercentage * 100)}% dead GCD time).`);
     }
-    if (totalHealsOnBeaconPercentage > 0.2) {
-      this.issues.push(`Try to avoid directly healing your tanks; it is ineffecient and beacon transfers are usually enough (${Math.round(totalHealsOnBeaconPercentage * 100)}% of all your heals were on a beacon).`);
+    if (totalHealsOnBeaconPercentage > 0.25) {
+      this.issues.push(`Try to avoid directly healing your beacon targets; it is ineffecient and the healing from beacon transfers are usually enough (${Math.round(totalHealsOnBeaconPercentage * 100)}% of all your heals were on a beacon).`);
     }
     if (totalMasteryEffectiveness < 0.7) {
       this.issues.push(`Your Mastery Effectiveness can be improved. Try to improve your positioning, usually by sticking with melee (${Math.round(totalMasteryEffectiveness * 100)}% mastery effectiveness).`);
