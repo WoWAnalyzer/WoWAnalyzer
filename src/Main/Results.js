@@ -453,44 +453,44 @@ class Results extends React.Component {
                   )}
                 />
               </div>
-              <div className="col-lg-4 col-sm-6 col-xs-12">
-                <StatisticBox
-                  icon={(
-                    <a href="http://www.wowhead.com/spell=200652" target="_blank">
-                      <img
-                        src="./img/icons/inv_mace_2h_artifactsilverhand_d_01.jpg"
-                        alt="Tyr's Deliverance"
-                      />
-                    </a>
-                  )}
-                  value={`${this.constructor.formatPercentage(tyrsDeliverancePercentage)} %`}
-                  label={(
-                    <dfn data-tip={`The total actual effective healing contributed by Tyr's Deliverance. This includes the gained from the increase to healing by Flash of Light and Holy Light.<br /><br />The actual healing done by the effect was ${this.constructor.formatPercentage(tyrsDeliveranceHealHealingPercentage)}% of your healing done, and the healing contribution from the Flash of Light and Holy Light heal increase was ${this.constructor.formatPercentage(tyrsDeliveranceBuffFoLHLHealingPercentage)}% of your healing done.`}>
-                      Tyr's Deliverance healing
-                    </dfn>
-                  )}
-                />
-              </div>
-              {hasSacredDawn && (
-                <div className="col-lg-4 col-sm-6 col-xs-12">
-                  <StatisticBox
-                    icon={(
-                      <a href="http://www.wowhead.com/spell=238132" target="_blank">
-                        <img
-                          src="./img/icons/spell_paladin_lightofdawn.jpg"
-                          alt="Sacred Dawn"
-                        />
-                      </a>
-                    )}
-                    value={`${this.constructor.formatPercentage(sacredDawnPercentage)} %`}
-                    label={(
-                      <dfn data-tip={`The actual effective healing contributed by the Sacred Dawn effect.`}>
-                        Sacred Dawn contribution
-                      </dfn>
-                    )}
-                  />
-                </div>
-              )}
+              {/*<div className="col-lg-4 col-sm-6 col-xs-12">*/}
+                {/*<StatisticBox*/}
+                  {/*icon={(*/}
+                    {/*<a href="http://www.wowhead.com/spell=200652" target="_blank">*/}
+                      {/*<img*/}
+                        {/*src="./img/icons/inv_mace_2h_artifactsilverhand_d_01.jpg"*/}
+                        {/*alt="Tyr's Deliverance"*/}
+                      {/*/>*/}
+                    {/*</a>*/}
+                  {/*)}*/}
+                  {/*value={`${this.constructor.formatPercentage(tyrsDeliverancePercentage)} %`}*/}
+                  {/*label={(*/}
+                    {/*<dfn data-tip={`The total actual effective healing contributed by Tyr's Deliverance. This includes the gained from the increase to healing by Flash of Light and Holy Light.<br /><br />The actual healing done by the effect was ${this.constructor.formatPercentage(tyrsDeliveranceHealHealingPercentage)}% of your healing done, and the healing contribution from the Flash of Light and Holy Light heal increase was ${this.constructor.formatPercentage(tyrsDeliveranceBuffFoLHLHealingPercentage)}% of your healing done.`}>*/}
+                      {/*Tyr's Deliverance healing*/}
+                    {/*</dfn>*/}
+                  {/*)}*/}
+                {/*/>*/}
+              {/*</div>*/}
+              {/*{hasSacredDawn && (*/}
+                {/*<div className="col-lg-4 col-sm-6 col-xs-12">*/}
+                  {/*<StatisticBox*/}
+                    {/*icon={(*/}
+                      {/*<a href="http://www.wowhead.com/spell=238132" target="_blank">*/}
+                        {/*<img*/}
+                          {/*src="./img/icons/spell_paladin_lightofdawn.jpg"*/}
+                          {/*alt="Sacred Dawn"*/}
+                        {/*/>*/}
+                      {/*</a>*/}
+                    {/*)}*/}
+                    {/*value={`${this.constructor.formatPercentage(sacredDawnPercentage)} %`}*/}
+                    {/*label={(*/}
+                      {/*<dfn data-tip={`The actual effective healing contributed by the Sacred Dawn effect.`}>*/}
+                        {/*Sacred Dawn contribution*/}
+                      {/*</dfn>*/}
+                    {/*)}*/}
+                  {/*/>*/}
+                {/*</div>*/}
+              {/*)}*/}
             </div>
           </div>
           <div className="col-md-4">
