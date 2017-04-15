@@ -29,6 +29,8 @@ class TyrsDeliverance extends Module {
         if (!this.owner.modules.buffs.hasBuff(TYRS_DELIVERANCE_BUFF_SPELL_ID)) {
           break;
         }
+        // TODO: Look for buff on `event.targetID` instead of player
+        // TODO: Include beacon transfer
         const totalHealingIncrease = TYRS_DELIVERANCE_BASE_HEALING_INCREASE + this.tyrsMunificenceTraits * TYRS_MUNIFICENCE_POINT_HEALING_INCREASE;
 
         const amount = event.amount;

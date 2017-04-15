@@ -5,13 +5,10 @@ const OBSIDIAN_STONE_SPAULDERS_HEAL_SPELL_ID = 210999;
 
 class ObsidianStoneSpaulders extends Module {
   healing = 0;
-
-  on_heal(event) {
-    if (this.owner.byPlayer(event)) {
-      const spellId = event.ability.guid;
-      if (spellId === OBSIDIAN_STONE_SPAULDERS_HEAL_SPELL_ID) {
-        this.healing += event.amount;
-      }
+  on_byPlayer_heal(event) {
+    const spellId = event.ability.guid;
+    if (spellId === OBSIDIAN_STONE_SPAULDERS_HEAL_SPELL_ID) {
+      this.healing += event.amount;
     }
   }
 }

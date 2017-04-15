@@ -36,6 +36,8 @@ class ChainOfThrayn extends Module {
 
     this.healing += effectiveHealing;
   }
+
+  // Beacon transfer is included in `ABILITIES_AFFECTED_BY_HEALING_INCREASES`
 }
 
 export default ChainOfThrayn;

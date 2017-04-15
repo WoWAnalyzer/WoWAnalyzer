@@ -7,15 +7,7 @@ export const DRAPE_OF_SHAME_CRIT_EFFECT = 0.05;
 class DrapeOfShame extends Module {
   healing = 0;
 
-  on_heal(event) {
-    if (this.owner.byPlayer(event)) {
-      this.processForDrapeOfShameHealing(event);
-    }
-  }
-  on_beacon_heal({ beaconTransferEvent, matchedHeal }) {
-    this.processBeaconHealingForDrapeOfShameHealing(beaconTransferEvent, matchedHeal);
-  }
-  processForDrapeOfShameHealing(event) {
+  on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
     if (ABILITIES_AFFECTED_BY_HEALING_INCREASES.indexOf(spellId) === -1 || spellId === BEACON_TRANSFER_SPELL_ID) {
       return;
@@ -35,7 +27,7 @@ class DrapeOfShame extends Module {
 
     this.healing += effectiveHealing;
   }
-  processBeaconHealingForDrapeOfShameHealing(beaconTransferEvent, healEvent) {
+  on_beacon_heal({ beaconTransferEvent, matchedHeal: healEvent }) {
     const spellId = healEvent.ability.guid;
     if (ABILITIES_AFFECTED_BY_HEALING_INCREASES.indexOf(spellId) === -1 || spellId === BEACON_TRANSFER_SPELL_ID) {
       return;

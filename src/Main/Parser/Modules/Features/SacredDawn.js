@@ -13,9 +13,10 @@ class SacredDawn extends Module {
     if (ABILITIES_AFFECTED_BY_HEALING_INCREASES.indexOf(spellId) === -1) {
       return;
     }
-    if (!this.owner.modules.buffs.hasBuff(SACRED_DAWN_BUFF_SPELL_ID)) {
+    if (!this.owner.buffs.hasBuff(SACRED_DAWN_BUFF_SPELL_ID)) {
       return;
     }
+    // TODO: Look for buff on `event.targetID` instead of player
 
     const amount = event.amount;
     const absorbed = event.absorbed || 0;
@@ -28,6 +29,8 @@ class SacredDawn extends Module {
 
     this.healing += effectiveHealing;
   }
+
+  // Beacon transfer is included in `ABILITIES_AFFECTED_BY_HEALING_INCREASES`
 }
 
 export default SacredDawn;

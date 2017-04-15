@@ -5,13 +5,10 @@ const PRYDAZ_HEAL_SPELL_ID = 207472;
 
 class Prydaz extends Module {
   healing = 0;
-
-  on_absorbed(event) {
-    if (this.owner.byPlayer(event)) {
-      const spellId = event.ability.guid;
-      if (spellId === PRYDAZ_HEAL_SPELL_ID) {
-        this.healing += event.amount;
-      }
+  on_byPlayer_absorbed(event) {
+    const spellId = event.ability.guid;
+    if (spellId === PRYDAZ_HEAL_SPELL_ID) {
+      this.healing += event.amount;
     }
   }
 }

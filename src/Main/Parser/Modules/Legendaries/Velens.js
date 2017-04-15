@@ -8,13 +8,7 @@ const LEGENDARY_VELENS_HEALING_INCREASE = 0.15;
 
 class Velens extends Module {
   healing = 0;
-
-  on_heal(event) {
-    if (this.owner.byPlayer(event)) {
-      this.processForVelensHealing(event);
-    }
-  }
-  processForVelensHealing(event) {
+  on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
     if (ABILITIES_AFFECTED_BY_HEALING_INCREASES.indexOf(spellId) === -1 && spellId !== LEGENDARY_VELENS_HEAL_SPELL_ID) {
       return;
@@ -41,6 +35,8 @@ class Velens extends Module {
 
     this.healing += effectiveHealing;
   }
+
+  // Beacon transfer is included in `ABILITIES_AFFECTED_BY_HEALING_INCREASES`
 }
 
 export default Velens;

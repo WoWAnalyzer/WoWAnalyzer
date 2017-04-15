@@ -10,23 +10,20 @@ class MaraadsDyingBreath extends Module {
 
   _lastHeal = null;
 
-  on_heal(event) {
-    if (this.owner.byPlayer(event)) {
-      const spellId = event.ability.guid;
-      if (spellId !== LIGHT_OF_THE_MARTYR_SPELL_ID) {
-        return;
-      }
-      if (!this.owner.modules.buffs.hasBuff(MARAADS_HEALING_BUFF_ID)) {
-        return;
-      }
-
-      this._lastHeal = event;
+  on_byPlayer_heal(event) {
+    const spellId = event.ability.guid;
+    if (spellId !== LIGHT_OF_THE_MARTYR_SPELL_ID) {
+      return;
     }
+    if (!this.owner.modules.buffs.hasBuff(MARAADS_HEALING_BUFF_ID)) {
+      return;
+    }
+
+    this._lastHeal = event;
   }
-  on_removebuff(event) {
+  on_toPlayer_removebuff(event) {
     const buffId = event.ability.guid;
     if (buffId !== MARAADS_HEALING_BUFF_ID) return;
-    if (!this.owner.toPlayer(event)) return;
     if (!this._lastHeal) return;
 
     // In the case of Maraad's Dying Breath each LotM can consumes the stacks of the buff remaining. So this event is only called once per buffed LotM. When the buff is removed it first calls a `removebuffstack` that removes all additional stacks from the buff before it calls a `removebuff`, `removebuffstack` is the only way we can find the amount of stacks it had.
