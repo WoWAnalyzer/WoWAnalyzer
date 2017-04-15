@@ -4,8 +4,16 @@ import { Link } from 'react-router';
 import StatisticBox from './StatisticBox';
 import PlayerBreakdown from './PlayerBreakdown';
 import CastEfficiency from './CastEfficiency';
+import Talents from './Talents';
 
-import { RULE_OF_LAW_SPELL_ID, T19_4SET_BONUS_BUFF_ID, FLASH_OF_LIGHT_SPELL_ID, HOLY_LIGHT_SPELL_ID, HOLY_SHOCK_HEAL_SPELL_ID, BEACON_TYPES } from './Parser/Constants';
+import {
+  RULE_OF_LAW_SPELL_ID,
+  T19_4SET_BONUS_BUFF_ID,
+  FLASH_OF_LIGHT_SPELL_ID,
+  HOLY_LIGHT_SPELL_ID,
+  HOLY_SHOCK_HEAL_SPELL_ID,
+  BEACON_TYPES
+} from './Parser/Constants';
 import { DRAPE_OF_SHAME_ITEM_ID } from './Parser/Modules/Legendaries/DrapeOfShame';
 import { ILTERENDI_ITEM_ID } from './Parser/Modules/Legendaries/Ilterendi';
 import { VELENS_ITEM_ID } from './Parser/Modules/Legendaries/Velens';
@@ -14,19 +22,24 @@ import { PRYDAZ_ITEM_ID } from './Parser/Modules/Legendaries/Prydaz';
 import { OBSIDIAN_STONE_SPAULDERS_ITEM_ID } from './Parser/Modules/Legendaries/ObsidianStoneSpaulders';
 import { MARAADS_DYING_BREATH_ITEM_ID } from './Parser/Modules/Legendaries/MaraadsDyingBreath';
 
-import { CPM_ABILITIES, SPELL_CATEGORY } from './CastEfficiency';
+import { CPM_ABILITIES } from './CastEfficiency';
 
 function getBeaconIcon(spellId) {
   switch (spellId) {
-    case BEACON_TYPES.BEACON_OF_FATH: return 'beaconOfFaith';
-    case BEACON_TYPES.BEACON_OF_THE_LIGHTBRINGER: return 'beaconOfTheLightbringer';
-    case BEACON_TYPES.BEACON_OF_VIRTUE: return 'beaconOfVirtue';
-    default: return '';
+    case BEACON_TYPES.BEACON_OF_FATH:
+      return 'beaconOfFaith';
+    case BEACON_TYPES.BEACON_OF_THE_LIGHTBRINGER:
+      return 'beaconOfTheLightbringer';
+    case BEACON_TYPES.BEACON_OF_VIRTUE:
+      return 'beaconOfVirtue';
+    default:
+      return '';
   }
 }
 
 const TABS = {
   ISSUES: 'ISSUES',
+  TALENTS: 'TALENTS',
   CAST_EFFICIENCY: 'CAST_EFFICIENCY',
   PLAYER_BREAKDOWN: 'PLAYER_BREAKDOWN',
 };
@@ -75,6 +88,7 @@ class Results extends React.Component {
   }
 
   issues = [];
+
   constructor() {
     super();
     this.state = {
@@ -123,6 +137,7 @@ class Results extends React.Component {
   static formatPercentage(percentage) {
     return (Math.round((percentage || 0) * 10000) / 100).toFixed(2);
   }
+
   get iolProcsPerHolyShockCrit() {
     return this.props.parser.buffs.hasBuff(T19_4SET_BONUS_BUFF_ID) ? 2 : 1;
   }
@@ -153,7 +168,7 @@ class Results extends React.Component {
         if (ability.hideWithZeroCasts && casts === 0) {
           return null;
         }
-        const cpm = casts/minutes;
+        const cpm = casts / minutes;
 
         const cooldown = ability.getCooldown(hastePercentage);
         // By dividing the fight duration by the cooldown we get the max amount of casts during this particular fight, we round this up because you would be able to cast once at the start of the fight and once at the end since abilities always start off cooldown (e.g. fight is 100 seconds long, you could cast 2 Holy Avengers with a 90 sec cooldown). Good players should be able to reasonably predict this and maximize their casts.
@@ -179,6 +194,7 @@ class Results extends React.Component {
       })
       .filter(item => item !== null);
   }
+
   getTotalHealsOnBeaconPercentage(parser) {
     const castCounter = parser.modules.castCounter;
     const getCastCount = spellId => castCounter.casts[spellId] || {};
@@ -443,144 +459,192 @@ class Results extends React.Component {
                       const items = [
                         parser.selectedCombatant.hasBack(DRAPE_OF_SHAME_ITEM_ID) && (
                           <li className="item clearfix" key={DRAPE_OF_SHAME_ITEM_ID}>
-                            <a href="http://www.wowhead.com/item=142170" target="_blank">
-                              <img
-                                src="./drapeofshame.jpg"
-                                alt="Drape of Shame"
-                              />
-                              <header className="epic">
-                                Drape of Shame
-                              </header>
-                            </a>
-                            <main>
-                              <dfn data-tip="The actual effective healing contributed by the Drape of Shame equip effect.">
-                                {`${((Math.round(parser.modules.drapeOfShame.healing / parser.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
-                              </dfn>
-                            </main>
+                            <article>
+                              <figure>
+                                <img
+                                  src="./drapeofshame.jpg"
+                                  alt="Drape of Shame"
+                                />
+                              </figure>
+                              <div>
+                                <header>
+                                  <a href="http://www.wowhead.com/item=142170" target="_blank" className="epic">
+                                    Drape of Shame
+                                  </a>
+                                </header>
+                                <main>
+                                  <dfn data-tip="The actual effective healing contributed by the Drape of Shame equip effect.">
+                                    {`${((Math.round(parser.modules.drapeOfShame.healing / parser.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
+                                  </dfn>
+                                </main>
+                              </div>
+                            </article>
                           </li>
                         ),
                         hasIlterendi && (
                           <li className="item clearfix" key={ILTERENDI_ITEM_ID}>
-                            <a href="http://www.wowhead.com/item=137046" target="_blank">
-                              <img
-                                src="./ilterendi.jpg"
-                                alt="Ilterendi, Crown Jewel of Silvermoon"
-                              />
-                              <header className="legendary">
-                                Ilterendi, Crown Jewel of Silvermoon
-                              </header>
-                            </a>
-                            <main>
-                              <dfn data-tip="The actual effective healing contributed by the Ilterendi, Crown Jewel of Silvermoon equip effect.">
-                                {`${((ilterendiHealingPercentage * 100) || 0).toFixed(2)} %`}
-                              </dfn>
-                            </main>
+                            <article>
+                              <figure>
+                                <img
+                                  src="./ilterendi.jpg"
+                                  alt="Ilterendi, Crown Jewel of Silvermoon"
+                                />
+                              </figure>
+                              <div>
+                                <header>
+                                  <a href="http://www.wowhead.com/item=137046" target="_blank" className="legendary">
+                                    Ilterendi, Crown Jewel of Silvermoon
+                                  </a>
+                                </header>
+                                <main>
+                                  <dfn data-tip="The actual effective healing contributed by the Ilterendi, Crown Jewel of Silvermoon equip effect.">
+                                    {`${((ilterendiHealingPercentage * 100) || 0).toFixed(2)} %`}
+                                  </dfn>
+                                </main>
+                              </div>
+                            </article>
                           </li>
                         ),
                         parser.selectedCombatant.hasTrinket(VELENS_ITEM_ID) && (
                           <li className="item clearfix" key={VELENS_ITEM_ID}>
-                            <a href="http://www.wowhead.com/item=144258" target="_blank">
-                              <img
-                                src="./velens.jpg"
-                                alt="Velen's Future Sight"
-                              />
-                              <header className="legendary">
-                                Velen's Future Sight
-                              </header>
-                            </a>
-                            <main>
-                              <dfn data-tip="The actual effective healing contributed by the Velen's Future Sight use effect.">
-                                {`${((Math.round(parser.modules.velens.healing / parser.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
-                              </dfn>
-                            </main>
+                            <article>
+                              <figure>
+                                <img
+                                  src="./velens.jpg"
+                                  alt="Velen's Future Sight"
+                                />
+                              </figure>
+                              <div>
+                                <header>
+                                  <a href="http://www.wowhead.com/item=144258" target="_blank" className="legendary">
+                                    Velen's Future Sight
+                                  </a>
+                                </header>
+                                <main>
+                                  <dfn data-tip="The actual effective healing contributed by the Velen's Future Sight use effect.">
+                                    {`${((Math.round(parser.modules.velens.healing / parser.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
+                                  </dfn>
+                                </main>
+                              </div>
+                            </article>
                           </li>
                         ),
                         parser.selectedCombatant.hasWaist(CHAIN_OF_THRAYN_ITEM_ID) && (
                           <li className="item clearfix" key={CHAIN_OF_THRAYN_ITEM_ID}>
-                            <a href="http://www.wowhead.com/item=137086" target="_blank">
-                              <img
-                                src="./chainOfThrayn.jpg"
-                                alt="Chain of Thrayn"
-                              />
-                              <header className="legendary">
-                                Chain of Thrayn
-                              </header>
-                            </a>
-                            <main>
-                              <dfn data-tip="The actual effective healing contributed by the Chain of Thrayn equip effect.">
-                                {`${((Math.round(parser.modules.chainOfThrayn.healing / parser.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
-                              </dfn>
-                            </main>
+                            <article>
+                              <figure>
+                                <img
+                                  src="./chainOfThrayn.jpg"
+                                  alt="Chain of Thrayn"
+                                />
+                              </figure>
+                              <div>
+                                <header>
+                                  <a href="http://www.wowhead.com/item=137086" target="_blank" className="legendary">
+                                    Chain of Thrayn
+                                  </a>
+                                </header>
+                                <main>
+                                  <dfn data-tip="The actual effective healing contributed by the Chain of Thrayn equip effect.">
+                                    {`${((Math.round(parser.modules.chainOfThrayn.healing / parser.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
+                                  </dfn>
+                                </main>
+                              </div>
+                            </article>
                           </li>
                         ),
                         parser.selectedCombatant.hasNeck(PRYDAZ_ITEM_ID) && (
                           <li className="item clearfix" key={PRYDAZ_ITEM_ID}>
-                            <a href="http://www.wowhead.com/item=132444/prydaz-xavarics-magnum-opus" target="_blank">
-                              <img
-                                src="./prydaz.jpg"
-                                alt="Prydaz, Xavaric's Magnum Opus"
-                              />
-                              <header className="legendary">
-                                Prydaz, Xavaric's Magnum Opus
-                              </header>
-                            </a>
-                            <main>
-                              <dfn data-tip="The actual effective healing contributed by the Prydaz, Xavaric's Magnum Opus equip effect.">
-                                {`${((Math.round(parser.modules.prydaz.healing / parser.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
-                              </dfn>
-                            </main>
+                            <article>
+                              <figure>
+                                <img
+                                  src="./prydaz.jpg"
+                                  alt="Prydaz, Xavaric's Magnum Opus"
+                                />
+                              </figure>
+                              <div>
+                                <header>
+                                  <a href="http://www.wowhead.com/item=132444/prydaz-xavarics-magnum-opus" target="_blank" className="legendary">
+                                    Prydaz, Xavaric's Magnum Opus
+                                  </a>
+                                </header>
+                                <main>
+                                  <dfn data-tip="The actual effective healing contributed by the Prydaz, Xavaric's Magnum Opus equip effect.">
+                                    {`${((Math.round(parser.modules.prydaz.healing / parser.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
+                                  </dfn>
+                                </main>
+                              </div>
+                            </article>
                           </li>
                         ),
                         parser.selectedCombatant.hasShoulder(OBSIDIAN_STONE_SPAULDERS_ITEM_ID) && (
                           <li className="item clearfix" key={OBSIDIAN_STONE_SPAULDERS_ITEM_ID}>
-                            <a href="http://www.wowhead.com/item=137076/obsidian-stone-spaulders" target="_blank">
-                              <img
-                                src="./obsidianstonespaulders.jpg"
-                                alt="Obsidian Stone Spaulders"
-                              />
-                              <header className="legendary">
-                                Obsidian Stone Spaulders
-                              </header>
-                            </a>
-                            <main>
-                              <dfn data-tip="The actual effective healing contributed by the Obsidian Stone Spaulders equip effect.">
-                                {`${((Math.round(parser.modules.obsidianStoneSpaulders.healing / parser.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
-                              </dfn>
-                            </main>
+                            <article>
+                              <figure>
+                                <img
+                                  src="./obsidianstonespaulders.jpg"
+                                  alt="Obsidian Stone Spaulders"
+                                />
+                              </figure>
+                              <div>
+                                <header>
+                                  <a href="http://www.wowhead.com/item=137076/obsidian-stone-spaulders" target="_blank" className="legendary">
+                                    Obsidian Stone Spaulders
+                                  </a>
+                                </header>
+                                <main>
+                                  <dfn data-tip="The actual effective healing contributed by the Obsidian Stone Spaulders equip effect.">
+                                    {`${((Math.round(parser.modules.obsidianStoneSpaulders.healing / parser.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
+                                  </dfn>
+                                </main>
+                              </div>
+                            </article>
                           </li>
                         ),
                         parser.selectedCombatant.hasBack(MARAADS_DYING_BREATH_ITEM_ID) && (
                           <li className="item clearfix" key={MARAADS_DYING_BREATH_ITEM_ID}>
-                            <a href="http://www.wowhead.com/item=144273/maraads-dying-breath" target="_blank">
-                              <img
-                                src="./maraadsdyingbreath.jpg"
-                                alt="Maraad's Dying Breath"
-                              />
-                              <header className="legendary">
-                                Maraad's Dying Breath
-                              </header>
-                            </a>
-                            <main>
-                              <dfn data-tip="The actual effective healing contributed by the Maraad's Dying Breath equip effect when compared to casting an unbuffed LotM instead. The damage taken is ignored as this doesn't change with Maraad's and therefore doesn't impact the healing gain.">
-                                {`${((Math.round(parser.modules.maraadsDyingBreath.healing / parser.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
-                              </dfn>
-                            </main>
+                            <article>
+                              <figure>
+                                <img
+                                  src="./maraadsdyingbreath.jpg"
+                                  alt="Maraad's Dying Breath"
+                                />
+                              </figure>
+                              <div>
+                                <header>
+                                  <a href="http://www.wowhead.com/item=144273/maraads-dying-breath" target="_blank" className="legendary">
+                                    Maraad's Dying Breath
+                                  </a>
+                                </header>
+                                <main>
+                                  <dfn data-tip="The actual effective healing contributed by the Maraad's Dying Breath equip effect when compared to casting an unbuffed LotM instead. The damage taken is ignored as this doesn't change with Maraad's and therefore doesn't impact the healing gain.">
+                                    {`${((Math.round(parser.modules.maraadsDyingBreath.healing / parser.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
+                                  </dfn>
+                                </main>
+                              </div>
+                            </article>
                           </li>
                         ),
                         parser.modules.buffs.hasBuff(T19_4SET_BONUS_BUFF_ID) && (
                           <li className="item clearfix" key={T19_4SET_BONUS_BUFF_ID}>
-                            <a href="http://www.wowhead.com/spell=211438/item-paladin-t19-holy-4p-bonus" target="_blank">
-                              <img
-                                src="./infusionoflight.jpg"
-                                alt="Infusion of Light"
-                              />
-                              <header>
-                                T19 4 set bonus
-                              </header>
-                            </a>
-                            <main>
-                              {holyShockCrits * (iolProcsPerHolyShockCrit - 1)} bonus Infusion of Light charges gained
-                            </main>
+                            <article>
+                              <figure>
+                                <img
+                                  src="./infusionoflight.jpg"
+                                  alt="Infusion of Light"
+                                />
+                              </figure>
+                              <div>
+                                <header>
+                                  <a href="http://www.wowhead.com/spell=211438/item-paladin-t19-holy-4p-bonus" target="_blank">
+                                    T19 4 set bonus
+                                  </a>
+                                </header>
+                                <main>
+                                  {holyShockCrits * (iolProcsPerHolyShockCrit - 1)} bonus Infusion of Light charges gained
+                                </main>
+                              </div>
+                            </article>
                           </li>
                         ),
                       ];
@@ -617,6 +681,12 @@ class Results extends React.Component {
                     Suggestions <span className="badge">{this.issues.length}</span>
                   </li>
                   <li
+                    className={this.state.activeTab === TABS.TALENTS ? 'active' : ''}
+                    onClick={() => this.setState({ activeTab: TABS.TALENTS })}
+                  >
+                    Talents
+                  </li>
+                  <li
                     className={this.state.activeTab === TABS.CAST_EFFICIENCY ? 'active' : ''}
                     onClick={() => this.setState({ activeTab: TABS.CAST_EFFICIENCY })}
                   >
@@ -643,9 +713,22 @@ class Results extends React.Component {
                         <li className="item" style={{ padding: '10px 22px' }} dangerouslySetInnerHTML={{ __html: issue }} />
                       ))}
                       <li className="text-muted" style={{ paddingTop: 10, paddingBottom: 10 }}>
-                        Some of these suggestions may be nitpicky or fight dependent but often it's still something you could look to improve. You will have to figure out yourself what you should focus on improving <b>first</b>, don't try to improve everything at once.
+                        Some of these suggestions may be nitpicky or fight dependent but often it's still something you could look to improve. You will have to figure out yourself what you should focus on improving
+                        <b>first</b>, don't try to improve everything at once.
                       </li>
                     </ul>
+                  </div>
+                </div>
+              )}
+              {this.state.activeTab === TABS.TALENTS && (
+                <div>
+                  <div className="panel-heading">
+                    <h2>Talents</h2>
+                  </div>
+                  <div style={{ padding: '10px 0' }}>
+                    <Talents
+                      combatant={parser.selectedCombatant}
+                    />
                   </div>
                 </div>
               )}

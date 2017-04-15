@@ -45,7 +45,7 @@ class FightSelecter extends Component {
             <h2>Select the fight to parse</h2>
           </div>
           <div className="panel-body" style={{ padding: 0 }}>
-            <ul className="list">
+            <ul className="list selection">
               {
                 report.fights
                   .filter(fight => fight.boss !== 0)

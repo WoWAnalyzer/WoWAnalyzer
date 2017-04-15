@@ -40,7 +40,7 @@ class PlayerSelecter extends Component {
             <h2>Select the Paladin you wish to analyze</h2>
           </div>
           <div className="panel-body" style={{ padding: 0 }}>
-            <ul className="list">
+            <ul className="list selection">
               {
                 report.friendlies
                   .filter(friendly => friendly.type === PALADIN_TYPE)

@@ -217,7 +217,7 @@ h1 {
   border-top: 1px solid transparent;
   border-bottom: 1px solid transparent;
 }
-.list > li a {
+.list.selection > li a {
   display: block;
   padding: 10px 0;
 }
@@ -245,19 +245,28 @@ li.item {
   border-bottom: 1px solid rgba(0, 0, 0, .4);
   box-shadow: 0 1px 0 0 rgba(255, 255, 255, .1);
 }
-li.item img {
-  float: left;
+.item header {
+  margin-top: 18px;
+}
+.item main {
+  margin-bottom: 15px;
+}
+li.item > article {
+  display: flex;
+}
+li.item > article > figure {
+  flex: 0;
+  margin-right: 22px;
+  /* center the image */
+  display: flex;
+  align-items: center;
+}
+li.item > article > figure img {
   height: 60px;
   border-radius: 50%;
-  margin: 10px 22px 10px 0;
+  margin: 10px 0;
 }
-li.item a {
-  display: inline;
-  padding: 0;
-}
-.item header {
-  margin-top: 20px;
-}
+
 .panel-body > .navigation {
   border-right: 1px solid rgba(0,0,0,.12);
   box-shadow: 1px 0 0 0 rgba(255,255,255,.12);
