@@ -1,8 +1,8 @@
 import Module from 'Main/Parser/Module';
-import { ABILITIES_AFFECTED_BY_HEALING_INCREASES, BEACON_TRANSFER_SPELL_ID } from 'Main/Parser/Constants';
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES, BEACON_TRANSFER_SPELL_ID, LIGHT_OF_DAWN_HEAL_SPELL_ID } from 'Main/Parser/Constants';
 import calculateEffectiveHealing from 'Main/Parser/calculateEffectiveHealing';
 
-const debug = true;
+const debug = false;
 
 export const SACRED_DAWN_TRAIT_ID = 238132;
 const SACRED_DAWN_BUFF_SPELL_ID = 243174;
@@ -26,7 +26,7 @@ class SacredDawn extends Module {
       debug && console.log('Skipping event since combatant couldn\'t be found:', event);
       return;
     }
-    if (!combatant.hasBuff(SACRED_DAWN_BUFF_SPELL_ID)) {
+    if (!combatant.hasBuff(SACRED_DAWN_BUFF_SPELL_ID, 0, event.timestamp)) {
       return;
     }
 
@@ -43,7 +43,7 @@ class SacredDawn extends Module {
       debug && console.log('Skipping beacon heal event since combatant couldn\'t be found:', beaconTransferEvent, 'for heal:', healEvent);
       return;
     }
-    if (!combatant.hasBuff(SACRED_DAWN_BUFF_SPELL_ID)) {
+    if (!combatant.hasBuff(SACRED_DAWN_BUFF_SPELL_ID, 0, healEvent.timestamp)) {
       return;
     }
 

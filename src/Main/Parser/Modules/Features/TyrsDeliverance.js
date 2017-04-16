@@ -39,7 +39,7 @@ class TyrsDeliverance extends Module {
           debug && console.log('Skipping event since combatant couldn\'t be found:', event);
           return;
         }
-        if (!combatant.hasBuff(TYRS_DELIVERANCE_BUFF_SPELL_ID)) {
+        if (!combatant.hasBuff(TYRS_DELIVERANCE_BUFF_SPELL_ID, 0, event.timestamp)) {
           break;
         }
 
@@ -60,7 +60,7 @@ class TyrsDeliverance extends Module {
       debug && console.log('Skipping beacon heal event since combatant couldn\'t be found:', beaconTransferEvent, 'for heal:', healEvent);
       return;
     }
-    if (!combatant.hasBuff(TYRS_DELIVERANCE_BUFF_SPELL_ID)) {
+    if (!combatant.hasBuff(TYRS_DELIVERANCE_BUFF_SPELL_ID, 0, healEvent.timestamp)) {
       return;
     }
 

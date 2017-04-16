@@ -118,7 +118,7 @@ class MasteryEffectiveness extends Module {
       //   `playerMasteryPerc:${this.playerMasteryPerc}`, event);
 
       const distance = this.getDistanceForMastery(event);
-      const isRuleOfLawActive = this.owner.selectedCombatant.hasBuff(RULE_OF_LAW_SPELL_ID);
+      const isRuleOfLawActive = this.owner.selectedCombatant.hasBuff(RULE_OF_LAW_SPELL_ID, 0, event.timestamp);
       // We calculate the mastery effectiveness of this *one* heal
       const masteryEffectiveness = this.constructor.calculateMasteryEffectiveness(distance, isRuleOfLawActive);
 

@@ -13,7 +13,7 @@ class Ilterendi extends Module {
     if (ABILITIES_AFFECTED_BY_HEALING_INCREASES.indexOf(spellId) === -1) {
       return;
     }
-    if (!this.owner.selectedCombatant.hasBuff(LEGENDARY_ILTERENDI_BUFF_SPELL_ID)) {
+    if (!this.owner.selectedCombatant.hasBuff(LEGENDARY_ILTERENDI_BUFF_SPELL_ID, 0, event.timestamp)) {
       return;
     }
 

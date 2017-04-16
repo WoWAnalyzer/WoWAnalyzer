@@ -16,7 +16,7 @@ class MaraadsDyingBreath extends Module {
     if (spellId !== LIGHT_OF_THE_MARTYR_SPELL_ID) {
       return;
     }
-    if (!this.owner.selectedCombatant.hasBuff(MARAADS_HEALING_BUFF_ID)) {
+    if (!this.owner.selectedCombatant.hasBuff(MARAADS_HEALING_BUFF_ID, 0, event.timestamp)) {
       return;
     }
 
