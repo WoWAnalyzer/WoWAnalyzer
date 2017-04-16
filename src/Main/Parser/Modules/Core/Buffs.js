@@ -20,10 +20,11 @@ class Buffs extends Module {
   on_applybuff(event) {
     this.applyActiveBuff(event);
   }
-  on_refreshbuff(event) {
-    this.removeActiveBuff(event);
-    this.applyActiveBuff(event);
-  }
+  // We don't store/use durations, so refreshing buff is useless. Removing the buff actually interferes with the `minimalActiveTime` parameter of `getBuff`.
+  // on_refreshbuff(event) {
+  //   this.removeActiveBuff(event);
+  //   this.applyActiveBuff(event);
+  // }
   on_removebuff(event) {
     this.removeActiveBuff(event);
   }
