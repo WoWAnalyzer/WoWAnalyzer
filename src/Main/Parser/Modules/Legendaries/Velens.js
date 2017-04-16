@@ -27,7 +27,7 @@ class Velens extends Module {
 
     this.healing += calculateEffectiveHealing(event, LEGENDARY_VELENS_HEALING_INCREASE);
   }
-  
+
   // Beacon transfer is included in `ABILITIES_AFFECTED_BY_HEALING_INCREASES`
 }
 
