@@ -1,6 +1,8 @@
 import Module from 'Main/Parser/Module';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES, FLASH_OF_LIGHT_SPELL_ID, HOLY_LIGHT_SPELL_ID, TYRS_DELIVERANCE_HEAL_SPELL_ID } from 'Main/Parser/Constants';
 
+const debug = true;
+
 export const TYRS_MUNIFICENCE_TRAIT_ID = 238060;
 const TYRS_DELIVERANCE_BUFF_SPELL_ID = TYRS_DELIVERANCE_HEAL_SPELL_ID;
 const TYRS_DELIVERANCE_BASE_HEALING_INCREASE = 0.2;
@@ -26,10 +28,15 @@ class TyrsDeliverance extends Module {
         break;
       case FLASH_OF_LIGHT_SPELL_ID:
       case HOLY_LIGHT_SPELL_ID: {
-        if (!this.owner.selectedCombatant.hasBuff(TYRS_DELIVERANCE_BUFF_SPELL_ID)) {
+        const combatant = this.owner.combatants.players[event.targetID];
+        if (!combatant) {
+          // If combatant doesn't exist it's probably a pet.
+          debug && console.log('Skipping event since combatant couldn\'t be found:', event);
+          return;
+        }
+        if (!combatant.hasBuff(TYRS_DELIVERANCE_BUFF_SPELL_ID)) {
           break;
         }
-        // TODO: Look for buff on `event.targetID` instead of player
         // TODO: Include beacon transfer
         const totalHealingIncrease = TYRS_DELIVERANCE_BASE_HEALING_INCREASE + this.tyrsMunificenceTraits * TYRS_MUNIFICENCE_POINT_HEALING_INCREASE;
 

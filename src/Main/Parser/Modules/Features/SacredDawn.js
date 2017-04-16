@@ -1,6 +1,8 @@
 import Module from 'Main/Parser/Module';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from 'Main/Parser/Constants';
 
+const debug = true;
+
 export const SACRED_DAWN_TRAIT_ID = 238132;
 const SACRED_DAWN_BUFF_SPELL_ID = 243174;
 const SACRED_DAWN_HEALING_INCREASE = 0.1;
@@ -13,10 +15,15 @@ class SacredDawn extends Module {
     if (ABILITIES_AFFECTED_BY_HEALING_INCREASES.indexOf(spellId) === -1) {
       return;
     }
-    if (!this.owner.selectedCombatant.hasBuff(SACRED_DAWN_BUFF_SPELL_ID)) {
+    const combatant = this.owner.combatants.players[event.targetID];
+    if (!combatant) {
+      // If combatant doesn't exist it's probably a pet.
+      debug && console.log('Skipping event since combatant couldn\'t be found:', event);
       return;
     }
-    // TODO: Look for buff on `event.targetID` instead of player
+    if (!combatant.hasBuff(SACRED_DAWN_BUFF_SPELL_ID)) {
+      return;
+    }
 
     const amount = event.amount;
     const absorbed = event.absorbed || 0;
