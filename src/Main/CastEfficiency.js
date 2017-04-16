@@ -77,6 +77,7 @@ export const CPM_ABILITIES = [
     getCooldown: haste => 30,
     charges: 2,
     isActive: combatant => combatant.lv30Talent === RULE_OF_LAW_SPELL_ID,
+    noSuggestion: true,
   },
   {
     spellId: ARCANE_TORRENT_SPELL_ID,

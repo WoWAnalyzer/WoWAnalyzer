@@ -181,8 +181,8 @@ class Results extends React.Component {
 
         const canBeImproved = castEfficiency !== null && castEfficiency < (ability.recommendedCastEfficiency || 0.8);
 
-        if (canBeImproved) {
-          this.issues.push(`Try to cast <a href="http://www.wowhead.com/spell=${ability.spellId}" target="_blank">${ability.name}</a> more often (${casts}/${maxCasts} casts: ${Math.round(castEfficiency * 100)}% cast efficiency). ${ability.extraSuggestion || ''}`);
+        if (canBeImproved && !ability.noSuggestion) {
+          this.issues.push(`<img src="./img/icons/${ability.icon}.jpg" alt="${ability.name}" /> Try to cast <a href="http://www.wowhead.com/spell=${ability.spellId}" target="_blank">${ability.name}</a> more often (${casts}/${maxCasts} casts: ${Math.round(castEfficiency * 100)}% cast efficiency). ${ability.extraSuggestion || ''}`);
         }
 
         return {
@@ -291,28 +291,28 @@ class Results extends React.Component {
     const hasRuleOfLaw = parser.selectedCombatant.lv30Talent === RULE_OF_LAW_SPELL_ID;
 
     if (nonHealingTimePercentage > 0.3) {
-      this.issues.push(`Your non healing time can be improved. Try to cast heals more regularly (${Math.round(nonHealingTimePercentage * 100)}% non healing time).`);
+      this.issues.push(`<img src="./img/icons/petbattle_health-down.jpg" alt="Non healing time" /> Your non healing time can be improved. Try to cast heals more regularly (${Math.round(nonHealingTimePercentage * 100)}% non healing time).`);
     }
     if (deadTimePercentage > 0.2) {
-      this.issues.push(`Your dead GCD time can be improved. Try to Always Be Casting (ABC); when you're not healing try to contribute some damage (${Math.round(deadTimePercentage * 100)}% dead GCD time).`);
+      this.issues.push(`<img src="./img/icons/spell_mage_altertime.jpg" alt="Dead GCD time" /> Your dead GCD time can be improved. Try to Always Be Casting (ABC); when you're not healing try to contribute some damage (${Math.round(deadTimePercentage * 100)}% dead GCD time).`);
     }
     if (totalHealsOnBeaconPercentage > 0.25) {
-      this.issues.push(`Try to avoid directly healing your beacon targets; it is ineffecient and the healing from beacon transfers are usually enough (${Math.round(totalHealsOnBeaconPercentage * 100)}% of all your heals were on a beacon).`);
+      this.issues.push(`<img src="./img/icons/ability_paladin_beaconoflight.jpg" alt="Beacon healing" /> Try to avoid directly healing your beacon targets; it is ineffecient and the healing from beacon transfers are usually enough (${Math.round(totalHealsOnBeaconPercentage * 100)}% of all your heals were on a beacon).`);
     }
     if (totalMasteryEffectiveness < 0.7) {
-      this.issues.push(`Your Mastery Effectiveness can be improved. Try to improve your positioning, usually by sticking with melee (${Math.round(totalMasteryEffectiveness * 100)}% mastery effectiveness).`);
+      this.issues.push(`<img src="./img/icons/inv_hammer_04.jpg" alt="Mastery" /> Your Mastery Effectiveness can be improved. Try to improve your positioning, usually by sticking with melee (${Math.round(totalMasteryEffectiveness * 100)}% mastery effectiveness).`);
     }
     if (hasRuleOfLaw && ruleOfLawUptime < 0.25) {
-      this.issues.push(`Your <a href="http://www.wowhead.com/spell=214202" target="_blank">Rule of Law</a> uptime can be improved. Try keeping at least 1 charge on cooldown; you should (almost) never be at max charges (${Math.round(ruleOfLawUptime * 100)}% uptime).`);
+      this.issues.push(`<img src="./img/icons/ability_paladin_longarmofthelaw.jpg" alt="Rule of Law" /> Your <a href="http://www.wowhead.com/spell=214202" target="_blank">Rule of Law</a> uptime can be improved. Try keeping at least 1 charge on cooldown; you should (almost) never be at max charges (${(ruleOfLawUptime * 100).toFixed(2)}% uptime).`);
     }
     if (iolFoLToHLCastRatio < 0.6) {
-      this.issues.push(`Your <i>IoL FoL to HL cast ratio</i> can likely be improved. When you get an <a href="http://www.wowhead.com/spell=53576" target="_blank">Infusion of Light</a> proc try to cast Flash of Light as much as possible, it is a considerably stronger heal (${iolFlashOfLights} Flash of Lights (${Math.round(iolFoLToHLCastRatio * 100)}%) to ${iolHolyLights} Holy Lights (${Math.round(100 - iolFoLToHLCastRatio * 100)}%) cast with Infusion of Light).`);
+      this.issues.push(`<img src="./img/icons/spell_holy_flashheal.jpg" alt="Flash of Light" /> Your <i>IoL FoL to HL cast ratio</i> can likely be improved. When you get an <a href="http://www.wowhead.com/spell=53576" target="_blank">Infusion of Light</a> proc try to cast Flash of Light as much as possible, it is a considerably stronger heal (${iolFlashOfLights} Flash of Lights (${Math.round(iolFoLToHLCastRatio * 100)}%) to ${iolHolyLights} Holy Lights (${Math.round(100 - iolFoLToHLCastRatio * 100)}%) cast with Infusion of Light).`);
     }
     if (unusedIolRate > 0.3) {
-      this.issues.push(`Your usage of <a href="http://www.wowhead.com/spell=53576" target="_blank">Infusion of Light</a> procs can be improved. Try to use your Infusion of Light procs whenever it wouldn't overheal (${Math.round(unusedIolRate * 100)}% unused Infusion of Lights).`);
+      this.issues.push(`<img src="./infusionoflight-bw.png" alt="Unused Infusion of Light" /> Your usage of <a href="http://www.wowhead.com/spell=53576" target="_blank">Infusion of Light</a> procs can be improved. Try to use your Infusion of Light procs whenever it wouldn't overheal (${Math.round(unusedIolRate * 100)}% unused Infusion of Lights).`);
     }
     if (hasIlterendi && ilterendiHealingPercentage < 0.04) {
-      this.issues.push(`Your usage of <a href="http://www.wowhead.com/item=137046" target="_blank" class="legendary">Ilterendi, Crown Jewel of Silvermoon</a> can be improved. Try to line Light of Dawn and Holy Shock up with the buff (${(ilterendiHealingPercentage * 100).toFixed(2)}% healing contributed).`);
+      this.issues.push(`<img src="./img/icons/inv_jewelry_ring_firelandsraid_03a.jpg" alt="Ilterendi, Crown Jewel of Silvermoon" /> Your usage of <a href="http://www.wowhead.com/item=137046" target="_blank" class="legendary">Ilterendi, Crown Jewel of Silvermoon</a> can be improved. Try to line Light of Dawn and Holy Shock up with the buff (${(ilterendiHealingPercentage * 100).toFixed(2)}% healing contributed).`);
     }
 
     const castEfficiency = this.getCastEfficiency(parser);
@@ -421,7 +421,7 @@ class Results extends React.Component {
                   icon={(
                     <a href="http://www.wowhead.com/spell=19750" target="_blank">
                       <img
-                        src="./flashoflight.jpg"
+                        src="./img/icons/spell_holy_flashheal.jpg"
                         alt="Flash of Light"
                       />
                     </a>
@@ -456,7 +456,7 @@ class Results extends React.Component {
                 <StatisticBox
                   icon={(
                     <img
-                      src="./nonhealingtime.jpg"
+                      src="./img/icons/petbattle_health-down.jpg"
                       alt="Non healing time"
                     />
                   )}
@@ -767,7 +767,7 @@ class Results extends React.Component {
                     <h2>Suggestions (BETA)</h2>
                   </div>
                   <div style={{ padding: '0 0' }}>
-                    <ul className="list">
+                    <ul className="list small">
                       {this.issues.map((issue, i) => (
                         <li className="item" style={{ padding: '10px 22px' }} dangerouslySetInnerHTML={{ __html: issue }} key={`${i}`} />
                       ))}
