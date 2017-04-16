@@ -252,10 +252,10 @@ class Combatant {
    * @param forTimestamp
    * @returns {boolean}
    */
-  hasBuff(spellId, bufferTime = 0, forTimestamp = null) {
-    return this.getBuff(spellId, bufferTime, forTimestamp) !== undefined;
+  hasBuff(spellId, forTimestamp = null, bufferTime = 0) {
+    return this.getBuff(spellId, forTimestamp, bufferTime) !== undefined;
   }
-  getBuff(spellId, bufferTime = 0, forTimestamp = null) {
+  getBuff(spellId, forTimestamp = null, bufferTime = 0) {
     const currentTimestamp = forTimestamp || this.owner.currentTimestamp;
     const nSpellId = Number(spellId);
     return this.buffs.find(buff => buff.ability.guid === nSpellId && currentTimestamp >= buff.start && (buff.end === null || (buff.end + bufferTime) >= currentTimestamp));

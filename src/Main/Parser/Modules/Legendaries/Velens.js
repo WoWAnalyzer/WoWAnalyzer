@@ -21,7 +21,7 @@ class Velens extends Module {
       return;
     }
 
-    if (!this.owner.selectedCombatant.hasBuff(LEGENDARY_VELENS_BUFF_SPELL_ID, 0, event.timestamp)) {
+    if (!this.owner.selectedCombatant.hasBuff(LEGENDARY_VELENS_BUFF_SPELL_ID, event.timestamp)) {
       return;
     }
 

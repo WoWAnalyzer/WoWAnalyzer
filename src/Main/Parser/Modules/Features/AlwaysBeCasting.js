@@ -189,7 +189,7 @@ class AlwaysBeCasting extends Module {
     this.eventLog.forEach((logEntry) => {
       this.currentHaste = this.baseHaste;
       Object.keys(HASTE_BUFFS).forEach((spellId) => {
-        if (selectedCombatant.hasBuff(spellId, 0, (logEntry.begincast || logEntry.cast).timestamp)) {
+        if (selectedCombatant.hasBuff(spellId, (logEntry.begincast || logEntry.cast).timestamp)) {
           this.currentHaste = this.constructor.applyHasteGain(this.currentHaste, HASTE_BUFFS[spellId]);
         }
       });

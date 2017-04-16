@@ -26,8 +26,13 @@ class SacredDawn extends Module {
       debug && console.log('Skipping event since combatant couldn\'t be found:', event);
       return;
     }
-    if (!combatant.hasBuff(SACRED_DAWN_BUFF_SPELL_ID, 0, event.timestamp)) {
+    if (!combatant.hasBuff(SACRED_DAWN_BUFF_SPELL_ID, event.timestamp)) {
       return;
+    }
+
+    if (debug && spellId === LIGHT_OF_DAWN_HEAL_SPELL_ID) {
+      const secondsIntoFight = (event.timestamp - this.owner.fight.start_time) / 1000;
+      console.log(secondsIntoFight.toFixed(3), event.timestamp, 'LoD heal with Sacred Dawn on', combatant.name, 'event:', event);
     }
 
     this.healing += calculateEffectiveHealing(event, SACRED_DAWN_HEALING_INCREASE);
@@ -43,7 +48,7 @@ class SacredDawn extends Module {
       debug && console.log('Skipping beacon heal event since combatant couldn\'t be found:', beaconTransferEvent, 'for heal:', healEvent);
       return;
     }
-    if (!combatant.hasBuff(SACRED_DAWN_BUFF_SPELL_ID, 0, healEvent.timestamp)) {
+    if (!combatant.hasBuff(SACRED_DAWN_BUFF_SPELL_ID, healEvent.timestamp)) {
       return;
     }
 
