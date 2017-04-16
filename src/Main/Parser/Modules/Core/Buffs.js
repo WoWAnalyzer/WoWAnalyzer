@@ -1,5 +1,7 @@
 import Module from 'Main/Parser/Module';
 
+const debug = false;
+
 // Requires: Combatants
 class Buffs extends Module {
   on_combatantinfo(event) {
@@ -42,6 +44,12 @@ class Buffs extends Module {
     if (!combatant) {
       return; // a pet or something probably, either way we don't care.
     }
+
+    if (debug) {
+      const secondsIntoFight = (buff.timestamp - this.owner.fight.start_time) / 1000;
+      console.log(secondsIntoFight, buff.timestamp, `Apply buff ${buff.ability.name} to ${combatant.name}`);
+    }
+
     combatant.buffs.push({
       ...buff,
       start: buff.timestamp,
@@ -54,6 +62,12 @@ class Buffs extends Module {
     if (!combatant) {
       return; // a pet or something probably, either way we don't care.
     }
+
+    if (debug) {
+      const secondsIntoFight = (buff.timestamp - this.owner.fight.start_time) / 1000;
+      console.log(secondsIntoFight, buff.timestamp, `Remove buff ${buff.ability.name} from ${combatant.name}`);
+    }
+
     const existingBuff = combatant.buffs.find(item => item.ability.guid === buff.ability.guid && item.end === null);
     if (existingBuff) {
       existingBuff.end = buff.timestamp;

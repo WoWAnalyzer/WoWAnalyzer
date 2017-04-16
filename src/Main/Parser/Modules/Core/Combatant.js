@@ -258,7 +258,7 @@ class Combatant {
   getBuff(spellId, bufferTime = 0, forTimestamp = null) {
     const currentTimestamp = forTimestamp || this.owner.currentTimestamp;
     const nSpellId = Number(spellId);
-    return this.buffs.find(buff => buff.ability.guid === nSpellId && buff.start < currentTimestamp && (buff.end === null || (buff.end + bufferTime) >= currentTimestamp));
+    return this.buffs.find(buff => buff.ability.guid === nSpellId && currentTimestamp >= buff.start && (buff.end === null || (buff.end + bufferTime) >= currentTimestamp));
   }
   getBuffUptime(buffAbilityId) {
     return this.buffs.reduce((uptime, buff) => {
