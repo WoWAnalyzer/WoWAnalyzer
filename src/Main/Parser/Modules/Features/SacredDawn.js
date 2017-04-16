@@ -1,5 +1,6 @@
 import Module from 'Main/Parser/Module';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from 'Main/Parser/Constants';
+import calculateEffectiveHealing from 'Main/Parser/calculateEffectiveHealing';
 
 const debug = true;
 
@@ -25,16 +26,7 @@ class SacredDawn extends Module {
       return;
     }
 
-    const amount = event.amount;
-    const absorbed = event.absorbed || 0;
-    const overheal = event.overheal || 0;
-    const raw = amount + absorbed + overheal;
-    const healingIncreaseFactor = 1 + SACRED_DAWN_HEALING_INCREASE;
-    const healingIncrease = raw - raw / healingIncreaseFactor;
-
-    const effectiveHealing = Math.max(0, healingIncrease - overheal);
-
-    this.healing += effectiveHealing;
+    this.healing += calculateEffectiveHealing(event, SACRED_DAWN_HEALING_INCREASE);
   }
 
   // Beacon transfer is included in `ABILITIES_AFFECTED_BY_HEALING_INCREASES`

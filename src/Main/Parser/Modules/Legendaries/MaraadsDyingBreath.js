@@ -1,5 +1,6 @@
 import Module from 'Main/Parser/Module';
 import { LIGHT_OF_THE_MARTYR_SPELL_ID } from 'Main/Parser/Constants';
+import calculateEffectiveHealing from 'Main/Parser/calculateEffectiveHealing';
 
 export const MARAADS_DYING_BREATH_ITEM_ID = 144273;
 const MARAADS_HEALING_BUFF_ID = 234862;
@@ -31,16 +32,7 @@ class MaraadsDyingBreath extends Module {
     const buff = this.owner.selectedCombatant.getBuff(MARAADS_HEALING_BUFF_ID);
     const stacks = buff.stacks || 1;
 
-    const amount = heal.amount;
-    const absorbed = heal.absorbed || 0;
-    const overheal = heal.overheal || 0;
-    const raw = amount + absorbed + overheal;
-    const healingIncreaseFactor = 1 + stacks * MARAADS_HEALING_INCREASE_PER_STACK;
-    const healingIncrease = raw - raw / healingIncreaseFactor;
-
-    const effectiveHealing = Math.max(0, healingIncrease - overheal);
-
-    this.healing += effectiveHealing;
+    this.healing += calculateEffectiveHealing(heal, stacks * MARAADS_HEALING_INCREASE_PER_STACK);
 
     // One heal per buff
     this._lastHeal = null;

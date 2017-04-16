@@ -1,5 +1,6 @@
 import Module from 'Main/Parser/Module';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES, FLASH_OF_LIGHT_SPELL_ID, HOLY_LIGHT_SPELL_ID, TYRS_DELIVERANCE_HEAL_SPELL_ID } from 'Main/Parser/Constants';
+import calculateEffectiveHealing from 'Main/Parser/calculateEffectiveHealing';
 
 const debug = true;
 
@@ -15,6 +16,10 @@ class TyrsDeliverance extends Module {
   tyrsMunificenceTraits = null;
   on_initialized() {
     this.tyrsMunificenceTraits = this.owner.selectedCombatant.traitsBySpellId[TYRS_MUNIFICENCE_TRAIT_ID] || 0;
+  }
+
+  get tyrsHealingIncrease() {
+    return TYRS_DELIVERANCE_BASE_HEALING_INCREASE + this.tyrsMunificenceTraits * TYRS_MUNIFICENCE_POINT_HEALING_INCREASE;
   }
 
   on_byPlayer_heal(event) {
@@ -37,23 +42,29 @@ class TyrsDeliverance extends Module {
         if (!combatant.hasBuff(TYRS_DELIVERANCE_BUFF_SPELL_ID)) {
           break;
         }
-        // TODO: Include beacon transfer
-        const totalHealingIncrease = TYRS_DELIVERANCE_BASE_HEALING_INCREASE + this.tyrsMunificenceTraits * TYRS_MUNIFICENCE_POINT_HEALING_INCREASE;
 
-        const amount = event.amount;
-        const absorbed = event.absorbed || 0;
-        const overheal = event.overheal || 0;
-        const raw = amount + absorbed + overheal;
-        const healingIncreaseFactor = 1 + totalHealingIncrease;
-        const healingIncrease = raw - raw / healingIncreaseFactor;
-
-        const effectiveHealing = Math.max(0, healingIncrease - overheal);
-
-        this.buffFoLHLHealing += effectiveHealing;
+        this.buffFoLHLHealing += calculateEffectiveHealing(event, this.tyrsHealingIncrease);
         break;
       }
       default: break;
     }
+  }
+  on_beacon_heal({ beaconTransferEvent, matchedHeal: healEvent }) {
+    const spellId = healEvent.ability.guid;
+    if (spellId !== FLASH_OF_LIGHT_SPELL_ID && spellId !== HOLY_LIGHT_SPELL_ID) {
+      return;
+    }
+    const combatant = this.owner.combatants.players[healEvent.targetID];
+    if (!combatant) {
+      // If combatant doesn't exist it's probably a pet.
+      debug && console.log('Skipping beacon heal event since combatant couldn\'t be found:', beaconTransferEvent, 'for heal:', healEvent);
+      return;
+    }
+    if (!combatant.hasBuff(TYRS_DELIVERANCE_BUFF_SPELL_ID)) {
+      return;
+    }
+
+    this.buffFoLHLHealing += calculateEffectiveHealing(beaconTransferEvent, this.tyrsHealingIncrease);
   }
 }
 
