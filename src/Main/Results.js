@@ -228,7 +228,16 @@ class Results extends React.Component {
     if (!parser.selectedCombatant) {
       return (
         <div>
-          Loading...
+          <h1>
+            <div className="back-button">
+              <Link to={`/report/${parser.report.code}/${parser.player.name}`} data-tip="Back to fight selection">
+                <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
+              </Link>
+            </div>
+            Initializing report...
+          </h1>
+
+          <div className="spinner"></div>
         </div>
       );
     }
@@ -316,7 +325,7 @@ class Results extends React.Component {
               <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
             </Link>
           </div>
-          RESULTS
+          Results
           <a
             href={`https://www.warcraftlogs.com/reports/${parser.report.code}/#fight=${parser.fight.id}`}
             target="_blank"

@@ -278,7 +278,7 @@ class App extends Component {
             }
             if (!report) {
               return (
-                <div style={{ width: 650 }}>
+                <div>
                   <h1>Fetching report information...</h1>
 
                   <div className="spinner"></div>
