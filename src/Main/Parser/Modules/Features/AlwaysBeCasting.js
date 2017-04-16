@@ -178,7 +178,7 @@ class AlwaysBeCasting extends Module {
     debug && console.log('totalTimeWasted:', this.totalTimeWasted, 'totalTime:', fightDuration, (this.totalTimeWasted / fightDuration));
     debug && console.log('totalHealingTimeWasted:', this.totalHealingTimeWasted, 'totalTime:', fightDuration, (this.totalHealingTimeWasted / fightDuration));
 
-    const buffs = this.owner.modules.buffs;
+    const selectedCombatant = this.owner.selectedCombatant;
 
     this.totalTimeWasted = 0;
     this.totalHealingTimeWasted = 0;
@@ -189,7 +189,7 @@ class AlwaysBeCasting extends Module {
     this.eventLog.forEach((logEntry) => {
       this.currentHaste = this.baseHaste;
       Object.keys(HASTE_BUFFS).forEach((spellId) => {
-        if (buffs.hasBuff(spellId, 0, (logEntry.begincast || logEntry.cast).timestamp)) {
+        if (selectedCombatant.hasBuff(spellId, 0, (logEntry.begincast || logEntry.cast).timestamp)) {
           this.currentHaste = this.constructor.applyHasteGain(this.currentHaste, HASTE_BUFFS[spellId]);
         }
       });

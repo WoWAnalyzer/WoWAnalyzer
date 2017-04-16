@@ -20,7 +20,7 @@ class Velens extends Module {
       return;
     }
 
-    if (!this.owner.modules.buffs.hasBuff(LEGENDARY_VELENS_BUFF_SPELL_ID)) {
+    if (!this.owner.selectedCombatant.hasBuff(LEGENDARY_VELENS_BUFF_SPELL_ID)) {
       return;
     }
 

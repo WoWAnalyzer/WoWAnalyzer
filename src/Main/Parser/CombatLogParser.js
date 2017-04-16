@@ -24,8 +24,8 @@ class CombatLogParser {
   static enabledModules = {
     // Core
     initialize: Initialize,
-    buffs: Buffs,
     combatants: Combatants,
+    buffs: Buffs,
     castCounter: CastCounter,
 
     // PaladinCore

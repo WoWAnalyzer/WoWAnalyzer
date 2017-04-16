@@ -97,12 +97,13 @@ class Combatant {
     return this._combatantInfo.speed;
   }
 
-  talentsByRow = {};
-  traitsBySpellId = {};
-  gearBySlotId = {};
-
   _combatantInfo = null;
-  constructor(playerInfo, combatantInfo) {
+  /** @type {CombatLogParser} */
+  owner = null;
+  constructor(parser, combatantInfo) {
+    this.owner = parser;
+
+    const playerInfo = parser.playersById[combatantInfo.sourceID];
     this._combatantInfo = {
       name: playerInfo.name,
       type: playerInfo.type,
@@ -115,6 +116,7 @@ class Combatant {
   }
 
   //region Talents
+  talentsByRow = {};
   parseTalents(talents) {
     talents.forEach(({ id }, index) => {
       this.talentsByRow[index] = id;
@@ -150,6 +152,7 @@ class Combatant {
   //endregion
 
   //region Traits
+  traitsBySpellId = {};
   parseTraits(traits) {
     traits.forEach(({ spellID, rank }) => {
       this.traitsBySpellId[spellID] = rank;
@@ -158,6 +161,7 @@ class Combatant {
   //endregion
 
   //region Gear
+  gearBySlotId = {};
   parseGear(gear) {
     gear.forEach(({ id }, index) => {
       this.gearBySlotId[index] = id;
@@ -237,6 +241,32 @@ class Combatant {
   }
   hasTrinket(itemId) {
     return this.trinket1 === itemId || this.trinket2 === itemId;
+  }
+  //endregion
+
+  //region Buffs
+  buffs = [];
+  /**
+   * @param spellId
+   * @param bufferTime Time (in MS) the buff may have expired. There's a bug in the combat log where if a spell consumes a buff that buff may disappear a few MS earlier than the heal event is logged. I've seen this go up to 32ms.
+   * @param forTimestamp
+   * @returns {boolean}
+   */
+  hasBuff(spellId, bufferTime = 0, forTimestamp = null) {
+    return this.getBuff(spellId, bufferTime, forTimestamp) !== undefined;
+  }
+  getBuff(spellId, bufferTime = 0, forTimestamp = null) {
+    const currentTimestamp = forTimestamp || this.owner.currentTimestamp;
+    const nSpellId = Number(spellId);
+    return this.buffs.find(buff => buff.ability.guid === nSpellId && buff.start < currentTimestamp && (buff.end === null || (buff.end + bufferTime) >= currentTimestamp));
+  }
+  getBuffUptime(buffAbilityId) {
+    return this.buffs.reduce((uptime, buff) => {
+      if (buff.ability.guid === buffAbilityId) {
+        uptime += (buff.end || this.owner.currentTimestamp) - buff.start;
+      }
+      return uptime;
+    }, 0);
   }
   //endregion
 }

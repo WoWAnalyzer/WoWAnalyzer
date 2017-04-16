@@ -29,7 +29,7 @@ class CastCounter extends Module {
     }
 
     if (spellId === FLASH_OF_LIGHT_SPELL_ID || spellId === HOLY_LIGHT_SPELL_ID) {
-      const hasIol = this.owner.buffs.hasBuff(INFUSION_OF_LIGHT_SPELL_ID, INFUSION_OF_LIGHT_BUFF_EXPIRATION_BUFFER);
+      const hasIol = this.owner.selectedCombatant.hasBuff(INFUSION_OF_LIGHT_SPELL_ID, INFUSION_OF_LIGHT_BUFF_EXPIRATION_BUFFER);
 
       if (hasIol) {
         cast.withIol = (cast.withIol || 0) + 1;

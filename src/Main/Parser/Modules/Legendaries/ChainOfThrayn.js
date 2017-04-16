@@ -18,7 +18,7 @@ class ChainOfThrayn extends Module {
       return;
     }
 
-    if (!this.owner.modules.buffs.hasBuff(AVENGING_WRATH_SPELL_ID)) {
+    if (!this.owner.selectedCombatant.hasBuff(AVENGING_WRATH_SPELL_ID)) {
       return;
     }
 

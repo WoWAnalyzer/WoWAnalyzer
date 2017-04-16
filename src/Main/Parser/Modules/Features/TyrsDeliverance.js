@@ -26,7 +26,7 @@ class TyrsDeliverance extends Module {
         break;
       case FLASH_OF_LIGHT_SPELL_ID:
       case HOLY_LIGHT_SPELL_ID: {
-        if (!this.owner.modules.buffs.hasBuff(TYRS_DELIVERANCE_BUFF_SPELL_ID)) {
+        if (!this.owner.selectedCombatant.hasBuff(TYRS_DELIVERANCE_BUFF_SPELL_ID)) {
           break;
         }
         // TODO: Look for buff on `event.targetID` instead of player
