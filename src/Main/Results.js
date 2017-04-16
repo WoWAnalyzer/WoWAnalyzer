@@ -12,7 +12,9 @@ import {
   FLASH_OF_LIGHT_SPELL_ID,
   HOLY_LIGHT_SPELL_ID,
   HOLY_SHOCK_HEAL_SPELL_ID,
-  BEACON_TYPES
+  BEACON_TYPES,
+  LIGHT_OF_THE_MARTYR_SPELL_ID,
+  LIGHT_OF_DAWN_CAST_SPELL_ID,
 } from './Parser/Constants';
 import { SACRED_DAWN_TRAIT_ID } from './Parser/Modules/Features/SacredDawn';
 import { DRAPE_OF_SHAME_ITEM_ID } from './Parser/Modules/Legendaries/DrapeOfShame';
@@ -289,6 +291,7 @@ class Results extends React.Component {
     const tyrsDeliveranceBuffFoLHLHealingPercentage = parser.modules.tyrsDeliverance.buffFoLHLHealing / parser.totalHealing;
     const tyrsDeliverancePercentage = tyrsDeliveranceHealHealingPercentage + tyrsDeliveranceBuffFoLHLHealingPercentage;
     const hasRuleOfLaw = parser.selectedCombatant.lv30Talent === RULE_OF_LAW_SPELL_ID;
+    const hasMaraads = parser.selectedCombatant.hasBack(MARAADS_DYING_BREATH_ITEM_ID);
 
     if (nonHealingTimePercentage > 0.3) {
       this.issues.push(`<img src="./img/icons/petbattle_health-down.jpg" alt="Non healing time" /> Your non healing time can be improved. Try to cast heals more regularly (${Math.round(nonHealingTimePercentage * 100)}% non healing time).`);
@@ -312,7 +315,20 @@ class Results extends React.Component {
       this.issues.push(`<img src="./infusionoflight-bw.png" alt="Unused Infusion of Light" /> Your usage of <a href="http://www.wowhead.com/spell=53576" target="_blank">Infusion of Light</a> procs can be improved. Try to use your Infusion of Light procs whenever it wouldn't overheal (${Math.round(unusedIolRate * 100)}% unused Infusion of Lights).`);
     }
     if (hasIlterendi && ilterendiHealingPercentage < 0.04) {
-      this.issues.push(`<img src="./img/icons/inv_jewelry_ring_firelandsraid_03a.jpg" alt="Ilterendi, Crown Jewel of Silvermoon" /> Your usage of <a href="http://www.wowhead.com/item=137046" target="_blank" class="legendary">Ilterendi, Crown Jewel of Silvermoon</a> can be improved. Try to line Light of Dawn and Holy Shock up with the buff (${(ilterendiHealingPercentage * 100).toFixed(2)}% healing contributed).`);
+      this.issues.push(`<img src="./img/icons/inv_jewelry_ring_firelandsraid_03a.jpg" alt="Ilterendi, Crown Jewel of Silvermoon" /> Your usage of <a href="http://www.wowhead.com/item=137046" target="_blank" class="legendary">Ilterendi, Crown Jewel of Silvermoon</a> can be improved. Try to line <a href="http://www.wowhead.com/item=85222" target="_blank">Light of Dawn</a> and Holy Shock up with the buff (${(ilterendiHealingPercentage * 100).toFixed(2)}% healing contributed).`);
+    }
+    const lightOfTheMartyrs = getCastCount(LIGHT_OF_THE_MARTYR_SPELL_ID).hits || 0;
+    let fillerLotms = lightOfTheMartyrs;
+    if (hasMaraads) {
+      const lightOfTheDawns = getCastCount(LIGHT_OF_DAWN_CAST_SPELL_ID).casts || 0;
+      fillerLotms = fillerLotms - lightOfTheDawns;
+    }
+    if (fillerLotms > 10) {
+      if (hasMaraads) {
+        this.issues.push(`<img src="./img/icons/ability_paladin_lightofthemartyr.jpg" alt="Light of the Martyr" /> You should only cast <b>one</b> <a href="http://www.wowhead.com/item=137046" target="_blank" class="legendary">Light of the Martyr</a> per <a href="http://www.wowhead.com/item=85222" target="_blank">Light of Dawn</a>. Without the buff from <a href="http://www.wowhead.com/item=144273/maraads-dying-breath" target="_blank" class="legendary">Maraad's Dying Breath</a>, <a href="http://www.wowhead.com/item=137046" target="_blank" class="legendary">Light of the Martyr</a> is a very inefficient spell to cast. Try to only cast additional Light of the Martyr when absolutely necessary (${lightOfTheMartyrs} Light of the Martyr cast).`);
+      } else {
+        this.issues.push(`<img src="./img/icons/ability_paladin_lightofthemartyr.jpg" alt="Light of the Martyr" /> <a href="http://www.wowhead.com/item=137046" target="_blank">Light of the Martyr</a> is a very inefficient spell to cast. Try to only cast Light of the Martyr when absolutely necessary (${lightOfTheMartyrs} Light of the Martyr cast).`);
+      }
     }
 
     const castEfficiency = this.getCastEfficiency(parser);
@@ -661,7 +677,7 @@ class Results extends React.Component {
                           </article>
                         </li>
                       ),
-                      parser.selectedCombatant.hasBack(MARAADS_DYING_BREATH_ITEM_ID) && (
+                      hasMaraads && (
                         <li className="item clearfix" key={MARAADS_DYING_BREATH_ITEM_ID}>
                           <article>
                             <figure>
@@ -719,7 +735,7 @@ class Results extends React.Component {
 
                     return items;
                   })()}
-              </ul>
+                </ul>
               </div>
             </div>
           </div>
