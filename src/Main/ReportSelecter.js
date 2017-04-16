@@ -70,7 +70,7 @@ class ReportSelecter extends Component {
             </div>
             <div className="panel-body text-muted">
               15-04-2017 - Added Tyr's Deliverance healing contribution.<br />
-              15-04-2017 - Added Sacred Dawn healing contribution.<br />
+              15-04-2017 - Added Sacred Dawn healing contribution. Note that (when SD wasn't up before) Sacred Dawn increases the Light of Dawn healing on yourself on the initial cast, but other players get healed for the normal amount without the SD healing increase. The calculation is aware of this.<br />
               15-04-2017 - Cast efficiency now takes the extra amount of fight time you had to cast an ability into consideration (e.g. a single cast of 3 minute cooldown during a 3:30 fight will have a higher cast efficiency than during a 5:30 fight).<br />
               15-04-2017 - Added a <b>Talents</b> tab.<br />
               14-04-2017 - Added <b>Suggestions</b> which will give you (way too many) suggestions to improve. This may need to be tuned a bit; any feedback in that regard is welcome. Moved <i>Cast efficiency</i> and <i>Mastery effectiveness player breakdown</i> to separate tabs.<br />
