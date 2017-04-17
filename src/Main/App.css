@@ -96,14 +96,14 @@ h1 {
   padding: 10px 12px;
 }
 .statistic-box .statistic-value {
-  margin-top: .3em;
+  margin-top: .2em;
   font-size: 2em;
 }
 .statistic-box .statistic-label {
   margin-top: -0.3em;
 }
 .statistic-box img {
-  height: 74px;
+  height: 68px;
   border-radius: 5px;
   border: 1px solid rgba(0, 0, 0, 0.6);
 }
