@@ -329,7 +329,7 @@ class Results extends React.Component {
     let fillerLotms = lightOfTheMartyrs;
     if (hasMaraads) {
       const lightOfTheDawns = getCastCount(LIGHT_OF_DAWN_CAST_SPELL_ID).casts || 0;
-      fillerLotms = fillerLotms - lightOfTheDawns;
+      fillerLotms -= lightOfTheDawns;
     }
     if (fillerLotms > 10) {
       if (hasMaraads) {
