@@ -262,12 +262,14 @@ class Combatant {
     return this.buffs.find(buff => buff.ability.guid === nSpellId && (currentTimestamp - minimalActiveTime) >= buff.start && (buff.end === null || (buff.end + bufferTime) >= currentTimestamp));
   }
   getBuffUptime(buffAbilityId) {
-    return this.buffs.reduce((uptime, buff) => {
-      if (buff.ability.guid === buffAbilityId) {
-        uptime += (buff.end || this.owner.currentTimestamp) - buff.start;
-      }
-      return uptime;
-    }, 0);
+    return this.buffs
+      .filter(buff => buff.ability.guid === buffAbilityId)
+      .reduce((uptime, buff) => uptime + (buff.end || this.owner.currentTimestamp) - buff.start, 0);
+  }
+  getBuffTriggerCount(buffAbilityId) {
+    return this.buffs
+      .filter(buff => buff.ability.guid === buffAbilityId)
+      .length;
   }
   //endregion
 }

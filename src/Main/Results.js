@@ -15,6 +15,9 @@ import {
   BEACON_TYPES,
   LIGHT_OF_THE_MARTYR_SPELL_ID,
   LIGHT_OF_DAWN_CAST_SPELL_ID,
+  DIVINE_PURPOSE_SPELL_ID,
+  DIVINE_PURPOSE_HOLY_SHOCK_SPELL_ID,
+  DIVINE_PURPOSE_LIGHT_OF_DAWN_SPELL_ID,
 } from './Parser/Constants';
 import { SACRED_DAWN_TRAIT_ID } from './Parser/Modules/Features/SacredDawn';
 import { DRAPE_OF_SHAME_ITEM_ID } from './Parser/Modules/Legendaries/DrapeOfShame';
@@ -273,6 +276,7 @@ class Results extends React.Component {
     const totalFolsAndHlsOnBeacon = beaconFlashOfLights + beaconHolyLights;
     const healsOnBeacon = totalFolsAndHlsOnBeacon / totalFolsAndHls;
 
+    const lightOfDawnHeals = getCastCount(LIGHT_OF_DAWN_CAST_SPELL_ID).casts || 0;
     const holyShockHeals = getCastCount(HOLY_SHOCK_HEAL_SPELL_ID).hits || 0;
     const holyShockCrits = getCastCount(HOLY_SHOCK_HEAL_SPELL_ID).crits || 0;
     const iolProcsPerHolyShockCrit = this.iolProcsPerHolyShockCrit;
@@ -292,6 +296,10 @@ class Results extends React.Component {
     const tyrsDeliverancePercentage = tyrsDeliveranceHealHealingPercentage + tyrsDeliveranceBuffFoLHLHealingPercentage;
     const hasRuleOfLaw = parser.selectedCombatant.lv30Talent === RULE_OF_LAW_SPELL_ID;
     const hasMaraads = parser.selectedCombatant.hasBack(MARAADS_DYING_BREATH_ITEM_ID);
+
+    const hasDivinePurpose = parser.selectedCombatant.lv75Talent === DIVINE_PURPOSE_SPELL_ID;
+    const divinePurposeHolyShockProcs = hasDivinePurpose && parser.selectedCombatant.getBuffTriggerCount(DIVINE_PURPOSE_HOLY_SHOCK_SPELL_ID);
+    const divinePurposeLightOfDawnProcs = hasDivinePurpose && parser.selectedCombatant.getBuffTriggerCount(DIVINE_PURPOSE_LIGHT_OF_DAWN_SPELL_ID);
 
     if (nonHealingTimePercentage > 0.3) {
       this.issues.push(`<img src="./img/icons/petbattle_health-down.jpg" alt="Non healing time" /> Your non healing time can be improved. Try to cast heals more regularly (${Math.round(nonHealingTimePercentage * 100)}% non healing time).`);
@@ -517,6 +525,52 @@ class Results extends React.Component {
                     label={(
                       <dfn data-tip={`The actual effective healing contributed by the Sacred Dawn effect.`}>
                         Sacred Dawn contribution
+                      </dfn>
+                    )}
+                  />
+                </div>
+              )}
+              {hasDivinePurpose && (
+                <div className="col-lg-4 col-sm-6 col-xs-12">
+                  <StatisticBox
+                    icon={(
+                      <a href="http://www.wowhead.com/spell=197646" target="_blank">
+                        <img
+                          src="./img/icons/spell_holy_divinepurpose.jpg"
+                          alt="Divine Purpose"
+                        />
+                      </a>
+                    )}
+                    value={(
+                      <span>
+                        {divinePurposeHolyShockProcs}{' '}
+                        <a href="http://www.wowhead.com/spell=25914" target="_blank">
+                          <img
+                            src="./img/icons/spell_holy_searinglight.jpg"
+                            alt="Holy Shock"
+                            style={{
+                              height: '1.3em',
+                              marginTop: '-.1em',
+                            }}
+                          />
+                        </a>
+                        {' '}
+                        {divinePurposeLightOfDawnProcs}{' '}
+                        <a href="http://www.wowhead.com/spell=85222" target="_blank">
+                          <img
+                            src="./img/icons/spell_paladin_lightofdawn.jpg"
+                            alt="Light of Dawn"
+                            style={{
+                              height: '1.3em',
+                              marginTop: '-.1em',
+                            }}
+                          />
+                        </a>
+                      </span>
+                    )}
+                    label={(
+                      <dfn data-tip={`Your Divine Purpose proc rate for Holy Shock was ${this.constructor.formatPercentage(divinePurposeHolyShockProcs / (holyShockHeals - divinePurposeHolyShockProcs))}%.<br />Your Divine Purpose proc rate for Light of Dawn was ${this.constructor.formatPercentage(divinePurposeLightOfDawnProcs / (lightOfDawnHeals - divinePurposeLightOfDawnProcs))}%`}>
+                        Divine Purpose procs
                       </dfn>
                     )}
                   />
