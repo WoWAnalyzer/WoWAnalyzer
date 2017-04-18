@@ -210,7 +210,7 @@ const CastEfficiency = ({ abilities }) => {
                     {casts}{maxCasts === Infinity ? '' : `/${Math.floor(maxCasts)}`} casts
                   </td>
                   <td style={{ width: '20%' }}>
-                    {maxCasts === null ? '' : (
+                    {maxCasts === Infinity ? '' : (
                       <div
                         className="performance-bar"
                         style={{ width: `${castEfficiency * 100}%`, backgroundColor: canBeImproved ? '#ff8000' : '#70b570' }}
