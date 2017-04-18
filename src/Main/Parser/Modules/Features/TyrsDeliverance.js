@@ -15,7 +15,9 @@ class TyrsDeliverance extends Module {
 
   tyrsMunificenceTraits = null;
   on_initialized() {
-    this.tyrsMunificenceTraits = this.owner.selectedCombatant.traitsBySpellId[TYRS_MUNIFICENCE_TRAIT_ID] || 0;
+    if (!this.owner.error) {
+      this.tyrsMunificenceTraits = this.owner.selectedCombatant.traitsBySpellId[TYRS_MUNIFICENCE_TRAIT_ID] || 0;
+    }
   }
 
   get tyrsHealingIncrease() {
