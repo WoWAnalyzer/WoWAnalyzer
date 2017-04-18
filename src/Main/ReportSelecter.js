@@ -69,7 +69,7 @@ class ReportSelecter extends Component {
               <h2>Changes</h2>
             </div>
             <div className="panel-body text-muted">
-              18-04-2017 - Fixed a crash instead of descriptive error when selected player doesn't appear in a log. Fixed crash when buff with stacks expired without every applying.<br />
+              18-04-2017 - Added Velen's Future Sight to cast efficiency. Fixed the parser crashing instead of showing a descriptive error when selected player doesn't appear in a log. Fixed a crash when buff with stacks expired without ever applying.<br />
               17-04-2017 - Added LotM suggestion when casting it too often, added Divine Protection and BoS to cast efficiency display. Added Divine Purpose proc indicator.<br />
               15-04-2017 - Added Tyr's Deliverance healing contribution.<br />
               15-04-2017 - Added Sacred Dawn healing contribution. Note that (when SD wasn't up before) Sacred Dawn increases the Light of Dawn healing on yourself on the initial cast, but other players get healed for the normal amount without the SD healing increase. The calculation is aware of this.<br />

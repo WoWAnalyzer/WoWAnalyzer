@@ -3,7 +3,7 @@ import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from 'Main/Parser/Constants';
 import calculateEffectiveHealing from 'Main/Parser/calculateEffectiveHealing';
 
 export const VELENS_ITEM_ID = 144258;
-const LEGENDARY_VELENS_BUFF_SPELL_ID = 235966;
+export const LEGENDARY_VELENS_BUFF_SPELL_ID = 235966;
 const LEGENDARY_VELENS_HEAL_SPELL_ID = 235967;
 const LEGENDARY_VELENS_HEALING_INCREASE = 0.15;
 
