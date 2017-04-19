@@ -5,6 +5,7 @@ import StatisticBox from './StatisticBox';
 import PlayerBreakdown from './PlayerBreakdown';
 import CastEfficiency from './CastEfficiency';
 import Talents from './Talents';
+import Mana from './Mana';
 
 import {
   RULE_OF_LAW_SPELL_ID,
@@ -46,6 +47,7 @@ function getBeaconIcon(spellId) {
 const TABS = {
   ISSUES: 'ISSUES',
   TALENTS: 'TALENTS',
+  MANA: 'MANA',
   CAST_EFFICIENCY: 'CAST_EFFICIENCY',
   PLAYER_BREAKDOWN: 'PLAYER_BREAKDOWN',
 };
@@ -822,6 +824,12 @@ class Results extends React.Component {
                     Cast efficiency
                   </li>
                   <li
+                    className={this.state.activeTab === TABS.MANA ? 'active' : ''}
+                    onClick={() => this.setState({ activeTab: TABS.MANA })}
+                  >
+                    Mana
+                  </li>
+                  <li
                     className={this.state.activeTab === TABS.PLAYER_BREAKDOWN ? 'active' : ''}
                     onClick={() => this.setState({ activeTab: TABS.PLAYER_BREAKDOWN })}
                   >
@@ -869,6 +877,21 @@ class Results extends React.Component {
                   <div style={{ padding: '10px 0' }}>
                     <CastEfficiency
                       abilities={castEfficiency}
+                    />
+                  </div>
+                </div>
+              )}
+              {this.state.activeTab === TABS.MANA && (
+                <div>
+                  <div className="panel-heading">
+                    <h2>Mana</h2>
+                  </div>
+                  <div style={{ padding: '15px 22px' }}>
+                    <Mana
+                      reportCode={parser.report.code}
+                      actorId={parser.playerId}
+                      start={parser.fight.start_time}
+                      end={parser.fight.end_time}
                     />
                   </div>
                 </div>
