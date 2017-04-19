@@ -69,6 +69,7 @@ class ReportSelecter extends Component {
               <h2>Changes</h2>
             </div>
             <div className="panel-body text-muted">
+              19-04-2017 - Added a Mana tab for analyzing your mana usage. This also shows boss health since it is often used as a target for mana levels.<br />
               18-04-2017 - Added Velen's Future Sight to cast efficiency. Fixed the parser crashing instead of showing a descriptive error when selected player doesn't appear in a log. Fixed a crash when buff with stacks expired without ever applying.<br />
               17-04-2017 - Added LotM suggestion when casting it too often, added Divine Protection and BoS to cast efficiency display. Added Divine Purpose proc indicator.<br />
               15-04-2017 - Added Tyr's Deliverance healing contribution.<br />

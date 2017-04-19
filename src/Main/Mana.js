@@ -66,43 +66,32 @@ class Mana extends React.Component {
       return <div>Loading...</div>;
     }
 
-    const data = [];
+    const { start, end } = this.props;
+
+    const manaBySecond = {};
     this.state.mana.series[0].data.forEach((item) => {
-      data.push({
-        type: 'mana',
-        label: item[0] - this.props.start,
-        value: item[1],
-      });
+      const secIntoFight = Math.floor((item[0] - start) / 1000);
+
+      manaBySecond[secIntoFight] = item[1];
     });
+    const bossHealthBySecond = {};
     this.state.bossHealth.series[0].data.forEach((item) => {
-      data.push({
-        type: 'bossHealth',
-        label: item[0] - this.props.start,
-        value: item[1],
-      });
+      const secIntoFight = Math.floor((item[0] - start) / 1000);
+
+      console.log(secIntoFight, item[1]);
+
+      bossHealthBySecond[secIntoFight] = item[1];
     });
 
+    const fightDurationSec = Math.ceil((end - start) / 1000);
     const labels = [];
-    const manaSeries = [];
-    const bossHealthSeries = [];
 
-    // TODO: Normalize the amount of steps per 30 seconds
-    data
-      .sort((a, b) => a.label - b.label)
-      .forEach((item) => {
-        labels.push(item.label);
-        switch (item.type) {
-          case 'mana':
-            manaSeries.push(item.value);
-            bossHealthSeries.push(null);
-            break;
-          case 'bossHealth':
-            manaSeries.push(null);
-            bossHealthSeries.push(item.value);
-            break;
-          default: break;
-        }
-      });
+    for (let i = 0; i <= fightDurationSec; i += 1) {
+      labels.push(i);
+
+      manaBySecond[i] = manaBySecond[i] || null;
+      bossHealthBySecond[i] = bossHealthBySecond[i] || null;
+    }
 
     const chartData = {
       labels: labels,
@@ -110,12 +99,12 @@ class Mana extends React.Component {
         {
           className: 'boss-health',
           name: 'Boss Health',
-          data: bossHealthSeries,
+          data: Object.values(bossHealthBySecond),
         },
         {
           className: 'mana',
           name: 'Mana',
-          data: manaSeries,
+          data: Object.values(manaBySecond),
         },
       ],
     };
@@ -123,7 +112,7 @@ class Mana extends React.Component {
 
     return (
       <div>
-        Good mana usage usually means having your mana go down about as quickly as the health of the boss. Some fights require specific mana management though.<br />
+        Good mana usage usually means having your mana go down about as quickly as the health of the boss. Some fights require specific mana management though.<br /><br />
 
         <ChartistGraph
           data={chartData}
@@ -138,12 +127,11 @@ class Mana extends React.Component {
               fillHoles: true,
             }),
             axisX: {
-              labelInterpolationFnc: function skipLabels(value, index) {
-                const seconds = Math.round(value / 1000);
+              labelInterpolationFnc: function skipLabels(seconds) {
                 if (seconds < ((step - 1) * 30)) {
                   step = 0;
                 }
-                if (step === 0 || seconds >= (step * 30)) {
+                if (step === 0 || seconds >= (step * 30) || seconds == fightDurationSec) {
                   step += 1;
                   return formatDuration(seconds);
                 }
