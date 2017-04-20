@@ -289,6 +289,8 @@ class Results extends React.Component {
     const nonHealingTimePercentage = parser.modules.alwaysBeCasting.totalHealingTimeWasted / fightDuration;
     const deadTimePercentage = parser.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
     const totalHealsOnBeaconPercentage = this.getTotalHealsOnBeaconPercentage(parser);
+    const hasVelens = parser.selectedCombatant.hasTrinket(VELENS_ITEM_ID);
+    const velensHealingPercentage = parser.modules.velens.healing / parser.totalHealing;
     const hasIlterendi = parser.selectedCombatant.hasRing(ILTERENDI_ITEM_ID);
     const ilterendiHealingPercentage = parser.modules.ilterendi.healing / parser.totalHealing;
     const hasSacredDawn = parser.selectedCombatant.traitsBySpellId[SACRED_DAWN_TRAIT_ID] === 1;
@@ -325,7 +327,10 @@ class Results extends React.Component {
       this.issues.push(`<img src="./infusionoflight-bw.png" alt="Unused Infusion of Light" /> Your usage of <a href="http://www.wowhead.com/spell=53576" target="_blank">Infusion of Light</a> procs can be improved. Try to use your Infusion of Light procs whenever it wouldn't overheal (${Math.round(unusedIolRate * 100)}% unused Infusion of Lights).`);
     }
     if (hasIlterendi && ilterendiHealingPercentage < 0.04) {
-      this.issues.push(`<img src="./img/icons/inv_jewelry_ring_firelandsraid_03a.jpg" alt="Ilterendi, Crown Jewel of Silvermoon" /> Your usage of <a href="http://www.wowhead.com/item=137046" target="_blank" class="legendary">Ilterendi, Crown Jewel of Silvermoon</a> can be improved. Try to line <a href="http://www.wowhead.com/item=85222" target="_blank">Light of Dawn</a> and Holy Shock up with the buff (${(ilterendiHealingPercentage * 100).toFixed(2)}% healing contributed).`);
+      this.issues.push(`<img src="./img/icons/inv_jewelry_ring_firelandsraid_03a.jpg" alt="Ilterendi, Crown Jewel of Silvermoon" /> Your usage of <a href="http://www.wowhead.com/item=137046" target="_blank" class="legendary">Ilterendi, Crown Jewel of Silvermoon</a> can be improved. Try to line <a href="http://www.wowhead.com/spell=85222" target="_blank">Light of Dawn</a> and <a href="http://www.wowhead.com/spell=20473" target="_blank">Holy Shock</a> up with the buff or consider using an easier legendary (${(ilterendiHealingPercentage * 100).toFixed(2)}% healing contributed).`);
+    }
+    if (hasVelens && velensHealingPercentage < 0.045) {
+      this.issues.push(`<img src="./img/icons/spell_holy_healingfocus.jpg" alt="Velen's Future Sight" /> Your usage of <a href="http://www.wowhead.com/item=144258" target="_blank" class="legendary">Velen's Future Sight</a> can be improved. Try to maximize the amount of casts during the buff or consider using an easier legendary (${(velensHealingPercentage * 100).toFixed(2)}% healing contributed).`);
     }
     const lightOfTheMartyrs = getCastCount(LIGHT_OF_THE_MARTYR_SPELL_ID).hits || 0;
     let fillerLotms = lightOfTheMartyrs;
@@ -399,8 +404,10 @@ class Results extends React.Component {
                   <StatisticBox
                     icon={(
                       <a href="http://www.wowhead.com/spell=214202" target="_blank">
-                        <img src="./ruleoflaw.jpg"
-                          alt="Rule of Law" />
+                        <img
+                          src="./img/icons/ability_paladin_longarmofthelaw.jpg"
+                          alt="Rule of Law"
+                        />
                       </a>
                     )}
                     value={`${this.constructor.formatPercentage(ruleOfLawUptime)} %`}
@@ -412,8 +419,10 @@ class Results extends React.Component {
                 <StatisticBox
                   icon={(
                     <a href="http://www.wowhead.com/spell=53576" target="_blank">
-                      <img src="./infusionoflight.jpg"
-                        alt="Unused Infusion of Light" />
+                      <img
+                        src="./img/icons/ability_paladin_infusionoflight.jpg"
+                        alt="Unused Infusion of Light"
+                      />
                     </a>
                   )}
                   value={`${this.constructor.formatPercentage(iolFoLToHLCastRatio)} %`}
@@ -618,7 +627,7 @@ class Results extends React.Component {
                           <article>
                             <figure>
                               <img
-                                src="./ilterendi.jpg"
+                                src="./img/icons/inv_jewelry_ring_firelandsraid_03a"
                                 alt="Ilterendi, Crown Jewel of Silvermoon"
                               />
                             </figure>
@@ -637,12 +646,12 @@ class Results extends React.Component {
                           </article>
                         </li>
                       ),
-                      parser.selectedCombatant.hasTrinket(VELENS_ITEM_ID) && (
+                      hasVelens && (
                         <li className="item clearfix" key={VELENS_ITEM_ID}>
                           <article>
                             <figure>
                               <img
-                                src="./velens.jpg"
+                                src="./img/icons/spell_holy_healingfocus.jpg"
                                 alt="Velen's Future Sight"
                               />
                             </figure>
@@ -654,7 +663,7 @@ class Results extends React.Component {
                               </header>
                               <main>
                                 <dfn data-tip="The actual effective healing contributed by the Velen's Future Sight use effect.">
-                                  {`${((Math.round(parser.modules.velens.healing / parser.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
+                                  {`${((velensHealingPercentage * 100) || 0).toFixed(2)} %`}
                                 </dfn>
                               </main>
                             </div>
@@ -762,7 +771,7 @@ class Results extends React.Component {
                           <article>
                             <figure>
                               <img
-                                src="./infusionoflight.jpg"
+                                src="./img/icons/ability_paladin_infusionoflight.jpg"
                                 alt="Infusion of Light"
                               />
                             </figure>
@@ -812,16 +821,16 @@ class Results extends React.Component {
                     Suggestions <span className="badge">{this.issues.length}</span>
                   </li>
                   <li
-                    className={this.state.activeTab === TABS.TALENTS ? 'active' : ''}
-                    onClick={() => this.setState({ activeTab: TABS.TALENTS })}
-                  >
-                    Talents
-                  </li>
-                  <li
                     className={this.state.activeTab === TABS.CAST_EFFICIENCY ? 'active' : ''}
                     onClick={() => this.setState({ activeTab: TABS.CAST_EFFICIENCY })}
                   >
                     Cast efficiency
+                  </li>
+                  <li
+                    className={this.state.activeTab === TABS.TALENTS ? 'active' : ''}
+                    onClick={() => this.setState({ activeTab: TABS.TALENTS })}
+                  >
+                    Talents
                   </li>
                   <li
                     className={this.state.activeTab === TABS.MANA ? 'active' : ''}
@@ -851,7 +860,7 @@ class Results extends React.Component {
                       ))}
                       <li className="text-muted" style={{ paddingTop: 10, paddingBottom: 10 }}>
                         Some of these suggestions may be nitpicky or fight dependent but often it's still something you could look to improve. You will have to figure out yourself what you should focus on improving
-                        <b>first</b>, don't try to improve everything at once.
+                        {' '}<b>first</b>, don't try to improve everything at once.
                       </li>
                     </ul>
                   </div>
