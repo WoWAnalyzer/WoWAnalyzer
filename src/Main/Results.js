@@ -329,7 +329,7 @@ class Results extends React.Component {
     if (hasIlterendi && ilterendiHealingPercentage < 0.04) {
       this.issues.push(`<img src="./img/icons/inv_jewelry_ring_firelandsraid_03a.jpg" alt="Ilterendi, Crown Jewel of Silvermoon" /> Your usage of <a href="http://www.wowhead.com/item=137046" target="_blank" class="legendary">Ilterendi, Crown Jewel of Silvermoon</a> can be improved. Try to line <a href="http://www.wowhead.com/spell=85222" target="_blank">Light of Dawn</a> and <a href="http://www.wowhead.com/spell=20473" target="_blank">Holy Shock</a> up with the buff or consider using an easier legendary (${(ilterendiHealingPercentage * 100).toFixed(2)}% healing contributed).`);
     }
-    if (hasVelens && velensHealingPercentage < 0.045) {
+    if (hasVelens && velensHealingPercentage < 0.04) {
       this.issues.push(`<img src="./img/icons/spell_holy_healingfocus.jpg" alt="Velen's Future Sight" /> Your usage of <a href="http://www.wowhead.com/item=144258" target="_blank" class="legendary">Velen's Future Sight</a> can be improved. Try to maximize the amount of casts during the buff or consider using an easier legendary (${(velensHealingPercentage * 100).toFixed(2)}% healing contributed).`);
     }
     const lightOfTheMartyrs = getCastCount(LIGHT_OF_THE_MARTYR_SPELL_ID).hits || 0;
