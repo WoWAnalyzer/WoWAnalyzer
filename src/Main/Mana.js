@@ -10,7 +10,7 @@ const formatDuration = (duration) => {
   return `${Math.floor(duration / 60)}:${seconds < 10 ? `0${seconds}` : seconds}`;
 };
 
-class Mana extends React.Component {
+class Mana extends React.PureComponent {
   static propTypes = {
 
   };
@@ -68,19 +68,37 @@ class Mana extends React.Component {
 
     const { start, end } = this.props;
 
-    const manaBySecond = {};
+    const manaBySecond = {
+      0: 100,
+    };
     this.state.mana.series[0].data.forEach((item) => {
       const secIntoFight = Math.floor((item[0] - start) / 1000);
 
       manaBySecond[secIntoFight] = item[1];
     });
-    const bossHealthBySecond = {};
-    this.state.bossHealth.series[0].data.forEach((item) => {
-      const secIntoFight = Math.floor((item[0] - start) / 1000);
+    const bosses = [];
+    const deadBosses = [];
 
-      console.log(secIntoFight, item[1]);
+    this.state.bossHealth.series.forEach((series) => {
+      const newSeries = {
+        ...series,
+        data: {},
+      };
 
-      bossHealthBySecond[secIntoFight] = item[1];
+      series.data.forEach((item) => {
+        const secIntoFight = Math.floor((item[0] - start) / 1000);
+
+        const health = item[1];
+
+        if (deadBosses.indexOf(series.guid) === -1) {
+          newSeries.data[secIntoFight] = health;
+
+          if (health === 0) {
+            deadBosses.push(series.guid);
+          }
+        }
+      });
+      bosses.push(newSeries);
     });
 
     const fightDurationSec = Math.ceil((end - start) / 1000);
@@ -89,18 +107,20 @@ class Mana extends React.Component {
     for (let i = 0; i <= fightDurationSec; i += 1) {
       labels.push(i);
 
-      manaBySecond[i] = manaBySecond[i] || null;
-      bossHealthBySecond[i] = bossHealthBySecond[i] || null;
+      manaBySecond[i] = manaBySecond[i] !== undefined ? manaBySecond[i] : null;
+      bosses.forEach((series) => {
+        series.data[i] = series.data[i] !== undefined ? series.data[i] : null;
+      });
     }
 
     const chartData = {
       labels: labels,
       series: [
-        {
-          className: 'boss-health',
-          name: 'Boss Health',
-          data: Object.values(bossHealthBySecond),
-        },
+        ...bosses.map((series, index) => ({
+          className: `boss-health boss-${index} boss-${series.guid}`,
+          name: `${series.name} Health`,
+          data: Object.values(series.data),
+        })),
         {
           className: 'mana',
           name: 'Mana',
@@ -123,7 +143,7 @@ class Mana extends React.Component {
             showPoint: false,
             fullWidth: true,
             height: '300px',
-            lineSmooth: Chartist.Interpolation.cardinal({
+            lineSmooth: Chartist.Interpolation.none({
               fillHoles: true,
             }),
             axisX: {
@@ -131,21 +151,27 @@ class Mana extends React.Component {
                 if (seconds < ((step - 1) * 30)) {
                   step = 0;
                 }
-                if (step === 0 || seconds >= (step * 30) || seconds == fightDurationSec) {
+                if (step === 0 || seconds >= (step * 30)) {
                   step += 1;
                   return formatDuration(seconds);
                 }
                 return null;
               },
-              offset: 25,
+              offset: 20,
             },
             axisY: {
               onlyInteger: true,
               offset: 35,
+              labelInterpolationFnc: function skipLabels(percentage) {
+                return `${percentage}%`;
+              },
             },
             plugins: [
               Chartist.plugins.legend({
-                classNames: ['boss-health', 'mana'],
+                classNames: [
+                  ...bosses.map((series, index) => `boss-health boss-${index} boss-${series.guid}`),
+                  'mana',
+                ],
               }),
             ],
           }}
@@ -201,25 +227,83 @@ class Mana extends React.Component {
   font-size: 1em;
   line-height: 1;
 }
+.ct-label.ct-vertical {
+	line-height: 0;
+}
+
 .ct-series.mana .ct-bar, .ct-series.mana .ct-line, .ct-series.mana .ct-point, .ct-series.mana .ct-slice-donut {
 	stroke: #026dd7;
 }
 .ct-series.mana .ct-area, .ct-series.mana .ct-slice-donut-solid, .ct-series.mana .ct-slice-pie {
   fill: #022ad7;
+  fill-opacity: 0.2;
 }
 .ct-legend .mana:before {
   background-color: #026dd7;
   border-color: #026dd7;
 }
-.ct-series.boss-health .ct-bar, .ct-series.boss-health .ct-line, .ct-series.boss-health .ct-point, .ct-series.boss-health .ct-slice-donut {
+.ct-series.boss-health .ct-line {
 	stroke: #d70206;
 }
-.ct-series.boss-health .ct-area, .ct-series.boss-health .ct-slice-donut-solid, .ct-series.boss-health .ct-slice-pie {
+.ct-series.boss-health .ct-area {
   fill: #d70206;
 }
 .ct-legend .boss-health:before {
   background-color: #d70206;
   border-color: #d70206;
+}
+.ct-series.boss-health.boss-1 .ct-line {
+	stroke: #ff6638;
+}
+.ct-series.boss-health.boss-1 .ct-area {
+  fill: #ff6638;
+}
+.ct-legend .boss-health.boss-1:before {
+  background-color: #ff6638;
+  border-color: #ff6638;
+}
+.ct-series.boss-health.boss-2 .ct-line {
+	stroke: #ffd3bf;
+}
+.ct-series.boss-health.boss-2 .ct-area {
+  fill: #ffd3bf;
+}
+.ct-legend .boss-health.boss-2:before {
+  background-color: #ffd3bf;
+  border-color: #ffd3bf;
+}
+/* Naturalist Tel'arn*/
+.ct-series.boss-health.boss-109041 .ct-line {
+	stroke: #99c439;
+}
+.ct-series.boss-health.boss-109041 .ct-area {
+  fill: #000;
+}
+.ct-legend .boss-health.boss-109041:before {
+  background-color: #99c439;
+  border-color: #99c439;
+}
+/* Arcanist Tel'arn*/
+.ct-series.boss-health.boss-109040 .ct-line {
+	stroke: #564cac;
+}
+.ct-series.boss-health.boss-109040 .ct-area {
+  fill: #000;
+}
+.ct-legend .boss-health.boss-109040:before {
+  background-color: #564cac;
+  border-color: #564cac;
+}
+/* Solarist Tel'arn*/
+.ct-series.boss-health.boss-109038 .ct-line {
+	stroke: #f3ea8f;
+}
+.ct-series.boss-health.boss-109038 .ct-area {
+  fill: #000;
+}
+.ct-legend .boss-health.boss-109038:before {
+  background-color: #f3ea8f;
+  border-color: #f3ea8f;
 }
 `}</style>
       </div>
