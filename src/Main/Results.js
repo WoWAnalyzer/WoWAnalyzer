@@ -627,7 +627,7 @@ class Results extends React.Component {
                           <article>
                             <figure>
                               <img
-                                src="./img/icons/inv_jewelry_ring_firelandsraid_03a"
+                                src="./img/icons/inv_jewelry_ring_firelandsraid_03a.jpg"
                                 alt="Ilterendi, Crown Jewel of Silvermoon"
                               />
                             </figure>
