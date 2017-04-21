@@ -26,9 +26,8 @@ class SacredDawn extends Module {
       debug && console.log('Skipping event since combatant couldn\'t be found:', event);
       return;
     }
-    // When SD isn't up, a Light of Dawn applies Sacred Dawn to the players. This happens BEFORE the heal is logged, but the buff (for some weird reason) only applies the increased healing effect to the Light of Dawn healing on yourself. Other players get healed by Light of Dawn as if Sacred Dawn wasn't on them. This code makes it so the Paladin gets the effect from a fresh SD, while other players do not (as happens in-game).
-    const isPlayer = event.targetID === this.owner.playerId;
-    const hasBuff = combatant.hasBuff(SACRED_DAWN_BUFF_SPELL_ID, event.timestamp, undefined, isPlayer ? 0 : 5);
+    // When SD isn't up, a Light of Dawn applies Sacred Dawn to the players. Until 18/4/17 this sometimes happened BEFORE the heal was triggered, but the buff didn't increase the healing. While this should no longer happen, the below `minimalActiveTime` of 5ms should make sure that if it does still happen, the non existing healing gain isn't considered.
+    const hasBuff = combatant.hasBuff(SACRED_DAWN_BUFF_SPELL_ID, event.timestamp, undefined, 5);
 
     if (debug && spellId === LIGHT_OF_DAWN_HEAL_SPELL_ID) {
       const secondsIntoFight = (event.timestamp - this.owner.fight.start_time) / 1000;
