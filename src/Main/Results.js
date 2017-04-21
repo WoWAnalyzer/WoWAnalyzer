@@ -19,6 +19,7 @@ import {
   DIVINE_PURPOSE_SPELL_ID,
   DIVINE_PURPOSE_HOLY_SHOCK_SPELL_ID,
   DIVINE_PURPOSE_LIGHT_OF_DAWN_SPELL_ID,
+  CRUSADERS_MIGHT_SPELL_ID,
 } from './Parser/Constants';
 import { SACRED_DAWN_TRAIT_ID } from './Parser/Modules/Features/SacredDawn';
 import { DRAPE_OF_SHAME_ITEM_ID } from './Parser/Modules/Legendaries/DrapeOfShame';
@@ -314,6 +315,9 @@ class Results extends React.Component {
 
     const fightDuration = this.getFightDuration(parser);
 
+    const hasCrusadersMight = parser.selectedCombatant.lv15Talent === CRUSADERS_MIGHT_SPELL_ID;
+    const has4PT19 = parser.selectedCombatant.hasBuff(T19_4SET_BONUS_BUFF_ID);
+
     const nonHealingTimePercentage = parser.modules.alwaysBeCasting.totalHealingTimeWasted / fightDuration;
     const deadTimePercentage = parser.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
     const totalHealsOnBeaconPercentage = this.getTotalHealsOnBeaconPercentage(parser);
@@ -380,12 +384,18 @@ class Results extends React.Component {
         importance: getIssueImportance(iolFoLToHLCastRatio, 0.6, 0.4),
       });
     }
-    // TODO: Should breakpoints change when someone is using CM?
-    if (unusedIolRate > 0.2) {
+    let recommendedUnusedIolRate = has4PT19 ? 0.2 : 0;
+    if (hasCrusadersMight) {
+      recommendedUnusedIolRate += has4PT19 ? 0.1 : 0.05;
+    }
+    if (hasDivinePurpose) {
+      recommendedUnusedIolRate += has4PT19 ? 0.1 : 0.05;
+    }
+    if (unusedIolRate > recommendedUnusedIolRate) {
       this.issues.push({
         issue: `Your usage of <a href="http://www.wowhead.com/spell=53576" target="_blank">Infusion of Light</a> procs can be improved. Try to use your Infusion of Light procs whenever it wouldn't overheal (${Math.round(unusedIolRate * 100)}% unused Infusion of Lights).`,
         icon: 'ability_paladin_infusionoflight-bw',
-        importance: getIssueImportance(unusedIolRate, 0.25, 0.4, true),
+        importance: getIssueImportance(unusedIolRate, recommendedUnusedIolRate + 0.05, recommendedUnusedIolRate + 0.2, true),
       });
     }
     if (hasIlterendi && ilterendiHealingPercentage < 0.045) {
@@ -849,7 +859,7 @@ class Results extends React.Component {
                           </article>
                         </li>
                       ),
-                      parser.selectedCombatant.hasBuff(T19_4SET_BONUS_BUFF_ID) && (
+                      has4PT19 && (
                         <li className="item clearfix" key={T19_4SET_BONUS_BUFF_ID}>
                           <article>
                             <figure>
