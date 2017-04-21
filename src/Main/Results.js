@@ -44,6 +44,18 @@ function getBeaconIcon(spellId) {
       return '';
   }
 }
+function formatThousands(number) {
+  return (Math.round(number || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+}
+function formatNumber(number) {
+  if (number > 1000000) {
+    return `${(number / 1000000).toFixed(2)}m`;
+  }
+  if (number > 10000) {
+    return `${Math.round(number / 1000)}k`;
+  }
+  return formatThousands(number);
+}
 
 const TABS = {
   ISSUES: 'ISSUES',
@@ -307,6 +319,11 @@ class Results extends React.Component {
     const totalHealsOnBeaconPercentage = this.getTotalHealsOnBeaconPercentage(parser);
     const hasVelens = parser.selectedCombatant.hasTrinket(VELENS_ITEM_ID);
     const velensHealingPercentage = parser.modules.velens.healing / parser.totalHealing;
+    const chainOfThraynHealingPercentage = parser.modules.chainOfThrayn.healing / parser.totalHealing;
+    const prydazHealingPercentage = parser.modules.prydaz.healing / parser.totalHealing;
+    const obsidianStoneSpauldersHealingPercentage = parser.modules.obsidianStoneSpaulders.healing / parser.totalHealing;
+    const drapeOfShameHealingPercentage = parser.modules.drapeOfShame.healing / parser.totalHealing;
+    const maraadsDyingBreathHealingPercentage = parser.modules.maraadsDyingBreath.healing / parser.totalHealing;
     const hasIlterendi = parser.selectedCombatant.hasRing(ILTERENDI_ITEM_ID);
     const ilterendiHealingPercentage = parser.modules.ilterendi.healing / parser.totalHealing;
     const hasSacredDawn = parser.selectedCombatant.traitsBySpellId[SACRED_DAWN_TRAIT_ID] === 1;
@@ -407,6 +424,11 @@ class Results extends React.Component {
       }
     }
 
+    // TODO: Suggestion for AoS when it didn't heal enough to be worthwhile
+    // TODO: Suggestion for Devo when it didn't prevent enough damage to be worthwhile (also devo damage display)
+    // TODO: Suggestion for mana
+    // TODO: Suggestion for enchants
+
     const castEfficiency = this.getCastEfficiency(parser);
 
     return (
@@ -439,7 +461,7 @@ class Results extends React.Component {
                       style={{ border: 0 }}
                       alt="Healing"
                     />)}
-                  value={((parser.totalHealing || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}
+                  value={formatThousands(parser.totalHealing)}
                   label="Healing done"
                 />
               </div>
@@ -676,7 +698,7 @@ class Results extends React.Component {
                               </header>
                               <main>
                                 <dfn data-tip="The actual effective healing contributed by the Drape of Shame equip effect.">
-                                  {`${((Math.round(parser.modules.drapeOfShame.healing / parser.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
+                                  {((drapeOfShameHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(parser.modules.drapeOfShame.healing / fightDuration * 1000)} HPS
                                 </dfn>
                               </main>
                             </div>
@@ -700,7 +722,7 @@ class Results extends React.Component {
                               </header>
                               <main>
                                 <dfn data-tip="The actual effective healing contributed by the Ilterendi, Crown Jewel of Silvermoon equip effect.">
-                                  {`${((ilterendiHealingPercentage * 100) || 0).toFixed(2)} %`}
+                                  {((ilterendiHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(parser.modules.ilterendi.healing / fightDuration * 1000)} HPS
                                 </dfn>
                               </main>
                             </div>
@@ -724,7 +746,7 @@ class Results extends React.Component {
                               </header>
                               <main>
                                 <dfn data-tip="The actual effective healing contributed by the Velen's Future Sight use effect.">
-                                  {`${((velensHealingPercentage * 100) || 0).toFixed(2)} %`}
+                                  {((velensHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(parser.modules.velens.healing / fightDuration * 1000)} HPS
                                 </dfn>
                               </main>
                             </div>
@@ -748,7 +770,7 @@ class Results extends React.Component {
                               </header>
                               <main>
                                 <dfn data-tip="The actual effective healing contributed by the Chain of Thrayn equip effect.">
-                                  {`${((Math.round(parser.modules.chainOfThrayn.healing / parser.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
+                                  {((chainOfThraynHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(parser.modules.chainOfThrayn.healing / fightDuration * 1000)} HPS
                                 </dfn>
                               </main>
                             </div>
@@ -772,7 +794,7 @@ class Results extends React.Component {
                               </header>
                               <main>
                                 <dfn data-tip="The actual effective healing contributed by the Prydaz, Xavaric's Magnum Opus equip effect.">
-                                  {`${((Math.round(parser.modules.prydaz.healing / parser.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
+                                  {((prydazHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(parser.modules.prydaz.healing / fightDuration * 1000)} HPS
                                 </dfn>
                               </main>
                             </div>
@@ -796,7 +818,7 @@ class Results extends React.Component {
                               </header>
                               <main>
                                 <dfn data-tip="The actual effective healing contributed by the Obsidian Stone Spaulders equip effect.">
-                                  {`${((Math.round(parser.modules.obsidianStoneSpaulders.healing / parser.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
+                                  {((obsidianStoneSpauldersHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(parser.modules.obsidianStoneSpaulders.healing / fightDuration * 1000)} HPS
                                 </dfn>
                               </main>
                             </div>
@@ -820,7 +842,7 @@ class Results extends React.Component {
                               </header>
                               <main>
                                 <dfn data-tip="The actual effective healing contributed by the Maraad's Dying Breath equip effect when compared to casting an unbuffed LotM instead. The damage taken is ignored as this doesn't change with Maraad's and therefore doesn't impact the healing gain.">
-                                  {`${((Math.round(parser.modules.maraadsDyingBreath.healing / parser.totalHealing * 10000) / 100) || 0).toFixed(2)} %`}
+                                  {((maraadsDyingBreathHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(parser.modules.maraadsDyingBreath.healing / fightDuration * 1000)} HPS
                                 </dfn>
                               </main>
                             </div>
