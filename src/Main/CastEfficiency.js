@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {
-  HOLY_SHOCK_HEAL_SPELL_ID, LIGHT_OF_DAWN_CAST_SPELL_ID, JUDGMENT_CAST_SPELL_ID, BESTOW_FAITH_SPELL_ID, LIGHT_OF_THE_MARTYR_SPELL_ID, TYRS_DELIVERANCE_CAST_SPELL_ID, AVENGING_WRATH_SPELL_ID, HOLY_AVENGER_SPELL_ID, AURA_MASTERY_SPELL_ID, CRUSADER_STRIKE_SPELL_ID, HOLY_PRISM_CAST_SPELL_ID, LIGHTS_HAMMER_CAST_SPELL_ID, FLASH_OF_LIGHT_SPELL_ID, HOLY_LIGHT_SPELL_ID, ARCANE_TORRENT_SPELL_ID, RULE_OF_LAW_SPELL_ID,
+  HOLY_SHOCK_CAST_SPELL_ID, LIGHT_OF_DAWN_CAST_SPELL_ID, JUDGMENT_CAST_SPELL_ID, BESTOW_FAITH_SPELL_ID, LIGHT_OF_THE_MARTYR_SPELL_ID, TYRS_DELIVERANCE_CAST_SPELL_ID, AVENGING_WRATH_SPELL_ID, HOLY_AVENGER_SPELL_ID, AURA_MASTERY_SPELL_ID, CRUSADER_STRIKE_SPELL_ID, HOLY_PRISM_CAST_SPELL_ID, LIGHTS_HAMMER_CAST_SPELL_ID, FLASH_OF_LIGHT_SPELL_ID, HOLY_LIGHT_SPELL_ID, ARCANE_TORRENT_SPELL_ID, RULE_OF_LAW_SPELL_ID,
   JUDGMENT_OF_LIGHT_SPELL_ID, CRUSADERS_MIGHT_SPELL_ID, DIVINE_PROTECTION_SPELL_ID, BLESSING_OF_SACRIFICE_SPELL_ID,
 } from './Parser/Constants';
 import { VELENS_ITEM_ID, LEGENDARY_VELENS_BUFF_SPELL_ID } from './Parser/Modules/Legendaries/Velens';
@@ -16,11 +16,11 @@ export const SPELL_CATEGORY = {
 
 export const CPM_ABILITIES = [
   {
-    spellId: HOLY_SHOCK_HEAL_SPELL_ID,
+    spellId: HOLY_SHOCK_CAST_SPELL_ID,
     icon: 'spell_holy_searinglight',
     name: 'Holy Shock',
     category: SPELL_CATEGORY.ROTATIONAL,
-    getCasts: castCount => castCount.hits,
+    getCasts: castCount => castCount.casts,
     getCooldown: haste => 9 / (1 + haste),
   },
   {
@@ -63,6 +63,7 @@ export const CPM_ABILITIES = [
     category: SPELL_CATEGORY.ROTATIONAL,
     getCooldown: haste => 4.5 / (1 + haste) / 2,
     isActive: combatant => combatant.lv15Talent === CRUSADERS_MIGHT_SPELL_ID,
+    recommendedCastEfficiency: 0.3,
   },
   {
     spellId: HOLY_PRISM_CAST_SPELL_ID,
@@ -219,7 +220,7 @@ const CastEfficiency = ({ abilities }) => {
                   <td className="text-center" style={{ minWidth: 80 }}>
                     {cpm.toFixed(2)}
                   </td>
-                  <td className="text-right" style={{ minWidth: 90 }}>
+                  <td className="text-right" style={{ minWidth: 100 }}>
                     {casts}{maxCasts === Infinity ? '' : `/${Math.floor(maxCasts)}`} casts
                   </td>
                   <td style={{ width: '20%' }}>
