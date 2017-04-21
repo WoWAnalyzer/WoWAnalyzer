@@ -211,7 +211,7 @@ h1 {
   list-style: none;
   padding: 0;
 }
-.list.small {
+.list.issues {
   font-size: 100%;
 }
 .list > li {
@@ -229,10 +229,46 @@ h1 {
   border-top-color: rgba(0, 0, 0, 0.4);
   border-bottom-color: rgba(0, 0, 0, 0.4);
 }
-.list.small img {
+.list.issues .item {
+  padding: 10px 90px 10px 22px;
+}
+.list.issues .item img {
   height: 1.7em;
   margin: -10px 6px -10px 0;
   border-radius: 50%;
+}
+.list.issues .regular:before {
+  content: 'Average';
+  display: inline-block;
+  margin-right: 10px;
+  text-transform: uppercase;
+  color: #ffad56;
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.list.issues .minor:before {
+  content: 'Minor 🡇';
+  display: inline-block;
+  margin-right: 10px;
+  text-transform: uppercase;
+  color: #5b9cff;
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.list.issues .major:before {
+  content: 'Major 🡅';
+  display: inline-block;
+  margin-right: 10px;
+  text-transform: uppercase;
+  color: #ff433d;
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 h1 {
   position: relative;
@@ -250,6 +286,7 @@ h1 {
   }
 }
 li.item {
+  position: relative;
   border-bottom: 1px solid rgba(0, 0, 0, .4);
   box-shadow: 0 1px 0 0 rgba(255, 255, 255, .1);
 }

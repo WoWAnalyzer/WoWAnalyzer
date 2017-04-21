@@ -6,6 +6,8 @@ import {
 } from './Parser/Constants';
 import { VELENS_ITEM_ID, LEGENDARY_VELENS_BUFF_SPELL_ID } from './Parser/Modules/Legendaries/Velens';
 
+import ISSUE_IMPORTANCE from './ISSUE_IMPORTANCE';
+
 export const SPELL_CATEGORY = {
   ROTATIONAL: 'Rotational Spell',
   COOLDOWNS: 'Cooldown',
@@ -87,6 +89,7 @@ export const CPM_ABILITIES = [
     category: SPELL_CATEGORY.COOLDOWNS,
     getCooldown: haste => 60,
     recommendedCastEfficiency: 0.6,
+    importance: ISSUE_IMPORTANCE.MINOR,
   },
   {
     spellId: ARCANE_TORRENT_SPELL_ID,
@@ -135,6 +138,7 @@ export const CPM_ABILITIES = [
     getCooldown: haste => 150,
     recommendedCastEfficiency: 0.5,
     noSuggestion: true,
+    importance: ISSUE_IMPORTANCE.MINOR,
   },
   {
     spellId: AURA_MASTERY_SPELL_ID,

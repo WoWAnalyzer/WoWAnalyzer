@@ -30,6 +30,7 @@ import { OBSIDIAN_STONE_SPAULDERS_ITEM_ID } from './Parser/Modules/Legendaries/O
 import { MARAADS_DYING_BREATH_ITEM_ID } from './Parser/Modules/Legendaries/MaraadsDyingBreath';
 
 import { CPM_ABILITIES } from './CastEfficiency';
+import ISSUE_IMPORTANCE from './ISSUE_IMPORTANCE';
 
 function getBeaconIcon(spellId) {
   switch (spellId) {
@@ -50,6 +51,16 @@ const TABS = {
   MANA: 'MANA',
   CAST_EFFICIENCY: 'CAST_EFFICIENCY',
   PLAYER_BREAKDOWN: 'PLAYER_BREAKDOWN',
+};
+
+const getIssueImportance = (value, regular, major, higherIsWorse = false) => {
+  if (higherIsWorse ? value > major : value < major) {
+    return ISSUE_IMPORTANCE.MAJOR;
+  }
+  if (higherIsWorse ? value > regular : value < regular) {
+    return ISSUE_IMPORTANCE.REGULAR;
+  }
+  return ISSUE_IMPORTANCE.MINOR;
 };
 
 class Results extends React.Component {
@@ -186,10 +197,15 @@ class Results extends React.Component {
         // The reason cast efficiency is based on the `rawMaxCasts` is that it you usually want to save cooldowns for periods where there is a lot of damage coming. Instead of adding a static buffer, this is more dynamic in that if you had 90% of the cooldown time to cast it you probably could have found a good moment, while if you only had 10% of the time then it isn't as likely there was a good opportunity. By making this based on the cooldown time, this scales with the strength of the cooldown; a 1.5 min cooldown is weaker than a 3 min cooldown.
         const castEfficiency = cooldown === null ? null : Math.min(1, casts / rawMaxCasts);
 
-        const canBeImproved = castEfficiency !== null && castEfficiency < (ability.recommendedCastEfficiency || 0.8);
+        const recommendedCastEfficiency = ability.recommendedCastEfficiency || 0.8;
+        const canBeImproved = castEfficiency !== null && castEfficiency < recommendedCastEfficiency;
 
         if (canBeImproved && !ability.noSuggestion) {
-          this.issues.push(`<img src="./img/icons/${ability.icon}.jpg" alt="${ability.name}" /> Try to cast <a href="http://www.wowhead.com/spell=${ability.spellId}" target="_blank">${ability.name}</a> more often (${casts}/${maxCasts} casts: ${Math.round(castEfficiency * 100)}% cast efficiency). ${ability.extraSuggestion || ''}`);
+          this.issues.push({
+            issue: `Try to cast <a href="http://www.wowhead.com/spell=${ability.spellId}" target="_blank">${ability.name}</a> more often (${casts}/${maxCasts} casts: ${Math.round(castEfficiency * 100)}% cast efficiency). ${ability.extraSuggestion || ''}`,
+            icon: ability.icon,
+            importance: ability.importance || getIssueImportance(castEfficiency, recommendedCastEfficiency - 0.05, recommendedCastEfficiency - 0.15),
+          });
         }
 
         return {
@@ -306,31 +322,68 @@ class Results extends React.Component {
     const divinePurposeLightOfDawnProcs = hasDivinePurpose && parser.selectedCombatant.getBuffTriggerCount(DIVINE_PURPOSE_LIGHT_OF_DAWN_SPELL_ID);
 
     if (nonHealingTimePercentage > 0.3) {
-      this.issues.push(`<img src="./img/icons/petbattle_health-down.jpg" alt="Non healing time" /> Your non healing time can be improved. Try to cast heals more regularly (${Math.round(nonHealingTimePercentage * 100)}% non healing time).`);
+      this.issues.push({
+        issue: `Your non healing time can be improved. Try to cast heals more regularly (${Math.round(nonHealingTimePercentage * 100)}% non healing time).`,
+        icon: 'petbattle_health-down',
+        importance: getIssueImportance(nonHealingTimePercentage, 0.35, 0.4, true),
+      });
     }
     if (deadTimePercentage > 0.2) {
-      this.issues.push(`<img src="./img/icons/spell_mage_altertime.jpg" alt="Dead GCD time" /> Your dead GCD time can be improved. Try to Always Be Casting (ABC); when you're not healing try to contribute some damage (${Math.round(deadTimePercentage * 100)}% dead GCD time).`);
+      this.issues.push({
+        issue: `Your dead GCD time can be improved. Try to Always Be Casting (ABC); when you're not healing try to contribute some damage (${Math.round(deadTimePercentage * 100)}% dead GCD time).`,
+        icon: 'spell_mage_altertime',
+        importance: getIssueImportance(deadTimePercentage, 0.3, 0.4, true),
+      });
     }
-    if (totalHealsOnBeaconPercentage > 0.25) {
-      this.issues.push(`<img src="./img/icons/ability_paladin_beaconoflight.jpg" alt="Beacon healing" /> Try to avoid directly healing your beacon targets; it is ineffecient and the healing from beacon transfers are usually enough (${Math.round(totalHealsOnBeaconPercentage * 100)}% of all your heals were on a beacon).`);
+    if (totalHealsOnBeaconPercentage > 0.2) {
+      this.issues.push({
+        issue: `Try to avoid directly healing your beacon targets; it is ineffecient and the healing from beacon transfers are usually enough (${Math.round(totalHealsOnBeaconPercentage * 100)}% of all your heals were on a beacon).`,
+        icon: 'ability_paladin_beaconoflight',
+        importance: getIssueImportance(totalHealsOnBeaconPercentage, 0.25, 0.35, true),
+      });
     }
-    if (totalMasteryEffectiveness < 0.7) {
-      this.issues.push(`<img src="./img/icons/inv_hammer_04.jpg" alt="Mastery" /> Your Mastery Effectiveness can be improved. Try to improve your positioning, usually by sticking with melee (${Math.round(totalMasteryEffectiveness * 100)}% mastery effectiveness).`);
+    if (totalMasteryEffectiveness < 0.75) {
+      this.issues.push({
+        issue: `Your Mastery Effectiveness can be improved. Try to improve your positioning, usually by sticking with melee (${Math.round(totalMasteryEffectiveness * 100)}% mastery effectiveness).`,
+        icon: 'inv_hammer_04',
+        importance: getIssueImportance(totalMasteryEffectiveness, 0.7, 0.6),
+      });
     }
     if (hasRuleOfLaw && ruleOfLawUptime < 0.25) {
-      this.issues.push(`<img src="./img/icons/ability_paladin_longarmofthelaw.jpg" alt="Rule of Law" /> Your <a href="http://www.wowhead.com/spell=214202" target="_blank">Rule of Law</a> uptime can be improved. Try keeping at least 1 charge on cooldown; you should (almost) never be at max charges (${(ruleOfLawUptime * 100).toFixed(2)}% uptime).`);
+      this.issues.push({
+        issue: `Your <a href="http://www.wowhead.com/spell=214202" target="_blank">Rule of Law</a> uptime can be improved. Try keeping at least 1 charge on cooldown; you should (almost) never be at max charges (${(ruleOfLawUptime * 100).toFixed(2)}% uptime).`,
+        icon: 'ability_paladin_longarmofthelaw',
+        importance: getIssueImportance(ruleOfLawUptime, 0.2, 0.1),
+      });
     }
-    if (iolFoLToHLCastRatio < 0.6) {
-      this.issues.push(`<img src="./img/icons/spell_holy_flashheal.jpg" alt="Flash of Light" /> Your <i>IoL FoL to HL cast ratio</i> can likely be improved. When you get an <a href="http://www.wowhead.com/spell=53576" target="_blank">Infusion of Light</a> proc try to cast Flash of Light as much as possible, it is a considerably stronger heal (${iolFlashOfLights} Flash of Lights (${Math.round(iolFoLToHLCastRatio * 100)}%) to ${iolHolyLights} Holy Lights (${Math.round(100 - iolFoLToHLCastRatio * 100)}%) cast with Infusion of Light).`);
+    if (iolFoLToHLCastRatio < 0.7) {
+      this.issues.push({
+        issue: `Your <i>IoL FoL to HL cast ratio</i> can likely be improved. When you get an <a href="http://www.wowhead.com/spell=53576" target="_blank">Infusion of Light</a> proc try to cast <a href="http://www.wowhead.com/spell=19750" target="_blank">Flash of Light</a> as much as possible, it is a considerably stronger heal (${iolFlashOfLights} Flash of Lights (${Math.round(iolFoLToHLCastRatio * 100)}%) to ${iolHolyLights} Holy Lights (${Math.round(100 - iolFoLToHLCastRatio * 100)}%) cast with Infusion of Light).`,
+        icon: 'spell_holy_flashheal',
+        importance: getIssueImportance(iolFoLToHLCastRatio, 0.6, 0.4),
+      });
     }
-    if (unusedIolRate > 0.3) {
-      this.issues.push(`<img src="./infusionoflight-bw.png" alt="Unused Infusion of Light" /> Your usage of <a href="http://www.wowhead.com/spell=53576" target="_blank">Infusion of Light</a> procs can be improved. Try to use your Infusion of Light procs whenever it wouldn't overheal (${Math.round(unusedIolRate * 100)}% unused Infusion of Lights).`);
+    // TODO: Should breakpoints change when someone is using CM?
+    if (unusedIolRate > 0.2) {
+      this.issues.push({
+        issue: `Your usage of <a href="http://www.wowhead.com/spell=53576" target="_blank">Infusion of Light</a> procs can be improved. Try to use your Infusion of Light procs whenever it wouldn't overheal (${Math.round(unusedIolRate * 100)}% unused Infusion of Lights).`,
+        icon: 'ability_paladin_infusionoflight-bw',
+        importance: getIssueImportance(unusedIolRate, 0.25, 0.4, true),
+      });
     }
-    if (hasIlterendi && ilterendiHealingPercentage < 0.04) {
-      this.issues.push(`<img src="./img/icons/inv_jewelry_ring_firelandsraid_03a.jpg" alt="Ilterendi, Crown Jewel of Silvermoon" /> Your usage of <a href="http://www.wowhead.com/item=137046" target="_blank" class="legendary">Ilterendi, Crown Jewel of Silvermoon</a> can be improved. Try to line <a href="http://www.wowhead.com/spell=85222" target="_blank">Light of Dawn</a> and <a href="http://www.wowhead.com/spell=20473" target="_blank">Holy Shock</a> up with the buff or consider using an easier legendary (${(ilterendiHealingPercentage * 100).toFixed(2)}% healing contributed).`);
+    if (hasIlterendi && ilterendiHealingPercentage < 0.045) {
+      this.issues.push({
+        issue: `Your usage of <a href="http://www.wowhead.com/item=137046" target="_blank" class="legendary">Ilterendi, Crown Jewel of Silvermoon</a> can be improved. Try to line <a href="http://www.wowhead.com/spell=85222" target="_blank">Light of Dawn</a> and <a href="http://www.wowhead.com/spell=20473" target="_blank">Holy Shock</a> up with the buff or consider using an easier legendary (${(ilterendiHealingPercentage * 100).toFixed(2)}% healing contributed).`,
+        icon: 'inv_jewelry_ring_firelandsraid_03a',
+        importance: getIssueImportance(ilterendiHealingPercentage, 0.04, 0.03),
+      });
     }
-    if (hasVelens && velensHealingPercentage < 0.04) {
-      this.issues.push(`<img src="./img/icons/spell_holy_healingfocus.jpg" alt="Velen's Future Sight" /> Your usage of <a href="http://www.wowhead.com/item=144258" target="_blank" class="legendary">Velen's Future Sight</a> can be improved. Try to maximize the amount of casts during the buff or consider using an easier legendary (${(velensHealingPercentage * 100).toFixed(2)}% healing contributed).`);
+    if (hasVelens && velensHealingPercentage < 0.045) {
+      this.issues.push({
+        issue: `Your usage of <a href="http://www.wowhead.com/item=144258" target="_blank" class="legendary">Velen's Future Sight</a> can be improved. Try to maximize the amount of casts during the buff or consider using an easier legendary (${(velensHealingPercentage * 100).toFixed(2)}% healing contributed).`,
+        icon: 'spell_holy_healingfocus',
+        importance: getIssueImportance(velensHealingPercentage, 0.04, 0.03),
+      });
     }
     const lightOfTheMartyrs = getCastCount(LIGHT_OF_THE_MARTYR_SPELL_ID).hits || 0;
     let fillerLotms = lightOfTheMartyrs;
@@ -338,11 +391,19 @@ class Results extends React.Component {
       const lightOfTheDawns = getCastCount(LIGHT_OF_DAWN_CAST_SPELL_ID).casts || 0;
       fillerLotms -= lightOfTheDawns;
     }
-    if (fillerLotms > 10) {
+    if (fillerLotms > 6) {
       if (hasMaraads) {
-        this.issues.push(`<img src="./img/icons/ability_paladin_lightofthemartyr.jpg" alt="Light of the Martyr" /> You should only cast <b>one</b> <a href="http://www.wowhead.com/item=137046" target="_blank" class="legendary">Light of the Martyr</a> per <a href="http://www.wowhead.com/item=85222" target="_blank">Light of Dawn</a>. Without the buff from <a href="http://www.wowhead.com/item=144273/maraads-dying-breath" target="_blank" class="legendary">Maraad's Dying Breath</a>, <a href="http://www.wowhead.com/item=137046" target="_blank" class="legendary">Light of the Martyr</a> is a very inefficient spell to cast. Try to only cast additional Light of the Martyr when absolutely necessary (${lightOfTheMartyrs} Light of the Martyr cast).`);
+        this.issues.push({
+          issue: `You should only cast <b>one</b> <a href="http://www.wowhead.com/item=137046" target="_blank" class="legendary">Light of the Martyr</a> per <a href="http://www.wowhead.com/item=85222" target="_blank">Light of Dawn</a>. Without the buff from <a href="http://www.wowhead.com/item=144273/maraads-dying-breath" target="_blank" class="legendary">Maraad's Dying Breath</a>, <a href="http://www.wowhead.com/item=137046" target="_blank" class="legendary">Light of the Martyr</a> is a very inefficient spell to cast. Try to only cast additional Light of the Martyr when absolutely necessary (${lightOfTheMartyrs} Light of the Martyr cast).`,
+          icon: 'ability_paladin_lightofthemartyr',
+          importance: getIssueImportance(fillerLotms, 9, 12, true),
+        });
       } else {
-        this.issues.push(`<img src="./img/icons/ability_paladin_lightofthemartyr.jpg" alt="Light of the Martyr" /> <a href="http://www.wowhead.com/item=137046" target="_blank">Light of the Martyr</a> is a very inefficient spell to cast. Try to only cast Light of the Martyr when absolutely necessary (${lightOfTheMartyrs} Light of the Martyr cast).`);
+        this.issues.push({
+          issue: `<a href="http://www.wowhead.com/item=137046" target="_blank">Light of the Martyr</a> is a very inefficient spell to cast. Try to only cast Light of the Martyr when absolutely necessary (${lightOfTheMartyrs} Light of the Martyr cast).`,
+          icon: 'ability_paladin_lightofthemartyr',
+          importance: getIssueImportance(fillerLotms, 9, 12, true),
+        });
       }
     }
 
@@ -438,7 +499,7 @@ class Results extends React.Component {
                   icon={(
                     <a href="http://www.wowhead.com/spell=53576" target="_blank">
                       <img
-                        src="./infusionoflight-bw.png"
+                        src="./img/icons/ability_paladin_infusionoflight-bw.jpg"
                         alt="Unused Infusion of Light"
                       />
                     </a>
@@ -515,7 +576,7 @@ class Results extends React.Component {
                   )}
                   value={`${this.constructor.formatPercentage(tyrsDeliverancePercentage)} %`}
                   label={(
-                    <dfn data-tip={`The total actual effective healing contributed by Tyr's Deliverance. This includes the gained from the increase to healing by Flash of Light and Holy Light.<br /><br />The actual healing done by the effect was ${this.constructor.formatPercentage(tyrsDeliveranceHealHealingPercentage)}% of your healing done, and the healing contribution from the Flash of Light and Holy Light heal increase was ${this.constructor.formatPercentage(tyrsDeliveranceBuffFoLHLHealingPercentage)}% of your healing done.`}>
+                    <dfn data-tip={`The total actual effective healing contributed by Tyr's Deliverance. This includes the gains from the increase to healing by Flash of Light and Holy Light.<br /><br />The actual healing done by the effect was ${this.constructor.formatPercentage(tyrsDeliveranceHealHealingPercentage)}% of your healing done, and the healing contribution from the Flash of Light and Holy Light heal increase was ${this.constructor.formatPercentage(tyrsDeliveranceBuffFoLHLHealingPercentage)}% of your healing done.`}>
                       Tyr's Deliverance healing
                     </dfn>
                   )}
@@ -851,16 +912,22 @@ class Results extends React.Component {
               {this.state.activeTab === TABS.ISSUES && (
                 <div>
                   <div className="panel-heading">
-                    <h2>Suggestions (BETA)</h2>
+                    <h2>Suggestions</h2>
                   </div>
                   <div style={{ padding: '0 0' }}>
-                    <ul className="list small">
+                    <ul className="list issues">
+                      {!this.issues.find(issue => issue.importance === ISSUE_IMPORTANCE.MAJOR) && (
+                        <li className="item" style={{ color: '#25ff00' }}>
+                          <img src="./img/icons/thumbsup.jpg" alt="Icon" /> There are no major issues in this fight. Good job!
+                        </li>
+                      )}
                       {this.issues.map((issue, i) => (
-                        <li className="item" style={{ padding: '10px 22px' }} dangerouslySetInnerHTML={{ __html: issue }} key={`${i}`} />
+                        <li className={`item ${issue.importance  || ''}`} key={`${i}`}>
+                          <img src={`./img/icons/${issue.icon}.jpg`} alt="Icon" /> <span dangerouslySetInnerHTML={{ __html: issue.issue || issue }} />
+                        </li>
                       ))}
                       <li className="text-muted" style={{ paddingTop: 10, paddingBottom: 10 }}>
-                        Some of these suggestions may be nitpicky or fight dependent but often it's still something you could look to improve. You will have to figure out yourself what you should focus on improving
-                        {' '}<b>first</b>, don't try to improve everything at once.
+                        Some of these suggestions may be nitpicky or fight dependent, but often it's still something you could look to improve. Try to focus on improving one thing at a time - don't try to improve everything at once.
                       </li>
                     </ul>
                   </div>
