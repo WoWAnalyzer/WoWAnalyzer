@@ -20,14 +20,17 @@ const specialEventIndicators = (options) => {
     options = Chartist.extend({}, defaultOptions, options);
 
     if (chart instanceof Chartist.Line) {
-      chart.on('created', function (context) {
-        options.series.forEach((series) => {
-          series.data.forEach((item) => {
-            const line = drawLine(context.chartRect, context.axisX.stepLength, item.x);
+      chart.on('draw', function (data) {
+        if (data.type === 'line' && options.series.indexOf(data.series.className) !== -1) {
+          data.element.remove(); // don't show a line, we're handling this one.
+          data.values.forEach((point, x) => {
+            if (point !== undefined) {
+              const line = drawLine(data.chartRect, data.axisX.stepLength, x);
 
-            context.svg.elem('line', line, series.className);
+              data.group.elem('line', line, 'ct-line');
+            }
           });
-        });
+        }
       });
     }
   };

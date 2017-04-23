@@ -2,7 +2,7 @@ import React from 'react';
 
 const Changelog = () => (
   <div>
-    23-04-2017 - Changed the LotM suggestion to be based on CPM and be much more forgiving.<br />
+    23-04-2017 - Changed the LotM suggestion to be based on CPM and be much more forgiving. Added death indicators to the mana graph.<br />
     21-04-2017 - Added HPS numbers to item healing done. Damaging HS are now included in cast counts. Recommended cast efficiency of CS with CM reduced to 30%. The recommended unused IoL is now adjusted based on if you have CM, DP and/or 4PT19.<br />
     21-04-2017 - Added suggestion/issue importance indicators and show a positive message when there are no major issues.<br />
     20-04-2017 - Since Easter is over bosses will no longer resurrect in the mana graph<dfn data-tip="This may cause issues with bosses that do actually resurrect, but I will fix that once I encounter such a boss.">*</dfn>. All bosses in a fight get shown instead of just the first<dfn data-tip="If boss adds are classified as bosses they will be shown as well. So far this doesn't appear to happen, but I will fix it if I encounter this.">*</dfn>. This should make the boss health for Mythic Botanist work properly.<br />
@@ -23,8 +23,7 @@ const Changelog = () => (
     08-04-2017 - Improve beacon healing tracking accuracy and it now works properly with Beacon of Virtue.<br />
     08-04-2017 - Total healing done count now includes absorbed healing.<br />
     07-04-2017 - New layout with many usability improvements!<br />
-    04-04-2017 - Add an Always Be Casting (ABC) module that checks your
-    <i>Non healing time</i> and dead GCD time (this is shown in the tooltip).<br />
+    04-04-2017 - Add an Always Be Casting (ABC) module that checks your <i>Non healing time</i> and dead GCD time (this is shown in the tooltip).<br />
     29-03-2017 - Fixed a bug where Maraad's healing statistic would show 0% healing after getting only 1 Maraad's charge.<br />
     29-03-2017 - Update healing bonuses to the 7.2 values (DoS & Ilterendi nerfs).<br />
     27-03-2017 - Added Maraad's Dying Breath healing statistic.<br />

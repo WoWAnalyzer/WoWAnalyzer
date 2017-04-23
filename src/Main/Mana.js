@@ -7,6 +7,8 @@ import specialEventIndicators from './Chartist/specialEventIndicators';
 
 import WCL_API_KEY from './WCL_API_KEY';
 
+import './Mana.css';
+
 const formatDuration = (duration) => {
   const seconds = Math.floor(duration % 60);
   return `${Math.floor(duration / 60)}:${seconds < 10 ? `0${seconds}` : seconds}`;
@@ -100,15 +102,12 @@ class Mana extends React.PureComponent {
       });
       bosses.push(newSeries);
     });
-    const deaths = [];
+    const deathsBySecond = {};
     this.state.mana.deaths.forEach((death) => {
       const secIntoFight = Math.floor((death.timestamp - start) / 1000);
 
       if (death.targetIsFriendly) {
-        deaths.push({
-          x: secIntoFight,
-          label: "Someone died",
-        });
+        deathsBySecond[secIntoFight] = true;
       }
     });
 
@@ -121,6 +120,7 @@ class Mana extends React.PureComponent {
       bosses.forEach((series) => {
         series.data[i] = series.data[i] !== undefined ? series.data[i] : null;
       });
+      deathsBySecond[i] = deathsBySecond[i] !== undefined ? deathsBySecond[i] : undefined;
     }
 
     const chartData = {
@@ -136,6 +136,11 @@ class Mana extends React.PureComponent {
           name: 'Mana',
           data: Object.values(manaBySecond),
         },
+        {
+          className: 'death',
+          name: 'Deaths',
+          data: Object.values(deathsBySecond),
+        }
       ],
     };
     let step = 0;
@@ -181,153 +186,16 @@ class Mana extends React.PureComponent {
                 classNames: [
                   ...bosses.map((series, index) => `boss-health boss-${index} boss-${series.guid}`),
                   'mana',
+                  'death',
                 ],
               }),
               specialEventIndicators({
-                series: [
-                  {
-                    className: 'death',
-                    data: deaths,
-                  }
-                ],
+                series: ['death'],
               }),
             ],
           }}
           type="Line"
         />
-        <style type="text/css">{`
-.ct-legend {
-  position: relative;
-  z-index: 10;
-  list-style: none;
-  text-align: center;
-  margin-bottom: 0;
-}
-.ct-legend li {
-  position: relative;
-  padding-left: 19px;
-  margin-right: 10px;
-  margin-bottom: 3px;
-  cursor: pointer;
-  display: inline-block;
-}
-.ct-legend li:before {
-  width: 12px;
-  height: 12px;
-  position: absolute;
-  top: .3em;
-  left: 0;
-  content: '';
-  border: 3px solid transparent;
-  border-radius: 2px;
-}
-.ct-legend li.inactive:before {
-  background: transparent;
-}
-.ct-legend.ct-legend-inside {
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-.ct-legend.ct-legend-inside li{
-  display: block;
-  margin: 0;
-}
-
-.ct-line {
-  stroke-width: 2px;
-}
-.ct-grid {
-	stroke: rgba(255, 255, 255, 0.2);
-}
-.ct-label {
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 1em;
-  line-height: 1;
-}
-.ct-label.ct-vertical {
-	line-height: 0;
-}
-
-.ct-series.mana .ct-bar, .ct-series.mana .ct-line, .ct-series.mana .ct-point, .ct-series.mana .ct-slice-donut {
-	stroke: #026dd7;
-}
-.ct-series.mana .ct-area, .ct-series.mana .ct-slice-donut-solid, .ct-series.mana .ct-slice-pie {
-  fill: #022ad7;
-  fill-opacity: 0.2;
-}
-.ct-legend .mana:before {
-  background-color: #026dd7;
-  border-color: #026dd7;
-}
-.ct-series.boss-health .ct-line {
-	stroke: #d70206;
-}
-.ct-series.boss-health .ct-area {
-  fill: #d70206;
-}
-.ct-legend .boss-health:before {
-  background-color: #d70206;
-  border-color: #d70206;
-}
-.ct-series.boss-health.boss-1 .ct-line {
-	stroke: #ff6638;
-}
-.ct-series.boss-health.boss-1 .ct-area {
-  fill: #ff6638;
-}
-.ct-legend .boss-health.boss-1:before {
-  background-color: #ff6638;
-  border-color: #ff6638;
-}
-.ct-series.boss-health.boss-2 .ct-line {
-	stroke: #ffd3bf;
-}
-.ct-series.boss-health.boss-2 .ct-area {
-  fill: #ffd3bf;
-}
-.ct-legend .boss-health.boss-2:before {
-  background-color: #ffd3bf;
-  border-color: #ffd3bf;
-}
-/* Naturalist Tel'arn*/
-.ct-series.boss-health.boss-109041 .ct-line {
-	stroke: #99c439;
-}
-.ct-series.boss-health.boss-109041 .ct-area {
-  fill: #000;
-}
-.ct-legend .boss-health.boss-109041:before {
-  background-color: #99c439;
-  border-color: #99c439;
-}
-/* Arcanist Tel'arn*/
-.ct-series.boss-health.boss-109040 .ct-line {
-	stroke: #564cac;
-}
-.ct-series.boss-health.boss-109040 .ct-area {
-  fill: #000;
-}
-.ct-legend .boss-health.boss-109040:before {
-  background-color: #564cac;
-  border-color: #564cac;
-}
-/* Solarist Tel'arn*/
-.ct-series.boss-health.boss-109038 .ct-line {
-	stroke: #f3ea8f;
-}
-.ct-series.boss-health.boss-109038 .ct-area {
-  fill: #000;
-}
-.ct-legend .boss-health.boss-109038:before {
-  background-color: #f3ea8f;
-  border-color: #f3ea8f;
-}
-.ct-chart-line .death {
-	stroke: #ff0000;
-	stroke-width: 1px;
-}
-`}</style>
       </div>
     );
   }
