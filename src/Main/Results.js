@@ -418,20 +418,13 @@ class Results extends React.Component {
       const lightOfTheDawns = getCastCount(LIGHT_OF_DAWN_CAST_SPELL_ID).casts || 0;
       fillerLotms -= lightOfTheDawns;
     }
-    if (fillerLotms > 6) {
-      if (hasMaraads) {
-        this.issues.push({
-          issue: `You should only cast <b>one</b> <a href="http://www.wowhead.com/item=137046" target="_blank" class="legendary">Light of the Martyr</a> per <a href="http://www.wowhead.com/item=85222" target="_blank">Light of Dawn</a>. Without the buff from <a href="http://www.wowhead.com/item=144273/maraads-dying-breath" target="_blank" class="legendary">Maraad's Dying Breath</a>, <a href="http://www.wowhead.com/item=137046" target="_blank" class="legendary">Light of the Martyr</a> is a very inefficient spell to cast. Try to only cast additional Light of the Martyr when absolutely necessary (${lightOfTheMartyrs} Light of the Martyr cast).`,
-          icon: 'ability_paladin_lightofthemartyr',
-          importance: getIssueImportance(fillerLotms, 9, 12, true),
-        });
-      } else {
-        this.issues.push({
-          issue: `<a href="http://www.wowhead.com/item=137046" target="_blank">Light of the Martyr</a> is a very inefficient spell to cast. Try to only cast Light of the Martyr when absolutely necessary (${lightOfTheMartyrs} Light of the Martyr cast).`,
-          icon: 'ability_paladin_lightofthemartyr',
-          importance: getIssueImportance(fillerLotms, 9, 12, true),
-        });
-      }
+    const fillerLotmsPerMinute = fillerLotms / (fightDuration / 1000) * 60;
+    if (fillerLotmsPerMinute >= 1.0) {
+      this.issues.push({
+        issue: hasMaraads ? `With <a href="http://www.wowhead.com/item=144273/maraads-dying-breath" target="_blank" class="legendary">Maraad's Dying Breath</a> you should only cast <b>one</b> <a href="http://www.wowhead.com/item=137046" target="_blank" class="legendary">Light of the Martyr</a> per <a href="http://www.wowhead.com/item=85222" target="_blank">Light of Dawn</a>. Without the buff <a href="http://www.wowhead.com/item=137046" target="_blank" class="legendary">Light of the Martyr</a> is a very inefficient spell to cast. Try to only cast additional Light of the Martyr when absolutely necessary (${fillerLotmsPerMinute.toFixed(2)} CPM (unbuffed only)).` : `<a href="http://www.wowhead.com/item=137046" target="_blank">Light of the Martyr</a> is a very inefficient spell to cast. Try to only cast Light of the Martyr when absolutely necessary (${fillerLotmsPerMinute.toFixed(2)} CPM).`,
+        icon: 'ability_paladin_lightofthemartyr',
+        importance: getIssueImportance(fillerLotmsPerMinute, 1.5, 2, true),
+      });
     }
 
     // TODO: Suggestion for AoS when it didn't heal enough to be worthwhile
