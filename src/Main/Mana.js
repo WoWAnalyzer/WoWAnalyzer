@@ -3,6 +3,8 @@ import ChartistGraph from 'react-chartist';
 import Chartist from 'chartist';
 import 'chartist-plugin-legend';
 
+import specialEventIndicators from './Chartist/specialEventIndicators';
+
 import WCL_API_KEY from './WCL_API_KEY';
 
 const formatDuration = (duration) => {
@@ -78,7 +80,6 @@ class Mana extends React.PureComponent {
     });
     const bosses = [];
     const deadBosses = [];
-
     this.state.bossHealth.series.forEach((series) => {
       const newSeries = {
         ...series,
@@ -88,9 +89,8 @@ class Mana extends React.PureComponent {
       series.data.forEach((item) => {
         const secIntoFight = Math.floor((item[0] - start) / 1000);
 
-        const health = item[1];
-
         if (deadBosses.indexOf(series.guid) === -1) {
+          const health = item[1];
           newSeries.data[secIntoFight] = health;
 
           if (health === 0) {
@@ -100,10 +100,20 @@ class Mana extends React.PureComponent {
       });
       bosses.push(newSeries);
     });
+    const deaths = [];
+    this.state.mana.deaths.forEach((death) => {
+      const secIntoFight = Math.floor((death.timestamp - start) / 1000);
+
+      if (death.targetIsFriendly) {
+        deaths.push({
+          x: secIntoFight,
+          label: "Someone died",
+        });
+      }
+    });
 
     const fightDurationSec = Math.ceil((end - start) / 1000);
     const labels = [];
-
     for (let i = 0; i <= fightDurationSec; i += 1) {
       labels.push(i);
 
@@ -171,6 +181,14 @@ class Mana extends React.PureComponent {
                 classNames: [
                   ...bosses.map((series, index) => `boss-health boss-${index} boss-${series.guid}`),
                   'mana',
+                ],
+              }),
+              specialEventIndicators({
+                series: [
+                  {
+                    className: 'death',
+                    data: deaths,
+                  }
                 ],
               }),
             ],
@@ -304,6 +322,10 @@ class Mana extends React.PureComponent {
 .ct-legend .boss-health.boss-109038:before {
   background-color: #f3ea8f;
   border-color: #f3ea8f;
+}
+.ct-chart-line .death {
+	stroke: #ff0000;
+	stroke-width: 1px;
 }
 `}</style>
       </div>
