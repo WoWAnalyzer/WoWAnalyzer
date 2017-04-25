@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router';
 
+import UpArrow from 'Icons/UpArrow';
+
 import StatisticBox from './StatisticBox';
 import PlayerBreakdown from './PlayerBreakdown';
 import CastEfficiency from './CastEfficiency';
@@ -948,6 +950,26 @@ class Results extends React.Component {
                       )}
                       {this.issues.map((issue, i) => (
                         <li className={`item ${issue.importance  || ''}`} key={`${i}`}>
+                          <div className="importance">
+                            {(() => {
+                              switch (issue.importance) {
+                                case ISSUE_IMPORTANCE.MAJOR:
+                                  return (
+                                    <span>
+                                      Major <UpArrow />
+                                    </span>
+                                  );
+                                case ISSUE_IMPORTANCE.REGULAR:
+                                  return 'Average';
+                                case ISSUE_IMPORTANCE.MINOR:
+                                  return (
+                                    <span>
+                                      Minor <UpArrow style={{ transform: 'rotate(180deg) translateZ(0)' }} />
+                                    </span>
+                                  );
+                              }
+                            })()}
+                          </div>
                           <img src={`./img/icons/${issue.icon}.jpg`} alt="Icon" /> <span dangerouslySetInnerHTML={{ __html: issue.issue || issue }} />
                         </li>
                       ))}

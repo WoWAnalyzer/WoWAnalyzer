@@ -47,9 +47,9 @@ const tooltips = (options) => {
 
           if (line) {
             line.attr(location);
-            line.attr({ style: 'stroke-width:1px;stroke:#fff'});
           } else {
             line = data.svg.elem('line', 'location', 'ct-line');
+            line.attr({ style: 'stroke-width:1px;stroke:#fff'});
           }
         }
       });

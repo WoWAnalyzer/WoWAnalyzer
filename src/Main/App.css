@@ -237,8 +237,7 @@ h1 {
   margin: -10px 6px -10px 0;
   border-radius: 50%;
 }
-.list.issues .regular:before {
-  content: 'Average';
+.list.issues .regular .importance {
   display: inline-block;
   margin-right: 10px;
   text-transform: uppercase;
@@ -248,8 +247,7 @@ h1 {
   top: 50%;
   transform: translateY(-50%);
 }
-.list.issues .minor:before {
-  content: 'Minor 🡇';
+.list.issues .minor .importance {
   display: inline-block;
   margin-right: 10px;
   text-transform: uppercase;
@@ -259,8 +257,7 @@ h1 {
   top: 50%;
   transform: translateY(-50%);
 }
-.list.issues .major:before {
-  content: 'Major 🡅';
+.list.issues .major .importance {
   display: inline-block;
   margin-right: 10px;
   text-transform: uppercase;
@@ -269,6 +266,11 @@ h1 {
   right: 5px;
   top: 50%;
   transform: translateY(-50%);
+}
+.list.issues .importance svg {
+  height: 0.9em;
+  fill: currentColor;
+  margin-bottom: -.08em;
 }
 h1 {
   position: relative;
