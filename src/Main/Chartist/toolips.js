@@ -31,6 +31,7 @@ const tooltips = (options) => {
       const svgNode = data.svg._node;
       let line = null;
       svgNode.addEventListener('mouseleave', function (event) {
+        if (!line) return;
         line.remove();
         line = null;
       });
