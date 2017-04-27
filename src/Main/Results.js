@@ -123,14 +123,13 @@ class Results extends React.Component {
   }
 
   issues = [];
-  openedAt = null;
 
   constructor() {
     super();
     this.state = {
       friendlyStats: null,
+      waitingForLayout: true,
     };
-    this.openedAt = +new Date();
   }
 
   calculatePlayerBreakdown(parser) {
@@ -261,13 +260,21 @@ class Results extends React.Component {
     return castsOnBeacon / casts;
   }
 
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({
+        waitingForLayout: false,
+      });
+    }, 600);
+  }
+
   render() {
     const { parser, tab, onChangeTab } = this.props;
     const { friendlyStats } = this.state;
 
     const activeTab = tab || TABS.ISSUES;
 
-    if (!parser.selectedCombatant || (+new Date() - this.openedAt) < 600) {
+    if (!parser.selectedCombatant || this.state.waitingForLayout) {
       return (
         <div>
           <h1>
