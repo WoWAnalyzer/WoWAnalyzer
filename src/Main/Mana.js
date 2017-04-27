@@ -200,7 +200,7 @@ class Mana extends React.PureComponent {
               specialEventIndicators({
                 series: ['death'],
               }),
-              tooltips(),
+              // tooltips(),
             ],
           }}
           type="Line"

@@ -971,6 +971,7 @@ class Results extends React.Component {
                                       Minor <UpArrow style={{ transform: 'rotate(180deg) translateZ(0)' }} />
                                     </span>
                                   );
+                                default: return '';
                               }
                             })()}
                           </div>
