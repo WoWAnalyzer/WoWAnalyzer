@@ -148,7 +148,7 @@ class App extends Component {
       report: null,
     });
 
-    return fetch(`https://www.warcraftlogs.com/v1/report/fights/${code}?api_key=${WCL_API_KEY}`)
+    return fetch(`https://www.warcraftlogs.com/v1/report/fights/${code}?api_key=${WCL_API_KEY}&_=${+new Date()}`)
       .then(response => response.json())
       .then((json) => {
         console.log('Received report', code, ':', json);
