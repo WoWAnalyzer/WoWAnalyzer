@@ -61,11 +61,11 @@ function formatNumber(number) {
 }
 
 const TABS = {
-  ISSUES: 'ISSUES',
-  TALENTS: 'TALENTS',
-  MANA: 'MANA',
-  CAST_EFFICIENCY: 'CAST_EFFICIENCY',
-  PLAYER_BREAKDOWN: 'PLAYER_BREAKDOWN',
+  ISSUES: 'suggestions',
+  TALENTS: 'talents',
+  MANA: 'mana',
+  CAST_EFFICIENCY: 'cast-efficiency',
+  PLAYER_BREAKDOWN: 'player-breakdown',
 };
 
 const getIssueImportance = (value, regular, major, higherIsWorse = false) => {
@@ -82,6 +82,7 @@ class Results extends React.Component {
   static propTypes = {
     parser: React.PropTypes.object.isRequired,
     finished: React.PropTypes.bool.isRequired,
+    tab: React.PropTypes.string,
   };
 
   static calculateStats(parser) {
@@ -122,13 +123,14 @@ class Results extends React.Component {
   }
 
   issues = [];
+  openedAt = null;
 
   constructor() {
     super();
     this.state = {
       friendlyStats: null,
-      activeTab: TABS.ISSUES,
     };
+    this.openedAt = +new Date();
   }
 
   calculatePlayerBreakdown(parser) {
@@ -260,10 +262,12 @@ class Results extends React.Component {
   }
 
   render() {
-    const { parser } = this.props;
+    const { parser, tab, onChangeTab } = this.props;
     const { friendlyStats } = this.state;
 
-    if (!parser.selectedCombatant) {
+    const activeTab = tab || TABS.ISSUES;
+
+    if (!parser.selectedCombatant || (+new Date() - this.openedAt) < 600) {
       return (
         <div>
           <h1>
@@ -903,32 +907,32 @@ class Results extends React.Component {
               <div style={{ padding: '10px 0' }}>
                 <ul>
                   <li
-                    className={this.state.activeTab === TABS.ISSUES ? 'active' : ''}
-                    onClick={() => this.setState({ activeTab: TABS.ISSUES })}
+                    className={activeTab === TABS.ISSUES ? 'active' : ''}
+                    onClick={() => onChangeTab(TABS.ISSUES)}
                   >
                     Suggestions <span className="badge">{this.issues.length}</span>
                   </li>
                   <li
-                    className={this.state.activeTab === TABS.CAST_EFFICIENCY ? 'active' : ''}
-                    onClick={() => this.setState({ activeTab: TABS.CAST_EFFICIENCY })}
+                    className={activeTab === TABS.CAST_EFFICIENCY ? 'active' : ''}
+                    onClick={() => onChangeTab(TABS.CAST_EFFICIENCY)}
                   >
                     Cast efficiency
                   </li>
                   <li
-                    className={this.state.activeTab === TABS.TALENTS ? 'active' : ''}
-                    onClick={() => this.setState({ activeTab: TABS.TALENTS })}
+                    className={activeTab === TABS.TALENTS ? 'active' : ''}
+                    onClick={() => onChangeTab(TABS.TALENTS)}
                   >
                     Talents
                   </li>
                   <li
-                    className={this.state.activeTab === TABS.MANA ? 'active' : ''}
-                    onClick={() => this.setState({ activeTab: TABS.MANA })}
+                    className={activeTab === TABS.MANA ? 'active' : ''}
+                    onClick={() => onChangeTab(TABS.MANA)}
                   >
                     Mana
                   </li>
                   <li
-                    className={this.state.activeTab === TABS.PLAYER_BREAKDOWN ? 'active' : ''}
-                    onClick={() => this.setState({ activeTab: TABS.PLAYER_BREAKDOWN })}
+                    className={activeTab === TABS.PLAYER_BREAKDOWN ? 'active' : ''}
+                    onClick={() => onChangeTab(TABS.PLAYER_BREAKDOWN)}
                   >
                     Mastery effectiveness player breakdown
                   </li>
@@ -936,7 +940,7 @@ class Results extends React.Component {
               </div>
             </div>
             <div>
-              {this.state.activeTab === TABS.ISSUES && (
+              {activeTab === TABS.ISSUES && (
                 <div>
                   <div className="panel-heading">
                     <h2>Suggestions</h2>
@@ -980,7 +984,7 @@ class Results extends React.Component {
                   </div>
                 </div>
               )}
-              {this.state.activeTab === TABS.TALENTS && (
+              {activeTab === TABS.TALENTS && (
                 <div>
                   <div className="panel-heading">
                     <h2>Talents</h2>
@@ -992,7 +996,7 @@ class Results extends React.Component {
                   </div>
                 </div>
               )}
-              {this.state.activeTab === TABS.CAST_EFFICIENCY && (
+              {activeTab === TABS.CAST_EFFICIENCY && (
                 <div>
                   <div className="panel-heading">
                     <h2>Cast efficiency</h2>
@@ -1004,7 +1008,7 @@ class Results extends React.Component {
                   </div>
                 </div>
               )}
-              {this.state.activeTab === TABS.MANA && (
+              {activeTab === TABS.MANA && (
                 <div>
                   <div className="panel-heading">
                     <h2>Mana</h2>
@@ -1019,7 +1023,7 @@ class Results extends React.Component {
                   </div>
                 </div>
               )}
-              {this.state.activeTab === TABS.PLAYER_BREAKDOWN && (
+              {activeTab === TABS.PLAYER_BREAKDOWN && (
                 <div>
                   <div className="panel-heading">
                     <h2>Mastery effectiveness player breakdown</h2>

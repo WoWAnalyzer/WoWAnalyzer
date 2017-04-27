@@ -12,6 +12,7 @@ render(
       <Route path='report/:reportCode' />
       <Route path='report/:reportCode/:playerName' />
       <Route path='report/:reportCode/:playerName/:fightId' />
+      <Route path='report/:reportCode/:playerName/:fightId/:resultTab' />
     </Route>
   </Router>,
   document.getElementById('root')

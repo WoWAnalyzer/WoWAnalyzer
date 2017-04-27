@@ -17,7 +17,10 @@ const formatDuration = (duration) => {
 
 class Mana extends React.PureComponent {
   static propTypes = {
-
+    reportCode: React.PropTypes.string.isRequired,
+    actorId: React.PropTypes.number.isRequired,
+    start: React.PropTypes.number.isRequired,
+    end: React.PropTypes.number.isRequired,
   };
 
   constructor() {
@@ -68,7 +71,11 @@ class Mana extends React.PureComponent {
 
   render() {
     if (!this.state.mana || !this.state.bossHealth) {
-      return <div>Loading...</div>;
+      return (
+        <div>
+          Loading...
+        </div>
+      );
     }
 
     const { start, end } = this.props;

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+import { Link, hashHistory } from 'react-router';
 import ReactTooltip from 'react-tooltip';
 
 import './App.css';
@@ -28,6 +28,7 @@ class App extends Component {
       reportCode: React.PropTypes.string,
       playerName: React.PropTypes.string,
       fightId: React.PropTypes.string,
+      resultTab: React.PropTypes.string,
     }),
   };
 
@@ -42,6 +43,9 @@ class App extends Component {
   }
   get fight() {
     return this.fightId && this.state.report && this.getFightFromReport(this.state.report, this.fightId);
+  }
+  get resultTab() {
+    return this.props.params.resultTab;
   }
 
   getPlayerFromReport(report, playerName) {
@@ -300,6 +304,8 @@ class App extends Component {
                 parser={parser}
                 finished={this.state.finished}
                 dataVersion={this.state.dataVersion}
+                tab={this.resultTab}
+                onChangeTab={newTab => hashHistory.push(`/report/${report.code}/${this.playerName}/${this.fightId}/${newTab}`)}
               />
             );
           })()}
