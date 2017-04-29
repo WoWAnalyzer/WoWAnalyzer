@@ -1,8 +1,8 @@
 import Initialize from './Modules/Core/Initialize';
 import Buffs from './Modules/Core/Buffs';
 import Combatants from './Modules/Core/Combatants';
-import CastCounter from './Modules/Core/CastCounter';
 
+import PaladinAbilityTracker from './Modules/PaladinCore/PaladinAbilityTracker';
 import BeaconHealing from './Modules/PaladinCore/BeaconHealing';
 import BeaconTargets from './Modules/PaladinCore/BeaconTargets';
 import VerifySpec from './Modules/PaladinCore/VerifySpec';
@@ -26,7 +26,7 @@ class CombatLogParser {
     initialize: Initialize,
     combatants: Combatants,
     buffs: Buffs,
-    castCounter: CastCounter,
+    abilityTracker: PaladinAbilityTracker,
 
     // PaladinCore
     beaconHealing: BeaconHealing,

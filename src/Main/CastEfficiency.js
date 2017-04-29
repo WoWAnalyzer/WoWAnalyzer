@@ -20,7 +20,7 @@ export const CPM_ABILITIES = [
     icon: 'spell_holy_searinglight',
     name: 'Holy Shock',
     category: SPELL_CATEGORY.ROTATIONAL,
-    getCasts: castCount => castCount.hits,
+    getCasts: castCount => castCount.healingHits,
     getCooldown: haste => 9 / (1 + haste),
   },
   {
@@ -160,7 +160,7 @@ export const CPM_ABILITIES = [
     icon: 'spell_holy_flashheal',
     name: 'Filler Flash of Light',
     category: SPELL_CATEGORY.OTHERS,
-    getCasts: castCount => (castCount.casts || 0) - (castCount.withIol || 0),
+    getCasts: castCount => (castCount.casts || 0) - (castCount.iolHits || 0),
     getCooldown: haste => null,
   },
   {
@@ -168,7 +168,7 @@ export const CPM_ABILITIES = [
     icon: 'spell_holy_flashheal',
     name: 'Infusion of Light Flash of Light',
     category: SPELL_CATEGORY.OTHERS,
-    getCasts: castCount => castCount.withIol || 0,
+    getCasts: castCount => castCount.iolHits || 0,
     getCooldown: haste => null,
   },
   {
@@ -176,7 +176,7 @@ export const CPM_ABILITIES = [
     icon: 'spell_holy_surgeoflight',
     name: 'Filler Holy Light',
     category: SPELL_CATEGORY.OTHERS,
-    getCasts: castCount => (castCount.casts || 0) - (castCount.withIol || 0),
+    getCasts: castCount => (castCount.casts || 0) - (castCount.iolHits || 0),
     getCooldown: haste => null,
   },
   {
@@ -184,7 +184,7 @@ export const CPM_ABILITIES = [
     icon: 'spell_holy_surgeoflight',
     name: 'Infusion of Light Holy Light',
     category: SPELL_CATEGORY.OTHERS,
-    getCasts: castCount => castCount.withIol || 0,
+    getCasts: castCount => castCount.iolHits || 0,
     getCooldown: haste => null,
   },
 ];

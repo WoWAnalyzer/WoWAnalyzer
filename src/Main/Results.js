@@ -185,8 +185,8 @@ class Results extends React.Component {
     const fightDuration = this.getFightDuration(parser);
     const minutes = fightDuration / 1000 / 60;
 
-    const castCounter = parser.modules.castCounter;
-    const getCastCount = spellId => castCounter.casts[spellId] || {};
+    const abilityTracker = parser.modules.abilityTracker;
+    const getCastCount = spellId => abilityTracker.getAbility(spellId);
 
     const selectedCombatant = parser.selectedCombatant;
     if (!selectedCombatant) {
@@ -238,8 +238,8 @@ class Results extends React.Component {
   }
 
   getTotalHealsOnBeaconPercentage(parser) {
-    const castCounter = parser.modules.castCounter;
-    const getCastCount = spellId => castCounter.casts[spellId] || {};
+    const abilityTracker = parser.modules.abilityTracker;
+    const getCastCount = spellId => abilityTracker.getAbility(spellId);
 
     const selectedCombatant = parser.selectedCombatant;
     if (!selectedCombatant) {
@@ -254,7 +254,7 @@ class Results extends React.Component {
       .forEach((ability) => {
         const castCount = getCastCount(ability.spellId);
         casts += (ability.getCasts ? ability.getCasts(castCount) : castCount.casts) || 0;
-        castsOnBeacon += castCount.withBeacon || 0;
+        castsOnBeacon += castCount.beaconHits || 0;
       });
 
     return castsOnBeacon / casts;
@@ -299,30 +299,30 @@ class Results extends React.Component {
     const highestHealingFromMastery = friendlyStats && friendlyStats.reduce((highest, player) => Math.max(highest, player.healingFromMastery), 1);
     const ruleOfLawUptime = parser.selectedCombatant.getBuffUptime(RULE_OF_LAW_SPELL_ID) / parser.fightDuration;
 
-    const castCounter = parser.modules.castCounter;
-    const getCastCount = spellId => castCounter.casts[spellId] || {};
+    const abilityTracker = parser.modules.abilityTracker;
+    const getCastCount = spellId => abilityTracker.getAbility(spellId);
 
-    const iolFlashOfLights = getCastCount(FLASH_OF_LIGHT_SPELL_ID).withIol || 0;
-    const iolHolyLights = getCastCount(HOLY_LIGHT_SPELL_ID).withIol || 0;
+    const iolFlashOfLights = getCastCount(FLASH_OF_LIGHT_SPELL_ID).iolHits || 0;
+    const iolHolyLights = getCastCount(HOLY_LIGHT_SPELL_ID).iolHits || 0;
     const totalIols = iolFlashOfLights + iolHolyLights;
     const iolFoLToHLCastRatio = iolFlashOfLights / totalIols;
 
-    const flashOfLightHeals = getCastCount(FLASH_OF_LIGHT_SPELL_ID).hits || 0;
-    const holyLightHeals = getCastCount(HOLY_LIGHT_SPELL_ID).hits || 0;
+    const flashOfLightHeals = getCastCount(FLASH_OF_LIGHT_SPELL_ID).casts || 0;
+    const holyLightHeals = getCastCount(HOLY_LIGHT_SPELL_ID).casts || 0;
     const totalFolsAndHls = flashOfLightHeals + holyLightHeals;
     const fillerFlashOfLights = flashOfLightHeals - iolFlashOfLights;
     const fillerHolyLights = holyLightHeals - iolHolyLights;
     const totalFillers = fillerFlashOfLights + fillerHolyLights;
     const fillerCastRatio = fillerFlashOfLights / totalFillers;
 
-    const beaconFlashOfLights = getCastCount(FLASH_OF_LIGHT_SPELL_ID).withBeacon || 0;
-    const beaconHolyLights = getCastCount(HOLY_LIGHT_SPELL_ID).withBeacon || 0;
+    const beaconFlashOfLights = getCastCount(FLASH_OF_LIGHT_SPELL_ID).beaconHits || 0;
+    const beaconHolyLights = getCastCount(HOLY_LIGHT_SPELL_ID).beaconHits || 0;
     const totalFolsAndHlsOnBeacon = beaconFlashOfLights + beaconHolyLights;
     const healsOnBeacon = totalFolsAndHlsOnBeacon / totalFolsAndHls;
 
     const lightOfDawnHeals = getCastCount(LIGHT_OF_DAWN_CAST_SPELL_ID).casts || 0;
-    const holyShockHeals = getCastCount(HOLY_SHOCK_HEAL_SPELL_ID).hits || 0;
-    const holyShockCrits = getCastCount(HOLY_SHOCK_HEAL_SPELL_ID).crits || 0;
+    const holyShockHeals = getCastCount(HOLY_SHOCK_HEAL_SPELL_ID).healingHits || 0;
+    const holyShockCrits = getCastCount(HOLY_SHOCK_HEAL_SPELL_ID).critHits || 0;
     const iolProcsPerHolyShockCrit = this.iolProcsPerHolyShockCrit;
     const unusedIolRate = 1 - totalIols / (holyShockCrits * iolProcsPerHolyShockCrit);
 
@@ -425,7 +425,7 @@ class Results extends React.Component {
         importance: getIssueImportance(velensHealingPercentage, 0.04, 0.03),
       });
     }
-    const lightOfTheMartyrs = getCastCount(LIGHT_OF_THE_MARTYR_SPELL_ID).hits || 0;
+    const lightOfTheMartyrs = getCastCount(LIGHT_OF_THE_MARTYR_SPELL_ID).casts || 0;
     let fillerLotms = lightOfTheMartyrs;
     if (hasMaraads) {
       const lightOfTheDawns = getCastCount(LIGHT_OF_DAWN_CAST_SPELL_ID).casts || 0;
