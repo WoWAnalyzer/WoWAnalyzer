@@ -6,6 +6,8 @@ You will need a Warcraft Logs report with advanced combat logging enabled to sta
 
 Run it: [https://martijnhols.github.io/HolyPaladinAnalyzer/build/index.html](https://martijnhols.github.io/HolyPaladinAnalyzer/build/index.html)
 
+Feature requests (and bug reports provided that you're not using one of Microsoft's browsers) are welcome! *@Zerotorescue* on [Discord](https://discordapp.com/invite/hammerofwrath) or create an issue [here](https://github.com/MartijnHols/HolyPaladinAnalyzer/issues).
+
 ## Features
 | Feature | Note | Accuracy |
 | --- | --- | --- |
