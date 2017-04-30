@@ -16,19 +16,19 @@ class PaladinAbilityTracker extends AbilityTracker {
       const hasIol = this.owner.selectedCombatant.hasBuff(INFUSION_OF_LIGHT_SPELL_ID, event.timestamp, INFUSION_OF_LIGHT_BUFF_EXPIRATION_BUFFER);
 
       if (hasIol) {
-        cast.iolHits = (cast.iolHits || 0) + 1;
-        cast.iolHealing = (cast.iolHealing || 0) + (cast.amount || 0);
-        cast.iolAbsorbed = (cast.iolAbsorbed || 0) + (cast.absorbed || 0);
-        cast.iolOverheal = (cast.iolOverheal || 0) + (cast.overheal || 0);
+        cast.healingIolHits = (cast.healingIolHits || 0) + 1;
+        cast.healingIolHealing = (cast.healingIolHealing || 0) + (event.amount || 0);
+        cast.healingIolAbsorbed = (cast.healingIolAbsorbed || 0) + (event.absorbed || 0);
+        cast.healingIolOverheal = (cast.healingIolOverheal || 0) + (event.overheal || 0);
       }
     }
 
     const hasBeacon = this.owner.modules.beaconTargets.hasBeacon(event.targetID);
     if (hasBeacon) {
-      cast.beaconHits = (cast.beaconHits || 0) + 1;
-      cast.beaconHealing = (cast.beaconHealing || 0) + (cast.amount || 0);
-      cast.beaconAbsorbed = (cast.beaconAbsorbed || 0) + (cast.absorbed || 0);
-      cast.beaconOverheal = (cast.beaconOverheal || 0) + (cast.overheal || 0);
+      cast.healingBeaconHits = (cast.healingBeaconHits || 0) + 1;
+      cast.healingBeaconHealing = (cast.healingBeaconHealing || 0) + (event.amount || 0);
+      cast.healingBeaconAbsorbed = (cast.healingBeaconAbsorbed || 0) + (event.absorbed || 0);
+      cast.healingBeaconOverheal = (cast.healingBeaconOverheal || 0) + (event.overheal || 0);
     }
   }
 }

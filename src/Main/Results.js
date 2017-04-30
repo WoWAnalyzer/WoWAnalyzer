@@ -18,6 +18,7 @@ import {
   BEACON_TYPES,
   LIGHT_OF_THE_MARTYR_SPELL_ID,
   LIGHT_OF_DAWN_CAST_SPELL_ID,
+  LIGHT_OF_DAWN_HEAL_SPELL_ID,
   DIVINE_PURPOSE_SPELL_ID,
   DIVINE_PURPOSE_HOLY_SHOCK_SPELL_ID,
   DIVINE_PURPOSE_LIGHT_OF_DAWN_SPELL_ID,
@@ -58,6 +59,12 @@ function formatNumber(number) {
     return `${Math.round(number / 1000)}k`;
   }
   return formatThousands(number);
+}
+function getRawHealing(ability) {
+  return ability.healingEffective + ability.healingAbsorbed + ability.healingOverheal;
+}
+function getOverhealingPercentage(ability) {
+  return ability.healingOverheal / getRawHealing(ability);
 }
 
 const TABS = {
@@ -254,7 +261,7 @@ class Results extends React.Component {
       .forEach((ability) => {
         const castCount = getCastCount(ability.spellId);
         casts += (ability.getCasts ? ability.getCasts(castCount) : castCount.casts) || 0;
-        castsOnBeacon += castCount.beaconHits || 0;
+        castsOnBeacon += castCount.healingBeaconHits || 0;
       });
 
     return castsOnBeacon / casts;
@@ -300,29 +307,35 @@ class Results extends React.Component {
     const ruleOfLawUptime = parser.selectedCombatant.getBuffUptime(RULE_OF_LAW_SPELL_ID) / parser.fightDuration;
 
     const abilityTracker = parser.modules.abilityTracker;
-    const getCastCount = spellId => abilityTracker.getAbility(spellId);
+    const getAbility = spellId => abilityTracker.getAbility(spellId);
 
-    const iolFlashOfLights = getCastCount(FLASH_OF_LIGHT_SPELL_ID).iolHits || 0;
-    const iolHolyLights = getCastCount(HOLY_LIGHT_SPELL_ID).iolHits || 0;
+    const flashOfLight = getAbility(FLASH_OF_LIGHT_SPELL_ID);
+    const holyLight = getAbility(HOLY_LIGHT_SPELL_ID);
+    const lightOfDawnCast = getAbility(LIGHT_OF_DAWN_CAST_SPELL_ID);
+    const lightOfDawnHeal = getAbility(LIGHT_OF_DAWN_HEAL_SPELL_ID);
+    const holyShock = getAbility(HOLY_SHOCK_HEAL_SPELL_ID);
+
+    const iolFlashOfLights = flashOfLight.healingIolHits || 0;
+    const iolHolyLights = holyLight.healingIolHits || 0;
     const totalIols = iolFlashOfLights + iolHolyLights;
     const iolFoLToHLCastRatio = iolFlashOfLights / totalIols;
 
-    const flashOfLightHeals = getCastCount(FLASH_OF_LIGHT_SPELL_ID).casts || 0;
-    const holyLightHeals = getCastCount(HOLY_LIGHT_SPELL_ID).casts || 0;
+    const flashOfLightHeals = flashOfLight.casts || 0;
+    const holyLightHeals = holyLight.casts || 0;
     const totalFolsAndHls = flashOfLightHeals + holyLightHeals;
     const fillerFlashOfLights = flashOfLightHeals - iolFlashOfLights;
     const fillerHolyLights = holyLightHeals - iolHolyLights;
     const totalFillers = fillerFlashOfLights + fillerHolyLights;
     const fillerCastRatio = fillerFlashOfLights / totalFillers;
 
-    const beaconFlashOfLights = getCastCount(FLASH_OF_LIGHT_SPELL_ID).beaconHits || 0;
-    const beaconHolyLights = getCastCount(HOLY_LIGHT_SPELL_ID).beaconHits || 0;
+    const beaconFlashOfLights = flashOfLight.healingBeaconHits || 0;
+    const beaconHolyLights = holyLight.healingBeaconHits || 0;
     const totalFolsAndHlsOnBeacon = beaconFlashOfLights + beaconHolyLights;
     const healsOnBeacon = totalFolsAndHlsOnBeacon / totalFolsAndHls;
 
-    const lightOfDawnHeals = getCastCount(LIGHT_OF_DAWN_CAST_SPELL_ID).casts || 0;
-    const holyShockHeals = getCastCount(HOLY_SHOCK_HEAL_SPELL_ID).healingHits || 0;
-    const holyShockCrits = getCastCount(HOLY_SHOCK_HEAL_SPELL_ID).critHits || 0;
+    const lightOfDawnHeals = lightOfDawnCast.casts || 0;
+    const holyShockHeals = holyShock.healingHits || 0;
+    const holyShockCrits = holyShock.healingCriticalHits || 0;
     const iolProcsPerHolyShockCrit = this.iolProcsPerHolyShockCrit;
     const unusedIolRate = 1 - totalIols / (holyShockCrits * iolProcsPerHolyShockCrit);
 
@@ -425,10 +438,10 @@ class Results extends React.Component {
         importance: getIssueImportance(velensHealingPercentage, 0.04, 0.03),
       });
     }
-    const lightOfTheMartyrs = getCastCount(LIGHT_OF_THE_MARTYR_SPELL_ID).casts || 0;
+    const lightOfTheMartyrs = getAbility(LIGHT_OF_THE_MARTYR_SPELL_ID).casts || 0;
     let fillerLotms = lightOfTheMartyrs;
     if (hasMaraads) {
-      const lightOfTheDawns = getCastCount(LIGHT_OF_DAWN_CAST_SPELL_ID).casts || 0;
+      const lightOfTheDawns = getAbility(LIGHT_OF_DAWN_CAST_SPELL_ID).casts || 0;
       fillerLotms -= lightOfTheDawns;
     }
     const fillerLotmsPerMinute = fillerLotms / (fightDuration / 1000) * 60;
@@ -437,6 +450,14 @@ class Results extends React.Component {
         issue: hasMaraads ? `With <a href="http://www.wowhead.com/item=144273/maraads-dying-breath" target="_blank" class="legendary">Maraad's Dying Breath</a> you should only cast <b>one</b> <a href="http://www.wowhead.com/item=137046" target="_blank" class="legendary">Light of the Martyr</a> per <a href="http://www.wowhead.com/item=85222" target="_blank">Light of Dawn</a>. Without the buff <a href="http://www.wowhead.com/item=137046" target="_blank" class="legendary">Light of the Martyr</a> is a very inefficient spell to cast. Try to only cast additional Light of the Martyr when absolutely necessary (${fillerLotmsPerMinute.toFixed(2)} CPM (unbuffed only)).` : `<a href="http://www.wowhead.com/item=137046" target="_blank">Light of the Martyr</a> is a very inefficient spell to cast. Try to only cast Light of the Martyr when absolutely necessary (${fillerLotmsPerMinute.toFixed(2)} CPM).`,
         icon: 'ability_paladin_lightofthemartyr',
         importance: getIssueImportance(fillerLotmsPerMinute, 1.5, 2, true),
+      });
+    }
+    const lodOverhealing = getOverhealingPercentage(lightOfDawnHeal);
+    if (lodOverhealing > 0.5) {
+      this.issues.push({
+        issue: `Try to avoid overhealing with <a href="http://www.wowhead.com/item=85222" target="_blank">Light of Dawn</a>. Save it for when people are missing health (${Math.round(lodOverhealing * 100)}% overhealing).`,
+        icon: 'spell_paladin_lightofdawn',
+        importance: getIssueImportance(lodOverhealing, 0.6, 0.7, true),
       });
     }
 

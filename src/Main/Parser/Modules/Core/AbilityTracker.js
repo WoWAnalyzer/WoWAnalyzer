@@ -18,6 +18,9 @@ class AbilityTracker extends Module {
       };
       this.abilities[spellId] = ability;
     }
+    if (!ability.ability && abilityInfo) {
+      ability.ability = abilityInfo;
+    }
     return ability;
   }
 }
@@ -27,16 +30,16 @@ class HealingTracker extends AbilityTracker {
     const cast = this.getAbility(spellId, event.ability);
 
     cast.healingHits = (cast.healingHits || 0) + 1;
-    cast.healingEffective = (cast.healingEffective || 0) + (cast.amount || 0);
-    cast.healingAbsorbed = (cast.healingAbsorbed || 0) + (cast.absorbed || 0);
-    cast.healingOverheal = (cast.healingOverheal || 0) + (cast.overheal || 0);
+    cast.healingEffective = (cast.healingEffective || 0) + (event.amount || 0);
+    cast.healingAbsorbed = (cast.healingAbsorbed || 0) + (event.absorbed || 0);
+    cast.healingOverheal = (cast.healingOverheal || 0) + (event.overheal || 0);
 
     const isCrit = event.hitType === HIT_TYPES.CRIT;
     if (isCrit) {
-      cast.critHits = (cast.critHits || 0) + 1;
-      cast.critEffective = (cast.critEffective || 0) + (cast.amount || 0);
-      cast.critAbsorbed = (cast.critAbsorbed || 0) + (cast.absorbed || 0);
-      cast.critOverheal = (cast.critOverheal || 0) + (cast.overheal || 0);
+      cast.healingCriticalHits = (cast.healingCriticalHits || 0) + 1;
+      cast.healingCriticalEffective = (cast.healingCriticalEffective || 0) + (event.amount || 0);
+      cast.healingCriticalAbsorbed = (cast.healingCriticalAbsorbed || 0) + (event.absorbed || 0);
+      cast.healingCriticalOverheal = (cast.healingCriticalOverheal || 0) + (event.overheal || 0);
     }
   }
 }
