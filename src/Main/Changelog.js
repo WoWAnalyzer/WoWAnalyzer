@@ -2,6 +2,7 @@ import React from 'react';
 
 const Changelog = () => (
   <div>
+    01-05-2017 - Added overhealing suggestions and relaxed the non healing time / dead GCD time suggestions (they should be marked as <i>minor</i> issues more often).<br />
     27-04-2017 - Prevent caching of fights list so it updates with live logs. You can now directly link specific tabs on the results page.<br />
     23-04-2017 - Changed the LotM suggestion to be based on CPM and be much more forgiving. Added death indicators to the mana graph.<br />
     21-04-2017 - Added HPS numbers to item healing done. Damaging HS are now included in cast counts. Recommended cast efficiency of CS with CM reduced to 30%. The recommended unused IoL is now adjusted based on if you have CM, DP and/or 4PT19.<br />
