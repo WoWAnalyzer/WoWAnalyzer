@@ -29,6 +29,36 @@ Feature requests (and bug reports provided that you're not using one of Microsof
 
 The accuracy percentages assume there are no bugs in the implementation, the accuracy of all features was verified extensively. All interactions with Aura of Sacrifice are ignored.
 
+## Suggestions
+
+| Suggestion | Minor | Average | Major |
+| --- | --- | --- | --- |
+| Non healing time | >20% | >40% | >45% |
+| Dead GCD time | >20% | >35% | >40% |
+| Total heals on beacon | >20% | >25% | >35% |
+| Mastery Effectiveness | <75% | <70% | <60% |
+| Rule of Law uptime | <25% | <20% | <10% |
+| IoL FoL to HL cast ratio | <70% | <60% | <40% |
+| Unused IoL ratio (no 4PT19) | >0% | >5% | >20% |
+| Unused IoL ratio (no 4PT19 +CM) | >5% | >10% | >25% |
+| Unused IoL ratio (no 4PT19 +CM +DP) | >10% | >15% | >30% |
+| Unused IoL ratio (4PT19) | >20% | >25% | >40% |
+| Unused IoL ratio (4PT19 +CM) | >30% | >35% | >50% |
+| Unused IoL ratio (4PT19 +CM +DP) | >40% | >45% | >60% |
+| Ilterendi Healing | <4.5% | <4% | <3% |
+| Velen's Healing | <4.5% | <4% | <3% |
+| Filler Light of the Martyr CPM | >1 CPM | >1.5 CPM | >2 CPM |
+| Light of Dawn overhealing | >40% | >50% | >60% |
+| Light of Dawn overhealing (with DP) | >45% | >55% | >65% |
+| Holy Shock overhealing | >40% | >50% | >60% |
+| Holy Shock overhealing (with DP) | >45% | >55% | >65% |
+| Flash of Light overhealing | >20% | >30% | >40% |
+| Bestow Faith overhealing | >40% | >50% | >60% |
+| Cast Efficiency (see spells) | <80% | <75% | <65% |
+| Crusader Strike Cast Efficiency | <30% | <25% | <15% |
+| Divine Protection Cast Efficiency | <60% | <55% | <45% |
+| Blessing of Sacrifice Cast Efficiency | - | - | - |
+
 ## Further ideas
 
  * Show WCL performance ranking & HPS on the report
