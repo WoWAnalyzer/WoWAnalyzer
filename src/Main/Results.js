@@ -19,6 +19,7 @@ import {
   LIGHT_OF_THE_MARTYR_SPELL_ID,
   LIGHT_OF_DAWN_CAST_SPELL_ID,
   LIGHT_OF_DAWN_HEAL_SPELL_ID,
+  BESTOW_FAITH_SPELL_ID,
   DIVINE_PURPOSE_SPELL_ID,
   DIVINE_PURPOSE_HOLY_SHOCK_SPELL_ID,
   DIVINE_PURPOSE_LIGHT_OF_DAWN_SPELL_ID,
@@ -314,6 +315,7 @@ class Results extends React.Component {
     const lightOfDawnCast = getAbility(LIGHT_OF_DAWN_CAST_SPELL_ID);
     const lightOfDawnHeal = getAbility(LIGHT_OF_DAWN_HEAL_SPELL_ID);
     const holyShock = getAbility(HOLY_SHOCK_HEAL_SPELL_ID);
+    const bestowFaith = getAbility(BESTOW_FAITH_SPELL_ID);
 
     const iolFlashOfLights = flashOfLight.healingIolHits || 0;
     const iolHolyLights = holyLight.healingIolHits || 0;
@@ -372,14 +374,14 @@ class Results extends React.Component {
       this.issues.push({
         issue: `Your non healing time can be improved. Try to cast heals more regularly (${Math.round(nonHealingTimePercentage * 100)}% non healing time).`,
         icon: 'petbattle_health-down',
-        importance: getIssueImportance(nonHealingTimePercentage, 0.35, 0.4, true),
+        importance: getIssueImportance(nonHealingTimePercentage, 0.4, 0.45, true),
       });
     }
     if (deadTimePercentage > 0.2) {
       this.issues.push({
         issue: `Your dead GCD time can be improved. Try to Always Be Casting (ABC); when you're not healing try to contribute some damage (${Math.round(deadTimePercentage * 100)}% dead GCD time).`,
         icon: 'spell_mage_altertime',
-        importance: getIssueImportance(deadTimePercentage, 0.3, 0.4, true),
+        importance: getIssueImportance(deadTimePercentage, 0.35, 0.4, true),
       });
     }
     if (totalHealsOnBeaconPercentage > 0.2) {
@@ -447,17 +449,45 @@ class Results extends React.Component {
     const fillerLotmsPerMinute = fillerLotms / (fightDuration / 1000) * 60;
     if (fillerLotmsPerMinute >= 1.0) {
       this.issues.push({
-        issue: hasMaraads ? `With <a href="http://www.wowhead.com/item=144273/maraads-dying-breath" target="_blank" class="legendary">Maraad's Dying Breath</a> you should only cast <b>one</b> <a href="http://www.wowhead.com/item=137046" target="_blank" class="legendary">Light of the Martyr</a> per <a href="http://www.wowhead.com/item=85222" target="_blank">Light of Dawn</a>. Without the buff <a href="http://www.wowhead.com/item=137046" target="_blank" class="legendary">Light of the Martyr</a> is a very inefficient spell to cast. Try to only cast additional Light of the Martyr when absolutely necessary (${fillerLotmsPerMinute.toFixed(2)} CPM (unbuffed only)).` : `<a href="http://www.wowhead.com/item=137046" target="_blank">Light of the Martyr</a> is a very inefficient spell to cast. Try to only cast Light of the Martyr when absolutely necessary (${fillerLotmsPerMinute.toFixed(2)} CPM).`,
+        issue: hasMaraads ? `With <a href="http://www.wowhead.com/item=144273/maraads-dying-breath" target="_blank" class="legendary">Maraad's Dying Breath</a> you should only cast <b>one</b> <a href="http://www.wowhead.com/spell=137046" target="_blank" class="legendary">Light of the Martyr</a> per <a href="http://www.wowhead.com/spell=85222" target="_blank">Light of Dawn</a>. Without the buff <a href="http://www.wowhead.com/spell=137046" target="_blank" class="legendary">Light of the Martyr</a> is a very inefficient spell to cast. Try to only cast additional Light of the Martyr when absolutely necessary (${fillerLotmsPerMinute.toFixed(2)} CPM (unbuffed only)).` : `<a href="http://www.wowhead.com/spell=137046" target="_blank">Light of the Martyr</a> is a very inefficient spell to cast. Try to only cast Light of the Martyr when absolutely necessary (${fillerLotmsPerMinute.toFixed(2)} CPM).`,
         icon: 'ability_paladin_lightofthemartyr',
         importance: getIssueImportance(fillerLotmsPerMinute, 1.5, 2, true),
       });
     }
     const lodOverhealing = getOverhealingPercentage(lightOfDawnHeal);
-    if (lodOverhealing > 0.5) {
+    let recommendedLodOverhealing = hasDivinePurpose ? 0.45 : 0.4;
+    if (lodOverhealing > recommendedLodOverhealing) {
       this.issues.push({
-        issue: `Try to avoid overhealing with <a href="http://www.wowhead.com/item=85222" target="_blank">Light of Dawn</a>. Save it for when people are missing health (${Math.round(lodOverhealing * 100)}% overhealing).`,
+        issue: `Try to avoid overhealing with <a href="http://www.wowhead.com/spell=85222" target="_blank">Light of Dawn</a>. Save it for when people are missing health (${Math.round(lodOverhealing * 100)}% overhealing).`,
         icon: 'spell_paladin_lightofdawn',
-        importance: getIssueImportance(lodOverhealing, 0.6, 0.7, true),
+        importance: getIssueImportance(lodOverhealing, recommendedLodOverhealing + 0.1, recommendedLodOverhealing + 0.2, true),
+      });
+    }
+    const hsOverhealing = getOverhealingPercentage(holyShock);
+    let recommendedHsOverhealing = hasDivinePurpose ? 0.4 : 0.35;
+    if (hsOverhealing > recommendedHsOverhealing) {
+      this.issues.push({
+        issue: `Try to avoid overhealing with <a href="http://www.wowhead.com/spell=20473" target="_blank">Holy Shock</a>. Save it for when people are missing health (${Math.round(hsOverhealing * 100)}% overhealing).`,
+        icon: 'spell_holy_searinglight',
+        importance: getIssueImportance(hsOverhealing, recommendedHsOverhealing + 0.1, recommendedHsOverhealing + 0.2, true),
+      });
+    }
+    const folOverhealing = getOverhealingPercentage(flashOfLight);
+    let recommendedFolOverhealing = 0.2;
+    if (folOverhealing > recommendedFolOverhealing) {
+      this.issues.push({
+        issue: `Try to avoid overhealing with <a href="http://www.wowhead.com/spell=19750" target="_blank">Flash of Light</a>. If Flash of Light would overheal it is generally advisable to cast a <a href="http://www.wowhead.com/spell=82326" target="_blank">Holy Light</a> instead (${Math.round(folOverhealing * 100)}% overhealing).`,
+        icon: 'spell_holy_flashheal',
+        importance: getIssueImportance(folOverhealing, recommendedFolOverhealing + 0.1, recommendedFolOverhealing + 0.2, true),
+      });
+    }
+    const bfOverhealing = getOverhealingPercentage(bestowFaith);
+    let recommendedBfOverhealing = 0.4;
+    if (bfOverhealing > recommendedBfOverhealing) {
+      this.issues.push({
+        issue: `Try to avoid overhealing with <a href="http://www.wowhead.com/spell=223306" target="_blank">Bestow Faith</a>. Cast it just before someone is about to take damage and consider casting it on targets other than tanks (${Math.round(bfOverhealing * 100)}% overhealing).`,
+        icon: 'ability_paladin_blessedmending',
+        importance: getIssueImportance(bfOverhealing, recommendedBfOverhealing + 0.1, recommendedBfOverhealing + 0.2, true),
       });
     }
 
