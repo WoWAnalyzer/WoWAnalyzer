@@ -54,7 +54,7 @@ This may be outdated.
 | Light of Dawn overhealing (with DP) | >45% | >55% | >65% |
 | Holy Shock overhealing | >40% | >50% | >60% |
 | Holy Shock overhealing (with DP) | >45% | >55% | >65% |
-| Flash of Light overhealing | >25% | >40% | >40% |
+| Flash of Light overhealing | >25% | >40% | >50% |
 | Bestow Faith overhealing | >40% | >50% | >60% |
 | Cast Efficiency (see spells) | <80% | <75% | <65% |
 | Crusader Strike Cast Efficiency | <30% | <25% | <15% |
