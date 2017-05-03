@@ -473,12 +473,12 @@ class Results extends React.Component {
       });
     }
     const folOverhealing = getOverhealingPercentage(flashOfLight);
-    let recommendedFolOverhealing = 0.2;
+    let recommendedFolOverhealing = 0.25;
     if (folOverhealing > recommendedFolOverhealing) {
       this.issues.push({
         issue: `Try to avoid overhealing with <a href="http://www.wowhead.com/spell=19750" target="_blank">Flash of Light</a>. If Flash of Light would overheal it is generally advisable to cast a <a href="http://www.wowhead.com/spell=82326" target="_blank">Holy Light</a> instead (${Math.round(folOverhealing * 100)}% overhealing).`,
         icon: 'spell_holy_flashheal',
-        importance: getIssueImportance(folOverhealing, recommendedFolOverhealing + 0.1, recommendedFolOverhealing + 0.2, true),
+        importance: getIssueImportance(folOverhealing, recommendedFolOverhealing + 0.15, recommendedFolOverhealing + 0.35, true),
       });
     }
     const bfOverhealing = getOverhealingPercentage(bestowFaith);
