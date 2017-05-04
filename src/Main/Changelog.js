@@ -2,6 +2,7 @@ import React from 'react';
 
 const Changelog = () => (
   <div>
+    04-05-2017 - Minor importance suggestions are now hidden behind a toggle by default.<br />
     01-05-2017 - Added overhealing suggestions and relaxed the non healing time / dead GCD time suggestions (they should be marked as <i>minor</i> issues more often).<br />
     27-04-2017 - Prevent caching of fights list so it updates with live logs. You can now directly link specific tabs on the results page.<br />
     23-04-2017 - Changed the LotM suggestion to be based on CPM and be much more forgiving. Added death indicators to the mana graph.<br />
