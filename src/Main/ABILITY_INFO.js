@@ -1,3 +1,5 @@
+import { DEVOTION_AURA_TALENT_SPELL_ID, AURA_OF_SACRIFICE_TALENT_SPELL_ID, AURA_OF_MERCY_TALENT_SPELL_ID } from './Parser/Constants';
+
 export default {
   // Talents:
   // lv15
@@ -49,17 +51,17 @@ export default {
     description: 'The talent selected in this tier usually has no impact in raids.',
   },
   // lv60
-  183425: {
+  [DEVOTION_AURA_TALENT_SPELL_ID]: {
     name: 'Devotion Aura',
     icon: 'spell_holy_devotionaura',
     description: '<a href="http://www.wowhead.com/spell=183425" target="_blank">Devotion Aura</a> and <a href="http://www.wowhead.com/spell=183415" target="_blank">Aura of Mercy</a> are both situationally good. Devotion Aura is the best choice to mitigate damage from any heavy-hitting boss mechanic. If you won\'t need the damage reduction from Devotion Aura, then you should take Aura of Mercy as it will result in more overall healing.',
   },
-  183416: {
+  [AURA_OF_SACRIFICE_TALENT_SPELL_ID]: {
     name: 'Aura of Sacrifice',
     icon: 'ability_deathwing_bloodcorruption_earth',
     description: '<a href="http://www.wowhead.com/spell=183416" target="_blank">Aura of Sacrifice</a> works as a decent raid cooldown with <a href="http://www.wowhead.com/spell=31821" target="_blank">Aura Mastery</a>. It is best to use it during <a href="http://www.wowhead.com/spell=31842" target="_blank">Avenging Wrath</a> and/or <a href="http://www.wowhead.com/spell=105809" target="_blank">Holy Avenger</a>. For this reason it is more situationally useful as not all encounters work out such that you can line up all your cool downs at once, and have it not be wasted. *note* healing done by <a href="http://www.wowhead.com/spell=85222" target="_blank">Light of Dawn</a> does not transfer through Aura of Sacrifice\'s empowered effect.',
   },
-  183415: {
+  [AURA_OF_MERCY_TALENT_SPELL_ID]: {
     name: 'Aura of Mercy',
     icon: 'spell_holy_blessedlife',
     description: '<a href="http://www.wowhead.com/spell=183425" target="_blank">Devotion Aura</a> and <a href="http://www.wowhead.com/spell=183415" target="_blank">Aura of Mercy</a> are both situationally good. Devotion Aura is the best choice to mitigate damage from any heavy-hitting boss mechanic. If you won\'t need the damage reduction from Devotion Aura, then you should take Aura of Mercy as it will result in more overall healing.',

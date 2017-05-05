@@ -26,7 +26,10 @@ import {
   DIVINE_PURPOSE_HOLY_SHOCK_SPELL_ID,
   DIVINE_PURPOSE_LIGHT_OF_DAWN_SPELL_ID,
   CRUSADERS_MIGHT_SPELL_ID,
+  DEVOTION_AURA_TALENT_SPELL_ID, AURA_OF_SACRIFICE_TALENT_SPELL_ID, AURA_OF_MERCY_TALENT_SPELL_ID,
+  AURA_OF_MERCY_SPELL_ID, AURA_OF_SACRIFICE_HEAL_SPELL_ID,
 } from './Parser/Constants';
+import ABILITY_INFO from './ABILITY_INFO';
 import { SACRED_DAWN_TRAIT_ID } from './Parser/Modules/Features/SacredDawn';
 import { DRAPE_OF_SHAME_ITEM_ID } from './Parser/Modules/Legendaries/DrapeOfShame';
 import { ILTERENDI_ITEM_ID } from './Parser/Modules/Legendaries/Ilterendi';
@@ -196,7 +199,7 @@ class Results extends React.Component {
     const minutes = fightDuration / 1000 / 60;
 
     const abilityTracker = parser.modules.abilityTracker;
-    const getCastCount = spellId => abilityTracker.getAbility(spellId);
+    const getAbility = spellId => abilityTracker.getAbility(spellId);
 
     const selectedCombatant = parser.selectedCombatant;
     if (!selectedCombatant) {
@@ -208,7 +211,7 @@ class Results extends React.Component {
     return CPM_ABILITIES
       .filter(ability => !ability.isActive || ability.isActive(selectedCombatant))
       .map((ability) => {
-        const castCount = getCastCount(ability.spellId);
+        const castCount = getAbility(ability.spellId);
         const casts = (ability.getCasts ? ability.getCasts(castCount) : castCount.casts) || 0;
         if (ability.hideWithZeroCasts && casts === 0) {
           return null;
@@ -338,6 +341,9 @@ class Results extends React.Component {
     const fightDuration = this.getFightDuration(parser);
 
     const hasCrusadersMight = parser.selectedCombatant.lv15Talent === CRUSADERS_MIGHT_SPELL_ID;
+    const hasAuraOfMercy = parser.selectedCombatant.lv60Talent === AURA_OF_MERCY_TALENT_SPELL_ID;
+    const hasAuraOfSacrifice = parser.selectedCombatant.lv60Talent === AURA_OF_SACRIFICE_TALENT_SPELL_ID;
+    const hasDevotionAura = parser.selectedCombatant.lv60Talent === DEVOTION_AURA_TALENT_SPELL_ID;
     const has4PT19 = parser.selectedCombatant.hasBuff(T19_4SET_BONUS_BUFF_ID);
 
     const nonHealingTimePercentage = parser.modules.alwaysBeCasting.totalHealingTimeWasted / fightDuration;
@@ -728,6 +734,38 @@ class Results extends React.Component {
                         Divine Purpose procs
                       </dfn>
                     )}
+                  />
+                </div>
+              )}
+              {hasAuraOfMercy && (
+                <div className="col-lg-4 col-sm-6 col-xs-12">
+                  <StatisticBox
+                    icon={(
+                      <a href={`http://www.wowhead.com/spell=${AURA_OF_MERCY_TALENT_SPELL_ID}`} target="_blank">
+                        <img
+                          src={`./img/icons/${ABILITY_INFO[AURA_OF_MERCY_TALENT_SPELL_ID].icon}.jpg`}
+                          alt={ABILITY_INFO[AURA_OF_MERCY_TALENT_SPELL_ID].name}
+                        />
+                      </a>
+                    )}
+                    value={`${formatNumber((getAbility(AURA_OF_MERCY_SPELL_ID).healingEffective + getAbility(AURA_OF_MERCY_SPELL_ID).healingAbsorbed) / fightDuration * 1000)} HPS`}
+                    label="Healing done"
+                  />
+                </div>
+              )}
+              {hasAuraOfSacrifice && (
+                <div className="col-lg-4 col-sm-6 col-xs-12">
+                  <StatisticBox
+                    icon={(
+                      <a href={`http://www.wowhead.com/spell=${AURA_OF_SACRIFICE_TALENT_SPELL_ID}`} target="_blank">
+                        <img
+                          src={`./img/icons/${ABILITY_INFO[AURA_OF_SACRIFICE_TALENT_SPELL_ID].icon}.jpg`}
+                          alt={ABILITY_INFO[AURA_OF_SACRIFICE_TALENT_SPELL_ID].name}
+                        />
+                      </a>
+                    )}
+                    value={`${formatNumber((getAbility(AURA_OF_SACRIFICE_HEAL_SPELL_ID).healingEffective + getAbility(AURA_OF_SACRIFICE_HEAL_SPELL_ID).healingAbsorbed) / fightDuration * 1000)} HPS`}
+                    label="Healing done"
                   />
                 </div>
               )}
