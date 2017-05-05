@@ -104,21 +104,21 @@ class ReportSelecter extends Component {
               <div className="panel-body">
                 <div className="row">
                   <div className="col-md-6 text-center">
-                    <img src="./img/items.png" style={{ maxWidth: '100%', border: '1px solid black', borderRadius: 5 }} /><br />
+                    <img src="./img/items.png" style={{ maxWidth: '100%', border: '1px solid black', borderRadius: 5 }} alt="Item performance breakdowns" /><br />
                     Item performance breakdowns
                   </div>
                   <div className="col-md-6 text-center">
-                    <img src="./img/suggestions.png" style={{ maxWidth: '100%', border: '1px solid black', borderRadius: 5 }} /><br />
+                    <img src="./img/suggestions.png" style={{ maxWidth: '100%', border: '1px solid black', borderRadius: 5 }} alt="Suggestions for improvement" /><br />
                     Suggestions for improvement
                   </div>
                 </div>
                 <div className="row" style={{ marginTop: 15 }}>
                   <div className="col-md-6 text-center">
-                    <img src="./img/important-metrics.png" style={{ maxWidth: '100%', border: '1px solid black', borderRadius: 5 }} /><br />
+                    <img src="./img/important-metrics.png" style={{ maxWidth: '100%', border: '1px solid black', borderRadius: 5 }} alt="Important metrics" /><br />
                     Important metrics
                   </div>
                   <div className="col-md-6 text-center">
-                    <img src="./img/mana-breakdown.png" style={{ maxWidth: '100%', border: '1px solid black', borderRadius: 5 }} /><br />
+                    <img src="./img/mana-breakdown.png" style={{ maxWidth: '100%', border: '1px solid black', borderRadius: 5 }} alt="Mana breakdown" /><br />
                     Mana breakdown
                   </div>
                 </div>

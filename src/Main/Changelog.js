@@ -53,7 +53,7 @@ class Changelog extends React.PureComponent {
           <div dangerouslySetInnerHTML={{ __html: change }} />
         ))}
         {limit !== null && (
-          <a href="javascript:" onClick={() => this.setState({ expanded: true })}>More</a>
+          <a onClick={() => this.setState({ expanded: true })}>More</a>
         )}
       </div>
     );

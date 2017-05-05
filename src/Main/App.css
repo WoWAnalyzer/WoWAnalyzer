@@ -33,6 +33,7 @@ body {
 
 a {
   color: #e45a5a;
+  cursor: pointer;
 }
 a:hover {
   color: #ad4b4b;
