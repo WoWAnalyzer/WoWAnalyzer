@@ -1,7 +1,8 @@
 import React from 'react';
 
 const changes = `
-04-05-2017 - Changed the report selection interface.
+05-05-2017 - Added Aura of Mercy and Sacrifice healing done statistic.
+05-05-2017 - Changed the report selection interface.
 04-05-2017 - Minor importance suggestions are now hidden behind a toggle by default.
 01-05-2017 - Added overhealing suggestions and relaxed the non healing time / dead GCD time suggestions (they should be marked as <i>minor</i> issues more often).
 27-04-2017 - Prevent caching of fights list so it updates with live logs. You can now directly link specific tabs on the results page.
