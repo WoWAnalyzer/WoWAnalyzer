@@ -22,14 +22,11 @@ body {
 @media (min-width: 1200px) {
   .container {
     transition: width 600ms;
-    width: 900px;
-  }
-  .larger  .container {
     width: 1170px;
   }
 }
 @media (min-width: 1400px) {
-  .larger  .container {
+  .container {
     width: 1370px;
   }
 }

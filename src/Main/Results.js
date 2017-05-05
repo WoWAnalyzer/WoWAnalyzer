@@ -138,7 +138,6 @@ class Results extends React.Component {
     super();
     this.state = {
       friendlyStats: null,
-      waitingForLayout: true,
       showMinorIssues: false,
     };
   }
@@ -271,21 +270,13 @@ class Results extends React.Component {
     return castsOnBeacon / casts;
   }
 
-  componentDidMount() {
-    setTimeout(() => {
-      this.setState({
-        waitingForLayout: false,
-      });
-    }, 600);
-  }
-
   render() {
     const { parser, tab, onChangeTab } = this.props;
     const { friendlyStats } = this.state;
 
     const activeTab = tab || TABS.ISSUES;
 
-    if (!parser.selectedCombatant || this.state.waitingForLayout) {
+    if (!parser.selectedCombatant) {
       return (
         <div>
           <h1>

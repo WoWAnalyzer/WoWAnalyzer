@@ -257,7 +257,7 @@ class App extends Component {
     const progress = Math.floor(this.state.progress * 100);
 
     return (
-      <div className={parser ? 'larger' : ''}>
+      <div>
         <nav className="navbar navbar-default">
           <div className="navbar-progress" style={{ width: `${progress}%`, opacity: progress === 0 || progress === 100 ? 0 : 1 }} />
           <div className="container">
