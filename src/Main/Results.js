@@ -42,18 +42,6 @@ import { MARAADS_DYING_BREATH_ITEM_ID } from './Parser/Modules/Legendaries/Maraa
 import { CPM_ABILITIES } from './CastEfficiency';
 import ISSUE_IMPORTANCE from './ISSUE_IMPORTANCE';
 
-function getBeaconIcon(spellId) {
-  switch (spellId) {
-    case BEACON_TYPES.BEACON_OF_FATH:
-      return 'beaconOfFaith';
-    case BEACON_TYPES.BEACON_OF_THE_LIGHTBRINGER:
-      return 'beaconOfTheLightbringer';
-    case BEACON_TYPES.BEACON_OF_VIRTUE:
-      return 'beaconOfVirtue';
-    default:
-      return '';
-  }
-}
 function formatThousands(number) {
   return (Math.round(number || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
 }
@@ -524,7 +512,7 @@ class Results extends React.Component {
                 <StatisticBox
                   icon={(
                     <img
-                      src="./healing.png"
+                      src="./img/healing.png"
                       style={{ border: 0 }}
                       alt="Healing"
                     />)}
@@ -536,7 +524,7 @@ class Results extends React.Component {
                 <StatisticBox
                   icon={(
                     <img
-                      src="./mastery-radius.png"
+                      src="./img/mastery-radius.png"
                       style={{ border: 0 }}
                       alt="Mastery effectiveness"
                     />
@@ -624,8 +612,8 @@ class Results extends React.Component {
                   icon={(
                     <a href={`http://www.wowhead.com/spell=${parser.selectedCombatant.lv100Talent}`} target="_blank">
                       <img
-                        src={`./${getBeaconIcon(parser.selectedCombatant.lv100Talent)}.jpg`}
-                        alt="Beacon"
+                        src={`./img/icons/${ABILITY_INFO[parser.selectedCombatant.lv100Talent].icon}.jpg`}
+                        alt={ABILITY_INFO[parser.selectedCombatant.lv100Talent].name}
                       />
                     </a>
                   )}
@@ -785,7 +773,7 @@ class Results extends React.Component {
                           <article>
                             <figure>
                               <img
-                                src="./drapeofshame.jpg"
+                                src="./img/icons/inv_cape_legionendgame_c_03.jpg"
                                 alt="Drape of Shame"
                               />
                             </figure>
@@ -857,7 +845,7 @@ class Results extends React.Component {
                           <article>
                             <figure>
                               <img
-                                src="./chainOfThrayn.jpg"
+                                src="./img/icons/inv_belt_leather_firelandsdruid_d_01.jpg"
                                 alt="Chain of Thrayn"
                               />
                             </figure>
@@ -881,7 +869,7 @@ class Results extends React.Component {
                           <article>
                             <figure>
                               <img
-                                src="./prydaz.jpg"
+                                src="./img/icons/inv_misc_necklace15.jpg"
                                 alt="Prydaz, Xavaric's Magnum Opus"
                               />
                             </figure>
@@ -905,7 +893,7 @@ class Results extends React.Component {
                           <article>
                             <figure>
                               <img
-                                src="./obsidianstonespaulders.jpg"
+                                src="./img/icons/inv_shoulder_plate_pvppaladin_o_01.jpg"
                                 alt="Obsidian Stone Spaulders"
                               />
                             </figure>
@@ -929,7 +917,7 @@ class Results extends React.Component {
                           <article>
                             <figure>
                               <img
-                                src="./maraadsdyingbreath.jpg"
+                                src="./img/icons/item_icecrowncape.jpg"
                                 alt="Maraad's Dying Breath"
                               />
                             </figure>

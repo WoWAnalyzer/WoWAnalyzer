@@ -262,7 +262,7 @@ class App extends Component {
           <div className="navbar-progress" style={{ width: `${progress}%`, opacity: progress === 0 || progress === 100 ? 0 : 1 }} />
           <div className="container">
             <ul className="nav navbar-nav navbar-right">
-              <li><a href="https://github.com/MartijnHols/HolyPaladinAnalyzer"><span className="hidden-xs"> View on GitHub </span><img src="GitHub-Mark-Light-32px.png" alt="GitHub logo" /></a></li>
+              <li><a href="https://github.com/MartijnHols/HolyPaladinAnalyzer"><span className="hidden-xs"> View on GitHub </span><img src="./img/GitHub-Mark-Light-32px.png" alt="GitHub logo" /></a></li>
             </ul>
 
             <div className="navbar-header">
