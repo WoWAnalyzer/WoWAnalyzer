@@ -50,6 +50,7 @@ This may be outdated.
 | Ilterendi Healing | <4.5% | <4% | <3% |
 | Velen's Healing | <4.5% | <4% | <3% |
 | Filler Light of the Martyr CPM | >1 CPM | >1.5 CPM | >2 CPM |
+| Aura of Sacrifice healing done | <30k HPS | <25k HPS | <20k HPS |
 | Light of Dawn overhealing | >40% | >50% | >60% |
 | Light of Dawn overhealing (with DP) | >45% | >55% | >65% |
 | Holy Shock overhealing | >40% | >50% | >60% |

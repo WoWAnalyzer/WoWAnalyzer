@@ -17,7 +17,6 @@ import {
   FLASH_OF_LIGHT_SPELL_ID,
   HOLY_LIGHT_SPELL_ID,
   HOLY_SHOCK_HEAL_SPELL_ID,
-  BEACON_TYPES,
   LIGHT_OF_THE_MARTYR_SPELL_ID,
   LIGHT_OF_DAWN_CAST_SPELL_ID,
   LIGHT_OF_DAWN_HEAL_SPELL_ID,
@@ -59,6 +58,9 @@ function getRawHealing(ability) {
 }
 function getOverhealingPercentage(ability) {
   return ability.healingOverheal / getRawHealing(ability);
+}
+function spellLink(spellId) {
+  return `<a href="http://www.wowhead.com/spell=${spellId}" target="_blank">${ABILITY_INFO[spellId].name}</a>`;
 }
 
 const TABS = {
@@ -331,6 +333,7 @@ class Results extends React.Component {
     const hasCrusadersMight = parser.selectedCombatant.lv15Talent === CRUSADERS_MIGHT_SPELL_ID;
     const hasAuraOfMercy = parser.selectedCombatant.lv60Talent === AURA_OF_MERCY_TALENT_SPELL_ID;
     const hasAuraOfSacrifice = parser.selectedCombatant.lv60Talent === AURA_OF_SACRIFICE_TALENT_SPELL_ID;
+    const auraOfSacrificeHps = (getAbility(AURA_OF_SACRIFICE_HEAL_SPELL_ID).healingEffective + getAbility(AURA_OF_SACRIFICE_HEAL_SPELL_ID).healingAbsorbed) / fightDuration * 1000;
     const hasDevotionAura = parser.selectedCombatant.lv60Talent === DEVOTION_AURA_TALENT_SPELL_ID;
     const has4PT19 = parser.selectedCombatant.hasBuff(T19_4SET_BONUS_BUFF_ID);
 
@@ -440,6 +443,13 @@ class Results extends React.Component {
         issue: hasMaraads ? `With <a href="http://www.wowhead.com/item=144273/maraads-dying-breath" target="_blank" class="legendary">Maraad's Dying Breath</a> you should only cast <b>one</b> <a href="http://www.wowhead.com/spell=137046" target="_blank" class="legendary">Light of the Martyr</a> per <a href="http://www.wowhead.com/spell=85222" target="_blank">Light of Dawn</a>. Without the buff <a href="http://www.wowhead.com/spell=137046" target="_blank" class="legendary">Light of the Martyr</a> is a very inefficient spell to cast. Try to only cast additional Light of the Martyr when absolutely necessary (${fillerLotmsPerMinute.toFixed(2)} CPM (unbuffed only)).` : `<a href="http://www.wowhead.com/spell=137046" target="_blank">Light of the Martyr</a> is a very inefficient spell to cast. Try to only cast Light of the Martyr when absolutely necessary (${fillerLotmsPerMinute.toFixed(2)} CPM).`,
         icon: 'ability_paladin_lightofthemartyr',
         importance: getIssueImportance(fillerLotmsPerMinute, 1.5, 2, true),
+      });
+    }
+    if (auraOfSacrificeHps < 30000) {
+      this.issues.push({
+        issue: `The healing done by your ${spellLink(AURA_OF_SACRIFICE_TALENT_SPELL_ID)} is low. Try to find a better moment to cast it or consider changing to ${spellLink(AURA_OF_MERCY_TALENT_SPELL_ID)} or ${spellLink(DEVOTION_AURA_TALENT_SPELL_ID)} which can be more reliable (${formatNumber(auraOfSacrificeHps)} HPS).`,
+        icon: ABILITY_INFO[AURA_OF_SACRIFICE_TALENT_SPELL_ID].icon,
+        importance: getIssueImportance(auraOfSacrificeHps, 25000, 20000),
       });
     }
     const lodOverhealing = getOverhealingPercentage(lightOfDawnHeal);
@@ -752,7 +762,7 @@ class Results extends React.Component {
                         />
                       </a>
                     )}
-                    value={`${formatNumber((getAbility(AURA_OF_SACRIFICE_HEAL_SPELL_ID).healingEffective + getAbility(AURA_OF_SACRIFICE_HEAL_SPELL_ID).healingAbsorbed) / fightDuration * 1000)} HPS`}
+                    value={`${formatNumber(auraOfSacrificeHps)} HPS`}
                     label="Healing done"
                   />
                 </div>
