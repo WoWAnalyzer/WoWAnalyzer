@@ -23,7 +23,7 @@ export default {
     id: 230332,
     name: 'Cavalier',
     icon: 'ability_paladin_divinesteed',
-    description: 'You can take <a href="http://www.wowhead.com/spell=230332" target="_blank">Cavalier</a> if most of the raid is clumped together and you won\'t need <a href="http://www.wowhead.com/spell=214202" target="_blank">Rule of Law</a>, or if you have a specific need for two charges of Divine Steed. It\'s important to understand that two charges doesn\'t actually mean you get twice as many uses of Divine Steed. Realistically, you\'ll only get one extra charge if you\'re using Divine Steed frequently.',
+    description: 'You can take <a href="http://www.wowhead.com/spell=230332" target="_blank">Cavalier</a> if most of the raid is clumped together and you won\'t need <a href="http://www.wowhead.com/spell=214202" target="_blank">Rule of Law</a>, or if you have a specific need for two charges of Divine Steed. It\'s important to understand that two charges doesn\'t actually mean you get twice as many uses of Divine Steed. If you use both charges at once, only one will recharge at a time meaning it will take 90 seconds for you to have both charges up again.',
   },
   UNBREAKABLE_SPIRIT_TALENT: {
     id: 114154,

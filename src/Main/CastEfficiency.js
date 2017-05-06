@@ -62,9 +62,9 @@ export const CPM_ABILITIES = [
     icon: 'spell_holy_crusaderstrike',
     name: 'Crusader Strike',
     category: SPELL_CATEGORY.ROTATIONAL,
-    getCooldown: haste => 4.5 / (1 + haste) / 2,
+    getCooldown: haste => 4.5 / (1 + haste),
     isActive: combatant => combatant.lv15Talent === ABILITY_INFO.CRUSADERS_MIGHT_TALENT.id,
-    recommendedCastEfficiency: 0.3,
+    recommendedCastEfficiency: 0.60,
   },
   {
     spellId: HOLY_PRISM_CAST_SPELL_ID,
