@@ -12,7 +12,6 @@ import Talents from './Talents';
 import Mana from './Mana';
 
 import {
-  RULE_OF_LAW_SPELL_ID,
   T19_4SET_BONUS_BUFF_ID,
   FLASH_OF_LIGHT_SPELL_ID,
   HOLY_LIGHT_SPELL_ID,
@@ -20,12 +19,8 @@ import {
   LIGHT_OF_THE_MARTYR_SPELL_ID,
   LIGHT_OF_DAWN_CAST_SPELL_ID,
   LIGHT_OF_DAWN_HEAL_SPELL_ID,
-  BESTOW_FAITH_SPELL_ID,
-  DIVINE_PURPOSE_SPELL_ID,
   DIVINE_PURPOSE_HOLY_SHOCK_SPELL_ID,
   DIVINE_PURPOSE_LIGHT_OF_DAWN_SPELL_ID,
-  CRUSADERS_MIGHT_SPELL_ID,
-  DEVOTION_AURA_TALENT_SPELL_ID, AURA_OF_SACRIFICE_TALENT_SPELL_ID, AURA_OF_MERCY_TALENT_SPELL_ID,
   AURA_OF_MERCY_SPELL_ID, AURA_OF_SACRIFICE_HEAL_SPELL_ID,
 } from './Parser/Constants';
 import ABILITY_INFO from './ABILITY_INFO';
@@ -60,7 +55,8 @@ function getOverhealingPercentage(ability) {
   return ability.healingOverheal / getRawHealing(ability);
 }
 function spellLink(spellId) {
-  return `<a href="http://www.wowhead.com/spell=${spellId}" target="_blank">${ABILITY_INFO[spellId].name}</a>`;
+  const ability = typeof spellId === "object" ? spellId : ABILITY_INFO[spellId];
+  return `<a href="http://www.wowhead.com/spell=${ability.id}" target="_blank">${ability.name}</a>`;
 }
 
 const TABS = {
@@ -292,7 +288,7 @@ class Results extends React.Component {
 
     const totalMasteryEffectiveness = stats.totalHealingFromMastery / (stats.totalMaxPotentialMasteryHealing || 1);
     const highestHealingFromMastery = friendlyStats && friendlyStats.reduce((highest, player) => Math.max(highest, player.healingFromMastery), 1);
-    const ruleOfLawUptime = parser.selectedCombatant.getBuffUptime(RULE_OF_LAW_SPELL_ID) / parser.fightDuration;
+    const ruleOfLawUptime = parser.selectedCombatant.getBuffUptime(ABILITY_INFO.RULE_OF_LAW_TALENT.id) / parser.fightDuration;
 
     const abilityTracker = parser.modules.abilityTracker;
     const getAbility = spellId => abilityTracker.getAbility(spellId);
@@ -302,7 +298,7 @@ class Results extends React.Component {
     const lightOfDawnCast = getAbility(LIGHT_OF_DAWN_CAST_SPELL_ID);
     const lightOfDawnHeal = getAbility(LIGHT_OF_DAWN_HEAL_SPELL_ID);
     const holyShock = getAbility(HOLY_SHOCK_HEAL_SPELL_ID);
-    const bestowFaith = getAbility(BESTOW_FAITH_SPELL_ID);
+    const bestowFaith = getAbility(ABILITY_INFO.BESTOW_FAITH_TALENT.id);
 
     const iolFlashOfLights = flashOfLight.healingIolHits || 0;
     const iolHolyLights = holyLight.healingIolHits || 0;
@@ -330,11 +326,11 @@ class Results extends React.Component {
 
     const fightDuration = this.getFightDuration(parser);
 
-    const hasCrusadersMight = parser.selectedCombatant.lv15Talent === CRUSADERS_MIGHT_SPELL_ID;
-    const hasAuraOfMercy = parser.selectedCombatant.lv60Talent === AURA_OF_MERCY_TALENT_SPELL_ID;
-    const hasAuraOfSacrifice = parser.selectedCombatant.lv60Talent === AURA_OF_SACRIFICE_TALENT_SPELL_ID;
+    const hasCrusadersMight = parser.selectedCombatant.lv15Talent === ABILITY_INFO.CRUSADERS_MIGHT_TALENT.id;
+    const hasAuraOfMercy = parser.selectedCombatant.lv60Talent === ABILITY_INFO.AURA_OF_MERCY_TALENT.id;
+    const hasAuraOfSacrifice = parser.selectedCombatant.lv60Talent === ABILITY_INFO.AURA_OF_SACRIFICE_TALENT.id;
     const auraOfSacrificeHps = (getAbility(AURA_OF_SACRIFICE_HEAL_SPELL_ID).healingEffective + getAbility(AURA_OF_SACRIFICE_HEAL_SPELL_ID).healingAbsorbed) / fightDuration * 1000;
-    const hasDevotionAura = parser.selectedCombatant.lv60Talent === DEVOTION_AURA_TALENT_SPELL_ID;
+    const hasDevotionAura = parser.selectedCombatant.lv60Talent === ABILITY_INFO.DEVOTION_AURA_TALENT.id;
     const has4PT19 = parser.selectedCombatant.hasBuff(T19_4SET_BONUS_BUFF_ID);
 
     const nonHealingTimePercentage = parser.modules.alwaysBeCasting.totalHealingTimeWasted / fightDuration;
@@ -354,10 +350,10 @@ class Results extends React.Component {
     const tyrsDeliveranceHealHealingPercentage = parser.modules.tyrsDeliverance.healHealing / parser.totalHealing;
     const tyrsDeliveranceBuffFoLHLHealingPercentage = parser.modules.tyrsDeliverance.buffFoLHLHealing / parser.totalHealing;
     const tyrsDeliverancePercentage = tyrsDeliveranceHealHealingPercentage + tyrsDeliveranceBuffFoLHLHealingPercentage;
-    const hasRuleOfLaw = parser.selectedCombatant.lv30Talent === RULE_OF_LAW_SPELL_ID;
+    const hasRuleOfLaw = parser.selectedCombatant.lv30Talent === ABILITY_INFO.RULE_OF_LAW_TALENT.id;
     const hasMaraads = parser.selectedCombatant.hasBack(MARAADS_DYING_BREATH_ITEM_ID);
 
-    const hasDivinePurpose = parser.selectedCombatant.lv75Talent === DIVINE_PURPOSE_SPELL_ID;
+    const hasDivinePurpose = parser.selectedCombatant.lv75Talent === ABILITY_INFO.DIVINE_PURPOSE_TALENT.id;
     const divinePurposeHolyShockProcs = hasDivinePurpose && parser.selectedCombatant.getBuffTriggerCount(DIVINE_PURPOSE_HOLY_SHOCK_SPELL_ID);
     const divinePurposeLightOfDawnProcs = hasDivinePurpose && parser.selectedCombatant.getBuffTriggerCount(DIVINE_PURPOSE_LIGHT_OF_DAWN_SPELL_ID);
 
@@ -391,7 +387,7 @@ class Results extends React.Component {
     }
     if (hasRuleOfLaw && ruleOfLawUptime < 0.25) {
       this.issues.push({
-        issue: `Your <a href="http://www.wowhead.com/spell=214202" target="_blank">Rule of Law</a> uptime can be improved. Try keeping at least 1 charge on cooldown; you should (almost) never be at max charges (${(ruleOfLawUptime * 100).toFixed(2)}% uptime).`,
+        issue: `Your ${spellLink(ABILITY_INFO.RULE_OF_LAW_TALENT)} uptime can be improved. Try keeping at least 1 charge on cooldown; you should (almost) never be at max charges (${(ruleOfLawUptime * 100).toFixed(2)}% uptime).`,
         icon: 'ability_paladin_longarmofthelaw',
         importance: getIssueImportance(ruleOfLawUptime, 0.2, 0.1),
       });
@@ -447,8 +443,8 @@ class Results extends React.Component {
     }
     if (auraOfSacrificeHps < 30000) {
       this.issues.push({
-        issue: `The healing done by your ${spellLink(AURA_OF_SACRIFICE_TALENT_SPELL_ID)} is low. Try to find a better moment to cast it or consider changing to ${spellLink(AURA_OF_MERCY_TALENT_SPELL_ID)} or ${spellLink(DEVOTION_AURA_TALENT_SPELL_ID)} which can be more reliable (${formatNumber(auraOfSacrificeHps)} HPS).`,
-        icon: ABILITY_INFO[AURA_OF_SACRIFICE_TALENT_SPELL_ID].icon,
+        issue: `The healing done by your ${spellLink(ABILITY_INFO.AURA_OF_SACRIFICE_TALENT)} is low. Try to find a better moment to cast it or consider changing to ${spellLink(ABILITY_INFO.AURA_OF_MERCY_TALENT)} or ${spellLink(ABILITY_INFO.DEVOTION_AURA_TALENT)} which can be more reliable (${formatNumber(auraOfSacrificeHps)} HPS).`,
+        icon: ABILITY_INFO.AURA_OF_SACRIFICE_TALENT.icon,
         importance: getIssueImportance(auraOfSacrificeHps, 25000, 20000),
       });
     }
@@ -483,7 +479,7 @@ class Results extends React.Component {
     let recommendedBfOverhealing = 0.4;
     if (bfOverhealing > recommendedBfOverhealing) {
       this.issues.push({
-        issue: `Try to avoid overhealing with <a href="http://www.wowhead.com/spell=223306" target="_blank">Bestow Faith</a>. Cast it just before someone is about to take damage and consider casting it on targets other than tanks (${Math.round(bfOverhealing * 100)}% overhealing).`,
+        issue: `Try to avoid overhealing with ${spellLink(ABILITY_INFO.BESTOW_FAITH_TALENT)}. Cast it just before someone is about to take damage and consider casting it on targets other than tanks (${Math.round(bfOverhealing * 100)}% overhealing).`,
         icon: 'ability_paladin_blessedmending',
         importance: getIssueImportance(bfOverhealing, recommendedBfOverhealing + 0.1, recommendedBfOverhealing + 0.2, true),
       });
@@ -739,10 +735,10 @@ class Results extends React.Component {
                 <div className="col-lg-4 col-sm-6 col-xs-12">
                   <StatisticBox
                     icon={(
-                      <a href={`http://www.wowhead.com/spell=${AURA_OF_MERCY_TALENT_SPELL_ID}`} target="_blank">
+                      <a href={`http://www.wowhead.com/spell=${ABILITY_INFO.AURA_OF_MERCY_TALENT.id}`} target="_blank">
                         <img
-                          src={`./img/icons/${ABILITY_INFO[AURA_OF_MERCY_TALENT_SPELL_ID].icon}.jpg`}
-                          alt={ABILITY_INFO[AURA_OF_MERCY_TALENT_SPELL_ID].name}
+                          src={`./img/icons/${ABILITY_INFO.AURA_OF_MERCY_TALENT.icon}.jpg`}
+                          alt={ABILITY_INFO.AURA_OF_MERCY_TALENT.name}
                         />
                       </a>
                     )}
@@ -755,10 +751,10 @@ class Results extends React.Component {
                 <div className="col-lg-4 col-sm-6 col-xs-12">
                   <StatisticBox
                     icon={(
-                      <a href={`http://www.wowhead.com/spell=${AURA_OF_SACRIFICE_TALENT_SPELL_ID}`} target="_blank">
+                      <a href={`http://www.wowhead.com/spell=${ABILITY_INFO.AURA_OF_SACRIFICE_TALENT.id}`} target="_blank">
                         <img
-                          src={`./img/icons/${ABILITY_INFO[AURA_OF_SACRIFICE_TALENT_SPELL_ID].icon}.jpg`}
-                          alt={ABILITY_INFO[AURA_OF_SACRIFICE_TALENT_SPELL_ID].name}
+                          src={`./img/icons/${ABILITY_INFO.AURA_OF_SACRIFICE_TALENT.icon}.jpg`}
+                          alt={ABILITY_INFO.AURA_OF_SACRIFICE_TALENT.name}
                         />
                       </a>
                     )}

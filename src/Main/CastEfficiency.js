@@ -1,9 +1,10 @@
 import React from 'react';
 
 import {
-  HOLY_SHOCK_HEAL_SPELL_ID, LIGHT_OF_DAWN_CAST_SPELL_ID, JUDGMENT_CAST_SPELL_ID, BESTOW_FAITH_SPELL_ID, LIGHT_OF_THE_MARTYR_SPELL_ID, TYRS_DELIVERANCE_CAST_SPELL_ID, AVENGING_WRATH_SPELL_ID, HOLY_AVENGER_SPELL_ID, AURA_MASTERY_SPELL_ID, CRUSADER_STRIKE_SPELL_ID, HOLY_PRISM_CAST_SPELL_ID, LIGHTS_HAMMER_CAST_SPELL_ID, FLASH_OF_LIGHT_SPELL_ID, HOLY_LIGHT_SPELL_ID, ARCANE_TORRENT_SPELL_ID, RULE_OF_LAW_SPELL_ID,
-  JUDGMENT_OF_LIGHT_SPELL_ID, CRUSADERS_MIGHT_SPELL_ID, DIVINE_PROTECTION_SPELL_ID, BLESSING_OF_SACRIFICE_SPELL_ID,
+  HOLY_SHOCK_HEAL_SPELL_ID, LIGHT_OF_DAWN_CAST_SPELL_ID, JUDGMENT_CAST_SPELL_ID, LIGHT_OF_THE_MARTYR_SPELL_ID, TYRS_DELIVERANCE_CAST_SPELL_ID, AVENGING_WRATH_SPELL_ID, AURA_MASTERY_SPELL_ID, CRUSADER_STRIKE_SPELL_ID, HOLY_PRISM_CAST_SPELL_ID, LIGHTS_HAMMER_CAST_SPELL_ID, FLASH_OF_LIGHT_SPELL_ID, HOLY_LIGHT_SPELL_ID, ARCANE_TORRENT_SPELL_ID,
+  DIVINE_PROTECTION_SPELL_ID, BLESSING_OF_SACRIFICE_SPELL_ID,
 } from './Parser/Constants';
+import ABILITY_INFO from 'Main/ABILITY_INFO';
 import { VELENS_ITEM_ID, LEGENDARY_VELENS_BUFF_SPELL_ID } from './Parser/Modules/Legendaries/Velens';
 
 import ISSUE_IMPORTANCE from './ISSUE_IMPORTANCE';
@@ -36,16 +37,16 @@ export const CPM_ABILITIES = [
     name: 'Judgment',
     category: SPELL_CATEGORY.ROTATIONAL,
     getCooldown: haste => 12 / (1 + haste),
-    isActive: combatant => combatant.lv90Talent === JUDGMENT_OF_LIGHT_SPELL_ID,
+    isActive: combatant => combatant.lv90Talent === ABILITY_INFO.JUDGMENT_OF_LIGHT_TALENT.id,
     recommendedCastEfficiency: 0.85, // this rarely overheals, so keeping this on cooldown is pretty much always best
   },
   {
-    spellId: BESTOW_FAITH_SPELL_ID,
+    spellId: ABILITY_INFO.BESTOW_FAITH_TALENT.id,
     icon: 'ability_paladin_blessedmending',
     name: 'Bestow Faith',
     category: SPELL_CATEGORY.ROTATIONAL,
     getCooldown: haste => 12,
-    isActive: combatant => combatant.lv15Talent === BESTOW_FAITH_SPELL_ID,
+    isActive: combatant => combatant.lv15Talent === ABILITY_INFO.BESTOW_FAITH_TALENT.id,
     recommendedCastEfficiency: 0.65,
   },
   {
@@ -62,7 +63,7 @@ export const CPM_ABILITIES = [
     name: 'Crusader Strike',
     category: SPELL_CATEGORY.ROTATIONAL,
     getCooldown: haste => 4.5 / (1 + haste) / 2,
-    isActive: combatant => combatant.lv15Talent === CRUSADERS_MIGHT_SPELL_ID,
+    isActive: combatant => combatant.lv15Talent === ABILITY_INFO.CRUSADERS_MIGHT_TALENT.id,
     recommendedCastEfficiency: 0.3,
   },
   {
@@ -74,13 +75,13 @@ export const CPM_ABILITIES = [
     isActive: combatant => combatant.lv75Talent === HOLY_PRISM_CAST_SPELL_ID,
   },
   {
-    spellId: RULE_OF_LAW_SPELL_ID,
+    spellId: ABILITY_INFO.RULE_OF_LAW_TALENT.id,
     icon: 'ability_paladin_longarmofthelaw',
     name: 'Rule of Law',
     category: SPELL_CATEGORY.COOLDOWNS,
     getCooldown: haste => 30,
     charges: 2,
-    isActive: combatant => combatant.lv30Talent === RULE_OF_LAW_SPELL_ID,
+    isActive: combatant => combatant.lv30Talent === ABILITY_INFO.RULE_OF_LAW_TALENT.id,
     noSuggestion: true,
   },
   {
@@ -117,12 +118,12 @@ export const CPM_ABILITIES = [
     isActive: combatant => combatant.hasTrinket(VELENS_ITEM_ID),
   },
   {
-    spellId: HOLY_AVENGER_SPELL_ID,
+    spellId: ABILITY_INFO.HOLY_AVENGER_TALENT.id,
     icon: 'ability_paladin_holyavenger',
     name: 'Holy Avenger',
     category: SPELL_CATEGORY.COOLDOWNS,
     getCooldown: haste => 90,
-    isActive: combatant => combatant.lv75Talent === HOLY_AVENGER_SPELL_ID,
+    isActive: combatant => combatant.lv75Talent === ABILITY_INFO.HOLY_AVENGER_TALENT.id,
   },
   {
     spellId: AVENGING_WRATH_SPELL_ID,

@@ -1,3 +1,5 @@
+import ABILITY_INFO from 'Main/ABILITY_INFO';
+
 export const HOLY_SHOCK_HEAL_SPELL_ID = 25914;
 export const HOLY_SHOCK_CAST_SPELL_ID = 20473;
 export const LIGHT_OF_DAWN_HEAL_SPELL_ID = 225311;
@@ -11,7 +13,6 @@ export const LIGHTS_HAMMER_HEAL_SPELL_ID = 119952;
 export const LIGHTS_HAMMER_CAST_SPELL_ID = 114158;
 export const TYRS_DELIVERANCE_HEAL_SPELL_ID = 200654;
 export const TYRS_DELIVERANCE_CAST_SPELL_ID = 200652;
-export const BESTOW_FAITH_SPELL_ID = 223306;
 export const JUDGMENT_OF_LIGHT_HEAL_SPELL_ID = 183811;
 export const JUDGMENT_CAST_SPELL_ID = 20271;
 export const AURA_OF_MERCY_SPELL_ID = 210291;
@@ -19,19 +20,11 @@ export const AURA_OF_SACRIFICE_HEAL_SPELL_ID = 210383;
 export const LEECH_SPELL_ID = 143924;
 export const AURA_OF_SACRIFICE_SPELL_ID = 210383;
 export const CRUSADER_STRIKE_SPELL_ID = 35395;
-export const HOLY_AVENGER_SPELL_ID = 105809;
 export const AURA_MASTERY_SPELL_ID = 31821;
 export const ARCANE_TORRENT_SPELL_ID = 155145;
 
 // All beacons use this spell id for their healing events.
 export const BEACON_TRANSFER_SPELL_ID = 53652;
-
-// Talents:
-export const CRUSADERS_MIGHT_SPELL_ID = 196926;
-export const DEVOTION_AURA_TALENT_SPELL_ID = 183425;
-export const AURA_OF_SACRIFICE_TALENT_SPELL_ID = 183416;
-export const AURA_OF_MERCY_TALENT_SPELL_ID = 183415;
-export const JUDGMENT_OF_LIGHT_SPELL_ID = 183778;
 
 export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   HOLY_SHOCK_HEAL_SPELL_ID,
@@ -49,10 +42,8 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   // AURA_OF_SACRIFICE_SPELL_ID, // while AoS sorta is included, it's based on effective healing and any overhealing from the original spell would have to be reduced to get an accurate result. Not including it doesn't have a big impact.
 ];
 
-export const RULE_OF_LAW_SPELL_ID = 214202;
 export const DIVINE_PROTECTION_SPELL_ID = 498;
 export const BLESSING_OF_SACRIFICE_SPELL_ID = 6940;
-export const DIVINE_PURPOSE_SPELL_ID = 197646;
 export const DIVINE_PURPOSE_HOLY_SHOCK_SPELL_ID = 216411;
 export const DIVINE_PURPOSE_LIGHT_OF_DAWN_SPELL_ID = 216413;
 
@@ -70,7 +61,7 @@ export const ABILITIES_AFFECTED_BY_MASTERY = [
   LIGHTS_HAMMER_HEAL_SPELL_ID,
   JUDGMENT_OF_LIGHT_HEAL_SPELL_ID,
   TYRS_DELIVERANCE_HEAL_SPELL_ID,
-  BESTOW_FAITH_SPELL_ID,
+  ABILITY_INFO.BESTOW_FAITH_TALENT.id,
 ];
 
 export const BEACON_TRANSFERING_ABILITIES = {
@@ -81,7 +72,7 @@ export const BEACON_TRANSFERING_ABILITIES = {
   [HOLY_PRISM_HEAL_SPELL_ID]: 0.5,
   [LIGHTS_HAMMER_HEAL_SPELL_ID]: 0.5,
   [TYRS_DELIVERANCE_HEAL_SPELL_ID]: 1,
-  [BESTOW_FAITH_SPELL_ID]: 1,
+  [ABILITY_INFO.BESTOW_FAITH_TALENT.id]: 1,
   // While this only beacon transfers with Maraad's, adding it by default shouldn't interfere with anything
   [LIGHT_OF_THE_MARTYR_SPELL_ID]: 1,
 };
