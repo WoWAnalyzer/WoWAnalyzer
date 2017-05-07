@@ -1,6 +1,7 @@
 import React from 'react';
 
 const changes = `
+07-05-2017 - Untangled many lines - you shouldn't notice a difference.
 05-05-2017 - Added Aura of Mercy and Sacrifice healing done statistic.
 05-05-2017 - Changed the report selection interface.
 04-05-2017 - Minor importance suggestions are now hidden behind a toggle by default.
