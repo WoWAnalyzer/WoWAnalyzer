@@ -1,11 +1,17 @@
-import Module from 'Main/Parser/Module';
-import { ABILITIES_AFFECTED_BY_HEALING_INCREASES, AVENGING_WRATH_SPELL_ID, AVENGING_WRATH_HEALING_INCREASE } from 'Main/Parser/Constants';
+import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
 
-export const CHAIN_OF_THRAYN_ITEM_ID = 137086;
+import Module from 'Main/Parser/Module';
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES, AVENGING_WRATH_HEALING_INCREASE } from 'Main/Parser/Constants';
+
 const CHAIN_OF_THRAYN_HEALING_INCREASE = 0.25;
 
 class ChainOfThrayn extends Module {
   healing = 0;
+
+  on_initialized() {
+    this.active = this.owner.selectedCombatant.hasWaist(ITEMS.CHAIN_OF_THRAYN.id);
+  }
 
   on_heal(event) {
     if (this.owner.byPlayer(event)) {
@@ -18,7 +24,7 @@ class ChainOfThrayn extends Module {
       return;
     }
 
-    if (!this.owner.selectedCombatant.hasBuff(AVENGING_WRATH_SPELL_ID, event.timestamp)) {
+    if (!this.owner.selectedCombatant.hasBuff(SPELLS.AVENGING_WRATH.id, event.timestamp)) {
       return;
     }
 

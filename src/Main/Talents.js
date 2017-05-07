@@ -1,28 +1,28 @@
 import React from 'react';
 
-import ABILITY_INFO from './ABILITY_INFO';
+import SPELLS from 'common/SPELLS';
 
 const Talent = ({ talent }) => {
   if (!talent) {
     return <i>No talent selected.</i>;
   }
 
-  if (!ABILITY_INFO[talent]) {
+  if (!SPELLS[talent]) {
     return <i>Talent not recognized: {talent}</i>;
   }
 
   return (
     <article>
       <figure>
-        <img src={`./img/icons/${ABILITY_INFO[talent].icon}.jpg`} alt={ABILITY_INFO[talent].name} />
+        <img src={`./img/icons/${SPELLS[talent].icon}.jpg`} alt={SPELLS[talent].name} />
       </figure>
       <div>
         <header>
           <a href={`http://www.wowhead.com/spell=${talent}`} target="_blank">
-            {ABILITY_INFO[talent].name}
+            {SPELLS[talent].name}
           </a>
         </header>
-        <main dangerouslySetInnerHTML={{ __html: ABILITY_INFO[talent].description }} />
+        <main dangerouslySetInnerHTML={{ __html: SPELLS[talent].description }} />
       </div>
     </article>
   );

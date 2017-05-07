@@ -1,3 +1,5 @@
+import ITEMS from 'common/ITEMS';
+
 import Module from 'Main/Parser/Module';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from 'Main/Parser/Constants';
 import calculateEffectiveHealing from 'Main/Parser/calculateEffectiveHealing';
@@ -8,6 +10,11 @@ const LEGENDARY_ILTERENDI_HEALING_INCREASE = 0.15;
 
 class Ilterendi extends Module {
   healing = 0;
+
+  on_initialized() {
+    this.active = this.owner.selectedCombatant.hasRing(ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id);
+  }
+
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
     if (ABILITIES_AFFECTED_BY_HEALING_INCREASES.indexOf(spellId) === -1) {

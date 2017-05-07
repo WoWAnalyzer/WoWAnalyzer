@@ -4,7 +4,7 @@ import Chartist from 'chartist';
 import 'chartist-plugin-legend';
 
 import specialEventIndicators from './Chartist/specialEventIndicators';
-import tooltips from './Chartist/toolips';
+// import tooltips from './Chartist/toolips';
 
 import WCL_API_KEY from './WCL_API_KEY';
 

@@ -1,13 +1,7 @@
 import Module from 'Main/Parser/Module';
+import { BEACON_TYPES } from 'Main/Parser/Constants';
 
-const BEACON_OF_LIGHT_BUFF_ID = 53563;
-const BEACON_OF_FAITH_BUFF_ID = 156910;
-const BEACON_OF_VIRTUE_BUFF_ID = 200025;
-const BEACONS = [
-  BEACON_OF_LIGHT_BUFF_ID,
-  BEACON_OF_FAITH_BUFF_ID,
-  BEACON_OF_VIRTUE_BUFF_ID,
-];
+const BEACONS = Object.values(BEACON_TYPES);
 
 const debug = true;
 

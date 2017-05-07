@@ -1,12 +1,12 @@
 import Module from 'Main/Parser/Module';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from 'Main/Parser/Constants';
 import calculateEffectiveHealing from 'Main/Parser/calculateEffectiveHealing';
-import ABILITY_INFO from 'Main/ABILITY_INFO';
+import SPELLS from 'common/SPELLS';
 
 const debug = true;
 
 export const TYRS_MUNIFICENCE_TRAIT_ID = 238060;
-const TYRS_DELIVERANCE_BUFF_SPELL_ID = ABILITY_INFO.TYRS_DELIVERANCE_HEAL.id;
+const TYRS_DELIVERANCE_BUFF_SPELL_ID = SPELLS.TYRS_DELIVERANCE_HEAL.id;
 const TYRS_DELIVERANCE_BASE_HEALING_INCREASE = 0.2;
 const TYRS_MUNIFICENCE_POINT_HEALING_INCREASE = 0.05;
 
@@ -31,11 +31,11 @@ class TyrsDeliverance extends Module {
       return;
     }
     switch (spellId) {
-      case ABILITY_INFO.TYRS_DELIVERANCE_HEAL.id:
+      case SPELLS.TYRS_DELIVERANCE_HEAL.id:
         this.healHealing += event.amount + (event.absorbed || 0);
         break;
-      case ABILITY_INFO.FLASH_OF_LIGHT.id:
-      case ABILITY_INFO.HOLY_LIGHT.id: {
+      case SPELLS.FLASH_OF_LIGHT.id:
+      case SPELLS.HOLY_LIGHT.id: {
         const combatant = this.owner.combatants.players[event.targetID];
         if (!combatant) {
           // If combatant doesn't exist it's probably a pet.
@@ -54,7 +54,7 @@ class TyrsDeliverance extends Module {
   }
   on_beacon_heal({ beaconTransferEvent, matchedHeal: healEvent }) {
     const spellId = healEvent.ability.guid;
-    if (spellId !== ABILITY_INFO.FLASH_OF_LIGHT.id && spellId !== ABILITY_INFO.HOLY_LIGHT.id) {
+    if (spellId !== SPELLS.FLASH_OF_LIGHT.id && spellId !== SPELLS.HOLY_LIGHT.id) {
       return;
     }
     const combatant = this.owner.combatants.players[healEvent.targetID];

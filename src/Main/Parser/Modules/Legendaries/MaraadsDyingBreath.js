@@ -1,5 +1,7 @@
+import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
+
 import Module from 'Main/Parser/Module';
-import ABILITY_INFO from 'Main/ABILITY_INFO';
 import calculateEffectiveHealing from 'Main/Parser/calculateEffectiveHealing';
 
 export const MARAADS_DYING_BREATH_ITEM_ID = 144273;
@@ -9,11 +11,15 @@ const MARAADS_HEALING_INCREASE_PER_STACK = 0.1;
 class MaraadsDyingBreath extends Module {
   healing = 0;
 
+  on_initialized() {
+    this.active = this.owner.selectedCombatant.hasBack(ITEMS.MARAADS_DYING_BREATH.id);
+  }
+
   _lastHeal = null;
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
-    if (spellId !== ABILITY_INFO.LIGHT_OF_THE_MARTYR.id) {
+    if (spellId !== SPELLS.LIGHT_OF_THE_MARTYR.id) {
       return;
     }
     if (!this.owner.selectedCombatant.hasBuff(MARAADS_HEALING_BUFF_ID, event.timestamp)) {
@@ -39,7 +45,7 @@ class MaraadsDyingBreath extends Module {
   }
   on_beacon_heal({ beaconTransferEvent, matchedHeal }) {
     const spellId = matchedHeal.ability.guid;
-    if (spellId !== ABILITY_INFO.LIGHT_OF_THE_MARTYR.id) {
+    if (spellId !== SPELLS.LIGHT_OF_THE_MARTYR.id) {
       return;
     }
     // Without Maraad's LotM doesn't beacon transfer, so the entire heal counts towards Maraad's bonus.

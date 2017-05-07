@@ -1,32 +1,33 @@
 import Module from 'Main/Parser/Module';
-import ABILITY_INFO from 'Main/ABILITY_INFO';
+import SPELLS from 'common/SPELLS';
 
 const HEALING_ABILITIES_ON_GCD = [
-  ABILITY_INFO.FLASH_OF_LIGHT.id,
-  ABILITY_INFO.HOLY_LIGHT.id,
-  ABILITY_INFO.HOLY_SHOCK_CAST.id,
-  // ABILITY_INFO.JUDGMENT_CAST.id, // Only with either JoL or Ilterendi
-  ABILITY_INFO.LIGHT_OF_DAWN_CAST.id,
-  ABILITY_INFO.LIGHT_OF_THE_MARTYR.id,
-  ABILITY_INFO.BESTOW_FAITH_TALENT.id,
-  ABILITY_INFO.TYRS_DELIVERANCE_CAST.id,
-  ABILITY_INFO.HOLY_PRISM_CAST.id,
-  ABILITY_INFO.LIGHTS_HAMMER_CAST.id,
-  // ABILITY_INFO.CRUSADER_STRIKE.id, // Only with Crusader's Might, is added in on_byPlayer_combatantinfo if applicable
+  SPELLS.FLASH_OF_LIGHT.id,
+  SPELLS.HOLY_LIGHT.id,
+  SPELLS.HOLY_SHOCK_CAST.id,
+  // ABILITIES.JUDGMENT_CAST.id, // Only with either JoL or Ilterendi
+  SPELLS.LIGHT_OF_DAWN_CAST.id,
+  SPELLS.LIGHT_OF_THE_MARTYR.id,
+  SPELLS.BESTOW_FAITH_TALENT.id,
+  SPELLS.TYRS_DELIVERANCE_CAST.id,
+  SPELLS.HOLY_PRISM_CAST.id,
+  SPELLS.LIGHTS_HAMMER_CAST.id,
+  // ABILITIES.CRUSADER_STRIKE.id, // Only with Crusader's Might, is added in on_byPlayer_combatantinfo if applicable
 ];
 const ABILITIES_ON_GCD = [
   ...HEALING_ABILITIES_ON_GCD,
-  ABILITY_INFO.JUDGMENT_CAST.id,
-  ABILITY_INFO.CRUSADER_STRIKE.id,
+  SPELLS.JUDGMENT_CAST.id,
+  SPELLS.CRUSADER_STRIKE.id,
   225141, // http://www.wowhead.com/spell=225141/fel-crazed-rage (Draught of Souls)
   190784, // Divine Steed
   26573, // Consecration
   115750, // Blinding Light
   642, // Divine Shield
   633, // Lay on Hands
-  156910, // Beacon of Faith
+  SPELLS.BEACON_OF_FAITH_TALENT.id,
+  SPELLS.BEACON_OF_THE_LIGHTBRINGER_TALENT.id, // pretty sure this will be the logged cast when BotLB is reapplied, not the below "Beacon of Light" which is the buff. Not yet tested so leaving both in.
   53563, // Beacon of Light
-  200025, // Beacon of Virtue
+  SPELLS.BEACON_OF_VIRTUE_TALENT.id, // Beacon of Virtue
   1044, // Blessing of Freedom
   1022, // Blessing of Protection
   4987, // Cleanse
@@ -43,7 +44,7 @@ const HASTE_BUFFS = {
   [178207]: 0.25, // Drums of Fury
   [230935]: 0.25, // Drums of the Mountain
   [146555]: 0.25, // Drums of Rage
-  [ABILITY_INFO.HOLY_AVENGER_TALENT.id]: 0.3, // Holy Avenger
+  [SPELLS.HOLY_AVENGER_TALENT.id]: 0.3, // Holy Avenger
 };
 
 const debug = false;
@@ -104,7 +105,7 @@ class AlwaysBeCasting extends Module {
       debug && console.log(`%cABC: ${cast.ability.name} (${spellId}) ignored`, 'color: gray');
       return;
     }
-    if (countsAsHealingAbility && spellId === ABILITY_INFO.HOLY_SHOCK_CAST.id && !cast.targetIsFriendly) {
+    if (countsAsHealingAbility && spellId === SPELLS.HOLY_SHOCK_CAST.id && !cast.targetIsFriendly) {
       debug && console.log(`%cABC: ${cast.ability.name} (${spellId}) skipped for healing time; target is not friendly`, 'color: orange');
       countsAsHealingAbility = false;
     }
@@ -129,7 +130,7 @@ class AlwaysBeCasting extends Module {
     }
   }
   verifyCast({ begincast, cast }, gcd) {
-    if (cast.ability.guid !== ABILITY_INFO.FLASH_OF_LIGHT.id) {
+    if (cast.ability.guid !== SPELLS.FLASH_OF_LIGHT.id) {
       return;
     }
     const castTime = cast.timestamp - begincast.timestamp;
@@ -149,11 +150,11 @@ class AlwaysBeCasting extends Module {
 
     debug && console.log(`ABC: Current haste: ${this.currentHaste}`);
 
-    if (combatant.lv15Talent === ABILITY_INFO.CRUSADERS_MIGHT_TALENT.id) {
-      HEALING_ABILITIES_ON_GCD.push(ABILITY_INFO.CRUSADER_STRIKE.id);
+    if (combatant.lv15Talent === SPELLS.CRUSADERS_MIGHT_TALENT.id) {
+      HEALING_ABILITIES_ON_GCD.push(SPELLS.CRUSADER_STRIKE.id);
     }
-    if (combatant.lv90Talent === ABILITY_INFO.JUDGMENT_OF_LIGHT_TALENT.id) {
-      HEALING_ABILITIES_ON_GCD.push(ABILITY_INFO.JUDGMENT_CAST.id);
+    if (combatant.lv90Talent === SPELLS.JUDGMENT_OF_LIGHT_TALENT.id) {
+      HEALING_ABILITIES_ON_GCD.push(SPELLS.JUDGMENT_CAST.id);
     }
   }
   on_toPlayer_applybuff(event) {

@@ -99,4 +99,29 @@ export default {
     name: 'Crusader Strike',
     icon: 'spell_holy_crusaderstrike',
   },
+  DIVINE_PROTECTION: {
+    id: 498,
+    name: 'Divine Protection',
+    icon: 'spell_holy_divineprotection',
+  },
+  BLESSING_OF_SACRIFICE: {
+    id: 6940,
+    name: 'Blessing of Sacrifice',
+    icon: 'spell_holy_sealofsacrifice',
+  },
+  AVENGING_WRATH: {
+    id: 31842,
+    name: 'Avenging Wrath',
+    icon: 'spell_holy_sealofsacrifice',
+  },
+  BEACON_OF_LIGHT_BUFF: {
+    id: 53563,
+    name: 'Beacon of Light',
+    icon: 'ability_paladin_beaconoflight',
+  },
+  T19_4SET_BONUS_BUFF: {
+    id: 211438,
+    name: 'T19 4 set bonus',
+    icon: 'ability_paladin_infusionoflight',
+  },
 };

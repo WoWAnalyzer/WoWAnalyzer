@@ -5,6 +5,13 @@ import 'react-toggle/style.css';
 
 import UpArrow from 'Icons/UpArrow';
 
+import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
+import SpellIcon from 'common/SpellIcon';
+import ITEMS from 'common/ITEMS';
+import ItemLink from 'common/ItemLink';
+import ItemIcon from 'common/ItemIcon';
+
 import StatisticBox from './StatisticBox';
 import PlayerBreakdown from './PlayerBreakdown';
 import CastEfficiency from './CastEfficiency';
@@ -12,18 +19,11 @@ import Talents from './Talents';
 import Mana from './Mana';
 
 import {
-  T19_4SET_BONUS_BUFF_ID,
   DIVINE_PURPOSE_HOLY_SHOCK_SPELL_ID,
   DIVINE_PURPOSE_LIGHT_OF_DAWN_SPELL_ID,
 } from './Parser/Constants';
-import ABILITY_INFO from './ABILITY_INFO';
 import { SACRED_DAWN_TRAIT_ID } from './Parser/Modules/Features/SacredDawn';
-import { DRAPE_OF_SHAME_ITEM_ID } from './Parser/Modules/Legendaries/DrapeOfShame';
 import { ILTERENDI_ITEM_ID } from './Parser/Modules/Legendaries/Ilterendi';
-import { VELENS_ITEM_ID } from './Parser/Modules/Legendaries/Velens';
-import { CHAIN_OF_THRAYN_ITEM_ID } from './Parser/Modules/Legendaries/ChainOfThrayn';
-import { PRYDAZ_ITEM_ID } from './Parser/Modules/Legendaries/Prydaz';
-import { OBSIDIAN_STONE_SPAULDERS_ITEM_ID } from './Parser/Modules/Legendaries/ObsidianStoneSpaulders';
 import { MARAADS_DYING_BREATH_ITEM_ID } from './Parser/Modules/Legendaries/MaraadsDyingBreath';
 
 import { CPM_ABILITIES } from './CastEfficiency';
@@ -46,10 +46,6 @@ function getRawHealing(ability) {
 }
 function getOverhealingPercentage(ability) {
   return ability.healingOverheal / getRawHealing(ability);
-}
-function spellLink(spellId) {
-  const ability = typeof spellId === "object" ? spellId : ABILITY_INFO[spellId];
-  return `<a href="http://www.wowhead.com/spell=${ability.id}" target="_blank">${ability.name}</a>`;
 }
 
 const TABS = {
@@ -166,7 +162,7 @@ class Results extends React.Component {
   }
 
   get iolProcsPerHolyShockCrit() {
-    return this.props.parser.selectedCombatant.hasBuff(T19_4SET_BONUS_BUFF_ID) ? 2 : 1;
+    return this.props.parser.selectedCombatant.hasBuff(SPELLS.T19_4SET_BONUS_BUFF.id) ? 2 : 1;
   }
 
   getFightDuration(parser) {
@@ -281,17 +277,17 @@ class Results extends React.Component {
 
     const totalMasteryEffectiveness = stats.totalHealingFromMastery / (stats.totalMaxPotentialMasteryHealing || 1);
     const highestHealingFromMastery = friendlyStats && friendlyStats.reduce((highest, player) => Math.max(highest, player.healingFromMastery), 1);
-    const ruleOfLawUptime = parser.selectedCombatant.getBuffUptime(ABILITY_INFO.RULE_OF_LAW_TALENT.id) / parser.fightDuration;
+    const ruleOfLawUptime = parser.selectedCombatant.getBuffUptime(SPELLS.RULE_OF_LAW_TALENT.id) / parser.fightDuration;
 
     const abilityTracker = parser.modules.abilityTracker;
     const getAbility = spellId => abilityTracker.getAbility(spellId);
 
-    const flashOfLight = getAbility(ABILITY_INFO.FLASH_OF_LIGHT.id);
-    const holyLight = getAbility(ABILITY_INFO.HOLY_LIGHT.id);
-    const lightOfDawnCast = getAbility(ABILITY_INFO.LIGHT_OF_DAWN_CAST.id);
-    const lightOfDawnHeal = getAbility(ABILITY_INFO.LIGHT_OF_DAWN_HEAL.id);
-    const holyShock = getAbility(ABILITY_INFO.HOLY_SHOCK_HEAL.id);
-    const bestowFaith = getAbility(ABILITY_INFO.BESTOW_FAITH_TALENT.id);
+    const flashOfLight = getAbility(SPELLS.FLASH_OF_LIGHT.id);
+    const holyLight = getAbility(SPELLS.HOLY_LIGHT.id);
+    const lightOfDawnCast = getAbility(SPELLS.LIGHT_OF_DAWN_CAST.id);
+    const lightOfDawnHeal = getAbility(SPELLS.LIGHT_OF_DAWN_HEAL.id);
+    const holyShock = getAbility(SPELLS.HOLY_SHOCK_HEAL.id);
+    const bestowFaith = getAbility(SPELLS.BESTOW_FAITH_TALENT.id);
 
     const iolFlashOfLights = flashOfLight.healingIolHits || 0;
     const iolHolyLights = holyLight.healingIolHits || 0;
@@ -319,34 +315,31 @@ class Results extends React.Component {
 
     const fightDuration = this.getFightDuration(parser);
 
-    const hasCrusadersMight = parser.selectedCombatant.lv15Talent === ABILITY_INFO.CRUSADERS_MIGHT_TALENT.id;
-    const hasAuraOfMercy = parser.selectedCombatant.lv60Talent === ABILITY_INFO.AURA_OF_MERCY_TALENT.id;
-    const hasAuraOfSacrifice = parser.selectedCombatant.lv60Talent === ABILITY_INFO.AURA_OF_SACRIFICE_TALENT.id;
-    const auraOfSacrificeHps = (getAbility(ABILITY_INFO.AURA_OF_SACRIFICE_HEAL.id).healingEffective + getAbility(ABILITY_INFO.AURA_OF_SACRIFICE_HEAL.id).healingAbsorbed) / fightDuration * 1000;
-    const hasDevotionAura = parser.selectedCombatant.lv60Talent === ABILITY_INFO.DEVOTION_AURA_TALENT.id;
-    const has4PT19 = parser.selectedCombatant.hasBuff(T19_4SET_BONUS_BUFF_ID);
+    const hasCrusadersMight = parser.selectedCombatant.lv15Talent === SPELLS.CRUSADERS_MIGHT_TALENT.id;
+    const hasAuraOfMercy = parser.selectedCombatant.lv60Talent === SPELLS.AURA_OF_MERCY_TALENT.id;
+    const hasAuraOfSacrifice = parser.selectedCombatant.lv60Talent === SPELLS.AURA_OF_SACRIFICE_TALENT.id;
+    const auraOfSacrificeHps = (getAbility(SPELLS.AURA_OF_SACRIFICE_HEAL.id).healingEffective + getAbility(SPELLS.AURA_OF_SACRIFICE_HEAL.id).healingAbsorbed) / fightDuration * 1000;
+    // const hasDevotionAura = parser.selectedCombatant.lv60Talent === SPELLS.DEVOTION_AURA_TALENT.id;
+    const has4PT19 = parser.selectedCombatant.hasBuff(SPELLS.T19_4SET_BONUS_BUFF.id);
 
     const nonHealingTimePercentage = parser.modules.alwaysBeCasting.totalHealingTimeWasted / fightDuration;
     const deadTimePercentage = parser.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
     const totalHealsOnBeaconPercentage = this.getTotalHealsOnBeaconPercentage(parser);
-    const hasVelens = parser.selectedCombatant.hasTrinket(VELENS_ITEM_ID);
     const velensHealingPercentage = parser.modules.velens.healing / parser.totalHealing;
     const chainOfThraynHealingPercentage = parser.modules.chainOfThrayn.healing / parser.totalHealing;
     const prydazHealingPercentage = parser.modules.prydaz.healing / parser.totalHealing;
     const obsidianStoneSpauldersHealingPercentage = parser.modules.obsidianStoneSpaulders.healing / parser.totalHealing;
     const drapeOfShameHealingPercentage = parser.modules.drapeOfShame.healing / parser.totalHealing;
     const maraadsDyingBreathHealingPercentage = parser.modules.maraadsDyingBreath.healing / parser.totalHealing;
-    const hasIlterendi = parser.selectedCombatant.hasRing(ILTERENDI_ITEM_ID);
     const ilterendiHealingPercentage = parser.modules.ilterendi.healing / parser.totalHealing;
     const hasSacredDawn = parser.selectedCombatant.traitsBySpellId[SACRED_DAWN_TRAIT_ID] === 1;
     const sacredDawnPercentage = parser.modules.sacredDawn.healing / parser.totalHealing;
     const tyrsDeliveranceHealHealingPercentage = parser.modules.tyrsDeliverance.healHealing / parser.totalHealing;
     const tyrsDeliveranceBuffFoLHLHealingPercentage = parser.modules.tyrsDeliverance.buffFoLHLHealing / parser.totalHealing;
     const tyrsDeliverancePercentage = tyrsDeliveranceHealHealingPercentage + tyrsDeliveranceBuffFoLHLHealingPercentage;
-    const hasRuleOfLaw = parser.selectedCombatant.lv30Talent === ABILITY_INFO.RULE_OF_LAW_TALENT.id;
-    const hasMaraads = parser.selectedCombatant.hasBack(MARAADS_DYING_BREATH_ITEM_ID);
+    const hasRuleOfLaw = parser.selectedCombatant.lv30Talent === SPELLS.RULE_OF_LAW_TALENT.id;
 
-    const hasDivinePurpose = parser.selectedCombatant.lv75Talent === ABILITY_INFO.DIVINE_PURPOSE_TALENT.id;
+    const hasDivinePurpose = parser.selectedCombatant.lv75Talent === SPELLS.DIVINE_PURPOSE_TALENT.id;
     const divinePurposeHolyShockProcs = hasDivinePurpose && parser.selectedCombatant.getBuffTriggerCount(DIVINE_PURPOSE_HOLY_SHOCK_SPELL_ID);
     const divinePurposeLightOfDawnProcs = hasDivinePurpose && parser.selectedCombatant.getBuffTriggerCount(DIVINE_PURPOSE_LIGHT_OF_DAWN_SPELL_ID);
 
@@ -380,14 +373,14 @@ class Results extends React.Component {
     }
     if (hasRuleOfLaw && ruleOfLawUptime < 0.25) {
       this.issues.push({
-        issue: `Your ${spellLink(ABILITY_INFO.RULE_OF_LAW_TALENT)} uptime can be improved. Try keeping at least 1 charge on cooldown; you should (almost) never be at max charges (${(ruleOfLawUptime * 100).toFixed(2)}% uptime).`,
+        issue: <span>Your <SpellLink id={SPELLS.RULE_OF_LAW_TALENT.id} /> uptime can be improved. Try keeping at least 1 charge on cooldown; you should (almost) never be at max charges ({(ruleOfLawUptime * 100).toFixed(2)}% uptime).</span>,
         icon: 'ability_paladin_longarmofthelaw',
         importance: getIssueImportance(ruleOfLawUptime, 0.2, 0.1),
       });
     }
     if (iolFoLToHLCastRatio < 0.7) {
       this.issues.push({
-        issue: `Your <i>IoL FoL to HL cast ratio</i> can likely be improved. When you get an <a href="http://www.wowhead.com/spell=53576" target="_blank">Infusion of Light</a> proc try to cast ${spellLink(ABILITY_INFO.HOLY_LIGHT)} as much as possible, it is a considerably stronger heal (${iolFlashOfLights} Flash of Lights (${Math.round(iolFoLToHLCastRatio * 100)}%) to ${iolHolyLights} Holy Lights (${Math.round(100 - iolFoLToHLCastRatio * 100)}%) cast with Infusion of Light).`,
+        issue: <span>Your <i>IoL FoL to HL cast ratio</i> can likely be improved. When you get an <a href="http://www.wowhead.com/spell=53576" target="_blank">Infusion of Light</a> proc try to cast <SpellLink id={SPELLS.HOLY_LIGHT.id} /> as much as possible, it is a considerably stronger heal ({iolFlashOfLights} Flash of Lights ({Math.round(iolFoLToHLCastRatio * 100)}%) to {iolHolyLights} Holy Lights ({Math.round(100 - iolFoLToHLCastRatio * 100)}%) cast with Infusion of Light).</span>,
         icon: 'spell_holy_flashheal',
         importance: getIssueImportance(iolFoLToHLCastRatio, 0.6, 0.4),
       });
@@ -406,38 +399,44 @@ class Results extends React.Component {
         importance: getIssueImportance(unusedIolRate, recommendedUnusedIolRate + 0.05, recommendedUnusedIolRate + 0.2, true),
       });
     }
-    if (hasIlterendi && ilterendiHealingPercentage < 0.045) {
+    if (parser.modules.ilterendi.active && ilterendiHealingPercentage < 0.045) {
       this.issues.push({
-        issue: `Your usage of <a href="http://www.wowhead.com/item=137046" target="_blank" class="legendary">Ilterendi, Crown Jewel of Silvermoon</a> can be improved. Try to line ${spellLink(ABILITY_INFO.LIGHT_OF_DAWN_CAST)} and ${spellLink(ABILITY_INFO.HOLY_SHOCK_CAST)} up with the buff or consider using an easier legendary (${(ilterendiHealingPercentage * 100).toFixed(2)}% healing contributed).`,
-        icon: 'inv_jewelry_ring_firelandsraid_03a',
+        issue: <span>Your usage of <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} /> can be improved. Try to line <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} /> and <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> up with the buff or consider using an easier legendary ({(ilterendiHealingPercentage * 100).toFixed(2)}% healing contributed).</span>,
+        icon: ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.icon,
         importance: getIssueImportance(ilterendiHealingPercentage, 0.04, 0.03),
       });
     }
-    if (hasVelens && velensHealingPercentage < 0.045) {
+    if (parser.modules.velens.active && velensHealingPercentage < 0.045) {
       this.issues.push({
-        issue: `Your usage of <a href="http://www.wowhead.com/item=144258" target="_blank" class="legendary">Velen's Future Sight</a> can be improved. Try to maximize the amount of casts during the buff or consider using an easier legendary (${(velensHealingPercentage * 100).toFixed(2)}% healing contributed).`,
-        icon: 'spell_holy_healingfocus',
+        issue: <span>Your usage of <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} /> can be improved. Try to maximize the amount of casts during the buff or consider using an easier legendary ({(velensHealingPercentage * 100).toFixed(2)}% healing contributed).</span>,
+        icon: ITEMS.VELENS_FUTURE_SIGHT.icon,
         importance: getIssueImportance(velensHealingPercentage, 0.04, 0.03),
       });
     }
-    const lightOfTheMartyrs = getAbility(ABILITY_INFO.LIGHT_OF_THE_MARTYR.id).casts || 0;
+    const lightOfTheMartyrs = getAbility(SPELLS.LIGHT_OF_THE_MARTYR.id).casts || 0;
     let fillerLotms = lightOfTheMartyrs;
-    if (hasMaraads) {
-      const lightOfTheDawns = getAbility(ABILITY_INFO.LIGHT_OF_DAWN_CAST).casts || 0;
+    if (parser.modules.maraadsDyingBreath.active) {
+      const lightOfTheDawns = getAbility(SPELLS.LIGHT_OF_DAWN_CAST).casts || 0;
       fillerLotms -= lightOfTheDawns;
     }
     const fillerLotmsPerMinute = fillerLotms / (fightDuration / 1000) * 60;
     if (fillerLotmsPerMinute >= 1.0) {
+      let issue = '';
+      if (parser.modules.maraadsDyingBreath.active) {
+        issue = <span>With <ItemLink id={ITEMS.MARAADS_DYING_BREATH.id} /> you should only cast <b>one</b> <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> per <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} />. Without the buff <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> is a very inefficient spell to cast. Try to only cast additional Light of the Martyr when absolutely necessary ({fillerLotmsPerMinute.toFixed(2)} CPM (unbuffed only)).</span>;
+      } else {
+        issue = <span><SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> is a very inefficient spell to cast. Try to only cast Light of the Martyr when absolutely necessary ({fillerLotmsPerMinute.toFixed(2)} CPM).</span>;
+      }
       this.issues.push({
-        issue: hasMaraads ? `With <a href="http://www.wowhead.com/item=144273/maraads-dying-breath" target="_blank" class="legendary">Maraad's Dying Breath</a> you should only cast <b>one</b> <a href="http://www.wowhead.com/spell=137046" target="_blank" class="legendary">Light of the Martyr</a> per ${spellLink(ABILITY_INFO.LIGHT_OF_DAWN_CAST)}. Without the buff <a href="http://www.wowhead.com/spell=137046" target="_blank" class="legendary">Light of the Martyr</a> is a very inefficient spell to cast. Try to only cast additional Light of the Martyr when absolutely necessary (${fillerLotmsPerMinute.toFixed(2)} CPM (unbuffed only)).` : `<a href="http://www.wowhead.com/spell=137046" target="_blank">Light of the Martyr</a> is a very inefficient spell to cast. Try to only cast Light of the Martyr when absolutely necessary (${fillerLotmsPerMinute.toFixed(2)} CPM).`,
-        icon: 'ability_paladin_lightofthemartyr',
+        issue,
+        icon: SPELLS.LIGHT_OF_THE_MARTYR.icon,
         importance: getIssueImportance(fillerLotmsPerMinute, 1.5, 2, true),
       });
     }
     if (auraOfSacrificeHps < 30000) {
       this.issues.push({
-        issue: `The healing done by your ${spellLink(ABILITY_INFO.AURA_OF_SACRIFICE_TALENT)} is low. Try to find a better moment to cast it or consider changing to ${spellLink(ABILITY_INFO.AURA_OF_MERCY_TALENT)} or ${spellLink(ABILITY_INFO.DEVOTION_AURA_TALENT)} which can be more reliable (${formatNumber(auraOfSacrificeHps)} HPS).`,
-        icon: ABILITY_INFO.AURA_OF_SACRIFICE_TALENT.icon,
+        issue: <span>The healing done by your <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} /> is low. Try to find a better moment to cast it or consider changing to <SpellLink id={SPELLS.AURA_OF_MERCY_TALENT.id} /> or <SpellLink id={SPELLS.DEVOTION_AURA_TALENT.id} /> which can be more reliable ({formatNumber(auraOfSacrificeHps)} HPS).</span>,
+        icon: SPELLS.AURA_OF_SACRIFICE_TALENT.icon,
         importance: getIssueImportance(auraOfSacrificeHps, 25000, 20000),
       });
     }
@@ -445,8 +444,8 @@ class Results extends React.Component {
     let recommendedLodOverhealing = hasDivinePurpose ? 0.45 : 0.4;
     if (lodOverhealing > recommendedLodOverhealing) {
       this.issues.push({
-        issue: `Try to avoid overhealing with ${spellLink(ABILITY_INFO.LIGHT_OF_DAWN_CAST)}. Save it for when people are missing health (${Math.round(lodOverhealing * 100)}% overhealing).`,
-        icon: ABILITY_INFO.LIGHT_OF_DAWN_CAST.icon,
+        issue: <span>Try to avoid overhealing with <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} />. Save it for when people are missing health ({Math.round(lodOverhealing * 100)}% overhealing).</span>,
+        icon: SPELLS.LIGHT_OF_DAWN_CAST.icon,
         importance: getIssueImportance(lodOverhealing, recommendedLodOverhealing + 0.1, recommendedLodOverhealing + 0.2, true),
       });
     }
@@ -454,8 +453,8 @@ class Results extends React.Component {
     let recommendedHsOverhealing = hasDivinePurpose ? 0.4 : 0.35;
     if (hsOverhealing > recommendedHsOverhealing) {
       this.issues.push({
-        issue: `Try to avoid overhealing with ${spellLink(ABILITY_INFO.HOLY_SHOCK_CAST)}. Save it for when people are missing health (${Math.round(hsOverhealing * 100)}% overhealing).`,
-        icon: ABILITY_INFO.HOLY_SHOCK_HEAL.icon,
+        issue: <span>Try to avoid overhealing with <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} />. Save it for when people are missing health ({Math.round(hsOverhealing * 100)}% overhealing).</span>,
+        icon: SPELLS.HOLY_SHOCK_HEAL.icon,
         importance: getIssueImportance(hsOverhealing, recommendedHsOverhealing + 0.1, recommendedHsOverhealing + 0.2, true),
       });
     }
@@ -463,8 +462,8 @@ class Results extends React.Component {
     let recommendedFolOverhealing = 0.25;
     if (folOverhealing > recommendedFolOverhealing) {
       this.issues.push({
-        issue: `Try to avoid overhealing with ${spellLink(ABILITY_INFO.FLASH_OF_LIGHT)}. If Flash of Light would overheal it is generally advisable to cast a ${spellLink(ABILITY_INFO.HOLY_LIGHT)} instead (${Math.round(folOverhealing * 100)}% overhealing).`,
-        icon: 'spell_holy_flashheal',
+        issue: <span>Try to avoid overhealing with <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} />. If Flash of Light would overheal it is generally advisable to cast a <SpellLink id={SPELLS.HOLY_LIGHT.id} /> instead ({Math.round(folOverhealing * 100)}% overhealing).</span>,
+        icon: SPELLS.FLASH_OF_LIGHT.icon,
         importance: getIssueImportance(folOverhealing, recommendedFolOverhealing + 0.15, recommendedFolOverhealing + 0.25, true),
       });
     }
@@ -472,8 +471,8 @@ class Results extends React.Component {
     let recommendedBfOverhealing = 0.4;
     if (bfOverhealing > recommendedBfOverhealing) {
       this.issues.push({
-        issue: `Try to avoid overhealing with ${spellLink(ABILITY_INFO.BESTOW_FAITH_TALENT)}. Cast it just before someone is about to take damage and consider casting it on targets other than tanks (${Math.round(bfOverhealing * 100)}% overhealing).`,
-        icon: 'ability_paladin_blessedmending',
+        issue: <span>Try to avoid overhealing with <SpellLink id={SPELLS.BESTOW_FAITH_TALENT.id} />. Cast it just before someone is about to take damage and consider casting it on targets other than tanks ({Math.round(bfOverhealing * 100)}% overhealing).</span>,
+        icon: SPELLS.BESTOW_FAITH_TALENT.icon,
         importance: getIssueImportance(bfOverhealing, recommendedBfOverhealing + 0.1, recommendedBfOverhealing + 0.2, true),
       });
     }
@@ -611,8 +610,8 @@ class Results extends React.Component {
                   icon={(
                     <a href={`http://www.wowhead.com/spell=${parser.selectedCombatant.lv100Talent}`} target="_blank">
                       <img
-                        src={`./img/icons/${ABILITY_INFO[parser.selectedCombatant.lv100Talent].icon}.jpg`}
-                        alt={ABILITY_INFO[parser.selectedCombatant.lv100Talent].name}
+                        src={`./img/icons/${SPELLS[parser.selectedCombatant.lv100Talent].icon}.jpg`}
+                        alt={SPELLS[parser.selectedCombatant.lv100Talent].name}
                       />
                     </a>
                   )}
@@ -664,7 +663,7 @@ class Results extends React.Component {
                     icon={(
                       <a href="http://www.wowhead.com/spell=238132" target="_blank">
                         <img
-                          src={`./img/icons/${ABILITY_INFO.LIGHT_OF_DAWN_CAST.icon}.jpg`}
+                          src={`./img/icons/${SPELLS.LIGHT_OF_DAWN_CAST.icon}.jpg`}
                           alt="Sacred Dawn"
                         />
                       </a>
@@ -694,7 +693,7 @@ class Results extends React.Component {
                         {divinePurposeHolyShockProcs}{' '}
                         <a href="http://www.wowhead.com/spell=25914" target="_blank">
                           <img
-                            src={`./img/icons/${ABILITY_INFO.HOLY_SHOCK_HEAL.icon}.jpg`}
+                            src={`./img/icons/${SPELLS.HOLY_SHOCK_HEAL.icon}.jpg`}
                             alt="Holy Shock"
                             style={{
                               height: '1.3em',
@@ -706,7 +705,7 @@ class Results extends React.Component {
                         {divinePurposeLightOfDawnProcs}{' '}
                         <a href="http://www.wowhead.com/spell=85222" target="_blank">
                           <img
-                            src={`./img/icons/${ABILITY_INFO.LIGHT_OF_DAWN_CAST.icon}.jpg`}
+                            src={`./img/icons/${SPELLS.LIGHT_OF_DAWN_CAST.icon}.jpg`}
                             alt="Light of Dawn"
                             style={{
                               height: '1.3em',
@@ -728,14 +727,14 @@ class Results extends React.Component {
                 <div className="col-lg-4 col-sm-6 col-xs-12">
                   <StatisticBox
                     icon={(
-                      <a href={`http://www.wowhead.com/spell=${ABILITY_INFO.AURA_OF_MERCY_TALENT.id}`} target="_blank">
+                      <a href={`http://www.wowhead.com/spell=${SPELLS.AURA_OF_MERCY_TALENT.id}`} target="_blank">
                         <img
-                          src={`./img/icons/${ABILITY_INFO.AURA_OF_MERCY_TALENT.icon}.jpg`}
-                          alt={ABILITY_INFO.AURA_OF_MERCY_TALENT.name}
+                          src={`./img/icons/${SPELLS.AURA_OF_MERCY_TALENT.icon}.jpg`}
+                          alt={SPELLS.AURA_OF_MERCY_TALENT.name}
                         />
                       </a>
                     )}
-                    value={`${formatNumber((getAbility(ABILITY_INFO.AURA_OF_MERCY_HEAL.id).healingEffective + getAbility(ABILITY_INFO.AURA_OF_MERCY_HEAL.id).healingAbsorbed) / fightDuration * 1000)} HPS`}
+                    value={`${formatNumber((getAbility(SPELLS.AURA_OF_MERCY_HEAL.id).healingEffective + getAbility(SPELLS.AURA_OF_MERCY_HEAL.id).healingAbsorbed) / fightDuration * 1000)} HPS`}
                     label="Healing done"
                   />
                 </div>
@@ -744,10 +743,10 @@ class Results extends React.Component {
                 <div className="col-lg-4 col-sm-6 col-xs-12">
                   <StatisticBox
                     icon={(
-                      <a href={`http://www.wowhead.com/spell=${ABILITY_INFO.AURA_OF_SACRIFICE_TALENT.id}`} target="_blank">
+                      <a href={`http://www.wowhead.com/spell=${SPELLS.AURA_OF_SACRIFICE_TALENT.id}`} target="_blank">
                         <img
-                          src={`./img/icons/${ABILITY_INFO.AURA_OF_SACRIFICE_TALENT.icon}.jpg`}
-                          alt={ABILITY_INFO.AURA_OF_SACRIFICE_TALENT.name}
+                          src={`./img/icons/${SPELLS.AURA_OF_SACRIFICE_TALENT.icon}.jpg`}
+                          alt={SPELLS.AURA_OF_SACRIFICE_TALENT.name}
                         />
                       </a>
                     )}
@@ -767,20 +766,15 @@ class Results extends React.Component {
                 <ul className="list">
                   {(() => {
                     const items = [
-                      parser.selectedCombatant.hasBack(DRAPE_OF_SHAME_ITEM_ID) && (
-                        <li className="item clearfix" key={DRAPE_OF_SHAME_ITEM_ID}>
+                      parser.modules.drapeOfShame.active && (
+                        <li className="item clearfix" key={ITEMS.DRAPE_OF_SHAME.id}>
                           <article>
                             <figure>
-                              <img
-                                src="./img/icons/inv_cape_legionendgame_c_03.jpg"
-                                alt="Drape of Shame"
-                              />
+                              <ItemIcon id={ITEMS.DRAPE_OF_SHAME.id} />
                             </figure>
                             <div>
                               <header>
-                                <a href="http://www.wowhead.com/item=142170" target="_blank" className="epic">
-                                  Drape of Shame
-                                </a>
+                                <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} />
                               </header>
                               <main>
                                 <dfn data-tip="The actual effective healing contributed by the Drape of Shame equip effect.">
@@ -791,20 +785,15 @@ class Results extends React.Component {
                           </article>
                         </li>
                       ),
-                      hasIlterendi && (
+                      parser.modules.ilterendi.active && (
                         <li className="item clearfix" key={ILTERENDI_ITEM_ID}>
                           <article>
                             <figure>
-                              <img
-                                src="./img/icons/inv_jewelry_ring_firelandsraid_03a.jpg"
-                                alt="Ilterendi, Crown Jewel of Silvermoon"
-                              />
+                              <ItemIcon id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} />
                             </figure>
                             <div>
                               <header>
-                                <a href="http://www.wowhead.com/item=137046" target="_blank" className="legendary">
-                                  Ilterendi, Crown Jewel of Silvermoon
-                                </a>
+                                <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} />
                               </header>
                               <main>
                                 <dfn data-tip="The actual effective healing contributed by the Ilterendi, Crown Jewel of Silvermoon equip effect.">
@@ -815,20 +804,15 @@ class Results extends React.Component {
                           </article>
                         </li>
                       ),
-                      hasVelens && (
-                        <li className="item clearfix" key={VELENS_ITEM_ID}>
+                      parser.modules.velens.active && (
+                        <li className="item clearfix" key={ITEMS.VELENS_FUTURE_SIGHT.id}>
                           <article>
                             <figure>
-                              <img
-                                src="./img/icons/spell_holy_healingfocus.jpg"
-                                alt="Velen's Future Sight"
-                              />
+                              <ItemIcon id={ITEMS.VELENS_FUTURE_SIGHT.id} />
                             </figure>
                             <div>
                               <header>
-                                <a href="http://www.wowhead.com/item=144258" target="_blank" className="legendary">
-                                  Velen's Future Sight
-                                </a>
+                                <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} />
                               </header>
                               <main>
                                 <dfn data-tip="The actual effective healing contributed by the Velen's Future Sight use effect.">
@@ -839,20 +823,15 @@ class Results extends React.Component {
                           </article>
                         </li>
                       ),
-                      parser.selectedCombatant.hasWaist(CHAIN_OF_THRAYN_ITEM_ID) && (
-                        <li className="item clearfix" key={CHAIN_OF_THRAYN_ITEM_ID}>
+                      parser.modules.chainOfThrayn.active && (
+                        <li className="item clearfix" key={ITEMS.CHAIN_OF_THRAYN.id}>
                           <article>
                             <figure>
-                              <img
-                                src="./img/icons/inv_belt_leather_firelandsdruid_d_01.jpg"
-                                alt="Chain of Thrayn"
-                              />
+                              <ItemIcon id={ITEMS.CHAIN_OF_THRAYN.id} />
                             </figure>
                             <div>
                               <header>
-                                <a href="http://www.wowhead.com/item=137086" target="_blank" className="legendary">
-                                  Chain of Thrayn
-                                </a>
+                                <ItemLink id={ITEMS.CHAIN_OF_THRAYN.id} />
                               </header>
                               <main>
                                 <dfn data-tip="The actual effective healing contributed by the Chain of Thrayn equip effect.">
@@ -863,20 +842,15 @@ class Results extends React.Component {
                           </article>
                         </li>
                       ),
-                      parser.selectedCombatant.hasNeck(PRYDAZ_ITEM_ID) && (
-                        <li className="item clearfix" key={PRYDAZ_ITEM_ID}>
+                      parser.modules.prydaz.active && (
+                        <li className="item clearfix" key={ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id}>
                           <article>
                             <figure>
-                              <img
-                                src="./img/icons/inv_misc_necklace15.jpg"
-                                alt="Prydaz, Xavaric's Magnum Opus"
-                              />
+                              <ItemIcon id={ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id} />
                             </figure>
                             <div>
                               <header>
-                                <a href="http://www.wowhead.com/item=132444/prydaz-xavarics-magnum-opus" target="_blank" className="legendary">
-                                  Prydaz, Xavaric's Magnum Opus
-                                </a>
+                                <ItemLink id={ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id} />
                               </header>
                               <main>
                                 <dfn data-tip="The actual effective healing contributed by the Prydaz, Xavaric's Magnum Opus equip effect.">
@@ -887,20 +861,15 @@ class Results extends React.Component {
                           </article>
                         </li>
                       ),
-                      parser.selectedCombatant.hasShoulder(OBSIDIAN_STONE_SPAULDERS_ITEM_ID) && (
-                        <li className="item clearfix" key={OBSIDIAN_STONE_SPAULDERS_ITEM_ID}>
+                      parser.modules.obsidianStoneSpaulders.active && (
+                        <li className="item clearfix" key={ITEMS.OBSIDIAN_STONE_SPAULDERS.id}>
                           <article>
                             <figure>
-                              <img
-                                src="./img/icons/inv_shoulder_plate_pvppaladin_o_01.jpg"
-                                alt="Obsidian Stone Spaulders"
-                              />
+                              <ItemIcon id={ITEMS.OBSIDIAN_STONE_SPAULDERS.id} />
                             </figure>
                             <div>
                               <header>
-                                <a href="http://www.wowhead.com/item=137076/obsidian-stone-spaulders" target="_blank" className="legendary">
-                                  Obsidian Stone Spaulders
-                                </a>
+                                <ItemLink id={ITEMS.OBSIDIAN_STONE_SPAULDERS.id} />
                               </header>
                               <main>
                                 <dfn data-tip="The actual effective healing contributed by the Obsidian Stone Spaulders equip effect.">
@@ -911,20 +880,15 @@ class Results extends React.Component {
                           </article>
                         </li>
                       ),
-                      hasMaraads && (
+                      parser.modules.maraadsDyingBreath.active && (
                         <li className="item clearfix" key={MARAADS_DYING_BREATH_ITEM_ID}>
                           <article>
                             <figure>
-                              <img
-                                src="./img/icons/item_icecrowncape.jpg"
-                                alt="Maraad's Dying Breath"
-                              />
+                              <ItemIcon id={ITEMS.MARAADS_DYING_BREATH.id} />
                             </figure>
                             <div>
                               <header>
-                                <a href="http://www.wowhead.com/item=144273/maraads-dying-breath" target="_blank" className="legendary">
-                                  Maraad's Dying Breath
-                                </a>
+                                <ItemLink id={ITEMS.MARAADS_DYING_BREATH.id} />
                               </header>
                               <main>
                                 <dfn data-tip="The actual effective healing contributed by the Maraad's Dying Breath equip effect when compared to casting an unbuffed LotM instead. The damage taken is ignored as this doesn't change with Maraad's and therefore doesn't impact the healing gain.">
@@ -936,19 +900,14 @@ class Results extends React.Component {
                         </li>
                       ),
                       has4PT19 && (
-                        <li className="item clearfix" key={T19_4SET_BONUS_BUFF_ID}>
+                        <li className="item clearfix" key={SPELLS.T19_4SET_BONUS_BUFF.id}>
                           <article>
                             <figure>
-                              <img
-                                src="./img/icons/ability_paladin_infusionoflight.jpg"
-                                alt="Infusion of Light"
-                              />
+                              <SpellIcon id={SPELLS.T19_4SET_BONUS_BUFF.id} />
                             </figure>
                             <div>
                               <header>
-                                <a href="http://www.wowhead.com/spell=211438/item-paladin-t19-holy-4p-bonus" target="_blank">
-                                  T19 4 set bonus
-                                </a>
+                                <SpellLink id={SPELLS.T19_4SET_BONUS_BUFF.id} />
                               </header>
                               <main>
                                 {holyShockCrits * (iolProcsPerHolyShockCrit - 1)} bonus Infusion of Light charges gained
@@ -1069,7 +1028,9 @@ class Results extends React.Component {
                                 }
                               })()}
                             </div>
-                            <img src={`./img/icons/${issue.icon}.jpg`} alt="Icon" /> <span dangerouslySetInnerHTML={{ __html: issue.issue || issue }} />
+                            <img src={`./img/icons/${issue.icon}.jpg`} alt="Icon" />{' '}
+                            {typeof issue.issue === 'string' ? <span dangerouslySetInnerHTML={{ __html: issue.issue }} /> : <span>{issue.issue}</span>}
+
                           </li>
                         ))}
                       <li className="text-muted" style={{ paddingTop: 10, paddingBottom: 10 }}>
