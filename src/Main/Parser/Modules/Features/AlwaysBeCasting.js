@@ -1,24 +1,23 @@
 import Module from 'Main/Parser/Module';
-import { FLASH_OF_LIGHT_SPELL_ID, HOLY_LIGHT_SPELL_ID, HOLY_SHOCK_CAST_SPELL_ID, JUDGMENT_CAST_SPELL_ID, LIGHT_OF_DAWN_CAST_SPELL_ID, LIGHT_OF_THE_MARTYR_SPELL_ID, TYRS_DELIVERANCE_CAST_SPELL_ID, HOLY_PRISM_CAST_SPELL_ID, CRUSADER_STRIKE_SPELL_ID, LIGHTS_HAMMER_CAST_SPELL_ID } from 'Main/Parser/Constants';
 import ABILITY_INFO from 'Main/ABILITY_INFO';
 
 const HEALING_ABILITIES_ON_GCD = [
-  FLASH_OF_LIGHT_SPELL_ID,
-  HOLY_LIGHT_SPELL_ID,
-  HOLY_SHOCK_CAST_SPELL_ID,
-  // JUDGMENT_CAST_SPELL_ID, // Only with either JoL or Ilterendi
-  LIGHT_OF_DAWN_CAST_SPELL_ID,
-  LIGHT_OF_THE_MARTYR_SPELL_ID,
+  ABILITY_INFO.FLASH_OF_LIGHT.id,
+  ABILITY_INFO.HOLY_LIGHT.id,
+  ABILITY_INFO.HOLY_SHOCK_CAST.id,
+  // ABILITY_INFO.JUDGMENT_CAST.id, // Only with either JoL or Ilterendi
+  ABILITY_INFO.LIGHT_OF_DAWN_CAST.id,
+  ABILITY_INFO.LIGHT_OF_THE_MARTYR.id,
   ABILITY_INFO.BESTOW_FAITH_TALENT.id,
-  TYRS_DELIVERANCE_CAST_SPELL_ID,
-  HOLY_PRISM_CAST_SPELL_ID,
-  LIGHTS_HAMMER_CAST_SPELL_ID,
-  // CRUSADER_STRIKE_SPELL_ID, // Only with Crusader's Might, is added in on_byPlayer_combatantinfo if applicable
+  ABILITY_INFO.TYRS_DELIVERANCE_CAST.id,
+  ABILITY_INFO.HOLY_PRISM_CAST.id,
+  ABILITY_INFO.LIGHTS_HAMMER_CAST.id,
+  // ABILITY_INFO.CRUSADER_STRIKE.id, // Only with Crusader's Might, is added in on_byPlayer_combatantinfo if applicable
 ];
 const ABILITIES_ON_GCD = [
   ...HEALING_ABILITIES_ON_GCD,
-  JUDGMENT_CAST_SPELL_ID,
-  CRUSADER_STRIKE_SPELL_ID,
+  ABILITY_INFO.JUDGMENT_CAST.id,
+  ABILITY_INFO.CRUSADER_STRIKE.id,
   225141, // http://www.wowhead.com/spell=225141/fel-crazed-rage (Draught of Souls)
   190784, // Divine Steed
   26573, // Consecration
@@ -105,7 +104,7 @@ class AlwaysBeCasting extends Module {
       debug && console.log(`%cABC: ${cast.ability.name} (${spellId}) ignored`, 'color: gray');
       return;
     }
-    if (countsAsHealingAbility && spellId === HOLY_SHOCK_CAST_SPELL_ID && !cast.targetIsFriendly) {
+    if (countsAsHealingAbility && spellId === ABILITY_INFO.HOLY_SHOCK_CAST.id && !cast.targetIsFriendly) {
       debug && console.log(`%cABC: ${cast.ability.name} (${spellId}) skipped for healing time; target is not friendly`, 'color: orange');
       countsAsHealingAbility = false;
     }
@@ -130,7 +129,7 @@ class AlwaysBeCasting extends Module {
     }
   }
   verifyCast({ begincast, cast }, gcd) {
-    if (cast.ability.guid !== FLASH_OF_LIGHT_SPELL_ID) {
+    if (cast.ability.guid !== ABILITY_INFO.FLASH_OF_LIGHT.id) {
       return;
     }
     const castTime = cast.timestamp - begincast.timestamp;
@@ -151,10 +150,10 @@ class AlwaysBeCasting extends Module {
     debug && console.log(`ABC: Current haste: ${this.currentHaste}`);
 
     if (combatant.lv15Talent === ABILITY_INFO.CRUSADERS_MIGHT_TALENT.id) {
-      HEALING_ABILITIES_ON_GCD.push(CRUSADER_STRIKE_SPELL_ID);
+      HEALING_ABILITIES_ON_GCD.push(ABILITY_INFO.CRUSADER_STRIKE.id);
     }
     if (combatant.lv90Talent === ABILITY_INFO.JUDGMENT_OF_LIGHT_TALENT.id) {
-      HEALING_ABILITIES_ON_GCD.push(JUDGMENT_CAST_SPELL_ID);
+      HEALING_ABILITIES_ON_GCD.push(ABILITY_INFO.JUDGMENT_CAST.id);
     }
   }
   on_toPlayer_applybuff(event) {

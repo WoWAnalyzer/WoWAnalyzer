@@ -1,6 +1,7 @@
 import Module from 'Main/Parser/Module';
-import { ABILITIES_AFFECTED_BY_HEALING_INCREASES, BEACON_TRANSFER_SPELL_ID, LIGHT_OF_DAWN_HEAL_SPELL_ID } from 'Main/Parser/Constants';
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES, BEACON_TRANSFER_SPELL_ID } from 'Main/Parser/Constants';
 import calculateEffectiveHealing from 'Main/Parser/calculateEffectiveHealing';
+import ABILITY_INFO from 'Main/ABILITY_INFO';
 
 const debug = false;
 
@@ -29,7 +30,7 @@ class SacredDawn extends Module {
     // When SD isn't up, a Light of Dawn applies Sacred Dawn to the players. Until 18/4/17 this sometimes happened BEFORE the heal was triggered, but the buff didn't increase the healing. While this should no longer happen, the below `minimalActiveTime` of 5ms should make sure that if it does still happen, the non existing healing gain isn't considered.
     const hasBuff = combatant.hasBuff(SACRED_DAWN_BUFF_SPELL_ID, event.timestamp, undefined, 5);
 
-    if (debug && spellId === LIGHT_OF_DAWN_HEAL_SPELL_ID) {
+    if (debug && spellId === ABILITY_INFO.LIGHT_OF_DAWN_HEAL.id) {
       const secondsIntoFight = (event.timestamp - this.owner.fight.start_time) / 1000;
       console.log(secondsIntoFight.toFixed(3), event.timestamp, 'LoD heal on', combatant.name, 'Sacred Dawn:', hasBuff, 'event:', event);
     }

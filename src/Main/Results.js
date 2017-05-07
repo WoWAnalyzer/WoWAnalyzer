@@ -13,15 +13,8 @@ import Mana from './Mana';
 
 import {
   T19_4SET_BONUS_BUFF_ID,
-  FLASH_OF_LIGHT_SPELL_ID,
-  HOLY_LIGHT_SPELL_ID,
-  HOLY_SHOCK_HEAL_SPELL_ID,
-  LIGHT_OF_THE_MARTYR_SPELL_ID,
-  LIGHT_OF_DAWN_CAST_SPELL_ID,
-  LIGHT_OF_DAWN_HEAL_SPELL_ID,
   DIVINE_PURPOSE_HOLY_SHOCK_SPELL_ID,
   DIVINE_PURPOSE_LIGHT_OF_DAWN_SPELL_ID,
-  AURA_OF_MERCY_SPELL_ID, AURA_OF_SACRIFICE_HEAL_SPELL_ID,
 } from './Parser/Constants';
 import ABILITY_INFO from './ABILITY_INFO';
 import { SACRED_DAWN_TRAIT_ID } from './Parser/Modules/Features/SacredDawn';
@@ -293,11 +286,11 @@ class Results extends React.Component {
     const abilityTracker = parser.modules.abilityTracker;
     const getAbility = spellId => abilityTracker.getAbility(spellId);
 
-    const flashOfLight = getAbility(FLASH_OF_LIGHT_SPELL_ID);
-    const holyLight = getAbility(HOLY_LIGHT_SPELL_ID);
-    const lightOfDawnCast = getAbility(LIGHT_OF_DAWN_CAST_SPELL_ID);
-    const lightOfDawnHeal = getAbility(LIGHT_OF_DAWN_HEAL_SPELL_ID);
-    const holyShock = getAbility(HOLY_SHOCK_HEAL_SPELL_ID);
+    const flashOfLight = getAbility(ABILITY_INFO.FLASH_OF_LIGHT.id);
+    const holyLight = getAbility(ABILITY_INFO.HOLY_LIGHT.id);
+    const lightOfDawnCast = getAbility(ABILITY_INFO.LIGHT_OF_DAWN_CAST.id);
+    const lightOfDawnHeal = getAbility(ABILITY_INFO.LIGHT_OF_DAWN_HEAL.id);
+    const holyShock = getAbility(ABILITY_INFO.HOLY_SHOCK_HEAL.id);
     const bestowFaith = getAbility(ABILITY_INFO.BESTOW_FAITH_TALENT.id);
 
     const iolFlashOfLights = flashOfLight.healingIolHits || 0;
@@ -329,7 +322,7 @@ class Results extends React.Component {
     const hasCrusadersMight = parser.selectedCombatant.lv15Talent === ABILITY_INFO.CRUSADERS_MIGHT_TALENT.id;
     const hasAuraOfMercy = parser.selectedCombatant.lv60Talent === ABILITY_INFO.AURA_OF_MERCY_TALENT.id;
     const hasAuraOfSacrifice = parser.selectedCombatant.lv60Talent === ABILITY_INFO.AURA_OF_SACRIFICE_TALENT.id;
-    const auraOfSacrificeHps = (getAbility(AURA_OF_SACRIFICE_HEAL_SPELL_ID).healingEffective + getAbility(AURA_OF_SACRIFICE_HEAL_SPELL_ID).healingAbsorbed) / fightDuration * 1000;
+    const auraOfSacrificeHps = (getAbility(ABILITY_INFO.AURA_OF_SACRIFICE_HEAL.id).healingEffective + getAbility(ABILITY_INFO.AURA_OF_SACRIFICE_HEAL.id).healingAbsorbed) / fightDuration * 1000;
     const hasDevotionAura = parser.selectedCombatant.lv60Talent === ABILITY_INFO.DEVOTION_AURA_TALENT.id;
     const has4PT19 = parser.selectedCombatant.hasBuff(T19_4SET_BONUS_BUFF_ID);
 
@@ -394,7 +387,7 @@ class Results extends React.Component {
     }
     if (iolFoLToHLCastRatio < 0.7) {
       this.issues.push({
-        issue: `Your <i>IoL FoL to HL cast ratio</i> can likely be improved. When you get an <a href="http://www.wowhead.com/spell=53576" target="_blank">Infusion of Light</a> proc try to cast <a href="http://www.wowhead.com/spell=19750" target="_blank">Flash of Light</a> as much as possible, it is a considerably stronger heal (${iolFlashOfLights} Flash of Lights (${Math.round(iolFoLToHLCastRatio * 100)}%) to ${iolHolyLights} Holy Lights (${Math.round(100 - iolFoLToHLCastRatio * 100)}%) cast with Infusion of Light).`,
+        issue: `Your <i>IoL FoL to HL cast ratio</i> can likely be improved. When you get an <a href="http://www.wowhead.com/spell=53576" target="_blank">Infusion of Light</a> proc try to cast ${spellLink(ABILITY_INFO.HOLY_LIGHT)} as much as possible, it is a considerably stronger heal (${iolFlashOfLights} Flash of Lights (${Math.round(iolFoLToHLCastRatio * 100)}%) to ${iolHolyLights} Holy Lights (${Math.round(100 - iolFoLToHLCastRatio * 100)}%) cast with Infusion of Light).`,
         icon: 'spell_holy_flashheal',
         importance: getIssueImportance(iolFoLToHLCastRatio, 0.6, 0.4),
       });
@@ -415,7 +408,7 @@ class Results extends React.Component {
     }
     if (hasIlterendi && ilterendiHealingPercentage < 0.045) {
       this.issues.push({
-        issue: `Your usage of <a href="http://www.wowhead.com/item=137046" target="_blank" class="legendary">Ilterendi, Crown Jewel of Silvermoon</a> can be improved. Try to line <a href="http://www.wowhead.com/spell=85222" target="_blank">Light of Dawn</a> and <a href="http://www.wowhead.com/spell=20473" target="_blank">Holy Shock</a> up with the buff or consider using an easier legendary (${(ilterendiHealingPercentage * 100).toFixed(2)}% healing contributed).`,
+        issue: `Your usage of <a href="http://www.wowhead.com/item=137046" target="_blank" class="legendary">Ilterendi, Crown Jewel of Silvermoon</a> can be improved. Try to line ${spellLink(ABILITY_INFO.LIGHT_OF_DAWN_CAST)} and ${spellLink(ABILITY_INFO.HOLY_SHOCK_CAST)} up with the buff or consider using an easier legendary (${(ilterendiHealingPercentage * 100).toFixed(2)}% healing contributed).`,
         icon: 'inv_jewelry_ring_firelandsraid_03a',
         importance: getIssueImportance(ilterendiHealingPercentage, 0.04, 0.03),
       });
@@ -427,16 +420,16 @@ class Results extends React.Component {
         importance: getIssueImportance(velensHealingPercentage, 0.04, 0.03),
       });
     }
-    const lightOfTheMartyrs = getAbility(LIGHT_OF_THE_MARTYR_SPELL_ID).casts || 0;
+    const lightOfTheMartyrs = getAbility(ABILITY_INFO.LIGHT_OF_THE_MARTYR.id).casts || 0;
     let fillerLotms = lightOfTheMartyrs;
     if (hasMaraads) {
-      const lightOfTheDawns = getAbility(LIGHT_OF_DAWN_CAST_SPELL_ID).casts || 0;
+      const lightOfTheDawns = getAbility(ABILITY_INFO.LIGHT_OF_DAWN_CAST).casts || 0;
       fillerLotms -= lightOfTheDawns;
     }
     const fillerLotmsPerMinute = fillerLotms / (fightDuration / 1000) * 60;
     if (fillerLotmsPerMinute >= 1.0) {
       this.issues.push({
-        issue: hasMaraads ? `With <a href="http://www.wowhead.com/item=144273/maraads-dying-breath" target="_blank" class="legendary">Maraad's Dying Breath</a> you should only cast <b>one</b> <a href="http://www.wowhead.com/spell=137046" target="_blank" class="legendary">Light of the Martyr</a> per <a href="http://www.wowhead.com/spell=85222" target="_blank">Light of Dawn</a>. Without the buff <a href="http://www.wowhead.com/spell=137046" target="_blank" class="legendary">Light of the Martyr</a> is a very inefficient spell to cast. Try to only cast additional Light of the Martyr when absolutely necessary (${fillerLotmsPerMinute.toFixed(2)} CPM (unbuffed only)).` : `<a href="http://www.wowhead.com/spell=137046" target="_blank">Light of the Martyr</a> is a very inefficient spell to cast. Try to only cast Light of the Martyr when absolutely necessary (${fillerLotmsPerMinute.toFixed(2)} CPM).`,
+        issue: hasMaraads ? `With <a href="http://www.wowhead.com/item=144273/maraads-dying-breath" target="_blank" class="legendary">Maraad's Dying Breath</a> you should only cast <b>one</b> <a href="http://www.wowhead.com/spell=137046" target="_blank" class="legendary">Light of the Martyr</a> per ${spellLink(ABILITY_INFO.LIGHT_OF_DAWN_CAST)}. Without the buff <a href="http://www.wowhead.com/spell=137046" target="_blank" class="legendary">Light of the Martyr</a> is a very inefficient spell to cast. Try to only cast additional Light of the Martyr when absolutely necessary (${fillerLotmsPerMinute.toFixed(2)} CPM (unbuffed only)).` : `<a href="http://www.wowhead.com/spell=137046" target="_blank">Light of the Martyr</a> is a very inefficient spell to cast. Try to only cast Light of the Martyr when absolutely necessary (${fillerLotmsPerMinute.toFixed(2)} CPM).`,
         icon: 'ability_paladin_lightofthemartyr',
         importance: getIssueImportance(fillerLotmsPerMinute, 1.5, 2, true),
       });
@@ -452,8 +445,8 @@ class Results extends React.Component {
     let recommendedLodOverhealing = hasDivinePurpose ? 0.45 : 0.4;
     if (lodOverhealing > recommendedLodOverhealing) {
       this.issues.push({
-        issue: `Try to avoid overhealing with <a href="http://www.wowhead.com/spell=85222" target="_blank">Light of Dawn</a>. Save it for when people are missing health (${Math.round(lodOverhealing * 100)}% overhealing).`,
-        icon: 'spell_paladin_lightofdawn',
+        issue: `Try to avoid overhealing with ${spellLink(ABILITY_INFO.LIGHT_OF_DAWN_CAST)}. Save it for when people are missing health (${Math.round(lodOverhealing * 100)}% overhealing).`,
+        icon: ABILITY_INFO.LIGHT_OF_DAWN_CAST.icon,
         importance: getIssueImportance(lodOverhealing, recommendedLodOverhealing + 0.1, recommendedLodOverhealing + 0.2, true),
       });
     }
@@ -461,8 +454,8 @@ class Results extends React.Component {
     let recommendedHsOverhealing = hasDivinePurpose ? 0.4 : 0.35;
     if (hsOverhealing > recommendedHsOverhealing) {
       this.issues.push({
-        issue: `Try to avoid overhealing with <a href="http://www.wowhead.com/spell=20473" target="_blank">Holy Shock</a>. Save it for when people are missing health (${Math.round(hsOverhealing * 100)}% overhealing).`,
-        icon: 'spell_holy_searinglight',
+        issue: `Try to avoid overhealing with ${spellLink(ABILITY_INFO.HOLY_SHOCK_CAST)}. Save it for when people are missing health (${Math.round(hsOverhealing * 100)}% overhealing).`,
+        icon: ABILITY_INFO.HOLY_SHOCK_HEAL.icon,
         importance: getIssueImportance(hsOverhealing, recommendedHsOverhealing + 0.1, recommendedHsOverhealing + 0.2, true),
       });
     }
@@ -470,7 +463,7 @@ class Results extends React.Component {
     let recommendedFolOverhealing = 0.25;
     if (folOverhealing > recommendedFolOverhealing) {
       this.issues.push({
-        issue: `Try to avoid overhealing with <a href="http://www.wowhead.com/spell=19750" target="_blank">Flash of Light</a>. If Flash of Light would overheal it is generally advisable to cast a <a href="http://www.wowhead.com/spell=82326" target="_blank">Holy Light</a> instead (${Math.round(folOverhealing * 100)}% overhealing).`,
+        issue: `Try to avoid overhealing with ${spellLink(ABILITY_INFO.FLASH_OF_LIGHT)}. If Flash of Light would overheal it is generally advisable to cast a ${spellLink(ABILITY_INFO.HOLY_LIGHT)} instead (${Math.round(folOverhealing * 100)}% overhealing).`,
         icon: 'spell_holy_flashheal',
         importance: getIssueImportance(folOverhealing, recommendedFolOverhealing + 0.15, recommendedFolOverhealing + 0.25, true),
       });
@@ -671,7 +664,7 @@ class Results extends React.Component {
                     icon={(
                       <a href="http://www.wowhead.com/spell=238132" target="_blank">
                         <img
-                          src="./img/icons/spell_paladin_lightofdawn.jpg"
+                          src={`./img/icons/${ABILITY_INFO.LIGHT_OF_DAWN_CAST.icon}.jpg`}
                           alt="Sacred Dawn"
                         />
                       </a>
@@ -701,7 +694,7 @@ class Results extends React.Component {
                         {divinePurposeHolyShockProcs}{' '}
                         <a href="http://www.wowhead.com/spell=25914" target="_blank">
                           <img
-                            src="./img/icons/spell_holy_searinglight.jpg"
+                            src={`./img/icons/${ABILITY_INFO.HOLY_SHOCK_HEAL.icon}.jpg`}
                             alt="Holy Shock"
                             style={{
                               height: '1.3em',
@@ -713,7 +706,7 @@ class Results extends React.Component {
                         {divinePurposeLightOfDawnProcs}{' '}
                         <a href="http://www.wowhead.com/spell=85222" target="_blank">
                           <img
-                            src="./img/icons/spell_paladin_lightofdawn.jpg"
+                            src={`./img/icons/${ABILITY_INFO.LIGHT_OF_DAWN_CAST.icon}.jpg`}
                             alt="Light of Dawn"
                             style={{
                               height: '1.3em',
@@ -742,7 +735,7 @@ class Results extends React.Component {
                         />
                       </a>
                     )}
-                    value={`${formatNumber((getAbility(AURA_OF_MERCY_SPELL_ID).healingEffective + getAbility(AURA_OF_MERCY_SPELL_ID).healingAbsorbed) / fightDuration * 1000)} HPS`}
+                    value={`${formatNumber((getAbility(ABILITY_INFO.AURA_OF_MERCY_HEAL.id).healingEffective + getAbility(ABILITY_INFO.AURA_OF_MERCY_HEAL.id).healingAbsorbed) / fightDuration * 1000)} HPS`}
                     label="Healing done"
                   />
                 </div>

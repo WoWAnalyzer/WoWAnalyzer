@@ -1,5 +1,5 @@
 import AbilityTracker from 'Main/Parser/Modules/Core/AbilityTracker';
-import { FLASH_OF_LIGHT_SPELL_ID, HOLY_LIGHT_SPELL_ID } from 'Main/Parser/Constants';
+import ABILITY_INFO from 'Main/ABILITY_INFO';
 
 const INFUSION_OF_LIGHT_SPELL_ID = 54149;
 const INFUSION_OF_LIGHT_BUFF_EXPIRATION_BUFFER = 50; // the buff expiration can occur several MS before the heal event is logged, this is the buffer time that an IoL charge may have dropped during which it will still be considered active.
@@ -12,7 +12,7 @@ class PaladinAbilityTracker extends AbilityTracker {
     const spellId = event.ability.guid;
     const cast = this.getAbility(spellId, event.ability);
 
-    if (spellId === FLASH_OF_LIGHT_SPELL_ID || spellId === HOLY_LIGHT_SPELL_ID) {
+    if (spellId === ABILITY_INFO.FLASH_OF_LIGHT.id || spellId === ABILITY_INFO.HOLY_LIGHT.id) {
       const hasIol = this.owner.selectedCombatant.hasBuff(INFUSION_OF_LIGHT_SPELL_ID, event.timestamp, INFUSION_OF_LIGHT_BUFF_EXPIRATION_BUFFER);
 
       if (hasIol) {
