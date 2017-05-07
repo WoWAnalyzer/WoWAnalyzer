@@ -177,8 +177,8 @@ class Results extends React.Component {
     let castsOnBeacon = 0;
 
     Object.values(abilityTracker.abilities).forEach((ability) => {
-      casts += ability.healingHits;
-      castsOnBeacon += ability.healingBeaconHits;
+      casts += ability.healingHits || 0;
+      castsOnBeacon += ability.healingBeaconHits || 0;
     });
 
     return castsOnBeacon / casts;
