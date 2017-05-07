@@ -124,4 +124,9 @@ export default {
     name: 'Velen\'s Future Sight',
     icon: 'spell_holy_healingfocus',
   },
+  INFUSION_OF_LIGHT: {
+    id: 53576,
+    name: 'Infusion of Light',
+    icon: 'ability_paladin_infusionoflight',
+  },
 };

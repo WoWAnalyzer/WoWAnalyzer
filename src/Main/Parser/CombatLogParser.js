@@ -74,8 +74,9 @@ class CombatLogParser {
   }
 
   get fightDuration() {
-    return this.fight.end_time - this.fight.start_time;
+    return (this.finished ? this.fight.end_time : this.currentTimestamp) - this.fight.start_time;
   }
+
   _timestamp = null;
   get currentTimestamp() {
     return this._timestamp;

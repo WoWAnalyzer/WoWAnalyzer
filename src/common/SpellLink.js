@@ -1,13 +1,13 @@
 import React from 'react';
 import SPELLS from './SPELLS';
 
-const SpellLink = ({ id, children, category = undefined }) => {
+const SpellLink = ({ id, children, category = undefined, ...other }) => {
   if (process.env.NODE_ENV === 'development' && !SPELLS[id]) {
     throw new Error(`Unknown spell: ${id}`);
   }
 
   return (
-    <a href={`http://www.wowhead.com/spell=${id}`} target="_blank" className={category}>
+    <a href={`http://www.wowhead.com/spell=${id}`} target="_blank" className={category} {...other}>
       {children || SPELLS[id].name}
     </a>
   );
