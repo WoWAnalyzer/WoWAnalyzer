@@ -423,9 +423,9 @@ class Results extends React.Component {
     castEfficiency.forEach((cpm) => {
       if (cpm.canBeImproved && !cpm.ability.noSuggestion) {
         this.issues.push({
-          issue: <span>Try to cast <SpellLink id={cpm.ability.spell.id} /> more often ({cpm.casts}/{cpm.maxCasts} casts: {Math.round(castEfficiency * 100)}% cast efficiency). {cpm.ability.extraSuggestion || ''}</span>,
+          issue: <span>Try to cast <SpellLink id={cpm.ability.spell.id} /> more often ({cpm.casts}/{cpm.maxCasts} casts: {Math.round(cpm.castEfficiency * 100)}% cast efficiency). {cpm.ability.extraSuggestion || ''}</span>,
           icon: cpm.ability.spell.icon,
-          importance: cpm.ability.importance || getIssueImportance(castEfficiency, cpm.recommendedCastEfficiency - 0.05, cpm.recommendedCastEfficiency - 0.15),
+          importance: cpm.ability.importance || getIssueImportance(cpm.castEfficiency, cpm.recommendedCastEfficiency - 0.05, cpm.recommendedCastEfficiency - 0.15),
         });
       }
     });
