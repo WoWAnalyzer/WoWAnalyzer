@@ -2,11 +2,12 @@ import React from 'react';
 import SPELLS from './SPELLS';
 import SpellLink from './SpellLink';
 
-const SpellIcon = ({ id }) => (
+const SpellIcon = ({ id, ...other }) => (
   <SpellLink id={id}>
     <img
       src={`./img/icons/${SPELLS[id].icon}.jpg`}
       alt={SPELLS[id].name}
+      {...other}
     />
   </SpellLink>
 );

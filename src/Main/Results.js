@@ -206,7 +206,7 @@ class Results extends React.Component {
 
         if (canBeImproved && !ability.noSuggestion) {
           this.issues.push({
-            issue: `Try to cast <a href="http://www.wowhead.com/spell=${ability.spellId}" target="_blank">${ability.name}</a> more often (${casts}/${maxCasts} casts: ${Math.round(castEfficiency * 100)}% cast efficiency). ${ability.extraSuggestion || ''}`,
+            issue: <span>Try to cast <SpellLink id={ability.spellId} /> more often ({casts}/{maxCasts} casts: {Math.round(castEfficiency * 100)}% cast efficiency). {ability.extraSuggestion || ''}</span>,
             icon: ability.icon,
             importance: ability.importance || getIssueImportance(castEfficiency, recommendedCastEfficiency - 0.05, recommendedCastEfficiency - 0.15),
           });
@@ -374,14 +374,14 @@ class Results extends React.Component {
     if (hasRuleOfLaw && ruleOfLawUptime < 0.25) {
       this.issues.push({
         issue: <span>Your <SpellLink id={SPELLS.RULE_OF_LAW_TALENT.id} /> uptime can be improved. Try keeping at least 1 charge on cooldown; you should (almost) never be at max charges ({(ruleOfLawUptime * 100).toFixed(2)}% uptime).</span>,
-        icon: 'ability_paladin_longarmofthelaw',
+        icon: SPELLS.RULE_OF_LAW_TALENT.icon,
         importance: getIssueImportance(ruleOfLawUptime, 0.2, 0.1),
       });
     }
     if (iolFoLToHLCastRatio < 0.7) {
       this.issues.push({
-        issue: <span>Your <i>IoL FoL to HL cast ratio</i> can likely be improved. When you get an <a href="http://www.wowhead.com/spell=53576" target="_blank">Infusion of Light</a> proc try to cast <SpellLink id={SPELLS.HOLY_LIGHT.id} /> as much as possible, it is a considerably stronger heal ({iolFlashOfLights} Flash of Lights ({Math.round(iolFoLToHLCastRatio * 100)}%) to {iolHolyLights} Holy Lights ({Math.round(100 - iolFoLToHLCastRatio * 100)}%) cast with Infusion of Light).</span>,
-        icon: 'spell_holy_flashheal',
+        issue: <span>Your <i>IoL FoL to HL cast ratio</i> can likely be improved. When you get an <SpellLink id={SPELLS.INFUSION_OF_LIGHT.id} /> proc try to cast <SpellLink id={SPELLS.HOLY_LIGHT.id} /> as much as possible, it is a considerably stronger heal ({iolFlashOfLights} Flash of Lights ({Math.round(iolFoLToHLCastRatio * 100)}%) to {iolHolyLights} Holy Lights ({Math.round(100 - iolFoLToHLCastRatio * 100)}%) cast with Infusion of Light).</span>,
+        icon: SPELLS.INFUSION_OF_LIGHT.icon,
         importance: getIssueImportance(iolFoLToHLCastRatio, 0.6, 0.4),
       });
     }
@@ -394,7 +394,7 @@ class Results extends React.Component {
     }
     if (unusedIolRate > recommendedUnusedIolRate) {
       this.issues.push({
-        issue: `Your usage of <a href="http://www.wowhead.com/spell=53576" target="_blank">Infusion of Light</a> procs can be improved. Try to use your Infusion of Light procs whenever it wouldn't overheal (${Math.round(unusedIolRate * 100)}% unused Infusion of Lights).`,
+        issue: <span>Your usage of <SpellLink id={SPELLS.INFUSION_OF_LIGHT.id} /> procs can be improved. Try to use your Infusion of Light procs whenever it wouldn't overheal ({Math.round(unusedIolRate * 100)}% unused Infusion of Lights).</span>,
         icon: 'ability_paladin_infusionoflight-bw',
         importance: getIssueImportance(unusedIolRate, recommendedUnusedIolRate + 0.05, recommendedUnusedIolRate + 0.2, true),
       });
@@ -416,7 +416,7 @@ class Results extends React.Component {
     const lightOfTheMartyrs = getAbility(SPELLS.LIGHT_OF_THE_MARTYR.id).casts || 0;
     let fillerLotms = lightOfTheMartyrs;
     if (parser.modules.maraadsDyingBreath.active) {
-      const lightOfTheDawns = getAbility(SPELLS.LIGHT_OF_DAWN_CAST).casts || 0;
+      const lightOfTheDawns = getAbility(SPELLS.LIGHT_OF_DAWN_CAST.id).casts || 0;
       fillerLotms -= lightOfTheDawns;
     }
     const fillerLotmsPerMinute = fillerLotms / (fightDuration / 1000) * 60;
@@ -538,14 +538,7 @@ class Results extends React.Component {
               {hasRuleOfLaw && (
                 <div className="col-lg-4 col-sm-6 col-xs-12">
                   <StatisticBox
-                    icon={(
-                      <a href="http://www.wowhead.com/spell=214202" target="_blank">
-                        <img
-                          src="./img/icons/ability_paladin_longarmofthelaw.jpg"
-                          alt="Rule of Law"
-                        />
-                      </a>
-                    )}
+                    icon={<SpellIcon id={SPELLS.RULE_OF_LAW_TALENT.id} />}
                     value={`${this.constructor.formatPercentage(ruleOfLawUptime)} %`}
                     label="Rule of Law uptime"
                   />
@@ -553,14 +546,7 @@ class Results extends React.Component {
               )}
               <div className="col-lg-4 col-sm-6 col-xs-12">
                 <StatisticBox
-                  icon={(
-                    <a href="http://www.wowhead.com/spell=53576" target="_blank">
-                      <img
-                        src="./img/icons/ability_paladin_infusionoflight.jpg"
-                        alt="Unused Infusion of Light"
-                      />
-                    </a>
-                  )}
+                  icon={<SpellIcon id={SPELLS.INFUSION_OF_LIGHT.id} />}
                   value={`${this.constructor.formatPercentage(iolFoLToHLCastRatio)} %`}
                   label={(
                     <dfn data-tip={`The Infusion of Light Flash of Light to Infusion of Light Holy Light usage ratio is how many Flash of Lights you cast compared to Holy Lights during the Infusion of Light proc. You cast ${iolFlashOfLights} Flash of Lights and ${iolHolyLights} Holy Lights during Infusion of Light.`}>
@@ -572,12 +558,12 @@ class Results extends React.Component {
               <div className="col-lg-4 col-sm-6 col-xs-12">
                 <StatisticBox
                   icon={(
-                    <a href="http://www.wowhead.com/spell=53576" target="_blank">
+                    <SpellLink id={SPELLS.INFUSION_OF_LIGHT.id}>
                       <img
                         src="./img/icons/ability_paladin_infusionoflight-bw.jpg"
                         alt="Unused Infusion of Light"
                       />
-                    </a>
+                    </SpellLink>
                   )}
                   value={`${this.constructor.formatPercentage(unusedIolRate)} %`}
                   label={(
@@ -589,14 +575,7 @@ class Results extends React.Component {
               </div>
               <div className="col-lg-4 col-sm-6 col-xs-12">
                 <StatisticBox
-                  icon={(
-                    <a href="http://www.wowhead.com/spell=19750" target="_blank">
-                      <img
-                        src="./img/icons/spell_holy_flashheal.jpg"
-                        alt="Flash of Light"
-                      />
-                    </a>
-                  )}
+                  icon={<SpellIcon id={SPELLS.FLASH_OF_LIGHT.id} />}
                   value={`${this.constructor.formatPercentage(fillerCastRatio)} %`}
                   label={(
                     <dfn data-tip={`The ratio at which you cast Flash of Lights versus Holy Lights. You cast ${fillerFlashOfLights} filler Flash of Lights and ${fillerHolyLights} filler Holy Lights.`}>
@@ -607,14 +586,7 @@ class Results extends React.Component {
               </div>
               <div className="col-lg-4 col-sm-6 col-xs-12">
                 <StatisticBox
-                  icon={(
-                    <a href={`http://www.wowhead.com/spell=${parser.selectedCombatant.lv100Talent}`} target="_blank">
-                      <img
-                        src={`./img/icons/${SPELLS[parser.selectedCombatant.lv100Talent].icon}.jpg`}
-                        alt={SPELLS[parser.selectedCombatant.lv100Talent].name}
-                      />
-                    </a>
-                  )}
+                  icon={<SpellIcon id={parser.selectedCombatant.lv100Talent} />}
                   value={`${this.constructor.formatPercentage(healsOnBeacon)} %`}
                   label={(
                     <dfn data-tip={`The amount of Flash of Lights and Holy Lights cast on beacon targets. You cast ${beaconFlashOfLights} Flash of Lights and ${beaconHolyLights} Holy Lights on beacon targets.<br /><br />Your total heals on beacons was <b>${(totalHealsOnBeaconPercentage * 100).toFixed(2)}%</b> (this includes spell other than FoL and HL).`}>
@@ -641,14 +613,7 @@ class Results extends React.Component {
               </div>
               <div className="col-lg-4 col-sm-6 col-xs-12">
                 <StatisticBox
-                  icon={(
-                    <a href="http://www.wowhead.com/spell=200652" target="_blank">
-                      <img
-                        src="./img/icons/inv_mace_2h_artifactsilverhand_d_01.jpg"
-                        alt="Tyr's Deliverance"
-                      />
-                    </a>
-                  )}
+                  icon={<SpellIcon id={SPELLS.TYRS_DELIVERANCE_CAST.id} />}
                   value={`${this.constructor.formatPercentage(tyrsDeliverancePercentage)} %`}
                   label={(
                     <dfn data-tip={`The total actual effective healing contributed by Tyr's Deliverance. This includes the gains from the increase to healing by Flash of Light and Holy Light.<br /><br />The actual healing done by the effect was ${this.constructor.formatPercentage(tyrsDeliveranceHealHealingPercentage)}% of your healing done, and the healing contribution from the Flash of Light and Holy Light heal increase was ${this.constructor.formatPercentage(tyrsDeliveranceBuffFoLHLHealingPercentage)}% of your healing done.`}>
@@ -660,14 +625,7 @@ class Results extends React.Component {
               {hasSacredDawn && (
                 <div className="col-lg-4 col-sm-6 col-xs-12">
                   <StatisticBox
-                    icon={(
-                      <a href="http://www.wowhead.com/spell=238132" target="_blank">
-                        <img
-                          src={`./img/icons/${SPELLS.LIGHT_OF_DAWN_CAST.icon}.jpg`}
-                          alt="Sacred Dawn"
-                        />
-                      </a>
-                    )}
+                    icon={<SpellIcon id={SPELLS.SACRED_DAWN.id} />}
                     value={`${this.constructor.formatPercentage(sacredDawnPercentage)} %`}
                     label={(
                       <dfn data-tip={`The actual effective healing contributed by the Sacred Dawn effect.`}>
@@ -680,39 +638,26 @@ class Results extends React.Component {
               {hasDivinePurpose && (
                 <div className="col-lg-4 col-sm-6 col-xs-12">
                   <StatisticBox
-                    icon={(
-                      <a href="http://www.wowhead.com/spell=197646" target="_blank">
-                        <img
-                          src="./img/icons/spell_holy_divinepurpose.jpg"
-                          alt="Divine Purpose"
-                        />
-                      </a>
-                    )}
+                    icon={<SpellIcon id={SPELLS.DIVINE_PURPOSE_TALENT.id} />}
                     value={(
                       <span>
                         {divinePurposeHolyShockProcs}{' '}
-                        <a href="http://www.wowhead.com/spell=25914" target="_blank">
-                          <img
-                            src={`./img/icons/${SPELLS.HOLY_SHOCK_HEAL.icon}.jpg`}
-                            alt="Holy Shock"
-                            style={{
-                              height: '1.3em',
-                              marginTop: '-.1em',
-                            }}
-                          />
-                        </a>
+                        <SpellIcon
+                          id={SPELLS.HOLY_SHOCK_CAST.id}
+                          style={{
+                            height: '1.3em',
+                            marginTop: '-.1em',
+                          }}
+                        />
                         {' '}
                         {divinePurposeLightOfDawnProcs}{' '}
-                        <a href="http://www.wowhead.com/spell=85222" target="_blank">
-                          <img
-                            src={`./img/icons/${SPELLS.LIGHT_OF_DAWN_CAST.icon}.jpg`}
-                            alt="Light of Dawn"
-                            style={{
-                              height: '1.3em',
-                              marginTop: '-.1em',
-                            }}
-                          />
-                        </a>
+                        <SpellIcon
+                          id={SPELLS.LIGHT_OF_DAWN_CAST.id}
+                          style={{
+                            height: '1.3em',
+                            marginTop: '-.1em',
+                          }}
+                        />
                       </span>
                     )}
                     label={(
@@ -726,14 +671,7 @@ class Results extends React.Component {
               {hasAuraOfMercy && (
                 <div className="col-lg-4 col-sm-6 col-xs-12">
                   <StatisticBox
-                    icon={(
-                      <a href={`http://www.wowhead.com/spell=${SPELLS.AURA_OF_MERCY_TALENT.id}`} target="_blank">
-                        <img
-                          src={`./img/icons/${SPELLS.AURA_OF_MERCY_TALENT.icon}.jpg`}
-                          alt={SPELLS.AURA_OF_MERCY_TALENT.name}
-                        />
-                      </a>
-                    )}
+                    icon={<SpellIcon id={SPELLS.AURA_OF_MERCY_TALENT.id} />}
                     value={`${formatNumber((getAbility(SPELLS.AURA_OF_MERCY_HEAL.id).healingEffective + getAbility(SPELLS.AURA_OF_MERCY_HEAL.id).healingAbsorbed) / fightDuration * 1000)} HPS`}
                     label="Healing done"
                   />
@@ -742,14 +680,7 @@ class Results extends React.Component {
               {hasAuraOfSacrifice && (
                 <div className="col-lg-4 col-sm-6 col-xs-12">
                   <StatisticBox
-                    icon={(
-                      <a href={`http://www.wowhead.com/spell=${SPELLS.AURA_OF_SACRIFICE_TALENT.id}`} target="_blank">
-                        <img
-                          src={`./img/icons/${SPELLS.AURA_OF_SACRIFICE_TALENT.icon}.jpg`}
-                          alt={SPELLS.AURA_OF_SACRIFICE_TALENT.name}
-                        />
-                      </a>
-                    )}
+                    icon={<SpellIcon id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} />}
                     value={`${formatNumber(auraOfSacrificeHps)} HPS`}
                     label="Healing done"
                   />

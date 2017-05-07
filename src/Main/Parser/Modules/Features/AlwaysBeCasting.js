@@ -11,7 +11,7 @@ const HEALING_ABILITIES_ON_GCD = [
   SPELLS.BESTOW_FAITH_TALENT.id,
   SPELLS.TYRS_DELIVERANCE_CAST.id,
   SPELLS.HOLY_PRISM_CAST.id,
-  SPELLS.LIGHTS_HAMMER_CAST.id,
+  SPELLS.LIGHTS_HAMMER_TALENT.id,
   // ABILITIES.CRUSADER_STRIKE.id, // Only with Crusader's Might, is added in on_byPlayer_combatantinfo if applicable
 ];
 const ABILITIES_ON_GCD = [

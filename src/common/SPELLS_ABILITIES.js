@@ -49,11 +49,6 @@ export default {
     name: 'Light\'s Hammer',
     icon: 'spell_paladin_lightshammer',
   },
-  LIGHTS_HAMMER_CAST: {
-    id: 114158,
-    name: 'Light\'s Hammer',
-    icon: 'spell_paladin_lightshammer',
-  },
   TYRS_DELIVERANCE_HEAL: {
     id: 200654,
     name: 'Tyr\'s Deliverance',
@@ -112,7 +107,7 @@ export default {
   AVENGING_WRATH: {
     id: 31842,
     name: 'Avenging Wrath',
-    icon: 'spell_holy_sealofsacrifice',
+    icon: 'spell_holy_avenginewrath',
   },
   BEACON_OF_LIGHT_BUFF: {
     id: 53563,
@@ -123,5 +118,10 @@ export default {
     id: 211438,
     name: 'T19 4 set bonus',
     icon: 'ability_paladin_infusionoflight',
+  },
+  VELENS_FUTURE_SIGHT: {
+    id: 235966,
+    name: 'Velen\'s Future Sight',
+    icon: 'spell_holy_healingfocus',
   },
 };

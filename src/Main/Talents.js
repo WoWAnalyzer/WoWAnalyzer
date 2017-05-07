@@ -1,6 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
 
 const Talent = ({ talent }) => {
   if (!talent) {
@@ -18,9 +19,7 @@ const Talent = ({ talent }) => {
       </figure>
       <div>
         <header>
-          <a href={`http://www.wowhead.com/spell=${talent}`} target="_blank">
-            {SPELLS[talent].name}
-          </a>
+          <SpellLink id={talent} />
         </header>
         <main dangerouslySetInnerHTML={{ __html: SPELLS[talent].description }} />
       </div>

@@ -3,8 +3,6 @@ import React from 'react';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 
-import { LEGENDARY_VELENS_BUFF_SPELL_ID } from './Parser/Modules/Legendaries/Velens';
-
 import ISSUE_IMPORTANCE from './ISSUE_IMPORTANCE';
 
 export const SPELL_CATEGORY = {
@@ -48,12 +46,12 @@ export const CPM_ABILITIES = [
     recommendedCastEfficiency: 0.65,
   },
   {
-    spellId: SPELLS.LIGHTS_HAMMER_CAST.id,
-    icon: SPELLS.LIGHTS_HAMMER_CAST.icon,
-    name: SPELLS.LIGHTS_HAMMER_CAST.name,
+    spellId: SPELLS.LIGHTS_HAMMER_TALENT.id,
+    icon: SPELLS.LIGHTS_HAMMER_TALENT.icon,
+    name: SPELLS.LIGHTS_HAMMER_TALENT.name,
     category: SPELL_CATEGORY.ROTATIONAL,
     getCooldown: haste => 60,
-    isActive: combatant => combatant.lv15Talent === SPELLS.LIGHTS_HAMMER_CAST.id,
+    isActive: combatant => combatant.lv15Talent === SPELLS.LIGHTS_HAMMER_TALENT.id,
   },
   {
     spellId: SPELLS.CRUSADER_STRIKE.id,
@@ -108,9 +106,9 @@ export const CPM_ABILITIES = [
     extraSuggestion: '',
   },
   {
-    spellId: LEGENDARY_VELENS_BUFF_SPELL_ID,
-    icon: 'spell_holy_healingfocus',
-    name: 'Velen\'s Future Sight',
+    spellId: SPELLS.VELENS_FUTURE_SIGHT.id,
+    icon: SPELLS.VELENS_FUTURE_SIGHT.icon,
+    name: SPELLS.VELENS_FUTURE_SIGHT.name,
     category: SPELL_CATEGORY.COOLDOWNS,
     getCooldown: haste => 75,
     isActive: combatant => combatant.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT.id),
