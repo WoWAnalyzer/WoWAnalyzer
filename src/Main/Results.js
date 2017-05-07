@@ -17,6 +17,7 @@ import PlayerBreakdown from './PlayerBreakdown';
 import CastEfficiency from './CastEfficiency';
 import Talents from './Talents';
 import Mana from './Mana';
+import CPM_ABILITIES from './CPM_ABILITIES';
 import getCastEfficiency from './getCastEfficiency';
 
 import {
@@ -167,6 +168,7 @@ class Results extends React.Component {
 
   getTotalHealsOnBeaconPercentage(parser) {
     const abilityTracker = parser.modules.abilityTracker;
+    const getCastCount = spellId => abilityTracker.getAbility(spellId);
 
     const selectedCombatant = parser.selectedCombatant;
     if (!selectedCombatant) {
@@ -176,10 +178,13 @@ class Results extends React.Component {
     let casts = 0;
     let castsOnBeacon = 0;
 
-    Object.values(abilityTracker.abilities).forEach((ability) => {
-      casts += ability.healingHits || 0;
-      castsOnBeacon += ability.healingBeaconHits || 0;
-    });
+    CPM_ABILITIES
+      .filter(ability => ability.isActive === undefined || ability.isActive(selectedCombatant))
+      .forEach((ability) => {
+        const castCount = getCastCount(ability.spell.id);
+        casts += (ability.getCasts ? ability.getCasts(castCount) : castCount.casts) || 0;
+        castsOnBeacon += castCount.healingBeaconHits || 0;
+      });
 
     return castsOnBeacon / casts;
   }
