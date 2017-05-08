@@ -52,8 +52,8 @@ class Changelog extends React.PureComponent {
 
     return (
       <div>
-        {changes.filter((_, i) => limit === null || i <= limit).map(change => (
-          <div dangerouslySetInnerHTML={{ __html: change }} />
+        {changes.filter((_, i) => limit === null || i <= limit).map((change, i) => (
+          <div key={`${i}`} dangerouslySetInnerHTML={{ __html: change }} />
         ))}
         {limit !== null && (
           <a onClick={() => this.setState({ expanded: true })}>More</a>
