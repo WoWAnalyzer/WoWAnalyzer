@@ -1,6 +1,6 @@
-import Module from 'Main/Parser/Module';
+import Module from 'Parser/Core/Module';
 
-import Combatant from './Combatant';
+import Combatant from '../Combatant';
 
 class Combatants extends Module {
   players = {};

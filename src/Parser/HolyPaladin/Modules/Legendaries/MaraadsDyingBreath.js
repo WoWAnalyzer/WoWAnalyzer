@@ -1,10 +1,9 @@
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 
-import Module from 'Main/Parser/Module';
-import calculateEffectiveHealing from 'Main/Parser/calculateEffectiveHealing';
+import Module from 'Parser/Core/Module';
+import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
-export const MARAADS_DYING_BREATH_ITEM_ID = 144273;
 const MARAADS_HEALING_BUFF_ID = 234862;
 const MARAADS_HEALING_INCREASE_PER_STACK = 0.1;
 

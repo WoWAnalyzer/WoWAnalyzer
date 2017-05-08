@@ -1,5 +1,6 @@
-import Module from 'Main/Parser/Module';
-import { BEACON_TYPES } from 'Main/Parser/Constants';
+import Module from 'Parser/Core/Module';
+
+import { BEACON_TYPES } from '../../Constants';
 
 const BEACONS = Object.values(BEACON_TYPES);
 

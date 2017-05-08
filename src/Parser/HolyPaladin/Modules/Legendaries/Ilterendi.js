@@ -1,10 +1,10 @@
 import ITEMS from 'common/ITEMS';
 
-import Module from 'Main/Parser/Module';
-import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from 'Main/Parser/Constants';
-import calculateEffectiveHealing from 'Main/Parser/calculateEffectiveHealing';
+import Module from 'Parser/Core/Module';
+import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
-export const ILTERENDI_ITEM_ID = 137046;
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
+
 const LEGENDARY_ILTERENDI_BUFF_SPELL_ID = 207589;
 const LEGENDARY_ILTERENDI_HEALING_INCREASE = 0.15;
 

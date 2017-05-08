@@ -1,5 +1,6 @@
-import Module from 'Main/Parser/Module';
-import { BEACON_TRANSFER_SPELL_ID, BEACON_TRANSFERING_ABILITIES, BEACON_TYPES } from 'Main/Parser/Constants';
+import Module from 'Parser/Core/Module';
+
+import { BEACON_TRANSFER_SPELL_ID, BEACON_TRANSFERING_ABILITIES, BEACON_TYPES } from '../../Constants';
 
 const debug = false;
 

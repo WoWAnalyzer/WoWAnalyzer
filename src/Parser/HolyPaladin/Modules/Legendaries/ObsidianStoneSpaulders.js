@@ -1,6 +1,6 @@
 import ITEMS from 'common/ITEMS';
 
-import Module from 'Main/Parser/Module';
+import Module from 'Parser/Core/Module';
 
 const OBSIDIAN_STONE_SPAULDERS_HEAL_SPELL_ID = 210999;
 

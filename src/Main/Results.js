@@ -20,14 +20,6 @@ import Mana from './Mana';
 import CPM_ABILITIES from './CPM_ABILITIES';
 import getCastEfficiency from './getCastEfficiency';
 
-import {
-  DIVINE_PURPOSE_HOLY_SHOCK_SPELL_ID,
-  DIVINE_PURPOSE_LIGHT_OF_DAWN_SPELL_ID,
-} from './Parser/Constants';
-import { SACRED_DAWN_TRAIT_ID } from './Parser/Modules/Features/SacredDawn';
-import { ILTERENDI_ITEM_ID } from './Parser/Modules/Legendaries/Ilterendi';
-import { MARAADS_DYING_BREATH_ITEM_ID } from './Parser/Modules/Legendaries/MaraadsDyingBreath';
-
 import ISSUE_IMPORTANCE from './ISSUE_IMPORTANCE';
 
 function formatThousands(number) {
@@ -273,7 +265,7 @@ class Results extends React.Component {
     const drapeOfShameHealingPercentage = parser.modules.drapeOfShame.healing / parser.totalHealing;
     const maraadsDyingBreathHealingPercentage = parser.modules.maraadsDyingBreath.healing / parser.totalHealing;
     const ilterendiHealingPercentage = parser.modules.ilterendi.healing / parser.totalHealing;
-    const hasSacredDawn = parser.selectedCombatant.traitsBySpellId[SACRED_DAWN_TRAIT_ID] === 1;
+    const hasSacredDawn = parser.selectedCombatant.traitsBySpellId[SPELLS.SACRED_DAWN.id] === 1;
     const sacredDawnPercentage = parser.modules.sacredDawn.healing / parser.totalHealing;
     const tyrsDeliveranceHealHealingPercentage = parser.modules.tyrsDeliverance.healHealing / parser.totalHealing;
     const tyrsDeliveranceBuffFoLHLHealingPercentage = parser.modules.tyrsDeliverance.buffFoLHLHealing / parser.totalHealing;
@@ -281,8 +273,8 @@ class Results extends React.Component {
     const hasRuleOfLaw = parser.selectedCombatant.lv30Talent === SPELLS.RULE_OF_LAW_TALENT.id;
 
     const hasDivinePurpose = parser.selectedCombatant.lv75Talent === SPELLS.DIVINE_PURPOSE_TALENT.id;
-    const divinePurposeHolyShockProcs = hasDivinePurpose && parser.selectedCombatant.getBuffTriggerCount(DIVINE_PURPOSE_HOLY_SHOCK_SPELL_ID);
-    const divinePurposeLightOfDawnProcs = hasDivinePurpose && parser.selectedCombatant.getBuffTriggerCount(DIVINE_PURPOSE_LIGHT_OF_DAWN_SPELL_ID);
+    const divinePurposeHolyShockProcs = hasDivinePurpose && parser.selectedCombatant.getBuffTriggerCount(SPELLS.DIVINE_PURPOSE_HOLY_SHOCK_BUFF.id);
+    const divinePurposeLightOfDawnProcs = hasDivinePurpose && parser.selectedCombatant.getBuffTriggerCount(SPELLS.DIVINE_PURPOSE_LIGHT_OF_DAWN_BUFF.id);
 
     if (nonHealingTimePercentage > 0.3) {
       this.issues.push({
@@ -668,7 +660,7 @@ class Results extends React.Component {
                         </li>
                       ),
                       parser.modules.ilterendi.active && (
-                        <li className="item clearfix" key={ILTERENDI_ITEM_ID}>
+                        <li className="item clearfix" key={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id}>
                           <article>
                             <figure>
                               <ItemIcon id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} />
@@ -763,7 +755,7 @@ class Results extends React.Component {
                         </li>
                       ),
                       parser.modules.maraadsDyingBreath.active && (
-                        <li className="item clearfix" key={MARAADS_DYING_BREATH_ITEM_ID}>
+                        <li className="item clearfix" key={ITEMS.MARAADS_DYING_BREATH.id}>
                           <article>
                             <figure>
                               <ItemIcon id={ITEMS.MARAADS_DYING_BREATH.id} />

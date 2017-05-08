@@ -1,9 +1,10 @@
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 
-import Module from 'Main/Parser/Module';
-import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from 'Main/Parser/Constants';
-import calculateEffectiveHealing from 'Main/Parser/calculateEffectiveHealing';
+import Module from 'Parser/Core/Module';
+import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
+
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
 
 const LEGENDARY_VELENS_HEAL_SPELL_ID = 235967;
 const LEGENDARY_VELENS_HEALING_INCREASE = 0.15;

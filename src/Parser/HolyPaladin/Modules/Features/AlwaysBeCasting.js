@@ -1,4 +1,4 @@
-import Module from 'Main/Parser/Module';
+import Module from 'Parser/Core/Module';
 import SPELLS from 'common/SPELLS';
 
 const HEALING_ABILITIES_ON_GCD = [

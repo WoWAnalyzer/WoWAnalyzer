@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 
-import AbilityTracker from 'Main/Parser/Modules/Core/AbilityTracker';
+import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 const INFUSION_OF_LIGHT_SPELL_ID = 54149;
 const INFUSION_OF_LIGHT_BUFF_EXPIRATION_BUFFER = 50; // the buff expiration can occur several MS before the heal event is logged, this is the buffer time that an IoL charge may have dropped during which it will still be considered active.

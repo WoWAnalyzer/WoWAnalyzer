@@ -1,4 +1,4 @@
-import Module from 'Main/Parser/Module';
+import Module from 'Parser/Core/Module';
 
 import TARGET_SPEC_ID from '../../TARGET_SPEC_ID';
 

@@ -1,4 +1,4 @@
-import Module from 'Main/Parser/Module';
+import Module from 'Parser/Core/Module';
 
 const debug = true;
 const TIMEOUT = 1000;

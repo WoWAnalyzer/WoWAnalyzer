@@ -1,7 +1,5 @@
 import SPELLS from 'common/SPELLS';
 
-export const LEECH_SPELL_ID = 143924;
-
 // All beacons use this spell id for their healing events.
 export const BEACON_TRANSFER_SPELL_ID = 53652;
 
@@ -17,12 +15,9 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   SPELLS.AURA_OF_MERCY_HEAL.id,
   // While the following spells don't double dip in healing increases, they gain the same percentual bonus from the transfer
   BEACON_TRANSFER_SPELL_ID,
-  LEECH_SPELL_ID,
+  SPELLS.LEECH.id,
   // SPELLS.AURA_OF_SACRIFICE_HEAL.id, // while AoS sorta is included, it's based on effective healing and any overhealing from the original spell would have to be reduced to get an accurate result. Not including it doesn't have a big impact.
 ];
-
-export const DIVINE_PURPOSE_HOLY_SHOCK_SPELL_ID = 216411;
-export const DIVINE_PURPOSE_LIGHT_OF_DAWN_SPELL_ID = 216413;
 
 export const ABILITIES_AFFECTED_BY_MASTERY = [
   SPELLS.HOLY_SHOCK_HEAL.id,
@@ -54,14 +49,6 @@ export const BEACON_TYPES = {
   BEACON_OF_FATH: SPELLS.BEACON_OF_FAITH_TALENT.id,
   BEACON_OF_THE_LIGHTBRINGER: SPELLS.BEACON_OF_LIGHT_BUFF.id,
   BEACON_OF_VIRTUE: SPELLS.BEACON_OF_VIRTUE_TALENT.id,
-};
-export const TRAITS = {
-  SHOCK_TREATMENT: 200315,
-};
-export const HIT_TYPES = {
-  NORMAL: 1,
-  CRIT: 2,
-  NOCLUEWHATTHISIS: 3, // seen at Aura of Sacrifice
 };
 
 export const AVENGING_WRATH_HEALING_INCREASE = 0.35;

@@ -1,11 +1,12 @@
 import SPELLS from 'common/SPELLS';
 
-import Module from 'Main/Parser/Module';
-import { ABILITIES_AFFECTED_BY_HEALING_INCREASES, BEACON_TRANSFER_SPELL_ID } from 'Main/Parser/Constants';
-import calculateEffectiveHealing from 'Main/Parser/calculateEffectiveHealing';
+import Module from 'Parser/Core/Module';
+import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
+
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES, BEACON_TRANSFER_SPELL_ID } from '../../Constants';
+
 const debug = false;
 
-export const SACRED_DAWN_TRAIT_ID = 238132;
 const SACRED_DAWN_BUFF_SPELL_ID = 243174;
 const SACRED_DAWN_HEALING_INCREASE = 0.1;
 

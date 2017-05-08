@@ -1,5 +1,6 @@
-import Module from 'Main/Parser/Module';
-import { HIT_TYPES } from 'Main/Parser/Constants';
+import Module from 'Parser/Core/Module';
+
+import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 
 class AbilityTracker extends Module {
   abilities = {};

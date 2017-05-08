@@ -1,8 +1,9 @@
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 
-import Module from 'Main/Parser/Module';
-import { ABILITIES_AFFECTED_BY_HEALING_INCREASES, AVENGING_WRATH_HEALING_INCREASE } from 'Main/Parser/Constants';
+import Module from 'Parser/Core/Module';
+
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES, AVENGING_WRATH_HEALING_INCREASE } from '../../Constants';
 
 const CHAIN_OF_THRAYN_HEALING_INCREASE = 0.25;
 

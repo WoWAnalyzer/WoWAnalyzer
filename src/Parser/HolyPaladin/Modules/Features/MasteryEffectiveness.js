@@ -1,7 +1,8 @@
 import SPELLS from 'common/SPELLS';
 
-import Module from 'Main/Parser/Module';
-import { ABILITIES_AFFECTED_BY_MASTERY, BEACON_TYPES } from 'Main/Parser/Constants';
+import Module from 'Parser/Core/Module';
+
+import { ABILITIES_AFFECTED_BY_MASTERY, BEACON_TYPES } from '../../Constants';
 
 const debug = true;
 

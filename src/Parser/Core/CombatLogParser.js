@@ -1,73 +1,35 @@
-import Initialize from './Modules/Core/Initialize';
-import Buffs from './Modules/Core/Buffs';
-import Combatants from './Modules/Core/Combatants';
-
-import PaladinAbilityTracker from './Modules/PaladinCore/PaladinAbilityTracker';
-import BeaconHealing from './Modules/PaladinCore/BeaconHealing';
-import BeaconTargets from './Modules/PaladinCore/BeaconTargets';
-import VerifySpec from './Modules/PaladinCore/VerifySpec';
-
-import MasteryEffectiveness from './Modules/Features/MasteryEffectiveness';
-import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
-import SacredDawn from './Modules/Features/SacredDawn';
-import TyrsDeliverance from './Modules/Features/TyrsDeliverance';
-
-import DrapeOfShame from './Modules/Legendaries/DrapeOfShame';
-import Ilterendi from './Modules/Legendaries/Ilterendi';
-import Velens from './Modules/Legendaries/Velens';
-import ChainOfThrayn from './Modules/Legendaries/ChainOfThrayn';
-import Prydaz from './Modules/Legendaries/Prydaz';
-import ObsidianStoneSpaulders from './Modules/Legendaries/ObsidianStoneSpaulders';
-import MaraadsDyingBreath from './Modules/Legendaries/MaraadsDyingBreath';
+import Initialize from './Modules/Initialize';
+import Buffs from './Modules/Buffs';
+import Combatants from './Modules/Combatants';
+import AbilityTracker from './Modules/AbilityTracker';
 
 class CombatLogParser {
-  static enabledModules = {
-    // Core
+  static defaultModules = {
     initialize: Initialize,
     combatants: Combatants,
     buffs: Buffs,
-    abilityTracker: PaladinAbilityTracker,
-
-    // PaladinCore
-    beaconHealing: BeaconHealing,
-    beaconTargets: BeaconTargets,
-    verifySpec: VerifySpec,
-
-    // Features
-    masteryEffectiveness: MasteryEffectiveness,
-    alwaysBeCasting: AlwaysBeCasting,
-    sacredDawn: SacredDawn,
-    tyrsDeliverance: TyrsDeliverance,
-
-    // Legendaries:
-    drapeOfShame: DrapeOfShame,
-    ilterendi: Ilterendi,
-    velens: Velens,
-    chainOfThrayn: ChainOfThrayn,
-    prydaz: Prydaz,
-    obsidianStoneSpaulders: ObsidianStoneSpaulders,
-    maraadsDyingBreath: MaraadsDyingBreath,
+    abilityTracker: AbilityTracker,
   };
+  // Override this with spec specific modules
+  static specModules = {};
 
   report = null;
   player = null;
   fight = null;
 
+  modules = {};
+
   get playerId() {
     return this.player.id;
   }
 
-  modules = {};
-
   get buffs() {
     return this.modules.buffs;
   }
-
   /** @returns Combatants */
   get combatants() {
     return this.modules.combatants;
   }
-
   /** @returns {Combatant} */
   get selectedCombatant() {
     return this.combatants.selected;
@@ -93,8 +55,13 @@ class CombatLogParser {
     this.player = player;
     this.fight = fight;
 
-    Object.keys(this.constructor.enabledModules).forEach(key => {
-      const value = this.constructor.enabledModules[key];
+    this.initializeModules(this.constructor.defaultModules);
+    this.initializeModules(this.constructor.specModules);
+  }
+  initializeModules(modules) {
+    Object.keys(modules).forEach(key => {
+      const value = modules[key];
+      // This may override existing modules, this is intended.
       this.modules[key] = new value(this);
     });
   }
@@ -158,6 +125,7 @@ class CombatLogParser {
     this.finished = true;
   }
 
+  // This used to be implemented as a sanity check, may be replaced by a cleaner solution.
   totalHealing = 0;
   on_byPlayer_heal(event) {
     this.totalHealing += event.amount + (event.absorbed || 0);
