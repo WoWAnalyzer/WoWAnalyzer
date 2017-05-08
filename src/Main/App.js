@@ -12,7 +12,7 @@ import FightSelecter from './FightSelecter';
 import PlayerSelecter from './PlayerSelecter';
 import Results from './Results';
 
-import CombatLogParser from 'Parser/Core/CombatLogParser';
+import CombatLogParser from 'Parser/HolyPaladin/CombatLogParser';
 
 const formatDuration = (duration) => {
   const seconds = Math.floor(duration % 60);
