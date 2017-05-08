@@ -321,7 +321,7 @@ class Results extends React.Component {
     }
     if (iolFoLToHLCastRatio < 0.7) {
       this.issues.push({
-        issue: <span>Your <i>IoL FoL to HL cast ratio</i> can likely be improved. When you get an <SpellLink id={SPELLS.INFUSION_OF_LIGHT.id} /> proc try to cast <SpellLink id={SPELLS.HOLY_LIGHT.id} /> as much as possible, it is a considerably stronger heal ({iolFlashOfLights} Flash of Lights ({Math.round(iolFoLToHLCastRatio * 100)}%) to {iolHolyLights} Holy Lights ({Math.round(100 - iolFoLToHLCastRatio * 100)}%) cast with Infusion of Light).</span>,
+        issue: <span>Your <i>IoL FoL to HL cast ratio</i> can likely be improved. When you get an <SpellLink id={SPELLS.INFUSION_OF_LIGHT.id} /> proc try to cast <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} /> as much as possible, it is a considerably stronger heal ({iolFlashOfLights} Flash of Lights ({Math.round(iolFoLToHLCastRatio * 100)}%) to {iolHolyLights} Holy Lights ({Math.round(100 - iolFoLToHLCastRatio * 100)}%) cast with Infusion of Light).</span>,
         icon: SPELLS.INFUSION_OF_LIGHT.icon,
         importance: getIssueImportance(iolFoLToHLCastRatio, 0.6, 0.4),
       });
@@ -362,7 +362,7 @@ class Results extends React.Component {
     }
     const fillerLotmsPerMinute = fillerLotms / (fightDuration / 1000) * 60;
     if (fillerLotmsPerMinute >= 1.0) {
-      let issue = '';
+      let issue = null;
       if (parser.modules.maraadsDyingBreath.active) {
         issue = <span>With <ItemLink id={ITEMS.MARAADS_DYING_BREATH.id} /> you should only cast <b>one</b> <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> per <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} />. Without the buff <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> is a very inefficient spell to cast. Try to only cast additional Light of the Martyr when absolutely necessary ({fillerLotmsPerMinute.toFixed(2)} CPM (unbuffed only)).</span>;
       } else {

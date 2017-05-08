@@ -1,6 +1,7 @@
 import React from 'react';
 
 const changes = `
+08-05-2017 - Oops one of the lines got mixed up. Fixed Holy Light instead of Flash of Light being suggested to improve Infusion of Light proc usage. Casting Holy Light during IoL is worse, m'kay.
 07-05-2017 - Untangled many lines - you shouldn't notice a difference.
 05-05-2017 - Added Aura of Mercy and Sacrifice healing done statistic.
 05-05-2017 - Changed the report selection interface.
