@@ -1,11 +1,13 @@
 import talents from './SPELLS_TALENTS';
 import spells from './SPELLS_ABILITIES';
 import traits from './SPELLS_TRAITS';
+import racials from './SPELLS_RACIALS';
 
 const ABILITIES = {
   ...talents,
   ...spells,
   ...traits,
+  ...racials,
 };
 
 // For ease of use we want to both be able to access abilities by code names (e.g. `ABILITIES.AURA_OF_MERCY_TALENT`) and by spell id (e.g. `ABILITIES[183415]`)

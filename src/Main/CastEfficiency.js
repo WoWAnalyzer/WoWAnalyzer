@@ -18,7 +18,7 @@ const CastEfficiency = ({ abilities }) => {
           <tr>
             <th>{SPELL_CATEGORY[key]}</th>
             <th className="text-center"><dfn data-tip="Casts Per Minute">CPM</dfn></th>
-            <th colSpan="3"><dfn data-tip="The max possible casts is a super simplified calculation based on the Haste you get from your gear alone. Haste increasers like Holy Avenger, Bloodlust and from boss abilities are not taken into consideration, so this is <b>always</b> lower than actually possible for abilities affected by Haste.">Cast efficiency</dfn></th>
+            <th colSpan="3"><dfn data-tip="The max possible casts is a super simplified calculation based on the Haste you get from your gear alone. Any Haste increasers such as from talents, Bloodlust and boss abilities are not taken into consideration, so this is <b>always</b> lower than actually possible for abilities affected by Haste.">Cast efficiency</dfn></th>
             <th></th>
           </tr>
           </thead>

@@ -27,7 +27,7 @@ const ABILITIES_ON_GCD = [
   SPELLS.BEACON_OF_FAITH_TALENT.id,
   SPELLS.BEACON_OF_THE_LIGHTBRINGER_TALENT.id, // pretty sure this will be the logged cast when BotLB is reapplied, not the below "Beacon of Light" which is the buff. Not yet tested so leaving both in.
   53563, // Beacon of Light
-  SPELLS.BEACON_OF_VIRTUE_TALENT.id, // Beacon of Virtue
+  SPELLS.BEACON_OF_VIRTUE_TALENT.id,
   1044, // Blessing of Freedom
   1022, // Blessing of Protection
   4987, // Cleanse
@@ -44,7 +44,8 @@ const HASTE_BUFFS = {
   [178207]: 0.25, // Drums of Fury
   [230935]: 0.25, // Drums of the Mountain
   [146555]: 0.25, // Drums of Rage
-  [SPELLS.HOLY_AVENGER_TALENT.id]: 0.3, // Holy Avenger
+  [SPELLS.HOLY_AVENGER_TALENT.id]: 0.3,
+  [SPELLS.BERSERKING.id]: 0.15,
 };
 
 const debug = false;

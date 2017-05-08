@@ -74,11 +74,6 @@ export default {
     name: 'Aura Mastery',
     icon: 'spell_holy_auramastery',
   },
-  ARCANE_TORRENT: {
-    id: 155145,
-    name: 'Arcane Torrent',
-    icon: 'spell_shadow_teleport',
-  },
   AURA_OF_MERCY_HEAL: {
     id: 210291,
     name: 'Aura of Mercy',
