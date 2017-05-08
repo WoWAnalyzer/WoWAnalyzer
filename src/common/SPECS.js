@@ -1,4 +1,4 @@
-const SPEC_IDS = {
+const SPECS = {
   62: { className: 'Mage', spec: 'Arcane', },
   63: { className: 'Mage', spec: 'Fire', },
   64: { className: 'Mage', spec: 'Frost', },
@@ -37,4 +37,4 @@ const SPEC_IDS = {
   581: { className: 'Demon Hunter', spec: 'Vengeance', },
 };
 
-export default SPEC_IDS;
+export default SPECS;

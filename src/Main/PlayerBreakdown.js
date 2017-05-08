@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SPEC_IDS from './SPEC_IDS';
+import SPECS from 'common/SPECS';
 
 const PlayerBreakdown = ({ friendlyStats, highestHealingFromMastery, totalHealingFromMastery }) => (
   <table className="data-table">
@@ -15,7 +15,7 @@ const PlayerBreakdown = ({ friendlyStats, highestHealingFromMastery, totalHealin
       {friendlyStats
         .sort((a, b) => b.masteryEffectiveness - a.masteryEffectiveness)
         .map(player => {
-          const spec = SPEC_IDS[player.combatant.specId];
+          const spec = SPECS[player.combatant.specId];
           const specClassName = spec.className.replace(' ', '');
           // We want the performance bar to show a full bar for whatever healing done percentage is highest to make
           // it easier to see relative amounts.
