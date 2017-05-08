@@ -2,7 +2,7 @@ import Module from 'Parser/Core/Module';
 
 import { BEACON_TYPES } from '../../Constants';
 
-const BEACONS = Object.values(BEACON_TYPES);
+const BEACONS = Object.keys(BEACON_TYPES).map(key => BEACON_TYPES[key]);
 
 const debug = true;
 

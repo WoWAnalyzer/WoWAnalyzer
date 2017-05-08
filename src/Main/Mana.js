@@ -137,17 +137,17 @@ class Mana extends React.PureComponent {
         ...bosses.map((series, index) => ({
           className: `boss-health boss-${index} boss-${series.guid}`,
           name: `${series.name} Health`,
-          data: Object.values(series.data),
+          data: Object.keys(series.data).map(key => series.data[key]),
         })),
         {
           className: 'mana',
           name: 'Mana',
-          data: Object.values(manaBySecond),
+          data: Object.keys(manaBySecond).map(key => manaBySecond[key]),
         },
         {
           className: 'death',
           name: 'Deaths',
-          data: Object.values(deathsBySecond),
+          data: Object.keys(deathsBySecond).map(key => deathsBySecond[key]),
         }
       ],
     };

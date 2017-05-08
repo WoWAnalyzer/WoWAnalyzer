@@ -31,6 +31,9 @@ class App extends Component {
       resultTab: React.PropTypes.string,
     }),
   };
+  static defaultProps = {
+    params: {},
+  };
 
   get reportCode() {
     return this.props.params.reportCode;
