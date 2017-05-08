@@ -1,3 +1,5 @@
+import indexById from './indexById';
+
 const QUALITIES = {
   LEGENDARY: 'legendary',
   epic: 'epic',
@@ -48,11 +50,4 @@ const ITEMS = {
   },
 };
 
-// For ease of use we want to both be able to access abilities by code names (e.g. `ITEMS.AURA_OF_MERCY_TALENT`) and by spell id (e.g. `ITEMS[183415]`)
-Object.keys(ITEMS).forEach((key) => {
-  const ability = ITEMS[key];
-
-  ITEMS[ability.id] = ability;
-});
-
-export default ITEMS;
+export default indexById(ITEMS);
