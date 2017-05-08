@@ -12,7 +12,7 @@ const PlayerBreakdown = ({ friendlyStats, highestHealingFromMastery, totalHealin
       </tr>
     </thead>
     <tbody>
-      {friendlyStats
+      {friendlyStats && friendlyStats
         .sort((a, b) => b.masteryEffectiveness - a.masteryEffectiveness)
         .map(player => {
           const spec = SPECS[player.combatant.specId];
