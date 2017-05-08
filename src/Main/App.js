@@ -62,13 +62,8 @@ class App extends Component {
     super();
     this.state = {
       report: null,
-      results: null,
       progress: 0,
       finished: false,
-      totalHealingFromMastery: 0,
-      totalMaxPotentialMasteryHealing: 0,
-      ruleOfLawUptimePercentage: 0,
-      friendlyStats: null,
       dataVersion: 0,
     };
 
@@ -91,10 +86,6 @@ class App extends Component {
 
     this.setState({
       progress: 0,
-      totalHealingFromMastery: 0,
-      totalMaxPotentialMasteryHealing: 0,
-      ruleOfLawUptimePercentage: 0,
-      friendlyStats: null,
     });
     this.parseNextBatch(parser, report.code, player, fight.start_time, fight.end_time);
   }
@@ -189,10 +180,6 @@ class App extends Component {
     this.setState({
       progress: 0,
       finished: false,
-      totalHealingFromMastery: 0,
-      totalMaxPotentialMasteryHealing: 0,
-      ruleOfLawUptimePercentage: 0,
-      friendlyStats: null,
     });
   }
 
