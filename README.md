@@ -64,8 +64,16 @@ This may be outdated.
 
 ## Further ideas
 
+Currently in the process of refactoring major parts to make the analyzer easier to adopt for other specs.
+
  * Show WCL performance ranking & HPS on the report
  * Only load optional modules when the required item is equipped.
+ * Use JoL suggestion
+ * Sactified Wrath healing contribution, JoL suggestion could be based on this
+ * Devotion aura healing based on damage taken * average damage prevented by devo + active time damage prevented
+ * Refresh button on fight selection
+ * Select Fight then Player; allows for getting combatant info so we can better filter by spec; allows for later support of multiple specs in this one tool
+ * Refactor the mana graph to use the mana in the events - this should make mana suggestions easier too
 
 ## License
 
