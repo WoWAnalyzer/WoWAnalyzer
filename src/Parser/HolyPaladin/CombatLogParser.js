@@ -4,7 +4,6 @@ import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 import ParseResults from 'Parser/Core/ParseResults';
 import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
-import TABS from 'Parser/Core/TABS';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
