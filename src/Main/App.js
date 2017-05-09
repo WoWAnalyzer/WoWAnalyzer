@@ -73,7 +73,6 @@ class App extends Component {
     this.state = {
       report: null,
       progress: 0,
-      finished: false,
       dataVersion: 0,
     };
 
@@ -120,7 +119,6 @@ class App extends Component {
             // Update the interface with progress
             this.setState({
               progress: (pageTimestamp - fightStart) / (fightEnd - fightStart),
-              finished: false,
               dataVersion: this.state.dataVersion + 1, // each time we parsed events we want to refresh the report, this triggers that while the `praser` object that's passed on the `<Results>` elem will always be the same reference
             });
 
@@ -145,7 +143,6 @@ class App extends Component {
 
     this.setState({
       progress: 1,
-      finished: true,
     });
   }
 
@@ -189,7 +186,6 @@ class App extends Component {
     this.parser = null;
     this.setState({
       progress: 0,
-      finished: false,
     });
   }
 
@@ -302,7 +298,6 @@ class App extends Component {
             return (
               <Results
                 parser={parser}
-                finished={this.state.finished}
                 dataVersion={this.state.dataVersion}
                 tab={this.resultTab}
                 onChangeTab={newTab => hashHistory.push(`/report/${report.code}/${this.playerName}/${this.fightId}/${newTab}`)}
