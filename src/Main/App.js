@@ -12,12 +12,14 @@ import FightSelecter from './FightSelecter';
 import PlayerSelecter from './PlayerSelecter';
 import Results from './Results';
 
-import CombatLogParser from 'Parser/HolyPaladin/CombatLogParser';
+import CONFIG from 'Parser/HolyPaladin/CONFIG';
 
 const formatDuration = (duration) => {
   const seconds = Math.floor(duration % 60);
   return `${Math.floor(duration / 60)}:${seconds < 10 ? `0${seconds}` : seconds}`;
 };
+
+const pageTitle = `${CONFIG.spec.specName} ${CONFIG.spec.className} Analyzer`;
 
 class App extends Component {
   static propTypes = {
@@ -34,6 +36,14 @@ class App extends Component {
   static defaultProps = {
     params: {},
   };
+  static childContextTypes = {
+    config: React.PropTypes.object.isRequired,
+  };
+  getChildContext() {
+    return {
+      config: CONFIG,
+    };
+  }
 
   get reportCode() {
     return this.props.params.reportCode;
@@ -81,13 +91,13 @@ class App extends Component {
     const player = this.getPlayerFromReport(report, playerName);
     const fight = this.getFightFromReport(report, fightId);
 
-    const parser = new CombatLogParser(report, player, fight);
-    this.parser = parser;
+    const ParserClass = CONFIG.parser;
+    this.parser = new ParserClass(report, player, fight);
 
     this.setState({
       progress: 0,
     });
-    this.parseNextBatch(parser, report.code, player, fight.start_time, fight.end_time);
+    this.parseNextBatch(this.parser, report.code, player, fight.start_time, fight.end_time);
   }
   parseNextBatch(parser, code, player, fightStart, fightEnd, nextPageTimestamp = null) {
     if (parser !== this.parser) {
@@ -207,7 +217,7 @@ class App extends Component {
     }
     ReactTooltip.rebuild();
 
-    let title = 'Holy Paladin Analyzer';
+    let title = pageTitle;
     if (this.reportCode && this.state.report) {
       if (this.playerName) {
         if (this.fight) {
@@ -252,12 +262,12 @@ class App extends Component {
           <div className="navbar-progress" style={{ width: `${progress}%`, opacity: progress === 0 || progress === 100 ? 0 : 1 }} />
           <div className="container">
             <ul className="nav navbar-nav navbar-right">
-              <li><a href="https://github.com/MartijnHols/HolyPaladinAnalyzer"><span className="hidden-xs"> View on GitHub </span><img src="./img/GitHub-Mark-Light-32px.png" alt="GitHub logo" /></a></li>
+              <li><a href={CONFIG.githubUrl}><span className="hidden-xs"> View on GitHub </span><img src="./img/GitHub-Mark-Light-32px.png" alt="GitHub logo" /></a></li>
             </ul>
 
             <div className="navbar-header">
               <ol className="breadcrumb">
-                <li className="breadcrumb-item"><Link to={this.makeUrl()}>Holy Paladin Analyzer</Link></li>
+                <li className="breadcrumb-item"><Link to={this.makeUrl()}>{pageTitle}</Link></li>
                 {this.reportCode && report && <li className="breadcrumb-item"><Link to={this.makeUrl(this.reportCode)}>{report.title}</Link></li>}
                 {this.playerName && <li className="breadcrumb-item"><Link to={this.makeUrl(this.reportCode, this.playerName)}>{this.playerName}</Link></li>}
                 {this.fight && <li className="breadcrumb-item"><Link to={this.makeUrl(this.reportCode, this.playerName, this.fightId)}>{this.getFightName(this.fight)}</Link></li>}

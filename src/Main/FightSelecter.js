@@ -21,6 +21,9 @@ class FightSelecter extends Component {
     }),
     playerName: React.PropTypes.string.isRequired,
   };
+  static contextTypes = {
+    config: React.PropTypes.object.isRequired,
+  };
 
   componentWillUnmount() {
     ReactTooltip.hide();
@@ -33,7 +36,7 @@ class FightSelecter extends Component {
       <div>
         <h1>
           <div className="back-button">
-            <Link to={`/report/${report.code}`} data-tip="Back to Paladin selection">
+            <Link to={`/report/${report.code}`} data-tip={`Back to ${this.context.config.spec.className} selection`}>
               <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
             </Link>
           </div>

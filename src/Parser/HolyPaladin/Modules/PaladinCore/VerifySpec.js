@@ -1,13 +1,13 @@
 import Module from 'Parser/Core/Module';
 
-import TARGET_SPEC_ID from '../../TARGET_SPEC_ID';
+import CONFIG from '../../CONFIG';
 
 class VerifySpec extends Module {
   on_initialized() {
     if (!this.owner.selectedCombatant) {
       this.owner.error = 'The selected player could not be found in this fight. Make sure the log is recorded with Advanced Combat Logging enabled.';
-    } else if (this.owner.selectedCombatant.specId !== TARGET_SPEC_ID) {
-      this.owner.error = 'The selected player does not appear to be a Holy Paladin.';
+    } else if (this.owner.selectedCombatant.specId !== CONFIG.spec.id) {
+      this.owner.error = `The selected player does not appear to be a ${CONFIG.spec.specName} ${CONFIG.spec.className}.`;
     }
 
     this.active = false;

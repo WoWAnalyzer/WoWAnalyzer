@@ -6,6 +6,9 @@ class ReportSelecter extends Component {
   static propTypes = {
     onSubmit: React.PropTypes.func.isRequired,
   };
+  static contextTypes = {
+    config: React.PropTypes.object.isRequired,
+  };
 
   codeInput = null;
 
@@ -34,19 +37,21 @@ class ReportSelecter extends Component {
   }
 
   render() {
+    const config = this.context.config;
+
     return (
       <form onSubmit={this.handleSubmit} className="form-inline">
-        <h1>Analyze your Holy Paladin performance</h1>
+        <h1>Analyze your {config.spec.specName} {config.spec.className} performance</h1>
 
         <div className="row">
           <div className="col-md-6">
             <div className="panel">
               <div className="panel-heading">
-                <h2>The Holy Paladin Analyzer</h2>
+                <h2>The {config.spec.specName} {config.spec.className} Analyzer</h2>
               </div>
               <div className="panel-body">
                 <img src="./img/mastery-radius.png" alt="Mastery radius" className="pull-right" style={{ margin: 15 }} />
-                Use this tool to analyze your performance as a Holy Paladin based on important metrics for the spec.<br /><br />
+                Use this tool to analyze your performance as a {config.spec.specName} {config.spec.className} based on important metrics for the spec.<br /><br />
 
                 You will need a Warcraft Logs report with advanced combat logging enabled to start. Private logs can not be used, if your guild has private logs you will have to
                 {' '}<a href="https://www.warcraftlogs.com/help/start/">upload your own logs</a> or change the existing logs to the
@@ -54,7 +59,7 @@ class ReportSelecter extends Component {
 
                 Feature requests (<dfn data-tip="Provided that you're not using one of Microsoft's browsers.">and bug reports*</dfn>) are welcome!{' '}
                 <i>@Zerotorescue</i> on <a href="https://discordapp.com/invite/hammerofwrath">Discord</a> or create an issue{' '}
-                <a href="https://github.com/MartijnHols/HolyPaladinAnalyzer/issues">here</a>.
+                <a href={`${config.githubUrl}/issues`}>here</a>.
               </div>
             </div>
 
@@ -89,7 +94,7 @@ class ReportSelecter extends Component {
                 <h2>Source code</h2>
               </div>
               <div className="panel-body text-muted">
-                Full source is available on <a href="https://github.com/MartijnHols/HolyPaladinAnalyzer">GitHub</a>. The readme also contains information about the implemented features as well as a list of the percentage breakpoints for most suggestions.<br /><br />
+                Full source is available on <a href={config.githubUrl}>GitHub</a>. The readme also contains information about the implemented features as well as a list of the percentage breakpoints for most suggestions.<br /><br />
 
                 Created by Zerotorescue for the <a href="https://discordapp.com/invite/hammerofwrath">#holy Discord</a>. You can usually find helpful people there.
               </div>

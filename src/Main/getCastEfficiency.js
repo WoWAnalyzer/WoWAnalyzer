@@ -1,6 +1,4 @@
-import CPM_ABILITIES  from './CPM_ABILITIES';
-
-export default function getCastEfficiency(parser) {
+export default function getCastEfficiency(CPM_ABILITIES, parser) {
   const fightDuration = parser.fightDuration;
   const minutes = fightDuration / 1000 / 60;
 

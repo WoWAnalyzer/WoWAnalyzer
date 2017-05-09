@@ -17,7 +17,6 @@ import PlayerBreakdown from './PlayerBreakdown';
 import CastEfficiency from './CastEfficiency';
 import Talents from './Talents';
 import Mana from './Mana';
-import CPM_ABILITIES from './CPM_ABILITIES';
 import getCastEfficiency from './getCastEfficiency';
 
 import ISSUE_IMPORTANCE from './ISSUE_IMPORTANCE';
@@ -64,6 +63,9 @@ class Results extends React.Component {
     parser: React.PropTypes.object.isRequired,
     finished: React.PropTypes.bool.isRequired,
     tab: React.PropTypes.string,
+  };
+  static contextTypes = {
+    config: React.PropTypes.object.isRequired,
   };
 
   static calculateStats(parser) {
@@ -170,7 +172,7 @@ class Results extends React.Component {
     let casts = 0;
     let castsOnBeacon = 0;
 
-    CPM_ABILITIES
+    this.context.config.CPM_ABILITIES
       .filter(ability => ability.isActive === undefined || ability.isActive(selectedCombatant))
       .forEach((ability) => {
         const castCount = getCastCount(ability.spell.id);
@@ -416,7 +418,9 @@ class Results extends React.Component {
     // TODO: Suggestion for enchants
     // TODO: Sanctified Wrath healing contribution
 
-    const castEfficiency = getCastEfficiency(parser);
+    const config = this.context.config;
+    const castEfficiencyCategories = config.CPM_ABILITIES_CATEGORIES;
+    const castEfficiency = getCastEfficiency(config.CPM_ABILITIES, parser);
     castEfficiency.forEach((cpm) => {
       if (cpm.canBeImproved && !cpm.ability.noSuggestion) {
         this.issues.push({
@@ -933,6 +937,7 @@ class Results extends React.Component {
                   </div>
                   <div style={{ padding: '10px 0' }}>
                     <CastEfficiency
+                      categories={castEfficiencyCategories}
                       abilities={castEfficiency}
                     />
                   </div>

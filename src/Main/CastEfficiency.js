@@ -3,20 +3,18 @@ import React from 'react';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 
-import { SPELL_CATEGORY } from './CPM_ABILITIES';
-
-const CastEfficiency = ({ abilities }) => {
+const CastEfficiency = ({ categories, abilities }) => {
   if (!abilities) {
     return <div>Loading...</div>;
   }
 
   return (
     <div style={{ marginTop: -10, marginBottom: -10 }}>
-      {Object.keys(SPELL_CATEGORY).map((key) => (
+      {Object.keys(categories).map((key) => (
         <table className="data-table" key={key} style={{ marginTop: 10, marginBottom: 10 }}>
           <thead>
           <tr>
-            <th>{SPELL_CATEGORY[key]}</th>
+            <th>{categories[key]}</th>
             <th className="text-center"><dfn data-tip="Casts Per Minute">CPM</dfn></th>
             <th colSpan="3"><dfn data-tip="The max possible casts is a super simplified calculation based on the Haste you get from your gear alone. Any Haste increasers such as from talents, Bloodlust and boss abilities are not taken into consideration, so this is <b>always</b> lower than actually possible for abilities affected by Haste.">Cast efficiency</dfn></th>
             <th></th>
@@ -24,7 +22,7 @@ const CastEfficiency = ({ abilities }) => {
           </thead>
           <tbody>
           {abilities
-            .filter(item => item.ability.category === SPELL_CATEGORY[key])
+            .filter(item => item.ability.category === categories[key])
             .map(({ ability, cpm, maxCpm, casts, maxCasts, castEfficiency, canBeImproved }) => {
               const name = ability.name || ability.spell.name;
               return (
