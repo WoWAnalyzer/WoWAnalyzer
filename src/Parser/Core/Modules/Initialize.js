@@ -1,7 +1,7 @@
 import Module from 'Parser/Core/Module';
 
 const debug = true;
-const TIMEOUT = 1000;
+const TIMEOUT = 100;
 
 class Initialize extends Module {
   encounterStarted = false;
@@ -22,7 +22,7 @@ class Initialize extends Module {
           this.active = false;
           this.owner.triggerEvent('initialized');
         } else {
-          console.error('Received an unexpected event prior to `encounterstart`:', event);
+          console.error('Received an unexpected event prior to `encounterstart`:', event, event.timestamp, this.firstEventTimestamp);
         }
         break;
     }

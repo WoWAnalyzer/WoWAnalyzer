@@ -12,7 +12,9 @@ class DrapeOfShame extends Module {
   healing = 0;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasBack(ITEMS.DRAPE_OF_SHAME.id);
+    if (!this.owner.error) {
+      this.active = this.owner.selectedCombatant.hasBack(ITEMS.DRAPE_OF_SHAME.id);
+    }
   }
 
   on_byPlayer_heal(event) {

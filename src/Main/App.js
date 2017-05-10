@@ -133,7 +133,7 @@ class App extends Component {
             }
           })
           .catch((err) => {
-            alert(`The report could not be parsed. ${err.message}`);
+            alert(`The report could not be parsed because an error occured. ${err.message}`);
             console.error(err);
           });
       });

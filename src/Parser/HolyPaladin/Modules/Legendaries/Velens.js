@@ -13,7 +13,9 @@ class Velens extends Module {
   healing = 0;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT.id);
+    if (!this.owner.error) {
+      this.active = this.owner.selectedCombatant.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT.id);
+    }
   }
 
   on_byPlayer_heal(event) {
