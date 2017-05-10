@@ -123,7 +123,7 @@ class Results extends React.Component {
                   {results.tabs.map((tab) => {
                     return (
                       <li
-                        className={activeTab === tab.url ? 'active' : ''}
+                        className={activeTab.url === tab.url ? 'active' : ''}
                         onClick={() => onChangeTab(tab.url)}
                       >
                         {tab.title}
