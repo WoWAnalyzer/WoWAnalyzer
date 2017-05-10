@@ -96,12 +96,12 @@ class CombatLogParser extends MainCombatLogParser {
     maraadsDyingBreath: MaraadsDyingBreath,
   };
 
-  static calculateStats(parser) {
+  calculateMasteryStats() {
     let totalHealingWithMasteryAffectedAbilities = 0;
     let totalHealingFromMastery = 0;
     let totalMaxPotentialMasteryHealing = 0;
 
-    const statsByTargetId = parser.modules.masteryEffectiveness.masteryHealEvents.reduce((obj, event) => {
+    const statsByTargetId = this.modules.masteryEffectiveness.masteryHealEvents.reduce((obj, event) => {
       // Update the fight-totals
       totalHealingWithMasteryAffectedAbilities += event.amount;
       totalHealingFromMastery += event.masteryHealingDone;
@@ -109,7 +109,7 @@ class CombatLogParser extends MainCombatLogParser {
 
       // Update the player-totals
       if (!obj[event.targetID]) {
-        const combatant = parser.modules.combatants.players[event.targetID];
+        const combatant = this.modules.combatants.players[event.targetID];
         obj[event.targetID] = {
           combatant,
           healingReceived: 0,
@@ -131,31 +131,6 @@ class CombatLogParser extends MainCombatLogParser {
       totalHealingFromMastery,
       totalMaxPotentialMasteryHealing,
     };
-  }
-
-  friendlyStats = null;
-  calculatePlayerBreakdown() {
-    const stats = this.constructor.calculateStats(this);
-
-    const statsByTargetId = stats.statsByTargetId;
-    const playersById = this.playersById;
-    const friendlyStats = [];
-    Object.keys(statsByTargetId)
-      .forEach(targetId => {
-        const playerStats = statsByTargetId[targetId];
-        const playerInfo = playersById[targetId];
-
-        if (playerInfo) {
-          friendlyStats.push({
-            ...playerInfo,
-            ...playerStats,
-            masteryEffectiveness: playerStats.healingFromMastery / (playerStats.maxPotentialHealingFromMastery || 1),
-            healingReceivedPercentage: playerStats.healingReceived / stats.totalHealingWithMasteryAffectedAbilities,
-          });
-        }
-      });
-
-    this.friendlyStats = friendlyStats;
   }
 
   getTotalHealsOnBeaconPercentage(parser) {
@@ -188,10 +163,9 @@ class CombatLogParser extends MainCombatLogParser {
   generateResults() {
     const results = new ParseResults();
 
-    const stats = this.constructor.calculateStats(this);
+    const masteryStats = this.calculateMasteryStats();
 
-    const totalMasteryEffectiveness = stats.totalHealingFromMastery / (stats.totalMaxPotentialMasteryHealing || 1);
-    const highestHealingFromMastery = this.friendlyStats && this.friendlyStats.reduce((highest, player) => Math.max(highest, player.healingFromMastery), 1);
+    const totalMasteryEffectiveness = masteryStats.totalHealingFromMastery / (masteryStats.totalMaxPotentialMasteryHealing || 1);
     const ruleOfLawUptime = this.selectedCombatant.getBuffUptime(SPELLS.RULE_OF_LAW_TALENT.id) / this.fightDuration;
 
     const abilityTracker = this.modules.abilityTracker;
@@ -688,13 +662,12 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       },
       {
-        title: 'Mana',
-        url: 'player-breakdown',
+        title: 'Mastery effectiveness',
+        url: 'mastery-effectiveness',
         render: () => (
           <PlayerBreakdownTab
-            friendlyStats={this.friendlyStats}
-            highestHealingFromMastery={highestHealingFromMastery}
-            totalHealingFromMastery={stats.totalHealingFromMastery}
+            stats={masteryStats}
+            playersById={this.playersById}
           />
         ),
       }
