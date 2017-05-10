@@ -7,9 +7,6 @@ class ParseResults {
   addIssue(issue) {
     this.issues.push(issue);
   }
-  clearIssues() {
-    this.issues = [];
-  }
 }
 
 export default ParseResults;

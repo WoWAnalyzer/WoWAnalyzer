@@ -31,10 +31,10 @@ class Results extends React.Component {
       );
     }
 
-    parser.generateResults();
+    const results = parser.generateResults();
 
-    const tabUrl = tab || parser.parseResults.tabs[0].url;
-    const activeTab = parser.parseResults.tabs.find(tab => tab.url === tabUrl);
+    const tabUrl = tab || results.tabs[0].url;
+    const activeTab = results.tabs.find(tab => tab.url === tabUrl);
 
     return (
       <div style={{ width: '100%' }}>
@@ -58,7 +58,7 @@ class Results extends React.Component {
         <div className="row">
           <div className="col-md-8">
             <div className="row">
-              {parser.parseResults.statistics.map((statistic) => {
+              {results.statistics.map((statistic) => {
                 if (!statistic) {
                   return null;
                 }
@@ -78,12 +78,12 @@ class Results extends React.Component {
               </div>
               <div className="panel-body" style={{ padding: 0 }}>
                 <ul className="list">
-                  {parser.parseResults.items.length === 0 && (
+                  {results.items.length === 0 && (
                     <li className="item clearfix" style={{ paddingTop: 20, paddingBottom: 20 }}>
                       No noteworthy items.
                     </li>
                   )}
-                  {parser.parseResults.items.map(item => {
+                  {results.items.map(item => {
                     if (!item) {
                       return null;
                     }
@@ -120,7 +120,7 @@ class Results extends React.Component {
               </div>
               <div style={{ padding: '10px 0' }}>
                 <ul>
-                  {parser.parseResults.tabs.map((tab) => {
+                  {results.tabs.map((tab) => {
                     return (
                       <li
                         className={activeTab === tab.url ? 'active' : ''}
