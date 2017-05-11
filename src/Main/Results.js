@@ -4,7 +4,6 @@ import { Link } from 'react-router';
 class Results extends React.Component {
   static propTypes = {
     parser: React.PropTypes.object.isRequired,
-    finished: React.PropTypes.bool.isRequired,
     tab: React.PropTypes.string,
   };
   static contextTypes = {
@@ -58,13 +57,13 @@ class Results extends React.Component {
         <div className="row">
           <div className="col-md-8">
             <div className="row">
-              {results.statistics.map((statistic) => {
+              {results.statistics.map((statistic, i) => {
                 if (!statistic) {
                   return null;
                 }
 
                 return (
-                  <div className="col-lg-4 col-sm-6 col-xs-12">
+                  <div className="col-lg-4 col-sm-6 col-xs-12" key={i}>
                     {statistic}
                   </div>
                 );
@@ -120,16 +119,15 @@ class Results extends React.Component {
               </div>
               <div style={{ padding: '10px 0' }}>
                 <ul>
-                  {results.tabs.map((tab) => {
-                    return (
-                      <li
-                        className={activeTab.url === tab.url ? 'active' : ''}
-                        onClick={() => onChangeTab(tab.url)}
-                      >
-                        {tab.title}
-                      </li>
-                    );
-                  })}
+                  {results.tabs.map(tab => (
+                    <li
+                      key={tab.url}
+                      className={activeTab.url === tab.url ? 'active' : ''}
+                      onClick={() => onChangeTab(tab.url)}
+                    >
+                      {tab.title}
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
