@@ -41,7 +41,14 @@ class Buffs extends Module {
     }
   }
 
-  applyActiveBuff(buff) {
+  on_applydebuff(event) {
+    this.applyActiveBuff(event, true);
+  }
+  on_removedebuff(event) {
+    this.removeActiveBuff(event, true);
+  }
+
+  applyActiveBuff(buff, isDebuff) {
     const targetId = buff.targetID;
     const combatant = this.owner.combatants.players[targetId];
     if (!combatant) {
@@ -57,9 +64,10 @@ class Buffs extends Module {
       ...buff,
       start: buff.timestamp,
       end: null,
+      isDebuff,
     });
   }
-  removeActiveBuff(buff) {
+  removeActiveBuff(buff, isDebuff) {
     const targetId = buff.targetID;
     const combatant = this.owner.combatants.players[targetId];
     if (!combatant) {
@@ -79,6 +87,7 @@ class Buffs extends Module {
         ...buff,
         start: this.owner.fight.start_time,
         end: buff.timestamp,
+        isDebuff,
       });
     }
   }

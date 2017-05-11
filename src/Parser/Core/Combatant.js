@@ -245,6 +245,10 @@ class Combatant {
   //endregion
 
   //region Buffs
+  /**
+   * This also tracks debuffs in the exact same array. There are no parameters to filter results by debuffs. I don't think this should be necessary as debuffs and buffs usually have different spell IDs.
+   */
+
   buffs = [];
   /**
    * @param spellId
