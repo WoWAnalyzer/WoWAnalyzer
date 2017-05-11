@@ -34,7 +34,12 @@ const ABILITIES_ON_GCD = [
   853, // Hammer of Justice
   62124, // Hand of Reckoning
 ];
+
+
 /* eslint-disable no-useless-computed-key */
+/**
+ * This includes debuffs
+ */
 const HASTE_BUFFS = {
   [2825]: 0.3, // Bloodlust
   [32182]: 0.3, // Heroism
@@ -46,6 +51,11 @@ const HASTE_BUFFS = {
   [146555]: 0.25, // Drums of Rage
   [SPELLS.HOLY_AVENGER_TALENT.id]: 0.3,
   [SPELLS.BERSERKING.id]: 0.15,
+
+  // Boss abilities:
+  [209166]: 0.3, // DEBUFF - Fast Time from Elisande
+  [209165]: -0.3, // DEBUFF - Slow Time from Elisande
+  // [208944]: -Infinity, // DEBUFF - Time Stop from Elisande
 };
 
 const debug = false;
@@ -159,19 +169,33 @@ class AlwaysBeCasting extends Module {
     }
   }
   on_toPlayer_applybuff(event) {
-    const spellId = event.ability.guid;
-    if (HASTE_BUFFS[spellId]) {
-      this.currentHaste = this.constructor.applyHasteGain(this.currentHaste, HASTE_BUFFS[spellId]);
-
-      debug && console.log(`ABC: Current haste: ${this.currentHaste} (gained ${HASTE_BUFFS[spellId]} from ${spellId})`);
-    }
+    this.applyActiveBuff(event);
   }
   on_toPlayer_removebuff(event) {
+    this.removeActiveBuff(event);
+  }
+  on_toPlayer_applydebuff(event) {
+    this.applyActiveBuff(event);
+  }
+  on_toPlayer_removedebuff(event) {
+    this.removeActiveBuff(event);
+  }
+  applyActiveBuff(event) {
     const spellId = event.ability.guid;
-    if (HASTE_BUFFS[spellId]) {
-      this.currentHaste = Math.max(this.baseHaste, this.constructor.applyHasteLoss(this.currentHaste, HASTE_BUFFS[spellId]));
+    const hasteGain = HASTE_BUFFS[spellId];
+    if (hasteGain) {
+      this.applyHasteGain(hasteGain);
 
-      debug && console.log(`ABC: Current haste: ${this.currentHaste} (lost ${HASTE_BUFFS[spellId]} from ${spellId})`);
+      debug && console.log(`ABC: Current haste: ${this.currentHaste} (gained ${hasteGain} from ${spellId})`);
+    }
+  }
+  removeActiveBuff(event) {
+    const spellId = event.ability.guid;
+    const hasteGain = HASTE_BUFFS[spellId];
+    if (hasteGain) {
+      this.applyHasteLoss(hasteGain);
+
+      debug && console.log(`ABC: Current haste: ${this.currentHaste} (lost ${hasteGain} from ${spellId})`);
     }
   }
 
@@ -192,7 +216,7 @@ class AlwaysBeCasting extends Module {
       this.currentHaste = this.baseHaste;
       Object.keys(HASTE_BUFFS).forEach((spellId) => {
         if (selectedCombatant.hasBuff(spellId, (logEntry.begincast || logEntry.cast).timestamp)) {
-          this.currentHaste = this.constructor.applyHasteGain(this.currentHaste, HASTE_BUFFS[spellId]);
+          this.applyHasteGain(HASTE_BUFFS[spellId]);
         }
       });
 
@@ -209,8 +233,14 @@ class AlwaysBeCasting extends Module {
   static applyHasteGain(baseHaste, hasteGain) {
     return baseHaste * (1 + hasteGain) + hasteGain;
   }
+  applyHasteGain(hasteGain) {
+    this.currentHaste = this.constructor.applyHasteGain(this.currentHaste, hasteGain);
+  }
   static applyHasteLoss(baseHaste, hasteLoss) {
     return (baseHaste - hasteLoss) / (1 + hasteLoss);
+  }
+  applyHasteLoss(hasteGain) {
+    this.currentHaste = this.constructor.applyHasteLoss(this.currentHaste, hasteGain);
   }
 }
 
