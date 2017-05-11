@@ -136,6 +136,10 @@ class CombatLogParser {
     this.totalHealing += event.amount + (event.absorbed || 0);
   }
   // TODO: Damage taken from LOTM
+
+  generateResults() {
+    throw new Error('You need to implement `CombatLogParser.generateResults()`. This method will be called each time new data has been processed to update the view.');
+  }
 }
 
 export default CombatLogParser;
