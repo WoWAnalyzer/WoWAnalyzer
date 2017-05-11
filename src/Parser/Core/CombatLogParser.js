@@ -2,6 +2,7 @@ import Initialize from './Modules/Initialize';
 import Buffs from './Modules/Buffs';
 import Combatants from './Modules/Combatants';
 import AbilityTracker from './Modules/AbilityTracker';
+import AlwaysBeCasting from './Modules/AlwaysBeCasting';
 
 class CombatLogParser {
   static defaultModules = {
@@ -9,6 +10,7 @@ class CombatLogParser {
     combatants: Combatants,
     buffs: Buffs,
     abilityTracker: AbilityTracker,
+    alwaysBeCasting: AlwaysBeCasting,
   };
   // Override this with spec specific modules
   static specModules = {};

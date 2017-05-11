@@ -4,7 +4,7 @@ import Module from 'Parser/Core/Module';
 
 import { ABILITIES_AFFECTED_BY_MASTERY, BEACON_TYPES } from '../../Constants';
 
-const debug = true;
+const debug = false;
 
 class MasteryEffectiveness extends Module {
   lastPlayerPositionUpdate = null;

@@ -148,4 +148,5 @@ const CPM_ABILITIES = [
     getCooldown: haste => null,
   },
 ];
+
 export default CPM_ABILITIES;
