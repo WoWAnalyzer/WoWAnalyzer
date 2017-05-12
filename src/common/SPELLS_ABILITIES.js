@@ -1,4 +1,54 @@
 export default {
+  // General:
+  LEECH: {
+    id: 143924,
+    name: 'Leech',
+    icon: 'spell_shadow_lifedrain02',
+  },
+  // Items buffs:
+  VELENS_FUTURE_SIGHT_BUFF: {
+    id: 235966,
+    name: 'Velen\'s Future Sight',
+    icon: 'spell_holy_healingfocus',
+  },
+
+  // Paladin:
+  CRUSADER_STRIKE: {
+    id: 35395,
+    name: 'Crusader Strike',
+    icon: 'spell_holy_crusaderstrike',
+  },
+  JUDGMENT_CAST: {
+    id: 20271,
+    name: 'Judgment',
+    icon: 'spell_holy_righteousfury',
+  },
+  DIVINE_STEED: {
+    id: 190784,
+    name: 'Divine Steed',
+    icon: 'ability_paladin_divinesteed',
+  },
+  HAND_OF_RECKONING: {
+    id: 62124,
+    name: 'Hand of Reckoning',
+    icon: 'spell_holy_unyieldingfaith',
+  },
+  LAY_ON_HANDS: {
+    id: 633,
+    name: 'Lay on Hands',
+    icon: 'spell_holy_layonhands',
+  },
+  BLESSING_OF_FREEDOM: {
+    id: 1044,
+    name: 'Blessing of Freedom',
+    icon: 'spell_holy_sealofvalor',
+  },
+  FLASH_OF_LIGHT: {
+    id: 19750,
+    name: 'Flash of Light',
+    icon: 'spell_holy_flashheal',
+  },
+  // Holy Paladin:
   HOLY_SHOCK_HEAL: {
     id: 25914,
     name: 'Holy Shock',
@@ -23,11 +73,6 @@ export default {
     id: 82326,
     name: 'Holy Light',
     icon: 'spell_holy_surgeoflight',
-  },
-  FLASH_OF_LIGHT: {
-    id: 19750,
-    name: 'Flash of Light',
-    icon: 'spell_holy_flashheal',
   },
   LIGHT_OF_THE_MARTYR: {
     id: 183998,
@@ -64,11 +109,6 @@ export default {
     name: 'Judgment of Light',
     icon: 'spell_holy_divineprovidence',
   },
-  JUDGMENT_CAST: {
-    id: 20271,
-    name: 'Judgment',
-    icon: 'spell_holy_righteousfury',
-  },
   AURA_MASTERY: {
     id: 31821,
     name: 'Aura Mastery',
@@ -83,11 +123,6 @@ export default {
     id: 210383,
     name: 'Aura of Sacrifice',
     icon: 'ability_deathwing_bloodcorruption_earth',
-  },
-  CRUSADER_STRIKE: {
-    id: 35395,
-    name: 'Crusader Strike',
-    icon: 'spell_holy_crusaderstrike',
   },
   DIVINE_PROTECTION: {
     id: 498,
@@ -109,15 +144,10 @@ export default {
     name: 'Beacon of Light',
     icon: 'ability_paladin_beaconoflight',
   },
-  T19_4SET_BONUS_BUFF: {
+  HOLY_PALADIN_T19_4SET_BONUS_BUFF: {
     id: 211438,
     name: 'T19 4 set bonus',
     icon: 'ability_paladin_infusionoflight',
-  },
-  VELENS_FUTURE_SIGHT: {
-    id: 235966,
-    name: 'Velen\'s Future Sight',
-    icon: 'spell_holy_healingfocus',
   },
   INFUSION_OF_LIGHT: {
     id: 53576,
@@ -134,9 +164,35 @@ export default {
     name: 'Divine Purpose',
     icon: 'spell_holy_divinepurpose',
   },
-  LEECH: {
-    id: 143924,
-    name: 'Leech',
-    icon: 'spell_shadow_lifedrain02',
-  }
+  // Retribution Paladin:
+  TEMPLARS_VERDICT: {
+    id: 85256,
+    name: 'Templar\'s Verdict',
+    icon: 'spell_paladin_templarsverdict',
+  },
+  BLADE_OF_JUSTICE: {
+    id: 184575,
+    name: 'Blade of Justice',
+    icon: 'ability_paladin_bladeofjustice',
+  },
+  DIVINE_HAMMER_HIT: {
+    id: 198137,
+    name: 'Divine Hammer',
+    icon: 'spell_holy_auraoflight',
+  },
+  DIVINE_STORM: {
+    id: 53385,
+    name: 'Divine Storm',
+    icon: 'ability_paladin_divinestorm',
+  },
+  WAKE_OF_ASHES: {
+    id: 205273,
+    name: 'Wake of Ashes',
+    icon: 'inv_sword_2h_artifactashbringer_d_01',
+  },
+  SHIELD_OF_VENGEANCE: {
+    id: 184662,
+    name: 'Shield of Vengeance',
+    icon: 'ability_paladin_shieldofthetemplar',
+  },
 };

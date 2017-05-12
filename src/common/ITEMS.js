@@ -18,7 +18,7 @@ const ITEMS = {
     icon: 'inv_shoulder_plate_pvppaladin_o_01',
     quality: QUALITIES.LEGENDARY,
   },
-  VELENS_FUTURE_SIGHT: {
+  VELENS_FUTURE_SIGHT_BUFF: {
     id: 144258,
     name: 'Velen\'s Future Sight',
     icon: 'spell_holy_healingfocus',

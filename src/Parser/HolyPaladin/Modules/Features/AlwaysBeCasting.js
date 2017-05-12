@@ -26,20 +26,20 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     SPELLS.JUDGMENT_CAST.id,
     SPELLS.CRUSADER_STRIKE.id,
     225141, // http://www.wowhead.com/spell=225141/fel-crazed-rage (Draught of Souls)
-    190784, // Divine Steed
+    SPELLS.DIVINE_STEED.id,
     26573, // Consecration
-    115750, // Blinding Light
+    SPELLS.BLINDING_LIGHT_TALENT.id,
     642, // Divine Shield
-    633, // Lay on Hands
+    SPELLS.LAY_ON_HANDS.id,
     SPELLS.BEACON_OF_FAITH_TALENT.id,
     SPELLS.BEACON_OF_THE_LIGHTBRINGER_TALENT.id, // pretty sure this will be the logged cast when BotLB is reapplied, not the below "Beacon of Light" which is the buff. Not yet tested so leaving both in.
     53563, // Beacon of Light
     SPELLS.BEACON_OF_VIRTUE_TALENT.id,
-    1044, // Blessing of Freedom
+    SPELLS.BLESSING_OF_FREEDOM.id,
     1022, // Blessing of Protection
     4987, // Cleanse
     853, // Hammer of Justice
-    62124, // Hand of Reckoning
+    SPELLS.HAND_OF_RECKONING.id,
   ];
 
   on_initialized(event) {
@@ -55,7 +55,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
       this.constructor.HEALING_ABILITIES_ON_GCD.push(SPELLS.JUDGMENT_CAST.id);
     }
   }
-
 
   recordCastTime(
     castStartTimestamp,

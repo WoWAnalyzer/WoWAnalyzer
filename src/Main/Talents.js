@@ -61,9 +61,6 @@ const Talents = ({ combatant }) => {
         <li className="item clearfix">
           <Talent talent={combatant.lv100Talent} />
         </li>
-        <li className="item clearfix text-muted" style={{ paddingTop: 10, paddingBottom: 10 }}>
-          Parts of the descriptions for talents came from the <a href="http://www.wowhead.com/holy-paladin-talent-guide" target="_blank">Holy Paladin Wowhead guide</a> by Pelinal.
-        </li>
       </ul>
     </div>
   );

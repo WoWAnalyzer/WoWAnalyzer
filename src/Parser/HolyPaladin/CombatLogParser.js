@@ -157,7 +157,7 @@ class CombatLogParser extends MainCombatLogParser {
   }
 
   get iolProcsPerHolyShockCrit() {
-    return this.selectedCombatant.hasBuff(SPELLS.T19_4SET_BONUS_BUFF.id) ? 2 : 1;
+    return this.selectedCombatant.hasBuff(SPELLS.HOLY_PALADIN_T19_4SET_BONUS_BUFF.id) ? 2 : 1;
   }
 
   generateResults() {
@@ -209,7 +209,7 @@ class CombatLogParser extends MainCombatLogParser {
     const hasAuraOfSacrifice = this.selectedCombatant.lv60Talent === SPELLS.AURA_OF_SACRIFICE_TALENT.id;
     const auraOfSacrificeHps = (getAbility(SPELLS.AURA_OF_SACRIFICE_HEAL.id).healingEffective + getAbility(SPELLS.AURA_OF_SACRIFICE_HEAL.id).healingAbsorbed) / fightDuration * 1000;
     // const hasDevotionAura = this.selectedCombatant.lv60Talent === SPELLS.DEVOTION_AURA_TALENT.id;
-    const has4PT19 = this.selectedCombatant.hasBuff(SPELLS.T19_4SET_BONUS_BUFF.id);
+    const has4PT19 = this.selectedCombatant.hasBuff(SPELLS.HOLY_PALADIN_T19_4SET_BONUS_BUFF.id);
 
     const nonHealingTimePercentage = this.modules.alwaysBeCasting.totalHealingTimeWasted / fightDuration;
     const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
@@ -228,7 +228,7 @@ class CombatLogParser extends MainCombatLogParser {
     const tyrsDeliverancePercentage = tyrsDeliveranceHealHealingPercentage + tyrsDeliveranceBuffFoLHLHealingPercentage;
     const hasRuleOfLaw = this.selectedCombatant.lv30Talent === SPELLS.RULE_OF_LAW_TALENT.id;
 
-    const hasDivinePurpose = this.selectedCombatant.lv75Talent === SPELLS.DIVINE_PURPOSE_TALENT.id;
+    const hasDivinePurpose = this.selectedCombatant.lv75Talent === SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id;
     const divinePurposeHolyShockProcs = hasDivinePurpose && this.selectedCombatant.getBuffTriggerCount(SPELLS.DIVINE_PURPOSE_HOLY_SHOCK_BUFF.id);
     const divinePurposeLightOfDawnProcs = hasDivinePurpose && this.selectedCombatant.getBuffTriggerCount(SPELLS.DIVINE_PURPOSE_LIGHT_OF_DAWN_BUFF.id);
 
@@ -297,8 +297,8 @@ class CombatLogParser extends MainCombatLogParser {
     }
     if (this.modules.velens.active && velensHealingPercentage < 0.045) {
       results.addIssue({
-        issue: <span>Your usage of <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} /> can be improved. Try to maximize the amount of casts during the buff or consider using an easier legendary ({(velensHealingPercentage * 100).toFixed(2)}% healing contributed).</span>,
-        icon: ITEMS.VELENS_FUTURE_SIGHT.icon,
+        issue: <span>Your usage of <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT_BUFF.id} /> can be improved. Try to maximize the amount of casts during the buff or consider using an easier legendary ({(velensHealingPercentage * 100).toFixed(2)}% healing contributed).</span>,
+        icon: ITEMS.VELENS_FUTURE_SIGHT_BUFF.icon,
         importance: getIssueImportance(velensHealingPercentage, 0.04, 0.03),
       });
     }
@@ -496,7 +496,7 @@ class CombatLogParser extends MainCombatLogParser {
       ),
       hasDivinePurpose && (
         <StatisticBox
-          icon={<SpellIcon id={SPELLS.DIVINE_PURPOSE_TALENT.id} />}
+          icon={<SpellIcon id={SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id} />}
           value={(
             <span>
               {divinePurposeHolyShockProcs}{' '}
@@ -563,9 +563,9 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       },
       this.modules.velens.active && {
-        id: ITEMS.VELENS_FUTURE_SIGHT.id,
-        icon: <ItemIcon id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
-        title: <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
+        id: ITEMS.VELENS_FUTURE_SIGHT_BUFF.id,
+        icon: <ItemIcon id={ITEMS.VELENS_FUTURE_SIGHT_BUFF.id} />,
+        title: <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT_BUFF.id} />,
         result: (
           <dfn data-tip="The actual effective healing contributed by the Velen's Future Sight use effect.">
             {((velensHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.velens.healing / fightDuration * 1000)} HPS
@@ -613,9 +613,9 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       },
       has4PT19 && {
-        id: `spell-${SPELLS.T19_4SET_BONUS_BUFF.id}`,
-        icon: <SpellIcon id={SPELLS.T19_4SET_BONUS_BUFF.id} />,
-        title: <SpellLink id={SPELLS.T19_4SET_BONUS_BUFF.id} />,
+        id: `spell-${SPELLS.HOLY_PALADIN_T19_4SET_BONUS_BUFF.id}`,
+        icon: <SpellIcon id={SPELLS.HOLY_PALADIN_T19_4SET_BONUS_BUFF.id} />,
+        title: <SpellLink id={SPELLS.HOLY_PALADIN_T19_4SET_BONUS_BUFF.id} />,
         result: (
           <span>
             {holyShockCrits * (iolProcsPerHolyShockCrit - 1)} bonus Infusion of Light charges gained

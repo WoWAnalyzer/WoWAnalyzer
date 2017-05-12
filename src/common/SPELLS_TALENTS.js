@@ -1,4 +1,6 @@
 export default {
+  // Paladin:
+  // Holy Paladin:
   // lv15
   BESTOW_FAITH_TALENT: {
     id: 223306,
@@ -38,7 +40,7 @@ export default {
     description: 'Rule of Law is the default choice for raiding. Because the cooldown is so short, you should try to use it with <a href="http://www.wowhead.com/spell=85222" target="_blank">Light of Dawn</a> as often as you can. Rule of Law is also extremely helpful for healing targets if they happen to be out of range and need healing e.g.: running out with a debuff.',
   },
   // lv45
-  FIST_OF_JUSTICE_TALENT: {
+  FIST_OF_JUSTICE_TALENT_HOLY: {
     id: 198054,
     name: 'Fist of Justice',
     icon: 'spell_holy_fistofjustice',
@@ -76,7 +78,7 @@ export default {
     description: '<a href="http://www.wowhead.com/spell=183425" target="_blank">Devotion Aura</a> and <a href="http://www.wowhead.com/spell=183415" target="_blank">Aura of Mercy</a> are both situationally good. Devotion Aura is the best choice to mitigate damage from any heavy-hitting boss mechanic. If you won\'t need the damage reduction from Devotion Aura, then you should take Aura of Mercy as it will result in more overall healing.',
   },
   // lv75
-  DIVINE_PURPOSE_TALENT: {
+  DIVINE_PURPOSE_TALENT_HOLY: {
     id: 197646,
     name: 'Divine Purpose',
     icon: 'spell_holy_divinepurpose',
@@ -131,5 +133,119 @@ export default {
     name: 'Beacon of Virtue',
     icon: 'ability_paladin_beaconofinsight',
     description: '<a href="http://www.wowhead.com/spell=200025" target="_blank">Beacon of Virtue</a> is rarely a good choice in raids. It requires you to use a Global Cooldown to apply to random targets and costs a considerable amount of mana.',
+  },
+  // Retribution Paladin:
+  // lv15
+  FINAL_VERDICT_TALENT: {
+    id: 198038,
+    name: 'Final Verdict',
+    icon: 'spell_paladin_templarsverdict',
+    description: 'Increases the damage done by Templar\'s Verdict by 20%, and the damage done by Divine Storm by 10%.',
+  },
+  EXECUTION_SENTENCE_TALENT: {
+    id: 213757,
+    name: 'Execution Sentence',
+    icon: 'spell_paladin_executionsentence',
+    description: 'A hammer slowly falls from the sky, dealing (1450% of Attack power) Holy damage after 7 sec.',
+  },
+  CONSECRATION_TALENT: {
+    id: 205228,
+    name: 'Consecration',
+    icon: 'spell_holy_innerfire',
+    description: 'Consecrates the land beneath you, causing [(30% of Attack power) * 12] Holy damage over 12 sec to enemies who enter the area.',
+  },
+  // lv30
+  THE_FIRES_OF_JUSTICE_TALENT: {
+    id: 203316,
+    name: 'The Fires of Justice',
+    icon: 'spell_holy_crusaderstrike',
+    description: 'Reduces the cooldown of Crusader Strike by 1.0 sec and gives it a 15% chance to reduce the cost of your next damaging or healing Holy Power ability by 1.',
+  },
+  ZEAL_TALENT: {
+    id: 217020,
+    name: 'Zeal',
+    icon: 'spell_holy_sealofblood',
+    description: 'Strike the target for 320% Physical damage. Maximum 2 charges. Grants Zeal, causing Zeal attacks to chain to an additional nearby target per stack. Maximum 3 stacks. Each jump deals 40% less damage.',
+  },
+  GREATER_JUDGMENT_TALENT: {
+    id: 218178,
+    name: 'Greater Judgment',
+    icon: 'spell_holy_righteousfury',
+    description: 'Your Judgment ability hits 2 additional nearby enemies, and always deals a critical strike against targets above 50% health.',
+  },
+  // lv45
+  FIST_OF_JUSTICE_TALENT_RETRI: {
+    id: 234299,
+    name: 'Fist of Justice',
+    icon: 'spell_holy_fistofjustice',
+    description: 'Each Holy Power spent reduces the remaining cooldown on Hammer of Justice by 2.5 sec.',
+  },
+  // Repentance is shared
+  // Blinding Light is shared
+  // lv60
+  VIRTUES_BLADE_TALENT: {
+    id: 202271,
+    name: 'Virtue\'s Blade',
+    icon: 'ability_paladin_bladeofjustice',
+    description: 'Blade of Justice critical strikes now deal 3 times normal damage.',
+  },
+  BLADE_OF_WRATH_TALENT: {
+    id: 231832,
+    name: 'Blade of Wrath',
+    icon: 'ability_paladin_bladeofjusticeblue',
+    description: 'Your auto attacks have a chance to reset the cooldown of Blade of Justice.',
+  },
+  DIVINE_HAMMER_TALENT: {
+    id: 198034,
+    name: 'Divine Hammer',
+    icon: 'classicon_paladin',
+    description: 'Divine Hammers spin around you, damaging enemies within 8 yds for 90% Holy damage instantly and every 2 sec for 12 sec.',
+  },
+  // lv75
+  JUSTICARS_VENGEANCE_TALENT: {
+    id: 215661,
+    name: 'Justicar\'s Vengeance',
+    icon: 'spell_holy_retributionaura',
+    description: 'A weapon strike that deals (800% of Attack power) Holy damage and restores health equal to the damage done. Deals 100% additional damage and healing when used against a stunned target.',
+  },
+  EYE_FOR_AN_EYE_TALENT: {
+    id: 205191,
+    name: 'Eye for an Eye',
+    icon: 'spell_paladin_inquisition',
+    description: 'Reduces Physical damage you take by 35%, and instantly counterattacks any enemy that strikes you in melee combat for 170% Physical damage.  Lasts 10 sec.',
+  },
+  WORD_OF_GLORY_TALENT: {
+    id: 210191,
+    name: 'Word of Glory',
+    icon: 'inv_helmet_96',
+    description: 'Heal yourself and up to 5 friendly targets within 15 yards for (1200% of Spell power). Maximum 2 charges.',
+  },
+  // lv90
+  DIVINE_INTERVENTION_TALENT: {
+    id: 213313,
+    name: 'Divine Intervention',
+    icon: 'spell_nature_timestop',
+    description: 'Reduces your Divine Shield cooldown by 20%.  In addition, any attack which would kill you instead reduces you to 20% of your maximum health and triggers Divine Shield. Cannot occur while Divine Shield is on cooldown or Forbearance is active.',
+  },
+  // Cavalier is shared
+  // Judgment of Light is shared
+  // lv100
+  DIVINE_PURPOSE_TALENT_RETRI: {
+    id: 223817,
+    name: 'Divine Purpose',
+    icon: 'spell_holy_divinepurpose',
+    description: 'Your Holy Power spending abilities have a 20% chance to make your next Holy Power spending ability free.',
+  },
+  CRUSADE_TALENT: {
+    id: 231895,
+    name: 'Crusade',
+    icon: 'ability_paladin_sanctifiedwrath',
+    description: 'Increases your damage and haste by 3.0% for 20 sec. Each Holy Power spent during Crusade increases damage and haste by an additional 3.0%. Maximum 15 stacks.',
+  },
+  HOLY_WRATH: {
+    id: 210220,
+    name: 'Holy Wrath',
+    icon: 'spell_holy_vindication',
+    description: 'Deals 200% of your missing health in Holy damage to 4 nearby enemies, up to 120% of your maximum health. Deals 35% of missing health against enemy players.',
   },
 };

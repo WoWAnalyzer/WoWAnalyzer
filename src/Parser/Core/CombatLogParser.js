@@ -135,6 +135,10 @@ class CombatLogParser {
   on_byPlayer_absorbed(event) {
     this.totalHealing += event.amount + (event.absorbed || 0);
   }
+  totalDamage = 0;
+  on_byPlayer_damage(event) {
+    this.totalDamage += event.amount + (event.absorbed || 0);
+  }
   // TODO: Damage taken from LOTM
 
   generateResults() {

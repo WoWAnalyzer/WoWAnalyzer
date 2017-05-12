@@ -22,7 +22,7 @@ export default function getCastEfficiency(CPM_ABILITIES, parser) {
       }
       const cpm = casts / minutes;
 
-      const cooldown = ability.getCooldown(hastePercentage);
+      const cooldown = ability.getCooldown(hastePercentage, selectedCombatant);
       // By dividing the fight duration by the cooldown we get the max amount of casts during this particular fight, we round this up because you would be able to cast once at the start of the fight and once at the end since abilities always start off cooldown (e.g. fight is 100 seconds long, you could cast 2 Holy Avengers with a 90 sec cooldown). Good players should be able to reasonably predict this and maximize their casts.
       const rawMaxCasts = (fightDuration / 1000 / cooldown) + (ability.charges ? ability.charges - 1 : 0);
       const maxCasts = Math.ceil(rawMaxCasts);

@@ -1,6 +1,6 @@
 export default `
 11-05-2017 - Fixed a bunch of bugs. The Always Be Casting/Healing module now supports debuffs which allows me to implement boss Haste buffs to make it more accurate. Elisande's Haste buffs are now implemented.
-11-05-2017 - <b>A lot</b> more changes under the hood in order to make the analyze multi-spec compatible. Almost everything was changed, so anything might have gotten broken. Please let me know.
+11-05-2017 - <b>A lot</b> more changes under the hood in order to make the analyzer multi-spec compatible. Almost everything was changed, so anything might have gotten broken. Please let me know.
 08-05-2017 - Oops one of the lines got mixed up. Fixed Holy Light instead of Flash of Light being suggested to improve Infusion of Light proc usage. Casting Holy Light during IoL is worse, m'kay.
 07-05-2017 - Untangled many lines - you shouldn't notice a difference.
 05-05-2017 - Added Aura of Mercy and Sacrifice healing done statistic.
