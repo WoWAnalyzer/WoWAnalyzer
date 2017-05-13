@@ -54,7 +54,7 @@ class ReportSelecter extends Component {
 
                 Feature requests (<dfn data-tip="Provided that you're not using one of Microsoft's browsers.">and bug reports*</dfn>) are welcome!{' '}
                 <i>@Zerotorescue</i> on <a href="https://discordapp.com/invite/hammerofwrath">Discord</a> or create an issue{' '}
-                <a href={`https://github.com/MartijnHols/HolyPaladinAnalyzer/issues`}>here</a>.
+                <a href={`https://github.com/MartijnHols/WoWAnalyzer/issues`}>here</a>.
               </div>
             </div>
 
@@ -89,7 +89,7 @@ class ReportSelecter extends Component {
                 <h2>Source code</h2>
               </div>
               <div className="panel-body text-muted">
-                Full source is available on <a href="https://github.com/MartijnHols/HolyPaladinAnalyzer">GitHub</a>. The readme also contains information about the implemented features as well as a list of the percentage breakpoints for most suggestions.<br /><br />
+                Full source is available on <a href="https://github.com/MartijnHols/WoWAnalyzer">GitHub</a>. The readme also contains information about the implemented features as well as a list of the percentage breakpoints for most suggestions.<br /><br />
 
                 Created by Zerotorescue for the <a href="https://discordapp.com/invite/hammerofwrath">#holy Discord</a>. You can usually find helpful people there.
               </div>

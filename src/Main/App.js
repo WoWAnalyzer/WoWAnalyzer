@@ -23,7 +23,7 @@ const formatDuration = (duration) => {
 };
 
 const toolName = `WoW Analyzer`;
-const githubUrl = 'https://github.com/MartijnHols/HolyPaladinAnalyzer';
+const githubUrl = 'https://github.com/MartijnHols/WoWAnalyzer';
 
 class App extends Component {
   static propTypes = {
