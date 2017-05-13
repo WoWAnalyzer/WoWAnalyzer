@@ -6,9 +6,6 @@ class Results extends React.Component {
     parser: React.PropTypes.object.isRequired,
     tab: React.PropTypes.string,
   };
-  static contextTypes = {
-    config: React.PropTypes.object.isRequired,
-  };
 
   render() {
     const { parser, tab, onChangeTab } = this.props;

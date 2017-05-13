@@ -5,9 +5,7 @@ import ParseResults from 'Parser/Core/ParseResults';
 import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
-import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
 import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
 import ItemIcon from 'common/ItemIcon';
@@ -68,7 +66,7 @@ class CombatLogParser extends MainCombatLogParser {
     const results = new ParseResults();
 
     const abilityTracker = this.modules.abilityTracker;
-    const getAbility = spellId => abilityTracker.getAbility(spellId);
+    // const getAbility = spellId => abilityTracker.getAbility(spellId);
 
     // const flashOfLight = getAbility(SPELLS.FLASH_OF_LIGHT.id);
     const fightDuration = this.fightDuration;

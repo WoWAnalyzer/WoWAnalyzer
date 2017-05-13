@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import ReactTooltip from 'react-tooltip';
 
 import Fight from './Fight';
+import makeAnalyzerUrl from './makeAnalyzerUrl';
 
 class FightSelecter extends Component {
   static propTypes = {
@@ -19,10 +20,6 @@ class FightSelecter extends Component {
         kill: React.PropTypes.bool,
       })),
     }),
-    playerName: React.PropTypes.string.isRequired,
-  };
-  static contextTypes = {
-    config: React.PropTypes.object.isRequired,
   };
 
   componentWillUnmount() {
@@ -30,17 +27,17 @@ class FightSelecter extends Component {
   }
 
   render() {
-    const { report, playerName } = this.props;
+    const { report } = this.props;
 
     return (
       <div>
         <h1>
           <div className="back-button">
-            <Link to={`/report/${report.code}`} data-tip={`Back to ${this.context.config.spec.className} selection`}>
+            <Link to={`/report/${report.code}`} data-tip="Back to player selection">
               <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
             </Link>
           </div>
-          {report.title} › {playerName}
+          {report.title}
           </h1>
 
         <div className="panel">
@@ -54,7 +51,7 @@ class FightSelecter extends Component {
                   .filter(fight => fight.boss !== 0)
                   .map(fight => (
                     <li key={`${fight.id}`}>
-                      <Link to={`/report/${report.code}/${playerName}/${fight.id}`}>
+                      <Link to={makeAnalyzerUrl(report.code, fight.id)}>
                         <Fight {...fight} />
                       </Link>
                     </li>

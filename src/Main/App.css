@@ -215,6 +215,11 @@ h1 {
 .list.issues {
   font-size: 100%;
 }
+.list.players li img {
+  height: 1.7em;
+  margin-right: 5px;
+  border-radius: 2px;
+}
 .list > li {
   margin: 0;
   padding: 0 22px;

@@ -10,9 +10,9 @@ render(
   <Router history={hashHistory}>
     <Route path='/' component={App}>
       <Route path='report/:reportCode' />
-      <Route path='report/:reportCode/:playerName' />
-      <Route path='report/:reportCode/:playerName/:fightId' />
-      <Route path='report/:reportCode/:playerName/:fightId/:resultTab' />
+      <Route path='report/:reportCode/:fightId' />
+      <Route path='report/:reportCode/:fightId/:playerName' />
+      <Route path='report/:reportCode/:fightId/:playerName/:resultTab' />
     </Route>
   </Router>,
   document.getElementById('root')

@@ -1,10 +1,8 @@
 import React from 'react';
 
-class Changelog extends React.PureComponent {
-  static contextTypes = {
-    config: React.PropTypes.object.isRequired,
-  };
+import CHANGELOG from 'CHANGELOG';
 
+class Changelog extends React.PureComponent {
   constructor() {
     super();
     this.state = {
@@ -17,7 +15,7 @@ class Changelog extends React.PureComponent {
 
     return (
       <div>
-        {this.context.config.changelog.split('\n').filter((_, i) => limit === null || i <= limit).map((change, i) => (
+        {CHANGELOG.split('\n').filter((_, i) => limit === null || i <= limit).map((change, i) => (
           <div key={`${i}`} dangerouslySetInnerHTML={{ __html: change }} />
         ))}
         {limit !== null && (
