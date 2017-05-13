@@ -1,6 +1,6 @@
-# Holy Paladin Analyzer
+# WoW Analyzer
 
-Use this tool to analyze your performance as a Holy Paladin based on important metrics for the spec.
+Use this tool to analyze your performance based on important metrics for your spec using a Warcraft Logs report.
 
 You will need a Warcraft Logs report with advanced combat logging enabled to start. Private logs can not be used, if your guild has private logs you will have to [upload your own logs](https://www.warcraftlogs.com/help/start/) or change the existing logs to the unlisted privacy option instead.
 
