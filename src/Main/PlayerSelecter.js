@@ -30,8 +30,6 @@ class PlayerSelecter extends Component {
   render() {
     const { report, fightId, combatants } = this.props;
 
-    console.log(combatants);
-
     return (
       <div>
         <h1>

@@ -7,7 +7,7 @@ const formatDuration = (duration) => {
   return `${Math.floor(duration / 60)}:${seconds < 10 ? `0${seconds}` : seconds}`;
 };
 
-const Fight = ({ difficulty, name, kill, start_time, end_time, ...others }) => {
+const Fight = ({ difficulty, name, kill, start_time, end_time, wipes, ...others }) => {
   const duration = Math.round((end_time - start_time) / 1000);
 
   delete others.boss;
@@ -18,7 +18,7 @@ const Fight = ({ difficulty, name, kill, start_time, end_time, ...others }) => {
 
   return (
     <div {...others}>
-      {name} {DIFFICULTIES[difficulty]} - <span className={kill ? 'kill' : 'wipe'}>{kill ? 'Kill' : 'Wipe'} ({formatDuration(duration)})</span>
+      {DIFFICULTIES[difficulty]} {name} - <span className={kill ? 'kill' : 'wipe'}>{kill ? 'Kill' : `Wipe ${wipes}`} ({formatDuration(duration)})</span>
     </div>
   );
 };

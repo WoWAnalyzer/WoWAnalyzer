@@ -15,6 +15,7 @@ import Results from './Results';
 
 import makeWclUrl from './makeWclUrl';
 import makeAnalyzerUrl from './makeAnalyzerUrl';
+import getWipeCount from './getWipeCount';
 
 const formatDuration = (duration) => {
   const seconds = Math.floor(duration % 60);
@@ -275,7 +276,8 @@ class App extends Component {
   }
 
   getFightName(fight) {
-    return `${DIFFICULTIES[fight.difficulty]} ${fight.name} (${fight.kill ? 'Kill' : 'Wipe'} ${formatDuration((fight.end_time - fight.start_time) / 1000)})`;
+    const wipeCount = getWipeCount(this.state.report, fight);
+    return `${DIFFICULTIES[fight.difficulty]} ${fight.name} - ${fight.kill ? 'Kill' : `Wipe ${wipeCount}`} (${formatDuration((fight.end_time - fight.start_time) / 1000)})`;
   }
 
   render() {

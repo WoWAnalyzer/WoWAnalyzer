@@ -4,6 +4,7 @@ import ReactTooltip from 'react-tooltip';
 
 import Fight from './Fight';
 import makeAnalyzerUrl from './makeAnalyzerUrl';
+import getWipeCount from './getWipeCount';
 
 class FightSelecter extends Component {
   static propTypes = {
@@ -52,7 +53,7 @@ class FightSelecter extends Component {
                   .map(fight => (
                     <li key={`${fight.id}`}>
                       <Link to={makeAnalyzerUrl(report.code, fight.id)}>
-                        <Fight {...fight} />
+                        <Fight {...fight} wipes={getWipeCount(report, fight)} />
                       </Link>
                     </li>
                   ))

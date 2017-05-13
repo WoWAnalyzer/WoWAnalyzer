@@ -65,7 +65,7 @@ class CombatLogParser extends MainCombatLogParser {
   generateResults() {
     const results = new ParseResults();
 
-    const abilityTracker = this.modules.abilityTracker;
+    // const abilityTracker = this.modules.abilityTracker;
     // const getAbility = spellId => abilityTracker.getAbility(spellId);
 
     // const flashOfLight = getAbility(SPELLS.FLASH_OF_LIGHT.id);
