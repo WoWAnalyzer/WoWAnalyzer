@@ -392,8 +392,12 @@ class CombatLogParser extends MainCombatLogParser {
             style={{ border: 0 }}
             alt="Healing"
           />)}
-        value={formatThousands(this.totalHealing)}
-        label="Healing done"
+        value={`${formatNumber(this.totalHealing / fightDuration * 1000)} HPS`}
+        label={(
+          <dfn data-tip={`The total healing done recorded was ${formatThousands(this.totalHealing)}.`}>
+            Healing done
+          </dfn>
+        )}
       />,
       <StatisticBox
         icon={(
