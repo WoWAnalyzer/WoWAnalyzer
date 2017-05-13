@@ -1,7 +1,7 @@
-import PaladinHoly from './HolyPaladin/CONFIG';
-import PaladinRetribution from './PaladinRetribution/CONFIG';
+import HolyPaladin from './HolyPaladin/CONFIG';
+import RetributionPaladin from './RetributionPaladin/CONFIG';
 
 export default [
-  PaladinHoly,
-  PaladinRetribution,
+  HolyPaladin,
+  RetributionPaladin,
 ];
