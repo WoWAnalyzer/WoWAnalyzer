@@ -42,7 +42,7 @@ class Results extends React.Component {
           </div>
           Results
           <a
-            href={`https://www.warcraftlogs.com/reports/${parser.report.code}/#fight=${parser.fight.id}`}
+            href={`https://www.warcraftlogs.com/reports/${parser.report.code}/#fight=${parser.fight.id}&source=${parser.playerId}`}
             target="_blank"
             className="pull-right"
             style={{ fontSize: '.6em' }}
