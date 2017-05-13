@@ -674,7 +674,7 @@ class CombatLogParser extends MainCombatLogParser {
             playersById={this.playersById}
           />
         ),
-      }
+      },
     ];
 
     return results;
