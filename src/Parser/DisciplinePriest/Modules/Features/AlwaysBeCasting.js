@@ -18,7 +18,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.SHADOW_MEND.id,
     SPELLS.MINDBENDER_TALENT.id,
     SPELLS.LIGHTS_WRATH.id,
-    SPELLS.RAPTURE.id,
     SPELLS.HALO_TALENT.id,
     SPELLS.PLEA.id,
     SPELLS.DIVINE_STAR_TALENT.id,
