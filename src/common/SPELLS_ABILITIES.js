@@ -321,4 +321,9 @@ export default {
     name: 'Share in the Light',
     icon: 'spell_holy_powerwordshield',
   },
+  DISC_PRIEST_T19_2SET_BONUS_BUFF: {
+    id: 211556,
+    name: 'T19 2 set bonus',
+    icon: 'spell_holy_powerwordshield',
+  },
 };

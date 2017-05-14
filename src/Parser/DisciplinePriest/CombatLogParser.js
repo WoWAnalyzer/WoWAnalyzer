@@ -25,6 +25,7 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import DrapeOfShame from './Modules/Legendaries/DrapeOfShame';
 import Velens from './Modules/Legendaries/Velens';
 import Prydaz from './Modules/Legendaries/Prydaz';
+import Tier19_2set from './Modules/Legendaries/Tier19_2set';
 
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
 
@@ -70,6 +71,7 @@ class CombatLogParser extends MainCombatLogParser {
     drapeOfShame: DrapeOfShame,
     velens: Velens,
     prydaz: Prydaz,
+    tier19_2set: Tier19_2set,
   };
 
   generateResults() {
@@ -87,6 +89,8 @@ class CombatLogParser extends MainCombatLogParser {
     const velensHealingPercentage = this.modules.velens.healing / this.totalHealing;
     const prydazHealingPercentage = this.modules.prydaz.healing / this.totalHealing;
     const drapeOfShameHealingPercentage = this.modules.drapeOfShame.healing / this.totalHealing;
+
+    const tier19_2setHealingPercentage = this.modules.tier19_2set.healing / this.totalHealing;
 
     if (deadTimePercentage > 0.2) {
       results.addIssue({
@@ -183,6 +187,16 @@ class CombatLogParser extends MainCombatLogParser {
         result: (
           <dfn data-tip="The actual effective healing contributed by the Prydaz, Xavaric's Magnum Opus equip effect.">
             {((prydazHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.prydaz.healing / fightDuration * 1000)} HPS
+          </dfn>
+        ),
+      },
+      this.modules.tier19_2set.active && {
+        id: `spell-${SPELLS.DISC_PRIEST_T19_2SET_BONUS_BUFF.id}`,
+        icon: <SpellIcon id={SPELLS.DISC_PRIEST_T19_2SET_BONUS_BUFF.id} />,
+        title: <SpellLink id={SPELLS.DISC_PRIEST_T19_2SET_BONUS_BUFF.id} />,
+        result: (
+          <dfn data-tip="The actual effective healing contributed by the Tier 19 2 set bonus.">
+            {((tier19_2setHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.tier19_2set.healing / fightDuration * 1000)} HPS
           </dfn>
         ),
       },
