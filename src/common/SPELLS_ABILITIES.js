@@ -277,12 +277,12 @@ export default {
     icon: 'spell_holy_dispelmagic',
   },
   SHACKLE_UNDEAD: {
-    id: 527,
+    id: 9484,
     name: 'Shackle Undead',
     icon: 'spell_nature_slow',
   },
   SHADOW_FIEND: {
-    id: 34433,
+    id: 132603,
     name: 'Shadow Fiend',
     icon: 'spell_shadow_shadowfiend',
   },
