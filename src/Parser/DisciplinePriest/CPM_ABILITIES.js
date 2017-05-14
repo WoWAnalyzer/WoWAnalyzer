@@ -135,6 +135,14 @@ const CPM_ABILITIES = [
     noCanBeImproved: true,
   },
   {
+    spell: SPELLS.SHINING_FORCE_TALENT,
+    category: SPELL_CATEGORY.UTILITY,
+    getCooldown: haste => 45,
+    isActive: combatant => combatant.lv45Talent === SPELLS.SHINING_FORCE_TALENT.id,
+    noSuggestion: true,
+    noCanBeImproved: true,
+  },
+  {
     spell: SPELLS.FADE,
     category: SPELL_CATEGORY.UTILITY,
     getCooldown: haste => 30,
@@ -151,7 +159,7 @@ const CPM_ABILITIES = [
   {
     spell: SPELLS.MIND_CONTROL,
     category: SPELL_CATEGORY.UTILITY,
-    getCooldown: haste => null,
+    getCooldown: (haste, selectedCombatant) => (selectedCombatant.lv45Talent === SPELLS.DOMINANT_MIND_TALENT.id ? 120 : 0),
     noSuggestion: true,
     noCanBeImproved: true,
   },
