@@ -16,7 +16,7 @@ export default function getCastEfficiency(CPM_ABILITIES, parser) {
     .filter(ability => !ability.isActive || ability.isActive(selectedCombatant))
     .map((ability) => {
       const castCount = getAbility(ability.spell.id);
-      const casts = (ability.getCasts ? ability.getCasts(castCount) : castCount.casts) || 0;
+      const casts = (ability.getCasts ? ability.getCasts(castCount, parser) : castCount.casts) || 0;
       if (ability.hideWithZeroCasts && casts === 0) {
         return null;
       }

@@ -286,4 +286,19 @@ export default {
     name: 'Shadow Fiend',
     icon: 'spell_shadow_shadowfiend',
   },
+  SHADOW_WORD_PAIN: {
+    id: 589,
+    name: 'Shadow Word: Pain',
+    icon: 'spell_shadow_shadowwordpain',
+  },
+  FADE: {
+    id: 586,
+    name: 'Fade',
+    icon: 'spell_magic_lesserinvisibilty',
+  },
+  PSYCHIC_SCREAM: {
+    id: 8122,
+    name: 'Psychic Scream',
+    icon: 'spell_shadow_psychicscream',
+  },
 };

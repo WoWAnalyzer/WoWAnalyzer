@@ -50,7 +50,7 @@ const CastEfficiency = ({ categories, abilities }) => {
                     {maxCpm === null ? '' : `${(castEfficiency * 100).toFixed(2)}%`}
                   </td>
                   <td style={{ width: '25%', color: 'orange' }}>
-                    {canBeImproved && 'Can be improved.'}
+                    {canBeImproved && !ability.noCanBeImproved && 'Can be improved.'}
                   </td>
                 </tr>
               );
