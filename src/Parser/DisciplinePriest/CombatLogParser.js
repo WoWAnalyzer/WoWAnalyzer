@@ -75,22 +75,14 @@ class CombatLogParser extends MainCombatLogParser {
     const abilityTracker = this.modules.abilityTracker;
     const getAbility = spellId => abilityTracker.getAbility(spellId);
 
-    const nonHealingTimePercentage = this.modules.alwaysBeCasting.totalHealingTimeWasted / fightDuration;
     const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
     const velensHealingPercentage = this.modules.velens.healing / this.totalHealing;
     const prydazHealingPercentage = this.modules.prydaz.healing / this.totalHealing;
     const drapeOfShameHealingPercentage = this.modules.drapeOfShame.healing / this.totalHealing;
 
-    if (nonHealingTimePercentage > 0.3) {
-      results.addIssue({
-        issue: `Your non healing time can be improved. Try to cast heals more regularly (${Math.round(nonHealingTimePercentage * 100)}% non healing time).`,
-        icon: 'petbattle_health-down',
-        importance: getIssueImportance(nonHealingTimePercentage, 0.4, 0.45, true),
-      });
-    }
     if (deadTimePercentage > 0.2) {
       results.addIssue({
-        issue: `Your dead GCD time can be improved. Try to Always Be Casting (ABC); when you're not healing try to contribute some damage (${Math.round(deadTimePercentage * 100)}% dead GCD time).`,
+        issue: `Your dead GCD time can be improved. Try to Always Be Casting (ABC); when there's nothing to heal try to contribute some damage (${Math.round(deadTimePercentage * 100)}% dead GCD time).`,
         icon: 'spell_mage_altertime',
         importance: getIssueImportance(deadTimePercentage, 0.35, 0.4, true),
       });
@@ -134,13 +126,13 @@ class CombatLogParser extends MainCombatLogParser {
         icon={(
           <img
             src="./img/icons/petbattle_health-down.jpg"
-            alt="Non healing time"
+            alt="Dead GCD time"
           />
         )}
-        value={`${formatPercentage(nonHealingTimePercentage)} %`}
+        value={`${formatPercentage(deadTimePercentage)} %`}
         label={(
-          <dfn data-tip={`Non healing time is available casting time not used for a spell that helps you heal. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), DPSing, etc. Damaging Holy Shocks are considered non healing time, Crusader Strike is only considered non healing time if you do not have the Crusader's Might talent.<br /><br />You spent ${formatPercentage(deadTimePercentage)}% of your time casting nothing at all.`}>
-            Non healing time
+          <dfn data-tip="Dead GCD time is available casting time not used. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), etc.">
+            Dead GCD time
           </dfn>
         )}
       />,

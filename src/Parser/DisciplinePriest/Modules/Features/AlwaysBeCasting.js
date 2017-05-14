@@ -1,60 +1,37 @@
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
 
-import CoreAlwaysBeCastingHealing from 'Parser/Core/Modules/AlwaysBeCastingHealing';
+import CoreAlwaysBeCasting from 'Parser/Core/Modules/AlwaysBeCasting';
 
 const debug = true;
 
-const HEALING_ABILITIES_ON_GCD = [
-  SPELLS.FLASH_OF_LIGHT.id,
-  SPELLS.HOLY_LIGHT.id,
-  SPELLS.HOLY_SHOCK_CAST.id,
-  // ABILITIES.JUDGMENT_CAST.id, // Only with either JoL or Ilterendi
-  SPELLS.LIGHT_OF_DAWN_CAST.id,
-  SPELLS.LIGHT_OF_THE_MARTYR.id,
-  SPELLS.BESTOW_FAITH_TALENT.id,
-  SPELLS.TYRS_DELIVERANCE_CAST.id,
-  SPELLS.HOLY_PRISM_CAST.id,
-  SPELLS.LIGHTS_HAMMER_TALENT.id,
-  // ABILITIES.CRUSADER_STRIKE.id, // Only with Crusader's Might, is added in on_byPlayer_combatantinfo if applicable
-];
-
-class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
-  static HEALING_ABILITIES_ON_GCD = HEALING_ABILITIES_ON_GCD;
+class AlwaysBeCasting extends CoreAlwaysBeCasting {
   static ABILITIES_ON_GCD = [
-    ...HEALING_ABILITIES_ON_GCD,
-    SPELLS.JUDGMENT_CAST.id,
-    SPELLS.CRUSADER_STRIKE.id,
     225141, // http://www.wowhead.com/spell=225141/fel-crazed-rage (Draught of Souls)
-    SPELLS.DIVINE_STEED.id,
-    26573, // Consecration
-    SPELLS.BLINDING_LIGHT_TALENT.id,
-    642, // Divine Shield
-    SPELLS.LAY_ON_HANDS.id,
-    SPELLS.BEACON_OF_FAITH_TALENT.id,
-    SPELLS.BEACON_OF_THE_LIGHTBRINGER_TALENT.id, // pretty sure this will be the logged cast when BotLB is reapplied, not the below "Beacon of Light" which is the buff. Not yet tested so leaving both in.
-    53563, // Beacon of Light
-    SPELLS.BEACON_OF_VIRTUE_TALENT.id,
-    SPELLS.BLESSING_OF_FREEDOM.id,
-    1022, // Blessing of Protection
-    4987, // Cleanse
-    853, // Hammer of Justice
-    SPELLS.HAND_OF_RECKONING.id,
+    SPELLS.PENANCE.id,
+    SPELLS.POWER_WORD_SHIELD.id,
+    SPELLS.SMITE.id,
+    SPELLS.POWER_WORD_RADIANCE.id,
+    SPELLS.PURGE_THE_WICKED_TALENT.id,
+    SPELLS.SHADOW_MEND.id,
+    SPELLS.MINDBENDER_TALENT.id,
+    SPELLS.LIGHTS_WRATH.id,
+    SPELLS.RAPTURE.id,
+    SPELLS.HALO_TALENT.id,
+    SPELLS.PLEA.id,
+    SPELLS.DIVINE_STAR_TALENT.id,
+    SPELLS.ANGELIC_FEATHER_TALENT.id,
+    SPELLS.MASS_DISPEL.id,
+    SPELLS.DISPEL_MAGIC.id,
+    SPELLS.LEVITATE.id,
+    SPELLS.POWER_INFUSION_TALENT.id,
+    SPELLS.POWER_WORD_BARRIER.id,
+    SPELLS.PURIFY.id,
+    SPELLS.SHACKLE_UNDEAD.id,
+    SPELLS.SHADOW_FIEND.id,
   ];
 
-  on_initialized(event) {
-    super.on_initialized(arguments);
-
-    const combatant = this.owner.modules.combatants.selected;
-
-    if (combatant.lv15Talent === SPELLS.CRUSADERS_MIGHT_TALENT.id) {
-      console.log(this.constructor, this.constructor.HEALING_ABILITIES_ON_GCD);
-      this.constructor.HEALING_ABILITIES_ON_GCD.push(SPELLS.CRUSADER_STRIKE.id);
-    }
-    if (combatant.lv90Talent === SPELLS.JUDGMENT_OF_LIGHT_TALENT.id || combatant.hasRing(ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id)) {
-      this.constructor.HEALING_ABILITIES_ON_GCD.push(SPELLS.JUDGMENT_CAST.id);
-    }
-  }
+  lastPenanceStartTimestamp = null;
+  penanceCasts = 0;
 
   recordCastTime(
     castStartTimestamp,
@@ -63,6 +40,19 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     cast,
     spellId
   ) {
+    if (spellId === SPELLS.PENANCE.id) {
+      if (!this.lastPenanceStartTimestamp || (castStartTimestamp - this.lastPenanceStartTimestamp) > 2000) {
+        debug && console.log(`%cABC: New penance channel started`, 'color: orange');
+        this.penanceCasts += 1; // also track the amount of penance casts. Since we're already doing this here, this way we don't need a separate module.
+        this.lastPenanceStartTimestamp = castStartTimestamp;
+      } else {
+        // This is a follow up from an existing Penance channel, it doesn't start its own GCD but the last cast is always after the initial GCD. This makes it so the last cast is still considered a valid cast.
+        debug && console.log(`%cABC: Follow up penance cast, ignoring time wasted`, 'color: gray');
+        this.lastCastFinishedTimestamp = Math.max(this.lastCastFinishedTimestamp, cast.timestamp);
+        return; // by returning here we don't get an invalid time wasted added
+      }
+    }
+
     super.recordCastTime(
       castStartTimestamp,
       globalCooldown,
@@ -70,29 +60,14 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
       cast,
       spellId
     );
-    this.verifyCast(begincast, cast, globalCooldown);
-  }
-  verifyCast(begincast, cast, globalCooldown) {
-    if (cast.ability.guid !== SPELLS.FLASH_OF_LIGHT.id) {
-      return;
-    }
-    const castTime = cast.timestamp - begincast.timestamp;
-    if (!this.constructor.inRange(castTime, globalCooldown, 50)) { // cast times seem to fluctuate by 50ms, not sure if it depends on player latency, in that case it could be a lot more flexible
-      console.warn(`Expected Flash of Light cast time (${castTime}) to match GCD (${Math.round(globalCooldown)}) @${cast.timestamp - this.owner.fight.start_time}`);
-    }
   }
 
-    countsAsHealingAbility(cast) {
-    const spellId = cast.ability.guid;
-    if (spellId === SPELLS.HOLY_SHOCK_CAST.id && !cast.targetIsFriendly) {
-      debug && console.log(`%cABC: ${cast.ability.name} (${spellId}) skipped for healing time; target is not friendly`, 'color: orange');
-      return false;
-    }
-    return super.countsAsHealingAbility(cast);
-  }
 
-  static inRange(num1, goal, buffer) {
-    return num1 > (goal - buffer) && num1 < (goal + buffer);
+  on_finished() {
+    this.lastPenanceStartTimestamp = null;
+    this.penanceCasts = 0;
+
+    super.on_finished();
   }
 }
 

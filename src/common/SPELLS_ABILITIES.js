@@ -195,4 +195,95 @@ export default {
     name: 'Shield of Vengeance',
     icon: 'ability_paladin_shieldofthetemplar',
   },
+  // Discipline Priest:
+  PENANCE: {
+    id: 47666,
+    name: 'Penance',
+    icon: 'ability_paladin_shieldofthetemplar',
+  },
+  POWER_WORD_SHIELD: {
+    id: 17,
+    name: 'Power Word: Shield',
+    icon: 'spell_holy_powerwordshield',
+  },
+  SMITE: {
+    id: 585,
+    name: 'Smite',
+    icon: 'spell_holy_holysmite',
+  },
+  POWER_WORD_RADIANCE: {
+    id: 194509,
+    name: 'Power Word: Radiance',
+    icon: 'spell_priest_power-word',
+  },
+  SHADOW_MEND: {
+    id: 186263,
+    name: 'Shadow Mend',
+    icon: 'spell_shadow_shadowmend',
+  },
+  LIGHTS_WRATH: {
+    id: 207946,
+    name: 'Light\'s Wrath',
+    icon: 'inv_staff_2h_artifacttome_d_01',
+  },
+  RAPTURE: {
+    id: 47536,
+    name: 'Rapture',
+    icon: 'spell_holy_rapture',
+  },
+  PAIN_SUPPRESSION: {
+    id: 33206,
+    name: 'Pain Suppression',
+    icon: 'spell_holy_painsupression',
+  },
+  PLEA: {
+    id: 200829,
+    name: 'Plea',
+    icon: 'spell_priest_plea_blue',
+  },
+  MASS_DISPEL: {
+    id: 32375,
+    name: 'Mass Dispel',
+    icon: 'spell_arcane_massdispel',
+  },
+  DISPEL_MAGIC: {
+    id: 528,
+    name: 'Dispel Magic',
+    icon: 'spell_nature_nullifydisease',
+  },
+  LEAP_OF_FAITH: {
+    id: 73325,
+    name: 'Leap of Faith',
+    icon: 'priest_spell_leapoffaith_a',
+  },
+  LEVITATE: {
+    id: 1706,
+    name: 'Levitate',
+    icon: 'spell_holy_layonhands',
+  },
+  MIND_CONTROL: {
+    id: 605,
+    name: 'Mind Control',
+    icon: 'spell_shadow_shadowworddominate',
+  },
+  POWER_WORD_BARRIER: {
+    id: 62618,
+    name: 'Power Word: Barrier',
+    icon: 'spell_holy_powerwordbarrier',
+  },
+  PURIFY: {
+    id: 527,
+    name: 'Purify',
+    icon: 'spell_holy_dispelmagic',
+  },
+  SHACKLE_UNDEAD: {
+    id: 527,
+    name: 'Shackle Undead',
+    icon: 'spell_nature_slow',
+  },
+  SHADOW_FIEND: {
+    id: 34433,
+    name: 'Shadow Fiend',
+    icon: 'spell_shadow_shadowfiend',
+  },
 };

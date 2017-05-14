@@ -1,7 +1,7 @@
 import Module from 'Parser/Core/Module';
 import SPELLS from 'common/SPELLS';
 
-const debug = false;
+const debug = true;
 
 class AlwaysBeCasting extends Module {
   static ABILITIES_ON_GCD = [
@@ -19,6 +19,8 @@ class AlwaysBeCasting extends Module {
     [146555]: 0.25, // Drums of Rage
     [SPELLS.HOLY_AVENGER_TALENT.id]: 0.3,
     [SPELLS.BERSERKING.id]: 0.15,
+    [202842]: 0.1, // Rapid Innervation (Balance Druid trait increasing Haste from Innervate)
+    [SPELLS.POWER_INFUSION_TALENT.id]: 0.25,
 
     // Boss abilities:
     [209166]: 0.3, // DEBUFF - Fast Time from Elisande
