@@ -306,4 +306,19 @@ export default {
     name: 'Psychic Scream',
     icon: 'spell_shadow_psychicscream',
   },
+  ATONEMENT: {
+    id: 81751,
+    name: 'Atonement',
+    icon: 'spell_holy_circleofrenewal',
+  },
+  HALO_HEAL: {
+    id: 120692,
+    name: 'Halo',
+    icon: 'ability_priest_halo',
+  },
+  SHARE_IN_THE_LIGHT: {
+    id: 210027,
+    name: 'Share in the Light',
+    icon: 'spell_holy_powerwordshield',
+  },
 };
