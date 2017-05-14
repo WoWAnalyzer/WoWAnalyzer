@@ -86,13 +86,22 @@ class App extends Component {
   parser = null;
   parse(report, fightId, playerName) {
     const player = this.getPlayerFromReport(report, playerName);
+    if (!player) {
+      alert(`Unknown player: ${playerName}`);
+      return;
+    }
     const fight = this.getFightFromReport(report, fightId);
 
     const combatant = this.state.combatants.find(combatant => combatant.sourceID === player.id);
     if (!combatant) {
-      throw new Error(`Unknown combatant: ${player.id}`);
+      alert('This player does not seem to be in this fight.');
+      return;
     }
     const config = AVAILABLE_CONFIGS.find(config => config.spec.id === combatant.specID);
+    if (!config) {
+      alert('This spec is not yet supported. Your help building support for this spec would be much appreciated! Click the GitHub link above to find out how you can contribute.');
+      return;
+    }
 
     const ParserClass = config.parser;
     this.parser = new ParserClass(report, player, fight);
