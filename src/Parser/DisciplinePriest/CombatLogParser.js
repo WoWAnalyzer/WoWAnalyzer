@@ -149,7 +149,7 @@ class CombatLogParser extends MainCombatLogParser {
         value={missedPenanceTicks}
         label={(
           <dfn data-tip={`Each Penance channel allows you to hit 4 times. You should try to let this channel finish as much as possible. You channeled Penance ${this.modules.alwaysBeCasting.truePenanceCasts} times.`}>
-            Wasted Penance Bolts
+            Wasted Penance bolts
           </dfn>
         )}
       />,
