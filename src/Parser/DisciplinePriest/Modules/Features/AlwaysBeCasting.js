@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 
 import CoreAlwaysBeCasting from 'Parser/Core/Modules/AlwaysBeCasting';
 
-const debug = true;
+const debug = false;
 
 /** The amount of time during which it's impossible a second Penance could have started */
 const PENANCE_CHANNEL_TIME_BUFFER = 2500;

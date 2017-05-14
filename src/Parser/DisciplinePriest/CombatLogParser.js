@@ -26,6 +26,7 @@ import DrapeOfShame from './Modules/Legendaries/DrapeOfShame';
 import Velens from './Modules/Legendaries/Velens';
 import Prydaz from './Modules/Legendaries/Prydaz';
 import Tier19_2set from './Modules/Legendaries/Tier19_2set';
+import CordOfMaiev from './Modules/Legendaries/CordOfMaiev';
 
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
 
@@ -72,6 +73,7 @@ class CombatLogParser extends MainCombatLogParser {
     velens: Velens,
     prydaz: Prydaz,
     tier19_2set: Tier19_2set,
+    cordOfMaiev: CordOfMaiev,
   };
 
   generateResults() {
@@ -199,6 +201,16 @@ class CombatLogParser extends MainCombatLogParser {
             {((tier19_2setHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.tier19_2set.healing / fightDuration * 1000)} HPS
           </dfn>
         ),
+      },
+      this.modules.cordOfMaiev.active && {
+        id: ITEMS.CORD_OF_MAIEV_PRIESTESS_OF_THE_MOON.id,
+        icon: <ItemIcon id={ITEMS.CORD_OF_MAIEV_PRIESTESS_OF_THE_MOON.id} />,
+        title: <ItemLink id={ITEMS.CORD_OF_MAIEV_PRIESTESS_OF_THE_MOON.id} />,
+        result: (
+          <span>
+            {(this.modules.cordOfMaiev.procTime / 1000).toFixed(1)} seconds off the <SpellLink id={SPELLS.PENANCE.id} /> cooldown ({this.modules.cordOfMaiev.procs} Penances cast earlier)
+          </span>
+        )
       },
     ];
 

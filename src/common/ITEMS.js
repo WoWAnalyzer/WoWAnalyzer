@@ -2,7 +2,7 @@ import indexById from './indexById';
 
 const QUALITIES = {
   LEGENDARY: 'legendary',
-  epic: 'epic',
+  EPIC: 'epic',
 };
 
 const ITEMS = {
@@ -46,7 +46,13 @@ const ITEMS = {
     id: 142170,
     name: 'Drape of Shame',
     icon: 'inv_cape_legionendgame_c_03',
-    quality: QUALITIES.epic,
+    quality: QUALITIES.EPIC,
+  },
+  CORD_OF_MAIEV_PRIESTESS_OF_THE_MOON: {
+    id: 133800,
+    name: 'Cord of Maiev, Priestess of the Moon',
+    icon: 'inv_belt_leather_panda_b_02_crimson',
+    quality: QUALITIES.LEGENDARY,
   },
 };
 
