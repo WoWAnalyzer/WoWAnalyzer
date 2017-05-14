@@ -18,6 +18,8 @@ import TalentsTab from 'Main/TalentsTab';
 import CastEfficiencyTab from 'Main/CastEfficiencyTab';
 import ManaTab from 'Main/ManaTab';
 
+import AbilityTracker from './Modules/Core/AbilityTracker';
+
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 
 import DrapeOfShame from './Modules/Legendaries/DrapeOfShame';
@@ -59,6 +61,9 @@ function formatPercentage(percentage) {
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
+    // Override the ability tracker so we also get stats for IoL and beacon healing
+    abilityTracker: AbilityTracker,
+
     alwaysBeCasting: AlwaysBeCasting,
 
     // Legendaries:

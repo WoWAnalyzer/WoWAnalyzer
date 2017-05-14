@@ -54,7 +54,7 @@ const CPM_ABILITIES = [
     isActive: combatant => combatant.lv60Talent === SPELLS.MINDBENDER_TALENT.id,
   },
   {
-    spell: SPELLS.SHADOW_FIEND,
+    spell: SPELLS.SHADOWFIEND,
     category: SPELL_CATEGORY.COOLDOWNS,
     getCooldown: haste => 180,
     isActive: combatant => combatant.lv60Talent !== SPELLS.MINDBENDER_TALENT.id,

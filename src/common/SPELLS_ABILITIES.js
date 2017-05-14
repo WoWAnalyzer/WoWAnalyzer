@@ -281,9 +281,14 @@ export default {
     name: 'Shackle Undead',
     icon: 'spell_nature_slow',
   },
-  SHADOW_FIEND: {
+  SHADOWFIEND: {
+    id: 34433,
+    name: 'Shadowfiend',
+    icon: 'spell_shadow_shadowfiend',
+  },
+  SHADOWFIEND_WITH_GLYPH_OF_THE_SHA: {
     id: 132603,
-    name: 'Shadow Fiend',
+    name: 'Shadowfiend',
     icon: 'spell_shadow_shadowfiend',
   },
   SHADOW_WORD_PAIN: {
