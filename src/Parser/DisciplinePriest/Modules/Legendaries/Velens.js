@@ -19,6 +19,12 @@ class Velens extends Module {
   }
 
   on_byPlayer_heal(event) {
+    this.registerHeal(event);
+  }
+  on_byPlayer_absorbed(event) {
+    this.registerHeal(event);
+  }
+  registerHeal(event) {
     const spellId = event.ability.guid;
     if (ABILITIES_AFFECTED_BY_HEALING_INCREASES.indexOf(spellId) === -1 && spellId !== LEGENDARY_VELENS_HEAL_SPELL_ID) {
       return;
