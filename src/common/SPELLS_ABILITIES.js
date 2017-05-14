@@ -199,7 +199,7 @@ export default {
   PENANCE: {
     id: 47666,
     name: 'Penance',
-    icon: 'ability_paladin_shieldofthetemplar',
+    icon: 'spell_holy_penance',
   },
   POWER_WORD_SHIELD: {
     id: 17,

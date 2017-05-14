@@ -75,6 +75,9 @@ class CombatLogParser extends MainCombatLogParser {
     const abilityTracker = this.modules.abilityTracker;
     const getAbility = spellId => abilityTracker.getAbility(spellId);
 
+    const penance = getAbility(SPELLS.PENANCE.id);
+
+    const missedPenanceTicks = (this.modules.alwaysBeCasting.truePenanceCasts * 4) - penance.casts;
     const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
     const velensHealingPercentage = this.modules.velens.healing / this.totalHealing;
     const prydazHealingPercentage = this.modules.prydaz.healing / this.totalHealing;
@@ -133,6 +136,15 @@ class CombatLogParser extends MainCombatLogParser {
         label={(
           <dfn data-tip="Dead GCD time is available casting time not used. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), etc.">
             Dead GCD time
+          </dfn>
+        )}
+      />,
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.PENANCE.id} />}
+        value={missedPenanceTicks}
+        label={(
+          <dfn data-tip={`Each Penance channel allows you to hit 4 times. You should try to let this channel finish as much as possible. You channeled Penance ${this.modules.alwaysBeCasting.truePenanceCasts} times.`}>
+            Missed penance hits
           </dfn>
         )}
       />,
