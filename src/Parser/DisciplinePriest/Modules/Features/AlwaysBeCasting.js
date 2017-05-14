@@ -4,8 +4,8 @@ import CoreAlwaysBeCasting from 'Parser/Core/Modules/AlwaysBeCasting';
 
 const debug = true;
 
-/** This is affected by Haste */
-const PENANCE_CHANNEL_TIME = 2000;
+/** The amount of time during which it's impossible a second Penance could have started */
+const PENANCE_CHANNEL_TIME_BUFFER = 2500;
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   static ABILITIES_ON_GCD = [
@@ -48,7 +48,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     spellId
   ) {
     if (spellId === SPELLS.PENANCE.id) {
-      if (!this.lastPenanceStartTimestamp || (castStartTimestamp - this.lastPenanceStartTimestamp) > PENANCE_CHANNEL_TIME) {
+      if (!this.lastPenanceStartTimestamp || (castStartTimestamp - this.lastPenanceStartTimestamp) > PENANCE_CHANNEL_TIME_BUFFER) {
         debug && console.log(`%cABC: New penance channel started`, 'color: orange');
         this.truePenanceCasts += 1; // also track the amount of penance casts. Since we're already doing this here, this way we don't need a separate module.
         this.lastPenanceStartTimestamp = castStartTimestamp;
