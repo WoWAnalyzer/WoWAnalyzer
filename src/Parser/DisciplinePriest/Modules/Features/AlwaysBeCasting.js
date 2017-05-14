@@ -4,6 +4,9 @@ import CoreAlwaysBeCasting from 'Parser/Core/Modules/AlwaysBeCasting';
 
 const debug = true;
 
+/** This is affected by Haste */
+const PENANCE_CHANNEL_TIME = 2000;
+
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   static ABILITIES_ON_GCD = [
     225141, // http://www.wowhead.com/spell=225141/fel-crazed-rage (Draught of Souls)
@@ -28,10 +31,15 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.PURIFY.id,
     SPELLS.SHACKLE_UNDEAD.id,
     SPELLS.SHADOW_FIEND.id,
+    SPELLS.SCHISM_TALENT.id,
+    SPELLS.SHINING_FORCE_TALENT.id,
+    SPELLS.POWER_WORD_SOLACE_TALENT.id,
+    SPELLS.CLARITY_OF_WILL_TALENT.id,
+    SPELLS.SHADOW_COVENANT_TALENT.id,
   ];
 
   lastPenanceStartTimestamp = null;
-  penanceCasts = 0;
+  truePenanceCasts = 0;
 
   recordCastTime(
     castStartTimestamp,
@@ -41,9 +49,9 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     spellId
   ) {
     if (spellId === SPELLS.PENANCE.id) {
-      if (!this.lastPenanceStartTimestamp || (castStartTimestamp - this.lastPenanceStartTimestamp) > 2000) {
+      if (!this.lastPenanceStartTimestamp || (castStartTimestamp - this.lastPenanceStartTimestamp) > PENANCE_CHANNEL_TIME) {
         debug && console.log(`%cABC: New penance channel started`, 'color: orange');
-        this.penanceCasts += 1; // also track the amount of penance casts. Since we're already doing this here, this way we don't need a separate module.
+        this.truePenanceCasts += 1; // also track the amount of penance casts. Since we're already doing this here, this way we don't need a separate module.
         this.lastPenanceStartTimestamp = castStartTimestamp;
       } else {
         // This is a follow up from an existing Penance channel, it doesn't start its own GCD but the last cast is always after the initial GCD. This makes it so the last cast is still considered a valid cast.
@@ -65,7 +73,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
 
   on_finished() {
     this.lastPenanceStartTimestamp = null;
-    this.penanceCasts = 0;
+    this.truePenanceCasts = 0;
 
     super.on_finished();
   }
