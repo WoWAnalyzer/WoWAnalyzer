@@ -27,6 +27,7 @@ import Velens from './Modules/Legendaries/Velens';
 import Prydaz from './Modules/Legendaries/Prydaz';
 import Tier19_2set from './Modules/Legendaries/Tier19_2set';
 import CordOfMaiev from './Modules/Legendaries/CordOfMaiev';
+import Skjoldr from './Modules/Legendaries/Skjoldr';
 
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
 
@@ -74,6 +75,7 @@ class CombatLogParser extends MainCombatLogParser {
     prydaz: Prydaz,
     tier19_2set: Tier19_2set,
     cordOfMaiev: CordOfMaiev,
+    skjoldr: Skjoldr,
   };
 
   generateResults() {
@@ -210,6 +212,16 @@ class CombatLogParser extends MainCombatLogParser {
           <span>
             {(this.modules.cordOfMaiev.procTime / 1000).toFixed(1)} seconds off the <SpellLink id={SPELLS.PENANCE.id} /> cooldown ({this.modules.cordOfMaiev.procs} Penances cast earlier)
           </span>
+        )
+      },
+      this.modules.skjoldr.active && {
+        id: ITEMS.SKJOLDR_SANCTUARY_OF_IVAGONT.id,
+        icon: <ItemIcon id={ITEMS.SKJOLDR_SANCTUARY_OF_IVAGONT.id} />,
+        title: <ItemLink id={ITEMS.SKJOLDR_SANCTUARY_OF_IVAGONT.id} />,
+        result: (
+          <dfn data-tip="The actual effective healing contributed by the Skjoldr, Sanctuary of Ivagont equip effect. This does not yet include the healing gained via Share in the Light.">
+            {((this.modules.skjoldr.healing / this.totalHealing * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.skjoldr.healing / fightDuration * 1000)} HPS
+          </dfn>
         )
       },
     ];

@@ -54,6 +54,12 @@ const ITEMS = {
     icon: 'inv_belt_leather_panda_b_02_crimson',
     quality: QUALITIES.LEGENDARY,
   },
+  SKJOLDR_SANCTUARY_OF_IVAGONT: {
+    id: 132436,
+    name: 'Skjoldr, Sanctuary of Ivagont',
+    icon: 'inv_bracer_56',
+    quality: QUALITIES.LEGENDARY,
+  },
 };
 
 export default indexById(ITEMS);
