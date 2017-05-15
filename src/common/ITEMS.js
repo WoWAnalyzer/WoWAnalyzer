@@ -60,6 +60,12 @@ const ITEMS = {
     icon: 'inv_bracer_56',
     quality: QUALITIES.LEGENDARY,
   },
+  XALAN_THE_FEAREDS_CLENCH: {
+    id: 132461,
+    name: 'Xalan the Feared\'s Clench',
+    icon: 'inv_gauntlets_14',
+    quality: QUALITIES.LEGENDARY,
+  },
 };
 
 export default indexById(ITEMS);

@@ -28,6 +28,7 @@ import Prydaz from './Modules/Legendaries/Prydaz';
 import Tier19_2set from './Modules/Legendaries/Tier19_2set';
 import CordOfMaiev from './Modules/Legendaries/CordOfMaiev';
 import Skjoldr from './Modules/Legendaries/Skjoldr';
+import Xalan from './Modules/Legendaries/Xalan';
 
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
 
@@ -76,6 +77,7 @@ class CombatLogParser extends MainCombatLogParser {
     tier19_2set: Tier19_2set,
     cordOfMaiev: CordOfMaiev,
     skjoldr: Skjoldr,
+    xalan: Xalan,
   };
 
   generateResults() {
@@ -88,7 +90,7 @@ class CombatLogParser extends MainCombatLogParser {
 
     const penance = getAbility(SPELLS.PENANCE.id);
 
-    const missedPenanceTicks = (this.modules.alwaysBeCasting.truePenanceCasts * 4) - penance.casts;
+    const missedPenanceTicks = (this.modules.alwaysBeCasting.truePenanceCasts * 4) - (penance.casts || 0);
     const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
     const velensHealingPercentage = this.modules.velens.healing / this.totalHealing;
     const prydazHealingPercentage = this.modules.prydaz.healing / this.totalHealing;
@@ -194,16 +196,6 @@ class CombatLogParser extends MainCombatLogParser {
           </dfn>
         ),
       },
-      this.modules.tier19_2set.active && {
-        id: `spell-${SPELLS.DISC_PRIEST_T19_2SET_BONUS_BUFF.id}`,
-        icon: <SpellIcon id={SPELLS.DISC_PRIEST_T19_2SET_BONUS_BUFF.id} />,
-        title: <SpellLink id={SPELLS.DISC_PRIEST_T19_2SET_BONUS_BUFF.id} />,
-        result: (
-          <dfn data-tip="The actual effective healing contributed by the Tier 19 2 set bonus.">
-            {((tier19_2setHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.tier19_2set.healing / fightDuration * 1000)} HPS
-          </dfn>
-        ),
-      },
       this.modules.cordOfMaiev.active && {
         id: ITEMS.CORD_OF_MAIEV_PRIESTESS_OF_THE_MOON.id,
         icon: <ItemIcon id={ITEMS.CORD_OF_MAIEV_PRIESTESS_OF_THE_MOON.id} />,
@@ -223,6 +215,26 @@ class CombatLogParser extends MainCombatLogParser {
             {((this.modules.skjoldr.healing / this.totalHealing * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.skjoldr.healing / fightDuration * 1000)} HPS
           </dfn>
         )
+      },
+      this.modules.xalan.active && {
+        id: ITEMS.XALAN_THE_FEAREDS_CLENCH.id,
+        icon: <ItemIcon id={ITEMS.XALAN_THE_FEAREDS_CLENCH.id} />,
+        title: <ItemLink id={ITEMS.XALAN_THE_FEAREDS_CLENCH.id} />,
+        result: (
+          <dfn data-tip={`The actual effective healing contributed by the Xalan the Feared's Clench equip effect asuming your Atonement lasts ${this.modules.xalan.atonementDuration} seconds normally.`}>
+            {((this.modules.xalan.healing / this.totalHealing * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.xalan.healing / fightDuration * 1000)} HPS
+          </dfn>
+        )
+      },
+      this.modules.tier19_2set.active && {
+        id: `spell-${SPELLS.DISC_PRIEST_T19_2SET_BONUS_BUFF.id}`,
+        icon: <SpellIcon id={SPELLS.DISC_PRIEST_T19_2SET_BONUS_BUFF.id} />,
+        title: <SpellLink id={SPELLS.DISC_PRIEST_T19_2SET_BONUS_BUFF.id} />,
+        result: (
+          <dfn data-tip="The actual effective healing contributed by the Tier 19 2 set bonus.">
+            {((tier19_2setHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.tier19_2set.healing / fightDuration * 1000)} HPS
+          </dfn>
+        ),
       },
     ];
 
