@@ -29,6 +29,7 @@ import Tier19_2set from './Modules/Legendaries/Tier19_2set';
 import CordOfMaiev from './Modules/Legendaries/CordOfMaiev';
 import Skjoldr from './Modules/Legendaries/Skjoldr';
 import Xalan from './Modules/Legendaries/Xalan';
+import NeroBandOfPromises from './Modules/Legendaries/NeroBandOfPromises';
 
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
 
@@ -78,6 +79,7 @@ class CombatLogParser extends MainCombatLogParser {
     cordOfMaiev: CordOfMaiev,
     skjoldr: Skjoldr,
     xalan: Xalan,
+    neroBandOfPromises: NeroBandOfPromises,
   };
 
   generateResults() {
@@ -223,6 +225,16 @@ class CombatLogParser extends MainCombatLogParser {
         result: (
           <dfn data-tip={`The actual effective healing contributed by the Xalan the Feared's Clench equip effect asuming your Atonement lasts ${this.modules.xalan.atonementDuration} seconds normally.`}>
             {((this.modules.xalan.healing / this.totalHealing * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.xalan.healing / fightDuration * 1000)} HPS
+          </dfn>
+        )
+      },
+      this.modules.neroBandOfPromises.active && {
+        id: ITEMS.NERO_BAND_OF_PROMISES.id,
+        icon: <ItemIcon id={ITEMS.NERO_BAND_OF_PROMISES.id} />,
+        title: <ItemLink id={ITEMS.NERO_BAND_OF_PROMISES.id} />,
+        result: (
+          <dfn data-tip={`The actual effective healing contributed by the Xalan the Feared's Clench equip effect. The healing gain counts as Atonement healing and does NOT stack with existing Atonements.`}>
+            {((this.modules.neroBandOfPromises.healing / this.totalHealing * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.neroBandOfPromises.healing / fightDuration * 1000)} HPS
           </dfn>
         )
       },

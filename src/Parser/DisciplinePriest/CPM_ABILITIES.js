@@ -76,7 +76,7 @@ const CPM_ABILITIES = [
     getCooldown: haste => 4 * 60,
   },
   {
-    spell: SPELLS.POWER_WORD_BARRIER,
+    spell: SPELLS.POWER_WORD_BARRIER_CAST,
     category: SPELL_CATEGORY.COOLDOWNS,
     getCooldown: haste => 3 * 60,
   },

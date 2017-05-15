@@ -66,6 +66,12 @@ const ITEMS = {
     icon: 'inv_gauntlets_14',
     quality: QUALITIES.LEGENDARY,
   },
+  NERO_BAND_OF_PROMISES: {
+    id: 137276,
+    name: 'N\'ero, Band of Promises',
+    icon: 'inv_jewelry_ring_54',
+    quality: QUALITIES.LEGENDARY,
+  },
 };
 
 export default indexById(ITEMS);

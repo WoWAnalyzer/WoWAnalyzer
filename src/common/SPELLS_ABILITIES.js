@@ -266,8 +266,13 @@ export default {
     name: 'Mind Control',
     icon: 'spell_shadow_shadowworddominate',
   },
-  POWER_WORD_BARRIER: {
+  POWER_WORD_BARRIER_CAST: {
     id: 62618,
+    name: 'Power Word: Barrier',
+    icon: 'spell_holy_powerwordbarrier',
+  },
+  POWER_WORD_BARRIER_BUFF: {
+    id: 81782,
     name: 'Power Word: Barrier',
     icon: 'spell_holy_powerwordbarrier',
   },
