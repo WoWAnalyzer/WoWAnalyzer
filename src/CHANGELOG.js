@@ -1,4 +1,5 @@
 export default `
+15-05-2017 - Disc Priest: Skjoldr, Sanctuary of Ivagont statistic now includes the healing gained via Share in the Light.
 14-05-2017 - Disc Priest: Added Skjoldr, Sanctuary of Ivagont statistic. This does not yet include the healing gained via Share in the Light.
 14-05-2017 - Disc Priest: Added Cord of Maiev, Priestess of the Moon statistic.
 14-05-2017 - Added Disc Priest 2 set bonus statistic.
