@@ -1,6 +1,7 @@
 export default `
-15-05-2017 - Holy Paladin: Added Darkmoon Deck: Promises statistic. Disc Priest: Added Darkmoon Deck: Promises statistic. Added Light's Wrath to cast efficiency. Changed Pain Suppression cooldown to take into account the Pain is in your Mind trait.
-15-05-2017 - Disc Priest: Added N'ero, Band of Promises statistic.
+16-05-2017 - Disabled Retribution Paladin spec since it never really came out of the experimental phase.
+16-05-2017 - Holy Paladin: Added Darkmoon Deck: Promises statistic. Disc Priest: Added Darkmoon Deck: Promises statistic. Added Light's Wrath to cast efficiency. Changed Pain Suppression cooldown to take into account the Pain is in your Mind trait.
+16-05-2017 - Disc Priest: Added N'ero, Band of Promises statistic.
 15-05-2017 - Disc Priest: Added Xalan the Feared's Clench statistic.
 15-05-2017 - Disc Priest: Skjoldr, Sanctuary of Ivagont statistic now includes the healing gained via Share in the Light.
 14-05-2017 - Disc Priest: Added Skjoldr, Sanctuary of Ivagont statistic. This does not yet include the healing gained via Share in the Light.

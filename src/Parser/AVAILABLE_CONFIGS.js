@@ -4,6 +4,6 @@ import DisciplinePriest from './DisciplinePriest/CONFIG';
 
 export default [
   HolyPaladin,
-  RetributionPaladin,
+  // RetributionPaladin,
   DisciplinePriest,
 ];
