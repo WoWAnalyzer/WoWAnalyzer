@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 
-import CoreDarkmoonDeckPromises from 'Parser/Core/Modules/DarkmoonDeckPromises';
+import CoreDarkmoonDeckPromises from 'Parser/Core/Modules/Items/DarkmoonDeckPromises';
 
 const debug = false;
 

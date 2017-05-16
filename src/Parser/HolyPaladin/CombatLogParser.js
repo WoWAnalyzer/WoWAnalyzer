@@ -4,7 +4,8 @@ import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 import ParseResults from 'Parser/Core/ParseResults';
 import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
-import DarkmoonDeckPromises from 'Parser/Core/Modules/DarkmoonDeckPromises';
+import DarkmoonDeckPromises from 'Parser/Core/Modules/Items/DarkmoonDeckPromises';
+import SephuzsSecret from 'Parser/Core/Modules/Items/SephuzsSecret';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -89,10 +90,11 @@ class CombatLogParser extends MainCombatLogParser {
 
     // Items:
     drapeOfShame: DrapeOfShame,
-    ilterendi: Ilterendi,
-    velens: Velens,
-    chainOfThrayn: ChainOfThrayn,
     prydaz: Prydaz,
+    velens: Velens,
+    sephuzsSecret: SephuzsSecret,
+    ilterendi: Ilterendi,
+    chainOfThrayn: ChainOfThrayn,
     obsidianStoneSpaulders: ObsidianStoneSpaulders,
     maraadsDyingBreath: MaraadsDyingBreath,
     darkmoonDeckPromises: DarkmoonDeckPromises,
@@ -567,6 +569,12 @@ class CombatLogParser extends MainCombatLogParser {
             {((velensHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.velens.healing / fightDuration * 1000)} HPS
           </dfn>
         ),
+      },
+      this.modules.sephuzsSecret.active && {
+        id: ITEMS.SEPHUZS_SECRET.id,
+        icon: <ItemIcon id={ITEMS.SEPHUZS_SECRET.id} />,
+        title: <ItemLink id={ITEMS.SEPHUZS_SECRET.id} />,
+        result: `${((this.modules.sephuzsSecret.uptime / fightDuration * 100) || 0).toFixed(2)} % uptime`,
       },
       this.modules.chainOfThrayn.active && {
         id: ITEMS.CHAIN_OF_THRAYN.id,

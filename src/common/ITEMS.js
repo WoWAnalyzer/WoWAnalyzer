@@ -12,16 +12,23 @@ const ITEMS = {
     icon: 'inv_misc_necklace15',
     quality: QUALITIES.LEGENDARY,
   },
-  OBSIDIAN_STONE_SPAULDERS: {
-    id: 137076,
-    name: 'Obsidian Stone Spaulders',
-    icon: 'inv_shoulder_plate_pvppaladin_o_01',
+  SEPHUZS_SECRET: {
+    id: 132452,
+    name: 'Sephuz\'s Secret',
+    icon: 'inv_jewelry_ring_149',
     quality: QUALITIES.LEGENDARY,
   },
   VELENS_FUTURE_SIGHT_BUFF: {
     id: 144258,
     name: 'Velen\'s Future Sight',
     icon: 'spell_holy_healingfocus',
+    quality: QUALITIES.LEGENDARY,
+  },
+
+  OBSIDIAN_STONE_SPAULDERS: {
+    id: 137076,
+    name: 'Obsidian Stone Spaulders',
+    icon: 'inv_shoulder_plate_pvppaladin_o_01',
     quality: QUALITIES.LEGENDARY,
   },
   ILTERENDI_CROWN_JEWEL_OF_SILVERMOON: {

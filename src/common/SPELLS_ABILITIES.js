@@ -331,4 +331,9 @@ export default {
     name: 'Kam Xi\'raff',
     icon: 'ability_priest_savinggrace',
   },
+  SEPHUZS_SECRET_BUFF: {
+    id: 208052,
+    name: 'Sephuz\'s Secret',
+    icon: 'inv_jewelry_ring_149',
+  },
 };
