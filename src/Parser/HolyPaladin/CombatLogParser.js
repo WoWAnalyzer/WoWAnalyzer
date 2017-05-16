@@ -30,13 +30,13 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import SacredDawn from './Modules/Features/SacredDawn';
 import TyrsDeliverance from './Modules/Features/TyrsDeliverance';
 
-import DrapeOfShame from './Modules/Legendaries/DrapeOfShame';
-import Ilterendi from './Modules/Legendaries/Ilterendi';
-import Velens from './Modules/Legendaries/Velens';
-import ChainOfThrayn from './Modules/Legendaries/ChainOfThrayn';
-import Prydaz from './Modules/Legendaries/Prydaz';
-import ObsidianStoneSpaulders from './Modules/Legendaries/ObsidianStoneSpaulders';
-import MaraadsDyingBreath from './Modules/Legendaries/MaraadsDyingBreath';
+import DrapeOfShame from './Modules/Items/DrapeOfShame';
+import Ilterendi from './Modules/Items/Ilterendi';
+import Velens from './Modules/Items/Velens';
+import ChainOfThrayn from './Modules/Items/ChainOfThrayn';
+import Prydaz from './Modules/Items/Prydaz';
+import ObsidianStoneSpaulders from './Modules/Items/ObsidianStoneSpaulders';
+import MaraadsDyingBreath from './Modules/Items/MaraadsDyingBreath';
 
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
 

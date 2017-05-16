@@ -22,15 +22,15 @@ import AbilityTracker from './Modules/Core/AbilityTracker';
 
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 
-import DrapeOfShame from './Modules/Legendaries/DrapeOfShame';
-import Velens from './Modules/Legendaries/Velens';
-import Prydaz from './Modules/Legendaries/Prydaz';
-import Tier19_2set from './Modules/Legendaries/Tier19_2set';
-import CordOfMaiev from './Modules/Legendaries/CordOfMaiev';
-import Skjoldr from './Modules/Legendaries/Skjoldr';
-import Xalan from './Modules/Legendaries/Xalan';
-import NeroBandOfPromises from './Modules/Legendaries/NeroBandOfPromises';
-import DarkmoonDeckPromises from './Modules/Legendaries/DarkmoonDeckPromises';
+import DrapeOfShame from './Modules/Items/DrapeOfShame';
+import Velens from './Modules/Items/Velens';
+import Prydaz from './Modules/Items/Prydaz';
+import Tier19_2set from './Modules/Items/Tier19_2set';
+import CordOfMaiev from './Modules/Items/CordOfMaiev';
+import Skjoldr from './Modules/Items/Skjoldr';
+import Xalan from './Modules/Items/Xalan';
+import NeroBandOfPromises from './Modules/Items/NeroBandOfPromises';
+import DarkmoonDeckPromises from './Modules/Items/DarkmoonDeckPromises';
 
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
 
