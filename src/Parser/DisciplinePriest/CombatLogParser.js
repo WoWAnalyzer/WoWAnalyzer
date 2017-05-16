@@ -30,6 +30,7 @@ import CordOfMaiev from './Modules/Legendaries/CordOfMaiev';
 import Skjoldr from './Modules/Legendaries/Skjoldr';
 import Xalan from './Modules/Legendaries/Xalan';
 import NeroBandOfPromises from './Modules/Legendaries/NeroBandOfPromises';
+import DarkmoonDeckPromises from './Modules/Legendaries/DarkmoonDeckPromises';
 
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
 
@@ -71,7 +72,7 @@ class CombatLogParser extends MainCombatLogParser {
 
     alwaysBeCasting: AlwaysBeCasting,
 
-    // Legendaries:
+    // Items:
     drapeOfShame: DrapeOfShame,
     velens: Velens,
     prydaz: Prydaz,
@@ -80,6 +81,7 @@ class CombatLogParser extends MainCombatLogParser {
     skjoldr: Skjoldr,
     xalan: Xalan,
     neroBandOfPromises: NeroBandOfPromises,
+    darkmoonDeckPromises: DarkmoonDeckPromises,
   };
 
   generateResults() {
@@ -168,16 +170,6 @@ class CombatLogParser extends MainCombatLogParser {
     ];
 
     results.items = [
-      this.modules.drapeOfShame.active && {
-        id: ITEMS.DRAPE_OF_SHAME.id,
-        icon: <ItemIcon id={ITEMS.DRAPE_OF_SHAME.id} />,
-        title: <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} />,
-        result: (
-          <dfn data-tip="The actual effective healing contributed by the Drape of Shame equip effect.">
-            {((drapeOfShameHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.drapeOfShame.healing / fightDuration * 1000)} HPS
-          </dfn>
-        ),
-      },
       this.modules.velens.active && {
         id: ITEMS.VELENS_FUTURE_SIGHT_BUFF.id,
         icon: <ItemIcon id={ITEMS.VELENS_FUTURE_SIGHT_BUFF.id} />,
@@ -235,6 +227,26 @@ class CombatLogParser extends MainCombatLogParser {
         result: (
           <dfn data-tip={`The actual effective healing contributed by the Xalan the Feared's Clench equip effect. The healing gain counts as Atonement healing and does NOT stack with existing Atonements.`}>
             {((this.modules.neroBandOfPromises.healing / this.totalHealing * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.neroBandOfPromises.healing / fightDuration * 1000)} HPS
+          </dfn>
+        )
+      },
+      this.modules.drapeOfShame.active && {
+        id: ITEMS.DRAPE_OF_SHAME.id,
+        icon: <ItemIcon id={ITEMS.DRAPE_OF_SHAME.id} />,
+        title: <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} />,
+        result: (
+          <dfn data-tip="The actual effective healing contributed by the Drape of Shame equip effect.">
+            {((drapeOfShameHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.drapeOfShame.healing / fightDuration * 1000)} HPS
+          </dfn>
+        ),
+      },
+      this.modules.darkmoonDeckPromises.active && {
+        id: ITEMS.DARKMOON_DECK_PROMISES.id,
+        icon: <ItemIcon id={ITEMS.DARKMOON_DECK_PROMISES.id} />,
+        title: <ItemLink id={ITEMS.DARKMOON_DECK_PROMISES.id} />,
+        result: (
+          <dfn data-tip={`The exact amunt of mana saved by the Darkmoon Deck: Promises equip effect. This takes the different values per card into account at the time of the cast. Mana values assume you have a 875 item level version.`}>
+            {formatThousands(this.modules.darkmoonDeckPromises.manaGained)} mana saved ({formatThousands(this.modules.darkmoonDeckPromises.manaGained / this.fightDuration * 1000 * 5)} MP5)
           </dfn>
         )
       },

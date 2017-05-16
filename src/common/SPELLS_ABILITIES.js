@@ -321,14 +321,14 @@ export default {
     name: 'Halo',
     icon: 'ability_priest_halo',
   },
-  SHARE_IN_THE_LIGHT: {
-    id: 210027,
-    name: 'Share in the Light',
-    icon: 'spell_holy_powerwordshield',
-  },
   DISC_PRIEST_T19_2SET_BONUS_BUFF: {
     id: 211556,
     name: 'T19 2 set bonus',
     icon: 'spell_holy_powerwordshield',
+  },
+  KAM_XIRAFF_BUFF: {
+    id: 233997,
+    name: 'Kam Xi\'raff',
+    icon: 'ability_priest_savinggrace',
   },
 };

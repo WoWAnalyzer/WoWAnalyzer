@@ -72,6 +72,12 @@ const ITEMS = {
     icon: 'inv_jewelry_ring_54',
     quality: QUALITIES.LEGENDARY,
   },
+  DARKMOON_DECK_PROMISES: {
+    id: 128710,
+    name: 'Darkmoon Deck: Promises',
+    icon: '70_inscription_deck_promises',
+    quality: QUALITIES.EPIC,
+  },
 };
 
 export default indexById(ITEMS);

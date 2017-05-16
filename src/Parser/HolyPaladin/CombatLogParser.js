@@ -4,6 +4,7 @@ import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 import ParseResults from 'Parser/Core/ParseResults';
 import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
+import DarkmoonDeckPromises from 'Parser/Core/Modules/DarkmoonDeckPromises';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -86,7 +87,7 @@ class CombatLogParser extends MainCombatLogParser {
     sacredDawn: SacredDawn,
     tyrsDeliverance: TyrsDeliverance,
 
-    // Legendaries:
+    // Items:
     drapeOfShame: DrapeOfShame,
     ilterendi: Ilterendi,
     velens: Velens,
@@ -94,6 +95,7 @@ class CombatLogParser extends MainCombatLogParser {
     prydaz: Prydaz,
     obsidianStoneSpaulders: ObsidianStoneSpaulders,
     maraadsDyingBreath: MaraadsDyingBreath,
+    darkmoonDeckPromises: DarkmoonDeckPromises,
   };
 
   calculateMasteryStats() {
@@ -546,16 +548,6 @@ class CombatLogParser extends MainCombatLogParser {
     ];
 
     results.items = [
-      this.modules.drapeOfShame.active && {
-        id: ITEMS.DRAPE_OF_SHAME.id,
-        icon: <ItemIcon id={ITEMS.DRAPE_OF_SHAME.id} />,
-        title: <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} />,
-        result: (
-          <dfn data-tip="The actual effective healing contributed by the Drape of Shame equip effect.">
-            {((drapeOfShameHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.drapeOfShame.healing / fightDuration * 1000)} HPS
-          </dfn>
-        ),
-      },
       this.modules.ilterendi.active && {
         id: ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id,
         icon: <ItemIcon id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} />,
@@ -615,6 +607,26 @@ class CombatLogParser extends MainCombatLogParser {
             {((maraadsDyingBreathHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.maraadsDyingBreath.healing / fightDuration * 1000)} HPS
           </dfn>
         ),
+      },
+      this.modules.drapeOfShame.active && {
+        id: ITEMS.DRAPE_OF_SHAME.id,
+        icon: <ItemIcon id={ITEMS.DRAPE_OF_SHAME.id} />,
+        title: <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} />,
+        result: (
+          <dfn data-tip="The actual effective healing contributed by the Drape of Shame equip effect.">
+            {((drapeOfShameHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.drapeOfShame.healing / fightDuration * 1000)} HPS
+          </dfn>
+        ),
+      },
+      this.modules.darkmoonDeckPromises.active && {
+        id: ITEMS.DARKMOON_DECK_PROMISES.id,
+        icon: <ItemIcon id={ITEMS.DARKMOON_DECK_PROMISES.id} />,
+        title: <ItemLink id={ITEMS.DARKMOON_DECK_PROMISES.id} />,
+        result: (
+          <dfn data-tip={`The exact amunt of mana saved by the Darkmoon Deck: Promises equip effect. This takes the different values per card into account at the time of the cast. Mana values assume you have a 875 item level version.`}>
+            {formatThousands(this.modules.darkmoonDeckPromises.manaGained)} mana saved ({formatThousands(this.modules.darkmoonDeckPromises.manaGained / this.fightDuration * 1000 * 5)} MP5)
+          </dfn>
+        )
       },
       has4PT19 && {
         id: `spell-${SPELLS.HOLY_PALADIN_T19_4SET_BONUS_BUFF.id}`,

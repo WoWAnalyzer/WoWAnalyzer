@@ -46,6 +46,11 @@ const CPM_ABILITIES = [
     getCooldown: haste => 40,
     isActive: combatant => combatant.lv90Talent === SPELLS.HALO_TALENT.id,
   },
+  {
+    spell: SPELLS.LIGHTS_WRATH,
+    category: SPELL_CATEGORY.ROTATIONAL,
+    getCooldown: haste => 90,
+  },
 
   {
     spell: SPELLS.MINDBENDER_TALENT,
@@ -73,7 +78,7 @@ const CPM_ABILITIES = [
   {
     spell: SPELLS.PAIN_SUPPRESSION,
     category: SPELL_CATEGORY.COOLDOWNS,
-    getCooldown: haste => 4 * 60,
+    getCooldown: (haste, combatant) => 4 * 60 - (combatant.traitsBySpellId[SPELLS.PAIN_IS_IN_YOUR_MIND.id] || 0) * 10,
   },
   {
     spell: SPELLS.POWER_WORD_BARRIER_CAST,
@@ -81,11 +86,6 @@ const CPM_ABILITIES = [
     getCooldown: haste => 3 * 60,
   },
 
-  {
-    spell: SPELLS.LIGHTS_WRATH,
-    category: SPELL_CATEGORY.OTHERS,
-    getCooldown: haste => null,
-  },
   {
     spell: SPELLS.POWER_WORD_RADIANCE,
     category: SPELL_CATEGORY.OTHERS,

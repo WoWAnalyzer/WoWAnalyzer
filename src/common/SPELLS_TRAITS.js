@@ -17,4 +17,16 @@ export default {
     name: 'Deflection',
     icon: 'ability_paladin_gaurdedbythelight',
   },
+  // Priest:
+  // Disc Priest:
+  SHARE_IN_THE_LIGHT: {
+    id: 210027,
+    name: 'Share in the Light',
+    icon: 'spell_holy_powerwordshield',
+  },
+  PAIN_IS_IN_YOUR_MIND: {
+    id: 197713,
+    name: 'Pain is in Your Mind',
+    icon: 'spell_holy_painsupression',
+  },
 };
