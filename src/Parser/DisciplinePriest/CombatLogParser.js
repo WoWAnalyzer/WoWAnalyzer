@@ -33,6 +33,8 @@ import Xalan from './Modules/Items/Xalan';
 import NeroBandOfPromises from './Modules/Items/NeroBandOfPromises';
 import DarkmoonDeckPromises from './Modules/Items/DarkmoonDeckPromises';
 
+import TwistOfFate from './Modules/Spells/TwistOfFate';
+
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
 
 function formatThousands(number) {
@@ -84,6 +86,9 @@ class CombatLogParser extends MainCombatLogParser {
     xalan: Xalan,
     neroBandOfPromises: NeroBandOfPromises,
     darkmoonDeckPromises: DarkmoonDeckPromises,
+
+    // Spells (talents and traits):
+    twistOfFate: TwistOfFate,
   };
 
   generateResults() {
@@ -169,6 +174,17 @@ class CombatLogParser extends MainCombatLogParser {
           </dfn>
         )}
       />,
+      this.modules.twistOfFate.active && (
+        <StatisticBox
+          icon={<SpellIcon id={SPELLS.TWIST_OF_FATE_TALENT.id} />}
+          value={`${formatNumber(this.modules.twistOfFate.healing / fightDuration * 1000)} HPS`}
+          label={(
+            <dfn data-tip={`The actual effective healing contributed by Twist of Fate (${formatPercentage(this.modules.twistOfFate.healing / this.totalHealing)}% of total healing done). Twist of Fate also contributed ${formatNumber(this.modules.twistOfFate.damage / fightDuration * 1000)} DPS (${formatPercentage(this.modules.twistOfFate.damage / this.totalDamage)}% of total damage done).`}>
+              Twist of Fate contribution
+            </dfn>
+          )}
+        />
+      ),
     ];
 
     results.items = [

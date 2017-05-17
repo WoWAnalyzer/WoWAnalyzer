@@ -336,4 +336,9 @@ export default {
     name: 'Sephuz\'s Secret',
     icon: 'inv_jewelry_ring_149',
   },
+  TWIST_OF_FATE_BUFF: {
+    id: 123254,
+    name: 'Twist of Fate',
+    icon: 'spell_shadow_mindtwisting',
+  },
 };
