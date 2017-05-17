@@ -1,6 +1,6 @@
 export default `
-16-05-2017 - Added Twist of Fate healing statistic (damage gain is in the tooltip).
-16-05-2017 - Added Sephuz's Secret uptime indicator.
+17-05-2017 - Added Twist of Fate healing statistic (damage gain is in the tooltip).
+17-05-2017 - Added Sephuz's Secret uptime indicator.
 16-05-2017 - Disabled Retribution Paladin spec since it never really came out of the experimental phase.
 16-05-2017 - Holy Paladin: Added Darkmoon Deck: Promises statistic. Disc Priest: Added Darkmoon Deck: Promises statistic. Added Light's Wrath to cast efficiency. Changed Pain Suppression cooldown to take into account the Pain is in your Mind trait.
 16-05-2017 - Disc Priest: Added N'ero, Band of Promises statistic.
