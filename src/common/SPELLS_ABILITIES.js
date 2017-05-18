@@ -341,4 +341,9 @@ export default {
     name: 'Twist of Fate',
     icon: 'spell_shadow_mindtwisting',
   },
+  PURGE_THE_WICKED_BUFF: {
+    id: 204213,
+    name: 'Purge the Wicked',
+    icon: 'ability_mage_firestarter',
+  },
 };

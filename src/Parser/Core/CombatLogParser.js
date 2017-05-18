@@ -1,14 +1,14 @@
 import Initialize from './Modules/Initialize';
-import Buffs from './Modules/Buffs';
 import Combatants from './Modules/Combatants';
 import AbilityTracker from './Modules/AbilityTracker';
 import AlwaysBeCasting from './Modules/AlwaysBeCasting';
+import Enemies from './Modules/Enemies';
 
 class CombatLogParser {
   static defaultModules = {
     initialize: Initialize,
     combatants: Combatants,
-    buffs: Buffs,
+    enemies: Enemies,
     abilityTracker: AbilityTracker,
     alwaysBeCasting: AlwaysBeCasting,
   };
@@ -25,9 +25,6 @@ class CombatLogParser {
     return this.player.id;
   }
 
-  get buffs() {
-    return this.modules.buffs;
-  }
   /** @returns Combatants */
   get combatants() {
     return this.modules.combatants;
