@@ -185,6 +185,20 @@ class CombatLogParser extends MainCombatLogParser {
           )}
         />
       ),
+      this.selectedCombatant.lv100Talent === SPELLS.PURGE_THE_WICKED_TALENT.id && (
+        <StatisticBox
+          icon={<SpellIcon id={SPELLS.PURGE_THE_WICKED_BUFF.id} />}
+          value={`${formatPercentage(this.modules.enemies.getBuffUptime(SPELLS.PURGE_THE_WICKED_BUFF.id) / this.fightDuration)} %`}
+          label="Purge the Wicked uptime"
+        />
+      ),
+      this.selectedCombatant.lv100Talent !== SPELLS.PURGE_THE_WICKED_TALENT.id && (
+        <StatisticBox
+          icon={<SpellIcon id={SPELLS.SHADOW_WORD_PAIN.id} />}
+          value={`${formatPercentage(this.modules.enemies.getBuffUptime(SPELLS.SHADOW_WORD_PAIN.id) / this.fightDuration)} %`}
+          label="Shadow Word: Pain uptime"
+        />
+      ),
     ];
 
     results.items = [
