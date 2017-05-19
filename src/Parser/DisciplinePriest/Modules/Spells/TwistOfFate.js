@@ -13,7 +13,7 @@ class TwistOfFate extends Module {
 
   on_initialized() {
     if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.lv75Talent === SPELLS.TWIST_OF_FATE_TALENT.id;
+      this.active = this.owner.selectedCombatant.hasTalent(SPELLS.TWIST_OF_FATE_TALENT.id);
     }
   }
 

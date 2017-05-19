@@ -9,28 +9,28 @@ const CPM_ABILITIES = [
   {
     spell: SPELLS.CRUSADER_STRIKE,
     category: SPELL_CATEGORY.ROTATIONAL,
-    getCooldown: (haste, combatant) => 4.5 / (1 + haste) - (combatant.lv30Talent === SPELLS.THE_FIRES_OF_JUSTICE_TALENT.id ? 1 : 0),
+    getCooldown: (haste, combatant) => 4.5 / (1 + haste) - (combatant.hasTalent(SPELLS.THE_FIRES_OF_JUSTICE_TALENT.id) ? 1 : 0),
     charges: 2,
-    isActive: combatant => combatant.lv30Talent !== SPELLS.ZEAL_TALENT.id,
+    isActive: combatant => !combatant.hasTalent(SPELLS.ZEAL_TALENT.id),
   },
   {
     spell: SPELLS.ZEAL_TALENT,
     category: SPELL_CATEGORY.ROTATIONAL,
     getCooldown: haste => 4.5 / (1 + haste),
     charges: 2,
-    isActive: combatant => combatant.lv30Talent === SPELLS.ZEAL_TALENT.id,
+    isActive: combatant => combatant.hasTalent(SPELLS.ZEAL_TALENT.id),
   },
   {
     spell: SPELLS.BLADE_OF_JUSTICE,
     category: SPELL_CATEGORY.ROTATIONAL,
     getCooldown: haste => 10.5 / (1 + haste),
-    isActive: combatant => combatant.lv60Talent !== SPELLS.DIVINE_HAMMER_TALENT.id,
+    isActive: combatant => !combatant.hasTalent(SPELLS.DIVINE_HAMMER_TALENT.id),
   },
   {
     spell: SPELLS.DIVINE_HAMMER_TALENT,
     category: SPELL_CATEGORY.ROTATIONAL,
     getCooldown: haste => 12 / (1 + haste),
-    isActive: combatant => combatant.lv60Talent === SPELLS.DIVINE_HAMMER_TALENT.id,
+    isActive: combatant => combatant.hasTalent(SPELLS.DIVINE_HAMMER_TALENT.id),
   },
   {
     spell: SPELLS.JUDGMENT_CAST,
@@ -60,13 +60,13 @@ const CPM_ABILITIES = [
     spell: SPELLS.AVENGING_WRATH,
     category: SPELL_CATEGORY.COOLDOWNS,
     getCooldown: haste => 120,
-    isActive: combatant => combatant.lv100Talent !== SPELLS.CRUSADE_TALENT.id,
+    isActive: combatant => combatant.hasTalent(SPELLS.CRUSADE_TALENT.id),
   },
   {
     spell: SPELLS.CRUSADE_TALENT,
     category: SPELL_CATEGORY.COOLDOWNS,
     getCooldown: haste => 120,
-    isActive: combatant => combatant.lv100Talent === SPELLS.CRUSADE_TALENT.id,
+    isActive: combatant => combatant.hasTalent(SPELLS.CRUSADE_TALENT.id),
   },
 ];
 

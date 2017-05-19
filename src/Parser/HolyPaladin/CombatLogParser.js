@@ -210,11 +210,11 @@ class CombatLogParser extends MainCombatLogParser {
 
     const fightDuration = this.fightDuration;
 
-    const hasCrusadersMight = this.selectedCombatant.lv15Talent === SPELLS.CRUSADERS_MIGHT_TALENT.id;
-    const hasAuraOfMercy = this.selectedCombatant.lv60Talent === SPELLS.AURA_OF_MERCY_TALENT.id;
-    const hasAuraOfSacrifice = this.selectedCombatant.lv60Talent === SPELLS.AURA_OF_SACRIFICE_TALENT.id;
+    const hasCrusadersMight = this.selectedCombatant.hasTalent(SPELLS.CRUSADERS_MIGHT_TALENT.id);
+    const hasAuraOfMercy = this.selectedCombatant.hasTalent(SPELLS.AURA_OF_MERCY_TALENT.id);
+    const hasAuraOfSacrifice = this.selectedCombatant.hasTalent(SPELLS.AURA_OF_SACRIFICE_TALENT.id);
     const auraOfSacrificeHps = (getAbility(SPELLS.AURA_OF_SACRIFICE_HEAL.id).healingEffective + getAbility(SPELLS.AURA_OF_SACRIFICE_HEAL.id).healingAbsorbed) / fightDuration * 1000;
-    // const hasDevotionAura = this.selectedCombatant.lv60Talent === SPELLS.DEVOTION_AURA_TALENT.id;
+    // const hasDevotionAura = this.selectedCombatant.hasTalent(SPELLS.DEVOTION_AURA_TALENT.id);
     const has4PT19 = this.selectedCombatant.hasBuff(SPELLS.HOLY_PALADIN_T19_4SET_BONUS_BUFF.id);
 
     const nonHealingTimePercentage = this.modules.alwaysBeCasting.totalHealingTimeWasted / fightDuration;
@@ -232,9 +232,9 @@ class CombatLogParser extends MainCombatLogParser {
     const tyrsDeliveranceHealHealingPercentage = this.modules.tyrsDeliverance.healHealing / this.totalHealing;
     const tyrsDeliveranceBuffFoLHLHealingPercentage = this.modules.tyrsDeliverance.buffFoLHLHealing / this.totalHealing;
     const tyrsDeliverancePercentage = tyrsDeliveranceHealHealingPercentage + tyrsDeliveranceBuffFoLHLHealingPercentage;
-    const hasRuleOfLaw = this.selectedCombatant.lv30Talent === SPELLS.RULE_OF_LAW_TALENT.id;
+    const hasRuleOfLaw = this.selectedCombatant.hasTalent(SPELLS.RULE_OF_LAW_TALENT.id);
 
-    const hasDivinePurpose = this.selectedCombatant.lv75Talent === SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id;
+    const hasDivinePurpose = this.selectedCombatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id);
     const divinePurposeHolyShockProcs = hasDivinePurpose && this.selectedCombatant.getBuffTriggerCount(SPELLS.DIVINE_PURPOSE_HOLY_SHOCK_BUFF.id);
     const divinePurposeLightOfDawnProcs = hasDivinePurpose && this.selectedCombatant.getBuffTriggerCount(SPELLS.DIVINE_PURPOSE_LIGHT_OF_DAWN_BUFF.id);
 

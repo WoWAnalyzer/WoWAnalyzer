@@ -16,7 +16,7 @@ class Xalan extends Module {
   on_initialized() {
     if (!this.owner.error) {
       this.active = this.owner.selectedCombatant.hasHands(ITEMS.XALAN_THE_FEAREDS_CLENCH.id);
-      this.hasContrition = this.owner.selectedCombatant.lv75Talent === SPELLS.CONTRITION_TALENT.id;
+      this.hasContrition = this.owner.selectedCombatant.hasTalent(SPELLS.CONTRITION_TALENT.id);
     }
   }
 

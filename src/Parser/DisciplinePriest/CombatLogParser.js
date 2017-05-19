@@ -125,6 +125,7 @@ class CombatLogParser extends MainCombatLogParser {
         importance: getIssueImportance(velensHealingPercentage, 0.04, 0.03),
       });
     }
+    // PtW uptime should be > 95%
 
     const castEfficiencyCategories = SPELL_CATEGORY;
     const castEfficiency = getCastEfficiency(CPM_ABILITIES, this);
@@ -187,14 +188,14 @@ class CombatLogParser extends MainCombatLogParser {
           )}
         />
       ),
-      this.selectedCombatant.lv100Talent === SPELLS.PURGE_THE_WICKED_TALENT.id && (
+      this.selectedCombatant.hasTalent(SPELLS.PURGE_THE_WICKED_TALENT.id) && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.PURGE_THE_WICKED_BUFF.id} />}
           value={`${formatPercentage(this.modules.enemies.getBuffUptime(SPELLS.PURGE_THE_WICKED_BUFF.id) / this.fightDuration)} %`}
           label="Purge the Wicked uptime"
         />
       ),
-      this.selectedCombatant.lv100Talent !== SPELLS.PURGE_THE_WICKED_TALENT.id && (
+      !this.selectedCombatant.hasTalent(SPELLS.PURGE_THE_WICKED_TALENT.id) && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.SHADOW_WORD_PAIN.id} />}
           value={`${formatPercentage(this.modules.enemies.getBuffUptime(SPELLS.SHADOW_WORD_PAIN.id) / this.fightDuration)} %`}

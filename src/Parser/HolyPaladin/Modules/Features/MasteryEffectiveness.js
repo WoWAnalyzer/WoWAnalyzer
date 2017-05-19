@@ -16,7 +16,7 @@ class MasteryEffectiveness extends Module {
   hasBeaconOfTheLightbringer = false;
   on_initialized() {
     if (!this.owner.error) {
-      this.hasBeaconOfTheLightbringer = this.owner.selectedCombatant.lv100Talent === BEACON_TYPES.BEACON_OF_THE_LIGHTBRINGER;
+      this.hasBeaconOfTheLightbringer = this.owner.selectedCombatant.hasTalent(BEACON_TYPES.BEACON_OF_THE_LIGHTBRINGER);
     }
   }
 
