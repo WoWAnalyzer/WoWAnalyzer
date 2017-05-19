@@ -1,6 +1,8 @@
+import SPELLS from 'common/SPELLS';
+
 import Module from 'Parser/Core/Module';
 
-import { BEACON_TRANSFER_SPELL_ID, BEACON_TRANSFERING_ABILITIES, BEACON_TYPES } from '../../Constants';
+import { BEACON_TRANSFERING_ABILITIES, BEACON_TYPES } from '../../Constants';
 
 const debug = false;
 
@@ -12,7 +14,7 @@ class BeaconHealing extends Module {
   beaconTransferEnabledHealsBacklog = [];
   processForBeaconHealing(event) {
     const spellId = event.ability.guid;
-    if (spellId === BEACON_TRANSFER_SPELL_ID) {
+    if (spellId === SPELLS.BEACON_OF_LIGHT.id) {
       this.processBeaconHealing(event);
     }
     const beaconTransferFactor = BEACON_TRANSFERING_ABILITIES[spellId];

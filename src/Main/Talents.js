@@ -2,6 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
+import SpellIcon from 'common/SpellIcon';
 
 const Talent = ({ talent }) => {
   if (!talent) {
@@ -15,7 +16,7 @@ const Talent = ({ talent }) => {
   return (
     <article>
       <figure>
-        <img src={`./img/icons/${SPELLS[talent].icon}.jpg`} alt={SPELLS[talent].name} />
+        <SpellIcon id={talent} />
       </figure>
       <div>
         <header>

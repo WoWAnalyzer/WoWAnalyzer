@@ -7,6 +7,7 @@ class CooldownTracker extends CoreCooldownTracker {
     ...CooldownTracker.cooldownSpells,
     SPELLS.AVENGING_WRATH,
     SPELLS.HOLY_AVENGER_TALENT,
+    SPELLS.AURA_MASTERY,
   ];
 }
 

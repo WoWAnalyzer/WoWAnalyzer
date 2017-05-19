@@ -1,8 +1,5 @@
 import SPELLS from 'common/SPELLS';
 
-// All beacons use this spell id for their healing events.
-export const BEACON_TRANSFER_SPELL_ID = 53652;
-
 export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   SPELLS.HOLY_SHOCK_HEAL.id,
   SPELLS.LIGHT_OF_DAWN_HEAL.id,
@@ -14,7 +11,7 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   SPELLS.HOLY_PRISM_HEAL.id,
   SPELLS.AURA_OF_MERCY_HEAL.id,
   // While the following spells don't double dip in healing increases, they gain the same percentual bonus from the transfer
-  BEACON_TRANSFER_SPELL_ID,
+  SPELLS.BEACON_OF_LIGHT.id,
   SPELLS.LEECH.id,
   // SPELLS.AURA_OF_SACRIFICE_HEAL.id, // while AoS sorta is included, it's based on effective healing and any overhealing from the original spell would have to be reduced to get an accurate result. Not including it doesn't have a big impact.
 ];

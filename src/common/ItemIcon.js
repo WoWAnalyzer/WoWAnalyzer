@@ -1,12 +1,14 @@
 import React from 'react';
 import ITEMS from './ITEMS';
 import ItemLink from './ItemLink';
+import Icon from './Icon';
 
-const ItemIcon = ({ id }) => (
+const ItemIcon = ({ id, ...others }) => (
   <ItemLink id={id}>
-    <img
-      src={`./img/icons/${ITEMS[id].icon}.jpg`}
+    <Icon
+      icon={ITEMS[id].icon}
       alt={ITEMS[id].name}
+      {...others}
     />
   </ItemLink>
 );

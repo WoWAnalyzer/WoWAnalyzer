@@ -2,7 +2,7 @@ import React from 'react';
 import SPELLS from './SPELLS';
 
 const SpellLink = ({ id, children, category = undefined, ...other }) => {
-  if (process.env.NODE_ENV === 'development' && !SPELLS[id]) {
+  if (process.env.NODE_ENV === 'development' && !children && !SPELLS[id]) {
     throw new Error(`Unknown spell: ${id}`);
   }
 

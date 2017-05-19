@@ -1,13 +1,18 @@
 import React from 'react';
 import SPELLS from './SPELLS';
 import SpellLink from './SpellLink';
+import Icon from './Icon';
 
-const SpellIcon = ({ id, noLink, ...other }) => {
+const SpellIcon = ({ id, noLink, ...others }) => {
+  if (process.env.NODE_ENV === 'development' && !SPELLS[id]) {
+    throw new Error(`Unknown spell: ${id}`);
+  }
+
   const icon = (
-    <img
-      src={`./img/icons/${SPELLS[id].icon}.jpg`}
+    <Icon
+      icon={SPELLS[id].icon}
       alt={SPELLS[id].name}
-      {...other}
+      {...others}
     />
   );
 

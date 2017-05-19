@@ -361,4 +361,19 @@ export default {
     name: 'Innervate',
     icon: 'spell_nature_lightning',
   },
+  BEACON_OF_LIGHT: {
+    id: 53652,
+    name: 'Beacon of Light',
+    icon: 'ability_paladin_beaconoflight',
+  },
+  XAVARICS_MAGNUM_OPUS_HEAL: {
+    id: 207472,
+    name: 'Xavaric\'s Magnum Opus',
+    icon: 'ability_vehicle_shellshieldgenerator',
+  },
+  MARK_OF_THE_ACNIENT_PRIESTESS: {
+    id: 228401,
+    name: 'Mark of the Ancient Priestess',
+    icon: 'ability_priest_ascension',
+  },
 };

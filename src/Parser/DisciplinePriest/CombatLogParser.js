@@ -6,7 +6,6 @@ import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import AmalgamsSeventhSpine from 'Parser/Core/Modules/Items/AmalgamsSeventhSpine';
 import SephuzsSecret from 'Parser/Core/Modules/Items/SephuzsSecret';
-import CooldownTracker from 'Parser/Core/Modules/CooldownTracker';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -19,11 +18,13 @@ import StatisticBox from 'Main/StatisticBox';
 import SuggestionsTab from 'Main/SuggestionsTab';
 import TalentsTab from 'Main/TalentsTab';
 import CastEfficiencyTab from 'Main/CastEfficiencyTab';
+import CooldownsTab from 'Main/CooldownsTab';
 import ManaTab from 'Main/ManaTab';
 
 import AbilityTracker from './Modules/Core/AbilityTracker';
 
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
+import CooldownTracker from './Modules/Features/CooldownTracker';
 
 import DrapeOfShame from './Modules/Items/DrapeOfShame';
 import Velens from './Modules/Items/Velens';
@@ -330,6 +331,16 @@ class CombatLogParser extends MainCombatLogParser {
           <CastEfficiencyTab
             categories={castEfficiencyCategories}
             abilities={castEfficiency}
+          />
+        ),
+      },
+      {
+        title: 'Cooldowns',
+        url: 'cooldowns',
+        render: () => (
+          <CooldownsTab
+            fightStart={this.fight.start_time}
+            cooldowns={this.modules.cooldownTracker.cooldowns}
           />
         ),
       },

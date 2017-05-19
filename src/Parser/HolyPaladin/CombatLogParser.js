@@ -19,6 +19,7 @@ import StatisticBox from 'Main/StatisticBox';
 import SuggestionsTab from 'Main/SuggestionsTab';
 import TalentsTab from 'Main/TalentsTab';
 import CastEfficiencyTab from 'Main/CastEfficiencyTab';
+import CooldownsTab from 'Main/CooldownsTab';
 import ManaTab from 'Main/ManaTab';
 import PlayerBreakdownTab from 'Main/PlayerBreakdownTab';
 
@@ -677,6 +678,16 @@ class CombatLogParser extends MainCombatLogParser {
           <CastEfficiencyTab
             categories={castEfficiencyCategories}
             abilities={castEfficiency}
+          />
+        ),
+      },
+      {
+        title: 'Cooldowns',
+        url: 'cooldowns',
+        render: () => (
+          <CooldownsTab
+            fightStart={this.fight.start_time}
+            cooldowns={this.modules.cooldownTracker.cooldowns}
           />
         ),
       },

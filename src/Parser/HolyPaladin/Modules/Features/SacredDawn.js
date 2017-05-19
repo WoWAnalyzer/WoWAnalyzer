@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import Module from 'Parser/Core/Module';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
-import { ABILITIES_AFFECTED_BY_HEALING_INCREASES, BEACON_TRANSFER_SPELL_ID } from '../../Constants';
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
 
 const debug = false;
 
@@ -18,7 +18,7 @@ class SacredDawn extends Module {
     if (ABILITIES_AFFECTED_BY_HEALING_INCREASES.indexOf(spellId) === -1) {
       return;
     }
-    if (spellId === BEACON_TRANSFER_SPELL_ID) {
+    if (spellId === SPELLS.BEACON_OF_LIGHT.id) {
       // Beacon transfer doesn't double dip, so it relies on the buff having been applied to original heal target so we need `on_beacon_heal` to calculate this. (so if a beacon target gets 10% increased healing from SD it won't increase the received beacon heals except indirectly).
       return;
     }
