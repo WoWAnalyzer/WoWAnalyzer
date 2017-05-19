@@ -5,6 +5,7 @@ import ParseResults from 'Parser/Core/ParseResults';
 import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import DarkmoonDeckPromises from 'Parser/Core/Modules/Items/DarkmoonDeckPromises';
+import AmalgamsSeventhSpine from 'Parser/Core/Modules/Items/AmalgamsSeventhSpine';
 import SephuzsSecret from 'Parser/Core/Modules/Items/SephuzsSecret';
 
 import SPELLS from 'common/SPELLS';
@@ -97,6 +98,7 @@ class CombatLogParser extends MainCombatLogParser {
     chainOfThrayn: ChainOfThrayn,
     obsidianStoneSpaulders: ObsidianStoneSpaulders,
     maraadsDyingBreath: MaraadsDyingBreath,
+    amalgamsSeventhSpine: AmalgamsSeventhSpine,
     darkmoonDeckPromises: DarkmoonDeckPromises,
   };
 
@@ -625,6 +627,16 @@ class CombatLogParser extends MainCombatLogParser {
             {((drapeOfShameHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.drapeOfShame.healing / fightDuration * 1000)} HPS
           </dfn>
         ),
+      },
+      this.modules.amalgamsSeventhSpine.active && {
+        id: ITEMS.AMALGAMS_SEVENTH_SPINE.id,
+        icon: <ItemIcon id={ITEMS.AMALGAMS_SEVENTH_SPINE.id} />,
+        title: <ItemLink id={ITEMS.AMALGAMS_SEVENTH_SPINE.id} />,
+        result: (
+          <dfn data-tip={`The exact amunt of mana gained from the Amalgam's Seventh Spine equip effect. You let the buff expire successfully ${this.modules.amalgamsSeventhSpine.procs} times. You refreshed the buff ${this.modules.amalgamsSeventhSpine.refreshes} times (refreshing delays the buff expiration and is inefficient use of this trinket).`}>
+            {formatThousands(this.modules.amalgamsSeventhSpine.manaGained)} mana gained ({formatThousands(this.modules.amalgamsSeventhSpine.manaGained / this.fightDuration * 1000 * 5)} MP5)
+          </dfn>
+        )
       },
       this.modules.darkmoonDeckPromises.active && {
         id: ITEMS.DARKMOON_DECK_PROMISES.id,

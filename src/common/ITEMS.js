@@ -85,6 +85,12 @@ const ITEMS = {
     icon: '70_inscription_deck_promises',
     quality: QUALITIES.EPIC,
   },
+  AMALGAMS_SEVENTH_SPINE: {
+    id: 136714,
+    name: 'Amalgam\'s Seventh Spine',
+    icon: 'spell_priest_mindspike',
+    quality: QUALITIES.EPIC,
+  },
 };
 
 export default indexById(ITEMS);

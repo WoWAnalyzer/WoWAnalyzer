@@ -1,4 +1,5 @@
 export default `
+19-05-2017 - Added Amalgam's Seventh Spine mana gained statistic. 
 18-05-2017 - Disc Priest: Added Shadow Word: Pain/Purge the Wicked global uptime statistic.
 17-05-2017 - Disc Priest: Added Twist of Fate healing statistic (damage gain is in the tooltip).
 17-05-2017 - Added Sephuz's Secret uptime indicator.

@@ -346,4 +346,14 @@ export default {
     name: 'Purge the Wicked',
     icon: 'ability_mage_firestarter',
   },
+  FRAGILE_ECHO_ENERGIZE: {
+    id: 215270,
+    name: 'Fragile Echo',
+    icon: 'spell_warlock_demonsoul',
+  },
+  FRAGILE_ECHO_BUFF: {
+    id: 215267,
+    name: 'Fragile Echo',
+    icon: 'spell_warlock_demonsoul',
+  },
 };
