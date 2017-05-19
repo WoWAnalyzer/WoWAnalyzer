@@ -356,4 +356,9 @@ export default {
     name: 'Fragile Echo',
     icon: 'spell_warlock_demonsoul',
   },
+  INNERVATE_BUFF: {
+    id: 29166,
+    name: 'Innervate',
+    icon: 'spell_nature_lightning',
+  },
 };

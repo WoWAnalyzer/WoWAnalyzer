@@ -6,6 +6,7 @@ import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import AmalgamsSeventhSpine from 'Parser/Core/Modules/Items/AmalgamsSeventhSpine';
 import SephuzsSecret from 'Parser/Core/Modules/Items/SephuzsSecret';
+import CooldownTracker from 'Parser/Core/Modules/CooldownTracker';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -75,6 +76,7 @@ class CombatLogParser extends MainCombatLogParser {
     abilityTracker: AbilityTracker,
 
     alwaysBeCasting: AlwaysBeCasting,
+    cooldownTracker: CooldownTracker,
 
     // Items:
     drapeOfShame: DrapeOfShame,

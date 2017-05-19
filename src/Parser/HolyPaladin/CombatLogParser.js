@@ -31,6 +31,7 @@ import MasteryEffectiveness from './Modules/Features/MasteryEffectiveness';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import SacredDawn from './Modules/Features/SacredDawn';
 import TyrsDeliverance from './Modules/Features/TyrsDeliverance';
+import CooldownTracker from './Modules/Features/CooldownTracker';
 
 import DrapeOfShame from './Modules/Items/DrapeOfShame';
 import Ilterendi from './Modules/Items/Ilterendi';
@@ -88,6 +89,7 @@ class CombatLogParser extends MainCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     sacredDawn: SacredDawn,
     tyrsDeliverance: TyrsDeliverance,
+    cooldownTracker: CooldownTracker,
 
     // Items:
     drapeOfShame: DrapeOfShame,
