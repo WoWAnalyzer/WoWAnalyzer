@@ -6,6 +6,7 @@ import RESOURCE_TYPES from 'Parser/Core/RESOURCE_TYPES';
 class AbilityTracker extends Module {
   abilities = {};
 
+  priority = 10;
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 

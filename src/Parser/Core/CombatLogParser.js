@@ -92,6 +92,7 @@ class CombatLogParser {
     this.constructor.tryCall(this, methodName, event);
     Object.keys(this.modules)
       .map(key => this.modules[key])
+      .sort((a, b) => b.priority - a.priority)
       .filter(module => module.active)
       .forEach(module => {
         this.constructor.tryCall(module, methodName, event);
