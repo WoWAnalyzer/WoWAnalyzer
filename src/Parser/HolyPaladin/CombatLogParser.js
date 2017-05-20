@@ -687,6 +687,7 @@ class CombatLogParser extends MainCombatLogParser {
         render: () => (
           <CooldownsTab
             fightStart={this.fight.start_time}
+            fightEnd={this.fight.end_time}
             cooldowns={this.modules.cooldownTracker.cooldowns}
           />
         ),

@@ -2,7 +2,7 @@ import React from 'react';
 
 const Icon = ({ icon, alt, ...other }) => (
   <img
-    src={`http://media.blizzard.com/wow/icons/56/${icon}.jpg`}
+    src={`http://media.blizzard.com/wow/icons/56/${icon.replace('.jpg', '').replace('-', '')}.jpg`}
     alt={alt}
     {...other}
   />

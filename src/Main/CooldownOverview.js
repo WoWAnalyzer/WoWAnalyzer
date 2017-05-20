@@ -21,7 +21,7 @@ const formatDuration = (duration) => {
   return `${Math.floor(duration / 60)}:${seconds < 10 ? `0${seconds}` : seconds}`;
 };
 
-const CooldownOverview = ({ fightStart, cooldowns }) => (
+const CooldownOverview = ({ fightStart, fightEnd, cooldowns }) => (
   <div style={{ marginTop: -10, marginBottom: -10 }}>
     <ul className="list">
       {cooldowns.map((cooldown) => {
@@ -29,22 +29,22 @@ const CooldownOverview = ({ fightStart, cooldowns }) => (
         const mana = cooldown.events.filter(event => event.type === 'cast').reduce((mana, event) => mana + (event.classResources[0].cost || 0), 0);
 
         return (
-          <li className="item clearfix" style={{ padding: '1em' }}>
+          <li key={`${cooldown.ability.id}-${cooldown.start}`} className="item clearfix" style={{ padding: '1em' }}>
             <article>
               <figure>
                 <SpellIcon id={cooldown.ability.id} />
               </figure>
               <div style={{ width: '100%' }}>
                 <header>
-                  <SpellLink id={cooldown.ability.id} /> ({formatDuration((cooldown.start - fightStart) / 1000)} -&gt; {formatDuration((cooldown.end - fightStart) / 1000)})
+                  <SpellLink id={cooldown.ability.id} /> ({formatDuration((cooldown.start - fightStart) / 1000)} -&gt; {formatDuration(((cooldown.end || fightEnd) - fightStart) / 1000)})
                 </header>
                 <div className="pull-right">
                   {formatNumber(healingDone)} healing<br />
                   {formatNumber(mana)} mana used<br />
                 </div>
                 {cooldown.events.filter(event => event.type === 'cast' && event.ability.guid !== 1).map((event) => (
-                  <SpellLink id={event.ability.guid}>
-                    <Icon icon={event.ability.abilityIcon.replace('.jpg', '').replace('-', '')} style={{ height: 23, marginRight: 4 }} />
+                  <SpellLink key={`${event.ability.guid}-${event.timestamp}`} id={event.ability.guid}>
+                    <Icon icon={event.ability.abilityIcon} alt={event.ability.name} style={{ height: 23, marginRight: 4 }} />
                   </SpellLink>
                 ))}
               </div>
@@ -57,6 +57,7 @@ const CooldownOverview = ({ fightStart, cooldowns }) => (
 );
 CooldownOverview.propTypes = {
   fightStart: React.PropTypes.number.isRequired,
+  fightEnd: React.PropTypes.number.isRequired,
   cooldowns: React.PropTypes.arrayOf(React.PropTypes.shape({
     ability: React.PropTypes.shape({
       id: React.PropTypes.number.isRequired,
@@ -64,7 +65,7 @@ CooldownOverview.propTypes = {
       icon: React.PropTypes.string.isRequired,
     }),
     start: React.PropTypes.number.isRequired,
-    end: React.PropTypes.number.isRequired,
+    end: React.PropTypes.number,
     events: React.PropTypes.arrayOf(React.PropTypes.shape({
       type: React.PropTypes.string.isRequired,
     })).isRequired,
