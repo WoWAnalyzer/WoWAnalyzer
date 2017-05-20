@@ -200,21 +200,25 @@ export default {
     id: 47666,
     name: 'Penance',
     icon: 'spell_holy_penance',
+    manaCost: 30800,
   },
   POWER_WORD_SHIELD: {
     id: 17,
     name: 'Power Word: Shield',
     icon: 'spell_holy_powerwordshield',
+    manaCost: 22000,
   },
   SMITE: {
     id: 585,
     name: 'Smite',
     icon: 'spell_holy_holysmite',
+    manaCost: 11000,
   },
   POWER_WORD_RADIANCE: {
     id: 194509,
     name: 'Power Word: Radiance',
     icon: 'spell_priest_power-word',
+    manaCost: 71500,
   },
   SHADOW_MEND: {
     id: 186263,
@@ -235,6 +239,7 @@ export default {
     id: 33206,
     name: 'Pain Suppression',
     icon: 'spell_holy_painsupression',
+    manaCost: 17600,
   },
   PLEA: {
     id: 200829,

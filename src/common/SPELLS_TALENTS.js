@@ -343,6 +343,7 @@ export default {
     id: 123040,
     name: 'Mindbender',
     icon: 'spell_shadow_soulleech_3',
+    manaCost: 0,
     description: 'Summons a Mindbender to attack the target for 12 sec. You regenerate 0.50% of maximum mana each time the Mindbender attacks.',
   },
   // lv75
@@ -381,6 +382,7 @@ export default {
     id: 120517,
     name: 'Halo',
     icon: 'ability_priest_halo',
+    manaCost: 39600,
     description: 'Creates a ring of Holy energy around you that quickly expands to a 30 yd radius, healing allies for (287.4% of Spell power) and dealing (431.1% of Spell power) Holy damage to enemies.',
   },
   // lv100
@@ -388,6 +390,7 @@ export default {
     id: 204197,
     name: 'Purge the Wicked',
     icon: 'ability_mage_firestarter',
+    manaCost: 22000,
     description: 'Cleanses the target with fire, causing (100% of Spell power) Fire damage and an additional (480% of Spell power) Fire damage over 20 sec. Spreads to an additional nearby enemy when you cast Penance on the target.',
   },
   GRACE_TALENT: {
