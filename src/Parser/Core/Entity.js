@@ -4,7 +4,6 @@ class Entity {
     this.owner = owner;
   }
 
-  //region Buffs
   /**
    * This also tracks debuffs in the exact same array. There are no parameters to filter results by debuffs. I don't think this should be necessary as debuffs and buffs usually have different spell IDs.
    */
@@ -35,7 +34,6 @@ class Entity {
       .filter(buff => buff.ability.guid === buffAbilityId)
       .length;
   }
-  //endregion
 }
 
 export default Entity;

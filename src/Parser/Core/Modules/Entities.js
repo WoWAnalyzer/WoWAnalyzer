@@ -5,7 +5,7 @@ const debug = false;
 const APPLY = 'apply';
 const REMOVE = 'remove';
 
-class Enemies extends Module {
+class Entities extends Module {
   //noinspection JSMethodCanBeStatic
   getEntities() {
     throw new Error('Not implemented');
@@ -15,7 +15,7 @@ class Enemies extends Module {
     throw new Error('Not implemented');
   }
 
-  on_byPlayer_applybuff(event) {
+  on_applybuff(event) {
     this.applyBuff(event);
   }
   // We don't store/use durations, so refreshing buff is useless. Removing the buff actually interferes with the `minimalActiveTime` parameter of `getBuff`.
@@ -23,23 +23,27 @@ class Enemies extends Module {
   //   this.removeActiveBuff(event);
   //   this.applyActiveBuff(event);
   // }
-  on_byPlayer_removebuff(event) {
+  on_removebuff(event) {
     this.removeBuff(event);
   }
-  on_byPlayer_removebuffstack(event) {
+  on_removebuffstack(event) {
     this.removeBuffStack(event);
   }
-  on_byPlayer_applydebuff(event) {
+  on_applydebuff(event) {
     this.applyBuff(event, true);
   }
-  on_byPlayer_removedebuff(event) {
+  on_removedebuff(event) {
     this.removeBuff(event, true);
   }
-  on_byPlayer_removedebuffstack(event) {
+  on_removedebuffstack(event) {
     this.removeBuffStack(event, true);
   }
 
   applyBuff(event, isDebuff) {
+    if (!this.owner.byPlayer(event) && !this.owner.toPlayer(event)) {
+      // We don't need to know about debuffs on bosses or buffs on other players not caused by us, but we do want to know about our outgoing buffs, and other people's buffs on us
+      return;
+    }
     const entity = this.getEntity(event);
     if (!entity) {
       return;
@@ -58,6 +62,10 @@ class Enemies extends Module {
     });
   }
   removeBuff(event, isDebuff) {
+    if (!this.owner.byPlayer(event) && !this.owner.toPlayer(event)) {
+      // We don't need to know about debuffs on bosses or buffs on other players not caused by us, but we do want to know about our outgoing buffs, and other people's buffs on us
+      return;
+    }
     const entity = this.getEntity(event);
     if (!entity) {
       return;
@@ -81,6 +89,10 @@ class Enemies extends Module {
     }
   }
   removeBuffStack(event, isDebuff) {
+    if (!this.owner.byPlayer(event) && !this.owner.toPlayer(event)) {
+      // We don't need to know about debuffs on bosses or buffs on other players not caused by us, but we do want to know about our outgoing buffs, and other people's buffs on us
+      return;
+    }
     const entity = this.getEntity(event);
     if (!entity) {
       return;
@@ -141,4 +153,4 @@ class Enemies extends Module {
   }
 }
 
-export default Enemies;
+export default Entities;
