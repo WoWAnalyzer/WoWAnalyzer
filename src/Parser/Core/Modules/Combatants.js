@@ -2,6 +2,7 @@ import Entities from './Entities';
 import Combatant from '../Combatant';
 
 class Combatants extends Entities {
+  priority = 100;
   players = {};
   getEntities() {
     return this.players;

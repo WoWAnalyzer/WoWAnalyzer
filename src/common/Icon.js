@@ -8,7 +8,7 @@ const Icon = ({ icon, alt, ...other }) => (
   />
 );
 Icon.propTypes = {
-  id: React.PropTypes.number.isRequired,
+  icon: React.PropTypes.string.isRequired,
   alt: React.PropTypes.string.isRequired,
 };
 
