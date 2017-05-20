@@ -2,7 +2,6 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 
 import Module from 'Parser/Core/Module';
-import RESOURCE_TYPES from 'Parser/Core/RESOURCE_TYPES';
 
 const debug = false;
 
@@ -10,6 +9,7 @@ class DarkmoonDeckPromises extends Module {
   manaGained = 0;
   casts = 0;
 
+  priority = 9;
   on_initialized() {
     if (!this.owner.error) {
       this.active = this.owner.selectedCombatant.hasTrinket(ITEMS.DARKMOON_DECK_PROMISES.id);
@@ -40,27 +40,17 @@ class DarkmoonDeckPromises extends Module {
   lastPenanceStartTimestamp = null;
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    let manaCost = this.getManaCost(event);
+    let manaCost = event.manaCost;
     if (!manaCost) {
       return;
     }
     const manaSaved = Math.min(this.currentManaReduction, manaCost);
-
     debug && console.log('Promises saved', manaSaved, 'mana on', SPELLS[spellId].name, 'costing', manaCost, event);
     this.manaGained += manaSaved;
     this.casts += 1;
-  }
-  getManaCost(event) {
-    let cost = 0;
 
-    event.classResources.forEach((resource) => {
-      if (resource.type !== RESOURCE_TYPES.MANA) {
-        return;
-      }
-      cost += resource.cost;
-    });
-
-    return cost;
+    // Update the mana cost on the cast so that it's accurate for other modules
+    event.manaCost -= manaSaved;
   }
 }
 
