@@ -7,7 +7,6 @@ const debug = false;
 
 class DarkmoonDeckPromises extends Module {
   manaGained = 0;
-  casts = 0;
 
   priority = 9;
   on_initialized() {
@@ -45,9 +44,12 @@ class DarkmoonDeckPromises extends Module {
       return;
     }
     const manaSaved = Math.min(this.currentManaReduction, manaCost);
-    debug && console.log('Promises saved', manaSaved, 'mana on', SPELLS[spellId].name, 'costing', manaCost, event);
-    this.manaGained += manaSaved;
-    this.casts += 1;
+    if (!event.hasInnervate) {
+      debug && console.log('Promises saved', manaSaved, 'mana on', SPELLS[spellId].name, 'costing', manaCost, event);
+      this.manaGained += manaSaved;
+    } else {
+      debug && console.log('Promises saved 0 mana on', SPELLS[spellId].name, 'costing', manaCost, 'since Innervate is active (normally ', manaSaved, ' mana)', event);
+    }
 
     // Update the mana cost on the cast so that it's accurate for other modules
     event.manaCost -= manaSaved;
