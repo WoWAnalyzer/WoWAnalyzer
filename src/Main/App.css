@@ -13,11 +13,9 @@ body {
   /*background-size: 15px 15px, cover, cover;*/
   background: url(../../public/img/background-merged.png) center no-repeat;
   background-size: cover;
+  background-attachment: fixed;
   color: #fff;
   min-width: 600px;
-
-  /* Setting a min-height prevents the background from jumping around a lot */
-  min-height: 1200px;
 }
 @media (min-width: 1200px) {
   .container {
@@ -273,7 +271,7 @@ h1 {
   top: 50%;
   transform: translateY(-50%);
 }
-.list.issues .importance svg {
+svg {
   height: 0.9em;
   fill: currentColor;
   margin-bottom: -.08em;
