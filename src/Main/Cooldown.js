@@ -1,0 +1,155 @@
+import React from 'react';
+
+import SpellLink from 'common/SpellLink';
+import SpellIcon from 'common/SpellIcon';
+import Icon from 'common/Icon';
+
+function formatThousands(number) {
+  return (Math.round(number || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+}
+function formatNumber(number) {
+  if (number > 1000000) {
+    return `${(number / 1000000).toFixed(2)}m`;
+  }
+  if (number > 10000) {
+    return `${Math.round(number / 1000)}k`;
+  }
+  return formatThousands(number);
+}
+const formatDuration = (duration) => {
+  const seconds = Math.floor(duration % 60);
+  return `${Math.floor(duration / 60)}:${seconds < 10 ? `0${seconds}` : seconds}`;
+};
+
+class Cooldown extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      expanded: false,
+      showHeals: false,
+    };
+    this.handleExpandClick = this.handleExpandClick.bind(this);
+    this.handleShowHealsClick = this.handleShowHealsClick.bind(this);
+  }
+
+  handleExpandClick() {
+    this.setState({
+      expanded: true,
+    });
+  }
+  handleShowHealsClick() {
+    this.setState({
+      showHeals: true,
+    });
+  }
+
+  groupHeals(events) {
+    let lastHeal = null;
+    let results = [];
+    events.forEach((event) => {
+      if (event.type === 'cast') {
+        results.push(event);
+      } else if (event.type === 'heal') {
+        const spellId = event.ability.guid;
+        if (lastHeal && lastHeal.ability.guid === spellId) {
+          lastHeal.count += 1;
+          lastHeal.amount += event.amount;
+          lastHeal.absorbed += (event.absorbed || 0);
+          lastHeal.overheal += (event.overheal || 0);
+        } else {
+          const heal = {
+            ...event,
+            count: 1,
+            absorbed: event.absorbed || 0,
+            overheal: event.overheal || 0,
+          };
+          results.push(heal);
+          lastHeal = heal;
+        }
+      }
+    });
+    return results;
+  }
+
+  render() {
+    const { cooldown, fightStart, fightEnd } = this.props;
+
+    const healingDone = cooldown.events.filter(event => event.type === 'heal' || event.type === 'absorbed').reduce((healingDone, event) => healingDone + event.amount + (event.absorbed || 0), 0);
+    const mana = cooldown.events.filter(event => event.type === 'cast').reduce((mana, event) => mana + (event.manaCost || 0), 0);
+
+    const start = cooldown.start;
+    const end = cooldown.end || fightEnd;
+
+    return (
+      <article>
+        <figure>
+          <SpellIcon id={cooldown.ability.id} />
+        </figure>
+        <div className="row" style={{ width: '100%' }}>
+          <div className="col-md-8">
+            <header style={{ marginTop: 5, fontSize: '1.25em', marginBottom: '.1em' }}>
+              <SpellLink id={cooldown.ability.id} /> ({formatDuration((start - fightStart) / 1000)} -&gt; {formatDuration((end - fightStart) / 1000)})
+            </header>
+            {!this.state.expanded && (
+              <div>
+                {cooldown.events.filter(event => event.type === 'cast' && event.ability.guid !== 1).map((event, i) => (
+                  <SpellLink key={`${event.ability.guid}-${event.timestamp}-${i}`} id={event.ability.guid}>
+                    <Icon icon={event.ability.abilityIcon} alt={event.ability.name} style={{ height: 23, marginRight: 4 }} />
+                  </SpellLink>
+                ))}<br />
+                <a href="javascript:" onClick={this.handleExpandClick} style={{ marginTop: '.2em' }}>More</a>
+              </div>
+            )}
+            {this.state.expanded && !this.state.showHeals && (
+              <div>
+                {cooldown.events.filter(event => event.type === 'cast' && event.ability.guid !== 1).map((event, i) => (
+                  <div className="row">
+                    <div className="col-xs-1 text-right" style={{ padding: 0 }}>
+                      {((event.timestamp - cooldown.start) / 1000).toFixed(3)}
+                    </div>
+                    <div className="col-xs-11">
+                      <SpellLink key={`${event.ability.guid}-${event.timestamp}-${i}`} id={event.ability.guid}>
+                        <Icon icon={event.ability.abilityIcon} alt={event.ability.name} style={{ height: 23, marginRight: 4 }} /> {event.ability.name}
+                      </SpellLink>
+                    </div>
+                  </div>
+                ))}
+                <a href="javascript:" onClick={this.handleShowHealsClick} style={{ marginTop: '.2em' }}>Even more</a>
+              </div>
+            )}
+            {this.state.expanded && this.state.showHeals && (
+              <div>
+                {this.groupHeals(cooldown.events.filter(event => (event.type === 'cast' || event.type === 'heal') && event.ability.guid !== 1)).map((event, i) => (
+                  <div className="row">
+                    <div className="col-xs-1 text-right" style={{ padding: 0 }}>
+                      {((event.timestamp - cooldown.start) / 1000).toFixed(3)}
+                    </div>
+                    <div className={`col-xs-4 ${event.type === 'heal' ? 'col-xs-offset-1' : ''}`}>
+                      <SpellLink key={`${event.ability.guid}-${event.timestamp}-${i}`} id={event.ability.guid}>
+                        <Icon icon={event.ability.abilityIcon} alt={event.ability.name} style={{ height: 23, marginRight: 4 }} /> {event.ability.name}
+                      </SpellLink>
+                      {event.type === 'heal' ? ` x ${event.count}` : ''}
+                    </div>
+                    <div className="col-xs-2 text-right">
+                      {event.type === 'heal' ? formatThousands(event.amount + event.absorbed) : ''}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+          <div className="col-md-2 text-center">
+            <div style={{ fontSize: '2em' }}>{formatNumber(healingDone)}</div>
+            healing ({formatNumber(healingDone / (end - start) * 1000)} HPS)
+          </div>
+          <div className="col-md-2 text-center">
+            <div style={{ fontSize: '2em' }}>{formatNumber(mana)}</div>
+            mana used
+          </div>
+        </div>
+      </article>
+    );
+  }
+}
+
+export default Cooldown;
