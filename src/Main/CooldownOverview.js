@@ -26,7 +26,7 @@ const CooldownOverview = ({ fightStart, fightEnd, cooldowns }) => (
     <ul className="list">
       {cooldowns.map((cooldown) => {
         const healingDone = cooldown.events.filter(event => event.type === 'heal' || event.type === 'absorbed').reduce((healingDone, event) => healingDone + event.amount + (event.absorbed || 0), 0);
-        const mana = cooldown.events.filter(event => event.type === 'cast').reduce((mana, event) => mana + (event.classResources[0].cost || 0), 0);
+        const mana = cooldown.events.filter(event => event.type === 'cast').reduce((mana, event) => mana + (event.manaCost || 0), 0);
 
         return (
           <li key={`${cooldown.ability.id}-${cooldown.start}`} className="item clearfix" style={{ padding: '1em' }}>
