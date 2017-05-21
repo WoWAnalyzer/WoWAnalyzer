@@ -445,7 +445,7 @@ class CombatLogParser extends MainCombatLogParser {
         icon={(
           <SpellLink id={SPELLS.INFUSION_OF_LIGHT.id}>
             <img
-              src="./img/icons/ability_paladin_infusionoflight-bw.jpg"
+              src="./img/ability_paladin_infusionoflight-bw.jpg"
               alt="Unused Infusion of Light"
             />
           </SpellLink>
