@@ -29,4 +29,11 @@ export default {
     name: 'Pain is in Your Mind',
     icon: 'spell_holy_painsupression',
   },
+  // Druid:
+  // Resto Druid:
+  POWER_OF_THE_ARCHDRUID: {
+    id: 189870,
+    name: 'Power of the Archdruid',
+    icon: 'spell_druid_rampantgrowth',
+  },
 };

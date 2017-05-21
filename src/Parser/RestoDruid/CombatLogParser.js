@@ -11,6 +11,7 @@ import AmalgamsSeventhSpine from 'Parser/Core/Modules/Items/AmalgamsSeventhSpine
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
+import Icon from 'common/Icon';
 import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
 import ItemIcon from 'common/ItemIcon';
@@ -299,33 +300,18 @@ class CombatLogParser extends MainCombatLogParser {
         )}
       />,
       <StatisticBox
-        icon={(
-          <img
-            src="./img/icons/spell_druid_lifebloom.jpg"
-            alt="Lifebloom uptime"
-          />
-        )}
+        icon={<SpellIcon id={SPELLS.LIFEBLOOM.id} />}
         value={`${formatPercentage(lifebloomUptime)} %`}
         label='Lifebloom uptime'
       />,
       <StatisticBox
-        icon={(
-          <img
-            src="./img/icons/spell_druid_efflorescence.jpg"
-            alt="Efflorescence uptime"
-          />
-        )}
+        icon={<SpellIcon id={SPELLS.EFFLORESCENCE.id} />}
         value={`${formatPercentage(efflorescenceUptime)} %`}
         label='Efflorescence uptime'
       />,
       this.modules.powerOfTheArchdruid.hasTrait && (
         <StatisticBox
-          icon={(
-            <img
-              src="./img/icons/spell_druid_pota.jpg"
-              alt="Power of the archdruid"
-            />
-          )}
+          icon={<SpellIcon id={SPELLS.POWER_OF_THE_ARCHDRUID.id} />}
           value={`${formatPercentage(potaHealing)} %`}
           label={(
             <dfn data-tip={`Power of the archdruid gave you ${this.modules.powerOfTheArchdruid.rejuvenations} bonus rejuvenations, ${this.modules.powerOfTheArchdruid.regrowths} bonus regrowths`}>
@@ -336,12 +322,7 @@ class CombatLogParser extends MainCombatLogParser {
       ),
       hasFlourish && (
         <StatisticBox
-          icon={(
-            <img
-              src="./img/icons/spell_druid_flourish.jpg"
-              alt="Average seconds extended by flourish"
-            />
-          )}
+          icon={<SpellIcon id={SPELLS.FLOURISH_TALENT.id} />}
           value={`${(((this.modules.flourish.wildGrowth + this.modules.flourish.cenarionWard + this.modules.flourish.rejuvenation + this.modules.flourish.regrowth + this.modules.flourish.lifebloom + this.modules.flourish.springBlossoms + this.modules.flourish.cultivation) * 6) / this.modules.flourish.flourishCounter).toFixed(0)}s`}
           label={(
             <dfn data-tip={
@@ -378,12 +359,7 @@ class CombatLogParser extends MainCombatLogParser {
         />
       ),
       <StatisticBox
-        icon={(
-          <img
-            src="./img/icons/spell_druid_innervate.jpg"
-            alt="Innervate saved per mana"
-          />
-        )}
+        icon={<SpellIcon id={SPELLS.INNERVATE.id} />}
         value={`${((this.modules.innervate.manaSaved / this.modules.innervate.innervateCount) / 1000).toFixed(0)}k mana`}
         label={(
           <dfn data-tip={
@@ -428,26 +404,14 @@ class CombatLogParser extends MainCombatLogParser {
       />,
       hasTreeOfLife && (
         <StatisticBox
-          icon={(
-            <a href="http://www.wowhead.com/spell=33891" target="_blank">
-              <img
-                src="./img/icons/spell_druid_tol.jpg"
-                alt="Tree of Life"
-              />
-            </a>
-          )}
+          icon={<SpellIcon id={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} />}
           value={`${formatPercentage(treeOfLifeThroughput)} %`}
           label="Tree of Life throughput"
         />
       ),
       !hasMoC && (
         <StatisticBox
-          icon={(
-            <img
-              src="./img/icons/spell_druid_clearcasting.jpg"
-              alt="Unused Clearcastings"
-            />
-          )}
+          icon={<SpellIcon id={SPELLS.CLEARCASTING_BUFF.id} />}
           value={`${formatPercentage(unusedClearcastings)} %`}
           label={(
             <dfn data-tip={`You got total <b>${this.modules.clearcasting.total} clearcasting proccs</b> and <b>used ${this.modules.clearcasting.used}</b> of them. <b>${this.modules.clearcasting.nonCCRegrowths} of your regrowths was used without a clearcasting procc</b>. Using a clearcasting procc as soon as you get it should be one of your top priorities. Even if it overheals you still get that extra mastery stack on a target and the minor HoT. Spending your GCD on a free spell also helps you with mana management in the long run.`}>
@@ -458,12 +422,7 @@ class CombatLogParser extends MainCombatLogParser {
       ),
       false && (
         <StatisticBox
-          icon={(
-            <img
-              src="./img/icons/petbattle_health-down.jpg"
-              alt="Non healing time"
-            />
-          )}
+          icon={<Icon icon="petbattle_health-down" alt="Non healing time" />}
           value={`${formatPercentage(nonHealingTimePercentage)} %`}
           label={(
             <dfn data-tip={`Non healing time is available casting time not used for a spell that helps you heal. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), DPSing, etc.<br /><br />You spent ${formatPercentage(deadTimePercentage)}% of your time casting nothing at all.`}>
@@ -593,10 +552,7 @@ class CombatLogParser extends MainCombatLogParser {
       //   <li className="item clearfix" key={T19_4SET_BONUS_BUFF_ID}>
       //     <article>
       //       <figure>
-      //         <img
-      //           src="./img/icons/spell_druid_rejuvenation.jpg"
-      //           alt="Rejuvenation"
-      //         />
+      // icon={<SpellIcon id={SPELLS.REJUVENATION.id} />}
       //       </figure>
       //       <div>
       //         <header>

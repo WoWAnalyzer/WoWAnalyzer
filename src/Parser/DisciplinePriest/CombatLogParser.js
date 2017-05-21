@@ -11,6 +11,7 @@ import DarkmoonDeckPromises from 'Parser/Core/Modules/Items/DarkmoonDeckPromises
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
+import Icon from 'common/Icon';
 import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
 import ItemIcon from 'common/ItemIcon';
@@ -152,12 +153,7 @@ class CombatLogParser extends MainCombatLogParser {
         )}
       />,
       <StatisticBox
-        icon={(
-          <img
-            src="./img/icons/petbattle_health-down.jpg"
-            alt="Dead GCD time"
-          />
-        )}
+        icon={<Icon icon="petbattle_health-down" alt="Non healing time" />}
         value={`${formatPercentage(deadTimePercentage)} %`}
         label={(
           <dfn data-tip="Dead GCD time is available casting time not used. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), etc.">

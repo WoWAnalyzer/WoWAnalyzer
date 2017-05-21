@@ -11,6 +11,7 @@ import SephuzsSecret from 'Parser/Core/Modules/Items/SephuzsSecret';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
+import Icon from 'common/Icon';
 import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
 import ItemIcon from 'common/ItemIcon';
@@ -475,12 +476,7 @@ class CombatLogParser extends MainCombatLogParser {
         )}
       />,
       <StatisticBox
-        icon={(
-          <img
-            src="./img/icons/petbattle_health-down.jpg"
-            alt="Non healing time"
-          />
-        )}
+        icon={<Icon icon="petbattle_health-down" alt="Non healing time" />}
         value={`${formatPercentage(nonHealingTimePercentage)} %`}
         label={(
           <dfn data-tip={`Non healing time is available casting time not used for a spell that helps you heal. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), DPSing, etc. Damaging Holy Shocks are considered non healing time, Crusader Strike is only considered non healing time if you do not have the Crusader's Might talent.<br /><br />You spent ${formatPercentage(deadTimePercentage)}% of your time casting nothing at all.`}>
