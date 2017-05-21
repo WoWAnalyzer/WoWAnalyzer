@@ -70,9 +70,3 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   LEECH_SPELL_ID,
   LIVING_SEED_HEAL_SPELL_ID,
 ];
-
-export const HIT_TYPES = {
-  NORMAL: 1,
-  CRIT: 2,
-  NOCLUEWHATTHISIS: 3, // seen at Aura of Sacrifice
-};

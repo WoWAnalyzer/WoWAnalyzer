@@ -1,5 +1,7 @@
-import Module from 'Main/Parser/Module';
-import { ABILITIES_AFFECTED_BY_HEALING_INCREASES, HIT_TYPES } from 'Main/Parser/Constants';
+import Module from 'Parser/Core/Module';
+import HIT_TYPES from 'Parser/Core/HIT_TYPES';
+
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
 
 export const DRAPE_OF_SHAME_ITEM_ID = 142170;
 export const DRAPE_OF_SHAME_CRIT_EFFECT = 0.05;

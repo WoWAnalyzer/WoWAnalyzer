@@ -1,5 +1,5 @@
-import Module from 'Main/Parser/Module';
-import { TRANQUILITY_HEAL_SPELL_ID} from 'Main/Parser/Constants';
+import Module from 'Parser/Core/Module';
+import { TRANQUILITY_HEAL_SPELL_ID} from '../../Constants';
 
 export const ESSENCE_OF_INFUSION_ITEM_ID = 137026;
 const ESSENCE_OF_INFUSION_HEALING_INCREASE = 1.6;

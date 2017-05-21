@@ -1,5 +1,5 @@
-import Module from 'Main/Parser/Module';
-import { YSERAS_GIFT_HEAL_SPELL_ID, YSERAS_GIFT2_HEAL_SPELL_ID } from 'Main/Parser/Constants';
+import Module from 'Parser/Core/Module';
+import { YSERAS_GIFT_HEAL_SPELL_ID, YSERAS_GIFT2_HEAL_SPELL_ID } from '../../Constants';
 
 export const EKOWRAITH_ITEM_ID = 137015;
 const GUARDIAN_DAMAGE_REDUCTION = 0.06;

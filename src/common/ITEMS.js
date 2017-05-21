@@ -91,6 +91,37 @@ const ITEMS = {
     icon: 'spell_priest_mindspike',
     quality: QUALITIES.EPIC,
   },
+  // Resto Druid legendaries:
+  EKOWRAITH_CREATOR_OF_WORLDS: {
+    id: 137015,
+    name: 'Ekowraith, Creator of Worlds',
+    icon: 'inv_chest_leather_13',
+    quality: QUALITIES.LEGENDARY,
+  },
+  XONIS_CARESS: {
+    id: 144242,
+    name: 'X\'oni\'s Caress',
+    icon: 'inv_glove_leather_raidrogue_m_01',
+    quality: QUALITIES.LEGENDARY,
+  },
+  THE_DARK_TITANS_ADVICE: {
+    id: 137078,
+    name: 'The Dark Titan\'s Advice',
+    icon: 'inv_belt_leather_raidrogue_l_01',
+    quality: QUALITIES.LEGENDARY,
+  },
+  ESSENCE_OF_INFUSION: {
+    id: 137026,
+    name: 'Essence of Infusion',
+    icon: 'inv_boots_leather_10v3',
+    quality: QUALITIES.LEGENDARY,
+  },
+  TEARSTONE_OF_ELUNE: {
+    id: 137042,
+    name: 'Tearstone of Elune',
+    icon: 'inv_misc_pearlring2',
+    quality: QUALITIES.LEGENDARY,
+  },
 };
 
 export default indexById(ITEMS);

@@ -1,5 +1,5 @@
-import Module from 'Main/Parser/Module';
-import { CLEARCASTING_SPELL_ID, REGROWTH_HEAL_SPELL_ID} from 'Main/Parser/Constants';
+import Module from 'Parser/Core/Module';
+import { CLEARCASTING_SPELL_ID, REGROWTH_HEAL_SPELL_ID} from '../../Constants';
 
 const CLEARCASTING_DURATION = 15000;
 const debug = false;

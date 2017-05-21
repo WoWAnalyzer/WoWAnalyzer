@@ -361,11 +361,6 @@ export default {
     name: 'Fragile Echo',
     icon: 'spell_warlock_demonsoul',
   },
-  INNERVATE_BUFF: {
-    id: 29166,
-    name: 'Innervate',
-    icon: 'spell_nature_lightning',
-  },
   BEACON_OF_LIGHT: {
     id: 53652,
     name: 'Beacon of Light',
@@ -380,5 +375,51 @@ export default {
     id: 228401,
     name: 'Mark of the Ancient Priestess',
     icon: 'ability_priest_ascension',
+  },
+  // Resto Druid:
+  TRANQUILITY: {
+    id: 740,
+    name: 'Tranquility',
+    icon: 'spell_nature_tranquility',
+  },
+  INNERVATE: {
+    id: 29166,
+    name: 'Innervate',
+    icon: 'spell_nature_lightning',
+  },
+  ESSENCE_OF_GHANIR: {
+    id: 208253,
+    name: 'Essence of G\'Hanir',
+    icon: 'spell_druid_essenceofghanir',
+  },
+  IRONBARK: {
+    id: 102342,
+    name: 'Ironbark',
+    icon: 'spell_druid_ironbark',
+  },
+  BARKSKIN: {
+    id: 22812,
+    name: 'Barkskin',
+    icon: 'spell_druid_barkskin',
+  },
+  WILD_GROWTH: {
+    id: 48438,
+    name: 'Wild Growth',
+    icon: 'spell_druid_wildgrowth',
+  },
+  REJUVENATION: {
+    id: 774,
+    name: 'Rejuvenation',
+    icon: 'spell_druid_rejuvenation',
+  },
+  HEALING_TOUCH: {
+    id: 5185,
+    name: 'Healing Touch',
+    icon: 'spell_druid_healingtouch',
+  },
+  REGROWTH: {
+    id: 8936,
+    name: 'Regrowth',
+    icon: 'spell_druid_regrowth',
   },
 };

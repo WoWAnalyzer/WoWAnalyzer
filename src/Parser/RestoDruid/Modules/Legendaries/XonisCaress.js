@@ -1,4 +1,4 @@
-import Module from 'Main/Parser/Module';
+import Module from 'Parser/Core/Module';
 
 export const XONIS_CARESS_ITEM_ID = 144242;
 const XONIS_CARESS_HEAL_ID = 235040;

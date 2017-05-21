@@ -1,5 +1,5 @@
-import Module from 'Main/Parser/Module';
-import { REGROWTH_HEAL_SPELL_ID, REJUVENATION_HEAL_SPELL_ID, POWER_OF_THE_ARCHDRUID_TRAIT_SPELL_ID, POWER_OF_THE_ARCHDRUID_SPELL_ID} from 'Main/Parser/Constants';
+import Module from 'Parser/Core/Module';
+import { REGROWTH_HEAL_SPELL_ID, REJUVENATION_HEAL_SPELL_ID, POWER_OF_THE_ARCHDRUID_TRAIT_SPELL_ID, POWER_OF_THE_ARCHDRUID_SPELL_ID} from '../../Constants';
 
 class PowerOfTheArchdruid extends Module {
   rejuvenations = 0;

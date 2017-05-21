@@ -1,4 +1,4 @@
-import Module from 'Main/Parser/Module';
+import Module from 'Parser/Core/Module';
 
 export const SEPHUZ_ITEM_ID = 132452;
 

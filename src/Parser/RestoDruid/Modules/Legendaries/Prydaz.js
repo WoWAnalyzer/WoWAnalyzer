@@ -1,4 +1,4 @@
-import Module from 'Main/Parser/Module';
+import Module from 'Parser/Core/Module';
 
 export const PRYDAZ_ITEM_ID = 132444;
 const PRYDAZ_HEAL_SPELL_ID = 207472;

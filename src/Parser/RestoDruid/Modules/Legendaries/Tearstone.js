@@ -1,5 +1,5 @@
-import Module from 'Main/Parser/Module';
-import { WILD_GROWTH_HEAL_SPELL_ID, REJUVENATION_HEAL_SPELL_ID, REJUVENATION_GERMINATION_HEAL_SPELL_ID, TREE_OF_LIFE_CAST_ID} from 'Main/Parser/Constants';
+import Module from 'Parser/Core/Module';
+import { WILD_GROWTH_HEAL_SPELL_ID, REJUVENATION_HEAL_SPELL_ID, REJUVENATION_GERMINATION_HEAL_SPELL_ID, TREE_OF_LIFE_CAST_ID} from '../../Constants';
 
 export const TEARSTONE_ITEM_ID = 137042;
 

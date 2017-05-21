@@ -4,9 +4,9 @@ import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 import ParseResults from 'Parser/Core/ParseResults';
 import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
+import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import DarkmoonDeckPromises from 'Parser/Core/Modules/Items/DarkmoonDeckPromises';
 import AmalgamsSeventhSpine from 'Parser/Core/Modules/Items/AmalgamsSeventhSpine';
-import SephuzsSecret from 'Parser/Core/Modules/Items/SephuzsSecret';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -21,27 +21,34 @@ import TalentsTab from 'Main/TalentsTab';
 import CastEfficiencyTab from 'Main/CastEfficiencyTab';
 import CooldownsTab from 'Main/CooldownsTab';
 import ManaTab from 'Main/ManaTab';
-import PlayerBreakdownTab from 'Main/PlayerBreakdownTab';
 
-import PaladinAbilityTracker from './Modules/PaladinCore/PaladinAbilityTracker';
-import BeaconHealing from './Modules/PaladinCore/BeaconHealing';
-import BeaconTargets from './Modules/PaladinCore/BeaconTargets';
-import VerifySpec from './Modules/PaladinCore/VerifySpec';
-
-import MasteryEffectiveness from './Modules/Features/MasteryEffectiveness';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
-import SacredDawn from './Modules/Features/SacredDawn';
-import TyrsDeliverance from './Modules/Features/TyrsDeliverance';
-import CooldownTracker from './Modules/Features/CooldownTracker';
 
-import DrapeOfShame from './Modules/Items/DrapeOfShame';
-import Ilterendi from './Modules/Items/Ilterendi';
-import Velens from './Modules/Items/Velens';
-import ChainOfThrayn from './Modules/Items/ChainOfThrayn';
-import Prydaz from './Modules/Items/Prydaz';
-import ObsidianStoneSpaulders from './Modules/Items/ObsidianStoneSpaulders';
-import MaraadsDyingBreath from './Modules/Items/MaraadsDyingBreath';
+import DrapeOfShame from './Modules/Legendaries/DrapeOfShame';
+import Velens from './Modules/Legendaries/Velens';
+import Prydaz from './Modules/Legendaries/Prydaz';
+import Ekowraith from './Modules/Legendaries/Ekowraith';
+import XonisCaress from './Modules/Legendaries/XonisCaress';
+import Sephuz from './Modules/Legendaries/Sephuz';
+import DarkTitanAdvice from './Modules/Legendaries/DarkTitanAdvice';
+import EssenceOfInfusion from './Modules/Legendaries/EssenceOfInfusion';
+import Tearstone from './Modules/Legendaries/Tearstone';
 
+import Lifebloom from './Modules/Features/Lifebloom';
+import Efflorescence from './Modules/Features/Efflorescence';
+import Clearcasting from './Modules/Features/Clearcasting';
+import TreeOfLife from './Modules/Features/TreeOfLife';
+import Flourish from './Modules/Features/Flourish';
+import Innervate from './Modules/Features/Innervate';
+import PowerOfTheArchdruid from './Modules/Features/PowerOfTheArchdruid';
+
+import {
+  HEALING_TOUCH_HEAL_SPELL_ID,
+  TREE_OF_LIFE_CAST_ID,
+  REJUVENATION_HEAL_SPELL_ID,
+  WILD_GROWTH_HEAL_SPELL_ID,
+  FLOURISH_TALENT_SPELL_ID
+} from './Constants';
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
 
 function formatThousands(number) {
@@ -78,308 +85,190 @@ function formatPercentage(percentage) {
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
     // Override the ability tracker so we also get stats for IoL and beacon healing
-    abilityTracker: PaladinAbilityTracker,
-
-    // PaladinCore
-    beaconHealing: BeaconHealing,
-    beaconTargets: BeaconTargets,
-    verifySpec: VerifySpec,
+    abilityTracker: AbilityTracker,
 
     // Features
-    masteryEffectiveness: MasteryEffectiveness,
     alwaysBeCasting: AlwaysBeCasting,
-    sacredDawn: SacredDawn,
-    tyrsDeliverance: TyrsDeliverance,
-    cooldownTracker: CooldownTracker,
+    lifebloom: Lifebloom,
+    efflorescence: Efflorescence,
+    clearcasting: Clearcasting,
+    treeOfLife: TreeOfLife,
+    flourish: Flourish,
+    innervate: Innervate,
+    powerOfTheArchdruid: PowerOfTheArchdruid,
 
-    // Items:
+    // Legendaries:
     drapeOfShame: DrapeOfShame,
-    prydaz: Prydaz,
     velens: Velens,
-    sephuzsSecret: SephuzsSecret,
-    ilterendi: Ilterendi,
-    chainOfThrayn: ChainOfThrayn,
-    obsidianStoneSpaulders: ObsidianStoneSpaulders,
-    maraadsDyingBreath: MaraadsDyingBreath,
+    prydaz: Prydaz,
+    ekowraith: Ekowraith,
+    xonisCaress: XonisCaress,
+    sephuz: Sephuz,
+    darkTitanAdvice: DarkTitanAdvice,
+    essenceOfInfusion: EssenceOfInfusion,
+    tearstone: Tearstone,
+    // TODO:
+    // Edraith
+    // Aman'Thul's Wisdom
+    // SoulOfTheArchDruid
+    // Chameleon Song
+
+    // Shared:
     amalgamsSeventhSpine: AmalgamsSeventhSpine,
     darkmoonDeckPromises: DarkmoonDeckPromises,
   };
 
-  calculateMasteryStats() {
-    let totalHealingWithMasteryAffectedAbilities = 0;
-    let totalHealingFromMastery = 0;
-    let totalMaxPotentialMasteryHealing = 0;
-
-    const statsByTargetId = this.modules.masteryEffectiveness.masteryHealEvents.reduce((obj, event) => {
-      // Update the fight-totals
-      totalHealingWithMasteryAffectedAbilities += event.amount;
-      totalHealingFromMastery += event.masteryHealingDone;
-      totalMaxPotentialMasteryHealing += event.maxPotentialMasteryHealing;
-
-      // Update the player-totals
-      if (!obj[event.targetID]) {
-        const combatant = this.modules.combatants.players[event.targetID];
-        obj[event.targetID] = {
-          combatant,
-          healingReceived: 0,
-          healingFromMastery: 0,
-          maxPotentialHealingFromMastery: 0,
-        };
-      }
-      const playerStats = obj[event.targetID];
-      playerStats.healingReceived += event.amount;
-      playerStats.healingFromMastery += event.masteryHealingDone;
-      playerStats.maxPotentialHealingFromMastery += event.maxPotentialMasteryHealing;
-
-      return obj;
-    }, {});
-
-    return {
-      statsByTargetId,
-      totalHealingWithMasteryAffectedAbilities,
-      totalHealingFromMastery,
-      totalMaxPotentialMasteryHealing,
-    };
-  }
-
-  getTotalHealsOnBeaconPercentage(parser) {
-    const abilityTracker = parser.modules.abilityTracker;
-    const getCastCount = spellId => abilityTracker.getAbility(spellId);
-
-    const selectedCombatant = parser.selectedCombatant;
-    if (!selectedCombatant) {
-      return null;
-    }
-
-    let casts = 0;
-    let castsOnBeacon = 0;
-
-    CPM_ABILITIES
-      .filter(ability => ability.isActive === undefined || ability.isActive(selectedCombatant))
-      .forEach((ability) => {
-        const castCount = getCastCount(ability.spell.id);
-        casts += (ability.getCasts ? ability.getCasts(castCount) : castCount.casts) || 0;
-        castsOnBeacon += castCount.healingBeaconHits || 0;
-      });
-
-    return castsOnBeacon / casts;
-  }
-
-  get iolProcsPerHolyShockCrit() {
-    return this.selectedCombatant.hasBuff(SPELLS.HOLY_PALADIN_T19_4SET_BONUS_BUFF.id) ? 2 : 1;
-  }
-
   generateResults() {
     const results = new ParseResults();
 
-    const masteryStats = this.calculateMasteryStats();
-
-    const totalMasteryEffectiveness = masteryStats.totalHealingFromMastery / (masteryStats.totalMaxPotentialMasteryHealing || 1);
-    const ruleOfLawUptime = this.selectedCombatant.getBuffUptime(SPELLS.RULE_OF_LAW_TALENT.id) / this.fightDuration;
+    // Tree of Life
+    const hasFlourish = this.selectedCombatant.lv100Talent === FLOURISH_TALENT_SPELL_ID;
+    const hasTreeOfLife = this.selectedCombatant.lv75Talent === TREE_OF_LIFE_CAST_ID;
+    const wildGrowthTargets = 6; //TODO: We need to dynamically see if the player was affeced by ToL when flourish was cast hasTreeOfLife ? 8 : 6;
+    const oneRejuvenationThroughput = (((this.modules.treeOfLife.totalHealingFromRejuvenationEncounter / this.totalHealing)) / this.modules.treeOfLife.totalRejuvenationsEncounter);
+    const rejuvenationIncreasedEffect = (this.modules.treeOfLife.totalHealingFromRejuvenationDuringToL / 1.15 - this.modules.treeOfLife.totalHealingFromRejuvenationDuringToL / (1.15 * 1.5)) / this.totalHealing;
+    const tolIncreasedHealingDone = (this.modules.treeOfLife.totalHealingDuringToL - this.modules.treeOfLife.totalHealingDuringToL / 1.15) / this.totalHealing;
+    const rejuvenationMana = (((this.modules.treeOfLife.totalRejuvenationsDuringToL * 10) * 0.3) / 10) * oneRejuvenationThroughput;
+    const wildGrowthIncreasedEffect = (this.modules.treeOfLife.totalHealingFromWildgrowthsDuringToL / 1.15 - this.modules.treeOfLife.totalHealingFromWildgrowthsDuringToL / (1.15 * (8 / 6))) / this.totalHealing;
+    const treeOfLifeThroughput = rejuvenationIncreasedEffect + tolIncreasedHealingDone + rejuvenationMana + wildGrowthIncreasedEffect;
 
     const abilityTracker = this.modules.abilityTracker;
     const getAbility = spellId => abilityTracker.getAbility(spellId);
-
-    const flashOfLight = getAbility(SPELLS.FLASH_OF_LIGHT.id);
-    const holyLight = getAbility(SPELLS.HOLY_LIGHT.id);
-    const lightOfDawnCast = getAbility(SPELLS.LIGHT_OF_DAWN_CAST.id);
-    const lightOfDawnHeal = getAbility(SPELLS.LIGHT_OF_DAWN_HEAL.id);
-    const holyShock = getAbility(SPELLS.HOLY_SHOCK_HEAL.id);
-    const bestowFaith = getAbility(SPELLS.BESTOW_FAITH_TALENT.id);
-
-    const iolFlashOfLights = flashOfLight.healingIolHits || 0;
-    const iolHolyLights = holyLight.healingIolHits || 0;
-    const totalIols = iolFlashOfLights + iolHolyLights;
-    const iolFoLToHLCastRatio = iolFlashOfLights / totalIols;
-
-    const flashOfLightHeals = flashOfLight.casts || 0;
-    const holyLightHeals = holyLight.casts || 0;
-    const totalFolsAndHls = flashOfLightHeals + holyLightHeals;
-    const fillerFlashOfLights = flashOfLightHeals - iolFlashOfLights;
-    const fillerHolyLights = holyLightHeals - iolHolyLights;
-    const totalFillers = fillerFlashOfLights + fillerHolyLights;
-    const fillerCastRatio = fillerFlashOfLights / totalFillers;
-
-    const beaconFlashOfLights = flashOfLight.healingBeaconHits || 0;
-    const beaconHolyLights = holyLight.healingBeaconHits || 0;
-    const totalFolsAndHlsOnBeacon = beaconFlashOfLights + beaconHolyLights;
-    const healsOnBeacon = totalFolsAndHlsOnBeacon / totalFolsAndHls;
-
-    const lightOfDawnHeals = lightOfDawnCast.casts || 0;
-    const holyShockHeals = holyShock.healingHits || 0;
-    const holyShockCrits = holyShock.healingCriticalHits || 0;
-    const iolProcsPerHolyShockCrit = this.iolProcsPerHolyShockCrit;
-    const unusedIolRate = 1 - totalIols / (holyShockCrits * iolProcsPerHolyShockCrit);
-
     const fightDuration = this.fightDuration;
-
-    const hasCrusadersMight = this.selectedCombatant.hasTalent(SPELLS.CRUSADERS_MIGHT_TALENT.id);
-    const hasAuraOfMercy = this.selectedCombatant.hasTalent(SPELLS.AURA_OF_MERCY_TALENT.id);
-    const hasAuraOfSacrifice = this.selectedCombatant.hasTalent(SPELLS.AURA_OF_SACRIFICE_TALENT.id);
-    const auraOfSacrificeHps = (getAbility(SPELLS.AURA_OF_SACRIFICE_HEAL.id).healingEffective + getAbility(SPELLS.AURA_OF_SACRIFICE_HEAL.id).healingAbsorbed) / fightDuration * 1000;
-    // const hasDevotionAura = this.selectedCombatant.hasTalent(SPELLS.DEVOTION_AURA_TALENT.id);
-    const has4PT19 = this.selectedCombatant.hasBuff(SPELLS.HOLY_PALADIN_T19_4SET_BONUS_BUFF.id);
-
     const nonHealingTimePercentage = this.modules.alwaysBeCasting.totalHealingTimeWasted / fightDuration;
     const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
-    const totalHealsOnBeaconPercentage = this.getTotalHealsOnBeaconPercentage(this);
+
+    const potaHealing = (this.modules.powerOfTheArchdruid.rejuvenations * oneRejuvenationThroughput) + this.modules.powerOfTheArchdruid.healing / this.totalHealing;
+    const hasMoC = this.selectedCombatant.lv100Talent === 155577; // TODO: refactor this
+    const hasVelens = this.selectedCombatant.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT_BUFF.id);
     const velensHealingPercentage = this.modules.velens.healing / this.totalHealing;
-    const chainOfThraynHealingPercentage = this.modules.chainOfThrayn.healing / this.totalHealing;
     const prydazHealingPercentage = this.modules.prydaz.healing / this.totalHealing;
-    const obsidianStoneSpauldersHealingPercentage = this.modules.obsidianStoneSpaulders.healing / this.totalHealing;
+    const sepuhzHasteRating = ((this.modules.sephuz.uptime / this.fightDuration) * this.modules.sephuz.sephuzProccInHasteRating) + this.modules.sephuz.sephuzStaticHasteInRating;
+    const sephuzThroughput = sepuhzHasteRating / this.selectedCombatant.intellect;
+    const darkTitanAdviceHealing = this.modules.darkTitanAdvice.healing / this.totalHealing;
+    const darkTitanAdviceHealingFromProcc = this.modules.darkTitanAdvice.healingFromProccs / this.totalHealing;
+    const essenceOfInfusionHealing = this.modules.essenceOfInfusion.healing / this.totalHealing;
+    const tearstoneHealing = this.modules.tearstone.rejuvs * oneRejuvenationThroughput;
+    const xonisCaressHealingPercentage = this.modules.xonisCaress.healing / this.totalHealing;
+    const ekowraithHealingPercentage = this.modules.ekowraith.healing / this.totalHealing;
+    const ekowraithDamageReductionHealingPercentage = (this.modules.ekowraith.damageReductionHealing / (this.totalHealing + this.modules.ekowraith.damageReductionHealing));
     const drapeOfShameHealingPercentage = this.modules.drapeOfShame.healing / this.totalHealing;
-    const maraadsDyingBreathHealingPercentage = this.modules.maraadsDyingBreath.healing / this.totalHealing;
-    const ilterendiHealingPercentage = this.modules.ilterendi.healing / this.totalHealing;
-    const hasSacredDawn = this.selectedCombatant.traitsBySpellId[SPELLS.SACRED_DAWN.id] === 1;
-    const sacredDawnPercentage = this.modules.sacredDawn.healing / this.totalHealing;
-    const tyrsDeliveranceHealHealingPercentage = this.modules.tyrsDeliverance.healHealing / this.totalHealing;
-    const tyrsDeliveranceBuffFoLHLHealingPercentage = this.modules.tyrsDeliverance.buffFoLHLHealing / this.totalHealing;
-    const tyrsDeliverancePercentage = tyrsDeliveranceHealHealingPercentage + tyrsDeliveranceBuffFoLHLHealingPercentage;
-    const hasRuleOfLaw = this.selectedCombatant.hasTalent(SPELLS.RULE_OF_LAW_TALENT.id);
+    let lifebloomUptime = this.modules.lifebloom.uptime / this.fightDuration;
+    if (lifebloomUptime > 1) {
+      lifebloomUptime -= 1;
+    }
+    const efflorescenceUptime = this.modules.efflorescence.totalUptime / this.fightDuration;
+    const unusedClearcastings = 1 - (this.modules.clearcasting.used / this.modules.clearcasting.total);
 
-    const hasDivinePurpose = this.selectedCombatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id);
-    const divinePurposeHolyShockProcs = hasDivinePurpose && this.selectedCombatant.getBuffTriggerCount(SPELLS.DIVINE_PURPOSE_HOLY_SHOCK_BUFF.id);
-    const divinePurposeLightOfDawnProcs = hasDivinePurpose && this.selectedCombatant.getBuffTriggerCount(SPELLS.DIVINE_PURPOSE_LIGHT_OF_DAWN_BUFF.id);
-
-    if (nonHealingTimePercentage > 0.3) {
+    // if (nonHealingTimePercentage > 0.3) {
+    //   results.addIssue({
+    //     issue: `Your non healing time can be improved. Try to cast heals more regularly (${Math.round(nonHealingTimePercentage * 100)}% non healing time).`,
+    //     icon: 'petbattle_health-down',
+    //     importance: getIssueImportance(nonHealingTimePercentage, 0.4, 0.45, true),
+    //   });
+    // }
+    // if (deadTimePercentage > 0.2) {
+    //   results.addIssue({
+    //     issue: `Your dead GCD time can be improved. Try to Always Be Casting (ABC); when you're not healing try to contribute some damage (${Math.round(deadTimePercentage * 100)}% dead GCD time).`,
+    //     icon: 'spell_mage_altertime',
+    //     importance: getIssueImportance(deadTimePercentage, 0.35, 0.4, true),
+    //   });
+    // }
+    if (efflorescenceUptime < 0.85) {
       results.addIssue({
-        issue: `Your non healing time can be improved. Try to cast heals more regularly (${Math.round(nonHealingTimePercentage * 100)}% non healing time).`,
-        icon: 'petbattle_health-down',
-        importance: getIssueImportance(nonHealingTimePercentage, 0.4, 0.45, true),
+        issue: `Your <a href="http://www.wowhead.com/spell=81269" target="_blank">Efflorescence</a> uptime can be improved. (${formatPercentage(efflorescenceUptime)} % uptime)`,
+        icon: 'spell_druid_efflorescence',
+        importance: getIssueImportance(efflorescenceUptime, 0.7, 0.5),
       });
     }
-    if (deadTimePercentage > 0.2) {
+    if (!hasMoC && unusedClearcastings > 0.10) {
       results.addIssue({
-        issue: `Your dead GCD time can be improved. Try to Always Be Casting (ABC); when you're not healing try to contribute some damage (${Math.round(deadTimePercentage * 100)}% dead GCD time).`,
-        icon: 'spell_mage_altertime',
-        importance: getIssueImportance(deadTimePercentage, 0.35, 0.4, true),
+        issue: `Your <a href="http://www.wowhead.com/spell=16870" target="_blank">Clearcasting</a> proccs should be used as soon as you get them so they are not overwritten. You missed ${(this.modules.clearcasting.total - this.modules.clearcasting.used)}/${(this.modules.clearcasting.total)} proccs.`,
+        icon: 'spell_druid_clearcasting',
+        importance: getIssueImportance(unusedClearcastings, 0.5, 0.75, true),
       });
     }
-    if (totalHealsOnBeaconPercentage > 0.2) {
+    const wgsExtended = (this.modules.flourish.wildGrowth / wildGrowthTargets) / this.modules.flourish.flourishCounter;
+    if (hasFlourish && wgsExtended < 1) {
       results.addIssue({
-        issue: `Try to avoid directly healing your beacon targets; it is ineffecient and the healing from beacon transfers are usually enough (${Math.round(totalHealsOnBeaconPercentage * 100)}% of all your heals were on a beacon).`,
-        icon: 'ability_paladin_beaconoflight',
-        importance: getIssueImportance(totalHealsOnBeaconPercentage, 0.25, 0.35, true),
+        issue: `Your <a href="http://www.wowhead.com/spell=197721" target="_blank">Flourish</a> should always aim to refresh <a href="http://www.wowhead.com/spell=48438" target="_blank">Wild Growth.</a> (${(this.modules.flourish.wildGrowth / 6).toFixed(0)}/${this.modules.flourish.flourishCounter} WGs extended)`,
+        icon: 'spell_druid_flourish',
+        importance: getIssueImportance(wgsExtended, 0.8, 0.6),
       });
     }
-    if (totalMasteryEffectiveness < 0.75) {
+    const cwExtended = this.modules.flourish.cenarionWard / this.modules.flourish.flourishCounter;
+    if (hasFlourish && cwExtended < 1) {
       results.addIssue({
-        issue: `Your Mastery Effectiveness can be improved. Try to improve your positioning, usually by sticking with melee (${Math.round(totalMasteryEffectiveness * 100)}% mastery effectiveness).`,
-        icon: 'inv_hammer_04',
-        importance: getIssueImportance(totalMasteryEffectiveness, 0.7, 0.6),
+        issue: `Your <a href="http://www.wowhead.com/spell=197721" target="_blank">Flourish</a> should always aim to refresh <a href="http://www.wowhead.com/spell=102352" target="_blank">Cenarion Ward.</a> (${this.modules.flourish.cenarionWard}/${this.modules.flourish.flourishCounter} CWs extended)`,
+        icon: 'spell_druid_flourish',
+        importance: getIssueImportance(cwExtended, 0, 0),
       });
     }
-    if (hasRuleOfLaw && ruleOfLawUptime < 0.25) {
+    if (lifebloomUptime < 0.85) {
       results.addIssue({
-        issue: <span>Your <SpellLink id={SPELLS.RULE_OF_LAW_TALENT.id} /> uptime can be improved. Try keeping at least 1 charge on cooldown; you should (almost) never be at max charges ({(ruleOfLawUptime * 100).toFixed(2)}% uptime).</span>,
-        icon: SPELLS.RULE_OF_LAW_TALENT.icon,
-        importance: getIssueImportance(ruleOfLawUptime, 0.2, 0.1),
+        issue: `Your <a href="http://www.wowhead.com/spell=33763" target="_blank">Lifebloom</a> uptime can be improved. (${formatPercentage(lifebloomUptime)} % uptime)`,
+        icon: 'spell_druid_lifebloom',
+        importance: getIssueImportance(lifebloomUptime, 0.7, 0.5),
       });
     }
-    if (iolFoLToHLCastRatio < 0.7) {
+    // Innervate mana spent
+    if ((this.modules.innervate.manaSaved / this.modules.innervate.innervateCount) < 220000) {
       results.addIssue({
-        issue: <span>Your <i>IoL FoL to HL cast ratio</i> can likely be improved. When you get an <SpellLink id={SPELLS.INFUSION_OF_LIGHT.id} /> proc try to cast <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} /> as much as possible, it is a considerably stronger heal ({iolFlashOfLights} Flash of Lights ({Math.round(iolFoLToHLCastRatio * 100)}%) to {iolHolyLights} Holy Lights ({Math.round(100 - iolFoLToHLCastRatio * 100)}%) cast with Infusion of Light).</span>,
-        icon: SPELLS.INFUSION_OF_LIGHT.icon,
-        importance: getIssueImportance(iolFoLToHLCastRatio, 0.6, 0.4),
+        issue: `Your mana spent during an <a href="http://www.wowhead.com/spell=29166" target="_blank">Innervate</a> can be improved. Always aim to cast at least 1 wild growth, 1 efflorescence and fill the rest with rejuvations for optimal usage. (${((this.modules.innervate.manaSaved / this.modules.innervate.innervateCount) / 1000).toFixed(0)}k avg mana spent)`,
+        icon: 'spell_druid_innervate',
+        importance: getIssueImportance((this.modules.innervate.manaSaved / this.modules.innervate.innervateCount), 180000, 130000),
       });
     }
-    let recommendedUnusedIolRate = has4PT19 ? 0.2 : 0;
-    if (hasCrusadersMight) {
-      recommendedUnusedIolRate += has4PT19 ? 0.1 : 0.05;
-    }
-    if (hasDivinePurpose) {
-      recommendedUnusedIolRate += has4PT19 ? 0.1 : 0.05;
-    }
-    if (unusedIolRate > recommendedUnusedIolRate) {
+    // Innervata mana cappedc
+    if (this.modules.innervate.secondsManaCapped > 0) {
       results.addIssue({
-        issue: <span>Your usage of <SpellLink id={SPELLS.INFUSION_OF_LIGHT.id} /> procs can be improved. Try to use your Infusion of Light procs whenever it wouldn't overheal ({Math.round(unusedIolRate * 100)}% unused Infusion of Lights).</span>,
-        icon: 'ability_paladin_infusionoflight-bw',
-        importance: getIssueImportance(unusedIolRate, recommendedUnusedIolRate + 0.05, recommendedUnusedIolRate + 0.2, true),
+        issue: `You were capped on mana during <a href="http://www.wowhead.com/spell=29166" target="_blank">Innervate</a>. Why would you do that? (approx ${this.modules.innervate.secondsManaCapped}s)`,
+        icon: 'spell_druid_innervate',
+        importance: getIssueImportance(this.modules.innervate.secondsManaCapped, 0, 0, true),
       });
     }
-    if (this.modules.ilterendi.active && ilterendiHealingPercentage < 0.045) {
+    if (hasTreeOfLife && treeOfLifeThroughput < 0.11) {
       results.addIssue({
-        issue: <span>Your usage of <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} /> can be improved. Try to line <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} /> and <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> up with the buff or consider using an easier legendary ({(ilterendiHealingPercentage * 100).toFixed(2)}% healing contributed).</span>,
-        icon: ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.icon,
-        importance: getIssueImportance(ilterendiHealingPercentage, 0.04, 0.03),
+        issue: `Your <a href="http://www.wowhead.com/spell=33891" target="_blank">Tree of Life</a> has quite low throughput, you might want to plan your CDs better or select another talent. (${formatPercentage(treeOfLifeThroughput)} % throughput)`,
+        icon: 'spell_druid_tol',
+        importance: getIssueImportance(treeOfLifeThroughput, 0.07, 0.04),
       });
     }
-    if (this.modules.velens.active && velensHealingPercentage < 0.045) {
+    if (hasVelens && velensHealingPercentage < 0.045) {
       results.addIssue({
-        issue: <span>Your usage of <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT_BUFF.id} /> can be improved. Try to maximize the amount of casts during the buff or consider using an easier legendary ({(velensHealingPercentage * 100).toFixed(2)}% healing contributed).</span>,
-        icon: ITEMS.VELENS_FUTURE_SIGHT_BUFF.icon,
+        issue: `Your usage of <a href="http://www.wowhead.com/item=144258" target="_blank" class="legendary">Velen's Future Sight</a> can be improved. Try to maximize the amount of casts during the buff or consider using an easier legendary (${(velensHealingPercentage * 100).toFixed(2)}% healing contributed).`,
+        icon: 'spell_holy_healingfocus',
         importance: getIssueImportance(velensHealingPercentage, 0.04, 0.03),
       });
     }
-    const lightOfTheMartyrs = getAbility(SPELLS.LIGHT_OF_THE_MARTYR.id).casts || 0;
-    let fillerLotms = lightOfTheMartyrs;
-    if (this.modules.maraadsDyingBreath.active) {
-      const lightOfTheDawns = getAbility(SPELLS.LIGHT_OF_DAWN_CAST.id).casts || 0;
-      fillerLotms -= lightOfTheDawns;
-    }
-    const fillerLotmsPerMinute = fillerLotms / (fightDuration / 1000) * 60;
-    if (fillerLotmsPerMinute >= 1.0) {
-      let issue = null;
-      if (this.modules.maraadsDyingBreath.active) {
-        issue = <span>With <ItemLink id={ITEMS.MARAADS_DYING_BREATH.id} /> you should only cast <b>one</b> <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> per <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} />. Without the buff <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> is a very inefficient spell to cast. Try to only cast additional Light of the Martyr when absolutely necessary ({fillerLotmsPerMinute.toFixed(2)} CPM - {fillerLotms} casts (unbuffed only)).</span>;
-      } else {
-        issue = <span><SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> is a very inefficient spell to cast. Try to only cast Light of the Martyr when absolutely necessary ({fillerLotmsPerMinute.toFixed(2)} CPM - {fillerLotms} casts).</span>;
-      }
+    const healingTouches = getAbility(HEALING_TOUCH_HEAL_SPELL_ID).casts || 0;
+    const healingTouchesPerMinute = healingTouches / (fightDuration / 1000) * 60;
+    if (healingTouchesPerMinute > 0) {
       results.addIssue({
-        issue,
-        icon: SPELLS.LIGHT_OF_THE_MARTYR.icon,
-        importance: getIssueImportance(fillerLotmsPerMinute, 1.5, 2, true),
+        issue: `<a href="http://www.wowhead.com/spell=5185" target="_blank">Healing Touch</a> is an inefficient spell to cast. You should trust your co-healer to top people off, if you got nothing to do you can always dps. (${healingTouchesPerMinute.toFixed(2)} CPM).`,
+        icon: 'spell_druid_healingtouch',
+        importance: getIssueImportance(healingTouchesPerMinute, 0.5, 1, true),
       });
     }
-    if (auraOfSacrificeHps < 30000) {
+    const rejuvenations = getAbility(REJUVENATION_HEAL_SPELL_ID).casts || 0;
+    const wildGrowths = getAbility(WILD_GROWTH_HEAL_SPELL_ID).casts || 0;
+    const wgsPerRejuv = wildGrowths / rejuvenations;
+    if (wgsPerRejuv < 0.20) {
       results.addIssue({
-        issue: <span>The healing done by your <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} /> is low. Try to find a better moment to cast it or consider changing to <SpellLink id={SPELLS.AURA_OF_MERCY_TALENT.id} /> or <SpellLink id={SPELLS.DEVOTION_AURA_TALENT.id} /> which can be more reliable ({formatNumber(auraOfSacrificeHps)} HPS).</span>,
-        icon: SPELLS.AURA_OF_SACRIFICE_TALENT.icon,
-        importance: getIssueImportance(auraOfSacrificeHps, 25000, 20000),
+        issue: `Your <a href="http://www.wowhead.com/spell=48438" target="_blank">Wild growth</a> to rejuv ratio can be improved, try to cast more wild growths if possible as it's usually more efficient. (${wildGrowths}/${rejuvenations} WGs per rejuv).`,
+        icon: 'spell_druid_wildgrowth',
+        importance: getIssueImportance(wgsPerRejuv, 0.15, 0.1),
       });
     }
-    const lodOverhealing = getOverhealingPercentage(lightOfDawnHeal);
-    let recommendedLodOverhealing = hasDivinePurpose ? 0.45 : 0.4;
-    if (lodOverhealing > recommendedLodOverhealing) {
+    const regrowths = this.modules.clearcasting.used + this.modules.clearcasting.nonCCRegrowths;
+    const nonCCRegrowths = this.modules.clearcasting.nonCCRegrowths;
+    if (nonCCRegrowths / regrowths > 0) {
       results.addIssue({
-        issue: <span>Try to avoid overhealing with <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} />. Save it for when people are missing health ({Math.round(lodOverhealing * 100)}% overhealing).</span>,
-        icon: SPELLS.LIGHT_OF_DAWN_CAST.icon,
-        importance: getIssueImportance(lodOverhealing, recommendedLodOverhealing + 0.1, recommendedLodOverhealing + 0.2, true),
+        issue: `<a href="http://www.wowhead.com/spell=8936" target="_blank">Regrowth</a> is an inefficient spell to cast without a <a href="http://www.wowhead.com/spell=16870" target="_blank">Clearcasting</a> procc. ${nonCCRegrowths} of your regrowths were casted without a clearcasting procc.`,
+        icon: 'spell_druid_regrowth',
+        importance: getIssueImportance(nonCCRegrowths / regrowths, 0.5, 0.25, true),
       });
     }
-    const hsOverhealing = getOverhealingPercentage(holyShock);
-    let recommendedHsOverhealing = hasDivinePurpose ? 0.4 : 0.35;
-    if (hsOverhealing > recommendedHsOverhealing) {
-      results.addIssue({
-        issue: <span>Try to avoid overhealing with <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} />. Save it for when people are missing health ({Math.round(hsOverhealing * 100)}% overhealing).</span>,
-        icon: SPELLS.HOLY_SHOCK_HEAL.icon,
-        importance: getIssueImportance(hsOverhealing, recommendedHsOverhealing + 0.1, recommendedHsOverhealing + 0.2, true),
-      });
-    }
-    const folOverhealing = getOverhealingPercentage(flashOfLight);
-    let recommendedFolOverhealing = 0.25;
-    if (folOverhealing > recommendedFolOverhealing) {
-      results.addIssue({
-        issue: <span>Try to avoid overhealing with <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} />. If Flash of Light would overheal it is generally advisable to cast a <SpellLink id={SPELLS.HOLY_LIGHT.id} /> instead ({Math.round(folOverhealing * 100)}% overhealing).</span>,
-        icon: SPELLS.FLASH_OF_LIGHT.icon,
-        importance: getIssueImportance(folOverhealing, recommendedFolOverhealing + 0.15, recommendedFolOverhealing + 0.25, true),
-      });
-    }
-    const bfOverhealing = getOverhealingPercentage(bestowFaith);
-    let recommendedBfOverhealing = 0.4;
-    if (bfOverhealing > recommendedBfOverhealing) {
-      results.addIssue({
-        issue: <span>Try to avoid overhealing with <SpellLink id={SPELLS.BESTOW_FAITH_TALENT.id} />. Cast it just before someone is about to take damage and consider casting it on targets other than tanks ({Math.round(bfOverhealing * 100)}% overhealing).</span>,
-        icon: SPELLS.BESTOW_FAITH_TALENT.icon,
-        importance: getIssueImportance(bfOverhealing, recommendedBfOverhealing + 0.1, recommendedBfOverhealing + 0.2, true),
-      });
-    }
-
-    // TODO: Suggestion for AoS when it didn't heal enough to be worthwhile
-    // TODO: Suggestion for Devo when it didn't prevent enough damage to be worthwhile (also devo damage display)
-    // TODO: Suggestion for mana
-    // TODO: Suggestion for enchants
-    // TODO: Sanctified Wrath healing contribution
 
     const castEfficiencyCategories = SPELL_CATEGORY;
     const castEfficiency = getCastEfficiency(CPM_ABILITIES, this);
@@ -401,7 +290,7 @@ class CombatLogParser extends MainCombatLogParser {
             style={{ border: 0 }}
             alt="Healing"
           />)}
-        value={`${formatNumber(this.totalHealing / fightDuration * 1000)} HPS`}
+        value={`${formatNumber(this.totalHealing / this.fightDuration * 1000)} HPS`}
         label={(
           <dfn data-tip={`The total healing done recorded was ${formatThousands(this.totalHealing)}.`}>
             Healing done
@@ -411,157 +300,237 @@ class CombatLogParser extends MainCombatLogParser {
       <StatisticBox
         icon={(
           <img
-            src="./img/mastery-radius.png"
-            style={{ border: 0 }}
-            alt="Mastery effectiveness"
+            src="./img/icons/spell_druid_lifebloom.jpg"
+            alt="Lifebloom uptime"
           />
         )}
-        value={`${(Math.round(totalMasteryEffectiveness * 10000) / 100).toFixed(2)} %`}
-        label={(
-          <dfn data-tip="Effects that temporarily increase your mastery are currently not supported and will skew results.">
-            Mastery effectiveness
-          </dfn>
-        )}
-      />,
-      hasRuleOfLaw && (
-        <StatisticBox
-          icon={<SpellIcon id={SPELLS.RULE_OF_LAW_TALENT.id} />}
-          value={`${formatPercentage(ruleOfLawUptime)} %`}
-          label="Rule of Law uptime"
-        />
-      ),
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.INFUSION_OF_LIGHT.id} />}
-        value={`${formatPercentage(iolFoLToHLCastRatio)} %`}
-        label={(
-          <dfn data-tip={`The Infusion of Light Flash of Light to Infusion of Light Holy Light usage ratio is how many Flash of Lights you cast compared to Holy Lights during the Infusion of Light proc. You cast ${iolFlashOfLights} Flash of Lights and ${iolHolyLights} Holy Lights during Infusion of Light.`}>
-            IoL FoL to HL cast ratio
-          </dfn>
-        )}
-      />,
-      <StatisticBox
-        icon={(
-          <SpellLink id={SPELLS.INFUSION_OF_LIGHT.id}>
-            <img
-              src="./img/icons/ability_paladin_infusionoflight-bw.jpg"
-              alt="Unused Infusion of Light"
-            />
-          </SpellLink>
-        )}
-        value={`${formatPercentage(unusedIolRate)} %`}
-        label={(
-          <dfn data-tip={`The amount of Infusion of Lights you did not use out of the total available. You cast ${holyShockHeals} (healing) Holy Shocks with a ${formatPercentage(holyShockCrits / holyShockHeals)}% crit ratio. This gave you ${holyShockCrits * iolProcsPerHolyShockCrit} Infusion of Light procs, of which you used ${totalIols}.<br /><br />The ratio may be below zero if you used Infusion of Light procs from damaging Holy Shocks (e.g. cast on boss), or from casting Holy Shock before the fight started. <b>It is accurate to enter this negative value in your spreadsheet!</b> The spreadsheet will consider these bonus Infusion of Light procs and consider it appropriately.`}>
-            Unused Infusion of Lights
-          </dfn>
-        )}
-      />,
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.FLASH_OF_LIGHT.id} />}
-        value={`${formatPercentage(fillerCastRatio)} %`}
-        label={(
-          <dfn data-tip={`The ratio at which you cast Flash of Lights versus Holy Lights. You cast ${fillerFlashOfLights} filler Flash of Lights and ${fillerHolyLights} filler Holy Lights.`}>
-            Filler cast ratio
-          </dfn>
-        )}
-      />,
-      <StatisticBox
-        icon={<SpellIcon id={this.selectedCombatant.lv100Talent} />}
-        value={`${formatPercentage(healsOnBeacon)} %`}
-        label={(
-          <dfn data-tip={`The amount of Flash of Lights and Holy Lights cast on beacon targets. You cast ${beaconFlashOfLights} Flash of Lights and ${beaconHolyLights} Holy Lights on beacon targets.<br /><br />Your total heals on beacons was <b>${(totalHealsOnBeaconPercentage * 100).toFixed(2)}%</b> (this includes spell other than FoL and HL).`}>
-            FoL/HL cast on beacon
-          </dfn>
-        )}
+        value={`${formatPercentage(lifebloomUptime)} %`}
+        label='Lifebloom uptime'
       />,
       <StatisticBox
         icon={(
           <img
-            src="./img/icons/petbattle_health-down.jpg"
-            alt="Non healing time"
+            src="./img/icons/spell_druid_efflorescence.jpg"
+            alt="Efflorescence uptime"
           />
         )}
-        value={`${formatPercentage(nonHealingTimePercentage)} %`}
-        label={(
-          <dfn data-tip={`Non healing time is available casting time not used for a spell that helps you heal. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), DPSing, etc. Damaging Holy Shocks are considered non healing time, Crusader Strike is only considered non healing time if you do not have the Crusader's Might talent.<br /><br />You spent ${formatPercentage(deadTimePercentage)}% of your time casting nothing at all.`}>
-            Non healing time
-          </dfn>
-        )}
+        value={`${formatPercentage(efflorescenceUptime)} %`}
+        label='Efflorescence uptime'
       />,
+      this.modules.powerOfTheArchdruid.hasTrait && (
+        <StatisticBox
+          icon={(
+            <img
+              src="./img/icons/spell_druid_pota.jpg"
+              alt="Power of the archdruid"
+            />
+          )}
+          value={`${formatPercentage(potaHealing)} %`}
+          label={(
+            <dfn data-tip={`Power of the archdruid gave you ${this.modules.powerOfTheArchdruid.rejuvenations} bonus rejuvenations, ${this.modules.powerOfTheArchdruid.regrowths} bonus regrowths`}>
+              Power of the archdruid
+            </dfn>
+          )}
+        />
+      ),
+      hasFlourish && (
+        <StatisticBox
+          icon={(
+            <img
+              src="./img/icons/spell_druid_flourish.jpg"
+              alt="Average seconds extended by flourish"
+            />
+          )}
+          value={`${(((this.modules.flourish.wildGrowth + this.modules.flourish.cenarionWard + this.modules.flourish.rejuvenation + this.modules.flourish.regrowth + this.modules.flourish.lifebloom + this.modules.flourish.springBlossoms + this.modules.flourish.cultivation) * 6) / this.modules.flourish.flourishCounter).toFixed(0)}s`}
+          label={(
+            <dfn data-tip={
+              `<ul>
+                  Your ${this.modules.flourish.flourishCounter} <a href="http://www.wowhead.com/spell=197721" target="_blank">Flourishes</a> extended:
+                  <li>${this.modules.flourish.wildGrowth}/${this.modules.flourish.flourishCounter * wildGrowthTargets} <a href="http://www.wowhead.com/spell=48438" target="_blank">Wild Growths</a></li>
+                  <li>${this.modules.flourish.cenarionWard}/${this.modules.flourish.flourishCounter} <a href="http://www.wowhead.com/spell=102351" target="_blank">Cenarion wards</a></li>
+                  ${this.modules.flourish.rejuvenation > 0 ?
+                `<li>${this.modules.flourish.rejuvenation} <a href="http://www.wowhead.com/spell=774" target="_blank">rejuvenations</a></li>`
+                : ""
+                }
+                          ${this.modules.flourish.regrowth > 0 ?
+                `<li>${this.modules.flourish.regrowth} <a href="http://www.wowhead.com/spell=8936" target="_blank">regrowths</a></li>`
+                : ""
+                }
+                          ${this.modules.flourish.lifebloom > 0 ?
+                `<li>${this.modules.flourish.lifebloom} <a href="http://www.wowhead.com/spell=33763" target="_blank">lifebloom</a></li>`
+                : ""
+                }
+                          ${this.modules.flourish.springBlossoms > 0 ?
+                `<li>${this.modules.flourish.springBlossoms} <a href="http://www.wowhead.com/spell=207386" target="_blank">spring blossoms</a></li>`
+                : ""
+                }
+                          ${this.modules.flourish.cultivation > 0 ?
+                `<li>${this.modules.flourish.cultivation} <a href="http://www.wowhead.com/spell=200389" target="_blank">cultivations</a></li>`
+                : ""
+                }
+                          </ul>
+                          `
+            }>
+              Average seconds extended by flourish
+            </dfn>
+          )}
+        />
+      ),
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.TYRS_DELIVERANCE_CAST.id} />}
-        value={`${formatPercentage(tyrsDeliverancePercentage)} %`}
+        icon={(
+          <img
+            src="./img/icons/spell_druid_innervate.jpg"
+            alt="Innervate saved per mana"
+          />
+        )}
+        value={`${((this.modules.innervate.manaSaved / this.modules.innervate.innervateCount) / 1000).toFixed(0)}k mana`}
         label={(
-          <dfn data-tip={`The total actual effective healing contributed by Tyr's Deliverance. This includes the gains from the increase to healing by Flash of Light and Holy Light.<br /><br />The actual healing done by the effect was ${formatPercentage(tyrsDeliveranceHealHealingPercentage)}% of your healing done, and the healing contribution from the Flash of Light and Holy Light heal increase was ${formatPercentage(tyrsDeliveranceBuffFoLHLHealingPercentage)}% of your healing done.`}>
-            Tyr's Deliverance healing
+          <dfn data-tip={
+            `<ul>
+                During your ${this.modules.innervate.innervateCount} <a href="http://www.wowhead.com/spell=29166" target="_blank">Innervates</a> you cast:
+                <li>${this.modules.innervate.wildGrowths}/${this.modules.innervate.innervateCount} <a href="http://www.wowhead.com/spell=48438" target="_blank">Wild Growths</a></li>
+                <li>${this.modules.innervate.efflorescences}/${this.modules.innervate.innervateCount} <a href="http://www.wowhead.com/spell=81269" target="_blank">Efflorescences</a></li>
+                ${this.modules.innervate.cenarionWards > 0 ?
+              `<li>${this.modules.innervate.cenarionWards} <a href="http://www.wowhead.com/spell=102351" target="_blank">Cenarion wards</a></li>`
+              : ""
+              }
+                        ${this.modules.innervate.rejuvenations > 0 ?
+              `<li>${this.modules.innervate.rejuvenations} <a href="http://www.wowhead.com/spell=774" target="_blank">Rejuvenations</a></li>`
+              : ""
+              }
+                        ${this.modules.innervate.regrowths > 0 ?
+              `<li>${this.modules.innervate.regrowths} <a href="http://www.wowhead.com/spell=8936" target="_blank">Regrowths</a></li>`
+              : ""
+              }
+                        ${this.modules.innervate.lifeblooms > 0 ?
+              `<li>${this.modules.innervate.lifeblooms} <a href="http://www.wowhead.com/spell=33763" target="_blank">Lifeblooms</a></li>`
+              : ""
+              }
+                        ${this.modules.innervate.healingTouches > 0 ?
+              `<li>${this.modules.innervate.healingTouches} <a href="http://www.wowhead.com/spell=5185" target="_blank">Healing touches</a></li>`
+              : ""
+              }
+                        ${this.modules.innervate.swiftmends > 0 ?
+              `<li>${this.modules.innervate.swiftmends} <a href="http://www.wowhead.com/spell=18562" target="_blank">Swiftmends</a></li>`
+              : ""
+              }
+                        ${this.modules.innervate.tranquilities > 0 ?
+              `<li>${this.modules.innervate.tranquilities} <a href="http://www.wowhead.com/spell=157982" target="_blank">tranquilities</a></li>`
+              : ""
+              }
+                        </ul>
+                        `
+          }>
+            Average mana saved per innervate
           </dfn>
         )}
       />,
-      hasSacredDawn && (
+      hasTreeOfLife && (
         <StatisticBox
-          icon={<SpellIcon id={SPELLS.SACRED_DAWN.id} />}
-          value={`${formatPercentage(sacredDawnPercentage)} %`}
+          icon={(
+            <a href="http://www.wowhead.com/spell=33891" target="_blank">
+              <img
+                src="./img/icons/spell_druid_tol.jpg"
+                alt="Tree of Life"
+              />
+            </a>
+          )}
+          value={`${formatPercentage(treeOfLifeThroughput)} %`}
+          label="Tree of Life throughput"
+        />
+      ),
+      !hasMoC && (
+        <StatisticBox
+          icon={(
+            <img
+              src="./img/icons/spell_druid_clearcasting.jpg"
+              alt="Unused Clearcastings"
+            />
+          )}
+          value={`${formatPercentage(unusedClearcastings)} %`}
           label={(
-            <dfn data-tip={`The actual effective healing contributed by the Sacred Dawn effect.`}>
-              Sacred Dawn contribution
+            <dfn data-tip={`You got total <b>${this.modules.clearcasting.total} clearcasting proccs</b> and <b>used ${this.modules.clearcasting.used}</b> of them. <b>${this.modules.clearcasting.nonCCRegrowths} of your regrowths was used without a clearcasting procc</b>. Using a clearcasting procc as soon as you get it should be one of your top priorities. Even if it overheals you still get that extra mastery stack on a target and the minor HoT. Spending your GCD on a free spell also helps you with mana management in the long run.`}>
+              Unused Clearcastings
             </dfn>
           )}
         />
       ),
-      hasDivinePurpose && (
+      false && (
         <StatisticBox
-          icon={<SpellIcon id={SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id} />}
-          value={(
-            <span>
-              {divinePurposeHolyShockProcs}{' '}
-              <SpellIcon
-                id={SPELLS.HOLY_SHOCK_CAST.id}
-                style={{
-                  height: '1.3em',
-                  marginTop: '-.1em',
-                }}
-              />
-              {' '}
-              {divinePurposeLightOfDawnProcs}{' '}
-              <SpellIcon
-                id={SPELLS.LIGHT_OF_DAWN_CAST.id}
-                style={{
-                  height: '1.3em',
-                  marginTop: '-.1em',
-                }}
-              />
-                      </span>
+          icon={(
+            <img
+              src="./img/icons/petbattle_health-down.jpg"
+              alt="Non healing time"
+            />
           )}
+          value={`${formatPercentage(nonHealingTimePercentage)} %`}
           label={(
-            <dfn data-tip={`Your Divine Purpose proc rate for Holy Shock was ${formatPercentage(divinePurposeHolyShockProcs / (holyShockHeals - divinePurposeHolyShockProcs))}%.<br />Your Divine Purpose proc rate for Light of Dawn was ${formatPercentage(divinePurposeLightOfDawnProcs / (lightOfDawnHeals - divinePurposeLightOfDawnProcs))}%`}>
-              Divine Purpose procs
+            <dfn data-tip={`Non healing time is available casting time not used for a spell that helps you heal. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), DPSing, etc.<br /><br />You spent ${formatPercentage(deadTimePercentage)}% of your time casting nothing at all.`}>
+              Non healing time (experimental, under dev)
             </dfn>
           )}
         />
       ),
-      hasAuraOfMercy && (
-        <StatisticBox
-          icon={<SpellIcon id={SPELLS.AURA_OF_MERCY_TALENT.id} />}
-          value={`${formatNumber((getAbility(SPELLS.AURA_OF_MERCY_HEAL.id).healingEffective + getAbility(SPELLS.AURA_OF_MERCY_HEAL.id).healingAbsorbed) / fightDuration * 1000)} HPS`}
-          label="Healing done"
-        />
-      ),
-      hasAuraOfSacrifice && (
-        <StatisticBox
-          icon={<SpellIcon id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} />}
-          value={`${formatNumber(auraOfSacrificeHps)} HPS`}
-          label="Healing done"
-        />
-      )
     ];
 
     results.items = [
-      this.modules.ilterendi.active && {
-        id: ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id,
-        icon: <ItemIcon id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} />,
-        title: <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} />,
+      this.modules.prydaz.active && {
+        id: ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id,
+        icon: <ItemIcon id={ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id} />,
+        title: <ItemLink id={ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id} />,
         result: (
-          <dfn data-tip="The actual effective healing contributed by the Ilterendi, Crown Jewel of Silvermoon equip effect.">
-            {((ilterendiHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.ilterendi.healing / fightDuration * 1000)} HPS
+          <dfn data-tip="The actual effective healing contributed by the Prydaz, Xavaric's Magnum Opus equip effect.">
+            {((prydazHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.prydaz.healing / fightDuration * 1000)} HPS
+          </dfn>
+        ),
+      },
+      this.selectedCombatant.hasChest(ITEMS.EKOWRAITH_CREATOR_OF_WORLDS.id) && {
+        id: ITEMS.EKOWRAITH_CREATOR_OF_WORLDS.id,
+        icon: <ItemIcon id={ITEMS.EKOWRAITH_CREATOR_OF_WORLDS.id} />,
+        title: <ItemLink id={ITEMS.EKOWRAITH_CREATOR_OF_WORLDS.id} />,
+        result: (
+          <span>
+            <dfn data-tip="The increased healing on ysera's gift, and damage reduction from guardian affinity if specced.">
+            {(((ekowraithHealingPercentage + ekowraithDamageReductionHealingPercentage) * 100) || 0).toFixed(2)} % / {formatNumber((this.modules.ekowraith.healing + this.modules.ekowraith.damageReductionHealing) / fightDuration * 1000)} HPS
+            </dfn>
+            <br />(healing: {(ekowraithHealingPercentage * 100).toFixed(2)}%)
+            <br />(dmg reduction: {(ekowraithDamageReductionHealingPercentage * 100).toFixed(2)}%)
+          </span>
+        ),
+      },
+      this.selectedCombatant.hasChest(ITEMS.XONIS_CARESS.id) && {
+        id: ITEMS.XONIS_CARESS.id,
+        icon: <ItemIcon id={ITEMS.XONIS_CARESS.id} />,
+        title: <ItemLink id={ITEMS.XONIS_CARESS.id} />,
+        result: (
+          <dfn data-tip="The healing part from Ironbark. This doesn't include the reduced iron bark cooldown.">
+            {((xonisCaressHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.xonisCaress.healing / fightDuration * 1000)} HPS
+          </dfn>
+        ),
+      },
+      this.selectedCombatant.hasWaist(ITEMS.THE_DARK_TITANS_ADVICE.id) && {
+        id: ITEMS.THE_DARK_TITANS_ADVICE.id,
+        icon: <ItemIcon id={ITEMS.THE_DARK_TITANS_ADVICE.id} />,
+        title: <ItemLink id={ITEMS.THE_DARK_TITANS_ADVICE.id} />,
+        result: (
+          <dfn data-tip={`Random bloom stood for ${((darkTitanAdviceHealingFromProcc * 100) || 0).toFixed(2)} % of the total throughput.`}>
+            {((darkTitanAdviceHealing * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.darkTitanAdvice.healing / fightDuration * 1000)} HPS
+          </dfn>
+        ),
+      },
+      this.selectedCombatant.hasFeet(ITEMS.ESSENCE_OF_INFUSION.id) && {
+        id: ITEMS.ESSENCE_OF_INFUSION.id,
+        icon: <ItemIcon id={ITEMS.ESSENCE_OF_INFUSION.id} />,
+        title: <ItemLink id={ITEMS.ESSENCE_OF_INFUSION.id} />,
+        result: `${((essenceOfInfusionHealing * 100) || 0).toFixed(2)} % / ${formatNumber(this.modules.essenceOfInfusion.healing / fightDuration * 1000)} HPS`,
+      },
+      this.selectedCombatant.hasRing(ITEMS.TEARSTONE_OF_ELUNE.id) && {
+        id: ITEMS.TEARSTONE_OF_ELUNE.id,
+        icon: <ItemIcon id={ITEMS.TEARSTONE_OF_ELUNE.id} />,
+        title: <ItemLink id={ITEMS.TEARSTONE_OF_ELUNE.id} />,
+        result: (
+          <dfn data-tip={`Your Tearstone gave ${this.modules.tearstone.rejuvs} bonus rejuvenations. Proccrate of ring was ${(this.modules.tearstone.rejuvs / this.modules.tearstone.wildGrowths * 100).toFixed(2)}%`}>
+            {((tearstoneHealing * 100) || 0).toFixed(2)} %
           </dfn>
         ),
       },
@@ -575,53 +544,18 @@ class CombatLogParser extends MainCombatLogParser {
           </dfn>
         ),
       },
-      this.modules.sephuzsSecret.active && {
+      this.selectedCombatant.hasRing(ITEMS.SEPHUZS_SECRET.id) && {
         id: ITEMS.SEPHUZS_SECRET.id,
         icon: <ItemIcon id={ITEMS.SEPHUZS_SECRET.id} />,
         title: <ItemLink id={ITEMS.SEPHUZS_SECRET.id} />,
-        result: `${((this.modules.sephuzsSecret.uptime / fightDuration * 100) || 0).toFixed(2)} % uptime`,
-      },
-      this.modules.chainOfThrayn.active && {
-        id: ITEMS.CHAIN_OF_THRAYN.id,
-        icon: <ItemIcon id={ITEMS.CHAIN_OF_THRAYN.id} />,
-        title: <ItemLink id={ITEMS.CHAIN_OF_THRAYN.id} />,
         result: (
-          <dfn data-tip="The actual effective healing contributed by the Chain of Thrayn equip effect.">
-            {((chainOfThraynHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.chainOfThrayn.healing / fightDuration * 1000)} HPS
+          <dfn data-tip="Estimated throughput gained by using Sephuz by calculating haste gained in throughput, given 1 haste = 1 INT.">
+            {((sephuzThroughput * 100) || 0).toFixed(2)} %
           </dfn>
         ),
       },
-      this.modules.prydaz.active && {
-        id: ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id,
-        icon: <ItemIcon id={ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id} />,
-        title: <ItemLink id={ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id} />,
-        result: (
-          <dfn data-tip="The actual effective healing contributed by the Prydaz, Xavaric's Magnum Opus equip effect.">
-            {((prydazHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.prydaz.healing / fightDuration * 1000)} HPS
-          </dfn>
-        ),
-      },
-      this.modules.obsidianStoneSpaulders.active && {
-        id: ITEMS.OBSIDIAN_STONE_SPAULDERS.id,
-        icon: <ItemIcon id={ITEMS.OBSIDIAN_STONE_SPAULDERS.id} />,
-        title: <ItemLink id={ITEMS.OBSIDIAN_STONE_SPAULDERS.id} />,
-        result: (
-          <dfn data-tip="The actual effective healing contributed by the Obsidian Stone Spaulders equip effect.">
-            {((obsidianStoneSpauldersHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.obsidianStoneSpaulders.healing / fightDuration * 1000)} HPS
-          </dfn>
-        ),
-      },
-      this.modules.maraadsDyingBreath.active && {
-        id: ITEMS.MARAADS_DYING_BREATH.id,
-        icon: <ItemIcon id={ITEMS.MARAADS_DYING_BREATH.id} />,
-        title: <ItemLink id={ITEMS.MARAADS_DYING_BREATH.id} />,
-        result: (
-          <dfn data-tip="The actual effective healing contributed by the Maraad's Dying Breath equip effect when compared to casting an unbuffed LotM instead. The damage taken is ignored as this doesn't change with Maraad's and therefore doesn't impact the healing gain.">
-            {((maraadsDyingBreathHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.maraadsDyingBreath.healing / fightDuration * 1000)} HPS
-          </dfn>
-        ),
-      },
-      this.modules.drapeOfShame.active && {
+
+      this.selectedCombatant.hasBack(ITEMS.DRAPE_OF_SHAME.id) && {
         id: ITEMS.DRAPE_OF_SHAME.id,
         icon: <ItemIcon id={ITEMS.DRAPE_OF_SHAME.id} />,
         title: <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} />,
@@ -651,16 +585,31 @@ class CombatLogParser extends MainCombatLogParser {
           </dfn>
         )
       },
-      has4PT19 && {
-        id: `spell-${SPELLS.HOLY_PALADIN_T19_4SET_BONUS_BUFF.id}`,
-        icon: <SpellIcon id={SPELLS.HOLY_PALADIN_T19_4SET_BONUS_BUFF.id} />,
-        title: <SpellLink id={SPELLS.HOLY_PALADIN_T19_4SET_BONUS_BUFF.id} />,
-        result: (
-          <span>
-            {holyShockCrits * (iolProcsPerHolyShockCrit - 1)} bonus Infusion of Light charges gained
-          </span>
-        ),
-      },
+
+      //TODO
+      //has4PT19 && (
+      // (
+      //   <li className="item clearfix" key={T19_4SET_BONUS_BUFF_ID}>
+      //     <article>
+      //       <figure>
+      //         <img
+      //           src="./img/icons/spell_druid_rejuvenation.jpg"
+      //           alt="Rejuvenation"
+      //         />
+      //       </figure>
+      //       <div>
+      //         <header>
+      //           <a href="http://www.wowhead.com/spell=211170/item-druid-t19-restoration-4p-bonus" target="_blank">
+      //             T19 4 set bonus
+      //           </a>
+      //         </header>
+      //         <main>
+      //           50 bonus rejuvenation gained.
+      //         </main>
+      //       </div>
+      //     </article>
+      //   </li>
+      // ),
     ];
 
     results.tabs = [
@@ -708,16 +657,6 @@ class CombatLogParser extends MainCombatLogParser {
             actorId={this.playerId}
             start={this.fight.start_time}
             end={this.fight.end_time}
-          />
-        ),
-      },
-      {
-        title: 'Mastery effectiveness',
-        url: 'mastery-effectiveness',
-        render: () => (
-          <PlayerBreakdownTab
-            stats={masteryStats}
-            playersById={this.playersById}
           />
         ),
       },

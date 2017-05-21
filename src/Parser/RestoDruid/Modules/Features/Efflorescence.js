@@ -1,5 +1,5 @@
-import Module from 'Main/Parser/Module';
-import { EFFLORESCENCE_HEAL_SPELL_ID, EFFLORESCENCE_CAST_SPELL_ID} from 'Main/Parser/Constants';
+import Module from 'Parser/Core/Module';
+import { EFFLORESCENCE_HEAL_SPELL_ID, EFFLORESCENCE_CAST_SPELL_ID} from '../../Constants';
 
 const debug = false;
 

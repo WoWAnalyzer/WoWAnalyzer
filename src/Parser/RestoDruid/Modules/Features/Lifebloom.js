@@ -1,5 +1,5 @@
-import Module from 'Main/Parser/Module';
-import { LIFEBLOOM_HOT_HEAL_SPELL_ID} from 'Main/Parser/Constants';
+import Module from 'Parser/Core/Module';
+import { LIFEBLOOM_HOT_HEAL_SPELL_ID} from '../../Constants';
 
 class Lifebloom extends Module {
   get uptime() {

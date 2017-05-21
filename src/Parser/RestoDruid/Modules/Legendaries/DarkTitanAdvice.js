@@ -1,5 +1,5 @@
-import Module from 'Main/Parser/Module';
-import { LIFEBLOOM_BLOOM_HEAL_SPELL_ID, LIFEBLOOM_HOT_HEAL_SPELL_ID} from 'Main/Parser/Constants';
+import Module from 'Parser/Core/Module';
+import { LIFEBLOOM_BLOOM_HEAL_SPELL_ID, LIFEBLOOM_HOT_HEAL_SPELL_ID} from '../../Constants';
 
 export const DARK_TITAN_ADVICE_ITEM_ID = 137078;
 const DARK_TITAN_FINAL_HEALING_INCREASE = 3;

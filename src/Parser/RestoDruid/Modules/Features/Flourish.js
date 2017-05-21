@@ -1,4 +1,4 @@
-import Module from 'Main/Parser/Module';
+import Module from 'Parser/Core/Module';
 import {
   FLOURISH_CAST_ID,
   REJUVENATION_HEAL_SPELL_ID,
@@ -9,7 +9,7 @@ import {
   CENARION_WARD_HEAL_SPELL_ID,
   LIFEBLOOM_HOT_HEAL_SPELL_ID,
   SPRING_BLOSSMOS_HEAL_SPELL_ID
-} from 'Main/Parser/Constants';
+} from '../../Constants';
 
 const debug = false;
 
