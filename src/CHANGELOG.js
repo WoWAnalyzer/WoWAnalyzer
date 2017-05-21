@@ -1,4 +1,5 @@
 export default `
+21-05-2017 - Fixed a rare crash when auto attacking something. 
 21-05-2017 - Added Resto Druid support by <b>@blazyb</b> (see: <a href="https://github.com/buimichael/RestoDruidAnalyzer">https://github.com/buimichael/RestoDruidAnalyzer</a>). 
 20-05-2017 - Added Cooldowns tab to show casts and healing when affected by a cooldown. Added Amalgam's Seventh Spine mana gained statistic. Promises no longer includes mana reduction during Innervate. 
 18-05-2017 - Disc Priest: Added Shadow Word: Pain/Purge the Wicked global uptime statistic.
