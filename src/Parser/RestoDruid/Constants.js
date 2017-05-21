@@ -1,51 +1,78 @@
-import SPELLS from 'common/SPELLS';
+//--------------------------- Below is Resto Druid related constants -------------------------------------------------------//
+// Spells
+export const REJUVENATION_HEAL_SPELL_ID = 774;
+export const REGROWTH_HEAL_SPELL_ID = 8936;
+export const WILD_GROWTH_HEAL_SPELL_ID = 48438;
+export const HEALING_TOUCH_HEAL_SPELL_ID = 5185;
+export const REJUVENATION_GERMINATION_HEAL_SPELL_ID = 155777;
+export const CULTIVATION_HEAL_SPELL_ID = 200389;
+export const TRANQUILITY_HEAL_SPELL_ID = 157982;
+export const TRANQUILITY_CAST_SPELL_ID = 740;
+export const EFFLORESCENCE_HEAL_SPELL_ID = 81269;
+export const EFFLORESCENCE_CAST_SPELL_ID = 145205;
+export const CENARION_WARD_HEAL_SPELL_ID = 102352;
+export const LIFEBLOOM_HOT_HEAL_SPELL_ID = 33763;
+export const LIFEBLOOM_BLOOM_HEAL_SPELL_ID = 33778;
+export const DREAMWALKER_HEAL_SPELL_ID = 189853;
+export const YSERAS_GIFT_HEAL_SPELL_ID = 145110;
+export const YSERAS_GIFT2_HEAL_SPELL_ID = 145109;
+export const SWIFTMEND_HEAL_SPELL_ID = 18562;
+export const LIVING_SEED_HEAL_SPELL_ID = 48503;
+export const NATURES_ESSENCE_HEAL_SPELL_ID = 189800;
+export const MARK_OF_SHIFTING_HEAL_SPELL_ID = 224392;
+export const FRENZIED_REGENERATION_HEAL_SPELL_ID = 22842;
+export const SPRING_BLOSSMOS_HEAL_SPELL_ID = 207386;
+export const RENEWAL_HEAL_SPELL_ID = 108238;
+export const INNERVATE_CAST_ID = 29166;
+export const ESSENCE_OF_GHANIR_CAST_ID = 208253;
+export const IRONBARK_CAST_ID = 102342;
+export const FLOURISH_CAST_ID = 197721;
+export const BARKSKIN_CAST_ID = 22812;
+export const TREE_OF_LIFE_CAST_ID = 33891;
+export const CLEARCASTING_SPELL_ID = 16870;
+export const POWER_OF_THE_ARCHDRUID_SPELL_ID = 189877;
+
+// Traits
+export const DREAMWALKER_TRAIT_SPELL_ID = 189849;
+export const NATURES_ESSENCE_TRAIT_SPELL_ID = 189787;
+export const INFUSION_OF_NATURE_TRAIT_SPELL_ID  = 189757;
+export const POWER_OF_THE_ARCHDRUID_TRAIT_SPELL_ID  = 189870;
+
+// Talents
+export const GERMINATION_TALENT_SPELL_ID = 155675;
+export const CENARION_WARD_TALENT_SPELL_ID = 102351;
+export const INNER_PEACE_TALENT_SPELL_ID = 197073;
+export const FLOURISH_TALENT_SPELL_ID = 197721;
+
+//--------------------------- Below is non spec related constants ---------------------------------------------------------//
+export const LEECH_SPELL_ID = 143924;
+export const ARCANE_TORRENT_SPELL_ID = 155145;
+export const ANCIENT_HEALING_POTION_HEAL_SPELL_ID = 188016;
+export const MARK_OF_THE_ANCIENT_PRIESTESS_HEAL_SPELL_ID = 228401;
 
 export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
-  SPELLS.HOLY_SHOCK_HEAL.id,
-  SPELLS.LIGHT_OF_DAWN_HEAL.id,
-  SPELLS.FLASH_OF_LIGHT.id,
-  SPELLS.JUDGMENT_OF_LIGHT_HEAL.id,
-  SPELLS.LIGHT_OF_THE_MARTYR.id,
-  SPELLS.TYRS_DELIVERANCE_HEAL.id,
-  SPELLS.LIGHTS_HAMMER_HEAL.id,
-  SPELLS.HOLY_PRISM_HEAL.id,
-  SPELLS.AURA_OF_MERCY_HEAL.id,
-  // While the following spells don't double dip in healing increases, they gain the same percentual bonus from the transfer
-  SPELLS.BEACON_OF_LIGHT.id,
-  SPELLS.LEECH.id,
-  // SPELLS.AURA_OF_SACRIFICE_HEAL.id, // while AoS sorta is included, it's based on effective healing and any overhealing from the original spell would have to be reduced to get an accurate result. Not including it doesn't have a big impact.
+  REJUVENATION_HEAL_SPELL_ID,
+  REGROWTH_HEAL_SPELL_ID,
+  WILD_GROWTH_HEAL_SPELL_ID,
+  HEALING_TOUCH_HEAL_SPELL_ID,
+  REJUVENATION_GERMINATION_HEAL_SPELL_ID,
+  CULTIVATION_HEAL_SPELL_ID,
+  TRANQUILITY_HEAL_SPELL_ID,
+  EFFLORESCENCE_HEAL_SPELL_ID,
+  CENARION_WARD_HEAL_SPELL_ID,
+  LIFEBLOOM_HOT_HEAL_SPELL_ID,
+  LIFEBLOOM_BLOOM_HEAL_SPELL_ID,
+  DREAMWALKER_HEAL_SPELL_ID,
+  SWIFTMEND_HEAL_SPELL_ID,
+  NATURES_ESSENCE_HEAL_SPELL_ID,
+  SPRING_BLOSSMOS_HEAL_SPELL_ID,
+  // The following spells don't double dip in healing increases.
+  LEECH_SPELL_ID,
+  LIVING_SEED_HEAL_SPELL_ID,
 ];
 
-export const ABILITIES_AFFECTED_BY_MASTERY = [
-  SPELLS.HOLY_SHOCK_HEAL.id,
-  SPELLS.LIGHT_OF_DAWN_HEAL.id,
-  SPELLS.HOLY_LIGHT.id,
-  SPELLS.FLASH_OF_LIGHT.id,
-  SPELLS.LIGHT_OF_THE_MARTYR.id,
-  SPELLS.HOLY_PRISM_HEAL.id,
-  SPELLS.LIGHTS_HAMMER_HEAL.id,
-  SPELLS.JUDGMENT_OF_LIGHT_HEAL.id,
-  SPELLS.TYRS_DELIVERANCE_HEAL.id,
-  SPELLS.BESTOW_FAITH_TALENT.id,
-];
-
-export const BEACON_TRANSFERING_ABILITIES = {
-  [SPELLS.HOLY_SHOCK_HEAL.id]: 1,
-  [SPELLS.LIGHT_OF_DAWN_HEAL.id]: 0.5,
-  [SPELLS.HOLY_LIGHT.id]: 1,
-  [SPELLS.FLASH_OF_LIGHT.id]: 1,
-  [SPELLS.HOLY_PRISM_HEAL.id]: 0.5,
-  [SPELLS.LIGHTS_HAMMER_HEAL.id]: 0.5,
-  [SPELLS.TYRS_DELIVERANCE_HEAL.id]: 1,
-  [SPELLS.BESTOW_FAITH_TALENT.id]: 1,
-  // While this only beacon transfers with Maraad's, adding it by default shouldn't interfere with anything
-  [SPELLS.LIGHT_OF_THE_MARTYR.id]: 1,
+export const HIT_TYPES = {
+  NORMAL: 1,
+  CRIT: 2,
+  NOCLUEWHATTHISIS: 3, // seen at Aura of Sacrifice
 };
-
-export const BEACON_TYPES = {
-  BEACON_OF_FATH: SPELLS.BEACON_OF_FAITH_TALENT.id,
-  BEACON_OF_THE_LIGHTBRINGER: SPELLS.BEACON_OF_LIGHT_BUFF.id,
-  BEACON_OF_VIRTUE: SPELLS.BEACON_OF_VIRTUE_TALENT.id,
-};
-
-export const AVENGING_WRATH_HEALING_INCREASE = 0.35;

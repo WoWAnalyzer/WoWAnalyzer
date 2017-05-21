@@ -84,8 +84,6 @@ const CPM_ABILITIES = [
   },
   {
     spell: SPELLS.VELENS_FUTURE_SIGHT_BUFF,
-    icon: SPELLS.VELENS_FUTURE_SIGHT_BUFF.icon,
-    name: SPELLS.VELENS_FUTURE_SIGHT_BUFF.name,
     category: SPELL_CATEGORY.COOLDOWNS,
     getCooldown: haste => 75,
     isActive: combatant => combatant.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT_BUFF.id),
