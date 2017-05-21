@@ -1,10 +1,18 @@
+import ITEMS from 'common/ITEMS';
+
 import Module from 'Parser/Core/Module';
 
-export const PRYDAZ_ITEM_ID = 132444;
 const PRYDAZ_HEAL_SPELL_ID = 207472;
 
 class Prydaz extends Module {
   healing = 0;
+
+  on_initialized() {
+    if (!this.owner.error) {
+      this.active = this.owner.selectedCombatant.hasNeck(ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id);
+    }
+  }
+
   on_byPlayer_absorbed(event) {
     const spellId = event.ability.guid;
     if (spellId === PRYDAZ_HEAL_SPELL_ID) {
