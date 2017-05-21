@@ -418,7 +418,7 @@ export default {
   CENARION_WARD_TALENT: {
     id: 102351,
     name: 'Cenarion Ward',
-    icon: 'spell_druid_cenarionward',
+    icon: 'ability_druid_naturalperfection',
     description: '<a href="http://www.wowhead.com/spell=102351" target="_blank">Cenarion Ward</a> is the best talent in this tier in almost all situations.'
   },
   ABUNDANCE_TALENT: {
@@ -437,7 +437,7 @@ export default {
   DISPLACER_BEAST_TALENT: {
     id: 102280,
     name: 'Displacer Beast',
-    icon: 'spell_druid_displacerbeast',
+    icon: 'spell_druid_displacement',
     description: '<a href="http://www.wowhead.com/spell=108238" target="_blank">Displacer Beast</a> is the default choice for this tier. Basically a Blink with kitty Spring tagged onto the end.',
   },
   WILD_CHARGE_TALENT: {
@@ -462,7 +462,7 @@ export default {
   GUARDIAN_AFFINITY_TALENT: {
     id: 197491,
     name: 'Guardian Affinity',
-    icon: 'spell_druid_guardianaffinity',
+    icon: 'talentspec_druid_feral_bear',
     description: '<a href="http://www.wowhead.com/spell=197491" target="_blank">Guardian Affinity</a> offers a flat 6% damage taken reduction. It also gives you <a href="http://www.wowhead.com/spell=22842" target="_blank">Frenzied Regeneration</a> which can be life saving (or good for padding healing). This is usually the default talent, great choice!',
   },
   // lv60
@@ -481,7 +481,7 @@ export default {
   TYPHOON_TALENT: {
     id: 132469,
     name: 'Typhoon',
-    icon: 'spell_druid_typhoon',
+    icon: 'ability_druid_typhoon',
     description: 'This talent row usually has no impact on performance. This can be useful if you need a spell to push adds e.g. Illgynoth blobs.',
   },
   // lv75
@@ -494,7 +494,7 @@ export default {
   CULTIVATION_TALENT: {
     id: 200390,
     name: 'Cultivation',
-    icon: 'spell_druid_cultivation',
+    icon: 'ability_druid_nourish',
     description: 'This is usualy the default talent. <a href="http://www.wowhead.com/spell=200390" target="_blank">Cultivation</a> provides a free passive HoT on players actually needing heal (sub 60% hp), it also increases the overall average mastery count on players. It is also the easiest talent to play with.',
   },
   INCARNATION_TREE_OF_LIFE_TALENT: {
@@ -538,7 +538,7 @@ export default {
   FLOURISH_TALENT: {
     id: 197721,
     name: 'Flourish',
-    icon: 'spell_druid_flourish',
+    icon: 'spell_druid_wildburst',
     description: 'Default top tier talent, use it and love it. Always aim to extend <a href="http://www.wowhead.com/spell=48438" target="_blank">Wild Growth</a> and <a href="http://www.wowhead.com/spell=102351" target="_blank">Cenarion Ward</a>.',
   },
 };

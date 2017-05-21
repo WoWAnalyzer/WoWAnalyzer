@@ -390,7 +390,7 @@ export default {
   ESSENCE_OF_GHANIR: {
     id: 208253,
     name: 'Essence of G\'Hanir',
-    icon: 'spell_druid_essenceofghanir',
+    icon: 'inv_staff_2h_artifactnordrassil_d_01',
   },
   IRONBARK: {
     id: 102342,
@@ -400,26 +400,26 @@ export default {
   BARKSKIN: {
     id: 22812,
     name: 'Barkskin',
-    icon: 'spell_druid_barkskin',
+    icon: 'spell_nature_stoneclawtotem',
   },
   WILD_GROWTH: {
     id: 48438,
     name: 'Wild Growth',
-    icon: 'spell_druid_wildgrowth',
+    icon: 'ability_druid_flourish',
   },
   REJUVENATION: {
     id: 774,
     name: 'Rejuvenation',
-    icon: 'spell_druid_rejuvenation',
+    icon: 'spell_nature_rejuvenation',
   },
   HEALING_TOUCH: {
     id: 5185,
     name: 'Healing Touch',
-    icon: 'spell_druid_healingtouch',
+    icon: 'spell_nature_healingtouch',
   },
   REGROWTH: {
     id: 8936,
     name: 'Regrowth',
-    icon: 'spell_druid_regrowth',
+    icon: 'spell_nature_resistnature',
   },
 };
