@@ -48,7 +48,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     const combatant = this.owner.modules.combatants.selected;
 
     if (combatant.hasTalent(SPELLS.CRUSADERS_MIGHT_TALENT.id)) {
-      console.log(this.constructor, this.constructor.HEALING_ABILITIES_ON_GCD);
       this.constructor.HEALING_ABILITIES_ON_GCD.push(SPELLS.CRUSADER_STRIKE.id);
     }
     if (combatant.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT.id) || combatant.hasRing(ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id)) {
