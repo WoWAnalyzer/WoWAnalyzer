@@ -80,6 +80,8 @@ class Cooldown extends React.Component {
     const start = cooldown.start;
     const end = cooldown.end || fightEnd;
 
+    /* eslint-disable no-script-url */
+
     return (
       <article>
         <figure>

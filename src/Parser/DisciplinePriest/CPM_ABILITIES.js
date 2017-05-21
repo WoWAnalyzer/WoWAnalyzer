@@ -1,7 +1,4 @@
-import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-
-import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 export const SPELL_CATEGORY = {
   ROTATIONAL: 'Rotational Spell',

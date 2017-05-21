@@ -52,12 +52,6 @@ function formatNumber(number) {
   }
   return formatThousands(number);
 }
-function getRawHealing(ability) {
-  return ability.healingEffective + ability.healingAbsorbed + ability.healingOverheal;
-}
-function getOverhealingPercentage(ability) {
-  return ability.healingOverheal / getRawHealing(ability);
-}
 function getIssueImportance(value, regular, major, higherIsWorse = false) {
   if (higherIsWorse ? value > major : value < major) {
     return ISSUE_IMPORTANCE.MAJOR;

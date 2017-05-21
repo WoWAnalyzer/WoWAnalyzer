@@ -19,7 +19,6 @@ import VerifySpec from './Modules/PaladinCore/VerifySpec';
 
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 
-import ChainOfThrayn from './Modules/Legendaries/ChainOfThrayn';
 import Prydaz from './Modules/Legendaries/Prydaz';
 
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
@@ -58,7 +57,6 @@ class CombatLogParser extends MainCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
 
     // Legendaries:
-    chainOfThrayn: ChainOfThrayn,
     prydaz: Prydaz,
   };
 
