@@ -40,12 +40,12 @@ class AbilityTracker extends Module {
   }
   getRawManaCost(event) {
     const hardcodedCost = this.getHardcodedManaCost(event);
-    const actualCost = event.classResources.reduce((cost, resource) => {
+    const actualCost = event.classResources ? event.classResources.reduce((cost, resource) => {
       if (resource.type !== RESOURCE_TYPES.MANA) {
         return cost;
       }
       return cost + (resource.cost || 0);
-    }, 0);
+    }, 0) : 0;
 
     if (hardcodedCost !== null && actualCost && hardcodedCost !== actualCost) {
       console.error(event.ability.name, event.ability.guid, 'The hardcoded cost', hardcodedCost, 'did not match the actual cost', actualCost);
