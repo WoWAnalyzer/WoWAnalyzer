@@ -11,6 +11,7 @@ import DarkmoonDeckPromises from 'Parser/Core/Modules/Items/DarkmoonDeckPromises
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
+import Icon from 'common/Icon';
 import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
 import ItemIcon from 'common/ItemIcon';
@@ -117,8 +118,8 @@ class CombatLogParser extends MainCombatLogParser {
     }
     if (this.modules.velens.active && velensHealingPercentage < 0.045) {
       results.addIssue({
-        issue: <span>Your usage of <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT_BUFF.id} /> can be improved. Try to maximize the amount of casts during the buff or consider using an easier legendary ({(velensHealingPercentage * 100).toFixed(2)}% healing contributed).</span>,
-        icon: ITEMS.VELENS_FUTURE_SIGHT_BUFF.icon,
+        issue: <span>Your usage of <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} /> can be improved. Try to maximize the amount of casts during the buff or consider using an easier legendary ({(velensHealingPercentage * 100).toFixed(2)}% healing contributed).</span>,
+        icon: ITEMS.VELENS_FUTURE_SIGHT.icon,
         importance: getIssueImportance(velensHealingPercentage, 0.04, 0.03),
       });
     }
@@ -152,12 +153,7 @@ class CombatLogParser extends MainCombatLogParser {
         )}
       />,
       <StatisticBox
-        icon={(
-          <img
-            src="./img/icons/petbattle_health-down.jpg"
-            alt="Dead GCD time"
-          />
-        )}
+        icon={<Icon icon="petbattle_health-down" alt="Non healing time" />}
         value={`${formatPercentage(deadTimePercentage)} %`}
         label={(
           <dfn data-tip="Dead GCD time is available casting time not used. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), etc.">
@@ -213,9 +209,9 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       },
       this.modules.velens.active && {
-        id: ITEMS.VELENS_FUTURE_SIGHT_BUFF.id,
-        icon: <ItemIcon id={ITEMS.VELENS_FUTURE_SIGHT_BUFF.id} />,
-        title: <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT_BUFF.id} />,
+        id: ITEMS.VELENS_FUTURE_SIGHT.id,
+        icon: <ItemIcon id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
+        title: <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
         result: (
           <dfn data-tip="The actual effective healing contributed by the Velen's Future Sight use effect.">
             {((velensHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.velens.healing / fightDuration * 1000)} HPS

@@ -147,7 +147,11 @@ class App extends Component {
           })
           .catch((err) => {
             alert(`The report could not be parsed because an error occured. ${err.message}`);
-            console.error(err);
+            if (process.env.NODE_ENV === 'development') {
+              throw err;
+            } else {
+              console.error(err);
+            }
           });
       });
   }

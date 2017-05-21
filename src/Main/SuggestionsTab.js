@@ -4,6 +4,8 @@ import 'react-toggle/style.css';
 
 import UpArrow from 'Icons/UpArrow';
 
+import Icon from 'common/Icon';
+
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 class SuggestionsTab extends React.Component {
@@ -61,7 +63,7 @@ class SuggestionsTab extends React.Component {
           <ul className="list issues">
             {!issues.find(issue => issue.importance === ISSUE_IMPORTANCE.MAJOR) && (
               <li className="item" style={{ color: '#25ff00' }}>
-                <img src="./img/icons/thumbsup.jpg" alt="Icon" /> There are no major issues in this fight. Good job!
+                <Icon icon="thumbsup" alt="Thumbsup" /> There are no major issues in this fight. Good job!
               </li>
             )}
             {issues
@@ -69,8 +71,7 @@ class SuggestionsTab extends React.Component {
               .map((issue, i) => (
                 <li className={`item ${issue.importance  || ''}`} key={`${i}`}>
                   {this.renderIssueImportance(issue.importance)}
-                  <img src={`./img/icons/${issue.icon}.jpg`} alt="Icon" />{' '}
-                  {issue.issue}
+                  <Icon icon={issue.icon} alt="Icon" /> {issue.issue}
                 </li>
               ))}
             <li className="text-muted" style={{ paddingTop: 10, paddingBottom: 10 }}>

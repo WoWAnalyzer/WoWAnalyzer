@@ -11,6 +11,7 @@ import SephuzsSecret from 'Parser/Core/Modules/Items/SephuzsSecret';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
+import Icon from 'common/Icon';
 import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
 import ItemIcon from 'common/ItemIcon';
@@ -293,7 +294,8 @@ class CombatLogParser extends MainCombatLogParser {
     if (unusedIolRate > recommendedUnusedIolRate) {
       results.addIssue({
         issue: <span>Your usage of <SpellLink id={SPELLS.INFUSION_OF_LIGHT.id} /> procs can be improved. Try to use your Infusion of Light procs whenever it wouldn't overheal ({Math.round(unusedIolRate * 100)}% unused Infusion of Lights).</span>,
-        icon: 'ability_paladin_infusionoflight-bw',
+        // icon: 'ability_paladin_infusionoflight-bw',
+        icon: 'ability_paladin_infusionoflight',
         importance: getIssueImportance(unusedIolRate, recommendedUnusedIolRate + 0.05, recommendedUnusedIolRate + 0.2, true),
       });
     }
@@ -306,8 +308,8 @@ class CombatLogParser extends MainCombatLogParser {
     }
     if (this.modules.velens.active && velensHealingPercentage < 0.045) {
       results.addIssue({
-        issue: <span>Your usage of <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT_BUFF.id} /> can be improved. Try to maximize the amount of casts during the buff or consider using an easier legendary ({(velensHealingPercentage * 100).toFixed(2)}% healing contributed).</span>,
-        icon: ITEMS.VELENS_FUTURE_SIGHT_BUFF.icon,
+        issue: <span>Your usage of <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} /> can be improved. Try to maximize the amount of casts during the buff or consider using an easier legendary ({(velensHealingPercentage * 100).toFixed(2)}% healing contributed).</span>,
+        icon: ITEMS.VELENS_FUTURE_SIGHT.icon,
         importance: getIssueImportance(velensHealingPercentage, 0.04, 0.03),
       });
     }
@@ -443,7 +445,7 @@ class CombatLogParser extends MainCombatLogParser {
         icon={(
           <SpellLink id={SPELLS.INFUSION_OF_LIGHT.id}>
             <img
-              src="./img/icons/ability_paladin_infusionoflight-bw.jpg"
+              src="./img/ability_paladin_infusionoflight-bw.jpg"
               alt="Unused Infusion of Light"
             />
           </SpellLink>
@@ -474,12 +476,7 @@ class CombatLogParser extends MainCombatLogParser {
         )}
       />,
       <StatisticBox
-        icon={(
-          <img
-            src="./img/icons/petbattle_health-down.jpg"
-            alt="Non healing time"
-          />
-        )}
+        icon={<Icon icon="petbattle_health-down" alt="Non healing time" />}
         value={`${formatPercentage(nonHealingTimePercentage)} %`}
         label={(
           <dfn data-tip={`Non healing time is available casting time not used for a spell that helps you heal. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), DPSing, etc. Damaging Holy Shocks are considered non healing time, Crusader Strike is only considered non healing time if you do not have the Crusader's Might talent.<br /><br />You spent ${formatPercentage(deadTimePercentage)}% of your time casting nothing at all.`}>
@@ -566,9 +563,9 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       },
       this.modules.velens.active && {
-        id: ITEMS.VELENS_FUTURE_SIGHT_BUFF.id,
-        icon: <ItemIcon id={ITEMS.VELENS_FUTURE_SIGHT_BUFF.id} />,
-        title: <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT_BUFF.id} />,
+        id: ITEMS.VELENS_FUTURE_SIGHT.id,
+        icon: <ItemIcon id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
+        title: <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
         result: (
           <dfn data-tip="The actual effective healing contributed by the Velen's Future Sight use effect.">
             {((velensHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.velens.healing / fightDuration * 1000)} HPS

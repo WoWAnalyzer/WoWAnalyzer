@@ -6,6 +6,7 @@ import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 import SpellLink from 'common/SpellLink';
+import Icon from 'common/Icon';
 import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
 import ItemIcon from 'common/ItemIcon';
@@ -112,12 +113,7 @@ class CombatLogParser extends MainCombatLogParser {
         label="Damage done"
       />,
       <StatisticBox
-        icon={(
-          <img
-            src="./img/icons/petbattle_health-down.jpg"
-            alt="Dead GCD time"
-          />
-        )}
+        icon={<Icon icon="spell_mage_altertime" alt="Dead GCD time" />}
         value={`${formatPercentage(deadTimePercentage)} %`}
         label={(
           <dfn data-tip="Dead GCD time is available casting time not used. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), etc.">

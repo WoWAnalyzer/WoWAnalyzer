@@ -6,7 +6,7 @@ export default {
     icon: 'spell_shadow_lifedrain02',
   },
   // Items buffs:
-  VELENS_FUTURE_SIGHT_BUFF: {
+  VELENS_FUTURE_SIGHT: {
     id: 235966,
     name: 'Velen\'s Future Sight',
     icon: 'spell_holy_healingfocus',
@@ -361,11 +361,6 @@ export default {
     name: 'Fragile Echo',
     icon: 'spell_warlock_demonsoul',
   },
-  INNERVATE_BUFF: {
-    id: 29166,
-    name: 'Innervate',
-    icon: 'spell_nature_lightning',
-  },
   BEACON_OF_LIGHT: {
     id: 53652,
     name: 'Beacon of Light',
@@ -380,5 +375,66 @@ export default {
     id: 228401,
     name: 'Mark of the Ancient Priestess',
     icon: 'ability_priest_ascension',
+  },
+  // Resto Druid:
+  TRANQUILITY: {
+    id: 740,
+    name: 'Tranquility',
+    icon: 'spell_nature_tranquility',
+  },
+  INNERVATE: {
+    id: 29166,
+    name: 'Innervate',
+    icon: 'spell_nature_lightning',
+  },
+  ESSENCE_OF_GHANIR: {
+    id: 208253,
+    name: 'Essence of G\'Hanir',
+    icon: 'inv_staff_2h_artifactnordrassil_d_01',
+  },
+  IRONBARK: {
+    id: 102342,
+    name: 'Ironbark',
+    icon: 'spell_druid_ironbark',
+  },
+  BARKSKIN: {
+    id: 22812,
+    name: 'Barkskin',
+    icon: 'spell_nature_stoneclawtotem',
+  },
+  WILD_GROWTH: {
+    id: 48438,
+    name: 'Wild Growth',
+    icon: 'ability_druid_flourish',
+  },
+  REJUVENATION: {
+    id: 774,
+    name: 'Rejuvenation',
+    icon: 'spell_nature_rejuvenation',
+  },
+  HEALING_TOUCH: {
+    id: 5185,
+    name: 'Healing Touch',
+    icon: 'spell_nature_healingtouch',
+  },
+  REGROWTH: {
+    id: 8936,
+    name: 'Regrowth',
+    icon: 'spell_nature_resistnature',
+  },
+  LIFEBLOOM: {
+    id: 33763,
+    name: 'Lifebloom',
+    icon: 'inv_misc_herb_felblossom',
+  },
+  CLEARCASTING_BUFF: {
+    id: 16870,
+    name: 'Clearcasting',
+    icon: 'spell_shadow_manaburn',
+  },
+  EFFLORESCENCE: {
+    id: 145205,
+    name: 'Efflorescence',
+    icon: 'inv_misc_herb_talandrasrose',
   },
 };
