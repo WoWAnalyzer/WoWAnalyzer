@@ -1,5 +1,4 @@
 import ITEMS from 'common/ITEMS';
-import SPELLS from 'common/SPELLS';
 
 import Module from 'Parser/Core/Module';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
