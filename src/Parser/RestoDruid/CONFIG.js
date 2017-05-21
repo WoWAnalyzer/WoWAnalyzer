@@ -5,4 +5,5 @@ import CombatLogParser from './CombatLogParser';
 export default {
   spec: SPECS.RESTORATION_DRUID,
   parser: CombatLogParser,
+  maintainer: '@blazyb',
 };

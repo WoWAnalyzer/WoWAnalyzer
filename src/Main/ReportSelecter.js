@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
+
 import Changelog from './Changelog';
 
 class ReportSelecter extends Component {
@@ -86,12 +88,18 @@ class ReportSelecter extends Component {
 
             <div className="panel">
               <div className="panel-heading">
-                <h2>Source code</h2>
+                <h2>About</h2>
               </div>
               <div className="panel-body text-muted">
-                Full source is available on <a href="https://github.com/MartijnHols/WoWAnalyzer">GitHub</a>. The readme also contains information about the implemented features as well as a list of the percentage breakpoints for most suggestions.<br /><br />
+                Full source is available on <a href="https://github.com/MartijnHols/WoWAnalyzer">GitHub</a>. Contributions are extremely welcome! Add your own module or spec if you want to be able to analyze something not yet available. The repository contains information on how to contribute, if you need any more information contact <b>@Zerotorescue#0724</b> on Discord.<br /><br />
 
-                Created by Zerotorescue for the <a href="https://discordapp.com/invite/hammerofwrath">#holy Discord</a>. You can usually find helpful people there.
+                The following specs are available:<br />
+                <ul>
+                  {AVAILABLE_CONFIGS.map((config) => (
+                    <li><span className={config.spec.className}>{config.spec.specName} {config.spec.className}</span> maintained by <span style={{ color: '#fff' }}>{config.maintainer}</span></li>
+                  ))}
+                </ul>
+                There are no plans at this time to add support for other specs. The best way to get support for a spec is to add it yourself. Adding specs is easy if you're familiar with JavaScript (ES6), see <a href="https://github.com/MartijnHols/WoWAnalyzer">GitHub</a> for more information.
               </div>
             </div>
           </div>
