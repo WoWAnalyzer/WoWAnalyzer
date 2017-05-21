@@ -194,6 +194,12 @@ class Combatant extends Entity {
   hasBack(itemId) {
     return this.back === itemId;
   }
+  get chest() {
+    return this.getGearBySlotId(GEAR_SLOTS.CHEST);
+  }
+  hasChest(itemId) {
+    return this.chest === itemId;
+  }
   get wrists() {
     return this.getGearBySlotId(GEAR_SLOTS.WRISTS);
   }
