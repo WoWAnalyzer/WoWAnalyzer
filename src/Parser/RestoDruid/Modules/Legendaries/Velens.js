@@ -15,7 +15,7 @@ class Velens extends Module {
 
   on_initialized() {
     if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT_BUFF.id);
+      this.active = this.owner.selectedCombatant.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT.id);
     }
   }
 

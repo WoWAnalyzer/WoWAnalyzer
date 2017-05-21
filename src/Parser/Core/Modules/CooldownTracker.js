@@ -7,7 +7,7 @@ const debug = true;
 class CooldownTracker extends Module {
   static cooldownSpells = [
     SPELLS.INNERVATE,
-    SPELLS.VELENS_FUTURE_SIGHT_BUFF,
+    SPELLS.VELENS_FUTURE_SIGHT,
   ];
 
   cooldowns = [];

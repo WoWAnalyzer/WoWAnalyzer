@@ -14,7 +14,7 @@ class Velens extends Module {
 
   on_initialized() {
     if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT_BUFF.id);
+      this.active = this.owner.selectedCombatant.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT.id);
     }
   }
 
@@ -30,7 +30,7 @@ class Velens extends Module {
       return;
     }
 
-    if (!this.owner.selectedCombatant.hasBuff(SPELLS.VELENS_FUTURE_SIGHT_BUFF.id, event.timestamp)) {
+    if (!this.owner.selectedCombatant.hasBuff(SPELLS.VELENS_FUTURE_SIGHT.id, event.timestamp)) {
       return;
     }
 

@@ -6,7 +6,7 @@ export default {
     icon: 'spell_shadow_lifedrain02',
   },
   // Items buffs:
-  VELENS_FUTURE_SIGHT_BUFF: {
+  VELENS_FUTURE_SIGHT: {
     id: 235966,
     name: 'Velen\'s Future Sight',
     icon: 'spell_holy_healingfocus',
@@ -421,5 +421,20 @@ export default {
     id: 8936,
     name: 'Regrowth',
     icon: 'spell_nature_resistnature',
+  },
+  LIFEBLOOM: {
+    id: 33763,
+    name: 'Lifebloom',
+    icon: 'inv_misc_herb_felblossom',
+  },
+  CLEARCASTING_BUFF: {
+    id: 16870,
+    name: 'Clearcasting',
+    icon: 'spell_shadow_manaburn',
+  },
+  EFFLORESCENCE: {
+    id: 145205,
+    name: 'Efflorescence',
+    icon: 'inv_misc_herb_talandrasrose',
   },
 };

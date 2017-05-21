@@ -293,7 +293,8 @@ class CombatLogParser extends MainCombatLogParser {
     if (unusedIolRate > recommendedUnusedIolRate) {
       results.addIssue({
         issue: <span>Your usage of <SpellLink id={SPELLS.INFUSION_OF_LIGHT.id} /> procs can be improved. Try to use your Infusion of Light procs whenever it wouldn't overheal ({Math.round(unusedIolRate * 100)}% unused Infusion of Lights).</span>,
-        icon: 'ability_paladin_infusionoflight-bw',
+        // icon: 'ability_paladin_infusionoflight-bw',
+        icon: 'ability_paladin_infusionoflight',
         importance: getIssueImportance(unusedIolRate, recommendedUnusedIolRate + 0.05, recommendedUnusedIolRate + 0.2, true),
       });
     }
@@ -306,8 +307,8 @@ class CombatLogParser extends MainCombatLogParser {
     }
     if (this.modules.velens.active && velensHealingPercentage < 0.045) {
       results.addIssue({
-        issue: <span>Your usage of <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT_BUFF.id} /> can be improved. Try to maximize the amount of casts during the buff or consider using an easier legendary ({(velensHealingPercentage * 100).toFixed(2)}% healing contributed).</span>,
-        icon: ITEMS.VELENS_FUTURE_SIGHT_BUFF.icon,
+        issue: <span>Your usage of <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} /> can be improved. Try to maximize the amount of casts during the buff or consider using an easier legendary ({(velensHealingPercentage * 100).toFixed(2)}% healing contributed).</span>,
+        icon: ITEMS.VELENS_FUTURE_SIGHT.icon,
         importance: getIssueImportance(velensHealingPercentage, 0.04, 0.03),
       });
     }
@@ -566,9 +567,9 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       },
       this.modules.velens.active && {
-        id: ITEMS.VELENS_FUTURE_SIGHT_BUFF.id,
-        icon: <ItemIcon id={ITEMS.VELENS_FUTURE_SIGHT_BUFF.id} />,
-        title: <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT_BUFF.id} />,
+        id: ITEMS.VELENS_FUTURE_SIGHT.id,
+        icon: <ItemIcon id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
+        title: <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
         result: (
           <dfn data-tip="The actual effective healing contributed by the Velen's Future Sight use effect.">
             {((velensHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.velens.healing / fightDuration * 1000)} HPS

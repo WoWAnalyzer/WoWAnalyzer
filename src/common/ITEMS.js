@@ -18,7 +18,7 @@ const ITEMS = {
     icon: 'inv_jewelry_ring_149',
     quality: QUALITIES.LEGENDARY,
   },
-  VELENS_FUTURE_SIGHT_BUFF: {
+  VELENS_FUTURE_SIGHT: {
     id: 144258,
     name: 'Velen\'s Future Sight',
     icon: 'spell_holy_healingfocus',

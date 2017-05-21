@@ -83,10 +83,10 @@ const CPM_ABILITIES = [
     extraSuggestion: '',
   },
   {
-    spell: SPELLS.VELENS_FUTURE_SIGHT_BUFF,
+    spell: SPELLS.VELENS_FUTURE_SIGHT,
     category: SPELL_CATEGORY.COOLDOWNS,
     getCooldown: haste => 75,
-    isActive: combatant => combatant.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT_BUFF.id),
+    isActive: combatant => combatant.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT.id),
   },
   {
     spell: SPELLS.HOLY_AVENGER_TALENT,
