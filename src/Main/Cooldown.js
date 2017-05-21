@@ -22,6 +22,24 @@ const formatDuration = (duration) => {
 };
 
 class Cooldown extends React.Component {
+  static propTypes = {
+    fightStart: React.PropTypes.number.isRequired,
+    fightEnd: React.PropTypes.number.isRequired,
+    showHealingDone: React.PropTypes.bool,
+    cooldown: React.PropTypes.shape({
+      ability: React.PropTypes.shape({
+        id: React.PropTypes.number.isRequired,
+        name: React.PropTypes.string.isRequired,
+        icon: React.PropTypes.string.isRequired,
+      }),
+      start: React.PropTypes.number.isRequired,
+      end: React.PropTypes.number,
+      events: React.PropTypes.arrayOf(React.PropTypes.shape({
+        type: React.PropTypes.string.isRequired,
+      })).isRequired,
+    }).isRequired,
+  };
+
   constructor() {
     super();
     this.state = {
@@ -72,9 +90,9 @@ class Cooldown extends React.Component {
   }
 
   render() {
-    const { cooldown, fightStart, fightEnd } = this.props;
+    const { cooldown, fightStart, fightEnd, showHealingDone } = this.props;
 
-    const healingDone = cooldown.events.filter(event => event.type === 'heal' || event.type === 'absorbed').reduce((healingDone, event) => healingDone + event.amount + (event.absorbed || 0), 0);
+    const healingDone = showHealingDone && cooldown.events.filter(event => event.type === 'heal' || event.type === 'absorbed').reduce((healingDone, event) => healingDone + event.amount + (event.absorbed || 0), 0);
     const mana = cooldown.events.filter(event => event.type === 'cast').reduce((mana, event) => mana + (event.manaCost || 0), 0);
 
     const start = cooldown.start;
@@ -88,7 +106,7 @@ class Cooldown extends React.Component {
           <SpellIcon id={cooldown.ability.id} />
         </figure>
         <div className="row" style={{ width: '100%' }}>
-          <div className="col-md-8">
+          <div className={showHealingDone ? 'col-md-8' : 'col-md-10'}>
             <header style={{ marginTop: 5, fontSize: '1.25em', marginBottom: '.1em' }}>
               <SpellLink id={cooldown.ability.id} /> ({formatDuration((start - fightStart) / 1000)} -&gt; {formatDuration((end - fightStart) / 1000)})
             </header>
@@ -140,10 +158,12 @@ class Cooldown extends React.Component {
               </div>
             )}
           </div>
-          <div className="col-md-2 text-center">
-            <div style={{ fontSize: '2em' }}>{formatNumber(healingDone)}</div>
-            <dfn data-tip="This includes all healing the occured while the buff was up, even if it was not triggered by spells cast inside the buff duration. Any delayed healing such as HOTs, Absorbs and Atonements will stop contributing to the healing done when the cooldown buff expires, so this value is lower for any specs with such abilities.">healing ({formatNumber(healingDone / (end - start) * 1000)} HPS)</dfn>
-          </div>
+          {showHealingDone && (
+            <div className="col-md-2 text-center">
+              <div style={{ fontSize: '2em' }}>{formatNumber(healingDone)}</div>
+              <dfn data-tip="This includes all healing the occured while the buff was up, even if it was not triggered by spells cast inside the buff duration. Any delayed healing such as HOTs, Absorbs and Atonements will stop contributing to the healing done when the cooldown buff expires, so this value is lower for any specs with such abilities.">healing ({formatNumber(healingDone / (end - start) * 1000)} HPS)</dfn>
+            </div>
+          )}
           <div className="col-md-2 text-center">
             <div style={{ fontSize: '2em' }}>{formatNumber(mana)}</div>
             mana used
