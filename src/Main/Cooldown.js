@@ -20,6 +20,9 @@ const formatDuration = (duration) => {
   const seconds = Math.floor(duration % 60);
   return `${Math.floor(duration / 60)}:${seconds < 10 ? `0${seconds}` : seconds}`;
 };
+function formatPercentage(percentage) {
+  return (Math.round((percentage || 0) * 10000) / 100).toFixed(2);
+}
 
 class Cooldown extends React.Component {
   static propTypes = {
@@ -92,7 +95,12 @@ class Cooldown extends React.Component {
   render() {
     const { cooldown, fightStart, fightEnd, showHealingDone } = this.props;
 
-    const healingDone = showHealingDone && cooldown.events.filter(event => event.type === 'heal' || event.type === 'absorbed').reduce((healingDone, event) => healingDone + event.amount + (event.absorbed || 0), 0);
+    let healingDone = 0;
+    let overhealingDone = 0;
+    showHealingDone && cooldown.events.filter(event => event.type === 'heal' || event.type === 'absorbed').forEach((event) => {
+      healingDone += event.amount + (event.absorbed || 0);
+      overhealingDone += event.overheal || 0;
+    });
     const mana = cooldown.events.filter(event => event.type === 'cast').reduce((mana, event) => mana + (event.manaCost || 0), 0);
 
     const start = cooldown.start;
@@ -106,7 +114,7 @@ class Cooldown extends React.Component {
           <SpellIcon id={cooldown.ability.id} />
         </figure>
         <div className="row" style={{ width: '100%' }}>
-          <div className={showHealingDone ? 'col-md-8' : 'col-md-10'}>
+          <div className={showHealingDone ? 'col-md-6' : 'col-md-10'}>
             <header style={{ marginTop: 5, fontSize: '1.25em', marginBottom: '.1em' }}>
               <SpellLink id={cooldown.ability.id} /> ({formatDuration((start - fightStart) / 1000)} -&gt; {formatDuration((end - fightStart) / 1000)})
             </header>
@@ -162,6 +170,12 @@ class Cooldown extends React.Component {
             <div className="col-md-2 text-center">
               <div style={{ fontSize: '2em' }}>{formatNumber(healingDone)}</div>
               <dfn data-tip="This includes all healing the occured while the buff was up, even if it was not triggered by spells cast inside the buff duration. Any delayed healing such as HOTs, Absorbs and Atonements will stop contributing to the healing done when the cooldown buff expires, so this value is lower for any specs with such abilities.">healing ({formatNumber(healingDone / (end - start) * 1000)} HPS)</dfn>
+            </div>
+          )}
+          {showHealingDone && (
+            <div className="col-md-2 text-center">
+              <div style={{ fontSize: '2em' }}>{formatPercentage(overhealingDone / (healingDone + overhealingDone))}%</div>
+              <dfn data-tip="This includes all healing the occured while the buff was up, even if it was not triggered by spells cast inside the buff duration. Any delayed healing such as HOTs, Absorbs and Atonements will stop contributing to the healing done when the cooldown buff expires, so this value is lower for any specs with such abilities.">overhealing</dfn>
             </div>
           )}
           <div className="col-md-2 text-center">
