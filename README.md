@@ -4,7 +4,7 @@ Use this tool to analyze your performance based on important metrics for your sp
 
 You will need a Warcraft Logs report with advanced combat logging enabled to start. Private logs can not be used, if your guild has private logs you will have to [upload your own logs](https://www.warcraftlogs.com/help/start/) or change the existing logs to the unlisted privacy option instead.
 
-Run it: [https://martijnhols.github.io/WoWAnalyzer/build/index.html](https://martijnhols.github.io/WoWAnalyzer/build/index.html)
+Run it: [https://wowanalyzer.com](https://wowanalyzer.com)
 
 Feature requests (and bug reports provided that you're not using one of Microsoft's browsers) are welcome! *@Zerotorescue* on [Discord](https://discordapp.com/invite/hammerofwrath) or create an issue [here](https://github.com/MartijnHols/WoWAnalyzer/issues).
 
