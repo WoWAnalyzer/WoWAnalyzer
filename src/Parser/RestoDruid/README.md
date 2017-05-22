@@ -1,24 +1,25 @@
 ## Features
 | Feature | Note | Accuracy |
 | --- | --- | --- |
-| [Mastery Effectiveness](https://github.com/MartijnHols/WoWAnalyzer/blob/master/src/Main/Parser/Modules/Features/MasteryEffectiveness.js) | Tracks your distance to other players and the healing done to determine the effectiveness of your healing weighted by the amount of healing done. | >90% |
-| [Always Be Casting](https://github.com/MartijnHols/WoWAnalyzer/blob/master/src/Main/Parser/Modules/Features/AlwaysBeCasting.js) | Tracks your casting and healing time to determine your non healing and dead GCD time. May get slightly inaccurate with unaccounted for Haste buffs. | 80%-100% |
-| [Beacon Targets](https://github.com/MartijnHols/WoWAnalyzer/blob/master/src/Main/Parser/Modules/PaladinCore/BeaconTargets.js) | Used by other features: tracks who have beacons active for all beacon types. | 100% |
-| [Ability Tracker](https://github.com/MartijnHols/WoWAnalyzer/blob/master/src/Main/Parser/Modules/Core/AbilityTracker.js) | Tracks ability casts and healing done (damage tracking NYI)w. | 100% |
-| [Paladin Ability Tracker](https://github.com/MartijnHols/WoWAnalyzer/blob/master/src/Main/Parser/Modules/PaladinCore/PaladinAbilityTracker.js) | Tracks healing done on beacons and with IoL. | 100% |
-| [Cast Efficiency](https://github.com/MartijnHols/WoWAnalyzer/blob/master/src/Main/CastEfficiency.js) | Displays the amount of casts and estimates the max amount of casts possible to determine your skill at keeping important spells (close to) on cooldown. The estimated max amount of casts is slightly inaccurate due to not considering Haste increasers like Holy Avenger, Bloodlust and from boss abilities. | >90% |
-| [Chain of Thrayn](https://github.com/MartijnHols/WoWAnalyzer/blob/master/src/Main/Parser/Modules/Legendaries/ChainOfThrayn.js) |  | 100% |
-| [Drape of Shame](https://github.com/MartijnHols/WoWAnalyzer/blob/master/src/Main/Parser/Modules/Legendaries/DrapeOfShame.js) |  | 100% |
-| [Ilterendi, Crown Jewel of Silvermoon](https://github.com/MartijnHols/WoWAnalyzer/blob/master/src/Main/Parser/Modules/Legendaries/Ilterendi.js) |  | 100% |
-| [Maraad's Dying Breath](https://github.com/MartijnHols/WoWAnalyzer/blob/master/src/Main/Parser/Modules/Legendaries/MaraadsDyingBreath.js) | The healing gain is calculated by comparing boosted LotMs with unbuffed LotMs. Since most people wouldn't ever cast unbuffed LotMs as fillers but a FoL/HL instead, this can be somewhat inaccurate. | ~70% |
-| [Obsidian Stone Spaulders](https://github.com/MartijnHols/WoWAnalyzer/blob/master/src/Main/Parser/Modules/Legendaries/ObsidianStoneSpaulders.js) | | 100% |
-| [Prydaz, Xavaric's Magnum Opus](https://github.com/MartijnHols/WoWAnalyzer/blob/master/src/Main/Parser/Modules/Legendaries/Prydaz.js) | | 100% |
-| [Velen's Future Sight](https://github.com/MartijnHols/WoWAnalyzer/blob/master/src/Main/Parser/Modules/Legendaries/Velens.js) | | 100% |
-| [Sacred Dawn](https://github.com/MartijnHols/WoWAnalyzer/blob/master/src/Main/Parser/Modules/Features/SacredDawn.js) | | 100% |
-| [Tyr's Deliverance](https://github.com/MartijnHols/WoWAnalyzer/blob/master/src/Main/Parser/Modules/Features/TyrsDeliverance.js) | Includes the healing gained from casting a FoL/HL on a target affected with the buff. | 100% |
+| [Always Be Casting](https://github.com/buimichael/RestoDruidAnalyzer/blob/master/src/Main/Parser/Modules/Features/AlwaysBeCasting.js) | Tracks your casting and healing time to determine your non healing and dead GCD time. May get slightly inaccurate with unaccounted for Haste buffs. | 0% |
+| [Ability Tracker](https://github.com/buimichael/RestoDruidAnalyzer/blob/master/src/Main/Parser/Modules/Core/AbilityTracker.js) | Tracks ability casts and healing done (damage tracking NYI). | 100% |
+| [Flourish Analyzer](https://github.com/buimichael/RestoDruidAnalyzer/blob/master/src/Main/Parser/Modules/Features/Flourish.js) | Tracks flourish usage | 100% |
+| [Tree of Life throughput calculcation](https://github.com/buimichael/RestoDruidAnalyzer/blob/master/src/Main/Parser/Modules/Features/TreeOfLife.js) | Calculates Tree of Life throughput | 80-90% |
+| [Lifebloom uptime](https://github.com/buimichael/RestoDruidAnalyzer/blob/master/src/Main/Parser/Modules/Features/Lifebloom.js) | Get uptime on lifebloom | 100% |
+| [Efflorescence uptime](https://github.com/buimichael/RestoDruidAnalyzer/blob/master/src/Main/Parser/Modules/Features/Efflorescence.js) | Get uptime on efflorescence | 90-100% |
+| [Regrowth/clearcasting usage](https://github.com/buimichael/RestoDruidAnalyzer/blob/master/src/Main/Parser/Modules/Features/Clearcasting.js) | Tracks clearcasting and regrowth usage. | 90-100% |
+| [Cast Efficiency](https://github.com/buimichael/RestoDruidAnalyzer/blob/master/src/Main/CastEfficiency.js) | Displays the amount of casts and estimates the max amount of casts possible to determine your skill at keeping important spells (close to) on cooldown. The estimated max amount of casts is slightly inaccurate due to not considering Haste increasers like Bloodlust and boss abilities. | >90% |
+| [Drape of Shame](https://github.com/buimichael/RestoDruidAnalyzer/blob/master/src/Main/Parser/Modules/Legendaries/DrapeOfShame.js) |  | 100%|
+| [Prydaz, Xavaric's Magnum Opus](https://github.com/buimichael/RestoDruidAnalyzer/blob/master/src/Main/Parser/Modules/Legendaries/Prydaz.js) | | 100% |
+| [Velen's Future Sight](https://github.com/buimichael/RestoDruidAnalyzer/blob/master/src/Main/Parser/Modules/Legendaries/Velens.js) | | 100% |
+| [Dark Titan's Advice](https://github.com/buimichael/RestoDruidAnalyzer/blob/master/src/Main/Parser/Modules/Legendaries/Velens.js) | 100% of random bloom effect and 300% of the non overhealing part of manual bloom| 100% |
+| [Ekowraith](https://github.com/buimichael/RestoDruidAnalyzer/blob/master/src/Main/Parser/Modules/Legendaries/Velens.js) | Increased effect from ysera's gift and if specced into guardian affinity the damage reduction is translated into throughput aswell | 80-90% |
+| [Essence of Infusion](https://github.com/buimichael/RestoDruidAnalyzer/blob/master/src/Main/Parser/Modules/Legendaries/Velens.js) | | 100% |
+| [Sephuz's Secret](https://github.com/buimichael/RestoDruidAnalyzer/blob/master/src/Main/Parser/Modules/Legendaries/Velens.js) | The average haste gain from both status and procc and calculate throughput. This assumes that 1 haste rating = 1 int.| 90% |
+| [Tearstone of Elune](https://github.com/buimichael/RestoDruidAnalyzer/blob/master/src/Main/Parser/Modules/Legendaries/Velens.js) | Counts the amounts of free rejuvs gained (and procchance). Calculates throughput by checking the throughput from 1 rejuvenation and multiplying with the amounts of free rejuvenations gained. | 70-90% |
+| [X'oni's Caress](https://github.com/buimichael/RestoDruidAnalyzer/blob/master/src/Main/Parser/Modules/Legendaries/Velens.js) | The healing contributed by the iron bark effect. Doesn't take into consideration of the reduced iron bark CD. | 90% |
 
-The accuracy percentages assume there are no bugs in the implementation, the accuracy of all features was verified extensively. All interactions with Aura of Sacrifice are ignored.
-
+The accuracy percentages assume there are no bugs in the implementation, the accuracy as of right now is not yet verified.
 ## Suggestions
 
 This may be outdated.
@@ -27,27 +28,20 @@ This may be outdated.
 | --- | --- | --- | --- |
 | Non healing time | >20% | >40% | >45% |
 | Dead GCD time | >20% | >35% | >40% |
-| Total heals on beacon | >20% | >25% | >35% |
-| Mastery Effectiveness | <75% | <70% | <60% |
-| Rule of Law uptime | <25% | <20% | <10% |
-| IoL FoL to HL cast ratio | <70% | <60% | <40% |
-| Unused IoL ratio (no 4PT19) | >0% | >5% | >20% |
-| Unused IoL ratio (no 4PT19 +CM) | >5% | >10% | >25% |
-| Unused IoL ratio (no 4PT19 +CM +DP) | >10% | >15% | >30% |
-| Unused IoL ratio (4PT19) | >20% | >25% | >40% |
-| Unused IoL ratio (4PT19 +CM) | >30% | >35% | >50% |
-| Unused IoL ratio (4PT19 +CM +DP) | >40% | >45% | >60% |
-| Ilterendi Healing | <4.5% | <4% | <3% |
 | Velen's Healing | <4.5% | <4% | <3% |
-| Filler Light of the Martyr CPM | >1 CPM | >1.5 CPM | >2 CPM |
-| Aura of Sacrifice healing done | <30k HPS | <25k HPS | <20k HPS |
-| Light of Dawn overhealing | >40% | >50% | >60% |
-| Light of Dawn overhealing (with DP) | >45% | >55% | >65% |
-| Holy Shock overhealing | >40% | >50% | >60% |
-| Holy Shock overhealing (with DP) | >45% | >55% | >65% |
-| Flash of Light overhealing | >25% | >40% | >50% |
-| Bestow Faith overhealing | >40% | >50% | >60% |
-| Cast Efficiency (see spells) | <80% | <75% | <65% |
-| Crusader Strike Cast Efficiency | <30% | <25% | <15% |
-| Divine Protection Cast Efficiency | <60% | <55% | <45% |
-| Blessing of Sacrifice Cast Efficiency | - | - | - |
+| Cast Efficiency (see spells*) | <80% | <75% | <65% |
+| Lifebloom uptime | <85% | <70% | <50% |
+| Efflorescence uptime | <85% | <70% | <50% |
+| Tree of Life throughput | <11% | <7% | <4% |
+| Unused clearcasting proccs | >10% | >50% | >75% |
+| Healing touches | >0 CPM | > 0.5 CPM | > 1 CPM |
+| Non-cc Regrowth | >0% | > 25% | >50% |
+| WG per Rejuvenation ratio | <20% | <15% | <10% |
+| Ironbark | <85% | N/A | N/A |
+| Barkskin | <85% | N/A | N/A |
+| Wild Growths extended by flourish | <100% | <80% | 60% |
+| Cenarion Wards extended by flourish | <100% | N/A | N/A |
+| Avergae mana spent during innervate | <220k | <180k | <130k |
+| Seconds capped on mana during innervate | N/A | N/A | >0 |
+
+* Spells: Tranquility, Innervate, Essence of G'hanir, Cenarion Ward, Flourish, Tree Of Life, Arcane torrent, Velens, 
