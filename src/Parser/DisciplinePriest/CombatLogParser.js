@@ -187,8 +187,8 @@ class CombatLogParser extends MainCombatLogParser {
         icon={<SpellIcon id={SPELLS.ATONEMENT1.id} />}
         value={`${((this.modules.atonement.improperAtonementRefreshes.length / this.modules.atonement.totalAtones * 100) || 0).toFixed(2)} %`}
         label={(
-          <dfn data-tip={`The percentage of Atonements that were refreshed more than 3 seconds early. You fired off ${this.modules.atonement.improperAtonementRefreshes.length} early Atonements out of ${this.modules.atonement.totalAtones}`}>
-             Early Atonement Refreshes
+          <dfn data-tip={`The amount of Atonements that were refreshed earlier than within 3 seconds of it expiring. ${this.modules.atonement.improperAtonementRefreshes.length} out of your ${this.modules.atonement.totalAtones} total Atonement applications were early.`}>
+             Atonements refreshed early
           </dfn>
         )}
         />
