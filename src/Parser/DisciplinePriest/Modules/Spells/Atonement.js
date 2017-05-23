@@ -22,7 +22,7 @@ class Atonement extends Module {
   on_initialized() {
     this.active = true;
     if (!this.owner.error) {
-      this.hasContrition = this.owner.selectedCombatant.lv75Talent === SPELLS.CONTRITION_TALENT.id;
+      this.hasContrition = this.owner.selectedCombatant.hasTalent(SPELLS.CONTRITION_TALENT.id);
     }
   }
 
