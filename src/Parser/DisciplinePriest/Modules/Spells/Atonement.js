@@ -4,6 +4,9 @@ import Module from 'Parser/Core/Module';
 
 const debug = true;
 
+/** The amount of time (in ms) left on a refresh Atonement for it to be considered inefficient. */
+const IMPROPER_REFRESH_TIME = 3000;
+
 class Atonement extends Module {
   healing = 0;
   totalAtones = 0;
@@ -60,9 +63,10 @@ class Atonement extends Module {
       };
       debug && console.warn('Atonement: was applied prior to combat');
     }
-    if ((event.timestamp - refreshedTarget.lastAtonmentAppliedTimestamp) < this.atonementDuration * 1000 - 3000) {
+    const timeSinceApplication = event.timestamp - refreshedTarget.lastAtonmentAppliedTimestamp;
+    if (timeSinceApplication < ((this.atonementDuration * 1000) - IMPROPER_REFRESH_TIME)) {
       this.improperAtonementRefreshes.push(refreshedTarget);
-      debug && console.log(`%c${this.owner.combatants.players[atonement.target].name} refreshed an atonement too early %c${event.timestamp - refreshedTarget.lastAtonmentAppliedTimestamp}`, 'color:red', this.currentAtonementTargets);
+      debug && console.log(`%c${this.owner.combatants.players[atonement.target].name} refreshed an atonement too early %c${timeSinceApplication}`, 'color:red', this.currentAtonementTargets);
       this.owner.triggerEvent('atonement_refresh_improper', event);
     }
     this.currentAtonementTargets = this.currentAtonementTargets.filter(id => id.target !== atonement.target);
