@@ -318,7 +318,7 @@ export default {
     icon: 'spell_shadow_psychicscream',
   },
   ATONEMENT: {
-    id: 81751,
+    id: 194384,
     name: 'Atonement',
     icon: 'spell_holy_circleofrenewal',
   },

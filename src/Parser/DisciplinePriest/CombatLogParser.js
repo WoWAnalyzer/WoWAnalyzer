@@ -38,6 +38,7 @@ import Xalan from './Modules/Items/Xalan';
 import NeroBandOfPromises from './Modules/Items/NeroBandOfPromises';
 
 import TwistOfFate from './Modules/Spells/TwistOfFate';
+import Atonement from './Modules/Spells/Atonement';
 
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
 
@@ -89,6 +90,7 @@ class CombatLogParser extends MainCombatLogParser {
 
     // Spells (talents and traits):
     twistOfFate: TwistOfFate,
+    atonement: Atonement,
   };
 
   generateResults() {
@@ -106,9 +108,19 @@ class CombatLogParser extends MainCombatLogParser {
     const velensHealingPercentage = this.modules.velens.healing / this.totalHealing;
     const prydazHealingPercentage = this.modules.prydaz.healing / this.totalHealing;
     const drapeOfShameHealingPercentage = this.modules.drapeOfShame.healing / this.totalHealing;
+    const improperAtonementRefreshPercentage = this.modules.atonement.improperAtonementRefreshes.length / this.modules.atonement.totalAtones;
 
     const tier19_2setHealingPercentage = this.modules.tier19_2set.healing / this.totalHealing;
 
+
+    if(improperAtonementRefreshPercentage > .05) {
+      results.addIssue({
+        issue: <span>Your <SpellLink id={SPELLS.ATONEMENT.id} /> efficiency can be improved ({this.modules.atonement.improperAtonementRefreshes.length}/{this.modules.atonement.totalAtones} casts: {(improperAtonementRefreshPercentage * 100).toFixed(2)}% applied to already buffed players.)</span>,
+        icon: SPELLS.ATONEMENT.icon,
+        importance: getIssueImportance(improperAtonementRefreshPercentage, .07, .1, true)
+      });
+    }
+    
     if (deadTimePercentage > 0.2) {
       results.addIssue({
         issue: `Your dead GCD time can be improved. Try to Always Be Casting (ABC); when there's nothing to heal try to contribute some damage (${Math.round(deadTimePercentage * 100)}% dead GCD time).`,
@@ -170,6 +182,17 @@ class CombatLogParser extends MainCombatLogParser {
           </dfn>
         )}
       />,
+      this.modules.atonement.active && (
+        <StatisticBox 
+        icon={<SpellIcon id={SPELLS.ATONEMENT.id} />}
+        value={`${((this.modules.atonement.improperAtonementRefreshes.length / this.modules.atonement.totalAtones * 100) || 0).toFixed(2)} %`}
+        label={(
+          <dfn data-tip={`The percentage of Atonements that were refreshed more than 3 seconds early. You fired off ${this.modules.atonement.improperAtonementRefreshes.length} early Atonements out of ${this.modules.atonement.totalAtones}`}>
+             Early Atonement Refreshes
+          </dfn>
+        )}
+        />
+      ),
       this.modules.twistOfFate.active && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.TWIST_OF_FATE_TALENT.id} />}
