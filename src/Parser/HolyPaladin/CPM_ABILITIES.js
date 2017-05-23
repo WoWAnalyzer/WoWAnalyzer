@@ -50,7 +50,7 @@ const CPM_ABILITIES = [
     recommendedCastEfficiency: 0.60,
   },
   {
-    spell: SPELLS.HOLY_PRISM_CAST,
+    spell: SPELLS.HOLY_PRISM_TALENT,
     category: SPELL_CATEGORY.ROTATIONAL,
     getCooldown: haste => 20,
     isActive: combatant => combatant.hasTalent(SPELLS.HOLY_PRISM_TALENT.id),
