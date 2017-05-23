@@ -36,4 +36,17 @@ export default {
     name: 'Power of the Archdruid',
     icon: 'spell_druid_rampantgrowth',
   },
+
+  // Monk:
+  // Mistweaver Monk
+  DANCING_MISTS: {
+    id: 199573,
+    name: 'Dancing Mists',
+    icon: 'ability_monk_souldance',
+  },
+  TENDRILS_OF_REVIVAL: {
+    id: 238058,
+    name: 'Tendrils of Revival',
+    icon: 'spell_monk_revival',
+  },
 };
