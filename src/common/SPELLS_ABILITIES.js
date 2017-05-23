@@ -317,7 +317,13 @@ export default {
     name: 'Psychic Scream',
     icon: 'spell_shadow_psychicscream',
   },
-  ATONEMENT: {
+  // I don't know why, but there are 2 different spell ids for Atonement heals and they're both active and relevant
+  ATONEMENT1: {
+    id: 81751,
+    name: 'Atonement',
+    icon: 'spell_holy_circleofrenewal',
+  },
+  ATONEMENT2: {
     id: 194384,
     name: 'Atonement',
     icon: 'spell_holy_circleofrenewal',

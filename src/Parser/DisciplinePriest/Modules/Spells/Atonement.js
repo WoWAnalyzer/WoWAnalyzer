@@ -31,7 +31,7 @@ class Atonement extends Module {
 
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.ATONEMENT.id) {
+    if (spellId !== SPELLS.ATONEMENT1.id && spellId !== SPELLS.ATONEMENT2.id) {
       return;
     }
 
@@ -47,7 +47,7 @@ class Atonement extends Module {
   }
   on_byPlayer_refreshbuff(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.ATONEMENT.id) {
+    if (spellId !== SPELLS.ATONEMENT1.id && spellId !== SPELLS.ATONEMENT2.id) {
       return;
     }
 
@@ -77,7 +77,7 @@ class Atonement extends Module {
   }
   on_byPlayer_removebuff(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.ATONEMENT.id) {
+    if (spellId !== SPELLS.ATONEMENT1.id && spellId !== SPELLS.ATONEMENT2.id) {
       return;
     }
     const atonement = {
@@ -91,7 +91,7 @@ class Atonement extends Module {
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.ATONEMENT.id) {
+    if (spellId !== SPELLS.ATONEMENT1.id && spellId !== SPELLS.ATONEMENT2.id) {
       return;
     }
     // if (!this.owner.toPlayer(event)) {

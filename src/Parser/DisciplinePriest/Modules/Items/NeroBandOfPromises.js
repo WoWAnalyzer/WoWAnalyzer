@@ -17,7 +17,7 @@ class NeroBandOfPromises extends Module {
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
 
-    if (spellId === SPELLS.ATONEMENT.id) {
+    if (spellId === SPELLS.ATONEMENT1.id || spellId === SPELLS.ATONEMENT2.id) {
       const combatant = this.owner.combatants.players[event.targetID];
       if (!combatant) {
         // If combatant doesn't exist it's probably a pet.
@@ -28,7 +28,7 @@ class NeroBandOfPromises extends Module {
         // N'ero is only active when people are in the bubble
         return;
       }
-      if (combatant.hasBuff(SPELLS.ATONEMENT.id, event.timestamp)) {
+      if (combatant.hasBuff(SPELLS.ATONEMENT1.id, event.timestamp) || combatant.hasBuff(SPELLS.ATONEMENT2.id, event.timestamp)) {
         // N'ero does NOT stack with pre-existing Atonement
         return;
       }
