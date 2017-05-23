@@ -6,7 +6,7 @@ import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 export const SPELL_CATEGORY = {
   ROTATIONAL: 'Rotational Spell',
   COOLDOWNS: 'Cooldown',
-  OTHERS: 'Spell'
+  OTHERS: 'Spell',
 };
 
 const CPM_ABILITIES = [
@@ -21,13 +21,13 @@ const CPM_ABILITIES = [
     category: SPELL_CATEGORY.COOLDOWNS,
     getCooldown: haste => 90,
     isActive: combatant => combatant.hasTalent(SPELLS.MANA_TEA_TALENT.id),
-  }
+  },
   {
     spell: SPELLS.INVOKE_CHIJI_TALENT,
     category: SPELL_CATEGORY.COOLDOWNS,
-    getCooldown: haste => 270
+    getCooldown: haste => 270,
     isActive: combatant => combatant.hasTalent(SPELLS.INVOKE_CHIJI_TALENT.id),
-  }
+  },
   {
     spell: SPELLS.REVIVAL,
     category: SPELL_CATEGORY.COOLDOWNS,

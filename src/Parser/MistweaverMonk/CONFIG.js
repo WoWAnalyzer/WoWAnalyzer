@@ -5,5 +5,5 @@ import CombatLogParser from './CombatLogParser';
 export default {
   spec: SPECS.MISTWEAVER_MONK,
   parser: CombatLogParser,
-  maintainer: '',
+  maintainer: '@anom0ly',
 };
