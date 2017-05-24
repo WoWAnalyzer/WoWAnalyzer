@@ -1,4 +1,8 @@
 export default `
+24-05-2017 - Added <span class="Monk">Mistweaver Monk</span> support by <b>@Anomoly</b>! Thanks a lot for your contribution!
+An informative message is now shown when trying to parse a report without combatants (usually due to not having advanced combat logging enabled).
+Holy Paladin: Show overhealing during cooldowns too. Innervates properly shows mana costs.
+Disc Priest: Fix Shadowfiend showing with the Mindbender talent.
 21-05-2017 - Fixed a rare crash when auto attacking something. 
 21-05-2017 - Added Resto Druid support by <b>@blazyb</b> (see: <a href="https://github.com/buimichael/RestoDruidAnalyzer">https://github.com/buimichael/RestoDruidAnalyzer</a>). 
 20-05-2017 - Added Cooldowns tab to show casts and healing when affected by a cooldown. Added Amalgam's Seventh Spine mana gained statistic. Promises no longer includes mana reduction during Innervate. 
