@@ -119,6 +119,7 @@ class CombatLogParser extends MainCombatLogParser {
         importance: getIssueImportance(unusedUTProcs, 0.2, 0.5, true),
       });
     }
+    /* Removed per feedback from Garg on 6/24
     // Non-UT Buffed Vivify
     const vivify = this.modules.upliftingTrance.consumedUTProc + this.modules.upliftingTrance.nonUTVivify;
     const nonUTVivify = this.modules.upliftingTrance.nonUTVivify;
@@ -128,7 +129,7 @@ class CombatLogParser extends MainCombatLogParser {
         icon: SPELLS.VIVIFY.icon,
         importance: getIssueImportance(nonUTVivify / vivify, 0.5, 0.25, true),
       });
-    }
+    }*/
     // Mana Tea Usage issue
     if((this.modules.manaTea.manaSaved / this.modules.manaTea.manateaCount) < 200000) {
       results.addIssue({
