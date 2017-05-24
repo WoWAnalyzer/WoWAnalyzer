@@ -14,6 +14,8 @@ class UpliftingTrance extends Module {
   overwrittenUTProc = 0;
   nonUTVivify = 0;
 
+  tftVivCast = 0;
+
 
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
@@ -50,15 +52,19 @@ class UpliftingTrance extends Module {
       return;
     }
 
+    // Check to see if Viv cast was done with TFT buffed
+    if(this.owner.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id)) {
+      this.tftVivCast++;
+    }
     // Checking to see if non-UT'ed Viv is casted
     if(this.lastUTProcTime !== event.timestamp) {
-      if(this.lastUTProcTime === null) {
+      if(this.lastUTProcTime === null && !this.owner.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id)) {
         // No UT Proc with Vivify
         this.nonUTVivify++;
         return;
       }
       let utTimeframe = this.lastUTProcTime + UT_DURATION;
-      if(event.timestamp > utTimeframe) {
+      if(event.timestamp > utTimeframe && !this.owner.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id)) {
         this.nonUTVivify++;
       } else {
         this.consumedUTProc++;
