@@ -444,16 +444,19 @@ export default {
     id: 116694,
     name: 'Effuse',
     icon: 'ability_monk_effuse',
+    manaPerc: 0.02,
   },
   ENVELOPING_MISTS: {
     id: 124682,
     name: 'Enveloping Mists',
     icon: 'spell_monk_envelopingmist',
+    manaPerc: 0.06,
   },
   ESSENCE_FONT: {
     id: 191837,
     name: 'Essence Font',
     icon: 'ability_monk_essencefont',
+    manaPerc: 0.08,
   },
   ESSENCE_FONT_BUFF: {
     id: 191840,
@@ -464,16 +467,19 @@ export default {
     id: 116849,
     name: 'Life Cocoon',
     icon: 'ability_monk_chicocoon',
+    manaPerc: 0.024,
   },
   RENEWING_MIST: {
     id: 115151,
     name: 'Renewing Mist',
     icon: 'ability_monk_renewingmists',
+    manaPerc: 0.03,
   },
   REVIVAL: {
     id: 115310,
     name: 'Revival',
     icon: 'spell_monk_revival',
+    manaPerc: 0.04375,
   },
   SHEILUNS_GIFT: {
     id: 205406,
@@ -489,6 +495,7 @@ export default {
     id: 116670,
     name: 'Vivify',
     icon: 'ability_monk_vivify',
+    manaPerc: 0.045
   },
   SOOTHING_MIST: {
     id: 115175,
@@ -505,5 +512,18 @@ export default {
     id: 213373,
     name: 'Crane Heal',
     icon: 'inv_pet_cranegod',
+  },
+  // Lifecycles buffs
+  LIFECYCLES_VIVIFY_BUFF: {
+    id: 197916,
+    name: 'Lifecycles (Vivify)',
+    icon: 'ability_monk_uplift',
+    manaPercRed: 0.2,
+  },
+  LIFECYCLES_ENVELOPING_MIST_BUFF: {
+    id: 197919,
+    name: 'Lifecycles (Enveloping Mist)',
+    icon: 'spell_monk_envelopingmist',
+    manaPercRed: 0.2,
   },
 };

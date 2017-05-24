@@ -647,6 +647,7 @@ export default {
     name: 'Refreshing Jade Wind',
     icon: 'ability_monk_rushingjadewind',
     description: 'Refreshing Jade Wind is a powerful burst healing tool that can be used to supplement your group healing when used in combination with Essence Font. There is a heavy cost on this ability, so it will require you to be much more aware of your mana management. If you are still learning the spec or feel like you are already struggling with your mana, this talent is not recommended.',
+    manaPerc: 0.05,
   },
   INVOKE_CHIJI_TALENT: {
     id: 198664,

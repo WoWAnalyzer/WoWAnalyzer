@@ -49,4 +49,24 @@ export default {
     name: 'Tendrils of Revival',
     icon: 'spell_monk_revival',
   },
+  WHISPERS_OF_SHAOHAO: {
+    id: 242400,
+    name: 'Whispers of Shaohao',
+    icon: 'inv_cloudserpent_egg_green',
+  },
+  MISTS_OF_SHEILUN: {
+    id: 199894,
+    name: 'The Mists of Sheilun',
+    icon: 'ability_monk_chiexplosion',
+  },
+  CELESTIAL_BREATH: {
+    id: 199656,
+    name: 'Celestial Breath',
+    icon: 'ability_monk_chiexplosion',
+  },
+  BLESSINGS_OF_YULON: {
+    id: 199668,
+    name: 'Blessings of Yu\'lon',
+    icon: 'ability_monk_summonserpentstatue',
+  },
 };
