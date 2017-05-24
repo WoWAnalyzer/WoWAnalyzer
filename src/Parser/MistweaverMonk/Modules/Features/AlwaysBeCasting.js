@@ -2,8 +2,6 @@ import SPELLS from 'common/SPELLS';
 
 import CoreAlwaysBeCasting from 'Parser/Core/Modules/AlwaysBeCasting';
 
-const debug = false;
-
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   static ABILITIES_ON_GCD = [
     SPELLS.EFFUSE.id,
@@ -19,32 +17,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.REFRESHING_JADE_WIND_TALENT.id,
     SPELLS.INVOKE_CHIJI_TALENT.id,
   ];
-
-
-
-  recordCastTime(
-    castStartTimestamp,
-    globalCooldown,
-    begincast,
-    cast,
-    spellId
-  ) {
-
-    super.recordCastTime(
-      castStartTimestamp,
-      globalCooldown,
-      begincast,
-      cast,
-      spellId
-    );
-}
-
-
-  on_finished() {
-
-
-    super.on_finished();
-  }
 }
 
 export default AlwaysBeCasting;
