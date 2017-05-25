@@ -189,21 +189,12 @@ class CombatLogParser extends MainCombatLogParser {
       />,
       this.modules.atonement.active && (
         <StatisticBox 
-<<<<<<< HEAD
-        icon={<SpellIcon id={SPELLS.ATONEMENT.id} />}
+        icon={<SpellIcon id={SPELLS.ATONEMENT1.id} />}
         value= {this.modules.atonement.improperAtonementRefreshes.length}
         label={(
           <dfn data-tip={`${((this.modules.atonement.improperAtonementRefreshes.length / this.modules.atonement.totalAtonementRefreshes * 100) || 0).toFixed(2)}% (${this.modules.atonement.improperAtonementRefreshes.length}/${this.modules.atonement.totalAtonementRefreshes}) of your Atonement refreshes were too early. ${((this.modules.atonement.improperAtonementRefreshes.length / this.modules.atonement.totalAtones * 100) || 0).toFixed(2)}% (${this.modules.atonement.improperAtonementRefreshes.length}/${this.modules.atonement.totalAtones}) of all Atonements applied were refreshed too early.` }>
              Early Atonement Refreshes
           </dfn> 
-=======
-        icon={<SpellIcon id={SPELLS.ATONEMENT1.id} />}
-        value={`${((this.modules.atonement.improperAtonementRefreshes.length / this.modules.atonement.totalAtones * 100) || 0).toFixed(2)} %`}
-        label={(
-          <dfn data-tip={`The amount of Atonements that were refreshed earlier than within 3 seconds of it expiring. ${this.modules.atonement.improperAtonementRefreshes.length} out of your ${this.modules.atonement.totalAtones} total Atonement applications were early.`}>
-             Atonements refreshed early
-          </dfn>
->>>>>>> 1cc9a234c5addc09b919359313462f81069ff42a
         )}
         />
       ),
