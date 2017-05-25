@@ -59,7 +59,7 @@ const CPM_ABILITIES = [
     spell: SPELLS.SHADOWFIEND,
     category: SPELL_CATEGORY.COOLDOWNS,
     getCooldown: haste => 180,
-    isActive: combatant => combatant.hasTalent(SPELLS.MINDBENDER_TALENT.id),
+    isActive: combatant => !combatant.hasTalent(SPELLS.MINDBENDER_TALENT.id),
   },
   {
     spell: SPELLS.RAPTURE,

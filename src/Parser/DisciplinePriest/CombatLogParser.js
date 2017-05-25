@@ -115,8 +115,13 @@ class CombatLogParser extends MainCombatLogParser {
 
     if(improperAtonementRefreshPercentage > .05) {
       results.addIssue({
+<<<<<<< HEAD
         issue: <span>Your <SpellLink id={SPELLS.ATONEMENT.id} /> efficiency can be improved ({this.modules.atonement.improperAtonementRefreshes.length}/{this.modules.atonement.totalAtones} applications: {(improperAtonementRefreshPercentage * 100).toFixed(2)}% applied to already buffed players.)</span>,
         icon: SPELLS.ATONEMENT.icon,
+=======
+        issue: <span>Your <SpellLink id={SPELLS.ATONEMENT1.id} /> efficiency can be improved ({this.modules.atonement.improperAtonementRefreshes.length}/{this.modules.atonement.totalAtones} casts: {(improperAtonementRefreshPercentage * 100).toFixed(2)}% applied to already buffed players.)</span>,
+        icon: SPELLS.ATONEMENT1.icon,
+>>>>>>> 1cc9a234c5addc09b919359313462f81069ff42a
         importance: getIssueImportance(improperAtonementRefreshPercentage, .07, .1, true)
       });
     }
@@ -184,12 +189,21 @@ class CombatLogParser extends MainCombatLogParser {
       />,
       this.modules.atonement.active && (
         <StatisticBox 
+<<<<<<< HEAD
         icon={<SpellIcon id={SPELLS.ATONEMENT.id} />}
         value= {this.modules.atonement.improperAtonementRefreshes.length}
         label={(
           <dfn data-tip={`${((this.modules.atonement.improperAtonementRefreshes.length / this.modules.atonement.totalAtonementRefreshes * 100) || 0).toFixed(2)}% (${this.modules.atonement.improperAtonementRefreshes.length}/${this.modules.atonement.totalAtonementRefreshes}) of your Atonement refreshes were too early. ${((this.modules.atonement.improperAtonementRefreshes.length / this.modules.atonement.totalAtones * 100) || 0).toFixed(2)}% (${this.modules.atonement.improperAtonementRefreshes.length}/${this.modules.atonement.totalAtones}) of all Atonements applied were refreshed too early.` }>
              Early Atonement Refreshes
           </dfn> 
+=======
+        icon={<SpellIcon id={SPELLS.ATONEMENT1.id} />}
+        value={`${((this.modules.atonement.improperAtonementRefreshes.length / this.modules.atonement.totalAtones * 100) || 0).toFixed(2)} %`}
+        label={(
+          <dfn data-tip={`The amount of Atonements that were refreshed earlier than within 3 seconds of it expiring. ${this.modules.atonement.improperAtonementRefreshes.length} out of your ${this.modules.atonement.totalAtones} total Atonement applications were early.`}>
+             Atonements refreshed early
+          </dfn>
+>>>>>>> 1cc9a234c5addc09b919359313462f81069ff42a
         )}
         />
       ),

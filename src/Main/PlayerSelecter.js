@@ -47,6 +47,11 @@ class PlayerSelecter extends Component {
           </div>
           <div className="panel-body" style={{ padding: 0 }}>
             <ul className="list selection players">
+              {combatants.length === 0 && (
+                <li className="text-danger" style={{ padding: '15px 22px' }}>
+                  Could not find any players in this report. Make sure the log is recorded with Advanced Combat Logging enabled. You can enable this in-game in the network settings.
+                </li>
+              )}
               {
                 report.friendlies
                   .sort((a, b) => a.name > b.name)

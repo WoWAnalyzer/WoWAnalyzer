@@ -24,12 +24,14 @@ export default {
     id: 223306,
     name: 'Bestow Faith',
     icon: 'ability_paladin_blessedmending',
+    manaCost: 13200,
     description: '<a href="http://www.wowhead.com/spell=223306" target="_blank">Bestow Faith</a> is the default choice for most encounters in raids. The 5-second delay requires foresight, but this ability gives great healing for a very low mana cost. ',
   },
   LIGHTS_HAMMER_TALENT: {
     id: 114158,
     name: 'Light\'s Hammer',
     icon: 'spell_paladin_lightshammer',
+    manaCost: 77000,
     description: 'Unfortunately <a href="http://www.wowhead.com/spell=114158" target="_blank">Light\'s Hammer</a> isn\'t as good of a choice as it may seem. Even if you can use it on cooldown and it doesn\'t overheal <a href="http://www.wowhead.com/spell=223306" target="_blank">Bestow Faith</a> will outperform it in all situations. Primarily due to its low mana cost and beacon transfer(s). For this reason it is not recommended to take Light\'s Hammer.',
   },
   CRUSADERS_MIGHT_TALENT: {
@@ -112,6 +114,7 @@ export default {
     id: 114165,
     name: 'Holy Prism',
     icon: 'spell_paladin_holyprism',
+    manaCost: 37400,
     description: '<a href="http://www.wowhead.com/spell=114165" target="_blank">Holy Prism</a> provides you another AoE heal similar to <a href="http://www.wowhead.com/spell=85222" target="_blank">Light of Dawn</a>. It doesn\'t heal for a lot while it\'s mana cost is fairly high, so it is usually not recommended to pick this talent. This tier is mostly preference.',
   },
   // lv90
@@ -343,7 +346,6 @@ export default {
     id: 123040,
     name: 'Mindbender',
     icon: 'spell_shadow_soulleech_3',
-    manaCost: 0,
     description: 'Summons a Mindbender to attack the target for 12 sec. You regenerate 0.50% of maximum mana each time the Mindbender attacks.',
   },
   // lv75
