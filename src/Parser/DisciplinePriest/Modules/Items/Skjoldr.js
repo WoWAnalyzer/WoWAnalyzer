@@ -44,18 +44,18 @@ class Skjoldr extends Module {
       const skjoldrGain = originalAbsorb - originalAbsorb / (1 + SKJOLDR_PWS_ABSORB_BONUS);
       const effectiveHealing = Math.max(0, skjoldrGain - remaining);
 
-      this.healing += effectiveHealing;
+      this.healing += effectiveHealing || 0;
 
       debug && console.log('Original absorb:', this.pwsByPlayerId[event.targetID], `(${remaining} remaining)`, `Gained ${effectiveHealing}`);
 
       this.pwsByPlayerId[event.targetID] = 0;
     } else if (spellId === SPELLS.SHARE_IN_THE_LIGHT.id) {
-      const remaining = event.absorb;
+      const remaining = event.absorb || 0;
       const originalAbsorb = this.shareInTheLight + remaining;
       const skjoldrGain = originalAbsorb - originalAbsorb / (1 + SKJOLDR_PWS_ABSORB_BONUS);
       const effectiveHealing = Math.max(0, skjoldrGain - remaining);
 
-      this.healing += effectiveHealing;
+      this.healing += effectiveHealing || 0;
 
       debug && console.log('Original absorb:', this.shareInTheLight, `(${remaining} remaining)`, `Gained ${effectiveHealing}`);
 
