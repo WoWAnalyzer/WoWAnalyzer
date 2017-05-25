@@ -20,6 +20,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "npm run build&&surge C:/Users/justin.kippley/Dropbox/WoWAnalyzer/build mw-analyzer.surge.sh"
   }
 }

@@ -2,6 +2,7 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 
 import Module from 'Parser/Core/Module';
+import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
 
@@ -34,25 +35,8 @@ class Velens extends Module {
       return;
     }
 
-    // Rewriting the effectiveHealing function here, to remove the final step of removing the raw overheal from the effective healing of the trinket.
-    const amount = event.amount;
-    const absorbed = event.absorbed || 0;
-    // const overheal = event.overheal || 0;
-    const raw = amount + absorbed /*+ overheal*/;
 
-    /* Commented out for now - Using formula below from MW Theorycrafters
-    const relativeHealingIncreaseFactor = 1 + LEGENDARY_VELENS_HEALING_INCREASE;
-    const healingIncrease = raw - raw / relativeHealingIncreaseFactor;
-    const effectiveHealing = healingIncrease;
-    */
-
-    /* Updated formula based on the following explanation:
-    (Healing * 1.15) - Healing = Healing from Velen's
-    Healing from Velen's / (Healing *1.15) = 0.1304
-    */
-    const effectiveHealing = raw * 0.1304;
-
-    this.healing += Math.max(0, effectiveHealing);
+      this.healing += calculateEffectiveHealing(event, LEGENDARY_VELENS_HEALING_INCREASE);
   }
 
   // Beacon transfer is included in `ABILITIES_AFFECTED_BY_HEALING_INCREASES`

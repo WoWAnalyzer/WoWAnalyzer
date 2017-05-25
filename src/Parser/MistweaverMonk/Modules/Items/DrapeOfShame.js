@@ -32,7 +32,7 @@ class DrapeOfShame extends Module {
     const rawNormalPart = raw / this.getCritHealingBonus(event);
     const rawDrapeHealing = rawNormalPart * DRAPE_OF_SHAME_CRIT_EFFECT;
 
-    const effectiveHealing = Math.max(0, rawDrapeHealing);
+    const effectiveHealing = Math.max(0, rawDrapeHealing - overheal);
 
     this.healing += effectiveHealing;
   }
