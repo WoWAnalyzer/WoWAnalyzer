@@ -48,7 +48,7 @@ class UpliftingTrance extends Module {
       return;
     }
 
-    if (event.tick == true) {
+    if (event.tick) {
       return;
     }
 

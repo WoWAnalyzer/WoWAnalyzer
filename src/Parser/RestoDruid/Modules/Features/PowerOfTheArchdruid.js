@@ -25,6 +25,17 @@ class PowerOfTheArchdruid extends Module {
       return;
     }
     this.proccs++;
+
+    // Our 4PT19 can procc PotA
+    if(this.lastPotaRemovedTimestamp !== null && Math.abs(event.timestamp-this.lastPotaRemovedTimestamp) < 32) {
+      if (REJUVENATION_HEAL_SPELL_ID === spellId) {
+        this.rejuvenations = this.rejuvenations + 2;
+      } else if(REGROWTH_HEAL_SPELL_ID === spellId) {
+        this.regrowths = this.regrowths + 2;
+        this.lastPotaRegrowthTimestamp = event.timestamp;
+      }
+      this.lastPotaRemovedTimestamp = null;
+    }
   }
 
   on_byPlayer_removebuff(event) {
@@ -65,21 +76,6 @@ class PowerOfTheArchdruid extends Module {
         this.lastPotaRegrowthTimestamp = null;
         this.potaRegrowthCounter = 0;
       }
-    }
-  }
-
-  // So.. our 4PT20 can procc PotA
-  on_byPlayer_applybuff(event) {
-    const spellId = event.ability.guid;
-
-    if(this.lastPotaRemovedTimestamp !== null && Math.abs(event.timestamp-this.lastPotaRemovedTimestamp) < 32) {
-      if (REJUVENATION_HEAL_SPELL_ID === spellId) {
-        this.rejuvenations = this.rejuvenations + 2;
-      } else if(REGROWTH_HEAL_SPELL_ID === spellId) {
-        this.regrowths = this.regrowths + 2;
-        this.lastPotaRegrowthTimestamp = event.timestamp;
-      }
-      this.lastPotaRemovedTimestamp = null;
     }
   }
 }

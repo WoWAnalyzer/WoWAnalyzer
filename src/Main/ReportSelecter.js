@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
 
+import PatreonLink from './PatreonLink';
 import Changelog from './Changelog';
 
 class ReportSelecter extends Component {
@@ -91,7 +92,7 @@ class ReportSelecter extends Component {
                 <h2>About</h2>
               </div>
               <div className="panel-body text-muted">
-                Full source is available on <a href="https://github.com/MartijnHols/WoWAnalyzer">GitHub</a>. Contributions are extremely welcome! Add your own module or spec if you want to be able to analyze something not yet available. The repository contains information on how to contribute, if you need any more information contact <b>@Zerotorescue#0724</b> on Discord.<br /><br />
+                Full source is available on <a href="https://github.com/MartijnHols/WoWAnalyzer">GitHub</a>. Contributions are extremely welcome! Add your own module or spec if you want to be able to analyze something not yet available. The repository contains information on how to contribute, if you need any more information please join our Discord (link further below).<br /><br />
 
                 The following specs are available:<br />
                 <ul>
@@ -99,7 +100,22 @@ class ReportSelecter extends Component {
                     <li><span className={config.spec.className}>{config.spec.specName} {config.spec.className}</span> maintained by <span style={{ color: '#fff' }}>{config.maintainer}</span></li>
                   ))}
                 </ul>
-                There are no plans at this time to add support for other specs. The best way to get support for a spec is to add it yourself. Adding specs is easy if you're familiar with JavaScript (ES6), see <a href="https://github.com/MartijnHols/WoWAnalyzer">GitHub</a> for more information.
+                There are no plans at this time to add support for other specs. The best way to get support for a spec is to add it yourself. Adding specs is easy if you're familiar with JavaScript (ES6), see <a href="https://github.com/MartijnHols/WoWAnalyzer">GitHub</a> and the WoW Analyzer Discord for more information.<br /><br />
+
+                If you're looking to help out development in other ways, please consider donating.<br />
+
+                <PatreonLink />
+              </div>
+            </div>
+
+            <div className="panel">
+              <div className="panel-heading">
+                <h2>Discord</h2>
+              </div>
+              <div className="panel-body text-muted">
+                I believe it's important to keep class discussion as much in class Discords as possible, so if you have spec specific questions and/or suggestions please try to discuss them in your class Discord (class Discords mods approve of this message <img src="./img/ok_hand.png" alt=":ok_hand:" style={{ height: '1.5em' }} />). The WoW Analyzer Discord is for more general questions and developers looking to contribute.<br /><br />
+
+                <iframe src="https://discordapp.com/widget?id=316864121536512000&theme=dark" width="100%" height="300" allowtransparency="true" frameborder="0" style={{ border: 0 }} />
               </div>
             </div>
           </div>
@@ -123,11 +139,21 @@ class ReportSelecter extends Component {
                 <div className="row" style={{ marginTop: 15 }}>
                   <div className="col-md-6 text-center">
                     <img src="./img/important-metrics.png" style={{ maxWidth: '100%', border: '1px solid black', borderRadius: 5 }} alt="Important metrics" /><br />
-                    Important metrics
+                    Important spec specific metrics
                   </div>
+                  <div className="col-md-6 text-center">
+                    <img src="./img/cooldownusages.png" style={{ maxWidth: '100%', border: '1px solid black', borderRadius: 5 }} alt="Cooldown usages" /><br />
+                    Cooldown usage details
+                  </div>
+                </div>
+                <div className="row" style={{ marginTop: 15 }}>
                   <div className="col-md-6 text-center">
                     <img src="./img/mana-breakdown.png" style={{ maxWidth: '100%', border: '1px solid black', borderRadius: 5 }} alt="Mana breakdown" /><br />
                     Mana breakdown
+                  </div>
+                  <div className="col-md-6 text-center">
+                    <img src="./img/open-source.png" style={{ maxWidth: '100%', border: '1px solid black', borderRadius: 5 }} alt="Open source" /><br />
+                    Open source
                   </div>
                 </div>
               </div>
