@@ -519,3 +519,24 @@ table.data-table .performance-bar {
 .minor-issue-toggle .react-toggle--checked .react-toggle-track {
   background-color: #5b9cff;
 }
+
+
+.become-patron-button {
+  display: inline-block;
+  font-family: sans-serif;
+  background: #e6461a;
+  color: white;
+  padding: .5rem 1rem;
+  border-radius: 3px;
+  text-decoration: none;
+  font-weight: 700;
+  user-select: none;
+  border: 1px solid #e6461a; /* Fuck you, Patreon. */
+}
+a.become-patron-button:hover {
+  color: #000;
+  text-decoration: none;
+}
+.patreon-icon {
+  padding-right: 0.25rem;
+}
