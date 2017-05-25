@@ -7,6 +7,7 @@ const debug = true;
 class Atonement extends Module {
     healing = 0;
     totalAtones = 0;
+    totalAtonementRefreshes = 0;
   hasContrition = false;
   currentAtonementTargets = [];
   improperAtonementRefreshes = [];
@@ -66,6 +67,7 @@ class Atonement extends Module {
     this.currentAtonementTargets = this.currentAtonementTargets.filter(id => id.target !== atonement.target);
     this.currentAtonementTargets.push(atonement);
     this.totalAtones++;
+    this.totalAtonementRefreshes++;
     debug && console.log(`%c${this.owner.combatants.players[atonement.target].name} refreshed an atonement`, 'color:green', this.currentAtonementTargets);
     this.owner.triggerEvent('atonement_refresh', event);
   }

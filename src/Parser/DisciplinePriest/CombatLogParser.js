@@ -115,7 +115,7 @@ class CombatLogParser extends MainCombatLogParser {
 
     if(improperAtonementRefreshPercentage > .05) {
       results.addIssue({
-        issue: <span>Your <SpellLink id={SPELLS.ATONEMENT.id} /> efficiency can be improved ({this.modules.atonement.improperAtonementRefreshes.length}/{this.modules.atonement.totalAtones} casts: {(improperAtonementRefreshPercentage * 100).toFixed(2)}% applied to already buffed players.)</span>,
+        issue: <span>Your <SpellLink id={SPELLS.ATONEMENT.id} /> efficiency can be improved ({this.modules.atonement.improperAtonementRefreshes.length}/{this.modules.atonement.totalAtones} applications: {(improperAtonementRefreshPercentage * 100).toFixed(2)}% applied to already buffed players.)</span>,
         icon: SPELLS.ATONEMENT.icon,
         importance: getIssueImportance(improperAtonementRefreshPercentage, .07, .1, true)
       });
@@ -185,11 +185,11 @@ class CombatLogParser extends MainCombatLogParser {
       this.modules.atonement.active && (
         <StatisticBox 
         icon={<SpellIcon id={SPELLS.ATONEMENT.id} />}
-        value={`${((this.modules.atonement.improperAtonementRefreshes.length / this.modules.atonement.totalAtones * 100) || 0).toFixed(2)} %`}
+        value= {this.modules.atonement.improperAtonementRefreshes.length}
         label={(
-          <dfn data-tip={`The percentage of Atonements that were refreshed more than 3 seconds early. You fired off ${this.modules.atonement.improperAtonementRefreshes.length} early Atonements out of ${this.modules.atonement.totalAtones}`}>
+          <dfn data-tip={`${((this.modules.atonement.improperAtonementRefreshes.length / this.modules.atonement.totalAtonementRefreshes * 100) || 0).toFixed(2)} % of your Atonement refreshes were too early. ${((this.modules.atonement.improperAtonementRefreshes.length / this.modules.atonement.totalAtones * 100) || 0).toFixed(2)} % of all Atonements applied were refreshed too early.` }>
              Early Atonement Refreshes
-          </dfn>
+          </dfn> 
         )}
         />
       ),
