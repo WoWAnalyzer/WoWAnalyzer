@@ -115,13 +115,8 @@ class CombatLogParser extends MainCombatLogParser {
 
     if(improperAtonementRefreshPercentage > .05) {
       results.addIssue({
-<<<<<<< HEAD
-        issue: <span>Your <SpellLink id={SPELLS.ATONEMENT.id} /> efficiency can be improved ({this.modules.atonement.improperAtonementRefreshes.length}/{this.modules.atonement.totalAtones} applications: {(improperAtonementRefreshPercentage * 100).toFixed(2)}% applied to already buffed players.)</span>,
-        icon: SPELLS.ATONEMENT.icon,
-=======
-        issue: <span>Your <SpellLink id={SPELLS.ATONEMENT1.id} /> efficiency can be improved ({this.modules.atonement.improperAtonementRefreshes.length}/{this.modules.atonement.totalAtones} casts: {(improperAtonementRefreshPercentage * 100).toFixed(2)}% applied to already buffed players.)</span>,
+        issue: <span>Your <SpellLink id={SPELLS.ATONEMENT1.id} /> efficiency can be improved ({this.modules.atonement.improperAtonementRefreshes.length}/{this.modules.atonement.totalAtones} applications: {(improperAtonementRefreshPercentage * 100).toFixed(2)}% applied to already buffed players.)</span>,
         icon: SPELLS.ATONEMENT1.icon,
->>>>>>> 1cc9a234c5addc09b919359313462f81069ff42a
         importance: getIssueImportance(improperAtonementRefreshPercentage, .07, .1, true)
       });
     }
