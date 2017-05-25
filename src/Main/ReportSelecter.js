@@ -91,7 +91,7 @@ class ReportSelecter extends Component {
                 <h2>About</h2>
               </div>
               <div className="panel-body text-muted">
-                Full source is available on <a href="https://github.com/MartijnHols/WoWAnalyzer">GitHub</a>. Contributions are extremely welcome! Add your own module or spec if you want to be able to analyze something not yet available. The repository contains information on how to contribute, if you need any more information contact <b>@Zerotorescue#0724</b> on Discord.<br /><br />
+                Full source is available on <a href="https://github.com/MartijnHols/WoWAnalyzer">GitHub</a>. Contributions are extremely welcome! Add your own module or spec if you want to be able to analyze something not yet available. The repository contains information on how to contribute, if you need any more information please join our Discord (links further below).<br /><br />
 
                 The following specs are available:<br />
                 <ul>
@@ -100,6 +100,17 @@ class ReportSelecter extends Component {
                   ))}
                 </ul>
                 There are no plans at this time to add support for other specs. The best way to get support for a spec is to add it yourself. Adding specs is easy if you're familiar with JavaScript (ES6), see <a href="https://github.com/MartijnHols/WoWAnalyzer">GitHub</a> for more information.
+              </div>
+            </div>
+
+            <div className="panel">
+              <div className="panel-heading">
+                <h2>Discord</h2>
+              </div>
+              <div className="panel-body text-muted">
+                I believe it's important to keep class discussion as much in class Discords as possible, so if you have spec specific questions and/or suggestions please try to discuss them in your class Discord (class Discords mods approve of this message <img src="./img/ok_hand.png" alt=":ok_hand:" style={{ height: '1.5em' }} />). The WoW Analyzer Discord is for more general questions and developers looking to contribute.<br /><br />
+
+                <iframe src="https://discordapp.com/widget?id=316864121536512000&theme=dark" width="100%" height="300" allowtransparency="true" frameborder="0" style={{ border: 0 }} />
               </div>
             </div>
           </div>
