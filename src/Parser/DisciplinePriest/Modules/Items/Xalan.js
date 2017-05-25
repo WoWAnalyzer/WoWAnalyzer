@@ -23,7 +23,7 @@ class Xalan extends Module {
   lastAtonmentAppliedTimestamp = null;
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.ATONEMENT.id) {
+    if (spellId !== SPELLS.ATONEMENT1.id && spellId !== SPELLS.ATONEMENT2.id) {
       return;
     }
     if (!this.owner.toPlayer(event)) {
@@ -33,7 +33,7 @@ class Xalan extends Module {
   }
   on_byPlayer_refreshbuff(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.ATONEMENT.id) {
+    if (spellId !== SPELLS.ATONEMENT1.id && spellId !== SPELLS.ATONEMENT2.id) {
       return;
     }
     if (!this.owner.toPlayer(event)) {
@@ -44,7 +44,7 @@ class Xalan extends Module {
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.ATONEMENT.id) {
+    if (spellId !== SPELLS.ATONEMENT1.id && spellId !== SPELLS.ATONEMENT2.id) {
       return;
     }
     if (!this.owner.toPlayer(event)) {
