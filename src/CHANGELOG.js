@@ -1,4 +1,5 @@
 export default `
+25-05-2017 - Resto Druid: Fixed a minor error in DTA calculations with partial overheals.
 24-05-2017 - Added <span class="Monk">Mistweaver Monk</span> support by <b>@Anomoly</b>! Thanks a lot for your contribution!
 An informative message is now shown when trying to parse a report without combatants (usually due to not having advanced combat logging enabled).
 Holy Paladin: Show overhealing during cooldowns too. Innervates properly shows mana costs.

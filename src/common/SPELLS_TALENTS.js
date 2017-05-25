@@ -502,7 +502,7 @@ export default {
   INCARNATION_TREE_OF_LIFE_TALENT: {
     id: 33891,
     name: 'Incarnation: Tree of Life',
-    icon: 'spell_druid_tol',
+    icon: 'ability_druid_improvedtreeform',
     description: '<a href="http://www.wowhead.com/spell=33891" target="_blank">Incarnation: Tree of Life</a> or simply ToL. This talent has actually been proven to be a decent or sometimes a superior choice to <a href="http://www.wowhead.com/spell=200390" target="_blank">Cultivation</a>. This talent requires some planning to be used optimally. You have to take into account the 3 minute cooldown and plan accordingly, e.g. a 2.30 minute fight you would only be able to use this ability once, but on a 3.30 minute fight you would get 2 active uses. ToL is also preferred whenever people rarely drop below 60% hp or/and you need the on demand burst healing. With the nerfs coming to cultivation in 7.2.5 this might actually be the default pick.',
   },
   // lv90

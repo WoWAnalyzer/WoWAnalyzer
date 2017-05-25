@@ -187,7 +187,7 @@ class CombatLogParser extends MainCombatLogParser {
     const wgsExtended = (this.modules.flourish.wildGrowth / wildGrowthTargets) / this.modules.flourish.flourishCounter;
     if (hasFlourish && wgsExtended < 1) {
       results.addIssue({
-        issue: <span>Your <a href="http://www.wowhead.com/spell=197721" target="_blank">Flourish</a> should always aim to refresh <a href="http://www.wowhead.com/spell=48438" target="_blank">Wild Growth.</a> ({(this.modules.flourish.wildGrowth / 6).toFixed(0)}/{this.modules.flourish.flourishCounter} WGs extended)</span>,
+        issue: <span>Your <a href="http://www.wowhead.com/spell=197721" target="_blank">Flourish</a> should always aim to refresh <a href="http://www.wowhead.com/spell=48438" target="_blank">Wild Growth.</a> ({(((this.modules.flourish.wildGrowth / 6)/this.modules.flourish.flourishCounter)*100).toFixed(0)}% WGs extended)</span>,
         icon: SPELLS.FLOURISH_TALENT.icon,
         importance: getIssueImportance(wgsExtended, 0.8, 0.6),
       });
