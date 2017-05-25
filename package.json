@@ -2,7 +2,7 @@
   "name": "WoWAnalyzer",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://anom0ly.github.io/WoWAnalyzer/build/",
+  "homepage": "https://mw-analyzer.surge.sh/",
   "devDependencies": {
     "react-scripts": "0.9.5"
   },

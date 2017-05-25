@@ -15,3 +15,5 @@ npm-debug.log
 
 # Regularly changing or system specific IDE files
 /.idea/workspace.xml
+/build/**/
+*.json
