@@ -83,6 +83,7 @@ class App extends Component {
     this.props.router.push(makeAnalyzerUrl(code));
   }
 
+  config = null;
   parser = null;
   parse(report, fightId, playerName) {
     const player = this.getPlayerFromReport(report, playerName);
@@ -102,6 +103,7 @@ class App extends Component {
       alert('This spec is not yet supported. Your help building support for this spec would be much appreciated! Click the GitHub link above to find out how you can contribute.');
       return;
     }
+    this.config = config;
 
     const ParserClass = config.parser;
     this.parser = new ParserClass(report, player, fight);
@@ -236,6 +238,7 @@ class App extends Component {
 
   reset() {
     this.parser = null;
+    this.config = null;
     this.setState({
       progress: 0,
     });
@@ -360,10 +363,12 @@ class App extends Component {
               />
             );
           })()}
-          {this.reportCode && (
-            <Link to="/" style={{ marginTop: '2em', marginBottom: '2em' }}>
-              <span className="glyphicon glyphicon-repeat" aria-hidden="true" /> Change report
-            </Link>
+          {this.config && this.config.footer && (
+            <div className="panel fade-in" style={{ margin: '15px auto 30px', width: 300, textAlign: 'center' }}>
+              <div className="panel-body text-muted">
+                {this.config.footer}
+              </div>
+            </div>
           )}
         </div>
         <ReactTooltip html={true} place="bottom" />
