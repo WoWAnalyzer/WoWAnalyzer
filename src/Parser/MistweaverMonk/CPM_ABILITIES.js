@@ -14,24 +14,28 @@ const CPM_ABILITIES = [
     spell: SPELLS.RENEWING_MIST,
     category: SPELL_CATEGORY.ROTATIONAL,
     getCooldown: haste => 8,
+    recommendedCastEfficiency: .7,
   },
   {
     spell: SPELLS.THUNDER_FOCUS_TEA,
     category: SPELL_CATEGORY.ROTATIONAL,
     getCooldown: haste => 30,
   },
-  {
-    spell: SPELLS.CHI_BURST_TALENT,
-    category: SPELL_CATEGORY.ROTATIONAL,
-    getCooldown: haste => 30,
-  },
 
   // Cooldowns
   {
-    spell: SPELLS.MANA_TEA_TALENT,
+    spell: SPELLS.REVIVAL,
     category: SPELL_CATEGORY.COOLDOWNS,
-    getCooldown: haste => 90,
-    isActive: combatant => combatant.hasTalent(SPELLS.MANA_TEA_TALENT.id),
+    getCooldown: (haste, combatant) => 180 - (combatant.traitsBySpellId[SPELLS.TENDRILS_OF_REVIVAL.id] || 0 ) * 10,
+    noSuggestion: true,
+    noCanBeImproved: true,
+  },
+  {
+    spell: SPELLS.LIFE_COCOON,
+    category: SPELL_CATEGORY.COOLDOWNS,
+    getCooldown: haste => 180,
+    noSuggestion: true,
+    noCanBeImproved: true,
   },
   {
     spell: SPELLS.INVOKE_CHIJI_TALENT,
@@ -40,9 +44,16 @@ const CPM_ABILITIES = [
     isActive: combatant => combatant.hasTalent(SPELLS.INVOKE_CHIJI_TALENT.id),
   },
   {
-    spell: SPELLS.REVIVAL,
+    spell: SPELLS.CHI_BURST_TALENT,
     category: SPELL_CATEGORY.COOLDOWNS,
-    getCooldown: (haste, combatant) => 180 - (combatant.traitsBySpellId[SPELLS.TENDRILS_OF_REVIVAL.id] || 0 ) * 10,
+    getCooldown: haste => 30,
+    isActive: combatant => combatant.hasTalent(SPELLS.CHI_BURST_TALENT.id),
+  },
+  {
+    spell: SPELLS.MANA_TEA_TALENT,
+    category: SPELL_CATEGORY.COOLDOWNS,
+    getCooldown: haste => 90,
+    isActive: combatant => combatant.hasTalent(SPELLS.MANA_TEA_TALENT.id),
   },
   {
     spell: SPELLS.VELENS_FUTURE_SIGHT,
@@ -57,8 +68,40 @@ const CPM_ABILITIES = [
     category: SPELL_CATEGORY.OTHERS,
     getCooldown: haste => null,
   },
+  {
+    spell: SPELLS.SOOTHING_MIST,
+    category: SPELL_CATEGORY.OTHERS,
+    getCooldown: haste => null,
+  },
+  {
+    spell: SPELLS.ENVELOPING_MISTS,
+    category: SPELL_CATEGORY.OTHERS,
+    getCooldown: haste => null,
+  },
+  {
+    spell: SPELLS.VIVIFY,
+    category: SPELL_CATEGORY.OTHERS,
+    getCooldown: haste => null,
+  },
+  {
+    spell: SPELLS.ESSENCE_FONT,
+    category: SPELL_CATEGORY.OTHERS,
+    getCooldown: haste => null,
+  },
+  {
+    spell: SPELLS.REFRESHING_JADE_WIND_TALENT,
+    category: SPELL_CATEGORY.OTHERS,
+    getCooldown: haste => null,
+    isActive: combatant => combatant.hasTalent(SPELLS.REFRESHING_JADE_WIND_TALENT.id),
+  },
 
   // Utility Spells
+  {
+    spell: SPELLS.ARCANE_TORRENT,
+    category: SPELL_CATEGORY.COOLDOWNS,
+    getCooldown: haste => 90,
+    hideWithZeroCasts: true,
+  },
 ];
 
 export default CPM_ABILITIES;
