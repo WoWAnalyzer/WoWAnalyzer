@@ -139,11 +139,21 @@ class ReportSelecter extends Component {
                 <div className="row" style={{ marginTop: 15 }}>
                   <div className="col-md-6 text-center">
                     <img src="./img/important-metrics.png" style={{ maxWidth: '100%', border: '1px solid black', borderRadius: 5 }} alt="Important metrics" /><br />
-                    Important metrics
+                    Important spec specific metrics
                   </div>
+                  <div className="col-md-6 text-center">
+                    <img src="./img/cooldown-usages.png" style={{ maxWidth: '100%', border: '1px solid black', borderRadius: 5 }} alt="Cooldown usages" /><br />
+                    Cooldown usage details
+                  </div>
+                </div>
+                <div className="row" style={{ marginTop: 15 }}>
                   <div className="col-md-6 text-center">
                     <img src="./img/mana-breakdown.png" style={{ maxWidth: '100%', border: '1px solid black', borderRadius: 5 }} alt="Mana breakdown" /><br />
                     Mana breakdown
+                  </div>
+                  <div className="col-md-6 text-center">
+                    <img src="./img/opensource.png" style={{ maxWidth: '100%', border: '1px solid black', borderRadius: 5 }} alt="Open source" /><br />
+                    Open source
                   </div>
                 </div>
               </div>
