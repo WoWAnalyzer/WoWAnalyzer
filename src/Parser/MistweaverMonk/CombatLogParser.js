@@ -104,6 +104,9 @@ class CombatLogParser extends MainCombatLogParser {
       });
     }
     */
+
+
+
     if (this.modules.velens.active && velensHealingPercentage < 0.045) {
       results.addIssue({
         issue: <span>Your usage of <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} /> can be improved. Try to maximize the amount of casts during the buff or consider using an easier legendary ({(velensHealingPercentage * 100).toFixed(2)}% healing contributed).</span>,

@@ -2,7 +2,6 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 
 import Module from 'Parser/Core/Module';
-import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
 
@@ -11,6 +10,7 @@ const LEGENDARY_VELENS_HEALING_INCREASE = 0.15;
 
 class Velens extends Module {
   healing = 0;
+
 
   on_initialized() {
     if (!this.owner.error) {
@@ -34,7 +34,17 @@ class Velens extends Module {
       return;
     }
 
-    this.healing += calculateEffectiveHealing(event, LEGENDARY_VELENS_HEALING_INCREASE);
+    // Rewriting the effectiveHealing function here, to remove the final step of removing the raw overheal from the effective healing of the trinket.
+    const amount = event.amount;
+    const absorbed = event.absorbed || 0;
+    // const overheal = event.overheal || 0;
+    const raw = amount + absorbed /*+ overheal*/;
+    const relativeHealingIncreaseFactor = 1 + LEGENDARY_VELENS_HEALING_INCREASE;
+    const healingIncrease = raw - raw / relativeHealingIncreaseFactor;
+    const effectiveHealing = healingIncrease;
+    //const effectiveHealing = raw * 0.1304;
+
+    this.healing += Math.max(0, effectiveHealing);
   }
 
   // Beacon transfer is included in `ABILITIES_AFFECTED_BY_HEALING_INCREASES`

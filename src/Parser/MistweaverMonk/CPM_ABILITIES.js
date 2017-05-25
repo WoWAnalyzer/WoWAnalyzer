@@ -39,7 +39,7 @@ const CPM_ABILITIES = [
   {
     spell: SPELLS.INVOKE_CHIJI_TALENT,
     category: SPELL_CATEGORY.COOLDOWNS,
-    getCooldown: haste => 240,
+    getCooldown: haste => 180,
     isActive: combatant => combatant.hasTalent(SPELLS.INVOKE_CHIJI_TALENT.id),
   },
   {
