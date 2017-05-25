@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 
 import Module from 'Parser/Core/Module';
 
-const debug = true;
+const debug = false;
 
 /** The amount of time (in ms) left on a refresh Atonement for it to be considered inefficient. */
 const IMPROPER_REFRESH_TIME = 3000;
