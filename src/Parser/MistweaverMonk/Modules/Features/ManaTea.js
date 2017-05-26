@@ -28,6 +28,7 @@ class ManaTea extends Module {
 
   on_initialized() {
     if(!this.owner.error) {
+      this.active = this.owner.selectedCombatant.hasTalent(SPELLS.MANA_TEA_TALENT.id);
       if (this.owner.selectedCombatant.hasTalent(SPELLS.LIFECYCLES_TALENT.id)) {
         this.hasLifeCycles = true;
       }

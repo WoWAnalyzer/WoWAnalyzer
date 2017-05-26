@@ -134,7 +134,7 @@ class CombatLogParser extends MainCombatLogParser {
       });
     }*/
     // Mana Tea Usage issue
-    if((this.modules.manaTea.manaSaved / this.modules.manaTea.manateaCount) < 200000) {
+    if (this.modules.manaTea.active && (this.modules.manaTea.manaSaved / this.modules.manaTea.manateaCount) < 200000) {
       results.addIssue({
         issue: <span>Your mana spent during <a href="http://www.wowhead.com/spell=197908" target="_blank">Mana Tea</a> can be improved.  Always aim to cast your highest mana spells such as <a href="http://www.wowhead.com/spell=191837" target="_blank">Essence Font</a> or <a href="http://www.wowhead.com/spell=116670" target="_blank">Vivify</a>. ({((this.modules.manaTea.manaSaved / this.modules.manaTea.manateaCount) / 1000).toFixed(0)}k avg mana spent)</span>,
         icon: SPELLS.MANA_TEA_TALENT.icon,
@@ -161,7 +161,8 @@ class CombatLogParser extends MainCombatLogParser {
             src="./img/healing.png"
             style={{ border: 0 }}
             alt="Healing"
-          />)}
+          />
+        )}
         value={`${formatNumber(this.totalHealing / this.fightDuration * 1000)} HPS`}
         label={(
           <dfn data-tip={`The total healing done recorded was ${formatThousands(this.totalHealing)}.`}>
@@ -169,8 +170,7 @@ class CombatLogParser extends MainCombatLogParser {
           </dfn>
         )}
       />,
-    /*
-      <StatisticBox
+      /*<StatisticBox
         icon={<Icon icon="petbattle_health-down" alt="Non healing time" />}
         value={`${formatPercentage(deadTimePercentage)} %`}
         label={(
@@ -178,8 +178,7 @@ class CombatLogParser extends MainCombatLogParser {
             Dead GCD time
           </dfn>
         )}
-      />,
-      */
+      />,*/
       <StatisticBox
         icon={<SpellIcon id={SPELLS.UPLIFTING_TRANCE_BUFF.id} />}
         value={`${formatPercentage(unusedUTProcs)} %`}
@@ -189,37 +188,35 @@ class CombatLogParser extends MainCombatLogParser {
           </dfn>
         )}
       />,
-
-    <StatisticBox
-      icon={<SpellIcon id={SPELLS.MANA_TEA_TALENT.id} />}
-      value={`${((this.modules.manaTea.manaSaved / this.modules.manaTea.manateaCount) / 1000).toFixed(0)}k mana`}
-      label={(
-        <dfn data-tip={
-          `<ul>
-              During your ${this.modules.manaTea.manateaCount} <a href="http://www.wowhead.com/spell=197908" target="_blank">Mana Teas</a> saved the following mana:
-              ${this.modules.manaTea.efCasts > 0 ?
-              `<li>${(this.modules.manaTea.efCasts)} Essence Font casts</li>`
-              : ""
-              }
-              ${this.modules.manaTea.efCasts > 0 ?
-              `<li>${(this.modules.manaTea.vivCasts)} Vivfy casts</li>`
-              : ""
-              }
-              ${this.modules.manaTea.efCasts > 0 ?
-              `<li>${(this.modules.manaTea.enmCasts)} Enveloping Mists casts</li>`
-              : ""
-              }
-              <li>${(this.modules.manaTea.rjwCasts + this.modules.manaTea.revCasts + this.modules.manaTea.remCasts + this.modules.manaTea.lcCasts + this.modules.manaTea.effCasts)} other spells casted.</li>
-              <li>${(this.modules.manaTea.nonManaCasts)} non-mana casts during Mana Tea</li>
-
-          </ul>
-          `
-          }>
-          Average mana saved per Mana Tea
-        </dfn>
-      )}
-    />,
-
+      this.modules.manaTea.active && (
+        <StatisticBox
+          icon={<SpellIcon id={SPELLS.MANA_TEA_TALENT.id} />}
+          value={`${((this.modules.manaTea.manaSaved / this.modules.manaTea.manateaCount) / 1000).toFixed(0)}k mana`}
+          label={(
+            <dfn
+              data-tip={`<ul>
+                  During your ${this.modules.manaTea.manateaCount} <a href="http://www.wowhead.com/spell=197908" target="_blank">Mana Teas</a> saved the following mana:
+                  ${this.modules.manaTea.efCasts > 0 ?
+                  `<li>${(this.modules.manaTea.efCasts)} Essence Font casts</li>`
+                  : ""
+                  }
+                  ${this.modules.manaTea.efCasts > 0 ?
+                  `<li>${(this.modules.manaTea.vivCasts)} Vivfy casts</li>`
+                  : ""
+                  }
+                  ${this.modules.manaTea.efCasts > 0 ?
+                  `<li>${(this.modules.manaTea.enmCasts)} Enveloping Mists casts</li>`
+                  : ""
+                  }
+                  <li>${(this.modules.manaTea.rjwCasts + this.modules.manaTea.revCasts + this.modules.manaTea.remCasts + this.modules.manaTea.lcCasts + this.modules.manaTea.effCasts)} other spells casted.</li>
+                  <li>${(this.modules.manaTea.nonManaCasts)} non-mana casts during Mana Tea</li>
+              </ul>`}
+            >
+              Average mana saved per Mana Tea
+            </dfn>
+          )}
+        />
+      ),
     ];
 
     results.items = [
