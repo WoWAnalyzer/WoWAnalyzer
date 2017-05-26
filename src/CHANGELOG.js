@@ -1,4 +1,5 @@
 export default `
+25-05-2017 - Resto Druid: Added support for T20.
 25-05-2017 - Disc Priest: Added <i>Early Atonement refreshes</i> statistic. Fixed Skjoldr sometimes not working properly. Both contributions were created by <b>@Shadowdrizz</b>. Thanks a lot for your contribution!
 25-05-2017 - Added Patreon links to the specs I (Zerotorescue) maintain. Please let me know if you think this is inappropriate or makes you hesitate to contribute. Added Discord link. 
 25-05-2017 - Resto Druid: Fixed a minor error in DTA calculations with partial overheals.

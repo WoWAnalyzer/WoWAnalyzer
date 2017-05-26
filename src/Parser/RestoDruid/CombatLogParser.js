@@ -9,6 +9,7 @@ import DarkmoonDeckPromises from 'Parser/Core/Modules/Items/DarkmoonDeckPromises
 import AmalgamsSeventhSpine from 'Parser/Core/Modules/Items/AmalgamsSeventhSpine';
 
 import SPELLS from 'common/SPELLS';
+import SPELLS_TALENTS from 'common/SPELLS_TALENTS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import Icon from 'common/Icon';
@@ -32,6 +33,7 @@ import Sephuz from './Modules/Legendaries/Sephuz';
 import DarkTitanAdvice from './Modules/Legendaries/DarkTitanAdvice';
 import EssenceOfInfusion from './Modules/Legendaries/EssenceOfInfusion';
 import Tearstone from './Modules/Legendaries/Tearstone';
+import T20 from './Modules/Legendaries/T20';
 
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownTracker from './Modules/Features/CooldownTracker';
@@ -48,7 +50,8 @@ import {
   TREE_OF_LIFE_CAST_ID,
   REJUVENATION_HEAL_SPELL_ID,
   WILD_GROWTH_HEAL_SPELL_ID,
-  FLOURISH_TALENT_SPELL_ID
+  FLOURISH_TALENT_SPELL_ID,
+  BLOSSOMING_EFFLORESCENCE_ID
 } from './Constants';
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
 
@@ -103,6 +106,7 @@ class CombatLogParser extends MainCombatLogParser {
     darkTitanAdvice: DarkTitanAdvice,
     essenceOfInfusion: EssenceOfInfusion,
     tearstone: Tearstone,
+    t20: T20,
     // TODO:
     // Edraith
     // Aman'Thul's Wisdom
@@ -120,13 +124,16 @@ class CombatLogParser extends MainCombatLogParser {
     // Tree of Life
     const hasFlourish = this.selectedCombatant.lv100Talent === FLOURISH_TALENT_SPELL_ID;
     const hasTreeOfLife = this.selectedCombatant.lv75Talent === TREE_OF_LIFE_CAST_ID;
-    const wildGrowthTargets = 6; //TODO: We need to dynamically see if the player was affeced by ToL when flourish was cast hasTreeOfLife ? 8 : 6;
+    const wildGrowthTargets = 6;
     const oneRejuvenationThroughput = (((this.modules.treeOfLife.totalHealingFromRejuvenationEncounter / this.totalHealing)) / this.modules.treeOfLife.totalRejuvenationsEncounter);
     const rejuvenationIncreasedEffect = (this.modules.treeOfLife.totalHealingFromRejuvenationDuringToL / 1.15 - this.modules.treeOfLife.totalHealingFromRejuvenationDuringToL / (1.15 * 1.5)) / this.totalHealing;
     const tolIncreasedHealingDone = (this.modules.treeOfLife.totalHealingDuringToL - this.modules.treeOfLife.totalHealingDuringToL / 1.15) / this.totalHealing;
     const rejuvenationMana = (((this.modules.treeOfLife.totalRejuvenationsDuringToL * 10) * 0.3) / 10) * oneRejuvenationThroughput;
     const wildGrowthIncreasedEffect = (this.modules.treeOfLife.totalHealingFromWildgrowthsDuringToL / 1.15 - this.modules.treeOfLife.totalHealingFromWildgrowthsDuringToL / (1.15 * (8 / 6))) / this.totalHealing;
     const treeOfLifeThroughput = rejuvenationIncreasedEffect + tolIncreasedHealingDone + rejuvenationMana + wildGrowthIncreasedEffect;
+
+    const has4PT20 = this.selectedCombatant.hasBuff(SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id);
+    const has2PT20 = this.selectedCombatant.hasBuff(SPELLS.RESTO_DRUID_T20_4SET_BONUS_BUFF.id)
 
     const abilityTracker = this.modules.abilityTracker;
     const getAbility = spellId => abilityTracker.getAbility(spellId);
@@ -135,7 +142,7 @@ class CombatLogParser extends MainCombatLogParser {
     const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
 
     const potaHealing = (this.modules.powerOfTheArchdruid.rejuvenations * oneRejuvenationThroughput) + this.modules.powerOfTheArchdruid.healing / this.totalHealing;
-    const hasMoC = this.selectedCombatant.lv100Talent === 155577; // TODO: refactor this
+    const hasMoC = this.selectedCombatant.lv100Talent === SPELLS_TALENTS.MOMENT_OF_CLARITY_TALENT.id;
     const hasVelens = this.selectedCombatant.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT.id);
     const velensHealingPercentage = this.modules.velens.healing / this.totalHealing;
     const prydazHealingPercentage = this.modules.prydaz.healing / this.totalHealing;
@@ -215,7 +222,7 @@ class CombatLogParser extends MainCombatLogParser {
         importance: getIssueImportance((this.modules.innervate.manaSaved / this.modules.innervate.innervateCount), 180000, 130000),
       });
     }
-    // Innervata mana cappedc
+    // Innervata mana capped
     if (this.modules.innervate.secondsManaCapped > 0) {
       results.addIssue({
         issue: <span>You were capped on mana during <a href="http://www.wowhead.com/spell=29166" target="_blank">Innervate</a>. Why would you do that? (approx {this.modules.innervate.secondsManaCapped}s)</span>,
@@ -539,28 +546,27 @@ class CombatLogParser extends MainCombatLogParser {
           </dfn>
         )
       },
-
-      //TODO
-      //has4PT19 && (
-      // (
-      //   <li className="item clearfix" key={T19_4SET_BONUS_BUFF_ID}>
-      //     <article>
-      //       <figure>
-      // icon={<SpellIcon id={SPELLS.REJUVENATION.id} />}
-      //       </figure>
-      //       <div>
-      //         <header>
-      //           <a href="http://www.wowhead.com/spell=211170/item-druid-t19-restoration-4p-bonus" target="_blank">
-      //             T19 4 set bonus
-      //           </a>
-      //         </header>
-      //         <main>
-      //           50 bonus rejuvenation gained.
-      //         </main>
-      //       </div>
-      //     </article>
-      //   </li>
-      // ),
+      has4PT20 && {
+        id: `spell-${SPELLS.RESTO_DRUID_T20_4SET_BONUS_BUFF.id}`,
+        icon: <SpellIcon id={SPELLS.RESTO_DRUID_T20_4SET_BONUS_BUFF.id} />,
+        title: <SpellLink id={SPELLS.RESTO_DRUID_T20_4SET_BONUS_BUFF.id} />,
+        result: (
+          <span>
+            {((this.selectedCombatant.getBuffUptime(BLOSSOMING_EFFLORESCENCE_ID)/this.fightDuration)*100).toFixed(2)}% uptime.<br/>
+            {((this.modules.t20.healing/this.totalHealing)*100).toFixed(2)}% healing.
+          </span>
+        ),
+      },
+      has2PT20 && {
+        id: `spell-${SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id}`,
+        icon: <SpellIcon id={SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id} />,
+        title: <SpellLink id={SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id} />,
+        result: (
+          <span>
+            {this.modules.t20.swiftmendReduced.toFixed(1)}s reduced on swiftmend <br/>({(this.modules.t20.swiftmendReduced/this.modules.t20.swiftmends).toFixed(1)}s per swiftmend on average).
+          </span>
+        ),
+      },
     ];
 
     results.tabs = [

@@ -77,27 +77,28 @@ class TreeOfLife extends Module {
 
     // Get 1 rejuv throughput worth
     let oneRejuvenationThroughput = (((this.totalHealingFromRejuvenationEncounter / this.totalHealingEncounter))/this.totalRejuvenationsEncounter);
-    debug && console.log("1 Rejuvenation throughput: " + oneRejuvenationThroughput);
+    debug && console.log("1 Rejuvenation throughput: " + (oneRejuvenationThroughput*100).toFixed(2)+"%");
 
     // 50% of total healing from rejuv+germ during ToL and divide it with the encounter total healing.
     let rejuvenationIncreasedEffect = (this.totalHealingFromRejuvenationDuringToL/HEALING_INCREASE - this.totalHealingFromRejuvenationDuringToL / (HEALING_INCREASE * REJUV_HEALING_INCREASE))/ this.totalHealingEncounter;
-    debug && console.log("rejuvenationIncreasedEffect: " + rejuvenationIncreasedEffect);
+    debug && console.log("rejuvenationIncreasedEffect: " + (rejuvenationIncreasedEffect*100).toFixed(2)+"%");
 
     // 15% of total healing during ToL and divide it with the encounter total healing
     let tolIncreasedHealingDone = (this.totalHealingDuringToL - this.totalHealingDuringToL/HEALING_INCREASE)/this.totalHealingEncounter
-    debug && console.log("tolIncreasedHealingDone: " + tolIncreasedHealingDone);
+    debug && console.log("tolIncreasedHealingDone: " + (tolIncreasedHealingDone*100).toFixed(2)+"%");
 
     // The amount of free rejuvs gained by the reduced mana cost, calculated into throughput by the "1 Rejuv throughput worth"
     let rejuvenationMana = (((this.totalRejuvenationsDuringToL * REJUV_BASE_MANA) * REJUVENATION_REDUCED_MANA) / REJUV_BASE_MANA) * oneRejuvenationThroughput;
-    debug && console.log("rejuvenationMana: " + rejuvenationMana);
+    debug && console.log("rejuvenationMana: " + (rejuvenationMana*100).toFixed(2)+"%");
 
     // 33% of total healing from WG during ToL and divide it with the encounter total healing.
     let wildGrowthIncreasedEffect = (this.totalHealingFromWildgrowthsDuringToL/HEALING_INCREASE - this.totalHealingFromWildgrowthsDuringToL/(HEALING_INCREASE * WILD_GROWTH_HEALING_INCREASE)) / this.totalHealingEncounter;
-    debug && console.log("wildGrowthIncreasedEffect: " + wildGrowthIncreasedEffect);
+    debug && console.log("wildGrowthIncreasedEffect: " + (wildGrowthIncreasedEffect*100).toFixed(2)+"%");
 
     // Total throughput from using Tree of Life
     this.throughput = rejuvenationIncreasedEffect + tolIncreasedHealingDone + rejuvenationMana + wildGrowthIncreasedEffect;
-    debug && console.log("throughput: " + this.throughput);
+    debug && console.log("uptime: " + ((this.owner.selectedCombatant.getBuffUptime(TREE_OF_LIFE_CAST_ID)/this.owner.fightDuration)*100).toFixed(2)+"%");
+    debug && console.log("throughput: " + (this.throughput*100).toFixed(2)+"%");
   }
 }
 

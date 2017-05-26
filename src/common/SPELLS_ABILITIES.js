@@ -384,6 +384,16 @@ export default {
     icon: 'ability_priest_ascension',
   },
   // Resto Druid:
+  RESTO_DRUID_T20_2SET_BONUS_BUFF: {
+    id: 242238,
+    name: 'T20 2 set bonus',
+    icon: 'inv_relics_idolofrejuvenation',
+  },
+  RESTO_DRUID_T20_4SET_BONUS_BUFF: {
+    id: 242313,
+    name: 'T20 4 set bonus',
+    icon: 'inv_misc_herb_talandrasrose',
+  },
   TRANQUILITY: {
     id: 740,
     name: 'Tranquility',
