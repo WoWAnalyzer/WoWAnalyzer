@@ -48,6 +48,7 @@ function formatNumber(number) {
   }
   return formatThousands(number);
 }
+
 function getIssueImportance(value, regular, major, higherIsWorse = false) {
   if (higherIsWorse ? value > major : value < major) {
     return ISSUE_IMPORTANCE.MAJOR;
@@ -103,6 +104,9 @@ class CombatLogParser extends MainCombatLogParser {
       });
     }
     */
+
+
+
     if (this.modules.velens.active && velensHealingPercentage < 0.045) {
       results.addIssue({
         issue: <span>Your usage of <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} /> can be improved. Try to maximize the amount of casts during the buff or consider using an easier legendary ({(velensHealingPercentage * 100).toFixed(2)}% healing contributed).</span>,
@@ -113,23 +117,22 @@ class CombatLogParser extends MainCombatLogParser {
     // Uplifting Trance Usage
     if (unusedUTProcs > 0.10) {
       results.addIssue({
-        issue: <span>Your <a href="http://www.wowhead.com/spell=197206" target="_blank">Uplifting Trance</a> proccs should be used as soon as you get them so they are not overwritten. You missed {(this.modules.upliftingTrance.UTProcsTotal - this.modules.upliftingTrance.consumedUTProc)}/{(this.modules.upliftingTrance.UTProcsTotal)} proccs.</span>,
+        issue: <span>Your <a href="http://www.wowhead.com/spell=197206" target="_blank">Uplifting Trance</a> procs should be used as soon as you get them so they are not overwritten. You missed {(this.modules.upliftingTrance.UTProcsTotal - this.modules.upliftingTrance.consumedUTProc)}/{(this.modules.upliftingTrance.UTProcsTotal)} procs.</span>,
         icon: SPELLS.UPLIFTING_TRANCE_BUFF.icon,
-        importance: getIssueImportance(unusedUTProcs, 0.5, 0.75, true),
+        importance: getIssueImportance(unusedUTProcs, 0.2, 0.5, true),
       });
     }
-
+    /* Removed per feedback from Garg on 6/24
     // Non-UT Buffed Vivify
-    // Note: Need to incorporate TFT procs
     const vivify = this.modules.upliftingTrance.consumedUTProc + this.modules.upliftingTrance.nonUTVivify;
     const nonUTVivify = this.modules.upliftingTrance.nonUTVivify;
     if (nonUTVivify / vivify > 0) {
       results.addIssue({
-        issue: <span><a href="http://www.wowhead.com/spell=116670" target="_blank">Vivify</a> is an inefficient spell to cast without <a href="http://www.wowhead.com/spell=197206" target="_blank">Uplifting Trance</a> procs.  You casted {nonUTVivify} Vivify's without the Uplifting Trance proc.</span>,
+        issue: <span><a href="http://www.wowhead.com/spell=116670" target="_blank">Vivify</a> is an inefficient spell to cast without <a href="http://www.wowhead.com/spell=197206" target="_blank">Uplifting Trance</a> procs.  You casted {nonUTVivify} Vivify's without the Uplifting Trance procc and {this.modules.upliftingTrance.tftVivCast} Vivfy's with the Thunder Focus Tea buff.</span>,
         icon: SPELLS.VIVIFY.icon,
         importance: getIssueImportance(nonUTVivify / vivify, 0.5, 0.25, true),
       });
-    }
+    }*/
     // Mana Tea Usage issue
     if((this.modules.manaTea.manaSaved / this.modules.manaTea.manateaCount) < 200000) {
       results.addIssue({
@@ -181,7 +184,7 @@ class CombatLogParser extends MainCombatLogParser {
         icon={<SpellIcon id={SPELLS.UPLIFTING_TRANCE_BUFF.id} />}
         value={`${formatPercentage(unusedUTProcs)} %`}
         label={(
-          <dfn data-tip={`You got total <b>${this.modules.upliftingTrance.UTProcsTotal} uplifting trance procs</b> and <b>used ${this.modules.upliftingTrance.consumedUTProc}</b> of them. <b>${this.modules.upliftingTrance.nonUTVivify} of your vivify's were used without an uplifting trance proc</b>.`}>
+          <dfn data-tip={`You got total <b>${this.modules.upliftingTrance.UTProcsTotal} uplifting trance procs</b> and <b>used ${this.modules.upliftingTrance.consumedUTProc}</b> of them. ${this.modules.upliftingTrance.nonUTVivify} of your vivify's were used without an uplifting trance procs or without a Thunder Focus Tea buff.`}>
             Unused Uplifting Trance Pocs
           </dfn>
         )}

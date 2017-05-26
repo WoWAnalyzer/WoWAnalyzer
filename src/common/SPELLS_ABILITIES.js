@@ -384,6 +384,16 @@ export default {
     icon: 'ability_priest_ascension',
   },
   // Resto Druid:
+  RESTO_DRUID_T20_2SET_BONUS_BUFF: {
+    id: 242238,
+    name: 'T20 2 set bonus',
+    icon: 'inv_relics_idolofrejuvenation',
+  },
+  RESTO_DRUID_T20_4SET_BONUS_BUFF: {
+    id: 242313,
+    name: 'T20 4 set bonus',
+    icon: 'inv_misc_herb_talandrasrose',
+  },
   TRANQUILITY: {
     id: 740,
     name: 'Tranquility',
@@ -444,7 +454,126 @@ export default {
     name: 'Efflorescence',
     icon: 'inv_misc_herb_talandrasrose',
   },
-
+  CENARION_WARD: {
+    id: 102351,
+    name: 'Cenarion Ward',
+    icon: 'ability_druid_naturalperfection',
+  },
+  SWIFTMEND: {
+    id: 18562,
+    name: 'Swiftmend',
+    icon: 'inv_relics_idolofrejuvenation',
+  },
+  FRENZIED_REGENERATION: {
+    id: 22842,
+    name: 'Frenzied Regeneration',
+    icon: 'ability_bullrush',
+  },
+  BEAR_FORM: {
+    id: 5487,
+    name: 'Bear Form',
+    icon: 'ability_racial_bearform',
+  },
+  CAT_FORM: {
+    id: 768,
+    name: 'Cat Form',
+    icon: 'ability_druid_catform',
+  },
+  DASH: {
+    id: 1850,
+    name: 'Dash',
+    icon: 'ability_druid_dash',
+  },
+  DISPLACER_BEAST: {
+    id: 102280,
+    name: 'Displacer Beast',
+    icon: 'spell_druid_displacement',
+  },
+  FEROCIOUS_BITE: {
+    id: 22568,
+    name: 'Ferocious Bite',
+    icon: 'ability_druid_ferociousbite',
+  },
+  NATURES_CURE: {
+    id: 88423,
+    name: 'Nature\'s Cure',
+    icon: 'ability_shaman_cleansespirit',
+  },
+  RAKE: {
+    id: 1822,
+    name: 'Rake',
+    icon: 'ability_druid_disembowel',
+  },
+  MASS_ENTANGLEMENT: {
+    id: 102359,
+    name: 'Mass Entaglement',
+    icon: 'spell_druid_massentanglement',
+  },
+  STAG_FORM: {
+    id: 210053,
+    name: 'Stag Form',
+    icon: 'inv_stagform',
+  },
+  TRAVEL_FORM: {
+    id: 783,
+    name: 'Travel Form',
+    icon: 'ability_druid_travelform',
+  },
+  RIP: {
+    id: 1079,
+    name: 'Rip',
+    icon: 'ability_ghoulfrenzy',
+  },
+  SHRED: {
+    id: 5221,
+    name: 'Shred',
+    icon: 'spell_shadow_vampiricaura',
+  },
+  SOLAR_WRATH: {
+    id: 5176,
+    name: 'Solar Wrath',
+    icon: 'spell_nature_wrathv2',
+  },
+  CAT_SWIPE: {
+    id: 106785,
+    name: 'Swipe',
+    icon: 'inv_misc_monsterclaw_03',
+  },
+  BEAR_SWIPE: {
+    id: 213771,
+    name: 'Swipe',
+    icon: 'inv_misc_monsterclaw_03',
+  },
+  URSOLS_VORTEX: {
+    id: 102793,
+    name: 'Ursol\'s Vortex',
+    icon: 'spell_druid_ursolsvortex',
+  },
+  RENEWAL: {
+    id: 108238,
+    name: 'Renewal',
+    icon: 'spell_nature_natureblessing',
+  },
+  MIGHTY_BASH: {
+    id: 5211,
+    name: 'Mighty Bash',
+    icon: 'ability_druid_bash',
+  },
+  TYPHOON: {
+    id: 132469,
+    name: 'Typhoon',
+    icon: 'ability_druid_typhoon',
+  },
+  MOONKIN_FORM: {
+    id: 24858,
+    name: 'Moonkin Form',
+    icon: 'spell_nature_forceofnature',
+  },
+  STARSURGE: {
+    id: 24858,
+    name: 'Moonkin Form',
+    icon: 'spell_nature_forceofnature',
+  },
   // Mistweaver Monk Spells
   EFFUSE: {
     id: 116694,
@@ -531,5 +660,62 @@ export default {
     name: 'Lifecycles (Enveloping Mist)',
     icon: 'spell_monk_envelopingmist',
     manaPercRed: 0.2,
+  },
+  // Mastery
+  GUSTS_OF_MISTS: {
+    id: 117907,
+    name: 'Mastery: Gust of Mists',
+    icon: 'ability_monk_souldance',
+  },
+  //Damage Abilities
+  BLACKOUT_KICK: {
+    id: 100784,
+    name: 'Blackout Kick',
+    icon: 'ability_monk_roundhousekick',
+  },
+  CRACKLING_JADE_LIGHTNING: {
+    id: 117952,
+    name: 'Crackling Jade Lightning',
+    icon: 'ability_monk_cracklingjadelightning',
+  },
+  RISING_SUN_KICK: {
+    id: 107428,
+    name: 'Rising Sun Kick',
+    icon: 'ability_monk_risingsunkick',
+    manaPerc: 0.02 ,
+  },
+  SPINNING_CRANE_KICK: {
+    id: 101546,
+    name: 'Spining Crane Kick',
+    icon: 'ability-monk-cranekick-new',
+    manaPerc: 0.01 ,
+  },
+  TIGER_PALM: {
+    id: 100780,
+    name: 'Tiger Palm',
+    icon: 'ability_monk_tigerpalm',
+  },
+  TEACHINGS_OF_THE_MONASTARY: {
+    id: 116645,
+    name: 'Teachings of the Monastary',
+    icon: 'passive_monk_teachingsofmonastery',
+  },
+
+  // Utility / Other
+  DETOX: {
+    id: 115450,
+    name: 'Detox',
+    icon: 'ability_rogue_imrovedrecuperate',
+    manaPerc: 0.026,
+  },
+  FORTIFYING_BREW: {
+    id: 243435,
+    name: 'Fortifying Brew',
+    icon: 'ability_monk_fortifyingelixir',
+  },
+  ROLL: {
+    id: 109132,
+    name: 'Roll',
+    icon: 'ability_monk_roll',
   },
 };
