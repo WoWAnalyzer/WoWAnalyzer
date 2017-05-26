@@ -11,7 +11,7 @@ export const SPELL_CATEGORY = {
 
 const CPM_ABILITIES = [
   {
-    spell: SPELLS.TRANQUILITY,
+    spell: SPELLS.TRANQUILITY_CAST,
     category: SPELL_CATEGORY.COOLDOWNS,
     getCooldown: (haste, combatant) => combatant.hasTalent(SPELLS.INNER_PEACE_TALENT.id) ? 120 : 180,
   },

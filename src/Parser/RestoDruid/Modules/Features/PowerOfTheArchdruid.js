@@ -1,5 +1,5 @@
 import Module from 'Parser/Core/Module';
-import { REGROWTH_HEAL_SPELL_ID, REJUVENATION_HEAL_SPELL_ID, POWER_OF_THE_ARCHDRUID_TRAIT_SPELL_ID, POWER_OF_THE_ARCHDRUID_SPELL_ID} from '../../Constants';
+import SPELLS from 'common/SPELLS';
 
 class PowerOfTheArchdruid extends Module {
   rejuvenations = 0;
@@ -13,7 +13,7 @@ class PowerOfTheArchdruid extends Module {
 
   on_initialized() {
     if (!this.owner.error) {
-      if(this.owner.selectedCombatant.traitsBySpellId[POWER_OF_THE_ARCHDRUID_TRAIT_SPELL_ID]>0) {
+      if(this.owner.selectedCombatant.traitsBySpellId[SPELLS.POWER_OF_THE_ARCHDRUID.id]>0) {
         this.hasTrait = true;
       }
     }
@@ -21,16 +21,16 @@ class PowerOfTheArchdruid extends Module {
 
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
-    if (POWER_OF_THE_ARCHDRUID_SPELL_ID !== spellId) {
+    if (SPELLS.POWER_OF_THE_ARCHDRUID_BUFF.id !== spellId) {
       return;
     }
     this.proccs++;
 
     // Our 4PT19 can procc PotA
     if(this.lastPotaRemovedTimestamp !== null && Math.abs(event.timestamp-this.lastPotaRemovedTimestamp) < 32) {
-      if (REJUVENATION_HEAL_SPELL_ID === spellId) {
+      if (SPELLS.REJUVENATION.id === spellId) {
         this.rejuvenations = this.rejuvenations + 2;
-      } else if(REGROWTH_HEAL_SPELL_ID === spellId) {
+      } else if(SPELLS.REGROWTH.id === spellId) {
         this.regrowths = this.regrowths + 2;
         this.lastPotaRegrowthTimestamp = event.timestamp;
       }
@@ -40,7 +40,7 @@ class PowerOfTheArchdruid extends Module {
 
   on_byPlayer_removebuff(event) {
     const spellId = event.ability.guid;
-    if (POWER_OF_THE_ARCHDRUID_SPELL_ID !== spellId) {
+    if (SPELLS.POWER_OF_THE_ARCHDRUID_BUFF.id !== spellId) {
       return;
     }
     this.lastPotaRemovedTimestamp = event.timestamp;
@@ -50,9 +50,9 @@ class PowerOfTheArchdruid extends Module {
     const spellId = event.ability.guid;
 
     if(this.lastPotaRemovedTimestamp !== null && Math.abs(event.timestamp-this.lastPotaRemovedTimestamp) < 32) {
-      if (REJUVENATION_HEAL_SPELL_ID === spellId) {
+      if (SPELLS.REJUVENATION.id === spellId) {
         this.rejuvenations = this.rejuvenations + 2;
-      } else if(REGROWTH_HEAL_SPELL_ID === spellId) {
+      } else if(SPELLS.REGROWTH.id === spellId) {
         this.regrowths = this.regrowths + 2;
         this.lastPotaRegrowthTimestamp = event.timestamp;
       }
@@ -63,7 +63,7 @@ class PowerOfTheArchdruid extends Module {
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
 
-    if (REGROWTH_HEAL_SPELL_ID !== spellId) {
+    if (SPELLS.REGROWTH.id !== spellId) {
       return;
     }
     if(this.lastPotaRegrowthTimestamp !== null) {

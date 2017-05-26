@@ -9,7 +9,6 @@ import DarkmoonDeckPromises from 'Parser/Core/Modules/Items/DarkmoonDeckPromises
 import AmalgamsSeventhSpine from 'Parser/Core/Modules/Items/AmalgamsSeventhSpine';
 
 import SPELLS from 'common/SPELLS';
-import SPELLS_TALENTS from 'common/SPELLS_TALENTS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import Icon from 'common/Icon';
@@ -45,14 +44,6 @@ import Flourish from './Modules/Features/Flourish';
 import Innervate from './Modules/Features/Innervate';
 import PowerOfTheArchdruid from './Modules/Features/PowerOfTheArchdruid';
 
-import {
-  HEALING_TOUCH_HEAL_SPELL_ID,
-  TREE_OF_LIFE_CAST_ID,
-  REJUVENATION_HEAL_SPELL_ID,
-  WILD_GROWTH_HEAL_SPELL_ID,
-  FLOURISH_TALENT_SPELL_ID,
-  BLOSSOMING_EFFLORESCENCE_ID
-} from './Constants';
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
 
 function formatThousands(number) {
@@ -121,8 +112,8 @@ class CombatLogParser extends MainCombatLogParser {
     const results = new ParseResults();
 
     // Tree of Life
-    const hasFlourish = this.selectedCombatant.lv100Talent === FLOURISH_TALENT_SPELL_ID;
-    const hasTreeOfLife = this.selectedCombatant.lv75Talent === TREE_OF_LIFE_CAST_ID;
+    const hasFlourish = this.selectedCombatant.lv100Talent === SPELLS.FLOURISH_TALENT.id;
+    const hasTreeOfLife = this.selectedCombatant.lv75Talent === SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id;
     const wildGrowthTargets = 6;
     const oneRejuvenationThroughput = (((this.modules.treeOfLife.totalHealingFromRejuvenationEncounter / this.totalHealing)) / this.modules.treeOfLife.totalRejuvenationsEncounter);
     const rejuvenationIncreasedEffect = (this.modules.treeOfLife.totalHealingFromRejuvenationDuringToL / 1.15 - this.modules.treeOfLife.totalHealingFromRejuvenationDuringToL / (1.15 * 1.5)) / this.totalHealing;
@@ -130,7 +121,7 @@ class CombatLogParser extends MainCombatLogParser {
     const rejuvenationMana = (((this.modules.treeOfLife.totalRejuvenationsDuringToL * 10) * 0.3) / 10) * oneRejuvenationThroughput;
     const wildGrowthIncreasedEffect = (this.modules.treeOfLife.totalHealingFromWildgrowthsDuringToL / 1.15 - this.modules.treeOfLife.totalHealingFromWildgrowthsDuringToL / (1.15 * (8 / 6))) / this.totalHealing;
     const treeOfLifeThroughput = rejuvenationIncreasedEffect + tolIncreasedHealingDone + rejuvenationMana + wildGrowthIncreasedEffect;
-    const treeOfLifeUptime = this.selectedCombatant.getBuffUptime(TREE_OF_LIFE_CAST_ID)/this.fightDuration;
+    const treeOfLifeUptime = this.selectedCombatant.getBuffUptime(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id)/this.fightDuration;
 
     // Chameleon Song
     const rejuvenationIncreasedEffectHelmet = (this.modules.treeOfLife.totalHealingFromRejuvenationDuringToLHelmet / 1.15 - this.modules.treeOfLife.totalHealingFromRejuvenationDuringToLHelmet / (1.15 * 1.5)) / this.totalHealing;
@@ -138,7 +129,7 @@ class CombatLogParser extends MainCombatLogParser {
     const rejuvenationManaHelmet = (((this.modules.treeOfLife.totalRejuvenationsDuringToLHelmet * 10) * 0.3) / 10) * oneRejuvenationThroughput;
     const wildGrowthIncreasedEffectHelmet = (this.modules.treeOfLife.totalHealingFromWildgrowthsDuringToLHelmet / 1.15 - this.modules.treeOfLife.totalHealingFromWildgrowthsDuringToLHelmet / (1.15 * (8 / 6))) / this.totalHealing;
     const treeOfLifeThroughputHelmet = rejuvenationIncreasedEffectHelmet + tolIncreasedHealingDoneHelmet + rejuvenationManaHelmet + wildGrowthIncreasedEffectHelmet;
-    const treeOfLifeUptimeHelmet = (this.selectedCombatant.getBuffUptime(TREE_OF_LIFE_CAST_ID)-(this.modules.treeOfLife.tolCasts*30000))/this.fightDuration;
+    const treeOfLifeUptimeHelmet = (this.selectedCombatant.getBuffUptime(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id)-(this.modules.treeOfLife.tolCasts*30000))/this.fightDuration;
 
     const has4PT20 = this.selectedCombatant.hasBuff(SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id);
     const has2PT20 = this.selectedCombatant.hasBuff(SPELLS.RESTO_DRUID_T20_4SET_BONUS_BUFF.id)
@@ -150,7 +141,7 @@ class CombatLogParser extends MainCombatLogParser {
     const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
 
     const potaHealing = (this.modules.powerOfTheArchdruid.rejuvenations * oneRejuvenationThroughput) + this.modules.powerOfTheArchdruid.healing / this.totalHealing;
-    const hasMoC = this.selectedCombatant.lv100Talent === SPELLS_TALENTS.MOMENT_OF_CLARITY_TALENT.id;
+    const hasMoC = this.selectedCombatant.lv100Talent === SPELLS.MOMENT_OF_CLARITY_TALENT.id;
     const hasVelens = this.selectedCombatant.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT.id);
     const velensHealingPercentage = this.modules.velens.healing / this.totalHealing;
     const prydazHealingPercentage = this.modules.prydaz.healing / this.totalHealing;
@@ -188,7 +179,7 @@ class CombatLogParser extends MainCombatLogParser {
     if (efflorescenceUptime < 0.85) {
       results.addIssue({
         issue: <span>Your <a href="http://www.wowhead.com/spell=81269" target="_blank">Efflorescence</a> uptime can be improved. ({formatPercentage(efflorescenceUptime)} % uptime)</span>,
-        icon: SPELLS.EFFLORESCENCE.icon,
+        icon: SPELLS.EFFLORESCENCE_CAST.icon,
         importance: getIssueImportance(efflorescenceUptime, 0.7, 0.5),
       });
     }
@@ -218,7 +209,7 @@ class CombatLogParser extends MainCombatLogParser {
     if (lifebloomUptime < 0.85) {
       results.addIssue({
         issue: <span>Your <a href="http://www.wowhead.com/spell=33763" target="_blank">Lifebloom</a> uptime can be improved. ({formatPercentage(lifebloomUptime)} % uptime)</span>,
-        icon: SPELLS.LIFEBLOOM.icon,
+        icon: SPELLS.LIFEBLOOM_HOT_HEAL.icon,
         importance: getIssueImportance(lifebloomUptime, 0.7, 0.5),
       });
     }
@@ -252,7 +243,7 @@ class CombatLogParser extends MainCombatLogParser {
         importance: getIssueImportance(velensHealingPercentage, 0.04, 0.03),
       });
     }
-    const healingTouches = getAbility(HEALING_TOUCH_HEAL_SPELL_ID).casts || 0;
+    const healingTouches = getAbility(SPELLS.HEALING_TOUCH.id).casts || 0;
     const healingTouchesPerMinute = healingTouches / (fightDuration / 1000) * 60;
     if (healingTouchesPerMinute > 0) {
       results.addIssue({
@@ -261,8 +252,8 @@ class CombatLogParser extends MainCombatLogParser {
         importance: getIssueImportance(healingTouchesPerMinute, 0.5, 1, true),
       });
     }
-    const rejuvenations = getAbility(REJUVENATION_HEAL_SPELL_ID).casts || 0;
-    const wildGrowths = getAbility(WILD_GROWTH_HEAL_SPELL_ID).casts || 0;
+    const rejuvenations = getAbility(SPELLS.REJUVENATION.id).casts || 0;
+    const wildGrowths = getAbility(SPELLS.WILD_GROWTH.id).casts || 0;
     const wgsPerRejuv = wildGrowths / rejuvenations;
     if (wgsPerRejuv < 0.20) {
       results.addIssue({
@@ -309,12 +300,12 @@ class CombatLogParser extends MainCombatLogParser {
         )}
       />,
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.LIFEBLOOM.id} />}
+        icon={<SpellIcon id={SPELLS.LIFEBLOOM_HOT_HEAL.id} />}
         value={`${formatPercentage(lifebloomUptime)} %`}
         label='Lifebloom uptime'
       />,
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.EFFLORESCENCE.id} />}
+        icon={<SpellIcon id={SPELLS.EFFLORESCENCE_CAST.id} />}
         value={`${formatPercentage(efflorescenceUptime)} %`}
         label='Efflorescence uptime'
       />,
@@ -589,7 +580,7 @@ class CombatLogParser extends MainCombatLogParser {
         title: <SpellLink id={SPELLS.RESTO_DRUID_T20_4SET_BONUS_BUFF.id} />,
         result: (
           <span>
-            {((this.selectedCombatant.getBuffUptime(BLOSSOMING_EFFLORESCENCE_ID)/this.fightDuration)*100).toFixed(2)}% uptime.<br/>
+            {((this.selectedCombatant.getBuffUptime(SPELLS.BLOSSOMING_EFFLORESCENCE.id)/this.fightDuration)*100).toFixed(2)}% uptime.<br/>
             {((this.modules.t20.healing/this.totalHealing)*100).toFixed(2)}% healing.
           </span>
         ),

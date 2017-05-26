@@ -1,13 +1,7 @@
 import Module from 'Parser/Core/Module';
+import SPELLS from 'common/SPELLS';
+
 import {
-  FLOURISH_CAST_ID,
-  REJUVENATION_HEAL_SPELL_ID,
-  REGROWTH_HEAL_SPELL_ID,
-  WILD_GROWTH_HEAL_SPELL_ID,
-  REJUVENATION_GERMINATION_HEAL_SPELL_ID,
-  CULTIVATION_HEAL_SPELL_ID,
-  CENARION_WARD_HEAL_SPELL_ID,
-  LIFEBLOOM_HOT_HEAL_SPELL_ID,
   SPRING_BLOSSMOS_HEAL_SPELL_ID
 } from '../../Constants';
 
@@ -30,17 +24,16 @@ class Flourish extends Module {
   hasTreeOfLife = false;
 
   on_initialized() {
-    //Germination TODO: Refactor id
-    this.hasGermination = this.owner.selectedCombatant.lv90Talent === 155675;
-    this.hasSpringBlossoms = this.owner.selectedCombatant.lv90Talent === 207385;
-    this.hasCenarionWard = this.owner.selectedCombatant.lv15Talent === 102351;
-    this.hasCultivation = this.owner.selectedCombatant.lv75Talent === 200390;
-    this.hasTreeOfLife = this.owner.selectedCombatant.lv75Talent === 33891;
+    this.hasGermination = this.owner.selectedCombatant.lv90Talent === SPELLS.GERMINATION_TALENT.id;
+    this.hasSpringBlossoms = this.owner.selectedCombatant.lv90Talent === SPELLS.SPRING_BLOSSOMS_TALENT.id;
+    this.hasCenarionWard = this.owner.selectedCombatant.lv15Talent === SPELLS.CENARION_WARD_TALENT.id;
+    this.hasCultivation = this.owner.selectedCombatant.lv75Talent === SPELLS.CULTIVATION_TALENT.id;
+    this.hasTreeOfLife = this.owner.selectedCombatant.lv75Talent === SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id;
   }
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (FLOURISH_CAST_ID !== spellId) {
+    if (SPELLS.FLOURISH.id !== spellId) {
       return;
     }
     debug && console.log("Flourish cast #: " + this.flourishCounter);
@@ -51,7 +44,7 @@ class Flourish extends Module {
     Object.keys(this.owner.combatants.players)
       .map(player => this.owner.combatants.players[player])
       .forEach((player) => {
-        if(player.hasBuff(WILD_GROWTH_HEAL_SPELL_ID, event.timestamp, 0, 0) === true) {
+        if(player.hasBuff(SPELLS.WILD_GROWTH.id, event.timestamp, 0, 0) === true) {
           this.wildGrowth++;
         }
     });
@@ -65,11 +58,11 @@ class Flourish extends Module {
     Object.keys(this.owner.combatants.players)
       .map(player => this.owner.combatants.players[player])
       .forEach((player) => {
-        if(player.hasBuff(REJUVENATION_HEAL_SPELL_ID, event.timestamp, 0, 0) === true) {
+        if(player.hasBuff(SPELLS.REJUVENATION.id, event.timestamp, 0, 0) === true) {
           this.rejuvenation++;
         }
         if(this.hasGermination) {
-          if(player.hasBuff(REJUVENATION_GERMINATION_HEAL_SPELL_ID, event.timestamp, 0, 0) === true) {
+          if(player.hasBuff(SPELLS.REJUVENATION_GERMINATION.id, event.timestamp, 0, 0) === true) {
             this.rejuvenation++;
           }
         }
@@ -79,7 +72,7 @@ class Flourish extends Module {
     Object.keys(this.owner.combatants.players)
       .map(player => this.owner.combatants.players[player])
       .forEach((player) => {
-        if(player.hasBuff(REGROWTH_HEAL_SPELL_ID, event.timestamp, 0, 0) === true) {
+        if(player.hasBuff(SPELLS.REGROWTH.id, event.timestamp, 0, 0) === true) {
           this.regrowth++;
         }
     });
@@ -89,7 +82,7 @@ class Flourish extends Module {
       .map(player => this.owner.combatants.players[player])
       .forEach((player) => {
         if(this.hasCultivation) {
-          if(player.hasBuff(CULTIVATION_HEAL_SPELL_ID, event.timestamp, 0, 0) === true) {
+          if(player.hasBuff(SPELLS.CULTIVATION.id, event.timestamp, 0, 0) === true) {
             this.cultivation++;
           }
         }
@@ -100,8 +93,7 @@ class Flourish extends Module {
       .map(player => this.owner.combatants.players[player])
       .forEach((player) => {
         if(this.hasCenarionWard) {
-          if(player.hasBuff(CENARION_WARD_HEAL_SPELL_ID, event.timestamp, 0, 0) === true) {
-            debug && console.log("object %o",player);
+          if(player.hasBuff(SPELLS.CENARION_WARD.id, event.timestamp, 0, 0) === true) {
             this.cenarionWard++;
           }
         }
@@ -111,7 +103,7 @@ class Flourish extends Module {
     Object.keys(this.owner.combatants.players)
       .map(player => this.owner.combatants.players[player])
       .forEach((player) => {
-        if(player.hasBuff(LIFEBLOOM_HOT_HEAL_SPELL_ID, event.timestamp, 0, 0) === true) {
+        if(player.hasBuff(SPELLS.LIFEBLOOM_HOT_HEAL.id, event.timestamp, 0, 0) === true) {
             this.lifebloom++;
         }
     });
