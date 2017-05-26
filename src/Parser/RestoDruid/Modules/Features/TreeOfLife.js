@@ -1,5 +1,6 @@
 import Module from 'Parser/Core/Module';
-import { TREE_OF_LIFE_CAST_ID, REJUVENATION_GERMINATION_HEAL_SPELL_ID, REJUVENATION_HEAL_SPELL_ID, WILD_GROWTH_HEAL_SPELL_ID, ABILITIES_AFFECTED_BY_HEALING_INCREASES} from '../../Constants';
+import SPELLS from 'common/SPELLS';
+import {ABILITIES_AFFECTED_BY_HEALING_INCREASES} from '../../Constants';
 
 const debug = false;
 const WG_TARGETS = 6;
@@ -40,30 +41,30 @@ class TreeOfLife extends Module {
     }
 
     // Get total healing from rejuv + germ (if specced).
-    if (REJUVENATION_HEAL_SPELL_ID === spellId) {
+    if (SPELLS.REJUVENATION.id === spellId) {
       this.totalHealingFromRejuvenationEncounter += event.amount;
-    } else if(this.hasGermination && REJUVENATION_GERMINATION_HEAL_SPELL_ID === spellId) {
+    } else if(this.hasGermination && SPELLS.REJUVENATION_GERMINATION.id === spellId) {
       this.totalHealingFromRejuvenationEncounter += event.amount;
     }
 
     // Get total healing from rejuv + germ (if specced) during ToL
-    if(this.owner.selectedCombatant.hasBuff(TREE_OF_LIFE_CAST_ID)){
+    if(this.owner.selectedCombatant.hasBuff(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id)){
       if(this.tolManualApplyTimestamp !== null && event.timestamp<=this.tolManualApplyTimestamp+30000) {
-        if (REJUVENATION_HEAL_SPELL_ID === spellId) {
+        if (SPELLS.REJUVENATION.id === spellId) {
           this.totalHealingFromRejuvenationDuringToL += event.amount;
-        } else if (this.hasGermination && REJUVENATION_GERMINATION_HEAL_SPELL_ID === spellId) {
+        } else if (this.hasGermination && SPELLS.REJUVENATION_GERMINATION.id === spellId) {
           this.totalHealingFromRejuvenationDuringToL += event.amount;
-        } else if (WILD_GROWTH_HEAL_SPELL_ID === spellId) {
+        } else if (SPELLS.WILD_GROWTH.id === spellId) {
           this.totalHealingFromWildgrowthsDuringToL += event.amount;
         }
         // Get total healing during ToL
         this.totalHealingDuringToL += event.amount;
       } else {
-        if (REJUVENATION_HEAL_SPELL_ID === spellId) {
+        if (SPELLS.REJUVENATION.id === spellId) {
           this.totalHealingFromRejuvenationDuringToLHelmet += event.amount;
-        } else if (this.hasGermination && REJUVENATION_GERMINATION_HEAL_SPELL_ID === spellId) {
+        } else if (this.hasGermination && SPELLS.REJUVENATION_GERMINATION.id === spellId) {
           this.totalHealingFromRejuvenationDuringToLHelmet += event.amount;
-        } else if (WILD_GROWTH_HEAL_SPELL_ID === spellId) {
+        } else if (SPELLS.WILD_GROWTH.id === spellId) {
           this.totalHealingFromWildgrowthsDuringToLHelmet += event.amount;
         }
         // Get total healing during ToL
@@ -74,21 +75,21 @@ class TreeOfLife extends Module {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (REJUVENATION_HEAL_SPELL_ID === spellId) {
+    if (SPELLS.REJUVENATION.id === spellId) {
       this.totalRejuvenationsEncounter++;
     }
-    if(this.owner.selectedCombatant.hasBuff(TREE_OF_LIFE_CAST_ID)){
+    if(this.owner.selectedCombatant.hasBuff(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id)){
       if(this.tolManualApplyTimestamp !== null && event.timestamp<=this.tolManualApplyTimestamp+30000) {
-        if (REJUVENATION_HEAL_SPELL_ID === spellId) {
+        if (SPELLS.REJUVENATION.id === spellId) {
           this.totalRejuvenationsDuringToL++;
         }
       } else {
-        if (REJUVENATION_HEAL_SPELL_ID === spellId) {
+        if (SPELLS.REJUVENATION.id === spellId) {
           this.totalRejuvenationsDuringToLHelmet++;
         }
       }
     }
-    if(TREE_OF_LIFE_CAST_ID === spellId) {
+    if(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id === spellId) {
       this.tolManualApplyTimestamp = event.timestamp;
       this.tolCasts++;
     }
@@ -128,7 +129,7 @@ class TreeOfLife extends Module {
 
     // Total throughput from using Tree of Life
     this.throughput = rejuvenationIncreasedEffect + tolIncreasedHealingDone + rejuvenationMana + wildGrowthIncreasedEffect;
-    debug && console.log("uptime: " + ((this.owner.selectedCombatant.getBuffUptime(TREE_OF_LIFE_CAST_ID)/this.owner.fightDuration)*100).toFixed(2)+"%");
+    debug && console.log("uptime: " + ((this.owner.selectedCombatant.getBuffUptime(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id)/this.owner.fightDuration)*100).toFixed(2)+"%");
     debug && console.log("throughput: " + (this.throughput*100).toFixed(2)+"%");
 
     // Chameleon song
@@ -141,7 +142,7 @@ class TreeOfLife extends Module {
     let wildGrowthIncreasedEffectHelmet = (this.totalHealingFromWildgrowthsDuringToLHelmet/HEALING_INCREASE - this.totalHealingFromWildgrowthsDuringToLHelmet/(HEALING_INCREASE * WILD_GROWTH_HEALING_INCREASE)) / this.totalHealingEncounter;
     debug && console.log("wildGrowthIncreasedEffectHelmet: " + (wildGrowthIncreasedEffectHelmet*100).toFixed(2)+"%");
     this.throughputHelmet = rejuvenationIncreasedEffectHelmet + tolIncreasedHealingDoneHelmet + rejuvenationManaHelmet + wildGrowthIncreasedEffectHelmet;
-    debug && console.log("uptimeHelmet: " + (((this.owner.selectedCombatant.getBuffUptime(TREE_OF_LIFE_CAST_ID)-(this.tolCasts*30000))/this.owner.fightDuration)*100).toFixed(2)+"%");
+    debug && console.log("uptimeHelmet: " + (((this.owner.selectedCombatant.getBuffUptime(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id)-(this.tolCasts*30000))/this.owner.fightDuration)*100).toFixed(2)+"%");
     debug && console.log("throughputHelmet: " + (this.throughputHelmet*100).toFixed(2)+"%");
 
   }

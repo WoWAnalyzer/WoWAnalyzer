@@ -1,5 +1,5 @@
 import Module from 'Parser/Core/Module';
-import { CLEARCASTING_SPELL_ID, REGROWTH_HEAL_SPELL_ID} from '../../Constants';
+import SPELLS from 'common/SPELLS';
 
 const CLEARCASTING_DURATION = 15000;
 const debug = false;
@@ -13,7 +13,7 @@ class Clearcasting extends Module {
   lastRegrowthTimestamp = 0;
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
-    if (CLEARCASTING_SPELL_ID !== spellId) {
+    if (SPELLS.CLEARCASTING_BUFF.id !== spellId) {
       return;
     }
     // Get the applied timestamp
@@ -23,7 +23,7 @@ class Clearcasting extends Module {
   }
   on_byPlayer_refreshbuff(event) {
     const spellId = event.ability.guid;
-    if (CLEARCASTING_SPELL_ID !== spellId) {
+    if (SPELLS.CLEARCASTING_BUFF.id !== spellId) {
       return;
     }
     // Get the applied timestamp
@@ -34,7 +34,7 @@ class Clearcasting extends Module {
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
 
-    if (REGROWTH_HEAL_SPELL_ID !== spellId) {
+    if (SPELLS.REGROWTH.id !== spellId) {
       return;
     }
     if(event.tick === true) {

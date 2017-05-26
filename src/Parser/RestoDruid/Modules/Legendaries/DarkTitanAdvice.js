@@ -1,5 +1,5 @@
 import Module from 'Parser/Core/Module';
-import { LIFEBLOOM_BLOOM_HEAL_SPELL_ID, LIFEBLOOM_HOT_HEAL_SPELL_ID} from '../../Constants';
+import SPELLS from 'common/SPELLS';
 
 export const DARK_TITAN_ADVICE_ITEM_ID = 137078;
 const DARK_TITAN_FINAL_HEALING_INCREASE = 3;
@@ -11,7 +11,7 @@ class DarkTitanAdvice extends Module {
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
 
-    if (spellId === LIFEBLOOM_BLOOM_HEAL_SPELL_ID) {
+    if (spellId === SPELLS.LIFEBLOOM_BLOOM_HEAL.id) {
       // Add 100% of the bloom if it came from the random 3% procc
       // Let's give it 32 ms tolerence for kicks.
       if(this.lastRealBloomTimestamp !== null && (event.timestamp - this.lastRealBloomTimestamp) < 32) {
@@ -29,7 +29,7 @@ class DarkTitanAdvice extends Module {
   on_byPlayer_refreshbuff(event) {
     const spellId = event.ability.guid;
 
-    if (spellId === LIFEBLOOM_HOT_HEAL_SPELL_ID) {
+    if (spellId === SPELLS.LIFEBLOOM_HOT_HEAL.id) {
       this.lastRealBloomTimestamp = event.timestamp;
     }
   }
@@ -37,7 +37,7 @@ class DarkTitanAdvice extends Module {
   on_byPlayer_removebuff(event) {
     const spellId = event.ability.guid;
 
-    if (spellId === LIFEBLOOM_HOT_HEAL_SPELL_ID) {
+    if (spellId === SPELLS.LIFEBLOOM_HOT_HEAL.id) {
       this.lastRealBloomTimestamp = event.timestamp;
     }
   }

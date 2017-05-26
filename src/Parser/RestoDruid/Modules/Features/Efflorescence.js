@@ -1,5 +1,5 @@
 import Module from 'Parser/Core/Module';
-import { EFFLORESCENCE_HEAL_SPELL_ID, EFFLORESCENCE_CAST_SPELL_ID} from '../../Constants';
+import SPELLS from 'common/SPELLS';
 
 const debug = false;
 
@@ -10,7 +10,7 @@ class Efflorescence extends Module {
   firstEffloTickTimestamp = null;
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (EFFLORESCENCE_CAST_SPELL_ID !== spellId) {
+    if (SPELLS.EFFLORESCENCE_CAST.id !== spellId) {
       return;
     }
     debug && console.log("Enter efflo #: " + this.counter);
@@ -41,7 +41,7 @@ class Efflorescence extends Module {
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
 
-    if (EFFLORESCENCE_HEAL_SPELL_ID !== spellId) {
+    if (SPELLS.EFFLORESCENCE_HEAL.id !== spellId) {
         return;
     }
     if(this.firstEffloTickTimestamp === null) {

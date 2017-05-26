@@ -1,5 +1,5 @@
 import Module from 'Parser/Core/Module';
-import { YSERAS_GIFT_HEAL_SPELL_ID, YSERAS_GIFT2_HEAL_SPELL_ID } from '../../Constants';
+import SPELLS from 'common/SPELLS';
 
 export const EKOWRAITH_ITEM_ID = 137015;
 const GUARDIAN_DAMAGE_REDUCTION = 0.06;
@@ -17,7 +17,7 @@ class Ekowraith extends Module {
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
 
-    if (spellId === YSERAS_GIFT_HEAL_SPELL_ID || spellId === YSERAS_GIFT2_HEAL_SPELL_ID) {
+    if (spellId === SPELLS.YSERAS_GIFT_1.id || spellId === SPELLS.YSERAS_GIFT_2.id) {
       this.healing += (event.amount - (event.amount / EKOWRAITH_INCREASED_EFFECT));
       return;
     }

@@ -36,7 +36,21 @@ export default {
     name: 'Power of the Archdruid',
     icon: 'spell_druid_rampantgrowth',
   },
-
+  NATURES_ESSENCE_TRAIT: {
+    id:189787,
+    name:'Nature\'s Essence',
+    icon: 'ability_druid_flourish'
+  },
+  DREAMWALKER_TRAIT: {
+    id:189849,
+    name:'Dreamwalker',
+    icon: 'ability_druid_healinginstincts'
+  },
+  INFUSION_OF_NATURE_TRAIT: {
+    id:189757,
+    name:'Infusion of Nature',
+    icon: 'ability_druid_flourish'
+  },
   // Monk:
   // Mistweaver Monk
   DANCING_MISTS: {

@@ -1,6 +1,5 @@
 import Module from 'Parser/Core/Module';
-import { EFFLORESCENCE_HEAL_SPELL_ID, SWIFTMEND_HEAL_SPELL_ID, BLOSSOMING_EFFLORESCENCE_ID} from '../../Constants';
-import SPELLS_TALENTS from 'common/SPELLS_TALENTS';
+import SPELLS from 'common/SPELLS';
 
 
 const BLOSSOMING_EFFLORESCENCE_HEAL_INCREASE = 2;
@@ -14,7 +13,7 @@ class T20 extends Module {
   swiftmendCooldown = 30;
 
   on_initialized() {
-    if(this.owner.selectedCombatant.lv15Talent === SPELLS_TALENTS.PROSPERITY_TALENT.id) {
+    if(this.owner.selectedCombatant.lv15Talent === SPELLS.PROSPERITY_TALENT.id) {
      this.swiftmendCooldown = 27;
     }
   }
@@ -22,12 +21,12 @@ class T20 extends Module {
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
 
-    if (spellId === EFFLORESCENCE_HEAL_SPELL_ID) {
-      if(this.owner.selectedCombatant.hasBuff(BLOSSOMING_EFFLORESCENCE_ID, event.timestamp, 0, 0)) {
+    if (spellId === SPELLS.EFFLORESCENCE_HEAL.id) {
+      if(this.owner.selectedCombatant.hasBuff(SPELLS.BLOSSOMING_EFFLORESCENCE.id, event.timestamp, 0, 0)) {
         let baseHeal = (event.amount + event.overheal||0)/BLOSSOMING_EFFLORESCENCE_HEAL_INCREASE;
         this.healing += Math.max(0, event.amount - baseHeal)/BLOSSOMING_EFFLORESCENCE_HEAL_INCREASE;
       }
-    } else if(spellId === SWIFTMEND_HEAL_SPELL_ID) {
+    } else if(spellId === SPELLS.SWIFTMEND.id) {
       let hpPercentage = (event.hitPoints - event.amount)/event.maxHitPoints;
       let cooldownReduction = (T20P2_MAX_SWIFTMEND_REDUCTION - (hpPercentage * T20P2_MAX_SWIFTMEND_REDUCTION));
       this.swiftmendReduced += this.swiftmendCooldown * cooldownReduction;
@@ -36,7 +35,7 @@ class T20 extends Module {
   }
 
   on_finished() {
-    debug && console.log("4P Uptime: " + ((this.owner.selectedCombatant.getBuffUptime(BLOSSOMING_EFFLORESCENCE_ID)/this.owner.fightDuration)*100).toFixed(2)+"%");
+    debug && console.log("4P Uptime: " + ((this.owner.selectedCombatant.getBuffUptime(SPELLS.BLOSSOMING_EFFLORESCENCE.id)/this.owner.fightDuration)*100).toFixed(2)+"%");
     debug && console.log("4P Healing %: " + ((this.healing/this.owner.totalHealing)*100).toFixed(2)+ "%");
     debug && console.log("4P Healing: " + this.healing);
     debug && console.log("Total Healing: " + this.owner.totalHealing);

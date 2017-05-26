@@ -1,5 +1,5 @@
 import Module from 'Parser/Core/Module';
-import { WILD_GROWTH_HEAL_SPELL_ID, REJUVENATION_HEAL_SPELL_ID, REJUVENATION_GERMINATION_HEAL_SPELL_ID, TREE_OF_LIFE_CAST_ID } from '../../Constants';
+import SPELLS from 'common/SPELLS';
 
 export const TEARSTONE_ITEM_ID = 137042;
 
@@ -11,9 +11,9 @@ class Tearstone extends Module {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
-    if (WILD_GROWTH_HEAL_SPELL_ID === spellId) {
+    if (SPELLS.WILD_GROWTH.id === spellId) {
       this.wildgrowthTimestamp = event.timestamp;
-      if (this.owner.selectedCombatant.hasBuff(TREE_OF_LIFE_CAST_ID)) {
+      if (this.owner.selectedCombatant.hasBuff(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id)) {
         this.wildGrowths += 8;
       } else {
         this.wildGrowths += 6;
@@ -24,7 +24,7 @@ class Tearstone extends Module {
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
 
-    if ((REJUVENATION_HEAL_SPELL_ID === spellId || REJUVENATION_GERMINATION_HEAL_SPELL_ID === spellId) && (event.timestamp - this.wildgrowthTimestamp) < 200) {
+    if ((SPELLS.REJUVENATION.id === spellId || SPELLS.REJUVENATION_GERMINATION.id === spellId) && (event.timestamp - this.wildgrowthTimestamp) < 200) {
       this.rejuvs++;
     }
   }
