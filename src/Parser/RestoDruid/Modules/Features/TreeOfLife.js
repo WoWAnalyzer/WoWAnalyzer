@@ -8,6 +8,7 @@ const REJUVENATION_REDUCED_MANA = 0.3;
 const HEALING_INCREASE = 1.15;
 const REJUV_HEALING_INCREASE = 1.5;
 const WILD_GROWTH_HEALING_INCREASE = (WG_TARGETS+2) / WG_TARGETS;
+import SPELLS_TALENTS from 'common/SPELLS_TALENTS';
 
 class TreeOfLife extends Module {
   hasGermination = false;
@@ -19,10 +20,18 @@ class TreeOfLife extends Module {
   totalRejuvenationsDuringToL = 0;
   totalHealingFromWildgrowthsDuringToL = 0;
   throughput = 0;
+  tolManualApplyTimestamp = null;
+  tolCasts = 0;
+
+  // Chameleon song
+  totalHealingDuringToLHelmet = 0;
+  totalHealingFromRejuvenationDuringToLHelmet = 0;
+  totalRejuvenationsDuringToLHelmet = 0;
+  totalHealingFromWildgrowthsDuringToLHelmet = 0;
+  throughputHelmet = 0;
 
   on_initialized() {
-    //Germination TODO: Refactor id
-    this.hasGermination = this.owner.selectedCombatant.lv90Talent === 155675;
+    this.hasGermination = this.owner.selectedCombatant.lv90Talent === SPELLS_TALENTS.GERMINATION_TALENT.id;
   }
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
@@ -39,15 +48,27 @@ class TreeOfLife extends Module {
 
     // Get total healing from rejuv + germ (if specced) during ToL
     if(this.owner.selectedCombatant.hasBuff(TREE_OF_LIFE_CAST_ID)){
-      if (REJUVENATION_HEAL_SPELL_ID === spellId) {
-        this.totalHealingFromRejuvenationDuringToL += event.amount;
-      } else if(this.hasGermination && REJUVENATION_GERMINATION_HEAL_SPELL_ID === spellId) {
-        this.totalHealingFromRejuvenationDuringToL += event.amount;
-      } else if(WILD_GROWTH_HEAL_SPELL_ID === spellId) {
-        this.totalHealingFromWildgrowthsDuringToL += event.amount;
+      if(this.tolManualApplyTimestamp !== null && event.timestamp<=this.tolManualApplyTimestamp+30000) {
+        if (REJUVENATION_HEAL_SPELL_ID === spellId) {
+          this.totalHealingFromRejuvenationDuringToL += event.amount;
+        } else if (this.hasGermination && REJUVENATION_GERMINATION_HEAL_SPELL_ID === spellId) {
+          this.totalHealingFromRejuvenationDuringToL += event.amount;
+        } else if (WILD_GROWTH_HEAL_SPELL_ID === spellId) {
+          this.totalHealingFromWildgrowthsDuringToL += event.amount;
+        }
+        // Get total healing during ToL
+        this.totalHealingDuringToL += event.amount;
+      } else {
+        if (REJUVENATION_HEAL_SPELL_ID === spellId) {
+          this.totalHealingFromRejuvenationDuringToLHelmet += event.amount;
+        } else if (this.hasGermination && REJUVENATION_GERMINATION_HEAL_SPELL_ID === spellId) {
+          this.totalHealingFromRejuvenationDuringToLHelmet += event.amount;
+        } else if (WILD_GROWTH_HEAL_SPELL_ID === spellId) {
+          this.totalHealingFromWildgrowthsDuringToLHelmet += event.amount;
+        }
+        // Get total healing during ToL
+        this.totalHealingDuringToLHelmet += event.amount;
       }
-      // Get total healing during ToL
-      this.totalHealingDuringToL += event.amount;
     }
   }
 
@@ -57,9 +78,19 @@ class TreeOfLife extends Module {
       this.totalRejuvenationsEncounter++;
     }
     if(this.owner.selectedCombatant.hasBuff(TREE_OF_LIFE_CAST_ID)){
-      if (REJUVENATION_HEAL_SPELL_ID === spellId) {
-        this.totalRejuvenationsDuringToL++;
+      if(this.tolManualApplyTimestamp !== null && event.timestamp<=this.tolManualApplyTimestamp+30000) {
+        if (REJUVENATION_HEAL_SPELL_ID === spellId) {
+          this.totalRejuvenationsDuringToL++;
+        }
+      } else {
+        if (REJUVENATION_HEAL_SPELL_ID === spellId) {
+          this.totalRejuvenationsDuringToLHelmet++;
+        }
       }
+    }
+    if(TREE_OF_LIFE_CAST_ID === spellId) {
+      this.tolManualApplyTimestamp = event.timestamp;
+      this.tolCasts++;
     }
   }
 
@@ -77,27 +108,42 @@ class TreeOfLife extends Module {
 
     // Get 1 rejuv throughput worth
     let oneRejuvenationThroughput = (((this.totalHealingFromRejuvenationEncounter / this.totalHealingEncounter))/this.totalRejuvenationsEncounter);
-    debug && console.log("1 Rejuvenation throughput: " + oneRejuvenationThroughput);
+    debug && console.log("1 Rejuvenation throughput: " + (oneRejuvenationThroughput*100).toFixed(2)+"%");
 
     // 50% of total healing from rejuv+germ during ToL and divide it with the encounter total healing.
     let rejuvenationIncreasedEffect = (this.totalHealingFromRejuvenationDuringToL/HEALING_INCREASE - this.totalHealingFromRejuvenationDuringToL / (HEALING_INCREASE * REJUV_HEALING_INCREASE))/ this.totalHealingEncounter;
-    debug && console.log("rejuvenationIncreasedEffect: " + rejuvenationIncreasedEffect);
+    debug && console.log("rejuvenationIncreasedEffect: " + (rejuvenationIncreasedEffect*100).toFixed(2)+"%");
 
     // 15% of total healing during ToL and divide it with the encounter total healing
     let tolIncreasedHealingDone = (this.totalHealingDuringToL - this.totalHealingDuringToL/HEALING_INCREASE)/this.totalHealingEncounter
-    debug && console.log("tolIncreasedHealingDone: " + tolIncreasedHealingDone);
+    debug && console.log("tolIncreasedHealingDone: " + (tolIncreasedHealingDone*100).toFixed(2)+"%");
 
     // The amount of free rejuvs gained by the reduced mana cost, calculated into throughput by the "1 Rejuv throughput worth"
     let rejuvenationMana = (((this.totalRejuvenationsDuringToL * REJUV_BASE_MANA) * REJUVENATION_REDUCED_MANA) / REJUV_BASE_MANA) * oneRejuvenationThroughput;
-    debug && console.log("rejuvenationMana: " + rejuvenationMana);
+    debug && console.log("rejuvenationMana: " + (rejuvenationMana*100).toFixed(2)+"%");
 
     // 33% of total healing from WG during ToL and divide it with the encounter total healing.
     let wildGrowthIncreasedEffect = (this.totalHealingFromWildgrowthsDuringToL/HEALING_INCREASE - this.totalHealingFromWildgrowthsDuringToL/(HEALING_INCREASE * WILD_GROWTH_HEALING_INCREASE)) / this.totalHealingEncounter;
-    debug && console.log("wildGrowthIncreasedEffect: " + wildGrowthIncreasedEffect);
+    debug && console.log("wildGrowthIncreasedEffect: " + (wildGrowthIncreasedEffect*100).toFixed(2)+"%");
 
     // Total throughput from using Tree of Life
     this.throughput = rejuvenationIncreasedEffect + tolIncreasedHealingDone + rejuvenationMana + wildGrowthIncreasedEffect;
-    debug && console.log("throughput: " + this.throughput);
+    debug && console.log("uptime: " + ((this.owner.selectedCombatant.getBuffUptime(TREE_OF_LIFE_CAST_ID)/this.owner.fightDuration)*100).toFixed(2)+"%");
+    debug && console.log("throughput: " + (this.throughput*100).toFixed(2)+"%");
+
+    // Chameleon song
+    let rejuvenationIncreasedEffectHelmet = (this.totalHealingFromRejuvenationDuringToLHelmet/HEALING_INCREASE - this.totalHealingFromRejuvenationDuringToLHelmet / (HEALING_INCREASE * REJUV_HEALING_INCREASE))/ this.totalHealingEncounter;
+    debug && console.log("rejuvenationIncreasedEffectHelmet: " + (rejuvenationIncreasedEffectHelmet*100).toFixed(2)+"%");
+    let tolIncreasedHealingDoneHelmet = (this.totalHealingDuringToLHelmet - this.totalHealingDuringToLHelmet/HEALING_INCREASE)/this.totalHealingEncounter
+    debug && console.log("tolIncreasedHealingDone: " + (tolIncreasedHealingDoneHelmet*100).toFixed(2)+"%");
+    let rejuvenationManaHelmet = (((this.totalRejuvenationsDuringToLHelmet * REJUV_BASE_MANA) * REJUVENATION_REDUCED_MANA) / REJUV_BASE_MANA) * oneRejuvenationThroughput;
+    debug && console.log("rejuvenationManaHelmet: " + (rejuvenationManaHelmet*100).toFixed(2)+"%");
+    let wildGrowthIncreasedEffectHelmet = (this.totalHealingFromWildgrowthsDuringToLHelmet/HEALING_INCREASE - this.totalHealingFromWildgrowthsDuringToLHelmet/(HEALING_INCREASE * WILD_GROWTH_HEALING_INCREASE)) / this.totalHealingEncounter;
+    debug && console.log("wildGrowthIncreasedEffectHelmet: " + (wildGrowthIncreasedEffectHelmet*100).toFixed(2)+"%");
+    this.throughputHelmet = rejuvenationIncreasedEffectHelmet + tolIncreasedHealingDoneHelmet + rejuvenationManaHelmet + wildGrowthIncreasedEffectHelmet;
+    debug && console.log("uptimeHelmet: " + (((this.owner.selectedCombatant.getBuffUptime(TREE_OF_LIFE_CAST_ID)-(this.tolCasts*30000))/this.owner.fightDuration)*100).toFixed(2)+"%");
+    debug && console.log("throughputHelmet: " + (this.throughputHelmet*100).toFixed(2)+"%");
+
   }
 }
 

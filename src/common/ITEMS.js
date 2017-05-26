@@ -122,6 +122,12 @@ const ITEMS = {
     icon: 'inv_misc_pearlring2',
     quality: QUALITIES.LEGENDARY,
   },
+  CHAMELEON_SONG: {
+    id: 151783,
+    name: 'Chameleon Song',
+    icon: 'inv_helmet_153',
+    quality: QUALITIES.LEGENDARY,
+  },
 };
 
 export default indexById(ITEMS);

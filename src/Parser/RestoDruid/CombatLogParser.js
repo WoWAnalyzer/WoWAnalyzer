@@ -9,6 +9,7 @@ import DarkmoonDeckPromises from 'Parser/Core/Modules/Items/DarkmoonDeckPromises
 import AmalgamsSeventhSpine from 'Parser/Core/Modules/Items/AmalgamsSeventhSpine';
 
 import SPELLS from 'common/SPELLS';
+import SPELLS_TALENTS from 'common/SPELLS_TALENTS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import Icon from 'common/Icon';
@@ -32,6 +33,7 @@ import Sephuz from './Modules/Legendaries/Sephuz';
 import DarkTitanAdvice from './Modules/Legendaries/DarkTitanAdvice';
 import EssenceOfInfusion from './Modules/Legendaries/EssenceOfInfusion';
 import Tearstone from './Modules/Legendaries/Tearstone';
+import T20 from './Modules/Legendaries/T20';
 
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownTracker from './Modules/Features/CooldownTracker';
@@ -48,7 +50,8 @@ import {
   TREE_OF_LIFE_CAST_ID,
   REJUVENATION_HEAL_SPELL_ID,
   WILD_GROWTH_HEAL_SPELL_ID,
-  FLOURISH_TALENT_SPELL_ID
+  FLOURISH_TALENT_SPELL_ID,
+  BLOSSOMING_EFFLORESCENCE_ID
 } from './Constants';
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
 
@@ -103,11 +106,11 @@ class CombatLogParser extends MainCombatLogParser {
     darkTitanAdvice: DarkTitanAdvice,
     essenceOfInfusion: EssenceOfInfusion,
     tearstone: Tearstone,
+    t20: T20,
     // TODO:
     // Edraith
     // Aman'Thul's Wisdom
     // SoulOfTheArchDruid
-    // Chameleon Song
 
     // Shared:
     amalgamsSeventhSpine: AmalgamsSeventhSpine,
@@ -120,13 +123,25 @@ class CombatLogParser extends MainCombatLogParser {
     // Tree of Life
     const hasFlourish = this.selectedCombatant.lv100Talent === FLOURISH_TALENT_SPELL_ID;
     const hasTreeOfLife = this.selectedCombatant.lv75Talent === TREE_OF_LIFE_CAST_ID;
-    const wildGrowthTargets = 6; //TODO: We need to dynamically see if the player was affeced by ToL when flourish was cast hasTreeOfLife ? 8 : 6;
+    const wildGrowthTargets = 6;
     const oneRejuvenationThroughput = (((this.modules.treeOfLife.totalHealingFromRejuvenationEncounter / this.totalHealing)) / this.modules.treeOfLife.totalRejuvenationsEncounter);
     const rejuvenationIncreasedEffect = (this.modules.treeOfLife.totalHealingFromRejuvenationDuringToL / 1.15 - this.modules.treeOfLife.totalHealingFromRejuvenationDuringToL / (1.15 * 1.5)) / this.totalHealing;
     const tolIncreasedHealingDone = (this.modules.treeOfLife.totalHealingDuringToL - this.modules.treeOfLife.totalHealingDuringToL / 1.15) / this.totalHealing;
     const rejuvenationMana = (((this.modules.treeOfLife.totalRejuvenationsDuringToL * 10) * 0.3) / 10) * oneRejuvenationThroughput;
     const wildGrowthIncreasedEffect = (this.modules.treeOfLife.totalHealingFromWildgrowthsDuringToL / 1.15 - this.modules.treeOfLife.totalHealingFromWildgrowthsDuringToL / (1.15 * (8 / 6))) / this.totalHealing;
     const treeOfLifeThroughput = rejuvenationIncreasedEffect + tolIncreasedHealingDone + rejuvenationMana + wildGrowthIncreasedEffect;
+    const treeOfLifeUptime = this.selectedCombatant.getBuffUptime(TREE_OF_LIFE_CAST_ID)/this.fightDuration;
+
+    // Chameleon Song
+    const rejuvenationIncreasedEffectHelmet = (this.modules.treeOfLife.totalHealingFromRejuvenationDuringToLHelmet / 1.15 - this.modules.treeOfLife.totalHealingFromRejuvenationDuringToLHelmet / (1.15 * 1.5)) / this.totalHealing;
+    const tolIncreasedHealingDoneHelmet = (this.modules.treeOfLife.totalHealingDuringToLHelmet - this.modules.treeOfLife.totalHealingDuringToLHelmet / 1.15) / this.totalHealing;
+    const rejuvenationManaHelmet = (((this.modules.treeOfLife.totalRejuvenationsDuringToLHelmet * 10) * 0.3) / 10) * oneRejuvenationThroughput;
+    const wildGrowthIncreasedEffectHelmet = (this.modules.treeOfLife.totalHealingFromWildgrowthsDuringToLHelmet / 1.15 - this.modules.treeOfLife.totalHealingFromWildgrowthsDuringToLHelmet / (1.15 * (8 / 6))) / this.totalHealing;
+    const treeOfLifeThroughputHelmet = rejuvenationIncreasedEffectHelmet + tolIncreasedHealingDoneHelmet + rejuvenationManaHelmet + wildGrowthIncreasedEffectHelmet;
+    const treeOfLifeUptimeHelmet = (this.selectedCombatant.getBuffUptime(TREE_OF_LIFE_CAST_ID)-(this.modules.treeOfLife.tolCasts*30000))/this.fightDuration;
+
+    const has4PT20 = this.selectedCombatant.hasBuff(SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id);
+    const has2PT20 = this.selectedCombatant.hasBuff(SPELLS.RESTO_DRUID_T20_4SET_BONUS_BUFF.id)
 
     const abilityTracker = this.modules.abilityTracker;
     const getAbility = spellId => abilityTracker.getAbility(spellId);
@@ -135,7 +150,7 @@ class CombatLogParser extends MainCombatLogParser {
     const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
 
     const potaHealing = (this.modules.powerOfTheArchdruid.rejuvenations * oneRejuvenationThroughput) + this.modules.powerOfTheArchdruid.healing / this.totalHealing;
-    const hasMoC = this.selectedCombatant.lv100Talent === 155577; // TODO: refactor this
+    const hasMoC = this.selectedCombatant.lv100Talent === SPELLS_TALENTS.MOMENT_OF_CLARITY_TALENT.id;
     const hasVelens = this.selectedCombatant.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT.id);
     const velensHealingPercentage = this.modules.velens.healing / this.totalHealing;
     const prydazHealingPercentage = this.modules.prydaz.healing / this.totalHealing;
@@ -156,20 +171,20 @@ class CombatLogParser extends MainCombatLogParser {
     const efflorescenceUptime = this.modules.efflorescence.totalUptime / this.fightDuration;
     const unusedClearcastings = 1 - (this.modules.clearcasting.used / this.modules.clearcasting.total);
 
-    // if (nonHealingTimePercentage > 0.3) {
-    //   results.addIssue({
-    //     issue: `Your non healing time can be improved. Try to cast heals more regularly (${Math.round(nonHealingTimePercentage * 100)}% non healing time).`,
-    //     icon: 'petbattle_health-down',
-    //     importance: getIssueImportance(nonHealingTimePercentage, 0.4, 0.45, true),
-    //   });
-    // }
-    // if (deadTimePercentage > 0.2) {
-    //   results.addIssue({
-    //     issue: `Your dead GCD time can be improved. Try to Always Be Casting (ABC); when you're not healing try to contribute some damage (${Math.round(deadTimePercentage * 100)}% dead GCD time).`,
-    //     icon: 'spell_mage_altertime',
-    //     importance: getIssueImportance(deadTimePercentage, 0.35, 0.4, true),
-    //   });
-    // }
+    if (nonHealingTimePercentage > 0.3) {
+      results.addIssue({
+        issue: `Your non healing time can be improved. Try to cast heals more regularly (${Math.round(nonHealingTimePercentage * 100)}% non healing time).`,
+        icon: 'petbattle_health-down',
+        importance: getIssueImportance(nonHealingTimePercentage, 0.4, 0.45, true),
+      });
+    }
+    if (deadTimePercentage > 0.2) {
+      results.addIssue({
+        issue: `Your dead GCD time can be improved. Try to Always Be Casting (ABC); when you're not healing try to contribute some damage (${Math.round(deadTimePercentage * 100)}% dead GCD time).`,
+        icon: 'spell_mage_altertime',
+        importance: getIssueImportance(deadTimePercentage, 0.35, 0.4, true),
+      });
+    }
     if (efflorescenceUptime < 0.85) {
       results.addIssue({
         issue: <span>Your <a href="http://www.wowhead.com/spell=81269" target="_blank">Efflorescence</a> uptime can be improved. ({formatPercentage(efflorescenceUptime)} % uptime)</span>,
@@ -215,7 +230,7 @@ class CombatLogParser extends MainCombatLogParser {
         importance: getIssueImportance((this.modules.innervate.manaSaved / this.modules.innervate.innervateCount), 180000, 130000),
       });
     }
-    // Innervata mana cappedc
+    // Innervata mana capped
     if (this.modules.innervate.secondsManaCapped > 0) {
       results.addIssue({
         issue: <span>You were capped on mana during <a href="http://www.wowhead.com/spell=29166" target="_blank">Innervate</a>. Why would you do that? (approx {this.modules.innervate.secondsManaCapped}s)</span>,
@@ -400,7 +415,19 @@ class CombatLogParser extends MainCombatLogParser {
         <StatisticBox
           icon={<SpellIcon id={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} />}
           value={`${formatPercentage(treeOfLifeThroughput)} %`}
-          label="Tree of Life throughput"
+          label={(
+            <dfn data-tip={`
+              <ul>
+                <li>${(rejuvenationIncreasedEffect*100).toFixed(2)}% from increased rejuvenation effect</li>
+                <li>${(rejuvenationMana*100).toFixed(2)}% from reduced rejuvenation cost</li>
+                <li>${(wildGrowthIncreasedEffect*100).toFixed(2)}% from increased wildgrowth effect</li>
+                <li>${(tolIncreasedHealingDone*100).toFixed(2)}% from overall increased healing effect</li>
+                <li>${(treeOfLifeUptime*100).toFixed(2)}% uptime</li>
+              </ul>
+            `}>
+              Tree of Life throughput
+            </dfn>
+          )}
         />
       ),
       !hasMoC && (
@@ -414,13 +441,13 @@ class CombatLogParser extends MainCombatLogParser {
           )}
         />
       ),
-      false && (
+      (
         <StatisticBox
           icon={<Icon icon="petbattle_health-down" alt="Non healing time" />}
           value={`${formatPercentage(nonHealingTimePercentage)} %`}
           label={(
             <dfn data-tip={`Non healing time is available casting time not used for a spell that helps you heal. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), DPSing, etc.<br /><br />You spent ${formatPercentage(deadTimePercentage)}% of your time casting nothing at all.`}>
-              Non healing time (experimental, under dev)
+              Non healing time
             </dfn>
           )}
         />
@@ -508,7 +535,6 @@ class CombatLogParser extends MainCombatLogParser {
           </dfn>
         ),
       },
-
       this.selectedCombatant.hasBack(ITEMS.DRAPE_OF_SHAME.id) && {
         id: ITEMS.DRAPE_OF_SHAME.id,
         icon: <ItemIcon id={ITEMS.DRAPE_OF_SHAME.id} />,
@@ -516,6 +542,24 @@ class CombatLogParser extends MainCombatLogParser {
         result: (
           <dfn data-tip="The actual effective healing contributed by the Drape of Shame equip effect.">
             {((drapeOfShameHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.drapeOfShame.healing / fightDuration * 1000)} HPS
+          </dfn>
+        ),
+      },
+      this.selectedCombatant.hasHead(ITEMS.CHAMELEON_SONG.id) && {
+        id: ITEMS.CHAMELEON_SONG.id,
+        icon: <ItemIcon id={ITEMS.CHAMELEON_SONG.id} />,
+        title: <ItemLink id={ITEMS.CHAMELEON_SONG.id} />,
+        result: (
+          <dfn data-tip={`
+              <ul>
+                <li>${(rejuvenationIncreasedEffectHelmet*100).toFixed(2)}% from increased rejuvenation effect</li>
+                <li>${(rejuvenationManaHelmet*100).toFixed(2)}% from reduced rejuvenation cost</li>
+                <li>${(wildGrowthIncreasedEffectHelmet*100).toFixed(2)}% from increased wildgrowth effect</li>
+                <li>${(tolIncreasedHealingDoneHelmet*100).toFixed(2)}% from overall increased healing effect</li>
+                <li>${(treeOfLifeUptimeHelmet*100).toFixed(2)}% uptime</li>
+              </ul>
+            `}>
+            {formatPercentage(treeOfLifeThroughputHelmet)} %
           </dfn>
         ),
       },
@@ -539,28 +583,27 @@ class CombatLogParser extends MainCombatLogParser {
           </dfn>
         )
       },
-
-      //TODO
-      //has4PT19 && (
-      // (
-      //   <li className="item clearfix" key={T19_4SET_BONUS_BUFF_ID}>
-      //     <article>
-      //       <figure>
-      // icon={<SpellIcon id={SPELLS.REJUVENATION.id} />}
-      //       </figure>
-      //       <div>
-      //         <header>
-      //           <a href="http://www.wowhead.com/spell=211170/item-druid-t19-restoration-4p-bonus" target="_blank">
-      //             T19 4 set bonus
-      //           </a>
-      //         </header>
-      //         <main>
-      //           50 bonus rejuvenation gained.
-      //         </main>
-      //       </div>
-      //     </article>
-      //   </li>
-      // ),
+      has4PT20 && {
+        id: `spell-${SPELLS.RESTO_DRUID_T20_4SET_BONUS_BUFF.id}`,
+        icon: <SpellIcon id={SPELLS.RESTO_DRUID_T20_4SET_BONUS_BUFF.id} />,
+        title: <SpellLink id={SPELLS.RESTO_DRUID_T20_4SET_BONUS_BUFF.id} />,
+        result: (
+          <span>
+            {((this.selectedCombatant.getBuffUptime(BLOSSOMING_EFFLORESCENCE_ID)/this.fightDuration)*100).toFixed(2)}% uptime.<br/>
+            {((this.modules.t20.healing/this.totalHealing)*100).toFixed(2)}% healing.
+          </span>
+        ),
+      },
+      has2PT20 && {
+        id: `spell-${SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id}`,
+        icon: <SpellIcon id={SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id} />,
+        title: <SpellLink id={SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id} />,
+        result: (
+          <span>
+            {this.modules.t20.swiftmendReduced.toFixed(1)}s reduced on swiftmend <br/>({(this.modules.t20.swiftmendReduced/this.modules.t20.swiftmends).toFixed(1)}s per swiftmend on average).
+          </span>
+        ),
+      },
     ];
 
     results.tabs = [
