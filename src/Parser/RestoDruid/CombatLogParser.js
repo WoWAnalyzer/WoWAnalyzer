@@ -171,20 +171,20 @@ class CombatLogParser extends MainCombatLogParser {
     const efflorescenceUptime = this.modules.efflorescence.totalUptime / this.fightDuration;
     const unusedClearcastings = 1 - (this.modules.clearcasting.used / this.modules.clearcasting.total);
 
-    // if (nonHealingTimePercentage > 0.3) {
-    //   results.addIssue({
-    //     issue: `Your non healing time can be improved. Try to cast heals more regularly (${Math.round(nonHealingTimePercentage * 100)}% non healing time).`,
-    //     icon: 'petbattle_health-down',
-    //     importance: getIssueImportance(nonHealingTimePercentage, 0.4, 0.45, true),
-    //   });
-    // }
-    // if (deadTimePercentage > 0.2) {
-    //   results.addIssue({
-    //     issue: `Your dead GCD time can be improved. Try to Always Be Casting (ABC); when you're not healing try to contribute some damage (${Math.round(deadTimePercentage * 100)}% dead GCD time).`,
-    //     icon: 'spell_mage_altertime',
-    //     importance: getIssueImportance(deadTimePercentage, 0.35, 0.4, true),
-    //   });
-    // }
+    if (nonHealingTimePercentage > 0.3) {
+      results.addIssue({
+        issue: `Your non healing time can be improved. Try to cast heals more regularly (${Math.round(nonHealingTimePercentage * 100)}% non healing time).`,
+        icon: 'petbattle_health-down',
+        importance: getIssueImportance(nonHealingTimePercentage, 0.4, 0.45, true),
+      });
+    }
+    if (deadTimePercentage > 0.2) {
+      results.addIssue({
+        issue: `Your dead GCD time can be improved. Try to Always Be Casting (ABC); when you're not healing try to contribute some damage (${Math.round(deadTimePercentage * 100)}% dead GCD time).`,
+        icon: 'spell_mage_altertime',
+        importance: getIssueImportance(deadTimePercentage, 0.35, 0.4, true),
+      });
+    }
     if (efflorescenceUptime < 0.85) {
       results.addIssue({
         issue: <span>Your <a href="http://www.wowhead.com/spell=81269" target="_blank">Efflorescence</a> uptime can be improved. ({formatPercentage(efflorescenceUptime)} % uptime)</span>,
@@ -441,13 +441,13 @@ class CombatLogParser extends MainCombatLogParser {
           )}
         />
       ),
-      false && (
+      (
         <StatisticBox
           icon={<Icon icon="petbattle_health-down" alt="Non healing time" />}
           value={`${formatPercentage(nonHealingTimePercentage)} %`}
           label={(
             <dfn data-tip={`Non healing time is available casting time not used for a spell that helps you heal. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), DPSing, etc.<br /><br />You spent ${formatPercentage(deadTimePercentage)}% of your time casting nothing at all.`}>
-              Non healing time (experimental, under dev)
+              Non healing time
             </dfn>
           )}
         />
