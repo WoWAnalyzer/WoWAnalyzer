@@ -111,7 +111,6 @@ class CombatLogParser extends MainCombatLogParser {
     // Edraith
     // Aman'Thul's Wisdom
     // SoulOfTheArchDruid
-    // Chameleon Song
 
     // Shared:
     amalgamsSeventhSpine: AmalgamsSeventhSpine,
@@ -131,6 +130,15 @@ class CombatLogParser extends MainCombatLogParser {
     const rejuvenationMana = (((this.modules.treeOfLife.totalRejuvenationsDuringToL * 10) * 0.3) / 10) * oneRejuvenationThroughput;
     const wildGrowthIncreasedEffect = (this.modules.treeOfLife.totalHealingFromWildgrowthsDuringToL / 1.15 - this.modules.treeOfLife.totalHealingFromWildgrowthsDuringToL / (1.15 * (8 / 6))) / this.totalHealing;
     const treeOfLifeThroughput = rejuvenationIncreasedEffect + tolIncreasedHealingDone + rejuvenationMana + wildGrowthIncreasedEffect;
+    const treeOfLifeUptime = this.selectedCombatant.getBuffUptime(TREE_OF_LIFE_CAST_ID)/this.fightDuration;
+
+    // Chameleon Song
+    const rejuvenationIncreasedEffectHelmet = (this.modules.treeOfLife.totalHealingFromRejuvenationDuringToLHelmet / 1.15 - this.modules.treeOfLife.totalHealingFromRejuvenationDuringToLHelmet / (1.15 * 1.5)) / this.totalHealing;
+    const tolIncreasedHealingDoneHelmet = (this.modules.treeOfLife.totalHealingDuringToLHelmet - this.modules.treeOfLife.totalHealingDuringToLHelmet / 1.15) / this.totalHealing;
+    const rejuvenationManaHelmet = (((this.modules.treeOfLife.totalRejuvenationsDuringToLHelmet * 10) * 0.3) / 10) * oneRejuvenationThroughput;
+    const wildGrowthIncreasedEffectHelmet = (this.modules.treeOfLife.totalHealingFromWildgrowthsDuringToLHelmet / 1.15 - this.modules.treeOfLife.totalHealingFromWildgrowthsDuringToLHelmet / (1.15 * (8 / 6))) / this.totalHealing;
+    const treeOfLifeThroughputHelmet = rejuvenationIncreasedEffectHelmet + tolIncreasedHealingDoneHelmet + rejuvenationManaHelmet + wildGrowthIncreasedEffectHelmet;
+    const treeOfLifeUptimeHelmet = (this.selectedCombatant.getBuffUptime(TREE_OF_LIFE_CAST_ID)-(this.modules.treeOfLife.tolCasts*30000))/this.fightDuration;
 
     const has4PT20 = this.selectedCombatant.hasBuff(SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id);
     const has2PT20 = this.selectedCombatant.hasBuff(SPELLS.RESTO_DRUID_T20_4SET_BONUS_BUFF.id)
@@ -407,7 +415,19 @@ class CombatLogParser extends MainCombatLogParser {
         <StatisticBox
           icon={<SpellIcon id={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} />}
           value={`${formatPercentage(treeOfLifeThroughput)} %`}
-          label="Tree of Life throughput"
+          label={(
+            <dfn data-tip={`
+              <ul>
+                <li>${(rejuvenationIncreasedEffect*100).toFixed(2)}% from increased rejuvenation effect</li>
+                <li>${(rejuvenationMana*100).toFixed(2)}% from reduced rejuvenation cost</li>
+                <li>${(wildGrowthIncreasedEffect*100).toFixed(2)}% from increased wildgrowth effect</li>
+                <li>${(tolIncreasedHealingDone*100).toFixed(2)}% from overall increased healing effect</li>
+                <li>${(treeOfLifeUptime*100).toFixed(2)}% uptime</li>
+              </ul>
+            `}>
+              Tree of Life throughput
+            </dfn>
+          )}
         />
       ),
       !hasMoC && (
@@ -515,7 +535,6 @@ class CombatLogParser extends MainCombatLogParser {
           </dfn>
         ),
       },
-
       this.selectedCombatant.hasBack(ITEMS.DRAPE_OF_SHAME.id) && {
         id: ITEMS.DRAPE_OF_SHAME.id,
         icon: <ItemIcon id={ITEMS.DRAPE_OF_SHAME.id} />,
@@ -523,6 +542,24 @@ class CombatLogParser extends MainCombatLogParser {
         result: (
           <dfn data-tip="The actual effective healing contributed by the Drape of Shame equip effect.">
             {((drapeOfShameHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.drapeOfShame.healing / fightDuration * 1000)} HPS
+          </dfn>
+        ),
+      },
+      this.selectedCombatant.hasHead(ITEMS.CHAMELEON_SONG.id) && {
+        id: ITEMS.CHAMELEON_SONG.id,
+        icon: <ItemIcon id={ITEMS.CHAMELEON_SONG.id} />,
+        title: <ItemLink id={ITEMS.CHAMELEON_SONG.id} />,
+        result: (
+          <dfn data-tip={`
+              <ul>
+                <li>${(rejuvenationIncreasedEffectHelmet*100).toFixed(2)}% from increased rejuvenation effect</li>
+                <li>${(rejuvenationManaHelmet*100).toFixed(2)}% from reduced rejuvenation cost</li>
+                <li>${(wildGrowthIncreasedEffectHelmet*100).toFixed(2)}% from increased wildgrowth effect</li>
+                <li>${(tolIncreasedHealingDoneHelmet*100).toFixed(2)}% from overall increased healing effect</li>
+                <li>${(treeOfLifeUptimeHelmet*100).toFixed(2)}% uptime</li>
+              </ul>
+            `}>
+            {formatPercentage(treeOfLifeThroughputHelmet)} %
           </dfn>
         ),
       },
