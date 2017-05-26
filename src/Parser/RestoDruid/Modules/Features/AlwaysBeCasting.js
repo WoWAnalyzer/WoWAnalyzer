@@ -51,9 +51,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   ];
   on_initialized(event) {
     super.on_initialized(arguments);
-
-    const combatant = this.owner.modules.combatants.selected;
-
   }
 
   recordCastTime(

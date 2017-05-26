@@ -546,7 +546,7 @@ export default {
   },
   URSOLS_VORTEX: {
     id: 102793,
-    name: 'Ursol\s Vortex',
+    name: 'Ursol\'s Vortex',
     icon: 'spell_druid_ursolsvortex',
   },
   RENEWAL: {
