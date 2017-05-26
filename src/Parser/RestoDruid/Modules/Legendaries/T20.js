@@ -25,7 +25,7 @@ class T20 extends Module {
     if (spellId === EFFLORESCENCE_HEAL_SPELL_ID) {
       if(this.owner.selectedCombatant.hasBuff(BLOSSOMING_EFFLORESCENCE_ID, event.timestamp, 0, 0)) {
         let baseHeal = (event.amount + event.overheal||0)/BLOSSOMING_EFFLORESCENCE_HEAL_INCREASE;
-        this.healing += Math.max(0, event.amount - baseHeal);
+        this.healing += Math.max(0, event.amount - baseHeal)/BLOSSOMING_EFFLORESCENCE_HEAL_INCREASE;
       }
     } else if(spellId === SWIFTMEND_HEAL_SPELL_ID) {
       let hpPercentage = (event.hitPoints - event.amount)/event.maxHitPoints;
@@ -37,7 +37,9 @@ class T20 extends Module {
 
   on_finished() {
     debug && console.log("4P Uptime: " + ((this.owner.selectedCombatant.getBuffUptime(BLOSSOMING_EFFLORESCENCE_ID)/this.owner.fightDuration)*100).toFixed(2)+"%");
-    debug && console.log("4P Healing: " + ((this.healing/this.owner.totalHealing)*100).toFixed(2)+ "%");
+    debug && console.log("4P Healing %: " + ((this.healing/this.owner.totalHealing)*100).toFixed(2)+ "%");
+    debug && console.log("4P Healing: " + this.healing);
+    debug && console.log("Total Healing: " + this.owner.totalHealing);
     debug && console.log("Swiftmends cast: " + this.swiftmends);
     debug && console.log("2P swiftmend reduction: " + this.swiftmendReduced.toFixed(1)+"s");
     debug && console.log("Avg reduction per swiftmend: " + (this.swiftmendReduced/this.swiftmends).toFixed(1)+"s");
