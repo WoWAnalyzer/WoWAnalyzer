@@ -12,6 +12,7 @@ const LEGENDARY_VELENS_HEALING_INCREASE = 0.15;
 class Velens extends Module {
   healing = 0;
 
+
   on_initialized() {
     if (!this.owner.error) {
       this.active = this.owner.selectedCombatant.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT.id);
@@ -34,7 +35,8 @@ class Velens extends Module {
       return;
     }
 
-    this.healing += calculateEffectiveHealing(event, LEGENDARY_VELENS_HEALING_INCREASE);
+
+      this.healing += calculateEffectiveHealing(event, LEGENDARY_VELENS_HEALING_INCREASE);
   }
 
   // Beacon transfer is included in `ABILITIES_AFFECTED_BY_HEALING_INCREASES`

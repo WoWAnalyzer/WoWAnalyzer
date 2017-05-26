@@ -661,4 +661,61 @@ export default {
     icon: 'spell_monk_envelopingmist',
     manaPercRed: 0.2,
   },
+  // Mastery
+  GUSTS_OF_MISTS: {
+    id: 117907,
+    name: 'Mastery: Gust of Mists',
+    icon: 'ability_monk_souldance',
+  },
+  //Damage Abilities
+  BLACKOUT_KICK: {
+    id: 100784,
+    name: 'Blackout Kick',
+    icon: 'ability_monk_roundhousekick',
+  },
+  CRACKLING_JADE_LIGHTNING: {
+    id: 117952,
+    name: 'Crackling Jade Lightning',
+    icon: 'ability_monk_cracklingjadelightning',
+  },
+  RISING_SUN_KICK: {
+    id: 107428,
+    name: 'Rising Sun Kick',
+    icon: 'ability_monk_risingsunkick',
+    manaPerc: 0.02 ,
+  },
+  SPINNING_CRANE_KICK: {
+    id: 101546,
+    name: 'Spining Crane Kick',
+    icon: 'ability-monk-cranekick-new',
+    manaPerc: 0.01 ,
+  },
+  TIGER_PALM: {
+    id: 100780,
+    name: 'Tiger Palm',
+    icon: 'ability_monk_tigerpalm',
+  },
+  TEACHINGS_OF_THE_MONASTARY: {
+    id: 116645,
+    name: 'Teachings of the Monastary',
+    icon: 'passive_monk_teachingsofmonastery',
+  },
+
+  // Utility / Other
+  DETOX: {
+    id: 115450,
+    name: 'Detox',
+    icon: 'ability_rogue_imrovedrecuperate',
+    manaPerc: 0.026,
+  },
+  FORTIFYING_BREW: {
+    id: 243435,
+    name: 'Fortifying Brew',
+    icon: 'ability_monk_fortifyingelixir',
+  },
+  ROLL: {
+    id: 109132,
+    name: 'Roll',
+    icon: 'ability_monk_roll',
+  },
 };
