@@ -155,6 +155,16 @@ export default {
     name: 'T19 4 set bonus',
     icon: 'ability_paladin_infusionoflight',
   },
+  HOLY_PALADIN_T20_4SET_BONUS_BUFF: {
+    id: 242262,
+    name: 'T20 4 set bonus',
+    icon: 'ability_paladin_beaconoflight',
+  },
+  LIGHTS_EMBRACE_BUFF: {
+    id: 247237,
+    name: 'Light\'s Embrace',
+    icon: 'spell_holy_holybolt',
+  },
   INFUSION_OF_LIGHT: {
     id: 53576,
     name: 'Infusion of Light',
