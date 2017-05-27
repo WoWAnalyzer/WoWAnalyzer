@@ -8,7 +8,7 @@ const debug = false;
 const baseMana = 1100000;
 
 class ManaTea extends Module {
-  manaSaved = 0;
+  manaSavedMT = 0;
   manateaCount = 0;
 
   effCasts = 0;
@@ -116,28 +116,31 @@ class ManaTea extends Module {
   }
 
   addToManaSaved(spellBaseMana, spellId) {
+
+    // If we cast TFT -> Viv, mana cost of Viv is 0
+    if(this.owner.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id) && SPELLS.VIVIFY.id === spellId) {
+        this.nonManaCasts++;
+        return;
+    }
     // Lifecycles reduces the mana cost of both Vivify and Enveloping Mists.  We must take that into account when calculating mana saved.
     if(this.hasLifeCycles) {
       if(this.owner.selectedCombatant.hasBuff(SPELLS.LIFECYCLES_VIVIFY_BUFF.id) && spellId === SPELLS.VIVIFY.id) {
-        this.manaSaved += ((baseMana * spellBaseMana) * (1 - (SPELLS.LIFECYCLES_VIVIFY_BUFF.manaPercRed)))
+        this.manaSavedMT += ((baseMana * spellBaseMana) * (1 - (SPELLS.LIFECYCLES_VIVIFY_BUFF.manaPercRed)))
         debug && console.log('LC Viv Cast')
       } else if((this.owner.selectedCombatant.hasBuff(SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.id) && spellId === SPELLS.ENVELOPING_MISTS.id)) {
-        this.manaSaved += ((baseMana * spellBaseMana) * (1 - (SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed)))
+        this.manaSavedMT += ((baseMana * spellBaseMana) * (1 - (SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed)))
       } else {
-        this.manasaved += (baseMana * spellBaseMana)
+        this.manaSavedMT += (baseMana * spellBaseMana)
       }
-      // If we cast TFT -> Viv, mana cost of Viv is 0
-    } else if(this.owner.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id) && SPELLS.VIVIFY.id === spellId) {
-        this.nonManaCasts++;
     } else {
-      this.manaSaved += (baseMana * spellBaseMana);
+      this.manaSavedMT += (baseMana * spellBaseMana);
     }
   }
   on_finished() {
     if(debug) {
       console.log("Mana Tea Casted: " + this.manateaCount);
-      console.log("Mana saved: " + this.manaSaved);
-      console.log("Avg. Mana saved: " + (this.manaSaved/this.manateaCount));
+      console.log("Mana saved: " + this.manaSavedMT);
+      console.log("Avg. Mana saved: " + (this.manaSavedMT/this.manateaCount));
       console.log("Total Casts under Mana Tea: " + this.castsUnderManaTea);
       console.log("Avg Casts under Mana Tea: " + (this.castsUnderManaTea/this.manateaCount));
       console.log("Free spells cast: " + this.nonManaCasts);

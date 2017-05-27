@@ -28,6 +28,8 @@ import CooldownTracker from './Modules/Features/CooldownTracker';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import UpliftingTrance from './Modules/Features/UpliftingTrance';
 import ManaTea from './Modules/Features/ManaTea';
+import ManaSavingTalents from './Modules/Features/ManaSavingTalents';
+import ThunderFocusTea from './Modules/Features/ThunderFocusTea'
 
 // Setup for Items
 import Velens from './Modules/Items/Velens';
@@ -72,6 +74,8 @@ class CombatLogParser extends MainCombatLogParser {
     cooldownTracker: CooldownTracker,
     upliftingTrance: UpliftingTrance,
     manaTea: ManaTea,
+    manaSavingTalents: ManaSavingTalents,
+    thunderFocusTea: ThunderFocusTea,
 
     // Legendaries / Items:
     drapeOfShame: DrapeOfShame,
@@ -136,10 +140,26 @@ class CombatLogParser extends MainCombatLogParser {
     // Mana Tea Usage issue
     if (this.modules.manaTea.active && (this.modules.manaTea.manaSaved / this.modules.manaTea.manateaCount) < 200000) {
       results.addIssue({
-        issue: <span>Your mana spent during <a href="http://www.wowhead.com/spell=197908" target="_blank">Mana Tea</a> can be improved.  Always aim to cast your highest mana spells such as <a href="http://www.wowhead.com/spell=191837" target="_blank">Essence Font</a> or <a href="http://www.wowhead.com/spell=116670" target="_blank">Vivify</a>. ({((this.modules.manaTea.manaSaved / this.modules.manaTea.manateaCount) / 1000).toFixed(0)}k avg mana spent)</span>,
+        issue: <span>Your mana spent during <a href="http://www.wowhead.com/spell=197908" target="_blank">Mana Tea</a> can be improved.  Always aim to cast your highest mana spells such as <a href="http://www.wowhead.com/spell=191837" target="_blank">Essence Font</a> or <a href="http://www.wowhead.com/spell=116670" target="_blank">Vivify</a>. ({((this.modules.manaTea.manaSaved / this.modules.manaTea.manateaCount) / 1000).toFixed(0)}k avg mana saved)</span>,
         icon: SPELLS.MANA_TEA_TALENT.icon,
         important: getIssueImportance((this.modules.manaTea.manaSaved / this.modules.manateaCount), 160000, 120000),
       })
+    }
+    // Lifecycles Manasavings
+    if(this.modules.manaSavingTalents.hasLifeCycles && this.modules.manaSavingTalents.manaSaved < 200000) {
+      results.addIssue({
+        issue: <span>Your current spell usage is not taking full advantage of the <a href="http://www.wowhead.com/spell=197915" target="_blank">Lifecycles</a> talent.  You casted {this.modules.manaSavingTalents.castsNonRedViv} / {(this.modules.manaSavingTalents.castsRedViv + this.modules.manaSavingTalents.castsNonRedViv)} Vivfy's and {this.modules.manaSavingTalents.castsNonRedEnm} / {(this.modules.manaSavingTalents.castsRedEnm + this.modules.manaSavingTalents.castsNonRedEnm)} Enveloping Mists without the mana saving buffs provided by <a href="http://www.wowhead.com/spell=197915" target="_blank">Lifecycles</a></span>,
+        icon:SPELLS.LIFECYCLES_TALENT.icon,
+        important:getIssueImportance(this.modules.manaSavingTalents.manaSaved, 170000, 140000),
+      });
+    }
+    // Incorrect TFT Usage
+    if(this.modules.thunderFocusTea.castsUnderTft - (this.modules.thunderFocusTea.castsTftRem + this.modules.thunderFocusTea.castsTftViv) > 1) {
+      results.addIssue({
+        issue: <span>You are currently using <a href="http://www.wowhead.com/spell=116680" target="_blank">Thunder Focus Tea</a> to buff spells other than <a href="http://www.wowhead.com/spell=115151" target="_blank">Renewing Mist</a> or <a href="http://www.wowhead.com/spell=191837" target="_blank">Essence Font</a>.  You used the TFT buff on {(this.modules.thunderFocusTea.castsUnderTft - (this.modules.thunderFocusTea.castsTftRem + this.modules.thunderFocusTea.castsTftViv))} spells other than Essence Font or Vivify.</span>,
+        icon: SPELLS.THUNDER_FOCUS_TEA.icon,
+        important:getIssueImportance(this.modules.thunderFocusTea.castsUnderTft - (this.modules.thunderFocusTea.castsTftRem + this.modules.thunderFocusTea.castsTftViv), 2, 4, true)
+      });
     }
 
     const castEfficiencyCategories = SPELL_CATEGORY;
@@ -179,6 +199,40 @@ class CombatLogParser extends MainCombatLogParser {
           </dfn>
         )}
       />,*/
+      // Thunder Focus Tea Usage
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.THUNDER_FOCUS_TEA.id} />}
+        value={`${this.modules.thunderFocusTea.castsTft} `}
+        label={(
+          <dfn data-tip={`With your ${this.modules.thunderFocusTea.castsTft} Thunder Focus Tea casts, you buffed the following spells:
+            <ul>
+              ${this.modules.thunderFocusTea.castsTftViv > 0 ?
+              `<li>${(this.modules.thunderFocusTea.castsTftViv)} Vivify buffed (${formatPercentage(this.modules.thunderFocusTea.castsTftViv / this.modules.thunderFocusTea.castsTft)}%)</li>`
+              : ""
+              }
+              ${this.modules.thunderFocusTea.castsTftRem > 0 ?
+              `<li>${(this.modules.thunderFocusTea.castsTftRem)} Renewing Mist buffed (${formatPercentage(this.modules.thunderFocusTea.castsTftRem / this.modules.thunderFocusTea.castsTft)}%)</li>`
+              : ""
+              }
+              ${this.modules.thunderFocusTea.castsTftEnm > 0 ?
+              `<li>${(this.modules.thunderFocusTea.castsTftEnm)} Enveloping Mists buffed (${formatPercentage(this.modules.thunderFocusTea.castsTftEnm / this.modules.thunderFocusTea.castsTft)}%)</li>`
+              : ""
+              }
+              ${this.modules.thunderFocusTea.castsTftEff > 0 ?
+              `<li>${(this.modules.thunderFocusTea.castsTftEff)} Effuse buffed (${formatPercentage(this.modules.thunderFocusTea.castsTftEff / this.modules.thunderFocusTea.castsTft)}%)</li>`
+              : ""
+              }
+              ${this.modules.thunderFocusTea.castsTftEf > 0 ?
+              `<li>${(this.modules.thunderFocusTea.castsTftEf)} Essence Font buffed (${formatPercentage(this.modules.thunderFocusTea.castsTftEf / this.modules.thunderFocusTea.castsTft)}%)</li>`
+              : ""
+              }
+            </ul>
+            `}>
+            Total Thunder Focus Tea casts
+          </dfn>
+        )}
+      />,
+      // UT Proc Usage
       <StatisticBox
         icon={<SpellIcon id={SPELLS.UPLIFTING_TRANCE_BUFF.id} />}
         value={`${formatPercentage(unusedUTProcs)} %`}
@@ -188,14 +242,16 @@ class CombatLogParser extends MainCombatLogParser {
           </dfn>
         )}
       />,
+    // Mana Tea Usage
       this.modules.manaTea.active && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.MANA_TEA_TALENT.id} />}
-          value={`${((this.modules.manaTea.manaSaved / this.modules.manaTea.manateaCount) / 1000).toFixed(0)}k mana`}
+          value={`${((this.modules.manaTea.manaSavedMT / this.modules.manaTea.manateaCount) / 1000).toFixed(0)}k mana`}
           label={(
             <dfn
-              data-tip={`<ul>
+              data-tip={`
                   During your ${this.modules.manaTea.manateaCount} <a href="http://www.wowhead.com/spell=197908" target="_blank">Mana Teas</a> saved the following mana:
+                  <ul>
                   ${this.modules.manaTea.efCasts > 0 ?
                   `<li>${(this.modules.manaTea.efCasts)} Essence Font casts</li>`
                   : ""
@@ -217,6 +273,48 @@ class CombatLogParser extends MainCombatLogParser {
           )}
         />
       ),
+    // Lifecycles Usage
+      this.modules.manaSavingTalents.hasLifeCycles && (
+        <StatisticBox
+          icon={<SpellIcon id={SPELLS.LIFECYCLES_TALENT.id} />}
+          value={`${(this.modules.manaSavingTalents.manaSaved / 1000).toFixed(0)}k mana saved `}
+          label={(
+            <dfn data-tip={`You saved a total of ${this.modules.manaSavingTalents.manaSaved} from the Lifecycles talent.
+              <ul><li>On ${this.modules.manaSavingTalents.castsRedViv} Vivify casts, you saved ${(this.modules.manaSavingTalents.manaSavedViv / 1000).toFixed(0)}k mana. (${formatPercentage(this.modules.manaSavingTalents.castsRedViv / (this.modules.manaSavingTalents.castsRedViv + this.modules.manaSavingTalents.castsNonRedViv))}%)</li>
+              <li>On ${this.modules.manaSavingTalents.castsRedEnm} Enveloping Mists casts, you saved ${(this.modules.manaSavingTalents.manaSavedEnm / 1000).toFixed(0)}k mana. (${formatPercentage(this.modules.manaSavingTalents.castsRedEnm / (this.modules.manaSavingTalents.castsRedEnm + this.modules.manaSavingTalents.castsNonRedEnm))}%)</li>
+              <li>You casted ${this.modules.manaSavingTalents.castsNonRedViv} Vivify's and ${this.modules.manaSavingTalents.castsNonRedEnm} Enveloping Mists at full mana.</li>
+              </ul>
+              `}>
+              Mana Saved from Lifecycles
+            </dfn>
+          )}
+        />
+      ),
+
+      this.modules.manaSavingTalents.hasSotc && (
+        <StatisticBox
+          icon={<SpellIcon id={SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id} />}
+          value={`${(this.modules.manaSavingTalents.manaReturnSotc / 1000).toFixed(0)}k mana returned`}
+          label={(
+            <dfn data-tip={`
+              You lost ${(this.modules.manaSavingTalents.totmOverCap + this.modules.manaSavingTalents.totmBuffWasted)} Teachings of the Monestery stacks
+              <ul>
+                ${this.modules.manaSavingTalents.totmOverCap > 0 ?
+                `<li>You overcapped Teachings ${(this.modules.manaSavingTalents.totmOverCap)} times</li>`
+                : ""
+                }
+                ${this.modules.manaSavingTalents.totmBuffWasted > 0 ?
+                `<li>You let Teachings drop off ${(this.modules.manaSavingTalents.totmBuffWasted)} times</li>`
+                : ""
+                }
+              </ul>
+              `}>
+              Mana Returned from Spirit of the Crane
+            </dfn>
+          )}
+        />
+      ),
+
     ];
 
     results.items = [

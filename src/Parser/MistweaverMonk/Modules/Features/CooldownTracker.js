@@ -6,6 +6,7 @@ class CooldownTracker extends CoreCooldownTracker {
   static cooldownSpells = [
     ...CooldownTracker.cooldownSpells,
     SPELLS.MANA_TEA_TALENT,
+    SPELLS.INVOKE_CHIJI_TALENT,
   ];
 }
 
