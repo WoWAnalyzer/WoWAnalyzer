@@ -784,6 +784,11 @@ export default {
     buffDur: 12000,
     manaRet: 0.0065,
   },
+  SPIRIT_OF_THE_CRANE_BUFF: {
+    id: 210803,
+    name: 'Spirit of the Crane',
+    icon: 'monk_stance_redcrane',
+  },
 
   // Utility / Other
   DETOX: {
