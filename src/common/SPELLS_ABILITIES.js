@@ -665,7 +665,165 @@ export default {
     icon: 'spell_druid_springblossoms'
   },
 
+  // Shaman:
+  ASTRAL_SHIFT: {
+    id: 108271,
+    name: 'Astral Shift',
+    icon: 'ability_shaman_astralshift',
+  },
+  // Restoration Shaman
+  CHAIN_HEAL: {
+    id: 1064,
+    name: 'Chain Heal',
+    icon: 'spell_nature_healingwavegreater',
+  },
+  HEALING_WAVE: {
+    id: 77472,
+    name: 'Healing Waves',
+    icon: 'spell_nature_healingwavelesser',
+  },
+  HEALING_SURGE: {
+    id: 8004,
+    name: 'Healing Surge',
+    icon: 'spell_nature_healingway',
+  },
+  TIDAL_WAVES_BUFF: {
+    id: 53390,
+    name: 'Tidal Waves',
+    icon: 'spell_shaman_tidalwaves',
+  },
+  RIPTIDE: {
+    id: 61295,
+    name: 'Riptide',
+    icon: 'spell_nature_riptide',
+  },
+  HEALING_RAIN_CAST: {
+    id: 73920,
+    name: 'Healing Rain',
+    icon: 'spell_nature_giftofthewaterspirit',
+  },
+  HEALING_RAIN_HEAL: {
+    id: 73921,
+    name: 'Healing Rain',
+    icon: 'spell_nature_giftofthewaterspirit',
+  },
+  HEALING_STREAM_TOTEM_CAST: {
+    id: 5394,
+    name: 'Healing Stream Totem',
+    icon: 'inv_spear_04',
+  },
+  HEALING_STREAM_TOTEM_HEAL: {
+    id: 52042,
+    name: 'Healing Stream Totem',
+    icon: 'inv_spear_04',
+  },
+  HEALING_TIDE_TOTEM_CAST: {
+    id: 108280,
+    name: 'Healing Tide Totem',
+    icon: 'ability_shaman_healingtide',
+  },
+  HEALING_TIDE_TOTEM_HEAL: {
+    id: 114942,
+    name: 'Healing Tide Totem',
+    icon: 'ability_shaman_healingtide',
+  },
+  ANCESTRAL_GUIDANCE_CAST: {
+    id: 108281,
+    name: 'Ancestral Guidance',
+    icon: 'ability_shaman_ancestralguidance',
+    description: 'The default choice in this tier. Can generate incredible throughput, especially when combined with <a href="http://www.wowhead.com/spell="157153" target="_blank">Cloudburst Totem</a> and/or <a href="http://www.wowhead.com/spell=114052" target="_blank">Ascendance</a>.',
+  },
+  ANCESTRAL_GUIDANCE_HEAL: {
+    id: 114911,
+    name: 'Ancestral Guidance',
+    icon: 'ability_shaman_ancestralguidance',
+  },
+  ASCENDANCE_CAST: {
+    id: 114052,
+    name: 'Ascendance',
+    icon: 'spell_fire_elementaldevastation',
+    description: 'Should almost always be combined with <a href="http://www.wowhead.com/spell=157153" target="_blank">Cloudburst Totem</a>. Provides you with an additional healing cooldown, or when combined with <a href="http://www.wowhead.com/spell=108281" target="_blank">Ancestral Guidance</a> makes for what is probably the strongest healing cooldown in the game. Does require proper planning to get value.'
+  },
+  ASCENDANCE_HEAL: {
+    id: 114083,
+    name: 'Ascendance',
+    icon: 'spell_fire_elementaldevastation',
+  },
+  SPIRIT_LINK_TOTEM: {
+    id: 98008,
+    name: 'Spirit Link Totem',
+    icon: 'spell_shaman_spiritlink',
+  },
+  SPIRIT_LINK_TOTEM_REDISTRIBUTE: {
+    id: 98021,
+    name: 'Spirit Link Totem',
+    icon: 'spell_shaman_spiritlink',
+  },
+  GIFT_OF_THE_QUEEN: {
+    id: 207778,
+    name: 'Gift of the Queen',
+    icon: 'inv_mace_1h_artifactazshara_d_02',
+  },
+  WELLSPRING: {
+    id: 197995,
+    name: 'Wellspring',
+    icon: 'ability_shawaterelemental_split',
+  },
+  UNLEASH_LIFE: {
+    id: 73685,
+    name: 'Unleash Life',
+    icon: 'spell_shaman_unleashweapon_life',
+  },
+  CLOUDBURST_TOTEM_CAST: {
+    id: 157153,
+    name: 'Cloudburst Totem',
+    icon: 'ability_shaman_condensationtotem',
+    description: 'Cloudburst Totem will in almost all encounters provide the most throughput when used correctly (see the <a href="https://chainheal.com/resto-shaman-guide-on-how-to-maximize-cloudburst-totem-cbt/">cloudburst totem guide</a> on <a href="http://chainheal.com">ChainHeal.com</a>). Extremely strong synergy with <a href="http://www.wowhead.com/spell=108281" target="_blank">Ancestral Guidance</a> and <a href="http://www.wowhead.com/spell=114052" target="_blank">Ascendance</a>.',
+  },
+  CLOUDBURST_TOTEM_HEAL: {
+    id: 157503,
+    name: 'Cloudburst Totem',
+    icon: 'ability_shaman_condensationtotem',
+  },
+  CLOUDBURST_TOTEM_RECALL: {
+    id: 201764,
+    name: 'Recall Cloudburst Totem',
+    icon: 'ability_shaman_condensationtotem',
+  },
+  EARTHEN_SHIELD_TOTEM_CAST: {
+    id: 198838,
+    name: 'Earthen Shield Totem',
+    icon: 'spell_nature_stoneskintotem',
+    description: 'Provides decent throughput, and is very efficient. It\'s unlikely to actually save people from lethal damage, though.', 
+  },
+  EARTHEN_SHIELD_TOTEM_ABSORB: {
+    id: 201633,
+    name: 'Earthen Shield Totem',
+    icon: 'spell_nature_stoneskintotem',
+  },
+  EARTHEN_SHIELD_TOTEM_SELF_DAMAGE: {
+    id: 201657,
+    name: 'Earthen Shield Totem',
+    icon: 'spell_nature_stoneskintotem',
+  },
+  RESTORATION_SHAMAN_T19_2SET_BONUS_BUFF: {
+    id: 211992,
+    name: 'T19 2 set bonus',
+    icon: 'spell_shaman_tidalwaves',
+  }, 
+  RESTORATION_SHAMAN_T19_4SET_BONUS_BUFF: {
+    id: 211993,
+    name: 'T19 4 set bonus',
+    icon: 'inv_spear_04',
+  }, 
+  DEEP_HEALING: {
+    id: 77226,
+    name: 'Mastery: Deep Healing',
+    icon: 'spell_nature_healingtouch',
+  },
+  
   // ------- End Resto Druid spells ----------
+  
   // Mistweaver Monk Spells
   EFFUSE: {
     id: 116694,

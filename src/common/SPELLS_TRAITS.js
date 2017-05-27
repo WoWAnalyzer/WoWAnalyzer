@@ -36,6 +36,21 @@ export default {
     name: 'Power of the Archdruid',
     icon: 'spell_druid_rampantgrowth',
   },
+
+  // Shaman
+  // Restoration Shaman:
+  QUEENS_DECREE: {
+    id: 208899,
+    name: 'Queen\'s Decree',
+    icon: 'inv_misc_volatilewater.jpg',
+  },
+  TIDAL_TOTEM: {
+    id: 209069,
+    name: 'Tidal Totem',
+    icon: 'inv_mace_1h_artifactazshara_d_02.jpg',
+  },
+  
+  
   NATURES_ESSENCE_TRAIT: {
     id:189787,
     name:'Nature\'s Essence',
@@ -51,6 +66,7 @@ export default {
     name:'Infusion of Nature',
     icon: 'ability_druid_flourish'
   },
+
   // Monk:
   // Mistweaver Monk
   DANCING_MISTS: {

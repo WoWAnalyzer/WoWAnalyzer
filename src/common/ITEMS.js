@@ -55,6 +55,42 @@ const ITEMS = {
     icon: 'inv_cape_legionendgame_c_03',
     quality: QUALITIES.EPIC,
   },
+  ROOTS_OF_SHALADRASSIL: {
+    id: 132466,
+    name: 'Roots of Shaladrassil',
+    icon: 'inv_robe_pants_pvpwarlock_c_02',
+    quality: QUALITIES.LEGENDARY,
+  },
+  PRAETORIANS_TIDECALLERS: {
+    id: 137058,
+    name: 'Praetorian\'s Tidecallers',
+    icon: 'inv_gauntlets_plate_raidpaladin_i_01',
+    quality: QUALITIES.LEGENDARY,
+  },
+  FOCUSER_OF_JONAT: {
+    id: 137051,
+    name: 'Focuser of Jonat, the Elder',
+    icon: 'inv_jewelry_ring_96',
+    quality: QUALITIES.LEGENDARY,
+  },
+  INTACT_NAZJATAR_MOLTING: {
+    id: 137085,
+    name: 'Intact Nazjatar Molting',
+    icon: 'inv_leather_raiddruid_m_01belt',
+    quality: QUALITIES.LEGENDARY,
+  },
+  NOBUNDOS_REDEMPTION: {
+    id: 137104,
+    name: 'Nobundo\'s Redemption',
+    icon: 'inv_bracer_leather_cataclysm_b_01',
+    quality: QUALITIES.LEGENDARY,
+  },
+  UNCERTAIN_REMINDER: {
+    id: 143732,
+    name: 'Uncertain Reminder',
+    icon: 'inv_helm_mail_korkronshaman_d_01',
+    quality: QUALITIES.LEGENDARY,
+  },
   CORD_OF_MAIEV_PRIESTESS_OF_THE_MOON: {
     id: 133800,
     name: 'Cord of Maiev, Priestess of the Moon',

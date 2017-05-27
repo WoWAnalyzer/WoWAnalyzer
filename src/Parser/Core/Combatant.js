@@ -70,7 +70,13 @@ class Combatant extends Entity {
     return this._combatantInfo.mastery;
   }
   get masteryPercentage() {
-    return 0.12 + this.masteryRating / 26667;
+    if (this._combatantInfo.specID === 65) { // holy paladin
+      return 0.12 + this.masteryRating / 26667;
+    } else if (this._combatantInfo.specID === 264) { // resto shaman
+      return 0.24 + this.masteryRating / 13333.3333333; 
+    }
+    return 0; // I don't know how to do error handling, sorry!
+      
   }
   get versatilityRating() {
     return this._combatantInfo.versatilityHealingDone;
