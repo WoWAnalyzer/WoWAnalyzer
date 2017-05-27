@@ -207,23 +207,23 @@ class CombatLogParser extends MainCombatLogParser {
           <dfn data-tip={`With your ${this.modules.thunderFocusTea.castsTft} Thunder Focus Tea casts, you buffed the following spells:
             <ul>
               ${this.modules.thunderFocusTea.castsTftViv > 0 ?
-              `<li>${(this.modules.thunderFocusTea.castsTftViv)} Vivify buffed</li>`
+              `<li>${(this.modules.thunderFocusTea.castsTftViv)} Vivify buffed (${formatPercentage(this.modules.thunderFocusTea.castsTftViv / this.modules.thunderFocusTea.castsTft)}%)</li>`
               : ""
               }
               ${this.modules.thunderFocusTea.castsTftRem > 0 ?
-              `<li>${(this.modules.thunderFocusTea.castsTftRem)} Renewing Mist buffed</li>`
+              `<li>${(this.modules.thunderFocusTea.castsTftRem)} Renewing Mist buffed (${formatPercentage(this.modules.thunderFocusTea.castsTftRem / this.modules.thunderFocusTea.castsTft)}%)</li>`
               : ""
               }
               ${this.modules.thunderFocusTea.castsTftEnm > 0 ?
-              `<li>${(this.modules.thunderFocusTea.castsTftEnm)} Enveloping Mists buffed</li>`
+              `<li>${(this.modules.thunderFocusTea.castsTftEnm)} Enveloping Mists buffed (${formatPercentage(this.modules.thunderFocusTea.castsTftEnm / this.modules.thunderFocusTea.castsTft)}%)</li>`
               : ""
               }
               ${this.modules.thunderFocusTea.castsTftEff > 0 ?
-              `<li>${(this.modules.thunderFocusTea.castsTftEff)} Effuse buffed</li>`
+              `<li>${(this.modules.thunderFocusTea.castsTftEff)} Effuse buffed (${formatPercentage(this.modules.thunderFocusTea.castsTftEff / this.modules.thunderFocusTea.castsTft)}%)</li>`
               : ""
               }
               ${this.modules.thunderFocusTea.castsTftEf > 0 ?
-              `<li>${(this.modules.thunderFocusTea.castsTftEf)} Essence Font buffed</li>`
+              `<li>${(this.modules.thunderFocusTea.castsTftEf)} Essence Font buffed (${formatPercentage(this.modules.thunderFocusTea.castsTftEf / this.modules.thunderFocusTea.castsTft)}%)</li>`
               : ""
               }
             </ul>
@@ -280,8 +280,8 @@ class CombatLogParser extends MainCombatLogParser {
           value={`${(this.modules.manaSavingTalents.manaSaved / 1000).toFixed(0)}k mana saved `}
           label={(
             <dfn data-tip={`You saved a total of ${this.modules.manaSavingTalents.manaSaved} from the Lifecycles talent.
-              <ul><li>On ${this.modules.manaSavingTalents.castsRedViv} Vivify casts, you saved ${(this.modules.manaSavingTalents.manaSavedViv / 1000).toFixed(0)}k mana.</li>
-              <li>On ${this.modules.manaSavingTalents.castsRedEnm} Enveloping Mists casts, you saved ${(this.modules.manaSavingTalents.manaSavedEnm / 1000).toFixed(0)}k mana.</li>
+              <ul><li>On ${this.modules.manaSavingTalents.castsRedViv} Vivify casts, you saved ${(this.modules.manaSavingTalents.manaSavedViv / 1000).toFixed(0)}k mana. (${formatPercentage(this.modules.manaSavingTalents.castsRedViv / (this.modules.manaSavingTalents.castsRedViv + this.modules.manaSavingTalents.castsNonRedViv))}%)</li>
+              <li>On ${this.modules.manaSavingTalents.castsRedEnm} Enveloping Mists casts, you saved ${(this.modules.manaSavingTalents.manaSavedEnm / 1000).toFixed(0)}k mana. (${formatPercentage(this.modules.manaSavingTalents.castsRedEnm / (this.modules.manaSavingTalents.castsRedEnm + this.modules.manaSavingTalents.castsNonRedEnm))}%)</li>
               <li>You casted ${this.modules.manaSavingTalents.castsNonRedViv} Vivify's and ${this.modules.manaSavingTalents.castsNonRedEnm} Enveloping Mists at full mana.</li>
               </ul>
               `}>
