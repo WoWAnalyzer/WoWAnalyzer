@@ -16,6 +16,11 @@ export default {
     name: 'Velen\'s Future Sight',
     icon: 'spell_holy_healingfocus',
   },
+  XAVARICS_MAGNUM_OPUS: {
+    id: 207472,
+    name: 'Xavaric\'s Magnum Opus',
+    icon: 'ability_vehicle_shellshieldgenerator',
+  },
 
   // Paladin:
   CRUSADER_STRIKE: {
