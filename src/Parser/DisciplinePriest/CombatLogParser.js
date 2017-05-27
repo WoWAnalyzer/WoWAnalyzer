@@ -185,7 +185,7 @@ class CombatLogParser extends MainCombatLogParser {
       this.modules.atonement.active && (
         <StatisticBox 
         icon={<SpellIcon id={SPELLS.ATONEMENT1.id} />}
-        value= {this.modules.atonement.improperAtonementRefreshes.length}
+        value={this.modules.atonement.improperAtonementRefreshes.length}
         label={(
           <dfn data-tip={`The amount of Atonements that were refreshed earlier than within 3 seconds of the buff expiring. You applied Atonement ${this.modules.atonement.totalAtones} times in total, ${this.modules.atonement.totalAtonementRefreshes} (${((this.modules.atonement.totalAtonementRefreshes / this.modules.atonement.totalAtones * 100) || 0).toFixed(2)}%) of them were refreshes of existing Atonements, and ${this.modules.atonement.improperAtonementRefreshes.length} (${((this.modules.atonement.improperAtonementRefreshes.length / this.modules.atonement.totalAtones * 100) || 0).toFixed(2)}%) of them were considered early.` }>
              Early Atonement refreshes
@@ -302,7 +302,7 @@ class CombatLogParser extends MainCombatLogParser {
         icon: <ItemIcon id={ITEMS.AMALGAMS_SEVENTH_SPINE.id} />,
         title: <ItemLink id={ITEMS.AMALGAMS_SEVENTH_SPINE.id} />,
         result: (
-          <dfn data-tip={`The exact amunt of mana gained from the Amalgam's Seventh Spine equip effect. You gained mana ${this.modules.amalgamsSeventhSpine.procs} times and refreshed the buff ${this.modules.amalgamsSeventhSpine.refreshes} times (refreshing delay the mana return and is inefficient use of this trinket).`}>
+          <dfn data-tip={`The exact amount of mana gained from the Amalgam's Seventh Spine equip effect. You gained mana ${this.modules.amalgamsSeventhSpine.procs} times and refreshed the buff ${this.modules.amalgamsSeventhSpine.refreshes} times (refreshing delay the mana return and is inefficient use of this trinket).`}>
             {formatThousands(this.modules.amalgamsSeventhSpine.manaGained)} mana gained ({formatThousands(this.modules.amalgamsSeventhSpine.manaGained / this.fightDuration * 1000 * 5)} MP5)
           </dfn>
         )
@@ -312,7 +312,7 @@ class CombatLogParser extends MainCombatLogParser {
         icon: <ItemIcon id={ITEMS.DARKMOON_DECK_PROMISES.id} />,
         title: <ItemLink id={ITEMS.DARKMOON_DECK_PROMISES.id} />,
         result: (
-          <dfn data-tip={`The exact amunt of mana saved by the Darkmoon Deck: Promises equip effect. This takes the different values per card into account at the time of the cast. Mana values assume you have a 875 item level version.`}>
+          <dfn data-tip={`The exact amount of mana saved by the Darkmoon Deck: Promises equip effect. This takes the different values per card into account at the time of the cast. Mana values assume you have a 875 item level version.`}>
             {formatThousands(this.modules.darkmoonDeckPromises.manaGained)} mana saved ({formatThousands(this.modules.darkmoonDeckPromises.manaGained / this.fightDuration * 1000 * 5)} MP5)
           </dfn>
         )
