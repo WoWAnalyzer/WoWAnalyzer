@@ -116,6 +116,12 @@ class ManaTea extends Module {
   }
 
   addToManaSaved(spellBaseMana, spellId) {
+
+    // If we cast TFT -> Viv, mana cost of Viv is 0
+    if(this.owner.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id) && SPELLS.VIVIFY.id === spellId) {
+        this.nonManaCasts++;
+        return;
+    }
     // Lifecycles reduces the mana cost of both Vivify and Enveloping Mists.  We must take that into account when calculating mana saved.
     if(this.hasLifeCycles) {
       if(this.owner.selectedCombatant.hasBuff(SPELLS.LIFECYCLES_VIVIFY_BUFF.id) && spellId === SPELLS.VIVIFY.id) {
@@ -126,9 +132,6 @@ class ManaTea extends Module {
       } else {
         this.manaSavedMT += (baseMana * spellBaseMana)
       }
-      // If we cast TFT -> Viv, mana cost of Viv is 0
-    } else if(this.owner.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id) && SPELLS.VIVIFY.id === spellId) {
-        this.nonManaCasts++;
     } else {
       this.manaSavedMT += (baseMana * spellBaseMana);
     }

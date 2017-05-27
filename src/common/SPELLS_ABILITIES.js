@@ -777,9 +777,9 @@ export default {
     name: 'Tiger Palm',
     icon: 'ability_monk_tigerpalm',
   },
-  TEACHINGS_OF_THE_MONASTARY: {
+  TEACHINGS_OF_THE_MONASTERY: {
     id: 116645,
-    name: 'Teachings of the Monastary',
+    name: 'Teachings of the Monastery',
     icon: 'passive_monk_teachingsofmonastery',
   },
 
