@@ -778,9 +778,11 @@ export default {
     icon: 'ability_monk_tigerpalm',
   },
   TEACHINGS_OF_THE_MONASTERY: {
-    id: 116645,
+    id: 202090,
     name: 'Teachings of the Monastery',
     icon: 'passive_monk_teachingsofmonastery',
+    buffDur: 12000,
+    manaRet: 0.0065,
   },
 
   // Utility / Other

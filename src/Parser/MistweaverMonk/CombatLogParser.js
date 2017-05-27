@@ -154,13 +154,14 @@ class CombatLogParser extends MainCombatLogParser {
       });
     }
     // Incorrect TFT Usage
-    if((this.modules.thunderFocusTea.castsTftRem + this.modules.thunderFocusTea.castsTftViv) !== this.modules.thunderFocusTea.castsUnderTft) {
+    if(this.modules.thunderFocusTea.castsUnderTft - (this.modules.thunderFocusTea.castsTftRem + this.modules.thunderFocusTea.castsTftViv) > 1) {
       results.addIssue({
-        issue: <span>You are currently using <a href="http://www.wowhead.com/spell=116680" target="_blank">Thunder Focus Tea</a> to buff spells other than <a href="http://www.wowhead.com/spell=115151" target="_blank">Renewing Mist</a> or <a href="http://www.wowhead.com/spell=191837" target="_blank">Essence Font</a>.  You used the TFT buff on ${(this.modules.thunderFocusTea.castsUnderTft - (this.modules.thunderFocusTea.castsTftRem + this.module.thunderFocusTea.castsTftViv))} spells other than Essence Font or Vivify.</span>,
+        issue: <span>You are currently using <a href="http://www.wowhead.com/spell=116680" target="_blank">Thunder Focus Tea</a> to buff spells other than <a href="http://www.wowhead.com/spell=115151" target="_blank">Renewing Mist</a> or <a href="http://www.wowhead.com/spell=191837" target="_blank">Essence Font</a>.  You used the TFT buff on {(this.modules.thunderFocusTea.castsUnderTft - (this.modules.thunderFocusTea.castsTftRem + this.modules.thunderFocusTea.castsTftViv))} spells other than Essence Font or Vivify.</span>,
         icon: SPELLS.THUNDER_FOCUS_TEA.icon,
-        important:getIssueImportance(this.modules.thunderFocusTea.castsUnderTft - (this.modules.thunderFocusTea.castsTftRem + this.module.thunderFocusTea.castsTftViv), 2, 4, true)
+        important:getIssueImportance(this.modules.thunderFocusTea.castsUnderTft - (this.modules.thunderFocusTea.castsTftRem + this.modules.thunderFocusTea.castsTftViv), 2, 4, true)
       });
     }
+
     const castEfficiencyCategories = SPELL_CATEGORY;
     const castEfficiency = getCastEfficiency(CPM_ABILITIES, this);
     castEfficiency.forEach((cpm) => {
@@ -198,6 +199,7 @@ class CombatLogParser extends MainCombatLogParser {
           </dfn>
         )}
       />,*/
+      // Thunder Focus Tea Usage
       <StatisticBox
         icon={<SpellIcon id={SPELLS.THUNDER_FOCUS_TEA.id} />}
         value={`${this.modules.thunderFocusTea.castsTft} `}
@@ -230,6 +232,7 @@ class CombatLogParser extends MainCombatLogParser {
           </dfn>
         )}
       />,
+      // UT Proc Usage
       <StatisticBox
         icon={<SpellIcon id={SPELLS.UPLIFTING_TRANCE_BUFF.id} />}
         value={`${formatPercentage(unusedUTProcs)} %`}
@@ -239,6 +242,7 @@ class CombatLogParser extends MainCombatLogParser {
           </dfn>
         )}
       />,
+    // Mana Tea Usage
       this.modules.manaTea.active && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.MANA_TEA_TALENT.id} />}
@@ -269,22 +273,47 @@ class CombatLogParser extends MainCombatLogParser {
           )}
         />
       ),
-    this.modules.manaSavingTalents.hasLifeCycles && (
-    <StatisticBox
-      icon={<SpellIcon id={SPELLS.LIFECYCLES_TALENT.id} />}
-      value={`${(this.modules.manaSavingTalents.manaSaved / 1000).toFixed(0)}k mana saved `}
-      label={(
-        <dfn data-tip={`You saved a total of ${this.modules.manaSavingTalents.manaSaved} from the Lifecycles talent.
-            <ul><li>On ${this.modules.manaSavingTalents.castsRedViv} Vivify casts, you saved ${(this.modules.manaSavingTalents.manaSavedViv / 1000).toFixed(0)}k mana.</li>
-            <li>On ${this.modules.manaSavingTalents.castsRedEnm} Enveloping Mists casts, you saved ${(this.modules.manaSavingTalents.manaSavedEnm / 1000).toFixed(0)}k mana.</li>
-            <li>You casted ${this.modules.manaSavingTalents.castsNonRedViv} Vivify's and ${this.modules.manaSavingTalents.castsNonRedEnm} Enveloping Mists at full mana.</li>
-            </ul>
-          `}>
-          Mana Saved from Lifecycles
-        </dfn>
-      )}
-    />
-    ),
+    // Lifecycles Usage
+      this.modules.manaSavingTalents.hasLifeCycles && (
+        <StatisticBox
+          icon={<SpellIcon id={SPELLS.LIFECYCLES_TALENT.id} />}
+          value={`${(this.modules.manaSavingTalents.manaSaved / 1000).toFixed(0)}k mana saved `}
+          label={(
+            <dfn data-tip={`You saved a total of ${this.modules.manaSavingTalents.manaSaved} from the Lifecycles talent.
+              <ul><li>On ${this.modules.manaSavingTalents.castsRedViv} Vivify casts, you saved ${(this.modules.manaSavingTalents.manaSavedViv / 1000).toFixed(0)}k mana.</li>
+              <li>On ${this.modules.manaSavingTalents.castsRedEnm} Enveloping Mists casts, you saved ${(this.modules.manaSavingTalents.manaSavedEnm / 1000).toFixed(0)}k mana.</li>
+              <li>You casted ${this.modules.manaSavingTalents.castsNonRedViv} Vivify's and ${this.modules.manaSavingTalents.castsNonRedEnm} Enveloping Mists at full mana.</li>
+              </ul>
+              `}>
+              Mana Saved from Lifecycles
+            </dfn>
+          )}
+        />
+      ),
+
+      this.modules.manaSavingTalents.hasSotc && (
+        <StatisticBox
+          icon={<SpellIcon id={SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id} />}
+          value={`${(this.modules.manaSavingTalents.manaReturnSotc / 1000).toFixed(0)}k mana returned`}
+          label={(
+            <dfn data-tip={`
+              You lost ${(this.modules.manaSavingTalents.totmOverCap + this.modules.manaSavingTalents.totmBuffWasted)} Teachings of the Monestery stacks
+              <ul>
+                ${this.modules.manaSavingTalents.totmOverCap > 0 ?
+                `<li>You overcapped Teachings ${(this.modules.manaSavingTalents.totmOverCap)} times</li>`
+                : ""
+                }
+                ${this.modules.manaSavingTalents.totmBuffWasted > 0 ?
+                `<li>You let Teachings drop off ${(this.modules.manaSavingTalents.totmBuffWasted)} times</li>`
+                : ""
+                }
+              </ul>
+              `}>
+              Mana Returned from Spirit of the Crane
+            </dfn>
+          )}
+        />
+      ),
 
     ];
 

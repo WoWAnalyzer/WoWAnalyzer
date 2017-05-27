@@ -14,11 +14,17 @@ class ManaSavingTalents extends Module {
   castsNonRedViv = 0;
   castsNonRedEnm = 0;
 
+
+
   manaReturnSotc = 0;
 
   castsTp = 0;
   buffTotm = 0;
   castsBk = 0;
+  lastTotmBuffTimestamp = null;
+  totmOverCap = 0;
+  totmBuffWasted = 0;
+  totalTotmBuffs = 0;
 
   hasLifeCycles = false;
   hasSotc = false;
@@ -39,8 +45,36 @@ class ManaSavingTalents extends Module {
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
 
-    if(this.owner.selectedCombatant.hasBuff(SPELLS.TEACHINGS_OF_THE_MONASTERY.id)) {
+    if(spellId === SPELLS.TEACHINGS_OF_THE_MONASTERY.id) {
       this.buffTotm++;
+      this.lastTotmBuffTimestamp = event.timestamp;
+      debug && console.log('ToTM at ' + this.buffTotm);
+    }
+  }
+
+  on_byPlayer_applybuffstack(event){
+    const spellId = event.ability.guid;
+
+    if(spellId === SPELLS.TEACHINGS_OF_THE_MONASTERY.id) {
+      this.buffTotm++;
+      this.lastTotmBuffTimestamp = event.timestamp;
+      debug && console.log('ToTM at ' + this.buffTotm);
+    }
+  }
+
+  on_byPlayer_removebuff(event) {
+    const spellId = event.ability.guid;
+
+    if(SPELLS.TEACHINGS_OF_THE_MONASTERY.id === spellId) {
+      debug && console.log(event.timestamp);
+      if((event.timestamp - this.lastTotmBuffTimestamp) > SPELLS.TEACHINGS_OF_THE_MONASTERY.buffDur) {
+        this.totmBuffWasted++;
+        this.buffTotm = 0;
+        debug && console.log('ToTM Buff Wasted')
+      }
+
+      this.buffTotm = 0;
+      // debug && console.log('ToTM Buff Zero');
     }
   }
 
@@ -70,22 +104,28 @@ class ManaSavingTalents extends Module {
       }
     }
 
-    if(debug) {
-      if(spellId === SPELLS.TIGER_PALM.id) {
-        this.castsTp++;
-      }
-      if(spellId === SPELLS.BLACKOUT_KICK.id) {
-        this.castsBk++;
-      }
-    }
-
 
     if(this.hasSotc) {
+      if(!this.owner.selectedCombatant.hasBuff(SPELLS.TEACHINGS_OF_THE_MONASTERY.id)) {
+        //console.log('No TotM Buff');
+        return;
+      }
 
+      // Need to track when you over cap Teachings stacks.  There is no apply aura event fired, so manually tracking stacks.
+      if(spellId === SPELLS.TIGER_PALM.id && this.buffTotm === 3) {
+        debug && console.log('TP Casted at 3 stacks ' + event.timestamp);
+        this.lastTotmBuffTimestamp = event.timestamp;
+        this.totmOverCap++;
+      }
 
+      if(spellId === SPELLS.BLACKOUT_KICK.id && this.buffTotm > 0) {
+        if(this.owner.selectedCombatant.hasBuff(SPELLS.TEACHINGS_OF_THE_MONASTERY.id)){
+        this.totalTotmBuffs += this.buffTotm;
+        this.manaReturnSotc += (this.buffTotm * (baseMana * SPELLS.TEACHINGS_OF_THE_MONASTERY.manaRet));
+        debug && console.log("Black Kick Casted with Totm at " + this.buffTotm + " stacks");
+        }
+      }
     }
-
-
   }
 
 
@@ -94,9 +134,11 @@ class ManaSavingTalents extends Module {
       console.log("Mana Reduced:" + this.manaSaved);
       console.log("Viv Mana Reduced:" + this.manaSavedViv);
       console.log("EnM Mana Reduced:" + this.manaSavedEnm);
-      console.log("Tiger Palm Casts:" + this.castsTp);
-      console.log("Teachings Buffs:" + this.buffTotm);
-      console.log("Blackout Kick casts:" + this.castsBk);
+      console.log('TotM Buffs Wasted:' + this.totmBuffWasted);
+      console.log('TotM Buffs Overcap:' + this.totmOverCap);
+      console.log('SotC Mana Returned:' + this.manaReturnSotc);
+      console.log('Total TotM Buffs:' + this.totalTotmBuffs);
+
     }
   }
 }
