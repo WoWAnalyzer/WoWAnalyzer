@@ -28,6 +28,7 @@ import CooldownTracker from './Modules/Features/CooldownTracker';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import UpliftingTrance from './Modules/Features/UpliftingTrance';
 import ManaTea from './Modules/Features/ManaTea';
+import ManaSavingTalents from './Modules/Features/ManaSavingTalents';
 
 // Setup for Items
 import Velens from './Modules/Items/Velens';
@@ -72,6 +73,7 @@ class CombatLogParser extends MainCombatLogParser {
     cooldownTracker: CooldownTracker,
     upliftingTrance: UpliftingTrance,
     manaTea: ManaTea,
+    manaSavingTalents: ManaSavingTalents,
 
     // Legendaries / Items:
     drapeOfShame: DrapeOfShame,
@@ -141,7 +143,14 @@ class CombatLogParser extends MainCombatLogParser {
         important: getIssueImportance((this.modules.manaTea.manaSaved / this.modules.manateaCount), 160000, 120000),
       })
     }
-
+    // Lifecycles Manasavings
+    if(this.modules.manaSavingTalents.hasLifeCycles && this.modules.manaSavingTalents.manaSaved < 200000) {
+      results.addIssue({
+        issue: <span>Your current spell usage is not taking full advantage of the <a href="http://www.wowhead.com/spell=197915" target="_blank">Lifecycles</a> talent.  You casted {this.modules.manaSavingTalents.castsNonRedViv} / {(this.modules.manaSavingTalents.castsRedViv + this.modules.manaSavingTalents.castsNonRedViv)} Vivfy's and {this.modules.manaSavingTalents.castsNonRedEnm} / {(this.modules.manaSavingTalents.castsRedEnm + this.modules.manaSavingTalents.castsNonRedEnm)} Enveloping Mists without the mana saving buffs provided by <a href="http://www.wowhead.com/spell=197915" target="_blank">Lifecycles</a></span>,
+        icon:SPELLS.LIFECYCLES_TALENT.icon,
+        important:getIssueImportance(this.modules.manaSavingTalents.manaSaved, 170000, 140000),
+      });
+    }
     const castEfficiencyCategories = SPELL_CATEGORY;
     const castEfficiency = getCastEfficiency(CPM_ABILITIES, this);
     castEfficiency.forEach((cpm) => {
@@ -217,6 +226,23 @@ class CombatLogParser extends MainCombatLogParser {
           )}
         />
       ),
+    this.modules.manaSavingTalents.hasLifeCycles && (
+    <StatisticBox
+      icon={<SpellIcon id={SPELLS.LIFECYCLES_TALENT.id} />}
+      value={`${(this.modules.manaSavingTalents.manaSaved / 1000).toFixed(0)}k mana saved `}
+      label={(
+        <dfn data-tip={`You saved a total of ${this.modules.manaSavingTalents.manaSaved} from the Lifecycles talent.
+            <ul><li>On ${this.modules.manaSavingTalents.castsRedViv} Vivify casts, you saved ${(this.modules.manaSavingTalents.manaSavedViv / 1000).toFixed(0)}k mana.</li>
+            <li>On ${this.modules.manaSavingTalents.castsRedEnm} Enveloping Mists casts, you saved ${(this.modules.manaSavingTalents.manaSavedEnm / 1000).toFixed(0)}k mana.</li>
+            <li>You casted ${this.modules.manaSavingTalents.castsNonRedViv} Vivify's and ${this.modules.manaSavingTalents.castsNonRedEnm} Enveloping Mists at full mana.</li>
+            </ul>
+          `}>
+          Mana Saved from Lifecycles
+        </dfn>
+      )}
+    />
+    ),
+    
     ];
 
     results.items = [

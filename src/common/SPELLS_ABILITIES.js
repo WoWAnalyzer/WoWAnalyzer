@@ -5,11 +5,6 @@ export default {
     name: 'Leech',
     icon: 'spell_shadow_lifedrain02',
   },
-  ANCIENT_HEALING_POTION: {
-    id: 188016,
-    name: 'Ancient Healing Potion',
-    icon: 'inv_alchemy_70_red',
-  },
   // Items buffs:
   VELENS_FUTURE_SIGHT: {
     id: 235966,
@@ -399,13 +394,8 @@ export default {
     name: 'T20 4 set bonus',
     icon: 'inv_misc_herb_talandrasrose',
   },
-  TRANQUILITY_CAST: {
+  TRANQUILITY: {
     id: 740,
-    name: 'Tranquility',
-    icon: 'spell_nature_tranquility',
-  },
-  TRANQUILITY_HEAL: {
-    id: 157982,
     name: 'Tranquility',
     icon: 'spell_nature_tranquility',
   },
@@ -449,13 +439,8 @@ export default {
     name: 'Regrowth',
     icon: 'spell_nature_resistnature',
   },
-  LIFEBLOOM_HOT_HEAL: {
+  LIFEBLOOM: {
     id: 33763,
-    name: 'Lifebloom',
-    icon: 'inv_misc_herb_felblossom',
-  },
-  LIFEBLOOM_BLOOM_HEAL: {
-    id: 33778,
     name: 'Lifebloom',
     icon: 'inv_misc_herb_felblossom',
   },
@@ -464,18 +449,13 @@ export default {
     name: 'Clearcasting',
     icon: 'spell_shadow_manaburn',
   },
-  EFFLORESCENCE_CAST: {
+  EFFLORESCENCE: {
     id: 145205,
     name: 'Efflorescence',
     icon: 'inv_misc_herb_talandrasrose',
   },
-  EFFLORESCENCE_HEAL: {
-    id: 81269,
-    name: 'Efflorescence',
-    icon: 'inv_misc_herb_talandrasrose',
-  },
   CENARION_WARD: {
-    id: 102352,
+    id: 102351,
     name: 'Cenarion Ward',
     icon: 'ability_druid_naturalperfection',
   },
@@ -594,68 +574,6 @@ export default {
     name: 'Moonkin Form',
     icon: 'spell_nature_forceofnature',
   },
-  REJUVENATION_GERMINATION: {
-    id:155777,
-    name:'Germination',
-    icon: 'spell_druid_germination'
-  },
-  CULTIVATION: {
-    id:200389,
-    name:'Cultivation',
-    icon: 'ability_druid_nourish'
-  },
-  YSERAS_GIFT_1: {
-    id:145110,
-    name:'Ysera\'s gift',
-    icon: 'spell_nature_healingtouch'
-  },
-  YSERAS_GIFT_2: {
-    id:145109,
-    name:'Ysera\'s gift',
-    icon: 'spell_nature_healingtouch'
-  },
-  LIVING_SEED: {
-    id:48503,
-    name:'Living Seed',
-    icon: 'ability_druid_giftoftheearthmother'
-  },
-  MARK_OF_SHIFTING: {
-    id:224392,
-    name:'Mark of Shifting',
-    icon: 'spell_druid_tirelesspursuit'
-  },
-  FLOURISH: {
-    id:197721,
-    name:'Flourish',
-    icon: 'spell_druid_wildburst'
-  },
-  POWER_OF_THE_ARCHDRUID_BUFF: {
-    id: 189877,
-    name: 'Power of the Archdruid',
-    icon: 'spell_druid_rampantgrowth',
-  },
-  BLOSSOMING_EFFLORESCENCE: {
-    id: 242315, //TODO This is PTR id, may change on live
-    name: 'Blossomming Efflorescence',
-    icon: 'inv_misc_herb_talandrasrose',
-  },
-  DREAMWALKER: {
-    id:189853,
-    name:'Dreamwalker',
-    icon: 'ability_druid_healinginstincts'
-  },
-  NATURES_ESSENCE: {
-    id:189800,
-    name:'Nature\'s Essence',
-    icon: 'ability_druid_flourish'
-  },
-  SPRING_BLOSSOMS: {
-    id: 207386,
-    name: 'Spring Blossoms',
-    icon: 'spell_druid_springblossoms'
-  },
-
-  // ------- End Resto Druid spells ----------
   // Mistweaver Monk Spells
   EFFUSE: {
     id: 116694,
