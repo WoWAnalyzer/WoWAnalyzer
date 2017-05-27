@@ -65,9 +65,9 @@ class Tier20_4set extends Module {
     const hasLightsEmbrace = (healEvent.ability.guid === SPELLS.LIGHT_OF_DAWN_HEAL.id && !healEvent.isFirstLodHeal) || this.owner.selectedCombatant.hasBuff(SPELLS.LIGHTS_EMBRACE_BUFF.id, null, 0, 100);
     if (hasLightsEmbrace) {
       beaconTransferFactor += LIGHTS_EMBRACE_BEACON_HEAL_INCREASE;
-      if (this.beaconType === BEACON_TYPES.BEACON_OF_FATH) {
-        beaconTransferFactor *= (1 - BEACON_OF_FAITH_TRANSFER_REDUCTION);
-      }
+    }
+    if (this.beaconType === BEACON_TYPES.BEACON_OF_FATH) {
+      beaconTransferFactor *= (1 - BEACON_OF_FAITH_TRANSFER_REDUCTION);
     }
     // console.log(hasLightsEmbrace, healEvent.ability.name, healEvent, '-', (healEvent.timestamp - this.owner.fight.start_time) / 1000, 'seconds into the fight');
 
