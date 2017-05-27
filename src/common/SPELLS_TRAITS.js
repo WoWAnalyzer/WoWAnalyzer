@@ -83,4 +83,9 @@ export default {
     name: 'Blessings of Yu\'lon',
     icon: 'ability_monk_summonserpentstatue',
   },
+  PROTECTION_OF_TYR: {
+    id: 211210,
+    name: 'Protection of Tyr',
+    icon: 'spell_holy_auramastery',
+  },
 };

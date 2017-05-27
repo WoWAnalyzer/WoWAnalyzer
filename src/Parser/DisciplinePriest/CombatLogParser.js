@@ -302,7 +302,7 @@ class CombatLogParser extends MainCombatLogParser {
         icon: <ItemIcon id={ITEMS.AMALGAMS_SEVENTH_SPINE.id} />,
         title: <ItemLink id={ITEMS.AMALGAMS_SEVENTH_SPINE.id} />,
         result: (
-          <dfn data-tip={`The exact amunt of mana gained from the Amalgam's Seventh Spine equip effect. You gained mana ${this.modules.amalgamsSeventhSpine.procs} times and refreshed the buff ${this.modules.amalgamsSeventhSpine.refreshes} times (refreshing delay the mana return and is inefficient use of this trinket).`}>
+          <dfn data-tip={`The exact amount of mana gained from the Amalgam's Seventh Spine equip effect. You gained mana ${this.modules.amalgamsSeventhSpine.procs} times and refreshed the buff ${this.modules.amalgamsSeventhSpine.refreshes} times (refreshing delay the mana return and is inefficient use of this trinket).`}>
             {formatThousands(this.modules.amalgamsSeventhSpine.manaGained)} mana gained ({formatThousands(this.modules.amalgamsSeventhSpine.manaGained / this.fightDuration * 1000 * 5)} MP5)
           </dfn>
         )
@@ -312,7 +312,7 @@ class CombatLogParser extends MainCombatLogParser {
         icon: <ItemIcon id={ITEMS.DARKMOON_DECK_PROMISES.id} />,
         title: <ItemLink id={ITEMS.DARKMOON_DECK_PROMISES.id} />,
         result: (
-          <dfn data-tip={`The exact amunt of mana saved by the Darkmoon Deck: Promises equip effect. This takes the different values per card into account at the time of the cast. Mana values assume you have a 875 item level version.`}>
+          <dfn data-tip={`The exact amount of mana saved by the Darkmoon Deck: Promises equip effect. This takes the different values per card into account at the time of the cast. Mana values assume you have a 875 item level version.`}>
             {formatThousands(this.modules.darkmoonDeckPromises.manaGained)} mana saved ({formatThousands(this.modules.darkmoonDeckPromises.manaGained / this.fightDuration * 1000 * 5)} MP5)
           </dfn>
         )

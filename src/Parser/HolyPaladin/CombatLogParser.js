@@ -42,6 +42,7 @@ import ChainOfThrayn from './Modules/Items/ChainOfThrayn';
 import Prydaz from './Modules/Items/Prydaz';
 import ObsidianStoneSpaulders from './Modules/Items/ObsidianStoneSpaulders';
 import MaraadsDyingBreath from './Modules/Items/MaraadsDyingBreath';
+import Tier20_4set from './Modules/Items/Tier20_4set';
 
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
 
@@ -104,6 +105,7 @@ class CombatLogParser extends MainCombatLogParser {
     maraadsDyingBreath: MaraadsDyingBreath,
     amalgamsSeventhSpine: AmalgamsSeventhSpine,
     darkmoonDeckPromises: DarkmoonDeckPromises,
+    tier20_4set: Tier20_4set,
   };
 
   calculateMasteryStats() {
@@ -633,7 +635,7 @@ class CombatLogParser extends MainCombatLogParser {
         icon: <ItemIcon id={ITEMS.AMALGAMS_SEVENTH_SPINE.id} />,
         title: <ItemLink id={ITEMS.AMALGAMS_SEVENTH_SPINE.id} />,
         result: (
-          <dfn data-tip={`The exact amunt of mana gained from the Amalgam's Seventh Spine equip effect. You let the buff expire successfully ${this.modules.amalgamsSeventhSpine.procs} times. You refreshed the buff ${this.modules.amalgamsSeventhSpine.refreshes} times (refreshing delays the buff expiration and is inefficient use of this trinket).`}>
+          <dfn data-tip={`The exact amount of mana gained from the Amalgam's Seventh Spine equip effect. You let the buff expire successfully ${this.modules.amalgamsSeventhSpine.procs} times. You refreshed the buff ${this.modules.amalgamsSeventhSpine.refreshes} times (refreshing delays the buff expiration and is inefficient use of this trinket).`}>
             {formatThousands(this.modules.amalgamsSeventhSpine.manaGained)} mana gained ({formatThousands(this.modules.amalgamsSeventhSpine.manaGained / this.fightDuration * 1000 * 5)} MP5)
           </dfn>
         )
@@ -643,7 +645,7 @@ class CombatLogParser extends MainCombatLogParser {
         icon: <ItemIcon id={ITEMS.DARKMOON_DECK_PROMISES.id} />,
         title: <ItemLink id={ITEMS.DARKMOON_DECK_PROMISES.id} />,
         result: (
-          <dfn data-tip={`The exact amunt of mana saved by the Darkmoon Deck: Promises equip effect. This takes the different values per card into account at the time of the cast. Mana values assume you have a 875 item level version.`}>
+          <dfn data-tip={`The exact amount of mana saved by the Darkmoon Deck: Promises equip effect. This takes the different values per card into account at the time of the cast. Mana values assume you have a 875 item level version.`}>
             {formatThousands(this.modules.darkmoonDeckPromises.manaGained)} mana saved ({formatThousands(this.modules.darkmoonDeckPromises.manaGained / this.fightDuration * 1000 * 5)} MP5)
           </dfn>
         )
@@ -657,6 +659,16 @@ class CombatLogParser extends MainCombatLogParser {
             {holyShockCrits * (iolProcsPerHolyShockCrit - 1)} bonus Infusion of Light charges gained
           </span>
         ),
+      },
+      this.modules.tier20_4set.active && {
+        id: `spell-${SPELLS.HOLY_PALADIN_T20_4SET_BONUS_BUFF.id}`,
+        icon: <SpellIcon id={SPELLS.HOLY_PALADIN_T20_4SET_BONUS_BUFF.id} />,
+        title: <SpellLink id={SPELLS.HOLY_PALADIN_T20_4SET_BONUS_BUFF.id} />,
+        result: (
+          <dfn data-tip={`The actual effective healing contributed by the Drape of Shame equip effect. A total of ${formatNumber(this.modules.tier20_4set.totalBeaconHealingDuringLightsEmbrace)} <span style="color:orange">raw</span> healing was done on beacons during the Light's Embrace buff.`}>
+            {((this.modules.tier20_4set.healing / this.totalHealing * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.tier20_4set.healing / fightDuration * 1000)} HPS
+          </dfn>
+        )
       },
     ];
 
