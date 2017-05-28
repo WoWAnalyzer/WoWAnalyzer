@@ -142,7 +142,7 @@ class FeedingTab extends React.Component {
             <tr key={category.name+"Summary"}>
                 <td />
                 <td />
-                <td className="text-right"><b>total:</b> </td>
+                <td className="text-right"><b>Total:</b> </td>
                 <td className="text-left">
                     <b>{formatNumber(this.state.expand ? category.totals.mergedTotal : category.totals.total)}</b>
                 </td>
