@@ -67,6 +67,12 @@ export default {
     name: 'Uplifting Trance',
     icon: 'ability_monk_vivify',
   },
+  SPIRIT_OF_THE_CRANE_BUFF: {
+    id: 210803,
+    name: 'Spirit of the Crane',
+    icon: 'monk_stance_redcrane',
+    manaRet: 0.0065,
+  },
   // Ch-Ji Heal
   CRANE_HEAL: {
     id: 213373,

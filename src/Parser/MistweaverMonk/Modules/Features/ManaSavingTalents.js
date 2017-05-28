@@ -71,7 +71,6 @@ class ManaSavingTalents extends Module {
         this.buffTotm = 0;
         debug && console.log('ToTM Buff Wasted')
       }
-
       this.buffTotm = 0;
       // debug && console.log('ToTM Buff Zero');
     }
@@ -87,6 +86,7 @@ class ManaSavingTalents extends Module {
       debug && console.log('SotC Waste: ' + event.waste + ' Total: ' + this.sotcWasted + ' Timestamp: ' + event.timestamp);
     }
   }
+
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
@@ -129,9 +129,9 @@ class ManaSavingTalents extends Module {
 
       if(spellId === SPELLS.BLACKOUT_KICK.id && this.buffTotm > 0) {
         if(this.owner.selectedCombatant.hasBuff(SPELLS.TEACHINGS_OF_THE_MONASTERY.id)){
-        this.totalTotmBuffs += this.buffTotm;
-        //this.manaReturnSotc += (this.buffTotm * (baseMana * SPELLS.TEACHINGS_OF_THE_MONASTERY.manaRet));
-        debug && console.log("Black Kick Casted with Totm at " + this.buffTotm + " stacks");
+          this.totalTotmBuffs += this.buffTotm;
+          //this.manaReturnSotc += (this.buffTotm * (baseMana * SPELLS.TEACHINGS_OF_THE_MONASTERY.manaRet));
+          debug && console.log("Black Kick Casted with Totm at " + this.buffTotm + " stacks");
         }
       }
     }
