@@ -5,7 +5,7 @@ const PatreonLink = ({ ...others }) => (
     className="become-patron-button"
     role="button"
     href="https://www.patreon.com/wowanalyzer"
-    data-tip="Please note this Patreon is only for the core WoW Analyzer, and the specs being maintained by me (Holy Paladin and Disc Priest at the time of writing). The other specs are being developed by other people on top of the core I built, please contact them if you would prefer supporting them specifically. There is currently no distribution of donations in place, and due to the complex nature of this there are currently no plans to do this either. It sucks and I'm sorry."
+    data-tip="Please note this Patreon is for helping the core WoW Analyzer. Most specs being developed is done by other volunteers on top of the core I built, please contact them if you would prefer supporting your spec maintainer specifically."
     {...others}
   >
     <span className="patreon-icon">

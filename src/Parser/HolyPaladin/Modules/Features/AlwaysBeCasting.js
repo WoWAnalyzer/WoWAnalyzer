@@ -42,8 +42,8 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     SPELLS.HAND_OF_RECKONING.id,
   ];
 
-  on_initialized(event) {
-    super.on_initialized(arguments);
+  on_initialized() {
+    super.on_initialized();
 
     const combatant = this.owner.modules.combatants.selected;
 

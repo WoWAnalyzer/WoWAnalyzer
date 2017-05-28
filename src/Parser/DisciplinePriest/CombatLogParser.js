@@ -28,6 +28,7 @@ import AbilityTracker from './Modules/Core/AbilityTracker';
 
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownTracker from './Modules/Features/CooldownTracker';
+import PowerWordShieldWasted from './Modules/Features/PowerWordShieldWasted';
 
 import DrapeOfShame from './Modules/Items/DrapeOfShame';
 import Velens from './Modules/Items/Velens';
@@ -74,6 +75,7 @@ class CombatLogParser extends MainCombatLogParser {
 
     alwaysBeCasting: AlwaysBeCasting,
     cooldownTracker: CooldownTracker,
+    powerWordShieldWasted: PowerWordShieldWasted,
 
     // Items:
     drapeOfShame: DrapeOfShame,
@@ -218,6 +220,15 @@ class CombatLogParser extends MainCombatLogParser {
           label="Shadow Word: Pain uptime"
         />
       ),
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.POWER_WORD_SHIELD.id} />}
+        value={`${formatNumber(this.modules.powerWordShieldWasted.wasted / fightDuration * 1000)} HPS`}
+        label={(
+          <dfn data-tip={`The amount of shield absorb remaining on Power Word: Shields that expired. There was a total of ${formatNumber(this.modules.powerWordShieldWasted.wasted)} unused Power Word: Shield absorb from ${this.modules.powerWordShieldWasted.count} shields with absorb remaining (a total of ${this.modules.powerWordShieldWasted.totalCount} shields were applied).`}>
+            Unused PW:S absorb
+          </dfn>
+        )}
+      />
     ];
 
     results.items = [

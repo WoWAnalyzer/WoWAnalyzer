@@ -35,6 +35,11 @@ export default {
     icon: 'ability_monk_renewingmists',
     manaPerc: 0.03,
   },
+  RENEWING_MIST_HEAL: {
+    id: 119611,
+    name: 'Renewing Mist',
+    icon: 'ability_monk_renewingmists',
+  },
   REVIVAL: {
     id: 115310,
     name: 'Revival',
