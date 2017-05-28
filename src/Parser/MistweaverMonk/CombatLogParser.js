@@ -297,7 +297,8 @@ class CombatLogParser extends MainCombatLogParser {
           value={`${(this.modules.manaSavingTalents.manaReturnSotc / 1000).toFixed(0)}k mana returned`}
           label={(
             <dfn data-tip={`
-              You lost ${(this.modules.manaSavingTalents.totmOverCap + this.modules.manaSavingTalents.totmBuffWasted)} Teachings of the Monestery stacks
+                You gained a raw total of ${((this.modules.manaSavingTalents.manaReturnSotc + this.modules.manaSavingTalents.sotcWasted) / 1000).toFixed(0)}k mana from SotC with ${(this.modules.manaSavingTalents.sotcWasted / 1000).toFixed(0)}k wasted.<br>
+                You lost ${(this.modules.manaSavingTalents.totmOverCap + this.modules.manaSavingTalents.totmBuffWasted)} Teachings of the Monestery stacks
               <ul>
                 ${this.modules.manaSavingTalents.totmOverCap > 0 ?
                 `<li>You overcapped Teachings ${(this.modules.manaSavingTalents.totmOverCap)} times</li>`

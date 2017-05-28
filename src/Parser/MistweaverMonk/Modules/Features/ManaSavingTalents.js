@@ -14,10 +14,6 @@ class ManaSavingTalents extends Module {
   castsNonRedViv = 0;
   castsNonRedEnm = 0;
 
-
-
-  manaReturnSotc = 0;
-
   castsTp = 0;
   buffTotm = 0;
   castsBk = 0;
@@ -25,6 +21,9 @@ class ManaSavingTalents extends Module {
   totmOverCap = 0;
   totmBuffWasted = 0;
   totalTotmBuffs = 0;
+
+  manaReturnSotc = 0;
+  sotcWasted = 0;
 
   hasLifeCycles = false;
   hasSotc = false;
@@ -78,6 +77,16 @@ class ManaSavingTalents extends Module {
     }
   }
 
+  on_byPlayer_energize(event) {
+    const spellId = event.ability.guid;
+
+    if(spellId === SPELLS.SPIRIT_OF_THE_CRANE_BUFF.id) {
+      this.manaReturnSotc += event.resourceChange - event.waste;
+      this.sotcWasted += event.waste;
+      debug && console.log('SotC Entergize: ' + (event.resourceChange - event.waste) + ' Total: ' + this.manaReturnSotc);
+      debug && console.log('SotC Waste: ' + event.waste + ' Total: ' + this.sotcWasted + ' Timestamp: ' + event.timestamp);
+    }
+  }
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
@@ -121,7 +130,7 @@ class ManaSavingTalents extends Module {
       if(spellId === SPELLS.BLACKOUT_KICK.id && this.buffTotm > 0) {
         if(this.owner.selectedCombatant.hasBuff(SPELLS.TEACHINGS_OF_THE_MONASTERY.id)){
         this.totalTotmBuffs += this.buffTotm;
-        this.manaReturnSotc += (this.buffTotm * (baseMana * SPELLS.TEACHINGS_OF_THE_MONASTERY.manaRet));
+        //this.manaReturnSotc += (this.buffTotm * (baseMana * SPELLS.TEACHINGS_OF_THE_MONASTERY.manaRet));
         debug && console.log("Black Kick Casted with Totm at " + this.buffTotm + " stacks");
         }
       }
@@ -138,7 +147,8 @@ class ManaSavingTalents extends Module {
       console.log('TotM Buffs Overcap:' + this.totmOverCap);
       console.log('SotC Mana Returned:' + this.manaReturnSotc);
       console.log('Total TotM Buffs:' + this.totalTotmBuffs);
-
+      console.log('SotC Waste Total: ' + this.sotcWasted);
+      console.log('SotC Total: ' + (this.sotcWasted + this.manaReturnSotc))
     }
   }
 }
