@@ -20,6 +20,10 @@ const CPM_ABILITIES = [
     spell: SPELLS.LIGHT_OF_DAWN_CAST,
     category: SPELL_CATEGORY.ROTATIONAL,
     getCooldown: haste => 12 / (1 + haste),
+    getOverhealing: (_, getAbility) => {
+      const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.LIGHT_OF_DAWN_HEAL.id);
+      return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
+    },
   },
   {
     spell: SPELLS.JUDGMENT_CAST,
@@ -27,6 +31,10 @@ const CPM_ABILITIES = [
     getCooldown: haste => 12 / (1 + haste),
     isActive: combatant => combatant.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT.id),
     recommendedCastEfficiency: 0.85, // this rarely overheals, so keeping this on cooldown is pretty much always best
+    getOverhealing: (_, getAbility) => {
+      const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.JUDGMENT_OF_LIGHT_HEAL.id);
+      return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
+    },
   },
   {
     spell: SPELLS.BESTOW_FAITH_TALENT,
@@ -40,6 +48,10 @@ const CPM_ABILITIES = [
     category: SPELL_CATEGORY.ROTATIONAL,
     getCooldown: haste => 60,
     isActive: combatant => combatant.hasTalent(SPELLS.LIGHTS_HAMMER_TALENT.id),
+    getOverhealing: (_, getAbility) => {
+      const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.LIGHTS_HAMMER_HEAL.id);
+      return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
+    },
   },
   {
     spell: SPELLS.CRUSADER_STRIKE,
@@ -123,6 +135,7 @@ const CPM_ABILITIES = [
     category: SPELL_CATEGORY.OTHERS,
     getCasts: castCount => (castCount.casts || 0) - (castCount.healingIolHits || 0),
     getCooldown: haste => null,
+    getOverhealing: ({ healingEffective, healingAbsorbed, healingOverheal, healingIolHealing, healingIolAbsorbed, healingIolOverheal }) => (healingOverheal - healingIolOverheal) / ((healingEffective - healingIolHealing) + (healingAbsorbed - healingIolAbsorbed) + (healingOverheal - healingIolOverheal)),
   },
   {
     spell: SPELLS.FLASH_OF_LIGHT,
@@ -130,6 +143,7 @@ const CPM_ABILITIES = [
     category: SPELL_CATEGORY.OTHERS,
     getCasts: castCount => castCount.healingIolHits || 0,
     getCooldown: haste => null,
+    getOverhealing: ({ healingIolHealing, healingIolAbsorbed, healingIolOverheal }) => healingIolOverheal / (healingIolHealing + healingIolAbsorbed + healingIolOverheal),
   },
   {
     spell: SPELLS.HOLY_LIGHT,
@@ -137,6 +151,7 @@ const CPM_ABILITIES = [
     category: SPELL_CATEGORY.OTHERS,
     getCasts: castCount => (castCount.casts || 0) - (castCount.healingIolHits || 0),
     getCooldown: haste => null,
+    getOverhealing: ({ healingEffective, healingAbsorbed, healingOverheal, healingIolHealing, healingIolAbsorbed, healingIolOverheal }) => (healingOverheal - healingIolOverheal) / ((healingEffective - healingIolHealing) + (healingAbsorbed - healingIolAbsorbed) + (healingOverheal - healingIolOverheal)),
   },
   {
     spell: SPELLS.HOLY_LIGHT,
@@ -144,6 +159,7 @@ const CPM_ABILITIES = [
     category: SPELL_CATEGORY.OTHERS,
     getCasts: castCount => castCount.healingIolHits || 0,
     getCooldown: haste => null,
+    getOverhealing: ({ healingIolHealing, healingIolAbsorbed, healingIolOverheal }) => healingIolOverheal / (healingIolHealing + healingIolAbsorbed + healingIolOverheal),
   },
 ];
 

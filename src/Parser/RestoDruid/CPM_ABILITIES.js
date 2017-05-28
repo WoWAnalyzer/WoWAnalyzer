@@ -14,6 +14,10 @@ const CPM_ABILITIES = [
     spell: SPELLS.TRANQUILITY_CAST,
     category: SPELL_CATEGORY.COOLDOWNS,
     getCooldown: (haste, combatant) => combatant.hasTalent(SPELLS.INNER_PEACE_TALENT.id) ? 120 : 180,
+    getOverhealing: (_, getAbility) => {
+      const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.TRANQUILITY_HEAL.id);
+      return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
+    },
   },
   {
     spell: SPELLS.INNERVATE,
