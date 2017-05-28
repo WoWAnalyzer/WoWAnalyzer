@@ -1,13 +1,5 @@
 import React from 'react';
 
-import MainCombatLogParser from 'Parser/Core/CombatLogParser';
-import ParseResults from 'Parser/Core/ParseResults';
-import getCastEfficiency from 'Parser/Core/getCastEfficiency';
-import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
-import AmalgamsSeventhSpine from 'Parser/Core/Modules/Items/AmalgamsSeventhSpine';
-import SephuzsSecret from 'Parser/Core/Modules/Items/SephuzsSecret';
-import DarkmoonDeckPromises from 'Parser/Core/Modules/Items/DarkmoonDeckPromises';
-
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
@@ -23,6 +15,15 @@ import CastEfficiencyTab from 'Main/CastEfficiencyTab';
 import CooldownsTab from 'Main/CooldownsTab';
 import ManaTab from 'Main/ManaTab';
 
+import MainCombatLogParser from 'Parser/Core/CombatLogParser';
+import ParseResults from 'Parser/Core/ParseResults';
+import getCastEfficiency from 'Parser/Core/getCastEfficiency';
+import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
+import AmalgamsSeventhSpine from 'Parser/Core/Modules/Items/AmalgamsSeventhSpine';
+import SephuzsSecret from 'Parser/Core/Modules/Items/SephuzsSecret';
+import DarkmoonDeckPromises from 'Parser/Core/Modules/Items/DarkmoonDeckPromises';
+import Prydaz from 'Parser/Core/Modules/Items/Prydaz';
+
 import AbilityTracker from './Modules/Core/AbilityTracker';
 
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
@@ -30,7 +31,6 @@ import CooldownTracker from './Modules/Features/CooldownTracker';
 
 import DrapeOfShame from './Modules/Items/DrapeOfShame';
 import Velens from './Modules/Items/Velens';
-import Prydaz from './Modules/Items/Prydaz';
 import Tier19_2set from './Modules/Items/Tier19_2set';
 import CordOfMaiev from './Modules/Items/CordOfMaiev';
 import Skjoldr from './Modules/Items/Skjoldr';

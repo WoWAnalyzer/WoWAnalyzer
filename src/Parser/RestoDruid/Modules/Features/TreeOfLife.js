@@ -1,5 +1,7 @@
-import Module from 'Parser/Core/Module';
 import SPELLS from 'common/SPELLS';
+
+import Module from 'Parser/Core/Module';
+
 import {ABILITIES_AFFECTED_BY_HEALING_INCREASES} from '../../Constants';
 
 const debug = false;
@@ -9,7 +11,6 @@ const REJUVENATION_REDUCED_MANA = 0.3;
 const HEALING_INCREASE = 1.15;
 const REJUV_HEALING_INCREASE = 1.5;
 const WILD_GROWTH_HEALING_INCREASE = (WG_TARGETS+2) / WG_TARGETS;
-import SPELLS_TALENTS from 'common/SPELLS_TALENTS';
 
 class TreeOfLife extends Module {
   hasGermination = false;
@@ -32,7 +33,7 @@ class TreeOfLife extends Module {
   throughputHelmet = 0;
 
   on_initialized() {
-    this.hasGermination = this.owner.selectedCombatant.lv90Talent === SPELLS_TALENTS.GERMINATION_TALENT.id;
+    this.hasGermination = this.owner.selectedCombatant.lv90Talent === SPELLS.GERMINATION_TALENT.id;
   }
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;

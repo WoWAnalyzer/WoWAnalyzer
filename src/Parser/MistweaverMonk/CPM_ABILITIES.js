@@ -15,6 +15,10 @@ const CPM_ABILITIES = [
     category: SPELL_CATEGORY.ROTATIONAL,
     getCooldown: haste => 8,
     recommendedCastEfficiency: .7,
+    getOverhealing: (_, getAbility) => {
+      const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.RENEWING_MIST_HEAL.id);
+      return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
+    },
   },
   {
     spell: SPELLS.THUNDER_FOCUS_TEA,
@@ -87,6 +91,10 @@ const CPM_ABILITIES = [
     spell: SPELLS.ESSENCE_FONT,
     category: SPELL_CATEGORY.OTHERS,
     getCooldown: haste => null,
+    getOverhealing: (_, getAbility) => {
+      const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.ESSENCE_FONT_BUFF.id);
+      return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
+    },
   },
   {
     spell: SPELLS.REFRESHING_JADE_WIND_TALENT,

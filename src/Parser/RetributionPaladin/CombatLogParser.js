@@ -1,10 +1,5 @@
 import React from 'react';
 
-import MainCombatLogParser from 'Parser/Core/CombatLogParser';
-import ParseResults from 'Parser/Core/ParseResults';
-import getCastEfficiency from 'Parser/Core/getCastEfficiency';
-import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
-
 import SpellLink from 'common/SpellLink';
 import Icon from 'common/Icon';
 import ITEMS from 'common/ITEMS';
@@ -16,11 +11,15 @@ import SuggestionsTab from 'Main/SuggestionsTab';
 import TalentsTab from 'Main/TalentsTab';
 import CastEfficiencyTab from 'Main/CastEfficiencyTab';
 
+import MainCombatLogParser from 'Parser/Core/CombatLogParser';
+import ParseResults from 'Parser/Core/ParseResults';
+import getCastEfficiency from 'Parser/Core/getCastEfficiency';
+import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
+import Prydaz from 'Parser/Core/Modules/Items/Prydaz';
+
 import VerifySpec from './Modules/PaladinCore/VerifySpec';
 
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
-
-import Prydaz from './Modules/Legendaries/Prydaz';
 
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
 

@@ -1,8 +1,7 @@
 import ITEMS from 'common/ITEMS';
+import SPELLS from 'common/SPELLS';
 
 import Module from 'Parser/Core/Module';
-
-const PRYDAZ_HEAL_SPELL_ID = 207472;
 
 class Prydaz extends Module {
   healing = 0;
@@ -15,7 +14,7 @@ class Prydaz extends Module {
 
   on_byPlayer_absorbed(event) {
     const spellId = event.ability.guid;
-    if (spellId === PRYDAZ_HEAL_SPELL_ID) {
+    if (spellId === SPELLS.XAVARICS_MAGNUM_OPUS.id) {
       this.healing += event.amount;
     }
   }

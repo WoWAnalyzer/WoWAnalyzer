@@ -1,13 +1,5 @@
 import React from 'react';
 
-import MainCombatLogParser from 'Parser/Core/CombatLogParser';
-import ParseResults from 'Parser/Core/ParseResults';
-import getCastEfficiency from 'Parser/Core/getCastEfficiency';
-import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
-import DarkmoonDeckPromises from 'Parser/Core/Modules/Items/DarkmoonDeckPromises';
-import AmalgamsSeventhSpine from 'Parser/Core/Modules/Items/AmalgamsSeventhSpine';
-import SephuzsSecret from 'Parser/Core/Modules/Items/SephuzsSecret';
-
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
@@ -24,6 +16,15 @@ import CooldownsTab from 'Main/CooldownsTab';
 import ManaTab from 'Main/ManaTab';
 import PlayerBreakdownTab from 'Main/PlayerBreakdownTab';
 
+import MainCombatLogParser from 'Parser/Core/CombatLogParser';
+import ParseResults from 'Parser/Core/ParseResults';
+import getCastEfficiency from 'Parser/Core/getCastEfficiency';
+import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
+import DarkmoonDeckPromises from 'Parser/Core/Modules/Items/DarkmoonDeckPromises';
+import AmalgamsSeventhSpine from 'Parser/Core/Modules/Items/AmalgamsSeventhSpine';
+import SephuzsSecret from 'Parser/Core/Modules/Items/SephuzsSecret';
+import Prydaz from 'Parser/Core/Modules/Items/Prydaz';
+
 import PaladinAbilityTracker from './Modules/PaladinCore/PaladinAbilityTracker';
 import BeaconHealing from './Modules/PaladinCore/BeaconHealing';
 import BeaconTargets from './Modules/PaladinCore/BeaconTargets';
@@ -39,7 +40,6 @@ import DrapeOfShame from './Modules/Items/DrapeOfShame';
 import Ilterendi from './Modules/Items/Ilterendi';
 import Velens from './Modules/Items/Velens';
 import ChainOfThrayn from './Modules/Items/ChainOfThrayn';
-import Prydaz from './Modules/Items/Prydaz';
 import ObsidianStoneSpaulders from './Modules/Items/ObsidianStoneSpaulders';
 import MaraadsDyingBreath from './Modules/Items/MaraadsDyingBreath';
 import Tier20_4set from './Modules/Items/Tier20_4set';

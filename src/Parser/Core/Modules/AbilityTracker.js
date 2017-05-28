@@ -74,6 +74,9 @@ class HealingTracker extends AbilityTracker {
       cast.healingCriticalOverheal = (cast.healingCriticalOverheal || 0) + (event.overheal || 0);
     }
   }
+  on_byPlayer_absorbed(event) {
+    this.on_byPlayer_heal(event);
+  }
 }
 class DamageTracker extends HealingTracker {
   // TODO: Implement

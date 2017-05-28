@@ -42,6 +42,10 @@ const CPM_ABILITIES = [
     category: SPELL_CATEGORY.ROTATIONAL,
     getCooldown: haste => 40,
     isActive: combatant => combatant.hasTalent(SPELLS.HALO_TALENT.id),
+    getOverhealing: (_, getAbility) => {
+      const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.HALO_HEAL.id);
+      return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
+    },
   },
   {
     spell: SPELLS.LIGHTS_WRATH,
