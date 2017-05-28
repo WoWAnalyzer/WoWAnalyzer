@@ -1,3 +1,5 @@
+import SPECS from 'common/SPECS';
+
 import Entity from './Entity';
 
 export const TALENT_ROWS = {
@@ -70,13 +72,14 @@ class Combatant extends Entity {
     return this._combatantInfo.mastery;
   }
   get masteryPercentage() {
-    if (this._combatantInfo.specID === 65) { // holy paladin
-      return 0.12 + this.masteryRating / 26667;
-    } else if (this._combatantInfo.specID === 264) { // resto shaman
-      return 0.24 + this.masteryRating / 13333.3333333; 
+    switch (this.specId) {
+      case SPECS.HOLY_PALADIN.id:
+        return 0.12 + this.masteryRating / 26667;
+      case SPECS.RESTORATION_SHAMAN.id:
+        return 0.24 + this.masteryRating / 13333.3333333;
+      default:
+        throw new Error('Mastery hasn\'t been implemented for this spec yet.');
     }
-    return 0; // I don't know how to do error handling, sorry!
-      
   }
   get versatilityRating() {
     return this._combatantInfo.versatilityHealingDone;
