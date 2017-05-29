@@ -51,6 +51,11 @@ export default {
     name: 'Sheilun\'s Gift',
     icon: 'inv_staff_2h_artifactshaohao_d_01',
   },
+  SHEILUNS_GIFT_BUFF: {
+    id: 214502,
+    name: 'Sheilun\'s Gift',
+    icon: 'inv_staff_2h_artifactshaohao_d_01',
+  },
   THUNDER_FOCUS_TEA: {
     id: 116680,
     name: 'Thunder Focus Tea',

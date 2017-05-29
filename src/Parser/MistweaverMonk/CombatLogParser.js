@@ -31,6 +31,7 @@ import UpliftingTrance from './Modules/Features/UpliftingTrance';
 import ManaTea from './Modules/Features/ManaTea';
 import ManaSavingTalents from './Modules/Features/ManaSavingTalents';
 import ThunderFocusTea from './Modules/Features/ThunderFocusTea'
+import SheilunsGift from './Modules/Features/SheilunsGift'
 
 // Setup for Items
 import Velens from './Modules/Items/Velens';
@@ -76,6 +77,7 @@ class CombatLogParser extends MainCombatLogParser {
     manaTea: ManaTea,
     manaSavingTalents: ManaSavingTalents,
     thunderFocusTea: ThunderFocusTea,
+    sheilunsGift: SheilunsGift,
 
     // Legendaries / Items:
     drapeOfShame: DrapeOfShame,
@@ -98,6 +100,8 @@ class CombatLogParser extends MainCombatLogParser {
     const prydazHealingPercentage = this.modules.prydaz.healing / this.totalHealing;
     const drapeOfShameHealingPercentage = this.modules.drapeOfShame.healing / this.totalHealing;
     const unusedUTProcs = 1 - (this.modules.upliftingTrance.consumedUTProc / this.modules.upliftingTrance.UTProcsTotal);
+    const avgSGOverheal = this.modules.sheilunsGift.overhealSG / this.modules.sheilunsGift.castsSG;
+    const hasWhispersOfShaohao = this.selectedCombatant.traitsBySpellId[SPELLS.WHISPERS_OF_SHAOHAO.id] === 1;
 
     /*
     if (deadTimePercentage > 0.2) {
@@ -110,7 +114,13 @@ class CombatLogParser extends MainCombatLogParser {
     */
 
 
-
+    if(avgSGOverheal > 300000) {
+      results.addIssue({
+        issue: <span>You averaged {(avgSGOverheal / 1000).toFixed(0)}k overheal with your <a href="http://www.wowhead.com/spell=205406" target="_blank">Sheilun's Gift</a> and casted with an average of {(this.modules.sheilunsGift.stacksTotalSG / this.modules.sheilunsGift.castsSG).toFixed(0)} stacks.  Consider using <a href="http://www.wowhead.com/spell=205406" target="_blank">Sheilun's Gift</a> as lower stacks to increase effectiveness.</span>,
+        icon: SPELLS.SHEILUNS_GIFT.icon,
+        importance: getIssueImportance(avgSGOverheal, 325000, 400000, true)
+      });
+    }
     if (this.modules.velens.active && velensHealingPercentage < 0.045) {
       results.addIssue({
         issue: <span>Your usage of <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} /> can be improved. Try to maximize the amount of casts during the buff or consider using an easier legendary ({(velensHealingPercentage * 100).toFixed(2)}% healing contributed).</span>,
@@ -202,7 +212,7 @@ class CombatLogParser extends MainCombatLogParser {
       // Thunder Focus Tea Usage
       <StatisticBox
         icon={<SpellIcon id={SPELLS.THUNDER_FOCUS_TEA.id} />}
-        value={`${this.modules.thunderFocusTea.castsTft} `}
+        value={`${this.modules.thunderFocusTea.castsTft} Uses`}
         label={(
           <dfn data-tip={`With your ${this.modules.thunderFocusTea.castsTft} Thunder Focus Tea casts, you buffed the following spells:
             <ul>
@@ -315,6 +325,19 @@ class CombatLogParser extends MainCombatLogParser {
           )}
         />
       ),
+
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.SHEILUNS_GIFT.id} />}
+        value={`${((this.modules.sheilunsGift.stacksTotalSG / this.modules.sheilunsGift.castsSG).toFixed(0))} Stacks`}
+        label={(
+          <dfn data-tip={`You healed for an average of ${((this.modules.sheilunsGift.sgHeal / this.modules.sheilunsGift.castsSG) / 1000).toFixed(0)}k with each Sheilun\'s cast.
+            ${this.modules.sheilunsGift.stacksWastedSG > 0 ? `<br>You wasted ${this.modules.sheilunsGift.stacksWastedSG} stack(s) during this fight.` : ""}
+            `}>
+            Avg stacks used
+          </dfn>
+        )}
+      />,
+
 
     ];
 
