@@ -117,6 +117,7 @@ class CombatLogParser extends MainCombatLogParser {
     const healingWave = getAbility(SPELLS.HEALING_WAVE.id);
     const healingSurge = getAbility(SPELLS.HEALING_SURGE.id);
     const chainHeal = getAbility(SPELLS.CHAIN_HEAL.id);
+    const giftOfTheQueen = getAbility(SPELLS.GIFT_OF_THE_QUEEN.id)
 
     const nonHealingTimePercentage = this.modules.alwaysBeCasting.totalHealingTimeWasted / fightDuration;
     const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
@@ -152,14 +153,20 @@ class CombatLogParser extends MainCombatLogParser {
     const healingSurges = healingSurge.casts || 0;
     const unbuffedHealingSurges = healingSurges - twHealingSurges;
     const totalTwUsed = twHealingWaves + twHealingSurges;
+    const giftOfTheQueenCasts = giftOfTheQueen.casts || 0;
 
     const chainHealHits = chainHeal.healingHits || 0;
     const chainHealAvgHits = chainHealHits / chainHealCasts;
     const maxChainHealTargets = this.selectedCombatant.hasTalent(SPELLS.HIGH_TIDE_TALENT.id) ? 5 : 4;
-    var chainHealTargetEfficiency = chainHealAvgHits / maxChainHealTargets;
-    if (chainHealCasts === 0) {
-        chainHealTargetEfficiency = 1;
-    }
+    const chainHealTargetEfficiency = chainHealAvgHits / maxChainHealTargets;
+
+    const hasDeepWaters = this.selectedCombatant.traitsBySpellId[SPELLS.DEEP_WATERS.id]>0
+    const giftOfTheQueenHits = giftOfTheQueen.healingHits || 0;
+    const giftOfTheQueenAvgHits = giftOfTheQueenHits / giftOfTheQueenCasts / (hasDeepWaters ? 2 : 1);
+    const giftOfTheQueenTargetEfficiency = giftOfTheQueenAvgHits / 6;
+
+
+
 
     const totalMasteryHealing = this.modules.masteryEffectiveness.totalMasteryHealing || 0;
     const totalMaxPotentialMasteryHealing = this.modules.masteryEffectiveness.totalMaxPotentialMasteryHealing || 0;
@@ -302,6 +309,16 @@ class CombatLogParser extends MainCombatLogParser {
           <dfn data-tip={`The average percentage of targets healed by Chain Heal out of the maximum amount of targets. You cast a total of ${chainHealCasts} Chain Heals, which healed an average of ${chainHealAvgHits.toFixed(2)} out of ${maxChainHealTargets} targets.`}>
 
             Chain Heal target efficiency
+          </dfn>
+        )}
+      />,
+      giftOfTheQueenCasts > 0 && <StatisticBox
+        icon={<SpellIcon id={SPELLS.GIFT_OF_THE_QUEEN.id} />}
+        value={`${formatPercentage(giftOfTheQueenTargetEfficiency)} %`}
+        label={(
+          <dfn data-tip={`The average percentage of targets healed by Gift of the Queen out of the maximum amount of targets. You cast a total of ${giftOfTheQueenCasts} Gift of the Queens, which healed an average of ${giftOfTheQueenAvgHits.toFixed(2)} out of 6 targets.`}>
+
+            GotQ target efficiency
           </dfn>
         )}
       />,

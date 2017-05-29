@@ -296,11 +296,19 @@ export default {
   QUEENS_DECREE: {
     id: 208899,
     name: 'Queen\'s Decree',
-    icon: 'inv_misc_volatilewater.jpg',
+    icon: 'inv_misc_volatilewater',
   },
   TIDAL_TOTEM: {
     id: 209069,
     name: 'Tidal Totem',
-    icon: 'inv_mace_1h_artifactazshara_d_02.jpg',
+    icon: 'inv_mace_1h_artifactazshara_d_02',
   },
-};
+  DEEP_WATERS: {
+    id: 238143,
+    name: 'Deep Waters',
+    icon: 'inv_mace_1h_artifactazshara_d_02',
+  },
+
+}
+
+
