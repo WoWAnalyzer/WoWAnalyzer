@@ -51,6 +51,11 @@ export default {
     name: 'Sheilun\'s Gift',
     icon: 'inv_staff_2h_artifactshaohao_d_01',
   },
+  SHEILUNS_GIFT_BUFF: {
+    id: 214502,
+    name: 'Sheilun\'s Gift',
+    icon: 'inv_staff_2h_artifactshaohao_d_01',
+  },
   THUNDER_FOCUS_TEA: {
     id: 116680,
     name: 'Thunder Focus Tea',
@@ -71,6 +76,17 @@ export default {
     id: 197206,
     name: 'Uplifting Trance',
     icon: 'ability_monk_vivify',
+  },
+  SPIRIT_OF_THE_CRANE_BUFF: {
+    id: 210803,
+    name: 'Spirit of the Crane',
+    icon: 'monk_stance_redcrane',
+    manaRet: 0.0065,
+  },
+  CHI_BURST_HEAL: {
+    id: 130654,
+    name: 'Chi Burst',
+    icon: 'spell_arcane_arcanetorrent',
   },
   // Ch-Ji Heal
   CRANE_HEAL: {
@@ -319,5 +335,10 @@ export default {
     id: 199668,
     name: 'Blessings of Yu\'lon',
     icon: 'ability_monk_summonserpentstatue',
+  },
+  EFFUSIVE_MISTS: {
+    id: 238094,
+    name: 'Effusive Mists',
+    icon: 'ability_monk_effuse',
   },
 };
