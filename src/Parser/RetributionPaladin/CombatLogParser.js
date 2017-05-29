@@ -17,8 +17,6 @@ import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import Prydaz from 'Parser/Core/Modules/Items/Prydaz';
 
-import VerifySpec from './Modules/PaladinCore/VerifySpec';
-
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
@@ -50,9 +48,6 @@ function formatPercentage(percentage) {
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
-    // PaladinCore
-    verifySpec: VerifySpec,
-
     // Features
     alwaysBeCasting: AlwaysBeCasting,
 
