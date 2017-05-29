@@ -98,6 +98,7 @@ class CombatLogParser extends MainCombatLogParser {
     const results = new ParseResults();
 
     const fightDuration = this.fightDuration;
+    const fightEndTime = this.fight.end_time;
     // const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
 
     const abilityTracker = this.modules.abilityTracker;
@@ -121,11 +122,18 @@ class CombatLogParser extends MainCombatLogParser {
     const avgCelestialBreathTargets = this.modules.aoeHealingTracker.healsCelestialBreath / this.modules.aoeHealingTracker.procsCelestialBreath || 0;
     const avgMistsOfSheilunHealing = this.modules.aoeHealingTracker.healingMistsOfSheilun / this.modules.aoeHealingTracker.healsMistsOfSheilun || 0;
     const avgMistsOfSheilunTargets = this.modules.aoeHealingTracker.healsMistsOfSheilun / this.modules.aoeHealingTracker.procsMistsOfSheilun || 0;
+    const avgRJWHealing = this.modules.aoeHealingTracker.healingRJW / this.modules.aoeHealingTracker.castRJW || 0;
+    const avgRJWTargets = this.modules.aoeHealingTracker.healsRJW / this.modules.aoeHealingTracker.castRJW || 0;
+
+
+    const wastedSGStacks = this.modules.sheilunsGift.stacksWastedSG + Math.floor((fightEndTime - this.modules.sheilunsGift.lastSGStack) / 10000);
 
     // Trait Checks
     const hasWhispersOfShaohao = this.selectedCombatant.traitsBySpellId[SPELLS.WHISPERS_OF_SHAOHAO_TRAIT.id] === 1;
     const hasCelestialBreath = this.selectedCombatant.traitsBySpellId[SPELLS.CELESTIAL_BREATH_TRAIT.id] === 1;
     const hasMistsOfSheilun = this.selectedCombatant.traitsBySpellId[SPELLS.MISTS_OF_SHEILUN_TRAIT.id] === 1;
+    const hasRJW = this.selectedCombatant.hasTalent(SPELLS.REFRESHING_JADE_WIND_TALENT.id);
+
 
     const missedWhispersHeal = ((Math.floor(fightDuration / 10000) + this.modules.sheilunsGift.countEff) - this.modules.sheilunsGift.countWhispersHeal);
 
@@ -281,7 +289,7 @@ class CombatLogParser extends MainCombatLogParser {
         icon={<SpellIcon id={SPELLS.UPLIFTING_TRANCE_BUFF.id} />}
         value={`${formatPercentage(unusedUTProcs)} %`}
         label={(
-          <dfn data-tip={`You got total <b>${this.modules.upliftingTrance.UTProcsTotal} uplifting trance procs</b> and <b>used ${this.modules.upliftingTrance.consumedUTProc}</b> of them. ${this.modules.upliftingTrance.nonUTVivify} of your vivify's were used without an uplifting trance procs or without a Thunder Focus Tea buff.`}>
+          <dfn data-tip={`You got total <b>${this.modules.upliftingTrance.UTProcsTotal} uplifting trance procs</b> and <b>used ${this.modules.upliftingTrance.consumedUTProc}</b> of them. ${this.modules.upliftingTrance.nonUTVivify} of your vivify's were used without an uplifting trance procs.`}>
             Unused Uplifting Trance Pocs
           </dfn>
         )}
@@ -362,10 +370,10 @@ class CombatLogParser extends MainCombatLogParser {
 
       <StatisticBox
         icon={<SpellIcon id={SPELLS.SHEILUNS_GIFT.id} />}
-        value={`${avgSGstacks} Stacks`}
+        value={`${(avgSGstacks).toFixed(0)} Stacks`}
         label={(
           <dfn data-tip={`${SGcasts > 0 ? `You healed for an average of ${((this.modules.sheilunsGift.sgHeal / this.modules.sheilunsGift.castsSG) / 1000).toFixed(0)}k with each Sheilun\'s cast.` : ""}
-            ${this.modules.sheilunsGift.stacksWastedSG > 0 ? `<br>You wasted ${this.modules.sheilunsGift.stacksWastedSG} stack(s) during this fight.` : ""}
+            ${wastedSGStacks > 0 ? `<br>You wasted ${(wastedSGStacks)} stack(s) during this fight.` : ""}
             `}>
             Avg stacks used
           </dfn>
@@ -395,7 +403,6 @@ class CombatLogParser extends MainCombatLogParser {
           )}
         />
       ),
-
       // Mists of Sheilun
       hasMistsOfSheilun && (
         <StatisticBox
@@ -408,7 +415,18 @@ class CombatLogParser extends MainCombatLogParser {
           )}
         />
       ),
-
+      // Refreshing Jade Wind
+      hasRJW && (
+        <StatisticBox
+          icon={<SpellIcon id={SPELLS.REFRESHING_JADE_WIND_TALENT.id} />}
+          value={`${((avgRJWHealing) / 1000).toFixed(0)} k`}
+          label={(
+            <dfn data-tip={`You hit a total of ${this.modules.aoeHealingTracker.healsRJW} targets with Refreshing Jade Wind on ${this.modules.aoeHealingTracker.castRJW} casts. (${(avgRJWTargets).toFixed(1)} Average Targets Hit per Cast.)`}>
+              Average Refreshing Jade Wind Healing.
+            </dfn>
+          )}
+        />
+      ),
       this.modules.renewingMist.active && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.DANCING_MISTS.id} />}

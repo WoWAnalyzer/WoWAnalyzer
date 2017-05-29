@@ -88,6 +88,11 @@ export default {
     name: 'Chi Burst',
     icon: 'spell_arcane_arcanetorrent',
   },
+  REFRESHING_JADE_WIND_HEAL: {
+    id: 162530,
+    name: 'Refreshing Jade Wind',
+    icon: 'ability_monk_rushingjadewind',
+  },
   // Ch-Ji Heal
   CRANE_HEAL: {
     id: 213373,

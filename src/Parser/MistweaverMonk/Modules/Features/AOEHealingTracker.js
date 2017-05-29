@@ -1,7 +1,7 @@
 import Module from 'Parser/Core/Module';
 import SPELLS from 'common/SPELLS';
 
-const debug = true;
+const debug = false;
 
 class AOEHealingTracker extends Module {
   // Implement Mists of Sheilun, Celestial Breath, and Refreshing Jade Wind
@@ -17,6 +17,11 @@ class AOEHealingTracker extends Module {
   healingCelestialBreath = 0;
   overhealingCelestialBreath = 0;
 
+  healsRJW = 0;
+  healingRJW = 0;
+  overhealingRJW = 0;
+  castRJW = 0;
+
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
 
@@ -25,6 +30,9 @@ class AOEHealingTracker extends Module {
     }
     if(spellId === SPELLS.CELESTIAL_BREATH_BUFF.id) {
       this.procsCelestialBreath++;
+    }
+    if(spellId === SPELLS.REFRESHING_JADE_WIND_TALENT.id) {
+      this.castRJW++;
     }
   }
 
@@ -39,6 +47,14 @@ class AOEHealingTracker extends Module {
       }
     }
 
+    if(spellId === SPELLS.REFRESHING_JADE_WIND_HEAL.id) {
+      this.healsRJW++;
+      this.healingRJW += event.amount;
+      if(event.overheal) {
+        this.overhealingRJW += event.amount;
+      }
+    }
+
     if(spellId === SPELLS.CELESTIAL_BREATH.id) {
       this.healsCelestialBreath++;
       this.healingCelestialBreath += event.amount;
@@ -46,7 +62,6 @@ class AOEHealingTracker extends Module {
         this.overhealingCelestialBreath += event.amount;
       }
     }
-
   }
 
 
@@ -58,6 +73,9 @@ class AOEHealingTracker extends Module {
       console.log('Celestial Breath Procs: ' + this.procsCelestialBreath);
       console.log('Avg Heals per Procs: ' + (this.healsCelestialBreath / this.procsCelestialBreath));
       console.log('Avg Heals Amount: ' + (this.healingCelestialBreath / this.healsCelestialBreath));
+      console.log('RJW Casts: ' + this.castRJW);
+      console.log('Avg Heals per Procs: ' + (this.healingRJW / this.castRJW));
+      console.log('Avg Heals Amount: ' + (this.healingRJW / this.healsRJW));
     }
   }
 }
