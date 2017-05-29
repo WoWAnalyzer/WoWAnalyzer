@@ -16,6 +16,8 @@ class SheilunsGift extends Module {
 
   whispersHeal = 0;
   whispersOverHeal = 0;
+  countWhispersHeal = 0;
+  countEff = 0;
 
   hasEffusiveMists = 0;
 
@@ -53,6 +55,10 @@ class SheilunsGift extends Module {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
+    if(spellId === SPELLS.EFFUSE.id) {
+      this.countEff++;
+    }
+
     if(spellId === SPELLS.SHEILUNS_GIFT.id) {
       this.castsSG++;
       this.stacksTotalSG += this.stacksSG;
@@ -88,6 +94,7 @@ class SheilunsGift extends Module {
       if(event.overheal) {
         this.whispersOverHeal += event.overheal;
       }
+      this.countWhispersHeal++;
       debug && console.log('Whispers Heal: ' + event.amount + ' / Whispers Overheal: ' + event.overheal);
     }
   }

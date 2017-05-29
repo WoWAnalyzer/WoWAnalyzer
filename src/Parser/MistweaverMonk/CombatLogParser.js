@@ -103,7 +103,10 @@ class CombatLogParser extends MainCombatLogParser {
     const drapeOfShameHealingPercentage = this.modules.drapeOfShame.healing / this.totalHealing;
     const unusedUTProcs = 1 - (this.modules.upliftingTrance.consumedUTProc / this.modules.upliftingTrance.UTProcsTotal);
     const avgSGOverheal = this.modules.sheilunsGift.overhealSG / this.modules.sheilunsGift.castsSG;
-    const hasWhispersOfShaohao = this.selectedCombatant.traitsBySpellId[SPELLS.WHISPERS_OF_SHAOHAO.id] === 1;
+    const hasWhispersOfShaohao = this.selectedCombatant.traitsBySpellId[SPELLS.WHISPERS_OF_SHAOHAO_TRAIT.id] === 1;
+
+
+    const missedWhispersHeal = ((Math.floor(fightDuration / 10000) + this.modules.sheilunsGift.countEff) - this.modules.sheilunsGift.countWhispersHeal);
 
     /*
     if (deadTimePercentage > 0.2) {
@@ -115,8 +118,16 @@ class CombatLogParser extends MainCombatLogParser {
     }
     */
 
-
-    if(avgSGOverheal > 300000) {
+    // Sheilun's Gift Overhealing issue
+    if(hasWhispersOfShaohao && missedWhispersHeal > 10) {
+      results.addIssue({
+        issue: <span>You missed {missedWhispersHeal} <a href="http://www.wowhead.com/spell=238130" target="_blank">Whispers of Shaohao</a> healing procs.  While you cannot actively place the clouds that spawn, work to position yourself near other members of the raid so that when the clouds are used, they heal someone.</span>,
+        icon: SPELLS.WHISPERS_OF_SHAOHAO_TRAIT.icon,
+        importance: getIssueImportance(missedWhispersHeal, 12, 15, true)
+      });
+    }
+    // Missed Whispers healing
+    if(missedWhispersHeal > 10) {
       results.addIssue({
         issue: <span>You averaged {(avgSGOverheal / 1000).toFixed(0)}k overheal with your <a href="http://www.wowhead.com/spell=205406" target="_blank">Sheilun's Gift</a> and casted with an average of {(this.modules.sheilunsGift.stacksTotalSG / this.modules.sheilunsGift.castsSG).toFixed(0)} stacks.  Consider using <a href="http://www.wowhead.com/spell=205406" target="_blank">Sheilun's Gift</a> at lower stacks to increase effectiveness.</span>,
         icon: SPELLS.SHEILUNS_GIFT.icon,
@@ -302,7 +313,7 @@ class CombatLogParser extends MainCombatLogParser {
           )}
         />
       ),
-
+      // SotC Usage
       this.modules.manaSavingTalents.hasSotc && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id} />}
@@ -339,6 +350,17 @@ class CombatLogParser extends MainCombatLogParser {
           </dfn>
         )}
       />,
+      hasWhispersOfShaohao && (
+        <StatisticBox
+          icon={<SpellIcon id={SPELLS.WHISPERS_OF_SHAOHAO.id} />}
+          value={`${(missedWhispersHeal)} missed`}
+          label={(
+            <dfn data-tip={`You had a total of ${(this.modules.sheilunsGift.countWhispersHeal)} Whispers of Shaohao heals, but had a chance at ${(missedWhispersHeal)} additional heals.`}>
+              Total Whispers of Shaohao Heals Missed.
+            </dfn>
+          )}
+          />
+        ),
 
       this.modules.renewingMist.active && (
         <StatisticBox

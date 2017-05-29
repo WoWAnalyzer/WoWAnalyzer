@@ -321,6 +321,11 @@ export default {
     name: 'Whispers of Shaohao',
     icon: 'inv_cloudserpent_egg_green',
   },
+  WHISPERS_OF_SHAOHAO_TRAIT: {
+    id: 238130,
+    name: 'Whispers of Shaohao',
+    icon: 'inv_cloudserpent_egg_green',
+  },
   MISTS_OF_SHEILUN: {
     id: 199894,
     name: 'The Mists of Sheilun',
