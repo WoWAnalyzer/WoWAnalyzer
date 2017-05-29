@@ -117,6 +117,10 @@ class CombatLogParser extends MainCombatLogParser {
     const mtCasts = manaTea.casts || 0;
     const avgMTsaves = this.modules.manaTea.manaSavedMT / mtCasts || 0;
 
+    const avgCelestialBreathHealing = this.modules.aoeHealingTracker.healingCelestialBreath / this.modules.aoeHealingTracker.healsCelestialBreath || 0;
+    const avgCelestialBreathTargets = this.modules.aoeHealingTracker.healsCelestialBreath / this.modules.aoeHealingTracker.procsCelestialBreath || 0;
+    const avgMistsOfSheilunHealing = this.modules.aoeHealingTracker.healingMistsOfSheilun / this.modules.aoeHealingTracker.healsMistsOfSheilun || 0;
+    const avgMistsOfSheilunTargets = this.modules.aoeHealingTracker.healsMistsOfSheilun / this.modules.aoeHealingTracker.procsMistsOfSheilun || 0;
 
     // Trait Checks
     const hasWhispersOfShaohao = this.selectedCombatant.traitsBySpellId[SPELLS.WHISPERS_OF_SHAOHAO_TRAIT.id] === 1;
@@ -383,9 +387,9 @@ class CombatLogParser extends MainCombatLogParser {
       hasCelestialBreath && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.CELESTIAL_BREATH_TRAIT.id} />}
-          value={`${((this.modules.aoeHealingTracker.healingCelestialBreath / this.modules.aoeHealingTracker.healsCelestialBreath) / 1000).toFixed(0)} k`}
+          value={`${((avgCelestialBreathHealing) / 1000).toFixed(0)} k`}
           label={(
-            <dfn data-tip={`You hit a total of ${this.modules.aoeHealingTracker.healsCelestialBreath} targets with Celestial Breath on ${this.modules.aoeHealingTracker.procsCelestialBreath} casts. (${(this.modules.aoeHealingTracker.healsCelestialBreath / this.modules.aoeHealingTracker.procsCelestialBreath).toFixed(1)} Average Targets Hit per Cast.)`}>
+            <dfn data-tip={`You hit a total of ${this.modules.aoeHealingTracker.healsCelestialBreath} targets with Celestial Breath on ${this.modules.aoeHealingTracker.procsCelestialBreath} casts. (${(avgCelestialBreathTargets).toFixed(1)} Average Targets Hit per Cast.)`}>
               Average Celestial Breath Healing.
             </dfn>
           )}
@@ -396,9 +400,9 @@ class CombatLogParser extends MainCombatLogParser {
       hasMistsOfSheilun && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.MISTS_OF_SHEILUN_TRAIT.id} />}
-          value={`${((this.modules.aoeHealingTracker.healingMistsOfSheilun / this.modules.aoeHealingTracker.healsMistsOfSheilun) / 1000).toFixed(0)} k`}
+          value={`${((avgMistsOfSheilunHealing) / 1000).toFixed(0)} k`}
           label={(
-            <dfn data-tip={`You hit a total of ${this.modules.aoeHealingTracker.healsMistsOfSheilun} targets with Mists of Sheilun on ${this.modules.aoeHealingTracker.procsMistsOfSheilun} casts. (${(this.modules.aoeHealingTracker.healsMistsOfSheilun / this.modules.aoeHealingTracker.procsMistsOfSheilun).toFixed(1)} Average Targets Hit per Cast.)`}>
+            <dfn data-tip={`You hit a total of ${this.modules.aoeHealingTracker.healsMistsOfSheilun} targets with Mists of Sheilun on ${this.modules.aoeHealingTracker.procsMistsOfSheilun} casts. (${(avgMistsOfSheilunTargets).toFixed(1)} Average Targets Hit per Cast.)`}>
               Average Mists of Sheilun Healing.
             </dfn>
           )}
