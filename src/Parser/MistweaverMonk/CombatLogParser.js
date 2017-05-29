@@ -19,7 +19,7 @@ import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 import ParseResults from 'Parser/Core/ParseResults';
 import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
-// import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
+import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 // import DarkmoonDeckPromises from 'Parser/Core/Modules/Items/DarkmoonDeckPromises';
 // import AmalgamsSeventhSpine from 'Parser/Core/Modules/Items/AmalgamsSeventhSpine';
 import Prydaz from 'Parser/Core/Modules/Items/Prydaz';
@@ -70,7 +70,7 @@ function formatPercentage(percentage) {
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
     // Override the ability tracker so we also get stats for IoL and beacon healing
-    // abilityTracker: AbilityTracker,
+    abilityTracker: AbilityTracker,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -100,11 +100,23 @@ class CombatLogParser extends MainCombatLogParser {
     const fightDuration = this.fightDuration;
     // const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
 
+    const abilityTracker = this.modules.abilityTracker;
+    const getAbility = spellId => abilityTracker.getAbility(spellId);
+
     const velensHealingPercentage = this.modules.velens.healing / this.totalHealing;
     const prydazHealingPercentage = this.modules.prydaz.healing / this.totalHealing;
     const drapeOfShameHealingPercentage = this.modules.drapeOfShame.healing / this.totalHealing;
     const unusedUTProcs = 1 - (this.modules.upliftingTrance.consumedUTProc / this.modules.upliftingTrance.UTProcsTotal);
     const avgSGOverheal = this.modules.sheilunsGift.overhealSG / this.modules.sheilunsGift.castsSG;
+
+    const SGability = getAbility(SPELLS.SHEILUNS_GIFT.id);
+    const SGcasts = SGability.casts || 0;
+    const avgSGstacks = this.modules.sheilunsGift.stacksTotalSG / SGcasts || 0;
+
+    const manaTea = getAbility(SPELLS.MANA_TEA_TALENT.id);
+    const mtCasts = manaTea.casts || 0;
+    const avgMTsaves = this.modules.manaTea.manaSavedMT / mtCasts || 0;
+
 
     // Trait Checks
     const hasWhispersOfShaohao = this.selectedCombatant.traitsBySpellId[SPELLS.WHISPERS_OF_SHAOHAO_TRAIT.id] === 1;
@@ -274,7 +286,7 @@ class CombatLogParser extends MainCombatLogParser {
       this.modules.manaTea.active && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.MANA_TEA_TALENT.id} />}
-          value={`${((this.modules.manaTea.manaSavedMT / this.modules.manaTea.manateaCount) / 1000).toFixed(0)}k mana`}
+          value={`${((avgMTsaves) / 1000).toFixed(0)}k mana`}
           label={(
             <dfn
               data-tip={`
@@ -346,9 +358,9 @@ class CombatLogParser extends MainCombatLogParser {
 
       <StatisticBox
         icon={<SpellIcon id={SPELLS.SHEILUNS_GIFT.id} />}
-        value={`${((this.modules.sheilunsGift.stacksTotalSG / this.modules.sheilunsGift.castsSG).toFixed(0))} Stacks`}
+        value={`${avgSGstacks} Stacks`}
         label={(
-          <dfn data-tip={`You healed for an average of ${((this.modules.sheilunsGift.sgHeal / this.modules.sheilunsGift.castsSG) / 1000).toFixed(0)}k with each Sheilun\'s cast.
+          <dfn data-tip={`${SGcasts > 0 ? `You healed for an average of ${((this.modules.sheilunsGift.sgHeal / this.modules.sheilunsGift.castsSG) / 1000).toFixed(0)}k with each Sheilun\'s cast.` : ""}
             ${this.modules.sheilunsGift.stacksWastedSG > 0 ? `<br>You wasted ${this.modules.sheilunsGift.stacksWastedSG} stack(s) during this fight.` : ""}
             `}>
             Avg stacks used

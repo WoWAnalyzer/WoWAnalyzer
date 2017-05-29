@@ -1,7 +1,7 @@
 import Module from 'Parser/Core/Module';
 import SPELLS from 'common/SPELLS';
 
-const debug = false;
+const debug = true;
 
 class SheilunsGift extends Module {
   stacksSG = 0;
