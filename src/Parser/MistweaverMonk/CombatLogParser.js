@@ -208,7 +208,7 @@ class CombatLogParser extends MainCombatLogParser {
     // Incorrect TFT Usage
     if(this.modules.thunderFocusTea.castsUnderTft - (this.modules.thunderFocusTea.castsTftRem + this.modules.thunderFocusTea.castsTftViv) > 1) {
       results.addIssue({
-        issue: <span>You are currently using <a href="http://www.wowhead.com/spell=116680" target="_blank">Thunder Focus Tea</a> to buff spells other than <a href="http://www.wowhead.com/spell=115151" target="_blank">Renewing Mist</a> or <a href="http://www.wowhead.com/spell=191837" target="_blank">Essence Font</a>.  You used the TFT buff on {(this.modules.thunderFocusTea.castsUnderTft - (this.modules.thunderFocusTea.castsTftRem + this.modules.thunderFocusTea.castsTftViv))} spells other than Essence Font or Vivify.</span>,
+        issue: <span>You are currently using <a href="http://www.wowhead.com/spell=116680" target="_blank">Thunder Focus Tea</a> to buff spells other than <a href="http://www.wowhead.com/spell=116670" target="_blank">Vivify</a> or <a href="http://www.wowhead.com/spell=191837" target="_blank">Essence Font</a>.  You used the TFT buff on {(this.modules.thunderFocusTea.castsUnderTft - (this.modules.thunderFocusTea.castsTftEf + this.modules.thunderFocusTea.castsTftViv))} spells other than Essence Font, or Vivify.</span>,
         icon: SPELLS.THUNDER_FOCUS_TEA.icon,
         important:getIssueImportance(this.modules.thunderFocusTea.castsUnderTft - (this.modules.thunderFocusTea.castsTftRem + this.modules.thunderFocusTea.castsTftViv), 2, 4, true)
       });
@@ -397,7 +397,7 @@ class CombatLogParser extends MainCombatLogParser {
           icon={<SpellIcon id={SPELLS.CELESTIAL_BREATH_TRAIT.id} />}
           value={`${((avgCelestialBreathHealing) / 1000).toFixed(0)} k`}
           label={(
-            <dfn data-tip={`You hit a total of ${this.modules.aoeHealingTracker.healsCelestialBreath} targets with Celestial Breath on ${this.modules.aoeHealingTracker.procsCelestialBreath} casts. (${(avgCelestialBreathTargets).toFixed(1)} Average Targets Hit per Cast.)`}>
+            <dfn data-tip={`You hit a total of ${this.modules.aoeHealingTracker.healsCelestialBreath} targets with Celestial Breath on ${this.modules.aoeHealingTracker.procsCelestialBreath} casts. (${(avgCelestialBreathTargets / 3).toFixed(1)} Average Targets Hit per Cast.)`}>
               Average Celestial Breath Healing.
             </dfn>
           )}

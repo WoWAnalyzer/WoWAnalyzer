@@ -59,7 +59,7 @@ class AOEHealingTracker extends Module {
       this.healsCelestialBreath++;
       this.healingCelestialBreath += event.amount;
       if(event.overheal) {
-        this.overhealingCelestialBreath += event.amount;
+        this.overhealingCelestialBreath += event.overheal;
       }
     }
   }

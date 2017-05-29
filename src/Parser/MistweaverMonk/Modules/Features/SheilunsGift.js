@@ -89,7 +89,7 @@ class SheilunsGift extends Module {
       debug && console.log('SG Overheal: ' + event.overheal);
     }
 
-    if(spellId === SPELLS.WHISPERS_OF_SHAOHAO.id && event.timestamp === this.castsSGTimestamp) {
+    if(spellId === SPELLS.WHISPERS_OF_SHAOHAO.id ) {
       this.whispersHeal += event.amount;
       if(event.overheal) {
         this.whispersOverHeal += event.overheal;
