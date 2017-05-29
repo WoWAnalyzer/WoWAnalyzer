@@ -52,6 +52,10 @@ const CPM_ABILITIES = [
     category: SPELL_CATEGORY.COOLDOWNS,
     getCooldown: haste => 30,
     isActive: combatant => combatant.hasTalent(SPELLS.CHI_BURST_TALENT.id),
+    getOverhealing: (_, getAbility) => {
+      const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.CHI_BURST_HEAL.id);
+      return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
+    },
   },
   {
     spell: SPELLS.MANA_TEA_TALENT,
@@ -72,11 +76,7 @@ const CPM_ABILITIES = [
     category: SPELL_CATEGORY.OTHERS,
     getCooldown: haste => null,
   },
-  {
-    spell: SPELLS.SOOTHING_MIST,
-    category: SPELL_CATEGORY.OTHERS,
-    getCooldown: haste => null,
-  },
+
   {
     spell: SPELLS.ENVELOPING_MISTS,
     category: SPELL_CATEGORY.OTHERS,
@@ -86,6 +86,19 @@ const CPM_ABILITIES = [
     spell: SPELLS.VIVIFY,
     category: SPELL_CATEGORY.OTHERS,
     getCooldown: haste => null,
+    getOverhealing: (_, getAbility) => {
+      const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.VIVIFY.id);
+      return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
+    },
+  },
+  {
+    spell: SPELLS.SHEILUNS_GIFT,
+    category: SPELL_CATEGORY.OTHERS,
+    getCooldown: haste => null,
+    getOverhealing: (_, getAbility) => {
+      const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.SHEILUNS_GIFT.id);
+      return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
+    },
   },
   {
     spell: SPELLS.ESSENCE_FONT,
@@ -95,6 +108,11 @@ const CPM_ABILITIES = [
       const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.ESSENCE_FONT_BUFF.id);
       return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
     },
+  },
+  {
+    spell: SPELLS.SOOTHING_MIST,
+    category: SPELL_CATEGORY.OTHERS,
+    getCooldown: haste => null,
   },
   {
     spell: SPELLS.REFRESHING_JADE_WIND_TALENT,

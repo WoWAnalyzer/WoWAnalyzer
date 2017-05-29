@@ -1,4 +1,6 @@
 export default `
+29-05-2017 - Mistweaver Monk: Added Sheilun's Gift statistic and an overhealing suggestion. With Effusive Mists talent, Effuse casts at 12 stacks are considered wasted. Added simple proc counter for Dancing Mists. (by anom0ly)  
+28-05-2017 - Disc Priest: Added unused Power Word: Shield absorb statistic.
 28-05-2017 - Added <span class="Shaman">Restoration Shaman</span> support by <b>@Versaya</b>! Thanks a lot for your contribution!
 28-05-2017 - Added overhealing percentages to the Cast Efficiency tab.
 27-05-2017 - Mistweaver Monk: Added Thunder Focus Tea spell buff tracking. Added Lifecycles mana saving tracking, added Spirit of the Crane mana return tracking. (by anom0ly)
