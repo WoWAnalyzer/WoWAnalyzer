@@ -83,6 +83,11 @@ export default {
     icon: 'monk_stance_redcrane',
     manaRet: 0.0065,
   },
+  CHI_BURST_HEAL: {
+    id: 130654,
+    name: 'Chi Burst',
+    icon: 'spell_arcane_arcanetorrent',
+  },
   // Ch-Ji Heal
   CRANE_HEAL: {
     id: 213373,

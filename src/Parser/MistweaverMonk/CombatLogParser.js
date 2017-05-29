@@ -30,8 +30,9 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import UpliftingTrance from './Modules/Features/UpliftingTrance';
 import ManaTea from './Modules/Features/ManaTea';
 import ManaSavingTalents from './Modules/Features/ManaSavingTalents';
-import ThunderFocusTea from './Modules/Features/ThunderFocusTea'
-import SheilunsGift from './Modules/Features/SheilunsGift'
+import ThunderFocusTea from './Modules/Features/ThunderFocusTea';
+import SheilunsGift from './Modules/Features/SheilunsGift';
+import RenewingMist from './Modules/Features/RenewingMist';
 
 // Setup for Items
 import Velens from './Modules/Items/Velens';
@@ -78,6 +79,7 @@ class CombatLogParser extends MainCombatLogParser {
     manaSavingTalents: ManaSavingTalents,
     thunderFocusTea: ThunderFocusTea,
     sheilunsGift: SheilunsGift,
+    renewingMist: RenewingMist,
 
     // Legendaries / Items:
     drapeOfShame: DrapeOfShame,
@@ -116,7 +118,7 @@ class CombatLogParser extends MainCombatLogParser {
 
     if(avgSGOverheal > 300000) {
       results.addIssue({
-        issue: <span>You averaged {(avgSGOverheal / 1000).toFixed(0)}k overheal with your <a href="http://www.wowhead.com/spell=205406" target="_blank">Sheilun's Gift</a> and casted with an average of {(this.modules.sheilunsGift.stacksTotalSG / this.modules.sheilunsGift.castsSG).toFixed(0)} stacks.  Consider using <a href="http://www.wowhead.com/spell=205406" target="_blank">Sheilun's Gift</a> as lower stacks to increase effectiveness.</span>,
+        issue: <span>You averaged {(avgSGOverheal / 1000).toFixed(0)}k overheal with your <a href="http://www.wowhead.com/spell=205406" target="_blank">Sheilun's Gift</a> and casted with an average of {(this.modules.sheilunsGift.stacksTotalSG / this.modules.sheilunsGift.castsSG).toFixed(0)} stacks.  Consider using <a href="http://www.wowhead.com/spell=205406" target="_blank">Sheilun's Gift</a> at lower stacks to increase effectiveness.</span>,
         icon: SPELLS.SHEILUNS_GIFT.icon,
         importance: getIssueImportance(avgSGOverheal, 325000, 400000, true)
       });
@@ -338,7 +340,17 @@ class CombatLogParser extends MainCombatLogParser {
         )}
       />,
 
-
+      this.modules.renewingMist.active && (
+        <StatisticBox
+          icon={<SpellIcon id={SPELLS.DANCING_MISTS.id} />}
+          value={`${(this.modules.renewingMist.dancingMistProc)} procs`}
+          label={(
+            <dfn data-tip={`You had a total of ${(this.modules.renewingMist.dancingMistProc)} procs on ${this.modules.renewingMist.castsREM} REM casts.`}>
+              Total Dancing Mists Procs
+            </dfn>
+          )}
+          />
+      ),
     ];
 
     results.items = [
