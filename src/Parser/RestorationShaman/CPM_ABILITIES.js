@@ -83,6 +83,10 @@ const CPM_ABILITIES = [
     getCooldown: haste => 10,
     recommendedCastEfficiency: 0.6,
     importance: ISSUE_IMPORTANCE.MINOR,
+    getOverhealing: (_, getAbility) => {
+      const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.HEALING_RAIN_HEAL.id);
+      return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
+    },
   },
   {
     spell: SPELLS.GIFT_OF_THE_QUEEN,
@@ -105,18 +109,33 @@ const CPM_ABILITIES = [
     category: SPELL_CATEGORY.COOLDOWNS,
     getCooldown: haste => 60,
     isActive: combatant => combatant.lv75Talent === SPELLS.EARTHEN_SHIELD_TOTEM_TALENT.id,
+    getOverhealing: (_, getAbility, parser) => {
+
+      const earthenShieldHealing = parser.modules.earthenShieldTotem.healing || 0;
+      const earthenShieldPotentialHealing = parser.modules.earthenShieldTotem.potentialHealing || 0;
+      const earthenShieldEfficiency = earthenShieldHealing / earthenShieldPotentialHealing;
+      return 1-earthenShieldEfficiency
+    },
   },
   {
     spell: SPELLS.ANCESTRAL_GUIDANCE_CAST,
     category: SPELL_CATEGORY.COOLDOWNS,
     getCooldown: haste => 120,
     isActive: combatant => combatant.lv60Talent === SPELLS.ANCESTRAL_GUIDANCE_TALENT.id,
+    getOverhealing: (_, getAbility) => {
+      const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.ANCESTRAL_GUIDANCE_HEAL.id);
+      return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
+    },
   },
   {
     spell: SPELLS.ASCENDANCE_CAST,
     category: SPELL_CATEGORY.COOLDOWNS,
     getCooldown: haste => 180,
     isActive: combatant => combatant.lv100Talent === SPELLS.ASCENDANCE_TALENT.id,
+    getOverhealing: (_, getAbility) => {
+      const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.ASCENDANCE_HEAL.id);
+      return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
+    },
   },
   {
     spell: SPELLS.HEALING_TIDE_TOTEM_CAST,
@@ -139,7 +158,7 @@ const CPM_ABILITIES = [
     category: SPELL_CATEGORY.OTHERS,
     getCasts: castCount => (castCount.casts || 0) - (castCount.healingTwHits || 0),
     getCooldown: haste => null,
-    getOverhealing: ({ healingEffective, healingAbsorbed, healingOverheal, healingTwHealing, healingTwAbsorbed, healingTwOverheal }) => (healingOverheal - healingTwOverheal) / ((healingEffective - healingTwHealing) + (healingAbsorbed - healingTwAbsorbed) + (healingOverheal - healingTwOverheal)),
+    getOverhealing: ({ healingEffective, healingAbsorbed, healingOverheal, healingTwHealing, healingTwAbsorbed, healingTwOverheal }) => ((healingOverheal - healingTwOverheal) / ((healingEffective - healingTwHealing) + (healingAbsorbed - healingTwAbsorbed) + (healingOverheal - healingTwOverheal))) || null,
   },
   {
     spell: SPELLS.HEALING_WAVE,
@@ -147,7 +166,7 @@ const CPM_ABILITIES = [
     category: SPELL_CATEGORY.OTHERS,
     getCasts: castCount => castCount.healingTwHits || 0,
     getCooldown: haste => null,
-    getOverhealing: ({ healingTwHealing, healingTwAbsorbed, healingTwOverheal }) => healingTwOverheal / (healingTwHealing + healingTwAbsorbed + healingTwOverheal),
+    getOverhealing: ({ healingTwHealing, healingTwAbsorbed, healingTwOverheal }) => (healingTwOverheal / (healingTwHealing + healingTwAbsorbed + healingTwOverheal)) || null,
   },
   {
     spell: SPELLS.HEALING_SURGE,
@@ -155,7 +174,7 @@ const CPM_ABILITIES = [
     category: SPELL_CATEGORY.OTHERS,
     getCasts: castCount => (castCount.casts || 0) - (castCount.healingTwHits || 0),
     getCooldown: haste => null,
-    getOverhealing: ({ healingEffective, healingAbsorbed, healingOverheal, healingTwHealing, healingTwAbsorbed, healingTwOverheal }) => (healingOverheal - healingTwOverheal) / ((healingEffective - healingTwHealing) + (healingAbsorbed - healingTwAbsorbed) + (healingOverheal - healingTwOverheal)),
+    getOverhealing: ({ healingEffective, healingAbsorbed, healingOverheal, healingTwHealing, healingTwAbsorbed, healingTwOverheal }) => ((healingOverheal - healingTwOverheal) / ((healingEffective - healingTwHealing) + (healingAbsorbed - healingTwAbsorbed) + (healingOverheal - healingTwOverheal))) || null,
   },
   {
     spell: SPELLS.HEALING_SURGE,
@@ -163,7 +182,7 @@ const CPM_ABILITIES = [
     category: SPELL_CATEGORY.OTHERS,
     getCasts: castCount => castCount.healingTwHits || 0,
     getCooldown: haste => null,
-    getOverhealing: ({ healingTwHealing, healingTwAbsorbed, healingTwOverheal }) => healingTwOverheal / (healingTwHealing + healingTwAbsorbed + healingTwOverheal),
+    getOverhealing: ({ healingTwHealing, healingTwAbsorbed, healingTwOverheal }) => (healingTwOverheal / (healingTwHealing + healingTwAbsorbed + healingTwOverheal)) || null,
   },
 ];
 

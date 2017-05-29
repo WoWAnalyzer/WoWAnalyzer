@@ -19,6 +19,7 @@ I will likely not have time to work on many more specs by myself, so the only wa
  * [Holy Paladin](src/Parser/HolyPaladin/README.md) (maintained by @Zerotorescue)
  * Disc Priest (maintained by @Zerotorescue with considerable help from @Josh)
  * [Resto Druid](src/Parser/RestoDruid/README.md) (maintained by @blazyb)
+ * [Resto Shaman](src/Parser/RestorationShaman/README.md) (maintained by @versaya)
 
 ## License
 

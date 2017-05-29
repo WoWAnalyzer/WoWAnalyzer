@@ -40,6 +40,7 @@ const SPELLS_SCALING_WITH_HASTE = [
 
 class UncertainReminder extends Module {
 
+  encounterStart = null;
   heroismStart = null;
   hastePercent = null;
   events = [];
@@ -57,23 +58,6 @@ class UncertainReminder extends Module {
 
   // See if we have heroism when the boss is engaged (prelust)
   on_combatantinfo(event) {
-    if (this.owner.playerId === event.sourceID) {
-      HEROISM_30_PERCENT.forEach((heroismId) => {
-        if (this.owner.selectedCombatant.hasBuff(heroismId, event.timestamp)) {
-            this.heroismStart = event.timestamp;
-            this.hastePercent = 30;
-            this.events = [];
-        }
-      });
-
-      HEROISM_30_PERCENT.forEach((heroismId) => {
-        if (this.owner.selectedCombatant.hasBuff(heroismId, event.timestamp)) {
-            this.heroismStart = event.timestamp;
-            this.hastePercent = 25;
-            this.events = [];
-        }
-      });
-    }
   }
 
   process_events(start, end, combatEnded) {
@@ -108,6 +92,13 @@ class UncertainReminder extends Module {
     this.events = [];
   }
 
+  on_encounterstart(event) {
+    // We apply heroism at the start incase it was popped before the pull. If we see it's 
+    // applied before it drops, we discard all the events.
+    this.heroismStart = event.timestamp;
+    this.hastePercent = 0.30;
+    this.events = [];
+  }
   
   on_toPlayer_applybuff(event) {
 
@@ -145,8 +136,11 @@ class UncertainReminder extends Module {
 
   // If the fight ends before heroism drops, make sure to process all the pushed events.
   on_finished(event) {
-    this.process_events(this.heroismStart, this.lastHeal || this.heroismStart, true);
+    if (this.heroismStart) {
+      this.process_events(this.heroismStart, this.lastHeal || this.heroismStart, true);
+    }
   }
+
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
