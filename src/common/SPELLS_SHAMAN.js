@@ -303,19 +303,4 @@ export default {
     name: 'Tidal Totem',
     icon: 'inv_mace_1h_artifactazshara_d_02.jpg',
   },
-  NATURES_ESSENCE_TRAIT: {
-    id: 189787,
-    name:'Nature\'s Essence',
-    icon: 'ability_druid_flourish'
-  },
-  DREAMWALKER_TRAIT: {
-    id: 189849,
-    name:'Dreamwalker',
-    icon: 'ability_druid_healinginstincts'
-  },
-  INFUSION_OF_NATURE_TRAIT: {
-    id: 189757,
-    name:'Infusion of Nature',
-    icon: 'ability_druid_flourish'
-  },
 };
