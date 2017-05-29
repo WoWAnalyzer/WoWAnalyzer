@@ -17,6 +17,11 @@ class SheilunsGift extends Module {
   whispersHeal = 0;
   whispersOverHeal = 0;
 
+  hasEffusiveMists = 0;
+
+  on_initialize() {
+    this.hasEffusiveMists = this.owner.selectedCombatant.traitsBySpellId[SPELLS.EFFUSIVE_MISTS.id] === 1;
+  }
 
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
@@ -58,10 +63,15 @@ class SheilunsGift extends Module {
       debug && console.log('Time Since Last SG Stack: ' + this.diffLastSGStack);
       if (this.diffLastSGStack > 10000) {
         this.stacksWastedSG += Math.floor(this.diffLastSGStack / 10000)
-        debug && console.log('ALERT CAPPING SG', 'color: red');
+        debug && console.log('SG Capped');
       }
     }
+    if(spellId === SPELLS.EFFUSE.ID && this.hasEffusiveMists && this.stacksSG === 12) {
+      this.stacksWastedSG++;
+      debug && console.log('Effuse Cast at Capped SG');
+    }
   }
+
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
 

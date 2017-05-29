@@ -331,4 +331,9 @@ export default {
     name: 'Blessings of Yu\'lon',
     icon: 'ability_monk_summonserpentstatue',
   },
+  EFFUSIVE_MISTS: {
+    id: 238094,
+    name: 'Effusive Mists',
+    icon: 'ability_monk_effuse',
+  },
 };
