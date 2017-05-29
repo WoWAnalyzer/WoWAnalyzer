@@ -28,10 +28,12 @@ This may be outdated.
 | Dead GCD time | >20% | >35% | >40% |
 | Velen's Healing | <4.5% | <4% | <3% |
 | Unbuffed Healing Surge (% of all HW/HS) | >0% | >15% | >30% |
-| Chain Heal Target Efficiency | <98% | <95% | <88% |
-| Earthen Shield Totem Efficiency | <85% | <70% | <55% |
+| Chain Heal Target Efficiency | <97% | <94% | <88% |
+| GotQ Target Efficiency | <95% | <90% | <80% |
+| Earthen Shield Totem Efficiency | <75% | <60% | <45% |
 | Unused Tidal Waves Rate | >15% | >30% | >50% |
 | Uncertain Reminder | <4.5% | <3.5% | <2.5% |
+| GotQ CBT feeding | <85% | <65% | <45% |
 | Cast Efficiency (see spells) | <80% | <75% | <65% |
 | Riptide (EotE) Cast Efficiency | <90% | <85% | <75% |
 | Riptide Cast Efficiency | <75% | <70% | <60% |

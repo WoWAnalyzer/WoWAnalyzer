@@ -296,26 +296,19 @@ export default {
   QUEENS_DECREE: {
     id: 208899,
     name: 'Queen\'s Decree',
-    icon: 'inv_misc_volatilewater.jpg',
+    icon: 'inv_misc_volatilewater',
   },
   TIDAL_TOTEM: {
     id: 209069,
     name: 'Tidal Totem',
-    icon: 'inv_mace_1h_artifactazshara_d_02.jpg',
+    icon: 'inv_mace_1h_artifactazshara_d_02',
   },
-  NATURES_ESSENCE_TRAIT: {
-    id: 189787,
-    name:'Nature\'s Essence',
-    icon: 'ability_druid_flourish'
+  DEEP_WATERS: {
+    id: 238143,
+    name: 'Deep Waters',
+    icon: 'inv_mace_1h_artifactazshara_d_02',
   },
-  DREAMWALKER_TRAIT: {
-    id: 189849,
-    name:'Dreamwalker',
-    icon: 'ability_druid_healinginstincts'
-  },
-  INFUSION_OF_NATURE_TRAIT: {
-    id: 189757,
-    name:'Infusion of Nature',
-    icon: 'ability_druid_flourish'
-  },
-};
+
+}
+
+

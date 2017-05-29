@@ -117,6 +117,7 @@ class CombatLogParser extends MainCombatLogParser {
     const healingWave = getAbility(SPELLS.HEALING_WAVE.id);
     const healingSurge = getAbility(SPELLS.HEALING_SURGE.id);
     const chainHeal = getAbility(SPELLS.CHAIN_HEAL.id);
+    const giftOfTheQueen = getAbility(SPELLS.GIFT_OF_THE_QUEEN.id)
 
     const nonHealingTimePercentage = this.modules.alwaysBeCasting.totalHealingTimeWasted / fightDuration;
     const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
@@ -152,14 +153,27 @@ class CombatLogParser extends MainCombatLogParser {
     const healingSurges = healingSurge.casts || 0;
     const unbuffedHealingSurges = healingSurges - twHealingSurges;
     const totalTwUsed = twHealingWaves + twHealingSurges;
+    const giftOfTheQueenCasts = giftOfTheQueen.casts || 0;
 
     const chainHealHits = chainHeal.healingHits || 0;
     const chainHealAvgHits = chainHealHits / chainHealCasts;
     const maxChainHealTargets = this.selectedCombatant.hasTalent(SPELLS.HIGH_TIDE_TALENT.id) ? 5 : 4;
-    var chainHealTargetEfficiency = chainHealAvgHits / maxChainHealTargets;
-    if (chainHealCasts === 0) {
-        chainHealTargetEfficiency = 1;
+    const chainHealTargetEfficiency = chainHealAvgHits / maxChainHealTargets;
+
+    const hasDeepWaters = this.selectedCombatant.traitsBySpellId[SPELLS.DEEP_WATERS.id]>0
+    const giftOfTheQueenHits = giftOfTheQueen.healingHits || 0;
+    const giftOfTheQueenAvgHits = giftOfTheQueenHits / giftOfTheQueenCasts / (hasDeepWaters ? 2 : 1);
+    const giftOfTheQueenTargetEfficiency = giftOfTheQueenAvgHits / 6;
+
+    const giftOfTheQueenRawHealing = giftOfTheQueen.healingEffective + giftOfTheQueen.healingOverheal;
+    var giftOfTheQueenCBTFeeding = 0;
+    if (this.modules.cooldownTracker.cbtFeed[SPELLS.GIFT_OF_THE_QUEEN.id]) {
+      var giftOfTheQueenCBTFeeding = this.modules.cooldownTracker.cbtFeed[SPELLS.GIFT_OF_THE_QUEEN.id].healing;
     }
+    const hasCBT = this.selectedCombatant.hasTalent(SPELLS.CLOUDBURST_TOTEM_CAST.id)
+    const giftOfTheQueenCBTFeedingPercent = giftOfTheQueenCBTFeeding / giftOfTheQueenRawHealing;
+
+
 
     const totalMasteryHealing = this.modules.masteryEffectiveness.totalMasteryHealing || 0;
     const totalMaxPotentialMasteryHealing = this.modules.masteryEffectiveness.totalMaxPotentialMasteryHealing || 0;
@@ -205,18 +219,32 @@ class CombatLogParser extends MainCombatLogParser {
         importance: getIssueImportance(unbuffedHealingSurges / (healingSurges+healingWaves), 0.15, 0.30, true),
       });
     }
-    if (chainHealTargetEfficiency < 0.98) {
+    if (chainHealTargetEfficiency < 0.97) {
       results.addIssue({
         issue: <span>Try to always cast <SpellLink id={SPELLS.CHAIN_HEAL.id} /> on groups of people, so that it heals all {maxChainHealTargets} potential targets (average of {chainHealAvgHits.toFixed(2)}/{maxChainHealTargets} targets healed).</span>,
         icon: SPELLS.CHAIN_HEAL.icon,
-        importance: getIssueImportance(chainHealTargetEfficiency, 0.95, 0.88),
+        importance: getIssueImportance(chainHealTargetEfficiency, 0.94, 0.88),
       });
     }
-    if (this.modules.earthenShieldTotem.active && earthenShieldEfficiency < 0.85) {
+    if (giftOfTheQueenTargetEfficiency < 0.95) {
+      results.addIssue({
+          issue: <span>Try to always cast <SpellLink id={SPELLS.GIFT_OF_THE_QUEEN.id} /> at a position where both the initial hit and the echo from <SpellLink id={SPELLS.DEEP_WATERS.id} /> will hit all 6 potential targets (average of {giftOfTheQueenAvgHits.toFixed(2)}/6 targets healed).</span>,
+        icon: SPELLS.GIFT_OF_THE_QUEEN.icon,
+        importance: getIssueImportance(giftOfTheQueenTargetEfficiency, 0.90, 0.80),
+      });
+    }
+    if (hasCBT && giftOfTheQueenCBTFeedingPercent < 0.85) {
+      results.addIssue({
+        issue: <span>Try to cast <SpellLink id={SPELLS.GIFT_OF_THE_QUEEN.id} /> while <SpellLink id={SPELLS.CLOUDBURST_TOTEM_CAST.id} /> is up as much as possible ({formatPercentage(giftOfTheQueenCBTFeedingPercent)}% of GotQ healing fed into CBT).</span>,
+        icon: SPELLS.GIFT_OF_THE_QUEEN.icon,
+        importance: getIssueImportance(giftOfTheQueenCBTFeedingPercent, 0.65, 0.45),
+      });
+    }
+    if (this.modules.earthenShieldTotem.active && earthenShieldEfficiency < 0.75) {
       results.addIssue({
         issue: <span>Try to cast <SpellLink id={SPELLS.EARTHEN_SHIELD_TOTEM_CAST.id} /> at times- and positions where there will be as many people taking damage possible inside of it to maximize the amount it absorbs (average of {formatPercentage(earthenShieldEfficiency)}% of potential absorb used). </span>,
         icon: SPELLS.EARTHEN_SHIELD_TOTEM_CAST.icon,
-        importance: getIssueImportance(earthenShieldEfficiency, 0.70, 0.55),
+        importance: getIssueImportance(earthenShieldEfficiency, 0.60, 0.45),
       });
     }
     if (unusedTwRate > 0.15) {
@@ -302,6 +330,16 @@ class CombatLogParser extends MainCombatLogParser {
           <dfn data-tip={`The average percentage of targets healed by Chain Heal out of the maximum amount of targets. You cast a total of ${chainHealCasts} Chain Heals, which healed an average of ${chainHealAvgHits.toFixed(2)} out of ${maxChainHealTargets} targets.`}>
 
             Chain Heal target efficiency
+          </dfn>
+        )}
+      />,
+      giftOfTheQueenCasts > 0 && <StatisticBox
+        icon={<SpellIcon id={SPELLS.GIFT_OF_THE_QUEEN.id} />}
+        value={`${formatPercentage(giftOfTheQueenTargetEfficiency)} %`}
+        label={(
+          <dfn data-tip={`The average percentage of targets healed by Gift of the Queen out of the maximum amount of targets. You cast a total of ${giftOfTheQueenCasts} Gift of the Queens, which healed an average of ${giftOfTheQueenAvgHits.toFixed(2)} out of 6 targets.`}>
+
+            GotQ target efficiency
           </dfn>
         )}
       />,

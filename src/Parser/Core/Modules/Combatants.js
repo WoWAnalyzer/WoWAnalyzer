@@ -22,6 +22,11 @@ class Combatants extends Entities {
   }
 
   on_combatantinfo(event) {
+    if (event.error) {
+        console.log("Error retrieving combatant information for player with sourceID "+event.sourceID);
+        return ;
+    }
+
     this.players[event.sourceID] = new Combatant(this.owner, event);
 
     event.auras.forEach(aura => {

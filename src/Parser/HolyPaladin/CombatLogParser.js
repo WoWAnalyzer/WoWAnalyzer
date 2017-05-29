@@ -28,7 +28,6 @@ import Prydaz from 'Parser/Core/Modules/Items/Prydaz';
 import PaladinAbilityTracker from './Modules/PaladinCore/PaladinAbilityTracker';
 import BeaconHealing from './Modules/PaladinCore/BeaconHealing';
 import BeaconTargets from './Modules/PaladinCore/BeaconTargets';
-import VerifySpec from './Modules/PaladinCore/VerifySpec';
 
 import MasteryEffectiveness from './Modules/Features/MasteryEffectiveness';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
@@ -85,7 +84,6 @@ class CombatLogParser extends MainCombatLogParser {
     // PaladinCore
     beaconHealing: BeaconHealing,
     beaconTargets: BeaconTargets,
-    verifySpec: VerifySpec,
 
     // Features
     masteryEffectiveness: MasteryEffectiveness,

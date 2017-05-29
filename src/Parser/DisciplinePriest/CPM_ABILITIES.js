@@ -1,11 +1,14 @@
 import SPELLS from 'common/SPELLS';
 
+import { calculateMaxCasts } from 'Parser/Core/getCastEfficiency';
+
 export const SPELL_CATEGORY = {
   ROTATIONAL: 'Rotational Spell',
   COOLDOWNS: 'Cooldown',
   OTHERS: 'Spell',
   UTILITY: 'Utility',
 };
+const RAPTURE_DURATION = 8000;
 
 const CPM_ABILITIES = [
   {
@@ -16,8 +19,34 @@ const CPM_ABILITIES = [
   },
   {
     spell: SPELLS.POWER_WORD_SHIELD,
+    name: `${SPELLS.POWER_WORD_SHIELD.name} outside Rapture`,
     category: SPELL_CATEGORY.ROTATIONAL,
     getCooldown: haste => 9 / (1 + haste),
+    getCasts: castCount => castCount.casts - (castCount.raptureCasts || 0),
+    getMaxCasts: (cooldown, fightDuration, getAbility, parser) => {
+      const raptureCasts = getAbility(SPELLS.RAPTURE.id);
+      const timeSpentInRapture = (raptureCasts.casts || 0) * RAPTURE_DURATION;
+
+      const maxRegularCasts = calculateMaxCasts(cooldown, fightDuration - timeSpentInRapture);
+
+      return maxRegularCasts;
+    },
+  },
+  {
+    spell: SPELLS.POWER_WORD_SHIELD,
+    name: `${SPELLS.POWER_WORD_SHIELD.name} during Rapture`,
+    category: SPELL_CATEGORY.ROTATIONAL,
+    getCooldown: haste => 9 / (1 + haste),
+    getCasts: castCount => castCount.raptureCasts || 0,
+    getMaxCasts: (cooldown, fightDuration, getAbility, parser) => {
+      const raptureCastCount = getAbility(SPELLS.RAPTURE.id);
+
+      const gcd = 1.5 / (1 + parser.selectedCombatant.hastePercentage);
+
+      const maxRaptureCasts = calculateMaxCasts(gcd, RAPTURE_DURATION) * (raptureCastCount.casts || 0);
+
+      return maxRaptureCasts;
+    },
   },
   {
     spell: SPELLS.SCHISM_TALENT,
