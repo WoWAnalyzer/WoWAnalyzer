@@ -33,6 +33,7 @@ import ManaSavingTalents from './Modules/Features/ManaSavingTalents';
 import ThunderFocusTea from './Modules/Features/ThunderFocusTea';
 import SheilunsGift from './Modules/Features/SheilunsGift';
 import RenewingMist from './Modules/Features/RenewingMist';
+import AOEHealingTracker from './Modules/Features/AOEHealingTracker';
 
 // Setup for Items
 import Velens from './Modules/Items/Velens';
@@ -80,6 +81,7 @@ class CombatLogParser extends MainCombatLogParser {
     thunderFocusTea: ThunderFocusTea,
     sheilunsGift: SheilunsGift,
     renewingMist: RenewingMist,
+    aoeHealingTracker: AOEHealingTracker,
 
     // Legendaries / Items:
     drapeOfShame: DrapeOfShame,
@@ -103,8 +105,11 @@ class CombatLogParser extends MainCombatLogParser {
     const drapeOfShameHealingPercentage = this.modules.drapeOfShame.healing / this.totalHealing;
     const unusedUTProcs = 1 - (this.modules.upliftingTrance.consumedUTProc / this.modules.upliftingTrance.UTProcsTotal);
     const avgSGOverheal = this.modules.sheilunsGift.overhealSG / this.modules.sheilunsGift.castsSG;
-    const hasWhispersOfShaohao = this.selectedCombatant.traitsBySpellId[SPELLS.WHISPERS_OF_SHAOHAO_TRAIT.id] === 1;
 
+    // Trait Checks
+    const hasWhispersOfShaohao = this.selectedCombatant.traitsBySpellId[SPELLS.WHISPERS_OF_SHAOHAO_TRAIT.id] === 1;
+    const hasCelestialBreath = this.selectedCombatant.traitsBySpellId[SPELLS.CELESTIAL_BREATH_TRAIT.id] === 1;
+    const hasMistsOfSheilun = this.selectedCombatant.traitsBySpellId[SPELLS.MISTS_OF_SHEILUN_TRAIT.id] === 1;
 
     const missedWhispersHeal = ((Math.floor(fightDuration / 10000) + this.modules.sheilunsGift.countEff) - this.modules.sheilunsGift.countWhispersHeal);
 
@@ -359,8 +364,34 @@ class CombatLogParser extends MainCombatLogParser {
               Total Whispers of Shaohao Heals Missed.
             </dfn>
           )}
-          />
-        ),
+        />
+      ),
+
+      // Celestial Breath
+      hasCelestialBreath && (
+        <StatisticBox
+          icon={<SpellIcon id={SPELLS.CELESTIAL_BREATH_TRAIT.id} />}
+          value={`${((this.modules.aoeHealingTracker.healingCelestialBreath / this.modules.aoeHealingTracker.healsCelestialBreath) / 1000).toFixed(0)} k`}
+          label={(
+            <dfn data-tip={`You hit a total of ${this.modules.aoeHealingTracker.healsCelestialBreath} targets with Celestial Breath on ${this.modules.aoeHealingTracker.procsCelestialBreath} casts. (${(this.modules.aoeHealingTracker.healsCelestialBreath / this.modules.aoeHealingTracker.procsCelestialBreath).toFixed(1)} Average Targets Hit per Cast.)`}>
+              Average Celestial Breath Healing.
+            </dfn>
+          )}
+        />
+      ),
+
+      // Mists of Sheilun
+      hasMistsOfSheilun && (
+        <StatisticBox
+          icon={<SpellIcon id={SPELLS.MISTS_OF_SHEILUN_TRAIT.id} />}
+          value={`${((this.modules.aoeHealingTracker.healingMistsOfSheilun / this.modules.aoeHealingTracker.healsMistsOfSheilun) / 1000).toFixed(0)} k`}
+          label={(
+            <dfn data-tip={`You hit a total of ${this.modules.aoeHealingTracker.healsMistsOfSheilun} targets with Mists of Sheilun on ${this.modules.aoeHealingTracker.procsMistsOfSheilun} casts. (${(this.modules.aoeHealingTracker.healsMistsOfSheilun / this.modules.aoeHealingTracker.procsMistsOfSheilun).toFixed(1)} Average Targets Hit per Cast.)`}>
+              Average Mists of Sheilun Healing.
+            </dfn>
+          )}
+        />
+      ),
 
       this.modules.renewingMist.active && (
         <StatisticBox
@@ -371,7 +402,7 @@ class CombatLogParser extends MainCombatLogParser {
               Total Dancing Mists Procs
             </dfn>
           )}
-          />
+        />
       ),
     ];
 

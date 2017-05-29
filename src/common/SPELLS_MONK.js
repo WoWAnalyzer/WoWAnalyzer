@@ -331,10 +331,30 @@ export default {
     name: 'The Mists of Sheilun',
     icon: 'ability_monk_chiexplosion',
   },
+  MISTS_OF_SHEILUN_TRAIT: {
+    id: 199887,
+    name: 'The Mists of Sheilun',
+    icon: 'ability_monk_chibrew',
+  },
+  MISTS_OF_SHEILUN_BUFF: {
+    id: 199888,
+    name: 'The Mists of Sheilun',
+    icon: 'ability_monk_chibrew',
+  },
   CELESTIAL_BREATH: {
     id: 199656,
     name: 'Celestial Breath',
     icon: 'ability_monk_chiexplosion',
+  },
+  CELESTIAL_BREATH_BUFF: {
+    id: 199641,
+    name: 'Celestial Breath',
+    icon: 'ability_monk_chiexplosion',
+  },
+  CELESTIAL_BREATH_TRAIT: {
+    id: 199640,
+    name: 'Celestial Breath',
+    icon: 'ability_monk_dragonkick',
   },
   BLESSINGS_OF_YULON: {
     id: 199668,
