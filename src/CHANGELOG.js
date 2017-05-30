@@ -1,4 +1,5 @@
 export default `
+30-05-2017 - Mistweaver Monk: Adjusted some of the Dancing Mists logic per review. Added in missed Whispers of Shaohao healing. Tracking Celestial Breath and Mists of Sheilun buffs / procs and the healing associated. Refreshing Jade Wind Healing Implemented. Corrected some negative calculations with Uplifting Trance. Correcting formatting error with SG Stacks. (by anom0ly)
 30-05-2017 - Resto Druid: Added Dreamwalker calculations. Thanks @greatman
 30-05-2017 - Resto Druid: Added SotF + Soul of the Archdruid analyzer.
 29-05-2017 - Disc Priest: Show Rapture PW:S casts seperate from regular PW:S casts in Cast Efficiency. (by Zerotorescue)
