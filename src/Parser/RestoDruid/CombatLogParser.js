@@ -43,6 +43,7 @@ import TreeOfLife from './Modules/Features/TreeOfLife';
 import Flourish from './Modules/Features/Flourish';
 import Innervate from './Modules/Features/Innervate';
 import PowerOfTheArchdruid from './Modules/Features/PowerOfTheArchdruid';
+import SoulOfTheForest from './Modules/Features/SoulOfTheForest';
 
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
 
@@ -86,6 +87,7 @@ class CombatLogParser extends MainCombatLogParser {
     flourish: Flourish,
     innervate: Innervate,
     powerOfTheArchdruid: PowerOfTheArchdruid,
+    soulOfTheForest: SoulOfTheForest,
 
     // Legendaries:
     drapeOfShame: DrapeOfShame,
@@ -101,7 +103,6 @@ class CombatLogParser extends MainCombatLogParser {
     // TODO:
     // Edraith
     // Aman'Thul's Wisdom
-    // SoulOfTheArchDruid
 
     // Shared:
     amalgamsSeventhSpine: AmalgamsSeventhSpine,
@@ -130,6 +131,8 @@ class CombatLogParser extends MainCombatLogParser {
     const wildGrowthIncreasedEffectHelmet = (this.modules.treeOfLife.totalHealingFromWildgrowthsDuringToLHelmet / 1.15 - this.modules.treeOfLife.totalHealingFromWildgrowthsDuringToLHelmet / (1.15 * (8 / 6))) / this.totalHealing;
     const treeOfLifeThroughputHelmet = rejuvenationIncreasedEffectHelmet + tolIncreasedHealingDoneHelmet + rejuvenationManaHelmet + wildGrowthIncreasedEffectHelmet;
     const treeOfLifeUptimeHelmet = (this.selectedCombatant.getBuffUptime(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id)-(this.modules.treeOfLife.tolCasts*30000))/this.fightDuration;
+
+    const hasSoulOfTheForest = this.selectedCombatant.lv75Talent === SPELLS.SOUL_OF_THE_FOREST_TALENT.id
 
     const has4PT20 = this.selectedCombatant.hasBuff(SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id);
     const has2PT20 = this.selectedCombatant.hasBuff(SPELLS.RESTO_DRUID_T20_4SET_BONUS_BUFF.id)
@@ -323,7 +326,7 @@ class CombatLogParser extends MainCombatLogParser {
       hasFlourish && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.FLOURISH_TALENT.id} />}
-          value={`${(((this.modules.flourish.wildGrowth + this.modules.flourish.cenarionWard + this.modules.flourish.rejuvenation + this.modules.flourish.regrowth + this.modules.flourish.lifebloom + this.modules.flourish.springBlossoms + this.modules.flourish.cultivation) * 6) / this.modules.flourish.flourishCounter).toFixed(0)}s`}
+          value={`${((((this.modules.flourish.wildGrowth + this.modules.flourish.cenarionWard + this.modules.flourish.rejuvenation + this.modules.flourish.regrowth + this.modules.flourish.lifebloom + this.modules.flourish.springBlossoms + this.modules.flourish.cultivation) * 6) / this.modules.flourish.flourishCounter).toFixed(0)|0)}s`}
           label={(
             <dfn data-tip={
               `<ul>
@@ -360,7 +363,7 @@ class CombatLogParser extends MainCombatLogParser {
       ),
       <StatisticBox
         icon={<SpellIcon id={SPELLS.INNERVATE.id} />}
-        value={`${((this.modules.innervate.manaSaved / this.modules.innervate.innervateCount) / 1000).toFixed(0)}k mana`}
+        value={`${(((this.modules.innervate.manaSaved / this.modules.innervate.innervateCount) / 1000).toFixed(0)|0)}k mana`}
         label={(
           <dfn data-tip={
             `<ul>
@@ -417,6 +420,24 @@ class CombatLogParser extends MainCombatLogParser {
               </ul>
             `}>
               Tree of Life throughput
+            </dfn>
+          )}
+        />
+      ),
+      hasSoulOfTheForest && (
+        <StatisticBox
+          icon={<SpellIcon id={SPELLS.SOUL_OF_THE_FOREST_TALENT.id} />}
+          value={`${this.modules.soulOfTheForest.healing} %`}
+          label={(
+            <dfn data-tip={`
+              <ul>
+                <li>You had total ${this.modules.soulOfTheForest.proccs} SotF proccs.</li>
+                <li>Wild Growth consumed ${this.modules.soulOfTheForest.wildGrowths} procc(s)</li>li>
+                <li>Rejuvenation consumed ${this.modules.soulOfTheForest.rejuvenations} procc(s)</li>
+                <li>Regrowth consumed ${this.modules.soulOfTheForest.regrowths} procc(s)</li>
+              </ul>
+            `}>
+              Soul of the Forest analyzer
             </dfn>
           )}
         />
@@ -593,6 +614,34 @@ class CombatLogParser extends MainCombatLogParser {
           <span>
             {this.modules.t20.swiftmendReduced.toFixed(1)}s reduced on swiftmend <br/>({(this.modules.t20.swiftmendReduced/this.modules.t20.swiftmends).toFixed(1)}s per swiftmend on average).
           </span>
+        ),
+      },
+      has2PT20 && {
+        id: `spell-${SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id}`,
+        icon: <SpellIcon id={SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id} />,
+        title: <SpellLink id={SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id} />,
+        result: (
+          <span>
+            {this.modules.t20.swiftmendReduced.toFixed(1)}s reduced on swiftmend <br/>({(this.modules.t20.swiftmendReduced/this.modules.t20.swiftmends).toFixed(1)}s per swiftmend on average).
+          </span>
+        ),
+      },
+
+      this.selectedCombatant.hasRing(ITEMS.SOUL_OF_THE_ARCHDRUID.id) && {
+        id: ITEMS.SOUL_OF_THE_ARCHDRUID.id,
+        icon: <ItemIcon id={ITEMS.SOUL_OF_THE_ARCHDRUID.id} />,
+        title: <ItemLink id={ITEMS.SOUL_OF_THE_ARCHDRUID.id} />,
+        result: (
+          <dfn data-tip={`
+              <ul>
+                <li>You had total ${this.modules.soulOfTheForest.proccs} Soul of the Forest proccs.</li>
+                <li>Wild Growth consumed ${this.modules.soulOfTheForest.wildGrowths} procc(s)</li>
+                <li>Rejuvenation consumed ${this.modules.soulOfTheForest.rejuvenations} procc(s)</li>
+                <li>Regrowth consumed ${this.modules.soulOfTheForest.regrowths} procc(s)</li>
+              </ul>
+            `}>
+            {this.modules.soulOfTheForest.healing} % / {this.modules.soulOfTheForest.healing} hps
+          </dfn>
         ),
       },
     ];
