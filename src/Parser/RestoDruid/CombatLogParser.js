@@ -43,6 +43,7 @@ import TreeOfLife from './Modules/Features/TreeOfLife';
 import Flourish from './Modules/Features/Flourish';
 import Innervate from './Modules/Features/Innervate';
 import PowerOfTheArchdruid from './Modules/Features/PowerOfTheArchdruid';
+import Dreamwalker from './Modules/Features/Dreamwalker';
 
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
 
@@ -86,6 +87,7 @@ class CombatLogParser extends MainCombatLogParser {
     flourish: Flourish,
     innervate: Innervate,
     powerOfTheArchdruid: PowerOfTheArchdruid,
+    dreamwalker: Dreamwalker,
 
     // Legendaries:
     drapeOfShame: DrapeOfShame,
@@ -309,6 +311,15 @@ class CombatLogParser extends MainCombatLogParser {
         value={`${formatPercentage(efflorescenceUptime)} %`}
         label='Efflorescence uptime'
       />,
+      this.modules.dreamwalker.hasTrait && (
+      <StatisticBox icon={<SpellIcon id={SPELLS.DREAMWALKER.id}/>}
+        value={`${formatNumber(this.modules.dreamwalker.healing)}`}
+                    label={(
+                      <dfn data-tip={`The total healing done by Dreamwalker recorded was ${formatThousands(this.modules.dreamwalker.healing)} / ${formatPercentage(this.modules.dreamwalker.healing / this.totalHealing)} % / ${formatNumber(this.modules.dreamwalker.healing / fightDuration * 1000)} HPS. `}>
+                        Dreamwalker
+                      </dfn>
+                    )}
+      />),
       this.modules.powerOfTheArchdruid.hasTrait && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.POWER_OF_THE_ARCHDRUID.id} />}

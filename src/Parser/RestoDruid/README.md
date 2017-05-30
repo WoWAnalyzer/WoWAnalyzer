@@ -18,7 +18,7 @@
 | [Sephuz's Secret](https://github.com/buimichael/RestoDruidAnalyzer/blob/master/src/Main/Parser/Modules/Legendaries/Velens.js) | The average haste gain from both status and procc and calculate throughput. This assumes that 1 haste rating = 1 int.| 90% |
 | [Tearstone of Elune](https://github.com/buimichael/RestoDruidAnalyzer/blob/master/src/Main/Parser/Modules/Legendaries/Velens.js) | Counts the amounts of free rejuvs gained (and procchance). Calculates throughput by checking the throughput from 1 rejuvenation and multiplying with the amounts of free rejuvenations gained. | 70-90% |
 | [X'oni's Caress](https://github.com/buimichael/RestoDruidAnalyzer/blob/master/src/Main/Parser/Modules/Legendaries/Velens.js) | The healing contributed by the iron bark effect. Doesn't take into consideration of the reduced iron bark CD. | 90% |
-
+| [Dreamwalker](https://github.com/MartijnHols/WoWAnalyzer/tree/master/src/Parser/RestoDruid/Modules/Features/Dreamwalker.js) | Calculates the amount healed by Dreamwalker. | 100% |
 The accuracy percentages assume there are no bugs in the implementation, the accuracy as of right now is not yet verified.
 ## Suggestions
 
