@@ -34,6 +34,7 @@ import ThunderFocusTea from './Modules/Features/ThunderFocusTea';
 import SheilunsGift from './Modules/Features/SheilunsGift';
 import RenewingMist from './Modules/Features/RenewingMist';
 import AOEHealingTracker from './Modules/Features/AOEHealingTracker';
+import EssenceFontMastery from './Modules/Features/EssenceFontMastery';
 
 // Setup for Items
 import Velens from './Modules/Items/Velens';
@@ -82,6 +83,7 @@ class CombatLogParser extends MainCombatLogParser {
     sheilunsGift: SheilunsGift,
     renewingMist: RenewingMist,
     aoeHealingTracker: AOEHealingTracker,
+    essenceFontMastery: EssenceFontMastery,
 
     // Legendaries / Items:
     drapeOfShame: DrapeOfShame,
