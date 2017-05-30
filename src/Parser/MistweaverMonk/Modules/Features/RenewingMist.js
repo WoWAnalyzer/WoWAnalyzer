@@ -10,6 +10,7 @@ class RenewingMist extends Module {
   dancingMistProc = 0;
   remTicks = 0;
   castsREM = 0;
+  remCount = 0;
 
   on_initialize() {
     if(!this.owner.error) {
@@ -22,13 +23,16 @@ class RenewingMist extends Module {
 
     if(spellId === SPELLS.RENEWING_MIST_HEAL.id) {
       // Buffer time added to account for the buff being removed and replicating to a new target.  Testing 25 for now.
-      if((event.timestamp - this.remRemoveTimestamp) <= 25 || this.remCastTimestamp === event.timestamp) {
+      debug && console.log('Last Applied Timestamp: ' + this.remApplyTimestamp + ' / Current Event Timestamp: ' + event.timestamp);
+      if((event.timestamp - this.remRemoveTimestamp) <= 25 || this.remCastTimestamp === event.timestamp || this.remApplyTimestamp === event.timestamp) {
         debug && console.log('REM Applied Ok. Timestamp: ' + event.timestamp);
       } else {
         debug && console.log('REM Applied without Cast / Jump. Timestamp: ' + event.timestamp);
+        debug && console.log('Target ID ' + event.targetID);
         this.dancingMistProc++;
       }
       this.remApplyTimestamp = event.timestamp;
+      this.remCount++;
     }
   }
 
@@ -37,6 +41,7 @@ class RenewingMist extends Module {
 
     if(spellId === SPELLS.RENEWING_MIST_HEAL.id) {
       this.remRemoveTimestamp = event.timestamp;
+      this.remCount--;
     }
   }
 
@@ -59,6 +64,7 @@ class RenewingMist extends Module {
 
     if(spellId === SPELLS.RENEWING_MIST_HEAL.id) {
       this.remTicks++;
+
     }
   }
 
@@ -68,6 +74,7 @@ class RenewingMist extends Module {
       console.log('Dancing Mist Procs: ' + this.dancingMistProc);
       console.log('REM Ticks: ' + this.remTicks);
       console.log('REM Casts: ' + this.castsREM);
+      console.log('REM Count Out: ' + this.remCount);
     }
   }
 }
