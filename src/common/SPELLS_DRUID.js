@@ -265,6 +265,11 @@ export default {
     name: 'Spring Blossoms',
     icon: 'spell_druid_springblossoms'
   },
+  SOUL_OF_THE_FOREST_BUFF: {
+    id: 114108,
+    name: 'Soul of the Forest',
+    icon: 'spell_druid_souloftheforest',
+  },
 
   // Talents
   // Resto Druid:
@@ -348,7 +353,7 @@ export default {
   SOUL_OF_THE_FOREST_TALENT: {
     id: 158478,
     name: 'Soul of the Forest',
-    icon: 'spell_druid_souloftheforest',
+    icon: 'ability_druid_manatree',
     description: 'You should not at any point use this talent right now. <a href="http://www.wowhead.com/spell=158478" target="_blank">Soul of the Forest</a> is unfortunately mathematically inferior to both <a href="http://www.wowhead.com/spell=200390" target="_blank">Cultivation</a> and <a href="http://www.wowhead.com/spell=33891" target="_blank">Tree of Life</a>.',
   },
   CULTIVATION_TALENT: {
@@ -423,5 +428,10 @@ export default {
     id:189757,
     name:'Infusion of Nature',
     icon: 'ability_druid_flourish'
+  },
+  PERSISTANCE_TRAIT: {
+    id:186396,
+    name:'Persistance',
+    icon: 'spell_nature_starfall'
   },
 };

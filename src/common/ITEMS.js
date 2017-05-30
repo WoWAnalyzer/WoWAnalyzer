@@ -164,6 +164,12 @@ const ITEMS = {
     icon: 'inv_helmet_153',
     quality: QUALITIES.LEGENDARY,
   },
+  SOUL_OF_THE_ARCHDRUID: {
+    id: 151636,
+    name: 'Soul of the Archdruid',
+    icon: 'inv_70_raid_ring6a',
+    quality: QUALITIES.LEGENDARY,
+  },
 };
 
 export default indexById(ITEMS);

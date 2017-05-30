@@ -10,7 +10,6 @@ class DrapeOfShame extends Module {
   healing = 0;
 
   on_byPlayer_heal(event) {
-    // TODO: Double check the math here, it doesn't produce quite the same numbers as on https://druid-legendary-analyser.herokuapp.com/#
     const spellId = event.ability.guid;
     if (ABILITIES_AFFECTED_BY_HEALING_INCREASES.indexOf(spellId) === -1) {
       return;
