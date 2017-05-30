@@ -133,6 +133,7 @@ class CombatLogParser extends MainCombatLogParser {
     const treeOfLifeUptimeHelmet = (this.selectedCombatant.getBuffUptime(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id)-(this.modules.treeOfLife.tolCasts*30000))/this.fightDuration;
 
     const hasSoulOfTheForest = this.selectedCombatant.lv75Talent === SPELLS.SOUL_OF_THE_FOREST_TALENT.id
+    const soulOfTheForestHealing = this.modules.soulOfTheForest.wildGrowthHealing + this.modules.soulOfTheForest.rejuvenationHealing + this.modules.soulOfTheForest.regrowthHealing;
 
     const has4PT20 = this.selectedCombatant.hasBuff(SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id);
     const has2PT20 = this.selectedCombatant.hasBuff(SPELLS.RESTO_DRUID_T20_4SET_BONUS_BUFF.id)
@@ -427,14 +428,14 @@ class CombatLogParser extends MainCombatLogParser {
       hasSoulOfTheForest && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.SOUL_OF_THE_FOREST_TALENT.id} />}
-          value={`${this.modules.soulOfTheForest.healing} %`}
+          value={`${((soulOfTheForestHealing/this.totalHealing)*100).toFixed(2)} %`}
           label={(
             <dfn data-tip={`
               <ul>
-                <li>You had total ${this.modules.soulOfTheForest.proccs} SotF proccs.</li>
-                <li>Wild Growth consumed ${this.modules.soulOfTheForest.wildGrowths} procc(s)</li>li>
-                <li>Rejuvenation consumed ${this.modules.soulOfTheForest.rejuvenations} procc(s)</li>
-                <li>Regrowth consumed ${this.modules.soulOfTheForest.regrowths} procc(s)</li>
+                <li>You had total ${this.modules.soulOfTheForest.proccs} Soul of the Forest proccs.</li>
+                <li>Wild Growth consumed ${this.modules.soulOfTheForest.wildGrowths} procc(s) and contributed to ${((this.modules.soulOfTheForest.wildGrowthHealing/this.totalHealing)*100).toFixed(2)} % / ${formatNumber(this.modules.soulOfTheForest.wildGrowthHealing)} healing</li>
+                <li>Rejuvenation consumed ${this.modules.soulOfTheForest.rejuvenations} procc(s) and contributed to ${((this.modules.soulOfTheForest.rejuvenationHealing/this.totalHealing)*100).toFixed(2)} % / ${formatNumber(this.modules.soulOfTheForest.rejuvenationHealing)} healing</li>
+                <li>Regrowth consumed ${this.modules.soulOfTheForest.regrowths} procc(s) and contributed to ${((this.modules.soulOfTheForest.regrowthHealing/this.totalHealing)*100).toFixed(2)} % / ${formatNumber(this.modules.soulOfTheForest.regrowthHealing)} healing</li>
               </ul>
             `}>
               Soul of the Forest analyzer
@@ -635,12 +636,12 @@ class CombatLogParser extends MainCombatLogParser {
           <dfn data-tip={`
               <ul>
                 <li>You had total ${this.modules.soulOfTheForest.proccs} Soul of the Forest proccs.</li>
-                <li>Wild Growth consumed ${this.modules.soulOfTheForest.wildGrowths} procc(s)</li>
-                <li>Rejuvenation consumed ${this.modules.soulOfTheForest.rejuvenations} procc(s)</li>
-                <li>Regrowth consumed ${this.modules.soulOfTheForest.regrowths} procc(s)</li>
+                <li>Wild Growth consumed ${this.modules.soulOfTheForest.wildGrowths} procc(s) and contributed to ${((this.modules.soulOfTheForest.wildGrowthHealing/this.totalHealing)*100).toFixed(2)} % / ${formatNumber(this.modules.soulOfTheForest.wildGrowthHealing)} healing</li>
+                <li>Rejuvenation consumed ${this.modules.soulOfTheForest.rejuvenations} procc(s) and contributed to ${((this.modules.soulOfTheForest.rejuvenationHealing/this.totalHealing)*100).toFixed(2)} % / ${formatNumber(this.modules.soulOfTheForest.rejuvenationHealing)} healing</li>
+                <li>Regrowth consumed ${this.modules.soulOfTheForest.regrowths} procc(s) and contributed to ${((this.modules.soulOfTheForest.regrowthHealing/this.totalHealing)*100).toFixed(2)} % / ${formatNumber(this.modules.soulOfTheForest.regrowthHealing)} healing</li>
               </ul>
             `}>
-            {this.modules.soulOfTheForest.healing} % / {this.modules.soulOfTheForest.healing} hps
+            {((soulOfTheForestHealing/this.totalHealing)*100).toFixed(2)} % / {formatNumber(soulOfTheForestHealing / fightDuration * 1000)} HPS
           </dfn>
         ),
       },

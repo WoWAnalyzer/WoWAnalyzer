@@ -1,4 +1,5 @@
 export default `
+30-05-2017 - Resto Druid: Added SotF + Soul of the Archdruid analyzer.
 29-05-2017 - Disc Priest: Show Rapture PW:S casts seperate from regular PW:S casts in Cast Efficiency. (by Zerotorescue)
 29-05-2017 - Fixed a crash when trying to parse a corrupt combatlog. (by versaya)
 29-05-2017 - Resto Shaman: Added overhealing in Cast Efficiency tab for some resto shaman spells. Fixed Uncertain Reminder in case of pre-lust. Added GotQ target efficiency.	Don't allow CBT healing to feed into CBT.
