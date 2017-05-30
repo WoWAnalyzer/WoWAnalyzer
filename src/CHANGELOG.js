@@ -1,4 +1,5 @@
 export default `
+30-05-2017 - Resto Druid: Added Dreamwalker calculations. Thanks @greatman
 30-05-2017 - Resto Druid: Added SotF + Soul of the Archdruid analyzer.
 29-05-2017 - Disc Priest: Show Rapture PW:S casts seperate from regular PW:S casts in Cast Efficiency. (by Zerotorescue)
 29-05-2017 - Fixed a crash when trying to parse a corrupt combatlog. (by versaya)
