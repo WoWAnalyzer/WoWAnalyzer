@@ -108,8 +108,10 @@ class Cooldown extends React.Component {
   }
 
   calculateDamageStatistics(cooldown) {
-    let damageDone = 0;
-    cooldown.events.reduce((damageDone , nextEvent) => damageDone + nextEvent.amount)
+    let damageDone = cooldown.events.reduce((acc, event) => {
+      return event.type === 'damage' ? acc + event.amount : acc
+    }, 0)
+    
     return {damageDone}
   }
   
@@ -207,12 +209,12 @@ class Cooldown extends React.Component {
               <div>
                 <div className="col-md-2 text-center">
                   <div style={{ fontSize: '2em' }}>{formatNumber(outputStatistics.damageDone)}</div>
-                  <dfn data-tip="This number represents the total amount of damage done during the duration of this cooldown, any damage done by DOTs after the effect of this cooldown has exprired will not be included in this statistic.">Damage ({formatNumber(outputStatistics.damageDone / (end - start) * 1000)} DPS)</dfn>
+                  <dfn data-tip="This number represents the total amount of damage done during the duration of this cooldown, any damage done by DOTs after the effect of this cooldown has exprired will not be included in this statistic.">Damage Done</dfn>
                 </div>
-                {/*<div className="col-md-2 text-center">
-                  <div style={{ fontSize: '2em' }}>{formatPercentage(outputStatistics.overhealingDone / (outputStatistics.healingDone + outputStatistics.overhealingDone))}%</div>
-                  <dfn data-tip="This includes all healing the occured while the buff was up, even if it was not triggered by spells cast inside the buff duration. Any delayed healing such as HOTs, Absorbs and Atonements will stop contributing to the healing done when the cooldown buff expires, so this value is lower for any specs with such abilities.">overhealing</dfn>
-                </div>*/}
+                <div className="col-md-2 text-center">
+                  <div style={{ fontSize: '2em' }}>{formatNumber(outputStatistics.damageDone / (end - start) * 1000)} DPS</div>
+                  DPS
+                </div>
               </div>
             )
           }             
