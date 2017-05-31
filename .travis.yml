@@ -8,6 +8,7 @@ node_js:
 cache:
   directories:
     - node_modules
+    - server/node_modules
 env:
   - NODE_ENV=production
 install:
