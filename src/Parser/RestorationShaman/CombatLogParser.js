@@ -166,9 +166,9 @@ class CombatLogParser extends MainCombatLogParser {
     const giftOfTheQueenTargetEfficiency = giftOfTheQueenAvgHits / 6;
 
     const giftOfTheQueenRawHealing = giftOfTheQueen.healingEffective + giftOfTheQueen.healingOverheal;
-    var giftOfTheQueenCBTFeeding = 0;
+    let giftOfTheQueenCBTFeeding = 0;
     if (this.modules.cooldownTracker.cbtFeed[SPELLS.GIFT_OF_THE_QUEEN.id]) {
-      var giftOfTheQueenCBTFeeding = this.modules.cooldownTracker.cbtFeed[SPELLS.GIFT_OF_THE_QUEEN.id].healing;
+      giftOfTheQueenCBTFeeding = this.modules.cooldownTracker.cbtFeed[SPELLS.GIFT_OF_THE_QUEEN.id].healing;
     }
     const hasCBT = this.selectedCombatant.hasTalent(SPELLS.CLOUDBURST_TOTEM_CAST.id)
     const giftOfTheQueenCBTFeedingPercent = giftOfTheQueenCBTFeeding / giftOfTheQueenRawHealing;

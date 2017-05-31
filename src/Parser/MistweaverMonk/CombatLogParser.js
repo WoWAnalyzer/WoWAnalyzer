@@ -372,7 +372,7 @@ class CombatLogParser extends MainCombatLogParser {
         icon={<SpellIcon id={SPELLS.SHEILUNS_GIFT.id} />}
         value={`${(avgSGstacks).toFixed(0)} Stacks`}
         label={(
-          <dfn data-tip={`${SGcasts > 0 ? `You healed for an average of ${((this.modules.sheilunsGift.sgHeal / this.modules.sheilunsGift.castsSG) / 1000).toFixed(0)}k with each Sheilun\'s cast.` : ""}
+          <dfn data-tip={`${SGcasts > 0 ? `You healed for an average of ${((this.modules.sheilunsGift.sgHeal / this.modules.sheilunsGift.castsSG) / 1000).toFixed(0)}k with each Sheilun's cast.` : ""}
             ${wastedSGStacks > 0 ? `<br>You wasted ${(wastedSGStacks)} stack(s) during this fight.` : ""}
             `}>
             Avg stacks used

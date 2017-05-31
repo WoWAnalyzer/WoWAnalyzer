@@ -32,13 +32,13 @@ class CooldownTracker extends CoreCooldownTracker {
 
 
   cbtFeed = [];
-  cbtTotals = {total: 0, totalEffective: 0} 
+  cbtTotals = {total: 0, totalEffective: 0};
 
   agFeed = [];
-  agTotals = {total: 0, totalEffective: 0} 
+  agTotals = {total: 0, totalEffective: 0};
 
   ascFeed = [];
-  ascTotals = {total: 0, totalEffective: 0}
+  ascTotals = {total: 0, totalEffective: 0};
 
   isCooldownUp(spellId) {
     return this.activeCooldowns.findIndex(cooldown => cooldown.ability.id === spellId) > 1;
@@ -48,9 +48,9 @@ class CooldownTracker extends CoreCooldownTracker {
     this.cooldowns
       .filter((cooldown) => cooldown.end && !cooldown.processed)
       .forEach((cooldown) => {
-        var feed = null;
-        var totals = null;
-        var feedingFactor = 0;
+        let feed = null;
+        let totals = null;
+        let feedingFactor = 0;
         if (cooldown.ability.id === SPELLS.CLOUDBURST_TOTEM_CAST.id) {
             feed = this.cbtFeed;
             totals = this.cbtTotals;
@@ -65,7 +65,7 @@ class CooldownTracker extends CoreCooldownTracker {
             feedingFactor = 1.0;
         }
 
-        var percentOverheal = 0;
+        let percentOverheal = 0;
         if ((cooldown.healing + cooldown.overheal) > 0) {
           percentOverheal = cooldown.overheal / (cooldown.healing + cooldown.overheal);
         }
@@ -94,8 +94,7 @@ class CooldownTracker extends CoreCooldownTracker {
 
 
   getIndirectHealing(spellId) {
-    
-    var healing = 0;
+    let healing = 0;
     if (this.cbtFeed[spellId]) {
       healing += this.cbtFeed[spellId].effectiveHealing || 0;
     }
@@ -149,7 +148,7 @@ class CooldownTracker extends CoreCooldownTracker {
       return;
     }
 
-    const cooldown = this.addNewCooldown(spell, event.timestamp)
+    const cooldown = this.addNewCooldown(spell, event.timestamp);
 
     if (spellId === SPELLS.ASCENDANCE_CAST.id) {
         this.lastAsc = cooldown;
@@ -157,8 +156,6 @@ class CooldownTracker extends CoreCooldownTracker {
     if (spellId === SPELLS.ANCESTRAL_GUIDANCE_CAST.id) {
         this.lastAG = cooldown;
     }
-
-
   }
 
   on_toPlayer_removebuff(event) {
@@ -172,7 +169,6 @@ class CooldownTracker extends CoreCooldownTracker {
     cooldown.end = event.timestamp;
     this.activeCooldowns.splice(index, 1);
   }
-
 
 
   on_finished() {
@@ -191,13 +187,11 @@ class CooldownTracker extends CoreCooldownTracker {
   }
 
 
-
   on_byPlayer_cast(event) {
-
     const spellId = event.ability.guid;
     
     if (spellId === SPELLS.CLOUDBURST_TOTEM_CAST.id) {
-        const cbtCooldown = this.addNewCooldown(SPELLS.CLOUDBURST_TOTEM_CAST, event.timestamp)
+        const cbtCooldown = this.addNewCooldown(SPELLS.CLOUDBURST_TOTEM_CAST, event.timestamp);
         this.lastCBT = cbtCooldown;
     }
 
@@ -244,12 +238,12 @@ class CooldownTracker extends CoreCooldownTracker {
   }
 
   on_byPlayer_damage(event){
-    const index = this.activeCooldowns.findIndex(cooldown => cooldown.ability.id === SPELLS.ANCESTRAL_GUIDANCE_CAST.id);
-    const spellId = event.ability.guid;
-    
-    if (index === -1) {
-        return;
-    }
+    // const index = this.activeCooldowns.findIndex(cooldown => cooldown.ability.id === SPELLS.ANCESTRAL_GUIDANCE_CAST.id);
+    // const spellId = event.ability.guid;
+
+    // if (index === -1) {
+    //     return;
+    // }
 
         // This should probably be done with a white list, too many damage events that do not
         // feed into AG.
