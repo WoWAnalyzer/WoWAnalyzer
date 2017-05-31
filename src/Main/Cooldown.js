@@ -125,7 +125,6 @@ class Cooldown extends React.Component {
       resourceStatistics = cooldown.events.filter(event => event.type === 'cast').reduce((mana, event) => mana + (event.manaCost || 0), 0);
     }
     
-    
     const start = cooldown.start;
     const end = cooldown.end || fightEnd;
 
