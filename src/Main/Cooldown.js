@@ -52,7 +52,6 @@ class Cooldown extends React.Component {
     };
     this.handleExpandClick = this.handleExpandClick.bind(this);
     this.handleShowHealsClick = this.handleShowHealsClick.bind(this);
-    this.calculateHealingStatistics = this.calculateHealingStatistics.bind(this);
   }
 
   handleExpandClick() {
