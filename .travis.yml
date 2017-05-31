@@ -15,9 +15,12 @@ install:
 script:
   - npm test
   - npm run build
-  - docker build -t martijnhols/wowanalyzer .
+  - docker build -f .dockerfile -t martijnhols/wowanalyzer .
 after_success:
-  - if [ "$TRAVIS_BRANCH" == "master" ]; then
-    docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-    docker push martijnhols/wowanalyzer;
-    fi
+  - export REPO=martijnhols/wowanalyzer
+  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH; fi`
+  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+  - docker build -f .dockerfile -t $REPO:$COMMIT .
+  - docker tag $REPO:$COMMIT $REPO:$TAG
+  - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
+  - docker push $REPO
