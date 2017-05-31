@@ -107,6 +107,7 @@ export default {
     id: 31821,
     name: 'Aura Mastery',
     icon: 'spell_holy_auramastery',
+    cooldownType: 'HEALING'
   },
   AURA_OF_MERCY_HEAL: {
     id: 210291,
@@ -132,6 +133,7 @@ export default {
     id: 31842,
     name: 'Avenging Wrath',
     icon: 'spell_holy_avenginewrath',
+    cooldownType: 'HEALING'
   },
   BEACON_OF_LIGHT_BUFF: {
     id: 53563,
@@ -292,6 +294,7 @@ export default {
     id: 105809,
     name: 'Holy Avenger',
     icon: 'ability_paladin_holyavenger',
+    cooldownType: 'HEALING',
     description: '<a href="http://www.wowhead.com/spell=105809" target="_blank">Holy Avenger</a> provides a lot of on-demand healing. The downside to Holy Avenger is that is requires fairly heavy mana usage to be effective. This tier is mostly preference.',
   },
   HOLY_PRISM_TALENT: {
