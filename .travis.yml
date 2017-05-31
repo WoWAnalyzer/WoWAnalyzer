@@ -1,0 +1,23 @@
+sudo: required
+dist: trusty
+language: node_js
+services:
+  - docker
+node_js:
+- '7'
+cache:
+  directories:
+    - node_modules
+env:
+  - NODE_ENV=production
+install:
+  - npm install --dev
+script:
+  - npm test
+  - npm run build
+  - docker build -t martijnhols/wowanalyzer .
+after_success:
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+    docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+    docker push martijnhols/wowanalyzer;
+    fi
