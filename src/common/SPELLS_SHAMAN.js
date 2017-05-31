@@ -64,6 +64,7 @@ export default {
     id: 108281,
     name: 'Ancestral Guidance',
     icon: 'ability_shaman_ancestralguidance',
+    cooldownType: 'HEALING',
     description: 'The default choice in this tier. Can generate incredible throughput, especially when combined with <a href="http://www.wowhead.com/spell="157153" target="_blank">Cloudburst Totem</a> and/or <a href="http://www.wowhead.com/spell=114052" target="_blank">Ascendance</a>.',
   },
   ANCESTRAL_GUIDANCE_HEAL: {
@@ -75,6 +76,7 @@ export default {
     id: 114052,
     name: 'Ascendance',
     icon: 'spell_fire_elementaldevastation',
+    cooldownType: 'HEALING',
     description: 'Should almost always be combined with <a href="http://www.wowhead.com/spell=157153" target="_blank">Cloudburst Totem</a>. Provides you with an additional healing cooldown, or when combined with <a href="http://www.wowhead.com/spell=108281" target="_blank">Ancestral Guidance</a> makes for what is probably the strongest healing cooldown in the game. Does require proper planning to get value.'
   },
   ASCENDANCE_HEAL: {
