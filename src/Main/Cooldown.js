@@ -28,7 +28,8 @@ class Cooldown extends React.Component {
   static propTypes = {
     fightStart: React.PropTypes.number.isRequired,
     fightEnd: React.PropTypes.number.isRequired,
-    showHealingDone: React.PropTypes.bool,
+    ShowStatistics: React.PropTypes.bool,
+    showResourceStatistics: React.PropTypes.bool,
     cooldown: React.PropTypes.shape({
       ability: React.PropTypes.shape({
         id: React.PropTypes.number.isRequired,
@@ -92,17 +93,39 @@ class Cooldown extends React.Component {
     return results;
   }
 
-  render() {
-    const { cooldown, fightStart, fightEnd, showHealingDone } = this.props;
-
-    let healingDone = 0;
-    let overhealingDone = 0;
-    showHealingDone && cooldown.events.filter(event => event.type === 'heal' || event.type === 'absorbed').forEach((event) => {
+  calculateHealingStatistics(cooldown) {
+    let healingDone = 0, overhealingDone = 0
+    cooldown.events.filter(event => event.type === 'heal' || event.type === 'absorbed').forEach((event) => {
       healingDone += event.amount + (event.absorbed || 0);
       overhealingDone += event.overheal || 0;
     });
-    const mana = cooldown.events.filter(event => event.type === 'cast').reduce((mana, event) => mana + (event.manaCost || 0), 0);
 
+    return {
+      healingDone,
+      overhealingDone
+    };
+  }
+
+  calculateDamageStatistics(cooldown) {
+    let damageDone = cooldown.events.reduce((acc, event) => {
+      return event.type === 'damage' ? acc + event.amount : acc
+    }, 0)
+    
+    return {damageDone}
+  }
+  
+  render() {
+    const { cooldown, fightStart, fightEnd, showOutputStatistics, showResourceStatistics } = this.props;
+
+    let outputStatistics, resourceStatistics;
+
+    if (showOutputStatistics) {
+      outputStatistics = cooldown.ability.cooldownType === 'HEALING' ? this.calculateHealingStatistics(cooldown) : this.calculateDamageStatistics(cooldown);
+    }
+    if (showResourceStatistics) {
+      resourceStatistics = cooldown.events.filter(event => event.type === 'cast').reduce((mana, event) => mana + (event.manaCost || 0), 0);
+    }
+    
     const start = cooldown.start;
     const end = cooldown.end || fightEnd;
 
@@ -114,7 +137,7 @@ class Cooldown extends React.Component {
           <SpellIcon id={cooldown.ability.id} />
         </figure>
         <div className="row" style={{ width: '100%' }}>
-          <div className={showHealingDone ? 'col-md-6' : 'col-md-10'}>
+          <div className={showOutputStatistics ? 'col-md-6' : 'col-md-10'}>
             <header style={{ marginTop: 5, fontSize: '1.25em', marginBottom: '.1em' }}>
               <SpellLink id={cooldown.ability.id} /> ({formatDuration((start - fightStart) / 1000)} -&gt; {formatDuration((end - fightStart) / 1000)})
             </header>
@@ -166,22 +189,42 @@ class Cooldown extends React.Component {
               </div>
             )}
           </div>
-          {showHealingDone && (
-            <div className="col-md-2 text-center">
-              <div style={{ fontSize: '2em' }}>{formatNumber(healingDone)}</div>
-              <dfn data-tip="This includes all healing the occured while the buff was up, even if it was not triggered by spells cast inside the buff duration. Any delayed healing such as HOTs, Absorbs and Atonements will stop contributing to the healing done when the cooldown buff expires, so this value is lower for any specs with such abilities.">healing ({formatNumber(healingDone / (end - start) * 1000)} HPS)</dfn>
-            </div>
-          )}
-          {showHealingDone && (
-            <div className="col-md-2 text-center">
-              <div style={{ fontSize: '2em' }}>{formatPercentage(overhealingDone / (healingDone + overhealingDone))}%</div>
-              <dfn data-tip="This includes all healing the occured while the buff was up, even if it was not triggered by spells cast inside the buff duration. Any delayed healing such as HOTs, Absorbs and Atonements will stop contributing to the healing done when the cooldown buff expires, so this value is lower for any specs with such abilities.">overhealing</dfn>
-            </div>
-          )}
-          <div className="col-md-2 text-center">
-            <div style={{ fontSize: '2em' }}>{formatNumber(mana)}</div>
-            mana used
-          </div>
+          {
+            cooldown.ability.cooldownType === 'HEALING' && showOutputStatistics && (
+              <div>
+                <div className="col-md-2 text-center">
+                  <div style={{ fontSize: '2em' }}>{formatNumber(outputStatistics.healingDone)}</div>
+                  <dfn data-tip="This includes all healing the occured while the buff was up, even if it was not triggered by spells cast inside the buff duration. Any delayed healing such as HOTs, Absorbs and Atonements will stop contributing to the healing done when the cooldown buff expires, so this value is lower for any specs with such abilities.">healing ({formatNumber(outputStatistics.healingDone / (end - start) * 1000)} HPS)</dfn>
+                </div>
+                <div className="col-md-2 text-center">
+                  <div style={{ fontSize: '2em' }}>{formatPercentage(outputStatistics.overhealingDone / (outputStatistics.healingDone + outputStatistics.overhealingDone))}%</div>
+                  <dfn data-tip="This includes all healing the occured while the buff was up, even if it was not triggered by spells cast inside the buff duration. Any delayed healing such as HOTs, Absorbs and Atonements will stop contributing to the healing done when the cooldown buff expires, so this value is lower for any specs with such abilities.">overhealing</dfn>
+                </div>
+              </div>
+            )
+          }  
+          {
+            cooldown.ability.cooldownType === 'DAMAGE' && showOutputStatistics && (
+              <div>
+                <div className="col-md-2 text-center">
+                  <div style={{ fontSize: '2em' }}>{formatNumber(outputStatistics.damageDone)}</div>
+                  <dfn data-tip="This number represents the total amount of damage done during the duration of this cooldown, any damage done by DOTs after the effect of this cooldown has exprired will not be included in this statistic.">Damage Done</dfn>
+                </div>
+                <div className="col-md-2 text-center">
+                  <div style={{ fontSize: '2em' }}>{formatNumber(outputStatistics.damageDone / (end - start) * 1000)} DPS</div>
+                  DPS
+                </div>
+              </div>
+            )
+          }             
+          {
+            showResourceStatistics && (
+              <div className="col-md-2 text-center">
+                <div style={{ fontSize: '2em' }}>{formatNumber(resourceStatistics)}</div>
+                mana used
+              </div>
+            )
+          }
         </div>
       </article>
     );
