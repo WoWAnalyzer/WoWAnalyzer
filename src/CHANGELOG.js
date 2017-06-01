@@ -1,8 +1,9 @@
 export default `
+21-05-2017 - Mistweaver Monk: Essence Font Tracking Implemented including tagets hit and HOT buffs utilized.  Readme updates for all modules and cast efficiency targets. (by anom0ly)
 29-05-2017 - Disc Priest: Show Rapture PW:S casts seperate from regular PW:S casts in Cast Efficiency. (by Zerotorescue)
 29-05-2017 - Fixed a crash when trying to parse a corrupt combatlog. (by versaya)
 29-05-2017 - Resto Shaman: Added overhealing in Cast Efficiency tab for some resto shaman spells. Fixed Uncertain Reminder in case of pre-lust. Added GotQ target efficiency.	Don't allow CBT healing to feed into CBT.
-29-05-2017 - Mistweaver Monk: Added Sheilun's Gift statistic and an overhealing suggestion. With Effusive Mists talent, Effuse casts at 12 stacks are considered wasted. Added simple proc counter for Dancing Mists. (by anom0ly)  
+29-05-2017 - Mistweaver Monk: Added Sheilun's Gift statistic and an overhealing suggestion. With Effusive Mists talent, Effuse casts at 12 stacks are considered wasted. Added simple proc counter for Dancing Mists. (by anom0ly)
 28-05-2017 - Disc Priest: Added unused Power Word: Shield absorb statistic.
 28-05-2017 - Added <span class="Shaman">Restoration Shaman</span> support by <b>@Versaya</b>! Thanks a lot for your contribution!
 28-05-2017 - Added overhealing percentages to the Cast Efficiency tab.
@@ -13,15 +14,15 @@ export default `
 26-05-2017 - Resto Druid: Added Chameleon Song legendary analyzer. Also added additional information on tree of life tool tip.
 25-05-2017 - Resto Druid: Added support for T20.
 25-05-2017 - Disc Priest: Added <i>Early Atonement refreshes</i> statistic. Fixed Skjoldr sometimes not working properly. Both contributions were created by <b>@Shadowdrizz</b>. Thanks a lot for your contribution!
-25-05-2017 - Added Patreon links to the specs I (Zerotorescue) maintain. Please let me know if you think this is inappropriate or makes you hesitate to contribute. Added Discord link. 
+25-05-2017 - Added Patreon links to the specs I (Zerotorescue) maintain. Please let me know if you think this is inappropriate or makes you hesitate to contribute. Added Discord link.
 25-05-2017 - Resto Druid: Fixed a minor error in DTA calculations with partial overheals.
 24-05-2017 - Added <span class="Monk">Mistweaver Monk</span> support by <b>@Anomoly</b>! Thanks a lot for your contribution!
 An informative message is now shown when trying to parse a report without combatants (usually due to not having advanced combat logging enabled).
 Holy Paladin: Show overhealing during cooldowns too. Innervates properly shows mana costs.
 Disc Priest: Fix Shadowfiend showing with the Mindbender talent.
-21-05-2017 - Fixed a rare crash when auto attacking something. 
-21-05-2017 - Added Resto Druid support by <b>@blazyb</b> (see: <a href="https://github.com/buimichael/RestoDruidAnalyzer">https://github.com/buimichael/RestoDruidAnalyzer</a>). 
-20-05-2017 - Added Cooldowns tab to show casts and healing when affected by a cooldown. Added Amalgam's Seventh Spine mana gained statistic. Promises no longer includes mana reduction during Innervate. 
+21-05-2017 - Fixed a rare crash when auto attacking something.
+21-05-2017 - Added Resto Druid support by <b>@blazyb</b> (see: <a href="https://github.com/buimichael/RestoDruidAnalyzer">https://github.com/buimichael/RestoDruidAnalyzer</a>).
+20-05-2017 - Added Cooldowns tab to show casts and healing when affected by a cooldown. Added Amalgam's Seventh Spine mana gained statistic. Promises no longer includes mana reduction during Innervate.
 18-05-2017 - Disc Priest: Added Shadow Word: Pain/Purge the Wicked global uptime statistic.
 17-05-2017 - Disc Priest: Added Twist of Fate healing statistic (damage gain is in the tooltip).
 17-05-2017 - Added Sephuz's Secret uptime indicator.

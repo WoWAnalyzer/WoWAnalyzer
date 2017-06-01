@@ -110,11 +110,13 @@ class CombatLogParser extends MainCombatLogParser {
     const prydazHealingPercentage = this.modules.prydaz.healing / this.totalHealing;
     const drapeOfShameHealingPercentage = this.modules.drapeOfShame.healing / this.totalHealing;
     const unusedUTProcs = 1 - (this.modules.upliftingTrance.consumedUTProc / this.modules.upliftingTrance.UTProcsTotal);
-    const avgSGOverheal = this.modules.sheilunsGift.overhealSG / this.modules.sheilunsGift.castsSG;
+    const avgSGOverheal = this.modules.sheilunsGift.overhealSG / this.modules.sheilunsGift.castsSG || 0;
 
     const SGability = getAbility(SPELLS.SHEILUNS_GIFT.id);
     const SGcasts = SGability.casts || 0;
+
     const avgSGstacks = this.modules.sheilunsGift.stacksTotalSG / SGcasts || 0;
+    const wastedSGStacks = this.modules.sheilunsGift.stacksWastedSG + Math.floor((fightEndTime - this.modules.sheilunsGift.lastSGStack) / 10000);
 
     const manaTea = getAbility(SPELLS.MANA_TEA_TALENT.id);
     const mtCasts = manaTea.casts || 0;
@@ -127,14 +129,21 @@ class CombatLogParser extends MainCombatLogParser {
     const avgRJWHealing = this.modules.aoeHealingTracker.healingRJW / this.modules.aoeHealingTracker.castRJW || 0;
     const avgRJWTargets = this.modules.aoeHealingTracker.healsRJW / this.modules.aoeHealingTracker.castRJW || 0;
 
+    const efMasteryCasts = (this.modules.essenceFontMastery.healEF / 2) || 0;
+    const efMasteryEffectiveHealing = ((this.modules.essenceFontMastery.healingEF + this.modules.essenceFontMastery.absorbedhealingEF) / 2) || 0;
+    const avgEFMasteryHealing = efMasteryEffectiveHealing / efMasteryCasts || 0;
 
-    const wastedSGStacks = this.modules.sheilunsGift.stacksWastedSG + Math.floor((fightEndTime - this.modules.sheilunsGift.lastSGStack) / 10000);
+    const avgMasteryCastsPerEF = (this.modules.essenceFontMastery.castEF / efMasteryCasts) || 0;
+    const avgTargetsHitPerEF = (this.modules.essenceFontMastery.targetsEF / this.modules.essenceFontMastery.castEF) || 0;
 
     // Trait Checks
     const hasWhispersOfShaohao = this.selectedCombatant.traitsBySpellId[SPELLS.WHISPERS_OF_SHAOHAO_TRAIT.id] === 1;
     const hasCelestialBreath = this.selectedCombatant.traitsBySpellId[SPELLS.CELESTIAL_BREATH_TRAIT.id] === 1;
     const hasMistsOfSheilun = this.selectedCombatant.traitsBySpellId[SPELLS.MISTS_OF_SHEILUN_TRAIT.id] === 1;
+
     const hasRJW = this.selectedCombatant.hasTalent(SPELLS.REFRESHING_JADE_WIND_TALENT.id);
+    const hasSotC = this.selectedCombatant.hasTalent(SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id);
+    const hasLifecycles = this.selectedCombatant.hasTalent(SPELLS.LIFECYCLES_TALENT.id);
 
 
     const missedWhispersHeal = ((Math.floor(fightDuration / 10000) + this.modules.sheilunsGift.countEff) - this.modules.sheilunsGift.countWhispersHeal);
@@ -148,23 +157,31 @@ class CombatLogParser extends MainCombatLogParser {
       });
     }
     */
-
-    // Sheilun's Gift Overhealing issue
+    // Missed Whispers healing
     if(hasWhispersOfShaohao && missedWhispersHeal > 10) {
       results.addIssue({
         issue: <span>You missed {missedWhispersHeal} <a href="http://www.wowhead.com/spell=238130" target="_blank">Whispers of Shaohao</a> healing procs.  While you cannot actively place the clouds that spawn, work to position yourself near other members of the raid so that when the clouds are used, they heal someone.</span>,
         icon: SPELLS.WHISPERS_OF_SHAOHAO_TRAIT.icon,
-        importance: getIssueImportance(missedWhispersHeal, 12, 15, true)
+        importance: getIssueImportance(missedWhispersHeal, 12, 15, true),
       });
     }
-    // Missed Whispers healing
-    if(missedWhispersHeal > 10) {
+    // Sheilun's Gift Overhealing issue
+    if(missedWhispersHeal > 10 && SGcasts < 0) {
       results.addIssue({
-        issue: <span>You averaged {(avgSGOverheal / 1000).toFixed(0)}k overheal with your <a href="http://www.wowhead.com/spell=205406" target="_blank">Sheilun's Gift</a> and casted with an average of {(this.modules.sheilunsGift.stacksTotalSG / this.modules.sheilunsGift.castsSG).toFixed(0)} stacks.  Consider using <a href="http://www.wowhead.com/spell=205406" target="_blank">Sheilun's Gift</a> at lower stacks to increase effectiveness.</span>,
+        issue: <span>You averaged {(avgSGOverheal / 1000).toFixed(0)}k overheal with your <a href="http://www.wowhead.com/spell=205406" target="_blank">Sheilun's Gift</a> and casted with an average of {(avgSGstacks).toFixed(0)} stacks.  Consider using <a href="http://www.wowhead.com/spell=205406" target="_blank">Sheilun's Gift</a> at lower stacks to increase effectiveness.</span>,
         icon: SPELLS.SHEILUNS_GIFT.icon,
-        importance: getIssueImportance(avgSGOverheal, 325000, 400000, true)
+        importance: getIssueImportance(avgSGOverheal, 325000, 400000, true),
       });
     }
+    // Sheilun's Gift Casts
+    if(SGcasts < ((this.fightDuration / 10000) / 5)) {
+      results.addIssue({
+        issue: <span>You casted <a href="http://www.wowhead.com/spell=205406" target="_blank">Sheilun's Gift</a> {SGcasts} times over the course of the fight.  Casting at an average of 5 stacks would have given you potentially {(((this.fightDuration / 10000) / 5)).toFixed(1)} casts.  Consider using <a href="http://www.wowhead.com/spell=205406" target="_blank">Sheilun's Gift</a> more often to take advantage of its free healing.</span>,
+        icon: SPELLS.SHEILUNS_GIFT.icon,
+        importance: getIssueImportance(SGcasts, ((this.fightDuration / 10000) / 8), ((this.fightDuration / 10000) / 12)),
+      });
+    }
+
     if (this.modules.velens.active && velensHealingPercentage < 0.045) {
       results.addIssue({
         issue: <span>Your usage of <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} /> can be improved. Try to maximize the amount of casts during the buff or consider using an easier legendary ({(velensHealingPercentage * 100).toFixed(2)}% healing contributed).</span>,
@@ -175,7 +192,7 @@ class CombatLogParser extends MainCombatLogParser {
     // Uplifting Trance Usage
     if (unusedUTProcs > 0.10) {
       results.addIssue({
-        issue: <span>Your <a href="http://www.wowhead.com/spell=197206" target="_blank">Uplifting Trance</a> procs should be used as soon as you get them so they are not overwritten. You missed {(this.modules.upliftingTrance.UTProcsTotal - this.modules.upliftingTrance.consumedUTProc)}/{(this.modules.upliftingTrance.UTProcsTotal)} procs.</span>,
+        issue: <span>Your <a href="http://www.wowhead.com/spell=197206" target="_blank">Uplifting Trance</a> procs should be used as soon as you get them so they are not overwritten. You missed {(this.modules.upliftingTrance.UTProcsTotal - this.modules.upliftingTrance.consumedUTProc)}/{(this.modules.upliftingTrance.UTProcsTotal)} procs. ({formatPercentage((this.modules.upliftingTrance.UTProcsTotal - this.modules.upliftingTrance.consumedUTProc) / this.modules.upliftingTrance.UTProcsTotal)} %)</span>,
         icon: SPELLS.UPLIFTING_TRANCE_BUFF.icon,
         importance: getIssueImportance(unusedUTProcs, 0.2, 0.5, true),
       });
@@ -196,15 +213,15 @@ class CombatLogParser extends MainCombatLogParser {
       results.addIssue({
         issue: <span>Your mana spent during <a href="http://www.wowhead.com/spell=197908" target="_blank">Mana Tea</a> can be improved.  Always aim to cast your highest mana spells such as <a href="http://www.wowhead.com/spell=191837" target="_blank">Essence Font</a> or <a href="http://www.wowhead.com/spell=116670" target="_blank">Vivify</a>. ({((this.modules.manaTea.manaSaved / this.modules.manaTea.manateaCount) / 1000).toFixed(0)}k avg mana saved)</span>,
         icon: SPELLS.MANA_TEA_TALENT.icon,
-        important: getIssueImportance((this.modules.manaTea.manaSaved / this.modules.manateaCount), 160000, 120000),
+        importance: getIssueImportance((this.modules.manaTea.manaSaved / this.modules.manateaCount), 160000, 120000),
       })
     }
     // Lifecycles Manasavings
-    if(this.modules.manaSavingTalents.hasLifeCycles && this.modules.manaSavingTalents.manaSaved < 200000) {
+    if(hasLifecycles && this.modules.manaSavingTalents.manaSaved < 200000) {
       results.addIssue({
         issue: <span>Your current spell usage is not taking full advantage of the <a href="http://www.wowhead.com/spell=197915" target="_blank">Lifecycles</a> talent.  You casted {this.modules.manaSavingTalents.castsNonRedViv} / {(this.modules.manaSavingTalents.castsRedViv + this.modules.manaSavingTalents.castsNonRedViv)} Vivfy's and {this.modules.manaSavingTalents.castsNonRedEnm} / {(this.modules.manaSavingTalents.castsRedEnm + this.modules.manaSavingTalents.castsNonRedEnm)} Enveloping Mists without the mana saving buffs provided by <a href="http://www.wowhead.com/spell=197915" target="_blank">Lifecycles</a></span>,
         icon:SPELLS.LIFECYCLES_TALENT.icon,
-        important:getIssueImportance(this.modules.manaSavingTalents.manaSaved, 170000, 140000),
+        importance: getIssueImportance(this.modules.manaSavingTalents.manaSaved, 170000, 140000),
       });
     }
     // Incorrect TFT Usage
@@ -212,9 +229,28 @@ class CombatLogParser extends MainCombatLogParser {
       results.addIssue({
         issue: <span>You are currently using <a href="http://www.wowhead.com/spell=116680" target="_blank">Thunder Focus Tea</a> to buff spells other than <a href="http://www.wowhead.com/spell=116670" target="_blank">Vivify</a> or <a href="http://www.wowhead.com/spell=191837" target="_blank">Essence Font</a>.  You used the TFT buff on {(this.modules.thunderFocusTea.castsUnderTft - (this.modules.thunderFocusTea.castsTftEf + this.modules.thunderFocusTea.castsTftViv))} spells other than Essence Font, or Vivify.</span>,
         icon: SPELLS.THUNDER_FOCUS_TEA.icon,
-        important:getIssueImportance(this.modules.thunderFocusTea.castsUnderTft - (this.modules.thunderFocusTea.castsTftRem + this.modules.thunderFocusTea.castsTftViv), 2, 4, true)
+        importance: getIssueImportance(this.modules.thunderFocusTea.castsUnderTft - (this.modules.thunderFocusTea.castsTftRem + this.modules.thunderFocusTea.castsTftViv), 2, 4, true),
       });
     }
+    // EF Mastery Proc Usage
+    if (avgMasteryCastsPerEF < 3 && avgTargetsHitPerEF > 0) {
+      results.addIssue({
+        issue: <span>You are currently using not utilizing your <a href="http://www.wowhead.com/spell=191837" target="_blank">Essence Font</a> HOT buffs effectively.  You only utilized an average of {avgMasteryCastsPerEF} HOTs over {this.modules.essenceFontMastery.castEF} <a href="http://www.wowhead.com/spell=191837" target="_blank">Essence Font</a> casts.</span>,
+        icon: SPELLS.GUSTS_OF_MISTS.icon,
+        importance: getIssueImportance(avgMasteryCastsPerEF, 2, 1),
+      });
+    }
+    // EF Targets Hit
+    if(avgTargetsHitPerEF < 17) {
+      results.addIssue({
+        issue: <span>You are currently using not utilizing your <a href="http://www.wowhead.com/spell=191837" target="_blank">Essence Font</a> effectively.  You only hit an average of {(avgTargetsHitPerEF).toFixed(0)} targets over {this.modules.essenceFontMastery.castEF} <a href="http://www.wowhead.com/spell=191837" target="_blank">Essence Font</a> casts.  Each <a href="http://www.wowhead.com/spell=191837" target="_blank">Essence Font</a> cast should hit a total of 18 targets.  Your missed an average of {(18 - avgTargetsHitPerEF).toFixed(0)} targets.</span>,
+        icon: SPELLS.ESSENCE_FONT.icon,
+        importance: getIssueImportance(avgTargetsHitPerEF, 14, 12),
+      });
+    }
+    // SotC Usage
+
+
 
     const castEfficiencyCategories = SPELL_CATEGORY;
     const castEfficiency = getCastEfficiency(CPM_ABILITIES, this);
@@ -296,7 +332,7 @@ class CombatLogParser extends MainCombatLogParser {
           </dfn>
         )}
       />,
-    // Mana Tea Usage
+      // Mana Tea Usage
       this.modules.manaTea.active && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.MANA_TEA_TALENT.id} />}
@@ -328,7 +364,7 @@ class CombatLogParser extends MainCombatLogParser {
         />
       ),
     // Lifecycles Usage
-      this.modules.manaSavingTalents.hasLifeCycles && (
+      hasLifecycles && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.LIFECYCLES_TALENT.id} />}
           value={`${(this.modules.manaSavingTalents.manaSaved / 1000).toFixed(0)}k mana saved `}
@@ -345,7 +381,7 @@ class CombatLogParser extends MainCombatLogParser {
         />
       ),
       // SotC Usage
-      this.modules.manaSavingTalents.hasSotc && (
+      hasSotC && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id} />}
           value={`${(this.modules.manaSavingTalents.manaReturnSotc / 1000).toFixed(0)}k mana returned`}
@@ -387,7 +423,7 @@ class CombatLogParser extends MainCombatLogParser {
           value={`${(missedWhispersHeal)} missed`}
           label={(
             <dfn data-tip={`You had a total of ${(this.modules.sheilunsGift.countWhispersHeal)} Whispers of Shaohao heals, but had a chance at ${(missedWhispersHeal)} additional heals.`}>
-              Total Whispers of Shaohao Heals Missed.
+              Total Whispers of Shaohao Heals Missed
             </dfn>
           )}
         />
@@ -400,7 +436,7 @@ class CombatLogParser extends MainCombatLogParser {
           value={`${((avgCelestialBreathHealing) / 1000).toFixed(0)} k`}
           label={(
             <dfn data-tip={`You hit a total of ${this.modules.aoeHealingTracker.healsCelestialBreath} targets with Celestial Breath on ${this.modules.aoeHealingTracker.procsCelestialBreath} casts. (${(avgCelestialBreathTargets / 3).toFixed(1)} Average Targets Hit per Cast.)`}>
-              Average Celestial Breath Healing.
+              Average Celestial Breath Healing
             </dfn>
           )}
         />
@@ -412,7 +448,7 @@ class CombatLogParser extends MainCombatLogParser {
           value={`${((avgMistsOfSheilunHealing) / 1000).toFixed(0)} k`}
           label={(
             <dfn data-tip={`You hit a total of ${this.modules.aoeHealingTracker.healsMistsOfSheilun} targets with Mists of Sheilun on ${this.modules.aoeHealingTracker.procsMistsOfSheilun} casts. (${(avgMistsOfSheilunTargets).toFixed(1)} Average Targets Hit per Cast.)`}>
-              Average Mists of Sheilun Healing.
+              Average Mists of Sheilun Healing
             </dfn>
           )}
         />
@@ -424,11 +460,12 @@ class CombatLogParser extends MainCombatLogParser {
           value={`${((avgRJWHealing) / 1000).toFixed(0)} k`}
           label={(
             <dfn data-tip={`You hit a total of ${this.modules.aoeHealingTracker.healsRJW} targets with Refreshing Jade Wind on ${this.modules.aoeHealingTracker.castRJW} casts. (${(avgRJWTargets).toFixed(1)} Average Targets Hit per Cast.)`}>
-              Average Refreshing Jade Wind Healing.
+              Average Refreshing Jade Wind Healing
             </dfn>
           )}
         />
       ),
+      /* Note: Disabling for now until a better metric is decided upon.
       this.modules.renewingMist.active && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.DANCING_MISTS.id} />}
@@ -440,6 +477,29 @@ class CombatLogParser extends MainCombatLogParser {
           )}
         />
       ),
+      */
+      // EF Mastery stats
+      efMasteryCasts > 0 && (
+        <StatisticBox
+          icon={<SpellIcon id={SPELLS.GUSTS_OF_MISTS.id} />}
+          value={`${efMasteryCasts}`}
+          label={(
+            <dfn data-tip={`You healed a total of ${efMasteryCasts} targets with the Essence Font buff for ${(efMasteryEffectiveHealing / 1000).toFixed(0)}k healing. (${(avgEFMasteryHealing).toFixed(1)} Average Healing per Cast.)`}>
+              Essence Font Mastery Buffs utilized
+            </dfn>
+          )}
+        />
+      ),
+      // EF Targets Hit
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.ESSENCE_FONT.id} />}
+        value={`${(avgTargetsHitPerEF).toFixed(0)}`}
+        label={(
+          <dfn data-tip={`You healed an average of ${(avgTargetsHitPerEF).toFixed(2)} targets per Essence Font cast over your ${this.modules.essenceFontMastery.castEF} casts.`}>
+            Average Targets hit per Essence Font cast
+          </dfn>
+        )}
+      />
     ];
 
     results.items = [
@@ -513,6 +573,7 @@ class CombatLogParser extends MainCombatLogParser {
             fightStart={this.fight.start_time}
             fightEnd={this.fight.end_time}
             cooldowns={this.modules.cooldownTracker.cooldowns}
+            showHealingDone
           />
         ),
       },
