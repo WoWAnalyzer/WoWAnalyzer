@@ -2,11 +2,13 @@ const express = require('express');
 const path = require('path');
 const app = express();
 
-app.use(express.static(path.join(__dirname, 'build')));
+const buildFolder = path.join(__dirname, '..', 'build');
+
+app.use(express.static(buildFolder));
 
 app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
+  res.sendFile(path.join(buildFolder, 'index.html'));
 });
 
-app.listen(80);
-console.log('Listening to port 80');
+app.listen(3000);
+console.log('Listening to port 3000');
