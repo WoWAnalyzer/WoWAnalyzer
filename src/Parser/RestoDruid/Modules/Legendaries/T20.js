@@ -2,7 +2,7 @@ import Module from 'Parser/Core/Module';
 import SPELLS from 'common/SPELLS';
 
 
-const BLOSSOMING_EFFLORESCENCE_HEAL_INCREASE = 2;
+const BLOSSOMING_EFFLORESCENCE_HEAL_INCREASE = 3;
 const T20P2_MAX_SWIFTMEND_REDUCTION = 0.4;
 const debug = false;
 

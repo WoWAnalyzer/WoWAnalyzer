@@ -63,6 +63,11 @@ class CooldownTracker extends Module {
       cooldown.events.push(event);
     });
   }
+  on_byPlayer_damage(event) {
+    this.activeCooldowns.forEach((cooldown) => {
+      cooldown.events.push(event);
+    });
+  }
 }
 
 export default CooldownTracker;

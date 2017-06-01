@@ -506,7 +506,7 @@ class CombatLogParser extends MainCombatLogParser {
             fightStart={this.fight.start_time}
             fightEnd={this.fight.end_time}
             cooldowns={this.modules.cooldownTracker.cooldowns}
-            showHealingDone
+            showOutputStatistics
           />
         ),
       },
