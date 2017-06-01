@@ -66,6 +66,14 @@ class ReportSelecter extends Component {
                 <h2>Analyze report</h2>
               </div>
               <div className="panel-body">
+                <div className="alert alert-danger">
+                  The Warcraft Logs API is currently down, please try again later.<br /><br />
+
+                  <blockquote style={{ margin: 0 }}>
+                    Experiencing an attack through the WCL Web API. For now I'm going to have to disable it completely until I can figure out how to harden it against the attack in the future.
+                  </blockquote>
+                </div>
+
                 <strong>Enter your Warcraft Logs report code.</strong><br />
                 https://www.warcraftlogs.com/reports/<input
                   type="text"
