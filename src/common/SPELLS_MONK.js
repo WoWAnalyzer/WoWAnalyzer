@@ -114,7 +114,7 @@ export default {
   },
   // Mastery
   GUSTS_OF_MISTS: {
-    id: 117907,
+    id: 191894,
     name: 'Mastery: Gust of Mists',
     icon: 'ability_monk_souldance',
   },
