@@ -101,9 +101,10 @@ class CombatLogParser extends MainCombatLogParser {
   generateResults() {
     const results = new ParseResults();
 
-    const chiJiHealing = this.modules.chiJi.finalChiJi;
-    this.totalHealing += chiJiHealing;
-
+    if(this.modules.chiJi.active) {
+      const chiJiHealing = this.modules.chiJi.finalChiJi;
+      this.totalHealing += chiJiHealing;
+    }
     const fightDuration = this.fightDuration;
     const fightEndTime = this.fight.end_time;
     // const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
