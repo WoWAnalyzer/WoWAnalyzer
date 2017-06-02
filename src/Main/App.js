@@ -172,9 +172,7 @@ class App extends Component {
       report: null,
     });
 
-    const url = makeWclUrl(`https://www.warcraftlogs.com/v1/report/fights/${code}`, {
-      _: +new Date(),
-    });
+    const url = makeWclUrl(`https://www.warcraftlogs.com/v1/report/fights/${code}`);
     return fetch(url)
       .then(response => response.json())
       .then((json) => {

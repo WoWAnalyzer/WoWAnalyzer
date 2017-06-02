@@ -1,4 +1,4 @@
-export default function makeUrl(base, queryParams) {
+export default function makeUrl(base, queryParams = {}) {
   const keys = Object.keys(queryParams);
 
   const parts = [];
