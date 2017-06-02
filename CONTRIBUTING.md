@@ -64,7 +64,7 @@ You can add your new statistic to the results page by adding it in the `generate
 When done commit your work.
 Then make a pull request, the easiest way to do this is through the GitHub interface. If you cloned it will show a "Create pull request" button in your repository page, if you're using the interface it should be there somewhere too. Explain why what you did matters and why you did what you did (although if you have to explain why you did what you did then you should probably include that as comments in your code).
 
-I will always try credit you entirely for your contributions. If I omit this it was because I forgot and please don't hesitate to mention it.
+Don't forget to update the changelog, but only include changes that users might notice. PRs without updated changelogs will not be merged.
 
 # Code style
 
