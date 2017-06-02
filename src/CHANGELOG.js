@@ -1,6 +1,7 @@
 export default `
+01-06-2017 - Mistweaver Monk: Include healing from Chi-Ji talent into overall healing totals for monk. (by anom0ly)
 01-06-2017 - Mistweaver Monk: Essence Font Tracking Implemented including tagets hit and HOT buffs utilized.  Readme updates for all modules and cast efficiency targets. (by anom0ly)
-06-01-2017 - Resto Druid: Updated T20 calculations for the 200%/10seconds change.
+01-06-2017 - Resto Druid: Updated T20 calculations for the 200%/10seconds change.
 30-05-2017 - Mistweaver Monk: Adjusted some of the Dancing Mists logic per review. Added in missed Whispers of Shaohao healing. Tracking Celestial Breath and Mists of Sheilun buffs / procs and the healing associated. Refreshing Jade Wind Healing Implemented. Corrected some negative calculations with Uplifting Trance. Correcting formatting error with SG Stacks. (by anom0ly)
 30-05-2017 - Resto Druid: Added Dreamwalker calculations. Thanks @greatman
 30-05-2017 - Resto Druid: Added SotF + Soul of the Archdruid analyzer.
