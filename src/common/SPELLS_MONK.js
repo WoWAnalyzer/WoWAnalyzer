@@ -95,7 +95,7 @@ export default {
   },
   // Ch-Ji Heal
   CRANE_HEAL: {
-    id: 213373,
+    id: 198756,
     name: 'Crane Heal',
     icon: 'inv_pet_cranegod',
   },

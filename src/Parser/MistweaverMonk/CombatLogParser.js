@@ -35,6 +35,7 @@ import SheilunsGift from './Modules/Features/SheilunsGift';
 import RenewingMist from './Modules/Features/RenewingMist';
 import AOEHealingTracker from './Modules/Features/AOEHealingTracker';
 import EssenceFontMastery from './Modules/Features/EssenceFontMastery';
+import ChiJi from './Modules/Features/ChiJi';
 
 // Setup for Items
 import Velens from './Modules/Items/Velens';
@@ -84,6 +85,7 @@ class CombatLogParser extends MainCombatLogParser {
     renewingMist: RenewingMist,
     aoeHealingTracker: AOEHealingTracker,
     essenceFontMastery: EssenceFontMastery,
+    chiJi: ChiJi,
 
     // Legendaries / Items:
     drapeOfShame: DrapeOfShame,
@@ -99,6 +101,10 @@ class CombatLogParser extends MainCombatLogParser {
   generateResults() {
     const results = new ParseResults();
 
+    if(this.modules.chiJi.active) {
+      const chiJiHealing = this.modules.chiJi.finalChiJi;
+      this.totalHealing += chiJiHealing;
+    }
     const fightDuration = this.fightDuration;
     const fightEndTime = this.fight.end_time;
     // const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
