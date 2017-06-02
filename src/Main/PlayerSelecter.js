@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import ReactTooltip from 'react-tooltip';
 
@@ -8,17 +9,17 @@ import makeAnalyzerUrl from './makeAnalyzerUrl';
 
 class PlayerSelecter extends Component {
   static propTypes = {
-    report: React.PropTypes.shape({
-      code: React.PropTypes.string.isRequired,
-      title: React.PropTypes.string.isRequired,
-      friendlies: React.PropTypes.arrayOf(React.PropTypes.shape({
-        id: React.PropTypes.number.isRequired,
-        type: React.PropTypes.string.isRequired,
-        name: React.PropTypes.string.isRequired,
+    report: PropTypes.shape({
+      code: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      friendlies: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        type: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
       })),
     }).isRequired,
-    fightId: React.PropTypes.number.isRequired,
-    combatants: React.PropTypes.arrayOf(React.PropTypes.shape({
+    fightId: PropTypes.number.isRequired,
+    combatants: PropTypes.arrayOf(PropTypes.shape({
 
     })).isRequired,
   };

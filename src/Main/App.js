@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link, hashHistory } from 'react-router';
 import ReactTooltip from 'react-tooltip';
 
@@ -27,14 +28,14 @@ const githubUrl = 'https://github.com/MartijnHols/WoWAnalyzer';
 
 class App extends Component {
   static propTypes = {
-    router: React.PropTypes.shape({
-      push: React.PropTypes.func.isRequired,
-    }).isRequired,
-    params: React.PropTypes.shape({
-      reportCode: React.PropTypes.string,
-      playerName: React.PropTypes.string,
-      fightId: React.PropTypes.string,
-      resultTab: React.PropTypes.string,
+    router: PropTypes.shape({
+      push: PropTypes.func.isRequired,
+    }),
+    params: PropTypes.shape({
+      reportCode: PropTypes.string,
+      playerName: PropTypes.string,
+      fightId: PropTypes.string,
+      resultTab: PropTypes.string,
     }),
   };
   static defaultProps = {

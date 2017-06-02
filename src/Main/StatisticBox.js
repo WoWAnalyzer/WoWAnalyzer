@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const StatisticBox = ({ icon, value, label }) => (
   <div className="panel statistic-box">
@@ -20,9 +21,9 @@ const StatisticBox = ({ icon, value, label }) => (
   </div>
 );
 StatisticBox.propTypes = {
-  icon: React.PropTypes.node.isRequired,
-  value: React.PropTypes.node.isRequired,
-  label: React.PropTypes.node.isRequired,
+  icon: PropTypes.node.isRequired,
+  value: PropTypes.node.isRequired,
+  label: PropTypes.node.isRequired,
 };
 
 export default StatisticBox;

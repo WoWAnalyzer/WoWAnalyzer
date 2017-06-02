@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -28,7 +29,7 @@ const Talent = ({ talent }) => {
   );
 };
 Talent.propTypes = {
-  talent: React.PropTypes.number,
+  talent: PropTypes.number,
 };
 
 const Talents = ({ combatant }) => {
@@ -67,8 +68,14 @@ const Talents = ({ combatant }) => {
   );
 };
 Talents.propTypes = {
-  combatant: React.PropTypes.shape({
-
+  combatant: PropTypes.shape({
+    lv15Talent: PropTypes.number,
+    lv30Talent: PropTypes.number,
+    lv45Talent: PropTypes.number,
+    lv60Talent: PropTypes.number,
+    lv75Talent: PropTypes.number,
+    lv90Talent: PropTypes.number,
+    lv100Talent: PropTypes.number,
   }).isRequired,
 };
 

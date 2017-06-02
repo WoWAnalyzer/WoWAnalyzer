@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Icon = ({ icon, alt, ...other }) => {
   icon = icon.replace('.jpg', '').replace('-', '');
@@ -16,8 +17,8 @@ const Icon = ({ icon, alt, ...other }) => {
   );
 };
 Icon.propTypes = {
-  icon: React.PropTypes.string.isRequired,
-  alt: React.PropTypes.string.isRequired,
+  icon: PropTypes.string.isRequired,
+  alt: PropTypes.string.isRequired,
 };
 
 export default Icon;

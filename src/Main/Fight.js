@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import DIFFICULTIES from './DIFFICULTIES';
 
@@ -23,13 +24,13 @@ const Fight = ({ difficulty, name, kill, start_time, end_time, wipes, ...others 
   );
 };
 Fight.propTypes = {
-  id: React.PropTypes.number.isRequired,
-  difficulty: React.PropTypes.number.isRequired,
-  boss: React.PropTypes.number.isRequired,
-  start_time: React.PropTypes.number.isRequired,
-  end_time: React.PropTypes.number.isRequired,
-  name: React.PropTypes.string.isRequired,
-  kill: React.PropTypes.bool.isRequired,
+  id: PropTypes.number.isRequired,
+  difficulty: PropTypes.number.isRequired,
+  boss: PropTypes.number.isRequired,
+  start_time: PropTypes.number.isRequired,
+  end_time: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  kill: PropTypes.bool.isRequired,
 };
 
 export default Fight;

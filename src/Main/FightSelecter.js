@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import ReactTooltip from 'react-tooltip';
 
@@ -8,17 +9,17 @@ import getWipeCount from './getWipeCount';
 
 class FightSelecter extends Component {
   static propTypes = {
-    report: React.PropTypes.shape({
-      code: React.PropTypes.string.isRequired,
-      title: React.PropTypes.string.isRequired,
-      fights: React.PropTypes.arrayOf(React.PropTypes.shape({
-        id: React.PropTypes.number.isRequired,
-        difficulty: React.PropTypes.number,
-        boss: React.PropTypes.number.isRequired,
-        start_time: React.PropTypes.number.isRequired,
-        end_time: React.PropTypes.number.isRequired,
-        name: React.PropTypes.string.isRequired,
-        kill: React.PropTypes.bool,
+    report: PropTypes.shape({
+      code: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      fights: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        difficulty: PropTypes.number,
+        boss: PropTypes.number.isRequired,
+        start_time: PropTypes.number.isRequired,
+        end_time: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+        kill: PropTypes.bool,
       })),
     }),
   };

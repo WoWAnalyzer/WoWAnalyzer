@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
@@ -26,20 +27,20 @@ function formatPercentage(percentage) {
 
 class Cooldown extends React.Component {
   static propTypes = {
-    fightStart: React.PropTypes.number.isRequired,
-    fightEnd: React.PropTypes.number.isRequired,
-    ShowStatistics: React.PropTypes.bool,
-    showResourceStatistics: React.PropTypes.bool,
-    cooldown: React.PropTypes.shape({
-      ability: React.PropTypes.shape({
-        id: React.PropTypes.number.isRequired,
-        name: React.PropTypes.string.isRequired,
-        icon: React.PropTypes.string.isRequired,
+    fightStart: PropTypes.number.isRequired,
+    fightEnd: PropTypes.number.isRequired,
+    ShowStatistics: PropTypes.bool,
+    showResourceStatistics: PropTypes.bool,
+    cooldown: PropTypes.shape({
+      ability: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+        icon: PropTypes.string.isRequired,
       }),
-      start: React.PropTypes.number.isRequired,
-      end: React.PropTypes.number,
-      events: React.PropTypes.arrayOf(React.PropTypes.shape({
-        type: React.PropTypes.string.isRequired,
+      start: PropTypes.number.isRequired,
+      end: PropTypes.number,
+      events: PropTypes.arrayOf(PropTypes.shape({
+        type: PropTypes.string.isRequired,
       })).isRequired,
     }).isRequired,
   };

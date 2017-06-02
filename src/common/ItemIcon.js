@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ITEMS from './ITEMS';
 import ItemLink from './ItemLink';
 import Icon from './Icon';
@@ -13,7 +14,7 @@ const ItemIcon = ({ id, ...others }) => (
   </ItemLink>
 );
 ItemIcon.propTypes = {
-  id: React.PropTypes.number.isRequired,
+  id: PropTypes.number.isRequired,
 };
 
 export default ItemIcon;
