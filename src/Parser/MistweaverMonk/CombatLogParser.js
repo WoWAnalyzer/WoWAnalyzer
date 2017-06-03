@@ -240,7 +240,7 @@ class CombatLogParser extends MainCombatLogParser {
     // EF Mastery Proc Usage
     if (avgMasteryCastsPerEF < 3 && avgTargetsHitPerEF > 0) {
       results.addIssue({
-        issue: <span>You are currently using not utilizing your <a href="http://www.wowhead.com/spell=191837" target="_blank">Essence Font</a> HOT buffs effectively.  You only utilized an average of {avgMasteryCastsPerEF} HOTs over {this.modules.essenceFontMastery.castEF} <a href="http://www.wowhead.com/spell=191837" target="_blank">Essence Font</a> casts.</span>,
+        issue: <span>You are currently not utilizing your <a href="http://www.wowhead.com/spell=191837" target="_blank">Essence Font</a> HOT buffs effectively.  You only utilized an average of {avgMasteryCastsPerEF.toFixed(2)} HOTs over {this.modules.essenceFontMastery.castEF} <a href="http://www.wowhead.com/spell=191837" target="_blank">Essence Font</a> casts.</span>,
         icon: SPELLS.GUSTS_OF_MISTS.icon,
         importance: getIssueImportance(avgMasteryCastsPerEF, 2, 1),
       });
@@ -416,7 +416,7 @@ class CombatLogParser extends MainCombatLogParser {
           )}
         />
       ),
-
+      // Wasted SG Stacks
       <StatisticBox
         icon={<SpellIcon id={SPELLS.SHEILUNS_GIFT.id} />}
         value={`${(avgSGstacks).toFixed(0)} Stacks`}
@@ -428,6 +428,7 @@ class CombatLogParser extends MainCombatLogParser {
           </dfn>
         )}
       />,
+      // Whispers Usage
       hasWhispersOfShaohao && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.WHISPERS_OF_SHAOHAO.id} />}
@@ -476,19 +477,19 @@ class CombatLogParser extends MainCombatLogParser {
           )}
         />
       ),
-      /* Note: Disabling for now until a better metric is decided upon.
+      // Dancing Mist Tracking
       this.modules.renewingMist.active && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.DANCING_MISTS.id} />}
-          value={`${(this.modules.renewingMist.dancingMistProc)} procs`}
+          value={`${(this.modules.renewingMist.dancingMistHeal / 1000).toFixed(0)} k`}
           label={(
             <dfn data-tip={`You had a total of ${(this.modules.renewingMist.dancingMistProc)} procs on ${this.modules.renewingMist.castsREM} REM casts.`}>
-              Total Dancing Mists Procs
+              Total Dancing Mists Healing
             </dfn>
           )}
         />
       ),
-      */
+
       // EF Mastery stats
       efMasteryCasts > 0 && (
         <StatisticBox
