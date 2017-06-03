@@ -1,7 +1,7 @@
 import Module from 'Parser/Core/Module';
 import SPELLS from 'common/SPELLS';
 
-const debug = true
+const debug = false;
 
 class ChiJi extends Module {
 
