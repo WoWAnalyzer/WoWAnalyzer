@@ -3,10 +3,10 @@ import React from 'react';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import Icon from 'common/Icon';
-import ITEMS from 'common/ITEMS';
+// import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-import ItemLink from 'common/ItemLink';
-import ItemIcon from 'common/ItemIcon';
+// import ItemLink from 'common/ItemLink';
+// import ItemIcon from 'common/ItemIcon';
 
 import StatisticBox from 'Main/StatisticBox';
 import SuggestionsTab from 'Main/SuggestionsTab';
@@ -69,9 +69,9 @@ class CombatLogParser extends MainCombatLogParser {
   generateResults() {
     const results = new ParseResults();
     
-    const hasElementalBlast = this.selectedCombatant.hasTalent(SPELLS.ELEMENTAL_BLAST_TALENT.id);
-    const hasEchosElements = this.selectedCombatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id);
-    const hasAscendance = this.selectedCombatant.hasTalent(SPELLS.ASCENDANCE_ELEMENTAL_TALENT.id);
+    // const hasElementalBlast = this.selectedCombatant.hasTalent(SPELLS.ELEMENTAL_BLAST_TALENT.id);
+    // const hasEchosElements = this.selectedCombatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id);
+    // const hasAscendance = this.selectedCombatant.hasTalent(SPELLS.ASCENDANCE_ELEMENTAL_TALENT.id);
     // const hasLightningRod = this.selectedCombatant.hasTalent(SPELLS.LIGHTNING_ROD.id);
     const hasIcefury = this.selectedCombatant.hasTalent(SPELLS.ICEFURY_TALENT.id);
     
@@ -94,7 +94,7 @@ class CombatLogParser extends MainCombatLogParser {
     const elementalBlastMasteryUptime = this.selectedCombatant.getBuffUptime(SPELLS.ELEMENTAL_BLAST_MASTERY.id) / this.fightDuration;
 
     const elementalBlastUptime = (elementalBlastHasteUptime + elementalBlastCritUptime + elementalBlastMasteryUptime);
-    const flameShockUptime = this.selectedCombatant.getBuffUptime(SPELLS.FLAME_SHOCK.id) / this.fightDuration;
+    // const flameShockUptime = this.selectedCombatant.getBuffUptime(SPELLS.FLAME_SHOCK.id) / this.fightDuration;
 
     const nonDpsTimePercentage = this.modules.alwaysBeCasting.totalDamagingTimeWasted / fightDuration;
     const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
@@ -129,7 +129,7 @@ class CombatLogParser extends MainCombatLogParser {
     results.statistics = [
       <StatisticBox
         icon={ <Icon icon="class_shaman" alt="Dead GCD time" /> }
-        value={formatThousands(this.totalDamage)}
+        value={formatNumber(this.totalDamage)}
         label={(
           <dfn data-tip="Without Fire Elemental Damage.">
             Damage done
