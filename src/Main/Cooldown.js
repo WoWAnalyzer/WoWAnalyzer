@@ -211,11 +211,7 @@ class Cooldown extends React.Component {
               <div>
                 <div className="col-md-2 text-center">
                   <div style={{ fontSize: '2em' }}>{formatNumber(outputStatistics.damageDone)}</div>
-                  <dfn data-tip="This number represents the total amount of damage done during the duration of this cooldown, any damage done by DOTs after the effect of this cooldown has exprired will not be included in this statistic.">Damage Done</dfn>
-                </div>
-                <div className="col-md-2 text-center">
-                  <div style={{ fontSize: '2em' }}>{formatNumber(outputStatistics.damageDone / (end - start) * 1000)}</div>
-                  <dfn data-tip="This number represents the total amount of DPS done during the duration of this cooldown, any damage done by DOTs after the effect of this cooldown has exprired will not be included in this statistic.">DPS Done</dfn>
+                  <dfn data-tip="This number represents the total amount of damage done during the duration of this cooldown, any damage done by DOTs after the effect of this cooldown has exprired will not be included in this statistic.">damage ({formatNumber(outputStatistics.damageDone / (end - start) * 1000)} DPS)</dfn>
                 </div>
               </div>
             )
