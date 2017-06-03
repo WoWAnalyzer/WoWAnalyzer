@@ -6,8 +6,8 @@ class CooldownTracker extends CoreCooldownTracker {
   static cooldownSpells = [
     ...CooldownTracker.cooldownSpells,
     SPELLS.ASCENDANCE,
-    SPELLS.STORMKEEPER,
-    SPELLS.BERSERKING
+    SPELLS.STORMKEEPER
+    // SPELLS.BERSERKING // Could be healing or damagin type, so skipping
   ];
 }
 

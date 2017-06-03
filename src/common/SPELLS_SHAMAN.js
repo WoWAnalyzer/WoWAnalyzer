@@ -110,12 +110,14 @@ export default {
   STORMKEEPER: {
     id: 205495,
     name: 'Stormkeeper',
-    icon: 'inv_hand_1h_artifactstormfist_d_01'
+    icon: 'inv_hand_1h_artifactstormfist_d_01',
+    cooldownType: 'DAMAGE'
   },
   ASCENDANCE: {
     id: 114050,
     name: 'Ascendance',
-    icon: 'spell_fire_elementaldevastation'
+    icon: 'spell_fire_elementaldevastation',
+    cooldownType: 'DAMAGE'
   },
   FIRE_ELEMENTAL: {
     id: 198067,
@@ -142,17 +144,20 @@ export default {
   POWER_OF_THE_MAELSTROM: {
     id: 191877,
     name: 'Power of the Maelstrom',
-    icon: 'spell_fire_masterofelements'
+    icon: 'spell_fire_masterofelements',
+    cooldownType: 'DAMAGE'
   },
   ELEMENTAL_FOCUS: {
     id: 16246,
     name: 'Elemental Focus',
-    icon: 'spell_shadow_manaburn'
+    icon: 'spell_shadow_manaburn',
+    cooldownType: 'DAMAGE'
   },
   LAVA_SURGE: {
     id: 77762,
     name: 'Lava Surge',
-    icon: 'spell_shaman_lavasurge'
+    icon: 'spell_shaman_lavasurge',
+    cooldownType: 'DAMAGE'
   },
   // Elemental Shaman Talents
   EARTHEN_RAGE_TALENT: {
