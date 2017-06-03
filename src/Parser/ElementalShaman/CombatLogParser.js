@@ -206,11 +206,7 @@ class CombatLogParser extends MainCombatLogParser {
             }
           </span>
         )}
-        label={(
-          <dfn data-tip={`${formatPercentage(overloadLavaBurst.damangeHits / lavaBurst.casts )}% and ${formatPercentage(overloadLightningBolt.damangeHits / lightningBolt.casts)}% and ${formatPercentage(overloadElementalBlast.damangeHits / elementalBlast.casts )}%`}>
-            Overload procs
-          </dfn>
-        )}
+        label={'Overload procs'}
       />,
       <StatisticBox
         icon={<SpellIcon id={SPELLS.ELEMENTAL_BLAST.id} />}
