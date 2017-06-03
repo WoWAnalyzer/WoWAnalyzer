@@ -87,6 +87,11 @@ export default {
     icon: 'spell_nature_chainlightning'
   },
   CHAIN_LIGHTNING_OVERLOAD: {
+    id: 45297,
+    name: 'Chain Lightning Overload',
+    icon: 'spell_nature_chainlightning'
+  },
+  CHAIN_LIGHTNING_OVERLOAD_UNLIMITED_RANGE: {
     id: 218558,
     name: 'Chain Lightning Overload',
     icon: 'spell_nature_chainlightning'
@@ -134,67 +139,82 @@ export default {
     name: 'Icefury Overload',
     icon: 'spell_frost_iceshard'
   },
+  POWER_OF_THE_MAELSTROM: {
+    id: 191877,
+    name: 'Power of the Maelstrom',
+    icon: 'spell_fire_masterofelements'
+  },
+  ELEMENTAL_FOCUS: {
+    id: 16246,
+    name: 'Elemental Focus',
+    icon: 'spell_shadow_manaburn'
+  },
+  LAVA_SURGE: {
+    id: 77762,
+    name: 'Lava Surge',
+    icon: 'spell_shaman_lavasurge'
+  },
   // Elemental Shaman Talents
   EARTHEN_RAGE_TALENT: {
-    id: '170374',
+    id: 170374,
     name: 'Earthen Rage',
     icon: 'ability_earthen_pillar'
   },
   // 'GUST_OF_WIND_TALENT'
   PATH_OF_FLAME_TALENT: {
-    id: '201909',
+    id: 201909,
     name: 'Path of Flame',
     icon: 'spell_mage_flameorb'
   },
   TOTEM_MASTERY_TALENT: {
-    id: '210643',
+    id: 210643,
     name: 'Totem Mastery',
     icon: 'spell_nature_wrathofair_totem'
   },
   // 'ANCESTRAL_GUIDANCE_TALENT'
   AFTERSHOCK_TALENT: {
-    id: '210707',
+    id: 210707,
     name: 'Aftershock',
     icon: 'spell_nature_stormreach'
   },
   AFTERSHOCK: {
-    id: '210712',
+    id: 210712,
     name: 'Aftershock',
     icon: 'spell_nature_stormreach'
   },
   // 'WIND_RUSH_TOTEM_TALENT'
   ANCESTRAL_SWIFTNESS_TALENT: {
-    id: '192087',
+    id: 192087,
     name: 'Ancestral Swiftness',
     icon: 'spell_shaman_elementaloath'
   },
   ELEMENTAL_MASTERY_TALENT: {
-    id: '16166',
+    id: 16166,
     name: 'Elemental Mastery',
     icon: 'spell_nature_wispheal'
   },
   PRIMAL_ELEMENTALIST_TALENT: {
-    id: '117013',
+    id: 117013,
     name: 'Primal Elementalist',
     icon: 'shaman_talent_primalelementalist'
   },
   ELEMENTAL_FUSION_TALENT: {
-    id: '192235',
+    id: 192235,
     name: 'Elemental Fusion',
     icon: 'spell_shaman_shockinglava'
   },
   ELEMENTAL_BLAST_TALENT: {
-    id: '117014',
+    id: 117014,
     name: 'Elemental Blast',
     icon: 'shaman_talent_elementalblast'
   },
   STORM_ELEMENTAL_TALENT: {
-    id: '192249',
+    id: 192249,
     name: 'Storm Elemental',
     icon: 'spell_shaman_measuredinsight'
   },
   LIQUID_MAGMA_TOTEM_TALENT: {
-    id: '192222',
+    id: 192222,
     name: 'Liquid Magma Totem',
     icon: 'spell_shaman_spewlava'
   },
@@ -205,12 +225,12 @@ export default {
     icon: 'spell_fire_elementaldevastation',
   },
   LIGHTNING_ROD: {
-    id: '210689',
+    id: 210689,
     name: 'Lightning Rod',
     icon: 'inv_rod_enchantedcobalt'
   },
   ICEFURY_TALENT: {
-    id: '210714',
+    id: 210714,
     name: 'Icefury',
     icon: 'spell_frost_iceshard'
   },
