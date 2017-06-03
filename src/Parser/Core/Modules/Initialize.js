@@ -1,6 +1,6 @@
 import Module from 'Parser/Core/Module';
 
-const debug = true;
+const debug = false;
 const TIMEOUT = 100;
 
 class Initialize extends Module {
