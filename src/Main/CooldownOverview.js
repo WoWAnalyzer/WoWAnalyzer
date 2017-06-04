@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Cooldown from './Cooldown';
 
@@ -14,21 +15,21 @@ const CooldownOverview = ({ fightStart, fightEnd, cooldowns, showOutputStatistic
   </div>
 );
 CooldownOverview.propTypes = {
-  fightStart: React.PropTypes.number.isRequired,
-  fightEnd: React.PropTypes.number.isRequired,
-  showOutputStatistics: React.PropTypes.bool,
-  showResourceStatistics: React.PropTypes.bool,
-  cooldowns: React.PropTypes.arrayOf(React.PropTypes.shape({
-    ability: React.PropTypes.shape({
-      id: React.PropTypes.number.isRequired,
-      name: React.PropTypes.string.isRequired,
-      icon: React.PropTypes.string.isRequired,
-      cooldownType: React.PropTypes.string.isRequired
+  fightStart: PropTypes.number.isRequired,
+  fightEnd: PropTypes.number.isRequired,
+  showOutputStatistics: PropTypes.bool,
+  showResourceStatistics: PropTypes.bool,
+  cooldowns: PropTypes.arrayOf(PropTypes.shape({
+    ability: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      icon: PropTypes.string.isRequired,
+      cooldownType: PropTypes.string.isRequired,
     }),
-    start: React.PropTypes.number.isRequired,
-    end: React.PropTypes.number,
-    events: React.PropTypes.arrayOf(React.PropTypes.shape({
-      type: React.PropTypes.string.isRequired,
+    start: PropTypes.number.isRequired,
+    end: PropTypes.number,
+    events: PropTypes.arrayOf(PropTypes.shape({
+      type: PropTypes.string.isRequired,
     })).isRequired,
   })).isRequired,
 };

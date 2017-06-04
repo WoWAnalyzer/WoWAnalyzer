@@ -6,7 +6,7 @@ You will need a Warcraft Logs report with advanced combat logging enabled to sta
 
 Run it: [https://wowanalyzer.com](https://wowanalyzer.com)
 
-Feature requests (and bug reports provided that you're not using one of Microsoft's browsers) are welcome! *@Zerotorescue* on [Discord](https://discordapp.com/invite/hammerofwrath) or create an issue [here](https://github.com/MartijnHols/WoWAnalyzer/issues).
+Feature requests (and bug reports provided that you're not using one of Microsoft's browsers) are welcome! Your our Discord: https://discord.gg/AxphPxU or create an issue [here](https://github.com/MartijnHols/WoWAnalyzer/issues).
 
 ## Contributing
 

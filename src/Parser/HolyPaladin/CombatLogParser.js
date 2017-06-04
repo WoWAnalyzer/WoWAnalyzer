@@ -341,7 +341,7 @@ class CombatLogParser extends MainCombatLogParser {
       });
     }
     const lodOverhealing = getOverhealingPercentage(lightOfDawnHeal);
-    let recommendedLodOverhealing = hasDivinePurpose ? 0.45 : 0.4;
+    const recommendedLodOverhealing = hasDivinePurpose ? 0.45 : 0.4;
     if (lodOverhealing > recommendedLodOverhealing) {
       results.addIssue({
         issue: <span>Try to avoid overhealing with <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} />. Save it for when people are missing health ({Math.round(lodOverhealing * 100)}% overhealing).</span>,
@@ -350,7 +350,7 @@ class CombatLogParser extends MainCombatLogParser {
       });
     }
     const hsOverhealing = getOverhealingPercentage(holyShock);
-    let recommendedHsOverhealing = hasDivinePurpose ? 0.4 : 0.35;
+    const recommendedHsOverhealing = hasDivinePurpose ? 0.4 : 0.35;
     if (hsOverhealing > recommendedHsOverhealing) {
       results.addIssue({
         issue: <span>Try to avoid overhealing with <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} />. Save it for when people are missing health ({Math.round(hsOverhealing * 100)}% overhealing).</span>,
@@ -359,7 +359,7 @@ class CombatLogParser extends MainCombatLogParser {
       });
     }
     const folOverhealing = getOverhealingPercentage(flashOfLight);
-    let recommendedFolOverhealing = 0.25;
+    const recommendedFolOverhealing = 0.25;
     if (folOverhealing > recommendedFolOverhealing) {
       results.addIssue({
         issue: <span>Try to avoid overhealing with <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} />. If Flash of Light would overheal it is generally advisable to cast a <SpellLink id={SPELLS.HOLY_LIGHT.id} /> instead ({Math.round(folOverhealing * 100)}% overhealing).</span>,
@@ -368,7 +368,7 @@ class CombatLogParser extends MainCombatLogParser {
       });
     }
     const bfOverhealing = getOverhealingPercentage(bestowFaith);
-    let recommendedBfOverhealing = 0.4;
+    const recommendedBfOverhealing = 0.4;
     if (bfOverhealing > recommendedBfOverhealing) {
       results.addIssue({
         issue: <span>Try to avoid overhealing with <SpellLink id={SPELLS.BESTOW_FAITH_TALENT.id} />. Cast it just before someone is about to take damage and consider casting it on targets other than tanks ({Math.round(bfOverhealing * 100)}% overhealing).</span>,
@@ -548,7 +548,7 @@ class CombatLogParser extends MainCombatLogParser {
           value={`${formatNumber(auraOfSacrificeHps)} HPS`}
           label="Healing done"
         />
-      )
+      ),
     ];
 
     results.items = [
@@ -636,7 +636,7 @@ class CombatLogParser extends MainCombatLogParser {
           <dfn data-tip={`The exact amount of mana gained from the Amalgam's Seventh Spine equip effect. You let the buff expire successfully ${this.modules.amalgamsSeventhSpine.procs} times. You refreshed the buff ${this.modules.amalgamsSeventhSpine.refreshes} times (refreshing delays the buff expiration and is inefficient use of this trinket).`}>
             {formatThousands(this.modules.amalgamsSeventhSpine.manaGained)} mana gained ({formatThousands(this.modules.amalgamsSeventhSpine.manaGained / this.fightDuration * 1000 * 5)} MP5)
           </dfn>
-        )
+        ),
       },
       this.modules.darkmoonDeckPromises.active && {
         id: ITEMS.DARKMOON_DECK_PROMISES.id,
@@ -646,7 +646,7 @@ class CombatLogParser extends MainCombatLogParser {
           <dfn data-tip={`The exact amount of mana saved by the Darkmoon Deck: Promises equip effect. This takes the different values per card into account at the time of the cast. Mana values assume you have a 875 item level version.`}>
             {formatThousands(this.modules.darkmoonDeckPromises.manaGained)} mana saved ({formatThousands(this.modules.darkmoonDeckPromises.manaGained / this.fightDuration * 1000 * 5)} MP5)
           </dfn>
-        )
+        ),
       },
       has4PT19 && {
         id: `spell-${SPELLS.HOLY_PALADIN_T19_4SET_BONUS_BUFF.id}`,
@@ -666,7 +666,7 @@ class CombatLogParser extends MainCombatLogParser {
           <dfn data-tip={`The actual effective healing contributed by the Drape of Shame equip effect. A total of ${formatNumber(this.modules.tier20_4set.totalBeaconHealingDuringLightsEmbrace)} <span style="color:orange">raw</span> healing was done on beacons during the Light's Embrace buff.`}>
             {((this.modules.tier20_4set.healing / this.totalHealing * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.tier20_4set.healing / fightDuration * 1000)} HPS
           </dfn>
-        )
+        ),
       },
     ];
 

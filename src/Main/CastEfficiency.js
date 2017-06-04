@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
@@ -64,19 +65,23 @@ const CastEfficiency = ({ categories, abilities }) => {
   );
 };
 CastEfficiency.propTypes = {
-  abilities: React.PropTypes.arrayOf(React.PropTypes.shape({
-    ability: React.PropTypes.shape({
-      name: React.PropTypes.string.isRequired,
-      spellId: React.PropTypes.number.isRequired,
-      icon: React.PropTypes.string.isRequired,
+  abilities: PropTypes.arrayOf(PropTypes.shape({
+    ability: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      category: PropTypes.string.isRequired,
+      spell: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+      }).isRequired,
     }),
-    cpm: React.PropTypes.number.isRequired,
-    maxCpm: React.PropTypes.number,
-    casts: React.PropTypes.number.isRequired,
-    maxCasts: React.PropTypes.number.isRequired,
-    castEfficiency: React.PropTypes.number,
-    canBeImproved: React.PropTypes.bool.isRequired,
+    cpm: PropTypes.number.isRequired,
+    maxCpm: PropTypes.number,
+    casts: PropTypes.number.isRequired,
+    maxCasts: PropTypes.number.isRequired,
+    castEfficiency: PropTypes.number,
+    canBeImproved: PropTypes.bool.isRequired,
   })).isRequired,
+  categories: PropTypes.array,
 };
 
 export default CastEfficiency;

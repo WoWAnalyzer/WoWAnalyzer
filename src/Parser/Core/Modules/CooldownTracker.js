@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 
 import Module from 'Parser/Core/Module';
 
-const debug = true;
+const debug = false;
 
 class CooldownTracker extends Module {
   static cooldownSpells = [

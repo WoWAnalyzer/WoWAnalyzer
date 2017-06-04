@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Talents from './Talents';
 
@@ -14,5 +15,8 @@ const TalentsTab = ({ combatant }) => (
     </div>
   </div>
 );
+TalentsTab.propTypes = {
+  combatant: PropTypes.object,
+};
 
 export default TalentsTab;

@@ -12,7 +12,7 @@
 | [Whispers of Shaohao Effectiveness](https://github.com/MartijnHols/WoWAnalyzer/blob/master/src/Parser/MistweaverMonk/Modules/Features/SheilunsGift.js) | Indicated how well you are utilizing the Whispers of Shaohao trait.  This includes any missed Whisper's healing. | 100% |
 | [Sheilun's Gift Usages](https://github.com/MartijnHols/WoWAnalyzer/blob/master/src/Parser/MistweaverMonk/Modules/Features/SheilunsGift.js) | Tracks your Sheilin's Gift usage and average stacks used at.  It also indicates any missed or wasted stacks. | 100% |
 | [Dancing Mists Additional Healing](https://github.com/MartijnHols/WoWAnalyzer/blob/master/src/Parser/MistweaverMonk/Modules/Features/RenewingMist.js) | Tracks and totals the additional healing from Dancing Mists proc'ed Rewning Mist. | 90% |
-| [Chi Burst Average Healing]() | Track the average healing done by your Chi Burst casts to monitor efficiency | 0% |
+| [Chi Burst Average Healing](https://github.com/MartijnHols/WoWAnalyzer/blob/master/src/Parser/MistweaverMonk/Modules/Features/ChiBurst.js) | Track the average healing done by your Chi Burst casts to monitor efficiency | 100% |
 | [Innervate Usage]() | Track the ammount of mana saved under Innervate | 0% |
 
 The accuracy percentages assume there are no bugs in the implementation, the accuracy as of right now is not yet verified.
@@ -31,5 +31,5 @@ The accuracy percentages assume there are no bugs in the implementation, the acc
 | Average Mastery HOTs used per Essence Font | <3 | <2 | <1 |
 | Targets hit per Essence Font Cast | <17 | <14 | <12 |
 | Spirit of the Crane mana return | <300k | <250k | <150k |
+| Chi Burst Targets Hit | 15 | 12 | 9 |
 | Average mana spent during innervate | <220k | <180k | <130k |
-| Chi Burst Usage | NYI | NYI | NYI |

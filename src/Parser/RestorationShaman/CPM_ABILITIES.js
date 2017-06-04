@@ -45,7 +45,7 @@ const CPM_ABILITIES = [
 
         const fightDuration = combatant.owner.fightDuration/1000;
         const potentialHstCasts = fightDuration / 30 + 1;
-        const newPotentialHstCasts = potentialHstCasts + extraHsts
+        const newPotentialHstCasts = potentialHstCasts + extraHsts;
 
         const cooldown = fightDuration / newPotentialHstCasts;
 
@@ -114,7 +114,7 @@ const CPM_ABILITIES = [
       const earthenShieldHealing = parser.modules.earthenShieldTotem.healing || 0;
       const earthenShieldPotentialHealing = parser.modules.earthenShieldTotem.potentialHealing || 0;
       const earthenShieldEfficiency = earthenShieldHealing / earthenShieldPotentialHealing;
-      return 1-earthenShieldEfficiency
+      return 1-earthenShieldEfficiency;
     },
   },
   {

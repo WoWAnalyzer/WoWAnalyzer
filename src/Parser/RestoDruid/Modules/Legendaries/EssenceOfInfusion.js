@@ -11,8 +11,8 @@ class EssenceOfInfusion extends Module {
     const spellId = event.ability.guid;
 
     if (spellId === SPELLS.TRANQUILITY_HEAL.id) {
-      let healthBeforeHeal = event.hitPoints - event.amount;
-      let healthBreakpoint = event.maxHitPoints * 0.6;
+      const healthBeforeHeal = event.hitPoints - event.amount;
+      const healthBreakpoint = event.maxHitPoints * 0.6;
       if(healthBeforeHeal <= healthBreakpoint) {
         this.healing += (event.amount - (event.amount / ESSENCE_OF_INFUSION_HEALING_INCREASE));
       }

@@ -68,7 +68,7 @@ class SheilunsGift extends Module {
       debug && console.log('SG Cast at ' + this.stacksSG + ' / Timestamp: ' + event.timestamp);
       debug && console.log('Time Since Last SG Stack: ' + this.diffLastSGStack);
       if (this.diffLastSGStack > 10000) {
-        this.stacksWastedSG += Math.floor(this.diffLastSGStack / 10000)
+        this.stacksWastedSG += Math.floor(this.diffLastSGStack / 10000);
         debug && console.log('SG Capped');
       }
     }

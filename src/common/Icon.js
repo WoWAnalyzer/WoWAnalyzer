@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Icon = ({ icon, alt, ...other }) => {
   icon = icon.replace('.jpg', '').replace('-', '');
@@ -9,15 +10,15 @@ const Icon = ({ icon, alt, ...other }) => {
 
   return (
     <img
-      src={`http://media.blizzard.com/wow/icons/56/${icon}.jpg`}
+      src={`//blzmedia-a.akamaihd.net/wow/icons/56/${icon}.jpg`}
       alt={alt}
       {...other}
     />
   );
 };
 Icon.propTypes = {
-  icon: React.PropTypes.string.isRequired,
-  alt: React.PropTypes.string.isRequired,
+  icon: PropTypes.string.isRequired,
+  alt: PropTypes.string.isRequired,
 };
 
 export default Icon;

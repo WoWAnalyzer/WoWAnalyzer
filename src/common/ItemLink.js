@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ITEMS from './ITEMS';
 
 const ItemLink = ({ id, children }) => (
@@ -7,8 +8,8 @@ const ItemLink = ({ id, children }) => (
   </a>
 );
 ItemLink.propTypes = {
-  id: React.PropTypes.number.isRequired,
-  children: React.PropTypes.node,
+  id: PropTypes.number.isRequired,
+  children: PropTypes.node,
 };
 
 export default ItemLink;

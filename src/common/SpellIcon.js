@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import SPELLS from './SPELLS';
 import SpellLink from './SpellLink';
 import Icon from './Icon';
@@ -27,8 +28,8 @@ const SpellIcon = ({ id, noLink, ...others }) => {
   );
 };
 SpellIcon.propTypes = {
-  id: React.PropTypes.number.isRequired,
-  noLink: React.PropTypes.bool,
+  id: PropTypes.number.isRequired,
+  noLink: PropTypes.bool,
 };
 
 export default SpellIcon;

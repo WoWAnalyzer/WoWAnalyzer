@@ -15,12 +15,12 @@ const HEROISM_30_PERCENT = [
     80353, // Timewarp
     160452,// Netherwinds
     90355, // Ancient hysteria
-]
+];
 
 const HEROISM_25_PERCENT = [
     146555, // Drums of Rage
     230935, // Drums of the mountain
-]
+];
 
 const SPELLS_SCALING_WITH_HASTE = [
     SPELLS.HEALING_RAIN_HEAL.id,
@@ -34,12 +34,9 @@ const SPELLS_SCALING_WITH_HASTE = [
     SPELLS.CLOUDBURST_TOTEM_HEAL.id,
     SPELLS.QUEENS_DECREE.id,
     SPELLS.TIDAL_TOTEM.id,
-
-]
-
+];
 
 class UncertainReminder extends Module {
-
   encounterStart = null;
   heroismStart = null;
   hastePercent = null;
@@ -48,7 +45,6 @@ class UncertainReminder extends Module {
 
   urgencyHealing = 0;
   hasteHealing = 0;
-
 
   on_initialized() {
     if (!this.owner.error) {
@@ -61,9 +57,8 @@ class UncertainReminder extends Module {
   }
 
   process_events(start, end, combatEnded) {
-      
     const duration = end - start;
-    var startExtraHeroTime = null;
+    let startExtraHeroTime = null;
       
     if (combatEnded) { 
       // If the fight ended with hero up, we assume there were no mechanic shortening hero duration.
@@ -72,7 +67,6 @@ class UncertainReminder extends Module {
       // If the hero ended inside the fight, we start at 4/7th of the hero uptime.
       startExtraHeroTime = start + duration * START_EXTRA_HEROISM_UPTIME;
     }
-
 
     this.events.forEach((event) => {
         if (event.timestamp > startExtraHeroTime) {
@@ -87,7 +81,6 @@ class UncertainReminder extends Module {
           }
         }
     });
-
 
     this.events = [];
   }
@@ -135,12 +128,11 @@ class UncertainReminder extends Module {
   }
 
   // If the fight ends before heroism drops, make sure to process all the pushed events.
-  on_finished(event) {
+  on_finished() {
     if (this.heroismStart) {
       this.process_events(this.heroismStart, this.lastHeal || this.heroismStart, true);
     }
   }
-
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
@@ -156,7 +148,6 @@ class UncertainReminder extends Module {
     this.events.push(event);
     this.lastHeal = event.timestamp;
   }
-
 }
 
 export default UncertainReminder;

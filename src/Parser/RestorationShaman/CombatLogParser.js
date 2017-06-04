@@ -117,7 +117,7 @@ class CombatLogParser extends MainCombatLogParser {
     const healingWave = getAbility(SPELLS.HEALING_WAVE.id);
     const healingSurge = getAbility(SPELLS.HEALING_SURGE.id);
     const chainHeal = getAbility(SPELLS.CHAIN_HEAL.id);
-    const giftOfTheQueen = getAbility(SPELLS.GIFT_OF_THE_QUEEN.id)
+    const giftOfTheQueen = getAbility(SPELLS.GIFT_OF_THE_QUEEN.id);
 
     const nonHealingTimePercentage = this.modules.alwaysBeCasting.totalHealingTimeWasted / fightDuration;
     const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
@@ -130,7 +130,7 @@ class CombatLogParser extends MainCombatLogParser {
     const rootsRawHealingPercentage = rootsRawHealing / totalHealing;
     const rootsInteractionHealing = this.modules.cooldownTracker.getIndirectHealing(208981);
     const rootsInteractionHealingPercentage = rootsInteractionHealing / totalHealing;
-    const rootsHealingPercentage = rootsRawHealingPercentage + rootsInteractionHealingPercentage
+    const rootsHealingPercentage = rootsRawHealingPercentage + rootsInteractionHealingPercentage;
 
     const prydazHealingPercentage = this.modules.prydaz.healing / totalHealing;
     const drapeOfShameHealingPercentage = this.modules.drapeOfShame.healing / totalHealing;
@@ -160,7 +160,7 @@ class CombatLogParser extends MainCombatLogParser {
     const maxChainHealTargets = this.selectedCombatant.hasTalent(SPELLS.HIGH_TIDE_TALENT.id) ? 5 : 4;
     const chainHealTargetEfficiency = chainHealAvgHits / maxChainHealTargets;
 
-    const hasDeepWaters = this.selectedCombatant.traitsBySpellId[SPELLS.DEEP_WATERS.id]>0
+    const hasDeepWaters = this.selectedCombatant.traitsBySpellId[SPELLS.DEEP_WATERS.id]>0;
     const giftOfTheQueenHits = giftOfTheQueen.healingHits || 0;
     const giftOfTheQueenAvgHits = giftOfTheQueenHits / giftOfTheQueenCasts / (hasDeepWaters ? 2 : 1);
     const giftOfTheQueenTargetEfficiency = giftOfTheQueenAvgHits / 6;
@@ -170,7 +170,7 @@ class CombatLogParser extends MainCombatLogParser {
     if (this.modules.cooldownTracker.cbtFeed[SPELLS.GIFT_OF_THE_QUEEN.id]) {
       giftOfTheQueenCBTFeeding = this.modules.cooldownTracker.cbtFeed[SPELLS.GIFT_OF_THE_QUEEN.id].healing;
     }
-    const hasCBT = this.selectedCombatant.hasTalent(SPELLS.CLOUDBURST_TOTEM_CAST.id)
+    const hasCBT = this.selectedCombatant.hasTalent(SPELLS.CLOUDBURST_TOTEM_CAST.id);
     const giftOfTheQueenCBTFeedingPercent = giftOfTheQueenCBTFeeding / giftOfTheQueenRawHealing;
 
 

@@ -69,7 +69,7 @@ class ManaSavingTalents extends Module {
       if((event.timestamp - this.lastTotmBuffTimestamp) > SPELLS.TEACHINGS_OF_THE_MONASTERY.buffDur) {
         this.totmBuffWasted++;
         this.buffTotm = 0;
-        debug && console.log('ToTM Buff Wasted')
+        debug && console.log('ToTM Buff Wasted');
       }
       this.buffTotm = 0;
       // debug && console.log('ToTM Buff Zero');
@@ -93,20 +93,20 @@ class ManaSavingTalents extends Module {
     if(this.hasLifeCycles) {
       // Checking to ensure player has cast Vivify and has the mana reduction buff.
       if(spellId === SPELLS.VIVIFY.id && this.owner.selectedCombatant.hasBuff(SPELLS.LIFECYCLES_VIVIFY_BUFF.id)) {
-        this.manaSaved += (baseMana * SPELLS.VIVIFY.manaPerc) * (SPELLS.LIFECYCLES_VIVIFY_BUFF.manaPercRed)
-        this.manaSavedViv += (baseMana * SPELLS.VIVIFY.manaPerc) * (SPELLS.LIFECYCLES_VIVIFY_BUFF.manaPercRed)
+        this.manaSaved += (baseMana * SPELLS.VIVIFY.manaPerc) * (SPELLS.LIFECYCLES_VIVIFY_BUFF.manaPercRed);
+        this.manaSavedViv += (baseMana * SPELLS.VIVIFY.manaPerc) * (SPELLS.LIFECYCLES_VIVIFY_BUFF.manaPercRed);
         this.castsRedViv++;
-        debug && console.log('Viv Reduced')
+        debug && console.log('Viv Reduced');
       }
       if(spellId === SPELLS.VIVIFY.id && !this.owner.selectedCombatant.hasBuff(SPELLS.LIFECYCLES_VIVIFY_BUFF.id)) {
         this.castsNonRedViv++;
       }
       // Checking to ensure player has cast Enveloping Mists and has the mana reduction buff
       if(spellId === SPELLS.ENVELOPING_MISTS.id && this.owner.selectedCombatant.hasBuff(SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.id)) {
-        this.manaSaved += (baseMana * SPELLS.ENVELOPING_MISTS.manaPerc) * (SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed)
-        this.manaSavedEnm += (baseMana * SPELLS.ENVELOPING_MISTS.manaPerc) * (SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed)
+        this.manaSaved += (baseMana * SPELLS.ENVELOPING_MISTS.manaPerc) * (SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed);
+        this.manaSavedEnm += (baseMana * SPELLS.ENVELOPING_MISTS.manaPerc) * (SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed);
         this.castsRedEnm++;
-        debug && console.log('ENM Reduced')
+        debug && console.log('ENM Reduced');
       }
       if(spellId === SPELLS.ENVELOPING_MISTS.id && !this.owner.selectedCombatant.hasBuff(SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.id)) {
         this.castsNonRedEnm++;
@@ -148,7 +148,7 @@ class ManaSavingTalents extends Module {
       console.log('SotC Mana Returned:' + this.manaReturnSotc);
       console.log('Total TotM Buffs:' + this.totalTotmBuffs);
       console.log('SotC Waste Total: ' + this.sotcWasted);
-      console.log('SotC Total: ' + (this.sotcWasted + this.manaReturnSotc))
+      console.log('SotC Total: ' + (this.sotcWasted + this.manaReturnSotc));
     }
   }
 }

@@ -4,6 +4,243 @@ export default {
     name: 'Astral Shift',
     icon: 'ability_shaman_astralshift',
   },
+  // Elemental Shaman
+  ELEMENTAL_MASTERY: {
+    id: 168534,
+    name: 'Elemental Overload',
+    icon: 'spell_nature_lightningoverload',
+  },
+  Resonance_Totem: {
+    id: 202192,
+    name: 'Resonance Totem',
+    icon: 'spell_nature_stoneskintotem',
+  },
+  EARTH_SHOCK: {
+    id: 8042,
+    name: 'Earth Shock',
+    icon: 'spell_nature_earthshock',
+    max_maelstrom: 125, // default without talent
+  },
+  LAVA_BURST: {
+    id: 51505,
+    name: 'Lava Burst',
+    icon: 'spell_shaman_lavaburst',
+  },
+  LAVA_BURST_OVERLOAD: {
+    id: 77451,
+    name: 'Lava Burst Overload',
+    icon: 'spell_shaman_lavaburst',
+  },
+  LIGHTNING_BOLT: {
+    id: 188196,
+    name: 'Lightning Bolt',
+    icon: 'spell_nature_lightning',
+  },
+  LIGHTNING_BOLT_INSTANT: {
+    id: 214815,
+    name: 'Lightning Bolt',
+    icon: 'spell_nature_lightning',
+  },
+  LIGHTNING_BOLT_OVERLOAD: {
+    id: 214816,
+    name: 'Lightning Bolt Overload',
+    icon: 'spell_nature_lightning',
+  },
+  LIGHTNING_BOLT_OVERLOAD_HIT: {
+    id: 45284,
+    name: 'Lightning Bolt Overload',
+    icon: 'spell_nature_lightning',
+  },
+  ELEMENTAL_BLAST: {
+    id: 117014,
+    name: 'Elemental Blast',
+    icon: 'shaman_talent_elementalblast',
+  },
+  ELEMENTAL_BLAST_OVERLOAD: {
+    id: 120588,
+    name: 'Elemental Blast',
+    icon: 'shaman_talent_elementalblast',
+  },
+  ELEMENTAL_BLAST_HASTE: {
+    id: 173183,
+    name: 'Elemental Blast: Haste',
+    icon: 'shaman_talent_elementalblast',
+  },
+  ELEMENTAL_BLAST_CRIT: {
+    id: 118522,
+    name: 'Elemental Blast: Critical Strike',
+    icon: 'shaman_talent_elementalblast',
+  },
+  ELEMENTAL_BLAST_MASTERY: {
+    id: 173184,
+    name: 'Elemental Blast: Mastery',
+    icon: 'shaman_talent_elementalblast',
+  },
+  CHAIN_LIGHTNING: {
+    id: 188443,
+    name: 'Chain Lightning',
+    icon: 'spell_nature_chainlightning',
+  },
+  CHAIN_LIGHTNING_INSTANT: {
+    id: 195897,
+    name: 'Chain Lightning',
+    icon: 'spell_nature_chainlightning',
+  },
+  CHAIN_LIGHTNING_OVERLOAD: {
+    id: 45297,
+    name: 'Chain Lightning Overload',
+    icon: 'spell_nature_chainlightning',
+  },
+  CHAIN_LIGHTNING_OVERLOAD_UNLIMITED_RANGE: {
+    id: 218558,
+    name: 'Chain Lightning Overload',
+    icon: 'spell_nature_chainlightning',
+  },
+  EARTHQUAKE: {
+    id: 61882,
+    name: 'Earthquake',
+    icon: 'spell_shaman_earthquake',
+    maelstrom: 50,
+  },
+  LIQUID_MAGMA_TOTEM: {
+    id: 192222,
+    name: 'Liquid Magma Totem',
+    icon: 'spell_shaman_spewlava',
+  },
+  STORMKEEPER: {
+    id: 205495,
+    name: 'Stormkeeper',
+    icon: 'inv_hand_1h_artifactstormfist_d_01',
+    cooldownType: 'DAMAGE',
+  },
+  ASCENDANCE: {
+    id: 114050,
+    name: 'Ascendance',
+    icon: 'spell_fire_elementaldevastation',
+    cooldownType: 'DAMAGE',
+  },
+  FIRE_ELEMENTAL: {
+    id: 198067,
+    name: 'Fire Elemental',
+    icon: 'spell_fire_elemental_totem',
+  },
+  FLAME_SHOCK: {
+    id: 188389,
+    name: 'Flame Shock',
+    icon: 'spell_fire_flameshock',
+    max_maelstrom: 20,
+  },
+  FROST_SHOCK: {
+    id: 196840,
+    name: 'Frost Shock',
+    icon: 'spell_frost_frostshock',
+    max_maelstrom: 20,
+  },
+  ICEFURY_OVERLOAD: {
+    id: 219271,
+    name: 'Icefury Overload',
+    icon: 'spell_frost_iceshard',
+  },
+  POWER_OF_THE_MAELSTROM: {
+    id: 191877,
+    name: 'Power of the Maelstrom',
+    icon: 'spell_fire_masterofelements',
+    cooldownType: 'DAMAGE',
+  },
+  ELEMENTAL_FOCUS: {
+    id: 16246,
+    name: 'Elemental Focus',
+    icon: 'spell_shadow_manaburn',
+    cooldownType: 'DAMAGE',
+  },
+  LAVA_SURGE: {
+    id: 77762,
+    name: 'Lava Surge',
+    icon: 'spell_shaman_lavasurge',
+    cooldownType: 'DAMAGE',
+  },
+  // Elemental Shaman Talents
+  EARTHEN_RAGE_TALENT: {
+    id: 170374,
+    name: 'Earthen Rage',
+    icon: 'ability_earthen_pillar',
+  },
+  // 'GUST_OF_WIND_TALENT'
+  PATH_OF_FLAME_TALENT: {
+    id: 201909,
+    name: 'Path of Flame',
+    icon: 'spell_mage_flameorb',
+  },
+  TOTEM_MASTERY_TALENT: {
+    id: 210643,
+    name: 'Totem Mastery',
+    icon: 'spell_nature_wrathofair_totem',
+  },
+  // 'ANCESTRAL_GUIDANCE_TALENT'
+  AFTERSHOCK_TALENT: {
+    id: 210707,
+    name: 'Aftershock',
+    icon: 'spell_nature_stormreach',
+  },
+  AFTERSHOCK: {
+    id: 210712,
+    name: 'Aftershock',
+    icon: 'spell_nature_stormreach',
+  },
+  // 'WIND_RUSH_TOTEM_TALENT'
+  ANCESTRAL_SWIFTNESS_TALENT: {
+    id: 192087,
+    name: 'Ancestral Swiftness',
+    icon: 'spell_shaman_elementaloath',
+  },
+  ELEMENTAL_MASTERY_TALENT: {
+    id: 16166,
+    name: 'Elemental Mastery',
+    icon: 'spell_nature_wispheal',
+  },
+  PRIMAL_ELEMENTALIST_TALENT: {
+    id: 117013,
+    name: 'Primal Elementalist',
+    icon: 'shaman_talent_primalelementalist',
+  },
+  ELEMENTAL_FUSION_TALENT: {
+    id: 192235,
+    name: 'Elemental Fusion',
+    icon: 'spell_shaman_shockinglava',
+  },
+  ELEMENTAL_BLAST_TALENT: {
+    id: 117014,
+    name: 'Elemental Blast',
+    icon: 'shaman_talent_elementalblast',
+  },
+  STORM_ELEMENTAL_TALENT: {
+    id: 192249,
+    name: 'Storm Elemental',
+    icon: 'spell_shaman_measuredinsight',
+  },
+  LIQUID_MAGMA_TOTEM_TALENT: {
+    id: 192222,
+    name: 'Liquid Magma Totem',
+    icon: 'spell_shaman_spewlava',
+  },
+  // 'ECHO_OF_THE_ELEMENTS_TALENT'
+  ASCENDANCE_ELEMENTAL_TALENT: {
+    id: 114050,
+    name: 'Ascendance',
+    icon: 'spell_fire_elementaldevastation',
+  },
+  LIGHTNING_ROD: {
+    id: 210689,
+    name: 'Lightning Rod',
+    icon: 'inv_rod_enchantedcobalt',
+  },
+  ICEFURY_TALENT: {
+    id: 210714,
+    name: 'Icefury',
+    icon: 'spell_frost_iceshard',
+  },
+  // Enhancement Shaman
+  // TODO: add spells
   // Restoration Shaman
   CHAIN_HEAL: {
     id: 1064,
@@ -65,7 +302,7 @@ export default {
     name: 'Ancestral Guidance',
     icon: 'ability_shaman_ancestralguidance',
     cooldownType: 'HEALING',
-    description: 'The default choice in this tier. Can generate incredible throughput, especially when combined with <a href="http://www.wowhead.com/spell="157153" target="_blank">Cloudburst Totem</a> and/or <a href="http://www.wowhead.com/spell=114052" target="_blank">Ascendance</a>.',
+    description: 'The default choice in this tier. Can generate incredible throughput, especially when combined with <a href="http://www.wowhead.com/spell=157153" target="_blank">Cloudburst Totem</a> and/or <a href="http://www.wowhead.com/spell=114052" target="_blank">Ascendance</a>.',
   },
   ANCESTRAL_GUIDANCE_HEAL: {
     id: 114911,
@@ -77,7 +314,7 @@ export default {
     name: 'Ascendance',
     icon: 'spell_fire_elementaldevastation',
     cooldownType: 'HEALING',
-    description: 'Should almost always be combined with <a href="http://www.wowhead.com/spell=157153" target="_blank">Cloudburst Totem</a>. Provides you with an additional healing cooldown, or when combined with <a href="http://www.wowhead.com/spell=108281" target="_blank">Ancestral Guidance</a> makes for what is probably the strongest healing cooldown in the game. Does require proper planning to get value.'
+    description: 'Should almost always be combined with <a href="http://www.wowhead.com/spell=157153" target="_blank">Cloudburst Totem</a>. Provides you with an additional healing cooldown, or when combined with <a href="http://www.wowhead.com/spell=108281" target="_blank">Ancestral Guidance</a> makes for what is probably the strongest healing cooldown in the game. Does require proper planning to get value.',
   },
   ASCENDANCE_HEAL: {
     id: 114083,
@@ -227,7 +464,7 @@ export default {
     id: 108281,
     name: 'Ancestral Guidance',
     icon: 'ability_shaman_ancestralguidance',
-    description: 'The default choice in this tier. Can generate incredible throughput, especially when combined with <a href="http://www.wowhead.com/spell="157153" target="_blank">Cloudburst Totem</a> and/or <a href="http://www.wowhead.com/spell=114052" target="_blank">Ascendance</a>.',
+    description: 'The default choice in this tier. Can generate incredible throughput, especially when combined with <a href="http://www.wowhead.com/spell=157153" target="_blank">Cloudburst Totem</a> and/or <a href="http://www.wowhead.com/spell=114052" target="_blank">Ascendance</a>.',
   },
   DELUGE_TALENT: {
     id: 200076,
@@ -310,7 +547,4 @@ export default {
     name: 'Deep Waters',
     icon: 'inv_mace_1h_artifactazshara_d_02',
   },
-
-}
-
-
+};
