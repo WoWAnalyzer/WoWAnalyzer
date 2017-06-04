@@ -1,5 +1,6 @@
 export default `
-03-06-2017 - Mistweaver Monk: Added Chi Burst healing tracking and suggestions. (by anomoly)
+04-06-2017 - Mistweaver Monk: Added Chi Burst healing tracking and suggestions. (by anomoly)
+04-06-2017 - Added basic <span class="Shaman">Elemental Shaman</span> support by <b>@fasib</b>.
 02-06-2017 - Mistweaver Monk: Enabled Dancing Mists tracking.  Healing provided by Dancing Mists procs now show in analysis. (by anomoly)
 01-06-2017 - Mistweaver Monk: Include healing from Chi-Ji talent into overall healing totals for monk. (by anomoly)
 01-06-2017 - Mistweaver Monk: Essence Font Tracking Implemented including tagets hit and HOT buffs utilized.  Readme updates for all modules and cast efficiency targets. (by anomoly)

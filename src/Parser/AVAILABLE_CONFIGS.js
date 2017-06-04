@@ -1,6 +1,7 @@
 import HolyPaladin from './HolyPaladin/CONFIG';
 import DisciplinePriest from './DisciplinePriest/CONFIG';
 import RestoDruid from './RestoDruid/CONFIG';
+import ElementalShaman from './ElementalShaman/CONFIG';
 import RestorationShaman from './RestorationShaman/CONFIG';
 import MistweaverMonk from './MistweaverMonk/CONFIG';
 
@@ -11,4 +12,5 @@ export default [
   RestoDruid,
   MistweaverMonk,
   RestorationShaman,
+  ElementalShaman
 ];

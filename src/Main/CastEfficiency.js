@@ -66,10 +66,13 @@ const CastEfficiency = ({ categories, abilities }) => {
 CastEfficiency.propTypes = {
   abilities: React.PropTypes.arrayOf(React.PropTypes.shape({
     ability: React.PropTypes.shape({
-      name: React.PropTypes.string.isRequired,
-      spellId: React.PropTypes.number.isRequired,
-      icon: React.PropTypes.string.isRequired,
-    }),
+      name: React.PropTypes.string,
+      category: React.PropTypes.string.isRequired,
+      spell: React.PropTypes.shape({
+        id: React.PropTypes.number.isRequired,
+        name: React.PropTypes.string.isRequired
+      }).isRequired
+    }).isRequired,
     cpm: React.PropTypes.number.isRequired,
     maxCpm: React.PropTypes.number,
     casts: React.PropTypes.number.isRequired,
