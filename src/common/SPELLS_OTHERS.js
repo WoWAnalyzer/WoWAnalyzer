@@ -15,6 +15,7 @@ export default {
     id: 235966,
     name: 'Velen\'s Future Sight',
     icon: 'spell_holy_healingfocus',
+    cooldownType: 'HEALING',
   },
   XAVARICS_MAGNUM_OPUS: {
     id: 207472,

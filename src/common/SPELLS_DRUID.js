@@ -24,6 +24,7 @@ export default {
     id: 29166,
     name: 'Innervate',
     icon: 'spell_nature_lightning',
+    cooldownType: 'HEALING',
   },
   ESSENCE_OF_GHANIR: {
     id: 208253,
