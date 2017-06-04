@@ -120,19 +120,16 @@ export default {
     name: 'Psychic Scream',
     icon: 'spell_shadow_psychicscream',
   },
-  // Non-crit Atonement Instances
-  ATONEMENT1: {
+  ATONEMENT_HEAL_NON_CRIT: {
     id: 81751,
     name: 'Atonement',
     icon: 'spell_holy_circleofrenewal',
   },
-  // Crit Atonement Instances
-  ATONEMENT2: {
+  ATONEMENT_HEAL_CRIT: {
     id: 94472,
     name: 'Atonement',
     icon: 'spell_holy_circleofrenewal',
   },
-  // Atonement buff ID
   ATONEMENT_BUFF: {
     id: 194384,
     name: 'Atonement',
