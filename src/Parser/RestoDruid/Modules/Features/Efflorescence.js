@@ -23,7 +23,7 @@ class Efflorescence extends Module {
     // Check if the player had a pre-casted efflorescence
     // If the last cast is bigger than the firstEffloTick it means we precast efflorescence.
     if(this.firstEffloTickTimestamp !== null && event.timestamp > this.firstEffloTickTimestamp) {
-      let firstTick = event.timestamp - this.firstEffloTickTimestamp;
+      const firstTick = event.timestamp - this.firstEffloTickTimestamp;
       debug && console.log("The player had a precasted efflo which gained him " + firstTick);
       this.totalUptime += Math.min(firstTick, 30000);
     }
@@ -51,7 +51,7 @@ class Efflorescence extends Module {
 
   on_finished() {
     // We need to take the last cast into consideration as well.
-    let lastTick = this.owner.fight.end_time - this.lastCast;
+    const lastTick = this.owner.fight.end_time - this.lastCast;
     this.totalUptime += Math.min(lastTick, 30000);
     debug && console.log("Last tick: " + lastTick);
     debug && console.log("Total uptime: " + this.totalUptime);

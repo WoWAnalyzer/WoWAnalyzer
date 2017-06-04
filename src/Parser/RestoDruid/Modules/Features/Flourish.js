@@ -40,7 +40,7 @@ class Flourish extends Module {
     this.flourishCounter++;
 
     // Wild growth
-    let oldWgCount = this.wildGrowth;
+    const oldWgCount = this.wildGrowth;
     Object.keys(this.owner.combatants.players)
       .map(player => this.owner.combatants.players[player])
       .forEach((player) => {

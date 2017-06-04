@@ -68,7 +68,7 @@ class Cooldown extends React.Component {
 
   groupHeals(events) {
     let lastHeal = null;
-    let results = [];
+    const results = [];
     events.forEach((event) => {
       if (event.type === 'cast') {
         results.push(event);
@@ -95,7 +95,8 @@ class Cooldown extends React.Component {
   }
 
   calculateHealingStatistics(cooldown) {
-    let healingDone = 0, overhealingDone = 0;
+    let healingDone = 0;
+    let overhealingDone = 0;
     cooldown.events.filter(event => event.type === 'heal' || event.type === 'absorbed').forEach((event) => {
       healingDone += event.amount + (event.absorbed || 0);
       overhealingDone += event.overheal || 0;
@@ -108,7 +109,7 @@ class Cooldown extends React.Component {
   }
 
   calculateDamageStatistics(cooldown) {
-    let damageDone = cooldown.events.reduce((acc, event) => event.type === 'damage' ? acc + event.amount : acc, 0);
+    const damageDone = cooldown.events.reduce((acc, event) => event.type === 'damage' ? acc + event.amount : acc, 0);
     
     return { damageDone };
   }
@@ -116,7 +117,8 @@ class Cooldown extends React.Component {
   render() {
     const { cooldown, fightStart, fightEnd, showOutputStatistics, showResourceStatistics } = this.props;
 
-    let outputStatistics, resourceStatistics;
+    let outputStatistics;
+    let resourceStatistics;
 
     if (showOutputStatistics) {
       outputStatistics = cooldown.ability.cooldownType === 'HEALING' ? this.calculateHealingStatistics(cooldown) : this.calculateDamageStatistics(cooldown);

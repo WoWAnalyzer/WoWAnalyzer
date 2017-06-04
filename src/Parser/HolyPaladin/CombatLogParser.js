@@ -341,7 +341,7 @@ class CombatLogParser extends MainCombatLogParser {
       });
     }
     const lodOverhealing = getOverhealingPercentage(lightOfDawnHeal);
-    let recommendedLodOverhealing = hasDivinePurpose ? 0.45 : 0.4;
+    const recommendedLodOverhealing = hasDivinePurpose ? 0.45 : 0.4;
     if (lodOverhealing > recommendedLodOverhealing) {
       results.addIssue({
         issue: <span>Try to avoid overhealing with <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} />. Save it for when people are missing health ({Math.round(lodOverhealing * 100)}% overhealing).</span>,
@@ -350,7 +350,7 @@ class CombatLogParser extends MainCombatLogParser {
       });
     }
     const hsOverhealing = getOverhealingPercentage(holyShock);
-    let recommendedHsOverhealing = hasDivinePurpose ? 0.4 : 0.35;
+    const recommendedHsOverhealing = hasDivinePurpose ? 0.4 : 0.35;
     if (hsOverhealing > recommendedHsOverhealing) {
       results.addIssue({
         issue: <span>Try to avoid overhealing with <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} />. Save it for when people are missing health ({Math.round(hsOverhealing * 100)}% overhealing).</span>,
@@ -359,7 +359,7 @@ class CombatLogParser extends MainCombatLogParser {
       });
     }
     const folOverhealing = getOverhealingPercentage(flashOfLight);
-    let recommendedFolOverhealing = 0.25;
+    const recommendedFolOverhealing = 0.25;
     if (folOverhealing > recommendedFolOverhealing) {
       results.addIssue({
         issue: <span>Try to avoid overhealing with <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} />. If Flash of Light would overheal it is generally advisable to cast a <SpellLink id={SPELLS.HOLY_LIGHT.id} /> instead ({Math.round(folOverhealing * 100)}% overhealing).</span>,
@@ -368,7 +368,7 @@ class CombatLogParser extends MainCombatLogParser {
       });
     }
     const bfOverhealing = getOverhealingPercentage(bestowFaith);
-    let recommendedBfOverhealing = 0.4;
+    const recommendedBfOverhealing = 0.4;
     if (bfOverhealing > recommendedBfOverhealing) {
       results.addIssue({
         issue: <span>Try to avoid overhealing with <SpellLink id={SPELLS.BESTOW_FAITH_TALENT.id} />. Cast it just before someone is about to take damage and consider casting it on targets other than tanks ({Math.round(bfOverhealing * 100)}% overhealing).</span>,

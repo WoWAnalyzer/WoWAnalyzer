@@ -48,7 +48,7 @@ class Clearcasting extends Module {
         this.nonCCRegrowths++;
         return;
       }
-      let clearcastingTimeframe = this.lastCCTimestamp + CLEARCASTING_DURATION;
+      const clearcastingTimeframe = this.lastCCTimestamp + CLEARCASTING_DURATION;
       if (event.timestamp > clearcastingTimeframe) {
         this.nonCCRegrowths++;
       } else {

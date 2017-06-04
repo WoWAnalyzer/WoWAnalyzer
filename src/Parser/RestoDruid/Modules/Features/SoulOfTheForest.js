@@ -28,7 +28,7 @@ class SoulOfTheForest extends Module {
 
   on_initialized() {
     if (!this.owner.error) {
-      let persistanceTraits = this.owner.selectedCombatant.traitsBySpellId[SPELLS.PERSISTANCE_TRAIT.id] || 0;
+      const persistanceTraits = this.owner.selectedCombatant.traitsBySpellId[SPELLS.PERSISTANCE_TRAIT.id] || 0;
       this.rejuvenationDuration += persistanceTraits*1000;
     }
   }
@@ -101,7 +101,7 @@ class SoulOfTheForest extends Module {
 
   // TODO: Refactor this method, as there's many features that uses this formula to calculate healing contributed by healing increases with partial overheals.
   calculateEffectiveHealingFromIncrease(event, healingIncrease) {
-    let baseHeal = (event.amount + event.overheal||0)/healingIncrease;
+    const baseHeal = (event.amount + event.overheal||0)/healingIncrease;
     return Math.max(0, event.amount - baseHeal)/healingIncrease;
   }
 }

@@ -109,23 +109,23 @@ class TreeOfLife extends Module {
     debug && console.log("Total healing from wild growth during ToL: " + this.totalHealingFromWildgrowthsDuringToL);
 
     // Get 1 rejuv throughput worth
-    let oneRejuvenationThroughput = (((this.totalHealingFromRejuvenationEncounter / this.totalHealingEncounter))/this.totalRejuvenationsEncounter);
+    const oneRejuvenationThroughput = (((this.totalHealingFromRejuvenationEncounter / this.totalHealingEncounter))/this.totalRejuvenationsEncounter);
     debug && console.log("1 Rejuvenation throughput: " + (oneRejuvenationThroughput*100).toFixed(2)+"%");
 
     // 50% of total healing from rejuv+germ during ToL and divide it with the encounter total healing.
-    let rejuvenationIncreasedEffect = (this.totalHealingFromRejuvenationDuringToL/HEALING_INCREASE - this.totalHealingFromRejuvenationDuringToL / (HEALING_INCREASE * REJUV_HEALING_INCREASE))/ this.totalHealingEncounter;
+    const rejuvenationIncreasedEffect = (this.totalHealingFromRejuvenationDuringToL/HEALING_INCREASE - this.totalHealingFromRejuvenationDuringToL / (HEALING_INCREASE * REJUV_HEALING_INCREASE))/ this.totalHealingEncounter;
     debug && console.log("rejuvenationIncreasedEffect: " + (rejuvenationIncreasedEffect*100).toFixed(2)+"%");
 
     // 15% of total healing during ToL and divide it with the encounter total healing
-    let tolIncreasedHealingDone = (this.totalHealingDuringToL - this.totalHealingDuringToL/HEALING_INCREASE)/this.totalHealingEncounter;
+    const tolIncreasedHealingDone = (this.totalHealingDuringToL - this.totalHealingDuringToL/HEALING_INCREASE)/this.totalHealingEncounter;
     debug && console.log("tolIncreasedHealingDone: " + (tolIncreasedHealingDone*100).toFixed(2)+"%");
 
     // The amount of free rejuvs gained by the reduced mana cost, calculated into throughput by the "1 Rejuv throughput worth"
-    let rejuvenationMana = (((this.totalRejuvenationsDuringToL * REJUV_BASE_MANA) * REJUVENATION_REDUCED_MANA) / REJUV_BASE_MANA) * oneRejuvenationThroughput;
+    const rejuvenationMana = (((this.totalRejuvenationsDuringToL * REJUV_BASE_MANA) * REJUVENATION_REDUCED_MANA) / REJUV_BASE_MANA) * oneRejuvenationThroughput;
     debug && console.log("rejuvenationMana: " + (rejuvenationMana*100).toFixed(2)+"%");
 
     // 33% of total healing from WG during ToL and divide it with the encounter total healing.
-    let wildGrowthIncreasedEffect = (this.totalHealingFromWildgrowthsDuringToL/HEALING_INCREASE - this.totalHealingFromWildgrowthsDuringToL/(HEALING_INCREASE * WILD_GROWTH_HEALING_INCREASE)) / this.totalHealingEncounter;
+    const wildGrowthIncreasedEffect = (this.totalHealingFromWildgrowthsDuringToL/HEALING_INCREASE - this.totalHealingFromWildgrowthsDuringToL/(HEALING_INCREASE * WILD_GROWTH_HEALING_INCREASE)) / this.totalHealingEncounter;
     debug && console.log("wildGrowthIncreasedEffect: " + (wildGrowthIncreasedEffect*100).toFixed(2)+"%");
 
     // Total throughput from using Tree of Life
@@ -134,13 +134,13 @@ class TreeOfLife extends Module {
     debug && console.log("throughput: " + (this.throughput*100).toFixed(2)+"%");
 
     // Chameleon song
-    let rejuvenationIncreasedEffectHelmet = (this.totalHealingFromRejuvenationDuringToLHelmet/HEALING_INCREASE - this.totalHealingFromRejuvenationDuringToLHelmet / (HEALING_INCREASE * REJUV_HEALING_INCREASE))/ this.totalHealingEncounter;
+    const rejuvenationIncreasedEffectHelmet = (this.totalHealingFromRejuvenationDuringToLHelmet/HEALING_INCREASE - this.totalHealingFromRejuvenationDuringToLHelmet / (HEALING_INCREASE * REJUV_HEALING_INCREASE))/ this.totalHealingEncounter;
     debug && console.log("rejuvenationIncreasedEffectHelmet: " + (rejuvenationIncreasedEffectHelmet*100).toFixed(2)+"%");
-    let tolIncreasedHealingDoneHelmet = (this.totalHealingDuringToLHelmet - this.totalHealingDuringToLHelmet/HEALING_INCREASE)/this.totalHealingEncounter;
+    const tolIncreasedHealingDoneHelmet = (this.totalHealingDuringToLHelmet - this.totalHealingDuringToLHelmet/HEALING_INCREASE)/this.totalHealingEncounter;
     debug && console.log("tolIncreasedHealingDone: " + (tolIncreasedHealingDoneHelmet*100).toFixed(2)+"%");
-    let rejuvenationManaHelmet = (((this.totalRejuvenationsDuringToLHelmet * REJUV_BASE_MANA) * REJUVENATION_REDUCED_MANA) / REJUV_BASE_MANA) * oneRejuvenationThroughput;
+    const rejuvenationManaHelmet = (((this.totalRejuvenationsDuringToLHelmet * REJUV_BASE_MANA) * REJUVENATION_REDUCED_MANA) / REJUV_BASE_MANA) * oneRejuvenationThroughput;
     debug && console.log("rejuvenationManaHelmet: " + (rejuvenationManaHelmet*100).toFixed(2)+"%");
-    let wildGrowthIncreasedEffectHelmet = (this.totalHealingFromWildgrowthsDuringToLHelmet/HEALING_INCREASE - this.totalHealingFromWildgrowthsDuringToLHelmet/(HEALING_INCREASE * WILD_GROWTH_HEALING_INCREASE)) / this.totalHealingEncounter;
+    const wildGrowthIncreasedEffectHelmet = (this.totalHealingFromWildgrowthsDuringToLHelmet/HEALING_INCREASE - this.totalHealingFromWildgrowthsDuringToLHelmet/(HEALING_INCREASE * WILD_GROWTH_HEALING_INCREASE)) / this.totalHealingEncounter;
     debug && console.log("wildGrowthIncreasedEffectHelmet: " + (wildGrowthIncreasedEffectHelmet*100).toFixed(2)+"%");
     this.throughputHelmet = rejuvenationIncreasedEffectHelmet + tolIncreasedHealingDoneHelmet + rejuvenationManaHelmet + wildGrowthIncreasedEffectHelmet;
     debug && console.log("uptimeHelmet: " + (((this.owner.selectedCombatant.getBuffUptime(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id)-(this.tolCasts*30000))/this.owner.fightDuration)*100).toFixed(2)+"%");

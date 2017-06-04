@@ -124,8 +124,8 @@ class Maelstrom extends React.PureComponent {
     });
 
 
-    let abilitiesAll = {};
-    let categories = {
+    const abilitiesAll = {};
+    const categories = {
       'generated': 'Generated',
       'spend': 'Spend',
     };
@@ -145,7 +145,7 @@ class Maelstrom extends React.PureComponent {
         //  overCapBySecond[secIntoFight - 1] = 0;
       }
       if (event.type === 'cast') {
-        let spell = SPELLS[event.ability.guid];
+        const spell = SPELLS[event.ability.guid];
         if (!abilitiesAll[event.ability.guid + '_spend']) {
           abilitiesAll[event.ability.guid + '_spend'] = {
             ability: {
@@ -160,13 +160,13 @@ class Maelstrom extends React.PureComponent {
           };
         }
         abilitiesAll[event.ability.guid + '_spend'].casts++;
-        let lastMana = lastSecFight === secIntoFight ? manaBySecond[lastSecFight-1] : manaBySecond[lastSecFight];
-        let spendResource = spell.maelstrom ? spell.maelstrom : (spell.max_maelstrom < lastMana ? spell.max_maelstrom : lastMana);
+        const lastMana = lastSecFight === secIntoFight ? manaBySecond[lastSecFight-1] : manaBySecond[lastSecFight];
+        const spendResource = spell.maelstrom ? spell.maelstrom : (spell.max_maelstrom < lastMana ? spell.max_maelstrom : lastMana);
         abilitiesAll[event.ability.guid + '_spend'].spend += spendResource;
         abilitiesAll[event.ability.guid + '_spend'].wasted += spell.max_maelstrom ? spell.max_maelstrom - spendResource: 0;
       } else if (event.type === 'energize') {
         if (!abilitiesAll[event.ability.guid + '_gen']) {
-          let spell = SPELLS[event.ability.guid];
+          const spell = SPELLS[event.ability.guid];
           abilitiesAll[event.ability.guid + '_gen'] = {
             ability: {
               category: 'Generated',
@@ -188,7 +188,7 @@ class Maelstrom extends React.PureComponent {
       }
     });
 
-    let abilities = Object.keys(abilitiesAll).map((key) => abilitiesAll[key]);
+    const abilities = Object.keys(abilitiesAll).map((key) => abilitiesAll[key]);
     abilities.sort((a,b) => {
       if (a.created < b.created) {
         return 1;
