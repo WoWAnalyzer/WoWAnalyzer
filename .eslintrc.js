@@ -1,8 +1,8 @@
 module.exports = {
   "extends": "react-app",
   "rules": {
-    "comma-dangle": ["error", "always-multiline"],
+    "comma-dangle": ["warn", "always-multiline"],
     // disallow unnecessary semicolons
-    'no-extra-semi': 'error',
+    'no-extra-semi': 'warn',
   },
 };
