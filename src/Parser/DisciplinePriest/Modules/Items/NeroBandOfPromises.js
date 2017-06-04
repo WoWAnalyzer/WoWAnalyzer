@@ -7,7 +7,6 @@ const debug = true;
 
 class NeroBandOfPromises extends Module {
   healing = 0;
-  barrierActive = false;
 
   on_initialized() {
     if (!this.owner.error) {
