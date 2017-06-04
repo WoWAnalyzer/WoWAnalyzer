@@ -158,6 +158,6 @@ class FeedingTab extends React.Component {
       </div>
   </div>
       )}
-};
+}
 
 export default FeedingTab;
