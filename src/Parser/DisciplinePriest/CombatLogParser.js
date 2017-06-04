@@ -117,8 +117,8 @@ class CombatLogParser extends MainCombatLogParser {
 
     if(improperAtonementRefreshPercentage > .05) {
       results.addIssue({
-        issue: <span>Your <SpellLink id={SPELLS.ATONEMENT1.id} /> efficiency can be improved ({this.modules.atonement.improperAtonementRefreshes.length}/{this.modules.atonement.totalAtones} applications: {(improperAtonementRefreshPercentage * 100).toFixed(2)}% applied to already buffed players.)</span>,
-        icon: SPELLS.ATONEMENT1.icon,
+        issue: <span>Your <SpellLink id={SPELLS.ATONEMENT_HEAL_NON_CRIT.id} /> efficiency can be improved ({this.modules.atonement.improperAtonementRefreshes.length}/{this.modules.atonement.totalAtones} applications: {(improperAtonementRefreshPercentage * 100).toFixed(2)}% applied to already buffed players.)</span>,
+        icon: SPELLS.ATONEMENT_HEAL_NON_CRIT.icon,
         importance: getIssueImportance(improperAtonementRefreshPercentage, .07, .1, true),
       });
     }
@@ -186,7 +186,7 @@ class CombatLogParser extends MainCombatLogParser {
       />,
       this.modules.atonement.active && (
         <StatisticBox 
-        icon={<SpellIcon id={SPELLS.ATONEMENT1.id} />}
+        icon={<SpellIcon id={SPELLS.ATONEMENT_HEAL_NON_CRIT.id} />}
         value={this.modules.atonement.improperAtonementRefreshes.length}
         label={(
           <dfn data-tip={`The amount of Atonements that were refreshed earlier than within 3 seconds of the buff expiring. You applied Atonement ${this.modules.atonement.totalAtones} times in total, ${this.modules.atonement.totalAtonementRefreshes} (${((this.modules.atonement.totalAtonementRefreshes / this.modules.atonement.totalAtones * 100) || 0).toFixed(2)}%) of them were refreshes of existing Atonements, and ${this.modules.atonement.improperAtonementRefreshes.length} (${((this.modules.atonement.improperAtonementRefreshes.length / this.modules.atonement.totalAtones * 100) || 0).toFixed(2)}%) of them were considered early.` }>
