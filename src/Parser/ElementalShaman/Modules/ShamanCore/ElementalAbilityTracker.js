@@ -7,9 +7,9 @@ class ElementalAbilityTracker extends AbilityTracker {
     if (super.on_byPlayer_cast) {
       super.on_byPlayer_cast(event);
     }
-    const spellId = event.ability.guid;
-    const cast = this.getAbility(spellId, event.ability);
-    cast
+    // const spellId = event.ability.guid;
+    // const cast = this.getAbility(spellId, event.ability);
+    // cast
     // TODO: add debuff/buff infos
   }
 }
