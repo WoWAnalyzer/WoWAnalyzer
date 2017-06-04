@@ -78,9 +78,9 @@ class CombatLogParser extends MainCombatLogParser {
     const abilityTracker = this.modules.abilityTracker;
     const getAbility = spellId => abilityTracker.getAbility(spellId);
 
-    const lavaBurst = getAbility(SPELLS.LAVA_BURST.id);
-    const lightningBolt = getAbility(SPELLS.LIGHTNING_BOLT.id);
-    const elementalBlast = getAbility(SPELLS.ELEMENTAL_BLAST.id);
+    // const lavaBurst = getAbility(SPELLS.LAVA_BURST.id);
+    // const lightningBolt = getAbility(SPELLS.LIGHTNING_BOLT.id);
+    // const elementalBlast = getAbility(SPELLS.ELEMENTAL_BLAST.id);
     const overloadLavaBurst = getAbility(SPELLS.LAVA_BURST_OVERLOAD.id);
     const overloadLightningBolt = getAbility(SPELLS.LIGHTNING_BOLT_OVERLOAD_HIT.id);
     const overloadElementalBlast = getAbility(SPELLS.ELEMENTAL_BLAST_OVERLOAD.id);
