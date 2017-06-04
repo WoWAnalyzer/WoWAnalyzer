@@ -65,7 +65,7 @@ export default {
     id: 116670,
     name: 'Vivify',
     icon: 'ability_monk_vivify',
-    manaPerc: 0.045
+    manaPerc: 0.045,
   },
   SOOTHING_MIST: {
     id: 115175,

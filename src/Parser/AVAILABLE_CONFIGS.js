@@ -12,5 +12,5 @@ export default [
   RestoDruid,
   MistweaverMonk,
   RestorationShaman,
-  ElementalShaman
+  ElementalShaman,
 ];

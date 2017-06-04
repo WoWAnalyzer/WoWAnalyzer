@@ -38,7 +38,7 @@ class Atonement extends Module {
 
     const atonement = {
       target: event.targetID,
-      lastAtonmentAppliedTimestamp: event.timestamp
+      lastAtonmentAppliedTimestamp: event.timestamp,
     };
     this.currentAtonementTargets = this.currentAtonementTargets.filter(id => id.target !== atonement.target);
     this.currentAtonementTargets.push(atonement);
@@ -54,7 +54,7 @@ class Atonement extends Module {
 
     const atonement = {
       target: event.targetID,
-      lastAtonmentAppliedTimestamp: event.timestamp
+      lastAtonmentAppliedTimestamp: event.timestamp,
     };
     let refreshedTarget = this.currentAtonementTargets.find(id => id.target === atonement.target);
     if (!refreshedTarget) {
@@ -84,7 +84,7 @@ class Atonement extends Module {
     }
     const atonement = {
       target: event.targetID,
-      lastAtonmentAppliedTimestamp: event.timestamp
+      lastAtonmentAppliedTimestamp: event.timestamp,
     };
     this.currentAtonementTargets = this.currentAtonementTargets.filter(id => id.target !== atonement.target);
     debug && console.log(`%c${this.owner.combatants.players[atonement.target].name} lost an atonement`, 'color:yellow', this.currentAtonementTargets);

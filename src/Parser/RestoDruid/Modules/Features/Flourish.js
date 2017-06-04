@@ -2,7 +2,7 @@ import Module from 'Parser/Core/Module';
 import SPELLS from 'common/SPELLS';
 
 import {
-  SPRING_BLOSSMOS_HEAL_SPELL_ID
+  SPRING_BLOSSMOS_HEAL_SPELL_ID,
 } from '../../Constants';
 
 const debug = false;

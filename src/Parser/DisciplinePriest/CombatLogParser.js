@@ -119,7 +119,7 @@ class CombatLogParser extends MainCombatLogParser {
       results.addIssue({
         issue: <span>Your <SpellLink id={SPELLS.ATONEMENT1.id} /> efficiency can be improved ({this.modules.atonement.improperAtonementRefreshes.length}/{this.modules.atonement.totalAtones} applications: {(improperAtonementRefreshPercentage * 100).toFixed(2)}% applied to already buffed players.)</span>,
         icon: SPELLS.ATONEMENT1.icon,
-        importance: getIssueImportance(improperAtonementRefreshPercentage, .07, .1, true)
+        importance: getIssueImportance(improperAtonementRefreshPercentage, .07, .1, true),
       });
     }
     
@@ -228,7 +228,7 @@ class CombatLogParser extends MainCombatLogParser {
             Unused PW:S absorb
           </dfn>
         )}
-      />
+      />,
     ];
 
     results.items = [
@@ -266,7 +266,7 @@ class CombatLogParser extends MainCombatLogParser {
           <span>
             {(this.modules.cordOfMaiev.procTime / 1000).toFixed(1)} seconds off the <SpellLink id={SPELLS.PENANCE.id} /> cooldown ({this.modules.cordOfMaiev.procs} Penances cast earlier)
           </span>
-        )
+        ),
       },
       this.modules.skjoldr.active && {
         id: ITEMS.SKJOLDR_SANCTUARY_OF_IVAGONT.id,
@@ -276,7 +276,7 @@ class CombatLogParser extends MainCombatLogParser {
           <dfn data-tip="The actual effective healing contributed by the Skjoldr, Sanctuary of Ivagont equip effect. This includes the healing gained via Share in the Light.">
             {((this.modules.skjoldr.healing / this.totalHealing * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.skjoldr.healing / fightDuration * 1000)} HPS
           </dfn>
-        )
+        ),
       },
       this.modules.xalan.active && {
         id: ITEMS.XALAN_THE_FEAREDS_CLENCH.id,
@@ -286,7 +286,7 @@ class CombatLogParser extends MainCombatLogParser {
           <dfn data-tip={`The actual effective healing contributed by the Xalan the Feared's Clench equip effect asuming your Atonement lasts ${this.modules.xalan.atonementDuration} seconds normally.`}>
             {((this.modules.xalan.healing / this.totalHealing * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.xalan.healing / fightDuration * 1000)} HPS
           </dfn>
-        )
+        ),
       },
       this.modules.neroBandOfPromises.active && {
         id: ITEMS.NERO_BAND_OF_PROMISES.id,
@@ -296,7 +296,7 @@ class CombatLogParser extends MainCombatLogParser {
           <dfn data-tip={`The actual effective healing contributed by the Xalan the Feared's Clench equip effect. The healing gain counts as Atonement healing and does NOT stack with existing Atonements.`}>
             {((this.modules.neroBandOfPromises.healing / this.totalHealing * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.neroBandOfPromises.healing / fightDuration * 1000)} HPS
           </dfn>
-        )
+        ),
       },
       this.modules.drapeOfShame.active && {
         id: ITEMS.DRAPE_OF_SHAME.id,
@@ -316,7 +316,7 @@ class CombatLogParser extends MainCombatLogParser {
           <dfn data-tip={`The exact amount of mana gained from the Amalgam's Seventh Spine equip effect. You gained mana ${this.modules.amalgamsSeventhSpine.procs} times and refreshed the buff ${this.modules.amalgamsSeventhSpine.refreshes} times (refreshing delay the mana return and is inefficient use of this trinket).`}>
             {formatThousands(this.modules.amalgamsSeventhSpine.manaGained)} mana gained ({formatThousands(this.modules.amalgamsSeventhSpine.manaGained / this.fightDuration * 1000 * 5)} MP5)
           </dfn>
-        )
+        ),
       },
       this.modules.darkmoonDeckPromises.active && {
         id: ITEMS.DARKMOON_DECK_PROMISES.id,
@@ -326,7 +326,7 @@ class CombatLogParser extends MainCombatLogParser {
           <dfn data-tip={`The exact amount of mana saved by the Darkmoon Deck: Promises equip effect. This takes the different values per card into account at the time of the cast. Mana values assume you have a 875 item level version.`}>
             {formatThousands(this.modules.darkmoonDeckPromises.manaGained)} mana saved ({formatThousands(this.modules.darkmoonDeckPromises.manaGained / this.fightDuration * 1000 * 5)} MP5)
           </dfn>
-        )
+        ),
       },
       this.modules.tier19_2set.active && {
         id: `spell-${SPELLS.DISC_PRIEST_T19_2SET_BONUS_BUFF.id}`,

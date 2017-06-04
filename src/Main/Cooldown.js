@@ -103,7 +103,7 @@ class Cooldown extends React.Component {
 
     return {
       healingDone,
-      overhealingDone
+      overhealingDone,
     };
   }
 

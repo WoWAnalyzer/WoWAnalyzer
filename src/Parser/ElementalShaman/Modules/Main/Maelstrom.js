@@ -157,7 +157,7 @@ class Maelstrom extends React.PureComponent {
             spend: 0,
             casts: 0,
             created: 0,
-            wasted: 0
+            wasted: 0,
           }
         }
         abilitiesAll[event.ability.guid + '_spend'].casts++
@@ -177,7 +177,7 @@ class Maelstrom extends React.PureComponent {
             spend: 0,
             casts: 0,
             created: 0,
-            wasted: 0
+            wasted: 0,
           }
         }
         abilitiesAll[event.ability.guid + '_gen'].casts++
@@ -229,7 +229,7 @@ class Maelstrom extends React.PureComponent {
           className: 'wasted',
           name: 'Maelstrom wasted',
           data: Object.keys(overCapBySecond).map(key => overCapBySecond[key]),
-        }
+        },
       ],
     };
     let step = 0;
@@ -273,7 +273,7 @@ class Maelstrom extends React.PureComponent {
                 classNames: [
                   ...bosses.map((series, index) => `boss-health boss-${index} boss-${series.guid}`),
                   'maelstrom',
-                  'wasted'
+                  'wasted',
                 ],
               }),
               specialEventIndicators({

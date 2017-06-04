@@ -61,7 +61,7 @@ CastEfficiency.propTypes = {
     ability: React.PropTypes.shape({
       name: React.PropTypes.string.isRequired,
       category: React.PropTypes.string.isRequired,
-      spellId: React.PropTypes.number.isRequired
+      spellId: React.PropTypes.number.isRequired,
     }).isRequired,
   })).isRequired,
 };

@@ -71,8 +71,8 @@ CastEfficiency.propTypes = {
       category: PropTypes.string.isRequired,
       spell: PropTypes.shape({
         id: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired
-      }).isRequired
+        name: PropTypes.string.isRequired,
+      }).isRequired,
     }),
     cpm: PropTypes.number.isRequired,
     maxCpm: PropTypes.number,

@@ -68,7 +68,7 @@ const CPM_ABILITIES = [
     spell: SPELLS.INCARNATION_TREE_OF_LIFE_TALENT,
     category: SPELL_CATEGORY.COOLDOWNS,
     isActive: combatant => combatant.lv75Talent === SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id,
-    getCooldown: haste => 180
+    getCooldown: haste => 180,
   },
   {
     spell: SPELLS.ARCANE_TORRENT,

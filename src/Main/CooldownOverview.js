@@ -24,7 +24,7 @@ CooldownOverview.propTypes = {
       id: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
       icon: PropTypes.string.isRequired,
-      cooldownType: PropTypes.string.isRequired
+      cooldownType: PropTypes.string.isRequired,
     }),
     start: PropTypes.number.isRequired,
     end: PropTypes.number,

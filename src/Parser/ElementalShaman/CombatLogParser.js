@@ -216,7 +216,7 @@ class CombatLogParser extends MainCombatLogParser {
             Uptime
           </dfn>
         )}
-      />
+      />,
     ];
 
     results.items = [/*TODO*/];

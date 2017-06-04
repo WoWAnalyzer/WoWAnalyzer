@@ -6,7 +6,7 @@ class ProcTracker extends CoreCooldownTracker {
   static cooldownSpells = [
     SPELLS.POWER_OF_THE_MAELSTROM,
     SPELLS.ELEMENTAL_FOCUS,
-    SPELLS.LAVA_SURGE
+    SPELLS.LAVA_SURGE,
   ];
 }
 

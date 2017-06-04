@@ -149,7 +149,7 @@ class Mana extends React.PureComponent {
           className: 'death',
           name: 'Deaths',
           data: Object.keys(deathsBySecond).map(key => deathsBySecond[key]),
-        }
+        },
       ],
     };
     let step = 0;
