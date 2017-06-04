@@ -120,16 +120,23 @@ export default {
     name: 'Psychic Scream',
     icon: 'spell_shadow_psychicscream',
   },
-  // I don't know why, but there are 2 different spell ids for Atonement heals and they're both active and relevant
+  // Non-crit Atonement Instances
   ATONEMENT1: {
     id: 81751,
     name: 'Atonement',
     icon: 'spell_holy_circleofrenewal',
   },
+  // Crit Atonement Instances
   ATONEMENT2: {
-    id: 194384,
+    id: 94472,
     name: 'Atonement',
     icon: 'spell_holy_circleofrenewal',
+  },
+  // Atonement buff ID
+  ATONEMENT_BUFF: {
+    id: 194384,
+    name: 'Atonement',
+    icon: 'ability_priest_atonement'
   },
   HALO_HEAL: {
     id: 120692,
