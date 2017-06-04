@@ -547,4 +547,4 @@ export default {
     name: 'Deep Waters',
     icon: 'inv_mace_1h_artifactazshara_d_02',
   },
-}
+};

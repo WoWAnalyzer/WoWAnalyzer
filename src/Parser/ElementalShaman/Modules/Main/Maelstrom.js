@@ -5,7 +5,7 @@ import ChartistGraph from 'react-chartist';
 import Chartist from 'chartist';
 import 'chartist-plugin-legend';
 
-import SPELLS from 'common/SPELLS'
+import SPELLS from 'common/SPELLS';
 
 import CastEfficiency from './CastEfficiency';
 
@@ -122,18 +122,17 @@ class Maelstrom extends React.PureComponent {
         deathsBySecond[secIntoFight] = true;
       }
     });
-    
-    
-    let abilitiesAll = {}
+
+
+    let abilitiesAll = {};
     let categories = {
       'generated': 'Generated',
       'spend': 'Spend',
-    }
-    let abilities = []
+    };
 
     const overCapBySecond = {};
     let lastOverCap;
-    let lastSecFight = start
+    let lastSecFight = start;
     this.state.mana.series[0].events.forEach((event) => {
       const secIntoFight = Math.floor((event.timestamp - start) / 1000);
       if (event.waste === 0 && lastOverCap) {
@@ -141,12 +140,12 @@ class Maelstrom extends React.PureComponent {
       }
       overCapBySecond[secIntoFight] = event.waste;
       if (event.waste > 0 ) {
-        lastOverCap = secIntoFight
+        lastOverCap = secIntoFight;
         //if (!overCapBySecond[secIntoFight - 1])
         //  overCapBySecond[secIntoFight - 1] = 0;
       }
       if (event.type === 'cast') {
-        let spell = SPELLS[event.ability.guid]
+        let spell = SPELLS[event.ability.guid];
         if (!abilitiesAll[event.ability.guid + '_spend']) {
           abilitiesAll[event.ability.guid + '_spend'] = {
             ability: {
@@ -158,16 +157,16 @@ class Maelstrom extends React.PureComponent {
             casts: 0,
             created: 0,
             wasted: 0,
-          }
+          };
         }
-        abilitiesAll[event.ability.guid + '_spend'].casts++
-        let lastMana = lastSecFight === secIntoFight ? manaBySecond[lastSecFight-1] : manaBySecond[lastSecFight]
-        let spendResource = spell.maelstrom ? spell.maelstrom : (spell.max_maelstrom < lastMana ? spell.max_maelstrom : lastMana)
-        abilitiesAll[event.ability.guid + '_spend'].spend += spendResource
-        abilitiesAll[event.ability.guid + '_spend'].wasted += spell.max_maelstrom ? spell.max_maelstrom - spendResource: 0
+        abilitiesAll[event.ability.guid + '_spend'].casts++;
+        let lastMana = lastSecFight === secIntoFight ? manaBySecond[lastSecFight-1] : manaBySecond[lastSecFight];
+        let spendResource = spell.maelstrom ? spell.maelstrom : (spell.max_maelstrom < lastMana ? spell.max_maelstrom : lastMana);
+        abilitiesAll[event.ability.guid + '_spend'].spend += spendResource;
+        abilitiesAll[event.ability.guid + '_spend'].wasted += spell.max_maelstrom ? spell.max_maelstrom - spendResource: 0;
       } else if (event.type === 'energize') {
         if (!abilitiesAll[event.ability.guid + '_gen']) {
-          let spell = SPELLS[event.ability.guid]
+          let spell = SPELLS[event.ability.guid];
           abilitiesAll[event.ability.guid + '_gen'] = {
             ability: {
               category: 'Generated',
@@ -178,26 +177,26 @@ class Maelstrom extends React.PureComponent {
             casts: 0,
             created: 0,
             wasted: 0,
-          }
+          };
         }
-        abilitiesAll[event.ability.guid + '_gen'].casts++
-        abilitiesAll[event.ability.guid + '_gen'].created += event.resourceChange
-        abilitiesAll[event.ability.guid + '_gen'].wasted += event.waste
+        abilitiesAll[event.ability.guid + '_gen'].casts++;
+        abilitiesAll[event.ability.guid + '_gen'].created += event.resourceChange;
+        abilitiesAll[event.ability.guid + '_gen'].wasted += event.waste;
       }
       if (secIntoFight !== lastSecFight) {
-        lastSecFight = secIntoFight
+        lastSecFight = secIntoFight;
       }
     });
 
-    abilities = Object.keys(abilitiesAll).map((key) => abilitiesAll[key])
+    let abilities = Object.keys(abilitiesAll).map((key) => abilitiesAll[key]);
     abilities.sort((a,b) => {
       if (a.created < b.created) {
-        return 1
+        return 1;
       } else if (a.created === b.created) {
-        return 0
+        return 0;
       }
-      return -1
-    })
+      return -1;
+    });
 
     const fightDurationSec = Math.ceil((end - start) / 1000);
     const labels = [];

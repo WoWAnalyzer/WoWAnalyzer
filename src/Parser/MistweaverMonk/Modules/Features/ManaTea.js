@@ -125,12 +125,12 @@ class ManaTea extends Module {
     // Lifecycles reduces the mana cost of both Vivify and Enveloping Mists.  We must take that into account when calculating mana saved.
     if(this.hasLifeCycles) {
       if(this.owner.selectedCombatant.hasBuff(SPELLS.LIFECYCLES_VIVIFY_BUFF.id) && spellId === SPELLS.VIVIFY.id) {
-        this.manaSavedMT += ((baseMana * spellBaseMana) * (1 - (SPELLS.LIFECYCLES_VIVIFY_BUFF.manaPercRed)))
-        debug && console.log('LC Viv Cast')
+        this.manaSavedMT += ((baseMana * spellBaseMana) * (1 - (SPELLS.LIFECYCLES_VIVIFY_BUFF.manaPercRed)));
+        debug && console.log('LC Viv Cast');
       } else if((this.owner.selectedCombatant.hasBuff(SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.id) && spellId === SPELLS.ENVELOPING_MISTS.id)) {
-        this.manaSavedMT += ((baseMana * spellBaseMana) * (1 - (SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed)))
+        this.manaSavedMT += ((baseMana * spellBaseMana) * (1 - (SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed)));
       } else {
-        this.manaSavedMT += (baseMana * spellBaseMana)
+        this.manaSavedMT += (baseMana * spellBaseMana);
       }
     } else {
       this.manaSavedMT += (baseMana * spellBaseMana);

@@ -3,10 +3,8 @@ import Module from 'Parser/Core/Module';
 import { ABILITIES_AFFECTED_BY_MASTERY } from '../../Constants';
 
 class MasteryEffectiveness extends Module {
-
   totalMasteryHealing = 0;
   totalMaxPotentialMasteryHealing = 0;
-
 
   on_byPlayer_heal(event) {
     const isAbilityAffectedByMastery = ABILITIES_AFFECTED_BY_MASTERY.indexOf(event.ability.guid) !== -1;
@@ -15,8 +13,7 @@ class MasteryEffectiveness extends Module {
 
     if (isAbilityAffectedByMastery) {
       const healthBeforeHeal = event.hitPoints - event.amount;
-      const masteryEffectiveness = 1 - healthBeforeHeal / event.maxHitPoints
-      
+      const masteryEffectiveness = 1 - healthBeforeHeal / event.maxHitPoints;
 
       // The base healing of the spell (excluding any healing added by mastery)
       const masteryPercent = this.owner.modules.combatants.selected.masteryPercentage;
@@ -29,12 +26,8 @@ class MasteryEffectiveness extends Module {
 
       this.totalMasteryHealing += Math.max(0, masteryHealingDone - (event.overheal || 0));
       this.totalMaxPotentialMasteryHealing += Math.max(0, maxPotentialMasteryHealing - (event.overheal || 0));
-
-
     }
-
   }
 }
 
 export default MasteryEffectiveness;
-

@@ -55,7 +55,7 @@ class SoulOfTheForest extends Module {
     // proccConsumsed it used because WG and RG has a cast time. So whenever you queue cast WG + rejuv they will happen at the exact same timestamp.
     if(this.owner.selectedCombatant.hasBuff(SPELLS.SOUL_OF_THE_FOREST_BUFF.id) && this.proccConsumed === false){
       if (SPELLS.REJUVENATION.id === spellId || SPELLS.REJUVENATION_GERMINATION === spellId) {
-        this.rejuvenations++
+        this.rejuvenations++;
         this.rejuvenationProccTimestamp = event.timestamp;
       } else if(SPELLS.REGROWTH.id === spellId) {
         this.regrowths++;
