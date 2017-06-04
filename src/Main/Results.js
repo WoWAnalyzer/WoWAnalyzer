@@ -1,10 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 
 class Results extends React.Component {
   static propTypes = {
-    parser: React.PropTypes.object.isRequired,
-    tab: React.PropTypes.string,
+    parser: PropTypes.object.isRequired,
+    tab: PropTypes.string,
+    onChangeTab: PropTypes.func.isRequired,
   };
 
   render() {

@@ -39,7 +39,7 @@ class DarkmoonDeckPromises extends Module {
   lastPenanceStartTimestamp = null;
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    let manaCost = event.manaCost;
+    const manaCost = event.manaCost;
     if (!manaCost) {
       return;
     }

@@ -37,6 +37,7 @@ class ChiJi extends Module {
 
   on_finished() {
     this.finalChiJi = this.craneHeal + this.craneAbsorbedHeal;
+    this.owner.totalHealing += this.finalChiJi;
     if(debug) {
       console.log('Chi-Ji ID: ' + this.petID);
       console.log('Chi-Ji Healing: ' + this.craneHeal);

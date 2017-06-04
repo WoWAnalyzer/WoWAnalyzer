@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import SPECS from 'common/SPECS';
 
 class PlayerBreakdown extends React.Component {
   static propTypes = {
-    stats: React.PropTypes.object.isRequired,
-    playersById: React.PropTypes.object.isRequired,
+    stats: PropTypes.object.isRequired,
+    playersById: PropTypes.object.isRequired,
   };
 
   calculatePlayerBreakdown(stats, playersById) {

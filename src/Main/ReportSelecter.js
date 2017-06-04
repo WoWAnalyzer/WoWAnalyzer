@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
 
@@ -7,7 +8,7 @@ import Changelog from './Changelog';
 
 class ReportSelecter extends Component {
   static propTypes = {
-    onSubmit: React.PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
   };
 
   codeInput = null;

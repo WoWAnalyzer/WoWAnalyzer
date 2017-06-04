@@ -23,12 +23,12 @@ class T20 extends Module {
 
     if (spellId === SPELLS.EFFLORESCENCE_HEAL.id) {
       if(this.owner.selectedCombatant.hasBuff(SPELLS.BLOSSOMING_EFFLORESCENCE.id, event.timestamp, 0, 0)) {
-        let baseHeal = (event.amount + event.overheal||0)/BLOSSOMING_EFFLORESCENCE_HEAL_INCREASE;
+        const baseHeal = (event.amount + event.overheal||0)/BLOSSOMING_EFFLORESCENCE_HEAL_INCREASE;
         this.healing += Math.max(0, event.amount - baseHeal)/BLOSSOMING_EFFLORESCENCE_HEAL_INCREASE;
       }
     } else if(spellId === SPELLS.SWIFTMEND.id) {
-      let hpPercentage = (event.hitPoints - event.amount)/event.maxHitPoints;
-      let cooldownReduction = (T20P2_MAX_SWIFTMEND_REDUCTION - (hpPercentage * T20P2_MAX_SWIFTMEND_REDUCTION));
+      const hpPercentage = (event.hitPoints - event.amount)/event.maxHitPoints;
+      const cooldownReduction = (T20P2_MAX_SWIFTMEND_REDUCTION - (hpPercentage * T20P2_MAX_SWIFTMEND_REDUCTION));
       this.swiftmendReduced += this.swiftmendCooldown * cooldownReduction;
       this.swiftmends++;
     }

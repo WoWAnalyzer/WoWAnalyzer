@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
@@ -26,20 +27,20 @@ function formatPercentage(percentage) {
 
 class Cooldown extends React.Component {
   static propTypes = {
-    fightStart: React.PropTypes.number.isRequired,
-    fightEnd: React.PropTypes.number.isRequired,
-    ShowStatistics: React.PropTypes.bool,
-    showResourceStatistics: React.PropTypes.bool,
-    cooldown: React.PropTypes.shape({
-      ability: React.PropTypes.shape({
-        id: React.PropTypes.number.isRequired,
-        name: React.PropTypes.string.isRequired,
-        icon: React.PropTypes.string.isRequired,
+    fightStart: PropTypes.number.isRequired,
+    fightEnd: PropTypes.number.isRequired,
+    showOutputStatistics: PropTypes.bool,
+    showResourceStatistics: PropTypes.bool,
+    cooldown: PropTypes.shape({
+      ability: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+        icon: PropTypes.string.isRequired,
       }),
-      start: React.PropTypes.number.isRequired,
-      end: React.PropTypes.number,
-      events: React.PropTypes.arrayOf(React.PropTypes.shape({
-        type: React.PropTypes.string.isRequired,
+      start: PropTypes.number.isRequired,
+      end: PropTypes.number,
+      events: PropTypes.arrayOf(PropTypes.shape({
+        type: PropTypes.string.isRequired,
       })).isRequired,
     }).isRequired,
   };
@@ -56,18 +57,18 @@ class Cooldown extends React.Component {
 
   handleExpandClick() {
     this.setState({
-      expanded: true,
+      expanded: !this.state.expanded,
     });
   }
   handleShowHealsClick() {
     this.setState({
-      showHeals: true,
+      showHeals: !this.state.showHeals,
     });
   }
 
   groupHeals(events) {
     let lastHeal = null;
-    let results = [];
+    const results = [];
     events.forEach((event) => {
       if (event.type === 'cast') {
         results.push(event);
@@ -94,7 +95,8 @@ class Cooldown extends React.Component {
   }
 
   calculateHealingStatistics(cooldown) {
-    let healingDone = 0, overhealingDone = 0
+    let healingDone = 0;
+    let overhealingDone = 0;
     cooldown.events.filter(event => event.type === 'heal' || event.type === 'absorbed').forEach((event) => {
       healingDone += event.amount + (event.absorbed || 0);
       overhealingDone += event.overheal || 0;
@@ -102,22 +104,21 @@ class Cooldown extends React.Component {
 
     return {
       healingDone,
-      overhealingDone
+      overhealingDone,
     };
   }
 
   calculateDamageStatistics(cooldown) {
-    let damageDone = cooldown.events.reduce((acc, event) => {
-      return event.type === 'damage' ? acc + event.amount : acc
-    }, 0)
+    const damageDone = cooldown.events.reduce((acc, event) => event.type === 'damage' ? acc + event.amount : acc, 0);
     
-    return {damageDone}
+    return { damageDone };
   }
   
   render() {
     const { cooldown, fightStart, fightEnd, showOutputStatistics, showResourceStatistics } = this.props;
 
-    let outputStatistics, resourceStatistics;
+    let outputStatistics;
+    let resourceStatistics;
 
     if (showOutputStatistics) {
       outputStatistics = cooldown.ability.cooldownType === 'HEALING' ? this.calculateHealingStatistics(cooldown) : this.calculateDamageStatistics(cooldown);
@@ -165,7 +166,8 @@ class Cooldown extends React.Component {
                     </div>
                   </div>
                 ))}
-                <a href="javascript:" onClick={this.handleShowHealsClick} style={{ marginTop: '.2em' }}>Even more</a>
+                <a href="javascript:" onClick={this.handleShowHealsClick} style={{ marginTop: '.2em' }}>Even more</a>{' | '}
+                <a href="javascript:" onClick={this.handleExpandClick} style={{ marginTop: '.2em' }}>Show less</a>
               </div>
             )}
             {this.state.expanded && this.state.showHeals && (
@@ -186,6 +188,8 @@ class Cooldown extends React.Component {
                     </div>
                   </div>
                 ))}
+                <a href="javascript:" onClick={this.handleShowHealsClick} style={{ marginTop: '.2em' }}>Show less</a> {' | '}
+                <a href="javascript:" onClick={this.handleExpandClick} style={{ marginTop: '.2em' }}>Show simple</a>
               </div>
             )}
           </div>
@@ -208,11 +212,7 @@ class Cooldown extends React.Component {
               <div>
                 <div className="col-md-2 text-center">
                   <div style={{ fontSize: '2em' }}>{formatNumber(outputStatistics.damageDone)}</div>
-                  <dfn data-tip="This number represents the total amount of damage done during the duration of this cooldown, any damage done by DOTs after the effect of this cooldown has exprired will not be included in this statistic.">Damage Done</dfn>
-                </div>
-                <div className="col-md-2 text-center">
-                  <div style={{ fontSize: '2em' }}>{formatNumber(outputStatistics.damageDone / (end - start) * 1000)} DPS</div>
-                  DPS
+                  <dfn data-tip="This number represents the total amount of damage done during the duration of this cooldown, any damage done by DOTs after the effect of this cooldown has exprired will not be included in this statistic.">damage ({formatNumber(outputStatistics.damageDone / (end - start) * 1000)} DPS)</dfn>
                 </div>
               </div>
             )

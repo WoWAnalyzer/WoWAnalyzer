@@ -79,7 +79,21 @@ class HealingTracker extends AbilityTracker {
   }
 }
 class DamageTracker extends HealingTracker {
-  // TODO: Implement
+  on_byPlayer_damage(event) {
+    const spellId = event.ability.guid;
+    const cast = this.getAbility(spellId, event.ability);
+
+    cast.damangeHits = (cast.damangeHits || 0) + 1;
+    cast.damangeEffective = (cast.damangeEffective || 0) + (event.amount || 0);
+    cast.damangeAbsorbed = (cast.damangeAbsorbed || 0) + (event.absorbed || 0); // Not sure
+
+    const isCrit = event.hitType === HIT_TYPES.CRIT;
+    if (isCrit) {
+      cast.damangeCriticalHits = (cast.damangeCriticalHits || 0) + 1;
+      cast.damangeCriticalEffective = (cast.damangeCriticalEffective || 0) + (event.amount || 0);
+      cast.damangeCriticalAbsorbed = (cast.damangeCriticalAbsorbed || 0) + (event.absorbed || 0); // Not sure
+    }
+  }
 }
 
 export default DamageTracker;

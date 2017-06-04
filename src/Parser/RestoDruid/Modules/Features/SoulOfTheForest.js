@@ -28,7 +28,7 @@ class SoulOfTheForest extends Module {
 
   on_initialized() {
     if (!this.owner.error) {
-      let persistanceTraits = this.owner.selectedCombatant.traitsBySpellId[SPELLS.PERSISTANCE_TRAIT.id] || 0;
+      const persistanceTraits = this.owner.selectedCombatant.traitsBySpellId[SPELLS.PERSISTANCE_TRAIT.id] || 0;
       this.rejuvenationDuration += persistanceTraits*1000;
     }
   }
@@ -55,7 +55,7 @@ class SoulOfTheForest extends Module {
     // proccConsumsed it used because WG and RG has a cast time. So whenever you queue cast WG + rejuv they will happen at the exact same timestamp.
     if(this.owner.selectedCombatant.hasBuff(SPELLS.SOUL_OF_THE_FOREST_BUFF.id) && this.proccConsumed === false){
       if (SPELLS.REJUVENATION.id === spellId || SPELLS.REJUVENATION_GERMINATION === spellId) {
-        this.rejuvenations++
+        this.rejuvenations++;
         this.rejuvenationProccTimestamp = event.timestamp;
       } else if(SPELLS.REGROWTH.id === spellId) {
         this.regrowths++;
@@ -101,7 +101,7 @@ class SoulOfTheForest extends Module {
 
   // TODO: Refactor this method, as there's many features that uses this formula to calculate healing contributed by healing increases with partial overheals.
   calculateEffectiveHealingFromIncrease(event, healingIncrease) {
-    let baseHeal = (event.amount + event.overheal||0)/healingIncrease;
+    const baseHeal = (event.amount + event.overheal||0)/healingIncrease;
     return Math.max(0, event.amount - baseHeal)/healingIncrease;
   }
 }

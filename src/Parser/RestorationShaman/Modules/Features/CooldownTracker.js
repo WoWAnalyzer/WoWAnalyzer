@@ -1,10 +1,10 @@
 import SPELLS from 'common/SPELLS';
 
+import CoreCooldownTracker from 'Parser/Core/Modules/CooldownTracker';
+
 import { ABILITIES_NOT_FEEDING_INTO_CBT } from '../../Constants';
 import { ABILITIES_NOT_FEEDING_INTO_AG } from '../../Constants';
 import { ABILITIES_NOT_FEEDING_INTO_ASCENDANCE } from '../../Constants';
-
-import CoreCooldownTracker from 'Parser/Core/Modules/CooldownTracker';
 
 // The purpose of this class is twofold:
 // 1) provide cooldown data for the cooldowns tab. I had to rewrite some of the functions because

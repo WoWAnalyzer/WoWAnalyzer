@@ -208,37 +208,37 @@ export default {
   REJUVENATION_GERMINATION: {
     id:155777,
     name:'Germination',
-    icon: 'spell_druid_germination'
+    icon: 'spell_druid_germination',
   },
   CULTIVATION: {
     id:200389,
     name:'Cultivation',
-    icon: 'ability_druid_nourish'
+    icon: 'ability_druid_nourish',
   },
   YSERAS_GIFT_1: {
     id:145110,
     name:'Ysera\'s gift',
-    icon: 'spell_nature_healingtouch'
+    icon: 'spell_nature_healingtouch',
   },
   YSERAS_GIFT_2: {
     id:145109,
     name:'Ysera\'s gift',
-    icon: 'spell_nature_healingtouch'
+    icon: 'spell_nature_healingtouch',
   },
   LIVING_SEED: {
     id:48503,
     name:'Living Seed',
-    icon: 'ability_druid_giftoftheearthmother'
+    icon: 'ability_druid_giftoftheearthmother',
   },
   MARK_OF_SHIFTING: {
     id:224392,
     name:'Mark of Shifting',
-    icon: 'spell_druid_tirelesspursuit'
+    icon: 'spell_druid_tirelesspursuit',
   },
   FLOURISH: {
     id:197721,
     name:'Flourish',
-    icon: 'spell_druid_wildburst'
+    icon: 'spell_druid_wildburst',
   },
   POWER_OF_THE_ARCHDRUID_BUFF: {
     id: 189877,
@@ -253,17 +253,17 @@ export default {
   DREAMWALKER: {
     id:189853,
     name:'Dreamwalker',
-    icon: 'ability_druid_healinginstincts'
+    icon: 'ability_druid_healinginstincts',
   },
   NATURES_ESSENCE: {
     id:189800,
     name:'Nature\'s Essence',
-    icon: 'ability_druid_flourish'
+    icon: 'ability_druid_flourish',
   },
   SPRING_BLOSSOMS: {
     id: 207386,
     name: 'Spring Blossoms',
-    icon: 'spell_druid_springblossoms'
+    icon: 'spell_druid_springblossoms',
   },
   SOUL_OF_THE_FOREST_BUFF: {
     id: 114108,
@@ -284,7 +284,7 @@ export default {
     id: 102351,
     name: 'Cenarion Ward',
     icon: 'ability_druid_naturalperfection',
-    description: '<a href="http://www.wowhead.com/spell=102351" target="_blank">Cenarion Ward</a> is the best talent in this tier in almost all situations.'
+    description: '<a href="http://www.wowhead.com/spell=102351" target="_blank">Cenarion Ward</a> is the best talent in this tier in almost all situations.',
   },
   ABUNDANCE_TALENT: {
     id: 207383,
@@ -297,7 +297,7 @@ export default {
     id: 108238,
     name: 'Renewal',
     icon: 'spell_druid_renewal',
-    description: '<a href="http://www.wowhead.com/spell=108238" target="_blank">Renewal</a> is a big self-heal on a long-ish cooldown which is off the global cooldown. This talent is usualy not chosen because the lack of movement utility <a href="http://www.wowhead.com/spell=108238" target="_blank">Displacer Beast</a> offer is better.'
+    description: '<a href="http://www.wowhead.com/spell=108238" target="_blank">Renewal</a> is a big self-heal on a long-ish cooldown which is off the global cooldown. This talent is usualy not chosen because the lack of movement utility <a href="http://www.wowhead.com/spell=108238" target="_blank">Displacer Beast</a> offer is better.',
   },
   DISPLACER_BEAST_TALENT: {
     id: 102280,
@@ -417,21 +417,21 @@ export default {
   NATURES_ESSENCE_TRAIT: {
     id:189787,
     name:'Nature\'s Essence',
-    icon: 'ability_druid_flourish'
+    icon: 'ability_druid_flourish',
   },
   DREAMWALKER_TRAIT: {
     id:189849,
     name:'Dreamwalker',
-    icon: 'ability_druid_healinginstincts'
+    icon: 'ability_druid_healinginstincts',
   },
   INFUSION_OF_NATURE_TRAIT: {
     id:189757,
     name:'Infusion of Nature',
-    icon: 'ability_druid_flourish'
+    icon: 'ability_druid_flourish',
   },
   PERSISTANCE_TRAIT: {
     id:186396,
     name:'Persistance',
-    icon: 'spell_nature_starfall'
+    icon: 'spell_nature_starfall',
   },
 };

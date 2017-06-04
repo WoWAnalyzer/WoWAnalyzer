@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import SPELLS from './SPELLS';
 
 const SpellLink = ({ id, children, category = undefined, ...other }) => {
@@ -13,9 +14,9 @@ const SpellLink = ({ id, children, category = undefined, ...other }) => {
   );
 };
 SpellLink.propTypes = {
-  id: React.PropTypes.number.isRequired,
-  children: React.PropTypes.node,
-  category: React.PropTypes.string,
+  id: PropTypes.number.isRequired,
+  children: PropTypes.node,
+  category: PropTypes.string,
 };
 
 export default SpellLink;

@@ -54,7 +54,7 @@ class UpliftingTrance extends Module {
         this.nonUTVivify++;
         return;
       }
-      let utTimeframe = this.lastUTProcTime + UT_DURATION;
+      const utTimeframe = this.lastUTProcTime + UT_DURATION;
       if(event.timestamp > utTimeframe/* && !this.owner.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id)*/) {
         this.nonUTVivify++;
       } else {
