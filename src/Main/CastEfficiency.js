@@ -68,8 +68,11 @@ CastEfficiency.propTypes = {
   abilities: PropTypes.arrayOf(PropTypes.shape({
     ability: PropTypes.shape({
       name: PropTypes.string.isRequired,
-      spellId: PropTypes.number.isRequired,
-      icon: PropTypes.string.isRequired,
+      category: PropTypes.string.isRequired,
+      spell: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired
+      }).isRequired
     }),
     cpm: PropTypes.number.isRequired,
     maxCpm: PropTypes.number,

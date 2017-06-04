@@ -36,6 +36,7 @@ import RenewingMist from './Modules/Features/RenewingMist';
 import AOEHealingTracker from './Modules/Features/AOEHealingTracker';
 import EssenceFontMastery from './Modules/Features/EssenceFontMastery';
 import ChiJi from './Modules/Features/ChiJi';
+import ChiBurst from './Modules/Features/ChiBurst';
 
 // Setup for Items
 import Velens from './Modules/Items/Velens';
@@ -86,6 +87,7 @@ class CombatLogParser extends MainCombatLogParser {
     aoeHealingTracker: AOEHealingTracker,
     essenceFontMastery: EssenceFontMastery,
     chiJi: ChiJi,
+    chiBurst: ChiBurst,
 
     // Legendaries / Items:
     drapeOfShame: DrapeOfShame,
@@ -129,6 +131,8 @@ class CombatLogParser extends MainCombatLogParser {
     const mtCasts = manaTea.casts || 0;
     const avgMTsaves = this.modules.manaTea.manaSavedMT / mtCasts || 0;
 
+    const chiBurstHealing = this.modules.chiBurst.healingChiBurst + this.modules.chiBurst.absorbedHealingChiBurst || 0;
+    const avgChiBurstTargets = this.modules.chiBurst.targetsChiBurst / this.modules.chiBurst.castChiBurst || 0;
 
     const avgCelestialBreathHealing = this.modules.aoeHealingTracker.healingCelestialBreath / this.modules.aoeHealingTracker.healsCelestialBreath || 0;
     const avgCelestialBreathTargets = this.modules.aoeHealingTracker.healsCelestialBreath / this.modules.aoeHealingTracker.procsCelestialBreath || 0;
@@ -240,7 +244,7 @@ class CombatLogParser extends MainCombatLogParser {
     // EF Mastery Proc Usage
     if (avgMasteryCastsPerEF < 3 && avgTargetsHitPerEF > 0) {
       results.addIssue({
-        issue: <span>You are currently using not utilizing your <a href="http://www.wowhead.com/spell=191837" target="_blank">Essence Font</a> HOT buffs effectively.  You only utilized an average of {avgMasteryCastsPerEF} HOTs over {this.modules.essenceFontMastery.castEF} <a href="http://www.wowhead.com/spell=191837" target="_blank">Essence Font</a> casts.</span>,
+        issue: <span>You are currently not utilizing your <a href="http://www.wowhead.com/spell=191837" target="_blank">Essence Font</a> HOT buffs effectively.  You only utilized an average of {avgMasteryCastsPerEF.toFixed(2)} HOTs over {this.modules.essenceFontMastery.castEF} <a href="http://www.wowhead.com/spell=191837" target="_blank">Essence Font</a> casts.</span>,
         icon: SPELLS.GUSTS_OF_MISTS.icon,
         importance: getIssueImportance(avgMasteryCastsPerEF, 2, 1),
       });
@@ -256,12 +260,19 @@ class CombatLogParser extends MainCombatLogParser {
     // SotC Usage
     if (hasSotC && this.modules.manaSavingTalents.manaReturnSotc < 300000) {
       results.addIssue({
-        issue: <span>You are not utilizing your <a href="http://www.wowhead.com/spell=210802" target="_blank">Spirit of the Crane</a> talent as effectively as you could.  You only recieved {(this.modules.manaSavingTalents.manaReturnSotc / 1000).toFixed(0)}k mana back during this fight.  You also lost {(this.modules.manaSavingTalents.totmOverCap + this.modules.manaSavingTalents.totmBuffWasted)} Teachings of the Monestery stacks</span>,
+        issue: <span>You are not utilizing your <a href="http://www.wowhead.com/spell=210802" target="_blank">Spirit of the Crane</a> talent as effectively as you could.  You only received {(this.modules.manaSavingTalents.manaReturnSotc / 1000).toFixed(0)}k mana back during this fight.  You also lost {(this.modules.manaSavingTalents.totmOverCap + this.modules.manaSavingTalents.totmBuffWasted)} Teachings of the Monestery stacks</span>,
         icon: SPELLS.SPIRIT_OF_THE_CRANE_TALENT.icon,
         importance: getIssueImportance(this.modules.manaSavingTalents.manaReturnSotc, 250000, 150000),
       });
     }
-
+    // Chi Burst Usage
+    if(this.modules.chiBurst.active && avgChiBurstTargets < 15) {
+      results.addIssue({
+        issue: <span>You are not utilizing your <a href="http://www.wowhead.com/spell=123986" target="_blank">Chi Burst</a> talent as effectively as you should.  You hit an average of {avgChiBurstTargets} targets per Chi Burst cast.  Look to better position yourself during your your Chi Burst casts to get the most use out of the spell.  ({((chiBurstHealing / this.modules.chiBurst.castChiBurst) / 1000).toFixed(1)} k avg healing per cast.)</span>,
+        icon: SPELLS.CHI_BURST_TALENT.icon,
+        importance: getIssueImportance(avgChiBurstTargets, 12, 9),
+      });
+    }
 
     const castEfficiencyCategories = SPELL_CATEGORY;
     const castEfficiency = getCastEfficiency(CPM_ABILITIES, this);
@@ -416,7 +427,7 @@ class CombatLogParser extends MainCombatLogParser {
           )}
         />
       ),
-
+      // Wasted SG Stacks
       <StatisticBox
         icon={<SpellIcon id={SPELLS.SHEILUNS_GIFT.id} />}
         value={`${(avgSGstacks).toFixed(0)} Stacks`}
@@ -428,6 +439,7 @@ class CombatLogParser extends MainCombatLogParser {
           </dfn>
         )}
       />,
+      // Whispers Usage
       hasWhispersOfShaohao && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.WHISPERS_OF_SHAOHAO.id} />}
@@ -476,19 +488,19 @@ class CombatLogParser extends MainCombatLogParser {
           )}
         />
       ),
-      /* Note: Disabling for now until a better metric is decided upon.
+      // Dancing Mist Tracking
       this.modules.renewingMist.active && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.DANCING_MISTS.id} />}
-          value={`${(this.modules.renewingMist.dancingMistProc)} procs`}
+          value={`${(this.modules.renewingMist.dancingMistHeal / 1000).toFixed(0)} k`}
           label={(
             <dfn data-tip={`You had a total of ${(this.modules.renewingMist.dancingMistProc)} procs on ${this.modules.renewingMist.castsREM} REM casts.`}>
-              Total Dancing Mists Procs
+              Total Dancing Mists Healing
             </dfn>
           )}
         />
       ),
-      */
+
       // EF Mastery stats
       efMasteryCasts > 0 && (
         <StatisticBox
@@ -510,7 +522,20 @@ class CombatLogParser extends MainCombatLogParser {
             Average Targets hit per Essence Font cast
           </dfn>
         )}
-      />
+      />,
+
+      // Chi Burst Healing / Targets Hit
+      this.modules.chiBurst.active && (
+        <StatisticBox
+          icon={<SpellIcon id={SPELLS.CHI_BURST_TALENT.id} />}
+          value={`${(chiBurstHealing / 1000).toFixed(0)} k`}
+          label={(
+            <dfn data-tip={`You healed an average of ${avgChiBurstTargets.toFixed(2)} targets per Chi Burst cast over your ${this.modules.chiBurst.castChiBurst} casts.`}>
+              Chi Burst Healing
+            </dfn>
+          )}
+        />
+      ),
     ];
 
     results.items = [

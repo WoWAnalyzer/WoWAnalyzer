@@ -1,20 +1,23 @@
 export default `
-01-06-2017 - Mistweaver Monk: Include healing from Chi-Ji talent into overall healing totals for monk. (by anom0ly)
-01-06-2017 - Mistweaver Monk: Essence Font Tracking Implemented including tagets hit and HOT buffs utilized.  Readme updates for all modules and cast efficiency targets. (by anom0ly)
+04-06-2017 - Mistweaver Monk: Added Chi Burst healing tracking and suggestions. (by anomoly)
+04-06-2017 - Added basic <span class="Shaman">Elemental Shaman</span> support by <b>@fasib</b>.
+02-06-2017 - Mistweaver Monk: Enabled Dancing Mists tracking.  Healing provided by Dancing Mists procs now show in analysis. (by anomoly)
+01-06-2017 - Mistweaver Monk: Include healing from Chi-Ji talent into overall healing totals for monk. (by anomoly)
+01-06-2017 - Mistweaver Monk: Essence Font Tracking Implemented including tagets hit and HOT buffs utilized.  Readme updates for all modules and cast efficiency targets. (by anomoly)
 01-06-2017 - Resto Druid: Updated T20 calculations for the 200%/10seconds change.
-30-05-2017 - Mistweaver Monk: Adjusted some of the Dancing Mists logic per review. Added in missed Whispers of Shaohao healing. Tracking Celestial Breath and Mists of Sheilun buffs / procs and the healing associated. Refreshing Jade Wind Healing Implemented. Corrected some negative calculations with Uplifting Trance. Correcting formatting error with SG Stacks. (by anom0ly)
+30-05-2017 - Mistweaver Monk: Adjusted some of the Dancing Mists logic per review. Added in missed Whispers of Shaohao healing. Tracking Celestial Breath and Mists of Sheilun buffs / procs and the healing associated. Refreshing Jade Wind Healing Implemented. Corrected some negative calculations with Uplifting Trance. Correcting formatting error with SG Stacks. (by anomoly)
 30-05-2017 - Resto Druid: Added Dreamwalker calculations. Thanks @greatman
 30-05-2017 - Resto Druid: Added SotF + Soul of the Archdruid analyzer.
 29-05-2017 - Disc Priest: Show Rapture PW:S casts seperate from regular PW:S casts in Cast Efficiency. (by Zerotorescue)
 29-05-2017 - Fixed a crash when trying to parse a corrupt combatlog. (by versaya)
 29-05-2017 - Resto Shaman: Added overhealing in Cast Efficiency tab for some resto shaman spells. Fixed Uncertain Reminder in case of pre-lust. Added GotQ target efficiency.	Don't allow CBT healing to feed into CBT.
-29-05-2017 - Mistweaver Monk: Added Sheilun's Gift statistic and an overhealing suggestion. With Effusive Mists talent, Effuse casts at 12 stacks are considered wasted. Added simple proc counter for Dancing Mists. (by anom0ly)
+29-05-2017 - Mistweaver Monk: Added Sheilun's Gift statistic and an overhealing suggestion. With Effusive Mists talent, Effuse casts at 12 stacks are considered wasted. Added simple proc counter for Dancing Mists. (by anomoly)
 28-05-2017 - Disc Priest: Added unused Power Word: Shield absorb statistic.
 28-05-2017 - Added <span class="Shaman">Restoration Shaman</span> support by <b>@Versaya</b>! Thanks a lot for your contribution!
 28-05-2017 - Added overhealing percentages to the Cast Efficiency tab.
-27-05-2017 - Mistweaver Monk: Added Thunder Focus Tea spell buff tracking. Added Lifecycles mana saving tracking, added Spirit of the Crane mana return tracking. (by anom0ly)
+27-05-2017 - Mistweaver Monk: Added Thunder Focus Tea spell buff tracking. Added Lifecycles mana saving tracking, added Spirit of the Crane mana return tracking. (by anomoly)
 27-05-2017 - Holy Paladin: Added Tier 20 4 set bonus statistic. Reworked how spells and their beacon transfer are matched to be much more reliable. (by Zerotorescue)
-26-05-2017 - Mistweaver Monk: Added the remaining MW spells / abilities known as of now. Removed UT Usage issue, as this is going away in 7.2.5. Updated CPM Module to give a better understanding of MW Monk Spells. Incorporated TFT -> Viv usage in UT Proc calculations. All of this was done by <b>@anom0ly</b>. Thanks a lot for your contribution!
+26-05-2017 - Mistweaver Monk: Added the remaining MW spells / abilities known as of now. Removed UT Usage issue, as this is going away in 7.2.5. Updated CPM Module to give a better understanding of MW Monk Spells. Incorporated TFT -> Viv usage in UT Proc calculations. All of this was done by <b>@anomoly</b>. Thanks a lot for your contribution!
 26-05-2017 - Resto Druid: Added Non healing time and dead GCD.
 26-05-2017 - Resto Druid: Added Chameleon Song legendary analyzer. Also added additional information on tree of life tool tip.
 25-05-2017 - Resto Druid: Added support for T20.
