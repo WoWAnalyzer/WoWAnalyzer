@@ -29,6 +29,7 @@ Fight.propTypes = {
   boss: PropTypes.number.isRequired,
   start_time: PropTypes.number.isRequired,
   end_time: PropTypes.number.isRequired,
+  wipes: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   kill: PropTypes.bool.isRequired,
 };

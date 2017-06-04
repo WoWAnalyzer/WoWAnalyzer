@@ -29,7 +29,7 @@ class Cooldown extends React.Component {
   static propTypes = {
     fightStart: PropTypes.number.isRequired,
     fightEnd: PropTypes.number.isRequired,
-    ShowStatistics: PropTypes.bool,
+    showOutputStatistics: PropTypes.bool,
     showResourceStatistics: PropTypes.bool,
     cooldown: PropTypes.shape({
       ability: PropTypes.shape({

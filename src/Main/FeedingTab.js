@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 //import Toggle from 'react-toggle';
 
 import SPELLS from 'common/SPELLS';
@@ -22,6 +23,10 @@ function formatNumber(number) {
 }
 
 class FeedingTab extends React.Component {
+  static propTypes = {
+    cooldownTracker: PropTypes.object,
+  };
+
   constructor() {
     super();
     this.state = {

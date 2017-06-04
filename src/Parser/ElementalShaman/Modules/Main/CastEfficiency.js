@@ -1,5 +1,6 @@
 // Based on Main/CastEfficiency.js
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
@@ -57,13 +58,14 @@ const CastEfficiency = ({ categories, abilities }) => {
   );
 };
 CastEfficiency.propTypes = {
-  abilities: React.PropTypes.arrayOf(React.PropTypes.shape({
-    ability: React.PropTypes.shape({
-      name: React.PropTypes.string.isRequired,
-      category: React.PropTypes.string.isRequired,
-      spellId: React.PropTypes.number.isRequired,
+  abilities: PropTypes.arrayOf(PropTypes.shape({
+    ability: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      category: PropTypes.string.isRequired,
+      spellId: PropTypes.number.isRequired,
     }).isRequired,
   })).isRequired,
+  categories: PropTypes.array,
 };
 
 export default CastEfficiency;

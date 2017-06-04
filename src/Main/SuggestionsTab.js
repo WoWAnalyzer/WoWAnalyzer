@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Toggle from 'react-toggle';
 import 'react-toggle/style.css';
 
@@ -9,6 +10,10 @@ import Icon from 'common/Icon';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 class SuggestionsTab extends React.Component {
+  static propTypes = {
+    issues: PropTypes.array,
+  };
+
   constructor() {
     super();
     this.state = {

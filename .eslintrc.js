@@ -3,12 +3,12 @@ module.exports = {
   "rules": {
     "comma-dangle": ["warn", "always-multiline"],
 
-    // Semicolons
+    // Semicolons:
     'no-extra-semi': 'warn',
     semi: ['warn', 'always'],
     'semi-spacing': ['warn', { before: false, after: true }],
 
-    // suggest using of const declaration for variables that are never modified after declared
+    // Vars:
     'no-var': 'warn',
     'prefer-const': ['warn', {
       destructuring: 'any',
@@ -16,5 +16,13 @@ module.exports = {
     }],
     'one-var': ['warn', 'never'],
     'one-var-declaration-per-line': ['warn', 'always'],
+
+    // PropTypes:
+    'react/prop-types': ['warn', { ignore: [], customValidators: [] }],
+    'react/no-unused-prop-types': ['warn', {
+      customValidators: [
+      ],
+      skipShapeProps: true,
+    }],
   },
 };

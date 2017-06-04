@@ -6,6 +6,7 @@ class Results extends React.Component {
   static propTypes = {
     parser: PropTypes.object.isRequired,
     tab: PropTypes.string,
+    onChangeTab: PropTypes.func.isRequired,
   };
 
   render() {
