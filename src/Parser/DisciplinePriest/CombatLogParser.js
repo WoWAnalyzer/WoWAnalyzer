@@ -29,6 +29,7 @@ import AbilityTracker from './Modules/Core/AbilityTracker';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownTracker from './Modules/Features/CooldownTracker';
 import PowerWordShieldWasted from './Modules/Features/PowerWordShieldWasted';
+import AtonementDamageSource from './Modules/Features/AtonementDamageSource';
 
 import DrapeOfShame from './Modules/Items/DrapeOfShame';
 import Velens from './Modules/Items/Velens';
@@ -76,6 +77,7 @@ class CombatLogParser extends MainCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     cooldownTracker: CooldownTracker,
     powerWordShieldWasted: PowerWordShieldWasted,
+    atonementDamageSource: AtonementDamageSource,
 
     // Items:
     drapeOfShame: DrapeOfShame,
@@ -293,7 +295,7 @@ class CombatLogParser extends MainCombatLogParser {
         icon: <ItemIcon id={ITEMS.NERO_BAND_OF_PROMISES.id} />,
         title: <ItemLink id={ITEMS.NERO_BAND_OF_PROMISES.id} />,
         result: (
-          <dfn data-tip={`The actual effective healing contributed by the Xalan the Feared's Clench equip effect. The healing gain counts as Atonement healing and does NOT stack with existing Atonements.`}>
+          <dfn data-tip={`The healing gain from Penance damage on players without without Atonement during the Power Word: Barrier buff.`}>
             {((this.modules.neroBandOfPromises.healing / this.totalHealing * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.neroBandOfPromises.healing / fightDuration * 1000)} HPS
           </dfn>
         ),

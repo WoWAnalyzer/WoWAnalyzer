@@ -5,15 +5,18 @@ class AtonementDamageSource extends Module {
 
   get event() {
     return this._previousDamageEvent;
-  };
+  }
 
   get spell() {
-    return this._previousDamageEvent.ability
+    return this._previousDamageEvent.ability;
   }
 
   on_byPlayer_damage(event) {
+    if (event.ability.guid === 81751) {
+      return;
+    }
     this._previousDamageEvent = event;
-  };
-};
+  }
+}
 
 export default AtonementDamageSource;
