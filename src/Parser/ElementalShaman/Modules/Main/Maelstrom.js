@@ -1,6 +1,7 @@
 // Based on Main/Mana.js
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import ChartistGraph from 'react-chartist';
 import Chartist from 'chartist';
 import 'chartist-plugin-legend';
@@ -23,10 +24,10 @@ const formatDuration = (duration) => {
 
 class Maelstrom extends React.PureComponent {
   static propTypes = {
-    reportCode: React.PropTypes.string.isRequired,
-    actorId: React.PropTypes.number.isRequired,
-    start: React.PropTypes.number.isRequired,
-    end: React.PropTypes.number.isRequired,
+    reportCode: PropTypes.string.isRequired,
+    actorId: PropTypes.number.isRequired,
+    start: PropTypes.number.isRequired,
+    end: PropTypes.number.isRequired,
   };
 
   constructor() {
