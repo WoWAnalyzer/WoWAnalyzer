@@ -136,7 +136,7 @@ export default {
   ATONEMENT_BUFF: {
     id: 194384,
     name: 'Atonement',
-    icon: 'ability_priest_atonement'
+    icon: 'ability_priest_atonement',
   },
   HALO_HEAL: {
     id: 120692,
