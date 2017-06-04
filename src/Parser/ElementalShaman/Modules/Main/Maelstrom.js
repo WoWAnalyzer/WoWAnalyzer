@@ -7,14 +7,13 @@ import 'chartist-plugin-legend';
 
 import SPELLS from 'common/SPELLS';
 
-import CastEfficiency from './CastEfficiency';
-
+import WCL_API_KEY from 'Main/WCL_API_KEY';
 import specialEventIndicators from 'Main/Chartist/specialEventIndicators';
 // import tooltips from './Chartist/toolips';
 
-import WCL_API_KEY from 'Main/WCL_API_KEY';
-
 import 'Main/Mana.css';
+
+import CastEfficiency from './CastEfficiency';
 import './Maelstrom.css';
 
 const formatDuration = (duration) => {

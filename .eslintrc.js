@@ -24,5 +24,8 @@ module.exports = {
       ],
       skipShapeProps: true,
     }],
+
+    // Imports:
+    'import/first': ['warn', 'absolute-first'],
   },
 };

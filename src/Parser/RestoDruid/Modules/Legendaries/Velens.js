@@ -1,8 +1,9 @@
 import ITEMS from 'common/ITEMS';
 
 import Module from 'Parser/Core/Module';
-import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
+
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
 
 export const VELENS_ITEM_ID = 144258;
 export const LEGENDARY_VELENS_BUFF_SPELL_ID = 235966;
