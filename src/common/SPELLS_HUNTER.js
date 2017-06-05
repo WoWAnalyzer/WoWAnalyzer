@@ -97,6 +97,25 @@ export default {
     name: 'Camouflage',
     icon: 'ability_hunter_camouflage',
   },
+  // Tier 6
+  A_MURDER_OF_CROWS_TALENT: {
+    id: 131894,
+    name: 'A Murder of Crows',
+    icon: 'ability_hunter_murderofcrows',
+    description: 'The best choice for pure single-target encounters or encounters where you can use it to burst down single, important targets',
+  },
+  BARRAGE_TALENT: {
+    id: 120360,
+    name: 'Barrage',
+    icon: 'ability_hunter_rapidregeneration',
+    description: 'Currently the strongest choice in this tier for encounters with <em>a lot</em> of <strong>spread AoE</strong>. It has been <strong><u><em>significantly nerfed on single-target and is now no longer worth using for it at all</em></u></strong>, with Volley providing better single-target and AoE, albeit in a smaller area. It should be used on any fight where the AoE is VERY bursty and where single-target is not an issue, i.e. <strong>NO SUCH FIGHT IN CURRENT CONTENT</strong>.',
+  },
+  VOLLEY_TALENT: {
+    id: 194386,
+    name: 'Volley',
+    icon: 'ability_marksmanship',
+    description: 'Use for cleavy stuff. Does more AoE damage than <a href="http://www.wowhead.com/spell=120360/barrage" target="_blank">Barrage</a> but it requires enemies to be stacked on top of each other, which is not always the case. You should pick Volley for fights where you can reliably hit more than 1 target with it. It is very close to <a href="http://www.wowhead.com/spell=131894/a-murder-of-crows" target="_blank">A Murder of Crows</a> in terms of single-target, so it does not take much cleaving to pull ahead.',
+  },
   // Talents: Beast Mastery
   // Talents: Survival
   // Traits: Marksmanship
