@@ -25,9 +25,7 @@ const CPM_ABILITIES = [
     getCooldown: haste => 9 / (1 + haste),
     getCasts: castCount => castCount.casts - (castCount.raptureCasts || 0),
     getMaxCasts: (cooldown, fightDuration, getAbility, parser) => {
-      const raptureCasts = getAbility(SPELLS.RAPTURE.id);
-      const timeSpentInRapture = (raptureCasts.casts || 0) * getRaptureDuration(parser.selectedCombatant);
-
+      const timeSpentInRapture = parser.selectedCombatant.getBuffUptime(SPELLS.RAPTURE.id);
       const maxRegularCasts = calculateMaxCasts(cooldown, fightDuration - timeSpentInRapture);
 
       return maxRegularCasts;
@@ -40,11 +38,10 @@ const CPM_ABILITIES = [
     getCooldown: haste => 9 / (1 + haste),
     getCasts: castCount => castCount.raptureCasts || 0,
     getMaxCasts: (cooldown, fightDuration, getAbility, parser) => {
-      const raptureCastCount = getAbility(SPELLS.RAPTURE.id);
-
       const gcd = 1.5 / (1 + parser.selectedCombatant.hastePercentage);
+      const timeSpentInRapture = parser.selectedCombatant.getBuffUptime(SPELLS.RAPTURE.id);
 
-      const maxRaptureCasts = calculateMaxCasts(gcd, getRaptureDuration(parser.selectedCombatant)) * (raptureCastCount.casts || 0);
+      const maxRaptureCasts = calculateMaxCasts(gcd, timeSpentInRapture);
 
       return maxRaptureCasts;
     },
