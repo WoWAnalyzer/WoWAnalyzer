@@ -4,6 +4,7 @@ export default {
   // Spec: Beast Mastery
   // Spec: Survival
   // Talents: Marksmanship
+  // Tier 1
   LONE_WOLF_TALENT: {
     id: 155228,
     name: 'Lone Wolf',
@@ -22,6 +23,7 @@ export default {
     icon: 'ability_hunter_zenarchery',
     description: 'Vastly inferior choice to <a href="http://www.wowhead.com/spell=155228/lone-wolf" target="_blank">Lone Wolf</a>.',
   },
+  // Tier 2
   LOCK_AND_LOAD_TALENT: {
     id: 194595,
     name: 'Lock and Load',
@@ -39,6 +41,25 @@ export default {
     name: 'True Aim',
     icon: 'spell_hunter_focusingshot',
     description: 'The best pure single-target option by a fair bit, but only really when combined with the level 100 talent <a href="http://www.wowhead.com/spell=199522/trick-shot" target="_blank">Trick Shot</a> on a pure single-target, as they add together to vastly increase Aimed Shot damage. When not using <a href="http://www.wowhead.com/spell=199522/trick-shot" target="_blank">Trick Shot</a>, <a href="http://www.wowhead.com/spell=194595/lock-and-load" target="_blank">Lock and Load</a> is always the best choice. NOTE: <a href="http://www.wowhead.com/spell=199527/true-aim" target="_blank">True Aim</a> cannot be used together with <a href="http://www.wowhead.com/spell=199522/trick-shot" target="_blank">Trick Shot</a> for situations where you will be making use of <a href="http://www.wowhead.com/spell=199522/trick-shot" target="_blank">Trick Shot</a>\'s ability to cleave, since the AoE-Aimed Shots that <a href="http://www.wowhead.com/spell=199522/trick-shot" target="_blank">Trick Shot</a> causes will cancel out <a href="http://www.wowhead.com/spell=199527/true-aim" target="_blank">True Aim</a>\'s beneficial effect on a single target, as it will constantly reproc on different targets.',
+  },
+  // Tier 3
+  POSTHASTE_TALENT: {
+    id: 109215,
+    name: 'Posthaste',
+    icon: 'ability_hunter_posthaste',
+    description: 'Default choice as it will make you much better at covering long distances on a regular basis.',
+  },
+  FARSTRIDER_TALENT: {
+    id: 199523,
+    name: 'Farstrider',
+    icon: 'ability_hunter_pet_chimera',
+    description: 'You can use this if you never have to move more than the distance a single Posthaste Icon Posthaste will take you.',
+  },
+  TRAILBLAZER_TALENT: {
+    id: 199921,
+    name: 'Trailblazer',
+    icon: 'ability_hunter_aspectmastery',
+    description: 'Only really worth using for non-mounted periods where you will be moving between combat zones for a long time. There is a conceivably use for it for Survival in dungeons, since the spec does not have a lot of mobility when running between packs besides its <a href="http://www.wowhead.com/spell=190925/harpoon" target="_blank">Harpoon</a> ability.',
   },
   // Talents: Beast Mastery
   // Talents: Survival
