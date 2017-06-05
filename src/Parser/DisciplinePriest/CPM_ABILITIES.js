@@ -8,8 +8,6 @@ export const SPELL_CATEGORY = {
   OTHERS: 'Spell',
   UTILITY: 'Utility',
 };
-const RAPTURE_BASE_DURATION = 8000;
-const getRaptureDuration = combatant => RAPTURE_BASE_DURATION + (combatant.traitsBySpellId[SPELLS.DOOMSAYER.id] || 0) * 1000;
 
 const CPM_ABILITIES = [
   {
