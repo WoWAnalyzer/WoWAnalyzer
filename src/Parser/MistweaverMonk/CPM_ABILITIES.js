@@ -124,10 +124,43 @@ const CPM_ABILITIES = [
   // Utility Spells
   {
     spell: SPELLS.ARCANE_TORRENT,
-    category: SPELL_CATEGORY.COOLDOWNS,
+    category: SPELL_CATEGORY.UTILITY,
     getCooldown: haste => 90,
     hideWithZeroCasts: true,
   },
+  {
+    spell: SPELLS.DIFFUSE_MAGIC_TALENT,
+    category: SPELL_CATEGORY.UTILITY,
+    getCooldown: haste => 90,
+    isActive: combatant => combatant.hasTalent(SPELLS.DIFFUSE_MAGIC_TALENT.id),
+    noSuggestion: true,
+    noCanBeImproved: true,
+  },
+  {
+    spell: SPELLS.DAMPEN_HARM_TALENT,
+    category: SPELL_CATEGORY.UTILITY,
+    getCooldown: haste => 120,
+    isActive: combatant => combatant.hasTalent(SPELLS.DAMPEN_HARM_TALENT.id),
+    noSuggestion: true,
+    noCanBeImproved: true,
+  },
+  {
+    spell: SPELLS.FORTIFYING_BREW,
+    category: SPELL_CATEGORY.UTILITY,
+    getCooldown: haste => 90,
+    noSuggestion: true,
+    noCanBeImproved: true,
+  },
+  {
+    spell: SPELLS.HEALING_ELIXIR_TALENT,
+    category: SPELL_CATEGORY.UTILITY,
+    charges: 2,
+    getCooldown: haste => 30,
+    isActive: combatant => combatant.hasTalent(SPELLS.HEALING_ELIXIR_TALENT.id),
+    noSuggestion: true,
+    noCanBeImproved: true,
+  },
+
 ];
 
 export default CPM_ABILITIES;
