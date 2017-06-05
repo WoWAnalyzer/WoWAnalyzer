@@ -255,7 +255,7 @@ export default {
     id: 122281,
     name: 'Healing Elixir',
     icon: 'ability_monk_jasmineforcetea',
-    description: 'Healing Elixir, with two charges and a 30-second cooldown, you will want to use this often to save your and other healers\' mana. This can be a great default choice for any situation, however by taking it you leave yourself with no personal damage reduction cooldown.',
+    description: 'Healing Elixir, with two charges and a 30-second cooldown, you will want to use this often to save your and other healers\' mana. This can be a great default choice for any situation.',
   },
   DIFFUSE_MAGIC_TALENT: {
     id: 122783,
