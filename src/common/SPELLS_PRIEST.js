@@ -316,4 +316,9 @@ export default {
     name: 'Pain is in Your Mind',
     icon: 'spell_holy_painsupression',
   },
+  DOOMSAYER: {
+    id: 197727,
+    name: 'Doomsayer',
+    icon: 'spell_holy_rapture',
+  },
 };

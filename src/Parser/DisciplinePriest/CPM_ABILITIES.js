@@ -8,7 +8,8 @@ export const SPELL_CATEGORY = {
   OTHERS: 'Spell',
   UTILITY: 'Utility',
 };
-const RAPTURE_DURATION = 8000;
+const RAPTURE_BASE_DURATION = 8000;
+const getRaptureDuration = combatant => RAPTURE_BASE_DURATION + (combatant.traitsBySpellId[SPELLS.DOOMSAYER.id] || 0) * 1000;
 
 const CPM_ABILITIES = [
   {
@@ -25,7 +26,7 @@ const CPM_ABILITIES = [
     getCasts: castCount => castCount.casts - (castCount.raptureCasts || 0),
     getMaxCasts: (cooldown, fightDuration, getAbility, parser) => {
       const raptureCasts = getAbility(SPELLS.RAPTURE.id);
-      const timeSpentInRapture = (raptureCasts.casts || 0) * RAPTURE_DURATION;
+      const timeSpentInRapture = (raptureCasts.casts || 0) * getRaptureDuration(parser.selectedCombatant);
 
       const maxRegularCasts = calculateMaxCasts(cooldown, fightDuration - timeSpentInRapture);
 
@@ -43,7 +44,7 @@ const CPM_ABILITIES = [
 
       const gcd = 1.5 / (1 + parser.selectedCombatant.hastePercentage);
 
-      const maxRaptureCasts = calculateMaxCasts(gcd, RAPTURE_DURATION) * (raptureCastCount.casts || 0);
+      const maxRaptureCasts = calculateMaxCasts(gcd, getRaptureDuration(parser.selectedCombatant)) * (raptureCastCount.casts || 0);
 
       return maxRaptureCasts;
     },
