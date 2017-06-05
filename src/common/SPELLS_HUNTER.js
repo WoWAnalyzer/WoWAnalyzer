@@ -116,6 +116,25 @@ export default {
     icon: 'ability_marksmanship',
     description: 'Use for cleavy stuff. Does more AoE damage than <a href="http://www.wowhead.com/spell=120360/barrage" target="_blank">Barrage</a> but it requires enemies to be stacked on top of each other, which is not always the case. You should pick Volley for fights where you can reliably hit more than 1 target with it. It is very close to <a href="http://www.wowhead.com/spell=131894/a-murder-of-crows" target="_blank">A Murder of Crows</a> in terms of single-target, so it does not take much cleaving to pull ahead.',
   },
+  // Tier 7
+  SIDEWINDERS_TALENT: {
+    id: 214579,
+    name: 'Sidewinders',
+    icon: 'ability_hunter_serpentswiftness',
+    description: '<strong><u>DO NOT USE IN NIGHTHOLD</u></strong> Provides a healthy medium of automatic AoE and good single-target, but its main "strength" that the others do not possess is spread AoE without losing meaningful single-target, which is particularly useful for Odyn and Helya where you are required to do multi-target damage over long distances. Another very genuine benefit of the talent is that it is much, much easier to play in both single- and multi-target situations, and many Hunters have gotten used to the talent for the first 6 months of Legion content.',
+  },
+  PIERCING_SHOT_TALENT: {
+    id: 198670,
+    name: 'Piercing Shot',
+    icon: 'ability_cheapshot',
+    description: 'Best choice of AoE talent and it is only slightly worse <a href="http://www.wowhead.com/spell=199522/trick-shot" target="_blank">Trick Shot</a> than for pure single-target, and much more mobile, making it the default choice for most raiding encounters. Whenever you can hit multiple targets with it reliably, you should choose it unless you have <a href="http://www.wowhead.com/item=137081/war-belt-of-the-sentinel-army" target="_blank">War Belt of the Sentinel Army</a> which is a massive buff to <a href="http://www.wowhead.com/spell=199522/trick-shot" target="_blank">Trick Shot</a>. Together with <a href="http://www.wowhead.com/spell=212431/explosive-shot" target="_blank">Explosive Shot</a> constitutes what is known in the community as the "meme build". It is extremely powerful for multi-target situations of all kinds, and it is much more mobile than Trick Shot builds.',
+  },
+  TRICK_SHOT_TALENT: {
+    id: 199522,
+    name: 'Trick Shot',
+    icon: 'ability_hunter_runningshot',
+    description: 'Provides the best single-target, and powerful stacked AoE. With the <a href="http://www.wowhead.com/item=137081/war-belt-of-the-sentinel-army" target="_blank">War Belt of the Sentinel Army</a> especially, it is extremely powerful for cleave, but it is not very bursty outside <a href="http://www.wowhead.com/spell=193526/trueshot" target="_blank">Trueshot</a>. It is the default choice with the belt, but should only be used without the belt for pure single-target encounters.',
+  },
   // Talents: Beast Mastery
   // Talents: Survival
   // Traits: Marksmanship
