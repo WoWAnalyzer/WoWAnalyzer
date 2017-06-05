@@ -80,6 +80,23 @@ export default {
     icon: 'ability_hunter_snipertraining',
     description: 'The best pure/primarily single-target choice.',
   },
+  // Tier 5
+  BINDING_SHOT_TALENT: {
+    id: 109248,
+    name: 'Binding Shot',
+    icon: 'spell_shaman_bindelemental',
+    description: 'Should generally be your default choice. It can bring some raid utility, as it can be used as a reliable stun for fights with adds. It can also be used as an interrupt, since placing it so that the add is at the edge of the targeted area will instantly stun it, regardless of whether or not it moves.',
+  },
+  WYVERN_STING_TALENT: {
+    id: 19386,
+    name: 'Wyvern Sting',
+    icon: 'inv_spear_02',
+  },
+  CAMOUFLAGE_TALENT: {
+    id: 199483,
+    name: 'Camouflage',
+    icon: 'ability_hunter_camouflage',
+  },
   // Talents: Beast Mastery
   // Talents: Survival
   // Traits: Marksmanship
