@@ -1,3 +1,5 @@
+import SPELLS from 'Common/SPELLS';
+
 import Module from 'Parser/Core/Module';
 
 class AtonementDamageSource extends Module {
@@ -12,7 +14,8 @@ class AtonementDamageSource extends Module {
   }
 
   on_byPlayer_damage(event) {
-    if (event.ability.guid === 81751) {
+    // Some Atonement events have the type 'damage', this prevents them registering as a source
+    if (event.ability.guid === SPELLS.ATONEMENT_HEAL_NON_CRIT.id) {
       return;
     }
     this._previousDamageEvent = event;
