@@ -61,6 +61,25 @@ export default {
     icon: 'ability_hunter_aspectmastery',
     description: 'Only really worth using for non-mounted periods where you will be moving between combat zones for a long time. There is a conceivably use for it for Survival in dungeons, since the spec does not have a lot of mobility when running between packs besides its <a href="http://www.wowhead.com/spell=190925/harpoon" target="_blank">Harpoon</a> ability.',
   },
+  // Tier 4
+  EXPLOSIVE_SHOT_TALENT: {
+    id: 212431,
+    name: 'Explosive Shot',
+    icon: 'ability_hunter_explosiveshot',
+    description: 'Together with <a href="http://www.wowhead.com/spell=198670/piercing-shot" target="_blank">Piercing Shot</a> constitutes what is known in the community as the "meme build". It is extremely powerful for multi-target situations of all kinds, and it is much more mobile than Trick Shot builds. Great whenever you can reliably hit more than 1 target/use its burst AoE.',
+  },
+  SENTINEL_TALENT: {
+    id: 206817,
+    name: 'Sentinel',
+    icon: 'spell_nature_sentinal',
+    description: 'Not worth choosing in any situation.',
+  },
+  PATIENT_SNIPER_TALENT: {
+    id: 234588,
+    name: 'Patient Sniper',
+    icon: 'ability_hunter_snipertraining',
+    description: 'The best pure/primarily single-target choice.',
+  },
   // Talents: Beast Mastery
   // Talents: Survival
   // Traits: Marksmanship
