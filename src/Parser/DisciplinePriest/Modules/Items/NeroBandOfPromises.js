@@ -24,12 +24,12 @@ class NeroBandOfPromises extends Module {
         debug && console.log('Skipping Atonement heal event since combatant couldn\'t be found:', event);
         return;
       }
-      if (!combatant.hasBuff(SPELLS.POWER_WORD_BARRIER_BUFF.id, event.timestamp)) {
-        // N'ero is only active when people are in the bubble
-        return;
-      }
       if (combatant.hasBuff(SPELLS.ATONEMENT_BUFF.id, event.timestamp)) {
         // N'ero does NOT stack with pre-existing Atonement
+        return;
+      }
+      if (this.owner.modules.atonementDamageSource.spell.guid !== SPELLS.PENANCE.id) {
+        // N'ero only procs from Penance
         return;
       }
 

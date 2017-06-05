@@ -1,4 +1,5 @@
 export default `
+05-06-2017 - Discipline Priest: Fixed issue where critical atonement healing was not being counted, fixed Nero's Band of Promises being broken. (By Reglitch)
 05-06-2017 - Mistweaver Monk: Added utlity CDs to cast efficiency for tracking purposes. (by anomoly)
 04-06-2017 - Mistweaver Monk: Added Chi Burst healing tracking and suggestions. (by anomoly)
 04-06-2017 - Added basic <span class="Shaman">Elemental Shaman</span> support by <b>@fasib</b>.
