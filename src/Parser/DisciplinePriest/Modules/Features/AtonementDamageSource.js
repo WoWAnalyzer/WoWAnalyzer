@@ -1,4 +1,4 @@
-import SPELLS from 'Common/SPELLS';
+import SPELLS from 'common/SPELLS';
 
 import Module from 'Parser/Core/Module';
 
