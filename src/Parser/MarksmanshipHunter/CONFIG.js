@@ -1,4 +1,4 @@
-import SPECS from 'common/SPECS'
+import SPECS from 'common/SPECS';
 
 import CombatLogParser from './CombatLogParser';
 
