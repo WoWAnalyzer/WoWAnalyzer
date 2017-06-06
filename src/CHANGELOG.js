@@ -1,4 +1,5 @@
 export default `
+06-06-2017 - Added refresh button to fights list.
 05-06-2017 - Disc Priest: Fix Atonement duration in cast efficiency not accounting for the Doomsayer trait. (by Zerotorescue)
 05-06-2017 - Discipline Priest: Fixed issue where critical atonement healing was not being counted, fixed Nero's Band of Promises being broken. (By Reglitch)
 05-06-2017 - Mistweaver Monk: Added utlity CDs to cast efficiency for tracking purposes. (by anomoly)
