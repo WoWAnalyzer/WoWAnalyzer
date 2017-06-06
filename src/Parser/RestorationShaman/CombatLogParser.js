@@ -30,7 +30,6 @@ import HighTide from './Modules/Features/HighTide';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownTracker from './Modules/Features/CooldownTracker';
 
-
 import DrapeOfShame from './Modules/Legendaries/DrapeOfShame';
 import Velens from './Modules/Legendaries/Velens';
 import Nazjatar from './Modules/Legendaries/Nazjatar';
@@ -41,6 +40,8 @@ import Tidecallers from './Modules/Legendaries/Tidecallers';
 import Restoration_Shaman_T19_2Set from './Modules/Legendaries/T19_2Set';
 
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
+
+import UnusedTidalWavesImage from './Images/spell_shaman_tidalwaves-bw.jpg';
 
 function formatThousands(number) {
   return (Math.round(number || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
@@ -278,7 +279,7 @@ class CombatLogParser extends MainCombatLogParser {
       <StatisticBox
         icon={(
           <img
-            src="./img/healing.png"
+            src="/img/healing.png"
             style={{ border: 0 }}
             alt="Healing"
           />)}
@@ -311,7 +312,7 @@ class CombatLogParser extends MainCombatLogParser {
         icon={(
           <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id}>
             <img
-              src="./img/spell_shaman_tidalwaves-bw.jpg"
+              src={UnusedTidalWavesImage}
               alt="Unused Tidal Waves"
             />
           </SpellLink>

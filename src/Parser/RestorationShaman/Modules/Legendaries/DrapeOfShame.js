@@ -4,7 +4,7 @@ import ITEMS from 'common/ITEMS';
 import Module from 'Parser/Core/Module';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 
-import { ABILITIES_AFFECTED_BY_HEALING_INCREASES, BEACON_TRANSFER_SPELL_ID } from '../../Constants';
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
 
 export const DRAPE_OF_SHAME_CRIT_EFFECT = 0.05;
 
@@ -19,7 +19,7 @@ class DrapeOfShame extends Module {
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
-    if (ABILITIES_AFFECTED_BY_HEALING_INCREASES.indexOf(spellId) === -1 || spellId === BEACON_TRANSFER_SPELL_ID) {
+    if (ABILITIES_AFFECTED_BY_HEALING_INCREASES.indexOf(spellId) === -1 || spellId === SPELLS.BEACON_OF_LIGHT.id) {
       return;
     }
     if (event.hitType !== HIT_TYPES.CRIT) {
@@ -39,7 +39,7 @@ class DrapeOfShame extends Module {
   }
   on_beacon_heal({ beaconTransferEvent, matchedHeal: healEvent }) {
     const spellId = healEvent.ability.guid;
-    if (ABILITIES_AFFECTED_BY_HEALING_INCREASES.indexOf(spellId) === -1 || spellId === BEACON_TRANSFER_SPELL_ID) {
+    if (ABILITIES_AFFECTED_BY_HEALING_INCREASES.indexOf(spellId) === -1 || spellId === SPELLS.BEACON_OF_LIGHT.id) {
       return;
     }
     if (healEvent.hitType !== HIT_TYPES.CRIT) {

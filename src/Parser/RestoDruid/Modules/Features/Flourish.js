@@ -1,10 +1,6 @@
 import Module from 'Parser/Core/Module';
 import SPELLS from 'common/SPELLS';
 
-import {
-  SPRING_BLOSSMOS_HEAL_SPELL_ID,
-} from '../../Constants';
-
 const debug = false;
 
 class Flourish extends Module {
@@ -113,7 +109,7 @@ class Flourish extends Module {
       .map(player => this.owner.combatants.players[player])
       .forEach((player) => {
         if(this.hasSpringBlossoms) {
-          if(player.hasBuff(SPRING_BLOSSMOS_HEAL_SPELL_ID, event.timestamp, 0, 0) === true) {
+          if(player.hasBuff(SPELLS.SPRING_BLOSSOMS.id, event.timestamp, 0, 0) === true) {
               this.springBlossoms++;
           }
         }

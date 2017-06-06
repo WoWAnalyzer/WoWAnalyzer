@@ -45,6 +45,8 @@ import Tier20_4set from './Modules/Items/Tier20_4set';
 
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
 
+import UnusedInfusionOfLightImage from './Images/ability_paladin_infusionoflight-bw.jpg';
+
 function formatThousands(number) {
   return (Math.round(number || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
 }
@@ -399,10 +401,11 @@ class CombatLogParser extends MainCombatLogParser {
       <StatisticBox
         icon={(
           <img
-            src="./img/healing.png"
+            src="/img/healing.png"
             style={{ border: 0 }}
             alt="Healing"
-          />)}
+          />
+        )}
         value={`${formatNumber(this.totalHealing / fightDuration * 1000)} HPS`}
         label={(
           <dfn data-tip={`The total healing done recorded was ${formatThousands(this.totalHealing)}.`}>
@@ -413,7 +416,7 @@ class CombatLogParser extends MainCombatLogParser {
       <StatisticBox
         icon={(
           <img
-            src="./img/mastery-radius.png"
+            src="/img/mastery-radius.png"
             style={{ border: 0 }}
             alt="Mastery effectiveness"
           />
@@ -445,7 +448,7 @@ class CombatLogParser extends MainCombatLogParser {
         icon={(
           <SpellLink id={SPELLS.INFUSION_OF_LIGHT.id}>
             <img
-              src="./img/ability_paladin_infusionoflight-bw.jpg"
+              src={UnusedInfusionOfLightImage}
               alt="Unused Infusion of Light"
             />
           </SpellLink>

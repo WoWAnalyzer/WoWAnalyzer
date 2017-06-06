@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Router, Route, hashHistory } from 'react-router';
 
-import 'static/bootstrap/css/bootstrap.css';
+import './static/bootstrap/css/bootstrap.css';
 
 import App from './Main/App';
 

@@ -99,10 +99,11 @@ class CombatLogParser extends MainCombatLogParser {
       <StatisticBox
         icon={(
           <img
-            src="./img/healing.png"
+            src="/img/healing.png"
             style={{ border: 0 }}
             alt="Damage"
-          />)}
+          />
+        )}
         value={formatThousands(this.totalDamage)}
         label="Damage done"
       />,

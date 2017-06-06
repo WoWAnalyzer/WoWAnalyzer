@@ -157,7 +157,7 @@ class CombatLogParser extends MainCombatLogParser {
       <StatisticBox
         icon={(
           <img
-            src="./img/healing.png"
+            src="/img/healing.png"
             style={{ border: 0 }}
             alt="Healing"
           />)}

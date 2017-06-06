@@ -18,6 +18,8 @@ import makeWclUrl from './makeWclUrl';
 import makeAnalyzerUrl from './makeAnalyzerUrl';
 import getWipeCount from './getWipeCount';
 
+import GithubLogo from './Images/GitHub-Mark-Light-32px.png';
+
 const formatDuration = (duration) => {
   const seconds = Math.floor(duration % 60);
   return `${Math.floor(duration / 60)}:${seconds < 10 ? `0${seconds}` : seconds}`;
@@ -301,13 +303,15 @@ class App extends Component {
 
     const progress = Math.floor(this.state.progress * 100);
 
+    console.log(makeWclUrl('test'));
+
     return (
       <div>
         <nav className="navbar navbar-default">
           <div className="navbar-progress" style={{ width: `${progress}%`, opacity: progress === 0 || progress === 100 ? 0 : 1 }} />
           <div className="container">
             <ul className="nav navbar-nav navbar-right">
-              <li><a href={githubUrl}><span className="hidden-xs"> View on GitHub </span><img src="./img/GitHub-Mark-Light-32px.png" alt="GitHub logo" /></a></li>
+              <li><a href={githubUrl}><span className="hidden-xs"> View on GitHub </span><img src={GithubLogo} alt="GitHub logo" /></a></li>
             </ul>
 
             <div className="navbar-header">
