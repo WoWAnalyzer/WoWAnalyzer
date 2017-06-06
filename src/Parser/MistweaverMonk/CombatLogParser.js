@@ -264,7 +264,7 @@ class CombatLogParser extends MainCombatLogParser {
     // Chi Burst Usage
     if(this.modules.chiBurst.active && avgChiBurstTargets < 15) {
       results.addIssue({
-        issue: <span>You are not utilizing your <a href="http://www.wowhead.com/spell=123986" target="_blank">Chi Burst</a> talent as effectively as you should.  You hit an average of {avgChiBurstTargets} targets per Chi Burst cast.  Look to better position yourself during your your Chi Burst casts to get the most use out of the spell.  ({((chiBurstHealing / this.modules.chiBurst.castChiBurst) / 1000).toFixed(1)} k avg healing per cast.)</span>,
+        issue: <span>You are not utilizing your <a href="http://www.wowhead.com/spell=123986" target="_blank">Chi Burst</a> talent as effectively as you should.  You hit an average of {avgChiBurstTargets.toFixed(2)} targets per Chi Burst cast.  Look to better position yourself during your your Chi Burst casts to get the most use out of the spell.  ({((chiBurstHealing / this.modules.chiBurst.castChiBurst) / 1000).toFixed(1)}k avg healing per cast.)</span>,
         icon: SPELLS.CHI_BURST_TALENT.icon,
         importance: getIssueImportance(avgChiBurstTargets, 12, 9),
       });
@@ -310,7 +310,7 @@ class CombatLogParser extends MainCombatLogParser {
       // Thunder Focus Tea Usage
       <StatisticBox
         icon={<SpellIcon id={SPELLS.THUNDER_FOCUS_TEA.id} />}
-        value={`${this.modules.thunderFocusTea.castsTft} Uses`}
+        value={`${this.modules.thunderFocusTea.castsTft}`}
         label={(
           <dfn data-tip={`With your ${this.modules.thunderFocusTea.castsTft} Thunder Focus Tea casts, you buffed the following spells:
             <ul>
@@ -336,17 +336,17 @@ class CombatLogParser extends MainCombatLogParser {
               }
             </ul>
             `}>
-            Total Thunder Focus Tea casts
+            Total casts
           </dfn>
         )}
       />,
       // UT Proc Usage
       <StatisticBox
         icon={<SpellIcon id={SPELLS.UPLIFTING_TRANCE_BUFF.id} />}
-        value={`${formatPercentage(unusedUTProcs)} %`}
+        value={`${formatPercentage(unusedUTProcs)}%`}
         label={(
           <dfn data-tip={`You got total <b>${this.modules.upliftingTrance.UTProcsTotal} uplifting trance procs</b> and <b>used ${this.modules.upliftingTrance.consumedUTProc}</b> of them. ${this.modules.upliftingTrance.nonUTVivify} of your vivify's were used without an uplifting trance procs.`}>
-            Unused Uplifting Trance Pocs
+            Unused Procs
           </dfn>
         )}
       />,
@@ -354,7 +354,7 @@ class CombatLogParser extends MainCombatLogParser {
       this.modules.manaTea.active && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.MANA_TEA_TALENT.id} />}
-          value={`${((avgMTsaves) / 1000).toFixed(0)}k mana`}
+          value={`${formatNumber(avgMTsaves)}`}
           label={(
             <dfn
               data-tip={`
@@ -376,7 +376,7 @@ class CombatLogParser extends MainCombatLogParser {
                   <li>${(this.modules.manaTea.nonManaCasts)} non-mana casts during Mana Tea</li>
               </ul>`}
             >
-              Average mana saved per Mana Tea
+              Average mana saved
             </dfn>
           )}
         />
@@ -385,7 +385,7 @@ class CombatLogParser extends MainCombatLogParser {
       hasLifecycles && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.LIFECYCLES_TALENT.id} />}
-          value={`${(this.modules.manaSavingTalents.manaSaved / 1000).toFixed(0)}k mana saved `}
+          value={`${formatNumber(this.modules.manaSavingTalents.manaSaved)}`}
           label={(
             <dfn data-tip={`You saved a total of ${this.modules.manaSavingTalents.manaSaved} from the Lifecycles talent.
               <ul><li>On ${this.modules.manaSavingTalents.castsRedViv} Vivify casts, you saved ${(this.modules.manaSavingTalents.manaSavedViv / 1000).toFixed(0)}k mana. (${formatPercentage(this.modules.manaSavingTalents.castsRedViv / (this.modules.manaSavingTalents.castsRedViv + this.modules.manaSavingTalents.castsNonRedViv))}%)</li>
@@ -393,7 +393,7 @@ class CombatLogParser extends MainCombatLogParser {
               <li>You casted ${this.modules.manaSavingTalents.castsNonRedViv} Vivify's and ${this.modules.manaSavingTalents.castsNonRedEnm} Enveloping Mists at full mana.</li>
               </ul>
               `}>
-              Mana Saved from Lifecycles
+              Mana Saved
             </dfn>
           )}
         />
@@ -402,7 +402,7 @@ class CombatLogParser extends MainCombatLogParser {
       hasSotC && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id} />}
-          value={`${(this.modules.manaSavingTalents.manaReturnSotc / 1000).toFixed(0)}k mana returned`}
+          value={`${formatNumber(this.modules.manaSavingTalents.manaReturnSotc)}`}
           label={(
             <dfn data-tip={`
                 You gained a raw total of ${((this.modules.manaSavingTalents.manaReturnSotc + this.modules.manaSavingTalents.sotcWasted) / 1000).toFixed(0)}k mana from SotC with ${(this.modules.manaSavingTalents.sotcWasted / 1000).toFixed(0)}k wasted.<br>
@@ -418,17 +418,17 @@ class CombatLogParser extends MainCombatLogParser {
                 }
               </ul>
               `}>
-              Mana Returned from Spirit of the Crane
+              Mana Returned
             </dfn>
           )}
         />
       ),
-      // Wasted SG Stacks
+      // Average SG Stacks
       <StatisticBox
         icon={<SpellIcon id={SPELLS.SHEILUNS_GIFT.id} />}
-        value={`${(avgSGstacks).toFixed(0)} Stacks`}
+        value={`${(avgSGstacks).toFixed(0)}`}
         label={(
-          <dfn data-tip={`${SGcasts > 0 ? `You healed for an average of ${((this.modules.sheilunsGift.sgHeal / this.modules.sheilunsGift.castsSG) / 1000).toFixed(0)}k with each Sheilun's cast.` : ""}
+          <dfn data-tip={`${SGcasts > 0 ? `You healed for an average of ${formatNumber(this.modules.sheilunsGift.sgHeal / this.modules.sheilunsGift.castsSG)} with each Sheilun's cast.` : ""}
             ${wastedSGStacks > 0 ? `<br>You wasted ${(wastedSGStacks)} stack(s) during this fight.` : ""}
             `}>
             Avg stacks used
@@ -439,10 +439,10 @@ class CombatLogParser extends MainCombatLogParser {
       hasWhispersOfShaohao && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.WHISPERS_OF_SHAOHAO.id} />}
-          value={`${(missedWhispersHeal)} missed`}
+          value={`${(missedWhispersHeal)}`}
           label={(
             <dfn data-tip={`You had a total of ${(this.modules.sheilunsGift.countWhispersHeal)} Whispers of Shaohao heals, but had a chance at ${(missedWhispersHeal)} additional heals.`}>
-              Total Whispers of Shaohao Heals Missed
+              Total Heals Missed
             </dfn>
           )}
         />
@@ -452,10 +452,10 @@ class CombatLogParser extends MainCombatLogParser {
       hasCelestialBreath && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.CELESTIAL_BREATH_TRAIT.id} />}
-          value={`${((avgCelestialBreathHealing) / 1000).toFixed(0)} k`}
+          value={`${formatNumber(avgCelestialBreathHealing)}`}
           label={(
             <dfn data-tip={`You healed an average of ${avgCelestialBreathTargets.toFixed(2)} targets per Celestial Breath cast over your ${this.modules.aoeHealingTracker.procsCelestialBreath} casts.`}>
-              Average Celestial Breath Healing
+              Average Healing
             </dfn>
           )}
         />
@@ -464,10 +464,10 @@ class CombatLogParser extends MainCombatLogParser {
       hasMistsOfSheilun && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.MISTS_OF_SHEILUN_TRAIT.id} />}
-          value={`${((avgMistsOfSheilunHealing) / 1000).toFixed(0)} k`}
+          value={`${formatNumber(avgMistsOfSheilunHealing)}`}
           label={(
             <dfn data-tip={`You healed an average of ${(avgMistsOfSheilunTargets).toFixed(2)} targets per Mists of Sheilun proc over your ${this.modules.aoeHealingTracker.procsMistsOfSheilun} procs.`}>
-              Average Mists of Sheilun Healing
+              Average Healing
             </dfn>
           )}
         />
@@ -476,10 +476,10 @@ class CombatLogParser extends MainCombatLogParser {
       hasRJW && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.REFRESHING_JADE_WIND_TALENT.id} />}
-          value={`${((avgRJWHealing) / 1000).toFixed(0)} k`}
+          value={`${formatNumber(avgRJWHealing)}`}
           label={(
             <dfn data-tip={`You hit a total of ${this.modules.aoeHealingTracker.healsRJW} targets with Refreshing Jade Wind on ${this.modules.aoeHealingTracker.castRJW} casts. (${(avgRJWTargets).toFixed(1)} Average Targets Hit per Cast.)`}>
-              Average Refreshing Jade Wind Healing
+              Average Healing
             </dfn>
           )}
         />
@@ -488,10 +488,10 @@ class CombatLogParser extends MainCombatLogParser {
       this.modules.renewingMist.active && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.DANCING_MISTS.id} />}
-          value={`${(this.modules.renewingMist.dancingMistHeal / 1000).toFixed(0)} k`}
+          value={`${formatNumber(this.modules.renewingMist.dancingMistHeal)}`}
           label={(
             <dfn data-tip={`You had a total of ${(this.modules.renewingMist.dancingMistProc)} procs on ${this.modules.renewingMist.castsREM} REM casts.`}>
-              Total Dancing Mists Healing
+              Total Healing
             </dfn>
           )}
         />
@@ -503,8 +503,8 @@ class CombatLogParser extends MainCombatLogParser {
           icon={<SpellIcon id={SPELLS.GUSTS_OF_MISTS.id} />}
           value={`${efMasteryCasts}`}
           label={(
-            <dfn data-tip={`You healed a total of ${efMasteryCasts} targets with the Essence Font buff for ${(efMasteryEffectiveHealing / 1000).toFixed(0)}k healing. You also healed an average of ${avgMasteryCastsPerEF} per Essence Font cast.  (${(avgEFMasteryHealing).toFixed(1)} average healing per cast.)`}>
-              Essence Font Mastery Buffs utilized
+            <dfn data-tip={`You healed a total of ${efMasteryCasts} targets with the Essence Font buff for ${formatNumber(efMasteryEffectiveHealing)} healing. You also healed an average of ${avgMasteryCastsPerEF} per Essence Font cast.  (${formatNumber(avgEFMasteryHealing)} average healing per cast.)`}>
+              Mastery Buffs utilized
             </dfn>
           )}
         />
@@ -515,7 +515,7 @@ class CombatLogParser extends MainCombatLogParser {
         value={`${(avgTargetsHitPerEF).toFixed(0)}`}
         label={(
           <dfn data-tip={`You healed an average of ${(avgTargetsHitPerEF).toFixed(2)} targets per Essence Font cast over your ${this.modules.essenceFontMastery.castEF} casts.`}>
-            Average Targets hit per Essence Font cast
+            Average Targets hit
           </dfn>
         )}
       />,
@@ -524,10 +524,10 @@ class CombatLogParser extends MainCombatLogParser {
       this.modules.chiBurst.active && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.CHI_BURST_TALENT.id} />}
-          value={`${(chiBurstHealing / 1000).toFixed(0)} k`}
+          value={`${formatNumber(chiBurstHealing)}`}
           label={(
             <dfn data-tip={`You healed an average of ${avgChiBurstTargets.toFixed(2)} targets per Chi Burst cast over your ${this.modules.chiBurst.castChiBurst} casts.`}>
-              Chi Burst Healing
+              Total Healing
             </dfn>
           )}
         />
