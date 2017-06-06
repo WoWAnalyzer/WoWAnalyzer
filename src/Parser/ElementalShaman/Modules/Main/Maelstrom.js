@@ -6,17 +6,16 @@ import ChartistGraph from 'react-chartist';
 import Chartist from 'chartist';
 import 'chartist-plugin-legend';
 
+import makeWclUrl from 'common/makeWclUrl';
+
 import SPELLS from 'common/SPELLS';
 
 import specialEventIndicators from 'Main/Chartist/specialEventIndicators';
-// import tooltips from './Chartist/toolips';
 
 import 'Main/Mana.css';
 
 import CastEfficiency from './CastEfficiency';
 import './Maelstrom.css';
-
-const WCL_API_KEY = process.env.REACT_APP_WCL_API_KEY;
 
 const formatDuration = (duration) => {
   const seconds = Math.floor(duration % 60);
@@ -48,7 +47,12 @@ class Maelstrom extends React.PureComponent {
     }
   }
   load(reportCode, actorId, start, end) {
-    const manaPromise = fetch(`https://www.warcraftlogs.com/v1/report/tables/resources/${reportCode}?start=${start}&end=${end}&sourceid=${actorId}&abilityid=111&api_key=${WCL_API_KEY}`)
+    const manaPromise = fetch(makeWclUrl(`https://www.warcraftlogs.com/v1/report/tables/resources/${reportCode}`, {
+      start,
+      end,
+      sourceid: actorId,
+      abilityid: 111,
+    }))
       .then(response => response.json())
       .then((json) => {
         if (json.status === 400 || json.status === 401) {
@@ -60,7 +64,13 @@ class Maelstrom extends React.PureComponent {
         }
       });
 
-    const bossHealthPromise = fetch(`https://www.warcraftlogs.com/v1/report/tables/resources/${reportCode}?start=${start}&end=${end}&sourceclass=Boss&hostility=1&abilityid=1000&api_key=${WCL_API_KEY}`)
+    const bossHealthPromise = fetch(makeWclUrl(`https://www.warcraftlogs.com/v1/report/tables/resources/${reportCode}`, {
+      start,
+      end,
+      sourceclass: 'Boss',
+      hostility: 1,
+      abilityid: 1000,
+    }))
       .then(response => response.json())
       .then((json) => {
         if (json.status === 400 || json.status === 401) {

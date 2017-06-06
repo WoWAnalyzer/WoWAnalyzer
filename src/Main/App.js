@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Link, hashHistory } from 'react-router';
 import ReactTooltip from 'react-tooltip';
 
+import makeWclUrl from 'common/makeWclUrl';
+
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
 
 import './App.css';
@@ -14,7 +16,6 @@ import FightSelecter from './FightSelecter';
 import PlayerSelecter from './PlayerSelecter';
 import Results from './Results';
 
-import makeWclUrl from './makeWclUrl';
 import makeAnalyzerUrl from './makeAnalyzerUrl';
 import getWipeCount from './getWipeCount';
 
@@ -302,8 +303,6 @@ class App extends Component {
     const parser = this.parser;
 
     const progress = Math.floor(this.state.progress * 100);
-
-    console.log(makeWclUrl('test'));
 
     return (
       <div>
