@@ -79,12 +79,16 @@ class App extends Component {
     };
 
     this.handleReportSelecterSubmit = this.handleReportSelecterSubmit.bind(this);
+    this.handleRefresh = this.handleRefresh.bind(this);
   }
 
   handleReportSelecterSubmit(code) {
     console.log('Selected report:', code);
 
     this.props.router.push(makeAnalyzerUrl(code));
+  }
+  handleRefresh() {
+    this.fetchReport(this.reportCode, true);
   }
 
   config = null;
@@ -169,14 +173,16 @@ class App extends Component {
     });
   }
 
-  fetchReport(code) {
+  fetchReport(code, refresh = false) {
     console.log('Fetching report:', code);
 
     this.setState({
       report: null,
     });
 
-    const url = makeWclUrl(`https://www.warcraftlogs.com/v1/report/fights/${code}`);
+    const url = makeWclUrl(`https://www.warcraftlogs.com/v1/report/fights/${code}`, {
+      _: refresh ? +new Date() : undefined,
+    });
     return fetch(url)
       .then(response => response.json())
       .then((json) => {
@@ -257,7 +263,6 @@ class App extends Component {
       this.fetchReport(this.reportCode);
     }
   }
-
   componentDidUpdate(prevProps, prevState) {
     ReactTooltip.rebuild();
 
@@ -338,7 +343,7 @@ class App extends Component {
               );
             }
             if (!this.fightId) {
-              return <FightSelecter report={report} />;
+              return <FightSelecter report={report} onRefresh={this.handleRefresh} />;
             }
             if (!combatants) {
               return (
