@@ -7,9 +7,9 @@ import 'chartist-plugin-legend';
 import specialEventIndicators from './Chartist/specialEventIndicators';
 // import tooltips from './Chartist/toolips';
 
-import WCL_API_KEY from './WCL_API_KEY';
-
 import './Mana.css';
+
+const WCL_API_KEY = process.env.REACT_APP_WCL_API_KEY;
 
 const formatDuration = (duration) => {
   const seconds = Math.floor(duration % 60);

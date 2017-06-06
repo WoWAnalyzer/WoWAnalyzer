@@ -8,7 +8,6 @@ import 'chartist-plugin-legend';
 
 import SPELLS from 'common/SPELLS';
 
-import WCL_API_KEY from 'Main/WCL_API_KEY';
 import specialEventIndicators from 'Main/Chartist/specialEventIndicators';
 // import tooltips from './Chartist/toolips';
 
@@ -16,6 +15,8 @@ import 'Main/Mana.css';
 
 import CastEfficiency from './CastEfficiency';
 import './Maelstrom.css';
+
+const WCL_API_KEY = process.env.REACT_APP_WCL_API_KEY;
 
 const formatDuration = (duration) => {
   const seconds = Math.floor(duration % 60);
