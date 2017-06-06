@@ -125,7 +125,7 @@ class ReportSelecter extends Component {
               <div className="panel-body text-muted">
                 I believe it's important to keep class discussion as much in class Discords as possible, so if you have spec specific questions and/or suggestions please try to discuss them in your class Discord (class Discords mods approve of this message <img src={OkHandImage} alt=":ok_hand:" style={{ height: '1.5em' }} />). The WoW Analyzer Discord is for more general questions and developers looking to contribute.<br /><br />
 
-                <iframe src="https://discordapp.com/widget?id=316864121536512000&theme=dark" width="100%" height="300" allowTransparency="true" frameBorder="0" />
+                <iframe src="https://discordapp.com/widget?id=316864121536512000&theme=dark" width="100%" height="300" allowTransparency="true" frameBorder="0" title="Discord Widget" />
               </div>
             </div>
           </div>

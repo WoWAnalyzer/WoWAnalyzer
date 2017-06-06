@@ -302,7 +302,7 @@ export default {
     name: 'Ancestral Guidance',
     icon: 'ability_shaman_ancestralguidance',
     cooldownType: 'HEALING',
-    description: 'The default choice in this tier. Can generate incredible throughput, especially when combined with <a href="http://www.wowhead.com/spell=157153" target="_blank">Cloudburst Totem</a> and/or <a href="http://www.wowhead.com/spell=114052" target="_blank">Ascendance</a>.',
+    description: 'The default choice in this tier. Can generate incredible throughput, especially when combined with <a href="http://www.wowhead.com/spell=157153" target="_blank" rel="noopener noreferrer">Cloudburst Totem</a> and/or <a href="http://www.wowhead.com/spell=114052" target="_blank" rel="noopener noreferrer">Ascendance</a>.',
   },
   ANCESTRAL_GUIDANCE_HEAL: {
     id: 114911,
@@ -314,7 +314,7 @@ export default {
     name: 'Ascendance',
     icon: 'spell_fire_elementaldevastation',
     cooldownType: 'HEALING',
-    description: 'Should almost always be combined with <a href="http://www.wowhead.com/spell=157153" target="_blank">Cloudburst Totem</a>. Provides you with an additional healing cooldown, or when combined with <a href="http://www.wowhead.com/spell=108281" target="_blank">Ancestral Guidance</a> makes for what is probably the strongest healing cooldown in the game. Does require proper planning to get value.',
+    description: 'Should almost always be combined with <a href="http://www.wowhead.com/spell=157153" target="_blank" rel="noopener noreferrer">Cloudburst Totem</a>. Provides you with an additional healing cooldown, or when combined with <a href="http://www.wowhead.com/spell=108281" target="_blank" rel="noopener noreferrer">Ancestral Guidance</a> makes for what is probably the strongest healing cooldown in the game. Does require proper planning to get value.',
   },
   ASCENDANCE_HEAL: {
     id: 114083,
@@ -350,7 +350,7 @@ export default {
     id: 157153,
     name: 'Cloudburst Totem',
     icon: 'ability_shaman_condensationtotem',
-    description: 'Cloudburst Totem will in almost all encounters provide the most throughput when used correctly (see the <a href="https://chainheal.com/resto-shaman-guide-on-how-to-maximize-cloudburst-totem-cbt/">cloudburst totem guide</a> on <a href="http://chainheal.com">ChainHeal.com</a>). Extremely strong synergy with <a href="http://www.wowhead.com/spell=108281" target="_blank">Ancestral Guidance</a> and <a href="http://www.wowhead.com/spell=114052" target="_blank">Ascendance</a>.',
+    description: 'Cloudburst Totem will in almost all encounters provide the most throughput when used correctly (see the <a href="https://chainheal.com/resto-shaman-guide-on-how-to-maximize-cloudburst-totem-cbt/">cloudburst totem guide</a> on <a href="http://chainheal.com">ChainHeal.com</a>). Extremely strong synergy with <a href="http://www.wowhead.com/spell=108281" target="_blank" rel="noopener noreferrer">Ancestral Guidance</a> and <a href="http://www.wowhead.com/spell=114052" target="_blank" rel="noopener noreferrer">Ascendance</a>.',
   },
   CLOUDBURST_TOTEM_HEAL: {
     id: 157503,
@@ -401,32 +401,32 @@ export default {
     id: 200071,
     name: 'Undulation',
     icon: 'spell_nature_healingwavelesser',
-    description: 'Undulation is decent choice if you will be casting a lot of <a href="http://www.wowhead.com/spell=77472" target="_blank">Healing Waves</a> or <a href="http://www.wowhead.com/spell=188070" target="_blank">Healing Surges</a>.',
+    description: 'Undulation is decent choice if you will be casting a lot of <a href="http://www.wowhead.com/spell=77472" target="_blank" rel="noopener noreferrer">Healing Waves</a> or <a href="http://www.wowhead.com/spell=188070" target="_blank" rel="noopener noreferrer">Healing Surges</a>.',
   },
   UNLEASH_LIFE_TALENT: {
     id: 73685,
     name: 'Unleash Life',
     icon: 'spell_shaman_unleashweapon_life',
-    description: 'Unleash Life works well with <a href="http://www.wowhead.com/spell=1064" target="_blank">Chain Heal</a>, and in particular has good synergy with <a href="http://www.wowhead.com/item=137051" target="_blank">Focuser of Jonat, the Elder</a>.',
+    description: 'Unleash Life works well with <a href="http://www.wowhead.com/spell=1064" target="_blank" rel="noopener noreferrer">Chain Heal</a>, and in particular has good synergy with <a href="http://www.wowhead.com/item=137051" target="_blank" rel="noopener noreferrer">Focuser of Jonat, the Elder</a>.',
   },
   TORRENT_TALENT: {
     id: 200072,
     name: 'Torrent',
     icon: 'spell_nature_riptide',
-    description: 'The default choice in this tier. Increases the initial heal from <a href="http://www.wowhead.com/spell=61295" target="_blank">Riptide</a>, which you will typically be casting a lot.',
+    description: 'The default choice in this tier. Increases the initial heal from <a href="http://www.wowhead.com/spell=61295" target="_blank" rel="noopener noreferrer">Riptide</a>, which you will typically be casting a lot.',
   },
   // lv30
   GUST_OF_WIND_TALENT: {
     id: 192063,
     name: 'Gust of Wind',
     icon: 'ability_skyreach_four_wind',
-    description: 'Can be useful in specific situations, but the typically not worth giving up <a href="http://www.wowhead.com/spell=192088" target="_blank">Graceful Spirit</a> for.',
+    description: 'Can be useful in specific situations, but the typically not worth giving up <a href="http://www.wowhead.com/spell=192088" target="_blank" rel="noopener noreferrer">Graceful Spirit</a> for.',
   },
   GRACEFUL_SPIRIT_TALENT: {
     id: 192088,
     name: 'Graceful Spirit Spirit',
     icon: 'spell_shaman_spectraltransformation',
-    description: 'The default choice in this tier, especially potent with the <a href="http://www.wowhead.com/spell=238071" target="_blank">Tidewalker</a> artifact trait.',
+    description: 'The default choice in this tier, especially potent with the <a href="http://www.wowhead.com/spell=238071" target="_blank" rel="noopener noreferrer">Tidewalker</a> artifact trait.',
   },
   WIND_RUSH_TOTEM_TALENT: {
     id: 192077,
@@ -458,19 +458,19 @@ export default {
     id: 197464,
     name: 'Crashing waves',
     icon: 'spell_frost_summonwaterelemental',
-    description: 'Not recommended in raids. Between <a href="http://www.wowhead.com/spell=61295" target="_blank">Riptide</a> and <a href="http://www.wowhead.com/spell=1064" target="_blank">Chain Heal</a> you\'ll be generating plenty of <a href="http://www.wowhead.com/spell=53390" target="_blank">Tidal Waves</a> charges, and it can be hard to spend all of them. Additionally, <a href="http://www.wowhead.com/spell=108281" target="_blank">Ancestral Guidance</a> is in most cases just too strong to give up.',
+    description: 'Not recommended in raids. Between <a href="http://www.wowhead.com/spell=61295" target="_blank" rel="noopener noreferrer">Riptide</a> and <a href="http://www.wowhead.com/spell=1064" target="_blank" rel="noopener noreferrer">Chain Heal</a> you\'ll be generating plenty of <a href="http://www.wowhead.com/spell=53390" target="_blank" rel="noopener noreferrer">Tidal Waves</a> charges, and it can be hard to spend all of them. Additionally, <a href="http://www.wowhead.com/spell=108281" target="_blank" rel="noopener noreferrer">Ancestral Guidance</a> is in most cases just too strong to give up.',
   },
   ANCESTRAL_GUIDANCE_TALENT: {
     id: 108281,
     name: 'Ancestral Guidance',
     icon: 'ability_shaman_ancestralguidance',
-    description: 'The default choice in this tier. Can generate incredible throughput, especially when combined with <a href="http://www.wowhead.com/spell=157153" target="_blank">Cloudburst Totem</a> and/or <a href="http://www.wowhead.com/spell=114052" target="_blank">Ascendance</a>.',
+    description: 'The default choice in this tier. Can generate incredible throughput, especially when combined with <a href="http://www.wowhead.com/spell=157153" target="_blank" rel="noopener noreferrer">Cloudburst Totem</a> and/or <a href="http://www.wowhead.com/spell=114052" target="_blank" rel="noopener noreferrer">Ascendance</a>.',
   },
   DELUGE_TALENT: {
     id: 200076,
     name: 'Deluge',
     icon: 'ability_shawaterelemental_reform',
-    description: 'Can be decent in fights where the entire raid will be stacked in your <a href="http://www.wowhead.com/spell=73920" target="_blank">Healing Rain</a> most of the time, but usually <a href="http://www.wowhead.com/spell=108281" target="_blank">Ancestral Guidance</a> will pull ahead.',
+    description: 'Can be decent in fights where the entire raid will be stacked in your <a href="http://www.wowhead.com/spell=73920" target="_blank" rel="noopener noreferrer">Healing Rain</a> most of the time, but usually <a href="http://www.wowhead.com/spell=108281" target="_blank" rel="noopener noreferrer">Ancestral Guidance</a> will pull ahead.',
   },
   // lv75
   ANCESTRAL_PROTECTION_TOTEM_TALENT: {
@@ -502,20 +502,20 @@ export default {
     id: 157153,
     name: 'Cloudburst Totem',
     icon: 'ability_shaman_condensationtotem',
-    description: 'Cloudburst Totem will in almost all encounters provide the most throughput when used correctly (see the <a href="https://chainheal.com/resto-shaman-guide-on-how-to-maximize-cloudburst-totem-cbt/">cloudburst totem guide</a> on <a href="http://chainheal.com">ChainHeal.com</a>). Extremely strong synergy with <a href="http://www.wowhead.com/spell=108281" target="_blank">Ancestral Guidance</a> and <a href="http://www.wowhead.com/spell=114052" target="_blank">Ascendance</a>.',
+    description: 'Cloudburst Totem will in almost all encounters provide the most throughput when used correctly (see the <a href="https://chainheal.com/resto-shaman-guide-on-how-to-maximize-cloudburst-totem-cbt/">cloudburst totem guide</a> on <a href="http://chainheal.com">ChainHeal.com</a>). Extremely strong synergy with <a href="http://www.wowhead.com/spell=108281" target="_blank" rel="noopener noreferrer">Ancestral Guidance</a> and <a href="http://www.wowhead.com/spell=114052" target="_blank" rel="noopener noreferrer">Ascendance</a>.',
   },
   ECHO_OF_THE_ELEMENTS_TALENT: {
     id: 108283,
     name: 'Echo of the Elements',
     icon: 'ability_shaman_echooftheelements',
-    description: 'Can be strong for certain damage patterns and easier to play than <a href="http://www.wowhead.com/spell=157153" target="_blank">Cloudburst Totem</a>, though will usually give less throughput. In particular this will help your single-target healing a fair bit. Also has good synergy with the T19 4P bonus.',
+    description: 'Can be strong for certain damage patterns and easier to play than <a href="http://www.wowhead.com/spell=157153" target="_blank" rel="noopener noreferrer">Cloudburst Totem</a>, though will usually give less throughput. In particular this will help your single-target healing a fair bit. Also has good synergy with the T19 4P bonus.',
   },
   // lv100
   ASCENDANCE_TALENT: {
     id: 114052,
     name: 'Ascendance',
     icon: 'spell_fire_elementaldevastation',
-    description: 'Should almost always be combined with <a href="http://www.wowhead.com/spell=157153" target="_blank">Cloudburst Totem</a>. Provides you with an additional healing cooldown, or when combined with <a href="http://www.wowhead.com/spell=108281" target="_blank">Ancestral Guidance</a> makes for what is probably the strongest healing cooldown in the game. Does require proper planning to get value.',
+    description: 'Should almost always be combined with <a href="http://www.wowhead.com/spell=157153" target="_blank" rel="noopener noreferrer">Cloudburst Totem</a>. Provides you with an additional healing cooldown, or when combined with <a href="http://www.wowhead.com/spell=108281" target="_blank" rel="noopener noreferrer">Ancestral Guidance</a> makes for what is probably the strongest healing cooldown in the game. Does require proper planning to get value.',
   },
   WELLSPRING_TALENT: {
     id: 197995,
@@ -527,7 +527,7 @@ export default {
     id: 157154,
     name: 'High Tide',
     icon: 'spell_shaman_hightide',
-    description: 'The default choice in this tier. Greatly increases the throughput from <a href="http://www.wowhead.com/spell=1064" target="_blank">Chain Heal</a>, which you should be casting a lot if you run this talent.',
+    description: 'The default choice in this tier. Greatly increases the throughput from <a href="http://www.wowhead.com/spell=1064" target="_blank" rel="noopener noreferrer">Chain Heal</a>, which you should be casting a lot if you run this talent.',
   },
 
   // Traits:

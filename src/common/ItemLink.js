@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ITEMS from './ITEMS';
 
 const ItemLink = ({ id, children }) => (
-  <a href={`http://www.wowhead.com/item=${id}`} target="_blank" className={ITEMS[id].quality}>
+  <a href={`http://www.wowhead.com/item=${id}`} target="_blank" rel="noopener noreferrer" className={ITEMS[id].quality}>
     {children || ITEMS[id].name}
   </a>
 );

@@ -8,7 +8,7 @@ const SpellLink = ({ id, children, category = undefined, ...other }) => {
   }
 
   return (
-    <a href={`http://www.wowhead.com/spell=${id}`} target="_blank" className={category} {...other}>
+    <a href={`http://www.wowhead.com/spell=${id}`} target="_blank" rel="noopener noreferrer" className={category} {...other}>
       {children || SPELLS[id].name}
     </a>
   );

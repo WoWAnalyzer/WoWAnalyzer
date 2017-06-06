@@ -184,14 +184,14 @@ class CombatLogParser extends MainCombatLogParser {
     }
     if (efflorescenceUptime < 0.85) {
       results.addIssue({
-        issue: <span>Your <a href="http://www.wowhead.com/spell=81269" target="_blank">Efflorescence</a> uptime can be improved. ({formatPercentage(efflorescenceUptime)} % uptime)</span>,
+        issue: <span>Your <a href="http://www.wowhead.com/spell=81269" target="_blank" rel="noopener noreferrer">Efflorescence</a> uptime can be improved. ({formatPercentage(efflorescenceUptime)} % uptime)</span>,
         icon: SPELLS.EFFLORESCENCE_CAST.icon,
         importance: getIssueImportance(efflorescenceUptime, 0.7, 0.5),
       });
     }
     if (!hasMoC && unusedClearcastings > 0.10) {
       results.addIssue({
-        issue: <span>Your <a href="http://www.wowhead.com/spell=16870" target="_blank">Clearcasting</a> proccs should be used as soon as you get them so they are not overwritten. You missed {(this.modules.clearcasting.total - this.modules.clearcasting.used)}/{(this.modules.clearcasting.total)} proccs.</span>,
+        issue: <span>Your <a href="http://www.wowhead.com/spell=16870" target="_blank" rel="noopener noreferrer">Clearcasting</a> proccs should be used as soon as you get them so they are not overwritten. You missed {(this.modules.clearcasting.total - this.modules.clearcasting.used)}/{(this.modules.clearcasting.total)} proccs.</span>,
         icon: SPELLS.CLEARCASTING_BUFF.icon,
         importance: getIssueImportance(unusedClearcastings, 0.5, 0.75, true),
       });
@@ -199,7 +199,7 @@ class CombatLogParser extends MainCombatLogParser {
     const wgsExtended = (this.modules.flourish.wildGrowth / wildGrowthTargets) / this.modules.flourish.flourishCounter;
     if (hasFlourish && wgsExtended < 1) {
       results.addIssue({
-        issue: <span>Your <a href="http://www.wowhead.com/spell=197721" target="_blank">Flourish</a> should always aim to refresh <a href="http://www.wowhead.com/spell=48438" target="_blank">Wild Growth.</a> ({(((this.modules.flourish.wildGrowth / 6)/this.modules.flourish.flourishCounter)*100).toFixed(0)}% WGs extended)</span>,
+        issue: <span>Your <a href="http://www.wowhead.com/spell=197721" target="_blank" rel="noopener noreferrer">Flourish</a> should always aim to refresh <a href="http://www.wowhead.com/spell=48438" target="_blank" rel="noopener noreferrer">Wild Growth.</a> ({(((this.modules.flourish.wildGrowth / 6)/this.modules.flourish.flourishCounter)*100).toFixed(0)}% WGs extended)</span>,
         icon: SPELLS.FLOURISH_TALENT.icon,
         importance: getIssueImportance(wgsExtended, 0.8, 0.6),
       });
@@ -207,14 +207,14 @@ class CombatLogParser extends MainCombatLogParser {
     const cwExtended = this.modules.flourish.cenarionWard / this.modules.flourish.flourishCounter;
     if (hasFlourish && cwExtended < 1) {
       results.addIssue({
-        issue: <span>Your <a href="http://www.wowhead.com/spell=197721" target="_blank">Flourish</a> should always aim to refresh <a href="http://www.wowhead.com/spell=102352" target="_blank">Cenarion Ward.</a> ({this.modules.flourish.cenarionWard}/{this.modules.flourish.flourishCounter} CWs extended)</span>,
+        issue: <span>Your <a href="http://www.wowhead.com/spell=197721" target="_blank" rel="noopener noreferrer">Flourish</a> should always aim to refresh <a href="http://www.wowhead.com/spell=102352" target="_blank" rel="noopener noreferrer">Cenarion Ward.</a> ({this.modules.flourish.cenarionWard}/{this.modules.flourish.flourishCounter} CWs extended)</span>,
         icon: SPELLS.FLOURISH_TALENT.icon,
         importance: getIssueImportance(cwExtended, 0, 0),
       });
     }
     if (lifebloomUptime < 0.85) {
       results.addIssue({
-        issue: <span>Your <a href="http://www.wowhead.com/spell=33763" target="_blank">Lifebloom</a> uptime can be improved. ({formatPercentage(lifebloomUptime)} % uptime)</span>,
+        issue: <span>Your <a href="http://www.wowhead.com/spell=33763" target="_blank" rel="noopener noreferrer">Lifebloom</a> uptime can be improved. ({formatPercentage(lifebloomUptime)} % uptime)</span>,
         icon: SPELLS.LIFEBLOOM_HOT_HEAL.icon,
         importance: getIssueImportance(lifebloomUptime, 0.7, 0.5),
       });
@@ -222,7 +222,7 @@ class CombatLogParser extends MainCombatLogParser {
     // Innervate mana spent
     if ((this.modules.innervate.manaSaved / this.modules.innervate.innervateCount) < 220000) {
       results.addIssue({
-        issue: <span>Your mana spent during an <a href="http://www.wowhead.com/spell=29166" target="_blank">Innervate</a> can be improved. Always aim to cast at least 1 wild growth, 1 efflorescence and fill the rest with rejuvations for optimal usage. ({((this.modules.innervate.manaSaved / this.modules.innervate.innervateCount) / 1000).toFixed(0)}k avg mana spent)</span>,
+        issue: <span>Your mana spent during an <a href="http://www.wowhead.com/spell=29166" target="_blank" rel="noopener noreferrer">Innervate</a> can be improved. Always aim to cast at least 1 wild growth, 1 efflorescence and fill the rest with rejuvations for optimal usage. ({((this.modules.innervate.manaSaved / this.modules.innervate.innervateCount) / 1000).toFixed(0)}k avg mana spent)</span>,
         icon: SPELLS.INNERVATE.icon,
         importance: getIssueImportance((this.modules.innervate.manaSaved / this.modules.innervate.innervateCount), 180000, 130000),
       });
@@ -230,21 +230,21 @@ class CombatLogParser extends MainCombatLogParser {
     // Innervata mana capped
     if (this.modules.innervate.secondsManaCapped > 0) {
       results.addIssue({
-        issue: <span>You were capped on mana during <a href="http://www.wowhead.com/spell=29166" target="_blank">Innervate</a>. Why would you do that? (approx {this.modules.innervate.secondsManaCapped}s)</span>,
+        issue: <span>You were capped on mana during <a href="http://www.wowhead.com/spell=29166" target="_blank" rel="noopener noreferrer">Innervate</a>. Why would you do that? (approx {this.modules.innervate.secondsManaCapped}s)</span>,
         icon: SPELLS.INNERVATE.icon,
         importance: getIssueImportance(this.modules.innervate.secondsManaCapped, 0, 0, true),
       });
     }
     if (hasTreeOfLife && treeOfLifeThroughput < 0.11) {
       results.addIssue({
-        issue: <span>Your <a href="http://www.wowhead.com/spell=33891" target="_blank">Tree of Life</a> has quite low throughput, you might want to plan your CDs better or select another talent. ({formatPercentage(treeOfLifeThroughput)} % throughput)</span>,
+        issue: <span>Your <a href="http://www.wowhead.com/spell=33891" target="_blank" rel="noopener noreferrer">Tree of Life</a> has quite low throughput, you might want to plan your CDs better or select another talent. ({formatPercentage(treeOfLifeThroughput)} % throughput)</span>,
         icon: SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.icon,
         importance: getIssueImportance(treeOfLifeThroughput, 0.07, 0.04),
       });
     }
     if (hasVelens && velensHealingPercentage < 0.045) {
       results.addIssue({
-        issue: <span>Your usage of <a href="http://www.wowhead.com/item=144258" target="_blank" className="legendary">Velen's Future Sight</a> can be improved. Try to maximize the amount of casts during the buff or consider using an easier legendary ({(velensHealingPercentage * 100).toFixed(2)}% healing contributed).</span>,
+        issue: <span>Your usage of <a href="http://www.wowhead.com/item=144258" target="_blank" rel="noopener noreferrer" className="legendary">Velen's Future Sight</a> can be improved. Try to maximize the amount of casts during the buff or consider using an easier legendary ({(velensHealingPercentage * 100).toFixed(2)}% healing contributed).</span>,
         icon: ITEMS.VELENS_FUTURE_SIGHT.icon,
         importance: getIssueImportance(velensHealingPercentage, 0.04, 0.03),
       });
@@ -253,7 +253,7 @@ class CombatLogParser extends MainCombatLogParser {
     const healingTouchesPerMinute = healingTouches / (fightDuration / 1000) * 60;
     if (healingTouchesPerMinute > 0) {
       results.addIssue({
-        issue: <span><a href="http://www.wowhead.com/spell=5185" target="_blank">Healing Touch</a> is an inefficient spell to cast. You should trust your co-healer to top people off, if you got nothing to do you can always dps. ({healingTouchesPerMinute.toFixed(2)} CPM).</span>,
+        issue: <span><a href="http://www.wowhead.com/spell=5185" target="_blank" rel="noopener noreferrer">Healing Touch</a> is an inefficient spell to cast. You should trust your co-healer to top people off, if you got nothing to do you can always dps. ({healingTouchesPerMinute.toFixed(2)} CPM).</span>,
         icon: SPELLS.HEALING_TOUCH.icon,
         importance: getIssueImportance(healingTouchesPerMinute, 0.5, 1, true),
       });
@@ -263,7 +263,7 @@ class CombatLogParser extends MainCombatLogParser {
     const wgsPerRejuv = wildGrowths / rejuvenations;
     if (wgsPerRejuv < 0.20) {
       results.addIssue({
-        issue: <span>Your <a href="http://www.wowhead.com/spell=48438" target="_blank">Wild growth</a> to rejuv ratio can be improved, try to cast more wild growths if possible as it's usually more efficient. ({wildGrowths}/{rejuvenations} WGs per rejuv).</span>,
+        issue: <span>Your <a href="http://www.wowhead.com/spell=48438" target="_blank" rel="noopener noreferrer">Wild growth</a> to rejuv ratio can be improved, try to cast more wild growths if possible as it's usually more efficient. ({wildGrowths}/{rejuvenations} WGs per rejuv).</span>,
         icon: SPELLS.WILD_GROWTH.icon,
         importance: getIssueImportance(wgsPerRejuv, 0.15, 0.1),
       });
@@ -272,7 +272,7 @@ class CombatLogParser extends MainCombatLogParser {
     const nonCCRegrowths = this.modules.clearcasting.nonCCRegrowths;
     if (nonCCRegrowths / regrowths > 0) {
       results.addIssue({
-        issue: <span><a href="http://www.wowhead.com/spell=8936" target="_blank">Regrowth</a> is an inefficient spell to cast without a <a href="http://www.wowhead.com/spell=16870" target="_blank">Clearcasting</a> procc. {nonCCRegrowths} of your regrowths were casted without a clearcasting procc.</span>,
+        issue: <span><a href="http://www.wowhead.com/spell=8936" target="_blank" rel="noopener noreferrer">Regrowth</a> is an inefficient spell to cast without a <a href="http://www.wowhead.com/spell=16870" target="_blank" rel="noopener noreferrer">Clearcasting</a> procc. {nonCCRegrowths} of your regrowths were casted without a clearcasting procc.</span>,
         icon: SPELLS.REGROWTH.icon,
         importance: getIssueImportance(nonCCRegrowths / regrowths, 0.5, 0.25, true),
       });
@@ -342,27 +342,27 @@ class CombatLogParser extends MainCombatLogParser {
           label={(
             <dfn data-tip={
               `<ul>
-                  Your ${this.modules.flourish.flourishCounter} <a href="http://www.wowhead.com/spell=197721" target="_blank">Flourishes</a> extended:
-                  <li>${this.modules.flourish.wildGrowth}/${this.modules.flourish.flourishCounter * wildGrowthTargets} <a href="http://www.wowhead.com/spell=48438" target="_blank">Wild Growths</a></li>
-                  <li>${this.modules.flourish.cenarionWard}/${this.modules.flourish.flourishCounter} <a href="http://www.wowhead.com/spell=102351" target="_blank">Cenarion wards</a></li>
+                  Your ${this.modules.flourish.flourishCounter} <a href="http://www.wowhead.com/spell=197721" target="_blank" rel="noopener noreferrer">Flourishes</a> extended:
+                  <li>${this.modules.flourish.wildGrowth}/${this.modules.flourish.flourishCounter * wildGrowthTargets} <a href="http://www.wowhead.com/spell=48438" target="_blank" rel="noopener noreferrer">Wild Growths</a></li>
+                  <li>${this.modules.flourish.cenarionWard}/${this.modules.flourish.flourishCounter} <a href="http://www.wowhead.com/spell=102351" target="_blank" rel="noopener noreferrer">Cenarion wards</a></li>
                   ${this.modules.flourish.rejuvenation > 0 ?
-                `<li>${this.modules.flourish.rejuvenation} <a href="http://www.wowhead.com/spell=774" target="_blank">rejuvenations</a></li>`
+                `<li>${this.modules.flourish.rejuvenation} <a href="http://www.wowhead.com/spell=774" target="_blank" rel="noopener noreferrer">rejuvenations</a></li>`
                 : ""
                 }
                           ${this.modules.flourish.regrowth > 0 ?
-                `<li>${this.modules.flourish.regrowth} <a href="http://www.wowhead.com/spell=8936" target="_blank">regrowths</a></li>`
+                `<li>${this.modules.flourish.regrowth} <a href="http://www.wowhead.com/spell=8936" target="_blank" rel="noopener noreferrer">regrowths</a></li>`
                 : ""
                 }
                           ${this.modules.flourish.lifebloom > 0 ?
-                `<li>${this.modules.flourish.lifebloom} <a href="http://www.wowhead.com/spell=33763" target="_blank">lifebloom</a></li>`
+                `<li>${this.modules.flourish.lifebloom} <a href="http://www.wowhead.com/spell=33763" target="_blank" rel="noopener noreferrer">lifebloom</a></li>`
                 : ""
                 }
                           ${this.modules.flourish.springBlossoms > 0 ?
-                `<li>${this.modules.flourish.springBlossoms} <a href="http://www.wowhead.com/spell=207386" target="_blank">spring blossoms</a></li>`
+                `<li>${this.modules.flourish.springBlossoms} <a href="http://www.wowhead.com/spell=207386" target="_blank" rel="noopener noreferrer">spring blossoms</a></li>`
                 : ""
                 }
                           ${this.modules.flourish.cultivation > 0 ?
-                `<li>${this.modules.flourish.cultivation} <a href="http://www.wowhead.com/spell=200389" target="_blank">cultivations</a></li>`
+                `<li>${this.modules.flourish.cultivation} <a href="http://www.wowhead.com/spell=200389" target="_blank" rel="noopener noreferrer">cultivations</a></li>`
                 : ""
                 }
                           </ul>
@@ -379,35 +379,35 @@ class CombatLogParser extends MainCombatLogParser {
         label={(
           <dfn data-tip={
             `<ul>
-                During your ${this.modules.innervate.innervateCount} <a href="http://www.wowhead.com/spell=29166" target="_blank">Innervates</a> you cast:
-                <li>${this.modules.innervate.wildGrowths}/${this.modules.innervate.innervateCount} <a href="http://www.wowhead.com/spell=48438" target="_blank">Wild Growths</a></li>
-                <li>${this.modules.innervate.efflorescences}/${this.modules.innervate.innervateCount} <a href="http://www.wowhead.com/spell=81269" target="_blank">Efflorescences</a></li>
+                During your ${this.modules.innervate.innervateCount} <a href="http://www.wowhead.com/spell=29166" target="_blank" rel="noopener noreferrer">Innervates</a> you cast:
+                <li>${this.modules.innervate.wildGrowths}/${this.modules.innervate.innervateCount} <a href="http://www.wowhead.com/spell=48438" target="_blank" rel="noopener noreferrer">Wild Growths</a></li>
+                <li>${this.modules.innervate.efflorescences}/${this.modules.innervate.innervateCount} <a href="http://www.wowhead.com/spell=81269" target="_blank" rel="noopener noreferrer">Efflorescences</a></li>
                 ${this.modules.innervate.cenarionWards > 0 ?
-              `<li>${this.modules.innervate.cenarionWards} <a href="http://www.wowhead.com/spell=102351" target="_blank">Cenarion wards</a></li>`
+              `<li>${this.modules.innervate.cenarionWards} <a href="http://www.wowhead.com/spell=102351" target="_blank" rel="noopener noreferrer">Cenarion wards</a></li>`
               : ""
               }
                         ${this.modules.innervate.rejuvenations > 0 ?
-              `<li>${this.modules.innervate.rejuvenations} <a href="http://www.wowhead.com/spell=774" target="_blank">Rejuvenations</a></li>`
+              `<li>${this.modules.innervate.rejuvenations} <a href="http://www.wowhead.com/spell=774" target="_blank" rel="noopener noreferrer">Rejuvenations</a></li>`
               : ""
               }
                         ${this.modules.innervate.regrowths > 0 ?
-              `<li>${this.modules.innervate.regrowths} <a href="http://www.wowhead.com/spell=8936" target="_blank">Regrowths</a></li>`
+              `<li>${this.modules.innervate.regrowths} <a href="http://www.wowhead.com/spell=8936" target="_blank" rel="noopener noreferrer">Regrowths</a></li>`
               : ""
               }
                         ${this.modules.innervate.lifeblooms > 0 ?
-              `<li>${this.modules.innervate.lifeblooms} <a href="http://www.wowhead.com/spell=33763" target="_blank">Lifeblooms</a></li>`
+              `<li>${this.modules.innervate.lifeblooms} <a href="http://www.wowhead.com/spell=33763" target="_blank" rel="noopener noreferrer">Lifeblooms</a></li>`
               : ""
               }
                         ${this.modules.innervate.healingTouches > 0 ?
-              `<li>${this.modules.innervate.healingTouches} <a href="http://www.wowhead.com/spell=5185" target="_blank">Healing touches</a></li>`
+              `<li>${this.modules.innervate.healingTouches} <a href="http://www.wowhead.com/spell=5185" target="_blank" rel="noopener noreferrer">Healing touches</a></li>`
               : ""
               }
                         ${this.modules.innervate.swiftmends > 0 ?
-              `<li>${this.modules.innervate.swiftmends} <a href="http://www.wowhead.com/spell=18562" target="_blank">Swiftmends</a></li>`
+              `<li>${this.modules.innervate.swiftmends} <a href="http://www.wowhead.com/spell=18562" target="_blank" rel="noopener noreferrer">Swiftmends</a></li>`
               : ""
               }
                         ${this.modules.innervate.tranquilities > 0 ?
-              `<li>${this.modules.innervate.tranquilities} <a href="http://www.wowhead.com/spell=157982" target="_blank">tranquilities</a></li>`
+              `<li>${this.modules.innervate.tranquilities} <a href="http://www.wowhead.com/spell=157982" target="_blank" rel="noopener noreferrer">tranquilities</a></li>`
               : ""
               }
                         </ul>

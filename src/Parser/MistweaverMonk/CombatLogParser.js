@@ -165,7 +165,7 @@ class CombatLogParser extends MainCombatLogParser {
     // Missed Whispers healing
     if(hasWhispersOfShaohao && missedWhispersHeal > 10) {
       results.addIssue({
-        issue: <span>You missed {missedWhispersHeal} <a href="http://www.wowhead.com/spell=238130" target="_blank">Whispers of Shaohao</a> healing procs.  While you cannot actively place the clouds that spawn, work to position yourself near other members of the raid so that when the clouds are used, they heal someone.</span>,
+        issue: <span>You missed {missedWhispersHeal} <SpellLink id={SPELLS.WHISPERS_OF_SHAOHAO.id} /> healing procs.  While you cannot actively place the clouds that spawn, work to position yourself near other members of the raid so that when the clouds are used, they heal someone.</span>,
         icon: SPELLS.WHISPERS_OF_SHAOHAO_TRAIT.icon,
         importance: getIssueImportance(missedWhispersHeal, 12, 15, true),
       });
@@ -173,7 +173,7 @@ class CombatLogParser extends MainCombatLogParser {
     // Sheilun's Gift Overhealing issue
     if(avgSGOverheal > 300000) {
       results.addIssue({
-        issue: <span>You averaged {(avgSGOverheal / 1000).toFixed(0)}k overheal with your <a href="http://www.wowhead.com/spell=205406" target="_blank">Sheilun's Gift</a> and casted with an average of {(avgSGstacks).toFixed(0)} stacks.  Consider using <a href="http://www.wowhead.com/spell=205406" target="_blank">Sheilun's Gift</a> at lower stacks to increase effectiveness.</span>,
+        issue: <span>You averaged {(avgSGOverheal / 1000).toFixed(0)}k overheal with your <SpellLink id={SPELLS.SHEILUNS_GIFT.id} /><SpellLink id={SPELLS.SHEILUNS_GIFT.id} /> and casted with an average of {(avgSGstacks).toFixed(0)} stacks.  Consider using <SpellLink id={SPELLS.SHEILUNS_GIFT.id} /> at lower stacks to increase effectiveness.</span>,
         icon: SPELLS.SHEILUNS_GIFT.icon,
         importance: getIssueImportance(avgSGOverheal, 325000, 400000, true),
       });
@@ -181,7 +181,7 @@ class CombatLogParser extends MainCombatLogParser {
     // Sheilun's Gift Casts
     if(SGcasts < ((this.fightDuration / 10000) / 5)) {
       results.addIssue({
-        issue: <span>You casted <a href="http://www.wowhead.com/spell=205406" target="_blank">Sheilun's Gift</a> {SGcasts} times over the course of the fight.  Casting at an average of 5 stacks would have given you potentially {(((this.fightDuration / 10000) / 5)).toFixed(1)} casts.  Consider using <a href="http://www.wowhead.com/spell=205406" target="_blank">Sheilun's Gift</a> more often to take advantage of its free healing.</span>,
+        issue: <span>You casted <SpellLink id={SPELLS.SHEILUNS_GIFT.id} /> {SGcasts} times over the course of the fight.  Casting at an average of 5 stacks would have given you potentially {(((this.fightDuration / 10000) / 5)).toFixed(1)} casts.  Consider using <SpellLink id={SPELLS.SHEILUNS_GIFT.id} /> more often to take advantage of its free healing.</span>,
         icon: SPELLS.SHEILUNS_GIFT.icon,
         importance: getIssueImportance(SGcasts, ((this.fightDuration / 10000) / 8), ((this.fightDuration / 10000) / 12)),
       });
@@ -197,7 +197,7 @@ class CombatLogParser extends MainCombatLogParser {
     // Uplifting Trance Usage
     if (unusedUTProcs > 0.10) {
       results.addIssue({
-        issue: <span>Your <a href="http://www.wowhead.com/spell=197206" target="_blank">Uplifting Trance</a> procs should be used as soon as you get them so they are not overwritten. You missed {(this.modules.upliftingTrance.UTProcsTotal - this.modules.upliftingTrance.consumedUTProc)}/{(this.modules.upliftingTrance.UTProcsTotal)} procs. ({formatPercentage((this.modules.upliftingTrance.UTProcsTotal - this.modules.upliftingTrance.consumedUTProc) / this.modules.upliftingTrance.UTProcsTotal)} %)</span>,
+        issue: <span>Your <SpellLink id={SPELLS.UPLIFTING_TRANCE_BUFF.id} /> procs should be used as soon as you get them so they are not overwritten. You missed {(this.modules.upliftingTrance.UTProcsTotal - this.modules.upliftingTrance.consumedUTProc)}/{(this.modules.upliftingTrance.UTProcsTotal)} procs. ({formatPercentage((this.modules.upliftingTrance.UTProcsTotal - this.modules.upliftingTrance.consumedUTProc) / this.modules.upliftingTrance.UTProcsTotal)} %)</span>,
         icon: SPELLS.UPLIFTING_TRANCE_BUFF.icon,
         importance: getIssueImportance(unusedUTProcs, 0.2, 0.5, true),
       });
@@ -208,7 +208,7 @@ class CombatLogParser extends MainCombatLogParser {
     const nonUTVivify = this.modules.upliftingTrance.nonUTVivify;
     if (nonUTVivify / vivify > 0) {
       results.addIssue({
-        issue: <span><a href="http://www.wowhead.com/spell=116670" target="_blank">Vivify</a> is an inefficient spell to cast without <a href="http://www.wowhead.com/spell=197206" target="_blank">Uplifting Trance</a> procs.  You casted {nonUTVivify} Vivify's without the Uplifting Trance procc and {this.modules.upliftingTrance.tftVivCast} Vivfy's with the Thunder Focus Tea buff.</span>,
+        issue: <span><a href="http://www.wowhead.com/spell=116670" target="_blank" rel="noopener noreferrer">Vivify</a> is an inefficient spell to cast without <a href="http://www.wowhead.com/spell=197206" target="_blank" rel="noopener noreferrer">Uplifting Trance</a> procs.  You casted {nonUTVivify} Vivify's without the Uplifting Trance procc and {this.modules.upliftingTrance.tftVivCast} Vivfy's with the Thunder Focus Tea buff.</span>,
         icon: SPELLS.VIVIFY.icon,
         importance: getIssueImportance(nonUTVivify / vivify, 0.5, 0.25, true),
       });
@@ -216,7 +216,7 @@ class CombatLogParser extends MainCombatLogParser {
     // Mana Tea Usage issue
     if (this.modules.manaTea.active && avgMTsaves < 200000) {
       results.addIssue({
-        issue: <span>Your mana spent during <a href="http://www.wowhead.com/spell=197908" target="_blank">Mana Tea</a> can be improved.  Always aim to cast your highest mana spells such as <a href="http://www.wowhead.com/spell=191837" target="_blank">Essence Font</a> or <a href="http://www.wowhead.com/spell=116670" target="_blank">Vivify</a>. ({((this.modules.manaTea.manaSaved / this.modules.manaTea.manateaCount) / 1000).toFixed(0)}k avg mana saved)</span>,
+        issue: <span>Your mana spent during <SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> can be improved. Always aim to cast your highest mana spells such as <SpellLink id={SPELLS.ESSENCE_FONT.id} /> or <SpellLink id={SPELLS.VIVIFY.id} />. ({((this.modules.manaTea.manaSaved / this.modules.manaTea.manateaCount) / 1000).toFixed(0)}k avg mana saved)</span>,
         icon: SPELLS.MANA_TEA_TALENT.icon,
         importance: getIssueImportance(avgMTsaves, 160000, 120000),
       });
@@ -224,7 +224,7 @@ class CombatLogParser extends MainCombatLogParser {
     // Lifecycles Manasavings
     if(hasLifecycles && this.modules.manaSavingTalents.manaSaved < 200000) {
       results.addIssue({
-        issue: <span>Your current spell usage is not taking full advantage of the <a href="http://www.wowhead.com/spell=197915" target="_blank">Lifecycles</a> talent.  You casted {this.modules.manaSavingTalents.castsNonRedViv} / {(this.modules.manaSavingTalents.castsRedViv + this.modules.manaSavingTalents.castsNonRedViv)} Vivfy's and {this.modules.manaSavingTalents.castsNonRedEnm} / {(this.modules.manaSavingTalents.castsRedEnm + this.modules.manaSavingTalents.castsNonRedEnm)} Enveloping Mists without the mana saving buffs provided by <a href="http://www.wowhead.com/spell=197915" target="_blank">Lifecycles</a></span>,
+        issue: <span>Your current spell usage is not taking full advantage of the <a href="http://www.wowhead.com/spell=197915" target="_blank" rel="noopener noreferrer">Lifecycles</a> talent.  You casted {this.modules.manaSavingTalents.castsNonRedViv} / {(this.modules.manaSavingTalents.castsRedViv + this.modules.manaSavingTalents.castsNonRedViv)} Vivfy's and {this.modules.manaSavingTalents.castsNonRedEnm} / {(this.modules.manaSavingTalents.castsRedEnm + this.modules.manaSavingTalents.castsNonRedEnm)} Enveloping Mists without the mana saving buffs provided by <a href="http://www.wowhead.com/spell=197915" target="_blank" rel="noopener noreferrer">Lifecycles</a></span>,
         icon:SPELLS.LIFECYCLES_TALENT.icon,
         importance: getIssueImportance(this.modules.manaSavingTalents.manaSaved, 170000, 140000),
       });
@@ -232,7 +232,7 @@ class CombatLogParser extends MainCombatLogParser {
     // Incorrect TFT Usage
     if(this.modules.thunderFocusTea.castsUnderTft - (this.modules.thunderFocusTea.castsTftEf + this.modules.thunderFocusTea.castsTftViv) > 1) {
       results.addIssue({
-        issue: <span>You are currently using <a href="http://www.wowhead.com/spell=116680" target="_blank">Thunder Focus Tea</a> to buff spells other than <a href="http://www.wowhead.com/spell=116670" target="_blank">Vivify</a> or <a href="http://www.wowhead.com/spell=191837" target="_blank">Essence Font</a>.  You used the TFT buff on {(this.modules.thunderFocusTea.castsUnderTft - (this.modules.thunderFocusTea.castsTftEf + this.modules.thunderFocusTea.castsTftViv))} spells other than Essence Font, or Vivify.</span>,
+        issue: <span>You are currently using <a href="http://www.wowhead.com/spell=116680" target="_blank" rel="noopener noreferrer">Thunder Focus Tea</a> to buff spells other than <a href="http://www.wowhead.com/spell=116670" target="_blank" rel="noopener noreferrer">Vivify</a> or <a href="http://www.wowhead.com/spell=191837" target="_blank" rel="noopener noreferrer">Essence Font</a>.  You used the TFT buff on {(this.modules.thunderFocusTea.castsUnderTft - (this.modules.thunderFocusTea.castsTftEf + this.modules.thunderFocusTea.castsTftViv))} spells other than Essence Font, or Vivify.</span>,
         icon: SPELLS.THUNDER_FOCUS_TEA.icon,
         importance: getIssueImportance(this.modules.thunderFocusTea.castsUnderTft - (this.modules.thunderFocusTea.castsTftEf + this.modules.thunderFocusTea.castsTftViv), 2, 4, true),
       });
@@ -240,7 +240,7 @@ class CombatLogParser extends MainCombatLogParser {
     // EF Mastery Proc Usage
     if (avgMasteryCastsPerEF < 3 && avgTargetsHitPerEF > 0) {
       results.addIssue({
-        issue: <span>You are currently not utilizing your <a href="http://www.wowhead.com/spell=191837" target="_blank">Essence Font</a> HOT buffs effectively.  You only utilized an average of {avgMasteryCastsPerEF.toFixed(2)} HOTs over {this.modules.essenceFontMastery.castEF} <a href="http://www.wowhead.com/spell=191837" target="_blank">Essence Font</a> casts.</span>,
+        issue: <span>You are currently not utilizing your <a href="http://www.wowhead.com/spell=191837" target="_blank" rel="noopener noreferrer">Essence Font</a> HOT buffs effectively.  You only utilized an average of {avgMasteryCastsPerEF.toFixed(2)} HOTs over {this.modules.essenceFontMastery.castEF} <a href="http://www.wowhead.com/spell=191837" target="_blank" rel="noopener noreferrer">Essence Font</a> casts.</span>,
         icon: SPELLS.GUSTS_OF_MISTS.icon,
         importance: getIssueImportance(avgMasteryCastsPerEF, 2, 1),
       });
@@ -248,7 +248,7 @@ class CombatLogParser extends MainCombatLogParser {
     // EF Targets Hit
     if(avgTargetsHitPerEF < 17) {
       results.addIssue({
-        issue: <span>You are currently using not utilizing your <a href="http://www.wowhead.com/spell=191837" target="_blank">Essence Font</a> effectively.  You only hit an average of {(avgTargetsHitPerEF).toFixed(0)} targets over {this.modules.essenceFontMastery.castEF} <a href="http://www.wowhead.com/spell=191837" target="_blank">Essence Font</a> casts.  Each <a href="http://www.wowhead.com/spell=191837" target="_blank">Essence Font</a> cast should hit a total of 18 targets.  Your missed an average of {(18 - avgTargetsHitPerEF).toFixed(0)} targets.</span>,
+        issue: <span>You are currently using not utilizing your <a href="http://www.wowhead.com/spell=191837" target="_blank" rel="noopener noreferrer">Essence Font</a> effectively.  You only hit an average of {(avgTargetsHitPerEF).toFixed(0)} targets over {this.modules.essenceFontMastery.castEF} <a href="http://www.wowhead.com/spell=191837" target="_blank" rel="noopener noreferrer">Essence Font</a> casts.  Each <a href="http://www.wowhead.com/spell=191837" target="_blank" rel="noopener noreferrer">Essence Font</a> cast should hit a total of 18 targets.  Your missed an average of {(18 - avgTargetsHitPerEF).toFixed(0)} targets.</span>,
         icon: SPELLS.ESSENCE_FONT.icon,
         importance: getIssueImportance(avgTargetsHitPerEF, 14, 12),
       });
@@ -256,7 +256,7 @@ class CombatLogParser extends MainCombatLogParser {
     // SotC Usage
     if (hasSotC && this.modules.manaSavingTalents.manaReturnSotc < 300000) {
       results.addIssue({
-        issue: <span>You are not utilizing your <a href="http://www.wowhead.com/spell=210802" target="_blank">Spirit of the Crane</a> talent as effectively as you could.  You only received {(this.modules.manaSavingTalents.manaReturnSotc / 1000).toFixed(0)}k mana back during this fight.  You also lost {(this.modules.manaSavingTalents.totmOverCap + this.modules.manaSavingTalents.totmBuffWasted)} Teachings of the Monestery stacks</span>,
+        issue: <span>You are not utilizing your <a href="http://www.wowhead.com/spell=210802" target="_blank" rel="noopener noreferrer">Spirit of the Crane</a> talent as effectively as you could.  You only received {(this.modules.manaSavingTalents.manaReturnSotc / 1000).toFixed(0)}k mana back during this fight.  You also lost {(this.modules.manaSavingTalents.totmOverCap + this.modules.manaSavingTalents.totmBuffWasted)} Teachings of the Monestery stacks</span>,
         icon: SPELLS.SPIRIT_OF_THE_CRANE_TALENT.icon,
         importance: getIssueImportance(this.modules.manaSavingTalents.manaReturnSotc, 250000, 150000),
       });
@@ -264,7 +264,7 @@ class CombatLogParser extends MainCombatLogParser {
     // Chi Burst Usage
     if(this.modules.chiBurst.active && avgChiBurstTargets < 15) {
       results.addIssue({
-        issue: <span>You are not utilizing your <a href="http://www.wowhead.com/spell=123986" target="_blank">Chi Burst</a> talent as effectively as you should.  You hit an average of {avgChiBurstTargets.toFixed(2)} targets per Chi Burst cast.  Look to better position yourself during your your Chi Burst casts to get the most use out of the spell.  ({((chiBurstHealing / this.modules.chiBurst.castChiBurst) / 1000).toFixed(1)}k avg healing per cast.)</span>,
+        issue: <span>You are not utilizing your <a href="http://www.wowhead.com/spell=123986" target="_blank" rel="noopener noreferrer">Chi Burst</a> talent as effectively as you should.  You hit an average of {avgChiBurstTargets.toFixed(2)} targets per Chi Burst cast.  Look to better position yourself during your your Chi Burst casts to get the most use out of the spell.  ({((chiBurstHealing / this.modules.chiBurst.castChiBurst) / 1000).toFixed(1)}k avg healing per cast.)</span>,
         icon: SPELLS.CHI_BURST_TALENT.icon,
         importance: getIssueImportance(avgChiBurstTargets, 12, 9),
       });
@@ -358,7 +358,7 @@ class CombatLogParser extends MainCombatLogParser {
           label={(
             <dfn
               data-tip={`
-                  During your ${this.modules.manaTea.manateaCount} <a href="http://www.wowhead.com/spell=197908" target="_blank">Mana Teas</a> saved the following mana:
+                  During your ${this.modules.manaTea.manateaCount} <a href="http://www.wowhead.com/spell=197908" target="_blank" rel="noopener noreferrer">Mana Teas</a> saved the following mana:
                   <ul>
                   ${this.modules.manaTea.efCasts > 0 ?
                   `<li>${(this.modules.manaTea.efCasts)} Essence Font casts</li>`

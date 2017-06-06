@@ -46,6 +46,7 @@ class Results extends React.Component {
           <a
             href={`https://www.warcraftlogs.com/reports/${parser.report.code}/#fight=${parser.fight.id}&source=${parser.playerId}`}
             target="_blank"
+            rel="noopener noreferrer"
             className="pull-right"
             style={{ fontSize: '.6em' }}
           >
