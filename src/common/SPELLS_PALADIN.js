@@ -44,16 +44,21 @@ export default {
     name: 'Beacon of Light',
     icon: 'ability_paladin_beaconoflight',
   },
-  HOLY_SHOCK_HEAL: {
-    id: 25914,
-    name: 'Holy Shock',
-    icon: 'spell_holy_searinglight',
-  },
   HOLY_SHOCK_CAST: {
     id: 20473,
     name: 'Holy Shock',
     icon: 'spell_holy_searinglight',
     manaCost: 22000,
+  },
+  HOLY_SHOCK_HEAL: {
+    id: 25914,
+    name: 'Holy Shock',
+    icon: 'spell_holy_searinglight',
+  },
+  HOLY_SHOCK_DAMAGE: {
+    id: 25912,
+    name: 'Holy Shock',
+    icon: 'spell_holy_searinglight',
   },
   LIGHT_OF_DAWN_HEAL: {
     id: 225311,
@@ -156,7 +161,7 @@ export default {
     icon: 'spell_holy_holybolt',
   },
   INFUSION_OF_LIGHT: {
-    id: 53576,
+    id: 54149,
     name: 'Infusion of Light',
     icon: 'ability_paladin_infusionoflight',
   },

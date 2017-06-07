@@ -41,6 +41,7 @@ import Velens from './Modules/Items/Velens';
 import ChainOfThrayn from './Modules/Items/ChainOfThrayn';
 import ObsidianStoneSpaulders from './Modules/Items/ObsidianStoneSpaulders';
 import MaraadsDyingBreath from './Modules/Items/MaraadsDyingBreath';
+import Tier19_4set from './Modules/Items/Tier19_4set';
 import Tier20_4set from './Modules/Items/Tier20_4set';
 
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
@@ -105,6 +106,7 @@ class CombatLogParser extends MainCombatLogParser {
     maraadsDyingBreath: MaraadsDyingBreath,
     amalgamsSeventhSpine: AmalgamsSeventhSpine,
     darkmoonDeckPromises: DarkmoonDeckPromises,
+    tier19_4set: Tier19_4set,
     tier20_4set: Tier20_4set,
   };
 
@@ -651,14 +653,14 @@ class CombatLogParser extends MainCombatLogParser {
           </dfn>
         ),
       },
-      has4PT19 && {
+      this.modules.tier19_4set.active && {
         id: `spell-${SPELLS.HOLY_PALADIN_T19_4SET_BONUS_BUFF.id}`,
         icon: <SpellIcon id={SPELLS.HOLY_PALADIN_T19_4SET_BONUS_BUFF.id} />,
         title: <SpellLink id={SPELLS.HOLY_PALADIN_T19_4SET_BONUS_BUFF.id} />,
         result: (
-          <span>
-            {holyShockCrits * (iolProcsPerHolyShockCrit - 1)} bonus Infusion of Light charges gained
-          </span>
+          <dfn data-tip={`The actual effective healing contributed by the tier 19 4 set bonus. <b>This does not include any healing "gained" from the Holy Light cast time reduction.</b> You used a total of ${this.modules.tier19_4set.totalIolProcsUsed} Infusion of Light procs, ${this.modules.tier19_4set.bonusIolProcsUsed} of those were from procs from the 4 set bonus and ${this.modules.tier19_4set.bonusIolProcsUsedOnFol} of those bonus procs were used on Flash of Light.`}>
+            {((this.modules.tier19_4set.healing / this.totalHealing * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.tier19_4set.healing / fightDuration * 1000)} HPS
+          </dfn>
         ),
       },
       this.modules.tier20_4set.active && {
@@ -666,7 +668,7 @@ class CombatLogParser extends MainCombatLogParser {
         icon: <SpellIcon id={SPELLS.HOLY_PALADIN_T20_4SET_BONUS_BUFF.id} />,
         title: <SpellLink id={SPELLS.HOLY_PALADIN_T20_4SET_BONUS_BUFF.id} />,
         result: (
-          <dfn data-tip={`The actual effective healing contributed by the Drape of Shame equip effect. A total of ${formatNumber(this.modules.tier20_4set.totalBeaconHealingDuringLightsEmbrace)} <span style="color:orange">raw</span> healing was done on beacons during the Light's Embrace buff.`}>
+          <dfn data-tip={`The actual effective healing contributed by the tier 20 4 set bonus. A total of ${formatNumber(this.modules.tier20_4set.totalBeaconHealingDuringLightsEmbrace)} <span style="color:orange">raw</span> healing was done on beacons during the Light's Embrace buff.`}>
             {((this.modules.tier20_4set.healing / this.totalHealing * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.tier20_4set.healing / fightDuration * 1000)} HPS
           </dfn>
         ),
