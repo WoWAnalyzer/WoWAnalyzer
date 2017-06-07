@@ -350,6 +350,7 @@ export default {
     id: 157153,
     name: 'Cloudburst Totem',
     icon: 'ability_shaman_condensationtotem',
+    cooldownType: 'HEALING',
     description: 'Cloudburst Totem will in almost all encounters provide the most throughput when used correctly (see the <a href="https://chainheal.com/resto-shaman-guide-on-how-to-maximize-cloudburst-totem-cbt/">cloudburst totem guide</a> on <a href="http://chainheal.com">ChainHeal.com</a>). Extremely strong synergy with <a href="http://www.wowhead.com/spell=108281" target="_blank" rel="noopener noreferrer">Ancestral Guidance</a> and <a href="http://www.wowhead.com/spell=114052" target="_blank" rel="noopener noreferrer">Ascendance</a>.',
   },
   CLOUDBURST_TOTEM_HEAL: {
