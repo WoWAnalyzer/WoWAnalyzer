@@ -60,12 +60,6 @@ class DrapeOfShame extends Module {
   getCritHealingBonus(event) {
     let critModifier = 2;
     critModifier += DRAPE_OF_SHAME_CRIT_EFFECT;
-    if (event.ability.guid === SPELLS.HOLY_SHOCK_HEAL.id) {
-      const shockTreatmentTraits = this.owner.selectedCombatant.traitsBySpellId[SPELLS.SHOCK_TREATMENT.id];
-      // Shock Treatment increases critical healing of Holy Shock by 8%: http://www.wowhead.com/spell=200315/shock-treatment
-      // This critical healing works on both the regular part and the critical part (unlike Drape of Shame), so we double it.
-      critModifier += shockTreatmentTraits * 0.08 * 2;
-    }
     return critModifier;
   }
 }

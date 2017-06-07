@@ -370,13 +370,7 @@ class App extends Component {
               />
             );
           })()}
-          {this.config && this.config.footer && (
-            <div className="panel fade-in" style={{ margin: '15px auto 30px', width: 300, textAlign: 'center' }}>
-              <div className="panel-body text-muted">
-                {this.config.footer}
-              </div>
-            </div>
-          )}
+          {this.config && this.config.footer}
         </div>
         <ReactTooltip html={true} place="bottom" />
       </div>
