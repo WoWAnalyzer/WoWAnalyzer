@@ -235,7 +235,6 @@ class CombatLogParser extends MainCombatLogParser {
     const prydazHealingPercentage = this.modules.prydaz.healing / this.totalHealing;
     const obsidianStoneSpauldersHealingPercentage = this.modules.obsidianStoneSpaulders.healing / this.totalHealing;
     const drapeOfShameHealingPercentage = this.modules.drapeOfShame.healing / this.totalHealing;
-    const maraadsDyingBreathHealingPercentage = this.modules.maraadsDyingBreath.healing / this.totalHealing;
     const ilterendiHealingPercentage = this.modules.ilterendi.healing / this.totalHealing;
     const hasSacredDawn = this.selectedCombatant.traitsBySpellId[SPELLS.SACRED_DAWN.id] === 1;
     const sacredDawnPercentage = this.modules.sacredDawn.healing / this.totalHealing;
@@ -641,9 +640,21 @@ class CombatLogParser extends MainCombatLogParser {
         icon: <ItemIcon id={ITEMS.MARAADS_DYING_BREATH.id} />,
         title: <ItemLink id={ITEMS.MARAADS_DYING_BREATH.id} />,
         result: (
-          <dfn data-tip="The actual effective healing contributed by the Maraad's Dying Breath equip effect when compared to casting an unbuffed LotM instead. The damage taken is ignored as this doesn't change with Maraad's and therefore doesn't impact the healing gain.">
-            {((maraadsDyingBreathHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.maraadsDyingBreath.healing / fightDuration * 1000)} HPS
-          </dfn>
+          <span>
+            <dfn
+              data-tip={`
+                This is the estimated effective healing by Maraad's. This is adjusted for an estimated opportunity cost of casting a Flash of Light. The mana saved from casting a Light of the Martyr instead of a Flash of Light is also included by valuing it as 50% of the base healing of a LotM.<br /><br />
+
+                The effective healing done from Maraad's when adjusted for the opportunity cost of casting a regular (filler) Light of the Martyr was ${((this.modules.maraadsDyingBreath.healingGainOverLotm / this.totalHealing * 100) || 0).toFixed(2)} % / ${formatNumber(this.modules.maraadsDyingBreath.healingGainOverLotm / fightDuration * 1000)} HPS.
+              `}
+            >
+              ~{((this.modules.maraadsDyingBreath.healingGainOverFol / this.totalHealing * 100) || 0).toFixed(2)} % / ~{formatNumber(this.modules.maraadsDyingBreath.healingGainOverFol / fightDuration * 1000)} HPS
+            </dfn>
+            {' '}
+            (total: <dfn data-tip="This is the total healing done with Light of the Martyr during the buff from Maraad's. No opportunity cost was accounted for. The healing was adjusted for the damage taken.">
+              {((this.modules.maraadsDyingBreath.totalHealing / this.totalHealing * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.maraadsDyingBreath.totalHealing / fightDuration * 1000)} HPS
+            </dfn>)
+          </span>
         ),
       },
       this.modules.drapeOfShame.active && {

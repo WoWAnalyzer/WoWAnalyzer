@@ -83,6 +83,11 @@ export default {
     icon: 'ability_paladin_lightofthemartyr',
     manaCost: 16500,
   },
+  LIGHT_OF_THE_MARTYR_DAMAGE_TAKEN: {
+    id: 196917,
+    name: 'Light of the Martyr',
+    icon: 'ability_paladin_lightofthemartyr',
+  },
   HOLY_PRISM_HEAL: {
     id: 114852,
     name: 'Holy Prism',
