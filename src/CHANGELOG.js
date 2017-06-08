@@ -1,4 +1,5 @@
 export default `
+06-06-2017 - Holy Paladin: Added Holy Avenger estimated healing statistic. (by Zerotorescue) 
 06-06-2017 - Holy Paladin: Added Tier 19 4 set healing statistic. (by Zerotorescue) 
 06-06-2017 - Added refresh button to fights list.
 05-06-2017 - Disc Priest: Fix Atonement duration in cast efficiency not accounting for the Doomsayer trait. (by Zerotorescue)

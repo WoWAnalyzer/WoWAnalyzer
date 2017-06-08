@@ -8,7 +8,7 @@ const INFUSION_OF_LIGHT_BUFF_EXPIRATION_BUFFER = 150; // the buff expiration can
 const INFUSION_OF_LIGHT_BUFF_MINIMAL_ACTIVE_TIME = 200; // if someone heals with FoL and then immediately casts a HS race conditions may occur. This prevents that (although the buff is probably not applied before the FoL).
 const INFUSION_OF_LIGHT_FOL_HEALING_INCREASE = 0.5;
 
-const debug = true;
+const debug = false;
 
 class Tier19_4set extends Module {
   healing = 0;

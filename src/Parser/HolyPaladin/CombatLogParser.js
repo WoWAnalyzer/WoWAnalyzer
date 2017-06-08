@@ -34,6 +34,7 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import SacredDawn from './Modules/Features/SacredDawn';
 import TyrsDeliverance from './Modules/Features/TyrsDeliverance';
 import CooldownTracker from './Modules/Features/CooldownTracker';
+import HolyAvenger from './Modules/Features/HolyAvenger';
 
 import DrapeOfShame from './Modules/Items/DrapeOfShame';
 import Ilterendi from './Modules/Items/Ilterendi';
@@ -94,6 +95,7 @@ class CombatLogParser extends MainCombatLogParser {
     sacredDawn: SacredDawn,
     tyrsDeliverance: TyrsDeliverance,
     cooldownTracker: CooldownTracker,
+    holyAvenger: HolyAvenger,
 
     // Items:
     drapeOfShame: DrapeOfShame,
@@ -536,6 +538,17 @@ class CombatLogParser extends MainCombatLogParser {
           label={(
             <dfn data-tip={`Your Divine Purpose proc rate for Holy Shock was ${formatPercentage(divinePurposeHolyShockProcs / (holyShockHeals - divinePurposeHolyShockProcs))}%.<br />Your Divine Purpose proc rate for Light of Dawn was ${formatPercentage(divinePurposeLightOfDawnProcs / (lightOfDawnHeals - divinePurposeLightOfDawnProcs))}%`}>
               Divine Purpose procs
+            </dfn>
+          )}
+        />
+      ),
+      this.modules.holyAvenger.active && (
+        <StatisticBox
+          icon={<SpellIcon id={SPELLS.HOLY_AVENGER_TALENT.id} />}
+          value={`${formatNumber((this.modules.holyAvenger.regularHealing + this.modules.holyAvenger.holyShockHealing) / fightDuration * 1000)} HPS`}
+          label={(
+            <dfn data-tip={`The estimated healing contribution from Holy Avenger assuming that 30% of the casts during Holy Avenger were gained due to the 30% Haste. This is translated into healing done by taking 30% of the total effective healing done during Holy Avenger. The 30% increased Holy Shock healing is also included (${formatNumber(this.modules.holyAvenger.holyShockHealing / fightDuration * 1000)} HPS).`}>
+              Estimated healing
             </dfn>
           )}
         />
