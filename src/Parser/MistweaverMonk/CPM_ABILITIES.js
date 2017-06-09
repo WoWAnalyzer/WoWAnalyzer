@@ -14,38 +14,17 @@ const CPM_ABILITIES = [
     spell: SPELLS.RENEWING_MIST,
     category: SPELL_CATEGORY.ROTATIONAL,
     getCooldown: haste => 8,
-    recommendedCastEfficiency: .7,
+    recommendedCastEfficiency: .9,
     getOverhealing: (_, getAbility) => {
       const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.RENEWING_MIST_HEAL.id);
       return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
     },
   },
+  // Cooldowns
   {
     spell: SPELLS.THUNDER_FOCUS_TEA,
     category: SPELL_CATEGORY.ROTATIONAL,
     getCooldown: haste => 30,
-  },
-
-  // Cooldowns
-  {
-    spell: SPELLS.REVIVAL,
-    category: SPELL_CATEGORY.COOLDOWNS,
-    getCooldown: (haste, combatant) => 180 - (combatant.traitsBySpellId[SPELLS.TENDRILS_OF_REVIVAL.id] || 0 ) * 10,
-    noSuggestion: true,
-    noCanBeImproved: true,
-  },
-  {
-    spell: SPELLS.LIFE_COCOON,
-    category: SPELL_CATEGORY.COOLDOWNS,
-    getCooldown: haste => 180,
-    noSuggestion: true,
-    noCanBeImproved: true,
-  },
-  {
-    spell: SPELLS.INVOKE_CHIJI_TALENT,
-    category: SPELL_CATEGORY.COOLDOWNS,
-    getCooldown: haste => 180,
-    isActive: combatant => combatant.hasTalent(SPELLS.INVOKE_CHIJI_TALENT.id),
   },
   {
     spell: SPELLS.CHI_BURST_TALENT,
@@ -58,6 +37,22 @@ const CPM_ABILITIES = [
     },
   },
   {
+    spell: SPELLS.REFRESHING_JADE_WIND_TALENT,
+    category: SPELL_CATEGORY.COOLDOWNS,
+    getCooldown: haste => 9 / (1 + haste),
+    isActive: combatant => combatant.hasTalent(SPELLS.REFRESHING_JADE_WIND_TALENT.id),
+    getOverhealing: (_, getAbility) => {
+      const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.REFRESHING_JADE_WIND_HEAL.id);
+      return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
+    },
+  },
+  {
+    spell: SPELLS.INVOKE_CHIJI_TALENT,
+    category: SPELL_CATEGORY.COOLDOWNS,
+    getCooldown: haste => 180,
+    isActive: combatant => combatant.hasTalent(SPELLS.INVOKE_CHIJI_TALENT.id),
+  },
+  {
     spell: SPELLS.MANA_TEA_TALENT,
     category: SPELL_CATEGORY.COOLDOWNS,
     getCooldown: haste => 90,
@@ -68,6 +63,20 @@ const CPM_ABILITIES = [
     category: SPELL_CATEGORY.COOLDOWNS,
     getCooldown: haste => 75,
     isActive: combatant => combatant.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT.id),
+  },
+  {
+    spell: SPELLS.LIFE_COCOON,
+    category: SPELL_CATEGORY.COOLDOWNS,
+    getCooldown: haste => 180,
+    noSuggestion: true,
+    noCanBeImproved: true,
+  },
+  {
+    spell: SPELLS.REVIVAL,
+    category: SPELL_CATEGORY.COOLDOWNS,
+    getCooldown: (haste, combatant) => 180 - (combatant.traitsBySpellId[SPELLS.TENDRILS_OF_REVIVAL.id] || 0 ) * 10,
+    noSuggestion: true,
+    noCanBeImproved: true,
   },
 
   // Other Spell Casting Metrics
