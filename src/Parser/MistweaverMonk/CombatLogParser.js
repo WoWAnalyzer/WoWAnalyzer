@@ -166,7 +166,6 @@ class CombatLogParser extends MainCombatLogParser {
 
     const sheilunsGiftHealing = getAbility(SPELLS.SHEILUNS_GIFT.id);
     const sheilunsGiftOverhealingPercentage = getOverhealingPercentage(sheilunsGiftHealing) || 0;
-    console.log('Overheal Percentage: ' + sheilunsGiftOverhealingPercentage);
 
     /*
     if (deadTimePercentage > 0.2) {
