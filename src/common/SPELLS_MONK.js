@@ -10,13 +10,13 @@ export default {
     id: 124682,
     name: 'Enveloping Mists',
     icon: 'spell_monk_envelopingmist',
-    manaPerc: 0.06,
+    manaPerc: 0.052,
   },
   ESSENCE_FONT: {
     id: 191837,
     name: 'Essence Font',
     icon: 'ability_monk_essencefont',
-    manaPerc: 0.08,
+    manaPerc: 0.072,
   },
   ESSENCE_FONT_BUFF: {
     id: 191840,
@@ -65,7 +65,7 @@ export default {
     id: 116670,
     name: 'Vivify',
     icon: 'ability_monk_vivify',
-    manaPerc: 0.045,
+    manaPerc: 0.04,
   },
   SOOTHING_MIST: {
     id: 115175,
@@ -275,7 +275,7 @@ export default {
     name: 'Refreshing Jade Wind',
     icon: 'ability_monk_rushingjadewind',
     description: 'Refreshing Jade Wind is a powerful burst healing tool that can be used to supplement your group healing when used in combination with Essence Font. There is a heavy cost on this ability, so it will require you to be much more aware of your mana management. If you are still learning the spec or feel like you are already struggling with your mana, this talent is not recommended.',
-    manaPerc: 0.05,
+    manaPerc: 0.035,
   },
   INVOKE_CHIJI_TALENT: {
     id: 198664,
