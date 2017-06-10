@@ -170,6 +170,12 @@ const ITEMS = {
     icon: 'inv_70_raid_ring6a',
     quality: QUALITIES.LEGENDARY,
   },
+  EITHAS_LUNAR_GLIDES: {
+    id: 137028,
+    name: 'Ei\'thas, Lunar Glides of Eramas',
+    icon: 'inv_boots_mail_04black',
+    quality: QUALITIES.LEGENDARY,
+  },
 };
 
 export default indexById(ITEMS);
