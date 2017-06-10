@@ -44,6 +44,9 @@ class App extends Component {
   static defaultProps = {
     params: {},
   };
+  static childContextTypes = {
+    config: PropTypes.object,
+  };
 
   get reportCode() {
     return this.props.params.reportCode;
@@ -81,6 +84,11 @@ class App extends Component {
     this.handleReportSelecterSubmit = this.handleReportSelecterSubmit.bind(this);
     this.handleRefresh = this.handleRefresh.bind(this);
   }
+  getChildContext() {
+    return {
+      config: this.state.config,
+    };
+  }
 
   handleReportSelecterSubmit(code) {
     console.log('Selected report:', code);
@@ -108,21 +116,19 @@ class App extends Component {
     }
     const config = AVAILABLE_CONFIGS.find(config => config.spec.id === combatant.specID);
     if (!config) {
-      alert('This spec is not yet supported. Your help building support for this spec would be much appreciated! Click the GitHub link above to find out how you can contribute.');
+      alert('This spec is not yet supported. Your help adding support for this spec would be much appreciated! Click the GitHub link above to find out how you can contribute.');
       return;
     }
-    this.config = config;
 
     const ParserClass = config.parser;
-    this.parser = new ParserClass(report, player, fight);
-
     this.setState({
+      config,
+      parser: new ParserClass(report, player, fight),
       progress: 0,
-    });
-    this.parseNextBatch(this.parser, report.code, player, fight.start_time, fight.end_time);
+    }, () => this.parseNextBatch(this.state.parser, report.code, player, fight.start_time, fight.end_time));
   }
   parseNextBatch(parser, code, player, fightStart, fightEnd, nextPageTimestamp = null) {
-    if (parser !== this.parser) {
+    if (parser !== this.state.parser) {
       return;
     }
 
@@ -134,7 +140,7 @@ class App extends Component {
 
     this.fetchEvents(code, pageTimestamp, fightEnd, actorId)
       .then((json) => {
-        if (parser !== this.parser) {
+        if (parser !== this.state.parser) {
           return;
         }
         parser.parseEvents(json.events)
@@ -245,9 +251,9 @@ class App extends Component {
   }
 
   reset() {
-    this.parser = null;
-    this.config = null;
     this.setState({
+      config: null,
+      parser: null,
       progress: 0,
     });
   }
@@ -305,7 +311,7 @@ class App extends Component {
 
   render() {
     const { report, combatants } = this.state;
-    const parser = this.parser;
+    const parser = this.state.parser;
 
     const progress = Math.floor(this.state.progress * 100);
 
@@ -370,7 +376,7 @@ class App extends Component {
               />
             );
           })()}
-          {this.config && this.config.footer}
+          {this.state.config && this.state.config.footer}
         </div>
         <ReactTooltip html={true} place="bottom" />
       </div>

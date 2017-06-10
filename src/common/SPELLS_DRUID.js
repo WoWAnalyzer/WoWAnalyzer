@@ -379,7 +379,7 @@ export default {
   INNER_PEACE_TALENT: {
     id: 197073,
     name: 'Inner Peace',
-    icon: 'spell_druid_innerpeace',
+    icon: 'ability_druid_dreamstate',
     description: 'This talent requires some planning with your healing team to optimize. Useful if you can get a few extra good tranquilities in, useless otherwise.',
   },
   GERMINATION_TALENT: {
