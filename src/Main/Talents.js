@@ -67,7 +67,6 @@ class Talents extends React.Component {
     }
 
     const talentDescriptions = this.context.config.talentDescriptions;
-    console.log(this.context.config)
 
     return (
       <div style={{ marginTop: -10, marginBottom: -10 }}>
