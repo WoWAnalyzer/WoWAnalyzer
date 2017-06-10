@@ -65,6 +65,13 @@ const CPM_ABILITIES = [
     isActive: combatant => combatant.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT.id),
   },
   {
+    spell: SPELLS.CLEANSING_MATRIX,
+    name: `${ITEMS.ARCHIVE_OF_FAITH.name}`,
+    category: SPELL_CATEGORY.COOLDOWNS,
+    getCooldown: haste => 60,
+    isActive: combatant => combatant.hasTrinket(ITEMS.ARCHIVE_OF_FAITH.id),
+  },
+  {
     spell: SPELLS.LIFE_COCOON,
     category: SPELL_CATEGORY.COOLDOWNS,
     getCooldown: haste => 180,
@@ -78,6 +85,7 @@ const CPM_ABILITIES = [
     noSuggestion: true,
     noCanBeImproved: true,
   },
+
 
   // Other Spell Casting Metrics
   {

@@ -42,4 +42,38 @@ export default {
     name: 'Mark of the Ancient Priestess',
     icon: 'ability_priest_ascension',
   },
+  // Archive of Faith Heals
+  CLEANSING_MATRIX: {
+    id: 242619,
+    name: 'Cleansing Matrix',
+    icon: 'inv__wod_arakoa4',
+  },
+  AOF_INFUSION_OF_LIGHT: {
+    id: 242621,
+    name: 'Infusion of Light',
+    icon: 'spell_shadow_mindshear',
+  },
+  // Barbaric Mindslaver
+  GUILTY_CONSCIENCE: {
+    id: 242327,
+    name: 'Guilty Conscience',
+    icon: 'spell_shadow_mindshear',
+  },
+  // Guiding Hand
+  GUIDING_HAND: {
+    id: 242622,
+    name: 'Guiding Hand',
+    icon: 'spell_shadow_mindshear',
+  },
+  FRUITFUL_MACHINATIONS: {
+    id: 242623,
+    name: 'Fruitful Machinations',
+    icon: 'spell_shadow_mindshear',
+  },
+  // Sea Star of the Depthmother
+  OCEANS_EMBRACE: {
+    id: 242474,
+    name: 'Ocean\'s Embrace',
+    icon: 'paladin_holy',
+  },
 };
