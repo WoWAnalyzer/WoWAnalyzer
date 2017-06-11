@@ -33,6 +33,7 @@ const CPM_ABILITIES = [
     spell: SPELLS.POWER_WORD_SHIELD,
     name: `${SPELLS.POWER_WORD_SHIELD.name} during Rapture`,
     category: SPELL_CATEGORY.ROTATIONAL,
+    extraSuggestion: `${SPELLS.POWER_WORD_SHIELD.name} may be cast without cooldown during Rapture.`,
     getCooldown: haste => 9 / (1 + haste),
     getCasts: castCount => castCount.raptureCasts || 0,
     getMaxCasts: (cooldown, fightDuration, getAbility, parser) => {
