@@ -130,6 +130,9 @@ class App extends Component {
     }, () => {
       parser.parseEvents(this.state.combatants)
         .then(() => {
+          this.setState({
+            progress: 0.1,
+          });
           parser.triggerEvent('initialized');
           this.parseNextBatch(parser, report.code, player, fight.start_time, fight.end_time);
         });
@@ -183,7 +186,11 @@ class App extends Component {
     console.log('Finished. Parser:', parser);
 
     this.setState({
-      progress: 1,
+      progress: 0.99,
+    }, () => {
+      this.setState({
+        progress: 1,
+      });
     });
   }
 
