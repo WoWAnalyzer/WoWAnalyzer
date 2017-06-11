@@ -173,115 +173,97 @@ export default {
     id: 200347,
     name: 'The Penitent',
     icon: 'spell_priest_finalprayer',
-    description: 'Penance may be cast on a friendly target, healing them for [(300% of Spell power) * 3] over 2 sec.',
   },
   CASTIGATION_TALENT: {
     id: 193134,
     name: 'Castigation',
     icon: 'spell_holy_searinglightpriest',
-    description: 'Penance fires one additional bolt of holy light over its duration.',
   },
   SCHISM_TALENT: {
     id: 214621,
     name: 'Schism',
     icon: 'spell_warlock_focusshadow',
-    description: 'Attack the enemy\'s soul with a surge of Shadow energy, dealing (425% of Spell power) Shadow damage and increasing damage that you deal to the target by 30% for 6 sec.',
   },
   // lv30
   ANGELIC_FEATHER_TALENT: {
     id: 121536,
     name: 'Angelic Feather',
     icon: 'ability_priest_angelicfeather',
-    description: 'Places a feather at the target location, granting the first ally to walk through it 40% increased movement speed for 5 sec. Only 3 feathers can be placed at one time.  Maximum 3 charges.',
   },
   BODY_AND_SOUL_TALENT: {
     id: 64129,
     name: 'Body and Soul',
     icon: 'spell_holy_symbolofhope',
-    description: 'Power Word: Shield  Shadowincreases Disciplineand Leap of Faith increase your target\'s movement speed by 40% for 3 sec.',
   },
   MASOCHISM_TALENT: {
     id: 193063,
     name: 'Masochism',
     icon: 'spell_shadow_misery',
-    description: 'When you cast Shadow Mend on yourself, its damage over time effect heals you instead, and reduces all damage you take by 10%.',
   },
   // lv45
   SHINING_FORCE_TALENT: {
     id: 204263,
     name: 'Shining Force',
     icon: 'ability_paladin_blindinglight2',
-    description: 'Creates a burst of light around a friendly target, knocking away nearby enemies and slowing their movement speed by 70% for 3 sec.3 seconds remaining',
   },
   PSYCHIC_VOICE_TALENT: {
     id: 196704,
     name: 'Psychic Voice',
     icon: 'spell_shadow_psychichorrors',
-    description: 'Reduces the cooldown of Psychic Scream by 30 sec.',
   },
   DOMINANT_MIND_TALENT: {
     id: 205367,
     name: 'Dominant Mind',
     icon: 'spell_priest_void-flay',
-    description: 'You may also control your own character while Mind Control is active, but Mind Control has a 2 min cooldown, and it may not be used against players.',
   },
   // lv60
   POWER_WORD_SOLACE_TALENT: {
     id: 129250,
     name: 'Power Word: Solace',
     icon: 'ability_priest_flashoflight',
-    description: 'Strikes an enemy with heavenly power, dealing (300% of Spell power) Holy damage and restoring 1.00% of your maximum mana.',
   },
   SHIELD_DISCIPLINE_TALENT: {
     id: 197045,
     name: 'Shield Discipline',
     icon: 'spell_holy_divineprotection',
-    description: 'When your Power Word: Shield is completely absorbed you instantly regenerate 1% of your maximum mana.',
   },
   MINDBENDER_TALENT: {
     id: 123040,
     name: 'Mindbender',
     icon: 'spell_shadow_soulleech_3',
-    description: 'Summons a Mindbender to attack the target for 12 sec. You regenerate 0.50% of maximum mana each time the Mindbender attacks.',
   },
   // lv75
   CONTRITION_TALENT: {
     id: 197419,
     name: 'Contrition',
     icon: 'ability_priest_savinggrace',
-    description: 'Increases Atonement duration by 3 sec.',
   },
   POWER_INFUSION_TALENT: {
     id: 10060,
     name: 'Power Infusion',
     icon: 'spell_holy_powerinfusion',
-    description: 'Infuses you with power for 20 sec, increasing haste by 25% Shadowand increasing Insanity generation by 25% Disciplineand reducing the mana cost of all spells by 20%20 seconds remaining',
   },
   TWIST_OF_FATE_TALENT: {
     id: 109142,
     name: 'Twist of Fate',
     icon: 'spell_shadow_mindtwisting',
-    description: 'After  Shadowdamaging Disciplinehealing a target below 35% health, you deal 20% increased damage and 20% increased healing for 10 sec.',
   },
   // lv90
   CLARITY_OF_WILL_TALENT: {
     id: 152118,
     name: 'Clarity of Will',
     icon: 'ability_priest_clarityofwill',
-    description: 'Shields the target with a protective ward for 20 sec, absorbing [Spell power * 9 * (1 + Versatility)] damage.20 seconds remaining',
   },
   DIVINE_STAR_TALENT: {
     id: 110744,
     name: 'Divine Star',
     icon: 'spell_priest_divinestar',
-    description: 'Throw a Divine Star forward 24 yds, healing allies in its path for (90% of Spell power) and dealing (145% of Spell power) Holy damage to enemies. After reaching its destination, the Divine Star returns to you, healing allies and damaging enemies in its path again.',
   },
   HALO_TALENT: {
     id: 120517,
     name: 'Halo',
     icon: 'ability_priest_halo',
     manaCost: 39600,
-    description: 'Creates a ring of Holy energy around you that quickly expands to a 30 yd radius, healing allies for (287.4% of Spell power) and dealing (431.1% of Spell power) Holy damage to enemies.',
   },
   // lv100
   PURGE_THE_WICKED_TALENT: {
@@ -289,19 +271,16 @@ export default {
     name: 'Purge the Wicked',
     icon: 'ability_mage_firestarter',
     manaCost: 22000,
-    description: 'Cleanses the target with fire, causing (100% of Spell power) Fire damage and an additional (480% of Spell power) Fire damage over 20 sec. Spreads to an additional nearby enemy when you cast Penance on the target.',
   },
   GRACE_TALENT: {
     id: 200309,
     name: 'Grace',
     icon: 'spell_holy_hopeandgrace',
-    description: 'Increases your non-Atonement healing and absorption by 30% on targets with Atonement.',
   },
   SHADOW_COVENANT_TALENT: {
     id: 204065,
     name: 'Shadow Covenant',
     icon: 'spell_shadow_summonvoidwalker',
-    description: 'Draws on the power of shadow to heal up to 5 injured allies within 30 yds of the target for (450% of Spell power), but leaves a shell on them that absorbs the next [(450% of Spell power) * 50 / 100] healing they receive within 6 sec.',
   },
 
   // Traits:
