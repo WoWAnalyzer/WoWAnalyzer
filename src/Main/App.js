@@ -121,11 +121,19 @@ class App extends Component {
     }
 
     const ParserClass = config.parser;
+    const parser = new ParserClass(report, player, fight);
+
     this.setState({
       config,
-      parser: new ParserClass(report, player, fight),
+      parser,
       progress: 0,
-    }, () => this.parseNextBatch(this.state.parser, report.code, player, fight.start_time, fight.end_time));
+    }, () => {
+      parser.parseEvents(this.state.combatants)
+        .then(() => {
+          parser.triggerEvent('initialized');
+          this.parseNextBatch(parser, report.code, player, fight.start_time, fight.end_time);
+        });
+    });
   }
   parseNextBatch(parser, code, player, fightStart, fightEnd, nextPageTimestamp = null) {
     if (parser !== this.state.parser) {
@@ -135,14 +143,14 @@ class App extends Component {
     const isFirstBatch = nextPageTimestamp === null;
     // If this is the first batch the first events will be at the fightStart
     const pageTimestamp = isFirstBatch ? fightStart : nextPageTimestamp;
-    // If this is the first batch we want to NOT filter the events by actor id in order to obtain combatantinfo for all players
-    const actorId = isFirstBatch ? undefined : player.id;
+    const actorId = player.id;
 
     this.fetchEvents(code, pageTimestamp, fightEnd, actorId)
       .then((json) => {
         if (parser !== this.state.parser) {
           return;
         }
+
         parser.parseEvents(json.events)
           .then(() => {
             // Update the interface with progress

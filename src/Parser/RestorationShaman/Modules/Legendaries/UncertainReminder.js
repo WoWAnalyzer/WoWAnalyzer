@@ -37,7 +37,6 @@ const SPELLS_SCALING_WITH_HASTE = [
 ];
 
 class UncertainReminder extends Module {
-  encounterStart = null;
   heroismStart = null;
   hastePercent = null;
   events = [];
@@ -49,6 +48,11 @@ class UncertainReminder extends Module {
   on_initialized() {
     if (!this.owner.error) {
       this.active = this.owner.selectedCombatant.hasHead(ITEMS.UNCERTAIN_REMINDER.id);
+      // We apply heroism at the start incase it was popped before the pull. If we see it's
+      // applied before it drops, we discard all the events.
+      this.heroismStart = this.owner.fight.start_time;
+      this.hastePercent = 0.30;
+      this.events = [];
     }
   }
 
@@ -85,14 +89,6 @@ class UncertainReminder extends Module {
     this.events = [];
   }
 
-  on_encounterstart(event) {
-    // We apply heroism at the start incase it was popped before the pull. If we see it's 
-    // applied before it drops, we discard all the events.
-    this.heroismStart = event.timestamp;
-    this.hastePercent = 0.30;
-    this.events = [];
-  }
-  
   on_toPlayer_applybuff(event) {
 
       const spellId = event.ability.guid; 

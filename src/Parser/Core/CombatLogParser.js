@@ -1,4 +1,3 @@
-import Initialize from './Modules/Initialize';
 import Combatants from './Modules/Combatants';
 import AbilityTracker from './Modules/AbilityTracker';
 import AlwaysBeCasting from './Modules/AlwaysBeCasting';
@@ -6,7 +5,6 @@ import Enemies from './Modules/Enemies';
 
 class CombatLogParser {
   static defaultModules = {
-    initialize: Initialize,
     combatants: Combatants,
     enemies: Enemies,
     abilityTracker: AbilityTracker,
