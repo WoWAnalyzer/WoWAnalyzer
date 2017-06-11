@@ -65,7 +65,7 @@ export default {
     id: 116670,
     name: 'Vivify',
     icon: 'ability_monk_vivify',
-    manaPerc: 0.04,
+    manaPerc: 0.045,
   },
   SOOTHING_MIST: {
     id: 115175,
@@ -133,13 +133,13 @@ export default {
     id: 107428,
     name: 'Rising Sun Kick',
     icon: 'ability_monk_risingsunkick',
-    manaPerc: 0.02 ,
+    manaPerc: 0.015,
   },
   SPINNING_CRANE_KICK: {
     id: 101546,
     name: 'Spining Crane Kick',
     icon: 'ability-monk-cranekick-new',
-    manaPerc: 0.01 ,
+    manaPerc: 0.01,
   },
   TIGER_PALM: {
     id: 100780,
