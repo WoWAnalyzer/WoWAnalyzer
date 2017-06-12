@@ -38,6 +38,7 @@ import CordOfMaiev from './Modules/Items/CordOfMaiev';
 import Skjoldr from './Modules/Items/Skjoldr';
 import Xalan from './Modules/Items/Xalan';
 import NeroBandOfPromises from './Modules/Items/NeroBandOfPromises';
+import TarnishedSentinelMedallion from './Modules/Items/TarnishedSentinelMedallion';
 
 import TwistOfFate from './Modules/Spells/TwistOfFate';
 import Atonement from './Modules/Spells/Atonement';
@@ -91,6 +92,8 @@ class CombatLogParser extends MainCombatLogParser {
     neroBandOfPromises: NeroBandOfPromises,
     amalgamsSeventhSpine: AmalgamsSeventhSpine,
     darkmoonDeckPromises: DarkmoonDeckPromises,
+    tarnishedSentinelMedallion: TarnishedSentinelMedallion,
+
 
     // Spells (talents and traits):
     twistOfFate: TwistOfFate,
@@ -110,6 +113,7 @@ class CombatLogParser extends MainCombatLogParser {
     const missedPenanceTicks = (this.modules.alwaysBeCasting.truePenanceCasts * 4) - (penance.casts || 0);
     const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
     const velensHealingPercentage = this.modules.velens.healing / this.totalHealing;
+    const owlHealingPercentage = this.modules.tarnishedSentinelMedallion.healing / this.totalHealing;
     const prydazHealingPercentage = this.modules.prydaz.healing / this.totalHealing;
     const drapeOfShameHealingPercentage = this.modules.drapeOfShame.healing / this.totalHealing;
     const improperAtonementRefreshPercentage = this.modules.atonement.improperAtonementRefreshes.length / this.modules.atonement.totalAtones;
@@ -251,6 +255,16 @@ class CombatLogParser extends MainCombatLogParser {
         result: (
           <dfn data-tip="The actual effective healing contributed by the Velen's Future Sight use effect.">
             {((velensHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.velens.healing / fightDuration * 1000)} HPS
+          </dfn>
+        ),
+      },
+      this.modules.tarnishedSentinelMedallion.active && {
+        id: ITEMS.TARNISHED_SENTINEL_MEDALLION.id,
+        icon: <ItemIcon id={ITEMS.TARNISHED_SENTINEL_MEDALLION.id} />,
+        title: <ItemLink id={ITEMS.TARNISHED_SENTINEL_MEDALLION.id} />,
+        result: (
+          <dfn data-tip="The atonement healing done by the trinket's damaging effects.">
+           { ((owlHealingPercentage * 100) || 0).toFixed(2) } % / { formatNumber(this.modules.tarnishedSentinelMedallion.healing / fightDuration * 1000) } HPS
           </dfn>
         ),
       },

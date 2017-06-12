@@ -24,7 +24,7 @@ const CPM_ABILITIES = [
     getCasts: castCount => castCount.casts,
     getMaxCasts: (cooldown, fightDuration, getAbility, parser) => {
       return calculateMaxCasts(cooldown, fightDuration, 2);
-    }
+    },
   },
   {
     spell: SPELLS.EVANGELISM_TALENT,

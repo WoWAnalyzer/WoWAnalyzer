@@ -176,6 +176,14 @@ const ITEMS = {
     icon: 'inv_boots_mail_04black',
     quality: QUALITIES.LEGENDARY,
   },
+
+  // Trinkets
+  TARNISHED_SENTINEL_MEDALLION: {
+    id: 147017,
+    name: 'Tarnished Sentinel Medallion',
+    icon: 'inv_jewelcrafting_purpleowl.jpg',
+    quality: QUALITIES.EPIC,
+  },
 };
 
 export default indexById(ITEMS);
