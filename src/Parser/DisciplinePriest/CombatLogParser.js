@@ -9,6 +9,7 @@ import ItemLink from 'common/ItemLink';
 import ItemIcon from 'common/ItemIcon';
 
 import StatisticBox from 'Main/StatisticBox';
+import ExpandableStatisticBox from 'Main/ExpandableStatisticBox';
 import SuggestionsTab from 'Main/SuggestionsTab';
 import TalentsTab from 'Main/TalentsTab';
 import CastEfficiencyTab from 'Main/CastEfficiencyTab';
@@ -184,7 +185,37 @@ class CombatLogParser extends MainCombatLogParser {
           </dfn>
         )}
       />,
-      <StatisticBox
+      <ExpandableStatisticBox
+        icon={<SpellIcon id={SPELLS.EVANGELISM_TALENT.id} />}
+        value={`${formatNumber(this.modules.evangelism.evangelismStatistics.reduce((p, c) => p += c.healing, 0) / fightDuration * 1000)} HPS`}
+        label={(
+          <dfn data-tip={`Evangelism accounted for approximately ${ formatPercentage(this.modules.evangelism.evangelismStatistics.reduce((p, c) => p += c.healing, 0) / this.totalHealing) }% of your healing.`}>
+            Evangelism contribution
+          </dfn>
+        )}
+      >
+        <table className="table table-condensed">
+          <th>Cast</th>
+          <th>Healing</th>
+          <th>Duration</th>
+          <th>Count</th>
+          
+          { 
+            this.modules.evangelism.evangelismStatistics
+                .map(function(evangelism, index) {
+                  return (
+                    <tr>
+                      <th scope="row">{ index + 1 }</th>
+                      <td>{ formatNumber(evangelism.healing) }</td>
+                      <td>{ evangelism.atonementSeconds }s</td>
+                      <td>{ evangelism.count }</td>
+                    </tr>
+                  );
+                })
+          }
+        </table>
+      </ExpandableStatisticBox>,
+      missedPenanceTicks && (<StatisticBox
         icon={<SpellIcon id={SPELLS.PENANCE.id} />}
         value={missedPenanceTicks}
         label={(
@@ -192,7 +223,7 @@ class CombatLogParser extends MainCombatLogParser {
             Wasted Penance bolts
           </dfn>
         )}
-      />,
+      />),
       this.modules.atonement.active && (
         <StatisticBox 
         icon={<SpellIcon id={SPELLS.ATONEMENT_HEAL_NON_CRIT.id} />}
@@ -229,6 +260,7 @@ class CombatLogParser extends MainCombatLogParser {
           label="Shadow Word: Pain uptime"
         />
       ),
+      this.modules.powerWordShieldWasted.wasted && (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.POWER_WORD_SHIELD.id} />}
         value={`${formatNumber(this.modules.powerWordShieldWasted.wasted / fightDuration * 1000)} HPS`}
@@ -237,7 +269,7 @@ class CombatLogParser extends MainCombatLogParser {
             Unused PW:S absorb
           </dfn>
         )}
-      />,
+      />),
     ];
 
     results.items = [

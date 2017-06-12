@@ -4,8 +4,12 @@ import Module from 'Parser/Core/Module';
 
 class Evangelism extends Module {
   _previousEvangelismCast = null;
-  evangelismStatistics = {};
+  _evangelismStatistics = {};
   atonementModule = this.owner.modules.atonement;
+
+  get evangelismStatistics() {
+    return Object.keys(this._evangelismStatistics).map(key => this._evangelismStatistics[key]);
+  }
   
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
@@ -15,7 +19,7 @@ class Evangelism extends Module {
     this._previousEvangelismCast = event;
     const atonedPlayers = this.atonementModule.numAtonementsActive;
 
-    this.evangelismStatistics[event.timestamp] = {
+    this._evangelismStatistics[event.timestamp] = {
       count: atonedPlayers,
       atonementSeconds: atonedPlayers * 7,
       healing: 0,
@@ -36,7 +40,7 @@ class Evangelism extends Module {
       
       // Add all healing that shouldn't exist to expiration
       if (event.timestamp > target.atonementExpirationTimestamp) {
-        this.evangelismStatistics[this._previousEvangelismCast.timestamp].healing += (event.amount + (event.absorbed || 0));
+        this._evangelismStatistics[this._previousEvangelismCast.timestamp].healing += (event.amount + (event.absorbed || 0));
       }
     }
   }
