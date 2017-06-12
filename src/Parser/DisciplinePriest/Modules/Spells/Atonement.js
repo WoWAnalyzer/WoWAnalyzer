@@ -8,15 +8,14 @@ const debug = false;
 const IMPROPER_REFRESH_TIME = 3000;
 
 class Atonement extends Module {
-    healing = 0;
-    totalAtones = 0;
-    totalAtonementRefreshes = 0;
-  hasContrition = false;
+  healing = 0;
+  totalAtones = 0;
+  totalAtonementRefreshes = 0;
   currentAtonementTargets = [];
   improperAtonementRefreshes = [];
 
   get atonementDuration() {
-    return 15 + (this.hasContrition ? 3 : 0);
+    return 15;
   }
 
   get numAtonementsActive() {
@@ -25,9 +24,6 @@ class Atonement extends Module {
 
   on_initialized() {
     this.active = true;
-    if (!this.owner.error) {
-      this.hasContrition = this.owner.selectedCombatant.hasTalent(SPELLS.CONTRITION_TALENT.id);
-    }
   }
 
   on_byPlayer_applybuff(event) {
