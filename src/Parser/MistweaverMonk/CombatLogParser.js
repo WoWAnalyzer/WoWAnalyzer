@@ -190,6 +190,8 @@ class CombatLogParser extends MainCombatLogParser {
     }
     */
 
+    /*
+    // Deciever's Grand Design Suggestion
     if(this.modules.dgd.dgdProced) {
       console.log('https://www.warcraftlogs.com/reports/' + this.report.code + '/#fight=' + this.fight.id + '&source=' + this.modules.dgd.dgdProcs[0].target + '&type=summary&start=' + this.modules.dgd.dgdProcs[0].start + '&end=' + this.modules.dgd.dgdProcs[0].end + '&view=events');
     }
@@ -201,7 +203,7 @@ class CombatLogParser extends MainCombatLogParser {
         icon: ITEMS.DECEIVERS_GRAND_DESIGN.icon,
       });
     }
-
+    */
 
     // Missed Whispers healing
     if(hasWhispersOfShaohao && missedWhispersHeal > 10) {
