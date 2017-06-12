@@ -85,7 +85,7 @@ class DecieversGrandDesign extends Module {
           this.dgdTargetTwo = null;
           this.dgdProcTimestampTargetTwo = event.timestamp;
         }
-        const urlText = `<a href=https://www.warcraftlogs.com/reports/` + this.owner.report.code + `#fight=` + this.owner.fight.id + `&source=` + targetId + `&type=summary&start=` + startTime + `&end=` + endTime + `&view=events> Player: ` + this.owner.combatants.players[targetId]._combatantInfo.name + `<br />`
+        const urlText = `<a href=https://www.warcraftlogs.com/reports/` + this.owner.report.code + `#fight=` + this.owner.fight.id + `&source=` + targetId + `&type=summary&start=` + startTime + `&end=` + endTime + `&view=events> Player: ` + this.owner.combatants.players[targetId]._combatantInfo.name + `<br />`;
         this.dgdProcs.push({
           name: this.owner.combatants.players[targetId]._combatantInfo.name,
           report: this.owner.report.code,
