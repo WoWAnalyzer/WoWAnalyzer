@@ -29,7 +29,7 @@ import AbilityTracker from './Modules/Core/AbilityTracker';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownTracker from './Modules/Features/CooldownTracker';
 import PowerWordShieldWasted from './Modules/Features/PowerWordShieldWasted';
-import AtonementDamageSource from './Modules/Features/AtonementDamageSource';
+import AtonementSource from './Modules/Features/AtonementSource';
 
 import DrapeOfShame from './Modules/Items/DrapeOfShame';
 import Velens from './Modules/Items/Velens';
@@ -77,7 +77,7 @@ class CombatLogParser extends MainCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     cooldownTracker: CooldownTracker,
     powerWordShieldWasted: PowerWordShieldWasted,
-    atonementDamageSource: AtonementDamageSource,
+    atonementSource: AtonementSource,
 
     // Items:
     drapeOfShame: DrapeOfShame,

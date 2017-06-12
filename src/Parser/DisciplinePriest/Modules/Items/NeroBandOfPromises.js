@@ -29,7 +29,7 @@ class NeroBandOfPromises extends Module {
         // If someone already has the Atonement buff then N'ero will not cause Penance to heal that person twice (N'ero does NOT stack with pre-existing Atonement)
         return;
       }
-      if (this.owner.modules.atonementDamageSource.spell.guid !== SPELLS.PENANCE.id) {
+      if (this.owner.modules.atonementSource.atonementDamageSource.ability.guid !== SPELLS.PENANCE.id) {
         // N'ero only procs from Penance
         return;
       }
