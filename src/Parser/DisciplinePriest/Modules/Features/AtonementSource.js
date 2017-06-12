@@ -7,12 +7,16 @@ class AtonementSource extends Module {
   _previousAtonementApplicator = null;
 
   // Spells that will apply atonement
-  atonementApplicators = new Set([
-    SPELLS.POWER_WORD_RADIANCE.id,
-    SPELLS.POWER_WORD_SHIELD.id,
-    SPELLS.PLEA.id,
-    SPELLS.SHADOW_MEND.id,
+  atonementApplicators = new Map([
+    [SPELLS.POWER_WORD_RADIANCE.id, SPELLS.POWER_WORD_RADIANCE.atonementDuration],
+    [SPELLS.POWER_WORD_SHIELD.id, SPELLS.POWER_WORD_SHIELD.atonementDuration],
+    [SPELLS.PLEA.id, SPELLS.PLEA.atonementDuration],
+    [SPELLS.SHADOW_MEND.id, SPELLS.SHADOW_MEND.atonementDuration],
   ]);
+
+  get atonementDuration() {
+    return this.atonementApplicators;
+  }
 
   get atonementDamageSource() {
     return this._previousDamageEvent;

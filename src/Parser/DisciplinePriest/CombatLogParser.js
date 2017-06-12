@@ -42,6 +42,7 @@ import TarnishedSentinelMedallion from './Modules/Items/TarnishedSentinelMedalli
 
 import TwistOfFate from './Modules/Spells/TwistOfFate';
 import Atonement from './Modules/Spells/Atonement';
+import Evangelism from './Modules/Spells/Evangelism';
 
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
 
@@ -75,6 +76,7 @@ class CombatLogParser extends MainCombatLogParser {
     // Override the ability tracker so we also get stats for IoL and beacon healing
     abilityTracker: AbilityTracker,
 
+    // Abilities
     alwaysBeCasting: AlwaysBeCasting,
     cooldownTracker: CooldownTracker,
     powerWordShieldWasted: PowerWordShieldWasted,
@@ -98,6 +100,7 @@ class CombatLogParser extends MainCombatLogParser {
     // Spells (talents and traits):
     twistOfFate: TwistOfFate,
     atonement: Atonement,
+    evangelism: Evangelism,
   };
 
   generateResults() {

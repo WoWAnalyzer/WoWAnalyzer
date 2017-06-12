@@ -11,6 +11,7 @@ export default {
     name: 'Power Word: Shield',
     icon: 'spell_holy_powerwordshield',
     manaCost: 25300,
+    atonementDuration: 15,
   },
   SMITE: {
     id: 585,
@@ -23,11 +24,13 @@ export default {
     name: 'Power Word: Radiance',
     icon: 'spell_priest_power-word',
     manaCost: 71500,
+    atonementDuration: 9,
   },
   SHADOW_MEND: {
     id: 186263,
     name: 'Shadow Mend',
     icon: 'spell_shadow_shadowmend',
+    atonementDuration: 15,
   },
   LIGHTS_WRATH: {
     id: 207946,
@@ -49,6 +52,7 @@ export default {
     id: 200829,
     name: 'Plea',
     icon: 'spell_priest_plea_blue',
+    atonementDuration: 15,
   },
   MASS_DISPEL: {
     id: 32375,
