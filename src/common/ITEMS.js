@@ -91,6 +91,7 @@ const ITEMS = {
     icon: 'inv_helm_mail_korkronshaman_d_01',
     quality: QUALITIES.LEGENDARY,
   },
+  // PRIEST LEGENDARIES
   CORD_OF_MAIEV_PRIESTESS_OF_THE_MOON: {
     id: 133800,
     name: 'Cord of Maiev, Priestess of the Moon',
@@ -115,6 +116,13 @@ const ITEMS = {
     icon: 'inv_jewelry_ring_54',
     quality: QUALITIES.LEGENDARY,
   },
+  SOUL_OF_THE_HIGH_PRIEST: {
+    id: 151646,
+    name: 'Soul of the High Priest',
+    icon: 'inv_jewelry_ring_67',
+    quality: QUALITIES.LEGENDARY,
+  },
+  // Trinkets
   DARKMOON_DECK_PROMISES: {
     id: 128710,
     name: 'Darkmoon Deck: Promises',
@@ -177,7 +185,7 @@ const ITEMS = {
     quality: QUALITIES.LEGENDARY,
   },
 
-  // Trinkets
+  // DPS Trinkets
   TARNISHED_SENTINEL_MEDALLION: {
     id: 147017,
     name: 'Tarnished Sentinel Medallion',
