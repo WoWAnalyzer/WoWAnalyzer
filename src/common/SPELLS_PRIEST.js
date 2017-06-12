@@ -169,10 +169,10 @@ export default {
   // Talents:
   // Discipline Priest:
   // lv15
-  THE_PENITENT_TALENT: {
-    id: 200347,
-    name: 'The Penitent',
-    icon: 'spell_priest_finalprayer',
+  TWIST_OF_FATE_TALENT: {
+    id: 109142,
+    name: 'Twist of Fate',
+    icon: 'spell_shadow_mindtwisting',
   },
   CASTIGATION_TALENT: {
     id: 193134,
@@ -233,26 +233,27 @@ export default {
     icon: 'spell_shadow_soulleech_3',
   },
   // lv75
-  CONTRITION_TALENT: {
-    id: 197419,
-    name: 'Contrition',
-    icon: 'ability_priest_savinggrace',
+  SANCTUARY_TALENT: {
+    id: 246393,
+    name: 'Sanctuary',
+    icon: 'spell_holy_holysmite',
   },
-  POWER_INFUSION_TALENT: {
-    id: 10060,
-    name: 'Power Infusion',
-    icon: 'spell_holy_powerinfusion',
-  },
-  TWIST_OF_FATE_TALENT: {
-    id: 109142,
-    name: 'Twist of Fate',
-    icon: 'spell_shadow_mindtwisting',
-  },
-  // lv90
   CLARITY_OF_WILL_TALENT: {
     id: 152118,
     name: 'Clarity of Will',
     icon: 'ability_priest_clarityofwill',
+  },
+  SHADOW_COVENANT_TALENT: {
+    id: 204065,
+    name: 'Shadow Covenant',
+    icon: 'spell_shadow_summonvoidwalker',
+  },
+  // lv90
+  PURGE_THE_WICKED_TALENT: {
+    id: 204197,
+    name: 'Purge the Wicked',
+    icon: 'ability_mage_firestarter',
+    manaCost: 22000,
   },
   DIVINE_STAR_TALENT: {
     id: 110744,
@@ -266,22 +267,22 @@ export default {
     manaCost: 39600,
   },
   // lv100
-  PURGE_THE_WICKED_TALENT: {
-    id: 204197,
-    name: 'Purge the Wicked',
-    icon: 'ability_mage_firestarter',
-    manaCost: 22000,
+  POWER_INFUSION_TALENT: {
+    id: 10060,
+    name: 'Power Infusion',
+    icon: 'spell_holy_powerinfusion',
   },
   GRACE_TALENT: {
     id: 200309,
     name: 'Grace',
     icon: 'spell_holy_hopeandgrace',
   },
-  SHADOW_COVENANT_TALENT: {
-    id: 204065,
-    name: 'Shadow Covenant',
-    icon: 'spell_shadow_summonvoidwalker',
+  EVANGELISM_TALENT: {
+    id: 246287,
+    name: 'Evangelism',
+    icon: 'spell_holy_divineillumination',
   },
+
 
   // Traits:
   // Disc Priest:
