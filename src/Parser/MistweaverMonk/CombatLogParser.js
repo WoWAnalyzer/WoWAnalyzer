@@ -189,6 +189,20 @@ class CombatLogParser extends MainCombatLogParser {
       });
     }
     */
+
+    if(this.modules.dgd.dgdProced) {
+      console.log('https://www.warcraftlogs.com/reports/' + this.report.code + '/#fight=' + this.fight.id + '&source=' + this.modules.dgd.dgdProcs[0].target + '&type=summary&start=' + this.modules.dgd.dgdProcs[0].start + '&end=' + this.modules.dgd.dgdProcs[0].end + '&view=events');
+    }
+    if(this.modules.dgd.dgdProced) {
+      results.addIssue({
+        issue: <span>Your <ItemLink id={ITEMS.DECEIVERS_GRAND_DESIGN.id} /> proc'ed earlier that expected.  The following events procced the effect: <br />
+          {this.modules.dgd.dgdProcs[0].text}
+          <br /></span>,
+        icon: ITEMS.DECEIVERS_GRAND_DESIGN.icon,
+      });
+    }
+
+
     // Missed Whispers healing
     if(hasWhispersOfShaohao && missedWhispersHeal > 10) {
       results.addIssue({
