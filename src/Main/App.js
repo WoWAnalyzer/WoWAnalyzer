@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link, hashHistory } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import ReactTooltip from 'react-tooltip';
 
 import makeWclUrl from 'common/makeWclUrl';
@@ -387,7 +387,7 @@ class App extends Component {
                 parser={parser}
                 dataVersion={this.state.dataVersion}
                 tab={this.resultTab}
-                onChangeTab={newTab => hashHistory.push(makeAnalyzerUrl(report.code, this.fightId, this.playerName, newTab))}
+                onChangeTab={newTab => browserHistory.push(makeAnalyzerUrl(report.code, this.fightId, this.playerName, newTab))}
               />
             );
           })()}
