@@ -10,13 +10,13 @@ export default {
     id: 17,
     name: 'Power Word: Shield',
     icon: 'spell_holy_powerwordshield',
-    manaCost: 22000,
+    manaCost: 25300,
   },
   SMITE: {
     id: 585,
     name: 'Smite',
     icon: 'spell_holy_holysmite',
-    manaCost: 11000,
+    manaCost: 5500,
   },
   POWER_WORD_RADIANCE: {
     id: 194509,
