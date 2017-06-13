@@ -146,7 +146,12 @@ export default {
   },
   DISC_PRIEST_T19_2SET_BONUS_BUFF: {
     id: 211556,
-    name: 'T19 2 set bonus',
+    name: 'T19 2 Set Bonus',
+    icon: 'spell_holy_powerwordshield',
+  },
+  DISC_PRIEST_T20_2SET_BONUS_BUFF: {
+    id: 242268,
+    name: 'T20 2 Set Bonus',
     icon: 'spell_holy_powerwordshield',
   },
   KAM_XIRAFF_BUFF: {

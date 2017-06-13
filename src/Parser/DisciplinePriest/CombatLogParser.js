@@ -41,6 +41,7 @@ import Xalan from './Modules/Items/Xalan';
 import NeroBandOfPromises from './Modules/Items/NeroBandOfPromises';
 import TarnishedSentinelMedallion from './Modules/Items/TarnishedSentinelMedallion';
 import MarchOfTheLegion from './Modules/Items/MarchOfTheLegion';
+import BlindAbsolutionTwoSet from './Modules/Items/BlindAbsolutionTwoSet';
 
 import TwistOfFate from './Modules/Spells/TwistOfFate';
 import Atonement from './Modules/Spells/Atonement';
@@ -98,6 +99,7 @@ class CombatLogParser extends MainCombatLogParser {
     darkmoonDeckPromises: DarkmoonDeckPromises,
     tarnishedSentinelMedallion: TarnishedSentinelMedallion,
     marchOfTheLegion: MarchOfTheLegion,
+    blindAbsolutionTwoSet: BlindAbsolutionTwoSet,
 
 
     // Spells (talents and traits):
