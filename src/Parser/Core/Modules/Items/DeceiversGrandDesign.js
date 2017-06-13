@@ -5,6 +5,8 @@ import Module from 'Parser/Core/Module';
 
 const debug = false;
 const GUIDING_HAND_DURATION = 120000;
+const PROC_EVENT_START_BUFFER = 5000;
+const PROC_EVENT_END_BUFFER = 1000;
 
 class DecieversGrandDesign extends Module {
   healing = 0;
@@ -76,8 +78,8 @@ class DecieversGrandDesign extends Module {
 
     if(spellId === SPELLS.FRUITFUL_MACHINATIONS.id) {
         this.dgdProced = true;
-        const startTime = event.timestamp - 9000;
-        const endTime = event.timestamp + 1000;
+        const startTime = event.timestamp - PROC_EVENT_START_BUFFER;
+        const endTime = event.timestamp + PROC_EVENT_END_BUFFER;
         if(targetId === this.dgdTargetOne) {
           this.dgdTargetOne = null;
           this.dgdProcTimestampTargetOne = event.timestamp;
@@ -86,6 +88,7 @@ class DecieversGrandDesign extends Module {
           this.dgdProcTimestampTargetTwo = event.timestamp;
         }
         const urlText = `<a href=https://www.warcraftlogs.com/reports/` + this.owner.report.code + `#fight=` + this.owner.fight.id + `&source=` + targetId + `&type=summary&start=` + startTime + `&end=` + endTime + `&view=events> Player: ` + this.owner.combatants.players[targetId]._combatantInfo.name + `<br />`;
+        console.log('URL Text', urlText);
         this.dgdProcs.push({
           name: this.owner.combatants.players[targetId]._combatantInfo.name,
           report: this.owner.report.code,

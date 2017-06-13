@@ -26,7 +26,7 @@ import Prydaz from 'Parser/Core/Modules/Items/Prydaz';
 import ArchiveOfFaith from 'Parser/Core/Modules/Items/ArchiveOfFaith';
 import BarbaricMindslaver from 'Parser/Core/Modules/Items/BarbaricMindslaver';
 import SeaStar from 'Parser/Core/Modules/Items/SeaStarOfTheDepthmother';
-import DGD from 'Parser/Core/Modules/Items/DeceiversGrandDesign';
+import DeceiversGrandDesign from 'Parser/Core/Modules/Items/DeceiversGrandDesign';
 
 // Features
 import CooldownTracker from './Modules/Features/CooldownTracker';
@@ -106,10 +106,10 @@ class CombatLogParser extends MainCombatLogParser {
     // sephuz: Sephuz,
     velens: Velens,
     eithas: Eithas,
-    archiveoffaith: ArchiveOfFaith,
+    archiveOfFaith: ArchiveOfFaith,
     barbaricMindslaver: BarbaricMindslaver,
     seaStar: SeaStar,
-    dgd: DGD,
+    deceiversGrandDesign: DeceiversGrandDesign,
 
     // Shared:
     //amalgamsSeventhSpine: AmalgamsSeventhSpine,
@@ -133,11 +133,13 @@ class CombatLogParser extends MainCombatLogParser {
     const eithasHealingPercentage = this.modules.eithas.healing / this.totalHealing;
     const barbaricMindslaverHealingPercentage = this.modules.barbaricMindslaver.healing / this.totalHealing;
     const seaStarHealingPercentage = this.modules.seaStar.healing / this.totalHealing;
-    const AOFHealing = this.modules.archiveoffaith.healing / this.totalHealing;
-    const AOFHOTHealing = this.modules.archiveoffaith.healingHOT / this.totalHealing;
-    const dgdHealingPercentage = this.modules.dgd.healing / this.totalHealing;
-    const dgdAbsorbPercentage = this.modules.dgd.healingAbsorb / this.totalHealing;
-
+    const archiveOfFaithHealing = this.modules.archiveOfFaith.healing / this.totalHealing;
+    const archiveOfFaithHOTHealing = this.modules.archiveOfFaith.healingHOT / this.totalHealing;
+    const archiveOfFaithHealingTotal = (this.modules.archiveOfFaith.healing + this.modules.archiveOfFaith.healingHOT) / this.totalHealing;
+    const deceiversGrandDesignHealingPercentage = this.modules.deceiversGrandDesign.healing / this.totalHealing;
+    const deceiversGrandDesignAbsorbPercentage = this.modules.deceiversGrandDesign.healingAbsorb / this.totalHealing;
+    const deceiversGrandDesignTotalPercentage = (this.modules.deceiversGrandDesign.healing + this.modules.deceiversGrandDesign.healingAbsorb) / this.totalHealing;
+    
     const unusedUTProcs = 1 - (this.modules.upliftingTrance.consumedUTProc / this.modules.upliftingTrance.UTProcsTotal);
 
     const avgSGOverheal = this.modules.sheilunsGift.overhealSG / this.modules.sheilunsGift.castsSG || 0;
@@ -192,13 +194,13 @@ class CombatLogParser extends MainCombatLogParser {
 
     /*
     // Deciever's Grand Design Suggestion
-    if(this.modules.dgd.dgdProced) {
-      console.log('https://www.warcraftlogs.com/reports/' + this.report.code + '/#fight=' + this.fight.id + '&source=' + this.modules.dgd.dgdProcs[0].target + '&type=summary&start=' + this.modules.dgd.dgdProcs[0].start + '&end=' + this.modules.dgd.dgdProcs[0].end + '&view=events');
+    if(this.modules.deceiversGrandDesign.dgdProced) {
+      console.log('https://www.warcraftlogs.com/reports/' + this.report.code + '/#fight=' + this.fight.id + '&source=' + this.modules.deceiversGrandDesign.dgdProcs[0].target + '&type=summary&start=' + this.modules.deceiversGrandDesign.dgdProcs[0].start + '&end=' + this.modules.deceiversGrandDesign.dgdProcs[0].end + '&view=events');
     }
-    if(this.modules.dgd.dgdProced) {
+    if(this.modules.deceiversGrandDesign.dgdProced) {
       results.addIssue({
         issue: <span>Your <ItemLink id={ITEMS.DECEIVERS_GRAND_DESIGN.id} /> proc'ed earlier that expected.  The following events procced the effect: <br />
-          {this.modules.dgd.dgdProcs[0].text}
+          {this.modules.deceiversGrandDesign.dgdProcs[0].text}
           <br /></span>,
         icon: ITEMS.DECEIVERS_GRAND_DESIGN.icon,
       });
@@ -625,19 +627,27 @@ class CombatLogParser extends MainCombatLogParser {
           </dfn>
         ),
       },
-      this.modules.archiveoffaith.active && {
+      this.modules.deceiversGrandDesign.active && {
+        id: ITEMS.DECEIVERS_GRAND_DESIGN.id,
+        icon: <ItemIcon id={ITEMS.DECEIVERS_GRAND_DESIGN.id} />,
+        title: <ItemLink id={ITEMS.DECEIVERS_GRAND_DESIGN.id} />,
+        result: (
+          <span>
+            <dfn data-tip={`The actual effective healing contributed by the Deciever's Grand Design on-use effect.<br />HOT: ${((deceiversGrandDesignHealingPercentage * 100) || 0).toFixed(2)} % / ${formatNumber(this.modules.deceiversGrandDesign.healing / fightDuration * 1000)} HPS<br />Shield Proc: ${((deceiversGrandDesignAbsorbPercentage * 100) || 0).toFixed(2)} % / ${formatNumber(this.modules.deceiversGrandDesign.healingAbsorb / fightDuration * 1000)} HPS`}>
+              {((deceiversGrandDesignTotalPercentage * 100) || 0).toFixed(2)} % / {formatNumber((this.modules.deceiversGrandDesign.healing + this.modules.deceiversGrandDesign.healingAbsorb) / fightDuration * 1000)} HPS
+            </dfn>
+          </span>
+        ),
+      },
+      this.modules.archiveOfFaith.active && {
         id: ITEMS.ARCHIVE_OF_FAITH.id,
         icon: <ItemIcon id={ITEMS.ARCHIVE_OF_FAITH.id} />,
         title: <ItemLink id={ITEMS.ARCHIVE_OF_FAITH.id} />,
         result: (
           <span>
-            <dfn data-tip="The actual effective healing contributed by the Archive of Faith on-use effect.">
-              {((AOFHealing * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.archiveoffaith.healing / fightDuration * 1000)} HPS
+            <dfn data-tip={`The actual effective healing contributed by the Archive of Faith on-use effect.<br />Channel: ${((archiveOfFaithHealing * 100) || 0).toFixed(2)} % / ${formatNumber(this.modules.archiveOfFaith.healing / fightDuration * 1000)} HPS<br />HOT: ${((archiveOfFaithHOTHealing * 100) || 0).toFixed(2)} % / ${formatNumber(this.modules.archiveOfFaith.healingHOT / fightDuration * 1000)} HPS`}>
+              {((archiveOfFaithHealingTotal * 100) || 0).toFixed(2)} % / {formatNumber((this.modules.archiveOfFaith.healing + this.modules.archiveOfFaith.healingHOT) / fightDuration * 1000)} HPS
             </dfn>
-            {' '}
-            (HoT: <dfn data-tip="The actual effective healing contributed by the HOT from the full channel of the Archive of Faith on-use effect.">
-              {((AOFHOTHealing * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.archiveoffaith.healingHOT / fightDuration * 1000)} HPS
-            </dfn>)
           </span>
         ),
       },
@@ -659,22 +669,6 @@ class CombatLogParser extends MainCombatLogParser {
           <dfn data-tip="The actual effective healing contributed by the Sea Star of the Depthmother equip effect.">
             {((seaStarHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.seaStar.healing / fightDuration * 1000)} HPS
           </dfn>
-        ),
-      },
-      this.modules.dgd.active && {
-        id: ITEMS.DECEIVERS_GRAND_DESIGN.id,
-        icon: <ItemIcon id={ITEMS.DECEIVERS_GRAND_DESIGN.id} />,
-        title: <ItemLink id={ITEMS.DECEIVERS_GRAND_DESIGN.id} />,
-        result: (
-          <span>
-            <dfn data-tip="The actual effective healing contributed by the Deciever's Grand Design on-use effect.">
-              HOT: {((dgdHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.dgd.healing / fightDuration * 1000)} HPS
-            </dfn>
-            {'  '}
-            <dfn data-tip="The effective healing of the shield proc portion of the Deciever's Grand Design proc.">
-              Shield Proc: {((dgdAbsorbPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.dgd.healingAbsorb / fightDuration * 1000)} HPS
-            </dfn>
-          </span>
         ),
       },
     ];
