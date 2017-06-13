@@ -18,8 +18,7 @@ class SeaStarOfTheDepthmother extends Module {
     const spellId = event.ability.guid;
 
     if(spellId === SPELLS.OCEANS_EMBRACE.id) {
-      this.healing += event.amount || 0;
-      this.healing += event.absorbed || 0;
+      this.healing += (event.amount || 0) + (event.absorbed || 0);
     }
   }
 
@@ -28,7 +27,6 @@ class SeaStarOfTheDepthmother extends Module {
       console.log('Healing: ' + this.healing);
     }
   }
-
 }
 
 export default SeaStarOfTheDepthmother;

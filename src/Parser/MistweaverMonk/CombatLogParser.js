@@ -134,8 +134,8 @@ class CombatLogParser extends MainCombatLogParser {
     const barbaricMindslaverHealingPercentage = this.modules.barbaricMindslaver.healing / this.totalHealing;
     const seaStarHealingPercentage = this.modules.seaStar.healing / this.totalHealing;
     const archiveOfFaithHealing = this.modules.archiveOfFaith.healing / this.totalHealing;
-    const archiveOfFaithHOTHealing = this.modules.archiveOfFaith.healingHOT / this.totalHealing;
-    const archiveOfFaithHealingTotal = (this.modules.archiveOfFaith.healing + this.modules.archiveOfFaith.healingHOT) / this.totalHealing;
+    const archiveOfFaithHOTHealing = this.modules.archiveOfFaith.healingOverTime / this.totalHealing;
+    const archiveOfFaithHealingTotal = (this.modules.archiveOfFaith.healing + this.modules.archiveOfFaith.healingOverTime) / this.totalHealing;
     const deceiversGrandDesignHealingPercentage = this.modules.deceiversGrandDesign.healing / this.totalHealing;
     const deceiversGrandDesignAbsorbPercentage = this.modules.deceiversGrandDesign.healingAbsorb / this.totalHealing;
     const deceiversGrandDesignTotalPercentage = (this.modules.deceiversGrandDesign.healing + this.modules.deceiversGrandDesign.healingAbsorb) / this.totalHealing;
@@ -192,15 +192,15 @@ class CombatLogParser extends MainCombatLogParser {
     }
     */
     // Deciever's Grand Design Suggestion
-    if(this.modules.deceiversGrandDesign.dgdProced) {
+    if(this.modules.deceiversGrandDesign.proced) {
       results.addIssue({
         issue: <span>Your <ItemLink id={ITEMS.DECEIVERS_GRAND_DESIGN.id} /> proc'ed earlier than expected.  The following events proc'ed the effect: <br />
-          {this.modules.deceiversGrandDesign.dgdProcs
-              .map(function(dgdProcs, index) {
-                const url = 'https://www.warcraftlogs.com/reports/' + dgdProcs.report + '/#fight=' + dgdProcs.fight + '&source=' + dgdProcs.target + '&type=summary&start=' + dgdProcs.start + '&end=' + dgdProcs.end + '&view=events';
+          {this.modules.deceiversGrandDesign.procs
+              .map(function(procs, index) {
+                const url = 'https://www.warcraftlogs.com/reports/' + procs.report + '/#fight=' + procs.fight + '&source=' + procs.target + '&type=summary&start=' + procs.start + '&end=' + procs.end + '&view=events';
                 return(
                   <div>
-                    Proc {index + 1} on: <a href={url} target="_blank" rel="noopener noreferrer">{dgdProcs.name}</a>
+                    Proc {index + 1} on: <a href={url} target="_blank" rel="noopener noreferrer">{procs.name}</a>
                     <br />
                   </div>
                 );
@@ -648,8 +648,8 @@ class CombatLogParser extends MainCombatLogParser {
         title: <ItemLink id={ITEMS.ARCHIVE_OF_FAITH.id} />,
         result: (
           <span>
-            <dfn data-tip={`The actual effective healing contributed by the Archive of Faith on-use effect.<br />Channel: ${((archiveOfFaithHealing * 100) || 0).toFixed(2)} % / ${formatNumber(this.modules.archiveOfFaith.healing / fightDuration * 1000)} HPS<br />HOT: ${((archiveOfFaithHOTHealing * 100) || 0).toFixed(2)} % / ${formatNumber(this.modules.archiveOfFaith.healingHOT / fightDuration * 1000)} HPS`}>
-              {((archiveOfFaithHealingTotal * 100) || 0).toFixed(2)} % / {formatNumber((this.modules.archiveOfFaith.healing + this.modules.archiveOfFaith.healingHOT) / fightDuration * 1000)} HPS
+            <dfn data-tip={`The actual effective healing contributed by the Archive of Faith on-use effect.<br />Channel: ${((archiveOfFaithHealing * 100) || 0).toFixed(2)} % / ${formatNumber(this.modules.archiveOfFaith.healing / fightDuration * 1000)} HPS<br />HOT: ${((archiveOfFaithHOTHealing * 100) || 0).toFixed(2)} % / ${formatNumber(this.modules.archiveOfFaith.healingOverTime / fightDuration * 1000)} HPS`}>
+              {((archiveOfFaithHealingTotal * 100) || 0).toFixed(2)} % / {formatNumber((this.modules.archiveOfFaith.healing + this.modules.archiveOfFaith.healingOverTime) / fightDuration * 1000)} HPS
             </dfn>
           </span>
         ),

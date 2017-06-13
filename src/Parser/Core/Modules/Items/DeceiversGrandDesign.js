@@ -11,15 +11,15 @@ const PROC_EVENT_END_BUFFER = 1000;
 class DecieversGrandDesign extends Module {
   healing = 0;
   healingAbsorb = 0;
-  dgdTargetOne = null;
-  gdgDownTimeTargetOne = 0;
-  dgdProcTimestampTargetOne = null;
-  gdgDownTimeTargetTwo = 0;
-  dgdTargetTwo = null;
-  dgdProcTimestampTargetTwo = null;
-  dgdProced = false;
+  targetOne = null;
+  downTimeTargetOne = 0;
+  procTimestampTargetOne = null;
+  downTimeTargetTwo = 0;
+  targetTwo = null;
+  procTimestampTargetTwo = null;
+  proced = false;
 
-  dgdProcs = [];
+  procs = [];
 
   on_initialized() {
     if (!this.owner.error) {
@@ -31,17 +31,16 @@ class DecieversGrandDesign extends Module {
     const spellId = event.ability.guid;
 
     if(spellId === SPELLS.GUIDING_HAND.id) {
-      this.healing += event.amount || 0;
-      this.healing += event.absorbed || 0;
+      this.healing += (event.amount || 0) + (event.absorbed || 0);
 
       // Account for precasting
-      if(this.dgdTargetOne === event.targetID || this.dgdTargetTwo === event.targetID) {
+      if(this.targetOne === event.targetID || this.targetTwo === event.targetID) {
         return;
       } else {
-        if(!this.dgdTargetOne) {
-          this.dgdTargetOne = event.targetID;
+        if(!this.targetOne) {
+          this.targetOne = event.targetID;
         } else {
-          this.dgdTargetTwo = event.targetID;
+          this.targetTwo = event.targetID;
         }
       }
     }
@@ -51,8 +50,7 @@ class DecieversGrandDesign extends Module {
     const spellId = event.ability.guid;
 
     if(spellId === SPELLS.FRUITFUL_MACHINATIONS.id) {
-      this.healingAbsorb += event.amount || 0;
-      this.healingAbsorb += event.absorbed || 0;
+      this.healingAbsorb += (event.amount || 0) + (event.absorbed || 0);
     }
   }
 
@@ -60,12 +58,12 @@ class DecieversGrandDesign extends Module {
     const spellId = event.ability.guid;
 
     if(spellId === SPELLS.GUIDING_HAND.id) {
-      if(this.dgdTargetOne === null) {
-        this.dgdTargetOne = event.targetID;
-        debug && console.log('Target One: ' + this.dgdTargetOne);
-      } else if(this.dgdTargetTwo === null) {
-        this.dgdTargetTwo = event.targetID;
-        debug && console.log('Target Two: ' + this.dgdTargetTwo);
+      if(this.targetOne === null) {
+        this.targetOne = event.targetID;
+        debug && console.log('Target One: ' + this.targetOne);
+      } else if(this.targetTwo === null) {
+        this.targetTwo = event.targetID;
+        debug && console.log('Target Two: ' + this.targetTwo);
       } else {
         debug && console.log('Logic Error?!');
       }
@@ -77,20 +75,20 @@ class DecieversGrandDesign extends Module {
     const targetId = event.targetID;
 
     if(spellId === SPELLS.FRUITFUL_MACHINATIONS.id) {
-        this.dgdProced = true;
+        this.proced = true;
         const startTime = event.timestamp - PROC_EVENT_START_BUFFER;
         const endTime = event.timestamp + PROC_EVENT_END_BUFFER;
-        if(targetId === this.dgdTargetOne) {
-          this.dgdTargetOne = null;
-          this.dgdProcTimestampTargetOne = event.timestamp;
+        if(targetId === this.targetOne) {
+          this.targetOne = null;
+          this.procTimestampTargetOne = event.timestamp;
           debug && console.log('Proc on Target one:', targetId, ' @ timestamp: ', event.timestamp);
-        } else if(targetId === this.dgdTargetTwo) {
-          this.dgdTargetTwo = null;
-          this.dgdProcTimestampTargetTwo = event.timestamp;
+        } else if(targetId === this.targetTwo) {
+          this.targetTwo = null;
+          this.procTimestampTargetTwo = event.timestamp;
           debug && console.log('Proc on Target two:', targetId, ' @ timestamp: ', event.timestamp);
         }
         if(debug) {
-          this.dgdProcs.push({
+          this.procs.push({
             name: 'Test User',
             report: this.owner.report.code,
             fight: this.owner.fight.id,
@@ -99,28 +97,35 @@ class DecieversGrandDesign extends Module {
             end: endTime,
           });
         }
-        this.dgdProcs.push({
-          name: this.owner.combatants.players[targetId]._combatantInfo.name,
+
+        let name = "";
+        if(!this.owner.combatants.players[targetId]) {
+          name = "Pet";
+        } else {
+          name = this.owner.combatants.players[targetId].name;
+        }
+
+        this.procs.push({
+          name: name,
           report: this.owner.report.code,
           fight: this.owner.fight.id,
           target: targetId,
           start: startTime,
           end: endTime,
         });
-        debug && console.log(this.dgdProcs);
-        debug && console.log('https://www.warcraftlogs.com/reports/' + this.owner.report.code + '/#fight=' + this.owner.fight.id + '&source=' + this.dgdProcs[0].target + '&type=summary&start=' + this.dgdProcs[0].start + '&end=' + this.dgdProcs[0].end + '&view=events');
+        debug && console.log(this.procs);
+        debug && console.log('https://www.warcraftlogs.com/reports/' + this.owner.report.code + '/#fight=' + this.owner.fight.id + '&source=' + this.procs[0].target + '&type=summary&start=' + this.procs[0].start + '&end=' + this.procs[0].end + '&view=events');
     }
   }
 
   on_finished() {
     if(debug) {
-      console.log('Proc Checks: ', this.dgdProcs);
+      console.log('Proc Checks: ', this.procs);
       console.log('Healing: ' + this.healing);
       console.log('Absorbed: ' + this.healingAbsorb);
       console.log('Report Code: ' + this.owner.report.code);
     }
   }
-
 }
 
 export default DecieversGrandDesign;
