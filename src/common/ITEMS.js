@@ -91,6 +91,7 @@ const ITEMS = {
     icon: 'inv_helm_mail_korkronshaman_d_01',
     quality: QUALITIES.LEGENDARY,
   },
+  // PRIEST LEGENDARIES
   CORD_OF_MAIEV_PRIESTESS_OF_THE_MOON: {
     id: 133800,
     name: 'Cord of Maiev, Priestess of the Moon',
@@ -115,6 +116,13 @@ const ITEMS = {
     icon: 'inv_jewelry_ring_54',
     quality: QUALITIES.LEGENDARY,
   },
+  SOUL_OF_THE_HIGH_PRIEST: {
+    id: 151646,
+    name: 'Soul of the High Priest',
+    icon: 'inv_jewelry_ring_67',
+    quality: QUALITIES.LEGENDARY,
+  },
+  // Trinkets
   DARKMOON_DECK_PROMISES: {
     id: 128710,
     name: 'Darkmoon Deck: Promises',
@@ -125,6 +133,19 @@ const ITEMS = {
     id: 136714,
     name: 'Amalgam\'s Seventh Spine',
     icon: 'spell_priest_mindspike',
+    quality: QUALITIES.EPIC,
+  },
+  // Set Bonuses (Generic)
+  CHAIN_OF_SCORCHED_BONES: {
+    id: 134529,
+    name: 'Chain of Scorched Bones',
+    icon: 'inv_7_0raid_necklace_13d',
+    quality: QUALITIES.EPIC,
+  },
+  RING_OF_LOOMING_MENACE: {
+    id: 134533,
+    name: 'Ring of Looming Menace',
+    icon: 'inv_70_dungeon_ring8d',
     quality: QUALITIES.EPIC,
   },
   // Resto Druid legendaries:
@@ -175,6 +196,14 @@ const ITEMS = {
     name: 'Ei\'thas, Lunar Glides of Eramas',
     icon: 'inv_boots_mail_04black',
     quality: QUALITIES.LEGENDARY,
+  },
+
+  // DPS Trinkets
+  TARNISHED_SENTINEL_MEDALLION: {
+    id: 147017,
+    name: 'Tarnished Sentinel Medallion',
+    icon: 'inv_jewelcrafting_purpleowl.jpg',
+    quality: QUALITIES.EPIC,
   },
 };
 

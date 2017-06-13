@@ -23,3 +23,4 @@ yarn-error.log*
 
 # Regularly changing or system specific IDE files
 /.idea/workspace.xml
+/.vscode

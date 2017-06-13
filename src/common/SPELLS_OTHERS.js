@@ -42,4 +42,20 @@ export default {
     name: 'Mark of the Ancient Priestess',
     icon: 'ability_priest_ascension',
   },
+  // Item Abilities
+  SPECTRAL_BLAST: {
+    id: 246442,
+    name: 'Spectral Blast',
+    icon: 'inv_axe_02',
+  },
+  SPECTRAL_BOLT: {
+    id: 242571,
+    name: 'Spectral Bolt',
+    icon: 'ability_thunderking_thunderstruck',
+  },
+  MARCH_OF_THE_LEGION: {
+    id: 228446,
+    name: 'March of the Legion',
+    icon: 'ability_warlock_fireandbrimstone',
+  },
 };

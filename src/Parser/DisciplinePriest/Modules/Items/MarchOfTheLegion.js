@@ -5,12 +5,13 @@ import Module from 'Parser/Core/Module';
 
 const debug = true;
 
-class NeroBandOfPromises extends Module {
+class MarchOfTheLegion extends Module {
   healing = 0;
 
   on_initialized() {
     if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasRing(ITEMS.NERO_BAND_OF_PROMISES.id);
+      this.active = this.owner.selectedCombatant.hasRing(ITEMS.RING_OF_LOOMING_MENACE.id)
+                 && this.owner.selectedCombatant.hasNeck(ITEMS.CHAIN_OF_SCORCHED_BONES.id);
     }
   }
 
@@ -18,25 +19,19 @@ class NeroBandOfPromises extends Module {
     const spellId = event.ability.guid;
 
     if (spellId === SPELLS.ATONEMENT_HEAL_NON_CRIT.id || spellId === SPELLS.ATONEMENT_HEAL_CRIT.id) {
-      // N'ero appears in the log as regular Atonement healing
       const combatant = this.owner.combatants.players[event.targetID];
       if (!combatant) {
         // If combatant doesn't exist it's probably a pet, this shouldn't be noteworthy.
         debug && console.log('Skipping Atonement heal event since combatant couldn\'t be found:', event);
         return;
       }
-      if (combatant.hasBuff(SPELLS.ATONEMENT_BUFF.id, event.timestamp)) {
-        // If someone already has the Atonement buff then N'ero will not cause Penance to heal that person twice (N'ero does NOT stack with pre-existing Atonement)
+      if (SPELLS.MARCH_OF_THE_LEGION.id !== this.owner.modules.atonementSource.atonementDamageSource.ability.guid) {
         return;
       }
-      if (this.owner.modules.atonementSource.atonementDamageSource.ability.guid !== SPELLS.PENANCE.id) {
-        // N'ero only procs from Penance
-        return;
-      }
-
+      
       this.healing += event.amount + (event.absorbed || 0);
     }
   }
 }
 
-export default NeroBandOfPromises;
+export default MarchOfTheLegion;

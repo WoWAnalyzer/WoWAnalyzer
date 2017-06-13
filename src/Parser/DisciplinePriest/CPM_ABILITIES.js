@@ -17,6 +17,23 @@ const CPM_ABILITIES = [
     getCooldown: haste => 9,
   },
   {
+    spell: SPELLS.POWER_WORD_RADIANCE,
+    name: `${SPELLS.POWER_WORD_RADIANCE.name}`,
+    category: SPELL_CATEGORY.ROTATIONAL,
+    getCooldown: haste => 18,
+    getCasts: castCount => castCount.casts,
+    getMaxCasts: (cooldown, fightDuration, getAbility, parser) => {
+      return calculateMaxCasts(cooldown, fightDuration, 2);
+    },
+  },
+  {
+    spell: SPELLS.EVANGELISM_TALENT,
+    name: `${SPELLS.EVANGELISM_TALENT.name}`,
+    category: SPELL_CATEGORY.COOLDOWNS,
+    getCooldown: haste => 75,
+    getCasts: castCount => castCount.casts,
+  },
+  {
     spell: SPELLS.POWER_WORD_SHIELD,
     name: `${SPELLS.POWER_WORD_SHIELD.name} outside Rapture`,
     category: SPELL_CATEGORY.ROTATIONAL,
