@@ -139,7 +139,7 @@ class CombatLogParser extends MainCombatLogParser {
     const deceiversGrandDesignHealingPercentage = this.modules.deceiversGrandDesign.healing / this.totalHealing;
     const deceiversGrandDesignAbsorbPercentage = this.modules.deceiversGrandDesign.healingAbsorb / this.totalHealing;
     const deceiversGrandDesignTotalPercentage = (this.modules.deceiversGrandDesign.healing + this.modules.deceiversGrandDesign.healingAbsorb) / this.totalHealing;
-    
+
     const unusedUTProcs = 1 - (this.modules.upliftingTrance.consumedUTProc / this.modules.upliftingTrance.UTProcsTotal);
 
     const avgSGOverheal = this.modules.sheilunsGift.overhealSG / this.modules.sheilunsGift.castsSG || 0;
@@ -191,22 +191,25 @@ class CombatLogParser extends MainCombatLogParser {
       });
     }
     */
-
-    /*
     // Deciever's Grand Design Suggestion
     if(this.modules.deceiversGrandDesign.dgdProced) {
-      console.log('https://www.warcraftlogs.com/reports/' + this.report.code + '/#fight=' + this.fight.id + '&source=' + this.modules.deceiversGrandDesign.dgdProcs[0].target + '&type=summary&start=' + this.modules.deceiversGrandDesign.dgdProcs[0].start + '&end=' + this.modules.deceiversGrandDesign.dgdProcs[0].end + '&view=events');
-    }
-    if(this.modules.deceiversGrandDesign.dgdProced) {
       results.addIssue({
-        issue: <span>Your <ItemLink id={ITEMS.DECEIVERS_GRAND_DESIGN.id} /> proc'ed earlier that expected.  The following events procced the effect: <br />
-          {this.modules.deceiversGrandDesign.dgdProcs[0].text}
-          <br /></span>,
+        issue: <span>Your <ItemLink id={ITEMS.DECEIVERS_GRAND_DESIGN.id} /> proc'ed earlier that expected.  The following events proc'ed the effect: <br />
+          {this.modules.deceiversGrandDesign.dgdProcs
+              .map(function(dgdProcs, index) {
+                const url = 'https://www.warcraftlogs.com/reports/' + dgdProcs.report + '/#fight=' + dgdProcs.fight + '&source=' + dgdProcs.target + '&type=summary&start=' + dgdProcs.start + '&end=' + dgdProcs.end + '&view=events';
+                return(
+                  <div>
+                    Proc {index + 1} on: <a href={url} target="_blank" rel="noopener noreferrer">{dgdProcs.name}</a>
+                    <br />
+                  </div>
+                );
+              })
+          }
+          </span>,
         icon: ITEMS.DECEIVERS_GRAND_DESIGN.icon,
       });
     }
-    */
-
     // Missed Whispers healing
     if(hasWhispersOfShaohao && missedWhispersHeal > 10) {
       results.addIssue({

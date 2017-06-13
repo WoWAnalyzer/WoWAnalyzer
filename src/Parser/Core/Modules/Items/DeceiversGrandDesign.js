@@ -83,12 +83,22 @@ class DecieversGrandDesign extends Module {
         if(targetId === this.dgdTargetOne) {
           this.dgdTargetOne = null;
           this.dgdProcTimestampTargetOne = event.timestamp;
+          debug && console.log('Proc on Target one:', targetId, ' @ timestamp: ', event.timestamp);
         } else if(targetId === this.dgdTargetTwo) {
           this.dgdTargetTwo = null;
           this.dgdProcTimestampTargetTwo = event.timestamp;
+          debug && console.log('Proc on Target two:', targetId, ' @ timestamp: ', event.timestamp);
         }
-        const urlText = `<a href=https://www.warcraftlogs.com/reports/` + this.owner.report.code + `#fight=` + this.owner.fight.id + `&source=` + targetId + `&type=summary&start=` + startTime + `&end=` + endTime + `&view=events> Player: ` + this.owner.combatants.players[targetId]._combatantInfo.name + `<br />`;
-        console.log('URL Text', urlText);
+        if(debug) {
+          this.dgdProcs.push({
+            name: 'Test User',
+            report: this.owner.report.code,
+            fight: this.owner.fight.id,
+            target: targetId,
+            start: startTime,
+            end: endTime,
+          });
+        }
         this.dgdProcs.push({
           name: this.owner.combatants.players[targetId]._combatantInfo.name,
           report: this.owner.report.code,
@@ -96,7 +106,6 @@ class DecieversGrandDesign extends Module {
           target: targetId,
           start: startTime,
           end: endTime,
-          text: urlText,
         });
         debug && console.log(this.dgdProcs);
         debug && console.log('https://www.warcraftlogs.com/reports/' + this.owner.report.code + '/#fight=' + this.owner.fight.id + '&source=' + this.dgdProcs[0].target + '&type=summary&start=' + this.dgdProcs[0].start + '&end=' + this.dgdProcs[0].end + '&view=events');
