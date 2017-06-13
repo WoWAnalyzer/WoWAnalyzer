@@ -40,6 +40,7 @@ import Skjoldr from './Modules/Items/Skjoldr';
 import Xalan from './Modules/Items/Xalan';
 import NeroBandOfPromises from './Modules/Items/NeroBandOfPromises';
 import TarnishedSentinelMedallion from './Modules/Items/TarnishedSentinelMedallion';
+import MarchOfTheLegion from './Modules/Items/MarchOfTheLegion';
 
 import TwistOfFate from './Modules/Spells/TwistOfFate';
 import Atonement from './Modules/Spells/Atonement';
@@ -96,6 +97,7 @@ class CombatLogParser extends MainCombatLogParser {
     amalgamsSeventhSpine: AmalgamsSeventhSpine,
     darkmoonDeckPromises: DarkmoonDeckPromises,
     tarnishedSentinelMedallion: TarnishedSentinelMedallion,
+    marchOfTheLegion: MarchOfTheLegion,
 
 
     // Spells (talents and traits):
@@ -118,6 +120,7 @@ class CombatLogParser extends MainCombatLogParser {
     const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
     const velensHealingPercentage = this.modules.velens.healing / this.totalHealing;
     const owlHealingPercentage = this.modules.tarnishedSentinelMedallion.healing / this.totalHealing;
+    const marchHealingPercentage = this.modules.marchOfTheLegion.healing / this.totalHealing;
     const prydazHealingPercentage = this.modules.prydaz.healing / this.totalHealing;
     const drapeOfShameHealingPercentage = this.modules.drapeOfShame.healing / this.totalHealing;
     const improperAtonementRefreshPercentage = this.modules.atonement.improperAtonementRefreshes.length / this.modules.atonement.totalAtones;
@@ -185,7 +188,7 @@ class CombatLogParser extends MainCombatLogParser {
           </dfn>
         )}
       />,
-      <ExpandableStatisticBox
+      this.modules.evangelism.active && (<ExpandableStatisticBox
         icon={<SpellIcon id={SPELLS.EVANGELISM_TALENT.id} />}
         value={`${formatNumber(this.modules.evangelism.evangelismStatistics.reduce((p, c) => p += c.healing, 0) / fightDuration * 1000)} HPS`}
         label={(
@@ -214,7 +217,7 @@ class CombatLogParser extends MainCombatLogParser {
                 })
           }
         </table>
-      </ExpandableStatisticBox>,
+      </ExpandableStatisticBox>),
       missedPenanceTicks && (<StatisticBox
         icon={<SpellIcon id={SPELLS.PENANCE.id} />}
         value={missedPenanceTicks}
@@ -300,6 +303,16 @@ class CombatLogParser extends MainCombatLogParser {
         result: (
           <dfn data-tip="The atonement healing done by the trinket's damaging effects.">
            { ((owlHealingPercentage * 100) || 0).toFixed(2) } % / { formatNumber(this.modules.tarnishedSentinelMedallion.healing / fightDuration * 1000) } HPS
+          </dfn>
+        ),
+      },
+      this.modules.marchOfTheLegion.active && {
+        id: SPELLS.MARCH_OF_THE_LEGION.id,
+        icon: <SpellIcon id={SPELLS.MARCH_OF_THE_LEGION.id} />,
+        title: <SpellLink id={SPELLS.MARCH_OF_THE_LEGION.id} />,
+        result: (
+          <dfn data-tip="The atonement healing done by the set bonus' damaging effects.">
+           { ((marchHealingPercentage * 100) || 0).toFixed(2) } % / { formatNumber(this.modules.marchOfTheLegion.healing / fightDuration * 1000) } HPS
           </dfn>
         ),
       },

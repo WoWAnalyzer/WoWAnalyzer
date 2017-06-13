@@ -135,6 +135,19 @@ const ITEMS = {
     icon: 'spell_priest_mindspike',
     quality: QUALITIES.EPIC,
   },
+  // Set Bonuses (Generic)
+  CHAIN_OF_SCORCHED_BONES: {
+    id: 134529,
+    name: 'Chain of Scorched Bones',
+    icon: 'inv_7_0raid_necklace_13d',
+    quality: QUALITIES.EPIC,
+  },
+  RING_OF_LOOMING_MENACE: {
+    id: 134533,
+    name: 'Ring of Looming Menace',
+    icon: 'inv_70_dungeon_ring8d',
+    quality: QUALITIES.EPIC,
+  },
   // Resto Druid legendaries:
   EKOWRAITH_CREATOR_OF_WORLDS: {
     id: 137015,

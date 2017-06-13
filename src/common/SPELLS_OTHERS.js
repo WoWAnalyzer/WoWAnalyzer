@@ -53,4 +53,9 @@ export default {
     name: 'Spectral Bolt',
     icon: 'ability_thunderking_thunderstruck',
   },
+  MARCH_OF_THE_LEGION: {
+    id: 228446,
+    name: 'March of the Legion',
+    icon: 'ability_warlock_fireandbrimstone',
+  },
 };

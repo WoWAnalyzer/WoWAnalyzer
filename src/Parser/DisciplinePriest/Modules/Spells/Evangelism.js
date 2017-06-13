@@ -7,6 +7,12 @@ class Evangelism extends Module {
   _evangelismStatistics = {};
   atonementModule = this.owner.modules.atonement;
 
+  on_initialized() {
+    if (!this.owner.error) {
+      this.active = !!this.owner.selectedCombatant.hasTalent(SPELLS.EVANGELISM_TALENT.id);
+    }
+  }
+
   get evangelismStatistics() {
     return Object.keys(this._evangelismStatistics).map(key => this._evangelismStatistics[key]);
   }
@@ -39,7 +45,7 @@ class Evangelism extends Module {
       }
       
       // Add all healing that shouldn't exist to expiration
-      if (event.timestamp > target.atonementExpirationTimestamp) {
+      if (event.timestamp > target.atonementExpirationTimestamp && this._previousEvangelismCast) {
         this._evangelismStatistics[this._previousEvangelismCast.timestamp].healing += (event.amount + (event.absorbed || 0));
       }
     }
