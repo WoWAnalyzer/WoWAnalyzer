@@ -194,7 +194,7 @@ class CombatLogParser extends MainCombatLogParser {
     // Deciever's Grand Design Suggestion
     if(this.modules.deceiversGrandDesign.dgdProced) {
       results.addIssue({
-        issue: <span>Your <ItemLink id={ITEMS.DECEIVERS_GRAND_DESIGN.id} /> proc'ed earlier that expected.  The following events proc'ed the effect: <br />
+        issue: <span>Your <ItemLink id={ITEMS.DECEIVERS_GRAND_DESIGN.id} /> proc'ed earlier than expected.  The following events proc'ed the effect: <br />
           {this.modules.deceiversGrandDesign.dgdProcs
               .map(function(dgdProcs, index) {
                 const url = 'https://www.warcraftlogs.com/reports/' + dgdProcs.report + '/#fight=' + dgdProcs.fight + '&source=' + dgdProcs.target + '&type=summary&start=' + dgdProcs.start + '&end=' + dgdProcs.end + '&view=events';
