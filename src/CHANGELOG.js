@@ -1,6 +1,7 @@
 export default `
-12-06-2017 - Mistweaver Monk: Mana Cost adjustments for Patch 7.2.5 (by anomoly)
-12-06-2017 - Generic: Tier 20 Healing Trinket Implementation (by anomoly)
+15-06-2017 - Mistweaver Monk: Mana Cost adjustments for Patch 7.2.5 (by anomoly)
+15-06-2017 - Generic: Tier 20 Healing Trinket Implementation (by anomoly)
+11-06-2017 - Disc Priest: Added extra suggestion to Power Word: Shield description to add distinction to casts during Rapture. (by milesoldenburg)
 09-06-2017 - Mistweaver Monk: Added Ei'thas, Lunar Glides of Eramas statistic and adjusted Sheilun's Gift issue warning to account for low stacks and high overheal. (by anomoly)
 08-06-2017 - Holy Paladin: Improve Maraad's healing display; show default an esimation of its value given a Flash of Light as opportunity cost (this should make it easy to compare with other legendaries), in tooltip show gain over casting a filler LotM (may be relevant if the cast time reduction is important to you), and show the total healing done with LotM during the Maraad's buff. (by Zerotorescue)
 08-06-2017 - Holy Paladin: Added Holy Avenger estimated healing statistic. (by Zerotorescue)

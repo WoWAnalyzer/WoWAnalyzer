@@ -94,6 +94,9 @@ h1 {
 .panel.statistic-box > .panel-body {
   padding: 10px 12px;
 }
+.statistic-box {
+  transition: background-color 0.3s ease-in-out;
+}
 .statistic-box .statistic-value {
   margin-top: .2em;
   font-size: 2em;
@@ -106,6 +109,28 @@ h1 {
   border-radius: 5px;
   border: 1px solid rgba(0, 0, 0, 0.6);
 }
+.statistic-expansion {
+  margin-top:  15px;
+}
+.statistic-expansion table th {
+  text-align: right;
+}
+.statistic-expansion table {
+  margin: 0;
+  text-align: right;
+}
+.statistic-expansion-button-holster {
+  width: 100%;
+  margin-top: 15px;
+}
+.statistic-expansion-button-holster button {
+  width: 100%;
+  outline: none;
+}
+.statistic-expansion-button-holster button:focus {
+  outline: none;
+}
+
 .btn-default {
   border: 1px solid #fff;
   background: transparent;

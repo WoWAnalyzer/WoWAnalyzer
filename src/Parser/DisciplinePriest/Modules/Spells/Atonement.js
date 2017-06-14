@@ -8,15 +8,17 @@ const debug = false;
 const IMPROPER_REFRESH_TIME = 3000;
 
 class Atonement extends Module {
-    healing = 0;
-    totalAtones = 0;
-    totalAtonementRefreshes = 0;
-  hasContrition = false;
+  healing = 0;
+  totalAtones = 0;
+  totalAtonementRefreshes = 0;
   currentAtonementTargets = [];
   improperAtonementRefreshes = [];
 
   get atonementDuration() {
-    return 15 + (this.hasContrition ? 3 : 0);
+    const applicator = this.owner.modules.atonementSource.atonementApplicationSource;
+    const duration = this.owner.modules.atonementSource.atonementDuration.get(applicator);
+
+    return duration;
   }
 
   get numAtonementsActive() {
@@ -25,9 +27,6 @@ class Atonement extends Module {
 
   on_initialized() {
     this.active = true;
-    if (!this.owner.error) {
-      this.hasContrition = this.owner.selectedCombatant.hasTalent(SPELLS.CONTRITION_TALENT.id);
-    }
   }
 
   on_byPlayer_applybuff(event) {
@@ -38,8 +37,10 @@ class Atonement extends Module {
 
     const atonement = {
       target: event.targetID,
-      lastAtonmentAppliedTimestamp: event.timestamp,
+      lastAtonementAppliedTimestamp: event.timestamp,
+      atonementExpirationTimestamp: event.timestamp + this.atonementDuration * 1000,
     };
+
     this.currentAtonementTargets = this.currentAtonementTargets.filter(id => id.target !== atonement.target);
     this.currentAtonementTargets.push(atonement);
     this.totalAtones++;
@@ -54,17 +55,17 @@ class Atonement extends Module {
 
     const atonement = {
       target: event.targetID,
-      lastAtonmentAppliedTimestamp: event.timestamp,
+      lastAtonementAppliedTimestamp: event.timestamp,
     };
     let refreshedTarget = this.currentAtonementTargets.find(id => id.target === atonement.target);
     if (!refreshedTarget) {
       refreshedTarget = {
         target: event.targetID,
-        lastAtonmentAppliedTimestamp: this.owner.fight.start_time,
+        lastAtonementAppliedTimestamp: this.owner.fight.start_time,
       };
       debug && console.warn('Atonement: was applied prior to combat');
     }
-    const timeSinceApplication = event.timestamp - refreshedTarget.lastAtonmentAppliedTimestamp;
+    const timeSinceApplication = event.timestamp - refreshedTarget.lastAtonementAppliedTimestamp;
     if (timeSinceApplication < ((this.atonementDuration * 1000) - IMPROPER_REFRESH_TIME)) {
       this.improperAtonementRefreshes.push(refreshedTarget);
       debug && console.log(`%c${this.owner.combatants.players[atonement.target].name} refreshed an atonement too early %c${timeSinceApplication}`, 'color:red', this.currentAtonementTargets);
@@ -84,7 +85,7 @@ class Atonement extends Module {
     }
     const atonement = {
       target: event.targetID,
-      lastAtonmentAppliedTimestamp: event.timestamp,
+      lastAtonementAppliedTimestamp: event.timestamp,
     };
     this.currentAtonementTargets = this.currentAtonementTargets.filter(id => id.target !== atonement.target);
     debug && console.log(`%c${this.owner.combatants.players[atonement.target].name} lost an atonement`, 'color:yellow', this.currentAtonementTargets);
@@ -99,13 +100,13 @@ class Atonement extends Module {
     // if (!this.owner.toPlayer(event)) {
     //   return;
     // }
-    if (this.lastAtonmentAppliedTimestamp === null) {
+    if (this.lastAtonementAppliedTimestamp === null) {
       // This can be `null` when Atonement wasn't applied in the combatlog. This often happens as Discs like to apply Atonement prior to combat.
-      this.lastAtonmentAppliedTimestamp = this.owner.fight.start_time;
+      this.lastAtonementAppliedTimestamp = this.owner.fight.start_time;
       debug && console.warn('Atonement: was applied prior to combat');
     }
 
-    if ((event.timestamp - this.lastAtonmentAppliedTimestamp) < (this.atonementDuration * 1000)) {
+    if ((event.timestamp - this.lastAtonementAppliedTimestamp) < (this.atonementDuration * 1000)) {
       return;
     }
 

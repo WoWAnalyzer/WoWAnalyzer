@@ -145,11 +145,13 @@ class CooldownTracker extends CoreCooldownTracker {
       this.activeCooldowns.splice(index,1);
   }
 
-  on_encounterstart(event) {
-    // Store cooldown info in case it was cast before pull. If we see a cast before it expires, all data in it is discarded.
-    this.lastCBT = this.addNewCooldown(SPELLS.CLOUDBURST_TOTEM_CAST, event.timestamp);
-    this.lastAG = this.addNewCooldown(SPELLS.ANCESTRAL_GUIDANCE_CAST, event.timestamp);
-    this.lastAsc = this.addNewCooldown(SPELLS.ASCENDANCE_CAST, event.timestamp);
+  on_initialized() {
+    if (!this.owner.error) {
+      // Store cooldown info in case it was cast before pull. If we see a cast before it expires, all data in it is discarded.
+      this.lastCBT = this.addNewCooldown(SPELLS.CLOUDBURST_TOTEM_CAST, this.owner.fight.start_time);
+      this.lastAG = this.addNewCooldown(SPELLS.ANCESTRAL_GUIDANCE_CAST, this.owner.fight.start_time);
+      this.lastAsc = this.addNewCooldown(SPELLS.ASCENDANCE_CAST, this.owner.fight.start_time);
+    }
   }
 
 

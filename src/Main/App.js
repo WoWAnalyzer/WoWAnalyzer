@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link, hashHistory } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import ReactTooltip from 'react-tooltip';
 
 import makeWclUrl from 'common/makeWclUrl';
@@ -121,11 +121,22 @@ class App extends Component {
     }
 
     const ParserClass = config.parser;
+    const parser = new ParserClass(report, player, fight);
+
     this.setState({
       config,
-      parser: new ParserClass(report, player, fight),
+      parser,
       progress: 0,
-    }, () => this.parseNextBatch(this.state.parser, report.code, player, fight.start_time, fight.end_time));
+    }, () => {
+      parser.parseEvents(this.state.combatants)
+        .then(() => {
+          this.setState({
+            progress: 0.1,
+          });
+          parser.triggerEvent('initialized');
+          this.parseNextBatch(parser, report.code, player, fight.start_time, fight.end_time);
+        });
+    });
   }
   parseNextBatch(parser, code, player, fightStart, fightEnd, nextPageTimestamp = null) {
     if (parser !== this.state.parser) {
@@ -135,14 +146,14 @@ class App extends Component {
     const isFirstBatch = nextPageTimestamp === null;
     // If this is the first batch the first events will be at the fightStart
     const pageTimestamp = isFirstBatch ? fightStart : nextPageTimestamp;
-    // If this is the first batch we want to NOT filter the events by actor id in order to obtain combatantinfo for all players
-    const actorId = isFirstBatch ? undefined : player.id;
+    const actorId = player.id;
 
     this.fetchEvents(code, pageTimestamp, fightEnd, actorId)
       .then((json) => {
         if (parser !== this.state.parser) {
           return;
         }
+
         parser.parseEvents(json.events)
           .then(() => {
             // Update the interface with progress
@@ -175,7 +186,11 @@ class App extends Component {
     console.log('Finished. Parser:', parser);
 
     this.setState({
-      progress: 1,
+      progress: 0.99,
+    }, () => {
+      this.setState({
+        progress: 1,
+      });
     });
   }
 
@@ -372,7 +387,7 @@ class App extends Component {
                 parser={parser}
                 dataVersion={this.state.dataVersion}
                 tab={this.resultTab}
-                onChangeTab={newTab => hashHistory.push(makeAnalyzerUrl(report.code, this.fightId, this.playerName, newTab))}
+                onChangeTab={newTab => browserHistory.push(makeAnalyzerUrl(report.code, this.fightId, this.playerName, newTab))}
               />
             );
           })()}

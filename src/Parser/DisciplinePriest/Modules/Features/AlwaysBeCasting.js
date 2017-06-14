@@ -35,6 +35,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.POWER_WORD_SOLACE_TALENT.id,
     SPELLS.CLARITY_OF_WILL_TALENT.id,
     SPELLS.SHADOW_COVENANT_TALENT.id,
+    SPELLS.EVANGELISM_TALENT.id,
   ];
 
   lastPenanceStartTimestamp = null;
