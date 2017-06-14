@@ -20,8 +20,9 @@ import ParseResults from 'Parser/Core/ParseResults';
 import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
-// import DarkmoonDeckPromises from 'Parser/Core/Modules/Items/DarkmoonDeckPromises';
-// import AmalgamsSeventhSpine from 'Parser/Core/Modules/Items/AmalgamsSeventhSpine';
+import SephuzsSecret from 'Parser/Core/Modules/Items/SephuzsSecret';
+import DarkmoonDeckPromises from 'Parser/Core/Modules/Items/DarkmoonDeckPromises';
+import AmalgamsSeventhSpine from 'Parser/Core/Modules/Items/AmalgamsSeventhSpine';
 import Prydaz from 'Parser/Core/Modules/Items/Prydaz';
 import ArchiveOfFaith from 'Parser/Core/Modules/Items/ArchiveOfFaith';
 import BarbaricMindslaver from 'Parser/Core/Modules/Items/BarbaricMindslaver';
@@ -103,7 +104,7 @@ class CombatLogParser extends MainCombatLogParser {
     // Legendaries / Items:
     drapeOfShame: DrapeOfShame,
     prydaz: Prydaz,
-    // sephuz: Sephuz,
+    sephuzsSecret: SephuzsSecret,
     velens: Velens,
     eithas: Eithas,
     archiveOfFaith: ArchiveOfFaith,
@@ -112,8 +113,8 @@ class CombatLogParser extends MainCombatLogParser {
     deceiversGrandDesign: DeceiversGrandDesign,
 
     // Shared:
-    //amalgamsSeventhSpine: AmalgamsSeventhSpine,
-    //darkmoonDeckPromises: DarkmoonDeckPromises,
+    amalgamsSeventhSpine: AmalgamsSeventhSpine,
+    darkmoonDeckPromises: DarkmoonDeckPromises,
   };
 
   generateResults() {
@@ -558,7 +559,7 @@ class CombatLogParser extends MainCombatLogParser {
           icon={<SpellIcon id={SPELLS.GUSTS_OF_MISTS.id} />}
           value={`${efMasteryCasts}`}
           label={(
-            <dfn data-tip={`You healed a total of ${efMasteryCasts} targets with the Essence Font buff for ${formatNumber(efMasteryEffectiveHealing)} healing. You also healed an average of ${avgMasteryCastsPerEF} per Essence Font cast.  (${formatNumber(avgEFMasteryHealing)} average healing per cast.)`}>
+            <dfn data-tip={`You healed a total of ${efMasteryCasts} targets with the Essence Font buff for ${formatNumber(efMasteryEffectiveHealing)} healing. You also healed an average of ${avgMasteryCastsPerEF.toFixed(2)} targets per Essence Font cast.  (${formatNumber(avgEFMasteryHealing)} average healing per cast.)`}>
               Mastery Buffs utilized
             </dfn>
           )}
@@ -590,6 +591,32 @@ class CombatLogParser extends MainCombatLogParser {
     ];
 
     results.items = [
+      this.modules.sephuzsSecret.active && {
+        id: ITEMS.SEPHUZS_SECRET.id,
+        icon: <ItemIcon id={ITEMS.SEPHUZS_SECRET.id} />,
+        title: <ItemLink id={ITEMS.SEPHUZS_SECRET.id} />,
+        result: `${((this.modules.sephuzsSecret.uptime / fightDuration * 100) || 0).toFixed(2)} % uptime`,
+      },
+      this.modules.amalgamsSeventhSpine.active && {
+        id: ITEMS.AMALGAMS_SEVENTH_SPINE.id,
+        icon: <ItemIcon id={ITEMS.AMALGAMS_SEVENTH_SPINE.id} />,
+        title: <ItemLink id={ITEMS.AMALGAMS_SEVENTH_SPINE.id} />,
+        result: (
+          <dfn data-tip={`The exact amount of mana gained from the Amalgam's Seventh Spine equip effect. You gained mana ${this.modules.amalgamsSeventhSpine.procs} times and refreshed the buff ${this.modules.amalgamsSeventhSpine.refreshes} times (refreshing delay the mana return and is inefficient use of this trinket).`}>
+            {formatThousands(this.modules.amalgamsSeventhSpine.manaGained)} mana gained ({formatThousands(this.modules.amalgamsSeventhSpine.manaGained / this.fightDuration * 1000 * 5)} MP5)
+          </dfn>
+        ),
+      },
+      this.modules.darkmoonDeckPromises.active && {
+        id: ITEMS.DARKMOON_DECK_PROMISES.id,
+        icon: <ItemIcon id={ITEMS.DARKMOON_DECK_PROMISES.id} />,
+        title: <ItemLink id={ITEMS.DARKMOON_DECK_PROMISES.id} />,
+        result: (
+          <dfn data-tip={`The exact amount of mana saved by the Darkmoon Deck: Promises equip effect. This takes the different values per card into account at the time of the cast. Mana values assume you have a 875 item level version.`}>
+            {formatThousands(this.modules.darkmoonDeckPromises.manaGained)} mana saved ({formatThousands(this.modules.darkmoonDeckPromises.manaGained / this.fightDuration * 1000 * 5)} MP5)
+          </dfn>
+        ),
+      },
       this.modules.velens.active && {
         id: ITEMS.VELENS_FUTURE_SIGHT.id,
         icon: <ItemIcon id={ITEMS.VELENS_FUTURE_SIGHT.id} />,

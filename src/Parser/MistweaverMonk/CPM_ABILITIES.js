@@ -37,16 +37,6 @@ const CPM_ABILITIES = [
     },
   },
   {
-    spell: SPELLS.REFRESHING_JADE_WIND_TALENT,
-    category: SPELL_CATEGORY.COOLDOWNS,
-    getCooldown: haste => 9 / (1 + haste),
-    isActive: combatant => combatant.hasTalent(SPELLS.REFRESHING_JADE_WIND_TALENT.id),
-    getOverhealing: (_, getAbility) => {
-      const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.REFRESHING_JADE_WIND_HEAL.id);
-      return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
-    },
-  },
-  {
     spell: SPELLS.INVOKE_CHIJI_TALENT,
     category: SPELL_CATEGORY.COOLDOWNS,
     getCooldown: haste => 180,
@@ -130,12 +120,20 @@ const CPM_ABILITIES = [
     spell: SPELLS.SOOTHING_MIST,
     category: SPELL_CATEGORY.OTHERS,
     getCooldown: haste => null,
+    getOverhealing: (_, getAbility) => {
+      const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.SOOTHING_MIST.id);
+      return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
+    },
   },
   {
     spell: SPELLS.REFRESHING_JADE_WIND_TALENT,
     category: SPELL_CATEGORY.OTHERS,
     getCooldown: haste => null,
     isActive: combatant => combatant.hasTalent(SPELLS.REFRESHING_JADE_WIND_TALENT.id),
+    getOverhealing: (_, getAbility) => {
+      const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.REFRESHING_JADE_WIND_HEAL.id);
+      return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
+    },
   },
 
   // Utility Spells
