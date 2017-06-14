@@ -4,7 +4,6 @@ import ITEMS from 'common/ITEMS';
 import Module from 'Parser/Core/Module';
 
 const debug = false;
-const GUIDING_HAND_DURATION = 120000;
 const PROC_EVENT_START_BUFFER = 5000;
 const PROC_EVENT_END_BUFFER = 1000;
 
