@@ -191,6 +191,7 @@ const ITEMS = {
     icon: 'inv_70_raid_ring6a',
     quality: QUALITIES.LEGENDARY,
   },
+  // Monk Legedaries
   EITHAS_LUNAR_GLIDES: {
     id: 137028,
     name: 'Ei\'thas, Lunar Glides of Eramas',
@@ -198,6 +199,31 @@ const ITEMS = {
     quality: QUALITIES.LEGENDARY,
   },
 
+  // T20 Trinkets
+  ARCHIVE_OF_FAITH: {
+    id: 147006,
+    name: 'Archive of Faith',
+    icon: 'inv__wod_arakoa4',
+    quality: QUALITIES.EPIC,
+  },
+  BARBARIC_MINDSLAVER: {
+    id: 147003,
+    name: 'Barbaric Mindslaver',
+    icon: 'spell_priest_psyfiend',
+    quality: QUALITIES.EPIC,
+  },
+  DECEIVERS_GRAND_DESIGN: {
+    id: 147007,
+    name: 'The Deceiver\'s Grand Design',
+    icon: 'inv_offhand_1h_pvpcataclysms3_c_01',
+    quality: QUALITIES.EPIC,
+  },
+  SEA_STAR_OF_THE_DEPTHMOTHER: {
+    id: 147004,
+    name: 'Sea Star of the Depthmother',
+    icon: 'inv_jewelcrafting_starofelune_02',
+    quality: QUALITIES.EPIC,
+  },
   // DPS Trinkets
   TARNISHED_SENTINEL_MEDALLION: {
     id: 147017,

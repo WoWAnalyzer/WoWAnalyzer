@@ -37,16 +37,6 @@ const CPM_ABILITIES = [
     },
   },
   {
-    spell: SPELLS.REFRESHING_JADE_WIND_TALENT,
-    category: SPELL_CATEGORY.COOLDOWNS,
-    getCooldown: haste => 9 / (1 + haste),
-    isActive: combatant => combatant.hasTalent(SPELLS.REFRESHING_JADE_WIND_TALENT.id),
-    getOverhealing: (_, getAbility) => {
-      const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.REFRESHING_JADE_WIND_HEAL.id);
-      return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
-    },
-  },
-  {
     spell: SPELLS.INVOKE_CHIJI_TALENT,
     category: SPELL_CATEGORY.COOLDOWNS,
     getCooldown: haste => 180,
@@ -65,6 +55,13 @@ const CPM_ABILITIES = [
     isActive: combatant => combatant.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT.id),
   },
   {
+    spell: SPELLS.CLEANSING_MATRIX,
+    name: `${ITEMS.ARCHIVE_OF_FAITH.name}`,
+    category: SPELL_CATEGORY.COOLDOWNS,
+    getCooldown: haste => 60,
+    isActive: combatant => combatant.hasTrinket(ITEMS.ARCHIVE_OF_FAITH.id),
+  },
+  {
     spell: SPELLS.LIFE_COCOON,
     category: SPELL_CATEGORY.COOLDOWNS,
     getCooldown: haste => 180,
@@ -78,6 +75,7 @@ const CPM_ABILITIES = [
     noSuggestion: true,
     noCanBeImproved: true,
   },
+
 
   // Other Spell Casting Metrics
   {
@@ -122,12 +120,20 @@ const CPM_ABILITIES = [
     spell: SPELLS.SOOTHING_MIST,
     category: SPELL_CATEGORY.OTHERS,
     getCooldown: haste => null,
+    getOverhealing: (_, getAbility) => {
+      const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.SOOTHING_MIST.id);
+      return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
+    },
   },
   {
     spell: SPELLS.REFRESHING_JADE_WIND_TALENT,
     category: SPELL_CATEGORY.OTHERS,
     getCooldown: haste => null,
     isActive: combatant => combatant.hasTalent(SPELLS.REFRESHING_JADE_WIND_TALENT.id),
+    getOverhealing: (_, getAbility) => {
+      const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.REFRESHING_JADE_WIND_HEAL.id);
+      return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
+    },
   },
 
   // Utility Spells
