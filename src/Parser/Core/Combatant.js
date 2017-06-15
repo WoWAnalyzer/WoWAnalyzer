@@ -255,7 +255,7 @@ class Combatant extends Entity {
     return this.getGearItemBySlotId(GEAR_SLOTS.TRINKET2);
   }
   hasTrinket(itemId) {
-    return (this.trinket1 && this.trinket1.id === itemId) || (this.trinket2 && this.trinket2 === itemId);
+    return (this.trinket1 && this.trinket1.id === itemId) || (this.trinket2 && this.trinket2.id === itemId);
   }
   //endregion
 }
