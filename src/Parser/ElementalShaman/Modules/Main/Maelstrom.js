@@ -47,7 +47,7 @@ class Maelstrom extends React.PureComponent {
     }
   }
   load(reportCode, actorId, start, end) {
-    const manaPromise = fetch(makeWclUrl(`https://www.warcraftlogs.com/v1/report/tables/resources/${reportCode}`, {
+    const manaPromise = fetch(makeWclUrl(`report/tables/resources/${reportCode}`, {
       start,
       end,
       sourceid: actorId,
@@ -64,7 +64,7 @@ class Maelstrom extends React.PureComponent {
         }
       });
 
-    const bossHealthPromise = fetch(makeWclUrl(`https://www.warcraftlogs.com/v1/report/tables/resources/${reportCode}`, {
+    const bossHealthPromise = fetch(makeWclUrl(`report/tables/resources/${reportCode}`, {
       start,
       end,
       sourceclass: 'Boss',
