@@ -22,6 +22,7 @@ import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import AmalgamsSeventhSpine from 'Parser/Core/Modules/Items/AmalgamsSeventhSpine';
 import Prydaz from 'Parser/Core/Modules/Items/Prydaz';
+import DarkmoonDeckPromises from 'Parser/Core/Modules/Items/DarkmoonDeckPromises';
 
 import DrapeOfShame from './Modules/Legendaries/DrapeOfShame';
 import Velens from './Modules/Legendaries/Velens';
@@ -32,7 +33,6 @@ import DarkTitanAdvice from './Modules/Legendaries/DarkTitanAdvice';
 import EssenceOfInfusion from './Modules/Legendaries/EssenceOfInfusion';
 import Tearstone from './Modules/Legendaries/Tearstone';
 import T20 from './Modules/Legendaries/T20';
-import DarkmoonDeckPromises from './Modules/Features/DarkmoonDeckPromises';
 
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownTracker from './Modules/Features/CooldownTracker';
@@ -602,7 +602,7 @@ class CombatLogParser extends MainCombatLogParser {
         icon: <ItemIcon id={ITEMS.DARKMOON_DECK_PROMISES.id} />,
         title: <ItemLink id={ITEMS.DARKMOON_DECK_PROMISES.id} />,
         result: (
-          <dfn data-tip={`The exact amount of mana saved by the Darkmoon Deck: Promises equip effect. This takes the different values per card into account at the time of the cast. Mana values assume you have a 900 item level version.`}>
+          <dfn data-tip="The exact amount of mana saved by the Darkmoon Deck: Promises equip effect. This takes the different values per card into account at the time of the cast.">
             {formatThousands(this.modules.darkmoonDeckPromises.manaGained)} mana saved ({formatThousands(this.modules.darkmoonDeckPromises.manaGained / this.fightDuration * 1000 * 5)} MP5)<br/>
             {formatPercentage((this.modules.darkmoonDeckPromises.manaGained/22000)*oneRejuvenationThroughput)}% throughput.
           </dfn>
