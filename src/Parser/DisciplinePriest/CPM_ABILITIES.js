@@ -123,11 +123,13 @@ const CPM_ABILITIES = [
     spell: SPELLS.PAIN_SUPPRESSION,
     category: SPELL_CATEGORY.COOLDOWNS,
     getCooldown: (haste, combatant) => 4 * 60 - (combatant.traitsBySpellId[SPELLS.PAIN_IS_IN_YOUR_MIND.id] || 0) * 10,
+    noSuggestion: true,
   },
   {
     spell: SPELLS.POWER_WORD_BARRIER_CAST,
     category: SPELL_CATEGORY.COOLDOWNS,
     getCooldown: haste => 3 * 60,
+    noSuggestion: true,
   },
 
   {

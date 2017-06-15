@@ -1,4 +1,5 @@
 export default `
+15-06-2017 - Disc Priest: Disable suggestions for Pain Suppression and Power Word: Barrier. (by Zerotorescue) 
 15-06-2017 - Updated Darkmoon Deck: Promises mana reduction values to scale with item level. (by Zerotorescue)
 15-06-2017 - Resto Druid: Adjusted promises to base of ilvl 900 also added throughput calc on promises. (by Blazyb)
 15-06-2017 - Mistweaver Monk: Mana Cost adjustments for Patch 7.2.5 (by anomoly)
