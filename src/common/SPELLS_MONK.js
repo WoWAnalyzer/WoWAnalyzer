@@ -171,6 +171,11 @@ export default {
     name: 'Roll',
     icon: 'ability_monk_roll',
   },
+  TRANCENDANCE: {
+    id: 101643,
+    name: 'Trancendance',
+    icon: 'monk_ability_transcendence',
+  },
 
   // Talents:
   // Note: Descriptions have been pulled from the WoWHead guide, written by Garg.
@@ -276,6 +281,7 @@ export default {
     id: 197908,
     name: 'Mana Tea',
     icon: 'monk_ability_cherrymanatea',
+    cooldownType: 'HEALING',
   },
   FOCUSED_THUNDER_TALENT: {
     id: 197895,
@@ -348,6 +354,23 @@ export default {
   EFFUSIVE_MISTS: {
     id: 238094,
     name: 'Effusive Mists',
+    icon: 'ability_monk_effuse',
+  },
+  SPIRIT_TETHER: {
+    id: 199387,
+    name: 'Spirit Tether',
+    icon: 'monk_ability_transcendence',
+  },
+
+  // Tier Set Bonus's
+  XUENS_BATTLEGEAR_4_PIECE_BUFF: {
+    id: 242258,
+    name: 'Monk T20 Mistweaver 4P Bonus',
+    icon: 'spell_monk_mistweaver_spec',
+  },  
+  DANCE_OF_MISTS: {
+    id: 247891,
+    name: 'Dance of Mists',
     icon: 'ability_monk_effuse',
   },
 };
