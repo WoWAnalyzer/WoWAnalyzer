@@ -129,14 +129,14 @@ class CombatLogParser extends MainCombatLogParser {
     const tier19_2setHealingPercentage = this.modules.tier19_2set.healing / this.totalHealing;
 
 
-    if(improperAtonementRefreshPercentage > .05) {
+    if (improperAtonementRefreshPercentage > .05) {
       results.addIssue({
         issue: <span>Your <SpellLink id={SPELLS.ATONEMENT_HEAL_NON_CRIT.id} /> efficiency can be improved ({this.modules.atonement.improperAtonementRefreshes.length}/{this.modules.atonement.totalAtones} applications: {(improperAtonementRefreshPercentage * 100).toFixed(2)}% applied to already buffed players.)</span>,
         icon: SPELLS.ATONEMENT_HEAL_NON_CRIT.icon,
         importance: getIssueImportance(improperAtonementRefreshPercentage, .07, .1, true),
       });
     }
-    
+
     if (deadTimePercentage > 0.2) {
       results.addIssue({
         issue: `Your dead GCD time can be improved. Try to Always Be Casting (ABC); when there's nothing to heal try to contribute some damage (${Math.round(deadTimePercentage * 100)}% dead GCD time).`,
@@ -199,24 +199,27 @@ class CombatLogParser extends MainCombatLogParser {
         )}
       >
         <table className="table table-condensed">
-          <th>Cast</th>
-          <th>Healing</th>
-          <th>Duration</th>
-          <th>Count</th>
-          
-          { 
-            this.modules.evangelism.evangelismStatistics
-                .map(function(evangelism, index) {
-                  return (
-                    <tr>
-                      <th scope="row">{ index + 1 }</th>
-                      <td>{ formatNumber(evangelism.healing) }</td>
-                      <td>{ evangelism.atonementSeconds }s</td>
-                      <td>{ evangelism.count }</td>
-                    </tr>
-                  );
-                })
-          }
+          <thead>
+            <tr>
+              <th>Cast</th>
+              <th>Healing</th>
+              <th>Duration</th>
+              <th>Count</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              this.modules.evangelism.evangelismStatistics
+                .map((evangelism, index) => (
+                  <tr key={index}>
+                    <th scope="row">{ index + 1 }</th>
+                    <td>{ formatNumber(evangelism.healing) }</td>
+                    <td>{ evangelism.atonementSeconds }s</td>
+                    <td>{ evangelism.count }</td>
+                  </tr>
+                ))
+            }
+          </tbody>
         </table>
       </ExpandableStatisticBox>),
       missedPenanceTicks && (<StatisticBox
@@ -229,14 +232,14 @@ class CombatLogParser extends MainCombatLogParser {
         )}
       />),
       this.modules.atonement.active && (
-        <StatisticBox 
-        icon={<SpellIcon id={SPELLS.ATONEMENT_HEAL_NON_CRIT.id} />}
-        value={this.modules.atonement.improperAtonementRefreshes.length}
-        label={(
-          <dfn data-tip={`The amount of Atonements that were refreshed earlier than within 3 seconds of the buff expiring. You applied Atonement ${this.modules.atonement.totalAtones} times in total, ${this.modules.atonement.totalAtonementRefreshes} (${((this.modules.atonement.totalAtonementRefreshes / this.modules.atonement.totalAtones * 100) || 0).toFixed(2)}%) of them were refreshes of existing Atonements, and ${this.modules.atonement.improperAtonementRefreshes.length} (${((this.modules.atonement.improperAtonementRefreshes.length / this.modules.atonement.totalAtones * 100) || 0).toFixed(2)}%) of them were considered early.` }>
-             Early Atonement refreshes
-          </dfn> 
-        )}
+        <StatisticBox
+          icon={<SpellIcon id={SPELLS.ATONEMENT_HEAL_NON_CRIT.id} />}
+          value={this.modules.atonement.improperAtonementRefreshes.length}
+          label={(
+            <dfn data-tip={`The amount of Atonements that were refreshed earlier than within 3 seconds of the buff expiring. You applied Atonement ${this.modules.atonement.totalAtones} times in total, ${this.modules.atonement.totalAtonementRefreshes} (${((this.modules.atonement.totalAtonementRefreshes / this.modules.atonement.totalAtones * 100) || 0).toFixed(2)}%) of them were refreshes of existing Atonements, and ${this.modules.atonement.improperAtonementRefreshes.length} (${((this.modules.atonement.improperAtonementRefreshes.length / this.modules.atonement.totalAtones * 100) || 0).toFixed(2)}%) of them were considered early.` }>
+              Early Atonement refreshes
+            </dfn>
+          )}
         />
       ),
       this.modules.twistOfFate.active && (
@@ -265,15 +268,15 @@ class CombatLogParser extends MainCombatLogParser {
         />
       ),
       this.modules.powerWordShieldWasted.wasted && (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.POWER_WORD_SHIELD.id} />}
-        value={`${formatNumber(this.modules.powerWordShieldWasted.wasted / fightDuration * 1000)} HPS`}
-        label={(
-          <dfn data-tip={`The amount of shield absorb remaining on Power Word: Shields that expired. There was a total of ${formatNumber(this.modules.powerWordShieldWasted.wasted)} unused Power Word: Shield absorb from ${this.modules.powerWordShieldWasted.count} shields with absorb remaining (a total of ${this.modules.powerWordShieldWasted.totalCount} shields were applied).`}>
-            Unused PW:S absorb
-          </dfn>
-        )}
-      />),
+        <StatisticBox
+          icon={<SpellIcon id={SPELLS.POWER_WORD_SHIELD.id} />}
+          value={`${formatNumber(this.modules.powerWordShieldWasted.wasted / fightDuration * 1000)} HPS`}
+          label={(
+            <dfn data-tip={`The amount of shield absorb remaining on Power Word: Shields that expired. There was a total of ${formatNumber(this.modules.powerWordShieldWasted.wasted)} unused Power Word: Shield absorb from ${this.modules.powerWordShieldWasted.count} shields with absorb remaining (a total of ${this.modules.powerWordShieldWasted.totalCount} shields were applied).`}>
+              Unused PW:S absorb
+            </dfn>
+          )}
+        />),
     ];
 
     results.items = [
@@ -303,7 +306,7 @@ class CombatLogParser extends MainCombatLogParser {
         title: <ItemLink id={ITEMS.TARNISHED_SENTINEL_MEDALLION.id} />,
         result: (
           <dfn data-tip="The atonement healing done by the trinket's damaging effects.">
-           { ((owlHealingPercentage * 100) || 0).toFixed(2) } % / { formatNumber(this.modules.tarnishedSentinelMedallion.healing / fightDuration * 1000) } HPS
+            { ((owlHealingPercentage * 100) || 0).toFixed(2) } % / { formatNumber(this.modules.tarnishedSentinelMedallion.healing / fightDuration * 1000) } HPS
           </dfn>
         ),
       },
@@ -313,7 +316,7 @@ class CombatLogParser extends MainCombatLogParser {
         title: <SpellLink id={SPELLS.MARCH_OF_THE_LEGION.id} />,
         result: (
           <dfn data-tip="The atonement healing done by the set bonus' damaging effects.">
-           { ((marchHealingPercentage * 100) || 0).toFixed(2) } % / { formatNumber(this.modules.marchOfTheLegion.healing / fightDuration * 1000) } HPS
+            { ((marchHealingPercentage * 100) || 0).toFixed(2) } % / { formatNumber(this.modules.marchOfTheLegion.healing / fightDuration * 1000) } HPS
           </dfn>
         ),
       },
