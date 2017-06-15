@@ -1,4 +1,5 @@
 export default `
+16-06-2017 - Resto Druid: Added reduction to promises if you did not utilize the effect fully, i.e not needing the extra mana saved. Honorable mentions to Feidan for providing the formula. (by Blazyb)
 15-06-2017 - Disc Priest: Fixed Wasted Penance bolts always assumed user had the Castigation talent. (by Zerotorescue) 
 15-06-2017 - Disc Priest: Disabled suggestions for Pain Suppression and Power Word: Barrier. (by Zerotorescue) 
 15-06-2017 - Updated Darkmoon Deck: Promises mana reduction values to scale with item level. (by Zerotorescue)

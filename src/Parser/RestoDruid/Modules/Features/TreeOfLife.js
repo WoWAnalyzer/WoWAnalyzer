@@ -11,6 +11,7 @@ const REJUVENATION_REDUCED_MANA = 0.3;
 const HEALING_INCREASE = 1.15;
 const REJUV_HEALING_INCREASE = 1.5;
 const WILD_GROWTH_HEALING_INCREASE = (WG_TARGETS+2) / WG_TARGETS;
+const REJUV_MANA_COST = 22000;
 
 class TreeOfLife extends Module {
   hasGermination = false;
@@ -31,6 +32,11 @@ class TreeOfLife extends Module {
   totalRejuvenationsDuringToLHelmet = 0;
   totalHealingFromWildgrowthsDuringToLHelmet = 0;
   throughputHelmet = 0;
+
+  manaGained = 0;
+  manaGainedHelmet = 0;
+  actualManaGained = 0;
+  actualManaGainedHelmet = 0;
 
   on_initialized() {
     this.hasGermination = this.owner.selectedCombatant.lv90Talent === SPELLS.GERMINATION_TALENT.id;
@@ -76,6 +82,7 @@ class TreeOfLife extends Module {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
+    const resource = event.classResources[0];
     if (SPELLS.REJUVENATION.id === spellId) {
       this.totalRejuvenationsEncounter++;
     }
@@ -83,13 +90,33 @@ class TreeOfLife extends Module {
       if(this.tolManualApplyTimestamp !== null && event.timestamp<=this.tolManualApplyTimestamp+30000) {
         if (SPELLS.REJUVENATION.id === spellId) {
           this.totalRejuvenationsDuringToL++;
+          this.manaGained = (((this.totalRejuvenationsDuringToL * REJUV_BASE_MANA) * REJUVENATION_REDUCED_MANA)/ REJUV_BASE_MANA)* REJUV_MANA_COST;
         }
       } else {
         if (SPELLS.REJUVENATION.id === spellId) {
           this.totalRejuvenationsDuringToLHelmet++;
+          this.manaGainedHelmet = (((this.totalRejuvenationsDuringToLHelmet * REJUV_BASE_MANA) * REJUVENATION_REDUCED_MANA) / REJUV_BASE_MANA) * REJUV_MANA_COST;
         }
       }
     }
+    const manaLeftAfterCast = resource.amount - resource.cost;
+    const newSavings = this.manaGained;
+    const newSavingsHelmet = this.manaGainedHelmet;
+    const savingsUsed = newSavings - manaLeftAfterCast;
+    const savingsUsedHelmet = newSavingsHelmet - manaLeftAfterCast;
+    if(savingsUsedHelmet > 0) {
+      this.manaGainedHelmet = newSavingsHelmet - savingsUsedHelmet;
+      this.actualManaGainedHelmet = this.actualManaGainedHelmet + savingsUsedHelmet;
+    } else {
+      this.manaGainedHelmet = newSavingsHelmet;
+    }
+    if(savingsUsed > 0) {
+      this.manaGained = newSavings - savingsUsed;
+      this.actualManaGained = this.actualManaGained + savingsUsed;
+    } else {
+      this.manaGained = newSavings;
+    }
+
     if(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id === spellId) {
       this.tolManualApplyTimestamp = event.timestamp;
       this.tolCasts++;
