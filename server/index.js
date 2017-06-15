@@ -1,12 +1,9 @@
 const express = require('express');
 const path = require('path');
-
-const api = require('./api');
-
 const app = express();
 
-// Any files that exist can be accessed directly
 const buildFolder = path.join(__dirname, '..', 'build');
+
 app.use(express.static(buildFolder));
 
 app.get('/', function (req, res) {
@@ -17,7 +14,6 @@ app.get('/report/:reportCode([A-Za-z0-9]+)/:fightId([0-9]+)?/:playerName([^/]{2,
   // TODO: Change fightId to be fight name now that it's unique with wipe numbers
   res.sendFile(path.join(buildFolder, 'index.html'));
 });
-app.get('/api/v1/*', api);
 
 app.listen(3000);
 console.log('Listening to port 3000');
