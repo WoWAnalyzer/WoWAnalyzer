@@ -11,6 +11,8 @@ module.exports = function (req, res) {
     cacheBust = true;
     delete req.query._;
   }
+  
+  res.setHeader('Access-Control-Allow-Origin', '*');
 
   const requestUrl = `${req.params[0]}?${querystring.stringify(req.query)}`;
   console.time('request');
