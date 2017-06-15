@@ -116,7 +116,8 @@ class CombatLogParser extends MainCombatLogParser {
 
     const penance = getAbility(SPELLS.PENANCE.id);
 
-    const missedPenanceTicks = (this.modules.alwaysBeCasting.truePenanceCasts * 4) - (penance.casts || 0);
+    const hasCastigation = this.selectedCombatant.hasTalent(SPELLS.CASTIGATION_TALENT.id);
+    const missedPenanceTicks = (this.modules.alwaysBeCasting.truePenanceCasts * 3 + (hasCastigation ? 1 : 0)) - (penance.casts || 0);
     const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
     const velensHealingPercentage = this.modules.velens.healing / this.totalHealing;
     const owlHealingPercentage = this.modules.tarnishedSentinelMedallion.healing / this.totalHealing;
@@ -222,7 +223,7 @@ class CombatLogParser extends MainCombatLogParser {
         icon={<SpellIcon id={SPELLS.PENANCE.id} />}
         value={missedPenanceTicks}
         label={(
-          <dfn data-tip={`Each Penance channel allows you to hit 4 times. You should try to let this channel finish as much as possible. You channeled Penance ${this.modules.alwaysBeCasting.truePenanceCasts} times.`}>
+          <dfn data-tip={`Each Penance cast has 3 bolts (4 if you're using Castigation). You should try to let this channel finish as much as possible. You channeled Penance ${this.modules.alwaysBeCasting.truePenanceCasts} times.`}>
             Wasted Penance bolts
           </dfn>
         )}

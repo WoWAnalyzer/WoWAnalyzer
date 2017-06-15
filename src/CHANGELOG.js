@@ -1,4 +1,5 @@
 export default `
+15-06-2017 - Disc Priest: Fix Wasted Penance bolts always assumed user had the Castigation talent. (by Zerotorescue) 
 15-06-2017 - Disc Priest: Disable suggestions for Pain Suppression and Power Word: Barrier. (by Zerotorescue) 
 15-06-2017 - Updated Darkmoon Deck: Promises mana reduction values to scale with item level. (by Zerotorescue)
 15-06-2017 - Resto Druid: Adjusted promises to base of ilvl 900 also added throughput calc on promises. (by Blazyb)
