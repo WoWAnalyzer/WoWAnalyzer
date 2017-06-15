@@ -43,7 +43,7 @@ class MaraadsDyingBreath extends Module {
     // In the case of Maraad's Dying Breath each LotM consumes the stacks of the buff remaining. So this event is only called once per buffed LotM. When the buff is removed it first calls a `removebuffstack` that removes all additional stacks from the buff before it calls a `removebuff`, `removebuffstack` is the only way we can find the amount of stacks it had.
     const heal = this._lastHeal;
     const buff = this.owner.selectedCombatant.getBuff(MARAADS_HEALING_BUFF_ID, heal.timestamp);
-    const stacks = buff.stacks || 1;
+    const stacks = buff && buff.stacks ? buff.stacks : 1;
 
     const amount = heal.amount;
     const absorbed = heal.absorbed || 0;
@@ -76,7 +76,7 @@ class MaraadsDyingBreath extends Module {
     this.healingGainOverLotm += healing;
 
     const buff = this.owner.selectedCombatant.getBuff(MARAADS_HEALING_BUFF_ID, matchedHeal.timestamp);
-    const stacks = buff.stacks || 1;
+    const stacks = buff && buff.stacks ? buff.stacks : 1;
 
     // Since FoL beacon transfers, the only gain from Maraad's over a FoL would be the increase from Maraad's to beacon transfer
     this.healingGainOverFol += calculateEffectiveHealing(beaconTransferEvent, stacks * MARAADS_HEALING_INCREASE_PER_STACK);

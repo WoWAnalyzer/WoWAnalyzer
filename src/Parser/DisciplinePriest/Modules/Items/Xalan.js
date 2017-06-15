@@ -7,16 +7,14 @@ const debug = false;
 
 class Xalan extends Module {
   healing = 0;
-  hasContrition = false;
 
   get atonementDuration() {
-    return 15 + (this.hasContrition ? 3 : 0);
+    return 15;
   }
 
   on_initialized() {
     if (!this.owner.error) {
       this.active = this.owner.selectedCombatant.hasHands(ITEMS.XALAN_THE_FEAREDS_CLENCH.id);
-      this.hasContrition = this.owner.selectedCombatant.hasTalent(SPELLS.CONTRITION_TALENT.id);
     }
   }
 

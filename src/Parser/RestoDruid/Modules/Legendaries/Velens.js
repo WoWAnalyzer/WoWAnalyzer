@@ -11,7 +11,8 @@ const LEGENDARY_VELENS_HEAL_SPELL_ID = 235967;
 const LEGENDARY_VELENS_HEALING_INCREASE = 0.15;
 
 class Velens extends Module {
-  healing = 0;
+  overhealHealing = 0;
+  healingIncreaseHealing = 0;
 
   on_initialized() {
     if (!this.owner.error) {
@@ -27,7 +28,7 @@ class Velens extends Module {
 
     if (spellId === LEGENDARY_VELENS_HEAL_SPELL_ID) {
       // This is the overhealing part of Velen's Future Sight, just include its amount and we're done
-      this.healing += event.amount;
+      this.overhealHealing += event.amount;
       return;
     }
 
@@ -35,7 +36,7 @@ class Velens extends Module {
       return;
     }
 
-    this.healing += calculateEffectiveHealing(event, LEGENDARY_VELENS_HEALING_INCREASE);
+    this.healingIncreaseHealing += calculateEffectiveHealing(event, LEGENDARY_VELENS_HEALING_INCREASE);
   }
 }
 

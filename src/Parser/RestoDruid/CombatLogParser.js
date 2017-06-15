@@ -20,9 +20,9 @@ import ParseResults from 'Parser/Core/ParseResults';
 import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
-import DarkmoonDeckPromises from 'Parser/Core/Modules/Items/DarkmoonDeckPromises';
 import AmalgamsSeventhSpine from 'Parser/Core/Modules/Items/AmalgamsSeventhSpine';
 import Prydaz from 'Parser/Core/Modules/Items/Prydaz';
+import DarkmoonDeckPromises from 'Parser/Core/Modules/Items/DarkmoonDeckPromises';
 
 import DrapeOfShame from './Modules/Legendaries/DrapeOfShame';
 import Velens from './Modules/Legendaries/Velens';
@@ -149,7 +149,7 @@ class CombatLogParser extends MainCombatLogParser {
     const potaHealing = (this.modules.powerOfTheArchdruid.rejuvenations * oneRejuvenationThroughput) + this.modules.powerOfTheArchdruid.healing / this.totalHealing;
     const hasMoC = this.selectedCombatant.lv100Talent === SPELLS.MOMENT_OF_CLARITY_TALENT.id;
     const hasVelens = this.selectedCombatant.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT.id);
-    const velensHealingPercentage = this.modules.velens.healing / this.totalHealing;
+    const velensHealingPercentage = (this.modules.velens.overhealHealing + this.modules.velens.healingIncreaseHealing) / this.totalHealing;
     const prydazHealingPercentage = this.modules.prydaz.healing / this.totalHealing;
     const sepuhzHasteRating = ((this.modules.sephuz.uptime / this.fightDuration) * this.modules.sephuz.sephuzProccInHasteRating) + this.modules.sephuz.sephuzStaticHasteInRating;
     const sephuzThroughput = sepuhzHasteRating / this.selectedCombatant.intellect;
@@ -544,8 +544,8 @@ class CombatLogParser extends MainCombatLogParser {
         icon: <ItemIcon id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
         title: <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
         result: (
-          <dfn data-tip="The actual effective healing contributed by the Velen's Future Sight use effect.">
-            {((velensHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.velens.healing / fightDuration * 1000)} HPS
+          <dfn data-tip={`${formatPercentage(this.modules.velens.overhealHealing/this.totalHealing)}% from overhealing distribution and ${formatPercentage(this.modules.velens.healingIncreaseHealing/this.totalHealing)}% from 15% healing increase`}>
+            {((velensHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber((this.modules.velens.overhealHealing + this.modules.velens.healingIncreaseHealing) / fightDuration * 1000)} HPS
           </dfn>
         ),
       },
@@ -602,8 +602,9 @@ class CombatLogParser extends MainCombatLogParser {
         icon: <ItemIcon id={ITEMS.DARKMOON_DECK_PROMISES.id} />,
         title: <ItemLink id={ITEMS.DARKMOON_DECK_PROMISES.id} />,
         result: (
-          <dfn data-tip={`The exact amount of mana saved by the Darkmoon Deck: Promises equip effect. This takes the different values per card into account at the time of the cast. Mana values assume you have a 875 item level version.`}>
-            {formatThousands(this.modules.darkmoonDeckPromises.manaGained)} mana saved ({formatThousands(this.modules.darkmoonDeckPromises.manaGained / this.fightDuration * 1000 * 5)} MP5)
+          <dfn data-tip="The exact amount of mana saved by the Darkmoon Deck: Promises equip effect. This takes the different values per card into account at the time of the cast.">
+            {formatThousands(this.modules.darkmoonDeckPromises.manaGained)} mana saved ({formatThousands(this.modules.darkmoonDeckPromises.manaGained / this.fightDuration * 1000 * 5)} MP5)<br/>
+            {formatPercentage((this.modules.darkmoonDeckPromises.manaGained/22000)*oneRejuvenationThroughput)}% throughput.
           </dfn>
         ),
       },

@@ -10,13 +10,13 @@ export default {
     id: 124682,
     name: 'Enveloping Mists',
     icon: 'spell_monk_envelopingmist',
-    manaPerc: 0.06,
+    manaPerc: 0.052,
   },
   ESSENCE_FONT: {
     id: 191837,
     name: 'Essence Font',
     icon: 'ability_monk_essencefont',
-    manaPerc: 0.08,
+    manaPerc: 0.072,
   },
   ESSENCE_FONT_BUFF: {
     id: 191840,
@@ -133,13 +133,13 @@ export default {
     id: 107428,
     name: 'Rising Sun Kick',
     icon: 'ability_monk_risingsunkick',
-    manaPerc: 0.02 ,
+    manaPerc: 0.015,
   },
   SPINNING_CRANE_KICK: {
     id: 101546,
     name: 'Spining Crane Kick',
     icon: 'ability-monk-cranekick-new',
-    manaPerc: 0.01 ,
+    manaPerc: 0.01,
   },
   TIGER_PALM: {
     id: 100780,
@@ -259,7 +259,7 @@ export default {
     id: 196725,
     name: 'Refreshing Jade Wind',
     icon: 'ability_monk_rushingjadewind',
-    manaPerc: 0.05,
+    manaPerc: 0.035,
   },
   INVOKE_CHIJI_TALENT: {
     id: 198664,

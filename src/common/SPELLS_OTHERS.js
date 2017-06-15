@@ -42,4 +42,52 @@ export default {
     name: 'Mark of the Ancient Priestess',
     icon: 'ability_priest_ascension',
   },
+  
+  // Tomb trinkets
+  CLEANSING_MATRIX: {
+    id: 242619,
+    name: 'Cleansing Matrix',
+    icon: 'inv__wod_arakoa4',
+  },
+  AOF_INFUSION_OF_LIGHT: {
+    id: 242621,
+    name: 'Infusion of Light',
+    icon: 'spell_shadow_mindshear',
+  },
+  GUILTY_CONSCIENCE: {
+    id: 242327,
+    name: 'Guilty Conscience',
+    icon: 'spell_shadow_mindshear',
+  },
+  GUIDING_HAND: {
+    id: 242622,
+    name: 'Guiding Hand',
+    icon: 'spell_shadow_mindshear',
+  },
+  FRUITFUL_MACHINATIONS: {
+    id: 242623,
+    name: 'Fruitful Machinations',
+    icon: 'spell_shadow_mindshear',
+  },
+  OCEANS_EMBRACE: {
+    id: 242474,
+    name: 'Ocean\'s Embrace',
+    icon: 'paladin_holy',
+  },
+  // Item Abilities
+  SPECTRAL_BLAST: {
+    id: 246442,
+    name: 'Spectral Blast',
+    icon: 'inv_axe_02',
+  },
+  SPECTRAL_BOLT: {
+    id: 242571,
+    name: 'Spectral Bolt',
+    icon: 'ability_thunderking_thunderstruck',
+  },
+  MARCH_OF_THE_LEGION: {
+    id: 228446,
+    name: 'March of the Legion',
+    icon: 'ability_warlock_fireandbrimstone',
+  },
 };

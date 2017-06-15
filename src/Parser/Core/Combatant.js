@@ -115,13 +115,12 @@ class Combatant extends Entity {
     const playerInfo = parser.playersById[combatantInfo.sourceID];
     this._combatantInfo = {
       name: playerInfo.name,
-      type: playerInfo.type,
       ...combatantInfo,
     };
 
     this.parseTalents(combatantInfo.talents);
-    this.parseTraits(combatantInfo.artifact);
-    this.parseGear(combatantInfo.gear);
+    this._parseTraits(combatantInfo.artifact);
+    this._parseGear(combatantInfo.gear);
   }
 
   //region Talents
@@ -162,7 +161,7 @@ class Combatant extends Entity {
 
   //region Traits
   traitsBySpellId = {};
-  parseTraits(traits) {
+  _parseTraits(traits) {
     traits.forEach(({ spellID, rank }) => {
       this.traitsBySpellId[spellID] = rank;
     });
@@ -170,92 +169,92 @@ class Combatant extends Entity {
   //endregion
 
   //region Gear
-  gearBySlotId = {};
-  parseGear(gear) {
-    gear.forEach(({ id }, index) => {
-      this.gearBySlotId[index] = id;
+  _gearItemsBySlotId = {};
+  _parseGear(gear) {
+    gear.forEach((item, index) => {
+      this._gearItemsBySlotId[index] = item;
     });
   }
-  getGearBySlotId(slotId) {
-    return this.gearBySlotId[slotId];
+  _getGearItemBySlotId(slotId) {
+    return this._gearItemsBySlotId[slotId];
   }
   get head() {
-    return this.getGearBySlotId(GEAR_SLOTS.HEAD);
+    return this._getGearItemBySlotId(GEAR_SLOTS.HEAD);
   }
   hasHead(itemId) {
-    return this.head === itemId;
+    return this.head && this.head.id === itemId;
   }
   get neck() {
-    return this.getGearBySlotId(GEAR_SLOTS.NECK);
+    return this._getGearItemBySlotId(GEAR_SLOTS.NECK);
   }
   hasNeck(itemId) {
-    return this.neck === itemId;
+    return this.neck && this.neck.id === itemId;
   }
   get shoulder() {
-    return this.getGearBySlotId(GEAR_SLOTS.SHOULDER);
+    return this._getGearItemBySlotId(GEAR_SLOTS.SHOULDER);
   }
   hasShoulder(itemId) {
-    return this.shoulder === itemId;
+    return this.shoulder && this.shoulder.id === itemId;
   }
   get back() {
-    return this.getGearBySlotId(GEAR_SLOTS.BACK);
+    return this._getGearItemBySlotId(GEAR_SLOTS.BACK);
   }
   hasBack(itemId) {
-    return this.back === itemId;
+    return this.back && this.back.id === itemId;
   }
   get chest() {
-    return this.getGearBySlotId(GEAR_SLOTS.CHEST);
+    return this._getGearItemBySlotId(GEAR_SLOTS.CHEST);
   }
   hasChest(itemId) {
-    return this.chest === itemId;
+    return this.chest && this.chest.id === itemId;
   }
   get wrists() {
-    return this.getGearBySlotId(GEAR_SLOTS.WRISTS);
+    return this._getGearItemBySlotId(GEAR_SLOTS.WRISTS);
   }
   hasWrists(itemId) {
-    return this.wrists === itemId;
+    return this.wrists && this.wrists.id === itemId;
   }
   get hands() {
-    return this.getGearBySlotId(GEAR_SLOTS.HANDS);
+    return this._getGearItemBySlotId(GEAR_SLOTS.HANDS);
   }
   hasHands(itemId) {
-    return this.hands === itemId;
+    return this.hands && this.hands.id === itemId;
   }
   get waist() {
-    return this.getGearBySlotId(GEAR_SLOTS.WAIST);
+    return this._getGearItemBySlotId(GEAR_SLOTS.WAIST);
   }
   hasWaist(itemId) {
-    return this.waist === itemId;
+    return this.waist && this.waist.id === itemId;
   }
   get legs() {
-    return this.getGearBySlotId(GEAR_SLOTS.LEGS);
+    return this._getGearItemBySlotId(GEAR_SLOTS.LEGS);
   }
   hasLegs(itemId) {
-    return this.legs === itemId;
+    return this.legs && this.legs.id === itemId;
   }
   get feet() {
-    return this.getGearBySlotId(GEAR_SLOTS.FEET);
+    return this._getGearItemBySlotId(GEAR_SLOTS.FEET);
   }
   hasFeet(itemId) {
-    return this.feet === itemId;
+    return this.feet && this.feet.id === itemId;
   }
   get finger1() {
-    return this.getGearBySlotId(GEAR_SLOTS.FINGER1);
+    return this._getGearItemBySlotId(GEAR_SLOTS.FINGER1);
   }
   get finger2() {
-    return this.getGearBySlotId(GEAR_SLOTS.FINGER2);
+    return this._getGearItemBySlotId(GEAR_SLOTS.FINGER2);
   }
   hasRing(itemId) {
-    return this.finger1 === itemId || this.finger2 === itemId;
+    return (this.finger1 && this.finger1.id === itemId) || (this.finger2 && this.finger2.id === itemId);
   }
   get trinket1() {
-    return this.getGearBySlotId(GEAR_SLOTS.TRINKET1);
+    return this._getGearItemBySlotId(GEAR_SLOTS.TRINKET1);
   }
   get trinket2() {
-    return this.getGearBySlotId(GEAR_SLOTS.TRINKET2);
+    return this._getGearItemBySlotId(GEAR_SLOTS.TRINKET2);
   }
   hasTrinket(itemId) {
-    return this.trinket1 === itemId || this.trinket2 === itemId;
+    return (this.trinket1 && this.trinket1.id === itemId) || (this.trinket2 && this.trinket2.id === itemId);
   }
   //endregion
 }
