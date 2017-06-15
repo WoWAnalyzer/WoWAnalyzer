@@ -117,7 +117,7 @@ class CombatLogParser extends MainCombatLogParser {
     const penance = getAbility(SPELLS.PENANCE.id);
 
     const hasCastigation = this.selectedCombatant.hasTalent(SPELLS.CASTIGATION_TALENT.id);
-    const missedPenanceTicks = (this.modules.alwaysBeCasting.truePenanceCasts * 3 + (hasCastigation ? 1 : 0)) - (penance.casts || 0);
+    const missedPenanceTicks = (this.modules.alwaysBeCasting.truePenanceCasts * (3 + (hasCastigation ? 1 : 0))) - (penance.casts || 0);
     const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
     const velensHealingPercentage = this.modules.velens.healing / this.totalHealing;
     const owlHealingPercentage = this.modules.tarnishedSentinelMedallion.healing / this.totalHealing;
