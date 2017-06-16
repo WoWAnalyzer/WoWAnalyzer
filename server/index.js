@@ -1,9 +1,12 @@
+const compression = require('compression');
 const express = require('express');
 const path = require('path');
 
 const api = require('./api');
 
 const app = express();
+
+app.use(compression());
 
 // Any files that exist can be accessed directly
 const buildFolder = path.join(__dirname, '..', 'build');
