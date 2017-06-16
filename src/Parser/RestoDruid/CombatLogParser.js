@@ -279,7 +279,7 @@ class CombatLogParser extends MainCombatLogParser {
       });
     }
     const promisesThroughput = (this.modules.darkmoonDeckPromises.savings/rejuvenationManaCost)*oneRejuvenationThroughput;
-    if (promisesThroughput < 0.035) {
+    if (this.modules.darkmoonDeckPromises.active && promisesThroughput < 0.035) {
       results.addIssue({
         issue: <span>Your <a href="http://www.wowhead.com/item=128710" target="_blank" rel="noopener noreferrer">Darkmoon Deck: Promises</a> effect was not fully utilizied because you did not need the extra mana gained. You may want to consider using another trinket in these scenarios. ({this.modules.darkmoonDeckPromises.savings + this.modules.darkmoonDeckPromises.manaGained} mana gained potentially, {this.modules.darkmoonDeckPromises.savings} mana gained, {formatPercentage(promisesThroughput)}% healing contributed)</span>,
         icon: ITEMS.DARKMOON_DECK_PROMISES.icon,
