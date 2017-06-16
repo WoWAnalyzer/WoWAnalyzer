@@ -11,16 +11,17 @@ module.exports = function (req, res) {
     cacheBust = true;
     delete req.query._;
   }
-  
+
+  // Set header already so that all request, good or bad, have it
   res.setHeader('Access-Control-Allow-Origin', '*');
 
   const requestUrl = `${req.params[0]}?${querystring.stringify(req.query)}`;
   console.time('request');
-  const json = !cacheBust && cache.get(requestUrl);
-  if (json) {
+  const jsonString = !cacheBust && cache.get(requestUrl);
+  if (jsonString) {
     console.timeEnd('request');
     console.log('\x1b[32m%s\x1b[0m', 'cache hit');
-    res.json(json);
+    res.send(jsonString);
   } else {
     console.log('\x1b[31m%s\x1b[0m', 'cache miss');
     const query = Object.assign({}, req.query, {
@@ -36,27 +37,26 @@ module.exports = function (req, res) {
       },
     };
     console.log('GET', options.path);
+    console.time('wcl');
     https
-      .get(options, (wclRes) => {
-        let responseContent = '';
-        wclRes.on('data', chunk => { responseContent += chunk; });
-        wclRes.on('end', () => {
-          if (wclRes.statusCode === 200) {
-            try {
-              const json = JSON.parse(responseContent);
-              console.log('Request success!');
-              cache.set(requestUrl, json, 7200);
-              res.json(json);
-            } catch (e) {
-              console.error('Error parsing JSON!', e);
-              res.sendStatus(500);
-            }
+      .get(options, (wclResponse) => {
+        let jsonString = '';
+        wclResponse.on('data', chunk => { jsonString += chunk; });
+        wclResponse.on('end', () => {
+          console.timeEnd('wcl');
+
+          if (wclResponse.statusCode === 200) {
+            console.log('Request success!');
+            cache.set(requestUrl, jsonString, 7200);
           } else {
-            console.error('Status:', wclRes.statusCode);
-            res.setHeader('content-type', wclRes.headers['content-type']);
-            res.status(wclRes.statusCode);
-            res.send(responseContent);
+            console.error('Status:', wclResponse.statusCode);
           }
+
+          // Clone WCL response
+          res.setHeader('Content-Type', wclResponse.headers['content-type']);
+          res.status(wclResponse.statusCode);
+          res.send(jsonString);
+
           console.timeEnd('request');
         });
       })
