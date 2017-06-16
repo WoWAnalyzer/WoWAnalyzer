@@ -15,10 +15,12 @@ class BlindAbsolutionTwoSet extends Module {
     }
   }
 
-  on_byPlayer_begincast(event) {
-    if (event.ability.guid !== SPELLS.PENANCE.id) {
+  // Speed of the Pious is applied at the start of Penance
+  on_byPlayer_applybuff(event) {
+    if (event.ability.guid !== SPELLS.SPEED_OF_THE_PIOUS.id) {
       return;
     }
+
     this._penanceFirstBolt = true;
   }
 
@@ -28,6 +30,7 @@ class BlindAbsolutionTwoSet extends Module {
     }
 
     if (this._penanceFirstBolt) {
+      console.log(event);
       this.damage += (event.amount / 2);
     }
   }

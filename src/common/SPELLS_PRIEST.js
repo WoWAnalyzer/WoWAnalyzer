@@ -154,6 +154,11 @@ export default {
     name: 'T20 2 Set Bonus',
     icon: 'spell_holy_powerwordshield',
   },
+  DISC_PRIEST_T20_4SET_BONUS_BUFF: {
+    id: 242269,
+    name: 'T20 4 Set Bonus',
+    icon: 'spell_holy_powerwordshield',
+  },
   KAM_XIRAFF_BUFF: {
     id: 233997,
     name: 'Kam Xi\'raff',
@@ -309,5 +314,10 @@ export default {
     id: 197727,
     name: 'Doomsayer',
     icon: 'spell_holy_rapture',
+  },
+  SPEED_OF_THE_PIOUS: {
+    id: 197767,
+    name: 'Speed of the Pious',
+    icon: 'ability_paladin_speedoflight',
   },
 };
