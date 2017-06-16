@@ -288,7 +288,7 @@ export default {
   ABUNDANCE_TALENT: {
     id: 207383,
     name: 'Abundance',
-    icon: 'spell_druid_abundance',
+    icon: 'ability_druid_empoweredrejuvination',
   },
   // lv30
   RENEWAL_TALENT: {
@@ -379,7 +379,7 @@ export default {
   STONEBARK_TALENT: {
     id: 197061,
     name: 'Stonebark',
-    icon: 'spell_druid_stonebark',
+    icon: 'ability_druid_replenish',
   },
   FLOURISH_TALENT: {
     id: 197721,
