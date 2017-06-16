@@ -10,5 +10,5 @@ export default function makeWclUrl(base, queryParams = {}) {
     throw new Error(message);
   }
   queryParams.api_key = WCL_API_KEY;
-  return makeUrl(`${API_BASE}/api/v1/${base}`, queryParams);
+  return makeUrl(`${API_BASE}${base}`, queryParams);
 }
