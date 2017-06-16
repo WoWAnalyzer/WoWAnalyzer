@@ -198,6 +198,12 @@ const ITEMS = {
     icon: 'inv_boots_mail_04black',
     quality: QUALITIES.LEGENDARY,
   },
+  DOORWAY_TO_NOWHERE: {
+    id: 151784,
+    name: 'Doorway to Nowhere',
+    icon: 'inv_misc_cape_cataclysm_healer_b_01',
+    quality: QUALITIES.LEGENDARY,
+  },
 
   // T20 Trinkets
   ARCHIVE_OF_FAITH: {

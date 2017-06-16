@@ -47,6 +47,7 @@ import ChiBurst from './Modules/Features/ChiBurst';
 import Velens from './Modules/Items/Velens';
 import DrapeOfShame from './Modules/Items/DrapeOfShame';
 import Eithas from './Modules/Items/Eithas';
+import XuensBattlegear4Piece from './Modules/Items/XuensBattlegear4Piece';
 
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
 
@@ -111,6 +112,7 @@ class CombatLogParser extends MainCombatLogParser {
     barbaricMindslaver: BarbaricMindslaver,
     seaStar: SeaStar,
     deceiversGrandDesign: DeceiversGrandDesign,
+    xuensBattlegear4Piece: XuensBattlegear4Piece,
 
     // Shared:
     amalgamsSeventhSpine: AmalgamsSeventhSpine,
@@ -141,6 +143,8 @@ class CombatLogParser extends MainCombatLogParser {
     const deceiversGrandDesignAbsorbPercentage = this.modules.deceiversGrandDesign.healingAbsorb / this.totalHealing;
     const deceiversGrandDesignTotalPercentage = (this.modules.deceiversGrandDesign.healing + this.modules.deceiversGrandDesign.healingAbsorb) / this.totalHealing;
 
+    const xuensBattlegear4PieceHealingPercentage = this.modules.xuensBattlegear4Piece.healing / this.totalHealing;
+    
     const unusedUTProcs = 1 - (this.modules.upliftingTrance.consumedUTProc / this.modules.upliftingTrance.UTProcsTotal);
 
     const avgSGOverheal = this.modules.sheilunsGift.overhealSG / this.modules.sheilunsGift.castsSG || 0;
@@ -158,7 +162,7 @@ class CombatLogParser extends MainCombatLogParser {
     const avgChiBurstTargets = this.modules.chiBurst.targetsChiBurst / this.modules.chiBurst.castChiBurst || 0;
 
     const avgCelestialBreathHealing = this.modules.aoeHealingTracker.healingCelestialBreath / this.modules.aoeHealingTracker.healsCelestialBreath || 0;
-    const avgCelestialBreathTargets = this.modules.aoeHealingTracker.healsCelestialBreath / this.modules.aoeHealingTracker.procsCelestialBreath || 0;
+    const avgCelestialBreathTargets = (this.modules.aoeHealingTracker.healsCelestialBreath / this.modules.aoeHealingTracker.procsCelestialBreath) / 3 || 0;
     const avgMistsOfSheilunHealing = this.modules.aoeHealingTracker.healingMistsOfSheilun / this.modules.aoeHealingTracker.healsMistsOfSheilun || 0;
     const avgMistsOfSheilunTargets = this.modules.aoeHealingTracker.healsMistsOfSheilun / this.modules.aoeHealingTracker.procsMistsOfSheilun || 0;
     const avgRJWHealing = this.modules.aoeHealingTracker.healingRJW / this.modules.aoeHealingTracker.castRJW || 0;
@@ -589,8 +593,18 @@ class CombatLogParser extends MainCombatLogParser {
         />
       ),
     ];
-
+    console.log('4pc Active: ', this.modules.xuensBattlegear4Piece.active);
     results.items = [
+      this.modules.xuensBattlegear4Piece.active && {
+        id: `spell-${SPELLS.XUENS_BATTLEGEAR_4_PIECE_BUFF.id}`,
+        icon: <SpellIcon id={SPELLS.XUENS_BATTLEGEAR_4_PIECE_BUFF.id} />,
+        title: <SpellLink id={SPELLS.XUENS_BATTLEGEAR_4_PIECE_BUFF.id} />,
+        result: (
+          <dfn data-tip={`The actual effective healing contributed by the Tier 20 4 piece effect.<br />Buff Uptime: ${((this.selectedCombatant.getBuffUptime(SPELLS.DANCE_OF_MISTS.id)/this.fightDuration)*100).toFixed(2)}%`}>
+            {((xuensBattlegear4PieceHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.xuensBattlegear4Piece.healing / fightDuration * 1000)} HPS
+          </dfn>
+        ),
+      },
       this.modules.sephuzsSecret.active && {
         id: ITEMS.SEPHUZS_SECRET.id,
         icon: <ItemIcon id={ITEMS.SEPHUZS_SECRET.id} />,
@@ -730,6 +744,7 @@ class CombatLogParser extends MainCombatLogParser {
             fightEnd={this.fight.end_time}
             cooldowns={this.modules.cooldownTracker.cooldowns}
             showOutputStatistics
+            showResourceStatistics
           />
         ),
       },
