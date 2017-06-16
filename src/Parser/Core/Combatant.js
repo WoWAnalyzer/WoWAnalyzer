@@ -118,44 +118,44 @@ class Combatant extends Entity {
       ...combatantInfo,
     };
 
-    this.parseTalents(combatantInfo.talents);
+    this._parseTalents(combatantInfo.talents);
     this._parseTraits(combatantInfo.artifact);
     this._parseGear(combatantInfo.gear);
   }
 
   //region Talents
-  talentsByRow = {};
-  parseTalents(talents) {
+  _talentsByRow = {};
+  _parseTalents(talents) {
     talents.forEach(({ id }, index) => {
-      this.talentsByRow[index] = id;
+      this._talentsByRow[index] = id;
     });
   }
-  getTalent(row) {
-    return this.talentsByRow[row];
+  _getTalent(row) {
+    return this._talentsByRow[row];
   }
   get lv15Talent() {
-    return this.getTalent(TALENT_ROWS.LV15);
+    return this._getTalent(TALENT_ROWS.LV15);
   }
   get lv30Talent() {
-    return this.getTalent(TALENT_ROWS.LV30);
+    return this._getTalent(TALENT_ROWS.LV30);
   }
   get lv45Talent() {
-    return this.getTalent(TALENT_ROWS.LV45);
+    return this._getTalent(TALENT_ROWS.LV45);
   }
   get lv60Talent() {
-    return this.getTalent(TALENT_ROWS.LV60);
+    return this._getTalent(TALENT_ROWS.LV60);
   }
   get lv75Talent() {
-    return this.getTalent(TALENT_ROWS.LV75);
+    return this._getTalent(TALENT_ROWS.LV75);
   }
   get lv90Talent() {
-    return this.getTalent(TALENT_ROWS.LV90);
+    return this._getTalent(TALENT_ROWS.LV90);
   }
   get lv100Talent() {
-    return this.getTalent(TALENT_ROWS.LV100);
+    return this._getTalent(TALENT_ROWS.LV100);
   }
   hasTalent(spellId) {
-    return Object.keys(this.talentsByRow).find(row => this.talentsByRow[row] === spellId);
+    return Object.keys(this._talentsByRow).find(row => this._talentsByRow[row] === spellId);
   }
   //endregion
 
