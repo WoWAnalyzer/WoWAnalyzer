@@ -43,8 +43,8 @@ describe('calculateEffectiveHealing', () => {
   });
   test('absorbs', () => {
     expect(calculateEffectiveHealing({
-      amount: 1000,
-      absorbed: 150,
+      amount: 950,
+      absorbed: 200,
       overheal: 0,
     }, 0.15)).toBeCloseTo(150, 5);
   });
