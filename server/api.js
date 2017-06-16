@@ -54,7 +54,7 @@ module.exports = function (req, res) {
 
           if (wclResponse.statusCode === 200) {
             console.log('Request success!');
-            cache.set(requestUrl, jsonString, 7200);
+            cache.set(requestUrl, jsonString);
           } else {
             console.error('Status:', wclResponse.statusCode);
           }

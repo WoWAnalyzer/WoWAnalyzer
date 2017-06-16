@@ -8,12 +8,13 @@ function getCurrentMemoryUsage() {
 }
 
 const INDEX_KEY = '#DO_NOT_TOUCH_INDEX';
+const DEFAULT_TTL = 7200;
 
 class Cache extends NodeCache {
-  set(key, val, ttl, callback) {
+  set(key, val, ttl = DEFAULT_TTL, callback = undefined) {
     super.set(key, val, ttl, callback);
 
-    const index = this.get(INDEX_KEY) || [];
+    const index = super.get(INDEX_KEY) || [];
 
     const keyExistingIndex = index.indexOf(key);
     if (keyExistingIndex !== -1) {
@@ -26,11 +27,11 @@ class Cache extends NodeCache {
     if (memoryUsage > MEMORY_LIMIT) {
       const firstKey = index.shift();
       if (firstKey) {
-        this.delete(firstKey);
+        super.delete(firstKey);
       }
     }
     if (memoryUsage > MEMORY_LIMIT_DANGEROUS) {
-      this.flushAll();
+      super.flushAll();
       if (global.gc) {
         global.gc();
       }
@@ -38,6 +39,23 @@ class Cache extends NodeCache {
 
     index.push(key);
     super.set(INDEX_KEY, index);
+  }
+  get(key) {
+    const result = super.get(key);
+
+    if (result) {
+      const index = super.get(INDEX_KEY) || [];
+
+      const keyExistingIndex = index.indexOf(key);
+      if (keyExistingIndex !== -1) {
+        // If key exists already we have to move it to end since it's still relevant
+        index.splice(keyExistingIndex, 1);
+        index.push(key);
+        super.set(INDEX_KEY, index);
+        super.ttl(key, DEFAULT_TTL);
+      }
+    }
+    return result;
   }
 }
 
