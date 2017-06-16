@@ -201,7 +201,7 @@ class App extends Component {
       report: null,
     });
 
-    const url = makeWclUrl(`report/fights/${code}`, {
+    const url = makeWclUrl(`https://www.warcraftlogs.com/v1/report/fights/${code}`, {
       _: refresh ? +new Date() : undefined,
     });
     return fetch(url)
@@ -274,7 +274,7 @@ class App extends Component {
   }
 
   fetchEvents(code, start, end, actorId = undefined, filter = undefined) {
-    const url = makeWclUrl(`report/events/${code}`, { start, end, actorid: actorId, filter });
+    const url = makeWclUrl(`https://www.warcraftlogs.com/v1/report/events/${code}`, { start, end, actorid: actorId, filter });
     return fetch(url)
       .then(response => response.json());
   }
