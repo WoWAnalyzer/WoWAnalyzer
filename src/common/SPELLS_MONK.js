@@ -72,6 +72,11 @@ export default {
     name: 'Soothing Mist',
     icon: 'ability_monk_soothingmists',
   },
+  SOOTHING_MIST_CAST: {
+    id: 198533, 
+    name: 'Soothing Mist',
+    icon: 'ability_monk_soothingmists',
+  },
   UPLIFTING_TRANCE_BUFF: {
     id: 197206,
     name: 'Uplifting Trance',

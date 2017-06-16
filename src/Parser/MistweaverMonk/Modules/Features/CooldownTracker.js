@@ -15,6 +15,7 @@ class CooldownTracker extends CoreCooldownTracker {
     SPELLS.REFRESHING_JADE_WIND_HEAL.id,
     SPELLS.SPIRIT_TETHER.id,
     SPELLS.TRANCENDANCE.id,
+    SPELLS.SOOTHING_MIST_CAST.id,
   ];
 
   // Clean up display of casts during CDs.  For Monks, both Chi Burst and RJW have a cooresponding cast event
