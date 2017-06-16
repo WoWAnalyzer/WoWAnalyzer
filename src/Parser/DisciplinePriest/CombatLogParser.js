@@ -46,6 +46,7 @@ import BlindAbsolutionTwoSet from './Modules/Items/BlindAbsolutionTwoSet';
 import TwistOfFate from './Modules/Spells/TwistOfFate';
 import Atonement from './Modules/Spells/Atonement';
 import Evangelism from './Modules/Spells/Evangelism';
+import Penance from './Modules/Spells/Penance';
 
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
 
@@ -80,6 +81,7 @@ class CombatLogParser extends MainCombatLogParser {
     abilityTracker: AbilityTracker,
 
     // Abilities
+    penance: Penance,
     alwaysBeCasting: AlwaysBeCasting,
     cooldownTracker: CooldownTracker,
     powerWordShieldWasted: PowerWordShieldWasted,

@@ -4,6 +4,7 @@ import Module from 'Parser/Core/Module';
 
 class BlindAbsolutionTwoSet extends Module {
   _penanceFirstBolt = false;
+  _penanceFirstBoltHealTimestamp = null;
   _atonement = new Set([SPELLS.ATONEMENT_HEAL_CRIT.id, SPELLS.ATONEMENT_HEAL_NON_CRIT.id]);
 
   healing = 0;
@@ -30,7 +31,6 @@ class BlindAbsolutionTwoSet extends Module {
     }
 
     if (this._penanceFirstBolt) {
-      console.log(event);
       this.damage += (event.amount / 2);
     }
   }
@@ -40,8 +40,10 @@ class BlindAbsolutionTwoSet extends Module {
       return;
     }
 
-    if (this._penanceFirstBolt) {
+    if (this._penanceFirstBolt || event.timestamp === this._penanceFirstBoltHealTimestamp) {
       this.healing += (event.amount + (event.absorbed || 0)) / 2;
+
+      this._penanceFirstBoltHealTimestamp = event.timestamp;
       this._penanceFirstBolt = false;
     }
   }

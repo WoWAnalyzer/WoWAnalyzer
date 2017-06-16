@@ -6,6 +6,12 @@ export default {
     icon: 'spell_holy_penance',
     manaCost: 30800,
   },
+  PENANCE_HEAL: { // Penance on a friendly player
+    id: 47750,
+    name: 'Penance',
+    icon: 'spell_holy_penance',
+    manaCost: 30800,
+  },
   POWER_WORD_SHIELD: {
     id: 17,
     name: 'Power Word: Shield',
