@@ -12,7 +12,7 @@ function getCombatant(parser = null, combatantInfo = null) {
   return new Combatant(parser || parserStub, combatantInfo || COMBATANTINFO);
 }
 
-describe('combatant', () => {
+describe('Combatant', () => {
   it('trinket1 gives item level', () => {
     const combatant = getCombatant();
     expect(Object.prototype.toString.call(combatant.trinket1)).toBe('[object Object]');
