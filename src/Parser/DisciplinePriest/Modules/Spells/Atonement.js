@@ -16,6 +16,9 @@ class Atonement extends Module {
 
   get atonementDuration() {
     const applicatorEvent = this.owner.modules.atonementSource.atonementApplicationSourceEvent;
+    if (!applicatorEvent) {
+      return 15;
+    }
     const applicatorSpellId = applicatorEvent.ability.guid;
     let duration = this.owner.modules.atonementSource.atonementDuration.get(applicatorSpellId);
 
