@@ -5,6 +5,7 @@ import Module from 'Parser/Core/Module';
 class AtonementSource extends Module {
   _previousDamageEvent = null;
   _previousAtonementApplicator = null;
+  _previousAtonementApplicatorEvent = null;
 
   // Spells that will apply atonement
   atonementApplicators = new Map([
@@ -25,10 +26,20 @@ class AtonementSource extends Module {
   get atonementApplicationSource() {
     return this._previousAtonementApplicator;
   }
+  get atonementApplicationSourceEvent() {
+    return this._previousAtonementApplicatorEvent;
+  }
 
   on_byPlayer_heal(event) {
     if (this.atonementApplicators.has(event.ability.guid)) {
       this._previousAtonementApplicator = event.ability.guid;
+      this._previousAtonementApplicatorEvent = event;
+    }
+  }
+  on_byPlayer_applybuff(event) {
+    if (this.atonementApplicators.has(event.ability.guid)) {
+      this._previousAtonementApplicator = event.ability.guid;
+      this._previousAtonementApplicatorEvent = event;
     }
   }
 
