@@ -8,6 +8,7 @@ const debug = false;
 const IMPROPER_REFRESH_TIME = 3000;
 
 class Atonement extends Module {
+  priority = 99;
   healing = 0;
   totalAtones = 0;
   totalAtonementRefreshes = 0;
@@ -88,27 +89,17 @@ class Atonement extends Module {
       lastAtonementAppliedTimestamp: event.timestamp,
     };
     this.currentAtonementTargets = this.currentAtonementTargets.filter(id => id.target !== atonement.target);
-    debug && console.log(`%c${this.owner.combatants.players[atonement.target].name} lost an atonement`, 'color:yellow', this.currentAtonementTargets);
+    debug && console.log(`%c${this.owner.combatants.players[atonement.target].name} lost an atonement`, 'color:red', this.currentAtonementTargets);
     this.owner.triggerEvent('atonement_faded', event);
   }
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.ATONEMENT_BUFF.id) {
+    if ([SPELLS.ATONEMENT_HEAL_NON_CRIT.id, SPELLS.ATONEMENT_HEAL_CRIT.id].indexOf(spellId) === -1) {
       return;
-    }
-    // if (!this.owner.toPlayer(event)) {
-    //   return;
-    // }
-    if (this.lastAtonementAppliedTimestamp === null) {
-      // This can be `null` when Atonement wasn't applied in the combatlog. This often happens as Discs like to apply Atonement prior to combat.
-      this.lastAtonementAppliedTimestamp = this.owner.fight.start_time;
-      debug && console.warn('Atonement: was applied prior to combat');
     }
 
-    if ((event.timestamp - this.lastAtonementAppliedTimestamp) < (this.atonementDuration * 1000)) {
-      return;
-    }
+    event = Object.assign(event, { isAtonementHeal: true });
 
     debug && console.log('Atonement:', event.amount + (event.absorbed || 0), 'healing done to', event.targetID);
     this.healing += event.amount + (event.absorbed || 0);

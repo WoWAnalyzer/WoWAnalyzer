@@ -103,7 +103,6 @@ class CombatLogParser extends MainCombatLogParser {
     marchOfTheLegion: MarchOfTheLegion,
     blindAbsolutionTwoSet: BlindAbsolutionTwoSet,
 
-
     // Spells (talents and traits):
     twistOfFate: TwistOfFate,
     atonement: Atonement,
@@ -131,6 +130,7 @@ class CombatLogParser extends MainCombatLogParser {
     const improperAtonementRefreshPercentage = this.modules.atonement.improperAtonementRefreshes.length / this.modules.atonement.totalAtones;
 
     const tier19_2setHealingPercentage = this.modules.tier19_2set.healing / this.totalHealing;
+    const blindAbsolutionTwoSetHealingPercentage = this.modules.blindAbsolutionTwoSet.healing / this.totalHealing;
 
 
     if (improperAtonementRefreshPercentage > .05) {
@@ -156,7 +156,6 @@ class CombatLogParser extends MainCombatLogParser {
       });
     }
     // PtW uptime should be > 95%
-
     const castEfficiencyCategories = SPELL_CATEGORY;
     const castEfficiency = getCastEfficiency(CPM_ABILITIES, this);
     castEfficiency.forEach((cpm) => {
@@ -240,7 +239,7 @@ class CombatLogParser extends MainCombatLogParser {
           icon={<SpellIcon id={SPELLS.ATONEMENT_HEAL_NON_CRIT.id} />}
           value={this.modules.atonement.improperAtonementRefreshes.length}
           label={(
-            <dfn data-tip={`The amount of Atonements that were refreshed earlier than within 3 seconds of the buff expiring. You applied Atonement ${this.modules.atonement.totalAtones} times in total, ${this.modules.atonement.totalAtonementRefreshes} (${((this.modules.atonement.totalAtonementRefreshes / this.modules.atonement.totalAtones * 100) || 0).toFixed(2)}%) of them were refreshes of existing Atonements, and ${this.modules.atonement.improperAtonementRefreshes.length} (${((this.modules.atonement.improperAtonementRefreshes.length / this.modules.atonement.totalAtones * 100) || 0).toFixed(2)}%) of them were considered early.` }>
+            <dfn data-tip={`The amount of Atonement instances that were refreshed earlier than within 3 seconds of the buff expiring. You applied Atonement ${this.modules.atonement.totalAtones} times in total, ${this.modules.atonement.totalAtonementRefreshes} (${((this.modules.atonement.totalAtonementRefreshes / this.modules.atonement.totalAtones * 100) || 0).toFixed(2)}%) of them were refreshes of existing Atonement instances, and ${this.modules.atonement.improperAtonementRefreshes.length} (${((this.modules.atonement.improperAtonementRefreshes.length / this.modules.atonement.totalAtones * 100) || 0).toFixed(2)}%) of them were considered early.` }>
               Early Atonement refreshes
             </dfn>
           )}
@@ -251,7 +250,7 @@ class CombatLogParser extends MainCombatLogParser {
           icon={<SpellIcon id={SPELLS.TWIST_OF_FATE_TALENT.id} />}
           value={`${formatNumber(this.modules.twistOfFate.healing / fightDuration * 1000)} HPS`}
           label={(
-            <dfn data-tip={`The actual effective healing contributed by Twist of Fate (${formatPercentage(this.modules.twistOfFate.healing / this.totalHealing)}% of total healing done). Twist of Fate also contributed ${formatNumber(this.modules.twistOfFate.damage / fightDuration * 1000)} DPS (${formatPercentage(this.modules.twistOfFate.damage / this.totalDamage)}% of total damage done).`}>
+            <dfn data-tip={`The effective healing contributed by Twist of Fate (${formatPercentage(this.modules.twistOfFate.healing / this.totalHealing)}% of total healing done). Twist of Fate also contributed ${formatNumber(this.modules.twistOfFate.damage / fightDuration * 1000)} DPS (${formatPercentage(this.modules.twistOfFate.damage / this.totalDamage)}% of total damage done).`}>
               Twist of Fate contribution
             </dfn>
           )}
@@ -276,7 +275,7 @@ class CombatLogParser extends MainCombatLogParser {
           icon={<SpellIcon id={SPELLS.POWER_WORD_SHIELD.id} />}
           value={`${formatNumber(this.modules.powerWordShieldWasted.wasted / fightDuration * 1000)} HPS`}
           label={(
-            <dfn data-tip={`The amount of shield absorb remaining on Power Word: Shields that expired. There was a total of ${formatNumber(this.modules.powerWordShieldWasted.wasted)} unused Power Word: Shield absorb from ${this.modules.powerWordShieldWasted.count} shields with absorb remaining (a total of ${this.modules.powerWordShieldWasted.totalCount} shields were applied).`}>
+            <dfn data-tip={`The amount of shield absorb remaining on Power Word: Shield instances that have expired. There was a total of ${formatNumber(this.modules.powerWordShieldWasted.wasted)} unused Power Word: Shield absorb from ${this.modules.powerWordShieldWasted.count} shields with absorb remaining (a total of ${this.modules.powerWordShieldWasted.totalCount} shields were applied).`}>
               Unused PW:S absorb
             </dfn>
           )}
@@ -289,7 +288,7 @@ class CombatLogParser extends MainCombatLogParser {
         icon: <ItemIcon id={ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id} />,
         title: <ItemLink id={ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id} />,
         result: (
-          <dfn data-tip="The actual effective healing contributed by the Prydaz, Xavaric's Magnum Opus equip effect.">
+          <dfn data-tip="The effective healing contributed by the Prydaz, Xavaric's Magnum Opus equip effect.">
             {((prydazHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.prydaz.healing / fightDuration * 1000)} HPS
           </dfn>
         ),
@@ -299,7 +298,7 @@ class CombatLogParser extends MainCombatLogParser {
         icon: <ItemIcon id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
         title: <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
         result: (
-          <dfn data-tip="The actual effective healing contributed by the Velen's Future Sight use effect.">
+          <dfn data-tip="The effective healing contributed by the Velen's Future Sight use effect.">
             {((velensHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.velens.healing / fightDuration * 1000)} HPS
           </dfn>
         ),
@@ -309,8 +308,8 @@ class CombatLogParser extends MainCombatLogParser {
         icon: <ItemIcon id={ITEMS.TARNISHED_SENTINEL_MEDALLION.id} />,
         title: <ItemLink id={ITEMS.TARNISHED_SENTINEL_MEDALLION.id} />,
         result: (
-          <dfn data-tip="The atonement healing done by the trinket's damaging effects.">
-            { ((owlHealingPercentage * 100) || 0).toFixed(2) } % / { formatNumber(this.modules.tarnishedSentinelMedallion.healing / fightDuration * 1000) } HPS
+          <dfn data-tip="The Atonement healing done by the trinket's damaging effects.">
+            { ((owlHealingPercentage * 100) || 0).toFixed(2) } % / { formatNumber(this.modules.tarnishedSentinelMedallion.healing / fightDuration * 1000) } HPS / {formatNumber(this.modules.tarnishedSentinelMedallion.damage / fightDuration * 1000)} DPS
           </dfn>
         ),
       },
@@ -319,7 +318,7 @@ class CombatLogParser extends MainCombatLogParser {
         icon: <SpellIcon id={SPELLS.MARCH_OF_THE_LEGION.id} />,
         title: <SpellLink id={SPELLS.MARCH_OF_THE_LEGION.id} />,
         result: (
-          <dfn data-tip="The atonement healing done by the set bonus' damaging effects.">
+          <dfn data-tip="The Atonement healing done by the set bonus' damaging effects.">
             { ((marchHealingPercentage * 100) || 0).toFixed(2) } % / { formatNumber(this.modules.marchOfTheLegion.healing / fightDuration * 1000) } HPS
           </dfn>
         ),
@@ -345,7 +344,7 @@ class CombatLogParser extends MainCombatLogParser {
         icon: <ItemIcon id={ITEMS.SKJOLDR_SANCTUARY_OF_IVAGONT.id} />,
         title: <ItemLink id={ITEMS.SKJOLDR_SANCTUARY_OF_IVAGONT.id} />,
         result: (
-          <dfn data-tip="The actual effective healing contributed by the Skjoldr, Sanctuary of Ivagont equip effect. This includes the healing gained via Share in the Light.">
+          <dfn data-tip="The effective healing contributed by the Skjoldr, Sanctuary of Ivagont equip effect. This includes the healing gained via Share in the Light.">
             {((this.modules.skjoldr.healing / this.totalHealing * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.skjoldr.healing / fightDuration * 1000)} HPS
           </dfn>
         ),
@@ -355,7 +354,7 @@ class CombatLogParser extends MainCombatLogParser {
         icon: <ItemIcon id={ITEMS.XALAN_THE_FEAREDS_CLENCH.id} />,
         title: <ItemLink id={ITEMS.XALAN_THE_FEAREDS_CLENCH.id} />,
         result: (
-          <dfn data-tip={`The actual effective healing contributed by the Xalan the Feared's Clench equip effect asuming your Atonement lasts ${this.modules.xalan.atonementDuration} seconds normally.`}>
+          <dfn data-tip={`The effective healing contributed by the Xalan the Feared's Clench equip effect asuming your Atonement lasts ${this.modules.xalan.atonementDuration} seconds normally.`}>
             {((this.modules.xalan.healing / this.totalHealing * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.xalan.healing / fightDuration * 1000)} HPS
           </dfn>
         ),
@@ -375,7 +374,7 @@ class CombatLogParser extends MainCombatLogParser {
         icon: <ItemIcon id={ITEMS.DRAPE_OF_SHAME.id} />,
         title: <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} />,
         result: (
-          <dfn data-tip="The actual effective healing contributed by the Drape of Shame equip effect.">
+          <dfn data-tip="The effective healing contributed by the Drape of Shame equip effect.">
             {((drapeOfShameHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.drapeOfShame.healing / fightDuration * 1000)} HPS
           </dfn>
         ),
@@ -385,7 +384,7 @@ class CombatLogParser extends MainCombatLogParser {
         icon: <ItemIcon id={ITEMS.AMALGAMS_SEVENTH_SPINE.id} />,
         title: <ItemLink id={ITEMS.AMALGAMS_SEVENTH_SPINE.id} />,
         result: (
-          <dfn data-tip={`The exact amount of mana gained from the Amalgam's Seventh Spine equip effect. You gained mana ${this.modules.amalgamsSeventhSpine.procs} times and refreshed the buff ${this.modules.amalgamsSeventhSpine.refreshes} times (refreshing delay the mana return and is inefficient use of this trinket).`}>
+          <dfn data-tip={`The amount of mana gained from the Amalgam's Seventh Spine equip effect. You gained mana ${this.modules.amalgamsSeventhSpine.procs} times and refreshed the buff ${this.modules.amalgamsSeventhSpine.refreshes} times (refreshing delay the mana return and is inefficient use of this trinket).`}>
             {formatThousands(this.modules.amalgamsSeventhSpine.manaGained)} mana gained ({formatThousands(this.modules.amalgamsSeventhSpine.manaGained / this.fightDuration * 1000 * 5)} MP5)
           </dfn>
         ),
@@ -395,7 +394,7 @@ class CombatLogParser extends MainCombatLogParser {
         icon: <ItemIcon id={ITEMS.DARKMOON_DECK_PROMISES.id} />,
         title: <ItemLink id={ITEMS.DARKMOON_DECK_PROMISES.id} />,
         result: (
-          <dfn data-tip="The exact amount of mana saved by the Darkmoon Deck: Promises equip effect. This takes the different values per card into account at the time of the cast.">
+          <dfn data-tip="The amount of mana saved by the Darkmoon Deck: Promises equip effect. This takes the different values per card into account at the time of the cast.">
             {formatThousands(this.modules.darkmoonDeckPromises.manaGained)} mana saved ({formatThousands(this.modules.darkmoonDeckPromises.manaGained / this.fightDuration * 1000 * 5)} MP5)
           </dfn>
         ),
@@ -405,8 +404,18 @@ class CombatLogParser extends MainCombatLogParser {
         icon: <SpellIcon id={SPELLS.DISC_PRIEST_T19_2SET_BONUS_BUFF.id} />,
         title: <SpellLink id={SPELLS.DISC_PRIEST_T19_2SET_BONUS_BUFF.id} />,
         result: (
-          <dfn data-tip="The actual effective healing contributed by the Tier 19 2 set bonus.">
+          <dfn data-tip="The effective healing contributed by the Tier 19 2 set bonus.">
             {((tier19_2setHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.tier19_2set.healing / fightDuration * 1000)} HPS
+          </dfn>
+        ),
+      },
+      this.modules.blindAbsolutionTwoSet.active && {
+        id: `spell-${SPELLS.DISC_PRIEST_T20_2SET_BONUS_BUFF.id}`,
+        icon: <SpellIcon id={SPELLS.DISC_PRIEST_T20_2SET_BONUS_BUFF.id} />,
+        title: <SpellLink id={SPELLS.DISC_PRIEST_T20_2SET_BONUS_BUFF.id} />,
+        result: (
+          <dfn data-tip="The effective healing contributed by the Tier 20 2 set bonus.">
+            {((blindAbsolutionTwoSetHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.blindAbsolutionTwoSet.healing / fightDuration * 1000)} HPS / {formatNumber(this.modules.blindAbsolutionTwoSet.damage / fightDuration * 1000)} DPS
           </dfn>
         ),
       },

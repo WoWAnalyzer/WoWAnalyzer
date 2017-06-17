@@ -1,11 +1,12 @@
 import SPELLS from 'common/SPELLS';
 
 import Module from 'Parser/Core/Module';
+import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
+
+const BLIND_ABSOLUTION_TWO_SET_BONUS = 1;
 
 class BlindAbsolutionTwoSet extends Module {
-  _penanceFirstBolt = false;
-  _penanceFirstBoltHealTimestamp = null;
-  _atonement = new Set([SPELLS.ATONEMENT_HEAL_CRIT.id, SPELLS.ATONEMENT_HEAL_NON_CRIT.id]);
+  _firstPenanceBoltLastDamageEvent = false;
 
   healing = 0;
   damage = 0;
@@ -16,35 +17,27 @@ class BlindAbsolutionTwoSet extends Module {
     }
   }
 
-  // Speed of the Pious is applied at the start of Penance
-  on_byPlayer_applybuff(event) {
-    if (event.ability.guid !== SPELLS.SPEED_OF_THE_PIOUS.id) {
-      return;
-    }
-
-    this._penanceFirstBolt = true;
-  }
-
   on_byPlayer_damage(event) {
-    if (event.ability.guid !== SPELLS.PENANCE.id) {
+    if (event.ability.guid !== SPELLS.PENANCE.id || !event.isFirstPenanceBolt) {
+      this._firstPenanceBoltLastDamageEvent = false;
       return;
     }
 
-    if (this._penanceFirstBolt) {
-      this.damage += (event.amount / 2);
-    }
+    this._firstPenanceBoltLastDamageEvent = true;
+    this.damage += (event.amount / 2);
   }
 
   on_byPlayer_heal(event) {
-    if (!this._atonement.has(event.ability.guid)) {
-      return;
+    // Healing Penance first bolt
+    if (event.isFirstPenanceBolt) {
+      this.healing += calculateEffectiveHealing(event, BLIND_ABSOLUTION_TWO_SET_BONUS);
     }
 
-    if (this._penanceFirstBolt || event.timestamp === this._penanceFirstBoltHealTimestamp) {
-      this.healing += (event.amount + (event.absorbed || 0)) / 2;
-
-      this._penanceFirstBoltHealTimestamp = event.timestamp;
-      this._penanceFirstBolt = false;
+    // Atonement
+    if ([SPELLS.ATONEMENT_HEAL_NON_CRIT.id, SPELLS.ATONEMENT_HEAL_CRIT.id].indexOf(event.ability.guid) > -1) {
+      if (this._firstPenanceBoltLastDamageEvent) {
+        this.healing += calculateEffectiveHealing(event, BLIND_ABSOLUTION_TWO_SET_BONUS);
+      }
     }
   }
 }
