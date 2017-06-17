@@ -91,24 +91,7 @@ h1 {
 .panel > .panel-body {
   padding: 15px 22px;
 }
-.panel.statistic-box > .panel-body {
-  padding: 10px 12px;
-}
-.statistic-box {
-  transition: background-color 0.3s ease-in-out;
-}
-.statistic-box .statistic-value {
-  margin-top: .2em;
-  font-size: 2em;
-}
-.statistic-box .statistic-label {
-  margin-top: -0.3em;
-}
-.statistic-box img {
-  height: 68px;
-  border-radius: 5px;
-  border: 1px solid rgba(0, 0, 0, 0.6);
-}
+
 .statistic-expansion {
   margin-top:  15px;
 }

@@ -1,0 +1,20 @@
+.panel.statistic-box {
+  transition: background-color 0.1s ease-in-out;
+}
+.panel.statistic-box:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+.panel.statistic-box > .panel-body {
+  padding: 10px 12px;
+}
+.panel.statistic-box .statistic-value {
+  font-size: 2em;
+}
+.panel.statistic-box .statistic-label {
+  margin-top: -0.3em;
+}
+.panel.statistic-box img {
+  height: 63px;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.6);
+}
