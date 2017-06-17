@@ -189,7 +189,7 @@ class Cooldown extends React.Component {
                     <div className="col-xs-1 text-right" style={{ padding: 0 }}>
                       +{((event.timestamp - cooldown.start) / 1000).toFixed(3)}
                     </div>
-                    <div className={`col-xs-6 ${event.type === 'heal' ? 'col-xs-offset-1' : ''}`}>
+                    <div className={`col-xs-4 ${event.type === 'heal' ? 'col-xs-offset-1' : ''}`}>
                       <SpellLink key={`${event.ability.guid}-${event.timestamp}-${i}`} id={event.ability.guid}>
                         <Icon icon={event.ability.abilityIcon} alt={event.ability.name} style={{ height: 23, marginRight: 4 }} /> {event.ability.name}
                       </SpellLink>
@@ -199,10 +199,12 @@ class Cooldown extends React.Component {
                         </span>
                       )}
                     </div>
-                    <div className="col-xs-4">
-                      <span className="grouped-heal-meta healing"> +{formatThousands(event.amount + event.absorbed)}</span>
-                      <span className="grouped-heal-meta overhealing"> (O: {formatThousands(event.overheal)})</span>
-                    </div>
+                    {event.type === 'heal' && (
+                      <div className="col-xs-4">
+                        <span className="grouped-heal-meta healing"> +{formatThousands(event.amount + event.absorbed)}</span>
+                        <span className="grouped-heal-meta overhealing"> (O: {formatThousands(event.overheal)})</span>
+                      </div>
+                    )}
                   </div>
                 ))}
                 <a href="javascript:" onClick={this.handleShowHealsClick} style={{ marginTop: '.2em' }}>Show less</a> {' | '}
