@@ -11,6 +11,7 @@ class CooldownTracker extends CoreCooldownTracker {
       spell: SPELLS.RAPTURE,
       summary: [
         BUILT_IN_SUMMARY_TYPES.ABSORBS_APPLIED,
+        BUILT_IN_SUMMARY_TYPES.ABSORBED,
         BUILT_IN_SUMMARY_TYPES.MANA,
       ],
     },

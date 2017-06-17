@@ -220,7 +220,7 @@ class Cooldown extends React.Component {
                       return (
                         <div className="col-md-4 text-center" key="healing">
                           <div style={{ fontSize: '2em' }}>{formatNumber(healingStatistics.healingDone)}</div>
-                          <dfn data-tip="This includes all healing the occured while the buff was up, even if it was not triggered by spells cast inside the buff duration. Any delayed healing such as HOTs, Absorbs and Atonements will stop contributing to the healing done when the cooldown buff expires, so this value is lower for any specs with such abilities.">healing ({formatNumber(healingStatistics.healingDone / (end - start) * 1000)} HPS)</dfn>
+                          <dfn data-tip="This includes all healing that occured while the buff was up, even if it was not triggered by spells cast inside the buff duration. Any delayed healing such as HOTs, Absorbs and Atonements will stop contributing to the healing done when the cooldown buff expires, so this value is lower for any specs with such abilities.">healing ({formatNumber(healingStatistics.healingDone / (end - start) * 1000)} HPS)</dfn>
                         </div>
                       );
                     case BUILT_IN_SUMMARY_TYPES.OVERHEALING:
@@ -228,14 +228,29 @@ class Cooldown extends React.Component {
                       return (
                         <div className="col-md-4 text-center" key="overhealing">
                           <div style={{ fontSize: '2em' }}>{formatPercentage(healingStatistics.overhealingDone / (healingStatistics.healingDone + healingStatistics.overhealingDone))}%</div>
-                          <dfn data-tip="This includes all healing the occured while the buff was up, even if it was not triggered by spells cast inside the buff duration. Any delayed healing such as HOTs, Absorbs and Atonements will stop contributing to the healing done when the cooldown buff expires, so this value is lower for any specs with such abilities.">overhealing</dfn>
+                          <dfn data-tip="This includes all healing that occured while the buff was up, even if it was not triggered by spells cast inside the buff duration. Any delayed healing such as HOTs, Absorbs and Atonements will stop contributing to the healing done when the cooldown buff expires, so this value is lower for any specs with such abilities.">overhealing</dfn>
                         </div>
                       );
-                    case BUILT_IN_SUMMARY_TYPES.ABSORBS_APPLIED:
-                      // TODO: Implement
-                      return null;
+                    case BUILT_IN_SUMMARY_TYPES.ABSORBED: {
+                      const total = cooldown.events.filter(event => event.type === 'absorbed').reduce((total, event) => total + (event.amount || 0), 0);
+                      return (
+                        <div className="col-md-4 text-center" key="absorbed">
+                          <div style={{ fontSize: '2em' }}>{formatNumber(total)}</div>
+                          <dfn data-tip="This includes all damage absorbed that occured while the buff was up, even if it was not triggered by spells cast inside the buff duration.">damage absorbed</dfn>
+                        </div>
+                      );
+                    }
+                    case BUILT_IN_SUMMARY_TYPES.ABSORBS_APPLIED: {
+                      const total = cooldown.events.filter(event => event.type === 'applybuff').reduce((total, event) => total + (event.absorb || 0), 0);
+                      return (
+                        <div className="col-md-4 text-center" key="absorbs-applied">
+                          <div style={{ fontSize: '2em' }}>{formatNumber(total)}</div>
+                          <dfn data-tip="The total amount of absorb shields applied during the buff.">absorb applied</dfn>
+                        </div>
+                      );
+                    }
                     case BUILT_IN_SUMMARY_TYPES.MANA:
-                      const manaUsed = cooldown.events.filter(event => event.type === 'cast').reduce((mana, event) => mana + (event.manaCost || 0), 0);
+                      const manaUsed = cooldown.events.filter(event => event.type === 'cast').reduce((total, event) => total + (event.manaCost || 0), 0);
                       return (
                         <div className="col-md-4 text-center" key="mana">
                           <div style={{ fontSize: '2em' }}>{formatNumber(manaUsed)}</div>

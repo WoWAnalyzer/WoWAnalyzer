@@ -7,6 +7,7 @@ const debug = false;
 export const BUILT_IN_SUMMARY_TYPES = {
   HEALING: 'HEALING',
   OVERHEALING: 'OVERHEALING',
+  ABSORBED: 'ABSORBED',
   ABSORBS_APPLIED: 'ABSORBS_APPLIED',
   MANA: 'MANA',
   DAMAGE: 'DAMAGE',
@@ -91,6 +92,9 @@ class CooldownTracker extends Module {
     this.trackEvent(event);
   }
   on_byPlayer_damage(event) {
+    this.trackEvent(event);
+  }
+  on_byPlayer_applybuff(event) {
     this.trackEvent(event);
   }
   // endregion
