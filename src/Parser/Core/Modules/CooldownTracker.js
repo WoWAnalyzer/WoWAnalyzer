@@ -19,15 +19,19 @@ class CooldownTracker extends Module {
     if (!spell) {
       return;
     }
+    const cooldown = this.addCooldown(spell, event.timestamp);
+    this.activeCooldowns.push(cooldown);
+    debug && console.log(`%cCooldown started: ${cooldown.ability.name}`, 'color: green', cooldown);
+  }
+  addCooldown(spell, timestamp) {
     const cooldown = {
       ability: spell,
-      start: event.timestamp,
+      start: timestamp,
       end: null,
       events: [],
     };
     this.cooldowns.push(cooldown);
-    this.activeCooldowns.push(cooldown);
-    debug && console.log(`%cCooldown started: ${cooldown.ability.name}`, 'color: green', cooldown);
+    return cooldown;
   }
   on_toPlayer_removebuff(event) {
     const spellId = event.ability.guid;
@@ -48,26 +52,26 @@ class CooldownTracker extends Module {
     });
     this.activeCooldowns = [];
   }
-  on_byPlayer_cast(event) {
+
+  // region Event tracking
+  trackEvent(event) {
     this.activeCooldowns.forEach((cooldown) => {
       cooldown.events.push(event);
     });
+  }
+  on_byPlayer_cast(event) {
+    this.trackEvent(event);
   }
   on_byPlayer_heal(event) {
-    this.activeCooldowns.forEach((cooldown) => {
-      cooldown.events.push(event);
-    });
+    this.trackEvent(event);
   }
   on_byPlayer_absorbed(event) {
-    this.activeCooldowns.forEach((cooldown) => {
-      cooldown.events.push(event);
-    });
+    this.trackEvent(event);
   }
   on_byPlayer_damage(event) {
-    this.activeCooldowns.forEach((cooldown) => {
-      cooldown.events.push(event);
-    });
+    this.trackEvent(event);
   }
+  // endregion
 }
 
 export default CooldownTracker;
