@@ -253,7 +253,7 @@ class CombatLogParser extends MainCombatLogParser {
           <CooldownsTab
             fightStart={this.fight.start_time}
             fightEnd={this.fight.end_time}
-            cooldowns={this.modules.cooldownTracker.cooldowns}
+            cooldowns={this.modules.cooldownTracker.pastCooldowns}
             showOutputStatistics
           />
         ),
@@ -265,7 +265,7 @@ class CombatLogParser extends MainCombatLogParser {
           <CooldownsTab
             fightStart={this.fight.start_time}
             fightEnd={this.fight.end_time}
-            cooldowns={this.modules.procTracker.cooldowns}
+            cooldowns={this.modules.procTracker.pastCooldowns}
             showOutputStatistics
           />
         ),

@@ -22,12 +22,14 @@ class Cache extends NodeCache {
       index.splice(keyExistingIndex, 1);
     }
 
-    // If that last set pushed us over the memory limit, remove the first key. I assume here the first key is about the same size.
+    // If that last set pushed us over the memory limit, remove the first 2 keys. I assume doing a while loop that purges until memory usage is below limit won't work properly due to garbage collection being delayed.
     const memoryUsage = getCurrentMemoryUsage();
     if (memoryUsage > MEMORY_LIMIT) {
-      const firstKey = index.shift();
-      if (firstKey) {
-        super.delete(firstKey);
+      for (let i = 0; i < 2; i++) {
+        const firstKey = index.shift();
+        if (firstKey) {
+          super.del(firstKey);
+        }
       }
     }
     if (memoryUsage > MEMORY_LIMIT_DANGEROUS) {
