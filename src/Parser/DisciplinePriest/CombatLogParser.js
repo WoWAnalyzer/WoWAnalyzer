@@ -17,7 +17,6 @@ import CooldownsTab from 'Main/CooldownsTab';
 import ManaTab from 'Main/ManaTab';
 
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
-import ParseResults from 'Parser/Core/ParseResults';
 import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import AmalgamsSeventhSpine from 'Parser/Core/Modules/Items/AmalgamsSeventhSpine';
@@ -104,7 +103,7 @@ class CombatLogParser extends MainCombatLogParser {
   };
 
   generateResults() {
-    const results = new ParseResults();
+    const results = super.generateResults();
 
     const fightDuration = this.fightDuration;
 
@@ -119,8 +118,6 @@ class CombatLogParser extends MainCombatLogParser {
     const velensHealingPercentage = this.modules.velens.healing / this.totalHealing;
     const owlHealingPercentage = this.modules.tarnishedSentinelMedallion.healing / this.totalHealing;
     const marchHealingPercentage = this.modules.marchOfTheLegion.healing / this.totalHealing;
-    const prydazHealingPercentage = this.modules.prydaz.healing / this.totalHealing;
-    const drapeOfShameHealingPercentage = this.modules.drapeOfShame.healing / this.totalHealing;
     const improperAtonementRefreshPercentage = this.modules.atonement.improperAtonementRefreshes.length / this.modules.atonement.totalAtones;
 
     const tier19_2setHealingPercentage = this.modules.tier19_2set.healing / this.totalHealing;
@@ -277,26 +274,7 @@ class CombatLogParser extends MainCombatLogParser {
     ];
 
     results.items = [
-      this.modules.prydaz.active && {
-        id: ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id,
-        icon: <ItemIcon id={ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id} />,
-        title: <ItemLink id={ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id} />,
-        result: (
-          <dfn data-tip="The actual effective healing contributed by the Prydaz, Xavaric's Magnum Opus equip effect.">
-            {((prydazHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.prydaz.healing / fightDuration * 1000)} HPS
-          </dfn>
-        ),
-      },
-      this.modules.velens.active && {
-        id: ITEMS.VELENS_FUTURE_SIGHT.id,
-        icon: <ItemIcon id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
-        title: <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
-        result: (
-          <dfn data-tip="The actual effective healing contributed by the Velen's Future Sight use effect.">
-            {((velensHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.velens.healing / fightDuration * 1000)} HPS
-          </dfn>
-        ),
-      },
+      ...results.items,
       this.modules.tarnishedSentinelMedallion.active && {
         id: ITEMS.TARNISHED_SENTINEL_MEDALLION.id,
         icon: <ItemIcon id={ITEMS.TARNISHED_SENTINEL_MEDALLION.id} />,
@@ -360,16 +338,6 @@ class CombatLogParser extends MainCombatLogParser {
         result: (
           <dfn data-tip={`The healing gain from Penance damage on players without without Atonement during the Power Word: Barrier buff.`}>
             {((this.modules.neroBandOfPromises.healing / this.totalHealing * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.neroBandOfPromises.healing / fightDuration * 1000)} HPS
-          </dfn>
-        ),
-      },
-      this.modules.drapeOfShame.active && {
-        id: ITEMS.DRAPE_OF_SHAME.id,
-        icon: <ItemIcon id={ITEMS.DRAPE_OF_SHAME.id} />,
-        title: <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} />,
-        result: (
-          <dfn data-tip="The actual effective healing contributed by the Drape of Shame equip effect.">
-            {((drapeOfShameHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.drapeOfShame.healing / fightDuration * 1000)} HPS
           </dfn>
         ),
       },

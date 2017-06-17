@@ -1,3 +1,9 @@
+import React from 'react';
+
+import ITEMS from 'common/ITEMS';
+import ItemLink from 'common/ItemLink';
+import ItemIcon from 'common/ItemIcon';
+
 import Combatants from './Modules/Combatants';
 import AbilityTracker from './Modules/AbilityTracker';
 import AlwaysBeCasting from './Modules/AlwaysBeCasting';
@@ -6,6 +12,24 @@ import Enemies from './Modules/Enemies';
 import DrapeOfShame from './Modules/Items/DrapeOfShame';
 import Prydaz from './Modules/Items/Prydaz';
 import Velens from './Modules/Items/Velens';
+
+import ParseResults from './ParseResults';
+
+function formatThousands(number) {
+  return (Math.round(number || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+}
+function formatNumber(number) {
+  if (number > 1000000) {
+    return `${(number / 1000000).toFixed(2)}m`;
+  }
+  if (number > 10000) {
+    return `${Math.round(number / 1000)}k`;
+  }
+  return formatThousands(number);
+}
+function formatPercentage(percentage) {
+  return (Math.round((percentage || 0) * 10000) / 100).toFixed(2);
+}
 
 class CombatLogParser {
   static abilitiesAffectedByHealingIncreases = [];
@@ -149,7 +173,49 @@ class CombatLogParser {
   // TODO: Damage taken from LOTM
 
   generateResults() {
-    throw new Error('You need to implement `CombatLogParser.generateResults()`. This method will be called each time new data has been processed to update the view.');
+    const results = new ParseResults();
+
+    const fightDuration = this.fightDuration;
+    const formatLegendary = (healingDone) => `${formatPercentage(healingDone / this.totalHealing)} % / ${formatNumber(healingDone / fightDuration * 1000)} HPS`;
+
+    if (this.modules.prydaz.active) {
+      results.items.push({
+        id: ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id,
+        icon: <ItemIcon id={ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id} />,
+        title: <ItemLink id={ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id} />,
+        result: (
+          <dfn data-tip="The effective healing contributed by the Prydaz, Xavaric's Magnum Opus equip effect.">
+            {formatLegendary(this.modules.prydaz.healing)}
+          </dfn>
+        ),
+      });
+    }
+    if (this.modules.velens.active) {
+      results.items.push({
+        id: ITEMS.VELENS_FUTURE_SIGHT.id,
+        icon: <ItemIcon id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
+        title: <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
+        result: (
+          <dfn data-tip={`The effective healing contributed by the Velen's Future Sight use effect. ${formatPercentage(this.modules.velens.healingIncreaseHealing/this.totalHealing)}% of total healing was contributed by the 15% healing increase and ${formatPercentage(this.modules.velens.overhealHealing/this.totalHealing)}% of total healing was contributed by the overhealing distribution.`}>
+            {formatLegendary(this.modules.velens.healing)}
+          </dfn>
+        ),
+      });
+    }
+    if (this.modules.drapeOfShame.active) {
+      results.items.push({
+        id: ITEMS.DRAPE_OF_SHAME.id,
+        icon: <ItemIcon id={ITEMS.DRAPE_OF_SHAME.id} />,
+        title: <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} />,
+        result: (
+          <dfn data-tip="The effective healing contributed by the critical healing gain of the Drape of Shame equip effect.">
+            {formatLegendary(this.modules.drapeOfShame.healing)}
+          </dfn>
+        ),
+      });
+    }
+
+    return results;
   }
 }
 

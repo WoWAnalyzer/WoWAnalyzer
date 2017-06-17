@@ -16,7 +16,6 @@ import CooldownsTab from 'Main/CooldownsTab';
 import ManaTab from 'Main/ManaTab';
 
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
-import ParseResults from 'Parser/Core/ParseResults';
 import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
@@ -109,7 +108,7 @@ class CombatLogParser extends MainCombatLogParser {
   };
 
   generateResults() {
-    const results = new ParseResults();
+    const results = super.generateResults();
 
     // Tree of Life
     const hasFlourish = this.selectedCombatant.lv100Talent === SPELLS.FLOURISH_TALENT.id;
@@ -148,7 +147,6 @@ class CombatLogParser extends MainCombatLogParser {
     const hasMoC = this.selectedCombatant.lv100Talent === SPELLS.MOMENT_OF_CLARITY_TALENT.id;
     const hasVelens = this.selectedCombatant.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT.id);
     const velensHealingPercentage = (this.modules.velens.overhealHealing + this.modules.velens.healingIncreaseHealing) / this.totalHealing;
-    const prydazHealingPercentage = this.modules.prydaz.healing / this.totalHealing;
     const sepuhzHasteRating = ((this.modules.sephuz.uptime / this.fightDuration) * this.modules.sephuz.sephuzProccInHasteRating) + this.modules.sephuz.sephuzStaticHasteInRating;
     const sephuzThroughput = sepuhzHasteRating / this.selectedCombatant.intellect;
     const darkTitanAdviceHealing = this.modules.darkTitanAdvice.healing / this.totalHealing;
@@ -158,7 +156,6 @@ class CombatLogParser extends MainCombatLogParser {
     const xonisCaressHealingPercentage = this.modules.xonisCaress.healing / this.totalHealing;
     const ekowraithHealingPercentage = this.modules.ekowraith.healing / this.totalHealing;
     const ekowraithDamageReductionHealingPercentage = (this.modules.ekowraith.damageReductionHealing / (this.totalHealing + this.modules.ekowraith.damageReductionHealing));
-    const drapeOfShameHealingPercentage = this.modules.drapeOfShame.healing / this.totalHealing;
     let lifebloomUptime = this.modules.lifebloom.uptime / this.fightDuration;
     if (lifebloomUptime > 1) {
       lifebloomUptime -= 1;
@@ -482,16 +479,7 @@ class CombatLogParser extends MainCombatLogParser {
     ];
 
     results.items = [
-      this.modules.prydaz.active && {
-        id: ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id,
-        icon: <ItemIcon id={ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id} />,
-        title: <ItemLink id={ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id} />,
-        result: (
-          <dfn data-tip="The actual effective healing contributed by the Prydaz, Xavaric's Magnum Opus equip effect.">
-            {((prydazHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.prydaz.healing / fightDuration * 1000)} HPS
-          </dfn>
-        ),
-      },
+      ...results.items,
       this.selectedCombatant.hasChest(ITEMS.EKOWRAITH_CREATOR_OF_WORLDS.id) && {
         id: ITEMS.EKOWRAITH_CREATOR_OF_WORLDS.id,
         icon: <ItemIcon id={ITEMS.EKOWRAITH_CREATOR_OF_WORLDS.id} />,
@@ -542,16 +530,6 @@ class CombatLogParser extends MainCombatLogParser {
           </dfn>
         ),
       },
-      this.modules.velens.active && {
-        id: ITEMS.VELENS_FUTURE_SIGHT.id,
-        icon: <ItemIcon id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
-        title: <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
-        result: (
-          <dfn data-tip={`${formatPercentage(this.modules.velens.overhealHealing/this.totalHealing)}% from overhealing distribution and ${formatPercentage(this.modules.velens.healingIncreaseHealing/this.totalHealing)}% from 15% healing increase`}>
-            {((velensHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber((this.modules.velens.overhealHealing + this.modules.velens.healingIncreaseHealing) / fightDuration * 1000)} HPS
-          </dfn>
-        ),
-      },
       this.selectedCombatant.hasRing(ITEMS.SEPHUZS_SECRET.id) && {
         id: ITEMS.SEPHUZS_SECRET.id,
         icon: <ItemIcon id={ITEMS.SEPHUZS_SECRET.id} />,
@@ -559,16 +537,6 @@ class CombatLogParser extends MainCombatLogParser {
         result: (
           <dfn data-tip="Estimated throughput gained by using Sephuz by calculating haste gained in throughput, given 1 haste = 1 INT.">
             {((sephuzThroughput * 100) || 0).toFixed(2)} %
-          </dfn>
-        ),
-      },
-      this.selectedCombatant.hasBack(ITEMS.DRAPE_OF_SHAME.id) && {
-        id: ITEMS.DRAPE_OF_SHAME.id,
-        icon: <ItemIcon id={ITEMS.DRAPE_OF_SHAME.id} />,
-        title: <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} />,
-        result: (
-          <dfn data-tip="The actual effective healing contributed by the Drape of Shame equip effect.">
-            {((drapeOfShameHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.drapeOfShame.healing / fightDuration * 1000)} HPS
           </dfn>
         ),
       },

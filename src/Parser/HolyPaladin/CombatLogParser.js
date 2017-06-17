@@ -17,7 +17,6 @@ import ManaTab from 'Main/ManaTab';
 import PlayerBreakdownTab from 'Main/PlayerBreakdownTab';
 
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
-import ParseResults from 'Parser/Core/ParseResults';
 import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import DarkmoonDeckPromises from 'Parser/Core/Modules/Items/DarkmoonDeckPromises';
@@ -176,7 +175,7 @@ class CombatLogParser extends MainCombatLogParser {
   }
 
   generateResults() {
-    const results = new ParseResults();
+    const results = super.generateResults();
 
     const masteryStats = this.calculateMasteryStats();
 
@@ -231,9 +230,7 @@ class CombatLogParser extends MainCombatLogParser {
     const totalHealsOnBeaconPercentage = this.getTotalHealsOnBeaconPercentage(this);
     const velensHealingPercentage = this.modules.velens.healing / this.totalHealing;
     const chainOfThraynHealingPercentage = this.modules.chainOfThrayn.healing / this.totalHealing;
-    const prydazHealingPercentage = this.modules.prydaz.healing / this.totalHealing;
     const obsidianStoneSpauldersHealingPercentage = this.modules.obsidianStoneSpaulders.healing / this.totalHealing;
-    const drapeOfShameHealingPercentage = this.modules.drapeOfShame.healing / this.totalHealing;
     const ilterendiHealingPercentage = this.modules.ilterendi.healing / this.totalHealing;
     const hasSacredDawn = this.selectedCombatant.traitsBySpellId[SPELLS.SACRED_DAWN.id] === 1;
     const sacredDawnPercentage = this.modules.sacredDawn.healing / this.totalHealing;
@@ -579,17 +576,8 @@ class CombatLogParser extends MainCombatLogParser {
     ];
 
     results.items = [
+      ...results.items,
       // Sort by quality > slot > tier
-      this.modules.prydaz.active && {
-        id: ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id,
-        icon: <ItemIcon id={ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id} />,
-        title: <ItemLink id={ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id} />,
-        result: (
-          <dfn data-tip="The actual effective healing contributed by the Prydaz, Xavaric's Magnum Opus equip effect.">
-            {((prydazHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.prydaz.healing / fightDuration * 1000)} HPS
-          </dfn>
-        ),
-      },
       this.modules.obsidianStoneSpaulders.active && {
         id: ITEMS.OBSIDIAN_STONE_SPAULDERS.id,
         icon: <ItemIcon id={ITEMS.OBSIDIAN_STONE_SPAULDERS.id} />,
@@ -660,26 +648,6 @@ class CombatLogParser extends MainCombatLogParser {
         icon: <ItemIcon id={ITEMS.SEPHUZS_SECRET.id} />,
         title: <ItemLink id={ITEMS.SEPHUZS_SECRET.id} />,
         result: `${((this.modules.sephuzsSecret.uptime / fightDuration * 100) || 0).toFixed(2)} % uptime`,
-      },
-      this.modules.velens.active && {
-        id: ITEMS.VELENS_FUTURE_SIGHT.id,
-        icon: <ItemIcon id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
-        title: <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
-        result: (
-          <dfn data-tip="The actual effective healing contributed by the Velen's Future Sight use effect.">
-            {((velensHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.velens.healing / fightDuration * 1000)} HPS
-          </dfn>
-        ),
-      },
-      this.modules.drapeOfShame.active && {
-        id: ITEMS.DRAPE_OF_SHAME.id,
-        icon: <ItemIcon id={ITEMS.DRAPE_OF_SHAME.id} />,
-        title: <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} />,
-        result: (
-          <dfn data-tip="The actual effective healing contributed by the Drape of Shame equip effect.">
-            {((drapeOfShameHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.drapeOfShame.healing / fightDuration * 1000)} HPS
-          </dfn>
-        ),
       },
       this.modules.amalgamsSeventhSpine.active && {
         id: ITEMS.AMALGAMS_SEVENTH_SPINE.id,

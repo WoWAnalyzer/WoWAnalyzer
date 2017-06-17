@@ -17,7 +17,6 @@ import ManaTab from 'Main/ManaTab';
 import FeedingTab from 'Main/FeedingTab';
 
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
-import ParseResults from 'Parser/Core/ParseResults';
 import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
@@ -92,7 +91,7 @@ class CombatLogParser extends MainCombatLogParser {
   };
 
   generateResults() {
-    const results = new ParseResults();
+    const results = super.generateResults();
 
     const fightDuration = this.fightDuration;
 
@@ -129,8 +128,6 @@ class CombatLogParser extends MainCombatLogParser {
     const rootsInteractionHealingPercentage = rootsInteractionHealing / totalHealing;
     const rootsHealingPercentage = rootsRawHealingPercentage + rootsInteractionHealingPercentage;
 
-    const prydazHealingPercentage = this.modules.prydaz.healing / totalHealing;
-    const drapeOfShameHealingPercentage = this.modules.drapeOfShame.healing / totalHealing;
     const tidecallersHTTPercentage = this.modules.tidecallers.httHealing / totalHealing;
     const tidecallersHSTPercentage = this.modules.tidecallers.hstHealing / totalHealing;
     const tidecallersHealingPercentage = tidecallersHTTPercentage + tidecallersHSTPercentage;
@@ -373,26 +370,7 @@ class CombatLogParser extends MainCombatLogParser {
     ];
 
     results.items = [
-      this.modules.drapeOfShame.active && {
-        id: ITEMS.DRAPE_OF_SHAME.id,
-        icon: <ItemIcon id={ITEMS.DRAPE_OF_SHAME.id} />,
-        title: <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} />,
-        result: (
-          <dfn data-tip="The actual effective healing contributed by the Drape of Shame equip effect.">
-            {((drapeOfShameHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.drapeOfShame.healing / fightDuration * 1000)} HPS
-          </dfn>
-        ),
-      },
-      this.modules.velens.active && {
-        id: ITEMS.VELENS_FUTURE_SIGHT.id,
-        icon: <ItemIcon id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
-        title: <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
-        result: (
-          <dfn data-tip="The actual effective healing contributed by the Velen's Future Sight use effect.">
-            {((velensHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.velens.healing / fightDuration * 1000)} HPS
-          </dfn>
-        ),
-      },
+      ...results.items,
       this.modules.uncertainReminder.active && {
         id: ITEMS.UNCERTAIN_REMINDER.id,
         icon: <ItemIcon id={ITEMS.UNCERTAIN_REMINDER.id} />,
@@ -420,16 +398,6 @@ class CombatLogParser extends MainCombatLogParser {
         result: (
           <dfn data-tip={`The effective healing contributed by Roots of Shaladrassil. Of this healing, ${formatPercentage(rootsRawHealingPercentage)}% is the raw healing they provide, and ${formatPercentage(rootsInteractionHealingPercentage)}% is indirect healing done through Cloudburst Totem, Ancestral Guidance and Ascendance. <br /><br />The interactions of these 3 cooldowns are currently not included, so in case there's overlap between these cooldowns the real healing would be slightly higher than indicated.`}>
             {((rootsHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(rootsRawHealing / fightDuration * 1000)} HPS
-          </dfn>
-        ),
-      },
-      this.modules.prydaz.active && {
-        id: ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id,
-        icon: <ItemIcon id={ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id} />,
-        title: <ItemLink id={ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id} />,
-        result: (
-          <dfn data-tip="The actual effective healing contributed by the Prydaz, Xavaric's Magnum Opus equip effect.">
-            {((prydazHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.prydaz.healing / fightDuration * 1000)} HPS
           </dfn>
         ),
       },
