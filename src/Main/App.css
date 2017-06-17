@@ -376,8 +376,10 @@ h3 {
   border-bottom: 1px solid #333;
 }
 dfn {
-  border-bottom: 1px dashed currentColor;
   font-style: normal;
+}
+dfn[data-tip] {
+  border-bottom: 1px dashed currentColor;
   cursor: help;
 }
 
