@@ -2,9 +2,7 @@ import SPELLS from 'common/SPELLS';
 
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 
-import CoreDrapeOfShame from 'Parser/Core/Modules/Items/DrapeOfShame';
-
-export const DRAPE_OF_SHAME_CRIT_EFFECT = 0.05;
+import CoreDrapeOfShame, { DRAPE_OF_SHAME_CRIT_EFFECT } from 'Parser/Core/Modules/Items/DrapeOfShame';
 
 class DrapeOfShame extends CoreDrapeOfShame {
   on_byPlayer_heal(event) {
