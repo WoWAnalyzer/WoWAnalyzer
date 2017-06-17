@@ -10,7 +10,7 @@ function getCurrentMemoryUsage() {
 
 const keepAliveAgent = new https.Agent({
   keepAlive: true,
-  keepAliveMsecs: 5000,
+  keepAliveMsecs: 60000,
 });
 
 module.exports = function (req, res) {
