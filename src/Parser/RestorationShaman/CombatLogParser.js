@@ -29,7 +29,6 @@ import HighTide from './Modules/Features/HighTide';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownTracker from './Modules/Features/CooldownTracker';
 
-import Velens from './Modules/Legendaries/Velens';
 import Nazjatar from './Modules/Legendaries/Nazjatar';
 import UncertainReminder from './Modules/Legendaries/UncertainReminder';
 import Jonat from './Modules/Legendaries/Jonat';
@@ -84,7 +83,6 @@ class CombatLogParser extends MainCombatLogParser {
     
     
     // Legendaries:
-    velens: Velens,
     nobundo: Nobundo,
     nazjatar: Nazjatar,
     uncertainReminder: UncertainReminder,

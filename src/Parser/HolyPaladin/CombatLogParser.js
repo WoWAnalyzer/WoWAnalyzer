@@ -37,7 +37,6 @@ import HolyAvenger from './Modules/Features/HolyAvenger';
 
 import DrapeOfShame from './Modules/Items/DrapeOfShame';
 import Ilterendi from './Modules/Items/Ilterendi';
-import Velens from './Modules/Items/Velens';
 import ChainOfThrayn from './Modules/Items/ChainOfThrayn';
 import ObsidianStoneSpaulders from './Modules/Items/ObsidianStoneSpaulders';
 import MaraadsDyingBreath from './Modules/Items/MaraadsDyingBreath';
@@ -101,7 +100,6 @@ class CombatLogParser extends MainCombatLogParser {
 
     // Items:
     drapeOfShame: DrapeOfShame,
-    velens: Velens,
     sephuzsSecret: SephuzsSecret,
     ilterendi: Ilterendi,
     chainOfThrayn: ChainOfThrayn,
@@ -533,7 +531,7 @@ class CombatLogParser extends MainCombatLogParser {
                   marginTop: '-.1em',
                 }}
               />
-                      </span>
+            </span>
           )}
           label={(
             <dfn data-tip={`Your Divine Purpose proc rate for Holy Shock was ${formatPercentage(divinePurposeHolyShockProcs / (holyShockHeals - divinePurposeHolyShockProcs))}%.<br />Your Divine Purpose proc rate for Light of Dawn was ${formatPercentage(divinePurposeLightOfDawnProcs / (lightOfDawnHeals - divinePurposeLightOfDawnProcs))}%`}>

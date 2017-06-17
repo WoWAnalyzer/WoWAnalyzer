@@ -22,7 +22,6 @@ import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import AmalgamsSeventhSpine from 'Parser/Core/Modules/Items/AmalgamsSeventhSpine';
 
-import Velens from './Modules/Legendaries/Velens';
 import Ekowraith from './Modules/Legendaries/Ekowraith';
 import XonisCaress from './Modules/Legendaries/XonisCaress';
 import Sephuz from './Modules/Legendaries/Sephuz';
@@ -93,7 +92,6 @@ class CombatLogParser extends MainCombatLogParser {
     soulOfTheForest: SoulOfTheForest,
 
     // Legendaries:
-    velens: Velens,
     ekowraith: Ekowraith,
     xonisCaress: XonisCaress,
     sephuz: Sephuz,

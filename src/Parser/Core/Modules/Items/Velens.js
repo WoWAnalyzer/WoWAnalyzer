@@ -4,14 +4,15 @@ import SPELLS from 'common/SPELLS';
 import Module from 'Parser/Core/Module';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
-import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
-
 const LEGENDARY_VELENS_HEAL_SPELL_ID = 235967;
 const LEGENDARY_VELENS_HEALING_INCREASE = 0.15;
 
 class Velens extends Module {
-  healing = 0;
-
+  healingIncreaseHealing = 0;
+  overhealHealing = 0;
+  get healing() {
+    return this.healingIncreaseHealing + this.overhealHealing;
+  }
 
   on_initialized() {
     if (!this.owner.error) {
@@ -20,14 +21,20 @@ class Velens extends Module {
   }
 
   on_byPlayer_heal(event) {
+    this.registerHeal(event);
+  }
+  on_byPlayer_absorbed(event) {
+    this.registerHeal(event);
+  }
+  registerHeal(event) {
     const spellId = event.ability.guid;
-    if (ABILITIES_AFFECTED_BY_HEALING_INCREASES.indexOf(spellId) === -1 && spellId !== LEGENDARY_VELENS_HEAL_SPELL_ID) {
+    if (this.owner.constructor.abilitiesAffectedByHealingIncreases.indexOf(spellId) === -1 && spellId !== LEGENDARY_VELENS_HEAL_SPELL_ID) {
       return;
     }
 
     if (spellId === LEGENDARY_VELENS_HEAL_SPELL_ID) {
       // This is the overhealing part of Velen's Future Sight, just include its amount and we're done
-      this.healing += event.amount;
+      this.overhealHealing += event.amount;
       return;
     }
 
@@ -35,11 +42,8 @@ class Velens extends Module {
       return;
     }
 
-
-      this.healing += calculateEffectiveHealing(event, LEGENDARY_VELENS_HEALING_INCREASE);
+    this.healingIncreaseHealing += calculateEffectiveHealing(event, LEGENDARY_VELENS_HEALING_INCREASE);
   }
-
-  // Beacon transfer is included in `ABILITIES_AFFECTED_BY_HEALING_INCREASES`
 }
 
 export default Velens;

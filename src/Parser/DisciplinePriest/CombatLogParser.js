@@ -31,7 +31,6 @@ import CooldownTracker from './Modules/Features/CooldownTracker';
 import PowerWordShieldWasted from './Modules/Features/PowerWordShieldWasted';
 import AtonementSource from './Modules/Features/AtonementSource';
 
-import Velens from './Modules/Items/Velens';
 import Tier19_2set from './Modules/Items/Tier19_2set';
 import CordOfMaiev from './Modules/Items/CordOfMaiev';
 import Skjoldr from './Modules/Items/Skjoldr';
@@ -86,7 +85,6 @@ class CombatLogParser extends MainCombatLogParser {
     atonementSource: AtonementSource,
 
     // Items:
-    velens: Velens,
     sephuzsSecret: SephuzsSecret,
     tier19_2set: Tier19_2set,
     cordOfMaiev: CordOfMaiev,

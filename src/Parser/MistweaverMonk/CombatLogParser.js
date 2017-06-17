@@ -43,7 +43,6 @@ import ChiJi from './Modules/Features/ChiJi';
 import ChiBurst from './Modules/Features/ChiBurst';
 
 // Setup for Items
-import Velens from './Modules/Items/Velens';
 import Eithas from './Modules/Items/Eithas';
 import XuensBattlegear4Piece from './Modules/Items/XuensBattlegear4Piece';
 
@@ -105,7 +104,6 @@ class CombatLogParser extends MainCombatLogParser {
 
     // Legendaries / Items:
     sephuzsSecret: SephuzsSecret,
-    velens: Velens,
     eithas: Eithas,
     archiveOfFaith: ArchiveOfFaith,
     barbaricMindslaver: BarbaricMindslaver,

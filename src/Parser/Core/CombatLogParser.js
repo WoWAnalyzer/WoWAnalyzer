@@ -5,6 +5,7 @@ import Enemies from './Modules/Enemies';
 
 import DrapeOfShame from './Modules/Items/DrapeOfShame';
 import Prydaz from './Modules/Items/Prydaz';
+import Velens from './Modules/Items/Velens';
 
 class CombatLogParser {
   static abilitiesAffectedByHealingIncreases = [];
@@ -18,6 +19,7 @@ class CombatLogParser {
     // Items:
     drapeOfShame: DrapeOfShame,
     prydaz: Prydaz,
+    velens: Velens,
   };
   // Override this with spec specific modules
   static specModules = {};
