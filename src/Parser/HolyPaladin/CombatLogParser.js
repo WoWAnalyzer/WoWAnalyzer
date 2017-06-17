@@ -243,8 +243,9 @@ class CombatLogParser extends MainCombatLogParser {
     const hasRuleOfLaw = this.selectedCombatant.hasTalent(SPELLS.RULE_OF_LAW_TALENT.id);
 
     const hasDivinePurpose = this.selectedCombatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id);
-    const divinePurposeHolyShockProcs = hasDivinePurpose && this.selectedCombatant.getBuffTriggerCount(SPELLS.DIVINE_PURPOSE_HOLY_SHOCK_BUFF.id);
-    const divinePurposeLightOfDawnProcs = hasDivinePurpose && this.selectedCombatant.getBuffTriggerCount(SPELLS.DIVINE_PURPOSE_LIGHT_OF_DAWN_BUFF.id);
+    const hasSoulOfTheHighlord = this.selectedCombatant.hasRing(ITEMS.SOUL_OF_THE_HIGHLORD.id);
+    const divinePurposeHolyShockProcs = (hasDivinePurpose || hasSoulOfTheHighlord) && this.selectedCombatant.getBuffTriggerCount(SPELLS.DIVINE_PURPOSE_HOLY_SHOCK_BUFF.id);
+    const divinePurposeLightOfDawnProcs = (hasDivinePurpose || hasSoulOfTheHighlord) && this.selectedCombatant.getBuffTriggerCount(SPELLS.DIVINE_PURPOSE_LIGHT_OF_DAWN_BUFF.id);
 
     if (nonHealingTimePercentage > 0.3) {
       results.addIssue({
@@ -578,42 +579,7 @@ class CombatLogParser extends MainCombatLogParser {
     ];
 
     results.items = [
-      this.modules.ilterendi.active && {
-        id: ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id,
-        icon: <ItemIcon id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} />,
-        title: <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} />,
-        result: (
-          <dfn data-tip="The actual effective healing contributed by the Ilterendi, Crown Jewel of Silvermoon equip effect.">
-            {((ilterendiHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.ilterendi.healing / fightDuration * 1000)} HPS
-          </dfn>
-        ),
-      },
-      this.modules.velens.active && {
-        id: ITEMS.VELENS_FUTURE_SIGHT.id,
-        icon: <ItemIcon id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
-        title: <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
-        result: (
-          <dfn data-tip="The actual effective healing contributed by the Velen's Future Sight use effect.">
-            {((velensHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.velens.healing / fightDuration * 1000)} HPS
-          </dfn>
-        ),
-      },
-      this.modules.sephuzsSecret.active && {
-        id: ITEMS.SEPHUZS_SECRET.id,
-        icon: <ItemIcon id={ITEMS.SEPHUZS_SECRET.id} />,
-        title: <ItemLink id={ITEMS.SEPHUZS_SECRET.id} />,
-        result: `${((this.modules.sephuzsSecret.uptime / fightDuration * 100) || 0).toFixed(2)} % uptime`,
-      },
-      this.modules.chainOfThrayn.active && {
-        id: ITEMS.CHAIN_OF_THRAYN.id,
-        icon: <ItemIcon id={ITEMS.CHAIN_OF_THRAYN.id} />,
-        title: <ItemLink id={ITEMS.CHAIN_OF_THRAYN.id} />,
-        result: (
-          <dfn data-tip="The actual effective healing contributed by the Chain of Thrayn equip effect.">
-            {((chainOfThraynHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.chainOfThrayn.healing / fightDuration * 1000)} HPS
-          </dfn>
-        ),
-      },
+      // Sort by quality > slot > tier
       this.modules.prydaz.active && {
         id: ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id,
         icon: <ItemIcon id={ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id} />,
@@ -654,6 +620,55 @@ class CombatLogParser extends MainCombatLogParser {
               {((this.modules.maraadsDyingBreath.totalHealing / this.totalHealing * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.maraadsDyingBreath.totalHealing / fightDuration * 1000)} HPS
             </dfn>)
           </span>
+        ),
+      },
+      this.modules.chainOfThrayn.active && {
+        id: ITEMS.CHAIN_OF_THRAYN.id,
+        icon: <ItemIcon id={ITEMS.CHAIN_OF_THRAYN.id} />,
+        title: <ItemLink id={ITEMS.CHAIN_OF_THRAYN.id} />,
+        result: (
+          <dfn data-tip="The actual effective healing contributed by the Chain of Thrayn equip effect.">
+            {((chainOfThraynHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.chainOfThrayn.healing / fightDuration * 1000)} HPS
+          </dfn>
+        ),
+      },
+      this.modules.ilterendi.active && {
+        id: ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id,
+        icon: <ItemIcon id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} />,
+        title: <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} />,
+        result: (
+          <dfn data-tip="The actual effective healing contributed by the Ilterendi, Crown Jewel of Silvermoon equip effect.">
+            {((ilterendiHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.ilterendi.healing / fightDuration * 1000)} HPS
+          </dfn>
+        ),
+      },
+      hasSoulOfTheHighlord && {
+        id: ITEMS.SOUL_OF_THE_HIGHLORD.id,
+        icon: <ItemIcon id={ITEMS.SOUL_OF_THE_HIGHLORD.id} />,
+        title: <ItemLink id={ITEMS.SOUL_OF_THE_HIGHLORD.id} />,
+        result: (
+          <span>
+            Procs:{' '}
+            {divinePurposeHolyShockProcs} <SpellIcon id={SPELLS.HOLY_SHOCK_CAST.id} style={{ height: '1em' }} /> <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} />
+            {' '}/{' '}
+            {divinePurposeLightOfDawnProcs} <SpellIcon id={SPELLS.LIGHT_OF_DAWN_CAST.id} style={{ height: '1em' }} /> <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} />
+          </span>
+        ),
+      },
+      this.modules.sephuzsSecret.active && {
+        id: ITEMS.SEPHUZS_SECRET.id,
+        icon: <ItemIcon id={ITEMS.SEPHUZS_SECRET.id} />,
+        title: <ItemLink id={ITEMS.SEPHUZS_SECRET.id} />,
+        result: `${((this.modules.sephuzsSecret.uptime / fightDuration * 100) || 0).toFixed(2)} % uptime`,
+      },
+      this.modules.velens.active && {
+        id: ITEMS.VELENS_FUTURE_SIGHT.id,
+        icon: <ItemIcon id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
+        title: <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
+        result: (
+          <dfn data-tip="The actual effective healing contributed by the Velen's Future Sight use effect.">
+            {((velensHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.velens.healing / fightDuration * 1000)} HPS
+          </dfn>
         ),
       },
       this.modules.drapeOfShame.active && {
