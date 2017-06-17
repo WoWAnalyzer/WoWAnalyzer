@@ -287,6 +287,16 @@ class CombatLogParser extends MainCombatLogParser {
         )}
       />,
       <StatisticBox
+        icon={<Icon icon="petbattle_health-down" alt="Non healing time" />}
+
+        value={`${formatPercentage(nonHealingTimePercentage)} %`}
+        label={(
+          <dfn data-tip={`Non healing time is available casting time not used for a spell that helps you heal. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), DPSing, etc. <br /><br />You spent ${formatPercentage(deadTimePercentage)}% of your time casting nothing at all.`}>
+            Non healing time
+          </dfn>
+        )}
+      />,
+      <StatisticBox
         icon={<SpellIcon id={SPELLS.DEEP_HEALING.id} />}
         value={`${formatPercentage(masteryEffectivenessPercent)}%`}
         label={(
@@ -357,16 +367,6 @@ class CombatLogParser extends MainCombatLogParser {
           <dfn data-tip={`The percentage of the potential absorb of Earthen Shield Totem that was actually used. You cast a total of ${earthenShieldCasts} Earthen Shield Totems with a combined health of ${formatNumber(earthenShieldPotentialHealing)}, which absorbed a total of ${formatNumber(earthenShieldHealing)} damage.`}>
 
             Earthen Shield Totem efficiency
-          </dfn>
-        )}
-      />,
-      <StatisticBox
-        icon={<Icon icon="petbattle_health-down" alt="Non healing time" />}
-        
-        value={`${formatPercentage(nonHealingTimePercentage)} %`}
-        label={(
-          <dfn data-tip={`Non healing time is available casting time not used for a spell that helps you heal. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), DPSing, etc. <br /><br />You spent ${formatPercentage(deadTimePercentage)}% of your time casting nothing at all.`}>
-            Non healing time
           </dfn>
         )}
       />,

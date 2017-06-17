@@ -311,6 +311,15 @@ class CombatLogParser extends MainCombatLogParser {
         )}
       />,
       <StatisticBox
+        icon={<Icon icon="petbattle_health-down" alt="Non healing time" />}
+        value={`${formatPercentage(nonHealingTimePercentage)} %`}
+        label={(
+          <dfn data-tip={`Non healing time is available casting time not used for a spell that helps you heal. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), DPSing, etc.<br /><br />You spent ${formatPercentage(deadTimePercentage)}% of your time casting nothing at all.`}>
+            Non healing time
+          </dfn>
+        )}
+      />,
+      <StatisticBox
         icon={<SpellIcon id={SPELLS.LIFEBLOOM_HOT_HEAL.id} />}
         value={`${formatPercentage(lifebloomUptime)} %`}
         label='Lifebloom uptime'
@@ -466,17 +475,6 @@ class CombatLogParser extends MainCombatLogParser {
           label={(
             <dfn data-tip={`You got total <b>${this.modules.clearcasting.total} clearcasting proccs</b> and <b>used ${this.modules.clearcasting.used}</b> of them. <b>${this.modules.clearcasting.nonCCRegrowths} of your regrowths was used without a clearcasting procc</b>. Using a clearcasting procc as soon as you get it should be one of your top priorities. Even if it overheals you still get that extra mastery stack on a target and the minor HoT. Spending your GCD on a free spell also helps you with mana management in the long run.`}>
               Unused Clearcastings
-            </dfn>
-          )}
-        />
-      ),
-      (
-        <StatisticBox
-          icon={<Icon icon="petbattle_health-down" alt="Non healing time" />}
-          value={`${formatPercentage(nonHealingTimePercentage)} %`}
-          label={(
-            <dfn data-tip={`Non healing time is available casting time not used for a spell that helps you heal. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), DPSing, etc.<br /><br />You spent ${formatPercentage(deadTimePercentage)}% of your time casting nothing at all.`}>
-              Non healing time
             </dfn>
           )}
         />
