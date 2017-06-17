@@ -33,13 +33,13 @@ class ExpandableStatisticBox extends React.PureComponent {
       icon: newProps.icon,
       value: newProps.value,
       label: newProps.label,
-      expanded: newProps.expanded,
+      expanded: newProps.showCastEvents,
     });
   }
 
   toggleExpansion() {
     this.setState({
-      expanded: !this.state.expanded,
+      expanded: !this.state.showCastEvents,
     });
   }
 
@@ -63,7 +63,7 @@ class ExpandableStatisticBox extends React.PureComponent {
 
           <div className="row">
             <div className="col-xs-12">
-              { this.state.expanded && (
+              { this.state.showCastEvents && (
               <div className="statistic-expansion">
                 { this.props.children }
               </div> )}
@@ -72,8 +72,8 @@ class ExpandableStatisticBox extends React.PureComponent {
 
           <div className="statistic-expansion-button-holster">
               <button onClick={this.toggleExpansion} className="btn btn-primary">
-                { !this.state.expanded && <span className="glyphicon glyphicon-chevron-down"></span> }
-                { this.state.expanded && <span className="glyphicon glyphicon-chevron-up"></span> }
+                { !this.state.showCastEvents && <span className="glyphicon glyphicon-chevron-down"></span> }
+                { this.state.showCastEvents && <span className="glyphicon glyphicon-chevron-up"></span> }
               </button>
             </div>
         </div>

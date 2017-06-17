@@ -5,6 +5,8 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import Icon from 'common/Icon';
 
+import './Cooldown.css';
+
 function formatThousands(number) {
   return (Math.round(number || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
 }
@@ -48,8 +50,8 @@ class Cooldown extends React.Component {
   constructor() {
     super();
     this.state = {
-      expanded: false,
-      showHeals: false,
+      showCastEvents: false,
+      showAllEvents: false,
     };
     this.handleExpandClick = this.handleExpandClick.bind(this);
     this.handleShowHealsClick = this.handleShowHealsClick.bind(this);
@@ -57,12 +59,12 @@ class Cooldown extends React.Component {
 
   handleExpandClick() {
     this.setState({
-      expanded: !this.state.expanded,
+      showCastEvents: !this.state.showCastEvents,
     });
   }
   handleShowHealsClick() {
     this.setState({
-      showHeals: !this.state.showHeals,
+      showAllEvents: !this.state.showAllEvents,
     });
   }
 
@@ -138,56 +140,76 @@ class Cooldown extends React.Component {
           <SpellIcon id={cooldown.ability.id} />
         </figure>
         <div className="row" style={{ width: '100%' }}>
-          <div className={showOutputStatistics ? 'col-md-6' : 'col-md-10'}>
+          <div className={this.state.showAllEvents ? 'col-md-12' : 'col-md-6'}>
             <header style={{ marginTop: 5, fontSize: '1.25em', marginBottom: '.1em' }}>
               <SpellLink id={cooldown.ability.id} /> ({formatDuration((start - fightStart) / 1000)} -&gt; {formatDuration((end - fightStart) / 1000)})
             </header>
-            {!this.state.expanded && (
+
+            {!this.state.showCastEvents && (
               <div>
-                {cooldown.events.filter(event => event.type === 'cast' && event.ability.guid !== 1).map((event, i) => (
-                  <SpellLink key={`${event.ability.guid}-${event.timestamp}-${i}`} id={event.ability.guid}>
-                    <Icon icon={event.ability.abilityIcon} alt={event.ability.name} style={{ height: 23, marginRight: 4 }} />
-                  </SpellLink>
-                ))}<br />
-                <a href="javascript:" onClick={this.handleExpandClick} style={{ marginTop: '.2em' }}>More</a>
-              </div>
-            )}
-            {this.state.expanded && !this.state.showHeals && (
-              <div>
-                {cooldown.events.filter(event => event.type === 'cast' && event.ability.guid !== 1).map((event, i) => (
-                  <div className="row">
-                    <div className="col-xs-1 text-right" style={{ padding: 0 }}>
-                      {((event.timestamp - cooldown.start) / 1000).toFixed(3)}
-                    </div>
-                    <div className="col-xs-11">
+                {
+                  cooldown.events
+                    .filter(event => event.type === 'cast' && event.ability.guid !== 1)
+                    .map((event, i) => (
                       <SpellLink key={`${event.ability.guid}-${event.timestamp}-${i}`} id={event.ability.guid}>
-                        <Icon icon={event.ability.abilityIcon} alt={event.ability.name} style={{ height: 23, marginRight: 4 }} /> {event.ability.name}
+                        <Icon icon={event.ability.abilityIcon} alt={event.ability.name} style={{ height: 23, marginRight: 4 }} />
                       </SpellLink>
-                    </div>
+                    ))
+                }
+                <div className="row">
+                  <div className="col-xs-12">
+                    <a href="javascript:" onClick={this.handleExpandClick} style={{ marginTop: '.2em' }}>More</a>
                   </div>
-                ))}
-                <a href="javascript:" onClick={this.handleShowHealsClick} style={{ marginTop: '.2em' }}>Even more</a>{' | '}
-                <a href="javascript:" onClick={this.handleExpandClick} style={{ marginTop: '.2em' }}>Show less</a>
+                </div>
               </div>
             )}
-            {this.state.expanded && this.state.showHeals && (
-              <div>
+
+            {this.state.showCastEvents && !this.state.showAllEvents && (
+              <div className="container-fluid">
+                {
+                  cooldown.events
+                    .filter(event => event.type === 'cast' && event.ability.guid !== 1)
+                    .map((event, i) => (
+                      <div className="row">
+                        <div className="col-xs-2 text-right" style={{ padding: 0 }}>
+                          +{((event.timestamp - cooldown.start) / 1000).toFixed(3)}
+                        </div>
+                        <div className="col-xs-10">
+                          <SpellLink key={`${event.ability.guid}-${event.timestamp}-${i}`} id={event.ability.guid}>
+                            <Icon icon={event.ability.abilityIcon} alt={event.ability.name} style={{ height: 23, marginRight: 4 }} /> {event.ability.name}
+                          </SpellLink>
+                        </div>
+                      </div>
+                    ))
+                }
+                <div className="row">
+                  <div className="col-xs-12">
+                    <a href="javascript:" onClick={this.handleShowHealsClick} style={{ marginTop: '.2em' }}>Even more</a>{' | '}
+                    <a href="javascript:" onClick={this.handleExpandClick} style={{ marginTop: '.2em' }}>Show less</a>
+                  </div>
+                </div>
+              </div>
+            )}
+            {this.state.showCastEvents && this.state.showAllEvents && (
+              <div className="container-fluid">
                 {this.groupHeals(cooldown.events.filter(event => (event.type === 'cast' || event.type === 'heal') && event.ability.guid !== 1)).map((event, i) => (
-                  <div className="row">
+                  <div className="row" key={i}>
                     <div className="col-xs-1 text-right" style={{ padding: 0 }}>
-                      {((event.timestamp - cooldown.start) / 1000).toFixed(3)}
+                      +{((event.timestamp - cooldown.start) / 1000).toFixed(3)}
                     </div>
-                    <div className={`col-xs-4 ${event.type === 'heal' ? 'col-xs-offset-1' : ''}`}>
+                    <div className={`col-xs-6 ${event.type === 'heal' ? 'col-xs-offset-1' : ''}`}>
                       <SpellLink key={`${event.ability.guid}-${event.timestamp}-${i}`} id={event.ability.guid}>
                         <Icon icon={event.ability.abilityIcon} alt={event.ability.name} style={{ height: 23, marginRight: 4 }} /> {event.ability.name}
                       </SpellLink>
-                      {event.type === 'heal' ? ` x ${event.count}` : ''}
+                      {event.type === 'heal' && (
+                        <span>
+                          <span className="grouped-heal-meta amount"> x {event.count}</span>
+                        </span>
+                      )}
                     </div>
-                    <div className="col-xs-2 text-right">
-                      {event.type === 'heal' ? formatThousands(event.amount + event.absorbed) : ''}
-                    </div>
-                    <div className="col-xs-2 text-right text-muted">
-                      {event.type === 'heal' ? formatThousands(event.overheal) : ''}
+                    <div className="col-xs-4">
+                      <span className="grouped-heal-meta healing"> +{formatThousands(event.amount + event.absorbed)}</span>
+                      <span className="grouped-heal-meta overhealing"> (O: {formatThousands(event.overheal)})</span>
                     </div>
                   </div>
                 ))}
@@ -197,7 +219,7 @@ class Cooldown extends React.Component {
             )}
           </div>
           {
-            cooldown.ability.cooldownType === 'HEALING' && showOutputStatistics && (
+            !this.state.showAllEvents && cooldown.ability.cooldownType === 'HEALING' && showOutputStatistics && (
               <div>
                 <div className="col-md-2 text-center">
                   <div style={{ fontSize: '2em' }}>{formatNumber(outputStatistics.healingDone)}</div>
@@ -211,7 +233,7 @@ class Cooldown extends React.Component {
             )
           }  
           {
-            cooldown.ability.cooldownType === 'DAMAGE' && showOutputStatistics && (
+            !this.state.showAllEvents && cooldown.ability.cooldownType === 'DAMAGE' && showOutputStatistics && (
               <div>
                 <div className="col-md-2 text-center">
                   <div style={{ fontSize: '2em' }}>{formatNumber(outputStatistics.damageDone)}</div>
@@ -221,7 +243,7 @@ class Cooldown extends React.Component {
             )
           }             
           {
-            showResourceStatistics && (
+            !this.state.showAllEvents && showResourceStatistics && (
               <div className="col-md-2 text-center">
                 <div style={{ fontSize: '2em' }}>{formatNumber(resourceStatistics)}</div>
                 mana used
