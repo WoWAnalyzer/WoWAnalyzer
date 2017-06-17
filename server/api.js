@@ -3,6 +3,11 @@ const https = require('https');
 
 const cache = require('./cache');
 
+function getCurrentMemoryUsage() {
+  const memoryUsage = process.memoryUsage();
+  return memoryUsage.rss;
+}
+
 const keepAliveAgent = new https.Agent({
   keepAlive: true,
   keepAliveMsecs: 5000,
@@ -60,6 +65,7 @@ module.exports = function (req, res) {
           res.setHeader('Content-Type', wclResponse.headers['content-type']);
           res.status(wclResponse.statusCode);
           res.send(jsonString);
+          console.log('Finished, memory:', getCurrentMemoryUsage() / 1024 / 1024);
         });
       })
       .on('error', (err) => {
