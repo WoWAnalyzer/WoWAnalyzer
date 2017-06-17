@@ -186,6 +186,9 @@ class Cooldown extends React.Component {
                     <div className="col-xs-2 text-right">
                       {event.type === 'heal' ? formatThousands(event.amount + event.absorbed) : ''}
                     </div>
+                    <div className="col-xs-2 text-right text-muted">
+                      {event.type === 'heal' ? formatThousands(event.overheal) : ''}
+                    </div>
                   </div>
                 ))}
                 <a href="javascript:" onClick={this.handleShowHealsClick} style={{ marginTop: '.2em' }}>Show less</a> {' | '}
