@@ -60,6 +60,7 @@ class Cooldown extends React.Component {
   handleExpandClick() {
     this.setState({
       showCastEvents: !this.state.showCastEvents,
+      showAllEvents: false,
     });
   }
   handleShowHealsClick() {
