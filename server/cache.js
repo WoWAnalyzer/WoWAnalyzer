@@ -1,6 +1,6 @@
 const NodeCache = require('node-cache');
 
-const MEMORY_LIMIT = 512 * 1024 * 1024;
+const MEMORY_LIMIT = 1024 * 1024 * 1024;
 const MEMORY_LIMIT_DANGEROUS = MEMORY_LIMIT * 2;
 function getCurrentMemoryUsage() {
   const memoryUsage = process.memoryUsage();
