@@ -23,7 +23,6 @@ import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import DarkmoonDeckPromises from 'Parser/Core/Modules/Items/DarkmoonDeckPromises';
 import AmalgamsSeventhSpine from 'Parser/Core/Modules/Items/AmalgamsSeventhSpine';
 import SephuzsSecret from 'Parser/Core/Modules/Items/SephuzsSecret';
-import Prydaz from 'Parser/Core/Modules/Items/Prydaz';
 
 import PaladinAbilityTracker from './Modules/PaladinCore/PaladinAbilityTracker';
 import BeaconHealing from './Modules/PaladinCore/BeaconHealing';
@@ -46,6 +45,7 @@ import Tier19_4set from './Modules/Items/Tier19_4set';
 import Tier20_4set from './Modules/Items/Tier20_4set';
 
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
 import UnusedInfusionOfLightImage from './Images/ability_paladin_infusionoflight-bw.jpg';
 
@@ -81,6 +81,8 @@ function formatPercentage(percentage) {
 }
 
 class CombatLogParser extends MainCombatLogParser {
+  static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
+
   static specModules = {
     // Override the ability tracker so we also get stats for IoL and beacon healing
     abilityTracker: PaladinAbilityTracker,
@@ -99,7 +101,6 @@ class CombatLogParser extends MainCombatLogParser {
 
     // Items:
     drapeOfShame: DrapeOfShame,
-    prydaz: Prydaz,
     velens: Velens,
     sephuzsSecret: SephuzsSecret,
     ilterendi: Ilterendi,

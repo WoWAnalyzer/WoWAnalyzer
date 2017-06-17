@@ -21,9 +21,7 @@ import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import AmalgamsSeventhSpine from 'Parser/Core/Modules/Items/AmalgamsSeventhSpine';
-import Prydaz from 'Parser/Core/Modules/Items/Prydaz';
 
-import DrapeOfShame from './Modules/Legendaries/DrapeOfShame';
 import Velens from './Modules/Legendaries/Velens';
 import Ekowraith from './Modules/Legendaries/Ekowraith';
 import XonisCaress from './Modules/Legendaries/XonisCaress';
@@ -47,6 +45,7 @@ import Dreamwalker from './Modules/Features/Dreamwalker';
 import SoulOfTheForest from './Modules/Features/SoulOfTheForest';
 
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
 function formatThousands(number) {
   return (Math.round(number || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
@@ -74,6 +73,8 @@ function formatPercentage(percentage) {
 }
 
 class CombatLogParser extends MainCombatLogParser {
+  static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
+
   static specModules = {
     // Override the ability tracker so we also get stats for IoL and beacon healing
     abilityTracker: AbilityTracker,
@@ -92,9 +93,7 @@ class CombatLogParser extends MainCombatLogParser {
     soulOfTheForest: SoulOfTheForest,
 
     // Legendaries:
-    drapeOfShame: DrapeOfShame,
     velens: Velens,
-    prydaz: Prydaz,
     ekowraith: Ekowraith,
     xonisCaress: XonisCaress,
     sephuz: Sephuz,

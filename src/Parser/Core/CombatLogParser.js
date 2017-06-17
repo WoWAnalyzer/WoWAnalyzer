@@ -3,12 +3,21 @@ import AbilityTracker from './Modules/AbilityTracker';
 import AlwaysBeCasting from './Modules/AlwaysBeCasting';
 import Enemies from './Modules/Enemies';
 
+import DrapeOfShame from './Modules/Items/DrapeOfShame';
+import Prydaz from './Modules/Items/Prydaz';
+
 class CombatLogParser {
+  static abilitiesAffectedByHealingIncreases = [];
+
   static defaultModules = {
     combatants: Combatants,
     enemies: Enemies,
     abilityTracker: AbilityTracker,
     alwaysBeCasting: AlwaysBeCasting,
+
+    // Items:
+    drapeOfShame: DrapeOfShame,
+    prydaz: Prydaz,
   };
   // Override this with spec specific modules
   static specModules = {};

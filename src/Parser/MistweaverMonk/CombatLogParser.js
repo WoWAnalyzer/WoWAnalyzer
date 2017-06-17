@@ -23,7 +23,6 @@ import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import SephuzsSecret from 'Parser/Core/Modules/Items/SephuzsSecret';
 import DarkmoonDeckPromises from 'Parser/Core/Modules/Items/DarkmoonDeckPromises';
 import AmalgamsSeventhSpine from 'Parser/Core/Modules/Items/AmalgamsSeventhSpine';
-import Prydaz from 'Parser/Core/Modules/Items/Prydaz';
 import ArchiveOfFaith from 'Parser/Core/Modules/Items/ArchiveOfFaith';
 import BarbaricMindslaver from 'Parser/Core/Modules/Items/BarbaricMindslaver';
 import SeaStar from 'Parser/Core/Modules/Items/SeaStarOfTheDepthmother';
@@ -45,11 +44,11 @@ import ChiBurst from './Modules/Features/ChiBurst';
 
 // Setup for Items
 import Velens from './Modules/Items/Velens';
-import DrapeOfShame from './Modules/Items/DrapeOfShame';
 import Eithas from './Modules/Items/Eithas';
 import XuensBattlegear4Piece from './Modules/Items/XuensBattlegear4Piece';
 
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
 function formatThousands(number) {
   return (Math.round(number || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
@@ -84,6 +83,8 @@ function getOverhealingPercentage(ability) {
 }
 
 class CombatLogParser extends MainCombatLogParser {
+  static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
+
   static specModules = {
     // Override the ability tracker so we also get stats for IoL and beacon healing
     abilityTracker: AbilityTracker,
@@ -103,8 +104,6 @@ class CombatLogParser extends MainCombatLogParser {
     chiBurst: ChiBurst,
 
     // Legendaries / Items:
-    drapeOfShame: DrapeOfShame,
-    prydaz: Prydaz,
     sephuzsSecret: SephuzsSecret,
     velens: Velens,
     eithas: Eithas,

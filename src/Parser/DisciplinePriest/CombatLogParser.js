@@ -23,7 +23,6 @@ import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import AmalgamsSeventhSpine from 'Parser/Core/Modules/Items/AmalgamsSeventhSpine';
 import SephuzsSecret from 'Parser/Core/Modules/Items/SephuzsSecret';
 import DarkmoonDeckPromises from 'Parser/Core/Modules/Items/DarkmoonDeckPromises';
-import Prydaz from 'Parser/Core/Modules/Items/Prydaz';
 
 import AbilityTracker from './Modules/Core/AbilityTracker';
 
@@ -32,7 +31,6 @@ import CooldownTracker from './Modules/Features/CooldownTracker';
 import PowerWordShieldWasted from './Modules/Features/PowerWordShieldWasted';
 import AtonementSource from './Modules/Features/AtonementSource';
 
-import DrapeOfShame from './Modules/Items/DrapeOfShame';
 import Velens from './Modules/Items/Velens';
 import Tier19_2set from './Modules/Items/Tier19_2set';
 import CordOfMaiev from './Modules/Items/CordOfMaiev';
@@ -47,6 +45,7 @@ import Atonement from './Modules/Spells/Atonement';
 import Evangelism from './Modules/Spells/Evangelism';
 
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
 function formatThousands(number) {
   return (Math.round(number || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
@@ -74,6 +73,8 @@ function formatPercentage(percentage) {
 }
 
 class CombatLogParser extends MainCombatLogParser {
+  static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
+
   static specModules = {
     // Override the ability tracker so we also get stats for IoL and beacon healing
     abilityTracker: AbilityTracker,
@@ -85,8 +86,6 @@ class CombatLogParser extends MainCombatLogParser {
     atonementSource: AtonementSource,
 
     // Items:
-    drapeOfShame: DrapeOfShame,
-    prydaz: Prydaz,
     velens: Velens,
     sephuzsSecret: SephuzsSecret,
     tier19_2set: Tier19_2set,

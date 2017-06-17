@@ -15,7 +15,6 @@ import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 import ParseResults from 'Parser/Core/ParseResults';
 import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
-import Prydaz from 'Parser/Core/Modules/Items/Prydaz';
 
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 
@@ -52,7 +51,6 @@ class CombatLogParser extends MainCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
 
     // Legendaries:
-    prydaz: Prydaz,
   };
 
   generateResults() {

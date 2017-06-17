@@ -20,7 +20,6 @@ import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 import ParseResults from 'Parser/Core/ParseResults';
 import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
-import Prydaz from 'Parser/Core/Modules/Items/Prydaz';
 
 import ShamanAbilityTracker from './Modules/ShamanCore/ShamanAbilityTracker';
 
@@ -30,7 +29,6 @@ import HighTide from './Modules/Features/HighTide';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownTracker from './Modules/Features/CooldownTracker';
 
-import DrapeOfShame from './Modules/Legendaries/DrapeOfShame';
 import Velens from './Modules/Legendaries/Velens';
 import Nazjatar from './Modules/Legendaries/Nazjatar';
 import UncertainReminder from './Modules/Legendaries/UncertainReminder';
@@ -40,6 +38,7 @@ import Tidecallers from './Modules/Legendaries/Tidecallers';
 import Restoration_Shaman_T19_2Set from './Modules/Legendaries/T19_2Set';
 
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
 import UnusedTidalWavesImage from './Images/spell_shaman_tidalwaves-bw.jpg';
 
@@ -69,6 +68,8 @@ function formatPercentage(percentage) {
 }
 
 class CombatLogParser extends MainCombatLogParser {
+  static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
+
   static specModules = {
     // Override the ability tracker so we also get stats for Tidal Waves and beacon healing
     abilityTracker: ShamanAbilityTracker,
@@ -82,16 +83,13 @@ class CombatLogParser extends MainCombatLogParser {
     cooldownTracker: CooldownTracker,
     
     
-
     // Legendaries:
-    drapeOfShame: DrapeOfShame,
     velens: Velens,
     nobundo: Nobundo,
     nazjatar: Nazjatar,
     uncertainReminder: UncertainReminder,
     jonat: Jonat,
     tidecallers: Tidecallers,
-    prydaz: Prydaz,
     t19_2Set: Restoration_Shaman_T19_2Set,
   };
 
