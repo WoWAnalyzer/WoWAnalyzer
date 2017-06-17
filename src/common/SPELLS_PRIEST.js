@@ -149,6 +149,11 @@ export default {
     name: 'T19 2 set bonus',
     icon: 'spell_holy_powerwordshield',
   },
+  DISC_PRIEST_T19_4SET_BONUS_BUFF: {
+    id: 211563,
+    name: 'T19 4 set bonus',
+    icon: 'spell_holy_powerwordshield',
+  },
   KAM_XIRAFF_BUFF: {
     id: 233997,
     name: 'Kam Xi\'raff',
