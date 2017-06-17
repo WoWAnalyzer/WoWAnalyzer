@@ -71,7 +71,7 @@ class Results extends React.Component {
             </div>
           </div>
           <div className="col-md-4">
-            <div className="panel">
+            <div className="panel items">
               <div className="panel-heading">
                 <h2>Items</h2>
               </div>
