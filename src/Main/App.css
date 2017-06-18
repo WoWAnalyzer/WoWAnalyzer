@@ -220,6 +220,7 @@ h1 {
 }
 .list.issues {
   font-size: 100%;
+  margin: 0;
 }
 .list.players li img {
   height: 1.7em;
