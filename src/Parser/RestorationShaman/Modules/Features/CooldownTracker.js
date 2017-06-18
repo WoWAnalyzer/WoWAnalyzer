@@ -1,10 +1,8 @@
 import SPELLS from 'common/SPELLS';
 
-import CoreCooldownTracker from 'Parser/Core/Modules/CooldownTracker';
+import CoreCooldownTracker, { BUILT_IN_SUMMARY_TYPES } from 'Parser/Core/Modules/CooldownTracker';
 
-import { ABILITIES_NOT_FEEDING_INTO_CBT } from '../../Constants';
-import { ABILITIES_NOT_FEEDING_INTO_AG } from '../../Constants';
-import { ABILITIES_NOT_FEEDING_INTO_ASCENDANCE } from '../../Constants';
+import { ABILITIES_NOT_FEEDING_INTO_CBT, ABILITIES_NOT_FEEDING_INTO_AG, ABILITIES_NOT_FEEDING_INTO_ASCENDANCE } from '../../Constants';
 
 // The purpose of this class is twofold:
 // 1) provide cooldown data for the cooldowns tab. I had to rewrite some of the functions because
@@ -26,47 +24,57 @@ import { ABILITIES_NOT_FEEDING_INTO_ASCENDANCE } from '../../Constants';
 class CooldownTracker extends CoreCooldownTracker {
   static cooldownSpells = [
     ...CooldownTracker.cooldownSpells,
-    SPELLS.ANCESTRAL_GUIDANCE_CAST,
-    SPELLS.ASCENDANCE_CAST,
+    {
+      spell: SPELLS.ANCESTRAL_GUIDANCE_CAST,
+      summary: [
+        BUILT_IN_SUMMARY_TYPES.HEALING,
+        BUILT_IN_SUMMARY_TYPES.OVERHEALING,
+        BUILT_IN_SUMMARY_TYPES.MANA,
+      ],
+    },
+    {
+      spell: SPELLS.ASCENDANCE_CAST,
+      summary: [
+        BUILT_IN_SUMMARY_TYPES.HEALING,
+        BUILT_IN_SUMMARY_TYPES.OVERHEALING,
+        BUILT_IN_SUMMARY_TYPES.MANA,
+      ],
+    },
   ];
 
 
   cbtFeed = [];
-  cbtTotals = {total: 0, totalEffective: 0};
+  cbtTotals = { total: 0, totalEffective: 0 };
 
   agFeed = [];
-  agTotals = {total: 0, totalEffective: 0};
+  agTotals = { total: 0, totalEffective: 0 };
 
   ascFeed = [];
-  ascTotals = {total: 0, totalEffective: 0};
+  ascTotals = { total: 0, totalEffective: 0 };
 
   hasBeenCBTHealingEvent = false;
   hasBeenAGHealingOrCastEvent = false;
   hasBeenAscHealingOrCastEvent = false;
 
-  isCooldownUp(spellId) {
-    return this.activeCooldowns.findIndex(cooldown => cooldown.ability.id === spellId) > 1;
-  }
-
   processAll() {
-    this.cooldowns
+    this.pastCooldowns
       .filter((cooldown) => cooldown.end && !cooldown.processed)
       .forEach((cooldown) => {
         let feed = null;
         let totals = null;
         let feedingFactor = 0;
-        if (cooldown.ability.id === SPELLS.CLOUDBURST_TOTEM_CAST.id) {
-            feed = this.cbtFeed;
-            totals = this.cbtTotals;
-            feedingFactor = 0.25;
-        } else if (cooldown.ability.id === SPELLS.ANCESTRAL_GUIDANCE_CAST.id) {
-            feed = this.agFeed;
-            totals = this.agTotals;
-            feedingFactor = 0.6;
-        } else if (cooldown.ability.id === SPELLS.ASCENDANCE_CAST.id) {
-            feed = this.ascFeed;
-            totals = this.ascTotals;
-            feedingFactor = 1.0;
+        if (cooldown.spell.id === SPELLS.CLOUDBURST_TOTEM_CAST.id) {
+          feed = this.cbtFeed;
+          totals = this.cbtTotals;
+          feedingFactor = 0.25;
+        } else if (cooldown.spell.id === SPELLS.ANCESTRAL_GUIDANCE_CAST.id) {
+          feed = this.agFeed;
+          totals = this.agTotals;
+          feedingFactor = 0.6;
+        } else if (cooldown.spell.id === SPELLS.ASCENDANCE_CAST.id) {
+          feed = this.ascFeed;
+          totals = this.ascTotals;
+          feedingFactor = 1.0;
         }
 
         let percentOverheal = 0;
@@ -77,14 +85,14 @@ class CooldownTracker extends CoreCooldownTracker {
         Object.keys(cooldown.feed).forEach((spellId) => {
           spellId = parseInt(spellId, 10);
           if (!feed[spellId]) {
-              feed[spellId] = [];
-              feed[spellId].healing = 0;
-              feed[spellId].effectiveHealing = 0;
-              feed[spellId].name = cooldown.feed[spellId].name;
-              feed[spellId].icon = cooldown.feed[spellId].icon;
+            feed[spellId] = [];
+            feed[spellId].healing = 0;
+            feed[spellId].effectiveHealing = 0;
+            feed[spellId].name = cooldown.feed[spellId].name;
+            feed[spellId].icon = cooldown.feed[spellId].icon;
           }
           const rawHealing = cooldown.feed[spellId].healing;
-          const effectiveHealing = rawHealing * (1-percentOverheal) * feedingFactor;
+          const effectiveHealing = rawHealing * (1 - percentOverheal) * feedingFactor;
           feed[spellId].healing += rawHealing;
           feed[spellId].effectiveHealing += effectiveHealing;
           totals.total += rawHealing;
@@ -111,63 +119,79 @@ class CooldownTracker extends CoreCooldownTracker {
       healing += this.ascFeed[spellId].effectiveHealing || 0;
     }
 
-     return healing;
+    return healing;
   }
 
-  
+
   addNewCooldown(spell, timestamp) {
-      const cooldown = {
-      ability: spell,
+    const cooldown = {
+      ...spell,
       start: timestamp,
       end: null,
-      processed:  false,
+      processed: false,
       healing: 0,
       overheal: 0,
       feed: [],
       events: [],
     };
 
-    this.cooldowns.push(cooldown);
+    this.pastCooldowns.push(cooldown);
     this.activeCooldowns.push(cooldown);
 
     return cooldown;
   }
 
 
-
   popCBT(event) {
-      const index = this.activeCooldowns.findIndex(cooldown => cooldown.ability.id === SPELLS.CLOUDBURST_TOTEM_CAST.id);
-      if (index === -1) {
-          return;
-      }
-      const cooldown = this.activeCooldowns[index];
-      cooldown.end = event.timestamp;
-      this.activeCooldowns.splice(index,1);
+    const index = this.activeCooldowns.findIndex(cooldown => cooldown.spell.id === SPELLS.CLOUDBURST_TOTEM_CAST.id);
+    if (index === -1) {
+      return;
+    }
+    const cooldown = this.activeCooldowns[index];
+    cooldown.end = event.timestamp;
+    this.activeCooldowns.splice(index, 1);
   }
 
   on_initialized() {
     if (!this.owner.error) {
       // Store cooldown info in case it was cast before pull. If we see a cast before it expires, all data in it is discarded.
-      this.lastCBT = this.addNewCooldown(SPELLS.CLOUDBURST_TOTEM_CAST, this.owner.fight.start_time);
-      this.lastAG = this.addNewCooldown(SPELLS.ANCESTRAL_GUIDANCE_CAST, this.owner.fight.start_time);
-      this.lastAsc = this.addNewCooldown(SPELLS.ASCENDANCE_CAST, this.owner.fight.start_time);
+      this.lastCBT = this.addNewCooldown({
+        spell: SPELLS.CLOUDBURST_TOTEM_CAST,
+        summary: [
+          BUILT_IN_SUMMARY_TYPES.HEALING,
+          BUILT_IN_SUMMARY_TYPES.OVERHEALING,
+          BUILT_IN_SUMMARY_TYPES.MANA,
+        ],
+      }, this.owner.fight.start_time);
+      this.lastAG = this.addNewCooldown({
+        spell: SPELLS.ANCESTRAL_GUIDANCE_CAST,
+        summary: [
+          BUILT_IN_SUMMARY_TYPES.HEALING,
+          BUILT_IN_SUMMARY_TYPES.OVERHEALING,
+          BUILT_IN_SUMMARY_TYPES.MANA,
+        ],
+      }, this.owner.fight.start_time);
+      this.lastAsc = this.addNewCooldown({
+        spell: SPELLS.ASCENDANCE_CAST,
+        summary: [
+          BUILT_IN_SUMMARY_TYPES.HEALING,
+          BUILT_IN_SUMMARY_TYPES.OVERHEALING,
+          BUILT_IN_SUMMARY_TYPES.MANA,
+        ],
+      }, this.owner.fight.start_time);
     }
   }
 
-
   on_toPlayer_applybuff(event) {
     const spellId = event.ability.guid;
-    const spell = this.constructor.cooldownSpells.find(spell => spell.id === spellId);
-
+    const spell = this.constructor.cooldownSpells.find(cooldownSpell => cooldownSpell.spell.id === spellId);
     if (!spell) {
       return;
     }
 
-
     // If the AG/Asc we stored on pull is still up, discard all data in it.
     if ((spellId === SPELLS.ASCENDANCE_CAST.id || spellId === SPELLS.ANCESTRAL_GUIDANCE_CAST.id)) {
-
-      if (this.activeCooldowns.findIndex(cooldown => cooldown.ability.id === spellId) !== -1) {
+      if (this.activeCooldowns.findIndex(cooldown => cooldown.spell.id === spellId) !== -1) {
         this.removeLastCooldown(spellId);
       }
     }
@@ -185,22 +209,8 @@ class CooldownTracker extends CoreCooldownTracker {
     }
   }
 
-  on_toPlayer_removebuff(event) {
-    const spellId = event.ability.guid;
-
-    const index = this.activeCooldowns.findIndex(cooldown => cooldown.ability.id === spellId);
-    if (index === -1) {
-      return;
-    }
-
-    const cooldown = this.activeCooldowns[index];
-    cooldown.end = event.timestamp;
-    this.activeCooldowns.splice(index, 1);
-  }
-
 
   on_finished() {
-
     if (!this.hasBeenAscHealingOrCastEvent && this.lastAsc) {
       this.removeLastCooldown(SPELLS.ASCENDANCE_CAST.id);
     }
@@ -217,113 +227,109 @@ class CooldownTracker extends CoreCooldownTracker {
       cooldown.end = this.owner.fight.end_time;
 
       // If cloudburst is still up at the end of the fight, it didn't do any healing, so dont process it.
-      if (cooldown.ability.id === SPELLS.CLOUDBURST_TOTEM_CAST.id) {
+      if (cooldown.spell.id === SPELLS.CLOUDBURST_TOTEM_CAST.id) {
         cooldown.processed = true;
       }
     });
     this.activeCooldowns = [];
-
-
-
   }
 
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    
+
     if (spellId === SPELLS.CLOUDBURST_TOTEM_CAST.id) {
       if (!this.hasBeenCBTHealingEvent) {
         // If the CBT we stored on pull is still up, discard all data in it.
         this.removeLastCooldown(SPELLS.CLOUDBURST_TOTEM_CAST.id);
       }
-      this.lastCBT = this.addNewCooldown(SPELLS.CLOUDBURST_TOTEM_CAST, event.timestamp);
+      this.lastCBT = this.addNewCooldown({
+        spell: SPELLS.CLOUDBURST_TOTEM_CAST,
+        summary: [
+          BUILT_IN_SUMMARY_TYPES.HEALING,
+          BUILT_IN_SUMMARY_TYPES.OVERHEALING,
+          BUILT_IN_SUMMARY_TYPES.MANA,
+        ],
+      }, event.timestamp);
     }
 
-
-
-    this.activeCooldowns.forEach((cooldown) => {
-      cooldown.events.push(event);
-    });
+    super.on_byPlayer_cast(event);
   }
 
   removeLastCooldown(spellId) {
-    const indexactiveCooldowns = this.activeCooldowns.findIndex(cooldown => cooldown.ability.id === spellId);
+    const indexactiveCooldowns = this.activeCooldowns.findIndex(cooldown => cooldown.spell.id === spellId);
 
-    const reverseIndexCooldowns = [...this.cooldowns].reverse().findIndex(cooldown => cooldown.ability.id === spellId);
-    const indexCooldowns = this.cooldowns.length - reverseIndexCooldowns - 1;
+    const reverseIndexCooldowns = [...this.pastCooldowns].reverse().findIndex(cooldown => cooldown.spell.id === spellId);
+    const indexCooldowns = this.pastCooldowns.length - reverseIndexCooldowns - 1;
 
     if (indexactiveCooldowns !== -1 && indexCooldowns !== -1) {
       this.activeCooldowns.splice(indexactiveCooldowns, 1);
-      this.cooldowns.splice(indexCooldowns, 1);
+      this.pastCooldowns.splice(indexCooldowns, 1);
     }
   }
 
 
-
   on_byPlayer_heal(event) {
-
-
     if (event.ability.guid === SPELLS.CLOUDBURST_TOTEM_HEAL.id && this.lastCBT) {
-          this.hasBeenCBTHealingEvent = true;
-          this.popCBT(event);
-          this.lastCBT.healing += (event.amount || 0) + (event.absorb || 0);
-          this.lastCBT.overheal += (event.overheal || 0);
-      } else if (event.ability.guid === SPELLS.ANCESTRAL_GUIDANCE_HEAL.id && this.lastAG) {
-          this.hasBeenAGHealingOrCastEvent = true;
-          this.lastAG.healing += (event.amount || 0) + (event.absorb || 0);
-          this.lastAG.overheal += (event.overheal || 0);
-      } else if (event.ability.guid === SPELLS.ASCENDANCE_HEAL.id && this.lastAsc) {
-          this.hasBeenAscHealingOrCastEvent = true;
-          this.lastAsc.healing += (event.amount || 0) + (event.absorb || 0);
-          this.lastAsc.overheal += (event.overheal || 0);
-      }
+      this.hasBeenCBTHealingEvent = true;
+      this.popCBT(event);
+      this.lastCBT.healing += (event.amount || 0) + (event.absorb || 0);
+      this.lastCBT.overheal += (event.overheal || 0);
+    } else if (event.ability.guid === SPELLS.ANCESTRAL_GUIDANCE_HEAL.id && this.lastAG) {
+      this.hasBeenAGHealingOrCastEvent = true;
+      this.lastAG.healing += (event.amount || 0) + (event.absorb || 0);
+      this.lastAG.overheal += (event.overheal || 0);
+    } else if (event.ability.guid === SPELLS.ASCENDANCE_HEAL.id && this.lastAsc) {
+      this.hasBeenAscHealingOrCastEvent = true;
+      this.lastAsc.healing += (event.amount || 0) + (event.absorb || 0);
+      this.lastAsc.overheal += (event.overheal || 0);
+    }
 
     const spellId = event.ability.guid;
     const healingDone = (event.amount || 0) + (event.overheal || 0) + (event.absorb || 0);
 
     this.activeCooldowns.forEach((cooldown) => {
-      const cooldownId = cooldown.ability.id;
+      const cooldownId = cooldown.spell.id;
 
       if ((cooldownId === SPELLS.CLOUDBURST_TOTEM_CAST.id && (ABILITIES_NOT_FEEDING_INTO_CBT.indexOf(spellId) <= -1)) ||
-          (cooldownId === SPELLS.ANCESTRAL_GUIDANCE_CAST.id && (ABILITIES_NOT_FEEDING_INTO_AG.indexOf(spellId) <= -1)) ||
-          (cooldownId === SPELLS.ASCENDANCE_CAST.id && (ABILITIES_NOT_FEEDING_INTO_ASCENDANCE.indexOf(spellId) <= -1))) {
+        (cooldownId === SPELLS.ANCESTRAL_GUIDANCE_CAST.id && (ABILITIES_NOT_FEEDING_INTO_AG.indexOf(spellId) <= -1)) ||
+        (cooldownId === SPELLS.ASCENDANCE_CAST.id && (ABILITIES_NOT_FEEDING_INTO_ASCENDANCE.indexOf(spellId) <= -1))) {
         if (!cooldown.feed[spellId]) {
-            cooldown.feed[spellId] = [];
-            cooldown.feed[spellId].healing = 0;
-            cooldown.feed[spellId].name = event.ability.name;
-            cooldown.feed[spellId].icon = event.ability.abilityIcon;
+          cooldown.feed[spellId] = [];
+          cooldown.feed[spellId].healing = 0;
+          cooldown.feed[spellId].name = event.ability.name;
+          cooldown.feed[spellId].icon = event.ability.abilityIcon;
         }
         cooldown.feed[spellId].healing += healingDone;
       }
       cooldown.events.push(event);
     });
-
   }
 
-  on_byPlayer_damage(event){
-    const index = this.activeCooldowns.findIndex(cooldown => cooldown.ability.id === SPELLS.ANCESTRAL_GUIDANCE_CAST.id);
+  on_byPlayer_damage(event) {
+    const index = this.activeCooldowns.findIndex(cooldown => cooldown.spell.id === SPELLS.ANCESTRAL_GUIDANCE_CAST.id);
     //const spellId = event.ability.guid;
-    
+
     if (index === -1) {
-        return;
+      return;
     }
 
-        // This should probably be done with a white list, too many damage events that do not
-        // feed into AG.
-        /*
-    if (ABILITIES_NOT_FEEDING_INTO_AG.indexOf(spellId) <= -1) {
-      if (!this.lastAG.feed[spellId]) {
-          this.lastAG.feed[spellId] = [];
-          this.lastAG.feed[spellId].healing = 0;
-          this.lastAG.feed[spellId].name = event.ability.name;
-          this.lastAG.feed[spellId].icon = event.ability.abilityIcon;
-      }
-      console.log(event)
-      this.lastAG.feed[spellId].healing += event.amount;
-      //this.agFeed[spellId] = this.agFeed[spellId] || [];
-      //this.agFeed[spellId] += (event.amount || 0);
-    }
-    */
+    // This should probably be done with a white list, too many damage events that do not
+    // feed into AG.
+    /*
+     if (ABILITIES_NOT_FEEDING_INTO_AG.indexOf(spellId) <= -1) {
+     if (!this.lastAG.feed[spellId]) {
+     this.lastAG.feed[spellId] = [];
+     this.lastAG.feed[spellId].healing = 0;
+     this.lastAG.feed[spellId].name = event.ability.name;
+     this.lastAG.feed[spellId].icon = event.ability.abilityIcon;
+     }
+     console.log(event)
+     this.lastAG.feed[spellId].healing += event.amount;
+     //this.agFeed[spellId] = this.agFeed[spellId] || [];
+     //this.agFeed[spellId] += (event.amount || 0);
+     }
+     */
 
   }
 
@@ -332,7 +338,6 @@ class CooldownTracker extends CoreCooldownTracker {
       cooldown.events.push(event);
     });
   }
-  
 }
 
 export default CooldownTracker;

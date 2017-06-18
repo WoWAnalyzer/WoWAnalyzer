@@ -5,6 +5,10 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import Icon from 'common/Icon';
 
+import { BUILT_IN_SUMMARY_TYPES } from 'Parser/Core/Modules/CooldownTracker';
+
+import './Cooldown.css';
+
 function formatThousands(number) {
   return (Math.round(number || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
 }
@@ -29,8 +33,6 @@ class Cooldown extends React.Component {
   static propTypes = {
     fightStart: PropTypes.number.isRequired,
     fightEnd: PropTypes.number.isRequired,
-    showOutputStatistics: PropTypes.bool,
-    showResourceStatistics: PropTypes.bool,
     cooldown: PropTypes.shape({
       ability: PropTypes.shape({
         id: PropTypes.number.isRequired,
@@ -48,8 +50,8 @@ class Cooldown extends React.Component {
   constructor() {
     super();
     this.state = {
-      expanded: false,
-      showHeals: false,
+      showCastEvents: false,
+      showAllEvents: false,
     };
     this.handleExpandClick = this.handleExpandClick.bind(this);
     this.handleShowHealsClick = this.handleShowHealsClick.bind(this);
@@ -57,12 +59,13 @@ class Cooldown extends React.Component {
 
   handleExpandClick() {
     this.setState({
-      expanded: !this.state.expanded,
+      showCastEvents: !this.state.showCastEvents,
+      showAllEvents: false,
     });
   }
   handleShowHealsClick() {
     this.setState({
-      showHeals: !this.state.showHeals,
+      showAllEvents: !this.state.showAllEvents,
     });
   }
 
@@ -115,18 +118,10 @@ class Cooldown extends React.Component {
   }
   
   render() {
-    const { cooldown, fightStart, fightEnd, showOutputStatistics, showResourceStatistics } = this.props;
+    const { cooldown, fightStart, fightEnd } = this.props;
 
-    let outputStatistics;
-    let resourceStatistics;
+    let healingStatistics = null;
 
-    if (showOutputStatistics) {
-      outputStatistics = cooldown.ability.cooldownType === 'HEALING' ? this.calculateHealingStatistics(cooldown) : this.calculateDamageStatistics(cooldown);
-    }
-    if (showResourceStatistics) {
-      resourceStatistics = cooldown.events.filter(event => event.type === 'cast').reduce((mana, event) => mana + (event.manaCost || 0), 0);
-    }
-    
     const start = cooldown.start;
     const end = cooldown.end || fightEnd;
 
@@ -135,57 +130,82 @@ class Cooldown extends React.Component {
     return (
       <article>
         <figure>
-          <SpellIcon id={cooldown.ability.id} />
+          <SpellIcon id={cooldown.spell.id} />
         </figure>
         <div className="row" style={{ width: '100%' }}>
-          <div className={showOutputStatistics ? 'col-md-6' : 'col-md-10'}>
+          <div className={this.state.showAllEvents ? 'col-md-12' : 'col-md-6'}>
             <header style={{ marginTop: 5, fontSize: '1.25em', marginBottom: '.1em' }}>
-              <SpellLink id={cooldown.ability.id} /> ({formatDuration((start - fightStart) / 1000)} -&gt; {formatDuration((end - fightStart) / 1000)})
+              <SpellLink id={cooldown.spell.id} /> ({formatDuration((start - fightStart) / 1000)} -&gt; {formatDuration((end - fightStart) / 1000)})
             </header>
-            {!this.state.expanded && (
+
+            {!this.state.showCastEvents && (
               <div>
-                {cooldown.events.filter(event => event.type === 'cast' && event.ability.guid !== 1).map((event, i) => (
-                  <SpellLink key={`${event.ability.guid}-${event.timestamp}-${i}`} id={event.ability.guid}>
-                    <Icon icon={event.ability.abilityIcon} alt={event.ability.name} style={{ height: 23, marginRight: 4 }} />
-                  </SpellLink>
-                ))}<br />
-                <a href="javascript:" onClick={this.handleExpandClick} style={{ marginTop: '.2em' }}>More</a>
-              </div>
-            )}
-            {this.state.expanded && !this.state.showHeals && (
-              <div>
-                {cooldown.events.filter(event => event.type === 'cast' && event.ability.guid !== 1).map((event, i) => (
-                  <div className="row">
-                    <div className="col-xs-1 text-right" style={{ padding: 0 }}>
-                      {((event.timestamp - cooldown.start) / 1000).toFixed(3)}
-                    </div>
-                    <div className="col-xs-11">
+                {
+                  cooldown.events
+                    .filter(event => event.type === 'cast' && event.ability.guid !== 1)
+                    .map((event, i) => (
                       <SpellLink key={`${event.ability.guid}-${event.timestamp}-${i}`} id={event.ability.guid}>
-                        <Icon icon={event.ability.abilityIcon} alt={event.ability.name} style={{ height: 23, marginRight: 4 }} /> {event.ability.name}
+                        <Icon icon={event.ability.abilityIcon} alt={event.ability.name} style={{ height: 23, marginRight: 4 }} />
                       </SpellLink>
-                    </div>
+                    ))
+                }
+                <div className="row">
+                  <div className="col-xs-12">
+                    <a href="javascript:" onClick={this.handleExpandClick} style={{ marginTop: '.2em' }}>More</a>
                   </div>
-                ))}
-                <a href="javascript:" onClick={this.handleShowHealsClick} style={{ marginTop: '.2em' }}>Even more</a>{' | '}
-                <a href="javascript:" onClick={this.handleExpandClick} style={{ marginTop: '.2em' }}>Show less</a>
+                </div>
               </div>
             )}
-            {this.state.expanded && this.state.showHeals && (
-              <div>
+
+            {this.state.showCastEvents && !this.state.showAllEvents && (
+              <div className="container-fluid">
+                {
+                  cooldown.events
+                    .filter(event => event.type === 'cast' && event.ability.guid !== 1)
+                    .map((event, i) => (
+                      <div className="row" key={i}>
+                        <div className="col-xs-2 text-right" style={{ padding: 0 }}>
+                          +{((event.timestamp - cooldown.start) / 1000).toFixed(3)}
+                        </div>
+                        <div className="col-xs-10">
+                          <SpellLink key={`${event.ability.guid}-${event.timestamp}-${i}`} id={event.ability.guid}>
+                            <Icon icon={event.ability.abilityIcon} alt={event.ability.name} style={{ height: 23, marginRight: 4 }} /> {event.ability.name}
+                          </SpellLink>
+                        </div>
+                      </div>
+                    ))
+                }
+                <div className="row">
+                  <div className="col-xs-12">
+                    <a href="javascript:" onClick={this.handleShowHealsClick} style={{ marginTop: '.2em' }}>Even more</a>{' | '}
+                    <a href="javascript:" onClick={this.handleExpandClick} style={{ marginTop: '.2em' }}>Show less</a>
+                  </div>
+                </div>
+              </div>
+            )}
+            {this.state.showCastEvents && this.state.showAllEvents && (
+              <div className="container-fluid">
                 {this.groupHeals(cooldown.events.filter(event => (event.type === 'cast' || event.type === 'heal') && event.ability.guid !== 1)).map((event, i) => (
-                  <div className="row">
+                  <div className="row" key={i}>
                     <div className="col-xs-1 text-right" style={{ padding: 0 }}>
-                      {((event.timestamp - cooldown.start) / 1000).toFixed(3)}
+                      +{((event.timestamp - cooldown.start) / 1000).toFixed(3)}
                     </div>
                     <div className={`col-xs-4 ${event.type === 'heal' ? 'col-xs-offset-1' : ''}`}>
                       <SpellLink key={`${event.ability.guid}-${event.timestamp}-${i}`} id={event.ability.guid}>
                         <Icon icon={event.ability.abilityIcon} alt={event.ability.name} style={{ height: 23, marginRight: 4 }} /> {event.ability.name}
                       </SpellLink>
-                      {event.type === 'heal' ? ` x ${event.count}` : ''}
+                      {event.type === 'heal' && (
+                        <span>
+                          <span className="grouped-heal-meta amount"> x {event.count}</span>
+                        </span>
+                      )}
                     </div>
-                    <div className="col-xs-2 text-right">
-                      {event.type === 'heal' ? formatThousands(event.amount + event.absorbed) : ''}
-                    </div>
+                    {event.type === 'heal' && (
+                      <div className="col-xs-4">
+                        <span className="grouped-heal-meta healing"> +{formatThousands(event.amount + event.absorbed)}</span>
+                        <span className="grouped-heal-meta overhealing"> (O: {formatThousands(event.overheal)})</span>
+                      </div>
+                    )}
                   </div>
                 ))}
                 <a href="javascript:" onClick={this.handleShowHealsClick} style={{ marginTop: '.2em' }}>Show less</a> {' | '}
@@ -193,38 +213,74 @@ class Cooldown extends React.Component {
               </div>
             )}
           </div>
-          {
-            cooldown.ability.cooldownType === 'HEALING' && showOutputStatistics && (
-              <div>
-                <div className="col-md-2 text-center">
-                  <div style={{ fontSize: '2em' }}>{formatNumber(outputStatistics.healingDone)}</div>
-                  <dfn data-tip="This includes all healing the occured while the buff was up, even if it was not triggered by spells cast inside the buff duration. Any delayed healing such as HOTs, Absorbs and Atonements will stop contributing to the healing done when the cooldown buff expires, so this value is lower for any specs with such abilities.">healing ({formatNumber(outputStatistics.healingDone / (end - start) * 1000)} HPS)</dfn>
-                </div>
-                <div className="col-md-2 text-center">
-                  <div style={{ fontSize: '2em' }}>{formatPercentage(outputStatistics.overhealingDone / (outputStatistics.healingDone + outputStatistics.overhealingDone))}%</div>
-                  <dfn data-tip="This includes all healing the occured while the buff was up, even if it was not triggered by spells cast inside the buff duration. Any delayed healing such as HOTs, Absorbs and Atonements will stop contributing to the healing done when the cooldown buff expires, so this value is lower for any specs with such abilities.">overhealing</dfn>
-                </div>
+          {!this.state.showAllEvents && (
+            <div className="col-md-6">
+              <div className="row">
+                {cooldown.summary.map((item) => {
+                  switch (item) {
+                    case BUILT_IN_SUMMARY_TYPES.HEALING:
+                      healingStatistics = healingStatistics || this.calculateHealingStatistics(cooldown);
+                      return (
+                        <div className="col-md-4 text-center" key="healing">
+                          <div style={{ fontSize: '2em' }}>{formatNumber(healingStatistics.healingDone)}</div>
+                          <dfn data-tip="This includes all healing that occured while the buff was up, even if it was not triggered by spells cast inside the buff duration. Any delayed healing such as HOTs, Absorbs and Atonements will stop contributing to the healing done when the cooldown buff expires, so this value is lower for any specs with such abilities.">healing ({formatNumber(healingStatistics.healingDone / (end - start) * 1000)} HPS)</dfn>
+                        </div>
+                      );
+                    case BUILT_IN_SUMMARY_TYPES.OVERHEALING:
+                      healingStatistics = healingStatistics || this.calculateHealingStatistics(cooldown);
+                      return (
+                        <div className="col-md-4 text-center" key="overhealing">
+                          <div style={{ fontSize: '2em' }}>{formatPercentage(healingStatistics.overhealingDone / (healingStatistics.healingDone + healingStatistics.overhealingDone))}%</div>
+                          <dfn data-tip="This includes all healing that occured while the buff was up, even if it was not triggered by spells cast inside the buff duration. Any delayed healing such as HOTs, Absorbs and Atonements will stop contributing to the healing done when the cooldown buff expires, so this value is lower for any specs with such abilities.">overhealing</dfn>
+                        </div>
+                      );
+                    case BUILT_IN_SUMMARY_TYPES.ABSORBED: {
+                      const total = cooldown.events.filter(event => event.type === 'absorbed').reduce((total, event) => total + (event.amount || 0), 0);
+                      return (
+                        <div className="col-md-4 text-center" key="absorbed">
+                          <div style={{ fontSize: '2em' }}>{formatNumber(total)}</div>
+                          <dfn data-tip="This includes all damage absorbed that occured while the buff was up, even if it was not triggered by spells cast inside the buff duration.">damage absorbed</dfn>
+                        </div>
+                      );
+                    }
+                    case BUILT_IN_SUMMARY_TYPES.ABSORBS_APPLIED: {
+                      const total = cooldown.events.filter(event => event.type === 'applybuff').reduce((total, event) => total + (event.absorb || 0), 0);
+                      return (
+                        <div className="col-md-4 text-center" key="absorbs-applied">
+                          <div style={{ fontSize: '2em' }}>{formatNumber(total)}</div>
+                          <dfn data-tip="The total amount of absorb shields applied during the buff.">absorb applied</dfn>
+                        </div>
+                      );
+                    }
+                    case BUILT_IN_SUMMARY_TYPES.MANA:
+                      const manaUsed = cooldown.events.filter(event => event.type === 'cast').reduce((total, event) => total + (event.manaCost || 0), 0);
+                      return (
+                        <div className="col-md-4 text-center" key="mana">
+                          <div style={{ fontSize: '2em' }}>{formatNumber(manaUsed)}</div>
+                          mana used
+                        </div>
+                      );
+                    case BUILT_IN_SUMMARY_TYPES.DAMAGE:
+                      const damageStatistics = this.calculateDamageStatistics(cooldown);
+                      return (
+                        <div className="col-md-4 text-center" key="damage">
+                          <div style={{ fontSize: '2em' }}>{formatNumber(damageStatistics.damageDone)}</div>
+                          <dfn data-tip="This number represents the total amount of damage done during the duration of this cooldown, any damage done by DOTs after the effect of this cooldown has exprired will not be included in this statistic.">damage ({formatNumber(damageStatistics.damageDone / (end - start) * 1000)} DPS)</dfn>
+                        </div>
+                      );
+                    default:
+                      // Custom
+                      return (
+                        <div className="col-md-4 text-center" key={item.label}>
+                          <div style={{ fontSize: '2em' }}>{typeof item.value === 'string' ? item.value : formatNumber(item.value)}</div>
+                          <dfn data-tip={item.tooltip}>{item.label}</dfn>
+                        </div>
+                      );
+                  }
+                })}
               </div>
-            )
-          }  
-          {
-            cooldown.ability.cooldownType === 'DAMAGE' && showOutputStatistics && (
-              <div>
-                <div className="col-md-2 text-center">
-                  <div style={{ fontSize: '2em' }}>{formatNumber(outputStatistics.damageDone)}</div>
-                  <dfn data-tip="This number represents the total amount of damage done during the duration of this cooldown, any damage done by DOTs after the effect of this cooldown has exprired will not be included in this statistic.">damage ({formatNumber(outputStatistics.damageDone / (end - start) * 1000)} DPS)</dfn>
-                </div>
-              </div>
-            )
-          }             
-          {
-            showResourceStatistics && (
-              <div className="col-md-2 text-center">
-                <div style={{ fontSize: '2em' }}>{formatNumber(resourceStatistics)}</div>
-                mana used
-              </div>
-            )
-          }
+            </div>
+          )}
         </div>
       </article>
     );

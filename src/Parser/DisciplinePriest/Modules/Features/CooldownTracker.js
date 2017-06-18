@@ -1,26 +1,47 @@
 import SPELLS from 'common/SPELLS';
 
-import CoreCooldownTracker from 'Parser/Core/Modules/CooldownTracker';
+import CoreCooldownTracker, { BUILT_IN_SUMMARY_TYPES } from 'Parser/Core/Modules/CooldownTracker';
 
 const EVANGELISM_ADDED_DURATION = 6000;
 
 class CooldownTracker extends CoreCooldownTracker {
   static cooldownSpells = [
     ...CooldownTracker.cooldownSpells,
-    SPELLS.RAPTURE,
+    {
+      spell: SPELLS.RAPTURE,
+      summary: [
+        BUILT_IN_SUMMARY_TYPES.ABSORBS_APPLIED,
+        BUILT_IN_SUMMARY_TYPES.ABSORBED,
+        BUILT_IN_SUMMARY_TYPES.MANA,
+      ],
+    },
   ];
 
   lastEvangelism = null;
   on_byPlayer_cast(event) {
-    super.on_byPlayer_cast(event);
-
     const spellId = event.ability.guid;
     if (spellId === SPELLS.EVANGELISM_TALENT.id) {
       // When Evangelism is cast we want to see it in our cooldowns, but since it isn't a buff we can't use the regular `cooldownSpells`.
-      this.lastEvangelism = this.addCooldown(SPELLS.EVANGELISM_TALENT, event.timestamp);
+      const atonedPlayers = this.owner.modules.atonement.numAtonementsActive;
+      this.lastEvangelism = this.addCooldown({
+        spell: SPELLS.EVANGELISM_TALENT,
+        summary: [
+          BUILT_IN_SUMMARY_TYPES.HEALING,
+          {
+            value: atonedPlayers,
+            label: 'Atonements',
+            tooltip: 'The amount of atonements that were up at time of casting Evangelism.',
+          },
+          {
+            value: `${atonedPlayers * 6}s`,
+            label: 'Duration gained',
+            tooltip: 'The total Atonement duration gained from casting Evangelism.',
+          },
+        ],
+      }, event.timestamp);
 
       // Since Evangelism isn't a buff it doesn't really have a duration, for the sake of still providing somewhat useful info we just set the end to the last moment that Evangelism's effect did something
-      let lastAtonementExpiration = null;
+      let lastAtonementExpiration = event.timestamp;
       this.owner.modules.atonement.currentAtonementTargets.forEach((target) => {
         if (lastAtonementExpiration === null || target.atonementExpirationTimestamp > lastAtonementExpiration) {
           lastAtonementExpiration = target.atonementExpirationTimestamp;
@@ -37,7 +58,7 @@ class CooldownTracker extends CoreCooldownTracker {
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
     if (this.lastEvangelism && [SPELLS.ATONEMENT_HEAL_NON_CRIT.id, SPELLS.ATONEMENT_HEAL_CRIT.id].indexOf(spellId) !== -1) {
-      const target = this.owner.modules.atonement.currentAtonementTargets.find(id => id.target !== event.targetID);
+      const target = this.owner.modules.atonement.currentAtonementTargets.find(item => item.target === event.targetID);
       // Pets, guardians, etc.
       if (!target) {
         return;

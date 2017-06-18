@@ -11,7 +11,7 @@ class Changelog extends React.PureComponent {
   }
 
   render() {
-    const limit = this.state.expanded ? null : 6;
+    const limit = this.state.showCastEvents ? null : 6;
 
     return (
       <div>

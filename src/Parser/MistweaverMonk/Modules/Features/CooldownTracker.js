@@ -1,13 +1,20 @@
 import SPELLS from 'common/SPELLS';
 
-import CoreCooldownTracker from 'Parser/Core/Modules/CooldownTracker';
+import CoreCooldownTracker, { BUILT_IN_SUMMARY_TYPES } from 'Parser/Core/Modules/CooldownTracker';
 
 const debug = false;
 
 class CooldownTracker extends CoreCooldownTracker {
   static cooldownSpells = [
     ...CooldownTracker.cooldownSpells,
-    SPELLS.MANA_TEA_TALENT,
+    {
+      spell: SPELLS.MANA_TEA_TALENT,
+      summary: [
+        BUILT_IN_SUMMARY_TYPES.HEALING,
+        BUILT_IN_SUMMARY_TYPES.OVERHEALING,
+        BUILT_IN_SUMMARY_TYPES.MANA,
+      ],
+    },
   ];
 
   castEventSpells = [
@@ -21,17 +28,13 @@ class CooldownTracker extends CoreCooldownTracker {
   // Clean up display of casts during CDs.  For Monks, both Chi Burst and RJW have a cooresponding cast event
   // per heal event.  This prevents some unneeded spam of Cooldown view.
   on_byPlayer_cast(event) {
-    for (let i = 0; i < this.castEventSpells.length; i++) {
-      if(event.ability.guid === this.castEventSpells[i]) {
-        debug && console.log('Exiting');
-        return false;
-      }
+    const spellId = event.ability.guid;
+    if (this.castEventSpells.indexOf(spellId) !== -1) {
+      debug && console.log('Exiting');
+      return;
     }
-    this.activeCooldowns.forEach((cooldown) => {
-      cooldown.events.push(event);
-    });
+    super.on_byPlayer_cast(event);
   }
-
 }
 
 export default CooldownTracker;

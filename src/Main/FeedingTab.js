@@ -95,8 +95,8 @@ class FeedingTab extends React.Component {
                 <thead>
                   <tr>
                     <th style={{ fontSize: '1.25em' }}>
-                      <SpellLink id={category.ability.id} style={{ color: '#fff' }}>
-                        <SpellIcon id={category.ability.id} noLink /> {category.name}
+                      <SpellLink id={category.spell.id} style={{ color: '#fff' }}>
+                        <SpellIcon id={category.spell.id} noLink /> {category.name}
                       </SpellLink>
                     </th>
                     <th className="text-center" colSpan="3"><dfn data-tip={`The amount of healing done by spells that feed into ${category.name} while it was up.`}>Feeding done per spell</dfn></th>

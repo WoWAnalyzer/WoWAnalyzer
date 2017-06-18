@@ -1,11 +1,9 @@
-.panel.statistic-box {
-  transition: background-color 0.1s ease-in-out;
-}
-.panel.statistic-box:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-}
 .panel.statistic-box > .panel-body {
   padding: 10px 12px;
+  transition: background-color 0.1s ease-in-out;
+}
+.panel.statistic-box > .panel-body:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }
 .panel.statistic-box .statistic-value {
   font-size: 2em;

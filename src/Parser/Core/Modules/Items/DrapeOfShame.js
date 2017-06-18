@@ -3,8 +3,6 @@ import ITEMS from 'common/ITEMS';
 import Module from 'Parser/Core/Module';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 
-import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
-
 export const DRAPE_OF_SHAME_CRIT_EFFECT = 0.05;
 
 class DrapeOfShame extends Module {
@@ -18,7 +16,7 @@ class DrapeOfShame extends Module {
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
-    if (ABILITIES_AFFECTED_BY_HEALING_INCREASES.indexOf(spellId) === -1) {
+    if (this.owner.constructor.abilitiesAffectedByHealingIncreases.indexOf(spellId) === -1) {
       return;
     }
     if (event.hitType !== HIT_TYPES.CRIT) {

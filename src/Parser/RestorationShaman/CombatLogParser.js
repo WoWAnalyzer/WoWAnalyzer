@@ -17,10 +17,8 @@ import ManaTab from 'Main/ManaTab';
 import FeedingTab from 'Main/FeedingTab';
 
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
-import ParseResults from 'Parser/Core/ParseResults';
 import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
-import Prydaz from 'Parser/Core/Modules/Items/Prydaz';
 
 import ShamanAbilityTracker from './Modules/ShamanCore/ShamanAbilityTracker';
 
@@ -30,8 +28,6 @@ import HighTide from './Modules/Features/HighTide';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownTracker from './Modules/Features/CooldownTracker';
 
-import DrapeOfShame from './Modules/Legendaries/DrapeOfShame';
-import Velens from './Modules/Legendaries/Velens';
 import Nazjatar from './Modules/Legendaries/Nazjatar';
 import UncertainReminder from './Modules/Legendaries/UncertainReminder';
 import Jonat from './Modules/Legendaries/Jonat';
@@ -40,6 +36,7 @@ import Tidecallers from './Modules/Legendaries/Tidecallers';
 import Restoration_Shaman_T19_2Set from './Modules/Legendaries/T19_2Set';
 
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
 import UnusedTidalWavesImage from './Images/spell_shaman_tidalwaves-bw.jpg';
 
@@ -69,6 +66,8 @@ function formatPercentage(percentage) {
 }
 
 class CombatLogParser extends MainCombatLogParser {
+  static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
+
   static specModules = {
     // Override the ability tracker so we also get stats for Tidal Waves and beacon healing
     abilityTracker: ShamanAbilityTracker,
@@ -82,21 +81,17 @@ class CombatLogParser extends MainCombatLogParser {
     cooldownTracker: CooldownTracker,
     
     
-
     // Legendaries:
-    drapeOfShame: DrapeOfShame,
-    velens: Velens,
     nobundo: Nobundo,
     nazjatar: Nazjatar,
     uncertainReminder: UncertainReminder,
     jonat: Jonat,
     tidecallers: Tidecallers,
-    prydaz: Prydaz,
     t19_2Set: Restoration_Shaman_T19_2Set,
   };
 
   generateResults() {
-    const results = new ParseResults();
+    const results = super.generateResults();
 
     const fightDuration = this.fightDuration;
 
@@ -133,8 +128,6 @@ class CombatLogParser extends MainCombatLogParser {
     const rootsInteractionHealingPercentage = rootsInteractionHealing / totalHealing;
     const rootsHealingPercentage = rootsRawHealingPercentage + rootsInteractionHealingPercentage;
 
-    const prydazHealingPercentage = this.modules.prydaz.healing / totalHealing;
-    const drapeOfShameHealingPercentage = this.modules.drapeOfShame.healing / totalHealing;
     const tidecallersHTTPercentage = this.modules.tidecallers.httHealing / totalHealing;
     const tidecallersHSTPercentage = this.modules.tidecallers.hstHealing / totalHealing;
     const tidecallersHealingPercentage = tidecallersHTTPercentage + tidecallersHSTPercentage;
@@ -291,6 +284,16 @@ class CombatLogParser extends MainCombatLogParser {
         )}
       />,
       <StatisticBox
+        icon={<Icon icon="petbattle_health-down" alt="Non healing time" />}
+
+        value={`${formatPercentage(nonHealingTimePercentage)} %`}
+        label={(
+          <dfn data-tip={`Non healing time is available casting time not used for a spell that helps you heal. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), DPSing, etc. <br /><br />You spent ${formatPercentage(deadTimePercentage)}% of your time casting nothing at all.`}>
+            Non healing time
+          </dfn>
+        )}
+      />,
+      <StatisticBox
         icon={<SpellIcon id={SPELLS.DEEP_HEALING.id} />}
         value={`${formatPercentage(masteryEffectivenessPercent)}%`}
         label={(
@@ -364,39 +367,10 @@ class CombatLogParser extends MainCombatLogParser {
           </dfn>
         )}
       />,
-      <StatisticBox
-        icon={<Icon icon="petbattle_health-down" alt="Non healing time" />}
-        
-        value={`${formatPercentage(nonHealingTimePercentage)} %`}
-        label={(
-          <dfn data-tip={`Non healing time is available casting time not used for a spell that helps you heal. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), DPSing, etc. <br /><br />You spent ${formatPercentage(deadTimePercentage)}% of your time casting nothing at all.`}>
-            Non healing time
-          </dfn>
-        )}
-      />,
     ];
 
     results.items = [
-      this.modules.drapeOfShame.active && {
-        id: ITEMS.DRAPE_OF_SHAME.id,
-        icon: <ItemIcon id={ITEMS.DRAPE_OF_SHAME.id} />,
-        title: <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} />,
-        result: (
-          <dfn data-tip="The actual effective healing contributed by the Drape of Shame equip effect.">
-            {((drapeOfShameHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.drapeOfShame.healing / fightDuration * 1000)} HPS
-          </dfn>
-        ),
-      },
-      this.modules.velens.active && {
-        id: ITEMS.VELENS_FUTURE_SIGHT.id,
-        icon: <ItemIcon id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
-        title: <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
-        result: (
-          <dfn data-tip="The actual effective healing contributed by the Velen's Future Sight use effect.">
-            {((velensHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.velens.healing / fightDuration * 1000)} HPS
-          </dfn>
-        ),
-      },
+      ...results.items,
       this.modules.uncertainReminder.active && {
         id: ITEMS.UNCERTAIN_REMINDER.id,
         icon: <ItemIcon id={ITEMS.UNCERTAIN_REMINDER.id} />,
@@ -424,16 +398,6 @@ class CombatLogParser extends MainCombatLogParser {
         result: (
           <dfn data-tip={`The effective healing contributed by Roots of Shaladrassil. Of this healing, ${formatPercentage(rootsRawHealingPercentage)}% is the raw healing they provide, and ${formatPercentage(rootsInteractionHealingPercentage)}% is indirect healing done through Cloudburst Totem, Ancestral Guidance and Ascendance. <br /><br />The interactions of these 3 cooldowns are currently not included, so in case there's overlap between these cooldowns the real healing would be slightly higher than indicated.`}>
             {((rootsHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(rootsRawHealing / fightDuration * 1000)} HPS
-          </dfn>
-        ),
-      },
-      this.modules.prydaz.active && {
-        id: ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id,
-        icon: <ItemIcon id={ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id} />,
-        title: <ItemLink id={ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id} />,
-        result: (
-          <dfn data-tip="The actual effective healing contributed by the Prydaz, Xavaric's Magnum Opus equip effect.">
-            {((prydazHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.prydaz.healing / fightDuration * 1000)} HPS
           </dfn>
         ),
       },
@@ -506,7 +470,7 @@ class CombatLogParser extends MainCombatLogParser {
           <CooldownsTab
             fightStart={this.fight.start_time}
             fightEnd={this.fight.end_time}
-            cooldowns={this.modules.cooldownTracker.cooldowns}
+            cooldowns={this.modules.cooldownTracker.pastCooldowns}
             showOutputStatistics
           />
         ),

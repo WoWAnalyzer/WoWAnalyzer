@@ -17,13 +17,11 @@ import ManaTab from 'Main/ManaTab';
 import PlayerBreakdownTab from 'Main/PlayerBreakdownTab';
 
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
-import ParseResults from 'Parser/Core/ParseResults';
 import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import DarkmoonDeckPromises from 'Parser/Core/Modules/Items/DarkmoonDeckPromises';
 import AmalgamsSeventhSpine from 'Parser/Core/Modules/Items/AmalgamsSeventhSpine';
 import SephuzsSecret from 'Parser/Core/Modules/Items/SephuzsSecret';
-import Prydaz from 'Parser/Core/Modules/Items/Prydaz';
 
 import PaladinAbilityTracker from './Modules/PaladinCore/PaladinAbilityTracker';
 import BeaconHealing from './Modules/PaladinCore/BeaconHealing';
@@ -38,7 +36,6 @@ import HolyAvenger from './Modules/Features/HolyAvenger';
 
 import DrapeOfShame from './Modules/Items/DrapeOfShame';
 import Ilterendi from './Modules/Items/Ilterendi';
-import Velens from './Modules/Items/Velens';
 import ChainOfThrayn from './Modules/Items/ChainOfThrayn';
 import ObsidianStoneSpaulders from './Modules/Items/ObsidianStoneSpaulders';
 import MaraadsDyingBreath from './Modules/Items/MaraadsDyingBreath';
@@ -46,6 +43,7 @@ import Tier19_4set from './Modules/Items/Tier19_4set';
 import Tier20_4set from './Modules/Items/Tier20_4set';
 
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
 import UnusedInfusionOfLightImage from './Images/ability_paladin_infusionoflight-bw.jpg';
 
@@ -81,6 +79,8 @@ function formatPercentage(percentage) {
 }
 
 class CombatLogParser extends MainCombatLogParser {
+  static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
+
   static specModules = {
     // Override the ability tracker so we also get stats for IoL and beacon healing
     abilityTracker: PaladinAbilityTracker,
@@ -99,8 +99,6 @@ class CombatLogParser extends MainCombatLogParser {
 
     // Items:
     drapeOfShame: DrapeOfShame,
-    prydaz: Prydaz,
-    velens: Velens,
     sephuzsSecret: SephuzsSecret,
     ilterendi: Ilterendi,
     chainOfThrayn: ChainOfThrayn,
@@ -177,7 +175,7 @@ class CombatLogParser extends MainCombatLogParser {
   }
 
   generateResults() {
-    const results = new ParseResults();
+    const results = super.generateResults();
 
     const masteryStats = this.calculateMasteryStats();
 
@@ -232,9 +230,7 @@ class CombatLogParser extends MainCombatLogParser {
     const totalHealsOnBeaconPercentage = this.getTotalHealsOnBeaconPercentage(this);
     const velensHealingPercentage = this.modules.velens.healing / this.totalHealing;
     const chainOfThraynHealingPercentage = this.modules.chainOfThrayn.healing / this.totalHealing;
-    const prydazHealingPercentage = this.modules.prydaz.healing / this.totalHealing;
     const obsidianStoneSpauldersHealingPercentage = this.modules.obsidianStoneSpaulders.healing / this.totalHealing;
-    const drapeOfShameHealingPercentage = this.modules.drapeOfShame.healing / this.totalHealing;
     const ilterendiHealingPercentage = this.modules.ilterendi.healing / this.totalHealing;
     const hasSacredDawn = this.selectedCombatant.traitsBySpellId[SPELLS.SACRED_DAWN.id] === 1;
     const sacredDawnPercentage = this.modules.sacredDawn.healing / this.totalHealing;
@@ -244,8 +240,9 @@ class CombatLogParser extends MainCombatLogParser {
     const hasRuleOfLaw = this.selectedCombatant.hasTalent(SPELLS.RULE_OF_LAW_TALENT.id);
 
     const hasDivinePurpose = this.selectedCombatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id);
-    const divinePurposeHolyShockProcs = hasDivinePurpose && this.selectedCombatant.getBuffTriggerCount(SPELLS.DIVINE_PURPOSE_HOLY_SHOCK_BUFF.id);
-    const divinePurposeLightOfDawnProcs = hasDivinePurpose && this.selectedCombatant.getBuffTriggerCount(SPELLS.DIVINE_PURPOSE_LIGHT_OF_DAWN_BUFF.id);
+    const hasSoulOfTheHighlord = this.selectedCombatant.hasRing(ITEMS.SOUL_OF_THE_HIGHLORD.id);
+    const divinePurposeHolyShockProcs = (hasDivinePurpose || hasSoulOfTheHighlord) && this.selectedCombatant.getBuffTriggerCount(SPELLS.DIVINE_PURPOSE_HOLY_SHOCK_BUFF.id);
+    const divinePurposeLightOfDawnProcs = (hasDivinePurpose || hasSoulOfTheHighlord) && this.selectedCombatant.getBuffTriggerCount(SPELLS.DIVINE_PURPOSE_LIGHT_OF_DAWN_BUFF.id);
 
     if (nonHealingTimePercentage > 0.3) {
       results.addIssue({
@@ -532,7 +529,7 @@ class CombatLogParser extends MainCombatLogParser {
                   marginTop: '-.1em',
                 }}
               />
-                      </span>
+            </span>
           )}
           label={(
             <dfn data-tip={`Your Divine Purpose proc rate for Holy Shock was ${formatPercentage(divinePurposeHolyShockProcs / (holyShockHeals - divinePurposeHolyShockProcs))}%.<br />Your Divine Purpose proc rate for Light of Dawn was ${formatPercentage(divinePurposeLightOfDawnProcs / (lightOfDawnHeals - divinePurposeLightOfDawnProcs))}%`}>
@@ -579,52 +576,8 @@ class CombatLogParser extends MainCombatLogParser {
     ];
 
     results.items = [
-      this.modules.ilterendi.active && {
-        id: ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id,
-        icon: <ItemIcon id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} />,
-        title: <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} />,
-        result: (
-          <dfn data-tip="The actual effective healing contributed by the Ilterendi, Crown Jewel of Silvermoon equip effect.">
-            {((ilterendiHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.ilterendi.healing / fightDuration * 1000)} HPS
-          </dfn>
-        ),
-      },
-      this.modules.velens.active && {
-        id: ITEMS.VELENS_FUTURE_SIGHT.id,
-        icon: <ItemIcon id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
-        title: <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
-        result: (
-          <dfn data-tip="The actual effective healing contributed by the Velen's Future Sight use effect.">
-            {((velensHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.velens.healing / fightDuration * 1000)} HPS
-          </dfn>
-        ),
-      },
-      this.modules.sephuzsSecret.active && {
-        id: ITEMS.SEPHUZS_SECRET.id,
-        icon: <ItemIcon id={ITEMS.SEPHUZS_SECRET.id} />,
-        title: <ItemLink id={ITEMS.SEPHUZS_SECRET.id} />,
-        result: `${((this.modules.sephuzsSecret.uptime / fightDuration * 100) || 0).toFixed(2)} % uptime`,
-      },
-      this.modules.chainOfThrayn.active && {
-        id: ITEMS.CHAIN_OF_THRAYN.id,
-        icon: <ItemIcon id={ITEMS.CHAIN_OF_THRAYN.id} />,
-        title: <ItemLink id={ITEMS.CHAIN_OF_THRAYN.id} />,
-        result: (
-          <dfn data-tip="The actual effective healing contributed by the Chain of Thrayn equip effect.">
-            {((chainOfThraynHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.chainOfThrayn.healing / fightDuration * 1000)} HPS
-          </dfn>
-        ),
-      },
-      this.modules.prydaz.active && {
-        id: ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id,
-        icon: <ItemIcon id={ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id} />,
-        title: <ItemLink id={ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id} />,
-        result: (
-          <dfn data-tip="The actual effective healing contributed by the Prydaz, Xavaric's Magnum Opus equip effect.">
-            {((prydazHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.prydaz.healing / fightDuration * 1000)} HPS
-          </dfn>
-        ),
-      },
+      ...results.items,
+      // Sort by quality > slot > tier
       this.modules.obsidianStoneSpaulders.active && {
         id: ITEMS.OBSIDIAN_STONE_SPAULDERS.id,
         icon: <ItemIcon id={ITEMS.OBSIDIAN_STONE_SPAULDERS.id} />,
@@ -657,15 +610,44 @@ class CombatLogParser extends MainCombatLogParser {
           </span>
         ),
       },
-      this.modules.drapeOfShame.active && {
-        id: ITEMS.DRAPE_OF_SHAME.id,
-        icon: <ItemIcon id={ITEMS.DRAPE_OF_SHAME.id} />,
-        title: <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} />,
+      this.modules.chainOfThrayn.active && {
+        id: ITEMS.CHAIN_OF_THRAYN.id,
+        icon: <ItemIcon id={ITEMS.CHAIN_OF_THRAYN.id} />,
+        title: <ItemLink id={ITEMS.CHAIN_OF_THRAYN.id} />,
         result: (
-          <dfn data-tip="The actual effective healing contributed by the Drape of Shame equip effect.">
-            {((drapeOfShameHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.drapeOfShame.healing / fightDuration * 1000)} HPS
+          <dfn data-tip="The actual effective healing contributed by the Chain of Thrayn equip effect.">
+            {((chainOfThraynHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.chainOfThrayn.healing / fightDuration * 1000)} HPS
           </dfn>
         ),
+      },
+      this.modules.ilterendi.active && {
+        id: ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id,
+        icon: <ItemIcon id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} />,
+        title: <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} />,
+        result: (
+          <dfn data-tip="The actual effective healing contributed by the Ilterendi, Crown Jewel of Silvermoon equip effect.">
+            {((ilterendiHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.ilterendi.healing / fightDuration * 1000)} HPS
+          </dfn>
+        ),
+      },
+      hasSoulOfTheHighlord && {
+        id: ITEMS.SOUL_OF_THE_HIGHLORD.id,
+        icon: <ItemIcon id={ITEMS.SOUL_OF_THE_HIGHLORD.id} />,
+        title: <ItemLink id={ITEMS.SOUL_OF_THE_HIGHLORD.id} />,
+        result: (
+          <span>
+            Procs:{' '}
+            {divinePurposeHolyShockProcs} <SpellIcon id={SPELLS.HOLY_SHOCK_CAST.id} style={{ height: '1em' }} /> <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} />
+            {' '}/{' '}
+            {divinePurposeLightOfDawnProcs} <SpellIcon id={SPELLS.LIGHT_OF_DAWN_CAST.id} style={{ height: '1em' }} /> <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} />
+          </span>
+        ),
+      },
+      this.modules.sephuzsSecret.active && {
+        id: ITEMS.SEPHUZS_SECRET.id,
+        icon: <ItemIcon id={ITEMS.SEPHUZS_SECRET.id} />,
+        title: <ItemLink id={ITEMS.SEPHUZS_SECRET.id} />,
+        result: `${((this.modules.sephuzsSecret.uptime / fightDuration * 100) || 0).toFixed(2)} % uptime`,
       },
       this.modules.amalgamsSeventhSpine.active && {
         id: ITEMS.AMALGAMS_SEVENTH_SPINE.id,
@@ -734,7 +716,7 @@ class CombatLogParser extends MainCombatLogParser {
           <CooldownsTab
             fightStart={this.fight.start_time}
             fightEnd={this.fight.end_time}
-            cooldowns={this.modules.cooldownTracker.cooldowns}
+            cooldowns={this.modules.cooldownTracker.pastCooldowns}
             showOutputStatistics
             showResourceStatistics
           />

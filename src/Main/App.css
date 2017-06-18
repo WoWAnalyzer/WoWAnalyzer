@@ -231,13 +231,15 @@ h1 {
   padding: 0 22px;
   border-top: 1px solid transparent;
   border-bottom: 1px solid transparent;
+  background-color: rgba(255, 255, 255, 0.0);
+  transition: background-color 0.1s ease-in-out;
 }
 .list.selection > li a {
   display: block;
   padding: 10px 0;
 }
 .list > li:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.1);
   border-top-color: rgba(0, 0, 0, 0.4);
   border-bottom-color: rgba(0, 0, 0, 0.4);
 }
@@ -376,8 +378,10 @@ h3 {
   border-bottom: 1px solid #333;
 }
 dfn {
-  border-bottom: 1px dashed currentColor;
   font-style: normal;
+}
+dfn[data-tip] {
+  border-bottom: 1px dashed currentColor;
   cursor: help;
 }
 

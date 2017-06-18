@@ -16,15 +16,11 @@ import CooldownsTab from 'Main/CooldownsTab';
 import ManaTab from 'Main/ManaTab';
 
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
-import ParseResults from 'Parser/Core/ParseResults';
 import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import AmalgamsSeventhSpine from 'Parser/Core/Modules/Items/AmalgamsSeventhSpine';
-import Prydaz from 'Parser/Core/Modules/Items/Prydaz';
 
-import DrapeOfShame from './Modules/Legendaries/DrapeOfShame';
-import Velens from './Modules/Legendaries/Velens';
 import Ekowraith from './Modules/Legendaries/Ekowraith';
 import XonisCaress from './Modules/Legendaries/XonisCaress';
 import Sephuz from './Modules/Legendaries/Sephuz';
@@ -47,6 +43,7 @@ import Dreamwalker from './Modules/Features/Dreamwalker';
 import SoulOfTheForest from './Modules/Features/SoulOfTheForest';
 
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
 function formatThousands(number) {
   return (Math.round(number || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
@@ -74,6 +71,8 @@ function formatPercentage(percentage) {
 }
 
 class CombatLogParser extends MainCombatLogParser {
+  static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
+
   static specModules = {
     // Override the ability tracker so we also get stats for IoL and beacon healing
     abilityTracker: AbilityTracker,
@@ -92,9 +91,6 @@ class CombatLogParser extends MainCombatLogParser {
     soulOfTheForest: SoulOfTheForest,
 
     // Legendaries:
-    drapeOfShame: DrapeOfShame,
-    velens: Velens,
-    prydaz: Prydaz,
     ekowraith: Ekowraith,
     xonisCaress: XonisCaress,
     sephuz: Sephuz,
@@ -112,7 +108,7 @@ class CombatLogParser extends MainCombatLogParser {
   };
 
   generateResults() {
-    const results = new ParseResults();
+    const results = super.generateResults();
 
     // Tree of Life
     const hasFlourish = this.selectedCombatant.lv100Talent === SPELLS.FLOURISH_TALENT.id;
@@ -151,7 +147,6 @@ class CombatLogParser extends MainCombatLogParser {
     const hasMoC = this.selectedCombatant.lv100Talent === SPELLS.MOMENT_OF_CLARITY_TALENT.id;
     const hasVelens = this.selectedCombatant.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT.id);
     const velensHealingPercentage = (this.modules.velens.overhealHealing + this.modules.velens.healingIncreaseHealing) / this.totalHealing;
-    const prydazHealingPercentage = this.modules.prydaz.healing / this.totalHealing;
     const sepuhzHasteRating = ((this.modules.sephuz.uptime / this.fightDuration) * this.modules.sephuz.sephuzProccInHasteRating) + this.modules.sephuz.sephuzStaticHasteInRating;
     const sephuzThroughput = sepuhzHasteRating / this.selectedCombatant.intellect;
     const darkTitanAdviceHealing = this.modules.darkTitanAdvice.healing / this.totalHealing;
@@ -161,7 +156,6 @@ class CombatLogParser extends MainCombatLogParser {
     const xonisCaressHealingPercentage = this.modules.xonisCaress.healing / this.totalHealing;
     const ekowraithHealingPercentage = this.modules.ekowraith.healing / this.totalHealing;
     const ekowraithDamageReductionHealingPercentage = (this.modules.ekowraith.damageReductionHealing / (this.totalHealing + this.modules.ekowraith.damageReductionHealing));
-    const drapeOfShameHealingPercentage = this.modules.drapeOfShame.healing / this.totalHealing;
     let lifebloomUptime = this.modules.lifebloom.uptime / this.fightDuration;
     if (lifebloomUptime > 1) {
       lifebloomUptime -= 1;
@@ -310,6 +304,15 @@ class CombatLogParser extends MainCombatLogParser {
         label={(
           <dfn data-tip={`The total healing done recorded was ${formatThousands(this.totalHealing)}.`}>
             Healing done
+          </dfn>
+        )}
+      />,
+      <StatisticBox
+        icon={<Icon icon="petbattle_health-down" alt="Non healing time" />}
+        value={`${formatPercentage(nonHealingTimePercentage)} %`}
+        label={(
+          <dfn data-tip={`Non healing time is available casting time not used for a spell that helps you heal. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), DPSing, etc.<br /><br />You spent ${formatPercentage(deadTimePercentage)}% of your time casting nothing at all.`}>
+            Non healing time
           </dfn>
         )}
       />,
@@ -473,30 +476,10 @@ class CombatLogParser extends MainCombatLogParser {
           )}
         />
       ),
-      (
-        <StatisticBox
-          icon={<Icon icon="petbattle_health-down" alt="Non healing time" />}
-          value={`${formatPercentage(nonHealingTimePercentage)} %`}
-          label={(
-            <dfn data-tip={`Non healing time is available casting time not used for a spell that helps you heal. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), DPSing, etc.<br /><br />You spent ${formatPercentage(deadTimePercentage)}% of your time casting nothing at all.`}>
-              Non healing time
-            </dfn>
-          )}
-        />
-      ),
     ];
 
     results.items = [
-      this.modules.prydaz.active && {
-        id: ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id,
-        icon: <ItemIcon id={ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id} />,
-        title: <ItemLink id={ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id} />,
-        result: (
-          <dfn data-tip="The actual effective healing contributed by the Prydaz, Xavaric's Magnum Opus equip effect.">
-            {((prydazHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.prydaz.healing / fightDuration * 1000)} HPS
-          </dfn>
-        ),
-      },
+      ...results.items,
       this.selectedCombatant.hasChest(ITEMS.EKOWRAITH_CREATOR_OF_WORLDS.id) && {
         id: ITEMS.EKOWRAITH_CREATOR_OF_WORLDS.id,
         icon: <ItemIcon id={ITEMS.EKOWRAITH_CREATOR_OF_WORLDS.id} />,
@@ -547,16 +530,6 @@ class CombatLogParser extends MainCombatLogParser {
           </dfn>
         ),
       },
-      this.modules.velens.active && {
-        id: ITEMS.VELENS_FUTURE_SIGHT.id,
-        icon: <ItemIcon id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
-        title: <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
-        result: (
-          <dfn data-tip={`${formatPercentage(this.modules.velens.overhealHealing/this.totalHealing)}% from overhealing distribution and ${formatPercentage(this.modules.velens.healingIncreaseHealing/this.totalHealing)}% from 15% healing increase`}>
-            {((velensHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber((this.modules.velens.overhealHealing + this.modules.velens.healingIncreaseHealing) / fightDuration * 1000)} HPS
-          </dfn>
-        ),
-      },
       this.selectedCombatant.hasRing(ITEMS.SEPHUZS_SECRET.id) && {
         id: ITEMS.SEPHUZS_SECRET.id,
         icon: <ItemIcon id={ITEMS.SEPHUZS_SECRET.id} />,
@@ -564,16 +537,6 @@ class CombatLogParser extends MainCombatLogParser {
         result: (
           <dfn data-tip="Estimated throughput gained by using Sephuz by calculating haste gained in throughput, given 1 haste = 1 INT.">
             {((sephuzThroughput * 100) || 0).toFixed(2)} %
-          </dfn>
-        ),
-      },
-      this.selectedCombatant.hasBack(ITEMS.DRAPE_OF_SHAME.id) && {
-        id: ITEMS.DRAPE_OF_SHAME.id,
-        icon: <ItemIcon id={ITEMS.DRAPE_OF_SHAME.id} />,
-        title: <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} />,
-        result: (
-          <dfn data-tip="The actual effective healing contributed by the Drape of Shame equip effect.">
-            {((drapeOfShameHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.drapeOfShame.healing / fightDuration * 1000)} HPS
           </dfn>
         ),
       },
@@ -692,7 +655,7 @@ class CombatLogParser extends MainCombatLogParser {
           <CooldownsTab
             fightStart={this.fight.start_time}
             fightEnd={this.fight.end_time}
-            cooldowns={this.modules.cooldownTracker.cooldowns}
+            cooldowns={this.modules.cooldownTracker.pastCooldowns}
           />
         ),
       },

@@ -17,13 +17,11 @@ import CooldownsTab from 'Main/CooldownsTab';
 import ManaTab from 'Main/ManaTab';
 
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
-import ParseResults from 'Parser/Core/ParseResults';
 import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import AmalgamsSeventhSpine from 'Parser/Core/Modules/Items/AmalgamsSeventhSpine';
 import SephuzsSecret from 'Parser/Core/Modules/Items/SephuzsSecret';
 import DarkmoonDeckPromises from 'Parser/Core/Modules/Items/DarkmoonDeckPromises';
-import Prydaz from 'Parser/Core/Modules/Items/Prydaz';
 
 import AbilityTracker from './Modules/Core/AbilityTracker';
 
@@ -32,8 +30,6 @@ import CooldownTracker from './Modules/Features/CooldownTracker';
 import PowerWordShieldWasted from './Modules/Features/PowerWordShieldWasted';
 import AtonementSource from './Modules/Features/AtonementSource';
 
-import DrapeOfShame from './Modules/Items/DrapeOfShame';
-import Velens from './Modules/Items/Velens';
 import Tier19_2set from './Modules/Items/Tier19_2set';
 import CordOfMaiev from './Modules/Items/CordOfMaiev';
 import Skjoldr from './Modules/Items/Skjoldr';
@@ -47,6 +43,7 @@ import Atonement from './Modules/Spells/Atonement';
 import Evangelism from './Modules/Spells/Evangelism';
 
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
 function formatThousands(number) {
   return (Math.round(number || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
@@ -74,6 +71,8 @@ function formatPercentage(percentage) {
 }
 
 class CombatLogParser extends MainCombatLogParser {
+  static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
+
   static specModules = {
     // Override the ability tracker so we also get stats for IoL and beacon healing
     abilityTracker: AbilityTracker,
@@ -85,9 +84,6 @@ class CombatLogParser extends MainCombatLogParser {
     atonementSource: AtonementSource,
 
     // Items:
-    drapeOfShame: DrapeOfShame,
-    prydaz: Prydaz,
-    velens: Velens,
     sephuzsSecret: SephuzsSecret,
     tier19_2set: Tier19_2set,
     cordOfMaiev: CordOfMaiev,
@@ -107,7 +103,7 @@ class CombatLogParser extends MainCombatLogParser {
   };
 
   generateResults() {
-    const results = new ParseResults();
+    const results = super.generateResults();
 
     const fightDuration = this.fightDuration;
 
@@ -122,8 +118,6 @@ class CombatLogParser extends MainCombatLogParser {
     const velensHealingPercentage = this.modules.velens.healing / this.totalHealing;
     const owlHealingPercentage = this.modules.tarnishedSentinelMedallion.healing / this.totalHealing;
     const marchHealingPercentage = this.modules.marchOfTheLegion.healing / this.totalHealing;
-    const prydazHealingPercentage = this.modules.prydaz.healing / this.totalHealing;
-    const drapeOfShameHealingPercentage = this.modules.drapeOfShame.healing / this.totalHealing;
     const improperAtonementRefreshPercentage = this.modules.atonement.improperAtonementRefreshes.length / this.modules.atonement.totalAtones;
 
     const tier19_2setHealingPercentage = this.modules.tier19_2set.healing / this.totalHealing;
@@ -193,7 +187,7 @@ class CombatLogParser extends MainCombatLogParser {
         icon={<SpellIcon id={SPELLS.EVANGELISM_TALENT.id} />}
         value={`${formatNumber(this.modules.evangelism.evangelismStatistics.reduce((p, c) => p += c.healing, 0) / fightDuration * 1000)} HPS`}
         label={(
-          <dfn data-tip={`Evangelism accounted for approximately ${ formatPercentage(this.modules.evangelism.evangelismStatistics.reduce((p, c) => p += c.healing, 0) / this.totalHealing) }% of your healing.`}>
+          <dfn data-tip={`Evangelism accounted for approximately ${ formatPercentage(this.modules.evangelism.evangelismStatistics.reduce((p, c) => p + c.healing, 0) / this.totalHealing) }% of your healing.`}>
             Evangelism contribution
           </dfn>
         )}
@@ -280,26 +274,7 @@ class CombatLogParser extends MainCombatLogParser {
     ];
 
     results.items = [
-      this.modules.prydaz.active && {
-        id: ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id,
-        icon: <ItemIcon id={ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id} />,
-        title: <ItemLink id={ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id} />,
-        result: (
-          <dfn data-tip="The actual effective healing contributed by the Prydaz, Xavaric's Magnum Opus equip effect.">
-            {((prydazHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.prydaz.healing / fightDuration * 1000)} HPS
-          </dfn>
-        ),
-      },
-      this.modules.velens.active && {
-        id: ITEMS.VELENS_FUTURE_SIGHT.id,
-        icon: <ItemIcon id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
-        title: <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
-        result: (
-          <dfn data-tip="The actual effective healing contributed by the Velen's Future Sight use effect.">
-            {((velensHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.velens.healing / fightDuration * 1000)} HPS
-          </dfn>
-        ),
-      },
+      ...results.items,
       this.modules.tarnishedSentinelMedallion.active && {
         id: ITEMS.TARNISHED_SENTINEL_MEDALLION.id,
         icon: <ItemIcon id={ITEMS.TARNISHED_SENTINEL_MEDALLION.id} />,
@@ -366,16 +341,6 @@ class CombatLogParser extends MainCombatLogParser {
           </dfn>
         ),
       },
-      this.modules.drapeOfShame.active && {
-        id: ITEMS.DRAPE_OF_SHAME.id,
-        icon: <ItemIcon id={ITEMS.DRAPE_OF_SHAME.id} />,
-        title: <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} />,
-        result: (
-          <dfn data-tip="The actual effective healing contributed by the Drape of Shame equip effect.">
-            {((drapeOfShameHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.drapeOfShame.healing / fightDuration * 1000)} HPS
-          </dfn>
-        ),
-      },
       this.modules.amalgamsSeventhSpine.active && {
         id: ITEMS.AMALGAMS_SEVENTH_SPINE.id,
         icon: <ItemIcon id={ITEMS.AMALGAMS_SEVENTH_SPINE.id} />,
@@ -433,7 +398,7 @@ class CombatLogParser extends MainCombatLogParser {
           <CooldownsTab
             fightStart={this.fight.start_time}
             fightEnd={this.fight.end_time}
-            cooldowns={this.modules.cooldownTracker.cooldowns}
+            cooldowns={this.modules.cooldownTracker.pastCooldowns}
           />
         ),
       },
