@@ -1,5 +1,7 @@
 const querystring = require('querystring');
 const https = require('https');
+const zlib = require('zlib');
+const Agent = require('agentkeepalive').HttpsAgent;
 
 const cache = require('./cache');
 
@@ -8,9 +10,7 @@ function getCurrentMemoryUsage() {
   return memoryUsage.rss;
 }
 
-const keepAliveAgent = new https.Agent({
-  keepAlive: true,
-  keepAliveMsecs: 60000,
+const keepAliveAgent = new Agent({
 });
 
 module.exports = function (req, res) {
@@ -43,6 +43,7 @@ module.exports = function (req, res) {
       path: `/v1/${req.params[0]}?${querystring.stringify(query)}`,
       headers: {
         'User-Agent': 'WoWAnalyzer.com API',
+        'Accept-Encoding': 'gzip', // using gzip is 80% quicker
       },
       agent: keepAliveAgent,
     };
@@ -50,21 +51,28 @@ module.exports = function (req, res) {
     const wclStart = Date.now();
     https
       .get(options, (wclResponse) => {
-        let jsonString = '';
-        wclResponse.on('data', chunk => { jsonString += chunk; });
-        wclResponse.on('end', () => {
-          if (wclResponse.statusCode === 200) {
-            cache.set(requestUrl, jsonString);
-          } else {
-            console.error('Error status:', wclResponse.statusCode);
-          }
+        const gunzip = zlib.createGunzip();
+        wclResponse.pipe(gunzip);
 
-          // Clone WCL response
-          res.setHeader('Content-Type', wclResponse.headers['content-type']);
-          res.status(wclResponse.statusCode);
-          res.send(jsonString);
-          console.log('Finished (memory:', Math.ceil(getCurrentMemoryUsage() / 1024 / 1024), 'MB', 'wcl:', Date.now() - wclStart, 'ms', ')');
-        });
+        let jsonString = '';
+        gunzip
+          .on('data', chunk => { jsonString += chunk.toString(); })
+          .on('end', () => {
+            if (wclResponse.statusCode === 200) {
+              cache.set(requestUrl, jsonString);
+            } else {
+              console.error('Error status:', wclResponse.statusCode);
+            }
+
+            // Clone WCL response
+            res.setHeader('Content-Type', wclResponse.headers['content-type']);
+            res.status(wclResponse.statusCode);
+            res.send(jsonString);
+            console.log('Finished (memory:', Math.ceil(getCurrentMemoryUsage() / 1024 / 1024), 'MB', 'wcl:', Date.now() - wclStart, 'ms', ')');
+          })
+          .on('error', (e) => {
+            throw e;
+          });
       })
       .on('error', (err) => {
         console.error('Error:', err);
