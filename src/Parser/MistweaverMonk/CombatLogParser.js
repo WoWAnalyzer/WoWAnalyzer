@@ -5,8 +5,6 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 // import Icon from 'common/Icon';
 import ITEMS from 'common/ITEMS';
-import ItemLink from 'common/ItemLink';
-import ItemIcon from 'common/ItemIcon';
 
 import StatisticBox from 'Main/StatisticBox';
 import SuggestionsTab from 'Main/SuggestionsTab';
@@ -19,13 +17,6 @@ import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
-import SephuzsSecret from 'Parser/Core/Modules/Items/SephuzsSecret';
-import DarkmoonDeckPromises from 'Parser/Core/Modules/Items/DarkmoonDeckPromises';
-import AmalgamsSeventhSpine from 'Parser/Core/Modules/Items/AmalgamsSeventhSpine';
-import ArchiveOfFaith from 'Parser/Core/Modules/Items/ArchiveOfFaith';
-import BarbaricMindslaver from 'Parser/Core/Modules/Items/BarbaricMindslaver';
-import SeaStar from 'Parser/Core/Modules/Items/SeaStarOfTheDepthmother';
-import DeceiversGrandDesign from 'Parser/Core/Modules/Items/DeceiversGrandDesign';
 
 // Features
 import CooldownTracker from './Modules/Features/CooldownTracker';
@@ -102,17 +93,8 @@ class CombatLogParser extends MainCombatLogParser {
     chiBurst: ChiBurst,
 
     // Legendaries / Items:
-    sephuzsSecret: SephuzsSecret,
     eithas: Eithas,
-    archiveOfFaith: ArchiveOfFaith,
-    barbaricMindslaver: BarbaricMindslaver,
-    seaStar: SeaStar,
-    deceiversGrandDesign: DeceiversGrandDesign,
     xuensBattlegear4Piece: XuensBattlegear4Piece,
-
-    // Shared:
-    amalgamsSeventhSpine: AmalgamsSeventhSpine,
-    darkmoonDeckPromises: DarkmoonDeckPromises,
   };
 
   generateResults(results) {
@@ -124,16 +106,7 @@ class CombatLogParser extends MainCombatLogParser {
     const abilityTracker = this.modules.abilityTracker;
     const getAbility = spellId => abilityTracker.getAbility(spellId);
 
-    const velensHealingPercentage = this.modules.velens.healing / this.totalHealing;
     const eithasHealingPercentage = this.modules.eithas.healing / this.totalHealing;
-    const barbaricMindslaverHealingPercentage = this.modules.barbaricMindslaver.healing / this.totalHealing;
-    const seaStarHealingPercentage = this.modules.seaStar.healing / this.totalHealing;
-    const archiveOfFaithHealing = this.modules.archiveOfFaith.healing / this.totalHealing;
-    const archiveOfFaithHOTHealing = this.modules.archiveOfFaith.healingOverTime / this.totalHealing;
-    const archiveOfFaithHealingTotal = (this.modules.archiveOfFaith.healing + this.modules.archiveOfFaith.healingOverTime) / this.totalHealing;
-    const deceiversGrandDesignHealingPercentage = this.modules.deceiversGrandDesign.healing / this.totalHealing;
-    const deceiversGrandDesignAbsorbPercentage = this.modules.deceiversGrandDesign.healingAbsorb / this.totalHealing;
-    const deceiversGrandDesignTotalPercentage = (this.modules.deceiversGrandDesign.healing + this.modules.deceiversGrandDesign.healingAbsorb) / this.totalHealing;
 
     const xuensBattlegear4PieceHealingPercentage = this.modules.xuensBattlegear4Piece.healing / this.totalHealing;
 
@@ -187,25 +160,6 @@ class CombatLogParser extends MainCombatLogParser {
       });
     }
     */
-    // Deciever's Grand Design Suggestion
-    if(this.modules.deceiversGrandDesign.proced) {
-      results.addIssue({
-        issue: <span>Your <ItemLink id={ITEMS.DECEIVERS_GRAND_DESIGN.id} /> proc'ed earlier than expected.  The following events proc'ed the effect: <br />
-          {this.modules.deceiversGrandDesign.procs
-              .map(function(procs, index) {
-                const url = 'https://www.warcraftlogs.com/reports/' + procs.report + '/#fight=' + procs.fight + '&source=' + procs.target + '&type=summary&start=' + procs.start + '&end=' + procs.end + '&view=events';
-                return(
-                  <div>
-                    Proc {index + 1} on: <a href={url} target="_blank" rel="noopener noreferrer">{procs.name}</a>
-                    <br />
-                  </div>
-                );
-              })
-          }
-          </span>,
-        icon: ITEMS.DECEIVERS_GRAND_DESIGN.icon,
-      });
-    }
     // Missed Whispers healing
     if(hasWhispersOfShaohao && missedWhispersHeal > 10) {
       results.addIssue({
@@ -238,13 +192,6 @@ class CombatLogParser extends MainCombatLogParser {
       });
     }
 
-    if (this.modules.velens.active && velensHealingPercentage < 0.045) {
-      results.addIssue({
-        issue: <span>Your usage of <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} /> can be improved. Try to maximize the amount of casts during the buff or consider using an easier legendary ({(velensHealingPercentage * 100).toFixed(2)}% healing contributed).</span>,
-        icon: ITEMS.VELENS_FUTURE_SIGHT.icon,
-        importance: getIssueImportance(velensHealingPercentage, 0.04, 0.03),
-      });
-    }
     // Uplifting Trance Usage
     if (unusedUTProcs > 0.10) {
       results.addIssue({
@@ -597,83 +544,11 @@ class CombatLogParser extends MainCombatLogParser {
           </dfn>
         ),
       },
-      this.modules.sephuzsSecret.active && {
-        id: ITEMS.SEPHUZS_SECRET.id,
-        icon: <ItemIcon id={ITEMS.SEPHUZS_SECRET.id} />,
-        title: <ItemLink id={ITEMS.SEPHUZS_SECRET.id} />,
-        result: `${((this.modules.sephuzsSecret.uptime / fightDuration * 100) || 0).toFixed(2)} % uptime`,
-      },
-      this.modules.amalgamsSeventhSpine.active && {
-        id: ITEMS.AMALGAMS_SEVENTH_SPINE.id,
-        icon: <ItemIcon id={ITEMS.AMALGAMS_SEVENTH_SPINE.id} />,
-        title: <ItemLink id={ITEMS.AMALGAMS_SEVENTH_SPINE.id} />,
-        result: (
-          <dfn data-tip={`The exact amount of mana gained from the Amalgam's Seventh Spine equip effect. You gained mana ${this.modules.amalgamsSeventhSpine.procs} times and refreshed the buff ${this.modules.amalgamsSeventhSpine.refreshes} times (refreshing delay the mana return and is inefficient use of this trinket).`}>
-            {formatThousands(this.modules.amalgamsSeventhSpine.manaGained)} mana gained ({formatThousands(this.modules.amalgamsSeventhSpine.manaGained / this.fightDuration * 1000 * 5)} MP5)
-          </dfn>
-        ),
-      },
-      this.modules.darkmoonDeckPromises.active && {
-        id: ITEMS.DARKMOON_DECK_PROMISES.id,
-        icon: <ItemIcon id={ITEMS.DARKMOON_DECK_PROMISES.id} />,
-        title: <ItemLink id={ITEMS.DARKMOON_DECK_PROMISES.id} />,
-        result: (
-          <dfn data-tip="The exact amount of mana saved by the Darkmoon Deck: Promises equip effect. This takes the different values per card into account at the time of the cast.">
-            {formatThousands(this.modules.darkmoonDeckPromises.manaGained)} mana saved ({formatThousands(this.modules.darkmoonDeckPromises.manaGained / this.fightDuration * 1000 * 5)} MP5)
-          </dfn>
-        ),
-      },
       this.modules.eithas.active && {
-        id: ITEMS.EITHAS_LUNAR_GLIDES.id,
-        icon: <ItemIcon id={ITEMS.EITHAS_LUNAR_GLIDES.id} />,
-      title: <ItemLink id={ITEMS.EITHAS_LUNAR_GLIDES.id} />,
+        item: ITEMS.EITHAS_LUNAR_GLIDES,
         result: (
           <dfn data-tip="The actual effective healing contributed by the Ei\'thas, Lunar Glides of Eramas equip effect.">
             {((eithasHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.eithas.healing / fightDuration * 1000)} HPS
-          </dfn>
-        ),
-      },
-      this.modules.deceiversGrandDesign.active && {
-        id: ITEMS.DECEIVERS_GRAND_DESIGN.id,
-        icon: <ItemIcon id={ITEMS.DECEIVERS_GRAND_DESIGN.id} />,
-        title: <ItemLink id={ITEMS.DECEIVERS_GRAND_DESIGN.id} />,
-        result: (
-          <span>
-            <dfn data-tip={`The actual effective healing contributed by the Deciever's Grand Design on-use effect.<br />HOT: ${((deceiversGrandDesignHealingPercentage * 100) || 0).toFixed(2)} % / ${formatNumber(this.modules.deceiversGrandDesign.healing / fightDuration * 1000)} HPS<br />Shield Proc: ${((deceiversGrandDesignAbsorbPercentage * 100) || 0).toFixed(2)} % / ${formatNumber(this.modules.deceiversGrandDesign.healingAbsorb / fightDuration * 1000)} HPS`}>
-              {((deceiversGrandDesignTotalPercentage * 100) || 0).toFixed(2)} % / {formatNumber((this.modules.deceiversGrandDesign.healing + this.modules.deceiversGrandDesign.healingAbsorb) / fightDuration * 1000)} HPS
-            </dfn>
-          </span>
-        ),
-      },
-      this.modules.archiveOfFaith.active && {
-        id: ITEMS.ARCHIVE_OF_FAITH.id,
-        icon: <ItemIcon id={ITEMS.ARCHIVE_OF_FAITH.id} />,
-        title: <ItemLink id={ITEMS.ARCHIVE_OF_FAITH.id} />,
-        result: (
-          <span>
-            <dfn data-tip={`The actual effective healing contributed by the Archive of Faith on-use effect.<br />Channel: ${((archiveOfFaithHealing * 100) || 0).toFixed(2)} % / ${formatNumber(this.modules.archiveOfFaith.healing / fightDuration * 1000)} HPS<br />HOT: ${((archiveOfFaithHOTHealing * 100) || 0).toFixed(2)} % / ${formatNumber(this.modules.archiveOfFaith.healingOverTime / fightDuration * 1000)} HPS`}>
-              {((archiveOfFaithHealingTotal * 100) || 0).toFixed(2)} % / {formatNumber((this.modules.archiveOfFaith.healing + this.modules.archiveOfFaith.healingOverTime) / fightDuration * 1000)} HPS
-            </dfn>
-          </span>
-        ),
-      },
-      this.modules.barbaricMindslaver.active && {
-        id: ITEMS.BARBARIC_MINDSLAVER.id,
-        icon: <ItemIcon id={ITEMS.BARBARIC_MINDSLAVER.id} />,
-      title: <ItemLink id={ITEMS.BARBARIC_MINDSLAVER.id} />,
-        result: (
-          <dfn data-tip="The actual effective healing contributed by the Barbaric Mindslaver equip effect.">
-            {((barbaricMindslaverHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.barbaricMindslaver.healing / fightDuration * 1000)} HPS
-          </dfn>
-        ),
-      },
-      this.modules.seaStar.active && {
-        id: ITEMS.SEA_STAR_OF_THE_DEPTHMOTHER.id,
-        icon: <ItemIcon id={ITEMS.SEA_STAR_OF_THE_DEPTHMOTHER.id} />,
-      title: <ItemLink id={ITEMS.SEA_STAR_OF_THE_DEPTHMOTHER.id} />,
-        result: (
-          <dfn data-tip="The actual effective healing contributed by the Sea Star of the Depthmother equip effect.">
-            {((seaStarHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.seaStar.healing / fightDuration * 1000)} HPS
           </dfn>
         ),
       },

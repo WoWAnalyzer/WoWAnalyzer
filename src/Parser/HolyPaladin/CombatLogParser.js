@@ -6,7 +6,6 @@ import SpellIcon from 'common/SpellIcon';
 import Icon from 'common/Icon';
 import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
-import ItemIcon from 'common/ItemIcon';
 
 import StatisticBox from 'Main/StatisticBox';
 import SuggestionsTab from 'Main/SuggestionsTab';
@@ -19,9 +18,6 @@ import PlayerBreakdownTab from 'Main/PlayerBreakdownTab';
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
-import DarkmoonDeckPromises from 'Parser/Core/Modules/Items/DarkmoonDeckPromises';
-import AmalgamsSeventhSpine from 'Parser/Core/Modules/Items/AmalgamsSeventhSpine';
-import SephuzsSecret from 'Parser/Core/Modules/Items/SephuzsSecret';
 
 import PaladinAbilityTracker from './Modules/PaladinCore/PaladinAbilityTracker';
 import BeaconHealing from './Modules/PaladinCore/BeaconHealing';
@@ -99,13 +95,10 @@ class CombatLogParser extends MainCombatLogParser {
 
     // Items:
     drapeOfShame: DrapeOfShame,
-    sephuzsSecret: SephuzsSecret,
     ilterendi: Ilterendi,
     chainOfThrayn: ChainOfThrayn,
     obsidianStoneSpaulders: ObsidianStoneSpaulders,
     maraadsDyingBreath: MaraadsDyingBreath,
-    amalgamsSeventhSpine: AmalgamsSeventhSpine,
-    darkmoonDeckPromises: DarkmoonDeckPromises,
     tier19_4set: Tier19_4set,
     tier20_4set: Tier20_4set,
   };
@@ -228,7 +221,6 @@ class CombatLogParser extends MainCombatLogParser {
     const nonHealingTimePercentage = this.modules.alwaysBeCasting.totalHealingTimeWasted / fightDuration;
     const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
     const totalHealsOnBeaconPercentage = this.getTotalHealsOnBeaconPercentage(this);
-    const velensHealingPercentage = this.modules.velens.healing / this.totalHealing;
     const chainOfThraynHealingPercentage = this.modules.chainOfThrayn.healing / this.totalHealing;
     const obsidianStoneSpauldersHealingPercentage = this.modules.obsidianStoneSpaulders.healing / this.totalHealing;
     const ilterendiHealingPercentage = this.modules.ilterendi.healing / this.totalHealing;
@@ -306,13 +298,6 @@ class CombatLogParser extends MainCombatLogParser {
         issue: <span>Your usage of <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} /> can be improved. Try to line <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} /> and <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> up with the buff or consider using an easier legendary ({(ilterendiHealingPercentage * 100).toFixed(2)}% healing contributed).</span>,
         icon: ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.icon,
         importance: getIssueImportance(ilterendiHealingPercentage, 0.04, 0.03),
-      });
-    }
-    if (this.modules.velens.active && velensHealingPercentage < 0.045) {
-      results.addIssue({
-        issue: <span>Your usage of <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} /> can be improved. Try to maximize the amount of casts during the buff or consider using an easier legendary ({(velensHealingPercentage * 100).toFixed(2)}% healing contributed).</span>,
-        icon: ITEMS.VELENS_FUTURE_SIGHT.icon,
-        importance: getIssueImportance(velensHealingPercentage, 0.04, 0.03),
       });
     }
     const lightOfTheMartyrs = getAbility(SPELLS.LIGHT_OF_THE_MARTYR.id).casts || 0;
@@ -579,9 +564,7 @@ class CombatLogParser extends MainCombatLogParser {
       ...results.items,
       // Sort by quality > slot > tier
       this.modules.obsidianStoneSpaulders.active && {
-        id: ITEMS.OBSIDIAN_STONE_SPAULDERS.id,
-        icon: <ItemIcon id={ITEMS.OBSIDIAN_STONE_SPAULDERS.id} />,
-        title: <ItemLink id={ITEMS.OBSIDIAN_STONE_SPAULDERS.id} />,
+        item: ITEMS.OBSIDIAN_STONE_SPAULDERS,
         result: (
           <dfn data-tip="The actual effective healing contributed by the Obsidian Stone Spaulders equip effect.">
             {((obsidianStoneSpauldersHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.obsidianStoneSpaulders.healing / fightDuration * 1000)} HPS
@@ -589,9 +572,7 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       },
       this.modules.maraadsDyingBreath.active && {
-        id: ITEMS.MARAADS_DYING_BREATH.id,
-        icon: <ItemIcon id={ITEMS.MARAADS_DYING_BREATH.id} />,
-        title: <ItemLink id={ITEMS.MARAADS_DYING_BREATH.id} />,
+        item: ITEMS.MARAADS_DYING_BREATH,
         result: (
           <span>
             <dfn
@@ -611,9 +592,7 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       },
       this.modules.chainOfThrayn.active && {
-        id: ITEMS.CHAIN_OF_THRAYN.id,
-        icon: <ItemIcon id={ITEMS.CHAIN_OF_THRAYN.id} />,
-        title: <ItemLink id={ITEMS.CHAIN_OF_THRAYN.id} />,
+        item: ITEMS.CHAIN_OF_THRAYN,
         result: (
           <dfn data-tip="The actual effective healing contributed by the Chain of Thrayn equip effect.">
             {((chainOfThraynHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.chainOfThrayn.healing / fightDuration * 1000)} HPS
@@ -621,9 +600,7 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       },
       this.modules.ilterendi.active && {
-        id: ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id,
-        icon: <ItemIcon id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} />,
-        title: <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} />,
+        item: ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON,
         result: (
           <dfn data-tip="The actual effective healing contributed by the Ilterendi, Crown Jewel of Silvermoon equip effect.">
             {((ilterendiHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.ilterendi.healing / fightDuration * 1000)} HPS
@@ -631,9 +608,7 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       },
       hasSoulOfTheHighlord && {
-        id: ITEMS.SOUL_OF_THE_HIGHLORD.id,
-        icon: <ItemIcon id={ITEMS.SOUL_OF_THE_HIGHLORD.id} />,
-        title: <ItemLink id={ITEMS.SOUL_OF_THE_HIGHLORD.id} />,
+        item: ITEMS.SOUL_OF_THE_HIGHLORD,
         result: (
           <span>
             Procs:{' '}
@@ -641,32 +616,6 @@ class CombatLogParser extends MainCombatLogParser {
             {' '}/{' '}
             {divinePurposeLightOfDawnProcs} <SpellIcon id={SPELLS.LIGHT_OF_DAWN_CAST.id} style={{ height: '1em' }} /> <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} />
           </span>
-        ),
-      },
-      this.modules.sephuzsSecret.active && {
-        id: ITEMS.SEPHUZS_SECRET.id,
-        icon: <ItemIcon id={ITEMS.SEPHUZS_SECRET.id} />,
-        title: <ItemLink id={ITEMS.SEPHUZS_SECRET.id} />,
-        result: `${((this.modules.sephuzsSecret.uptime / fightDuration * 100) || 0).toFixed(2)} % uptime`,
-      },
-      this.modules.amalgamsSeventhSpine.active && {
-        id: ITEMS.AMALGAMS_SEVENTH_SPINE.id,
-        icon: <ItemIcon id={ITEMS.AMALGAMS_SEVENTH_SPINE.id} />,
-        title: <ItemLink id={ITEMS.AMALGAMS_SEVENTH_SPINE.id} />,
-        result: (
-          <dfn data-tip={`The exact amount of mana gained from the Amalgam's Seventh Spine equip effect. You let the buff expire successfully ${this.modules.amalgamsSeventhSpine.procs} times. You refreshed the buff ${this.modules.amalgamsSeventhSpine.refreshes} times (refreshing delays the buff expiration and is inefficient use of this trinket).`}>
-            {formatThousands(this.modules.amalgamsSeventhSpine.manaGained)} mana gained ({formatThousands(this.modules.amalgamsSeventhSpine.manaGained / this.fightDuration * 1000 * 5)} MP5)
-          </dfn>
-        ),
-      },
-      this.modules.darkmoonDeckPromises.active && {
-        id: ITEMS.DARKMOON_DECK_PROMISES.id,
-        icon: <ItemIcon id={ITEMS.DARKMOON_DECK_PROMISES.id} />,
-        title: <ItemLink id={ITEMS.DARKMOON_DECK_PROMISES.id} />,
-        result: (
-          <dfn data-tip="The exact amount of mana saved by the Darkmoon Deck: Promises equip effect. This takes the different values per card into account at the time of the cast.">
-            {formatThousands(this.modules.darkmoonDeckPromises.manaGained)} mana saved ({formatThousands(this.modules.darkmoonDeckPromises.manaGained / this.fightDuration * 1000 * 5)} MP5)
-          </dfn>
         ),
       },
       this.modules.tier19_4set.active && {

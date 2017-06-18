@@ -5,8 +5,6 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import Icon from 'common/Icon';
 import ITEMS from 'common/ITEMS';
-import ItemLink from 'common/ItemLink';
-import ItemIcon from 'common/ItemIcon';
 
 import StatisticBox from 'Main/StatisticBox';
 import ExpandableStatisticBox from 'Main/ExpandableStatisticBox';
@@ -19,9 +17,6 @@ import ManaTab from 'Main/ManaTab';
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
-import AmalgamsSeventhSpine from 'Parser/Core/Modules/Items/AmalgamsSeventhSpine';
-import SephuzsSecret from 'Parser/Core/Modules/Items/SephuzsSecret';
-import DarkmoonDeckPromises from 'Parser/Core/Modules/Items/DarkmoonDeckPromises';
 
 import AbilityTracker from './Modules/Core/AbilityTracker';
 
@@ -84,14 +79,11 @@ class CombatLogParser extends MainCombatLogParser {
     atonementSource: AtonementSource,
 
     // Items:
-    sephuzsSecret: SephuzsSecret,
     tier19_2set: Tier19_2set,
     cordOfMaiev: CordOfMaiev,
     skjoldr: Skjoldr,
     xalan: Xalan,
     neroBandOfPromises: NeroBandOfPromises,
-    amalgamsSeventhSpine: AmalgamsSeventhSpine,
-    darkmoonDeckPromises: DarkmoonDeckPromises,
     tarnishedSentinelMedallion: TarnishedSentinelMedallion,
     marchOfTheLegion: MarchOfTheLegion,
 
@@ -115,7 +107,6 @@ class CombatLogParser extends MainCombatLogParser {
     const hasCastigation = this.selectedCombatant.hasTalent(SPELLS.CASTIGATION_TALENT.id);
     const missedPenanceTicks = (this.modules.alwaysBeCasting.truePenanceCasts * (3 + (hasCastigation ? 1 : 0))) - (penance.casts || 0);
     const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
-    const velensHealingPercentage = this.modules.velens.healing / this.totalHealing;
     const owlHealingPercentage = this.modules.tarnishedSentinelMedallion.healing / this.totalHealing;
     const marchHealingPercentage = this.modules.marchOfTheLegion.healing / this.totalHealing;
     const improperAtonementRefreshPercentage = this.modules.atonement.improperAtonementRefreshes.length / this.modules.atonement.totalAtones;
@@ -136,13 +127,6 @@ class CombatLogParser extends MainCombatLogParser {
         issue: `Your dead GCD time can be improved. Try to Always Be Casting (ABC); when there's nothing to heal try to contribute some damage (${Math.round(deadTimePercentage * 100)}% dead GCD time).`,
         icon: 'spell_mage_altertime',
         importance: getIssueImportance(deadTimePercentage, 0.35, 0.4, true),
-      });
-    }
-    if (this.modules.velens.active && velensHealingPercentage < 0.045) {
-      results.addIssue({
-        issue: <span>Your usage of <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} /> can be improved. Try to maximize the amount of casts during the buff or consider using an easier legendary ({(velensHealingPercentage * 100).toFixed(2)}% healing contributed).</span>,
-        icon: ITEMS.VELENS_FUTURE_SIGHT.icon,
-        importance: getIssueImportance(velensHealingPercentage, 0.04, 0.03),
       });
     }
     // PtW uptime should be > 95%
@@ -183,48 +167,52 @@ class CombatLogParser extends MainCombatLogParser {
           </dfn>
         )}
       />,
-      this.modules.evangelism.active && (<ExpandableStatisticBox
-        icon={<SpellIcon id={SPELLS.EVANGELISM_TALENT.id} />}
-        value={`${formatNumber(this.modules.evangelism.evangelismStatistics.reduce((p, c) => p += c.healing, 0) / fightDuration * 1000)} HPS`}
-        label={(
-          <dfn data-tip={`Evangelism accounted for approximately ${ formatPercentage(this.modules.evangelism.evangelismStatistics.reduce((p, c) => p + c.healing, 0) / this.totalHealing) }% of your healing.`}>
-            Evangelism contribution
-          </dfn>
-        )}
-      >
-        <table className="table table-condensed">
-          <thead>
-            <tr>
-              <th>Cast</th>
-              <th>Healing</th>
-              <th>Duration</th>
-              <th>Count</th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-              this.modules.evangelism.evangelismStatistics
-                .map((evangelism, index) => (
-                  <tr key={index}>
-                    <th scope="row">{ index + 1 }</th>
-                    <td>{ formatNumber(evangelism.healing) }</td>
-                    <td>{ evangelism.atonementSeconds }s</td>
-                    <td>{ evangelism.count }</td>
-                  </tr>
-                ))
-            }
-          </tbody>
-        </table>
-      </ExpandableStatisticBox>),
-      missedPenanceTicks && (<StatisticBox
-        icon={<SpellIcon id={SPELLS.PENANCE.id} />}
-        value={missedPenanceTicks}
-        label={(
-          <dfn data-tip={`Each Penance cast has 3 bolts (4 if you're using Castigation). You should try to let this channel finish as much as possible. You channeled Penance ${this.modules.alwaysBeCasting.truePenanceCasts} times.`}>
-            Wasted Penance bolts
-          </dfn>
-        )}
-      />),
+      this.modules.evangelism.active && (
+        <ExpandableStatisticBox
+          icon={<SpellIcon id={SPELLS.EVANGELISM_TALENT.id} />}
+          value={`${formatNumber(this.modules.evangelism.evangelismStatistics.reduce((p, c) => p += c.healing, 0) / fightDuration * 1000)} HPS`}
+          label={(
+            <dfn data-tip={`Evangelism accounted for approximately ${ formatPercentage(this.modules.evangelism.evangelismStatistics.reduce((p, c) => p + c.healing, 0) / this.totalHealing) }% of your healing.`}>
+              Evangelism contribution
+            </dfn>
+          )}
+        >
+          <table className="table table-condensed">
+            <thead>
+              <tr>
+                <th>Cast</th>
+                <th>Healing</th>
+                <th>Duration</th>
+                <th>Count</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                this.modules.evangelism.evangelismStatistics
+                  .map((evangelism, index) => (
+                    <tr key={index}>
+                      <th scope="row">{ index + 1 }</th>
+                      <td>{ formatNumber(evangelism.healing) }</td>
+                      <td>{ evangelism.atonementSeconds }s</td>
+                      <td>{ evangelism.count }</td>
+                    </tr>
+                  ))
+              }
+            </tbody>
+          </table>
+        </ExpandableStatisticBox>
+      ),
+      missedPenanceTicks && (
+        <StatisticBox
+          icon={<SpellIcon id={SPELLS.PENANCE.id} />}
+          value={missedPenanceTicks}
+          label={(
+            <dfn data-tip={`Each Penance cast has 3 bolts (4 if you're using Castigation). You should try to let this channel finish as much as possible. You channeled Penance ${this.modules.alwaysBeCasting.truePenanceCasts} times.`}>
+              Wasted Penance bolts
+            </dfn>
+          )}
+        />
+      ),
       this.modules.atonement.active && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.ATONEMENT_HEAL_NON_CRIT.id} />}
@@ -236,12 +224,12 @@ class CombatLogParser extends MainCombatLogParser {
           )}
         />
       ),
-      this.modules.twistOfFate.active && (
+      this.modules.twistOfFate.active && !this.selectedCombatant.hasRing(ITEMS.SOUL_OF_THE_HIGH_PRIEST.id) && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.TWIST_OF_FATE_TALENT.id} />}
           value={`${formatNumber(this.modules.twistOfFate.healing / fightDuration * 1000)} HPS`}
           label={(
-            <dfn data-tip={`The actual effective healing contributed by Twist of Fate (${formatPercentage(this.modules.twistOfFate.healing / this.totalHealing)}% of total healing done). Twist of Fate also contributed ${formatNumber(this.modules.twistOfFate.damage / fightDuration * 1000)} DPS (${formatPercentage(this.modules.twistOfFate.damage / this.totalDamage)}% of total damage done).`}>
+            <dfn data-tip={`The actual effective healing contributed by Twist of Fate (${formatPercentage(this.modules.twistOfFate.healing / this.totalHealing)}% of total healing done). Twist of Fate also contributed ${formatNumber(this.modules.twistOfFate.damage / fightDuration * 1000)} DPS (${formatPercentage(this.modules.twistOfFate.damage / this.totalDamage)}% of total damage done), the healing gain of this damage was included in the shown numbers.`}>
               Twist of Fate contribution
             </dfn>
           )}
@@ -276,9 +264,7 @@ class CombatLogParser extends MainCombatLogParser {
     results.items = [
       ...results.items,
       this.modules.tarnishedSentinelMedallion.active && {
-        id: ITEMS.TARNISHED_SENTINEL_MEDALLION.id,
-        icon: <ItemIcon id={ITEMS.TARNISHED_SENTINEL_MEDALLION.id} />,
-        title: <ItemLink id={ITEMS.TARNISHED_SENTINEL_MEDALLION.id} />,
+        item: ITEMS.TARNISHED_SENTINEL_MEDALLION,
         result: (
           <dfn data-tip="The atonement healing done by the trinket's damaging effects.">
             { ((owlHealingPercentage * 100) || 0).toFixed(2) } % / { formatNumber(this.modules.tarnishedSentinelMedallion.healing / fightDuration * 1000) } HPS
@@ -286,25 +272,15 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       },
       this.modules.marchOfTheLegion.active && {
-        id: SPELLS.MARCH_OF_THE_LEGION.id,
-        icon: <SpellIcon id={SPELLS.MARCH_OF_THE_LEGION.id} />,
-        title: <SpellLink id={SPELLS.MARCH_OF_THE_LEGION.id} />,
+        item: SPELLS.MARCH_OF_THE_LEGION,
         result: (
           <dfn data-tip="The atonement healing done by the set bonus' damaging effects.">
             { ((marchHealingPercentage * 100) || 0).toFixed(2) } % / { formatNumber(this.modules.marchOfTheLegion.healing / fightDuration * 1000) } HPS
           </dfn>
         ),
       },
-      this.modules.sephuzsSecret.active && {
-        id: ITEMS.SEPHUZS_SECRET.id,
-        icon: <ItemIcon id={ITEMS.SEPHUZS_SECRET.id} />,
-        title: <ItemLink id={ITEMS.SEPHUZS_SECRET.id} />,
-        result: `${((this.modules.sephuzsSecret.uptime / fightDuration * 100) || 0).toFixed(2)} % uptime`,
-      },
       this.modules.cordOfMaiev.active && {
-        id: ITEMS.CORD_OF_MAIEV_PRIESTESS_OF_THE_MOON.id,
-        icon: <ItemIcon id={ITEMS.CORD_OF_MAIEV_PRIESTESS_OF_THE_MOON.id} />,
-        title: <ItemLink id={ITEMS.CORD_OF_MAIEV_PRIESTESS_OF_THE_MOON.id} />,
+        item: ITEMS.CORD_OF_MAIEV_PRIESTESS_OF_THE_MOON,
         result: (
           <span>
             {(this.modules.cordOfMaiev.procTime / 1000).toFixed(1)} seconds off the <SpellLink id={SPELLS.PENANCE.id} /> cooldown ({this.modules.cordOfMaiev.procs} Penances cast earlier)
@@ -312,9 +288,7 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       },
       this.modules.skjoldr.active && {
-        id: ITEMS.SKJOLDR_SANCTUARY_OF_IVAGONT.id,
-        icon: <ItemIcon id={ITEMS.SKJOLDR_SANCTUARY_OF_IVAGONT.id} />,
-        title: <ItemLink id={ITEMS.SKJOLDR_SANCTUARY_OF_IVAGONT.id} />,
+        item: ITEMS.SKJOLDR_SANCTUARY_OF_IVAGONT,
         result: (
           <dfn data-tip="The actual effective healing contributed by the Skjoldr, Sanctuary of Ivagont equip effect. This includes the healing gained via Share in the Light.">
             {((this.modules.skjoldr.healing / this.totalHealing * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.skjoldr.healing / fightDuration * 1000)} HPS
@@ -322,9 +296,7 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       },
       this.modules.xalan.active && {
-        id: ITEMS.XALAN_THE_FEAREDS_CLENCH.id,
-        icon: <ItemIcon id={ITEMS.XALAN_THE_FEAREDS_CLENCH.id} />,
-        title: <ItemLink id={ITEMS.XALAN_THE_FEAREDS_CLENCH.id} />,
+        item: ITEMS.XALAN_THE_FEAREDS_CLENCH,
         result: (
           <dfn data-tip={`The actual effective healing contributed by the Xalan the Feared's Clench equip effect asuming your Atonement lasts ${this.modules.xalan.atonementDuration} seconds normally.`}>
             {((this.modules.xalan.healing / this.totalHealing * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.xalan.healing / fightDuration * 1000)} HPS
@@ -332,32 +304,18 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       },
       this.modules.neroBandOfPromises.active && {
-        id: ITEMS.NERO_BAND_OF_PROMISES.id,
-        icon: <ItemIcon id={ITEMS.NERO_BAND_OF_PROMISES.id} />,
-        title: <ItemLink id={ITEMS.NERO_BAND_OF_PROMISES.id} />,
+        item: ITEMS.NERO_BAND_OF_PROMISES,
         result: (
           <dfn data-tip={`The healing gain from Penance damage on players without without Atonement during the Power Word: Barrier buff.`}>
             {((this.modules.neroBandOfPromises.healing / this.totalHealing * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.neroBandOfPromises.healing / fightDuration * 1000)} HPS
           </dfn>
         ),
       },
-      this.modules.amalgamsSeventhSpine.active && {
-        id: ITEMS.AMALGAMS_SEVENTH_SPINE.id,
-        icon: <ItemIcon id={ITEMS.AMALGAMS_SEVENTH_SPINE.id} />,
-        title: <ItemLink id={ITEMS.AMALGAMS_SEVENTH_SPINE.id} />,
+      this.selectedCombatant.hasRing(ITEMS.SOUL_OF_THE_HIGH_PRIEST.id) && {
+        item: ITEMS.SOUL_OF_THE_HIGH_PRIEST,
         result: (
-          <dfn data-tip={`The exact amount of mana gained from the Amalgam's Seventh Spine equip effect. You gained mana ${this.modules.amalgamsSeventhSpine.procs} times and refreshed the buff ${this.modules.amalgamsSeventhSpine.refreshes} times (refreshing delay the mana return and is inefficient use of this trinket).`}>
-            {formatThousands(this.modules.amalgamsSeventhSpine.manaGained)} mana gained ({formatThousands(this.modules.amalgamsSeventhSpine.manaGained / this.fightDuration * 1000 * 5)} MP5)
-          </dfn>
-        ),
-      },
-      this.modules.darkmoonDeckPromises.active && {
-        id: ITEMS.DARKMOON_DECK_PROMISES.id,
-        icon: <ItemIcon id={ITEMS.DARKMOON_DECK_PROMISES.id} />,
-        title: <ItemLink id={ITEMS.DARKMOON_DECK_PROMISES.id} />,
-        result: (
-          <dfn data-tip="The exact amount of mana saved by the Darkmoon Deck: Promises equip effect. This takes the different values per card into account at the time of the cast.">
-            {formatThousands(this.modules.darkmoonDeckPromises.manaGained)} mana saved ({formatThousands(this.modules.darkmoonDeckPromises.manaGained / this.fightDuration * 1000 * 5)} MP5)
+          <dfn data-tip={`The effective healing contributed by Twist of Fate (${formatPercentage(this.modules.twistOfFate.healing / this.totalHealing)}% of total healing done). Twist of Fate also contributed ${formatNumber(this.modules.twistOfFate.damage / fightDuration * 1000)} DPS (${formatPercentage(this.modules.twistOfFate.damage / this.totalDamage)}% of total damage done), the healing gain of this damage was included in the shown numbers.`}>
+            {((this.modules.twistOfFate.healing / this.totalHealing * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.twistOfFate.healing / fightDuration * 1000)} HPS
           </dfn>
         ),
       },

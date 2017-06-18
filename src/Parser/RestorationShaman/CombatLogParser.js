@@ -6,7 +6,6 @@ import SpellIcon from 'common/SpellIcon';
 import ITEMS from 'common/ITEMS';
 import Icon from 'common/Icon';
 import ItemLink from 'common/ItemLink';
-import ItemIcon from 'common/ItemIcon';
 
 import StatisticBox from 'Main/StatisticBox';
 import SuggestionsTab from 'Main/SuggestionsTab';
@@ -117,7 +116,6 @@ class CombatLogParser extends MainCombatLogParser {
 
     const nonHealingTimePercentage = this.modules.alwaysBeCasting.totalHealingTimeWasted / fightDuration;
     const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
-    const velensHealingPercentage = this.modules.velens.healing / totalHealing;
     const nazjatarRiptideResets = this.modules.nazjatar.resets;
     const nobundoDiscountedHealingSurges = this.modules.nobundo.discounts;
     const jonatHealingPercentage = this.modules.jonat.healing / totalHealing;
@@ -197,13 +195,6 @@ class CombatLogParser extends MainCombatLogParser {
         issue: `Your dead GCD time can be improved. Try to Always Be Casting (ABC); when you're not healing try to contribute some damage (${Math.round(deadTimePercentage * 100)}% dead GCD time).`,
         icon: 'spell_mage_altertime',
         importance: getIssueImportance(deadTimePercentage, 0.35, 0.4, true),
-      });
-    }
-    if (this.modules.velens.active && velensHealingPercentage < 0.045) {
-      results.addIssue({
-        issue: <span>Your usage of <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} /> can be improved. Try to maximize the amount of casts during the buff or consider using an easier legendary ({(velensHealingPercentage * 100).toFixed(2)}% healing contributed).</span>,
-        icon: ITEMS.VELENS_FUTURE_SIGHT.icon,
-        importance: getIssueImportance(velensHealingPercentage, 0.04, 0.03),
       });
     }
     if (unbuffedHealingSurges > 0) {
@@ -372,9 +363,7 @@ class CombatLogParser extends MainCombatLogParser {
     results.items = [
       ...results.items,
       this.modules.uncertainReminder.active && {
-        id: ITEMS.UNCERTAIN_REMINDER.id,
-        icon: <ItemIcon id={ITEMS.UNCERTAIN_REMINDER.id} />,
-        title: <ItemLink id={ITEMS.UNCERTAIN_REMINDER.id} />,
+        item: ITEMS.UNCERTAIN_REMINDER,
         result: (
           <dfn data-tip="The effective healing contributed by the additional Heroism uptime from Uncertain Reminder. This includes the +25% healing modifier from the Sense of Urgency artifact trait for all your spells, and a 30% haste modifier on your spells of which their throughput scales linear with haste: Healing Wave, Healing Surge, Chain Heal, Healing Rain, Healing Stream Totem and Riptide HoT. Healing Tide Totem is also included, though underestimated, as the Cumulative Upkeep trait will make it scale more than linear.">
             {((uncertainReminderHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber((this.modules.uncertainReminder.urgencyHealing + this.modules.uncertainReminder.hasteHealing) / fightDuration * 1000)} HPS
@@ -382,19 +371,15 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       },
       this.modules.jonat.active && {
-        id: ITEMS.FOCUSER_OF_JONAT.id,
-        icon: <ItemIcon id={ITEMS.FOCUSER_OF_JONAT.id} />,
-        title: <ItemLink id={ITEMS.FOCUSER_OF_JONAT.id} />,
+        item: ITEMS.FOCUSER_OF_JONAT,
         result: (
-          <dfn data-tip={`The extra healing from your Chain Heals from the Focuser of Jonat buff.`}>
+          <span>
             {((jonatHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.jonat.healing / fightDuration * 1000)} HPS
-          </dfn>
+          </span>
         ),
       },
       this.selectedCombatant.hasLegs(ITEMS.ROOTS_OF_SHALADRASSIL.id) && {
-        id: ITEMS.ROOTS_OF_SHALADRASSIL.id,
-        icon: <ItemIcon id={ITEMS.ROOTS_OF_SHALADRASSIL.id} />,
-        title: <ItemLink id={ITEMS.ROOTS_OF_SHALADRASSIL.id} />,
+        item: ITEMS.ROOTS_OF_SHALADRASSIL,
         result: (
           <dfn data-tip={`The effective healing contributed by Roots of Shaladrassil. Of this healing, ${formatPercentage(rootsRawHealingPercentage)}% is the raw healing they provide, and ${formatPercentage(rootsInteractionHealingPercentage)}% is indirect healing done through Cloudburst Totem, Ancestral Guidance and Ascendance. <br /><br />The interactions of these 3 cooldowns are currently not included, so in case there's overlap between these cooldowns the real healing would be slightly higher than indicated.`}>
             {((rootsHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(rootsRawHealing / fightDuration * 1000)} HPS
@@ -402,9 +387,7 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       },
       this.modules.tidecallers.active && {
-        id: ITEMS.PRAETORIANS_TIDECALLERS.id,
-        icon: <ItemIcon id={ITEMS.PRAETORIANS_TIDECALLERS.id} />,
-        title: <ItemLink id={ITEMS.PRAETORIANS_TIDECALLERS.id} />,
+        item: ITEMS.PRAETORIANS_TIDECALLERS,
         result: (
           <dfn data-tip={`The healing gained from the extra duration that Praetorian's Tidecallers give to Healing Tide Totem and Healing Stream Totem. The increased duration on Healing Stream Totem accounts for ${formatPercentage(tidecallersHSTPercentage)}% healing, the increased duration on Healing Tide Totem for ${formatPercentage(tidecallersHTTPercentage)}% healing.`}>
             {((tidecallersHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber((this.modules.tidecallers.httHealing+this.modules.tidecallers.hstHealing) / fightDuration * 1000)} HPS
@@ -412,19 +395,15 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       },
       this.modules.nazjatar.active && {
-        id: ITEMS.INTACT_NAZJATAR_MOLTING.id,
-        icon: <ItemIcon id={ITEMS.INTACT_NAZJATAR_MOLTING.id} />,
-        title: <ItemLink id={ITEMS.INTACT_NAZJATAR_MOLTING.id} />,
+        item: ITEMS.INTACT_NAZJATAR_MOLTING,
         result: (
           <span>
-          {nazjatarRiptideResets} Riptide resets 
+            {nazjatarRiptideResets} Riptide resets
           </span>
         ),
       },
       this.modules.nobundo.active && {
-        id: ITEMS.NOBUNDOS_REDEMPTION.id,
-        icon: <ItemIcon id={ITEMS.NOBUNDOS_REDEMPTION.id} />,
-        title: <ItemLink id={ITEMS.NOBUNDOS_REDEMPTION.id} />,
+        item: ITEMS.NOBUNDOS_REDEMPTION,
         result: (
           <span>
           {nobundoDiscountedHealingSurges} discounted Healing Surges
