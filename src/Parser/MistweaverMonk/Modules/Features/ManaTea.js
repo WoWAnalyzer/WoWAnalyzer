@@ -18,7 +18,7 @@ class ManaTea extends Module {
   remCasts = 0;
   revCasts = 0;
   vivCasts = 0;
-  rjwCasts =0;
+  rjwCasts = 0;
 
   nonManaCasts = 0;
   castsUnderManaTea = 0;

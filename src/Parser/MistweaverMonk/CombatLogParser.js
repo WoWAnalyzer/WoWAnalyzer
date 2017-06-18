@@ -3,7 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
-// import Icon from 'common/Icon';
+import Icon from 'common/Icon';
 import ITEMS from 'common/ITEMS';
 
 import StatisticBox from 'Main/StatisticBox';
@@ -97,11 +97,14 @@ class CombatLogParser extends MainCombatLogParser {
     xuensBattlegear4Piece: XuensBattlegear4Piece,
   };
 
-  generateResults(results) {
+  generateResults() {
+    const results = super.generateResults();
+    
     const fightDuration = this.fightDuration;
     const fightEndTime = this.fight.end_time;
     const raidSize = Object.entries(this.combatants.players).length;
-    // const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
+    const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
+    const nonHealingTimePercentage = this.modules.alwaysBeCasting.totalHealingTimeWasted / fightDuration;
 
     const abilityTracker = this.modules.abilityTracker;
     const getAbility = spellId => abilityTracker.getAbility(spellId);
@@ -109,7 +112,7 @@ class CombatLogParser extends MainCombatLogParser {
     const eithasHealingPercentage = this.modules.eithas.healing / this.totalHealing;
 
     const xuensBattlegear4PieceHealingPercentage = this.modules.xuensBattlegear4Piece.healing / this.totalHealing;
-    
+
     const unusedUTProcs = 1 - (this.modules.upliftingTrance.consumedUTProc / this.modules.upliftingTrance.UTProcsTotal);
 
     const avgSGOverheal = this.modules.sheilunsGift.overhealSG / this.modules.sheilunsGift.castsSG || 0;
@@ -123,7 +126,6 @@ class CombatLogParser extends MainCombatLogParser {
     const mtCasts = manaTea.casts || 0;
     const avgMTsaves = this.modules.manaTea.manaSavedMT / mtCasts || 0;
 
-    const chiBurstHealing = this.modules.chiBurst.healingChiBurst + this.modules.chiBurst.absorbedHealingChiBurst || 0;
     const avgChiBurstTargets = this.modules.chiBurst.targetsChiBurst / this.modules.chiBurst.castChiBurst || 0;
 
     const avgCelestialBreathHealing = this.modules.aoeHealingTracker.healingCelestialBreath / this.modules.aoeHealingTracker.healsCelestialBreath || 0;
@@ -134,7 +136,7 @@ class CombatLogParser extends MainCombatLogParser {
     const avgRJWTargets = this.modules.aoeHealingTracker.healsRJW / this.modules.aoeHealingTracker.castRJW || 0;
 
     const efMasteryCasts = (this.modules.essenceFontMastery.healEF / 2) || 0;
-    const efMasteryEffectiveHealing = ((this.modules.essenceFontMastery.healingEF + this.modules.essenceFontMastery.absorbedhealingEF) / 2) || 0;
+    const efMasteryEffectiveHealing = ((this.modules.essenceFontMastery.healing) / 2) || 0;
     const avgEFMasteryHealing = efMasteryEffectiveHealing / efMasteryCasts || 0;
 
     const avgMasteryCastsPerEF = (this.modules.essenceFontMastery.castEF / efMasteryCasts) || 0;
@@ -152,15 +154,20 @@ class CombatLogParser extends MainCombatLogParser {
     const sheilunsGiftHealing = getAbility(SPELLS.SHEILUNS_GIFT.id);
     const sheilunsGiftOverhealingPercentage = getOverhealingPercentage(sheilunsGiftHealing) || 0;
 
-    /*
+    if (nonHealingTimePercentage > 0.3) {
+      results.addIssue({
+        issue: `Your non healing time can be improved. Try to cast heals more regularly (${Math.round(nonHealingTimePercentage * 100)}% non healing time).`,
+        icon: 'petbattle_health-down',
+        importance: getIssueImportance(nonHealingTimePercentage, 0.4, 0.45, true),
+      });
+    }
     if (deadTimePercentage > 0.2) {
       results.addIssue({
-        issue: `Your dead GCD time can be improved. Try to Always Be Casting (ABC); when there's nothing to heal try to contribute some damage (${Math.round(deadTimePercentage * 100)}% dead GCD time).`,
+        issue: `Your dead GCD time can be improved. Try to Always Be Casting (ABC); when you're not healing try to contribute some damage (${Math.round(deadTimePercentage * 100)}% dead GCD time).`,
         icon: 'spell_mage_altertime',
         importance: getIssueImportance(deadTimePercentage, 0.35, 0.4, true),
       });
     }
-    */
     // Missed Whispers healing
     if(hasWhispersOfShaohao && missedWhispersHeal > 10) {
       results.addIssue({
@@ -263,7 +270,7 @@ class CombatLogParser extends MainCombatLogParser {
     // Chi Burst Usage
     if(this.modules.chiBurst.active && avgChiBurstTargets < (raidSize * .4)) {
       results.addIssue({
-        issue: <span>You are not utilizing your <SpellLink id={SPELLS.CHI_BURST_TALENT.id} /> talent as effectively as you should.  You hit an average of {avgChiBurstTargets.toFixed(2)} targets per Chi Burst cast.  Look to better position yourself during your your Chi Burst casts to get the most use out of the spell.  ({((chiBurstHealing / this.modules.chiBurst.castChiBurst) / 1000).toFixed(1)}k avg healing per cast.)</span>,
+        issue: <span>You are not utilizing your <SpellLink id={SPELLS.CHI_BURST_TALENT.id} /> talent as effectively as you should.  You hit an average of {avgChiBurstTargets.toFixed(2)} targets per Chi Burst cast.  Look to better position yourself during your your Chi Burst casts to get the most use out of the spell.  ({((this.modules.chiBurst.healing / this.modules.chiBurst.castChiBurst) / 1000).toFixed(1)}k avg healing per cast.)</span>,
         icon: SPELLS.CHI_BURST_TALENT.icon,
         importance: getIssueImportance(avgChiBurstTargets, (raidSize * .3), (raidSize * .25)),
       });
@@ -297,7 +304,7 @@ class CombatLogParser extends MainCombatLogParser {
           </dfn>
         )}
       />,
-      /*<StatisticBox
+      <StatisticBox
         icon={<Icon icon="petbattle_health-down" alt="Non healing time" />}
         value={`${formatPercentage(deadTimePercentage)} %`}
         label={(
@@ -305,7 +312,7 @@ class CombatLogParser extends MainCombatLogParser {
             Dead GCD time
           </dfn>
         )}
-      />,*/
+      />,
       // Thunder Focus Tea Usage
       <StatisticBox
         icon={<SpellIcon id={SPELLS.THUNDER_FOCUS_TEA.id} />}
@@ -357,7 +364,7 @@ class CombatLogParser extends MainCombatLogParser {
           label={(
             <dfn
               data-tip={`
-                  During your ${this.modules.manaTea.manateaCount} <a href="http://www.wowhead.com/spell=197908" target="_blank" rel="noopener noreferrer">Mana Teas</a> saved the following mana:
+                  During your ${this.modules.manaTea.manateaCount} <a href="http://www.wowhead.com/spell=197908" target="_blank" rel="noopener noreferrer">Mana Teas</a> saved the following mana (${formatThousands(this.modules.manaTea.manaSavedMT / this.fightDuration * 1000 * 5)} MP5):
                   <ul>
                   ${this.modules.manaTea.efCasts > 0 ?
                   `<li>${(this.modules.manaTea.efCasts)} Essence Font casts</li>`
@@ -523,7 +530,7 @@ class CombatLogParser extends MainCombatLogParser {
       this.modules.chiBurst.active && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.CHI_BURST_TALENT.id} />}
-          value={`${formatNumber(chiBurstHealing)}`}
+          value={`${formatNumber(this.modules.chiBurst.healing)}`}
           label={(
             <dfn data-tip={`You healed an average of ${avgChiBurstTargets.toFixed(2)} targets per Chi Burst cast over your ${this.modules.chiBurst.castChiBurst} casts.`}>
               Total Healing
@@ -532,7 +539,6 @@ class CombatLogParser extends MainCombatLogParser {
         />
       ),
     ];
-    console.log('4pc Active: ', this.modules.xuensBattlegear4Piece.active);
     results.items = [
       ...results.items,
       this.modules.xuensBattlegear4Piece.active && {

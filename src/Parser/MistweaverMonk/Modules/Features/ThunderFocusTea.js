@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 const debug = false;
 
 class ThunderFocusTea extends Module {
-
     castsTftEff = 0;
     castsTftEf = 0;
     castsTftViv = 0;
