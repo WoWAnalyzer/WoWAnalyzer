@@ -19,10 +19,6 @@ import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
-import ArchiveOfFaith from 'Parser/Core/Modules/Items/ArchiveOfFaith';
-import BarbaricMindslaver from 'Parser/Core/Modules/Items/BarbaricMindslaver';
-import SeaStar from 'Parser/Core/Modules/Items/SeaStarOfTheDepthmother';
-import DeceiversGrandDesign from 'Parser/Core/Modules/Items/DeceiversGrandDesign';
 
 // Features
 import CooldownTracker from './Modules/Features/CooldownTracker';
@@ -100,10 +96,6 @@ class CombatLogParser extends MainCombatLogParser {
 
     // Legendaries / Items:
     eithas: Eithas,
-    archiveOfFaith: ArchiveOfFaith,
-    barbaricMindslaver: BarbaricMindslaver,
-    seaStar: SeaStar,
-    deceiversGrandDesign: DeceiversGrandDesign,
     xuensBattlegear4Piece: XuensBattlegear4Piece,
   };
 
@@ -117,14 +109,6 @@ class CombatLogParser extends MainCombatLogParser {
     const getAbility = spellId => abilityTracker.getAbility(spellId);
 
     const eithasHealingPercentage = this.modules.eithas.healing / this.totalHealing;
-    const barbaricMindslaverHealingPercentage = this.modules.barbaricMindslaver.healing / this.totalHealing;
-    const seaStarHealingPercentage = this.modules.seaStar.healing / this.totalHealing;
-    const archiveOfFaithHealing = this.modules.archiveOfFaith.healing / this.totalHealing;
-    const archiveOfFaithHOTHealing = this.modules.archiveOfFaith.healingOverTime / this.totalHealing;
-    const archiveOfFaithHealingTotal = (this.modules.archiveOfFaith.healing + this.modules.archiveOfFaith.healingOverTime) / this.totalHealing;
-    const deceiversGrandDesignHealingPercentage = this.modules.deceiversGrandDesign.healing / this.totalHealing;
-    const deceiversGrandDesignAbsorbPercentage = this.modules.deceiversGrandDesign.healingAbsorb / this.totalHealing;
-    const deceiversGrandDesignTotalPercentage = (this.modules.deceiversGrandDesign.healing + this.modules.deceiversGrandDesign.healingAbsorb) / this.totalHealing;
 
     const xuensBattlegear4PieceHealingPercentage = this.modules.xuensBattlegear4Piece.healing / this.totalHealing;
     
@@ -179,25 +163,6 @@ class CombatLogParser extends MainCombatLogParser {
       });
     }
     */
-    // Deciever's Grand Design Suggestion
-    if(this.modules.deceiversGrandDesign.proced) {
-      results.addIssue({
-        issue: <span>Your <ItemLink id={ITEMS.DECEIVERS_GRAND_DESIGN.id} /> proc'ed earlier than expected.  The following events proc'ed the effect: <br />
-          {this.modules.deceiversGrandDesign.procs
-              .map(function(procs, index) {
-                const url = 'https://www.warcraftlogs.com/reports/' + procs.report + '/#fight=' + procs.fight + '&source=' + procs.target + '&type=summary&start=' + procs.start + '&end=' + procs.end + '&view=events';
-                return(
-                  <div>
-                    Proc {index + 1} on: <a href={url} target="_blank" rel="noopener noreferrer">{procs.name}</a>
-                    <br />
-                  </div>
-                );
-              })
-          }
-          </span>,
-        icon: ITEMS.DECEIVERS_GRAND_DESIGN.icon,
-      });
-    }
     // Missed Whispers healing
     if(hasWhispersOfShaohao && missedWhispersHeal > 10) {
       results.addIssue({
@@ -589,50 +554,6 @@ class CombatLogParser extends MainCombatLogParser {
         result: (
           <dfn data-tip="The actual effective healing contributed by the Ei\'thas, Lunar Glides of Eramas equip effect.">
             {((eithasHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.eithas.healing / fightDuration * 1000)} HPS
-          </dfn>
-        ),
-      },
-      this.modules.deceiversGrandDesign.active && {
-        id: ITEMS.DECEIVERS_GRAND_DESIGN.id,
-        icon: <ItemIcon id={ITEMS.DECEIVERS_GRAND_DESIGN.id} />,
-        title: <ItemLink id={ITEMS.DECEIVERS_GRAND_DESIGN.id} />,
-        result: (
-          <span>
-            <dfn data-tip={`The actual effective healing contributed by the Deciever's Grand Design on-use effect.<br />HOT: ${((deceiversGrandDesignHealingPercentage * 100) || 0).toFixed(2)} % / ${formatNumber(this.modules.deceiversGrandDesign.healing / fightDuration * 1000)} HPS<br />Shield Proc: ${((deceiversGrandDesignAbsorbPercentage * 100) || 0).toFixed(2)} % / ${formatNumber(this.modules.deceiversGrandDesign.healingAbsorb / fightDuration * 1000)} HPS`}>
-              {((deceiversGrandDesignTotalPercentage * 100) || 0).toFixed(2)} % / {formatNumber((this.modules.deceiversGrandDesign.healing + this.modules.deceiversGrandDesign.healingAbsorb) / fightDuration * 1000)} HPS
-            </dfn>
-          </span>
-        ),
-      },
-      this.modules.archiveOfFaith.active && {
-        id: ITEMS.ARCHIVE_OF_FAITH.id,
-        icon: <ItemIcon id={ITEMS.ARCHIVE_OF_FAITH.id} />,
-        title: <ItemLink id={ITEMS.ARCHIVE_OF_FAITH.id} />,
-        result: (
-          <span>
-            <dfn data-tip={`The actual effective healing contributed by the Archive of Faith on-use effect.<br />Channel: ${((archiveOfFaithHealing * 100) || 0).toFixed(2)} % / ${formatNumber(this.modules.archiveOfFaith.healing / fightDuration * 1000)} HPS<br />HOT: ${((archiveOfFaithHOTHealing * 100) || 0).toFixed(2)} % / ${formatNumber(this.modules.archiveOfFaith.healingOverTime / fightDuration * 1000)} HPS`}>
-              {((archiveOfFaithHealingTotal * 100) || 0).toFixed(2)} % / {formatNumber((this.modules.archiveOfFaith.healing + this.modules.archiveOfFaith.healingOverTime) / fightDuration * 1000)} HPS
-            </dfn>
-          </span>
-        ),
-      },
-      this.modules.barbaricMindslaver.active && {
-        id: ITEMS.BARBARIC_MINDSLAVER.id,
-        icon: <ItemIcon id={ITEMS.BARBARIC_MINDSLAVER.id} />,
-      title: <ItemLink id={ITEMS.BARBARIC_MINDSLAVER.id} />,
-        result: (
-          <dfn data-tip="The actual effective healing contributed by the Barbaric Mindslaver equip effect.">
-            {((barbaricMindslaverHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.barbaricMindslaver.healing / fightDuration * 1000)} HPS
-          </dfn>
-        ),
-      },
-      this.modules.seaStar.active && {
-        id: ITEMS.SEA_STAR_OF_THE_DEPTHMOTHER.id,
-        icon: <ItemIcon id={ITEMS.SEA_STAR_OF_THE_DEPTHMOTHER.id} />,
-      title: <ItemLink id={ITEMS.SEA_STAR_OF_THE_DEPTHMOTHER.id} />,
-        result: (
-          <dfn data-tip="The actual effective healing contributed by the Sea Star of the Depthmother equip effect.">
-            {((seaStarHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.seaStar.healing / fightDuration * 1000)} HPS
           </dfn>
         ),
       },

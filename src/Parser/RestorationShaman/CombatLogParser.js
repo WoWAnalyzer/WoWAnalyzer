@@ -378,9 +378,9 @@ class CombatLogParser extends MainCombatLogParser {
         icon: <ItemIcon id={ITEMS.FOCUSER_OF_JONAT.id} />,
         title: <ItemLink id={ITEMS.FOCUSER_OF_JONAT.id} />,
         result: (
-          <dfn data-tip={`The extra healing from your Chain Heals from the Focuser of Jonat buff.`}>
+          <span>
             {((jonatHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.jonat.healing / fightDuration * 1000)} HPS
-          </dfn>
+          </span>
         ),
       },
       this.selectedCombatant.hasLegs(ITEMS.ROOTS_OF_SHALADRASSIL.id) && {
@@ -409,7 +409,7 @@ class CombatLogParser extends MainCombatLogParser {
         title: <ItemLink id={ITEMS.INTACT_NAZJATAR_MOLTING.id} />,
         result: (
           <span>
-          {nazjatarRiptideResets} Riptide resets 
+            {nazjatarRiptideResets} Riptide resets
           </span>
         ),
       },

@@ -73,7 +73,7 @@ class Results extends React.Component {
           <div className="col-md-4">
             <div className="panel items">
               <div className="panel-heading">
-                <h2>Items</h2>
+                <h2><dfn data-tip="The values shown are only for the special equip effects of the items. The passive gain from the stats is <b>not</b> included.">Items</dfn></h2>
               </div>
               <div className="panel-body" style={{ padding: 0 }}>
                 <ul className="list">

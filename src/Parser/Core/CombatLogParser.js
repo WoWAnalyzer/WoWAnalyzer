@@ -17,6 +17,10 @@ import SephuzsSecret from './Modules/Items/SephuzsSecret';
 import DrapeOfShame from './Modules/Items/DrapeOfShame';
 import DarkmoonDeckPromises from './Modules/Items/DarkmoonDeckPromises';
 import AmalgamsSeventhSpine from './Modules/Items/AmalgamsSeventhSpine';
+import ArchiveOfFaith from './Modules/Items/ArchiveOfFaith';
+import BarbaricMindslaver from './Modules/Items/BarbaricMindslaver';
+import SeaStar from './Modules/Items/SeaStarOfTheDepthmother';
+import DeceiversGrandDesign from './Modules/Items/DeceiversGrandDesign';
 
 import ParseResults from './ParseResults';
 import SUGGESTION_IMPORTANCE from './ISSUE_IMPORTANCE';
@@ -64,6 +68,11 @@ class CombatLogParser {
     drapeOfShame: DrapeOfShame,
     amalgamsSeventhSpine: AmalgamsSeventhSpine,
     darkmoonDeckPromises: DarkmoonDeckPromises,
+    // Tomb trinkets:
+    archiveOfFaith: ArchiveOfFaith,
+    barbaricMindslaver: BarbaricMindslaver,
+    seaStar: SeaStar,
+    deceiversGrandDesign: DeceiversGrandDesign,
   };
   // Override this with spec specific modules
   static specModules = {};
@@ -82,6 +91,7 @@ class CombatLogParser {
   get combatants() {
     return this.modules.combatants;
   }
+
   /** @returns {Combatant} */
   get selectedCombatant() {
     return this.combatants.selected;
@@ -92,9 +102,11 @@ class CombatLogParser {
   }
 
   _timestamp = null;
+
   get currentTimestamp() {
     return this._timestamp;
   }
+
   get playersById() {
     return this.report.friendlies.reduce((obj, player) => {
       obj[player.id] = player;
@@ -110,6 +122,7 @@ class CombatLogParser {
     this.initializeModules(this.constructor.defaultModules);
     this.initializeModules(this.constructor.specModules);
   }
+
   initializeModules(modules) {
     Object.keys(modules).forEach(key => {
       const value = modules[key];
@@ -140,6 +153,7 @@ class CombatLogParser {
       resolve(events.length);
     });
   }
+
   triggerEvent(eventType, event) {
     const methodName = `on_${eventType}`;
     this.constructor.tryCall(this, methodName, event);
@@ -151,6 +165,7 @@ class CombatLogParser {
         this.constructor.tryCall(module, methodName, event);
       });
   }
+
   static tryCall(object, methodName, event) {
     const method = object[methodName];
     if (method) {
@@ -161,35 +176,44 @@ class CombatLogParser {
   byPlayer(event, playerId = this.player.id) {
     return (event.sourceID === playerId);
   }
+
   toPlayer(event, playerId = this.player.id) {
     return (event.targetID === playerId);
   }
 
   initialized = false;
   error = null;
+
   on_initialized() {
     this.initialized = true;
     if (!this.selectedCombatant) {
       this.error = 'The selected player could not be found in this fight. Make sure the log is recorded with Advanced Combat Logging enabled.';
     }
   }
+
   finished = false;
+
   on_finished() {
     this.finished = true;
   }
 
   // This used to be implemented as a sanity check, may be replaced by a cleaner solution.
   totalHealing = 0;
+
   on_byPlayer_heal(event) {
     this.totalHealing += event.amount + (event.absorbed || 0);
   }
+
   on_byPlayer_absorbed(event) {
     this.totalHealing += event.amount + (event.absorbed || 0);
   }
+
   totalDamage = 0;
+
   on_byPlayer_damage(event) {
     this.totalDamage += event.amount + (event.absorbed || 0);
   }
+
   // TODO: Damage taken from LOTM
 
   static SUGGESTION_VELENS_BREAKPOINT = 0.045;
@@ -206,11 +230,7 @@ class CombatLogParser {
         id: ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id,
         icon: <ItemIcon id={ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id} />,
         title: <ItemLink id={ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id} />,
-        result: (
-          <dfn data-tip="The effective healing contributed by the Prydaz, Xavaric's Magnum Opus equip effect.">
-            {formatItemHealing(this.modules.prydaz.healing)}
-          </dfn>
-        ),
+        result: formatItemHealing(this.modules.prydaz.healing),
       });
     }
     if (this.modules.velens.active) {
@@ -220,7 +240,7 @@ class CombatLogParser {
         icon: <ItemIcon id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
         title: <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
         result: (
-          <dfn data-tip={`The effective healing contributed by the Velen's Future Sight use effect. ${formatPercentage(this.modules.velens.healingIncreaseHealing/this.totalHealing)}% of total healing was contributed by the 15% healing increase and ${formatPercentage(this.modules.velens.overhealHealing/this.totalHealing)}% of total healing was contributed by the overhealing distribution.`}>
+          <dfn data-tip={`The effective healing contributed by the Velen's Future Sight use effect. ${formatPercentage(this.modules.velens.healingIncreaseHealing / this.totalHealing)}% of total healing was contributed by the 15% healing increase and ${formatPercentage(this.modules.velens.overhealHealing / this.totalHealing)}% of total healing was contributed by the overhealing distribution.`}>
             {formatItemHealing(this.modules.velens.healing)}
           </dfn>
         ),
@@ -239,11 +259,7 @@ class CombatLogParser {
         id: ITEMS.DRAPE_OF_SHAME.id,
         icon: <ItemIcon id={ITEMS.DRAPE_OF_SHAME.id} />,
         title: <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} />,
-        result: (
-          <dfn data-tip="The effective healing contributed by the critical healing gain of the Drape of Shame equip effect.">
-            {formatItemHealing(this.modules.drapeOfShame.healing)}
-          </dfn>
-        ),
+        result: formatItemHealing(this.modules.drapeOfShame.healing),
       });
     }
     if (this.modules.sephuzsSecret.active) {
@@ -277,6 +293,70 @@ class CombatLogParser {
           </dfn>
         ),
       });
+    }
+    if (this.modules.archiveOfFaith.active) {
+      const archiveOfFaithHealing = this.modules.archiveOfFaith.healing / this.totalHealing;
+      const archiveOfFaithHOTHealing = this.modules.archiveOfFaith.healingOverTime / this.totalHealing;
+      const archiveOfFaithHealingTotal = (this.modules.archiveOfFaith.healing + this.modules.archiveOfFaith.healingOverTime) / this.totalHealing;
+      results.items.push({
+        id: ITEMS.ARCHIVE_OF_FAITH.id,
+        icon: <ItemIcon id={ITEMS.ARCHIVE_OF_FAITH.id} />,
+        title: <ItemLink id={ITEMS.ARCHIVE_OF_FAITH.id} />,
+        result: (
+          <span>
+            <dfn data-tip={`The effective healing contributed by the Archive of Faith on-use effect.<br />Channel: ${((archiveOfFaithHealing * 100) || 0).toFixed(2)} % / ${formatNumber(this.modules.archiveOfFaith.healing / fightDuration * 1000)} HPS<br />HOT: ${((archiveOfFaithHOTHealing * 100) || 0).toFixed(2)} % / ${formatNumber(this.modules.archiveOfFaith.healingOverTime / fightDuration * 1000)} HPS`}>
+              {((archiveOfFaithHealingTotal * 100) || 0).toFixed(2)} % / {formatNumber((this.modules.archiveOfFaith.healing + this.modules.archiveOfFaith.healingOverTime) / fightDuration * 1000)} HPS
+            </dfn>
+          </span>
+        ),
+      });
+    }
+    if (this.modules.barbaricMindslaver.active) {
+      results.items.push({
+        id: ITEMS.BARBARIC_MINDSLAVER.id,
+        icon: <ItemIcon id={ITEMS.BARBARIC_MINDSLAVER.id} />,
+        title: <ItemLink id={ITEMS.BARBARIC_MINDSLAVER.id} />,
+        result: formatItemHealing(this.modules.barbaricMindslaver.healing),
+      });
+    }
+    if (this.modules.seaStar.active) {
+      results.items.push({
+        id: ITEMS.SEA_STAR_OF_THE_DEPTHMOTHER.id,
+        icon: <ItemIcon id={ITEMS.SEA_STAR_OF_THE_DEPTHMOTHER.id} />,
+        title: <ItemLink id={ITEMS.SEA_STAR_OF_THE_DEPTHMOTHER.id} />,
+        result: formatItemHealing(this.modules.seaStar.healing),
+      });
+    }
+    if (this.modules.deceiversGrandDesign.active) {
+      const deceiversGrandDesignHealingPercentage = this.modules.deceiversGrandDesign.healing / this.totalHealing;
+      const deceiversGrandDesignAbsorbPercentage = this.modules.deceiversGrandDesign.healingAbsorb / this.totalHealing;
+      const deceiversGrandDesignTotalPercentage = (this.modules.deceiversGrandDesign.healing + this.modules.deceiversGrandDesign.healingAbsorb) / this.totalHealing;
+      results.items.push({
+        id: ITEMS.DECEIVERS_GRAND_DESIGN.id,
+        icon: <ItemIcon id={ITEMS.DECEIVERS_GRAND_DESIGN.id} />,
+        title: <ItemLink id={ITEMS.DECEIVERS_GRAND_DESIGN.id} />,
+        result: (
+          <dfn data-tip={`The effective healing contributed by the Deciever's Grand Design on-use effect.<br />HOT: ${((deceiversGrandDesignHealingPercentage * 100) || 0).toFixed(2)} % / ${formatNumber(this.modules.deceiversGrandDesign.healing / fightDuration * 1000)} HPS<br />Shield Proc: ${((deceiversGrandDesignAbsorbPercentage * 100) || 0).toFixed(2)} % / ${formatNumber(this.modules.deceiversGrandDesign.healingAbsorb / fightDuration * 1000)} HPS`}>
+            {((deceiversGrandDesignTotalPercentage * 100) || 0).toFixed(2)} % / {formatNumber((this.modules.deceiversGrandDesign.healing + this.modules.deceiversGrandDesign.healingAbsorb) / fightDuration * 1000)} HPS
+          </dfn>
+        ),
+      });
+      if (this.modules.deceiversGrandDesign.proced) {
+        results.addIssue({
+          issue: <span>Your <ItemLink id={ITEMS.DECEIVERS_GRAND_DESIGN.id} /> procced earlier than expected. The following events procced the effect:<br />
+            {this.modules.deceiversGrandDesign.procs
+              .map((procs, index) => {
+                const url = `https://www.warcraftlogs.com/reports/${procs.report}/#fight=${procs.fight}&source=${procs.target}&type=summary&start=${procs.start}&end=${procs.end}&view=events`;
+                return (
+                  <div key={index}>
+                    Proc {index + 1} on: <a href={url} target="_blank" rel="noopener noreferrer">{procs.name}</a>
+                  </div>
+                );
+              })}
+          </span>,
+          icon: ITEMS.DECEIVERS_GRAND_DESIGN.icon,
+        });
+      }
     }
 
     return results;

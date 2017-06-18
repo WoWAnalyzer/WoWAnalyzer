@@ -1,4 +1,5 @@
 export default `
+18-06-2017 - Added Archive of Faith, Barbaric Mindslaver, The Deceiver's Grand Design and Sea Star of the Depthmother to all specs, trinket implementations by anomoly. (by Zerotorescue)
 17-06-2017 - Holy Paladin: Add Soul of the Highlord legendary. (by Zerotorescue)
 17-06-2017 - Disc Priest: Evangelism casts are now also shown under the cooldowns tab. Rapture now shows the total abosrbs applied and the amount of damage absorbed. Fixed a few issues that caused too much healing to be assigned to Evangelism. (by Zerotorescue)
 17-06-2017 - Improved the Cooldown tab healing done display. (by Zerotorescue)
