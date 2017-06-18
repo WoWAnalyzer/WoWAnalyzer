@@ -47,14 +47,12 @@ module.exports = function (req, res) {
       agent: keepAliveAgent,
     };
     console.log('GET', options.path);
-    console.time('wcl');
+    const wclStart = Date.now();
     https
       .get(options, (wclResponse) => {
         let jsonString = '';
         wclResponse.on('data', chunk => { jsonString += chunk; });
         wclResponse.on('end', () => {
-          console.timeEnd('wcl');
-
           if (wclResponse.statusCode === 200) {
             cache.set(requestUrl, jsonString);
           } else {
@@ -65,7 +63,7 @@ module.exports = function (req, res) {
           res.setHeader('Content-Type', wclResponse.headers['content-type']);
           res.status(wclResponse.statusCode);
           res.send(jsonString);
-          console.log('Finished, memory:', getCurrentMemoryUsage() / 1024 / 1024);
+          console.log('Finished (memory:', Math.ceil(getCurrentMemoryUsage() / 1024 / 1024), 'MB', 'wcl:', Date.now() - wclStart, 'ms', ')');
         });
       })
       .on('error', (err) => {
