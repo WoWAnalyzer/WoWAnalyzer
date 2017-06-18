@@ -2,7 +2,6 @@ import React from 'react';
 
 import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
-import ItemIcon from 'common/ItemIcon';
 
 import Combatants from './Modules/Combatants';
 import AbilityTracker from './Modules/AbilityTracker';
@@ -227,18 +226,14 @@ class CombatLogParser {
 
     if (this.modules.prydaz.active) {
       results.items.push({
-        id: ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id,
-        icon: <ItemIcon id={ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id} />,
-        title: <ItemLink id={ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id} />,
+        item: ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS,
         result: formatItemHealing(this.modules.prydaz.healing),
       });
     }
     if (this.modules.velens.active) {
       // TODO: Move this to the Velen's module? having it here stops making sense. If "item" modules could just provide their own item data object & suggestion then everything would be completely together. At that point the parser would have to recognize items automatically and add them to the items array as their modules are loaded. Doing this could be nice as items would be completely isolated in their module files, but I don't think mixing the currently pure JS modules with React is favorable.
       results.items.push({
-        id: ITEMS.VELENS_FUTURE_SIGHT.id,
-        icon: <ItemIcon id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
-        title: <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
+        item: ITEMS.VELENS_FUTURE_SIGHT,
         result: (
           <dfn data-tip={`The effective healing contributed by the Velen's Future Sight use effect. ${formatPercentage(this.modules.velens.healingIncreaseHealing / this.totalHealing)}% of total healing was contributed by the 15% healing increase and ${formatPercentage(this.modules.velens.overhealHealing / this.totalHealing)}% of total healing was contributed by the overhealing distribution.`}>
             {formatItemHealing(this.modules.velens.healing)}
@@ -254,27 +249,23 @@ class CombatLogParser {
         });
       }
     }
-    if (this.modules.drapeOfShame.active) {
-      results.items.push({
-        id: ITEMS.DRAPE_OF_SHAME.id,
-        icon: <ItemIcon id={ITEMS.DRAPE_OF_SHAME.id} />,
-        title: <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} />,
-        result: formatItemHealing(this.modules.drapeOfShame.healing),
-      });
-    }
     if (this.modules.sephuzsSecret.active) {
       results.items.push({
-        id: ITEMS.SEPHUZS_SECRET.id,
-        icon: <ItemIcon id={ITEMS.SEPHUZS_SECRET.id} />,
-        title: <ItemLink id={ITEMS.SEPHUZS_SECRET.id} />,
+        item: ITEMS.SEPHUZS_SECRET,
         result: `${((this.modules.sephuzsSecret.uptime / fightDuration * 100) || 0).toFixed(2)} % uptime`,
+      });
+    }
+
+    // Epics:
+    if (this.modules.drapeOfShame.active) {
+      results.items.push({
+        item: ITEMS.DRAPE_OF_SHAME,
+        result: formatItemHealing(this.modules.drapeOfShame.healing),
       });
     }
     if (this.modules.amalgamsSeventhSpine.active) {
       results.items.push({
-        id: ITEMS.AMALGAMS_SEVENTH_SPINE.id,
-        icon: <ItemIcon id={ITEMS.AMALGAMS_SEVENTH_SPINE.id} />,
-        title: <ItemLink id={ITEMS.AMALGAMS_SEVENTH_SPINE.id} />,
+        item: ITEMS.AMALGAMS_SEVENTH_SPINE,
         result: (
           <dfn data-tip={`The exact amount of mana gained from the Amalgam's Seventh Spine equip effect. The buff expired successfully ${this.modules.amalgamsSeventhSpine.procs} times and the buff was refreshed ${this.modules.amalgamsSeventhSpine.refreshes} times (refreshing delays the buff expiration and is inefficient use of this trinket).`}>
             {formatThousands(this.modules.amalgamsSeventhSpine.manaGained)} mana gained ({formatThousands(this.modules.amalgamsSeventhSpine.manaGained / this.fightDuration * 1000 * 5)} MP5)
@@ -284,9 +275,7 @@ class CombatLogParser {
     }
     if (this.modules.darkmoonDeckPromises.active) {
       results.items.push({
-        id: ITEMS.DARKMOON_DECK_PROMISES.id,
-        icon: <ItemIcon id={ITEMS.DARKMOON_DECK_PROMISES.id} />,
-        title: <ItemLink id={ITEMS.DARKMOON_DECK_PROMISES.id} />,
+        item: ITEMS.DARKMOON_DECK_PROMISES,
         result: (
           <dfn data-tip="The exact amount of mana saved by the Darkmoon Deck: Promises equip effect. This takes the different values per card into account at the time of the cast.">
             {formatThousands(this.modules.darkmoonDeckPromises.manaGained)} mana saved ({formatThousands(this.modules.darkmoonDeckPromises.manaGained / this.fightDuration * 1000 * 5)} MP5)
@@ -299,9 +288,7 @@ class CombatLogParser {
       const archiveOfFaithHOTHealing = this.modules.archiveOfFaith.healingOverTime / this.totalHealing;
       const archiveOfFaithHealingTotal = (this.modules.archiveOfFaith.healing + this.modules.archiveOfFaith.healingOverTime) / this.totalHealing;
       results.items.push({
-        id: ITEMS.ARCHIVE_OF_FAITH.id,
-        icon: <ItemIcon id={ITEMS.ARCHIVE_OF_FAITH.id} />,
-        title: <ItemLink id={ITEMS.ARCHIVE_OF_FAITH.id} />,
+        item: ITEMS.ARCHIVE_OF_FAITH,
         result: (
           <span>
             <dfn data-tip={`The effective healing contributed by the Archive of Faith on-use effect.<br />Channel: ${((archiveOfFaithHealing * 100) || 0).toFixed(2)} % / ${formatNumber(this.modules.archiveOfFaith.healing / fightDuration * 1000)} HPS<br />HOT: ${((archiveOfFaithHOTHealing * 100) || 0).toFixed(2)} % / ${formatNumber(this.modules.archiveOfFaith.healingOverTime / fightDuration * 1000)} HPS`}>
@@ -313,17 +300,13 @@ class CombatLogParser {
     }
     if (this.modules.barbaricMindslaver.active) {
       results.items.push({
-        id: ITEMS.BARBARIC_MINDSLAVER.id,
-        icon: <ItemIcon id={ITEMS.BARBARIC_MINDSLAVER.id} />,
-        title: <ItemLink id={ITEMS.BARBARIC_MINDSLAVER.id} />,
+        item: ITEMS.BARBARIC_MINDSLAVER,
         result: formatItemHealing(this.modules.barbaricMindslaver.healing),
       });
     }
     if (this.modules.seaStar.active) {
       results.items.push({
-        id: ITEMS.SEA_STAR_OF_THE_DEPTHMOTHER.id,
-        icon: <ItemIcon id={ITEMS.SEA_STAR_OF_THE_DEPTHMOTHER.id} />,
-        title: <ItemLink id={ITEMS.SEA_STAR_OF_THE_DEPTHMOTHER.id} />,
+        item: ITEMS.SEA_STAR_OF_THE_DEPTHMOTHER,
         result: formatItemHealing(this.modules.seaStar.healing),
       });
     }
@@ -332,9 +315,7 @@ class CombatLogParser {
       const deceiversGrandDesignAbsorbPercentage = this.modules.deceiversGrandDesign.healingAbsorb / this.totalHealing;
       const deceiversGrandDesignTotalPercentage = (this.modules.deceiversGrandDesign.healing + this.modules.deceiversGrandDesign.healingAbsorb) / this.totalHealing;
       results.items.push({
-        id: ITEMS.DECEIVERS_GRAND_DESIGN.id,
-        icon: <ItemIcon id={ITEMS.DECEIVERS_GRAND_DESIGN.id} />,
-        title: <ItemLink id={ITEMS.DECEIVERS_GRAND_DESIGN.id} />,
+        item: ITEMS.DECEIVERS_GRAND_DESIGN,
         result: (
           <dfn data-tip={`The effective healing contributed by the Deciever's Grand Design on-use effect.<br />HOT: ${((deceiversGrandDesignHealingPercentage * 100) || 0).toFixed(2)} % / ${formatNumber(this.modules.deceiversGrandDesign.healing / fightDuration * 1000)} HPS<br />Shield Proc: ${((deceiversGrandDesignAbsorbPercentage * 100) || 0).toFixed(2)} % / ${formatNumber(this.modules.deceiversGrandDesign.healingAbsorb / fightDuration * 1000)} HPS`}>
             {((deceiversGrandDesignTotalPercentage * 100) || 0).toFixed(2)} % / {formatNumber((this.modules.deceiversGrandDesign.healing + this.modules.deceiversGrandDesign.healingAbsorb) / fightDuration * 1000)} HPS

@@ -5,8 +5,6 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import Icon from 'common/Icon';
 import ITEMS from 'common/ITEMS';
-import ItemLink from 'common/ItemLink';
-import ItemIcon from 'common/ItemIcon';
 
 import StatisticBox from 'Main/StatisticBox';
 import SuggestionsTab from 'Main/SuggestionsTab';
@@ -471,9 +469,7 @@ class CombatLogParser extends MainCombatLogParser {
       // Override the core Promises display
       results.items = results.items.filter(item => item.id !== ITEMS.DARKMOON_DECK_PROMISES.id);
       results.items.push({
-        id: ITEMS.DARKMOON_DECK_PROMISES.id,
-        icon: <ItemIcon id={ITEMS.DARKMOON_DECK_PROMISES.id} />,
-        title: <ItemLink id={ITEMS.DARKMOON_DECK_PROMISES.id} />,
+        item: ITEMS.DARKMOON_DECK_PROMISES,
         result: (
           <dfn data-tip={`The actual mana gained is ${formatThousands(this.modules.darkmoonDeckPromises.savings+this.modules.darkmoonDeckPromises.manaGained)}. The numbers shown may actually be lower if you did not utilize the promises effect fully, i.e. not needing the extra mana gained.`}>
             {formatThousands(this.modules.darkmoonDeckPromises.savings)} mana saved ({formatThousands(this.modules.darkmoonDeckPromises.savings / this.fightDuration * 1000 * 5)} MP5)<br/>
@@ -486,9 +482,7 @@ class CombatLogParser extends MainCombatLogParser {
       // Override the core Promises display
       results.items = results.items.filter(item => item.id !== ITEMS.SEPHUZS_SECRET.id);
       results.items.push({
-        id: ITEMS.SEPHUZS_SECRET.id,
-        icon: <ItemIcon id={ITEMS.SEPHUZS_SECRET.id} />,
-        title: <ItemLink id={ITEMS.SEPHUZS_SECRET.id} />,
+        item: ITEMS.SEPHUZS_SECRET,
         result: (
           <dfn data-tip="Estimated throughput gained by using Sephuz by calculating haste gained in throughput, given 1 haste = 1 INT.">
             {((sephuzThroughput * 100) || 0).toFixed(2)} %
@@ -500,9 +494,7 @@ class CombatLogParser extends MainCombatLogParser {
     results.items = [
       ...results.items,
       this.selectedCombatant.hasChest(ITEMS.EKOWRAITH_CREATOR_OF_WORLDS.id) && {
-        id: ITEMS.EKOWRAITH_CREATOR_OF_WORLDS.id,
-        icon: <ItemIcon id={ITEMS.EKOWRAITH_CREATOR_OF_WORLDS.id} />,
-        title: <ItemLink id={ITEMS.EKOWRAITH_CREATOR_OF_WORLDS.id} />,
+        item: ITEMS.EKOWRAITH_CREATOR_OF_WORLDS,
         result: (
           <span>
             <dfn data-tip="The increased healing on ysera's gift, and damage reduction from guardian affinity if specced.">
@@ -514,9 +506,7 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       },
       this.selectedCombatant.hasChest(ITEMS.XONIS_CARESS.id) && {
-        id: ITEMS.XONIS_CARESS.id,
-        icon: <ItemIcon id={ITEMS.XONIS_CARESS.id} />,
-        title: <ItemLink id={ITEMS.XONIS_CARESS.id} />,
+        item: ITEMS.XONIS_CARESS,
         result: (
           <dfn data-tip="The healing part from Ironbark. This doesn't include the reduced iron bark cooldown.">
             {((xonisCaressHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.xonisCaress.healing / fightDuration * 1000)} HPS
@@ -524,9 +514,7 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       },
       this.selectedCombatant.hasWaist(ITEMS.THE_DARK_TITANS_ADVICE.id) && {
-        id: ITEMS.THE_DARK_TITANS_ADVICE.id,
-        icon: <ItemIcon id={ITEMS.THE_DARK_TITANS_ADVICE.id} />,
-        title: <ItemLink id={ITEMS.THE_DARK_TITANS_ADVICE.id} />,
+        item: ITEMS.THE_DARK_TITANS_ADVICE,
         result: (
           <dfn data-tip={`Random bloom stood for ${((darkTitanAdviceHealingFromProcc * 100) || 0).toFixed(2)} % of the total throughput.`}>
             {((darkTitanAdviceHealing * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.darkTitanAdvice.healing / fightDuration * 1000)} HPS
@@ -534,15 +522,11 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       },
       this.selectedCombatant.hasFeet(ITEMS.ESSENCE_OF_INFUSION.id) && {
-        id: ITEMS.ESSENCE_OF_INFUSION.id,
-        icon: <ItemIcon id={ITEMS.ESSENCE_OF_INFUSION.id} />,
-        title: <ItemLink id={ITEMS.ESSENCE_OF_INFUSION.id} />,
+        item: ITEMS.ESSENCE_OF_INFUSION,
         result: `${((essenceOfInfusionHealing * 100) || 0).toFixed(2)} % / ${formatNumber(this.modules.essenceOfInfusion.healing / fightDuration * 1000)} HPS`,
       },
       this.selectedCombatant.hasRing(ITEMS.TEARSTONE_OF_ELUNE.id) && {
-        id: ITEMS.TEARSTONE_OF_ELUNE.id,
-        icon: <ItemIcon id={ITEMS.TEARSTONE_OF_ELUNE.id} />,
-        title: <ItemLink id={ITEMS.TEARSTONE_OF_ELUNE.id} />,
+        item: ITEMS.TEARSTONE_OF_ELUNE,
         result: (
           <dfn data-tip={`Your Tearstone gave ${this.modules.tearstone.rejuvs} bonus rejuvenations. Proccrate of ring was ${(this.modules.tearstone.rejuvs / this.modules.tearstone.wildGrowths * 100).toFixed(2)}%`}>
             {((tearstoneHealing * 100) || 0).toFixed(2)} %
@@ -550,9 +534,7 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       },
       this.selectedCombatant.hasHead(ITEMS.CHAMELEON_SONG.id) && {
-        id: ITEMS.CHAMELEON_SONG.id,
-        icon: <ItemIcon id={ITEMS.CHAMELEON_SONG.id} />,
-        title: <ItemLink id={ITEMS.CHAMELEON_SONG.id} />,
+        item: ITEMS.CHAMELEON_SONG,
         result: (
           <dfn
             data-tip={`
@@ -569,6 +551,16 @@ class CombatLogParser extends MainCombatLogParser {
           </dfn>
         ),
       },
+      has2PT20 && {
+        id: `spell-${SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id}`,
+        icon: <SpellIcon id={SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id} />,
+        title: <SpellLink id={SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id} />,
+        result: (
+          <span>
+            {this.modules.t20.swiftmendReduced.toFixed(1)}s reduced on swiftmend <br/>({(this.modules.t20.swiftmendReduced/this.modules.t20.swiftmends).toFixed(1)}s per swiftmend on average).
+          </span>
+        ),
+      },
       has4PT20 && {
         id: `spell-${SPELLS.RESTO_DRUID_T20_4SET_BONUS_BUFF.id}`,
         icon: <SpellIcon id={SPELLS.RESTO_DRUID_T20_4SET_BONUS_BUFF.id} />,
@@ -580,31 +572,9 @@ class CombatLogParser extends MainCombatLogParser {
           </span>
         ),
       },
-      has2PT20 && {
-        id: `spell-${SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id}`,
-        icon: <SpellIcon id={SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id} />,
-        title: <SpellLink id={SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id} />,
-        result: (
-          <span>
-            {this.modules.t20.swiftmendReduced.toFixed(1)}s reduced on swiftmend <br/>({(this.modules.t20.swiftmendReduced/this.modules.t20.swiftmends).toFixed(1)}s per swiftmend on average).
-          </span>
-        ),
-      },
-      has2PT20 && {
-        id: `spell-${SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id}`,
-        icon: <SpellIcon id={SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id} />,
-        title: <SpellLink id={SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id} />,
-        result: (
-          <span>
-            {this.modules.t20.swiftmendReduced.toFixed(1)}s reduced on swiftmend <br/>({(this.modules.t20.swiftmendReduced/this.modules.t20.swiftmends).toFixed(1)}s per swiftmend on average).
-          </span>
-        ),
-      },
 
       this.selectedCombatant.hasRing(ITEMS.SOUL_OF_THE_ARCHDRUID.id) && {
-        id: ITEMS.SOUL_OF_THE_ARCHDRUID.id,
-        icon: <ItemIcon id={ITEMS.SOUL_OF_THE_ARCHDRUID.id} />,
-        title: <ItemLink id={ITEMS.SOUL_OF_THE_ARCHDRUID.id} />,
+        item: ITEMS.SOUL_OF_THE_ARCHDRUID,
         result: (
           <dfn data-tip={`
               <ul>

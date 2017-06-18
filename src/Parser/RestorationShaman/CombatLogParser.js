@@ -6,7 +6,6 @@ import SpellIcon from 'common/SpellIcon';
 import ITEMS from 'common/ITEMS';
 import Icon from 'common/Icon';
 import ItemLink from 'common/ItemLink';
-import ItemIcon from 'common/ItemIcon';
 
 import StatisticBox from 'Main/StatisticBox';
 import SuggestionsTab from 'Main/SuggestionsTab';
@@ -364,9 +363,7 @@ class CombatLogParser extends MainCombatLogParser {
     results.items = [
       ...results.items,
       this.modules.uncertainReminder.active && {
-        id: ITEMS.UNCERTAIN_REMINDER.id,
-        icon: <ItemIcon id={ITEMS.UNCERTAIN_REMINDER.id} />,
-        title: <ItemLink id={ITEMS.UNCERTAIN_REMINDER.id} />,
+        item: ITEMS.UNCERTAIN_REMINDER,
         result: (
           <dfn data-tip="The effective healing contributed by the additional Heroism uptime from Uncertain Reminder. This includes the +25% healing modifier from the Sense of Urgency artifact trait for all your spells, and a 30% haste modifier on your spells of which their throughput scales linear with haste: Healing Wave, Healing Surge, Chain Heal, Healing Rain, Healing Stream Totem and Riptide HoT. Healing Tide Totem is also included, though underestimated, as the Cumulative Upkeep trait will make it scale more than linear.">
             {((uncertainReminderHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber((this.modules.uncertainReminder.urgencyHealing + this.modules.uncertainReminder.hasteHealing) / fightDuration * 1000)} HPS
@@ -374,9 +371,7 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       },
       this.modules.jonat.active && {
-        id: ITEMS.FOCUSER_OF_JONAT.id,
-        icon: <ItemIcon id={ITEMS.FOCUSER_OF_JONAT.id} />,
-        title: <ItemLink id={ITEMS.FOCUSER_OF_JONAT.id} />,
+        item: ITEMS.FOCUSER_OF_JONAT,
         result: (
           <span>
             {((jonatHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.jonat.healing / fightDuration * 1000)} HPS
@@ -384,9 +379,7 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       },
       this.selectedCombatant.hasLegs(ITEMS.ROOTS_OF_SHALADRASSIL.id) && {
-        id: ITEMS.ROOTS_OF_SHALADRASSIL.id,
-        icon: <ItemIcon id={ITEMS.ROOTS_OF_SHALADRASSIL.id} />,
-        title: <ItemLink id={ITEMS.ROOTS_OF_SHALADRASSIL.id} />,
+        item: ITEMS.ROOTS_OF_SHALADRASSIL,
         result: (
           <dfn data-tip={`The effective healing contributed by Roots of Shaladrassil. Of this healing, ${formatPercentage(rootsRawHealingPercentage)}% is the raw healing they provide, and ${formatPercentage(rootsInteractionHealingPercentage)}% is indirect healing done through Cloudburst Totem, Ancestral Guidance and Ascendance. <br /><br />The interactions of these 3 cooldowns are currently not included, so in case there's overlap between these cooldowns the real healing would be slightly higher than indicated.`}>
             {((rootsHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(rootsRawHealing / fightDuration * 1000)} HPS
@@ -394,9 +387,7 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       },
       this.modules.tidecallers.active && {
-        id: ITEMS.PRAETORIANS_TIDECALLERS.id,
-        icon: <ItemIcon id={ITEMS.PRAETORIANS_TIDECALLERS.id} />,
-        title: <ItemLink id={ITEMS.PRAETORIANS_TIDECALLERS.id} />,
+        item: ITEMS.PRAETORIANS_TIDECALLERS,
         result: (
           <dfn data-tip={`The healing gained from the extra duration that Praetorian's Tidecallers give to Healing Tide Totem and Healing Stream Totem. The increased duration on Healing Stream Totem accounts for ${formatPercentage(tidecallersHSTPercentage)}% healing, the increased duration on Healing Tide Totem for ${formatPercentage(tidecallersHTTPercentage)}% healing.`}>
             {((tidecallersHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber((this.modules.tidecallers.httHealing+this.modules.tidecallers.hstHealing) / fightDuration * 1000)} HPS
@@ -404,9 +395,7 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       },
       this.modules.nazjatar.active && {
-        id: ITEMS.INTACT_NAZJATAR_MOLTING.id,
-        icon: <ItemIcon id={ITEMS.INTACT_NAZJATAR_MOLTING.id} />,
-        title: <ItemLink id={ITEMS.INTACT_NAZJATAR_MOLTING.id} />,
+        item: ITEMS.INTACT_NAZJATAR_MOLTING,
         result: (
           <span>
             {nazjatarRiptideResets} Riptide resets
@@ -414,9 +403,7 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       },
       this.modules.nobundo.active && {
-        id: ITEMS.NOBUNDOS_REDEMPTION.id,
-        icon: <ItemIcon id={ITEMS.NOBUNDOS_REDEMPTION.id} />,
-        title: <ItemLink id={ITEMS.NOBUNDOS_REDEMPTION.id} />,
+        item: ITEMS.NOBUNDOS_REDEMPTION,
         result: (
           <span>
           {nobundoDiscountedHealingSurges} discounted Healing Surges

@@ -5,8 +5,6 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import Icon from 'common/Icon';
 import ITEMS from 'common/ITEMS';
-import ItemLink from 'common/ItemLink';
-import ItemIcon from 'common/ItemIcon';
 
 import StatisticBox from 'Main/StatisticBox';
 import ExpandableStatisticBox from 'Main/ExpandableStatisticBox';
@@ -262,9 +260,7 @@ class CombatLogParser extends MainCombatLogParser {
     results.items = [
       ...results.items,
       this.modules.tarnishedSentinelMedallion.active && {
-        id: ITEMS.TARNISHED_SENTINEL_MEDALLION.id,
-        icon: <ItemIcon id={ITEMS.TARNISHED_SENTINEL_MEDALLION.id} />,
-        title: <ItemLink id={ITEMS.TARNISHED_SENTINEL_MEDALLION.id} />,
+        item: ITEMS.TARNISHED_SENTINEL_MEDALLION,
         result: (
           <dfn data-tip="The atonement healing done by the trinket's damaging effects.">
             { ((owlHealingPercentage * 100) || 0).toFixed(2) } % / { formatNumber(this.modules.tarnishedSentinelMedallion.healing / fightDuration * 1000) } HPS
@@ -272,9 +268,7 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       },
       this.modules.marchOfTheLegion.active && {
-        id: SPELLS.MARCH_OF_THE_LEGION.id,
-        icon: <SpellIcon id={SPELLS.MARCH_OF_THE_LEGION.id} />,
-        title: <SpellLink id={SPELLS.MARCH_OF_THE_LEGION.id} />,
+        item: SPELLS.MARCH_OF_THE_LEGION,
         result: (
           <dfn data-tip="The atonement healing done by the set bonus' damaging effects.">
             { ((marchHealingPercentage * 100) || 0).toFixed(2) } % / { formatNumber(this.modules.marchOfTheLegion.healing / fightDuration * 1000) } HPS
@@ -282,9 +276,7 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       },
       this.modules.cordOfMaiev.active && {
-        id: ITEMS.CORD_OF_MAIEV_PRIESTESS_OF_THE_MOON.id,
-        icon: <ItemIcon id={ITEMS.CORD_OF_MAIEV_PRIESTESS_OF_THE_MOON.id} />,
-        title: <ItemLink id={ITEMS.CORD_OF_MAIEV_PRIESTESS_OF_THE_MOON.id} />,
+        item: ITEMS.CORD_OF_MAIEV_PRIESTESS_OF_THE_MOON,
         result: (
           <span>
             {(this.modules.cordOfMaiev.procTime / 1000).toFixed(1)} seconds off the <SpellLink id={SPELLS.PENANCE.id} /> cooldown ({this.modules.cordOfMaiev.procs} Penances cast earlier)
@@ -292,9 +284,7 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       },
       this.modules.skjoldr.active && {
-        id: ITEMS.SKJOLDR_SANCTUARY_OF_IVAGONT.id,
-        icon: <ItemIcon id={ITEMS.SKJOLDR_SANCTUARY_OF_IVAGONT.id} />,
-        title: <ItemLink id={ITEMS.SKJOLDR_SANCTUARY_OF_IVAGONT.id} />,
+        item: ITEMS.SKJOLDR_SANCTUARY_OF_IVAGONT,
         result: (
           <dfn data-tip="The actual effective healing contributed by the Skjoldr, Sanctuary of Ivagont equip effect. This includes the healing gained via Share in the Light.">
             {((this.modules.skjoldr.healing / this.totalHealing * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.skjoldr.healing / fightDuration * 1000)} HPS
@@ -302,9 +292,7 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       },
       this.modules.xalan.active && {
-        id: ITEMS.XALAN_THE_FEAREDS_CLENCH.id,
-        icon: <ItemIcon id={ITEMS.XALAN_THE_FEAREDS_CLENCH.id} />,
-        title: <ItemLink id={ITEMS.XALAN_THE_FEAREDS_CLENCH.id} />,
+        item: ITEMS.XALAN_THE_FEAREDS_CLENCH,
         result: (
           <dfn data-tip={`The actual effective healing contributed by the Xalan the Feared's Clench equip effect asuming your Atonement lasts ${this.modules.xalan.atonementDuration} seconds normally.`}>
             {((this.modules.xalan.healing / this.totalHealing * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.xalan.healing / fightDuration * 1000)} HPS
@@ -312,9 +300,7 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       },
       this.modules.neroBandOfPromises.active && {
-        id: ITEMS.NERO_BAND_OF_PROMISES.id,
-        icon: <ItemIcon id={ITEMS.NERO_BAND_OF_PROMISES.id} />,
-        title: <ItemLink id={ITEMS.NERO_BAND_OF_PROMISES.id} />,
+        item: ITEMS.NERO_BAND_OF_PROMISES,
         result: (
           <dfn data-tip={`The healing gain from Penance damage on players without without Atonement during the Power Word: Barrier buff.`}>
             {((this.modules.neroBandOfPromises.healing / this.totalHealing * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.neroBandOfPromises.healing / fightDuration * 1000)} HPS

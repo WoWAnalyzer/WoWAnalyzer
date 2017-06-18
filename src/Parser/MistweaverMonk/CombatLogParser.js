@@ -5,8 +5,6 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 // import Icon from 'common/Icon';
 import ITEMS from 'common/ITEMS';
-import ItemLink from 'common/ItemLink';
-import ItemIcon from 'common/ItemIcon';
 
 import StatisticBox from 'Main/StatisticBox';
 import SuggestionsTab from 'Main/SuggestionsTab';
@@ -548,9 +546,7 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       },
       this.modules.eithas.active && {
-        id: ITEMS.EITHAS_LUNAR_GLIDES.id,
-        icon: <ItemIcon id={ITEMS.EITHAS_LUNAR_GLIDES.id} />,
-      title: <ItemLink id={ITEMS.EITHAS_LUNAR_GLIDES.id} />,
+        item: ITEMS.EITHAS_LUNAR_GLIDES,
         result: (
           <dfn data-tip="The actual effective healing contributed by the Ei\'thas, Lunar Glides of Eramas equip effect.">
             {((eithasHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.eithas.healing / fightDuration * 1000)} HPS

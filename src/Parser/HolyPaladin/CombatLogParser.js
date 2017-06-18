@@ -6,7 +6,6 @@ import SpellIcon from 'common/SpellIcon';
 import Icon from 'common/Icon';
 import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
-import ItemIcon from 'common/ItemIcon';
 
 import StatisticBox from 'Main/StatisticBox';
 import SuggestionsTab from 'Main/SuggestionsTab';
@@ -565,9 +564,7 @@ class CombatLogParser extends MainCombatLogParser {
       ...results.items,
       // Sort by quality > slot > tier
       this.modules.obsidianStoneSpaulders.active && {
-        id: ITEMS.OBSIDIAN_STONE_SPAULDERS.id,
-        icon: <ItemIcon id={ITEMS.OBSIDIAN_STONE_SPAULDERS.id} />,
-        title: <ItemLink id={ITEMS.OBSIDIAN_STONE_SPAULDERS.id} />,
+        item: ITEMS.OBSIDIAN_STONE_SPAULDERS,
         result: (
           <dfn data-tip="The actual effective healing contributed by the Obsidian Stone Spaulders equip effect.">
             {((obsidianStoneSpauldersHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.obsidianStoneSpaulders.healing / fightDuration * 1000)} HPS
@@ -575,9 +572,7 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       },
       this.modules.maraadsDyingBreath.active && {
-        id: ITEMS.MARAADS_DYING_BREATH.id,
-        icon: <ItemIcon id={ITEMS.MARAADS_DYING_BREATH.id} />,
-        title: <ItemLink id={ITEMS.MARAADS_DYING_BREATH.id} />,
+        item: ITEMS.MARAADS_DYING_BREATH,
         result: (
           <span>
             <dfn
@@ -597,9 +592,7 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       },
       this.modules.chainOfThrayn.active && {
-        id: ITEMS.CHAIN_OF_THRAYN.id,
-        icon: <ItemIcon id={ITEMS.CHAIN_OF_THRAYN.id} />,
-        title: <ItemLink id={ITEMS.CHAIN_OF_THRAYN.id} />,
+        item: ITEMS.CHAIN_OF_THRAYN,
         result: (
           <dfn data-tip="The actual effective healing contributed by the Chain of Thrayn equip effect.">
             {((chainOfThraynHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.chainOfThrayn.healing / fightDuration * 1000)} HPS
@@ -607,9 +600,7 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       },
       this.modules.ilterendi.active && {
-        id: ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id,
-        icon: <ItemIcon id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} />,
-        title: <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} />,
+        item: ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON,
         result: (
           <dfn data-tip="The actual effective healing contributed by the Ilterendi, Crown Jewel of Silvermoon equip effect.">
             {((ilterendiHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.ilterendi.healing / fightDuration * 1000)} HPS
@@ -617,9 +608,7 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       },
       hasSoulOfTheHighlord && {
-        id: ITEMS.SOUL_OF_THE_HIGHLORD.id,
-        icon: <ItemIcon id={ITEMS.SOUL_OF_THE_HIGHLORD.id} />,
-        title: <ItemLink id={ITEMS.SOUL_OF_THE_HIGHLORD.id} />,
+        item: ITEMS.SOUL_OF_THE_HIGHLORD,
         result: (
           <span>
             Procs:{' '}
