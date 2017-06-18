@@ -14,6 +14,7 @@ import Prydaz from './Modules/Items/Prydaz';
 import Velens from './Modules/Items/Velens';
 
 import ParseResults from './ParseResults';
+import SUGGESTION_IMPORTANCE from './ISSUE_IMPORTANCE';
 
 function formatThousands(number) {
   return (Math.round(number || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
@@ -29,6 +30,15 @@ function formatNumber(number) {
 }
 function formatPercentage(percentage) {
   return (Math.round((percentage || 0) * 10000) / 100).toFixed(2);
+}
+function getSuggestionImportance(value, regular, major, higherIsWorse = false) {
+  if (higherIsWorse ? value > major : value < major) {
+    return SUGGESTION_IMPORTANCE.MAJOR;
+  }
+  if (higherIsWorse ? value > regular : value < regular) {
+    return SUGGESTION_IMPORTANCE.REGULAR;
+  }
+  return SUGGESTION_IMPORTANCE.MINOR;
 }
 
 class CombatLogParser {
@@ -172,11 +182,14 @@ class CombatLogParser {
   }
   // TODO: Damage taken from LOTM
 
+  static SUGGESTION_VELENS_BREAKPOINT = 0.045;
+
   generateResults() {
     const results = new ParseResults();
 
     const fightDuration = this.fightDuration;
-    const formatLegendary = (healingDone) => `${formatPercentage(healingDone / this.totalHealing)} % / ${formatNumber(healingDone / fightDuration * 1000)} HPS`;
+    const getPercentageOfTotal = healingDone => healingDone / this.totalHealing;
+    const formatLegendary = healingDone => `${formatPercentage(getPercentageOfTotal(healingDone))} % / ${formatNumber(healingDone / fightDuration * 1000)} HPS`;
 
     if (this.modules.prydaz.active) {
       results.items.push({
@@ -191,6 +204,7 @@ class CombatLogParser {
       });
     }
     if (this.modules.velens.active) {
+      // TODO: Move this to the Velen's module? having it here stops making sense. If "item" modules could just provide their own item data object & suggestion then everything would be completely together. At that point the parser would have to recognize items automatically and add them to the items array as their modules are loaded. Doing this could be nice as items would be completely isolated in their module files, but I don't think mixing the currently pure JS modules with React is favorable.
       results.items.push({
         id: ITEMS.VELENS_FUTURE_SIGHT.id,
         icon: <ItemIcon id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
@@ -201,6 +215,14 @@ class CombatLogParser {
           </dfn>
         ),
       });
+      const velensHealingPercentage = getPercentageOfTotal(this.modules.velens.healing);
+      if (velensHealingPercentage < this.constructor.SUGGESTION_VELENS_BREAKPOINT) {
+        results.addIssue({
+          issue: <span>Your usage of <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} /> can be improved. Try to maximize the amount of healing during the buff without excessively overhealing on purpose, or consider using an easier legendary ({(velensHealingPercentage * 100).toFixed(2)}% healing contributed).</span>,
+          icon: ITEMS.VELENS_FUTURE_SIGHT.icon,
+          importance: getSuggestionImportance(velensHealingPercentage, this.constructor.SUGGESTION_VELENS_BREAKPOINT - 0.005, this.constructor.SUGGESTION_VELENS_BREAKPOINT - 0.015),
+        });
+      }
     }
     if (this.modules.drapeOfShame.active) {
       results.items.push({

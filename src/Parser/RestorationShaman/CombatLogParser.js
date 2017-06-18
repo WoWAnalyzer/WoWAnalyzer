@@ -117,7 +117,6 @@ class CombatLogParser extends MainCombatLogParser {
 
     const nonHealingTimePercentage = this.modules.alwaysBeCasting.totalHealingTimeWasted / fightDuration;
     const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
-    const velensHealingPercentage = this.modules.velens.healing / totalHealing;
     const nazjatarRiptideResets = this.modules.nazjatar.resets;
     const nobundoDiscountedHealingSurges = this.modules.nobundo.discounts;
     const jonatHealingPercentage = this.modules.jonat.healing / totalHealing;
@@ -197,13 +196,6 @@ class CombatLogParser extends MainCombatLogParser {
         issue: `Your dead GCD time can be improved. Try to Always Be Casting (ABC); when you're not healing try to contribute some damage (${Math.round(deadTimePercentage * 100)}% dead GCD time).`,
         icon: 'spell_mage_altertime',
         importance: getIssueImportance(deadTimePercentage, 0.35, 0.4, true),
-      });
-    }
-    if (this.modules.velens.active && velensHealingPercentage < 0.045) {
-      results.addIssue({
-        issue: <span>Your usage of <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} /> can be improved. Try to maximize the amount of casts during the buff or consider using an easier legendary ({(velensHealingPercentage * 100).toFixed(2)}% healing contributed).</span>,
-        icon: ITEMS.VELENS_FUTURE_SIGHT.icon,
-        importance: getIssueImportance(velensHealingPercentage, 0.04, 0.03),
       });
     }
     if (unbuffedHealingSurges > 0) {

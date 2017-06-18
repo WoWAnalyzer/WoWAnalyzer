@@ -228,7 +228,6 @@ class CombatLogParser extends MainCombatLogParser {
     const nonHealingTimePercentage = this.modules.alwaysBeCasting.totalHealingTimeWasted / fightDuration;
     const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
     const totalHealsOnBeaconPercentage = this.getTotalHealsOnBeaconPercentage(this);
-    const velensHealingPercentage = this.modules.velens.healing / this.totalHealing;
     const chainOfThraynHealingPercentage = this.modules.chainOfThrayn.healing / this.totalHealing;
     const obsidianStoneSpauldersHealingPercentage = this.modules.obsidianStoneSpaulders.healing / this.totalHealing;
     const ilterendiHealingPercentage = this.modules.ilterendi.healing / this.totalHealing;
@@ -306,13 +305,6 @@ class CombatLogParser extends MainCombatLogParser {
         issue: <span>Your usage of <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} /> can be improved. Try to line <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} /> and <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> up with the buff or consider using an easier legendary ({(ilterendiHealingPercentage * 100).toFixed(2)}% healing contributed).</span>,
         icon: ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.icon,
         importance: getIssueImportance(ilterendiHealingPercentage, 0.04, 0.03),
-      });
-    }
-    if (this.modules.velens.active && velensHealingPercentage < 0.045) {
-      results.addIssue({
-        issue: <span>Your usage of <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} /> can be improved. Try to maximize the amount of casts during the buff or consider using an easier legendary ({(velensHealingPercentage * 100).toFixed(2)}% healing contributed).</span>,
-        icon: ITEMS.VELENS_FUTURE_SIGHT.icon,
-        importance: getIssueImportance(velensHealingPercentage, 0.04, 0.03),
       });
     }
     const lightOfTheMartyrs = getAbility(SPELLS.LIGHT_OF_THE_MARTYR.id).casts || 0;

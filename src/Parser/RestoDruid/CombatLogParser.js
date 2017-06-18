@@ -145,8 +145,6 @@ class CombatLogParser extends MainCombatLogParser {
 
     const potaHealing = (this.modules.powerOfTheArchdruid.rejuvenations * oneRejuvenationThroughput) + this.modules.powerOfTheArchdruid.healing / this.totalHealing;
     const hasMoC = this.selectedCombatant.lv100Talent === SPELLS.MOMENT_OF_CLARITY_TALENT.id;
-    const hasVelens = this.selectedCombatant.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT.id);
-    const velensHealingPercentage = (this.modules.velens.overhealHealing + this.modules.velens.healingIncreaseHealing) / this.totalHealing;
     const sepuhzHasteRating = ((this.modules.sephuz.uptime / this.fightDuration) * this.modules.sephuz.sephuzProccInHasteRating) + this.modules.sephuz.sephuzStaticHasteInRating;
     const sephuzThroughput = sepuhzHasteRating / this.selectedCombatant.intellect;
     const darkTitanAdviceHealing = this.modules.darkTitanAdvice.healing / this.totalHealing;
@@ -235,13 +233,6 @@ class CombatLogParser extends MainCombatLogParser {
         issue: <span>Your <a href="http://www.wowhead.com/spell=33891" target="_blank" rel="noopener noreferrer">Tree of Life</a> has quite low throughput, you might want to plan your CDs better or select another talent. ({formatPercentage(treeOfLifeThroughput)} % throughput)</span>,
         icon: SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.icon,
         importance: getIssueImportance(treeOfLifeThroughput, 0.07, 0.04),
-      });
-    }
-    if (hasVelens && velensHealingPercentage < 0.045) {
-      results.addIssue({
-        issue: <span>Your usage of <a href="http://www.wowhead.com/item=144258" target="_blank" rel="noopener noreferrer" className="legendary">Velen's Future Sight</a> can be improved. Try to maximize the amount of casts during the buff or consider using an easier legendary ({(velensHealingPercentage * 100).toFixed(2)}% healing contributed).</span>,
-        icon: ITEMS.VELENS_FUTURE_SIGHT.icon,
-        importance: getIssueImportance(velensHealingPercentage, 0.04, 0.03),
       });
     }
     const healingTouches = getAbility(SPELLS.HEALING_TOUCH.id).casts || 0;
