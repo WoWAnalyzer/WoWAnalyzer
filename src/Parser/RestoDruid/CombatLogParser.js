@@ -19,7 +19,6 @@ import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
-import AmalgamsSeventhSpine from 'Parser/Core/Modules/Items/AmalgamsSeventhSpine';
 
 import Ekowraith from './Modules/Legendaries/Ekowraith';
 import XonisCaress from './Modules/Legendaries/XonisCaress';
@@ -103,7 +102,6 @@ class CombatLogParser extends MainCombatLogParser {
     // Aman'Thul's Wisdom
 
     // Shared:
-    amalgamsSeventhSpine: AmalgamsSeventhSpine,
     darkmoonDeckPromises: DarkmoonDeckPromises,
   };
 
@@ -469,6 +467,36 @@ class CombatLogParser extends MainCombatLogParser {
       ),
     ];
 
+    if (this.modules.darkmoonDeckPromises.active) {
+      // Override the core Promises display
+      results.items = results.items.filter(item => item.id !== ITEMS.DARKMOON_DECK_PROMISES.id);
+      results.items.push({
+        id: ITEMS.DARKMOON_DECK_PROMISES.id,
+        icon: <ItemIcon id={ITEMS.DARKMOON_DECK_PROMISES.id} />,
+        title: <ItemLink id={ITEMS.DARKMOON_DECK_PROMISES.id} />,
+        result: (
+          <dfn data-tip={`The actual mana gained is ${formatThousands(this.modules.darkmoonDeckPromises.savings+this.modules.darkmoonDeckPromises.manaGained)}. The numbers shown may actually be lower if you did not utilize the promises effect fully, i.e. not needing the extra mana gained.`}>
+            {formatThousands(this.modules.darkmoonDeckPromises.savings)} mana saved ({formatThousands(this.modules.darkmoonDeckPromises.savings / this.fightDuration * 1000 * 5)} MP5)<br/>
+            {formatPercentage(promisesThroughput)}% healing contributed.
+          </dfn>
+        ),
+      });
+    }
+    if (this.selectedCombatant.hasRing(ITEMS.SEPHUZS_SECRET.id)) {
+      // Override the core Promises display
+      results.items = results.items.filter(item => item.id !== ITEMS.SEPHUZS_SECRET.id);
+      results.items.push({
+        id: ITEMS.SEPHUZS_SECRET.id,
+        icon: <ItemIcon id={ITEMS.SEPHUZS_SECRET.id} />,
+        title: <ItemLink id={ITEMS.SEPHUZS_SECRET.id} />,
+        result: (
+          <dfn data-tip="Estimated throughput gained by using Sephuz by calculating haste gained in throughput, given 1 haste = 1 INT.">
+            {((sephuzThroughput * 100) || 0).toFixed(2)} %
+          </dfn>
+        ),
+      });
+    }
+
     results.items = [
       ...results.items,
       this.selectedCombatant.hasChest(ITEMS.EKOWRAITH_CREATOR_OF_WORLDS.id) && {
@@ -521,22 +549,13 @@ class CombatLogParser extends MainCombatLogParser {
           </dfn>
         ),
       },
-      this.selectedCombatant.hasRing(ITEMS.SEPHUZS_SECRET.id) && {
-        id: ITEMS.SEPHUZS_SECRET.id,
-        icon: <ItemIcon id={ITEMS.SEPHUZS_SECRET.id} />,
-        title: <ItemLink id={ITEMS.SEPHUZS_SECRET.id} />,
-        result: (
-          <dfn data-tip="Estimated throughput gained by using Sephuz by calculating haste gained in throughput, given 1 haste = 1 INT.">
-            {((sephuzThroughput * 100) || 0).toFixed(2)} %
-          </dfn>
-        ),
-      },
       this.selectedCombatant.hasHead(ITEMS.CHAMELEON_SONG.id) && {
         id: ITEMS.CHAMELEON_SONG.id,
         icon: <ItemIcon id={ITEMS.CHAMELEON_SONG.id} />,
         title: <ItemLink id={ITEMS.CHAMELEON_SONG.id} />,
         result: (
-          <dfn data-tip={`
+          <dfn
+            data-tip={`
               <ul>
                 <li>${(rejuvenationIncreasedEffectHelmet*100).toFixed(2)}% from increased rejuvenation effect</li>
                 <li>${(rejuvenationManaHelmet*100).toFixed(2)}% from reduced rejuvenation cost</li>
@@ -544,29 +563,9 @@ class CombatLogParser extends MainCombatLogParser {
                 <li>${(tolIncreasedHealingDoneHelmet*100).toFixed(2)}% from overall increased healing effect</li>
                 <li>${(treeOfLifeUptimeHelmet*100).toFixed(2)}% uptime</li>
               </ul>
-            `}>
+            `}
+          >
             {formatPercentage(treeOfLifeThroughputHelmet)} %
-          </dfn>
-        ),
-      },
-      this.modules.amalgamsSeventhSpine.active && {
-        id: ITEMS.AMALGAMS_SEVENTH_SPINE.id,
-        icon: <ItemIcon id={ITEMS.AMALGAMS_SEVENTH_SPINE.id} />,
-        title: <ItemLink id={ITEMS.AMALGAMS_SEVENTH_SPINE.id} />,
-        result: (
-          <dfn data-tip={`The exact amount of mana gained from the Amalgam's Seventh Spine equip effect. You let the buff expire successfully ${this.modules.amalgamsSeventhSpine.procs} times. You refreshed the buff ${this.modules.amalgamsSeventhSpine.refreshes} times (refreshing delays the buff expiration and is inefficient use of this trinket).`}>
-            {formatThousands(this.modules.amalgamsSeventhSpine.manaGained)} mana gained ({formatThousands(this.modules.amalgamsSeventhSpine.manaGained / this.fightDuration * 1000 * 5)} MP5)
-          </dfn>
-        ),
-      },
-      this.modules.darkmoonDeckPromises.active && {
-        id: ITEMS.DARKMOON_DECK_PROMISES.id,
-        icon: <ItemIcon id={ITEMS.DARKMOON_DECK_PROMISES.id} />,
-        title: <ItemLink id={ITEMS.DARKMOON_DECK_PROMISES.id} />,
-        result: (
-          <dfn data-tip={`The actual mana gained is ${formatThousands(this.modules.darkmoonDeckPromises.savings+this.modules.darkmoonDeckPromises.manaGained)}. The numbers shown may actually be lower if you did not utilize the promises effect fully, i.e. not needing the extra mana gained.`}>
-            {formatThousands(this.modules.darkmoonDeckPromises.savings)} mana saved ({formatThousands(this.modules.darkmoonDeckPromises.savings / this.fightDuration * 1000 * 5)} MP5)<br/>
-            {formatPercentage(promisesThroughput)}% healing contributed.
           </dfn>
         ),
       },

@@ -19,9 +19,6 @@ import ManaTab from 'Main/ManaTab';
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
-import AmalgamsSeventhSpine from 'Parser/Core/Modules/Items/AmalgamsSeventhSpine';
-import SephuzsSecret from 'Parser/Core/Modules/Items/SephuzsSecret';
-import DarkmoonDeckPromises from 'Parser/Core/Modules/Items/DarkmoonDeckPromises';
 
 import AbilityTracker from './Modules/Core/AbilityTracker';
 
@@ -84,14 +81,11 @@ class CombatLogParser extends MainCombatLogParser {
     atonementSource: AtonementSource,
 
     // Items:
-    sephuzsSecret: SephuzsSecret,
     tier19_2set: Tier19_2set,
     cordOfMaiev: CordOfMaiev,
     skjoldr: Skjoldr,
     xalan: Xalan,
     neroBandOfPromises: NeroBandOfPromises,
-    amalgamsSeventhSpine: AmalgamsSeventhSpine,
-    darkmoonDeckPromises: DarkmoonDeckPromises,
     tarnishedSentinelMedallion: TarnishedSentinelMedallion,
     marchOfTheLegion: MarchOfTheLegion,
 
@@ -287,12 +281,6 @@ class CombatLogParser extends MainCombatLogParser {
           </dfn>
         ),
       },
-      this.modules.sephuzsSecret.active && {
-        id: ITEMS.SEPHUZS_SECRET.id,
-        icon: <ItemIcon id={ITEMS.SEPHUZS_SECRET.id} />,
-        title: <ItemLink id={ITEMS.SEPHUZS_SECRET.id} />,
-        result: `${((this.modules.sephuzsSecret.uptime / fightDuration * 100) || 0).toFixed(2)} % uptime`,
-      },
       this.modules.cordOfMaiev.active && {
         id: ITEMS.CORD_OF_MAIEV_PRIESTESS_OF_THE_MOON.id,
         icon: <ItemIcon id={ITEMS.CORD_OF_MAIEV_PRIESTESS_OF_THE_MOON.id} />,
@@ -330,26 +318,6 @@ class CombatLogParser extends MainCombatLogParser {
         result: (
           <dfn data-tip={`The healing gain from Penance damage on players without without Atonement during the Power Word: Barrier buff.`}>
             {((this.modules.neroBandOfPromises.healing / this.totalHealing * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.neroBandOfPromises.healing / fightDuration * 1000)} HPS
-          </dfn>
-        ),
-      },
-      this.modules.amalgamsSeventhSpine.active && {
-        id: ITEMS.AMALGAMS_SEVENTH_SPINE.id,
-        icon: <ItemIcon id={ITEMS.AMALGAMS_SEVENTH_SPINE.id} />,
-        title: <ItemLink id={ITEMS.AMALGAMS_SEVENTH_SPINE.id} />,
-        result: (
-          <dfn data-tip={`The exact amount of mana gained from the Amalgam's Seventh Spine equip effect. You gained mana ${this.modules.amalgamsSeventhSpine.procs} times and refreshed the buff ${this.modules.amalgamsSeventhSpine.refreshes} times (refreshing delay the mana return and is inefficient use of this trinket).`}>
-            {formatThousands(this.modules.amalgamsSeventhSpine.manaGained)} mana gained ({formatThousands(this.modules.amalgamsSeventhSpine.manaGained / this.fightDuration * 1000 * 5)} MP5)
-          </dfn>
-        ),
-      },
-      this.modules.darkmoonDeckPromises.active && {
-        id: ITEMS.DARKMOON_DECK_PROMISES.id,
-        icon: <ItemIcon id={ITEMS.DARKMOON_DECK_PROMISES.id} />,
-        title: <ItemLink id={ITEMS.DARKMOON_DECK_PROMISES.id} />,
-        result: (
-          <dfn data-tip="The exact amount of mana saved by the Darkmoon Deck: Promises equip effect. This takes the different values per card into account at the time of the cast.">
-            {formatThousands(this.modules.darkmoonDeckPromises.manaGained)} mana saved ({formatThousands(this.modules.darkmoonDeckPromises.manaGained / this.fightDuration * 1000 * 5)} MP5)
           </dfn>
         ),
       },

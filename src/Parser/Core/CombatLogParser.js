@@ -9,9 +9,14 @@ import AbilityTracker from './Modules/AbilityTracker';
 import AlwaysBeCasting from './Modules/AlwaysBeCasting';
 import Enemies from './Modules/Enemies';
 
-import DrapeOfShame from './Modules/Items/DrapeOfShame';
+// Shared Legendaries
 import Prydaz from './Modules/Items/Prydaz';
 import Velens from './Modules/Items/Velens';
+import SephuzsSecret from './Modules/Items/SephuzsSecret';
+// Shared Epics
+import DrapeOfShame from './Modules/Items/DrapeOfShame';
+import DarkmoonDeckPromises from './Modules/Items/DarkmoonDeckPromises';
+import AmalgamsSeventhSpine from './Modules/Items/AmalgamsSeventhSpine';
 
 import ParseResults from './ParseResults';
 import SUGGESTION_IMPORTANCE from './ISSUE_IMPORTANCE';
@@ -51,9 +56,14 @@ class CombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
 
     // Items:
-    drapeOfShame: DrapeOfShame,
+    // Legendaries:
     prydaz: Prydaz,
     velens: Velens,
+    sephuzsSecret: SephuzsSecret,
+    // Epics:
+    drapeOfShame: DrapeOfShame,
+    amalgamsSeventhSpine: AmalgamsSeventhSpine,
+    darkmoonDeckPromises: DarkmoonDeckPromises,
   };
   // Override this with spec specific modules
   static specModules = {};
@@ -189,7 +199,7 @@ class CombatLogParser {
 
     const fightDuration = this.fightDuration;
     const getPercentageOfTotal = healingDone => healingDone / this.totalHealing;
-    const formatLegendary = healingDone => `${formatPercentage(getPercentageOfTotal(healingDone))} % / ${formatNumber(healingDone / fightDuration * 1000)} HPS`;
+    const formatItemHealing = healingDone => `${formatPercentage(getPercentageOfTotal(healingDone))} % / ${formatNumber(healingDone / fightDuration * 1000)} HPS`;
 
     if (this.modules.prydaz.active) {
       results.items.push({
@@ -198,7 +208,7 @@ class CombatLogParser {
         title: <ItemLink id={ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id} />,
         result: (
           <dfn data-tip="The effective healing contributed by the Prydaz, Xavaric's Magnum Opus equip effect.">
-            {formatLegendary(this.modules.prydaz.healing)}
+            {formatItemHealing(this.modules.prydaz.healing)}
           </dfn>
         ),
       });
@@ -211,7 +221,7 @@ class CombatLogParser {
         title: <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
         result: (
           <dfn data-tip={`The effective healing contributed by the Velen's Future Sight use effect. ${formatPercentage(this.modules.velens.healingIncreaseHealing/this.totalHealing)}% of total healing was contributed by the 15% healing increase and ${formatPercentage(this.modules.velens.overhealHealing/this.totalHealing)}% of total healing was contributed by the overhealing distribution.`}>
-            {formatLegendary(this.modules.velens.healing)}
+            {formatItemHealing(this.modules.velens.healing)}
           </dfn>
         ),
       });
@@ -231,7 +241,39 @@ class CombatLogParser {
         title: <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} />,
         result: (
           <dfn data-tip="The effective healing contributed by the critical healing gain of the Drape of Shame equip effect.">
-            {formatLegendary(this.modules.drapeOfShame.healing)}
+            {formatItemHealing(this.modules.drapeOfShame.healing)}
+          </dfn>
+        ),
+      });
+    }
+    if (this.modules.sephuzsSecret.active) {
+      results.items.push({
+        id: ITEMS.SEPHUZS_SECRET.id,
+        icon: <ItemIcon id={ITEMS.SEPHUZS_SECRET.id} />,
+        title: <ItemLink id={ITEMS.SEPHUZS_SECRET.id} />,
+        result: `${((this.modules.sephuzsSecret.uptime / fightDuration * 100) || 0).toFixed(2)} % uptime`,
+      });
+    }
+    if (this.modules.amalgamsSeventhSpine.active) {
+      results.items.push({
+        id: ITEMS.AMALGAMS_SEVENTH_SPINE.id,
+        icon: <ItemIcon id={ITEMS.AMALGAMS_SEVENTH_SPINE.id} />,
+        title: <ItemLink id={ITEMS.AMALGAMS_SEVENTH_SPINE.id} />,
+        result: (
+          <dfn data-tip={`The exact amount of mana gained from the Amalgam's Seventh Spine equip effect. The buff expired successfully ${this.modules.amalgamsSeventhSpine.procs} times and the buff was refreshed ${this.modules.amalgamsSeventhSpine.refreshes} times (refreshing delays the buff expiration and is inefficient use of this trinket).`}>
+            {formatThousands(this.modules.amalgamsSeventhSpine.manaGained)} mana gained ({formatThousands(this.modules.amalgamsSeventhSpine.manaGained / this.fightDuration * 1000 * 5)} MP5)
+          </dfn>
+        ),
+      });
+    }
+    if (this.modules.darkmoonDeckPromises.active) {
+      results.items.push({
+        id: ITEMS.DARKMOON_DECK_PROMISES.id,
+        icon: <ItemIcon id={ITEMS.DARKMOON_DECK_PROMISES.id} />,
+        title: <ItemLink id={ITEMS.DARKMOON_DECK_PROMISES.id} />,
+        result: (
+          <dfn data-tip="The exact amount of mana saved by the Darkmoon Deck: Promises equip effect. This takes the different values per card into account at the time of the cast.">
+            {formatThousands(this.modules.darkmoonDeckPromises.manaGained)} mana saved ({formatThousands(this.modules.darkmoonDeckPromises.manaGained / this.fightDuration * 1000 * 5)} MP5)
           </dfn>
         ),
       });

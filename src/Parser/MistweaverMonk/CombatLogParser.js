@@ -19,9 +19,6 @@ import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
-import SephuzsSecret from 'Parser/Core/Modules/Items/SephuzsSecret';
-import DarkmoonDeckPromises from 'Parser/Core/Modules/Items/DarkmoonDeckPromises';
-import AmalgamsSeventhSpine from 'Parser/Core/Modules/Items/AmalgamsSeventhSpine';
 import ArchiveOfFaith from 'Parser/Core/Modules/Items/ArchiveOfFaith';
 import BarbaricMindslaver from 'Parser/Core/Modules/Items/BarbaricMindslaver';
 import SeaStar from 'Parser/Core/Modules/Items/SeaStarOfTheDepthmother';
@@ -102,17 +99,12 @@ class CombatLogParser extends MainCombatLogParser {
     chiBurst: ChiBurst,
 
     // Legendaries / Items:
-    sephuzsSecret: SephuzsSecret,
     eithas: Eithas,
     archiveOfFaith: ArchiveOfFaith,
     barbaricMindslaver: BarbaricMindslaver,
     seaStar: SeaStar,
     deceiversGrandDesign: DeceiversGrandDesign,
     xuensBattlegear4Piece: XuensBattlegear4Piece,
-
-    // Shared:
-    amalgamsSeventhSpine: AmalgamsSeventhSpine,
-    darkmoonDeckPromises: DarkmoonDeckPromises,
   };
 
   generateResults(results) {
@@ -587,32 +579,6 @@ class CombatLogParser extends MainCombatLogParser {
         result: (
           <dfn data-tip={`The actual effective healing contributed by the Tier 20 4 piece effect.<br />Buff Uptime: ${((this.selectedCombatant.getBuffUptime(SPELLS.DANCE_OF_MISTS.id)/this.fightDuration)*100).toFixed(2)}%`}>
             {((xuensBattlegear4PieceHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.xuensBattlegear4Piece.healing / fightDuration * 1000)} HPS
-          </dfn>
-        ),
-      },
-      this.modules.sephuzsSecret.active && {
-        id: ITEMS.SEPHUZS_SECRET.id,
-        icon: <ItemIcon id={ITEMS.SEPHUZS_SECRET.id} />,
-        title: <ItemLink id={ITEMS.SEPHUZS_SECRET.id} />,
-        result: `${((this.modules.sephuzsSecret.uptime / fightDuration * 100) || 0).toFixed(2)} % uptime`,
-      },
-      this.modules.amalgamsSeventhSpine.active && {
-        id: ITEMS.AMALGAMS_SEVENTH_SPINE.id,
-        icon: <ItemIcon id={ITEMS.AMALGAMS_SEVENTH_SPINE.id} />,
-        title: <ItemLink id={ITEMS.AMALGAMS_SEVENTH_SPINE.id} />,
-        result: (
-          <dfn data-tip={`The exact amount of mana gained from the Amalgam's Seventh Spine equip effect. You gained mana ${this.modules.amalgamsSeventhSpine.procs} times and refreshed the buff ${this.modules.amalgamsSeventhSpine.refreshes} times (refreshing delay the mana return and is inefficient use of this trinket).`}>
-            {formatThousands(this.modules.amalgamsSeventhSpine.manaGained)} mana gained ({formatThousands(this.modules.amalgamsSeventhSpine.manaGained / this.fightDuration * 1000 * 5)} MP5)
-          </dfn>
-        ),
-      },
-      this.modules.darkmoonDeckPromises.active && {
-        id: ITEMS.DARKMOON_DECK_PROMISES.id,
-        icon: <ItemIcon id={ITEMS.DARKMOON_DECK_PROMISES.id} />,
-        title: <ItemLink id={ITEMS.DARKMOON_DECK_PROMISES.id} />,
-        result: (
-          <dfn data-tip="The exact amount of mana saved by the Darkmoon Deck: Promises equip effect. This takes the different values per card into account at the time of the cast.">
-            {formatThousands(this.modules.darkmoonDeckPromises.manaGained)} mana saved ({formatThousands(this.modules.darkmoonDeckPromises.manaGained / this.fightDuration * 1000 * 5)} MP5)
           </dfn>
         ),
       },
