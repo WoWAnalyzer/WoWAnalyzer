@@ -167,48 +167,52 @@ class CombatLogParser extends MainCombatLogParser {
           </dfn>
         )}
       />,
-      this.modules.evangelism.active && (<ExpandableStatisticBox
-        icon={<SpellIcon id={SPELLS.EVANGELISM_TALENT.id} />}
-        value={`${formatNumber(this.modules.evangelism.evangelismStatistics.reduce((p, c) => p += c.healing, 0) / fightDuration * 1000)} HPS`}
-        label={(
-          <dfn data-tip={`Evangelism accounted for approximately ${ formatPercentage(this.modules.evangelism.evangelismStatistics.reduce((p, c) => p + c.healing, 0) / this.totalHealing) }% of your healing.`}>
-            Evangelism contribution
-          </dfn>
-        )}
-      >
-        <table className="table table-condensed">
-          <thead>
-            <tr>
-              <th>Cast</th>
-              <th>Healing</th>
-              <th>Duration</th>
-              <th>Count</th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-              this.modules.evangelism.evangelismStatistics
-                .map((evangelism, index) => (
-                  <tr key={index}>
-                    <th scope="row">{ index + 1 }</th>
-                    <td>{ formatNumber(evangelism.healing) }</td>
-                    <td>{ evangelism.atonementSeconds }s</td>
-                    <td>{ evangelism.count }</td>
-                  </tr>
-                ))
-            }
-          </tbody>
-        </table>
-      </ExpandableStatisticBox>),
-      missedPenanceTicks && (<StatisticBox
-        icon={<SpellIcon id={SPELLS.PENANCE.id} />}
-        value={missedPenanceTicks}
-        label={(
-          <dfn data-tip={`Each Penance cast has 3 bolts (4 if you're using Castigation). You should try to let this channel finish as much as possible. You channeled Penance ${this.modules.alwaysBeCasting.truePenanceCasts} times.`}>
-            Wasted Penance bolts
-          </dfn>
-        )}
-      />),
+      this.modules.evangelism.active && (
+        <ExpandableStatisticBox
+          icon={<SpellIcon id={SPELLS.EVANGELISM_TALENT.id} />}
+          value={`${formatNumber(this.modules.evangelism.evangelismStatistics.reduce((p, c) => p += c.healing, 0) / fightDuration * 1000)} HPS`}
+          label={(
+            <dfn data-tip={`Evangelism accounted for approximately ${ formatPercentage(this.modules.evangelism.evangelismStatistics.reduce((p, c) => p + c.healing, 0) / this.totalHealing) }% of your healing.`}>
+              Evangelism contribution
+            </dfn>
+          )}
+        >
+          <table className="table table-condensed">
+            <thead>
+              <tr>
+                <th>Cast</th>
+                <th>Healing</th>
+                <th>Duration</th>
+                <th>Count</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                this.modules.evangelism.evangelismStatistics
+                  .map((evangelism, index) => (
+                    <tr key={index}>
+                      <th scope="row">{ index + 1 }</th>
+                      <td>{ formatNumber(evangelism.healing) }</td>
+                      <td>{ evangelism.atonementSeconds }s</td>
+                      <td>{ evangelism.count }</td>
+                    </tr>
+                  ))
+              }
+            </tbody>
+          </table>
+        </ExpandableStatisticBox>
+      ),
+      missedPenanceTicks && (
+        <StatisticBox
+          icon={<SpellIcon id={SPELLS.PENANCE.id} />}
+          value={missedPenanceTicks}
+          label={(
+            <dfn data-tip={`Each Penance cast has 3 bolts (4 if you're using Castigation). You should try to let this channel finish as much as possible. You channeled Penance ${this.modules.alwaysBeCasting.truePenanceCasts} times.`}>
+              Wasted Penance bolts
+            </dfn>
+          )}
+        />
+      ),
       this.modules.atonement.active && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.ATONEMENT_HEAL_NON_CRIT.id} />}
@@ -220,7 +224,7 @@ class CombatLogParser extends MainCombatLogParser {
           )}
         />
       ),
-      this.modules.twistOfFate.active && (
+      this.modules.twistOfFate.active && !this.selectedCombatant.hasRing(ITEMS.SOUL_OF_THE_HIGH_PRIEST.id) && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.TWIST_OF_FATE_TALENT.id} />}
           value={`${formatNumber(this.modules.twistOfFate.healing / fightDuration * 1000)} HPS`}
@@ -304,6 +308,14 @@ class CombatLogParser extends MainCombatLogParser {
         result: (
           <dfn data-tip={`The healing gain from Penance damage on players without without Atonement during the Power Word: Barrier buff.`}>
             {((this.modules.neroBandOfPromises.healing / this.totalHealing * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.neroBandOfPromises.healing / fightDuration * 1000)} HPS
+          </dfn>
+        ),
+      },
+      this.selectedCombatant.hasRing(ITEMS.SOUL_OF_THE_HIGH_PRIEST.id) && {
+        item: ITEMS.SOUL_OF_THE_HIGH_PRIEST,
+        result: (
+          <dfn data-tip={`The effective healing contributed by Twist of Fate (${formatPercentage(this.modules.twistOfFate.healing / this.totalHealing)}% of total healing done). Twist of Fate also contributed ${formatNumber(this.modules.twistOfFate.damage / fightDuration * 1000)} DPS (${formatPercentage(this.modules.twistOfFate.damage / this.totalDamage)}% of total damage done), the healing gain of this damage was included in the shown numbers.`}>
+            {((this.modules.twistOfFate.healing / this.totalHealing * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.twistOfFate.healing / fightDuration * 1000)} HPS
           </dfn>
         ),
       },
