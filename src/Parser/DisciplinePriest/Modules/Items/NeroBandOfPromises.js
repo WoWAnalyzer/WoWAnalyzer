@@ -10,7 +10,7 @@ class NeroBandOfPromises extends Module {
 
   on_initialized() {
     if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasRing(ITEMS.NERO_BAND_OF_PROMISES.id);
+      this.active = this.owner.selectedCombatant.hasFinger(ITEMS.NERO_BAND_OF_PROMISES.id);
     }
   }
 

@@ -478,7 +478,7 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       });
     }
-    if (this.selectedCombatant.hasRing(ITEMS.SEPHUZS_SECRET.id)) {
+    if (this.selectedCombatant.hasFinger(ITEMS.SEPHUZS_SECRET.id)) {
       // Override the core Promises display
       results.items = results.items.filter(item => item.id !== ITEMS.SEPHUZS_SECRET.id);
       results.items.push({
@@ -525,7 +525,7 @@ class CombatLogParser extends MainCombatLogParser {
         item: ITEMS.ESSENCE_OF_INFUSION,
         result: `${((essenceOfInfusionHealing * 100) || 0).toFixed(2)} % / ${formatNumber(this.modules.essenceOfInfusion.healing / fightDuration * 1000)} HPS`,
       },
-      this.selectedCombatant.hasRing(ITEMS.TEARSTONE_OF_ELUNE.id) && {
+      this.selectedCombatant.hasFinger(ITEMS.TEARSTONE_OF_ELUNE.id) && {
         item: ITEMS.TEARSTONE_OF_ELUNE,
         result: (
           <dfn data-tip={`Your Tearstone gave ${this.modules.tearstone.rejuvs} bonus rejuvenations. Proccrate of ring was ${(this.modules.tearstone.rejuvs / this.modules.tearstone.wildGrowths * 100).toFixed(2)}%`}>
@@ -573,7 +573,7 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       },
 
-      this.selectedCombatant.hasRing(ITEMS.SOUL_OF_THE_ARCHDRUID.id) && {
+      this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_ARCHDRUID.id) && {
         item: ITEMS.SOUL_OF_THE_ARCHDRUID,
         result: (
           <dfn data-tip={`

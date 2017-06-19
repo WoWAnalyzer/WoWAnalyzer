@@ -18,14 +18,14 @@ describe('Combatant', () => {
     expect(Object.prototype.toString.call(combatant.trinket1)).toBe('[object Object]');
     expect(combatant.trinket1.itemLevel).toBe(940);
   });
-  it('hasRing checks both trinket slots', () => {
+  it('hasFinger checks both fingers', () => {
     const combatant = getCombatant();
     // ring 1
-    expect(combatant.hasRing(134533)).toBe(true);
+    expect(combatant.hasFinger(134533)).toBe(true);
     // ring 2
-    expect(combatant.hasRing(140897)).toBe(true);
+    expect(combatant.hasFinger(140897)).toBe(true);
     // trinket 1
-    expect(combatant.hasRing(144258)).toBe(false);
+    expect(combatant.hasFinger(144258)).toBe(false);
   });
   it('hasTrinket checks both trinket slots', () => {
     const combatant = getCombatant();

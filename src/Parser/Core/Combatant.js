@@ -244,8 +244,18 @@ class Combatant extends Entity {
   get finger2() {
     return this._getGearItemBySlotId(GEAR_SLOTS.FINGER2);
   }
-  hasRing(itemId) {
-    return (this.finger1 && this.finger1.id === itemId) || (this.finger2 && this.finger2.id === itemId);
+  getFinger(itemId) {
+    if (this.finger1 && this.finger1.id === itemId) {
+      return this.finger1;
+    }
+    if (this.finger2 && this.finger2.id === itemId) {
+      return this.finger2;
+    }
+
+    return undefined;
+  }
+  hasFinger(itemId) {
+    return this.getFinger(itemId) !== undefined;
   }
   get trinket1() {
     return this._getGearItemBySlotId(GEAR_SLOTS.TRINKET1);
@@ -253,8 +263,21 @@ class Combatant extends Entity {
   get trinket2() {
     return this._getGearItemBySlotId(GEAR_SLOTS.TRINKET2);
   }
+  getTrinket(itemId) {
+    if (this.trinket1 && this.trinket1.id === itemId) {
+      return this.trinket1;
+    }
+    if (this.trinket2 && this.trinket2.id === itemId) {
+      return this.trinket2;
+    }
+
+    return undefined;
+  }
   hasTrinket(itemId) {
-    return (this.trinket1 && this.trinket1.id === itemId) || (this.trinket2 && this.trinket2.id === itemId);
+    return this.getTrinket(itemId) !== undefined;
+  }
+  getItem(itemId) {
+    return Object.keys(this._gearItemsBySlotId).map(key => this._gearItemsBySlotId[key]).find(item => item.id === itemId);
   }
   //endregion
 }

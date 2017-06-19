@@ -108,9 +108,12 @@ class Results extends React.Component {
                           return null;
                         }
 
+                        const itemDetails = item.item && parser.selectedCombatant.getItem(item.item.id);
+                        console.log(item, itemDetails);
+
                         const id = item.id || item.item.id;
-                        const icon = item.icon || <ItemIcon id={item.item.id} />;
-                        const title = item.title || <ItemLink id={item.item.id} />;
+                        const icon = item.icon || <ItemIcon id={item.item.id} details={itemDetails} />;
+                        const title = item.title || <ItemLink id={item.item.id} details={itemDetails} />;
 
                         return (
                           <li className="item clearfix" key={id}>
