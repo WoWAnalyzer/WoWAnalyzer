@@ -25,7 +25,7 @@ class MarchOfTheLegion extends Module {
         debug && console.log('Skipping Atonement heal event since combatant couldn\'t be found:', event);
         return;
       }
-      if (SPELLS.MARCH_OF_THE_LEGION.id !== this.owner.modules.atonementSource.atonementDamageSource.ability.guid) {
+      if (this.owner.modules.atonementSource.atonementDamageSource.ability.guid !== SPELLS.MARCH_OF_THE_LEGION.id) {
         return;
       }
       
