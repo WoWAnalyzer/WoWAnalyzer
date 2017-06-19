@@ -107,11 +107,9 @@ class Results extends React.Component {
                         if (!item) {
                           return null;
                         }
-
-                        const itemDetails = item.item && parser.selectedCombatant.getItem(item.item.id);
-                        console.log(item, itemDetails);
-
+                        
                         const id = item.id || item.item.id;
+                        const itemDetails = id && parser.selectedCombatant.getItem(id);
                         const icon = item.icon || <ItemIcon id={item.item.id} details={itemDetails} />;
                         const title = item.title || <ItemLink id={item.item.id} details={itemDetails} />;
 
