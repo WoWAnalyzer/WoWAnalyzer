@@ -157,7 +157,7 @@ export default {
   },
   DISC_PRIEST_T19_4SET_BONUS_BUFF: {
     id: 211563,
-    name: 'T19 4 set bonus',
+    name: 'T19 4 Set Bonus',
     icon: 'spell_holy_powerwordshield',
   },
   DISC_PRIEST_T20_2SET_BONUS_PASSIVE: {

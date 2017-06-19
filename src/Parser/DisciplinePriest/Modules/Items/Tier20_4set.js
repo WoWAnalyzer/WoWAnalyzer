@@ -2,8 +2,8 @@ import SPELLS from 'common/SPELLS';
 
 import Module from 'Parser/Core/Module';
 
-const BUFF_EXPIRATION_BUFFER = 150; // Buffer for detecting buff fade
-const PENANCE_COOLDOWN = 9000; // Penance CD in MS
+const BUFF_EXPIRATION_BUFFER_MS = 150;
+const REGULAR_PENANCE_COOLDOWN_MS = 9000;
 
 class Tier20_4set extends Module {
   _lastPenanceTimestamp = null;
@@ -19,7 +19,7 @@ class Tier20_4set extends Module {
   }
 
   get penanceCooldownSaved() {
-    return (this._consumeCount * PENANCE_COOLDOWN) / 2;
+    return (this._consumeCount * REGULAR_PENANCE_COOLDOWN_MS) / 2;
   }
 
   on_initialized() {
@@ -49,7 +49,7 @@ class Tier20_4set extends Module {
 
   on_toPlayer_removebuff(event) {
     if (event.ability.guid === SPELLS.DISC_PRIEST_T20_4SET_BONUS_BUFF.id) {
-      if ((event.timestamp - BUFF_EXPIRATION_BUFFER) <= this._lastPenanceTimestamp) {
+      if ((event.timestamp - BUFF_EXPIRATION_BUFFER_MS) <= this._lastPenanceTimestamp) {
         this._consumeCount += 1;
       }
     }
