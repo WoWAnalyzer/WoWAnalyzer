@@ -3,9 +3,9 @@ import SPELLS from 'common/SPELLS';
 import Module from 'Parser/Core/Module';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
-const BLIND_ABSOLUTION_TWO_SET_BONUS = 1;
+const TIER_20_TWO_SET_BONUS = 1;
 
-class BlindAbsolutionTwoSet extends Module {
+class Tier20_2set extends Module {
   _firstPenanceBoltLastDamageEvent = false;
 
   healing = 0;
@@ -30,16 +30,16 @@ class BlindAbsolutionTwoSet extends Module {
   on_byPlayer_heal(event) {
     // Healing Penance first bolt
     if (event.isFirstPenanceBolt) {
-      this.healing += calculateEffectiveHealing(event, BLIND_ABSOLUTION_TWO_SET_BONUS);
+      this.healing += calculateEffectiveHealing(event, TIER_20_TWO_SET_BONUS);
     }
 
     // Atonement
     if (event.isAtonementHeal) {
       if (this._firstPenanceBoltLastDamageEvent) {
-        this.healing += calculateEffectiveHealing(event, BLIND_ABSOLUTION_TWO_SET_BONUS);
+        this.healing += calculateEffectiveHealing(event, TIER_20_TWO_SET_BONUS);
       }
     }
   }
 }
 
-export default BlindAbsolutionTwoSet;
+export default Tier20_2set;

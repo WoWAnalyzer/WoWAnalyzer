@@ -5,7 +5,7 @@ import Module from 'Parser/Core/Module';
 const BUFF_EXPIRATION_BUFFER = 150; // Buffer for detecting buff fade
 const PENANCE_COOLDOWN = 9000; // Penance CD in MS
 
-class BlindAbsolutionFourSet extends Module {
+class Tier20_4set extends Module {
   _hasProccedInCombat = false; // Proccing before combat will likely be common
   _lastPenanceTimestamp = null;
   _procCount = 0;
@@ -56,4 +56,4 @@ class BlindAbsolutionFourSet extends Module {
   
 }
 
-export default BlindAbsolutionFourSet;
+export default Tier20_4set;

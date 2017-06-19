@@ -32,8 +32,8 @@ import Xalan from './Modules/Items/Xalan';
 import NeroBandOfPromises from './Modules/Items/NeroBandOfPromises';
 import TarnishedSentinelMedallion from './Modules/Items/TarnishedSentinelMedallion';
 import MarchOfTheLegion from './Modules/Items/MarchOfTheLegion';
-import BlindAbsolutionTwoSet from './Modules/Items/BlindAbsolutionTwoSet';
-import BlindAbsolutionFourSet from './Modules/Items/BlindAbsolutionFourSet';
+import Tier20_2set from './Modules/Items/Tier20_2set';
+import Tier20_4set from './Modules/Items/Tier20_4set';
 
 import TwistOfFate from './Modules/Spells/TwistOfFate';
 import Atonement from './Modules/Spells/Atonement';
@@ -91,8 +91,8 @@ class CombatLogParser extends MainCombatLogParser {
     neroBandOfPromises: NeroBandOfPromises,
     tarnishedSentinelMedallion: TarnishedSentinelMedallion,
     marchOfTheLegion: MarchOfTheLegion,
-    blindAbsolutionTwoSet: BlindAbsolutionTwoSet,
-    blindAbsolutionFourSet: BlindAbsolutionFourSet,
+    tier20_2set: Tier20_2set,
+    tier20_4set: Tier20_4set,
 
     // Spells (talents and traits):
     twistOfFate: TwistOfFate,
@@ -119,7 +119,7 @@ class CombatLogParser extends MainCombatLogParser {
     const improperAtonementRefreshPercentage = this.modules.atonement.improperAtonementRefreshes.length / this.modules.atonement.totalAtones;
 
     const tier19_2setHealingPercentage = this.modules.tier19_2set.healing / this.totalHealing;
-    const blindAbsolutionTwoSetHealingPercentage = this.modules.blindAbsolutionTwoSet.healing / this.totalHealing;
+    const tier20_2setHealingPercentage = this.modules.tier20_2set.healing / this.totalHealing;
 
 
     if (improperAtonementRefreshPercentage > .05) {
@@ -348,23 +348,23 @@ class CombatLogParser extends MainCombatLogParser {
           </dfn>
         ),
       },
-      this.modules.blindAbsolutionFourSet.active && {
+      this.modules.tier20_4set.active && {
         id: `spell-${SPELLS.DISC_PRIEST_T20_4SET_BONUS_PASSIVE.id}`,
         icon: <SpellIcon id={SPELLS.DISC_PRIEST_T20_4SET_BONUS_BUFF.id} />,
         title: <SpellLink id={SPELLS.DISC_PRIEST_T20_4SET_BONUS_BUFF.id} />,
         result: (
           <span>
-            {(this.modules.blindAbsolutionFourSet.penanceCooldownSaved / 1000).toFixed(1)} seconds off the <SpellLink id={SPELLS.PENANCE.id} /> cooldown, { this.modules.blindAbsolutionFourSet.consumptions } Penances cast earlier.
+            {(this.modules.tier20_4set.penanceCooldownSaved / 1000).toFixed(1)} seconds off the <SpellLink id={SPELLS.PENANCE.id} /> cooldown, { this.modules.tier20_4set.consumptions } Penances cast earlier.
           </span>
         ),
       },
-      this.modules.blindAbsolutionTwoSet.active && {
+      this.modules.tier20_2set.active && {
         id: `spell-${SPELLS.DISC_PRIEST_T20_2SET_BONUS_PASSIVE.id}`,
         icon: <SpellIcon id={SPELLS.DISC_PRIEST_T20_2SET_BONUS_PASSIVE.id} />,
         title: <SpellLink id={SPELLS.DISC_PRIEST_T20_2SET_BONUS_PASSIVE.id} />,
         result: (
           <dfn data-tip="The effective healing contributed by the Tier 20 2 set bonus.">
-            {((blindAbsolutionTwoSetHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.blindAbsolutionTwoSet.healing / fightDuration * 1000)} HPS / {formatNumber(this.modules.blindAbsolutionTwoSet.damage / fightDuration * 1000)} DPS
+            {((tier20_2setHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.tier20_2set.healing / fightDuration * 1000)} HPS / {formatNumber(this.modules.tier20_2set.damage / fightDuration * 1000)} DPS
           </dfn>
         ),
       },
