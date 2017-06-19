@@ -15,9 +15,7 @@ class NeroBandOfPromises extends Module {
   }
 
   on_byPlayer_heal(event) {
-    const spellId = event.ability.guid;
-
-    if (spellId === SPELLS.ATONEMENT_HEAL_NON_CRIT.id || spellId === SPELLS.ATONEMENT_HEAL_CRIT.id) {
+    if (event.isAtonementHeal) {
       // N'ero appears in the log as regular Atonement healing
       const combatant = this.owner.combatants.players[event.targetID];
       if (!combatant) {

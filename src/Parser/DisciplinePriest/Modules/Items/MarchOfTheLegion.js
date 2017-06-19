@@ -16,9 +16,7 @@ class MarchOfTheLegion extends Module {
   }
 
   on_byPlayer_heal(event) {
-    const spellId = event.ability.guid;
-
-    if (spellId === SPELLS.ATONEMENT_HEAL_NON_CRIT.id || spellId === SPELLS.ATONEMENT_HEAL_CRIT.id) {
+    if (event.isAtonementHeal) {
       const combatant = this.owner.combatants.players[event.targetID];
       if (!combatant) {
         // If combatant doesn't exist it's probably a pet, this shouldn't be noteworthy.

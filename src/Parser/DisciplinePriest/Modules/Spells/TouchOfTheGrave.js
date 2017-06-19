@@ -20,8 +20,7 @@ class TouchOfTheGrave extends Module {
     }
   }
   on_byPlayer_heal(event) {
-    const spellId = event.ability.guid;
-    if ([SPELLS.ATONEMENT_HEAL_NON_CRIT.id, SPELLS.ATONEMENT_HEAL_CRIT.id].indexOf(spellId) === -1) {
+    if (!event.isAtonementHeal) {
       return;
     }
     if (this.owner.modules.atonementSource.atonementDamageSource.ability.guid !== SPELLS.TOUCH_OF_THE_GRAVE.id) {

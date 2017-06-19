@@ -56,8 +56,7 @@ class CooldownTracker extends CoreCooldownTracker {
     super.on_byPlayer_cast(event);
   }
   on_byPlayer_heal(event) {
-    const spellId = event.ability.guid;
-    if (this.lastEvangelism && [SPELLS.ATONEMENT_HEAL_NON_CRIT.id, SPELLS.ATONEMENT_HEAL_CRIT.id].indexOf(spellId) !== -1) {
+    if (this.lastEvangelism && event.isAtonementHeal) {
       const target = this.owner.modules.atonement.currentAtonementTargets.find(item => item.target === event.targetID);
       // Pets, guardians, etc.
       if (!target) {
