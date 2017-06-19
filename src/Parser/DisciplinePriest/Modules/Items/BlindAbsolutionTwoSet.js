@@ -34,7 +34,7 @@ class BlindAbsolutionTwoSet extends Module {
     }
 
     // Atonement
-    if ([SPELLS.ATONEMENT_HEAL_NON_CRIT.id, SPELLS.ATONEMENT_HEAL_CRIT.id].indexOf(event.ability.guid) > -1) {
+    if (event.isAtonementHeal) {
       if (this._firstPenanceBoltLastDamageEvent) {
         this.healing += calculateEffectiveHealing(event, BLIND_ABSOLUTION_TWO_SET_BONUS);
       }
