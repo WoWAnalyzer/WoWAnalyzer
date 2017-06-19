@@ -36,6 +36,7 @@ import MarchOfTheLegion from './Modules/Items/MarchOfTheLegion';
 import TwistOfFate from './Modules/Spells/TwistOfFate';
 import Atonement from './Modules/Spells/Atonement';
 import Evangelism from './Modules/Spells/Evangelism';
+import TouchOfTheGrave from './Modules/Spells/TouchOfTheGrave';
 
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
@@ -87,11 +88,11 @@ class CombatLogParser extends MainCombatLogParser {
     tarnishedSentinelMedallion: TarnishedSentinelMedallion,
     marchOfTheLegion: MarchOfTheLegion,
 
-
     // Spells (talents and traits):
     twistOfFate: TwistOfFate,
     atonement: Atonement,
     evangelism: Evangelism,
+    touchOfTheGrave: TouchOfTheGrave,
   };
 
   generateResults() {
@@ -229,8 +230,8 @@ class CombatLogParser extends MainCombatLogParser {
           icon={<SpellIcon id={SPELLS.TWIST_OF_FATE_TALENT.id} />}
           value={`${formatNumber(this.modules.twistOfFate.healing / fightDuration * 1000)} HPS`}
           label={(
-            <dfn data-tip={`The actual effective healing contributed by Twist of Fate (${formatPercentage(this.modules.twistOfFate.healing / this.totalHealing)}% of total healing done). Twist of Fate also contributed ${formatNumber(this.modules.twistOfFate.damage / fightDuration * 1000)} DPS (${formatPercentage(this.modules.twistOfFate.damage / this.totalDamage)}% of total damage done), the healing gain of this damage was included in the shown numbers.`}>
-              Twist of Fate contribution
+            <dfn data-tip={`The effective healing contributed by Twist of Fate (${formatPercentage(this.modules.twistOfFate.healing / this.totalHealing)}% of total healing done). Twist of Fate also contributed ${formatNumber(this.modules.twistOfFate.damage / fightDuration * 1000)} DPS (${formatPercentage(this.modules.twistOfFate.damage / this.totalDamage)}% of total damage done), the healing gain of this damage was included in the shown numbers.`}>
+              Twist of Fate healing
             </dfn>
           )}
         />
@@ -258,7 +259,19 @@ class CombatLogParser extends MainCombatLogParser {
               Unused PW:S absorb
             </dfn>
           )}
-        />),
+        />
+      ),
+      this.modules.touchOfTheGrave.damage > 0 && (
+        <StatisticBox
+          icon={<SpellIcon id={SPELLS.TOUCH_OF_THE_GRAVE.id} />}
+          value={`${formatNumber(this.modules.touchOfTheGrave.healing / fightDuration * 1000)} HPS`}
+          label={(
+            <dfn data-tip={`The effective healing contributed by the Undead racial Touch of the Grave (${formatPercentage(this.modules.touchOfTheGrave.healing / this.totalHealing)}% of total healing done). Touch of the Grave also contributed ${formatNumber(this.modules.touchOfTheGrave.damage / fightDuration * 1000)} DPS (${formatPercentage(this.modules.touchOfTheGrave.damage / this.totalDamage)}% of total damage done).`}>
+              Touch of the Grave healing
+            </dfn>
+          )}
+        />
+      ),
     ];
 
     results.items = [
