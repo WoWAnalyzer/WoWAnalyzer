@@ -6,7 +6,6 @@ const BUFF_EXPIRATION_BUFFER = 150; // Buffer for detecting buff fade
 const PENANCE_COOLDOWN = 9000; // Penance CD in MS
 
 class Tier20_4set extends Module {
-  _hasProccedInCombat = false; // Proccing before combat will likely be common
   _lastPenanceTimestamp = null;
   _procCount = 0;
   _consumeCount = 0;
@@ -29,9 +28,15 @@ class Tier20_4set extends Module {
     }
   }
 
+  on_byPlayer_combatantinfo(event) {
+    const fourSetAura = event.auras
+      .filter(aura => aura.ability === SPELLS.DISC_PRIEST_T20_4SET_BONUS_BUFF.id);
+    
+    this._procCount += fourSetAura ? 1 : 0;
+  }
+
   on_toPlayer_applybuff(event) {
     if (event.ability.guid === SPELLS.DISC_PRIEST_T20_4SET_BONUS_BUFF.id) {
-      this._hasProccedInCombat = true;
       this._procCount += 1;
     }
   }
@@ -44,10 +49,6 @@ class Tier20_4set extends Module {
 
   on_toPlayer_removebuff(event) {
     if (event.ability.guid === SPELLS.DISC_PRIEST_T20_4SET_BONUS_BUFF.id) {
-      if (!this._hasProccedInCombat) {
-        this._procCount += 1;
-      }
-
       if ((event.timestamp - BUFF_EXPIRATION_BUFFER) <= this._lastPenanceTimestamp) {
         this._consumeCount += 1;
       }

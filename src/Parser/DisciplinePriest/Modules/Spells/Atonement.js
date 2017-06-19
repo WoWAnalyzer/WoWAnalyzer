@@ -8,7 +8,7 @@ const debug = false;
 const IMPROPER_REFRESH_TIME = 3000;
 
 class Atonement extends Module {
-  priority = 99;
+  priority = 9;
   healing = 0;
   totalAtones = 0;
   totalAtonementRefreshes = 0;
