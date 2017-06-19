@@ -6,7 +6,7 @@ import Module from 'Parser/Core/Module';
  * If Speed of the Pious is not available, we fallback to an estimate
  */
 
-const PENANCE_REFRACTORY_PERIOD = 3500; // Minimum duration from one Penance to Another
+const PENANCE_MINIMUM_RECAST_TIME = 3500; // Minimum duration from one Penance to Another
 
 class Penance extends Module {
   priority = 99;
@@ -16,7 +16,7 @@ class Penance extends Module {
   _penanceFirstBolt = false;
 
   isNewPenanceCast(timestamp) {
-    return !this._previousPenanceTimestamp || (timestamp - this._previousPenanceTimestamp) > PENANCE_REFRACTORY_PERIOD;
+    return !this._previousPenanceTimestamp || (timestamp - this._previousPenanceTimestamp) > PENANCE_MINIMUM_RECAST_TIME;
   }
 
   on_byPlayer_cast(event) {

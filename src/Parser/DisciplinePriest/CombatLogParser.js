@@ -33,6 +33,7 @@ import NeroBandOfPromises from './Modules/Items/NeroBandOfPromises';
 import TarnishedSentinelMedallion from './Modules/Items/TarnishedSentinelMedallion';
 import MarchOfTheLegion from './Modules/Items/MarchOfTheLegion';
 import BlindAbsolutionTwoSet from './Modules/Items/BlindAbsolutionTwoSet';
+import BlindAbsolutionFourSet from './Modules/Items/BlindAbsolutionFourSet';
 
 import TwistOfFate from './Modules/Spells/TwistOfFate';
 import Atonement from './Modules/Spells/Atonement';
@@ -90,6 +91,7 @@ class CombatLogParser extends MainCombatLogParser {
     tarnishedSentinelMedallion: TarnishedSentinelMedallion,
     marchOfTheLegion: MarchOfTheLegion,
     blindAbsolutionTwoSet: BlindAbsolutionTwoSet,
+    blindAbsolutionFourSet: BlindAbsolutionFourSet,
 
     // Spells (talents and traits):
     twistOfFate: TwistOfFate,
@@ -332,10 +334,20 @@ class CombatLogParser extends MainCombatLogParser {
           </dfn>
         ),
       },
+      this.modules.blindAbsolutionFourSet.active && {
+        id: `spell-${SPELLS.DISC_PRIEST_T20_4SET_BONUS_PASSIVE.id}`,
+        icon: <SpellIcon id={SPELLS.DISC_PRIEST_T20_4SET_BONUS_BUFF.id} />,
+        title: <SpellLink id={SPELLS.DISC_PRIEST_T20_4SET_BONUS_BUFF.id} />,
+        result: (
+          <span>
+            {(this.modules.blindAbsolutionFourSet.penanceCooldownSaved / 1000).toFixed(1)} seconds off the <SpellLink id={SPELLS.PENANCE.id} /> cooldown, { this.modules.blindAbsolutionFourSet.consumptions } Penances cast earlier.
+          </span>
+        ),
+      },
       this.modules.blindAbsolutionTwoSet.active && {
-        id: `spell-${SPELLS.DISC_PRIEST_T20_2SET_BONUS_BUFF.id}`,
-        icon: <SpellIcon id={SPELLS.DISC_PRIEST_T20_2SET_BONUS_BUFF.id} />,
-        title: <SpellLink id={SPELLS.DISC_PRIEST_T20_2SET_BONUS_BUFF.id} />,
+        id: `spell-${SPELLS.DISC_PRIEST_T20_2SET_BONUS_PASSIVE.id}`,
+        icon: <SpellIcon id={SPELLS.DISC_PRIEST_T20_2SET_BONUS_PASSIVE.id} />,
+        title: <SpellLink id={SPELLS.DISC_PRIEST_T20_2SET_BONUS_PASSIVE.id} />,
         result: (
           <dfn data-tip="The effective healing contributed by the Tier 20 2 set bonus.">
             {((blindAbsolutionTwoSetHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.blindAbsolutionTwoSet.healing / fightDuration * 1000)} HPS / {formatNumber(this.modules.blindAbsolutionTwoSet.damage / fightDuration * 1000)} DPS

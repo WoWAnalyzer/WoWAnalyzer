@@ -13,7 +13,7 @@ class BlindAbsolutionTwoSet extends Module {
   
   on_initialized() {
     if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasBuff(SPELLS.DISC_PRIEST_T20_2SET_BONUS_BUFF.id);
+      this.active = this.owner.selectedCombatant.hasBuff(SPELLS.DISC_PRIEST_T20_2SET_BONUS_PASSIVE.id);
     }
   }
 
