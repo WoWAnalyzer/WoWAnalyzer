@@ -285,17 +285,17 @@ class CombatLogParser extends MainCombatLogParser {
       this.modules.tarnishedSentinelMedallion.active && {
         item: ITEMS.TARNISHED_SENTINEL_MEDALLION,
         result: (
-          <dfn data-tip="The Atonement healing done by the trinket's damaging effects.">
+          <span>
             { ((owlHealingPercentage * 100) || 0).toFixed(2) } % / { formatNumber(this.modules.tarnishedSentinelMedallion.healing / fightDuration * 1000) } HPS / {formatNumber(this.modules.tarnishedSentinelMedallion.damage / fightDuration * 1000)} DPS
-          </dfn>
+          </span>
         ),
       },
       this.modules.marchOfTheLegion.active && {
         item: SPELLS.MARCH_OF_THE_LEGION,
         result: (
-          <dfn data-tip="The Atonement healing done by the set bonus' damaging effects.">
+          <span>
             { ((marchHealingPercentage * 100) || 0).toFixed(2) } % / { formatNumber(this.modules.marchOfTheLegion.healing / fightDuration * 1000) } HPS
-          </dfn>
+          </span>
         ),
       },
       this.modules.cordOfMaiev.active && {
@@ -317,17 +317,17 @@ class CombatLogParser extends MainCombatLogParser {
       this.modules.xalan.active && {
         item: ITEMS.XALAN_THE_FEAREDS_CLENCH,
         result: (
-          <dfn data-tip={`The effective healing contributed by the Xalan the Feared's Clench equip effect asuming your Atonement lasts ${this.modules.xalan.atonementDuration} seconds normally.`}>
+          <span>
             {((this.modules.xalan.healing / this.totalHealing * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.xalan.healing / fightDuration * 1000)} HPS
-          </dfn>
+          </span>
         ),
       },
       this.modules.neroBandOfPromises.active && {
         item: ITEMS.NERO_BAND_OF_PROMISES,
         result: (
-          <dfn data-tip={`The healing gain from Penance damage on players without without Atonement during the Power Word: Barrier buff.`}>
+          <span>
             {((this.modules.neroBandOfPromises.healing / this.totalHealing * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.neroBandOfPromises.healing / fightDuration * 1000)} HPS
-          </dfn>
+          </span>
         ),
       },
       this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_HIGH_PRIEST.id) && {
@@ -343,9 +343,9 @@ class CombatLogParser extends MainCombatLogParser {
         icon: <SpellIcon id={SPELLS.DISC_PRIEST_T19_2SET_BONUS_BUFF.id} />,
         title: <SpellLink id={SPELLS.DISC_PRIEST_T19_2SET_BONUS_BUFF.id} />,
         result: (
-          <dfn data-tip="The effective healing contributed by the Tier 19 2 set bonus.">
+          <span>
             {((tier19_2setHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.tier19_2set.healing / fightDuration * 1000)} HPS
-          </dfn>
+          </span>
         ),
       },
       this.modules.tier20_4set.active && {
@@ -363,9 +363,9 @@ class CombatLogParser extends MainCombatLogParser {
         icon: <SpellIcon id={SPELLS.DISC_PRIEST_T20_2SET_BONUS_PASSIVE.id} />,
         title: <SpellLink id={SPELLS.DISC_PRIEST_T20_2SET_BONUS_PASSIVE.id} />,
         result: (
-          <dfn data-tip="The effective healing contributed by the Tier 20 2 set bonus.">
+          <span>
             {((tier20_2setHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.tier20_2set.healing / fightDuration * 1000)} HPS / {formatNumber(this.modules.tier20_2set.damage / fightDuration * 1000)} DPS
-          </dfn>
+          </span>
         ),
       },
     ];
