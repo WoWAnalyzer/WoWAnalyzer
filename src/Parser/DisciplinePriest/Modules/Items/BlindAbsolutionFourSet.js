@@ -2,8 +2,8 @@ import SPELLS from 'common/SPELLS';
 
 import Module from 'Parser/Core/Module';
 
-const BUFF_EXPIRATION_BUFFER = 150; // Buffer for detecting buff fade
-const PENANCE_COOLDOWN = 9000; // Penance CD in MS
+const BUFF_EXPIRATION_BUFFER_MS = 150;
+const REGULAR_PENANCE_COOLDOWN_MS = 9000;
 
 class BlindAbsolutionFourSet extends Module {
   _hasProccedInCombat = false; // Proccing before combat will likely be common
@@ -20,7 +20,7 @@ class BlindAbsolutionFourSet extends Module {
   }
 
   get penanceCooldownSaved() {
-    return (this._consumeCount * PENANCE_COOLDOWN) / 2;
+    return (this._consumeCount * REGULAR_PENANCE_COOLDOWN_MS) / 2;
   }
 
   on_initialized() {
@@ -48,7 +48,7 @@ class BlindAbsolutionFourSet extends Module {
         this._procCount += 1;
       }
 
-      if ((event.timestamp - BUFF_EXPIRATION_BUFFER) <= this._lastPenanceTimestamp) {
+      if ((event.timestamp - BUFF_EXPIRATION_BUFFER_MS) <= this._lastPenanceTimestamp) {
         this._consumeCount += 1;
       }
     }
