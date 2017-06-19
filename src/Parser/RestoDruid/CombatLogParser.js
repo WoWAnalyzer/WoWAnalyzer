@@ -5,8 +5,6 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import Icon from 'common/Icon';
 import ITEMS from 'common/ITEMS';
-import ItemLink from 'common/ItemLink';
-import ItemIcon from 'common/ItemIcon';
 
 import StatisticBox from 'Main/StatisticBox';
 import SuggestionsTab from 'Main/SuggestionsTab';
@@ -16,15 +14,10 @@ import CooldownsTab from 'Main/CooldownsTab';
 import ManaTab from 'Main/ManaTab';
 
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
-import ParseResults from 'Parser/Core/ParseResults';
 import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
-import AmalgamsSeventhSpine from 'Parser/Core/Modules/Items/AmalgamsSeventhSpine';
-import Prydaz from 'Parser/Core/Modules/Items/Prydaz';
 
-import DrapeOfShame from './Modules/Legendaries/DrapeOfShame';
-import Velens from './Modules/Legendaries/Velens';
 import Ekowraith from './Modules/Legendaries/Ekowraith';
 import XonisCaress from './Modules/Legendaries/XonisCaress';
 import Sephuz from './Modules/Legendaries/Sephuz';
@@ -47,6 +40,7 @@ import Dreamwalker from './Modules/Features/Dreamwalker';
 import SoulOfTheForest from './Modules/Features/SoulOfTheForest';
 
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
 function formatThousands(number) {
   return (Math.round(number || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
@@ -74,6 +68,8 @@ function formatPercentage(percentage) {
 }
 
 class CombatLogParser extends MainCombatLogParser {
+  static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
+
   static specModules = {
     // Override the ability tracker so we also get stats for IoL and beacon healing
     abilityTracker: AbilityTracker,
@@ -92,9 +88,6 @@ class CombatLogParser extends MainCombatLogParser {
     soulOfTheForest: SoulOfTheForest,
 
     // Legendaries:
-    drapeOfShame: DrapeOfShame,
-    velens: Velens,
-    prydaz: Prydaz,
     ekowraith: Ekowraith,
     xonisCaress: XonisCaress,
     sephuz: Sephuz,
@@ -107,12 +100,11 @@ class CombatLogParser extends MainCombatLogParser {
     // Aman'Thul's Wisdom
 
     // Shared:
-    amalgamsSeventhSpine: AmalgamsSeventhSpine,
     darkmoonDeckPromises: DarkmoonDeckPromises,
   };
 
   generateResults() {
-    const results = new ParseResults();
+    const results = super.generateResults();
 
     // Tree of Life
     const hasFlourish = this.selectedCombatant.lv100Talent === SPELLS.FLOURISH_TALENT.id;
@@ -149,9 +141,6 @@ class CombatLogParser extends MainCombatLogParser {
 
     const potaHealing = (this.modules.powerOfTheArchdruid.rejuvenations * oneRejuvenationThroughput) + this.modules.powerOfTheArchdruid.healing / this.totalHealing;
     const hasMoC = this.selectedCombatant.lv100Talent === SPELLS.MOMENT_OF_CLARITY_TALENT.id;
-    const hasVelens = this.selectedCombatant.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT.id);
-    const velensHealingPercentage = (this.modules.velens.overhealHealing + this.modules.velens.healingIncreaseHealing) / this.totalHealing;
-    const prydazHealingPercentage = this.modules.prydaz.healing / this.totalHealing;
     const sepuhzHasteRating = ((this.modules.sephuz.uptime / this.fightDuration) * this.modules.sephuz.sephuzProccInHasteRating) + this.modules.sephuz.sephuzStaticHasteInRating;
     const sephuzThroughput = sepuhzHasteRating / this.selectedCombatant.intellect;
     const darkTitanAdviceHealing = this.modules.darkTitanAdvice.healing / this.totalHealing;
@@ -161,7 +150,6 @@ class CombatLogParser extends MainCombatLogParser {
     const xonisCaressHealingPercentage = this.modules.xonisCaress.healing / this.totalHealing;
     const ekowraithHealingPercentage = this.modules.ekowraith.healing / this.totalHealing;
     const ekowraithDamageReductionHealingPercentage = (this.modules.ekowraith.damageReductionHealing / (this.totalHealing + this.modules.ekowraith.damageReductionHealing));
-    const drapeOfShameHealingPercentage = this.modules.drapeOfShame.healing / this.totalHealing;
     let lifebloomUptime = this.modules.lifebloom.uptime / this.fightDuration;
     if (lifebloomUptime > 1) {
       lifebloomUptime -= 1;
@@ -243,13 +231,6 @@ class CombatLogParser extends MainCombatLogParser {
         importance: getIssueImportance(treeOfLifeThroughput, 0.07, 0.04),
       });
     }
-    if (hasVelens && velensHealingPercentage < 0.045) {
-      results.addIssue({
-        issue: <span>Your usage of <a href="http://www.wowhead.com/item=144258" target="_blank" rel="noopener noreferrer" className="legendary">Velen's Future Sight</a> can be improved. Try to maximize the amount of casts during the buff or consider using an easier legendary ({(velensHealingPercentage * 100).toFixed(2)}% healing contributed).</span>,
-        icon: ITEMS.VELENS_FUTURE_SIGHT.icon,
-        importance: getIssueImportance(velensHealingPercentage, 0.04, 0.03),
-      });
-    }
     const healingTouches = getAbility(SPELLS.HEALING_TOUCH.id).casts || 0;
     const healingTouchesPerMinute = healingTouches / (fightDuration / 1000) * 60;
     if (healingTouchesPerMinute > 0) {
@@ -310,6 +291,15 @@ class CombatLogParser extends MainCombatLogParser {
         label={(
           <dfn data-tip={`The total healing done recorded was ${formatThousands(this.totalHealing)}.`}>
             Healing done
+          </dfn>
+        )}
+      />,
+      <StatisticBox
+        icon={<Icon icon="petbattle_health-down" alt="Non healing time" />}
+        value={`${formatPercentage(nonHealingTimePercentage)} %`}
+        label={(
+          <dfn data-tip={`Non healing time is available casting time not used for a spell that helps you heal. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), DPSing, etc.<br /><br />You spent ${formatPercentage(deadTimePercentage)}% of your time casting nothing at all.`}>
+            Non healing time
           </dfn>
         )}
       />,
@@ -473,34 +463,38 @@ class CombatLogParser extends MainCombatLogParser {
           )}
         />
       ),
-      (
-        <StatisticBox
-          icon={<Icon icon="petbattle_health-down" alt="Non healing time" />}
-          value={`${formatPercentage(nonHealingTimePercentage)} %`}
-          label={(
-            <dfn data-tip={`Non healing time is available casting time not used for a spell that helps you heal. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), DPSing, etc.<br /><br />You spent ${formatPercentage(deadTimePercentage)}% of your time casting nothing at all.`}>
-              Non healing time
-            </dfn>
-          )}
-        />
-      ),
     ];
 
-    results.items = [
-      this.modules.prydaz.active && {
-        id: ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id,
-        icon: <ItemIcon id={ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id} />,
-        title: <ItemLink id={ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id} />,
+    if (this.modules.darkmoonDeckPromises.active) {
+      // Override the core Promises display
+      results.items = results.items.filter(item => item.id !== ITEMS.DARKMOON_DECK_PROMISES.id);
+      results.items.push({
+        item: ITEMS.DARKMOON_DECK_PROMISES,
         result: (
-          <dfn data-tip="The actual effective healing contributed by the Prydaz, Xavaric's Magnum Opus equip effect.">
-            {((prydazHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.prydaz.healing / fightDuration * 1000)} HPS
+          <dfn data-tip={`The actual mana gained is ${formatThousands(this.modules.darkmoonDeckPromises.savings+this.modules.darkmoonDeckPromises.manaGained)}. The numbers shown may actually be lower if you did not utilize the promises effect fully, i.e. not needing the extra mana gained.`}>
+            {formatThousands(this.modules.darkmoonDeckPromises.savings)} mana saved ({formatThousands(this.modules.darkmoonDeckPromises.savings / this.fightDuration * 1000 * 5)} MP5)<br/>
+            {formatPercentage(promisesThroughput)}% healing contributed.
           </dfn>
         ),
-      },
+      });
+    }
+    if (this.selectedCombatant.hasFinger(ITEMS.SEPHUZS_SECRET.id)) {
+      // Override the core Promises display
+      results.items = results.items.filter(item => item.id !== ITEMS.SEPHUZS_SECRET.id);
+      results.items.push({
+        item: ITEMS.SEPHUZS_SECRET,
+        result: (
+          <dfn data-tip="Estimated throughput gained by using Sephuz by calculating haste gained in throughput, given 1 haste = 1 INT.">
+            {((sephuzThroughput * 100) || 0).toFixed(2)} %
+          </dfn>
+        ),
+      });
+    }
+
+    results.items = [
+      ...results.items,
       this.selectedCombatant.hasChest(ITEMS.EKOWRAITH_CREATOR_OF_WORLDS.id) && {
-        id: ITEMS.EKOWRAITH_CREATOR_OF_WORLDS.id,
-        icon: <ItemIcon id={ITEMS.EKOWRAITH_CREATOR_OF_WORLDS.id} />,
-        title: <ItemLink id={ITEMS.EKOWRAITH_CREATOR_OF_WORLDS.id} />,
+        item: ITEMS.EKOWRAITH_CREATOR_OF_WORLDS,
         result: (
           <span>
             <dfn data-tip="The increased healing on ysera's gift, and damage reduction from guardian affinity if specced.">
@@ -512,9 +506,7 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       },
       this.selectedCombatant.hasChest(ITEMS.XONIS_CARESS.id) && {
-        id: ITEMS.XONIS_CARESS.id,
-        icon: <ItemIcon id={ITEMS.XONIS_CARESS.id} />,
-        title: <ItemLink id={ITEMS.XONIS_CARESS.id} />,
+        item: ITEMS.XONIS_CARESS,
         result: (
           <dfn data-tip="The healing part from Ironbark. This doesn't include the reduced iron bark cooldown.">
             {((xonisCaressHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.xonisCaress.healing / fightDuration * 1000)} HPS
@@ -522,9 +514,7 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       },
       this.selectedCombatant.hasWaist(ITEMS.THE_DARK_TITANS_ADVICE.id) && {
-        id: ITEMS.THE_DARK_TITANS_ADVICE.id,
-        icon: <ItemIcon id={ITEMS.THE_DARK_TITANS_ADVICE.id} />,
-        title: <ItemLink id={ITEMS.THE_DARK_TITANS_ADVICE.id} />,
+        item: ITEMS.THE_DARK_TITANS_ADVICE,
         result: (
           <dfn data-tip={`Random bloom stood for ${((darkTitanAdviceHealingFromProcc * 100) || 0).toFixed(2)} % of the total throughput.`}>
             {((darkTitanAdviceHealing * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.darkTitanAdvice.healing / fightDuration * 1000)} HPS
@@ -532,57 +522,22 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       },
       this.selectedCombatant.hasFeet(ITEMS.ESSENCE_OF_INFUSION.id) && {
-        id: ITEMS.ESSENCE_OF_INFUSION.id,
-        icon: <ItemIcon id={ITEMS.ESSENCE_OF_INFUSION.id} />,
-        title: <ItemLink id={ITEMS.ESSENCE_OF_INFUSION.id} />,
+        item: ITEMS.ESSENCE_OF_INFUSION,
         result: `${((essenceOfInfusionHealing * 100) || 0).toFixed(2)} % / ${formatNumber(this.modules.essenceOfInfusion.healing / fightDuration * 1000)} HPS`,
       },
-      this.selectedCombatant.hasRing(ITEMS.TEARSTONE_OF_ELUNE.id) && {
-        id: ITEMS.TEARSTONE_OF_ELUNE.id,
-        icon: <ItemIcon id={ITEMS.TEARSTONE_OF_ELUNE.id} />,
-        title: <ItemLink id={ITEMS.TEARSTONE_OF_ELUNE.id} />,
+      this.selectedCombatant.hasFinger(ITEMS.TEARSTONE_OF_ELUNE.id) && {
+        item: ITEMS.TEARSTONE_OF_ELUNE,
         result: (
           <dfn data-tip={`Your Tearstone gave ${this.modules.tearstone.rejuvs} bonus rejuvenations. Proccrate of ring was ${(this.modules.tearstone.rejuvs / this.modules.tearstone.wildGrowths * 100).toFixed(2)}%`}>
             {((tearstoneHealing * 100) || 0).toFixed(2)} %
           </dfn>
         ),
       },
-      this.modules.velens.active && {
-        id: ITEMS.VELENS_FUTURE_SIGHT.id,
-        icon: <ItemIcon id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
-        title: <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
-        result: (
-          <dfn data-tip={`${formatPercentage(this.modules.velens.overhealHealing/this.totalHealing)}% from overhealing distribution and ${formatPercentage(this.modules.velens.healingIncreaseHealing/this.totalHealing)}% from 15% healing increase`}>
-            {((velensHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber((this.modules.velens.overhealHealing + this.modules.velens.healingIncreaseHealing) / fightDuration * 1000)} HPS
-          </dfn>
-        ),
-      },
-      this.selectedCombatant.hasRing(ITEMS.SEPHUZS_SECRET.id) && {
-        id: ITEMS.SEPHUZS_SECRET.id,
-        icon: <ItemIcon id={ITEMS.SEPHUZS_SECRET.id} />,
-        title: <ItemLink id={ITEMS.SEPHUZS_SECRET.id} />,
-        result: (
-          <dfn data-tip="Estimated throughput gained by using Sephuz by calculating haste gained in throughput, given 1 haste = 1 INT.">
-            {((sephuzThroughput * 100) || 0).toFixed(2)} %
-          </dfn>
-        ),
-      },
-      this.selectedCombatant.hasBack(ITEMS.DRAPE_OF_SHAME.id) && {
-        id: ITEMS.DRAPE_OF_SHAME.id,
-        icon: <ItemIcon id={ITEMS.DRAPE_OF_SHAME.id} />,
-        title: <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} />,
-        result: (
-          <dfn data-tip="The actual effective healing contributed by the Drape of Shame equip effect.">
-            {((drapeOfShameHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.drapeOfShame.healing / fightDuration * 1000)} HPS
-          </dfn>
-        ),
-      },
       this.selectedCombatant.hasHead(ITEMS.CHAMELEON_SONG.id) && {
-        id: ITEMS.CHAMELEON_SONG.id,
-        icon: <ItemIcon id={ITEMS.CHAMELEON_SONG.id} />,
-        title: <ItemLink id={ITEMS.CHAMELEON_SONG.id} />,
+        item: ITEMS.CHAMELEON_SONG,
         result: (
-          <dfn data-tip={`
+          <dfn
+            data-tip={`
               <ul>
                 <li>${(rejuvenationIncreasedEffectHelmet*100).toFixed(2)}% from increased rejuvenation effect</li>
                 <li>${(rejuvenationManaHelmet*100).toFixed(2)}% from reduced rejuvenation cost</li>
@@ -590,30 +545,20 @@ class CombatLogParser extends MainCombatLogParser {
                 <li>${(tolIncreasedHealingDoneHelmet*100).toFixed(2)}% from overall increased healing effect</li>
                 <li>${(treeOfLifeUptimeHelmet*100).toFixed(2)}% uptime</li>
               </ul>
-            `}>
+            `}
+          >
             {formatPercentage(treeOfLifeThroughputHelmet)} %
           </dfn>
         ),
       },
-      this.modules.amalgamsSeventhSpine.active && {
-        id: ITEMS.AMALGAMS_SEVENTH_SPINE.id,
-        icon: <ItemIcon id={ITEMS.AMALGAMS_SEVENTH_SPINE.id} />,
-        title: <ItemLink id={ITEMS.AMALGAMS_SEVENTH_SPINE.id} />,
+      has2PT20 && {
+        id: `spell-${SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id}`,
+        icon: <SpellIcon id={SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id} />,
+        title: <SpellLink id={SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id} />,
         result: (
-          <dfn data-tip={`The exact amount of mana gained from the Amalgam's Seventh Spine equip effect. You let the buff expire successfully ${this.modules.amalgamsSeventhSpine.procs} times. You refreshed the buff ${this.modules.amalgamsSeventhSpine.refreshes} times (refreshing delays the buff expiration and is inefficient use of this trinket).`}>
-            {formatThousands(this.modules.amalgamsSeventhSpine.manaGained)} mana gained ({formatThousands(this.modules.amalgamsSeventhSpine.manaGained / this.fightDuration * 1000 * 5)} MP5)
-          </dfn>
-        ),
-      },
-      this.modules.darkmoonDeckPromises.active && {
-        id: ITEMS.DARKMOON_DECK_PROMISES.id,
-        icon: <ItemIcon id={ITEMS.DARKMOON_DECK_PROMISES.id} />,
-        title: <ItemLink id={ITEMS.DARKMOON_DECK_PROMISES.id} />,
-        result: (
-          <dfn data-tip={`The actual mana gained is ${formatThousands(this.modules.darkmoonDeckPromises.savings+this.modules.darkmoonDeckPromises.manaGained)}. The numbers shown may actually be lower if you did not utilize the promises effect fully, i.e. not needing the extra mana gained.`}>
-            {formatThousands(this.modules.darkmoonDeckPromises.savings)} mana saved ({formatThousands(this.modules.darkmoonDeckPromises.savings / this.fightDuration * 1000 * 5)} MP5)<br/>
-            {formatPercentage(promisesThroughput)}% healing contributed.
-          </dfn>
+          <span>
+            {this.modules.t20.swiftmendReduced.toFixed(1)}s reduced on swiftmend <br/>({(this.modules.t20.swiftmendReduced/this.modules.t20.swiftmends).toFixed(1)}s per swiftmend on average).
+          </span>
         ),
       },
       has4PT20 && {
@@ -627,31 +572,9 @@ class CombatLogParser extends MainCombatLogParser {
           </span>
         ),
       },
-      has2PT20 && {
-        id: `spell-${SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id}`,
-        icon: <SpellIcon id={SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id} />,
-        title: <SpellLink id={SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id} />,
-        result: (
-          <span>
-            {this.modules.t20.swiftmendReduced.toFixed(1)}s reduced on swiftmend <br/>({(this.modules.t20.swiftmendReduced/this.modules.t20.swiftmends).toFixed(1)}s per swiftmend on average).
-          </span>
-        ),
-      },
-      has2PT20 && {
-        id: `spell-${SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id}`,
-        icon: <SpellIcon id={SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id} />,
-        title: <SpellLink id={SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id} />,
-        result: (
-          <span>
-            {this.modules.t20.swiftmendReduced.toFixed(1)}s reduced on swiftmend <br/>({(this.modules.t20.swiftmendReduced/this.modules.t20.swiftmends).toFixed(1)}s per swiftmend on average).
-          </span>
-        ),
-      },
 
-      this.selectedCombatant.hasRing(ITEMS.SOUL_OF_THE_ARCHDRUID.id) && {
-        id: ITEMS.SOUL_OF_THE_ARCHDRUID.id,
-        icon: <ItemIcon id={ITEMS.SOUL_OF_THE_ARCHDRUID.id} />,
-        title: <ItemLink id={ITEMS.SOUL_OF_THE_ARCHDRUID.id} />,
+      this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_ARCHDRUID.id) && {
+        item: ITEMS.SOUL_OF_THE_ARCHDRUID,
         result: (
           <dfn data-tip={`
               <ul>
@@ -692,7 +615,7 @@ class CombatLogParser extends MainCombatLogParser {
           <CooldownsTab
             fightStart={this.fight.start_time}
             fightEnd={this.fight.end_time}
-            cooldowns={this.modules.cooldownTracker.cooldowns}
+            cooldowns={this.modules.cooldownTracker.pastCooldowns}
           />
         ),
       },

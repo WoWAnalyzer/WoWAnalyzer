@@ -15,7 +15,6 @@ import CastEfficiencyTab from 'Main/CastEfficiencyTab';
 import CooldownsTab from 'Main/CooldownsTab';
 
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
-import ParseResults from 'Parser/Core/ParseResults';
 import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
@@ -67,7 +66,7 @@ class CombatLogParser extends MainCombatLogParser {
   };
 
   generateResults() {
-    const results = new ParseResults();
+    const results = super.generateResults();
     
     // const hasElementalBlast = this.selectedCombatant.hasTalent(SPELLS.ELEMENTAL_BLAST_TALENT.id);
     // const hasEchosElements = this.selectedCombatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id);
@@ -219,7 +218,10 @@ class CombatLogParser extends MainCombatLogParser {
       />,
     ];
 
-    results.items = [/*TODO*/];
+    results.items = [
+      ...results.items,
+      /*TODO*/
+    ];
 
     results.tabs = [
       {
@@ -253,7 +255,7 @@ class CombatLogParser extends MainCombatLogParser {
           <CooldownsTab
             fightStart={this.fight.start_time}
             fightEnd={this.fight.end_time}
-            cooldowns={this.modules.cooldownTracker.cooldowns}
+            cooldowns={this.modules.cooldownTracker.pastCooldowns}
             showOutputStatistics
           />
         ),
@@ -265,7 +267,7 @@ class CombatLogParser extends MainCombatLogParser {
           <CooldownsTab
             fightStart={this.fight.start_time}
             fightEnd={this.fight.end_time}
-            cooldowns={this.modules.procTracker.cooldowns}
+            cooldowns={this.modules.procTracker.pastCooldowns}
             showOutputStatistics
           />
         ),

@@ -6,6 +6,7 @@ import SPELLS from 'common/SPELLS';
 const debug = false;
 
 const baseMana = 1100000;
+const manaTeaReduction = .5;
 
 class ManaTea extends Module {
   manaSavedMT = 0;
@@ -18,7 +19,7 @@ class ManaTea extends Module {
   remCasts = 0;
   revCasts = 0;
   vivCasts = 0;
-  rjwCasts =0;
+  rjwCasts = 0;
 
   nonManaCasts = 0;
   castsUnderManaTea = 0;
@@ -47,7 +48,6 @@ class ManaTea extends Module {
     const spellId = event.ability.guid;
 
     if(this.owner.selectedCombatant.hasBuff(SPELLS.MANA_TEA_TALENT.id)) {
-
       debug && console.log('Mana Tea Buff present');
       if(SPELLS.EFFUSE.id === spellId) {
         this.addToManaSaved(SPELLS.EFFUSE.manaPerc, spellId);
@@ -125,15 +125,15 @@ class ManaTea extends Module {
     // Lifecycles reduces the mana cost of both Vivify and Enveloping Mists.  We must take that into account when calculating mana saved.
     if(this.hasLifeCycles) {
       if(this.owner.selectedCombatant.hasBuff(SPELLS.LIFECYCLES_VIVIFY_BUFF.id) && spellId === SPELLS.VIVIFY.id) {
-        this.manaSavedMT += ((baseMana * spellBaseMana) * (1 - (SPELLS.LIFECYCLES_VIVIFY_BUFF.manaPercRed)));
+        this.manaSavedMT += (((baseMana * spellBaseMana) * (1 - (SPELLS.LIFECYCLES_VIVIFY_BUFF.manaPercRed))) * (1 - manaTeaReduction));
         debug && console.log('LC Viv Cast');
       } else if((this.owner.selectedCombatant.hasBuff(SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.id) && spellId === SPELLS.ENVELOPING_MISTS.id)) {
-        this.manaSavedMT += ((baseMana * spellBaseMana) * (1 - (SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed)));
+        this.manaSavedMT += (((baseMana * spellBaseMana) * (1 - (SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed))) * (1 - manaTeaReduction));
       } else {
-        this.manaSavedMT += (baseMana * spellBaseMana);
+        this.manaSavedMT += ((baseMana * spellBaseMana) * (1 - manaTeaReduction));
       }
     } else {
-      this.manaSavedMT += (baseMana * spellBaseMana);
+      this.manaSavedMT += ((baseMana * spellBaseMana) * (1 - manaTeaReduction));
     }
   }
   on_finished() {

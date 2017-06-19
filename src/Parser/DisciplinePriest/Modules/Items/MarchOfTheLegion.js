@@ -10,7 +10,7 @@ class MarchOfTheLegion extends Module {
 
   on_initialized() {
     if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasRing(ITEMS.RING_OF_LOOMING_MENACE.id)
+      this.active = this.owner.selectedCombatant.hasFinger(ITEMS.RING_OF_LOOMING_MENACE.id)
                  && this.owner.selectedCombatant.hasNeck(ITEMS.CHAIN_OF_SCORCHED_BONES.id);
     }
   }

@@ -13,7 +13,7 @@ class Jonat extends Module {
 
   on_initialized() {
     if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasRing(ITEMS.FOCUSER_OF_JONAT.id);
+      this.active = this.owner.selectedCombatant.hasFinger(ITEMS.FOCUSER_OF_JONAT.id);
     }
   }
 

@@ -37,8 +37,7 @@ class Evangelism extends Module {
 
     // Only when in the last seven seconds of an atonement
     if ([SPELLS.ATONEMENT_HEAL_NON_CRIT.id, SPELLS.ATONEMENT_HEAL_CRIT.id].indexOf(spellId) > -1) {
-      const target = this.atonementModule.currentAtonementTargets.filter(id => id.target !== event.targetID)[0];
-      
+      const target = this.atonementModule.currentAtonementTargets.find(id => id.target === event.targetID);
       // Pets, guardians, etc.
       if (!target) {
         return;

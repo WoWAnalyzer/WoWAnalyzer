@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 
+import ItemLink from 'common/ItemLink';
+import ItemIcon from 'common/ItemIcon';
+
 class Results extends React.Component {
   static propTypes = {
     parser: PropTypes.object.isRequired,
@@ -71,9 +74,9 @@ class Results extends React.Component {
             </div>
           </div>
           <div className="col-md-4">
-            <div className="panel">
+            <div className="panel items">
               <div className="panel-heading">
-                <h2>Items</h2>
+                <h2><dfn data-tip="The values shown are only for the special equip effects of the items. The passive gain from the stats is <b>not</b> included.">Items</dfn></h2>
               </div>
               <div className="panel-body" style={{ padding: 0 }}>
                 <ul className="list">
@@ -82,29 +85,53 @@ class Results extends React.Component {
                       No noteworthy items.
                     </li>
                   )}
-                  {results.items.map(item => {
-                    if (!item) {
-                      return null;
-                    }
+                  {
+                    results.items
+                      .sort((a, b) => {
+                        if (a.item && b.item) {
+                          if (a.item.quality === b.item.quality) {
+                            // Qualities equal = show last added item at bottom
+                            return a.item.id - b.item.id;
+                          }
+                          // Show lowest quality item at bottom
+                          return a.item.quality < b.item.quality;
+                        } else if (a.item) {
+                          return -1;
+                        } else if (b.item) {
+                          return 1;
+                        }
+                        // Neither is an actual item, sort by id so last added effect is shown at bottom
+                        return a.id - b.id;
+                      })
+                      .map(item => {
+                        if (!item) {
+                          return null;
+                        }
+                        
+                        const id = item.id || item.item.id;
+                        const itemDetails = id && parser.selectedCombatant.getItem(id);
+                        const icon = item.icon || <ItemIcon id={item.item.id} details={itemDetails} />;
+                        const title = item.title || <ItemLink id={item.item.id} details={itemDetails} />;
 
-                    return (
-                      <li className="item clearfix" key={item.id}>
-                        <article>
-                          <figure>
-                            {item.icon}
-                          </figure>
-                          <div>
-                            <header>
-                              {item.title}
-                            </header>
-                            <main>
-                              {item.result}
-                            </main>
-                          </div>
-                        </article>
-                      </li>
-                    );
-                  })}
+                        return (
+                          <li className="item clearfix" key={id}>
+                            <article>
+                              <figure>
+                                {icon}
+                              </figure>
+                              <div>
+                                <header>
+                                  {title}
+                                </header>
+                                <main>
+                                  {item.result}
+                                </main>
+                              </div>
+                            </article>
+                          </li>
+                        );
+                      })
+                  }
                 </ul>
               </div>
             </div>

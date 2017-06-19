@@ -91,24 +91,7 @@ h1 {
 .panel > .panel-body {
   padding: 15px 22px;
 }
-.panel.statistic-box > .panel-body {
-  padding: 10px 12px;
-}
-.statistic-box {
-  transition: background-color 0.3s ease-in-out;
-}
-.statistic-box .statistic-value {
-  margin-top: .2em;
-  font-size: 2em;
-}
-.statistic-box .statistic-label {
-  margin-top: -0.3em;
-}
-.statistic-box img {
-  height: 68px;
-  border-radius: 5px;
-  border: 1px solid rgba(0, 0, 0, 0.6);
-}
+
 .statistic-expansion {
   margin-top:  15px;
 }
@@ -237,6 +220,7 @@ h1 {
 }
 .list.issues {
   font-size: 100%;
+  margin: 0;
 }
 .list.players li img {
   height: 1.7em;
@@ -248,13 +232,15 @@ h1 {
   padding: 0 22px;
   border-top: 1px solid transparent;
   border-bottom: 1px solid transparent;
+  background-color: rgba(255, 255, 255, 0.0);
+  transition: background-color 0.1s ease-in-out;
 }
 .list.selection > li a {
   display: block;
   padding: 10px 0;
 }
 .list > li:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.1);
   border-top-color: rgba(0, 0, 0, 0.4);
   border-bottom-color: rgba(0, 0, 0, 0.4);
 }
@@ -316,7 +302,9 @@ h1 {
     transform: none;
   }
 }
-li.item {
+
+/* "item" here are not just in-game items but anything with an icon, link and text. this includes items, suggestions and talents. */
+.item {
   position: relative;
   border-bottom: 1px solid rgba(0, 0, 0, .4);
   box-shadow: 0 1px 0 0 rgba(255, 255, 255, .1);
@@ -327,17 +315,17 @@ li.item {
 .item main {
   margin-bottom: 15px;
 }
-li.item > article {
+.item > article {
   display: flex;
 }
-li.item > article > figure {
+.item > article > figure {
   flex: 0;
   margin-right: 22px;
   /* center the image */
   display: flex;
   align-items: center;
 }
-li.item > article > figure img {
+.item > article > figure img {
   height: 60px;
   border-radius: 50%;
   margin: 10px 0;
@@ -391,8 +379,10 @@ h3 {
   border-bottom: 1px solid #333;
 }
 dfn {
-  border-bottom: 1px dashed currentColor;
   font-style: normal;
+}
+dfn[data-tip] {
+  border-bottom: 1px dashed currentColor;
   cursor: help;
 }
 

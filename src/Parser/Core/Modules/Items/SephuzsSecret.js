@@ -8,7 +8,7 @@ class SephuzsSecret extends Module {
 
   on_initialized() {
     if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasRing(ITEMS.SEPHUZS_SECRET.id);
+      this.active = this.owner.selectedCombatant.hasFinger(ITEMS.SEPHUZS_SECRET.id);
     }
   }
 

@@ -12,10 +12,8 @@ import TalentsTab from 'Main/TalentsTab';
 import CastEfficiencyTab from 'Main/CastEfficiencyTab';
 
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
-import ParseResults from 'Parser/Core/ParseResults';
 import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
-import Prydaz from 'Parser/Core/Modules/Items/Prydaz';
 
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 
@@ -52,11 +50,10 @@ class CombatLogParser extends MainCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
 
     // Legendaries:
-    prydaz: Prydaz,
   };
 
   generateResults() {
-    const results = new ParseResults();
+    const results = super.generateResults();
 
     // const abilityTracker = this.modules.abilityTracker;
     // const getAbility = spellId => abilityTracker.getAbility(spellId);
@@ -66,7 +63,6 @@ class CombatLogParser extends MainCombatLogParser {
 
     const nonDpsTimePercentage = this.modules.alwaysBeCasting.totalDamagingTimeWasted / fightDuration;
     const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
-    const prydazHealingPercentage = this.modules.prydaz.healing / this.totalHealing;
 
     if (nonDpsTimePercentage > 0.3) {
       results.addIssue({
@@ -118,18 +114,7 @@ class CombatLogParser extends MainCombatLogParser {
       />,
     ];
 
-    results.items = [
-      this.modules.prydaz.active && {
-        id: ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id,
-        icon: <ItemIcon id={ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id} />,
-        title: <ItemLink id={ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id} />,
-        result: (
-          <dfn data-tip="The actual effective healing contributed by the Prydaz, Xavaric's Magnum Opus equip effect.">
-            {((prydazHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.prydaz.healing / fightDuration * 1000)} HPS
-          </dfn>
-        ),
-      },
-    ];
+    // TODO: Items
 
     results.tabs = [
       {

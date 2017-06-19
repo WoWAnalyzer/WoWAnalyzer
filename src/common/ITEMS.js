@@ -37,6 +37,12 @@ const ITEMS = {
     icon: 'inv_jewelry_ring_firelandsraid_03a',
     quality: QUALITIES.LEGENDARY,
   },
+  SOUL_OF_THE_HIGHLORD: {
+    id: 151644,
+    name: 'Soul of the Highlord',
+    icon: 'inv_jewelry_ring_68',
+    quality: QUALITIES.LEGENDARY,
+  },
   CHAIN_OF_THRAYN: {
     id: 137086,
     name: 'Chain of Thrayn',

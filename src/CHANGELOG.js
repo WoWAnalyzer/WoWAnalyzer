@@ -1,4 +1,9 @@
 export default `
+18-06-2017 - Mistweaver Monk: Implement Dead Time / Non-Healing Time.  Update Mana Tea data tip to show MP5 (by anomoly)
+18-06-2017 - Added Archive of Faith, Barbaric Mindslaver, The Deceiver's Grand Design and Sea Star of the Depthmother to all specs, trinket implementations by anomoly. (by Zerotorescue)
+17-06-2017 - Holy Paladin: Add Soul of the Highlord legendary. (by Zerotorescue)
+17-06-2017 - Disc Priest: Evangelism casts are now also shown under the cooldowns tab. Rapture now shows the total abosrbs applied and the amount of damage absorbed. Fixed a few issues that caused too much healing to be assigned to Evangelism. (by Zerotorescue)
+17-06-2017 - Improved the Cooldown tab healing done display. (by Zerotorescue)
 16-06-2017 - Mistweaver Monk: Tier 20 4 Piece Effective Healing contribution implemented. (by anomoly)
 16-06-2017 - Resto Druid: Added reduction to promises if you did not utilize the effect fully, i.e not needing the extra mana saved. Honorable mentions to Feidan for providing the formula. (by Blazyb)
 15-06-2017 - Disc Priest: Fixed Wasted Penance bolts always assumed user had the Castigation talent. (by Zerotorescue) 

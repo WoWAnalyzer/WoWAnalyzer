@@ -142,7 +142,7 @@ export default {
   },
   SPINNING_CRANE_KICK: {
     id: 101546,
-    name: 'Spining Crane Kick',
+    name: 'Spinning Crane Kick',
     icon: 'ability-monk-cranekick-new',
     manaPerc: 0.01,
   },
@@ -176,10 +176,20 @@ export default {
     name: 'Roll',
     icon: 'ability_monk_roll',
   },
-  TRANCENDANCE: {
+  TRANSCENDENCE: {
     id: 101643,
     name: 'Trancendance',
     icon: 'monk_ability_transcendence',
+  },
+  TRANSCENDENCE_TRANSFER: {
+    id: 119996,
+    name: 'Trancendance: Transfer',
+    icon: 'spell_shaman_spectraltransformation',
+  },
+  PARALYSIS: {
+    id: 115078,
+    name: 'Paralysis',
+    icon: 'ability_monk_paralysis',
   },
 
   // Talents:

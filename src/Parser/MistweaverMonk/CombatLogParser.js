@@ -3,10 +3,8 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
-// import Icon from 'common/Icon';
+import Icon from 'common/Icon';
 import ITEMS from 'common/ITEMS';
-import ItemLink from 'common/ItemLink';
-import ItemIcon from 'common/ItemIcon';
 
 import StatisticBox from 'Main/StatisticBox';
 import SuggestionsTab from 'Main/SuggestionsTab';
@@ -16,18 +14,9 @@ import CooldownsTab from 'Main/CooldownsTab';
 import ManaTab from 'Main/ManaTab';
 
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
-import ParseResults from 'Parser/Core/ParseResults';
 import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
-import SephuzsSecret from 'Parser/Core/Modules/Items/SephuzsSecret';
-import DarkmoonDeckPromises from 'Parser/Core/Modules/Items/DarkmoonDeckPromises';
-import AmalgamsSeventhSpine from 'Parser/Core/Modules/Items/AmalgamsSeventhSpine';
-import Prydaz from 'Parser/Core/Modules/Items/Prydaz';
-import ArchiveOfFaith from 'Parser/Core/Modules/Items/ArchiveOfFaith';
-import BarbaricMindslaver from 'Parser/Core/Modules/Items/BarbaricMindslaver';
-import SeaStar from 'Parser/Core/Modules/Items/SeaStarOfTheDepthmother';
-import DeceiversGrandDesign from 'Parser/Core/Modules/Items/DeceiversGrandDesign';
 
 // Features
 import CooldownTracker from './Modules/Features/CooldownTracker';
@@ -44,12 +33,11 @@ import ChiJi from './Modules/Features/ChiJi';
 import ChiBurst from './Modules/Features/ChiBurst';
 
 // Setup for Items
-import Velens from './Modules/Items/Velens';
-import DrapeOfShame from './Modules/Items/DrapeOfShame';
 import Eithas from './Modules/Items/Eithas';
 import XuensBattlegear4Piece from './Modules/Items/XuensBattlegear4Piece';
 
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
 function formatThousands(number) {
   return (Math.round(number || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
@@ -84,6 +72,8 @@ function getOverhealingPercentage(ability) {
 }
 
 class CombatLogParser extends MainCombatLogParser {
+  static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
+
   static specModules = {
     // Override the ability tracker so we also get stats for IoL and beacon healing
     abilityTracker: AbilityTracker,
@@ -103,48 +93,26 @@ class CombatLogParser extends MainCombatLogParser {
     chiBurst: ChiBurst,
 
     // Legendaries / Items:
-    drapeOfShame: DrapeOfShame,
-    prydaz: Prydaz,
-    sephuzsSecret: SephuzsSecret,
-    velens: Velens,
     eithas: Eithas,
-    archiveOfFaith: ArchiveOfFaith,
-    barbaricMindslaver: BarbaricMindslaver,
-    seaStar: SeaStar,
-    deceiversGrandDesign: DeceiversGrandDesign,
     xuensBattlegear4Piece: XuensBattlegear4Piece,
-
-    // Shared:
-    amalgamsSeventhSpine: AmalgamsSeventhSpine,
-    darkmoonDeckPromises: DarkmoonDeckPromises,
   };
 
   generateResults() {
-    const results = new ParseResults();
-
+    const results = super.generateResults();
+    
     const fightDuration = this.fightDuration;
     const fightEndTime = this.fight.end_time;
     const raidSize = Object.entries(this.combatants.players).length;
-    // const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
+    const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
+    const nonHealingTimePercentage = this.modules.alwaysBeCasting.totalHealingTimeWasted / fightDuration;
 
     const abilityTracker = this.modules.abilityTracker;
     const getAbility = spellId => abilityTracker.getAbility(spellId);
 
-    const velensHealingPercentage = this.modules.velens.healing / this.totalHealing;
-    const prydazHealingPercentage = this.modules.prydaz.healing / this.totalHealing;
-    const drapeOfShameHealingPercentage = this.modules.drapeOfShame.healing / this.totalHealing;
     const eithasHealingPercentage = this.modules.eithas.healing / this.totalHealing;
-    const barbaricMindslaverHealingPercentage = this.modules.barbaricMindslaver.healing / this.totalHealing;
-    const seaStarHealingPercentage = this.modules.seaStar.healing / this.totalHealing;
-    const archiveOfFaithHealing = this.modules.archiveOfFaith.healing / this.totalHealing;
-    const archiveOfFaithHOTHealing = this.modules.archiveOfFaith.healingOverTime / this.totalHealing;
-    const archiveOfFaithHealingTotal = (this.modules.archiveOfFaith.healing + this.modules.archiveOfFaith.healingOverTime) / this.totalHealing;
-    const deceiversGrandDesignHealingPercentage = this.modules.deceiversGrandDesign.healing / this.totalHealing;
-    const deceiversGrandDesignAbsorbPercentage = this.modules.deceiversGrandDesign.healingAbsorb / this.totalHealing;
-    const deceiversGrandDesignTotalPercentage = (this.modules.deceiversGrandDesign.healing + this.modules.deceiversGrandDesign.healingAbsorb) / this.totalHealing;
 
     const xuensBattlegear4PieceHealingPercentage = this.modules.xuensBattlegear4Piece.healing / this.totalHealing;
-    
+
     const unusedUTProcs = 1 - (this.modules.upliftingTrance.consumedUTProc / this.modules.upliftingTrance.UTProcsTotal);
 
     const avgSGOverheal = this.modules.sheilunsGift.overhealSG / this.modules.sheilunsGift.castsSG || 0;
@@ -158,7 +126,6 @@ class CombatLogParser extends MainCombatLogParser {
     const mtCasts = manaTea.casts || 0;
     const avgMTsaves = this.modules.manaTea.manaSavedMT / mtCasts || 0;
 
-    const chiBurstHealing = this.modules.chiBurst.healingChiBurst + this.modules.chiBurst.absorbedHealingChiBurst || 0;
     const avgChiBurstTargets = this.modules.chiBurst.targetsChiBurst / this.modules.chiBurst.castChiBurst || 0;
 
     const avgCelestialBreathHealing = this.modules.aoeHealingTracker.healingCelestialBreath / this.modules.aoeHealingTracker.healsCelestialBreath || 0;
@@ -169,7 +136,7 @@ class CombatLogParser extends MainCombatLogParser {
     const avgRJWTargets = this.modules.aoeHealingTracker.healsRJW / this.modules.aoeHealingTracker.castRJW || 0;
 
     const efMasteryCasts = (this.modules.essenceFontMastery.healEF / 2) || 0;
-    const efMasteryEffectiveHealing = ((this.modules.essenceFontMastery.healingEF + this.modules.essenceFontMastery.absorbedhealingEF) / 2) || 0;
+    const efMasteryEffectiveHealing = ((this.modules.essenceFontMastery.healing) / 2) || 0;
     const avgEFMasteryHealing = efMasteryEffectiveHealing / efMasteryCasts || 0;
 
     const avgMasteryCastsPerEF = (this.modules.essenceFontMastery.castEF / efMasteryCasts) || 0;
@@ -187,32 +154,18 @@ class CombatLogParser extends MainCombatLogParser {
     const sheilunsGiftHealing = getAbility(SPELLS.SHEILUNS_GIFT.id);
     const sheilunsGiftOverhealingPercentage = getOverhealingPercentage(sheilunsGiftHealing) || 0;
 
-    /*
-    if (deadTimePercentage > 0.2) {
+    if (nonHealingTimePercentage > 0.3) {
       results.addIssue({
-        issue: `Your dead GCD time can be improved. Try to Always Be Casting (ABC); when there's nothing to heal try to contribute some damage (${Math.round(deadTimePercentage * 100)}% dead GCD time).`,
-        icon: 'spell_mage_altertime',
-        importance: getIssueImportance(deadTimePercentage, 0.35, 0.4, true),
+        issue: `Your non healing time can be improved. Try to cast heals more regularly (${Math.round(nonHealingTimePercentage * 100)}% non healing time).`,
+        icon: 'petbattle_health-down',
+        importance: getIssueImportance(nonHealingTimePercentage, 0.4, 0.45, true),
       });
     }
-    */
-    // Deciever's Grand Design Suggestion
-    if(this.modules.deceiversGrandDesign.proced) {
+    if (deadTimePercentage > 0.2) {
       results.addIssue({
-        issue: <span>Your <ItemLink id={ITEMS.DECEIVERS_GRAND_DESIGN.id} /> proc'ed earlier than expected.  The following events proc'ed the effect: <br />
-          {this.modules.deceiversGrandDesign.procs
-              .map(function(procs, index) {
-                const url = 'https://www.warcraftlogs.com/reports/' + procs.report + '/#fight=' + procs.fight + '&source=' + procs.target + '&type=summary&start=' + procs.start + '&end=' + procs.end + '&view=events';
-                return(
-                  <div>
-                    Proc {index + 1} on: <a href={url} target="_blank" rel="noopener noreferrer">{procs.name}</a>
-                    <br />
-                  </div>
-                );
-              })
-          }
-          </span>,
-        icon: ITEMS.DECEIVERS_GRAND_DESIGN.icon,
+        issue: `Your dead GCD time can be improved. Try to Always Be Casting (ABC); when you're not healing try to contribute some damage (${Math.round(deadTimePercentage * 100)}% dead GCD time).`,
+        icon: 'spell_mage_altertime',
+        importance: getIssueImportance(deadTimePercentage, 0.35, 0.4, true),
       });
     }
     // Missed Whispers healing
@@ -247,13 +200,6 @@ class CombatLogParser extends MainCombatLogParser {
       });
     }
 
-    if (this.modules.velens.active && velensHealingPercentage < 0.045) {
-      results.addIssue({
-        issue: <span>Your usage of <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} /> can be improved. Try to maximize the amount of casts during the buff or consider using an easier legendary ({(velensHealingPercentage * 100).toFixed(2)}% healing contributed).</span>,
-        icon: ITEMS.VELENS_FUTURE_SIGHT.icon,
-        importance: getIssueImportance(velensHealingPercentage, 0.04, 0.03),
-      });
-    }
     // Uplifting Trance Usage
     if (unusedUTProcs > 0.10) {
       results.addIssue({
@@ -324,7 +270,7 @@ class CombatLogParser extends MainCombatLogParser {
     // Chi Burst Usage
     if(this.modules.chiBurst.active && avgChiBurstTargets < (raidSize * .4)) {
       results.addIssue({
-        issue: <span>You are not utilizing your <SpellLink id={SPELLS.CHI_BURST_TALENT.id} /> talent as effectively as you should.  You hit an average of {avgChiBurstTargets.toFixed(2)} targets per Chi Burst cast.  Look to better position yourself during your your Chi Burst casts to get the most use out of the spell.  ({((chiBurstHealing / this.modules.chiBurst.castChiBurst) / 1000).toFixed(1)}k avg healing per cast.)</span>,
+        issue: <span>You are not utilizing your <SpellLink id={SPELLS.CHI_BURST_TALENT.id} /> talent as effectively as you should.  You hit an average of {avgChiBurstTargets.toFixed(2)} targets per Chi Burst cast.  Look to better position yourself during your your Chi Burst casts to get the most use out of the spell.  ({((this.modules.chiBurst.healing / this.modules.chiBurst.castChiBurst) / 1000).toFixed(1)}k avg healing per cast.)</span>,
         icon: SPELLS.CHI_BURST_TALENT.icon,
         importance: getIssueImportance(avgChiBurstTargets, (raidSize * .3), (raidSize * .25)),
       });
@@ -358,7 +304,7 @@ class CombatLogParser extends MainCombatLogParser {
           </dfn>
         )}
       />,
-      /*<StatisticBox
+      <StatisticBox
         icon={<Icon icon="petbattle_health-down" alt="Non healing time" />}
         value={`${formatPercentage(deadTimePercentage)} %`}
         label={(
@@ -366,7 +312,7 @@ class CombatLogParser extends MainCombatLogParser {
             Dead GCD time
           </dfn>
         )}
-      />,*/
+      />,
       // Thunder Focus Tea Usage
       <StatisticBox
         icon={<SpellIcon id={SPELLS.THUNDER_FOCUS_TEA.id} />}
@@ -418,7 +364,7 @@ class CombatLogParser extends MainCombatLogParser {
           label={(
             <dfn
               data-tip={`
-                  During your ${this.modules.manaTea.manateaCount} <a href="http://www.wowhead.com/spell=197908" target="_blank" rel="noopener noreferrer">Mana Teas</a> saved the following mana:
+                  During your ${this.modules.manaTea.manateaCount} <a href="http://www.wowhead.com/spell=197908" target="_blank" rel="noopener noreferrer">Mana Teas</a> saved the following mana (${formatThousands(this.modules.manaTea.manaSavedMT / this.fightDuration * 1000 * 5)} MP5):
                   <ul>
                   ${this.modules.manaTea.efCasts > 0 ?
                   `<li>${(this.modules.manaTea.efCasts)} Essence Font casts</li>`
@@ -584,7 +530,7 @@ class CombatLogParser extends MainCombatLogParser {
       this.modules.chiBurst.active && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.CHI_BURST_TALENT.id} />}
-          value={`${formatNumber(chiBurstHealing)}`}
+          value={`${formatNumber(this.modules.chiBurst.healing)}`}
           label={(
             <dfn data-tip={`You healed an average of ${avgChiBurstTargets.toFixed(2)} targets per Chi Burst cast over your ${this.modules.chiBurst.castChiBurst} casts.`}>
               Total Healing
@@ -593,8 +539,8 @@ class CombatLogParser extends MainCombatLogParser {
         />
       ),
     ];
-    console.log('4pc Active: ', this.modules.xuensBattlegear4Piece.active);
     results.items = [
+      ...results.items,
       this.modules.xuensBattlegear4Piece.active && {
         id: `spell-${SPELLS.XUENS_BATTLEGEAR_4_PIECE_BUFF.id}`,
         icon: <SpellIcon id={SPELLS.XUENS_BATTLEGEAR_4_PIECE_BUFF.id} />,
@@ -605,113 +551,11 @@ class CombatLogParser extends MainCombatLogParser {
           </dfn>
         ),
       },
-      this.modules.sephuzsSecret.active && {
-        id: ITEMS.SEPHUZS_SECRET.id,
-        icon: <ItemIcon id={ITEMS.SEPHUZS_SECRET.id} />,
-        title: <ItemLink id={ITEMS.SEPHUZS_SECRET.id} />,
-        result: `${((this.modules.sephuzsSecret.uptime / fightDuration * 100) || 0).toFixed(2)} % uptime`,
-      },
-      this.modules.amalgamsSeventhSpine.active && {
-        id: ITEMS.AMALGAMS_SEVENTH_SPINE.id,
-        icon: <ItemIcon id={ITEMS.AMALGAMS_SEVENTH_SPINE.id} />,
-        title: <ItemLink id={ITEMS.AMALGAMS_SEVENTH_SPINE.id} />,
-        result: (
-          <dfn data-tip={`The exact amount of mana gained from the Amalgam's Seventh Spine equip effect. You gained mana ${this.modules.amalgamsSeventhSpine.procs} times and refreshed the buff ${this.modules.amalgamsSeventhSpine.refreshes} times (refreshing delay the mana return and is inefficient use of this trinket).`}>
-            {formatThousands(this.modules.amalgamsSeventhSpine.manaGained)} mana gained ({formatThousands(this.modules.amalgamsSeventhSpine.manaGained / this.fightDuration * 1000 * 5)} MP5)
-          </dfn>
-        ),
-      },
-      this.modules.darkmoonDeckPromises.active && {
-        id: ITEMS.DARKMOON_DECK_PROMISES.id,
-        icon: <ItemIcon id={ITEMS.DARKMOON_DECK_PROMISES.id} />,
-        title: <ItemLink id={ITEMS.DARKMOON_DECK_PROMISES.id} />,
-        result: (
-          <dfn data-tip="The exact amount of mana saved by the Darkmoon Deck: Promises equip effect. This takes the different values per card into account at the time of the cast.">
-            {formatThousands(this.modules.darkmoonDeckPromises.manaGained)} mana saved ({formatThousands(this.modules.darkmoonDeckPromises.manaGained / this.fightDuration * 1000 * 5)} MP5)
-          </dfn>
-        ),
-      },
-      this.modules.velens.active && {
-        id: ITEMS.VELENS_FUTURE_SIGHT.id,
-        icon: <ItemIcon id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
-        title: <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
-        result: (
-          <dfn data-tip="The actual effective healing contributed by the Velen's Future Sight use effect.">
-            {((velensHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.velens.healing / fightDuration * 1000)} HPS
-          </dfn>
-        ),
-      },
-      this.modules.prydaz.active && {
-        id: ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id,
-        icon: <ItemIcon id={ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id} />,
-        title: <ItemLink id={ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id} />,
-        result: (
-          <dfn data-tip="The actual effective healing contributed by the Prydaz, Xavaric's Magnum Opus equip effect.">
-            {((prydazHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.prydaz.healing / fightDuration * 1000)} HPS
-          </dfn>
-        ),
-      },
-      this.modules.drapeOfShame.active && {
-        id: ITEMS.DRAPE_OF_SHAME.id,
-        icon: <ItemIcon id={ITEMS.DRAPE_OF_SHAME.id} />,
-        title: <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} />,
-        result: (
-          <dfn data-tip="The actual effective healing contributed by the Drape of Shame equip effect.">
-            {((drapeOfShameHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.drapeOfShame.healing / fightDuration * 1000)} HPS
-          </dfn>
-        ),
-      },
       this.modules.eithas.active && {
-        id: ITEMS.EITHAS_LUNAR_GLIDES.id,
-        icon: <ItemIcon id={ITEMS.EITHAS_LUNAR_GLIDES.id} />,
-      title: <ItemLink id={ITEMS.EITHAS_LUNAR_GLIDES.id} />,
+        item: ITEMS.EITHAS_LUNAR_GLIDES,
         result: (
           <dfn data-tip="The actual effective healing contributed by the Ei\'thas, Lunar Glides of Eramas equip effect.">
             {((eithasHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.eithas.healing / fightDuration * 1000)} HPS
-          </dfn>
-        ),
-      },
-      this.modules.deceiversGrandDesign.active && {
-        id: ITEMS.DECEIVERS_GRAND_DESIGN.id,
-        icon: <ItemIcon id={ITEMS.DECEIVERS_GRAND_DESIGN.id} />,
-        title: <ItemLink id={ITEMS.DECEIVERS_GRAND_DESIGN.id} />,
-        result: (
-          <span>
-            <dfn data-tip={`The actual effective healing contributed by the Deciever's Grand Design on-use effect.<br />HOT: ${((deceiversGrandDesignHealingPercentage * 100) || 0).toFixed(2)} % / ${formatNumber(this.modules.deceiversGrandDesign.healing / fightDuration * 1000)} HPS<br />Shield Proc: ${((deceiversGrandDesignAbsorbPercentage * 100) || 0).toFixed(2)} % / ${formatNumber(this.modules.deceiversGrandDesign.healingAbsorb / fightDuration * 1000)} HPS`}>
-              {((deceiversGrandDesignTotalPercentage * 100) || 0).toFixed(2)} % / {formatNumber((this.modules.deceiversGrandDesign.healing + this.modules.deceiversGrandDesign.healingAbsorb) / fightDuration * 1000)} HPS
-            </dfn>
-          </span>
-        ),
-      },
-      this.modules.archiveOfFaith.active && {
-        id: ITEMS.ARCHIVE_OF_FAITH.id,
-        icon: <ItemIcon id={ITEMS.ARCHIVE_OF_FAITH.id} />,
-        title: <ItemLink id={ITEMS.ARCHIVE_OF_FAITH.id} />,
-        result: (
-          <span>
-            <dfn data-tip={`The actual effective healing contributed by the Archive of Faith on-use effect.<br />Channel: ${((archiveOfFaithHealing * 100) || 0).toFixed(2)} % / ${formatNumber(this.modules.archiveOfFaith.healing / fightDuration * 1000)} HPS<br />HOT: ${((archiveOfFaithHOTHealing * 100) || 0).toFixed(2)} % / ${formatNumber(this.modules.archiveOfFaith.healingOverTime / fightDuration * 1000)} HPS`}>
-              {((archiveOfFaithHealingTotal * 100) || 0).toFixed(2)} % / {formatNumber((this.modules.archiveOfFaith.healing + this.modules.archiveOfFaith.healingOverTime) / fightDuration * 1000)} HPS
-            </dfn>
-          </span>
-        ),
-      },
-      this.modules.barbaricMindslaver.active && {
-        id: ITEMS.BARBARIC_MINDSLAVER.id,
-        icon: <ItemIcon id={ITEMS.BARBARIC_MINDSLAVER.id} />,
-      title: <ItemLink id={ITEMS.BARBARIC_MINDSLAVER.id} />,
-        result: (
-          <dfn data-tip="The actual effective healing contributed by the Barbaric Mindslaver equip effect.">
-            {((barbaricMindslaverHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.barbaricMindslaver.healing / fightDuration * 1000)} HPS
-          </dfn>
-        ),
-      },
-      this.modules.seaStar.active && {
-        id: ITEMS.SEA_STAR_OF_THE_DEPTHMOTHER.id,
-        icon: <ItemIcon id={ITEMS.SEA_STAR_OF_THE_DEPTHMOTHER.id} />,
-      title: <ItemLink id={ITEMS.SEA_STAR_OF_THE_DEPTHMOTHER.id} />,
-        result: (
-          <dfn data-tip="The actual effective healing contributed by the Sea Star of the Depthmother equip effect.">
-            {((seaStarHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.seaStar.healing / fightDuration * 1000)} HPS
           </dfn>
         ),
       },
@@ -742,7 +586,7 @@ class CombatLogParser extends MainCombatLogParser {
           <CooldownsTab
             fightStart={this.fight.start_time}
             fightEnd={this.fight.end_time}
-            cooldowns={this.modules.cooldownTracker.cooldowns}
+            cooldowns={this.modules.cooldownTracker.pastCooldowns}
             showOutputStatistics
             showResourceStatistics
           />
