@@ -2,6 +2,7 @@ import SPELLS from 'common/SPELLS';
 
 import Module from 'Parser/Core/Module';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
+import isAtonement from './../Core/isAtonement';
 
 const TIER_20_TWO_SET_BONUS = 1;
 
@@ -34,7 +35,7 @@ class Tier20_2set extends Module {
     }
 
     // Atonement
-    if (event.isAtonementHeal) {
+    if (isAtonement(event)) {
       if (this._firstPenanceBoltLastDamageEvent) {
         this.healing += calculateEffectiveHealing(event, TIER_20_TWO_SET_BONUS);
       }

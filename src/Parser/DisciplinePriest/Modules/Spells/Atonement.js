@@ -2,6 +2,8 @@ import SPELLS from 'common/SPELLS';
 
 import Module from 'Parser/Core/Module';
 
+import isAtonement from './../Core/isAtonement';
+
 const debug = false;
 
 /** The amount of time (in ms) left on a refresh Atonement for it to be considered inefficient. */
@@ -107,12 +109,9 @@ class Atonement extends Module {
   }
 
   on_byPlayer_heal(event) {
-    const spellId = event.ability.guid;
-    if ([SPELLS.ATONEMENT_HEAL_NON_CRIT.id, SPELLS.ATONEMENT_HEAL_CRIT.id].indexOf(spellId) === -1) {
+    if (isAtonement(event)) {
       return;
     }
-
-    event = Object.assign(event, { isAtonementHeal: true });
 
     debug && console.log('Atonement:', event.amount + (event.absorbed || 0), 'healing done to', event.targetID);
     this.healing += event.amount + (event.absorbed || 0);

@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 
 import Module from 'Parser/Core/Module';
+import isAtonement from './../Core/isAtonement';
 
 class TouchOfTheGrave extends Module {
   healing = 0;
@@ -20,7 +21,7 @@ class TouchOfTheGrave extends Module {
     }
   }
   on_byPlayer_heal(event) {
-    if (!event.isAtonementHeal) {
+    if (!isAtonement(event)) {
       return;
     }
     if (this.owner.modules.atonementSource.atonementDamageSource.ability.guid !== SPELLS.TOUCH_OF_THE_GRAVE.id) {

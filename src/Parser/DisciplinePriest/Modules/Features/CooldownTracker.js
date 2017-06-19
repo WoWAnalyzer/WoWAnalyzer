@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 
 import CoreCooldownTracker, { BUILT_IN_SUMMARY_TYPES } from 'Parser/Core/Modules/CooldownTracker';
+import isAtonement from './../Core/isAtonement';
 
 const EVANGELISM_ADDED_DURATION = 6000;
 
@@ -56,7 +57,7 @@ class CooldownTracker extends CoreCooldownTracker {
     super.on_byPlayer_cast(event);
   }
   on_byPlayer_heal(event) {
-    if (this.lastEvangelism && event.isAtonementHeal) {
+    if (this.lastEvangelism && isAtonement(event)) {
       const target = this.owner.modules.atonement.currentAtonementTargets.find(item => item.target === event.targetID);
       // Pets, guardians, etc.
       if (!target) {

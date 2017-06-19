@@ -2,6 +2,7 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 
 import Module from 'Parser/Core/Module';
+import isAtonement from './../Core/isAtonement';
 
 const debug = true;
 
@@ -15,7 +16,7 @@ class NeroBandOfPromises extends Module {
   }
 
   on_byPlayer_heal(event) {
-    if (event.isAtonementHeal) {
+    if (isAtonement(event)) {
       // N'ero appears in the log as regular Atonement healing
       const combatant = this.owner.combatants.players[event.targetID];
       if (!combatant) {

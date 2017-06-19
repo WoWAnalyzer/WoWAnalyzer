@@ -2,6 +2,7 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 
 import Module from 'Parser/Core/Module';
+import isAtonement from './../Core/isAtonement';
 
 const debug = false;
 
@@ -41,7 +42,7 @@ class Xalan extends Module {
   }
 
   on_byPlayer_heal(event) {
-    if (!event.isAtonementHeal) {
+    if (!isAtonement(event)) {
       return;
     }
     if (!this.owner.toPlayer(event)) {

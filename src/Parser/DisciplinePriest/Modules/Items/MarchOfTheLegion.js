@@ -2,6 +2,7 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 
 import Module from 'Parser/Core/Module';
+import isAtonement from './../Core/isAtonement';
 
 const debug = true;
 
@@ -16,7 +17,7 @@ class MarchOfTheLegion extends Module {
   }
 
   on_byPlayer_heal(event) {
-    if (event.isAtonementHeal) {
+    if (isAtonement(event)) {
       const combatant = this.owner.combatants.players[event.targetID];
       if (!combatant) {
         // If combatant doesn't exist it's probably a pet, this shouldn't be noteworthy.
