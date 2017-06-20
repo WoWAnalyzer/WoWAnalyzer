@@ -29,9 +29,11 @@ class Tier20_2set extends Module {
   }
 
   on_byPlayer_heal(event) {
-    // Healing Penance first bolt
-    if (event.isFirstPenanceBolt) {
-      this.healing += calculateEffectiveHealing(event, TIER_20_TWO_SET_BONUS);
+    const spellId = event.ability.guid;
+    if (spellId === SPELLS.PENANCE_HEAL.id) {
+      if (event.isFirstPenanceBolt) {
+        this.healing += calculateEffectiveHealing(event, TIER_20_TWO_SET_BONUS);
+      }
     }
 
     // Atonement
