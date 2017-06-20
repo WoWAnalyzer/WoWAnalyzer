@@ -6,6 +6,31 @@ const QUALITIES = {
 };
 
 const ITEMS = {
+  POTION_OF_PROLONGED_POWER: {
+    id: 142117,
+    name: 'Potion of Prolonged Power',
+    icon: 'trade_alchemy_dpotion_a28',
+  },
+  POTION_OF_THE_OLD_WAR: {
+    id: 127844,
+    name: 'Potion of the Old War',
+    icon: 'inv_alchemy_70_orange',
+  },
+  POTION_OF_DEADLY_GRACE: {
+    id: 127843,
+    name: 'Potion of Deadly Grace',
+    icon: 'inv_alchemy_70_flask02',
+  },
+  LEYTORRENT_POTION: {
+    id: 127846,
+    name: 'Leytorrent Potion',
+    icon: 'inv_alchemy_70_flask01',
+  },
+  ANCIENT_MANA_POTION: {
+    id: 127835,
+    name: 'Ancient Mana Potion',
+    icon: 'inv_alchemy_70_blue',
+  },
   PRYDAZ_XAVARICS_MAGNUM_OPUS: {
     id: 132444,
     name: 'Prydaz, Xavaric\'s Magnum Opus',
