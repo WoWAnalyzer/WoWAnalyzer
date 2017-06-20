@@ -7,7 +7,7 @@ import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
 
 const XUENS_BATTLEGEAR_4_PIECE_BUFF_HEALING_INCREASE = 0.12;
 
-class XuensBattlegear extends Module {
+class T20_4pc extends Module {
   healing = 0;
 
   on_initialized() {
@@ -32,4 +32,4 @@ class XuensBattlegear extends Module {
   // Beacon transfer is included in `ABILITIES_AFFECTED_BY_HEALING_INCREASES`
 }
 
-export default XuensBattlegear;
+export default T20_4pc;

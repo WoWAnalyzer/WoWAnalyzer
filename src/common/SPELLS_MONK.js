@@ -388,4 +388,14 @@ export default {
     name: 'Dance of Mists',
     icon: 'ability_monk_effuse',
   },
+  XUENS_BATTLEGEAR_2_PIECE_BUFF: {
+    id: 242257,
+    name: 'Monk T20 Mistweaver 2P Bonus',
+    icon: 'spell_monk_mistweaver_spec',
+  },  
+  SURGE_OF_MISTS: {
+    id: 246328,
+    name: 'Surge of Mists',
+    icon: 'spell_monk_mistweaver_spec',
+  },
 };
