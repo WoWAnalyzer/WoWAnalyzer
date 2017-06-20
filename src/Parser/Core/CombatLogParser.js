@@ -20,7 +20,7 @@ import ArchiveOfFaith from './Modules/Items/ArchiveOfFaith';
 import BarbaricMindslaver from './Modules/Items/BarbaricMindslaver';
 import SeaStar from './Modules/Items/SeaStarOfTheDepthmother';
 import DeceiversGrandDesign from './Modules/Items/DeceiversGrandDesign';
-import GnawedThumbRing from 'Parser/Core/Modules/Items/GnawedThumbRing';
+import GnawedThumbRing from './Modules/Items/GnawedThumbRing';
 
 import ParseResults from './ParseResults';
 import SUGGESTION_IMPORTANCE from './ISSUE_IMPORTANCE';
