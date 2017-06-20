@@ -288,11 +288,7 @@ class CombatLogParser {
     if (this.modules.gnawedThumbRing.active) {
       results.items.push({
         item: ITEMS.GNAWED_THUMB_RING,
-        result: (
-          <dfn data-tip="The increased healing from the use effect">
-            {formatPercentage(this.modules.gnawedThumbRing.healingIncreaseHealing/this.totalHealing)}% healing contributed
-          </dfn>
-        ),
+        result: formatItemHealing(this.modules.gnawedThumbRing.healingIncreaseHealing),
       });
     }
     if (this.modules.archiveOfFaith.active) {
@@ -302,11 +298,9 @@ class CombatLogParser {
       results.items.push({
         item: ITEMS.ARCHIVE_OF_FAITH,
         result: (
-          <span>
-            <dfn data-tip={`The effective healing contributed by the Archive of Faith on-use effect.<br />Channel: ${((archiveOfFaithHealing * 100) || 0).toFixed(2)} % / ${formatNumber(this.modules.archiveOfFaith.healing / fightDuration * 1000)} HPS<br />HOT: ${((archiveOfFaithHOTHealing * 100) || 0).toFixed(2)} % / ${formatNumber(this.modules.archiveOfFaith.healingOverTime / fightDuration * 1000)} HPS`}>
-              {((archiveOfFaithHealingTotal * 100) || 0).toFixed(2)} % / {formatNumber((this.modules.archiveOfFaith.healing + this.modules.archiveOfFaith.healingOverTime) / fightDuration * 1000)} HPS
-            </dfn>
-          </span>
+          <dfn data-tip={`The effective healing contributed by the Archive of Faith on-use effect.<br />Channel: ${((archiveOfFaithHealing * 100) || 0).toFixed(2)} % / ${formatNumber(this.modules.archiveOfFaith.healing / fightDuration * 1000)} HPS<br />HOT: ${((archiveOfFaithHOTHealing * 100) || 0).toFixed(2)} % / ${formatNumber(this.modules.archiveOfFaith.healingOverTime / fightDuration * 1000)} HPS`}>
+            {((archiveOfFaithHealingTotal * 100) || 0).toFixed(2)} % / {formatNumber((this.modules.archiveOfFaith.healing + this.modules.archiveOfFaith.healingOverTime) / fightDuration * 1000)} HPS
+          </dfn>
         ),
       });
     }
