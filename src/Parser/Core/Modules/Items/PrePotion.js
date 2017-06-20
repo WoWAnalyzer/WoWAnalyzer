@@ -33,11 +33,11 @@ class PrePotion extends Module {
       return;
     }
     if(SPELLS.POTION_OF_PROLONGED_POWER.id === spellId) {
-      if(this.owner.fight.start_time+DURATION_PROLONGED > event.timestamp) {
+      if ((this.owner.fight.start_time + DURATION_PROLONGED) > event.timestamp) {
         this.usedPrePotion = true;
       }
     } else {
-      if(this.owner.fight.start_time+DURATION > event.timestamp) {
+      if ((this.owner.fight.start_time + DURATION) > event.timestamp) {
         this.usedPrePotion = true;
       }
     }
@@ -50,10 +50,10 @@ class PrePotion extends Module {
       this.usedSecondPotion = true;
     }
 
-    if(event.classResources != null) {
+    if (event.classResources && event.classResources[0]) {
       const resource = event.classResources[0];
       const manaLeftAfterCast = resource.amount - resource.cost;
-      if(manaLeftAfterCast < ANCIENT_MANA_POTION_AMOUNT) {
+      if (manaLeftAfterCast < ANCIENT_MANA_POTION_AMOUNT) {
         this.neededManaSecondPotion = true;
       }
     }
