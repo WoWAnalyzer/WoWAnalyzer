@@ -2,11 +2,13 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 
 import Module from 'Parser/Core/Module';
+import isAtonement from './../Core/isAtonement';
 
 const debug = true;
 
 class TarnishedSentinelMedallion extends Module {
   healing = 0;
+  damage = 0;
   damageAbilities = new Set([SPELLS.SPECTRAL_BOLT.id, SPELLS.SPECTRAL_BLAST.id]);
 
   on_initialized() {
@@ -16,12 +18,10 @@ class TarnishedSentinelMedallion extends Module {
   }
 
   on_byPlayer_heal(event) {
-    const spellId = event.ability.guid;
-
-    if (spellId === SPELLS.ATONEMENT_HEAL_NON_CRIT.id || spellId === SPELLS.ATONEMENT_HEAL_CRIT.id) {
+    if (isAtonement(event)) {
       const combatant = this.owner.combatants.players[event.targetID];
       if (!combatant) {
-        // If combatant doesn't exist it's probably a pet, this shouldn't be noteworthy.
+        // If combatant oesn't exist it's probably a pet, this shouldn't be noteworthy.
         debug && console.log('Skipping Atonement heal event since combatant couldn\'t be found:', event);
         return;
       }
@@ -31,6 +31,15 @@ class TarnishedSentinelMedallion extends Module {
       
       this.healing += event.amount + (event.absorbed || 0);
     }
+  }
+
+  on_byPlayer_damage(event) {
+    const spellId = event.ability.guid;
+    if (!this.damageAbilities.has(spellId)) {
+      return;
+    }
+
+    this.damage += event.amount;
   }
 }
 

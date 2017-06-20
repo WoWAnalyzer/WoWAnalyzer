@@ -2,12 +2,15 @@ import SPELLS from 'common/SPELLS';
 
 import Module from 'Parser/Core/Module';
 
+import isAtonement from './../Core/isAtonement';
+
 const debug = false;
 
 /** The amount of time (in ms) left on a refresh Atonement for it to be considered inefficient. */
 const IMPROPER_REFRESH_TIME = 3000;
 
 class Atonement extends Module {
+  priority = 9;
   healing = 0;
   totalAtones = 0;
   totalAtonementRefreshes = 0;
@@ -101,25 +104,12 @@ class Atonement extends Module {
       lastAtonementAppliedTimestamp: event.timestamp,
     };
     this.currentAtonementTargets = this.currentAtonementTargets.filter(id => id.target !== atonement.target);
-    debug && console.log(`%c${this.owner.combatants.players[atonement.target].name} lost an atonement`, 'color:yellow', this.currentAtonementTargets);
+    debug && console.log(`%c${this.owner.combatants.players[atonement.target].name} lost an atonement`, 'color:red', this.currentAtonementTargets);
     this.owner.triggerEvent('atonement_faded', event);
   }
 
   on_byPlayer_heal(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.ATONEMENT_BUFF.id) {
-      return;
-    }
-    // if (!this.owner.toPlayer(event)) {
-    //   return;
-    // }
-    if (this.lastAtonementAppliedTimestamp === null) {
-      // This can be `null` when Atonement wasn't applied in the combatlog. This often happens as Discs like to apply Atonement prior to combat.
-      this.lastAtonementAppliedTimestamp = this.owner.fight.start_time;
-      debug && console.warn('Atonement: was applied prior to combat');
-    }
-
-    if ((event.timestamp - this.lastAtonementAppliedTimestamp) < (this.atonementDuration * 1000)) {
+    if (isAtonement(event)) {
       return;
     }
 

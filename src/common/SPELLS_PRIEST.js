@@ -6,6 +6,12 @@ export default {
     icon: 'spell_holy_penance',
     manaCost: 30800,
   },
+  PENANCE_HEAL: { // Penance on a friendly player
+    id: 47750,
+    name: 'Penance',
+    icon: 'spell_holy_penance',
+    manaCost: 30800,
+  },
   POWER_WORD_SHIELD: {
     id: 17,
     name: 'Power Word: Shield',
@@ -146,13 +152,28 @@ export default {
   },
   DISC_PRIEST_T19_2SET_BONUS_BUFF: {
     id: 211556,
-    name: 'T19 2 set bonus',
+    name: 'T19 2 Set Bonus',
     icon: 'spell_holy_powerwordshield',
   },
   DISC_PRIEST_T19_4SET_BONUS_BUFF: {
     id: 211563,
-    name: 'T19 4 set bonus',
+    name: 'T19 4 Set Bonus',
     icon: 'spell_holy_powerwordshield',
+  },
+  DISC_PRIEST_T20_2SET_BONUS_PASSIVE: {
+    id: 242268,
+    name: 'T20 2 Set Bonus',
+    icon: 'spell_holy_powerwordshield',
+  },
+  DISC_PRIEST_T20_4SET_BONUS_PASSIVE: {
+    id: 242269,
+    name: 'T20 4 Set Bonus',
+    icon: 'spell_holy_powerwordshield',
+  },
+  DISC_PRIEST_T20_4SET_BONUS_BUFF: {
+    id: 246519,
+    name: 'T20 4 Set Bonus',
+    icon: 'spell_holy_penance',
   },
   KAM_XIRAFF_BUFF: {
     id: 233997,
@@ -309,5 +330,10 @@ export default {
     id: 197727,
     name: 'Doomsayer',
     icon: 'spell_holy_rapture',
+  },
+  SPEED_OF_THE_PIOUS: {
+    id: 197767,
+    name: 'Speed of the Pious',
+    icon: 'ability_paladin_speedoflight',
   },
 };

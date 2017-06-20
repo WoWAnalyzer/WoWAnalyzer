@@ -13,7 +13,7 @@
  * If you ignore raw healing and look at the actual healing done you may see the last 950 healing and think 15% of that was contributed by Velen's, while in fact it was 0.
  */
 
-const calculateEffectiveHealing = (event, relativeHealIncrease) => {
+export default function calculateEffectiveHealing(event, relativeHealIncrease) {
   const amount = event.amount;
   const absorbed = event.absorbed || 0;
   const overheal = event.overheal || 0;
@@ -23,6 +23,4 @@ const calculateEffectiveHealing = (event, relativeHealIncrease) => {
   const effectiveHealing = healingIncrease - overheal;
 
   return Math.max(0, effectiveHealing);
-};
-
-export default calculateEffectiveHealing;
+}
