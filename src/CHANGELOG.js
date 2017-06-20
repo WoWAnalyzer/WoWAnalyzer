@@ -1,4 +1,5 @@
 export default `
+20-06-2017 - Mistweaver Monk: Added T20 2pc Tracking, Added support for Focused Thunder, adjusted suggestion for TFT usage. (by anomoly)
 20-06-2017 - Resto Druid: Added Gnawed Thumb Ring (by Blazyb)
 18-06-2017 - Disc Priest: Added Touch of the Grave statistic. (by Zerotorescue)
 18-06-2017 - Mistweaver Monk: Implement Dead Time / Non-Healing Time.  Update Mana Tea data tip to show MP5 (by anomoly)
@@ -8,8 +9,8 @@ export default `
 17-06-2017 - Improved the Cooldown tab healing done display. (by Zerotorescue)
 16-06-2017 - Mistweaver Monk: Tier 20 4 Piece Effective Healing contribution implemented. (by anomoly)
 16-06-2017 - Resto Druid: Added reduction to promises if you did not utilize the effect fully, i.e not needing the extra mana saved. Honorable mentions to Feidan for providing the formula. (by Blazyb)
-15-06-2017 - Disc Priest: Fixed Wasted Penance bolts always assumed user had the Castigation talent. (by Zerotorescue) 
-15-06-2017 - Disc Priest: Disabled suggestions for Pain Suppression and Power Word: Barrier. (by Zerotorescue) 
+15-06-2017 - Disc Priest: Fixed Wasted Penance bolts always assumed user had the Castigation talent. (by Zerotorescue)
+15-06-2017 - Disc Priest: Disabled suggestions for Pain Suppression and Power Word: Barrier. (by Zerotorescue)
 15-06-2017 - Updated Darkmoon Deck: Promises mana reduction values to scale with item level. (by Zerotorescue)
 15-06-2017 - Resto Druid: Adjusted promises to base of ilvl 900 also added throughput calc on promises. (by Blazyb)
 15-06-2017 - Mistweaver Monk: Mana Cost adjustments for Patch 7.2.5 (by anomoly)
