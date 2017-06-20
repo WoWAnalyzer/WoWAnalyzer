@@ -259,7 +259,8 @@ class CombatLogParser {
       });
     }
     if (!this.modules.prePotion.usedSecondPotion) {
-      let importance, issue;
+      let importance;
+      let issue;
       if(!this.modules.prePotion.neededManaSecondPotion) {
         importance = SUGGESTION_IMPORTANCE.MINOR;
         issue = <span>You forgot to use a second potion during the encounter. Even if you didn't need a mana potion, a potion of prolonged always helps your throughput.</span>;
