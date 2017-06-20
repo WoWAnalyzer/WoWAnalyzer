@@ -1,4 +1,5 @@
 export default `
+20-06-2017 - Resto Druid: Added Gnawed Thumb Ring (by Blazyb)
 18-06-2017 - Disc Priest: Added Touch of the Grave statistic. (by Zerotorescue)
 18-06-2017 - Mistweaver Monk: Implement Dead Time / Non-Healing Time.  Update Mana Tea data tip to show MP5 (by anomoly)
 18-06-2017 - Added Archive of Faith, Barbaric Mindslaver, The Deceiver's Grand Design and Sea Star of the Depthmother to all specs, trinket implementations by anomoly. (by Zerotorescue)

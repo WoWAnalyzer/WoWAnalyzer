@@ -24,6 +24,12 @@ const ITEMS = {
     icon: 'spell_holy_healingfocus',
     quality: QUALITIES.LEGENDARY,
   },
+  GNAWED_THUMB_RING: {
+    id: 134526,
+    name: 'Gnawed Thumb Ring',
+    icon: 'inv_70_dungeon_ring6a',
+    quality: QUALITIES.EPIC,
+  },
 
   OBSIDIAN_STONE_SPAULDERS: {
     id: 137076,

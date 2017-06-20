@@ -82,7 +82,6 @@ class TreeOfLife extends Module {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    const resource = event.classResources[0];
     if (SPELLS.REJUVENATION.id === spellId) {
       this.totalRejuvenationsEncounter++;
     }
@@ -99,22 +98,26 @@ class TreeOfLife extends Module {
         }
       }
     }
-    const manaLeftAfterCast = resource.amount - resource.cost;
-    const newSavings = this.manaGained;
-    const newSavingsHelmet = this.manaGainedHelmet;
-    const savingsUsed = newSavings - manaLeftAfterCast;
-    const savingsUsedHelmet = newSavingsHelmet - manaLeftAfterCast;
-    if(savingsUsedHelmet > 0) {
-      this.manaGainedHelmet = newSavingsHelmet - savingsUsedHelmet;
-      this.actualManaGainedHelmet = this.actualManaGainedHelmet + savingsUsedHelmet;
-    } else {
-      this.manaGainedHelmet = newSavingsHelmet;
-    }
-    if(savingsUsed > 0) {
-      this.manaGained = newSavings - savingsUsed;
-      this.actualManaGained = this.actualManaGained + savingsUsed;
-    } else {
-      this.manaGained = newSavings;
+
+    if(event.classResources != null) {
+      const resource = event.classResources[0];
+      const manaLeftAfterCast = resource.amount - resource.cost;
+      const newSavings = this.manaGained;
+      const newSavingsHelmet = this.manaGainedHelmet;
+      const savingsUsed = newSavings - manaLeftAfterCast;
+      const savingsUsedHelmet = newSavingsHelmet - manaLeftAfterCast;
+      if(savingsUsedHelmet > 0) {
+        this.manaGainedHelmet = newSavingsHelmet - savingsUsedHelmet;
+        this.actualManaGainedHelmet = this.actualManaGainedHelmet + savingsUsedHelmet;
+      } else {
+        this.manaGainedHelmet = newSavingsHelmet;
+      }
+      if(savingsUsed > 0) {
+        this.manaGained = newSavings - savingsUsed;
+        this.actualManaGained = this.actualManaGained + savingsUsed;
+      } else {
+        this.manaGained = newSavings;
+      }
     }
 
     if(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id === spellId) {

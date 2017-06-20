@@ -11,6 +11,12 @@ export default {
     icon: 'inv_alchemy_70_red',
   },
   // Items buffs:
+  GNAWED_THUMB_RING: {
+    id: 228461,
+    name: 'Gnawed Thumb Ring',
+    icon: 'inv_70_dungeon_ring6a',
+    cooldownType: 'HEALING',
+  },
   VELENS_FUTURE_SIGHT: {
     id: 235966,
     name: 'Velen\'s Future Sight',

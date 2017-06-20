@@ -17,6 +17,7 @@ import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
+import GnawedThumbRing from 'Parser/Core/Modules/Items/GnawedThumbRing';
 
 import Ekowraith from './Modules/Legendaries/Ekowraith';
 import XonisCaress from './Modules/Legendaries/XonisCaress';
@@ -101,6 +102,7 @@ class CombatLogParser extends MainCombatLogParser {
 
     // Shared:
     darkmoonDeckPromises: DarkmoonDeckPromises,
+    gnawedThumbRing: GnawedThumbRing,
   };
 
   generateResults() {
@@ -315,7 +317,7 @@ class CombatLogParser extends MainCombatLogParser {
       />,
       this.modules.dreamwalker.hasTrait && (
       <StatisticBox icon={<SpellIcon id={SPELLS.DREAMWALKER.id}/>}
-        value={`${formatNumber(this.modules.dreamwalker.healing)}`}
+        value={`${formatPercentage(this.modules.dreamwalker.healing / this.totalHealing)}%`}
                     label={(
                       <dfn data-tip={`The total healing done by Dreamwalker recorded was ${formatThousands(this.modules.dreamwalker.healing)} / ${formatPercentage(this.modules.dreamwalker.healing / this.totalHealing)} % / ${formatNumber(this.modules.dreamwalker.healing / fightDuration * 1000)} HPS. `}>
                         Dreamwalker
@@ -478,8 +480,18 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       });
     }
+    if (this.modules.gnawedThumbRing.active) {
+      results.items = results.items.filter(item => item.id !== ITEMS.GNAWED_THUMB_RING.id);
+      results.items.push({
+        item: ITEMS.GNAWED_THUMB_RING,
+        result: (
+          <dfn data-tip="The increased healing from the use effect">
+            {formatPercentage(this.modules.gnawedThumbRing.healingIncreaseHealing/this.totalHealing)}% healing contributed
+          </dfn>
+        ),
+      });
+    }
     if (this.selectedCombatant.hasFinger(ITEMS.SEPHUZS_SECRET.id)) {
-      // Override the core Promises display
       results.items = results.items.filter(item => item.id !== ITEMS.SEPHUZS_SECRET.id);
       results.items.push({
         item: ITEMS.SEPHUZS_SECRET,
