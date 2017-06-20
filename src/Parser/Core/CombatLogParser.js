@@ -268,7 +268,7 @@ class CombatLogParser {
         issue = <span>You forgot to use a potion before combat. Using a potion before combat allows you the benefit of two potions in a single fight. A potion such as <ItemLink id={ITEMS.POTION_OF_PROLONGED_POWER.id} /> can be very effective (even for healers), especially during shorter encounters.</span>;
       } else {
         importance = SUGGESTION_IMPORTANCE.REGULAR;
-        issue = <span>You OOM'ed during the encounter without using a second potion (<ItemLink id={ITEMS.ANCIENT_MANA_POTION.id}/>/<ItemLink id={ITEMS.LEYTORRENT_POTION.id}/>)</span>;
+        issue = <span>You ran out of mana (OOM) during the encounter without using a second potion. Use a second potion such as <ItemLink id={ITEMS.ANCIENT_MANA_POTION.id}/> or if the fight allows <ItemLink id={ITEMS.LEYTORRENT_POTION.id}/> to regenerate some mana.</span>;
       }
       results.addIssue({
         icon: ITEMS.LEYTORRENT_POTION.icon,
