@@ -32,10 +32,13 @@ import Xalan from './Modules/Items/Xalan';
 import NeroBandOfPromises from './Modules/Items/NeroBandOfPromises';
 import TarnishedSentinelMedallion from './Modules/Items/TarnishedSentinelMedallion';
 import MarchOfTheLegion from './Modules/Items/MarchOfTheLegion';
+import Tier20_2set from './Modules/Items/Tier20_2set';
+import Tier20_4set from './Modules/Items/Tier20_4set';
 
 import TwistOfFate from './Modules/Spells/TwistOfFate';
 import Atonement from './Modules/Spells/Atonement';
 import Evangelism from './Modules/Spells/Evangelism';
+import Penance from './Modules/Spells/Penance';
 import TouchOfTheGrave from './Modules/Spells/TouchOfTheGrave';
 
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
@@ -74,6 +77,7 @@ class CombatLogParser extends MainCombatLogParser {
     abilityTracker: AbilityTracker,
 
     // Abilities
+    penance: Penance,
     alwaysBeCasting: AlwaysBeCasting,
     cooldownTracker: CooldownTracker,
     powerWordShieldWasted: PowerWordShieldWasted,
@@ -87,6 +91,8 @@ class CombatLogParser extends MainCombatLogParser {
     neroBandOfPromises: NeroBandOfPromises,
     tarnishedSentinelMedallion: TarnishedSentinelMedallion,
     marchOfTheLegion: MarchOfTheLegion,
+    tier20_2set: Tier20_2set,
+    tier20_4set: Tier20_4set,
 
     // Spells (talents and traits):
     twistOfFate: TwistOfFate,
@@ -113,6 +119,7 @@ class CombatLogParser extends MainCombatLogParser {
     const improperAtonementRefreshPercentage = this.modules.atonement.improperAtonementRefreshes.length / this.modules.atonement.totalAtones;
 
     const tier19_2setHealingPercentage = this.modules.tier19_2set.healing / this.totalHealing;
+    const tier20_2setHealingPercentage = this.modules.tier20_2set.healing / this.totalHealing;
 
 
     if (improperAtonementRefreshPercentage > .05) {
@@ -131,7 +138,6 @@ class CombatLogParser extends MainCombatLogParser {
       });
     }
     // PtW uptime should be > 95%
-
     const castEfficiencyCategories = SPELL_CATEGORY;
     const castEfficiency = getCastEfficiency(CPM_ABILITIES, this);
     castEfficiency.forEach((cpm) => {
@@ -219,7 +225,7 @@ class CombatLogParser extends MainCombatLogParser {
           icon={<SpellIcon id={SPELLS.ATONEMENT_HEAL_NON_CRIT.id} />}
           value={this.modules.atonement.improperAtonementRefreshes.length}
           label={(
-            <dfn data-tip={`The amount of Atonements that were refreshed earlier than within 3 seconds of the buff expiring. You applied Atonement ${this.modules.atonement.totalAtones} times in total, ${this.modules.atonement.totalAtonementRefreshes} (${((this.modules.atonement.totalAtonementRefreshes / this.modules.atonement.totalAtones * 100) || 0).toFixed(2)}%) of them were refreshes of existing Atonements, and ${this.modules.atonement.improperAtonementRefreshes.length} (${((this.modules.atonement.improperAtonementRefreshes.length / this.modules.atonement.totalAtones * 100) || 0).toFixed(2)}%) of them were considered early.` }>
+            <dfn data-tip={`The amount of Atonement instances that were refreshed earlier than within 3 seconds of the buff expiring. You applied Atonement ${this.modules.atonement.totalAtones} times in total, ${this.modules.atonement.totalAtonementRefreshes} (${((this.modules.atonement.totalAtonementRefreshes / this.modules.atonement.totalAtones * 100) || 0).toFixed(2)}%) of them were refreshes of existing Atonement instances, and ${this.modules.atonement.improperAtonementRefreshes.length} (${((this.modules.atonement.improperAtonementRefreshes.length / this.modules.atonement.totalAtones * 100) || 0).toFixed(2)}%) of them were considered early.` }>
               Early Atonement refreshes
             </dfn>
           )}
@@ -255,7 +261,7 @@ class CombatLogParser extends MainCombatLogParser {
           icon={<SpellIcon id={SPELLS.POWER_WORD_SHIELD.id} />}
           value={`${formatNumber(this.modules.powerWordShieldWasted.wasted / fightDuration * 1000)} HPS`}
           label={(
-            <dfn data-tip={`The amount of shield absorb remaining on Power Word: Shields that expired. There was a total of ${formatNumber(this.modules.powerWordShieldWasted.wasted)} unused Power Word: Shield absorb from ${this.modules.powerWordShieldWasted.count} shields with absorb remaining (a total of ${this.modules.powerWordShieldWasted.totalCount} shields were applied).`}>
+            <dfn data-tip={`The amount of shield absorb remaining on Power Word: Shield instances that have expired. There was a total of ${formatNumber(this.modules.powerWordShieldWasted.wasted)} unused Power Word: Shield absorb from ${this.modules.powerWordShieldWasted.count} shields with absorb remaining (a total of ${this.modules.powerWordShieldWasted.totalCount} shields were applied).`}>
               Unused PW:S absorb
             </dfn>
           )}
@@ -279,17 +285,17 @@ class CombatLogParser extends MainCombatLogParser {
       this.modules.tarnishedSentinelMedallion.active && {
         item: ITEMS.TARNISHED_SENTINEL_MEDALLION,
         result: (
-          <dfn data-tip="The atonement healing done by the trinket's damaging effects.">
-            { ((owlHealingPercentage * 100) || 0).toFixed(2) } % / { formatNumber(this.modules.tarnishedSentinelMedallion.healing / fightDuration * 1000) } HPS
-          </dfn>
+          <span>
+            { ((owlHealingPercentage * 100) || 0).toFixed(2) } % / { formatNumber(this.modules.tarnishedSentinelMedallion.healing / fightDuration * 1000) } HPS / {formatNumber(this.modules.tarnishedSentinelMedallion.damage / fightDuration * 1000)} DPS
+          </span>
         ),
       },
       this.modules.marchOfTheLegion.active && {
         item: SPELLS.MARCH_OF_THE_LEGION,
         result: (
-          <dfn data-tip="The atonement healing done by the set bonus' damaging effects.">
+          <span>
             { ((marchHealingPercentage * 100) || 0).toFixed(2) } % / { formatNumber(this.modules.marchOfTheLegion.healing / fightDuration * 1000) } HPS
-          </dfn>
+          </span>
         ),
       },
       this.modules.cordOfMaiev.active && {
@@ -303,7 +309,7 @@ class CombatLogParser extends MainCombatLogParser {
       this.modules.skjoldr.active && {
         item: ITEMS.SKJOLDR_SANCTUARY_OF_IVAGONT,
         result: (
-          <dfn data-tip="The actual effective healing contributed by the Skjoldr, Sanctuary of Ivagont equip effect. This includes the healing gained via Share in the Light.">
+          <dfn data-tip="The effective healing contributed by the Skjoldr, Sanctuary of Ivagont equip effect. This includes the healing gained via Share in the Light.">
             {((this.modules.skjoldr.healing / this.totalHealing * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.skjoldr.healing / fightDuration * 1000)} HPS
           </dfn>
         ),
@@ -311,17 +317,17 @@ class CombatLogParser extends MainCombatLogParser {
       this.modules.xalan.active && {
         item: ITEMS.XALAN_THE_FEAREDS_CLENCH,
         result: (
-          <dfn data-tip={`The actual effective healing contributed by the Xalan the Feared's Clench equip effect asuming your Atonement lasts ${this.modules.xalan.atonementDuration} seconds normally.`}>
+          <span>
             {((this.modules.xalan.healing / this.totalHealing * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.xalan.healing / fightDuration * 1000)} HPS
-          </dfn>
+          </span>
         ),
       },
       this.modules.neroBandOfPromises.active && {
         item: ITEMS.NERO_BAND_OF_PROMISES,
         result: (
-          <dfn data-tip={`The healing gain from Penance damage on players without without Atonement during the Power Word: Barrier buff.`}>
+          <span>
             {((this.modules.neroBandOfPromises.healing / this.totalHealing * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.neroBandOfPromises.healing / fightDuration * 1000)} HPS
-          </dfn>
+          </span>
         ),
       },
       this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_HIGH_PRIEST.id) && {
@@ -337,9 +343,29 @@ class CombatLogParser extends MainCombatLogParser {
         icon: <SpellIcon id={SPELLS.DISC_PRIEST_T19_2SET_BONUS_BUFF.id} />,
         title: <SpellLink id={SPELLS.DISC_PRIEST_T19_2SET_BONUS_BUFF.id} />,
         result: (
-          <dfn data-tip="The actual effective healing contributed by the Tier 19 2 set bonus.">
+          <span>
             {((tier19_2setHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.tier19_2set.healing / fightDuration * 1000)} HPS
-          </dfn>
+          </span>
+        ),
+      },
+      this.modules.tier20_4set.active && {
+        id: `spell-${SPELLS.DISC_PRIEST_T20_4SET_BONUS_PASSIVE.id}`,
+        icon: <SpellIcon id={SPELLS.DISC_PRIEST_T20_4SET_BONUS_BUFF.id} />,
+        title: <SpellLink id={SPELLS.DISC_PRIEST_T20_4SET_BONUS_BUFF.id} />,
+        result: (
+          <span>
+            {(this.modules.tier20_4set.penanceCooldownSaved / 1000).toFixed(1)} seconds off the <SpellLink id={SPELLS.PENANCE.id} /> cooldown, { this.modules.tier20_4set.consumptions } Penances cast earlier.
+          </span>
+        ),
+      },
+      this.modules.tier20_2set.active && {
+        id: `spell-${SPELLS.DISC_PRIEST_T20_2SET_BONUS_PASSIVE.id}`,
+        icon: <SpellIcon id={SPELLS.DISC_PRIEST_T20_2SET_BONUS_PASSIVE.id} />,
+        title: <SpellLink id={SPELLS.DISC_PRIEST_T20_2SET_BONUS_PASSIVE.id} />,
+        result: (
+          <span>
+            {((tier20_2setHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.tier20_2set.healing / fightDuration * 1000)} HPS / {formatNumber(this.modules.tier20_2set.damage / fightDuration * 1000)} DPS
+          </span>
         ),
       },
     ];

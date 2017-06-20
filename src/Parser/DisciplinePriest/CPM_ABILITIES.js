@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
 
 import { calculateMaxCasts } from 'Parser/Core/getCastEfficiency';
 
@@ -79,6 +80,18 @@ const CPM_ABILITIES = [
     category: SPELL_CATEGORY.ROTATIONAL,
     getCooldown: haste => 15,
     isActive: combatant => combatant.hasTalent(SPELLS.DIVINE_STAR_TALENT.id),
+  },
+  {
+    spell: SPELLS.VELENS_FUTURE_SIGHT,
+    category: SPELL_CATEGORY.COOLDOWNS,
+    getCooldown: haste => 75,
+    isActive: combatant => combatant.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT.id),
+  },
+  {
+    spell: SPELLS.GNAWED_THUMB_RING,
+    category: SPELL_CATEGORY.COOLDOWNS,
+    getCooldown: haste => 180,
+    isActive: combatant => combatant.hasFinger(ITEMS.GNAWED_THUMB_RING.id),
   },
   {
     spell: SPELLS.HALO_TALENT,

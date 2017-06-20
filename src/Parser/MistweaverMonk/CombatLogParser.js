@@ -1,3 +1,6 @@
+// TODO:
+// RJW - Suggestions on Low Targets and Low Casts
+
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
@@ -34,7 +37,8 @@ import ChiBurst from './Modules/Features/ChiBurst';
 
 // Setup for Items
 import Eithas from './Modules/Items/Eithas';
-import XuensBattlegear4Piece from './Modules/Items/XuensBattlegear4Piece';
+import T20_4pc from './Modules/Items/T20_4pc';
+import T20_2pc from './Modules/Items/T20_2pc';
 
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
@@ -94,12 +98,13 @@ class CombatLogParser extends MainCombatLogParser {
 
     // Legendaries / Items:
     eithas: Eithas,
-    xuensBattlegear4Piece: XuensBattlegear4Piece,
+    t20_4pc: T20_4pc,
+    t20_2pc: T20_2pc,
   };
 
   generateResults() {
     const results = super.generateResults();
-    
+
     const fightDuration = this.fightDuration;
     const fightEndTime = this.fight.end_time;
     const raidSize = Object.entries(this.combatants.players).length;
@@ -111,7 +116,7 @@ class CombatLogParser extends MainCombatLogParser {
 
     const eithasHealingPercentage = this.modules.eithas.healing / this.totalHealing;
 
-    const xuensBattlegear4PieceHealingPercentage = this.modules.xuensBattlegear4Piece.healing / this.totalHealing;
+    const t20_4pcHealingPercentage = this.modules.t20_4pc.healing / this.totalHealing;
 
     const unusedUTProcs = 1 - (this.modules.upliftingTrance.consumedUTProc / this.modules.upliftingTrance.UTProcsTotal);
 
@@ -176,6 +181,14 @@ class CombatLogParser extends MainCombatLogParser {
         importance: getIssueImportance(missedWhispersHeal, 12, 15, true),
       });
     }
+    // T20 2pc Buff missed
+    if(this.modules.t20_2pc.active && (this.modules.t20_2pc.procs - this.modules.t20_2pc.casts) > 0) {
+      results.addIssue({
+        issue: <span>You missed {this.modules.t20_2pc.procs - this.modules.t20_2pc.casts} <SpellLink id={SPELLS.SURGE_OF_MISTS.id} /> procs.  This proc provides not only a large mana savings on <SpellLink id={SPELLS.ENVELOPING_MISTS.id} />.  If you have the Tier 20 4 piece bonus, you also gain a 12% healing buff through <SpellLink id={SPELLS.SURGE_OF_MISTS.id} /> </span>,
+        icon: SPELLS.SURGE_OF_MISTS.icon,
+        importance: getIssueImportance((this.modules.t20_2pc.procs - this.modules.t20_2pc.casts), 0, 1, true),
+      });
+    }
     // Sheilun's Gift Overhealing issue
     if(sheilunsGiftOverhealingPercentage > .5 && avgSGstacks >= 6) {
       results.addIssue({
@@ -208,17 +221,6 @@ class CombatLogParser extends MainCombatLogParser {
         importance: getIssueImportance(unusedUTProcs, 0.2, 0.5, true),
       });
     }
-    /* Removed per feedback from Garg on 6/24
-    // Non-UT Buffed Vivify
-    const vivify = this.modules.upliftingTrance.consumedUTProc + this.modules.upliftingTrance.nonUTVivify;
-    const nonUTVivify = this.modules.upliftingTrance.nonUTVivify;
-    if (nonUTVivify / vivify > 0) {
-      results.addIssue({
-        issue: <span><a href="http://www.wowhead.com/spell=116670" target="_blank" rel="noopener noreferrer">Vivify</a> is an inefficient spell to cast without <a href="http://www.wowhead.com/spell=197206" target="_blank" rel="noopener noreferrer">Uplifting Trance</a> procs.  You casted {nonUTVivify} Vivify's without the Uplifting Trance procc and {this.modules.upliftingTrance.tftVivCast} Vivfy's with the Thunder Focus Tea buff.</span>,
-        icon: SPELLS.VIVIFY.icon,
-        importance: getIssueImportance(nonUTVivify / vivify, 0.5, 0.25, true),
-      });
-    }*/
     // Mana Tea Usage issue
     if (this.modules.manaTea.active && avgMTsaves < 200000) {
       results.addIssue({
@@ -236,9 +238,9 @@ class CombatLogParser extends MainCombatLogParser {
       });
     }
     // Incorrect TFT Usage
-    if(this.modules.thunderFocusTea.castsUnderTft - (this.modules.thunderFocusTea.castsTftEf + this.modules.thunderFocusTea.castsTftViv) > 1) {
+    if(this.modules.thunderFocusTea.castsUnderTft - (this.modules.thunderFocusTea.castsTftEf + this.modules.thunderFocusTea.castsTftViv + this.modules.thunderFocusTea.castsTftRem) > 1) {
       results.addIssue({
-        issue: <span>You are currently using <SpellLink id={SPELLS.THUNDER_FOCUS_TEA.id} /> to buff spells other than <SpellLink id={SPELLS.VIVIFY.id} /> or <SpellLink id={SPELLS.ESSENCE_FONT.id} />.  You used the TFT buff on {(this.modules.thunderFocusTea.castsUnderTft - (this.modules.thunderFocusTea.castsTftEf + this.modules.thunderFocusTea.castsTftViv))} spells other than Essence Font, or Vivify.</span>,
+        issue: <span>You are currently using <SpellLink id={SPELLS.THUNDER_FOCUS_TEA.id} /> to buff spells other than <SpellLink id={SPELLS.VIVIFY.id} />, <SpellLink id={SPELLS.ESSENCE_FONT.id} />, or <SpellLink id={SPELLS.RENEWING_MIST.id} />.  You used the TFT buff on {(this.modules.thunderFocusTea.castsUnderTft - (this.modules.thunderFocusTea.castsTftEf + this.modules.thunderFocusTea.castsTftViv + this.modules.thunderFocusTea.castsTftRem))} spells other than Essence Font, Vivify, or Renewing Mist.</span>,
         icon: SPELLS.THUNDER_FOCUS_TEA.icon,
         importance: getIssueImportance(this.modules.thunderFocusTea.castsUnderTft - (this.modules.thunderFocusTea.castsTftEf + this.modules.thunderFocusTea.castsTftViv), 2, 4, true),
       });
@@ -541,13 +543,23 @@ class CombatLogParser extends MainCombatLogParser {
     ];
     results.items = [
       ...results.items,
-      this.modules.xuensBattlegear4Piece.active && {
+      this.modules.t20_4pc.active && {
         id: `spell-${SPELLS.XUENS_BATTLEGEAR_4_PIECE_BUFF.id}`,
         icon: <SpellIcon id={SPELLS.XUENS_BATTLEGEAR_4_PIECE_BUFF.id} />,
         title: <SpellLink id={SPELLS.XUENS_BATTLEGEAR_4_PIECE_BUFF.id} />,
         result: (
           <dfn data-tip={`The actual effective healing contributed by the Tier 20 4 piece effect.<br />Buff Uptime: ${((this.selectedCombatant.getBuffUptime(SPELLS.DANCE_OF_MISTS.id)/this.fightDuration)*100).toFixed(2)}%`}>
-            {((xuensBattlegear4PieceHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.xuensBattlegear4Piece.healing / fightDuration * 1000)} HPS
+            {((t20_4pcHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.t20_4pc.healing / fightDuration * 1000)} HPS
+          </dfn>
+        ),
+      },
+      this.modules.t20_2pc.active && {
+        id: `spell-${SPELLS.XUENS_BATTLEGEAR_2_PIECE_BUFF.id}`,
+        icon: <SpellIcon id={SPELLS.XUENS_BATTLEGEAR_2_PIECE_BUFF.id} />,
+        title: <SpellLink id={SPELLS.XUENS_BATTLEGEAR_2_PIECE_BUFF.id} />,
+        result: (
+          <dfn data-tip={`The actual mana saved by the Tier 20 2 piece effect.`}>
+            {formatNumber(this.modules.t20_2pc.manaSaved)} mana saved ({formatNumber((this.modules.t20_2pc.manaSaved / this.fightDuration * 1000 * 5))} MP5)
           </dfn>
         ),
       },

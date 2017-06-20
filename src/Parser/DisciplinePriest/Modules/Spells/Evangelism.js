@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 
 import Module from 'Parser/Core/Module';
+import isAtonement from './../Core/isAtonement';
 
 class Evangelism extends Module {
   _previousEvangelismCast = null;
@@ -33,10 +34,8 @@ class Evangelism extends Module {
   }
 
   on_byPlayer_heal(event) {
-    const spellId = event.ability.guid;
-
     // Only when in the last seven seconds of an atonement
-    if ([SPELLS.ATONEMENT_HEAL_NON_CRIT.id, SPELLS.ATONEMENT_HEAL_CRIT.id].indexOf(spellId) > -1) {
+    if (isAtonement(event)) {
       const target = this.atonementModule.currentAtonementTargets.find(id => id.target === event.targetID);
       // Pets, guardians, etc.
       if (!target) {
