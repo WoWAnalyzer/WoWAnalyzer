@@ -253,7 +253,7 @@ class CombatLogParser {
     }
     if (!this.modules.prePotion.usedPrePotion) {
       results.addIssue({
-        issue: <span>You forgot to use a pre potion before a pull. Using a prepotion can be very effective (even for healers), especially during shorter encounters.</span>,
+        issue: <span>You forgot to use a potion before combat. Using a potion before combat allows you the benefit of two potions in a single fight. A potion such as <ItemLink id={ITEMS.POTION_OF_PROLONGED_POWER.id} /> can be very effective (even for healers), especially during shorter encounters.</span>,
         icon: ITEMS.POTION_OF_PROLONGED_POWER.icon,
         importance: SUGGESTION_IMPORTANCE.MINOR,
       });
@@ -263,7 +263,7 @@ class CombatLogParser {
       let issue;
       if(!this.modules.prePotion.neededManaSecondPotion) {
         importance = SUGGESTION_IMPORTANCE.MINOR;
-        issue = <span>You forgot to use a second potion during the encounter. Even if you didn't need a mana potion, a potion of prolonged always helps your throughput.</span>;
+        issue = <span>You forgot to use a potion before combat. Using a potion before combat allows you the benefit of two potions in a single fight. A potion such as <ItemLink id={ITEMS.POTION_OF_PROLONGED_POWER.id} /> can be very effective (even for healers), especially during shorter encounters.</span>;
       } else {
         importance = SUGGESTION_IMPORTANCE.REGULAR;
         issue = <span>You OOM'ed during the encounter without using a second potion (<ItemLink id={ITEMS.ANCIENT_MANA_POTION.id}/>/<ItemLink id={ITEMS.LEYTORRENT_POTION.id}/>)</span>;
