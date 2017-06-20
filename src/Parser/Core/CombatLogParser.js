@@ -20,6 +20,7 @@ import ArchiveOfFaith from './Modules/Items/ArchiveOfFaith';
 import BarbaricMindslaver from './Modules/Items/BarbaricMindslaver';
 import SeaStar from './Modules/Items/SeaStarOfTheDepthmother';
 import DeceiversGrandDesign from './Modules/Items/DeceiversGrandDesign';
+import GnawedThumbRing from 'Parser/Core/Modules/Items/GnawedThumbRing';
 
 import ParseResults from './ParseResults';
 import SUGGESTION_IMPORTANCE from './ISSUE_IMPORTANCE';
@@ -67,6 +68,7 @@ class CombatLogParser {
     drapeOfShame: DrapeOfShame,
     amalgamsSeventhSpine: AmalgamsSeventhSpine,
     darkmoonDeckPromises: DarkmoonDeckPromises,
+    gnawedThumbRing: GnawedThumbRing,
     // Tomb trinkets:
     archiveOfFaith: ArchiveOfFaith,
     barbaricMindslaver: BarbaricMindslaver,
@@ -279,6 +281,16 @@ class CombatLogParser {
         result: (
           <dfn data-tip="The exact amount of mana saved by the Darkmoon Deck: Promises equip effect. This takes the different values per card into account at the time of the cast.">
             {formatThousands(this.modules.darkmoonDeckPromises.manaGained)} mana saved ({formatThousands(this.modules.darkmoonDeckPromises.manaGained / this.fightDuration * 1000 * 5)} MP5)
+          </dfn>
+        ),
+      });
+    }
+    if (this.modules.gnawedThumbRing.active) {
+      results.items.push({
+        item: ITEMS.GNAWED_THUMB_RING,
+        result: (
+          <dfn data-tip="The increased healing from the use effect">
+            {formatPercentage(this.modules.gnawedThumbRing.healingIncreaseHealing/this.totalHealing)}% healing contributed
           </dfn>
         ),
       });

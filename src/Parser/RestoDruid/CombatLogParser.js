@@ -17,7 +17,6 @@ import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
-import GnawedThumbRing from 'Parser/Core/Modules/Items/GnawedThumbRing';
 
 import Ekowraith from './Modules/Legendaries/Ekowraith';
 import XonisCaress from './Modules/Legendaries/XonisCaress';
@@ -102,7 +101,6 @@ class CombatLogParser extends MainCombatLogParser {
 
     // Shared:
     darkmoonDeckPromises: DarkmoonDeckPromises,
-    gnawedThumbRing: GnawedThumbRing,
   };
 
   generateResults() {
@@ -476,17 +474,6 @@ class CombatLogParser extends MainCombatLogParser {
           <dfn data-tip={`The actual mana gained is ${formatThousands(this.modules.darkmoonDeckPromises.savings+this.modules.darkmoonDeckPromises.manaGained)}. The numbers shown may actually be lower if you did not utilize the promises effect fully, i.e. not needing the extra mana gained.`}>
             {formatThousands(this.modules.darkmoonDeckPromises.savings)} mana saved ({formatThousands(this.modules.darkmoonDeckPromises.savings / this.fightDuration * 1000 * 5)} MP5)<br/>
             {formatPercentage(promisesThroughput)}% healing contributed.
-          </dfn>
-        ),
-      });
-    }
-    if (this.modules.gnawedThumbRing.active) {
-      results.items = results.items.filter(item => item.id !== ITEMS.GNAWED_THUMB_RING.id);
-      results.items.push({
-        item: ITEMS.GNAWED_THUMB_RING,
-        result: (
-          <dfn data-tip="The increased healing from the use effect">
-            {formatPercentage(this.modules.gnawedThumbRing.healingIncreaseHealing/this.totalHealing)}% healing contributed
           </dfn>
         ),
       });
