@@ -1,7 +1,7 @@
 import Module from 'Parser/Core/Module';
 import SPELLS from 'common/SPELLS';
 
-const debug = true;
+const debug = false;
 
 class AOEHealingTracker extends Module {
   // Implement Mists of Sheilun, Celestial Breath, and Refreshing Jade Wind
