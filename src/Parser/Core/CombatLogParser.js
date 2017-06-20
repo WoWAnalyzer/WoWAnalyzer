@@ -20,6 +20,7 @@ import ArchiveOfFaith from './Modules/Items/ArchiveOfFaith';
 import BarbaricMindslaver from './Modules/Items/BarbaricMindslaver';
 import SeaStar from './Modules/Items/SeaStarOfTheDepthmother';
 import DeceiversGrandDesign from './Modules/Items/DeceiversGrandDesign';
+import PrePotion from './Modules/Items/PrePotion';
 
 import ParseResults from './ParseResults';
 import SUGGESTION_IMPORTANCE from './ISSUE_IMPORTANCE';
@@ -67,6 +68,7 @@ class CombatLogParser {
     drapeOfShame: DrapeOfShame,
     amalgamsSeventhSpine: AmalgamsSeventhSpine,
     darkmoonDeckPromises: DarkmoonDeckPromises,
+    prePotion: PrePotion,
     // Tomb trinkets:
     archiveOfFaith: ArchiveOfFaith,
     barbaricMindslaver: BarbaricMindslaver,
@@ -248,6 +250,28 @@ class CombatLogParser {
           importance: getSuggestionImportance(velensHealingPercentage, this.constructor.SUGGESTION_VELENS_BREAKPOINT - 0.005, this.constructor.SUGGESTION_VELENS_BREAKPOINT - 0.015),
         });
       }
+    }
+    if (!this.modules.prePotion.usedPrePotion) {
+      results.addIssue({
+        issue: <span>You forgot to use a pre potion before a pull. Using a prepotion can be very effective (even for healers), especially during shorter encounters.</span>,
+        icon: ITEMS.POTION_OF_PROLONGED_POWER.icon,
+        importance: SUGGESTION_IMPORTANCE.MINOR,
+      });
+    }
+    if (!this.modules.prePotion.usedSecondPotion) {
+      let importance, issue;
+      if(!this.modules.prePotion.neededManaSecondPotion) {
+        importance = SUGGESTION_IMPORTANCE.MINOR;
+        issue = <span>You forgot to use a second potion during the encounter. Even if you didn't need a mana potion, a potion of prolonged always helps your throughput.</span>;
+      } else {
+        importance = SUGGESTION_IMPORTANCE.REGULAR;
+        issue = <span>You OOM'ed during the encounter without using a second potion (<ItemLink id={ITEMS.ANCIENT_MANA_POTION.id}/>/<ItemLink id={ITEMS.LEYTORRENT_POTION.id}/>)</span>;
+      }
+      results.addIssue({
+        icon: ITEMS.LEYTORRENT_POTION.icon,
+        issue: issue,
+        importance: importance,
+      });
     }
     if (this.modules.sephuzsSecret.active) {
       results.items.push({

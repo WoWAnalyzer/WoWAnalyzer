@@ -10,6 +10,31 @@ export default {
     name: 'Ancient Healing Potion',
     icon: 'inv_alchemy_70_red',
   },
+  POTION_OF_PROLONGED_POWER: {
+    id: 229206,
+    name: 'Potion of Prolonged Power',
+    icon: 'trade_alchemy_dpotion_a28',
+  },
+  POTION_OF_THE_OLD_WAR: {
+    id: 188028,
+    name: 'Potion of the Old War',
+    icon: 'inv_alchemy_70_orange',
+  },
+  POTION_OF_DEADLY_GRACE: {
+    id: 188027,
+    name: 'Potion of Deadly Grace',
+    icon: 'inv_alchemy_70_flask02',
+  },
+  LEYTORRENT_POTION: {
+    id: 188030,
+    name: 'Leytorrent Potion',
+    icon: 'inv_alchemy_70_flask01',
+  },
+  ANCIENT_MANA_POTION: {
+    id: 188017,
+    name: 'Ancient Mana Potion',
+    icon: 'inv_alchemy_70_blue',
+  },
   // Items buffs:
   GNAWED_THUMB_RING: {
     id: 228461,
