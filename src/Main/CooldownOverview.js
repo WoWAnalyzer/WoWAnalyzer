@@ -7,7 +7,7 @@ const CooldownOverview = ({ fightStart, fightEnd, cooldowns, showOutputStatistic
   <div style={{ marginTop: -10, marginBottom: -10 }}>
     <ul className="list">
       {cooldowns.map((cooldown) => (
-        <li key={`${cooldown.ability.id}-${cooldown.start}`} className="item clearfix" style={{ padding: '1em' }}>
+        <li key={`${cooldown.spell.id}-${cooldown.start}`} className="item clearfix" style={{ padding: '1em' }}>
           <Cooldown cooldown={cooldown} fightStart={fightStart} fightEnd={fightEnd} showOutputStatistics={showOutputStatistics} showResourceStatistics={showResourceStatistics} />
         </li>
       ))}

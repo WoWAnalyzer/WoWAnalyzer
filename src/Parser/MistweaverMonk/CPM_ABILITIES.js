@@ -14,38 +14,17 @@ const CPM_ABILITIES = [
     spell: SPELLS.RENEWING_MIST,
     category: SPELL_CATEGORY.ROTATIONAL,
     getCooldown: haste => 8,
-    recommendedCastEfficiency: .7,
+    recommendedCastEfficiency: .9,
     getOverhealing: (_, getAbility) => {
       const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.RENEWING_MIST_HEAL.id);
       return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
     },
   },
+  // Cooldowns
   {
     spell: SPELLS.THUNDER_FOCUS_TEA,
     category: SPELL_CATEGORY.ROTATIONAL,
     getCooldown: haste => 30,
-  },
-
-  // Cooldowns
-  {
-    spell: SPELLS.REVIVAL,
-    category: SPELL_CATEGORY.COOLDOWNS,
-    getCooldown: (haste, combatant) => 180 - (combatant.traitsBySpellId[SPELLS.TENDRILS_OF_REVIVAL.id] || 0 ) * 10,
-    noSuggestion: true,
-    noCanBeImproved: true,
-  },
-  {
-    spell: SPELLS.LIFE_COCOON,
-    category: SPELL_CATEGORY.COOLDOWNS,
-    getCooldown: haste => 180,
-    noSuggestion: true,
-    noCanBeImproved: true,
-  },
-  {
-    spell: SPELLS.INVOKE_CHIJI_TALENT,
-    category: SPELL_CATEGORY.COOLDOWNS,
-    getCooldown: haste => 180,
-    isActive: combatant => combatant.hasTalent(SPELLS.INVOKE_CHIJI_TALENT.id),
   },
   {
     spell: SPELLS.CHI_BURST_TALENT,
@@ -56,6 +35,12 @@ const CPM_ABILITIES = [
       const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.CHI_BURST_HEAL.id);
       return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
     },
+  },
+  {
+    spell: SPELLS.INVOKE_CHIJI_TALENT,
+    category: SPELL_CATEGORY.COOLDOWNS,
+    getCooldown: haste => 180,
+    isActive: combatant => combatant.hasTalent(SPELLS.INVOKE_CHIJI_TALENT.id),
   },
   {
     spell: SPELLS.MANA_TEA_TALENT,
@@ -69,6 +54,34 @@ const CPM_ABILITIES = [
     getCooldown: haste => 75,
     isActive: combatant => combatant.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT.id),
   },
+  {
+    spell: SPELLS.GNAWED_THUMB_RING,
+    category: SPELL_CATEGORY.COOLDOWNS,
+    getCooldown: haste => 180,
+    isActive: combatant => combatant.hasFinger(ITEMS.GNAWED_THUMB_RING.id),
+  },
+  {
+    spell: SPELLS.CLEANSING_MATRIX,
+    name: `${ITEMS.ARCHIVE_OF_FAITH.name}`,
+    category: SPELL_CATEGORY.COOLDOWNS,
+    getCooldown: haste => 60,
+    isActive: combatant => combatant.hasTrinket(ITEMS.ARCHIVE_OF_FAITH.id),
+  },
+  {
+    spell: SPELLS.LIFE_COCOON,
+    category: SPELL_CATEGORY.COOLDOWNS,
+    getCooldown: haste => 180,
+    noSuggestion: true,
+    noCanBeImproved: true,
+  },
+  {
+    spell: SPELLS.REVIVAL,
+    category: SPELL_CATEGORY.COOLDOWNS,
+    getCooldown: (haste, combatant) => 180 - (combatant.traitsBySpellId[SPELLS.TENDRILS_OF_REVIVAL.id] || 0 ) * 10,
+    noSuggestion: true,
+    noCanBeImproved: true,
+  },
+
 
   // Other Spell Casting Metrics
   {
@@ -113,21 +126,62 @@ const CPM_ABILITIES = [
     spell: SPELLS.SOOTHING_MIST,
     category: SPELL_CATEGORY.OTHERS,
     getCooldown: haste => null,
+    getOverhealing: (_, getAbility) => {
+      const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.SOOTHING_MIST.id);
+      return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
+    },
   },
   {
     spell: SPELLS.REFRESHING_JADE_WIND_TALENT,
     category: SPELL_CATEGORY.OTHERS,
     getCooldown: haste => null,
     isActive: combatant => combatant.hasTalent(SPELLS.REFRESHING_JADE_WIND_TALENT.id),
+    getOverhealing: (_, getAbility) => {
+      const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.REFRESHING_JADE_WIND_HEAL.id);
+      return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
+    },
   },
 
   // Utility Spells
   {
     spell: SPELLS.ARCANE_TORRENT,
-    category: SPELL_CATEGORY.COOLDOWNS,
+    category: SPELL_CATEGORY.UTILITY,
     getCooldown: haste => 90,
     hideWithZeroCasts: true,
   },
+  {
+    spell: SPELLS.DIFFUSE_MAGIC_TALENT,
+    category: SPELL_CATEGORY.UTILITY,
+    getCooldown: haste => 90,
+    isActive: combatant => combatant.hasTalent(SPELLS.DIFFUSE_MAGIC_TALENT.id),
+    noSuggestion: true,
+    noCanBeImproved: true,
+  },
+  {
+    spell: SPELLS.DAMPEN_HARM_TALENT,
+    category: SPELL_CATEGORY.UTILITY,
+    getCooldown: haste => 120,
+    isActive: combatant => combatant.hasTalent(SPELLS.DAMPEN_HARM_TALENT.id),
+    noSuggestion: true,
+    noCanBeImproved: true,
+  },
+  {
+    spell: SPELLS.FORTIFYING_BREW,
+    category: SPELL_CATEGORY.UTILITY,
+    getCooldown: haste => 90,
+    noSuggestion: true,
+    noCanBeImproved: true,
+  },
+  {
+    spell: SPELLS.HEALING_ELIXIR_TALENT,
+    category: SPELL_CATEGORY.UTILITY,
+    charges: 2,
+    getCooldown: haste => 30,
+    isActive: combatant => combatant.hasTalent(SPELLS.HEALING_ELIXIR_TALENT.id),
+    noSuggestion: true,
+    noCanBeImproved: true,
+  },
+
 ];
 
 export default CPM_ABILITIES;

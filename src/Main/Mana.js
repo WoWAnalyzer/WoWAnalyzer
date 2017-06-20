@@ -4,10 +4,9 @@ import ChartistGraph from 'react-chartist';
 import Chartist from 'chartist';
 import 'chartist-plugin-legend';
 
-import specialEventIndicators from './Chartist/specialEventIndicators';
-// import tooltips from './Chartist/toolips';
+import makeWclUrl from 'common/makeWclUrl';
 
-import WCL_API_KEY from './WCL_API_KEY';
+import specialEventIndicators from './Chartist/specialEventIndicators';
 
 import './Mana.css';
 
@@ -41,7 +40,12 @@ class Mana extends React.PureComponent {
     }
   }
   load(reportCode, actorId, start, end) {
-    const manaPromise = fetch(`https://www.warcraftlogs.com/v1/report/tables/resources/${reportCode}?start=${start}&end=${end}&sourceid=${actorId}&abilityid=100&api_key=${WCL_API_KEY}`)
+    const manaPromise = fetch(makeWclUrl(`report/tables/resources/${reportCode}`, {
+      start,
+      end,
+      sourceid: actorId,
+      abilityid: 100,
+    }))
       .then(response => response.json())
       .then((json) => {
         console.log('Received mana', json);
@@ -54,7 +58,13 @@ class Mana extends React.PureComponent {
         }
       });
 
-    const bossHealthPromise = fetch(`https://www.warcraftlogs.com/v1/report/tables/resources/${reportCode}?start=${start}&end=${end}&sourceclass=Boss&hostility=1&abilityid=1000&api_key=${WCL_API_KEY}`)
+    const bossHealthPromise = fetch(makeWclUrl(`report/tables/resources/${reportCode}`, {
+      start,
+      end,
+      sourceclass: 'Boss',
+      hostility: 1,
+      abilityid: 1000,
+    }))
       .then(response => response.json())
       .then((json) => {
         console.log('Received boss health', json);

@@ -22,6 +22,7 @@ class FightSelecter extends Component {
         kill: PropTypes.bool,
       })),
     }),
+    onRefresh: PropTypes.func.isRequired,
   };
 
   componentWillUnmount() {
@@ -29,22 +30,31 @@ class FightSelecter extends Component {
   }
 
   render() {
-    const { report } = this.props;
+    const { report, onRefresh } = this.props;
 
     return (
       <div>
         <h1>
           <div className="back-button">
-            <Link to={`/report/${report.code}`} data-tip="Back to player selection">
+            <Link to="/" data-tip="Back to report selection">
               <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
             </Link>
           </div>
           {report.title}
-          </h1>
+        </h1>
 
         <div className="panel">
           <div className="panel-heading">
-            <h2>Select the fight to parse</h2>
+            <div className="row">
+              <div className="col-md-8">
+                <h2>Select the fight to parse</h2>
+              </div>
+              <div className="col-md-4 text-right">
+                <Link to={`/report/${report.code}`} onClick={onRefresh} data-tip="This will refresh the fights list which can be useful if you're live logging.">
+                  <span className="glyphicon glyphicon-refresh" aria-hidden="true" /> Refresh
+                </Link>
+              </div>
+            </div>
           </div>
           <div className="panel-body" style={{ padding: 0 }}>
             <ul className="list selection">

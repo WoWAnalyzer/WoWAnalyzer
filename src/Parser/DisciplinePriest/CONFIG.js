@@ -1,19 +1,11 @@
-import React from 'react';
-
 import SPECS from 'common/SPECS';
 
-import PatreonLink from 'Main/PatreonLink';
-
 import CombatLogParser from './CombatLogParser';
+import TALENT_DESCRIPTIONS from './TALENT_DESCRIPTIONS';
 
 export default {
   spec: SPECS.DISCIPLINE_PRIEST,
+  maintainer: '@Reglitch',
   parser: CombatLogParser,
-  maintainer: '@Zerotorescue',
-  footer: (
-    <div>
-      Please consider donating to help out further development.<br />
-      <PatreonLink />
-    </div>
-  ),
+  talentDescriptions: TALENT_DESCRIPTIONS,
 };

@@ -1,13 +1,28 @@
 import SPELLS from 'common/SPELLS';
 
-import CoreCooldownTracker from 'Parser/Core/Modules/CooldownTracker';
+import CoreCooldownTracker, { BUILT_IN_SUMMARY_TYPES } from 'Parser/Core/Modules/CooldownTracker';
 
 class CooldownTracker extends CoreCooldownTracker {
   static cooldownSpells = [
     ...CooldownTracker.cooldownSpells,
-    SPELLS.ASCENDANCE,
-    SPELLS.STORMKEEPER,
-    // SPELLS.BERSERKING // Could be healing or damagin type, so skipping
+    {
+      spell: SPELLS.ASCENDANCE,
+      summary: [
+        BUILT_IN_SUMMARY_TYPES.DAMAGE,
+      ],
+    },
+    {
+      spell: SPELLS.STORMKEEPER,
+      summary: [
+        BUILT_IN_SUMMARY_TYPES.DAMAGE,
+      ],
+    },
+    {
+      spell: SPELLS.BERSERKING,
+      summary: [
+        BUILT_IN_SUMMARY_TYPES.DAMAGE,
+      ],
+    },
   ];
 }
 

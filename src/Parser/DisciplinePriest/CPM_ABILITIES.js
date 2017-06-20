@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
 
 import { calculateMaxCasts } from 'Parser/Core/getCastEfficiency';
 
@@ -8,7 +9,6 @@ export const SPELL_CATEGORY = {
   OTHERS: 'Spell',
   UTILITY: 'Utility',
 };
-const RAPTURE_DURATION = 8000;
 
 const CPM_ABILITIES = [
   {
@@ -18,15 +18,30 @@ const CPM_ABILITIES = [
     getCooldown: haste => 9,
   },
   {
+    spell: SPELLS.POWER_WORD_RADIANCE,
+    name: `${SPELLS.POWER_WORD_RADIANCE.name}`,
+    category: SPELL_CATEGORY.ROTATIONAL,
+    getCooldown: haste => 18,
+    getCasts: castCount => castCount.casts,
+    getMaxCasts: (cooldown, fightDuration, getAbility, parser) => {
+      return calculateMaxCasts(cooldown, fightDuration, 2);
+    },
+  },
+  {
+    spell: SPELLS.EVANGELISM_TALENT,
+    name: `${SPELLS.EVANGELISM_TALENT.name}`,
+    category: SPELL_CATEGORY.COOLDOWNS,
+    getCooldown: haste => 75,
+    getCasts: castCount => castCount.casts,
+  },
+  {
     spell: SPELLS.POWER_WORD_SHIELD,
     name: `${SPELLS.POWER_WORD_SHIELD.name} outside Rapture`,
     category: SPELL_CATEGORY.ROTATIONAL,
     getCooldown: haste => 9 / (1 + haste),
     getCasts: castCount => castCount.casts - (castCount.raptureCasts || 0),
     getMaxCasts: (cooldown, fightDuration, getAbility, parser) => {
-      const raptureCasts = getAbility(SPELLS.RAPTURE.id);
-      const timeSpentInRapture = (raptureCasts.casts || 0) * RAPTURE_DURATION;
-
+      const timeSpentInRapture = parser.selectedCombatant.getBuffUptime(SPELLS.RAPTURE.id);
       const maxRegularCasts = calculateMaxCasts(cooldown, fightDuration - timeSpentInRapture);
 
       return maxRegularCasts;
@@ -36,14 +51,14 @@ const CPM_ABILITIES = [
     spell: SPELLS.POWER_WORD_SHIELD,
     name: `${SPELLS.POWER_WORD_SHIELD.name} during Rapture`,
     category: SPELL_CATEGORY.ROTATIONAL,
+    extraSuggestion: `${SPELLS.POWER_WORD_SHIELD.name} may be cast without cooldown during Rapture.`,
     getCooldown: haste => 9 / (1 + haste),
     getCasts: castCount => castCount.raptureCasts || 0,
     getMaxCasts: (cooldown, fightDuration, getAbility, parser) => {
-      const raptureCastCount = getAbility(SPELLS.RAPTURE.id);
-
       const gcd = 1.5 / (1 + parser.selectedCombatant.hastePercentage);
+      const timeSpentInRapture = parser.selectedCombatant.getBuffUptime(SPELLS.RAPTURE.id);
 
-      const maxRaptureCasts = calculateMaxCasts(gcd, RAPTURE_DURATION) * (raptureCastCount.casts || 0);
+      const maxRaptureCasts = calculateMaxCasts(gcd, timeSpentInRapture);
 
       return maxRaptureCasts;
     },
@@ -65,6 +80,18 @@ const CPM_ABILITIES = [
     category: SPELL_CATEGORY.ROTATIONAL,
     getCooldown: haste => 15,
     isActive: combatant => combatant.hasTalent(SPELLS.DIVINE_STAR_TALENT.id),
+  },
+  {
+    spell: SPELLS.VELENS_FUTURE_SIGHT,
+    category: SPELL_CATEGORY.COOLDOWNS,
+    getCooldown: haste => 75,
+    isActive: combatant => combatant.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT.id),
+  },
+  {
+    spell: SPELLS.GNAWED_THUMB_RING,
+    category: SPELL_CATEGORY.COOLDOWNS,
+    getCooldown: haste => 180,
+    isActive: combatant => combatant.hasFinger(ITEMS.GNAWED_THUMB_RING.id),
   },
   {
     spell: SPELLS.HALO_TALENT,
@@ -109,11 +136,13 @@ const CPM_ABILITIES = [
     spell: SPELLS.PAIN_SUPPRESSION,
     category: SPELL_CATEGORY.COOLDOWNS,
     getCooldown: (haste, combatant) => 4 * 60 - (combatant.traitsBySpellId[SPELLS.PAIN_IS_IN_YOUR_MIND.id] || 0) * 10,
+    noSuggestion: true,
   },
   {
     spell: SPELLS.POWER_WORD_BARRIER_CAST,
     category: SPELL_CATEGORY.COOLDOWNS,
     getCooldown: haste => 3 * 60,
+    noSuggestion: true,
   },
 
   {
