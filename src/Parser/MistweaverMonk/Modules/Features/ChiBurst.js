@@ -5,7 +5,8 @@ const debug = false;
 
 class ChiBurst extends Module {
   castChiBurst = 0;
-  healing = 0;
+  healingChiBurst = 0;
+  absorbedHealingChiBurst = 0;
   targetsChiBurst = 0;
 
   on_initialized(){
@@ -26,7 +27,8 @@ class ChiBurst extends Module {
     const spellId = event.ability.guid;
 
     if(spellId === SPELLS.CHI_BURST_HEAL.id) {
-      this.healing += (event.amount || 0) + (event.absorbed || 0);
+      this.healingChiBurst += event.amount;
+      this.absorbedHealingChiBurst += event.absorbed || 0;
       this.targetsChiBurst++;
     }
   }
@@ -34,7 +36,7 @@ class ChiBurst extends Module {
   on_finished() {
     if(debug) {
       console.log('ChiBurst Casts: ' + this.castChiBurst);
-      console.log('Total Chi Burst Healing: ' + this.healing);
+      console.log('Total Chi Burst Healing: ' + (this.healingChiBurst + this.absorbedHealingChiBurst));
       console.log('Chi Burst Targets Hit: ' + this.targetsChiBurst);
     }
   }

@@ -2,20 +2,21 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 
 import Module from 'Parser/Core/Module';
-import isAtonement from './../Core/isAtonement';
 
 const debug = false;
 
 class Xalan extends Module {
   healing = 0;
+  hasContrition = false;
 
   get atonementDuration() {
-    return 15;
+    return 15 + (this.hasContrition ? 3 : 0);
   }
 
   on_initialized() {
     if (!this.owner.error) {
       this.active = this.owner.selectedCombatant.hasHands(ITEMS.XALAN_THE_FEAREDS_CLENCH.id);
+      this.hasContrition = this.owner.selectedCombatant.hasTalent(SPELLS.CONTRITION_TALENT.id);
     }
   }
 
@@ -42,7 +43,8 @@ class Xalan extends Module {
   }
 
   on_byPlayer_heal(event) {
-    if (!isAtonement(event)) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.ATONEMENT_HEAL_NON_CRIT.id && spellId !== SPELLS.ATONEMENT_HEAL_CRIT.id) {
       return;
     }
     if (!this.owner.toPlayer(event)) {

@@ -4,6 +4,7 @@ import SPELLS from 'common/SPELLS';
 const debug = false;
 
 class ThunderFocusTea extends Module {
+
     castsTftEff = 0;
     castsTftEf = 0;
     castsTftViv = 0;
@@ -14,13 +15,6 @@ class ThunderFocusTea extends Module {
     castsUnderTft = 0;
 
     TftVivCastTimestamp = null;
-    ftActive = false;
-
-    on_initialized() {
-      if(!this.owner.error) {
-        this.ftActive = this.owner.selectedCombatant.hasTalent(SPELLS.FOCUSED_THUNDER_TALENT.id);
-      }
-    }
 
     on_toPlayer_applybuff(event) {
       const spellId = event.ability.guid;
@@ -72,9 +66,6 @@ class ThunderFocusTea extends Module {
     }
 
     on_finished() {
-      if(this.ftActive) {
-        this.castsTft += this.castsTft;
-      }
       if(debug) {
         console.log("TFT Casts:" + this.castsTft);
         console.log("Eff Buffed:" + this.castsTftEff);

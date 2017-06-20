@@ -4,8 +4,12 @@ import SPELLS from 'common/SPELLS';
 const debug = false;
 
 class ChiJi extends Module {
+
   petID = null;
-  healing = 0;
+  craneHeal = 0;
+  craneAbsorbedHeal = 0;
+  finalChiJi = 0;
+
 
   on_initialized() {
     if(!this.owner.error) {
@@ -14,6 +18,8 @@ class ChiJi extends Module {
   }
 
   on_byPlayer_summon(event) {
+
+
     if(event.ability.guid === SPELLS.INVOKE_CHIJI_TALENT.id) {
       this.petID = event.targetID;
       debug && console.log('Chi-Ji Summoned: ' + this.petID);
@@ -21,16 +27,21 @@ class ChiJi extends Module {
   }
 
   on_heal (event) {
+    // debug && console.log('SOurce ID: ' + event.sourceID + ' / / / Ability GUID: ' + event.ability.guid + ' === ' + SPELLS.CRANE_HEAL.id);
     if(event.sourceID === this.petID && event.ability.guid === SPELLS.CRANE_HEAL.id) {
-      this.healing += (event.amount || 0) + (event.absorbed || 0);
+      this.craneHeal += event.amount;
+      this.craneAbsorbedHeal += event.absorbed || 0;
+      // debug && console.log('Crane Heal?');
     }
   }
 
   on_finished() {
-    this.owner.totalHealing += this.healing;
+    this.finalChiJi = this.craneHeal + this.craneAbsorbedHeal;
+    this.owner.totalHealing += this.finalChiJi;
     if(debug) {
       console.log('Chi-Ji ID: ' + this.petID);
-      console.log('Chi-Ji Healing: ' + this.healing);
+      console.log('Chi-Ji Healing: ' + this.craneHeal);
+      console.log('Chi-Ji Absobed Healing: ' + this.craneAbsorbedHeal);
     }
   }
 }

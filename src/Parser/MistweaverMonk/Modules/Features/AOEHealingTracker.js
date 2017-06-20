@@ -75,8 +75,7 @@ class AOEHealingTracker extends Module {
       console.log('Avg Heals Amount: ' + (this.healingCelestialBreath / this.healsCelestialBreath));
       console.log('RJW Casts: ' + this.castRJW);
       console.log('RJW Targets Hit: ' + this.healsRJW);
-      console.log('RJW Targets Hit per Cast: ', (this.healsRJW / this.castRJW));
-      console.log('Avg Heals per Cast: ' + (this.healingRJW / this.castRJW));
+      console.log('Avg Heals per Procs: ' + (this.healingRJW / this.castRJW));
       console.log('Avg Heals Amount: ' + (this.healingRJW / this.healsRJW));
     }
   }

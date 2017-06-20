@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link, browserHistory } from 'react-router';
+import { Link, hashHistory } from 'react-router';
 import ReactTooltip from 'react-tooltip';
-
-import makeWclUrl from 'common/makeWclUrl';
 
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
 
@@ -16,10 +14,9 @@ import FightSelecter from './FightSelecter';
 import PlayerSelecter from './PlayerSelecter';
 import Results from './Results';
 
+import makeWclUrl from './makeWclUrl';
 import makeAnalyzerUrl from './makeAnalyzerUrl';
 import getWipeCount from './getWipeCount';
-
-import GithubLogo from './Images/GitHub-Mark-Light-32px.png';
 
 const formatDuration = (duration) => {
   const seconds = Math.floor(duration % 60);
@@ -43,9 +40,6 @@ class App extends Component {
   };
   static defaultProps = {
     params: {},
-  };
-  static childContextTypes = {
-    config: PropTypes.object,
   };
 
   get reportCode() {
@@ -82,21 +76,12 @@ class App extends Component {
     };
 
     this.handleReportSelecterSubmit = this.handleReportSelecterSubmit.bind(this);
-    this.handleRefresh = this.handleRefresh.bind(this);
-  }
-  getChildContext() {
-    return {
-      config: this.state.config,
-    };
   }
 
   handleReportSelecterSubmit(code) {
     console.log('Selected report:', code);
 
     this.props.router.push(makeAnalyzerUrl(code));
-  }
-  handleRefresh() {
-    this.fetchReport(this.reportCode, true);
   }
 
   config = null;
@@ -116,44 +101,35 @@ class App extends Component {
     }
     const config = AVAILABLE_CONFIGS.find(config => config.spec.id === combatant.specID);
     if (!config) {
-      alert('This spec is not yet supported. Your help adding support for this spec would be much appreciated! Click the GitHub link above to find out how you can contribute.');
+      alert('This spec is not yet supported. Your help building support for this spec would be much appreciated! Click the GitHub link above to find out how you can contribute.');
       return;
     }
+    this.config = config;
 
     const ParserClass = config.parser;
-    const parser = new ParserClass(report, player, fight);
+    this.parser = new ParserClass(report, player, fight);
 
     this.setState({
-      config,
-      parser,
       progress: 0,
-    }, () => {
-      parser.parseEvents(this.state.combatants)
-        .then(() => {
-          parser.triggerEvent('initialized');
-          this.setState({
-            progress: 0.1,
-          });
-          this.parseNextBatch(parser, report.code, player, fight.start_time, fight.end_time);
-        });
     });
+    this.parseNextBatch(this.parser, report.code, player, fight.start_time, fight.end_time);
   }
   parseNextBatch(parser, code, player, fightStart, fightEnd, nextPageTimestamp = null) {
-    if (parser !== this.state.parser) {
+    if (parser !== this.parser) {
       return;
     }
 
     const isFirstBatch = nextPageTimestamp === null;
     // If this is the first batch the first events will be at the fightStart
     const pageTimestamp = isFirstBatch ? fightStart : nextPageTimestamp;
-    const actorId = player.id;
+    // If this is the first batch we want to NOT filter the events by actor id in order to obtain combatantinfo for all players
+    const actorId = isFirstBatch ? undefined : player.id;
 
     this.fetchEvents(code, pageTimestamp, fightEnd, actorId)
       .then((json) => {
-        if (parser !== this.state.parser) {
+        if (parser !== this.parser) {
           return;
         }
-
         parser.parseEvents(json.events)
           .then(() => {
             // Update the interface with progress
@@ -186,24 +162,18 @@ class App extends Component {
     console.log('Finished. Parser:', parser);
 
     this.setState({
-      progress: 0.99,
-    }, () => {
-      this.setState({
-        progress: 1,
-      });
+      progress: 1,
     });
   }
 
-  fetchReport(code, refresh = false) {
+  fetchReport(code) {
     console.log('Fetching report:', code);
 
     this.setState({
       report: null,
     });
 
-    const url = makeWclUrl(`report/fights/${code}`, {
-      _: refresh ? +new Date() : undefined,
-    });
+    const url = makeWclUrl(`https://www.warcraftlogs.com/v1/report/fights/${code}`);
     return fetch(url)
       .then(response => response.json())
       .then((json) => {
@@ -266,15 +236,15 @@ class App extends Component {
   }
 
   reset() {
+    this.parser = null;
+    this.config = null;
     this.setState({
-      config: null,
-      parser: null,
       progress: 0,
     });
   }
 
   fetchEvents(code, start, end, actorId = undefined, filter = undefined) {
-    const url = makeWclUrl(`report/events/${code}`, { start, end, actorid: actorId, filter });
+    const url = makeWclUrl(`https://www.warcraftlogs.com/v1/report/events/${code}`, { start, end, actorid: actorId, filter });
     return fetch(url)
       .then(response => response.json());
   }
@@ -284,6 +254,7 @@ class App extends Component {
       this.fetchReport(this.reportCode);
     }
   }
+
   componentDidUpdate(prevProps, prevState) {
     ReactTooltip.rebuild();
 
@@ -326,7 +297,7 @@ class App extends Component {
 
   render() {
     const { report, combatants } = this.state;
-    const parser = this.state.parser;
+    const parser = this.parser;
 
     const progress = Math.floor(this.state.progress * 100);
 
@@ -336,7 +307,7 @@ class App extends Component {
           <div className="navbar-progress" style={{ width: `${progress}%`, opacity: progress === 0 || progress === 100 ? 0 : 1 }} />
           <div className="container">
             <ul className="nav navbar-nav navbar-right">
-              <li><a href={githubUrl}><span className="hidden-xs"> View on GitHub </span><img src={GithubLogo} alt="GitHub logo" /></a></li>
+              <li><a href={githubUrl}><span className="hidden-xs"> View on GitHub </span><img src="./img/GitHub-Mark-Light-32px.png" alt="GitHub logo" /></a></li>
             </ul>
 
             <div className="navbar-header">
@@ -364,7 +335,7 @@ class App extends Component {
               );
             }
             if (!this.fightId) {
-              return <FightSelecter report={report} onRefresh={this.handleRefresh} />;
+              return <FightSelecter report={report} />;
             }
             if (!combatants) {
               return (
@@ -387,11 +358,17 @@ class App extends Component {
                 parser={parser}
                 dataVersion={this.state.dataVersion}
                 tab={this.resultTab}
-                onChangeTab={newTab => browserHistory.push(makeAnalyzerUrl(report.code, this.fightId, this.playerName, newTab))}
+                onChangeTab={newTab => hashHistory.push(makeAnalyzerUrl(report.code, this.fightId, this.playerName, newTab))}
               />
             );
           })()}
-          {this.state.config && this.state.config.footer}
+          {this.config && this.config.footer && (
+            <div className="panel fade-in" style={{ margin: '15px auto 30px', width: 300, textAlign: 'center' }}>
+              <div className="panel-body text-muted">
+                {this.config.footer}
+              </div>
+            </div>
+          )}
         </div>
         <ReactTooltip html={true} place="bottom" />
       </div>

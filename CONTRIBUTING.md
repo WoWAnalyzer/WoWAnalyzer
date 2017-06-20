@@ -9,12 +9,6 @@ Hey! Awesome you're interested in helping out. This should get you along the way
  * Get Node (6+): https://nodejs.org/en/
  * Open a command window to the cloned repo (do this after installing Node).
  * run this command: `npm install`
- * Meanwhile:
-    * Go to project root
-    * Copy `.env.local.example`
-    * Paste it in the same directory with the name `.env.local`
-    * Go to https://www.warcraftlogs.com/accounts/changeuser to get your API key (at the bottom)
-    * Replace `INSERT_YOUR_OWN_API_KEY_HERE` in `env.local` with your API key
 
 # Running
 
@@ -34,7 +28,7 @@ import ITEMS from 'common/ITEMS';
 
 import Module from 'Parser/Core/Module';
 
-class MyCuteRock extends Module {
+class StupidRock extends Module {
   healing = 0;
 
   on_initialized() {
@@ -52,14 +46,16 @@ class MyCuteRock extends Module {
   }
 }
 
-export default MyCuteRock;
+export default StupidRock;
 ```
 
-This is the worker behind the statistic. The `on_` functions are your event listeners. Through some magic these functions get called whenever an event with their name is triggered. See [EVENTS.md](EVENTS.md) for the available events.
+This is the worker behind the statistic. The `on_` functions are your event listeners. Through some magic these functions get called whenever an event with their name is triggered. The following events are available:
 
-The `byPlayer` (and `toPlayer`) part of the function names are just there for ease of use; these make sure only events done **by the player** or **to the player** are listened to. Purely convenience, you can also just do `on_cast` and filter inside with `if (!this.owner.byPlayer(event)) { return; }`, but putting that everywhere gets messy quickly. Do note **only events that involve the selected player are available for performance reasons**, so if you wanted to listen to events when other players take damage you're out of luck (but the selected player taking damage is of course available at `on_toPlayer_damage`).
+ * `begincast, cast, miss, damage, heal, absorbed, healabsorbed, applybuff, applydebuff, applybuffstack, applydebuffstack, refreshbuff, refreshdebuff, removebuff, removedebuff, removebuffstack, removedebuffstack, summon, create, death, destroy, extraattacks, aurabroken, dispel, interrupt, steal, leech, energize, drain, resurrect, encounterstart, encounterend`
 
-The file you just made still doesn't do anything as it hasn't been enabled in a parser yet. I assume you're working on a spec specific statistic, let's say for Holy Paladin. Go to `Parser/HolyPaladin/CombatLogParser.js`. Import your new module next to the other imports, for example: `import MyCuteRock from './Modules/Items/MyCuteRock';`, then scroll down to the `specModules` static property. Add your module: `myCuteRock: MyCuteRock,`, now it is active but still not visible.
+The `byPlayer` (and optionally `toPlayer`) part of the function names are just there for ease of use; these make sure only events done **by the player** or **to the player** are listened to. Purely convenience, you can also just do `on_cast` and filter inside with `if (!this.owner.byPlayer(event)) { return; }`, but putting that everywhere gets messy quickly. Do note **only events that involve the selected player are available for performance reasons**, so if you wanted to listen to events when other players take damage you're out of luck (but the selected player taking damage is of course available at `on_toPlayer_damage`).
+
+The file you just made still doesn't do anything as it hasn't been enabled in a parser yet. I assume you're working on a spec specific statistic, let's say for Holy Paladin. Go to `Parser/HolyPaladin/CombatLogParser.js`. Import your new module next to the other imports, for example: `import StupidRock from './Modules/Items/StupidRock';`, then scroll down to the `specModules` static property. Add your module: `stupidRock: StupidRock,`, now it is active but still not visible.
 
 You can add your new statistic to the results page by adding it in the `generateResults` method of the `CombatLogParser` you just modified. If it's an item add it to the items list, just duplicate an existing item and change its values as desired. Please keep the displayed content consistent with the rest of the interface. Most statistics are single line, so that should be your goal too. And if it's a mana trinket you should show the same text as is shown for similar mana trinkets.
 
@@ -76,13 +72,4 @@ Please try to respect the eslint rules.
 
 Please never comment *what* you do, comment *why* you do it. I can read code so I know that `hasBuff` checks if someone has a buff, but if it's not obvious why that buff is relevant then include it as a comment (you're free to assume anyone reading your code knows the spec, so this example would have to be pretty weird to warrant a comment).
 
-# Consistency
-
-Many users parse logs for multiple specs, having everything consistent makes it easier to understand and compare different things between specs. Try to stay consistent with other specs and similar statistics. Please discuss if you want to show something different from what is done by default.
-
-Examples:
-* The first two statistic are always *Healing/damage done* and *Non healing/dead gcd time*.
-* If you're showing the performance of an item try to use the *X.XX % / XXk HPS* format and show detailed information in the tooltip.
-* Show DPS/HPS amounts instead of percentage of total damage/healing as much as possible. The HPS amounts often have the same results even if someone's total performance is either super high or super low, so they make comparison easier.
-* Don't show "intellect" (primary stat) amounts as if they're some sort of indication of something's performance. This is too inaccurate and vague.
-* Don't convert primary/secondary stats into DPS/HPS values. I'm open to giving this a try, but it needs to be thought through extensively and you'll need to convince it's accurate enough. The buff uptime or average stat gain is probably the most accurate information you could show. This also goes for resources such as mana.
+Please don't get angry when I reformat your code or change it to be cleaner (e.g. replace manual `byPlayer` checks with the function name shorthand). I find code consistency important. I should probably setup a good code style linter and/or fixer.

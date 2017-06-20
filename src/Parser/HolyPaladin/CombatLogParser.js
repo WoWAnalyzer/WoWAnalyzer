@@ -6,6 +6,7 @@ import SpellIcon from 'common/SpellIcon';
 import Icon from 'common/Icon';
 import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
+import ItemIcon from 'common/ItemIcon';
 
 import StatisticBox from 'Main/StatisticBox';
 import SuggestionsTab from 'Main/SuggestionsTab';
@@ -16,8 +17,13 @@ import ManaTab from 'Main/ManaTab';
 import PlayerBreakdownTab from 'Main/PlayerBreakdownTab';
 
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
+import ParseResults from 'Parser/Core/ParseResults';
 import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
+import DarkmoonDeckPromises from 'Parser/Core/Modules/Items/DarkmoonDeckPromises';
+import AmalgamsSeventhSpine from 'Parser/Core/Modules/Items/AmalgamsSeventhSpine';
+import SephuzsSecret from 'Parser/Core/Modules/Items/SephuzsSecret';
+import Prydaz from 'Parser/Core/Modules/Items/Prydaz';
 
 import PaladinAbilityTracker from './Modules/PaladinCore/PaladinAbilityTracker';
 import BeaconHealing from './Modules/PaladinCore/BeaconHealing';
@@ -28,20 +34,16 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import SacredDawn from './Modules/Features/SacredDawn';
 import TyrsDeliverance from './Modules/Features/TyrsDeliverance';
 import CooldownTracker from './Modules/Features/CooldownTracker';
-import HolyAvenger from './Modules/Features/HolyAvenger';
 
 import DrapeOfShame from './Modules/Items/DrapeOfShame';
 import Ilterendi from './Modules/Items/Ilterendi';
+import Velens from './Modules/Items/Velens';
 import ChainOfThrayn from './Modules/Items/ChainOfThrayn';
 import ObsidianStoneSpaulders from './Modules/Items/ObsidianStoneSpaulders';
 import MaraadsDyingBreath from './Modules/Items/MaraadsDyingBreath';
-import Tier19_4set from './Modules/Items/Tier19_4set';
 import Tier20_4set from './Modules/Items/Tier20_4set';
 
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
-import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
-
-import UnusedInfusionOfLightImage from './Images/ability_paladin_infusionoflight-bw.jpg';
 
 function formatThousands(number) {
   return (Math.round(number || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
@@ -75,8 +77,6 @@ function formatPercentage(percentage) {
 }
 
 class CombatLogParser extends MainCombatLogParser {
-  static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
-
   static specModules = {
     // Override the ability tracker so we also get stats for IoL and beacon healing
     abilityTracker: PaladinAbilityTracker,
@@ -91,15 +91,18 @@ class CombatLogParser extends MainCombatLogParser {
     sacredDawn: SacredDawn,
     tyrsDeliverance: TyrsDeliverance,
     cooldownTracker: CooldownTracker,
-    holyAvenger: HolyAvenger,
 
     // Items:
     drapeOfShame: DrapeOfShame,
+    prydaz: Prydaz,
+    velens: Velens,
+    sephuzsSecret: SephuzsSecret,
     ilterendi: Ilterendi,
     chainOfThrayn: ChainOfThrayn,
     obsidianStoneSpaulders: ObsidianStoneSpaulders,
     maraadsDyingBreath: MaraadsDyingBreath,
-    tier19_4set: Tier19_4set,
+    amalgamsSeventhSpine: AmalgamsSeventhSpine,
+    darkmoonDeckPromises: DarkmoonDeckPromises,
     tier20_4set: Tier20_4set,
   };
 
@@ -168,7 +171,7 @@ class CombatLogParser extends MainCombatLogParser {
   }
 
   generateResults() {
-    const results = super.generateResults();
+    const results = new ParseResults();
 
     const masteryStats = this.calculateMasteryStats();
 
@@ -221,8 +224,12 @@ class CombatLogParser extends MainCombatLogParser {
     const nonHealingTimePercentage = this.modules.alwaysBeCasting.totalHealingTimeWasted / fightDuration;
     const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
     const totalHealsOnBeaconPercentage = this.getTotalHealsOnBeaconPercentage(this);
+    const velensHealingPercentage = this.modules.velens.healing / this.totalHealing;
     const chainOfThraynHealingPercentage = this.modules.chainOfThrayn.healing / this.totalHealing;
+    const prydazHealingPercentage = this.modules.prydaz.healing / this.totalHealing;
     const obsidianStoneSpauldersHealingPercentage = this.modules.obsidianStoneSpaulders.healing / this.totalHealing;
+    const drapeOfShameHealingPercentage = this.modules.drapeOfShame.healing / this.totalHealing;
+    const maraadsDyingBreathHealingPercentage = this.modules.maraadsDyingBreath.healing / this.totalHealing;
     const ilterendiHealingPercentage = this.modules.ilterendi.healing / this.totalHealing;
     const hasSacredDawn = this.selectedCombatant.traitsBySpellId[SPELLS.SACRED_DAWN.id] === 1;
     const sacredDawnPercentage = this.modules.sacredDawn.healing / this.totalHealing;
@@ -232,9 +239,8 @@ class CombatLogParser extends MainCombatLogParser {
     const hasRuleOfLaw = this.selectedCombatant.hasTalent(SPELLS.RULE_OF_LAW_TALENT.id);
 
     const hasDivinePurpose = this.selectedCombatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id);
-    const hasSoulOfTheHighlord = this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_HIGHLORD.id);
-    const divinePurposeHolyShockProcs = (hasDivinePurpose || hasSoulOfTheHighlord) && this.selectedCombatant.getBuffTriggerCount(SPELLS.DIVINE_PURPOSE_HOLY_SHOCK_BUFF.id);
-    const divinePurposeLightOfDawnProcs = (hasDivinePurpose || hasSoulOfTheHighlord) && this.selectedCombatant.getBuffTriggerCount(SPELLS.DIVINE_PURPOSE_LIGHT_OF_DAWN_BUFF.id);
+    const divinePurposeHolyShockProcs = hasDivinePurpose && this.selectedCombatant.getBuffTriggerCount(SPELLS.DIVINE_PURPOSE_HOLY_SHOCK_BUFF.id);
+    const divinePurposeLightOfDawnProcs = hasDivinePurpose && this.selectedCombatant.getBuffTriggerCount(SPELLS.DIVINE_PURPOSE_LIGHT_OF_DAWN_BUFF.id);
 
     if (nonHealingTimePercentage > 0.3) {
       results.addIssue({
@@ -298,6 +304,13 @@ class CombatLogParser extends MainCombatLogParser {
         issue: <span>Your usage of <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} /> can be improved. Try to line <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} /> and <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> up with the buff or consider using an easier legendary ({(ilterendiHealingPercentage * 100).toFixed(2)}% healing contributed).</span>,
         icon: ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.icon,
         importance: getIssueImportance(ilterendiHealingPercentage, 0.04, 0.03),
+      });
+    }
+    if (this.modules.velens.active && velensHealingPercentage < 0.045) {
+      results.addIssue({
+        issue: <span>Your usage of <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} /> can be improved. Try to maximize the amount of casts during the buff or consider using an easier legendary ({(velensHealingPercentage * 100).toFixed(2)}% healing contributed).</span>,
+        icon: ITEMS.VELENS_FUTURE_SIGHT.icon,
+        importance: getIssueImportance(velensHealingPercentage, 0.04, 0.03),
       });
     }
     const lightOfTheMartyrs = getAbility(SPELLS.LIGHT_OF_THE_MARTYR.id).casts || 0;
@@ -386,11 +399,10 @@ class CombatLogParser extends MainCombatLogParser {
       <StatisticBox
         icon={(
           <img
-            src="/img/healing.png"
+            src="./img/healing.png"
             style={{ border: 0 }}
             alt="Healing"
-          />
-        )}
+          />)}
         value={`${formatNumber(this.totalHealing / fightDuration * 1000)} HPS`}
         label={(
           <dfn data-tip={`The total healing done recorded was ${formatThousands(this.totalHealing)}.`}>
@@ -399,18 +411,9 @@ class CombatLogParser extends MainCombatLogParser {
         )}
       />,
       <StatisticBox
-        icon={<Icon icon="petbattle_health-down" alt="Non healing time" />}
-        value={`${formatPercentage(nonHealingTimePercentage)} %`}
-        label={(
-          <dfn data-tip={`Non healing time is available casting time not used for a spell that helps you heal. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), DPSing, etc. Damaging Holy Shocks are considered non healing time, Crusader Strike is only considered non healing time if you do not have the Crusader's Might talent.<br /><br />You spent ${formatPercentage(deadTimePercentage)}% of your time casting nothing at all.`}>
-            Non healing time
-          </dfn>
-        )}
-      />,
-      <StatisticBox
         icon={(
           <img
-            src="/img/mastery-radius.png"
+            src="./img/mastery-radius.png"
             style={{ border: 0 }}
             alt="Mastery effectiveness"
           />
@@ -442,7 +445,7 @@ class CombatLogParser extends MainCombatLogParser {
         icon={(
           <SpellLink id={SPELLS.INFUSION_OF_LIGHT.id}>
             <img
-              src={UnusedInfusionOfLightImage}
+              src="./img/ability_paladin_infusionoflight-bw.jpg"
               alt="Unused Infusion of Light"
             />
           </SpellLink>
@@ -469,6 +472,15 @@ class CombatLogParser extends MainCombatLogParser {
         label={(
           <dfn data-tip={`The amount of Flash of Lights and Holy Lights cast on beacon targets. You cast ${beaconFlashOfLights} Flash of Lights and ${beaconHolyLights} Holy Lights on beacon targets.<br /><br />Your total heals on beacons was <b>${(totalHealsOnBeaconPercentage * 100).toFixed(2)}%</b> (this includes spell other than FoL and HL).`}>
             FoL/HL cast on beacon
+          </dfn>
+        )}
+      />,
+      <StatisticBox
+        icon={<Icon icon="petbattle_health-down" alt="Non healing time" />}
+        value={`${formatPercentage(nonHealingTimePercentage)} %`}
+        label={(
+          <dfn data-tip={`Non healing time is available casting time not used for a spell that helps you heal. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), DPSing, etc. Damaging Holy Shocks are considered non healing time, Crusader Strike is only considered non healing time if you do not have the Crusader's Might talent.<br /><br />You spent ${formatPercentage(deadTimePercentage)}% of your time casting nothing at all.`}>
+            Non healing time
           </dfn>
         )}
       />,
@@ -514,32 +526,11 @@ class CombatLogParser extends MainCombatLogParser {
                   marginTop: '-.1em',
                 }}
               />
-            </span>
+                      </span>
           )}
           label={(
             <dfn data-tip={`Your Divine Purpose proc rate for Holy Shock was ${formatPercentage(divinePurposeHolyShockProcs / (holyShockHeals - divinePurposeHolyShockProcs))}%.<br />Your Divine Purpose proc rate for Light of Dawn was ${formatPercentage(divinePurposeLightOfDawnProcs / (lightOfDawnHeals - divinePurposeLightOfDawnProcs))}%`}>
               Divine Purpose procs
-            </dfn>
-          )}
-        />
-      ),
-      this.modules.holyAvenger.active && (
-        <StatisticBox
-          icon={<SpellIcon id={SPELLS.HOLY_AVENGER_TALENT.id} />}
-          value={`${formatNumber((this.modules.holyAvenger.regularHealing + this.modules.holyAvenger.holyShockHealing) / fightDuration * 1000)} HPS`}
-          label={(
-            <dfn
-              data-tip={`
-                Calculating Holy Avenger healing contribution is hard.<br /><br />
-
-                What this does is add 30% of all effective healing and 30% of Holy Shock effective healing for the total healing contributed by Holy Avenger. There is no checking for GCDs missed or whatever since the assumption is that you still cast 30% more spells than you normally would, and normally you'd also have missed GCDs.<br /><br />
-
-                This healing gain from the Haste is kinda undervalued since Haste gains are calculated in-game with <code>CurrentHaste * (1 + HasteBonus) + HasteBonus</code>. Here all I include is the absolute Haste bonus, not the relative bonus since it's hard to calculate.<br /><br />
-
-                This statistic can see high numbers if Holy Avenger is paired with Avenging Wrath and/or AoS Aura Masatery. **This is perfectly right.** Those spells increase the ST/cleave healing you do and work nicely with a Haste increaser that increases the amount of heals you can do in that short period of time. But stacking HA with AW/AM may still not be best when you look at the overall fight, as spread out cooldowns often still provide more effective healing.
-              `}
-            >
-              Estimated healing
             </dfn>
           )}
         />
@@ -561,10 +552,56 @@ class CombatLogParser extends MainCombatLogParser {
     ];
 
     results.items = [
-      ...results.items,
-      // Sort by quality > slot > tier
+      this.modules.ilterendi.active && {
+        id: ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id,
+        icon: <ItemIcon id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} />,
+        title: <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} />,
+        result: (
+          <dfn data-tip="The actual effective healing contributed by the Ilterendi, Crown Jewel of Silvermoon equip effect.">
+            {((ilterendiHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.ilterendi.healing / fightDuration * 1000)} HPS
+          </dfn>
+        ),
+      },
+      this.modules.velens.active && {
+        id: ITEMS.VELENS_FUTURE_SIGHT.id,
+        icon: <ItemIcon id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
+        title: <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
+        result: (
+          <dfn data-tip="The actual effective healing contributed by the Velen's Future Sight use effect.">
+            {((velensHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.velens.healing / fightDuration * 1000)} HPS
+          </dfn>
+        ),
+      },
+      this.modules.sephuzsSecret.active && {
+        id: ITEMS.SEPHUZS_SECRET.id,
+        icon: <ItemIcon id={ITEMS.SEPHUZS_SECRET.id} />,
+        title: <ItemLink id={ITEMS.SEPHUZS_SECRET.id} />,
+        result: `${((this.modules.sephuzsSecret.uptime / fightDuration * 100) || 0).toFixed(2)} % uptime`,
+      },
+      this.modules.chainOfThrayn.active && {
+        id: ITEMS.CHAIN_OF_THRAYN.id,
+        icon: <ItemIcon id={ITEMS.CHAIN_OF_THRAYN.id} />,
+        title: <ItemLink id={ITEMS.CHAIN_OF_THRAYN.id} />,
+        result: (
+          <dfn data-tip="The actual effective healing contributed by the Chain of Thrayn equip effect.">
+            {((chainOfThraynHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.chainOfThrayn.healing / fightDuration * 1000)} HPS
+          </dfn>
+        ),
+      },
+      this.modules.prydaz.active && {
+        id: ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id,
+        icon: <ItemIcon id={ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id} />,
+        title: <ItemLink id={ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id} />,
+        result: (
+          <dfn data-tip="The actual effective healing contributed by the Prydaz, Xavaric's Magnum Opus equip effect.">
+            {((prydazHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.prydaz.healing / fightDuration * 1000)} HPS
+          </dfn>
+        ),
+      },
       this.modules.obsidianStoneSpaulders.active && {
-        item: ITEMS.OBSIDIAN_STONE_SPAULDERS,
+        id: ITEMS.OBSIDIAN_STONE_SPAULDERS.id,
+        icon: <ItemIcon id={ITEMS.OBSIDIAN_STONE_SPAULDERS.id} />,
+        title: <ItemLink id={ITEMS.OBSIDIAN_STONE_SPAULDERS.id} />,
         result: (
           <dfn data-tip="The actual effective healing contributed by the Obsidian Stone Spaulders equip effect.">
             {((obsidianStoneSpauldersHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.obsidianStoneSpaulders.healing / fightDuration * 1000)} HPS
@@ -572,60 +609,53 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       },
       this.modules.maraadsDyingBreath.active && {
-        item: ITEMS.MARAADS_DYING_BREATH,
+        id: ITEMS.MARAADS_DYING_BREATH.id,
+        icon: <ItemIcon id={ITEMS.MARAADS_DYING_BREATH.id} />,
+        title: <ItemLink id={ITEMS.MARAADS_DYING_BREATH.id} />,
         result: (
-          <span>
-            <dfn
-              data-tip={`
-                This is the estimated effective healing by Maraad's. This is adjusted for an estimated opportunity cost of casting a Flash of Light. The mana saved from casting a Light of the Martyr instead of a Flash of Light is also included by valuing it as 50% of the base healing of a LotM.<br /><br />
-
-                The effective healing done from Maraad's when adjusted for the opportunity cost of casting a regular (filler) Light of the Martyr was ${((this.modules.maraadsDyingBreath.healingGainOverLotm / this.totalHealing * 100) || 0).toFixed(2)} % / ${formatNumber(this.modules.maraadsDyingBreath.healingGainOverLotm / fightDuration * 1000)} HPS.
-              `}
-            >
-              ~{((this.modules.maraadsDyingBreath.healingGainOverFol / this.totalHealing * 100) || 0).toFixed(2)} % / ~{formatNumber(this.modules.maraadsDyingBreath.healingGainOverFol / fightDuration * 1000)} HPS
-            </dfn>
-            {' '}
-            (total: <dfn data-tip="This is the total healing done with Light of the Martyr during the buff from Maraad's. No opportunity cost was accounted for. The healing was adjusted for the damage taken.">
-              {((this.modules.maraadsDyingBreath.totalHealing / this.totalHealing * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.maraadsDyingBreath.totalHealing / fightDuration * 1000)} HPS
-            </dfn>)
-          </span>
-        ),
-      },
-      this.modules.chainOfThrayn.active && {
-        item: ITEMS.CHAIN_OF_THRAYN,
-        result: (
-          <dfn data-tip="The actual effective healing contributed by the Chain of Thrayn equip effect.">
-            {((chainOfThraynHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.chainOfThrayn.healing / fightDuration * 1000)} HPS
+          <dfn data-tip="The actual effective healing contributed by the Maraad's Dying Breath equip effect when compared to casting an unbuffed LotM instead. The damage taken is ignored as this doesn't change with Maraad's and therefore doesn't impact the healing gain.">
+            {((maraadsDyingBreathHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.maraadsDyingBreath.healing / fightDuration * 1000)} HPS
           </dfn>
         ),
       },
-      this.modules.ilterendi.active && {
-        item: ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON,
+      this.modules.drapeOfShame.active && {
+        id: ITEMS.DRAPE_OF_SHAME.id,
+        icon: <ItemIcon id={ITEMS.DRAPE_OF_SHAME.id} />,
+        title: <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} />,
         result: (
-          <dfn data-tip="The actual effective healing contributed by the Ilterendi, Crown Jewel of Silvermoon equip effect.">
-            {((ilterendiHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.ilterendi.healing / fightDuration * 1000)} HPS
+          <dfn data-tip="The actual effective healing contributed by the Drape of Shame equip effect.">
+            {((drapeOfShameHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.drapeOfShame.healing / fightDuration * 1000)} HPS
           </dfn>
         ),
       },
-      hasSoulOfTheHighlord && {
-        item: ITEMS.SOUL_OF_THE_HIGHLORD,
+      this.modules.amalgamsSeventhSpine.active && {
+        id: ITEMS.AMALGAMS_SEVENTH_SPINE.id,
+        icon: <ItemIcon id={ITEMS.AMALGAMS_SEVENTH_SPINE.id} />,
+        title: <ItemLink id={ITEMS.AMALGAMS_SEVENTH_SPINE.id} />,
         result: (
-          <span>
-            Procs:{' '}
-            {divinePurposeHolyShockProcs} <SpellIcon id={SPELLS.HOLY_SHOCK_CAST.id} style={{ height: '1em' }} /> <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} />
-            {' '}/{' '}
-            {divinePurposeLightOfDawnProcs} <SpellIcon id={SPELLS.LIGHT_OF_DAWN_CAST.id} style={{ height: '1em' }} /> <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} />
-          </span>
+          <dfn data-tip={`The exact amount of mana gained from the Amalgam's Seventh Spine equip effect. You let the buff expire successfully ${this.modules.amalgamsSeventhSpine.procs} times. You refreshed the buff ${this.modules.amalgamsSeventhSpine.refreshes} times (refreshing delays the buff expiration and is inefficient use of this trinket).`}>
+            {formatThousands(this.modules.amalgamsSeventhSpine.manaGained)} mana gained ({formatThousands(this.modules.amalgamsSeventhSpine.manaGained / this.fightDuration * 1000 * 5)} MP5)
+          </dfn>
         ),
       },
-      this.modules.tier19_4set.active && {
+      this.modules.darkmoonDeckPromises.active && {
+        id: ITEMS.DARKMOON_DECK_PROMISES.id,
+        icon: <ItemIcon id={ITEMS.DARKMOON_DECK_PROMISES.id} />,
+        title: <ItemLink id={ITEMS.DARKMOON_DECK_PROMISES.id} />,
+        result: (
+          <dfn data-tip={`The exact amount of mana saved by the Darkmoon Deck: Promises equip effect. This takes the different values per card into account at the time of the cast. Mana values assume you have a 875 item level version.`}>
+            {formatThousands(this.modules.darkmoonDeckPromises.manaGained)} mana saved ({formatThousands(this.modules.darkmoonDeckPromises.manaGained / this.fightDuration * 1000 * 5)} MP5)
+          </dfn>
+        ),
+      },
+      has4PT19 && {
         id: `spell-${SPELLS.HOLY_PALADIN_T19_4SET_BONUS_BUFF.id}`,
         icon: <SpellIcon id={SPELLS.HOLY_PALADIN_T19_4SET_BONUS_BUFF.id} />,
         title: <SpellLink id={SPELLS.HOLY_PALADIN_T19_4SET_BONUS_BUFF.id} />,
         result: (
-          <dfn data-tip={`The actual effective healing contributed by the tier 19 4 set bonus. <b>This does not include any healing "gained" from the Holy Light cast time reduction.</b> You used a total of ${this.modules.tier19_4set.totalIolProcsUsed} Infusion of Light procs, ${this.modules.tier19_4set.bonusIolProcsUsed} of those were from procs from the 4 set bonus and ${this.modules.tier19_4set.bonusIolProcsUsedOnFol} of those bonus procs were used on Flash of Light.`}>
-            {((this.modules.tier19_4set.healing / this.totalHealing * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.tier19_4set.healing / fightDuration * 1000)} HPS
-          </dfn>
+          <span>
+            {holyShockCrits * (iolProcsPerHolyShockCrit - 1)} bonus Infusion of Light charges gained
+          </span>
         ),
       },
       this.modules.tier20_4set.active && {
@@ -633,7 +663,7 @@ class CombatLogParser extends MainCombatLogParser {
         icon: <SpellIcon id={SPELLS.HOLY_PALADIN_T20_4SET_BONUS_BUFF.id} />,
         title: <SpellLink id={SPELLS.HOLY_PALADIN_T20_4SET_BONUS_BUFF.id} />,
         result: (
-          <dfn data-tip={`The actual effective healing contributed by the tier 20 4 set bonus. A total of ${formatNumber(this.modules.tier20_4set.totalBeaconHealingDuringLightsEmbrace)} <span style="color:orange">raw</span> healing was done on beacons during the Light's Embrace buff.`}>
+          <dfn data-tip={`The actual effective healing contributed by the Drape of Shame equip effect. A total of ${formatNumber(this.modules.tier20_4set.totalBeaconHealingDuringLightsEmbrace)} <span style="color:orange">raw</span> healing was done on beacons during the Light's Embrace buff.`}>
             {((this.modules.tier20_4set.healing / this.totalHealing * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.tier20_4set.healing / fightDuration * 1000)} HPS
           </dfn>
         ),
@@ -665,7 +695,7 @@ class CombatLogParser extends MainCombatLogParser {
           <CooldownsTab
             fightStart={this.fight.start_time}
             fightEnd={this.fight.end_time}
-            cooldowns={this.modules.cooldownTracker.pastCooldowns}
+            cooldowns={this.modules.cooldownTracker.cooldowns}
             showOutputStatistics
             showResourceStatistics
           />

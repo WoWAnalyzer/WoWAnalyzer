@@ -79,7 +79,8 @@ class RenewingMist extends Module {
       this.dancingMistTarget.forEach(targetID => {
         if(event.targetID === targetID) {
           debug && console.log('Dancing Mist Heal on: ' + targetID);
-          this.dancingMistHeal += (event.amount || 0 ) + (event.absorbed || 0);
+          this.dancingMistHeal += event.amount;
+          this.dancingMistHeal += event.absorbed || 0;
         }
       });
 

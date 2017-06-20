@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './StatisticBox.css';
-
-const StatisticBox = ({ icon, value, label, ...others }) => (
-  <div className="panel statistic-box" {...others}>
+const StatisticBox = ({ icon, value, label }) => (
+  <div className="panel statistic-box">
     <div className="panel-body">
       <div className="row">
         <div className="col-xs-3">

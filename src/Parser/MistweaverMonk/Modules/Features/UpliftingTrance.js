@@ -42,6 +42,11 @@ class UpliftingTrance extends Module {
     if (SPELLS.VIVIFY.id !== spellId) {
       return;
     }
+
+
+
+    // Check to see if Viv cast was done with TFT buffed
+
     // Checking to see if non-UT'ed Viv is casted
     if(this.lastUTProcTime !== event.timestamp) {
       if(this.lastUTProcTime === null/* && !this.owner.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id)*/) {

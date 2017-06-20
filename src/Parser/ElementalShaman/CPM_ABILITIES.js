@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
 
 export const SPELL_CATEGORY = {
   ROTATIONAL: 'Spell',
@@ -61,18 +60,6 @@ const CPM_ABILITIES = [
     category: SPELL_CATEGORY.COOLDOWNS,
     getCooldown: haste => 60 * 5, // TODO: Add Elementalist -> Lava Burst cast ^= -2 sec cd
     recommendedCastEfficiency: 1.0,
-  },
-  {
-    spell: SPELLS.VELENS_FUTURE_SIGHT,
-    category: SPELL_CATEGORY.COOLDOWNS,
-    getCooldown: haste => 75,
-    isActive: combatant => combatant.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT.id),
-  },
-  {
-    spell: SPELLS.GNAWED_THUMB_RING,
-    category: SPELL_CATEGORY.COOLDOWNS,
-    getCooldown: haste => 180,
-    isActive: combatant => combatant.hasFinger(ITEMS.GNAWED_THUMB_RING.id),
   },
   {
     spell: SPELLS.FLAME_SHOCK,

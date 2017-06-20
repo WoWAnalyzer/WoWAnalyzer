@@ -1,11 +1,19 @@
+import React from 'react';
+
 import SPECS from 'common/SPECS';
 
+import PatreonLink from 'Main/PatreonLink';
+
 import CombatLogParser from './CombatLogParser';
-import TALENT_DESCRIPTIONS from './TALENT_DESCRIPTIONS';
 
 export default {
   spec: SPECS.HOLY_PALADIN,
-  maintainer: '@Zerotorescue',
   parser: CombatLogParser,
-  talentDescriptions: TALENT_DESCRIPTIONS,
+  maintainer: '@Zerotorescue',
+  footer: (
+    <div>
+      Please consider donating to help out further development.<br />
+      <PatreonLink />
+    </div>
+  ),
 };

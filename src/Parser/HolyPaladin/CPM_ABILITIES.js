@@ -101,12 +101,6 @@ const CPM_ABILITIES = [
     isActive: combatant => combatant.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT.id),
   },
   {
-    spell: SPELLS.GNAWED_THUMB_RING,
-    category: SPELL_CATEGORY.COOLDOWNS,
-    getCooldown: haste => 180,
-    isActive: combatant => combatant.hasFinger(ITEMS.GNAWED_THUMB_RING.id),
-  },
-  {
     spell: SPELLS.HOLY_AVENGER_TALENT,
     category: SPELL_CATEGORY.COOLDOWNS,
     getCooldown: haste => 90,

@@ -2,7 +2,6 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 
 import Module from 'Parser/Core/Module';
-import isAtonement from './../Core/isAtonement';
 
 const debug = true;
 
@@ -11,25 +10,26 @@ class NeroBandOfPromises extends Module {
 
   on_initialized() {
     if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasFinger(ITEMS.NERO_BAND_OF_PROMISES.id);
+      this.active = this.owner.selectedCombatant.hasRing(ITEMS.NERO_BAND_OF_PROMISES.id);
     }
   }
 
   on_byPlayer_heal(event) {
-    if (isAtonement(event)) {
-      // N'ero appears in the log as regular Atonement healing
+    const spellId = event.ability.guid;
+
+    if (spellId === SPELLS.ATONEMENT_HEAL_NON_CRIT.id || spellId === SPELLS.ATONEMENT_HEAL_CRIT.id) {
       const combatant = this.owner.combatants.players[event.targetID];
       if (!combatant) {
-        // If combatant doesn't exist it's probably a pet, this shouldn't be noteworthy.
+        // If combatant doesn't exist it's probably a pet.
         debug && console.log('Skipping Atonement heal event since combatant couldn\'t be found:', event);
         return;
       }
-      if (combatant.hasBuff(SPELLS.ATONEMENT_BUFF.id, event.timestamp)) {
-        // If someone already has the Atonement buff then N'ero will not cause Penance to heal that person twice (N'ero does NOT stack with pre-existing Atonement)
+      if (!combatant.hasBuff(SPELLS.POWER_WORD_BARRIER_BUFF.id, event.timestamp)) {
+        // N'ero is only active when people are in the bubble
         return;
       }
-      if (this.owner.modules.atonementSource.atonementDamageSource.ability.guid !== SPELLS.PENANCE.id) {
-        // N'ero only procs from Penance
+      if (combatant.hasBuff(SPELLS.ATONEMENT_BUFF.id, event.timestamp)) {
+        // N'ero does NOT stack with pre-existing Atonement
         return;
       }
 

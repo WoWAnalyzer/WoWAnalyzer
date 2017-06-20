@@ -2,17 +2,14 @@
   "name": "wowanalyzer-server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
-    "start": "node ./index.js",
+    "start": "node ./main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "agentkeepalive": "^3.2.0",
-    "compression": "^1.6.2",
-    "express": "^4.15.3",
-    "node-cache": "^4.1.1"
+    "express": "^4.15.3"
   }
 }

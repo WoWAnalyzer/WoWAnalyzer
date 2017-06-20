@@ -1,4 +1,4 @@
-# WoW Analyzer [![Build Status](https://travis-ci.org/MartijnHols/WoWAnalyzer.svg?branch=master)](https://travis-ci.org/MartijnHols/WoWAnalyzer)
+# WoW Analyzer
 
 Use this tool to analyze your performance based on important metrics for your spec using a Warcraft Logs report.
 
