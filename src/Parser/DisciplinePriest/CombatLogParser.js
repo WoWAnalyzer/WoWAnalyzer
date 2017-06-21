@@ -291,7 +291,9 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       },
       this.modules.marchOfTheLegion.active && {
-        item: `spell-${SPELLS.MARCH_OF_THE_LEGION.id}`,
+        id: `spell-${SPELLS.MARCH_OF_THE_LEGION.id}`,
+        icon: <SpellIcon id={SPELLS.MARCH_OF_THE_LEGION.id} />,
+        title: <SpellLink id={SPELLS.MARCH_OF_THE_LEGION.id} />,
         result: (
           <span>
             { ((marchHealingPercentage * 100) || 0).toFixed(2) } % / { formatNumber(this.modules.marchOfTheLegion.healing / fightDuration * 1000) } HPS
