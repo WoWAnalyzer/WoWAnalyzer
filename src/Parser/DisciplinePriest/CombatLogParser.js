@@ -291,7 +291,7 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       },
       this.modules.marchOfTheLegion.active && {
-        item: SPELLS.MARCH_OF_THE_LEGION,
+        item: ITEMS.CHAIN_OF_SCORCHED_BONES,
         result: (
           <span>
             { ((marchHealingPercentage * 100) || 0).toFixed(2) } % / { formatNumber(this.modules.marchOfTheLegion.healing / fightDuration * 1000) } HPS
