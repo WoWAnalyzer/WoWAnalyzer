@@ -108,6 +108,10 @@ class CombatLogParser extends MainCombatLogParser {
   generateResults() {
     const results = super.generateResults();
     const formatThroughput = healingDone => `${formatPercentage(healingDone/this.totalHealing)} %`;
+    const abilityTracker = this.modules.abilityTracker;
+    const getAbility = spellId => abilityTracker.getAbility(spellId);
+    const rejuvenations = getAbility(SPELLS.REJUVENATION.id).casts || 0;
+    const wildGrowths = getAbility(SPELLS.WILD_GROWTH.id).casts || 0;
 
     // Tree of Life
     const hasFlourish = this.selectedCombatant.lv100Talent === SPELLS.FLOURISH_TALENT.id;
@@ -132,14 +136,14 @@ class CombatLogParser extends MainCombatLogParser {
     if(this.selectedCombatant.hasHead(ITEMS.CHAMELEON_SONG.id)) {
       treeOfLifeUptime -= treeOfLifeUptimeHelmet;
     }
+    const treeOfLifeProccHelmet = formatPercentage(this.modules.treeOfLife.proccs/wildGrowths);
+
     const hasSoulOfTheForest = this.selectedCombatant.lv75Talent === SPELLS.SOUL_OF_THE_FOREST_TALENT.id;
     const soulOfTheForestHealing = this.modules.soulOfTheForest.wildGrowthHealing + this.modules.soulOfTheForest.rejuvenationHealing + this.modules.soulOfTheForest.regrowthHealing;
 
     const has4PT20 = this.selectedCombatant.hasBuff(SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id);
     const has2PT20 = this.selectedCombatant.hasBuff(SPELLS.RESTO_DRUID_T20_4SET_BONUS_BUFF.id);
 
-    const abilityTracker = this.modules.abilityTracker;
-    const getAbility = spellId => abilityTracker.getAbility(spellId);
     const fightDuration = this.fightDuration;
     const nonHealingTimePercentage = this.modules.alwaysBeCasting.totalHealingTimeWasted / fightDuration;
     const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
@@ -245,8 +249,6 @@ class CombatLogParser extends MainCombatLogParser {
         importance: getIssueImportance(healingTouchesPerMinute, 0.5, 1, true),
       });
     }
-    const rejuvenations = getAbility(SPELLS.REJUVENATION.id).casts || 0;
-    const wildGrowths = getAbility(SPELLS.WILD_GROWTH.id).casts || 0;
     const wgsPerRejuv = wildGrowths / rejuvenations;
     if (wgsPerRejuv < 0.20) {
       results.addIssue({
@@ -587,6 +589,7 @@ class CombatLogParser extends MainCombatLogParser {
                 <li>${(wildGrowthIncreasedEffectHelmet*100).toFixed(2)}% from increased wildgrowth effect</li>
                 <li>${(tolIncreasedHealingDoneHelmet*100).toFixed(2)}% from overall increased healing effect</li>
                 <li>${(treeOfLifeUptimeHelmet*100).toFixed(2)}% uptime</li>
+                <li>${treeOfLifeProccHelmet}% procc rate </li>
               </ul>
             `}
           >

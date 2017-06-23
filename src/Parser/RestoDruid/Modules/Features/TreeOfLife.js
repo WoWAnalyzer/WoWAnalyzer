@@ -34,6 +34,7 @@ class TreeOfLife extends Module {
   totalHealingFromWildgrowthsDuringToLHelmet = 0;
   throughputHelmet = 0;
   adjustHelmetUptime = 0;
+  proccs = 0;
 
   on_initialized() {
     this.hasGermination = this.owner.selectedCombatant.lv90Talent === SPELLS.GERMINATION_TALENT.id;
@@ -98,6 +99,14 @@ class TreeOfLife extends Module {
     if(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id === spellId && (this.tolManualApplyTimestamp === null || (this.tolManualApplyTimestamp + TREE_OF_LIFE_COOLDOWN) < event.timestamp)) {
       this.tolManualApplyTimestamp = event.timestamp;
       this.tolCasts++;
+      this.proccs--;
+    }
+  }
+
+  on_byPlayer_applybuff(event) {
+    const spellId = event.ability.guid;
+    if(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id === spellId) {
+      this.proccs++;
     }
   }
 
