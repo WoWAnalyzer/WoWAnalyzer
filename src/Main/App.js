@@ -11,7 +11,7 @@ import './App.css';
 
 import DIFFICULTIES from './DIFFICULTIES';
 
-import ReportSelecter from './ReportSelecter';
+import Home from './Home';
 import FightSelecter from './FightSelecter';
 import PlayerSelecter from './PlayerSelecter';
 import Results from './Results';
@@ -20,6 +20,7 @@ import makeAnalyzerUrl from './makeAnalyzerUrl';
 import getWipeCount from './getWipeCount';
 
 import GithubLogo from './Images/GitHub-Mark-Light-32px.png';
+import ReportSelecter from "./ReportSelecter";
 
 const formatDuration = (duration) => {
   const seconds = Math.floor(duration % 60);
@@ -331,14 +332,10 @@ class App extends Component {
     const progress = Math.floor(this.state.progress * 100);
 
     return (
-      <div>
+      <div className={`app ${this.reportCode ? 'has-report' : ''}`}>
         <nav className="navbar navbar-default">
           <div className="navbar-progress" style={{ width: `${progress}%`, opacity: progress === 0 || progress === 100 ? 0 : 1 }} />
           <div className="container">
-            <ul className="nav navbar-nav navbar-right">
-              <li><a href={githubUrl}><span className="hidden-xs"> View on GitHub </span><img src={GithubLogo} alt="GitHub logo" /></a></li>
-            </ul>
-
             <div className="navbar-header">
               <ol className="breadcrumb">
                 <li className="breadcrumb-item"><Link to={makeAnalyzerUrl()}>{toolName}</Link></li>
@@ -347,12 +344,24 @@ class App extends Component {
                 {this.playerName && <li className="breadcrumb-item"><Link to={makeAnalyzerUrl(this.reportCode, this.fightId, this.playerName)}>{this.playerName}</Link></li>}
               </ol>
             </div>
+
+            <ul className="nav navbar-nav navbar-right github-link">
+              <li><a href={githubUrl}><span className="hidden-xs"> View on GitHub </span><img src={GithubLogo} alt="GitHub logo" /></a></li>
+            </ul>
           </div>
         </nav>
+        <header>
+          <div className="container hidden-md hidden-sm hidden-xs">
+            Analyze your performance
+          </div>
+          {!this.reportCode && (
+            <ReportSelecter onSubmit={this.handleReportSelecterSubmit} />
+          )}
+        </header>
         <div className="container">
           {(() => {
             if (!this.reportCode) {
-              return <ReportSelecter onSubmit={this.handleReportSelecterSubmit} />;
+              return <Home />;
             }
             if (!report) {
               return (

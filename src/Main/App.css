@@ -46,6 +46,64 @@ h1 {
   font-size: 24px;
 }
 
+.app > header {
+  background-image: url(./Images/header.jpg);
+  background-size: cover;
+  background-position: center center;
+  margin-top: -90px;
+  height: 510px;
+  box-shadow: 0 9px 17px rgba(0, 0, 0, 0.6);
+  position: relative;
+  margin-bottom: 30px;
+  transition: all 600ms;
+}
+.app.has-report > header {
+  margin-top: -600px;
+  margin-bottom: 90px;
+}
+.app > .navbar .github-link {
+  opacity: 0;
+  transition: opacity 600ms;
+}
+.app.has-report > .navbar .github-link {
+  opacity: 1;
+}
+.app > header > .container {
+  position: absolute;
+  bottom: 62px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 3em;
+}
+.report-selector {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  line-height: 62px;
+  font-size: 18px;
+  background: rgba(1, 12, 19, 0.5);
+  box-shadow: 2px 0 3px rgba(0,0,0,.5);
+  border-top: 1px solid rgba(0, 0, 0, 0.4);
+}
+.report-selector .btn {
+  margin-left: 1rem;
+  margin-right: 1rem;
+  margin-top: 0;
+  font-size: 0.9em;
+  padding: .5rem 1.4rem;
+  height: 38px;
+  line-height: 1.6;
+}
+@media (min-width: 0px) {
+  .form-inline .form-control {
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+  }
+}
+
 /* Components */
 
 .circular-progress-bar {
@@ -73,8 +131,8 @@ h1 {
   border-radius: 5px;
   border: none;
   margin-bottom: 20px;
-  background: rgba(0, 0, 0, 0.3);
-  box-shadow: 0 5px 5px 0 rgba(0,0,0,.15);
+  background: rgba(1, 12, 19, 0.5);
+  box-shadow: 0 5px 5px 0 rgba(0,0,0,.2);
 }
 .panel-heading {
   border-bottom: 1px solid rgba(0, 0, 0, .4);
@@ -152,7 +210,7 @@ h1 {
   background: rgba(15, 28, 35, 0.85);
   border: 0;
   box-shadow: 2px 0 3px rgba(0,0,0,.5);
-  margin-bottom: 1.75em;
+  margin-bottom: 24px;
 }
 .navbar-default .navbar-header a {
   color: #fff;
