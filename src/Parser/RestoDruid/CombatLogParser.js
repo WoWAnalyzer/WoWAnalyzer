@@ -38,6 +38,7 @@ import Innervate from './Modules/Features/Innervate';
 import PowerOfTheArchdruid from './Modules/Features/PowerOfTheArchdruid';
 import Dreamwalker from './Modules/Features/Dreamwalker';
 import SoulOfTheForest from './Modules/Features/SoulOfTheForest';
+import EssenceOfGhanir from './Modules/Features/EssenceOfGhanir';
 
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
@@ -86,6 +87,7 @@ class CombatLogParser extends MainCombatLogParser {
     powerOfTheArchdruid: PowerOfTheArchdruid,
     dreamwalker: Dreamwalker,
     soulOfTheForest: SoulOfTheForest,
+    essenceOfGhanir: EssenceOfGhanir,
 
     // Legendaries:
     ekowraith: Ekowraith,
@@ -105,6 +107,7 @@ class CombatLogParser extends MainCombatLogParser {
 
   generateResults() {
     const results = super.generateResults();
+    const formatThroughput = healingDone => `${formatPercentage(healingDone/this.totalHealing)} %`;
 
     // Tree of Life
     const hasFlourish = this.selectedCombatant.lv100Talent === SPELLS.FLOURISH_TALENT.id;
@@ -315,15 +318,55 @@ class CombatLogParser extends MainCombatLogParser {
         value={`${formatPercentage(efflorescenceUptime)} %`}
         label='Efflorescence uptime'
       />,
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.ESSENCE_OF_GHANIR.id} />}
+        value={`${formatThroughput(this.modules.essenceOfGhanir.healingIncreaseHealing)}`}
+        label={(
+          <dfn data-tip={
+            `<ul>
+              ${this.modules.essenceOfGhanir.wildGrowth > 0 ?
+              `<li>${formatThroughput(this.modules.essenceOfGhanir.wildGrowth)} from <a href="http://www.wowhead.com/spell=182874" target="_blank" rel="noopener noreferrer">wild growth</a></li>`
+              : ""
+              }
+              ${this.modules.essenceOfGhanir.rejuvenation > 0 ?
+              `<li>${formatThroughput(this.modules.essenceOfGhanir.rejuvenation)} from <a href="http://www.wowhead.com/spell=774" target="_blank" rel="noopener noreferrer">rejuvenation</a></li>`
+              : ""
+              }
+              ${this.modules.essenceOfGhanir.cenarionWard> 0 ?
+              `<li>${formatThroughput(this.modules.essenceOfGhanir.cenarionWard)} from <a href="http://www.wowhead.com/spell=102351" target="_blank" rel="noopener noreferrer">cenarion ward</a></li>`
+              : ""
+              }
+              ${this.modules.essenceOfGhanir.regrowth > 0 ?
+              `<li>${formatThroughput(this.modules.essenceOfGhanir.regrowth)} from <a href="http://www.wowhead.com/spell=8936" target="_blank" rel="noopener noreferrer">regrowth</a></li>`
+              : ""
+              }
+              ${this.modules.essenceOfGhanir.lifebloom > 0 ?
+              `<li>${formatThroughput(this.modules.essenceOfGhanir.lifebloom)} from <a href="http://www.wowhead.com/spell=33763" target="_blank" rel="noopener noreferrer">lifebloom</a></li>`
+              : ""
+              }
+              ${this.modules.essenceOfGhanir.springBlossoms > 0 ?
+              `<li>${formatThroughput(this.modules.essenceOfGhanir.springBlossoms)} from <a href="http://www.wowhead.com/spell=207386" target="_blank" rel="noopener noreferrer">spring blossom</a></li>`
+              : ""
+              }
+              ${this.modules.essenceOfGhanir.cultivation > 0 ?
+              `<li>${formatThroughput(this.modules.essenceOfGhanir.cultivation)} from <a href="http://www.wowhead.com/spell=200389" target="_blank" rel="noopener noreferrer">cultivation</a></li>`
+              : ""
+              }
+              </ul>`
+          }>
+            Essence of G'hanir
+          </dfn>
+        )}
+      />,
       this.modules.dreamwalker.hasTrait && (
-      <StatisticBox icon={<SpellIcon id={SPELLS.DREAMWALKER.id}/>}
-        value={`${formatPercentage(this.modules.dreamwalker.healing / this.totalHealing)}%`}
-                    label={(
-                      <dfn data-tip={`The total healing done by Dreamwalker recorded was ${formatThousands(this.modules.dreamwalker.healing)} / ${formatPercentage(this.modules.dreamwalker.healing / this.totalHealing)} % / ${formatNumber(this.modules.dreamwalker.healing / fightDuration * 1000)} HPS. `}>
-                        Dreamwalker
-                      </dfn>
-                    )}
-      />),
+        <StatisticBox icon={<SpellIcon id={SPELLS.DREAMWALKER.id}/>}
+          value={`${formatPercentage(this.modules.dreamwalker.healing / this.totalHealing)}%`}
+          label={(
+            <dfn data-tip={`The total healing done by Dreamwalker recorded was ${formatThousands(this.modules.dreamwalker.healing)} / ${formatPercentage(this.modules.dreamwalker.healing / this.totalHealing)} % / ${formatNumber(this.modules.dreamwalker.healing / fightDuration * 1000)} HPS. `}>
+              Dreamwalker
+            </dfn>
+          )}
+        />),
       this.modules.powerOfTheArchdruid.hasTrait && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.POWER_OF_THE_ARCHDRUID.id} />}
@@ -365,8 +408,7 @@ class CombatLogParser extends MainCombatLogParser {
                 `<li>${this.modules.flourish.cultivation} <a href="http://www.wowhead.com/spell=200389" target="_blank" rel="noopener noreferrer">cultivations</a></li>`
                 : ""
                 }
-                          </ul>
-                          `
+              </ul>`
             }>
               Average seconds extended by flourish
             </dfn>
