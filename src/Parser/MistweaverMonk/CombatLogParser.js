@@ -566,9 +566,9 @@ class CombatLogParser extends MainCombatLogParser {
       this.modules.eithas.active && {
         item: ITEMS.EITHAS_LUNAR_GLIDES,
         result: (
-          <dfn data-tip="The actual effective healing contributed by the Ei\'thas, Lunar Glides of Eramas equip effect.">
+          <span>
             {((eithasHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.eithas.healing / fightDuration * 1000)} HPS
-          </dfn>
+          </span>
         ),
       },
     ];

@@ -485,11 +485,7 @@ class CombatLogParser extends MainCombatLogParser {
         <StatisticBox
           icon={<SpellIcon id={SPELLS.SACRED_DAWN.id} />}
           value={`${formatPercentage(sacredDawnPercentage)} %`}
-          label={(
-            <dfn data-tip={`The actual effective healing contributed by the Sacred Dawn effect.`}>
-              Sacred Dawn contribution
-            </dfn>
-          )}
+          label="Sacred Dawn contribution"
         />
       ),
       hasDivinePurpose && (
@@ -566,9 +562,9 @@ class CombatLogParser extends MainCombatLogParser {
       this.modules.obsidianStoneSpaulders.active && {
         item: ITEMS.OBSIDIAN_STONE_SPAULDERS,
         result: (
-          <dfn data-tip="The actual effective healing contributed by the Obsidian Stone Spaulders equip effect.">
+          <span>
             {((obsidianStoneSpauldersHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.obsidianStoneSpaulders.healing / fightDuration * 1000)} HPS
-          </dfn>
+          </span>
         ),
       },
       this.modules.maraadsDyingBreath.active && {
@@ -594,17 +590,17 @@ class CombatLogParser extends MainCombatLogParser {
       this.modules.chainOfThrayn.active && {
         item: ITEMS.CHAIN_OF_THRAYN,
         result: (
-          <dfn data-tip="The actual effective healing contributed by the Chain of Thrayn equip effect.">
+          <span>
             {((chainOfThraynHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.chainOfThrayn.healing / fightDuration * 1000)} HPS
-          </dfn>
+          </span>
         ),
       },
       this.modules.ilterendi.active && {
         item: ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON,
         result: (
-          <dfn data-tip="The actual effective healing contributed by the Ilterendi, Crown Jewel of Silvermoon equip effect.">
+          <span>
             {((ilterendiHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.ilterendi.healing / fightDuration * 1000)} HPS
-          </dfn>
+          </span>
         ),
       },
       hasSoulOfTheHighlord && {
