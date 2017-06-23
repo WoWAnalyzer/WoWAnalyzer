@@ -11,7 +11,8 @@ const REJUVENATION_REDUCED_MANA = 0.3;
 const HEALING_INCREASE = 1.15;
 const REJUV_HEALING_INCREASE = 1.5;
 const WILD_GROWTH_HEALING_INCREASE = (WG_TARGETS+2) / WG_TARGETS;
-const REJUV_MANA_COST = 22000;
+const TREE_OF_LIFE_COOLDOWN = 180000;
+const TREE_OF_LIFE_DURATION = 30000;
 
 class TreeOfLife extends Module {
   hasGermination = false;
@@ -32,11 +33,7 @@ class TreeOfLife extends Module {
   totalRejuvenationsDuringToLHelmet = 0;
   totalHealingFromWildgrowthsDuringToLHelmet = 0;
   throughputHelmet = 0;
-
-  manaGained = 0;
-  manaGainedHelmet = 0;
-  actualManaGained = 0;
-  actualManaGainedHelmet = 0;
+  adjustHelmetUptime = 0;
 
   on_initialized() {
     this.hasGermination = this.owner.selectedCombatant.lv90Talent === SPELLS.GERMINATION_TALENT.id;
@@ -56,7 +53,7 @@ class TreeOfLife extends Module {
 
     // Get total healing from rejuv + germ (if specced) during ToL
     if(this.owner.selectedCombatant.hasBuff(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id)){
-      if(this.tolManualApplyTimestamp !== null && event.timestamp<=this.tolManualApplyTimestamp+30000) {
+      if(this.tolManualApplyTimestamp !== null && event.timestamp<=this.tolManualApplyTimestamp+TREE_OF_LIFE_DURATION) {
         if (SPELLS.REJUVENATION.id === spellId) {
           this.totalHealingFromRejuvenationDuringToL += event.amount;
         } else if (this.hasGermination && SPELLS.REJUVENATION_GERMINATION.id === spellId) {
@@ -85,48 +82,30 @@ class TreeOfLife extends Module {
     if (SPELLS.REJUVENATION.id === spellId) {
       this.totalRejuvenationsEncounter++;
     }
+
     if(this.owner.selectedCombatant.hasBuff(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id)){
-      if(this.tolManualApplyTimestamp !== null && event.timestamp<=this.tolManualApplyTimestamp+30000) {
+      if(this.tolManualApplyTimestamp !== null && event.timestamp<=this.tolManualApplyTimestamp+TREE_OF_LIFE_DURATION) {
         if (SPELLS.REJUVENATION.id === spellId) {
           this.totalRejuvenationsDuringToL++;
-          this.manaGained = (((this.totalRejuvenationsDuringToL * REJUV_BASE_MANA) * REJUVENATION_REDUCED_MANA)/ REJUV_BASE_MANA)* REJUV_MANA_COST;
         }
       } else {
         if (SPELLS.REJUVENATION.id === spellId) {
           this.totalRejuvenationsDuringToLHelmet++;
-          this.manaGainedHelmet = (((this.totalRejuvenationsDuringToLHelmet * REJUV_BASE_MANA) * REJUVENATION_REDUCED_MANA) / REJUV_BASE_MANA) * REJUV_MANA_COST;
         }
       }
     }
 
-    if(event.classResources != null) {
-      const resource = event.classResources[0];
-      const manaLeftAfterCast = resource.amount - resource.cost;
-      const newSavings = this.manaGained;
-      const newSavingsHelmet = this.manaGainedHelmet;
-      const savingsUsed = newSavings - manaLeftAfterCast;
-      const savingsUsedHelmet = newSavingsHelmet - manaLeftAfterCast;
-      if(savingsUsedHelmet > 0) {
-        this.manaGainedHelmet = newSavingsHelmet - savingsUsedHelmet;
-        this.actualManaGainedHelmet = this.actualManaGainedHelmet + savingsUsedHelmet;
-      } else {
-        this.manaGainedHelmet = newSavingsHelmet;
-      }
-      if(savingsUsed > 0) {
-        this.manaGained = newSavings - savingsUsed;
-        this.actualManaGained = this.actualManaGained + savingsUsed;
-      } else {
-        this.manaGained = newSavings;
-      }
-    }
-
-    if(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id === spellId) {
+    if(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id === spellId && (this.tolManualApplyTimestamp === null || (this.tolManualApplyTimestamp + TREE_OF_LIFE_COOLDOWN) < event.timestamp)) {
       this.tolManualApplyTimestamp = event.timestamp;
       this.tolCasts++;
     }
   }
 
   on_finished() {
+    // Adjust uptime if we're specced into ToL + using Chameleon Head and not getting a full use of ToL before end duration of fight.
+    if(this.tolManualApplyTimestamp+TREE_OF_LIFE_DURATION > this.owner.fight.end_time) {
+      this.adjustHelmetUptime = TREE_OF_LIFE_DURATION - (this.owner.fight.end_time - this.tolManualApplyTimestamp);
+    }
     // Encounter finished, let's tie up the variables
     this.totalHealingEncounter = this.owner.totalHealing;
     debug && console.log("Has germination: " + this.hasGermination);
@@ -136,6 +115,7 @@ class TreeOfLife extends Module {
     debug && console.log("Total healing from rejuvenation during ToL: " + this.totalHealingFromRejuvenationDuringToL);
     debug && console.log("Total rejuvenation casted encounter: " + this.totalRejuvenationsEncounter);
     debug && console.log("Total rejuvenation casted during ToL: " + this.totalRejuvenationsDuringToL);
+    debug && console.log("Total rejuvenation casted during ToL helmet: " + this.totalRejuvenationsDuringToLHelmet);
     debug && console.log("Total healing from wild growth during ToL: " + this.totalHealingFromWildgrowthsDuringToL);
 
     // Get 1 rejuv throughput worth
@@ -173,9 +153,9 @@ class TreeOfLife extends Module {
     const wildGrowthIncreasedEffectHelmet = (this.totalHealingFromWildgrowthsDuringToLHelmet/HEALING_INCREASE - this.totalHealingFromWildgrowthsDuringToLHelmet/(HEALING_INCREASE * WILD_GROWTH_HEALING_INCREASE)) / this.totalHealingEncounter;
     debug && console.log("wildGrowthIncreasedEffectHelmet: " + (wildGrowthIncreasedEffectHelmet*100).toFixed(2)+"%");
     this.throughputHelmet = rejuvenationIncreasedEffectHelmet + tolIncreasedHealingDoneHelmet + rejuvenationManaHelmet + wildGrowthIncreasedEffectHelmet;
-    debug && console.log("uptimeHelmet: " + (((this.owner.selectedCombatant.getBuffUptime(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id)-(this.tolCasts*30000))/this.owner.fightDuration)*100).toFixed(2)+"%");
+    debug && console.log("uptimeHelmet: " + (((this.owner.selectedCombatant.getBuffUptime(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id)-(this.tolCasts*TREE_OF_LIFE_DURATION))/this.owner.fightDuration)*100).toFixed(2)+"%");
     debug && console.log("throughputHelmet: " + (this.throughputHelmet*100).toFixed(2)+"%");
-
+    debug && console.log("tolcasts: " + this.tolCasts);
   }
 }
 
