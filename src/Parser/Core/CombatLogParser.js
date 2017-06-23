@@ -300,16 +300,6 @@ class CombatLogParser {
         ),
       });
     }
-    if (this.modules.darkmoonDeckPromises.active) {
-      results.items.push({
-        item: ITEMS.DARKMOON_DECK_PROMISES,
-        result: (
-          <dfn data-tip="The exact amount of mana saved by the Darkmoon Deck: Promises equip effect. This takes the different values per card into account at the time of the cast.">
-            {formatThousands(this.modules.darkmoonDeckPromises.manaGained)} mana saved ({formatThousands(this.modules.darkmoonDeckPromises.manaGained / this.fightDuration * 1000 * 5)} MP5)
-          </dfn>
-        ),
-      });
-    }
     if (this.modules.gnawedThumbRing.active) {
       results.items.push({
         item: ITEMS.GNAWED_THUMB_RING,
@@ -367,6 +357,16 @@ class CombatLogParser {
               })}
           </span>,
           icon: ITEMS.DECEIVERS_GRAND_DESIGN.icon,
+        });
+      }
+      if (this.modules.darkmoonDeckPromises.active) {
+        results.items.push({
+          item: ITEMS.DARKMOON_DECK_PROMISES,
+          result: (
+            <dfn data-tip="The exact amount of mana saved by the Darkmoon Deck: Promises equip effect. This takes the different values per card into account at the time of the cast.">
+              {formatThousands(this.modules.darkmoonDeckPromises.manaGained)} mana saved ({formatThousands(this.modules.darkmoonDeckPromises.manaGained / this.fightDuration * 1000 * 5)} MP5)
+            </dfn>
+          ),
         });
       }
     }

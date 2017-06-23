@@ -247,7 +247,7 @@ export default {
     icon: 'spell_druid_rampantgrowth',
   },
   BLOSSOMING_EFFLORESCENCE: {
-    id: 242315, //TODO This is PTR id, may change on live
+    id: 242315,
     name: 'Blossomming Efflorescence',
     icon: 'inv_misc_herb_talandrasrose',
   },
@@ -264,12 +264,12 @@ export default {
   SPRING_BLOSSOMS: {
     id: 207386,
     name: 'Spring Blossoms',
-    icon: 'spell_druid_springblossoms',
+    icon: 'inv_misc_trailofflowers',
   },
   SOUL_OF_THE_FOREST_BUFF: {
     id: 114108,
     name: 'Soul of the Forest',
-    icon: 'spell_druid_souloftheforest',
+    icon: 'ability_druid_manatree',
   },
 
   // Talents
@@ -278,7 +278,7 @@ export default {
   PROSPERITY_TALENT: {
     id: 200383,
     name: 'Prosperity',
-    icon: 'spell_druid_prosperity',
+    icon: 'spell_druid_rampantgrowth',
   },
   CENARION_WARD_TALENT: {
     id: 102351,
@@ -294,7 +294,7 @@ export default {
   RENEWAL_TALENT: {
     id: 108238,
     name: 'Renewal',
-    icon: 'spell_druid_renewal',
+    icon: 'spell_nature_natureblessing',
   },
   DISPLACER_BEAST_TALENT: {
     id: 102280,
@@ -310,12 +310,12 @@ export default {
   BALANCE_AFFINITY_TALENT: {
     id: 197632,
     name: 'Balance Affinity',
-    icon: 'spell_druid_balanceaffinity',
+    icon: 'ability_druid_improvedmoonkinform',
   },
   FERAL_AFFINITY_TALENT: {
     id: 197490,
     name: 'Feral Affinity',
-    icon: 'spell_druid_feralaffinity',
+    icon: 'talentspec_druid_feral_cat',
   },
   GUARDIAN_AFFINITY_TALENT: {
     id: 197491,
@@ -326,7 +326,7 @@ export default {
   MIGHTY_BASH_TALENT: {
     id: 5211,
     name: 'Mighty Bash',
-    icon: 'spell_druid_mightybash',
+    icon: 'ability_druid_bash',
   },
   MASS_ENTANGLEMENT_TALENT: {
     id: 102359,
@@ -358,7 +358,7 @@ export default {
   SPRING_BLOSSOMS_TALENT: {
     id: 207385,
     name: 'Spring Blossoms',
-    icon: 'spell_druid_springblossoms',
+    icon: 'inv_misc_trailofflowers',
   },
   INNER_PEACE_TALENT: {
     id: 197073,

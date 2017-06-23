@@ -12,7 +12,7 @@ class DarkmoonDeckPromises extends DarkmoonDeckPromisesCore {
   on_byPlayer_cast(event) {
     super.on_byPlayer_cast(event);
 
-    if(event.classResources != null) {
+    if (event.classResources && event.classResources[0]) {
       const resource = event.classResources[0];
       const newSavings = this.manaGained;
       const manaLeftAfterCast = resource.amount - resource.cost;
@@ -24,8 +24,6 @@ class DarkmoonDeckPromises extends DarkmoonDeckPromisesCore {
       } else {
         this.manaGained = newSavings;
       }
-    } else{
-      console.log("event %o", event);
     }
   }
 }

@@ -38,6 +38,7 @@ import Innervate from './Modules/Features/Innervate';
 import PowerOfTheArchdruid from './Modules/Features/PowerOfTheArchdruid';
 import Dreamwalker from './Modules/Features/Dreamwalker';
 import SoulOfTheForest from './Modules/Features/SoulOfTheForest';
+import EssenceOfGhanir from './Modules/Features/EssenceOfGhanir';
 
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
@@ -86,6 +87,7 @@ class CombatLogParser extends MainCombatLogParser {
     powerOfTheArchdruid: PowerOfTheArchdruid,
     dreamwalker: Dreamwalker,
     soulOfTheForest: SoulOfTheForest,
+    essenceOfGhanir: EssenceOfGhanir,
 
     // Legendaries:
     ekowraith: Ekowraith,
@@ -105,6 +107,7 @@ class CombatLogParser extends MainCombatLogParser {
 
   generateResults() {
     const results = super.generateResults();
+    const formatThroughput = healingDone => `${formatPercentage(healingDone/this.totalHealing)} %`;
 
     // Tree of Life
     const hasFlourish = this.selectedCombatant.lv100Talent === SPELLS.FLOURISH_TALENT.id;
@@ -114,19 +117,21 @@ class CombatLogParser extends MainCombatLogParser {
     const oneRejuvenationThroughput = (((this.modules.treeOfLife.totalHealingFromRejuvenationEncounter / this.totalHealing)) / this.modules.treeOfLife.totalRejuvenationsEncounter);
     const rejuvenationIncreasedEffect = (this.modules.treeOfLife.totalHealingFromRejuvenationDuringToL / 1.15 - this.modules.treeOfLife.totalHealingFromRejuvenationDuringToL / (1.15 * 1.5)) / this.totalHealing;
     const tolIncreasedHealingDone = (this.modules.treeOfLife.totalHealingDuringToL - this.modules.treeOfLife.totalHealingDuringToL / 1.15) / this.totalHealing;
-    const rejuvenationMana = (this.modules.treeOfLife.actualManaGained/rejuvenationManaCost) * oneRejuvenationThroughput;
+    const rejuvenationMana = (((this.modules.treeOfLife.totalRejuvenationsDuringToL * 10) * 0.3) / 10) * oneRejuvenationThroughput;
     const wildGrowthIncreasedEffect = (this.modules.treeOfLife.totalHealingFromWildgrowthsDuringToL / 1.15 - this.modules.treeOfLife.totalHealingFromWildgrowthsDuringToL / (1.15 * (8 / 6))) / this.totalHealing;
     const treeOfLifeThroughput = rejuvenationIncreasedEffect + tolIncreasedHealingDone + rejuvenationMana + wildGrowthIncreasedEffect;
-    const treeOfLifeUptime = this.selectedCombatant.getBuffUptime(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id)/this.fightDuration;
+    let treeOfLifeUptime = this.selectedCombatant.getBuffUptime(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id)/this.fightDuration;
 
     // Chameleon Song
     const rejuvenationIncreasedEffectHelmet = (this.modules.treeOfLife.totalHealingFromRejuvenationDuringToLHelmet / 1.15 - this.modules.treeOfLife.totalHealingFromRejuvenationDuringToLHelmet / (1.15 * 1.5)) / this.totalHealing;
     const tolIncreasedHealingDoneHelmet = (this.modules.treeOfLife.totalHealingDuringToLHelmet - this.modules.treeOfLife.totalHealingDuringToLHelmet / 1.15) / this.totalHealing;
-    const rejuvenationManaHelmet = (this.modules.treeOfLife.actualManaGainedHelmet/rejuvenationManaCost) * oneRejuvenationThroughput;
+    const rejuvenationManaHelmet = (((this.modules.treeOfLife.totalRejuvenationsDuringToLHelmet * 10) * 0.3) / 10) * oneRejuvenationThroughput;
     const wildGrowthIncreasedEffectHelmet = (this.modules.treeOfLife.totalHealingFromWildgrowthsDuringToLHelmet / 1.15 - this.modules.treeOfLife.totalHealingFromWildgrowthsDuringToLHelmet / (1.15 * (8 / 6))) / this.totalHealing;
     const treeOfLifeThroughputHelmet = rejuvenationIncreasedEffectHelmet + tolIncreasedHealingDoneHelmet + rejuvenationManaHelmet + wildGrowthIncreasedEffectHelmet;
-    const treeOfLifeUptimeHelmet = (this.selectedCombatant.getBuffUptime(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id)-(this.modules.treeOfLife.tolCasts*30000))/this.fightDuration;
-
+    const treeOfLifeUptimeHelmet = (this.selectedCombatant.getBuffUptime(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id)-(this.modules.treeOfLife.tolCasts*30000)+this.modules.treeOfLife.adjustHelmetUptime)/this.fightDuration;
+    if(this.selectedCombatant.hasHead(ITEMS.CHAMELEON_SONG.id)) {
+      treeOfLifeUptime -= treeOfLifeUptimeHelmet;
+    }
     const hasSoulOfTheForest = this.selectedCombatant.lv75Talent === SPELLS.SOUL_OF_THE_FOREST_TALENT.id;
     const soulOfTheForestHealing = this.modules.soulOfTheForest.wildGrowthHealing + this.modules.soulOfTheForest.rejuvenationHealing + this.modules.soulOfTheForest.regrowthHealing;
 
@@ -313,15 +318,55 @@ class CombatLogParser extends MainCombatLogParser {
         value={`${formatPercentage(efflorescenceUptime)} %`}
         label='Efflorescence uptime'
       />,
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.ESSENCE_OF_GHANIR.id} />}
+        value={`${formatThroughput(this.modules.essenceOfGhanir.healingIncreaseHealing)}`}
+        label={(
+          <dfn data-tip={
+            `<ul>
+              ${this.modules.essenceOfGhanir.wildGrowth > 0 ?
+              `<li>${formatThroughput(this.modules.essenceOfGhanir.wildGrowth)} from <a href="http://www.wowhead.com/spell=182874" target="_blank" rel="noopener noreferrer">wild growth</a></li>`
+              : ""
+              }
+              ${this.modules.essenceOfGhanir.rejuvenation > 0 ?
+              `<li>${formatThroughput(this.modules.essenceOfGhanir.rejuvenation)} from <a href="http://www.wowhead.com/spell=774" target="_blank" rel="noopener noreferrer">rejuvenation</a></li>`
+              : ""
+              }
+              ${this.modules.essenceOfGhanir.cenarionWard> 0 ?
+              `<li>${formatThroughput(this.modules.essenceOfGhanir.cenarionWard)} from <a href="http://www.wowhead.com/spell=102351" target="_blank" rel="noopener noreferrer">cenarion ward</a></li>`
+              : ""
+              }
+              ${this.modules.essenceOfGhanir.regrowth > 0 ?
+              `<li>${formatThroughput(this.modules.essenceOfGhanir.regrowth)} from <a href="http://www.wowhead.com/spell=8936" target="_blank" rel="noopener noreferrer">regrowth</a></li>`
+              : ""
+              }
+              ${this.modules.essenceOfGhanir.lifebloom > 0 ?
+              `<li>${formatThroughput(this.modules.essenceOfGhanir.lifebloom)} from <a href="http://www.wowhead.com/spell=33763" target="_blank" rel="noopener noreferrer">lifebloom</a></li>`
+              : ""
+              }
+              ${this.modules.essenceOfGhanir.springBlossoms > 0 ?
+              `<li>${formatThroughput(this.modules.essenceOfGhanir.springBlossoms)} from <a href="http://www.wowhead.com/spell=207386" target="_blank" rel="noopener noreferrer">spring blossom</a></li>`
+              : ""
+              }
+              ${this.modules.essenceOfGhanir.cultivation > 0 ?
+              `<li>${formatThroughput(this.modules.essenceOfGhanir.cultivation)} from <a href="http://www.wowhead.com/spell=200389" target="_blank" rel="noopener noreferrer">cultivation</a></li>`
+              : ""
+              }
+              </ul>`
+          }>
+            Essence of G'hanir
+          </dfn>
+        )}
+      />,
       this.modules.dreamwalker.hasTrait && (
-      <StatisticBox icon={<SpellIcon id={SPELLS.DREAMWALKER.id}/>}
-        value={`${formatPercentage(this.modules.dreamwalker.healing / this.totalHealing)}%`}
-                    label={(
-                      <dfn data-tip={`The total healing done by Dreamwalker recorded was ${formatThousands(this.modules.dreamwalker.healing)} / ${formatPercentage(this.modules.dreamwalker.healing / this.totalHealing)} % / ${formatNumber(this.modules.dreamwalker.healing / fightDuration * 1000)} HPS. `}>
-                        Dreamwalker
-                      </dfn>
-                    )}
-      />),
+        <StatisticBox icon={<SpellIcon id={SPELLS.DREAMWALKER.id}/>}
+          value={`${formatPercentage(this.modules.dreamwalker.healing / this.totalHealing)}%`}
+          label={(
+            <dfn data-tip={`The total healing done by Dreamwalker recorded was ${formatThousands(this.modules.dreamwalker.healing)} / ${formatPercentage(this.modules.dreamwalker.healing / this.totalHealing)} % / ${formatNumber(this.modules.dreamwalker.healing / fightDuration * 1000)} HPS. `}>
+              Dreamwalker
+            </dfn>
+          )}
+        />),
       this.modules.powerOfTheArchdruid.hasTrait && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.POWER_OF_THE_ARCHDRUID.id} />}
@@ -363,8 +408,7 @@ class CombatLogParser extends MainCombatLogParser {
                 `<li>${this.modules.flourish.cultivation} <a href="http://www.wowhead.com/spell=200389" target="_blank" rel="noopener noreferrer">cultivations</a></li>`
                 : ""
                 }
-                          </ul>
-                          `
+              </ul>`
             }>
               Average seconds extended by flourish
             </dfn>
@@ -473,7 +517,7 @@ class CombatLogParser extends MainCombatLogParser {
         result: (
           <dfn data-tip={`The actual mana gained is ${formatThousands(this.modules.darkmoonDeckPromises.savings+this.modules.darkmoonDeckPromises.manaGained)}. The numbers shown may actually be lower if you did not utilize the promises effect fully, i.e. not needing the extra mana gained.`}>
             {formatThousands(this.modules.darkmoonDeckPromises.savings)} mana saved ({formatThousands(this.modules.darkmoonDeckPromises.savings / this.fightDuration * 1000 * 5)} MP5)<br/>
-            {formatPercentage(promisesThroughput)}% healing contributed.
+            {formatPercentage(promisesThroughput)}% / {formatNumber((this.totalHealing*promisesThroughput)/ fightDuration * 1000)} HPS
           </dfn>
         ),
       });
@@ -546,7 +590,7 @@ class CombatLogParser extends MainCombatLogParser {
               </ul>
             `}
           >
-            {formatPercentage(treeOfLifeThroughputHelmet)} %
+            {formatPercentage(treeOfLifeThroughputHelmet)} % / {formatNumber((this.totalHealing*treeOfLifeThroughputHelmet)/ fightDuration * 1000)} HPS
           </dfn>
         ),
       },

@@ -1,5 +1,6 @@
 export default `
-20-06-2017 - Change home page layout (by Zerotorescue)
+23-06-2017 - Change home page layout (by Zerotorescue)
+23-06-2017 - Resto Druid: Added Essence of G'hanir (by Blazyb) 
 20-06-2017 - Added prepot/second pot suggestions (by Blazyb)
 20-06-2017 - Mistweaver Monk: Added T20 2pc Tracking, Added support for Focused Thunder, adjusted suggestion for TFT usage. (by anomoly)
 20-06-2017 - Resto Druid: Added Gnawed Thumb Ring (by Blazyb)
