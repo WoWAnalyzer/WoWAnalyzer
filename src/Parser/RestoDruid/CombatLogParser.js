@@ -346,10 +346,6 @@ class CombatLogParser extends MainCombatLogParser {
               `<li>${formatThroughput(this.modules.essenceOfGhanir.lifebloom)} from <a href="http://www.wowhead.com/spell=33763" target="_blank" rel="noopener noreferrer">lifebloom</a></li>`
               : ""
               }
-              ${this.modules.essenceOfGhanir.springBlossoms > 0 ?
-              `<li>${formatThroughput(this.modules.essenceOfGhanir.springBlossoms)} from <a href="http://www.wowhead.com/spell=207386" target="_blank" rel="noopener noreferrer">spring blossom</a></li>`
-              : ""
-              }
               ${this.modules.essenceOfGhanir.cultivation > 0 ?
               `<li>${formatThroughput(this.modules.essenceOfGhanir.cultivation)} from <a href="http://www.wowhead.com/spell=200389" target="_blank" rel="noopener noreferrer">cultivation</a></li>`
               : ""

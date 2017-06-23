@@ -22,14 +22,13 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   SPELLS.LIVING_SEED.id,
 ];
 
-export const HOTS = [
+export const HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR = [
   SPELLS.REJUVENATION.id,
   SPELLS.WILD_GROWTH.id,
   SPELLS.REJUVENATION_GERMINATION.id,
   SPELLS.CULTIVATION.id,
   SPELLS.CENARION_WARD.id,
   SPELLS.LIFEBLOOM_HOT_HEAL.id,
-  SPELLS.SPRING_BLOSSOMS.id,
   // Make sure to check that event.tick is true, because regrowth uses the same id for the heal and the HoT part
   SPELLS.REGROWTH.id,
 ];
