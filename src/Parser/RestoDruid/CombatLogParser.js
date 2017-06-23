@@ -475,7 +475,7 @@ class CombatLogParser extends MainCombatLogParser {
         result: (
           <dfn data-tip={`The actual mana gained is ${formatThousands(this.modules.darkmoonDeckPromises.savings+this.modules.darkmoonDeckPromises.manaGained)}. The numbers shown may actually be lower if you did not utilize the promises effect fully, i.e. not needing the extra mana gained.`}>
             {formatThousands(this.modules.darkmoonDeckPromises.savings)} mana saved ({formatThousands(this.modules.darkmoonDeckPromises.savings / this.fightDuration * 1000 * 5)} MP5)<br/>
-            {formatPercentage(promisesThroughput)}% healing contributed.
+            {formatPercentage(promisesThroughput)}% / {formatNumber((this.totalHealing*promisesThroughput)/ fightDuration * 1000)} HPS
           </dfn>
         ),
       });
@@ -548,7 +548,7 @@ class CombatLogParser extends MainCombatLogParser {
               </ul>
             `}
           >
-            {formatPercentage(treeOfLifeThroughputHelmet)} % / {formatNumber((this.totalHealing*treeOfLifeThroughputHelmet)/ fightDuration * 1000)} HPS.
+            {formatPercentage(treeOfLifeThroughputHelmet)} % / {formatNumber((this.totalHealing*treeOfLifeThroughputHelmet)/ fightDuration * 1000)} HPS
           </dfn>
         ),
       },
