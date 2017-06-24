@@ -51,7 +51,7 @@ class Home extends Component {
                     <li key={config.spec.id}><span className={config.spec.className}>{config.spec.specName} {config.spec.className}</span> maintained by <span style={{ color: '#fff' }}>{config.maintainer}</span></li>
                   ))}
                 </ul>
-                There are no plans at this time to add support for other specs. The best way to get support for a spec is to add it yourself. Adding specs is easy if you're familiar with JavaScript (ES6), see <a href="https://github.com/MartijnHols/WoWAnalyzer">GitHub</a> and the WoW Analyzer Discord for more information.<br /><br />
+                The best way to get support for a spec is to add it yourself. Adding specs is easy if you're familiar with JavaScript (ES6), see <a href="https://github.com/MartijnHols/WoWAnalyzer">GitHub</a> and the WoW Analyzer Discord for more information.<br /><br />
 
                 If you're looking to help out development in other ways, please consider donating.<br />
 

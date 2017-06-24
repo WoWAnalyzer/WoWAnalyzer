@@ -4,7 +4,9 @@ import { Link } from 'react-router';
 import ReactTooltip from 'react-tooltip';
 
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
+import UnsupportedSpec from 'Parser/UnsupportedSpec/CONFIG';
 
+import PatreonLink from './PatreonLink';
 import makeAnalyzerUrl from './makeAnalyzerUrl';
 
 class PlayerSelecter extends Component {
@@ -61,24 +63,38 @@ class PlayerSelecter extends Component {
                     if (!combatant) {
                       return null;
                     }
-                    const config = AVAILABLE_CONFIGS.find(config => config.spec.id === combatant.specID);
+                    let config = AVAILABLE_CONFIGS.find(config => config.spec.id === combatant.specID);
                     if (!config) {
-                      return null;
+                      if (process.env.NODE_ENV === 'development') {
+                        config = UnsupportedSpec;
+                      } else {
+                        return null;
+                      }
                     }
                     const spec = config.spec;
                     const specClassName = spec.className.replace(' ', '');
 
                     return (
-                      <li key={`${friendly.id}`}>
+                      <li key={friendly.id}>
                         <Link to={makeAnalyzerUrl(report.code, fightId, friendly.name)}>
                           <img src={`/specs/${specClassName}-${spec.specName.replace(' ', '')}.jpg`} alt="Spec logo" />{' '}
-                          {friendly.name} ({spec.specName} {spec.className})
+                          {friendly.name} ({spec.specName} {spec.className === 'Unsupported' ? `${spec.className} - ${friendly.type}` : spec.className})
                         </Link>
                       </li>
                     );
                   })
               }
             </ul>
+          </div>
+        </div>
+
+        <div className="panel fade-in delay-3s" style={{ margin: '15px auto 30px', maxWidth: 550, textAlign: 'center' }}>
+          <div className="panel-body text-muted">
+            If you're not being shown in the list your spec may not be supported yet. The best way to get support for a spec is to add it yourself. Adding specs is easy if you're familiar with JavaScript (ES6), see <a href="https://github.com/MartijnHols/WoWAnalyzer">GitHub</a> and the WoW Analyzer Discord for more information.<br /><br />
+
+            If you're looking to help out development in other ways, please consider donating.<br />
+
+            <PatreonLink />
           </div>
         </div>
       </div>

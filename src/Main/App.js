@@ -6,6 +6,7 @@ import ReactTooltip from 'react-tooltip';
 import makeWclUrl from 'common/makeWclUrl';
 
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
+import UnsupportedSpec from 'Parser/UnsupportedSpec/CONFIG';
 
 import './App.css';
 
@@ -115,10 +116,14 @@ class App extends Component {
       alert('This player does not seem to be in this fight.');
       return;
     }
-    const config = AVAILABLE_CONFIGS.find(config => config.spec.id === combatant.specID);
+    let config = AVAILABLE_CONFIGS.find(config => config.spec.id === combatant.specID);
     if (!config) {
-      alert('This spec is not yet supported. Your help adding support for this spec would be much appreciated! Click the GitHub link above to find out how you can contribute.');
-      return;
+      if (process.env.NODE_ENV === 'development') {
+        config = UnsupportedSpec;
+      } else {
+        alert('This spec is not yet supported. Your help adding support for this spec would be much appreciated! Click the GitHub link above to find out how you can contribute.');
+        return;
+      }
     }
 
     const ParserClass = config.parser;

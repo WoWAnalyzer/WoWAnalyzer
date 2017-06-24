@@ -657,6 +657,9 @@ a.become-patron-button:hover {
 .fade-in {
   animation: fadein 5s;
 }
+.fade-in.delay-3s {
+  animation-duration: 3s;
+}
 @keyframes fadein {
   0% { opacity: 0; }
   60% { opacity: 0; }
