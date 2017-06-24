@@ -107,7 +107,7 @@ class CombatLogParser extends MainCombatLogParser {
 
   generateResults() {
     const results = super.generateResults();
-    const formatThroughput = healingDone => `${formatPercentage(healingDone/this.totalHealing)} %`;
+    const formatThroughput = healingDone => `${formatPercentage(healingDone / this.totalHealing)} %`;
     const abilityTracker = this.modules.abilityTracker;
     const getAbility = spellId => abilityTracker.getAbility(spellId);
     const rejuvenations = getAbility(SPELLS.REJUVENATION.id).casts || 0;
@@ -124,7 +124,7 @@ class CombatLogParser extends MainCombatLogParser {
     const rejuvenationMana = (((this.modules.treeOfLife.totalRejuvenationsDuringToL * 10) * 0.3) / 10) * oneRejuvenationThroughput;
     const wildGrowthIncreasedEffect = (this.modules.treeOfLife.totalHealingFromWildgrowthsDuringToL / 1.15 - this.modules.treeOfLife.totalHealingFromWildgrowthsDuringToL / (1.15 * (8 / 6))) / this.totalHealing;
     const treeOfLifeThroughput = rejuvenationIncreasedEffect + tolIncreasedHealingDone + rejuvenationMana + wildGrowthIncreasedEffect;
-    let treeOfLifeUptime = this.selectedCombatant.getBuffUptime(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id)/this.fightDuration;
+    let treeOfLifeUptime = this.selectedCombatant.getBuffUptime(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) / this.fightDuration;
 
     // Chameleon Song
     const rejuvenationIncreasedEffectHelmet = (this.modules.treeOfLife.totalHealingFromRejuvenationDuringToLHelmet / 1.15 - this.modules.treeOfLife.totalHealingFromRejuvenationDuringToLHelmet / (1.15 * 1.5)) / this.totalHealing;
@@ -132,11 +132,11 @@ class CombatLogParser extends MainCombatLogParser {
     const rejuvenationManaHelmet = (((this.modules.treeOfLife.totalRejuvenationsDuringToLHelmet * 10) * 0.3) / 10) * oneRejuvenationThroughput;
     const wildGrowthIncreasedEffectHelmet = (this.modules.treeOfLife.totalHealingFromWildgrowthsDuringToLHelmet / 1.15 - this.modules.treeOfLife.totalHealingFromWildgrowthsDuringToLHelmet / (1.15 * (8 / 6))) / this.totalHealing;
     const treeOfLifeThroughputHelmet = rejuvenationIncreasedEffectHelmet + tolIncreasedHealingDoneHelmet + rejuvenationManaHelmet + wildGrowthIncreasedEffectHelmet;
-    const treeOfLifeUptimeHelmet = (this.selectedCombatant.getBuffUptime(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id)-(this.modules.treeOfLife.tolCasts*30000)+this.modules.treeOfLife.adjustHelmetUptime)/this.fightDuration;
-    if(this.selectedCombatant.hasHead(ITEMS.CHAMELEON_SONG.id)) {
+    const treeOfLifeUptimeHelmet = (this.selectedCombatant.getBuffUptime(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) - (this.modules.treeOfLife.tolCasts * 30000) + this.modules.treeOfLife.adjustHelmetUptime) / this.fightDuration;
+    if (this.selectedCombatant.hasHead(ITEMS.CHAMELEON_SONG.id)) {
       treeOfLifeUptime -= treeOfLifeUptimeHelmet;
     }
-    const treeOfLifeProccHelmet = formatPercentage(this.modules.treeOfLife.proccs/wildGrowths);
+    const treeOfLifeProccHelmet = formatPercentage(this.modules.treeOfLife.proccs / wildGrowths);
 
     const hasSoulOfTheForest = this.selectedCombatant.lv75Talent === SPELLS.SOUL_OF_THE_FOREST_TALENT.id;
     const soulOfTheForestHealing = this.modules.soulOfTheForest.wildGrowthHealing + this.modules.soulOfTheForest.rejuvenationHealing + this.modules.soulOfTheForest.regrowthHealing;
@@ -197,7 +197,7 @@ class CombatLogParser extends MainCombatLogParser {
     const wgsExtended = (this.modules.flourish.wildGrowth / wildGrowthTargets) / this.modules.flourish.flourishCounter;
     if (hasFlourish && wgsExtended < 1) {
       results.addIssue({
-        issue: <span>Your <a href="http://www.wowhead.com/spell=197721" target="_blank" rel="noopener noreferrer">Flourish</a> should always aim to refresh <a href="http://www.wowhead.com/spell=48438" target="_blank" rel="noopener noreferrer">Wild Growth.</a> ({(((this.modules.flourish.wildGrowth / 6)/this.modules.flourish.flourishCounter)*100).toFixed(0)}% WGs extended)</span>,
+        issue: <span>Your <a href="http://www.wowhead.com/spell=197721" target="_blank" rel="noopener noreferrer">Flourish</a> should always aim to refresh <a href="http://www.wowhead.com/spell=48438" target="_blank" rel="noopener noreferrer">Wild Growth.</a> ({(((this.modules.flourish.wildGrowth / 6) / this.modules.flourish.flourishCounter) * 100).toFixed(0)}% WGs extended)</span>,
         icon: SPELLS.FLOURISH_TALENT.icon,
         importance: getIssueImportance(wgsExtended, 0.8, 0.6),
       });
@@ -266,7 +266,7 @@ class CombatLogParser extends MainCombatLogParser {
         importance: getIssueImportance(nonCCRegrowths / regrowths, 0.5, 0.25, true),
       });
     }
-    const promisesThroughput = (this.modules.darkmoonDeckPromises.savings/rejuvenationManaCost)*oneRejuvenationThroughput;
+    const promisesThroughput = (this.modules.darkmoonDeckPromises.savings / rejuvenationManaCost) * oneRejuvenationThroughput;
     if (this.modules.darkmoonDeckPromises.active && promisesThroughput < 0.035) {
       results.addIssue({
         issue: <span>Your <a href="http://www.wowhead.com/item=128710" target="_blank" rel="noopener noreferrer">Darkmoon Deck: Promises</a> effect was not fully utilizied because you did not need the extra mana gained. You may want to consider using another trinket in these scenarios. ({this.modules.darkmoonDeckPromises.savings + this.modules.darkmoonDeckPromises.manaGained} mana gained potentially, {this.modules.darkmoonDeckPromises.savings} mana gained, {formatPercentage(promisesThroughput)}% healing contributed)</span>,
@@ -334,7 +334,7 @@ class CombatLogParser extends MainCombatLogParser {
               `<li>${formatThroughput(this.modules.essenceOfGhanir.rejuvenation)} from <a href="http://www.wowhead.com/spell=774" target="_blank" rel="noopener noreferrer">rejuvenation</a></li>`
               : ""
               }
-              ${this.modules.essenceOfGhanir.cenarionWard> 0 ?
+              ${this.modules.essenceOfGhanir.cenarionWard > 0 ?
               `<li>${formatThroughput(this.modules.essenceOfGhanir.cenarionWard)} from <a href="http://www.wowhead.com/spell=102351" target="_blank" rel="noopener noreferrer">cenarion ward</a></li>`
               : ""
               }
@@ -357,7 +357,7 @@ class CombatLogParser extends MainCombatLogParser {
         )}
       />,
       this.modules.dreamwalker.hasTrait && (
-        <StatisticBox icon={<SpellIcon id={SPELLS.DREAMWALKER.id}/>}
+        <StatisticBox icon={<SpellIcon id={SPELLS.DREAMWALKER.id} />}
           value={`${formatPercentage(this.modules.dreamwalker.healing / this.totalHealing)}%`}
           label={(
             <dfn data-tip={`The total healing done by Dreamwalker recorded was ${formatThousands(this.modules.dreamwalker.healing)} / ${formatPercentage(this.modules.dreamwalker.healing / this.totalHealing)} % / ${formatNumber(this.modules.dreamwalker.healing / fightDuration * 1000)} HPS. `}>
@@ -379,7 +379,7 @@ class CombatLogParser extends MainCombatLogParser {
       hasFlourish && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.FLOURISH_TALENT.id} />}
-          value={`${((((this.modules.flourish.wildGrowth + this.modules.flourish.cenarionWard + this.modules.flourish.rejuvenation + this.modules.flourish.regrowth + this.modules.flourish.lifebloom + this.modules.flourish.springBlossoms + this.modules.flourish.cultivation) * 6) / this.modules.flourish.flourishCounter).toFixed(0)|0)}s`}
+          value={`${((((this.modules.flourish.wildGrowth + this.modules.flourish.cenarionWard + this.modules.flourish.rejuvenation + this.modules.flourish.regrowth + this.modules.flourish.lifebloom + this.modules.flourish.springBlossoms + this.modules.flourish.cultivation) * 6) / this.modules.flourish.flourishCounter).toFixed(0) | 0)}s`}
           label={(
             <dfn data-tip={
               `<ul>
@@ -415,7 +415,7 @@ class CombatLogParser extends MainCombatLogParser {
       ),
       <StatisticBox
         icon={<SpellIcon id={SPELLS.INNERVATE.id} />}
-        value={`${(((this.modules.innervate.manaSaved / this.modules.innervate.innervateCount) / 1000).toFixed(0)|0)}k mana`}
+        value={`${(((this.modules.innervate.manaSaved / this.modules.innervate.innervateCount) / 1000).toFixed(0) | 0)}k mana`}
         label={(
           <dfn data-tip={
             `<ul>
@@ -464,11 +464,11 @@ class CombatLogParser extends MainCombatLogParser {
           label={(
             <dfn data-tip={`
               <ul>
-                <li>${(rejuvenationIncreasedEffect*100).toFixed(2)}% from increased rejuvenation effect</li>
-                <li>${(rejuvenationMana*100).toFixed(2)}% from reduced rejuvenation cost</li>
-                <li>${(wildGrowthIncreasedEffect*100).toFixed(2)}% from increased wildgrowth effect</li>
-                <li>${(tolIncreasedHealingDone*100).toFixed(2)}% from overall increased healing effect</li>
-                <li>${(treeOfLifeUptime*100).toFixed(2)}% uptime</li>
+                <li>${(rejuvenationIncreasedEffect * 100).toFixed(2)}% from increased rejuvenation effect</li>
+                <li>${(rejuvenationMana * 100).toFixed(2)}% from reduced rejuvenation cost</li>
+                <li>${(wildGrowthIncreasedEffect * 100).toFixed(2)}% from increased wildgrowth effect</li>
+                <li>${(tolIncreasedHealingDone * 100).toFixed(2)}% from overall increased healing effect</li>
+                <li>${(treeOfLifeUptime * 100).toFixed(2)}% uptime</li>
               </ul>
             `}>
               Tree of Life throughput
@@ -479,14 +479,14 @@ class CombatLogParser extends MainCombatLogParser {
       hasSoulOfTheForest && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.SOUL_OF_THE_FOREST_TALENT.id} />}
-          value={`${((soulOfTheForestHealing/this.totalHealing)*100).toFixed(2)} %`}
+          value={`${((soulOfTheForestHealing / this.totalHealing) * 100).toFixed(2)} %`}
           label={(
             <dfn data-tip={`
               <ul>
                 <li>You had total ${this.modules.soulOfTheForest.proccs} Soul of the Forest proccs.</li>
-                <li>Wild Growth consumed ${this.modules.soulOfTheForest.wildGrowths} procc(s) and contributed to ${((this.modules.soulOfTheForest.wildGrowthHealing/this.totalHealing)*100).toFixed(2)} % / ${formatNumber(this.modules.soulOfTheForest.wildGrowthHealing)} healing</li>
-                <li>Rejuvenation consumed ${this.modules.soulOfTheForest.rejuvenations} procc(s) and contributed to ${((this.modules.soulOfTheForest.rejuvenationHealing/this.totalHealing)*100).toFixed(2)} % / ${formatNumber(this.modules.soulOfTheForest.rejuvenationHealing)} healing</li>
-                <li>Regrowth consumed ${this.modules.soulOfTheForest.regrowths} procc(s) and contributed to ${((this.modules.soulOfTheForest.regrowthHealing/this.totalHealing)*100).toFixed(2)} % / ${formatNumber(this.modules.soulOfTheForest.regrowthHealing)} healing</li>
+                <li>Wild Growth consumed ${this.modules.soulOfTheForest.wildGrowths} procc(s) and contributed to ${((this.modules.soulOfTheForest.wildGrowthHealing / this.totalHealing) * 100).toFixed(2)} % / ${formatNumber(this.modules.soulOfTheForest.wildGrowthHealing)} healing</li>
+                <li>Rejuvenation consumed ${this.modules.soulOfTheForest.rejuvenations} procc(s) and contributed to ${((this.modules.soulOfTheForest.rejuvenationHealing / this.totalHealing) * 100).toFixed(2)} % / ${formatNumber(this.modules.soulOfTheForest.rejuvenationHealing)} healing</li>
+                <li>Regrowth consumed ${this.modules.soulOfTheForest.regrowths} procc(s) and contributed to ${((this.modules.soulOfTheForest.regrowthHealing / this.totalHealing) * 100).toFixed(2)} % / ${formatNumber(this.modules.soulOfTheForest.regrowthHealing)} healing</li>
               </ul>
             `}>
               Soul of the Forest analyzer
@@ -509,19 +509,19 @@ class CombatLogParser extends MainCombatLogParser {
 
     if (this.modules.darkmoonDeckPromises.active) {
       // Override the core Promises display
-      results.items = results.items.filter(item => item.id !== ITEMS.DARKMOON_DECK_PROMISES.id);
+      results.items = results.items.filter(item => item.item.id !== ITEMS.DARKMOON_DECK_PROMISES.id);
       results.items.push({
         item: ITEMS.DARKMOON_DECK_PROMISES,
         result: (
-          <dfn data-tip={`The actual mana gained is ${formatThousands(this.modules.darkmoonDeckPromises.savings+this.modules.darkmoonDeckPromises.manaGained)}. The numbers shown may actually be lower if you did not utilize the promises effect fully, i.e. not needing the extra mana gained.`}>
-            {formatThousands(this.modules.darkmoonDeckPromises.savings)} mana saved ({formatThousands(this.modules.darkmoonDeckPromises.savings / this.fightDuration * 1000 * 5)} MP5)<br/>
-            {formatPercentage(promisesThroughput)}% / {formatNumber((this.totalHealing*promisesThroughput)/ fightDuration * 1000)} HPS
+          <dfn data-tip={`The actual mana gained is ${formatThousands(this.modules.darkmoonDeckPromises.savings + this.modules.darkmoonDeckPromises.manaGained)}. The numbers shown may actually be lower if you did not utilize the promises effect fully, i.e. not needing the extra mana gained.`}>
+            {formatThousands(this.modules.darkmoonDeckPromises.savings)} mana saved ({formatThousands(this.modules.darkmoonDeckPromises.savings / this.fightDuration * 1000 * 5)} MP5)<br />
+            {formatPercentage(promisesThroughput)}% / {formatNumber((this.totalHealing * promisesThroughput) / fightDuration * 1000)} HPS
           </dfn>
         ),
       });
     }
     if (this.selectedCombatant.hasFinger(ITEMS.SEPHUZS_SECRET.id)) {
-      results.items = results.items.filter(item => item.id !== ITEMS.SEPHUZS_SECRET.id);
+      results.items = results.items.filter(item => item.item.id !== ITEMS.SEPHUZS_SECRET.id);
       results.items.push({
         item: ITEMS.SEPHUZS_SECRET,
         result: (
@@ -580,16 +580,16 @@ class CombatLogParser extends MainCombatLogParser {
           <dfn
             data-tip={`
               <ul>
-                <li>${(rejuvenationIncreasedEffectHelmet*100).toFixed(2)}% from increased rejuvenation effect</li>
-                <li>${(rejuvenationManaHelmet*100).toFixed(2)}% from reduced rejuvenation cost</li>
-                <li>${(wildGrowthIncreasedEffectHelmet*100).toFixed(2)}% from increased wildgrowth effect</li>
-                <li>${(tolIncreasedHealingDoneHelmet*100).toFixed(2)}% from overall increased healing effect</li>
-                <li>${(treeOfLifeUptimeHelmet*100).toFixed(2)}% uptime</li>
+                <li>${(rejuvenationIncreasedEffectHelmet * 100).toFixed(2)}% from increased rejuvenation effect</li>
+                <li>${(rejuvenationManaHelmet * 100).toFixed(2)}% from reduced rejuvenation cost</li>
+                <li>${(wildGrowthIncreasedEffectHelmet * 100).toFixed(2)}% from increased wildgrowth effect</li>
+                <li>${(tolIncreasedHealingDoneHelmet * 100).toFixed(2)}% from overall increased healing effect</li>
+                <li>${(treeOfLifeUptimeHelmet * 100).toFixed(2)}% uptime</li>
                 <li>${treeOfLifeProccHelmet}% procc rate </li>
               </ul>
             `}
           >
-            {formatPercentage(treeOfLifeThroughputHelmet)} % / {formatNumber((this.totalHealing*treeOfLifeThroughputHelmet)/ fightDuration * 1000)} HPS
+            {formatPercentage(treeOfLifeThroughputHelmet)} % / {formatNumber((this.totalHealing * treeOfLifeThroughputHelmet) / fightDuration * 1000)} HPS
           </dfn>
         ),
       },
@@ -599,7 +599,7 @@ class CombatLogParser extends MainCombatLogParser {
         title: <SpellLink id={SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id} />,
         result: (
           <span>
-            {this.modules.t20.swiftmendReduced.toFixed(1)}s reduced on swiftmend <br/>({(this.modules.t20.swiftmendReduced/this.modules.t20.swiftmends).toFixed(1)}s per swiftmend on average).
+            {this.modules.t20.swiftmendReduced.toFixed(1)}s reduced on swiftmend <br />({(this.modules.t20.swiftmendReduced / this.modules.t20.swiftmends).toFixed(1)}s per swiftmend on average).
           </span>
         ),
       },
@@ -609,8 +609,8 @@ class CombatLogParser extends MainCombatLogParser {
         title: <SpellLink id={SPELLS.RESTO_DRUID_T20_4SET_BONUS_BUFF.id} />,
         result: (
           <span>
-            {((this.selectedCombatant.getBuffUptime(SPELLS.BLOSSOMING_EFFLORESCENCE.id)/this.fightDuration)*100).toFixed(2)}% uptime.<br/>
-            {((this.modules.t20.healing/this.totalHealing)*100).toFixed(2)}% healing.
+            {((this.selectedCombatant.getBuffUptime(SPELLS.BLOSSOMING_EFFLORESCENCE.id) / this.fightDuration) * 100).toFixed(2)}% uptime.<br />
+            {((this.modules.t20.healing / this.totalHealing) * 100).toFixed(2)}% healing.
           </span>
         ),
       },
@@ -621,12 +621,12 @@ class CombatLogParser extends MainCombatLogParser {
           <dfn data-tip={`
               <ul>
                 <li>You had total ${this.modules.soulOfTheForest.proccs} Soul of the Forest proccs.</li>
-                <li>Wild Growth consumed ${this.modules.soulOfTheForest.wildGrowths} procc(s) and contributed to ${((this.modules.soulOfTheForest.wildGrowthHealing/this.totalHealing)*100).toFixed(2)} % / ${formatNumber(this.modules.soulOfTheForest.wildGrowthHealing)} healing</li>
-                <li>Rejuvenation consumed ${this.modules.soulOfTheForest.rejuvenations} procc(s) and contributed to ${((this.modules.soulOfTheForest.rejuvenationHealing/this.totalHealing)*100).toFixed(2)} % / ${formatNumber(this.modules.soulOfTheForest.rejuvenationHealing)} healing</li>
-                <li>Regrowth consumed ${this.modules.soulOfTheForest.regrowths} procc(s) and contributed to ${((this.modules.soulOfTheForest.regrowthHealing/this.totalHealing)*100).toFixed(2)} % / ${formatNumber(this.modules.soulOfTheForest.regrowthHealing)} healing</li>
+                <li>Wild Growth consumed ${this.modules.soulOfTheForest.wildGrowths} procc(s) and contributed to ${((this.modules.soulOfTheForest.wildGrowthHealing / this.totalHealing) * 100).toFixed(2)} % / ${formatNumber(this.modules.soulOfTheForest.wildGrowthHealing)} healing</li>
+                <li>Rejuvenation consumed ${this.modules.soulOfTheForest.rejuvenations} procc(s) and contributed to ${((this.modules.soulOfTheForest.rejuvenationHealing / this.totalHealing) * 100).toFixed(2)} % / ${formatNumber(this.modules.soulOfTheForest.rejuvenationHealing)} healing</li>
+                <li>Regrowth consumed ${this.modules.soulOfTheForest.regrowths} procc(s) and contributed to ${((this.modules.soulOfTheForest.regrowthHealing / this.totalHealing) * 100).toFixed(2)} % / ${formatNumber(this.modules.soulOfTheForest.regrowthHealing)} healing</li>
               </ul>
             `}>
-            {((soulOfTheForestHealing/this.totalHealing)*100).toFixed(2)} % / {formatNumber(soulOfTheForestHealing / fightDuration * 1000)} HPS
+            {((soulOfTheForestHealing / this.totalHealing) * 100).toFixed(2)} % / {formatNumber(soulOfTheForestHealing / fightDuration * 1000)} HPS
           </dfn>
         ),
       },

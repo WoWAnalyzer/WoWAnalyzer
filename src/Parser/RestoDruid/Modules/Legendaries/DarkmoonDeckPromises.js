@@ -1,13 +1,8 @@
 import DarkmoonDeckPromisesCore from 'Parser/Core/Modules/Items/DarkmoonDeckPromises';
 
-
 class DarkmoonDeckPromises extends DarkmoonDeckPromisesCore {
   // The actual savings
   savings = 0;
-
-  on_initialized() {
-    super.on_initialized();
-  }
 
   on_byPlayer_cast(event) {
     super.on_byPlayer_cast(event);
@@ -18,7 +13,7 @@ class DarkmoonDeckPromises extends DarkmoonDeckPromisesCore {
       const manaLeftAfterCast = resource.amount - resource.cost;
       const savingsUsed = newSavings - manaLeftAfterCast;
 
-      if(savingsUsed > 0) {
+      if (savingsUsed > 0) {
         this.manaGained = newSavings - savingsUsed;
         this.savings = this.savings + savingsUsed;
       } else {

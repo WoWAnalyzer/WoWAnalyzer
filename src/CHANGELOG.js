@@ -1,4 +1,5 @@
 export default `
+24-06-2017 - Fixed an issue with some items not showing up properly (by Zerotorescue)
 23-06-2017 - Change home page layout (by Zerotorescue)
 23-06-2017 - Resto Druid: Added Essence of G'hanir (by Blazyb) 
 20-06-2017 - Added prepot/second pot suggestions (by Blazyb)
