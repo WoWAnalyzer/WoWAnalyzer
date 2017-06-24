@@ -406,7 +406,7 @@ class CombatLogParser extends MainCombatLogParser {
         item: ITEMS.NOBUNDOS_REDEMPTION,
         result: (
           <span>
-          {nobundoDiscountedHealingSurges} discounted Healing Surges
+            {nobundoDiscountedHealingSurges} discounted Healing Surges
           </span>
         ),
       },
@@ -415,13 +415,11 @@ class CombatLogParser extends MainCombatLogParser {
         icon: <SpellIcon id={SPELLS.RESTORATION_SHAMAN_T19_2SET_BONUS_BUFF.id} />,
         title: <SpellLink id={SPELLS.RESTORATION_SHAMAN_T19_2SET_BONUS_BUFF.id} />,
         result: (
-          <dfn data-tip="The effective healing contributed by the T19 2 set bonus.">
+          <span>
             {((t19_2PHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.t19_2Set.healing / fightDuration * 1000)} HPS
-          </dfn>
+          </span>
         ),
-            
       },
-      
     ];
 
     results.tabs = [
