@@ -5,6 +5,8 @@ import { Link } from 'react-router';
 import ItemLink from 'common/ItemLink';
 import ItemIcon from 'common/ItemIcon';
 
+import DevelopmentTab from 'Main/DevelopmentTab';
+
 class Results extends React.Component {
   static propTypes = {
     parser: PropTypes.object.isRequired,
@@ -33,6 +35,19 @@ class Results extends React.Component {
     }
 
     const results = parser.generateResults();
+
+    if (process.env.NODE_ENV === 'development') {
+      results.tabs.push({
+        title: 'Development',
+        url: 'Development',
+        render: () => (
+          <DevelopmentTab
+            parser={parser}
+            results={results}
+          />
+        ),
+      });
+    }
 
     const tabUrl = tab || results.tabs[0].url;
     const activeTab = results.tabs.find(tab => tab.url === tabUrl);

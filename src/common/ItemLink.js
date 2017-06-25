@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ITEMS from './ITEMS';
+import getItemQualityLabel from './getItemQualityLabel';
 
-const ItemLink = ({ id, children, details }) => {
+const ItemLink = ({ id, children, details, quality }) => {
   const queryString = [
     `item=${id}`,
   ];
@@ -19,7 +20,7 @@ const ItemLink = ({ id, children, details }) => {
   }
 
   return (
-    <a href={`http://www.wowhead.com/${queryString.join('&')}`} target="_blank" rel="noopener noreferrer" className={ITEMS[id].quality}>
+    <a href={`http://www.wowhead.com/${queryString.join('&')}`} target="_blank" rel="noopener noreferrer" className={getItemQualityLabel(quality || ITEMS[id].quality)}>
       {children || ITEMS[id].name}
     </a>
   );
@@ -28,6 +29,7 @@ ItemLink.propTypes = {
   id: PropTypes.number.isRequired,
   children: PropTypes.node,
   details: PropTypes.object,
+  quality: PropTypes.number,
 };
 
 export default ItemLink;

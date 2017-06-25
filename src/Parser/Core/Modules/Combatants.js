@@ -11,7 +11,7 @@ class Combatants extends Entities {
     const targetId = event.targetID;
     const combatant = this.players[targetId];
     if (!combatant) {
-      return; // a pet or something probably, either way we don't care.
+      return null; // a pet or something probably, either way we don't care.
     }
     return combatant;
   }
