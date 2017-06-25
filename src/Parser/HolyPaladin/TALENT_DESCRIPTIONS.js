@@ -14,7 +14,7 @@ export default {
     [SPELLS.UNBREAKABLE_SPIRIT_TALENT.id]: <span><a href="http://www.wowhead.com/spell=114154" target="_blank" rel="noopener noreferrer">Unbreakable Spirit</a> is almost never a valid choice.</span>,
     [SPELLS.RULE_OF_LAW_TALENT.id]: <span>Rule of Law is the default choice for raiding. Because the cooldown is so short, you should try to use it with <a href="http://www.wowhead.com/spell=85222" target="_blank" rel="noopener noreferrer">Light of Dawn</a> as often as you can. Rule of Law is also extremely helpful for healing targets if they happen to be out of range and need healing e.g.: running out with a debuff.</span>,
     // lv45
-    [SPELLS.FIST_OF_JUSTICE_TALENT_HOLY.id]: <span>The talent selected in this tier usually has no impact in raids.</span>,
+    [SPELLS.FIST_OF_JUSTICE_TALENT_SHARED.id]: <span>The talent selected in this tier usually has no impact in raids.</span>,
     [SPELLS.REPENTANCE_TALENT.id]: <span>The talent selected in this tier usually has no impact in raids.</span>,
     [SPELLS.BLINDING_LIGHT_TALENT.id]: <span>The talent selected in this tier usually has no impact in raids.</span>,
     // lv60
@@ -27,7 +27,7 @@ export default {
     [SPELLS.HOLY_PRISM_TALENT.id]: <span><a href="http://www.wowhead.com/spell=114165" target="_blank" rel="noopener noreferrer">Holy Prism</a> provides you another AoE heal similar to <a href="http://www.wowhead.com/spell=85222" target="_blank" rel="noopener noreferrer">Light of Dawn</a>. It doesn't heal for a lot while it's mana cost is fairly high, so it is usually not recommended to pick this talent. This tier is mostly preference.</span>,
     // lv90
     [SPELLS.FERVENT_MARTYR_TALENT.id]: <span>https://www.youtube.com/watch?v=WWaLxFIVX1s</span>,
-    [SPELLS.SACTIFIED_WRATH_TALENT.id]: <span>Only take <a href="http://www.wowhead.com/spell=53376" target="_blank" rel="noopener noreferrer">Sanctified Wrath</a> if a fight really requires burst healing, otherwise <a href="http://www.wowhead.com/spell=183778" target="_blank" rel="noopener noreferrer">Judgment of Light</a> is always the better choice (especially with <a href="http://www.wowhead.com/item=137086" target="_blank" rel="noopener noreferrer" class="legendary">Chain of Thrayn</a>).</span>,
+    [SPELLS.SANCTIFIED_WRATH_TALENT.id]: <span>Only take <a href="http://www.wowhead.com/spell=53376" target="_blank" rel="noopener noreferrer">Sanctified Wrath</a> if a fight really requires burst healing, otherwise <a href="http://www.wowhead.com/spell=183778" target="_blank" rel="noopener noreferrer">Judgment of Light</a> is always the better choice (especially with <a href="http://www.wowhead.com/item=137086" target="_blank" rel="noopener noreferrer" className="legendary">Chain of Thrayn</a>).</span>,
     [SPELLS.JUDGMENT_OF_LIGHT_TALENT.id]: <span><a href="http://www.wowhead.com/spell=183778" target="_blank" rel="noopener noreferrer">Judgment of Light</a> is the default choice in this tier as it does a lot of consistent healing.</span>,
     // lv100
     [SPELLS.BEACON_OF_FAITH_TALENT.id]: <span><a href="http://www.wowhead.com/spell=156910" target="_blank" rel="noopener noreferrer">Beacon of Faith</a> is excellent when both tanks are taking damage; specifically if there are a lot of adds that the off-tank has to pick up, or on any fight where the boss cleaves onto both tanks. In the Nighthold this is the best default choice.</span>,

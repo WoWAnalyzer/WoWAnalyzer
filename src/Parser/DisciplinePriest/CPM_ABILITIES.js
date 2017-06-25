@@ -110,16 +110,16 @@ const CPM_ABILITIES = [
   },
 
   {
-    spell: SPELLS.MINDBENDER_TALENT,
+    spell: SPELLS.MINDBENDER_TALENT_SHARED,
     category: SPELL_CATEGORY.COOLDOWNS,
     getCooldown: haste => 60,
-    isActive: combatant => combatant.hasTalent(SPELLS.MINDBENDER_TALENT.id),
+    isActive: combatant => combatant.hasTalent(SPELLS.MINDBENDER_TALENT_SHARED.id),
   },
   {
     spell: SPELLS.SHADOWFIEND,
     category: SPELL_CATEGORY.COOLDOWNS,
     getCooldown: haste => 180,
-    isActive: combatant => !combatant.hasTalent(SPELLS.MINDBENDER_TALENT.id),
+    isActive: combatant => !combatant.hasTalent(SPELLS.MINDBENDER_TALENT_SHARED.id),
   },
   {
     spell: SPELLS.RAPTURE,

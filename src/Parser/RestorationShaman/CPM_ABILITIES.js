@@ -137,7 +137,7 @@ const CPM_ABILITIES = [
     spell: SPELLS.ASCENDANCE_CAST,
     category: SPELL_CATEGORY.COOLDOWNS,
     getCooldown: haste => 180,
-    isActive: combatant => combatant.lv100Talent === SPELLS.ASCENDANCE_TALENT.id,
+    isActive: combatant => combatant.lv100Talent === SPELLS.ASCENDANCE_TALENT_RESTORATION.id,
     getOverhealing: (_, getAbility) => {
       const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.ASCENDANCE_HEAL.id);
       return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);

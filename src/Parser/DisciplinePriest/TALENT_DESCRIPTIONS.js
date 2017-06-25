@@ -18,7 +18,7 @@ export default {
    
     [SPELLS.POWER_WORD_SOLACE_TALENT.id]: <span>Strikes an enemy with heavenly power, dealing (300% of Spell power) Holy damage and restoring 1.00% of your maximum mana.</span>,
     [SPELLS.SHIELD_DISCIPLINE_TALENT.id]: <span>When your Power Word: Shield is completely absorbed you instantly regenerate 1% of your maximum mana.</span>,
-    [SPELLS.MINDBENDER_TALENT.id]: <span>Summons a Mindbender to attack the target for 12 sec. You regenerate 0.50% of maximum mana each time the Mindbender attacks.</span>,
+    [SPELLS.MINDBENDER_TALENT_SHARED.id]: <span>Summons a Mindbender to attack the target for 12 sec. You regenerate 0.50% of maximum mana each time the Mindbender attacks.</span>,
 
     [SPELLS.SANCTUARY_TALENT.id]: <span>Smite's absorption effect is increased by 50%.</span>,
     [SPELLS.CLARITY_OF_WILL_TALENT.id]: <span>Shields the target with a protective ward for 20 sec, absorbing [Spell power * 9 * (1 + Versatility)] damage.20 seconds remaining</span>,

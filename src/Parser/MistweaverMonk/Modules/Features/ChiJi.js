@@ -9,12 +9,12 @@ class ChiJi extends Module {
 
   on_initialized() {
     if(!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasTalent(SPELLS.INVOKE_CHIJI_TALENT.id);
+      this.active = this.owner.selectedCombatant.hasTalent(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id);
     }
   }
 
   on_byPlayer_summon(event) {
-    if(event.ability.guid === SPELLS.INVOKE_CHIJI_TALENT.id) {
+    if(event.ability.guid === SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id) {
       this.petID = event.targetID;
       debug && console.log('Chi-Ji Summoned: ' + this.petID);
     }

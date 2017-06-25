@@ -14,7 +14,7 @@ export default {
     [SPELLS.UNBREAKABLE_SPIRIT_TALENT.id]: <span><a href="http://www.wowhead.com/spell=114154" target="_blank" rel="noopener noreferrer">Unbreakable Spirit</a> is almost never a valid choice.</span>,
     [SPELLS.RULE_OF_LAW_TALENT.id]: <span>Rule of Law is the default choice for raiding. Because the cooldown is so short, you should try to use it with <a href="http://www.wowhead.com/spell=85222" target="_blank" rel="noopener noreferrer">Light of Dawn</a> as often as you can. Rule of Law is also extremely helpful for healing targets if they happen to be out of range and need healing e.g.: running out with a debuff.</span>,
     // lv45
-    [SPELLS.FIST_OF_JUSTICE_TALENT_HOLY.id]: <span>The talent selected in this tier usually has no impact in raids.</span>,
+    [SPELLS.FIST_OF_JUSTICE_TALENT_SHARED.id]: <span>The talent selected in this tier usually has no impact in raids.</span>,
     [SPELLS.REPENTANCE_TALENT.id]: <span>The talent selected in this tier usually has no impact in raids.</span>,
     [SPELLS.BLINDING_LIGHT_TALENT.id]: <span>The talent selected in this tier usually has no impact in raids.</span>,
     // lv60

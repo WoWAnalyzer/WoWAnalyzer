@@ -14,7 +14,7 @@ export default {
     [SPELLS.ZEAL_TALENT.id]: <span>Strike the target for 320% Physical damage. Maximum 2 charges. Grants Zeal, causing Zeal attacks to chain to an additional nearby target per stack. Maximum 3 stacks. Each jump deals 40% less damage.</span>,
     [SPELLS.GREATER_JUDGMENT_TALENT.id]: <span>Your Judgment ability hits 2 additional nearby enemies, and always deals a critical strike against targets above 50% health.</span>,
     // lv45
-    [SPELLS.FIST_OF_JUSTICE_TALENT_RETRI.id]: <span>Each Holy Power spent reduces the remaining cooldown on Hammer of Justice by 2.5 sec.</span>,
+    [SPELLS.FIST_OF_JUSTICE_TALENT_RETRIBUTION.id]: <span>Each Holy Power spent reduces the remaining cooldown on Hammer of Justice by 2.5 sec.</span>,
     [SPELLS.REPENTANCE_TALENT.id]: <span>The talent selected in this tier usually has no impact in raids.</span>,
     [SPELLS.BLINDING_LIGHT_TALENT.id]: <span>The talent selected in this tier usually has no impact in raids.</span>,
     // lv60

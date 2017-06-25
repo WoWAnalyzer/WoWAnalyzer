@@ -1,22 +1,49 @@
 import indexById from './indexById';
 
-import others from './SPELLS_OTHERS';
-import racials from './SPELLS_RACIALS';
+import SPELLS_OTHERS from './SPELLS_OTHERS';
+import SPELLS_RACIALS from './SPELLS_RACIALS';
 
-import paladin from './SPELLS_PALADIN';
-import priest from './SPELLS_PRIEST';
-import druid from './SPELLS_DRUID';
-import monk from './SPELLS_MONK';
-import shaman from './SPELLS_SHAMAN';
+import TALENTS_DEATH_KNIGHT from './talents/TALENTS_DEATH_KNIGHT';
+import TALENTS_DEMON_HUNTER from './talents/TALENTS_DEMON_HUNTER';
+import TALENTS_DRUID from './talents/TALENTS_DRUID';
+import TALENTS_HUNTER from './talents/TALENTS_HUNTER';
+import TALENTS_MAGE from './talents/TALENTS_MAGE';
+import TALENTS_MONK from './talents/TALENTS_MONK';
+import TALENTS_PALADIN from './talents/TALENTS_PALADIN';
+import TALENTS_PRIEST from './talents/TALENTS_PRIEST';
+import TALENTS_ROGUE from './talents/TALENTS_ROGUE';
+import TALENTS_SHAMAN from './talents/TALENTS_SHAMAN';
+import TALENTS_WARLOCK from './talents/TALENTS_WARLOCK';
+import TALENTS_WARRIOR from './talents/TALENTS_WARRIOR';
+
+import SPELLS_PALADIN from './SPELLS_PALADIN';
+import SPELLS_PRIEST from './SPELLS_PRIEST';
+import SPELLS_DRUID from './SPELLS_DRUID';
+import SPELLS_MONK from './SPELLS_MONK';
+import SPELLS_SHAMAN from './SPELLS_SHAMAN';
 
 const ABILITIES = {
-  ...others,
-  ...racials,
-  ...paladin,
-  ...priest,
-  ...druid,
-  ...monk,
-  ...shaman,
+  ...SPELLS_OTHERS,
+  ...SPELLS_RACIALS,
+
+  ...TALENTS_DEATH_KNIGHT,
+  ...TALENTS_DEMON_HUNTER,
+  ...TALENTS_DRUID,
+  ...TALENTS_HUNTER,
+  ...TALENTS_MAGE,
+  ...TALENTS_MONK,
+  ...TALENTS_PALADIN,
+  ...TALENTS_PRIEST,
+  ...TALENTS_ROGUE,
+  ...TALENTS_SHAMAN,
+  ...TALENTS_WARLOCK,
+  ...TALENTS_WARRIOR,
+
+  ...SPELLS_PALADIN,
+  ...SPELLS_PRIEST,
+  ...SPELLS_DRUID,
+  ...SPELLS_MONK,
+  ...SPELLS_SHAMAN,
 };
 
 export default indexById(ABILITIES);

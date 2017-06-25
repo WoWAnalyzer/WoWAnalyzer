@@ -197,87 +197,6 @@ export default {
   },
 
   // Talents:
-  // Discipline Priest:
-  // lv15
-  TWIST_OF_FATE_TALENT: {
-    id: 109142,
-    name: 'Twist of Fate',
-    icon: 'spell_shadow_mindtwisting',
-  },
-  CASTIGATION_TALENT: {
-    id: 193134,
-    name: 'Castigation',
-    icon: 'spell_holy_searinglightpriest',
-  },
-  SCHISM_TALENT: {
-    id: 214621,
-    name: 'Schism',
-    icon: 'spell_warlock_focusshadow',
-  },
-  // lv30
-  ANGELIC_FEATHER_TALENT: {
-    id: 121536,
-    name: 'Angelic Feather',
-    icon: 'ability_priest_angelicfeather',
-  },
-  BODY_AND_SOUL_TALENT: {
-    id: 64129,
-    name: 'Body and Soul',
-    icon: 'spell_holy_symbolofhope',
-  },
-  MASOCHISM_TALENT: {
-    id: 193063,
-    name: 'Masochism',
-    icon: 'spell_shadow_misery',
-  },
-  // lv45
-  SHINING_FORCE_TALENT: {
-    id: 204263,
-    name: 'Shining Force',
-    icon: 'ability_paladin_blindinglight2',
-  },
-  PSYCHIC_VOICE_TALENT: {
-    id: 196704,
-    name: 'Psychic Voice',
-    icon: 'spell_shadow_psychichorrors',
-  },
-  DOMINANT_MIND_TALENT: {
-    id: 205367,
-    name: 'Dominant Mind',
-    icon: 'spell_priest_void-flay',
-  },
-  // lv60
-  POWER_WORD_SOLACE_TALENT: {
-    id: 129250,
-    name: 'Power Word: Solace',
-    icon: 'ability_priest_flashoflight',
-  },
-  SHIELD_DISCIPLINE_TALENT: {
-    id: 197045,
-    name: 'Shield Discipline',
-    icon: 'spell_holy_divineprotection',
-  },
-  MINDBENDER_TALENT: {
-    id: 123040,
-    name: 'Mindbender',
-    icon: 'spell_shadow_soulleech_3',
-  },
-  // lv75
-  SANCTUARY_TALENT: {
-    id: 246393,
-    name: 'Sanctuary',
-    icon: 'spell_holy_holysmite',
-  },
-  CLARITY_OF_WILL_TALENT: {
-    id: 152118,
-    name: 'Clarity of Will',
-    icon: 'ability_priest_clarityofwill',
-  },
-  SHADOW_COVENANT_TALENT: {
-    id: 204065,
-    name: 'Shadow Covenant',
-    icon: 'spell_shadow_summonvoidwalker',
-  },
   // lv90
   PURGE_THE_WICKED_TALENT: {
     id: 204197,
@@ -285,32 +204,11 @@ export default {
     icon: 'ability_mage_firestarter',
     manaCost: 22000,
   },
-  DIVINE_STAR_TALENT: {
-    id: 110744,
-    name: 'Divine Star',
-    icon: 'spell_priest_divinestar',
-  },
   HALO_TALENT: {
     id: 120517,
     name: 'Halo',
     icon: 'ability_priest_halo',
     manaCost: 39600,
-  },
-  // lv100
-  POWER_INFUSION_TALENT: {
-    id: 10060,
-    name: 'Power Infusion',
-    icon: 'spell_holy_powerinfusion',
-  },
-  GRACE_TALENT: {
-    id: 200309,
-    name: 'Grace',
-    icon: 'spell_holy_hopeandgrace',
-  },
-  EVANGELISM_TALENT: {
-    id: 246287,
-    name: 'Evangelism',
-    icon: 'spell_holy_divineillumination',
   },
 
 

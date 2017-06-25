@@ -159,88 +159,20 @@ export default {
     icon: 'spell_shaman_lavasurge',
     cooldownType: 'DAMAGE',
   },
-  // Elemental Shaman Talents
-  EARTHEN_RAGE_TALENT: {
-    id: 170374,
-    name: 'Earthen Rage',
-    icon: 'ability_earthen_pillar',
-  },
-  // 'GUST_OF_WIND_TALENT'
-  PATH_OF_FLAME_TALENT: {
-    id: 201909,
-    name: 'Path of Flame',
-    icon: 'spell_mage_flameorb',
-  },
-  TOTEM_MASTERY_TALENT: {
-    id: 210643,
-    name: 'Totem Mastery',
-    icon: 'spell_nature_wrathofair_totem',
-  },
-  // 'ANCESTRAL_GUIDANCE_TALENT'
-  AFTERSHOCK_TALENT: {
-    id: 210707,
-    name: 'Aftershock',
-    icon: 'spell_nature_stormreach',
-  },
   AFTERSHOCK: {
     id: 210712,
     name: 'Aftershock',
     icon: 'spell_nature_stormreach',
-  },
-  // 'WIND_RUSH_TOTEM_TALENT'
-  ANCESTRAL_SWIFTNESS_TALENT: {
-    id: 192087,
-    name: 'Ancestral Swiftness',
-    icon: 'spell_shaman_elementaloath',
-  },
-  ELEMENTAL_MASTERY_TALENT: {
-    id: 16166,
-    name: 'Elemental Mastery',
-    icon: 'spell_nature_wispheal',
-  },
-  PRIMAL_ELEMENTALIST_TALENT: {
-    id: 117013,
-    name: 'Primal Elementalist',
-    icon: 'shaman_talent_primalelementalist',
-  },
-  ELEMENTAL_FUSION_TALENT: {
-    id: 192235,
-    name: 'Elemental Fusion',
-    icon: 'spell_shaman_shockinglava',
-  },
-  ELEMENTAL_BLAST_TALENT: {
-    id: 117014,
-    name: 'Elemental Blast',
-    icon: 'shaman_talent_elementalblast',
-  },
-  STORM_ELEMENTAL_TALENT: {
-    id: 192249,
-    name: 'Storm Elemental',
-    icon: 'spell_shaman_measuredinsight',
-  },
-  LIQUID_MAGMA_TOTEM_TALENT: {
-    id: 192222,
-    name: 'Liquid Magma Totem',
-    icon: 'spell_shaman_spewlava',
-  },
-  // 'ECHO_OF_THE_ELEMENTS_TALENT'
-  ASCENDANCE_ELEMENTAL_TALENT: {
-    id: 114050,
-    name: 'Ascendance',
-    icon: 'spell_fire_elementaldevastation',
   },
   LIGHTNING_ROD: {
     id: 210689,
     name: 'Lightning Rod',
     icon: 'inv_rod_enchantedcobalt',
   },
-  ICEFURY_TALENT: {
-    id: 210714,
-    name: 'Icefury',
-    icon: 'spell_frost_iceshard',
-  },
+
   // Enhancement Shaman
   // TODO: add spells
+
   // Restoration Shaman
   CHAIN_HEAL: {
     id: 1064,
@@ -393,121 +325,6 @@ export default {
     id: 77226,
     name: 'Mastery: Deep Healing',
     icon: 'spell_nature_healingtouch',
-  },
-
-  // Talents:
-  // Restoration Shaman:
-  // lv15
-  UNDULATION_TALENT: {
-    id: 200071,
-    name: 'Undulation',
-    icon: 'spell_nature_healingwavelesser',
-  },
-  UNLEASH_LIFE_TALENT: {
-    id: 73685,
-    name: 'Unleash Life',
-    icon: 'spell_shaman_unleashweapon_life',
-  },
-  TORRENT_TALENT: {
-    id: 200072,
-    name: 'Torrent',
-    icon: 'spell_nature_riptide',
-  },
-  // lv30
-  GUST_OF_WIND_TALENT: {
-    id: 192063,
-    name: 'Gust of Wind',
-    icon: 'ability_skyreach_four_wind',
-  },
-  GRACEFUL_SPIRIT_TALENT: {
-    id: 192088,
-    name: 'Graceful Spirit Spirit',
-    icon: 'spell_shaman_spectraltransformation',
-  },
-  WIND_RUSH_TOTEM_TALENT: {
-    id: 192077,
-    name: 'Wind Rush Totem',
-    icon: 'ability_shaman_windwalktotem',
-  },
-  // lv45
-  LIGHTNING_SURGE_TOTEM_TALENT: {
-    id: 192058,
-    name: 'Lightning Surge Totem',
-    icon: 'spell_nature_brilliance',
-  },
-  EARTHGRAB_TOTEM_TALENT: {
-    id: 51485,
-    name: 'Earthgrab Totem',
-    icon: 'spell_nature_stranglevines',
-  },
-  VOODOO_TOTEM_TALENT: {
-    id: 196932,
-    name: 'Voodoo Totem',
-    icon: 'spell_totem_wardofdraining',
-  },
-  // lv60
-  CRASHING_WAVES_TALENT: {
-    id: 197464,
-    name: 'Crashing waves',
-    icon: 'spell_frost_summonwaterelemental',
-  },
-  ANCESTRAL_GUIDANCE_TALENT: {
-    id: 108281,
-    name: 'Ancestral Guidance',
-    icon: 'ability_shaman_ancestralguidance',
-  },
-  DELUGE_TALENT: {
-    id: 200076,
-    name: 'Deluge',
-    icon: 'ability_shawaterelemental_reform',
-  },
-  // lv75
-  ANCESTRAL_PROTECTION_TOTEM_TALENT: {
-    id: 207399,
-    name: 'Ancestral Protection Totem',
-    icon: 'spell_nature_reincarnation',
-  },
-  EARTHEN_SHIELD_TOTEM_TALENT: {
-    id: 198838,
-    name: 'Earthen Shield Totem',
-    icon: 'spell_nature_stoneskintotem',
-  },
-  ANCESTRAL_VIGOR_TALENT: {
-    id: 207401,
-    name: 'Ancestral Vigor',
-    icon: 'spell_shaman_blessingoftheeternals',
-  },
-  // lv90
-  BOTTOMLESS_DEPTHS_TALENT: {
-    id: 197467,
-    name: 'Bottomless Depths',
-    icon: 'ability_shawaterelemental_swirl',
-  },
-  CLOUDBURST_TOTEM_TALENT: {
-    id: 157153,
-    name: 'Cloudburst Totem',
-    icon: 'ability_shaman_condensationtotem',
-  },
-  ECHO_OF_THE_ELEMENTS_TALENT: {
-    id: 108283,
-    name: 'Echo of the Elements',
-    icon: 'ability_shaman_echooftheelements',
-  },
-  // lv100
-  ASCENDANCE_TALENT: {
-    id: 114052,
-    name: 'Ascendance',
-    icon: 'spell_fire_elementaldevastation',
-  },
-  WELLSPRING_TALENT: {
-    id: 197995,
-    name: 'Wellspring',
-    icon: 'ability_shawaterelemental_split',
-  },
-  HIGH_TIDE_TALENT: {
-    id: 157154,
-    name: 'High Tide',
-    icon: 'spell_shaman_hightide',
   },
 
   // Traits:
