@@ -24,6 +24,10 @@ class Talent extends React.Component {
     }
 
     const talentDescriptions = this.context.config.talentDescriptions;
+    let description = talentDescriptions.descriptions[talent];
+    if (!description && process.env.NODE_ENV === 'development') {
+      description = <div className="alert alert-danger">Missing talent description.</div>;
+    }
 
     return (
       <article>
@@ -35,7 +39,7 @@ class Talent extends React.Component {
             <SpellLink id={talent} />
           </header>
           <main>
-            {talentDescriptions.descriptions[talent]}
+            {description}
           </main>
         </div>
       </article>

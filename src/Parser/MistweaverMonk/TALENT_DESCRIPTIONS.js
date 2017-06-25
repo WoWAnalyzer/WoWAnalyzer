@@ -4,6 +4,7 @@ import SPELLS from 'common/SPELLS';
 // import SpellLink from 'common/SpellLink';
 
 export default {
+  // Note: Descriptions have been pulled from the WoWHead guide, written by Garg.
   descriptions: {
     [SPELLS.CHI_BURST_TALENT.id]: <span>Chi Burst is an excellent raid healing spell. It does moderate healing for no mana, so you should try to use it often. This should be your default choice for raiding.</span>,
     [SPELLS.ZEN_PULSE_TALENT.id]: <span>Zen Pulse can be a really strong single target heal if there are multiple enemies near the target. This is a great spell for dungeons since there are almost always many enemies surrounding your tank and melee.</span>,

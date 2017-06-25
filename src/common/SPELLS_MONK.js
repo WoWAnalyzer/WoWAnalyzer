@@ -193,7 +193,29 @@ export default {
   },
 
   // Talents:
-  // Note: Descriptions have been pulled from the WoWHead guide, written by Garg.
+
+  // Shared
+  CHI_TORPEDO_TALENT: {
+    id: 115008,
+    name: 'Chi Torpedo',
+    icon: 'ability_monk_quitornado',
+  },
+  LEG_SWEEP_TALENT: {
+    id: 119381,
+    name: 'Leg Sweep',
+    icon: 'ability_monk_legsweep',
+  },
+  HEALING_ELIXIR_TALENT: {
+    id: 122281,
+    name: 'Healing Elixir',
+    icon: 'ability_monk_jasmineforcetea',
+  },
+  DAMPEN_HARM_TALENT: {
+    id: 122278,
+    name: 'Dampen Harm',
+    icon: 'ability_monk_dampenharm',
+  },
+
   // Level 15
   CHI_BURST_TALENT: {
     id: 123986,
@@ -211,11 +233,7 @@ export default {
     icon: 'ability_monk_chiwave',
   },
   // Level 30
-  CHI_TORPEDO_TALENT: {
-    id: 115008,
-    name: 'Chi Torpedo',
-    icon: 'ability_monk_quitornado',
-  },
+  // Chi Torpedo is shared
   TIGERS_LUST_TALENT: {
     id: 116841,
     name: 'Tiger\'s Lust',
@@ -253,27 +271,15 @@ export default {
     name: 'Song of Chi-Ji',
     icon: 'inv_chaos_orb',
   },
-  LEG_SWEEP_TALENT: {
-    id: 119381,
-    name: 'Leg Sweep',
-    icon: 'ability_monk_legsweep',
-  },
+  // Leg Sweep is shared
   // Level 75
-  HEALING_ELIXIR_TALENT: {
-    id: 122281,
-    name: 'Healing Elixir',
-    icon: 'ability_monk_jasmineforcetea',
-  },
+  // Healing elixir is shared
   DIFFUSE_MAGIC_TALENT: {
     id: 122783,
     name: 'Diffuse Magic',
     icon: 'spell_monk_diffusemagic',
   },
-  DAMPEN_HARM_TALENT: {
-    id: 122278,
-    name: 'Dampen Harm',
-    icon: 'ability_monk_dampenharm',
-  },
+  // Dampen Harm is shared
   // Level 90
   REFRESHING_JADE_WIND_TALENT: {
     id: 196725,
