@@ -20,6 +20,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   static HEALING_ABILITIES_ON_GCD = HEALING_ABILITIES_ON_GCD;
   static ABILITIES_ON_GCD = [
     ...HEALING_ABILITIES_ON_GCD,
+    SPELLS.CHI_TORPEDO_TALENT.id,
     SPELLS.BLACKOUT_KICK.id,
     SPELLS.DETOX.id,
     SPELLS.LEG_SWEEP_TALENT.id,
@@ -32,7 +33,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     SPELLS.TRANSCENDENCE.id,
     SPELLS.TRANSCENDENCE_TRANSFER.id,
     SPELLS.TIGER_PALM.id,
-    SPELLS.ARCANE_TORRENT.id,
   ];
 }
 
