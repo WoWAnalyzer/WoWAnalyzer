@@ -218,11 +218,11 @@ class CombatLogParser extends MainCombatLogParser {
     }
 
     // Uplifting Trance Usage
-    if (unusedUTProcs > 0.10) {
+    if (unusedUTProcs > 0.30) {
       results.addIssue({
         issue: <span>Your <SpellLink id={SPELLS.UPLIFTING_TRANCE_BUFF.id} /> procs should be used as soon as you get them so they are not overwritten. You missed {(this.modules.upliftingTrance.UTProcsTotal - this.modules.upliftingTrance.consumedUTProc)}/{(this.modules.upliftingTrance.UTProcsTotal)} procs. ({formatPercentage((this.modules.upliftingTrance.UTProcsTotal - this.modules.upliftingTrance.consumedUTProc) / this.modules.upliftingTrance.UTProcsTotal)} %)</span>,
         icon: SPELLS.UPLIFTING_TRANCE_BUFF.icon,
-        importance: getIssueImportance(unusedUTProcs, 0.2, 0.5, true),
+        importance: getIssueImportance(unusedUTProcs, 0.45, 0.6, true),
       });
     }
     // Mana Tea Usage issue
