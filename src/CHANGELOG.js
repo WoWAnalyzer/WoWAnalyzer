@@ -1,8 +1,9 @@
 export default `
+26-06-2017 - Mistweaver Monk: Added Shelter of Rin, fixed Ei'thas, Lunar Glides of Eramas healing contribution formula. (by anomoly)
 26-06-2017 - Resto Shaman: Fix a bug that would prevent the Feeding tab from loading. (by Versaya)
 24-06-2017 - Fixed an issue with some items not showing up properly (by Zerotorescue)
 23-06-2017 - Change home page layout (by Zerotorescue)
-23-06-2017 - Resto Druid: Added Essence of G'hanir (by Blazyb) 
+23-06-2017 - Resto Druid: Added Essence of G'hanir (by Blazyb)
 20-06-2017 - Added prepot/second pot suggestions (by Blazyb)
 20-06-2017 - Mistweaver Monk: Added T20 2pc Tracking, Added support for Focused Thunder, adjusted suggestion for TFT usage. (by anomoly)
 20-06-2017 - Resto Druid: Added Gnawed Thumb Ring (by Blazyb)

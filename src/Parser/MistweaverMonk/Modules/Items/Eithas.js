@@ -1,14 +1,19 @@
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Module from 'Parser/Core/Module';
+import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
 const debug = false;
 
+const EITHAS_LUNAR_GLIDES_HEALING_INCREASE = .1;
+
 class Eithas extends Module {
-  healing = 0;
+  healingCleave = 0;
+  healingMain = 0;
+  healing = 0
   vivTarget = null;
-  vivUTBuff = false;
-  totalVivHeal = 0;
+  rawHealingCleave = 0;
+  rawHealingMain = 0;
 
   on_initialized() {
     if (!this.owner.error) {
@@ -21,32 +26,29 @@ class Eithas extends Module {
 
     if(spellId === SPELLS.VIVIFY.id && this.owner.selectedCombatant.hasBuff(SPELLS.UPLIFTING_TRANCE_BUFF.id)) {
       this.vivTarget = event.targetID;
-      this.vivUTBuff = true;
     }
   }
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
 
-    if(spellId === SPELLS.VIVIFY.id && event.targetID !== this.vivTarget && this.vivUTBuff === true) {
-      this.healing += event.amount;
-      this.healing += event.overheal || 0;
-      this.vivUTBuff = false;
+    if(spellId === SPELLS.VIVIFY.id && event.targetID !== this.vivTarget && this.owner.selectedCombatant.hasBuff(SPELLS.UPLIFTING_TRANCE_BUFF.id, event.timestamp, 32, 0)) {
+      this.healingCleave += calculateEffectiveHealing(event, EITHAS_LUNAR_GLIDES_HEALING_INCREASE);
+      this.rawHealingCleave += (event.amount || 0) + (event.absorbed || 0);
+      console.log('Viv Cleave Heal under UT:', event.timestamp);
     }
-
-    if(debug) {
-      if(spellId === SPELLS.VIVIFY.id && event.targetID === this.vivTarget) {
-        this.totalVivHeal += event.amount;
-        this.totalVivHeal += event.overheal || 0;
-      }
+    if(spellId === SPELLS.VIVIFY.id && event.targetID === this.vivTarget && this.owner.selectedCombatant.hasBuff(SPELLS.UPLIFTING_TRANCE_BUFF.id, event.timestamp, 32, 0)) {
+      this.healingMain += calculateEffectiveHealing(event, EITHAS_LUNAR_GLIDES_HEALING_INCREASE);
+      this.rawHealingMain += (event.amount || 0) + (event.absorbed || 0);
+      console.log('Viv Heal under UT:', event.timestamp);
     }
   }
 
   on_finished() {
-    this.healing = this.healing / 3;
+    this.healing = this.healingCleave + this.healingMain + ((this.rawHealingCleave + this.healingCleave) / 3);
     if(debug) {
-      console.log('Boot Healing: ' + this.healing);
-      console.log('Viv Target Healing: ' + this.totalVivHeal);
+      console.log('Boot Healing: ' + this.rawHealingCleave);
+      console.log('Viv Target Healing: ' + this.rawHealingMain);
       console.log('Total Healing: ' + (this.totalVivHeal + this.healing));
     }
   }

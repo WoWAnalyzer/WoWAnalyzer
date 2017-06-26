@@ -39,6 +39,7 @@ import ChiBurst from './Modules/Features/ChiBurst';
 import Eithas from './Modules/Items/Eithas';
 import T20_4pc from './Modules/Items/T20_4pc';
 import T20_2pc from './Modules/Items/T20_2pc';
+import ShelterOfRin from './Modules/Items/ShelterOfRin';
 
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
@@ -100,12 +101,15 @@ class CombatLogParser extends MainCombatLogParser {
     eithas: Eithas,
     t20_4pc: T20_4pc,
     t20_2pc: T20_2pc,
+    shelterOfRin: ShelterOfRin,
   };
 
   generateResults() {
     const results = super.generateResults();
 
     const fightDuration = this.fightDuration;
+    const getPercentageOfTotal = healingDone => healingDone / this.totalHealing;
+    const formatItemHealing = healingDone => `${formatPercentage(getPercentageOfTotal(healingDone))} % / ${formatNumber(healingDone / fightDuration * 1000)} HPS`;
     const fightEndTime = this.fight.end_time;
     const raidSize = Object.entries(this.combatants.players).length;
     const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
@@ -114,7 +118,7 @@ class CombatLogParser extends MainCombatLogParser {
     const abilityTracker = this.modules.abilityTracker;
     const getAbility = spellId => abilityTracker.getAbility(spellId);
 
-    const eithasHealingPercentage = this.modules.eithas.healing / this.totalHealing;
+    const eithasHealingPercentage = this.modules.eithas.healing  / this.totalHealing;
 
     const t20_4pcHealingPercentage = this.modules.t20_4pc.healing / this.totalHealing;
 
@@ -222,11 +226,11 @@ class CombatLogParser extends MainCombatLogParser {
       });
     }
     // Mana Tea Usage issue
-    if (this.modules.manaTea.active && avgMTsaves < 200000) {
+    if (this.modules.manaTea.active && avgMTsaves < 180000) {
       results.addIssue({
-        issue: <span>Your mana spent during <SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> can be improved. Always aim to cast your highest mana spells such as <SpellLink id={SPELLS.ESSENCE_FONT.id} /> or <SpellLink id={SPELLS.VIVIFY.id} />. ({((this.modules.manaTea.manaSaved / this.modules.manaTea.manateaCount) / 1000).toFixed(0)}k avg mana saved)</span>,
+        issue: <span>Your mana spent during <SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> can be improved. Always aim to cast your highest mana spells such as <SpellLink id={SPELLS.ESSENCE_FONT.id} /> or <SpellLink id={SPELLS.VIVIFY.id} />. ({((this.modules.manaTea.manaSavedMT / this.modules.manaTea.manateaCount) / 1000).toFixed(0)}k avg mana saved)</span>,
         icon: SPELLS.MANA_TEA_TALENT.icon,
-        importance: getIssueImportance(avgMTsaves, 160000, 120000),
+        importance: getIssueImportance(avgMTsaves, 150000, 120000),
       });
     }
     // Lifecycles Manasavings
@@ -570,6 +574,10 @@ class CombatLogParser extends MainCombatLogParser {
             {((eithasHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.eithas.healing / fightDuration * 1000)} HPS
           </span>
         ),
+      },
+      this.modules.shelterOfRin.active && {
+        item: ITEMS.SHELTER_OF_RIN,
+        result: formatItemHealing(this.modules.shelterOfRin.healing),
       },
     ];
 
