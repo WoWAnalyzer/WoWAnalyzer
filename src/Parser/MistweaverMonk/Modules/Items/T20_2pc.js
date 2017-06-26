@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 
 import Module from 'Parser/Core/Module';
 
-const debug = true;
+const debug = false;
 
 const BASEMANA = 1100000;
 const TWOPC_MANA_REDUCTION = .75;
@@ -46,7 +46,7 @@ class T20_2pc extends Module {
       console.log('T20 2pc Mana Saved: ', this.manaSaved);
     }
   }
-  
+
 }
 
 export default T20_2pc;
