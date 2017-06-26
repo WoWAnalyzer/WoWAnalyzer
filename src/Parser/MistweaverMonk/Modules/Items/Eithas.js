@@ -35,12 +35,10 @@ class Eithas extends Module {
     if(spellId === SPELLS.VIVIFY.id && event.targetID !== this.vivTarget && this.owner.selectedCombatant.hasBuff(SPELLS.UPLIFTING_TRANCE_BUFF.id, event.timestamp, 32, 0)) {
       this.healingCleave += calculateEffectiveHealing(event, EITHAS_LUNAR_GLIDES_HEALING_INCREASE);
       this.rawHealingCleave += (event.amount || 0) + (event.absorbed || 0);
-      console.log('Viv Cleave Heal under UT:', event.timestamp);
     }
     if(spellId === SPELLS.VIVIFY.id && event.targetID === this.vivTarget && this.owner.selectedCombatant.hasBuff(SPELLS.UPLIFTING_TRANCE_BUFF.id, event.timestamp, 32, 0)) {
       this.healingMain += calculateEffectiveHealing(event, EITHAS_LUNAR_GLIDES_HEALING_INCREASE);
       this.rawHealingMain += (event.amount || 0) + (event.absorbed || 0);
-      console.log('Viv Heal under UT:', event.timestamp);
     }
   }
 
