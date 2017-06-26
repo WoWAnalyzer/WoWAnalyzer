@@ -40,6 +40,7 @@ import Eithas from './Modules/Items/Eithas';
 import T20_4pc from './Modules/Items/T20_4pc';
 import T20_2pc from './Modules/Items/T20_2pc';
 import ShelterOfRin from './Modules/Items/ShelterOfRin';
+import DoorwayToNowhere from './Modules/Items/DoorwayToNowhere';
 
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
@@ -102,6 +103,7 @@ class CombatLogParser extends MainCombatLogParser {
     t20_4pc: T20_4pc,
     t20_2pc: T20_2pc,
     shelterOfRin: ShelterOfRin,
+    doorwayToNowhere: DoorwayToNowhere,
   };
 
   generateResults() {
@@ -578,6 +580,10 @@ class CombatLogParser extends MainCombatLogParser {
       this.modules.shelterOfRin.active && {
         item: ITEMS.SHELTER_OF_RIN,
         result: formatItemHealing(this.modules.shelterOfRin.healing),
+      },
+      this.modules.doorwayToNowhere.active && {
+        item: ITEMS.DOORWAY_TO_NOWHERE,
+        result: formatItemHealing(this.modules.doorwayToNowhere.healing),
       },
     ];
 

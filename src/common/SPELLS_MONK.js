@@ -383,6 +383,11 @@ export default {
     name: 'Shelter of Rin',
     icon: 'ability_monk_chiwave',
   },
+  DOORWAY_TO_NOWHERE_SUMMON: {
+    id: 248293,
+    name: 'Doorway to Nowhere',
+    icon: 'inv_pet_cranegod',
+  },
   // Tier Set Bonus's
   XUENS_BATTLEGEAR_4_PIECE_BUFF: {
     id: 242258,
