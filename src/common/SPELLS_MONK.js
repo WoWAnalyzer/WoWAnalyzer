@@ -73,7 +73,7 @@ export default {
     icon: 'ability_monk_soothingmists',
   },
   SOOTHING_MIST_CAST: {
-    id: 198533, 
+    id: 198533,
     name: 'Soothing Mist',
     icon: 'ability_monk_soothingmists',
   },
@@ -377,12 +377,23 @@ export default {
     icon: 'monk_ability_transcendence',
   },
 
+  // Legendary Effects
+  SHELTER_OF_RIN_HEAL: {
+    id: 235750,
+    name: 'Shelter of Rin',
+    icon: 'ability_monk_chiwave',
+  },
+  DOORWAY_TO_NOWHERE_SUMMON: {
+    id: 248293,
+    name: 'Doorway to Nowhere',
+    icon: 'inv_pet_cranegod',
+  },
   // Tier Set Bonus's
   XUENS_BATTLEGEAR_4_PIECE_BUFF: {
     id: 242258,
     name: 'Monk T20 Mistweaver 4P Bonus',
     icon: 'spell_monk_mistweaver_spec',
-  },  
+  },
   DANCE_OF_MISTS: {
     id: 247891,
     name: 'Dance of Mists',
@@ -392,7 +403,7 @@ export default {
     id: 242257,
     name: 'Monk T20 Mistweaver 2P Bonus',
     icon: 'spell_monk_mistweaver_spec',
-  },  
+  },
   SURGE_OF_MISTS: {
     id: 246328,
     name: 'Surge of Mists',

@@ -23,7 +23,7 @@ const CPM_ABILITIES = [
   // Cooldowns
   {
     spell: SPELLS.THUNDER_FOCUS_TEA,
-    category: SPELL_CATEGORY.ROTATIONAL,
+    category: SPELL_CATEGORY.COOLDOWNS,
     getCooldown: haste => 30,
   },
   {
