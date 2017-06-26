@@ -163,12 +163,12 @@ export default {
   DISC_PRIEST_T20_2SET_BONUS_PASSIVE: {
     id: 242268,
     name: 'T20 2 Set Bonus',
-    icon: 'spell_holy_powerwordshield',
+    icon: 'spell_holy_penance',
   },
   DISC_PRIEST_T20_4SET_BONUS_PASSIVE: {
     id: 242269,
     name: 'T20 4 Set Bonus',
-    icon: 'spell_holy_powerwordshield',
+    icon: 'spell_holy_penance',
   },
   DISC_PRIEST_T20_4SET_BONUS_BUFF: {
     id: 246519,
