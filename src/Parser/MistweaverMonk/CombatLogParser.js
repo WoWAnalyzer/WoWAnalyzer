@@ -190,7 +190,7 @@ class CombatLogParser extends MainCombatLogParser {
     // T20 2pc Buff missed
     if(this.modules.t20_2pc.active && (this.modules.t20_2pc.procs - this.modules.t20_2pc.casts) > 0) {
       results.addIssue({
-        issue: <span>You missed {this.modules.t20_2pc.procs - this.modules.t20_2pc.casts} <SpellLink id={SPELLS.SURGE_OF_MISTS.id} /> procs.  This proc provides not only a large mana savings on <SpellLink id={SPELLS.ENVELOPING_MISTS.id} />.  If you have the Tier 20 4 piece bonus, you also gain a 12% healing buff through <SpellLink id={SPELLS.SURGE_OF_MISTS.id} /> </span>,
+        issue: <span>You missed {this.modules.t20_2pc.procs - this.modules.t20_2pc.casts} <SpellLink id={SPELLS.SURGE_OF_MISTS.id} /> procs.  This proc provides not only a large mana savings on <SpellLink id={SPELLS.ENVELOPING_MISTS.id} />.  If you have the Tier 20 4 piece bonus, you also gain a 12% healing buff through <SpellLink id={SPELLS.DANCE_OF_MISTS.id} /> </span>,
         icon: SPELLS.SURGE_OF_MISTS.icon,
         importance: getIssueImportance((this.modules.t20_2pc.procs - this.modules.t20_2pc.casts), 0, 1, true),
       });
