@@ -17,6 +17,9 @@ class AbilityTracker extends Module {
 
     const cast = this.getAbility(spellId, event.ability);
     cast.casts = (cast.casts || 0) + 1;
+    if (event.manaCost) {
+      cast.manaUsed = (cast.manaUsed || 0) + event.manaCost;
+    }
   }
 
   getAbility(spellId, abilityInfo = null) {

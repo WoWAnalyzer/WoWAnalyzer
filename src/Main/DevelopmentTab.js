@@ -186,6 +186,11 @@ class DevelopmentTab extends React.Component {
                             critical damage: #: {cast.damangeCriticalHits} effective: {formatThousands(cast.damangeCriticalEffective)} absorbed: {formatThousands(cast.damangeCriticalAbsorbed)}
                           </div>
                         )}
+                        {cast.manaUsed && (
+                          <div>
+                            Mana used: {formatThousands(cast.manaUsed)}
+                          </div>
+                        )}
                       </li>
                     ))}
                 </ul>
