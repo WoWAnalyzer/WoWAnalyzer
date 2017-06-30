@@ -24,6 +24,9 @@ function selectText(node) {
     window.getSelection().addRange(range);
   }
 }
+function formatThousands(number) {
+  return (Math.round(number || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+}
 
 class Item extends React.PureComponent {
   static propTypes = {
@@ -123,6 +126,8 @@ class DevelopmentTab extends React.Component {
 
     const combatant = parser.selectedCombatant;
 
+    console.log(parser.modules.abilityTracker.abilities);
+
     return (
       <div>
         <div className="panel-heading">
@@ -130,6 +135,44 @@ class DevelopmentTab extends React.Component {
         </div>
         <div>
           <div className="row">
+            {parser.modules.abilityTracker && (
+              <div className="col-md-6">
+                All casts:
+                <ul className="list">
+                  {Object.keys(parser.modules.abilityTracker.abilities)
+                    .map(key => parser.modules.abilityTracker.abilities[key])
+                    .sort((a, b) => (b.casts || 0) - (a.casts || 0))
+                    .map((cast) => (
+                      <li key={cast.ability.guid}>
+                        <SpellLink id={cast.ability.guid}>
+                          <Icon icon={cast.ability.abilityIcon} alt={cast.ability.abilityIcon} style={{ height: '1.6em' }} /> {cast.ability.name}
+                        </SpellLink>{' '}
+                        casts: {cast.casts}{' '}
+                        {cast.healingHits && (
+                          <div>
+                            regular healing: #: {cast.healingHits} effective: {formatThousands(cast.healingEffective)} absorbed: {formatThousands(cast.healingAbsorbed)} overhealing: {formatThousands(cast.healingOverheal)}
+                          </div>
+                        )}
+                        {cast.healingCriticalHits && (
+                          <div>
+                            critical healing: #: {cast.healingCriticalHits} effective: {formatThousands(cast.healingCriticalEffective)} absorbed: {formatThousands(cast.healingCriticalAbsorbed)} overhealing: {formatThousands(cast.healingCriticalOverheal)}
+                          </div>
+                        )}
+                        {cast.damangeHits && (
+                          <div>
+                            regular damage: #: {cast.damangeHits} effective: {formatThousands(cast.damangeEffective)} absorbed: {formatThousands(cast.damangeAbsorbed)}
+                          </div>
+                        )}
+                        {cast.damangeCriticalHits && (
+                          <div>
+                            critical damage: #: {cast.damangeCriticalHits} effective: {formatThousands(cast.damangeCriticalEffective)} absorbed: {formatThousands(cast.damangeCriticalAbsorbed)}
+                          </div>
+                        )}
+                      </li>
+                    ))}
+                </ul>
+              </div>
+            )}
             <div className="col-md-6">
               Pre-combat buffs:
               <ul className="list">
