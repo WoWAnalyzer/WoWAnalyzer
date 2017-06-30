@@ -65,19 +65,19 @@ class FeedingTab extends React.Component {
             {
               name: "Cloudburst Totem",
               feed: cooldownTracker.cbtFeed,
-              ability: SPELLS.CLOUDBURST_TOTEM_CAST,
+              spell: SPELLS.CLOUDBURST_TOTEM_CAST,
               totals: cooldownTracker.cbtTotals,
             },
             {
               name: "Ancestral Guidance",
               feed: cooldownTracker.agFeed,
-              ability: SPELLS.ANCESTRAL_GUIDANCE_CAST,
+              spell: SPELLS.ANCESTRAL_GUIDANCE_CAST,
               totals: cooldownTracker.agTotals,
             },
             {
               name: "Ascendance",
               feed: cooldownTracker.ascFeed,
-              ability: SPELLS.ASCENDANCE_CAST,
+              spell: SPELLS.ASCENDANCE_CAST,
               totals: cooldownTracker.ascTotals,
             },
           ]).map((category) => {
@@ -95,6 +95,7 @@ class FeedingTab extends React.Component {
                 <thead>
                   <tr>
                     <th style={{ fontSize: '1.25em' }}>
+
                       <SpellLink id={category.spell.id} style={{ color: '#fff' }}>
                         <SpellIcon id={category.spell.id} noLink /> {category.name}
                       </SpellLink>

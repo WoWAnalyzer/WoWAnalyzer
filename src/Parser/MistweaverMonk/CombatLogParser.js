@@ -39,6 +39,8 @@ import ChiBurst from './Modules/Features/ChiBurst';
 import Eithas from './Modules/Items/Eithas';
 import T20_4pc from './Modules/Items/T20_4pc';
 import T20_2pc from './Modules/Items/T20_2pc';
+import ShelterOfRin from './Modules/Items/ShelterOfRin';
+import DoorwayToNowhere from './Modules/Items/DoorwayToNowhere';
 
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
@@ -100,12 +102,16 @@ class CombatLogParser extends MainCombatLogParser {
     eithas: Eithas,
     t20_4pc: T20_4pc,
     t20_2pc: T20_2pc,
+    shelterOfRin: ShelterOfRin,
+    doorwayToNowhere: DoorwayToNowhere,
   };
 
   generateResults() {
     const results = super.generateResults();
 
     const fightDuration = this.fightDuration;
+    const getPercentageOfTotal = healingDone => healingDone / this.totalHealing;
+    const formatItemHealing = healingDone => `${formatPercentage(getPercentageOfTotal(healingDone))} % / ${formatNumber(healingDone / fightDuration * 1000)} HPS`;
     const fightEndTime = this.fight.end_time;
     const raidSize = Object.entries(this.combatants.players).length;
     const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
@@ -114,7 +120,7 @@ class CombatLogParser extends MainCombatLogParser {
     const abilityTracker = this.modules.abilityTracker;
     const getAbility = spellId => abilityTracker.getAbility(spellId);
 
-    const eithasHealingPercentage = this.modules.eithas.healing / this.totalHealing;
+    const eithasHealingPercentage = this.modules.eithas.healing  / this.totalHealing;
 
     const t20_4pcHealingPercentage = this.modules.t20_4pc.healing / this.totalHealing;
 
@@ -144,7 +150,7 @@ class CombatLogParser extends MainCombatLogParser {
     const efMasteryEffectiveHealing = ((this.modules.essenceFontMastery.healing) / 2) || 0;
     const avgEFMasteryHealing = efMasteryEffectiveHealing / efMasteryCasts || 0;
 
-    const avgMasteryCastsPerEF = (this.modules.essenceFontMastery.castEF / efMasteryCasts) || 0;
+    const avgMasteryCastsPerEF = (efMasteryCasts / this.modules.essenceFontMastery.castEF) || 0;
     const avgTargetsHitPerEF = (this.modules.essenceFontMastery.targetsEF / this.modules.essenceFontMastery.castEF) || 0;
 
     // Trait Checks
@@ -159,18 +165,18 @@ class CombatLogParser extends MainCombatLogParser {
     const sheilunsGiftHealing = getAbility(SPELLS.SHEILUNS_GIFT.id);
     const sheilunsGiftOverhealingPercentage = getOverhealingPercentage(sheilunsGiftHealing) || 0;
 
-    if (nonHealingTimePercentage > 0.3) {
+    if (nonHealingTimePercentage > 0.4) {
       results.addIssue({
         issue: `Your non healing time can be improved. Try to cast heals more regularly (${Math.round(nonHealingTimePercentage * 100)}% non healing time).`,
         icon: 'petbattle_health-down',
-        importance: getIssueImportance(nonHealingTimePercentage, 0.4, 0.45, true),
+        importance: getIssueImportance(nonHealingTimePercentage, 0.5, 0.6, true),
       });
     }
-    if (deadTimePercentage > 0.2) {
+    if (deadTimePercentage > 0.4) {
       results.addIssue({
         issue: `Your dead GCD time can be improved. Try to Always Be Casting (ABC); when you're not healing try to contribute some damage (${Math.round(deadTimePercentage * 100)}% dead GCD time).`,
         icon: 'spell_mage_altertime',
-        importance: getIssueImportance(deadTimePercentage, 0.35, 0.4, true),
+        importance: getIssueImportance(deadTimePercentage, 0.5, 0.6, true),
       });
     }
     // Missed Whispers healing
@@ -184,7 +190,7 @@ class CombatLogParser extends MainCombatLogParser {
     // T20 2pc Buff missed
     if(this.modules.t20_2pc.active && (this.modules.t20_2pc.procs - this.modules.t20_2pc.casts) > 0) {
       results.addIssue({
-        issue: <span>You missed {this.modules.t20_2pc.procs - this.modules.t20_2pc.casts} <SpellLink id={SPELLS.SURGE_OF_MISTS.id} /> procs.  This proc provides not only a large mana savings on <SpellLink id={SPELLS.ENVELOPING_MISTS.id} />.  If you have the Tier 20 4 piece bonus, you also gain a 12% healing buff through <SpellLink id={SPELLS.SURGE_OF_MISTS.id} /> </span>,
+        issue: <span>You missed {this.modules.t20_2pc.procs - this.modules.t20_2pc.casts} <SpellLink id={SPELLS.SURGE_OF_MISTS.id} /> procs.  This proc provides not only a large mana savings on <SpellLink id={SPELLS.ENVELOPING_MISTS.id} />.  If you have the Tier 20 4 piece bonus, you also gain a 12% healing buff through <SpellLink id={SPELLS.DANCE_OF_MISTS.id} /> </span>,
         icon: SPELLS.SURGE_OF_MISTS.icon,
         importance: getIssueImportance((this.modules.t20_2pc.procs - this.modules.t20_2pc.casts), 0, 1, true),
       });
@@ -205,7 +211,7 @@ class CombatLogParser extends MainCombatLogParser {
       });
     }
     // Sheilun's Gift Casts
-    if(SGcasts < ((this.fightDuration / 10000) / 5)) {
+    if(SGcasts < Math.floor(((this.fightDuration / 10000) / 5))) {
       results.addIssue({
         issue: <span>You casted <SpellLink id={SPELLS.SHEILUNS_GIFT.id} /> {SGcasts} times over the course of the fight.  Casting at an average of 5 stacks would have given you potentially {(((this.fightDuration / 10000) / 5)).toFixed(1)} casts.  Consider using <SpellLink id={SPELLS.SHEILUNS_GIFT.id} /> more often to take advantage of its free healing.</span>,
         icon: SPELLS.SHEILUNS_GIFT.icon,
@@ -214,19 +220,19 @@ class CombatLogParser extends MainCombatLogParser {
     }
 
     // Uplifting Trance Usage
-    if (unusedUTProcs > 0.10) {
+    if (unusedUTProcs > 0.30) {
       results.addIssue({
         issue: <span>Your <SpellLink id={SPELLS.UPLIFTING_TRANCE_BUFF.id} /> procs should be used as soon as you get them so they are not overwritten. You missed {(this.modules.upliftingTrance.UTProcsTotal - this.modules.upliftingTrance.consumedUTProc)}/{(this.modules.upliftingTrance.UTProcsTotal)} procs. ({formatPercentage((this.modules.upliftingTrance.UTProcsTotal - this.modules.upliftingTrance.consumedUTProc) / this.modules.upliftingTrance.UTProcsTotal)} %)</span>,
         icon: SPELLS.UPLIFTING_TRANCE_BUFF.icon,
-        importance: getIssueImportance(unusedUTProcs, 0.2, 0.5, true),
+        importance: getIssueImportance(unusedUTProcs, 0.45, 0.6, true),
       });
     }
     // Mana Tea Usage issue
-    if (this.modules.manaTea.active && avgMTsaves < 200000) {
+    if (this.modules.manaTea.active && avgMTsaves < 180000) {
       results.addIssue({
-        issue: <span>Your mana spent during <SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> can be improved. Always aim to cast your highest mana spells such as <SpellLink id={SPELLS.ESSENCE_FONT.id} /> or <SpellLink id={SPELLS.VIVIFY.id} />. ({((this.modules.manaTea.manaSaved / this.modules.manaTea.manateaCount) / 1000).toFixed(0)}k avg mana saved)</span>,
+        issue: <span>Your mana spent during <SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> can be improved. Always aim to cast your highest mana spells such as <SpellLink id={SPELLS.ESSENCE_FONT.id} /> or <SpellLink id={SPELLS.VIVIFY.id} />. ({((this.modules.manaTea.manaSavedMT / this.modules.manaTea.manateaCount) / 1000).toFixed(0)}k avg mana saved)</span>,
         icon: SPELLS.MANA_TEA_TALENT.icon,
-        importance: getIssueImportance(avgMTsaves, 160000, 120000),
+        importance: getIssueImportance(avgMTsaves, 150000, 120000),
       });
     }
     // Lifecycles Manasavings
@@ -570,6 +576,14 @@ class CombatLogParser extends MainCombatLogParser {
             {((eithasHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.eithas.healing / fightDuration * 1000)} HPS
           </span>
         ),
+      },
+      this.modules.shelterOfRin.active && {
+        item: ITEMS.SHELTER_OF_RIN,
+        result: formatItemHealing(this.modules.shelterOfRin.healing),
+      },
+      this.modules.doorwayToNowhere.active && {
+        item: ITEMS.DOORWAY_TO_NOWHERE,
+        result: formatItemHealing(this.modules.doorwayToNowhere.healing),
       },
     ];
 

@@ -238,6 +238,12 @@ const ITEMS = {
     icon: 'inv_misc_cape_cataclysm_healer_b_01',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+  SHELTER_OF_RIN: {
+    id: 144340,
+    name: 'Shelter of Rin',
+    icon: 'inv_chest_plate27v2',
+    quality: QUALITIES.LEGENDARY,
+  },
 
   // T20 Trinkets
   ARCHIVE_OF_FAITH: {
