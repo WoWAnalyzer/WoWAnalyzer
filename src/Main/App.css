@@ -666,3 +666,13 @@ a.become-patron-button:hover {
   60% { opacity: 0; }
   100%   { opacity: 1; }
 }
+
+code.clickable:hover {
+  background: #fff;
+  color: #c7254e;
+  cursor: pointer;
+}
+code.inactive {
+  background: #c7254e;
+  color: #f9f2f4;
+}

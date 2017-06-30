@@ -107,6 +107,20 @@ ${item.name.toUpperCase().replace(/[^A-Z ]/g, '').replace(/ /g, '_')}: {
   }
 }
 
+const Code = ({ children, dump, className, ...others }) => (
+  <a href={`javascript:console.log(${children})`} onClick={(e) => {
+    e.preventDefault();
+    console.log(dump);
+  }}>
+    <code className={`clickable ${className || ''}`} {...others}>{children}</code>
+  </a>
+);
+Code.propTypes = {
+  children: PropTypes.node.isRequired,
+  dump: PropTypes.any.isRequired,
+  className: PropTypes.string,
+};
+
 class DevelopmentTab extends React.Component {
   static propTypes = {
     parser: PropTypes.object.isRequired,
@@ -124,16 +138,20 @@ class DevelopmentTab extends React.Component {
   render() {
     const { parser } = this.props;
 
-    const combatant = parser.selectedCombatant;
+    window.parser = parser;
 
-    console.log(parser.modules.abilityTracker.abilities);
+    const combatant = parser.selectedCombatant;
 
     return (
       <div>
         <div className="panel-heading">
           <h2>Development Tools</h2>
         </div>
-        <div>
+        <div className="panel-body">
+          <div className="alert alert-success">
+            The parser is now available under <Code dump={parser}>window.parser</Code>.
+            Modules: {Object.keys(parser.modules).map(module => <span key={module}><Code dump={parser.modules[module]} className={parser.modules[module].active ? '' : 'inactive'}>{module}</Code>, </span>)} access them in the console with: <code>parser.modules.*moduleName*</code> (or by clicking on the names in this box). Red modules are inactive.
+          </div>
           <div className="row">
             {parser.modules.abilityTracker && (
               <div className="col-md-6">
