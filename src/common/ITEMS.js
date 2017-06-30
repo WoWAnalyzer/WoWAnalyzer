@@ -242,7 +242,7 @@ const ITEMS = {
     id: 144340,
     name: 'Shelter of Rin',
     icon: 'inv_chest_plate27v2',
-    quality: QUALITIES.LEGENDARY,
+    quality: ITEM_QUALITIES.LEGENDARY,
   },
 
   // T20 Trinkets
