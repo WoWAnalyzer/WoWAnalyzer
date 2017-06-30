@@ -13,6 +13,9 @@ import { GEAR_SLOTS } from 'Parser/Core/Combatant';
 
 // Source: https://stackoverflow.com/a/20079910/684353
 function selectText(node) {
+  if (!node) {
+    return;
+  }
   if (document.selection) {
     const range = document.body.createTextRange();
     range.moveToElementText(node);
@@ -216,7 +219,7 @@ class DevelopmentTab extends React.Component {
               </ul>
             </div>
             <div className="col-md-6">
-              Items:
+              Items: (hint: click on an item to generate the required <code>ITEMS.js</code> entry)
               <ul className="list">
                 {combatant._combatantInfo.gear.map((item, i) => (
                   <li key={`${i}-${item.id}`}>
