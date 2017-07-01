@@ -165,10 +165,14 @@ class DevelopmentTab extends React.Component {
                     .sort((a, b) => (b.casts || 0) - (a.casts || 0))
                     .map((cast) => cast.ability && (
                       <li key={cast.ability.guid}>
+                        <div style={{ float: 'right', color: SPELLS[cast.ability.guid] ? 'green' : 'red', fontWeight: 600 }}>
+                          {SPELLS[cast.ability.guid] ? 'Known' : 'Unknown'}
+                        </div>
+
                         <SpellLink id={cast.ability.guid}>
                           <Icon icon={cast.ability.abilityIcon} alt={cast.ability.abilityIcon} style={{ height: '1.6em' }} /> {cast.ability.name}
                         </SpellLink>{' '}
-                        casts: {cast.casts}{' '}
+                        casts: {cast.casts || 'N/A'}{' '}
                         {cast.manaUsed && (
                           <span>
                             Mana used: {formatThousands(cast.manaUsed)}
