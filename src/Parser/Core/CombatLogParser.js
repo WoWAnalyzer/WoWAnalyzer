@@ -94,6 +94,9 @@ class CombatLogParser {
   get combatants() {
     return this.modules.combatants;
   }
+  get playerCount() {
+    return this.modules.combatants.playerCount;
+  }
 
   /** @returns {Combatant} */
   get selectedCombatant() {

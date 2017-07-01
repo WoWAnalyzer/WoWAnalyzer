@@ -29,6 +29,7 @@ import SacredDawn from './Modules/Features/SacredDawn';
 import TyrsDeliverance from './Modules/Features/TyrsDeliverance';
 import CooldownTracker from './Modules/Features/CooldownTracker';
 import HolyAvenger from './Modules/Features/HolyAvenger';
+import DevotionAura from './Modules/Features/DevotionAura';
 
 import DrapeOfShame from './Modules/Items/DrapeOfShame';
 import Ilterendi from './Modules/Items/Ilterendi';
@@ -540,6 +541,7 @@ class CombatLogParser extends MainCombatLogParser {
           )}
         />
       ),
+      DevotionAura,
       hasAuraOfMercy && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.AURA_OF_MERCY_TALENT.id} />}

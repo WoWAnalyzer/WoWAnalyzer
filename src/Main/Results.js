@@ -7,6 +7,8 @@ import ItemIcon from 'common/ItemIcon';
 
 import DevelopmentTab from 'Main/DevelopmentTab';
 
+import ModuleComponent from 'Parser/Core/ModuleComponent';
+
 class Results extends React.Component {
   static propTypes = {
     parser: PropTypes.object.isRequired,
@@ -79,10 +81,11 @@ class Results extends React.Component {
                 if (!statistic) {
                   return null;
                 }
+                const Comp = statistic;
 
                 return (
                   <div className="col-lg-4 col-sm-6 col-xs-12" key={i}>
-                    {statistic}
+                    {ModuleComponent.isPrototypeOf(Comp) ? <Comp owner={parser} /> : statistic}
                   </div>
                 );
               })}

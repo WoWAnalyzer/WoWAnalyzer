@@ -1,4 +1,6 @@
 export default `
+01-07-2017 - Holy Paladin: Added Devotion Aura estimated damage reduced statistic. This statistic requires you to click it to be calculated to minimize the used resources. (by Zerotorescue)
+01-07-2017 - Added a few new tools for developers to use; <code>ModuleComponent</code> to more cleanly add statistic modules (see <code>DevotionAura</code> for an example), and <code>LazyLoadStatisticBox</code> for statistics that require additional API calls. (by Zerotorescue) 
 26-06-2017 - Mistweaver Monk: Added Shelter of Rin and Doorway To Nowhere, fixed Ei'thas, Lunar Glides of Eramas healing contribution formula. (by anomoly)
 26-06-2017 - Resto Shaman: Fix a bug that would prevent the Feeding tab from loading. (by Versaya)
 24-06-2017 - Fixed an issue with some items not showing up properly (by Zerotorescue)

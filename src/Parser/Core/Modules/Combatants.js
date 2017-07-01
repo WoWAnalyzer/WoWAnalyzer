@@ -4,6 +4,9 @@ import Combatant from '../Combatant';
 class Combatants extends Entities {
   priority = 100;
   players = {};
+  get playerCount() {
+    return Object.keys(this.players).length;
+  }
   getEntities() {
     return this.players;
   }

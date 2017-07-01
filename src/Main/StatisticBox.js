@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import './StatisticBox.css';
 
-const StatisticBox = ({ icon, value, label, ...others }) => (
+const StatisticBox = ({ icon, value, tooltip, label, ...others }) => (
   <div className="panel statistic-box" {...others}>
     <div className="panel-body">
       <div className="row">
@@ -15,7 +15,7 @@ const StatisticBox = ({ icon, value, label, ...others }) => (
             {value}
           </div>
           <div className="statistic-label">
-            {label}
+            {tooltip ? <dfn data-tip={tooltip}>{label}</dfn> : label}
           </div>
         </div>
       </div>
@@ -25,6 +25,7 @@ const StatisticBox = ({ icon, value, label, ...others }) => (
 StatisticBox.propTypes = {
   icon: PropTypes.node.isRequired,
   value: PropTypes.node.isRequired,
+  tooltip: PropTypes.string,
   label: PropTypes.node.isRequired,
 };
 
