@@ -1,5 +1,5 @@
 // Generated file, changes will be overwritten!
-// Sun Jun 25 2017 19:03:39 GMT+0200 (W. Europe Daylight Time)
+// Sat Jul 01 2017 15:23:03 GMT+0200 (W. Europe Daylight Time)
 
 export default {
   // Shared
@@ -22,7 +22,7 @@ export default {
   SPIRIT_OF_THE_CRANE_TALENT: { id: 210802, name: "Spirit of the Crane", icon: "monk_stance_redcrane" },
   MIST_WRAP_TALENT: { id: 197900, name: "Mist Wrap", icon: "ability_monk_pathofmists" },
   SONG_OF_CHIJI_TALENT: { id: 198898, name: "Song of Chi-Ji", icon: "inv_chaos_orb" },
-  REFRESHING_JADE_WIND_TALENT: { id: 196725, name: "Refreshing Jade Wind", icon: "ability_monk_rushingjadewind" },
+  REFRESHING_JADE_WIND_TALENT: { id: 196725, name: "Refreshing Jade Wind", icon: "ability_monk_rushingjadewind", baseMana: 0.035 },
   INVOKE_CHIJI_THE_RED_CRANE_TALENT: { id: 198664, name: "Invoke Chi-Ji, the Red Crane", icon: "inv_pet_cranegod" },
   SUMMON_JADE_SERPENT_STATUE_TALENT: { id: 115313, name: "Summon Jade Serpent Statue", icon: "ability_monk_summonserpentstatue" },
   MANA_TEA_TALENT: { id: 197908, name: "Mana Tea", icon: "monk_ability_cherrymanatea" },

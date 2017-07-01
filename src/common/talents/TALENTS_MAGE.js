@@ -1,5 +1,5 @@
 // Generated file, changes will be overwritten!
-// Sun Jun 25 2017 19:03:39 GMT+0200 (W. Europe Daylight Time)
+// Sat Jul 01 2017 15:23:03 GMT+0200 (W. Europe Daylight Time)
 
 export default {
   // Shared
@@ -21,7 +21,7 @@ export default {
   FLAME_ON_TALENT: { id: 205029, name: "Flame On", icon: "inv_helm_circlet_firelands_d_01" },
   CONTROLLED_BURN_TALENT: { id: 205033, name: "Controlled Burn", icon: "inv_trinket_firelands_02" },
   FRENETIC_SPEED_TALENT: { id: 236058, name: "Frenetic Speed", icon: "spell_fire_burningspeed" },
-  LIVING_BOMB_TALENT: { id: 44457, name: "Living Bomb", icon: "ability_mage_livingbomb" },
+  LIVING_BOMB_TALENT: { id: 44457, name: "Living Bomb", icon: "ability_mage_livingbomb", baseMana: 0.015 },
   FLAME_PATCH_TALENT: { id: 205037, name: "Flame Patch", icon: "spell_mage_flameorb" },
   KINDLING_TALENT: { id: 155148, name: "Kindling", icon: "spell_mage_kindling" },
   CINDERSTORM_TALENT: { id: 198929, name: "Cinderstorm", icon: "spell_fire_flare", baseMana: 0.01 },
@@ -36,7 +36,7 @@ export default {
   CHARGED_UP_TALENT: { id: 205032, name: "Charged Up", icon: "ability_thunderking_overcharge" },
   RESONANCE_TALENT: { id: 205028, name: "Resonance", icon: "spell_arcane_arcane01" },
   CHRONO_SHIFT_TALENT: { id: 235711, name: "Chrono Shift", icon: "ability_monk_deadlyreach" },
-  NETHER_TEMPEST_TALENT: { id: 114923, name: "Nether Tempest", icon: "spell_mage_nethertempest" },
+  NETHER_TEMPEST_TALENT: { id: 114923, name: "Nether Tempest", icon: "spell_mage_nethertempest", baseMana: 0.015 },
   EROSION_TALENT: { id: 205039, name: "Erosion", icon: "ability_mage_missilebarrage" },
   TEMPORAL_FLUX_TALENT: { id: 234302, name: "Temporal Flux", icon: "spell_arcane_arcanetorrent" },
   ARCANE_ORB_TALENT: { id: 153626, name: "Arcane Orb", icon: "spell_mage_arcaneorb", baseMana: 0.01 },
@@ -50,7 +50,7 @@ export default {
   FROZEN_TOUCH_TALENT: { id: 205030, name: "Frozen Touch", icon: "ability_mage_coldasice" },
   SPLITTING_ICE_TALENT: { id: 56377, name: "Splitting Ice", icon: "spell_frost_iceshards" },
   FRIGID_WINDS_TALENT: { id: 235224, name: "Frigid Winds", icon: "ability_mage_deepfreeze" },
-  FROST_BOMB_TALENT: { id: 112948, name: "Frost Bomb", icon: "spell_mage_frostbomb" },
+  FROST_BOMB_TALENT: { id: 112948, name: "Frost Bomb", icon: "spell_mage_frostbomb", baseMana: 0.0125 },
   ARCTIC_GALE_TALENT: { id: 205038, name: "Arctic Gale", icon: "spell_frost_arcticwinds" },
   THERMAL_VOID_TALENT: { id: 155149, name: "Thermal Void", icon: "spell_mage_thermalvoid" },
   GLACIAL_SPIKE_TALENT: { id: 199786, name: "Glacial Spike", icon: "spell_frost_frostbolt", baseMana: 0.01 },

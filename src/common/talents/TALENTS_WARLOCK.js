@@ -1,5 +1,5 @@
 // Generated file, changes will be overwritten!
-// Sun Jun 25 2017 19:03:39 GMT+0200 (W. Europe Daylight Time)
+// Sat Jul 01 2017 15:23:03 GMT+0200 (W. Europe Daylight Time)
 
 export default {
   // Shared
@@ -28,7 +28,7 @@ export default {
   POWER_TRIP_TALENT: { id: 196605, name: "Power Trip", icon: "spell_shadow_demonictactics" },
   GRIMOIRE_OF_SYNERGY_TALENT: { id: 171975, name: "Grimoire of Synergy", icon: "warlock_grimoireofsacrifice" },
   SUMMON_DARKGLARE_TALENT: { id: 205180, name: "Summon Darkglare", icon: "achievement_boss_durumu" },
-  DEMONBOLT_TALENT: { id: 157695, name: "Demonbolt", icon: "spell_warlock_demonbolt" },
+  DEMONBOLT_TALENT: { id: 157695, name: "Demonbolt", icon: "spell_warlock_demonbolt", baseMana: 0.048 },
   // Affliction
   HAUNT_TALENT: { id: 48181, name: "Haunt", icon: "ability_warlock_haunt", baseMana: 0.05 },
   WRITHE_IN_AGONY_TALENT: { id: 196102, name: "Writhe in Agony", icon: "spell_shadow_curseofsargeras" },
@@ -47,5 +47,5 @@ export default {
   CATACLYSM_TALENT: { id: 152108, name: "Cataclysm", icon: "achievement_zone_cataclysm" },
   FIRE_AND_BRIMSTONE_TALENT: { id: 196408, name: "Fire and Brimstone", icon: "ability_warlock_fireandbrimstone" },
   WREAK_HAVOC_TALENT: { id: 196410, name: "Wreak Havoc", icon: "ability_warlock_baneofhavoc" },
-  CHANNEL_DEMONFIRE_TALENT: { id: 196447, name: "Channel Demonfire", icon: "spell_fire_ragnaros_lavaboltgreen" },
+  CHANNEL_DEMONFIRE_TALENT: { id: 196447, name: "Channel Demonfire", icon: "spell_fire_ragnaros_lavaboltgreen", baseMana: 0.048 },
 };

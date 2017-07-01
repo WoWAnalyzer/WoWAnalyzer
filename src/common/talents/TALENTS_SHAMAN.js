@@ -1,5 +1,5 @@
 // Generated file, changes will be overwritten!
-// Sun Jun 25 2017 19:03:39 GMT+0200 (W. Europe Daylight Time)
+// Sat Jul 01 2017 15:23:03 GMT+0200 (W. Europe Daylight Time)
 
 export default {
   // Shared
@@ -36,7 +36,7 @@ export default {
   EARTHEN_SHIELD_TOTEM_TALENT: { id: 198838, name: "Earthen Shield Totem", icon: "spell_nature_stoneskintotem", baseMana: 0.11 },
   ANCESTRAL_VIGOR_TALENT: { id: 207401, name: "Ancestral Vigor", icon: "spell_shaman_blessingoftheeternals" },
   BOTTOMLESS_DEPTHS_TALENT: { id: 197467, name: "Bottomless Depths", icon: "ability_shawaterelemental_swirl" },
-  CLOUDBURST_TOTEM_TALENT: { id: 157153, name: "Cloudburst Totem", icon: "ability_shaman_condensationtotem" },
+  CLOUDBURST_TOTEM_TALENT: { id: 157153, name: "Cloudburst Totem", icon: "ability_shaman_condensationtotem", baseMana: 0.086 },
   WELLSPRING_TALENT: { id: 197995, name: "Wellspring", icon: "ability_shawaterelemental_split", baseMana: 0.2 },
   HIGH_TIDE_TALENT: { id: 157154, name: "High Tide", icon: "spell_shaman_hightide" },
   ASCENDANCE_TALENT_RESTORATION: { id: 114052, name: "Ascendance", icon: "spell_fire_elementaldevastation" },

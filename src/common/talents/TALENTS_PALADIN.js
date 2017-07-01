@@ -1,5 +1,5 @@
 // Generated file, changes will be overwritten!
-// Sun Jun 25 2017 19:03:39 GMT+0200 (W. Europe Daylight Time)
+// Sat Jul 01 2017 15:23:03 GMT+0200 (W. Europe Daylight Time)
 
 export default {
   // Shared
@@ -56,7 +56,7 @@ export default {
   HOLY_PRISM_TALENT: { id: 114165, name: "Holy Prism", icon: "spell_paladin_holyprism", baseMana: 0.17 },
   FERVENT_MARTYR_TALENT: { id: 196923, name: "Fervent Martyr", icon: "ability_paladin_selflesshealer" },
   SANCTIFIED_WRATH_TALENT: { id: 53376, name: "Sanctified Wrath", icon: "ability_paladin_sanctifiedwrath" },
-  BEACON_OF_FAITH_TALENT: { id: 156910, name: "Beacon of Faith", icon: "ability_paladin_beaconsoflight" },
+  BEACON_OF_FAITH_TALENT: { id: 156910, name: "Beacon of Faith", icon: "ability_paladin_beaconsoflight", baseMana: 0.0312 },
   BEACON_OF_THE_LIGHTBRINGER_TALENT: { id: 197446, name: "Beacon of the Lightbringer", icon: "spell_paladin_clarityofpurpose" },
   BEACON_OF_VIRTUE_TALENT: { id: 200025, name: "Beacon of Virtue", icon: "ability_paladin_beaconofinsight", baseMana: 0.1 },
   DIVINE_PURPOSE_TALENT_HOLY: { id: 197646, name: "Divine Purpose", icon: "spell_holy_divinepurpose" },

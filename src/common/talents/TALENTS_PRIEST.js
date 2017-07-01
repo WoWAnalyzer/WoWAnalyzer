@@ -1,5 +1,5 @@
 // Generated file, changes will be overwritten!
-// Sun Jun 25 2017 19:03:39 GMT+0200 (W. Europe Daylight Time)
+// Sat Jul 01 2017 15:23:03 GMT+0200 (W. Europe Daylight Time)
 
 export default {
   // Shared
@@ -8,16 +8,16 @@ export default {
   ANGELIC_FEATHER_TALENT: { id: 121536, name: "Angelic Feather", icon: "ability_priest_angelicfeather" },
   BODY_AND_SOUL_TALENT: { id: 64129, name: "Body and Soul", icon: "spell_holy_symbolofhope" },
   MASOCHISM_TALENT: { id: 193063, name: "Masochism", icon: "spell_shadow_misery" },
-  SHINING_FORCE_TALENT: { id: 204263, name: "Shining Force", icon: "ability_paladin_blindinglight2" },
+  SHINING_FORCE_TALENT: { id: 204263, name: "Shining Force", icon: "ability_paladin_blindinglight2", baseMana: 0.025 },
   PSYCHIC_VOICE_TALENT: { id: 196704, name: "Psychic Voice", icon: "spell_shadow_psychichorrors" },
   DOMINANT_MIND_TALENT: { id: 205367, name: "Dominant Mind", icon: "spell_priest_voidflay" },
   POWER_WORD_SOLACE_TALENT: { id: 129250, name: "Power Word: Solace", icon: "ability_priest_flashoflight" },
   SHIELD_DISCIPLINE_TALENT: { id: 197045, name: "Shield Discipline", icon: "spell_holy_divineprotection" },
-  CLARITY_OF_WILL_TALENT: { id: 152118, name: "Clarity of Will", icon: "ability_priest_clarityofwill" },
+  CLARITY_OF_WILL_TALENT: { id: 152118, name: "Clarity of Will", icon: "ability_priest_clarityofwill", baseMana: 0.0279 },
   SHADOW_COVENANT_TALENT: { id: 204065, name: "Shadow Covenant", icon: "spell_shadow_summonvoidwalker", baseMana: 0.05 },
   DIVINITY_TALENT: { id: 197031, name: "Divinity", icon: "ability_priest_ascendance" },
   DIVINE_STAR_TALENT: { id: 110744, name: "Divine Star", icon: "spell_priest_divinestar", baseMana: 0.02 },
-  HALO_TALENT: { id: 120517, name: "Halo", icon: "ability_priest_halo" },
+  HALO_TALENT: { id: 120517, name: "Halo", icon: "ability_priest_halo", baseMana: 0.027 },
   POWER_INFUSION_TALENT: { id: 10060, name: "Power Infusion", icon: "spell_holy_powerinfusion" },
   GRACE_TALENT: { id: 200309, name: "Grace", icon: "spell_holy_hopeandgrace" },
   MINDBENDER_TALENT_SHARED: { id: 123040, name: "Mindbender", icon: "spell_shadow_soulleech_3" },
@@ -33,7 +33,7 @@ export default {
   GUARDIAN_ANGEL_TALENT: { id: 200209, name: "Guardian Angel", icon: "ability_priest_pathofthedevout" },
   SYMBOL_OF_HOPE_TALENT: { id: 64901, name: "Symbol of Hope", icon: "spell_holy_symbolofhope" },
   SURGE_OF_LIGHT_TALENT: { id: 109186, name: "Surge of Light", icon: "spell_holy_surgeoflight" },
-  BINDING_HEAL_TALENT: { id: 32546, name: "Binding Heal", icon: "spell_holy_blindingheal" },
+  BINDING_HEAL_TALENT: { id: 32546, name: "Binding Heal", icon: "spell_holy_blindingheal", baseMana: 0.017 },
   PIETY_TALENT: { id: 197034, name: "Piety", icon: "ability_priest_bindingprayers" },
   APOTHEOSIS_TALENT: { id: 200183, name: "Apotheosis", icon: "ability_priest_ascension" },
   BENEDICTION_TALENT: { id: 193157, name: "Benediction", icon: "spell_monk_diffusemagic" },
@@ -55,7 +55,7 @@ export default {
   SURRENDER_TO_MADNESS_TALENT: { id: 193223, name: "Surrender to Madness", icon: "achievement_boss_generalvezax_01" },
   MINDBENDER_TALENT_SHADOW: { id: 200174, name: "Mindbender", icon: "spell_shadow_soulleech_3" },
   // Discipline
-  SCHISM_TALENT: { id: 214621, name: "Schism", icon: "spell_warlock_focusshadow" },
+  SCHISM_TALENT: { id: 214621, name: "Schism", icon: "spell_warlock_focusshadow", baseMana: 0.025 },
   SANCTUARY_TALENT: { id: 246393, name: "Sanctuary", icon: "spell_holy_holysmite" },
   PURGE_THE_WICKED_TALENT: { id: 204197, name: "Purge the Wicked", icon: "ability_mage_firestarter", baseMana: 0.02 },
   EVANGELISM_TALENT: { id: 246287, name: "Evangelism", icon: "spell_holy_divineillumination" },

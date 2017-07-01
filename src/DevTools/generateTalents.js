@@ -70,9 +70,9 @@ Object.values(talents).forEach(classTalents => {
       icon: spell.icon,
     };
     if (spell.powerCost) {
-      const mana = spell.powerCost.match(/^([0-9]+)% of base mana$/);
+      const mana = spell.powerCost.match(/^([0-9.]+)% of base mana$/);
       if (mana) {
-        spellsTalent.baseMana = mana[1] / 100;
+        spellsTalent.baseMana = Math.round(mana[1] / 100 * 10000) / 10000;
       }
       // TODO: As desired add other powers
     }

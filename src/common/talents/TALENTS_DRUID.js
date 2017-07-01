@@ -1,5 +1,5 @@
 // Generated file, changes will be overwritten!
-// Sun Jun 25 2017 19:03:39 GMT+0200 (W. Europe Daylight Time)
+// Sat Jul 01 2017 15:23:03 GMT+0200 (W. Europe Daylight Time)
 
 export default {
   // Shared
@@ -45,7 +45,7 @@ export default {
   FERAL_AFFINITY_TALENT_GUARDIAN: { id: 202155, name: "Feral Affinity", icon: "talentspec_druid_feral_cat" },
   // Restoration
   PROSPERITY_TALENT: { id: 200383, name: "Prosperity", icon: "spell_druid_rampantgrowth" },
-  CENARION_WARD_TALENT: { id: 102351, name: "Cenarion Ward", icon: "ability_druid_naturalperfection" },
+  CENARION_WARD_TALENT: { id: 102351, name: "Cenarion Ward", icon: "ability_druid_naturalperfection", baseMana: 0.0919 },
   ABUNDANCE_TALENT: { id: 207383, name: "Abundance", icon: "ability_druid_empoweredrejuvination" },
   INCARNATION_TREE_OF_LIFE_TALENT: { id: 33891, name: "Incarnation: Tree of Life", icon: "ability_druid_improvedtreeform" },
   CULTIVATION_TALENT: { id: 200390, name: "Cultivation", icon: "ability_druid_nourish" },
