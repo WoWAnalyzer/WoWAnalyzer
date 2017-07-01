@@ -163,37 +163,64 @@ class DevelopmentTab extends React.Component {
                   {Object.keys(parser.modules.abilityTracker.abilities)
                     .map(key => parser.modules.abilityTracker.abilities[key])
                     .sort((a, b) => (b.casts || 0) - (a.casts || 0))
-                    .map((cast) => (
+                    .map((cast) => cast.ability && (
                       <li key={cast.ability.guid}>
                         <SpellLink id={cast.ability.guid}>
                           <Icon icon={cast.ability.abilityIcon} alt={cast.ability.abilityIcon} style={{ height: '1.6em' }} /> {cast.ability.name}
                         </SpellLink>{' '}
                         casts: {cast.casts}{' '}
-                        {cast.healingHits && (
-                          <div>
-                            regular healing: #: {cast.healingHits} effective: {formatThousands(cast.healingEffective)} absorbed: {formatThousands(cast.healingAbsorbed)} overhealing: {formatThousands(cast.healingOverheal)}
-                          </div>
-                        )}
-                        {cast.healingCriticalHits && (
-                          <div>
-                            critical healing: #: {cast.healingCriticalHits} effective: {formatThousands(cast.healingCriticalEffective)} absorbed: {formatThousands(cast.healingCriticalAbsorbed)} overhealing: {formatThousands(cast.healingCriticalOverheal)}
-                          </div>
-                        )}
-                        {cast.damangeHits && (
-                          <div>
-                            regular damage: #: {cast.damangeHits} effective: {formatThousands(cast.damangeEffective)} absorbed: {formatThousands(cast.damangeAbsorbed)}
-                          </div>
-                        )}
-                        {cast.damangeCriticalHits && (
-                          <div>
-                            critical damage: #: {cast.damangeCriticalHits} effective: {formatThousands(cast.damangeCriticalEffective)} absorbed: {formatThousands(cast.damangeCriticalAbsorbed)}
-                          </div>
-                        )}
                         {cast.manaUsed && (
-                          <div>
+                          <span>
                             Mana used: {formatThousands(cast.manaUsed)}
-                          </div>
+                          </span>
                         )}
+                        <table style={{ width: '100%' }}>
+                          <thead>
+                            <tr>
+                              <th>type</th>
+                              <th>Hits</th>
+                              <th>Effective</th>
+                              <th>Absorbed</th>
+                              <th>Overheal</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {cast.healingHits && (
+                              <tr>
+                                <td>regular healing</td>
+                                <td>{cast.healingHits}</td>
+                                <td>{formatThousands(cast.healingEffective)}</td>
+                                <td>{formatThousands(cast.healingAbsorbed)}</td>
+                                <td>{formatThousands(cast.healingOverheal)}</td>
+                              </tr>
+                            )}
+                            {cast.healingCriticalHits && (
+                              <tr>
+                                <td>critical healing</td>
+                                <td>{cast.healingCriticalHits}</td>
+                                <td>{formatThousands(cast.healingCriticalEffective)}</td>
+                                <td>{formatThousands(cast.healingCriticalAbsorbed)}</td>
+                                <td>{formatThousands(cast.healingCriticalOverheal)}</td>
+                              </tr>
+                            )}
+                            {cast.damangeHits && (
+                              <tr>
+                                <td>regular damage</td>
+                                <td>{cast.damangeHits}</td>
+                                <td>{formatThousands(cast.damangeEffective)}</td>
+                                <td>{formatThousands(cast.damangeAbsorbed)}</td>
+                              </tr>
+                            )}
+                            {cast.damangeCriticalHits && (
+                              <tr>
+                                <td>critical damage</td>
+                                <td>{cast.damangeCriticalHits}</td>
+                                <td>{formatThousands(cast.damangeCriticalEffective)}</td>
+                                <td>{formatThousands(cast.damangeCriticalAbsorbed)}</td>
+                              </tr>
+                            )}
+                          </tbody>
+                        </table>
                       </li>
                     ))}
                 </ul>
