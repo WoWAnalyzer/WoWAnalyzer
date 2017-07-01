@@ -16,7 +16,7 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   SPELLS.CIRCLE_OF_HEALING_TALENT.id,
   SPELLS.HALO_HEAL.id,
   SPELLS.DIVINE_STAR_TALENT.id, // might have diff id for heal?
-  // ??
+  SPELLS.OCEANS_EMBRACE,
 ];
 
 // better off making things that -dont- proc it perhaps?
