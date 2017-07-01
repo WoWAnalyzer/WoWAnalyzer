@@ -33,7 +33,7 @@ export default {
   GUARDIAN_ANGEL_TALENT: { id: 200209, name: "Guardian Angel", icon: "ability_priest_pathofthedevout" },
   SYMBOL_OF_HOPE_TALENT: { id: 64901, name: "Symbol of Hope", icon: "spell_holy_symbolofhope" },
   SURGE_OF_LIGHT_TALENT: { id: 109186, name: "Surge of Light", icon: "spell_holy_surgeoflight" },
-  BINDING_HEAL_TALENT: { id: 32546, name: "Binding Heal", icon: "spell_holy_blindingheal"},
+  BINDING_HEAL_TALENT: { id: 32546, name: "Binding Heal", icon: "spell_holy_blindingheal", baseMana: 0.017 },
   PIETY_TALENT: { id: 197034, name: "Piety", icon: "ability_priest_bindingprayers" },
   APOTHEOSIS_TALENT: { id: 200183, name: "Apotheosis", icon: "ability_priest_ascension" },
   BENEDICTION_TALENT: { id: 193157, name: "Benediction", icon: "spell_monk_diffusemagic" },
