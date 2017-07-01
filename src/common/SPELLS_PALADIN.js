@@ -36,6 +36,7 @@ export default {
     name: 'Flash of Light',
     icon: 'spell_holy_flashheal',
     manaCost: 39600,
+    baseMana: 0.18,
   },
 
   // Holy Paladin:

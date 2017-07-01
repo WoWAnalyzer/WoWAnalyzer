@@ -54,7 +54,7 @@ class Item extends React.PureComponent {
       return;
     }
 
-    return fetch(`https://us.api.battle.net/wow/item/${id}?locale=en_US&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`)
+    return fetch(`https://eu.api.battle.net/wow/item/${id}?locale=en_GB&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`)
       .then(response => response.json())
       .then(data => {
         this.setState({
@@ -109,6 +109,138 @@ ${item.name.toUpperCase().replace(/[^A-Z ]/g, '').replace(/ /g, '_')}: {
     );
   }
 }
+class Cast extends React.PureComponent {
+  static propTypes = {
+    cast: PropTypes.object,
+  };
+
+  constructor() {
+    super();
+    this.state = {
+      expanded: false,
+      data: null,
+    };
+  }
+
+  view(id) {
+    this.setState({
+      expanded: !this.state.expanded,
+    });
+
+    if (this.state.data) {
+      return;
+    }
+
+    return fetch(`https://eu.api.battle.net/wow/spell/${id}?locale=en_GB&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`)
+      .then(response => response.json())
+      .then(data => {
+        this.setState({
+          data: data,
+        });
+      });
+  }
+
+  renderCode() {
+    const data = this.state.data;
+    const properties = [
+      `id: ${data.id}`,
+      `name: '${data.name.replace("'", "\\'")}'`,
+      `icon: '${data.icon}'`,
+    ];
+    if (data.powerCost) {
+      const mana = data.powerCost.match(/^([0-9.]+)% of base mana$/);
+      if (mana) {
+        properties.push(`baseMana: ${Math.round(mana[1] / 100 * 10000) / 10000}`);
+      }
+      // TODO: As desired add other powers
+    }
+    return `
+${data.name.toUpperCase().replace(/[^A-Z ]/g, '').replace(/ /g, '_')}: {
+${properties.map(prop => `  ${prop},`).join('\n')}
+},`;
+  }
+
+  render() {
+    const { cast } = this.props;
+
+    return (
+      <li onClick={() => this.view(cast.ability.guid)}>
+        <div style={{ float: 'right', color: SPELLS[cast.ability.guid] ? 'green' : 'red', fontWeight: 600 }}>
+          {SPELLS[cast.ability.guid] ? 'Known' : 'Unknown'}
+        </div>
+
+        <SpellLink id={cast.ability.guid}>
+          <Icon icon={cast.ability.abilityIcon} alt={cast.ability.abilityIcon} style={{ height: '1.6em' }} /> {cast.ability.name}
+        </SpellLink>{' '}
+        casts: {cast.casts || 'N/A'}{' '}
+        {cast.manaUsed && (
+          <span>
+            Mana used: {formatThousands(cast.manaUsed)}
+          </span>
+        )}
+        <table style={{ width: '100%' }}>
+          <thead>
+            <tr>
+              <th>type</th>
+              <th>Hits</th>
+              <th>Effective</th>
+              <th>Absorbed</th>
+              <th>Overheal</th>
+            </tr>
+          </thead>
+          <tbody>
+            {cast.healingHits && (
+              <tr>
+                <td>regular healing</td>
+                <td>{cast.healingHits}</td>
+                <td>{formatThousands(cast.healingEffective)}</td>
+                <td>{formatThousands(cast.healingAbsorbed)}</td>
+                <td>{formatThousands(cast.healingOverheal)}</td>
+              </tr>
+            )}
+            {cast.healingCriticalHits && (
+              <tr>
+                <td>critical healing</td>
+                <td>{cast.healingCriticalHits}</td>
+                <td>{formatThousands(cast.healingCriticalEffective)}</td>
+                <td>{formatThousands(cast.healingCriticalAbsorbed)}</td>
+                <td>{formatThousands(cast.healingCriticalOverheal)}</td>
+              </tr>
+            )}
+            {cast.damangeHits && (
+              <tr>
+                <td>regular damage</td>
+                <td>{cast.damangeHits}</td>
+                <td>{formatThousands(cast.damangeEffective)}</td>
+                <td>{formatThousands(cast.damangeAbsorbed)}</td>
+              </tr>
+            )}
+            {cast.damangeCriticalHits && (
+              <tr>
+                <td>critical damage</td>
+                <td>{cast.damangeCriticalHits}</td>
+                <td>{formatThousands(cast.damangeCriticalEffective)}</td>
+                <td>{formatThousands(cast.damangeCriticalAbsorbed)}</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+
+        {this.state.expanded && (
+          <div>
+            {this.state.data ? (
+              <pre ref={elem => selectText(elem)}>
+                <code>
+                  {this.renderCode()}
+                </code>
+              </pre>
+            ) : 'Loading...'}
+          </div>
+        )}
+      </li>
+    );
+  }
+}
 
 const Code = ({ children, dump, className, ...others }) => (
   <a href={`javascript:console.log(${children})`} onClick={(e) => {
@@ -158,75 +290,12 @@ class DevelopmentTab extends React.Component {
           <div className="row">
             {parser.modules.abilityTracker && (
               <div className="col-md-6">
-                All casts:
+                All casts: (hint: click on an item to generate the required <code>SPELLS.js</code> entry)
                 <ul className="list">
                   {Object.keys(parser.modules.abilityTracker.abilities)
                     .map(key => parser.modules.abilityTracker.abilities[key])
                     .sort((a, b) => (b.casts || 0) - (a.casts || 0))
-                    .map((cast) => cast.ability && (
-                      <li key={cast.ability.guid}>
-                        <div style={{ float: 'right', color: SPELLS[cast.ability.guid] ? 'green' : 'red', fontWeight: 600 }}>
-                          {SPELLS[cast.ability.guid] ? 'Known' : 'Unknown'}
-                        </div>
-
-                        <SpellLink id={cast.ability.guid}>
-                          <Icon icon={cast.ability.abilityIcon} alt={cast.ability.abilityIcon} style={{ height: '1.6em' }} /> {cast.ability.name}
-                        </SpellLink>{' '}
-                        casts: {cast.casts || 'N/A'}{' '}
-                        {cast.manaUsed && (
-                          <span>
-                            Mana used: {formatThousands(cast.manaUsed)}
-                          </span>
-                        )}
-                        <table style={{ width: '100%' }}>
-                          <thead>
-                            <tr>
-                              <th>type</th>
-                              <th>Hits</th>
-                              <th>Effective</th>
-                              <th>Absorbed</th>
-                              <th>Overheal</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {cast.healingHits && (
-                              <tr>
-                                <td>regular healing</td>
-                                <td>{cast.healingHits}</td>
-                                <td>{formatThousands(cast.healingEffective)}</td>
-                                <td>{formatThousands(cast.healingAbsorbed)}</td>
-                                <td>{formatThousands(cast.healingOverheal)}</td>
-                              </tr>
-                            )}
-                            {cast.healingCriticalHits && (
-                              <tr>
-                                <td>critical healing</td>
-                                <td>{cast.healingCriticalHits}</td>
-                                <td>{formatThousands(cast.healingCriticalEffective)}</td>
-                                <td>{formatThousands(cast.healingCriticalAbsorbed)}</td>
-                                <td>{formatThousands(cast.healingCriticalOverheal)}</td>
-                              </tr>
-                            )}
-                            {cast.damangeHits && (
-                              <tr>
-                                <td>regular damage</td>
-                                <td>{cast.damangeHits}</td>
-                                <td>{formatThousands(cast.damangeEffective)}</td>
-                                <td>{formatThousands(cast.damangeAbsorbed)}</td>
-                              </tr>
-                            )}
-                            {cast.damangeCriticalHits && (
-                              <tr>
-                                <td>critical damage</td>
-                                <td>{cast.damangeCriticalHits}</td>
-                                <td>{formatThousands(cast.damangeCriticalEffective)}</td>
-                                <td>{formatThousands(cast.damangeCriticalAbsorbed)}</td>
-                              </tr>
-                            )}
-                          </tbody>
-                        </table>
-                      </li>
-                    ))}
+                    .map((cast) => cast.ability && <Cast key={cast.ability.guid} cast={cast} />)}
                 </ul>
               </div>
             )}
@@ -264,8 +333,11 @@ class DevelopmentTab extends React.Component {
               <ul className="list">
                 {combatant._combatantInfo.artifact.map(trait => (
                   <li key={trait.traitID}>
+                    <div style={{ float: 'right', color: SPELLS[trait.spellID] ? 'green' : 'red', fontWeight: 600 }}>
+                      {SPELLS[trait.spellID] ? 'Known' : 'Unknown'}
+                    </div>
                     <SpellLink id={trait.spellID}>
-                      <Icon icon={trait.icon} alt={trait.icon} style={{ height: '1.6em' }} /> {SPELLS[trait.id] ? SPELLS[trait.id].name : `spellID: ${trait.spellID}`}
+                      <Icon icon={trait.icon} alt={trait.icon} style={{ height: '1.6em' }} /> {SPELLS[trait.spellID] ? SPELLS[trait.spellID].name : `spellID: ${trait.spellID}`}
                     </SpellLink>{' '}
                     traitID: {trait.traitID}{' '}
                     rank: {trait.rank}
