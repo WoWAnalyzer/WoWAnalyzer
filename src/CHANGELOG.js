@@ -1,4 +1,5 @@
 export default `
+01-07-2016 - Added <span class="Priest">Holy Priest</span> support by <b>@enragednuke</b>.
 26-06-2017 - Mistweaver Monk: Added Shelter of Rin and Doorway To Nowhere, fixed Ei'thas, Lunar Glides of Eramas healing contribution formula. (by anomoly)
 26-06-2017 - Resto Shaman: Fix a bug that would prevent the Feeding tab from loading. (by Versaya)
 24-06-2017 - Fixed an issue with some items not showing up properly (by Zerotorescue)

@@ -234,4 +234,153 @@ export default {
     name: 'Speed of the Pious',
     icon: 'ability_paladin_speedoflight',
   },
+
+
+  // Holy Priest Spells
+  GREATER_HEAL: {
+    id: 2060,
+    name: 'Heal',
+    icon: 'spell_holy_greaterheal',
+    manaCost: 18700,
+  },
+
+  FLASH_HEAL: {
+    id: 2061,
+    name: 'Flash Heal',
+    icon: 'spell_holy_flashheal',
+    manaCost: 30800,
+  },
+
+  PRAYER_OF_MENDING_CAST: {
+    id: 33076,
+    name: 'Prayer of Mending',
+    icon: 'spell_holy_prayerofmendingtga',
+    manaCost: 22000,
+  },
+
+  PRAYER_OF_MENDING_HEAL: {
+    id: 33110,
+    name: 'Prayer of Mending',
+    icon: 'spell_holy_prayerofmendingtga',
+    manaCost: 22000,
+  },
+
+  PRAYER_OF_MENDING_BUFF: {
+    id: 41635,
+    name: 'Prayer of Mending',
+    icon: 'spell_holy_prayerofmendingtga',
+    manaCost: 22000,
+  },
+
+  PRAYER_OF_HEALING: {
+    id: 596,
+    name: 'Prayer of Healing',
+    icon: 'spell_holy_prayerofhealing',
+    manaCost: 49500,
+  },
+
+  ECHO_OF_LIGHT: {
+    id: 77489,
+    name: 'Echo of Light',
+    icon: 'spell_holy_aspiration',
+  },
+
+  RENEW: {
+    id: 139,
+    name: 'Renew',
+    icon: 'spell_holy_renew',
+    manaCost: 22000,
+  },
+
+  HOLY_WORD_SERENITY: {
+    id: 2050,
+    name: 'Holy Word: Serenity',
+    icon: 'spell_holy_persuitofjustice',
+    manaCost: 44000,
+  },
+
+  HOLY_WORD_SANCTIFY: {
+    id: 34861,
+    name: 'Holy Word: Sanctify',
+    icon: 'spell_holy_divineprovidence',
+    manaCost: 55000,
+  },
+
+  DESPERATE_PRAYER: {
+    id: 19236,
+    name: 'Desperate Prayer',
+    icon: 'spell_holy_testoffaith',
+  },
+
+  GUARDIAN_SPIRIT: {
+    id: 47788,
+    name: 'Guardian Spirit',
+    icon: 'spell_holy_guardianspirit',
+    manaCost: 9900,
+  },
+
+  DIVINE_HYMN_CAST: {
+    id: 64843,
+    name: 'Divine Hymn',
+    icon: 'spell_holy_divinehymn',
+    manaCost: 48400,
+  },
+
+  DIVINE_HYMN_HEAL: {
+    id: 64844,
+    name: 'Divine Hymn',
+    icon: 'spell_holy_divinehymn',
+  },
+
+  // Trait related spells
+  LIGHT_OF_TUURE_TRAIT: {
+    id: 208065,
+    name: 'Light of T\'uure',
+    icon: 'inv_staff_2h_artifactheartofkure_d_01',
+  },
+
+  COSMIC_RIPPLE_TRAIT: {
+    id: 243241,
+    name: 'Cosmic Ripple',
+    icon: 'spell_holy_circleofrenewal',
+  },
+
+  HOLY_MENDING_TRAIT: {
+    id: 196781,
+    name: 'Holy Mending',
+    icon: 'spell_holy_divineprovidence',
+  },
+
+  RENEW_THE_FAITH_TRAIT: {
+    id: 196492,
+    name: 'Renew the Faith',
+    icon: 'spell_holy_divinehymn',
+  },
+
+  // Buffs
+  BLESSING_OF_TUURE_BUFF: {
+    id: 196644,
+    name: 'Blessing of T\'uure',
+    icon: 'inv_pet_naaru',
+  },
+
+  DIVINITY_BUFF: {
+    id: 197030,
+    name: 'Divinity',
+    icon: 'ability_priest_ascendance',
+  },
+
+  POWER_OF_THE_NAARU_BUFF: {
+    id: 196490,
+    name: 'Power of the Naaru',
+    icon: 'spell_holy_prayerofhealing02',
+  },
+
+  // Holy Legendaries
+  XANSHI_CLOAK_BUFF: {
+    id: 211336,
+    name: 'Xan\'shi, Shroud of Archbishop Benedictus',
+    icon: 'inv_enchant_essencemagiclarge',
+  },
+
 };
