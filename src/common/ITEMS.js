@@ -156,6 +156,18 @@ const ITEMS = {
     icon: 'inv_jewelry_ring_67',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+  ENTRANCING_TROUSERS_OF_ANJUNA: {
+    id: 132447,
+    name: 'Entrancing Trousers of An\'juna',
+    icon: 'inv_pants_robe_raidwarlock_j_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  XANSHI_CLOAK: { // when XANSHI_SHROUD_OF_ARCHBISHOP_BENEDICTUS is just too long :^)
+    id: 137109,
+    name: 'X\'anshi, Shroud of Archbishop Benedictus',
+    icon: 'inv_misc_cape_20',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
   // Trinkets
   DARKMOON_DECK_PROMISES: {
     id: 128710,
