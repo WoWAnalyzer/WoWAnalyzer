@@ -39,7 +39,6 @@ class XanshiCloak extends Module {
   on_byPlayer_heal(event) {
     if (!this._xanshiActive) { return; }
 
-    const spellId = event.ability.guid
     this.healing += event.amount || 0;
     this.overhealing += event.overheal || 0;
     this.absorbed += event.absorbed || 0;

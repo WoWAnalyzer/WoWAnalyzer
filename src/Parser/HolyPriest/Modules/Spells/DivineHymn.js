@@ -16,7 +16,7 @@ class DivineHymn extends Module {
     this.healing += event.amount || 0;
     this.overhealing += event.overheal || 0;
     this.absorbed += event.absorbed || 0;
-    if (event.sourceID == event.targetID) {
+    if (event.sourceID === event.targetID) {
       this.ticks += 1;
     }
   }

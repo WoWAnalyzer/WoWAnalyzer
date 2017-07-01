@@ -1,7 +1,7 @@
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 
-import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
+// import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 export const SPELL_CATEGORY = {
   ROTATIONAL: 'Rotational Spell',
@@ -56,7 +56,7 @@ const CPM_ABILITIES = [
     getOverhealing: (_, getAbility) => {
       const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.HALO_HEAL.id);
       return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
-    }
+    },
   },
   {
     spell: SPELLS.CIRCLE_OF_HEALING_TALENT,

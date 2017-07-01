@@ -354,7 +354,7 @@ export default {
   RENEW_THE_FAITH_TRAIT: {
     id: 196492,
     name: 'Renew the Faith',
-    icon: 'spell_holy_divinehymn'
+    icon: 'spell_holy_divinehymn',
   },
 
   // Buffs

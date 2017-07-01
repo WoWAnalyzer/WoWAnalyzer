@@ -1,9 +1,6 @@
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
 
 import CoreAlwaysBeCastingHealing from 'Parser/Core/Modules/AlwaysBeCastingHealing';
-
-const debug = true;
 
 const HEALING_ABILITIES_ON_GCD = [
   SPELLS.GREATER_HEAL.id,
@@ -41,8 +38,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
 
   on_initialized() {
     super.on_initialized();
-
-    const combatant = this.owner.modules.combatants.selected;
   }
 
   recordCastTime(
@@ -59,30 +54,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
       cast,
       spellId
     );
-    //this.verifyCast(begincast, cast, globalCooldown);
   }
-  // verifyCast(begincast, cast, globalCooldown) {
-  //   if (cast.ability.guid !== SPELLS.FLASH_OF_LIGHT.id) {
-  //     return;
-  //   }
-  //   const castTime = cast.timestamp - begincast.timestamp;
-  //   if (!this.constructor.inRange(castTime, globalCooldown, 50)) { // cast times seem to fluctuate by 50ms, not sure if it depends on player latency, in that case it could be a lot more flexible
-  //     console.warn(`Expected Flash of Light cast time (${castTime}) to match GCD (${Math.round(globalCooldown)}) @${cast.timestamp - this.owner.fight.start_time}`);
-  //   }
-  // }
-  //
-  //   countsAsHealingAbility(cast) {
-  //   const spellId = cast.ability.guid;
-  //   if (spellId === SPELLS.HOLY_SHOCK_CAST.id && !cast.targetIsFriendly) {
-  //     debug && console.log(`%cABC: ${cast.ability.name} (${spellId}) skipped for healing time; target is not friendly`, 'color: orange');
-  //     return false;
-  //   }
-  //   return super.countsAsHealingAbility(cast);
-  // }
-
-  // static inRange(num1, goal, buffer) {
-  //   return num1 > (goal - buffer) && num1 < (goal + buffer);
-  // }
 }
 
 export default AlwaysBeCasting;

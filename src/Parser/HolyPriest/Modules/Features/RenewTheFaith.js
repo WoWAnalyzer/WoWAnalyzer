@@ -17,7 +17,7 @@ class RenewTheFaith extends Module {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (spellId == SPELLS.DIVINE_HYMN_CAST.id) {
+    if (spellId === SPELLS.DIVINE_HYMN_CAST.id) {
       this._validPoMBefore = event.timestamp + this._maxHymnDuration * 1000;
     }
   }
@@ -26,7 +26,7 @@ class RenewTheFaith extends Module {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.PRAYER_OF_MENDING_HEAL.id && spellId !== SPELLS.HOLY_MENDING_TRAIT.id) { return; }
     if (event.timestamp < this._validPoMBefore) {
-      if (spellId == SPELLS.PRAYER_OF_MENDING_HEAL.id) { this.poms += 1; }
+      if (spellId === SPELLS.PRAYER_OF_MENDING_HEAL.id) { this.poms += 1; }
       this.healing += event.amount;
       this.overhealing += event.overheal || 0;
     }

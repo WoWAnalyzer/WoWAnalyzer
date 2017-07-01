@@ -5,7 +5,6 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import Icon from 'common/Icon';
 import ITEMS from 'common/ITEMS';
-import ItemLink from 'common/ItemLink';
 
 import StatisticBox from 'Main/StatisticBox';
 import SuggestionsTab from 'Main/SuggestionsTab';
@@ -13,7 +12,6 @@ import TalentsTab from 'Main/TalentsTab';
 import CastEfficiencyTab from 'Main/CastEfficiencyTab';
 import CooldownsTab from 'Main/CooldownsTab';
 import ManaTab from 'Main/ManaTab';
-import PlayerBreakdownTab from 'Main/PlayerBreakdownTab';
 
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 import getCastEfficiency from 'Parser/Core/getCastEfficiency';
@@ -36,6 +34,10 @@ import XanshiCloak from './Modules/Items/XanshiCloak';
 
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
+
+// Imports that will likely be used in the future but currently unused (go away npm warnings)
+// import ItemLink from 'common/ItemLink';
+// import PlayerBreakdownTab from 'Main/PlayerBreakdownTab';
 
 function formatThousands(number) {
   return (Math.round(number || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
@@ -77,11 +79,7 @@ class CombatLogParser extends MainCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
 
   static specModules = {
-    // Override the ability tracker so we also get stats for IoL and beacon healing
     abilityTracker: AbilityTracker,
-
-    // Core
-    // ?
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -95,7 +93,6 @@ class CombatLogParser extends MainCombatLogParser {
     // Items
     trousersOfAnjuna: TrousersOfAnjuna,
     xanshiCloak: XanshiCloak,
-
   };
 
   generateResults() {
@@ -110,11 +107,7 @@ class CombatLogParser extends MainCombatLogParser {
     const castEfficiencyCategories = SPELL_CATEGORY;
     const castEfficiency = getCastEfficiency(CPM_ABILITIES, this);
 
-
-    const wastedPoMs = this.modules.prayerOfMending.removed - this.modules.prayerOfMending.heals;
-
     // Renew the Faith trait data calculations
-    const rtfHPS = this.modules.renewTheFaith.healing / fightDuration * 1000;
     const rtfPercHPS = formatPercentage(this.modules.renewTheFaith.healing / this.totalHealing);
     const rtfPercOH = formatPercentage(this.modules.renewTheFaith.overhealing / (this.modules.renewTheFaith.healing + this.modules.renewTheFaith.overhealing));
     const rtfRelPercHPS = formatPercentage(this.modules.renewTheFaith.healing / this.modules.divineHymn.healing);
