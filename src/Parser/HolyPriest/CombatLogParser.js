@@ -17,8 +17,6 @@ import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
-import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
-
 // Spell data
 import PrayerOfMending from './Modules/Spells/PrayerOfMending';
 import DivineHymn from './Modules/Spells/DivineHymn';
@@ -71,8 +69,6 @@ class CombatLogParser extends MainCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
 
   static specModules = {
-    abilityTracker: AbilityTracker,
-
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     cooldownTracker: CooldownTracker,
@@ -92,6 +88,7 @@ class CombatLogParser extends MainCombatLogParser {
 
     const fightDuration = this.fightDuration;
     const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
+    const nonHealingTimePercentage = this.modules.alwaysBeCasting.totalHealingTimeWasted / fightDuration;
 
     const abilityTracker = this.modules.abilityTracker;
     const getAbility = spellId => abilityTracker.getAbility(spellId);
@@ -122,11 +119,21 @@ class CombatLogParser extends MainCombatLogParser {
     const cloakPercHPS = formatPercentage(this.modules.xanshiCloak.healing / this.totalHealing);
     const cloakHPS = formatNumber(this.modules.xanshiCloak.healing / this.fightDuration * 1000);
 
-    if (deadTimePercentage > 0.1) {
+    if (deadTimePercentage > 0.05) {
       results.addIssue({
         issue: `Your dead GCD time can be improved. Try to Always Be Casting (ABC); when there's nothing to heal try to contribute some damage (${Math.round(deadTimePercentage * 100)}% dead GCD time).`,
         icon: 'spell_mage_altertime',
-        importance: getIssueImportance(deadTimePercentage, 0.25, 0.4, true),
+        importance: getIssueImportance(deadTimePercentage, 0.20, 0.35, true),
+      });
+    }
+
+    // Because Holy Priest can gain a large amount of benefit from chain casting Heal even during downtime (for Serendipity or Blessing of T'uure procs)
+    // it is very important to have a lower wasted healing time than most classes. The exception to this is when healers should be DPSing.
+    if (nonHealingTimePercentage > 0.2) {
+      results.addIssue({
+        issue: <span>Your non healing time can be improved. Try to cast heals more regularly ({Math.round(nonHealingTimePercentage * 100)}% non healing time). If there is downtime, try casting <SpellLink id={SPELLS.GREATER_HEAL.id} /> to proc <SpellLink id={SPELLS.BLESSING_OF_TUURE_BUFF.id} />.</span>,
+        icon: 'petbattle_health-down',
+        importance: getIssueImportance(nonHealingTimePercentage, 0.3, 0.4, true),
       });
     }
 

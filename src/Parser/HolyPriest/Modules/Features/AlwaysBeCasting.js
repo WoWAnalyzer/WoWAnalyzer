@@ -35,26 +35,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     88625, // Holy Word: Chastise
     132157, // Holy Nova
   ];
-
-  on_initialized() {
-    super.on_initialized();
-  }
-
-  recordCastTime(
-    castStartTimestamp,
-    globalCooldown,
-    begincast,
-    cast,
-    spellId
-  ) {
-    super.recordCastTime(
-      castStartTimestamp,
-      globalCooldown,
-      begincast,
-      cast,
-      spellId
-    );
-  }
 }
 
 export default AlwaysBeCasting;

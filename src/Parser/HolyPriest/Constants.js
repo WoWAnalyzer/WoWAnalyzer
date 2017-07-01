@@ -36,5 +36,5 @@ export const ABILITIES_THAT_TRIGGER_MASTERY = [
   SPELLS.CIRCLE_OF_HEALING_TALENT.id,
   SPELLS.HALO_HEAL.id,
   SPELLS.DIVINE_STAR_TALENT.id, // might have diff id for heal?
-  // ??
+  SPELLS.OCEANS_EMBRACE,
 ];
