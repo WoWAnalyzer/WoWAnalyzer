@@ -73,7 +73,7 @@ export default {
     name: 'Mark of the Ancient Priestess',
     icon: 'ability_priest_ascension',
   },
-  
+
   // Tomb trinkets
   CLEANSING_MATRIX: {
     id: 242619,
@@ -103,7 +103,7 @@ export default {
   OCEANS_EMBRACE: {
     id: 242474,
     name: 'Ocean\'s Embrace',
-    icon: 'paladin_holy',
+    icon: 'inv_jewelcrafting_starofelune_02',
   },
   // Item Abilities
   SPECTRAL_BLAST: {
