@@ -98,7 +98,7 @@ class DevotionAura extends ModuleComponent {
       <LazyLoadStatisticBox
         loader={this.load.bind(this)}
         icon={<SpellIcon id={SPELLS.DEVOTION_AURA_TALENT.id} />}
-        value={`${formatNumber(this.damageReduced / fightDuration * 1000)} DRPS`}
+        value={`~${formatNumber(this.damageReduced / fightDuration * 1000)} DRPS`}
         label="Estimated damage reduced"
         tooltip={`The total estimated damage reduced <b>during</b> Aura Mastery was ${formatThousands(this.damageReducedDuringAuraMastery)} (${formatNumber(this.damageReducedDuringAuraMastery / fightDuration * 1000)} DRPS). This has a high accuracy.<br />
           The total estimated damage reduced <b>outside</b> Aura Mastery was ${formatThousands(this.damageReducedOutsideAuraMastery)} (${formatNumber(this.damageReducedOutsideAuraMastery / fightDuration * 1000)} DRPS). This has medium accuracy.<br /><br />

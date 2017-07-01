@@ -523,7 +523,7 @@ class CombatLogParser extends MainCombatLogParser {
       this.modules.holyAvenger.active && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.HOLY_AVENGER_TALENT.id} />}
-          value={`${formatNumber((this.modules.holyAvenger.regularHealing + this.modules.holyAvenger.holyShockHealing) / fightDuration * 1000)} HPS`}
+          value={`~${formatNumber((this.modules.holyAvenger.regularHealing + this.modules.holyAvenger.holyShockHealing) / fightDuration * 1000)} HPS`}
           label={(
             <dfn
               data-tip={`
