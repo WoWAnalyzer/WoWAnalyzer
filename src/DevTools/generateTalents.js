@@ -116,7 +116,6 @@ Object.values(talents).forEach(classTalents => {
   fs.writeFileSync(
     `${TALENTS_DIRECTORY}/${fileName}`,
     `// Generated file, changes will be overwritten!
-// ${new Date()}
 
 export default {
 ${Object.keys(spells).map(specName => {

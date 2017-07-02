@@ -1,5 +1,4 @@
 // Generated file, changes will be overwritten!
-// Sat Jul 01 2017 15:23:03 GMT+0200 (W. Europe Daylight Time)
 
 export default {
   // Shared
