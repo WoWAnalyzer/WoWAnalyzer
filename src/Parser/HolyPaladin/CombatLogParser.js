@@ -393,20 +393,14 @@ class CombatLogParser extends MainCombatLogParser {
           />
         )}
         value={`${formatNumber(this.totalHealing / fightDuration * 1000)} HPS`}
-        label={(
-          <dfn data-tip={`The total healing done recorded was ${formatThousands(this.totalHealing)}.`}>
-            Healing done
-          </dfn>
-        )}
+        label="Healing done"
+        tooltip={`The total healing done recorded was ${formatThousands(this.totalHealing)}.`}
       />,
       <StatisticBox
         icon={<Icon icon="petbattle_health-down" alt="Non healing time" />}
         value={`${formatPercentage(nonHealingTimePercentage)} %`}
-        label={(
-          <dfn data-tip={`Non healing time is available casting time not used for a spell that helps you heal. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), DPSing, etc. Damaging Holy Shocks are considered non healing time, Crusader Strike is only considered non healing time if you do not have the Crusader's Might talent.<br /><br />You spent ${formatPercentage(deadTimePercentage)}% of your time casting nothing at all.`}>
-            Non healing time
-          </dfn>
-        )}
+        label="Non healing time"
+        tooltip={`Non healing time is available casting time not used for a spell that helps you heal. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), DPSing, etc. Damaging Holy Shocks are considered non healing time, Crusader Strike is only considered non healing time if you do not have the Crusader's Might talent.<br /><br />You spent ${formatPercentage(deadTimePercentage)}% of your time casting nothing at all.`}
       />,
       <StatisticBox
         icon={(
@@ -417,11 +411,8 @@ class CombatLogParser extends MainCombatLogParser {
           />
         )}
         value={`${(Math.round(totalMasteryEffectiveness * 10000) / 100).toFixed(2)} %`}
-        label={(
-          <dfn data-tip="Effects that temporarily increase your mastery are currently not supported and will skew results.">
-            Mastery effectiveness
-          </dfn>
-        )}
+        label="Mastery effectiveness"
+        tooltip="Effects that temporarily increase your mastery are currently not supported and will skew results."
       />,
       hasRuleOfLaw && (
         <StatisticBox
@@ -433,11 +424,8 @@ class CombatLogParser extends MainCombatLogParser {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.INFUSION_OF_LIGHT.id} />}
         value={`${formatPercentage(iolFoLToHLCastRatio)} %`}
-        label={(
-          <dfn data-tip={`The Infusion of Light Flash of Light to Infusion of Light Holy Light usage ratio is how many Flash of Lights you cast compared to Holy Lights during the Infusion of Light proc. You cast ${iolFlashOfLights} Flash of Lights and ${iolHolyLights} Holy Lights during Infusion of Light.`}>
-            IoL FoL to HL cast ratio
-          </dfn>
-        )}
+        label="IoL FoL to HL cast ratio"
+        tooltip={`The Infusion of Light Flash of Light to Infusion of Light Holy Light usage ratio is how many Flash of Lights you cast compared to Holy Lights during the Infusion of Light proc. You cast ${iolFlashOfLights} Flash of Lights and ${iolHolyLights} Holy Lights during Infusion of Light.`}
       />,
       <StatisticBox
         icon={(
@@ -449,38 +437,26 @@ class CombatLogParser extends MainCombatLogParser {
           </SpellLink>
         )}
         value={`${formatPercentage(unusedIolRate)} %`}
-        label={(
-          <dfn data-tip={`The amount of Infusion of Lights you did not use out of the total available. You cast ${holyShockHeals} (healing) Holy Shocks with a ${formatPercentage(holyShockCrits / holyShockHeals)}% crit ratio. This gave you ${holyShockCrits * iolProcsPerHolyShockCrit} Infusion of Light procs, of which you used ${totalIols}.<br /><br />The ratio may be below zero if you used Infusion of Light procs from damaging Holy Shocks (e.g. cast on boss), or from casting Holy Shock before the fight started. <b>It is accurate to enter this negative value in your spreadsheet!</b> The spreadsheet will consider these bonus Infusion of Light procs and consider it appropriately.`}>
-            Unused Infusion of Lights
-          </dfn>
-        )}
+        label="Unused Infusion of Lights"
+        tooltip={`The amount of Infusion of Lights you did not use out of the total available. You cast ${holyShockHeals} (healing) Holy Shocks with a ${formatPercentage(holyShockCrits / holyShockHeals)}% crit ratio. This gave you ${holyShockCrits * iolProcsPerHolyShockCrit} Infusion of Light procs, of which you used ${totalIols}.<br /><br />The ratio may be below zero if you used Infusion of Light procs from damaging Holy Shocks (e.g. cast on boss), or from casting Holy Shock before the fight started. <b>It is accurate to enter this negative value in your spreadsheet!</b> The spreadsheet will consider these bonus Infusion of Light procs and consider it appropriately.`}
       />,
       <StatisticBox
         icon={<SpellIcon id={SPELLS.FLASH_OF_LIGHT.id} />}
         value={`${formatPercentage(fillerCastRatio)} %`}
-        label={(
-          <dfn data-tip={`The ratio at which you cast Flash of Lights versus Holy Lights. You cast ${fillerFlashOfLights} filler Flash of Lights and ${fillerHolyLights} filler Holy Lights.`}>
-            Filler cast ratio
-          </dfn>
-        )}
+        label="Filler cast ratio"
+        tooltip={`The ratio at which you cast Flash of Lights versus Holy Lights. You cast ${fillerFlashOfLights} filler Flash of Lights and ${fillerHolyLights} filler Holy Lights.`}
       />,
       <StatisticBox
         icon={<SpellIcon id={this.selectedCombatant.lv100Talent} />}
         value={`${formatPercentage(healsOnBeacon)} %`}
-        label={(
-          <dfn data-tip={`The amount of Flash of Lights and Holy Lights cast on beacon targets. You cast ${beaconFlashOfLights} Flash of Lights and ${beaconHolyLights} Holy Lights on beacon targets.<br /><br />Your total heals on beacons was <b>${(totalHealsOnBeaconPercentage * 100).toFixed(2)}%</b> (this includes spell other than FoL and HL).`}>
-            FoL/HL cast on beacon
-          </dfn>
-        )}
+        label="FoL/HL cast on beacon"
+        tooltip={`The amount of Flash of Lights and Holy Lights cast on beacon targets. You cast ${beaconFlashOfLights} Flash of Lights and ${beaconHolyLights} Holy Lights on beacon targets.<br /><br />Your total heals on beacons was <b>${(totalHealsOnBeaconPercentage * 100).toFixed(2)}%</b> (this includes spell other than FoL and HL).`}
       />,
       <StatisticBox
         icon={<SpellIcon id={SPELLS.TYRS_DELIVERANCE_CAST.id} />}
         value={`${formatPercentage(tyrsDeliverancePercentage)} %`}
-        label={(
-          <dfn data-tip={`The total actual effective healing contributed by Tyr's Deliverance. This includes the gains from the increase to healing by Flash of Light and Holy Light.<br /><br />The actual healing done by the effect was ${formatPercentage(tyrsDeliveranceHealHealingPercentage)}% of your healing done, and the healing contribution from the Flash of Light and Holy Light heal increase was ${formatPercentage(tyrsDeliveranceBuffFoLHLHealingPercentage)}% of your healing done.`}>
-            Tyr's Deliverance healing
-          </dfn>
-        )}
+        label="Tyr's Deliverance healing"
+        tooltip={`The total actual effective healing contributed by Tyr's Deliverance. This includes the gains from the increase to healing by Flash of Light and Holy Light.<br /><br />The actual healing done by the effect was ${formatPercentage(tyrsDeliveranceHealHealingPercentage)}% of your healing done, and the healing contribution from the Flash of Light and Holy Light heal increase was ${formatPercentage(tyrsDeliveranceBuffFoLHLHealingPercentage)}% of your healing done.`}
       />,
       hasSacredDawn && (
         <StatisticBox
@@ -513,32 +489,24 @@ class CombatLogParser extends MainCombatLogParser {
               />
             </span>
           )}
-          label={(
-            <dfn data-tip={`Your Divine Purpose proc rate for Holy Shock was ${formatPercentage(divinePurposeHolyShockProcs / (holyShockHeals - divinePurposeHolyShockProcs))}%.<br />Your Divine Purpose proc rate for Light of Dawn was ${formatPercentage(divinePurposeLightOfDawnProcs / (lightOfDawnHeals - divinePurposeLightOfDawnProcs))}%`}>
-              Divine Purpose procs
-            </dfn>
-          )}
+          label="Divine Purpose procs"
+          tooltip={`Your Divine Purpose proc rate for Holy Shock was ${formatPercentage(divinePurposeHolyShockProcs / (holyShockHeals - divinePurposeHolyShockProcs))}%.<br />Your Divine Purpose proc rate for Light of Dawn was ${formatPercentage(divinePurposeLightOfDawnProcs / (lightOfDawnHeals - divinePurposeLightOfDawnProcs))}%`}
         />
       ),
       this.modules.holyAvenger.active && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.HOLY_AVENGER_TALENT.id} />}
           value={`~${formatNumber((this.modules.holyAvenger.regularHealing + this.modules.holyAvenger.holyShockHealing) / fightDuration * 1000)} HPS`}
-          label={(
-            <dfn
-              data-tip={`
-                Calculating Holy Avenger healing contribution is hard.<br /><br />
+          label="Estimated healing"
+          tooltip={`
+            Calculating Holy Avenger healing contribution is hard.<br /><br />
 
-                What this does is add 30% of all effective healing and 30% of Holy Shock effective healing for the total healing contributed by Holy Avenger. There is no checking for GCDs missed or whatever since the assumption is that you still cast 30% more spells than you normally would, and normally you'd also have missed GCDs.<br /><br />
+            What this does is add 30% of all effective healing and 30% of Holy Shock effective healing for the total healing contributed by Holy Avenger. There is no checking for GCDs missed or whatever since the assumption is that you still cast 30% more spells than you normally would, and normally you'd also have missed GCDs.<br /><br />
 
-                This healing gain from the Haste is kinda undervalued since Haste gains are calculated in-game with <code>CurrentHaste * (1 + HasteBonus) + HasteBonus</code>. Here all I include is the absolute Haste bonus, not the relative bonus since it's hard to calculate.<br /><br />
+            This healing gain from the Haste is kinda undervalued since Haste gains are calculated in-game with <code>CurrentHaste * (1 + HasteBonus) + HasteBonus</code>. Here all I include is the absolute Haste bonus, not the relative bonus since it's hard to calculate.<br /><br />
 
-                This statistic can see high numbers if Holy Avenger is paired with Avenging Wrath and/or AoS Aura Masatery. **This is perfectly right.** Those spells increase the ST/cleave healing you do and work nicely with a Haste increaser that increases the amount of heals you can do in that short period of time. But stacking HA with AW/AM may still not be best when you look at the overall fight, as spread out cooldowns often still provide more effective healing.
-              `}
-            >
-              Estimated healing
-            </dfn>
-          )}
+            This statistic can see high numbers if Holy Avenger is paired with Avenging Wrath and/or AoS Aura Masatery. **This is perfectly right.** Those spells increase the ST/cleave healing you do and work nicely with a Haste increaser that increases the amount of heals you can do in that short period of time. But stacking HA with AW/AM may still not be best when you look at the overall fight, as spread out cooldowns often still provide more effective healing.
+          `}
         />
       ),
       DevotionAura,
