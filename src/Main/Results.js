@@ -7,8 +7,6 @@ import ItemIcon from 'common/ItemIcon';
 
 import DevelopmentTab from 'Main/DevelopmentTab';
 
-import ModuleComponent from 'Parser/Core/ModuleComponent';
-
 class Results extends React.Component {
   static propTypes = {
     parser: PropTypes.object.isRequired,

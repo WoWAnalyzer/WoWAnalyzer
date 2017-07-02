@@ -210,8 +210,6 @@ class CombatLogParser extends MainCombatLogParser {
     const nonHealingTimePercentage = this.modules.alwaysBeCasting.totalHealingTimeWasted / fightDuration;
     const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
     const totalHealsOnBeaconPercentage = this.getTotalHealsOnBeaconPercentage(this);
-    const chainOfThraynHealingPercentage = this.modules.chainOfThrayn.healing / this.totalHealing;
-    const obsidianStoneSpauldersHealingPercentage = this.modules.obsidianStoneSpaulders.healing / this.totalHealing;
     const ilterendiHealingPercentage = this.modules.ilterendi.healing / this.totalHealing;
     const hasSacredDawn = this.selectedCombatant.traitsBySpellId[SPELLS.SACRED_DAWN.id] === 1;
     const sacredDawnPercentage = this.modules.sacredDawn.healing / this.totalHealing;
