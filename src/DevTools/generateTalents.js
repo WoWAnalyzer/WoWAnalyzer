@@ -52,9 +52,23 @@ function getIdentifier(spell) {
   return `${spell.name.toUpperCase().replace(/[^A-Z ]/g, '').replace(/ /g, '_')}_TALENT`;
 }
 
+const BASE_MANA = {
+  DEATH_KNIGHT: 220000,
+  DEMON_HUNTER: 220000,
+  DRUID: 220000,
+  HUNTER: 220000,
+  ROGUE: 220000,
+  MAGE: 1100000,
+  MONK: 1100000,
+  PALADIN: 220000,
+  PRIEST: 1100000,
+  SHAMAN: 220000,
+  WARLOCK: 1100000,
+  WARRIOR: 220000,
+};
+
 Object.values(talents).forEach(classTalents => {
   const className = classTalents.class.replace('-', '_').toUpperCase();
-  console.log(className);
 
   const spells = {
     [SHARED]: {},
@@ -72,7 +86,7 @@ Object.values(talents).forEach(classTalents => {
     if (spell.powerCost) {
       const mana = spell.powerCost.match(/^([0-9.]+)% of base mana$/);
       if (mana) {
-        spellsTalent.baseMana = Math.round(mana[1] / 100 * 10000) / 10000;
+        spellsTalent.manaCost = Math.round(mana[1] / 100 * BASE_MANA[className]);
       }
       // TODO: As desired add other powers
     }
