@@ -1,7 +1,7 @@
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 
-// import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
+import { calculateMaxCasts } from 'Parser/Core/getCastEfficiency';
 
 export const SPELL_CATEGORY = {
   ROTATIONAL: 'Rotational Spell',
@@ -22,6 +22,9 @@ const CPM_ABILITIES = [
     name: 'Light of T\'uure',
     category: SPELL_CATEGORY.ROTATIONAL,
     getCooldown: haste => 45,
+    getMaxCasts: (cooldown, fightDuration, getAbility, parser) => {
+      return calculateMaxCasts(cooldown, fightDuration, 2);
+    },
   },
   {
     spell: SPELLS.DESPERATE_PRAYER,

@@ -106,8 +106,9 @@ class CombatLogParser extends MainCombatLogParser {
     const rtfRelPercHPS = formatPercentage(this.modules.renewTheFaith.healing / this.modules.divineHymn.healing);
 
     // Say Your Prayers trait data calculations
-    const averagePoMperCast = (this.modules.prayerOfMending.removed - this.modules.renewTheFaith.poms) / getAbility(SPELLS.PRAYER_OF_MENDING_CAST.id).casts;
-    const sypValue = (averagePoMperCast - 5) / averagePoMperCast * this.modules.prayerOfMending.healing;
+    const sypTrait = this.selectedCombatant.traitsBySpellId[SPELLS.SAY_YOUR_PRAYERS_TRAIT.id];
+    const percPomIncFromSYP = ((1 + (sypTrait * SPELLS.SAY_YOUR_PRAYERS_TRAIT.coeff)) / (1 - (sypTrait * SPELLS.SAY_YOUR_PRAYERS_TRAIT.coeff))) - 1;
+    const sypValue = this.modules.prayerOfMending.healing * percPomIncFromSYP / (1 + percPomIncFromSYP);
     const sypHPS = sypValue / this.fightDuration * 1000;
     const sypPercHPSOverall = formatPercentage(sypValue / this.totalHealing);
     const sypPercHPSPoM = formatPercentage(sypValue / this.modules.prayerOfMending.healing);
@@ -188,7 +189,7 @@ class CombatLogParser extends MainCombatLogParser {
         icon={<SpellIcon id={SPELLS.PRAYER_OF_MENDING_CAST.id} />}
         value={`${formatNumber(sypHPS)} HPS`}
         label={(
-          <dfn data-tip={`Approximation of Say Your Prayers' value by viewing average stacks per PoM cast (does not include Benediction renews). This is ${sypPercHPSOverall}% of your healing and ${sypPercHPSPoM}% of your Prayer of Mending healing.`}>
+          <dfn data-tip={`Approximation of Say Your Prayers' value by viewing average stacks per PoM cast (does not include Benediction renews). This is ${sypPercHPSOverall}% of your healing and ~${sypPercHPSPoM}% of your Prayer of Mending healing.`}>
             Say Your Prayers
           </dfn>
         )}

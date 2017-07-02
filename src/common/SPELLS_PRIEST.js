@@ -357,6 +357,13 @@ export default {
     icon: 'spell_holy_divinehymn',
   },
 
+  SAY_YOUR_PRAYERS_TRAIT: {
+    id: 196358,
+    name: 'Say Your Prayers',
+    icon: 'spell_holy_prayerofmendingtga',
+    coeff: 0.06,
+  },
+
   // Buffs
   BLESSING_OF_TUURE_BUFF: {
     id: 196644,
