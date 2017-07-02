@@ -64,7 +64,7 @@ class DarkmoonDeckPromises extends Module {
     }
 
     const manaSaved = Math.min(this.currentManaReduction, manaCost);
-    if (!event.hasInnervate && !event.hasSymbolOfHope) {
+    if (!event.isManaCostNullified) {
       debug && console.log('Promises saved', manaSaved, 'mana on', SPELLS[spellId].name, 'costing', manaCost, event);
       this.manaGained += manaSaved;
     } else {
