@@ -227,7 +227,7 @@ export default {
     id: 114158,
     name: 'Light\'s Hammer',
     icon: 'spell_paladin_lightshammer',
-    manaCost: 77000,
+    manaCost: 61600,
   },
   HOLY_PRISM_TALENT: {
     id: 114165,
