@@ -3,6 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import makeWclUrl from 'common/makeWclUrl';
 import SpellIcon from 'common/SpellIcon';
+import { formatThousands, formatNumber } from 'common/format';
 
 import LazyLoadStatisticBox from 'Main/LazyLoadStatisticBox';
 
@@ -11,19 +12,6 @@ import ModuleComponent from 'Parser/Core/ModuleComponent';
 // Protection of Tyr is applied to everyone that benefits from the AM effect. This is simply the easiest way to see if someone is affected by AM, other more robust solutions take a lot more effort/complexity.
 const PROTECTION_OF_TYR_ID = 211210;
 const DEVOTION_AURA_DAMAGE_REDUCTION = 0.2;
-
-function formatThousands(number) {
-  return (Math.round(number || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
-}
-function formatNumber(number) {
-  if (number > 1000000) {
-    return `${(number / 1000000).toFixed(2)}m`;
-  }
-  if (number > 10000) {
-    return `${Math.round(number / 1000)}k`;
-  }
-  return formatThousands(number);
-}
 
 class DevotionAura extends ModuleComponent {
   get damageReducedDuringAuraMastery() {

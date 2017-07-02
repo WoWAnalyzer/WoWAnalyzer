@@ -2,6 +2,7 @@ import React from 'react';
 
 import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
+import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 
 import Combatants from './Modules/Combatants';
 import AbilityTracker from './Modules/AbilityTracker';
@@ -26,21 +27,6 @@ import GnawedThumbRing from './Modules/Items/GnawedThumbRing';
 import ParseResults from './ParseResults';
 import SUGGESTION_IMPORTANCE from './ISSUE_IMPORTANCE';
 
-function formatThousands(number) {
-  return (Math.round(number || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
-}
-function formatNumber(number) {
-  if (number > 1000000) {
-    return `${(number / 1000000).toFixed(2)}m`;
-  }
-  if (number > 10000) {
-    return `${Math.round(number / 1000)}k`;
-  }
-  return formatThousands(number);
-}
-function formatPercentage(percentage) {
-  return (Math.round((percentage || 0) * 10000) / 100).toFixed(2);
-}
 function getSuggestionImportance(value, regular, major, higherIsWorse = false) {
   if (higherIsWorse ? value > major : value < major) {
     return SUGGESTION_IMPORTANCE.MAJOR;
