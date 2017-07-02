@@ -24,6 +24,14 @@ class CooldownTracker extends Module {
       ],
     },
     {
+      spell: SPELLS.SYMBOL_OF_HOPE_TALENT,
+      summary: [
+        BUILT_IN_SUMMARY_TYPES.HEALING,
+        BUILT_IN_SUMMARY_TYPES.OVERHEALING,
+        BUILT_IN_SUMMARY_TYPES.MANA,
+      ],
+    },
+    {
       spell: SPELLS.VELENS_FUTURE_SIGHT,
       summary: [
         BUILT_IN_SUMMARY_TYPES.HEALING,

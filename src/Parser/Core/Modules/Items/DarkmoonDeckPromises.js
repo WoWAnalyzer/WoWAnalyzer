@@ -62,12 +62,13 @@ class DarkmoonDeckPromises extends Module {
     if (!manaCost) {
       return;
     }
+
     const manaSaved = Math.min(this.currentManaReduction, manaCost);
-    if (!event.hasInnervate) {
+    if (!event.hasInnervate && !event.hasSymbolOfHope) {
       debug && console.log('Promises saved', manaSaved, 'mana on', SPELLS[spellId].name, 'costing', manaCost, event);
       this.manaGained += manaSaved;
     } else {
-      debug && console.log('Promises saved 0 mana on', SPELLS[spellId].name, 'costing', manaCost, 'since Innervate is active (normally ', manaSaved, ' mana)', event);
+      debug && console.log('Promises saved 0 mana on', SPELLS[spellId].name, 'costing', manaCost, 'since Innervate or Symbol of Hope is active (normally ', manaSaved, ' mana)', event);
     }
 
     // Update the mana cost on the cast so that it's accurate for other modules

@@ -14,6 +14,7 @@ class AbilityTracker extends Module {
     event.manaCost = this.getManaCost(event);
     event.rawManaCost = this.getRawManaCost(event);
     event.hasInnervate = this.owner.selectedCombatant.hasBuff(SPELLS.INNERVATE.id, event.timestamp);
+    event.hasSymbolOfHope = this.owner.selectedCombatant.hasBuff(SPELLS.SYMBOL_OF_HOPE_TALENT.id, event.timestamp);
 
     const cast = this.getAbility(spellId, event.ability);
     cast.casts = (cast.casts || 0) + 1;
