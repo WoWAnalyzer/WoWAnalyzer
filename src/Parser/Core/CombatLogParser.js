@@ -129,6 +129,9 @@ class CombatLogParser {
     this.initializeModules(this.constructor.specModules);
   }
 
+  registerModule(module) {
+    this.modules[`_${module.constructor.name}`] = module;
+  }
   initializeModules(modules) {
     Object.keys(modules).forEach(key => {
       const value = modules[key];

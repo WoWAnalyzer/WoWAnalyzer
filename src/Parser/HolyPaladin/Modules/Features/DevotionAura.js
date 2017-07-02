@@ -90,6 +90,9 @@ class DevotionAura extends ModuleComponent {
   }
 
   render() {
+    if (!this.active) {
+      return null;
+    }
     const fightDuration = this.owner.fightDuration;
 
     const averagePassiveDamageReductionPercentage = Math.round(this.averagePassiveDamageReduction * 10000) / 100;

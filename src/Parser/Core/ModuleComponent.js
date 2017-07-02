@@ -16,6 +16,7 @@ class ModuleComponent extends React.PureComponent {
 
   constructor(props) {
     super(props);
+    props.owner.registerModule(this);
     this.state = {
       active: true,
     };

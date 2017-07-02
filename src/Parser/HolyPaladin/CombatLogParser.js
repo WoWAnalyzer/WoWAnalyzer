@@ -509,7 +509,7 @@ class CombatLogParser extends MainCombatLogParser {
           `}
         />
       ),
-      DevotionAura,
+      <DevotionAura owner={this} />,
       hasAuraOfMercy && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.AURA_OF_MERCY_TALENT.id} />}

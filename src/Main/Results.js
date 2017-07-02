@@ -58,7 +58,7 @@ class Results extends React.Component {
       <div style={{ width: '100%' }}>
         <h1>
           <div className="back-button">
-            <Link to={`/report/${parser.report.code}/${parser.player.name}`} data-tip="Back to fight selection">
+            <Link to={`/report/${parser.report.code}/${parser.fight.id}`} data-tip="Back to player selection">
               <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
             </Link>
           </div>
@@ -81,11 +81,10 @@ class Results extends React.Component {
                 if (!statistic) {
                   return null;
                 }
-                const Comp = statistic;
 
                 return (
                   <div className="col-lg-4 col-sm-6 col-xs-12" key={i}>
-                    {ModuleComponent.isPrototypeOf(Comp) ? <Comp owner={parser} /> : statistic}
+                    {statistic}
                   </div>
                 );
               })}
