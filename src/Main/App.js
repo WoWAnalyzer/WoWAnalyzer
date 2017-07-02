@@ -201,7 +201,7 @@ class App extends Component {
   }
 
   fetchReport(code, refresh = false) {
-    console.log('Fetching report:', code);
+    // console.log('Fetching report:', code);
 
     this.setState({
       report: null,
@@ -213,7 +213,7 @@ class App extends Component {
     return fetch(url)
       .then(response => response.json())
       .then((json) => {
-        console.log('Received report', code, ':', json);
+        // console.log('Received report', code, ':', json);
         if (json.status === 400 || json.status === 401) {
           throw json.error;
         } else if (this.reportCode === code) {
@@ -239,7 +239,7 @@ class App extends Component {
       });
   }
   fetchCombatants(report, fightId) {
-    console.log('Fetching combatants:', report, fightId);
+    // console.log('Fetching combatants:', report, fightId);
 
     this.setState({
       combatants: null,
@@ -248,7 +248,7 @@ class App extends Component {
 
     return this.fetchEvents(report.code, fight.start_time, fight.end_time, undefined, 'type="combatantinfo"')
       .then((json) => {
-        console.log('Received combatants', report.code, ':', json);
+        // console.log('Received combatants', report.code, ':', json);
         if (json.status === 400 || json.status === 401) {
           throw json.error;
         } else if (this.reportCode === report.code) {
