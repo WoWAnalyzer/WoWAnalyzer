@@ -41,6 +41,7 @@ import T20_4pc from './Modules/Items/T20_4pc';
 import T20_2pc from './Modules/Items/T20_2pc';
 import ShelterOfRin from './Modules/Items/ShelterOfRin';
 import DoorwayToNowhere from './Modules/Items/DoorwayToNowhere';
+import PetrichorLagniappe from './Modules/Items/PetrichorLagniappe';
 
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
@@ -104,6 +105,7 @@ class CombatLogParser extends MainCombatLogParser {
     t20_2pc: T20_2pc,
     shelterOfRin: ShelterOfRin,
     doorwayToNowhere: DoorwayToNowhere,
+    petrichorLagniappe: PetrichorLagniappe,
   };
 
   generateResults() {
@@ -119,8 +121,6 @@ class CombatLogParser extends MainCombatLogParser {
 
     const abilityTracker = this.modules.abilityTracker;
     const getAbility = spellId => abilityTracker.getAbility(spellId);
-
-    const eithasHealingPercentage = this.modules.eithas.healing  / this.totalHealing;
 
     const t20_4pcHealingPercentage = this.modules.t20_4pc.healing / this.totalHealing;
 
@@ -571,11 +571,7 @@ class CombatLogParser extends MainCombatLogParser {
       },
       this.modules.eithas.active && {
         item: ITEMS.EITHAS_LUNAR_GLIDES,
-        result: (
-          <span>
-            {((eithasHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.eithas.healing / fightDuration * 1000)} HPS
-          </span>
-        ),
+        result: formatItemHealing(this.modules.eithas.healing),
       },
       this.modules.shelterOfRin.active && {
         item: ITEMS.SHELTER_OF_RIN,
@@ -584,6 +580,14 @@ class CombatLogParser extends MainCombatLogParser {
       this.modules.doorwayToNowhere.active && {
         item: ITEMS.DOORWAY_TO_NOWHERE,
         result: formatItemHealing(this.modules.doorwayToNowhere.healing),
+      },
+      this.modules.petrichorLagniappe.active && {
+        item: ITEMS.PETRICHOR_LAGNIAPPE,
+        result: (
+          <dfn data-tip={`The wasted cooldown reduction from the legendary bracers.  ${formatNumber((this.modules.petrichorLagniappe.wastedReductionTime / getAbility(SPELLS.REVIVAL.id).casts) / 1000)} seconds (Average wasted cooldown reduction per cast).`}>
+            {formatNumber(this.modules.petrichorLagniappe.wastedReductionTime / 1000)} seconds wasted
+          </dfn>
+        ),
       },
     ];
 

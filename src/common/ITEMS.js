@@ -252,8 +252,14 @@ const ITEMS = {
   },
   SHELTER_OF_RIN: {
     id: 144340,
-    name: 'Shelter of Rin',
-    icon: 'inv_chest_plate27v2',
+    name: 'Petrichor Lagniappe',
+    icon: 'inv_bracer_41',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  PETRICHOR_LAGNIAPPE: {
+    id: 137096,
+    name: 'Petrichor Lagniappe',
+    icon: 'inv_bracer_41',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
 
