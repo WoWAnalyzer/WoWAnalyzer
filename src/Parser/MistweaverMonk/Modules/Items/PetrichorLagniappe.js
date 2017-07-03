@@ -2,7 +2,7 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Module from 'Parser/Core/Module';
 
-const debug = true;
+const debug = false;
 const PETRICHOR_REDUCTION = 2000;
 
 class PetrichorLagniappe extends Module {
@@ -13,7 +13,7 @@ class PetrichorLagniappe extends Module {
   initialWastedReductionTime = 0;
   casts = 0;
   lastCastTime = 0;
-
+  cdReductionUsed = 0;
 
   on_initialized() {
     if (!this.owner.error) {
@@ -29,6 +29,10 @@ class PetrichorLagniappe extends Module {
 
     if (spellId === SPELLS.REVIVAL.id) {
       if (this.casts !== 0) {
+        debug && console.log('Time since last Revival cast: ', (event.timestamp - this.lastCastTime), ' //// Revival CD: ', this.REVIVAL_BASE_COOLDOWN);
+        if ((event.timestamp - this.lastCastTime) < this.REVIVAL_BASE_COOLDOWN) {
+          this.cdReductionUsed++;
+        }
         this.wastedReductionTime += (event.timestamp - this.lastCastTime) - (this.REVIVAL_BASE_COOLDOWN - this.currentReductionTime);
         this.lastCastTime = event.timestamp;
         this.currentReductionTime = 0;
