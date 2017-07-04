@@ -8,6 +8,7 @@ import Combatants from './Modules/Combatants';
 import AbilityTracker from './Modules/AbilityTracker';
 import AlwaysBeCasting from './Modules/AlwaysBeCasting';
 import Enemies from './Modules/Enemies';
+import HealEventTracker from './Modules/HealEventTracker';
 
 // Shared Legendaries
 import Prydaz from './Modules/Items/Prydaz';
@@ -44,6 +45,7 @@ class CombatLogParser {
     combatants: Combatants,
     enemies: Enemies,
     abilityTracker: AbilityTracker,
+    healEventTracker: HealEventTracker,
     alwaysBeCasting: AlwaysBeCasting,
 
     // Items:

@@ -15,11 +15,11 @@ import TalentsTab from 'Main/TalentsTab';
 import CastEfficiencyTab from 'Main/CastEfficiencyTab';
 import CooldownsTab from 'Main/CooldownsTab';
 import ManaTab from 'Main/ManaTab';
+import LowHealthHealingTab from 'Main/LowHealthHealingTab';
 
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
-import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 // Features
 import CooldownTracker from './Modules/Features/CooldownTracker';
@@ -82,9 +82,6 @@ class CombatLogParser extends MainCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
 
   static specModules = {
-    // Override the ability tracker so we also get stats for IoL and beacon healing
-    abilityTracker: AbilityTracker,
-
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     cooldownTracker: CooldownTracker,
@@ -584,7 +581,7 @@ class CombatLogParser extends MainCombatLogParser {
       this.modules.petrichorLagniappe.active && {
         item: ITEMS.PETRICHOR_LAGNIAPPE,
         result: (
-          <dfn data-tip={`The wasted cooldown reduction from the legendary bracers.  You made use of the reduced CD ${this.modules.petrichorLagniappe.cdReductionUsed} / ${getAbility(SPELLS.REVIVAL.id).casts - 1 || 0} times after the initial cast.`}>
+          <dfn data-tip={`The wasted cooldown reduction from the legendary bracers.  ${formatNumber((this.modules.petrichorLagniappe.wastedReductionTime / getAbility(SPELLS.REVIVAL.id).casts) / 1000)} seconds (Average wasted cooldown reduction per cast).`}>
             {formatNumber(this.modules.petrichorLagniappe.wastedReductionTime / 1000)} seconds wasted
           </dfn>
         ),
@@ -639,6 +636,13 @@ class CombatLogParser extends MainCombatLogParser {
             start={this.fight.start_time}
             end={this.fight.end_time}
           />
+        ),
+      },
+      {
+        title: 'Low health healing',
+        url: 'low-health-healing',
+        render: () => (
+          <LowHealthHealingTab parser={this} />
         ),
       },
     ];

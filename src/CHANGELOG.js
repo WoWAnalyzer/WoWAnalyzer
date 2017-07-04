@@ -1,4 +1,5 @@
 export default `
+04-07-2017 - All healing specs: Added low health healing tab to give more insight into how often you're saving people's lives. (by Zerotorescue)
 04-07-2017 - Holy Priest: Added Divinity talent. (by Skamer)
 03-07-2017 - Mistweaver Monk: Added Petrichor Lagniappe wasted reduction time in seconds (by anomoly)
 02-07-2017 - Holy Priest: Apotheosis now correctly reduces the mana cost of Holy Word spells. Added Symbol of Hope talent. (by Skamer)

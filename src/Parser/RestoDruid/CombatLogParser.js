@@ -12,11 +12,11 @@ import TalentsTab from 'Main/TalentsTab';
 import CastEfficiencyTab from 'Main/CastEfficiencyTab';
 import CooldownsTab from 'Main/CooldownsTab';
 import ManaTab from 'Main/ManaTab';
+import LowHealthHealingTab from 'Main/LowHealthHealingTab';
 
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
-import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 import Ekowraith from './Modules/Legendaries/Ekowraith';
 import XonisCaress from './Modules/Legendaries/XonisCaress';
@@ -72,9 +72,6 @@ class CombatLogParser extends MainCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
 
   static specModules = {
-    // Override the ability tracker so we also get stats for IoL and beacon healing
-    abilityTracker: AbilityTracker,
-
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     cooldownTracker: CooldownTracker,
@@ -678,6 +675,13 @@ class CombatLogParser extends MainCombatLogParser {
             start={this.fight.start_time}
             end={this.fight.end_time}
           />
+        ),
+      },
+      {
+        title: 'Low health healing',
+        url: 'low-health-healing',
+        render: () => (
+          <LowHealthHealingTab parser={this} />
         ),
       },
     ];

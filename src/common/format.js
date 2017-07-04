@@ -13,3 +13,8 @@ export function formatNumber(number) {
 export function formatPercentage(percentage) {
   return (Math.round((percentage || 0) * 10000) / 100).toFixed(2);
 }
+
+export function formatDuration(duration) {
+  const seconds = Math.floor(duration % 60);
+  return `${Math.floor(duration / 60)}:${seconds < 10 ? `0${seconds}` : seconds}`;
+}

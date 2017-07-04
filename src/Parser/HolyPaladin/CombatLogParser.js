@@ -14,6 +14,7 @@ import TalentsTab from 'Main/TalentsTab';
 import CastEfficiencyTab from 'Main/CastEfficiencyTab';
 import CooldownsTab from 'Main/CooldownsTab';
 import ManaTab from 'Main/ManaTab';
+import LowHealthHealingTab from 'Main/LowHealthHealingTab';
 import PlayerBreakdownTab from 'Main/PlayerBreakdownTab';
 
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
@@ -628,6 +629,13 @@ class CombatLogParser extends MainCombatLogParser {
             start={this.fight.start_time}
             end={this.fight.end_time}
           />
+        ),
+      },
+      {
+        title: 'Low health healing',
+        url: 'low-health-healing',
+        render: () => (
+          <LowHealthHealingTab parser={this} />
         ),
       },
       {

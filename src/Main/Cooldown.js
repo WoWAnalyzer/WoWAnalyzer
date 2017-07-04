@@ -4,30 +4,11 @@ import PropTypes from 'prop-types';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import Icon from 'common/Icon';
+import { formatThousands, formatNumber, formatPercentage, formatDuration } from 'common/format';
 
 import { BUILT_IN_SUMMARY_TYPES } from 'Parser/Core/Modules/CooldownTracker';
 
 import './Cooldown.css';
-
-function formatThousands(number) {
-  return (Math.round(number || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
-}
-function formatNumber(number) {
-  if (number > 1000000) {
-    return `${(number / 1000000).toFixed(2)}m`;
-  }
-  if (number > 10000) {
-    return `${Math.round(number / 1000)}k`;
-  }
-  return formatThousands(number);
-}
-const formatDuration = (duration) => {
-  const seconds = Math.floor(duration % 60);
-  return `${Math.floor(duration / 60)}:${seconds < 10 ? `0${seconds}` : seconds}`;
-};
-function formatPercentage(percentage) {
-  return (Math.round((percentage || 0) * 10000) / 100).toFixed(2);
-}
 
 class Cooldown extends React.Component {
   static propTypes = {

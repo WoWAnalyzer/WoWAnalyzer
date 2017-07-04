@@ -12,6 +12,7 @@ import TalentsTab from 'Main/TalentsTab';
 import CastEfficiencyTab from 'Main/CastEfficiencyTab';
 import CooldownsTab from 'Main/CooldownsTab';
 import ManaTab from 'Main/ManaTab';
+import LowHealthHealingTab from 'Main/LowHealthHealingTab';
 
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 import getCastEfficiency from 'Parser/Core/getCastEfficiency';
@@ -273,6 +274,13 @@ class CombatLogParser extends MainCombatLogParser {
         url: 'talents',
         render: () => (
           <TalentsTab combatant={this.selectedCombatant} />
+        ),
+      },
+      {
+        title: 'Low health healing',
+        url: 'low-health-healing',
+        render: () => (
+          <LowHealthHealingTab parser={this} />
         ),
       },
       {
