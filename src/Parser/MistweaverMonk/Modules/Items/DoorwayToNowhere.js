@@ -29,7 +29,7 @@ class DoorwayToNowhere extends Module {
         this.doorwayProc++;
       }
 
-      if(spellId === SPELLS.INVOKE_CHIJI_TALENT.id) {
+      if(spellId === SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id) {
         this.chiJiActive = event.timestamp;
         if(!this.petID) {
           this.petID = event.targetID;
