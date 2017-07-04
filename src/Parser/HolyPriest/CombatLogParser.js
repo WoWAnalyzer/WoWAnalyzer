@@ -27,6 +27,7 @@ import DivineHymn from './Modules/Spells/DivineHymn';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownTracker from './Modules/Features/CooldownTracker';
 import RenewTheFaith from './Modules/Features/RenewTheFaith';
+import Divinity from './Modules/Features/Divinity';
 
 // Items
 import TrousersOfAnjuna from './Modules/Items/TrousersOfAnjuna';
@@ -77,6 +78,7 @@ class CombatLogParser extends MainCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     cooldownTracker: CooldownTracker,
     renewTheFaith: RenewTheFaith,
+    divinity: Divinity,
 
     // Spells
     prayerOfMending: PrayerOfMending,
@@ -185,6 +187,17 @@ class CombatLogParser extends MainCombatLogParser {
           </dfn>
         )}
       />,
+      this.modules.divinity.active && (
+        <StatisticBox
+          icon={<SpellIcon id={SPELLS.DIVINITY_TALENT.id} />}
+          value={`${((this.selectedCombatant.getBuffUptime(SPELLS.DIVINITY_BUFF.id)/this.fightDuration)*100).toFixed(1)} %`}
+          label={(
+            <dfn data-tip={`The effective healing contributed by Divinity was ${formatThousands(this.modules.divinity.healing)} / ${formatPercentage(this.modules.divinity.healing / this.totalHealing)} % / ${formatNumber(this.modules.divinity.healing / fightDuration * 1000)} HPS.`}>
+              Divinity uptime
+            </dfn>
+          )}
+        />
+      ),
       <StatisticBox
         icon={<SpellIcon id={SPELLS.PRAYER_OF_MENDING_CAST.id} />}
         value={`${formatNumber(sypHPS)} HPS`}
