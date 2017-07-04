@@ -65,7 +65,7 @@ class HealEventTracker extends React.Component {
           <h2>Low health healing</h2>
         </div>
         <div>
-          <div style={{ padding: 15 }}>
+          <div style={{ padding: '15px 30px' }}>
             Max health of target: <Slider
               {...sliderProps}
               defaultValue={this.state.maxPlayerHealthPercentage}
@@ -92,8 +92,7 @@ class HealEventTracker extends React.Component {
                 <th>Time</th>
                 <th>Ability</th>
                 <th>Target</th>
-                <th colSpan="2">Player health before heal</th>
-                <th colSpan="2">Healing done (percentage of max health)</th>
+                <th colSpan="2">Healing done</th>
               </tr>
             </thead>
             <tbody>
@@ -102,8 +101,9 @@ class HealEventTracker extends React.Component {
                   .map(event => {
                     const effectiveHealing = event.amount + (event.absorbed || 0);
                     const hitPointsBeforeHeal = event.hitPoints - effectiveHealing;
+                    const healthPercentage = hitPointsBeforeHeal / event.maxHitPoints;
 
-                    if ((hitPointsBeforeHeal / event.maxHitPoints) > this.state.maxPlayerHealthPercentage) {
+                    if (healthPercentage > this.state.maxPlayerHealthPercentage) {
                       return false;
                     }
                     total += effectiveHealing;
@@ -128,30 +128,26 @@ class HealEventTracker extends React.Component {
                             <Icon icon={event.ability.abilityIcon} alt={event.ability.abilityIcon} /> {event.ability.name}
                           </SpellLink>
                         </td>
-                        <td style={{ width: '15%' }} className={specClassName}>
+                        <td style={{ width: '20%' }} className={specClassName}>
                           <img src={`/specs/${specClassName}-${spec.specName.replace(' ', '')}.jpg`} alt="Spec logo" />{' '}
                           {combatant.name}
                         </td>
-                        <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>
-                          <dfn data-tip={formatNumber(hitPointsBeforeHeal)}>
-                            {(formatPercentage(hitPointsBeforeHeal / event.maxHitPoints))}%
-                          </dfn>
+                        <td style={{ width: 170, paddingRight: 5, textAlign: 'right' }}>
+                          {formatNumber(effectiveHealing)} @{' '}
+                          {healthPercentage < 0 ? (
+                            <dfn data-tip="This number may be negative when the player had an absorb larger than his health pool.">
+                              {formatPercentage(healthPercentage)}% health
+                            </dfn>
+                          ) : `${formatPercentage(healthPercentage)}% health`}
                         </td>
-                        <td style={{ width: '25%' }}>
+                        <td style={{ width: '35%' }}>
                           <div
                             className={`performance-bar ${specClassName}-bg`}
-                            style={{ width: `${Math.min(100, hitPointsBeforeHeal / event.maxHitPoints * 100)}%` }}
+                            style={{ width: `${Math.min(50, healthPercentage * 50)}%`, float: 'left' }}
                           />
-                        </td>
-                        <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>
-                          <dfn data-tip={formatNumber(effectiveHealing)}>
-                            {(formatPercentage(effectiveHealing / event.maxHitPoints))}%
-                          </dfn>
-                        </td>
-                        <td style={{ width: '25%' }}>
                           <div
                             className={`performance-bar Hunter-bg`}
-                            style={{ width: `${Math.min(100, effectiveHealing / event.maxHitPoints * 100)}%` }}
+                            style={{ width: `${Math.min(50, effectiveHealing / event.maxHitPoints * 50)}%`, float: 'left', opacity: 0.4 }}
                           />
                         </td>
                       </tr>
