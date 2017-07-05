@@ -337,6 +337,13 @@ export default {
     id: 208065,
     name: 'Light of T\'uure',
     icon: 'inv_staff_2h_artifactheartofkure_d_01',
+    duration: 10,
+  },
+
+  CARESS_OF_THE_NAARU_TRAIT: {
+    id: 238064,
+    name: 'Caress of the Naaru',
+    icon: 'inv_staff_2h_artifactheartofkure_d_01',
   },
 
   COSMIC_RIPPLE_TRAIT: {
