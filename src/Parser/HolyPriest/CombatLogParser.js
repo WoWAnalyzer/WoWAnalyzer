@@ -29,6 +29,8 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownTracker from './Modules/Features/CooldownTracker';
 import RenewTheFaith from './Modules/Features/RenewTheFaith';
 import Divinity from './Modules/Features/Divinity';
+import LightOfTuure from './Modules/Features/LightOfTuure';
+import EnduringRenewal from './Modules/Features/EnduringRenewal';
 
 // Items
 import TrousersOfAnjuna from './Modules/Items/TrousersOfAnjuna';
@@ -80,6 +82,8 @@ class CombatLogParser extends MainCombatLogParser {
     cooldownTracker: CooldownTracker,
     renewTheFaith: RenewTheFaith,
     divinity: Divinity,
+    lightOfTuure: LightOfTuure,
+    enduringRenewal: EnduringRenewal,
 
     // Spells
     prayerOfMending: PrayerOfMending,
@@ -108,7 +112,7 @@ class CombatLogParser extends MainCombatLogParser {
     const rtfPercOH = formatPercentage(this.modules.renewTheFaith.overhealing / (this.modules.renewTheFaith.healing + this.modules.renewTheFaith.overhealing));
     const rtfRelPercHPS = formatPercentage(this.modules.renewTheFaith.healing / this.modules.divineHymn.healing);
 
-    // Say Your Prayers trait data calculations
+    // Say Your Prayers trait data calculations / vars
     const sypTrait = this.selectedCombatant.traitsBySpellId[SPELLS.SAY_YOUR_PRAYERS_TRAIT.id];
     const percPomIncFromSYP = ((1 + (sypTrait * SPELLS.SAY_YOUR_PRAYERS_TRAIT.coeff)) / (1 - (sypTrait * SPELLS.SAY_YOUR_PRAYERS_TRAIT.coeff))) - 1;
     const sypValue = this.modules.prayerOfMending.healing * percPomIncFromSYP / (1 + percPomIncFromSYP);
@@ -116,16 +120,29 @@ class CombatLogParser extends MainCombatLogParser {
     const sypPercHPSOverall = formatPercentage(sypValue / this.totalHealing);
     const sypPercHPSPoM = formatPercentage(sypValue / this.modules.prayerOfMending.healing);
 
-    // Missed Hymn ticks calculation
+    // Missed Hymn ticks calculations
     const missedHymnTicks = (getAbility(SPELLS.DIVINE_HYMN_CAST.id).casts * 5) - this.modules.divineHymn.ticks;
 
-    // Leggo Legs calculations
+    // Leggo Legs vars
     const legsPercHPS = formatPercentage(this.modules.trousersOfAnjuna.healing / this.totalHealing);
     const legsHPS = formatNumber(this.modules.trousersOfAnjuna.healing / this.fightDuration * 1000);
 
-    // Leggo cloak (Xan'shi) calculations
+    // Leggo cloak (Xan'shi) vars
     const cloakPercHPS = formatPercentage(this.modules.xanshiCloak.healing / this.totalHealing);
     const cloakHPS = formatNumber(this.modules.xanshiCloak.healing / this.fightDuration * 1000);
+
+    // Light of T'uure vars
+    const lotSpellHealing = formatNumber(this.modules.lightOfTuure.spellHealing);
+    const lotBuffHealing = formatNumber(this.modules.lightOfTuure.buffHealing);
+    const lotTotal = this.modules.lightOfTuure.spellHealing + this.modules.lightOfTuure.buffHealing;
+    const lotPercHPS = formatPercentage(lotTotal / this.totalHealing);
+    const lotHPS = formatNumber(lotTotal / this.fightDuration * 1000);
+
+    // Enduring Renewal vars
+    const erPercHPS = formatPercentage(this.modules.enduringRenewal.healing / this.totalHealing);
+    const erHPS = formatNumber(this.modules.enduringRenewal.healing / this.fightDuration * 1000);
+    const erGainPerRefresh = Math.round(this.modules.enduringRenewal.secsGained / this.modules.enduringRenewal.refreshedRenews * 100) / 100;
+
 
     if (deadTimePercentage > 0.05) {
       results.addIssue({
@@ -188,6 +205,15 @@ class CombatLogParser extends MainCombatLogParser {
           </dfn>
         )}
       />,
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.PRAYER_OF_MENDING_CAST.id} />}
+        value={`${formatNumber(sypHPS)} HPS`}
+        label={(
+          <dfn data-tip={`Approximation of Say Your Prayers' value by viewing average stacks per PoM cast (does not include Benediction renews). This is ${sypPercHPSOverall}% of your healing and ~${sypPercHPSPoM}% of your Prayer of Mending healing.`}>
+            Say Your Prayers
+          </dfn>
+        )}
+      />,
       this.modules.divinity.active && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.DIVINITY_TALENT.id} />}
@@ -199,24 +225,45 @@ class CombatLogParser extends MainCombatLogParser {
           )}
         />
       ),
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.PRAYER_OF_MENDING_CAST.id} />}
-        value={`${formatNumber(sypHPS)} HPS`}
-        label={(
-          <dfn data-tip={`Approximation of Say Your Prayers' value by viewing average stacks per PoM cast (does not include Benediction renews). This is ${sypPercHPSOverall}% of your healing and ~${sypPercHPSPoM}% of your Prayer of Mending healing.`}>
-            Say Your Prayers
-          </dfn>
-        )}
-      />,
-      this.modules.renewTheFaith.active && (<StatisticBox
-        icon={<SpellIcon id={SPELLS.DIVINE_HYMN_CAST.id} />}
-        value={`${formatNumber(this.modules.renewTheFaith.healing)}`}
-        label={(
-          <dfn data-tip={`Benefit gained from Renew the Faith (does not include Benediction renews). Assumes that every Divine Hymn cast is fully channeled. This was ${rtfPercHPS}% of your healing, had ${rtfPercOH}% overhealing and increased your Divine Hymn healing by ${rtfRelPercHPS}%`}>
-            Renew the Faith
-          </dfn>
-        )}
-      />),
+      this.modules.enduringRenewal.active && (
+        <StatisticBox
+          icon={<SpellIcon id={SPELLS.ENDURING_RENEWAL_TALENT.id} />}
+          value={`${erHPS} HPS`}
+          label={(
+            <dfn data-tip={`
+              Healing done on targets as a result of Enduring Renewal's refresh.
+              This did ${formatNumber(this.modules.enduringRenewal.healing)} healing and was ${erPercHPS}% of your total healing.
+              <br/><br/>
+              You refreshed renews ${this.modules.enduringRenewal.refreshedRenews} times for a total of ${formatNumber(this.modules.enduringRenewal.secsGained)} additional seconds of Renew.
+              (+${erGainPerRefresh}s per refresh on average).
+            `}>
+              Enduring Renewal
+            </dfn>
+          )}
+        />
+      ),
+      this.modules.lightOfTuure.active && (
+        <StatisticBox
+          icon={<SpellIcon id={SPELLS.LIGHT_OF_TUURE_TRAIT.id} />}
+          value={`${formatNumber(lotTotal)}`}
+          label={(
+            <dfn data-tip={`The benefit from both Light of T'uure casts and additional casts on targets with the buff. ${lotSpellHealing} from the spell itself and ${lotBuffHealing} from the buff it provides. This was ${lotPercHPS}% / ${lotHPS} of your total healing.`}>
+              Light of Tuure
+            </dfn>
+          )}
+        />
+      ),
+      this.modules.renewTheFaith.active && (
+        <StatisticBox
+          icon={<SpellIcon id={SPELLS.DIVINE_HYMN_CAST.id} />}
+          value={`${formatNumber(this.modules.renewTheFaith.healing)}`}
+          label={(
+            <dfn data-tip={`Benefit gained from Renew the Faith (does not include Benediction renews). Assumes that every Divine Hymn cast is fully channeled. This was ${rtfPercHPS}% of your healing, had ${rtfPercOH}% overhealing and increased your Divine Hymn healing by ${rtfRelPercHPS}%`}>
+              Renew the Faith
+            </dfn>
+          )}
+        />
+      ),
 
     ];
 

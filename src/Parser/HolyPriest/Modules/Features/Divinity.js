@@ -5,7 +5,7 @@ import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
 
-const DIVINITY_HEALING_INCREASE = 1.15;
+const DIVINITY_HEALING_INCREASE = 0.15;
 
 class Divinity extends Module {
   healing = 0;
