@@ -12,11 +12,18 @@ class ReportSelecter extends Component {
     onSubmit: PropTypes.func.isRequired,
   };
 
+  static getCode(input) {
+    const match = input.trim().match(/^(.*reports\/)?([a-zA-Z0-9]{16})\/?(#.*)?$/);
+
+    return match && match[2];
+  }
+
   codeInput = null;
 
   constructor() {
     super();
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
@@ -35,8 +42,18 @@ class ReportSelecter extends Component {
       return;
     }
 
-    onSubmit(code.trim());
+    this.handleCodeInputChange(code);
   }
+  handleChange(e) {
+    this.handleCodeInputChange(this.codeInput.value);
+  }
+  handleCodeInputChange(value) {
+    const code = this.constructor.getCode(value);
+    if (code) {
+      this.props.onSubmit(code);
+    }
+  }
+
 
   render() {
     return (
@@ -52,8 +69,9 @@ class ReportSelecter extends Component {
                   ref={(elem) => {
                     this.codeInput = elem;
                   }}
+                  onChange={this.handleChange}
                   style={{ width: 175 }}
-                  placeholder="Report code"
+                  placeholder="report code"
                   autoCorrect="off"
                   autoCapitalize="off"
                   spellCheck="false"

@@ -1,4 +1,5 @@
 export default `
+06-07-2017 - The <i>report code</i> input field now accepts WCL urls and entering what looks to be valid input will now automatically start loading the report.
 04-07-2017 - All healing specs: Added low health healing tab to give more insight into how often you're saving people's lives. (by Zerotorescue)
 04-07-2017 - Holy Priest: Added Divinity talent. (by Skamer)
 03-07-2017 - Mistweaver Monk: Added Petrichor Lagniappe wasted reduction time in seconds (by anomoly)
