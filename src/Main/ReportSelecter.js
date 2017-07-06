@@ -31,8 +31,6 @@ class ReportSelecter extends Component {
   }
 
   handleSubmit(e) {
-    const { onSubmit } = this.props;
-
     e.preventDefault();
 
     const code = this.codeInput.value;
