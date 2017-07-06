@@ -1,4 +1,5 @@
 export default `
+06-07-2017 - Resto Druid: Added mana costs for spells, the cooldown tab should now properly calculate mana costs
 06-07-2017 - The <i>report code</i> input field now accepts WCL urls and entering what looks to be valid input will now automatically start loading the report. (by Zerotorescue)
 06-07-2017 - Resto Druid: Fixed a bug on 4PT20 calculations. Also added swiftmend to cast efficiency tab. (by Blazyb)
 05-07-2017 - Holy Priest: Added Enduring Renewal, Light of Tuure (incl. buff) and fixed a bug that greatly overvalued Divinity (by enragednuke)

@@ -14,6 +14,7 @@ export default {
     id: 740,
     name: 'Tranquility',
     icon: 'spell_nature_tranquility',
+    manaCost: 40480,
   },
   TRANQUILITY_HEAL: {
     id: 157982,
@@ -45,26 +46,31 @@ export default {
     id: 48438,
     name: 'Wild Growth',
     icon: 'ability_druid_flourish',
+    manaCost: 68816,
   },
   REJUVENATION: {
     id: 774,
     name: 'Rejuvenation',
     icon: 'spell_nature_rejuvenation',
+    manaCost: 22000,
   },
   HEALING_TOUCH: {
     id: 5185,
     name: 'Healing Touch',
     icon: 'spell_nature_healingtouch',
+    manaCost: 19800,
   },
   REGROWTH: {
     id: 8936,
     name: 'Regrowth',
     icon: 'spell_nature_resistnature',
+    manaCost: 40986,
   },
   LIFEBLOOM_HOT_HEAL: {
     id: 33763,
     name: 'Lifebloom',
     icon: 'inv_misc_herb_felblossom',
+    manaCost: 26400,
   },
   LIFEBLOOM_BLOOM_HEAL: {
     id: 33778,
@@ -80,6 +86,7 @@ export default {
     id: 145205,
     name: 'Efflorescence',
     icon: 'inv_misc_herb_talandrasrose',
+    manaCost: 47520,
   },
   EFFLORESCENCE_HEAL: {
     id: 81269,
@@ -90,11 +97,13 @@ export default {
     id: 102352,
     name: 'Cenarion Ward',
     icon: 'ability_druid_naturalperfection',
+    manaCost: 20240,
   },
   SWIFTMEND: {
     id: 18562,
     name: 'Swiftmend',
     icon: 'inv_relics_idolofrejuvenation',
+    manaCost: 30800,
   },
   FRENZIED_REGENERATION: {
     id: 22842,
