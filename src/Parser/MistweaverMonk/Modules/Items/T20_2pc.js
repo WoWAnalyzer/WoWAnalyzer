@@ -39,6 +39,15 @@ class T20_2pc extends Module {
     this.procs++;
   }
 
+  on_toPlayer_refreshbuff(event) {
+    const spellId = event.ability.guid;
+
+    if(spellId !== SPELLS.SURGE_OF_MISTS.id) {
+      return;
+    }
+    this.procs++;
+  }
+
   on_finished() {
     if(debug) {
       console.log('T20 2pc Procs: ', this.procs);

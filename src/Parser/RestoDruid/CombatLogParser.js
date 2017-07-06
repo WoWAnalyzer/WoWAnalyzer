@@ -595,9 +595,9 @@ class CombatLogParser extends MainCombatLogParser {
         icon: <SpellIcon id={SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id} />,
         title: <SpellLink id={SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id} />,
         result: (
-          <span>
-            {this.modules.t20.swiftmendReduced.toFixed(1)}s reduced on swiftmend <br />({(this.modules.t20.swiftmendReduced / this.modules.t20.swiftmends).toFixed(1)}s per swiftmend on average).
-          </span>
+          <dfn data-tip={`The throughput is an estimate on the average throughput from one swiftmend would yield, in terms of 4P and healing itself <br /> ${this.modules.t20.freeSwiftmends.toFixed(2)} swiftmends gained <br /> ${this.modules.t20.swiftmendReduced.toFixed(1)}s reduced on swiftmend <br />(${(this.modules.t20.swiftmendReduced / this.modules.t20.swiftmends).toFixed(1)}s per swiftmend on average)`}>
+            {formatPercentage(this.modules.t20.swiftmendThroughput / this.totalHealing)}% / {formatNumber(this.modules.t20.swiftmendThroughput / fightDuration * 1000)} HPS
+          </dfn>
         ),
       },
       has4PT20 && {
@@ -605,10 +605,9 @@ class CombatLogParser extends MainCombatLogParser {
         icon: <SpellIcon id={SPELLS.RESTO_DRUID_T20_4SET_BONUS_BUFF.id} />,
         title: <SpellLink id={SPELLS.RESTO_DRUID_T20_4SET_BONUS_BUFF.id} />,
         result: (
-          <span>
-            {((this.selectedCombatant.getBuffUptime(SPELLS.BLOSSOMING_EFFLORESCENCE.id) / this.fightDuration) * 100).toFixed(2)}% uptime.<br />
-            {((this.modules.t20.healing / this.totalHealing) * 100).toFixed(2)}% healing.
-          </span>
+          <dfn data-tip={`The actual healing contributed from 4P T20. <br/>${((this.selectedCombatant.getBuffUptime(SPELLS.BLOSSOMING_EFFLORESCENCE.id) / this.fightDuration) * 100).toFixed(2)}% uptime.`}>
+            {formatPercentage(this.modules.t20.healing / this.totalHealing)}% / {formatNumber(this.modules.t20.healing / fightDuration * 1000)} HPS
+          </dfn>
         ),
       },
 
