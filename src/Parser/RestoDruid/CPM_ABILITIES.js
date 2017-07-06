@@ -98,6 +98,12 @@ const CPM_ABILITIES = [
     category: SPELL_CATEGORY.OTHERS,
     getCooldown: haste => null,
   },
+  {
+    spell: SPELLS.SWIFTMEND,
+    category: SPELL_CATEGORY.ROTATIONAL,
+    getCooldown: (haste, combatant) => combatant.hasTalent(SPELLS.PROSPERITY_TALENT.id) ? 27 : 30,
+    importance: ISSUE_IMPORTANCE.MINOR,
+  },
 ];
 
 export default CPM_ABILITIES;
