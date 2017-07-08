@@ -25,6 +25,8 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownTracker from './Modules/Features/CooldownTracker';
 import PowerWordShieldWasted from './Modules/Features/PowerWordShieldWasted';
 import AtonementSource from './Modules/Features/AtonementSource';
+import PowerWordBarrier from './Modules/Features/PowerWordBarrier';
+import LeniencesReward from './Modules/Features/LeniencesReward';
 
 import Tier19_2set from './Modules/Items/Tier19_2set';
 import CordOfMaiev from './Modules/Items/CordOfMaiev';
@@ -210,6 +212,8 @@ class CombatLogParser extends MainCombatLogParser {
           </table>
         </ExpandableStatisticBox>
       ),
+      <PowerWordBarrier owner={this} />,
+      <LeniencesReward owner={this} />,
       missedPenanceTicks && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.PENANCE.id} />}

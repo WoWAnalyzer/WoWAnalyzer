@@ -371,6 +371,12 @@ export default {
     coeff: 0.06,
   },
 
+  LENIENCES_REWARD_TRAIT: {
+    id: 238063,
+    name: 'Lenience\'s Reward',
+    icon: 'ability_priest_atonement',
+  },
+
   // Buffs
   BLESSING_OF_TUURE_BUFF: {
     id: 196644,
