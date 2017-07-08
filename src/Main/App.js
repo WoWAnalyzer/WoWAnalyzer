@@ -85,7 +85,6 @@ class App extends Component {
 
     this.handleReportSelecterSubmit = this.handleReportSelecterSubmit.bind(this);
     this.handleRefresh = this.handleRefresh.bind(this);
-    this.renderContent = this.renderContent.bind(this);
   }
   getChildContext() {
     return {
@@ -286,49 +285,6 @@ class App extends Component {
       .then(response => response.json());
   }
 
-  renderContent() {
-    const { report, combatants, parser } = this.state;
-    if (!this.reportCode) {
-      return <Home />;
-    }
-    if (!report) {
-      return (
-        <div>
-          <h1>Fetching report information...</h1>
-
-          <div className="spinner"/>
-        </div>
-      );
-    }
-    if (!this.fightId) {
-      return <FightSelecter report={report} onRefresh={this.handleRefresh} />;
-    }
-    if (!combatants) {
-      return (
-        <div>
-          <h1>Fetching players...</h1>
-
-          <div className="spinner"/>
-        </div>
-      );
-    }
-    if (!this.playerName) {
-      return <PlayerSelecter report={report} fightId={this.fightId} combatants={combatants} />;
-    }
-    if (!parser) {
-      return null;
-    }
-
-    return (
-      <Results
-        parser={parser}
-        dataVersion={this.state.dataVersion}
-        tab={this.resultTab}
-        onChangeTab={newTab => browserHistory.push(makeAnalyzerUrl(report.code, this.fightId, this.playerName, newTab))}
-      />
-    );
-  }
-
   componentWillMount() {
     if (this.reportCode) {
       this.fetchReport(this.reportCode);
@@ -372,6 +328,49 @@ class App extends Component {
   getFightName(fight) {
     const wipeCount = getWipeCount(this.state.report, fight);
     return `${DIFFICULTIES[fight.difficulty]} ${fight.name} - ${fight.kill ? 'Kill' : `Wipe ${wipeCount}`} (${formatDuration((fight.end_time - fight.start_time) / 1000)})`;
+  }
+
+  renderContent() {
+    const { report, combatants, parser } = this.state;
+    if (!this.reportCode) {
+      return <Home />;
+    }
+    if (!report) {
+      return (
+        <div>
+          <h1>Fetching report information...</h1>
+
+          <div className="spinner"/>
+        </div>
+      );
+    }
+    if (!this.fightId) {
+      return <FightSelecter report={report} onRefresh={this.handleRefresh} />;
+    }
+    if (!combatants) {
+      return (
+        <div>
+          <h1>Fetching players...</h1>
+
+          <div className="spinner"/>
+        </div>
+      );
+    }
+    if (!this.playerName) {
+      return <PlayerSelecter report={report} fightId={this.fightId} combatants={combatants} />;
+    }
+    if (!parser) {
+      return null;
+    }
+
+    return (
+      <Results
+        parser={parser}
+        dataVersion={this.state.dataVersion}
+        tab={this.resultTab}
+        onChangeTab={newTab => browserHistory.push(makeAnalyzerUrl(report.code, this.fightId, this.playerName, newTab))}
+      />
+    );
   }
 
   render() {
