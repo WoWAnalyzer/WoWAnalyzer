@@ -279,6 +279,11 @@ export default {
     name: 'Doorway to Nowhere',
     icon: 'inv_pet_cranegod',
   },
+  OVYDS_WINTER_WRAP_BUFF: {
+    id: 217642,
+    name: 'Ovyd\'s Winter Wrap',
+    icon: 'ability_monk_souldance',
+  },
   // Tier Set Bonus's
   XUENS_BATTLEGEAR_4_PIECE_BUFF: {
     id: 242258,

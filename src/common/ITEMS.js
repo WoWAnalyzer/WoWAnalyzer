@@ -237,7 +237,7 @@ const ITEMS = {
     icon: 'inv_70_raid_ring6a',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
-  // Monk Legedaries
+  // Monk Legendaries
   EITHAS_LUNAR_GLIDES: {
     id: 137028,
     name: 'Ei\'thas, Lunar Glides of Eramas',
@@ -260,6 +260,12 @@ const ITEMS = {
     id: 137096,
     name: 'Petrichor Lagniappe',
     icon: 'inv_bracer_41',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  OVYDS_WINTER_WRAP: {
+    id: 138879,
+    name: 'Ovyd\'s Winter Wrap',
+    icon: 'inv_belt_leather_raiddruid_i_01',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
 
