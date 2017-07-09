@@ -20,6 +20,7 @@ class TreeOfLife extends Module {
   totalHealingDuringToL = 0;
   totalHealingFromRejuvenationDuringToL = 0;
   totalHealingFromRejuvenationEncounter = 0;
+  totalRejuvenationTicksEncounter = 0;
   totalRejuvenationsEncounter = 0;
   totalRejuvenationsDuringToL = 0;
   totalHealingFromWildgrowthsDuringToL = 0;
@@ -48,7 +49,9 @@ class TreeOfLife extends Module {
     // Get total healing from rejuv + germ (if specced).
     if (SPELLS.REJUVENATION.id === spellId) {
       this.totalHealingFromRejuvenationEncounter += event.amount;
+      this.totalRejuvenationTicksEncounter += 1;
     } else if(this.hasGermination && SPELLS.REJUVENATION_GERMINATION.id === spellId) {
+      this.totalRejuvenationTicksEncounter += 1;
       this.totalHealingFromRejuvenationEncounter += event.amount;
     }
 
