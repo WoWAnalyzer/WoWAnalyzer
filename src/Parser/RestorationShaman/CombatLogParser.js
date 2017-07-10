@@ -34,6 +34,7 @@ import Jonat from './Modules/Legendaries/Jonat';
 import Nobundo from './Modules/Legendaries/Nobundo';
 import Tidecallers from './Modules/Legendaries/Tidecallers';
 import Restoration_Shaman_T19_2Set from './Modules/Legendaries/T19_2Set';
+import Restoration_Shaman_T20_4Set from './Modules/Legendaries/T20_4Set';
 
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
@@ -88,6 +89,7 @@ class CombatLogParser extends MainCombatLogParser {
     jonat: Jonat,
     tidecallers: Tidecallers,
     t19_2Set: Restoration_Shaman_T19_2Set,
+    t20_4Set: Restoration_Shaman_T20_4Set,
   };
 
   generateResults() {
@@ -114,6 +116,7 @@ class CombatLogParser extends MainCombatLogParser {
     const healingSurge = getAbility(SPELLS.HEALING_SURGE.id);
     const chainHeal = getAbility(SPELLS.CHAIN_HEAL.id);
     const giftOfTheQueen = getAbility(SPELLS.GIFT_OF_THE_QUEEN.id);
+    const healingRain = getAbility(SPELLS.HEALING_RAIN_CAST.id);
 
     const nonHealingTimePercentage = this.modules.alwaysBeCasting.totalHealingTimeWasted / fightDuration;
     const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
@@ -177,8 +180,11 @@ class CombatLogParser extends MainCombatLogParser {
 
     const has2PT19 = this.selectedCombatant.hasBuff(SPELLS.RESTORATION_SHAMAN_T19_2SET_BONUS_BUFF.id);
     const t19_2PHealingPercentage = this.modules.t19_2Set.healing / totalHealing;
-    
 
+    const has4PT20 = this.selectedCombatant.hasBuff(SPELLS.RESTORATION_SHAMAN_T20_4SET_BONUS_BUFF.id);
+    const t20_4PHealingPercentage = this.modules.t20_4Set.healing / totalHealing;
+
+    const unbuffedHealingRainsPercentage = has4PT20 && ((healingRain.casts - healingRain.withT20Buff) / healingRain.casts);
 
     this.modules.cooldownTracker.processAll();
 
@@ -245,6 +251,13 @@ class CombatLogParser extends MainCombatLogParser {
         issue: <span>You didn't benefit from <ItemLink id={ITEMS.UNCERTAIN_REMINDER.id} /> a lot ({formatPercentage(uncertainReminderHealingPercentage)}% of your healing), consider using a different legendary on long fights or on fights where there is not much to heal during the additional heroism uptime.</span>,
         icon: ITEMS.UNCERTAIN_REMINDER.icon,
         importance: getIssueImportance(uncertainReminderHealingPercentage, 0.035, 0.025),
+      });
+    }
+    if (has4PT20 && unbuffedHealingRainsPercentage > 0) {
+      results.addIssue({
+        issue: <span><SpellLink id={SPELLS.RESTORATION_SHAMAN_T20_4SET_BONUS_BUFF.id} /> buffed <SpellLink id={SPELLS.HEALING_RAIN_CAST.id} /> can make for some very efficient healing, consider ensure casting them with <SpellLink id={SPELLS.RESTORATION_SHAMAN_T20_4SET_BONUS_BUFF.id} />({formatPercentage(unbuffedHealingRainsPercentage)}% healing rains were casted without <SpellLink id={SPELLS.RESTORATION_SHAMAN_T20_4SET_BONUS_BUFF.id} />).</span>,
+        icon: SPELLS.HEALING_RAIN_CAST.icon,
+        importance: getIssueImportance(unbuffedHealingRainsPercentage, 0.15, 0.30, true),
       });
     }
 
@@ -418,6 +431,16 @@ class CombatLogParser extends MainCombatLogParser {
         result: (
           <span>
             {((t19_2PHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.t19_2Set.healing / fightDuration * 1000)} HPS
+          </span>
+        ),
+      },
+      this.modules.t20_4Set.active && {
+        id: `spell-${SPELLS.RESTORATION_SHAMAN_T20_4SET_BONUS_BUFF.id}`,
+        icon: <SpellIcon id={SPELLS.RESTORATION_SHAMAN_T20_4SET_BONUS_BUFF.id} />,
+        title: <SpellLink id={SPELLS.RESTORATION_SHAMAN_T20_4SET_BONUS_BUFF.id} />,
+        result: (
+          <span>
+            {((t20_4PHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.t20_4Set.healing / fightDuration * 1000)} HPS
           </span>
         ),
       },
