@@ -7,6 +7,24 @@ const TIDAL_WAVES_BUFF_EXPIRATION_BUFFER = 50; // the buff expiration can occur 
 const TIDAL_WAVES_BUFF_MINIMAL_ACTIVE_TIME = 100; // Minimal duration for which you must have tidal waves. Prevents it from counting a HS/HW as buffed when you cast a riptide at the end.
 
 class ShamanAbilityTracker extends AbilityTracker {
+  on_byPlayer_cast(event) {
+    if (super.on_byPlayer_cast) {
+      super.on_byPlayer_cast(event);
+    }
+
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.HEALING_RAIN_CAST.id) {
+      return;
+    }
+
+    if (!this.owner.selectedCombatant.hasBuff(SPELLS.RESTORATION_SHAMAN_T20_4SET_BONUS_BUFF.id, event.timestamp)) {
+      return;
+    }
+
+    const cast = this.getAbility(spellId, event.ability);
+    cast.withT20Buff = (cast.withT20Buff || 0) + 1;
+  }
+
   on_byPlayer_heal(event) {
     if (super.on_byPlayer_heal) {
       super.on_byPlayer_heal(event);

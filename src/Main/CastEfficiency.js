@@ -67,7 +67,7 @@ const CastEfficiency = ({ categories, abilities }) => {
 CastEfficiency.propTypes = {
   abilities: PropTypes.arrayOf(PropTypes.shape({
     ability: PropTypes.shape({
-      name: PropTypes.string.isRequired,
+      name: PropTypes.string,
       category: PropTypes.string.isRequired,
       spell: PropTypes.shape({
         id: PropTypes.number.isRequired,
