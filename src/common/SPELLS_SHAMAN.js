@@ -321,6 +321,16 @@ export default {
     name: 'T19 4 set bonus',
     icon: 'inv_spear_04',
   },
+  RESTORATION_SHAMAN_T20_2SET_BONUS_BUFF: {
+    id: 242287,
+    name: 'T20 2 set bonus',
+    icon: 'spell_nature_magicimmunity',
+  },
+  RESTORATION_SHAMAN_T20_4SET_BONUS_BUFF: {
+    id: 242288,
+    name: 'T20 4 set bonus',
+    icon: 'spell_nature_magicimmunity',
+  },
   DEEP_HEALING: {
     id: 77226,
     name: 'Mastery: Deep Healing',
