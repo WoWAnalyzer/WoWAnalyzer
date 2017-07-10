@@ -51,7 +51,7 @@ class SuggestionsTab extends React.Component {
             <div className="col-md-8">
               <h2>Suggestions</h2>
             </div>
-            <div className="col-md-4 text-right minor-issue-toggle">
+            <div className="col-md-4 text-right toggle-control">
               <Toggle
                 defaultChecked={this.state.showMinorIssues}
                 icons={false}

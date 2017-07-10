@@ -29,7 +29,7 @@ class Results extends React.Component {
             Initializing report...
           </h1>
 
-          <div className="spinner"></div>
+          <div className="spinner"/>
         </div>
       );
     }

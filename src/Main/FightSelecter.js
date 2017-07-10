@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import ReactTooltip from 'react-tooltip';
+import Toggle from 'react-toggle';
 
 import Fight from './Fight';
 import makeAnalyzerUrl from './makeAnalyzerUrl';
@@ -25,12 +26,20 @@ class FightSelecter extends Component {
     onRefresh: PropTypes.func.isRequired,
   };
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      killsOnly: false,
+    };
+  }
+
   componentWillUnmount() {
     ReactTooltip.hide();
   }
 
   render() {
     const { report, onRefresh } = this.props;
+    const { killsOnly } = this.state;
 
     return (
       <div>
@@ -49,7 +58,16 @@ class FightSelecter extends Component {
               <div className="col-md-8">
                 <h2>Select the fight to parse</h2>
               </div>
-              <div className="col-md-4 text-right">
+              <div className="col-md-4 text-right toggle-control action-buttons">
+                <Toggle
+                  checked={killsOnly}
+                  icons={false}
+                  onChange={(event) => this.setState({ killsOnly: event.currentTarget.checked })}
+                  id="kills-only-toggle"
+                />
+                <label htmlFor="kills-only-toggle">
+                  Kills only
+                </label>
                 <Link to={`/report/${report.code}`} onClick={onRefresh} data-tip="This will refresh the fights list which can be useful if you're live logging.">
                   <span className="glyphicon glyphicon-refresh" aria-hidden="true" /> Refresh
                 </Link>
@@ -60,7 +78,15 @@ class FightSelecter extends Component {
             <ul className="list selection">
               {
                 report.fights
-                  .filter(fight => fight.boss !== 0)
+                  .filter(fight => {
+                    if (fight.boss === 0) {
+                      return false;
+                    }
+                    if (killsOnly && fight.kill === false) {
+                      return false;
+                    }
+                    return true;
+                  })
                   .map(fight => (
                     <li key={`${fight.id}`}>
                       <Link to={makeAnalyzerUrl(report.code, fight.id)}>

@@ -606,33 +606,39 @@ table.data-table .performance-bar {
 .stat-versatility-bg{background-color:#bfbfbf !important}
 
 
-.minor-issue-toggle {
+.toggle-control {
   margin: -2px 0;
 }
-.minor-issue-toggle .react-toggle {
+.toggle-control .react-toggle {
   margin-bottom: -0.35em;
 }
-.minor-issue-toggle label {
+.toggle-control label {
   font-weight: normal;
   padding-left: 0.5em;
   margin: 0;
   cursor: pointer;
 }
-.minor-issue-toggle .react-toggle-track {
+.toggle-control .react-toggle-track {
   width: 42px;
   height: 19px;
 }
-.minor-issue-toggle .react-toggle-thumb {
+.toggle-control .react-toggle-thumb {
   width: 17px;
   height: 17px;
 }
-.minor-issue-toggle .react-toggle--checked .react-toggle-thumb {
+.toggle-control .react-toggle--checked .react-toggle-thumb {
   left: 24px;
 }
-.minor-issue-toggle .react-toggle--checked .react-toggle-track {
+.toggle-control .react-toggle--checked .react-toggle-track {
   background-color: #5b9cff;
 }
 
+.action-buttons .react-toggle ~ label {
+  margin-right: 1em;
+}
+.action-buttons a {
+  vertical-align: middle;
+}
 
 .become-patron-button {
   display: inline-block;
