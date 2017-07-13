@@ -7,6 +7,8 @@ import isAtonement from './../Core/isAtonement';
 const TIER_20_TWO_SET_BONUS = 1;
 
 class Tier20_2set extends Module {
+  priority = 8; // Depends on Penance module to flag first bolt
+  
   _firstPenanceBoltLastDamageEvent = false;
 
   healing = 0;
