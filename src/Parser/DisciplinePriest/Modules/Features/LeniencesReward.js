@@ -42,7 +42,7 @@ class LeniencesReward extends ModuleComponent {
     const damageTakenPromise = fetch(makeWclUrl(`report/tables/damage-taken/${this.owner.report.code}`, {
       start: this.owner.fight.start_time,
       end: this.owner.fight.end_time,
-      filter: `(NOT IN RANGE FROM type='applybuff' AND ability.id=${SPELLS.ATONEMENT_BUFF.id} AND source.name='${this.owner.selectedCombatant.name}' TO type='removebuff' AND ability.id=${SPELLS.ATONEMENT_BUFF.id} AND source.name='${this.owner.selectedCombatant.name}' GROUP BY target ON target END)`,
+      filter: `(IN RANGE FROM type='applybuff' AND ability.id=${SPELLS.ATONEMENT_BUFF.id} AND source.name='${this.owner.selectedCombatant.name}' TO type='removebuff' AND ability.id=${SPELLS.ATONEMENT_BUFF.id} AND source.name='${this.owner.selectedCombatant.name}' GROUP BY target ON target END)`,
     }))
       .then(response => response.json())
       .then((json) => {
