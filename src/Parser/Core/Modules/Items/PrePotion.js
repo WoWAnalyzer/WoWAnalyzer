@@ -22,6 +22,8 @@ const DURATION = 30000;
 const DURATION_PROLONGED = 60000;
 const ANCIENT_MANA_POTION_AMOUNT = 152000;
 
+const MANA_CLASS_RESOURCE_ID = 0;
+
 class PrePotion extends Module {
   usedPrePotion = false;
   usedSecondPotion = false;
@@ -51,7 +53,7 @@ class PrePotion extends Module {
     }
 
     // class resource type 0 means the resource is mana
-    if (event.classResources && event.classResources[0] && event.classResources[0].type === 0) {
+    if (event.classResources && event.classResources[0] && event.classResources[0].type === MANA_CLASS_RESOURCE_ID) {
       const resource = event.classResources[0];
       const manaLeftAfterCast = resource.amount - resource.cost;
       if (manaLeftAfterCast < ANCIENT_MANA_POTION_AMOUNT) {
