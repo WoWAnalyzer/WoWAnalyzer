@@ -89,10 +89,10 @@ class DevotionAura extends ModuleComponent {
       <LazyLoadStatisticBox
         loader={this.load.bind(this)}
         icon={<SpellIcon id={SPELLS.DEVOTION_AURA_TALENT.id} />}
-        value={`~${formatNumber(this.damageReduced / fightDuration * 1000)} DRPS`}
+        value={`±${formatNumber(this.damageReduced / fightDuration * 1000)} DRPS`}
         label="Estimated damage reduced"
-        tooltip={`The total estimated damage reduced <b>during</b> Aura Mastery was ${formatThousands(this.damageReducedDuringAuraMastery)} (${formatNumber(this.damageReducedDuringAuraMastery / fightDuration * 1000)} DRPS). This has a high accuracy.<br />
-          The total estimated damage reduced <b>outside</b> Aura Mastery was ${formatThousands(this.damageReducedOutsideAuraMastery)} (${formatNumber(this.damageReducedOutsideAuraMastery / fightDuration * 1000)} DRPS). This has medium accuracy.<br /><br />
+        tooltip={`The total estimated damage reduced <b>by the passive</b> was ${formatThousands(this.damageReducedOutsideAuraMastery)} (${formatNumber(this.damageReducedOutsideAuraMastery / fightDuration * 1000)} DRPS). This has medium accuracy.<br />
+          The total estimated damage reduced <b>during Aura Mastery</b> was ${formatThousands(this.damageReducedDuringAuraMastery)} (${formatNumber(this.damageReducedDuringAuraMastery / fightDuration * 1000)} DRPS). This has a high accuracy.<br /><br />
 
           Calculating exact Devotion Aura damage reduced is near impossible and takes a very long time. This gets the total damage taken during and outside Aura Mastery and calculates the damage reduced for those totals by taking 20% of the original damage taken during Aura Mastery and ${averagePassiveDamageReductionPercentage}% (20% / ${this.owner.playerCount} members in the raid) of all damage taken outside Aura Mastery. This ${averagePassiveDamageReductionPercentage}% is the estimated average damage reduced assuming this averages out to be the same on all members. More extensive tests that go over all damage events and that is aware of the exact Devotion Aura reduction at each event have shown that this is usually a close approximation.`}
       />

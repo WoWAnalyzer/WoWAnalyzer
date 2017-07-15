@@ -10,7 +10,7 @@
 | [Chain of Thrayn](https://github.com/MartijnHols/WoWAnalyzer/blob/master/src/Main/Parser/Modules/Legendaries/ChainOfThrayn.js) |  | 100% |
 | [Drape of Shame](https://github.com/MartijnHols/WoWAnalyzer/blob/master/src/Main/Parser/Modules/Legendaries/DrapeOfShame.js) |  | 100% |
 | [Ilterendi, Crown Jewel of Silvermoon](https://github.com/MartijnHols/WoWAnalyzer/blob/master/src/Main/Parser/Modules/Legendaries/Ilterendi.js) |  | 100% |
-| [Maraad's Dying Breath](https://github.com/MartijnHols/WoWAnalyzer/blob/master/src/Main/Parser/Modules/Legendaries/MaraadsDyingBreath.js) | The healing gain is calculated by comparing boosted LotMs with unbuffed LotMs. Since most people wouldn't ever cast unbuffed LotMs as fillers but a FoL/HL instead, this can be somewhat inaccurate. | ~70% |
+| [Maraad's Dying Breath](https://github.com/MartijnHols/WoWAnalyzer/blob/master/src/Main/Parser/Modules/Legendaries/MaraadsDyingBreath.js) | The healing gain is calculated by comparing boosted LotMs with unbuffed LotMs. Since most people wouldn't ever cast unbuffed LotMs as fillers but a FoL/HL instead, this can be somewhat inaccurate. | ±70% |
 | [Obsidian Stone Spaulders](https://github.com/MartijnHols/WoWAnalyzer/blob/master/src/Main/Parser/Modules/Legendaries/ObsidianStoneSpaulders.js) | | 100% |
 | [Prydaz, Xavaric's Magnum Opus](https://github.com/MartijnHols/WoWAnalyzer/blob/master/src/Main/Parser/Modules/Legendaries/Prydaz.js) | | 100% |
 | [Velen's Future Sight](https://github.com/MartijnHols/WoWAnalyzer/blob/master/src/Main/Parser/Modules/Legendaries/Velens.js) | | 100% |

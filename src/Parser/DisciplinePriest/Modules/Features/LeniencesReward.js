@@ -69,7 +69,7 @@ class LeniencesReward extends ModuleComponent {
       <LazyLoadStatisticBox
         loader={this.load.bind(this)}
         icon={<SpellIcon id={SPELLS.LENIENCES_REWARD_TRAIT.id} />}
-        value={`~${formatNumber(this.damageReducedDuringLeniencesReward / fightDuration * 1000)} EHPS`}
+        value={`±${formatNumber(this.damageReducedDuringLeniencesReward / fightDuration * 1000)} EHPS`}
         label="Lenience's Reward EHPS"
         tooltip={
           `The total effective health granted by Lenience's Reward was ${formatThousands(this.damageReducedDuringLeniencesReward)} (${formatNumber(this.damageReducedDuringLeniencesReward / fightDuration * 1000)} EHPS).`

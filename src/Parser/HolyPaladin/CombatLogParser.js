@@ -483,7 +483,7 @@ class CombatLogParser extends MainCombatLogParser {
       this.modules.holyAvenger.active && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.HOLY_AVENGER_TALENT.id} />}
-          value={`~${formatNumber((this.modules.holyAvenger.regularHealing + this.modules.holyAvenger.holyShockHealing) / fightDuration * 1000)} HPS`}
+          value={`±${formatNumber((this.modules.holyAvenger.regularHealing + this.modules.holyAvenger.holyShockHealing) / fightDuration * 1000)} HPS`}
           label="Estimated healing"
           tooltip={`
             Calculating Holy Avenger healing contribution is hard.<br /><br />
@@ -531,7 +531,7 @@ class CombatLogParser extends MainCombatLogParser {
                 The effective healing done from Maraad's when adjusted for the opportunity cost of casting a regular (filler) Light of the Martyr was ${formatItemHealing(this.modules.maraadsDyingBreath.healingGainOverLotm)}.
               `}
             >
-              ~{formatItemHealing(this.modules.maraadsDyingBreath.healingGainOverFol)}
+              ±{formatItemHealing(this.modules.maraadsDyingBreath.healingGainOverFol)}
             </dfn>
             {' '}
             (total: <dfn data-tip="This is the total healing done with Light of the Martyr during the buff from Maraad's. No opportunity cost was accounted for. The healing was adjusted for the damage taken.">
