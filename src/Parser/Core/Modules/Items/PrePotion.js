@@ -50,7 +50,8 @@ class PrePotion extends Module {
       this.usedSecondPotion = true;
     }
 
-    if (event.classResources && event.classResources[0]) {
+    // class resource type 0 means the resource is mana
+    if (event.classResources && event.classResources[0] && event.classResources[0].type === 0) {
       const resource = event.classResources[0];
       const manaLeftAfterCast = resource.amount - resource.cost;
       if (manaLeftAfterCast < ANCIENT_MANA_POTION_AMOUNT) {
