@@ -24,6 +24,7 @@ class Tier20_2set extends Module {
       return;
     }
 
+    console.log(event, 'Bolt of offensive Penance damage');
     this._firstPenanceBoltLastDamageEvent = true;
     this.damage += (event.amount / 2);
   }
@@ -31,6 +32,7 @@ class Tier20_2set extends Module {
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.PENANCE_HEAL.id) {
+      console.log(event, 'Bolt of friendly Penance');
       if (event.isFirstPenanceBolt) {
         this.healing += calculateEffectiveHealing(event, TIER_20_TWO_SET_BONUS);
       }

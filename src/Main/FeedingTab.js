@@ -45,7 +45,7 @@ class FeedingTab extends React.Component {
               <h2>Feeding</h2>
             </div>
             {/*
-             <div className="col-md-6 text-right minor-issue-toggle">
+             <div className="col-md-6 text-right toggle-control">
              <Toggle
              defaultChecked={this.state.expand}
              icons={false}

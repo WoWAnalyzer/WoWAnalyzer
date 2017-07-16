@@ -46,7 +46,7 @@ class Penance extends Module {
     }
 
     if (this._penanceFirstBolt) {
-      event = Object.assign(event, { isFirstPenanceBolt: true });
+      event.isFirstPenanceBolt = true;
       this._penanceFirstBolt = false;
     }
   }

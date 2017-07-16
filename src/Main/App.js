@@ -330,9 +330,51 @@ class App extends Component {
     return `${DIFFICULTIES[fight.difficulty]} ${fight.name} - ${fight.kill ? 'Kill' : `Wipe ${wipeCount}`} (${formatDuration((fight.end_time - fight.start_time) / 1000)})`;
   }
 
+  renderContent() {
+    const { report, combatants, parser } = this.state;
+    if (!this.reportCode) {
+      return <Home />;
+    }
+    if (!report) {
+      return (
+        <div>
+          <h1>Fetching report information...</h1>
+
+          <div className="spinner"/>
+        </div>
+      );
+    }
+    if (!this.fightId) {
+      return <FightSelecter report={report} onRefresh={this.handleRefresh} />;
+    }
+    if (!combatants) {
+      return (
+        <div>
+          <h1>Fetching players...</h1>
+
+          <div className="spinner"/>
+        </div>
+      );
+    }
+    if (!this.playerName) {
+      return <PlayerSelecter report={report} fightId={this.fightId} combatants={combatants} />;
+    }
+    if (!parser) {
+      return null;
+    }
+
+    return (
+      <Results
+        parser={parser}
+        dataVersion={this.state.dataVersion}
+        tab={this.resultTab}
+        onChangeTab={newTab => browserHistory.push(makeAnalyzerUrl(report.code, this.fightId, this.playerName, newTab))}
+      />
+    );
+  }
+
   render() {
-    const { report, combatants } = this.state;
-    const parser = this.state.parser;
+    const { report } = this.state;
 
     const progress = Math.floor(this.state.progress * 100);
 
@@ -364,47 +406,7 @@ class App extends Component {
           )}
         </header>
         <div className="container">
-          {(() => {
-            if (!this.reportCode) {
-              return <Home />;
-            }
-            if (!report) {
-              return (
-                <div>
-                  <h1>Fetching report information...</h1>
-
-                  <div className="spinner"></div>
-                </div>
-              );
-            }
-            if (!this.fightId) {
-              return <FightSelecter report={report} onRefresh={this.handleRefresh} />;
-            }
-            if (!combatants) {
-              return (
-                <div>
-                  <h1>Fetching players...</h1>
-
-                  <div className="spinner"></div>
-                </div>
-              );
-            }
-            if (!this.playerName) {
-              return <PlayerSelecter report={report} fightId={this.fightId} combatants={combatants} />;
-            }
-            if (!parser) {
-              return null;
-            }
-
-            return (
-              <Results
-                parser={parser}
-                dataVersion={this.state.dataVersion}
-                tab={this.resultTab}
-                onChangeTab={newTab => browserHistory.push(makeAnalyzerUrl(report.code, this.fightId, this.playerName, newTab))}
-              />
-            );
-          })()}
+          {this.renderContent()}
           {this.state.config && this.state.config.footer}
         </div>
         <ReactTooltip html={true} place="bottom" />

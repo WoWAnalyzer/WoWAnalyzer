@@ -42,6 +42,7 @@ import T20_2pc from './Modules/Items/T20_2pc';
 import ShelterOfRin from './Modules/Items/ShelterOfRin';
 import DoorwayToNowhere from './Modules/Items/DoorwayToNowhere';
 import PetrichorLagniappe from './Modules/Items/PetrichorLagniappe';
+import OvydsWinterWrap from './Modules/Items/OvydsWinterWrap';
 
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
@@ -103,6 +104,7 @@ class CombatLogParser extends MainCombatLogParser {
     shelterOfRin: ShelterOfRin,
     doorwayToNowhere: DoorwayToNowhere,
     petrichorLagniappe: PetrichorLagniappe,
+    ovydsWinterWrap: OvydsWinterWrap,
   };
 
   generateResults() {
@@ -577,6 +579,10 @@ class CombatLogParser extends MainCombatLogParser {
       this.modules.doorwayToNowhere.active && {
         item: ITEMS.DOORWAY_TO_NOWHERE,
         result: formatItemHealing(this.modules.doorwayToNowhere.healing),
+      },
+      this.modules.ovydsWinterWrap.active && {
+        item: ITEMS.OVYDS_WINTER_WRAP,
+        result: formatItemHealing(this.modules.ovydsWinterWrap.healing),
       },
       this.modules.petrichorLagniappe.active && {
         item: ITEMS.PETRICHOR_LAGNIAPPE,

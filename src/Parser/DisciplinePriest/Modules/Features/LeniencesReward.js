@@ -42,7 +42,7 @@ class LeniencesReward extends ModuleComponent {
     const damageTakenPromise = fetch(makeWclUrl(`report/tables/damage-taken/${this.owner.report.code}`, {
       start: this.owner.fight.start_time,
       end: this.owner.fight.end_time,
-      filter: `(NOT IN RANGE FROM type='applybuff' AND ability.id=${SPELLS.ATONEMENT_BUFF.id} AND source.name='${this.owner.selectedCombatant.name}' TO type='removebuff' AND ability.id=${SPELLS.ATONEMENT_BUFF.id} AND source.name='${this.owner.selectedCombatant.name}' GROUP BY target ON target END)`,
+      filter: `(IN RANGE FROM type='applybuff' AND ability.id=${SPELLS.ATONEMENT_BUFF.id} AND source.name='${this.owner.selectedCombatant.name}' TO type='removebuff' AND ability.id=${SPELLS.ATONEMENT_BUFF.id} AND source.name='${this.owner.selectedCombatant.name}' GROUP BY target ON target END)`,
     }))
       .then(response => response.json())
       .then((json) => {
@@ -69,10 +69,10 @@ class LeniencesReward extends ModuleComponent {
       <LazyLoadStatisticBox
         loader={this.load.bind(this)}
         icon={<SpellIcon id={SPELLS.LENIENCES_REWARD_TRAIT.id} />}
-        value={`~${formatNumber(this.damageReducedDuringLeniencesReward / fightDuration * 1000)} EHPS`}
-        label="Lenience's Reward EHPS"
+        value={`±${formatNumber(this.damageReducedDuringLeniencesReward / fightDuration * 1000)} DRPS`}
+        label="Damage reduced"
         tooltip={
-          `The total effective health granted by Lenience's Reward was ${formatThousands(this.damageReducedDuringLeniencesReward)} (${formatNumber(this.damageReducedDuringLeniencesReward / fightDuration * 1000)} EHPS).`
+          `The estimated damage reduced by Lenience's damage reduction was ${formatThousands(this.damageReducedDuringLeniencesReward)} (${formatNumber(this.damageReducedDuringLeniencesReward / fightDuration * 1000)} per second average). This is the lowest possible value. This value is 100% accurate if you are looking at the gain over not having the Lenience bonus at all, but the gain may end up higher when taking interactions with other damage reductions into account.`
         }
       />
     );
