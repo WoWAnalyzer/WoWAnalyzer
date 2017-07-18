@@ -389,6 +389,12 @@ export default {
       name: 'Landslide',
       icon: 'inv_ore_blackrock_nugget',
   },
+  ASCENDANCE_ENHANCE: {
+    id: 114051,
+    name: 'Ascendance',
+    icon: 'spell_fire_elementaldevastation',
+    cooldownType: 'DAMAGE',
+  },
   // Restoration Shaman
   CHAIN_HEAL: {
     id: 1064,
