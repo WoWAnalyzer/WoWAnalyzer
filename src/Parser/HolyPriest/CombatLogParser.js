@@ -221,7 +221,7 @@ class CombatLogParser extends MainCombatLogParser {
       />,
       <StatisticBox
         icon={<SpellIcon id={SPELLS.HOLY_WORD_SANCTIFY.id} />}
-        value={`${sancAvgHits}`}
+        value={`${sancAvgHits.toFixed(2)}`}
         label={(
           <dfn data-tip={`A measure of how many targets were effectively healed by your Holy Word: Sanctify. Over 80% overhealing on a hit is considered a "miss". You missed ${sancMissedHits} of ${this.modules.sanctify.casts * 6} potential hits.`}>
             Average Sanctify hits
