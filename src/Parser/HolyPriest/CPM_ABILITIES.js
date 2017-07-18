@@ -15,7 +15,8 @@ const CPM_ABILITIES = [
     spell: SPELLS.PRAYER_OF_MENDING_CAST,
     name: 'Prayer of Mending',
     category: SPELL_CATEGORY.ROTATIONAL,
-    getCooldown: (haste, combatant) => (12 - (combatant.hasTalent(SPELLS.PIETY_TALENT.id) ? 2 : 0)) / (1 + haste),
+    getCooldown: (haste, combatant) => ((12 - (combatant.hasTalent(SPELLS.PIETY_TALENT.id) ? 2 : 0)) + 1.5) / (1 + haste), // +1.5 for base cast time
+    recommendedCastEfficiency: 0.70, // There's a lot of things that can potentially delay PoM: movement, heavy damage, etc. It is important to maintain high uptime but delaying a few GCDs is not bad.
   },
   {
     spell: SPELLS.LIGHT_OF_TUURE_TRAIT,
@@ -25,12 +26,14 @@ const CPM_ABILITIES = [
     getMaxCasts: (cooldown, fightDuration, getAbility, parser) => {
       return calculateMaxCasts(cooldown, fightDuration, 2);
     },
+    recommendedCastEfficiency: 0.50, // This spell is a very odd use, most people use it during movement or for tanks during heavy damage, so this does not really need to be super high but it needs to be high enough that you dont sit at 2 charges
   },
   {
     spell: SPELLS.DESPERATE_PRAYER,
     name: 'Desperate Prayer',
     category: SPELL_CATEGORY.ROTATIONAL,
     getCooldown: haste => 90, // might remove DP because of the new minor trait causing resets
+    recommendedCastEfficiency: 0.50, // It's a personal, so cast efficiency is not super important but it should be used before every threatening damage if possible
   },
   {
     spell: SPELLS.APOTHEOSIS_TALENT,
