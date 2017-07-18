@@ -23,6 +23,7 @@ import AbilityTracker from './Modules/Core/AbilityTracker';
 // Spell data
 import PrayerOfMending from './Modules/Spells/PrayerOfMending';
 import DivineHymn from './Modules/Spells/DivineHymn';
+import Sanctify from './Modules/Spells/Sanctify';
 
 // Features
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
@@ -88,6 +89,7 @@ class CombatLogParser extends MainCombatLogParser {
     // Spells
     prayerOfMending: PrayerOfMending,
     divineHymn: DivineHymn,
+    sanctify: Sanctify,
 
     // Items
     trousersOfAnjuna: TrousersOfAnjuna,
@@ -143,6 +145,9 @@ class CombatLogParser extends MainCombatLogParser {
     const erHPS = formatNumber(this.modules.enduringRenewal.healing / this.fightDuration * 1000);
     const erGainPerRefresh = Math.round(this.modules.enduringRenewal.secsGained / this.modules.enduringRenewal.refreshedRenews * 100) / 100;
 
+    // Sanctify efficiency vars
+    const sancAvgHits = this.modules.sanctify.hits / this.modules.sanctify.casts;
+    const sancMissedHits = (this.modules.sanctify.casts * 6) - this.modules.sanctify.hits;
 
     if (deadTimePercentage > 0.05) {
       results.addIssue({
@@ -211,6 +216,15 @@ class CombatLogParser extends MainCombatLogParser {
         label={(
           <dfn data-tip={`Approximation of Say Your Prayers' value by viewing average stacks per PoM cast (does not include Benediction renews). This is ${sypPercHPSOverall}% of your healing and ±${sypPercHPSPoM}% of your Prayer of Mending healing.`}>
             Say Your Prayers
+          </dfn>
+        )}
+      />,
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.HOLY_WORD_SANCTIFY.id} />}
+        value={`${sancAvgHits}`}
+        label={(
+          <dfn data-tip={`A measure of how many targets were effectively healed by your Holy Word: Sanctify. Over 80% overhealing on a hit is considered a "miss". You missed ${sancMissedHits} of ${this.modules.sanctify.casts * 6} potential hits.`}>
+            Average Sanctify hits
           </dfn>
         )}
       />,
