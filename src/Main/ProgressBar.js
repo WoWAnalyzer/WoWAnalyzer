@@ -7,6 +7,8 @@ const FULL_FILL_COLOR = '#1d9c07';
 
 const ProgressBar = props => {
   const { width, height, percentage } = props;
+  // We use round stroke so there is additional width created by the border radius.
+  // Add the height(radius of the bar) to the wrapper's width to make sure the bars presented correctly.
   const wrapperWidth = width + 2 * height;
   const fillColor = percentage === 100 ? FULL_FILL_COLOR : FILL_COLOR;
   return (
