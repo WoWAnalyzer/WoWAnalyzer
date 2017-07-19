@@ -24,6 +24,11 @@ class Entity {
     const nSpellId = Number(spellId);
     return this.buffs.find(buff => buff.ability.guid === nSpellId && (currentTimestamp - minimalActiveTime) >= buff.start && (buff.end === null || (buff.end + bufferTime) >= currentTimestamp));
   }
+  getBuffs(spellId, forTimestamp = null, bufferTime = 0, minimalActiveTime = 0) {
+    const currentTimestamp = forTimestamp || this.owner.currentTimestamp;
+    const nSpellId = Number(spellId);
+    return this.buffs.filter(buff => buff.ability.guid === nSpellId && (currentTimestamp - minimalActiveTime) >= buff.start && (buff.end === null || (buff.end + bufferTime) >= currentTimestamp));
+  }
   getBuffUptime(buffAbilityId) {
     return this.buffs
       .filter(buff => buff.ability.guid === buffAbilityId)
