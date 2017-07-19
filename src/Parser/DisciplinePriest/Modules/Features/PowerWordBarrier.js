@@ -59,7 +59,7 @@ class PowerWordBarrier extends ModuleComponent {
       <LazyLoadStatisticBox
         loader={this.load.bind(this)}
         icon={<SpellIcon id={SPELLS.POWER_WORD_BARRIER_BUFF.id} />}
-        value={`±${formatNumber(this.damageReducedDuringPowerWordBarrier / fightDuration * 1000)} DRPS`}
+        value={`≈${formatNumber(this.damageReducedDuringPowerWordBarrier / fightDuration * 1000)} DRPS`}
         label="Barrier DRPS"
         tooltip={
           `The total Damage Reduced by Power Word: Barrier was ${formatThousands(this.damageReducedDuringPowerWordBarrier)} (${formatNumber(this.damageReducedDuringPowerWordBarrier / fightDuration * 1000)} per second average). This includes values from other priests in your raid due to technical limitations.`
