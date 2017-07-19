@@ -196,7 +196,6 @@ class CombatLogParser {
 
   // This used to be implemented as a sanity check, may be replaced by a cleaner solution.
   totalHealing = 0;
-
   on_byPlayer_heal(event) {
     this.totalHealing += event.amount + (event.absorbed || 0);
   }
@@ -205,10 +204,9 @@ class CombatLogParser {
     this.totalHealing += event.amount + (event.absorbed || 0);
   }
 
-  totalDamage = 0;
-
+  totalDamageDone = 0;
   on_byPlayer_damage(event) {
-    this.totalDamage += event.amount + (event.absorbed || 0);
+    this.totalDamageDone += event.amount + (event.absorbed || 0);
   }
 
   // TODO: Damage taken from LOTM

@@ -128,7 +128,7 @@ class CombatLogParser extends MainCombatLogParser {
     results.statistics = [
       <StatisticBox
         icon={ <Icon icon="class_shaman" alt="Dead GCD time" /> }
-        value={formatNumber(this.totalDamage)}
+        value={formatNumber(this.totalDamageDone)}
         label={(
           <dfn data-tip="Without Fire Elemental Damage.">
             Damage done
