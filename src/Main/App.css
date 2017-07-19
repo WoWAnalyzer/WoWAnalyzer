@@ -297,6 +297,9 @@ h1 {
   display: block;
   padding: 10px 0;
 }
+.list.selection .ProgressBar {
+  transform: translateY(-8px);
+}
 .list > li:hover {
   background-color: rgba(255, 255, 255, 0.1);
   border-top-color: rgba(0, 0, 0, 0.4);
