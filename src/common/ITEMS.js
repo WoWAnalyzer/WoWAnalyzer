@@ -168,6 +168,12 @@ const ITEMS = {
     icon: 'inv_misc_cape_20',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+  INNER_HALLATION: {
+    id: 151786,
+    name: 'Inner Hallation',
+    icon: 'inv_shoulder_robe_raidpriest_k_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
   // Trinkets
   DARKMOON_DECK_PROMISES: {
     id: 128710,
