@@ -26,7 +26,7 @@ class T20_2pc extends Module {
     }
     if(this.owner.selectedCombatant.hasBuff(SPELLS.SURGE_OF_MISTS.id, event.timestamp)) {
       this.casts++;
-      this.manaSaved += (BASEMANA * SPELLS.ENVELOPING_MISTS.manaPerc) * (1 - TWOPC_MANA_REDUCTION);
+      this.manaSaved += (BASEMANA * SPELLS.ENVELOPING_MISTS.manaPerc) * TWOPC_MANA_REDUCTION;
     }
   }
 
