@@ -176,6 +176,14 @@ class CombatLogParser extends MainCombatLogParser {
       });
     }
 
+    if (sancAvgHits < 5.75) {
+      results.addIssue({
+        issue: <span>Your <SpellLink id={SPELLS.HOLY_WORD_SANCTIFY.id} /> effectively hit an average of {sancAvgHits.toFixed(2)} players. Try to position your Sanctify casts better to make sure you hit players who need the healing.</span>,
+        icon: 'spell_holy_divineprovidence',
+        importance: getIssueImportance(sancAvgHits, 5.5, 4.25),
+      });
+    }
+
     castEfficiency.forEach((cpm) => {
       if (cpm.canBeImproved && !cpm.ability.noSuggestion) {
         results.addIssue({
@@ -224,7 +232,7 @@ class CombatLogParser extends MainCombatLogParser {
         value={`${sancAvgHits.toFixed(2)}`}
         label={(
           <dfn data-tip={`A measure of how many targets were effectively healed by your Holy Word: Sanctify. Over 80% overhealing on a hit is considered a "miss". You missed ${sancMissedHits} of ${this.modules.sanctify.casts * 6} potential hits.`}>
-            Average Sanctify hits
+            Average hits
           </dfn>
         )}
       />,

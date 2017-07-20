@@ -26,14 +26,6 @@ const CPM_ABILITIES = [
     getMaxCasts: (cooldown, fightDuration, getAbility, parser) => {
       return calculateMaxCasts(cooldown, fightDuration, 2);
     },
-    recommendedCastEfficiency: 0.50, // This spell is a very odd use, most people use it during movement or for tanks during heavy damage, so this does not really need to be super high but it needs to be high enough that you dont sit at 2 charges
-  },
-  {
-    spell: SPELLS.DESPERATE_PRAYER,
-    name: 'Desperate Prayer',
-    category: SPELL_CATEGORY.ROTATIONAL,
-    getCooldown: haste => 90, // might remove DP because of the new minor trait causing resets
-    recommendedCastEfficiency: 0.50, // It's a personal, so cast efficiency is not super important but it should be used before every threatening damage if possible
   },
   {
     spell: SPELLS.APOTHEOSIS_TALENT,

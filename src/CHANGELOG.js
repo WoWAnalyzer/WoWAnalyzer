@@ -1,5 +1,6 @@
 export default `
-18-07-2017 - Holy Priest: Added Holy Word: Sanctify efficiency metric and fixed an issue with Prayer of Mending cast efficiency (by enragednuke)
+20-07-2017 - Holy Priest: Added Holy Word: Sanctify efficiency metric and fixed an issue with Prayer of Mending cast efficiency (by enragednuke)
+19-07-2017 - Holy Paladin: Changed Devotion Aura's passive estimated DRPS to be based on the paladin's damage taken instead of raid average. This should be more accurate as it doesn't include tank damage taken.
 08-07-2017 - Mistweaver Monk: Added Ovyd's Winter Wrap healing contribution. (by anomoly)
 06-07-2017 - Resto Druid: Added mana costs for spells, the cooldown tab should now properly calculate mana costs
 06-07-2017 - The <i>report code</i> input field now accepts WCL urls and entering what looks to be valid input will now automatically start loading the report. (by Zerotorescue)
