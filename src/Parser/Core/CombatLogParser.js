@@ -96,7 +96,6 @@ class CombatLogParser {
   }
 
   _timestamp = null;
-
   get currentTimestamp() {
     return this._timestamp;
   }
@@ -180,7 +179,6 @@ class CombatLogParser {
 
   initialized = false;
   error = null;
-
   on_initialized() {
     this.initialized = true;
     if (!this.selectedCombatant) {
@@ -189,14 +187,12 @@ class CombatLogParser {
   }
 
   finished = false;
-
   on_finished() {
     this.finished = true;
   }
 
   // This used to be implemented as a sanity check, may be replaced by a cleaner solution.
   totalHealing = 0;
-
   on_byPlayer_heal(event) {
     this.totalHealing += event.amount + (event.absorbed || 0);
   }
@@ -205,16 +201,18 @@ class CombatLogParser {
     this.totalHealing += event.amount + (event.absorbed || 0);
   }
 
-  totalDamage = 0;
-
+  totalDamageDone = 0;
   on_byPlayer_damage(event) {
-    this.totalDamage += event.amount + (event.absorbed || 0);
+    this.totalDamageDone += event.amount + (event.absorbed || 0);
+  }
+  totalDamageTaken = 0;
+  on_toPlayer_damage(event) {
+    this.totalDamageTaken += event.amount + (event.absorbed || 0);
   }
 
   // TODO: Damage taken from LOTM
 
   static SUGGESTION_VELENS_BREAKPOINT = 0.045;
-
   generateResults() {
     const results = new ParseResults();
 

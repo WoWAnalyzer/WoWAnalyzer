@@ -69,10 +69,10 @@ class LeniencesReward extends ModuleComponent {
       <LazyLoadStatisticBox
         loader={this.load.bind(this)}
         icon={<SpellIcon id={SPELLS.LENIENCES_REWARD_TRAIT.id} />}
-        value={`±${formatNumber(this.damageReducedDuringLeniencesReward / fightDuration * 1000)} DRPS`}
+        value={`>=${formatNumber(this.damageReducedDuringLeniencesReward / fightDuration * 1000)} DRPS`}
         label="Damage reduced"
         tooltip={
-          `The estimated damage reduced by Lenience's damage reduction was ${formatThousands(this.damageReducedDuringLeniencesReward)} (${formatNumber(this.damageReducedDuringLeniencesReward / fightDuration * 1000)} per second average). This is the lowest possible value. This value is 100% accurate if you are looking at the gain over not having the Lenience bonus at all, but the gain may end up higher when taking interactions with other damage reductions into account.`
+          `The estimated damage reduced by Lenience's damage reduction was ${formatThousands(this.damageReducedDuringLeniencesReward)} (${formatNumber(this.damageReducedDuringLeniencesReward / fightDuration * 1000)} per second average). This is the lowest possible value. This value is 100% accurate for this log if you are looking at the actual gain over not having the Lenience bonus at all, but the gain may end up higher when taking interactions with other damage reductions into account.`
         }
       />
     );
