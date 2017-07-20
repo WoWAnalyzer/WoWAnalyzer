@@ -3,12 +3,15 @@
 # dependencies
 /node_modules
 /server/node_modules
+/browser-extensions/node_modules
 
 # testing
 /coverage
 
 # production
 /build
+/browser-extensions/build
+/browser-extensions/dist
 
 # misc
 .DS_Store
@@ -20,6 +23,10 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+temp
+.tmp
+.sass-cache
 
 # Regularly changing or system specific IDE files
 /.idea/workspace.xml
