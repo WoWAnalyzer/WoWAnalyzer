@@ -14,7 +14,7 @@ const ProgressBar = props => {
   return (
     <svg
       className="ProgressBar"
-      style={{ width, height }}
+      style={{ width: wrapperWidth, height }}
     >
       <path
         strokeWidth={height}
