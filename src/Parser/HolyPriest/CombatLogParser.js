@@ -209,7 +209,7 @@ class CombatLogParser extends MainCombatLogParser {
         icon={<SpellIcon id={SPELLS.PRAYER_OF_MENDING_CAST.id} />}
         value={`${formatNumber(sypHPS)} HPS`}
         label={(
-          <dfn data-tip={`Approximation of Say Your Prayers' value by viewing average stacks per PoM cast (does not include Benediction renews). This is ${sypPercHPSOverall}% of your healing and ±${sypPercHPSPoM}% of your Prayer of Mending healing.`}>
+          <dfn data-tip={`Approximation of Say Your Prayers' value by viewing average stacks per PoM cast (does not include Benediction renews). This is ${sypPercHPSOverall}% of your healing and ≈${sypPercHPSPoM}% of your Prayer of Mending healing.`}>
             Say Your Prayers
           </dfn>
         )}
