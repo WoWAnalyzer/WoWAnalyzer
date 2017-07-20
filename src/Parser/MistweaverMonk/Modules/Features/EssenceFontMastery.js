@@ -15,6 +15,9 @@ class EssenceFontMastery extends Module {
 
     const targetId = event.targetID;
     if(spellId === SPELLS.GUSTS_OF_MISTS.id) {
+      if(!this.owner.combatants.players[targetId]) {
+        return;
+      }
       if(this.owner.combatants.players[targetId].hasBuff(SPELLS.ESSENCE_FONT_BUFF.id, event.timestamp, 0, 0) === true) {
         debug && console.log('Player ID: ' + event.targetID + '  Timestamp: ' + event.timestamp);
         this.healEF++;
