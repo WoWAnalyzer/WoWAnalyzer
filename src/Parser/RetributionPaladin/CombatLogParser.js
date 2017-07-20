@@ -100,7 +100,7 @@ class CombatLogParser extends MainCombatLogParser {
             alt="Damage"
           />
         )}
-        value={formatThousands(this.totalDamage)}
+        value={formatThousands(this.totalDamageDone)}
         label="Damage done"
       />,
       <StatisticBox
