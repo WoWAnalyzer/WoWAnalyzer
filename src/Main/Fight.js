@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import ProgressBar from './ProgressBar';
 import DIFFICULTIES from './DIFFICULTIES';
 
 const formatDuration = (duration) => {
@@ -8,7 +9,7 @@ const formatDuration = (duration) => {
   return `${Math.floor(duration / 60)}:${seconds < 10 ? `0${seconds}` : seconds}`;
 };
 
-const Fight = ({ difficulty, name, kill, start_time, end_time, wipes, ...others }) => {
+const Fight = ({ difficulty, name, kill, start_time, end_time, wipes, fightPercentage, ...others }) => {
   const duration = Math.round((end_time - start_time) / 1000);
 
   delete others.boss;
@@ -20,6 +21,7 @@ const Fight = ({ difficulty, name, kill, start_time, end_time, wipes, ...others 
   return (
     <div {...others}>
       {DIFFICULTIES[difficulty]} {name} - <span className={kill ? 'kill' : 'wipe'}>{kill ? 'Kill' : `Wipe ${wipes}`} ({formatDuration(duration)})</span>
+      <ProgressBar percentage={kill ? 100 : (10000 - fightPercentage) / 100}/>
     </div>
   );
 };
@@ -32,6 +34,7 @@ Fight.propTypes = {
   wipes: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   kill: PropTypes.bool.isRequired,
+  fightPercentage: PropTypes.number,
 };
 
 export default Fight;

@@ -5,7 +5,6 @@ import ReactTooltip from 'react-tooltip';
 import Toggle from 'react-toggle';
 
 import Fight from './Fight';
-import ProgressBar from './ProgressBar';
 import makeAnalyzerUrl from './makeAnalyzerUrl';
 import getWipeCount from './getWipeCount';
 
@@ -93,7 +92,6 @@ class FightSelecter extends Component {
                       <Link to={makeAnalyzerUrl(report.code, fight.id)}>
                         <Fight {...fight} wipes={getWipeCount(report, fight)} />
                       </Link>
-                      <ProgressBar percentage={fight.kill ? 100 : (10000 - fight.fightPercentage) / 100}/>
                     </li>
                   ))
               }

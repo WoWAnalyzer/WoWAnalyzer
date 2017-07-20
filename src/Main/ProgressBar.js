@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const BACKGROUND_COLOR = '#fff';
+const BACKGROUND_COLOR = 'rgba(0,0,0,.6)';
 const FILL_COLOR = '#fb6d35';
 const FULL_FILL_COLOR = '#1d9c07';
 
@@ -14,7 +14,7 @@ const ProgressBar = props => {
   return (
     <svg
       className="ProgressBar"
-      width={wrapperWidth}
+      style={{ width, height }}
     >
       <path
         strokeWidth={height}
