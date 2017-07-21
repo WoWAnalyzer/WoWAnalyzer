@@ -5,8 +5,7 @@ const BACKGROUND_COLOR = 'rgba(0,0,0,.6)';
 const FILL_COLOR = '#fb6d35';
 const FULL_FILL_COLOR = '#1d9c07';
 
-const ProgressBar = props => {
-  const { width, height, percentage } = props;
+const ProgressBar = ({ width, height, percentage, style, ...others }) => {
   // We use round stroke so there is additional width created by the border radius.
   // Add the height(radius of the bar) to the wrapper's width to make sure the bars presented correctly.
   const wrapperWidth = width + 2 * height;
@@ -14,7 +13,8 @@ const ProgressBar = props => {
   return (
     <svg
       className="ProgressBar"
-      style={{ width: wrapperWidth, height }}
+      style={{ width: wrapperWidth, height, ...style }}
+      {...others}
     >
       <path
         strokeWidth={height}
@@ -24,7 +24,7 @@ const ProgressBar = props => {
         fill="none"
         d={`M${height} ${height / 2} h 0 ${width}`}
       />
-      {!!percentage && 
+      {!!percentage &&
         <path
           strokeWidth={height}
           stroke={fillColor}
@@ -37,17 +37,17 @@ const ProgressBar = props => {
     </svg>
   );
 };
-
 ProgressBar.propTypes = {
   width: PropTypes.number,
   height: PropTypes.number,
   percentage: PropTypes.number,
+  style: PropTypes.object,
 };
-
 ProgressBar.defaultProps = {
   width: 150,
   height: 3,
   percentage: 0,
+  style: {},
 };
 
 export default ProgressBar;

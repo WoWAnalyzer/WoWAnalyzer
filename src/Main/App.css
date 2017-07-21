@@ -302,7 +302,6 @@ h1 {
   align-items: center;
 }
 .list.selection .ProgressBar {
-  display: inline-block;
   margin-left: 10px;
 }
 .list > li:hover {
