@@ -1,4 +1,5 @@
 export default `
+20-07-2017 - Added fight progress indicator to the fight selection page.
 19-07-2017 - Holy Paladin: Changed Devotion Aura's passive estimated DRPS to be based on the paladin's damage taken instead of raid average. This should be more accurate as it doesn't include tank damage taken.
 08-07-2017 - Mistweaver Monk: Added Ovyd's Winter Wrap healing contribution. (by anomoly)
 06-07-2017 - Resto Druid: Added mana costs for spells, the cooldown tab should now properly calculate mana costs

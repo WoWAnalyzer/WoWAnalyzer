@@ -297,6 +297,14 @@ h1 {
   display: block;
   padding: 10px 0;
 }
+.list.selection > li a > div {
+  display: flex;
+  align-items: center;
+}
+.list.selection .ProgressBar {
+  display: inline-block;
+  margin-left: 10px;
+}
 .list > li:hover {
   background-color: rgba(255, 255, 255, 0.1);
   border-top-color: rgba(0, 0, 0, 0.4);
