@@ -16,7 +16,6 @@ const CPM_ABILITIES = [
     name: 'Prayer of Mending',
     category: SPELL_CATEGORY.ROTATIONAL,
     getCooldown: (haste, combatant) => ((12 - (combatant.hasTalent(SPELLS.PIETY_TALENT.id) ? 2 : 0)) + 1.5) / (1 + haste), // +1.5 for base cast time
-    recommendedCastEfficiency: 0.70, // There's a lot of things that can potentially delay PoM: movement, heavy damage, etc. It is important to maintain high uptime but delaying a few GCDs is not bad.
   },
   {
     spell: SPELLS.LIGHT_OF_TUURE_TRAIT,
@@ -26,6 +25,7 @@ const CPM_ABILITIES = [
     getMaxCasts: (cooldown, fightDuration, getAbility, parser) => {
       return calculateMaxCasts(cooldown, fightDuration, 2);
     },
+    noSuggestion: true,
   },
   {
     spell: SPELLS.APOTHEOSIS_TALENT,
