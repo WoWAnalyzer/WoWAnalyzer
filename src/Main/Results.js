@@ -22,7 +22,7 @@ class Results extends React.Component {
         <div>
           <h1>
             <div className="back-button">
-              <Link to={`/report/${parser.report.code}/${parser.player.name}`} data-tip="Back to fight selection">
+              <Link to={`/report/${parser.report.code}/${parser.fight.id}`} data-tip="Back to player selection">
                 <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
               </Link>
             </div>

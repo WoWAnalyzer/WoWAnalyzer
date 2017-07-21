@@ -37,7 +37,7 @@ class PlayerSelecter extends Component {
       <div>
         <h1>
           <div className="back-button">
-            <Link to="/" data-tip="Change report">
+            <Link to={`/report/${report.code}`} data-tip="Back to fight selection">
               <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
             </Link>
           </div>
