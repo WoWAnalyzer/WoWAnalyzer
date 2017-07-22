@@ -32,6 +32,7 @@ const CPM_ABILITIES = [
     name: 'Desperate Prayer',
     category: SPELL_CATEGORY.ROTATIONAL,
     getCooldown: haste => 90, // note: this number will be slightest under-represented due to our trait causing DP resets from damage
+    noSuggestion: true,
   },
   {
     spell: SPELLS.APOTHEOSIS_TALENT,
