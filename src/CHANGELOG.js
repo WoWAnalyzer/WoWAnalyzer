@@ -1,4 +1,5 @@
 export default `
+22-07-2017 - URLs will now show the fight name to make it easier to compare URLs. (by Zerotorescue)
 22-07-2017 - Disc Priest: Added mana saved from the legendary Inner Hallation. (by hassebewlen)
 21-07-2017 - Changed fight selection styling and fixed back buttons. (by Zerotorescue)
 20-07-2017 - Added fight progress indicator to the fight selection page. (by Yuyz0112)
