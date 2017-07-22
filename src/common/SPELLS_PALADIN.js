@@ -218,28 +218,6 @@ export default {
     icon: 'ability_paladin_shieldofthetemplar',
   },
 
-  // Talents:
-  // Holy Paladin:
-  // lv15
-  BESTOW_FAITH_TALENT: {
-    id: 223306,
-    name: 'Bestow Faith',
-    icon: 'ability_paladin_blessedmending',
-    manaCost: 13200,
-  },
-  LIGHTS_HAMMER_TALENT: {
-    id: 114158,
-    name: 'Light\'s Hammer',
-    icon: 'spell_paladin_lightshammer',
-    manaCost: 61600,
-  },
-  HOLY_PRISM_TALENT: {
-    id: 114165,
-    name: 'Holy Prism',
-    icon: 'spell_paladin_holyprism',
-    manaCost: 37400,
-  },
-
   // Traits:
   // Holy Paladin:
   SACRED_DAWN: {
