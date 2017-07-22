@@ -4,13 +4,12 @@ import { Link, browserHistory } from 'react-router';
 import ReactTooltip from 'react-tooltip';
 
 import makeWclUrl from 'common/makeWclUrl';
+import getFightName from 'common/getFightName';
 
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
 import UnsupportedSpec from 'Parser/UnsupportedSpec/CONFIG';
 
 import './App.css';
-
-import DIFFICULTIES from './DIFFICULTIES';
 
 import Home from './Home';
 import FightSelecter from './FightSelecter';
@@ -18,18 +17,19 @@ import PlayerSelecter from './PlayerSelecter';
 import Results from './Results';
 
 import makeAnalyzerUrl from './makeAnalyzerUrl';
-import getWipeCount from './getWipeCount';
 
 import GithubLogo from './Images/GitHub-Mark-Light-32px.png';
 import ReportSelecter from "./ReportSelecter";
 
-const formatDuration = (duration) => {
-  const seconds = Math.floor(duration % 60);
-  return `${Math.floor(duration / 60)}:${seconds < 10 ? `0${seconds}` : seconds}`;
-};
-
 const toolName = `WoW Analyzer`;
 const githubUrl = 'https://github.com/MartijnHols/WoWAnalyzer';
+
+if (!Array.prototype.find) {
+  // I know we could easily polyfill this (e.g. `<script src="https://ft-polyfill-service.herokuapp.com/v2/polyfill.js?features=es6"></script>`), but shit browsers also have horrible CSS support and I'm not going to spend a day fixing that; this isn't my job so I can do what I want. Using shit browsers should be discouraged anyway, not supporting shit browsers helps achieve that.
+  alert('Insecure shit browser detected. Please use Google Chrome instead.');
+  window.location.href = 'https://www.google.com/chrome/browser/desktop/index.html';
+  throw new Error();
+}
 
 class App extends Component {
   static propTypes = {
@@ -57,7 +57,10 @@ class App extends Component {
     return this.props.params.playerName;
   }
   get fightId() {
-    return this.props.params.fightId ? Number(this.props.params.fightId) : null;
+    if (this.props.params.fightId) {
+      return Number(this.props.params.fightId.split('-')[0]);
+    }
+    return null;
   }
   get fight() {
     return this.fightId && this.state.report && this.getFightFromReport(this.state.report, this.fightId);
@@ -95,7 +98,7 @@ class App extends Component {
   handleReportSelecterSubmit(code) {
     console.log('Selected report:', code);
 
-    this.props.router.push(makeAnalyzerUrl(code));
+    this.props.router.push(`report/${code}`);
   }
   handleRefresh() {
     this.fetchReport(this.reportCode, true);
@@ -314,7 +317,7 @@ class App extends Component {
     if (this.reportCode && this.state.report) {
       if (this.playerName) {
         if (this.fight) {
-          title = `${this.getFightName(this.fight)} by ${this.playerName} in ${this.state.report.title} - ${title}`;
+          title = `${getFightName(this.state.report, this.fight)} by ${this.playerName} in ${this.state.report.title} - ${title}`;
         } else {
           title = `${this.playerName} in ${this.state.report.title} - ${title}`;
         }
@@ -323,11 +326,6 @@ class App extends Component {
       }
     }
     document.title = title;
-  }
-
-  getFightName(fight) {
-    const wipeCount = getWipeCount(this.state.report, fight);
-    return `${DIFFICULTIES[fight.difficulty]} ${fight.name} - ${fight.kill ? 'Kill' : `Wipe ${wipeCount}`} (${formatDuration((fight.end_time - fight.start_time) / 1000)})`;
   }
 
   renderContent() {
@@ -368,7 +366,7 @@ class App extends Component {
         parser={parser}
         dataVersion={this.state.dataVersion}
         tab={this.resultTab}
-        onChangeTab={newTab => browserHistory.push(makeAnalyzerUrl(report.code, this.fightId, this.playerName, newTab))}
+        onChangeTab={newTab => browserHistory.push(makeAnalyzerUrl(report, this.fightId, this.playerName, newTab))}
       />
     );
   }
@@ -386,9 +384,9 @@ class App extends Component {
             <div className="navbar-header">
               <ol className="breadcrumb">
                 <li className="breadcrumb-item"><Link to={makeAnalyzerUrl()}>{toolName}</Link></li>
-                {this.reportCode && report && <li className="breadcrumb-item"><Link to={makeAnalyzerUrl(this.reportCode)}>{report.title}</Link></li>}
-                {this.fight && <li className="breadcrumb-item"><Link to={makeAnalyzerUrl(this.reportCode, this.fightId)}>{this.getFightName(this.fight)}</Link></li>}
-                {this.playerName && <li className="breadcrumb-item"><Link to={makeAnalyzerUrl(this.reportCode, this.fightId, this.playerName)}>{this.playerName}</Link></li>}
+                {this.reportCode && report && <li className="breadcrumb-item"><Link to={makeAnalyzerUrl(report)}>{report.title}</Link></li>}
+                {this.fight && report && <li className="breadcrumb-item"><Link to={makeAnalyzerUrl(report, this.fightId)}>{getFightName(report, this.fight)}</Link></li>}
+                {this.playerName && report && <li className="breadcrumb-item"><Link to={makeAnalyzerUrl(report, this.fightId, this.playerName)}>{this.playerName}</Link></li>}
               </ol>
             </div>
 

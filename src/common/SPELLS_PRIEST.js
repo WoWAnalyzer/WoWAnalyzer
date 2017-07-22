@@ -12,6 +12,12 @@ export default {
     icon: 'spell_holy_penance',
     manaCost: 30800,
   },
+  POWER_INFUSION: {
+    id: 10060,
+    name: 'Power Infusion',
+    icon: 'spell_holy_powerinfusion',
+    manaCost: 0,
+  },
   POWER_WORD_SHIELD: {
     id: 17,
     name: 'Power Word: Shield',

@@ -4,9 +4,10 @@ import { Link } from 'react-router';
 import ReactTooltip from 'react-tooltip';
 import Toggle from 'react-toggle';
 
+import getWipeCount from 'common/getWipeCount';
+
 import Fight from './Fight';
 import makeAnalyzerUrl from './makeAnalyzerUrl';
-import getWipeCount from './getWipeCount';
 
 class FightSelecter extends Component {
   static propTypes = {
@@ -45,7 +46,7 @@ class FightSelecter extends Component {
       <div>
         <h1>
           <div className="back-button">
-            <Link to="/" data-tip="Back to report selection">
+            <Link to={makeAnalyzerUrl()} data-tip="Back to report selection">
               <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
             </Link>
           </div>
@@ -68,7 +69,7 @@ class FightSelecter extends Component {
                 <label htmlFor="kills-only-toggle">
                   Kills only
                 </label>
-                <Link to={`/report/${report.code}`} onClick={onRefresh} data-tip="This will refresh the fights list which can be useful if you're live logging.">
+                <Link to={makeAnalyzerUrl(report)} onClick={onRefresh} data-tip="This will refresh the fights list which can be useful if you're live logging.">
                   <span className="glyphicon glyphicon-refresh" aria-hidden="true" /> Refresh
                 </Link>
               </div>
@@ -89,7 +90,7 @@ class FightSelecter extends Component {
                   })
                   .map(fight => (
                     <li key={`${fight.id}`}>
-                      <Link to={makeAnalyzerUrl(report.code, fight.id)}>
+                      <Link to={makeAnalyzerUrl(report, fight.id)}>
                         <Fight {...fight} wipes={getWipeCount(report, fight)} />
                       </Link>
                     </li>
@@ -97,6 +98,10 @@ class FightSelecter extends Component {
               }
             </ul>
           </div>
+        </div>
+
+        <div className="text-muted">
+          Icons by <a href="https://icons8.com/" rel="noopener noreferrer">Icons8</a>.
         </div>
       </div>
     );

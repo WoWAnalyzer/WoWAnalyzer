@@ -1,3 +1,5 @@
+import TALENTS from 'common/talents/TALENTS_PALADIN';
+
 export default {
   // Paladin:
   CRUSADER_STRIKE: {
@@ -40,6 +42,8 @@ export default {
   },
 
   // Holy Paladin:
+  // Fix talent mana costs (due to rounding errors)
+  BEACON_OF_FAITH_TALENT: { ...TALENTS.BEACON_OF_FAITH_TALENT, manaCost: 6875 },
   BEACON_OF_LIGHT: {
     id: 53652,
     name: 'Beacon of Light',
@@ -212,28 +216,6 @@ export default {
     id: 184662,
     name: 'Shield of Vengeance',
     icon: 'ability_paladin_shieldofthetemplar',
-  },
-
-  // Talents:
-  // Holy Paladin:
-  // lv15
-  BESTOW_FAITH_TALENT: {
-    id: 223306,
-    name: 'Bestow Faith',
-    icon: 'ability_paladin_blessedmending',
-    manaCost: 13200,
-  },
-  LIGHTS_HAMMER_TALENT: {
-    id: 114158,
-    name: 'Light\'s Hammer',
-    icon: 'spell_paladin_lightshammer',
-    manaCost: 61600,
-  },
-  HOLY_PRISM_TALENT: {
-    id: 114165,
-    name: 'Holy Prism',
-    icon: 'spell_paladin_holyprism',
-    manaCost: 37400,
   },
 
   // Traits:

@@ -30,6 +30,7 @@ import LeniencesReward from './Modules/Features/LeniencesReward';
 
 import Tier19_2set from './Modules/Items/Tier19_2set';
 import CordOfMaiev from './Modules/Items/CordOfMaiev';
+import InnerHallation from './Modules/Items/InnerHallation';
 import Skjoldr from './Modules/Items/Skjoldr';
 import Xalan from './Modules/Items/Xalan';
 import NeroBandOfPromises from './Modules/Items/NeroBandOfPromises';
@@ -89,6 +90,7 @@ class CombatLogParser extends MainCombatLogParser {
     // Items:
     tier19_2set: Tier19_2set,
     cordOfMaiev: CordOfMaiev,
+    innerHallation: InnerHallation,
     skjoldr: Skjoldr,
     xalan: Xalan,
     neroBandOfPromises: NeroBandOfPromises,
@@ -310,6 +312,14 @@ class CombatLogParser extends MainCombatLogParser {
         result: (
           <span>
             {(this.modules.cordOfMaiev.procTime / 1000).toFixed(1)} seconds off the <SpellLink id={SPELLS.PENANCE.id} /> cooldown ({this.modules.cordOfMaiev.procs} Penances cast earlier)
+          </span>
+        ),
+      },
+      this.modules.innerHallation.active && {
+        item: ITEMS.INNER_HALLATION,
+        result: (
+          <span>
+            {formatThousands(this.modules.innerHallation.manaGained)} mana saved ({formatThousands(this.modules.innerHallation.manaGained / this.fightDuration * 1000 * 5)} MP5)
           </span>
         ),
       },
