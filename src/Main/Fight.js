@@ -4,8 +4,9 @@ import PropTypes from 'prop-types';
 import SkullIcon from 'Icons/Skull';
 import CancelIcon from 'Icons/Cancel';
 
+import DIFFICULTIES from 'common/DIFFICULTIES';
+
 import ProgressBar from './ProgressBar';
-import DIFFICULTIES from './DIFFICULTIES';
 
 const formatDuration = (duration) => {
   const seconds = Math.floor(duration % 60);

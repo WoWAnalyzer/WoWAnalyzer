@@ -1,9 +1,13 @@
-export default function makeReportUrl(reportCode = undefined, fightId = undefined, playerName = undefined, tab = undefined) {
+import getFightName from 'common/getFightName';
+
+export default function makeReportUrl(report = undefined, fightId = undefined, playerName = undefined, tab = undefined) {
   const parts = [];
-  if (reportCode) {
-    parts.push(`report/${reportCode}`);
+  if (report) {
+    parts.push(`report/${report.code}`);
     if (fightId) {
-      parts.push(fightId);
+      const fight = report.fights.find(fight => fight.id === fightId);
+      const fightName = getFightName(report, fight);
+      parts.push(`${fightId}-${encodeURI(fightName).replace(/%20/g, "+")}`);
       if (playerName) {
         parts.push(playerName);
         if (tab) {
