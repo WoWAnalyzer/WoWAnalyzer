@@ -24,6 +24,13 @@ import ReportSelecter from "./ReportSelecter";
 const toolName = `WoW Analyzer`;
 const githubUrl = 'https://github.com/MartijnHols/WoWAnalyzer';
 
+if (!Array.prototype.find) {
+  // I know we could easily polyfill this (e.g. `<script src="https://ft-polyfill-service.herokuapp.com/v2/polyfill.js?features=es6"></script>`), but shit browsers also have horrible CSS support and I'm not going to spend a day fixing that; this isn't my job so I can do what I want. Using shit browsers should be discouraged anyway, not supporting shit browsers helps achieve that.
+  alert('Insecure shit browser detected. Please use Google Chrome instead.');
+  window.location.href = 'https://www.google.com/chrome/browser/desktop/index.html';
+  throw new Error();
+}
+
 class App extends Component {
   static propTypes = {
     router: PropTypes.shape({
