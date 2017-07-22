@@ -1,3 +1,5 @@
+import TALENTS from 'common/talents/TALENTS_PALADIN';
+
 export default {
   // Paladin:
   CRUSADER_STRIKE: {
@@ -40,6 +42,8 @@ export default {
   },
 
   // Holy Paladin:
+  // Fix talent mana costs (due to rounding errors)
+  BEACON_OF_FAITH_TALENT: { ...TALENTS.BEACON_OF_FAITH_TALENT, manaCost: 6875 },
   BEACON_OF_LIGHT: {
     id: 53652,
     name: 'Beacon of Light',
