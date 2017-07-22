@@ -1,6 +1,9 @@
 export default `
-21-07-2017 - Holy Priest: Added Holy Word: Sanctify efficiency metric and fixed an issue with Prayer of Mending cast efficiency (by enragednuke)
-21-07-2017 - Changed fight selection styling and fix back buttons. (by Zerotorescue)
+22-07-2017 - Holy Priest: Added Holy Word: Sanctify efficiency metric and fixed an issue with Prayer of Mending cast efficiency (by enragednuke)
+22-07-2017 - Shit browsers will now be told they're shit and redirected to a Google Chrome download page instead of just crashing. (by Zerotorescue)
+22-07-2017 - URLs will now show the fight name to make it easier to compare URLs. (by Zerotorescue)
+22-07-2017 - Disc Priest: Added mana saved from the legendary Inner Hallation. (by hassebewlen)
+21-07-2017 - Changed fight selection styling and fixed back buttons. (by Zerotorescue)
 20-07-2017 - Added fight progress indicator to the fight selection page. (by Yuyz0112)
 19-07-2017 - Holy Paladin: Changed Devotion Aura's passive estimated DRPS to be based on the paladin's damage taken instead of raid average. This should be more accurate as it doesn't include tank damage taken. (by Zerotorescue)
 08-07-2017 - Mistweaver Monk: Added Ovyd's Winter Wrap healing contribution. (by anomoly)

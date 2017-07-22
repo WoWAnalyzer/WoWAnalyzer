@@ -76,7 +76,7 @@ class PlayerSelecter extends Component {
 
                     return (
                       <li key={friendly.id}>
-                        <Link to={makeAnalyzerUrl(report.code, fightId, friendly.name)}>
+                        <Link to={makeAnalyzerUrl(report, fightId, friendly.name)}>
                           <img src={`/specs/${specClassName}-${spec.specName.replace(' ', '')}.jpg`} alt="Spec logo" />{' '}
                           {friendly.name} ({spec.specName} {spec.className === 'Unsupported' ? `${spec.className} - ${friendly.type}` : spec.className})
                         </Link>

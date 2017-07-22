@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
+import ReactTooltip from 'react-tooltip';
 
 import ItemLink from 'common/ItemLink';
 import ItemIcon from 'common/ItemIcon';
@@ -13,6 +14,10 @@ class Results extends React.Component {
     tab: PropTypes.string,
     onChangeTab: PropTypes.func.isRequired,
   };
+
+  componentDidUpdate() {
+    ReactTooltip.rebuild();
+  }
 
   render() {
     const { parser, tab, onChangeTab } = this.props;

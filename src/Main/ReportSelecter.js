@@ -52,7 +52,6 @@ class ReportSelecter extends Component {
     }
   }
 
-
   render() {
     return (
       <div className="report-selector">
