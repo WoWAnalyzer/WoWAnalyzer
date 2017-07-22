@@ -7,11 +7,11 @@ export const SPELL_CATEGORY = {
 
 const CPM_ABILITIES = [
 // Rotational Spells
-{
-    spell: SPELLS.BLACK_OUT_KICK_MIST,
-    category: SPELL_CATEGORY.ROTATIONAL,
-    getCooldown: haste => null,
-},
+// {
+//     spell: SPELLS.BLACKOUT_KICK.id,
+//     category: SPELL_CATEGORY.ROTATIONAL,
+//     getCooldown: haste => null,
+// },
 // To Do: Finish adding spells.
 
   

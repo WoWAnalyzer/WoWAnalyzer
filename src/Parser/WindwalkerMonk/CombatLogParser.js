@@ -23,16 +23,15 @@ import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
 function formatThousands(number) {
   return (Math.round(number || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
 }
-// Currently Unused
-// function formatNumber(number) {
-//   if (number > 1000000) {
-//     return `${(number / 1000000).toFixed(2)}m`;
-//   }
-//   if (number > 10000) {
-//     return `${Math.round(number / 1000)}k`;
-//   }
-//   return formatThousands(number);
-// }
+function formatNumber(number) {
+  if (number > 1000000) {
+    return `${(number / 1000000).toFixed(2)}m`;
+  }
+  if (number > 10000) {
+    return `${Math.round(number / 1000)}k`;
+  }
+  return formatThousands(number);
+}
 function getIssueImportance(value, regular, major, higherIsWorse = false) {
   if (higherIsWorse ? value > major : value < major) {
     return ISSUE_IMPORTANCE.MAJOR;
@@ -71,7 +70,7 @@ class CombatLogParser extends MainCombatLogParser {
     }
     if (deadTimePercentage > 0.2) {
       results.addIssue({
-        issue: `Your dead GCD time can be improved. Try to Always Be Casting (ABC); when you're not healing try to contribute some damage (${Math.round(deadTimePercentage * 100)}% dead GCD time).`,
+        issue: `Your dead GCD time can be improved. Try to Always Be Casting (ABC).      (${Math.round(deadTimePercentage * 100)}% dead GCD time).`,
         icon: 'spell_mage_altertime',
         importance: getIssueImportance(deadTimePercentage, 0.35, 0.4, true),
       });
@@ -91,14 +90,8 @@ class CombatLogParser extends MainCombatLogParser {
 
     results.statistics = [
       <StatisticBox
-        icon={(
-          <img
-            src="/img/healing.png"
-            style={{ border: 0 }}
-            alt="Damage"
-          />
-        )}
-        value={formatThousands(this.totalDamageDone)}
+        icon={<Icon icon="spell_monk_windwalker_spec" alt="Dead GCD time" />}
+        value={formatNumber(this.totalDamageDone)}
         label="Damage done"
       />,
       <StatisticBox
