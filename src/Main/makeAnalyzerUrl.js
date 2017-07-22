@@ -9,7 +9,7 @@ export default function makeReportUrl(report = undefined, fightId = undefined, p
       const fightName = getFightName(report, fight);
       parts.push(`${fightId}-${encodeURI(fightName).replace(/%20/g, "+")}`);
       if (playerName) {
-        parts.push(playerName);
+        parts.push(encodeURI(playerName));
         if (tab) {
           parts.push(tab);
         }
