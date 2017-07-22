@@ -91,7 +91,7 @@ class App extends Component {
   handleReportSelecterSubmit(code) {
     console.log('Selected report:', code);
 
-    this.props.router.push(makeAnalyzerUrl(code));
+    this.props.router.push(`report/${code}`);
   }
   handleRefresh() {
     this.fetchReport(this.reportCode, true);
