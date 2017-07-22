@@ -1,4 +1,5 @@
 export default `
+22-07-2017 - Added basic Windwalker Monk support. (by AttilioLH)
 21-07-2017 - Changed fight selection styling and fix back buttons. (by Zerotorescue)
 20-07-2017 - Added fight progress indicator to the fight selection page. (by Yuyz0112)
 19-07-2017 - Holy Paladin: Changed Devotion Aura's passive estimated DRPS to be based on the paladin's damage taken instead of raid average. This should be more accurate as it doesn't include tank damage taken. (by Zerotorescue)
