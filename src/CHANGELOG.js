@@ -1,4 +1,5 @@
 export default `
+22-07-2017 - Added basic Windwalker Monk support. (by AttilioLH)
 22-07-2017 - Shit browsers will now be told they're shit and redirected to a Google Chrome download page instead of just crashing. (by Zerotorescue)
 22-07-2017 - URLs will now show the fight name to make it easier to compare URLs. (by Zerotorescue)
 22-07-2017 - Disc Priest: Added mana saved from the legendary Inner Hallation. (by hassebewlen)
