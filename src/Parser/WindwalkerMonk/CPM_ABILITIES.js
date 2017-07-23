@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+//import SPELLS from 'common/SPELLS';
 
 export const SPELL_CATEGORY = {
   ROTATIONAL: 'Spell',
