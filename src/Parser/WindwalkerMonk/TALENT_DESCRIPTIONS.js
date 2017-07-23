@@ -7,7 +7,7 @@ export default {
   descriptions: {
     // lv 15
     [SPELLS.CHI_BURST_TALENT.id]: <span><SpellLink id={SPELLS.CHI_BURST_TALENT.id} /> does the most single target damage, but <SpellLink id={SPELLS.CHI_WAVE_TALENT.id} /> is recommended due to its short CD and ease of use. </span>,
-    [SPELLS.EYE_OF_THE_TIGER_TALENT.id]: <span><SpellLink id={SPELLS.EYE_OF_THE_TIGER_TALENT.id} /> can be used with <SpellLink id={SPELLS.SERENITY_TALENT.id} /> as free GCDs won't be as easy to come by, so using <SpellLink id={SPELLS.CHI_WAVE_TALENT.id} /> on cooldown can be difficult.</span>,
+    [SPELLS.EYE_OF_THE_TIGER_TALENT.id]: <span><SpellLink id={SPELLS.EYE_OF_THE_TIGER_TALENT.id} /> can be used with <SpellLink id={SPELLS.SERENITY_TALENT.id} /> as free GCDs will not be as easy to come by, so using <SpellLink id={SPELLS.CHI_WAVE_TALENT.id} /> on cooldown can be difficult.</span>,
     [SPELLS.CHI_WAVE_TALENT.id]: <span><SpellLink id={SPELLS.CHI_WAVE_TALENT.id} /> is the default choice due to its quick cooldown that can keep up <SpellLink id={SPELLS.HIT_COMBO_TALENT.id} /> for additional mastery.</span>,
     // lv 30
     [SPELLS.CHI_TORPEDO_TALENT.id]: <span><SpellLink id={SPELLS.CHI_TORPEDO_TALENT.id} /> is good for prolonged movement, such as kiting, and covering long distances quickly.</span>,
