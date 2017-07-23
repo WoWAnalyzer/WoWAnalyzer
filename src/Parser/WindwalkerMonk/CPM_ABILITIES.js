@@ -1,4 +1,4 @@
-//import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS';
 
 export const SPELL_CATEGORY = {
   ROTATIONAL: 'Spell',
@@ -7,12 +7,18 @@ export const SPELL_CATEGORY = {
 
 const CPM_ABILITIES = [
 // Rotational Spells
-// {
-//     spell: SPELLS.BLACKOUT_KICK.id,
-//     category: SPELL_CATEGORY.ROTATIONAL,
-//     getCooldown: haste => null,
-// },
-// To Do: Finish adding spells.
+
+{
+    spell: SPELLS.RISING_SUN_KICK,
+    category: SPELL_CATEGORY.ROTATIONAL,
+    getCooldown: haste => null,
+},
+{
+    spell: SPELLS.BLACKOUT_KICK,
+    category: SPELL_CATEGORY.ROTATIONAL,
+    getCooldown: haste => null,
+},
+//To Do: Finish adding spells.
 
   
 ];
