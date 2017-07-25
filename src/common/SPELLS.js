@@ -21,6 +21,7 @@ import SPELLS_PRIEST from './SPELLS_PRIEST';
 import SPELLS_DRUID from './SPELLS_DRUID';
 import SPELLS_MONK from './SPELLS_MONK';
 import SPELLS_SHAMAN from './SPELLS_SHAMAN';
+import SPELLS_ROGUE from './SPELLS_ROGUE';
 
 const ABILITIES = {
   ...SPELLS_OTHERS,
@@ -44,6 +45,7 @@ const ABILITIES = {
   ...SPELLS_DRUID,
   ...SPELLS_MONK,
   ...SPELLS_SHAMAN,
+  ...SPELLS_ROGUE,
 };
 
 export default indexById(ABILITIES);
