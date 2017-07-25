@@ -89,13 +89,16 @@ class FightSelecter extends Component {
                     return true;
                   })
                   .map(fight => (
-                    <li key={`${fight.id}`}>
+                    <li key={`${fight.id}`} className="item">
                       <Link to={makeAnalyzerUrl(report, fight.id)}>
                         <Fight {...fight} wipes={getWipeCount(report, fight)} />
                       </Link>
                     </li>
                   ))
               }
+              <li className="item clearfix text-muted" style={{ paddingTop: 10, paddingBottom: 10 }}>
+                You will usually get the best results using logs where you're really being challenged, such as progress raids.
+              </li>
             </ul>
           </div>
         </div>
