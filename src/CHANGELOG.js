@@ -1,5 +1,6 @@
 export default `
 31-07-2017 - Added Vantus Rune gain display. (by Zerotorescue)
+30-07-2017 - Mistweaver Monk: Added Refreshing Jade Wind suggestion and updated some talent descriptions (by anomoly)
 22-07-2017 - Added basic Windwalker Monk support. (by AttilioLH)
 22-07-2017 - Holy Priest: Added Holy Word: Sanctify efficiency metric and fixed an issue with Prayer of Mending cast efficiency (by enragednuke)
 22-07-2017 - Shit browsers will now be told they're shit and redirected to a Google Chrome download page instead of just crashing. (by Zerotorescue)
