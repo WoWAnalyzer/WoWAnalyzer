@@ -1,4 +1,5 @@
 export default `
+31-07-2017 - Added Vantus Rune gain display. (by Zerotorescue)
 22-07-2017 - Added basic Windwalker Monk support. (by AttilioLH)
 22-07-2017 - Holy Priest: Added Holy Word: Sanctify efficiency metric and fixed an issue with Prayer of Mending cast efficiency (by enragednuke)
 22-07-2017 - Shit browsers will now be told they're shit and redirected to a Google Chrome download page instead of just crashing. (by Zerotorescue)

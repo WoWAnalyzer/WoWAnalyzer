@@ -285,6 +285,7 @@ class CombatLogParser extends MainCombatLogParser {
           )}
         />
       ),
+      ...results.statistics,
     ];
 
     results.items = [

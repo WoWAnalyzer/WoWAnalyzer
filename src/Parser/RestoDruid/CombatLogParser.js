@@ -573,6 +573,7 @@ class CombatLogParser extends MainCombatLogParser {
           )}
         />
       ),
+      ...results.statistics,
     ];
 
     if (this.modules.darkmoonDeckPromises.active) {

@@ -25,6 +25,9 @@ import DeceiversGrandDesign from './Modules/Items/DeceiversGrandDesign';
 import PrePotion from './Modules/Items/PrePotion';
 import GnawedThumbRing from './Modules/Items/GnawedThumbRing';
 
+// Shared Buffs
+import VantusRune from './Modules/VantusRune';
+
 import ParseResults from './ParseResults';
 import SUGGESTION_IMPORTANCE from './ISSUE_IMPORTANCE';
 
@@ -147,7 +150,11 @@ class CombatLogParser {
       });
 
       resolve(events.length);
-    });
+    })
+      .then((results) => {
+        this.triggerEvent('forceUpdate');
+        return results;
+      });
   }
 
   triggerEvent(eventType, event) {
@@ -362,6 +369,8 @@ class CombatLogParser {
         });
       }
     }
+
+    results.statistics.push(<VantusRune owner={this} />);
 
     return results;
   }

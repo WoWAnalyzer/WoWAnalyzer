@@ -496,7 +496,6 @@ class CombatLogParser extends MainCombatLogParser {
           `}
         />
       ),
-      <DevotionAura owner={this} />,
       hasAuraOfMercy && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.AURA_OF_MERCY_TALENT.id} />}
@@ -511,6 +510,8 @@ class CombatLogParser extends MainCombatLogParser {
           label="Healing done"
         />
       ),
+      <DevotionAura owner={this} />,
+      ...results.statistics,
     ];
 
     results.items = [

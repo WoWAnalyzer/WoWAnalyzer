@@ -85,7 +85,7 @@ class Combatant extends Entity {
     return this._combatantInfo.versatilityHealingDone;
   }
   get versatilityPercentage() {
-    return this.masteryRating / 47500;
+    return this.versatilityRating / 47500;
   }
   
   // Others

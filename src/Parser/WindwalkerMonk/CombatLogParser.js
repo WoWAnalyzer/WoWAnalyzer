@@ -103,6 +103,7 @@ class CombatLogParser extends MainCombatLogParser {
           </dfn>
         )}
       />,
+      ...results.statistics,
     ];
 
     // TODO: Items

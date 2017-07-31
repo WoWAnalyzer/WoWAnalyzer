@@ -545,7 +545,9 @@ class CombatLogParser extends MainCombatLogParser {
           )}
         />
       ),
+      ...results.statistics,
     ];
+
     results.items = [
       ...results.items,
       this.modules.t20_4pc.active && {

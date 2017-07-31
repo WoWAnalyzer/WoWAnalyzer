@@ -86,6 +86,7 @@ class CombatLogParser extends MainCombatLogParser {
           </dfn>
         )}
       />,
+      ...results.statistics,
     ];
 
     return results;
