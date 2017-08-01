@@ -1,4 +1,4 @@
-FROM node:8.0.0-alpine
+FROM node:8.2.1-alpine
 ENV NODE_ENV=production
 RUN mkdir -p /usr/src/wowanalyzer
 COPY . /usr/src/wowanalyzer
