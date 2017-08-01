@@ -1,5 +1,5 @@
 export default `
-31-07-2017 - Enabled aggressive caching to the app which should allow offline usage as well as improve consecutive load times. (by Zerotorescue)
+01-08-2017 - Enabled aggressive caching to the app which should allow offline usage as well as improve consecutive load times. (by Zerotorescue)
 31-07-2017 - Added Vantus Rune gain display. (by Zerotorescue)
 30-07-2017 - Mistweaver Monk: Added Refreshing Jade Wind suggestion and updated some talent descriptions (by anomoly)
 22-07-2017 - Added basic Windwalker Monk support. (by AttilioLH)
