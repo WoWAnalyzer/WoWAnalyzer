@@ -661,6 +661,82 @@ class CombatLogParser extends MainCombatLogParser {
           <LowHealthHealingTab parser={this} />
         ),
       },
+      {
+        title: 'Player Log Data',
+        url: 'player-log-data',
+        render: () => (
+          <div>
+            <div className="panel-heading">
+              <h2>Player Log Data</h2>
+            </div>
+            <div style={{ padding: '15px 22px 15px 15px' }}>
+              <table key='playlogdata-heading' style={{borderBottom: '1px solid #dddddd', borderTop: '1px solid #dddddd', align: 'left', padding: '8px', float: 'left', margin: '2px'}}>
+                <tr><td>Fight Length (Minutes)</td></tr>
+                <tr><td>Fight Length (Seconds)</td></tr>
+                <tr style={{borderTop: '.5px solid #dddddd', borderBottom: '.5px solid #dddddd'}}><td>Mana Remaining</td></tr>
+                <tr><td>Total Uplifting Trance procs</td></tr>
+                <tr><td>Unused UT %</td></tr>
+                <tr style={{borderTop: '.5px solid #dddddd', borderBottom: '.5px solid #dddddd'}}><td>Thunder Focus Tea Casts</td></tr>
+                <tr><td>Effuse</td></tr>
+                <tr><td>Enveloping Mist</td></tr>
+                <tr><td>Essence Font</td></tr>
+                <tr><td>Renewing Mist</td></tr>
+                <tr><td>Vivify</td></tr>
+                <tr style={{borderTop: '.5px solid #dddddd', borderBottom: '.5px solid #dddddd'}}><td>Mastery per EF</td></tr>
+                <tr style={{borderTop: '.5px solid #dddddd', borderBottom: '.5px solid #dddddd'}}><td>Average SG Stacks</td></tr>
+                <tr><td>The Mists of Sheilun Procs</td></tr>
+                <tr><td>Dancing Mist Healing</td></tr>
+                <tr><td>Lifecycles-EnM</td></tr>
+                <tr><td>Lifecycles-Vivify</td></tr>
+                <tr style={{borderTop: '.5px solid #dddddd', borderBottom: '.5px solid #dddddd'}}><td>SotC Mana Return</td></tr>
+                <tr style={{borderTop: '.5px solid #dddddd', borderBottom: '.5px solid #dddddd'}}><td>Mana Tea MP5</td></tr>
+                <tr><td>Misc MP5</td></tr>
+                <tr><td>Misc HPS</td></tr>
+                <tr style={{borderTop: '.5px solid #dddddd', borderBottom: '.5px solid #dddddd'}}><td>Tier 20 2 Piece MP5</td></tr>
+                <tr style={{borderTop: '.5px solid #dddddd', borderBottom: '.5px solid #dddddd'}}><td>Tier 20 4 Piece Uptime</td></tr>
+              </table>
+              <table key='playlogdata-data' style={{borderBottom: '1px solid #dddddd', borderTop: '1px solid #dddddd', align: 'left', padding: '8px', float: 'left', margin: '2px'}}>
+                <tr key='Fight Length (Minutes)'><td>{Math.floor(this.fightDuration / 1000 / 60)}</td></tr>
+                <tr key='Fight Length (Seconds)'><td>{Math.floor((this.fightDuration / 1000) % 60)}</td></tr>
+                <tr key='Mana Remaing' style={{borderTop: '.5px solid #dddddd', borderBottom: '.5px solid #dddddd'}}><td>{this.modules.manaValues.endingMana}</td></tr>
+                <tr key='Uplifing Trance Procs'><td>{this.modules.upliftingTrance.UTProcsTotal}</td></tr>
+                <tr key='Unused UT'><td>{unusedUTProcs.toFixed(4)}</td></tr>
+                <tr key='TFT Casts' style={{borderTop: '.5px solid #dddddd', borderBottom: '.5px solid #dddddd'}}><td>{this.modules.thunderFocusTea.castsTft}</td></tr>
+                <tr key='Effuse'><td>{this.modules.thunderFocusTea.castsTftEff / this.modules.thunderFocusTea.castsTft}</td></tr>
+                <tr key='Enveloping Mist'><td>{this.modules.thunderFocusTea.castsTftEnm / this.modules.thunderFocusTea.castsTft}</td></tr>
+                <tr key='Essence Font'><td>{this.modules.thunderFocusTea.castsTftEf / this.modules.thunderFocusTea.castsTft}</td></tr>
+                <tr key='Renewing Mist'><td>{this.modules.thunderFocusTea.castsTftRem / this.modules.thunderFocusTea.castsTft}</td></tr>
+                <tr key='Vivify'><td>{this.modules.thunderFocusTea.castsTftViv / this.modules.thunderFocusTea.castsTft}</td></tr>
+                <tr key='Master per EF' style={{borderTop: '.5px solid #dddddd', borderBottom: '.5px solid #dddddd'}}><td>{avgMasteryCastsPerEF.toFixed(2)}</td></tr>
+                <tr key='Avg SG Stacks' style={{borderTop: '.5px solid #dddddd', borderBottom: '.5px solid #dddddd'}}><td>{(avgSGstacks).toFixed(0)}</td></tr>
+                <tr key='Mists of Sheilun Procs'><td>{this.modules.aoeHealingTracker.procsMistsOfSheilun}</td></tr>
+                <tr key='Dancing Mist Healing'><td>{this.modules.renewingMist.dancingMistHeal}</td></tr>
+                <tr key='Lifecycles-EnM'><td>{this.modules.manaSavingTalents.castsRedViv / (this.modules.manaSavingTalents.castsRedViv + this.modules.manaSavingTalents.castsNonRedViv) || 0}</td></tr>
+                <tr key='Lifecycles-Vivify'><td>{this.modules.manaSavingTalents.castsRedEnm / (this.modules.manaSavingTalents.castsRedEnm + this.modules.manaSavingTalents.castsNonRedEnm) || 0}</td></tr>
+                <tr key='SotC Mana Return' style={{borderTop: '.5px solid #dddddd', borderBottom: '.5px solid #dddddd'}}><td>{this.modules.manaSavingTalents.manaReturnSotc}</td></tr>
+                <tr key='Mana Tea MP5' style={{borderTop: '.5px solid #dddddd', borderBottom: '.5px solid #dddddd'}}><td>{(this.modules.manaTea.manaSavedMT / this.fightDuration * 1000 * 5).toFixed(0)}</td></tr>
+                <tr key='Misc MP5'><td>{((this.modules.amalgamsSeventhSpine.manaGained / this.fightDuration * 1000 * 5) || 0) + ((this.modules.darkmoonDeckPromises.manaGained / this.fightDuration * 1000 * 5) || 0)}</td></tr>
+                <tr key='Misc HPS'>
+                  <td>
+                    {(((this.modules.prydaz.healing || 0) + (this.modules.velens.healing || 0) + (this.modules.drapeOfShame.healing || 0) +
+                    (this.modules.gnawedThumbRing.healingIncreaseHealing || 0) +
+                    (this.modules.archiveOfFaith.healing + this.modules.archiveOfFaith.healingOverTime || 0) +
+                    (this.modules.barbaricMindslaver.healing || 0) +
+                    (this.modules.seaStar.healing || 0) +
+                    (this.modules.deceiversGrandDesign.healing + this.modules.deceiversGrandDesign.healingAbsorb || 0) +
+                    (this.modules.eithas.healing || 0) +
+                    (this.modules.shelterOfRin.healing || 0) +
+                    (this.modules.doorwayToNowhere.healing || 0) +
+                    (this.modules.ovydsWinterWrap.healing || 0)) / this.fightDuration * 1000).toFixed(0)}
+                  </td>
+                </tr>
+                <tr key='T20 2 Piece MP5' style={{borderTop: '.5px solid #dddddd', borderBottom: '.5px solid #dddddd'}}><td>{this.modules.t20_2pc.manaSaved / this.fightDuration * 1000 * 5 || 0}</td></tr>
+                <tr key='T20 4pc Uptime' style={{borderTop: '.5px solid #dddddd', borderBottom: '.5px solid #dddddd'}}><td>{this.selectedCombatant.getBuffUptime(SPELLS.DANCE_OF_MISTS.id)/this.fightDuration || 0}</td></tr>
+              </table>
+            </div>
+          </div>
+        ),
+      },
     ];
 
     return results;
