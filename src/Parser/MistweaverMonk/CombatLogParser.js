@@ -711,14 +711,16 @@ class CombatLogParser extends MainCombatLogParser {
                 <tr key='Avg SG Stacks' style={{borderTop: '.5px solid #dddddd', borderBottom: '.5px solid #dddddd'}}><td>{(avgSGstacks).toFixed(0)}</td></tr>
                 <tr key='Mists of Sheilun Procs'><td>{this.modules.aoeHealingTracker.procsMistsOfSheilun}</td></tr>
                 <tr key='Dancing Mist Healing'><td>{this.modules.renewingMist.dancingMistHeal}</td></tr>
-                <tr key='Lifecycles-EnM'><td>{this.modules.manaSavingTalents.castsRedViv / (this.modules.manaSavingTalents.castsRedViv + this.modules.manaSavingTalents.castsNonRedViv) || 0}</td></tr>
-                <tr key='Lifecycles-Vivify'><td>{this.modules.manaSavingTalents.castsRedEnm / (this.modules.manaSavingTalents.castsRedEnm + this.modules.manaSavingTalents.castsNonRedEnm) || 0}</td></tr>
+                <tr key='Lifecycles-EnM'><td>{(this.modules.manaSavingTalents.castsRedViv / (this.modules.manaSavingTalents.castsRedViv + this.modules.manaSavingTalents.castsNonRedViv)).toFixed(4) || 0}</td></tr>
+                <tr key='Lifecycles-Vivify'><td>{(this.modules.manaSavingTalents.castsRedEnm / (this.modules.manaSavingTalents.castsRedEnm + this.modules.manaSavingTalents.castsNonRedEnm)).toFixed(4) || 0}</td></tr>
                 <tr key='SotC Mana Return' style={{borderTop: '.5px solid #dddddd', borderBottom: '.5px solid #dddddd'}}><td>{this.modules.manaSavingTalents.manaReturnSotc}</td></tr>
                 <tr key='Mana Tea MP5' style={{borderTop: '.5px solid #dddddd', borderBottom: '.5px solid #dddddd'}}><td>{(this.modules.manaTea.manaSavedMT / this.fightDuration * 1000 * 5).toFixed(0)}</td></tr>
                 <tr key='Misc MP5'><td>{((this.modules.amalgamsSeventhSpine.manaGained / this.fightDuration * 1000 * 5) || 0) + ((this.modules.darkmoonDeckPromises.manaGained / this.fightDuration * 1000 * 5) || 0)}</td></tr>
                 <tr key='Misc HPS'>
                   <td>
-                    {(((this.modules.prydaz.healing || 0) + (this.modules.velens.healing || 0) + (this.modules.drapeOfShame.healing || 0) +
+                    {(((this.modules.prydaz.healing || 0) +
+                    (this.modules.velens.healing || 0) +
+                    (this.modules.drapeOfShame.healing || 0) +
                     (this.modules.gnawedThumbRing.healingIncreaseHealing || 0) +
                     (this.modules.archiveOfFaith.healing + this.modules.archiveOfFaith.healingOverTime || 0) +
                     (this.modules.barbaricMindslaver.healing || 0) +
@@ -730,8 +732,8 @@ class CombatLogParser extends MainCombatLogParser {
                     (this.modules.ovydsWinterWrap.healing || 0)) / this.fightDuration * 1000).toFixed(0)}
                   </td>
                 </tr>
-                <tr key='T20 2 Piece MP5' style={{borderTop: '.5px solid #dddddd', borderBottom: '.5px solid #dddddd'}}><td>{this.modules.t20_2pc.manaSaved / this.fightDuration * 1000 * 5 || 0}</td></tr>
-                <tr key='T20 4pc Uptime' style={{borderTop: '.5px solid #dddddd', borderBottom: '.5px solid #dddddd'}}><td>{this.selectedCombatant.getBuffUptime(SPELLS.DANCE_OF_MISTS.id)/this.fightDuration || 0}</td></tr>
+                <tr key='T20 2 Piece MP5' style={{borderTop: '.5px solid #dddddd', borderBottom: '.5px solid #dddddd'}}><td>{(this.modules.t20_2pc.manaSaved / this.fightDuration * 1000 * 5).toFixed(0) || 0}</td></tr>
+                <tr key='T20 4pc Uptime' style={{borderTop: '.5px solid #dddddd', borderBottom: '.5px solid #dddddd'}}><td>{(this.selectedCombatant.getBuffUptime(SPELLS.DANCE_OF_MISTS.id)/this.fightDuration).toFixed(4) || 0}</td></tr>
               </table>
             </div>
           </div>
