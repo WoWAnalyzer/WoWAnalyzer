@@ -57,7 +57,9 @@ function registerValidSW(swUrl) {
               // It's the perfect time to display a "New content is
               // available; please refresh." message in your web app.
               console.log('New content is available; please refresh.');
-              // TODO: Refresh automatically and show a message that he has gotten the latest version
+              if (window.confirm('A new version is available, do you wish to refresh to load it?')) {
+                window.location.reload();
+              }
             } else {
               // At this point, everything has been precached.
               // It's the perfect time to display a
