@@ -1,4 +1,5 @@
 export default `
+02-08-2017 - Holy Paladin: Added tier 21 4 set bonus (experimental, please send logs). (by Zerotorescue)
 02-08-2017 - Holy Paladin: fixed talent description for Aura of Sacrifice stating Light of Dawn doesn't work (it was fixed). Thanks to @Moonmoon for pointing this out. (by Zerotorescue)
 02-08-2017 - Gnawed Thumb Ring should now show DPS values when applicable. (by Gurupitka)
 01-08-2017 - Mistweaver Monk: Bug Fix for Thunder Focus Tea casts calulating incorrectly when specific cast sequence was used (by anomoly)
