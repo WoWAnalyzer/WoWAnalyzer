@@ -670,10 +670,13 @@ class CombatLogParser extends MainCombatLogParser {
               <h2>Player Log Data</h2>
             </div>
             <div style={{ padding: '15px 22px 15px 15px' }}>
+              <div style={{ padding: '0px 22px 15px 0px' }}>Please use the below table to populate the Player Log section of the Mistweaver Spreadsheet by Garg.  <a href="http://www.peakofserenity.com/mistweaver/spreadsheet/" target="_blank">Link to the sheet</a><br /></div>
+              <div>
               <table key='playlogdata-heading' style={{borderBottom: '1px solid #dddddd', borderTop: '1px solid #dddddd', align: 'left', padding: '8px', float: 'left', margin: '2px'}}>
                 <tr><td>Fight Length (Minutes)</td></tr>
                 <tr><td>Fight Length (Seconds)</td></tr>
                 <tr style={{borderTop: '.5px solid #dddddd', borderBottom: '.5px solid #dddddd'}}><td>Mana Remaining</td></tr>
+                <tr style={{borderTop: '.5px solid #dddddd', borderBottom: '.5px solid #dddddd'}}><td>Absorbless DTPS</td></tr>
                 <tr><td>Total Uplifting Trance procs</td></tr>
                 <tr><td>Unused UT %</td></tr>
                 <tr style={{borderTop: '.5px solid #dddddd', borderBottom: '.5px solid #dddddd'}}><td>Thunder Focus Tea Casts</td></tr>
@@ -699,6 +702,7 @@ class CombatLogParser extends MainCombatLogParser {
                 <tr key='Fight Length (Minutes)'><td>{Math.floor(this.fightDuration / 1000 / 60)}</td></tr>
                 <tr key='Fight Length (Seconds)'><td>{Math.floor((this.fightDuration / 1000) % 60)}</td></tr>
                 <tr key='Mana Remaing' style={{borderTop: '.5px solid #dddddd', borderBottom: '.5px solid #dddddd'}}><td>{this.modules.manaValues.endingMana}</td></tr>
+                <tr key='Absorbless DTPS' style={{borderTop: '.5px solid #dddddd', borderBottom: '.5px solid #dddddd'}}><td>READ THE GUIDE AND CHANGE ME!</td></tr>
                 <tr key='Uplifing Trance Procs'><td>{this.modules.upliftingTrance.UTProcsTotal}</td></tr>
                 <tr key='Unused UT'><td>{unusedUTProcs.toFixed(4)}</td></tr>
                 <tr key='TFT Casts' style={{borderTop: '.5px solid #dddddd', borderBottom: '.5px solid #dddddd'}}><td>{this.modules.thunderFocusTea.castsTft}</td></tr>
@@ -711,8 +715,8 @@ class CombatLogParser extends MainCombatLogParser {
                 <tr key='Avg SG Stacks' style={{borderTop: '.5px solid #dddddd', borderBottom: '.5px solid #dddddd'}}><td>{(avgSGstacks).toFixed(0)}</td></tr>
                 <tr key='Mists of Sheilun Procs'><td>{this.modules.aoeHealingTracker.procsMistsOfSheilun}</td></tr>
                 <tr key='Dancing Mist Healing'><td>{this.modules.renewingMist.dancingMistHeal}</td></tr>
-                <tr key='Lifecycles-EnM'><td>{(this.modules.manaSavingTalents.castsRedViv / (this.modules.manaSavingTalents.castsRedViv + this.modules.manaSavingTalents.castsNonRedViv)).toFixed(4) || 0}</td></tr>
-                <tr key='Lifecycles-Vivify'><td>{(this.modules.manaSavingTalents.castsRedEnm / (this.modules.manaSavingTalents.castsRedEnm + this.modules.manaSavingTalents.castsNonRedEnm)).toFixed(4) || 0}</td></tr>
+                <tr key='Lifecycles-EnM'><td>{hasLifecycles && ((this.modules.manaSavingTalents.castsRedViv / (this.modules.manaSavingTalents.castsRedViv + this.modules.manaSavingTalents.castsNonRedViv)).toFixed(4)) || 0}</td></tr>
+                <tr key='Lifecycles-Vivify'><td>{hasLifecycles && ((this.modules.manaSavingTalents.castsRedEnm / (this.modules.manaSavingTalents.castsRedEnm + this.modules.manaSavingTalents.castsNonRedEnm)).toFixed(4)) || 0}</td></tr>
                 <tr key='SotC Mana Return' style={{borderTop: '.5px solid #dddddd', borderBottom: '.5px solid #dddddd'}}><td>{this.modules.manaSavingTalents.manaReturnSotc}</td></tr>
                 <tr key='Mana Tea MP5' style={{borderTop: '.5px solid #dddddd', borderBottom: '.5px solid #dddddd'}}><td>{(this.modules.manaTea.manaSavedMT / this.fightDuration * 1000 * 5).toFixed(0)}</td></tr>
                 <tr key='Misc MP5'><td>{((this.modules.amalgamsSeventhSpine.manaGained / this.fightDuration * 1000 * 5) || 0) + ((this.modules.darkmoonDeckPromises.manaGained / this.fightDuration * 1000 * 5) || 0)}</td></tr>
@@ -735,6 +739,7 @@ class CombatLogParser extends MainCombatLogParser {
                 <tr key='T20 2 Piece MP5' style={{borderTop: '.5px solid #dddddd', borderBottom: '.5px solid #dddddd'}}><td>{(this.modules.t20_2pc.manaSaved / this.fightDuration * 1000 * 5).toFixed(0) || 0}</td></tr>
                 <tr key='T20 4pc Uptime' style={{borderTop: '.5px solid #dddddd', borderBottom: '.5px solid #dddddd'}}><td>{(this.selectedCombatant.getBuffUptime(SPELLS.DANCE_OF_MISTS.id)/this.fightDuration).toFixed(4) || 0}</td></tr>
               </table>
+              </div>
             </div>
           </div>
         ),
