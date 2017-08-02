@@ -24,6 +24,7 @@ import Sephuz from './Modules/Legendaries/Sephuz';
 import DarkTitanAdvice from './Modules/Legendaries/DarkTitanAdvice';
 import EssenceOfInfusion from './Modules/Legendaries/EssenceOfInfusion';
 import Tearstone from './Modules/Legendaries/Tearstone';
+import AmanThul from './Modules/Legendaries/AmanThul';
 import T20 from './Modules/Legendaries/T20';
 import DarkmoonDeckPromises from './Modules/Legendaries/DarkmoonDeckPromises';
 
@@ -93,6 +94,7 @@ class CombatLogParser extends MainCombatLogParser {
     darkTitanAdvice: DarkTitanAdvice,
     essenceOfInfusion: EssenceOfInfusion,
     tearstone: Tearstone,
+    amanthul: AmanThul,
     t20: T20,
     // TODO:
     // Edraith
@@ -187,6 +189,7 @@ class CombatLogParser extends MainCombatLogParser {
     const wildGrowthTargets = 6;
     const rejuvenationManaCost = 22000;
     const oneRejuvenationThroughput = (((this.modules.treeOfLife.totalHealingFromRejuvenationEncounter / this.totalHealing)) / this.modules.treeOfLife.totalRejuvenationsEncounter);
+    const oneRejuvenationTickThroughput = (((this.modules.treeOfLife.totalHealingFromRejuvenationEncounter / this.totalHealing)) / this.modules.treeOfLife.totalRejuvenationTicksEncounter);
     const rejuvenationIncreasedEffect = (this.modules.treeOfLife.totalHealingFromRejuvenationDuringToL / 1.15 - this.modules.treeOfLife.totalHealingFromRejuvenationDuringToL / (1.15 * 1.5)) / this.totalHealing;
     const tolIncreasedHealingDone = (this.modules.treeOfLife.totalHealingDuringToL - this.modules.treeOfLife.totalHealingDuringToL / 1.15) / this.totalHealing;
     const rejuvenationMana = (((this.modules.treeOfLife.totalRejuvenationsDuringToL * 10) * 0.3) / 10) * oneRejuvenationThroughput;
@@ -224,6 +227,7 @@ class CombatLogParser extends MainCombatLogParser {
     const darkTitanAdviceHealingFromProcc = this.modules.darkTitanAdvice.healingFromProccs / this.totalHealing;
     const essenceOfInfusionHealing = this.modules.essenceOfInfusion.healing / this.totalHealing;
     const tearstoneHealing = this.modules.tearstone.rejuvs * oneRejuvenationThroughput;
+    const amanthulsHealing = this.modules.amanthul.bonusTicks * oneRejuvenationTickThroughput;
     const xonisCaressHealingPercentage = this.modules.xonisCaress.healing / this.totalHealing;
     const ekowraithHealingPercentage = this.modules.ekowraith.healing / this.totalHealing;
     const ekowraithDamageReductionHealingPercentage = (this.modules.ekowraith.damageReductionHealing / (this.totalHealing + this.modules.ekowraith.damageReductionHealing));
@@ -640,6 +644,14 @@ class CombatLogParser extends MainCombatLogParser {
         result: (
           <dfn data-tip={`Your Tearstone gave ${this.modules.tearstone.rejuvs} bonus rejuvenations. Proccrate of ring was ${(this.modules.tearstone.rejuvs / this.modules.tearstone.wildGrowths * 100).toFixed(2)}%`}>
             {((tearstoneHealing * 100) || 0).toFixed(2)} %
+          </dfn>
+        ),
+      },
+      this.selectedCombatant.hasShoulder(ITEMS.AMANTHULS_WISDOM.id) && {
+        item: ITEMS.AMANTHULS_WISDOM,
+        result: (
+          <dfn data-tip={`Your Aman'Thul's gave ${this.modules.amanthul.bonusTicks} bonus rejuvenation ticks. ${((this.modules.amanthul.bonusTicks / this.modules.treeOfLife.totalRejuvenationTicksEncounter) * 100).toFixed(2)}% of all rejuv ticks were from AmanThul's`}>
+            {((amanthulsHealing * 100) || 0).toFixed(2)} %
           </dfn>
         ),
       },
