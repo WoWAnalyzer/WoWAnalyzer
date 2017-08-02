@@ -49,3 +49,6 @@ export const BEACON_TYPES = {
 };
 
 export const AVENGING_WRATH_HEALING_INCREASE = 0.35;
+
+export const BASE_BEACON_TRANSFER = 0.4;
+export const BEACON_OF_FAITH_TRANSFER_REDUCTION = 0.2;
