@@ -1,4 +1,5 @@
 export default `
+02-08-2017 - Holy Paladin: fixed talent description for Aura of Sacrifice stating Light of Dawn doesn't work (it was fixed). Thanks to @Moonmoon for pointing this out. (by Zerotorescue)
 01-08-2017 - Mistweaver Monk: Bug Fix for Thunder Focus Tea casts calulating incorrectly when specific cast sequence was used (by anomoly)
 01-08-2017 - Enabled aggressive caching to the app which should allow offline usage as well as improve consecutive load times. (by Zerotorescue)
 31-07-2017 - Added Vantus Rune gain display. (by Zerotorescue)
