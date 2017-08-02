@@ -121,7 +121,13 @@ class Results extends React.Component {
                           return 1;
                         }
                         // Neither is an actual item, sort by id so last added effect is shown at bottom
-                        return a.id - b.id;
+                        if (a.id < b.id) {
+                          return -1;
+                        } else if (a.id > b.id) {
+                          return 1;
+                        } else {
+                          return 0;
+                        }
                       })
                       .map(item => {
                         if (!item) {
