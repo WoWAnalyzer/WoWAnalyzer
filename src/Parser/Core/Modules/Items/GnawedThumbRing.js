@@ -23,17 +23,16 @@ class GnawedThumbRing extends Module {
       return;
     }
 
-    if(this.owner.selectedCombatant.hasBuff(SPELLS.GNAWED_THUMB_RING.id)) {
+    if (this.owner.selectedCombatant.hasBuff(SPELLS.GNAWED_THUMB_RING.id)) {
       this.healingIncreaseHealing += calculateEffectiveHealing(event, GNAWED_THUMB_RING_HEALING_INCREASE);
     }
   }
 
   on_byPlayer_damage(event){
-    if(this.owner.selectedCombatant.hasBuff(SPELLS.GNAWED_THUMB_RING.id)){
-      this.damageIncreased += (event.amount * GNAWED_THUMB_RING_DAMAGE_INCREASE); //the actual benefit is only 5% of the damage, not the full amount.
+    if (this.owner.selectedCombatant.hasBuff(SPELLS.GNAWED_THUMB_RING.id)) {
+      this.damageIncreased += event.amount - (event.amount / (1 + GNAWED_THUMB_RING_DAMAGE_INCREASE));
     }
   }
-
 }
 
 export default GnawedThumbRing;
