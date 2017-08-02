@@ -12,10 +12,12 @@ class ManaValue extends Module {
     // class resource type 0 means the resource is mana
     if (event.classResources && event.classResources[0] && event.classResources[0].type === MANA_CLASS_RESOURCE_ID) {
       const manaValue = event.classResources[0].amount;
-      this.endingMana = manaValue;
+      const manaEvent = event.classResources[0].cost || 0;
+      const currMana = manaValue - manaEvent;
+      this.endingMana = currMana;
 
-      if(this.lowestMana > manaValue) {
-        this.lowestMana = manaValue;
+      if(this.lowestMana > currMana) {
+        this.lowestMana = currMana;
       }
     }
   }
