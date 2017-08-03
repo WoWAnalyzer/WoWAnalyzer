@@ -1,4 +1,5 @@
 export default `
+03-08-2017 - Fix a bug that caused DRPS displays to not always work properly. (by Zerotorescue)
 02-08-2017 - When there's a new version available ask the user if he wants to refresh. (by Zerotorescue)
 02-08-2017 - Holy Paladin: Added tier 21 2 set bonus (experimental, please send logs). (by Zerotorescue)
 02-08-2017 - Holy Paladin: Added tier 21 4 set bonus (experimental, please send logs). (by Zerotorescue)

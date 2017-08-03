@@ -119,8 +119,10 @@ class CombatLogParser {
     this.initializeModules(this.constructor.specModules);
   }
 
+  numRegisteredModules = 0;
   registerModule(module) {
-    this.modules[`_${module.constructor.name}`] = module;
+    this.modules[`_${this.numRegisteredModules}`] = module;
+    this.numRegisteredModules += 1;
   }
   initializeModules(modules) {
     Object.keys(modules).forEach(key => {
