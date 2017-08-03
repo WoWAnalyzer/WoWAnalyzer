@@ -24,6 +24,11 @@ class ChiBurst extends Module {
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
+    const targetId = event.targetID;
+
+    if (!this.owner.combatants.players[targetId]) {
+      return;
+    }
 
     if(spellId === SPELLS.CHI_BURST_HEAL.id) {
       this.healing += (event.amount || 0) + (event.absorbed || 0);
