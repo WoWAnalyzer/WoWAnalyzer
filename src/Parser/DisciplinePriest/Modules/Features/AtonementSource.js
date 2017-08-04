@@ -26,6 +26,7 @@ class AtonementSource extends Module {
   get atonementApplicationSource() {
     return this._previousAtonementApplicator;
   }
+
   get atonementApplicationSourceEvent() {
     return this._previousAtonementApplicatorEvent;
   }
@@ -36,6 +37,7 @@ class AtonementSource extends Module {
       this._previousAtonementApplicatorEvent = event;
     }
   }
+  
   on_byPlayer_applybuff(event) {
     if (this.atonementApplicators.has(event.ability.guid)) {
       this._previousAtonementApplicator = event.ability.guid;
