@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactTooltip from 'react-tooltip';
 
 import SPELLS from 'common/SPELLS';
 
@@ -8,17 +7,6 @@ class MonkSpreadsheet extends React.Component {
   static propTypes = {
     parser: PropTypes.object.isRequired,
   };
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      ...this.state,
-    };
-  }
-
-  componentDidUpdate() {
-    ReactTooltip.rebuild();
-  }
 
   render() {
     const { parser } = this.props;
@@ -33,7 +21,6 @@ class MonkSpreadsheet extends React.Component {
       table:  {borderBottom: '1px solid #dddddd', borderTop: '1px solid #dddddd', align: 'left', padding: '8px', float: 'left', margin: '2px' },
     };
 
-    console.log('Log Tab: ', parser);
     return (
       <div>
         <div className="panel-heading">
@@ -74,17 +61,20 @@ class MonkSpreadsheet extends React.Component {
             <tr style={styles.cellBorder}><td>Tier 20 2 Piece MP5</td></tr>
             <tr style={styles.cellBorder}><td>Tier 20 4 Piece Uptime</td></tr>
           </table>
+          {
+            // This table is separate to allow for easier copy and pasting of the values from this page into the Mistweaver Spreadsheet.
+          }
           <table style={styles.table}>
             <tr><td>{Math.floor(parser.fightDuration / 1000 / 60)}</td></tr>
             <tr><td>{Math.floor((parser.fightDuration / 1000) % 60)}</td></tr>
             <tr style={styles.cellBorder}><td>{parser.modules.manaValues.endingMana}</td></tr>
             <tr style={styles.cellBorder}><td>{(parser.damageTaken / parser.fightDuration * 1000).toFixed(2)}</td></tr>
             <tr style={styles.cellBorder}><td>{parser.modules.thunderFocusTea.castsTft}</td></tr>
-            <tr><td>{parser.modules.thunderFocusTea.castsTftEff / parser.modules.thunderFocusTea.castsTft}</td></tr>
-            <tr><td>{parser.modules.thunderFocusTea.castsTftEnm / parser.modules.thunderFocusTea.castsTft}</td></tr>
-            <tr><td>{parser.modules.thunderFocusTea.castsTftEf / parser.modules.thunderFocusTea.castsTft}</td></tr>
-            <tr><td>{parser.modules.thunderFocusTea.castsTftRem / parser.modules.thunderFocusTea.castsTft}</td></tr>
-            <tr><td>{parser.modules.thunderFocusTea.castsTftViv / parser.modules.thunderFocusTea.castsTft}</td></tr>
+            <tr><td>{(parser.modules.thunderFocusTea.castsTftEff / parser.modules.thunderFocusTea.castsTft).toFixed(4)}</td></tr>
+            <tr><td>{(parser.modules.thunderFocusTea.castsTftEnm / parser.modules.thunderFocusTea.castsTft).toFixed(4)}</td></tr>
+            <tr><td>{(parser.modules.thunderFocusTea.castsTftEf / parser.modules.thunderFocusTea.castsTft).toFixed(4)}</td></tr>
+            <tr><td>{(parser.modules.thunderFocusTea.castsTftRem / parser.modules.thunderFocusTea.castsTft).toFixed(4)}</td></tr>
+            <tr><td>{(parser.modules.thunderFocusTea.castsTftViv / parser.modules.thunderFocusTea.castsTft).toFixed(4)}</td></tr>
             <tr style={styles.cellBorder}><td>{parser.modules.upliftingTrance.UTProcsTotal}</td></tr>
             <tr><td>{(1 - (parser.modules.upliftingTrance.consumedUTProc / parser.modules.upliftingTrance.UTProcsTotal)).toFixed(4)}</td></tr>
             <tr style={styles.cellBorder}><td>{(parser.modules.manaTea.manaSavedMT / parser.fightDuration * 1000 * 5).toFixed(0)}</td></tr>
