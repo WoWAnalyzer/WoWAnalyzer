@@ -13,7 +13,7 @@ class Penance extends Module {
 
   _speedOfThePiousAcquired = false;
   _previousPenanceTimestamp = null;
-  _penanceFirstBolt = false;
+  _penanceBoltNumber = 0;
 
   isNewPenanceCast(timestamp) {
     return !this._previousPenanceTimestamp || (timestamp - this._previousPenanceTimestamp) > PENANCE_MINIMUM_RECAST_TIME;
@@ -27,7 +27,7 @@ class Penance extends Module {
 
     if (this.isNewPenanceCast(event.timestamp)) {
       this._previousPenanceTimestamp = event.timestamp;
-      this._penanceFirstBolt = true;
+      this._penanceBoltNumber = 0;
     }
   }
 
@@ -37,7 +37,7 @@ class Penance extends Module {
       return;
     }
     this._speedOfThePiousAcquired = true;
-    this._penanceFirstBolt = true;
+    this._penanceBoltNumber = 0;
   }
 
   on_byPlayer_damage(event) {
@@ -45,10 +45,8 @@ class Penance extends Module {
       return;
     }
 
-    if (this._penanceFirstBolt) {
-      event.isFirstPenanceBolt = true;
-      this._penanceFirstBolt = false;
-    }
+    event.penanceBoltNumber = this._penanceBoltNumber;
+    this._penanceBoltNumber += 1;
   }
 
   on_byPlayer_heal(event) {
@@ -56,10 +54,8 @@ class Penance extends Module {
       return;
     }
 
-    if (this._penanceFirstBolt) {
-      event.isFirstPenanceBolt = true;
-      this._penanceFirstBolt = false;
-    }
+    event.penanceBoltNumber = this._penanceBoltNumber;
+    this._penanceBoltNumber += 1;
   }
 }
 
