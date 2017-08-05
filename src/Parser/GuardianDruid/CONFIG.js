@@ -1,4 +1,3 @@
-import React from 'react';
 import SPECS from 'common/SPECS';
 
 import CombatLogParser from './CombatLogParser';

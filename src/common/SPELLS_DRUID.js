@@ -338,7 +338,7 @@ export default {
   INCAPACITATING_ROAR: {
     id:99,
     name:'Incapacitating Roar',
-    icon:'ability_druid_demorolizingroar'
+    icon:'ability_druid_demorolizingroar',
   },
   INCARNATION_OF_URSOC: {
     id:102558,
