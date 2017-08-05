@@ -9,6 +9,7 @@ import AbilityTracker from './Modules/AbilityTracker';
 import AlwaysBeCasting from './Modules/AlwaysBeCasting';
 import Enemies from './Modules/Enemies';
 import HealEventTracker from './Modules/HealEventTracker';
+import ManaValues from './Modules/ManaValues';
 
 // Shared Legendaries
 import Prydaz from './Modules/Items/Prydaz';
@@ -50,6 +51,7 @@ class CombatLogParser {
     abilityTracker: AbilityTracker,
     healEventTracker: HealEventTracker,
     alwaysBeCasting: AlwaysBeCasting,
+    manaValues: ManaValues,
 
     // Items:
     // Legendaries:
