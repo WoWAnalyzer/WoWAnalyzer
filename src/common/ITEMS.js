@@ -307,6 +307,13 @@ const ITEMS = {
     icon: 'inv_jewelcrafting_purpleowl.jpg',
     quality: ITEM_QUALITIES.EPIC,
   },
+  // Guardian legendaries
+  ELIZES_EVERLASTING_ENCASEMENT: {
+    id: 137067,
+    name: 'Elize\'s Everlasting Encasement',
+    icon: 'inv_jewelcrafting_purpleowl.jpg',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
 };
 
 export default indexById(ITEMS);
