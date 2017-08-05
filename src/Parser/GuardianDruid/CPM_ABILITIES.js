@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
 
 export const SPELL_CATEGORY = {
     ROTATIONAL: 'Rotational Spell',
@@ -44,6 +45,11 @@ const CPM_ABILITIES = [
     },
     noSuggestion: true,
 },
+{
+    spell: SPELLS.MAUL,
+    category: SPELL_CATEGORY.ROTATIONAL,
+    getCooldown: haste => null,
+},
 // Cooldowns
 {
     spell: SPELLS.BARKSKIN,
@@ -63,13 +69,31 @@ const CPM_ABILITIES = [
         debug && console.log('Survival CD ' + baseCd);
         return baseCd;      
     },
+    charges:3,
+    isActive: combatant => combatant.hasFinger(ITEMS.DUAL_DETERMINATION.id),
+},
+{
+    spell: SPELLS.SURVIVAL_INSTINCTS,
+    category: SPELL_CATEGORY.COOLDOWNS,
+    getCooldown: (haste, combatant) => {
+        const baseCd = combatant.hasTalent(SPELLS.SURVIVAL_OF_THE_FITTEST_TALENT.id) ? 240-(240/3) : 240;
+        debug && console.log('Survival CD ' + baseCd);
+        return baseCd;      
+    },
     charges:2,
+    isActive: combatant => !combatant.hasFinger(ITEMS.DUAL_DETERMINATION.id),
 },
 {
     spell: SPELLS.INCARNATION_OF_URSOC,
     category: SPELL_CATEGORY.COOLDOWNS,
     getCooldown: haste => 180,
     isActive: combatant => combatant.hasTalent(SPELLS.INCARNATION_OF_URSOC.id),
+},
+{
+    spell: SPELLS.BRISTLING_FUR_TALENT,
+    category: SPELL_CATEGORY.COOLDOWNS,
+    getCooldown: haste => 40,
+    isActive: combatant => combatant.hasTalent(SPELLS.BRISTLING_FUR_TALENT.id),
 },
 {
     spell: SPELLS.IRONFUR,
@@ -88,11 +112,24 @@ const CPM_ABILITIES = [
 },
 // Raid utility
 {
-    spell: SPELLS.STAMPEDING_ROAR,
+    spell: SPELLS.STAMPEDING_ROAR_BEAR,
     category: SPELL_CATEGORY.UTILITY,
     getCooldown: haste => 120,
     noSuggestion: true,
 },
+{
+    spell: SPELLS.GROWL,
+    category: SPELL_CATEGORY.UTILITY,
+    getCooldown: haste => null,
+    noSuggestion: true,
+},
+{
+    spell: SPELLS.SKULL_BASH,
+    category: SPELL_CATEGORY.UTILITY,
+    getCooldown: haste => null,
+    noSuggestion: true,
+},
+
 //To Do: Finish adding spells.
 
   

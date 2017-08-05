@@ -18,6 +18,8 @@ import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 import Gore from './Modules/Features/Gore';
+import GalacticGuardian from './Modules/Features/GalacticGuardian';
+import DualDetermination from './Modules/Items/DualDetermination';
 
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 
@@ -53,8 +55,10 @@ class CombatLogParser extends MainCombatLogParser {
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     goreProcs: Gore,
+    galacticGuardianProcs: GalacticGuardian,
 
     // Legendaries:
+    dualDetermination: DualDetermination,
   };
 
   generateResults() {
@@ -65,6 +69,7 @@ class CombatLogParser extends MainCombatLogParser {
     const nonDpsTimePercentage = this.modules.alwaysBeCasting.totalDamagingTimeWasted / fightDuration;
     const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
     const unusedGoreProcs = 1 - (this.modules.goreProcs.consumedGoreProc / this.modules.goreProcs.GoreProcsTotal);    
+    const unusedGGProcs = 1 - (this.modules.galacticGuardianProcs.consumedGGProc / this.modules.galacticGuardianProcs.GGProcsTotal);    
 
     if (nonDpsTimePercentage > 0.3) {
       results.addIssue({
@@ -85,6 +90,13 @@ class CombatLogParser extends MainCombatLogParser {
         issue: <span>Your <SpellLink id={SPELLS.GORE_BEAR.id} /> procs should be used as soon as you get them so they are not overwritten. You missed {(this.modules.goreProcs.GoreProcsTotal - this.modules.goreProcs.consumedGoreProc)}/{(this.modules.goreProcs.GoreProcsTotal)} procs. ({formatPercentage((this.modules.goreProcs.GoreProcsTotal - this.modules.goreProcs.consumedGoreProc) / this.modules.goreProcs.GoreProcsTotal)} %)</span>,
         icon: SPELLS.GORE_BEAR.icon,
         importance: getIssueImportance(unusedGoreProcs, 0.45, 0.6, true),
+      });
+    }
+    if (unusedGGProcs > 0.30) {
+      results.addIssue({
+        issue: <span>Your <SpellLink id={SPELLS.GORE_BEAR.id} /> procs should be used as soon as you get them so they are not overwritten. You missed {(this.modules.galacticGuardianProcs.GGProcsTotal - this.modules.galacticGuardianProcs.consumedGGProc)}/{(this.modules.galacticGuardianProcs.GGProcsTotal)} procs. ({formatPercentage((this.modules.galacticGuardianProcs.GGProcsTotal - this.modules.galacticGuardianProcs.consumedGGProc) / this.modules.galacticGuardianProcs.GGProcsTotal)} %)</span>,
+        icon: SPELLS.GORE_BEAR.icon,
+        importance: getIssueImportance(unusedGGProcs, 0.45, 0.6, true),
       });
     }
 
@@ -152,6 +164,15 @@ class CombatLogParser extends MainCombatLogParser {
           </dfn>
         )}
       />,
+      this.modules.galacticGuardianProcs.active && (<StatisticBox
+        icon={<SpellIcon id={SPELLS.GALACTIC_GUARDIAN.id} />}
+        value={`${formatPercentage(unusedGGProcs)}%`}
+        label={(
+          <dfn data-tip={`You got total <b>${this.modules.galacticGuardianProcs.GGProcsTotal} galactic guardian procs</b> and <b>used ${this.modules.galacticGuardianProcs.consumedGGProc}</b> of them.`}>
+            Unused Galactic Guardian Procs
+          </dfn>
+        )}
+      />),
     ];
 
     // TODO: Items

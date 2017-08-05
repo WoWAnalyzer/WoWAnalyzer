@@ -9,6 +9,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.THRASH_BEAR.id,
     SPELLS.BEAR_SWIPE.id,
     SPELLS.MOONFIRE.id,
+    SPELLS.MAUL.id,
     // To Do: Complete list of spells.
   ];
 }

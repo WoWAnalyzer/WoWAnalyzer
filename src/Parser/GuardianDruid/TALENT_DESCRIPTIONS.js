@@ -12,7 +12,7 @@ export default {
     [SPELLS.BRISTLING_FUR_TALENT.id]: <span>Bristling Fur is the best talent for single target rage generation, it has a relatively short cooldown and should be used if that will not be wasted.</span>,
     [SPELLS.BLOOD_FRENZY_TALENT.id]: <span>Blood Frenzy is the go-to AOE talent and should be used when there are consistently 2+ targets for rage generation if rage is not an issue Brambles is usable.</span>,
     // lv 30
-    [SPELLS.GUTTURAL_ROARS_TALENT.id]: <span>Gutteral Roars increases the range of both <SpellLink id={SPELLS.STAMPEDING_ROAR.id} /> and <SpellLink id={SPELLS.INCAPACITATING_ROAR.id} /> by 200% and 100% respectively, its a good default talent.</span>,
+    [SPELLS.GUTTURAL_ROARS_TALENT.id]: <span>Gutteral Roars increases the range of both <SpellLink id={SPELLS.STAMPEDING_ROAR_BEAR.id} /> and <SpellLink id={SPELLS.INCAPACITATING_ROAR.id} /> by 200% and 100% respectively, its a good default talent.</span>,
     [SPELLS.INTIMIDATING_ROAR_TALENT.id]: <span>Intimidating roar is very similar to incapacitating roar but also includes a root for 3s, its not normally required.</span>,
     [SPELLS.WILD_CHARGE_TALENT.id]: <span>Wild charge allows you to charge at an enemy and immobilise them for 4s, the immobilise does not apply to bosses.</span>,
     // lv 45

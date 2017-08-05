@@ -320,6 +320,11 @@ export default {
     name:'Thrash',
     icon:'spell_druid_thrash',
   },
+  THRASH_BEAR_DOT: {
+    id: 192090,
+    name: 'Thrash',
+    icon: 'spell_druid_thrash',
+  },
   SURVIVAL_INSTINCTS: {
     id:61336,
     name:'Survival Instincts',
@@ -330,10 +335,15 @@ export default {
     name:'Ironfur',
     icon:'ability_druid_ironfur',
   },
-  STAMPEDING_ROAR: {
+  STAMPEDING_ROAR_CAT: {
     id:106898,
     name:'Stampeding Roar',
     icon:'spell_druid_stampedingroar_cat',
+  },
+  STAMPEDING_ROAR_BEAR: {
+    id: 77761,
+    name: 'Stampeding Roar',
+    icon: 'spell_druid_stamedingroar',
   },
   INCAPACITATING_ROAR: {
     id:99,
@@ -374,5 +384,30 @@ export default {
     id:145108,
     name:'Ysera\'s gift',
     icon: 'inv_misc_head_dragon_green',
+  },
+  MAUL: {
+    id: 6807,
+    name: 'Maul',
+    icon: 'ability_druid_maul',
+  },
+  GROWL: {
+    id: 6795,
+    name: 'Growl',
+    icon: 'ability_physical_taunt',
+  },
+  SKULL_BASH: {
+    id: 106839,
+    name: 'Skull Bash',
+    icon: 'inv_bone_skull_04',
+  },
+  REBIRTH: {
+    id: 20484,
+    name: 'Rebirth',
+    icon: 'spell_nature_reincarnation',
+  },
+  GALACTIC_GUARDIAN: {
+    id: 213708,
+    name: 'Galactic Guardian',
+    icon: 'spell_frost_iceclaw',
   },
 };
