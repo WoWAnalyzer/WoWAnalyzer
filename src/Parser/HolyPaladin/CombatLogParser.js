@@ -40,6 +40,8 @@ import ObsidianStoneSpaulders from './Modules/Items/ObsidianStoneSpaulders';
 import MaraadsDyingBreath from './Modules/Items/MaraadsDyingBreath';
 import Tier19_4set from './Modules/Items/Tier19_4set';
 import Tier20_4set from './Modules/Items/Tier20_4set';
+import Tier21_2set from './Modules/Items/Tier21_2set';
+import Tier21_4set from './Modules/Items/Tier21_4set';
 
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
@@ -89,6 +91,8 @@ class CombatLogParser extends MainCombatLogParser {
     maraadsDyingBreath: MaraadsDyingBreath,
     tier19_4set: Tier19_4set,
     tier20_4set: Tier20_4set,
+    tier21_2set: Tier21_2set,
+    tier21_4set: Tier21_4set,
   };
 
   calculateMasteryStats() {
@@ -579,6 +583,18 @@ class CombatLogParser extends MainCombatLogParser {
             {formatItemHealing(this.modules.tier20_4set.healing)}
           </dfn>
         ),
+      },
+      this.modules.tier21_2set.active && {
+        id: `spell-${SPELLS.HOLY_PALADIN_T21_2SET_BONUS_BUFF.id}`,
+        icon: <SpellIcon id={SPELLS.HOLY_PALADIN_T21_2SET_BONUS_BUFF.id} />,
+        title: <SpellLink id={SPELLS.HOLY_PALADIN_T21_2SET_BONUS_BUFF.id} />,
+        result: formatItemHealing(this.modules.tier21_2set.healing),
+      },
+      this.modules.tier21_4set.active && {
+        id: `spell-${SPELLS.HOLY_PALADIN_T21_4SET_BONUS_BUFF.id}`,
+        icon: <SpellIcon id={SPELLS.HOLY_PALADIN_T21_4SET_BONUS_BUFF.id} />,
+        title: <SpellLink id={SPELLS.HOLY_PALADIN_T21_4SET_BONUS_BUFF.id} />,
+        result: formatItemHealing(this.modules.tier21_4set.healing),
       },
     ];
 

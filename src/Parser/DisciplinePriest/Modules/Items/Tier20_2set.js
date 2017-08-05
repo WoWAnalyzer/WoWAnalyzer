@@ -19,12 +19,11 @@ class Tier20_2set extends Module {
   }
 
   on_byPlayer_damage(event) {
-    if (event.ability.guid !== SPELLS.PENANCE.id || !event.isFirstPenanceBolt) {
+    if (event.ability.guid !== SPELLS.PENANCE.id || event.penanceBoltNumber !== 0) {
       this._firstPenanceBoltLastDamageEvent = false;
       return;
     }
 
-    console.log(event, 'Bolt of offensive Penance damage');
     this._firstPenanceBoltLastDamageEvent = true;
     this.damage += (event.amount / 2);
   }
@@ -32,8 +31,7 @@ class Tier20_2set extends Module {
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.PENANCE_HEAL.id) {
-      console.log(event, 'Bolt of friendly Penance');
-      if (event.isFirstPenanceBolt) {
+      if (event.penanceBoltNumber === 0) {
         this.healing += calculateEffectiveHealing(event, TIER_20_TWO_SET_BONUS);
       }
     }

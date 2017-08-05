@@ -49,7 +49,7 @@ const VERSATILITY_PER_PERCENT_DAMAGE_REDUCTION = VERSATILITY_PER_PERCENT_THROUGH
 const VANTUS_RUNE_PERCENTAGE_THROUGHPUT = VANTUS_RUNE_VERSATILITY / VERSATILITY_PER_PERCENT_THROUGHPUT;
 const VANTUS_RUNE_PERCENTAGE_DAMAGE_REDUCTION  = VANTUS_RUNE_VERSATILITY / VERSATILITY_PER_PERCENT_DAMAGE_REDUCTION;
 
-class DevotionAura extends ModuleComponent {
+class VantusRune extends ModuleComponent {
   constructor(props) {
     super(props);
 
@@ -99,4 +99,4 @@ class DevotionAura extends ModuleComponent {
   }
 }
 
-export default DevotionAura;
+export default VantusRune;

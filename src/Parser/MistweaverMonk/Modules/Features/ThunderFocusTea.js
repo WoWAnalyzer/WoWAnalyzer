@@ -13,7 +13,7 @@ class ThunderFocusTea extends Module {
     castsTft = 0;
     castsUnderTft = 0;
 
-    TftVivCastTimestamp = null;
+    castBufferTimestamp = null;
     ftActive = false;
 
     on_initialized() {
@@ -32,9 +32,9 @@ class ThunderFocusTea extends Module {
     on_byPlayer_cast(event) {
       const spellId = event.ability.guid;
 
-      // Implemented as a way to remove non-buffed REM casts that occur at the same timestamp as the buffed Viv cast.
+      // Implemented as a way to remove non-buffed REM or EF casts that occur at the same timestamp as the buffed Viv cast.
       // Need to think of cleaner solution
-      if(this.TftVivCastTimestamp === event.timestamp) {
+      if((event.timestamp - this.castBufferTimestamp) < 25) {
         return;
       }
 
@@ -42,33 +42,30 @@ class ThunderFocusTea extends Module {
         if(SPELLS.VIVIFY.id === spellId && !event.classResources.cost) {
           this.castsUnderTft++;
           this.castsTftViv++;
-          debug && console.log('Viv TFT Check');
-          this.TftVivCastTimestamp = event.timestamp;
+          debug && console.log('Viv TFT Check ', event.timestamp);
+          this.castBufferTimestamp = event.timestamp;
         }
         if(SPELLS.EFFUSE.id === spellId) {
           this.castsUnderTft++;
           this.castsTftEff++;
-          debug && console.log('Eff TFT Check');
+          debug && console.log('Eff TFT Check ', event.timestamp);
         }
         if(SPELLS.ENVELOPING_MISTS.id === spellId) {
           this.castsUnderTft++;
           this.castsTftEnm++;
-          debug && console.log('Enm TFT Check');
+          debug && console.log('Enm TFT Check ', event.timestamp);
         }
         if(SPELLS.ESSENCE_FONT.id === spellId) {
           this.castsUnderTft++;
           this.castsTftEf++;
-          debug && console.log('EF TFT Check');
+          debug && console.log('EF TFT Check ', event.timestamp);
         }
         if(SPELLS.RENEWING_MIST.id === spellId) {
           this.castsUnderTft++;
           this.castsTftRem++;
-          debug && console.log('REM TFT Check');
+          debug && console.log('REM TFT Check ', event.timestamp);
         }
-
-
       }
-
     }
 
     on_finished() {

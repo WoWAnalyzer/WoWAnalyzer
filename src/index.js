@@ -6,6 +6,8 @@ import './static/bootstrap/css/bootstrap.css';
 
 import App from './Main/App';
 
+import registerServiceWorker from './registerServiceWorker';
+
 render(
   <Router history={browserHistory}>
     <Route path='/' component={App}>
@@ -17,3 +19,4 @@ render(
   </Router>,
   document.getElementById('root')
 );
+registerServiceWorker();

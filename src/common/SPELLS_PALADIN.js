@@ -170,6 +170,21 @@ export default {
     name: 'Light\'s Embrace',
     icon: 'spell_holy_holybolt',
   },
+  HOLY_PALADIN_T21_2SET_BONUS_BUFF: {
+    id: 251863,
+    name: 'T21 2 set bonus',
+    icon: 'ability_paladin_conviction',
+  },
+  HOLY_PALADIN_T21_4SET_BONUS_BUFF: {
+    id: 251865,
+    name: 'T21 4 set bonus',
+    icon: 'ability_paladin_conviction',
+  },
+  PURITY_OF_LIGHT: {
+    id: 254332,
+    name: 'Purity of Light',
+    icon: 'ability_paladin_conviction',
+  },
   INFUSION_OF_LIGHT: {
     id: 54149,
     name: 'Infusion of Light',
