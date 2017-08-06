@@ -20,6 +20,7 @@ import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import Gore from './Modules/Features/Gore';
 import GalacticGuardian from './Modules/Features/GalacticGuardian';
 import GuardianOfElune from './Modules/Features/GuardianOfElune';
+import IronFur from './Modules/Features/IronFur';
 import DualDetermination from './Modules/Items/DualDetermination';
 
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
@@ -58,6 +59,7 @@ class CombatLogParser extends MainCombatLogParser {
     goreProcs: Gore,
     galacticGuardianProcs: GalacticGuardian,
     guardianOfEluneProcs: GuardianOfElune,
+    ironFurStacks: IronFur,
 
     // Legendaries:
     dualDetermination: DualDetermination,
@@ -73,6 +75,7 @@ class CombatLogParser extends MainCombatLogParser {
     const unusedGoreProcs = 1 - (this.modules.goreProcs.consumedGoreProc / this.modules.goreProcs.GoreProcsTotal);    
     const unusedGGProcs = 1 - (this.modules.galacticGuardianProcs.consumedGGProc / this.modules.galacticGuardianProcs.GGProcsTotal);    
     const unusedGoEProcs = 1 - (this.modules.guardianOfEluneProcs.consumedGoEProc / this.modules.guardianOfEluneProcs.GoEProcsTotal);    
+    const totalIronFurTime = this.modules.ironFurStacks.totalIFProcTime;
 
     if (nonDpsTimePercentage > 0.3) {
       results.addIssue({
@@ -210,6 +213,15 @@ class CombatLogParser extends MainCombatLogParser {
           </dfn>
         )}
       />),
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.IRONFUR.id} />}
+        value={`${formatPercentage(totalIronFurTime/fightDuration)}%`}
+        label={(
+          <dfn>
+            Total Ironfur uptime
+          </dfn>
+        )}
+      />,
     ];
 
     // TODO: Items

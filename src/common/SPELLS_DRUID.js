@@ -415,4 +415,9 @@ export default {
     name: 'Guardian Of Elune',
     icon: 'spell_druid_guardianofelune',
   },
+  URSOC_ENDURANCE: {
+    id: 200399,
+    name: 'Ursoc\'s Endurance',
+    icon: 'ability_hunter_pet_bear',
+  },
 };
