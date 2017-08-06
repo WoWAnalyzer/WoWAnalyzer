@@ -75,7 +75,10 @@ class CombatLogParser extends MainCombatLogParser {
     const unusedGoreProcs = 1 - (this.modules.goreProcs.consumedGoreProc / this.modules.goreProcs.GoreProcsTotal);    
     const unusedGGProcs = 1 - (this.modules.galacticGuardianProcs.consumedGGProc / this.modules.galacticGuardianProcs.GGProcsTotal);    
     const unusedGoEProcs = 1 - (this.modules.guardianOfEluneProcs.consumedGoEProc / this.modules.guardianOfEluneProcs.GoEProcsTotal);    
-    const totalIronFurTime = this.modules.ironFurStacks.totalIFProcTime;
+    let totalIronFurTime = this.modules.ironFurStacks.totalIFProcTime;
+    if (this.modules.ironFurStacks.lastIFProcTime > 0 && this.finished) {
+      totalIronFurTime += this.fight.end_time - this.modules.ironFurStacks.lastIFProcTime;
+    }
 
     if (nonDpsTimePercentage > 0.3) {
       results.addIssue({
