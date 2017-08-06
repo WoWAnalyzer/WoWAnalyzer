@@ -21,11 +21,13 @@ const CPM_ABILITIES = [
     spell: SPELLS.BEAR_SWIPE,
     category: SPELL_CATEGORY.ROTATIONAL,
     getCooldown: haste => null,
+    noSuggestion: true,
 },
 {
     spell: SPELLS.MOONFIRE,
     category: SPELL_CATEGORY.ROTATIONAL,
     getCooldown: haste => null,
+    noSuggestion: true,
 },
 {
     spell:SPELLS.THRASH_BEAR,
@@ -49,6 +51,7 @@ const CPM_ABILITIES = [
     spell: SPELLS.MAUL,
     category: SPELL_CATEGORY.ROTATIONAL,
     getCooldown: haste => null,
+    noSuggestion: true,
 },
 // Cooldowns
 {
@@ -60,6 +63,7 @@ const CPM_ABILITIES = [
         debug && console.log('Barkskin CD ' + baseCd * (1 - (cdTrait * 3 / 100)));
         return baseCd * (1 - (cdTrait * 3 / 100));      
     },
+    noSuggestion: true,
 },
 {
     spell: SPELLS.SURVIVAL_INSTINCTS,
@@ -71,6 +75,7 @@ const CPM_ABILITIES = [
     },
     charges:3,
     isActive: combatant => combatant.hasFinger(ITEMS.DUAL_DETERMINATION.id),
+    noSuggestion: true,
 },
 {
     spell: SPELLS.SURVIVAL_INSTINCTS,
@@ -82,33 +87,39 @@ const CPM_ABILITIES = [
     },
     charges:2,
     isActive: combatant => !combatant.hasFinger(ITEMS.DUAL_DETERMINATION.id),
+    noSuggestion: true,
 },
 {
     spell: SPELLS.INCARNATION_OF_URSOC,
     category: SPELL_CATEGORY.COOLDOWNS,
     getCooldown: haste => 180,
     isActive: combatant => combatant.hasTalent(SPELLS.INCARNATION_OF_URSOC.id),
+    noSuggestion: true,
 },
 {
     spell: SPELLS.BRISTLING_FUR_TALENT,
     category: SPELL_CATEGORY.COOLDOWNS,
     getCooldown: haste => 40,
     isActive: combatant => combatant.hasTalent(SPELLS.BRISTLING_FUR_TALENT.id),
+    noSuggestion: true,
 },
 {
     spell: SPELLS.IRONFUR,
     category: SPELL_CATEGORY.COOLDOWNS,
     getCooldown: haste => null,
+    noSuggestion: true,
 },
 {
     spell: SPELLS.RAGE_OF_THE_SLEEPER,
     category: SPELL_CATEGORY.COOLDOWNS,
     getCooldown: haste => 90,
+    noSuggestion: true,
 },
 {
     spell: SPELLS.FRENZIED_REGENERATION,
     category: SPELL_CATEGORY.COOLDOWNS,
     getCooldown: haste => null,
+    noSuggestion: true,
 },
 // Raid utility
 {

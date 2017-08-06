@@ -19,6 +19,7 @@ import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 import Gore from './Modules/Features/Gore';
 import GalacticGuardian from './Modules/Features/GalacticGuardian';
+import GuardianOfElune from './Modules/Features/GuardianOfElune';
 import DualDetermination from './Modules/Items/DualDetermination';
 
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
@@ -56,6 +57,7 @@ class CombatLogParser extends MainCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     goreProcs: Gore,
     galacticGuardianProcs: GalacticGuardian,
+    guardianOfEluneProcs: GuardianOfElune,
 
     // Legendaries:
     dualDetermination: DualDetermination,
@@ -70,6 +72,7 @@ class CombatLogParser extends MainCombatLogParser {
     const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
     const unusedGoreProcs = 1 - (this.modules.goreProcs.consumedGoreProc / this.modules.goreProcs.GoreProcsTotal);    
     const unusedGGProcs = 1 - (this.modules.galacticGuardianProcs.consumedGGProc / this.modules.galacticGuardianProcs.GGProcsTotal);    
+    const unusedGoEProcs = 1 - (this.modules.guardianOfEluneProcs.consumedGoEProc / this.modules.guardianOfEluneProcs.GoEProcsTotal);    
 
     if (nonDpsTimePercentage > 0.3) {
       results.addIssue({
@@ -94,9 +97,16 @@ class CombatLogParser extends MainCombatLogParser {
     }
     if (unusedGGProcs > 0.30) {
       results.addIssue({
-        issue: <span>Your <SpellLink id={SPELLS.GORE_BEAR.id} /> procs should be used as soon as you get them so they are not overwritten. You missed {(this.modules.galacticGuardianProcs.GGProcsTotal - this.modules.galacticGuardianProcs.consumedGGProc)}/{(this.modules.galacticGuardianProcs.GGProcsTotal)} procs. ({formatPercentage((this.modules.galacticGuardianProcs.GGProcsTotal - this.modules.galacticGuardianProcs.consumedGGProc) / this.modules.galacticGuardianProcs.GGProcsTotal)} %)</span>,
-        icon: SPELLS.GORE_BEAR.icon,
+        issue: <span>Your <SpellLink id={SPELLS.GALACTIC_GUARDIAN.id} /> procs should be used as soon as you get them so they are not overwritten. You missed {(this.modules.galacticGuardianProcs.GGProcsTotal - this.modules.galacticGuardianProcs.consumedGGProc)}/{(this.modules.galacticGuardianProcs.GGProcsTotal)} procs. ({formatPercentage((this.modules.galacticGuardianProcs.GGProcsTotal - this.modules.galacticGuardianProcs.consumedGGProc) / this.modules.galacticGuardianProcs.GGProcsTotal)} %)</span>,
+        icon: SPELLS.GALACTIC_GUARDIAN.icon,
         importance: getIssueImportance(unusedGGProcs, 0.45, 0.6, true),
+      });
+    }
+    if (unusedGoEProcs > 0.30) {
+      results.addIssue({
+        issue: <span>Your <SpellLink id={SPELLS.GUARDIAN_OF_ELUNE.id} /> procs should be used as soon as you get them so they are not overwritten. You missed {(this.modules.guardianOfEluneProcs.GoEProcsTotal - this.modules.guardianOfEluneProcs.consumedGoEProc)}/{(this.modules.guardianOfEluneProcs.GoEProcsTotal)} procs. ({formatPercentage((this.modules.guardianOfEluneProcs.GoEProcsTotal - this.modules.guardianOfEluneProcs.consumedGoEProc) / this.modules.guardianOfEluneProcs.GoEProcsTotal)} %)</span>,
+        icon: SPELLS.GUARDIAN_OF_ELUNE.icon,
+        importance: getIssueImportance(unusedGoEProcs, 0.45, 0.6, true),
       });
     }
 
@@ -170,6 +180,33 @@ class CombatLogParser extends MainCombatLogParser {
         label={(
           <dfn data-tip={`You got total <b>${this.modules.galacticGuardianProcs.GGProcsTotal} galactic guardian procs</b> and <b>used ${this.modules.galacticGuardianProcs.consumedGGProc}</b> of them.`}>
             Unused Galactic Guardian Procs
+          </dfn>
+        )}
+      />),
+      this.modules.guardianOfEluneProcs.active && (<StatisticBox
+        icon={<SpellIcon id={SPELLS.GUARDIAN_OF_ELUNE.id} />}
+        value={`${formatPercentage(unusedGoEProcs)}%`}
+        label={(
+          <dfn data-tip={`You got total <b>${this.modules.guardianOfEluneProcs.GoEProcsTotal} guardian of elune procs</b> and <b>used ${this.modules.guardianOfEluneProcs.consumedGoEProc}</b> of them.`}>
+            Unused Galactic Guardian Procs
+          </dfn>
+        )}
+      />),
+      this.modules.guardianOfEluneProcs.active && (<StatisticBox
+        icon={<SpellIcon id={SPELLS.FRENZIED_REGENERATION.id} />}
+        value={`${formatPercentage(this.modules.guardianOfEluneProcs.nonGoEFRegen/(this.modules.guardianOfEluneProcs.nonGoEFRegen + this.modules.guardianOfEluneProcs.GoEFRegen))}%`}
+        label={(
+          <dfn data-tip={`You cast <b>${this.modules.guardianOfEluneProcs.nonGoEFRegen + this.modules.guardianOfEluneProcs.GoEFRegen}</b> total ${SPELLS.FRENZIED_REGENERATION.name} and <b> ${this.modules.guardianOfEluneProcs.GoEFRegen} were buffed by 25%</b>.`}>
+            Unbuffed Frenzied Regeneration
+          </dfn>
+        )}
+      />),
+      this.modules.guardianOfEluneProcs.active && (<StatisticBox
+        icon={<SpellIcon id={SPELLS.IRONFUR.id} />}
+        value={`${formatPercentage(this.modules.guardianOfEluneProcs.nonGoEIronFur/(this.modules.guardianOfEluneProcs.nonGoEIronFur + this.modules.guardianOfEluneProcs.GoEIronFur))}%`}
+        label={(
+          <dfn data-tip={`You cast <b>${this.modules.guardianOfEluneProcs.nonGoEIronFur + this.modules.guardianOfEluneProcs.GoEIronFur}</b> total ${SPELLS.IRONFUR.name} and <b> ${this.modules.guardianOfEluneProcs.GoEIronFur} were buffed by 25%</b>.`}>
+            Unbuffed Ironfur
           </dfn>
         )}
       />),

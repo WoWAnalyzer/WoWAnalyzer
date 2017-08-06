@@ -410,4 +410,9 @@ export default {
     name: 'Galactic Guardian',
     icon: 'spell_frost_iceclaw',
   },
+  GUARDIAN_OF_ELUNE: {
+    id: 213680,
+    name: 'Guardian Of Elune',
+    icon: 'spell_druid_guardianofelune',
+  },
 };
