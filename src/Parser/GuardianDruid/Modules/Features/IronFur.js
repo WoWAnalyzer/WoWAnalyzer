@@ -1,7 +1,7 @@
 import Module from 'Parser/Core/Module';
 import SPELLS from 'common/SPELLS';
 
-const debug = true;
+const debug = false;
 
 // There is an issue with the logs right now, not with warcraftlogs where Iron Fur does not show stacks
 // Trying to approximate stacks by watching casts while we still have the buff
