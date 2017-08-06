@@ -2,34 +2,34 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 
 export const SPELL_CATEGORY = {
-    ROTATIONAL: 'Rotational Spell',
-    COOLDOWNS: 'Cooldown',
-    UTILITY: 'Utility',
-  };
+  ROTATIONAL: 'Rotational Spell',
+  COOLDOWNS: 'Cooldown',
+  UTILITY: 'Utility',
+};
 
 const debug = false;
   
 const CPM_ABILITIES = [
-// Rotational Spells
-{
+  // Rotational Spells
+  {
     spell: SPELLS.MANGLE_BEAR,
     category: SPELL_CATEGORY.ROTATIONAL,
     getCooldown: haste => null,
     noSuggestion: true,
-},
-{
+  },
+  {
     spell: SPELLS.BEAR_SWIPE,
     category: SPELL_CATEGORY.ROTATIONAL,
     getCooldown: haste => null,
     noSuggestion: true,
-},
-{
+  },
+  {
     spell: SPELLS.MOONFIRE,
     category: SPELL_CATEGORY.ROTATIONAL,
     getCooldown: haste => null,
     noSuggestion: true,
-},
-{
+  },
+  {
     spell:SPELLS.THRASH_BEAR,
     category: SPELL_CATEGORY.ROTATIONAL,
     getCooldown: (haste, combatant) => {
@@ -46,15 +46,15 @@ const CPM_ABILITIES = [
         return fightDuration / (castsDuringMight + castsOutsideMight);
     },
     noSuggestion: true,
-},
-{
+  },
+  {
     spell: SPELLS.MAUL,
     category: SPELL_CATEGORY.ROTATIONAL,
     getCooldown: haste => null,
     noSuggestion: true,
-},
-// Cooldowns
-{
+  },
+  // Cooldowns
+  {
     spell: SPELLS.BARKSKIN,
     category: SPELL_CATEGORY.COOLDOWNS,
     getCooldown: (haste, combatant) => {
@@ -64,8 +64,8 @@ const CPM_ABILITIES = [
         return baseCd * (1 - (cdTrait * 3 / 100));      
     },
     noSuggestion: true,
-},
-{
+  },
+  {
     spell: SPELLS.SURVIVAL_INSTINCTS,
     category: SPELL_CATEGORY.COOLDOWNS,
     getCooldown: (haste, combatant) => {
@@ -76,8 +76,8 @@ const CPM_ABILITIES = [
     charges:3,
     isActive: combatant => combatant.hasFinger(ITEMS.DUAL_DETERMINATION.id),
     noSuggestion: true,
-},
-{
+  },
+  {
     spell: SPELLS.SURVIVAL_INSTINCTS,
     category: SPELL_CATEGORY.COOLDOWNS,
     getCooldown: (haste, combatant) => {
@@ -88,61 +88,60 @@ const CPM_ABILITIES = [
     charges:2,
     isActive: combatant => !combatant.hasFinger(ITEMS.DUAL_DETERMINATION.id),
     noSuggestion: true,
-},
-{
+  },
+  {
     spell: SPELLS.INCARNATION_OF_URSOC,
     category: SPELL_CATEGORY.COOLDOWNS,
     getCooldown: haste => 180,
     isActive: combatant => combatant.hasTalent(SPELLS.INCARNATION_OF_URSOC.id),
     noSuggestion: true,
-},
-{
+  },
+  {
     spell: SPELLS.BRISTLING_FUR_TALENT,
     category: SPELL_CATEGORY.COOLDOWNS,
     getCooldown: haste => 40,
     isActive: combatant => combatant.hasTalent(SPELLS.BRISTLING_FUR_TALENT.id),
     noSuggestion: true,
-},
-{
+  },
+  {
     spell: SPELLS.IRONFUR,
     category: SPELL_CATEGORY.COOLDOWNS,
     getCooldown: haste => null,
     noSuggestion: true,
-},
-{
+  },
+  {
     spell: SPELLS.RAGE_OF_THE_SLEEPER,
     category: SPELL_CATEGORY.COOLDOWNS,
     getCooldown: haste => 90,
     noSuggestion: true,
-},
-{
+  },
+  {
     spell: SPELLS.FRENZIED_REGENERATION,
     category: SPELL_CATEGORY.COOLDOWNS,
     getCooldown: haste => null,
     noSuggestion: true,
-},
-// Raid utility
-{
+  },
+  // Raid utility
+  {
     spell: SPELLS.STAMPEDING_ROAR_BEAR,
     category: SPELL_CATEGORY.UTILITY,
     getCooldown: haste => 120,
     noSuggestion: true,
-},
-{
+  },
+  {
     spell: SPELLS.GROWL,
     category: SPELL_CATEGORY.UTILITY,
     getCooldown: haste => null,
     noSuggestion: true,
-},
-{
+  },
+  {
     spell: SPELLS.SKULL_BASH,
     category: SPELL_CATEGORY.UTILITY,
     getCooldown: haste => null,
     noSuggestion: true,
-},
+  },
 
-//To Do: Finish adding spells.
-
+  //To Do: Finish adding spells.
   
 ];
 
