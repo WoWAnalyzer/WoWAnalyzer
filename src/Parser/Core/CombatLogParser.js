@@ -215,11 +215,11 @@ class CombatLogParser {
   totalDamageDone = 0;
   totalDamageDoneToFriendly = 0;
   on_byPlayer_damage(event) {
+    const damageDone = event.amount + (event.absorbed || 0);
     if (event.targetIsFriendly) {
-      this.totalDamageDoneToFriendly += event.amount + (event.absorbed || 0);
-    }
-    else {
-      this.totalDamageDone += event.amount + (event.absorbed || 0);
+      this.totalDamageDoneToFriendly += damageDone;
+    } else {
+      this.totalDamageDone += damageDone;
     }
   }
   totalDamageTaken = 0;
