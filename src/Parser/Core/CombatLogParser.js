@@ -220,7 +220,7 @@ class CombatLogParser {
   totalDamageTaken = 0;
   totalDamageTakenAbsorb = 0;
   on_toPlayer_damage(event) {
-    this.totalDamageTaken += event.amount;
+    this.totalDamageTaken += event.amount + (event.absorbed || 0);
     this.totalDamageTakenAbsorb += (event.absorbed || 0);
   }
 
