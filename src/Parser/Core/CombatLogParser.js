@@ -213,8 +213,14 @@ class CombatLogParser {
   }
 
   totalDamageDone = 0;
+  totalDamageDoneToFriendly = 0;
   on_byPlayer_damage(event) {
-    this.totalDamageDone += event.amount + (event.absorbed || 0);
+    if (event.targetIsFriendly) {
+      this.totalDamageDoneToFriendly += event.amount + (event.absorbed || 0) - (event.blocked !== undefined ? event.blocked : 0);
+    }
+    else {
+      this.totalDamageDone += event.amount + (event.absorbed || 0) - (event.blocked !== undefined ? event.blocked : 0);
+    }
   }
   totalDamageTaken = 0;
   on_toPlayer_damage(event) {
