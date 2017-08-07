@@ -216,9 +216,12 @@ class CombatLogParser {
   on_byPlayer_damage(event) {
     this.totalDamageDone += event.amount + (event.absorbed || 0);
   }
+  
   totalDamageTaken = 0;
+  totalDamageTakenAbsorb = 0;
   on_toPlayer_damage(event) {
-    this.totalDamageTaken += event.amount + (event.absorbed || 0);
+    this.totalDamageTaken += event.amount;
+    this.totalDamageTakenAbsorb += (event.absorbed || 0);
   }
 
   // TODO: Damage taken from LOTM
