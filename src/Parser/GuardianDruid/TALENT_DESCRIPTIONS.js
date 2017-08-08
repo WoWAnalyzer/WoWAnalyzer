@@ -8,10 +8,10 @@ import ItemLink from 'common/ItemLink';
 export default {
   descriptions: {
     [SPELLS.BRAMBLES_TALENT.id]: <span><SpellLink id={SPELLS.BRAMBLES_TALENT.id} /> is the default offensive choice on this row, but is quite weak defensively.</span>,
-    [SPELLS.BRISTLING_FUR_TALENT.id]: <span><SpellLink id={SPELLS.BRAMBLES_TALENT.id} /> is the strongest rage generation talent in most circumstances.</span>,
-    [SPELLS.BLOOD_FRENZY_TALENT.id]: <span><SpellLink id={SPELLS.BLOOD_FRENZY_TALENT.id} /> is generally weaker than <SpellLink id={SPELLS.BRAMBLES_TALENT.id} /> for rage generation, except in situations with sustained cleave on 2 or more targets.</span>,
+    [SPELLS.BRISTLING_FUR_TALENT.id]: <span><SpellLink id={SPELLS.BRISTLING_FUR_TALENT.id} /> is the strongest rage generation talent in most circumstances.</span>,
+    [SPELLS.BLOOD_FRENZY_TALENT.id]: <span><SpellLink id={SPELLS.BLOOD_FRENZY_TALENT.id} /> is generally weaker than <SpellLink id={SPELLS.BRISTLING_FUR_TALENT.id} /> for rage generation, except in situations with sustained cleave on 2 or more targets.</span>,
 
-    [SPELLS.GUTTURAL_ROARS_TALENT.id]: <span><SpellLink id={SPELLS.GUTTURAL_ROARS_TALENT.id} /> is the default choice for raiding, mostly for the reduced cooldown on Stampeding Roar.</span>,
+    [SPELLS.GUTTURAL_ROARS_TALENT.id]: <span><SpellLink id={SPELLS.GUTTURAL_ROARS_TALENT.id} /> is the default choice for raiding, mostly for the reduced cooldown and increased range on Stampeding Roar.</span>,
     [SPELLS.INTIMIDATING_ROAR_TALENT.id]: <span><SpellLink id={SPELLS.INTIMIDATING_ROAR_TALENT.id} /> is generally not a good choice, it doesn't provide especially strong utility and is weaker than the other two choices.</span>,
     [SPELLS.WILD_CHARGE_TALENT.id]: <span><SpellLink id={SPELLS.WILD_CHARGE_TALENT.id} /> is okay if you can use it to proc <ItemLink id={ITEMS.SEPHUZS_SECRET.id} />, but otherwise is not recommended over <SpellLink id={SPELLS.GUTTURAL_ROARS_TALENT.id} />.</span>,
 
@@ -27,12 +27,13 @@ export default {
     [SPELLS.INCARNATION_GUARDIAN_OF_URSOC_TALENT.id]: <span><SpellLink id={SPELLS.INCARNATION_GUARDIAN_OF_URSOC_TALENT.id} /> is the strongest DPS talent choice for most situations, and has extremely strong burst AoE potential.</span>,
     [SPELLS.GALACTIC_GUARDIAN_TALENT.id]: <span><SpellLink id={SPELLS.GALACTIC_GUARDIAN_TALENT.id} /> is a good mix of defensive power and offensive power, and should be the default choice on this row.</span>,
 
-    [SPELLS.EARTHWARDEN_TALENT.id]: <span><SpellLink id={SPELLS.EARTHWARDEN_TALENT.id} /> is only good in extremely niche situations.  If you can hit multiple targets with Thrash to generate EW stacks, and you can guarantee that only one enemy will attack you to consume those stacks (think Fallen Avatar), AND melee damage is relevant enough to warrant it, then this is a good choice.</span>,
-    [SPELLS.GUARDIAN_OF_ELUNE_TALENT.id]: <span><SpellLink id={SPELLS.GUARDIAN_OF_ELUNE_TALENT.id} /> is the strongest overall talent on this row by far, and should be the default choice in all situations.</span>,
+    [SPELLS.EARTHWARDEN_TALENT.id]: <span><SpellLink id={SPELLS.EARTHWARDEN_TALENT.id} /> is good in niche situations.  If you can hit multiple targets with Thrash to generate EW stacks, and you can guarantee that only one enemy will attack you to consume those stacks (think Fallen Avatar), AND melee damage is relevant enough to warrant it, then this is a good choice.</span>,
+    [SPELLS.GUARDIAN_OF_ELUNE_TALENT.id]: <span><SpellLink id={SPELLS.GUARDIAN_OF_ELUNE_TALENT.id} /> is the strongest overall talent on this row by far, and should be the default choice in most situations.</span>,
     [SPELLS.SURVIVAL_OF_THE_FITTEST_TALENT.id]: <span><SpellLink id={SPELLS.SURVIVAL_OF_THE_FITTEST_TALENT.id} /> should be used IF AND ONLY IF you need the reduced CD on <SpellLink id={SPELLS.SURVIVAL_INSTINCTS.id} /> to survive boss mechanics. It is otherwise much worse than the alternatives.</span>,
 
-    [SPELLS.REND_AND_TEAR_TALENT.id]: <span><SpellLink id={SPELLS.REND_AND_TEAR_TALENT.id} /> is a decent offensive choice, but is worse than <SpellLink id={SPELLS.PULVERIZE_TALENT.id} /> defensively, but is an acceptable alternative if you want to keep the rotation simple.</span>,
+    [SPELLS.REND_AND_TEAR_TALENT.id]: <span><SpellLink id={SPELLS.REND_AND_TEAR_TALENT.id} /> is a good offensive choice. It is worse than <SpellLink id={SPELLS.PULVERIZE_TALENT.id} /> defensively (even with <ItemLink id={ITEMS.ELIZES_EVERLASTING_ENCASEMENT.id} /> due to effectively costing a legendary slot), but is an acceptable alternative if you want to keep the rotation simple.</span>,
     [SPELLS.LUNAR_BEAM_TALENT.id]: <span><SpellLink id={SPELLS.LUNAR_BEAM_TALENT.id} /> is good for burst AoE, especially when paired with <ItemLink id={ITEMS.FURY_OF_NATURE.id} />.</span>,
     [SPELLS.PULVERIZE_TALENT.id]: <span><SpellLink id={SPELLS.PULVERIZE_TALENT.id} /> is a small DPS increase on 1-2 targets over <SpellLink id={SPELLS.REND_AND_TEAR_TALENT.id} />, at the expense of complicating the rotation. It is a relative survivability gain over the <SpellLink id={SPELLS.REND_AND_TEAR_TALENT.id} /> + <ItemLink id={ITEMS.ELIZES_EVERLASTING_ENCASEMENT.id} /> combo, as it frees up a legendary slot for a stronger defensive legendary.</span>,
   },
+  attribution: <span>The talent descriptions were written by @faide from the Dreamgrove discord.</span>,
 };
