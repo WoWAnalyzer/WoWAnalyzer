@@ -238,14 +238,14 @@ class CombatLogParser extends MainCombatLogParser {
       results.addIssue({
         issue: `Your non healing time can be improved. Try to cast heals more regularly (${Math.round(nonHealingTimePercentage * 100)}% non healing time).`,
         icon: 'petbattle_health-down',
-        importance: getIssueImportance(nonHealingTimePercentage, 0.4, 0.45, true),
+        importance: getIssueImportance(nonHealingTimePercentage, 0.4, 1, true),
       });
     }
     if (deadTimePercentage > 0.2) {
       results.addIssue({
         issue: `Your dead GCD time can be improved. Try to Always Be Casting (ABC); when you're not healing try to contribute some damage (${Math.round(deadTimePercentage * 100)}% dead GCD time).`,
         icon: 'spell_mage_altertime',
-        importance: getIssueImportance(deadTimePercentage, 0.35, 0.4, true),
+        importance: getIssueImportance(deadTimePercentage, 0.35, 1, true),
       });
     }
     if (efflorescenceUptime < 0.85) {

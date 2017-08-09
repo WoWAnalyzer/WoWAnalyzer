@@ -1,4 +1,5 @@
 export default `
+09-08-2017 - Healers with a <i>non-healing time</i> statistic will no longer have their <i>dead GCD time</i> suggestion marked as major importance. (by Zerotorescue)
 09-08-2017 - Holy Paladin: fully migrated to the new suggestions layout. Changed wording on several suggestions to make them clearer, and increased the <i>LotM is inefficient</i> suggestion breakpoints to 1.5/2/3 CPM (up from 1.0/1.5/2.0) (by Zerotorescue)
 09-08-2017 - Changed suggestions tab layout to be less cluttered, specs may need additional work to be fully migrated (by Zerotorescue)
 05-08-2017 - Mistweaver Monk: Added Player Log tab to support new Mistweaver spreadsheet needs. (by anomoly)

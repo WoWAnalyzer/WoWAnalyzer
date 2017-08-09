@@ -180,7 +180,7 @@ class CombatLogParser extends MainCombatLogParser {
       results.addIssue({
         issue: `Your dead GCD time can be improved. Try to Always Be Casting (ABC); when you're not healing try to contribute some damage (${Math.round(deadTimePercentage * 100)}% dead GCD time).`,
         icon: 'spell_mage_altertime',
-        importance: getIssueImportance(deadTimePercentage, 0.5, 0.6, true),
+        importance: getIssueImportance(deadTimePercentage, 0.5, 1, true),
       });
     }
     // Missed Whispers healing

@@ -153,7 +153,7 @@ class CombatLogParser extends MainCombatLogParser {
       results.addIssue({
         issue: `Your dead GCD time can be improved. Try to Always Be Casting (ABC); when there's nothing to heal try to contribute some damage (${Math.round(deadTimePercentage * 100)}% dead GCD time).`,
         icon: 'spell_mage_altertime',
-        importance: getIssueImportance(deadTimePercentage, 0.20, 0.35, true),
+        importance: getIssueImportance(deadTimePercentage, 0.20, 1, true),
       });
     }
 
