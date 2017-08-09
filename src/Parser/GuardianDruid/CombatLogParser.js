@@ -72,9 +72,13 @@ class CombatLogParser extends MainCombatLogParser {
 
     const nonDpsTimePercentage = this.modules.alwaysBeCasting.totalDamagingTimeWasted / fightDuration;
     const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
-    const unusedGoreProcs = 1 - (this.modules.goreProcs.consumedGoreProc / this.modules.goreProcs.GoreProcsTotal);    
-    const unusedGGProcs = 1 - (this.modules.galacticGuardianProcs.consumedGGProc / this.modules.galacticGuardianProcs.GGProcsTotal);    
-    const unusedGoEProcs = 1 - (this.modules.guardianOfEluneProcs.consumedGoEProc / this.modules.guardianOfEluneProcs.GoEProcsTotal);    
+    const unusedGoreProcs = 1 - (this.modules.goreProcs.consumedGoreProc / this.modules.goreProcs.GoreProcsTotal);
+    const unusedGGProcs = 1 - (this.modules.galacticGuardianProcs.consumedGGProc / this.modules.galacticGuardianProcs.GGProcsTotal);
+    const unusedGoEProcs = 1 - (this.modules.guardianOfEluneProcs.consumedGoEProc / this.modules.guardianOfEluneProcs.GoEProcsTotal);
+
+    const thrashUptime = this.modules.enemies.getBuffUptime(SPELLS.THRASH_BEAR_DOT.id) / this.fightDuration;
+    const moonfireUptime = this.modules.enemies.getBuffUptime(SPELLS.MOONFIRE_BEAR.id) / this.fightDuration;
+
     let totalIronFurTime = this.modules.ironFurStacks.totalIFProcTime;
     if (this.modules.ironFurStacks.lastIFProcTime > 0 && this.finished) {
       totalIronFurTime += this.fight.end_time - this.modules.ironFurStacks.lastIFProcTime;
@@ -113,6 +117,22 @@ class CombatLogParser extends MainCombatLogParser {
         issue: <span>Your <SpellLink id={SPELLS.GUARDIAN_OF_ELUNE.id} /> procs should be used as soon as you get them so they are not overwritten. You missed {(this.modules.guardianOfEluneProcs.GoEProcsTotal - this.modules.guardianOfEluneProcs.consumedGoEProc)}/{(this.modules.guardianOfEluneProcs.GoEProcsTotal)} procs. ({formatPercentage((this.modules.guardianOfEluneProcs.GoEProcsTotal - this.modules.guardianOfEluneProcs.consumedGoEProc) / this.modules.guardianOfEluneProcs.GoEProcsTotal)} %)</span>,
         icon: SPELLS.GUARDIAN_OF_ELUNE.icon,
         importance: getIssueImportance(unusedGoEProcs, 0.45, 0.6, true),
+      });
+    }
+
+    if (thrashUptime < 0.95) {
+      results.addIssue({
+        issue: <span> Your <SpellLink id={SPELLS.THRASH_BEAR_DOT.id} /> uptime should be near 100%, unless you have extended periods of downtime. Thrash applies a bleed which buffs the damage of <SpellLink id={SPELLS.MANGLE_BEAR.id} /> by 20%.  Thrash uptime is especially important if you are talented into <SpellLink id={SPELLS.REND_AND_TEAR_TALENT.id} />, since it buffs the rest of your damage and gives you extra damage reduction. Your uptime: {formatPercentage(thrashUptime)}%</span>,
+        icon: SPELLS.THRASH_BEAR.icon,
+        importance: getIssueImportance(thrashUptime, 0.9, 0.8),
+      });
+    }
+
+    if (moonfireUptime < 0.95) {
+      results.addIssue({
+        issue: <span> Your <SpellLink id={SPELLS.MOONFIRE_BEAR.id} /> uptime should be near 100%, unless you have extended periods of downtime. Targets with Moonfire applied to them deal less damage to you due to <SpellLink id={SPELLS.SCINTILLATING_MOONLIGHT.id} />. Your uptime: {formatPercentage(moonfireUptime)}%</span>,
+        icon: SPELLS.MOONFIRE_BEAR.icon,
+        importance: getIssueImportance(moonfireUptime, 0.9, 0.8),
       });
     }
 
@@ -224,6 +244,16 @@ class CombatLogParser extends MainCombatLogParser {
             Total Ironfur uptime
           </dfn>
         )}
+      />,
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.THRASH_BEAR.id} />}
+        value={`${formatPercentage(thrashUptime)}%`}
+        label="Thrash uptime"
+      />,
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.MOONFIRE_BEAR.id} />}
+        value={`${formatPercentage(moonfireUptime)}%`}
+        label="Moonfire uptime"
       />,
     ];
 
