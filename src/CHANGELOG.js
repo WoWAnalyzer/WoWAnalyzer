@@ -1,4 +1,6 @@
 export default `
+09-08-2017 - Holy Paladin: fully migrated to the new suggestions layout. Changed wording on several suggestions to make them clearer, and increased the <i>LotM is inefficient</i> suggestion breakpoints to 1.5/2/3 CPM (up from 1.0/1.5/2.0) (by Zerotorescue)
+09-08-2017 - Changed suggestions tab layout to be less cluttered, specs may need additional work to be fully migrated (by Zerotorescue)
 03-08-2017 - Fix a bug that caused DRPS displays to not always work properly. (by Zerotorescue)
 02-08-2017 - When there's a new version available ask the user if he wants to refresh. (by Zerotorescue)
 02-08-2017 - Holy Paladin: Added tier 21 2 set bonus (experimental, please send logs). (by Zerotorescue)
