@@ -308,4 +308,116 @@ export default {
     name:'Persistance',
     icon: 'spell_nature_starfall',
   },
+
+  //Guardian
+  MANGLE_BEAR: {
+    id:33917,
+    name:'Mangle',
+    icon:'ability_druid_mangle2',
+  },
+  THRASH_BEAR: {
+    id:77758,
+    name:'Thrash',
+    icon:'spell_druid_thrash',
+  },
+  THRASH_BEAR_DOT: {
+    id: 192090,
+    name: 'Thrash',
+    icon: 'spell_druid_thrash',
+  },
+  SURVIVAL_INSTINCTS: {
+    id:61336,
+    name:'Survival Instincts',
+    icon:'ability_druid_tigersroar',
+  },
+  IRONFUR: {
+    id:192081,
+    name:'Ironfur',
+    icon:'ability_druid_ironfur',
+  },
+  STAMPEDING_ROAR_CAT: {
+    id:106898,
+    name:'Stampeding Roar',
+    icon:'spell_druid_stampedingroar_cat',
+  },
+  STAMPEDING_ROAR_BEAR: {
+    id: 77761,
+    name: 'Stampeding Roar',
+    icon: 'spell_druid_stamedingroar',
+  },
+  INCAPACITATING_ROAR: {
+    id:99,
+    name:'Incapacitating Roar',
+    icon:'ability_druid_demorolizingroar',
+  },
+  INCARNATION_OF_URSOC: {
+    id:102558,
+    name:'Incarnation of Ursoc',
+    icon:'spell_druid_incarnation',
+  },
+  RAGE_OF_THE_SLEEPER: {
+    id:200851,
+    name:'Rage of the sleeper',
+    icon:'inv_hand_1h_artifactursoc_d_01',
+  },
+  MOONFIRE: {
+    id:8921,
+    name:'Moonfire',
+    icon:'spell_nature_starfall',
+  },
+  PERPETUAL_SPRING_TRAIT: {
+    id:200402,
+    name:'Perpetual spring',
+    icon:'spell_nature_stoneclawtotem',
+  },
+  EMBRACE_OF_THE_NIGHTMARE: {
+    id:200855,
+    name:'Embrace of the nightmare',
+    icon:'inv_misc_herb_nightmarevine',
+  },
+  GORE_BEAR: {
+    id: 93622,
+    name: 'Gore',
+    icon: 'ability_druid_mangle2',
+  },
+  YSERAS_GIFT_BEAR: {
+    id:145108,
+    name:'Ysera\'s gift',
+    icon: 'inv_misc_head_dragon_green',
+  },
+  MAUL: {
+    id: 6807,
+    name: 'Maul',
+    icon: 'ability_druid_maul',
+  },
+  GROWL: {
+    id: 6795,
+    name: 'Growl',
+    icon: 'ability_physical_taunt',
+  },
+  SKULL_BASH: {
+    id: 106839,
+    name: 'Skull Bash',
+    icon: 'inv_bone_skull_04',
+  },
+  REBIRTH: {
+    id: 20484,
+    name: 'Rebirth',
+    icon: 'spell_nature_reincarnation',
+  },
+  GALACTIC_GUARDIAN: {
+    id: 213708,
+    name: 'Galactic Guardian',
+    icon: 'spell_frost_iceclaw',
+  },
+  GUARDIAN_OF_ELUNE: {
+    id: 213680,
+    name: 'Guardian Of Elune',
+    icon: 'spell_druid_guardianofelune',
+  },
+  URSOC_ENDURANCE: {
+    id: 200399,
+    name: 'Ursoc\'s Endurance',
+    icon: 'ability_hunter_pet_bear',
+  },
 };

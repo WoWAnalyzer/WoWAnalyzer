@@ -1,5 +1,4 @@
 // TODO:
-// RJW - Suggestions on Low Targets and Low Casts
 
 import React from 'react';
 
@@ -16,6 +15,7 @@ import CastEfficiencyTab from 'Main/CastEfficiencyTab';
 import CooldownsTab from 'Main/CooldownsTab';
 import ManaTab from 'Main/ManaTab';
 import LowHealthHealingTab from 'Main/LowHealthHealingTab';
+import MonkSpreadsheetTab from 'Main/MonkSpreadsheetTab';
 
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 import getCastEfficiency from 'Parser/Core/getCastEfficiency';
@@ -106,6 +106,11 @@ class CombatLogParser extends MainCombatLogParser {
     petrichorLagniappe: PetrichorLagniappe,
     ovydsWinterWrap: OvydsWinterWrap,
   };
+  
+  damageTaken = 0;
+  on_toPlayer_damage(event){
+    this.damageTaken += event.amount;
+  }
 
   generateResults() {
     const results = super.generateResults();
@@ -275,19 +280,19 @@ class CombatLogParser extends MainCombatLogParser {
       });
     }
     // RJW Targets Hit
-    if (hasRJW && avgRJWTargets < 68) {
+    if (hasRJW && avgRJWTargets < (78 * .9)) {
       results.addIssue({
         issue: <span>You are not utilizing your <SpellLink id={SPELLS.REFRESHING_JADE_WIND_TALENT.id} /> effectively. <SpellLink id={SPELLS.REFRESHING_JADE_WIND_TALENT.id} /> excells when you hit 6 targets for the duration of the spell. The easiest way to accomplish this is to stand in melee, but there can be other uses when the raid stacks for various abilities.</span>,
         icon: SPELLS.REFRESHING_JADE_WIND_TALENT.icon,
-        importance: getIssueImportance(avgRJWTargets, 58, 50),
+        importance: getIssueImportance(avgRJWTargets, (78 * .8), (78 * .7)),
       });
     }
     // Chi Burst Usage
-    if(this.modules.chiBurst.active && avgChiBurstTargets < (raidSize * .4)) {
+    if(this.modules.chiBurst.active && avgChiBurstTargets < (raidSize * .3)) {
       results.addIssue({
         issue: <span>You are not utilizing your <SpellLink id={SPELLS.CHI_BURST_TALENT.id} /> talent as effectively as you should. You hit an average of {avgChiBurstTargets.toFixed(2)} targets per Chi Burst cast. Look to better position yourself during your your Chi Burst casts to get the most use out of the spell. ({((this.modules.chiBurst.healing / this.modules.chiBurst.castChiBurst) / 1000).toFixed(1)}k avg healing per cast.)</span>,
         icon: SPELLS.CHI_BURST_TALENT.icon,
-        importance: getIssueImportance(avgChiBurstTargets, (raidSize * .3), (raidSize * .25)),
+        importance: getIssueImportance(avgChiBurstTargets, (raidSize * .25), (raidSize * .2)),
       });
     }
 
@@ -659,6 +664,13 @@ class CombatLogParser extends MainCombatLogParser {
         url: 'low-health-healing',
         render: () => (
           <LowHealthHealingTab parser={this} />
+        ),
+      },
+      {
+        title: 'Player Log Data',
+        url: 'player-log-data',
+        render: () => (
+          <MonkSpreadsheetTab parser={this} />
         ),
       },
     ];

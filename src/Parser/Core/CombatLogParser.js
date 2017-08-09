@@ -9,6 +9,7 @@ import AbilityTracker from './Modules/AbilityTracker';
 import AlwaysBeCasting from './Modules/AlwaysBeCasting';
 import Enemies from './Modules/Enemies';
 import HealEventTracker from './Modules/HealEventTracker';
+import ManaValues from './Modules/ManaValues';
 
 // Shared Legendaries
 import Prydaz from './Modules/Items/Prydaz';
@@ -50,6 +51,7 @@ class CombatLogParser {
     abilityTracker: AbilityTracker,
     healEventTracker: HealEventTracker,
     alwaysBeCasting: AlwaysBeCasting,
+    manaValues: ManaValues,
 
     // Items:
     // Legendaries:
@@ -211,12 +213,21 @@ class CombatLogParser {
   }
 
   totalDamageDone = 0;
+  totalDamageDoneToFriendly = 0;
   on_byPlayer_damage(event) {
-    this.totalDamageDone += event.amount + (event.absorbed || 0);
+    const damageDone = event.amount + (event.absorbed || 0);
+    if (event.targetIsFriendly) {
+      this.totalDamageDoneToFriendly += damageDone;
+    } else {
+      this.totalDamageDone += damageDone;
+    }
   }
+  
   totalDamageTaken = 0;
+  totalDamageTakenAbsorb = 0;
   on_toPlayer_damage(event) {
     this.totalDamageTaken += event.amount + (event.absorbed || 0);
+    this.totalDamageTakenAbsorb += (event.absorbed || 0);
   }
 
   // TODO: Damage taken from LOTM
