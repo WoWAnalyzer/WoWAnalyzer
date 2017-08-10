@@ -10,7 +10,8 @@ class ManaValue extends Module {
 
   on_byPlayer_cast(event) {
     // class resource type 0 means the resource is mana
-    if(event.classResource) {
+    if(event.classResources) {
+      debug && console.log('Current Ending Mana: ', this.endingMana);
       event.classResources.forEach(classResource => {
         if (classResource.type === MANA_CLASS_RESOURCE_ID) {
           const manaValue = classResource.amount;

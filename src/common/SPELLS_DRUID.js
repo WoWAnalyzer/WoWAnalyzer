@@ -360,6 +360,11 @@ export default {
     name:'Rage of the sleeper',
     icon:'inv_hand_1h_artifactursoc_d_01',
   },
+  MOONFIRE_BEAR: {
+    id:164812,
+    name:'Moonfire',
+    icon:'spell_nature_starfall',
+  },
   MOONFIRE: {
     id:8921,
     name:'Moonfire',
@@ -374,6 +379,11 @@ export default {
     id:200855,
     name:'Embrace of the nightmare',
     icon:'inv_misc_herb_nightmarevine',
+  },
+  SCINTILLATING_MOONLIGHT: {
+    id: 238049,
+    name: 'Scintillating Moonlight',
+    icon: 'spell_nature_starfall',
   },
   GORE_BEAR: {
     id: 93622,
