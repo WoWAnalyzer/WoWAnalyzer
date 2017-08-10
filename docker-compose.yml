@@ -1,0 +1,15 @@
+version: '2'
+services:
+  webserver:
+    build:
+      context: .
+      dockerfile: .dockerfile
+    ports:
+     - "3001:3000" # make it easier to run the dev server side-by-side
+  database:
+    image: "mariadb:10.3"
+    command: ['--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
+    environment:
+     - MYSQL_ROOT_PASSWORD=my-secret-pw
+    ports:
+      - '4306:3306' # don't conflict with existing MySQL servers

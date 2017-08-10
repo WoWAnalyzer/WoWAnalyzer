@@ -19,8 +19,8 @@ script:
 after_success:
   - export REPO=martijnhols/wowanalyzer
   - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH; fi`
-  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-  - docker build -f .dockerfile -t $REPO:$TRAVIS_COMMIT .
+  - docker login --username="$DOCKER_USERNAME" --password="$DOCKER_PASSWORD"
+  - docker build --file .dockerfile --tag $REPO:$TRAVIS_COMMIT .
   - docker tag $REPO:$TRAVIS_COMMIT $REPO:$TAG
   - docker tag $REPO:$TRAVIS_COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
   - docker push $REPO:$TAG
