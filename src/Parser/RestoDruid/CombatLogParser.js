@@ -236,28 +236,32 @@ class CombatLogParser extends MainCombatLogParser {
 
     if (nonHealingTimePercentage > 0.3) {
       results.addIssue({
-        issue: `Your non healing time can be improved. Try to cast heals more regularly (${Math.round(nonHealingTimePercentage * 100)}% non healing time).`,
+        issue: `Your non healing time can be improved. Try to cast heals more regularly.`,
+        stat: `${Math.round(nonHealingTimePercentage * 100)}% non healing time. (<30% is recommended)`,
         icon: 'petbattle_health-down',
         importance: getIssueImportance(nonHealingTimePercentage, 0.4, 1, true),
       });
     }
     if (deadTimePercentage > 0.2) {
       results.addIssue({
-        issue: `Your dead GCD time can be improved. Try to Always Be Casting (ABC); when you're not healing try to contribute some damage (${Math.round(deadTimePercentage * 100)}% dead GCD time).`,
+        issue: `Your dead GCD time can be improved. Try to Always Be Casting (ABC); when you're not healing try to contribute some damage.`,
+        stat: `${Math.round(deadTimePercentage * 100)}% dead GCD time. (<20% is recommended)`,
         icon: 'spell_mage_altertime',
         importance: getIssueImportance(deadTimePercentage, 0.35, 1, true),
       });
     }
     if (efflorescenceUptime < 0.85) {
       results.addIssue({
-        issue: <span>Your <a href="http://www.wowhead.com/spell=81269" target="_blank" rel="noopener noreferrer">Efflorescence</a> uptime can be improved. ({formatPercentage(efflorescenceUptime)} % uptime)</span>,
+        issue: <span>Your <a href="http://www.wowhead.com/spell=81269" target="_blank" rel="noopener noreferrer">Efflorescence</a> uptime can be improved.</span>,
+        stat: `${formatPercentage(efflorescenceUptime)} % uptime. (>85% is recommended)`,
         icon: SPELLS.EFFLORESCENCE_CAST.icon,
         importance: getIssueImportance(efflorescenceUptime, 0.7, 0.5),
       });
     }
     if (!hasMoC && unusedClearcastings > 0.10) {
       results.addIssue({
-        issue: <span>Your <a href="http://www.wowhead.com/spell=16870" target="_blank" rel="noopener noreferrer">Clearcasting</a> proccs should be used as soon as you get them so they are not overwritten. You missed {(this.modules.clearcasting.total - this.modules.clearcasting.used)}/{(this.modules.clearcasting.total)} proccs.</span>,
+        issue: <span>Your <a href="http://www.wowhead.com/spell=16870" target="_blank" rel="noopener noreferrer">Clearcasting</a> proccs should be used as soon as you get them so they are not overwritten.</span>,
+        stat: `You missed ${(this.modules.clearcasting.total - this.modules.clearcasting.used)}/${(this.modules.clearcasting.total)} proccs. (<10% is recommended)`,
         icon: SPELLS.CLEARCASTING_BUFF.icon,
         importance: getIssueImportance(unusedClearcastings, 0.5, 0.75, true),
       });
@@ -265,7 +269,8 @@ class CombatLogParser extends MainCombatLogParser {
     const wgsExtended = (this.modules.flourish.wildGrowth / wildGrowthTargets) / this.modules.flourish.flourishCounter;
     if (hasFlourish && wgsExtended < 1) {
       results.addIssue({
-        issue: <span>Your <a href="http://www.wowhead.com/spell=197721" target="_blank" rel="noopener noreferrer">Flourish</a> should always aim to refresh <a href="http://www.wowhead.com/spell=48438" target="_blank" rel="noopener noreferrer">Wild Growth.</a> ({(((this.modules.flourish.wildGrowth / 6) / this.modules.flourish.flourishCounter) * 100).toFixed(0)}% WGs extended)</span>,
+        issue: <span>Your <a href="http://www.wowhead.com/spell=197721" target="_blank" rel="noopener noreferrer">Flourish</a> should always aim to refresh <a href="http://www.wowhead.com/spell=48438" target="_blank" rel="noopener noreferrer">Wild Growth.</a></span>,
+        stat: `${(((this.modules.flourish.wildGrowth / 6) / this.modules.flourish.flourishCounter) * 100).toFixed(0)}% WGs extended. (100% is recommended)`,
         icon: SPELLS.FLOURISH_TALENT.icon,
         importance: getIssueImportance(wgsExtended, 0.8, 0.6),
       });
@@ -273,14 +278,16 @@ class CombatLogParser extends MainCombatLogParser {
     const cwExtended = this.modules.flourish.cenarionWard / this.modules.flourish.flourishCounter;
     if (hasFlourish && cwExtended < 1) {
       results.addIssue({
-        issue: <span>Your <a href="http://www.wowhead.com/spell=197721" target="_blank" rel="noopener noreferrer">Flourish</a> should always aim to refresh <a href="http://www.wowhead.com/spell=102352" target="_blank" rel="noopener noreferrer">Cenarion Ward.</a> ({this.modules.flourish.cenarionWard}/{this.modules.flourish.flourishCounter} CWs extended)</span>,
+        issue: <span>Your <a href="http://www.wowhead.com/spell=197721" target="_blank" rel="noopener noreferrer">Flourish</a> should always aim to refresh <a href="http://www.wowhead.com/spell=102352" target="_blank" rel="noopener noreferrer">Cenarion Ward.</a></span>,
+        stat: `${this.modules.flourish.cenarionWard}/${this.modules.flourish.flourishCounter} CWs extended. (100% is recommended)`,
         icon: SPELLS.FLOURISH_TALENT.icon,
         importance: getIssueImportance(cwExtended, 0, 0),
       });
     }
     if (lifebloomUptime < 0.85) {
       results.addIssue({
-        issue: <span>Your <a href="http://www.wowhead.com/spell=33763" target="_blank" rel="noopener noreferrer">Lifebloom</a> uptime can be improved. ({formatPercentage(lifebloomUptime)} % uptime)</span>,
+        issue: <span>Your <a href="http://www.wowhead.com/spell=33763" target="_blank" rel="noopener noreferrer">Lifebloom</a> uptime can be improved.</span>,
+        stat: `${formatPercentage(lifebloomUptime)} % uptime. (>85% is recommended)`,
         icon: SPELLS.LIFEBLOOM_HOT_HEAL.icon,
         importance: getIssueImportance(lifebloomUptime, 0.7, 0.5),
       });
@@ -288,7 +295,8 @@ class CombatLogParser extends MainCombatLogParser {
     // Innervate mana spent
     if ((this.modules.innervate.manaSaved / this.modules.innervate.innervateCount) < 220000) {
       results.addIssue({
-        issue: <span>Your mana spent during an <a href="http://www.wowhead.com/spell=29166" target="_blank" rel="noopener noreferrer">Innervate</a> can be improved. Always aim to cast at least 1 wild growth, 1 efflorescence and fill the rest with rejuvations for optimal usage. ({((this.modules.innervate.manaSaved / this.modules.innervate.innervateCount) / 1000).toFixed(0)}k avg mana spent)</span>,
+        issue: <span>Your mana spent during an <a href="http://www.wowhead.com/spell=29166" target="_blank" rel="noopener noreferrer">Innervate</a> can be improved. Always aim to cast at least 1 wild growth, 1 efflorescence and fill the rest with rejuvations for optimal usage.</span>,
+        stat: `${((this.modules.innervate.manaSaved / this.modules.innervate.innervateCount) / 1000).toFixed(0)}k avg mana spent. (> 220000 mana is recommended)`,
         icon: SPELLS.INNERVATE.icon,
         importance: getIssueImportance((this.modules.innervate.manaSaved / this.modules.innervate.innervateCount), 180000, 130000),
       });
@@ -296,14 +304,16 @@ class CombatLogParser extends MainCombatLogParser {
     // Innervata mana capped
     if (this.modules.innervate.secondsManaCapped > 0) {
       results.addIssue({
-        issue: <span>You were capped on mana during <a href="http://www.wowhead.com/spell=29166" target="_blank" rel="noopener noreferrer">Innervate</a>. Why would you do that? (approx {this.modules.innervate.secondsManaCapped}s)</span>,
+        issue: <span>You were capped on mana during <a href="http://www.wowhead.com/spell=29166" target="_blank" rel="noopener noreferrer">Innervate</a>. Try to not use innervate if you are above 90% mana.</span>,
+        stat: `~${this.modules.innervate.secondsManaCapped} seconds capped. (<0% is recommended)`,
         icon: SPELLS.INNERVATE.icon,
         importance: getIssueImportance(this.modules.innervate.secondsManaCapped, 0, 0, true),
       });
     }
     if (hasTreeOfLife && treeOfLifeThroughput < 0.11) {
       results.addIssue({
-        issue: <span>Your <a href="http://www.wowhead.com/spell=33891" target="_blank" rel="noopener noreferrer">Tree of Life</a> has quite low throughput, you might want to plan your CDs better or select another talent. ({formatPercentage(treeOfLifeThroughput)} % throughput)</span>,
+        issue: <span>Your <a href="http://www.wowhead.com/spell=33891" target="_blank" rel="noopener noreferrer">Tree of Life</a> has quite low throughput, you might want to plan your CDs better or select another talent.</span>,
+        stat: `${formatPercentage(treeOfLifeThroughput)} % throughput. (>11% is recommended)`,
         icon: SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.icon,
         importance: getIssueImportance(treeOfLifeThroughput, 0.07, 0.04),
       });
@@ -312,7 +322,8 @@ class CombatLogParser extends MainCombatLogParser {
     const healingTouchesPerMinute = healingTouches / (fightDuration / 1000) * 60;
     if (healingTouchesPerMinute > 0) {
       results.addIssue({
-        issue: <span><a href="http://www.wowhead.com/spell=5185" target="_blank" rel="noopener noreferrer">Healing Touch</a> is an inefficient spell to cast. You should trust your co-healer to top people off, if you got nothing to do you can always dps. ({healingTouchesPerMinute.toFixed(2)} CPM).</span>,
+        issue: <span><a href="http://www.wowhead.com/spell=5185" target="_blank" rel="noopener noreferrer">Healing Touch</a> is an inefficient spell to cast. You should trust your co-healer to top people off, if you got nothing to do you can always dps.</span>,
+        stat: `${healingTouchesPerMinute.toFixed(2)} CPM. (0 CPM is recommended)`,
         icon: SPELLS.HEALING_TOUCH.icon,
         importance: getIssueImportance(healingTouchesPerMinute, 0.5, 1, true),
       });
@@ -320,7 +331,8 @@ class CombatLogParser extends MainCombatLogParser {
     const wgsPerRejuv = wildGrowths / rejuvenations;
     if (wgsPerRejuv < 0.20) {
       results.addIssue({
-        issue: <span>Your <a href="http://www.wowhead.com/spell=48438" target="_blank" rel="noopener noreferrer">Wild growth</a> to rejuv ratio can be improved, try to cast more wild growths if possible as it's usually more efficient. ({wildGrowths}/{rejuvenations} WGs per rejuv).</span>,
+        issue: <span>Your <a href="http://www.wowhead.com/spell=48438" target="_blank" rel="noopener noreferrer">Wild growth</a> to rejuv ratio can be improved, try to cast more wild growths if possible as it's usually more efficient.</span>,
+        stat: `${wildGrowths}/${rejuvenations} WGs per rejuv. (>20% is recommended)`,
         icon: SPELLS.WILD_GROWTH.icon,
         importance: getIssueImportance(wgsPerRejuv, 0.15, 0.1),
       });
@@ -329,7 +341,8 @@ class CombatLogParser extends MainCombatLogParser {
     const nonCCRegrowths = this.modules.clearcasting.nonCCRegrowths;
     if (nonCCRegrowths / regrowths > 0) {
       results.addIssue({
-        issue: <span><a href="http://www.wowhead.com/spell=8936" target="_blank" rel="noopener noreferrer">Regrowth</a> is an inefficient spell to cast without a <a href="http://www.wowhead.com/spell=16870" target="_blank" rel="noopener noreferrer">Clearcasting</a> procc. {nonCCRegrowths} of your regrowths were casted without a clearcasting procc.</span>,
+        issue: <span><a href="http://www.wowhead.com/spell=8936" target="_blank" rel="noopener noreferrer">Regrowth</a> is an inefficient spell to cast without a <a href="http://www.wowhead.com/spell=16870" target="_blank" rel="noopener noreferrer">Clearcasting</a> procc.</span>,
+        stat: `${nonCCRegrowths} of your regrowths were casted without a clearcasting procc. (0 is recommended)`,
         icon: SPELLS.REGROWTH.icon,
         importance: getIssueImportance(nonCCRegrowths / regrowths, 0.5, 0.25, true),
       });
@@ -337,7 +350,8 @@ class CombatLogParser extends MainCombatLogParser {
     const promisesThroughput = (this.modules.darkmoonDeckPromises.savings / rejuvenationManaCost) * oneRejuvenationThroughput;
     if (this.modules.darkmoonDeckPromises.active && promisesThroughput < 0.035) {
       results.addIssue({
-        issue: <span>Your <a href="http://www.wowhead.com/item=128710" target="_blank" rel="noopener noreferrer">Darkmoon Deck: Promises</a> effect was not fully utilizied because you did not need the extra mana gained. You may want to consider using another trinket in these scenarios. ({this.modules.darkmoonDeckPromises.savings + this.modules.darkmoonDeckPromises.manaGained} mana gained potentially, {this.modules.darkmoonDeckPromises.savings} mana gained, {formatPercentage(promisesThroughput)}% healing contributed)</span>,
+        issue: <span>Your <a href="http://www.wowhead.com/item=128710" target="_blank" rel="noopener noreferrer">Darkmoon Deck: Promises</a> effect was not fully utilizied because you did not need the extra mana gained. You may want to consider using another trinket in these scenarios.</span>,
+        stat: `${this.modules.darkmoonDeckPromises.savings + this.modules.darkmoonDeckPromises.manaGained} mana gained potentially, ${this.modules.darkmoonDeckPromises.savings} mana gained, ${formatPercentage(promisesThroughput)}% healing contributed. (>3.5% is recommended)`,
         icon: ITEMS.DARKMOON_DECK_PROMISES.icon,
         importance: getIssueImportance(promisesThroughput, 0.01, 0.025),
       });
@@ -347,7 +361,8 @@ class CombatLogParser extends MainCombatLogParser {
     castEfficiency.forEach((cpm) => {
       if (cpm.canBeImproved && !cpm.ability.noSuggestion) {
         results.addIssue({
-          issue: <span>Try to cast <SpellLink id={cpm.ability.spell.id} /> more often ({cpm.casts}/{cpm.maxCasts} casts: {Math.round(cpm.castEfficiency * 100)}% cast efficiency). {cpm.ability.extraSuggestion || ''}</span>,
+          issue: <span>Try to cast <SpellLink id={cpm.ability.spell.id} /> more often.</span>,
+          stat: `${cpm.casts} out of ${cpm.maxCasts} possible casts; ${Math.round(cpm.castEfficiency * 100)}% cast efficiency (>${cpm.recommendedCastEfficiency * 100}% is recommended)`,
           icon: cpm.ability.spell.icon,
           importance: cpm.ability.importance || getIssueImportance(cpm.castEfficiency, cpm.recommendedCastEfficiency - 0.05, cpm.recommendedCastEfficiency - 0.15),
         });
