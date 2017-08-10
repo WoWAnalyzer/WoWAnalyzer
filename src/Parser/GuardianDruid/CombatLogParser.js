@@ -86,35 +86,40 @@ class CombatLogParser extends MainCombatLogParser {
 
     if (nonDpsTimePercentage > 0.3) {
       results.addIssue({
-        issue: `Your non DPS time can be improved. Try to cast damaging spells more regularly (${Math.round(nonDpsTimePercentage * 100)}% non DPS time).`,
+        issue: `Your non DPS time can be improved. Try to cast damaging spells more regularly.`,
+        stat: `${Math.round(nonDpsTimePercentage * 100)}% non DPS time (<30% is recommended)`,
         icon: 'petbattle_health-down',
         importance: getIssueImportance(nonDpsTimePercentage, 0.4, 0.45, true),
       });
     }
     if (deadTimePercentage > 0.2) {
       results.addIssue({
-        issue: `Your dead GCD time can be improved. Try to Always Be Casting (ABC).      (${Math.round(deadTimePercentage * 100)}% dead GCD time).`,
+        issue: `Your dead GCD time can be improved. Try to Always Be Casting (ABC).`,
+        stat: `${Math.round(deadTimePercentage * 100)}% dead GCD time (<20% is recommended)`,
         icon: 'spell_mage_altertime',
         importance: getIssueImportance(deadTimePercentage, 0.35, 0.4, true),
       });
     }
     if (unusedGoreProcs > 0.30) {
       results.addIssue({
-        issue: <span>Your <SpellLink id={SPELLS.GORE_BEAR.id} /> procs should be used as soon as you get them so they are not overwritten. You missed {(this.modules.goreProcs.GoreProcsTotal - this.modules.goreProcs.consumedGoreProc)}/{(this.modules.goreProcs.GoreProcsTotal)} procs. ({formatPercentage((this.modules.goreProcs.GoreProcsTotal - this.modules.goreProcs.consumedGoreProc) / this.modules.goreProcs.GoreProcsTotal)} %)</span>,
+        issue: <span>Your <SpellLink id={SPELLS.GORE_BEAR.id} /> procs should be used as soon as you get them so they are not overwritten.</span>,
+        stat: `${(this.modules.goreProcs.GoreProcsTotal - this.modules.goreProcs.consumedGoreProc)}/${(this.modules.goreProcs.GoreProcsTotal)} (${formatPercentage((this.modules.goreProcs.GoreProcsTotal - this.modules.goreProcs.consumedGoreProc) / this.modules.goreProcs.GoreProcsTotal)}%) procs were missed (<30% is recommended)`,
         icon: SPELLS.GORE_BEAR.icon,
         importance: getIssueImportance(unusedGoreProcs, 0.45, 0.6, true),
       });
     }
     if (unusedGGProcs > 0.30) {
       results.addIssue({
-        issue: <span>Your <SpellLink id={SPELLS.GALACTIC_GUARDIAN.id} /> procs should be used as soon as you get them so they are not overwritten. You missed {(this.modules.galacticGuardianProcs.GGProcsTotal - this.modules.galacticGuardianProcs.consumedGGProc)}/{(this.modules.galacticGuardianProcs.GGProcsTotal)} procs. ({formatPercentage((this.modules.galacticGuardianProcs.GGProcsTotal - this.modules.galacticGuardianProcs.consumedGGProc) / this.modules.galacticGuardianProcs.GGProcsTotal)} %)</span>,
+        issue: <span>Your <SpellLink id={SPELLS.GALACTIC_GUARDIAN.id} /> procs should be used as soon as you get them so they are not overwritten.</span>,
+        stat: `${(this.modules.galacticGuardianProcs.GGProcsTotal - this.modules.galacticGuardianProcs.consumedGGProc)}/${(this.modules.galacticGuardianProcs.GGProcsTotal)} (${formatPercentage((this.modules.galacticGuardianProcs.GGProcsTotal - this.modules.galacticGuardianProcs.consumedGGProc) / this.modules.galacticGuardianProcs.GGProcsTotal)}%) procs were missed (<30% is recommended)`,
         icon: SPELLS.GALACTIC_GUARDIAN.icon,
         importance: getIssueImportance(unusedGGProcs, 0.45, 0.6, true),
       });
     }
     if (unusedGoEProcs > 0.30) {
       results.addIssue({
-        issue: <span>Your <SpellLink id={SPELLS.GUARDIAN_OF_ELUNE.id} /> procs should be used as soon as you get them so they are not overwritten. You missed {(this.modules.guardianOfEluneProcs.GoEProcsTotal - this.modules.guardianOfEluneProcs.consumedGoEProc)}/{(this.modules.guardianOfEluneProcs.GoEProcsTotal)} procs. ({formatPercentage((this.modules.guardianOfEluneProcs.GoEProcsTotal - this.modules.guardianOfEluneProcs.consumedGoEProc) / this.modules.guardianOfEluneProcs.GoEProcsTotal)} %)</span>,
+        issue: <span>Your <SpellLink id={SPELLS.GUARDIAN_OF_ELUNE.id} /> procs should be used as soon as you get them so they are not overwritten.</span>,
+        stat: `${(this.modules.guardianOfEluneProcs.GoEProcsTotal - this.modules.guardianOfEluneProcs.consumedGoEProc)}/${(this.modules.guardianOfEluneProcs.GoEProcsTotal)} (${formatPercentage((this.modules.guardianOfEluneProcs.GoEProcsTotal - this.modules.guardianOfEluneProcs.consumedGoEProc) / this.modules.guardianOfEluneProcs.GoEProcsTotal)}%) procs were missed (<30% recommended)`,
         icon: SPELLS.GUARDIAN_OF_ELUNE.icon,
         importance: getIssueImportance(unusedGoEProcs, 0.45, 0.6, true),
       });
@@ -122,7 +127,8 @@ class CombatLogParser extends MainCombatLogParser {
 
     if (thrashUptime < 0.95) {
       results.addIssue({
-        issue: <span> Your <SpellLink id={SPELLS.THRASH_BEAR_DOT.id} /> uptime should be near 100%, unless you have extended periods of downtime. Thrash applies a bleed which buffs the damage of <SpellLink id={SPELLS.MANGLE_BEAR.id} /> by 20%.  Thrash uptime is especially important if you are talented into <SpellLink id={SPELLS.REND_AND_TEAR_TALENT.id} />, since it buffs the rest of your damage and gives you extra damage reduction. Your uptime: {formatPercentage(thrashUptime)}%</span>,
+        issue: <span> Your <SpellLink id={SPELLS.THRASH_BEAR_DOT.id} /> uptime should be near 100%, unless you have extended periods of downtime. Thrash applies a bleed which buffs the damage of <SpellLink id={SPELLS.MANGLE_BEAR.id} /> by 20%.  Thrash uptime is especially important if you are talented into <SpellLink id={SPELLS.REND_AND_TEAR_TALENT.id} />, since it buffs the rest of your damage and gives you extra damage reduction.</span>,
+        stat: `${formatPercentage(thrashUptime)}% uptime (>95% recommended)`,
         icon: SPELLS.THRASH_BEAR.icon,
         importance: getIssueImportance(thrashUptime, 0.9, 0.8),
       });
@@ -130,7 +136,8 @@ class CombatLogParser extends MainCombatLogParser {
 
     if (moonfireUptime < 0.95) {
       results.addIssue({
-        issue: <span> Your <SpellLink id={SPELLS.MOONFIRE_BEAR.id} /> uptime should be near 100%, unless you have extended periods of downtime. Targets with Moonfire applied to them deal less damage to you due to <SpellLink id={SPELLS.SCINTILLATING_MOONLIGHT.id} />. Your uptime: {formatPercentage(moonfireUptime)}%</span>,
+        issue: <span> Your <SpellLink id={SPELLS.MOONFIRE_BEAR.id} /> uptime should be near 100%, unless you have extended periods of downtime. Targets with Moonfire applied to them deal less damage to you due to <SpellLink id={SPELLS.SCINTILLATING_MOONLIGHT.id} />.</span>,
+        stat: `${formatPercentage(moonfireUptime)}% uptime (>95% recommended)`,
         icon: SPELLS.MOONFIRE_BEAR.icon,
         importance: getIssueImportance(moonfireUptime, 0.9, 0.8),
       });
@@ -141,7 +148,8 @@ class CombatLogParser extends MainCombatLogParser {
     castEfficiency.forEach((cpm) => {
       if (cpm.canBeImproved && !cpm.ability.noSuggestion) {
         results.addIssue({
-          issue: <span>Try to cast <SpellLink id={cpm.ability.spell.id} /> more often ({cpm.casts}/{cpm.maxCasts} casts: {Math.round(cpm.castEfficiency * 100)}% cast efficiency). {cpm.ability.extraSuggestion || ''}</span>,
+          issue: <span>Try to cast <SpellLink id={cpm.ability.spell.id} /> more often. {cpm.ability.extraSuggestion || ''}</span>,
+          stat: `${cpm.casts} out of ${cpm.maxCasts} possible casts; ${Math.round(cpm.castEfficiency * 100)}% cast efficiency (>${cpm.recommendedCastEfficiency * 100}% is recommended)`,
           icon: cpm.ability.spell.icon,
           importance: cpm.ability.importance || getIssueImportance(cpm.castEfficiency, cpm.recommendedCastEfficiency - 0.05, cpm.recommendedCastEfficiency - 0.15),
         });
