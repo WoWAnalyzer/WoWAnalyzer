@@ -337,7 +337,7 @@ class CombatLogParser extends MainCombatLogParser {
     if (lodOverhealing > recommendedLodOverhealing) {
       results.addIssue({
         issue: <span>Try to avoid overhealing with <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} />. Save it for when people are missing health.</span>,
-        stat: `${Math.round(lodOverhealing * 100)}% overhealing (<${recommendedLodOverhealing * 100})% is recommended)`,
+        stat: `${Math.round(lodOverhealing * 100)}% overhealing (<${recommendedLodOverhealing * 100}% is recommended)`,
         icon: SPELLS.LIGHT_OF_DAWN_CAST.icon,
         importance: getIssueImportance(lodOverhealing, recommendedLodOverhealing + 0.1, recommendedLodOverhealing + 0.2, true),
       });
@@ -347,7 +347,7 @@ class CombatLogParser extends MainCombatLogParser {
     if (hsOverhealing > recommendedHsOverhealing) {
       results.addIssue({
         issue: <span>Try to avoid overhealing with <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} />. Save it for when people are missing health.</span>,
-        stat: `${Math.round(hsOverhealing * 100)}% overhealing (<${recommendedHsOverhealing * 100})% is recommended)`,
+        stat: `${Math.round(hsOverhealing * 100)}% overhealing (<${recommendedHsOverhealing * 100}% is recommended)`,
         icon: SPELLS.HOLY_SHOCK_HEAL.icon,
         importance: getIssueImportance(hsOverhealing, recommendedHsOverhealing + 0.1, recommendedHsOverhealing + 0.2, true),
       });
@@ -357,7 +357,7 @@ class CombatLogParser extends MainCombatLogParser {
     if (folOverhealing > recommendedFolOverhealing) {
       results.addIssue({
         issue: <span>Try to avoid overhealing with <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} />. If Flash of Light would overheal it is generally advisable to cast a <SpellLink id={SPELLS.HOLY_LIGHT.id} /> instead.</span>,
-        stat: `${Math.round(folOverhealing * 100)}% overhealing (<${recommendedFolOverhealing * 100})% is recommended)`,
+        stat: `${Math.round(folOverhealing * 100)}% overhealing (<${recommendedFolOverhealing * 100}% is recommended)`,
         icon: SPELLS.FLASH_OF_LIGHT.icon,
         importance: getIssueImportance(folOverhealing, recommendedFolOverhealing + 0.15, recommendedFolOverhealing + 0.25, true),
       });
@@ -367,7 +367,7 @@ class CombatLogParser extends MainCombatLogParser {
     if (bfOverhealing > recommendedBfOverhealing) {
       results.addIssue({
         issue: <span>Try to avoid overhealing with <SpellLink id={SPELLS.BESTOW_FAITH_TALENT.id} />. Cast it just before someone is about to take damage and consider casting it on targets other than tanks.</span>,
-        stat: `${Math.round(bfOverhealing * 100)}% overhealing (<${recommendedBfOverhealing * 100})% is recommended)`,
+        stat: `${Math.round(bfOverhealing * 100)}% overhealing (<${recommendedBfOverhealing * 100}% is recommended)`,
         icon: SPELLS.BESTOW_FAITH_TALENT.icon,
         importance: getIssueImportance(bfOverhealing, recommendedBfOverhealing + 0.1, recommendedBfOverhealing + 0.2, true),
       });
