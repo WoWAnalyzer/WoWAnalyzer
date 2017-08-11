@@ -89,7 +89,7 @@ class FightSelecter extends Component {
                     return true;
                   })
                   .map(fight => (
-                    <li key={`${fight.id}`} className="item">
+                    <li key={`${fight.id}`} className="item selectable">
                       <Link to={makeAnalyzerUrl(report, fight.id)}>
                         <Fight {...fight} wipes={getWipeCount(report, fight)} />
                       </Link>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
 
-import PatreonLink from './PatreonLink';
+import PatreonButton from './PatreonButton';
 import Changelog from './Changelog';
 
 import MasteryRadiusImage from './Images/mastery-radius.png';
@@ -55,7 +55,7 @@ class Home extends Component {
 
                 If you're looking to help out development in other ways, please consider donating.<br />
 
-                <PatreonLink />
+                <PatreonButton text="Become a Patron" />
               </div>
             </div>
 

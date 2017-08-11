@@ -1,6 +1,6 @@
 # Contributing
 
-Hey! Awesome you're interested in helping out. This should get you along the way. It's super basic right now because I hate documentation, but I hope it's enough to help you get started.
+Hey, welcome! Awesome you're interested in helping out! This should get you along the way. If you have any questions the WoW Analyzer Discord is the place to ask: https://discord.gg/AxphPxU
 
 # Installing
 
