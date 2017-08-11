@@ -7,6 +7,7 @@ import RestorationShaman from './RestorationShaman/CONFIG';
 import MistweaverMonk from './MistweaverMonk/CONFIG';
 import WindwalkerMonk from './WindwalkerMonk/CONFIG';
 import GuardianDruid from './GuardianDruid/CONFIG';
+import SubtletyRogue from './SubtletyRogue/CONFIG';
 
 // Order of this should be the order in which specs were added to production
 export default [
@@ -19,4 +20,5 @@ export default [
   ElementalShaman,
   WindwalkerMonk,
   GuardianDruid,
+  SubtletyRogue,
 ];

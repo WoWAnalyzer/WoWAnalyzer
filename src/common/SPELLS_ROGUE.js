@@ -42,6 +42,21 @@ export default {
     name: 'Shadowstep',
     icon: 'ability_rogue_shadowstep',
   },
+  SAP: {
+    id: 6770,
+    name: 'Sap',
+    icon: 'ability_sap',
+  },
+  CHEAP_SHOT: {
+    id: 1833,
+    name: 'Cheap Shot',
+    icon: 'ability_cheapshot',
+  },
+  KIDNEY_SHOT: {
+    id: 408,
+    name: 'Kidney Shot',
+    icon: 'ability_rogue_kidneyshot',
+  },
   
   // Subtlety spells
   // Combo point generating damage ability
@@ -105,9 +120,15 @@ export default {
   },
   // Abilities form talent
   DEATH_FROM_ABOVE: {
-    id: 178236,
+    id: 152150,
     name: 'Death from Above',
     icon: 'spell_rogue_deathfromabove',
   },
 
+  // Buffs
+  SHADOW_DANCE_BUFF: {
+    id: 185422,
+    name: 'Shadow Dance',
+    icon: 'ability_rogue_shadowdance',
+  },
 };
