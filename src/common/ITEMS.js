@@ -274,6 +274,70 @@ const ITEMS = {
     icon: 'inv_belt_leather_raiddruid_i_01',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+  
+  // Shared Rogue Legendaries
+  CINIDARIA_THE_SYMBIOTE: {
+    id: 133976,
+    name: 'Cinidaria, the Symbiote',
+    icon: 'inv_leather_raiddruid_m_01belt',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  KILJAEDENS_BURNING_WISH: {
+    id: 144259,
+    name: 'Kil\'jaeden\'s Burning Wish',
+    icon: 'sha_spell_fire_bluepyroblast_nightmare',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  SOUL_OF_THE_SHADOWBLADE: {
+    id: 150936,
+    name: 'Soul of the Shadowblade',
+    icon: 'inv_jewelry_ring_56',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  MANTLE_OF_THE_MASTER_ASSASSIN: {
+    id: 144236,
+    name: 'Mantle of the Master Assassin',
+    icon: 'inv_shoulder_leather_raidrogue_k_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  INSIGNIA_OF_RAVENHOLDT: {
+    id: 137049,
+    name: 'Insignia of Ravenholdt',
+    icon: 'inv_misc_epicring_a2',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  WILL_OF_VALEERA: {
+    id: 137069,
+    name: 'Will of Valeera',
+    icon: 'inv_pants_cloth_02',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  
+  // Subtlety Rogue Legendaries
+  SHADOW_SATYRS_WALK: {
+    id: 137032,
+    name: 'Shadow Satyr\'s Walk',
+    icon: 'inv_boots_mail_dungeonmail_c_04',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  ZOLDYCK_FAMILY_TRAINING_SHACKLES: {
+    id: 137098,
+    name: 'Zoldyck Family Training Shackles',
+    icon: 'inv_bracer_leather_raiddruid_i_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  THE_FIRST_OF_THE_DEAD: {
+    id: 151818,
+    name: 'The First of the Dead',
+    icon: 'inv_glove_cloth_raidwarlockmythic_q_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  THE_DREADLORDS_DECEIT: {
+    id: 137021,
+    name: 'The Dreadlord\'s Deceit',
+    icon: 'inv_cape_pandaria_d_03',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
 
   // T20 Trinkets
   ARCHIVE_OF_FAITH: {
