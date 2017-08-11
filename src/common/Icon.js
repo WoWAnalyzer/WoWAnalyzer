@@ -11,14 +11,14 @@ const Icon = ({ icon, alt, ...other }) => {
   return (
     <img
       src={`//blzmedia-a.akamaihd.net/wow/icons/56/${icon}.jpg`}
-      alt={alt}
+      alt={alt || icon}
       {...other}
     />
   );
 };
 Icon.propTypes = {
   icon: PropTypes.string.isRequired,
-  alt: PropTypes.string.isRequired,
+  alt: PropTypes.string,
 };
 
 export default Icon;

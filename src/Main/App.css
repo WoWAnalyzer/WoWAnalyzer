@@ -276,10 +276,6 @@ h1 {
   list-style: none;
   padding: 0;
 }
-.list.issues {
-  font-size: 100%;
-  margin: 0;
-}
 .list.players li img {
   height: 1.7em;
   margin-right: 5px;
@@ -308,44 +304,6 @@ h1 {
   background-color: rgba(255, 255, 255, 0.1);
   border-top-color: rgba(0, 0, 0, 0.4);
   border-bottom-color: rgba(0, 0, 0, 0.4);
-}
-.list.issues .item {
-  padding: 10px 90px 10px 22px;
-}
-.list.issues .item img {
-  height: 1.7em;
-  margin: -10px 6px -10px 0;
-  border-radius: 50%;
-}
-.list.issues .regular .importance {
-  display: inline-block;
-  margin-right: 10px;
-  text-transform: uppercase;
-  color: #ffad56;
-  position: absolute;
-  right: 5px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-.list.issues .minor .importance {
-  display: inline-block;
-  margin-right: 10px;
-  text-transform: uppercase;
-  color: #5b9cff;
-  position: absolute;
-  right: 5px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-.list.issues .major .importance {
-  display: inline-block;
-  margin-right: 10px;
-  text-transform: uppercase;
-  color: #ff433d;
-  position: absolute;
-  right: 5px;
-  top: 50%;
-  transform: translateY(-50%);
 }
 svg {
   height: 0.9em;

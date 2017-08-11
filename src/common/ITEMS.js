@@ -371,6 +371,25 @@ const ITEMS = {
     icon: 'inv_jewelcrafting_purpleowl.jpg',
     quality: ITEM_QUALITIES.EPIC,
   },
+  // Guardian legendaries
+  ELIZES_EVERLASTING_ENCASEMENT: {
+    id: 137067,
+    name: 'Elize\'s Everlasting Encasement',
+    icon: 'inv_jewelcrafting_purpleowl',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  DUAL_DETERMINATION: {
+    id: 137041,
+    name: 'Dual Determination',
+    icon: 'inv_6_2raid_ring_4b',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  FURY_OF_NATURE: {
+    id: 151802,
+    name: 'Fury of Nature',
+    icon: 'inv_cape_draenorquest90_b_03_mail',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
 };
 
 export default indexById(ITEMS);

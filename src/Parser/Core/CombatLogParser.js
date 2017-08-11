@@ -9,6 +9,7 @@ import AbilityTracker from './Modules/AbilityTracker';
 import AlwaysBeCasting from './Modules/AlwaysBeCasting';
 import Enemies from './Modules/Enemies';
 import HealEventTracker from './Modules/HealEventTracker';
+import ManaValues from './Modules/ManaValues';
 
 // Shared Legendaries
 import Prydaz from './Modules/Items/Prydaz';
@@ -24,6 +25,9 @@ import SeaStar from './Modules/Items/SeaStarOfTheDepthmother';
 import DeceiversGrandDesign from './Modules/Items/DeceiversGrandDesign';
 import PrePotion from './Modules/Items/PrePotion';
 import GnawedThumbRing from './Modules/Items/GnawedThumbRing';
+
+// Shared Buffs
+import VantusRune from './Modules/VantusRune';
 
 import ParseResults from './ParseResults';
 import SUGGESTION_IMPORTANCE from './ISSUE_IMPORTANCE';
@@ -47,6 +51,7 @@ class CombatLogParser {
     abilityTracker: AbilityTracker,
     healEventTracker: HealEventTracker,
     alwaysBeCasting: AlwaysBeCasting,
+    manaValues: ManaValues,
 
     // Items:
     // Legendaries:
@@ -116,8 +121,10 @@ class CombatLogParser {
     this.initializeModules(this.constructor.specModules);
   }
 
+  numRegisteredModules = 0;
   registerModule(module) {
-    this.modules[`_${module.constructor.name}`] = module;
+    this.modules[`_${this.numRegisteredModules}`] = module;
+    this.numRegisteredModules += 1;
   }
   initializeModules(modules) {
     Object.keys(modules).forEach(key => {
@@ -147,7 +154,11 @@ class CombatLogParser {
       });
 
       resolve(events.length);
-    });
+    })
+      .then((results) => {
+        this.triggerEvent('forceUpdate');
+        return results;
+      });
   }
 
   triggerEvent(eventType, event) {
@@ -202,12 +213,21 @@ class CombatLogParser {
   }
 
   totalDamageDone = 0;
+  totalDamageDoneToFriendly = 0;
   on_byPlayer_damage(event) {
-    this.totalDamageDone += event.amount + (event.absorbed || 0);
+    const damageDone = event.amount + (event.absorbed || 0);
+    if (event.targetIsFriendly) {
+      this.totalDamageDoneToFriendly += damageDone;
+    } else {
+      this.totalDamageDone += damageDone;
+    }
   }
+  
   totalDamageTaken = 0;
+  totalDamageTakenAbsorb = 0;
   on_toPlayer_damage(event) {
     this.totalDamageTaken += event.amount + (event.absorbed || 0);
+    this.totalDamageTakenAbsorb += (event.absorbed || 0);
   }
 
   // TODO: Damage taken from LOTM
@@ -218,7 +238,9 @@ class CombatLogParser {
 
     const fightDuration = this.fightDuration;
     const getPercentageOfTotal = healingDone => healingDone / this.totalHealing;
+    const getDamagePercentOfTotal = damageDone => damageDone / this.totalDamageDone;
     const formatItemHealing = healingDone => `${formatPercentage(getPercentageOfTotal(healingDone))} % / ${formatNumber(healingDone / fightDuration * 1000)} HPS`;
+    const formatItemDamage = damageDone => `${formatPercentage(getDamagePercentOfTotal(damageDone))} % / ${formatNumber(damageDone / fightDuration * 1000)} DPS`;
 
     if (this.modules.prydaz.active) {
       results.items.push({
@@ -239,7 +261,8 @@ class CombatLogParser {
       const velensHealingPercentage = getPercentageOfTotal(this.modules.velens.healing);
       if (velensHealingPercentage < this.constructor.SUGGESTION_VELENS_BREAKPOINT) {
         results.addIssue({
-          issue: <span>Your usage of <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} /> can be improved. Try to maximize the amount of healing during the buff without excessively overhealing on purpose, or consider using an easier legendary ({(velensHealingPercentage * 100).toFixed(2)}% healing contributed).</span>,
+          issue: <span>Your usage of <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} /> can be improved. Try to maximize the amount of healing during the buff without excessively overhealing on purpose, or consider using an easier legendary.</span>,
+          stat: `${(velensHealingPercentage * 100).toFixed(2)}% healing contributed (${this.constructor.SUGGESTION_VELENS_BREAKPOINT * 100}% is recommended)`,
           icon: ITEMS.VELENS_FUTURE_SIGHT.icon,
           importance: getSuggestionImportance(velensHealingPercentage, this.constructor.SUGGESTION_VELENS_BREAKPOINT - 0.005, this.constructor.SUGGESTION_VELENS_BREAKPOINT - 0.015),
         });
@@ -247,7 +270,7 @@ class CombatLogParser {
     }
     if (!this.modules.prePotion.usedPrePotion) {
       results.addIssue({
-        issue: <span>You forgot to use a potion before combat. Using a potion before combat allows you the benefit of two potions in a single fight. A potion such as <ItemLink id={ITEMS.POTION_OF_PROLONGED_POWER.id} /> can be very effective (even for healers), especially during shorter encounters.</span>,
+        issue: <span>You did not use a potion before combat. Using a potion before combat allows you the benefit of two potions in a single fight. A potion such as <ItemLink id={ITEMS.POTION_OF_PROLONGED_POWER.id} /> can be very effective (even for healers), especially during shorter encounters.</span>,
         icon: ITEMS.POTION_OF_PROLONGED_POWER.icon,
         importance: SUGGESTION_IMPORTANCE.MINOR,
       });
@@ -264,7 +287,7 @@ class CombatLogParser {
       }
       results.addIssue({
         icon: ITEMS.LEYTORRENT_POTION.icon,
-        issue: issue,
+        issue,
         importance: importance,
       });
     }
@@ -305,7 +328,9 @@ class CombatLogParser {
     if (this.modules.gnawedThumbRing.active) {
       results.items.push({
         item: ITEMS.GNAWED_THUMB_RING,
-        result: formatItemHealing(this.modules.gnawedThumbRing.healingIncreaseHealing),
+        result: (<dfn data-tip={`The effective healing and damage contributed by Gnawed Thumb Ring.<br/> Damage: ${formatItemDamage(this.modules.gnawedThumbRing.damageIncreased)} <br/> Healing: ${formatItemHealing(this.modules.gnawedThumbRing.healingIncreaseHealing)}`}>
+            {this.modules.gnawedThumbRing.healingIncreaseHealing > this.modules.gnawedThumbRing.damageIncreased ? formatItemHealing(this.modules.gnawedThumbRing.healingIncreaseHealing) : formatItemDamage(this.modules.gnawedThumbRing.damageIncreased)}
+          </dfn>),
       });
     }
     if (this.modules.archiveOfFaith.active) {
@@ -347,7 +372,7 @@ class CombatLogParser {
       });
       if (this.modules.deceiversGrandDesign.proced) {
         results.addIssue({
-          issue: <span>Your <ItemLink id={ITEMS.DECEIVERS_GRAND_DESIGN.id} /> procced earlier than expected. The following events procced the effect:<br />
+          issue: <span>Your <ItemLink id={ITEMS.DECEIVERS_GRAND_DESIGN.id} /> procced earlier than expected. Try to cast it on players without spiky health pools. The following events procced the effect:<br />
             {this.modules.deceiversGrandDesign.procs
               .map((procs, index) => {
                 const url = `https://www.warcraftlogs.com/reports/${procs.report}/#fight=${procs.fight}&source=${procs.target}&type=summary&start=${procs.start}&end=${procs.end}&view=events`;
@@ -362,6 +387,8 @@ class CombatLogParser {
         });
       }
     }
+
+    results.statistics.push(<VantusRune owner={this} />);
 
     return results;
   }

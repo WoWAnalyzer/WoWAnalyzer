@@ -15,7 +15,7 @@ const CPM_ABILITIES = [
     spell: SPELLS.PRAYER_OF_MENDING_CAST,
     name: 'Prayer of Mending',
     category: SPELL_CATEGORY.ROTATIONAL,
-    getCooldown: (haste, combatant) => (12 - (combatant.hasTalent(SPELLS.PIETY_TALENT.id) ? 2 : 0)) / (1 + haste),
+    getCooldown: (haste, combatant) => ((12 - (combatant.hasTalent(SPELLS.PIETY_TALENT.id) ? 2 : 0)) + 1.5) / (1 + haste), // +1.5 for base cast time
   },
   {
     spell: SPELLS.LIGHT_OF_TUURE_TRAIT,
@@ -25,12 +25,14 @@ const CPM_ABILITIES = [
     getMaxCasts: (cooldown, fightDuration, getAbility, parser) => {
       return calculateMaxCasts(cooldown, fightDuration, 2);
     },
+    noSuggestion: true,
   },
   {
     spell: SPELLS.DESPERATE_PRAYER,
     name: 'Desperate Prayer',
     category: SPELL_CATEGORY.ROTATIONAL,
-    getCooldown: haste => 90, // might remove DP because of the new minor trait causing resets
+    getCooldown: haste => 90, // note: this number will be slightest under-represented due to our trait causing DP resets from damage
+    noSuggestion: true,
   },
   {
     spell: SPELLS.APOTHEOSIS_TALENT,

@@ -5,9 +5,11 @@ import Module from 'Parser/Core/Module';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
 const GNAWED_THUMB_RING_HEALING_INCREASE = 0.05;
+const GNAWED_THUMB_RING_DAMAGE_INCREASE = 0.05;
 
 class GnawedThumbRing extends Module {
   healingIncreaseHealing = 0;
+  damageIncreased = 0;
 
   on_initialized() {
     if (!this.owner.error) {
@@ -21,11 +23,16 @@ class GnawedThumbRing extends Module {
       return;
     }
 
-    if(this.owner.selectedCombatant.hasBuff(SPELLS.GNAWED_THUMB_RING.id)) {
+    if (this.owner.selectedCombatant.hasBuff(SPELLS.GNAWED_THUMB_RING.id)) {
       this.healingIncreaseHealing += calculateEffectiveHealing(event, GNAWED_THUMB_RING_HEALING_INCREASE);
     }
   }
 
+  on_byPlayer_damage(event){
+    if (this.owner.selectedCombatant.hasBuff(SPELLS.GNAWED_THUMB_RING.id)) {
+      this.damageIncreased += event.amount - (event.amount / (1 + GNAWED_THUMB_RING_DAMAGE_INCREASE));
+    }
+  }
 }
 
 export default GnawedThumbRing;

@@ -40,6 +40,7 @@ import Tier20_2set from './Modules/Items/Tier20_2set';
 import Tier20_4set from './Modules/Items/Tier20_4set';
 
 import TwistOfFate from './Modules/Spells/TwistOfFate';
+import Castigation from './Modules/Spells/Castigation';
 import Atonement from './Modules/Spells/Atonement';
 import Evangelism from './Modules/Spells/Evangelism';
 import Penance from './Modules/Spells/Penance';
@@ -101,6 +102,7 @@ class CombatLogParser extends MainCombatLogParser {
 
     // Spells (talents and traits):
     twistOfFate: TwistOfFate,
+    castigation: Castigation,
     atonement: Atonement,
     evangelism: Evangelism,
     touchOfTheGrave: TouchOfTheGrave,
@@ -249,6 +251,17 @@ class CombatLogParser extends MainCombatLogParser {
           )}
         />
       ),
+      this.modules.castigation.active && (
+        <StatisticBox
+          icon={<SpellIcon id={SPELLS.CASTIGATION_TALENT.id} />}
+          value={`${formatNumber(this.modules.castigation.healing / fightDuration * 1000)} HPS`}
+          label={(
+            <dfn data-tip={`The effective healing contributed by Castigation (${formatPercentage(this.modules.castigation.healing / this.totalHealing)}% of total healing done). Castigation also contributed ${formatNumber(this.modules.castigation.damage / fightDuration * 1000)} DPS (${formatPercentage(this.modules.castigation.damage / this.totalDamageDone)}% of total damage done), the healing gain of this damage was included in the shown numbers.`}>
+              Castigation healing
+            </dfn>
+          )}
+        />
+      ),
       this.selectedCombatant.hasTalent(SPELLS.PURGE_THE_WICKED_TALENT.id) && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.PURGE_THE_WICKED_BUFF.id} />}
@@ -285,6 +298,7 @@ class CombatLogParser extends MainCombatLogParser {
           )}
         />
       ),
+      ...results.statistics,
     ];
 
     results.items = [

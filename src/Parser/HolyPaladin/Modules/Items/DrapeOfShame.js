@@ -33,6 +33,8 @@ class DrapeOfShame extends CoreDrapeOfShame {
     this.healing += effectiveHealing;
   }
   getCritHealingBonus(event) {
+    // Purity of Light (Tier 21 4 set) is multiplicative, so with it Drape of Shame's increase becomes 10%. Because of this we don't need to do anything here to keep it accurate.
+
     let critModifier = super.getCritHealingBonus(event);
     if (event.ability.guid === SPELLS.HOLY_SHOCK_HEAL.id) {
       const shockTreatmentTraits = this.owner.selectedCombatant.traitsBySpellId[SPELLS.SHOCK_TREATMENT.id];
