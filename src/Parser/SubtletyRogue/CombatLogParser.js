@@ -14,7 +14,7 @@ import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 import ShadowDance from './Modules/Features/ShadowDance';
 
-import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
+import CPM_ABILITIES from './CPM_ABILITIES';
 
 
 function getIssueImportance(value, regular, major, higherIsWorse = false) {
