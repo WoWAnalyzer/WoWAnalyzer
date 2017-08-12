@@ -116,8 +116,6 @@ class CombatLogParser extends MainCombatLogParser {
     const { suggestions } = results;
 
     const fightDuration = this.fightDuration;
-    const getPercentageOfTotal = healingDone => healingDone / this.totalHealing;
-    const formatItemHealing = healingDone => `${formatPercentage(getPercentageOfTotal(healingDone))} % / ${formatNumber(healingDone / fightDuration * 1000)} HPS`;
 
     const ruleOfLawUptime = this.selectedCombatant.getBuffUptime(SPELLS.RULE_OF_LAW_TALENT.id) / fightDuration;
 
@@ -165,7 +163,6 @@ class CombatLogParser extends MainCombatLogParser {
     const nonHealingTimePercentage = this.modules.alwaysBeCasting.totalHealingTimeWasted / fightDuration;
     const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
     const totalHealsOnBeaconPercentage = this.getTotalHealsOnBeaconPercentage(this);
-    const ilterendiHealingPercentage = this.modules.ilterendi.healing / this.totalHealing;
     const hasSacredDawn = this.selectedCombatant.traitsBySpellId[SPELLS.SACRED_DAWN.id] === 1;
     const sacredDawnPercentage = this.modules.sacredDawn.healing / this.totalHealing;
     const tyrsDeliveranceHealHealingPercentage = this.modules.tyrsDeliverance.healHealing / this.totalHealing;
@@ -247,17 +244,6 @@ class CombatLogParser extends MainCombatLogParser {
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
           .regular(recommended + 0.05).major(recommended + 0.2);
       });
-    if (this.modules.ilterendi.active) {
-      suggestions
-        .when(ilterendiHealingPercentage).isGreaterThan(0.045)
-        .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<span>Your usage of <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} /> can be improved. Try to line up <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} /> and <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> with the buff or consider using an easier legendary.</span>)
-            .icon(ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.icon)
-            .actual(`${formatItemHealing(this.modules.ilterendi.healing)} healing contributed`)
-            .recommended(`<${formatPercentage(recommended)}% is recommended`)
-            .regular(recommended + 0.05).major(recommended + 0.2);
-        });
-    }
     const lightOfTheMartyrs = getAbility(SPELLS.LIGHT_OF_THE_MARTYR.id).casts || 0;
     let fillerLotms = lightOfTheMartyrs;
     if (this.modules.maraadsDyingBreath.active) {
@@ -386,7 +372,6 @@ class CombatLogParser extends MainCombatLogParser {
         label="Non healing time"
         tooltip={`Non healing time is available casting time not used for a spell that helps you heal. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), DPSing, etc. Damaging Holy Shocks are considered non healing time, Crusader Strike is only considered non healing time if you do not have the Crusader's Might talent.<br /><br />You spent ${formatPercentage(deadTimePercentage)}% of your time casting nothing at all.`}
       />,
-      ,
       hasRuleOfLaw && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.RULE_OF_LAW_TALENT.id} />}
@@ -504,7 +489,7 @@ class CombatLogParser extends MainCombatLogParser {
       // Sort by quality > slot > tier
       this.modules.obsidianStoneSpaulders.active && {
         item: ITEMS.OBSIDIAN_STONE_SPAULDERS,
-        result: formatItemHealing(this.modules.obsidianStoneSpaulders.healing),
+        result: this.formatItemHealingDone(this.modules.obsidianStoneSpaulders.healing),
       },
       this.modules.maraadsDyingBreath.active && {
         item: ITEMS.MARAADS_DYING_BREATH,
@@ -514,25 +499,21 @@ class CombatLogParser extends MainCombatLogParser {
               data-tip={`
                 This is the estimated effective healing by Maraad's. This is adjusted for an estimated opportunity cost of casting a Flash of Light. The mana saved from casting a Light of the Martyr instead of a Flash of Light is also included by valuing it as 50% of the base healing of a LotM.<br /><br />
 
-                The effective healing done from Maraad's when adjusted for the opportunity cost of casting a regular (filler) Light of the Martyr was ${formatItemHealing(this.modules.maraadsDyingBreath.healingGainOverLotm)}.
+                The effective healing done from Maraad's when adjusted for the opportunity cost of casting a regular (filler) Light of the Martyr was ${this.formatItemHealingDone(this.modules.maraadsDyingBreath.healingGainOverLotm)}.
               `}
             >
-              ≈{formatItemHealing(this.modules.maraadsDyingBreath.healingGainOverFol)}
+              ≈{this.formatItemHealingDone(this.modules.maraadsDyingBreath.healingGainOverFol)}
             </dfn>
             {' '}
             (total: <dfn data-tip="This is the total healing done with Light of the Martyr during the buff from Maraad's. No opportunity cost was accounted for. The healing was adjusted for the damage taken.">
-              {formatItemHealing(this.modules.maraadsDyingBreath.totalHealing)}
+              {this.formatItemHealingDone(this.modules.maraadsDyingBreath.totalHealing)}
             </dfn>)
           </span>
         ),
       },
       this.modules.chainOfThrayn.active && {
         item: ITEMS.CHAIN_OF_THRAYN,
-        result: formatItemHealing(this.modules.chainOfThrayn.healing),
-      },
-      this.modules.ilterendi.active && {
-        item: ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON,
-        result: formatItemHealing(this.modules.ilterendi.healing),
+        result: this.formatItemHealingDone(this.modules.chainOfThrayn.healing),
       },
       hasSoulOfTheHighlord && {
         item: ITEMS.SOUL_OF_THE_HIGHLORD,
@@ -551,7 +532,7 @@ class CombatLogParser extends MainCombatLogParser {
         title: <SpellLink id={SPELLS.HOLY_PALADIN_T19_4SET_BONUS_BUFF.id} />,
         result: (
           <dfn data-tip={`The actual effective healing contributed by the tier 19 4 set bonus. <b>This does not include any healing "gained" from the Holy Light cast time reduction.</b> You used a total of ${this.modules.tier19_4set.totalIolProcsUsed} Infusion of Light procs, ${this.modules.tier19_4set.bonusIolProcsUsed} of those were from procs from the 4 set bonus and ${this.modules.tier19_4set.bonusIolProcsUsedOnFol} of those bonus procs were used on Flash of Light.`}>
-            {formatItemHealing(this.modules.tier19_4set.healing)}
+            {this.formatItemHealingDone(this.modules.tier19_4set.healing)}
           </dfn>
         ),
       },
@@ -561,7 +542,7 @@ class CombatLogParser extends MainCombatLogParser {
         title: <SpellLink id={SPELLS.HOLY_PALADIN_T20_4SET_BONUS_BUFF.id} />,
         result: (
           <dfn data-tip={`The actual effective healing contributed by the tier 20 4 set bonus. A total of ${formatNumber(this.modules.tier20_4set.totalBeaconHealingDuringLightsEmbrace)} <span style="color:orange">raw</span> healing was done on beacons during the Light's Embrace buff.`}>
-            {formatItemHealing(this.modules.tier20_4set.healing)}
+            {this.formatItemHealingDone(this.modules.tier20_4set.healing)}
           </dfn>
         ),
       },
@@ -569,13 +550,13 @@ class CombatLogParser extends MainCombatLogParser {
         id: `spell-${SPELLS.HOLY_PALADIN_T21_2SET_BONUS_BUFF.id}`,
         icon: <SpellIcon id={SPELLS.HOLY_PALADIN_T21_2SET_BONUS_BUFF.id} />,
         title: <SpellLink id={SPELLS.HOLY_PALADIN_T21_2SET_BONUS_BUFF.id} />,
-        result: formatItemHealing(this.modules.tier21_2set.healing),
+        result: this.formatItemHealingDone(this.modules.tier21_2set.healing),
       },
       this.modules.tier21_4set.active && {
         id: `spell-${SPELLS.HOLY_PALADIN_T21_4SET_BONUS_BUFF.id}`,
         icon: <SpellIcon id={SPELLS.HOLY_PALADIN_T21_4SET_BONUS_BUFF.id} />,
         title: <SpellLink id={SPELLS.HOLY_PALADIN_T21_4SET_BONUS_BUFF.id} />,
-        result: formatItemHealing(this.modules.tier21_4set.healing),
+        result: this.formatItemHealingDone(this.modules.tier21_4set.healing),
       },
       ...results.items,
     ];

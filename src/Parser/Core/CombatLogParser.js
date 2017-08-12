@@ -223,20 +223,30 @@ class CombatLogParser {
   // TODO: Damage taken from LOTM
 
   static SUGGESTION_VELENS_BREAKPOINT = 0.045;
+
+  getPercentageOfTotalHealingDone(healingDone) {
+    return healingDone / this.totalHealing;
+  }
+  formatItemHealingDone(healingDone) {
+    return `${formatPercentage(this.getPercentageOfTotalHealingDone(healingDone))} % / ${formatNumber(healingDone / this.fightDuration * 1000)} HPS`;
+  }
+  getPercentageOfTotalDamageDone(damageDone) {
+    return damageDone / this.totalDamageDone;
+  }
+  formatItemDamageDone(damageDone) {
+    return `${formatPercentage(this.getPercentageOfTotalDamageDone(damageDone))} % / ${formatNumber(damageDone / this.fightDuration * 1000)} DPS`;
+  }
+
   generateResults() {
     const results = new ParseResults();
     const { suggestions } = results;
 
     const fightDuration = this.fightDuration;
-    const getPercentageOfTotal = healingDone => healingDone / this.totalHealing;
-    const getDamagePercentOfTotal = damageDone => damageDone / this.totalDamageDone;
-    const formatItemHealing = healingDone => `${formatPercentage(getPercentageOfTotal(healingDone))} % / ${formatNumber(healingDone / fightDuration * 1000)} HPS`;
-    const formatItemDamage = damageDone => `${formatPercentage(getDamagePercentOfTotal(damageDone))} % / ${formatNumber(damageDone / fightDuration * 1000)} DPS`;
 
     if (this.modules.prydaz.active) {
       results.items.push({
         item: ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS,
-        result: formatItemHealing(this.modules.prydaz.healing),
+        result: this.formatItemHealingDone(this.modules.prydaz.healing),
       });
     }
     if (this.modules.velens.active) {
@@ -245,17 +255,17 @@ class CombatLogParser {
         item: ITEMS.VELENS_FUTURE_SIGHT,
         result: (
           <dfn data-tip={`The effective healing contributed by the Velen's Future Sight use effect. ${formatPercentage(this.modules.velens.healingIncreaseHealing / this.totalHealing)}% of total healing was contributed by the 15% healing increase and ${formatPercentage(this.modules.velens.overhealHealing / this.totalHealing)}% of total healing was contributed by the overhealing distribution.`}>
-            {formatItemHealing(this.modules.velens.healing)}
+            {this.formatItemHealingDone(this.modules.velens.healing)}
           </dfn>
         ),
       });
-      const velensHealingPercentage = getPercentageOfTotal(this.modules.velens.healing);
+      const velensHealingPercentage = this.getPercentageOfTotalHealingDone(this.modules.velens.healing);
       suggestions
         .when(velensHealingPercentage).isGreaterThan(this.constructor.SUGGESTION_VELENS_BREAKPOINT)
         .addSuggestion((suggest, actual, recommended) => {
           return suggest(<span>Your usage of <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} /> can be improved. Try to maximize the amount of healing during the buff without excessively overhealing on purpose, or consider using an easier legendary.</span>)
             .icon(ITEMS.VELENS_FUTURE_SIGHT.icon)
-            .actual(`${formatItemHealing(this.modules.velens.healing)} healing contributed`)
+            .actual(`${this.formatItemHealingDone(this.modules.velens.healing)} healing contributed`)
             .recommended(`>${formatPercentage(recommended)}% is recommended`)
             .regular(recommended - 0.005).major(recommended - 0.015);
         });
@@ -294,7 +304,7 @@ class CombatLogParser {
     if (this.modules.drapeOfShame.active) {
       results.items.push({
         item: ITEMS.DRAPE_OF_SHAME,
-        result: formatItemHealing(this.modules.drapeOfShame.healing),
+        result: this.formatItemHealingDone(this.modules.drapeOfShame.healing),
       });
     }
     if (this.modules.darkmoonDeckPromises.active) {
@@ -320,8 +330,8 @@ class CombatLogParser {
     if (this.modules.gnawedThumbRing.active) {
       results.items.push({
         item: ITEMS.GNAWED_THUMB_RING,
-        result: (<dfn data-tip={`The effective healing and damage contributed by Gnawed Thumb Ring.<br/> Damage: ${formatItemDamage(this.modules.gnawedThumbRing.damageIncreased)} <br/> Healing: ${formatItemHealing(this.modules.gnawedThumbRing.healingIncreaseHealing)}`}>
-            {this.modules.gnawedThumbRing.healingIncreaseHealing > this.modules.gnawedThumbRing.damageIncreased ? formatItemHealing(this.modules.gnawedThumbRing.healingIncreaseHealing) : formatItemDamage(this.modules.gnawedThumbRing.damageIncreased)}
+        result: (<dfn data-tip={`The effective healing and damage contributed by Gnawed Thumb Ring.<br/> Damage: ${this.formatItemDamageDone(this.modules.gnawedThumbRing.damageIncreased)} <br/> Healing: ${this.formatItemHealingDone(this.modules.gnawedThumbRing.healingIncreaseHealing)}`}>
+            {this.modules.gnawedThumbRing.healingIncreaseHealing > this.modules.gnawedThumbRing.damageIncreased ? this.formatItemHealingDone(this.modules.gnawedThumbRing.healingIncreaseHealing) : this.formatItemDamageDone(this.modules.gnawedThumbRing.damageIncreased)}
           </dfn>),
       });
     }
@@ -341,13 +351,13 @@ class CombatLogParser {
     if (this.modules.barbaricMindslaver.active) {
       results.items.push({
         item: ITEMS.BARBARIC_MINDSLAVER,
-        result: formatItemHealing(this.modules.barbaricMindslaver.healing),
+        result: this.formatItemHealingDone(this.modules.barbaricMindslaver.healing),
       });
     }
     if (this.modules.seaStar.active) {
       results.items.push({
         item: ITEMS.SEA_STAR_OF_THE_DEPTHMOTHER,
-        result: formatItemHealing(this.modules.seaStar.healing),
+        result: this.formatItemHealingDone(this.modules.seaStar.healing),
       });
     }
     if (this.modules.deceiversGrandDesign.active) {

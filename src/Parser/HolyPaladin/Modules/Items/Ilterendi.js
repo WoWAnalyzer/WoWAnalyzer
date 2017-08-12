@@ -1,4 +1,10 @@
+import React from 'react';
+
 import ITEMS from 'common/ITEMS';
+import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
+import ItemLink from 'common/ItemLink';
+import { formatPercentage } from 'common/format';
 
 import Module from 'Parser/Core/Module';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
@@ -30,6 +36,23 @@ class Ilterendi extends Module {
   }
 
   // Beacon transfer is included in `ABILITIES_AFFECTED_BY_HEALING_INCREASES`
+
+  item() {
+    return {
+      item: ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON,
+      result: this.owner.formatItemHealingDone(this.healing),
+    };
+  }
+  suggestion(when) {
+    when(this.owner.getPercentageOfTotalHealingDone(this.healing)).isLessThan(0.045)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<span>Your usage of <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} /> can be improved. Try to line up <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} /> and <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> with the buff or consider using an easier legendary.</span>)
+          .icon(ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.icon)
+          .actual(`${this.owner.formatItemHealingDone(this.healing)} healing contributed`)
+          .recommended(`>${formatPercentage(recommended)}% is recommended`)
+          .regular(recommended - 0.005).major(recommended - 0.015);
+      });
+  }
 }
 
 export default Ilterendi;
