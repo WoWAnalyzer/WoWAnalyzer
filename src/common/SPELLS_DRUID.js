@@ -434,5 +434,5 @@ export default {
     id: 158792,
     name: 'Pulverize',
     icon: 'spell_druid_malfurionstenacity',
-  }
+  },
 };
