@@ -36,6 +36,26 @@ function getIssueImportance(value, regular, major, higherIsWorse = false) {
   }
   return ISSUE_IMPORTANCE.MINOR;
 }
+const damageType = {
+  1: 'Physical',
+  2: 'Holy',
+  4: 'Fire',
+  8: 'Nature',
+  16: 'Frost',
+  32: 'Shadow',
+  64: 'Arcane',
+  96: 'Spellshadow',
+  100: 'Special',
+  124: 'Chaos',
+};
+
+function getMagicDescription(type) {
+  if (damageType[type] === undefined) {
+    console.log(type);
+    return 'Chaos';
+  }
+  return damageType[type];
+}
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -48,6 +68,15 @@ class CombatLogParser extends MainCombatLogParser {
     // Legendaries:
     dualDetermination: DualDetermination,
   };
+
+  damageBySchool = {};
+  on_toPlayer_damage(event) {
+    if (this.damageBySchool[event.ability.type] === undefined) {
+      this.damageBySchool[event.ability.type] = 0;
+    }
+    this.damageBySchool[event.ability.type] += event.amount + (event.absorbed || 0);
+    super.on_toPlayer_damage(event);
+  }
 
   generateResults() {
     const results = super.generateResults();
@@ -151,11 +180,12 @@ class CombatLogParser extends MainCombatLogParser {
       <StatisticBox
         icon={<Icon icon="class_druid" alt="Damage taken" />}
         value={`${formatNumber(this.totalDamageTaken / this.fightDuration * 1000)} DTPS`}
-        label={(
-          <dfn data-tip={`The total damage taken was ${formatThousands(this.totalDamageTaken)}.`}>
-            Damage taken
-          </dfn>
-        )}
+        label='Damage taken'
+        tooltip={`Damage taken breakdown:
+            <ul>
+              ${Object.keys(this.damageBySchool).reduce((v, x) => {return v+=`<li>${getMagicDescription(x)} damage taken ${formatThousands(this.damageBySchool[x])} (${formatPercentage(this.damageBySchool[x]/this.totalDamageTaken)}%)</li>`; }, '')}
+            </ul>
+            Total damage taken ${formatThousands(this.totalDamageTaken)}`}
       />,
       <StatisticBox
         icon={(
@@ -166,99 +196,71 @@ class CombatLogParser extends MainCombatLogParser {
           />
         )}
         value={`${formatNumber(this.totalHealing / this.fightDuration * 1000)} HPS`}
-        label={(
-          <dfn data-tip={`The total healing done was ${formatThousands(this.totalHealing)}.`}>
-            Healing done
-          </dfn>
-        )}
+        label='Healing done'
+        tooltip={`The total healing done was ${formatThousands(this.totalHealing)}.`}
       />,
       <StatisticBox
         icon={<Icon icon="spell_mage_altertime" alt="Dead GCD time" />}
         value={`${formatPercentage(deadTimePercentage)} %`}
-        label={(
-          <dfn data-tip="Dead GCD time is available casting time not used. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), etc.">
-            Dead GCD time
-          </dfn>
-        )}
+        label='Dead GCD time'
+        tooltip='Dead GCD time is available casting time not used. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), etc.'
       />,
       <StatisticBox
         icon={<Icon icon="class_druid" alt="Damage done" />}
         value={`${formatNumber(this.totalDamageDone / this.fightDuration * 1000)} DPS`}
-        label={(
-          <dfn data-tip={`The total damage done was ${formatThousands(this.totalDamageDone)}.`}>
-            Damage done
-          </dfn>
-        )}
+        label='Damage done'
+        tooltip={`The total damage done was ${formatThousands(this.totalDamageDone)}.`}
       />,
       <StatisticBox
         icon={<SpellIcon id={SPELLS.GORE_BEAR.id} />}
         value={`${formatPercentage(unusedGoreProcs)}%`}
-        label={(
-          <dfn data-tip={`You got total <b>${this.modules.goreProcs.GoreProcsTotal}</b> gore procs and <b>used ${this.modules.goreProcs.consumedGoreProc}</b> of them.`}>
-            Unused Gore Procs
-          </dfn>
-        )}
+        label='Unused Gore Procs'
+        tooltip={`You got total <b>${this.modules.goreProcs.GoreProcsTotal}</b> gore procs and <b>used ${this.modules.goreProcs.consumedGoreProc}</b> of them.`}
       />,
       this.modules.galacticGuardianProcs.active && (<StatisticBox
         icon={<SpellIcon id={SPELLS.GALACTIC_GUARDIAN.id} />}
         value={`${formatPercentage(unusedGGProcs)}%`}
-        label={(
-          <dfn data-tip={`You got total <b>${this.modules.galacticGuardianProcs.GGProcsTotal}</b> galactic guardian procs and <b>used ${this.modules.galacticGuardianProcs.consumedGGProc}</b> of them.`}>
-            Unused Galactic Guardian
-          </dfn>
-        )}
+        label='Unused Galactic Guardian'
+        tooltip={`You got total <b>${this.modules.galacticGuardianProcs.GGProcsTotal}</b> galactic guardian procs and <b>used ${this.modules.galacticGuardianProcs.consumedGGProc}</b> of them.`}
       />),
       this.modules.guardianOfEluneProcs.active && (<StatisticBox
         icon={<SpellIcon id={SPELLS.GUARDIAN_OF_ELUNE.id} />}
         value={`${formatPercentage(unusedGoEProcs)}%`}
-        label={(
-          <dfn data-tip={`You got total <b>${this.modules.guardianOfEluneProcs.GoEProcsTotal}</b> guardian of elune procs and <b>used ${this.modules.guardianOfEluneProcs.consumedGoEProc}</b> of them.`}>
-            Unused Guardian of Elune
-          </dfn>
-        )}
+        label='Unused Guardian of Elune'
+        tooltip={`You got total <b>${this.modules.guardianOfEluneProcs.GoEProcsTotal}</b> guardian of elune procs and <b>used ${this.modules.guardianOfEluneProcs.consumedGoEProc}</b> of them.`}
       />),
       this.modules.guardianOfEluneProcs.active && (<StatisticBox
         icon={<SpellIcon id={SPELLS.FRENZIED_REGENERATION.id} />}
         value={`${formatPercentage(this.modules.guardianOfEluneProcs.nonGoEFRegen/(this.modules.guardianOfEluneProcs.nonGoEFRegen + this.modules.guardianOfEluneProcs.GoEFRegen))}%`}
-        label={(
-          <dfn data-tip={`You cast <b>${this.modules.guardianOfEluneProcs.nonGoEFRegen + this.modules.guardianOfEluneProcs.GoEFRegen}</b> total ${SPELLS.FRENZIED_REGENERATION.name} and <b> ${this.modules.guardianOfEluneProcs.GoEFRegen} were buffed by 25%</b>.`}>
-            Unbuffed Frenzied Regen
-          </dfn>
-        )}
+        label='Unbuffed Frenzied Regen'
+        tooltip={`You cast <b>${this.modules.guardianOfEluneProcs.nonGoEFRegen + this.modules.guardianOfEluneProcs.GoEFRegen}</b> total ${SPELLS.FRENZIED_REGENERATION.name} and <b> ${this.modules.guardianOfEluneProcs.GoEFRegen} were buffed by 25%</b>.`}
       />),
       this.modules.guardianOfEluneProcs.active && (<StatisticBox
         icon={<SpellIcon id={SPELLS.IRONFUR.id} />}
         value={`${formatPercentage(this.modules.guardianOfEluneProcs.nonGoEIronFur/(this.modules.guardianOfEluneProcs.nonGoEIronFur + this.modules.guardianOfEluneProcs.GoEIronFur))}%`}
-        label={(
-          <dfn data-tip={`You cast <b>${this.modules.guardianOfEluneProcs.nonGoEIronFur + this.modules.guardianOfEluneProcs.GoEIronFur}</b> total ${SPELLS.IRONFUR.name} and <b> ${this.modules.guardianOfEluneProcs.GoEIronFur} were buffed by 25%</b>.`}>
-            Unbuffed Ironfur
-          </dfn>
-        )}
+        label='Unbuffed Ironfur'
+        tooltip={`You cast <b>${this.modules.guardianOfEluneProcs.nonGoEIronFur + this.modules.guardianOfEluneProcs.GoEIronFur}</b> total ${SPELLS.IRONFUR.name} and <b> ${this.modules.guardianOfEluneProcs.GoEIronFur} were buffed by 25%</b>.`}
       />),
       <StatisticBox
         icon={<SpellIcon id={SPELLS.IRONFUR.id} />}
         value={`${formatPercentage(totalIronFurTime/fightDuration)}%`}
-        label={(
-          <dfn>
-            Total Ironfur uptime
-          </dfn>
-        )}
+        label='Total Ironfur uptime'
       />,
       <StatisticBox
         icon={<SpellIcon id={SPELLS.THRASH_BEAR.id} />}
         value={`${formatPercentage(thrashUptimePercentage)}%`}
-        label="Thrash uptime"
+        label='Thrash uptime'
       />,
       <StatisticBox
         icon={<SpellIcon id={SPELLS.MOONFIRE_BEAR.id} />}
         value={`${formatPercentage(moonfireUptimePercentage)}%`}
-        label="Moonfire uptime"
+        label='Moonfire uptime'
       />,
 
       this.selectedCombatant.hasTalent(SPELLS.PULVERIZE_TALENT.id) && (<StatisticBox
         icon={<SpellIcon id={SPELLS.PULVERIZE_TALENT.id} />}
         value={`${formatPercentage(pulverizeUptimePercentage)}%`}
-        label="Pulverize uptime"
+        label='Pulverize uptime'
       />),
   ];
 
