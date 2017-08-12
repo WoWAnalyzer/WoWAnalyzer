@@ -1,4 +1,9 @@
+import React from 'react';
+
 import SPELLS from 'common/SPELLS';
+import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
+import { formatNumber } from 'common/format';
 
 import Module from 'Parser/Core/Module';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
@@ -71,6 +76,19 @@ class Tier20_4set extends Module {
     // console.log(hasLightsEmbrace, healEvent.ability.name, healEvent, '-', (healEvent.timestamp - this.owner.fight.start_time) / 1000, 'seconds into the fight');
 
     return beaconTransferFactor;
+  }
+
+  item() {
+    return {
+      id: `spell-${SPELLS.HOLY_PALADIN_T20_4SET_BONUS_BUFF.id}`,
+      icon: <SpellIcon id={SPELLS.HOLY_PALADIN_T20_4SET_BONUS_BUFF.id} />,
+      title: <SpellLink id={SPELLS.HOLY_PALADIN_T20_4SET_BONUS_BUFF.id} />,
+      result: (
+        <dfn data-tip={`The actual effective healing contributed by the tier 20 4 set bonus. A total of ${formatNumber(this.totalBeaconHealingDuringLightsEmbrace)} <span style="color:orange">raw</span> healing was done on beacons during the Light's Embrace buff.`}>
+          {this.owner.formatItemHealingDone(this.healing)}
+        </dfn>
+      ),
+    };
   }
 }
 

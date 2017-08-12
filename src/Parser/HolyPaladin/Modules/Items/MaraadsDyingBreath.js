@@ -1,3 +1,5 @@
+import React from 'react';
+
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 
@@ -95,6 +97,29 @@ class MaraadsDyingBreath extends Module {
 
     this.totalHealing -= effectiveDamage;
     this.healingGainOverFol -= effectiveDamage;
+  }
+
+  item() {
+    return {
+      item: ITEMS.MARAADS_DYING_BREATH,
+      result: (
+        <span>
+          <dfn
+            data-tip={`
+              This is the estimated effective healing by Maraad's. This is adjusted for an estimated opportunity cost of casting a Flash of Light. The mana saved from casting a Light of the Martyr instead of a Flash of Light is also included by valuing it as 50% of the base healing of a LotM.<br /><br />
+
+              The effective healing done from Maraad's when adjusted for the opportunity cost of casting a regular (filler) Light of the Martyr was ${this.owner.formatItemHealingDone(this.healingGainOverLotm)}.
+            `}
+          >
+            ≈{this.owner.formatItemHealingDone(this.healingGainOverFol)}
+          </dfn>
+          {' '}
+          (total: <dfn data-tip="This is the total healing done with Light of the Martyr during the buff from Maraad's. No opportunity cost was accounted for. The healing was adjusted for the damage taken.">
+            {this.owner.formatItemHealingDone(this.totalHealing)}
+          </dfn>)
+        </span>
+      ),
+    };
   }
 }
 

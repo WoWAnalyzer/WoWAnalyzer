@@ -453,34 +453,6 @@ class CombatLogParser extends MainCombatLogParser {
 
     results.items = [
       // Sort by quality > slot > tier
-      this.modules.obsidianStoneSpaulders.active && {
-        item: ITEMS.OBSIDIAN_STONE_SPAULDERS,
-        result: this.formatItemHealingDone(this.modules.obsidianStoneSpaulders.healing),
-      },
-      this.modules.maraadsDyingBreath.active && {
-        item: ITEMS.MARAADS_DYING_BREATH,
-        result: (
-          <span>
-            <dfn
-              data-tip={`
-                This is the estimated effective healing by Maraad's. This is adjusted for an estimated opportunity cost of casting a Flash of Light. The mana saved from casting a Light of the Martyr instead of a Flash of Light is also included by valuing it as 50% of the base healing of a LotM.<br /><br />
-
-                The effective healing done from Maraad's when adjusted for the opportunity cost of casting a regular (filler) Light of the Martyr was ${this.formatItemHealingDone(this.modules.maraadsDyingBreath.healingGainOverLotm)}.
-              `}
-            >
-              ≈{this.formatItemHealingDone(this.modules.maraadsDyingBreath.healingGainOverFol)}
-            </dfn>
-            {' '}
-            (total: <dfn data-tip="This is the total healing done with Light of the Martyr during the buff from Maraad's. No opportunity cost was accounted for. The healing was adjusted for the damage taken.">
-              {this.formatItemHealingDone(this.modules.maraadsDyingBreath.totalHealing)}
-            </dfn>)
-          </span>
-        ),
-      },
-      this.modules.chainOfThrayn.active && {
-        item: ITEMS.CHAIN_OF_THRAYN,
-        result: this.formatItemHealingDone(this.modules.chainOfThrayn.healing),
-      },
       hasSoulOfTheHighlord && {
         item: ITEMS.SOUL_OF_THE_HIGHLORD,
         result: (
@@ -491,38 +463,6 @@ class CombatLogParser extends MainCombatLogParser {
             {divinePurposeLightOfDawnProcs} <SpellIcon id={SPELLS.LIGHT_OF_DAWN_CAST.id} style={{ height: '1em' }} /> <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} />
           </span>
         ),
-      },
-      this.modules.tier19_4set.active && {
-        id: `spell-${SPELLS.HOLY_PALADIN_T19_4SET_BONUS_BUFF.id}`,
-        icon: <SpellIcon id={SPELLS.HOLY_PALADIN_T19_4SET_BONUS_BUFF.id} />,
-        title: <SpellLink id={SPELLS.HOLY_PALADIN_T19_4SET_BONUS_BUFF.id} />,
-        result: (
-          <dfn data-tip={`The actual effective healing contributed by the tier 19 4 set bonus. <b>This does not include any healing "gained" from the Holy Light cast time reduction.</b> You used a total of ${this.modules.tier19_4set.totalIolProcsUsed} Infusion of Light procs, ${this.modules.tier19_4set.bonusIolProcsUsed} of those were from procs from the 4 set bonus and ${this.modules.tier19_4set.bonusIolProcsUsedOnFol} of those bonus procs were used on Flash of Light.`}>
-            {this.formatItemHealingDone(this.modules.tier19_4set.healing)}
-          </dfn>
-        ),
-      },
-      this.modules.tier20_4set.active && {
-        id: `spell-${SPELLS.HOLY_PALADIN_T20_4SET_BONUS_BUFF.id}`,
-        icon: <SpellIcon id={SPELLS.HOLY_PALADIN_T20_4SET_BONUS_BUFF.id} />,
-        title: <SpellLink id={SPELLS.HOLY_PALADIN_T20_4SET_BONUS_BUFF.id} />,
-        result: (
-          <dfn data-tip={`The actual effective healing contributed by the tier 20 4 set bonus. A total of ${formatNumber(this.modules.tier20_4set.totalBeaconHealingDuringLightsEmbrace)} <span style="color:orange">raw</span> healing was done on beacons during the Light's Embrace buff.`}>
-            {this.formatItemHealingDone(this.modules.tier20_4set.healing)}
-          </dfn>
-        ),
-      },
-      this.modules.tier21_2set.active && {
-        id: `spell-${SPELLS.HOLY_PALADIN_T21_2SET_BONUS_BUFF.id}`,
-        icon: <SpellIcon id={SPELLS.HOLY_PALADIN_T21_2SET_BONUS_BUFF.id} />,
-        title: <SpellLink id={SPELLS.HOLY_PALADIN_T21_2SET_BONUS_BUFF.id} />,
-        result: this.formatItemHealingDone(this.modules.tier21_2set.healing),
-      },
-      this.modules.tier21_4set.active && {
-        id: `spell-${SPELLS.HOLY_PALADIN_T21_4SET_BONUS_BUFF.id}`,
-        icon: <SpellIcon id={SPELLS.HOLY_PALADIN_T21_4SET_BONUS_BUFF.id} />,
-        title: <SpellLink id={SPELLS.HOLY_PALADIN_T21_4SET_BONUS_BUFF.id} />,
-        result: this.formatItemHealingDone(this.modules.tier21_4set.healing),
       },
       ...results.items,
     ];

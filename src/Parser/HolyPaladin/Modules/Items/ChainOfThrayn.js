@@ -47,6 +47,13 @@ class ChainOfThrayn extends Module {
   }
 
   // Beacon transfer is included in `ABILITIES_AFFECTED_BY_HEALING_INCREASES`
+
+  item() {
+    return {
+      item: ITEMS.CHAIN_OF_THRAYN,
+      result: this.owner.formatItemHealingDone(this.healing),
+    };
+  }
 }
 
 export default ChainOfThrayn;
