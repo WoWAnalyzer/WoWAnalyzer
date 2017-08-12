@@ -1,3 +1,8 @@
+import React from 'react';
+
+import ITEMS from 'common/ITEMS';
+import { formatPercentage, formatNumber, formatThousands } from 'common/format';
+
 import DarkmoonDeckPromisesCore from 'Parser/Core/Modules/Items/DarkmoonDeckPromises';
 
 class DarkmoonDeckPromises extends DarkmoonDeckPromisesCore {
@@ -20,6 +25,21 @@ class DarkmoonDeckPromises extends DarkmoonDeckPromisesCore {
         this.manaGained = newSavings;
       }
     }
+  }
+
+  item() {
+    const rejuvenationManaCost = 22000;
+    const oneRejuvenationThroughput = (((this.owner.modules.treeOfLife.totalHealingFromRejuvenationEncounter / this.owner.totalHealing)) / this.owner.modules.treeOfLife.totalRejuvenationsEncounter);
+    const promisesThroughput = (this.savings / rejuvenationManaCost) * oneRejuvenationThroughput;
+    return {
+      item: ITEMS.DARKMOON_DECK_PROMISES,
+      result: (
+        <dfn data-tip={`The actual mana gained is ${formatThousands(this.savings + this.manaGained)}. The numbers shown may actually be lower if you did not utilize the promises effect fully, i.e. not needing the extra mana gained.`}>
+          {formatThousands(this.savings)} mana saved ({formatThousands(this.savings / this.owner.fightDuration * 1000 * 5)} MP5)<br />
+          {formatPercentage(promisesThroughput)}% / {formatNumber((this.owner.totalHealing * promisesThroughput) / this.owner.fightDuration * 1000)} HPS
+        </dfn>
+      ),
+    };
   }
 }
 

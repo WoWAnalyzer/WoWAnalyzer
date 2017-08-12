@@ -243,33 +243,6 @@ class CombatLogParser {
 
     const fightDuration = this.fightDuration;
 
-    if (this.modules.prydaz.active) {
-      results.items.push({
-        item: ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS,
-        result: this.formatItemHealingDone(this.modules.prydaz.healing),
-      });
-    }
-    if (this.modules.velens.active) {
-      // TODO: Move this to the Velen's module? having it here stops making sense. If "item" modules could just provide their own item data object & suggestion then everything would be completely together. At that point the parser would have to recognize items automatically and add them to the items array as their modules are loaded. Doing this could be nice as items would be completely isolated in their module files, but I don't think mixing the currently pure JS modules with React is favorable.
-      results.items.push({
-        item: ITEMS.VELENS_FUTURE_SIGHT,
-        result: (
-          <dfn data-tip={`The effective healing contributed by the Velen's Future Sight use effect. ${formatPercentage(this.modules.velens.healingIncreaseHealing / this.totalHealing)}% of total healing was contributed by the 15% healing increase and ${formatPercentage(this.modules.velens.overhealHealing / this.totalHealing)}% of total healing was contributed by the overhealing distribution.`}>
-            {this.formatItemHealingDone(this.modules.velens.healing)}
-          </dfn>
-        ),
-      });
-      const velensHealingPercentage = this.getPercentageOfTotalHealingDone(this.modules.velens.healing);
-      suggestions
-        .when(velensHealingPercentage).isGreaterThan(this.constructor.SUGGESTION_VELENS_BREAKPOINT)
-        .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<span>Your usage of <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} /> can be improved. Try to maximize the amount of healing during the buff without excessively overhealing on purpose, or consider using an easier legendary.</span>)
-            .icon(ITEMS.VELENS_FUTURE_SIGHT.icon)
-            .actual(`${this.formatItemHealingDone(this.modules.velens.healing)} healing contributed`)
-            .recommended(`>${formatPercentage(recommended)}% is recommended`)
-            .regular(recommended - 0.005).major(recommended - 0.015);
-        });
-    }
     suggestions
       .when(this.modules.prePotion.usedPrePotion).isFalse()
       .addSuggestion(suggest => {
@@ -293,40 +266,8 @@ class CombatLogParser {
           .icon(ITEMS.LEYTORRENT_POTION.icon)
           .staticImportance(importance);
       });
-    if (this.modules.sephuzsSecret.active) {
-      results.items.push({
-        item: ITEMS.SEPHUZS_SECRET,
-        result: `${((this.modules.sephuzsSecret.uptime / fightDuration * 100) || 0).toFixed(2)} % uptime`,
-      });
-    }
 
     // Epics:
-    if (this.modules.drapeOfShame.active) {
-      results.items.push({
-        item: ITEMS.DRAPE_OF_SHAME,
-        result: this.formatItemHealingDone(this.modules.drapeOfShame.healing),
-      });
-    }
-    if (this.modules.darkmoonDeckPromises.active) {
-      results.items.push({
-        item: ITEMS.DARKMOON_DECK_PROMISES,
-        result: (
-          <dfn data-tip="The exact amount of mana saved by the Darkmoon Deck: Promises equip effect. This takes the different values per card into account at the time of the cast.">
-            {formatThousands(this.modules.darkmoonDeckPromises.manaGained)} mana saved ({formatThousands(this.modules.darkmoonDeckPromises.manaGained / this.fightDuration * 1000 * 5)} MP5)
-          </dfn>
-        ),
-      });
-    }
-    if (this.modules.amalgamsSeventhSpine.active) {
-      results.items.push({
-        item: ITEMS.AMALGAMS_SEVENTH_SPINE,
-        result: (
-          <dfn data-tip={`The exact amount of mana gained from the Amalgam's Seventh Spine equip effect. The buff expired successfully ${this.modules.amalgamsSeventhSpine.procs} times and the buff was refreshed ${this.modules.amalgamsSeventhSpine.refreshes} times (refreshing delays the buff expiration and is inefficient use of this trinket).`}>
-            {formatThousands(this.modules.amalgamsSeventhSpine.manaGained)} mana gained ({formatThousands(this.modules.amalgamsSeventhSpine.manaGained / this.fightDuration * 1000 * 5)} MP5)
-          </dfn>
-        ),
-      });
-    }
     if (this.modules.gnawedThumbRing.active) {
       results.items.push({
         item: ITEMS.GNAWED_THUMB_RING,

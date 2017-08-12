@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
+import { formatPercentage } from 'common/format';
 
 import Module from 'Parser/Core/Module';
 
@@ -32,6 +33,13 @@ class SephuzsSecret extends Module {
     if (this.lastAppliedTimestamp) {
       this.uptime += this.owner.fight.end_time - this.lastAppliedTimestamp;
     }
+  }
+
+  item() {
+    return {
+      item: ITEMS.SEPHUZS_SECRET,
+      result: `${formatPercentage((this.uptime / this.owner.fightDuration) || 0)} % uptime`,
+    };
   }
 }
 

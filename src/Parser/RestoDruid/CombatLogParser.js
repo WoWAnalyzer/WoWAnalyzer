@@ -591,19 +591,6 @@ class CombatLogParser extends MainCombatLogParser {
       ...results.statistics,
     ];
 
-    if (this.modules.darkmoonDeckPromises.active) {
-      // Override the core Promises display
-      results.items = results.items.filter(item => item.item.id !== ITEMS.DARKMOON_DECK_PROMISES.id);
-      results.items.push({
-        item: ITEMS.DARKMOON_DECK_PROMISES,
-        result: (
-          <dfn data-tip={`The actual mana gained is ${formatThousands(this.modules.darkmoonDeckPromises.savings + this.modules.darkmoonDeckPromises.manaGained)}. The numbers shown may actually be lower if you did not utilize the promises effect fully, i.e. not needing the extra mana gained.`}>
-            {formatThousands(this.modules.darkmoonDeckPromises.savings)} mana saved ({formatThousands(this.modules.darkmoonDeckPromises.savings / this.fightDuration * 1000 * 5)} MP5)<br />
-            {formatPercentage(promisesThroughput)}% / {formatNumber((this.totalHealing * promisesThroughput) / fightDuration * 1000)} HPS
-          </dfn>
-        ),
-      });
-    }
     if (this.selectedCombatant.hasFinger(ITEMS.SEPHUZS_SECRET.id)) {
       results.items = results.items.filter(item => item.item.id !== ITEMS.SEPHUZS_SECRET.id);
       results.items.push({

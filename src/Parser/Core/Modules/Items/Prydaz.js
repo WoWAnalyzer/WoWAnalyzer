@@ -18,6 +18,13 @@ class Prydaz extends Module {
       this.healing += event.amount;
     }
   }
+
+  item() {
+    return {
+      item: ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS,
+      result: this.owner.formatItemHealingDone(this.healing),
+    };
+  }
 }
 
 export default Prydaz;

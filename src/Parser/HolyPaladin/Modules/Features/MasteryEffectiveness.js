@@ -254,7 +254,7 @@ class MasteryEffectiveness extends Module {
     const report = this.report;
     const totalMasteryEffectiveness = report.totalHealingFromMastery / (report.totalMaxPotentialMasteryHealing || 1);
 
-    return when(totalMasteryEffectiveness).isLessThan(0.75)
+    when(totalMasteryEffectiveness).isLessThan(0.75)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest('Your Mastery Effectiveness can be improved. Try to improve your positioning, usually by sticking with melee.')
           .icon('inv_hammer_04')
