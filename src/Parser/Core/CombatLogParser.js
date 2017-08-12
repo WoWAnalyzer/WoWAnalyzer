@@ -32,16 +32,6 @@ import VantusRune from './Modules/VantusRune';
 import ParseResults from './ParseResults';
 import SUGGESTION_IMPORTANCE from './ISSUE_IMPORTANCE';
 
-function getSuggestionImportance(value, regular, major, higherIsWorse = false) {
-  if (higherIsWorse ? value > major : value < major) {
-    return SUGGESTION_IMPORTANCE.MAJOR;
-  }
-  if (higherIsWorse ? value > regular : value < regular) {
-    return SUGGESTION_IMPORTANCE.REGULAR;
-  }
-  return SUGGESTION_IMPORTANCE.MINOR;
-}
-
 class CombatLogParser {
   static abilitiesAffectedByHealingIncreases = [];
 

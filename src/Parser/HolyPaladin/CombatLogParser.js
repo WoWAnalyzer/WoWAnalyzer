@@ -19,7 +19,6 @@ import PlayerBreakdownTab from 'Main/PlayerBreakdownTab';
 
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 import getCastEfficiency from 'Parser/Core/getCastEfficiency';
-import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 import PaladinAbilityTracker from './Modules/PaladinCore/PaladinAbilityTracker';
 import BeaconHealing from './Modules/PaladinCore/BeaconHealing';
@@ -53,15 +52,6 @@ function getRawHealing(ability) {
 }
 function getOverhealingPercentage(ability) {
   return ability.healingOverheal / getRawHealing(ability);
-}
-function getIssueImportance(value, regular, major, higherIsWorse = false) {
-  if (higherIsWorse ? value > major : value < major) {
-    return ISSUE_IMPORTANCE.MAJOR;
-  }
-  if (higherIsWorse ? value > regular : value < regular) {
-    return ISSUE_IMPORTANCE.REGULAR;
-  }
-  return ISSUE_IMPORTANCE.MINOR;
 }
 
 class CombatLogParser extends MainCombatLogParser {
