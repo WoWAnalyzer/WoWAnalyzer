@@ -97,8 +97,8 @@ class CombatLogParser extends MainCombatLogParser {
     const fightDuration = this.fightDuration;
 
 	  //uptimes
-	  const flametongueUptime = this.selectedCombatant.getBuffUptime(SPELLS.FLAMETONGUE_BUFF.id) / this.fightDuration;
-	  const frostbrandUptime = this.selectedCombatant.getBuffUptime(SPELLS.FROSTBRAND.id) / this.fightDuration;
+    const flametongueUptime = this.selectedCombatant.getBuffUptime(SPELLS.FLAMETONGUE_BUFF.id) / this.fightDuration;
+    const frostbrandUptime = this.selectedCombatant.getBuffUptime(SPELLS.FROSTBRAND.id) / this.fightDuration;
     const landslideUptime = this.selectedCombatant.getBuffUptime(SPELLS.LANDSLIDE_BUFF.id) / this.fightDuration;
     const furyofairUptime = this.selectedCombatant.getBuffUptime(SPELLS.FURY_OF_AIR.id) / this.fightDuration;
 
@@ -137,6 +137,7 @@ class CombatLogParser extends MainCombatLogParser {
 
   //add trinkets to item list
   function getItemInfo(id) {
+    //let value = ITEMS.find(item => item.id === id);
     let value;
     Object.keys(ITEMS).some(function(k) {
       if(ITEMS[k].id === id) {
@@ -149,67 +150,76 @@ class CombatLogParser extends MainCombatLogParser {
 
     if (nonDpsTimePercentage > 0.3) {
       results.addIssue({
-        issue: `[NYI] Your non DPS time can be improved. Try to cast damaging spells more regularly (${Math.round(nonDpsTimePercentage * 100)}% non DPS time).`,
+        issue: `Your non DPS time can be improved. Try to cast damaging spells more regularly).`,
         icon: 'petbattle_health-down',
+        stat: `${Math.round(nonDpsTimePercentage * 100)}% non DPS time (<30% is recommended)`,
         importance: getIssueImportance(nonDpsTimePercentage, 0.4, 0.45, true),
       });
     }
+
     if (deadTimePercentage > 0.2) {
       results.addIssue({
-        issue: `Your dead GCD time can be improved. (${Math.round(deadTimePercentage * 100)}% dead GCD time).`,
+        issue: `Your dead GCD time can be improved. Try to Always Be Casting (ABC); cast instant spells during movement phases and focus on having no delays between spell casts`,
         icon: 'spell_mage_altertime',
-        importance: getIssueImportance(deadTimePercentage, 0.35, 0.4, true),
+        stat: `${Math.round(deadTimePercentage * 100)}% dead GCD time (<20% is recommended)`,
+        importance: getIssueImportance(deadTimePercentage, 0.35, 1, true),
       });
     }
 
-    if(flametongueUptime < .85) {
-		results.addIssue({
-        issue: `Your Flametongue uptime of ${formatPercentage(flametongueUptime)}% is below 85%`,
+    if(flametongueUptime < .95) {
+		  results.addIssue({
+        issue: `Try to make sure the Flametongue buff is always up, when it drops you should refresh it as soon as possible`,
+        stat: `Your Flametongue uptime of ${formatPercentage(flametongueUptime)}% is below 95%, try to get as close to 100% as possible`,
         icon: SPELLS.FLAMETONGUE_BUFF.icon,
-        importance: getIssueImportance(flametongueUptime, 0.35, 0.4, true),
+        importance: getIssueImportance(flametongueUptime, 0.9, 0.8, true),
       });
-	}
+	  }
 
-	if(hasHailstorm && frostbrandUptime < .85) {
-		results.addIssue({
-        issue: `Your Frostbrand uptime of ${formatPercentage(frostbrandUptime)}% is below 85%`,
+	  if(hasHailstorm && frostbrandUptime < .95) {
+		  results.addIssue({
+        issue: `Try to make sure the Frostbrand buff is always up, when it drops you should refresh it as soon as possible`,
+        stat: `Your Frostbrand uptime of ${formatPercentage(frostbrandUptime)}% is below 95%, try to get as close to 100% as possible`,
         icon: SPELLS.FROSTBRAND.icon,
-        importance: getIssueImportance(frostbrandUptime, 0.35, 0.4, true),
+        importance: getIssueImportance(frostbrandUptime, 0.9, 0.8, true),
       });
-	} else if(!hasHailstorm && frostbrandUptime > 0) {
-    results.addIssue({
+    } else if(!hasHailstorm && frostbrandUptime > 0) {
+    //need to revist Frostbrand without Hailstorm logic
+      results.addIssue({
         issue: `Casting Frostbrand without Hailstorm talent is not recommended`,
         icon: SPELLS.FROSTBRAND.icon,
         importance: ISSUE_IMPORTANCE.MAJOR,
       });
     }
 
-    if(hasLandslide && landslideUptime < .85) {
+    if(hasLandslide && landslideUptime < .95) {
       results.addIssue({
-          issue: `Your Landslide uptime from Rockbiter of ${formatPercentage(landslideUptime)}% is below 85%`,
-          icon: SPELLS.LANDSLIDE_BUFF.icon,
-          importance: getIssueImportance(landslideUptime, 0.35, 0.4, true),
-        });
+        issue: `Try to make sure the Landslide buff from Rockbiter is always up, when it drops you should refresh it as soon as possible`,
+        stat: `Your Landslide uptime of ${formatPercentage(landslideUptime)}% is below 95%, try to get as close to 100% as possible`,
+        icon: SPELLS.LANDSLIDE_BUFF.icon,
+        importance: getIssueImportance(landslideUptime, 0.9, 0.8, true),
+      });
     }
 
     if(hasFuryOfAir && furyofairUptime < .95) {
       results.addIssue({
-          issue: `Your Fury of Air ${formatPercentage(furyofairUptime)}% uptime is below 95%`,
-          icon: SPELLS.FURY_OF_AIR.icon,
-          importance: getIssueImportance(furyofairUptime, 0.35, 0.4, true),
-        });
+        issue: `Try to make sure the Fury of Air buff is always up, when it drops you should refresh it as soon as possible`,
+        stat: `Your Fury of Air uptime of ${formatPercentage(furyofairUptime)}% is below 95%, try to get as close to 100% as possible`,
+        icon: SPELLS.FURY_OF_AIR.icon,
+        importance: getIssueImportance(furyofairUptime, 0.9, 0.85, true),
+      });
     }
 
     const castEfficiencyCategories = SPELL_CATEGORY;
     const castEfficiency = getCastEfficiency(CPM_ABILITIES, this);
     castEfficiency.forEach((cpm) => {
-        if (cpm.canBeImproved && !cpm.ability.noSuggestion) {
-            results.addIssue({
-                issue: <span>Try to cast <SpellLink id={cpm.ability.spell.id} /> more often ({cpm.casts}/{cpm.maxCasts} casts: {Math.round(cpm.castEfficiency * 100)}% cast efficiency). {cpm.ability.extraSuggestion || ''}</span>,
-                icon: cpm.ability.spell.icon,
-                importance: cpm.ability.importance || getIssueImportance(cpm.castEfficiency, cpm.recommendedCastEfficiency - 0.05, cpm.recommendedCastEfficiency - 0.15),
-            });
-        }
+      if (cpm.canBeImproved && !cpm.ability.noSuggestion) {
+        results.addIssue({
+          issue: <span>Try to cast <SpellLink id={cpm.ability.spell.id} /> more often. {cpm.ability.extraSuggestion || ''}</span>,
+          stat: `${cpm.casts} out of ${cpm.maxCasts} possible casts; ${Math.round(cpm.castEfficiency * 100)}% cast efficiency (>${cpm.recommendedCastEfficiency * 100}% is recommended)`,
+          icon: cpm.ability.spell.icon,
+          importance: cpm.ability.importance || getIssueImportance(cpm.castEfficiency, cpm.recommendedCastEfficiency - 0.05, cpm.recommendedCastEfficiency - 0.15),
+        });
+      }
     });
 
     //setup notworthyitems
@@ -235,15 +245,7 @@ class CombatLogParser extends MainCombatLogParser {
       />,
       <StatisticBox
           icon={<Icon icon="spell_nature_shamanrage" alt="Core Stats" />}
-          value={(
-              <span>
-                  {`${formatPercentage(masteryPercent)} %`}{' '}
-                  M<br />
-                  {' '}
-                  {`${formatPercentage(hastePercent)} %`}{' '}
-                  H
-              </span>
-          )}
+          value={`${formatPercentage(masteryPercent)} % M ${formatPercentage(hastePercent)} % H`}
           label={(
               <dfn data-tip={`Mastery is ${formatPercentage(masteryPercent)} % and Haste is ${formatPercentage(hastePercent)} %`}>
                   Core Secondary Stats
@@ -291,18 +293,18 @@ class CombatLogParser extends MainCombatLogParser {
           <TalentsTab combatant={this.selectedCombatant} />
         ),
       },
-      {
-        title: 'Cooldowns',
-        url: 'cooldowns',
-        render: () => (
-          <CooldownsTab
-            fightStart={this.fight.start_time}
-            fightEnd={this.fight.end_time}
-            cooldowns={this.modules.cooldownTracker.pastCooldowns}
-            showOutputStatistics
-          />
-        ),
-      },
+      // {
+      //   title: 'Cooldowns',
+      //   url: 'cooldowns',
+      //   render: () => (
+      //     <CooldownsTab
+      //       fightStart={this.fight.start_time}
+      //       fightEnd={this.fight.end_time}
+      //       cooldowns={this.modules.cooldownTracker.pastCooldowns}
+      //       showOutputStatistics
+      //     />
+      //   ),
+      // },
       {
         title: 'Procs',
         url: 'procs',
