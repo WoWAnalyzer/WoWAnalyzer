@@ -163,9 +163,6 @@ class CombatLogParser extends MainCombatLogParser {
     const nonHealingTimePercentage = this.modules.alwaysBeCasting.totalHealingTimeWasted / fightDuration;
     const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
     const totalHealsOnBeaconPercentage = this.getTotalHealsOnBeaconPercentage(this);
-    const tyrsDeliveranceHealHealingPercentage = this.modules.tyrsDeliverance.healHealing / this.totalHealing;
-    const tyrsDeliveranceBuffFoLHLHealingPercentage = this.modules.tyrsDeliverance.buffFoLHLHealing / this.totalHealing;
-    const tyrsDeliverancePercentage = tyrsDeliveranceHealHealingPercentage + tyrsDeliveranceBuffFoLHLHealingPercentage;
     const hasRuleOfLaw = this.selectedCombatant.hasTalent(SPELLS.RULE_OF_LAW_TALENT.id);
 
     const hasDivinePurpose = this.selectedCombatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id);
@@ -407,12 +404,6 @@ class CombatLogParser extends MainCombatLogParser {
         value={`${formatPercentage(healsOnBeacon)} %`}
         label="FoL/HL cast on beacon"
         tooltip={`The amount of Flash of Lights and Holy Lights cast on beacon targets. You cast ${beaconFlashOfLights} Flash of Lights and ${beaconHolyLights} Holy Lights on beacon targets.<br /><br />Your total heals on beacons was <b>${(totalHealsOnBeaconPercentage * 100).toFixed(2)}%</b> (this includes spell other than FoL and HL).`}
-      />,
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.TYRS_DELIVERANCE_CAST.id} />}
-        value={`${formatPercentage(tyrsDeliverancePercentage)} %`}
-        label="Tyr's Deliverance healing"
-        tooltip={`The total actual effective healing contributed by Tyr's Deliverance. This includes the gains from the increase to healing by Flash of Light and Holy Light.<br /><br />The actual healing done by the effect was ${formatPercentage(tyrsDeliveranceHealHealingPercentage)}% of your healing done, and the healing contribution from the Flash of Light and Holy Light heal increase was ${formatPercentage(tyrsDeliveranceBuffFoLHLHealingPercentage)}% of your healing done.`}
       />,
       hasDivinePurpose && (
         <StatisticBox
