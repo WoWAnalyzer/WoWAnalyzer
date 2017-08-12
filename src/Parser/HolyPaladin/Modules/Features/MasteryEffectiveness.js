@@ -1,6 +1,13 @@
+import React from 'react';
+
 import SPELLS from 'common/SPELLS';
+import { formatPercentage } from 'common/format';
 
 import Module from 'Parser/Core/Module';
+
+import StatisticBox from 'Main/StatisticBox';
+import MasteryRadiusImage from 'Main/Images/mastery-radius.png';
+import PlayerBreakdownTab from 'Main/PlayerBreakdownTab';
 
 import { ABILITIES_AFFECTED_BY_MASTERY, BEACON_TYPES } from '../../Constants';
 
@@ -191,6 +198,82 @@ class MasteryEffectiveness extends Module {
     const falloffRadius = isRuleOfLawActive ? 60 : 40;
 
     return Math.min(1, Math.max(0, 1 - (distance - fullEffectivenessRadius) / (falloffRadius - fullEffectivenessRadius)));
+  }
+
+  get report() {
+    let totalHealingWithMasteryAffectedAbilities = 0;
+    let totalHealingFromMastery = 0;
+    let totalMaxPotentialMasteryHealing = 0;
+
+    const statsByTargetId = this.masteryHealEvents.reduce((obj, event) => {
+      // Update the fight-totals
+      totalHealingWithMasteryAffectedAbilities += event.amount;
+      totalHealingFromMastery += event.masteryHealingDone;
+      totalMaxPotentialMasteryHealing += event.maxPotentialMasteryHealing;
+
+      // Update the player-totals
+      if (!obj[event.targetID]) {
+        const combatant = this.owner.modules.combatants.players[event.targetID];
+        obj[event.targetID] = {
+          combatant,
+          healingReceived: 0,
+          healingFromMastery: 0,
+          maxPotentialHealingFromMastery: 0,
+        };
+      }
+      const playerStats = obj[event.targetID];
+      playerStats.healingReceived += event.amount;
+      playerStats.healingFromMastery += event.masteryHealingDone;
+      playerStats.maxPotentialHealingFromMastery += event.maxPotentialMasteryHealing;
+
+      return obj;
+    }, {});
+
+    return {
+      statsByTargetId,
+      totalHealingWithMasteryAffectedAbilities,
+      totalHealingFromMastery,
+      totalMaxPotentialMasteryHealing,
+    };
+  }
+
+  statistic() {
+    const report = this.report;
+    const totalMasteryEffectiveness = report.totalHealingFromMastery / (report.totalMaxPotentialMasteryHealing || 1);
+
+    return (
+      <StatisticBox
+        icon={<img src={MasteryRadiusImage} style={{ border: 0 }} alt="Mastery effectiveness" />}
+        value={`${formatPercentage(totalMasteryEffectiveness)} %`}
+        label="Mastery effectiveness"
+        tooltip="Effects that temporarily increase your mastery are currently not supported and will skew results."
+      />
+    );
+  }
+  suggestion(when) {
+    const report = this.report;
+    const totalMasteryEffectiveness = report.totalHealingFromMastery / (report.totalMaxPotentialMasteryHealing || 1);
+
+    return when(totalMasteryEffectiveness).isLessThan(0.75)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest('Your Mastery Effectiveness can be improved. Try to improve your positioning, usually by sticking with melee.')
+          .icon('inv_hammer_04')
+          .actual(`${formatPercentage(actual)}% mastery effectiveness`)
+          .recommended(`>${formatPercentage(recommended)}% is recommended`)
+          .regular(recommended - 0.05).major(recommended - 0.15);
+      });
+  }
+  tab() {
+    return {
+      title: 'Mastery effectiveness',
+      url: 'mastery-effectiveness',
+      render: () => (
+        <PlayerBreakdownTab
+          report={this.report}
+          playersById={this.owner.playersById}
+        />
+      ),
+    };
   }
 }
 

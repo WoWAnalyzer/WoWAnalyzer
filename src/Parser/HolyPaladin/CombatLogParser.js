@@ -15,7 +15,6 @@ import CastEfficiencyTab from 'Main/CastEfficiencyTab';
 import CooldownsTab from 'Main/CooldownsTab';
 import ManaTab from 'Main/ManaTab';
 import LowHealthHealingTab from 'Main/LowHealthHealingTab';
-import PlayerBreakdownTab from 'Main/PlayerBreakdownTab';
 
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 import getCastEfficiency from 'Parser/Core/getCastEfficiency';
@@ -85,43 +84,6 @@ class CombatLogParser extends MainCombatLogParser {
     tier21_4set: Tier21_4set,
   };
 
-  calculateMasteryStats() {
-    let totalHealingWithMasteryAffectedAbilities = 0;
-    let totalHealingFromMastery = 0;
-    let totalMaxPotentialMasteryHealing = 0;
-
-    const statsByTargetId = this.modules.masteryEffectiveness.masteryHealEvents.reduce((obj, event) => {
-      // Update the fight-totals
-      totalHealingWithMasteryAffectedAbilities += event.amount;
-      totalHealingFromMastery += event.masteryHealingDone;
-      totalMaxPotentialMasteryHealing += event.maxPotentialMasteryHealing;
-
-      // Update the player-totals
-      if (!obj[event.targetID]) {
-        const combatant = this.modules.combatants.players[event.targetID];
-        obj[event.targetID] = {
-          combatant,
-          healingReceived: 0,
-          healingFromMastery: 0,
-          maxPotentialHealingFromMastery: 0,
-        };
-      }
-      const playerStats = obj[event.targetID];
-      playerStats.healingReceived += event.amount;
-      playerStats.healingFromMastery += event.masteryHealingDone;
-      playerStats.maxPotentialHealingFromMastery += event.maxPotentialMasteryHealing;
-
-      return obj;
-    }, {});
-
-    return {
-      statsByTargetId,
-      totalHealingWithMasteryAffectedAbilities,
-      totalHealingFromMastery,
-      totalMaxPotentialMasteryHealing,
-    };
-  }
-
   getTotalHealsOnBeaconPercentage(parser) {
     const abilityTracker = parser.modules.abilityTracker;
     const getCastCount = spellId => abilityTracker.getAbility(spellId);
@@ -157,9 +119,6 @@ class CombatLogParser extends MainCombatLogParser {
     const getPercentageOfTotal = healingDone => healingDone / this.totalHealing;
     const formatItemHealing = healingDone => `${formatPercentage(getPercentageOfTotal(healingDone))} % / ${formatNumber(healingDone / fightDuration * 1000)} HPS`;
 
-    const masteryStats = this.calculateMasteryStats();
-
-    const totalMasteryEffectiveness = masteryStats.totalHealingFromMastery / (masteryStats.totalMaxPotentialMasteryHealing || 1);
     const ruleOfLawUptime = this.selectedCombatant.getBuffUptime(SPELLS.RULE_OF_LAW_TALENT.id) / fightDuration;
 
     const abilityTracker = this.modules.abilityTracker;
@@ -250,15 +209,6 @@ class CombatLogParser extends MainCombatLogParser {
           .actual(`${formatPercentage(totalHealsOnBeaconPercentage)}% of all your healing spell casts were on a beacon target`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
           .regular(recommended + 0.05).major(recommended + 0.15);
-      });
-    suggestions
-      .when(totalMasteryEffectiveness).isLessThan(0.75)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest('Your Mastery Effectiveness can be improved. Try to improve your positioning, usually by sticking with melee.')
-          .icon('inv_hammer_04')
-          .actual(`${formatPercentage(totalMasteryEffectiveness)}% mastery effectiveness`)
-          .recommended(`>${formatPercentage(recommended)}% is recommended`)
-          .regular(recommended - 0.05).major(recommended - 0.15);
       });
     if (hasRuleOfLaw) {
       suggestions
@@ -436,18 +386,7 @@ class CombatLogParser extends MainCombatLogParser {
         label="Non healing time"
         tooltip={`Non healing time is available casting time not used for a spell that helps you heal. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), DPSing, etc. Damaging Holy Shocks are considered non healing time, Crusader Strike is only considered non healing time if you do not have the Crusader's Might talent.<br /><br />You spent ${formatPercentage(deadTimePercentage)}% of your time casting nothing at all.`}
       />,
-      <StatisticBox
-        icon={(
-          <img
-            src="/img/mastery-radius.png"
-            style={{ border: 0 }}
-            alt="Mastery effectiveness"
-          />
-        )}
-        value={`${formatPercentage(totalMasteryEffectiveness)} %`}
-        label="Mastery effectiveness"
-        tooltip="Effects that temporarily increase your mastery are currently not supported and will skew results."
-      />,
+      ,
       hasRuleOfLaw && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.RULE_OF_LAW_TALENT.id} />}
@@ -562,7 +501,6 @@ class CombatLogParser extends MainCombatLogParser {
     ];
 
     results.items = [
-      ...results.items,
       // Sort by quality > slot > tier
       this.modules.obsidianStoneSpaulders.active && {
         item: ITEMS.OBSIDIAN_STONE_SPAULDERS,
@@ -639,6 +577,7 @@ class CombatLogParser extends MainCombatLogParser {
         title: <SpellLink id={SPELLS.HOLY_PALADIN_T21_4SET_BONUS_BUFF.id} />,
         result: formatItemHealing(this.modules.tier21_4set.healing),
       },
+      ...results.items,
     ];
 
     results.tabs = [
@@ -698,16 +637,7 @@ class CombatLogParser extends MainCombatLogParser {
           <LowHealthHealingTab parser={this} />
         ),
       },
-      {
-        title: 'Mastery effectiveness',
-        url: 'mastery-effectiveness',
-        render: () => (
-          <PlayerBreakdownTab
-            stats={masteryStats}
-            playersById={this.playersById}
-          />
-        ),
-      },
+      ...results.tabs,
     ];
 
     return results;

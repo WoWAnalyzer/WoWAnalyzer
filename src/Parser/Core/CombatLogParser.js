@@ -385,6 +385,25 @@ class CombatLogParser {
 
     results.statistics.push(<VantusRune owner={this} />);
 
+    Object.keys(this.modules)
+      .map(key => this.modules[key])
+      .sort((a, b) => b.priority - a.priority)
+      .filter(module => module.active)
+      .forEach(module => {
+        if (module.statistic) {
+          results.statistics.push(module.statistic());
+        }
+        if (module.item) {
+          results.items.push(module.item());
+        }
+        if (module.tab) {
+          results.tabs.push(module.tab());
+        }
+        if (module.suggestion) {
+          module.suggestion(results.suggestions.when);
+        }
+      });
+
     return results;
   }
 }
