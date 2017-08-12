@@ -182,7 +182,7 @@ class CombatLogParser extends MainCombatLogParser {
         icon: SPELLS.FROSTBRAND.icon,
         importance: getIssueImportance(frostbrandUptime, 0.9, 0.8, true),
       });
-    } else if(!hasHailstorm && frostbrandUptime > 0) {
+    } else if(!hasHailstorm && frostbrandUptime > 0 && 1 === 2) {
     //need to revist Frostbrand without Hailstorm logic
       results.addIssue({
         issue: `Casting Frostbrand without Hailstorm talent is not recommended`,
