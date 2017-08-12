@@ -121,7 +121,7 @@ class CombatLogParser extends MainCombatLogParser {
     // const hasSephuz = this.selectedCombatant.hasFinger(ITEMS.SEPHUZS_SECRET.id);
 
   this.selectedCombatant._combatantInfo.gear.forEach(function(value) {
-    const equippedItem = getItemInfo(value.id);
+    const equippedItem = ITEMS[value.id];
 
     if(equippedItem !== undefined && equippedItem.quality === 5) {
       results.items.push({
@@ -134,19 +134,6 @@ class CombatLogParser extends MainCombatLogParser {
       });
     }
   });
-
-  //add trinkets to item list
-  function getItemInfo(id) {
-    //let value = ITEMS.find(item => item.id === id);
-    let value;
-    Object.keys(ITEMS).some(function(k) {
-      if(ITEMS[k].id === id) {
-        value = ITEMS[k];
-      }
-    });
-
-    return value;
-  }
 
     if (nonDpsTimePercentage > 0.3) {
       results.addIssue({
