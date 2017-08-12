@@ -2,7 +2,7 @@ import React from 'react';
 
 import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
-import { formatThousands, formatNumber, formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 
 import Combatants from './Modules/Combatants';
 import AbilityTracker from './Modules/AbilityTracker';
