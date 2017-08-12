@@ -64,6 +64,7 @@ class CombatLogParser extends MainCombatLogParser {
     const moonfireUptime = this.modules.enemies.getBuffUptime(SPELLS.MOONFIRE_BEAR.id) / this.fightDuration;
 
     const totalIronFurTime = this.selectedCombatant.getBuffUptime(SPELLS.IRONFUR.id);
+    const pulverizeUptimePercentage = this.selectedCombatant.getBuffUptime(SPELLS.PULVERIZE_BUFF.id) / this.fightDuration;
     
     if (nonDpsTimePercentage > 0.3) {
       results.addIssue({
@@ -121,6 +122,15 @@ class CombatLogParser extends MainCombatLogParser {
         stat: `${formatPercentage(moonfireUptime)}% uptime (>95% recommended)`,
         icon: SPELLS.MOONFIRE_BEAR.icon,
         importance: getIssueImportance(moonfireUptime, 0.9, 0.8),
+      });
+    }
+
+    if (this.selectedCombatant.hasTalent(SPELLS.PULVERIZE_TALENT.id) && pulverizeUptimePercentage < 0.9) {
+      results.addIssue({
+        issue: <span> Your <SpellLink id={SPELLS.PULVERIZE_TALENT.id} /> uptime should be near 100%, unless there are extended periods of downtime. All targets deal less damage to you due to the <SpellLink id={SPELLS.PULVERIZE_BUFF.id} /> buff.</span>,
+        stat: `${formatPercentage(pulverizeUptimePercentage)}% uptime (>90% recommended)`,
+        icon: SPELLS.PULVERIZE_TALENT.icon,
+        importance: getIssueImportance(pulverizeUptimePercentage, 0.9, 0.75),
       });
     }
 
@@ -244,7 +254,13 @@ class CombatLogParser extends MainCombatLogParser {
         value={`${formatPercentage(moonfireUptime)}%`}
         label="Moonfire uptime"
       />,
-    ];
+
+      this.selectedCombatant.hasTalent(SPELLS.PULVERIZE_TALENT.id) && (<StatisticBox
+        icon={<SpellIcon id={SPELLS.PULVERIZE_TALENT.id} />}
+        value={`${formatPercentage(pulverizeUptimePercentage)}%`}
+        label="Pulverize uptime"
+      />),
+  ];
 
     // TODO: Items
 

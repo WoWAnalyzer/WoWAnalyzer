@@ -430,4 +430,9 @@ export default {
     name: 'Ursoc\'s Endurance',
     icon: 'ability_hunter_pet_bear',
   },
+  PULVERIZE_BUFF: {
+    id: 158792,
+    name: 'Pulverize',
+    icon: 'spell_druid_malfurionstenacity',
+  }
 };
