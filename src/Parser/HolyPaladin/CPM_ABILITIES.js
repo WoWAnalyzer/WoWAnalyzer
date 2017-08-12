@@ -61,6 +61,7 @@ const CPM_ABILITIES = [
     charges: 2,
     isActive: combatant => combatant.hasTalent(SPELLS.CRUSADERS_MIGHT_TALENT.id),
     recommendedCastEfficiency: 0.60,
+    extraSuggestion: 'When you are using Crusader\'s Might it is important to use Crusader Strike often enough to benefit from the talent. Use a different talent if you are unable to.',
   },
   {
     spell: SPELLS.HOLY_PRISM_TALENT,
