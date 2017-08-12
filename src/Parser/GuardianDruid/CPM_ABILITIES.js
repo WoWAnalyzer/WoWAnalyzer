@@ -121,6 +121,13 @@ const CPM_ABILITIES = [
     getCooldown: haste => null,
     noSuggestion: true,
   },
+  {
+    spell: SPELLS.PULVERIZE_TALENT,
+    category: SPELL_CATEGORY.COOLDOWNS,
+    getCooldown: haste => null,
+    isActive: combatant => combatant.hasTalent(SPELLS.PULVERIZE_TALENT.id),
+    noSuggestion: true,
+  },
   // Raid utility
   {
     spell: SPELLS.STAMPEDING_ROAR_BEAR,
