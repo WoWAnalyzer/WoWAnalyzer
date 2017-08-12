@@ -163,8 +163,6 @@ class CombatLogParser extends MainCombatLogParser {
     const nonHealingTimePercentage = this.modules.alwaysBeCasting.totalHealingTimeWasted / fightDuration;
     const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
     const totalHealsOnBeaconPercentage = this.getTotalHealsOnBeaconPercentage(this);
-    const hasSacredDawn = this.selectedCombatant.traitsBySpellId[SPELLS.SACRED_DAWN.id] === 1;
-    const sacredDawnPercentage = this.modules.sacredDawn.healing / this.totalHealing;
     const tyrsDeliveranceHealHealingPercentage = this.modules.tyrsDeliverance.healHealing / this.totalHealing;
     const tyrsDeliveranceBuffFoLHLHealingPercentage = this.modules.tyrsDeliverance.buffFoLHLHealing / this.totalHealing;
     const tyrsDeliverancePercentage = tyrsDeliveranceHealHealingPercentage + tyrsDeliveranceBuffFoLHLHealingPercentage;
@@ -416,13 +414,6 @@ class CombatLogParser extends MainCombatLogParser {
         label="Tyr's Deliverance healing"
         tooltip={`The total actual effective healing contributed by Tyr's Deliverance. This includes the gains from the increase to healing by Flash of Light and Holy Light.<br /><br />The actual healing done by the effect was ${formatPercentage(tyrsDeliveranceHealHealingPercentage)}% of your healing done, and the healing contribution from the Flash of Light and Holy Light heal increase was ${formatPercentage(tyrsDeliveranceBuffFoLHLHealingPercentage)}% of your healing done.`}
       />,
-      hasSacredDawn && (
-        <StatisticBox
-          icon={<SpellIcon id={SPELLS.SACRED_DAWN.id} />}
-          value={`${formatPercentage(sacredDawnPercentage)} %`}
-          label="Sacred Dawn contribution"
-        />
-      ),
       hasDivinePurpose && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id} />}

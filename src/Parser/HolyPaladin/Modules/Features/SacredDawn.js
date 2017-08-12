@@ -1,7 +1,13 @@
+import React from 'react';
+
 import SPELLS from 'common/SPELLS';
+import SpellIcon from 'common/SpellIcon';
+import { formatPercentage } from 'common/format';
 
 import Module from 'Parser/Core/Module';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
+
+import StatisticBox from 'Main/StatisticBox';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
 
@@ -12,6 +18,12 @@ const SACRED_DAWN_HEALING_INCREASE = 0.1;
 
 class SacredDawn extends Module {
   healing = 0;
+
+  on_initialized() {
+    if (!this.owner.error) {
+      this.active = this.owner.selectedCombatant.traitsBySpellId[SPELLS.SACRED_DAWN.id] === 1;
+    }
+  }
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
@@ -58,6 +70,16 @@ class SacredDawn extends Module {
     }
 
     this.healing += calculateEffectiveHealing(beaconTransferEvent, SACRED_DAWN_HEALING_INCREASE);
+  }
+
+  statistic() {
+    return (
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.SACRED_DAWN.id} />}
+        value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %`}
+        label="Sacred Dawn contribution"
+      />
+    );
   }
 }
 
