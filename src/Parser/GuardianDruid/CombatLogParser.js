@@ -4,6 +4,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import Icon from 'common/Icon';
+import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 // Currently Unused
 // import ITEMS from 'common/ITEMS';
 // import ItemLink from 'common/ItemLink';
@@ -20,25 +21,12 @@ import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import Gore from './Modules/Features/Gore';
 import GalacticGuardian from './Modules/Features/GalacticGuardian';
 import GuardianOfElune from './Modules/Features/GuardianOfElune';
-import IronFur from './Modules/Features/IronFur';
 import DualDetermination from './Modules/Items/DualDetermination';
 
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
 
-function formatThousands(number) {
-  return (Math.round(number || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
-}
-function formatNumber(number) {
-  if (number > 1000000) {
-    return `${(number / 1000000).toFixed(2)}m`;
-  }
-  if (number > 10000) {
-    return `${Math.round(number / 1000)}k`;
-  }
-  return formatThousands(number);
-}
 function getIssueImportance(value, regular, major, higherIsWorse = false) {
   if (higherIsWorse ? value > major : value < major) {
     return ISSUE_IMPORTANCE.MAJOR;
@@ -48,9 +36,6 @@ function getIssueImportance(value, regular, major, higherIsWorse = false) {
   }
   return ISSUE_IMPORTANCE.MINOR;
 }
-function formatPercentage(percentage) {
-  return (Math.round((percentage || 0) * 10000) / 100).toFixed(2);
-}
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -59,7 +44,6 @@ class CombatLogParser extends MainCombatLogParser {
     goreProcs: Gore,
     galacticGuardianProcs: GalacticGuardian,
     guardianOfEluneProcs: GuardianOfElune,
-    ironFurStacks: IronFur,
 
     // Legendaries:
     dualDetermination: DualDetermination,
@@ -79,11 +63,8 @@ class CombatLogParser extends MainCombatLogParser {
     const thrashUptime = this.modules.enemies.getBuffUptime(SPELLS.THRASH_BEAR_DOT.id) / this.fightDuration;
     const moonfireUptime = this.modules.enemies.getBuffUptime(SPELLS.MOONFIRE_BEAR.id) / this.fightDuration;
 
-    let totalIronFurTime = this.modules.ironFurStacks.totalIFProcTime;
-    if (this.modules.ironFurStacks.lastIFProcTime > 0 && this.finished) {
-      totalIronFurTime += this.fight.end_time - this.modules.ironFurStacks.lastIFProcTime;
-    }
-
+    const totalIronFurTime = this.selectedCombatant.getBuffUptime(SPELLS.IRONFUR.id);
+    
     if (nonDpsTimePercentage > 0.3) {
       results.addIssue({
         issue: `Your non DPS time can be improved. Try to cast damaging spells more regularly.`,
@@ -158,6 +139,15 @@ class CombatLogParser extends MainCombatLogParser {
 
     results.statistics = [
       <StatisticBox
+        icon={<Icon icon="class_druid" alt="Damage taken" />}
+        value={`${formatNumber(this.totalDamageTaken / this.fightDuration * 1000)} DTPS`}
+        label={(
+          <dfn data-tip={`The total damage taken was ${formatThousands(this.totalDamageTaken)}.`}>
+            Damage taken
+          </dfn>
+        )}
+      />,
+      <StatisticBox
         icon={(
           <img
             src="/img/healing.png"
@@ -173,15 +163,6 @@ class CombatLogParser extends MainCombatLogParser {
         )}
       />,
       <StatisticBox
-        icon={<Icon icon="class_druid" alt="Damage done" />}
-        value={`${formatNumber(this.totalDamageDone / this.fightDuration * 1000)} DPS`}
-        label={(
-          <dfn data-tip={`The total damage done was ${formatThousands(this.totalDamageDone)}.`}>
-            Damage done
-          </dfn>
-        )}
-      />,
-      <StatisticBox
         icon={<Icon icon="spell_mage_altertime" alt="Dead GCD time" />}
         value={`${formatPercentage(deadTimePercentage)} %`}
         label={(
@@ -191,11 +172,11 @@ class CombatLogParser extends MainCombatLogParser {
         )}
       />,
       <StatisticBox
-        icon={<Icon icon="class_druid" alt="Damage taken" />}
-        value={`${formatNumber(this.totalDamageTaken / this.fightDuration * 1000)} DPS`}
+        icon={<Icon icon="class_druid" alt="Damage done" />}
+        value={`${formatNumber(this.totalDamageDone / this.fightDuration * 1000)} DPS`}
         label={(
-          <dfn data-tip={`The total damage taken was ${formatThousands(this.totalDamageTaken)}.`}>
-            Damage taken
+          <dfn data-tip={`The total damage done was ${formatThousands(this.totalDamageDone)}.`}>
+            Damage done
           </dfn>
         )}
       />,
@@ -203,7 +184,7 @@ class CombatLogParser extends MainCombatLogParser {
         icon={<SpellIcon id={SPELLS.GORE_BEAR.id} />}
         value={`${formatPercentage(unusedGoreProcs)}%`}
         label={(
-          <dfn data-tip={`You got total <b>${this.modules.goreProcs.GoreProcsTotal} gore procs</b> and <b>used ${this.modules.goreProcs.consumedGoreProc}</b> of them.`}>
+          <dfn data-tip={`You got total <b>${this.modules.goreProcs.GoreProcsTotal}</b> gore procs and <b>used ${this.modules.goreProcs.consumedGoreProc}</b> of them.`}>
             Unused Gore Procs
           </dfn>
         )}
@@ -212,8 +193,8 @@ class CombatLogParser extends MainCombatLogParser {
         icon={<SpellIcon id={SPELLS.GALACTIC_GUARDIAN.id} />}
         value={`${formatPercentage(unusedGGProcs)}%`}
         label={(
-          <dfn data-tip={`You got total <b>${this.modules.galacticGuardianProcs.GGProcsTotal} galactic guardian procs</b> and <b>used ${this.modules.galacticGuardianProcs.consumedGGProc}</b> of them.`}>
-            Unused Galactic Guardian Procs
+          <dfn data-tip={`You got total <b>${this.modules.galacticGuardianProcs.GGProcsTotal}</b> galactic guardian procs and <b>used ${this.modules.galacticGuardianProcs.consumedGGProc}</b> of them.`}>
+            Unused Galactic Guardian
           </dfn>
         )}
       />),
@@ -221,8 +202,8 @@ class CombatLogParser extends MainCombatLogParser {
         icon={<SpellIcon id={SPELLS.GUARDIAN_OF_ELUNE.id} />}
         value={`${formatPercentage(unusedGoEProcs)}%`}
         label={(
-          <dfn data-tip={`You got total <b>${this.modules.guardianOfEluneProcs.GoEProcsTotal} guardian of elune procs</b> and <b>used ${this.modules.guardianOfEluneProcs.consumedGoEProc}</b> of them.`}>
-            Unused Galactic Guardian Procs
+          <dfn data-tip={`You got total <b>${this.modules.guardianOfEluneProcs.GoEProcsTotal}</b> guardian of elune procs and <b>used ${this.modules.guardianOfEluneProcs.consumedGoEProc}</b> of them.`}>
+            Unused Guardian of Elune
           </dfn>
         )}
       />),
@@ -231,7 +212,7 @@ class CombatLogParser extends MainCombatLogParser {
         value={`${formatPercentage(this.modules.guardianOfEluneProcs.nonGoEFRegen/(this.modules.guardianOfEluneProcs.nonGoEFRegen + this.modules.guardianOfEluneProcs.GoEFRegen))}%`}
         label={(
           <dfn data-tip={`You cast <b>${this.modules.guardianOfEluneProcs.nonGoEFRegen + this.modules.guardianOfEluneProcs.GoEFRegen}</b> total ${SPELLS.FRENZIED_REGENERATION.name} and <b> ${this.modules.guardianOfEluneProcs.GoEFRegen} were buffed by 25%</b>.`}>
-            Unbuffed Frenzied Regeneration
+            Unbuffed Frenzied Regen
           </dfn>
         )}
       />),
