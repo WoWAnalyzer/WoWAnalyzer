@@ -60,8 +60,8 @@ class CombatLogParser extends MainCombatLogParser {
     const unusedGGProcs = 1 - (this.modules.galacticGuardianProcs.consumedGGProc / this.modules.galacticGuardianProcs.GGProcsTotal);
     const unusedGoEProcs = 1 - (this.modules.guardianOfEluneProcs.consumedGoEProc / this.modules.guardianOfEluneProcs.GoEProcsTotal);
 
-    const thrashUptime = this.modules.enemies.getBuffUptime(SPELLS.THRASH_BEAR_DOT.id) / this.fightDuration;
-    const moonfireUptime = this.modules.enemies.getBuffUptime(SPELLS.MOONFIRE_BEAR.id) / this.fightDuration;
+    const thrashUptimePercentage = this.modules.enemies.getBuffUptime(SPELLS.THRASH_BEAR_DOT.id) / this.fightDuration;
+    const moonfireUptimePercentage = this.modules.enemies.getBuffUptime(SPELLS.MOONFIRE_BEAR.id) / this.fightDuration;
 
     const totalIronFurTime = this.selectedCombatant.getBuffUptime(SPELLS.IRONFUR.id);
     const pulverizeUptimePercentage = this.selectedCombatant.getBuffUptime(SPELLS.PULVERIZE_BUFF.id) / this.fightDuration;
@@ -107,21 +107,21 @@ class CombatLogParser extends MainCombatLogParser {
       });
     }
 
-    if (thrashUptime < 0.95) {
+    if (thrashUptimePercentage < 0.95) {
       results.addIssue({
         issue: <span> Your <SpellLink id={SPELLS.THRASH_BEAR_DOT.id} /> uptime should be near 100%, unless you have extended periods of downtime. Thrash applies a bleed which buffs the damage of <SpellLink id={SPELLS.MANGLE_BEAR.id} /> by 20%.  Thrash uptime is especially important if you are talented into <SpellLink id={SPELLS.REND_AND_TEAR_TALENT.id} />, since it buffs the rest of your damage and gives you extra damage reduction.</span>,
-        stat: `${formatPercentage(thrashUptime)}% uptime (>95% recommended)`,
+        stat: `${formatPercentage(thrashUptimePercentage)}% uptime (>95% recommended)`,
         icon: SPELLS.THRASH_BEAR.icon,
-        importance: getIssueImportance(thrashUptime, 0.9, 0.8),
+        importance: getIssueImportance(thrashUptimePercentage, 0.9, 0.8),
       });
     }
 
-    if (moonfireUptime < 0.95) {
+    if (moonfireUptimePercentage < 0.95) {
       results.addIssue({
         issue: <span> Your <SpellLink id={SPELLS.MOONFIRE_BEAR.id} /> uptime should be near 100%, unless you have extended periods of downtime. Targets with Moonfire applied to them deal less damage to you due to <SpellLink id={SPELLS.SCINTILLATING_MOONLIGHT.id} />.</span>,
-        stat: `${formatPercentage(moonfireUptime)}% uptime (>95% recommended)`,
+        stat: `${formatPercentage(moonfireUptimePercentage)}% uptime (>95% recommended)`,
         icon: SPELLS.MOONFIRE_BEAR.icon,
-        importance: getIssueImportance(moonfireUptime, 0.9, 0.8),
+        importance: getIssueImportance(moonfireUptimePercentage, 0.9, 0.8),
       });
     }
 
@@ -246,12 +246,12 @@ class CombatLogParser extends MainCombatLogParser {
       />,
       <StatisticBox
         icon={<SpellIcon id={SPELLS.THRASH_BEAR.id} />}
-        value={`${formatPercentage(thrashUptime)}%`}
+        value={`${formatPercentage(thrashUptimePercentage)}%`}
         label="Thrash uptime"
       />,
       <StatisticBox
         icon={<SpellIcon id={SPELLS.MOONFIRE_BEAR.id} />}
-        value={`${formatPercentage(moonfireUptime)}%`}
+        value={`${formatPercentage(moonfireUptimePercentage)}%`}
         label="Moonfire uptime"
       />,
 
