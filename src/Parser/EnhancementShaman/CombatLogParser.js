@@ -24,7 +24,7 @@ import CooldownTracker from './Modules/Features/CooldownTracker';
 import ProcTracker from './Modules/Features/ProcTracker';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 
-import SmolderingHeart from './Modules/Legendaries/SmolderingHeart';
+// import SmolderingHeart from './Modules/Legendaries/SmolderingHeart';
 
 import './Modules/Main/main.css';
 
@@ -71,28 +71,28 @@ class CombatLogParser extends MainCombatLogParser {
     const results = super.generateResults();
 
     //first row of talents
-    const hasWindSong = this.selectedCombatant.hasTalent(SPELLS.WINDSONG_TALENT.id);
-    const hasHotHand = this.selectedCombatant.hasTalent(SPELLS.HOT_HAND_TALENT.id);
+    // const hasWindSong = this.selectedCombatant.hasTalent(SPELLS.WINDSONG_TALENT.id);
+    // const hasHotHand = this.selectedCombatant.hasTalent(SPELLS.HOT_HAND_TALENT.id);
     const hasLandslide = this.selectedCombatant.hasTalent(SPELLS.LANDSLIDE_TALENT.id);
     //4th row of talents
     const hasHailstorm = this.selectedCombatant.hasTalent(SPELLS.HAILSTORM_TALENT.id);
     //5th row of talents
-    const hasOvercharge = this.selectedCombatant.hasTalent(SPELLS.HAILSTORM_TALENT.id);
+    // const hasOvercharge = this.selectedCombatant.hasTalent(SPELLS.HAILSTORM_TALENT.id);
     //6th row of talents
-    const hasCrashingStorm = this.selectedCombatant.hasTalent(SPELLS.CRASHING_STORM_TALENT.id);
+    // const hasCrashingStorm = this.selectedCombatant.hasTalent(SPELLS.CRASHING_STORM_TALENT.id);
     const hasFuryOfAir = this.selectedCombatant.hasTalent(SPELLS.FURY_OF_AIR_TALENT.id);
-    const hasSundering = this.selectedCombatant.hasTalent(SPELLS.SUNDERING_TALENT.id);
+    // const hasSundering = this.selectedCombatant.hasTalent(SPELLS.SUNDERING_TALENT.id);
     //last row of talents
-    const hasAscendance = this.selectedCombatant.hasTalent(SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id);
-    const hasEarthenSpike = this.selectedCombatant.hasTalent(SPELLS.EARTHEN_SPIKE_TALENT.id);
-    const hasBoulderfist = this.selectedCombatant.hasTalent(SPELLS.BOULDERFIST_TALENT.id);
+    // const hasAscendance = this.selectedCombatant.hasTalent(SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id);
+    // const hasEarthenSpike = this.selectedCombatant.hasTalent(SPELLS.EARTHEN_SPIKE_TALENT.id);
+    // const hasBoulderfist = this.selectedCombatant.hasTalent(SPELLS.BOULDERFIST_TALENT.id);
 
-    const abilityTracker = this.modules.abilityTracker;
-    const getAbility = spellId => abilityTracker.getAbility(spellId);
+    // const abilityTracker = this.modules.abilityTracker;
+    // const getAbility = spellId => abilityTracker.getAbility(spellId);
 
-    const flametongue = getAbility(SPELLS.FLAMETONGUE.id);
-    const frostbrand = getAbility(SPELLS.FROSTBRAND.id);
-    const stormBringer = getAbility(SPELLS.STORMBRINGER.id);
+    // const flametongue = getAbility(SPELLS.FLAMETONGUE.id);
+    // const frostbrand = getAbility(SPELLS.FROSTBRAND.id);
+    // const stormBringer = getAbility(SPELLS.STORMBRINGER.id);
 
     const fightDuration = this.fightDuration;
 
@@ -111,13 +111,13 @@ class CombatLogParser extends MainCombatLogParser {
     //Legendaries
     // const hasUncertainReminder = this.selectedCombatant.hasHead(ITEMS.UNCERTAIN_REMINDER.id);
     // const hasEmalons = this.selectedCombatant.hasChest(ITEMS.EMALONS_CHARGED_CORE.id);
-    const hasAkainus = this.selectedCombatant.hasWrists(ITEMS.AKAINUS_ABSOLUTE_JUSTICE.id);
+    // const hasAkainus = this.selectedCombatant.hasWrists(ITEMS.AKAINUS_ABSOLUTE_JUSTICE.id);
     // const hasSmolderingHeart = this.selectedCombatant.hasHands(ITEMS.SMOLDERING_HEART.id);
     // const hasStorm = this.selectedCombatant.hasWaist(ITEMS.STORM_TEMPESTS.id);
     // const hasRoots = this.selectedCombatant.hasLegs(ITEMS.ROOTS_OF_SHALADRASSIL.id);
     // const hasSpiritual = this.selectedCombatant.hasFeet(ITEMS.SPIRITUAL_JOURNEY.id);
     // const hasSoul = this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_FARSEER.id);
-    const hasEOTN = this.selectedCombatant.hasFinger(ITEMS.EYE_OF_THE_TWISTING_NETHER.id);
+    // const hasEOTN = this.selectedCombatant.hasFinger(ITEMS.EYE_OF_THE_TWISTING_NETHER.id);
     // const hasSephuz = this.selectedCombatant.hasFinger(ITEMS.SEPHUZS_SECRET.id);
 
   this.selectedCombatant._combatantInfo.gear.forEach(function(value) {
