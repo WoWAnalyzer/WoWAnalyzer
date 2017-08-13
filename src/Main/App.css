@@ -497,10 +497,10 @@ table.data-table .performance-bar {
   max-width: 600px;
 }
 .__react_component_tooltip.type-dark {
-  background: rgba(10, 10, 10, 0.8) !important;
+  background: rgba(10, 10, 10, 0.9) !important;
 }
 .__react_component_tooltip.type-dark.place-bottom:after {
-  border-bottom-color: rgba(10, 10, 10, 0.8) !important;
+  border-bottom-color: rgba(10, 10, 10, 0.9) !important;
 }
 
 

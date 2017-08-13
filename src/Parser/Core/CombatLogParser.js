@@ -32,16 +32,6 @@ import VantusRune from './Modules/VantusRune';
 import ParseResults from './ParseResults';
 import SUGGESTION_IMPORTANCE from './ISSUE_IMPORTANCE';
 
-function getSuggestionImportance(value, regular, major, higherIsWorse = false) {
-  if (higherIsWorse ? value > major : value < major) {
-    return SUGGESTION_IMPORTANCE.MAJOR;
-  }
-  if (higherIsWorse ? value > regular : value < regular) {
-    return SUGGESTION_IMPORTANCE.REGULAR;
-  }
-  return SUGGESTION_IMPORTANCE.MINOR;
-}
-
 class CombatLogParser {
   static abilitiesAffectedByHealingIncreases = [];
 
@@ -235,6 +225,7 @@ class CombatLogParser {
   static SUGGESTION_VELENS_BREAKPOINT = 0.045;
   generateResults() {
     const results = new ParseResults();
+    const { suggestions } = results;
 
     const fightDuration = this.fightDuration;
     const getPercentageOfTotal = healingDone => healingDone / this.totalHealing;
@@ -259,38 +250,39 @@ class CombatLogParser {
         ),
       });
       const velensHealingPercentage = getPercentageOfTotal(this.modules.velens.healing);
-      if (velensHealingPercentage < this.constructor.SUGGESTION_VELENS_BREAKPOINT) {
-        results.addIssue({
-          issue: <span>Your usage of <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} /> can be improved. Try to maximize the amount of healing during the buff without excessively overhealing on purpose, or consider using an easier legendary.</span>,
-          stat: `${(velensHealingPercentage * 100).toFixed(2)}% healing contributed (${this.constructor.SUGGESTION_VELENS_BREAKPOINT * 100}% is recommended)`,
-          icon: ITEMS.VELENS_FUTURE_SIGHT.icon,
-          importance: getSuggestionImportance(velensHealingPercentage, this.constructor.SUGGESTION_VELENS_BREAKPOINT - 0.005, this.constructor.SUGGESTION_VELENS_BREAKPOINT - 0.015),
+      suggestions
+        .when(velensHealingPercentage).isGreaterThan(this.constructor.SUGGESTION_VELENS_BREAKPOINT)
+        .addSuggestion((suggest, actual, recommended) => {
+          return suggest(<span>Your usage of <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} /> can be improved. Try to maximize the amount of healing during the buff without excessively overhealing on purpose, or consider using an easier legendary.</span>)
+            .icon(ITEMS.VELENS_FUTURE_SIGHT.icon)
+            .actual(`${formatItemHealing(this.modules.velens.healing)} healing contributed`)
+            .recommended(`>${formatPercentage(recommended)}% is recommended`)
+            .regular(recommended - 0.005).major(recommended - 0.015);
         });
-      }
     }
-    if (!this.modules.prePotion.usedPrePotion) {
-      results.addIssue({
-        issue: <span>You did not use a potion before combat. Using a potion before combat allows you the benefit of two potions in a single fight. A potion such as <ItemLink id={ITEMS.POTION_OF_PROLONGED_POWER.id} /> can be very effective (even for healers), especially during shorter encounters.</span>,
-        icon: ITEMS.POTION_OF_PROLONGED_POWER.icon,
-        importance: SUGGESTION_IMPORTANCE.MINOR,
+    suggestions
+      .when(this.modules.prePotion.usedPrePotion).isFalse()
+      .addSuggestion(suggest => {
+        return suggest(<span>You did not use a potion before combat. Using a potion before combat allows you the benefit of two potions in a single fight. A potion such as <ItemLink id={ITEMS.POTION_OF_PROLONGED_POWER.id} /> can be very effective (even for healers), especially during shorter encounters.</span>)
+          .icon(ITEMS.POTION_OF_PROLONGED_POWER.icon)
+          .staticImportance(SUGGESTION_IMPORTANCE.MINOR);
       });
-    }
-    if (!this.modules.prePotion.usedSecondPotion) {
-      let importance;
-      let issue;
-      if(!this.modules.prePotion.neededManaSecondPotion) {
-        importance = SUGGESTION_IMPORTANCE.MINOR;
-        issue = <span>You forgot to use a potion during combat. Using a potion during combat allows you the benefit of either increasing output through <ItemLink id={ITEMS.POTION_OF_PROLONGED_POWER.id} /> or allowing you to gain mana using <ItemLink id={ITEMS.ANCIENT_MANA_POTION.id}/>, for example.</span>;
-      } else {
-        importance = SUGGESTION_IMPORTANCE.REGULAR;
-        issue = <span>You ran out of mana (OOM) during the encounter without using a second potion. Use a second potion such as <ItemLink id={ITEMS.ANCIENT_MANA_POTION.id}/> or if the fight allows <ItemLink id={ITEMS.LEYTORRENT_POTION.id}/> to regenerate some mana.</span>;
-      }
-      results.addIssue({
-        icon: ITEMS.LEYTORRENT_POTION.icon,
-        issue,
-        importance: importance,
+    suggestions
+      .when(this.modules.prePotion.usedSecondPotion).isFalse()
+      .addSuggestion(suggest => {
+        let suggestionText;
+        let importance;
+        if (!this.modules.prePotion.neededManaSecondPotion) {
+          suggestionText = <span>You forgot to use a potion during combat. Using a potion during combat allows you the benefit of either increasing output through <ItemLink id={ITEMS.POTION_OF_PROLONGED_POWER.id} /> or allowing you to gain mana using <ItemLink id={ITEMS.ANCIENT_MANA_POTION.id}/>, for example.</span>;
+          importance = SUGGESTION_IMPORTANCE.MINOR;
+        } else {
+          suggestionText = <span>You ran out of mana (OOM) during the encounter without using a second potion. Use a second potion such as <ItemLink id={ITEMS.ANCIENT_MANA_POTION.id}/> or if the fight allows <ItemLink id={ITEMS.LEYTORRENT_POTION.id}/> to regenerate some mana.</span>;
+          importance = SUGGESTION_IMPORTANCE.REGULAR;
+        }
+        return suggest(suggestionText)
+          .icon(ITEMS.LEYTORRENT_POTION.icon)
+          .staticImportance(importance);
       });
-    }
     if (this.modules.sephuzsSecret.active) {
       results.items.push({
         item: ITEMS.SEPHUZS_SECRET,
@@ -370,22 +362,25 @@ class CombatLogParser {
           </dfn>
         ),
       });
-      if (this.modules.deceiversGrandDesign.proced) {
-        results.addIssue({
-          issue: <span>Your <ItemLink id={ITEMS.DECEIVERS_GRAND_DESIGN.id} /> procced earlier than expected. Try to cast it on players without spiky health pools. The following events procced the effect:<br />
-            {this.modules.deceiversGrandDesign.procs
-              .map((procs, index) => {
-                const url = `https://www.warcraftlogs.com/reports/${procs.report}/#fight=${procs.fight}&source=${procs.target}&type=summary&start=${procs.start}&end=${procs.end}&view=events`;
-                return (
-                  <div key={index}>
-                    Proc {index + 1} on: <a href={url} target="_blank" rel="noopener noreferrer">{procs.name}</a>
-                  </div>
-                );
-              })}
-          </span>,
-          icon: ITEMS.DECEIVERS_GRAND_DESIGN.icon,
+      suggestions
+        .when(this.modules.deceiversGrandDesign.proced).isTrue()
+        .addSuggestion(suggest => {
+          return suggest(
+            <span>
+              Your <ItemLink id={ITEMS.DECEIVERS_GRAND_DESIGN.id} /> procced earlier than expected. Try to cast it on players without spiky health pools. The following events procced the effect:<br />
+              {this.modules.deceiversGrandDesign.procs
+                .map((procs, index) => {
+                  const url = `https://www.warcraftlogs.com/reports/${procs.report}/#fight=${procs.fight}&source=${procs.target}&type=summary&start=${procs.start}&end=${procs.end}&view=events`;
+                  return (
+                    <div key={index}>
+                      Proc {index + 1} on: <a href={url} target="_blank" rel="noopener noreferrer">{procs.name}</a>
+                    </div>
+                  );
+                })}
+            </span>
+          )
+            .icon(ITEMS.DECEIVERS_GRAND_DESIGN.icon);
         });
-      }
     }
 
     results.statistics.push(<VantusRune owner={this} />);

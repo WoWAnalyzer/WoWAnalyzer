@@ -125,6 +125,55 @@ const ITEMS = {
     icon: 'inv_helm_mail_korkronshaman_d_01',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+  // ENHANCEMENT SHAMAN LEGENDARIES
+  AKAINUS_ABSOLUTE_JUSTICE: {
+	id: 137084,
+	name: 'Akainu\'s Absolute Justice',
+	icon: 'inv_bracer_mail_pvphunter_c_02',
+	quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  EYE_OF_THE_TWISTING_NETHER: {
+    id: 137050,
+    name: 'Eye of the Twisting Nether',
+    icon: 'inv_jewelry_ring_ahnqiraj_02',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  SMOLDERING_HEART: {
+      id: 151819,
+      name: 'Smoldering Heart',
+      icon: 'inv_gauntlets_85',
+      quality: ITEM_QUALITIES.LEGENDARY,
+  },
+EMALONS_CHARGED_CORE: {
+  id: 137616,
+  name: 'Emalon\'s Charged Core',
+  icon: 'inv_chest_mail_dungeonmail_c_04',
+  quality: ITEM_QUALITIES.LEGENDARY,
+},
+SOUL_OF_THE_FARSEER: {
+  id: 151647,
+  name: 'Soul of the Farseer',
+  icon: 'inv_70_quest_ring2b',
+  quality: ITEM_QUALITIES.LEGENDARY,
+},
+KILJAEDENS_BURNING_WISH: {
+  id: 144259,
+  name: 'Kil\'jaeden\'s Burning Wish',
+  icon: 'sha_spell_fire_bluepyroblast_nightmare',
+  quality: ITEM_QUALITIES.LEGENDARY,
+},
+STORM_TEMPESTS: {
+    id: 137103,
+    name: 'Storm Tempests',
+    icon: 'inv_belt_plate_pvpdeathknight_e_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+},
+SPIRITUAL_JOURNEY: {
+    id: 138117,
+    name: 'Spiritual Journey',
+    icon: 'inv_boot_mail_raidhunter_m_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+},
   // PRIEST LEGENDARIES
   CORD_OF_MAIEV_PRIESTESS_OF_THE_MOON: {
     id: 133800,
@@ -371,6 +420,19 @@ const ITEMS = {
     icon: 'inv_jewelcrafting_purpleowl.jpg',
     quality: ITEM_QUALITIES.EPIC,
   },
+  SPECTER_OF_BETRAYAL: {
+      id: 151190,
+      name: 'Specter of Betrayal',
+      icon: 'spell_warlock_soulburn',
+      quality: ITEM_QUALITIES.EPIC,
+  },
+  VIAL_OF_CEASELESS_TOXINS: {
+      id: 147011,
+      name: 'Vial of Ceaseless Toxins',
+      icon: 'inv_potionc_5',
+      quality: ITEM_QUALITIES.EPIC,
+  },
+
   // Guardian legendaries
   ELIZES_EVERLASTING_ENCASEMENT: {
     id: 137067,

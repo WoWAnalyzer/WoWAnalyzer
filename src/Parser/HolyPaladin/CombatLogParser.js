@@ -19,7 +19,6 @@ import PlayerBreakdownTab from 'Main/PlayerBreakdownTab';
 
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 import getCastEfficiency from 'Parser/Core/getCastEfficiency';
-import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 import PaladinAbilityTracker from './Modules/PaladinCore/PaladinAbilityTracker';
 import BeaconHealing from './Modules/PaladinCore/BeaconHealing';
@@ -53,15 +52,6 @@ function getRawHealing(ability) {
 }
 function getOverhealingPercentage(ability) {
   return ability.healingOverheal / getRawHealing(ability);
-}
-function getIssueImportance(value, regular, major, higherIsWorse = false) {
-  if (higherIsWorse ? value > major : value < major) {
-    return ISSUE_IMPORTANCE.MAJOR;
-  }
-  if (higherIsWorse ? value > regular : value < regular) {
-    return ISSUE_IMPORTANCE.REGULAR;
-  }
-  return ISSUE_IMPORTANCE.MINOR;
 }
 
 class CombatLogParser extends MainCombatLogParser {
@@ -161,6 +151,7 @@ class CombatLogParser extends MainCombatLogParser {
 
   generateResults() {
     const results = super.generateResults();
+    const { suggestions } = results;
 
     const fightDuration = this.fightDuration;
     const getPercentageOfTotal = healingDone => healingDone / this.totalHealing;
@@ -228,54 +219,68 @@ class CombatLogParser extends MainCombatLogParser {
     const divinePurposeHolyShockProcs = (hasDivinePurpose || hasSoulOfTheHighlord) && this.selectedCombatant.getBuffTriggerCount(SPELLS.DIVINE_PURPOSE_HOLY_SHOCK_BUFF.id);
     const divinePurposeLightOfDawnProcs = (hasDivinePurpose || hasSoulOfTheHighlord) && this.selectedCombatant.getBuffTriggerCount(SPELLS.DIVINE_PURPOSE_LIGHT_OF_DAWN_BUFF.id);
 
-    if (nonHealingTimePercentage > 0.3) {
-      results.addIssue({
-        issue: `Your non healing time can be improved. Try to cast heals more regularly.`,
-        stat: `${Math.round(nonHealingTimePercentage * 100)}% non healing time (<30% is recommended)`,
-        icon: 'petbattle_health-down',
-        importance: getIssueImportance(nonHealingTimePercentage, 0.4, 0.45, true),
+    //region Suggestions
+
+    //region Misc
+
+    suggestions
+      .when(nonHealingTimePercentage).isGreaterThan(0.3)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest('Your non healing time can be improved. Try to cast heals more regularly.')
+          .icon('petbattle_health-down')
+          .actual(`${formatPercentage(actual)} non healing time`)
+          .recommended(`<${formatPercentage(recommended)}% is recommended`)
+          .regular(recommended + 0.1).major(recommended + 0.15);
       });
-    }
-    if (deadTimePercentage > 0.2) {
-      results.addIssue({
-        issue: `Your dead GCD time can be improved. Try to Always Be Casting (ABC); when you're not healing try to contribute some damage.`,
-        stat: `${Math.round(deadTimePercentage * 100)}% dead GCD time (<20% is recommended)`,
-        icon: 'spell_mage_altertime',
-        importance: getIssueImportance(deadTimePercentage, 0.35, 1, true),
+    suggestions
+      .when(deadTimePercentage).isGreaterThan(0.2)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest('Your dead GCD time can be improved. Try to Always Be Casting (ABC); when you\'re not healing try to contribute some damage.')
+          .icon('spell_mage_altertime')
+          .actual(`${formatPercentage(deadTimePercentage)}% dead GCD time`)
+          .recommended(`<${formatPercentage(recommended)}% is recommended`)
+          .regular(recommended + 0.15).major(1);
       });
-    }
-    if (totalHealsOnBeaconPercentage > 0.2) {
-      results.addIssue({
-        issue: `You cast a lot of direct heals on beacon targets. Direct healing beacon targets is inefficient. Try to only cast on beacon targets when they would otherwise die.`,
-        stat: `${Math.round(totalHealsOnBeaconPercentage * 100)}% of all your healing spell casts were on a beacon target (<20% is recommended)`,
-        icon: 'ability_paladin_beaconoflight',
-        importance: getIssueImportance(totalHealsOnBeaconPercentage, 0.25, 0.35, true),
+
+    suggestions
+      .when(totalHealsOnBeaconPercentage).isGreaterThan(0.2)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest('You cast a lot of direct heals on beacon targets. Direct healing beacon targets is inefficient. Try to only cast on beacon targets when they would otherwise die.')
+          .icon('ability_paladin_beaconoflight')
+          .actual(`${formatPercentage(totalHealsOnBeaconPercentage)}% of all your healing spell casts were on a beacon target`)
+          .recommended(`<${formatPercentage(recommended)}% is recommended`)
+          .regular(recommended + 0.05).major(recommended + 0.15);
       });
-    }
-    if (totalMasteryEffectiveness < 0.75) {
-      results.addIssue({
-        issue: `Your Mastery Effectiveness can be improved. Try to improve your positioning, usually by sticking with melee.`,
-        stat: `${Math.round(totalMasteryEffectiveness * 100)}% mastery effectiveness (>75% is recommended)`,
-        icon: 'inv_hammer_04',
-        importance: getIssueImportance(totalMasteryEffectiveness, 0.7, 0.6),
+    suggestions
+      .when(totalMasteryEffectiveness).isLessThan(0.75)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest('Your Mastery Effectiveness can be improved. Try to improve your positioning, usually by sticking with melee.')
+          .icon('inv_hammer_04')
+          .actual(`${formatPercentage(totalMasteryEffectiveness)}% mastery effectiveness`)
+          .recommended(`>${formatPercentage(recommended)}% is recommended`)
+          .regular(recommended - 0.05).major(recommended - 0.15);
       });
+    if (hasRuleOfLaw) {
+      suggestions
+        .when(ruleOfLawUptime).isLessThan(0.25)
+        .addSuggestion((suggest, actual, recommended) => {
+          return suggest(<span>Your <SpellLink id={SPELLS.RULE_OF_LAW_TALENT.id} /> uptime can be improved. Try keeping at least 1 charge on cooldown; you should (almost) never be at max charges.</span>)
+            .icon(SPELLS.RULE_OF_LAW_TALENT.icon)
+            .actual(`${(ruleOfLawUptime * 100).toFixed(2)}% uptime`)
+            .recommended(`>${formatPercentage(recommended)}% is recommended`)
+            .regular(recommended - 0.05).major(recommended - 0.15);
+        });
     }
-    if (hasRuleOfLaw && ruleOfLawUptime < 0.25) {
-      results.addIssue({
-        issue: <span>Your <SpellLink id={SPELLS.RULE_OF_LAW_TALENT.id} /> uptime can be improved. Try keeping at least 1 charge on cooldown; you should (almost) never be at max charges.</span>,
-        stat: `${(ruleOfLawUptime * 100).toFixed(2)}% uptime (>25% is recommended)`,
-        icon: SPELLS.RULE_OF_LAW_TALENT.icon,
-        importance: getIssueImportance(ruleOfLawUptime, 0.2, 0.1),
+    suggestions
+      .when(iolFoLToHLCastRatio).isLessThan(0.7)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<span>Your <i>IoL FoL to HL cast ratio</i> can likely be improved. When you get an <SpellLink id={SPELLS.INFUSION_OF_LIGHT.id} /> proc try to cast <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} /> as much as possible, it is a considerably stronger heal ({iolFlashOfLights} Flash of Lights.</span>)
+          .icon(SPELLS.INFUSION_OF_LIGHT.icon)
+          .actual(`${formatPercentage(iolFoLToHLCastRatio)}%) to ${iolHolyLights} Holy Lights (${formatPercentage(1 - iolFoLToHLCastRatio)}%) cast with Infusion of Light`)
+          .recommended(`>${formatPercentage(recommended)}% is recommended`)
+          .regular(recommended - 0.1).major(recommended - 0.3);
       });
-    }
-    if (iolFoLToHLCastRatio < 0.7) {
-      results.addIssue({
-        issue: <span>Your <i>IoL FoL to HL cast ratio</i> can likely be improved. When you get an <SpellLink id={SPELLS.INFUSION_OF_LIGHT.id} /> proc try to cast <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} /> as much as possible, it is a considerably stronger heal ({iolFlashOfLights} Flash of Lights.</span>,
-        stat: `${Math.round(iolFoLToHLCastRatio * 100)}%) to ${iolHolyLights} Holy Lights (${Math.round(100 - iolFoLToHLCastRatio * 100)}%) cast with Infusion of Light (>70% is recommended)`,
-        icon: SPELLS.INFUSION_OF_LIGHT.icon,
-        importance: getIssueImportance(iolFoLToHLCastRatio, 0.6, 0.4),
-      });
-    }
+
     let recommendedUnusedIolRate = has4PT19 ? 0.2 : 0;
     if (hasCrusadersMight) {
       recommendedUnusedIolRate += has4PT19 ? 0.1 : 0.05;
@@ -283,22 +288,25 @@ class CombatLogParser extends MainCombatLogParser {
     if (hasDivinePurpose) {
       recommendedUnusedIolRate += has4PT19 ? 0.1 : 0.05;
     }
-    if (unusedIolRate > recommendedUnusedIolRate) {
-      results.addIssue({
-        issue: <span>Your <SpellLink id={SPELLS.INFUSION_OF_LIGHT.id} /> proc usage can be improved. Try to use your Infusion of Light procs before casting your next <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id}/>.</span>,
-        stat: `${Math.round(unusedIolRate * 100)}% unused Infusion of Lights (<${recommendedUnusedIolRate * 100}% is recommended)`,
-        // icon: 'ability_paladin_infusionoflight-bw',
-        icon: 'ability_paladin_infusionoflight',
-        importance: getIssueImportance(unusedIolRate, recommendedUnusedIolRate + 0.05, recommendedUnusedIolRate + 0.2, true),
+    suggestions
+      .when(unusedIolRate).isGreaterThan(recommendedUnusedIolRate)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<span>Your <SpellLink id={SPELLS.INFUSION_OF_LIGHT.id} /> proc usage can be improved. Try to use your Infusion of Light procs before casting your next <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id}/>.</span>)
+          .icon(SPELLS.INFUSION_OF_LIGHT.icon)
+          .actual(`${formatPercentage(unusedIolRate)}% unused Infusion of Lights`)
+          .recommended(`<${formatPercentage(recommended)}% is recommended`)
+          .regular(recommended + 0.05).major(recommended + 0.2);
       });
-    }
-    if (this.modules.ilterendi.active && ilterendiHealingPercentage < 0.045) {
-      results.addIssue({
-        issue: <span>Your usage of <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} /> can be improved. Try to line up <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} /> and <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> with the buff or consider using an easier legendary.</span>,
-        stat: `${formatItemHealing(this.modules.ilterendi.healing)} healing contributed (>4.5% is recommended)`,
-        icon: ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.icon,
-        importance: getIssueImportance(ilterendiHealingPercentage, 0.04, 0.03),
-      });
+    if (this.modules.ilterendi.active) {
+      suggestions
+        .when(ilterendiHealingPercentage).isGreaterThan(0.045)
+        .addSuggestion((suggest, actual, recommended) => {
+          return suggest(<span>Your usage of <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} /> can be improved. Try to line up <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} /> and <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> with the buff or consider using an easier legendary.</span>)
+            .icon(ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.icon)
+            .actual(`${formatItemHealing(this.modules.ilterendi.healing)} healing contributed`)
+            .recommended(`<${formatPercentage(recommended)}% is recommended`)
+            .regular(recommended + 0.05).major(recommended + 0.2);
+        });
     }
     const lightOfTheMartyrs = getAbility(SPELLS.LIGHT_OF_THE_MARTYR.id).casts || 0;
     let fillerLotms = lightOfTheMartyrs;
@@ -307,73 +315,84 @@ class CombatLogParser extends MainCombatLogParser {
       fillerLotms -= lightOfTheDawns;
     }
     const fillerLotmsPerMinute = fillerLotms / (fightDuration / 1000) * 60;
-    if (fillerLotmsPerMinute >= 1.5) {
-      let issue = null;
-      let stat = null;
-      if (this.modules.maraadsDyingBreath.active) {
-        issue = <span>With <ItemLink id={ITEMS.MARAADS_DYING_BREATH.id} /> you should only cast <b>one</b> <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> per <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} />. Without the buff <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> is a very inefficient spell to cast. Try to only cast Light of the Martyr when it will save someone's life or when moving and all other instant cast spells are on cooldown.</span>;
-        stat = `${fillerLotmsPerMinute.toFixed(2)} Casts Per Minute - ${fillerLotms} casts total (unbuffed only) (<1.5 Casts Per Minute is recommended)`;
-      } else {
-        issue = <span>You cast many <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} />s. Light of the Martyr is an inefficient spell to cast, try to only cast Light of the Martyr when it will save someone's life or when moving and all other instant cast spells are on cooldown.</span>;
-        stat = `${fillerLotmsPerMinute.toFixed(2)} Casts Per Minute - ${fillerLotms} casts total (<1.5 Casts Per Minute is recommended)`;
-      }
-      results.addIssue({
-        issue,
-        stat,
-        icon: SPELLS.LIGHT_OF_THE_MARTYR.icon,
-        importance: getIssueImportance(fillerLotmsPerMinute, 2, 3, true),
+    suggestions
+      .when(fillerLotmsPerMinute).isGreaterThan(1.5)
+      .addSuggestion((suggest, actual, recommended) => {
+        let suggestionText;
+        let actualText;
+        if (this.modules.maraadsDyingBreath.active) {
+          suggestionText = <span>With <ItemLink id={ITEMS.MARAADS_DYING_BREATH.id} /> you should only cast <b>one</b> <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> per <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} />. Without the buff <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> is a very inefficient spell to cast. Try to only cast Light of the Martyr when it will save someone's life or when moving and all other instant cast spells are on cooldown.</span>;
+          actualText = `${fillerLotmsPerMinute.toFixed(2)} Casts Per Minute - ${fillerLotms} casts total (unbuffed only)`;
+        } else {
+          suggestionText = <span>You cast many <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} />s. Light of the Martyr is an inefficient spell to cast, try to only cast Light of the Martyr when it will save someone's life or when moving and all other instant cast spells are on cooldown.</span>;
+          actualText = `${fillerLotmsPerMinute.toFixed(2)} Casts Per Minute - ${fillerLotms} casts total`;
+        }
+        return suggest(suggestionText)
+          .icon(SPELLS.LIGHT_OF_THE_MARTYR.icon)
+          .actual(actualText)
+          .recommended(`<${formatPercentage(recommended)} Casts Per Minute is recommended`)
+          .regular(recommended + 0.5).major(recommended + 1.5);
       });
-    }
-    if (auraOfSacrificeHps < 30000) {
-      results.addIssue({
-        issue: <span>The healing done by your <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} /> is low. Try to find a better moment to cast it or consider changing to <SpellLink id={SPELLS.AURA_OF_MERCY_TALENT.id} /> or <SpellLink id={SPELLS.DEVOTION_AURA_TALENT.id} /> which can be more reliable.</span>,
-        stat: `${formatNumber(auraOfSacrificeHps)} HPS (>30,000 HPS is recommended)`,
-        icon: SPELLS.AURA_OF_SACRIFICE_TALENT.icon,
-        importance: getIssueImportance(auraOfSacrificeHps, 25000, 20000),
+    suggestions
+      .when(auraOfSacrificeHps).isLessThan(30000)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<span>The healing done by your <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} /> is low. Try to find a better moment to cast it or consider changing to <SpellLink id={SPELLS.AURA_OF_MERCY_TALENT.id} /> or <SpellLink id={SPELLS.DEVOTION_AURA_TALENT.id} /> which can be more reliable.</span>)
+          .icon(SPELLS.AURA_OF_SACRIFICE_TALENT.icon)
+          .actual(`${formatNumber(actual)} HPS`)
+          .recommended(`>${formatNumber(recommended)} HPS is recommended`)
+          .regular(recommended - 5000).major(recommended - 10000);
       });
-    }
-    const lodOverhealing = getOverhealingPercentage(lightOfDawnHeal);
-    const recommendedLodOverhealing = hasDivinePurpose ? 0.45 : 0.4;
-    if (lodOverhealing > recommendedLodOverhealing) {
-      results.addIssue({
-        issue: <span>Try to avoid overhealing with <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} />. Save it for when people are missing health.</span>,
-        stat: `${Math.round(lodOverhealing * 100)}% overhealing (<${recommendedLodOverhealing * 100}% is recommended)`,
-        icon: SPELLS.LIGHT_OF_DAWN_CAST.icon,
-        importance: getIssueImportance(lodOverhealing, recommendedLodOverhealing + 0.1, recommendedLodOverhealing + 0.2, true),
-      });
-    }
-    const hsOverhealing = getOverhealingPercentage(holyShock);
-    const recommendedHsOverhealing = hasDivinePurpose ? 0.4 : 0.35;
-    if (hsOverhealing > recommendedHsOverhealing) {
-      results.addIssue({
-        issue: <span>Try to avoid overhealing with <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} />. Save it for when people are missing health.</span>,
-        stat: `${Math.round(hsOverhealing * 100)}% overhealing (<${recommendedHsOverhealing * 100}% is recommended)`,
-        icon: SPELLS.HOLY_SHOCK_HEAL.icon,
-        importance: getIssueImportance(hsOverhealing, recommendedHsOverhealing + 0.1, recommendedHsOverhealing + 0.2, true),
-      });
-    }
-    const folOverhealing = getOverhealingPercentage(flashOfLight);
-    const recommendedFolOverhealing = 0.25;
-    if (folOverhealing > recommendedFolOverhealing) {
-      results.addIssue({
-        issue: <span>Try to avoid overhealing with <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} />. If Flash of Light would overheal it is generally advisable to cast a <SpellLink id={SPELLS.HOLY_LIGHT.id} /> instead.</span>,
-        stat: `${Math.round(folOverhealing * 100)}% overhealing (<${recommendedFolOverhealing * 100}% is recommended)`,
-        icon: SPELLS.FLASH_OF_LIGHT.icon,
-        importance: getIssueImportance(folOverhealing, recommendedFolOverhealing + 0.15, recommendedFolOverhealing + 0.25, true),
-      });
-    }
-    const bfOverhealing = getOverhealingPercentage(bestowFaith);
-    const recommendedBfOverhealing = 0.4;
-    if (bfOverhealing > recommendedBfOverhealing) {
-      results.addIssue({
-        issue: <span>Try to avoid overhealing with <SpellLink id={SPELLS.BESTOW_FAITH_TALENT.id} />. Cast it just before someone is about to take damage and consider casting it on targets other than tanks.</span>,
-        stat: `${Math.round(bfOverhealing * 100)}% overhealing (<${recommendedBfOverhealing * 100}% is recommended)`,
-        icon: SPELLS.BESTOW_FAITH_TALENT.icon,
-        importance: getIssueImportance(bfOverhealing, recommendedBfOverhealing + 0.1, recommendedBfOverhealing + 0.2, true),
-      });
-    }
 
-    // TODO: Suggestion for AoS when it didn't heal enough to be worthwhile
+    //endregion
+
+    //region Overhealing
+
+    const recommendedLodOverhealing = hasDivinePurpose ? 0.45 : 0.4;
+    suggestions
+      .when(getOverhealingPercentage(lightOfDawnHeal)).isGreaterThan(recommendedLodOverhealing)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<span>Try to avoid overhealing with <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} />. Save it for when people are missing health.</span>)
+          .icon(SPELLS.LIGHT_OF_DAWN_CAST.icon)
+          .actual(`${formatPercentage(actual)}% overhealing`)
+          .recommended(`<${formatPercentage(recommended)}% is recommended`)
+          .regular(recommended + 0.1).major(recommended + 0.2);
+      });
+
+    const recommendedHsOverhealing = hasDivinePurpose ? 0.4 : 0.35;
+    suggestions
+      .when(getOverhealingPercentage(holyShock)).isGreaterThan(recommendedHsOverhealing)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<span>Try to avoid overhealing with <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} />. Save it for when people are missing health.</span>)
+          .icon(SPELLS.HOLY_SHOCK_HEAL.icon)
+          .actual(`${formatPercentage(actual)}% overhealing`)
+          .recommended(`<${formatPercentage(recommended)}% is recommended`)
+          .regular(recommended + 0.1).major(recommended + 0.2);
+      });
+
+    const recommendedFolOverhealing = 0.25;
+    suggestions
+      .when(getOverhealingPercentage(flashOfLight)).isGreaterThan(recommendedFolOverhealing)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<span>Try to avoid overhealing with <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} />. If Flash of Light would overheal it is generally advisable to cast a <SpellLink id={SPELLS.HOLY_LIGHT.id} /> instead.</span>)
+          .icon(SPELLS.FLASH_OF_LIGHT.icon)
+          .actual(`${formatPercentage(actual)}% overhealing`)
+          .recommended(`<${formatPercentage(recommended)}% is recommended`)
+          .regular(recommended + 0.15).major(recommended + 0.25);
+      });
+
+    const recommendedBfOverhealing = 0.4;
+    suggestions
+      .when(getOverhealingPercentage(bestowFaith)).isGreaterThan(recommendedBfOverhealing)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<span>Try to avoid overhealing with <SpellLink id={SPELLS.BESTOW_FAITH_TALENT.id} />. Cast it just before someone is about to take damage and consider casting it on targets other than tanks.</span>)
+          .icon(SPELLS.BESTOW_FAITH_TALENT.icon)
+          .actual(`${formatPercentage(actual)}% overhealing`)
+          .recommended(`<${formatPercentage(recommended)}% is recommended`)
+          .regular(recommended + 0.1).major(recommended + 0.2);
+      });
+
+    //endregion
+
     // TODO: Suggestion for Devo when it didn't prevent enough damage to be worthwhile (also devo damage display)
     // TODO: Suggestion for mana
     // TODO: Suggestion for enchants
@@ -381,16 +400,22 @@ class CombatLogParser extends MainCombatLogParser {
 
     const castEfficiencyCategories = SPELL_CATEGORY;
     const castEfficiency = getCastEfficiency(CPM_ABILITIES, this);
-    castEfficiency.forEach((cpm) => {
-      if (cpm.canBeImproved && !cpm.ability.noSuggestion) {
-        results.addIssue({
-          issue: <span>Try to cast <SpellLink id={cpm.ability.spell.id} /> more often. {cpm.ability.extraSuggestion || ''}</span>,
-          stat: `${cpm.casts} out of ${cpm.maxCasts} possible casts; ${Math.round(cpm.castEfficiency * 100)}% cast efficiency (>${cpm.recommendedCastEfficiency * 100}% is recommended)`,
-          icon: cpm.ability.spell.icon,
-          importance: cpm.ability.importance || getIssueImportance(cpm.castEfficiency, cpm.recommendedCastEfficiency - 0.05, cpm.recommendedCastEfficiency - 0.15),
-        });
+    castEfficiency.forEach(cpm => {
+      if (cpm.ability.noSuggestion || cpm.castEfficiency === null) {
+        return;
       }
+      suggestions
+        .when(cpm.castEfficiency).isLessThan(cpm.recommendedCastEfficiency)
+        .addSuggestion((suggest, actual, recommended) => {
+          return suggest(<span>Try to cast <SpellLink id={cpm.ability.spell.id} /> more often. {cpm.ability.extraSuggestion || ''}</span>)
+            .icon(cpm.ability.spell.icon)
+            .actual(`${cpm.casts} out of ${cpm.maxCasts} possible casts; ${formatPercentage(actual)}% cast efficiency`)
+            .recommended(`>${formatPercentage(recommended)}% is recommended`)
+            .regular(recommended - 0.05).major(recommended - 0.15).staticImportance(cpm.ability.importance);
+        });
     });
+
+    //endregion
 
     results.statistics = [
       <StatisticBox
@@ -419,7 +444,7 @@ class CombatLogParser extends MainCombatLogParser {
             alt="Mastery effectiveness"
           />
         )}
-        value={`${(Math.round(totalMasteryEffectiveness * 10000) / 100).toFixed(2)} %`}
+        value={`${formatPercentage(totalMasteryEffectiveness)} %`}
         label="Mastery effectiveness"
         tooltip="Effects that temporarily increase your mastery are currently not supported and will skew results."
       />,
