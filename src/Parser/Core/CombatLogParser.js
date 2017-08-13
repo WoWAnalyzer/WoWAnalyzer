@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { formatNumber, formatPercentage } from 'common/format';
 
 import Combatants from './Modules/Combatants';
@@ -28,7 +26,6 @@ import GnawedThumbRing from './Modules/Items/GnawedThumbRing';
 import VantusRune from './Modules/VantusRune';
 
 import ParseResults from './ParseResults';
-import SUGGESTION_IMPORTANCE from './ISSUE_IMPORTANCE';
 
 class CombatLogParser {
   static abilitiesAffectedByHealingIncreases = [];
@@ -40,6 +37,7 @@ class CombatLogParser {
     healEventTracker: HealEventTracker,
     alwaysBeCasting: AlwaysBeCasting,
     manaValues: ManaValues,
+    vantusRune: VantusRune,
 
     // Items:
     // Legendaries:
@@ -237,8 +235,6 @@ class CombatLogParser {
 
   generateResults() {
     const results = new ParseResults();
-
-    results.statistics.push(<VantusRune owner={this} />);
 
     Object.keys(this.modules)
       .map(key => this.modules[key])
