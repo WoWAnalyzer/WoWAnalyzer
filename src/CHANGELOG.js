@@ -1,4 +1,5 @@
 export default `
+12-08-2017 - Holy Paladin: Changed Crusader Strike cast efficiency suggestion (by Zerotorescue)
 09-08-2017 - Mistweaver Monk: Bug Fix for Dancing Mist calculation and Ending Mana. (by anomoly)
 09-08-2017 - Healers with a <i>non-healing time</i> statistic will no longer have their <i>dead GCD time</i> suggestion marked as major importance. (by Zerotorescue)
 09-08-2017 - Holy Paladin: fully migrated to the new suggestions layout. Changed wording on several suggestions to make them clearer, and increased the <i>LotM is inefficient</i> suggestion breakpoints to 1.5/2/3 CPM (up from 1.0/1.5/2.0) (by Zerotorescue)
