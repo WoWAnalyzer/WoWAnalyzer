@@ -8,7 +8,7 @@ import Module from 'Parser/Core/Module';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-import CPM_ABILITIES  from '../../CPM_ABILITIES';
+import CastEfficiency  from './CastEfficiency';
 
 class BeaconHealing extends Module {
   getTotalHealsOnBeaconPercentage(parser) {
@@ -23,7 +23,7 @@ class BeaconHealing extends Module {
     let casts = 0;
     let castsOnBeacon = 0;
 
-    CPM_ABILITIES
+    CastEfficiency.CPM_ABILITIES
       .filter(ability => ability.isActive === undefined || ability.isActive(selectedCombatant))
       .forEach((ability) => {
         const castCount = getCastCount(ability.spell.id);

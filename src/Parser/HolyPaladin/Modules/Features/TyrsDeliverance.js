@@ -7,7 +7,7 @@ import { formatPercentage } from 'common/format';
 import Module from 'Parser/Core/Module';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
-import StatisticBox from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
 
@@ -92,6 +92,7 @@ class TyrsDeliverance extends Module {
       />
     );
   }
+  statisticOrder = STATISTIC_ORDER.TRAITS();
 }
 
 export default TyrsDeliverance;

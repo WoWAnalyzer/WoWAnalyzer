@@ -4,7 +4,7 @@ import SpellLink from 'common/SpellLink';
 import Icon from 'common/Icon';
 import { formatNumber } from 'common/format';
 
-import StatisticBox from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import Module from 'Parser/Core/Module';
 
@@ -91,6 +91,7 @@ class VantusRune extends Module {
       />
     );
   }
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(999);
 }
 
 export default VantusRune;

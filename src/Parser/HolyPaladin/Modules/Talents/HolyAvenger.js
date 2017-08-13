@@ -7,7 +7,7 @@ import { formatNumber } from 'common/format';
 import Module from 'Parser/Core/Module';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
-import StatisticBox from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 const HOLY_AVENGER_HASTE_INCREASE = 0.3;
 const HOLY_AVENGER_HOLY_SHOCK_HEALING_INCREASE = 0.3;
@@ -74,6 +74,7 @@ class HolyAvenger extends Module {
       />
     );
   }
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(1);
 }
 
 export default HolyAvenger;

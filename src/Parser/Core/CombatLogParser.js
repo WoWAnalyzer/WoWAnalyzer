@@ -193,12 +193,21 @@ class CombatLogParser {
 
   // This used to be implemented as a sanity check, may be replaced by a cleaner solution.
   totalHealing = 0;
+  totalOverhealingDone = 0;
+  get totalRawHealingDone() {
+    return this.totalHealing + this.totalOverhealingDone;
+  }
   on_byPlayer_heal(event) {
     this.totalHealing += event.amount + (event.absorbed || 0);
+    this.totalOverhealingDone += event.overheal || 0;
   }
-
   on_byPlayer_absorbed(event) {
     this.totalHealing += event.amount + (event.absorbed || 0);
+  }
+  on_byPlayer_removebuff(event) {
+    if (event.absorb > 0) {
+      this.totalOverhealingDone += event.absorb;
+    }
   }
 
   totalDamageDone = 0;
