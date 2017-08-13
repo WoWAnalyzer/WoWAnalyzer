@@ -22,6 +22,7 @@ import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import PaladinAbilityTracker from './Modules/PaladinCore/PaladinAbilityTracker';
 import BeaconHealOriginMatcher from './Modules/PaladinCore/BeaconHealOriginMatcher';
 import BeaconTargets from './Modules/PaladinCore/BeaconTargets';
+import BeaconHealing from './Modules/PaladinCore/BeaconHealing';
 
 import MasteryEffectiveness from './Modules/Features/MasteryEffectiveness';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
@@ -65,6 +66,7 @@ class CombatLogParser extends MainCombatLogParser {
     // PaladinCore
     beaconHealOriginMatcher: BeaconHealOriginMatcher,
     beaconTargets: BeaconTargets,
+    beaconHealing: BeaconHealing,
 
     // Features
     masteryEffectiveness: MasteryEffectiveness,
@@ -89,29 +91,6 @@ class CombatLogParser extends MainCombatLogParser {
     tier21_2set: Tier21_2set,
     tier21_4set: Tier21_4set,
   };
-
-  getTotalHealsOnBeaconPercentage(parser) {
-    const abilityTracker = parser.modules.abilityTracker;
-    const getCastCount = spellId => abilityTracker.getAbility(spellId);
-
-    const selectedCombatant = parser.selectedCombatant;
-    if (!selectedCombatant) {
-      return null;
-    }
-
-    let casts = 0;
-    let castsOnBeacon = 0;
-
-    CPM_ABILITIES
-      .filter(ability => ability.isActive === undefined || ability.isActive(selectedCombatant))
-      .forEach((ability) => {
-        const castCount = getCastCount(ability.spell.id);
-        casts += (ability.getCasts ? ability.getCasts(castCount) : castCount.casts) || 0;
-        castsOnBeacon += castCount.healingBeaconHits || 0;
-      });
-
-    return castsOnBeacon / casts;
-  }
 
   get iolProcsPerHolyShockCrit() {
     return this.selectedCombatant.hasBuff(SPELLS.HOLY_PALADIN_T19_4SET_BONUS_BUFF.id) ? 2 : 1;
@@ -140,15 +119,10 @@ class CombatLogParser extends MainCombatLogParser {
 
     const flashOfLightHeals = flashOfLight.casts || 0;
     const holyLightHeals = holyLight.casts || 0;
-    const totalFolsAndHls = flashOfLightHeals + holyLightHeals;
     const fillerFlashOfLights = flashOfLightHeals - iolFlashOfLights;
     const fillerHolyLights = holyLightHeals - iolHolyLights;
     const totalFillers = fillerFlashOfLights + fillerHolyLights;
     const fillerCastRatio = fillerFlashOfLights / totalFillers;
-
-    const beaconFlashOfLights = flashOfLight.healingBeaconHits || 0;
-    const beaconHolyLights = holyLight.healingBeaconHits || 0;
-    const totalFolsAndHlsOnBeacon = beaconFlashOfLights + beaconHolyLights;
 
     const lightOfDawnHeals = lightOfDawnCast.casts || 0;
     const holyShockHeals = holyShock.healingHits || 0;
@@ -165,7 +139,6 @@ class CombatLogParser extends MainCombatLogParser {
 
     const nonHealingTimePercentage = this.modules.alwaysBeCasting.totalHealingTimeWasted / fightDuration;
     const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
-    const totalHealsOnBeaconPercentage = this.getTotalHealsOnBeaconPercentage(this);
 
     const hasDivinePurpose = this.selectedCombatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id);
     const hasSoulOfTheHighlord = this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_HIGHLORD.id);
@@ -195,15 +168,6 @@ class CombatLogParser extends MainCombatLogParser {
           .regular(recommended + 0.15).major(1);
       });
 
-    suggestions
-      .when(totalHealsOnBeaconPercentage).isGreaterThan(0.2)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest('You cast a lot of direct heals on beacon targets. Direct healing beacon targets is inefficient. Try to only cast on beacon targets when they would otherwise die.')
-          .icon('ability_paladin_beaconoflight')
-          .actual(`${formatPercentage(totalHealsOnBeaconPercentage)}% of all your healing spell casts were on a beacon target`)
-          .recommended(`<${formatPercentage(recommended)}% is recommended`)
-          .regular(recommended + 0.05).major(recommended + 0.15);
-      });
     suggestions
       .when(iolFoLToHLCastRatio).isLessThan(0.7)
       .addSuggestion((suggest, actual, recommended) => {
@@ -382,12 +346,6 @@ class CombatLogParser extends MainCombatLogParser {
         value={`${formatPercentage(fillerCastRatio)} %`}
         label="Filler cast ratio"
         tooltip={`The ratio at which you cast Flash of Lights versus Holy Lights. You cast ${fillerFlashOfLights} filler Flash of Lights and ${fillerHolyLights} filler Holy Lights.`}
-      />,
-      <StatisticBox
-        icon={<SpellIcon id={this.selectedCombatant.lv100Talent} />}
-        value={`${formatPercentage(totalFolsAndHlsOnBeacon / totalFolsAndHls)} %`}
-        label="FoL/HL cast on beacon"
-        tooltip={`The amount of Flash of Lights and Holy Lights cast on beacon targets. You cast ${beaconFlashOfLights} Flash of Lights and ${beaconHolyLights} Holy Lights on beacon targets.<br /><br />Your total heals on beacons was <b>${(totalHealsOnBeaconPercentage * 100).toFixed(2)}%</b> (this includes spell other than FoL and HL).`}
       />,
       hasDivinePurpose && (
         <StatisticBox
