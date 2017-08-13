@@ -5,7 +5,7 @@ import makeWclUrl from 'common/makeWclUrl';
 import SpellIcon from 'common/SpellIcon';
 import { formatThousands, formatNumber } from 'common/format';
 
-import LazyLoadStatisticBox from 'Main/LazyLoadStatisticBox';
+import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'Main/LazyLoadStatisticBox';
 
 import Module from 'Parser/Core/Module';
 
@@ -95,6 +95,7 @@ class DevotionAura extends Module {
       />
     );
   }
+  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 }
 
 export default DevotionAura;

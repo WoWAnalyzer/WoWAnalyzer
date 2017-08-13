@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import './StatisticBox.css';
 
+export { default as STATISTIC_ORDER } from './STATISTIC_ORDER';
+
 const StatisticBox = ({ icon, value, tooltip, label, ...others }) => (
   <div className="panel statistic-box" {...others}>
     <div className="panel-body">

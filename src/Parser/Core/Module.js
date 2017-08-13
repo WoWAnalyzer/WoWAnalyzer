@@ -1,3 +1,5 @@
+import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
+
 class Module {
   /** @var CombatLogParser */
   owner = null;
@@ -11,6 +13,13 @@ class Module {
   constructor(parser) {
     this.owner = parser;
   }
+
+  // Override these with functions that return info about their rendering in the specific slots
+  item() { return undefined; }
+  statistic() { return undefined; }
+  statisticOrder = STATISTIC_ORDER.DEFAULT;
+  suggestions(when) { return undefined; }
+  tab() { return undefined; }
 }
 
 export default Module;

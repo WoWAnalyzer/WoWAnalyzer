@@ -5,7 +5,7 @@ import { formatPercentage } from 'common/format';
 
 import Module from 'Parser/Core/Module';
 
-import StatisticBox from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import MasteryRadiusImage from 'Main/Images/mastery-radius.png';
 import PlayerBreakdownTab from 'Main/PlayerBreakdownTab';
 
@@ -250,7 +250,8 @@ class MasteryEffectiveness extends Module {
       />
     );
   }
-  suggestion(when) {
+  statisticOrder = STATISTIC_ORDER.CORE(30);
+  suggestions(when) {
     const report = this.report;
     const totalMasteryEffectiveness = report.totalHealingFromMastery / (report.totalMaxPotentialMasteryHealing || 1);
 

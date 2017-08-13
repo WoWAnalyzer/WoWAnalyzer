@@ -145,7 +145,7 @@ class DecieversGrandDesign extends Module {
       ),
     };
   }
-  suggestion(when) {
+  suggestions(when) {
     when(this.proced).isTrue()
       .addSuggestion(suggest => {
         return suggest(

@@ -7,7 +7,7 @@ import { formatPercentage } from 'common/format';
 
 import Module from 'Parser/Core/Module';
 
-import StatisticBox from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class RuleOfLaw extends Module {
   on_initialized() {
@@ -20,7 +20,7 @@ class RuleOfLaw extends Module {
     return this.owner.selectedCombatant.getBuffUptime(SPELLS.RULE_OF_LAW_TALENT.id) / this.owner.fightDuration;
   }
 
-  suggestion(when) {
+  suggestions(when) {
     when(this.uptime).isLessThan(0.25)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Your <SpellLink id={SPELLS.RULE_OF_LAW_TALENT.id} /> uptime can be improved. Try keeping at least 1 charge on cooldown; you should (almost) never be at max charges.</span>)
@@ -39,6 +39,7 @@ class RuleOfLaw extends Module {
       />
     );
   }
+  statisticOrder = STATISTIC_ORDER.CORE(31);
 }
 
 export default RuleOfLaw;

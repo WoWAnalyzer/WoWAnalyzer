@@ -240,16 +240,28 @@ class CombatLogParser {
       .filter(module => module.active)
       .forEach(module => {
         if (module.statistic) {
-          results.statistics.push(module.statistic());
+          const statistic = module.statistic();
+          if (statistic) {
+            results.statistics.push({
+              statistic,
+              order: module.statisticOrder,
+            });
+          }
         }
         if (module.item) {
-          results.items.push(module.item());
+          const item = module.item();
+          if (item) {
+            results.items.push(item);
+          }
         }
         if (module.tab) {
-          results.tabs.push(module.tab());
+          const tab = module.tab();
+          if (tab) {
+            results.tabs.push(tab);
+          }
         }
-        if (module.suggestion) {
-          module.suggestion(results.suggestions.when);
+        if (module.suggestions) {
+          module.suggestions(results.suggestions.when);
         }
       });
 

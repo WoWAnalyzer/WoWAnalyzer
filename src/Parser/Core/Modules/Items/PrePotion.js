@@ -74,7 +74,7 @@ class PrePotion extends Module {
     }
   }
 
-  suggestion(when) {
+  suggestions(when) {
     when(this.usedPrePotion).isFalse()
       .addSuggestion(suggest => {
         return suggest(<span>You did not use a potion before combat. Using a potion before combat allows you the benefit of two potions in a single fight. A potion such as <ItemLink id={ITEMS.POTION_OF_PROLONGED_POWER.id} /> can be very effective (even for healers), especially during shorter encounters.</span>)
