@@ -1,4 +1,5 @@
 export default `
+12-08-2017 - Guardian Druid: Added damage type into the tooltip of damage taken, added logic for Pulverize and minor fixes. (by wopr)
 12-08-2017 - Holy Paladin: Changed Crusader Strike cast efficiency suggestion (by Zerotorescue)
 09-08-2017 - Mistweaver Monk: Bug Fix for Dancing Mist calculation and Ending Mana. (by anomoly)
 09-08-2017 - Healers with a <i>non-healing time</i> statistic will no longer have their <i>dead GCD time</i> suggestion marked as major importance. (by Zerotorescue)
