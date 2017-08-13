@@ -31,6 +31,8 @@ import CooldownTracker from './Modules/Features/CooldownTracker';
 import HolyAvenger from './Modules/Features/HolyAvenger';
 import DevotionAura from './Modules/Features/DevotionAura';
 
+import RuleOfLaw from './Modules/Talents/RuleOfLaw';
+
 import DrapeOfShame from './Modules/Items/DrapeOfShame';
 import Ilterendi from './Modules/Items/Ilterendi';
 import ChainOfThrayn from './Modules/Items/ChainOfThrayn';
@@ -71,6 +73,10 @@ class CombatLogParser extends MainCombatLogParser {
     tyrsDeliverance: TyrsDeliverance,
     cooldownTracker: CooldownTracker,
     holyAvenger: HolyAvenger,
+    devotionAura: DevotionAura,
+
+    // Talents
+    ruleOfLaw: RuleOfLaw,
 
     // Items:
     drapeOfShame: DrapeOfShame,
@@ -117,8 +123,6 @@ class CombatLogParser extends MainCombatLogParser {
 
     const fightDuration = this.fightDuration;
 
-    const ruleOfLawUptime = this.selectedCombatant.getBuffUptime(SPELLS.RULE_OF_LAW_TALENT.id) / fightDuration;
-
     const abilityTracker = this.modules.abilityTracker;
     const getAbility = spellId => abilityTracker.getAbility(spellId);
 
@@ -163,7 +167,6 @@ class CombatLogParser extends MainCombatLogParser {
     const nonHealingTimePercentage = this.modules.alwaysBeCasting.totalHealingTimeWasted / fightDuration;
     const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
     const totalHealsOnBeaconPercentage = this.getTotalHealsOnBeaconPercentage(this);
-    const hasRuleOfLaw = this.selectedCombatant.hasTalent(SPELLS.RULE_OF_LAW_TALENT.id);
 
     const hasDivinePurpose = this.selectedCombatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id);
     const hasSoulOfTheHighlord = this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_HIGHLORD.id);
@@ -202,17 +205,6 @@ class CombatLogParser extends MainCombatLogParser {
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
           .regular(recommended + 0.05).major(recommended + 0.15);
       });
-    if (hasRuleOfLaw) {
-      suggestions
-        .when(ruleOfLawUptime).isLessThan(0.25)
-        .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<span>Your <SpellLink id={SPELLS.RULE_OF_LAW_TALENT.id} /> uptime can be improved. Try keeping at least 1 charge on cooldown; you should (almost) never be at max charges.</span>)
-            .icon(SPELLS.RULE_OF_LAW_TALENT.icon)
-            .actual(`${(ruleOfLawUptime * 100).toFixed(2)}% uptime`)
-            .recommended(`>${formatPercentage(recommended)}% is recommended`)
-            .regular(recommended - 0.05).major(recommended - 0.15);
-        });
-    }
     suggestions
       .when(iolFoLToHLCastRatio).isLessThan(0.7)
       .addSuggestion((suggest, actual, recommended) => {
@@ -367,13 +359,6 @@ class CombatLogParser extends MainCombatLogParser {
         label="Non healing time"
         tooltip={`Non healing time is available casting time not used for a spell that helps you heal. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), DPSing, etc. Damaging Holy Shocks are considered non healing time, Crusader Strike is only considered non healing time if you do not have the Crusader's Might talent.<br /><br />You spent ${formatPercentage(deadTimePercentage)}% of your time casting nothing at all.`}
       />,
-      hasRuleOfLaw && (
-        <StatisticBox
-          icon={<SpellIcon id={SPELLS.RULE_OF_LAW_TALENT.id} />}
-          value={`${formatPercentage(ruleOfLawUptime)} %`}
-          label="Rule of Law uptime"
-        />
-      ),
       <StatisticBox
         icon={<SpellIcon id={SPELLS.INFUSION_OF_LIGHT.id} />}
         value={`${formatPercentage(iolFoLToHLCastRatio)} %`}
@@ -447,7 +432,6 @@ class CombatLogParser extends MainCombatLogParser {
           label="Healing done"
         />
       ),
-      <DevotionAura owner={this} />,
       ...results.statistics,
     ];
 

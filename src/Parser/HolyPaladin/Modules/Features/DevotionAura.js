@@ -7,7 +7,7 @@ import { formatThousands, formatNumber } from 'common/format';
 
 import LazyLoadStatisticBox from 'Main/LazyLoadStatisticBox';
 
-import ModuleComponent from 'Parser/Core/ModuleComponent';
+import Module from 'Parser/Core/Module';
 
 // Protection of Tyr is applied to everyone that benefits from the AM effect. This is simply the easiest way to see if someone is affected by AM, other more robust solutions take a lot more effort/complexity.
 const PROTECTION_OF_TYR_ID = 211210;
@@ -25,24 +25,23 @@ const DEVOTION_AURA_DAMAGE_REDUCTION = 0.2;
 // const THIS_MIGHT_BE_PURE_ABILITY_TYPE_ID = 1;
 const FALLING_DAMAGE_ABILITY_ID = 3;
 
-class DevotionAura extends ModuleComponent {
+class DevotionAura extends Module {
   get damageReducedDuringAuraMastery() {
-    return this.state.totalDamageTakenDuringAuraMastery / (1 - DEVOTION_AURA_DAMAGE_REDUCTION) * DEVOTION_AURA_DAMAGE_REDUCTION;
+    return this.totalDamageTakenDuringAuraMastery / (1 - DEVOTION_AURA_DAMAGE_REDUCTION) * DEVOTION_AURA_DAMAGE_REDUCTION;
   }
   get damageReducedOutsideAuraMastery() {
-    return this.state.totalDamageTakenOutsideAuraMastery / (1 - DEVOTION_AURA_DAMAGE_REDUCTION) * DEVOTION_AURA_DAMAGE_REDUCTION;
+    return this.totalDamageTakenOutsideAuraMastery / (1 - DEVOTION_AURA_DAMAGE_REDUCTION) * DEVOTION_AURA_DAMAGE_REDUCTION;
   }
   get damageReduced() {
     return this.damageReducedDuringAuraMastery + this.damageReducedOutsideAuraMastery;
   }
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      active: this.owner.selectedCombatant.hasTalent(SPELLS.DEVOTION_AURA_TALENT.id),
-      totalDamageTakenDuringAuraMastery: 0,
-      totalDamageTakenOutsideAuraMastery: 0,
-    };
+  totalDamageTakenDuringAuraMastery = 0;
+  totalDamageTakenOutsideAuraMastery = 0;
+  on_initialized() {
+    if (!this.owner.error) {
+      this.active = this.owner.selectedCombatant.hasTalent(SPELLS.DEVOTION_AURA_TALENT.id);
+    }
   }
 
   on_toPlayer_damage(event) {
@@ -52,9 +51,7 @@ class DevotionAura extends ModuleComponent {
     }
     const isAuraMasteryActive = this.owner.selectedCombatant.getBuffs(PROTECTION_OF_TYR_ID, event.timestamp).find(buff => buff.sourceID === this.owner.playerId);
     if (!isAuraMasteryActive) {
-      this.setState(state => ({
-        totalDamageTakenOutsideAuraMastery: state.totalDamageTakenOutsideAuraMastery + event.amount + (event.absorbed || 0),
-      }));
+      this.totalDamageTakenOutsideAuraMastery = this.totalDamageTakenOutsideAuraMastery + event.amount + (event.absorbed || 0);
     }
   }
 
@@ -70,16 +67,14 @@ class DevotionAura extends ModuleComponent {
         if (json.status === 400 || json.status === 401) {
           throw json.error;
         } else {
-          this.setState({
-            totalDamageTakenDuringAuraMastery: json.entries.reduce((damageTaken, entry) => damageTaken + entry.total, 0),
-          });
+          this.totalDamageTakenDuringAuraMastery = json.entries.reduce((damageTaken, entry) => damageTaken + entry.total, 0);
         }
       });
 
     return amDamageTakenPromise;
   }
 
-  render() {
+  statistic() {
     if (!this.active) {
       return null;
     }
