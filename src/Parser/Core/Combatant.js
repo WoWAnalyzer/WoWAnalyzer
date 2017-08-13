@@ -77,6 +77,8 @@ class Combatant extends Entity {
         return 0.12 + this.masteryRating / 26667;
       case SPECS.RESTORATION_SHAMAN.id:
         return 0.24 + this.masteryRating / 13333.3333333;
+      case SPECS.ENHANCEMENT_SHAMAN.id:
+        return 0.2 + this.masteryRating / 13333.3333333;
       default:
         throw new Error('Mastery hasn\'t been implemented for this spec yet.');
     }
@@ -87,7 +89,7 @@ class Combatant extends Entity {
   get versatilityPercentage() {
     return this.versatilityRating / 47500;
   }
-  
+
   // Others
   get armorRating() {
     return this._combatantInfo.armor;
