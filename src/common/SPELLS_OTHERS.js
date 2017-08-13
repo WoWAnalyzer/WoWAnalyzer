@@ -73,7 +73,17 @@ export default {
     name: 'Mark of the Ancient Priestess',
     icon: 'ability_priest_ascension',
   },
-
+  MARK_OF_THE_HIDDEN_SATYR: {
+    id: 191259,
+    name: 'Mark of the Hidden Satyr',
+    icon: 'sha_spell_fire_fireball02_nightmare',
+  },
+  //Nighthold Trinkets
+  RECURSIVE_STRIKES: {
+    id: 225739,
+    name: 'Recursive Strikes',
+    icon: 'sha_ability_mage_firestarter_nightborne',
+  },
   // Tomb trinkets
   CLEANSING_MATRIX: {
     id: 242619,
@@ -105,6 +115,11 @@ export default {
     name: 'Ocean\'s Embrace',
     icon: 'inv_jewelcrafting_starofelune_02',
   },
+  CEASELESS_TOXIN: {
+    id: 242497,
+    name: 'Ceaseless Toxin',
+    icon: 'inv_potionc_5',
+  },
   SUMMON_DREAD_REFLECTION: {
     id: 246461,
     name: 'Summon Dread Reflection',
@@ -116,7 +131,7 @@ export default {
     name: 'Dread Torrent',
     icon: 'spell_warlock_soulburn',
   },
-  
+
   // Item Abilities
   SPECTRAL_BLAST: {
     id: 246442,
