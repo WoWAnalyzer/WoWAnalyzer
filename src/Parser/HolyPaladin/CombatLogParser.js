@@ -28,10 +28,10 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import SacredDawn from './Modules/Features/SacredDawn';
 import TyrsDeliverance from './Modules/Features/TyrsDeliverance';
 import CooldownTracker from './Modules/Features/CooldownTracker';
-import HolyAvenger from './Modules/Features/HolyAvenger';
-import DevotionAura from './Modules/Features/DevotionAura';
 
 import RuleOfLaw from './Modules/Talents/RuleOfLaw';
+import HolyAvenger from './Modules/Talents/HolyAvenger';
+import DevotionAura from './Modules/Talents/DevotionAura';
 
 import DrapeOfShame from './Modules/Items/DrapeOfShame';
 import Ilterendi from './Modules/Items/Ilterendi';
