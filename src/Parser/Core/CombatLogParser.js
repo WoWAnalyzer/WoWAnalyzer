@@ -64,6 +64,11 @@ class CombatLogParser {
   fight = null;
 
   modules = {};
+  get activeModules() {
+    return Object.keys(this.modules)
+      .map(key => this.modules[key])
+      .filter(module => module.active);
+  }
 
   get playerId() {
     return this.player.id;
@@ -150,10 +155,8 @@ class CombatLogParser {
   triggerEvent(eventType, event) {
     const methodName = `on_${eventType}`;
     this.constructor.tryCall(this, methodName, event);
-    Object.keys(this.modules)
-      .map(key => this.modules[key])
+    this.activeModules
       .sort((a, b) => b.priority - a.priority)
-      .filter(module => module.active)
       .forEach(module => {
         this.constructor.tryCall(module, methodName, event);
       });
@@ -234,10 +237,8 @@ class CombatLogParser {
   generateResults() {
     const results = new ParseResults();
 
-    Object.keys(this.modules)
-      .map(key => this.modules[key])
+    this.activeModules
       .sort((a, b) => b.priority - a.priority)
-      .filter(module => module.active)
       .forEach(module => {
         if (module.statistic) {
           const statistic = module.statistic();
