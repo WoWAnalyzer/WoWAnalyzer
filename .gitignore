@@ -31,3 +31,6 @@ temp
 # Regularly changing or system specific IDE files
 /.idea/workspace.xml
 /.vscode
+
+# Notes from development
+Notes.txt
