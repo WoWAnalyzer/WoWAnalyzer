@@ -34,7 +34,7 @@ class FillerLightOfTheMartyrs extends Module {
         return suggest(suggestionText)
           .icon(SPELLS.LIGHT_OF_THE_MARTYR.icon)
           .actual(actualText)
-          .recommended(`<${formatPercentage(recommended)} Casts Per Minute is recommended`)
+          .recommended(`<${recommended} Casts Per Minute is recommended`)
           .regular(recommended + 0.5).major(recommended + 1.5);
       });
   }
