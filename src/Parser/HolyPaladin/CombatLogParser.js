@@ -20,7 +20,7 @@ import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 
 import PaladinAbilityTracker from './Modules/PaladinCore/PaladinAbilityTracker';
-import BeaconHealing from './Modules/PaladinCore/BeaconHealing';
+import BeaconHealOriginMatcher from './Modules/PaladinCore/BeaconHealOriginMatcher';
 import BeaconTargets from './Modules/PaladinCore/BeaconTargets';
 
 import MasteryEffectiveness from './Modules/Features/MasteryEffectiveness';
@@ -63,7 +63,7 @@ class CombatLogParser extends MainCombatLogParser {
     abilityTracker: PaladinAbilityTracker,
 
     // PaladinCore
-    beaconHealing: BeaconHealing,
+    beaconHealOriginMatcher: BeaconHealOriginMatcher,
     beaconTargets: BeaconTargets,
 
     // Features
@@ -149,7 +149,6 @@ class CombatLogParser extends MainCombatLogParser {
     const beaconFlashOfLights = flashOfLight.healingBeaconHits || 0;
     const beaconHolyLights = holyLight.healingBeaconHits || 0;
     const totalFolsAndHlsOnBeacon = beaconFlashOfLights + beaconHolyLights;
-    const healsOnBeacon = totalFolsAndHlsOnBeacon / totalFolsAndHls;
 
     const lightOfDawnHeals = lightOfDawnCast.casts || 0;
     const holyShockHeals = holyShock.healingHits || 0;
@@ -386,7 +385,7 @@ class CombatLogParser extends MainCombatLogParser {
       />,
       <StatisticBox
         icon={<SpellIcon id={this.selectedCombatant.lv100Talent} />}
-        value={`${formatPercentage(healsOnBeacon)} %`}
+        value={`${formatPercentage(totalFolsAndHlsOnBeacon / totalFolsAndHls)} %`}
         label="FoL/HL cast on beacon"
         tooltip={`The amount of Flash of Lights and Holy Lights cast on beacon targets. You cast ${beaconFlashOfLights} Flash of Lights and ${beaconHolyLights} Holy Lights on beacon targets.<br /><br />Your total heals on beacons was <b>${(totalHealsOnBeaconPercentage * 100).toFixed(2)}%</b> (this includes spell other than FoL and HL).`}
       />,

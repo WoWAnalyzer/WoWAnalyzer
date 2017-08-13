@@ -81,7 +81,6 @@ class BeaconHealing extends Module {
   get beaconType() {
     return this.owner.selectedCombatant.lv100Talent;
   }
-
   /**
    * Verify that the beacon transfer matches what we would expect. This isn't 100% reliable due to weird interactions with stuff like Blood Death Knights (Vampiric Blood and probably other things), and other healing received increasers.
    */
