@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
+import ReactTooltip from 'react-tooltip';
 
 import ItemLink from 'common/ItemLink';
 import ItemIcon from 'common/ItemIcon';
@@ -14,6 +15,10 @@ class Results extends React.Component {
     onChangeTab: PropTypes.func.isRequired,
   };
 
+  componentDidUpdate() {
+    ReactTooltip.rebuild();
+  }
+
   render() {
     const { parser, tab, onChangeTab } = this.props;
 
@@ -22,7 +27,7 @@ class Results extends React.Component {
         <div>
           <h1>
             <div className="back-button">
-              <Link to={`/report/${parser.report.code}/${parser.player.name}`} data-tip="Back to fight selection">
+              <Link to={`/report/${parser.report.code}/${parser.fight.id}`} data-tip="Back to player selection">
                 <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
               </Link>
             </div>
@@ -116,7 +121,13 @@ class Results extends React.Component {
                           return 1;
                         }
                         // Neither is an actual item, sort by id so last added effect is shown at bottom
-                        return a.id - b.id;
+                        if (a.id < b.id) {
+                          return -1;
+                        } else if (a.id > b.id) {
+                          return 1;
+                        } else {
+                          return 0;
+                        }
                       })
                       .map(item => {
                         if (!item) {

@@ -30,6 +30,7 @@ import LeniencesReward from './Modules/Features/LeniencesReward';
 
 import Tier19_2set from './Modules/Items/Tier19_2set';
 import CordOfMaiev from './Modules/Items/CordOfMaiev';
+import InnerHallation from './Modules/Items/InnerHallation';
 import Skjoldr from './Modules/Items/Skjoldr';
 import Xalan from './Modules/Items/Xalan';
 import NeroBandOfPromises from './Modules/Items/NeroBandOfPromises';
@@ -39,6 +40,7 @@ import Tier20_2set from './Modules/Items/Tier20_2set';
 import Tier20_4set from './Modules/Items/Tier20_4set';
 
 import TwistOfFate from './Modules/Spells/TwistOfFate';
+import Castigation from './Modules/Spells/Castigation';
 import Atonement from './Modules/Spells/Atonement';
 import Evangelism from './Modules/Spells/Evangelism';
 import Penance from './Modules/Spells/Penance';
@@ -89,6 +91,7 @@ class CombatLogParser extends MainCombatLogParser {
     // Items:
     tier19_2set: Tier19_2set,
     cordOfMaiev: CordOfMaiev,
+    innerHallation: InnerHallation,
     skjoldr: Skjoldr,
     xalan: Xalan,
     neroBandOfPromises: NeroBandOfPromises,
@@ -99,6 +102,7 @@ class CombatLogParser extends MainCombatLogParser {
 
     // Spells (talents and traits):
     twistOfFate: TwistOfFate,
+    castigation: Castigation,
     atonement: Atonement,
     evangelism: Evangelism,
     touchOfTheGrave: TouchOfTheGrave,
@@ -247,6 +251,17 @@ class CombatLogParser extends MainCombatLogParser {
           )}
         />
       ),
+      this.modules.castigation.active && (
+        <StatisticBox
+          icon={<SpellIcon id={SPELLS.CASTIGATION_TALENT.id} />}
+          value={`${formatNumber(this.modules.castigation.healing / fightDuration * 1000)} HPS`}
+          label={(
+            <dfn data-tip={`The effective healing contributed by Castigation (${formatPercentage(this.modules.castigation.healing / this.totalHealing)}% of total healing done). Castigation also contributed ${formatNumber(this.modules.castigation.damage / fightDuration * 1000)} DPS (${formatPercentage(this.modules.castigation.damage / this.totalDamageDone)}% of total damage done), the healing gain of this damage was included in the shown numbers.`}>
+              Castigation healing
+            </dfn>
+          )}
+        />
+      ),
       this.selectedCombatant.hasTalent(SPELLS.PURGE_THE_WICKED_TALENT.id) && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.PURGE_THE_WICKED_BUFF.id} />}
@@ -283,6 +298,7 @@ class CombatLogParser extends MainCombatLogParser {
           )}
         />
       ),
+      ...results.statistics,
     ];
 
     results.items = [
@@ -310,6 +326,14 @@ class CombatLogParser extends MainCombatLogParser {
         result: (
           <span>
             {(this.modules.cordOfMaiev.procTime / 1000).toFixed(1)} seconds off the <SpellLink id={SPELLS.PENANCE.id} /> cooldown ({this.modules.cordOfMaiev.procs} Penances cast earlier)
+          </span>
+        ),
+      },
+      this.modules.innerHallation.active && {
+        item: ITEMS.INNER_HALLATION,
+        result: (
+          <span>
+            {formatThousands(this.modules.innerHallation.manaGained)} mana saved ({formatThousands(this.modules.innerHallation.manaGained / this.fightDuration * 1000 * 5)} MP5)
           </span>
         ),
       },

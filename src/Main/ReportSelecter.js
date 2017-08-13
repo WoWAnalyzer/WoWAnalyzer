@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import PatreonLink from './PatreonLink';
-import GithubLogo from './Images/GitHub-Mark-32px.png';
-import DiscordLogo from './Images/Discord-Logo+Wordmark-White.svg';
-
-const githubUrl = 'https://github.com/MartijnHols/WoWAnalyzer';
+import PatreonButton from './PatreonButton';
+import GithubButton from './GithubButton';
+import DiscordButton from './DiscordButton';
 
 class ReportSelecter extends Component {
   static propTypes = {
@@ -52,7 +50,6 @@ class ReportSelecter extends Component {
     }
   }
 
-
   render() {
     return (
       <div className="report-selector">
@@ -75,28 +72,14 @@ class ReportSelecter extends Component {
                   spellCheck="false"
                 />/
 
-                <button type="submit" className="btn btn-primary">
-                  Analyze <span className="glyphicon glyphicon-chevron-right" aria-hidden="true" />
+                <button type="submit" className="btn btn-primary analyze">
+                  Analyze <span className="glyphicon glyphicon-chevron-right" aria-hidden />
                 </button>
               </div>
               <div className="col-md-12 col-lg-5 text-right">
-                <a
-                  className="btn btn-default"
-                  role="button"
-                  href="https://discord.gg/AxphPxU"
-                  style={{ background: '#7289DA', border: 0 }}
-                >
-                  <img src={DiscordLogo} alt="Discord logo" style={{ height: '2em', marginTop: -1 }} />
-                </a>
-                <PatreonLink className="btn" text="Patreon" />
-                <a
-                  className="btn btn-default"
-                  role="button"
-                  href={githubUrl}
-                  style={{ background: '#fff', color: '#000', border: 0, marginRight: 0 }}
-                >
-                  <img src={GithubLogo} alt="GitHub logo" style={{ height: '1.4em', marginTop: -2 }} /> View on GitHub
-                </a>
+                <DiscordButton style={{ marginLeft: 20 }} />
+                <PatreonButton style={{ marginLeft: 20 }} />
+                <GithubButton style={{ marginLeft: 20 }} />
               </div>
             </div>
           </div>

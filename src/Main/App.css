@@ -88,9 +88,7 @@ h1 {
   border-top: 1px solid rgba(0, 0, 0, 0.4);
 }
 .report-selector .btn {
-  margin-left: 1rem;
-  margin-right: 1rem;
-  margin-top: 0;
+  margin-left: 10px;
   font-size: 0.9em;
   padding: .5rem 1.4rem;
   height: 38px;
@@ -276,10 +274,6 @@ h1 {
   list-style: none;
   padding: 0;
 }
-.list.issues {
-  font-size: 100%;
-  margin: 0;
-}
 .list.players li img {
   height: 1.7em;
   margin-right: 5px;
@@ -293,52 +287,21 @@ h1 {
   background-color: rgba(255, 255, 255, 0.0);
   transition: background-color 0.1s ease-in-out;
 }
-.list.selection > li a {
+.list.selection > li.selectable a {
   display: block;
   padding: 10px 0;
+}
+.list.selection > li.selectable a > div {
+  display: flex;
+  align-items: center;
+}
+.list.selection .ProgressBar {
+  margin-left: 10px;
 }
 .list > li:hover {
   background-color: rgba(255, 255, 255, 0.1);
   border-top-color: rgba(0, 0, 0, 0.4);
   border-bottom-color: rgba(0, 0, 0, 0.4);
-}
-.list.issues .item {
-  padding: 10px 90px 10px 22px;
-}
-.list.issues .item img {
-  height: 1.7em;
-  margin: -10px 6px -10px 0;
-  border-radius: 50%;
-}
-.list.issues .regular .importance {
-  display: inline-block;
-  margin-right: 10px;
-  text-transform: uppercase;
-  color: #ffad56;
-  position: absolute;
-  right: 5px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-.list.issues .minor .importance {
-  display: inline-block;
-  margin-right: 10px;
-  text-transform: uppercase;
-  color: #5b9cff;
-  position: absolute;
-  right: 5px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-.list.issues .major .importance {
-  display: inline-block;
-  margin-right: 10px;
-  text-transform: uppercase;
-  color: #ff433d;
-  position: absolute;
-  right: 5px;
-  top: 50%;
-  transform: translateY(-50%);
 }
 svg {
   height: 0.9em;
@@ -427,6 +390,13 @@ h1 {
 }
 .flex > * {
   flex: 1;
+}
+.flex-main {
+  flex: 1;
+  width: 100%;
+}
+.flex-sub {
+  flex: 0 0 auto;
 }
 
 
@@ -527,10 +497,10 @@ table.data-table .performance-bar {
   max-width: 600px;
 }
 .__react_component_tooltip.type-dark {
-  background: rgba(10, 10, 10, 0.8) !important;
+  background: rgba(10, 10, 10, 0.9) !important;
 }
 .__react_component_tooltip.type-dark.place-bottom:after {
-  border-bottom-color: rgba(10, 10, 10, 0.8) !important;
+  border-bottom-color: rgba(10, 10, 10, 0.9) !important;
 }
 
 
@@ -640,25 +610,34 @@ table.data-table .performance-bar {
   vertical-align: middle;
 }
 
-.become-patron-button {
-  display: inline-block;
-  font-family: sans-serif;
-  background: #e6461a;
-  color: white;
-  padding: .5rem 1rem;
-  border-radius: 3px;
-  text-decoration: none;
-  font-weight: 700;
-  user-select: none;
-  border: 1px solid #e6461a; /* Fuck you, Patreon. */
-  margin-top: 5px;
+.btn.discord {
+  background: #7289DA;
 }
-a.become-patron-button:hover {
+.btn.discord:hover {
+  background: #5f72b3;
+}
+.btn.github {
+  background: #fff;
   color: #000;
-  text-decoration: none;
+  margin-right: 0;
 }
-.patreon-icon {
-  padding-right: 0.25rem;
+.btn.github:hover {
+  background: #d9d9d9;
+}
+.btn.patreon {
+  background: #e6461a;
+  color: #fff;
+  font-weight: 700;
+}
+.btn.patreon:hover {
+  background: #bf3917;
+}
+.btn.discord, .btn.github, .btn.patreon {
+  padding: .5rem 1.4rem;
+  height: 38px;
+  line-height: 2.7rem;
+  border: 0;
+  font-size: 1.6rem;
 }
 
 .fade-in {

@@ -130,6 +130,18 @@ export default {
       name: 'Dread Torrent',
       icon: 'spell_warlock_soulburn',
   },
+  SUMMON_DREAD_REFLECTION: {
+    id: 246461,
+    name: 'Summon Dread Reflection',
+    icon: 'spell_warlock_soulburn',
+  },
+  // Triggered by Summon dread reflection
+  DREAD_TORRENT: {
+    id: 246464,
+    name: 'Dread Torrent',
+    icon: 'spell_warlock_soulburn',
+  },
+  
   // Item Abilities
   SPECTRAL_BLAST: {
     id: 246442,

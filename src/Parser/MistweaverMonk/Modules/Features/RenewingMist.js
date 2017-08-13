@@ -27,7 +27,7 @@ class RenewingMist extends Module {
       // Buffer time added to account for the buff being removed and replicating to a new target.  Testing 100ms for now.
       debug && console.log('Last Applied Timestamp: ' + this.remApplyTimestamp + ' / Current Event Timestamp: ' + event.timestamp);
       if((event.timestamp - this.remRemoveTimestamp) <= 100 || this.remCastTimestamp === event.timestamp || this.remApplyTimestamp === event.timestamp) {
-        debug && console.log('REM Applied Ok. Timestamp: ' + event.timestamp);
+        debug && console.log('REM Applied Ok. Timestamp: ' + event.timestamp + ' Target ID: ', event.targetID);
       } else {
         debug && console.log('REM Applied without Cast / Jump. Timestamp: ' + event.timestamp);
         debug && console.log('Target ID ' + event.targetID);
@@ -45,8 +45,10 @@ class RenewingMist extends Module {
 
     this.dancingMistTarget.forEach(targetID => {
       if(event.targetID === targetID) {
-        debug && console.log('Dancing Mist REM Removed: ' + targetID);
-        this.dancingMistTarget.splice(targetID, 1);
+        debug && console.log('Dancing Mist REM Removed: ' + targetID + ' / Timestamp: ' + event.timestamp);
+        const removeValue = this.dancingMistTarget.indexOf(targetID);
+        this.dancingMistTarget.splice(removeValue, 1);
+        debug && console.log('Dancing Mist Targets: ', this.dancingMistTarget);
       }
     });
 

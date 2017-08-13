@@ -1,6 +1,6 @@
 # Contributing
 
-Hey! Awesome you're interested in helping out. This should get you along the way. It's super basic right now because I hate documentation, but I hope it's enough to help you get started.
+Hey, welcome! Awesome you're interested in helping out! This should get you along the way. If you have any questions the WoW Analyzer Discord is the place to ask: https://discord.gg/AxphPxU
 
 # Installing
 
@@ -68,7 +68,7 @@ You can add your new statistic to the results page by adding it in the `generate
 When done commit your work.
 Then make a pull request, the easiest way to do this is through the GitHub interface. If you cloned it will show a "Create pull request" button in your repository page, if you're using the interface it should be there somewhere too. Explain why what you did matters and why you did what you did (although if you have to explain why you did what you did then you should probably include that as comments in your code).
 
-Don't forget to update the changelog, but only include changes that users might notice. PRs without updated changelogs will not be merged.
+Don't forget to update the changelog, but only include changes that users might notice.
 
 # Code style
 
@@ -78,11 +78,15 @@ Please never comment *what* you do, comment *why* you do it. I can read code so 
 
 # Consistency
 
-Many users parse logs for multiple specs, having everything consistent makes it easier to understand and compare different things between specs. Try to stay consistent with other specs and similar statistics. Please discuss if you want to show something different from what is done by default.
+Many users parse logs for multiple specs, having everything consistent makes it easier to understand and compare different things between specs. Please try to stay as consistent as possible with other specs and similar statistics.
 
 Examples:
-* The first two statistic are always *Healing/damage done* and *Non healing/dead gcd time*.
+* The first two statistics are always *Healing/damage done* and *Non healing/dead gcd time*.
+* When space is limited, show the DPS/HPS amounts instead of percentage of total damage/healing as much as possible. The HPS amounts often have the same results even if someone's total performance is either super high or super low, so they make comparison easier.
 * If you're showing the performance of an item try to use the *X.XX % / XXk HPS* format and show detailed information in the tooltip.
-* Show DPS/HPS amounts instead of percentage of total damage/healing as much as possible. The HPS amounts often have the same results even if someone's total performance is either super high or super low, so they make comparison easier.
+* Try to keep statististic boxes and item values one liners and if necessary move details to the tooltip.
+* Don't add useless tooltips; only add tooltips for necessary or additional information. If tooltips are always useful they're more likely to be read.
 * Don't show "intellect" (primary stat) amounts as if they're some sort of indication of something's performance. This is too inaccurate and vague.
+
+If you're planning on working on a radical idea I recommend discussing it before you invest a lot of time. It would be a shame if your idea does not fit the project and your work was for naught. Example:
 * Don't convert primary/secondary stats into DPS/HPS values. I'm open to giving this a try, but it needs to be thought through extensively and you'll need to convince it's accurate enough. The buff uptime or average stat gain is probably the most accurate information you could show. This also goes for resources such as mana.

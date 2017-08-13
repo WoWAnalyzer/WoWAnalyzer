@@ -216,6 +216,7 @@ class CombatLogParser extends MainCombatLogParser {
           </dfn>
         )}
       />,
+      ...results.statistics,
     ];
 
     results.items = [

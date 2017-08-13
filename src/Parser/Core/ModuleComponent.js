@@ -21,6 +21,10 @@ class ModuleComponent extends React.PureComponent {
       active: true,
     };
   }
+
+  on_forceUpdate() {
+    this.forceUpdate();
+  }
 }
 
 export default ModuleComponent;

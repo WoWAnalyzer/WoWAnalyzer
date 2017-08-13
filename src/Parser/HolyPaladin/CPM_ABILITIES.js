@@ -35,6 +35,7 @@ const CPM_ABILITIES = [
       const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.JUDGMENT_OF_LIGHT_HEAL.id);
       return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
     },
+    extraSuggestion: 'You should cast it whenever Judgment of Light has dropped, which is usually on cooldown without delay. Alternatively you can ignore the debuff and just cast it whenever Judgment is available; there\'s nothing wrong with ignoring unimportant things to focus on important things.',
   },
   {
     spell: SPELLS.BESTOW_FAITH_TALENT,
@@ -60,6 +61,7 @@ const CPM_ABILITIES = [
     charges: 2,
     isActive: combatant => combatant.hasTalent(SPELLS.CRUSADERS_MIGHT_TALENT.id),
     recommendedCastEfficiency: 0.60,
+    extraSuggestion: 'When you are using Crusader\'s Might it is important to use Crusader Strike often enough to benefit from the talent. Use a different talent if you are unable to.',
   },
   {
     spell: SPELLS.HOLY_PRISM_TALENT,

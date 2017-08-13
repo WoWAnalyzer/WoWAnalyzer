@@ -4,7 +4,7 @@ language: node_js
 services:
   - docker
 node_js:
-- '7'
+- '8.2.1'
 cache:
   directories:
     - node_modules
@@ -18,9 +18,7 @@ script:
   - npm run build
 after_success:
   - export REPO=martijnhols/wowanalyzer
-  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH; fi`
+  - export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH; fi else echo $TRAVIS_PULL_REQUEST_BRANCH; fi | sed -r 's/\//-/g')
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-  - docker build -f .dockerfile -t $REPO:$TRAVIS_COMMIT .
-  - docker tag $REPO:$TRAVIS_COMMIT $REPO:$TAG
-  - docker tag $REPO:$TRAVIS_COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
-  - docker push $REPO:$TAG
+  - docker build -f .dockerfile -t $REPO:$BRANCH .
+  - docker push $REPO:$BRANCH

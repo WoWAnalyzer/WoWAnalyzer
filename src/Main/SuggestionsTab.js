@@ -9,6 +9,8 @@ import Icon from 'common/Icon';
 
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
+import './SuggestionsTab.css';
+
 class SuggestionsTab extends React.Component {
   static propTypes = {
     issues: PropTypes.array,
@@ -21,7 +23,7 @@ class SuggestionsTab extends React.Component {
     };
   }
 
-  renderIssueImportanceContent(importance) {
+  getIssueImportance(importance) {
     switch (importance) {
       case ISSUE_IMPORTANCE.MAJOR:
         return <span>Major <UpArrow /></span>;
@@ -32,13 +34,6 @@ class SuggestionsTab extends React.Component {
       default:
         return '';
     }
-  }
-  renderIssueImportance(importance) {
-    return (
-      <div className="importance">
-        {this.renderIssueImportanceContent(importance)}
-      </div>
-    );
   }
 
   render() {
@@ -75,8 +70,18 @@ class SuggestionsTab extends React.Component {
               .filter(issue => this.state.showMinorIssues || issue.importance !== ISSUE_IMPORTANCE.MINOR)
               .map((issue, i) => (
                 <li className={`item ${issue.importance  || ''}`} key={`${i}`}>
-                  {this.renderIssueImportance(issue.importance)}
-                  <Icon icon={issue.icon} alt="Icon" /> {issue.issue}
+                  <div className="icon">
+                    <Icon icon={issue.icon} alt="Icon" />
+                  </div>
+                  <div className="suggestion">
+                    {issue.issue}
+                    {issue.stat && (
+                      <div className="stat">{issue.stat}</div>
+                    )}
+                  </div>
+                  <div className="importance">
+                    {this.getIssueImportance(issue.importance)}
+                  </div>
                 </li>
               ))}
             <li className="text-muted" style={{ paddingTop: 10, paddingBottom: 10 }}>
