@@ -106,17 +106,15 @@ class MaraadsDyingBreath extends Module {
         <span>
           <dfn
             data-tip={`
-              This is the estimated effective healing by Maraad's. This is adjusted for an estimated opportunity cost of casting a Flash of Light. The mana saved from casting a Light of the Martyr instead of a Flash of Light is also included by valuing it as 50% of the base healing of a LotM.<br /><br />
+              This is the estimated effective healing gain by Maraad's. This takes the full opportunity cost of casting a Flash of Light into account as well as the mana saved (converted to HPS) from the difference in mana costs. The only thing not accounted for is the reduction in cast time.<br /><br />
 
-              The effective healing done from Maraad's when adjusted for the opportunity cost of casting a regular (filler) Light of the Martyr was ${this.owner.formatItemHealingDone(this.healingGainOverLotm)}.
+              The effective healing done from Maraad's when adjusted for the opportunity cost of casting an unbuffed Light of the Martyr was ${this.owner.formatItemHealingDone(this.healingGainOverLotm)}. This is the highest value you should consider Maraad's to be worth, but even then it is overvalued as you wouldn't cast a Light of the Martyr without Maraad's (unless absolute necessary) as it's ineffective. Instead you would cast a Flash of Light or Holy Light, and so ≈${this.owner.formatItemHealingDone(this.healingGainOverFol)} is likely much closer to your actual healing gain from Maraad's.<br /><br />
+
+              The total healing done with Light of the Martyr affected by Maraad's Dying Breath was ${this.owner.formatItemHealingDone(this.totalHealing)}. This does not consider any opportunity cost (so it assumes you would have cast <b>nothing</b> in place of the buffed Light of The Martyr). The damage taken from Light of the Martyr was taken into account in this number.
             `}
           >
             ≈{this.owner.formatItemHealingDone(this.healingGainOverFol)}
           </dfn>
-          {' '}
-          (total: <dfn data-tip="This is the total healing done with Light of the Martyr during the buff from Maraad's. No opportunity cost was accounted for. The healing was adjusted for the damage taken.">
-            {this.owner.formatItemHealingDone(this.totalHealing)}
-          </dfn>)
         </span>
       ),
     };
