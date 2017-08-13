@@ -97,7 +97,7 @@ class MonkSpreadsheet extends React.Component {
                 {(((parser.modules.prydaz.healing || 0) +
                 (parser.modules.velens.healing || 0) +
                 (parser.modules.drapeOfShame.healing || 0) +
-                (parser.modules.gnawedThumbRing.healingIncreaseHealing || 0) +
+                (parser.modules.gnawedThumbRing.healing || 0) +
                 (parser.modules.archiveOfFaith.healing + parser.modules.archiveOfFaith.healingOverTime || 0) +
                 (parser.modules.barbaricMindslaver.healing || 0) +
                 (parser.modules.seaStar.healing || 0) +

@@ -1,7 +1,5 @@
 import React from 'react';
 
-import ITEMS from 'common/ITEMS';
-import ItemLink from 'common/ItemLink';
 import { formatNumber, formatPercentage } from 'common/format';
 
 import Combatants from './Modules/Combatants';
@@ -239,100 +237,6 @@ class CombatLogParser {
 
   generateResults() {
     const results = new ParseResults();
-    const { suggestions } = results;
-
-    const fightDuration = this.fightDuration;
-
-    suggestions
-      .when(this.modules.prePotion.usedPrePotion).isFalse()
-      .addSuggestion(suggest => {
-        return suggest(<span>You did not use a potion before combat. Using a potion before combat allows you the benefit of two potions in a single fight. A potion such as <ItemLink id={ITEMS.POTION_OF_PROLONGED_POWER.id} /> can be very effective (even for healers), especially during shorter encounters.</span>)
-          .icon(ITEMS.POTION_OF_PROLONGED_POWER.icon)
-          .staticImportance(SUGGESTION_IMPORTANCE.MINOR);
-      });
-    suggestions
-      .when(this.modules.prePotion.usedSecondPotion).isFalse()
-      .addSuggestion(suggest => {
-        let suggestionText;
-        let importance;
-        if (!this.modules.prePotion.neededManaSecondPotion) {
-          suggestionText = <span>You forgot to use a potion during combat. Using a potion during combat allows you the benefit of either increasing output through <ItemLink id={ITEMS.POTION_OF_PROLONGED_POWER.id} /> or allowing you to gain mana using <ItemLink id={ITEMS.ANCIENT_MANA_POTION.id}/>, for example.</span>;
-          importance = SUGGESTION_IMPORTANCE.MINOR;
-        } else {
-          suggestionText = <span>You ran out of mana (OOM) during the encounter without using a second potion. Use a second potion such as <ItemLink id={ITEMS.ANCIENT_MANA_POTION.id}/> or if the fight allows <ItemLink id={ITEMS.LEYTORRENT_POTION.id}/> to regenerate some mana.</span>;
-          importance = SUGGESTION_IMPORTANCE.REGULAR;
-        }
-        return suggest(suggestionText)
-          .icon(ITEMS.LEYTORRENT_POTION.icon)
-          .staticImportance(importance);
-      });
-
-    // Epics:
-    if (this.modules.gnawedThumbRing.active) {
-      results.items.push({
-        item: ITEMS.GNAWED_THUMB_RING,
-        result: (<dfn data-tip={`The effective healing and damage contributed by Gnawed Thumb Ring.<br/> Damage: ${this.formatItemDamageDone(this.modules.gnawedThumbRing.damageIncreased)} <br/> Healing: ${this.formatItemHealingDone(this.modules.gnawedThumbRing.healingIncreaseHealing)}`}>
-            {this.modules.gnawedThumbRing.healingIncreaseHealing > this.modules.gnawedThumbRing.damageIncreased ? this.formatItemHealingDone(this.modules.gnawedThumbRing.healingIncreaseHealing) : this.formatItemDamageDone(this.modules.gnawedThumbRing.damageIncreased)}
-          </dfn>),
-      });
-    }
-    if (this.modules.archiveOfFaith.active) {
-      const archiveOfFaithHealing = this.modules.archiveOfFaith.healing / this.totalHealing;
-      const archiveOfFaithHOTHealing = this.modules.archiveOfFaith.healingOverTime / this.totalHealing;
-      const archiveOfFaithHealingTotal = (this.modules.archiveOfFaith.healing + this.modules.archiveOfFaith.healingOverTime) / this.totalHealing;
-      results.items.push({
-        item: ITEMS.ARCHIVE_OF_FAITH,
-        result: (
-          <dfn data-tip={`The effective healing contributed by the Archive of Faith on-use effect.<br />Channel: ${((archiveOfFaithHealing * 100) || 0).toFixed(2)} % / ${formatNumber(this.modules.archiveOfFaith.healing / fightDuration * 1000)} HPS<br />HOT: ${((archiveOfFaithHOTHealing * 100) || 0).toFixed(2)} % / ${formatNumber(this.modules.archiveOfFaith.healingOverTime / fightDuration * 1000)} HPS`}>
-            {((archiveOfFaithHealingTotal * 100) || 0).toFixed(2)} % / {formatNumber((this.modules.archiveOfFaith.healing + this.modules.archiveOfFaith.healingOverTime) / fightDuration * 1000)} HPS
-          </dfn>
-        ),
-      });
-    }
-    if (this.modules.barbaricMindslaver.active) {
-      results.items.push({
-        item: ITEMS.BARBARIC_MINDSLAVER,
-        result: this.formatItemHealingDone(this.modules.barbaricMindslaver.healing),
-      });
-    }
-    if (this.modules.seaStar.active) {
-      results.items.push({
-        item: ITEMS.SEA_STAR_OF_THE_DEPTHMOTHER,
-        result: this.formatItemHealingDone(this.modules.seaStar.healing),
-      });
-    }
-    if (this.modules.deceiversGrandDesign.active) {
-      const deceiversGrandDesignHealingPercentage = this.modules.deceiversGrandDesign.healing / this.totalHealing;
-      const deceiversGrandDesignAbsorbPercentage = this.modules.deceiversGrandDesign.healingAbsorb / this.totalHealing;
-      const deceiversGrandDesignTotalPercentage = (this.modules.deceiversGrandDesign.healing + this.modules.deceiversGrandDesign.healingAbsorb) / this.totalHealing;
-      results.items.push({
-        item: ITEMS.DECEIVERS_GRAND_DESIGN,
-        result: (
-          <dfn data-tip={`The effective healing contributed by the Deciever's Grand Design on-use effect.<br />HOT: ${((deceiversGrandDesignHealingPercentage * 100) || 0).toFixed(2)} % / ${formatNumber(this.modules.deceiversGrandDesign.healing / fightDuration * 1000)} HPS<br />Shield Proc: ${((deceiversGrandDesignAbsorbPercentage * 100) || 0).toFixed(2)} % / ${formatNumber(this.modules.deceiversGrandDesign.healingAbsorb / fightDuration * 1000)} HPS`}>
-            {((deceiversGrandDesignTotalPercentage * 100) || 0).toFixed(2)} % / {formatNumber((this.modules.deceiversGrandDesign.healing + this.modules.deceiversGrandDesign.healingAbsorb) / fightDuration * 1000)} HPS
-          </dfn>
-        ),
-      });
-      suggestions
-        .when(this.modules.deceiversGrandDesign.proced).isTrue()
-        .addSuggestion(suggest => {
-          return suggest(
-            <span>
-              Your <ItemLink id={ITEMS.DECEIVERS_GRAND_DESIGN.id} /> procced earlier than expected. Try to cast it on players without spiky health pools. The following events procced the effect:<br />
-              {this.modules.deceiversGrandDesign.procs
-                .map((procs, index) => {
-                  const url = `https://www.warcraftlogs.com/reports/${procs.report}/#fight=${procs.fight}&source=${procs.target}&type=summary&start=${procs.start}&end=${procs.end}&view=events`;
-                  return (
-                    <div key={index}>
-                      Proc {index + 1} on: <a href={url} target="_blank" rel="noopener noreferrer">{procs.name}</a>
-                    </div>
-                  );
-                })}
-            </span>
-          )
-            .icon(ITEMS.DECEIVERS_GRAND_DESIGN.icon);
-        });
-    }
 
     results.statistics.push(<VantusRune owner={this} />);
 

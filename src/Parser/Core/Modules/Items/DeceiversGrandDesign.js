@@ -1,5 +1,9 @@
+import React from 'react';
+
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
+import ItemLink from 'common/ItemLink';
+import { formatNumber } from 'common/format';
 
 import Module from 'Parser/Core/Module';
 
@@ -124,6 +128,42 @@ class DecieversGrandDesign extends Module {
       console.log('Absorbed: ' + this.healingAbsorb);
       console.log('Report Code: ' + this.owner.report.code);
     }
+  }
+
+  item() {
+    const deceiversGrandDesignHealingPercentage = this.owner.getPercentageOfTotalHealingDone(this.healing);
+    const deceiversGrandDesignAbsorbPercentage = this.owner.getPercentageOfTotalHealingDone(this.healingAbsorb);
+    const deceiversGrandDesignTotalPercentage = this.owner.getPercentageOfTotalHealingDone(this.healing + this.healingAbsorb);
+    return {
+      item: ITEMS.DECEIVERS_GRAND_DESIGN,
+      result: (
+        <dfn data-tip={`The effective healing contributed by the Deciever's Grand Design on-use effect.<br />
+            HOT: ${((deceiversGrandDesignHealingPercentage * 100) || 0).toFixed(2)} % / ${formatNumber(this.healing / this.owner.fightDuration * 1000)} HPS<br />
+            Shield Proc: ${((deceiversGrandDesignAbsorbPercentage * 100) || 0).toFixed(2)} % / ${formatNumber(this.healingAbsorb / this.owner.fightDuration * 1000)} HPS`}>
+          {((deceiversGrandDesignTotalPercentage * 100) || 0).toFixed(2)} % / {formatNumber((this.healing + this.healingAbsorb) / this.owner.fightDuration * 1000)} HPS
+        </dfn>
+      ),
+    };
+  }
+  suggestion(when) {
+    when(this.proced).isTrue()
+      .addSuggestion(suggest => {
+        return suggest(
+          <span>
+              Your <ItemLink id={ITEMS.DECEIVERS_GRAND_DESIGN.id} /> procced earlier than expected. Try to cast it on players without spiky health pools. The following events procced the effect:<br />
+            {this.procs
+              .map((procs, index) => {
+                const url = `https://www.warcraftlogs.com/reports/${procs.report}/#fight=${procs.fight}&source=${procs.target}&type=summary&start=${procs.start}&end=${procs.end}&view=events`;
+                return (
+                  <div key={index}>
+                    Proc {index + 1} on: <a href={url} target="_blank" rel="noopener noreferrer">{procs.name}</a>
+                  </div>
+                );
+              })}
+            </span>
+        )
+          .icon(ITEMS.DECEIVERS_GRAND_DESIGN.icon);
+      });
   }
 }
 
