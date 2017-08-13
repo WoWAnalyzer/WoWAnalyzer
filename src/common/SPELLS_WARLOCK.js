@@ -5,6 +5,11 @@ export default {
     name: 'Life Tap',
     icon: 'spell_shadow_burningspirit',
   },
+  SOUL_LEECH_SPELL: {
+    id: 108370,
+    name: 'Soul Leech',
+    icon: 'warlock_siphonlife',
+  },
   SOUL_LEECH_BUFF: {
     id: 108366,
     name: 'Soul Leech',

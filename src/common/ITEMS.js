@@ -339,6 +339,19 @@ const ITEMS = {
     quality: ITEM_QUALITIES.LEGENDARY,
   },
 
+  // Warlock legendaries
+  SACROLASHS_DARK_STRIKE: {
+    id: 132378,
+    name: 'Sacrolash\'s Dark Strike',
+    icon: 'inv_jewelry_ring_66',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  SOUL_OF_THE_NETHERLORD: {
+    id: 151649,
+    name: 'Soul of the Netherlord',
+    icon: 'inv_70_quest_ring7c',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
   // T20 Trinkets
   ARCHIVE_OF_FAITH: {
     id: 147006,
