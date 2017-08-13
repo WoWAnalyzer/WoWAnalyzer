@@ -12,6 +12,8 @@ const LEGENDARY_VELENS_HEAL_SPELL_ID = 235967;
 const LEGENDARY_VELENS_HEALING_INCREASE = 0.15;
 
 class Velens extends Module {
+  static SUGGESTION_VELENS_BREAKPOINT = 0.045;
+
   healingIncreaseHealing = 0;
   overhealHealing = 0;
   get healing() {
@@ -60,7 +62,7 @@ class Velens extends Module {
     };
   }
   suggestion(when) {
-    when(this.owner.getPercentageOfTotalHealingDone(this.healing)).isLessThan(this.owner.constructor.SUGGESTION_VELENS_BREAKPOINT)
+    when(this.owner.getPercentageOfTotalHealingDone(this.healing)).isLessThan(this.constructor.SUGGESTION_VELENS_BREAKPOINT)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Your usage of <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} /> can be improved. Try to maximize the amount of healing during the buff without excessively overhealing on purpose, or consider using an easier legendary.</span>)
           .icon(ITEMS.VELENS_FUTURE_SIGHT.icon)

@@ -218,8 +218,6 @@ class CombatLogParser {
 
   // TODO: Damage taken from LOTM
 
-  static SUGGESTION_VELENS_BREAKPOINT = 0.045;
-
   getPercentageOfTotalHealingDone(healingDone) {
     return healingDone / this.totalHealing;
   }
