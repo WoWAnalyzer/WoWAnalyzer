@@ -75,9 +75,6 @@ class DevotionAura extends Module {
   }
 
   statistic() {
-    if (!this.active) {
-      return null;
-    }
     const fightDuration = this.owner.fightDuration;
 
     return (

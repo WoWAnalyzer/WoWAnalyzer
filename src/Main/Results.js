@@ -9,6 +9,15 @@ import ItemIcon from 'common/ItemIcon';
 import DevelopmentTab from 'Main/DevelopmentTab';
 
 class Results extends React.Component {
+  static childContextTypes = {
+    updateResults: PropTypes.func.isRequired,
+  };
+  getChildContext() {
+    return {
+      updateResults: this.forceUpdate.bind(this),
+    };
+  }
+
   static propTypes = {
     parser: PropTypes.object.isRequired,
     tab: PropTypes.string,
@@ -28,7 +37,7 @@ class Results extends React.Component {
           <h1>
             <div className="back-button">
               <Link to={`/report/${parser.report.code}/${parser.fight.id}`} data-tip="Back to player selection">
-                <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
+                <span className="glyphicon glyphicon-chevron-left" aria-hidden />
               </Link>
             </div>
             Initializing report...
@@ -62,7 +71,7 @@ class Results extends React.Component {
         <h1>
           <div className="back-button">
             <Link to={`/report/${parser.report.code}/${parser.fight.id}`} data-tip="Back to player selection">
-              <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
+              <span className="glyphicon glyphicon-chevron-left" aria-hidden />
             </Link>
           </div>
           Results
@@ -73,7 +82,7 @@ class Results extends React.Component {
             className="pull-right"
             style={{ fontSize: '.6em' }}
           >
-            <span className="glyphicon glyphicon-link" aria-hidden="true" /> Open report
+            <span className="glyphicon glyphicon-link" aria-hidden /> Open report
           </a>
         </h1>
 

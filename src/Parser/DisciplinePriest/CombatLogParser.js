@@ -87,6 +87,8 @@ class CombatLogParser extends MainCombatLogParser {
     cooldownTracker: CooldownTracker,
     powerWordShieldWasted: PowerWordShieldWasted,
     atonementSource: AtonementSource,
+    powerWordBarrier: PowerWordBarrier,
+    leniencesReward: LeniencesReward,
 
     // Items:
     tier19_2set: Tier19_2set,
@@ -203,8 +205,6 @@ class CombatLogParser extends MainCombatLogParser {
           </table>
         </ExpandableStatisticBox>
       ),
-      <PowerWordBarrier owner={this} />,
-      <LeniencesReward owner={this} />,
       missedPenanceTicks && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.PENANCE.id} />}
