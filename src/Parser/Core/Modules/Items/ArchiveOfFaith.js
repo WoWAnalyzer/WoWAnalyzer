@@ -1,5 +1,8 @@
+import React from 'react';
+
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
+import { formatNumber } from 'common/format';
 
 import Module from 'Parser/Core/Module';
 
@@ -41,13 +44,30 @@ class ArchiveOfFaith extends Module {
     }
   }
 
-
   on_finished() {
     if(debug) {
       console.log('Healing: ' + this.healing);
       console.log('Casts ' + this.casts);
       console.log('HOT: ' + this.healingOverTime);
     }
+  }
+
+  item() {
+    const archiveOfFaithHealing = this.owner.getPercentageOfTotalHealingDone(this.healing);
+    const archiveOfFaithHOTHealing = this.owner.getPercentageOfTotalHealingDone(this.healingOverTime);
+    const archiveOfFaithHealingTotal = this.owner.getPercentageOfTotalHealingDone(this.healing + this.healingOverTime);
+    return {
+      item: ITEMS.ARCHIVE_OF_FAITH,
+      result: (
+        <dfn
+          data-tip={`The effective healing contributed by the Archive of Faith on-use effect.<br />
+            Channel: ${((archiveOfFaithHealing * 100) || 0).toFixed(2)} % / ${formatNumber(this.healing / this.owner.fightDuration * 1000)} HPS<br />
+            HOT: ${((archiveOfFaithHOTHealing * 100) || 0).toFixed(2)} % / ${formatNumber(this.healingOverTime / this.owner.fightDuration * 1000)} HPS`}
+        >
+          {((archiveOfFaithHealingTotal * 100) || 0).toFixed(2)} % / {formatNumber((this.healing + this.healingOverTime) / this.owner.fightDuration * 1000)} HPS
+        </dfn>
+      ),
+    };
   }
 }
 

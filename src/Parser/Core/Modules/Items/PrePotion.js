@@ -1,6 +1,11 @@
-import SPELLS from 'common/SPELLS_OTHERS';
+import React from 'react';
+
+import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
+import ItemLink from 'common/ItemLink';
 
 import Module from 'Parser/Core/Module';
+import SUGGESTION_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 const debug = false;
 
@@ -67,6 +72,30 @@ class PrePotion extends Module {
       console.log("used potion:" + this.usedPrePotion);
       console.log("used 2nd potion:" + this.usedSecondPotion);
     }
+  }
+
+  suggestions(when) {
+    when(this.usedPrePotion).isFalse()
+      .addSuggestion(suggest => {
+        return suggest(<span>You did not use a potion before combat. Using a potion before combat allows you the benefit of two potions in a single fight. A potion such as <ItemLink id={ITEMS.POTION_OF_PROLONGED_POWER.id} /> can be very effective (even for healers), especially during shorter encounters.</span>)
+          .icon(ITEMS.POTION_OF_PROLONGED_POWER.icon)
+          .staticImportance(SUGGESTION_IMPORTANCE.MINOR);
+      });
+    when(this.usedSecondPotion).isFalse()
+      .addSuggestion(suggest => {
+        let suggestionText;
+        let importance;
+        if (!this.neededManaSecondPotion) {
+          suggestionText = <span>You forgot to use a potion during combat. Using a potion during combat allows you the benefit of either increasing output through <ItemLink id={ITEMS.POTION_OF_PROLONGED_POWER.id} /> or allowing you to gain mana using <ItemLink id={ITEMS.ANCIENT_MANA_POTION.id}/>, for example.</span>;
+          importance = SUGGESTION_IMPORTANCE.MINOR;
+        } else {
+          suggestionText = <span>You ran out of mana (OOM) during the encounter without using a second potion. Use a second potion such as <ItemLink id={ITEMS.ANCIENT_MANA_POTION.id}/> or if the fight allows <ItemLink id={ITEMS.LEYTORRENT_POTION.id}/> to regenerate some mana.</span>;
+          importance = SUGGESTION_IMPORTANCE.REGULAR;
+        }
+        return suggest(suggestionText)
+          .icon(ITEMS.LEYTORRENT_POTION.icon)
+          .staticImportance(importance);
+      });
   }
 }
 

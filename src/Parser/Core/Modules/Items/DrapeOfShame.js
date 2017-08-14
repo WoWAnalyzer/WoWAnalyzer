@@ -39,6 +39,13 @@ class DrapeOfShame extends Module {
     critModifier += DRAPE_OF_SHAME_CRIT_EFFECT;
     return critModifier;
   }
+
+  item() {
+    return {
+      item: ITEMS.DRAPE_OF_SHAME,
+      result: this.owner.formatItemHealingDone(this.healing),
+    };
+  }
 }
 
 export default DrapeOfShame;

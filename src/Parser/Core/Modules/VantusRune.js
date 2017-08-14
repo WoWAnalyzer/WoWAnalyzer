@@ -4,9 +4,9 @@ import SpellLink from 'common/SpellLink';
 import Icon from 'common/Icon';
 import { formatNumber } from 'common/format';
 
-import StatisticBox from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-import ModuleComponent from 'Parser/Core/ModuleComponent';
+import Module from 'Parser/Core/Module';
 
 // http://www.wowhead.com/uncategorized-spells/name:Vantus+Rune:?filter=29;42;0 $.makeArray($('.listview-cleartext[href^="/spell="]')).map(item => `${item.href.replace(/^.*spell=([0-9]+)$/, '$1')}, // ${item.innerText}`).join("\n")
 // buff id: boss id
@@ -49,35 +49,29 @@ const VERSATILITY_PER_PERCENT_DAMAGE_REDUCTION = VERSATILITY_PER_PERCENT_THROUGH
 const VANTUS_RUNE_PERCENTAGE_THROUGHPUT = VANTUS_RUNE_VERSATILITY / VERSATILITY_PER_PERCENT_THROUGHPUT;
 const VANTUS_RUNE_PERCENTAGE_DAMAGE_REDUCTION  = VANTUS_RUNE_VERSATILITY / VERSATILITY_PER_PERCENT_DAMAGE_REDUCTION;
 
-class VantusRune extends ModuleComponent {
-  constructor(props) {
-    super(props);
+class VantusRune extends Module {
+  activeRune = null;
+  on_initialized() {
+    if (!this.owner.error) {
+      const fight = this.owner.fight;
+      const bossId = fight.boss;
 
-    const fight = props.owner.fight;
-    const bossId = fight.boss;
+      Object.keys(VANTUS_RUNE_SPELL_IDS).forEach(spellId => {
+        if (VANTUS_RUNE_SPELL_IDS[spellId] !== bossId) {
+          // Vantus Runes only work on 1 boss each
+          return;
+        }
+        const match = this.owner.selectedCombatant.getBuff(spellId);
+        if (match !== undefined) {
+          this.activeRune = match;
+        }
+      });
 
-    let activeRune = null;
-    Object.keys(VANTUS_RUNE_SPELL_IDS).forEach(spellId => {
-      if (VANTUS_RUNE_SPELL_IDS[spellId] !== bossId) {
-        // Vantus Runes only work on 1 boss each
-        return;
-      }
-      const match = this.owner.selectedCombatant.getBuff(spellId);
-      if (match !== undefined) {
-        activeRune = match;
-      }
-    });
-
-    this.state = {
-      active: activeRune !== null,
-      activeRune,
-    };
+      this.active = this.activeRune !== null;
+    }
   }
 
-  render() {
-    if (!this.active) {
-      return null;
-    }
+  statistic() {
     const fightDuration = this.owner.fightDuration;
 
     const damageDone = this.owner.totalDamageDone - (this.owner.totalDamageDone / (1 + VANTUS_RUNE_PERCENTAGE_THROUGHPUT));
@@ -87,8 +81,8 @@ class VantusRune extends ModuleComponent {
     return (
       <StatisticBox
         icon={(
-          <SpellLink id={this.state.activeRune.ability.guid}>
-            <Icon icon={this.state.activeRune.ability.abilityIcon} />
+          <SpellLink id={this.activeRune.ability.guid}>
+            <Icon icon={this.activeRune.ability.abilityIcon} />
           </SpellLink>
         )}
         value={damageDone > healingDone ? `${formatNumber(damageDone / fightDuration * 1000)} DPS` : `${formatNumber(healingDone / fightDuration * 1000)} HPS`}
@@ -97,6 +91,7 @@ class VantusRune extends ModuleComponent {
       />
     );
   }
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(999);
 }
 
 export default VantusRune;

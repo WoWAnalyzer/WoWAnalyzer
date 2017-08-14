@@ -9,8 +9,9 @@ import Icon from 'common/Icon';
 
 import StatisticBox from 'Main/StatisticBox';
 import SuggestionsTab from 'Main/SuggestionsTab';
-import TalentsTab from 'Main/TalentsTab';
-import CastEfficiencyTab from 'Main/CastEfficiencyTab';
+import Tab from 'Main/Tab';
+import Talents from 'Main/Talents';
+import CastEfficiency from 'Main/CastEfficiency';
 
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 import getCastEfficiency from 'Parser/Core/getCastEfficiency';
@@ -120,19 +121,24 @@ class CombatLogParser extends MainCombatLogParser {
         title: 'Cast efficiency',
         url: 'cast-efficiency',
         render: () => (
-          <CastEfficiencyTab
-            categories={castEfficiencyCategories}
-            abilities={castEfficiency}
-          />
+          <Tab title="Cast efficiency">
+            <CastEfficiency
+              categories={castEfficiencyCategories}
+              abilities={castEfficiency}
+            />
+          </Tab>
         ),
       },
       {
         title: 'Talents',
         url: 'talents',
         render: () => (
-          <TalentsTab combatant={this.selectedCombatant} />
+          <Tab title="Talents">
+            <Talents combatant={this.selectedCombatant} />
+          </Tab>
         ),
       },
+      ...results.tabs,
     ];
 
     return results;

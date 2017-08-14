@@ -20,6 +20,8 @@ class ModuleComponent extends React.PureComponent {
     this.state = {
       active: true,
     };
+
+    console.warn('ModuleComponents is deprected. Use a regular Module with the statistic() method instead.');
   }
 
   on_forceUpdate() {

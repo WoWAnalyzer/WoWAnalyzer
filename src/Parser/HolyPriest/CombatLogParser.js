@@ -8,15 +8,13 @@ import ITEMS from 'common/ITEMS';
 
 import StatisticBox from 'Main/StatisticBox';
 import SuggestionsTab from 'Main/SuggestionsTab';
-import TalentsTab from 'Main/TalentsTab';
-import CastEfficiencyTab from 'Main/CastEfficiencyTab';
-import CooldownsTab from 'Main/CooldownsTab';
-import ManaTab from 'Main/ManaTab';
-import LowHealthHealingTab from 'Main/LowHealthHealingTab';
+import Tab from 'Main/Tab';
+import Talents from 'Main/Talents';
+import Mana from 'Main/Mana';
 
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
-import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
+import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
 
 import AbilityTracker from './Modules/Core/AbilityTracker';
 
@@ -26,6 +24,7 @@ import DivineHymn from './Modules/Spells/DivineHymn';
 import Sanctify from './Modules/Spells/Sanctify';
 
 // Features
+import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownTracker from './Modules/Features/CooldownTracker';
 import RenewTheFaith from './Modules/Features/RenewTheFaith';
@@ -37,7 +36,6 @@ import EnduringRenewal from './Modules/Features/EnduringRenewal';
 import TrousersOfAnjuna from './Modules/Items/TrousersOfAnjuna';
 import XanshiCloak from './Modules/Items/XanshiCloak';
 
-import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
 // Imports that will likely be used in the future but currently unused (go away npm warnings)
@@ -77,6 +75,8 @@ class CombatLogParser extends MainCombatLogParser {
 
   static specModules = {
     abilityTracker: AbilityTracker,
+    castEfficiency: CastEfficiency,
+    lowHealthHealing: LowHealthHealing,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -105,9 +105,6 @@ class CombatLogParser extends MainCombatLogParser {
 
     const abilityTracker = this.modules.abilityTracker;
     const getAbility = spellId => abilityTracker.getAbility(spellId);
-
-    const castEfficiencyCategories = SPELL_CATEGORY;
-    const castEfficiency = getCastEfficiency(CPM_ABILITIES, this);
 
     // Renew the Faith trait data calculations
     const rtfPercHPS = formatPercentage(this.modules.renewTheFaith.healing / this.totalHealing);
@@ -183,16 +180,6 @@ class CombatLogParser extends MainCombatLogParser {
         importance: getIssueImportance(sancAvgHits, 5.5, 4.25),
       });
     }
-
-    castEfficiency.forEach((cpm) => {
-      if (cpm.canBeImproved && !cpm.ability.noSuggestion) {
-        results.addIssue({
-          issue: <span>Try to cast <SpellLink id={cpm.ability.spell.id} /> more often ({cpm.casts}/{cpm.maxCasts} casts: {Math.round(cpm.castEfficiency * 100)}% cast efficiency). {cpm.ability.extraSuggestion || ''}</span>,
-          icon: cpm.ability.spell.icon,
-          importance: cpm.ability.importance || getIssueImportance(cpm.castEfficiency, cpm.recommendedCastEfficiency - 0.05, cpm.recommendedCastEfficiency - 0.15),
-        });
-      }
-    });
 
     results.statistics = [
       <StatisticBox
@@ -318,52 +305,29 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       },
       {
-        title: 'Cast efficiency',
-        url: 'cast-efficiency',
-        render: () => (
-          <CastEfficiencyTab
-            categories={castEfficiencyCategories}
-            abilities={castEfficiency}
-          />
-        ),
-      },
-      {
-        title: 'Cooldowns',
-        url: 'cooldowns',
-        render: () => (
-          <CooldownsTab
-            fightStart={this.fight.start_time}
-            fightEnd={this.fight.end_time}
-            cooldowns={this.modules.cooldownTracker.pastCooldowns}
-          />
-        ),
-      },
-      {
         title: 'Talents',
         url: 'talents',
         render: () => (
-          <TalentsTab combatant={this.selectedCombatant} />
-        ),
-      },
-      {
-        title: 'Low health healing',
-        url: 'low-health-healing',
-        render: () => (
-          <LowHealthHealingTab parser={this} />
+          <Tab title="Talents">
+            <Talents combatant={this.selectedCombatant} />
+          </Tab>
         ),
       },
       {
         title: 'Mana',
         url: 'mana',
         render: () => (
-          <ManaTab
-            reportCode={this.report.code}
-            actorId={this.playerId}
-            start={this.fight.start_time}
-            end={this.fight.end_time}
-          />
+          <Tab title="Mana" style={{ padding: '15px 22px' }}>
+            <Mana
+              reportCode={this.report.code}
+              actorId={this.playerId}
+              start={this.fight.start_time}
+              end={this.fight.end_time}
+            />
+          </Tab>
         ),
       },
+      ...results.tabs,
     ];
 
     return results;

@@ -19,6 +19,13 @@ class ObsidianStoneSpaulders extends Module {
       this.healing += event.amount;
     }
   }
+
+  item() {
+    return {
+      item: ITEMS.OBSIDIAN_STONE_SPAULDERS,
+      result: this.owner.formatItemHealingDone(this.healing),
+    };
+  }
 }
 
 export default ObsidianStoneSpaulders;
