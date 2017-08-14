@@ -7,39 +7,33 @@ import { formatThousands, formatNumber } from 'common/format';
 
 import LazyLoadStatisticBox from 'Main/LazyLoadStatisticBox';
 
-import ModuleComponent from 'Parser/Core/ModuleComponent';
+import Module from 'Parser/Core/Module';
 
 const LENIENCES_REWARD_DR_PER_RANK = 0.005;
 
-class LeniencesReward extends ModuleComponent {
+class LeniencesReward extends Module {
   _leniencesRewardRank = 0;
   _leniencesRewardDR = 0;
 
-  init() {
-    this._leniencesRewardRank = this.owner.selectedCombatant.traitsBySpellId[SPELLS.LENIENCES_REWARD_TRAIT.id];
-    this._leniencesRewardDR = this._leniencesRewardRank * LENIENCES_REWARD_DR_PER_RANK;
-  }
-
   get damageReducedDuringLeniencesReward() {
-    return this.state.totalDamageTakenDuringAtonement / (1 - this._leniencesRewardDR) * this._leniencesRewardDR;
+    return this.totalDamageTakenDuringAtonement / (1 - this._leniencesRewardDR) * this._leniencesRewardDR;
   }
 
   get damageReduced() {
     return this.damageReducedDuringLeniencesReward;
   }
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      active: true,
-      totalDamageTakenDuringAtonement: 0,
-    };
+  totalDamageTakenDuringAtonement = 0;
+  on_initialized() {
+    if (!this.owner.error) {
+      this._leniencesRewardRank = this.owner.selectedCombatant.traitsBySpellId[SPELLS.LENIENCES_REWARD_TRAIT.id];
+      this._leniencesRewardDR = this._leniencesRewardRank * LENIENCES_REWARD_DR_PER_RANK;
+      this.active = this._leniencesRewardRank > 0;
+    }
   }
 
   load() {
-    this.init();
-
-    const damageTakenPromise = fetch(makeWclUrl(`report/tables/damage-taken/${this.owner.report.code}`, {
+    return fetch(makeWclUrl(`report/tables/damage-taken/${this.owner.report.code}`, {
       start: this.owner.fight.start_time,
       end: this.owner.fight.end_time,
       filter: `(IN RANGE FROM type='applybuff' AND ability.id=${SPELLS.ATONEMENT_BUFF.id} AND source.name='${this.owner.selectedCombatant.name}' TO type='removebuff' AND ability.id=${SPELLS.ATONEMENT_BUFF.id} AND source.name='${this.owner.selectedCombatant.name}' GROUP BY target ON target END)`,
@@ -50,19 +44,12 @@ class LeniencesReward extends ModuleComponent {
         if (json.status === 400 || json.status === 401) {
           throw json.error;
         } else {
-          this.setState({
-            totalDamageTakenDuringAtonement: json.entries.reduce((damageTaken, entry) => damageTaken + entry.total, 0),
-          });
+          this.totalDamageTakenDuringAtonement = json.entries.reduce((damageTaken, entry) => damageTaken + entry.total, 0);
         }
       });
-
-    return damageTakenPromise;
   }
 
-  render() {
-    if (!this.active) {
-      return null;
-    }
+  statistic() {
     const fightDuration = this.owner.fightDuration;
 
     return (
