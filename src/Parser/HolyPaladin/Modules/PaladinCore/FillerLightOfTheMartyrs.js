@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
-import { formatPercentage } from 'common/format';
 
 import Module from 'Parser/Core/Module';
 

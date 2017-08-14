@@ -8,11 +8,10 @@ import ITEMS from 'common/ITEMS';
 
 import StatisticBox from 'Main/StatisticBox';
 import SuggestionsTab from 'Main/SuggestionsTab';
-import TalentsTab from 'Main/TalentsTab';
-import CastEfficiencyTab from 'Main/CastEfficiencyTab';
-import CooldownsTab from 'Main/CooldownsTab';
-import ManaTab from 'Main/ManaTab';
-import LowHealthHealingTab from 'Main/LowHealthHealingTab';
+import Tab from 'Main/Tab';
+import Talents from 'Main/Talents';
+import CastEfficiency from 'Main/CastEfficiency';
+import Mana from 'Main/Mana';
 
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 import getCastEfficiency from 'Parser/Core/getCastEfficiency';
@@ -714,49 +713,38 @@ class CombatLogParser extends MainCombatLogParser {
         title: 'Cast efficiency',
         url: 'cast-efficiency',
         render: () => (
-          <CastEfficiencyTab
-            categories={castEfficiencyCategories}
-            abilities={castEfficiency}
-          />
-        ),
-      },
-      {
-        title: 'Cooldowns',
-        url: 'cooldowns',
-        render: () => (
-          <CooldownsTab
-            fightStart={this.fight.start_time}
-            fightEnd={this.fight.end_time}
-            cooldowns={this.modules.cooldownTracker.pastCooldowns}
-          />
+          <Tab title="Cast efficiency">
+            <CastEfficiency
+              categories={castEfficiencyCategories}
+              abilities={castEfficiency}
+            />
+          </Tab>
         ),
       },
       {
         title: 'Talents',
         url: 'talents',
         render: () => (
-          <TalentsTab combatant={this.selectedCombatant} />
+          <Tab title="Talents">
+            <Talents combatant={this.selectedCombatant} />
+          </Tab>
         ),
       },
       {
         title: 'Mana',
         url: 'mana',
         render: () => (
-          <ManaTab
-            reportCode={this.report.code}
-            actorId={this.playerId}
-            start={this.fight.start_time}
-            end={this.fight.end_time}
-          />
+          <Tab title="Mana" style={{ padding: '15px 22px' }}>
+            <Mana
+              reportCode={this.report.code}
+              actorId={this.playerId}
+              start={this.fight.start_time}
+              end={this.fight.end_time}
+            />
+          </Tab>
         ),
       },
-      {
-        title: 'Low health healing',
-        url: 'low-health-healing',
-        render: () => (
-          <LowHealthHealingTab parser={this} />
-        ),
-      },
+      ...results.tabs,
     ];
 
     return results;

@@ -1,6 +1,5 @@
 import React from 'react';
 
-import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import Icon from 'common/Icon';
 import ITEMS from 'common/ITEMS';
@@ -10,15 +9,14 @@ import SPELLS from 'common/SPELLS';
 
 import StatisticBox from 'Main/StatisticBox';
 import SuggestionsTab from 'Main/SuggestionsTab';
-import TalentsTab from 'Main/TalentsTab';
-import CastEfficiencyTab from 'Main/CastEfficiencyTab';
-import CooldownsTab from 'Main/CooldownsTab';
+import Tab from 'Main/Tab';
+import Talents from 'Main/Talents';
 
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
-import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
-import ManaTab from './Modules/Main/MaelstromTab';
+import CastEfficiency from './Modules/Main/CastEfficiency';
+import Maelstrom from './Modules/Main/Maelstrom';
 
 import CooldownTracker from './Modules/Features/CooldownTracker';
 import ProcTracker from './Modules/Features/ProcTracker';
@@ -27,8 +25,6 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 // import SmolderingHeart from './Modules/Legendaries/SmolderingHeart';
 
 import './Modules/Main/main.css';
-
-import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
 
 function formatThousands(number) {
   return (Math.round(number || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
@@ -61,6 +57,7 @@ class CombatLogParser extends MainCombatLogParser {
   static specModules = {
     // Features
     alwaysBeCasting: AlwaysBeCasting,
+    castEfficiency: CastEfficiency,
     cooldownTracker: CooldownTracker,
     procTracker: ProcTracker,
 
@@ -96,7 +93,7 @@ class CombatLogParser extends MainCombatLogParser {
 
     const fightDuration = this.fightDuration;
 
-	  //uptimes
+    //uptimes
     const flametongueUptime = this.selectedCombatant.getBuffUptime(SPELLS.FLAMETONGUE_BUFF.id) / this.fightDuration;
     const frostbrandUptime = this.selectedCombatant.getBuffUptime(SPELLS.FROSTBRAND.id) / this.fightDuration;
     const landslideUptime = this.selectedCombatant.getBuffUptime(SPELLS.LANDSLIDE_BUFF.id) / this.fightDuration;
@@ -120,20 +117,20 @@ class CombatLogParser extends MainCombatLogParser {
     // const hasEOTN = this.selectedCombatant.hasFinger(ITEMS.EYE_OF_THE_TWISTING_NETHER.id);
     // const hasSephuz = this.selectedCombatant.hasFinger(ITEMS.SEPHUZS_SECRET.id);
 
-  this.selectedCombatant._combatantInfo.gear.forEach(function(value) {
-    const equippedItem = ITEMS[value.id];
+    this.selectedCombatant._combatantInfo.gear.forEach(function (value) {
+      const equippedItem = ITEMS[value.id];
 
-    if(equippedItem !== undefined && equippedItem.quality === 5) {
-      results.items.push({
-        item: equippedItem,
-        result: (
-          <dfn data-tip="">
-            Equipped Legendary
-          </dfn>
-        ),
-      });
-    }
-  });
+      if (equippedItem !== undefined && equippedItem.quality === 5) {
+        results.items.push({
+          item: equippedItem,
+          result: (
+            <dfn data-tip="">
+              Equipped Legendary
+            </dfn>
+          ),
+        });
+      }
+    });
 
     if (nonDpsTimePercentage > 0.3) {
       results.addIssue({
@@ -153,24 +150,24 @@ class CombatLogParser extends MainCombatLogParser {
       });
     }
 
-    if(flametongueUptime < .95) {
-		  results.addIssue({
+    if (flametongueUptime < .95) {
+      results.addIssue({
         issue: `Try to make sure the Flametongue buff is always up, when it drops you should refresh it as soon as possible`,
         stat: `Your Flametongue uptime of ${formatPercentage(flametongueUptime)}% is below 95%, try to get as close to 100% as possible`,
         icon: SPELLS.FLAMETONGUE_BUFF.icon,
         importance: getIssueImportance(flametongueUptime, 0.9, 0.8, true),
       });
-	  }
+    }
 
-	  if(hasHailstorm && frostbrandUptime < .95) {
-		  results.addIssue({
+    if (hasHailstorm && frostbrandUptime < .95) {
+      results.addIssue({
         issue: `Try to make sure the Frostbrand buff is always up, when it drops you should refresh it as soon as possible`,
         stat: `Your Frostbrand uptime of ${formatPercentage(frostbrandUptime)}% is below 95%, try to get as close to 100% as possible`,
         icon: SPELLS.FROSTBRAND.icon,
         importance: getIssueImportance(frostbrandUptime, 0.9, 0.8, true),
       });
-    } else if(!hasHailstorm && frostbrandUptime > 0 && 1 === 2) {
-    //need to revist Frostbrand without Hailstorm logic
+    } else if (!hasHailstorm && frostbrandUptime > 0 && 1 === 2) {
+      //need to revist Frostbrand without Hailstorm logic
       results.addIssue({
         issue: `Casting Frostbrand without Hailstorm talent is not recommended`,
         icon: SPELLS.FROSTBRAND.icon,
@@ -178,7 +175,7 @@ class CombatLogParser extends MainCombatLogParser {
       });
     }
 
-    if(hasLandslide && landslideUptime < .95) {
+    if (hasLandslide && landslideUptime < .95) {
       results.addIssue({
         issue: `Try to make sure the Landslide buff from Rockbiter is always up, when it drops you should refresh it as soon as possible`,
         stat: `Your Landslide uptime of ${formatPercentage(landslideUptime)}% is below 95%, try to get as close to 100% as possible`,
@@ -187,7 +184,7 @@ class CombatLogParser extends MainCombatLogParser {
       });
     }
 
-    if(hasFuryOfAir && furyofairUptime < .95) {
+    if (hasFuryOfAir && furyofairUptime < .95) {
       results.addIssue({
         issue: `Try to make sure the Fury of Air buff is always up, when it drops you should refresh it as soon as possible`,
         stat: `Your Fury of Air uptime of ${formatPercentage(furyofairUptime)}% is below 95%, try to get as close to 100% as possible`,
@@ -196,24 +193,11 @@ class CombatLogParser extends MainCombatLogParser {
       });
     }
 
-    const castEfficiencyCategories = SPELL_CATEGORY;
-    const castEfficiency = getCastEfficiency(CPM_ABILITIES, this);
-    castEfficiency.forEach((cpm) => {
-      if (cpm.canBeImproved && !cpm.ability.noSuggestion) {
-        results.addIssue({
-          issue: <span>Try to cast <SpellLink id={cpm.ability.spell.id} /> more often. {cpm.ability.extraSuggestion || ''}</span>,
-          stat: `${cpm.casts} out of ${cpm.maxCasts} possible casts; ${Math.round(cpm.castEfficiency * 100)}% cast efficiency (>${cpm.recommendedCastEfficiency * 100}% is recommended)`,
-          icon: cpm.ability.spell.icon,
-          importance: cpm.ability.importance || getIssueImportance(cpm.castEfficiency, cpm.recommendedCastEfficiency - 0.05, cpm.recommendedCastEfficiency - 0.15),
-        });
-      }
-    });
-
     //setup notworthyitems
 
     results.statistics = [
       <StatisticBox
-        icon={ <Icon icon="class_shaman" alt="DPS stats" /> }
+        icon={<Icon icon="class_shaman" alt="DPS stats" />}
         value={`${formatNumber(this.totalDamageDone / this.fightDuration * 1000)} DPS`}
         label={(
           <dfn data-tip={`The total damage done recorded was ${formatThousands(this.totalDamageDone)}.`}>
@@ -221,7 +205,7 @@ class CombatLogParser extends MainCombatLogParser {
           </dfn>
         )}
       />,
-	  <StatisticBox
+      <StatisticBox
         icon={<Icon icon="spell_mage_altertime" alt="Dead GCD time" />}
         value={`${formatPercentage(deadTimePercentage)} %`}
         label={(
@@ -231,15 +215,15 @@ class CombatLogParser extends MainCombatLogParser {
         )}
       />,
       <StatisticBox
-          icon={<Icon icon="spell_nature_shamanrage" alt="Core Stats" />}
-          value={`${formatPercentage(masteryPercent)} % M ${formatPercentage(hastePercent)} % H`}
-          label={(
-              <dfn data-tip={`Mastery is ${formatPercentage(masteryPercent)} % and Haste is ${formatPercentage(hastePercent)} %`}>
-                  Core Secondary Stats
+        icon={<Icon icon="spell_nature_shamanrage" alt="Core Stats" />}
+        value={`${formatPercentage(masteryPercent)} % M ${formatPercentage(hastePercent)} % H`}
+        label={(
+          <dfn data-tip={`Mastery is ${formatPercentage(masteryPercent)} % and Haste is ${formatPercentage(hastePercent)} %`}>
+            Core Secondary Stats
           </dfn>
-          )}
+        )}
       />,
-	  <StatisticBox
+      <StatisticBox
         icon={<SpellIcon id={SPELLS.FLAMETONGUE_BUFF.id} />}
         value={`${formatPercentage(flametongueUptime)} %`}
         label={(
@@ -262,60 +246,30 @@ class CombatLogParser extends MainCombatLogParser {
           <SuggestionsTab issues={results.issues} />
         ),
       },
-
-      {
-          title: 'Cast efficiency',
-          url: 'cast-efficiency',
-          render: () => (
-              <CastEfficiencyTab
-                  categories={castEfficiencyCategories}
-                  abilities={castEfficiency}
-              />
-          ),
-      },
       {
         title: 'Talents',
         url: 'talents',
         render: () => (
-          <TalentsTab combatant={this.selectedCombatant} />
+          <Tab title="Talents">
+            <Talents combatant={this.selectedCombatant} />
+          </Tab>
         ),
       },
-      // {
-      //   title: 'Cooldowns',
-      //   url: 'cooldowns',
-      //   render: () => (
-      //     <CooldownsTab
-      //       fightStart={this.fight.start_time}
-      //       fightEnd={this.fight.end_time}
-      //       cooldowns={this.modules.cooldownTracker.pastCooldowns}
-      //       showOutputStatistics
-      //     />
-      //   ),
-      // },
       {
-        title: 'Procs',
-        url: 'procs',
+        title: 'Maelstrom',
+        url: 'maelstrom',
         render: () => (
-          <CooldownsTab
-            fightStart={this.fight.start_time}
-            fightEnd={this.fight.end_time}
-            cooldowns={this.modules.procTracker.pastCooldowns}
-            showOutputStatistics
-          />
+          <Tab title="Maelstrom" style={{ padding: '15px 22px' }}>
+            <Maelstrom
+              reportCode={this.report.code}
+              actorId={this.playerId}
+              start={this.fight.start_time}
+              end={this.fight.end_time}
+            />
+          </Tab>
         ),
       },
-      {
-          title: 'Maelstrom',
-          url: 'maelstrom',
-          render: () => (
-              <ManaTab
-                  reportCode={this.report.code}
-                  actorId={this.playerId}
-                  start={this.fight.start_time}
-                  end={this.fight.end_time}
-              />
-          ),
-      },
+      ...results.tabs,
     ];
 
     return results;

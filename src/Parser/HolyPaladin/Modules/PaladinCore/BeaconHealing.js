@@ -8,7 +8,7 @@ import Module from 'Parser/Core/Module';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-import CastEfficiency  from './CastEfficiency';
+import CastEfficiency  from '../Features/CastEfficiency';
 
 class BeaconHealing extends Module {
   getTotalHealsOnBeaconPercentage(parser) {

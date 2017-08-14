@@ -1,15 +1,14 @@
 import React from 'react';
 
 import SuggestionsTab from 'Main/SuggestionsTab';
-import TalentsTab from 'Main/TalentsTab';
-import CooldownsTab from 'Main/CooldownsTab';
-import ManaTab from 'Main/ManaTab';
-import LowHealthHealingTab from 'Main/LowHealthHealingTab';
+import Tab from 'Main/Tab';
+import Talents from 'Main/Talents';
+import Mana from 'Main/Mana';
 
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
+import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
 
 import HealingDone from './Modules/PaladinCore/HealingDone';
-import CastEfficiency from './Modules/PaladinCore/CastEfficiency';
 import PaladinAbilityTracker from './Modules/PaladinCore/PaladinAbilityTracker';
 import BeaconHealOriginMatcher from './Modules/PaladinCore/BeaconHealOriginMatcher';
 import BeaconTargets from './Modules/PaladinCore/BeaconTargets';
@@ -20,6 +19,7 @@ import FilledCastRatio from './Modules/PaladinCore/FilledCastRatio';
 import Overhealing from './Modules/PaladinCore/Overhealing';
 import FillerLightOfTheMartyrs from './Modules/PaladinCore/FillerLightOfTheMartyrs';
 
+import CastEfficiency from './Modules/Features/CastEfficiency';
 import MasteryEffectiveness from './Modules/Features/MasteryEffectiveness';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import SacredDawn from './Modules/Features/SacredDawn';
@@ -52,10 +52,10 @@ class CombatLogParser extends MainCombatLogParser {
   static specModules = {
     // Override the ability tracker so we also get stats for IoL and beacon healing
     abilityTracker: PaladinAbilityTracker,
+    lowHealthHealing: LowHealthHealing,
 
     // PaladinCore
     healingDone: HealingDone,
-    castEfficiency: CastEfficiency,
     beaconHealOriginMatcher: BeaconHealOriginMatcher,
     beaconTargets: BeaconTargets,
     beaconHealing: BeaconHealing,
@@ -66,6 +66,7 @@ class CombatLogParser extends MainCombatLogParser {
     fillerLightOfTheMartyrs: FillerLightOfTheMartyrs,
 
     // Features
+    castEfficiency: CastEfficiency,
     masteryEffectiveness: MasteryEffectiveness,
     alwaysBeCasting: AlwaysBeCasting,
     sacredDawn: SacredDawn,
@@ -110,42 +111,26 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       },
       {
-        title: 'Cooldowns',
-        url: 'cooldowns',
-        render: () => (
-          <CooldownsTab
-            fightStart={this.fight.start_time}
-            fightEnd={this.fight.end_time}
-            cooldowns={this.modules.cooldownTracker.pastCooldowns}
-            showOutputStatistics
-            showResourceStatistics
-          />
-        ),
-      },
-      {
         title: 'Talents',
         url: 'talents',
         render: () => (
-          <TalentsTab combatant={this.selectedCombatant} />
+          <Tab title="Talents">
+            <Talents combatant={this.selectedCombatant} />
+          </Tab>
         ),
       },
       {
         title: 'Mana',
         url: 'mana',
         render: () => (
-          <ManaTab
-            reportCode={this.report.code}
-            actorId={this.playerId}
-            start={this.fight.start_time}
-            end={this.fight.end_time}
-          />
-        ),
-      },
-      {
-        title: 'Low health healing',
-        url: 'low-health-healing',
-        render: () => (
-          <LowHealthHealingTab parser={this} />
+          <Tab title="Mana" style={{ padding: '15px 22px' }}>
+            <Mana
+              reportCode={this.report.code}
+              actorId={this.playerId}
+              start={this.fight.start_time}
+              end={this.fight.end_time}
+            />
+          </Tab>
         ),
       },
       ...results.tabs,

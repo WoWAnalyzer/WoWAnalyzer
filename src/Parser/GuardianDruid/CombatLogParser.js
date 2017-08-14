@@ -12,11 +12,12 @@ import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 
 import StatisticBox from 'Main/StatisticBox';
 import SuggestionsTab from 'Main/SuggestionsTab';
-import TalentsTab from 'Main/TalentsTab';
-import CastEfficiencyTab from 'Main/CastEfficiencyTab';
+import Tab from 'Main/Tab';
+import Talents from 'Main/Talents';
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
-import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
+
+import CastEfficiency from './Modules/Features/CastEfficiency';
 
 import Gore from './Modules/Features/Gore';
 import GalacticGuardian from './Modules/Features/GalacticGuardian';
@@ -24,8 +25,6 @@ import GuardianOfElune from './Modules/Features/GuardianOfElune';
 import DualDetermination from './Modules/Items/DualDetermination';
 
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
-
-import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
 
 function getIssueImportance(value, regular, major, higherIsWorse = false) {
   if (higherIsWorse ? value > major : value < major) {
@@ -66,6 +65,7 @@ function getMagicDescription(type) {
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
     // Features
+    castEfficiency: CastEfficiency,
     alwaysBeCasting: AlwaysBeCasting,
     goreProcs: Gore,
     galacticGuardianProcs: GalacticGuardian,
@@ -169,19 +169,6 @@ class CombatLogParser extends MainCombatLogParser {
       });
     }
 
-    const castEfficiencyCategories = SPELL_CATEGORY;
-    const castEfficiency = getCastEfficiency(CPM_ABILITIES, this);
-    castEfficiency.forEach((cpm) => {
-      if (cpm.canBeImproved && !cpm.ability.noSuggestion) {
-        results.addIssue({
-          issue: <span>Try to cast <SpellLink id={cpm.ability.spell.id} /> more often. {cpm.ability.extraSuggestion || ''}</span>,
-          stat: `${cpm.casts} out of ${cpm.maxCasts} possible casts; ${Math.round(cpm.castEfficiency * 100)}% cast efficiency (>${cpm.recommendedCastEfficiency * 100}% is recommended)`,
-          icon: cpm.ability.spell.icon,
-          importance: cpm.ability.importance || getIssueImportance(cpm.castEfficiency, cpm.recommendedCastEfficiency - 0.05, cpm.recommendedCastEfficiency - 0.15),
-        });
-      }
-    });
-
     results.statistics = [
       <StatisticBox
         icon={<Icon icon="class_druid" alt="Damage taken" />}
@@ -281,22 +268,15 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       },
       {
-        title: 'Cast efficiency',
-        url: 'cast-efficiency',
-        render: () => (
-          <CastEfficiencyTab
-            categories={castEfficiencyCategories}
-            abilities={castEfficiency}
-          />
-        ),
-      },
-      {
         title: 'Talents',
         url: 'talents',
         render: () => (
-          <TalentsTab combatant={this.selectedCombatant} />
+          <Tab title="Talents">
+            <Talents combatant={this.selectedCombatant} />
+          </Tab>
         ),
       },
+      ...results.tabs,
     ];
 
     return results;

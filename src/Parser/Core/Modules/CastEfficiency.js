@@ -6,7 +6,8 @@ import { formatPercentage } from 'common/format';
 import Module from 'Parser/Core/Module';
 import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 
-import CastEfficiencyTab from 'Main/CastEfficiencyTab';
+import Tab from 'Main/Tab';
+import CastEfficiencyComponent from 'Main/CastEfficiency';
 
 class CastEfficiency extends Module {
   static CPM_ABILITIES = [];
@@ -33,10 +34,12 @@ class CastEfficiency extends Module {
       title: 'Cast efficiency',
       url: 'cast-efficiency',
       render: () => (
-        <CastEfficiencyTab
-          categories={this.constructor.SPELL_CATEGORIES}
-          abilities={getCastEfficiency(this.constructor.CPM_ABILITIES, this.owner)}
-        />
+        <Tab title="Cast efficiency">
+          <CastEfficiencyComponent
+            categories={this.constructor.SPELL_CATEGORIES}
+            abilities={getCastEfficiency(this.constructor.CPM_ABILITIES, this.owner)}
+          />
+        </Tab>
       ),
     };
   }

@@ -2,7 +2,8 @@ import React from 'react';
 
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 
-import TalentsTab from 'Main/TalentsTab';
+import Tab from 'Main/Tab';
+import Talents from 'Main/Talents';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
@@ -20,9 +21,12 @@ class CombatLogParser extends MainCombatLogParser {
         title: 'Talents',
         url: 'talents',
         render: () => (
-          <TalentsTab combatant={this.selectedCombatant} />
+          <Tab title="Talents">
+            <Talents combatant={this.selectedCombatant} />
+          </Tab>
         ),
       },
+      ...results.tabs,
     ];
 
     return results;
