@@ -9,6 +9,9 @@ class LazyLoadStatisticBox extends React.PureComponent {
     loader: PropTypes.func.isRequired,
     value: PropTypes.node.isRequired,
   };
+  static contextTypes = {
+    updateResults: PropTypes.func.isRequired,
+  };
 
   constructor() {
     super();
@@ -32,6 +35,7 @@ class LazyLoadStatisticBox extends React.PureComponent {
         loading: false,
         loaded: true,
       });
+      this.context.updateResults();
       return result;
     });
   }
