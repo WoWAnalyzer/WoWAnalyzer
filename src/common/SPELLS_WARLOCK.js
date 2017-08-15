@@ -15,6 +15,18 @@ export default {
     name: 'Soul Leech',
     icon: 'warlock_siphonlife',
   },
+  //health funnel - cast: 755, buff na petovi: 217979
+  HEALTH_FUNNEL_CAST: {
+    id: 755,
+    name: 'Health Funnel',
+    icon: 'spell_shadow_lifedrain',
+  },
+  //soulstone - cast: 20707, buff stejne
+  SOULSTONE: {
+    id: 20707,
+    name: 'Soulstone',
+    icon: 'spell_shadow_soulgem',
+  },
   SUMMON_DOOMGUARD_UNTALENTED: {
     id: 18540,
     name: 'Summon Doomguard',
@@ -30,7 +42,12 @@ export default {
     name: 'Unending Resolve',
     icon: 'spell_shadow_demonictactics',
   },
-
+  //demonic gateway - cast: 111771, debuff: 113942, s leg kalhotama ten polovicni debuff: 217551
+  DEMONIC_GATEWAY_CAST: {
+    id: 111771,
+    name: 'Demonic Gateway',
+    icon: 'spell_warlock_demonicportal_green',
+  },
   // Shared talents
   BURNING_RUSH: {
     id: 111400,
@@ -41,6 +58,17 @@ export default {
     id: 235156,
     name: 'Empowered Life Tap',
     icon: 'spell_shadow_manafeed',
+  },
+  //demonic teleport - cast = buff: 48018 (je uz v TALENTS_WARLOCK), ale teleport spell: 48020
+  DEMONIC_CIRCLE_SUMMON: {
+    id: 48018,
+    name: 'Demonic Circle',
+    icon: 'spell_shadow_demoniccirclesummon',
+  },
+  DEMONIC_CIRCLE_TELEPORT: {
+    id: 48020,
+    name: 'Demonic Circle',
+    icon: 'spell_shadow_demoniccircleteleport',
   },
   MORTAL_COIL: {
     id: 6789,
@@ -61,6 +89,16 @@ export default {
     id: 108416,
     name: 'Dark Pact',
     icon: 'warlock_sacrificial_pact',
+  },
+  SUMMON_DOOMGUARD_TALENTED: {
+    id: 157757,
+    name: 'Summon Doomguard',
+    icon: 'warlock_summon_doomguard',
+  },
+  SUMMON_INFERNAL_TALENTED: {
+    id: 157898,
+    name: 'Summon Infernal',
+    icon: 'spell_shadow_summoninfernal',
   },
   GRIMOIRE_IMP: {
     id: 111859,
