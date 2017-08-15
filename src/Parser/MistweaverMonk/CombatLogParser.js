@@ -23,16 +23,20 @@ import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import CooldownTracker from './Modules/Features/CooldownTracker';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
-import UpliftingTrance from './Modules/Features/UpliftingTrance';
-import ManaTea from './Modules/Features/ManaTea';
-import ManaSavingTalents from './Modules/Features/ManaSavingTalents';
-import ThunderFocusTea from './Modules/Features/ThunderFocusTea';
-import SheilunsGift from './Modules/Features/SheilunsGift';
-import RenewingMist from './Modules/Features/RenewingMist';
 import AOEHealingTracker from './Modules/Features/AOEHealingTracker';
-import EssenceFontMastery from './Modules/Features/EssenceFontMastery';
-import ChiJi from './Modules/Features/ChiJi';
-import ChiBurst from './Modules/Features/ChiBurst';
+import ManaSavingTalents from './Modules/Features/ManaSavingTalents';
+
+// Spells
+import UpliftingTrance from './Modules/Spells/UpliftingTrance';
+import ThunderFocusTea from './Modules/Spells/ThunderFocusTea';
+import SheilunsGift from './Modules/Spells/SheilunsGift';
+import RenewingMist from './Modules/Spells/RenewingMist';
+import EssenceFontMastery from './Modules/Spells/EssenceFontMastery';
+
+// Talents
+import ChiJi from './Modules/Talents/ChiJi';
+import ChiBurst from './Modules/Talents/ChiBurst';
+import ManaTea from './Modules/Talents/ManaTea';
 
 // Setup for Items
 import Eithas from './Modules/Items/Eithas';
@@ -85,19 +89,23 @@ class CombatLogParser extends MainCombatLogParser {
     lowHealthHealing: LowHealthHealing,
 
     // Features
-    castEfficiency: CastEfficiency,
     alwaysBeCasting: AlwaysBeCasting,
-    cooldownTracker: CooldownTracker,
-    upliftingTrance: UpliftingTrance,
-    manaTea: ManaTea,
-    manaSavingTalents: ManaSavingTalents,
-    thunderFocusTea: ThunderFocusTea,
-    sheilunsGift: SheilunsGift,
-    renewingMist: RenewingMist,
     aoeHealingTracker: AOEHealingTracker,
+    castEfficiency: CastEfficiency,
+    cooldownTracker: CooldownTracker,
+    manaSavingTalents: ManaSavingTalents,
+    
+    // Spells
     essenceFontMastery: EssenceFontMastery,
-    chiJi: ChiJi,
+    renewingMist: RenewingMist,
+    sheilunsGift: SheilunsGift,
+    thunderFocusTea: ThunderFocusTea,
+    upliftingTrance: UpliftingTrance,
+
+    // Talents
     chiBurst: ChiBurst,
+    chiJi: ChiJi,
+    manaTea: ManaTea,
 
     // Legendaries / Items:
     eithas: Eithas,
@@ -108,7 +116,7 @@ class CombatLogParser extends MainCombatLogParser {
     petrichorLagniappe: PetrichorLagniappe,
     ovydsWinterWrap: OvydsWinterWrap,
   };
-  
+
   damageTaken = 0;
   on_toPlayer_damage(event){
     this.damageTaken += event.amount;
@@ -116,6 +124,7 @@ class CombatLogParser extends MainCombatLogParser {
 
   generateResults() {
     const results = super.generateResults();
+    const { suggestions } = results;
 
     const fightDuration = this.fightDuration;
     const getPercentageOfTotal = healingDone => healingDone / this.totalHealing;
@@ -132,12 +141,10 @@ class CombatLogParser extends MainCombatLogParser {
 
     const unusedUTProcs = 1 - (this.modules.upliftingTrance.consumedUTProc / this.modules.upliftingTrance.UTProcsTotal);
 
-    const avgSGOverheal = this.modules.sheilunsGift.overhealSG / this.modules.sheilunsGift.castsSG || 0;
     const SGability = getAbility(SPELLS.SHEILUNS_GIFT.id);
     const SGcasts = SGability.casts || 0;
     const avgSGstacks = this.modules.sheilunsGift.stacksTotalSG / SGcasts || 0;
     const wastedSGStacks = this.modules.sheilunsGift.stacksWastedSG + Math.floor((fightEndTime - this.modules.sheilunsGift.lastSGStack) / 10000);
-    const missedWhispersHeal = ((Math.floor(fightDuration / 10000) + this.modules.sheilunsGift.countEff) - this.modules.sheilunsGift.countWhispersHeal);
 
     const manaTea = getAbility(SPELLS.MANA_TEA_TALENT.id);
     const mtCasts = manaTea.casts || 0;
@@ -171,61 +178,72 @@ class CombatLogParser extends MainCombatLogParser {
     const sheilunsGiftHealing = getAbility(SPELLS.SHEILUNS_GIFT.id);
     const sheilunsGiftOverhealingPercentage = getOverhealingPercentage(sheilunsGiftHealing) || 0;
 
-    if (nonHealingTimePercentage > 0.4) {
-      results.addIssue({
-        issue: `Your non healing time can be improved. Try to cast heals more regularly (${Math.round(nonHealingTimePercentage * 100)}% non healing time).`,
-        icon: 'petbattle_health-down',
-        importance: getIssueImportance(nonHealingTimePercentage, 0.5, 0.6, true),
+    // Suggestions
+
+    // Misc Suggestions
+    suggestions
+      .when(nonHealingTimePercentage).isGreaterThan(0.5)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest('Your non healing time can be improved. Try to cast heals more regularly.')
+          .icon('petbattle_health-down')
+          .actual(`${formatPercentage(actual)} non healing time`)
+          .recommended(`<${formatPercentage(recommended)}% is recommended`)
+          .regular(recommended + 0.1).major(recommended + 0.2);
       });
-    }
-    if (deadTimePercentage > 0.4) {
-      results.addIssue({
-        issue: `Your dead GCD time can be improved. Try to Always Be Casting (ABC); when you're not healing try to contribute some damage (${Math.round(deadTimePercentage * 100)}% dead GCD time).`,
-        icon: 'spell_mage_altertime',
-        importance: getIssueImportance(deadTimePercentage, 0.5, 1, true),
+    suggestions
+      .when(deadTimePercentage).isGreaterThan(0.4)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest('Your dead GCD time can be improved. Try to Always Be Casting (ABC); when you\'re not healing try to contribute some damage')
+          .icon('spell_mage_altertime')
+          .actual(`${formatPercentage(actual)} non healing time`)
+          .recommended(`<${formatPercentage(recommended)}% is recommended`)
+          .regular(recommended + 0.1).major(recommended + 0.2);
       });
-    }
+
+    // Healing Suggestions
+
     // Missed Whispers healing
-    if(hasWhispersOfShaohao && missedWhispersHeal > 10) {
-      results.addIssue({
-        issue: <span>You missed {missedWhispersHeal} <SpellLink id={SPELLS.WHISPERS_OF_SHAOHAO.id} /> healing procs. While you cannot actively place the clouds that spawn, work to position yourself near other members of the raid so that when the clouds are used, they heal someone.</span>,
-        icon: SPELLS.WHISPERS_OF_SHAOHAO_TRAIT.icon,
-        importance: getIssueImportance(missedWhispersHeal, 12, 15, true),
-      });
-    }
-    // T20 2pc Buff missed
-    if(this.modules.t20_2pc.active && (this.modules.t20_2pc.procs - this.modules.t20_2pc.casts) > 0) {
-      results.addIssue({
-        issue: <span>You missed {this.modules.t20_2pc.procs - this.modules.t20_2pc.casts} <SpellLink id={SPELLS.SURGE_OF_MISTS.id} /> procs. This proc provides not only a large mana savings on <SpellLink id={SPELLS.ENVELOPING_MISTS.id} />. If you have the Tier 20 4 piece bonus, you also gain a 12% healing buff through <SpellLink id={SPELLS.DANCE_OF_MISTS.id} /> </span>,
-        icon: SPELLS.SURGE_OF_MISTS.icon,
-        importance: getIssueImportance((this.modules.t20_2pc.procs - this.modules.t20_2pc.casts), 0, 1, true),
-      });
-    }
-    // Sheilun's Gift Overhealing issue
-    if(sheilunsGiftOverhealingPercentage > .5 && avgSGstacks >= 6) {
-      results.addIssue({
-        issue: <span>You averaged {(avgSGOverheal / 1000).toFixed(0)}k overheal with your <SpellLink id={SPELLS.SHEILUNS_GIFT.id} /> and casted with an average of {(avgSGstacks).toFixed(0)} stacks. Consider using <SpellLink id={SPELLS.SHEILUNS_GIFT.id} /> at lower stacks to increase effectiveness.</span>,
-        icon: SPELLS.SHEILUNS_GIFT.icon,
-        importance: getIssueImportance(sheilunsGiftOverhealingPercentage, .6, .8, true),
-      });
-    }
-    if(sheilunsGiftOverhealingPercentage > .5 && avgSGstacks < 6) {
-      results.addIssue({
-        issue: <span>You averaged {(avgSGOverheal / 1000).toFixed(0)}k overheal with your <SpellLink id={SPELLS.SHEILUNS_GIFT.id} /> and casted with an average of {(avgSGstacks).toFixed(0)} stacks. Consider using <SpellLink id={SPELLS.SHEILUNS_GIFT.id} /> on injured targets to increase effectiveness.</span>,
-        icon: SPELLS.SHEILUNS_GIFT.icon,
-        importance: getIssueImportance(sheilunsGiftOverhealingPercentage, .6, .8, true),
-      });
-    }
-    // Sheilun's Gift Casts
-    if(SGcasts < Math.floor(((this.fightDuration / 10000) / 5))) {
-      results.addIssue({
-        issue: <span>You casted <SpellLink id={SPELLS.SHEILUNS_GIFT.id} /> {SGcasts} times over the course of the fight. Casting at an average of 5 stacks would have given you potentially {(((this.fightDuration / 10000) / 5)).toFixed(1)} casts. Consider using <SpellLink id={SPELLS.SHEILUNS_GIFT.id} /> more often to take advantage of its free healing.</span>,
-        icon: SPELLS.SHEILUNS_GIFT.icon,
-        importance: getIssueImportance(SGcasts, ((this.fightDuration / 10000) / 8), ((this.fightDuration / 10000) / 12)),
-      });
+    const missedWhispersHeal = ((Math.floor(fightDuration / 10000) + this.modules.sheilunsGift.countEff) - this.modules.sheilunsGift.countWhispersHeal);
+    if(hasWhispersOfShaohao) {
+      suggestions
+        .when(missedWhispersHeal).isGreaterThan(5)
+        .addSuggestion((suggest, actual, recommended) => {
+          return suggest(<span>You missed multiple <SpellLink id={SPELLS.WHISPERS_OF_SHAOHAO.id} /> healing procs. While you cannot actively place the clouds that spawn, work to position yourself near other members of the raid so that when the clouds are used, they heal someone. </span>)
+            .icon(SPELLS.WHISPERS_OF_SHAOHAO_TRAIT.icon)
+            .actual(`${missedWhispersHeal} missed heals`)
+            .recommended(`<${recommended} missed is recommended`)
+            .regular(recommended + 2).major(recommended + 5);
+        });
     }
 
+    // Sheilun's Gift Overhealing issue
+    suggestions
+      .when(sheilunsGiftOverhealingPercentage).isGreaterThan(.5)
+      .addSuggestion((suggest, actual, recommended) => {
+        let suggestionText;
+        if (avgSGstacks >= 6) {
+          suggestionText = <span>You had high overheal when using <SpellLink id={SPELLS.SHEILUNS_GIFT.id} /> and casted with greater than 6 stacks. Consider using <SpellLink id={SPELLS.SHEILUNS_GIFT.id} /> at lower stacks to increase effectiveness.</span>;
+        } else {
+          suggestionText = <span>You had high overheal when using <SpellLink id={SPELLS.SHEILUNS_GIFT.id} /> and casted with less than 6 stacks. Consider using <SpellLink id={SPELLS.SHEILUNS_GIFT.id} /> on injured targets to increase effectiveness.</span>;
+        }
+        return suggest(suggestionText)
+          .icon(SPELLS.SHEILUNS_GIFT.icon)
+          .actual(`${formatPercentage(sheilunsGiftOverhealingPercentage)}% Sheilun's Gift Overhealing - ${avgSGstacks.toFixed(0)} average Sheilun's Gift stacks`)
+          .recommended(`<${formatPercentage(recommended)}% Sheilun's Gift Overheal is recommended`)
+          .regular(recommended + .1).major(recommended + .2);
+      });
+
     // Uplifting Trance Usage
+    suggestions
+      .when(unusedUTProcs).isGreaterThan(.35)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<span>Your <SpellLink id={SPELLS.UPLIFTING_TRANCE_BUFF.id} /> procs should be used as soon as you get them so they are not overwritten. While some will be overwritten due to the nature of the spell interactions, holding <SpellLink id={SPELLS.UPLIFTING_TRANCE_BUFF.id} /> procs is not optimal.</span>)
+          .icon(SPELLS.UPLIFTING_TRANCE_BUFF.icon)
+          .actual(`${formatPercentage(unusedUTProcs)}% Unused Uplifting Trance procs`)
+          .recommended(`<${formatPercentage(recommended)}% wasted UT Buffs is recommended`)
+          .regular(recommended +.15).major(recommended + .25);
+      });
+
     if (unusedUTProcs > 0.30) {
       results.addIssue({
         issue: <span>Your <SpellLink id={SPELLS.UPLIFTING_TRANCE_BUFF.id} /> procs should be used as soon as you get them so they are not overwritten. You missed {(this.modules.upliftingTrance.UTProcsTotal - this.modules.upliftingTrance.consumedUTProc)}/{(this.modules.upliftingTrance.UTProcsTotal)} procs. ({formatPercentage((this.modules.upliftingTrance.UTProcsTotal - this.modules.upliftingTrance.consumedUTProc) / this.modules.upliftingTrance.UTProcsTotal)} %)</span>,
@@ -234,13 +252,18 @@ class CombatLogParser extends MainCombatLogParser {
       });
     }
     // Mana Tea Usage issue
-    if (this.modules.manaTea.active && avgMTsaves < 180000) {
-      results.addIssue({
-        issue: <span>Your mana spent during <SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> can be improved. Always aim to cast your highest mana spells such as <SpellLink id={SPELLS.ESSENCE_FONT.id} /> or <SpellLink id={SPELLS.VIVIFY.id} />. ({((this.modules.manaTea.manaSavedMT / this.modules.manaTea.manateaCount) / 1000).toFixed(0)}k avg mana saved)</span>,
-        icon: SPELLS.MANA_TEA_TALENT.icon,
-        importance: getIssueImportance(avgMTsaves, 150000, 120000),
-      });
+    if (this.modules.manaTea.active) {
+      suggestions
+        .when(avgMTsaves).isLessThan(180000)
+        .addSuggestion((suggest, actual, recommended) => {
+          return suggest(<span>Your mana spent during <SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> can be improved. Always aim to cast your highest mana spells such as <SpellLink id={SPELLS.ESSENCE_FONT.id} /> or <SpellLink id={SPELLS.VIVIFY.id} />.</span>)
+            .icon(SPELLS.MANA_TEA_TALENT.icon)
+            .actual(`${((this.modules.manaTea.manaSavedMT / this.modules.manaTea.manateaCount) / 1000).toFixed(0)}k average mana saved per Mana Tea cast`)
+            .recommended(`${(recommended / 1000).toFixed(0)}k average mana saved is recommended`)
+            .regular(recommended - 30000).major(recommended - 60000);
+        });
     }
+
     // Lifecycles Manasavings
     if(hasLifecycles && this.modules.manaSavingTalents.manaSaved < 200000) {
       results.addIssue({
@@ -258,13 +281,16 @@ class CombatLogParser extends MainCombatLogParser {
       });
     }
     // EF Mastery Proc Usage
-    if (avgMasteryCastsPerEF < 3 && avgTargetsHitPerEF > 0) {
-      results.addIssue({
-        issue: <span>You are currently not utilizing your <SpellLink id={SPELLS.ESSENCE_FONT.id} /> HOT buffs effectively. You only utilized an average of {avgMasteryCastsPerEF.toFixed(2)} HOTs over {this.modules.essenceFontMastery.castEF} <SpellLink id={SPELLS.ESSENCE_FONT.id} /> casts.</span>,
-        icon: SPELLS.GUSTS_OF_MISTS.icon,
-        importance: getIssueImportance(avgMasteryCastsPerEF, 2, 1),
+    suggestions
+      .when(avgMasteryCastsPerEF).isLessThan(3)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<span>You are currently not utilizing your <SpellLink id={SPELLS.ESSENCE_FONT.id} /> HOT buffs effectively. Casting into injured targets with the <SpellLink id={SPELLS.ESSENCE_FONT.id} /> allows you to take advantage of the double <SpellLink id={SPELLS.GUSTS_OF_MISTS.id} /> procs.</span>)
+          .icon(SPELLS.ESSENCE_FONT.icon)
+          .actual(`${avgMasteryCastsPerEF.toFixed(2)} average EF HoTs`)
+          .recommended(`${recommended} or more EF HoTs utilized is recommended`)
+          .regular(recommended - 1).major(recommended - 2);
       });
-    }
+
     // EF Targets Hit
     if(avgTargetsHitPerEF < 17) {
       results.addIssue({
@@ -274,6 +300,17 @@ class CombatLogParser extends MainCombatLogParser {
       });
     }
     // SotC Usage
+    if(hasSotC) {
+      suggestions
+        .when(this.modules.manaSavingTalents.manaReturnSotc).isLessThan(300000)
+        .addSuggestion((suggest, actual, recommended) => {
+          return suggest()
+          .icon(SPELLS.SPIRIT_OF_THE_CRANE_TALENT.icon)
+          .actual()
+          .recommended()
+          .regular(recommended - 50000).major(recommended - 150000);
+        });
+    }
     if (hasSotC && this.modules.manaSavingTalents.manaReturnSotc < 300000) {
       results.addIssue({
         issue: <span>You are not utilizing your <SpellLink id={SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id} /> talent as effectively as you could. You only received {(this.modules.manaSavingTalents.manaReturnSotc / 1000).toFixed(0)}k mana back during this fight. You also lost {(this.modules.manaSavingTalents.totmOverCap + this.modules.manaSavingTalents.totmBuffWasted)} Teachings of the Monestery stacks</span>,
@@ -290,14 +327,45 @@ class CombatLogParser extends MainCombatLogParser {
       });
     }
     // Chi Burst Usage
-    if(this.modules.chiBurst.active && avgChiBurstTargets < (raidSize * .3)) {
-      results.addIssue({
-        issue: <span>You are not utilizing your <SpellLink id={SPELLS.CHI_BURST_TALENT.id} /> talent as effectively as you should. You hit an average of {avgChiBurstTargets.toFixed(2)} targets per Chi Burst cast. Look to better position yourself during your your Chi Burst casts to get the most use out of the spell. ({((this.modules.chiBurst.healing / this.modules.chiBurst.castChiBurst) / 1000).toFixed(1)}k avg healing per cast.)</span>,
-        icon: SPELLS.CHI_BURST_TALENT.icon,
-        importance: getIssueImportance(avgChiBurstTargets, (raidSize * .25), (raidSize * .2)),
-      });
+    if(this.modules.chiBurst.active) {
+      suggestions
+        .when(avgChiBurstTargets).isLessThan(raidSize * .3)
+        .addSuggestion((suggest, actual, recommended) => {
+          return suggest(<span>You are not utilizing your <SpellLink id={SPELLS.CHI_BURST_TALENT.id} /> talent as effectively as you should. You should work on both your positioning and aiming of the spell. Always aim for the highest concentration of players, which is normally melee.</span>)
+            .icon(SPELLS.CHI_BURST_TALENT.icon)
+            .actual(`${avgChiBurstTargets.toFixed(2)} targets hit per Chi Burst cast - ${formatPercentage(avgChiBurstTargets / raidSize)}% of raid hit`)
+            .recommended(`30% of the raid hit is recommended`)
+            .regular(recommended - .05).major(recommended - .1);
+        });
     }
 
+    // T20 2pc Buff missed
+    if(this.modules.t20_2pc.active && (this.modules.t20_2pc.procs - this.modules.t20_2pc.casts) > 0) {
+      results.addIssue({
+        issue: <span>You missed {this.modules.t20_2pc.procs - this.modules.t20_2pc.casts} <SpellLink id={SPELLS.SURGE_OF_MISTS.id} /> procs. This proc provides not only a large mana savings on <SpellLink id={SPELLS.ENVELOPING_MISTS.id} />. If you have the Tier 20 4 piece bonus, you also gain a 12% healing buff through <SpellLink id={SPELLS.DANCE_OF_MISTS.id} /> </span>,
+        icon: SPELLS.SURGE_OF_MISTS.icon,
+        importance: getIssueImportance((this.modules.t20_2pc.procs - this.modules.t20_2pc.casts), 0, 1, true),
+      });
+    }
+/*
+    // Cast efficiency
+    const castEfficiencyCategories = SPELL_CATEGORY;
+    const castEfficiency = getCastEfficiency(CPM_ABILITIES, this);
+    castEfficiency.forEach(cpm => {
+      if (cpm.ability.noSuggestion || cpm.castEfficiency === null) {
+        return;
+      }
+      suggestions
+        .when(cpm.castEfficiency).isLessThan(cpm.recommendedCastEfficiency)
+        .addSuggestion((suggest, actual, recommended) => {
+          return suggest(<span>Try to cast <SpellLink id={cpm.ability.spell.id} /> more often. {cpm.ability.extraSuggestion || ''}</span>)
+            .icon(cpm.ability.spell.icon)
+            .actual(`${cpm.casts} out of ${cpm.maxCasts} possible casts; ${formatPercentage(actual)}% cast efficiency`)
+            .recommended(`>${formatPercentage(recommended)}% is recommended`)
+            .regular(recommended - 0.05).major(recommended - 0.15).staticImportance(cpm.ability.importance);
+        });
+    });
+*/
     results.statistics = [
       <StatisticBox
         icon={(
