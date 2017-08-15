@@ -1,6 +1,8 @@
 import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
 
 class Module {
+  static dependencies = {};
+
   /** @var CombatLogParser */
   owner = null;
   /** @var boolean Whether or not this module is active, usually depends on specific items or talents. */
@@ -25,8 +27,6 @@ class Module {
   statisticOrder = STATISTIC_ORDER.DEFAULT;
   suggestions(when) { return undefined; }
   tab() { return undefined; }
-
-  static dependencies = {};
 }
 
 export default Module;

@@ -135,7 +135,11 @@ class CombatLogParser {
 
       if (missingDependencies.length === 0) {
         // This may override existing modules, this is intended.
-        console.log('Loading', moduleClass.name);
+        if (Object.keys(availableDependencies).length === 0) {
+          console.log('Loading', moduleClass.name);
+        } else {
+          console.log('Loading', moduleClass.name, 'with dependencies:', Object.keys(availableDependencies));
+        }
         this.modules[desiredModuleName] = new moduleClass(this, availableDependencies);
       } else {
         console.warn(moduleClass.name, 'could not be loaded, missing dependencies:', missingDependencies.map(d => d.name));
