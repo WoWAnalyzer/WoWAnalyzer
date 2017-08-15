@@ -5,7 +5,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
-import Icon from 'common/Icon';
 import ITEMS from 'common/ITEMS';
 
 import StatisticBox from 'Main/StatisticBox';
@@ -19,12 +18,18 @@ import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
 
+// Core
+import HealingDone from './Modules/Core/HealingDone';
+
 // Features
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import CooldownTracker from './Modules/Features/CooldownTracker';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
-import AOEHealingTracker from './Modules/Features/AOEHealingTracker';
-import ManaSavingTalents from './Modules/Features/ManaSavingTalents';
+
+// Traits
+import ManaSavingTalents from './Modules/Traits/ManaSavingTalents';
+import MistsOfSheilun from './Modules/Traits/MistsOfSheilun';
+import CelestialBreath from './Modules/Traits/CelestialBreath';
 
 // Spells
 import UpliftingTrance from './Modules/Spells/UpliftingTrance';
@@ -37,6 +42,7 @@ import EssenceFontMastery from './Modules/Spells/EssenceFontMastery';
 import ChiJi from './Modules/Talents/ChiJi';
 import ChiBurst from './Modules/Talents/ChiBurst';
 import ManaTea from './Modules/Talents/ManaTea';
+import RefreshingJadeWind from './Modules/Talents/RefreshingJadeWind';
 
 // Setup for Items
 import Eithas from './Modules/Items/Eithas';
@@ -87,14 +93,18 @@ class CombatLogParser extends MainCombatLogParser {
   static specModules = {
     // Core
     lowHealthHealing: LowHealthHealing,
+    healingDone: HealingDone,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
-    aoeHealingTracker: AOEHealingTracker,
     castEfficiency: CastEfficiency,
     cooldownTracker: CooldownTracker,
+
+    // Traits
+    mistsOfSheilun: MistsOfSheilun,
+    celestialBreath: CelestialBreath,
     manaSavingTalents: ManaSavingTalents,
-    
+
     // Spells
     essenceFontMastery: EssenceFontMastery,
     renewingMist: RenewingMist,
@@ -106,6 +116,7 @@ class CombatLogParser extends MainCombatLogParser {
     chiBurst: ChiBurst,
     chiJi: ChiJi,
     manaTea: ManaTea,
+    refreshingJadeWind: RefreshingJadeWind,
 
     // Legendaries / Items:
     eithas: Eithas,
@@ -130,7 +141,6 @@ class CombatLogParser extends MainCombatLogParser {
     const getPercentageOfTotal = healingDone => healingDone / this.totalHealing;
     const formatItemHealing = healingDone => `${formatPercentage(getPercentageOfTotal(healingDone))} % / ${formatNumber(healingDone / fightDuration * 1000)} HPS`;
     const fightEndTime = this.fight.end_time;
-    const raidSize = Object.entries(this.combatants.players).length;
     const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
     const nonHealingTimePercentage = this.modules.alwaysBeCasting.totalHealingTimeWasted / fightDuration;
 
@@ -150,15 +160,6 @@ class CombatLogParser extends MainCombatLogParser {
     const mtCasts = manaTea.casts || 0;
     const avgMTsaves = this.modules.manaTea.manaSavedMT / mtCasts || 0;
 
-    const avgChiBurstTargets = this.modules.chiBurst.targetsChiBurst / this.modules.chiBurst.castChiBurst || 0;
-
-    const avgCelestialBreathHealing = this.modules.aoeHealingTracker.healingCelestialBreath / this.modules.aoeHealingTracker.healsCelestialBreath || 0;
-    const avgCelestialBreathTargets = (this.modules.aoeHealingTracker.healsCelestialBreath / this.modules.aoeHealingTracker.procsCelestialBreath) / 3 || 0;
-    const avgMistsOfSheilunHealing = this.modules.aoeHealingTracker.healingMistsOfSheilun / this.modules.aoeHealingTracker.healsMistsOfSheilun || 0;
-    const avgMistsOfSheilunTargets = this.modules.aoeHealingTracker.healsMistsOfSheilun / this.modules.aoeHealingTracker.procsMistsOfSheilun || 0;
-    const avgRJWHealing = this.modules.aoeHealingTracker.healingRJW / this.modules.aoeHealingTracker.castRJW || 0;
-    const avgRJWTargets = this.modules.aoeHealingTracker.healsRJW / this.modules.aoeHealingTracker.castRJW || 0;
-
     const efMasteryCasts = (this.modules.essenceFontMastery.healEF / 2) || 0;
     const efMasteryEffectiveHealing = ((this.modules.essenceFontMastery.healing) / 2) || 0;
     const avgEFMasteryHealing = efMasteryEffectiveHealing / efMasteryCasts || 0;
@@ -168,10 +169,7 @@ class CombatLogParser extends MainCombatLogParser {
 
     // Trait Checks
     const hasWhispersOfShaohao = this.selectedCombatant.traitsBySpellId[SPELLS.WHISPERS_OF_SHAOHAO_TRAIT.id] === 1;
-    const hasCelestialBreath = this.selectedCombatant.traitsBySpellId[SPELLS.CELESTIAL_BREATH_TRAIT.id] === 1;
-    const hasMistsOfSheilun = this.selectedCombatant.traitsBySpellId[SPELLS.MISTS_OF_SHEILUN_TRAIT.id] === 1;
 
-    const hasRJW = this.selectedCombatant.hasTalent(SPELLS.REFRESHING_JADE_WIND_TALENT.id);
     const hasSotC = this.selectedCombatant.hasTalent(SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id);
     const hasLifecycles = this.selectedCombatant.hasTalent(SPELLS.LIFECYCLES_TALENT.id);
 
@@ -318,6 +316,7 @@ class CombatLogParser extends MainCombatLogParser {
         importance: getIssueImportance(this.modules.manaSavingTalents.manaReturnSotc, 250000, 150000),
       });
     }
+    /*
     // RJW Targets Hit
     if (hasRJW && avgRJWTargets < (78 * .9)) {
       results.addIssue({
@@ -326,19 +325,7 @@ class CombatLogParser extends MainCombatLogParser {
         importance: getIssueImportance(avgRJWTargets, (78 * .8), (78 * .7)),
       });
     }
-    // Chi Burst Usage
-    if(this.modules.chiBurst.active) {
-      suggestions
-        .when(avgChiBurstTargets).isLessThan(raidSize * .3)
-        .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<span>You are not utilizing your <SpellLink id={SPELLS.CHI_BURST_TALENT.id} /> talent as effectively as you should. You should work on both your positioning and aiming of the spell. Always aim for the highest concentration of players, which is normally melee.</span>)
-            .icon(SPELLS.CHI_BURST_TALENT.icon)
-            .actual(`${avgChiBurstTargets.toFixed(2)} targets hit per Chi Burst cast - ${formatPercentage(avgChiBurstTargets / raidSize)}% of raid hit`)
-            .recommended(`30% of the raid hit is recommended`)
-            .regular(recommended - .05).major(recommended - .1);
-        });
-    }
-
+    */
     // T20 2pc Buff missed
     if(this.modules.t20_2pc.active && (this.modules.t20_2pc.procs - this.modules.t20_2pc.casts) > 0) {
       results.addIssue({
@@ -347,50 +334,8 @@ class CombatLogParser extends MainCombatLogParser {
         importance: getIssueImportance((this.modules.t20_2pc.procs - this.modules.t20_2pc.casts), 0, 1, true),
       });
     }
-/*
-    // Cast efficiency
-    const castEfficiencyCategories = SPELL_CATEGORY;
-    const castEfficiency = getCastEfficiency(CPM_ABILITIES, this);
-    castEfficiency.forEach(cpm => {
-      if (cpm.ability.noSuggestion || cpm.castEfficiency === null) {
-        return;
-      }
-      suggestions
-        .when(cpm.castEfficiency).isLessThan(cpm.recommendedCastEfficiency)
-        .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<span>Try to cast <SpellLink id={cpm.ability.spell.id} /> more often. {cpm.ability.extraSuggestion || ''}</span>)
-            .icon(cpm.ability.spell.icon)
-            .actual(`${cpm.casts} out of ${cpm.maxCasts} possible casts; ${formatPercentage(actual)}% cast efficiency`)
-            .recommended(`>${formatPercentage(recommended)}% is recommended`)
-            .regular(recommended - 0.05).major(recommended - 0.15).staticImportance(cpm.ability.importance);
-        });
-    });
-*/
+
     results.statistics = [
-      <StatisticBox
-        icon={(
-          <img
-            src="/img/healing.png"
-            style={{ border: 0 }}
-            alt="Healing"
-          />
-        )}
-        value={`${formatNumber(this.totalHealing / this.fightDuration * 1000)} HPS`}
-        label={(
-          <dfn data-tip={`The total healing done recorded was ${formatThousands(this.totalHealing)}.`}>
-            Healing done
-          </dfn>
-        )}
-      />,
-      <StatisticBox
-        icon={<Icon icon="petbattle_health-down" alt="Non healing time" />}
-        value={`${formatPercentage(deadTimePercentage)} %`}
-        label={(
-          <dfn data-tip="Dead GCD time is available casting time not used. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), etc.">
-            Dead GCD time
-          </dfn>
-        )}
-      />,
       // Thunder Focus Tea Usage
       <StatisticBox
         icon={<SpellIcon id={SPELLS.THUNDER_FOCUS_TEA.id} />}
@@ -531,43 +476,6 @@ class CombatLogParser extends MainCombatLogParser {
           )}
         />
       ),
-
-      // Celestial Breath
-      hasCelestialBreath && (
-        <StatisticBox
-          icon={<SpellIcon id={SPELLS.CELESTIAL_BREATH_TRAIT.id} />}
-          value={`${formatNumber(avgCelestialBreathHealing)}`}
-          label={(
-            <dfn data-tip={`You healed an average of ${avgCelestialBreathTargets.toFixed(2)} targets per Celestial Breath cast over your ${this.modules.aoeHealingTracker.procsCelestialBreath} casts.`}>
-              Average Healing
-            </dfn>
-          )}
-        />
-      ),
-      // Mists of Sheilun
-      hasMistsOfSheilun && (
-        <StatisticBox
-          icon={<SpellIcon id={SPELLS.MISTS_OF_SHEILUN_TRAIT.id} />}
-          value={`${formatNumber(avgMistsOfSheilunHealing)}`}
-          label={(
-            <dfn data-tip={`You healed an average of ${(avgMistsOfSheilunTargets).toFixed(2)} targets per Mists of Sheilun proc over your ${this.modules.aoeHealingTracker.procsMistsOfSheilun} procs.`}>
-              Average Healing
-            </dfn>
-          )}
-        />
-      ),
-      // Refreshing Jade Wind
-      hasRJW && (
-        <StatisticBox
-          icon={<SpellIcon id={SPELLS.REFRESHING_JADE_WIND_TALENT.id} />}
-          value={`${formatNumber(avgRJWHealing)}`}
-          label={(
-            <dfn data-tip={`You hit a total of ${this.modules.aoeHealingTracker.healsRJW} targets with Refreshing Jade Wind on ${this.modules.aoeHealingTracker.castRJW} casts. (${(avgRJWTargets).toFixed(1)} Average Targets Hit per Cast.)`}>
-              Average Healing
-            </dfn>
-          )}
-        />
-      ),
       // Dancing Mist Tracking
       this.modules.renewingMist.active && (
         <StatisticBox
@@ -603,19 +511,6 @@ class CombatLogParser extends MainCombatLogParser {
           </dfn>
         )}
       />,
-
-      // Chi Burst Healing / Targets Hit
-      this.modules.chiBurst.active && (
-        <StatisticBox
-          icon={<SpellIcon id={SPELLS.CHI_BURST_TALENT.id} />}
-          value={`${formatNumber(this.modules.chiBurst.healing)}`}
-          label={(
-            <dfn data-tip={`You healed an average of ${avgChiBurstTargets.toFixed(2)} targets per Chi Burst cast over your ${this.modules.chiBurst.castChiBurst} casts.`}>
-              Total Healing
-            </dfn>
-          )}
-        />
-      ),
       ...results.statistics,
     ];
 
