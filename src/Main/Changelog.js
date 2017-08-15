@@ -1,6 +1,6 @@
 import React from 'react';
 
-import CHANGELOG from 'CHANGELOG';
+import CHANGELOG from '../CHANGELOG';
 
 class Changelog extends React.PureComponent {
   constructor() {
