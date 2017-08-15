@@ -108,21 +108,54 @@ class CombatLogParser {
     this.player = player;
     this.fight = fight;
 
+    // By loading these seperately we can't have defaultModules depend on specModules. This is an intended limitation to prevent bad code.
     this.initializeModules(this.constructor.defaultModules);
     this.initializeModules(this.constructor.specModules);
   }
 
-  numRegisteredModules = 0;
-  registerModule(module) {
-    this.modules[`_${this.numRegisteredModules}`] = module;
-    this.numRegisteredModules += 1;
-  }
   initializeModules(modules) {
-    Object.keys(modules).forEach(key => {
-      const value = modules[key];
-      // This may override existing modules, this is intended.
-      this.modules[key] = new value(this);
+    const failedModules = [];
+    Object.keys(modules).forEach(desiredModuleName => {
+      const moduleClass = modules[desiredModuleName];
+
+      const availableDependencies = {};
+      const missingDependencies = [];
+      if (moduleClass.dependencies) {
+        Object.keys(moduleClass.dependencies).forEach(desiredDependencyName => {
+          const dependencyClass = moduleClass.dependencies[desiredDependencyName];
+
+          const dependencyModule = this.findModule(dependencyClass);
+          if (dependencyModule) {
+            availableDependencies[desiredDependencyName] = dependencyModule;
+          } else {
+            missingDependencies.push(dependencyClass);
+          }
+        });
+      }
+
+      if (missingDependencies.length === 0) {
+        // This may override existing modules, this is intended.
+        console.log('Loading', moduleClass.name);
+        this.modules[desiredModuleName] = new moduleClass(this, availableDependencies);
+      } else {
+        console.warn(moduleClass.name, 'could not be loaded, missing dependencies:', missingDependencies.map(d => d.name));
+        failedModules.push(desiredModuleName);
+      }
     });
+
+    if (failedModules.length !== 0) {
+      console.warn(`${failedModules.length} modules failed to load, trying again:`, failedModules.map(key => modules[key].name));
+      const newBatch = {};
+      failedModules.forEach(key => {
+        newBatch[key] = modules[key];
+      });
+      this.initializeModules(newBatch);
+    }
+  }
+  findModule(type) {
+    return Object.keys(this.modules)
+      .map(key => this.modules[key])
+      .find(module => module instanceof type);
   }
 
   parseEvents(events) {

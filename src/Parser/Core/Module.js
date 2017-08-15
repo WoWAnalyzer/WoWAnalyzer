@@ -9,9 +9,14 @@ class Module {
   priority = 0;
   /**
    * @param {CombatLogParser} parser
+   * @param dependencies
    */
-  constructor(parser) {
+  constructor(parser, dependencies) {
     this.owner = parser;
+
+    Object.keys(dependencies).forEach(key => {
+      this[key] = dependencies[key];
+    });
   }
 
   // Override these with functions that return info about their rendering in the specific slots
@@ -20,6 +25,8 @@ class Module {
   statisticOrder = STATISTIC_ORDER.DEFAULT;
   suggestions(when) { return undefined; }
   tab() { return undefined; }
+
+  static dependencies = {};
 }
 
 export default Module;
