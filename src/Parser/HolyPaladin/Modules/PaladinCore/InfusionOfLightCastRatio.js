@@ -9,9 +9,15 @@ import Module from 'Parser/Core/Module';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
+import PaladinAbilityTracker from './PaladinAbilityTracker';
+
 class InfusionOfLightCastRatio extends Module {
+  static dependencies = {
+    abilityTracker: PaladinAbilityTracker,
+  };
+
   suggestions(when) {
-    const abilityTracker = this.owner.modules.abilityTracker;
+    const abilityTracker = this.abilityTracker;
     const getAbility = spellId => abilityTracker.getAbility(spellId);
 
     const flashOfLight = getAbility(SPELLS.FLASH_OF_LIGHT.id);
@@ -33,7 +39,7 @@ class InfusionOfLightCastRatio extends Module {
       });
   }
   statistic() {
-    const abilityTracker = this.owner.modules.abilityTracker;
+    const abilityTracker = this.abilityTracker;
     const getAbility = spellId => abilityTracker.getAbility(spellId);
 
     const flashOfLight = getAbility(SPELLS.FLASH_OF_LIGHT.id);

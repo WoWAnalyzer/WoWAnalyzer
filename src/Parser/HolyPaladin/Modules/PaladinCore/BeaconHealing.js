@@ -9,8 +9,13 @@ import Module from 'Parser/Core/Module';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import CastEfficiency  from '../Features/CastEfficiency';
+import PaladinAbilityTracker  from '../PaladinCore/PaladinAbilityTracker';
 
 class BeaconHealing extends Module {
+  static dependencies = {
+    abilityTracker: PaladinAbilityTracker,
+  };
+
   getTotalHealsOnBeaconPercentage(parser) {
     const abilityTracker = parser.modules.abilityTracker;
     const getCastCount = spellId => abilityTracker.getAbility(spellId);
@@ -47,7 +52,7 @@ class BeaconHealing extends Module {
       });
   }
   statistic() {
-    const abilityTracker = this.owner.modules.abilityTracker;
+    const abilityTracker = this.abilityTracker;
     const getAbility = spellId => abilityTracker.getAbility(spellId);
 
     const flashOfLight = getAbility(SPELLS.FLASH_OF_LIGHT.id);

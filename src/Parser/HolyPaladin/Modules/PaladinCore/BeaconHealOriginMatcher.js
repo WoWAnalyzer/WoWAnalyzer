@@ -2,11 +2,16 @@ import SPELLS from 'common/SPELLS';
 
 import Module from 'Parser/Core/Module';
 
+import BeaconTargets from './BeaconTargets';
 import { BEACON_TRANSFERING_ABILITIES, BEACON_TYPES } from '../../Constants';
 
 const debug = false;
 
-class BeaconHealing extends Module {
+class BeaconHealOriginMatcher extends Module {
+  static dependencies = {
+    beaconTargets: BeaconTargets,
+  };
+
   on_byPlayer_heal(event) {
     this.processForBeaconHealing(event);
   }
@@ -37,7 +42,7 @@ class BeaconHealing extends Module {
       }
     }
 
-    const beaconTargets = this.owner.modules.beaconTargets;
+    const beaconTargets = this.beaconTargets;
 
     let remainingBeaconTransfers = beaconTargets.numBeaconsActive;
     if (beaconTargets.hasBeacon(event.targetID)) {
@@ -189,4 +194,4 @@ class BeaconHealing extends Module {
   }
 }
 
-export default BeaconHealing;
+export default BeaconHealOriginMatcher;

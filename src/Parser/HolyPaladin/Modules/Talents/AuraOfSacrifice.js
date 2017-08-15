@@ -6,10 +6,15 @@ import SpellLink from 'common/SpellLink';
 import { formatNumber } from 'common/format';
 
 import Module from 'Parser/Core/Module';
+import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class AuraOfSacrifice extends Module {
+  static dependencies = {
+    abilityTracker: AbilityTracker,
+  };
+
   on_initialized() {
     if (!this.owner.error) {
       this.active = this.owner.selectedCombatant.hasTalent(SPELLS.AURA_OF_SACRIFICE_TALENT.id);
@@ -17,7 +22,7 @@ class AuraOfSacrifice extends Module {
   }
 
   get healing() {
-    const abilityTracker = this.owner.modules.abilityTracker;
+    const abilityTracker = this.abilityTracker;
     const getAbility = spellId => abilityTracker.getAbility(spellId);
 
     return (getAbility(SPELLS.AURA_OF_SACRIFICE_HEAL.id).healingEffective + getAbility(SPELLS.AURA_OF_SACRIFICE_HEAL.id).healingAbsorbed) / this.owner.fightDuration * 1000;
