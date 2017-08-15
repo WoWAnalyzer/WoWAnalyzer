@@ -22,6 +22,10 @@ Hey, welcome! Awesome you're interested in helping out! This should get you alon
 
 Your command window should now start compiling the application and if all went well open a browser window with everything running :)
 
+## Troubleshooting
+
+If you are currently dealing with some path errors (module not found), instead of running `npm start`, run `NODE_PATH=src/ npm run start`.
+
 # Editing
 
 Start small. Try changing something to see things change. If you verified everything is working, you're ready to go to the real stuff.

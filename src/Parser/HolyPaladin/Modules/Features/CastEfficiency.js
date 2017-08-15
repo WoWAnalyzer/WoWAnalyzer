@@ -1,5 +1,8 @@
+import React from 'react';
+
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
 
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
@@ -18,6 +21,7 @@ class CastEfficiency extends CoreCastEfficiency {
       category: SPELL_CATEGORY.ROTATIONAL,
       getCasts: castCount => castCount.healingHits,
       getCooldown: haste => 9 / (1 + haste),
+      extraSuggestion: 'Casting Holy Shock often enough is very important.',
     },
     {
       spell: SPELLS.LIGHT_OF_DAWN_CAST,
@@ -27,6 +31,7 @@ class CastEfficiency extends CoreCastEfficiency {
         const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.LIGHT_OF_DAWN_HEAL.id);
         return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
       },
+      extraSuggestion: 'Casting Light of Dawn often enough is very important.',
     },
     {
       spell: SPELLS.JUDGMENT_CAST,
@@ -45,7 +50,8 @@ class CastEfficiency extends CoreCastEfficiency {
       category: SPELL_CATEGORY.ROTATIONAL,
       getCooldown: haste => 12,
       isActive: combatant => combatant.hasTalent(SPELLS.BESTOW_FAITH_TALENT.id),
-      recommendedCastEfficiency: 0.65,
+      recommendedCastEfficiency: 0.7,
+      extraSuggestion: <span>If you can't or don't want to cast <SpellLink id={SPELLS.BESTOW_FAITH_TALENT.id} /> more consider using <SpellLink id={SPELLS.LIGHTS_HAMMER_TALENT.id} /> or <SpellLink id={SPELLS.CRUSADERS_MIGHT_TALENT.id} /> instead.</span>,
     },
     {
       spell: SPELLS.LIGHTS_HAMMER_TALENT,
@@ -64,7 +70,7 @@ class CastEfficiency extends CoreCastEfficiency {
       charges: 2,
       isActive: combatant => combatant.hasTalent(SPELLS.CRUSADERS_MIGHT_TALENT.id),
       recommendedCastEfficiency: 0.60,
-      extraSuggestion: 'When you are using Crusader\'s Might it is important to use Crusader Strike often enough to benefit from the talent. Use a different talent if you are unable to.',
+      extraSuggestion: <span>When you are using <SpellLink id={SPELLS.CRUSADERS_MIGHT_TALENT.id} /> it is important to use <SpellLink id={SPELLS.CRUSADER_STRIKE.id} /> often enough to benefit from the talent. Use a different talent if you are unable to.</span>,
     },
     {
       spell: SPELLS.HOLY_PRISM_TALENT,
