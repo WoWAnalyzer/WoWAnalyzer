@@ -1,5 +1,13 @@
-import Module from 'Parser/Core/Module';
+import React from 'react';
+
 import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
+import SpellIcon from 'common/SpellIcon';
+import { formatPercentage } from 'common/format';
+
+import Module from 'Parser/Core/Module';
+
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 const debug = false;
 
@@ -82,6 +90,55 @@ class ThunderFocusTea extends Module {
       }
     }
 
+    suggestions(when) {
+      const incorrectTftCasts = this.castsUnderTft - (this.castsTftViv + this.castsTftRem);
+      when(incorrectTftCasts).isGreaterThan(1)
+        .addSuggestion((suggest, actual, recommended) => {
+          return suggest(<span>You are currently using <SpellLink id={SPELLS.THUNDER_FOCUS_TEA.id} /> to buff spells other than <SpellLink id={SPELLS.VIVIFY.id} /> or <SpellLink id={SPELLS.RENEWING_MIST.id} />. It is advised to limit the number of spells buffed to only these two.</span>)
+            .icon(SPELLS.THUNDER_FOCUS_TEA.icon)
+            .actual(`${incorrectTftCasts} incorrect casts with Thunder Focus Tea`)
+            .recommended(`<${recommended} incorrect cast is recommended`)
+            .regular(recommended + 1).major(recommended + 3);
+        });
+    }
+
+    statistic() {
+      return (
+        <StatisticBox
+          icon={<SpellIcon id={SPELLS.THUNDER_FOCUS_TEA.id} />}
+          value={`${this.castsTft}`}
+          label={(
+            <dfn data-tip={`With your ${this.castsTft} Thunder Focus Tea casts, you buffed the following spells:
+              <ul>
+                ${this.castsTftViv > 0 ?
+                `<li>${(this.castsTftViv)} Vivify buffed (${formatPercentage(this.castsTftViv / this.castsTft)}%)</li>`
+                : ""
+                }
+                ${this.castsTftRem > 0 ?
+                `<li>${(this.castsTftRem)} Renewing Mist buffed (${formatPercentage(this.castsTftRem / this.castsTft)}%)</li>`
+                : ""
+                }
+                ${this.castsTftEnm > 0 ?
+                `<li>${(this.castsTftEnm)} Enveloping Mists buffed (${formatPercentage(this.castsTftEnm / this.castsTft)}%)</li>`
+                : ""
+                }
+                ${this.castsTftEff > 0 ?
+                `<li>${(this.castsTftEff)} Effuse buffed (${formatPercentage(this.castsTftEff / this.castsTft)}%)</li>`
+                : ""
+                }
+                ${this.castsTftEf > 0 ?
+                `<li>${(this.castsTftEf)} Essence Font buffed (${formatPercentage(this.castsTftEf / this.castsTft)}%)</li>`
+                : ""
+                }
+              </ul>
+              `}>
+              Total casts
+            </dfn>
+          )}
+        />
+      );
+    }
+    statisticOrder = STATISTIC_ORDER.OPTIONAL();
 }
 
 export default ThunderFocusTea;

@@ -1,7 +1,22 @@
-import Module from 'Parser/Core/Module';
+import React from 'react';
+
 import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
+import SpellIcon from 'common/SpellIcon';
+import { formatNumber , formatPercentage } from 'common/format';
+
+import Module from 'Parser/Core/Module';
+
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 const debug = false;
+
+function getRawHealing(ability) {
+  return ability.healingEffective + ability.healingAbsorbed + ability.healingOverheal;
+}
+function getOverhealingPercentage(ability) {
+  return ability.healingOverheal / getRawHealing(ability);
+}
 
 class SheilunsGift extends Module {
   stacksSG = 0;
@@ -82,22 +97,66 @@ class SheilunsGift extends Module {
     const spellId = event.ability.guid;
 
     if(spellId === SPELLS.SHEILUNS_GIFT.id) {
-      this.sgHeal += event.amount;
+      this.sgHeal += event.amount + (event.absorbed || 0);
       if(event.overheal) {
         this.overhealSG += event.overheal;
       }
       debug && console.log('SG Overheal: ' + event.overheal);
     }
-
-    if(spellId === SPELLS.WHISPERS_OF_SHAOHAO.id ) {
-      this.whispersHeal += event.amount;
-      if(event.overheal) {
-        this.whispersOverHeal += event.overheal;
-      }
-      this.countWhispersHeal++;
-      debug && console.log('Whispers Heal: ' + event.amount + ' / Whispers Overheal: ' + event.overheal);
-    }
   }
+
+  suggestions(when) {
+
+    const abilityTracker = this.owner.modules.abilityTracker;
+    const getAbility = spellId => abilityTracker.getAbility(spellId);
+
+    const SGability = getAbility(SPELLS.SHEILUNS_GIFT.id);
+    const SGcasts = SGability.casts || 0;
+    const avgSGstacks = this.stacksTotalSG / SGcasts || 0;
+
+    const sheilunsGiftHealing = getAbility(SPELLS.SHEILUNS_GIFT.id);
+    const sheilunsGiftOverhealingPercentage = getOverhealingPercentage(sheilunsGiftHealing) || 0;
+
+    when(sheilunsGiftOverhealingPercentage).isGreaterThan(.5)
+      .addSuggestion((suggest, actual, recommended) => {
+        let suggestionText;
+        if (avgSGstacks >= 6) {
+          suggestionText = <span>You had high overheal when using <SpellLink id={SPELLS.SHEILUNS_GIFT.id} /> and casted with greater than 6 stacks. Consider using <SpellLink id={SPELLS.SHEILUNS_GIFT.id} /> at lower stacks to increase effectiveness.</span>;
+        } else {
+          suggestionText = <span>You had high overheal when using <SpellLink id={SPELLS.SHEILUNS_GIFT.id} /> and casted with less than 6 stacks. Consider using <SpellLink id={SPELLS.SHEILUNS_GIFT.id} /> on injured targets to increase effectiveness.</span>;
+        }
+        return suggest(suggestionText)
+          .icon(SPELLS.SHEILUNS_GIFT.icon)
+          .actual(`${formatPercentage(sheilunsGiftOverhealingPercentage)}% Sheilun's Gift Overhealing - ${avgSGstacks.toFixed(0)} average Sheilun's Gift stacks`)
+          .recommended(`<${formatPercentage(recommended)}% Sheilun's Gift Overheal is recommended`)
+          .regular(recommended + .1).major(recommended + .2);
+      });
+  }
+
+  statistic() {
+    const abilityTracker = this.owner.modules.abilityTracker;
+    const getAbility = spellId => abilityTracker.getAbility(spellId);
+
+    const SGability = getAbility(SPELLS.SHEILUNS_GIFT.id);
+    const SGcasts = SGability.casts || 0;
+    const avgSGstacks = this.stacksTotalSG / SGcasts || 0;
+    const wastedSGStacks = this.stacksWastedSG + Math.floor((this.owner.fightEndTime - this.lastSGStack) / 10000);
+
+    return (
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.SHEILUNS_GIFT.id} />}
+        value={`${(avgSGstacks).toFixed(0)}`}
+        label={(
+          <dfn data-tip={`${SGcasts > 0 ? `You healed for an average of ${formatNumber(this.sgHeal / this.castsSG)} with each Sheilun's cast.` : ""}
+          ${wastedSGStacks > 0 ? `<br>You wasted ${(wastedSGStacks)} stack(s) during this fight.` : ""}
+          `}>
+          Avg stacks used
+          </dfn>
+        )}
+      />
+    );
+  }
+  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 
   on_finished() {
     if(debug) {
