@@ -108,9 +108,10 @@ class CombatLogParser {
     this.player = player;
     this.fight = fight;
 
-    // By loading these seperately we can't have defaultModules depend on specModules. This is an intended limitation to prevent bad code.
-    this.initializeModules(this.constructor.defaultModules);
-    this.initializeModules(this.constructor.specModules);
+    this.initializeModules({
+      ...this.constructor.defaultModules,
+      ...this.constructor.specModules,
+    });
   }
 
   initializeModules(modules) {
