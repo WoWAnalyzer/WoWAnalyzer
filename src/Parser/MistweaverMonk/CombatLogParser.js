@@ -31,6 +31,7 @@ import ThunderFocusTea from './Modules/Spells/ThunderFocusTea';
 import SheilunsGift from './Modules/Spells/SheilunsGift';
 import RenewingMist from './Modules/Spells/RenewingMist';
 import EssenceFont from './Modules/Spells/EssenceFont';
+import EnvelopingMists from './Modules/Spells/EnvelopingMists';
 
 // Talents
 import ChiJi from './Modules/Talents/ChiJi';
@@ -73,6 +74,7 @@ class CombatLogParser extends MainCombatLogParser {
     sheilunsGift: SheilunsGift,
     thunderFocusTea: ThunderFocusTea,
     upliftingTrance: UpliftingTrance,
+    envelopingMists: EnvelopingMists,
 
     // Talents
     chiBurst: ChiBurst,
