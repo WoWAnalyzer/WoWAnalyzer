@@ -12,7 +12,7 @@ export default {
     name: 'T20 4 set bonus',
     icon: 'ability_demonhunter_spectank',
   },
-  
+
   // Abilities:
   SOUL_FRAGMENT: {
     id: 204255,
@@ -29,6 +29,16 @@ export default {
     name: 'Sigil of Silence',
     icon: 'ability_demonhunter_sigilofsilence',
   },
+  SIGIL_OF_FLAME: {
+      id: 204596,
+      name: 'Sigil of Flame',
+      icon: 'ability_demonhunter_sigilofinquisition',
+  },
+  SIGIL_OF_MISERY: {
+      id: 207684,
+      name: 'Sigil of Misery',
+      icon: 'ability_demonhunter_sigilofmisery',
+  },
   DEMON_SPIKES: {
     id: 203720,
     name: 'Demon Spikes',
@@ -43,11 +53,6 @@ export default {
     id: 187827,
     name: 'Metamorphosis',
     icon: 'ability_demonhunter_metamorphasistank',
-  },
-  SIGIL_OF_FLAME: {
-    id: 204596,
-    name: 'Sigil of Flame',
-    icon: 'ability_demonhunter_sigilofinquisition',
   },
   SOUL_CLEAVE: {
     id: 228477,
@@ -78,6 +83,11 @@ export default {
     id: 185245,
     name: 'Torment',
     icon: 'ability_demonhunter_torment',
+  },
+  IMPRISON: {
+    id: 217832,
+    name: 'Imprison',
+    icon: 'ability_demonhunter_imprison',
   },
 
   // Traits:
