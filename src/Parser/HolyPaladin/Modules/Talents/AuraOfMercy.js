@@ -27,6 +27,9 @@ class AuraOfMercy extends Module {
 
     return (getAbility(SPELLS.AURA_OF_MERCY_HEAL.id).healingEffective + getAbility(SPELLS.AURA_OF_MERCY_HEAL.id).healingAbsorbed);
   }
+  get hps() {
+    return this.healing / this.owner.fightDuration * 1000;
+  }
 
   suggestions(when) {
     when(this.auraOfSacrificeHps).isLessThan(30000)
@@ -42,7 +45,7 @@ class AuraOfMercy extends Module {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.AURA_OF_MERCY_TALENT.id} />}
-        value={`${formatNumber(this.healing / this.owner.fightDuration * 1000)} HPS`}
+        value={`${formatNumber(this.hps)} HPS`}
         label="Healing done"
       />
     );
