@@ -3,7 +3,6 @@ import React from 'react';
 import SuggestionsTab from 'Main/SuggestionsTab';
 import Tab from 'Main/Tab';
 import Talents from 'Main/Talents';
-import Mana from 'Main/Mana';
 
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 

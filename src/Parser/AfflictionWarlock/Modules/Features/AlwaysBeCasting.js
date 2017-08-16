@@ -59,7 +59,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting{
           .icon('spell_mage_altertime')
           .actual(`${formatPercentage(deadTimePercentage)}% dead GCD time`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
-          .regular(recommended + 0.15).major(1);
+          .regular(recommended + 0.15).major(recommended + 0.2);
       });
   }
   statistic() {
