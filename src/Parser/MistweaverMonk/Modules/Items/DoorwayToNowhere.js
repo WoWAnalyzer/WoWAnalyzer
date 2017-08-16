@@ -56,6 +56,12 @@ class DoorwayToNowhere extends Module {
       console.log('Doorway Procs:', this.doorwayProc);
     }
   }
+  item() {
+    return {
+      item: ITEMS.DOORWAY_TO_NOWHERE,
+      result: this.owner.formatItemHealingDone(this.healing),
+    };
+  }
 }
 
 export default DoorwayToNowhere;

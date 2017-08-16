@@ -4,6 +4,7 @@ import SPELLS from 'common/SPELLS';
 const debug = false;
 
 class ChiJi extends Module {
+  priorty = 9;
   petID = null;
   healing = 0;
 

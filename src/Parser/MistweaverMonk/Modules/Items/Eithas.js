@@ -50,6 +50,12 @@ class Eithas extends Module {
       console.log('Total Healing: ' + (this.totalVivHeal + this.healing));
     }
   }
+  item() {
+    return {
+      item: ITEMS.EITHAS_LUNAR_GLIDES,
+      result: this.owner.formatItemHealingDone(this.healing),
+    };
+  }
 }
 
 export default Eithas;

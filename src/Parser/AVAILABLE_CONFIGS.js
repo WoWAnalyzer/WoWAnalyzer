@@ -15,22 +15,26 @@ import WindwalkerMonk from './WindwalkerMonk/CONFIG';
 
 import SubtletyRogue from './SubtletyRogue/CONFIG';
 
+import VengeanceDemonHunter from './VengeanceDemonHunter/CONFIG';
+
 // Order of this should be the order in which specs were added to production
 export default [
   HolyPaladin,
-  
+
   RestoDruid,
   GuardianDruid,
-  
+
   DisciplinePriest,
   HolyPriest,
-  
+
   MistweaverMonk,
   WindwalkerMonk,
-  
+
   ElementalShaman,
   EnhancementShaman,
   RestorationShaman,
-  
+
   SubtletyRogue,
+
+  VengeanceDemonHunter,
 ];
