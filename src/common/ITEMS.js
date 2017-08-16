@@ -398,6 +398,13 @@ const ITEMS = {
     icon: 'inv_70_quest_ring7c',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+  POWER_CORD_OF_LETHTENDRIS: {
+    id: 132457,
+    name: 'Power Cord of Lethtendris',
+    icon: 'inv_belt_30',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+
   // T20 Trinkets
   ARCHIVE_OF_FAITH: {
     id: 147006,

@@ -37,6 +37,26 @@ export default {
     name: 'Summon Infernal',
     icon: 'spell_shadow_summoninfernal',
   },
+  SUMMON_IMP: {
+    id: 688,
+    name: 'Summon Imp',
+    icon: 'spell_shadow_summonimp',
+  },
+  SUMMON_VOIDWALKER: {
+    id: 697,
+    name: 'Summon Voidwalker',
+    icon: 'spell_shadow_summonvoidwalker',
+  },
+  SUMMON_FELHUNTER: {
+    id: 691,
+    name: 'Summon Felhunter',
+    icon: 'spell_shadow_summonfelhunter',
+  },
+  SUMMON_SUCCUBUS: {
+    id: 712,
+    name: 'Summon Succubus',
+    icon: 'spell_shadow_summonsuccubus',
+  },
   UNENDING_RESOLVE: {
     id: 104773,
     name: 'Unending Resolve',
@@ -181,7 +201,7 @@ export default {
     name: 'Unstable Affliction',
     icon: 'spell_shadow_unstableaffliction_3',
   },
-  //experimentalni varianta debuffu:
+  //experimental version (Unstable Affliction has 5 possible IDs since you can cast 5 different UAs at the same time on the same target
   UNSTABLE_AFFLICTION_DEBUFF: {
     ids: [233490, 233496, 233497, 233498, 233499],
     name: 'Unstable Affliction',
@@ -241,5 +261,36 @@ export default {
     id: 242290,
     name: 'Affliction Warlock T20 2P bonus',
     icon: 'inv_helm_cloth_raidwarlock_r_01',
+  },
+  //Affliction shard generating effects
+  AGONY_SHARD_GEN: {
+    id: 17941,
+    name: 'Agony',
+    icon: 'spell_shadow_curseofsargeras',
+  },
+  UNSTABLE_AFFLICTION_KILL_SHARD_GEN: {
+    id: 31117,
+    name: 'Unstable Affliction',
+    icon: 'spell_shadow_unstableaffliction_3',
+  },
+  DRAIN_SOUL_KILL_SHARD_GEN: {
+    id: 205292,
+    name: 'Drain Soul',
+    icon: 'spell_shadow_haunting',
+  },
+  SOUL_CONDUIT_SHARD_GEN: {
+    id: 215942,
+    name: 'Soul Conduit',
+    icon: 'spell_shadow_soulleech_2',
+  },
+  WARLOCK_AFFLI_T20_2P_SHARD_GEN: {
+    id: 247054,
+    name: 'Affliction Warlock T20 2P bonus',
+    icon: 'inv_helm_cloth_raidwarlock_r_01',
+  },
+  POWER_CORD_OF_LETHTENDRIS_SHARD_GEN: {
+    id: 205756,
+    name: 'Power Cord of Lethtendris',
+    icon: 'inv_belt_30',
   },
 };

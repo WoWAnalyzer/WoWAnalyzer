@@ -12,6 +12,7 @@ import CooldownTracker from './Modules/Features/CooldownTracker';
 import AgonyUptime from './Modules/Features/AgonyUptime';
 import CorruptionUptime from "./Modules/Features/CorruptionUptime";
 import SiphonLifeUptime from "./Modules/Features/SiphonLifeUptime";
+import SoulShardTracker from "./Modules/WarlockCore/SoulShardTracker";
 
 class CombatLogParser extends MainCombatLogParser {
 
@@ -25,11 +26,13 @@ class CombatLogParser extends MainCombatLogParser {
     agonyUptime: AgonyUptime,
     corruptionUptime: CorruptionUptime,
     siphonLifeUptime: SiphonLifeUptime,
+
+    //Core
+    soulShardTracker: SoulShardTracker,
   };
 
   generateResults() {
     const results = super.generateResults();
-
     results.tabs = [
       {
         title: 'Suggestions',

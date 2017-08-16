@@ -35,7 +35,7 @@ class SiphonLifeUptime extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.SIPHON_LIFE.id} />}
         value={`${formatPercentage(siphonLifeUptime)} %`}
-        label="Siphon Life uptime"
+        label='Siphon Life uptime'
         tooltip={`Siphon Life uptime is how much of time of the fight you have Siphon Life active on the boss. You should try to keep the uptime as close to 100% as possible.`}
       />
     );
