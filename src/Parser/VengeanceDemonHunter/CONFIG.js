@@ -5,7 +5,7 @@ import TALENT_DESCRIPTIONS from './TALENT_DESCRIPTIONS';
 
 export default {
   spec: SPECS.VENGEANCE_DEMON_HUNTER,
-  maintainer: '@ronaldpereira',
+  maintainer: '@mamtooth',
   parser: CombatLogParser,
   talentDescriptions: TALENT_DESCRIPTIONS,
 };
