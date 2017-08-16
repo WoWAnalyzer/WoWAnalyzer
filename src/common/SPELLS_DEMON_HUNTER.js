@@ -126,6 +126,11 @@ export default {
   },
 
   // Abilities:
+  SOUL_FRAGMENT: {
+    id: 204255,
+    name: 'Soul Fragment',
+    icon: 'spell_shadow_soulgem',
+  },
   EMPOWER_WARDS: {
     id: 218256,
     name: 'Empower Wards',
