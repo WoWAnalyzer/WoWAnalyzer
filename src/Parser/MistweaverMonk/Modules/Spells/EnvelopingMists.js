@@ -8,7 +8,7 @@ import { formatNumber } from 'common/format';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-const debug = true;
+const debug = false;
 const EVM_HEALING_INCREASE = .3;
 
 const UNAFFECTED_SPELLS = [

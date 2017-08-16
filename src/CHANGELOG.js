@@ -1,4 +1,5 @@
 export default `
+16-08-2017 - Mistweaver Monk: Soothing Mist suggestion added (by anomoly)
 16-08-2017 - Mistweaver Monk: Added the effective healing contribute of Enveloping Mists as a statistic (by anomoly)
 15-08-2017 - Mistweaver Monk: Updates to Mistweaver module to align with new module structure. No information should be lost, but this will be moved around (by anomoly)
 14-08-2017 - Major under the hood changes, you might see some things move around but no data should be lost or changed. (by Zerotorescue)
