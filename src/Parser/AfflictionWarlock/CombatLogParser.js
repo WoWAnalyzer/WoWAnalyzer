@@ -11,6 +11,7 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownTracker from './Modules/Features/CooldownTracker';
 import AgonyUptime from './Modules/Features/AgonyUptime';
 import CorruptionUptime from "./Modules/Features/CorruptionUptime";
+import SiphonLifeUptime from "./Modules/Features/SiphonLifeUptime";
 
 class CombatLogParser extends MainCombatLogParser {
 
@@ -23,6 +24,7 @@ class CombatLogParser extends MainCombatLogParser {
     // DoT uptimes
     agonyUptime: AgonyUptime,
     corruptionUptime: CorruptionUptime,
+    siphonLifeUptime: SiphonLifeUptime,
   };
 
   generateResults() {
