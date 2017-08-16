@@ -130,7 +130,6 @@ export default {
     name: 'Demonic Power',
     icon: 'warlock_grimoireofsacrifice',
   },
-
   // Affliction spells
   AGONY: {
     id: 980,
@@ -236,5 +235,11 @@ export default {
     id: 63106,
     name: 'Siphon Life',
     icon: 'spell_shadow_requiem',
+  },
+  //Tier sets
+  WARLOCK_AFFLI_T20_2P_BONUS: {
+    id: 242290,
+    name: 'Affliction Warlock T20 2P bonus',
+    icon: 'inv_helm_cloth_raidwarlock_r_01',
   },
 };
