@@ -98,7 +98,7 @@ class Tier19_4set extends Module {
       title: <SpellLink id={SPELLS.HOLY_PALADIN_T19_4SET_BONUS_BUFF.id} />,
       result: (
         <dfn data-tip={`The actual effective healing contributed by the tier 19 4 set bonus. <b>This does not include any healing "gained" from the Holy Light cast time reduction.</b> You used a total of ${this.totalIolProcsUsed} Infusion of Light procs, ${this.bonusIolProcsUsed} of those were from procs from the 4 set bonus and ${this.bonusIolProcsUsedOnFol} of those bonus procs were used on Flash of Light.`}>
-          {this.formatItemHealingDone(this.healing)}
+          {this.owner.formatItemHealingDone(this.healing)}
         </dfn>
       ),
     };
