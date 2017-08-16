@@ -1,19 +1,17 @@
-import Module from 'Parser/Core/Module';
+import React from 'react';
+
 import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
+import SpellIcon from 'common/SpellIcon';
+import { formatNumber } from 'common/format';
+
+import Module from 'Parser/Core/Module';
+
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 const debug = false;
 
-const baseMana = 1100000;
-
-class ManaSavingTalents extends Module {
-  manaSaved = 0;
-  manaSavedViv = 0;
-  manaSavedEnm = 0;
-  castsRedEnm = 0;
-  castsRedViv = 0;
-  castsNonRedViv = 0;
-  castsNonRedEnm = 0;
-
+class SpiritOfTheCrane extends Module {
   castsTp = 0;
   buffTotm = 0;
   castsBk = 0;
@@ -25,19 +23,9 @@ class ManaSavingTalents extends Module {
   manaReturnSotc = 0;
   sotcWasted = 0;
 
-  hasLifeCycles = false;
-  hasSotc = false;
-
-
-
   on_initialized() {
     if(!this.owner.error) {
-      if(this.owner.selectedCombatant.hasTalent(SPELLS.LIFECYCLES_TALENT.id)) {
-        this.hasLifeCycles = true;
-      }
-      if(this.owner.selectedCombatant.hasTalent(SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id)) {
-        this.hasSotc = true;
-      }
+      this.active = this.owner.selectedCombatant.hasTalent(SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id);
     }
   }
 
@@ -90,31 +78,6 @@ class ManaSavingTalents extends Module {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
-    if(this.hasLifeCycles) {
-      // Checking to ensure player has cast Vivify and has the mana reduction buff.
-      if(spellId === SPELLS.VIVIFY.id && this.owner.selectedCombatant.hasBuff(SPELLS.LIFECYCLES_VIVIFY_BUFF.id)) {
-        this.manaSaved += (baseMana * SPELLS.VIVIFY.manaPerc) * (SPELLS.LIFECYCLES_VIVIFY_BUFF.manaPercRed);
-        this.manaSavedViv += (baseMana * SPELLS.VIVIFY.manaPerc) * (SPELLS.LIFECYCLES_VIVIFY_BUFF.manaPercRed);
-        this.castsRedViv++;
-        debug && console.log('Viv Reduced');
-      }
-      if(spellId === SPELLS.VIVIFY.id && !this.owner.selectedCombatant.hasBuff(SPELLS.LIFECYCLES_VIVIFY_BUFF.id)) {
-        this.castsNonRedViv++;
-      }
-      // Checking to ensure player has cast Enveloping Mists and has the mana reduction buff
-      if(spellId === SPELLS.ENVELOPING_MISTS.id && this.owner.selectedCombatant.hasBuff(SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.id)) {
-        this.manaSaved += (baseMana * SPELLS.ENVELOPING_MISTS.manaPerc) * (SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed);
-        this.manaSavedEnm += (baseMana * SPELLS.ENVELOPING_MISTS.manaPerc) * (SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed);
-        this.castsRedEnm++;
-        debug && console.log('ENM Reduced');
-      }
-      if(spellId === SPELLS.ENVELOPING_MISTS.id && !this.owner.selectedCombatant.hasBuff(SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.id)) {
-        this.castsNonRedEnm++;
-      }
-    }
-
-
-    if(this.hasSotc) {
       if(!this.owner.selectedCombatant.hasBuff(SPELLS.TEACHINGS_OF_THE_MONASTERY.id)) {
         //console.log('No TotM Buff');
         return;
@@ -132,17 +95,53 @@ class ManaSavingTalents extends Module {
           this.totalTotmBuffs += this.buffTotm;
           //this.manaReturnSotc += (this.buffTotm * (baseMana * SPELLS.TEACHINGS_OF_THE_MONASTERY.manaRet));
           debug && console.log("Black Kick Casted with Totm at " + this.buffTotm + " stacks");
-        }
+
       }
     }
   }
 
 
+  suggestions(when) {
+    when(this.manaReturnSotc).isLessThan(300000)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<span>You are not utilizing your <SpellLink id={SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id} /> talent as effectively as you could. Make sure you are using any available downtime to use <SpellLink id={SPELLS.TIGER_PALM.id} /> and <SpellLink id={SPELLS.BLACKOUT_KICK.id} /> to take advantage of this talent.</span>)
+        .icon(SPELLS.SPIRIT_OF_THE_CRANE_TALENT.icon)
+        .actual(`${formatNumber(this.manaReturnSotc)} mana returned through Spirit of the Crane`)
+        .recommended(`${formatNumber(recommended)} is the recommended mana return`)
+        .regular(recommended - 50000).major(recommended - 150000);
+      });
+  }
+
+  statistic() {
+    return (
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id} />}
+        value={`${formatNumber(this.manaReturnSotc)}`}
+        label={(
+          <dfn data-tip={`
+              You gained a raw total of ${((this.manaReturnSotc + this.sotcWasted) / 1000).toFixed(0)}k mana from SotC with ${(this.sotcWasted / 1000).toFixed(0)}k wasted.<br>
+              You lost ${(this.totmOverCap + this.totmBuffWasted)} Teachings of the Monestery stacks
+            <ul>
+              ${this.totmOverCap > 0 ?
+              `<li>You overcapped Teachings ${(this.totmOverCap)} times</li>`
+              : ""
+              }
+              ${this.totmBuffWasted > 0 ?
+              `<li>You let Teachings drop off ${(this.totmBuffWasted)} times</li>`
+              : ""
+              }
+            </ul>
+            `}>
+            Mana Returned
+          </dfn>
+        )}
+      />
+    );
+  }
+  statisticOrder = STATISTIC_ORDER.OPTIONAL();
+
   on_finished() {
     if(debug) {
-      console.log("Mana Reduced:" + this.manaSaved);
-      console.log("Viv Mana Reduced:" + this.manaSavedViv);
-      console.log("EnM Mana Reduced:" + this.manaSavedEnm);
       console.log('TotM Buffs Wasted:' + this.totmBuffWasted);
       console.log('TotM Buffs Overcap:' + this.totmOverCap);
       console.log('SotC Mana Returned:' + this.manaReturnSotc);
@@ -153,4 +152,4 @@ class ManaSavingTalents extends Module {
   }
 }
 
-export default ManaSavingTalents;
+export default SpiritOfTheCrane;

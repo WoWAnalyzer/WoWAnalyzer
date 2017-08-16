@@ -1,5 +1,9 @@
+import React from 'react';
+
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
+import { formatNumber } from 'common/format';
+
 import Module from 'Parser/Core/Module';
 
 const debug = false;
@@ -61,6 +65,18 @@ class PetrichorLagniappe extends Module {
       console.log('Time Reduction: ', this.totalReductionTime);
       console.log('Wasted Reduction:', this.wastedReductionTime);
     }
+  }
+  item() {
+    const abilityTracker = this.owner.modules.abilityTracker;
+    const getAbility = spellId => abilityTracker.getAbility(spellId);
+    return {
+      item: ITEMS.PETRICHOR_LAGNIAPPE,
+      result: (
+        <dfn data-tip={`The wasted cooldown reduction from the legendary bracers. ${formatNumber((this.wastedReductionTime / getAbility(SPELLS.REVIVAL.id).casts) / 1000)} seconds (Average wasted cooldown reduction per cast).`}>
+          {formatNumber(this.wastedReductionTime / 1000)} seconds wasted
+        </dfn>
+      ),
+    };
   }
 }
 
