@@ -16,7 +16,7 @@ class SiphonLifeUptime extends Module {
       this.active = this.owner.selectedCombatant.hasTalent(SPELLS.SIPHON_LIFE_TALENT.id);
     }
   }
-  suggestion(when){
+  suggestions(when){
     const siphonLifeUptime = this.owner.modules.enemies.getBuffUptime(SPELLS.SIPHON_LIFE.id) / this.owner.fightDuration;
     //actual = value in when()
     //recommended = value in isLessThan()

@@ -17,12 +17,14 @@ class CastEfficiency extends CoreCastEfficiency {
       category: SPELL_CATEGORY.ROTATIONAL,
       getCooldown: haste => 25,
       isActive: combatant => combatant.hasTalent(SPELLS.HAUNT_TALENT.id),
+      recommendedCastEfficiency: 0.95,
     },
     {
       spell: SPELLS.PHANTOM_SINGULARITY,
       category: SPELL_CATEGORY.ROTATIONAL,
       getCooldown: haste => 40,
       isActive: combatant => combatant.hasTalent(SPELLS.PHANTOM_SINGULARITY_TALENT.id),
+      recommendedCastEfficiency: 0.95,
     },
     {
       spell: SPELLS.SOUL_HARVEST,
@@ -35,12 +37,14 @@ class CastEfficiency extends CoreCastEfficiency {
       category: SPELL_CATEGORY.COOLDOWNS,
       getCooldown: haste => 180,
       isActive: combatant => !combatant.hasTalent(SPELLS.GRIMOIRE_OF_SUPREMACY_TALENT.id),
+      recommendedCastEfficiency: 0.95,
     },
     {
       spell: SPELLS.SUMMON_INFERNAL_UNTALENTED,
       category: SPELL_CATEGORY.COOLDOWNS,
       getCooldown: haste => 180,
       isActive: combatant => !combatant.hasTalent(SPELLS.GRIMOIRE_OF_SUPREMACY_TALENT.id),
+      recommendedCastEfficiency: 0.95,
     },
     /*{
       spell: SPELLS.DRAIN_SOUL,

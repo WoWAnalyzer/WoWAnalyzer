@@ -7,9 +7,10 @@ import SoulShardBreakdown from './SoulShardBreakdown';
 import WastedShardsIcon from '../../Images/affliction_warlock_soulshard_bw.jpg';
 
 const soulShardIcon = 'inv_misc_gem_amethyst_02';
+
 class SoulShardDetails extends Module {
 
-  suggestion(when) {
+  suggestions(when) {
     const shardsWasted = this.owner.modules.soulShardTracker.shardsWasted;
     when(shardsWasted).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => {

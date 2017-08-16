@@ -11,7 +11,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 const debug = true;
 
 class AgonyUptime extends Module {
-  suggestion(when){
+  suggestions(when){
     const agonyUptime = this.owner.modules.enemies.getBuffUptime(SPELLS.AGONY.id) / this.owner.fightDuration;
     //actual = value in when()
     //recommended = value in isLessThan()

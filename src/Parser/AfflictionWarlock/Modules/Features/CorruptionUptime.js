@@ -11,7 +11,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 const debug = true;
 
 class CorruptionUptime extends Module {
-  suggestion(when){
+  suggestions(when){
     const corruptionUptime = this.owner.modules.enemies.getBuffUptime(SPELLS.CORRUPTION_DEBUFF.id) / this.owner.fightDuration;
     //actual = value in when()
     //recommended = value in isLessThan()
