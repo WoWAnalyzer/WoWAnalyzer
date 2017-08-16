@@ -7,6 +7,10 @@ const Icon = ({ icon, alt, ...other }) => {
     // Blizzard seems to have forgotten to remove the dash for this one... or something
     icon = 'petbattle_health-down';
   }
+  if (icon === 'class_demonhunter') {
+    // Blizzard seems to have forgotten to remove the dash for this one too
+    icon = 'class_demon-hunter';
+  }
 
   return (
     <img
