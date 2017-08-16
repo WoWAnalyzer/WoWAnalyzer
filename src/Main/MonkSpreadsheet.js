@@ -78,14 +78,14 @@ class MonkSpreadsheet extends React.Component {
           <tr><td>{(parser.selectedCombatant.hasTalent(SPELLS.LIFECYCLES_TALENT.id) && ((parser.modules.lifecycles.castsRedEnm / (parser.modules.lifecycles.castsRedEnm + parser.modules.lifecycles.castsNonRedEnm)).toFixed(4))) || 0}</td></tr>
           <tr style={styles.cellBorder}><td>{parser.modules.spiritOfTheCrane.manaReturnSotc}</td></tr>
           <tr style={styles.cellBorder}><td>{(parser.modules.sheilunsGift.stacksTotalSG / SGcasts || 0).toFixed(0)}</td></tr>
-          <tr style={styles.cellBorder}><td>{(parser.modules.sheilunsGift.countWhispersHeal / ((Math.floor(parser.fightDuration / 10000) + parser.modules.sheilunsGift.countEff))).toFixed(4) || 0}</td></tr>
+          <tr style={styles.cellBorder}><td>{(parser.modules.whispersOfShaohao.countWhispersHeal / ((Math.floor(parser.fightDuration / 10000) + parser.modules.whispersOfShaohao.countEff))).toFixed(4) || 0}</td></tr>
           <tr style={styles.cellBorder}><td>{((parser.modules.celestialBreath.healsCelestialBreath / parser.modules.celestialBreath.procsCelestialBreath) / 3).toFixed(2) || 0}</td></tr>
           <tr style={styles.cellBorder}><td>{parser.modules.mistsOfSheilun.procsMistsOfSheilun}</td></tr>
           <tr><td>{(parser.modules.mistsOfSheilun.healsMistsOfSheilun / parser.modules.mistsOfSheilun.procsMistsOfSheilun).toFixed(2) || 0}</td></tr>
           <tr style={styles.cellBorder}><td>{(parser.selectedCombatant.hasTalent(SPELLS.REFRESHING_JADE_WIND_TALENT.id) && ((parser.modules.refreshingJadeWind.healsRJW / parser.modules.refreshingJadeWind.castRJW) / 78 ).toFixed(4)) || 0}</td></tr>
           <tr style={styles.cellBorder}><td>{parser.modules.renewingMist.dancingMistHeal}</td></tr>
           <tr style={styles.cellBorder}><td>{(((parser.modules.essenceFontMastery.healEF / 2) / parser.modules.essenceFontMastery.castEF) || 0).toFixed(2)}</td></tr>
-          <tr style={styles.cellBorder}><td>{(parser.modules.essenceFontMastery.targetsEF / parser.modules.essenceFontMastery.castEF).toFixed(2) || 0}</td></tr>
+          <tr style={styles.cellBorder}><td>{(parser.modules.essenceFont.targetsEF / parser.modules.essenceFont.castEF).toFixed(2) || 0}</td></tr>
           <tr><td>{(parser.modules.chiBurst.targetsChiBurst / parser.modules.chiBurst.castChiBurst).toFixed(2) || 0}</td></tr>
           <tr style={styles.cellBorder}><td>{((parser.modules.amalgamsSeventhSpine.manaGained / parser.fightDuration * 1000 * 5) || 0) + ((parser.modules.darkmoonDeckPromises.manaGained / parser.fightDuration * 1000 * 5) || 0)}</td></tr>
           <tr>
