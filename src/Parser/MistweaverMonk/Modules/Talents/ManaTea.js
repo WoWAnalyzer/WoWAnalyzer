@@ -1,7 +1,14 @@
 // Modified from Original Code by Blazyb and his Innervate module.
+import React from 'react';
+
+import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
+import SpellIcon from 'common/SpellIcon';
+import { formatNumber , formatThousands } from 'common/format';
 
 import Module from 'Parser/Core/Module';
-import SPELLS from 'common/SPELLS';
+
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 const debug = false;
 
@@ -110,13 +117,10 @@ class ManaTea extends Module {
         this.nonManaCasts++;
         this.casted = false;
       }
-
-
     }
   }
 
   addToManaSaved(spellBaseMana, spellId) {
-
     // If we cast TFT -> Viv, mana cost of Viv is 0
     if(this.owner.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id) && SPELLS.VIVIFY.id === spellId) {
         this.nonManaCasts++;
@@ -146,6 +150,65 @@ class ManaTea extends Module {
       console.log("Free spells cast: " + this.nonManaCasts);
     }
   }
+
+  suggestions(when) {
+    const abilityTracker = this.owner.modules.abilityTracker;
+    const getAbility = spellId => abilityTracker.getAbility(spellId);
+
+    const manaTea = getAbility(SPELLS.MANA_TEA_TALENT.id);
+    const mtCasts = manaTea.casts || 0;
+    const avgMTsaves = this.manaSavedMT / mtCasts || 0;
+
+    when(avgMTsaves).isLessThan(180000)
+    .addSuggestion((suggest, actual, recommended) => {
+      return suggest(<span>Your mana spent during <SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> can be improved. Always aim to cast your highest mana spells such as <SpellLink id={SPELLS.ESSENCE_FONT.id} /> or <SpellLink id={SPELLS.VIVIFY.id} />.</span>)
+        .icon(SPELLS.MANA_TEA_TALENT.icon)
+        .actual(`${formatNumber(avgMTsaves)} average mana saved per Mana Tea cast`)
+        .recommended(`${(recommended / 1000).toFixed(0)}k average mana saved is recommended`)
+        .regular(recommended - 30000).major(recommended - 60000);
+    });
+  }
+
+  statistic() {
+    const abilityTracker = this.owner.modules.abilityTracker;
+    const getAbility = spellId => abilityTracker.getAbility(spellId);
+
+    const manaTea = getAbility(SPELLS.MANA_TEA_TALENT.id);
+    const mtCasts = manaTea.casts || 0;
+    const avgMTsaves = this.manaSavedMT / mtCasts || 0;
+
+    return (
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.MANA_TEA_TALENT.id} />}
+        value={`${formatNumber(avgMTsaves)}`}
+        label={(
+          <dfn
+            data-tip={`
+                During your ${this.manateaCount} <a href="http://www.wowhead.com/spell=197908" target="_blank" rel="noopener noreferrer">Mana Teas</a> saved the following mana (${formatThousands(this.manaSavedMT / this.owner.fightDuration * 1000 * 5)} MP5):
+                <ul>
+                ${this.efCasts > 0 ?
+                `<li>${(this.efCasts)} Essence Font casts</li>`
+                : ""
+                }
+                ${this.efCasts > 0 ?
+                `<li>${(this.vivCasts)} Vivfy casts</li>`
+                : ""
+                }
+                ${this.efCasts > 0 ?
+                `<li>${(this.enmCasts)} Enveloping Mists casts</li>`
+                : ""
+                }
+                <li>${(this.rjwCasts + this.revCasts + this.remCasts + this.lcCasts + this.effCasts)} other spells casted.</li>
+                <li>${(this.nonManaCasts)} non-mana casts during Mana Tea</li>
+            </ul>`}
+          >
+            Average mana saved
+          </dfn>
+        )}
+      />
+    );
+  }
+  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 }
 
 export default ManaTea;

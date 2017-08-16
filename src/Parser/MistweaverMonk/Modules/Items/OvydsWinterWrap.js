@@ -29,6 +29,13 @@ class OvydsWinterWrap extends Module {
       console.log('Ovyd\'s Healing Contribution: ' + this.healing);
     }
   }
+
+  item() {
+    return {
+      item: ITEMS.OVYDS_WINTER_WRAP,
+      result: this.owner.formatItemHealingDone(this.healing),
+    };
+  }
 }
 
 export default OvydsWinterWrap;

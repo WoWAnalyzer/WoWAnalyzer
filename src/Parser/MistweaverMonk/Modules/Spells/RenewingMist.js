@@ -1,5 +1,12 @@
-import Module from 'Parser/Core/Module';
+import React from 'react';
+
 import SPELLS from 'common/SPELLS';
+import SpellIcon from 'common/SpellIcon';
+import { formatNumber } from 'common/format';
+
+import Module from 'Parser/Core/Module';
+
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 const debug = false;
 
@@ -51,7 +58,6 @@ class RenewingMist extends Module {
         debug && console.log('Dancing Mist Targets: ', this.dancingMistTarget);
       }
     });
-
     if(spellId === SPELLS.RENEWING_MIST_HEAL.id) {
       this.remRemoveTimestamp = event.timestamp;
       this.remCount--;
@@ -77,17 +83,14 @@ class RenewingMist extends Module {
 
     if(spellId === SPELLS.RENEWING_MIST_HEAL.id) {
       this.remTicks++;
-
       this.dancingMistTarget.forEach(targetID => {
         if(event.targetID === targetID) {
           debug && console.log('Dancing Mist Heal on: ' + targetID);
           this.dancingMistHeal += (event.amount || 0 ) + (event.absorbed || 0);
         }
       });
-
     }
   }
-
 
   on_finished() {
     if(debug) {
@@ -98,6 +101,21 @@ class RenewingMist extends Module {
       console.log('Dancing Mist Healing ' + this.dancingMistHeal);
     }
   }
+
+  statistic() {
+    return (
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.DANCING_MISTS.id} />}
+        value={`${formatNumber(this.dancingMistHeal)}`}
+        label={(
+          <dfn data-tip={`You had a total of ${(this.dancingMistProc)} procs on ${this.castsREM} REM casts.`}>
+            Total Healing
+          </dfn>
+        )}
+      />
+    );
+  }
+  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 }
 
 export default RenewingMist;

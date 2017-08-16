@@ -22,6 +22,7 @@ class CastEfficiency extends CoreCastEfficiency {
         const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.RENEWING_MIST_HEAL.id);
         return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
       },
+      extraSuggestion: 'You need to use this ability as close to on cooldown as possible. Get in the habbit of using this ability as it is our only \'cast on cooldown\' ability.',
     },
     // Cooldowns
     {
