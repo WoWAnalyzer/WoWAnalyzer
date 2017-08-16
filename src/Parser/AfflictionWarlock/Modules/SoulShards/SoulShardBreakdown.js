@@ -7,9 +7,9 @@ import { formatPercentage } from 'common/format';
 
 class SoulShardBreakdown extends React.Component {
   static propTypes = {
-    shardGen: PropTypes.object.isRequired,
-    shardSpend: PropTypes.object.isRequired,
-    shardWasted: PropTypes.object.isRequired,
+    shardsGained: PropTypes.object.isRequired,
+    shardsSpent: PropTypes.object.isRequired,
+    shardsWasted: PropTypes.object.isRequired,
   };
   prepareGenerated(shardGen, shardWasted){
     //shardGen and shardWasted has the same number of abilities (some having 0, these can be now filtered)
@@ -25,9 +25,9 @@ class SoulShardBreakdown extends React.Component {
     return abilities;
   }
   render() {
-    const { shardGen, shardSpend, shardWasted } = this.props;
-    const generated = this.prepareGenerated(shardGen, shardWasted);
-    const spent = this.prepareSpent(shardSpend);
+    const { shardsGained, shardsSpent, shardsWasted } = this.props;
+    const generated = this.prepareGenerated(shardsGained, shardsWasted);
+    const spent = this.prepareSpent(shardsSpent);
 
     let totalGenerated = 0;
     let totalWasted = 0;

@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 
 import Module from 'Parser/Core/Module';
-import SoulShardTab from './SoulShardTab';
 
 const shardGeneratingAbilities =
   [ SPELLS.AGONY_SHARD_GEN.id,
@@ -103,18 +102,5 @@ class SoulShardTracker extends Module{
     this.shardsSpent++;
   }
 
-  tab() {
-    return {
-      title: 'Soul Shard usage',
-      url: 'soul-shards',
-      render: () => (
-        <SoulShardTab
-          shardGen = {this.gained}
-          shardSpend = {this.spent}
-          shardWasted = {this.wasted}
-        />
-      ),
-    };
-  }
 }
 export default SoulShardTracker;

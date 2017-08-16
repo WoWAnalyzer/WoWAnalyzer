@@ -12,7 +12,9 @@ import CooldownTracker from './Modules/Features/CooldownTracker';
 import AgonyUptime from './Modules/Features/AgonyUptime';
 import CorruptionUptime from "./Modules/Features/CorruptionUptime";
 import SiphonLifeUptime from "./Modules/Features/SiphonLifeUptime";
-import SoulShardTracker from "./Modules/WarlockCore/SoulShardTracker";
+
+import SoulShardTracker from "./Modules/SoulShards/SoulShardTracker";
+import SoulShardDetails from "./Modules/SoulShards/SoulShardDetails";
 
 class CombatLogParser extends MainCombatLogParser {
 
@@ -29,6 +31,7 @@ class CombatLogParser extends MainCombatLogParser {
 
     //Core
     soulShardTracker: SoulShardTracker,
+    soulShardDetails: SoulShardDetails,
   };
 
   generateResults() {
