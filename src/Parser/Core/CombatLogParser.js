@@ -140,7 +140,7 @@ class CombatLogParser {
         } else {
           console.log('Loading', moduleClass.name, 'with dependencies:', Object.keys(availableDependencies));
         }
-        this.modules[desiredModuleName] = new moduleClass(this, availableDependencies);
+        this.modules[desiredModuleName] = new moduleClass(this, availableDependencies, Object.keys(this.modules).length);
       } else {
         console.warn(moduleClass.name, 'could not be loaded, missing dependencies:', missingDependencies.map(d => d.name));
         failedModules.push(desiredModuleName);
@@ -193,7 +193,7 @@ class CombatLogParser {
     const methodName = `on_${eventType}`;
     this.constructor.tryCall(this, methodName, event);
     this.activeModules
-      .sort((a, b) => b.priority - a.priority)
+      .sort((a, b) => a.priority - b.priority) // lowest should go first, as `priority = 0` will have highest prio
       .forEach(module => {
         this.constructor.tryCall(module, methodName, event);
       });
