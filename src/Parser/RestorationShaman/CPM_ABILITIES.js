@@ -31,7 +31,7 @@ const CPM_ABILITIES = [
     category: SPELL_CATEGORY.ROTATIONAL,
     getCooldown: (haste, combatant) => {
         const has4PT19 = combatant.hasBuff(SPELLS.RESTORATION_SHAMAN_T19_4SET_BONUS_BUFF.id);
-        
+
         if (!has4PT19) {
             return 30;
         }
@@ -175,16 +175,16 @@ const CPM_ABILITIES = [
     getOverhealing: ({ healingTwHealing, healingTwAbsorbed, healingTwOverheal }) => (healingTwOverheal / (healingTwHealing + healingTwAbsorbed + healingTwOverheal)) || null,
   },
   {
-    spell: SPELLS.HEALING_SURGE,
-    name: `Filler ${SPELLS.HEALING_SURGE.name}`,
+    spell: SPELLS.HEALING_SURGE_RESTORATION,
+    name: `Filler ${SPELLS.HEALING_SURGE_RESTORATION.name}`,
     category: SPELL_CATEGORY.OTHERS,
     getCasts: castCount => (castCount.casts || 0) - (castCount.healingTwHits || 0),
     getCooldown: haste => null,
     getOverhealing: ({ healingEffective, healingAbsorbed, healingOverheal, healingTwHealing, healingTwAbsorbed, healingTwOverheal }) => ((healingOverheal - healingTwOverheal) / ((healingEffective - healingTwHealing) + (healingAbsorbed - healingTwAbsorbed) + (healingOverheal - healingTwOverheal))) || null,
   },
   {
-    spell: SPELLS.HEALING_SURGE,
-    name: `Tidal Waves ${SPELLS.HEALING_SURGE.name}`,
+    spell: SPELLS.HEALING_SURGE_RESTORATION,
+    name: `Tidal Waves ${SPELLS.HEALING_SURGE_RESTORATION.name}`,
     category: SPELL_CATEGORY.OTHERS,
     getCasts: castCount => castCount.healingTwHits || 0,
     getCooldown: haste => null,
