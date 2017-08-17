@@ -135,6 +135,7 @@ class CombatLogParser extends MainCombatLogParser {
         if (_newEvents.length) {
           _newEvents.reverse();
           _events = _events.concat(_newEvents);
+          _newEvents = [];
         }
       }
 
@@ -160,6 +161,7 @@ class CombatLogParser extends MainCombatLogParser {
         if (_newEvents.length) {
           _newEvents.reverse();
           _events = _events.concat(_newEvents);
+          _newEvents = [];
         }
       }
     });
