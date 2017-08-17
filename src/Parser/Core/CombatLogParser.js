@@ -162,7 +162,14 @@ class CombatLogParser {
       .find(module => module instanceof type);
   }
 
+  _debugEventHistory = [];
   parseEvents(events) {
+    if (process.env.NODE_ENV === 'development') {
+      this._debugEventHistory = [
+        ...this._debugEventHistory,
+        ...events,
+      ];
+    }
     return new Promise((resolve, reject) => {
       events.forEach(event => {
         if (this.error) {
