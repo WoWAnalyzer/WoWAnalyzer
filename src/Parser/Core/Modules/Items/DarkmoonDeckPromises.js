@@ -7,6 +7,8 @@ import { formatThousands } from 'common/format';
 
 import Module from 'Parser/Core/Module';
 
+import SpellManaCost from '../SpellManaCost';
+
 const debug = false;
 
 const BASE_PROMISES_ITEM_LEVEL = 835;
@@ -22,7 +24,9 @@ const BASE_MANA_REDUCTION_PER_CARD = {
 };
 
 class DarkmoonDeckPromises extends Module {
-  priority = 9;
+  static dependencies = {
+    spellManaCost: SpellManaCost, // we need this to add manaCost to the `event`
+  };
 
   MANA_REDUCTION_PER_CARD = {};
   currentManaReduction = 0; // Start the fight at average, this should cause for the smallest discrepancy
@@ -58,24 +62,31 @@ class DarkmoonDeckPromises extends Module {
     this.currentManaReduction = card;
   }
 
-  lastPenanceStartTimestamp = null;
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
+  getManaSaved(event) {
     const manaCost = event.manaCost;
     if (!manaCost) {
-      return;
+      return 0;
     }
 
-    const manaSaved = Math.min(this.currentManaReduction, manaCost);
+    return Math.min(this.currentManaReduction, manaCost);
+  }
+
+  on_byPlayer_cast(event) {
+    const manaSaved = this.getManaSaved(event);
+    if (!manaSaved) {
+      return;
+    }
+    const spellId = event.ability.guid;
+
     if (!event.isManaCostNullified) {
-      debug && console.log('Promises saved', manaSaved, 'mana on', SPELLS[spellId].name, 'costing', manaCost, event);
+      debug && console.log('Promises saved', manaSaved, 'mana on', SPELLS[spellId].name, 'costing', event.manaCost, event);
       this.manaGained += manaSaved;
     } else {
-      debug && console.log('Promises saved 0 mana on', SPELLS[spellId].name, 'costing', manaCost, 'since Innervate or Symbol of Hope is active (normally ', manaSaved, ' mana)', event);
+      debug && console.log('Promises saved 0 mana on', SPELLS[spellId].name, 'costing', event.manaCost, 'since Innervate or Symbol of Hope is active (normally ', manaSaved, ' mana)', event);
     }
 
     // Update the mana cost on the cast so that it's accurate for other modules
-    event.manaCost -= manaSaved;
+    event.manaCost = Math.max(0, event.manaCost - manaSaved);
   }
 
   item() {

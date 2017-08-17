@@ -6,6 +6,7 @@ import AlwaysBeCasting from './Modules/AlwaysBeCasting';
 import Enemies from './Modules/Enemies';
 import HealEventTracker from './Modules/HealEventTracker';
 import ManaValues from './Modules/ManaValues';
+import SpellManaCost from './Modules/SpellManaCost';
 
 // Shared Legendaries
 import Prydaz from './Modules/Items/Prydaz';
@@ -33,6 +34,7 @@ class CombatLogParser {
   static defaultModules = {
     combatants: Combatants,
     enemies: Enemies,
+    spellManaCost: SpellManaCost,
     abilityTracker: AbilityTracker,
     healEventTracker: HealEventTracker,
     alwaysBeCasting: AlwaysBeCasting,

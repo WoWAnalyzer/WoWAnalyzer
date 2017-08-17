@@ -16,7 +16,7 @@ import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
 
-import AbilityTracker from './Modules/Core/AbilityTracker';
+import SpellManaCost from './Modules/Core/SpellManaCost';
 
 // Spell data
 import PrayerOfMending from './Modules/Spells/PrayerOfMending';
@@ -74,7 +74,7 @@ class CombatLogParser extends MainCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
 
   static specModules = {
-    abilityTracker: AbilityTracker,
+    spellManaCost: SpellManaCost,
     castEfficiency: CastEfficiency,
     lowHealthHealing: LowHealthHealing,
 
