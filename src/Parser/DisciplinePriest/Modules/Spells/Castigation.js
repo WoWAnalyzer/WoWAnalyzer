@@ -1,9 +1,15 @@
 import SPELLS from 'common/SPELLS';
 
 import Module from 'Parser/Core/Module';
-import isAtonement from './../Core/isAtonement';
+
+import isAtonement from '../Core/isAtonement';
+import Penance from '../Spells/Penance';
 
 class Castigation extends Module {
+  static dependencies = {
+    penance: Penance, // we need this to add `penanceBoltNumber` to the damage and heal events
+  };
+
   healing = 0;
   damage = 0;
 

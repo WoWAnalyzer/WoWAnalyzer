@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 
 import CoreSpellManaCost from 'Parser/Core/Modules/SpellManaCost';
+// import Penance from '../Spells/Penance';
 
 /** The amount of time during which it's impossible a second Penance could have started */
 const PENANCE_CHANNEL_TIME_BUFFER = 2500;
@@ -8,6 +9,10 @@ const PENANCE_CHANNEL_TIME_BUFFER = 2500;
 const debug = false;
 
 class SpellManaCost extends CoreSpellManaCost {
+  // static dependencies = {
+  //   penance: Penance, // we need this to add `penanceBoltNumber` to the cast event
+  // };
+
   lastPenanceStartTimestamp = null;
   getHardcodedManaCost(event) {
     const spellId = event.ability.guid;
@@ -16,9 +21,10 @@ class SpellManaCost extends CoreSpellManaCost {
     if (spellId === SPELLS.PENANCE.id) {
       if (!this.lastPenanceStartTimestamp || (event.timestamp - this.lastPenanceStartTimestamp) > PENANCE_CHANNEL_TIME_BUFFER) {
         this.lastPenanceStartTimestamp = event.timestamp;
+      // if (event.isInitialPenanceCast) {
         hardcodedCost = SPELLS.PENANCE.manaCost;
       } else {
-        // This is a second bolt from Penance, it doesn't cost mana.
+        // This is a second or later bolt from Penance, it doesn't cost mana.
         hardcodedCost = 0;
       }
     }

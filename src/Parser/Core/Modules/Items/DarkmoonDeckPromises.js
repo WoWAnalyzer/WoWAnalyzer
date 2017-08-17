@@ -25,7 +25,7 @@ const BASE_MANA_REDUCTION_PER_CARD = {
 
 class DarkmoonDeckPromises extends Module {
   static dependencies = {
-    spellManaCost: SpellManaCost, // we need this to add manaCost to the `event`
+    spellManaCost: SpellManaCost, // we need this to add `manaCost` to the `event`
   };
 
   MANA_REDUCTION_PER_CARD = {};
