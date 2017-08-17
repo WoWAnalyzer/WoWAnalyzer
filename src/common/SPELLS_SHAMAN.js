@@ -272,7 +272,7 @@ export default {
       name: 'Ghost Wolf',
       icon: 'spell_nature_spiritwolf',
   },
-  HEALING_SURGE: {
+  HEALING_SURGE_ENH: {
       id: 188070,
       name: 'Healing Surge',
       icon: 'spell_nature_healingway',
@@ -400,6 +400,11 @@ export default {
     id: 1064,
     name: 'Chain Heal',
     icon: 'spell_nature_healingwavegreater',
+  },
+  HEALING_SURGE: {
+    id: 8004,
+    name: 'Healing Surge',
+    icon: 'spell_nature_healingway',
   },
   HEALING_WAVE: {
     id: 77472,
