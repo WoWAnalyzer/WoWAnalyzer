@@ -20,6 +20,7 @@ import UnusedInfusionOfLights from './Modules/PaladinCore/UnusedInfusionOfLights
 import FilledCastRatio from './Modules/PaladinCore/FilledCastRatio';
 import Overhealing from './Modules/PaladinCore/Overhealing';
 import FillerLightOfTheMartyrs from './Modules/PaladinCore/FillerLightOfTheMartyrs';
+import LightOfDawn from './Modules/PaladinCore/LightOfDawn';
 
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import MasteryEffectiveness from './Modules/Features/MasteryEffectiveness';
@@ -66,6 +67,7 @@ class CombatLogParser extends MainCombatLogParser {
     filledCastRatio: FilledCastRatio,
     overhealing: Overhealing,
     fillerLightOfTheMartyrs: FillerLightOfTheMartyrs,
+    lightOfDawn: LightOfDawn,
 
     // Features
     castEfficiency: CastEfficiency,
