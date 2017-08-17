@@ -1,12 +1,17 @@
 import SPELLS from 'common/SPELLS';
 
 import Module from 'Parser/Core/Module';
-import isAtonement from './../Core/isAtonement';
+
+import isAtonement from '../Core/isAtonement';
+import Atonement from '../Spells/Atonement';
 
 class Evangelism extends Module {
+  static dependencies = {
+    atonementModule: Atonement,
+  };
+
   _previousEvangelismCast = null;
   _evangelismStatistics = {};
-  atonementModule = this.owner.modules.atonement;
 
   on_initialized() {
     if (!this.owner.error) {
