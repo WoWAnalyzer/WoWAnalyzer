@@ -29,9 +29,6 @@ class SheilunsGift extends Module {
   diffLastSGStack = null;
   castsSGTimestamp = null;
 
-  whispersHeal = 0;
-  whispersOverHeal = 0;
-  countWhispersHeal = 0;
   countEff = 0;
 
   hasEffusiveMists = 0;

@@ -78,7 +78,7 @@ class MonkSpreadsheet extends React.Component {
           <tr><td>{(parser.selectedCombatant.hasTalent(SPELLS.LIFECYCLES_TALENT.id) && ((parser.modules.lifecycles.castsRedEnm / (parser.modules.lifecycles.castsRedEnm + parser.modules.lifecycles.castsNonRedEnm)).toFixed(4))) || 0}</td></tr>
           <tr style={styles.cellBorder}><td>{parser.modules.spiritOfTheCrane.manaReturnSotc}</td></tr>
           <tr style={styles.cellBorder}><td>{(parser.modules.sheilunsGift.stacksTotalSG / SGcasts || 0).toFixed(0)}</td></tr>
-          <tr style={styles.cellBorder}><td>{(parser.modules.whispersOfShaohao.countWhispersHeal / ((Math.floor(parser.fightDuration / 10000) + parser.modules.whispersOfShaohao.countEff))).toFixed(4) || 0}</td></tr>
+          <tr style={styles.cellBorder}><td>{(parser.modules.whispersOfShaohao.countWhispersHeal / ((Math.floor(parser.fightDuration / 10000) + parser.modules.sheilunsGift.countEff))).toFixed(4) || 0}</td></tr>
           <tr style={styles.cellBorder}><td>{((parser.modules.celestialBreath.healsCelestialBreath / parser.modules.celestialBreath.procsCelestialBreath) / 3).toFixed(2) || 0}</td></tr>
           <tr style={styles.cellBorder}><td>{parser.modules.mistsOfSheilun.procsMistsOfSheilun}</td></tr>
           <tr><td>{(parser.modules.mistsOfSheilun.healsMistsOfSheilun / parser.modules.mistsOfSheilun.procsMistsOfSheilun).toFixed(2) || 0}</td></tr>

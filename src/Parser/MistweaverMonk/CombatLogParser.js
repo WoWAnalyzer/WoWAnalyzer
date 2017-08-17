@@ -51,7 +51,10 @@ import DoorwayToNowhere from './Modules/Items/DoorwayToNowhere';
 import PetrichorLagniappe from './Modules/Items/PetrichorLagniappe';
 import OvydsWinterWrap from './Modules/Items/OvydsWinterWrap';
 
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
+
 class CombatLogParser extends MainCombatLogParser {
+  static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
 
   static specModules = {
     // Core
