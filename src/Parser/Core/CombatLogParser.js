@@ -25,7 +25,6 @@ import SeaStar from './Modules/Items/SeaStarOfTheDepthmother';
 import DeceiversGrandDesign from './Modules/Items/DeceiversGrandDesign';
 import PrePotion from './Modules/Items/PrePotion';
 import GnawedThumbRing from './Modules/Items/GnawedThumbRing';
-import VialOfCeaselessToxins from './Modules/Items/VialOfCeaselessToxins';
 
 // Shared Buffs
 import VantusRune from './Modules/VantusRune';
@@ -60,7 +59,6 @@ class CombatLogParser {
     barbaricMindslaver: BarbaricMindslaver,
     seaStar: SeaStar,
     deceiversGrandDesign: DeceiversGrandDesign,
-    vialCeaslessToxins: VialOfCeaselessToxins,
   };
   // Override this with spec specific modules
   static specModules = {};
@@ -214,7 +212,7 @@ class CombatLogParser {
       this.totalDamageDone += damageDone;
     }
   }
-
+  
   totalDamageTaken = 0;
   totalDamageTakenAbsorb = 0;
   on_toPlayer_damage(event) {
@@ -324,14 +322,6 @@ class CombatLogParser {
         item: ITEMS.GNAWED_THUMB_RING,
         result: (<dfn data-tip={`The effective healing and damage contributed by Gnawed Thumb Ring.<br/> Damage: ${formatItemDamage(this.modules.gnawedThumbRing.damageIncreased)} <br/> Healing: ${formatItemHealing(this.modules.gnawedThumbRing.healingIncreaseHealing)}`}>
             {this.modules.gnawedThumbRing.healingIncreaseHealing > this.modules.gnawedThumbRing.damageIncreased ? formatItemHealing(this.modules.gnawedThumbRing.healingIncreaseHealing) : formatItemDamage(this.modules.gnawedThumbRing.damageIncreased)}
-          </dfn>),
-      });
-    }
-    if (this.modules.vialCeaslessToxins.active) {
-      results.items.push({
-        item: ITEMS.VIAL_OF_CEASELESS_TOXINS,
-        result: (<dfn data-tip={`The effective damage contributed by Vial of Ceasless Toxins.<br/>Casts: ${this.modules.vialCeaslessToxins.totalToxinCast}<br/> Damage: ${formatItemDamage(this.modules.vialCeaslessToxins.damageIncreased)}<br/> Total Damage: ${formatNumber(this.modules.vialCeaslessToxins.damageIncreased)}`}>
-            {formatItemDamage(this.modules.vialCeaslessToxins.damageIncreased)}
           </dfn>),
       });
     }
