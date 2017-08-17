@@ -22,7 +22,9 @@ import SPELLS_DRUID from './SPELLS_DRUID';
 import SPELLS_MONK from './SPELLS_MONK';
 import SPELLS_SHAMAN from './SPELLS_SHAMAN';
 import SPELLS_ROGUE from './SPELLS_ROGUE';
+
 import SPELLS_WARLOCK from './SPELLS_WARLOCK';
+import SPELLS_DEMON_HUNTER from './SPELLS_DEMON_HUNTER';
 
 const ABILITIES = {
   ...SPELLS_OTHERS,
@@ -48,6 +50,7 @@ const ABILITIES = {
   ...SPELLS_SHAMAN,
   ...SPELLS_ROGUE,
   ...SPELLS_WARLOCK,
+  ...SPELLS_DEMON_HUNTER,
 };
 
 export default indexById(ABILITIES);

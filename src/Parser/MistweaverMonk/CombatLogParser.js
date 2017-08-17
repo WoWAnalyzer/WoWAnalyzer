@@ -31,6 +31,8 @@ import ThunderFocusTea from './Modules/Spells/ThunderFocusTea';
 import SheilunsGift from './Modules/Spells/SheilunsGift';
 import RenewingMist from './Modules/Spells/RenewingMist';
 import EssenceFont from './Modules/Spells/EssenceFont';
+import EnvelopingMists from './Modules/Spells/EnvelopingMists';
+import SoothingMist from './Modules/Spells/SoothingMist';
 
 // Talents
 import ChiJi from './Modules/Talents/ChiJi';
@@ -40,7 +42,7 @@ import RefreshingJadeWind from './Modules/Talents/RefreshingJadeWind';
 import Lifecycles from './Modules/Talents/Lifecycles';
 import SpiritOfTheCrane from './Modules/Talents/SpiritOfTheCrane';
 
-// Setup for Items
+// Items
 import Eithas from './Modules/Items/Eithas';
 import T20_4pc from './Modules/Items/T20_4pc';
 import T20_2pc from './Modules/Items/T20_2pc';
@@ -49,7 +51,10 @@ import DoorwayToNowhere from './Modules/Items/DoorwayToNowhere';
 import PetrichorLagniappe from './Modules/Items/PetrichorLagniappe';
 import OvydsWinterWrap from './Modules/Items/OvydsWinterWrap';
 
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
+
 class CombatLogParser extends MainCombatLogParser {
+  static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
 
   static specModules = {
     // Core
@@ -73,6 +78,8 @@ class CombatLogParser extends MainCombatLogParser {
     sheilunsGift: SheilunsGift,
     thunderFocusTea: ThunderFocusTea,
     upliftingTrance: UpliftingTrance,
+    envelopingMists: EnvelopingMists,
+    soothingMist: SoothingMist,
 
     // Talents
     chiBurst: ChiBurst,
