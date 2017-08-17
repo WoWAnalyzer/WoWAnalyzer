@@ -96,8 +96,6 @@ class CombatLogParser extends MainCombatLogParser {
     const nonDpsTimePercentage = this.modules.alwaysBeCasting.totalDamagingTimeWasted / fightDuration;
     const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
 
-    console.log(this.modules.alwaysBeCasting.totalTimeWasted+'---'+fightDuration);
-
     if (nonDpsTimePercentage > 0.01) {
       results.addIssue({
         issue: `Your non DPS time can be improved. Try to cast damaging spells more regularly.`,
