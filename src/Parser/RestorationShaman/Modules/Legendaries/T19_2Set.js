@@ -18,10 +18,10 @@ class Restoration_Shaman_T19_2Set extends Module {
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
-    if (!(spellId === SPELLS.HEALING_WAVE.id) && !(spellId === SPELLS.HEALING_SURGE.id)) {
+    if (!(spellId === SPELLS.HEALING_WAVE.id) && !(spellId === SPELLS.HEALING_SURGE_RESTORATION.id)) {
         return;
     }
-    
+
 
     if (!this.owner.selectedCombatant.hasBuff(SPELLS.TIDAL_WAVES_BUFF.id, event.timestamp, TIDAL_WAVES_BUFF_EXPIRATION_BUFFER)) {
       return;

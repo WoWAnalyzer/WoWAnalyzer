@@ -81,8 +81,8 @@ class CombatLogParser extends MainCombatLogParser {
     earthenShieldTotem: EarthenShieldTotem,
     highTide: HighTide,
     cooldownTracker: CooldownTracker,
-    
-    
+
+
     // Legendaries:
     nobundo: Nobundo,
     nazjatar: Nazjatar,
@@ -114,7 +114,7 @@ class CombatLogParser extends MainCombatLogParser {
 
     const riptide = getAbility(SPELLS.RIPTIDE.id);
     const healingWave = getAbility(SPELLS.HEALING_WAVE.id);
-    const healingSurge = getAbility(SPELLS.HEALING_SURGE.id);
+    const healingSurge = getAbility(SPELLS.HEALING_SURGE_RESTORATION.id);
     const chainHeal = getAbility(SPELLS.CHAIN_HEAL.id);
     const giftOfTheQueen = getAbility(SPELLS.GIFT_OF_THE_QUEEN.id);
     const healingRain = getAbility(SPELLS.HEALING_RAIN_CAST.id);
@@ -207,8 +207,8 @@ class CombatLogParser extends MainCombatLogParser {
     }
     if (unbuffedHealingSurges > 0) {
       results.addIssue({
-        issue: <span>Casting <SpellLink id={SPELLS.HEALING_SURGE.id} /> without <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} /> is very inefficient, try not to cast more than is necessary ({unbuffedHealingSurges}/{healingSurges} casts unbuffed).</span>,
-        icon: SPELLS.HEALING_SURGE.icon,
+        issue: <span>Casting <SpellLink id={SPELLS.HEALING_SURGE_RESTORATION.id} /> without <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} /> is very inefficient, try not to cast more than is necessary ({unbuffedHealingSurges}/{healingSurges} casts unbuffed).</span>,
+        icon: SPELLS.HEALING_SURGE_RESTORATION.icon,
         importance: getIssueImportance(unbuffedHealingSurges / (healingSurges+healingWaves), 0.15, 0.30, true),
       });
     }

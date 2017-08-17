@@ -19,12 +19,12 @@ class Nobundo extends Module {
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
 
-        if (!(spellId === SPELLS.HEALING_SURGE.id)) {
+        if (!(spellId === SPELLS.HEALING_SURGE_RESTORATION.id)) {
         return;
     }
 
     const buff = this.owner.selectedCombatant.getBuff(LEGENDARY_NOBUNDO_BUFF, event.timestamp, LEGENDARY_NOBUNDO_BUFF_EXPIRATION_BUFFER);
-        
+
     if (buff) {
         this.discounts += 1;
     }

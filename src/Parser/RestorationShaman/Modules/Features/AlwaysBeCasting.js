@@ -5,7 +5,7 @@ import CoreAlwaysBeCastingHealing from 'Parser/Core/Modules/AlwaysBeCastingHeali
 const HEALING_ABILITIES_ON_GCD = [
   SPELLS.HEALING_WAVE.id,
   SPELLS.CHAIN_HEAL.id,
-  SPELLS.HEALING_SURGE.id,
+  SPELLS.HEALING_SURGE_RESTORATION.id,
   SPELLS.RIPTIDE.id,
   SPELLS.HEALING_RAIN_CAST.id,
   SPELLS.HEALING_STREAM_TOTEM_CAST.id,
@@ -27,7 +27,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     192058, // Lightning Surge Totem
     51485, // Earthgrab totem
     196932, // Voodoo totem
-    207399, // APT 
+    207399, // APT
     403, // Lightning Bolt
     188838, // Flame shock
     2484, // Earthbind totem
