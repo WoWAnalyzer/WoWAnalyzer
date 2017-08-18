@@ -17,6 +17,7 @@ import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
 
+import SpellManaCost from './Modules/Core/SpellManaCost';
 import AbilityTracker from './Modules/Core/AbilityTracker';
 
 import CastEfficiency from './Modules/Features/CastEfficiency';
@@ -77,6 +78,7 @@ class CombatLogParser extends MainCombatLogParser {
 
   static specModules = {
     // Override the ability tracker so we also get stats for IoL and beacon healing
+    spellManaCost: SpellManaCost,
     abilityTracker: AbilityTracker,
     lowHealthHealing: LowHealthHealing,
     castEfficiency: CastEfficiency,

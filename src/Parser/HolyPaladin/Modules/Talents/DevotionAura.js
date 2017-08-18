@@ -26,14 +26,23 @@ const DEVOTION_AURA_DAMAGE_REDUCTION = 0.2;
 const FALLING_DAMAGE_ABILITY_ID = 3;
 
 class DevotionAura extends Module {
-  get damageReducedDuringAuraMastery() {
+  get auraMasteryDamageReduced() {
     return this.totalDamageTakenDuringAuraMastery / (1 - DEVOTION_AURA_DAMAGE_REDUCTION) * DEVOTION_AURA_DAMAGE_REDUCTION;
   }
-  get damageReducedOutsideAuraMastery() {
+  get auraMasteryDrps() {
+    return this.auraMasteryDamageReduced / this.owner.fightDuration * 1000;
+  }
+  get passiveDamageReduced() {
     return this.totalDamageTakenOutsideAuraMastery / (1 - DEVOTION_AURA_DAMAGE_REDUCTION) * DEVOTION_AURA_DAMAGE_REDUCTION;
   }
+  get passiveDrps() {
+    return this.passiveDamageReduced / this.owner.fightDuration * 1000;
+  }
   get damageReduced() {
-    return this.damageReducedDuringAuraMastery + this.damageReducedOutsideAuraMastery;
+    return this.auraMasteryDamageReduced + this.passiveDamageReduced;
+  }
+  get drps() {
+    return this.damageReduced / this.owner.fightDuration * 1000;
   }
 
   totalDamageTakenDuringAuraMastery = 0;
@@ -75,16 +84,14 @@ class DevotionAura extends Module {
   }
 
   statistic() {
-    const fightDuration = this.owner.fightDuration;
-
     return (
       <LazyLoadStatisticBox
         loader={this.load.bind(this)}
         icon={<SpellIcon id={SPELLS.DEVOTION_AURA_TALENT.id} />}
-        value={`≈${formatNumber(this.damageReduced / fightDuration * 1000)} DRPS`}
+        value={`≈${formatNumber(this.drps)} DRPS`}
         label="Estimated damage reduced"
-        tooltip={`The total estimated damage reduced <b>by the passive</b> was ${formatThousands(this.damageReducedOutsideAuraMastery)} (${formatNumber(this.damageReducedOutsideAuraMastery / fightDuration * 1000)} DRPS). This has high accuracy.<br />
-          The total estimated damage reduced <b>during Aura Mastery</b> was ${formatThousands(this.damageReducedDuringAuraMastery)} (${formatNumber(this.damageReducedDuringAuraMastery / fightDuration * 1000)} DRPS). This has a 99% accuracy.<br /><br />
+        tooltip={`The total estimated damage reduced <b>by the passive</b> was ${formatThousands(this.passiveDamageReduced)} (${formatNumber(this.passiveDrps)} DRPS). This has high accuracy.<br />
+          The total estimated damage reduced <b>during Aura Mastery</b> was ${formatThousands(this.auraMasteryDamageReduced)} (${formatNumber(this.auraMasteryDrps)} DRPS). This has a 99% accuracy.<br /><br />
 
           This is the lowest possible value. This value is pretty accurate for this log if you are looking at the actual gain over not having Devotion Aura bonus at all, but the gain may end up higher when taking interactions with other damage reductions into account.<br /><br />
 

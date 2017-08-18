@@ -99,7 +99,7 @@ class App extends Component {
 
   config = null;
   parser = null;
-  parse(report, fightId, playerName) {
+  parse(report, combatants, fightId, playerName) {
     const player = this.getPlayerFromReport(report, playerName);
     if (!player) {
       alert(`Unknown player: ${playerName}`);
@@ -107,7 +107,7 @@ class App extends Component {
     }
     const fight = this.getFightFromReport(report, fightId);
 
-    const combatant = this.state.combatants.find(combatant => combatant.sourceID === player.id);
+    const combatant = combatants.find(combatant => combatant.sourceID === player.id);
     if (!combatant) {
       alert('This player does not seem to be in this fight.');
       return;
@@ -130,7 +130,7 @@ class App extends Component {
       parser,
       progress: 0,
     }, () => {
-      parser.parseEvents(this.state.combatants)
+      parser.parseEvents(combatants)
         .then(() => {
           parser.triggerEvent('initialized');
           this.setState({
@@ -302,7 +302,7 @@ class App extends Component {
     if (this.state.report !== prevState.report || this.state.combatants !== prevState.combatants || this.props.params.fightId !== prevParams.fightId || this.playerName !== prevParams.playerName) {
       this.reset();
       if (this.state.report && this.state.combatants && this.fightId && this.playerName) {
-        this.parse(this.state.report, this.fightId, this.playerName);
+        this.parse(this.state.report, this.state.combatants, this.fightId, this.playerName);
       }
     }
 

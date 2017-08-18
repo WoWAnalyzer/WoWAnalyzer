@@ -10,14 +10,19 @@ import Module from 'Parser/Core/Module';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import UnusedInfusionOfLightImage from '../../Images/ability_paladin_infusionoflight-bw.jpg';
+import PaladinAbilityTracker  from '../PaladinCore/PaladinAbilityTracker';
 
 class UnusedInfusionOfLights extends Module {
+  static dependencies = {
+    abilityTracker: PaladinAbilityTracker,
+  };
+
   get iolProcsPerHolyShockCrit() {
     return this.owner.selectedCombatant.hasBuff(SPELLS.HOLY_PALADIN_T19_4SET_BONUS_BUFF.id) ? 2 : 1;
   }
 
   suggestions(when) {
-    const abilityTracker = this.owner.modules.abilityTracker;
+    const abilityTracker = this.abilityTracker;
     const getAbility = spellId => abilityTracker.getAbility(spellId);
 
     const flashOfLight = getAbility(SPELLS.FLASH_OF_LIGHT.id);
@@ -56,7 +61,7 @@ class UnusedInfusionOfLights extends Module {
   }
 
   statistic() {
-    const abilityTracker = this.owner.modules.abilityTracker;
+    const abilityTracker = this.abilityTracker;
     const getAbility = spellId => abilityTracker.getAbility(spellId);
 
     const flashOfLight = getAbility(SPELLS.FLASH_OF_LIGHT.id);
