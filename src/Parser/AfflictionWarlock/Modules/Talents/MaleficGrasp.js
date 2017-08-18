@@ -49,7 +49,7 @@ class MaleficGrasp extends Module {
     if(!buffedByDrain)
       return;
 
-    const bonus = getDamageBonus(event, MALEFIC_GRASP_DAMAGE_BONUS); //TODO: confirm on Discord that this is correct
+    const bonus = getDamageBonus(event, MALEFIC_GRASP_DAMAGE_BONUS);
     this.totalBonusDmg += bonus;
 
     switch(spellId) {

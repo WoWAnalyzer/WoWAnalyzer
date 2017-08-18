@@ -16,9 +16,11 @@ import UABuffTracker from './Modules/Features/UABuffTracker';
 
 import SoulShardTracker from './Modules/SoulShards/SoulShardTracker';
 import SoulShardDetails from './Modules/SoulShards/SoulShardDetails';
+import DamageDone from "./Modules/WarlockCore/DamageDone";
 
 import SiphonLifeUptime from './Modules/Talents/SiphonLifeUptime';
 import MaleficGrasp from './Modules/Talents/MaleficGrasp';
+import Contagion from './Modules/Talents/Contagion';
 
 class CombatLogParser extends MainCombatLogParser {
 
@@ -36,10 +38,12 @@ class CombatLogParser extends MainCombatLogParser {
     //Core
     soulShardTracker: SoulShardTracker,
     soulShardDetails: SoulShardDetails,
+    damageDone: DamageDone,
 
     //Talents
     siphonLifeUptime: SiphonLifeUptime,
     maleficGrasp: MaleficGrasp,
+    contagion: Contagion,
   };
 
   generateResults() {

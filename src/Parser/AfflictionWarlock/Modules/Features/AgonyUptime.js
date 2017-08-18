@@ -45,7 +45,7 @@ class AgonyUptime extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.AGONY.id} />}
         value={`${formatPercentage(agonyUptime)} %`}
-        label="Agony uptime"
+        label='Agony uptime'
         tooltip={`Agony uptime is how much of time of the fight you have Agony active on the boss. You should try to keep the uptime as close to 100% as possible, especially with the Writhe In Agony talent.`}
       />
     );
