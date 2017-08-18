@@ -50,8 +50,7 @@ class SoulShardTracker extends Module{
     if(player.hasTalent(SPELLS.GRIMOIRE_OF_SUPREMACY_TALENT.id)) {
       this.spent[SPELLS.SUMMON_DOOMGUARD_TALENTED.id] = {shards: 0};
       this.spent[SPELLS.SUMMON_INFERNAL_TALENTED.id] = {shards: 0};
-      shardSpendingAbilities.push(SPELLS.SUMMON_INFERNAL_TALENTED.id);
-      shardSpendingAbilities.push(SPELLS.SUMMON_DOOMGUARD_TALENTED.id);
+      shardSpendingAbilities.push(SPELLS.SUMMON_INFERNAL_TALENTED.id, SPELLS.SUMMON_DOOMGUARD_TALENTED.id);
     }
 
     else if(player.hasTalent(SPELLS.GRIMOIRE_OF_SERVICE_TALENT.id)){
@@ -61,22 +60,22 @@ class SoulShardTracker extends Module{
       this.spent[SPELLS.GRIMOIRE_VOIDWALKER.id] = {shards: 0};
       this.spent[SPELLS.GRIMOIRE_FELHUNTER.id] = {shards: 0};
       this.spent[SPELLS.GRIMOIRE_SUCCUBUS.id] = {shards: 0};
-      shardSpendingAbilities.push(SPELLS.SUMMON_INFERNAL_UNTALENTED.id);
-      shardSpendingAbilities.push(SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id);
-      shardSpendingAbilities.push(SPELLS.GRIMOIRE_IMP.id);
-      shardSpendingAbilities.push(SPELLS.GRIMOIRE_VOIDWALKER.id);
-      shardSpendingAbilities.push(SPELLS.GRIMOIRE_FELHUNTER.id);
-      shardSpendingAbilities.push(SPELLS.GRIMOIRE_SUCCUBUS.id);
+      shardSpendingAbilities.push(SPELLS.SUMMON_INFERNAL_UNTALENTED.id,
+        SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id,
+        SPELLS.GRIMOIRE_IMP.id,
+        SPELLS.GRIMOIRE_VOIDWALKER.id,
+        SPELLS.GRIMOIRE_FELHUNTER.id,
+        SPELLS.GRIMOIRE_SUCCUBUS.id);
     }
     else {
       this.spent[SPELLS.SUMMON_IMP.id] = {shards: 0};
       this.spent[SPELLS.SUMMON_VOIDWALKER.id] = {shards: 0};
       this.spent[SPELLS.SUMMON_SUCCUBUS.id] = {shards: 0};
       this.spent[SPELLS.SUMMON_FELHUNTER.id] = {shards: 0};
-      shardSpendingAbilities.push(SPELLS.SUMMON_IMP.id);
-      shardSpendingAbilities.push(SPELLS.SUMMON_VOIDWALKER.id);
-      shardSpendingAbilities.push(SPELLS.SUMMON_SUCCUBUS.id);
-      shardSpendingAbilities.push(SPELLS.SUMMON_FELHUNTER.id);
+      shardSpendingAbilities.push(SPELLS.SUMMON_IMP.id,
+        SPELLS.SUMMON_VOIDWALKER.id,
+        SPELLS.SUMMON_SUCCUBUS.id,
+        SPELLS.SUMMON_FELHUNTER.id);
     }
   }
   on_toPlayer_energize(event) {

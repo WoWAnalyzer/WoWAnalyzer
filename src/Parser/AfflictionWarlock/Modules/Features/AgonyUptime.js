@@ -5,14 +5,17 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 
 import Module from 'Parser/Core/Module';
-
+import Enemies from 'Parser/Core/Modules/Enemies';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 const debug = true;
 
 class AgonyUptime extends Module {
+  static dependencies = {
+    enemies: Enemies,
+  };
   suggestions(when){
-    const agonyUptime = this.owner.modules.enemies.getBuffUptime(SPELLS.AGONY.id) / this.owner.fightDuration;
+    const agonyUptime = this.enemies.getBuffUptime(SPELLS.AGONY.id) / this.owner.fightDuration;
     //actual = value in when()
     //recommended = value in isLessThan()
     if(this.owner.selectedCombatant.hasTalent(SPELLS.WRITHE_IN_AGONY_TALENT.id)) {
@@ -37,7 +40,7 @@ class AgonyUptime extends Module {
     }
   }
   statistic() {
-    const agonyUptime = this.owner.modules.enemies.getBuffUptime(SPELLS.AGONY.id) / this.owner.fightDuration;
+    const agonyUptime = this.enemies.getBuffUptime(SPELLS.AGONY.id) / this.owner.fightDuration;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.AGONY.id} />}

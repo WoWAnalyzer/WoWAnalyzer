@@ -5,19 +5,23 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 
 import Module from 'Parser/Core/Module';
+import Enemies from 'Parser/Core/Modules/Enemies';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 const debug = true;
 
 class SiphonLifeUptime extends Module {
+  static dependencies = {
+    enemies: Enemies,
+  };
   on_initialized() {
     if(!this.owner.error){
       this.active = this.owner.selectedCombatant.hasTalent(SPELLS.SIPHON_LIFE_TALENT.id);
     }
   }
   suggestions(when){
-    const siphonLifeUptime = this.owner.modules.enemies.getBuffUptime(SPELLS.SIPHON_LIFE.id) / this.owner.fightDuration;
+    const siphonLifeUptime = this.enemies.getBuffUptime(SPELLS.SIPHON_LIFE.id) / this.owner.fightDuration;
     //actual = value in when()
     //recommended = value in isLessThan()
     when(siphonLifeUptime).isLessThan(0.85)
@@ -30,7 +34,7 @@ class SiphonLifeUptime extends Module {
       });
   }
   statistic() {
-    const siphonLifeUptime = this.owner.modules.enemies.getBuffUptime(SPELLS.SIPHON_LIFE.id) / this.owner.fightDuration;
+    const siphonLifeUptime = this.enemies.getBuffUptime(SPELLS.SIPHON_LIFE.id) / this.owner.fightDuration;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.SIPHON_LIFE.id} />}

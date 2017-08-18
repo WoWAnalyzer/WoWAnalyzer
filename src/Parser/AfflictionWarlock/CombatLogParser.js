@@ -53,20 +53,6 @@ class CombatLogParser extends MainCombatLogParser {
           </Tab>
         ),
       },
-      // {
-      //   title: 'Mana',
-      //   url: 'mana',
-      //   render: () => (
-      //     <Tab title="Mana" style={{ padding: '15px 22px' }}>
-      //       <Mana
-      //         reportCode={this.report.code}
-      //         actorId={this.playerId}
-      //         start={this.fight.start_time}
-      //         end={this.fight.end_time}
-      //       />
-      //     </Tab>
-      //   ),
-      // },
       ...results.tabs,
     ];
 
