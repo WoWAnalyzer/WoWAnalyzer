@@ -39,7 +39,6 @@ class ProcTracker extends CoreCooldownTracker {
             fightStart={this.owner.fight.start_time}
             fightEnd={this.owner.fight.end_time}
             cooldowns={this.pastCooldowns}
-            showOutputStatistics
           />
         </Tab>
       ),
