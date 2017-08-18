@@ -2,9 +2,11 @@ import React from 'react';
 
 import Icon from 'common/Icon';
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
-// UNUSED
+
+// Unused
 // import SPELLS from 'common/SPELLS';
 // import SpellIcon from 'common/SpellIcon';
+
 import SpellLink from 'common/SpellLink';
 import StatisticBox from 'Main/StatisticBox';
 import SuggestionsTab from 'Main/SuggestionsTab';
@@ -14,6 +16,7 @@ import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
+import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 
 import CPM_ABILITIES from './CPM_ABILITIES';
@@ -77,6 +80,7 @@ class CombatLogParser extends MainCombatLogParser {
   static specModules = {
     // Features
     alwaysBeCasting: AlwaysBeCasting,
+    abilityTracker: AbilityTracker,
   };
 
   damageBySchool = {};
@@ -93,17 +97,15 @@ class CombatLogParser extends MainCombatLogParser {
 
     const fightDuration = this.fightDuration;
 
-    const nonDpsTimePercentage = this.modules.alwaysBeCasting.totalDamagingTimeWasted / fightDuration;
     const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
 
-    if (nonDpsTimePercentage > 0.01) {
-      results.addIssue({
-        issue: `Your non DPS time can be improved. Try to cast damaging spells more regularly.`,
-        stat: `${Math.round(nonDpsTimePercentage * 100)}% non DPS time (<30% is recommended)`,
-        icon: 'petbattle_health-down',
-        importance: getIssueImportance(nonDpsTimePercentage, 0.4, 0.45, true),
-      });
+    if(this.modules.abilityTracker.abilities[1] !== undefined)  {
+        this.soulFragmentsCasts = this.modules.abilityTracker.abilities[204255].casts;
+        this.immolationAuraDamage = this.modules.abilityTracker.abilities[178741].damangeEffective + this.modules.abilityTracker.abilities[187727].damangeEffective;
+        this.empowerWardsCasts = this.modules.abilityTracker.abilities[218256].casts;
+        this.demonSpikesCasts = this.modules.abilityTracker.abilities[203720].casts;
     }
+
     if (deadTimePercentage > 0.2) {
       results.addIssue({
         issue: `Your dead GCD time can be improved. Try to Always Be Casting (ABC).`,
@@ -112,6 +114,7 @@ class CombatLogParser extends MainCombatLogParser {
         importance: getIssueImportance(deadTimePercentage, 0.35, 0.4, true),
       });
     }
+
     const castEfficiency = getCastEfficiency(CPM_ABILITIES, this);
     castEfficiency.forEach((cpm) => {
       if (cpm.canBeImproved && !cpm.ability.noSuggestion) {
@@ -125,7 +128,13 @@ class CombatLogParser extends MainCombatLogParser {
 
     results.statistics = [
       <StatisticBox
-        icon={<Icon icon="class_demonhunter" alt="Damage taken" />}
+        icon={<Icon icon="class_demonhunter" alt="Damage done" />}
+        value={`${formatNumber(this.totalDamageDone / this.fightDuration * 1000)} DPS`}
+        label='Damage done'
+        tooltip={`The total damage done was ${formatThousands(this.totalDamageDone)}.`}
+      />,
+      <StatisticBox
+        icon={<Icon icon="spell_holy_devotionaura" alt="Damage taken" />}
         value={`${formatNumber(this.totalDamageTaken / this.fightDuration * 1000)} DTPS`}
         label='Damage taken'
         tooltip={`Damage taken breakdown:
@@ -135,32 +144,54 @@ class CombatLogParser extends MainCombatLogParser {
             Total damage taken ${formatThousands(this.totalDamageTaken)}`}
       />,
       <StatisticBox
-        icon={(
-          <img
-            src="/img/healing.png"
-            style={{ border: 0 }}
-            alt="Healing"
-          />
-        )}
-        value={`${formatNumber(this.totalHealing / this.fightDuration * 1000)} HPS`}
-        label='Healing done'
-        tooltip={`The total healing done was ${formatThousands(this.totalHealing)}.`}
-      />,
-      <StatisticBox
         icon={<Icon icon="spell_mage_altertime" alt="Dead GCD time" />}
         value={`${formatPercentage(deadTimePercentage)} %`}
         label='Dead GCD time'
-        tooltip='Dead GCD time is available casting time not used. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), etc.'
+        tooltip={'Dead GCD time is available casting time not used. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), etc.'}
       />,
       <StatisticBox
-        icon={<Icon icon="class_demonhunter" alt="Damage done" />}
-        value={`${formatNumber(this.totalDamageDone / this.fightDuration * 1000)} DPS`}
-        label='Damage done'
-        tooltip={`The total damage done was ${formatThousands(this.totalDamageDone)}.`}
+      icon={(
+          <img
+          src="/img/healing.png"
+          style={{ border: 0 }}
+          alt="Healing"
+          />
+      )}
+      value={`${formatNumber(this.totalHealing / this.fightDuration * 1000)} HPS`}
+      label='Healing done'
+      tooltip={`The total healing done was ${formatThousands(this.totalHealing)}.`}
+      />,
+      <StatisticBox
+        icon={<Icon icon="ability_druid_naturalperfection" alt="Damage absorbed" />}
+        value={`${formatNumber(this.totalDamageTakenAbsorb / this.fightDuration * 1000)} DAPS`}
+        label='Damage absorbed'
+        tooltip={`The total damage absorbed was ${formatThousands(this.totalDamageTakenAbsorb)}.`}
+      />,
+      <StatisticBox
+        icon={<Icon icon="spell_shadow_soulgem" alt="Soul Fragments Generated" />}
+        value={`${formatNumber((this.soulFragmentsCasts / this.fightDuration * 1000) * 60)} SFGPM`}
+        label='Soul Fragments Generated'
+        tooltip={`The total Soul Fragments generated was ${formatThousands(this.soulFragmentsCasts)}.`}
+      />,
+      <StatisticBox
+        icon={<Icon icon="ability_demonhunter_immolation" alt="Immolation Aura Damage" />}
+        value={`${formatNumber(this.immolationAuraDamage / this.fightDuration * 1000)} IADPS`}
+        label='Immolation Aura Damage'
+        tooltip={`The Immolation Aura total damage was ${formatThousands(this.immolationAuraDamage)}.`}
+      />,
+      <StatisticBox
+        icon={<Icon icon="ability_demonhunter_demonspikes" alt="Demon Spikes Casts" />}
+        value={`${formatNumber(this.demonSpikesCasts)} DS`}
+        label='Demon Spikes Casts'
+        tooltip={`The Demon Spikes total uptime was ${formatThousands(this.demonSpikesCasts * 6)} seconds.`}
+      />,
+      <StatisticBox
+        icon={<Icon icon="ability_demonhunter_empowerwards" alt="Empower Wards Casts" />}
+        value={`${formatNumber(this.empowerWardsCasts)} EW`}
+        label='Empower Wards Casts'
+        tooltip={`The Empower Wards total uptime was ${formatThousands(this.empowerWardsCasts * 6)} seconds.`}
       />,
   ];
-
-    // TODO: Items
 
     results.tabs = [
       {
