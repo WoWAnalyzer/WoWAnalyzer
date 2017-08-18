@@ -9,13 +9,16 @@ import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownTracker from './Modules/Features/CooldownTracker';
+
 import AgonyUptime from './Modules/Features/AgonyUptime';
 import CorruptionUptime from './Modules/Features/CorruptionUptime';
-import SiphonLifeUptime from "./Modules/Features/SiphonLifeUptime";
 import UABuffTracker from './Modules/Features/UABuffTracker';
 
 import SoulShardTracker from './Modules/SoulShards/SoulShardTracker';
 import SoulShardDetails from './Modules/SoulShards/SoulShardDetails';
+
+import SiphonLifeUptime from './Modules/Talents/SiphonLifeUptime';
+import MaleficGrasp from './Modules/Talents/MaleficGrasp';
 
 class CombatLogParser extends MainCombatLogParser {
 
@@ -25,15 +28,18 @@ class CombatLogParser extends MainCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     cooldownTracker: CooldownTracker,
 
-    // DoT uptimes
+    // DoTs
     agonyUptime: AgonyUptime,
     corruptionUptime: CorruptionUptime,
-    siphonLifeUptime: SiphonLifeUptime,
     uaBuffTracker: UABuffTracker,
 
     //Core
     soulShardTracker: SoulShardTracker,
     soulShardDetails: SoulShardDetails,
+
+    //Talents
+    siphonLifeUptime: SiphonLifeUptime,
+    maleficGrasp: MaleficGrasp,
   };
 
   generateResults() {
