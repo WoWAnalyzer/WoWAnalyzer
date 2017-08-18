@@ -120,6 +120,9 @@ class CombatLogParser {
     const failedModules = [];
     Object.keys(modules).forEach(desiredModuleName => {
       const moduleClass = modules[desiredModuleName];
+      if (!moduleClass) {
+        return;
+      }
 
       const availableDependencies = {};
       const missingDependencies = [];
