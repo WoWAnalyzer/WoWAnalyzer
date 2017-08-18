@@ -298,99 +298,33 @@ class CombatLogParser {
   generateResults() {
     const results = new ParseResults();
 
-    // Epics:
-    if (this.modules.drapeOfShame.active) {
-      results.items.push({
-        item: ITEMS.DRAPE_OF_SHAME,
-        result: formatItemHealing(this.modules.drapeOfShame.healing),
-      });
-    }
-    if (this.modules.darkmoonDeckPromises.active) {
-      results.items.push({
-        item: ITEMS.DARKMOON_DECK_PROMISES,
-        result: (
-          <dfn data-tip="The exact amount of mana saved by the Darkmoon Deck: Promises equip effect. This takes the different values per card into account at the time of the cast.">
-            {formatThousands(this.modules.darkmoonDeckPromises.manaGained)} mana saved ({formatThousands(this.modules.darkmoonDeckPromises.manaGained / this.fightDuration * 1000 * 5)} MP5)
-          </dfn>
-        ),
-      });
-    }
-    if (this.modules.amalgamsSeventhSpine.active) {
-      results.items.push({
-        item: ITEMS.AMALGAMS_SEVENTH_SPINE,
-        result: (
-          <dfn data-tip={`The exact amount of mana gained from the Amalgam's Seventh Spine equip effect. The buff expired successfully ${this.modules.amalgamsSeventhSpine.procs} times and the buff was refreshed ${this.modules.amalgamsSeventhSpine.refreshes} times (refreshing delays the buff expiration and is inefficient use of this trinket).`}>
-            {formatThousands(this.modules.amalgamsSeventhSpine.manaGained)} mana gained ({formatThousands(this.modules.amalgamsSeventhSpine.manaGained / this.fightDuration * 1000 * 5)} MP5)
-          </dfn>
-        ),
-      });
-    }
-    if (this.modules.gnawedThumbRing.active) {
-      results.items.push({
-        item: ITEMS.GNAWED_THUMB_RING,
-        result: (<dfn data-tip={`The effective healing and damage contributed by Gnawed Thumb Ring.<br/> Damage: ${formatItemDamage(this.modules.gnawedThumbRing.damageIncreased)} <br/> Healing: ${formatItemHealing(this.modules.gnawedThumbRing.healingIncreaseHealing)}`}>
-            {this.modules.gnawedThumbRing.healingIncreaseHealing > this.modules.gnawedThumbRing.damageIncreased ? formatItemHealing(this.modules.gnawedThumbRing.healingIncreaseHealing) : formatItemDamage(this.modules.gnawedThumbRing.damageIncreased)}
-          </dfn>),
-      });
-    }
-    if (this.modules.vialCeaslessToxins.active) {
-      results.items.push({
-        item: ITEMS.VIAL_OF_CEASELESS_TOXINS,
-        result: (<dfn data-tip={`The effective damage contributed by Vial of Ceasless Toxins.<br/>Casts: ${this.modules.vialCeaslessToxins.totalToxinCast}<br/> Damage: ${formatItemDamage(this.modules.vialCeaslessToxins.damageIncreased)}<br/> Total Damage: ${formatNumber(this.modules.vialCeaslessToxins.damageIncreased)}`}>
-            {formatItemDamage(this.modules.vialCeaslessToxins.damageIncreased)}
-          </dfn>),
-      });
-    }
-    if (this.modules.specterOfBetrayal.active) {
-      results.items.push({
-        item: ITEMS.SPECTER_OF_BETRAYAL,
-        result: (<dfn data-tip={`The effective damage contributed by Specter of Betrayal.<br/>Casts: ${this.modules.specterOfBetrayal.totalCasts}<br/> Damage: ${formatItemDamage(this.modules.specterOfBetrayal.damageIncreased)}<br/> Total Damage: ${formatNumber(this.modules.specterOfBetrayal.damageIncreased)}`}>
-            {formatItemDamage(this.modules.specterOfBetrayal.damageIncreased)}
-          </dfn>),
-      });
-    }
-    if (this.modules.engineOfEradication.active) {
-      results.items.push({
-        item: ITEMS.ENGINE_OF_ERADICATION,
-        result: `${((this.modules.engineOfEradication.uptime / fightDuration * 100) || 0).toFixed(2)} % uptime`,
-      });
-    }
-    if (this.modules.archiveOfFaith.active) {
-      const archiveOfFaithHealing = this.modules.archiveOfFaith.healing / this.totalHealing;
-      const archiveOfFaithHOTHealing = this.modules.archiveOfFaith.healingOverTime / this.totalHealing;
-      const archiveOfFaithHealingTotal = (this.modules.archiveOfFaith.healing + this.modules.archiveOfFaith.healingOverTime) / this.totalHealing;
-      results.items.push({
-        item: ITEMS.ARCHIVE_OF_FAITH,
-        result: (
-          <dfn data-tip={`The effective healing contributed by the Archive of Faith on-use effect.<br />Channel: ${((archiveOfFaithHealing * 100) || 0).toFixed(2)} % / ${formatNumber(this.modules.archiveOfFaith.healing / fightDuration * 1000)} HPS<br />HOT: ${((archiveOfFaithHOTHealing * 100) || 0).toFixed(2)} % / ${formatNumber(this.modules.archiveOfFaith.healingOverTime / fightDuration * 1000)} HPS`}>
-            {((archiveOfFaithHealingTotal * 100) || 0).toFixed(2)} % / {formatNumber((this.modules.archiveOfFaith.healing + this.modules.archiveOfFaith.healingOverTime) / fightDuration * 1000)} HPS
-          </dfn>
-        ),
-      });
-    }
-    if (this.modules.barbaricMindslaver.active) {
-      results.items.push({
-        item: ITEMS.BARBARIC_MINDSLAVER,
-        result: formatItemHealing(this.modules.barbaricMindslaver.healing),
-      });
-    }
-    if (this.modules.seaStar.active) {
-      results.items.push({
-        item: ITEMS.SEA_STAR_OF_THE_DEPTHMOTHER,
-        result: formatItemHealing(this.modules.seaStar.healing),
-      });
-    }
-    if (this.modules.deceiversGrandDesign.active) {
-      const deceiversGrandDesignHealingPercentage = this.modules.deceiversGrandDesign.healing / this.totalHealing;
-      const deceiversGrandDesignAbsorbPercentage = this.modules.deceiversGrandDesign.healingAbsorb / this.totalHealing;
-      const deceiversGrandDesignTotalPercentage = (this.modules.deceiversGrandDesign.healing + this.modules.deceiversGrandDesign.healingAbsorb) / this.totalHealing;
-      results.items.push({
-        item: ITEMS.DECEIVERS_GRAND_DESIGN,
-        result: (
-          <dfn data-tip={`The effective healing contributed by the Deciever's Grand Design on-use effect.<br />HOT: ${((deceiversGrandDesignHealingPercentage * 100) || 0).toFixed(2)} % / ${formatNumber(this.modules.deceiversGrandDesign.healing / fightDuration * 1000)} HPS<br />Shield Proc: ${((deceiversGrandDesignAbsorbPercentage * 100) || 0).toFixed(2)} % / ${formatNumber(this.modules.deceiversGrandDesign.healingAbsorb / fightDuration * 1000)} HPS`}>
-            {((deceiversGrandDesignTotalPercentage * 100) || 0).toFixed(2)} % / {formatNumber((this.modules.deceiversGrandDesign.healing + this.modules.deceiversGrandDesign.healingAbsorb) / fightDuration * 1000)} HPS
-          </dfn>
-        ),
+    this.activeModules
+      .sort((a, b) => b.priority - a.priority)
+      .forEach(module => {
+        if (module.statistic) {
+          const statistic = module.statistic();
+          if (statistic) {
+            results.statistics.push({
+              statistic,
+              order: module.statisticOrder,
+            });
+          }
+        }
+        if (module.item) {
+          const item = module.item();
+          if (item) {
+            results.items.push(item);
+          }
+        }
+        if (module.tab) {
+          const tab = module.tab();
+          if (tab) {
+            results.tabs.push(tab);
+          }
+        }
+        if (module.suggestions) {
+          module.suggestions(results.suggestions.when);
+        }
       });
 
     return results;

@@ -1,11 +1,14 @@
+import React from 'react';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS_OTHERS';
+import { formatPercentage } from 'common/format';
+import { formatNumber } from 'common/format';
 
 import Module from 'Parser/Core/Module';
 
 class VialOfCeaselessToxins extends Module {
   damageIncreased = 0;
-  totalToxinCast = 0;
+  totalCasts = 0;
 
   on_initialized() {
     if (!this.owner.error) {
@@ -16,7 +19,7 @@ class VialOfCeaselessToxins extends Module {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.CEASELESS_TOXIN.id) {
-      this.totalToxinCast++;
+      this.totalCasts++;
       return;
     }
   }
@@ -27,6 +30,15 @@ class VialOfCeaselessToxins extends Module {
     if (spellId === SPELLS.CEASELESS_TOXIN.id) {
       this.damageIncreased += event.amount;
     }
+  }
+
+  item() {
+    return {
+      item: ITEMS.VIAL_OF_CEASELESS_TOXINS,
+      result: (<dfn data-tip={`The effective damage contributed by Vial of Ceaseless Toxins.<br/>Casts: ${this.totalCasts}<br/> Damage: ${this.owner.formatItemDamageDone(this.damageIncreased)}<br/> Total Damage: ${formatNumber(this.damageIncreased)}`}>
+          {this.owner.formatItemDamageDone(this.damageIncreased)}
+        </dfn>),
+    };
   }
 }
 

@@ -1,5 +1,6 @@
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS_OTHERS';
+import { formatPercentage } from 'common/format';
 
 import Module from 'Parser/Core/Module';
 
@@ -34,6 +35,12 @@ class EngineOfEradication extends Module {
     if (this.lastAppliedTimestamp) {
       this.uptime += this.owner.fight.end_time - this.lastAppliedTimestamp;
     }
+  }
+  item() {
+    return {
+      item: ITEMS.ENGINE_OF_ERADICATION,
+      result: `${formatPercentage((this.uptime / this.owner.fightDuration) || 0)} % uptime`,
+    };
   }
 }
 

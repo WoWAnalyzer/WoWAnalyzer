@@ -231,11 +231,6 @@ export default {
     name: 'Doom Winds',
     icon: 'inv_mace_1h_artifactdoomhammer_d_01',
   },
-  FERAL_LUNGE: {
-    id: 215802,
-    name: 'Feral Lunge',
-    icon: 'spell_beastmaster_wolf',
-  },
   SUNDERING: {
     id: 197214,
     name: 'Sundering',
