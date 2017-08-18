@@ -137,20 +137,20 @@ class CombatLogParser {
       }
 
       if (missingDependencies.length === 0) {
-        if (Object.keys(availableDependencies).length === 0) {
-          console.log('Loading', moduleClass.name);
-        } else {
-          console.log('Loading', moduleClass.name, 'with dependencies:', Object.keys(availableDependencies));
-        }
+        // if (Object.keys(availableDependencies).length === 0) {
+        //   console.log('Loading', moduleClass.name);
+        // } else {
+        //   console.log('Loading', moduleClass.name, 'with dependencies:', Object.keys(availableDependencies));
+        // }
         this.modules[desiredModuleName] = new moduleClass(this, availableDependencies, Object.keys(this.modules).length);
       } else {
-        console.warn(moduleClass.name, 'could not be loaded, missing dependencies:', missingDependencies.map(d => d.name));
+        // console.warn(moduleClass.name, 'could not be loaded, missing dependencies:', missingDependencies.map(d => d.name));
         failedModules.push(desiredModuleName);
       }
     });
 
     if (failedModules.length !== 0) {
-      console.warn(`${failedModules.length} modules failed to load, trying again:`, failedModules.map(key => modules[key].name));
+      // console.warn(`${failedModules.length} modules failed to load, trying again:`, failedModules.map(key => modules[key].name));
       const newBatch = {};
       failedModules.forEach(key => {
         newBatch[key] = modules[key];
