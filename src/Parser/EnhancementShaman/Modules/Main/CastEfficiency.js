@@ -1,71 +1,110 @@
-// Based on Main/CastEfficiency.js
 import React from 'react';
-import PropTypes from 'prop-types';
 
-import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
+import ITEMS from 'common/ITEMS';
+import SPELLS from 'common/SPELLS';
 
-const CastEfficiency = ({ categories, abilities }) => {
-  if (!abilities) {
-    return <div>Loading...</div>;
+import CoreCastEfficiency from 'Parser/Core/Modules/CastEfficiency';
+import getCastEfficiency from 'Parser/Core/getCastEfficiency';
+
+import Tab from 'Main/Tab';
+
+import CastEfficiencyComponent from 'Main/CastEfficiency';
+
+const SPELL_CATEGORY = {
+  ROTATIONAL: 'Spell',
+  ROTATIONAL_AOE: 'Spell (AOE)',
+  COOLDOWNS: 'Cooldown',
+};
+
+class CastEfficiency extends CoreCastEfficiency {
+  static CPM_ABILITIES = [
+    {
+      spell: SPELLS.ASCENDANCE_TALENT_ENHANCEMENT,
+      category: SPELL_CATEGORY.COOLDOWNS,
+      getCooldown: haste => 180,
+      isActive: combatant => combatant.hasTalent(SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id),
+      recommendedCastEfficiency: 1.0,
+    },
+    {
+      spell: SPELLS.DOOM_WINDS,
+      category: SPELL_CATEGORY.COOLDOWNS,
+      getCooldown: haste => 60,
+    },
+    {
+      spell: SPELLS.FERAL_SPIRIT,
+      category: SPELL_CATEGORY.COOLDOWNS,
+      getCooldown: haste => 120,
+    },
+    {
+      spell: SPELLS.SUMMON_DREAD_REFLECTION,
+      category: SPELL_CATEGORY.COOLDOWNS,
+      getCooldown: haste => 45,
+      isActive: combatant => combatant.hasTrinket(ITEMS.SPECTER_OF_BETRAYAL.id),
+    },
+    {
+      spell: SPELLS.CEASELESS_TOXIN,
+      category: SPELL_CATEGORY.COOLDOWNS,
+      getCooldown: haste => 60,//add detection if target has died and reduced cooldown
+      isActive: combatant => combatant.hasTrinket(ITEMS.VIAL_OF_CEASELESS_TOXINS.id),
+    },
+    {
+      spell: SPELLS.LIGHTNING_BOLT,
+      category: SPELL_CATEGORY.ROTATIONAL,
+      getCooldown: haste => null, // 1.5 / (1 + haste)
+    },
+    {
+      spell: SPELLS.ROCKBITER,
+      category: SPELL_CATEGORY.ROTATIONAL,
+      getCooldown: haste => null, // 1.5 / (1 + haste)
+    },
+    {
+      spell: SPELLS.FROSTBRAND,
+      category: SPELL_CATEGORY.ROTATIONAL,
+      isActive: combatant => combatant.hasTalent(SPELLS.FROSTBRAND.id),
+      getCooldown: haste => null, // 1.5 / (1 + haste)
+    },
+    {
+      spell: SPELLS.FLAMETONGUE,
+      category: SPELL_CATEGORY.ROTATIONAL,
+      getCooldown: haste => null, // 1.5 / (1 + haste)
+    },
+    {
+      spell: SPELLS.STORMSTRIKE,
+      category: SPELL_CATEGORY.ROTATIONAL,
+      getCooldown: haste => null, // 1.5 / (1 + haste)
+    },
+    {
+      spell: SPELLS.LAVA_LASH,
+      category: SPELL_CATEGORY.ROTATIONAL,
+      getCooldown: haste => null, // 1.5 / (1 + haste)
+    },
+    {
+      spell: SPELLS.WINDSTRIKE,
+      category: SPELL_CATEGORY.ROTATIONAL,
+      getCooldown: haste => null, // 1.5 / (1 + haste)
+    },
+    {
+      spell: SPELLS.CRASH_LIGHTNING,
+      category: SPELL_CATEGORY.ROTATIONAL_AOE,
+      getCooldown: haste => null, // 1.5 / (1 + haste)
+    },
+  ];
+  static SPELL_CATEGORIES = SPELL_CATEGORY;
+
+  tab() {
+    return {
+      title: 'Cast efficiency',
+      url: 'cast-efficiency',
+      render: () => (
+        <Tab title="Cast efficiency">
+          <CastEfficiencyComponent
+            categories={this.constructor.SPELL_CATEGORIES}
+            abilities={getCastEfficiency(this.constructor.CPM_ABILITIES, this.owner)}
+          />
+        </Tab>
+      ),
+    };
   }
-  return (
-    <div style={{ marginTop: -10, marginBottom: -10 }}>
-      <table className="data-table" style={{ marginTop: 10, marginBottom: 10 }}>
-        {Object.keys(categories).map((key) => (
-          <tbody key={key}>
-            <tr>
-              <th>{categories[key]}</th>
-              <th className="text-center">Casts</th>
-              <th className="text-center">{key === 'spend' ? <dfn data-tip="Approxomatly.">Spend</dfn> : ''}</th>
-              <th className="text-center">{key === 'generated' ? <dfn data-tip="Approxomatly.">Generated</dfn> : ''}</th>
-              <th className="text-center"><dfn data-tip="Approxomatly.">Wasted</dfn></th>
-              <th></th>
-            </tr>
-            {abilities
-              .filter(item => item.ability.category === categories[key])
-            .map(({ ability, casts, spend, created, wasted, canBeImproved }) => {
-              const name = ability.name;
-              return (
-                <tr key={name}>
-                  <td style={{ width: '35%' }}>
-                    <SpellLink id={ability.spellId} style={{ color: '#fff' }}>
-                      <SpellIcon id={ability.spellId} noLink /> {name}
-                    </SpellLink>
-                  </td>
-                  <td className="text-center" style={{ minWidth: 80 }}>
-                    {casts}
-                  </td>
-                  <td className="text-center" style={{ minWidth: 80 }}>
-                    {spend ? spend : ''}
-                  </td>
-                  <td className="text-center" style={{ minWidth: 80 }}>
-                    {created ? created : ''}
-                  </td>
-                  <td className="text-center" style={{ minWidth: 80 }}>
-                    {wasted ? wasted : ''}
-                  </td>
-                  <td style={{ width: '25%', color: 'orange' }}>
-                    {canBeImproved && !ability.noCanBeImproved && 'Can be improved.'}
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        ))}
-      </table>
-    </div>
-  );
-};
-CastEfficiency.propTypes = {
-  abilities: PropTypes.arrayOf(PropTypes.shape({
-    ability: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      category: PropTypes.string.isRequired,
-      spellId: PropTypes.number.isRequired,
-    }).isRequired,
-  })).isRequired,
-  categories: PropTypes.array,
-};
+}
 
 export default CastEfficiency;

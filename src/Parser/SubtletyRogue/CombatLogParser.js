@@ -7,7 +7,8 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import StatisticBox from 'Main/StatisticBox';
 import SuggestionsTab from 'Main/SuggestionsTab';
-import TalentsTab from 'Main/TalentsTab';
+import Tab from 'Main/Tab';
+import Talents from 'Main/Talents';
 import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
@@ -79,9 +80,12 @@ class CombatLogParser extends MainCombatLogParser {
         title: 'Talents',
         url: 'talents',
         render: () => (
-          <TalentsTab combatant={this.selectedCombatant} />
+          <Tab title="Talents">
+            <Talents combatant={this.selectedCombatant} />
+          </Tab>
         ),
       },
+      ...results.tabs,
     ];
     
     results.statistics = [

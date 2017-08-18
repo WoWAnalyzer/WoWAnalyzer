@@ -1,11 +1,17 @@
 import SPELLS from 'common/SPELLS';
 
 import CoreCooldownTracker, { BUILT_IN_SUMMARY_TYPES } from 'Parser/Core/Modules/CooldownTracker';
-import isAtonement from './../Core/isAtonement';
+
+import isAtonement from '../Core/isAtonement';
+import Atonement from '../Spells/Atonement';
 
 const EVANGELISM_ADDED_DURATION = 6000;
 
 class CooldownTracker extends CoreCooldownTracker {
+  static dependencies = {
+    atonementModule: Atonement,
+  };
+
   static cooldownSpells = [
     ...CooldownTracker.cooldownSpells,
     {
@@ -23,7 +29,7 @@ class CooldownTracker extends CoreCooldownTracker {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.EVANGELISM_TALENT.id) {
       // When Evangelism is cast we want to see it in our cooldowns, but since it isn't a buff we can't use the regular `cooldownSpells`.
-      const atonedPlayers = this.owner.modules.atonement.numAtonementsActive;
+      const atonedPlayers = this.atonementModule.numAtonementsActive;
       this.lastEvangelism = this.addCooldown({
         spell: SPELLS.EVANGELISM_TALENT,
         summary: [
@@ -43,7 +49,7 @@ class CooldownTracker extends CoreCooldownTracker {
 
       // Since Evangelism isn't a buff it doesn't really have a duration, for the sake of still providing somewhat useful info we just set the end to the last moment that Evangelism's effect did something
       let lastAtonementExpiration = event.timestamp;
-      this.owner.modules.atonement.currentAtonementTargets.forEach((target) => {
+      this.atonementModule.currentAtonementTargets.forEach((target) => {
         if (lastAtonementExpiration === null || target.atonementExpirationTimestamp > lastAtonementExpiration) {
           lastAtonementExpiration = target.atonementExpirationTimestamp;
         }
@@ -58,7 +64,7 @@ class CooldownTracker extends CoreCooldownTracker {
   }
   on_byPlayer_heal(event) {
     if (this.lastEvangelism && isAtonement(event)) {
-      const target = this.owner.modules.atonement.currentAtonementTargets.find(item => item.target === event.targetID);
+      const target = this.atonementModule.currentAtonementTargets.find(item => item.target === event.targetID);
       // Pets, guardians, etc.
       if (!target) {
         return;

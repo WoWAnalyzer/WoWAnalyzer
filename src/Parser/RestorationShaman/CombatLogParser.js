@@ -9,16 +9,16 @@ import ItemLink from 'common/ItemLink';
 
 import StatisticBox from 'Main/StatisticBox';
 import SuggestionsTab from 'Main/SuggestionsTab';
-import TalentsTab from 'Main/TalentsTab';
-import CastEfficiencyTab from 'Main/CastEfficiencyTab';
-import CooldownsTab from 'Main/CooldownsTab';
-import ManaTab from 'Main/ManaTab';
-import LowHealthHealingTab from 'Main/LowHealthHealingTab';
-import FeedingTab from 'Main/FeedingTab';
+import Tab from 'Main/Tab';
+import Talents from 'Main/Talents';
+import CastEfficiency from 'Main/CastEfficiency';
+import Mana from 'Main/Mana';
+import Feeding from 'Main/Feeding';
 
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
+import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
 
 import ShamanAbilityTracker from './Modules/ShamanCore/ShamanAbilityTracker';
 
@@ -72,6 +72,7 @@ class CombatLogParser extends MainCombatLogParser {
   static specModules = {
     // Override the ability tracker so we also get stats for Tidal Waves and beacon healing
     abilityTracker: ShamanAbilityTracker,
+    lowHealthHealing: LowHealthHealing,
 
 
     // Features
@@ -459,59 +460,49 @@ class CombatLogParser extends MainCombatLogParser {
         title: 'Cast efficiency',
         url: 'cast-efficiency',
         render: () => (
-          <CastEfficiencyTab
-            categories={castEfficiencyCategories}
-            abilities={castEfficiency}
-          />
-        ),
-      },
-      {
-        title: 'Cooldowns',
-        url: 'cooldowns',
-        render: () => (
-          <CooldownsTab
-            fightStart={this.fight.start_time}
-            fightEnd={this.fight.end_time}
-            cooldowns={this.modules.cooldownTracker.pastCooldowns}
-            showOutputStatistics
-          />
+          <Tab title="Cast efficiency">
+            <CastEfficiency
+              categories={castEfficiencyCategories}
+              abilities={castEfficiency}
+            />
+          </Tab>
         ),
       },
       {
         title: 'Talents',
         url: 'talents',
         render: () => (
-          <TalentsTab combatant={this.selectedCombatant} />
+          <Tab title="Talents">
+            <Talents combatant={this.selectedCombatant} />
+          </Tab>
         ),
       },
       {
         title: 'Mana',
         url: 'mana',
         render: () => (
-          <ManaTab
-            reportCode={this.report.code}
-            actorId={this.playerId}
-            start={this.fight.start_time}
-            end={this.fight.end_time}
-          />
-        ),
-      },
-      {
-        title: 'Low health healing',
-        url: 'low-health-healing',
-        render: () => (
-          <LowHealthHealingTab parser={this} />
+          <Tab title="Mana" style={{ padding: '15px 22px' }}>
+            <Mana
+              reportCode={this.report.code}
+              actorId={this.playerId}
+              start={this.fight.start_time}
+              end={this.fight.end_time}
+            />
+          </Tab>
         ),
       },
       {
         title: 'Feeding',
         url: 'feeding',
         render: () => (
-          <FeedingTab
-            cooldownTracker={this.modules.cooldownTracker}
-          />
+          <Tab title="Feeding" style={{ padding: 0 }}>
+            <Feeding
+              cooldownTracker={this.modules.cooldownTracker}
+            />
+          </Tab>
         ),
       },
+      ...results.tabs,
     ];
 
     return results;

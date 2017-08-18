@@ -1,4 +1,8 @@
+import React from 'react';
+
 import SPELLS from 'common/SPELLS';
+import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
 
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import Module from 'Parser/Core/Module';
@@ -85,6 +89,19 @@ class Tier19_4set extends Module {
       debug && console.log((beaconTransferEvent.timestamp - this.owner.fight.start_time) / 1000, 'Beacon transfer', beaconTransferEvent);
       this.healing += calculateEffectiveHealing(beaconTransferEvent, INFUSION_OF_LIGHT_FOL_HEALING_INCREASE);
     }
+  }
+
+  item() {
+    return {
+      id: `spell-${SPELLS.HOLY_PALADIN_T19_4SET_BONUS_BUFF.id}`,
+      icon: <SpellIcon id={SPELLS.HOLY_PALADIN_T19_4SET_BONUS_BUFF.id} />,
+      title: <SpellLink id={SPELLS.HOLY_PALADIN_T19_4SET_BONUS_BUFF.id} />,
+      result: (
+        <dfn data-tip={`The actual effective healing contributed by the tier 19 4 set bonus. <b>This does not include any healing "gained" from the Holy Light cast time reduction.</b> You used a total of ${this.totalIolProcsUsed} Infusion of Light procs, ${this.bonusIolProcsUsed} of those were from procs from the 4 set bonus and ${this.bonusIolProcsUsedOnFol} of those bonus procs were used on Flash of Light.`}>
+          {this.owner.formatItemHealingDone(this.healing)}
+        </dfn>
+      ),
+    };
   }
 }
 

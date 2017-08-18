@@ -27,6 +27,13 @@ class SeaStarOfTheDepthmother extends Module {
       console.log('Healing: ' + this.healing);
     }
   }
+
+  item() {
+    return {
+      item: ITEMS.SEA_STAR_OF_THE_DEPTHMOTHER,
+      result: this.owner.formatItemHealingDone(this.healing),
+    };
+  }
 }
 
 export default SeaStarOfTheDepthmother;

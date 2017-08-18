@@ -124,6 +124,14 @@ const ITEMS = {
     icon: 'inv_helm_mail_korkronshaman_d_01',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+
+  // Shared legenadries
+  KILJAEDENS_BURNING_WISH: {
+    id: 144259,
+    name: 'Kil\'jaeden\'s Burning Wish',
+    icon: 'sha_spell_fire_bluepyroblast_nightmare',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
   // ENHANCEMENT SHAMAN LEGENDARIES
   AKAINUS_ABSOLUTE_JUSTICE: {
 	  id: 137084,
@@ -155,23 +163,17 @@ const ITEMS = {
     icon: 'inv_70_quest_ring2b',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
-  KILJAEDENS_BURNING_WISH: {
-    id: 144259,
-    name: 'Kil\'jaeden\'s Burning Wish',
-    icon: 'sha_spell_fire_bluepyroblast_nightmare',
+  STORM_TEMPESTS: {
+    id: 137103,
+    name: 'Storm Tempests',
+    icon: 'inv_belt_plate_pvpdeathknight_e_01',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
-  STORM_TEMPESTS: {
-      id: 137103,
-      name: 'Storm Tempests',
-      icon: 'inv_belt_plate_pvpdeathknight_e_01',
-      quality: ITEM_QUALITIES.LEGENDARY,
-  },
   SPIRITUAL_JOURNEY: {
-      id: 138117,
-      name: 'Spiritual Journey',
-      icon: 'inv_boot_mail_raidhunter_m_01',
-      quality: ITEM_QUALITIES.LEGENDARY,
+    id: 138117,
+    name: 'Spiritual Journey',
+    icon: 'inv_boot_mail_raidhunter_m_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
   },
   // PRIEST LEGENDARIES
   CORD_OF_MAIEV_PRIESTESS_OF_THE_MOON: {
@@ -414,16 +416,16 @@ const ITEMS = {
     quality: ITEM_QUALITIES.EPIC,
   },
   SPECTER_OF_BETRAYAL: {
-      id: 151190,
-      name: 'Specter of Betrayal',
-      icon: 'spell_warlock_soulburn',
-      quality: ITEM_QUALITIES.EPIC,
+    id: 151190,
+    name: 'Specter of Betrayal',
+    icon: 'spell_warlock_soulburn',
+    quality: ITEM_QUALITIES.EPIC,
   },
   VIAL_OF_CEASELESS_TOXINS: {
-      id: 147011,
-      name: 'Vial of Ceaseless Toxins',
-      icon: 'inv_potionc_5',
-      quality: ITEM_QUALITIES.EPIC,
+    id: 147011,
+    name: 'Vial of Ceaseless Toxins',
+    icon: 'inv_potionc_5',
+    quality: ITEM_QUALITIES.EPIC,
   },
   ENGINE_OF_ERADICATION: {
     id: 147015,

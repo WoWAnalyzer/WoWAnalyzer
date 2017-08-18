@@ -1,8 +1,4 @@
-import React from 'react';
-
-import ITEMS from 'common/ITEMS';
-import ItemLink from 'common/ItemLink';
-import { formatThousands, formatNumber, formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 
 import Combatants from './Modules/Combatants';
 import AbilityTracker from './Modules/AbilityTracker';
@@ -10,6 +6,7 @@ import AlwaysBeCasting from './Modules/AlwaysBeCasting';
 import Enemies from './Modules/Enemies';
 import HealEventTracker from './Modules/HealEventTracker';
 import ManaValues from './Modules/ManaValues';
+import SpellManaCost from './Modules/SpellManaCost';
 
 // Shared Legendaries
 import Prydaz from './Modules/Items/Prydaz';
@@ -33,7 +30,6 @@ import EngineOfEradication from './Modules/Items/EngineOfEradication';
 import VantusRune from './Modules/VantusRune';
 
 import ParseResults from './ParseResults';
-import SUGGESTION_IMPORTANCE from './ISSUE_IMPORTANCE';
 
 class CombatLogParser {
   static abilitiesAffectedByHealingIncreases = [];
@@ -41,10 +37,12 @@ class CombatLogParser {
   static defaultModules = {
     combatants: Combatants,
     enemies: Enemies,
+    spellManaCost: SpellManaCost,
     abilityTracker: AbilityTracker,
     healEventTracker: HealEventTracker,
     alwaysBeCasting: AlwaysBeCasting,
     manaValues: ManaValues,
+    vantusRune: VantusRune,
 
     // Items:
     // Legendaries:
@@ -74,6 +72,11 @@ class CombatLogParser {
   fight = null;
 
   modules = {};
+  get activeModules() {
+    return Object.keys(this.modules)
+      .map(key => this.modules[key])
+      .filter(module => module.active);
+  }
 
   get playerId() {
     return this.player.id;
@@ -113,24 +116,68 @@ class CombatLogParser {
     this.player = player;
     this.fight = fight;
 
-    this.initializeModules(this.constructor.defaultModules);
-    this.initializeModules(this.constructor.specModules);
-  }
-
-  numRegisteredModules = 0;
-  registerModule(module) {
-    this.modules[`_${this.numRegisteredModules}`] = module;
-    this.numRegisteredModules += 1;
-  }
-  initializeModules(modules) {
-    Object.keys(modules).forEach(key => {
-      const value = modules[key];
-      // This may override existing modules, this is intended.
-      this.modules[key] = new value(this);
+    this.initializeModules({
+      ...this.constructor.defaultModules,
+      ...this.constructor.specModules,
     });
   }
 
+  initializeModules(modules) {
+    const failedModules = [];
+    Object.keys(modules).forEach(desiredModuleName => {
+      const moduleClass = modules[desiredModuleName];
+
+      const availableDependencies = {};
+      const missingDependencies = [];
+      if (moduleClass.dependencies) {
+        Object.keys(moduleClass.dependencies).forEach(desiredDependencyName => {
+          const dependencyClass = moduleClass.dependencies[desiredDependencyName];
+
+          const dependencyModule = this.findModule(dependencyClass);
+          if (dependencyModule) {
+            availableDependencies[desiredDependencyName] = dependencyModule;
+          } else {
+            missingDependencies.push(dependencyClass);
+          }
+        });
+      }
+
+      if (missingDependencies.length === 0) {
+        if (Object.keys(availableDependencies).length === 0) {
+          console.log('Loading', moduleClass.name);
+        } else {
+          console.log('Loading', moduleClass.name, 'with dependencies:', Object.keys(availableDependencies));
+        }
+        this.modules[desiredModuleName] = new moduleClass(this, availableDependencies, Object.keys(this.modules).length);
+      } else {
+        console.warn(moduleClass.name, 'could not be loaded, missing dependencies:', missingDependencies.map(d => d.name));
+        failedModules.push(desiredModuleName);
+      }
+    });
+
+    if (failedModules.length !== 0) {
+      console.warn(`${failedModules.length} modules failed to load, trying again:`, failedModules.map(key => modules[key].name));
+      const newBatch = {};
+      failedModules.forEach(key => {
+        newBatch[key] = modules[key];
+      });
+      this.initializeModules(newBatch);
+    }
+  }
+  findModule(type) {
+    return Object.keys(this.modules)
+      .map(key => this.modules[key])
+      .find(module => module instanceof type);
+  }
+
+  _debugEventHistory = [];
   parseEvents(events) {
+    if (process.env.NODE_ENV === 'development') {
+      this._debugEventHistory = [
+        ...this._debugEventHistory,
+        ...events,
+      ];
+    }
     return new Promise((resolve, reject) => {
       events.forEach(event => {
         if (this.error) {
@@ -160,10 +207,8 @@ class CombatLogParser {
   triggerEvent(eventType, event) {
     const methodName = `on_${eventType}`;
     this.constructor.tryCall(this, methodName, event);
-    Object.keys(this.modules)
-      .map(key => this.modules[key])
-      .sort((a, b) => b.priority - a.priority)
-      .filter(module => module.active)
+    this.activeModules
+      .sort((a, b) => a.priority - b.priority) // lowest should go first, as `priority = 0` will have highest prio
       .forEach(module => {
         this.constructor.tryCall(module, methodName, event);
       });
@@ -200,12 +245,21 @@ class CombatLogParser {
 
   // This used to be implemented as a sanity check, may be replaced by a cleaner solution.
   totalHealing = 0;
+  totalOverhealingDone = 0;
+  get totalRawHealingDone() {
+    return this.totalHealing + this.totalOverhealingDone;
+  }
   on_byPlayer_heal(event) {
     this.totalHealing += event.amount + (event.absorbed || 0);
+    this.totalOverhealingDone += event.overheal || 0;
   }
-
   on_byPlayer_absorbed(event) {
     this.totalHealing += event.amount + (event.absorbed || 0);
+  }
+  on_byPlayer_removebuff(event) {
+    if (event.absorb > 0) {
+      this.totalOverhealingDone += event.absorb;
+    }
   }
 
   totalDamageDone = 0;
@@ -228,73 +282,21 @@ class CombatLogParser {
 
   // TODO: Damage taken from LOTM
 
-  static SUGGESTION_VELENS_BREAKPOINT = 0.045;
+  getPercentageOfTotalHealingDone(healingDone) {
+    return healingDone / this.totalHealing;
+  }
+  formatItemHealingDone(healingDone) {
+    return `${formatPercentage(this.getPercentageOfTotalHealingDone(healingDone))} % / ${formatNumber(healingDone / this.fightDuration * 1000)} HPS`;
+  }
+  getPercentageOfTotalDamageDone(damageDone) {
+    return damageDone / this.totalDamageDone;
+  }
+  formatItemDamageDone(damageDone) {
+    return `${formatPercentage(this.getPercentageOfTotalDamageDone(damageDone))} % / ${formatNumber(damageDone / this.fightDuration * 1000)} DPS`;
+  }
+
   generateResults() {
     const results = new ParseResults();
-    const { suggestions } = results;
-
-    const fightDuration = this.fightDuration;
-    const getPercentageOfTotal = healingDone => healingDone / this.totalHealing;
-    const getDamagePercentOfTotal = damageDone => damageDone / this.totalDamageDone;
-    const formatItemHealing = healingDone => `${formatPercentage(getPercentageOfTotal(healingDone))} % / ${formatNumber(healingDone / fightDuration * 1000)} HPS`;
-    const formatItemDamage = damageDone => `${formatPercentage(getDamagePercentOfTotal(damageDone))} % / ${formatNumber(damageDone / fightDuration * 1000)} DPS`;
-
-    if (this.modules.prydaz.active) {
-      results.items.push({
-        item: ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS,
-        result: formatItemHealing(this.modules.prydaz.healing),
-      });
-    }
-    if (this.modules.velens.active) {
-      // TODO: Move this to the Velen's module? having it here stops making sense. If "item" modules could just provide their own item data object & suggestion then everything would be completely together. At that point the parser would have to recognize items automatically and add them to the items array as their modules are loaded. Doing this could be nice as items would be completely isolated in their module files, but I don't think mixing the currently pure JS modules with React is favorable.
-      results.items.push({
-        item: ITEMS.VELENS_FUTURE_SIGHT,
-        result: (
-          <dfn data-tip={`The effective healing contributed by the Velen's Future Sight use effect. ${formatPercentage(this.modules.velens.healingIncreaseHealing / this.totalHealing)}% of total healing was contributed by the 15% healing increase and ${formatPercentage(this.modules.velens.overhealHealing / this.totalHealing)}% of total healing was contributed by the overhealing distribution.`}>
-            {formatItemHealing(this.modules.velens.healing)}
-          </dfn>
-        ),
-      });
-      const velensHealingPercentage = getPercentageOfTotal(this.modules.velens.healing);
-      suggestions
-        .when(velensHealingPercentage).isGreaterThan(this.constructor.SUGGESTION_VELENS_BREAKPOINT)
-        .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<span>Your usage of <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} /> can be improved. Try to maximize the amount of healing during the buff without excessively overhealing on purpose, or consider using an easier legendary.</span>)
-            .icon(ITEMS.VELENS_FUTURE_SIGHT.icon)
-            .actual(`${formatItemHealing(this.modules.velens.healing)} healing contributed`)
-            .recommended(`>${formatPercentage(recommended)}% is recommended`)
-            .regular(recommended - 0.005).major(recommended - 0.015);
-        });
-    }
-    suggestions
-      .when(this.modules.prePotion.usedPrePotion).isFalse()
-      .addSuggestion(suggest => {
-        return suggest(<span>You did not use a potion before combat. Using a potion before combat allows you the benefit of two potions in a single fight. A potion such as <ItemLink id={ITEMS.POTION_OF_PROLONGED_POWER.id} /> can be very effective (even for healers), especially during shorter encounters.</span>)
-          .icon(ITEMS.POTION_OF_PROLONGED_POWER.icon)
-          .staticImportance(SUGGESTION_IMPORTANCE.MINOR);
-      });
-    suggestions
-      .when(this.modules.prePotion.usedSecondPotion).isFalse()
-      .addSuggestion(suggest => {
-        let suggestionText;
-        let importance;
-        if (!this.modules.prePotion.neededManaSecondPotion) {
-          suggestionText = <span>You forgot to use a potion during combat. Using a potion during combat allows you the benefit of either increasing output through <ItemLink id={ITEMS.POTION_OF_PROLONGED_POWER.id} /> or allowing you to gain mana using <ItemLink id={ITEMS.ANCIENT_MANA_POTION.id}/>, for example.</span>;
-          importance = SUGGESTION_IMPORTANCE.MINOR;
-        } else {
-          suggestionText = <span>You ran out of mana (OOM) during the encounter without using a second potion. Use a second potion such as <ItemLink id={ITEMS.ANCIENT_MANA_POTION.id}/> or if the fight allows <ItemLink id={ITEMS.LEYTORRENT_POTION.id}/> to regenerate some mana.</span>;
-          importance = SUGGESTION_IMPORTANCE.REGULAR;
-        }
-        return suggest(suggestionText)
-          .icon(ITEMS.LEYTORRENT_POTION.icon)
-          .staticImportance(importance);
-      });
-    if (this.modules.sephuzsSecret.active) {
-      results.items.push({
-        item: ITEMS.SEPHUZS_SECRET,
-        result: `${((this.modules.sephuzsSecret.uptime / fightDuration * 100) || 0).toFixed(2)} % uptime`,
-      });
-    }
 
     // Epics:
     if (this.modules.drapeOfShame.active) {
@@ -390,28 +392,6 @@ class CombatLogParser {
           </dfn>
         ),
       });
-      suggestions
-        .when(this.modules.deceiversGrandDesign.proced).isTrue()
-        .addSuggestion(suggest => {
-          return suggest(
-            <span>
-              Your <ItemLink id={ITEMS.DECEIVERS_GRAND_DESIGN.id} /> procced earlier than expected. Try to cast it on players without spiky health pools. The following events procced the effect:<br />
-              {this.modules.deceiversGrandDesign.procs
-                .map((procs, index) => {
-                  const url = `https://www.warcraftlogs.com/reports/${procs.report}/#fight=${procs.fight}&source=${procs.target}&type=summary&start=${procs.start}&end=${procs.end}&view=events`;
-                  return (
-                    <div key={index}>
-                      Proc {index + 1} on: <a href={url} target="_blank" rel="noopener noreferrer">{procs.name}</a>
-                    </div>
-                  );
-                })}
-            </span>
-          )
-            .icon(ITEMS.DECEIVERS_GRAND_DESIGN.icon);
-        });
-    }
-
-    results.statistics.push(<VantusRune owner={this} />);
 
     return results;
   }

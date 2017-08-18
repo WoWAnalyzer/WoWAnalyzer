@@ -74,15 +74,9 @@ export default {
     icon: 'ability_priest_ascension',
   },
   MARK_OF_THE_HIDDEN_SATYR: {
-      id: 191259,
-      name: 'Mark of the Hidden Satyr',
-      icon: 'sha_spell_fire_fireball02_nightmare',
   },
   //Nighthold Trinkets
   RECURSIVE_STRIKES: {
-      id: 225739,
-      name: 'Recursive Strikes',
-      icon: 'sha_ability_mage_firestarter_nightborne',
   },
   // Tomb trinkets
   CLEANSING_MATRIX: {

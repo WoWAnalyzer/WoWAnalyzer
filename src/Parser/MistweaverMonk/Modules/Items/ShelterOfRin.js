@@ -26,6 +26,13 @@ class ShelterOfRin extends Module {
       console.log('Shelter of Rin Healing: ' + this.healing);
     }
   }
+
+  item() {
+    return {
+      item: ITEMS.SHELTER_OF_RIN,
+      result: this.owner.formatItemHealingDone(this.healing),
+    };
+  }
 }
 
 export default ShelterOfRin;

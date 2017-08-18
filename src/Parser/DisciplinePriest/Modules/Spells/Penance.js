@@ -9,8 +9,6 @@ import Module from 'Parser/Core/Module';
 const PENANCE_MINIMUM_RECAST_TIME = 3500; // Minimum duration from one Penance to Another
 
 class Penance extends Module {
-  priority = 9;
-
   _speedOfThePiousAcquired = false;
   _previousPenanceTimestamp = null;
   _penanceBoltNumber = 0;
@@ -28,6 +26,7 @@ class Penance extends Module {
     if (this.isNewPenanceCast(event.timestamp)) {
       this._previousPenanceTimestamp = event.timestamp;
       this._penanceBoltNumber = 0;
+      // event.isInitialPenanceCast = true; doesn't work since `this._speedOfThePiousAcquired` is permanently true after first cast
     }
   }
 

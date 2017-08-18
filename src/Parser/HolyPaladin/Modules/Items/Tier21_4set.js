@@ -1,4 +1,8 @@
+import React from 'react';
+
 import SPELLS from 'common/SPELLS';
+import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
 
 import Module from 'Parser/Core/Module';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
@@ -67,6 +71,15 @@ class Tier21_4set extends Module {
       return false;
     }
     return true;
+  }
+
+  item() {
+    return {
+      id: `spell-${SPELLS.HOLY_PALADIN_T21_4SET_BONUS_BUFF.id}`,
+      icon: <SpellIcon id={SPELLS.HOLY_PALADIN_T21_4SET_BONUS_BUFF.id} />,
+      title: <SpellLink id={SPELLS.HOLY_PALADIN_T21_4SET_BONUS_BUFF.id} />,
+      result: this.owner.formatItemHealingDone(this.healing),
+    };
   }
 }
 

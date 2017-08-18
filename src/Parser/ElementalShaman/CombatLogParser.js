@@ -1,6 +1,5 @@
 import React from 'react';
 
-import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import Icon from 'common/Icon';
 // import ITEMS from 'common/ITEMS';
@@ -10,23 +9,20 @@ import SPELLS from 'common/SPELLS';
 
 import StatisticBox from 'Main/StatisticBox';
 import SuggestionsTab from 'Main/SuggestionsTab';
-import TalentsTab from 'Main/TalentsTab';
-import CastEfficiencyTab from 'Main/CastEfficiencyTab';
-import CooldownsTab from 'Main/CooldownsTab';
+import Tab from 'Main/Tab';
+import Talents from 'Main/Talents';
 
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
-import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
-import ManaTab from './Modules/Main/MaelstromTab';
+import Maelstrom from './Modules/Main/Maelstrom';
 
+import CastEfficiency from './Modules/Features/CastEfficiency';
 import CooldownTracker from './Modules/Features/CooldownTracker';
 import ProcTracker from './Modules/Features/ProcTracker';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 
 import './Modules/Main/main.css';
-
-import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
 
 function formatThousands(number) {
   return (Math.round(number || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
@@ -58,6 +54,7 @@ function formatPercentage(percentage) {
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
     // Features
+    castEfficiency: CastEfficiency,
     alwaysBeCasting: AlwaysBeCasting,
     cooldownTracker: CooldownTracker,
     procTracker: ProcTracker,
@@ -112,18 +109,6 @@ class CombatLogParser extends MainCombatLogParser {
         importance: getIssueImportance(deadTimePercentage, 0.35, 0.4, true),
       });
     }
-
-    const castEfficiencyCategories = SPELL_CATEGORY;
-    const castEfficiency = getCastEfficiency(CPM_ABILITIES, this);
-    castEfficiency.forEach((cpm) => {
-      if (cpm.canBeImproved && !cpm.ability.noSuggestion) {
-        results.addIssue({
-          issue: <span>Try to cast <SpellLink id={cpm.ability.spell.id} /> more often ({cpm.casts}/{cpm.maxCasts} casts: {Math.round(cpm.castEfficiency * 100)}% cast efficiency). {cpm.ability.extraSuggestion || ''}</span>,
-          icon: cpm.ability.spell.icon,
-          importance: cpm.ability.importance || getIssueImportance(cpm.castEfficiency, cpm.recommendedCastEfficiency - 0.05, cpm.recommendedCastEfficiency - 0.15),
-        });
-      }
-    });
 
     results.statistics = [
       <StatisticBox
@@ -233,58 +218,29 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       },
       {
-        title: 'Cast efficiency',
-        url: 'cast-efficiency',
-        render: () => (
-          <CastEfficiencyTab
-            categories={castEfficiencyCategories}
-            abilities={castEfficiency}
-          />
-        ),
-      },
-      {
         title: 'Talents',
         url: 'talents',
         render: () => (
-          <TalentsTab combatant={this.selectedCombatant} />
-        ),
-      },
-      {
-        title: 'Cooldowns',
-        url: 'cooldowns',
-        render: () => (
-          <CooldownsTab
-            fightStart={this.fight.start_time}
-            fightEnd={this.fight.end_time}
-            cooldowns={this.modules.cooldownTracker.pastCooldowns}
-            showOutputStatistics
-          />
-        ),
-      },
-      {
-        title: 'Procs',
-        url: 'procs',
-        render: () => (
-          <CooldownsTab
-            fightStart={this.fight.start_time}
-            fightEnd={this.fight.end_time}
-            cooldowns={this.modules.procTracker.pastCooldowns}
-            showOutputStatistics
-          />
+          <Tab title="Talents">
+            <Talents combatant={this.selectedCombatant} />
+          </Tab>
         ),
       },
       {
         title: 'Maelstrom',
         url: 'maelstrom',
         render: () => (
-          <ManaTab
-            reportCode={this.report.code}
-            actorId={this.playerId}
-            start={this.fight.start_time}
-            end={this.fight.end_time}
-          />
+          <Tab title="Maelstrom" style={{ padding: '15px 22px' }}>
+            <Maelstrom
+              reportCode={this.report.code}
+              actorId={this.playerId}
+              start={this.fight.start_time}
+              end={this.fight.end_time}
+            />
+          </Tab>
         ),
       },
+      ...results.tabs,
     ];
 
     return results;

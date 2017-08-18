@@ -62,8 +62,16 @@ class SuggestionsTab extends React.Component {
         <div style={{ padding: 0 }}>
           <ul className="list issues">
             {!issues.find(issue => issue.importance === ISSUE_IMPORTANCE.MAJOR) && (
-              <li className="item" style={{ color: '#25ff00' }}>
-                <Icon icon="thumbsup" alt="Thumbsup" /> There are no major issues in this fight. Good job!
+              <li className="item major" style={{ color: '#25ff00' }}>
+                <div className="icon">
+                  <Icon icon="thumbsup" alt="Thumbsup" />
+                </div>
+                <div className="suggestion">
+                  There are no major issues in this fight. Good job!
+                </div>
+                <div className="importance">
+                  {this.getIssueImportance(ISSUE_IMPORTANCE.MAJOR)}
+                </div>
               </li>
             )}
             {issues

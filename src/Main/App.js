@@ -24,13 +24,6 @@ import ReportSelecter from "./ReportSelecter";
 const toolName = `WoW Analyzer`;
 const githubUrl = 'https://github.com/MartijnHols/WoWAnalyzer';
 
-if (!Array.prototype.find) {
-  // I know we could easily polyfill this (e.g. `<script src="https://ft-polyfill-service.herokuapp.com/v2/polyfill.js?features=es6"></script>`), but shit browsers also have horrible CSS support and I'm not going to spend a day fixing that; this isn't my job so I can do what I want. Using shit browsers should be discouraged anyway, not supporting shit browsers helps achieve that.
-  alert('Insecure shit browser detected. Please use Google Chrome instead.');
-  window.location.href = 'https://www.google.com/chrome/browser/desktop/index.html';
-  throw new Error();
-}
-
 class App extends Component {
   static propTypes = {
     router: PropTypes.shape({
@@ -106,7 +99,7 @@ class App extends Component {
 
   config = null;
   parser = null;
-  parse(report, fightId, playerName) {
+  parse(report, combatants, fightId, playerName) {
     const player = this.getPlayerFromReport(report, playerName);
     if (!player) {
       alert(`Unknown player: ${playerName}`);
@@ -114,7 +107,7 @@ class App extends Component {
     }
     const fight = this.getFightFromReport(report, fightId);
 
-    const combatant = this.state.combatants.find(combatant => combatant.sourceID === player.id);
+    const combatant = combatants.find(combatant => combatant.sourceID === player.id);
     if (!combatant) {
       alert('This player does not seem to be in this fight.');
       return;
@@ -137,7 +130,7 @@ class App extends Component {
       parser,
       progress: 0,
     }, () => {
-      parser.parseEvents(this.state.combatants)
+      parser.parseEvents(combatants)
         .then(() => {
           parser.triggerEvent('initialized');
           this.setState({
@@ -309,7 +302,7 @@ class App extends Component {
     if (this.state.report !== prevState.report || this.state.combatants !== prevState.combatants || this.props.params.fightId !== prevParams.fightId || this.playerName !== prevParams.playerName) {
       this.reset();
       if (this.state.report && this.state.combatants && this.fightId && this.playerName) {
-        this.parse(this.state.report, this.fightId, this.playerName);
+        this.parse(this.state.report, this.state.combatants, this.fightId, this.playerName);
       }
     }
 

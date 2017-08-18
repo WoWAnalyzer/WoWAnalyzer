@@ -27,6 +27,13 @@ class BarbaricMindslaver extends Module {
       console.log('Healing: ' + this.healing);
     }
   }
+
+  item() {
+    return {
+      item: ITEMS.BARBARIC_MINDSLAVER,
+      result: this.owner.formatItemHealingDone(this.healing),
+    };
+  }
 }
 
 export default BarbaricMindslaver;

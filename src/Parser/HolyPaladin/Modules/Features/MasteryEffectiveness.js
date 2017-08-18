@@ -1,12 +1,27 @@
+import React from 'react';
+
 import SPELLS from 'common/SPELLS';
+import { formatPercentage } from 'common/format';
 
 import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
+
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import MasteryRadiusImage from 'Main/Images/mastery-radius.png';
+import PlayerBreakdownTab from 'Main/PlayerBreakdownTab';
+
+import BeaconTargets from '../PaladinCore/BeaconTargets';
 
 import { ABILITIES_AFFECTED_BY_MASTERY, BEACON_TYPES } from '../../Constants';
 
 const debug = false;
 
 class MasteryEffectiveness extends Module {
+  static dependencies = {
+    combatants: Combatants,
+    beaconTargets: BeaconTargets,
+  };
+
   lastPlayerPositionUpdate = null;
   /** @type {object} With BotLB this will be the position of our beacon target. */
   lastBeaconPositionUpdate = null;
@@ -92,7 +107,7 @@ class MasteryEffectiveness extends Module {
   }
 
   get beaconOfTheLightbringerTarget() {
-    const beaconTargets = this.owner.modules.beaconTargets;
+    const beaconTargets = this.beaconTargets;
     if (beaconTargets.numBeaconsActive === 0) {
       debug && console.log('No beacon active right now');
     } else if (beaconTargets.numBeaconsActive === 1) {
@@ -107,7 +122,7 @@ class MasteryEffectiveness extends Module {
     if (!this.lastPlayerPositionUpdate) {
       console.error('Received a heal before we know the player location. Can\'t process since player location is still unknown.', event);
       return;
-    } else if (this.owner.modules.combatants.selected === null) {
+    } else if (this.combatants.selected === null) {
       console.error('Received a heal before selected combatant meta data was received.', event);
       return;
     }
@@ -126,11 +141,11 @@ class MasteryEffectiveness extends Module {
       const masteryEffectiveness = this.constructor.calculateMasteryEffectiveness(distance, isRuleOfLawActive);
 
       // The base healing of the spell (excluding any healing added by mastery)
-      const baseHealingDone = healingDone / (1 + this.owner.modules.combatants.selected.masteryPercentage * masteryEffectiveness);
+      const baseHealingDone = healingDone / (1 + this.combatants.selected.masteryPercentage * masteryEffectiveness);
       const masteryHealingDone = healingDone - baseHealingDone;
       // The max potential mastery healing if we had a mastery effectiveness of 100% on this spell. This does NOT include the base healing
       // Example: a heal that did 1,324 healing with 32.4% mastery with 100% mastery effectiveness will have a max potential mastery healing of 324.
-      const maxPotentialMasteryHealing = baseHealingDone * this.owner.modules.combatants.selected.masteryPercentage; // * 100% mastery effectiveness
+      const maxPotentialMasteryHealing = baseHealingDone * this.combatants.selected.masteryPercentage; // * 100% mastery effectiveness
 
       this.masteryHealEvents.push({
         ...event,
@@ -191,6 +206,83 @@ class MasteryEffectiveness extends Module {
     const falloffRadius = isRuleOfLawActive ? 60 : 40;
 
     return Math.min(1, Math.max(0, 1 - (distance - fullEffectivenessRadius) / (falloffRadius - fullEffectivenessRadius)));
+  }
+
+  get report() {
+    let totalHealingWithMasteryAffectedAbilities = 0;
+    let totalHealingFromMastery = 0;
+    let totalMaxPotentialMasteryHealing = 0;
+
+    const statsByTargetId = this.masteryHealEvents.reduce((obj, event) => {
+      // Update the fight-totals
+      totalHealingWithMasteryAffectedAbilities += event.amount;
+      totalHealingFromMastery += event.masteryHealingDone;
+      totalMaxPotentialMasteryHealing += event.maxPotentialMasteryHealing;
+
+      // Update the player-totals
+      if (!obj[event.targetID]) {
+        const combatant = this.combatants.players[event.targetID];
+        obj[event.targetID] = {
+          combatant,
+          healingReceived: 0,
+          healingFromMastery: 0,
+          maxPotentialHealingFromMastery: 0,
+        };
+      }
+      const playerStats = obj[event.targetID];
+      playerStats.healingReceived += event.amount;
+      playerStats.healingFromMastery += event.masteryHealingDone;
+      playerStats.maxPotentialHealingFromMastery += event.maxPotentialMasteryHealing;
+
+      return obj;
+    }, {});
+
+    return {
+      statsByTargetId,
+      totalHealingWithMasteryAffectedAbilities,
+      totalHealingFromMastery,
+      totalMaxPotentialMasteryHealing,
+    };
+  }
+
+  statistic() {
+    const report = this.report;
+    const totalMasteryEffectiveness = report.totalHealingFromMastery / (report.totalMaxPotentialMasteryHealing || 1);
+
+    return (
+      <StatisticBox
+        icon={<img src={MasteryRadiusImage} style={{ border: 0 }} alt="Mastery effectiveness" />}
+        value={`${formatPercentage(totalMasteryEffectiveness)} %`}
+        label="Mastery effectiveness"
+        tooltip="Effects that temporarily increase your mastery are currently not supported and will skew results."
+      />
+    );
+  }
+  statisticOrder = STATISTIC_ORDER.CORE(30);
+  suggestions(when) {
+    const report = this.report;
+    const totalMasteryEffectiveness = report.totalHealingFromMastery / (report.totalMaxPotentialMasteryHealing || 1);
+
+    when(totalMasteryEffectiveness).isLessThan(0.75)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest('Your Mastery Effectiveness can be improved. Try to improve your positioning, usually by sticking with melee.')
+          .icon('inv_hammer_04')
+          .actual(`${formatPercentage(actual)}% mastery effectiveness`)
+          .recommended(`>${formatPercentage(recommended)}% is recommended`)
+          .regular(recommended - 0.05).major(recommended - 0.15);
+      });
+  }
+  tab() {
+    return {
+      title: 'Mastery effectiveness',
+      url: 'mastery-effectiveness',
+      render: () => (
+        <PlayerBreakdownTab
+          report={this.report}
+          playersById={this.owner.playersById}
+        />
+      ),
+    };
   }
 }
 

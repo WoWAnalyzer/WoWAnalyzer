@@ -7,8 +7,18 @@ import ItemLink from 'common/ItemLink';
 import ItemIcon from 'common/ItemIcon';
 
 import DevelopmentTab from 'Main/DevelopmentTab';
+import EventsTab from 'Main/EventsTab';
 
 class Results extends React.Component {
+  static childContextTypes = {
+    updateResults: PropTypes.func.isRequired,
+  };
+  getChildContext() {
+    return {
+      updateResults: this.forceUpdate.bind(this),
+    };
+  }
+
   static propTypes = {
     parser: PropTypes.object.isRequired,
     tab: PropTypes.string,
@@ -28,7 +38,7 @@ class Results extends React.Component {
           <h1>
             <div className="back-button">
               <Link to={`/report/${parser.report.code}/${parser.fight.id}`} data-tip="Back to player selection">
-                <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
+                <span className="glyphicon glyphicon-chevron-left" aria-hidden />
               </Link>
             </div>
             Initializing report...
@@ -44,11 +54,20 @@ class Results extends React.Component {
     if (process.env.NODE_ENV === 'development') {
       results.tabs.push({
         title: 'Development',
-        url: 'Development',
+        url: 'development',
         render: () => (
           <DevelopmentTab
             parser={parser}
             results={results}
+          />
+        ),
+      });
+      results.tabs.push({
+        title: 'Events',
+        url: 'events',
+        render: () => (
+          <EventsTab
+            parser={parser}
           />
         ),
       });
@@ -62,7 +81,7 @@ class Results extends React.Component {
         <h1>
           <div className="back-button">
             <Link to={`/report/${parser.report.code}/${parser.fight.id}`} data-tip="Back to player selection">
-              <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
+              <span className="glyphicon glyphicon-chevron-left" aria-hidden />
             </Link>
           </div>
           Results
@@ -73,24 +92,24 @@ class Results extends React.Component {
             className="pull-right"
             style={{ fontSize: '.6em' }}
           >
-            <span className="glyphicon glyphicon-link" aria-hidden="true" /> Open report
+            <span className="glyphicon glyphicon-link" aria-hidden /> Open report
           </a>
         </h1>
 
         <div className="row">
           <div className="col-md-8">
             <div className="row">
-              {results.statistics.map((statistic, i) => {
-                if (!statistic) {
-                  return null;
-                }
-
-                return (
-                  <div className="col-lg-4 col-sm-6 col-xs-12" key={i}>
-                    {statistic}
-                  </div>
-                );
-              })}
+              {results.statistics
+                .filter(statistic => !!statistic) // filter optionals
+                .map(statistic => statistic.statistic ? statistic : { statistic, order: 0 }) // normalize
+                .sort((a, b) => a.order - b.order)
+                .map((statistic, i) => {
+                  return (
+                    <div className="col-lg-4 col-sm-6 col-xs-12" key={i}>
+                      {statistic.statistic}
+                    </div>
+                  );
+                })}
             </div>
           </div>
           <div className="col-md-4">

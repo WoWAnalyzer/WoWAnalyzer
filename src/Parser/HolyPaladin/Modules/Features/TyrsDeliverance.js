@@ -1,7 +1,13 @@
+import React from 'react';
+
 import SPELLS from 'common/SPELLS';
+import SpellIcon from 'common/SpellIcon';
+import { formatPercentage } from 'common/format';
 
 import Module from 'Parser/Core/Module';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
+
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
 
@@ -71,6 +77,22 @@ class TyrsDeliverance extends Module {
 
     this.buffFoLHLHealing += calculateEffectiveHealing(beaconTransferEvent, this.tyrsHealingIncrease);
   }
+
+  statistic() {
+    const tyrsDeliveranceHealHealingPercentage = this.owner.getPercentageOfTotalHealingDone(this.healHealing);
+    const tyrsDeliveranceBuffFoLHLHealingPercentage = this.owner.getPercentageOfTotalHealingDone(this.buffFoLHLHealing);
+    const tyrsDeliverancePercentage = tyrsDeliveranceHealHealingPercentage + tyrsDeliveranceBuffFoLHLHealingPercentage;
+
+    return (
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.TYRS_DELIVERANCE_CAST.id} />}
+        value={`${formatPercentage(tyrsDeliverancePercentage)} %`}
+        label="Tyr's Deliverance healing"
+        tooltip={`The total actual effective healing contributed by Tyr's Deliverance. This includes the gains from the increase to healing by Flash of Light and Holy Light.<br /><br />The actual healing done by the effect was ${formatPercentage(tyrsDeliveranceHealHealingPercentage)}% of your healing done, and the healing contribution from the Flash of Light and Holy Light heal increase was ${formatPercentage(tyrsDeliveranceBuffFoLHLHealingPercentage)}% of your healing done.`}
+      />
+    );
+  }
+  statisticOrder = STATISTIC_ORDER.TRAITS();
 }
 
 export default TyrsDeliverance;
