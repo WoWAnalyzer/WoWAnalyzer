@@ -2,10 +2,13 @@ import React from 'react';
 
 import Module from 'Parser/Core/Module';
 import StatisticBox from 'Main/StatisticBox';
+import { STATISTIC_ORDER } from 'Main/STATISTIC_ORDER';
 
 import SoulShardBreakdown from './SoulShardBreakdown';
-import WastedShardsIcon from '../../Images/affliction_warlock_soulshard_bw.jpg';
 import SoulShardTracker from './SoulShardTracker';
+
+import WastedShardsIcon from '../../Images/affliction_warlock_soulshard_bw.jpg';
+
 const soulShardIcon = 'inv_misc_gem_amethyst_02';
 
 class SoulShardDetails extends Module {
@@ -20,7 +23,7 @@ class SoulShardDetails extends Module {
         return suggest('You are wasting Soul Shards. Try to use them and not let them cap and go to waste unless you\'re preparing for bursting adds etc.')
           .icon(soulShardIcon)
           .actual(`${actual} Soul Shards wasted`)
-          .recommended(`No Soul Shards wasted are recommended`)
+          .recommended('No Soul Shards wasted are recommended')
           .regular(recommended + 1).major(recommended + 2);
       });
   }
@@ -62,6 +65,7 @@ class SoulShardDetails extends Module {
       ),
     };
   }
+  statisticOrder = STATISTIC_ORDER.CORE(2);
 }
 
 export default SoulShardDetails;

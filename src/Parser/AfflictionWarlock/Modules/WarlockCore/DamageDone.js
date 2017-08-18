@@ -1,30 +1,26 @@
 import React from 'react';
 
-import {formatThousands, formatNumber } from 'common/format';
-
 import Module from 'Parser/Core/Module';
 
+import {formatThousands, formatNumber } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-
-const debug = true;
 
 class DamageDone extends Module {
   totalPetDmgDone = 0;
-  damageBySource = {};
-  on_damage(event) {
-    if(!event.targetIsFriendly) {
-      if(!this.damageBySource[event.sourceID])
-        this.damageBySource[event.sourceID] = 0;
-      this.damageBySource[event.sourceID] += event.amount;
-    }
+
+  petIds = [];
+
+  on_initialized() {
+    this.owner.report.friendlyPets.filter(pet => pet.petOwner === this.owner.playerId).forEach(pet => {
+      if(this.petIds.indexOf(pet.id) === -1)
+        this.petIds.push(pet.id);
+    });
   }
 
-  on_finished() {
-    this.owner.report.friendlyPets.filter(pet => pet.petOwner === this.owner.playerId).forEach(pet => {
-      if (this.damageBySource[pet.id]) {
-        this.totalPetDmgDone += this.damageBySource[pet.id];
-      }
-    });
+  on_damage(event) {
+    if(this.petIds.indexOf(event.sourceID) === -1)
+      return;
+    this.totalPetDmgDone += event.amount;
   }
 
   statistic() {
@@ -43,6 +39,8 @@ class DamageDone extends Module {
       />
     );
   }
+
+  statisticOrder = STATISTIC_ORDER.CORE(0);
 }
 
 export default DamageDone;

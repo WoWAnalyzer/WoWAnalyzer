@@ -18,9 +18,13 @@ import SoulShardTracker from './Modules/SoulShards/SoulShardTracker';
 import SoulShardDetails from './Modules/SoulShards/SoulShardDetails';
 import DamageDone from "./Modules/WarlockCore/DamageDone";
 
-import SiphonLifeUptime from './Modules/Talents/SiphonLifeUptime';
+import Haunt from './Modules/Talents/Haunt';
 import MaleficGrasp from './Modules/Talents/MaleficGrasp';
 import Contagion from './Modules/Talents/Contagion';
+import AbsoluteCorruption from './Modules/Talents/AbsoluteCorruption';
+import SoulHarvest from './Modules/Talents/SoulHarvest';
+import DeathsEmbrace from './Modules/Talents/DeathsEmbrace';
+import SiphonLifeUptime from './Modules/Talents/SiphonLifeUptime';
 
 class CombatLogParser extends MainCombatLogParser {
 
@@ -41,9 +45,14 @@ class CombatLogParser extends MainCombatLogParser {
     damageDone: DamageDone,
 
     //Talents
-    siphonLifeUptime: SiphonLifeUptime,
+    haunt: Haunt,
     maleficGrasp: MaleficGrasp,
     contagion: Contagion,
+    absoluteCorruption: AbsoluteCorruption,
+    soulHarvest: SoulHarvest,
+    deathsEmbrace: DeathsEmbrace,
+    siphonLifeUptime: SiphonLifeUptime,
+
   };
 
   generateResults() {

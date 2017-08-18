@@ -1,26 +1,23 @@
 import React from 'react';
 
+import Module from 'Parser/Core/Module';
+import Enemies from 'Parser/Core/Modules/Enemies';
+
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
-import Module from 'Parser/Core/Module';
-import Enemies from 'Parser/Core/Modules/Enemies';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
+import {UNSTABLE_AFFLICTION_DEBUFF_IDS} from '../../Constants';
 import getDamageBonus from '../WarlockCore/getDamageBonus';
-
-const debug = true;
 
 const abilitiesAffected = [
   SPELLS.AGONY.id,
   SPELLS.CORRUPTION_DEBUFF.id,
   SPELLS.SIPHON_LIFE.id,
-  SPELLS.UNSTABLE_AFFLICTION_DEBUFF_1.id,
-  SPELLS.UNSTABLE_AFFLICTION_DEBUFF_2.id,
-  SPELLS.UNSTABLE_AFFLICTION_DEBUFF_3.id,
-  SPELLS.UNSTABLE_AFFLICTION_DEBUFF_4.id,
-  SPELLS.UNSTABLE_AFFLICTION_DEBUFF_5.id,
+  ...UNSTABLE_AFFLICTION_DEBUFF_IDS,
 ];
+
 const MALEFIC_GRASP_DAMAGE_BONUS = .25;
 
 class MaleficGrasp extends Module {
@@ -73,14 +70,7 @@ class MaleficGrasp extends Module {
         break;
     }
   }
-  on_finished() {
-    if(debug) {
-      console.log('Bonus agony: ', this.agonyBonusDmg);
-      console.log('Bonus corr: ', this.corruptionBonusDmg);
-      console.log('Bonus siphon: ', this.siphonLifeBonusDmg);
-      console.log('Bonus unstable: ', this.unstableAfflictionBonusDmg);
-    }
-  }
+
   statistic() {
     return (
       <StatisticBox
@@ -110,6 +100,8 @@ class MaleficGrasp extends Module {
       />
     );
   }
+
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(0);
 }
 
 export default MaleficGrasp;

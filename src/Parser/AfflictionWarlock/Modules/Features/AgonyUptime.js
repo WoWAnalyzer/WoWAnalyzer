@@ -1,23 +1,20 @@
 import React from 'react';
 
+import Module from 'Parser/Core/Module';
+import Enemies from 'Parser/Core/Modules/Enemies';
+
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-
-import Module from 'Parser/Core/Module';
-import Enemies from 'Parser/Core/Modules/Enemies';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-
-const debug = true;
 
 class AgonyUptime extends Module {
   static dependencies = {
     enemies: Enemies,
   };
+
   suggestions(when){
     const agonyUptime = this.enemies.getBuffUptime(SPELLS.AGONY.id) / this.owner.fightDuration;
-    //actual = value in when()
-    //recommended = value in isLessThan()
     if(this.owner.selectedCombatant.hasTalent(SPELLS.WRITHE_IN_AGONY_TALENT.id)) {
       when(agonyUptime).isLessThan(0.95)
         .addSuggestion((suggest, actual, recommended) => {
@@ -39,6 +36,7 @@ class AgonyUptime extends Module {
         });
     }
   }
+
   statistic() {
     const agonyUptime = this.enemies.getBuffUptime(SPELLS.AGONY.id) / this.owner.fightDuration;
     return (
@@ -46,10 +44,12 @@ class AgonyUptime extends Module {
         icon={<SpellIcon id={SPELLS.AGONY.id} />}
         value={`${formatPercentage(agonyUptime)} %`}
         label='Agony uptime'
-        tooltip={`Agony uptime is how much of time of the fight you have Agony active on the boss. You should try to keep the uptime as close to 100% as possible, especially with the Writhe In Agony talent.`}
+        tooltip='Agony uptime is how much of time of the fight you have Agony active on the boss. You should try to keep the uptime as close to 100% as possible, especially with the Writhe In Agony talent.'
       />
     );
   }
+
+  statisticOrder = STATISTIC_ORDER.CORE(3);
 }
 
 export default AgonyUptime;

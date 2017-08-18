@@ -404,7 +404,12 @@ const ITEMS = {
     icon: 'inv_belt_30',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
-
+  THE_MASTER_HARVESTER: {
+    id: 151821,
+    name: 'The Master Harvester',
+    icon: 'inv_chest_cloth_raidmage_q_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
   // T20 Trinkets
   ARCHIVE_OF_FAITH: {
     id: 147006,

@@ -1,14 +1,11 @@
 import React from 'react';
 
+import CoreAlwaysBeCasting from 'Parser/Core/Modules/AlwaysBeCasting';
+
 import SPELLS from 'common/SPELLS';
 import Icon from 'common/Icon';
 import { formatPercentage } from 'common/format';
-
-import CoreAlwaysBeCasting from 'Parser/Core/Modules/AlwaysBeCasting';
-
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-
-const debug = true;
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting{
   static ABILITIES_ON_GCD = [
@@ -74,7 +71,8 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting{
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(10);
+
+  statisticOrder = STATISTIC_ORDER.CORE(1);
 }
 
 export default AlwaysBeCasting;

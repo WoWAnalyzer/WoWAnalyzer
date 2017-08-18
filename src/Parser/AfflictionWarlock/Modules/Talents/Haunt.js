@@ -8,12 +8,12 @@ import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-import {UNSTABLE_AFFLICTION_DEBUFF_IDS} from '../../Constants';
 import getDamageBonus from '../WarlockCore/getDamageBonus';
 
-const CONTAGION_DAMAGE_BONUS = .15;
+const HAUNT_DAMAGE_BONUS = .15;
 
-class Contagion extends Module {
+class Haunt extends Module {
+  //TODO: test on dummy or in raid on some boss, there are no logs with this talent to test, should work though
   static dependencies = {
     enemies: Enemies,
   };
@@ -22,7 +22,7 @@ class Contagion extends Module {
 
   on_initialized() {
     if(!this.owner.error){
-      this.active = this.owner.selectedCombatant.hasTalent(SPELLS.CONTAGION_TALENT.id);
+      this.active = this.owner.selectedCombatant.hasTalent(SPELLS.HAUNT_TALENT.id);
     }
   }
 
@@ -30,25 +30,25 @@ class Contagion extends Module {
     const target = this.enemies.getEntity(event);
     if(!target)
       return;
-    const hasUA = UNSTABLE_AFFLICTION_DEBUFF_IDS.some(x => target.hasBuff(x, event.timestamp));
-    if(!hasUA)
+    const hasHaunt = target.hasBuff(SPELLS.HAUNT.id, event.timestamp);
+    if(!hasHaunt)
       return;
 
-    this.totalBonusDmg += getDamageBonus(event, CONTAGION_DAMAGE_BONUS);
+    this.totalBonusDmg += getDamageBonus(event, HAUNT_DAMAGE_BONUS);
   }
 
   statistic() {
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.CONTAGION_TALENT.id} />}
+        icon={<SpellIcon id={SPELLS.HAUNT.id} />}
         value={`${formatNumber(this.totalBonusDmg)}`}
-        label={'Damage contributed'}
-        tooltip={`Your Contagion talent contributed ${formatNumber(this.totalBonusDmg)} total damage (${this.owner.formatItemDamageDone(this.totalBonusDmg)}).`}
+        label='Damage contributed'
+        tooltip={`Your Haunt talent contributed ${formatNumber(this.totalBonusDmg)} total damage (${this.owner.formatItemDamageDone(this.totalBonusDmg)}).`}
       />
     );
   }
 
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(1);
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(0);
 }
 
-export default Contagion;
+export default Haunt;

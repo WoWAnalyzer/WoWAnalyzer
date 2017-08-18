@@ -1,20 +1,21 @@
 import React from 'react';
 
+import Module from 'Parser/Core/Module';
+
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 
-import Module from 'Parser/Core/Module';
-
-const shardGeneratingAbilities =
-  [ SPELLS.AGONY_SHARD_GEN.id,
+const shardGeneratingAbilities = [
+    SPELLS.AGONY_SHARD_GEN.id,
     SPELLS.UNSTABLE_AFFLICTION_KILL_SHARD_GEN.id,
     SPELLS.DRAIN_SOUL_KILL_SHARD_GEN.id,
   ];
-const shardSpendingAbilities =
-  [
+
+const shardSpendingAbilities = [
     SPELLS.UNSTABLE_AFFLICTION_CAST.id,
     SPELLS.SEED_OF_CORRUPTION_DEBUFF.id,
   ];
+
 class SoulShardTracker extends Module{
   shardsGained = 0;
   shardsWasted = 0;
@@ -23,6 +24,7 @@ class SoulShardTracker extends Module{
   gained = {};
   spent = {};
   wasted = {};
+
   on_initialized() {
     //initialize base abilities, rest depends on talents and equip
     shardGeneratingAbilities.forEach(x => {
@@ -47,7 +49,6 @@ class SoulShardTracker extends Module{
       this.wasted[SPELLS.POWER_CORD_OF_LETHTENDRIS_SHARD_GEN.id] = {shards: 0};
       shardGeneratingAbilities.push(SPELLS.POWER_CORD_OF_LETHTENDRIS_SHARD_GEN.id);
     }
-
 
     if(player.hasTalent(SPELLS.GRIMOIRE_OF_SUPREMACY_TALENT.id)) {
       this.spent[SPELLS.SUMMON_DOOMGUARD_TALENTED.id] = {shards: 0};
@@ -79,6 +80,7 @@ class SoulShardTracker extends Module{
         SPELLS.SUMMON_FELHUNTER.id);
     }
   }
+
   on_toPlayer_energize(event) {
     const spellId = event.ability.guid;
     if(shardGeneratingAbilities.indexOf(spellId) === -1)

@@ -1,24 +1,20 @@
 import React from 'react';
 
-import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
-import { formatPercentage } from 'common/format';
-
 import Module from 'Parser/Core/Module';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
+import SPELLS from 'common/SPELLS';
+import SpellIcon from 'common/SpellIcon';
+import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-
-const debug = true;
 
 class CorruptionUptime extends Module {
   static dependencies = {
     enemies: Enemies,
   };
+
   suggestions(when){
     const corruptionUptime = this.enemies.getBuffUptime(SPELLS.CORRUPTION_DEBUFF.id) / this.owner.fightDuration;
-    //actual = value in when()
-    //recommended = value in isLessThan()
     if(this.owner.selectedCombatant.hasBuff(SPELLS.WARLOCK_AFFLI_T20_2P_BONUS.id)) {
       when(corruptionUptime).isLessThan(0.95)
         .addSuggestion((suggest, actual, recommended) => {
@@ -40,6 +36,7 @@ class CorruptionUptime extends Module {
         });
     }
   }
+
   statistic() {
     const corruptionUptime = this.enemies.getBuffUptime(SPELLS.CORRUPTION_DEBUFF.id) / this.owner.fightDuration;
     return (
@@ -51,6 +48,8 @@ class CorruptionUptime extends Module {
       />
     );
   }
+
+  statisticOrder = STATISTIC_ORDER.CORE(4);
 }
 
 export default CorruptionUptime;
