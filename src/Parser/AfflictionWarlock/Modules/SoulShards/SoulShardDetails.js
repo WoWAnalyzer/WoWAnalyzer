@@ -1,8 +1,7 @@
 import React from 'react';
 
 import Module from 'Parser/Core/Module';
-import StatisticBox from 'Main/StatisticBox';
-import { STATISTIC_ORDER } from 'Main/STATISTIC_ORDER';
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import SoulShardBreakdown from './SoulShardBreakdown';
 import SoulShardTracker from './SoulShardTracker';
