@@ -2,9 +2,10 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 
 export const SPELL_CATEGORY = {
-  ROTATIONAL: 'Spell',
+  ROTATIONAL: 'Rotational Spell',
   ROTATIONAL_AOE: 'Spell (AOE)',
   COOLDOWNS: 'Cooldown',
+  OTHERS: 'Spell',
 };
 
 const CPM_ABILITIES = [
@@ -26,16 +27,16 @@ const CPM_ABILITIES = [
     getCooldown: haste => 120,
   },
   {
-      spell: SPELLS.SUMMON_DREAD_REFLECTION,
-      category: SPELL_CATEGORY.COOLDOWNS,
-      getCooldown: haste => 45,
-      isActive: combatant => combatant.hasTrinket(ITEMS.SPECTER_OF_BETRAYAL.id),
+    spell: SPELLS.SUMMON_DREAD_REFLECTION,
+    category: SPELL_CATEGORY.COOLDOWNS,
+    getCooldown: haste => 45,
+    isActive: combatant => combatant.hasTrinket(ITEMS.SPECTER_OF_BETRAYAL.id),
   },
   {
-      spell: SPELLS.CEASELESS_TOXIN,
-      category: SPELL_CATEGORY.COOLDOWNS,
-      getCooldown: haste => 60,//add detection if target has died and reduced cooldown
-      isActive: combatant => combatant.hasTrinket(ITEMS.VIAL_OF_CEASELESS_TOXINS.id),
+    spell: SPELLS.CEASELESS_TOXIN,
+    category: SPELL_CATEGORY.COOLDOWNS,
+    getCooldown: haste => 60,//add detection if target has died and reduced cooldown
+    isActive: combatant => combatant.hasTrinket(ITEMS.VIAL_OF_CEASELESS_TOXINS.id),
   },
   {
     spell: SPELLS.LIGHTNING_BOLT,
@@ -76,6 +77,18 @@ const CPM_ABILITIES = [
   {
     spell: SPELLS.CRASH_LIGHTNING,
     category: SPELL_CATEGORY.ROTATIONAL_AOE,
+    getCooldown: haste => null, // 1.5 / (1 + haste)
+  },
+  {
+    spell: SPELLS.EARTHEN_SPIKE,
+    category: SPELL_CATEGORY.ROTATIONAL,
+    isActive: combatant => combatant.hasTalent(SPELLS.EARTHEN_SPIKE_TALENT.id),
+    getCooldown: haste => 20, // 1.5 / (1 + haste)
+    recommendedCastEfficiency: .3,
+  },
+  {
+    spell: SPELLS.HEALING_SURGE_ENHANCE,
+    category: SPELL_CATEGORY.OTHERS,
     getCooldown: haste => null, // 1.5 / (1 + haste)
   },
 ];

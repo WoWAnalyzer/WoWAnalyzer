@@ -26,6 +26,8 @@ import DeceiversGrandDesign from './Modules/Items/DeceiversGrandDesign';
 import PrePotion from './Modules/Items/PrePotion';
 import GnawedThumbRing from './Modules/Items/GnawedThumbRing';
 import VialOfCeaselessToxins from './Modules/Items/VialOfCeaselessToxins';
+import SpecterOfBetrayal from './Modules/Items/SpecterOfBetrayal';
+import EngineOfEradication from './Modules/Items/EngineOfEradication';
 
 // Shared Buffs
 import VantusRune from './Modules/VantusRune';
@@ -61,6 +63,8 @@ class CombatLogParser {
     seaStar: SeaStar,
     deceiversGrandDesign: DeceiversGrandDesign,
     vialCeaslessToxins: VialOfCeaselessToxins,
+    specterOfBetrayal: SpecterOfBetrayal,
+    engineOfEradication: EngineOfEradication,
   };
   // Override this with spec specific modules
   static specModules = {};
@@ -333,6 +337,20 @@ class CombatLogParser {
         result: (<dfn data-tip={`The effective damage contributed by Vial of Ceasless Toxins.<br/>Casts: ${this.modules.vialCeaslessToxins.totalToxinCast}<br/> Damage: ${formatItemDamage(this.modules.vialCeaslessToxins.damageIncreased)}<br/> Total Damage: ${formatNumber(this.modules.vialCeaslessToxins.damageIncreased)}`}>
             {formatItemDamage(this.modules.vialCeaslessToxins.damageIncreased)}
           </dfn>),
+      });
+    }
+    if (this.modules.specterOfBetrayal.active) {
+      results.items.push({
+        item: ITEMS.SPECTER_OF_BETRAYAL,
+        result: (<dfn data-tip={`The effective damage contributed by Specter of Betrayal.<br/>Casts: ${this.modules.specterOfBetrayal.totalCasts}<br/> Damage: ${formatItemDamage(this.modules.specterOfBetrayal.damageIncreased)}<br/> Total Damage: ${formatNumber(this.modules.specterOfBetrayal.damageIncreased)}`}>
+            {formatItemDamage(this.modules.specterOfBetrayal.damageIncreased)}
+          </dfn>),
+      });
+    }
+    if (this.modules.engineOfEradication.active) {
+      results.items.push({
+        item: ITEMS.ENGINE_OF_ERADICATION,
+        result: `${((this.modules.engineOfEradication.uptime / fightDuration * 100) || 0).toFixed(2)} % uptime`,
       });
     }
     if (this.modules.archiveOfFaith.active) {
