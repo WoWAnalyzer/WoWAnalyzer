@@ -4,9 +4,9 @@ import Icon from 'common/Icon';
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 
 // Unused
-// import SPELLS from 'common/SPELLS';
 // import SpellIcon from 'common/SpellIcon';
 
+import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import StatisticBox from 'Main/StatisticBox';
 import SuggestionsTab from 'Main/SuggestionsTab';
@@ -16,7 +16,6 @@ import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
-import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 
 import CPM_ABILITIES from './CPM_ABILITIES';
@@ -80,7 +79,6 @@ class CombatLogParser extends MainCombatLogParser {
   static specModules = {
     // Features
     alwaysBeCasting: AlwaysBeCasting,
-    abilityTracker: AbilityTracker,
   };
 
   damageBySchool = {};
@@ -93,17 +91,26 @@ class CombatLogParser extends MainCombatLogParser {
   }
 
   generateResults() {
+      
     const results = super.generateResults();
 
     const fightDuration = this.fightDuration;
 
     const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
 
-    if(this.modules.abilityTracker.abilities[1] !== undefined)  {
-        this.soulFragmentsCasts = this.modules.abilityTracker.abilities[204255].casts;
-        this.immolationAuraDamage = this.modules.abilityTracker.abilities[178741].damangeEffective + this.modules.abilityTracker.abilities[187727].damangeEffective;
-        this.empowerWardsCasts = this.modules.abilityTracker.abilities[218256].casts;
-        this.demonSpikesCasts = this.modules.abilityTracker.abilities[203720].casts;
+    // As soon as the information is ready to be analysed, gets it and put it in variables
+    // This is done to not get the 'cannot read property of undefined' error
+    if(this.modules.abilityTracker.abilities[SPELLS.SOUL_FRAGMENT.id] !== undefined)  {
+
+        this.soulFragmentsCasts = this.modules.abilityTracker.abilities[SPELLS.SOUL_FRAGMENT.id].casts;
+
+        this.immolationAuraCasts = this.modules.abilityTracker.abilities[SPELLS.IMMOLATION_AURA.id].casts;
+
+        this.immolationAuraDamage = this.modules.abilityTracker.abilities[SPELLS.IMMOLATION_AURA.firstStrikeSpellId].damangeEffective + this.modules.abilityTracker.abilities[SPELLS.IMMOLATION_AURA.normalStrikeSpellId].damangeEffective;
+
+        this.empowerWardsCasts = this.modules.abilityTracker.abilities[SPELLS.EMPOWER_WARDS.id].casts;
+
+        this.demonSpikesCasts = this.modules.abilityTracker.abilities[SPELLS.DEMON_SPIKES.id].casts;
     }
 
     if (deadTimePercentage > 0.2) {
@@ -147,7 +154,7 @@ class CombatLogParser extends MainCombatLogParser {
         icon={<Icon icon="spell_mage_altertime" alt="Dead GCD time" />}
         value={`${formatPercentage(deadTimePercentage)} %`}
         label='Dead GCD time'
-        tooltip={'Dead GCD time is available casting time not used. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), etc.'}
+        tooltip="Dead GCD time is available casting time not used. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), etc."
       />,
       <StatisticBox
       icon={(
@@ -175,21 +182,21 @@ class CombatLogParser extends MainCombatLogParser {
       />,
       <StatisticBox
         icon={<Icon icon="ability_demonhunter_immolation" alt="Immolation Aura Damage" />}
-        value={`${formatNumber(this.immolationAuraDamage / this.fightDuration * 1000)} IADPS`}
-        label='Immolation Aura Damage'
-        tooltip={`The Immolation Aura total damage was ${formatThousands(this.immolationAuraDamage)}.`}
+        value={`${formatNumber(this.immolationAuraCasts)} IA`}
+        label='Immolation Aura Casts'
+        tooltip={`The Immolation Aura total damage was ${formatThousands(this.immolationAuraDamage)}.<br/>The Immolation Aura total uptime was ${formatNumber(this.immolationAuraCasts * 6)} seconds.`}
       />,
       <StatisticBox
         icon={<Icon icon="ability_demonhunter_demonspikes" alt="Demon Spikes Casts" />}
         value={`${formatNumber(this.demonSpikesCasts)} DS`}
         label='Demon Spikes Casts'
-        tooltip={`The Demon Spikes total uptime was ${formatThousands(this.demonSpikesCasts * 6)} seconds.`}
+        tooltip={`The Demon Spikes total uptime was ${formatNumber(this.demonSpikesCasts * 6)} seconds.`}
       />,
       <StatisticBox
         icon={<Icon icon="ability_demonhunter_empowerwards" alt="Empower Wards Casts" />}
         value={`${formatNumber(this.empowerWardsCasts)} EW`}
         label='Empower Wards Casts'
-        tooltip={`The Empower Wards total uptime was ${formatThousands(this.empowerWardsCasts * 6)} seconds.`}
+        tooltip={`The Empower Wards total uptime was ${formatNumber(this.empowerWardsCasts * 6)} seconds.`}
       />,
   ];
 
