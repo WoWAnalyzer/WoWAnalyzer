@@ -3,7 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
-import ITEMS from "../../common/ITEMS";
+import ITEMS from 'common/ITEMS';
 
 export default {
   descriptions: {
