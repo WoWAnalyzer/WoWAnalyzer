@@ -47,12 +47,13 @@ class SoulShardTracker extends Module{
       this.wasted[SPELLS.POWER_CORD_OF_LETHTENDRIS_SHARD_GEN.id] = {shards: 0};
       shardGeneratingAbilities.push(SPELLS.POWER_CORD_OF_LETHTENDRIS_SHARD_GEN.id);
     }
+
+
     if(player.hasTalent(SPELLS.GRIMOIRE_OF_SUPREMACY_TALENT.id)) {
       this.spent[SPELLS.SUMMON_DOOMGUARD_TALENTED.id] = {shards: 0};
       this.spent[SPELLS.SUMMON_INFERNAL_TALENTED.id] = {shards: 0};
       shardSpendingAbilities.push(SPELLS.SUMMON_INFERNAL_TALENTED.id, SPELLS.SUMMON_DOOMGUARD_TALENTED.id);
     }
-
     else if(player.hasTalent(SPELLS.GRIMOIRE_OF_SERVICE_TALENT.id)){
       this.spent[SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id] = {shards: 0};
       this.spent[SPELLS.SUMMON_INFERNAL_UNTALENTED.id] = {shards: 0};

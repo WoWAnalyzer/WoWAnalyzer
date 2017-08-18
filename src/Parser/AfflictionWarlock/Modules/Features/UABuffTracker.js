@@ -17,7 +17,7 @@ const UAspellIds = [SPELLS.UNSTABLE_AFFLICTION_DEBUFF_1.id,
 ];
 
 class UABuffTracker extends Module {
-
+  //TODO: Haunt support
   static dependencies = {
     enemies: Enemies,
   };
@@ -61,12 +61,14 @@ class UABuffTracker extends Module {
   }
 
   on_finished() {
-    console.log("Total ticks:", this.totalTicks);
-    console.log("Buffed by both:", this.ticksBuffedByBoth);
-    console.log("Buffed by drain:", this.ticksBuffedByDrain);
-    console.log("Buffed by reap:", this.ticksBuffedByReap);
-    console.log("Buffed by at least one ", (this.totalTicks - this.unbuffedTicks));
-    console.log("Unbuffed ticks:", this.unbuffedTicks);
+    if(debug){
+      console.log('Total ticks:', this.totalTicks);
+      console.log('Buffed by both:', this.ticksBuffedByBoth);
+      console.log('Buffed by drain:', this.ticksBuffedByDrain);
+      console.log('Buffed by reap:', this.ticksBuffedByReap);
+      console.log('Buffed by at least one: ', (this.totalTicks - this.unbuffedTicks));
+      console.log('Unbuffed ticks:', this.unbuffedTicks);
+    }
   }
   suggestions(when){
     const buffPercentage = this.unbuffedTicks / this.totalTicks;

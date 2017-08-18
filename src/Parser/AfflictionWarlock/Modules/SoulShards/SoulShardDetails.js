@@ -12,6 +12,7 @@ class SoulShardDetails extends Module {
   static dependencies = {
     soulShardTracker: SoulShardTracker,
   };
+
   suggestions(when) {
     const shardsWasted = this.soulShardTracker.shardsWasted;
     when(shardsWasted).isGreaterThan(0)
@@ -31,11 +32,11 @@ class SoulShardDetails extends Module {
         icon={(
             <img
               src={WastedShardsIcon}
-              alt="Wasted Soul Shards"
+              alt='Wasted Soul Shards'
             />
         )}
         value={`${shardsWasted}`}
-        label="Wasted Soul Shards"
+        label='Wasted Soul Shards'
         tooltip={`You are wasting Soul Shards. Try to use them and not let them cap and go to waste unless you're preparing for bursting adds etc.`}
       />
     );
@@ -47,7 +48,7 @@ class SoulShardDetails extends Module {
       url: 'soul-shards',
       render: () => (
         <div>
-          <div className="panel-heading">
+          <div className='panel-heading'>
             <h2>Soul Shard usage breakdown</h2>
           </div>
           <div style={{ padding: '10px 0 15px' }}>

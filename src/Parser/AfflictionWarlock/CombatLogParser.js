@@ -10,12 +10,12 @@ import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownTracker from './Modules/Features/CooldownTracker';
 import AgonyUptime from './Modules/Features/AgonyUptime';
-import CorruptionUptime from "./Modules/Features/CorruptionUptime";
+import CorruptionUptime from './Modules/Features/CorruptionUptime';
 import SiphonLifeUptime from "./Modules/Features/SiphonLifeUptime";
 import UABuffTracker from './Modules/Features/UABuffTracker';
 
-import SoulShardTracker from "./Modules/SoulShards/SoulShardTracker";
-import SoulShardDetails from "./Modules/SoulShards/SoulShardDetails";
+import SoulShardTracker from './Modules/SoulShards/SoulShardTracker';
+import SoulShardDetails from './Modules/SoulShards/SoulShardDetails';
 
 class CombatLogParser extends MainCombatLogParser {
 

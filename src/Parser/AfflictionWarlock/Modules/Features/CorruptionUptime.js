@@ -46,7 +46,7 @@ class CorruptionUptime extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.CORRUPTION_CAST.id} />}
         value={`${formatPercentage(corruptionUptime)} %`}
-        label="Corruption uptime"
+        label='Corruption uptime'
         tooltip={`Corruption uptime is how much of time of the fight you have Corruption active on the boss. You should try to keep the uptime as close to 100% as possible, especially with the T20 2-piece set bonus.`}
       />
     );

@@ -4,10 +4,7 @@ import CoreCastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 
 const SPELL_CATEGORY = {
     ROTATIONAL: 'Rotational Spell',
-    //ROTATIONAL_AOE: 'Rotational AoE Spell',
-    //DOTS: 'DoT Spell',
     COOLDOWNS: 'Cooldown',
-    //OTHERS: 'Spell',
 };
 
 class CastEfficiency extends CoreCastEfficiency {
@@ -18,6 +15,7 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 25,
       isActive: combatant => combatant.hasTalent(SPELLS.HAUNT_TALENT.id),
       recommendedCastEfficiency: 0.95,
+      extraSuggestion: 'This estimate may not be correct sometimes because of Haunt\'s resets. The real amount of possible Haunts will be higher if there were adds on this fight.',
     },
     {
       spell: SPELLS.PHANTOM_SINGULARITY,

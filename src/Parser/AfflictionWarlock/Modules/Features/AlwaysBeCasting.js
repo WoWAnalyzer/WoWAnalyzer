@@ -67,9 +67,9 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting{
 
     return (
       <StatisticBox
-        icon={<Icon icon="petbattle_health-down" alt="Non healing time" />}
+        icon={<Icon icon='petbattle_health-down' alt='Dead time' />}
         value={`${formatPercentage(deadTimePercentage)} %`}
-        label="Dead time"
+        label='Dead time'
         tooltip={`Dead time is available casting time not used for casting any spell. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), etc. <br /><br />You spent ${formatPercentage(deadTimePercentage)}% of your time casting nothing at all.`}
       />
     );

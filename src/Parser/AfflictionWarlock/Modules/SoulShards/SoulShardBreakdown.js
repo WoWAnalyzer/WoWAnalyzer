@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import SpellIcon from "common/SpellIcon";
-import SpellLink from "common/SpellLink";
+import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
 class SoulShardBreakdown extends React.Component {
@@ -44,12 +44,12 @@ class SoulShardBreakdown extends React.Component {
 
     return (
       <div>
-        <table className="data-table">
+        <table className='data-table'>
           <thead>
             <tr>
               <th>Ability</th>
-              <th colSpan="2">Shards generated</th>
-              <th colSpan="2"><dfn data-tip="This is the amount of shards that were generated while you were having full shards.">Shards wasted</dfn></th>
+              <th colSpan='2'>Shards generated</th>
+              <th colSpan='2'><dfn data-tip='This is the amount of shards that were generated while you were having full shards.'>Shards wasted</dfn></th>
             </tr>
           </thead>
           <tbody>
@@ -84,13 +84,13 @@ class SoulShardBreakdown extends React.Component {
               })}
           </tbody>
         </table>
-        <table className="data-table">
+        <table className='data-table'>
           <thead>
           <tr>
             <th>Ability</th>
-            <th colSpan="2">Shards spent</th>
-            {/* TODO: I know it shouldn't be done like this but I'm not proficient with CSS and this is the only way I could think of to align the columns with table above*/}
-            <th colSpan="2"></th>
+            <th colSpan='2'>Shards spent</th>
+            {/* I know it shouldn't be done like this but I'm not proficient with CSS and this is the only way I could think of to align the columns with table above*/}
+            <th colSpan='2'></th>
           </tr>
           </thead>
           <tbody>
