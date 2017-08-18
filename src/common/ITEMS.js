@@ -449,6 +449,26 @@ const ITEMS = {
     icon: 'inv_cape_draenorquest90_b_03_mail',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+
+  // Vengeance Demon Hunter legendaries
+  KIREL_NARAK: {
+    id: 138949,
+    name: 'Kirel Narak',
+    icon: 'inv_boots_leather_dungeonleather_c_06',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  OBLIVIONS_EMBRACE: {
+    id: 151799,
+    name: 'Oblivion\'s Embrace',
+    icon: 'inv_leather_raiddruid_m_01pant',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  FRAGMENT_OF_THE_BETRAYERS_PRISON: {
+    id: 138854,
+    name: 'Fragment of the Betrayer\'s Prison',
+    icon:'inv_jewelry_ring_134',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
 };
 
 export default indexById(ITEMS);
