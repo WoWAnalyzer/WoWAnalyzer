@@ -12,6 +12,7 @@ import CooldownTracker from './Modules/Features/CooldownTracker';
 import AgonyUptime from './Modules/Features/AgonyUptime';
 import CorruptionUptime from "./Modules/Features/CorruptionUptime";
 import SiphonLifeUptime from "./Modules/Features/SiphonLifeUptime";
+import UABuffTracker from './Modules/Features/UABuffTracker';
 
 import SoulShardTracker from "./Modules/SoulShards/SoulShardTracker";
 import SoulShardDetails from "./Modules/SoulShards/SoulShardDetails";
@@ -28,6 +29,7 @@ class CombatLogParser extends MainCombatLogParser {
     agonyUptime: AgonyUptime,
     corruptionUptime: CorruptionUptime,
     siphonLifeUptime: SiphonLifeUptime,
+    uaBuffTracker: UABuffTracker,
 
     //Core
     soulShardTracker: SoulShardTracker,

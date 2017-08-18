@@ -201,13 +201,6 @@ export default {
     name: 'Unstable Affliction',
     icon: 'spell_shadow_unstableaffliction_3',
   },
-  //experimental version (Unstable Affliction has 5 possible IDs since you can cast 5 different UAs at the same time on the same target
-  UNSTABLE_AFFLICTION_DEBUFF: {
-    ids: [233490, 233496, 233497, 233498, 233499],
-    name: 'Unstable Affliction',
-    icon: 'spell_shadow_unstableaffliction_3',
-  },
-  /*
   UNSTABLE_AFFLICTION_DEBUFF_1: {
     id: 233490,
     name: 'Unstable Affliction',
@@ -233,7 +226,7 @@ export default {
     name: 'Unstable Affliction',
     icon: 'spell_shadow_unstableaffliction_3',
   },
-  */
+
 
   // Affliction talents
   PHANTOM_SINGULARITY: {
