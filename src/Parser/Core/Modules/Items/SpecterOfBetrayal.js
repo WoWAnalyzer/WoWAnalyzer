@@ -1,7 +1,6 @@
 import React from 'react';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS_OTHERS';
-import { formatPercentage } from 'common/format';
 import { formatNumber } from 'common/format';
 
 import Module from 'Parser/Core/Module';
