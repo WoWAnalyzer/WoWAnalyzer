@@ -4,16 +4,24 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 
 import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import MasteryRadiusImage from 'Main/Images/mastery-radius.png';
 import PlayerBreakdownTab from 'Main/PlayerBreakdownTab';
+
+import BeaconTargets from '../PaladinCore/BeaconTargets';
 
 import { ABILITIES_AFFECTED_BY_MASTERY, BEACON_TYPES } from '../../Constants';
 
 const debug = false;
 
 class MasteryEffectiveness extends Module {
+  static dependencies = {
+    combatants: Combatants,
+    beaconTargets: BeaconTargets,
+  };
+
   lastPlayerPositionUpdate = null;
   /** @type {object} With BotLB this will be the position of our beacon target. */
   lastBeaconPositionUpdate = null;
@@ -99,7 +107,7 @@ class MasteryEffectiveness extends Module {
   }
 
   get beaconOfTheLightbringerTarget() {
-    const beaconTargets = this.owner.modules.beaconTargets;
+    const beaconTargets = this.beaconTargets;
     if (beaconTargets.numBeaconsActive === 0) {
       debug && console.log('No beacon active right now');
     } else if (beaconTargets.numBeaconsActive === 1) {
@@ -114,7 +122,7 @@ class MasteryEffectiveness extends Module {
     if (!this.lastPlayerPositionUpdate) {
       console.error('Received a heal before we know the player location. Can\'t process since player location is still unknown.', event);
       return;
-    } else if (this.owner.modules.combatants.selected === null) {
+    } else if (this.combatants.selected === null) {
       console.error('Received a heal before selected combatant meta data was received.', event);
       return;
     }
@@ -133,11 +141,11 @@ class MasteryEffectiveness extends Module {
       const masteryEffectiveness = this.constructor.calculateMasteryEffectiveness(distance, isRuleOfLawActive);
 
       // The base healing of the spell (excluding any healing added by mastery)
-      const baseHealingDone = healingDone / (1 + this.owner.modules.combatants.selected.masteryPercentage * masteryEffectiveness);
+      const baseHealingDone = healingDone / (1 + this.combatants.selected.masteryPercentage * masteryEffectiveness);
       const masteryHealingDone = healingDone - baseHealingDone;
       // The max potential mastery healing if we had a mastery effectiveness of 100% on this spell. This does NOT include the base healing
       // Example: a heal that did 1,324 healing with 32.4% mastery with 100% mastery effectiveness will have a max potential mastery healing of 324.
-      const maxPotentialMasteryHealing = baseHealingDone * this.owner.modules.combatants.selected.masteryPercentage; // * 100% mastery effectiveness
+      const maxPotentialMasteryHealing = baseHealingDone * this.combatants.selected.masteryPercentage; // * 100% mastery effectiveness
 
       this.masteryHealEvents.push({
         ...event,
@@ -213,7 +221,7 @@ class MasteryEffectiveness extends Module {
 
       // Update the player-totals
       if (!obj[event.targetID]) {
-        const combatant = this.owner.modules.combatants.players[event.targetID];
+        const combatant = this.combatants.players[event.targetID];
         obj[event.targetID] = {
           combatant,
           healingReceived: 0,

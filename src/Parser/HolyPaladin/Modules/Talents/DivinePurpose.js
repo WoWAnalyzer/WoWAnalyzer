@@ -6,10 +6,15 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 
 import Module from 'Parser/Core/Module';
+import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class DivinePurpose extends Module {
+  static dependencies = {
+    abilityTracker: AbilityTracker,
+  };
+
   on_initialized() {
     if (!this.owner.error) {
       const hasDivinePurpose = this.owner.selectedCombatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id);
@@ -26,7 +31,7 @@ class DivinePurpose extends Module {
   }
 
   statistic() {
-    const abilityTracker = this.owner.modules.abilityTracker;
+    const abilityTracker = this.abilityTracker;
     const getAbility = spellId => abilityTracker.getAbility(spellId);
 
     const lightOfDawnCast = getAbility(SPELLS.LIGHT_OF_DAWN_CAST.id);

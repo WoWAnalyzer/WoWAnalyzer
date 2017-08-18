@@ -7,10 +7,15 @@ import Icon from 'common/Icon';
 import { formatThousands, formatPercentage } from 'common/format';
 
 import Module from 'Parser/Core/Module';
+import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class Overhealing extends Module {
+  static dependencies = {
+    abilityTracker: AbilityTracker,
+  };
+
   getRawHealing(ability) {
     return ability.healingEffective + ability.healingAbsorbed + ability.healingOverheal;
   }
@@ -22,7 +27,7 @@ class Overhealing extends Module {
     const hasSoulOfTheHighlord = this.owner.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_HIGHLORD.id);
     const hasDivinePurpose = hasSoulOfTheHighlord || this.owner.selectedCombatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id);
 
-    const abilityTracker = this.owner.modules.abilityTracker;
+    const abilityTracker = this.abilityTracker;
     const getAbility = spellId => abilityTracker.getAbility(spellId);
 
     const flashOfLight = getAbility(SPELLS.FLASH_OF_LIGHT.id);

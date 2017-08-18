@@ -26,7 +26,7 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.LIGHT_OF_DAWN_CAST,
       category: SPELL_CATEGORY.ROTATIONAL,
-      getCooldown: haste => 12 / (1 + haste),
+      getCooldown: haste => 12 / (1 + haste), // TODO: Implement 4PT20
       getOverhealing: (_, getAbility) => {
         const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.LIGHT_OF_DAWN_HEAL.id);
         return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
