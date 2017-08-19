@@ -1,4 +1,5 @@
 export default `
+19-08-2017 - Guardian Druid: Added detail on Ironfur usage.
 18-09-2017 - Added Affliction Warlock support by @Chizu.
 18-08-2017 - Guardian Druid: Updates to align with new module structure and added overkill into DTPS display.
 16-08-2017 - Mistweaver Monk: Soothing Mist suggestion added (by anomoly)
