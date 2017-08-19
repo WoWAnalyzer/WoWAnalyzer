@@ -3,16 +3,18 @@ import { formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SPELLS from 'common/SPELLS';
-import GuardianOfElune from './GuardianOfElune';
+import Module from 'Parser/Core/Module';
 
-class FrenziedRegenGoEProcs extends GuardianOfElune {
+class FrenziedRegenGoEProcs extends Module {
   statistic() {
+    const nonGoEFRegen = this.owner.modules.guardianOfEluneProcs.nonGoEIronFur;
+    const GoEFRegen = this.owner.modules.guardianOfEluneProcs.GoEIronFur;
     return (
       this.active && (<StatisticBox
         icon={<SpellIcon id={SPELLS.FRENZIED_REGENERATION.id} />}
-        value={`${formatPercentage(this.nonGoEFRegen/(this.nonGoEFRegen + this.GoEFRegen))}%`}
+        value={`${formatPercentage(nonGoEFRegen/(nonGoEFRegen + GoEFRegen))}%`}
         label='Unbuffed Frenzied Regen'
-        tooltip={`You cast <b>${this.nonGoEFRegen + this.Regen}</b> total ${SPELLS.FRENZIED_REGENERATION.name} and <b> ${this.GoEFRegen} were buffed by 25%</b>.`}
+        tooltip={`You cast <b>${nonGoEFRegen + GoEFRegen}</b> total ${SPELLS.FRENZIED_REGENERATION.name} and <b> ${GoEFRegen}</b> were buffed by 20%.`}
       />)
     );
   }
