@@ -5,7 +5,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SPELLS from 'common/SPELLS';
 import GuardianOfElune from './GuardianOfElune';
 
-class IronFurGoEProcs extends GuardianOfElune {
+class FrenziedRegenGoEProcs extends GuardianOfElune {
   statistic() {
     return (
       this.active && (<StatisticBox
@@ -19,4 +19,4 @@ class IronFurGoEProcs extends GuardianOfElune {
   statisticOrder = STATISTIC_ORDER.CORE(8);
 }
   
-export default IronFurGoEProcs;
+export default FrenziedRegenGoEProcs;
