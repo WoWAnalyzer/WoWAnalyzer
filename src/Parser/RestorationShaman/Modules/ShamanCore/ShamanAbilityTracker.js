@@ -1,4 +1,8 @@
+import React from 'react';
+
 import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
+import { formatPercentage } from 'common/format';
 
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
@@ -43,6 +47,22 @@ class ShamanAbilityTracker extends AbilityTracker {
       }
     }
 
+  }
+
+  suggestions(when) {
+    const healingRain = this.getAbility(SPELLS.HEALING_RAIN_CAST.id);
+    const has4PT20 = this.owner.selectedCombatant.hasBuff(SPELLS.RESTORATION_SHAMAN_T20_4SET_BONUS_BUFF.id);
+    const unbuffedHealingRainsPercentage = has4PT20 && ((healingRain.casts - healingRain.withT20Buff) / healingRain.casts);
+    if (has4PT20) {
+      when(unbuffedHealingRainsPercentage).isGreaterThan(0)
+        .addSuggestion((suggest, actual, recommended) => 
+          suggest(<span><SpellLink id={SPELLS.RESTORATION_SHAMAN_T20_4SET_BONUS_BUFF.id} /> buffed <SpellLink id={SPELLS.HEALING_RAIN_CAST.id} /> can make for some very efficient healing, consider ensure casting them with <SpellLink id={SPELLS.RESTORATION_SHAMAN_T20_4SET_BONUS_BUFF.id} />({formatPercentage(unbuffedHealingRainsPercentage)}% healing rains were casted without <SpellLink id={SPELLS.RESTORATION_SHAMAN_T20_4SET_BONUS_BUFF.id} />).</span>)
+            .icon(SPELLS.HEALING_RAIN_CAST.icon)
+            .actual(`${formatPercentage(unbuffedHealingRainsPercentage)}% unbuffed healing rain casts.`)
+            .recommended(`${recommended} is recommended`)
+            .regular(recommended + 0.15).major(recommended + 0.3)
+        );
+    }
   }
 }
 

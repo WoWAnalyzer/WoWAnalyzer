@@ -58,7 +58,6 @@ class AncestralVigor extends Module {
   }
 
   statistic() {
-    console.log(this.totalLifeSaved, this.totalLifeSavedFromBigDamage)
     let tooltip = `The theoretically result of how many player would been dead without the ancestral vigor buff was ${this.totalLifeSaved}.`;
     if (this.totalLifeSavedFromBigDamage) {
       tooltip += `<br/>Amoung the ${this.totalLifeSaved} lives saved by the buff, ${this.totalLifeSavedFromBigDamage} of them were caused by a big damage(>=${BIG_DAMAGE_THRESHOLD * 100}% of player's HP) which has a higher risk to cause death.`;
