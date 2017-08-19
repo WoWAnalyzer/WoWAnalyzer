@@ -24,6 +24,32 @@ class AncestralVigor extends Module {
     }
   }
 
+  // recursively fetch events until no nextPageTimestamp is returned
+  fetchAll(pathname, query) {
+    const self = this;
+    async function checkAndFetch(_query) {
+      try {
+        const response = await fetch(makeWclUrl(pathname, _query));
+        const json = await response.json();
+        if (json.status === 400 || json.status === 401) {
+          throw json.error;
+        } else {
+          self.totalLifeSaved += json.events.length;
+          self.totalLifeSavedFromBigDamage += json.events.filter(e => e.amount / e.maxHitPoints >= BIG_DAMAGE_THRESHOLD).length;
+          if (json.nextPageTimestamp) {
+            return checkAndFetch(Object.assign(query, { start: json.nextPageTimestamp }));
+          } else {
+            self.loaded = true;
+          }
+        }
+      } catch (err) {
+        throw err;
+      }
+    }
+
+    return checkAndFetch(query);
+  }
+
   load() {
     const query = {
       start: this.owner.fight.start_time,
@@ -44,17 +70,7 @@ class AncestralVigor extends Module {
         END
       )`,
     };
-    return fetch(makeWclUrl(`report/events/${this.owner.report.code}`, query))
-      .then(response => response.json())
-      .then((json) => {
-        if (json.status === 400 || json.status === 401) {
-          throw json.error;
-        } else {
-          this.loaded = true;
-          this.totalLifeSaved = json.events.length;
-          this.totalLifeSavedFromBigDamage = json.events.filter(e => e.amount / e.maxHitPoints >= BIG_DAMAGE_THRESHOLD).length;
-        }
-      });
+    return this.fetchAll(`report/events/${this.owner.report.code}`, query);
   }
 
   statistic() {
