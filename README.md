@@ -23,6 +23,4 @@ See the site for a list of current specs. The following specs bothered to make a
 
 ## License
 
-You are free to use pieces of this project for your own open source non-commercial projects. Other uses will be assessed on a case-by-case basis.
-
-Usage of any API keys found in the source is not allowed. You must at all times use your own API keys.
+See the [LICENSE](LICENSE) file. Usage of any API keys found in the source is not allowed for other purposes than described in the source code and/or its documentation. You must at all times use your own API keys.
