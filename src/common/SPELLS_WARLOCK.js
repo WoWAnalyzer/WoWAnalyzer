@@ -1,5 +1,50 @@
 export default {
   // Shared spells
+  BANISH: {
+    id: 710,
+    name: 'Banish',
+    icon: 'spell_shadow_cripple',
+  },
+  CREATE_HEALTHSTONE: {
+    id: 6201,
+    name: 'Create Healthstone',
+    icon: 'warlock_-healthstone',
+  },
+  CREATE_SOULWELL: {
+    id: 29893,
+    name: 'Create Soulwell',
+    icon: 'spell_shadow_shadesofdarkness',
+  },
+  DEMONIC_GATEWAY_CAST: {
+    id: 111771,
+    name: 'Demonic Gateway',
+    icon: 'spell_warlock_demonicportal_green',
+  },
+  ENSLAVE_DEMON: {
+    id: 1098,
+    name: 'Enslave Demon',
+    icon: 'spell_shadow_enslavedemon',
+  },
+  EYE_OF_KILROGG: {
+    id: 126,
+    name: 'Eye of Kilrogg',
+    icon: 'spell_shadow_evileye',
+  },
+  FEAR_CAST: {
+    id: 5782,
+    name: 'Fear',
+    icon: 'spell_shadow_possession',
+  },
+  FEAR_DEBUFF: {
+    id: 118699,
+    name: 'Fear',
+    icon: 'spell_shadow_possession',
+  },
+  HEALTH_FUNNEL_CAST: {
+    id: 755,
+    name: 'Health Funnel',
+    icon: 'spell_shadow_lifedrain',
+  },
   LIFE_TAP: {
     id: 1454,
     name: 'Life Tap',
@@ -15,13 +60,6 @@ export default {
     name: 'Soul Leech',
     icon: 'warlock_siphonlife',
   },
-  //health funnel - cast: 755, buff na petovi: 217979
-  HEALTH_FUNNEL_CAST: {
-    id: 755,
-    name: 'Health Funnel',
-    icon: 'spell_shadow_lifedrain',
-  },
-  //soulstone - cast: 20707, buff stejne
   SOULSTONE: {
     id: 20707,
     name: 'Soulstone',
@@ -62,12 +100,12 @@ export default {
     name: 'Unending Resolve',
     icon: 'spell_shadow_demonictactics',
   },
-  //demonic gateway - cast: 111771, debuff: 113942, s leg kalhotama ten polovicni debuff: 217551
-  DEMONIC_GATEWAY_CAST: {
-    id: 111771,
-    name: 'Demonic Gateway',
-    icon: 'spell_warlock_demonicportal_green',
+  UNENDING_BREATH: {
+    id: 5697,
+    name: 'Unending Breath',
+    icon: 'spell_shadow_demonbreath',
   },
+
   // Shared talents
   BURNING_RUSH: {
     id: 111400,
@@ -79,15 +117,14 @@ export default {
     name: 'Empowered Life Tap',
     icon: 'spell_shadow_manafeed',
   },
-  //demonic teleport - cast = buff: 48018 (je uz v TALENTS_WARLOCK), ale teleport spell: 48020
   DEMONIC_CIRCLE_SUMMON: {
     id: 48018,
-    name: 'Demonic Circle',
+    name: 'Demonic Circle Summon',
     icon: 'spell_shadow_demoniccirclesummon',
   },
   DEMONIC_CIRCLE_TELEPORT: {
     id: 48020,
-    name: 'Demonic Circle',
+    name: 'Demonic Circle Teleport',
     icon: 'spell_shadow_demoniccircleteleport',
   },
   MORTAL_COIL: {
