@@ -38,7 +38,7 @@ export default {
   SPIRIT_BERRIES: {
 	  id: 223573,
 	  name: 'Spirit Berries',
-	  icon: 'inv_misc_food_93_skethylberries-',
+	  icon: 'inv_misc_food_93_skethylberries',
   },
   // Items buffs:
   GNAWED_THUMB_RING: {
