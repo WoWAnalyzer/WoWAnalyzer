@@ -49,14 +49,13 @@ class SoulShardDetails extends Module {
       title: 'Soul Shard usage',
       url: 'soul-shards',
       render: () => (
-        <Tab
-          title='Soul Shard usage breakdown'
-          children={(<SoulShardBreakdown
+        <Tab title='Soul Shard usage breakdown'>
+          <SoulShardBreakdown
             shardsGained = {this.soulShardTracker.gained}
             shardsSpent = {this.soulShardTracker.spent}
             shardsWasted = {this.soulShardTracker.wasted}
-          />)}
-        />
+          />
+        </Tab>
       ),
     };
   }
