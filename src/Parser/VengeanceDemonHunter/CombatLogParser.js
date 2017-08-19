@@ -91,7 +91,7 @@ class CombatLogParser extends MainCombatLogParser {
   }
 
   generateResults() {
-      
+
     const results = super.generateResults();
 
     const fightDuration = this.fightDuration;
@@ -104,13 +104,13 @@ class CombatLogParser extends MainCombatLogParser {
 
         this.soulFragmentsCasts = this.modules.abilityTracker.abilities[SPELLS.SOUL_FRAGMENT.id].casts;
 
-        this.immolationAuraCasts = this.modules.abilityTracker.abilities[SPELLS.IMMOLATION_AURA.id].casts;
+        this.immolationAuraUptime = this.selectedCombatant.getBuffUptime(SPELLS.IMMOLATION_AURA.id);
 
         this.immolationAuraDamage = this.modules.abilityTracker.abilities[SPELLS.IMMOLATION_AURA.firstStrikeSpellId].damangeEffective + this.modules.abilityTracker.abilities[SPELLS.IMMOLATION_AURA.normalStrikeSpellId].damangeEffective;
 
-        this.empowerWardsCasts = this.modules.abilityTracker.abilities[SPELLS.EMPOWER_WARDS.id].casts;
+        this.empowerWardsUptime = this.selectedCombatant.getBuffUptime(SPELLS.EMPOWER_WARDS.id);
 
-        this.demonSpikesCasts = this.modules.abilityTracker.abilities[SPELLS.DEMON_SPIKES.id].casts;
+        this.demonSpikesUptime = this.selectedCombatant.getBuffUptime(SPELLS.DEMON_SPIKES.buffId);
     }
 
     if (deadTimePercentage > 0.2) {
@@ -176,27 +176,27 @@ class CombatLogParser extends MainCombatLogParser {
       />,
       <StatisticBox
         icon={<Icon icon="spell_shadow_soulgem" alt="Soul Fragments Generated" />}
-        value={`${formatNumber((this.soulFragmentsCasts / this.fightDuration * 1000) * 60)} SFGPM`}
-        label='Soul Fragments Generated'
+        value={`${formatNumber((this.soulFragmentsCasts / this.fightDuration * 1000) * 60)}`}
+        label='Soul Fragments Generated per Minute'
         tooltip={`The total Soul Fragments generated was ${formatThousands(this.soulFragmentsCasts)}.`}
       />,
       <StatisticBox
-        icon={<Icon icon="ability_demonhunter_immolation" alt="Immolation Aura Damage" />}
-        value={`${formatNumber(this.immolationAuraCasts)} IA`}
-        label='Immolation Aura Casts'
-        tooltip={`The Immolation Aura total damage was ${formatThousands(this.immolationAuraDamage)}.<br/>The Immolation Aura total uptime was ${formatNumber(this.immolationAuraCasts * 6)} seconds.`}
+        icon={<Icon icon="ability_demonhunter_immolation" alt="Immolation Aura" />}
+        value={`${formatPercentage(this.immolationAuraUptime / this.fightDuration)}%`}
+        label='Immolation Aura Uptime'
+        tooltip={`The Immolation Aura total damage was ${formatThousands(this.immolationAuraDamage)}.<br/>The Immolation Aura total uptime was ${formatNumber(this.immolationAuraUptime / 1000)} seconds.`}
       />,
       <StatisticBox
-        icon={<Icon icon="ability_demonhunter_demonspikes" alt="Demon Spikes Casts" />}
-        value={`${formatNumber(this.demonSpikesCasts)} DS`}
-        label='Demon Spikes Casts'
-        tooltip={`The Demon Spikes total uptime was ${formatNumber(this.demonSpikesCasts * 6)} seconds.`}
+        icon={<Icon icon="ability_demonhunter_demonspikes" alt="Demon Spikes" />}
+        value={`${formatPercentage(this.demonSpikesUptime / this.fightDuration)}%`}
+        label='Demon Spikes Uptime'
+        tooltip={`The Demon Spikes total uptime was ${formatNumber(this.demonSpikesUptime / 1000)} seconds.`}
       />,
       <StatisticBox
-        icon={<Icon icon="ability_demonhunter_empowerwards" alt="Empower Wards Casts" />}
-        value={`${formatNumber(this.empowerWardsCasts)} EW`}
-        label='Empower Wards Casts'
-        tooltip={`The Empower Wards total uptime was ${formatNumber(this.empowerWardsCasts * 6)} seconds.`}
+        icon={<Icon icon="ability_demonhunter_empowerwards" alt="Empower Wards" />}
+        value={`${formatPercentage(this.empowerWardsUptime / this.fightDuration)}%`}
+        label='Empower Wards Uptime'
+        tooltip={`The Empower Wards total uptime was ${formatNumber(this.empowerWardsUptime / 1000)} seconds.`}
       />,
   ];
 
