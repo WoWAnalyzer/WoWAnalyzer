@@ -2,29 +2,31 @@ import React from 'react';
 
 import Module from 'Parser/Core/Module';
 
-import {formatThousands, formatNumber } from 'common/format';
+import { formatThousands, formatNumber } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class DamageDone extends Module {
-  totalPetDmgDone = 0;
+  petDmg = 0;
 
   petIds = [];
 
   on_initialized() {
     this.owner.report.friendlyPets.filter(pet => pet.petOwner === this.owner.playerId).forEach(pet => {
-      if(this.petIds.indexOf(pet.id) === -1)
+      if (this.petIds.indexOf(pet.id) === -1) {
         this.petIds.push(pet.id);
+      }
     });
   }
 
   on_damage(event) {
-    if(this.petIds.indexOf(event.sourceID) === -1)
+    if (this.petIds.indexOf(event.sourceID) === -1) {
       return;
-    this.totalPetDmgDone += event.amount;
+    }
+    this.petDmg += event.amount;
   }
 
   statistic() {
-    const totalDmg = this.owner.totalDamageDone + this.totalPetDmgDone;
+    const totalDmg = this.owner.totalDamageDone + this.petDmg;
     return (
       <StatisticBox
         icon={(

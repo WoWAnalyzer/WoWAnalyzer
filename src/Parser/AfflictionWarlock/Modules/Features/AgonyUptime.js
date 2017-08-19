@@ -7,6 +7,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import SpellLink from 'common/SpellLink';
 
 class AgonyUptime extends Module {
   static dependencies = {
@@ -15,10 +16,10 @@ class AgonyUptime extends Module {
 
   suggestions(when){
     const agonyUptime = this.enemies.getBuffUptime(SPELLS.AGONY.id) / this.owner.fightDuration;
-    if(this.owner.selectedCombatant.hasTalent(SPELLS.WRITHE_IN_AGONY_TALENT.id)) {
+    if (this.owner.selectedCombatant.hasTalent(SPELLS.WRITHE_IN_AGONY_TALENT.id)) {
       when(agonyUptime).isLessThan(0.95)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest('Your Agony uptime can be improved. Try to pay more attention to your Agony on the boss, especially since you\'re using Writhe in Agony talent.')
+          return suggest(<span>Your Agony uptime can be improved. Try to pay more attention to your Agony on the boss, especially since you're using <SpellLink id={SPELLS.WRITHE_IN_AGONY_TALENT.id}/> talent.</span>)
             .icon(SPELLS.AGONY.icon)
             .actual(`${formatPercentage(actual)}% Agony uptime`)
             .recommended(`>${formatPercentage(recommended)}% is recommended`)
@@ -44,8 +45,7 @@ class AgonyUptime extends Module {
         icon={<SpellIcon id={SPELLS.AGONY.id} />}
         value={`${formatPercentage(agonyUptime)} %`}
         label='Agony uptime'
-        tooltip='Agony uptime is how much of time of the fight you have Agony active on the boss. You should try to keep the uptime as close to 100% as possible, especially with the Writhe In Agony talent.'
-      />
+    />
     );
   }
 

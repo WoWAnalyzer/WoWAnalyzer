@@ -14,12 +14,12 @@ class SiphonLifeUptime extends Module {
   };
 
   on_initialized() {
-    if(!this.owner.error){
+    if (!this.owner.error) {
       this.active = this.owner.selectedCombatant.hasTalent(SPELLS.SIPHON_LIFE_TALENT.id);
     }
   }
 
-  suggestions(when){
+  suggestions(when) {
     const siphonLifeUptime = this.enemies.getBuffUptime(SPELLS.SIPHON_LIFE.id) / this.owner.fightDuration;
     when(siphonLifeUptime).isLessThan(0.85)
       .addSuggestion((suggest, actual, recommended) => {
@@ -38,7 +38,6 @@ class SiphonLifeUptime extends Module {
         icon={<SpellIcon id={SPELLS.SIPHON_LIFE.id} />}
         value={`${formatPercentage(siphonLifeUptime)} %`}
         label='Siphon Life uptime'
-        tooltip='Siphon Life uptime is how much of time of the fight you have Siphon Life active on the boss. You should try to keep the uptime as close to 100% as possible.'
       />
     );
   }

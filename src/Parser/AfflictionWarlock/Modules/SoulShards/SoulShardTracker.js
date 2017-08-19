@@ -19,6 +19,7 @@ class SoulShardTracker extends Module {
   shardsWasted = 0;
   shardsSpent = 0;
 
+  //stores number of shards gained/spent/wasted per ability ID
   gained = {};
   spent = {};
   wasted = {};
@@ -81,8 +82,9 @@ class SoulShardTracker extends Module {
 
   on_toPlayer_energize(event) {
     const spellId = event.ability.guid;
-    if (shardGeneratingAbilities.indexOf(spellId) === -1)
+    if (shardGeneratingAbilities.indexOf(spellId) === -1) {
       return;
+    }
 
     if (event.waste !== 0) {
       this.wasted[spellId].shards++;
@@ -96,8 +98,9 @@ class SoulShardTracker extends Module {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (shardSpendingAbilities.indexOf(spellId) === -1)
+    if (shardSpendingAbilities.indexOf(spellId) === -1) {
       return;
+    }
     this.spent[spellId].shards++;
     this.shardsSpent++;
   }
