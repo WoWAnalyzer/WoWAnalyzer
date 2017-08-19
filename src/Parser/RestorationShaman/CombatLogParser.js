@@ -35,6 +35,7 @@ import Nobundo from './Modules/Legendaries/Nobundo';
 import Tidecallers from './Modules/Legendaries/Tidecallers';
 import Restoration_Shaman_T19_2Set from './Modules/Legendaries/T19_2Set';
 import Restoration_Shaman_T20_4Set from './Modules/Legendaries/T20_4Set';
+import AncestralVigor from './Modules/Features/AncestralVigor';
 
 import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
@@ -81,7 +82,7 @@ class CombatLogParser extends MainCombatLogParser {
     earthenShieldTotem: EarthenShieldTotem,
     highTide: HighTide,
     cooldownTracker: CooldownTracker,
-    
+    ancestralVigor: AncestralVigor,
     
     // Legendaries:
     nobundo: Nobundo,
