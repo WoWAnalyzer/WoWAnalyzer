@@ -9,15 +9,15 @@ class DamageTaken extends MainDamageTaken {
     return (
       <StatisticBox
         icon={<Icon icon="class_druid" alt="Damage taken" />}
-        value={`${formatNumber(this.TotalDamage.Total / this.owner.fightDuration * 1000)} DTPS`}
+        value={`${formatNumber(this.totalDamage.total / this.owner.fightDuration * 1000)} DTPS`}
         label='Damage taken'
         tooltip={`Damage taken breakdown:
             <ul>
-              ${Object.keys(this.DamageBySchool).reduce((v, type) => {
-                return v+=`<li>${type} damage taken ${formatThousands(this.DamageBySchool[type].Total)} (${formatPercentage(this.DamageBySchool[type].Total/this.TotalDamage.Total)}%)</li>`; 
+              ${Object.keys(this.damageBySchool).reduce((v, type) => {
+                return v+=`<li>${type} damage taken ${formatThousands(this.damageBySchool[type].total)} (${formatPercentage(this.damageBySchool[type].total/this.totalDamage.total)}%)</li>`; 
               }, '')}
             </ul>
-            Total damage taken ${formatThousands(this.TotalDamage.Total)} (${formatThousands(this.TotalDamage.Overkill)} overkill)`}
+            Total damage taken ${formatThousands(this.totalDamage.total)} (${formatThousands(this.totalDamage.overkill)} overkill)`}
       />
     );
   }
