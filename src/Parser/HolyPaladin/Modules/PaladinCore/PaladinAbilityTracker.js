@@ -1,10 +1,15 @@
 import SPELLS from 'common/SPELLS';
 
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
+import BeaconTargets from './BeaconTargets';
 
 const INFUSION_OF_LIGHT_BUFF_EXPIRATION_BUFFER = 150; // the buff expiration can occur several MS before the heal event is logged, this is the buffer time that an IoL charge may have dropped during which it will still be considered active.
 
 class PaladinAbilityTracker extends AbilityTracker {
+  static dependencies = {
+    beaconTargets: BeaconTargets,
+  };
+
   on_byPlayer_heal(event) {
     if (super.on_byPlayer_heal) {
       super.on_byPlayer_heal(event);
@@ -23,7 +28,7 @@ class PaladinAbilityTracker extends AbilityTracker {
       }
     }
 
-    const hasBeacon = this.owner.modules.beaconTargets.hasBeacon(event.targetID);
+    const hasBeacon = this.beaconTargets.hasBeacon(event.targetID);
     if (hasBeacon) {
       cast.healingBeaconHits = (cast.healingBeaconHits || 0) + 1;
       cast.healingBeaconHealing = (cast.healingBeaconHealing || 0) + (event.amount || 0);

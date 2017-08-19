@@ -112,8 +112,6 @@ class CooldownTracker extends Module {
   }
   // endregion
 
-  showOutputStatistics = true;
-  showResourceStatistics = true;
   tab() {
     return {
       title: 'Cooldowns',
@@ -124,8 +122,6 @@ class CooldownTracker extends Module {
             fightStart={this.owner.fight.start_time}
             fightEnd={this.owner.fight.end_time}
             cooldowns={this.pastCooldowns}
-            showOutputStatistics={this.showOutputStatistics}
-            showResourceStatistics={this.showResourceStatistics}
           />
         </Tab>
       ),

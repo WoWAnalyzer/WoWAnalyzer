@@ -66,6 +66,8 @@ export default {
   },
   IMMOLATION_AURA: {
     id: 178740,
+    firstStrikeSpellId: 187727,
+    normalStrikeSpellId: 178741,
     name: 'Immolation Aura',
     icon: 'ability_demonhunter_immolation',
   },

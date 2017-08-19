@@ -1,5 +1,8 @@
-// Based on Clearcasting Implementation done by @Blazyb
-
+import React from 'react';
+import { formatPercentage } from 'common/format';
+import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Module from 'Parser/Core/Module';
 import SPELLS from 'common/SPELLS';
 
@@ -85,6 +88,34 @@ class GuardianOfElune extends Module {
       }
     }
   }
+
+  suggestions(when) {
+    const unusedGoEProcs = 1 - (this.consumedGoEProc / this.GoEProcsTotal);
+    
+    this.active &&
+    when(unusedGoEProcs).isGreaterThan(0.3)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<span>Your <SpellLink id={SPELLS.GUARDIAN_OF_ELUNE.id} /> procs should be used as soon as you get them so they are not overwritten.</span>)
+          .icon(SPELLS.GUARDIAN_OF_ELUNE.icon)
+          .actual(`${formatPercentage(unusedGoEProcs)}% unused`)
+          .recommended(`${Math.round(formatPercentage(recommended))}% or less is recommended`)
+          .regular(recommended + 0.15).major(recommended + 0.3);
+      });
+  }
+
+  statistic() {
+    const unusedGoEProcs = 1 - (this.consumedGoEProc / this.GoEProcsTotal);
+    
+    return (
+      this.active && (<StatisticBox
+        icon={<SpellIcon id={SPELLS.GUARDIAN_OF_ELUNE.id} />}
+        value={`${formatPercentage(unusedGoEProcs)}%`}
+        label='Unused Guardian of Elune'
+        tooltip={`You got total <b>${this.GoEProcsTotal}</b> guardian of elune procs and <b>used ${this.consumedGoEProc}</b> of them.`}
+      />)
+    );
+  }
+  statisticOrder = STATISTIC_ORDER.CORE(7);
 }
 
 export default GuardianOfElune;

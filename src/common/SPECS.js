@@ -29,7 +29,7 @@ const SPECS = {
   ELEMENTAL_SHAMAN: { id: 262, className: 'Shaman', specName: 'Elemental' },
   ENHANCEMENT_SHAMAN: { id: 263, className: 'Shaman', specName: 'Enhancement' },
   RESTORATION_SHAMAN: { id: 264, className: 'Shaman', specName: 'Restoration' },
-  AFFLICATION_WARLOCK: { id: 265, className: 'Warlock', specName: 'Affliction' },
+  AFFLICTION_WARLOCK: { id: 265, className: 'Warlock', specName: 'Affliction' },
   DEMONOLOGY_WARLOCK: { id: 266, className: 'Warlock', specName: 'Demonology' },
   DESTRUCTION_WARLOCK: { id: 267, className: 'Warlock', specName: 'Destruction' },
   BREWMASTER_MONK: { id: 268, className: 'Monk', specName: 'Brewmaster' },

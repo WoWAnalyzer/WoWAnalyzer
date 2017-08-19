@@ -52,7 +52,6 @@ const ITEMS = {
     icon: 'inv_70_dungeon_ring6a',
     quality: ITEM_QUALITIES.EPIC,
   },
-
   OBSIDIAN_STONE_SPAULDERS: {
     id: 137076,
     name: 'Obsidian Stone Spaulders',
@@ -133,13 +132,12 @@ const ITEMS = {
     icon: 'sha_spell_fire_bluepyroblast_nightmare',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
-
   // ENHANCEMENT SHAMAN LEGENDARIES
   AKAINUS_ABSOLUTE_JUSTICE: {
-    id: 137084,
-    name: 'Akainu\'s Absolute Justice',
-    icon: 'inv_bracer_mail_pvphunter_c_02',
-    quality: ITEM_QUALITIES.LEGENDARY,
+	  id: 137084,
+	  name: 'Akainu\'s Absolute Justice',
+	  icon: 'inv_bracer_mail_pvphunter_c_02',
+	  quality: ITEM_QUALITIES.LEGENDARY,
   },
   EYE_OF_THE_TWISTING_NETHER: {
     id: 137050,
@@ -385,6 +383,31 @@ const ITEMS = {
     quality: ITEM_QUALITIES.LEGENDARY,
   },
 
+  // Warlock legendaries
+  SACROLASHS_DARK_STRIKE: {
+    id: 132378,
+    name: 'Sacrolash\'s Dark Strike',
+    icon: 'inv_jewelry_ring_66',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  SOUL_OF_THE_NETHERLORD: {
+    id: 151649,
+    name: 'Soul of the Netherlord',
+    icon: 'inv_70_quest_ring7c',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  POWER_CORD_OF_LETHTENDRIS: {
+    id: 132457,
+    name: 'Power Cord of Lethtendris',
+    icon: 'inv_belt_30',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  THE_MASTER_HARVESTER: {
+    id: 151821,
+    name: 'The Master Harvester',
+    icon: 'inv_chest_cloth_raidmage_q_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
   // T20 Trinkets
   ARCHIVE_OF_FAITH: {
     id: 147006,
@@ -429,6 +452,12 @@ const ITEMS = {
     icon: 'inv_potionc_5',
     quality: ITEM_QUALITIES.EPIC,
   },
+  ENGINE_OF_ERADICATION: {
+    id: 147015,
+    name: 'Engine of Eradication',
+    icon: 'inv_relics_warpring',
+    quality: ITEM_QUALITIES.EPIC,
+  },
 
   // Guardian legendaries
   ELIZES_EVERLASTING_ENCASEMENT: {
@@ -447,6 +476,26 @@ const ITEMS = {
     id: 151802,
     name: 'Fury of Nature',
     icon: 'inv_cape_draenorquest90_b_03_mail',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+
+  // Vengeance Demon Hunter legendaries
+  KIREL_NARAK: {
+    id: 138949,
+    name: 'Kirel Narak',
+    icon: 'inv_boots_leather_dungeonleather_c_06',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  OBLIVIONS_EMBRACE: {
+    id: 151799,
+    name: 'Oblivion\'s Embrace',
+    icon: 'inv_leather_raiddruid_m_01pant',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  FRAGMENT_OF_THE_BETRAYERS_PRISON: {
+    id: 138854,
+    name: 'Fragment of the Betrayer\'s Prison',
+    icon:'inv_jewelry_ring_134',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
 };

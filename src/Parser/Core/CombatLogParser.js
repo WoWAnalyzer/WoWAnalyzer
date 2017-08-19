@@ -6,6 +6,7 @@ import AlwaysBeCasting from './Modules/AlwaysBeCasting';
 import Enemies from './Modules/Enemies';
 import HealEventTracker from './Modules/HealEventTracker';
 import ManaValues from './Modules/ManaValues';
+import SpellManaCost from './Modules/SpellManaCost';
 
 // Shared Legendaries
 import Prydaz from './Modules/Items/Prydaz';
@@ -21,6 +22,9 @@ import SeaStar from './Modules/Items/SeaStarOfTheDepthmother';
 import DeceiversGrandDesign from './Modules/Items/DeceiversGrandDesign';
 import PrePotion from './Modules/Items/PrePotion';
 import GnawedThumbRing from './Modules/Items/GnawedThumbRing';
+import VialOfCeaselessToxins from './Modules/Items/VialOfCeaselessToxins';
+import SpecterOfBetrayal from './Modules/Items/SpecterOfBetrayal';
+import EngineOfEradication from './Modules/Items/EngineOfEradication';
 
 // Shared Buffs
 import VantusRune from './Modules/VantusRune';
@@ -33,6 +37,7 @@ class CombatLogParser {
   static defaultModules = {
     combatants: Combatants,
     enemies: Enemies,
+    spellManaCost: SpellManaCost,
     abilityTracker: AbilityTracker,
     healEventTracker: HealEventTracker,
     alwaysBeCasting: AlwaysBeCasting,
@@ -55,6 +60,9 @@ class CombatLogParser {
     barbaricMindslaver: BarbaricMindslaver,
     seaStar: SeaStar,
     deceiversGrandDesign: DeceiversGrandDesign,
+    vialCeaslessToxins: VialOfCeaselessToxins,
+    specterOfBetrayal: SpecterOfBetrayal,
+    engineOfEradication: EngineOfEradication,
   };
   // Override this with spec specific modules
   static specModules = {};
@@ -108,24 +116,71 @@ class CombatLogParser {
     this.player = player;
     this.fight = fight;
 
-    this.initializeModules(this.constructor.defaultModules);
-    this.initializeModules(this.constructor.specModules);
-  }
-
-  numRegisteredModules = 0;
-  registerModule(module) {
-    this.modules[`_${this.numRegisteredModules}`] = module;
-    this.numRegisteredModules += 1;
-  }
-  initializeModules(modules) {
-    Object.keys(modules).forEach(key => {
-      const value = modules[key];
-      // This may override existing modules, this is intended.
-      this.modules[key] = new value(this);
+    this.initializeModules({
+      ...this.constructor.defaultModules,
+      ...this.constructor.specModules,
     });
   }
 
+  initializeModules(modules) {
+    const failedModules = [];
+    Object.keys(modules).forEach(desiredModuleName => {
+      const moduleClass = modules[desiredModuleName];
+      if (!moduleClass) {
+        return;
+      }
+
+      const availableDependencies = {};
+      const missingDependencies = [];
+      if (moduleClass.dependencies) {
+        Object.keys(moduleClass.dependencies).forEach(desiredDependencyName => {
+          const dependencyClass = moduleClass.dependencies[desiredDependencyName];
+
+          const dependencyModule = this.findModule(dependencyClass);
+          if (dependencyModule) {
+            availableDependencies[desiredDependencyName] = dependencyModule;
+          } else {
+            missingDependencies.push(dependencyClass);
+          }
+        });
+      }
+
+      if (missingDependencies.length === 0) {
+        // if (Object.keys(availableDependencies).length === 0) {
+        //   console.log('Loading', moduleClass.name);
+        // } else {
+        //   console.log('Loading', moduleClass.name, 'with dependencies:', Object.keys(availableDependencies));
+        // }
+        this.modules[desiredModuleName] = new moduleClass(this, availableDependencies, Object.keys(this.modules).length);
+      } else {
+        // console.warn(moduleClass.name, 'could not be loaded, missing dependencies:', missingDependencies.map(d => d.name));
+        failedModules.push(desiredModuleName);
+      }
+    });
+
+    if (failedModules.length !== 0) {
+      // console.warn(`${failedModules.length} modules failed to load, trying again:`, failedModules.map(key => modules[key].name));
+      const newBatch = {};
+      failedModules.forEach(key => {
+        newBatch[key] = modules[key];
+      });
+      this.initializeModules(newBatch);
+    }
+  }
+  findModule(type) {
+    return Object.keys(this.modules)
+      .map(key => this.modules[key])
+      .find(module => module instanceof type);
+  }
+
+  _debugEventHistory = [];
   parseEvents(events) {
+    if (process.env.NODE_ENV === 'development') {
+      this._debugEventHistory = [
+        ...this._debugEventHistory,
+        ...events,
+      ];
+    }
     return new Promise((resolve, reject) => {
       events.forEach(event => {
         if (this.error) {
@@ -156,7 +211,7 @@ class CombatLogParser {
     const methodName = `on_${eventType}`;
     this.constructor.tryCall(this, methodName, event);
     this.activeModules
-      .sort((a, b) => b.priority - a.priority)
+      .sort((a, b) => a.priority - b.priority) // lowest should go first, as `priority = 0` will have highest prio
       .forEach(module => {
         this.constructor.tryCall(module, methodName, event);
       });
@@ -220,7 +275,7 @@ class CombatLogParser {
       this.totalDamageDone += damageDone;
     }
   }
-  
+
   totalDamageTaken = 0;
   totalDamageTakenAbsorb = 0;
   on_toPlayer_damage(event) {

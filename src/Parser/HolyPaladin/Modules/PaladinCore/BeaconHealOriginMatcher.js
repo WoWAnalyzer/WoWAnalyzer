@@ -2,17 +2,23 @@ import SPELLS from 'common/SPELLS';
 
 import Module from 'Parser/Core/Module';
 
+import BeaconTargets from './BeaconTargets';
 import { BEACON_TRANSFERING_ABILITIES, BEACON_TYPES } from '../../Constants';
+import LightOfDawn from './LightOfDawn';
 
 const debug = false;
 
-class BeaconHealing extends Module {
+class BeaconHealOriginMatcher extends Module {
+  static dependencies = {
+    beaconTargets: BeaconTargets,
+    lightOfDawn: LightOfDawn,
+  };
+
   on_byPlayer_heal(event) {
     this.processForBeaconHealing(event);
   }
 
   healBacklog = [];
-  _lastLightOfDawnHealTimestamp = null;
   processForBeaconHealing(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.BEACON_OF_LIGHT.id) {
@@ -24,20 +30,7 @@ class BeaconHealing extends Module {
       return;
     }
 
-    if (debug) {
-      // This code is only needed anymore for the sanityChecker, so only run during debug
-      if (spellId === SPELLS.LIGHT_OF_DAWN_HEAL.id) {
-        // Light of Dawn has weird interactions with buffs triggered by it where the first heal from a cast may not be affected by the buff while subsequent heals are. An example of where this happens is with 4PT20, where the first LoD does NOT gain from the Light's Embrace 40% increased beacon transfer while subsequent heals do.
-        // This code checks and marks the event if the heal is the first LoD heal from a cast.
-        const isFirstLodHeal = this._lastLightOfDawnHealTimestamp === null || (event.timestamp - this._lastLightOfDawnHealTimestamp) > 500;
-        if (isFirstLodHeal) {
-          event._isFirstLodHeal = true;
-        }
-        this._lastLightOfDawnHealTimestamp = event.timestamp;
-      }
-    }
-
-    const beaconTargets = this.owner.modules.beaconTargets;
+    const beaconTargets = this.beaconTargets;
 
     let remainingBeaconTransfers = beaconTargets.numBeaconsActive;
     if (beaconTargets.hasBeacon(event.targetID)) {
@@ -58,7 +51,7 @@ class BeaconHealing extends Module {
     this.healBacklog = this.healBacklog.filter(healEvent => (this.owner.currentTimestamp - healEvent.timestamp) < 500);
 
     if (debug) {
-      // this.sanityChecker(beaconTransferEvent);
+      this.sanityChecker(beaconTransferEvent);
     }
 
     const matchedHeal = this.healBacklog[0];
@@ -145,9 +138,9 @@ class BeaconHealing extends Module {
 
     // Light's Embrace (4PT2)
     // What happens here are 2 situations:
-    // - Light of Dawn applies Light's Embrace, it acts a bit weird though since the FIRST heal from the cast does NOT get the increased beacon transfer, while all sebsequent heals do. The first part checks for that. (the Light's Embrace buff will be applied right before the first heal so it would cause a false positive, hence the additional checking).
+    // - Light of Dawn applies Light's Embrace, it acts a bit weird though since the FIRST heal from the cast does NOT get the increased beacon transfer, while all sebsequent heals do (even when the combatlog has't fired the Light's Embrace applybuff event yet). The first part checks for that. The combatlog looks different when the first heal is a self heal vs they're all on other people, but in both cases it always doesn't apply to the first LoD heal and does for all subsequent ones.
     // - If a FoL or something else is cast right before the LoD, the beacon transfer may be delayed until after the Light's Embrace is applied. This beacon transfer does not appear to benefit. My hypothesis is that the server does healing and buffs async and there's a small lag between the processes, and I think 50ms should be about the time required.
-    const hasLightsEmbrace = (healEvent.ability.guid === SPELLS.LIGHT_OF_DAWN_HEAL.id && !healEvent._isFirstLodHeal && this.owner.selectedCombatant.hasBuff(SPELLS.LIGHTS_EMBRACE_BUFF.id)) || this.owner.selectedCombatant.hasBuff(SPELLS.LIGHTS_EMBRACE_BUFF.id, null, 0, 100);
+    const hasLightsEmbrace = (healEvent.ability.guid === SPELLS.LIGHT_OF_DAWN_HEAL.id && healEvent.lightOfDawnHealIndex > 0) || this.owner.selectedCombatant.hasBuff(SPELLS.LIGHTS_EMBRACE_BUFF.id, null, 0, 100);
     if (hasLightsEmbrace) {
       beaconFactor += 0.4;
     }
@@ -189,4 +182,4 @@ class BeaconHealing extends Module {
   }
 }
 
-export default BeaconHealing;
+export default BeaconHealOriginMatcher;

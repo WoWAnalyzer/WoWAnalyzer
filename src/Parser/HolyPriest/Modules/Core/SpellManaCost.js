@@ -1,13 +1,12 @@
 import SPELLS from 'common/SPELLS';
 
-import CoreAbilityTracker from 'Parser/Core/Modules/AbilityTracker';
+import CoreSpellManaCost from 'Parser/Core/Modules/SpellManaCost';
 
 import { ABILITIES_AFFECTED_BY_APOTHEOSIS_TALENT } from './../../Constants';
 
 const debug = false;
 
-class AbilityTracker extends CoreAbilityTracker {
-
+class SpellManaCost extends CoreSpellManaCost {
   getManaCost(event) {
     const spellId = event.ability.guid;
     let cost = super.getManaCost(event);
@@ -26,4 +25,5 @@ class AbilityTracker extends CoreAbilityTracker {
     return cost;
   }
 }
-export default AbilityTracker;
+
+export default SpellManaCost;

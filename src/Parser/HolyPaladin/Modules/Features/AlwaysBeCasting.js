@@ -51,7 +51,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   on_initialized() {
     super.on_initialized();
 
-    const combatant = this.owner.modules.combatants.selected;
+    const combatant = this.combatants.selected;
 
     if (combatant.hasTalent(SPELLS.CRUSADERS_MIGHT_TALENT.id)) {
       this.constructor.HEALING_ABILITIES_ON_GCD.push(SPELLS.CRUSADER_STRIKE.id);

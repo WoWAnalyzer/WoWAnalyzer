@@ -7,6 +7,7 @@ import ItemLink from 'common/ItemLink';
 import ItemIcon from 'common/ItemIcon';
 
 import DevelopmentTab from 'Main/DevelopmentTab';
+import EventsTab from 'Main/EventsTab';
 
 class Results extends React.Component {
   static childContextTypes = {
@@ -53,11 +54,20 @@ class Results extends React.Component {
     if (process.env.NODE_ENV === 'development') {
       results.tabs.push({
         title: 'Development',
-        url: 'Development',
+        url: 'development',
         render: () => (
           <DevelopmentTab
             parser={parser}
             results={results}
+          />
+        ),
+      });
+      results.tabs.push({
+        title: 'Events',
+        url: 'events',
+        render: () => (
+          <EventsTab
+            parser={parser}
           />
         ),
       });
