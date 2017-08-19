@@ -1,14 +1,11 @@
-import React from 'react';
-
 import Module from 'Parser/Core/Module';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
-import { formatNumber, formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import ITEMS from 'common/ITEMS';
+import { formatNumber } from 'common/format';
 
-import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../Constants';
-import getDamageBonus from '../WarlockCore/getDamageBonus';
+import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../../Constants';
+import getDamageBonus from '../../WarlockCore/getDamageBonus';
 
 const abilitiesAffected = [
   SPELLS.AGONY.id,
@@ -22,7 +19,7 @@ const abilitiesAffected = [
 //based on the fact that it's a linear increase in damage that is +0% damage at 35% HP and +50% damage at 0% HP
 const SLOPE_OF_DAMAGE_INCREASE = -50/35;
 
-class DeathsEmbrace extends Module {
+class SoulOfTheNetherlord extends Module {
   bonusDmg = 0;
 
   getDeathEmbraceBonus(healthPercentage) {
@@ -33,7 +30,7 @@ class DeathsEmbrace extends Module {
 
   on_initialized() {
     if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasTalent(SPELLS.DEATHS_EMBRACE_TALENT.id);
+      this.active = this.owner.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_NETHERLORD.id);
     }
   }
 
@@ -54,18 +51,12 @@ class DeathsEmbrace extends Module {
     this.bonusDmg += getDamageBonus(event, this.getDeathEmbraceBonus(targetHealthPercentage));
   }
 
-  statistic() {
-    return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.DEATHS_EMBRACE_TALENT.id} />}
-        value={`${formatNumber(this.bonusDmg / this.owner.fightDuration * 1000)} DPS`}
-        label='Damage contributed'
-        tooltip={`Your Death's Embrace talent contributed ${formatNumber(this.bonusDmg)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} %).`}
-      />
-    );
+  item() {
+    return {
+      item: ITEMS.SOUL_OF_THE_NETHERLORD,
+      result: `${formatNumber(this.bonusDmg)} damage - ${this.owner.formatItemDamageDone(this.bonusDmg)}`,
+    };
   }
-
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(3);
 }
 
-export default DeathsEmbrace;
+export default SoulOfTheNetherlord;

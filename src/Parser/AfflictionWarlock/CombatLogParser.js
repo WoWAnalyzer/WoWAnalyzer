@@ -27,6 +27,8 @@ import DeathsEmbrace from './Modules/Talents/DeathsEmbrace';
 import SiphonLifeUptime from './Modules/Talents/SiphonLifeUptime';
 
 import TheMasterHarvester from './Modules/Items/Legendaries/TheMasterHarvester';
+import StretensSleeplessShackles from './Modules/Items/Legendaries/StretensSleeplessShackles';
+import SoulOfTheNetherlord from './Modules/Items/Legendaries/SoulOfTheNetherlord';
 
 class CombatLogParser extends MainCombatLogParser {
 
@@ -57,6 +59,8 @@ class CombatLogParser extends MainCombatLogParser {
 
     //Legendaries
     masterHarvester: TheMasterHarvester,
+    stretensSleeplessShackles: StretensSleeplessShackles,
+    soulOfTheNetherlord: SoulOfTheNetherlord,
   };
 
   generateResults() {
