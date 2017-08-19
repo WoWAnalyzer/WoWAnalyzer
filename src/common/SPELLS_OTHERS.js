@@ -35,6 +35,11 @@ export default {
     name: 'Ancient Mana Potion',
     icon: 'inv_alchemy_70_blue',
   },
+  UNBENDING_POTION: {
+    id: 127845,
+    name: 'Unbending Potion',
+    icon: 'inv_alchemy_70_flask04',
+  },
   // Items buffs:
   GNAWED_THUMB_RING: {
     id: 228461,
