@@ -9,9 +9,37 @@ import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import Tab from 'Main/Tab';
 import CastEfficiencyComponent from 'Main/CastEfficiency';
 
+import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
+
 class CastEfficiency extends Module {
-  static CPM_ABILITIES = [];
-  static SPELL_CATEGORIES = [];
+  static SPELL_CATEGORIES = [
+    {
+      ROTATIONAL: 'Rotational Spell',
+    },
+    {
+      ROTATIONAL_AOE: 'Spell (AOE)',
+    },
+    {
+      COOLDOWNS: 'Cooldown',
+    },
+    {
+      OTHERS: 'Spell',
+    },
+  ];
+
+  static CPM_ABILITIES = [
+    {
+      spell: SPELLS.SUMMON_DREAD_REFLECTION,
+      getCooldown: haste => 45,
+      isActive: combatant => combatant.hasTrinket(ITEMS.SPECTER_OF_BETRAYAL.id),
+    },
+    {
+      spell: SPELLS.CEASELESS_TOXIN,
+      getCooldown: haste => 60,//add detection if target has died and reduced cooldown
+      isActive: combatant => combatant.hasTrinket(ITEMS.VIAL_OF_CEASELESS_TOXINS.id),
+    },
+  ];
 
   suggestions(when) {
     const castEfficiency = getCastEfficiency(this.constructor.CPM_ABILITIES, this.owner);
