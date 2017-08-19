@@ -46,18 +46,6 @@ class CombatLogParser extends MainCombatLogParser {
     dualDetermination: DualDetermination,
   };
 
-  damageBySchool = {};
-  totalOverkill = 0;
-  on_toPlayer_damage(event) {
-    if (this.damageBySchool[event.ability.type] === undefined) {
-      this.damageBySchool[event.ability.type] = 0;
-    }
-    this.damageBySchool[event.ability.type] += event.amount + (event.absorbed || 0) + (event.overkill || 0);
-    // Unsure at this point if this should be added to the super class total, keeping seperate for now...
-    this.totalOverkill += event.overkill || 0;
-    super.on_toPlayer_damage(event);
-  }
-
   generateResults() {
     const results = super.generateResults();
     results.tabs = [
