@@ -1,24 +1,21 @@
-import React from 'react';
-
 import Module from 'Parser/Core/Module';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
-import { formatNumber, formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import ITEMS from 'common/ITEMS';
+import { formatNumber } from 'common/format';
 
-import getDamageBonus from '../WarlockCore/getDamageBonus';
+import getDamageBonus from '../../WarlockCore/getDamageBonus';
 
 const SOUL_HARVEST_DAMAGE_BONUS = .2;
 
-class SoulHarvest extends Module {
+class TheMasterHarvester extends Module {
   playerBonusDmg = 0;
   petBonusDmg = 0;
 
   petIds = [];
   on_initialized() {
     if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasTalent(SPELLS.SOUL_HARVEST_TALENT.id);
+      this.active = this.owner.selectedCombatant.hasChest(ITEMS.THE_MASTER_HARVESTER.id);
     }
     this.owner.report.friendlyPets.filter(pet => pet.petOwner === this.owner.playerId).forEach(pet => {
       if (this.petIds.indexOf(pet.id) === -1) {
@@ -42,19 +39,13 @@ class SoulHarvest extends Module {
     }
   }
 
-  statistic() {
+  item() {
     const totalDmg = this.playerBonusDmg + this.petBonusDmg;
-    return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.SOUL_HARVEST.id} />}
-        value={`${formatNumber(totalDmg / this.owner.fightDuration * 1000)} DPS`}
-        label='Damage contributed'
-        tooltip={`Your Soul Harvest contributed ${formatNumber(totalDmg)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(totalDmg))} %).`}
-      />
-    );
+    return {
+      item: ITEMS.THE_MASTER_HARVESTER,
+      result: `${formatNumber(totalDmg)} damage contributed - ${this.owner.formatItemDamageDone(totalDmg)}`,
+    };
   }
-
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(2);
 }
 
-export default SoulHarvest;
+export default TheMasterHarvester;

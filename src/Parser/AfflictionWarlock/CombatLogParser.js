@@ -26,6 +26,8 @@ import SoulHarvest from './Modules/Talents/SoulHarvest';
 import DeathsEmbrace from './Modules/Talents/DeathsEmbrace';
 import SiphonLifeUptime from './Modules/Talents/SiphonLifeUptime';
 
+import TheMasterHarvester from './Modules/Items/Legendaries/TheMasterHarvester';
+
 class CombatLogParser extends MainCombatLogParser {
 
   static specModules = {
@@ -53,6 +55,8 @@ class CombatLogParser extends MainCombatLogParser {
     deathsEmbrace: DeathsEmbrace,
     siphonLifeUptime: SiphonLifeUptime,
 
+    //Legendaries
+    masterHarvester: TheMasterHarvester,
   };
 
   generateResults() {
