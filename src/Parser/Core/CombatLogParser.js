@@ -22,6 +22,9 @@ import SeaStar from './Modules/Items/SeaStarOfTheDepthmother';
 import DeceiversGrandDesign from './Modules/Items/DeceiversGrandDesign';
 import PrePotion from './Modules/Items/PrePotion';
 import GnawedThumbRing from './Modules/Items/GnawedThumbRing';
+import VialOfCeaselessToxins from './Modules/Items/VialOfCeaselessToxins';
+import SpecterOfBetrayal from './Modules/Items/SpecterOfBetrayal';
+import EngineOfEradication from './Modules/Items/EngineOfEradication';
 
 // Shared Buffs
 import VantusRune from './Modules/VantusRune';
@@ -57,6 +60,9 @@ class CombatLogParser {
     barbaricMindslaver: BarbaricMindslaver,
     seaStar: SeaStar,
     deceiversGrandDesign: DeceiversGrandDesign,
+    vialCeaslessToxins: VialOfCeaselessToxins,
+    specterOfBetrayal: SpecterOfBetrayal,
+    engineOfEradication: EngineOfEradication,
   };
   // Override this with spec specific modules
   static specModules = {};
@@ -269,7 +275,7 @@ class CombatLogParser {
       this.totalDamageDone += damageDone;
     }
   }
-  
+
   totalDamageTaken = 0;
   totalDamageTakenAbsorb = 0;
   on_toPlayer_damage(event) {

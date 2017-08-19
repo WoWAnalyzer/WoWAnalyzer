@@ -52,7 +52,6 @@ const ITEMS = {
     icon: 'inv_70_dungeon_ring6a',
     quality: ITEM_QUALITIES.EPIC,
   },
-
   OBSIDIAN_STONE_SPAULDERS: {
     id: 137076,
     name: 'Obsidian Stone Spaulders',
@@ -133,13 +132,12 @@ const ITEMS = {
     icon: 'sha_spell_fire_bluepyroblast_nightmare',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
-
   // ENHANCEMENT SHAMAN LEGENDARIES
   AKAINUS_ABSOLUTE_JUSTICE: {
-    id: 137084,
-    name: 'Akainu\'s Absolute Justice',
-    icon: 'inv_bracer_mail_pvphunter_c_02',
-    quality: ITEM_QUALITIES.LEGENDARY,
+	  id: 137084,
+	  name: 'Akainu\'s Absolute Justice',
+	  icon: 'inv_bracer_mail_pvphunter_c_02',
+	  quality: ITEM_QUALITIES.LEGENDARY,
   },
   EYE_OF_THE_TWISTING_NETHER: {
     id: 137050,
@@ -452,6 +450,12 @@ const ITEMS = {
     id: 147011,
     name: 'Vial of Ceaseless Toxins',
     icon: 'inv_potionc_5',
+    quality: ITEM_QUALITIES.EPIC,
+  },
+  ENGINE_OF_ERADICATION: {
+    id: 147015,
+    name: 'Engine of Eradication',
+    icon: 'inv_relics_warpring',
     quality: ITEM_QUALITIES.EPIC,
   },
 
