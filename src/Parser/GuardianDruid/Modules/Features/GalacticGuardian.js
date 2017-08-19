@@ -66,11 +66,9 @@ class GalacticGuardian extends Module {
 
   suggestions(when) {
     const unusedGGProcs = 1 - (this.consumedGGProc / this.GGProcsTotal);
-    
-    this.active &&
     when(unusedGGProcs).isGreaterThan(0.3)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your <SpellLink id={SPELLS.GALACTIC_GUARDIAN.id} /> procs should be used as soon as you get them so they are not overwritten.</span>)
+        return suggest(<span>You wasted {formatPercentage(unusedGGProcs)}% of your <SpellLink id={SPELLS.GALACTIC_GUARDIAN.id} /> procs. Try to use the procs as soon as you get them so they are not overwritten.</span>)
           .icon(SPELLS.GALACTIC_GUARDIAN.icon)
           .actual(`${formatPercentage(unusedGGProcs)}% unused`)
           .recommended(`${Math.round(formatPercentage(recommended))}% or less is recommended`)
@@ -82,12 +80,12 @@ class GalacticGuardian extends Module {
     const unusedGGProcs = 1 - (this.consumedGGProc / this.GGProcsTotal);
     
     return (
-      this.active && (<StatisticBox
+      <StatisticBox
         icon={<SpellIcon id={SPELLS.GALACTIC_GUARDIAN.id} />}
         value={`${formatPercentage(unusedGGProcs)}%`}
         label='Unused Galactic Guardian'
         tooltip={`You got total <b>${this.GGProcsTotal}</b> galactic guardian procs and <b>used ${this.consumedGGProc}</b> of them.`}
-      />)
+      />
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(6);
