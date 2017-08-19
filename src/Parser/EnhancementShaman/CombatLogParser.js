@@ -155,7 +155,7 @@ class CombatLogParser extends MainCombatLogParser {
         issue: `Try to make sure the Flametongue buff is always up, when it drops you should refresh it as soon as possible`,
         stat: `Your Flametongue uptime of ${formatPercentage(flametongueUptime)}% is below 95%, try to get as close to 100% as possible`,
         icon: SPELLS.FLAMETONGUE_BUFF.icon,
-        importance: getIssueImportance(flametongueUptime, 0.9, 0.8, true),
+        importance: getIssueImportance(flametongueUptime, 0.95, 0.9),
       });
     }
 
@@ -164,7 +164,7 @@ class CombatLogParser extends MainCombatLogParser {
         issue: `Try to make sure the Frostbrand buff is always up, when it drops you should refresh it as soon as possible`,
         stat: `Your Frostbrand uptime of ${formatPercentage(frostbrandUptime)}% is below 95%, try to get as close to 100% as possible`,
         icon: SPELLS.FROSTBRAND.icon,
-        importance: getIssueImportance(frostbrandUptime, 0.9, 0.8, true),
+        importance: getIssueImportance(frostbrandUptime, 0.95, 0.9),
       });
     } else if (!hasHailstorm && frostbrandUptime > 0 && 1 === 2) {
       //need to revist Frostbrand without Hailstorm logic
@@ -180,7 +180,7 @@ class CombatLogParser extends MainCombatLogParser {
         issue: `Try to make sure the Landslide buff from Rockbiter is always up, when it drops you should refresh it as soon as possible`,
         stat: `Your Landslide uptime of ${formatPercentage(landslideUptime)}% is below 95%, try to get as close to 100% as possible`,
         icon: SPELLS.LANDSLIDE_BUFF.icon,
-        importance: getIssueImportance(landslideUptime, 0.9, 0.8, true),
+        importance: getIssueImportance(landslideUptime, 0.95, 0.9),
       });
     }
 
@@ -189,7 +189,7 @@ class CombatLogParser extends MainCombatLogParser {
         issue: `Try to make sure the Fury of Air buff is always up, when it drops you should refresh it as soon as possible`,
         stat: `Your Fury of Air uptime of ${formatPercentage(furyofairUptime)}% is below 95%, try to get as close to 100% as possible`,
         icon: SPELLS.FURY_OF_AIR.icon,
-        importance: getIssueImportance(furyofairUptime, 0.9, 0.85, true),
+        importance: getIssueImportance(furyofairUptime, 0.95, 0.9),
       });
     }
 
@@ -232,6 +232,28 @@ class CombatLogParser extends MainCombatLogParser {
           </dfn>
         )}
       />,
+      hasHailstorm && (
+        <StatisticBox
+            icon={<SpellIcon id={SPELLS.FROSTBRAND.id} />}
+            value={`${formatPercentage(frostbrandUptime)} %`}
+            label={(
+              <dfn data-tip={`Goal should be 100% uptime`}>
+                Frostbrand Uptime
+              </dfn>
+            )}
+          />
+      ),
+      hasLandslide && (
+        <StatisticBox
+            icon={<SpellIcon id={SPELLS.LANDSLIDE_BUFF.id} />}
+            value={`${formatPercentage(landslideUptime)} %`}
+            label={(
+              <dfn data-tip={`Goal should be 100% uptime`}>
+                Landslide Uptime
+              </dfn>
+            )}
+          />
+      ),
     ];
 
     results.items = [

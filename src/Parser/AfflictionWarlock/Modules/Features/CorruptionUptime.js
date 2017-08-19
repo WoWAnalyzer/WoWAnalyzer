@@ -7,18 +7,19 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import SpellLink from "../../../../common/SpellLink";
 
 class CorruptionUptime extends Module {
   static dependencies = {
     enemies: Enemies,
   };
 
-  suggestions(when){
+  suggestions(when) {
     const corruptionUptime = this.enemies.getBuffUptime(SPELLS.CORRUPTION_DEBUFF.id) / this.owner.fightDuration;
-    if(this.owner.selectedCombatant.hasBuff(SPELLS.WARLOCK_AFFLI_T20_2P_BONUS.id)) {
+    if (this.owner.selectedCombatant.hasBuff(SPELLS.WARLOCK_AFFLI_T20_2P_BONUS.id)) {
       when(corruptionUptime).isLessThan(0.95)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest('Your Corruption uptime can be improved. Try to pay more attention to your Corruption on the boss, especially since you have the T20 2-piece set bonus.')
+          return suggest(<span>Your Corruption uptime can be improved. Try to pay more attention to your Corruption on the boss, which is especially important with the <SpellLink id={SPELLS.WARLOCK_AFFLI_T20_2P_BONUS.id} children='T20 2-piece set bonus'/>.</span>)
             .icon(SPELLS.CORRUPTION_CAST.icon)
             .actual(`${formatPercentage(actual)}% Corruption uptime`)
             .recommended(`>${formatPercentage(recommended)}% is recommended`)
@@ -44,7 +45,6 @@ class CorruptionUptime extends Module {
         icon={<SpellIcon id={SPELLS.CORRUPTION_CAST.id} />}
         value={`${formatPercentage(corruptionUptime)} %`}
         label='Corruption uptime'
-        tooltip={`Corruption uptime is how much of time of the fight you have Corruption active on the boss. You should try to keep the uptime as close to 100% as possible, especially with the T20 2-piece set bonus.`}
       />
     );
   }

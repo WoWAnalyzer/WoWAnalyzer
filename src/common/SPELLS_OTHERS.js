@@ -125,13 +125,11 @@ export default {
     name: 'Summon Dread Reflection',
     icon: 'spell_warlock_soulburn',
   },
-  // Triggered by Summon dread reflection
   DREAD_TORRENT: {
     id: 246464,
     name: 'Dread Torrent',
     icon: 'spell_warlock_soulburn',
   },
-
   // Item Abilities
   SPECTRAL_BLAST: {
     id: 246442,
@@ -142,6 +140,12 @@ export default {
     id: 242571,
     name: 'Spectral Bolt',
     icon: 'ability_thunderking_thunderstruck',
+  },
+  //Engine of Eradication buff
+  DEMONIC_VIGOR: {
+    id: 242612,
+    name: 'Demonic Vigor',
+    icon: 'inv_relics_warpring',
   },
   MARCH_OF_THE_LEGION: {
     id: 228446,

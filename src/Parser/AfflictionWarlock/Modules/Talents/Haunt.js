@@ -5,7 +5,7 @@ import Enemies from 'Parser/Core/Modules/Enemies';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-import { formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import getDamageBonus from '../WarlockCore/getDamageBonus';
@@ -18,32 +18,34 @@ class Haunt extends Module {
     enemies: Enemies,
   };
 
-  totalBonusDmg = 0;
+  bonusDmg = 0;
 
   on_initialized() {
-    if(!this.owner.error){
+    if (!this.owner.error) {
       this.active = this.owner.selectedCombatant.hasTalent(SPELLS.HAUNT_TALENT.id);
     }
   }
 
   on_byPlayer_damage(event) {
     const target = this.enemies.getEntity(event);
-    if(!target)
+    if (!target) {
       return;
+    }
     const hasHaunt = target.hasBuff(SPELLS.HAUNT.id, event.timestamp);
-    if(!hasHaunt)
+    if (!hasHaunt) {
       return;
+    }
 
-    this.totalBonusDmg += getDamageBonus(event, HAUNT_DAMAGE_BONUS);
+    this.bonusDmg += getDamageBonus(event, HAUNT_DAMAGE_BONUS);
   }
 
   statistic() {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.HAUNT.id} />}
-        value={`${formatNumber(this.totalBonusDmg)}`}
+        value={`${formatNumber(this.bonusDmg / this.owner.fightDuration * 1000)} DPS`}
         label='Damage contributed'
-        tooltip={`Your Haunt talent contributed ${formatNumber(this.totalBonusDmg)} total damage (${this.owner.formatItemDamageDone(this.totalBonusDmg)}).`}
+        tooltip={`Your Haunt talent contributed ${formatNumber(this.bonusDmg)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} %).`}
       />
     );
   }
