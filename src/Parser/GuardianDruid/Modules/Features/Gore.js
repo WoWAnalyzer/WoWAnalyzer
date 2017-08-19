@@ -1,5 +1,9 @@
 // Based on Clearcasting Implementation done by @Blazyb
-
+import React from 'react';
+import { formatPercentage } from 'common/format';
+import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Module from 'Parser/Core/Module';
 import SPELLS from 'common/SPELLS';
 
@@ -54,6 +58,33 @@ class Gore extends Module {
       }
     }
   }
+
+  suggestions(when) {
+    const unusedGoreProcs = 1 - (this.consumedGoreProc / this.GoreProcsTotal);
+    
+    when(unusedGoreProcs).isGreaterThan(0.3)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<span>Your <SpellLink id={SPELLS.GORE_BEAR.id} /> procs should be used as soon as you get them so they are not overwritten.</span>)
+          .icon(SPELLS.GORE_BEAR.icon)
+          .actual(`${formatPercentage(unusedGoreProcs)}% unused`)
+          .recommended(`${Math.round(formatPercentage(recommended))}% or less is recommended`)
+          .regular(recommended + 0.15).major(recommended + 0.3);
+      });
+  }
+
+  statistic() {
+    const unusedGoreProcs = 1 - (this.consumedGoreProc / this.GoreProcsTotal);
+   
+    return (
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.GORE_BEAR.id} />}
+        value={`${formatPercentage(unusedGoreProcs)}%`}
+        label='Unused Gore Procs'
+        tooltip={`You got total <b>${this.GoreProcsTotal}</b> gore procs and <b>used ${this.consumedGoreProc}</b> of them.`}
+      />
+    );
+  }
+  statisticOrder = STATISTIC_ORDER.CORE(5);
 }
 
 export default Gore;
