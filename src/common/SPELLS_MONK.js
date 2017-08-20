@@ -372,4 +372,14 @@ export default {
     name: 'Expel Harm',
     icon: 'ability_monk_expelharm',
   },
+  PROVOKE: {
+    id: 115546,
+    name: 'Provoke',
+    icon: 'ability_monk_provoke',
+  },
+  HOT_BLOODED: {
+    id: 227686,
+    name: 'Hot Blooded',
+    icon: 'ability_monk_breathoffire',
+  },
 };

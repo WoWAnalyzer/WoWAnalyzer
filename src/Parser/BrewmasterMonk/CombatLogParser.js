@@ -27,20 +27,14 @@ class CombatLogParser extends MainCombatLogParser {
     healingReceived: HealingReceived,
     damageTaken: DamageTaken,
     stagger: Stagger,
-    ironSkinBrew: IronSkinBrew,
     damageDone: DamageDone,
     
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     castEfficiency: CastEfficiency,
     
-    // Traits
-
     // Spells
-
-    // Talents
-
-    // Legendaries / Items:
+    ironSkinBrew: IronSkinBrew,
   };
 
   generateResults() {

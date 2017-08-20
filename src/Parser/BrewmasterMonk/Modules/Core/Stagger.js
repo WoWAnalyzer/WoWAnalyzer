@@ -1,14 +1,12 @@
 import React from 'react';
-
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage, formatThousands } from 'common/format';
-
 import Module from 'Parser/Core/Module';
-
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 const debug = false;
+const PHYSICAL_DAMAGE = 1;
 
 class Stagger extends Module {
 
@@ -20,8 +18,7 @@ class Stagger extends Module {
       if (event.extraAbility.guid === SPELLS.SPIRIT_LINK_TOTEM_REDISTRIBUTE.id) {
         return;
       }
-      // Physical damage
-      if (event.extraAbility.type === 1) {
+      if (event.extraAbility.type === PHYSICAL_DAMAGE) {
         this.totalPhysicalStaggered += event.amount;
       }
       else {
@@ -51,7 +48,7 @@ class Stagger extends Module {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.IRONSKIN_BREW.id} />}
-        value={`${formatNumber(damageAvoided)}`}
+        value={`${formatNumber(totalStaggered)} `}
         label='Damage avoided'
         tooltip={`Incoming damage staggered:
           <ul>

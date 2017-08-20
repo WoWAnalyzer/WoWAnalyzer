@@ -1,9 +1,6 @@
 import React from 'react';
-
 import { formatThousands, formatNumber } from 'common/format';
-
 import Module from 'Parser/Core/Module';
-
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class HealingReceived extends Module {

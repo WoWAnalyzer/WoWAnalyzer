@@ -11,11 +11,11 @@ const debug = true;
 class DamageTaken extends MainDamageTaken {
   
   on_toPlayer_absorbed(event) {
-    // Need to take the stagger absorb off damage taken, there are absorbs which need to be added
+    // Need to take the stagger absorb off damage taken, other absorbs such as external and Dark Side of the Moon should remain.
     // Stagger is special because the absorb is not damage taken its just deferred to the dot which is already counted.
     if (event.ability.guid === SPELLS.STAGGER.id) {
       // We are excluding the shaman totem redistribution from damage taken because the logs do, also removing the absorb of that redistribution
-      // However the damage added to the stagger dot is true damage taken so is counted.
+      // However the damage added to the stagger dot is true damage taken so is counted in logs.
       if (event.extraAbility.guid === SPELLS.SPIRIT_LINK_TOTEM_REDISTRIBUTE.id) {
         this.shamanTotem.reduceDamage(event);
         return;
@@ -28,10 +28,10 @@ class DamageTaken extends MainDamageTaken {
       if (this.damageByAbility[event.extraAbility.name] === undefined) {
         this.damageByAbility[event.extraAbility.name] = new DamageValue();
       }
-      // Need to reduce absorbed in the original array...
-      this.damageBySchool[type].reduceDamage({amount: 0, absorbed: event.amount, overkill: 0});
-      this.damageByAbility[event.extraAbility.name].reduceDamage({amount: 0, absorbed: event.amount, overkill: 0});
-      this.totalDamage.reduceDamage({amount: 0, absorbed: event.amount, overkill: 0});
+      // Need to reduce absorbed in the original array rather than amount...
+      this.damageBySchool[type].reduceDamage({absorbed: event.amount});
+      this.damageByAbility[event.extraAbility.name].reduceDamage({absorbed: event.amount});
+      this.totalDamage.reduceDamage({absorbed: event.amount});
     }
   }
 

@@ -1,11 +1,8 @@
 import React from 'react';
-
 import SPELLS from 'common/SPELLS';
 import Icon from 'common/Icon';
 import { formatPercentage } from 'common/format';
-
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-
 import CoreAlwaysBeCastingHealing from 'Parser/Core/Modules/AlwaysBeCastingHealing';
 
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
