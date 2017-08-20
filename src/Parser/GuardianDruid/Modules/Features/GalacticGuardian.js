@@ -18,9 +18,7 @@ class GalacticGuardian extends Module {
   nonGGMoonFire = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasTalent(SPELLS.GALACTIC_GUARDIAN_TALENT.id);
-    }
+    this.active = this.owner.selectedCombatant.hasTalent(SPELLS.GALACTIC_GUARDIAN_TALENT.id);
   }
 
   on_byPlayer_applybuff(event) {

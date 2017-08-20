@@ -11,9 +11,7 @@ class ChainOfThrayn extends Module {
   healing = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasWaist(ITEMS.CHAIN_OF_THRAYN.id);
-    }
+    this.active = this.owner.selectedCombatant.hasWaist(ITEMS.CHAIN_OF_THRAYN.id);
   }
 
   on_heal(event) {

@@ -7,9 +7,7 @@ class Prydaz extends Module {
   healing = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasNeck(ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id);
-    }
+    this.active = this.owner.selectedCombatant.hasNeck(ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id);
   }
 
   on_byPlayer_absorbed(event) {

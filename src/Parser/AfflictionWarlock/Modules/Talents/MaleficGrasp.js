@@ -32,9 +32,7 @@ class MaleficGrasp extends Module {
   unstableAfflictionBonusDmg = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasTalent(SPELLS.MALEFIC_GRASP_TALENT.id);
-    }
+    this.active = this.owner.selectedCombatant.hasTalent(SPELLS.MALEFIC_GRASP_TALENT.id);
   }
 
   on_byPlayer_damage(event) {

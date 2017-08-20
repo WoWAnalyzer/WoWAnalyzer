@@ -19,9 +19,7 @@ class CelestialBreath extends Module {
   overhealingCelestialBreath = 0;
 
   on_initialized() {
-    if(!this.owner.error) {
-      this.active = this.owner.selectedCombatant.traitsBySpellId[SPELLS.CELESTIAL_BREATH_TRAIT.id] === 1;
-    }
+    this.active = this.owner.selectedCombatant.traitsBySpellId[SPELLS.CELESTIAL_BREATH_TRAIT.id] === 1;
   }
 
   on_byPlayer_applybuff(event) {

@@ -17,9 +17,7 @@ class Skjoldr extends Module {
   healing = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasWrists(ITEMS.SKJOLDR_SANCTUARY_OF_IVAGONT.id);
-    }
+    this.active = this.owner.selectedCombatant.hasWrists(ITEMS.SKJOLDR_SANCTUARY_OF_IVAGONT.id);
   }
 
   pwsByPlayerId = {};

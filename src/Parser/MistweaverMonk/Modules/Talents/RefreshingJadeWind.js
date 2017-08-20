@@ -19,9 +19,7 @@ class RefreshingJadeWind extends Module {
   castRJW = 0;
 
   on_initialized() {
-    if(!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasTalent(SPELLS.REFRESHING_JADE_WIND_TALENT.id);
-    }
+    this.active = this.owner.selectedCombatant.hasTalent(SPELLS.REFRESHING_JADE_WIND_TALENT.id);
   }
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;

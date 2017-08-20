@@ -16,9 +16,7 @@ class AuraOfMercy extends Module {
   };
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasTalent(SPELLS.AURA_OF_MERCY_TALENT.id);
-    }
+    this.active = this.owner.selectedCombatant.hasTalent(SPELLS.AURA_OF_MERCY_TALENT.id);
   }
 
   get healing() {

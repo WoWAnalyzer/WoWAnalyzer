@@ -14,9 +14,7 @@ class SiphonLifeUptime extends Module {
   };
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasTalent(SPELLS.SIPHON_LIFE_TALENT.id);
-    }
+    this.active = this.owner.selectedCombatant.hasTalent(SPELLS.SIPHON_LIFE_TALENT.id);
   }
 
   suggestions(when) {

@@ -11,9 +11,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class RuleOfLaw extends Module {
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasTalent(SPELLS.RULE_OF_LAW_TALENT.id);
-    }
+    this.active = this.owner.selectedCombatant.hasTalent(SPELLS.RULE_OF_LAW_TALENT.id);
   }
 
   get uptime() {

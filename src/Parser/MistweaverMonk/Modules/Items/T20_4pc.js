@@ -17,9 +17,7 @@ class T20_4pc extends Module {
   healing = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasBuff(SPELLS.XUENS_BATTLEGEAR_4_PIECE_BUFF.id);
-    }
+    this.active = this.owner.selectedCombatant.hasBuff(SPELLS.XUENS_BATTLEGEAR_4_PIECE_BUFF.id);
   }
 
   on_byPlayer_heal(event) {

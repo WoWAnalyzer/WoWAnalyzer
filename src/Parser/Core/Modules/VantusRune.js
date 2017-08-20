@@ -53,23 +53,21 @@ const VANTUS_RUNE_PERCENTAGE_DAMAGE_REDUCTION  = VANTUS_RUNE_VERSATILITY / VERSA
 class VantusRune extends Module {
   activeRune = null;
   on_initialized() {
-    if (!this.owner.error) {
-      const fight = this.owner.fight;
-      const bossId = fight.boss;
+    const fight = this.owner.fight;
+    const bossId = fight.boss;
 
-      Object.keys(VANTUS_RUNE_SPELL_IDS).forEach(spellId => {
-        if (VANTUS_RUNE_SPELL_IDS[spellId] !== bossId) {
-          // Vantus Runes only work on 1 boss each
-          return;
-        }
-        const match = this.owner.selectedCombatant.getBuff(spellId);
-        if (match !== undefined) {
-          this.activeRune = match;
-        }
-      });
+    Object.keys(VANTUS_RUNE_SPELL_IDS).forEach(spellId => {
+      if (VANTUS_RUNE_SPELL_IDS[spellId] !== bossId) {
+        // Vantus Runes only work on 1 boss each
+        return;
+      }
+      const match = this.owner.selectedCombatant.getBuff(spellId);
+      if (match !== undefined) {
+        this.activeRune = match;
+      }
+    });
 
-      this.active = this.activeRune !== null;
-    }
+    this.active = this.activeRune !== null;
   }
 
   statistic() {

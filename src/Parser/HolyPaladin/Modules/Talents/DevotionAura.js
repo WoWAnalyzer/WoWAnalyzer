@@ -48,9 +48,7 @@ class DevotionAura extends Module {
   totalDamageTakenDuringAuraMastery = 0;
   totalDamageTakenOutsideAuraMastery = 0;
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasTalent(SPELLS.DEVOTION_AURA_TALENT.id);
-    }
+    this.active = this.owner.selectedCombatant.hasTalent(SPELLS.DEVOTION_AURA_TALENT.id);
   }
 
   on_toPlayer_damage(event) {

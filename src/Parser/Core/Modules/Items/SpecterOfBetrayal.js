@@ -10,9 +10,7 @@ class SpecterOfBetrayal extends Module {
   totalCast = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasTrinket(ITEMS.SPECTER_OF_BETRAYAL.id);
-    }
+    this.active = this.owner.selectedCombatant.hasTrinket(ITEMS.SPECTER_OF_BETRAYAL.id);
   }
 
   on_byPlayer_cast(event) {

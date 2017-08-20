@@ -42,9 +42,7 @@ class MyCuteRock extends Module {
   healing = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasTrinket(ITEMS.STUPID_ROCK.id);
-    }
+  	this.active = this.owner.selectedCombatant.hasTrinket(ITEMS.STUPID_ROCK.id);
   }
 
   on_byPlayer_cast(event) {

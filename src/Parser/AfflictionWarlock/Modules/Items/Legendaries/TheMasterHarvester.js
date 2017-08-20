@@ -14,9 +14,7 @@ class TheMasterHarvester extends Module {
 
   petIds = [];
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasChest(ITEMS.THE_MASTER_HARVESTER.id);
-    }
+    this.active = this.owner.selectedCombatant.hasChest(ITEMS.THE_MASTER_HARVESTER.id);
     this.owner.report.friendlyPets.filter(pet => pet.petOwner === this.owner.playerId).forEach(pet => {
       if (this.petIds.indexOf(pet.id) === -1) {
         this.petIds.push(pet.id);

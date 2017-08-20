@@ -21,9 +21,7 @@ class GuardianOfElune extends Module {
   GoEFRegen = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasTalent(SPELLS.GUARDIAN_OF_ELUNE_TALENT.id);
-    }
+    this.active = this.owner.selectedCombatant.hasTalent(SPELLS.GUARDIAN_OF_ELUNE_TALENT.id);
   }
 
   on_byPlayer_applybuff(event) {

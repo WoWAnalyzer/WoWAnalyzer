@@ -11,9 +11,7 @@ class Restoration_Shaman_T19_2Set extends Module {
   healing = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasBuff(SPELLS.RESTORATION_SHAMAN_T19_2SET_BONUS_BUFF.id);
-    }
+    this.active = this.owner.selectedCombatant.hasBuff(SPELLS.RESTORATION_SHAMAN_T19_2SET_BONUS_BUFF.id);
   }
 
   on_byPlayer_heal(event) {

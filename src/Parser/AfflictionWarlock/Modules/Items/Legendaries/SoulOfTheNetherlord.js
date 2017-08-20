@@ -11,9 +11,7 @@ class SoulOfTheNetherlord extends Module {
   };
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_NETHERLORD.id);
-    }
+    this.active = this.owner.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_NETHERLORD.id);
   }
 
   item() {

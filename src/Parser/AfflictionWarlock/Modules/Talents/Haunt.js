@@ -21,9 +21,7 @@ class Haunt extends Module {
   bonusDmg = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasTalent(SPELLS.HAUNT_TALENT.id);
-    }
+    this.active = this.owner.selectedCombatant.hasTalent(SPELLS.HAUNT_TALENT.id);
   }
 
   on_byPlayer_damage(event) {

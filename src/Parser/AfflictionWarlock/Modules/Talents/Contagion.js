@@ -21,9 +21,7 @@ class Contagion extends Module {
   bonusDmg = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasTalent(SPELLS.CONTAGION_TALENT.id);
-    }
+    this.active = this.owner.selectedCombatant.hasTalent(SPELLS.CONTAGION_TALENT.id);
   }
 
   on_byPlayer_damage(event) {

@@ -26,9 +26,7 @@ class HolyAvenger extends Module {
   holyShockHealing = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasTalent(SPELLS.HOLY_AVENGER_TALENT.id);
-    }
+    this.active = this.owner.selectedCombatant.hasTalent(SPELLS.HOLY_AVENGER_TALENT.id);
   }
 
   on_byPlayer_heal(event) {

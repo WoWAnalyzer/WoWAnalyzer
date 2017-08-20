@@ -231,12 +231,8 @@ class CombatLogParser {
   }
 
   initialized = false;
-  error = null;
   on_initialized() {
     this.initialized = true;
-    if (!this.selectedCombatant) {
-      this.error = 'The selected player could not be found in this fight. Make sure the log is recorded with Advanced Combat Logging enabled.';
-    }
   }
 
   finished = false;

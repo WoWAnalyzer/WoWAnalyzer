@@ -13,9 +13,7 @@ class TwistOfFate extends Module {
   damage = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasTalent(SPELLS.TWIST_OF_FATE_TALENT.id) || this.owner.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_HIGH_PRIEST.id);
-    }
+    this.active = this.owner.selectedCombatant.hasTalent(SPELLS.TWIST_OF_FATE_TALENT.id) || this.owner.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_HIGH_PRIEST.id);
   }
 
   on_byPlayer_damage(event) {

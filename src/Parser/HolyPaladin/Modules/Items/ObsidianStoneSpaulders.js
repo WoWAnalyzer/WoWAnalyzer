@@ -8,9 +8,7 @@ class ObsidianStoneSpaulders extends Module {
   healing = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasShoulder(ITEMS.OBSIDIAN_STONE_SPAULDERS.id);
-    }
+    this.active = this.owner.selectedCombatant.hasShoulder(ITEMS.OBSIDIAN_STONE_SPAULDERS.id);
   }
 
   on_byPlayer_heal(event) {
