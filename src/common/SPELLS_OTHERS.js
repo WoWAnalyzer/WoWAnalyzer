@@ -156,6 +156,11 @@ export default {
     name: 'Piercing Anguish',
     icon: 'inv_spear_08',
   },
+  TERROR_FROM_BELOW_DAMAGE: {
+    id: 242525,
+    name: 'Terror From Below',
+    icon: 'trade_archaeology_sharkjaws',
+  },
   //Engine of Eradication buff
   DEMONIC_VIGOR: {
     id: 242612,

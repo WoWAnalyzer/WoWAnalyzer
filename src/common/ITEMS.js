@@ -471,6 +471,12 @@ const ITEMS = {
     icon: 'inv_6_2raid_trinket_1d',
     quality: ITEM_QUALITIES.EPIC,
   },
+  TERROR_FROM_BELOW: {
+    id: 147016,
+    name: 'Terror From Below',
+    icon: 'trade_archaeology_sharkjaws',
+    quality: ITEM_QUALITIES.EPIC,
+  },
   // Guardian legendaries
   ELIZES_EVERLASTING_ENCASEMENT: {
     id: 137067,
