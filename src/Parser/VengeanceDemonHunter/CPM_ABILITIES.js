@@ -46,7 +46,7 @@ const CPM_ABILITIES = [
     spell: SPELLS.FRACTURE_TALENT,
     isActive: combatant => combatant.hasTalent(SPELLS.FRACTURE_TALENT.id),
     category: SPELL_CATEGORY.ROTATIONAL,
-    getCooldown: haste => 6,
+    getCooldown: haste => 4,
     recommendedCastEfficiency: 0.75,
     extraSuggestion: <span>This is your main <SpellLink id={SPELLS.SOUL_FRAGMENT.id} /> generator spell and it does a single target DPS increase by just 30 Pain per cast. The only moment you can delay it's cast is if you already have 5 unused <SpellLink id={SPELLS.SOUL_FRAGMENT.id} />. </span>,
   },
