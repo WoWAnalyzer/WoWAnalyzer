@@ -96,10 +96,10 @@ class IronSkinBrew extends Module {
         tooltip={`Ironskin Brew breakdown (these values are excluding staggered damage):
        
             <ul>
-                <li>You were hit <b>${this.hitsWithIronSkinBrew}</b> times with your Iron Skin Brew buff (<b>${formatThousands(this.damageWithIronSkinBrew)}</b> damage).</li>
-                <li>You were hit <b>${this.hitsWithoutIronSkinBrew}</b> times <b><i>without</i></b> your Iron Skin Brew buff (<b>${formatThousands(this.damageWithoutIronSkinBrew)}</b> damage).</li>
+                <li>You were hit <b>${this.hitsWithIronSkinBrew}</b> times with your Ironskin Brew buff (<b>${formatThousands(this.damageWithIronSkinBrew)}</b> damage).</li>
+                <li>You were hit <b>${this.hitsWithoutIronSkinBrew}</b> times <b><i>without</i></b> your Ironskin Brew buff (<b>${formatThousands(this.damageWithoutIronSkinBrew)}</b> damage).</li>
             </ul>
-            <b>${formatPercentage(hitsMitigatedPercent)}%</b> of attacks were mitigated with Iron Skin Brew.`}
+            <b>${formatPercentage(hitsMitigatedPercent)}%</b> of attacks were mitigated with Ironskin Brew.`}
       />
     );
   }
