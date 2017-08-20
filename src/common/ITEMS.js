@@ -34,6 +34,13 @@ const ITEMS = {
     icon: 'inv_misc_necklace15',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+  ARCHIMONDES_HATRED_REBORN: {
+    id: 144249,
+    absorbId: 235169,
+    name: 'Archimonde\'s Hatred Reborn',
+    icon: 'spell_nature_elementalshields',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
   SEPHUZS_SECRET: {
     id: 132452,
     name: 'Sephuz\'s Secret',
