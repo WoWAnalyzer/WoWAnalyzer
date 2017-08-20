@@ -82,7 +82,7 @@ class SkysecsHold extends Module {
   }
 
   item() {
-    const fightLengthSec = (this.owner.fight.end_time - this.owner.fight.start_time) / 1000;
+    const fightLengthSec = this.owner.fightDuration / 1000;
 
     // Skysec's heals as a percentage of max HP at the time of the cast, so we average out
     // the HPs over all casts to estimate the HPS
@@ -118,7 +118,7 @@ class SkysecsHold extends Module {
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Your <ItemLink id={ITEMS.SKYSECS_HOLD.id} /> efficiency was {formatPercentage(this.efficiency)}%.  Consider using another legendary if you cannot get close to full effectiveness from its extra heal, as this makes <ItemLink id={ITEMS.SKYSECS_HOLD.id} /> a poor legendary.</span>)
           .icon(ITEMS.SKYSECS_HOLD.icon)
-          .actual(`${formatPercentage(this.efficiency)}% Skysec's Hold efficiency`)
+          .actual(`${formatPercentage(actual)}% efficiency`)
           .recommended(`>${formatPercentage(recommended, 0)}% is recommended`)
           .regular(recommended - 0.05).major(recommended - 0.1);
       });
