@@ -207,20 +207,20 @@ class CombatLogParser {
       });
   }
 
-  triggerEvent(eventType, event) {
+  triggerEvent(eventType, ...args) {
     const methodName = `on_${eventType}`;
-    this.constructor.tryCall(this, methodName, event);
+    this.constructor.tryCall(this, methodName, args);
     this.activeModules
       .sort((a, b) => a.priority - b.priority) // lowest should go first, as `priority = 0` will have highest prio
       .forEach(module => {
-        this.constructor.tryCall(module, methodName, event);
+        this.constructor.tryCall(module, methodName, args);
       });
   }
 
-  static tryCall(object, methodName, event) {
+  static tryCall(object, methodName, args) {
     const method = object[methodName];
     if (method) {
-      method.call(object, event);
+      method.apply(object, args);
     }
   }
 
