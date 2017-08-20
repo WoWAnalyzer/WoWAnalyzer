@@ -26,6 +26,7 @@ import GnawedThumbRing from './Modules/Items/GnawedThumbRing';
 import VialOfCeaselessToxins from './Modules/Items/VialOfCeaselessToxins';
 import SpecterOfBetrayal from './Modules/Items/SpecterOfBetrayal';
 import EngineOfEradication from './Modules/Items/EngineOfEradication';
+import TarnishedSentinelMedallion from './Modules/Items/TarnishedSentinelMedallion';
 
 // Shared Buffs
 import VantusRune from './Modules/VantusRune';
@@ -57,6 +58,7 @@ class CombatLogParser {
     darkmoonDeckPromises: DarkmoonDeckPromises,
     prePotion: PrePotion,
     gnawedThumbRing: GnawedThumbRing,
+    tarnishedSentinelMedallion: TarnishedSentinelMedallion,
     // Tomb trinkets:
     archiveOfFaith: ArchiveOfFaith,
     barbaricMindslaver: BarbaricMindslaver,
