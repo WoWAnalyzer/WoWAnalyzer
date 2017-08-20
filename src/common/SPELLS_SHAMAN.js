@@ -562,6 +562,11 @@ export default {
     name: 'Mastery: Deep Healing',
     icon: 'spell_nature_healingtouch',
   },
+  ANCESTRAL_VIGOR: {
+    id: 207400,
+    name: 'Ancestral Vigor',
+    icon: 'spell_shaman_blessingoftheeternals',
+  },
 
   // Traits:
   // Restoration Shaman:

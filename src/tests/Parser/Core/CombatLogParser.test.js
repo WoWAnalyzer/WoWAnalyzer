@@ -31,7 +31,7 @@ describe('Core.CombatLogParser', () => {
       expect(parser.modules.myModule).toBeInstanceOf(MyModule);
       expect(Object.keys(parser.modules).length).toBe(1);
     });
-    it('allows spec modules to override default modules', () => {
+    it('spec modules override default modules', () => {
       class MyCombatLogParser extends EmptyCombatLogParser {
         static defaultModules = {
           myModule: MyModule,
@@ -44,7 +44,7 @@ describe('Core.CombatLogParser', () => {
       expect(parser.modules.myModule).toBeInstanceOf(MySubModule);
       expect(Object.keys(parser.modules).length).toBe(1);
     });
-    it('only instantiates the overrider', () => {
+    it('only instantiates the overriding module', () => {
       const MyModule = jest.fn();
       const MySubModule = jest.fn();
       class MyCombatLogParser extends EmptyCombatLogParser {
@@ -86,7 +86,7 @@ describe('Core.CombatLogParser', () => {
       });
       expect(parser.modules.myModule).toBeInstanceOf(MyModule);
     });
-    it('loads a module with a dependency that\'s in the right order already', () => {
+    it('loads a module with a dependency', () => {
       class MyChildModule {
         static dependencies = {
           parent: MyModule,
@@ -101,7 +101,7 @@ describe('Core.CombatLogParser', () => {
       expect(parser.modules.myModule).toBeInstanceOf(MyModule);
       expect(parser.modules.myChildModule).toBeInstanceOf(MyChildModule);
     });
-    it('loads a module with a dependency that\'s in the wrong order', () => {
+    it('delays loading a module until its dependencies are available', () => {
       class MyChildModule {
         static dependencies = {
           parent: MyModule,
@@ -116,7 +116,7 @@ describe('Core.CombatLogParser', () => {
       expect(parser.modules.myParentModule).toBeInstanceOf(MyModule);
       expect(parser.modules.myChildModule).toBeInstanceOf(MyChildModule);
     });
-    it('does NOT autoload a dependency when parent is not used by the CombatLogParser', () => {
+    it('throws when a module being depended on is not used by the CombatLogParser', () => {
       class MyChildModule {
         static dependencies = {
           parent: MyModule,
@@ -129,7 +129,7 @@ describe('Core.CombatLogParser', () => {
         });
       }).toThrow('Maximum call stack size exceeded'); // Relying on this exception might not be the cleaenst solution, but the module loading keeps trying until the parent module is loaded, and aborting after some time could be implemented but isn't easy to write and not useful enough.
     });
-    it('accepts classes that extend the class we\'re looking for as dependencies', () => {
+    it('recognizes classes that extend our dependency as valid dependencies', () => {
       class MyChildModule {
         static dependencies = {
           parent: MyModule,
@@ -144,7 +144,7 @@ describe('Core.CombatLogParser', () => {
       expect(parser.modules.myModule).toBeInstanceOf(MySubModule);
       expect(parser.modules.myChildModule).toBeInstanceOf(MyChildModule);
     });
-    it('passes the dependencies as a prop', () => {
+    it('passes the dependencies as a prop to the module', () => {
       const MyChildModule = jest.fn();
       MyChildModule.dependencies = {
         parent: MyModule,
@@ -158,7 +158,7 @@ describe('Core.CombatLogParser', () => {
       expect(Object.keys(dependencies).length).toBe(1);
       expect(dependencies.parent).toBeInstanceOf(MyModule);
     });
-    it('automatically assigns priorities as required', () => {
+    it('automatically prioritizes execution order of modules based on dependency requirements', () => {
       const MyAlternativeModule = jest.fn();
       const MyParentModule = jest.fn();
       const MyChildModule = jest.fn();

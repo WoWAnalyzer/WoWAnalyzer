@@ -41,6 +41,7 @@ export default {
   },
   DEMON_SPIKES: {
     id: 203720,
+    buffId: 203819,
     name: 'Demon Spikes',
     icon: 'ability_demonhunter_demonspikes',
   },

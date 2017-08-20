@@ -260,7 +260,7 @@ class CombatLogParser {
     this.totalHealing += event.amount + (event.absorbed || 0);
   }
   on_byPlayer_removebuff(event) {
-    if (event.absorb > 0) {
+    if (event.absorb) {
       this.totalOverhealingDone += event.absorb;
     }
   }
@@ -280,7 +280,7 @@ class CombatLogParser {
   totalDamageTakenAbsorb = 0;
   on_toPlayer_damage(event) {
     this.totalDamageTaken += event.amount + (event.absorbed || 0);
-    this.totalDamageTakenAbsorb += (event.absorbed || 0);
+    this.totalDamageTakenAbsorb += (event.absorbed || 0); // this also triggers an `absorbed` event for the player responsible for the absorb, which may be someone else
   }
 
   // TODO: Damage taken from LOTM

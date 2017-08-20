@@ -11,7 +11,7 @@ export default {
     [SPELLS.RAZOR_SPIKES_TALENT.id]: <span>Default talent for damage build. However, this talent is not recommended for new players, as you need a very good pain and buff uptime management while you manage your defensive cooldowns. </span>,
     // lvl 100
     [SPELLS.FEAST_OF_SOULS_TALENT.id]: <span>Very weak choice against all others in this talent level. It provides just a small amount of healing, which will not save you from a death (and possibilly a wipe). </span>,
-    [SPELLS.FALLOUT_TALENT.id]: <span>Default choise in this tier. It provides a very strong AoE healing burst against multiple targets and works very well with <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> talent. </span>,
+    [SPELLS.FALLOUT_TALENT.id]: <span>Default choice in this tier. It provides a very strong AoE healing burst against multiple targets and works very well with <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> talent. </span>,
     [SPELLS.BURNING_ALIVE_TALENT.id]: <span>Only choose this talent for fights that does a heavy AoE burst damage to you. </span>,
     // lvl 102
     [SPELLS.FELBLADE_TALENT.id]: <span>Default talent for survivability due to the Pain generation. Also good as a charge skill, when you need extra mobility. </span>,
