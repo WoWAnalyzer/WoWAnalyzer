@@ -17,13 +17,14 @@ import UABuffTracker from './Modules/Features/UABuffTracker';
 import SoulShardTracker from './Modules/SoulShards/SoulShardTracker';
 import SoulShardDetails from './Modules/SoulShards/SoulShardDetails';
 import DamageDone from './Modules/WarlockCore/DamageDone';
-import DeathsEmbrace from './Modules/WarlockCore/DeathsEmbrace';
 
 import Haunt from './Modules/Talents/Haunt';
 import MaleficGrasp from './Modules/Talents/MaleficGrasp';
 import Contagion from './Modules/Talents/Contagion';
 import AbsoluteCorruption from './Modules/Talents/AbsoluteCorruption';
 import SoulHarvest from './Modules/Talents/SoulHarvest';
+import SoulHarvestTalent from './Modules/Talents/SoulHarvestTalent';
+import DeathsEmbrace from './Modules/Talents/DeathsEmbrace';
 import DeathsEmbraceTalent from './Modules/Talents/DeathsEmbraceTalent';
 import SiphonLifeUptime from './Modules/Talents/SiphonLifeUptime';
 
@@ -48,7 +49,6 @@ class CombatLogParser extends MainCombatLogParser {
     soulShardTracker: SoulShardTracker,
     soulShardDetails: SoulShardDetails,
     damageDone: DamageDone,
-    deathsEmbrace: DeathsEmbrace,
 
     //Talents
     haunt: Haunt,
@@ -56,6 +56,8 @@ class CombatLogParser extends MainCombatLogParser {
     contagion: Contagion,
     absoluteCorruption: AbsoluteCorruption,
     soulHarvest: SoulHarvest,
+    soulHarvestTalent: SoulHarvestTalent,
+    deathsEmbrace: DeathsEmbrace,
     deathsEmbraceTalent: DeathsEmbraceTalent,
     siphonLifeUptime: SiphonLifeUptime,
 

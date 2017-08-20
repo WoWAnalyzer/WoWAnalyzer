@@ -7,7 +7,7 @@ import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-import DeathsEmbrace from '../WarlockCore/DeathsEmbrace';
+import DeathsEmbrace from './DeathsEmbrace';
 
 class DeathsEmbraceTalent extends Module {
   static dependencies = {

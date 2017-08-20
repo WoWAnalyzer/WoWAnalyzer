@@ -3,7 +3,7 @@ import Module from 'Parser/Core/Module';
 import ITEMS from 'common/ITEMS';
 import { formatNumber } from 'common/format';
 
-import DeathsEmbrace from '../../WarlockCore/DeathsEmbrace';
+import DeathsEmbrace from '../../Talents/DeathsEmbrace';
 
 class SoulOfTheNetherlord extends Module {
   static dependencies = {
