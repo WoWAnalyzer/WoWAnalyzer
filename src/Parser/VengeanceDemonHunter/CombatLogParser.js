@@ -20,6 +20,7 @@ import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
+import Pain from './Modules/Main/Pain';
 
 import CPM_ABILITIES from './CPM_ABILITIES';
 
@@ -114,7 +115,7 @@ class CombatLogParser extends MainCombatLogParser {
 
         this.immolationAuraUptime = this.selectedCombatant.getBuffUptime(SPELLS.IMMOLATION_AURA.id);
 
-        this.immolationAuraDamage = this.modules.abilityTracker.abilities[SPELLS.IMMOLATION_AURA.firstStrikeSpellId].damangeEffective + this.modules.abilityTracker.abilities[SPELLS.IMMOLATION_AURA.normalStrikeSpellId].damangeEffective;
+        this.immolationAuraDamage = this.modules.abilityTracker.abilities[SPELLS.IMMOLATION_AURA.firstStrikeSpellId].damangeEffective + this.modules.abilityTracker.abilities[SPELLS.IMMOLATION_AURA_BUFF.id].damangeEffective;
 
         this.empowerWardsUptime = this.selectedCombatant.getBuffUptime(SPELLS.EMPOWER_WARDS.id);
 
@@ -231,6 +232,20 @@ class CombatLogParser extends MainCombatLogParser {
         render: () => (
           <Tab title="Talents">
             <Talents combatant={this.selectedCombatant} />
+          </Tab>
+        ),
+      },
+      {
+        title: 'Pain',
+        url: 'pain',
+        render: () => (
+          <Tab title="Pain" style={{ padding: '15px 22px' }}>
+            <Pain
+              reportCode={this.report.code}
+              actorId={this.playerId}
+              start={this.fight.start_time}
+              end={this.fight.end_time}
+            />
           </Tab>
         ),
       },
