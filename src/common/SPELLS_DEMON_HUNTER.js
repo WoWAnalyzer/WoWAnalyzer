@@ -13,6 +13,13 @@ export default {
     icon: 'ability_demonhunter_spectank',
   },
 
+  //Racial:
+  ARCANE_TORRENT: {
+    id: 202719,
+    name: 'Arcane Torrent',
+    icon: 'spell_shadow_teleport',
+  },
+
   // Passive:
   DEMONIC_WARDS: {
     id: 207014,
