@@ -8,6 +8,7 @@ import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
+
 import StatisticBox from 'Main/StatisticBox';
 import SuggestionsTab from 'Main/SuggestionsTab';
 import Tab from 'Main/Tab';
@@ -15,6 +16,8 @@ import Talents from 'Main/Talents';
 import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
+
+import Enemies from 'Parser/Core/Modules/Enemies';
 
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 
@@ -79,6 +82,7 @@ class CombatLogParser extends MainCombatLogParser {
   static specModules = {
     // Features
     alwaysBeCasting: AlwaysBeCasting,
+    enemies: Enemies,
   };
 
   damageBySchool = {};
@@ -97,6 +101,10 @@ class CombatLogParser extends MainCombatLogParser {
     const fightDuration = this.fightDuration;
 
     const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
+
+    const spiritBombUptime = this.modules.enemies.getBuffUptime(SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id);
+
+    const spiritBombUptimePercentage = spiritBombUptime / fightDuration;
 
     // As soon as the information is ready to be analysed, gets it and put it in variables
     // This is done to not get the 'cannot read property of undefined' error
@@ -122,11 +130,20 @@ class CombatLogParser extends MainCombatLogParser {
       });
     }
 
+    if (spiritBombUptimePercentage < 1.0 && this.selectedCombatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id)) {
+      results.addIssue({
+        issue: <span>Try to cast <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> more often. This is your core healing ability. Try to refresh it even if you have just one <SpellLink id={SPELLS.SOUL_FRAGMENT.id} /> available.</span>,
+        stat: <span>{Math.round(spiritBombUptimePercentage * 100)}% <SpellLink id={SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id} /> debuff total uptime (100% uptime is recommended) </span>,
+        icon: SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.icon,
+        importance: getIssueImportance(spiritBombUptimePercentage, 0.90, 0.80),
+      });
+    }
+
     const castEfficiency = getCastEfficiency(CPM_ABILITIES, this);
     castEfficiency.forEach((cpm) => {
       if (cpm.canBeImproved && !cpm.ability.noSuggestion) {
         results.addIssue({
-          issue: <span>Try to cast <SpellLink id={cpm.ability.spell.id} /> more often ({cpm.casts}/{cpm.maxCasts} casts: {Math.round(cpm.castEfficiency * 100)}% cast efficiency). The recommended cast efficiency is {Math.round(cpm.recommendedCastEfficiency * 100)}%. {cpm.ability.extraSuggestion || ''}</span>,
+          issue: <span>Try to cast <SpellLink id={cpm.ability.spell.id} /> more often ({cpm.casts}/{cpm.maxCasts} casts: {Math.round(cpm.castEfficiency * 100)}% cast efficiency). The recommended cast efficiency is above  {Math.round(cpm.recommendedCastEfficiency * 100)}%. {cpm.ability.extraSuggestion || ''}</span>,
           icon: cpm.ability.spell.icon,
           importance: cpm.ability.importance || getIssueImportance(cpm.castEfficiency, cpm.recommendedCastEfficiency - 0.05, cpm.recommendedCastEfficiency - 0.15),
         });
@@ -170,7 +187,7 @@ class CombatLogParser extends MainCombatLogParser {
       />,
       <StatisticBox
         icon={<Icon icon="ability_druid_naturalperfection" alt="Damage absorbed" />}
-        value={`${formatNumber(this.totalDamageTakenAbsorb / this.fightDuration * 1000)} DAPS`}
+        value={`${formatNumber(this.totalDamageTakenAbsorb / this.fightDuration * 1000)} APS`}
         label='Damage absorbed'
         tooltip={`The total damage absorbed was ${formatThousands(this.totalDamageTakenAbsorb)}.`}
       />,
