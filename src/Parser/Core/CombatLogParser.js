@@ -95,13 +95,12 @@ class CombatLogParser {
     return this.combatants.selected;
   }
 
-  get fightDuration() {
-    return (this.finished ? this.fight.end_time : this.currentTimestamp) - this.fight.start_time;
-  }
-
   _timestamp = null;
   get currentTimestamp() {
-    return this._timestamp;
+    return this.finished ? this.fight.end_time : this._timestamp;
+  }
+  get fightDuration() {
+    return this.currentTimestamp - this.fight.start_time;
   }
 
   get playersById() {
