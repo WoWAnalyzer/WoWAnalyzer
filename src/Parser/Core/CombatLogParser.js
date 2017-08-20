@@ -239,7 +239,6 @@ class CombatLogParser {
   // TODO: Damage taken from LOTM
 
   getPercentageOfTotalHealingDone(healingDone) {
-    console.log(this.modules.healingDone)
     return healingDone / this.modules.healingDone.total.effective;
   }
   formatItemHealingDone(healingDone) {
