@@ -15,7 +15,7 @@ class SoulHarvest extends Module {
   isFromTalent = false;
 
   addToCorrectSource(bonusDmg) {
-    if(this.isFromTalent) {
+    if (this.isFromTalent) {
       this.talentBonusDmg += bonusDmg;
     }
     else {
@@ -50,14 +50,14 @@ class SoulHarvest extends Module {
   }
 
   on_byPlayer_cast(event) {
-    if(event.ability.guid === SPELLS.SOUL_HARVEST.id) {
+    if (event.ability.guid === SPELLS.SOUL_HARVEST.id) {
       this.isFromTalent = true;
     }
   }
 
   on_byPlayer_removebuff(event) {
     // Soul Harvest from the talent dropped off, so if any SH is present while this is false, it means it's a legendary proc
-    if(event.ability.guid === SPELLS.SOUL_HARVEST.id && this.isFromTalent) {
+    if (event.ability.guid === SPELLS.SOUL_HARVEST.id && this.isFromTalent) {
       this.isFromTalent = false;
     }
   }
@@ -65,7 +65,7 @@ class SoulHarvest extends Module {
   on_byPlayer_refreshbuff(event) {
     // if the buff gets refreshed, it can't happen from the talent itself (it has 2 minute cooldown)
     // therefore the buff is now from the chest (if it prolonged the duration or overwritten it doesn't matter, all I care about is the source)
-    if(event.ability.guid === SPELLS.SOUL_HARVEST.id && this.isFromTalent) {
+    if (event.ability.guid === SPELLS.SOUL_HARVEST.id && this.isFromTalent) {
       this.isFromTalent = false;
     }
   }
