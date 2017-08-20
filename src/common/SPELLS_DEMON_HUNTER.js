@@ -13,6 +13,18 @@ export default {
     icon: 'ability_demonhunter_spectank',
   },
 
+  // Passive:
+  DEMONIC_WARDS: {
+    id: 207014,
+    name: 'Demonic Wards',
+    icon: 'inv_belt_leather_demonhunter_a_01',
+  },
+  SEVER: {
+    id: 235964,
+    name :'Sever',
+    icon: 'ability_demonhunter_manabreak',
+  },
+
   // Abilities:
   SOUL_FRAGMENT: {
     id: 204255,
@@ -44,6 +56,7 @@ export default {
     buffId: 203819,
     name: 'Demon Spikes',
     icon: 'ability_demonhunter_demonspikes',
+    pain: 20,
   },
   FIERY_BRAND: {
     id: 204021,
@@ -59,6 +72,7 @@ export default {
     id: 228477,
     name: 'Soul Cleave',
     icon: 'ability_demonhunter_soulcleave',
+    pain: 43,
   },
   THROW_GLAIVE: {
     id: 204157,
@@ -68,8 +82,12 @@ export default {
   IMMOLATION_AURA: {
     id: 178740,
     firstStrikeSpellId: 187727,
-    normalStrikeSpellId: 178741,
     name: 'Immolation Aura',
+    icon: 'ability_demonhunter_immolation',
+  },
+  IMMOLATION_AURA_BUFF: {
+    id: 178741,
+    name: 'Immolation Aura Buff',
     icon: 'ability_demonhunter_immolation',
   },
   SHEAR: {
