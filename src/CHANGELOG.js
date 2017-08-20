@@ -2,7 +2,6 @@ export default `
 20-08-2017 - Restoration Shaman: Added Ancestral Vigor metric. (by Yuyz0112)
 19-08-2017 - Guardian Druid: Added detail on Ironfur usage.
 19-08-2017 - Vengeance Demon Hunter: Added more useful and specific statistics tooltips.
-18-08-2017 - Added Affliction Warlock support by @Chizu.
 18-08-2017 - Added <span class="Warlock">Affliction Warlock</span> support by @Chizu.
 18-08-2017 - Guardian Druid: Updates to align with new module structure and added overkill into DTPS display.
 16-08-2017 - Added <span class="DemonHunter">Vengeance Demon Hunter</span> support by @Mamtooth.
