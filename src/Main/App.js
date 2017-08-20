@@ -333,7 +333,7 @@ class App extends Component {
   }
   updateBossId() {
     this.setState({
-      bossId: this.reportCode && this.isReportValid && this.fight && this.fight.boss,
+      bossId: (this.reportCode && this.isReportValid && this.fight && this.fight.boss) || null,
     });
   }
 
