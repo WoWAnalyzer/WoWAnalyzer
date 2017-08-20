@@ -35,6 +35,16 @@ export default {
     name: 'Ancient Mana Potion',
     icon: 'inv_alchemy_70_blue',
   },
+  UNBENDING_POTION: {
+    id: 127845,
+    name: 'Unbending Potion',
+    icon: 'inv_alchemy_70_flask04',
+  },
+  SPIRIT_BERRIES: {
+	  id: 223573,
+	  name: 'Spirit Berries',
+	  icon: 'inv_misc_food_93_skethylberries',
+  },
   // Items buffs:
   GNAWED_THUMB_RING: {
     id: 228461,
@@ -125,13 +135,11 @@ export default {
     name: 'Summon Dread Reflection',
     icon: 'spell_warlock_soulburn',
   },
-  // Triggered by Summon dread reflection
   DREAD_TORRENT: {
     id: 246464,
     name: 'Dread Torrent',
     icon: 'spell_warlock_soulburn',
   },
-
   // Item Abilities
   SPECTRAL_BLAST: {
     id: 246442,
@@ -142,6 +150,12 @@ export default {
     id: 242571,
     name: 'Spectral Bolt',
     icon: 'ability_thunderking_thunderstruck',
+  },
+  //Engine of Eradication buff
+  DEMONIC_VIGOR: {
+    id: 242612,
+    name: 'Demonic Vigor',
+    icon: 'inv_relics_warpring',
   },
   MARCH_OF_THE_LEGION: {
     id: 228446,

@@ -1,5 +1,8 @@
-// Based on Clearcasting Implementation done by @Blazyb
-
+import React from 'react';
+import { formatPercentage } from 'common/format';
+import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Module from 'Parser/Core/Module';
 import SPELLS from 'common/SPELLS';
 
@@ -60,6 +63,32 @@ class GalacticGuardian extends Module {
       }
     }
   }
+
+  suggestions(when) {
+    const unusedGGProcs = 1 - (this.consumedGGProc / this.GGProcsTotal);
+    when(unusedGGProcs).isGreaterThan(0.3)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<span>You wasted {formatPercentage(unusedGGProcs)}% of your <SpellLink id={SPELLS.GALACTIC_GUARDIAN.id} /> procs. Try to use the procs as soon as you get them so they are not overwritten.</span>)
+          .icon(SPELLS.GALACTIC_GUARDIAN.icon)
+          .actual(`${formatPercentage(unusedGGProcs)}% unused`)
+          .recommended(`${Math.round(formatPercentage(recommended))}% or less is recommended`)
+          .regular(recommended + 0.15).major(recommended + 0.3);
+      });
+  }
+
+  statistic() {
+    const unusedGGProcs = 1 - (this.consumedGGProc / this.GGProcsTotal);
+    
+    return (
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.GALACTIC_GUARDIAN.id} />}
+        value={`${formatPercentage(unusedGGProcs)}%`}
+        label='Unused Galactic Guardian'
+        tooltip={`You got total <b>${this.GGProcsTotal}</b> galactic guardian procs and <b>used ${this.consumedGGProc}</b> of them.`}
+      />
+    );
+  }
+  statisticOrder = STATISTIC_ORDER.CORE(6);
 }
 
 export default GalacticGuardian;

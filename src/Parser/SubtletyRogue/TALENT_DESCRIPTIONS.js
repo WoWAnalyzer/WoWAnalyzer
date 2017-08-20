@@ -16,7 +16,7 @@ export default {
     [SPELLS.SUBTERFUGE_TALENT.id]: <span>Should not be chosen in most scenarios. </span>,
     [SPELLS.SHADOW_FOCUS_TALENT.id]: <span>Only choose this talent for smooth-damage build. </span>,
     // lv45
-    [SPELLS.DEEPER_STRATAGEM_TALENT.id]: <span>Default talent. Increasing damage of <SpellLink id={SPELLS.EVISCERATE.id} /> and <SpellLink id={SPELLS.NIGHTBLADE.id} />. Damage from finishing moves would be a large portion in a subtlety rogue&#39;s total damage. </span>,
+    [SPELLS.DEEPER_STRATAGEM_TALENT.id]: <span>Default talent. Increasing damage of <SpellLink id={SPELLS.EVISCERATE.id} /> and <SpellLink id={SPELLS.NIGHTBLADE.id} />. Damage from finishing moves would be a large portion in a subtlety rogue's total damage. </span>,
     [SPELLS.ANTICIPATION_TALENT.id]: <span>Less powerful than <SpellLink id={SPELLS.DEEPER_STRATAGEM_TALENT.id} />. </span>,
     [SPELLS.VIGOR_TALENT.id]: <span>Less powerful than <SpellLink id={SPELLS.DEEPER_STRATAGEM_TALENT.id} />. </span>,
     // lv60
@@ -34,7 +34,7 @@ export default {
     // lv100
     [SPELLS.MASTER_OF_SHADOWS_TALENT.id]: <span>Almost not a valid choice. </span>,
     [SPELLS.MARKED_FOR_DEATH_TALENT.id]: <span>Default talent for smooth-damage build. Powerful for questing/soloing.</span>,
-    [SPELLS.DEATH_FROM_ABOVE_TALENT.id]: <span>Default talent in most scenarios including raids and mythic keystone dungeons. Provides high burst damage skill of casting a 50% damage-increased <SpellLink id={SPELLS.EVISCERATE.id} /> after a high-damage AoE. Works perfectly with subtlety rogue&#39;s damage increasing during <SpellLink id={SPELLS.SHADOW_DANCE.id} />. </span>,
+    [SPELLS.DEATH_FROM_ABOVE_TALENT.id]: <span>Default talent in most scenarios including raids and mythic keystone dungeons. Provides high burst damage skill of casting a 50% damage-increased <SpellLink id={SPELLS.EVISCERATE.id} /> after a high-damage AoE. Works perfectly with subtlety rogue's damage increasing during <SpellLink id={SPELLS.SHADOW_DANCE.id} />. </span>,
   },
   // attribution: <span>Parts of the descriptions for talents came from the <a href="http://www.wowhead.com/subtlety-rogue-talent-guide" target="_blank" rel="noopener noreferrer">Subtlety Rogue Wowhead guide</a> by Gray_Hound.</span>,
 };

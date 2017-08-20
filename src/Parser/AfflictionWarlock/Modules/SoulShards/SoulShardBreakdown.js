@@ -11,18 +11,23 @@ class SoulShardBreakdown extends React.Component {
     shardsSpent: PropTypes.object.isRequired,
     shardsWasted: PropTypes.object.isRequired,
   };
-  prepareGenerated(shardGen, shardWasted){
+  prepareGenerated(shardGen, shardWasted) {
     //shardGen and shardWasted has the same number of abilities (some having 0, these can be now filtered)
-    const abilities = [];
-    Object.keys(shardGen).map(abilityId => abilities.push({abilityId: Number(abilityId), generated: shardGen[abilityId].shards, wasted: shardWasted[abilityId].shards}));
-    abilities.sort((a, b) => b.generated - a.generated);
-    return abilities;
+    return Object.keys(shardGen)
+      .map(abilityId => ({
+        abilityId: Number(abilityId),
+        generated: shardGen[abilityId].shards,
+        wasted: shardWasted[abilityId].shards,
+      }))
+      .sort((a, b) => b.generated - a.generated);
   }
   prepareSpent(shardSpent) {
-    const abilities = [];
-    Object.keys(shardSpent).map(abilityId => abilities.push({abilityId: Number(abilityId), spent: shardSpent[abilityId].shards}));
-    abilities.sort((a, b) => b.spent - a.spent);
-    return abilities;
+    return Object.keys(shardSpent)
+      .map(abilityId => ({
+        abilityId: Number(abilityId),
+        spent: shardSpent[abilityId].shards,
+      }))
+      .sort((a, b) => b.spent - a.spent);
   }
   render() {
     const { shardsGained, shardsSpent, shardsWasted } = this.props;
@@ -54,34 +59,32 @@ class SoulShardBreakdown extends React.Component {
           </thead>
           <tbody>
             {generated && generated
-              .map(ability => {
-                return (
-                  <tr>
-                    <td style={{ width: '30%'}}>
-                      <SpellIcon id={ability.abilityId}/>{' '}
-                      <SpellLink id={ability.abilityId}/>
-                    </td>
-                    <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>
-                      <dfn data-tip={`${formatPercentage(ability.generated / totalGenerated)} %`}>{ability.generated}</dfn>
-                    </td>
-                    <td style={{ width: '40%' }}>
-                      <div
-                        className={`performance-bar`}
-                        style={{ width: `${(ability.generated / totalGenerated) * 100}%` }}
-                      />
-                    </td>
-                    <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>
-                      <dfn data-tip={`${formatPercentage(ability.wasted / totalWasted)} %`}>{ability.wasted}</dfn>
-                    </td>
-                    <td style={{ width: '30%' }}>
-                      <div
-                        className={`performance-bar `}
-                        style={{ width: `${(ability.wasted / totalWasted) * 100}%` }}
-                      />
-                    </td>
-                  </tr>
-                );
-              })}
+              .map(ability => (
+                <tr>
+                  <td style={{ width: '30%'}}>
+                    <SpellIcon id={ability.abilityId}/>{' '}
+                    <SpellLink id={ability.abilityId}/>
+                  </td>
+                  <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>
+                    <dfn data-tip={`${formatPercentage(ability.generated / totalGenerated)} %`}>{ability.generated}</dfn>
+                  </td>
+                  <td style={{ width: '40%' }}>
+                    <div
+                      className={`performance-bar`}
+                      style={{ width: `${(ability.generated / totalGenerated) * 100}%` }}
+                    />
+                  </td>
+                  <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>
+                    <dfn data-tip={`${formatPercentage(ability.wasted / totalWasted)} %`}>{ability.wasted}</dfn>
+                  </td>
+                  <td style={{ width: '30%' }}>
+                    <div
+                      className={`performance-bar `}
+                      style={{ width: `${(ability.wasted / totalWasted) * 100}%` }}
+                    />
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
         <table className='data-table'>
@@ -95,27 +98,25 @@ class SoulShardBreakdown extends React.Component {
           </thead>
           <tbody>
           {spent && spent
-            .map(ability => {
-              return (
-                <tr>
-                  <td style={{ width: '30%'}}>
-                    <SpellIcon id={ability.abilityId}/>{' '}
-                    <SpellLink id={ability.abilityId}/>
-                  </td>
-                  <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>
-                    <dfn data-tip={`${formatPercentage(ability.spent / totalGenerated)} %`}>{ability.spent}</dfn>
-                  </td>
-                  <td style={{ width: '40%' }}>
-                    <div
-                      className={`performance-bar`}
-                      style={{ width: `${(ability.spent / totalSpent) * 100}%` }}
-                    />
-                  </td>
-                  <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}></td>
-                  <td style={{ width: '30%' }}></td>
-                </tr>
-              );
-            })}
+            .map(ability => (
+              <tr>
+                <td style={{ width: '30%'}}>
+                  <SpellIcon id={ability.abilityId}/>{' '}
+                  <SpellLink id={ability.abilityId}/>
+                </td>
+                <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>
+                  <dfn data-tip={`${formatPercentage(ability.spent / totalGenerated)} %`}>{ability.spent}</dfn>
+                </td>
+                <td style={{ width: '40%' }}>
+                  <div
+                    className={`performance-bar`}
+                    style={{ width: `${(ability.spent / totalSpent) * 100}%` }}
+                  />
+                </td>
+                <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}></td>
+                <td style={{ width: '30%' }}></td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

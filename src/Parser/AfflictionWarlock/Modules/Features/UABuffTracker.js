@@ -8,7 +8,7 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-import {UNSTABLE_AFFLICTION_DEBUFF_IDS} from '../../Constants';
+import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../Constants';
 
 class UABuffTracker extends Module {
   static dependencies = {
@@ -25,7 +25,7 @@ class UABuffTracker extends Module {
   hasHaunt = false;
 
   on_initialized() {
-    if(!this.owner.error) {
+    if (!this.owner.error) {
       this.hasMG = this.owner.selectedCombatant.hasTalent(SPELLS.MALEFIC_GRASP_TALENT.id);
       this.hasHaunt = this.owner.selectedCombatant.hasTalent(SPELLS.HAUNT_TALENT.id);
     }
@@ -33,45 +33,56 @@ class UABuffTracker extends Module {
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if(UNSTABLE_AFFLICTION_DEBUFF_IDS.indexOf(spellId) === -1)
+    if (UNSTABLE_AFFLICTION_DEBUFF_IDS.indexOf(spellId) === -1) {
       return;
+    }
     const target = this.enemies.getEntity(event);
     this.totalTicks++;
     const buffedByReap = this.owner.selectedCombatant.hasBuff(SPELLS.DEADWIND_HARVESTER.id, event.timestamp);
     const buffedByDrain = target.hasBuff(SPELLS.DRAIN_SOUL.id, event.timestamp);
     const buffedByHaunt = target.hasBuff(SPELLS.HAUNT.id, event.timestamp);
 
-    if(this.hasMG) {
-      if(buffedByReap && buffedByDrain)
+    if (this.hasMG) {
+      if (buffedByReap && buffedByDrain) {
         this.ticksBuffedByBoth++;
-      else if(buffedByReap)
+      }
+      else if (buffedByReap) {
         this.ticksBuffedByReap++;
-      else if(buffedByDrain)
+      }
+      else if (buffedByDrain) {
         this.ticksBuffedByDrain++;
-      else
+      }
+      else {
         this.unbuffedTicks++;
+      }
     }
-    else if(this.hasHaunt) {
-      if(buffedByReap && buffedByHaunt)
+    else if (this.hasHaunt) {
+      if (buffedByReap && buffedByHaunt) {
         this.ticksBuffedByBoth++;
-      else if(buffedByReap)
+      }
+      else if (buffedByReap) {
         this.ticksBuffedByReap++;
-      else if(buffedByHaunt)
+      }
+      else if (buffedByHaunt) {
         this.ticksBuffedByHaunt++;
-      else
+      }
+      else {
         this.unbuffedTicks++;
+      }
     }
     else {
-      if(buffedByReap)
+      if (buffedByReap) {
         this.ticksBuffedByReap++;
-      else
+      }
+      else {
         this.unbuffedTicks++;
+      }
     }
   }
 
-  suggestions(when){
-    const buffPercentage = this.unbuffedTicks / this.totalTicks;
-    when(buffPercentage).isGreaterThan(0.15)
+  suggestions(when) {
+    const unbuffedTicksPercentage = this.unbuffedTicks / this.totalTicks;
+    when(unbuffedTicksPercentage).isGreaterThan(0.15)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest('Your Unstable Afflictions could be buffed more. Unstable Affliction is your main source of damage so keeping it buffed as much as possible with Reap Souls, Drain Soul (if using the Malefic Grasp talent) or Haunt (if using the talent) is very important.')
           .icon(SPELLS.UNSTABLE_AFFLICTION_CAST.icon)
@@ -82,12 +93,13 @@ class UABuffTracker extends Module {
   }
 
   statistic() {
-    const buffPercentage = 1 - (this.unbuffedTicks / this.totalTicks);
+    const buffedTicksPercentage = 1 - (this.unbuffedTicks / this.totalTicks);
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} />}
-        value={`${formatPercentage(buffPercentage)} %`}
-        label={(<dfn data-tip={`Your Unstable Afflictions ticked ${this.totalTicks} times in total. Out of that amount:
+        value={`${formatPercentage(buffedTicksPercentage)} %`}
+        label='UA buffed ticks'
+        tooltip={`Your Unstable Afflictions ticked ${this.totalTicks} times in total. Out of that amount:
           <ul>
           ${this.hasMG && this.ticksBuffedByBoth > 0 ? `
             <li>${this.ticksBuffedByBoth} ticks were buffed by both Reap Souls and Drain Soul (${formatPercentage(this.ticksBuffedByBoth/this.totalTicks)}%)</li>
@@ -112,9 +124,7 @@ class UABuffTracker extends Module {
             <li>${this.unbuffedTicks} ticks were unbuffed (${formatPercentage(this.unbuffedTicks/this.totalTicks)}%). You should try to minimize this amount as much as possible.</li>
           `: ""}
           </ul>
-        `}>
-          UA buffed ticks
-        </dfn>)}
+        `}
       />
     );
   }
