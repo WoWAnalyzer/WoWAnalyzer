@@ -3,7 +3,7 @@
 export default {
   // Shared
   FELBLADE_TALENT: { id: 232893, name: "Felblade", icon: "ability_demonhunter_felblade" },
-  FEL_ERUPTION_TALENT: { id: 211881, name: "Fel Eruption", icon: "ability_bossfellord_felspike" },
+  FEL_ERUPTION_TALENT: { id: 211881, name: "Fel Eruption", icon: "ability_bossfellord_felspike", pain: 10},
   // Vengeance
   ABYSSAL_STRIKE_TALENT: { id: 207550, name: "Abyssal Strike", icon: "spell_warlock_summonabyssal" },
   AGONIZING_FLAMES_TALENT: { id: 207548, name: "Agonizing Flames", icon: "achievment_raid_houroftwilight" },
@@ -13,16 +13,16 @@ export default {
   BURNING_ALIVE_TALENT: { id: 207739, name: "Burning Alive", icon: "spell_fire_elementaldevastation" },
   FLAME_CRASH_TALENT: { id: 227322, name: "Flame Crash", icon: "spell_fire_felhellfire" },
   FEED_THE_DEMON_TALENT: { id: 218612, name: "Feed the Demon", icon: "spell_warlock_demonicempowerment" },
-  FRACTURE_TALENT: { id: 209795, name: "Fracture", icon: "ability_creature_felsunder" },
+  FRACTURE_TALENT: { id: 209795, name: "Fracture", icon: "ability_creature_felsunder", pain: 30},
   CONCENTRATED_SIGILS_TALENT: { id: 207666, name: "Concentrated Sigils", icon: "ability_bossfelorcs_necromancer_red" },
   SIGIL_OF_CHAINS_TALENT: { id: 202138, name: "Sigil of Chains", icon: "ability_demonhunter_sigilofchains" },
   QUICKENED_SIGILS_TALENT: { id: 209281, name: "Quickened Sigils", icon: "ability_demonhunter_concentratedsigils" },
-  FEL_DEVASTATION_TALENT: { id: 212084, name: "Fel Devastation", icon: "ability_demonhunter_feldevastation" },
+  FEL_DEVASTATION_TALENT: { id: 212084, name: "Fel Devastation", icon: "ability_demonhunter_feldevastation", pain: 30},
   BLADE_TURNING_TALENT: { id: 247254, name: "Blade Turning", icon: "trade_archaeology_zinrokhsword" },
   SPIRIT_BOMB_TALENT: { id: 247454, name: "Spirit Bomb", icon: "inv_icon_shadowcouncilorb_purple" },
   LAST_RESORT_TALENT: { id: 209258, name: "Last Resort", icon: "inv_glaive_1h_artifactaldorchi_d_06" },
   DEMONIC_INFUSION_TALENT: { id: 236189, name: "Demonic Infusion", icon: "spell_warlock_demonsoul" },
-  SOUL_BARRIER_TALENT: { id: 227225, name: "Soul Barrier", icon: "inv_glaive_1h_artifactaldrochi_d_05" },
+  SOUL_BARRIER_TALENT: { id: 227225, name: "Soul Barrier", icon: "inv_glaive_1h_artifactaldrochi_d_05", pain: 10},
   SOUL_RENDING_TALENT_VENGEANCE: { id: 217996, name: "Soul Rending", icon: "ability_demonhunter_soulcleave2" },
   // Havoc
   FEL_MASTERY_TALENT: { id: 192939, name: "Fel Mastery", icon: "ability_skyreach_piercing_rush" },
