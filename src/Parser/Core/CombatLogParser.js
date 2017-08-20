@@ -230,11 +230,6 @@ class CombatLogParser {
     return (event.targetID === playerId);
   }
 
-  initialized = false;
-  on_initialized() {
-    this.initialized = true;
-  }
-
   finished = false;
   on_finished() {
     this.finished = true;
