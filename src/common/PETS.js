@@ -1,6 +1,6 @@
 import indexById from './indexById';
 
-//courtesy of @shighman / @wopr on WoWAnalyzer Discord
+//courtesy of @wopr on WoWAnalyzer Discord
 
 const PETS = {
   WILDIMP_ON_DREADSTALKER: {
