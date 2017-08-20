@@ -10,8 +10,8 @@ export function formatNumber(number) {
   }
   return formatThousands(number);
 }
-export function formatPercentage(percentage) {
-  return (Math.round((percentage || 0) * 10000) / 100).toFixed(2);
+export function formatPercentage(percentage, precision = 2) {
+  return (Math.round((percentage || 0) * 10000) / 100).toFixed(precision);
 }
 
 export function formatDuration(duration) {
