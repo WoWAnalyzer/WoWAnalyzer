@@ -137,8 +137,8 @@ class Pain extends React.PureComponent {
 
     const abilitiesAll = {};
     const categories = {
-      'generated': 'Generated',
-      'spend': 'Spend',
+      'generated': 'Pain Generators',
+      'spent': 'Pain Spenders',
     };
 
     const overCapBySecond = {};
@@ -160,11 +160,11 @@ class Pain extends React.PureComponent {
         if (!abilitiesAll[event.ability.guid + '_spend']) {
           abilitiesAll[event.ability.guid + '_spend'] = {
             ability: {
-                category: 'Spend',
+                category: 'Pain Spenders',
                 name: (spell === undefined) ? event.ability.name : spell.name,
               spellId: event.ability.guid,
             },
-            spend: 0,
+            spent: 0,
             casts: 0,
             created: 0,
             wasted: 0,
@@ -172,19 +172,19 @@ class Pain extends React.PureComponent {
         }
         abilitiesAll[event.ability.guid + '_spend'].casts++;
         const lastPain = lastSecFight === secIntoFight ? painBySecond[lastSecFight-1] : painBySecond[lastSecFight];
-        const spendResource = (spell.pain !== undefined) ? spell.pain : (spell.max_pain < lastPain ? spell.max_pain : lastPain);
-        abilitiesAll[event.ability.guid + '_spend'].spend += spendResource;
+        const spendResource = (spell.painCost !== undefined) ? spell.painCost : (spell.max_pain < lastPain ? spell.max_pain : lastPain);
+        abilitiesAll[event.ability.guid + '_spend'].spent += spendResource;
         abilitiesAll[event.ability.guid + '_spend'].wasted += spell.max_pain ? spell.max_pain - spendResource: 0;
       } else if (event.type === 'energize') {
         if (!abilitiesAll[event.ability.guid + '_gen']) {
             const spell = SPELLS[event.ability.guid];
           abilitiesAll[event.ability.guid + '_gen'] = {
             ability: {
-              category: 'Generated',
+              category: 'Pain Generators',
               name: (spell === undefined) ? event.ability.name : spell.name,
               spellId: event.ability.guid,
             },
-            spend: 0,
+            spent: 0,
             casts: 0,
             created: 0,
             wasted: 0,
