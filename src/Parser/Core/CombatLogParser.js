@@ -294,7 +294,7 @@ class CombatLogParser {
     return `${formatPercentage(this.getPercentageOfTotalHealingDone(healingDone))} % / ${formatNumber(healingDone / this.fightDuration * 1000)} HPS`;
   }
   formatItemAbsorbDone(absorbDone) {
-    return `${formatNumber(absorbDone)} Absorbed / ${formatNumber(absorbDone / this.fightDuration * 1000)} APS`;
+    return `${formatNumber(absorbDone)}`;
   }
   getPercentageOfTotalDamageDone(damageDone) {
     return damageDone / this.totalDamageDone;

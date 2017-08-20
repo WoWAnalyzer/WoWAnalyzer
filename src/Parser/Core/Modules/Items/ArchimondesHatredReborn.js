@@ -1,9 +1,11 @@
+import React from 'react';
+
 import ITEMS from 'common/ITEMS';
 
 import Module from 'Parser/Core/Module';
 
 class ArchimondesHatredReborn extends Module {
-  absorb = 0;
+  healing = 0;
 
   on_initialized() {
     if (!this.owner.error) {
@@ -14,14 +16,18 @@ class ArchimondesHatredReborn extends Module {
   on_byPlayer_absorbed(event) {
     const spellId = event.ability.guid;
     if (spellId === ITEMS.ARCHIMONDES_HATRED_REBORN.absorbId) {
-      this.absorb += event.amount;
+      this.healing += event.amount;
     }
   }
 
   item() {
     return {
       item: ITEMS.ARCHIMONDES_HATRED_REBORN,
-      result: this.owner.formatItemAbsorbDone(this.absorb),
+      result: (
+        <dfn data-tip={`The total damaged absorbed by Archimonde's Hatred Reborn was ${this.owner.formatItemAbsorbDone(this.healing)}.`} >
+        {this.owner.formatItemHealingDone(this.healing)}
+        </dfn>
+      ),
     };
   }
 }
