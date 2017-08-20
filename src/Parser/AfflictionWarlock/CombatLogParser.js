@@ -32,6 +32,7 @@ import TheMasterHarvester from './Modules/Items/Legendaries/TheMasterHarvester';
 import StretensSleeplessShackles from './Modules/Items/Legendaries/StretensSleeplessShackles';
 import SoulOfTheNetherlord from './Modules/Items/Legendaries/SoulOfTheNetherlord';
 import PowerCordOfLethtendris from './Modules/Items/Legendaries/PowerCordOfLethtendris';
+import SacrolashsDarkStrike from './Modules/Items/Legendaries/SacrolashsDarkStrike';
 
 class CombatLogParser extends MainCombatLogParser {
 
@@ -67,6 +68,7 @@ class CombatLogParser extends MainCombatLogParser {
     stretensSleeplessShackles: StretensSleeplessShackles,
     soulOfTheNetherlord: SoulOfTheNetherlord,
     powerCordOfLethtendris: PowerCordOfLethtendris,
+    sacrolashsDarkStrike: SacrolashsDarkStrike,
   };
 
   generateResults() {
