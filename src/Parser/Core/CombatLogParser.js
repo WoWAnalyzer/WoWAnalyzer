@@ -1,5 +1,6 @@
 import { formatNumber, formatPercentage } from 'common/format';
 
+import Status from './Modules/Status';
 import Combatants from './Modules/Combatants';
 import AbilityTracker from './Modules/AbilityTracker';
 import AlwaysBeCasting from './Modules/AlwaysBeCasting';
@@ -12,6 +13,7 @@ import SpellManaCost from './Modules/SpellManaCost';
 import Prydaz from './Modules/Items/Prydaz';
 import Velens from './Modules/Items/Velens';
 import SephuzsSecret from './Modules/Items/SephuzsSecret';
+import ArchimondesHatredReborn from './Modules/Items/ArchimondesHatredReborn';
 // Shared Epics
 import DrapeOfShame from './Modules/Items/DrapeOfShame';
 import DarkmoonDeckPromises from './Modules/Items/DarkmoonDeckPromises';
@@ -35,6 +37,8 @@ class CombatLogParser {
   static abilitiesAffectedByHealingIncreases = [];
 
   static defaultModules = {
+    status: Status,
+
     combatants: Combatants,
     enemies: Enemies,
     spellManaCost: SpellManaCost,
@@ -49,6 +53,7 @@ class CombatLogParser {
     prydaz: Prydaz,
     velens: Velens,
     sephuzsSecret: SephuzsSecret,
+    archimondesHatredReborn: ArchimondesHatredReborn,
     // Epics:
     drapeOfShame: DrapeOfShame,
     amalgamsSeventhSpine: AmalgamsSeventhSpine,
@@ -95,13 +100,14 @@ class CombatLogParser {
     return this.combatants.selected;
   }
 
-  get fightDuration() {
-    return (this.finished ? this.fight.end_time : this.currentTimestamp) - this.fight.start_time;
-  }
-
-  _timestamp = null;
   get currentTimestamp() {
-    return this._timestamp;
+    return this.finished ? this.fight.end_time : this._timestamp;
+  }
+  get fightDuration() {
+    return this.currentTimestamp - this.fight.start_time;
+  }
+  get finished() {
+    return this.modules.status.finished;
   }
 
   get playersById() {
@@ -230,16 +236,6 @@ class CombatLogParser {
     return (event.targetID === playerId);
   }
 
-  initialized = false;
-  on_initialized() {
-    this.initialized = true;
-  }
-
-  finished = false;
-  on_finished() {
-    this.finished = true;
-  }
-
   // This used to be implemented as a sanity check, may be replaced by a cleaner solution.
   totalHealing = 0;
   totalOverhealingDone = 0;
@@ -284,6 +280,9 @@ class CombatLogParser {
   }
   formatItemHealingDone(healingDone) {
     return `${formatPercentage(this.getPercentageOfTotalHealingDone(healingDone))} % / ${formatNumber(healingDone / this.fightDuration * 1000)} HPS`;
+  }
+  formatItemAbsorbDone(absorbDone) {
+    return `${formatNumber(absorbDone)}`;
   }
   getPercentageOfTotalDamageDone(damageDone) {
     return damageDone / this.totalDamageDone;
