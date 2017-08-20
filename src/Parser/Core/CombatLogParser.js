@@ -1,5 +1,6 @@
 import { formatNumber, formatPercentage } from 'common/format';
 
+import Status from './Modules/Status';
 import Combatants from './Modules/Combatants';
 import AbilityTracker from './Modules/AbilityTracker';
 import AlwaysBeCasting from './Modules/AlwaysBeCasting';
@@ -35,6 +36,8 @@ class CombatLogParser {
   static abilitiesAffectedByHealingIncreases = [];
 
   static defaultModules = {
+    status: Status,
+
     combatants: Combatants,
     enemies: Enemies,
     spellManaCost: SpellManaCost,
@@ -95,12 +98,14 @@ class CombatLogParser {
     return this.combatants.selected;
   }
 
-  _timestamp = null;
   get currentTimestamp() {
     return this.finished ? this.fight.end_time : this._timestamp;
   }
   get fightDuration() {
     return this.currentTimestamp - this.fight.start_time;
+  }
+  get finished() {
+    return this.modules.status.finished;
   }
 
   get playersById() {
@@ -227,11 +232,6 @@ class CombatLogParser {
 
   toPlayer(event, playerId = this.player.id) {
     return (event.targetID === playerId);
-  }
-
-  finished = false;
-  on_finished() {
-    this.finished = true;
   }
 
   // This used to be implemented as a sanity check, may be replaced by a cleaner solution.
