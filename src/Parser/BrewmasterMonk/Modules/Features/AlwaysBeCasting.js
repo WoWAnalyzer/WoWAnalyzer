@@ -25,6 +25,8 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     SPELLS.INVOKE_NIUZAO_THE_BLACK_OX_TALENT.id,
     SPELLS.RING_OF_PEACE_TALENT.id,
     SPELLS.SUMMON_BLACK_OX_STATUE_TALENT.id,
+    SPELLS.EFFUSE.id,
+    SPELLS.TIGERS_LUST_TALENT.id,
   ];
 
   // BrM has a fixed 1s GCD 
@@ -35,13 +37,13 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   suggestions(when) {
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
 
-    when(deadTimePercentage).isGreaterThan(0.4)
+    when(deadTimePercentage).isGreaterThan(0.2)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest('Your dead GCD time can be improved. Try to Always Be Casting (ABC); try to reduce the delay between casting spells and when you\'re not healing try to contribute some damage.')
+        return suggest('Your dead GCD time can be improved. Try to Always Be Casting (ABC).')
           .icon('spell_mage_altertime')
-          .actual(`${formatPercentage(deadTimePercentage)}% dead GCD time`)
+          .actual(`${formatPercentage(actual)}% dead GCD time`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
-          .regular(recommended + 0.15).major(1);
+          .regular(recommended + 0.05).major(recommended + 0.15);
       });
   }
   statistic() {
