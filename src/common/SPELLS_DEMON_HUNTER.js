@@ -93,7 +93,14 @@ export default {
     icon: 'ability_demonhunter_imprison',
   },
 
-  // Traits:
+  // Talents
+  FRAILTY_SPIRIT_BOMB_DEBUFF: {
+    id: 247456,
+    name: 'Frailty',
+    icon: 'inv_icon_shadowcouncilorb_purple',
+  },
+
+  // Artifact Traits:
   SOUL_CARVER: {
     id: 207407,
     name: 'Soul Carver',
