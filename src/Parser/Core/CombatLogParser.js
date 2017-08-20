@@ -1,6 +1,8 @@
 import { formatNumber, formatPercentage } from 'common/format';
 
 import Status from './Modules/Status';
+import HealingDone from './Modules/HealingDone';
+
 import Combatants from './Modules/Combatants';
 import AbilityTracker from './Modules/AbilityTracker';
 import AlwaysBeCasting from './Modules/AlwaysBeCasting';
@@ -37,6 +39,7 @@ class CombatLogParser {
 
   static defaultModules = {
     status: Status,
+    healingDone: HealingDone,
 
     combatants: Combatants,
     enemies: Enemies,
@@ -229,52 +232,15 @@ class CombatLogParser {
   byPlayer(event, playerId = this.player.id) {
     return (event.sourceID === playerId);
   }
-
   toPlayer(event, playerId = this.player.id) {
     return (event.targetID === playerId);
-  }
-
-  // This used to be implemented as a sanity check, may be replaced by a cleaner solution.
-  totalHealing = 0;
-  totalOverhealingDone = 0;
-  get totalRawHealingDone() {
-    return this.totalHealing + this.totalOverhealingDone;
-  }
-  on_byPlayer_heal(event) {
-    this.totalHealing += event.amount + (event.absorbed || 0);
-    this.totalOverhealingDone += event.overheal || 0;
-  }
-  on_byPlayer_absorbed(event) {
-    this.totalHealing += event.amount + (event.absorbed || 0);
-  }
-  on_byPlayer_removebuff(event) {
-    if (event.absorb) {
-      this.totalOverhealingDone += event.absorb;
-    }
-  }
-
-  totalDamageDone = 0;
-  totalDamageDoneToFriendly = 0;
-  on_byPlayer_damage(event) {
-    const damageDone = event.amount + (event.absorbed || 0);
-    if (event.targetIsFriendly) {
-      this.totalDamageDoneToFriendly += damageDone;
-    } else {
-      this.totalDamageDone += damageDone;
-    }
-  }
-
-  totalDamageTaken = 0;
-  totalDamageTakenAbsorb = 0;
-  on_toPlayer_damage(event) {
-    this.totalDamageTaken += event.amount + (event.absorbed || 0);
-    this.totalDamageTakenAbsorb += (event.absorbed || 0); // this also triggers an `absorbed` event for the player responsible for the absorb, which may be someone else
   }
 
   // TODO: Damage taken from LOTM
 
   getPercentageOfTotalHealingDone(healingDone) {
-    return healingDone / this.totalHealing;
+    console.log(this.modules.healingDone)
+    return healingDone / this.modules.healingDone.total.effective;
   }
   formatItemHealingDone(healingDone) {
     return `${formatPercentage(this.getPercentageOfTotalHealingDone(healingDone))} % / ${formatNumber(healingDone / this.fightDuration * 1000)} HPS`;

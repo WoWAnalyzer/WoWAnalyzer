@@ -58,7 +58,7 @@ class CombatLogParser extends MainCombatLogParser {
     lowHealthHealing: LowHealthHealing,
 
     // PaladinCore
-    healingDone: HealingDone,
+    healingDoneStatistic: HealingDone,
     beaconHealOriginMatcher: BeaconHealOriginMatcher,
     beaconTargets: BeaconTargets,
     beaconHealing: BeaconHealing,
