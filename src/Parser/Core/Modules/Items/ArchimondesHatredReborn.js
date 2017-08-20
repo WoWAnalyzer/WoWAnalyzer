@@ -1,5 +1,3 @@
-import React from 'react';
-
 import ITEMS from 'common/ITEMS';
 
 import Module from 'Parser/Core/Module';
@@ -23,11 +21,7 @@ class ArchimondesHatredReborn extends Module {
   item() {
     return {
       item: ITEMS.ARCHIMONDES_HATRED_REBORN,
-      result: (
-        <dfn data-tip={`The total damaged absorbed by Archimonde's Hatred Reborn was ${this.owner.formatItemAbsorbDone(this.healing)}.`} >
-        {this.owner.formatItemHealingDone(this.healing)}
-        </dfn>
-      ),
+      result:`${this.owner.formatItemHealingDone(this.healing)}`,
     };
   }
 }

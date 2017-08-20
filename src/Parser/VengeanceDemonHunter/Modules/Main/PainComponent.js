@@ -1,12 +1,10 @@
-// Based on Main/CastEfficiency.js
-
 import React from 'react';
 import PropTypes from 'prop-types';
 
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 
-const CastEfficiency = ({ categories, abilities }) => {
+const PainComponent = ({ categories, abilities }) => {
   if (!abilities) {
     return <div>Loading...</div>;
   }
@@ -18,14 +16,14 @@ const CastEfficiency = ({ categories, abilities }) => {
             <tr>
               <th>{categories[key]}</th>
               <th className="text-center">Casts</th>
-              <th className="text-center">{key === 'spend' ? <dfn data-tip="Approximately.">Spend</dfn> : ''}</th>
+              <th className="text-center">{key === 'spent' ? <dfn data-tip="Approximately.">Spent</dfn> : ''}</th>
               <th className="text-center">{key === 'generated' ? <dfn data-tip="Approximately.">Generated</dfn> : ''}</th>
               <th className="text-center"><dfn data-tip="Approximately.">Wasted</dfn></th>
               <th></th>
             </tr>
             {abilities
               .filter(item => item.ability.category === categories[key])
-            .map(({ ability, casts, spend, created, wasted, canBeImproved }) => {
+            .map(({ ability, casts, spent, created, wasted, canBeImproved }) => {
               const name = ability.name;
               return (
                 <tr key={name}>
@@ -38,13 +36,13 @@ const CastEfficiency = ({ categories, abilities }) => {
                     {casts}
                   </td>
                   <td className="text-center" style={{ minWidth: 80 }}>
-                    {spend ? spend : ''}
+                    {spent ? spent : ''}
                   </td>
                   <td className="text-center" style={{ minWidth: 80 }}>
                     {created ? created : ''}
                   </td>
                   <td className="text-center" style={{ minWidth: 80 }}>
-                    {wasted ? wasted : ''}
+                    {wasted ? wasted : '0'}
                   </td>
                   <td style={{ width: '25%', color: 'orange' }}>
                     {canBeImproved && !ability.noCanBeImproved && 'Can be improved.'}
@@ -59,7 +57,7 @@ const CastEfficiency = ({ categories, abilities }) => {
   );
 };
 
-CastEfficiency.propTypes = {
+PainComponent.propTypes = {
   abilities: PropTypes.arrayOf(PropTypes.shape({
     ability: PropTypes.shape({
       name: PropTypes.string.isRequired,
@@ -70,4 +68,4 @@ CastEfficiency.propTypes = {
   categories: PropTypes.object,
 };
 
-export default CastEfficiency;
+export default PainComponent;

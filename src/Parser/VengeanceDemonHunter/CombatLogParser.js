@@ -111,15 +111,22 @@ class CombatLogParser extends MainCombatLogParser {
     // This is done to not get the 'cannot read property of undefined' error
     if(this.modules.abilityTracker.abilities[SPELLS.SOUL_FRAGMENT.id] !== undefined)  {
 
+        // Soul Fragments Tracker:
         this.soulFragmentsCasts = this.modules.abilityTracker.abilities[SPELLS.SOUL_FRAGMENT.id].casts;
 
+        // Immolation Aura Trackers:
         this.immolationAuraUptime = this.selectedCombatant.getBuffUptime(SPELLS.IMMOLATION_AURA.id);
+        this.immolationAuraDamage = this.modules.abilityTracker.abilities[SPELLS.IMMOLATION_AURA_FIRST_STRIKE.id].damangeEffective + this.modules.abilityTracker.abilities[SPELLS.IMMOLATION_AURA_BUFF.id].damangeEffective;
 
-        this.immolationAuraDamage = this.modules.abilityTracker.abilities[SPELLS.IMMOLATION_AURA.firstStrikeSpellId].damangeEffective + this.modules.abilityTracker.abilities[SPELLS.IMMOLATION_AURA_BUFF.id].damangeEffective;
-
+        // Empower Wards Tracker:
         this.empowerWardsUptime = this.selectedCombatant.getBuffUptime(SPELLS.EMPOWER_WARDS.id);
 
+        // Demon Spikes Tracker:
         this.demonSpikesUptime = this.selectedCombatant.getBuffUptime(SPELLS.DEMON_SPIKES.buffId);
+
+        // Sigil of Flame Tracker:
+        this.sigilOfFlameUptime = this.modules.enemies.getBuffUptime(SPELLS.SIGIL_OF_FLAME_DEBUFF.id);
+        this.sigilOfFlameDamage = this.modules.abilityTracker.abilities[SPELLS.SIGIL_OF_FLAME_DEBUFF.id].damangeEffective;
     }
 
     if (deadTimePercentage > 0.2) {
@@ -169,12 +176,6 @@ class CombatLogParser extends MainCombatLogParser {
             Total damage taken ${formatThousands(this.totalDamageTaken)}`}
       />,
       <StatisticBox
-        icon={<Icon icon="spell_mage_altertime" alt="Dead GCD time" />}
-        value={`${formatPercentage(deadTimePercentage)} %`}
-        label='Dead GCD time'
-        tooltip="Dead GCD time is available casting time not used. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), etc."
-      />,
-      <StatisticBox
       icon={(
           <img
           src="/img/healing.png"
@@ -184,18 +185,18 @@ class CombatLogParser extends MainCombatLogParser {
       )}
       value={`${formatNumber(this.totalHealing / this.fightDuration * 1000)} HPS`}
       label='Healing done'
-      tooltip={`The total healing done was ${formatThousands(this.totalHealing)}.`}
+      tooltip={`The total healing done was ${formatThousands(this.totalHealing)}.<br/>The total damage absorbed was ${formatThousands(this.totalDamageTakenAbsorb)}.`}
       />,
       <StatisticBox
-        icon={<Icon icon="ability_druid_naturalperfection" alt="Damage absorbed" />}
-        value={`${formatNumber(this.totalDamageTakenAbsorb / this.fightDuration * 1000)} APS`}
-        label='Damage absorbed'
-        tooltip={`The total damage absorbed was ${formatThousands(this.totalDamageTakenAbsorb)}.`}
+      icon={<Icon icon="spell_mage_altertime" alt="Dead GCD time" />}
+      value={`${formatPercentage(deadTimePercentage)} %`}
+      label='Dead GCD time'
+      tooltip="Dead GCD time is available casting time not used. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), etc."
       />,
       <StatisticBox
         icon={<Icon icon="spell_shadow_soulgem" alt="Soul Fragments Generated" />}
         value={`${formatNumber((this.soulFragmentsCasts / this.fightDuration * 1000) * 60)}`}
-        label='Soul Fragments Generated per Minute'
+        label='Soul Fragments per minute'
         tooltip={`The total Soul Fragments generated was ${formatThousands(this.soulFragmentsCasts)}.`}
       />,
       <StatisticBox
@@ -215,6 +216,12 @@ class CombatLogParser extends MainCombatLogParser {
         value={`${formatPercentage(this.empowerWardsUptime / this.fightDuration)}%`}
         label='Empower Wards Uptime'
         tooltip={`The Empower Wards total uptime was ${formatNumber(this.empowerWardsUptime / 1000)} seconds.`}
+      />,
+      <StatisticBox
+        icon={<Icon icon="ability_demonhunter_sigilofinquisition" alt="Sigil of Flame" />}
+        value={`${formatPercentage(this.sigilOfFlameUptime / this.fightDuration)}%`}
+        label='Sigil of Flame Uptime'
+        tooltip={`The Sigil of Flame total damage was ${formatThousands(this.sigilOfFlameDamage)}.<br/>The Sigil of Flame total uptime was ${formatNumber(this.sigilOfFlameUptime / 1000)} seconds.`}
       />,
   ];
 

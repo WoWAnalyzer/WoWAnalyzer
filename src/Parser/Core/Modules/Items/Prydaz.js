@@ -1,5 +1,3 @@
-import React from 'react';
-
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 
@@ -22,11 +20,7 @@ class Prydaz extends Module {
   item() {
     return {
       item: ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS,
-      result: (
-        <dfn data-tip={`The total damaged absorbed by Archimonde's Hatred Reborn was ${this.owner.formatItemAbsorbDone(this.healing)}.`} >
-        {this.owner.formatItemHealingDone(this.healing)}
-        </dfn>
-      ),
+      result: `${this.owner.formatItemHealingDone(this.healing)}`,
     };
   }
 }
