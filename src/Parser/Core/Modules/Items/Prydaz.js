@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import Module from 'Parser/Core/Module';
 
 class Prydaz extends Module {
-  healing = 0;
+  absorb = 0;
 
   on_initialized() {
     if (!this.owner.error) {
@@ -15,14 +15,14 @@ class Prydaz extends Module {
   on_byPlayer_absorbed(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.XAVARICS_MAGNUM_OPUS.id) {
-      this.healing += event.amount;
+      this.absorb += event.amount;
     }
   }
 
   item() {
     return {
       item: ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS,
-      result: this.owner.formatItemHealingDone(this.healing),
+      result: this.owner.formatItemAbsorbDone(this.absorb),
     };
   }
 }
