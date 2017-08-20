@@ -415,6 +415,13 @@ const ITEMS = {
     icon: 'inv_chest_cloth_raidmage_q_01',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+  STRETENS_SLEEPLESS_SHACKLES: {
+    id: 132381,
+    name: 'Streten\'s Sleepless Shackles',
+    icon: 'inv_bracer_cloth_raidwarlock_p_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+
   // T20 Trinkets
   ARCHIVE_OF_FAITH: {
     id: 147006,

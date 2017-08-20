@@ -30,12 +30,14 @@ class CastEfficiency extends CoreCastEfficiency {
       category: SPELL_CATEGORY.ROTATIONAL,
       getCooldown: haste => null,
       noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.CORRUPTION_CAST,
       category: SPELL_CATEGORY.ROTATIONAL,
       getCooldown: haste => null,
       noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.SIPHON_LIFE,
@@ -43,18 +45,21 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => null,
       isActive: combatant => combatant.hasTalent(SPELLS.SIPHON_LIFE_TALENT.id),
       noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.UNSTABLE_AFFLICTION_CAST,
       category: SPELL_CATEGORY.ROTATIONAL,
       getCooldown: haste => null,
       noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.DRAIN_SOUL,
       category: SPELL_CATEGORY.ROTATIONAL,
       getCooldown: haste => null,
       noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.LIFE_TAP,
@@ -62,12 +67,14 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => null,
       extraSuggestion: 'If you\'re using Empowered Life Tap, you should keep a very high uptime on the Empowered Life Tap buff.',
       noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.SEED_OF_CORRUPTION_DEBUFF,
       category: SPELL_CATEGORY.ROTATIONAL,
       getCooldown: haste => null,
       noSuggestion: true,
+      noCanBeImproved: true,
     },
 
     //Cooldowns
@@ -76,6 +83,7 @@ class CastEfficiency extends CoreCastEfficiency {
       category: SPELL_CATEGORY.COOLDOWNS,
       getCooldown: haste => 5,
       noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.SOUL_HARVEST,
@@ -129,12 +137,14 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => null,
       isActive: combatant => combatant.hasTalent(SPELLS.BURNING_RUSH_TALENT.id),
       noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.UNENDING_RESOLVE,
       category: SPELL_CATEGORY.UTILITY,
       getCooldown: haste => 180,
       noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.DEMONIC_CIRCLE_SUMMON,
@@ -142,6 +152,7 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => null,
       isActive: combatant => combatant.hasTalent(SPELLS.DEMONIC_CIRCLE_TALENT.id),
       noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.DEMONIC_CIRCLE_TELEPORT,
@@ -149,6 +160,7 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 30,
       isActive: combatant => combatant.hasTalent(SPELLS.DEMONIC_CIRCLE_TALENT.id),
       noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.SOULSTONE,
@@ -156,6 +168,7 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 600,
       //TODO: shares cooldown with other combat rezzes, don't know how to calculate properly
       noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.SUMMON_DOOMGUARD_TALENTED,
@@ -163,6 +176,7 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => null,
       isActive: combatant => combatant.hasTalent(SPELLS.GRIMOIRE_OF_SUPREMACY_TALENT.id),
       noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.SUMMON_INFERNAL_TALENTED,
@@ -170,12 +184,14 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => null,
       isActive: combatant => combatant.hasTalent(SPELLS.GRIMOIRE_OF_SUPREMACY_TALENT.id),
       noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.DEMONIC_GATEWAY_CAST,
       category: SPELL_CATEGORY.UTILITY,
       getCooldown: haste => 10,
       noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.DARK_PACT,
@@ -183,6 +199,7 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 60,
       isActive: combatant => combatant.hasTalent(SPELLS.DARK_PACT_TALENT.id),
       noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.MORTAL_COIL,
@@ -190,6 +207,7 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 45,
       isActive: combatant => combatant.hasTalent(SPELLS.MORTAL_COIL_TALENT.id),
       noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.GRIMOIRE_OF_SACRIFICE_TALENT,
@@ -197,78 +215,91 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 30,
       isActive: combatant => combatant.hasTalent(SPELLS.GRIMOIRE_OF_SACRIFICE_TALENT.id),
       noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.BANISH,
       category: SPELL_CATEGORY.UTILITY,
       getCooldown: haste => null,
       noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.CREATE_HEALTHSTONE,
       category: SPELL_CATEGORY.UTILITY,
       getCooldown: haste => null,
       noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.CREATE_SOULWELL,
       category: SPELL_CATEGORY.UTILITY,
       getCooldown: haste => 120,
       noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.ENSLAVE_DEMON,
       category: SPELL_CATEGORY.UTILITY,
       getCooldown: haste => null,
       noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.EYE_OF_KILROGG,
       category: SPELL_CATEGORY.UTILITY,
       getCooldown: haste => null,
       noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.FEAR_CAST,
       category: SPELL_CATEGORY.UTILITY,
       getCooldown: haste => null,
       noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.HEALTH_FUNNEL_CAST,
       category: SPELL_CATEGORY.UTILITY,
       getCooldown: haste => null,
       noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.SUMMON_IMP,
       category: SPELL_CATEGORY.UTILITY,
       getCooldown: haste => null,
       noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.SUMMON_VOIDWALKER,
       category: SPELL_CATEGORY.UTILITY,
       getCooldown: haste => null,
       noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.SUMMON_FELHUNTER,
       category: SPELL_CATEGORY.UTILITY,
       getCooldown: haste => null,
       noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.SUMMON_SUCCUBUS,
       category: SPELL_CATEGORY.UTILITY,
       getCooldown: haste => null,
       noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.UNENDING_BREATH,
       category: SPELL_CATEGORY.UTILITY,
       getCooldown: haste => null,
       noSuggestion: true,
+      noCanBeImproved: true,
     },
 
   ];
