@@ -53,6 +53,11 @@ export default {
       name: 'Sigil of Flame',
       icon: 'ability_demonhunter_sigilofinquisition',
   },
+  SIGIL_OF_FLAME_DEBUFF: {
+      id: 204598,
+      name: 'Sigil of Flame Debuff',
+      icon: 'ability_demonhunter_sigilofinquisition',
+  },
   SIGIL_OF_MISERY: {
       id: 207684,
       name: 'Sigil of Misery',
@@ -63,7 +68,7 @@ export default {
     buffId: 203819,
     name: 'Demon Spikes',
     icon: 'ability_demonhunter_demonspikes',
-    pain: 20,
+    painCost: 20,
   },
   FIERY_BRAND: {
     id: 204021,
@@ -79,7 +84,7 @@ export default {
     id: 228477,
     name: 'Soul Cleave',
     icon: 'ability_demonhunter_soulcleave',
-    pain: 43,
+    painCost: 43,
   },
   THROW_GLAIVE: {
     id: 204157,
@@ -90,6 +95,11 @@ export default {
     id: 178740,
     firstStrikeSpellId: 187727,
     name: 'Immolation Aura',
+    icon: 'ability_demonhunter_immolation',
+  },
+  IMMOLATION_AURA_FIRST_STRIKE: {
+    id: 187727,
+    name: 'Immolation Aura First Strike',
     icon: 'ability_demonhunter_immolation',
   },
   IMMOLATION_AURA_BUFF: {
