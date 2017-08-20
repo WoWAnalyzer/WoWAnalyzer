@@ -4,6 +4,7 @@ import bosses from 'common/bosses';
 // Screenshots with no boss names are preferred. Screenshots with a player character is only permitted if the player is barely visible.
 
 export default {
+  // Tomb of Sargeras
   [bosses.TombOfSargeras.GOROTH]: [
     'http://wow.zamimg.com/uploads/screenshots/normal/608510.jpg', // with boss
     'http://wow.zamimg.com/uploads/screenshots/normal/608512-tomb-of-sargeras.jpg', // with boss
@@ -42,5 +43,15 @@ export default {
     'http://wow.zamimg.com/uploads/blog/images/11420.jpg', // empty
     'http://wow.zamimg.com/uploads/blog/images/11416.jpg', // side view with character slightly visible
     'http://wow.zamimg.com/uploads/guide/seo/5230.jpg', // boss close up
+  ],
+  // Antorus, the Burning Throne
+  [bosses.TombOfSargeras.HOUNDS_OF_SARGERAS]: [
+    'https://static.icy-veins.com/forum-files/uploads/monthly_2017_07/WoWScrnShot_072917_124015.jpg.8740813002cc2b68890d787157782415.jpg', // with boss + name
+  ],
+  [bosses.TombOfSargeras.WAR_COUNCIL]: [
+    'https://static.icy-veins.com/forum-files/uploads/monthly_2017_07/WoWScrnShot_072917_000205.jpg.b9ce4e1e2d8d1e32eb8a0ec20ced7b6f.jpg', // with boss + name
+  ],
+  [bosses.TombOfSargeras.GAROTHI_WORLDBREAKER]: [
+    'https://static.icy-veins.com/forum-files/uploads/monthly_2017_07/WoWScrnShot_072817_223530.jpg.0ccec2c807eedecde7b4470ca010a41a.jpg', // with boss + name
   ],
 };
