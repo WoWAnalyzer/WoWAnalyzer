@@ -7,6 +7,11 @@ import Module from 'Parser/Core/Module';
 import SPELLS from 'common/SPELLS';
 
 class Pulverize extends Module {
+  on_initialized() {
+    if (!this.owner.error) {
+      this.active = this.owner.selectedCombatant.hasTalent(SPELLS.PULVERIZE_TALENT.id);
+    }
+  }
 
   suggestions(when) {
     const pulverizeUptimePercentage = this.owner.selectedCombatant.getBuffUptime(SPELLS.PULVERIZE_BUFF.id) / this.owner.fightDuration;
@@ -14,7 +19,7 @@ class Pulverize extends Module {
     this.owner.selectedCombatant.hasTalent(SPELLS.PULVERIZE_TALENT.id) && 
     when(pulverizeUptimePercentage).isLessThan(0.9)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span> Your <SpellLink id={SPELLS.PULVERIZE_TALENT.id} /> uptime should be near 100%, unless there are extended periods of downtime. All targets deal less damage to you due to the <SpellLink id={SPELLS.PULVERIZE_BUFF.id} /> buff.</span>)
+        return suggest(<span> Your <SpellLink id={SPELLS.PULVERIZE_TALENT.id} /> uptime was {formatPercentage(pulverizeUptimePercentage)}%, unless there are extended periods of downtime it should be over should be near 100%. <br/>All targets deal less damage to you due to the <SpellLink id={SPELLS.PULVERIZE_BUFF.id} /> buff.</span>)
           .icon(SPELLS.PULVERIZE_TALENT.icon)
           .actual(`${formatPercentage(pulverizeUptimePercentage)}% uptime`)
           .recommended(`${Math.round(formatPercentage(recommended))}% is recommended`)
@@ -26,11 +31,11 @@ class Pulverize extends Module {
     const pulverizeUptimePercentage = this.owner.selectedCombatant.getBuffUptime(SPELLS.PULVERIZE_BUFF.id) / this.owner.fightDuration;
     
     return (
-      this.owner.selectedCombatant.hasTalent(SPELLS.PULVERIZE_TALENT.id) && (<StatisticBox
+      <StatisticBox
         icon={<SpellIcon id={SPELLS.PULVERIZE_TALENT.id} />}
         value={`${formatPercentage(pulverizeUptimePercentage)}%`}
         label='Pulverize uptime'
-      />)
+      />
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(13);
