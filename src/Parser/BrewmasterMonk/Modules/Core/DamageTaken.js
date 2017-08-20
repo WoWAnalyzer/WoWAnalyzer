@@ -1,6 +1,6 @@
 import React from 'react';
 import { formatThousands, formatNumber, formatPercentage } from 'common/format';
-import MainDamageTaken, { DamageValue }from 'Parser/Core/Modules/DamageTaken';
+import CoreDamageTaken, { DamageValue }from 'Parser/Core/Modules/DamageTaken';
 import { getMagicDescription } from 'common/DamageTypes.js';
 import Icon from 'common/Icon';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
@@ -8,7 +8,7 @@ import SPELLS from 'common/SPELLS';
 
 const debug = true;
 
-class DamageTaken extends MainDamageTaken {
+class DamageTaken extends CoreDamageTaken {
   
   on_toPlayer_absorbed(event) {
     // Need to take the stagger absorb off damage taken, other absorbs such as external and Dark Side of the Moon should remain.

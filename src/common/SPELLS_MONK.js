@@ -382,4 +382,9 @@ export default {
     name: 'Hot Blooded',
     icon: 'ability_monk_breathoffire',
   },
+  ZEN_MEDITATION: {
+    id: 115176,
+    name: 'Zen Meditation',
+    icon: 'ability_monk_zenmeditation',
+  },
 };

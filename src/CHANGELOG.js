@@ -1,4 +1,5 @@
 export default `
+20-08-2017 - Brewmaster Monk: Added more information about what occured while ISB was up or not (by wopr)
 20-08-2017 - Vengeance Demon Hunter: Added Pain tracker chart and changed Spirit Bomb uptime buff to Frailty debuff uptime. (by Mamtooth)
 20-08-2017 - Brewmaster Monk: This is an initial implementation, will be updated soon (by wopr)
 20-08-2017 - The background image will now be a screenshot of the boss currently analyzing when available. (by Zerotorescue)
