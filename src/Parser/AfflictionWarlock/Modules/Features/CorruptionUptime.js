@@ -19,7 +19,7 @@ class CorruptionUptime extends Module {
     if (this.owner.selectedCombatant.hasBuff(SPELLS.WARLOCK_AFFLI_T20_2P_BONUS.id)) {
       when(corruptionUptime).isLessThan(0.95)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<span>Your Corruption uptime can be improved. Try to pay more attention to your Corruption on the boss, which is especially important with the <SpellLink id={SPELLS.WARLOCK_AFFLI_T20_2P_BONUS.id} children='T20 2-piece set bonus'/>.</span>)
+          return suggest(<span>Your Corruption uptime can be improved. Try to pay more attention to your Corruption on the boss, which is especially important with the <SpellLink id={SPELLS.WARLOCK_AFFLI_T20_2P_BONUS.id}>T20 2-piece set bonus</SpellLink>.</span>)
             .icon(SPELLS.CORRUPTION_CAST.icon)
             .actual(`${formatPercentage(actual)}% Corruption uptime`)
             .recommended(`>${formatPercentage(recommended)}% is recommended`)

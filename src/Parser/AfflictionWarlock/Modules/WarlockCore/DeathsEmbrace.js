@@ -1,12 +1,7 @@
-import React from 'react';
-
 import Module from 'Parser/Core/Module';
 
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import SpellIcon from 'common/SpellIcon';
-import { formatNumber, formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../Constants';
 import getDamageBonus from '../WarlockCore/getDamageBonus';
@@ -54,19 +49,6 @@ class DeathsEmbrace extends Module {
     }
     this.bonusDmg += getDamageBonus(event, this.getDeathEmbraceBonus(targetHealthPercentage));
   }
-
-  statistic() {
-    return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.DEATHS_EMBRACE_TALENT.id} />}
-        value={`${formatNumber(this.bonusDmg / this.owner.fightDuration * 1000)} DPS`}
-        label='Damage contributed'
-        tooltip={`Your Death's Embrace talent contributed ${formatNumber(this.bonusDmg)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} %).`}
-      />
-    );
-  }
-
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(3);
 }
 
 export default DeathsEmbrace;
