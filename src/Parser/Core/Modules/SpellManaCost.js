@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import Module from 'Parser/Core/Module';
-import RESOURCE_TYPES from 'Parser/Core/RESOURCE_TYPES';
+import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 
 class SpellManaCost extends Module {
   on_byPlayer_cast(event) {

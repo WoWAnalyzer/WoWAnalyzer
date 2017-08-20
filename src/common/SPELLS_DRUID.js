@@ -435,4 +435,9 @@ export default {
     name: 'Pulverize',
     icon: 'spell_druid_malfurionstenacity',
   },
+  SKYSECS_HOLD_HEAL: {
+    id: 208218,
+    name: 'Skysec\'s Hold',
+    icon: 'spell_druid_bearhug',
+  },
 };

@@ -492,6 +492,12 @@ const ITEMS = {
     icon: 'inv_cape_draenorquest90_b_03_mail',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+  SKYSECS_HOLD: {
+    id: 137025,
+    name: 'Skysec\'s Hold',
+    icon: 'inv_boots_mail_02',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
 
   // Vengeance Demon Hunter legendaries
   KIREL_NARAK: {
