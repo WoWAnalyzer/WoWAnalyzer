@@ -465,7 +465,12 @@ const ITEMS = {
     icon: 'inv_relics_warpring',
     quality: ITEM_QUALITIES.EPIC,
   },
-
+  SPECTRAL_THURIBLE: {
+    id: 147018,
+    name: 'Spectral Thurible',
+    icon: 'inv_6_2raid_trinket_1d',
+    quality: ITEM_QUALITIES.EPIC,
+  },
   // Guardian legendaries
   ELIZES_EVERLASTING_ENCASEMENT: {
     id: 137067,

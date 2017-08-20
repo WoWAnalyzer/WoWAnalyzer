@@ -151,6 +151,11 @@ export default {
     name: 'Spectral Bolt',
     icon: 'ability_thunderking_thunderstruck',
   },
+  SPECTRAL_THURIBLE_DAMAGE: {
+    id: 246751,
+    name: 'Piercing Anguish',
+    icon: 'inv_spear_08',
+  },
   //Engine of Eradication buff
   DEMONIC_VIGOR: {
     id: 242612,

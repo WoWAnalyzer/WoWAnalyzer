@@ -27,6 +27,7 @@ import VialOfCeaselessToxins from './Modules/Items/VialOfCeaselessToxins';
 import SpecterOfBetrayal from './Modules/Items/SpecterOfBetrayal';
 import EngineOfEradication from './Modules/Items/EngineOfEradication';
 import TarnishedSentinelMedallion from './Modules/Items/TarnishedSentinelMedallion';
+import SpectralThurible from './Modules/Items/SpectralThurible';
 
 // Shared Buffs
 import VantusRune from './Modules/VantusRune';
@@ -58,7 +59,6 @@ class CombatLogParser {
     darkmoonDeckPromises: DarkmoonDeckPromises,
     prePotion: PrePotion,
     gnawedThumbRing: GnawedThumbRing,
-    tarnishedSentinelMedallion: TarnishedSentinelMedallion,
     // Tomb trinkets:
     archiveOfFaith: ArchiveOfFaith,
     barbaricMindslaver: BarbaricMindslaver,
@@ -67,6 +67,8 @@ class CombatLogParser {
     vialCeaslessToxins: VialOfCeaselessToxins,
     specterOfBetrayal: SpecterOfBetrayal,
     engineOfEradication: EngineOfEradication,
+    tarnishedSentinelMedallion: TarnishedSentinelMedallion,
+    spectralThurible: SpectralThurible,
   };
   // Override this with spec specific modules
   static specModules = {};
