@@ -1,5 +1,6 @@
 export default `
-20-08-2017 - Brewmaster Monk: This is an intial implementation, will be updated soon (by wopr)
+20-08-2017 - Vengeance Demon Hunter: Added Pain tracker chart and changed Spirit Bomb uptime buff to Frailty debuff uptime. (by Mamtooth)
+20-08-2017 - Brewmaster Monk: This is an initial implementation, will be updated soon (by wopr)
 20-08-2017 - The background image will now be a screenshot of the boss currently analyzing when available. (by Zerotorescue)
 20-08-2017 - Restoration Shaman: Added Ancestral Vigor metric. (by Yuyz0112)
 19-08-2017 - Guardian Druid: Added detail on Ironfur usage.
