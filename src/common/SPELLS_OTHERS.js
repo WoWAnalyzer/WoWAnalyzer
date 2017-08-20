@@ -161,6 +161,11 @@ export default {
     name: 'Terror From Below',
     icon: 'trade_archaeology_sharkjaws',
   },
+  TOME_OF_UNRAVELING_SANITY_DAMAGE: {
+    id: 243941,
+    name: 'Insidious Corruption',
+    icon: 'inv_archaeology_70_demon_flayedskinchronicle',
+  },
   //Engine of Eradication buff
   DEMONIC_VIGOR: {
     id: 242612,

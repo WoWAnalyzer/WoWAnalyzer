@@ -29,6 +29,7 @@ import EngineOfEradication from './Modules/Items/EngineOfEradication';
 import TarnishedSentinelMedallion from './Modules/Items/TarnishedSentinelMedallion';
 import SpectralThurible from './Modules/Items/SpectralThurible';
 import TerrorFromBelow from './Modules/Items/TerrorFromBelow';
+import TomeOfUnravelingSanity from './Modules/Items/TomeOfUnravelingSanity';
 
 // Shared Buffs
 import VantusRune from './Modules/VantusRune';
@@ -71,6 +72,7 @@ class CombatLogParser {
     tarnishedSentinelMedallion: TarnishedSentinelMedallion,
     spectralThurible: SpectralThurible,
     terrorFromBelow: TerrorFromBelow,
+    tomeOfUnravelingSanity: TomeOfUnravelingSanity,
   };
   // Override this with spec specific modules
   static specModules = {};

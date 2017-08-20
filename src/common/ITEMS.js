@@ -477,6 +477,12 @@ const ITEMS = {
     icon: 'trade_archaeology_sharkjaws',
     quality: ITEM_QUALITIES.EPIC,
   },
+  TOME_OF_UNRAVELING_SANITY: {
+    id: 147019,
+    name: 'Tome of Unraveling Sanity',
+    icon: 'inv_archaeology_70_demon_flayedskinchronicle',
+    quality: ITEM_QUALITIES.EPIC,
+  },
   // Guardian legendaries
   ELIZES_EVERLASTING_ENCASEMENT: {
     id: 137067,
