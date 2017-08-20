@@ -49,7 +49,7 @@ class Stagger extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.IRONSKIN_BREW.id} />}
         value={`${formatNumber(totalStaggered)} `}
-        label='Damage avoided'
+        label='Damage staggered'
         tooltip={`Incoming damage staggered:
           <ul>
             <li>Total physical damage staggered: ${formatThousands(this.totalPhysicalStaggered)}</li>
