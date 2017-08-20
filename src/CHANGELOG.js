@@ -1,8 +1,9 @@
 export default `
+20-08-2017 - Vengeance Demon Hunter: Added Pain tracker chart and changed Spirit Bomb uptime buff to Frailty debuff uptime. (by Mamtooth)
 20-08-2017 - The background image will now be a screenshot of the boss currently analyzing when available. (by Zerotorescue)
 20-08-2017 - Restoration Shaman: Added Ancestral Vigor metric. (by Yuyz0112)
 19-08-2017 - Guardian Druid: Added detail on Ironfur usage.
-19-08-2017 - Vengeance Demon Hunter: Added more useful and specific statistics tooltips.
+19-08-2017 - Vengeance Demon Hunter: Added more useful and specific statistics tooltips. (by Mamtooth)
 18-08-2017 - Added Affliction Warlock support by @Chizu.
 18-08-2017 - Added <span class="Warlock">Affliction Warlock</span> support by @Chizu.
 18-08-2017 - Guardian Druid: Updates to align with new module structure and added overkill into DTPS display.
