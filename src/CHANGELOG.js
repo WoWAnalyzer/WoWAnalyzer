@@ -1,4 +1,5 @@
 export default `
+20-08-2017 - Brewmaster Monk: Added more information about what occured while ISB was up or not (by wopr)
 20-08-2017 - Brewmaster Monk: This is an intial implementation, will be updated soon (by wopr)
 20-08-2017 - The background image will now be a screenshot of the boss currently analyzing when available. (by Zerotorescue)
 20-08-2017 - Restoration Shaman: Added Ancestral Vigor metric. (by Yuyz0112)
