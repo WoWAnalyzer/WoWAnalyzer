@@ -2,13 +2,14 @@ import React from 'react';
 import Module from 'Parser/Core/Module';
 
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
+import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
 import { formatNumber } from 'common/format';
 
-import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../../Constants';
-import SoulShardTracker from '../../SoulShards/SoulShardTracker';
+import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../Constants';
+import SoulShardTracker from '../SoulShards/SoulShardTracker';
 
-class PowerCordOfLethtendris extends Module {
+class Tier20_2set extends Module {
   static dependencies = {
     soulShardTracker: SoulShardTracker,
   };
@@ -18,7 +19,7 @@ class PowerCordOfLethtendris extends Module {
 
   on_initialized() {
     if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasWaist(ITEMS.POWER_CORD_OF_LETHTENDRIS.id);
+      this.active = this.owner.selectedCombatant.hasBuff(SPELLS.WARLOCK_AFFLI_T20_2P_BONUS.id);
     }
   }
 
@@ -34,18 +35,19 @@ class PowerCordOfLethtendris extends Module {
     // but with denominator 1 in this case, if this.totalDamage = 0, then dividing by 1 still gives correct result of average damage = 0
     const avgDamage = this.totalDamage / (this.totalTicks > 0 ? this.totalTicks : 1);
     const TICKS_PER_UA = 4;
-    const shardsGained = this.soulShardTracker.gained[SPELLS.POWER_CORD_OF_LETHTENDRIS_SHARD_GEN.id].shards;
+    const shardsGained = this.soulShardTracker.gained[SPELLS.WARLOCK_AFFLI_T20_2P_SHARD_GEN.id].shards;
     const estimatedUAdamage = shardsGained * TICKS_PER_UA * avgDamage;
     return {
-      item: ITEMS.POWER_CORD_OF_LETHTENDRIS,
+      id: `spell-${SPELLS.WARLOCK_AFFLI_T20_2P_BONUS.id}`,
+      icon: <SpellIcon id={SPELLS.WARLOCK_AFFLI_T20_2P_BONUS.id} />,
+      title: <SpellLink id={SPELLS.WARLOCK_AFFLI_T20_2P_BONUS.id} />,
       result: (
         <dfn data-tip={`${formatNumber(estimatedUAdamage)} damage - ${this.owner.formatItemDamageDone(estimatedUAdamage)} <br />This result is estimated by multiplying number of Soul Shards gained from this item by the average Unstable Affliction damage for the whole fight.`}>
           {`${shardsGained} Soul Shards gained`}
         </dfn>
-
       ),
     };
 
   }
 }
-export default PowerCordOfLethtendris;
+export default Tier20_2set;

@@ -162,4 +162,9 @@ export default {
     name: 'March of the Legion',
     icon: 'ability_warlock_fireandbrimstone',
   },
+  KILJAEDENS_BURNING_WISH_DAMAGE: {
+    id: 235999,
+    name: 'Kil\'jaeden\'s Burning Wish',
+    icon: 'sha_spell_fire_bluepyroblast_nightmare',
+  },
 };

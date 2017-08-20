@@ -34,6 +34,8 @@ import SoulOfTheNetherlord from './Modules/Items/Legendaries/SoulOfTheNetherlord
 import PowerCordOfLethtendris from './Modules/Items/Legendaries/PowerCordOfLethtendris';
 import SacrolashsDarkStrike from './Modules/Items/Legendaries/SacrolashsDarkStrike';
 
+import Tier20_2set from './Modules/Items/Tier20_2set';
+
 class CombatLogParser extends MainCombatLogParser {
 
   static specModules = {
@@ -69,6 +71,9 @@ class CombatLogParser extends MainCombatLogParser {
     soulOfTheNetherlord: SoulOfTheNetherlord,
     powerCordOfLethtendris: PowerCordOfLethtendris,
     sacrolashsDarkStrike: SacrolashsDarkStrike,
+
+    //Items
+    tier20_2set: Tier20_2set,
   };
 
   generateResults() {

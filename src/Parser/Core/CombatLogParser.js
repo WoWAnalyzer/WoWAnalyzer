@@ -12,6 +12,7 @@ import SpellManaCost from './Modules/SpellManaCost';
 import Prydaz from './Modules/Items/Prydaz';
 import Velens from './Modules/Items/Velens';
 import SephuzsSecret from './Modules/Items/SephuzsSecret';
+import KiljaedensBurningWish from './Modules/Items/KiljaedensBurningWish';
 // Shared Epics
 import DrapeOfShame from './Modules/Items/DrapeOfShame';
 import DarkmoonDeckPromises from './Modules/Items/DarkmoonDeckPromises';
@@ -49,6 +50,7 @@ class CombatLogParser {
     prydaz: Prydaz,
     velens: Velens,
     sephuzsSecret: SephuzsSecret,
+    kiljaedensBurningWish: KiljaedensBurningWish,
     // Epics:
     drapeOfShame: DrapeOfShame,
     amalgamsSeventhSpine: AmalgamsSeventhSpine,
