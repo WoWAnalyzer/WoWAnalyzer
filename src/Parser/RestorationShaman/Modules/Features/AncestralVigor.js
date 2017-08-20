@@ -10,14 +10,11 @@ import Module from 'Parser/Core/Module';
 
 const ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH = 0.1;
 const HP_THRESHOLD = 1 - 1/(1 + ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH);
-// this threshold was used to filter the big damages that has more chance to kill a player if there is no ancestral vigor buff.
-const BIG_DAMAGE_THRESHOLD = 0.2;
 
 class AncestralVigor extends Module {
 
   loaded = false;
   totalLifeSaved = 0;
-  totalLifeSavedFromBigDamage = 0;
   on_initialized() {
     if (!this.owner.error) {
       this.active = !!this.owner.selectedCombatant.hasTalent(SPELLS.ANCESTRAL_VIGOR_TALENT.id);
@@ -35,7 +32,6 @@ class AncestralVigor extends Module {
           throw json.error;
         } else {
           self.totalLifeSaved += json.events.length;
-          self.totalLifeSavedFromBigDamage += json.events.filter(e => e.amount / e.maxHitPoints >= BIG_DAMAGE_THRESHOLD).length;
           if (json.nextPageTimestamp) {
             return checkAndFetch(Object.assign(query, { start: json.nextPageTimestamp }));
           } else {
@@ -74,17 +70,16 @@ class AncestralVigor extends Module {
   }
 
   statistic() {
-    let tooltip = `The theoretically result of how many player would been dead without the ancestral vigor buff was ${this.totalLifeSaved}.`;
-    if (this.totalLifeSavedFromBigDamage) {
-      tooltip += `<br/>Amoung the ${this.totalLifeSaved} lives saved by the buff, ${this.totalLifeSavedFromBigDamage} of them were caused by a big damage(>=${BIG_DAMAGE_THRESHOLD * 100}% of player's HP) which has a higher risk to cause death.`;
-    }
+    const tooltip = this.loaded
+      ? 'The amount of players that would have died without your Ancestral Vigor buff.'
+      : 'Click to analyze how many lives were saved by the ancestral vigor buff.';
     return (
       <LazyLoadStatisticBox
         loader={this.load.bind(this)}
         icon={<SpellIcon id={SPELLS.ANCESTRAL_VIGOR.id} />}
         value={`≈${this.totalLifeSaved}`}
-        label="Life saved"
-        tooltip={this.loaded ? tooltip : 'Click to load how many lives were saved by the ancestral vigor buff.'}
+        label="Lives saved"
+        tooltip={tooltip}
       />
     );
   }
