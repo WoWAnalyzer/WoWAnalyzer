@@ -13,14 +13,6 @@ export const SPELL_CATEGORY = {
 
 const CPM_ABILITIES = [
   {
-    spell: SPELLS.SPIRIT_BOMB_TALENT,
-    isActive: combatant => combatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id),
-    category: SPELL_CATEGORY.ROTATIONAL,
-    getCooldown: haste => 18,
-    recommendedCastEfficiency: 1.0,
-    extraSuggestion: <span>This is your core healing ability. Try to refresh it even if you have just one <SpellLink id={SPELLS.SOUL_FRAGMENT.id} /> available. </span>,
-  },
-  {
     spell: SPELLS.IMMOLATION_AURA,
     category: SPELL_CATEGORY.ROTATIONAL,
     getCooldown: haste => 15 / (1 + haste),
@@ -54,8 +46,8 @@ const CPM_ABILITIES = [
     spell: SPELLS.FRACTURE_TALENT,
     isActive: combatant => combatant.hasTalent(SPELLS.FRACTURE_TALENT.id),
     category: SPELL_CATEGORY.ROTATIONAL,
-    getCooldown: haste => 5,
-    recommendedCastEfficiency: 0.90,
+    getCooldown: haste => 6,
+    recommendedCastEfficiency: 0.75,
     extraSuggestion: <span>This is your main <SpellLink id={SPELLS.SOUL_FRAGMENT.id} /> generator spell and it does a single target DPS increase by just 30 Pain per cast. The only moment you can delay it's cast is if you already have 5 unused <SpellLink id={SPELLS.SOUL_FRAGMENT.id} />. </span>,
   },
   {
