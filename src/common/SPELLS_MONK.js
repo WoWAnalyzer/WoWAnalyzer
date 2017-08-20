@@ -305,4 +305,71 @@ export default {
     name: 'Surge of Mists',
     icon: 'spell_monk_mistweaver_spec',
   },
+
+  //Brewmaster
+  BLACKOUT_STRIKE: {
+    id: 205523,
+    name: 'Blackout Strike',
+    icon: 'ability_monk_blackoutstrike',
+  },
+  KEG_SMASH: {
+    id: 121253,
+    name: 'Keg Smash',
+    icon: 'achievement_brewery_2',
+  },
+  IRONSKIN_BREW: {
+    id: 115308,
+    name: 'Ironskin Brew',
+    icon: 'ability_monk_ironskinbrew',
+  },
+  IRONSKIN_BREW_BUFF: {
+    id: 215479,
+    name: 'Ironskin Brew',
+    icon: 'ability_monk_ironskinbrew',
+  },
+  PURIFYING_BREW: {
+    id: 119582,
+    name: 'Purifying Brew',
+    icon: 'inv_misc_beer_06',
+  },
+  BREATH_OF_FIRE: {
+    id: 115181,
+    name: 'Breath of Fire',
+    icon: 'ability_monk_breathoffire',
+  },
+  FORTIFYING_BREW_BRM: {
+    id: 115203,
+    name: 'Fortifying Brew',
+    icon: 'ability_monk_fortifyingale_new',
+  },
+  EXPLODING_KEG: {
+    id: 214326,
+    name: 'Exploding Keg',
+    icon: 'inv_staff_2h_artifactmonkeyking_d_02',
+  },
+  STAGGER: {
+    id: 115069,
+    name: 'Stagger',
+    icon: 'monk_stance_drunkenox',
+  },
+  STAGGER_TAKEN: {
+    id: 124255,
+    name: 'Stagger',
+    icon: 'ability_rogue_cheatdeath',
+  },
+  EXPEL_HARM_DAMAGE: {
+    id: 115129,
+    name: 'Expel Harm',
+    icon: 'ability_monk_expelharm',
+  },
+  RUSHING_JADE_WIND: {
+    id: 148187,
+    name: 'Rushing Jade Wind',
+    icon: 'ability_monk_rushingjadewind',
+  },
+  EXPEL_HARM: {
+    id: 115072,
+    name: 'Expel Harm',
+    icon: 'ability_monk_expelharm',
+  },
 };
