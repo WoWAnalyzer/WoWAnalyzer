@@ -16,8 +16,15 @@ const CPM_ABILITIES = [
     spell: SPELLS.IMMOLATION_AURA,
     category: SPELL_CATEGORY.ROTATIONAL,
     getCooldown: haste => 15 / (1 + haste),
-    recommendedCastEfficiency: 0.9,
+    recommendedCastEfficiency: 0.95,
     extraSuggestion: <span>This is a great Pain filler spell. Try to always cast it on cooldown, specially when using <ItemLink id={ITEMS.KIREL_NARAK.id} details={ITEMS.KIREL_NARAK}/> legendary to trigger it's passive. </span>,
+  },
+  {
+    spell: SPELLS.SIGIL_OF_FLAME_DEBUFF,
+    category: SPELL_CATEGORY.ROTATIONAL,
+    getCooldown: haste => 9,
+    recommendedCastEfficiency: 0.9,
+    extraSuggestion: <span>This is a great Fire DoT spell. Try to always cast it on cooldown, specially when using <SpellLink id={SPELLS.FLAME_CRASH_TALENT.id} /> talent to apply it just by using <SpellLink id={SPELLS.INFERNAL_STRIKE.id} /> ability. </span>,
   },
   {
     spell: SPELLS.DEMON_SPIKES,
