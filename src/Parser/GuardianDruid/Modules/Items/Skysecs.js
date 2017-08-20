@@ -7,6 +7,10 @@ import Module from 'Parser/Core/Module';
 
 import { formatPercentage, formatNumber } from 'common/format';
 
+const FRENZIED_REGENERATION_TICKS_PER_CAST = 6;
+const SKYSECS_HOLD_TICKS_PER_CAST = 3;
+const SKYSECS_HOLD_HP_PER_CAST = 0.12;
+
 /**
  * Healing done by Skysec's hold is often misleading in logs, because it often causes
  * healing from Frenzied Regeneration to overheal where it otherwise wouldn't have.
@@ -24,7 +28,6 @@ class SkysecsHold extends Module {
   lastSkysecsTick = 0;
   totalCasts = 0;
   averagePlayerHPs = [];
-  efficiency = 1;
 
   /**
    * FR healing with SH operates in cycles; two ticks of FR then one tick of SH, repeated 3 times.
@@ -49,8 +52,8 @@ class SkysecsHold extends Module {
         this.currentCycleEffectiveHeal = 0;
         this.potentialHeal += this.lastSkysecsTick * this.currentCycleSHTicksLeft;
       }
-      this.currentCycleFRTicksLeft = 6;
-      this.currentCycleSHTicksLeft = 3;
+      this.currentCycleFRTicksLeft = FRENZIED_REGENERATION_TICKS_PER_CAST;
+      this.currentCycleSHTicksLeft = SKYSECS_HOLD_TICKS_PER_CAST;
     }
   }
 
@@ -69,15 +72,22 @@ class SkysecsHold extends Module {
     }
   }
 
-  item() {
-    const effectiveHeal = this.overallEffectiveHeal + this.currentCycleEffectiveHeal;
-    this.efficiency = effectiveHeal / this.potentialHeal;
+  get effectiveHeal() {
+    return this.overallEffectiveHeal + this.currentCycleEffectiveHeal;
+  }
 
+  get efficiency() {
+    if (this.potentialHeal === 0) return 0;
+    return this.effectiveHeal / this.potentialHeal;
+  }
+
+  item() {
     const fightLengthSec = (this.owner.fight.end_time - this.owner.fight.start_time) / 1000;
 
-    // Skysec's heal
+    // Skysec's heals as a percentage of max HP at the time of the cast, so we average out
+    // the HPs over all casts to estimate the HPS
     const averagePlayerHP = this.averagePlayerHPs.reduce((sum, hp) => sum + hp, 0) / this.totalCasts;
-    const effectiveHealPerCast = this.efficiency * 0.12 * averagePlayerHP;
+    const effectiveHealPerCast = this.efficiency * SKYSECS_HOLD_HP_PER_CAST * averagePlayerHP;
     const effectiveHPS = (effectiveHealPerCast * this.totalCasts) / fightLengthSec;
 
     return {
@@ -90,7 +100,7 @@ class SkysecsHold extends Module {
 
               The effeciency rating is calculated as the amount of "effective healing" (healing that did not affect Frenzied Regeneration) divided by the amount of "potential healing" (all healing and overhealing done by Skysec's, including lost healing due to double-tapping).<br /><br />
 
-              Effective healing: ${formatNumber(effectiveHeal)}<br />
+              Effective healing: ${formatNumber(this.effectiveHeal)}<br />
               Potential healing: ${formatNumber(this.potentialHeal)}<br />
               Efficiency: ${formatPercentage(this.efficiency)}%<br />
               Effective HPS: ${formatNumber(effectiveHPS)} HPS
@@ -106,11 +116,11 @@ class SkysecsHold extends Module {
   suggestions(when) {
     when(this.efficiency).isLessThan(0.9)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You should not use <ItemLink id={ITEMS.SKYSECS_HOLD.id} /> if you cannot get close to full effectiveness from its extra heal.</span>)
+        return suggest(<span>Your <ItemLink id={ITEMS.SKYSECS_HOLD.id} /> efficiency was {formatPercentage(this.efficiency)}%.  Consider using another legendary if you cannot get close to full effectiveness from its extra heal, as this makes <ItemLink id={ITEMS.SKYSECS_HOLD.id} /> a poor legendary.</span>)
           .icon(ITEMS.SKYSECS_HOLD.icon)
           .actual(`${formatPercentage(this.efficiency)}% Skysec's Hold efficiency`)
-          .recommended(`>90% is recommended`)
-          .regular(0.85).major(0.8);
+          .recommended(`>${formatPercentage(recommended, 0)}% is recommended`)
+          .regular(recommended - 0.05).major(recommended - 0.1);
       });
   }
 }
