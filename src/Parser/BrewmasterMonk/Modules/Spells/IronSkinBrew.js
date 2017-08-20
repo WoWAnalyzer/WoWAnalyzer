@@ -16,7 +16,7 @@ class IronSkinBrew extends Module {
   damageWithIronSkinBrew = 0;
   hitsWithoutIronSkinBrew = 0;
   damageWithoutIronSkinBrew = 0;
-  
+
   // This value is just for dev purposes to check the total, its not shown on the tooltip.
   staggerDot = 0;
 
@@ -99,7 +99,7 @@ class IronSkinBrew extends Module {
                 <li>You were hit <b>${this.hitsWithIronSkinBrew}</b> times with your Iron Skin Brew buff (<b>${formatThousands(this.damageWithIronSkinBrew)}</b> damage).</li>
                 <li>You were hit <b>${this.hitsWithoutIronSkinBrew}</b> times <b><i>without</i></b> your Iron Skin Brew buff (<b>${formatThousands(this.damageWithoutIronSkinBrew)}</b> damage).</li>
             </ul>
-            <b>${formatPercentage(hitsMitigatedPercent)}%</b> of attacks were mitigated with IronSkinBrew.`}
+            <b>${formatPercentage(hitsMitigatedPercent)}%</b> of attacks were mitigated with Iron Skin Brew.`}
       />
     );
   }
