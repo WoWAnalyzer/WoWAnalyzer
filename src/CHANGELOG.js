@@ -1,4 +1,5 @@
 export default `
+20-08-2017 - The background image will now be a screenshot of the boss currently analyzing when available. (by Zerotorescue)
 20-08-2017 - Restoration Shaman: Added Ancestral Vigor metric. (by Yuyz0112)
 19-08-2017 - Guardian Druid: Added detail on Ironfur usage.
 19-08-2017 - Vengeance Demon Hunter: Added more useful and specific statistics tooltips.
