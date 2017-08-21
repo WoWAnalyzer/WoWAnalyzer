@@ -13,37 +13,37 @@ export function processEvents(events, module, fightEndTime) {
     if (event.timestamp <= fightEndTime) {
       if (event.type === "absorbed") {
         if (event.targetid === thisPlayer && module.on_toPlayer_absorbed) {
-          module.on_toPlayer_absorbed(event);
+          module.triggerEvent('toPlayer_absorbed', event);
         }
       }
       if (event.type === "damage") {
         if (event.targetid === thisPlayer && module.on_toPlayer_damage) {
-          module.on_toPlayer_damage(event);
+          module.triggerEvent('toPlayer_damage', event);
         }
       }
       if (event.type === "cast") {
         if (event.sourceid === thisPlayer && module.on_byPlayer_cast) {
-          module.on_byPlayer_cast(event);
+          module.triggerEvent('byPlayer_cast', event);
         }
       }
       if (event.type === "heal") {
         if (event.targetid === thisPlayer && module.on_toPlayer_heal) {
-          module.on_toPlayer_heal(event);
+          module.triggerEvent('toPlayer_heal', event);
         }
       }
       if (event.type === "applybuff") {
         if (event.sourceid === thisPlayer && module.on_byPlayer_applybuff) {
-          module.on_byPlayer_applybuff(event);
+          module.triggerEvent('byPlayer_applybuff', event);
         }
       }
       if (event.type === "refreshbuff") {
         if (event.sourceid === thisPlayer && module.on_byPlayer_refreshbuff) {
-          module.on_byPlayer_refreshbuff(event);
+          module.triggerEvent('byPlayer_refreshbuff', event);
         }
       }
       if (event.type === "removebuff") {
         if (event.sourceid === thisPlayer && module.on_byPlayer_removebuff) {
-          module.on_byPlayer_removebuff(event);
+          module.triggerEvent('byPlayer_removebuff', event);
         }
       }
     }
