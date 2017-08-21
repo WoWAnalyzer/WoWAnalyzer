@@ -1,4 +1,5 @@
 export default `
+21-08-2017 - Brewmaster Monk: Fixed bug with stagger if a tick of the dot is absorbed it will calculate correctly (by wopr)
 21-08-2017 - Affliction Warlock: Added rest of the legendaries (apart from head), some ToS trinkets and T20 set bonuses. (by Chizu)
 21-08-2017 - Brewmaster Monk: Added T20 2pc and 4pc stats (by wopr)
 20-08-2017 - Brewmaster Monk: Added more information about what occured while ISB was up or not (by wopr)
