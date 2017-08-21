@@ -27,8 +27,45 @@ class CastEfficiency extends Module {
       OTHERS: 'Spell',
     },
   ];
-
   static CPM_ABILITIES = [
+    //TODO: fix the SPELL_CATEGORIES shenanigans so baseline on-use items can work
+    //Shared trinkets and legendaries
+    {
+      spell: SPELLS.CLEANSING_MATRIX,
+      getCooldown: haste => 60,
+      isActive: combatant => combatant.hasTrinket(ITEMS.ARCHIVE_OF_FAITH.id),
+    },
+    {
+      spell: SPELLS.GUIDING_HAND,
+      charges: 2,
+      getCooldown: haste => 120,
+      isActive: combatant => combatant.hasTrinket(ITEMS.DECEIVERS_GRAND_DESIGN.id),
+    },
+    {
+      spell: SPELLS.GNAWED_THUMB_RING,
+      getCooldown: haste => 180,
+      isActive: combatant => combatant.hasFinger(ITEMS.GNAWED_THUMB_RING.id),
+    },
+    {
+      spell: SPELLS.KILJAEDENS_BURNING_WISH_CAST,
+      getCooldown: haste => 75,
+      isActive: combatant => combatant.hasTrinket(ITEMS.KILJAEDENS_BURNING_WISH.id),
+    },
+    {
+      spell: SPELLS.SPECTRAL_OWL,
+      getCooldown: haste => 120,
+      isActive: combatant => combatant.hasTrinket(ITEMS.TARNISHED_SENTINEL_MEDALLION.id),
+    },
+    {
+      spell: SPELLS.TOME_OF_UNRAVELING_SANITY_DAMAGE,
+      getCooldown: haste => 60,
+      isActive: combatant => combatant.hasTrinket(ITEMS.TOME_OF_UNRAVELING_SANITY.id),
+    },
+    {
+      spell: SPELLS.VELENS_FUTURE_SIGHT,
+      getCooldown: haste => 75,
+      isActive: combatant => combatant.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT.id),
+    },
     {
       spell: SPELLS.SUMMON_DREAD_REFLECTION,
       getCooldown: haste => 45,
@@ -36,7 +73,7 @@ class CastEfficiency extends Module {
     },
     {
       spell: SPELLS.CEASELESS_TOXIN,
-      getCooldown: haste => 60,//add detection if target has died and reduced cooldown
+      getCooldown: haste => 60,//TODO: add detection if target has died and reduced cooldown
       isActive: combatant => combatant.hasTrinket(ITEMS.VIAL_OF_CEASELESS_TOXINS.id),
     },
   ];

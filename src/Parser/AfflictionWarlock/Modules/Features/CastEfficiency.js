@@ -9,6 +9,7 @@ const SPELL_CATEGORY = {
 };
 class CastEfficiency extends CoreCastEfficiency {
   static CPM_ABILITIES = [
+    ...CoreCastEfficiency.CPM_ABILITIES,
     //Rotational spells
     {
       spell: SPELLS.HAUNT,

@@ -141,6 +141,11 @@ export default {
     icon: 'spell_warlock_soulburn',
   },
   // Item Abilities
+  SPECTRAL_OWL: {
+    id: 242570,
+    name: 'Spectral Owl',
+    icon: 'inv_jewelcrafting_purpleowl',
+  },
   SPECTRAL_BLAST: {
     id: 246442,
     name: 'Spectral Blast',
@@ -179,6 +184,11 @@ export default {
   },
   KILJAEDENS_BURNING_WISH_DAMAGE: {
     id: 235999,
+    name: 'Kil\'jaeden\'s Burning Wish',
+    icon: 'sha_spell_fire_bluepyroblast_nightmare',
+  },
+  KILJAEDENS_BURNING_WISH_CAST: {
+    id: 235991,
     name: 'Kil\'jaeden\'s Burning Wish',
     icon: 'sha_spell_fire_bluepyroblast_nightmare',
   },
