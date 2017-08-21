@@ -213,7 +213,7 @@ export default {
     name: 'Reap Souls',
     icon: 'inv_staff_2h_artifactdeadwind_d_01',
   },
-  TORMENTED_SOULS: {
+  WARLOCK_TORMENTED_SOULS: {
     id: 216695,
     name: 'Tormented Souls',
     icon: 'inv_staff_2h_artifactdeadwind_d_01',

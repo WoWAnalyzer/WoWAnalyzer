@@ -414,7 +414,12 @@ const ITEMS = {
     icon: 'inv_bracer_cloth_raidwarlock_p_01',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
-
+  REAP_AND_SOW: {
+    id: 144364,
+    name: 'Reap and Sow',
+    icon: 'inv_cape_pandaria_c_02',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
   // T20 Trinkets
   ARCHIVE_OF_FAITH: {
     id: 147006,

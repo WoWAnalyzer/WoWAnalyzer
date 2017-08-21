@@ -33,6 +33,7 @@ import StretensSleeplessShackles from './Modules/Items/Legendaries/StretensSleep
 import SoulOfTheNetherlord from './Modules/Items/Legendaries/SoulOfTheNetherlord';
 import PowerCordOfLethtendris from './Modules/Items/Legendaries/PowerCordOfLethtendris';
 import SacrolashsDarkStrike from './Modules/Items/Legendaries/SacrolashsDarkStrike';
+import ReapAndSow from './Modules/Items/Legendaries/ReapAndSow';
 
 import Tier20_2set from './Modules/Items/Tier20_2set';
 
@@ -71,7 +72,7 @@ class CombatLogParser extends MainCombatLogParser {
     soulOfTheNetherlord: SoulOfTheNetherlord,
     powerCordOfLethtendris: PowerCordOfLethtendris,
     sacrolashsDarkStrike: SacrolashsDarkStrike,
-
+    reapAndSow: ReapAndSow,
     //Items
     tier20_2set: Tier20_2set,
   };
