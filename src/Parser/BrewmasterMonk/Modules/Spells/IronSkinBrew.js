@@ -93,8 +93,7 @@ class IronSkinBrew extends Module {
         icon={<SpellIcon id={SPELLS.IRONSKIN_BREW.id} />}
         value={`${formatPercentage(isbUptime)}%`}
         label='Ironskin Brew uptime'
-        tooltip={`Ironskin Brew breakdown (these values are excluding staggered damage):
-       
+        tooltip={`Ironskin Brew breakdown (these values are direct damage and does not include damage added to stagger):
             <ul>
                 <li>You were hit <b>${this.hitsWithIronSkinBrew}</b> times with your Ironskin Brew buff (<b>${formatThousands(this.damageWithIronSkinBrew)}</b> damage).</li>
                 <li>You were hit <b>${this.hitsWithoutIronSkinBrew}</b> times <b><i>without</i></b> your Ironskin Brew buff (<b>${formatThousands(this.damageWithoutIronSkinBrew)}</b> damage).</li>
