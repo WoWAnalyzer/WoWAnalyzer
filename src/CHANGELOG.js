@@ -1,4 +1,5 @@
 export default `
+21-08-2017 - Brewmaster Monk: Added T20 2pc and 4pc stats (by wopr)
 20-08-2017 - Brewmaster Monk: Added more information about what occured while ISB was up or not (by wopr)
 20-08-2017 - Vengeance Demon Hunter: Added Pain tracker chart and changed Spirit Bomb uptime buff to Frailty debuff uptime. (by Mamtooth)
 20-08-2017 - Brewmaster Monk: This is an initial implementation, will be updated soon (by wopr)
