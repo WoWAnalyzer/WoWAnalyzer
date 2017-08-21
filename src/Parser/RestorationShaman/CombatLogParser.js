@@ -109,7 +109,7 @@ class CombatLogParser extends MainCombatLogParser {
 
     // The Earthenshield absorb is not directly attributed to the player and thus not
     // by default included in the total healing.
-    const totalHealing = this.totalHealing + (earthenShieldHealing || 0);
+    const totalHealing = this.modules.healingDone.total.effective + (earthenShieldHealing || 0);
 
     const riptide = getAbility(SPELLS.RIPTIDE.id);
     const healingWave = getAbility(SPELLS.HEALING_WAVE.id);

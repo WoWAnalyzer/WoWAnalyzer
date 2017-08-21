@@ -33,7 +33,7 @@ class T20_4pc extends Module {
   }
 
   item() {
-    const t20_4pcHealingPercentage = this.healing / this.owner.totalHealing;
+    const t20_4pcHealingPercentage = this.owner.getPercentageOfTotalHealingDone(this.healing);
     return {
       id: `spell-${SPELLS.XUENS_BATTLEGEAR_4_PIECE_BUFF.id}`,
       icon: <SpellIcon id={SPELLS.XUENS_BATTLEGEAR_4_PIECE_BUFF.id} />,

@@ -8,6 +8,7 @@ import bosses from 'common/bosses';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import Module from 'Parser/Core/Module';
+import HealingDone from 'Parser/Core/Modules/HealingDone';
 
 // http://www.wowhead.com/uncategorized-spells/name:Vantus+Rune:?filter=29;42;0 $.makeArray($('.listview-cleartext[href^="/spell="]')).map(item => `${item.href.replace(/^.*spell=([0-9]+)$/, '$1')}, // ${item.innerText}`).join("\n")
 // buff id: boss id
@@ -51,6 +52,10 @@ const VANTUS_RUNE_PERCENTAGE_THROUGHPUT = VANTUS_RUNE_VERSATILITY / VERSATILITY_
 const VANTUS_RUNE_PERCENTAGE_DAMAGE_REDUCTION  = VANTUS_RUNE_VERSATILITY / VERSATILITY_PER_PERCENT_DAMAGE_REDUCTION;
 
 class VantusRune extends Module {
+  static dependencies = {
+    healingDone: HealingDone,
+  };
+
   activeRune = null;
   on_initialized() {
     const fight = this.owner.fight;
@@ -74,7 +79,7 @@ class VantusRune extends Module {
     const fightDuration = this.owner.fightDuration;
 
     const damageDone = this.owner.totalDamageDone - (this.owner.totalDamageDone / (1 + VANTUS_RUNE_PERCENTAGE_THROUGHPUT));
-    const healingDone = this.owner.totalHealing - (this.owner.totalHealing / (1 + VANTUS_RUNE_PERCENTAGE_THROUGHPUT));
+    const healingDone = this.healingDone.total.effective - (this.healingDone.total.effective / (1 + VANTUS_RUNE_PERCENTAGE_THROUGHPUT));
     const damageReduced = (this.owner.totalDamageTaken / (1 - VANTUS_RUNE_PERCENTAGE_DAMAGE_REDUCTION)) - this.owner.totalDamageTaken;
 
     return (

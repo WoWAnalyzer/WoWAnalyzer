@@ -183,9 +183,9 @@ class CombatLogParser extends MainCombatLogParser {
           alt="Healing"
           />
       )}
-      value={`${formatNumber(this.totalHealing / this.fightDuration * 1000)} HPS`}
+      value={`${formatNumber(this.modules.healingDone.total.effective / this.fightDuration * 1000)} HPS`}
       label='Healing done'
-      tooltip={`The total healing done was ${formatThousands(this.totalHealing)}.<br/>The total damage absorbed was ${formatThousands(this.totalDamageTakenAbsorb)}.`}
+      tooltip={`The total healing done was ${formatThousands(this.modules.healingDone.total.effective)}.<br/>The total damage absorbed was ${formatThousands(this.totalDamageTakenAbsorb)}.`}
       />,
       <StatisticBox
       icon={<Icon icon="spell_mage_altertime" alt="Dead GCD time" />}
