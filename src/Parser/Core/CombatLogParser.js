@@ -16,6 +16,7 @@ import SpellManaCost from './Modules/SpellManaCost';
 import Prydaz from './Modules/Items/Prydaz';
 import Velens from './Modules/Items/Velens';
 import SephuzsSecret from './Modules/Items/SephuzsSecret';
+import ArchimondesHatredReborn from './Modules/Items/ArchimondesHatredReborn';
 // Shared Epics
 import DrapeOfShame from './Modules/Items/DrapeOfShame';
 import DarkmoonDeckPromises from './Modules/Items/DarkmoonDeckPromises';
@@ -57,6 +58,7 @@ class CombatLogParser {
     prydaz: Prydaz,
     velens: Velens,
     sephuzsSecret: SephuzsSecret,
+    archimondesHatredReborn: ArchimondesHatredReborn,
     // Epics:
     drapeOfShame: DrapeOfShame,
     amalgamsSeventhSpine: AmalgamsSeventhSpine,
@@ -245,6 +247,9 @@ class CombatLogParser {
   }
   formatItemHealingDone(healingDone) {
     return `${formatPercentage(this.getPercentageOfTotalHealingDone(healingDone))} % / ${formatNumber(healingDone / this.fightDuration * 1000)} HPS`;
+  }
+  formatItemAbsorbDone(absorbDone) {
+    return `${formatNumber(absorbDone)}`;
   }
   getPercentageOfTotalDamageDone(damageDone) {
     return damageDone / this.modules.damageDone.total.effective;

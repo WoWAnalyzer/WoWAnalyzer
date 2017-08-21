@@ -34,6 +34,13 @@ const ITEMS = {
     icon: 'inv_misc_necklace15',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+  ARCHIMONDES_HATRED_REBORN: {
+    id: 144249,
+    absorbId: 235169,
+    name: 'Archimonde\'s Hatred Reborn',
+    icon: 'spell_nature_elementalshields',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
   SEPHUZS_SECRET: {
     id: 132452,
     name: 'Sephuz\'s Secret',
@@ -509,6 +516,14 @@ const ITEMS = {
     id: 138854,
     name: 'Fragment of the Betrayer\'s Prison',
     icon:'inv_jewelry_ring_134',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+
+  //BrM Legendaries
+  JEWEL_OF_THE_LOST_ABBEY: {
+    id: 137044,
+    name: 'Jewel of the Lost Abbey',
+    icon: 'inv_jewelry_ring_138',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
 };

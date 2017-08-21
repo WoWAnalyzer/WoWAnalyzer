@@ -1,3 +1,9 @@
+/**
+ * All Monk abilities except talents go in here. You can also put a talent in here if you want to override something imported in the `./talents` folder, but that should be extremely rare.
+ * You need to do this manually, usually an easy way to do this is by opening a WCL report and clicking the icons of spells to open the relevant Wowhead pages, here you can get the icon name by clicking the icon, copy the name of the spell and the ID is in the URL.
+ * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
+ */
+
 export default {
   // Mistweaver Monk Spells
   EFFUSE: {
@@ -381,5 +387,60 @@ export default {
     id: 227686,
     name: 'Hot Blooded',
     icon: 'ability_monk_breathoffire',
+  },
+  ZEN_MEDITATION: {
+    id: 115176,
+    name: 'Zen Meditation',
+    icon: 'ability_monk_zenmeditation',
+  },
+  XUENS_BATTLEGEAR_2_PIECE_BUFF_BRM: {
+    id: 242255,
+    name: 'Monk T20 Brewmaster 2P Bonus',
+    icon: 'spell_monk_brewmaster_spec',
+  },
+  XUENS_BATTLEGEAR_4_PIECE_BUFF_BRM: {
+    id: 242256,
+    name: 'Monk T20 Brewmaster 4P Bonus',
+    icon: 'spell_monk_brewmaster_spec',
+  },
+  GIFT_OF_THE_OX_1: {
+    id: 124507,
+    name: 'Gift of the Ox',
+    icon: 'ability_monk_healthsphere',
+  },
+  GIFT_OF_THE_OX_2: {
+    id: 178173,
+    name: 'Gift of the Ox',
+    icon: 'ability_monk_healthsphere',
+  },
+  GIFT_OF_THE_OX_3: {
+    id: 214417,
+    name: 'Gift of the Ox',
+    icon: 'ability_monk_healthsphere',
+  },
+  GIFT_OF_THE_OX_4: {
+    id: 124503,
+    name: 'Gift of the Ox',
+    icon: 'inv_misc_gem_pearl_13',
+  },
+  GIFT_OF_THE_OX_5: {
+    id: 124506,
+    name: 'Gift of the Ox',
+    icon: 'inv_misc_gem_pearl_13',
+  },
+  GIFT_OF_THE_OX_6: {
+    id: 214420,
+    name: 'Gift of the Ox',
+    icon: 'inv_misc_gem_pearl_13',
+  },
+  GIFT_OF_THE_OX_7: {
+    id: 214418,
+    name: 'Gift of the Ox',
+    icon: 'inv_misc_gem_pearl_13',
+  },
+  GIFT_OF_THE_OX_8: {
+    id: 214416,
+    name: 'Gift of the Ox',
+    icon: 'ability_monk_healthsphere',
   },
 };
