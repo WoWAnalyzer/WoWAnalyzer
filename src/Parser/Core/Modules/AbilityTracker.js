@@ -40,6 +40,7 @@ class HealingTracker extends AbilityTracker {
     const cast = this.getAbility(spellId, event.ability);
 
     cast.healingHits = (cast.healingHits || 0) + 1;
+    // TODO: Use HealingValue class
     cast.healingEffective = (cast.healingEffective || 0) + (event.amount || 0);
     cast.healingAbsorbed = (cast.healingAbsorbed || 0) + (event.absorbed || 0);
     cast.healingOverheal = (cast.healingOverheal || 0) + (event.overheal || 0);
@@ -62,6 +63,7 @@ class DamageTracker extends HealingTracker {
     const cast = this.getAbility(spellId, event.ability);
 
     cast.damangeHits = (cast.damangeHits || 0) + 1;
+    // TODO: Use DamageValue class
     cast.damangeEffective = (cast.damangeEffective || 0) + (event.amount || 0);
     cast.damangeAbsorbed = (cast.damangeAbsorbed || 0) + (event.absorbed || 0); // Not sure
 

@@ -1,11 +1,12 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
-
 import { formatThousands, formatNumber } from 'common/format';
+
+import CoreDamageDone from 'Parser/Core/Modules/DamageDone';
+
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-class DamageDone extends Module {
+class DamageDone extends CoreDamageDone {
   petDmg = 0;
 
   petIds = [];
@@ -26,7 +27,7 @@ class DamageDone extends Module {
   }
 
   statistic() {
-    const totalDmg = this.owner.totalDamageDone + this.petDmg;
+    const totalDmg = this.total.effective + this.petDmg;
     return (
       <StatisticBox
         icon={(
@@ -41,7 +42,6 @@ class DamageDone extends Module {
       />
     );
   }
-
   statisticOrder = STATISTIC_ORDER.CORE(0);
 }
 

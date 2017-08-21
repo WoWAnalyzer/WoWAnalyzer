@@ -32,7 +32,6 @@ import StretensSleeplessShackles from './Modules/Items/Legendaries/StretensSleep
 import SoulOfTheNetherlord from './Modules/Items/Legendaries/SoulOfTheNetherlord';
 
 class CombatLogParser extends MainCombatLogParser {
-
   static specModules = {
     // Features
     castEfficiency: CastEfficiency,

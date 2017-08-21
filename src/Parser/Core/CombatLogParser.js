@@ -2,6 +2,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 
 import Status from './Modules/Status';
 import HealingDone from './Modules/HealingDone';
+import DamageDone from './Modules/DamageDone';
 
 import Combatants from './Modules/Combatants';
 import AbilityTracker from './Modules/AbilityTracker';
@@ -40,6 +41,7 @@ class CombatLogParser {
   static defaultModules = {
     status: Status,
     healingDone: HealingDone,
+    damageDone: DamageDone,
 
     combatants: Combatants,
     enemies: Enemies,
@@ -245,7 +247,7 @@ class CombatLogParser {
     return `${formatPercentage(this.getPercentageOfTotalHealingDone(healingDone))} % / ${formatNumber(healingDone / this.fightDuration * 1000)} HPS`;
   }
   getPercentageOfTotalDamageDone(damageDone) {
-    return damageDone / this.totalDamageDone;
+    return damageDone / this.modules.damageDone.total.effective;
   }
   formatItemDamageDone(damageDone) {
     return `${formatPercentage(this.getPercentageOfTotalDamageDone(damageDone))} % / ${formatNumber(damageDone / this.fightDuration * 1000)} DPS`;

@@ -1,4 +1,4 @@
-class HealingValue {
+class DamageValue {
   _regular = 0;
   /** Do not use this without really good reason! `effective` is almost always better; we WANT to include absorbed healing as this is most commonly related to mechanics that need to be removed and therefore significant. */
   get regular() { return this._regular; }
@@ -7,22 +7,21 @@ class HealingValue {
   get effective() {
     return this.regular + this.absorbed;
   }
-  _overheal = 0;
-  get overheal() { return this._overheal; }
+  _overkill = 0;
+  get overkill() { return this._overkill; }
   get raw() {
     return this.effective + this.overheal;
   }
 
-  constructor(regular = 0, absorbed = 0, overheal = 0) {
+  constructor(regular = 0, absorbed = 0, overkill = 0) {
     this._regular = regular;
     this._absorbed = absorbed;
-    this._overheal = overheal;
+    this._overkill = overkill;
   }
 
-  add(regular, absorbed, overheal) {
-    return new this.constructor(this.regular + regular, this.absorbed + absorbed, this.overheal + overheal);
+  add(regular, absorbed, overkill) {
+    return new this.constructor(this.regular + regular, this.absorbed + absorbed, this.overkill + overkill);
   }
-  // TODO: reduceDamage (e.g. LotM self-damage)
 }
 
-export default HealingValue;
+export default DamageValue;

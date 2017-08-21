@@ -74,7 +74,6 @@ class CombatLogParser extends MainCombatLogParser {
     abilityTracker: ShamanAbilityTracker,
     lowHealthHealing: LowHealthHealing,
 
-
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     masteryEffectiveness: MasteryEffectiveness,
