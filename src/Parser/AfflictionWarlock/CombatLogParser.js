@@ -37,7 +37,7 @@ import SacrolashsDarkStrike from './Modules/Items/Legendaries/SacrolashsDarkStri
 import ReapAndSow from './Modules/Items/Legendaries/ReapAndSow';
 
 import Tier20_2set from './Modules/Items/Tier20_2set';
-
+import Tier20_4set from './Modules/Items/Tier20_4set';
 class CombatLogParser extends MainCombatLogParser {
 
   static specModules = {
@@ -77,6 +77,7 @@ class CombatLogParser extends MainCombatLogParser {
     reapAndSow: ReapAndSow,
     //Items
     tier20_2set: Tier20_2set,
+    tier20_4set: Tier20_4set,
   };
 
   generateResults() {

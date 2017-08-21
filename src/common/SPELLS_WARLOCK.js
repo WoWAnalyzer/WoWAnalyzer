@@ -292,6 +292,16 @@ export default {
     name: 'Affliction Warlock T20 2P bonus',
     icon: 'inv_helm_cloth_raidwarlock_r_01',
   },
+  WARLOCK_AFFLI_T20_4P_BONUS: {
+    id: 242291,
+    name: 'Affliction Warlock T20 4P bonus',
+    icon: 'inv_chest_cloth_raidwarlock_r_01',
+  },
+  WARLOCK_AFFLI_T20_4P_BUFF: {
+  id: 242292,
+    name: 'Demonic Speed',
+    icon: 'spell_shadow_soulleech_3',
+  },
   //Artifact Traits
   FATAL_ECHOES: {
     id: 199257,
