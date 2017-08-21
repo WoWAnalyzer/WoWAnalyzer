@@ -1,47 +1,26 @@
 import Module from 'Parser/Core/Module';
 
-import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import { formatNumber } from 'common/format';
 
-import getDamageBonus from '../../WarlockCore/getDamageBonus';
-
-const SOUL_HARVEST_DAMAGE_BONUS = .2;
+import SoulHarvest from '../../Talents/SoulHarvest';
 
 class TheMasterHarvester extends Module {
-  playerBonusDmg = 0;
-  petBonusDmg = 0;
+  static dependencies = {
+    soulHarvest: SoulHarvest,
+  };
 
-  petIds = [];
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasChest(ITEMS.THE_MASTER_HARVESTER.id);
-    this.owner.report.friendlyPets.filter(pet => pet.petOwner === this.owner.playerId).forEach(pet => {
-      if (this.petIds.indexOf(pet.id) === -1) {
-        this.petIds.push(pet.id);
-      }
-    });
-  }
-
-  on_damage(event) {
-    if (this.petIds.indexOf(event.sourceID) === -1) {
-      return;
-    }
-    if (this.owner.selectedCombatant.hasBuff(SPELLS.SOUL_HARVEST.id, event.timestamp)) {
-      this.petBonusDmg += getDamageBonus(event, SOUL_HARVEST_DAMAGE_BONUS);
-    }
-  }
-
-  on_byPlayer_damage(event) {
-    if (this.owner.selectedCombatant.hasBuff(SPELLS.SOUL_HARVEST.id, event.timestamp)) {
-      this.playerBonusDmg += getDamageBonus(event, SOUL_HARVEST_DAMAGE_BONUS);
+    if (!this.owner.error) {
+      this.active = this.owner.selectedCombatant.hasChest(ITEMS.THE_MASTER_HARVESTER.id);
     }
   }
 
   item() {
-    const totalDmg = this.playerBonusDmg + this.petBonusDmg;
+    const bonusDmg = this.soulHarvest.chestBonusDmg;
     return {
       item: ITEMS.THE_MASTER_HARVESTER,
-      result: `${formatNumber(totalDmg)} damage contributed - ${this.owner.formatItemDamageDone(totalDmg)}`,
+      result: `${formatNumber(bonusDmg)} damage contributed - ${this.owner.formatItemDamageDone(bonusDmg)}`,
     };
   }
 }

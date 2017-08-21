@@ -421,7 +421,12 @@ const ITEMS = {
     icon: 'inv_bracer_cloth_raidwarlock_p_01',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
-
+  REAP_AND_SOW: {
+    id: 144364,
+    name: 'Reap and Sow',
+    icon: 'inv_cape_pandaria_c_02',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
   // T20 Trinkets
   ARCHIVE_OF_FAITH: {
     id: 147006,
@@ -472,7 +477,24 @@ const ITEMS = {
     icon: 'inv_relics_warpring',
     quality: ITEM_QUALITIES.EPIC,
   },
-
+  SPECTRAL_THURIBLE: {
+    id: 147018,
+    name: 'Spectral Thurible',
+    icon: 'inv_6_2raid_trinket_1d',
+    quality: ITEM_QUALITIES.EPIC,
+  },
+  TERROR_FROM_BELOW: {
+    id: 147016,
+    name: 'Terror From Below',
+    icon: 'trade_archaeology_sharkjaws',
+    quality: ITEM_QUALITIES.EPIC,
+  },
+  TOME_OF_UNRAVELING_SANITY: {
+    id: 147019,
+    name: 'Tome of Unraveling Sanity',
+    icon: 'inv_archaeology_70_demon_flayedskinchronicle',
+    quality: ITEM_QUALITIES.EPIC,
+  },
   // Guardian legendaries
   ELIZES_EVERLASTING_ENCASEMENT: {
     id: 137067,

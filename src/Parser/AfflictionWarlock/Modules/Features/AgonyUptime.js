@@ -14,7 +14,7 @@ class AgonyUptime extends Module {
     enemies: Enemies,
   };
 
-  suggestions(when){
+  suggestions(when) {
     const agonyUptime = this.enemies.getBuffUptime(SPELLS.AGONY.id) / this.owner.fightDuration;
     if (this.owner.selectedCombatant.hasTalent(SPELLS.WRITHE_IN_AGONY_TALENT.id)) {
       when(agonyUptime).isLessThan(0.95)

@@ -13,6 +13,7 @@ import SpellManaCost from './Modules/SpellManaCost';
 import Prydaz from './Modules/Items/Prydaz';
 import Velens from './Modules/Items/Velens';
 import SephuzsSecret from './Modules/Items/SephuzsSecret';
+import KiljaedensBurningWish from './Modules/Items/KiljaedensBurningWish';
 import ArchimondesHatredReborn from './Modules/Items/ArchimondesHatredReborn';
 // Shared Epics
 import DrapeOfShame from './Modules/Items/DrapeOfShame';
@@ -27,6 +28,10 @@ import GnawedThumbRing from './Modules/Items/GnawedThumbRing';
 import VialOfCeaselessToxins from './Modules/Items/VialOfCeaselessToxins';
 import SpecterOfBetrayal from './Modules/Items/SpecterOfBetrayal';
 import EngineOfEradication from './Modules/Items/EngineOfEradication';
+import TarnishedSentinelMedallion from './Modules/Items/TarnishedSentinelMedallion';
+import SpectralThurible from './Modules/Items/SpectralThurible';
+import TerrorFromBelow from './Modules/Items/TerrorFromBelow';
+import TomeOfUnravelingSanity from './Modules/Items/TomeOfUnravelingSanity';
 
 // Shared Buffs
 import VantusRune from './Modules/VantusRune';
@@ -53,6 +58,7 @@ class CombatLogParser {
     prydaz: Prydaz,
     velens: Velens,
     sephuzsSecret: SephuzsSecret,
+    kiljaedensBurningWish: KiljaedensBurningWish,
     archimondesHatredReborn: ArchimondesHatredReborn,
     // Epics:
     drapeOfShame: DrapeOfShame,
@@ -68,6 +74,10 @@ class CombatLogParser {
     vialCeaslessToxins: VialOfCeaselessToxins,
     specterOfBetrayal: SpecterOfBetrayal,
     engineOfEradication: EngineOfEradication,
+    tarnishedSentinelMedallion: TarnishedSentinelMedallion,
+    spectralThurible: SpectralThurible,
+    terrorFromBelow: TerrorFromBelow,
+    tomeOfUnravelingSanity: TomeOfUnravelingSanity,
   };
   // Override this with spec specific modules
   static specModules = {};

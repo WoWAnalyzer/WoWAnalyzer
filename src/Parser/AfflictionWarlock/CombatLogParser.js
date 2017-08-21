@@ -17,20 +17,27 @@ import UABuffTracker from './Modules/Features/UABuffTracker';
 import SoulShardTracker from './Modules/SoulShards/SoulShardTracker';
 import SoulShardDetails from './Modules/SoulShards/SoulShardDetails';
 import DamageDone from './Modules/WarlockCore/DamageDone';
-import DeathsEmbrace from './Modules/WarlockCore/DeathsEmbrace';
+import FatalEchoes from './Modules/WarlockCore/FatalEchoes';
 
 import Haunt from './Modules/Talents/Haunt';
 import MaleficGrasp from './Modules/Talents/MaleficGrasp';
 import Contagion from './Modules/Talents/Contagion';
 import AbsoluteCorruption from './Modules/Talents/AbsoluteCorruption';
 import SoulHarvest from './Modules/Talents/SoulHarvest';
+import SoulHarvestTalent from './Modules/Talents/SoulHarvestTalent';
+import DeathsEmbrace from './Modules/Talents/DeathsEmbrace';
 import DeathsEmbraceTalent from './Modules/Talents/DeathsEmbraceTalent';
 import SiphonLifeUptime from './Modules/Talents/SiphonLifeUptime';
 
 import TheMasterHarvester from './Modules/Items/Legendaries/TheMasterHarvester';
 import StretensSleeplessShackles from './Modules/Items/Legendaries/StretensSleeplessShackles';
 import SoulOfTheNetherlord from './Modules/Items/Legendaries/SoulOfTheNetherlord';
+import PowerCordOfLethtendris from './Modules/Items/Legendaries/PowerCordOfLethtendris';
+import SacrolashsDarkStrike from './Modules/Items/Legendaries/SacrolashsDarkStrike';
+import ReapAndSow from './Modules/Items/Legendaries/ReapAndSow';
 
+import Tier20_2set from './Modules/Items/Tier20_2set';
+import Tier20_4set from './Modules/Items/Tier20_4set';
 class CombatLogParser extends MainCombatLogParser {
 
   static specModules = {
@@ -48,7 +55,7 @@ class CombatLogParser extends MainCombatLogParser {
     soulShardTracker: SoulShardTracker,
     soulShardDetails: SoulShardDetails,
     damageDone: DamageDone,
-    deathsEmbrace: DeathsEmbrace,
+    fatalEchoes: FatalEchoes,
 
     //Talents
     haunt: Haunt,
@@ -56,6 +63,8 @@ class CombatLogParser extends MainCombatLogParser {
     contagion: Contagion,
     absoluteCorruption: AbsoluteCorruption,
     soulHarvest: SoulHarvest,
+    soulHarvestTalent: SoulHarvestTalent,
+    deathsEmbrace: DeathsEmbrace,
     deathsEmbraceTalent: DeathsEmbraceTalent,
     siphonLifeUptime: SiphonLifeUptime,
 
@@ -63,6 +72,12 @@ class CombatLogParser extends MainCombatLogParser {
     masterHarvester: TheMasterHarvester,
     stretensSleeplessShackles: StretensSleeplessShackles,
     soulOfTheNetherlord: SoulOfTheNetherlord,
+    powerCordOfLethtendris: PowerCordOfLethtendris,
+    sacrolashsDarkStrike: SacrolashsDarkStrike,
+    reapAndSow: ReapAndSow,
+    //Items
+    tier20_2set: Tier20_2set,
+    tier20_4set: Tier20_4set,
   };
 
   generateResults() {
@@ -79,7 +94,7 @@ class CombatLogParser extends MainCombatLogParser {
         title: 'Talents',
         url: 'talents',
         render: () => (
-          <Tab title="Talents">
+          <Tab title='Talents'>
             <Talents combatant={this.selectedCombatant} />
           </Tab>
         ),

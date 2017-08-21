@@ -146,6 +146,11 @@ export default {
     icon: 'spell_warlock_soulburn',
   },
   // Item Abilities
+  SPECTRAL_OWL: {
+    id: 242570,
+    name: 'Spectral Owl',
+    icon: 'inv_jewelcrafting_purpleowl',
+  },
   SPECTRAL_BLAST: {
     id: 246442,
     name: 'Spectral Blast',
@@ -155,6 +160,21 @@ export default {
     id: 242571,
     name: 'Spectral Bolt',
     icon: 'ability_thunderking_thunderstruck',
+  },
+  SPECTRAL_THURIBLE_DAMAGE: {
+    id: 246751,
+    name: 'Piercing Anguish',
+    icon: 'inv_spear_08',
+  },
+  TERROR_FROM_BELOW_DAMAGE: {
+    id: 242525,
+    name: 'Terror From Below',
+    icon: 'trade_archaeology_sharkjaws',
+  },
+  TOME_OF_UNRAVELING_SANITY_DAMAGE: {
+    id: 243941,
+    name: 'Insidious Corruption',
+    icon: 'inv_archaeology_70_demon_flayedskinchronicle',
   },
   //Engine of Eradication buff
   DEMONIC_VIGOR: {
@@ -166,5 +186,15 @@ export default {
     id: 228446,
     name: 'March of the Legion',
     icon: 'ability_warlock_fireandbrimstone',
+  },
+  KILJAEDENS_BURNING_WISH_DAMAGE: {
+    id: 235999,
+    name: 'Kil\'jaeden\'s Burning Wish',
+    icon: 'sha_spell_fire_bluepyroblast_nightmare',
+  },
+  KILJAEDENS_BURNING_WISH_CAST: {
+    id: 235991,
+    name: 'Kil\'jaeden\'s Burning Wish',
+    icon: 'sha_spell_fire_bluepyroblast_nightmare',
   },
 };
