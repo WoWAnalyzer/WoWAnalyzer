@@ -17,6 +17,7 @@ import UABuffTracker from './Modules/Features/UABuffTracker';
 import SoulShardTracker from './Modules/SoulShards/SoulShardTracker';
 import SoulShardDetails from './Modules/SoulShards/SoulShardDetails';
 import DamageDone from './Modules/WarlockCore/DamageDone';
+import FatalEchoes from './Modules/WarlockCore/FatalEchoes';
 
 import Haunt from './Modules/Talents/Haunt';
 import MaleficGrasp from './Modules/Talents/MaleficGrasp';
@@ -54,6 +55,7 @@ class CombatLogParser extends MainCombatLogParser {
     soulShardTracker: SoulShardTracker,
     soulShardDetails: SoulShardDetails,
     damageDone: DamageDone,
+    fatalEchoes: FatalEchoes,
 
     //Talents
     haunt: Haunt,

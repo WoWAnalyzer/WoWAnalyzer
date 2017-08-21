@@ -292,6 +292,12 @@ export default {
     name: 'Affliction Warlock T20 2P bonus',
     icon: 'inv_helm_cloth_raidwarlock_r_01',
   },
+  //Artifact Traits
+  FATAL_ECHOES: {
+    id: 199257,
+    name: 'Fatal Echoes',
+    icon: 'inv_misc_bell_01',
+  },
   //Affliction shard generating effects
   AGONY_SHARD_GEN: {
     id: 17941,
