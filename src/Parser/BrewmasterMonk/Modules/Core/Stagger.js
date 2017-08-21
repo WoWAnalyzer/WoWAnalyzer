@@ -46,7 +46,7 @@ class Stagger extends Module {
 
   on_toPlayer_damage(event) {
     if (event.ability.guid === SPELLS.STAGGER_TAKEN.id) {
-      this.totalStaggerTaken += event.amount;
+      this.totalStaggerTaken += event.amount + (event.absorbed || 0);
       this.lastDamageEventWasStagger = event.timestamp;
       this.lastStaggerValue = event.amount;
     }
