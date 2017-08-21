@@ -1,3 +1,9 @@
+/**
+ * All Racials go in here.
+ * You need to do this manually, usually an easy way to do this is by searching a racial or race on Wowhead. Here you can get the icon name by clicking the icon, copy the name of the spell and the ID is in the URL.
+ * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
+ */
+
 export default {
   // Blood Elf
   ARCANE_TORRENT: {

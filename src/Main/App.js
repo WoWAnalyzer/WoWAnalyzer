@@ -210,6 +210,7 @@ class App extends Component {
 
     const url = makeWclUrl(`report/fights/${code}`, {
       _: refresh ? +new Date() : undefined,
+      translate: true, // so long as we don't have the entire site localized, it's better to have 1 consistent language
     });
     return fetch(url)
       .then(response => response.json())
@@ -281,7 +282,13 @@ class App extends Component {
   }
 
   fetchEvents(code, start, end, actorId = undefined, filter = undefined) {
-    const url = makeWclUrl(`report/events/${code}`, { start, end, actorid: actorId, filter });
+    const url = makeWclUrl(`report/events/${code}`, {
+      start,
+      end,
+      actorid: actorId,
+      filter,
+      translate: true, // so long as we don't have the entire site localized, it's better to have 1 consistent language
+    });
     return fetch(url)
       .then(response => response.json());
   }
