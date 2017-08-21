@@ -53,7 +53,7 @@ export const events = [
   { type: "applybuff", sourceid: thisPlayer, targetid: thisPlayer, timestamp: 200, ability: { guid: SPELLS.IRONSKIN_BREW_BUFF.id } },
   // This one is spawned by the ISB
   { type: "cast", sourceid: thisPlayer, targetid: thisPlayer, timestamp: 204, ability: { guid: SPELLS.GIFT_OF_THE_OX_1.id } },
-  { type: "damage", sourceid: enemy, targetid: thisPlayer, amount: 400, timestamp: 500, ability: { guid: 1 } },
+  { type: "damage", sourceid: enemy, targetid: thisPlayer, amount: 400, absorbed: 300, timestamp: 500, ability: { guid: 1 } },
   { type: "absorbed", sourceid: enemy, targetid: thisPlayer, amount: 300, timestamp: 500, ability: { guid: SPELLS.STAGGER.id }, extraAbility: { guid: 1, type: 1}},
   { type: "damage", sourceid: enemy, targetid: thisPlayer, amount: 10, timestamp: 1000, ability: { guid: SPELLS.STAGGER_TAKEN.id } },
   { type: "damage", sourceid: enemy, targetid: thisPlayer, amount: 10, timestamp: 1500, ability: { guid: SPELLS.STAGGER_TAKEN.id } },
@@ -61,15 +61,16 @@ export const events = [
   { type: "damage", sourceid: enemy, targetid: thisPlayer, amount: 10, timestamp: 2500, ability: { guid: SPELLS.STAGGER_TAKEN.id } },
   { type: "damage", sourceid: enemy, targetid: thisPlayer, amount: 10, timestamp: 3000, ability: { guid: SPELLS.STAGGER_TAKEN.id } },
   // The spell doesn't matter it was absorbed by something other than stagger...
+  // This line is not used in damage taken because the absorb is also on the damage line...
   { type: "absorbed", sourceid: enemy, targetid: thisPlayer, amount: 9, timestamp: 3500, ability: { guid: 99999 }, extraAbility: { guid: 1, type: 1}},
-  { type: "damage", sourceid: enemy, targetid: thisPlayer, amount: 1, timestamp: 3500, ability: { guid: SPELLS.STAGGER_TAKEN.id } },
+  { type: "damage", sourceid: enemy, targetid: thisPlayer, amount: 1, absorbed: 9, timestamp: 3500, ability: { guid: SPELLS.STAGGER_TAKEN.id } },
   { type: "damage", sourceid: enemy, targetid: thisPlayer, amount: 10, timestamp: 4000, ability: { guid: SPELLS.STAGGER_TAKEN.id } },
   { type: "damage", sourceid: enemy, targetid: thisPlayer, amount: 10, timestamp: 4500, ability: { guid: SPELLS.STAGGER_TAKEN.id } },
   { type: "cast", sourceid: thisPlayer, targetid: thisPlayer, timestamp: 4700, ability: { guid: SPELLS.GIFT_OF_THE_OX_1.id } },
   { type: "damage", sourceid: enemy, targetid: thisPlayer, amount: 10, timestamp: 5000, ability: { guid: SPELLS.STAGGER_TAKEN.id } },
   { type: "damage", sourceid: enemy, targetid: thisPlayer, amount: 10, timestamp: 5500, ability: { guid: SPELLS.STAGGER_TAKEN.id } },
   // By fire be... BURNED
-  { type: "damage", sourceid: enemy, targetid: thisPlayer, amount: 400, timestamp: 5700, ability: { guid: 4 } },
+  { type: "damage", sourceid: enemy, targetid: thisPlayer, amount: 400, absorbed: 299, timestamp: 5700, ability: { guid: 4 } },
   { type: "absorbed", sourceid: enemy, targetid: thisPlayer, amount: 299, timestamp: 5700, ability: { guid: SPELLS.STAGGER.id }, extraAbility: { guid: 4, type: 4}},
   { type: "damage", sourceid: enemy, targetid: thisPlayer, amount: 15, timestamp: 6000, ability: { guid: SPELLS.STAGGER_TAKEN.id } },
   { type: "damage", sourceid: enemy, targetid: thisPlayer, amount: 15, timestamp: 6500, ability: { guid: SPELLS.STAGGER_TAKEN.id } },
