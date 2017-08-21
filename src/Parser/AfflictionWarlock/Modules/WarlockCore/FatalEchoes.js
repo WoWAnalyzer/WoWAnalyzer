@@ -5,9 +5,9 @@ import Module from 'Parser/Core/Module';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import SPELLS from 'common/SPELLS';
+import { formatNumber } from 'common/format';
 
-import {UNSTABLE_AFFLICTION_DEBUFF_IDS} from '../../Constants';
-import { formatNumber } from "../../../../common/format";
+import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../Constants';
 
 class FatalEchoes extends Module {
   playerCasts = 0;
@@ -39,6 +39,7 @@ class FatalEchoes extends Module {
       this.uasApplied++;
     }
   }
+
   statistic() {
     const totalProcs = this.uasApplied - this.playerCasts;
     const avgDamage = this.totalDamage / (this.totalTicks > 0 ? this.totalTicks : 1);

@@ -7,7 +7,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import SpellLink from "../../../../common/SpellLink";
+import SpellLink from 'common/SpellLink';
 
 class CorruptionUptime extends Module {
   static dependencies = {

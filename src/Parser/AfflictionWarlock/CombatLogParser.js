@@ -94,7 +94,7 @@ class CombatLogParser extends MainCombatLogParser {
         title: 'Talents',
         url: 'talents',
         render: () => (
-          <Tab title="Talents">
+          <Tab title='Talents'>
             <Talents combatant={this.selectedCombatant} />
           </Tab>
         ),
