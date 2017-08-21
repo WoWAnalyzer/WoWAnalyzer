@@ -13,7 +13,7 @@ import StatisticBox from 'Main/StatisticBox';
 import SuggestionsTab from 'Main/SuggestionsTab';
 import Tab from 'Main/Tab';
 import Talents from 'Main/Talents';
-import getCastEfficiency from 'Parser/Core/getCastEfficiency';
+// import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
@@ -22,7 +22,8 @@ import Enemies from 'Parser/Core/Modules/Enemies';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import Pain from './Modules/Main/Pain';
 
-import CPM_ABILITIES from './CPM_ABILITIES';
+// import CPM_ABILITIES from './CPM_ABILITIES';
+import CastEfficiency from './Modules/Features/CastEfficiency';
 
 
 function formatThousands(number) {
@@ -84,6 +85,7 @@ class CombatLogParser extends MainCombatLogParser {
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     enemies: Enemies,
+    castEfficiency: CastEfficiency,
   };
 
   damageBySchool = {};
@@ -147,16 +149,16 @@ class CombatLogParser extends MainCombatLogParser {
       });
     }
 
-    const castEfficiency = getCastEfficiency(CPM_ABILITIES, this);
-    castEfficiency.forEach((cpm) => {
-      if (cpm.canBeImproved && !cpm.ability.noSuggestion) {
-        results.addIssue({
-          issue: <span>Try to cast <SpellLink id={cpm.ability.spell.id} /> more often ({cpm.casts}/{cpm.maxCasts} casts: {Math.round(cpm.castEfficiency * 100)}% cast efficiency). The recommended cast efficiency is above  {Math.round(cpm.recommendedCastEfficiency * 100)}%. {cpm.ability.extraSuggestion || ''}</span>,
-          icon: cpm.ability.spell.icon,
-          importance: cpm.ability.importance || getIssueImportance(cpm.castEfficiency, cpm.recommendedCastEfficiency - 0.05, cpm.recommendedCastEfficiency - 0.15),
-        });
-      }
-    });
+    // const castEfficiency = getCastEfficiency(CPM_ABILITIES, this);
+    // castEfficiency.forEach((cpm) => {
+    //   if (cpm.canBeImproved && !cpm.ability.noSuggestion) {
+    //     results.addIssue({
+    //       issue: <span>Try to cast <SpellLink id={cpm.ability.spell.id} /> more often ({cpm.casts}/{cpm.maxCasts} casts: {Math.round(cpm.castEfficiency * 100)}% cast efficiency). The recommended cast efficiency is above  {Math.round(cpm.recommendedCastEfficiency * 100)}%. {cpm.ability.extraSuggestion || ''}</span>,
+    //       icon: cpm.ability.spell.icon,
+    //       importance: cpm.ability.importance || getIssueImportance(cpm.castEfficiency, cpm.recommendedCastEfficiency - 0.05, cpm.recommendedCastEfficiency - 0.15),
+    //     });
+    //   }
+    // });
 
     results.statistics = [
       <StatisticBox

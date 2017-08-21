@@ -24,33 +24,33 @@ const CastEfficiency = ({ categories, abilities }) => {
             </tr>
             {abilities
               .filter(item => item.ability.category === categories[key])
-            .map(({ ability, casts, spend, created, wasted, canBeImproved }) => {
-              const name = ability.name;
-              return (
-                <tr key={name}>
-                  <td style={{ width: '35%' }}>
-                    <SpellLink id={ability.spellId} style={{ color: '#fff' }}>
-                      <SpellIcon id={ability.spellId} noLink /> {name}
-                    </SpellLink>
-                  </td>
-                  <td className="text-center" style={{ minWidth: 80 }}>
-                    {casts}
-                  </td>
-                  <td className="text-center" style={{ minWidth: 80 }}>
-                    {spend ? spend : ''}
-                  </td>
-                  <td className="text-center" style={{ minWidth: 80 }}>
-                    {created ? created : ''}
-                  </td>
-                  <td className="text-center" style={{ minWidth: 80 }}>
-                    {wasted ? wasted : ''}
-                  </td>
-                  <td style={{ width: '25%', color: 'orange' }}>
-                    {canBeImproved && !ability.noCanBeImproved && 'Can be improved.'}
-                  </td>
-                </tr>
-              );
-            })}
+              .map(({ ability, casts, spend, created, wasted, canBeImproved }) => {
+                const name = ability.name;
+                return (
+                  <tr key={name}>
+                    <td style={{ width: '35%' }}>
+                      <SpellLink id={ability.spellId} style={{ color: '#fff' }}>
+                        <SpellIcon id={ability.spellId} noLink /> {name}
+                      </SpellLink>
+                    </td>
+                    <td className="text-center" style={{ minWidth: 80 }}>
+                      {casts}
+                    </td>
+                    <td className="text-center" style={{ minWidth: 80 }}>
+                      {spend ? spend : ''}
+                    </td>
+                    <td className="text-center" style={{ minWidth: 80 }}>
+                      {created ? created : ''}
+                    </td>
+                    <td className="text-center" style={{ minWidth: 80 }}>
+                      {wasted ? wasted : ''}
+                    </td>
+                    <td style={{ width: '25%', color: 'orange' }}>
+                      {canBeImproved && !ability.noCanBeImproved && 'Can be improved.'}
+                    </td>
+                  </tr>
+                );
+              })}
           </tbody>
         ))}
       </table>
