@@ -5,7 +5,7 @@ import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatThousands, formatNumber } from 'common/format';
-
+import { GIFT_OF_THE_OX_SPELLS } from '../../Constants';
 import Module from 'Parser/Core/Module';
 
 const BASE_STAGGER_TICKS = 20;
@@ -36,8 +36,8 @@ class T20_4pc extends Module {
   }
 
   on_toPlayer_heal(event) {
-    const spellName = event.ability.name;
-    if(spellName === SPELLS.GIFT_OF_THE_OX_1.name) {
+    const spellId = event.ability.guid;
+    if(GIFT_OF_THE_OX_SPELLS.indexOf(spellId) !== -1) {
       const currentStagger = this.lastStaggerTick * this.staggerLength;
       this.staggerSaved += currentStagger - (currentStagger * T20_4PC_REDUCTION);
       this.lastStaggerTick *= T20_4PC_REDUCTION;
