@@ -387,4 +387,54 @@ export default {
     name: 'Zen Meditation',
     icon: 'ability_monk_zenmeditation',
   },
+  XUENS_BATTLEGEAR_2_PIECE_BUFF_BRM: {
+    id: 242255,
+    name: 'Monk T20 Brewmaster 2P Bonus',
+    icon: 'spell_monk_brewmaster_spec',
+  },
+  XUENS_BATTLEGEAR_4_PIECE_BUFF_BRM: {
+    id: 242256,
+    name: 'Monk T20 Brewmaster 4P Bonus',
+    icon: 'spell_monk_brewmaster_spec',
+  },
+  GIFT_OF_THE_OX_1: {
+    id: 124507,
+    name: 'Gift of the Ox',
+    icon: 'ability_monk_healthsphere',
+  },
+  GIFT_OF_THE_OX_2: {
+    id: 178173,
+    name: 'Gift of the Ox',
+    icon: 'ability_monk_healthsphere',
+  },
+  GIFT_OF_THE_OX_3: {
+    id: 214417,
+    name: 'Gift of the Ox',
+    icon: 'ability_monk_healthsphere',
+  },
+  GIFT_OF_THE_OX_4: {
+    id: 124503,
+    name: 'Gift of the Ox',
+    icon: 'inv_misc_gem_pearl_13',
+  },
+  GIFT_OF_THE_OX_5: {
+    id: 124506,
+    name: 'Gift of the Ox',
+    icon: 'inv_misc_gem_pearl_13',
+  },
+  GIFT_OF_THE_OX_6: {
+    id: 214420,
+    name: 'Gift of the Ox',
+    icon: 'inv_misc_gem_pearl_13',
+  },
+  GIFT_OF_THE_OX_7: {
+    id: 214418,
+    name: 'Gift of the Ox',
+    icon: 'inv_misc_gem_pearl_13',
+  },
+  GIFT_OF_THE_OX_8: {
+    id: 214416,
+    name: 'Gift of the Ox',
+    icon: 'ability_monk_healthsphere',
+  },
 };

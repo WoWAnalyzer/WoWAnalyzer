@@ -540,6 +540,14 @@ const ITEMS = {
     icon:'inv_jewelry_ring_134',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+
+  //BrM Legendaries
+  JEWEL_OF_THE_LOST_ABBEY: {
+    id: 137044,
+    name: 'Jewel of the Lost Abbey',
+    icon: 'inv_jewelry_ring_138',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
 };
 
 export default indexById(ITEMS);

@@ -29,6 +29,10 @@ class SkysecsHold extends Module {
   totalCasts = 0;
   averagePlayerHPs = [];
 
+  on_initialized() {
+    this.active = this.owner.selectedCombatant.hasFeet(ITEMS.SKYSECS_HOLD.id);
+  }
+
   /**
    * FR healing with SH operates in cycles; two ticks of FR then one tick of SH, repeated 3 times.
    * We only count FR overhealing against SH ticks from the same cycle, since damage and other healing

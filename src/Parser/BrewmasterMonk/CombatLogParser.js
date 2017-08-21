@@ -20,6 +20,10 @@ import IronSkinBrew from './Modules/Spells/IronSkinBrew';
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 
+// Items
+import T20_2pc from './Modules/Items/T20_2pc';
+import T20_4pc from './Modules/Items/T20_4pc';
+
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
     // Core
@@ -35,6 +39,10 @@ class CombatLogParser extends MainCombatLogParser {
     
     // Spells
     ironSkinBrew: IronSkinBrew,
+
+    // Items
+    t20_2pc: T20_2pc,
+    t20_4pc: T20_4pc,
   };
 
   generateResults() {
