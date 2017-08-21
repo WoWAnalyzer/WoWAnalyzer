@@ -161,9 +161,9 @@ class CombatLogParser extends MainCombatLogParser {
     results.statistics = [
       <StatisticBox
         icon={<Icon icon="class_demonhunter" alt="Damage done" />}
-        value={`${formatNumber(this.totalDamageDone / this.fightDuration * 1000)} DPS`}
+        value={`${formatNumber(this.modules.damageDone.total.effective / this.fightDuration * 1000)} DPS`}
         label='Damage done'
-        tooltip={`The total damage done was ${formatThousands(this.totalDamageDone)}.`}
+        tooltip={`The total damage done was ${formatThousands(this.modules.damageDone.total.effective)}.`}
       />,
       <StatisticBox
         icon={<Icon icon="spell_holy_devotionaura" alt="Damage taken" />}

@@ -234,7 +234,7 @@ class CombatLogParser extends MainCombatLogParser {
           icon={<SpellIcon id={SPELLS.TWIST_OF_FATE_TALENT.id} />}
           value={`${formatNumber(this.modules.twistOfFate.healing / fightDuration * 1000)} HPS`}
           label={(
-            <dfn data-tip={`The effective healing contributed by Twist of Fate (${formatPercentage(this.getPercentageOfTotalHealingDone(this.modules.twistOfFate.healing))}% of total healing done). Twist of Fate also contributed ${formatNumber(this.modules.twistOfFate.damage / fightDuration * 1000)} DPS (${formatPercentage(this.modules.twistOfFate.damage / this.totalDamageDone)}% of total damage done), the healing gain of this damage was included in the shown numbers.`}>
+            <dfn data-tip={`The effective healing contributed by Twist of Fate (${formatPercentage(this.getPercentageOfTotalHealingDone(this.modules.twistOfFate.healing))}% of total healing done). Twist of Fate also contributed ${formatNumber(this.modules.twistOfFate.damage / fightDuration * 1000)} DPS (${formatPercentage(this.getPercentageOfTotalDamageDone(this.modules.twistOfFate.damage))}% of total damage done), the healing gain of this damage was included in the shown numbers.`}>
               Twist of Fate healing
             </dfn>
           )}
@@ -245,7 +245,7 @@ class CombatLogParser extends MainCombatLogParser {
           icon={<SpellIcon id={SPELLS.CASTIGATION_TALENT.id} />}
           value={`${formatNumber(this.modules.castigation.healing / fightDuration * 1000)} HPS`}
           label={(
-            <dfn data-tip={`The effective healing contributed by Castigation (${formatPercentage(this.getPercentageOfTotalHealingDone(this.modules.castigation.healing))}% of total healing done). Castigation also contributed ${formatNumber(this.modules.castigation.damage / fightDuration * 1000)} DPS (${formatPercentage(this.modules.castigation.damage / this.totalDamageDone)}% of total damage done), the healing gain of this damage was included in the shown numbers.`}>
+            <dfn data-tip={`The effective healing contributed by Castigation (${formatPercentage(this.getPercentageOfTotalHealingDone(this.modules.castigation.healing))}% of total healing done). Castigation also contributed ${formatNumber(this.modules.castigation.damage / fightDuration * 1000)} DPS (${formatPercentage(this.getPercentageOfTotalDamageDone(this.modules.castigation.damage))}% of total damage done), the healing gain of this damage was included in the shown numbers.`}>
               Castigation healing
             </dfn>
           )}
@@ -281,7 +281,7 @@ class CombatLogParser extends MainCombatLogParser {
           icon={<SpellIcon id={SPELLS.TOUCH_OF_THE_GRAVE.id} />}
           value={`${formatNumber(this.modules.touchOfTheGrave.healing / fightDuration * 1000)} HPS`}
           label={(
-            <dfn data-tip={`The effective healing contributed by the Undead racial Touch of the Grave (${formatPercentage(this.getPercentageOfTotalHealingDone(this.modules.touchOfTheGrave.healing))}% of total healing done). Touch of the Grave also contributed ${formatNumber(this.modules.touchOfTheGrave.damage / fightDuration * 1000)} DPS (${formatPercentage(this.modules.touchOfTheGrave.damage / this.totalDamageDone)}% of total damage done).`}>
+            <dfn data-tip={`The effective healing contributed by the Undead racial Touch of the Grave (${formatPercentage(this.getPercentageOfTotalHealingDone(this.modules.touchOfTheGrave.healing))}% of total healing done). Touch of the Grave also contributed ${formatNumber(this.modules.touchOfTheGrave.damage / fightDuration * 1000)} DPS (${formatPercentage(this.getPercentageOfTotalDamageDone(this.modules.touchOfTheGrave.damage))}% of total damage done).`}>
               Touch of the Grave healing
             </dfn>
           )}
@@ -353,7 +353,7 @@ class CombatLogParser extends MainCombatLogParser {
       this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_HIGH_PRIEST.id) && {
         item: ITEMS.SOUL_OF_THE_HIGH_PRIEST,
         result: (
-          <dfn data-tip={`The effective healing contributed by Twist of Fate (${formatPercentage(this.getPercentageOfTotalHealingDone(this.modules.twistOfFate.healing))}% of total healing done). Twist of Fate also contributed ${formatNumber(this.modules.twistOfFate.damage / fightDuration * 1000)} DPS (${formatPercentage(this.modules.twistOfFate.damage / this.totalDamageDone)}% of total damage done), the healing gain of this damage was included in the shown numbers.`}>
+          <dfn data-tip={`The effective healing contributed by Twist of Fate (${formatPercentage(this.getPercentageOfTotalHealingDone(this.modules.twistOfFate.healing))}% of total healing done). Twist of Fate also contributed ${formatNumber(this.modules.twistOfFate.damage / fightDuration * 1000)} DPS (${formatPercentage(this.getPercentageOfTotalDamageDone(this.modules.twistOfFate.damage))}% of total damage done), the healing gain of this damage was included in the shown numbers.`}>
             {((this.getPercentageOfTotalHealingDone(this.modules.twistOfFate.healing) * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.twistOfFate.healing / fightDuration * 1000)} HPS
           </dfn>
         ),

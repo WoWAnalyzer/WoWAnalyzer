@@ -91,8 +91,8 @@ class CombatLogParser extends MainCombatLogParser {
 
     results.statistics = [
       <StatisticBox
-        icon={<Icon icon="spell_monk_windwalker_spec" alt="Dead GCD time" />}
-        value={formatNumber(this.totalDamageDone)}
+        icon={<Icon icon="spell_monk_windwalker_spec" alt="Damage done" />}
+        value={formatNumber(this.modules.damageDone.total.effective)}
         label="Damage done"
       />,
       <StatisticBox

@@ -91,9 +91,9 @@ class CombatLogParser extends MainCombatLogParser {
     results.statistics = [
       <StatisticBox
         icon={ <Icon icon="class_rogue" alt="Damage Per Second" /> }
-        value={`${formatNumber(this.totalDamageDone / fightDuration * 1000)} DPS`}
+        value={`${formatNumber(this.modules.damageDone.total.effective / fightDuration * 1000)} DPS`}
         label={(
-          <dfn data-tip={`The total damage done recorded was ${formatThousands(this.totalDamageDone)}.`}>
+          <dfn data-tip={`The total damage done recorded was ${formatThousands(this.modules.damageDone.total.effective)}.`}>
             Damage done
           </dfn>
         )}
