@@ -8,24 +8,23 @@ import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 import CoreCastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 
-const SPELL_CATEGORY = {
-  ROTATIONAL: 'Rotational Spell',
-  COOLDOWNS: 'Cooldown',
-  OTHERS: 'Spell',
-};
 
 class CastEfficiency extends CoreCastEfficiency {
+  on_initialized() {
+    console.log("initialized");
+  }
   static CPM_ABILITIES = [
+    ...CoreCastEfficiency.CPM_ABILITIES,
     {
       spell: SPELLS.HOLY_SHOCK_HEAL,
-      category: SPELL_CATEGORY.ROTATIONAL,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCasts: castCount => castCount.healingHits,
       getCooldown: haste => 9 / (1 + haste),
       extraSuggestion: 'Casting Holy Shock often enough is very important.',
     },
     {
       spell: SPELLS.LIGHT_OF_DAWN_CAST,
-      category: SPELL_CATEGORY.ROTATIONAL,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 12 / (1 + haste), // TODO: Implement 4PT20
       getOverhealing: (_, getAbility) => {
         const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.LIGHT_OF_DAWN_HEAL.id);
@@ -35,7 +34,7 @@ class CastEfficiency extends CoreCastEfficiency {
     },
     {
       spell: SPELLS.JUDGMENT_CAST,
-      category: SPELL_CATEGORY.ROTATIONAL,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 12 / (1 + haste),
       isActive: combatant => combatant.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT.id),
       recommendedCastEfficiency: 0.85, // this rarely overheals, so keeping this on cooldown is pretty much always best
@@ -47,7 +46,7 @@ class CastEfficiency extends CoreCastEfficiency {
     },
     {
       spell: SPELLS.BESTOW_FAITH_TALENT,
-      category: SPELL_CATEGORY.ROTATIONAL,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 12,
       isActive: combatant => combatant.hasTalent(SPELLS.BESTOW_FAITH_TALENT.id),
       recommendedCastEfficiency: 0.7,
@@ -55,7 +54,7 @@ class CastEfficiency extends CoreCastEfficiency {
     },
     {
       spell: SPELLS.LIGHTS_HAMMER_TALENT,
-      category: SPELL_CATEGORY.ROTATIONAL,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 60,
       isActive: combatant => combatant.hasTalent(SPELLS.LIGHTS_HAMMER_TALENT.id),
       getOverhealing: (_, getAbility) => {
@@ -65,7 +64,7 @@ class CastEfficiency extends CoreCastEfficiency {
     },
     {
       spell: SPELLS.CRUSADER_STRIKE,
-      category: SPELL_CATEGORY.ROTATIONAL,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 4.5 / (1 + haste),
       charges: 2,
       isActive: combatant => combatant.hasTalent(SPELLS.CRUSADERS_MIGHT_TALENT.id),
@@ -74,13 +73,13 @@ class CastEfficiency extends CoreCastEfficiency {
     },
     {
       spell: SPELLS.HOLY_PRISM_TALENT,
-      category: SPELL_CATEGORY.ROTATIONAL,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 20,
       isActive: combatant => combatant.hasTalent(SPELLS.HOLY_PRISM_TALENT.id),
     },
     {
       spell: SPELLS.RULE_OF_LAW_TALENT,
-      category: SPELL_CATEGORY.COOLDOWNS,
+      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 30,
       charges: 2,
       isActive: combatant => combatant.hasTalent(SPELLS.RULE_OF_LAW_TALENT.id),
@@ -88,24 +87,25 @@ class CastEfficiency extends CoreCastEfficiency {
     },
     {
       spell: SPELLS.DIVINE_PROTECTION,
-      category: SPELL_CATEGORY.COOLDOWNS,
+      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 60,
       recommendedCastEfficiency: 0.6,
       importance: ISSUE_IMPORTANCE.MINOR,
     },
     {
       spell: SPELLS.ARCANE_TORRENT,
-      category: SPELL_CATEGORY.COOLDOWNS,
+      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 90,
       hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.TYRS_DELIVERANCE_CAST,
-      category: SPELL_CATEGORY.COOLDOWNS,
+      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 90,
       extraSuggestion: '',
     },
-    {
+    //is already in the Core/CastEfficiency module
+    /*{
       spell: SPELLS.VELENS_FUTURE_SIGHT,
       category: SPELL_CATEGORY.COOLDOWNS,
       getCooldown: haste => 75,
@@ -116,21 +116,21 @@ class CastEfficiency extends CoreCastEfficiency {
       category: SPELL_CATEGORY.COOLDOWNS,
       getCooldown: haste => 180,
       isActive: combatant => combatant.hasFinger(ITEMS.GNAWED_THUMB_RING.id),
-    },
+    },*/
     {
       spell: SPELLS.HOLY_AVENGER_TALENT,
-      category: SPELL_CATEGORY.COOLDOWNS,
+      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 90,
       isActive: combatant => combatant.hasTalent(SPELLS.HOLY_AVENGER_TALENT.id),
     },
     {
       spell: SPELLS.AVENGING_WRATH,
-      category: SPELL_CATEGORY.COOLDOWNS,
+      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 120,
     },
     {
       spell: SPELLS.BLESSING_OF_SACRIFICE,
-      category: SPELL_CATEGORY.COOLDOWNS,
+      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 150,
       recommendedCastEfficiency: 0.5,
       noSuggestion: true,
@@ -138,18 +138,18 @@ class CastEfficiency extends CoreCastEfficiency {
     },
     {
       spell: SPELLS.AURA_MASTERY,
-      category: SPELL_CATEGORY.COOLDOWNS,
+      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 180,
     },
     {
       spell: SPELLS.LIGHT_OF_THE_MARTYR,
-      category: SPELL_CATEGORY.OTHERS,
+      category: CastEfficiency.SPELL_CATEGORIES.OTHERS,
       getCooldown: haste => null,
     },
     {
       spell: SPELLS.FLASH_OF_LIGHT,
       name: `Filler ${SPELLS.FLASH_OF_LIGHT.name}`,
-      category: SPELL_CATEGORY.OTHERS,
+      category: CastEfficiency.SPELL_CATEGORIES.OTHERS,
       getCasts: castCount => (castCount.casts || 0) - (castCount.healingIolHits || 0),
       getCooldown: haste => null,
       getOverhealing: ({ healingEffective, healingAbsorbed, healingOverheal, healingIolHealing, healingIolAbsorbed, healingIolOverheal }) => (healingOverheal - healingIolOverheal) / ((healingEffective - healingIolHealing) + (healingAbsorbed - healingIolAbsorbed) + (healingOverheal - healingIolOverheal)),
@@ -157,7 +157,7 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.FLASH_OF_LIGHT,
       name: `Infusion of Light ${SPELLS.FLASH_OF_LIGHT.name}`,
-      category: SPELL_CATEGORY.OTHERS,
+      category: CastEfficiency.SPELL_CATEGORIES.OTHERS,
       getCasts: castCount => castCount.healingIolHits || 0,
       getCooldown: haste => null,
       getOverhealing: ({ healingIolHealing, healingIolAbsorbed, healingIolOverheal }) => healingIolOverheal / (healingIolHealing + healingIolAbsorbed + healingIolOverheal),
@@ -165,7 +165,7 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.HOLY_LIGHT,
       name: `Filler ${SPELLS.HOLY_LIGHT.name}`,
-      category: SPELL_CATEGORY.OTHERS,
+      category: CastEfficiency.SPELL_CATEGORIES.OTHERS,
       getCasts: castCount => (castCount.casts || 0) - (castCount.healingIolHits || 0),
       getCooldown: haste => null,
       getOverhealing: ({ healingEffective, healingAbsorbed, healingOverheal, healingIolHealing, healingIolAbsorbed, healingIolOverheal }) => (healingOverheal - healingIolOverheal) / ((healingEffective - healingIolHealing) + (healingAbsorbed - healingIolAbsorbed) + (healingOverheal - healingIolOverheal)),
@@ -173,13 +173,12 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.HOLY_LIGHT,
       name: `Infusion of Light ${SPELLS.HOLY_LIGHT.name}`,
-      category: SPELL_CATEGORY.OTHERS,
+      category: CastEfficiency.SPELL_CATEGORIES.OTHERS,
       getCasts: castCount => castCount.healingIolHits || 0,
       getCooldown: haste => null,
       getOverhealing: ({ healingIolHealing, healingIolAbsorbed, healingIolOverheal }) => healingIolOverheal / (healingIolHealing + healingIolAbsorbed + healingIolOverheal),
     },
   ];
-  static SPELL_CATEGORIES = SPELL_CATEGORY;
 }
 
 export default CastEfficiency;

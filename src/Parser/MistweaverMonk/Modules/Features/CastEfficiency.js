@@ -3,19 +3,13 @@ import SPELLS from 'common/SPELLS';
 
 import CoreCastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 
-const SPELL_CATEGORY = {
-  ROTATIONAL: 'Rotational Spell',
-  COOLDOWNS: 'Cooldown',
-  OTHERS: 'Spell',
-  UTILITY: 'Utility',
-};
-
 class CastEfficiency extends CoreCastEfficiency {
   static CPM_ABILITIES = [
+    ...CoreCastEfficiency.CPM_ABILITIES,
     // Rotational Spells
     {
       spell: SPELLS.RENEWING_MIST,
-      category: SPELL_CATEGORY.ROTATIONAL,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 8,
       recommendedCastEfficiency: .9,
       getOverhealing: (_, getAbility) => {
@@ -27,12 +21,12 @@ class CastEfficiency extends CoreCastEfficiency {
     // Cooldowns
     {
       spell: SPELLS.THUNDER_FOCUS_TEA,
-      category: SPELL_CATEGORY.COOLDOWNS,
+      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 30,
     },
     {
       spell: SPELLS.CHI_BURST_TALENT,
-      category: SPELL_CATEGORY.COOLDOWNS,
+      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 30,
       isActive: combatant => combatant.hasTalent(SPELLS.CHI_BURST_TALENT.id),
       getOverhealing: (_, getAbility) => {
@@ -42,17 +36,18 @@ class CastEfficiency extends CoreCastEfficiency {
     },
     {
       spell: SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT,
-      category: SPELL_CATEGORY.COOLDOWNS,
+      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 180,
       isActive: combatant => combatant.hasTalent(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id),
     },
     {
       spell: SPELLS.MANA_TEA_TALENT,
-      category: SPELL_CATEGORY.COOLDOWNS,
+      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 90,
       isActive: combatant => combatant.hasTalent(SPELLS.MANA_TEA_TALENT.id),
     },
-    {
+    //is already in the Core/CastEfficiency module
+    /*{
       spell: SPELLS.VELENS_FUTURE_SIGHT,
       category: SPELL_CATEGORY.COOLDOWNS,
       getCooldown: haste => 75,
@@ -70,17 +65,17 @@ class CastEfficiency extends CoreCastEfficiency {
       category: SPELL_CATEGORY.COOLDOWNS,
       getCooldown: haste => 60,
       isActive: combatant => combatant.hasTrinket(ITEMS.ARCHIVE_OF_FAITH.id),
-    },
+    },*/
     {
       spell: SPELLS.LIFE_COCOON,
-      category: SPELL_CATEGORY.COOLDOWNS,
+      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 180,
       noSuggestion: true,
       noCanBeImproved: true,
     },
     {
       spell: SPELLS.REVIVAL,
-      category: SPELL_CATEGORY.COOLDOWNS,
+      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: (haste, combatant) => 180 - (combatant.traitsBySpellId[SPELLS.TENDRILS_OF_REVIVAL.id] || 0 ) * 10,
       noSuggestion: true,
       noCanBeImproved: true,
@@ -90,18 +85,18 @@ class CastEfficiency extends CoreCastEfficiency {
     // Other Spell Casting Metrics
     {
       spell: SPELLS.EFFUSE,
-      category: SPELL_CATEGORY.OTHERS,
+      category: CastEfficiency.SPELL_CATEGORIES.OTHERS,
       getCooldown: haste => null,
     },
 
     {
       spell: SPELLS.ENVELOPING_MISTS,
-      category: SPELL_CATEGORY.OTHERS,
+      category: CastEfficiency.SPELL_CATEGORIES.OTHERS,
       getCooldown: haste => null,
     },
     {
       spell: SPELLS.VIVIFY,
-      category: SPELL_CATEGORY.OTHERS,
+      category: CastEfficiency.SPELL_CATEGORIES.OTHERS,
       getCooldown: haste => null,
       getOverhealing: (_, getAbility) => {
         const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.VIVIFY.id);
@@ -110,7 +105,7 @@ class CastEfficiency extends CoreCastEfficiency {
     },
     {
       spell: SPELLS.SHEILUNS_GIFT,
-      category: SPELL_CATEGORY.OTHERS,
+      category: CastEfficiency.SPELL_CATEGORIES.OTHERS,
       getCooldown: haste => null,
       getOverhealing: (_, getAbility) => {
         const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.SHEILUNS_GIFT.id);
@@ -119,7 +114,7 @@ class CastEfficiency extends CoreCastEfficiency {
     },
     {
       spell: SPELLS.ESSENCE_FONT,
-      category: SPELL_CATEGORY.OTHERS,
+      category: CastEfficiency.SPELL_CATEGORIES.OTHERS,
       getCooldown: haste => null,
       getOverhealing: (_, getAbility) => {
         const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.ESSENCE_FONT_BUFF.id);
@@ -128,7 +123,7 @@ class CastEfficiency extends CoreCastEfficiency {
     },
     {
       spell: SPELLS.SOOTHING_MIST,
-      category: SPELL_CATEGORY.OTHERS,
+      category: CastEfficiency.SPELL_CATEGORIES.OTHERS,
       getCooldown: haste => null,
       getOverhealing: (_, getAbility) => {
         const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.SOOTHING_MIST.id);
@@ -137,7 +132,7 @@ class CastEfficiency extends CoreCastEfficiency {
     },
     {
       spell: SPELLS.REFRESHING_JADE_WIND_TALENT,
-      category: SPELL_CATEGORY.OTHERS,
+      category: CastEfficiency.SPELL_CATEGORIES.OTHERS,
       getCooldown: haste => null,
       isActive: combatant => combatant.hasTalent(SPELLS.REFRESHING_JADE_WIND_TALENT.id),
       getOverhealing: (_, getAbility) => {
@@ -149,13 +144,13 @@ class CastEfficiency extends CoreCastEfficiency {
     // Utility Spells
     {
       spell: SPELLS.ARCANE_TORRENT,
-      category: SPELL_CATEGORY.UTILITY,
+      category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => 90,
       hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.DIFFUSE_MAGIC_TALENT,
-      category: SPELL_CATEGORY.UTILITY,
+      category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => 90,
       isActive: combatant => combatant.hasTalent(SPELLS.DIFFUSE_MAGIC_TALENT.id),
       noSuggestion: true,
@@ -163,7 +158,7 @@ class CastEfficiency extends CoreCastEfficiency {
     },
     {
       spell: SPELLS.DAMPEN_HARM_TALENT,
-      category: SPELL_CATEGORY.UTILITY,
+      category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => 120,
       isActive: combatant => combatant.hasTalent(SPELLS.DAMPEN_HARM_TALENT.id),
       noSuggestion: true,
@@ -171,14 +166,14 @@ class CastEfficiency extends CoreCastEfficiency {
     },
     {
       spell: SPELLS.FORTIFYING_BREW,
-      category: SPELL_CATEGORY.UTILITY,
+      category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => 90,
       noSuggestion: true,
       noCanBeImproved: true,
     },
     {
       spell: SPELLS.HEALING_ELIXIR_TALENT,
-      category: SPELL_CATEGORY.UTILITY,
+      category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
       charges: 2,
       getCooldown: haste => 30,
       isActive: combatant => combatant.hasTalent(SPELLS.HEALING_ELIXIR_TALENT.id),
@@ -187,7 +182,6 @@ class CastEfficiency extends CoreCastEfficiency {
     },
 
   ];
-  static SPELL_CATEGORIES = SPELL_CATEGORY;
 }
 
 export default CastEfficiency;
