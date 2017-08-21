@@ -16,9 +16,7 @@ class Castigation extends Module {
   _isCastigationBolt = false;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasTalent(SPELLS.CASTIGATION_TALENT.id);
-    }
+    this.active = this.owner.selectedCombatant.hasTalent(SPELLS.CASTIGATION_TALENT.id);
   }
 
   on_byPlayer_damage(event) {

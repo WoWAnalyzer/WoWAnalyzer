@@ -15,9 +15,7 @@ class DeathsEmbraceTalent extends Module {
   };
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasTalent(SPELLS.DEATHS_EMBRACE_TALENT.id);
-    }
+    this.active = this.owner.selectedCombatant.hasTalent(SPELLS.DEATHS_EMBRACE_TALENT.id);
   }
 
   statistic() {

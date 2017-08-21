@@ -16,9 +16,7 @@ class Eithas extends Module {
   rawHealingMain = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasFeet(ITEMS.EITHAS_LUNAR_GLIDES.id);
-    }
+    this.active = this.owner.selectedCombatant.hasFeet(ITEMS.EITHAS_LUNAR_GLIDES.id);
   }
 
   on_byPlayer_cast(event) {

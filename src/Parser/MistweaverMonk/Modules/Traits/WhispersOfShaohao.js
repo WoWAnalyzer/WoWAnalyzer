@@ -16,9 +16,7 @@ class WhispersOfShaohao extends Module {
   countWhispersHeal = 0;
 
   on_initialize() {
-    if(!this.owner.error) {
-      this.active = this.owner.selectedCombatant.traitsBySpellId[SPELLS.WHISPERS_OF_SHAOHAO_TRAIT.id] === 1;
-    }
+    this.active = this.owner.selectedCombatant.traitsBySpellId[SPELLS.WHISPERS_OF_SHAOHAO_TRAIT.id] === 1;
   }
 
   on_byPlayer_heal(event) {

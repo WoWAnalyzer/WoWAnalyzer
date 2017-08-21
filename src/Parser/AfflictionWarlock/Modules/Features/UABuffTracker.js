@@ -25,10 +25,8 @@ class UABuffTracker extends Module {
   hasHaunt = false;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.hasMG = this.owner.selectedCombatant.hasTalent(SPELLS.MALEFIC_GRASP_TALENT.id);
-      this.hasHaunt = this.owner.selectedCombatant.hasTalent(SPELLS.HAUNT_TALENT.id);
-    }
+    this.hasMG = this.owner.selectedCombatant.hasTalent(SPELLS.MALEFIC_GRASP_TALENT.id);
+    this.hasHaunt = this.owner.selectedCombatant.hasTalent(SPELLS.HAUNT_TALENT.id);
   }
 
   on_byPlayer_damage(event) {

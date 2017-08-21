@@ -17,9 +17,7 @@ class StretensSleeplessShackles extends Module {
   bonusDmg = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasWrists(ITEMS.STRETENS_SLEEPLESS_SHACKLES.id);
-    }
+    this.active = this.owner.selectedCombatant.hasWrists(ITEMS.STRETENS_SLEEPLESS_SHACKLES.id);
   }
 
   on_byPlayer_damage(event) {

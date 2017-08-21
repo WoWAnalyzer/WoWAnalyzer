@@ -34,22 +34,20 @@ class DarkmoonDeckPromises extends Module {
   manaGained = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      const selectedCombatant = this.owner.selectedCombatant;
-      this.active = selectedCombatant.hasTrinket(ITEMS.DARKMOON_DECK_PROMISES.id);
+    const selectedCombatant = this.owner.selectedCombatant;
+    this.active = selectedCombatant.hasTrinket(ITEMS.DARKMOON_DECK_PROMISES.id);
 
-      if (this.active) {
-        const item = (selectedCombatant.trinket1 && selectedCombatant.trinket1.id === ITEMS.DARKMOON_DECK_PROMISES.id) ? selectedCombatant.trinket1 : selectedCombatant.trinket2;
+    if (this.active) {
+      const item = (selectedCombatant.trinket1 && selectedCombatant.trinket1.id === ITEMS.DARKMOON_DECK_PROMISES.id) ? selectedCombatant.trinket1 : selectedCombatant.trinket2;
 
-        let average = 0;
-        Object.keys(BASE_MANA_REDUCTION_PER_CARD).forEach((key) => {
-          // DMD: Promises mana reduction uses primary stat formula unlike most trinket secondaries, confirmed confirmed
-          const manaReduction = calculatePrimaryStat(BASE_PROMISES_ITEM_LEVEL, BASE_MANA_REDUCTION_PER_CARD[key], item.itemLevel);
-          this.MANA_REDUCTION_PER_CARD[key] = manaReduction;
-          average += manaReduction;
-        });
-        this.currentManaReduction = average / Object.keys(BASE_MANA_REDUCTION_PER_CARD).length;
-      }
+      let average = 0;
+      Object.keys(BASE_MANA_REDUCTION_PER_CARD).forEach((key) => {
+        // DMD: Promises mana reduction uses primary stat formula unlike most trinket secondaries, confirmed confirmed
+        const manaReduction = calculatePrimaryStat(BASE_PROMISES_ITEM_LEVEL, BASE_MANA_REDUCTION_PER_CARD[key], item.itemLevel);
+        this.MANA_REDUCTION_PER_CARD[key] = manaReduction;
+        average += manaReduction;
+      });
+      this.currentManaReduction = average / Object.keys(BASE_MANA_REDUCTION_PER_CARD).length;
     }
   }
 

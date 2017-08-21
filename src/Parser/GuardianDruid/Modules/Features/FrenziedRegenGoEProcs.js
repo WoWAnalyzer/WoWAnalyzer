@@ -7,9 +7,7 @@ import Module from 'Parser/Core/Module';
 
 class FrenziedRegenGoEProcs extends Module {
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasTalent(SPELLS.GUARDIAN_OF_ELUNE_TALENT.id);
-    }
+    this.active = this.owner.selectedCombatant.hasTalent(SPELLS.GUARDIAN_OF_ELUNE_TALENT.id);
   }
 
   statistic() {

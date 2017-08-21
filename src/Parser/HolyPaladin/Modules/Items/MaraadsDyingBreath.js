@@ -15,9 +15,7 @@ class MaraadsDyingBreath extends Module {
   healingGainOverLotm = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasBack(ITEMS.MARAADS_DYING_BREATH.id);
-    }
+    this.active = this.owner.selectedCombatant.hasBack(ITEMS.MARAADS_DYING_BREATH.id);
   }
 
   _lastHeal = null;

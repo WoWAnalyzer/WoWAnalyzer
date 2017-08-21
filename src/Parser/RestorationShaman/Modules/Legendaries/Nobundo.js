@@ -11,9 +11,7 @@ class Nobundo extends Module {
   discounts = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasWrists(ITEMS.NOBUNDOS_REDEMPTION.id);
-    }
+    this.active = this.owner.selectedCombatant.hasWrists(ITEMS.NOBUNDOS_REDEMPTION.id);
   }
 
   on_byPlayer_heal(event) {

@@ -20,9 +20,7 @@ class Tier21_4set extends Module {
   healing = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasBuff(SPELLS.HOLY_PALADIN_T21_4SET_BONUS_BUFF.id);
-    }
+    this.active = this.owner.selectedCombatant.hasBuff(SPELLS.HOLY_PALADIN_T21_4SET_BONUS_BUFF.id);
   }
 
   lastLightOfDawnHealTimestamp = null;

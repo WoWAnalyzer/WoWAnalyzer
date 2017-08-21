@@ -25,9 +25,7 @@ class ThunderFocusTea extends Module {
     ftActive = false;
 
     on_initialized() {
-      if(!this.owner.error) {
-        this.ftActive = this.owner.selectedCombatant.hasTalent(SPELLS.FOCUSED_THUNDER_TALENT.id);
-      }
+      this.ftActive = this.owner.selectedCombatant.hasTalent(SPELLS.FOCUSED_THUNDER_TALENT.id);
     }
 
     on_toPlayer_applybuff(event) {

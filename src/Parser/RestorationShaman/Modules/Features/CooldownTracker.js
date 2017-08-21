@@ -153,33 +153,31 @@ class CooldownTracker extends CoreCooldownTracker {
   }
 
   on_initialized() {
-    if (!this.owner.error) {
-      // Store cooldown info in case it was cast before pull. If we see a cast before it expires, all data in it is discarded.
-      this.lastCBT = this.addNewCooldown({
-        spell: SPELLS.CLOUDBURST_TOTEM_CAST,
-        summary: [
-          BUILT_IN_SUMMARY_TYPES.HEALING,
-          BUILT_IN_SUMMARY_TYPES.OVERHEALING,
-          BUILT_IN_SUMMARY_TYPES.MANA,
-        ],
-      }, this.owner.fight.start_time);
-      this.lastAG = this.addNewCooldown({
-        spell: SPELLS.ANCESTRAL_GUIDANCE_CAST,
-        summary: [
-          BUILT_IN_SUMMARY_TYPES.HEALING,
-          BUILT_IN_SUMMARY_TYPES.OVERHEALING,
-          BUILT_IN_SUMMARY_TYPES.MANA,
-        ],
-      }, this.owner.fight.start_time);
-      this.lastAsc = this.addNewCooldown({
-        spell: SPELLS.ASCENDANCE_CAST,
-        summary: [
-          BUILT_IN_SUMMARY_TYPES.HEALING,
-          BUILT_IN_SUMMARY_TYPES.OVERHEALING,
-          BUILT_IN_SUMMARY_TYPES.MANA,
-        ],
-      }, this.owner.fight.start_time);
-    }
+    // Store cooldown info in case it was cast before pull. If we see a cast before it expires, all data in it is discarded.
+    this.lastCBT = this.addNewCooldown({
+      spell: SPELLS.CLOUDBURST_TOTEM_CAST,
+      summary: [
+        BUILT_IN_SUMMARY_TYPES.HEALING,
+        BUILT_IN_SUMMARY_TYPES.OVERHEALING,
+        BUILT_IN_SUMMARY_TYPES.MANA,
+      ],
+    }, this.owner.fight.start_time);
+    this.lastAG = this.addNewCooldown({
+      spell: SPELLS.ANCESTRAL_GUIDANCE_CAST,
+      summary: [
+        BUILT_IN_SUMMARY_TYPES.HEALING,
+        BUILT_IN_SUMMARY_TYPES.OVERHEALING,
+        BUILT_IN_SUMMARY_TYPES.MANA,
+      ],
+    }, this.owner.fight.start_time);
+    this.lastAsc = this.addNewCooldown({
+      spell: SPELLS.ASCENDANCE_CAST,
+      summary: [
+        BUILT_IN_SUMMARY_TYPES.HEALING,
+        BUILT_IN_SUMMARY_TYPES.OVERHEALING,
+        BUILT_IN_SUMMARY_TYPES.MANA,
+      ],
+    }, this.owner.fight.start_time);
   }
 
   on_toPlayer_applybuff(event) {

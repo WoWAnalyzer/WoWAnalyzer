@@ -34,6 +34,13 @@ const ITEMS = {
     icon: 'inv_misc_necklace15',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+  ARCHIMONDES_HATRED_REBORN: {
+    id: 144249,
+    absorbId: 235169,
+    name: 'Archimonde\'s Hatred Reborn',
+    icon: 'spell_nature_elementalshields',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
   SEPHUZS_SECRET: {
     id: 132452,
     name: 'Sephuz\'s Secret',
@@ -505,6 +512,12 @@ const ITEMS = {
     id: 151802,
     name: 'Fury of Nature',
     icon: 'inv_cape_draenorquest90_b_03_mail',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  SKYSECS_HOLD: {
+    id: 137025,
+    name: 'Skysec\'s Hold',
+    icon: 'inv_boots_mail_02',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
 

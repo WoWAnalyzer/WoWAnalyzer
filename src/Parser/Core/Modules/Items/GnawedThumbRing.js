@@ -14,9 +14,7 @@ class GnawedThumbRing extends Module {
   damage = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasFinger(ITEMS.GNAWED_THUMB_RING.id);
-    }
+    this.active = this.owner.selectedCombatant.hasFinger(ITEMS.GNAWED_THUMB_RING.id);
   }
 
   on_byPlayer_heal(event) {

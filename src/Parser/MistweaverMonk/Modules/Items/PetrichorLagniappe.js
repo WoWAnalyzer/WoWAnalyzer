@@ -20,9 +20,7 @@ class PetrichorLagniappe extends Module {
   cdReductionUsed = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasWrists(ITEMS.PETRICHOR_LAGNIAPPE.id);
-    }
+    this.active = this.owner.selectedCombatant.hasWrists(ITEMS.PETRICHOR_LAGNIAPPE.id);
     if(this.active) {
       this.REVIVAL_BASE_COOLDOWN = 180000 - (this.owner.selectedCombatant.traitsBySpellId[SPELLS.TENDRILS_OF_REVIVAL.id] || 0 ) * 10000;
     }

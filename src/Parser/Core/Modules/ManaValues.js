@@ -1,8 +1,7 @@
 import Module from 'Parser/Core/Module';
+import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 
 const debug = false;
-
-const MANA_CLASS_RESOURCE_ID = 0;
 
 class ManaValue extends Module {
   lowestMana = 1100000;
@@ -13,7 +12,7 @@ class ManaValue extends Module {
     if(event.classResources) {
       debug && console.log('Current Ending Mana: ', this.endingMana);
       event.classResources.forEach(classResource => {
-        if (classResource.type === MANA_CLASS_RESOURCE_ID) {
+        if (classResource.type === RESOURCE_TYPES.MANA) {
           const manaValue = classResource.amount;
           const manaEvent = classResource.cost || 0;
           const currMana = manaValue - manaEvent;

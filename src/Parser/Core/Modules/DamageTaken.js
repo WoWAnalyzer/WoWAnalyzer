@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 
 const debug = false;
 
-class DamageValue {
+export class DamageValue {
   amount = 0;
   absorb = 0;
   overkill = 0;

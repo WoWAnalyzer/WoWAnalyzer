@@ -12,6 +12,7 @@ import RestorationShaman from './RestorationShaman/CONFIG';
 
 import MistweaverMonk from './MistweaverMonk/CONFIG';
 import WindwalkerMonk from './WindwalkerMonk/CONFIG';
+import BrewmasterMonk from './BrewmasterMonk/CONFIG';
 
 import SubtletyRogue from './SubtletyRogue/CONFIG';
 
@@ -31,6 +32,7 @@ export default [
 
   MistweaverMonk,
   WindwalkerMonk,
+  BrewmasterMonk,
 
   ElementalShaman,
   EnhancementShaman,

@@ -16,9 +16,7 @@ class AncestralVigor extends Module {
   loaded = false;
   totalLifeSaved = 0;
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = !!this.owner.selectedCombatant.hasTalent(SPELLS.ANCESTRAL_VIGOR_TALENT.id);
-    }
+    this.active = !!this.owner.selectedCombatant.hasTalent(SPELLS.ANCESTRAL_VIGOR_TALENT.id);
   }
 
   // recursively fetch events until no nextPageTimestamp is returned

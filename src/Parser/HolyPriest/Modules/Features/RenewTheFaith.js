@@ -9,10 +9,8 @@ class RenewTheFaith extends Module {
   overhealing = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this._maxHymnDuration = 8 / (1 + this.owner.selectedCombatant.hastePercentage);
-      this.active = this.owner.selectedCombatant.traitsBySpellId[SPELLS.RENEW_THE_FAITH_TRAIT.id] > 0;
-    }
+    this._maxHymnDuration = 8 / (1 + this.owner.selectedCombatant.hastePercentage);
+    this.active = this.owner.selectedCombatant.traitsBySpellId[SPELLS.RENEW_THE_FAITH_TRAIT.id] > 0;
   }
 
   on_byPlayer_cast(event) {

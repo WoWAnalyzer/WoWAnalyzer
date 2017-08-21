@@ -14,9 +14,7 @@ class ArchiveOfFaith extends Module {
   healingOverTime = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasTrinket(ITEMS.ARCHIVE_OF_FAITH.id);
-    }
+    this.active = this.owner.selectedCombatant.hasTrinket(ITEMS.ARCHIVE_OF_FAITH.id);
   }
 
   on_byPlayer_cast(event) {

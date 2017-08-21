@@ -14,9 +14,7 @@ class Evangelism extends Module {
   _evangelismStatistics = {};
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = !!this.owner.selectedCombatant.hasTalent(SPELLS.EVANGELISM_TALENT.id);
-    }
+    this.active = !!this.owner.selectedCombatant.hasTalent(SPELLS.EVANGELISM_TALENT.id);
   }
 
   get evangelismStatistics() {

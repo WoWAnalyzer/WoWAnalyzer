@@ -88,6 +88,10 @@ Object.values(talents).forEach(classTalents => {
       if (mana) {
         spellsTalent.manaCost = Math.round(mana[1] / 100 * BASE_MANA[className]);
       }
+      const pain = spell.powerCost.match(/^([0-9.]+) Pain/);
+      if (pain) {
+        spellsTalent.painCost = Number(pain[1]);
+      }
       // TODO: As desired add other powers
     }
 

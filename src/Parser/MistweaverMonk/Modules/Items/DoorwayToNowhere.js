@@ -15,9 +15,7 @@ class DoorwayToNowhere extends Module {
   chiJiActive = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasBack(ITEMS.DOORWAY_TO_NOWHERE.id);
-    }
+    this.active = this.owner.selectedCombatant.hasBack(ITEMS.DOORWAY_TO_NOWHERE.id);
   }
 
   on_byPlayer_summon(event) {

@@ -21,9 +21,7 @@ class Tier19_4set extends Module {
   bonusIolProcsUsedOnFol = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasBuff(SPELLS.HOLY_PALADIN_T19_4SET_BONUS_BUFF.id);
-    }
+    this.active = this.owner.selectedCombatant.hasBuff(SPELLS.HOLY_PALADIN_T19_4SET_BONUS_BUFF.id);
   }
 
   iolProcsUsedSinceLastHolyShock = 0;

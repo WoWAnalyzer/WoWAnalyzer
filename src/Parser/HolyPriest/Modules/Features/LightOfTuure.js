@@ -11,11 +11,9 @@ class LightOfTuure extends Module {
   spellHealing = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.lotTraits = this.owner.selectedCombatant.traitsBySpellId[SPELLS.CARESS_OF_THE_NAARU_TRAIT.id] || 0;
-      this.lotModifier = 0.25 + (0.05 * this.lotTraits);
-      this.active = this.owner.selectedCombatant.traitsBySpellId[SPELLS.LIGHT_OF_TUURE_TRAIT.id] > 0;
-    }
+    this.lotTraits = this.owner.selectedCombatant.traitsBySpellId[SPELLS.CARESS_OF_THE_NAARU_TRAIT.id] || 0;
+    this.lotModifier = 0.25 + (0.05 * this.lotTraits);
+    this.active = this.owner.selectedCombatant.traitsBySpellId[SPELLS.LIGHT_OF_TUURE_TRAIT.id] > 0;
   }
 
   on_byPlayer_applybuff(event) {

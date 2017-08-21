@@ -16,9 +16,7 @@ class AuraOfSacrifice extends Module {
   };
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasTalent(SPELLS.AURA_OF_SACRIFICE_TALENT.id);
-    }
+    this.active = this.owner.selectedCombatant.hasTalent(SPELLS.AURA_OF_SACRIFICE_TALENT.id);
   }
 
   get healing() {

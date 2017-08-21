@@ -11,9 +11,7 @@ class TrousersOfAnjuna extends Module {
   absorbed = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasLegs(ITEMS.ENTRANCING_TROUSERS_OF_ANJUNA.id);
-    }
+    this.active = this.owner.selectedCombatant.hasLegs(ITEMS.ENTRANCING_TROUSERS_OF_ANJUNA.id);
   }
 
   on_byPlayer_removebuff(event) {

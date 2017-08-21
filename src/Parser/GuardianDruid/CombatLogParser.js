@@ -20,12 +20,13 @@ import Thrash from './Modules/Spells/Thrash';
 import Moonfire from './Modules/Spells/Moonfire';
 import Pulverize from './Modules/Spells/Pulverize';
 import DualDetermination from './Modules/Items/DualDetermination';
+import SkysecsHold from './Modules/Items/Skysecs';
 
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
-    //Core 
+    //Core
     damageTaken: DamageTaken,
     healingDone: HealingDone,
     damageDone: DamageDone,
@@ -41,13 +42,15 @@ class CombatLogParser extends MainCombatLogParser {
     thrash: Thrash,
     moonfire: Moonfire,
     pulverize: Pulverize,
-    
+
     // Legendaries:
     dualDetermination: DualDetermination,
+    skysecs: SkysecsHold,
   };
 
   generateResults() {
     const results = super.generateResults();
+
     results.tabs = [
       {
         title: 'Suggestions',

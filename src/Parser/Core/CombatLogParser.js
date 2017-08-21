@@ -1,5 +1,6 @@
 import { formatNumber, formatPercentage } from 'common/format';
 
+import Status from './Modules/Status';
 import Combatants from './Modules/Combatants';
 import AbilityTracker from './Modules/AbilityTracker';
 import AlwaysBeCasting from './Modules/AlwaysBeCasting';
@@ -13,6 +14,7 @@ import Prydaz from './Modules/Items/Prydaz';
 import Velens from './Modules/Items/Velens';
 import SephuzsSecret from './Modules/Items/SephuzsSecret';
 import KiljaedensBurningWish from './Modules/Items/KiljaedensBurningWish';
+import ArchimondesHatredReborn from './Modules/Items/ArchimondesHatredReborn';
 // Shared Epics
 import DrapeOfShame from './Modules/Items/DrapeOfShame';
 import DarkmoonDeckPromises from './Modules/Items/DarkmoonDeckPromises';
@@ -40,6 +42,8 @@ class CombatLogParser {
   static abilitiesAffectedByHealingIncreases = [];
 
   static defaultModules = {
+    status: Status,
+
     combatants: Combatants,
     enemies: Enemies,
     spellManaCost: SpellManaCost,
@@ -55,6 +59,7 @@ class CombatLogParser {
     velens: Velens,
     sephuzsSecret: SephuzsSecret,
     kiljaedensBurningWish: KiljaedensBurningWish,
+    archimondesHatredReborn: ArchimondesHatredReborn,
     // Epics:
     drapeOfShame: DrapeOfShame,
     amalgamsSeventhSpine: AmalgamsSeventhSpine,
@@ -105,13 +110,14 @@ class CombatLogParser {
     return this.combatants.selected;
   }
 
-  get fightDuration() {
-    return (this.finished ? this.fight.end_time : this.currentTimestamp) - this.fight.start_time;
-  }
-
-  _timestamp = null;
   get currentTimestamp() {
-    return this._timestamp;
+    return this.finished ? this.fight.end_time : this._timestamp;
+  }
+  get fightDuration() {
+    return this.currentTimestamp - this.fight.start_time;
+  }
+  get finished() {
+    return this.modules.status.finished;
   }
 
   get playersById() {
@@ -216,22 +222,20 @@ class CombatLogParser {
         return results;
       });
   }
-
-  triggerEvent(eventType, event) {
+  triggerEvent(eventType, ...args) {
     const methodName = `on_${eventType}`;
-    this.constructor.tryCall(this, methodName, event);
+
+    // Temp: this should be removed once all CombatLogParser event handlers have been removed.
+    const method = this[methodName];
+    if (method) {
+      method.apply(this, args);
+    }
+
     this.activeModules
       .sort((a, b) => a.priority - b.priority) // lowest should go first, as `priority = 0` will have highest prio
       .forEach(module => {
-        this.constructor.tryCall(module, methodName, event);
+        module.triggerEvent(eventType, ...args);
       });
-  }
-
-  static tryCall(object, methodName, event) {
-    const method = object[methodName];
-    if (method) {
-      method.call(object, event);
-    }
   }
 
   byPlayer(event, playerId = this.player.id) {
@@ -240,20 +244,6 @@ class CombatLogParser {
 
   toPlayer(event, playerId = this.player.id) {
     return (event.targetID === playerId);
-  }
-
-  initialized = false;
-  error = null;
-  on_initialized() {
-    this.initialized = true;
-    if (!this.selectedCombatant) {
-      this.error = 'The selected player could not be found in this fight. Make sure the log is recorded with Advanced Combat Logging enabled.';
-    }
-  }
-
-  finished = false;
-  on_finished() {
-    this.finished = true;
   }
 
   // This used to be implemented as a sanity check, may be replaced by a cleaner solution.
@@ -270,7 +260,7 @@ class CombatLogParser {
     this.totalHealing += event.amount + (event.absorbed || 0);
   }
   on_byPlayer_removebuff(event) {
-    if (event.absorb > 0) {
+    if (event.absorb) {
       this.totalOverhealingDone += event.absorb;
     }
   }
@@ -290,7 +280,7 @@ class CombatLogParser {
   totalDamageTakenAbsorb = 0;
   on_toPlayer_damage(event) {
     this.totalDamageTaken += event.amount + (event.absorbed || 0);
-    this.totalDamageTakenAbsorb += (event.absorbed || 0);
+    this.totalDamageTakenAbsorb += (event.absorbed || 0); // this also triggers an `absorbed` event for the player responsible for the absorb, which may be someone else
   }
 
   // TODO: Damage taken from LOTM
@@ -300,6 +290,9 @@ class CombatLogParser {
   }
   formatItemHealingDone(healingDone) {
     return `${formatPercentage(this.getPercentageOfTotalHealingDone(healingDone))} % / ${formatNumber(healingDone / this.fightDuration * 1000)} HPS`;
+  }
+  formatItemAbsorbDone(absorbDone) {
+    return `${formatNumber(absorbDone)}`;
   }
   getPercentageOfTotalDamageDone(damageDone) {
     return damageDone / this.totalDamageDone;

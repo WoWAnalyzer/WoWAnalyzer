@@ -25,11 +25,9 @@ class LeniencesReward extends Module {
 
   totalDamageTakenDuringAtonement = 0;
   on_initialized() {
-    if (!this.owner.error) {
-      this._leniencesRewardRank = this.owner.selectedCombatant.traitsBySpellId[SPELLS.LENIENCES_REWARD_TRAIT.id];
-      this._leniencesRewardDR = this._leniencesRewardRank * LENIENCES_REWARD_DR_PER_RANK;
-      this.active = this._leniencesRewardRank > 0;
-    }
+    this._leniencesRewardRank = this.owner.selectedCombatant.traitsBySpellId[SPELLS.LENIENCES_REWARD_TRAIT.id];
+    this._leniencesRewardDR = this._leniencesRewardRank * LENIENCES_REWARD_DR_PER_RANK;
+    this.active = this._leniencesRewardRank > 0;
   }
 
   load() {

@@ -23,9 +23,7 @@ class Tier20_4set extends Module {
   totalBeaconHealingDuringLightsEmbrace = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasBuff(SPELLS.HOLY_PALADIN_T20_4SET_BONUS_BUFF.id);
-    }
+    this.active = this.owner.selectedCombatant.hasBuff(SPELLS.HOLY_PALADIN_T20_4SET_BONUS_BUFF.id);
   }
 
   on_beacon_heal({ beaconTransferEvent, matchedHeal: healEvent }) {

@@ -8,9 +8,7 @@ import SPELLS from 'common/SPELLS';
 
 class Pulverize extends Module {
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasTalent(SPELLS.PULVERIZE_TALENT.id);
-    }
+    this.active = this.owner.selectedCombatant.hasTalent(SPELLS.PULVERIZE_TALENT.id);
   }
 
   suggestions(when) {

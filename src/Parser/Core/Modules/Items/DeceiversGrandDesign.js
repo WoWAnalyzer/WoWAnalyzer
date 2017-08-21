@@ -25,9 +25,7 @@ class DecieversGrandDesign extends Module {
   procs = [];
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasTrinket(ITEMS.DECEIVERS_GRAND_DESIGN.id);
-    }
+    this.active = this.owner.selectedCombatant.hasTrinket(ITEMS.DECEIVERS_GRAND_DESIGN.id);
   }
 
   on_byPlayer_heal(event) {

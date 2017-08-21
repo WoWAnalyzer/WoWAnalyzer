@@ -13,6 +13,25 @@ export default {
     icon: 'ability_demonhunter_spectank',
   },
 
+  //Racial:
+  ARCANE_TORRENT: {
+    id: 202719,
+    name: 'Arcane Torrent',
+    icon: 'spell_shadow_teleport',
+  },
+
+  // Passive:
+  DEMONIC_WARDS: {
+    id: 207014,
+    name: 'Demonic Wards',
+    icon: 'inv_belt_leather_demonhunter_a_01',
+  },
+  SEVER: {
+    id: 235964,
+    name :'Sever',
+    icon: 'ability_demonhunter_manabreak',
+  },
+
   // Abilities:
   SOUL_FRAGMENT: {
     id: 204255,
@@ -34,6 +53,11 @@ export default {
       name: 'Sigil of Flame',
       icon: 'ability_demonhunter_sigilofinquisition',
   },
+  SIGIL_OF_FLAME_DEBUFF: {
+      id: 204598,
+      name: 'Sigil of Flame Debuff',
+      icon: 'ability_demonhunter_sigilofinquisition',
+  },
   SIGIL_OF_MISERY: {
       id: 207684,
       name: 'Sigil of Misery',
@@ -44,6 +68,7 @@ export default {
     buffId: 203819,
     name: 'Demon Spikes',
     icon: 'ability_demonhunter_demonspikes',
+    painCost: 20,
   },
   FIERY_BRAND: {
     id: 204021,
@@ -59,6 +84,7 @@ export default {
     id: 228477,
     name: 'Soul Cleave',
     icon: 'ability_demonhunter_soulcleave',
+    painCost: 43,
   },
   THROW_GLAIVE: {
     id: 204157,
@@ -68,8 +94,17 @@ export default {
   IMMOLATION_AURA: {
     id: 178740,
     firstStrikeSpellId: 187727,
-    normalStrikeSpellId: 178741,
     name: 'Immolation Aura',
+    icon: 'ability_demonhunter_immolation',
+  },
+  IMMOLATION_AURA_FIRST_STRIKE: {
+    id: 187727,
+    name: 'Immolation Aura First Strike',
+    icon: 'ability_demonhunter_immolation',
+  },
+  IMMOLATION_AURA_BUFF: {
+    id: 178741,
+    name: 'Immolation Aura Buff',
     icon: 'ability_demonhunter_immolation',
   },
   SHEAR: {
@@ -93,7 +128,14 @@ export default {
     icon: 'ability_demonhunter_imprison',
   },
 
-  // Traits:
+  // Talents
+  FRAILTY_SPIRIT_BOMB_DEBUFF: {
+    id: 247456,
+    name: 'Frailty',
+    icon: 'inv_icon_shadowcouncilorb_purple',
+  },
+
+  // Artifact Traits:
   SOUL_CARVER: {
     id: 207407,
     name: 'Soul Carver',
