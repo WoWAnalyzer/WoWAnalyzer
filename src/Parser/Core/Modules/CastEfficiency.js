@@ -28,7 +28,6 @@ class CastEfficiency extends Module {
     },
   ];
   static CPM_ABILITIES = [
-    //TODO: fix the SPELL_CATEGORIES shenanigans so baseline on-use items can work
     //Shared trinkets and legendaries
     {
       spell: SPELLS.CLEANSING_MATRIX,
