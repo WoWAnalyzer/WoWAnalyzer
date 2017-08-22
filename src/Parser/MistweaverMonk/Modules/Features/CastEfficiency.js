@@ -1,4 +1,3 @@
-import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 
 import CoreCastEfficiency from 'Parser/Core/Modules/CastEfficiency';
@@ -46,26 +45,6 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 90,
       isActive: combatant => combatant.hasTalent(SPELLS.MANA_TEA_TALENT.id),
     },
-    //is already in the Core/CastEfficiency module
-    /*{
-      spell: SPELLS.VELENS_FUTURE_SIGHT,
-      category: SPELL_CATEGORY.COOLDOWNS,
-      getCooldown: haste => 75,
-      isActive: combatant => combatant.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT.id),
-    },
-    {
-      spell: SPELLS.GNAWED_THUMB_RING,
-      category: SPELL_CATEGORY.COOLDOWNS,
-      getCooldown: haste => 180,
-      isActive: combatant => combatant.hasFinger(ITEMS.GNAWED_THUMB_RING.id),
-    },
-    {
-      spell: SPELLS.CLEANSING_MATRIX,
-      name: `${ITEMS.ARCHIVE_OF_FAITH.name}`,
-      category: SPELL_CATEGORY.COOLDOWNS,
-      getCooldown: haste => 60,
-      isActive: combatant => combatant.hasTrinket(ITEMS.ARCHIVE_OF_FAITH.id),
-    },*/
     {
       spell: SPELLS.LIFE_COCOON,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,

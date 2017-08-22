@@ -10,12 +10,10 @@ import StatisticBox from 'Main/StatisticBox';
 import SuggestionsTab from 'Main/SuggestionsTab';
 import Tab from 'Main/Tab';
 import Talents from 'Main/Talents';
-// import CastEfficiency from 'Main/CastEfficiency';
 import Mana from 'Main/Mana';
 import Feeding from 'Main/Feeding';
 
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
-// import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
 
@@ -37,7 +35,6 @@ import Restoration_Shaman_T19_2Set from './Modules/Legendaries/T19_2Set';
 import Restoration_Shaman_T20_4Set from './Modules/Legendaries/T20_4Set';
 import AncestralVigor from './Modules/Features/AncestralVigor';
 
-// import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
 import UnusedTidalWavesImage from './Images/spell_shaman_tidalwaves-bw.jpg';
@@ -237,17 +234,6 @@ class CombatLogParser extends MainCombatLogParser {
       });
     }
 
-    // const castEfficiencyCategories = SPELL_CATEGORY;
-    // const castEfficiency = getCastEfficiency(CPM_ABILITIES, this);
-    // castEfficiency.forEach((cpm) => {
-    //   if (cpm.canBeImproved && !cpm.ability.noSuggestion) {
-    //     results.addIssue({
-    //       issue: <span>Try to cast <SpellLink id={cpm.ability.spell.id} /> more often ({cpm.casts}/{cpm.maxCasts} casts: {Math.round(cpm.castEfficiency * 100)}% cast efficiency). {cpm.ability.extraSuggestion || ''}</span>,
-    //       icon: cpm.ability.spell.icon,
-    //       importance: cpm.ability.importance || getIssueImportance(cpm.castEfficiency, cpm.recommendedCastEfficiency - 0.05, cpm.recommendedCastEfficiency - 0.15),
-    //     });
-    //   }
-    // });
 
     results.statistics = [
       <StatisticBox
@@ -421,18 +407,6 @@ class CombatLogParser extends MainCombatLogParser {
           <SuggestionsTab issues={results.issues} />
         ),
       },
-      // {
-      //   title: 'Cast efficiency',
-      //   url: 'cast-efficiency',
-      //   render: () => (
-      //     <Tab title="Cast efficiency">
-      //       <CastEfficiency
-      //         categories={castEfficiencyCategories}
-      //         abilities={castEfficiency}
-      //       />
-      //     </Tab>
-      //   ),
-      // },
       {
         title: 'Talents',
         url: 'talents',

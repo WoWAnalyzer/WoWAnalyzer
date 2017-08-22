@@ -25,7 +25,7 @@ const CastEfficiency = ({ categories, abilities }) => {
             {abilities
               .filter(item => item.ability.category === categories[key])
               .map(({ ability, casts, spend, created, wasted, canBeImproved }) => {
-                const name = ability.spell.name;
+                const name = ability.name || ability.spell.name;
                 return (
                   <tr key={name}>
                     <td style={{ width: '35%' }}>

@@ -1,6 +1,5 @@
 import React from 'react';
 
-import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 
 import CoreCastEfficiency from 'Parser/Core/Modules/CastEfficiency';
@@ -31,19 +30,6 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 120,
     },
-    //is already in Core/CastEfficiency
-    /*{
-      spell: SPELLS.SUMMON_DREAD_REFLECTION,
-      category: SPELL_CATEGORY.COOLDOWNS,
-      getCooldown: haste => 45,
-      isActive: combatant => combatant.hasTrinket(ITEMS.SPECTER_OF_BETRAYAL.id),
-    },
-    {
-      spell: SPELLS.CEASELESS_TOXIN,
-      category: SPELL_CATEGORY.COOLDOWNS,
-      getCooldown: haste => 60,//add detection if target has died and reduced cooldown
-      isActive: combatant => combatant.hasTrinket(ITEMS.VIAL_OF_CEASELESS_TOXINS.id),
-    },*/
     {
       spell: SPELLS.LIGHTNING_BOLT,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
@@ -94,8 +80,8 @@ class CastEfficiency extends CoreCastEfficiency {
       render: () => (
         <Tab title="Cast efficiency">
           <CastEfficiencyComponent
-            categories={CastEfficiency.SPELL_CATEGORIES}
-            abilities={getCastEfficiency(CastEfficiency.CPM_ABILITIES, this.owner)}
+            categories={this.constructor.SPELL_CATEGORIES}
+            abilities={getCastEfficiency(this.constructor.CPM_ABILITIES, this.owner)}
           />
         </Tab>
       ),

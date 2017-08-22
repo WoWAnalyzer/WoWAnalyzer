@@ -4,30 +4,14 @@ import Icon from 'common/Icon';
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-// import SpellLink from 'common/SpellLink';
 import StatisticBox from 'Main/StatisticBox';
 import SuggestionsTab from 'Main/SuggestionsTab';
 import Tab from 'Main/Tab';
 import Talents from 'Main/Talents';
-// import getCastEfficiency from 'Parser/Core/getCastEfficiency';
-
-import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 import ShadowDance from './Modules/Features/ShadowDance';
 import CastEfficiency from './Modules/Features/CastEfficiency';
 
-// import CPM_ABILITIES from './CPM_ABILITIES';
-
-
-function getIssueImportance(value, regular, major, higherIsWorse = false) {
-  if (higherIsWorse ? value > major : value < major) {
-    return ISSUE_IMPORTANCE.MAJOR;
-  }
-  if (higherIsWorse ? value > regular : value < regular) {
-    return ISSUE_IMPORTANCE.REGULAR;
-  }
-  return ISSUE_IMPORTANCE.MINOR;
-}
 
 function formatThousands(number) {
   return (Math.round(number || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
@@ -59,16 +43,6 @@ class CombatLogParser extends MainCombatLogParser {
     
     const fightDuration = this.fightDuration;
     
-    // const castEfficiency = getCastEfficiency(CPM_ABILITIES, this);
-    // castEfficiency.forEach((cpm) => {
-    //   if (cpm.canBeImproved && !cpm.ability.noSuggestion) {
-    //     results.addIssue({
-    //       issue: <span>Try to cast <SpellLink id={cpm.ability.spell.id} /> more often ({cpm.casts}/{cpm.maxCasts} casts: {Math.round(cpm.castEfficiency * 100)}% cast efficiency). {cpm.ability.extraSuggestion || ''}</span>,
-    //       icon: cpm.ability.spell.icon,
-    //       importance: cpm.ability.importance || getIssueImportance(cpm.castEfficiency, cpm.recommendedCastEfficiency - 0.05, cpm.recommendedCastEfficiency - 0.15),
-    //     });
-    //   }
-    // });
 
     results.tabs = [
       {
