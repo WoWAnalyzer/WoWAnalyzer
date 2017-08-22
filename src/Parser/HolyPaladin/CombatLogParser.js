@@ -107,7 +107,7 @@ class CombatLogParser extends MainCombatLogParser {
    * @param {Array} events
    * @returns {Array}
    */
-  reorderEvents(events) { // TODO: Unit test
+  reorderEvents(events) {
     const fixedEvents = [];
     events.forEach((event, eventIndex) => {
       fixedEvents.push(event);
