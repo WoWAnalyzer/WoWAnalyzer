@@ -456,4 +456,9 @@ export default {
     name: 'Bristling Fur',
     icon: 'spell_druid_bristlingfur',
   },
+  OAKHEARTS_PUNY_QUODS_BUFF: {
+    id: 236479,
+    name: 'Oakheart\'s Puny Quods',
+    icon: 'spell_druid_bearhug',
+  },
 };

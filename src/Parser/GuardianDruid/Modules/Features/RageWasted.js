@@ -4,20 +4,18 @@ import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox from 'Main/StatisticBox';
 import Module from 'Parser/Core/Module';
 
-// TODO: Sort wasted rage breakdown
-// TODO: Show overall rage gain in relation to wasted rage
+// NOTE: "Raw" rage is what shows up in combat log events (divided by 10 and rounded to get in-game rage).
+// We deal with raw rage here to prevent accuracy loss.
 
-// NOTE: "Raw" rage is what shows up in combat log events (divided by 10 and rounded to get in-game rage).  We deal with raw rage here to prevent accuracy loss.
-
-// This is sometimes 59, for some bizarre reason.
-// As long as we re-sync with the classResources field on each
-// event this shouldn't be a problem.
+// This is actually ~59.95, for some bizarre reason, meaning that occasionally you will gain 5 rage
+// instead of 6 from a melee.  We have no idea why this is. As long as we re-sync with the classResources
+// field with each event, this shouldn't be a problem.
 const RAW_RAGE_GAINED_FROM_MELEE = 60;
 
-// The cost of a Gory Fur-reduced Ironfur
+// The cost of a Gory Fur-reduced Ironfur, or the minimum amount of rage that can be spent
 const MINIMUM_ACCEPTABLE_RAGE_WASTE = 34;
 
 const RAGE_GENERATORS = {
@@ -27,10 +25,13 @@ const RAGE_GENERATORS = {
   [SPELLS.MOONFIRE.id]: 'Moonfire (Galactic Guardian)',
   [SPELLS.BLOOD_FRENZY_TICK.id]: 'Blood Frenzy',
   [SPELLS.BRISTLING_FUR.id]: 'Bristling Fur',
-}
+  [SPELLS.OAKHEARTS_PUNY_QUODS_BUFF.id]: 'Oakheart\'s Puny Quods',
+  [SPELLS.PURE_RAGE_POTION.id]: 'Pure Rage Potion',
+};
 
 class RageWasted extends Module {
   rageWastedBySpell = {};
+  totalRageGained = 0;
   currentRawRage = 0;
 
   // Currently always 1000, but in case a future tier set/talent/artifact trait increases this it should "just work"
@@ -41,7 +42,7 @@ class RageWasted extends Module {
       console.log('no classResources', event);
       return;
     }
-    const rageResource = event.classResources.find(resource => resource.type === RESOURCE_TYPES.RAGE)
+    const rageResource = event.classResources.find(resource => resource.type === RESOURCE_TYPES.RAGE);
     if (rageResource) {
       this.currentRawRage = rageResource.amount;
       this.currentMaxRage = rageResource.max;
@@ -64,6 +65,7 @@ class RageWasted extends Module {
 
     if (event.waste > 0) {
       this.registerRageWaste(event.ability.guid, event.waste);
+      this.totalRageGained += event.resourceChange + event.waste;
     }
   }
 
@@ -73,6 +75,7 @@ class RageWasted extends Module {
         const realRageWasted = Math.round((this.currentRawRage + RAW_RAGE_GAINED_FROM_MELEE - this.currentMaxRage) / 10);
         this.registerRageWaste(event.ability.guid, realRageWasted);
       }
+      this.totalRageGained += RAW_RAGE_GAINED_FROM_MELEE;
     }
     this.synchronizeRage(event);
   }
@@ -81,17 +84,21 @@ class RageWasted extends Module {
     return Object.values(this.rageWastedBySpell).reduce((total, waste) => total + waste, 0);
   }
 
-  get wastedRageBreakdown() {
-    let str = 'Rage wasted per spell: <br />';
+  getWastedRageBreakdown() {
+    const sortedWasteBySpell = [];
 
-    for (let spellID in this.rageWastedBySpell) {
+    for (const spellID in this.rageWastedBySpell) {
       if (this.rageWastedBySpell.hasOwnProperty(spellID)) {
-        const waste = this.rageWastedBySpell[spellID];
-        console.log('[rage waste]', spellID, waste);
-        str += `${RAGE_GENERATORS[spellID]}: ${waste}<br />`;
+        if (!RAGE_GENERATORS[spellID]) {
+          console.log('Unknown rage generator:', spellID);
+        }
+        sortedWasteBySpell.push({ name: RAGE_GENERATORS[spellID], waste: this.rageWastedBySpell[spellID] });
       }
     }
-    return str;
+
+    sortedWasteBySpell.sort((a, b) => b.waste - a.waste);
+
+    return sortedWasteBySpell.reduce((str, spell) => `${str}<br />${spell.name}: ${spell.waste}`, 'Rage wasted per spell:');
   }
 
   suggestions(when) {
@@ -106,18 +113,19 @@ class RageWasted extends Module {
   }
 
   statistic() {
+    const wastedRatio = (this.totalWastedRage / this.totalRageGained);
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.BRISTLING_FUR.id} />}
         label='Wasted Rage'
         value={this.totalWastedRage}
         tooltip={`
-          Rage gained that puts you over the rage cap is wasted.<br /><br />
+          You wasted <strong>${this.totalWastedRage}</strong> rage out of <strong>${this.totalRageGained}</strong> total rage gained. (<strong>${formatPercentage(wastedRatio)}%</strong> of total)<br /><br />
 
-          ${this.wastedRageBreakdown}
+          ${this.getWastedRageBreakdown()}
         `}
       />
-    )
+    );
   }
 }
 

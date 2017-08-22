@@ -55,6 +55,11 @@ export default {
 	  name: 'Spirit Berries',
 	  icon: 'inv_misc_food_93_skethylberries',
   },
+  PURE_RAGE_POTION: {
+    id: 175821,
+    name: 'Pure Rage Potion',
+    icon: 'trade_alchemy_dpotion_a13',
+  },
   // Items buffs:
   GNAWED_THUMB_RING: {
     id: 228461,
