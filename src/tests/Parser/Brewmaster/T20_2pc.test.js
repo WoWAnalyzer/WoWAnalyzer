@@ -1,10 +1,11 @@
 import T20_2pc from 'Parser/BrewmasterMonk/Modules/Items/T20_2pc';
 import { events, processEvents } from './Fixtures/SimpleFight';
 
-const item = new T20_2pc();
+let item = null;
 
 describe('Brewmaster.T20_2pc', () => {
-  beforeAll(() => {
+  beforeEach(() => {
+    item = new T20_2pc();
     processEvents(events, item);
   });
   it('How many orbs spawned', () => {

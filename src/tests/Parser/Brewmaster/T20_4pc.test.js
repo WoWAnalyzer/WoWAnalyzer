@@ -1,10 +1,11 @@
 import T20_4pc from 'Parser/BrewmasterMonk/Modules/Items/T20_4pc';
 import { events, processEvents } from './Fixtures/SimpleFight';
 
-const item = new T20_4pc();
+let item = null;
 
 describe('Brewmaster.T20_4pc', () => {
-  beforeAll(() => {
+  beforeEach(() => {
+    item = new T20_4pc();
     processEvents(events, item);
   });
   it('how many gift of the ox orbs were absorbed', () => {

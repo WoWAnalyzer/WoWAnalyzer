@@ -1,10 +1,11 @@
 import Stagger from 'Parser/BrewmasterMonk/Modules/Core/Stagger';
 import { events, processEvents, FIGHT_END, TOTAL_STAGGERED } from './Fixtures/SimpleFight';
 
-const stagger = new Stagger();
+let stagger = null;
 
 describe('Brewmaster.Stagger', () => {
-  beforeAll(() => {
+  beforeEach(() => {
+    stagger = new Stagger();
     processEvents(events, stagger);
   });
   it('Total amount of stagger damage taken', () => {
@@ -12,9 +13,8 @@ describe('Brewmaster.Stagger', () => {
   });
   it('Ensure the end of fight is handled correctly', () => {
     const myOwner = {fight: {end_time: FIGHT_END}}
-    const staggerLocal = new Stagger();
-    staggerLocal.owner = myOwner;
-    expect(staggerLocal.owner.fight.end_time).toBe(FIGHT_END);
+    stagger.owner = myOwner;
+    expect(stagger.owner.fight.end_time).toBe(FIGHT_END);
   });
   it('How much damage in total is absorbed by stagger', () => {
     expect(stagger.totalPhysicalStaggered + stagger.totalMagicalStaggered).toBe(599);
@@ -28,11 +28,10 @@ describe('Brewmaster.Stagger', () => {
   it('Test that stagger is correctly reduced by the fight ending before the last tick', () => {
     const earlyFightEnd = 6000;
     const myOwner = {fight: {end_time: earlyFightEnd}}
-    const staggerLocal = new Stagger();
-    processEvents(events, staggerLocal, earlyFightEnd);
-    staggerLocal.owner = myOwner;
-    staggerLocal.on_finished();
-    expect(staggerLocal.staggerMissingFromFight).toBe(285);
+    processEvents(events, stagger, earlyFightEnd);
+    stagger.owner = myOwner;
+    stagger.on_finished();
+    expect(stagger.staggerMissingFromFight).toBe(285);
   });
 });
   

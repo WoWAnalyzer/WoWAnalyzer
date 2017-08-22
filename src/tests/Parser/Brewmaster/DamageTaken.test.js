@@ -1,10 +1,11 @@
 import DamageTaken from 'Parser/BrewmasterMonk/Modules/Core/DamageTaken';
 import { events, processEvents } from './Fixtures/SimpleFight';
 
-const damageTaken = new DamageTaken();
+let damageTaken = null;
 
 describe('Brewmaster.DamageTaken', () => {
-  beforeAll(() => {
+  beforeEach(() => {
+    damageTaken = new DamageTaken();
     processEvents(events, damageTaken);
   });
   it('Total damage taken over the fight but excluding absorbs', () => {
