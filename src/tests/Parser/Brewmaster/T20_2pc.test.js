@@ -1,15 +1,16 @@
 import T20_2pc from 'Parser/BrewmasterMonk/Modules/Items/T20_2pc';
-import { events, processEvents } from './SimpleFight';
+import { events, processEvents } from './Fixtures/SimpleFight';
 
-describe('Items.T20_2pc', () => {
-  it('Test number of spawned orbs', () => {
-    const item = new T20_2pc();
+const item = new T20_2pc();
+
+describe('Brewmaster.T20_2pc', () => {
+  beforeAll(() => {
     processEvents(events, item);
+  });
+  it('How many orbs spawned', () => {
     expect(item.orbTriggeredBy2Pc).toBe(1);
   });
-  it('Test brew count', () => {
-    const item = new T20_2pc();
-    processEvents(events, item);
+  it('How many brews were used which could spawn an orb', () => {
     expect(item.brewCount).toBe(2);
   });
 });

@@ -1,15 +1,16 @@
 import T20_4pc from 'Parser/BrewmasterMonk/Modules/Items/T20_4pc';
-import { events, processEvents } from './SimpleFight';
+import { events, processEvents } from './Fixtures/SimpleFight';
 
-describe('Items.T20_4pc', () => {
-  it('Ox orbs eaten', () => {
-    const item = new T20_4pc();
+const item = new T20_4pc();
+
+describe('Brewmaster.T20_4pc', () => {
+  beforeAll(() => {
     processEvents(events, item);
+  });
+  it('how many gift of the ox orbs were absorbed', () => {
     expect(item.orbsEaten).toBe(1);
   });
-  it('Stagger saved due to eating orbs', () => {
-    const item = new T20_4pc();
-    processEvents(events, item);
+  it('how much stagger was reduced by absorbing the gift of the ox orbs', () => {
     expect(item.staggerSaved).toBe(15);
   });
 });

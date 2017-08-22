@@ -1,25 +1,22 @@
 import DamageTaken from 'Parser/BrewmasterMonk/Modules/Core/DamageTaken';
-import { events, processEvents } from './SimpleFight';
+import { events, processEvents } from './Fixtures/SimpleFight';
 
-describe('Core.DamageTaken', () => {
-  it('Total damage amount', () => {
-    const damageTaken = new DamageTaken();
+const damageTaken = new DamageTaken();
+
+describe('Brewmaster.DamageTaken', () => {
+  beforeAll(() => {
     processEvents(events, damageTaken);
+  });
+  it('Total damage taken over the fight but excluding absorbs', () => {
     expect(damageTaken.totalDamage.amount).toBe(1431);
   });
-  it('Total damage absorb', () => {
-    const damageTaken = new DamageTaken();
-    processEvents(events, damageTaken);
+  it('Total absorbs applied excluding stagger', () => {
     expect(damageTaken.totalDamage.absorb).toBe(9);
   });
-  it('Total damage overkill', () => {
-    const damageTaken = new DamageTaken();
-    processEvents(events, damageTaken);
+  it('Total amount of overkill', () => {
     expect(damageTaken.totalDamage.overkill).toBe(0);
   });
-  it('Total damage total', () => {
-    const damageTaken = new DamageTaken();
-    processEvents(events, damageTaken);
+  it('Total damage taken including absorbs', () => {
     expect(damageTaken.totalDamage.total).toBe(1440);
   });
 });

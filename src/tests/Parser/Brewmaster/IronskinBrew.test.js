@@ -1,22 +1,21 @@
 import IronSkinBrew from 'Parser/BrewmasterMonk/Modules/Spells/IronSkinBrew';
-import { events, processEvents, TOTAL_STAGGERED } from './SimpleFight';
+import { events, processEvents, TOTAL_STAGGERED } from './Fixtures/SimpleFight';
 
-describe('Spells.IronskinBrew', () => {
-  it('Test hits without Ironskin Brew', () => {
-    const item = new IronSkinBrew();
-    processEvents(events, item);
-    expect(item.hitsWithoutIronSkinBrew).toBe(1);
+const isb = new IronSkinBrew();
+
+describe('Brewmaster.IronskinBrew', () => {
+  beforeAll(() => {
+    processEvents(events, isb);
   });
-  it('Test hits with Ironskin Brew', () => {
-    const item = new IronSkinBrew();
-    processEvents(events, item);
-    expect(item.hitsWithIronSkinBrew).toBe(2);
+  it('How many times the player was hit without having Ironskin Brew up', () => {
+    expect(isb.hitsWithoutIronSkinBrew).toBe(1);
+  });
+  it('How many times was hte player with with Ironskin Brew', () => {
+    expect(isb.hitsWithIronSkinBrew).toBe(2);
   });
   // should be the same as the stagger test
-  it('Test staggerDot', () => {
-    const item = new IronSkinBrew();
-    processEvents(events, item);
-    expect(item.staggerDot).toBe(TOTAL_STAGGERED);
+  it('Total amount of stagger damage taken', () => {
+    expect(isb.staggerDot).toBe(TOTAL_STAGGERED);
   });
 });
   
