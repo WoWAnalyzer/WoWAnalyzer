@@ -197,4 +197,9 @@ export default {
     name: 'Kil\'jaeden\'s Burning Wish',
     icon: 'sha_spell_fire_bluepyroblast_nightmare',
   },
+  ARCHIMONDES_HATRED_REBORN_ABSORB: {
+    id: 235169,
+    name: 'Archimonde\'s Hatred Reborn',
+    icon: 'spell_nature_elementalshields',
+  },
 };

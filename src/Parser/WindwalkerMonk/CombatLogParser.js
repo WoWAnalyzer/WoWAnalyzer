@@ -1,25 +1,17 @@
 import React from 'react';
 
-import SpellLink from 'common/SpellLink';
 import Icon from 'common/Icon';
-// Currently Unused
-// import ITEMS from 'common/ITEMS';
-// import ItemLink from 'common/ItemLink';
-// import ItemIcon from 'common/ItemIcon';
 
 import StatisticBox from 'Main/StatisticBox';
 import SuggestionsTab from 'Main/SuggestionsTab';
 import Tab from 'Main/Tab';
 import Talents from 'Main/Talents';
-import CastEfficiency from 'Main/CastEfficiency';
 
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
-import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
-
-import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
+import CastEfficiency from './Modules/Features/CastEfficiency';
 
 function formatThousands(number) {
   return (Math.round(number || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
@@ -50,7 +42,7 @@ class CombatLogParser extends MainCombatLogParser {
   static specModules = {
     // Features
     alwaysBeCasting: AlwaysBeCasting,
-
+    castEfficiency: CastEfficiency,
     // Legendaries:
   };
 
@@ -77,17 +69,6 @@ class CombatLogParser extends MainCombatLogParser {
       });
     }
 
-    const castEfficiencyCategories = SPELL_CATEGORY;
-    const castEfficiency = getCastEfficiency(CPM_ABILITIES, this);
-    castEfficiency.forEach((cpm) => {
-      if (cpm.canBeImproved && !cpm.ability.noSuggestion) {
-        results.addIssue({
-          issue: <span>Try to cast <SpellLink id={cpm.ability.spell.id} /> more often ({cpm.casts}/{cpm.maxCasts} casts: {Math.round(cpm.castEfficiency * 100)}% cast efficiency). {cpm.ability.extraSuggestion || ''}</span>,
-          icon: cpm.ability.spell.icon,
-          importance: cpm.ability.importance || getIssueImportance(cpm.castEfficiency, cpm.recommendedCastEfficiency - 0.05, cpm.recommendedCastEfficiency - 0.15),
-        });
-      }
-    });
 
     results.statistics = [
       <StatisticBox
@@ -115,18 +96,6 @@ class CombatLogParser extends MainCombatLogParser {
         url: 'suggestions',
         render: () => (
           <SuggestionsTab issues={results.issues} />
-        ),
-      },
-      {
-        title: 'Cast efficiency',
-        url: 'cast-efficiency',
-        render: () => (
-          <Tab title="Cast efficiency">
-            <CastEfficiency
-              categories={castEfficiencyCategories}
-              abilities={castEfficiency}
-            />
-          </Tab>
         ),
       },
       {

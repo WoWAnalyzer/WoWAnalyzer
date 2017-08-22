@@ -1,5 +1,5 @@
 import ITEMS from 'common/ITEMS';
-
+import SPELLS from 'common/SPELLS';
 import Module from 'Parser/Core/Module';
 
 class ArchimondesHatredReborn extends Module {
@@ -13,7 +13,7 @@ class ArchimondesHatredReborn extends Module {
 
   on_byPlayer_absorbed(event) {
     const spellId = event.ability.guid;
-    if (spellId === ITEMS.ARCHIMONDES_HATRED_REBORN.absorbId) {
+    if (spellId === SPELLS.ARCHIMONDES_HATRED_REBORN_ABSORB.id) {
       this.healing += event.amount;
     }
   }

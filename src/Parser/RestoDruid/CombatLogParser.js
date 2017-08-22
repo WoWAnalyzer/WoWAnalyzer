@@ -10,11 +10,9 @@ import StatisticBox from 'Main/StatisticBox';
 import SuggestionsTab from 'Main/SuggestionsTab';
 import Tab from 'Main/Tab';
 import Talents from 'Main/Talents';
-import CastEfficiency from 'Main/CastEfficiency';
 import Mana from 'Main/Mana';
 
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
-import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 import Ekowraith from './Modules/Legendaries/Ekowraith';
@@ -27,6 +25,7 @@ import T20 from './Modules/Legendaries/T20';
 import DarkmoonDeckPromises from './Modules/Legendaries/DarkmoonDeckPromises';
 
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
+import CastEfficiency from './Modules/Features/CastEfficiency';
 import CooldownTracker from './Modules/Features/CooldownTracker';
 import Lifebloom from './Modules/Features/Lifebloom';
 import Efflorescence from './Modules/Features/Efflorescence';
@@ -39,7 +38,6 @@ import Dreamwalker from './Modules/Features/Dreamwalker';
 import SoulOfTheForest from './Modules/Features/SoulOfTheForest';
 import EssenceOfGhanir from './Modules/Features/EssenceOfGhanir';
 
-import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
 function formatThousands(number) {
@@ -74,6 +72,7 @@ class CombatLogParser extends MainCombatLogParser {
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     cooldownTracker: CooldownTracker,
+    castEfficiency: CastEfficiency,
     lifebloom: Lifebloom,
     efflorescence: Efflorescence,
     clearcasting: Clearcasting,
@@ -357,18 +356,6 @@ class CombatLogParser extends MainCombatLogParser {
         importance: getIssueImportance(promisesThroughput, 0.01, 0.025),
       });
     }
-    const castEfficiencyCategories = SPELL_CATEGORY;
-    const castEfficiency = getCastEfficiency(CPM_ABILITIES, this);
-    castEfficiency.forEach((cpm) => {
-      if (cpm.canBeImproved && !cpm.ability.noSuggestion) {
-        results.addIssue({
-          issue: <span>Try to cast <SpellLink id={cpm.ability.spell.id} /> more often.</span>,
-          stat: `${cpm.casts} out of ${cpm.maxCasts} possible casts; ${Math.round(cpm.castEfficiency * 100)}% cast efficiency (>${cpm.recommendedCastEfficiency * 100}% is recommended)`,
-          icon: cpm.ability.spell.icon,
-          importance: cpm.ability.importance || getIssueImportance(cpm.castEfficiency, cpm.recommendedCastEfficiency - 0.05, cpm.recommendedCastEfficiency - 0.15),
-        });
-      }
-    });
 
     results.statistics = [
       <StatisticBox
@@ -709,18 +696,6 @@ class CombatLogParser extends MainCombatLogParser {
         url: 'suggestions',
         render: () => (
           <SuggestionsTab issues={results.issues} />
-        ),
-      },
-      {
-        title: 'Cast efficiency',
-        url: 'cast-efficiency',
-        render: () => (
-          <Tab title="Cast efficiency">
-            <CastEfficiency
-              categories={castEfficiencyCategories}
-              abilities={castEfficiency}
-            />
-          </Tab>
         ),
       },
       {

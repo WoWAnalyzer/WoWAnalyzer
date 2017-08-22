@@ -36,7 +36,7 @@ const ITEMS = {
   },
   ARCHIMONDES_HATRED_REBORN: {
     id: 144249,
-    absorbId: 235169,
+    //absorbId: 235169,
     name: 'Archimonde\'s Hatred Reborn',
     icon: 'spell_nature_elementalshields',
     quality: ITEM_QUALITIES.LEGENDARY,
