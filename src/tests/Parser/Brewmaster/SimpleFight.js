@@ -12,36 +12,8 @@ export function processEvents(events, module, fightEndTime) {
   }
   events.forEach(event => {
     if (event.timestamp <= fightEndTime) {
-      if (event.type === "absorbed") {
-        if (event.targetid === thisPlayer) {
-          module.triggerEvent('toPlayer_absorbed', event);
-        }
-      }
-      if (event.type === "damage") {
-        if (event.targetid === thisPlayer) {
-          module.triggerEvent('toPlayer_damage', event);
-        }
-      }
-      if (event.type === "cast") {
-        if (event.sourceid === thisPlayer) {
-          module.triggerEvent('byPlayer_cast', event);
-        }
-      }
-      if (event.type === "heal") {
-        if (event.targetid === thisPlayer) {
-          module.triggerEvent('toPlayer_heal', event);
-        }
-      }
-      if (event.type === "applybuff") {
-        if (event.sourceid === thisPlayer) {
-          module.triggerEvent('byPlayer_applybuff', event);
-        }
-      }
-      if (event.type === "removebuff") {
-        if (event.sourceid === thisPlayer) {
-          module.triggerEvent('byPlayer_removebuff', event);
-        }
-      }
+      module.triggerEvent('toPlayer_' + event.type, event);
+      module.triggerEvent('byPlayer_' + event.type, event);
     }
   });
 }
