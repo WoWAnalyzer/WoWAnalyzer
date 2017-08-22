@@ -42,9 +42,6 @@ class IronSkinBrew extends Module {
         this.damageWithoutIronSkinBrew += event.amount + (event.absorbed || 0) + (event.overkill || 0);
       }
     }
-    else {
-      this.staggerDot += event.amount + (event.absorbed || 0) + (event.overkill || 0);
-    }
   }
 
   on_toPlayer_absorbed(event) {
