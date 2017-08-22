@@ -28,10 +28,11 @@ describe('Brewmaster.Stagger', () => {
   it('Test that stagger is correctly reduced by the fight ending before the last tick', () => {
     const earlyFightEnd = 6000;
     const myOwner = {fight: {end_time: earlyFightEnd}}
-    processEvents(events, stagger, earlyFightEnd);
-    stagger.owner = myOwner;
-    stagger.on_finished();
-    expect(stagger.staggerMissingFromFight).toBe(285);
+    const staggerLocal = new Stagger();
+    processEvents(events, staggerLocal, earlyFightEnd);
+    staggerLocal.owner = myOwner;
+    staggerLocal.on_finished();
+    expect(staggerLocal.staggerMissingFromFight).toBe(285);
   });
 });
   
