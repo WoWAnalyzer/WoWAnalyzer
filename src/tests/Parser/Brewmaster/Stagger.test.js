@@ -1,38 +1,50 @@
 import Stagger from 'Parser/BrewmasterMonk/Modules/Core/Stagger';
-import { events, processEvents, FIGHT_END, TOTAL_STAGGERED } from './Fixtures/SimpleFight';
-
-let stagger = null;
+import { processEvents } from './Fixtures/processEvents';
+import { SimpleFight, EarlyFinish, incomingDamage } from './Fixtures/SimpleFight';
 
 describe('Brewmaster.Stagger', () => {
+  let stagger;
   beforeEach(() => {
     stagger = new Stagger();
-    processEvents(events, stagger);
   });
-  it('Total amount of stagger damage taken', () => {
+  it('total amount of stagger taken with no events', () => {
+    expect(stagger.totalStaggerTaken).toBe(0);
+  });
+  it('total amount of stagger taken with no stagger', () => {
+    processEvents(incomingDamage, stagger);
+    expect(stagger.totalStaggerTaken).toBe(0);
+  });
+  it('total amount of stagger damage taken', () => {
+    processEvents(SimpleFight, stagger);
     expect(stagger.totalStaggerTaken).toBe(240);
   });
-  it('Ensure the end of fight is handled correctly', () => {
-    const myOwner = {fight: {end_time: FIGHT_END}}
-    stagger.owner = myOwner;
-    expect(stagger.owner.fight.end_time).toBe(FIGHT_END);
+  it('track how much damage in total is absorbed by stagger, with no stagger absorbs', () => {
+    processEvents(incomingDamage, stagger);
+    expect(stagger.totalPhysicalStaggered + stagger.totalMagicalStaggered).toBe(0);
   });
-  it('How much damage in total is absorbed by stagger', () => {
+  it('track how much damage in total is absorbed by stagger', () => {
+    processEvents(SimpleFight, stagger);
     expect(stagger.totalPhysicalStaggered + stagger.totalMagicalStaggered).toBe(599);
   });
-  it('How much physical damage was staggered', () => {
+  it('track how much physical damage was staggered', () => {
+    processEvents(SimpleFight, stagger);
     expect(stagger.totalPhysicalStaggered).toBe(300);
   });
+  it('track how much magical damage was staggered', () => {
+    processEvents(SimpleFight, stagger);
+    expect(stagger.totalMagicalStaggered).toBe(299);
+  });
   it('When was the last non stagger damage event', () => {
+    processEvents(SimpleFight, stagger);
     expect(stagger.lastDamageEventNotStagger).toBe(5700);
   });
-  it('Test that stagger is correctly reduced by the fight ending before the last tick', () => {
+  it('Tracks the amount of stagger missing from the fight', () => {
     const earlyFightEnd = 6000;
     const myOwner = {fight: {end_time: earlyFightEnd}}
-    const staggerLocal = new Stagger();
-    processEvents(events, staggerLocal, earlyFightEnd);
-    staggerLocal.owner = myOwner;
-    staggerLocal.on_finished();
-    expect(staggerLocal.staggerMissingFromFight).toBe(285);
+    processEvents(EarlyFinish, stagger);
+    stagger.owner = myOwner;
+    stagger.triggerEvent('finished');
+    expect(stagger.staggerMissingFromFight).toBe(285);
   });
 });
   

@@ -1,17 +1,29 @@
 import IronSkinBrew from 'Parser/BrewmasterMonk/Modules/Spells/IronSkinBrew';
-import { events, processEvents } from './Fixtures/SimpleFight';
-
-let isb = null;
+import { processEvents } from './Fixtures/processEvents';
+import { SimpleFight, incomingDamage } from './Fixtures/SimpleFight';
 
 describe('Brewmaster.IronskinBrew', () => {
+  let isb;
   beforeEach(() => {
     isb = new IronSkinBrew();
-    processEvents(events, isb);
   });
-  it('How many times the player was hit without having Ironskin Brew up', () => {
+  it('tracks the number of hits with the ironskin brew buff with no events', () => {
+    expect(isb.hitsWithIronSkinBrew).toBe(0);
+  });
+  it('tracks the number of hits with the ironskin brew buff with only damage', () => {
+    processEvents(incomingDamage, isb);
+    expect(isb.hitsWithIronSkinBrew).toBe(0);
+  });
+  it('tracks the number of hits without the ironskin brew buff with only damage', () => {
+    processEvents(incomingDamage, isb);
+    expect(isb.hitsWithoutIronSkinBrew).toBe(3);
+  });
+  it('Tracks the number of hits with the Ironskin Brew buff, when ', () => {
+    processEvents(SimpleFight, isb);
     expect(isb.hitsWithoutIronSkinBrew).toBe(1);
   });
-  it('How many times was hte player with with Ironskin Brew', () => {
+  it('Tracks the numeber of hits without the Ironskin Brew buff', () => {
+    processEvents(SimpleFight, isb);
     expect(isb.hitsWithIronSkinBrew).toBe(2);
   });
 });
