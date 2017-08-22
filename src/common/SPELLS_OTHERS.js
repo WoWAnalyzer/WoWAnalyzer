@@ -5,6 +5,11 @@
 
 export default {
   // General:
+  MELEE: {
+    id: 1,
+    name: 'Melee',
+    icon: 'inv_axe_02',
+  },
   LEECH: {
     id: 143924,
     name: 'Leech',
