@@ -9,10 +9,10 @@ class HealingDone extends Module {
   }
 
   on_byPlayer_heal(event) {
-    this._total = this._total.add(event.amount || 0, event.absorbed || 0, event.overheal || 0);
+    this._total = this._total.add(event.amount, event.absorbed || 0, event.overheal || 0);
   }
   on_byPlayer_absorbed(event) {
-    this._total = this._total.add(event.amount || 0, event.absorbed || 0, event.overheal || 0);
+    this._total = this._total.add(0, event.amount, 0);
   }
   on_byPlayer_removebuff(event) {
     if (event.absorb) {
