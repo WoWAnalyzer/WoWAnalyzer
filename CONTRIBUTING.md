@@ -89,11 +89,16 @@ Then make a pull request, the easiest way to do this is through the GitHub inter
 
 Don't forget to update the changelog, but only include changes that users might notice.
 
-Please make small Pull Requests. For example one PR when you got your spec working with Cast Efficiency set up and maybe ABC, and then preferably 1 PR per additional module. Larger PRs may take a long time to be reviewed.
+<table align="center">
+  <tr>
+    <td align="center" width="100"><img src="https://cdn1.iconfinder.com/data/icons/CrystalClear/48x48/apps/important.png" alt="Important"></td>
+    <td>Please make small Pull Requests. For example one PR when you got your spec working with Cast Efficiency set up and maybe ABC, and then preferably 1 PR per additional module. Larger PRs may take a long time to be reviewed.</td>
+  </tr>
+</table>
 
 # Code style
 
-Please try to respect the eslint rules.
+The eslint rules must be followed to have your PR pass the automatic TravisCI check.
 
 Please never comment *what* you do, comment *why* you do it. I can read code so I know that `hasBuff` checks if someone has a buff, but if it's not obvious why that buff is relevant then include it as a comment (you're free to assume anyone reading your code knows the spec, so this example would have to be pretty weird to warrant a comment).
 
