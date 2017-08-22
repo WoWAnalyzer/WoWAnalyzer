@@ -1,4 +1,4 @@
-const DIFFICULTIES = [
+export default [
   '',
   '',
   'LFR',
@@ -6,5 +6,3 @@ const DIFFICULTIES = [
   'Heroic',
   'Mythic',
 ];
-
-export default DIFFICULTIES;

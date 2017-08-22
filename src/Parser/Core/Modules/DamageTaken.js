@@ -1,58 +1,83 @@
-import Module from 'Parser/Core/Module';
-import { getMagicDescription } from 'common/DamageTypes.js';
+import React from 'react';
+import { formatThousands, formatNumber, formatPercentage } from 'common/format';
+
+import Icon from 'common/Icon';
 import SPELLS from 'common/SPELLS';
+import MAGIC_SCHOOLS from 'common/MAGIC_SCHOOLS';
 
-const debug = false;
+import Module from 'Parser/Core/Module';
 
-export class DamageValue {
-  amount = 0;
-  absorb = 0;
-  overkill = 0;
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-  get total() {
-    return this.amount + this.absorb + this.overkill;
-  }
-
-  addDamage(event) {
-    this.amount += event.amount || 0;
-    this.absorb += event.absorbed || 0;
-    this.overkill += event.overkill || 0;
-  }
-
-  reduceDamage(event) {
-    this.amount -= event.amount || 0;
-    this.absorb -= event.absorbed || 0;
-    this.overkill -= event.overkill || 0;
-  }
-}
+import DamageValue from './DamageValue';
 
 class DamageTaken extends Module {
-  damageBySchool = {};
-  damageByAbility = {};
-  totalDamage = new DamageValue();
-  shamanTotem = new DamageValue();
+  static IGNORED_ABILITIES = [
+    SPELLS.SPIRIT_LINK_TOTEM_REDISTRIBUTE.id,
+  ];
+
+  _total = new DamageValue(); // consider this "protected", so don't change this from other modules. If you want special behavior you must add that code to an extended version of this module.
+  get total() {
+    return this._total;
+  }
+  _byAbility = {};
+  byAbility(spellId) {
+    return this._byAbility[spellId];
+  }
+  _byMagicSchool = {};
+  byMagicSchool(magicSchool) {
+    return this._byMagicSchool[magicSchool];
+  }
 
   on_toPlayer_damage(event) {
-    // In the logs this is not counted as damage but negative healing, seperating it out here in case someone wants to access this.
-    if (event.ability.guid === SPELLS.SPIRIT_LINK_TOTEM_REDISTRIBUTE.id) {
-      this.shamanTotem.addDamage(event);
+    this._addDamage(event.ability, event.amount, event.absorbed, event.overkill);
+  }
+  
+  _addDamage(ability, amount = 0, absorbed = 0, overkill = 0) {
+    const spellId = ability.guid;
+    if (this.constructor.IGNORED_ABILITIES.indexOf(spellId) !== -1) {
+      // Some player abilities (mostly of healers) cause damage as a side-effect, these shouldn't be included in the damage taken.
       return;
     }
-    const type = getMagicDescription(event.ability.type);
-    if (this.damageBySchool[type] === undefined) {
-      this.damageBySchool[type] = new DamageValue();
+    this._total = this._total.add(amount, absorbed, overkill);
+
+    if (this._byAbility[spellId]) {
+      this._byAbility[spellId] = this._byAbility[spellId].add(amount, absorbed, overkill);
+    } else {
+      this._byAbility[spellId] = new DamageValue(amount, absorbed, overkill);
     }
-    if (this.damageByAbility[event.ability.name] === undefined) {
-      this.damageByAbility[event.ability.name] = new DamageValue();
+
+    const magicSchool = ability.type;
+    if (this._byMagicSchool[magicSchool]) {
+      this._byMagicSchool[magicSchool] = this._byMagicSchool[magicSchool].add(amount, absorbed, overkill);
+    } else {
+      this._byMagicSchool[magicSchool] = new DamageValue(amount, absorbed, overkill);
     }
-    this.damageBySchool[type].addDamage(event);
-    this.damageByAbility[event.ability.name].addDamage(event);
-    this.totalDamage.addDamage(event);
+  }
+  _subtractDamage(ability, amount = 0, absorbed = 0, overkill = 0) {
+    return this._addDamage(ability, -amount, -absorbed, -overkill);
   }
 
-  on_finished() {
-    debug && console.log(this);
+  showStatistic = false;
+  statisticIcon = 'spell_holy_devotionaura';
+  statistic() {
+    return this.showStatistic && (
+      <StatisticBox
+        icon={<Icon icon={this.statisticIcon} alt="Damage taken" />}
+        value={`${formatNumber(this.total.raw / this.owner.fightDuration * 1000)} DTPS`}
+        label="Damage taken"
+        tooltip={`The total damage taken was ${formatThousands(this.total.effective)} (${formatThousands(this.total.overkill)} overkill).<br /><br />
+
+          Damage taken by magic school:
+          <ul>
+            ${Object.keys(this._byMagicSchool)
+            .map(type => `<li><i>${MAGIC_SCHOOLS[type] || 'Unknown'}</i> damage taken ${formatThousands(this._byMagicSchool[type].effective)} (${formatPercentage(this._byMagicSchool[type].effective / this.total.effective)}%)</li>`)
+            .join('')}
+          </ul>`}
+      />
+    );
   }
+  statisticOrder = STATISTIC_ORDER.CORE(0);
 }
 
 export default DamageTaken;

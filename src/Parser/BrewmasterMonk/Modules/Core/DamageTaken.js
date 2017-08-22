@@ -1,60 +1,22 @@
-import React from 'react';
-import { formatThousands, formatNumber, formatPercentage } from 'common/format';
-import CoreDamageTaken, { DamageValue }from 'Parser/Core/Modules/DamageTaken';
-import { getMagicDescription } from 'common/DamageTypes.js';
-import Icon from 'common/Icon';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import CoreDamageTaken from 'Parser/Core/Modules/DamageTaken';
 import SPELLS from 'common/SPELLS';
 
-const debug = true;
-
 class DamageTaken extends CoreDamageTaken {
-  
+  showStatistic = true;
+
   on_toPlayer_absorbed(event) {
-    // Need to take the stagger absorb off damage taken, other absorbs such as external and Dark Side of the Moon should remain.
-    // Stagger is special because the absorb is not damage taken its just deferred to the dot which is already counted.
-    if (event.ability.guid === SPELLS.STAGGER.id) {
-      // We are excluding the shaman totem redistribution from damage taken because the logs do, also removing the absorb of that redistribution
-      // However the damage added to the stagger dot is true damage taken so is counted in logs.
-      if (event.extraAbility.guid === SPELLS.SPIRIT_LINK_TOTEM_REDISTRIBUTE.id) {
-        this.shamanTotem.reduceDamage(event);
-        return;
-      }
-      // event.extraAbility is the ability which was reduced by stagger
-      const type = getMagicDescription(event.extraAbility.type);
-      if (this.damageBySchool[type] === undefined) {
-        this.damageBySchool[type] = new DamageValue();
-      }
-      if (this.damageByAbility[event.extraAbility.name] === undefined) {
-        this.damageByAbility[event.extraAbility.name] = new DamageValue();
-      }
-      // Need to reduce absorbed in the original array rather than amount...
-      this.damageBySchool[type].reduceDamage({absorbed: event.amount});
-      this.damageByAbility[event.extraAbility.name].reduceDamage({absorbed: event.amount});
-      this.totalDamage.reduceDamage({absorbed: event.amount});
+    // The `damage` events of Brewmaster Monks always includes the amount staggered as "absorbed" damage,
+    // but this absorbed damage might also include absorbs received from other people (e.g. Power Word:
+    // Shield) so we can't just ignore it completely.Luckily the logs give us another event that shows
+    // just the damage staggered, namely an `absorbed` event by the Stagger spell. We can safely use this
+    // to reduce the damage taken as it can only be caused by this. If Stagger gets absorbed by a shield
+    // such as Power Word: Shield, it will trigger an `absorbed` event with as spell PW:S, NOT Stagger,
+    // so this also works nicely with external absorbs.
+
+    const spellId = event.ability.guid;
+    if (spellId === SPELLS.STAGGER.id) {
+      this._subtractDamage(event.extraAbility, 0, event.amount, 0);
     }
-  }
-
-  statistic() {
-    return (
-      <StatisticBox
-        icon={<Icon icon="class_monk" alt="Damage taken" />}
-        value={`${formatNumber(this.totalDamage.total / this.owner.fightDuration * 1000)} DTPS`}
-        label='Damage taken'
-        tooltip={`Damage taken breakdown:
-            <ul>
-              ${Object.keys(this.damageBySchool).reduce((v, type) => {
-                return v+=`<li>${type} damage taken ${formatThousands(this.damageBySchool[type].total)} (${formatPercentage(this.damageBySchool[type].total/this.totalDamage.total)}%)</li>`; 
-              }, '')}
-            </ul>
-            Total damage taken ${formatThousands(this.totalDamage.total)} (${formatThousands(this.totalDamage.overkill)} overkill)`}
-      />
-    );
-  }
-  statisticOrder = STATISTIC_ORDER.CORE(0);
-
-  on_finished() {
-    debug && console.log(this);
   }
 }
 
