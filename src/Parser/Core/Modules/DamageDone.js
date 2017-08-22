@@ -9,10 +9,9 @@ class DamageDone extends Module {
   }
 
   on_byPlayer_damage(event) {
-    this._total = this._total.add(event.amount || 0, event.absorbed || 0, event.overheal || 0);
-  }
-  on_byPlayer_absorbed(event) {
-    this._total = this._total.add(event.amount || 0, event.absorbed || 0, event.overheal || 0);
+    if (!event.targetIsFriendly) {
+      this._total = this._total.add(event.amount || 0, event.absorbed || 0, event.overheal || 0);
+    }
   }
 }
 

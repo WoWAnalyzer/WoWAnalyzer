@@ -23,7 +23,7 @@ class DamageDone extends CoreDamageDone {
     if (this.petIds.indexOf(event.sourceID) === -1) {
       return;
     }
-    this.petDmg += event.amount;
+    this.petDmg += event.amount + (event.absorbed || 0);
   }
 
   statistic() {
