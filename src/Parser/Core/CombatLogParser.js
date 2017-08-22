@@ -42,7 +42,7 @@ import VantusRune from './Modules/VantusRune';
 
 import ParseResults from './ParseResults';
 
-const debug = true;
+const debug = false;
 
 class CombatLogParser {
   static abilitiesAffectedByHealingIncreases = [];
