@@ -3,6 +3,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import Status from './Modules/Status';
 import HealingDone from './Modules/HealingDone';
 import DamageDone from './Modules/DamageDone';
+import DamageTaken from './Modules/DamageTaken';
 
 import Combatants from './Modules/Combatants';
 import AbilityTracker from './Modules/AbilityTracker';
@@ -36,6 +37,8 @@ import VantusRune from './Modules/VantusRune';
 
 import ParseResults from './ParseResults';
 
+const debug = true;
+
 class CombatLogParser {
   static abilitiesAffectedByHealingIncreases = [];
 
@@ -43,6 +46,7 @@ class CombatLogParser {
     status: Status,
     healingDone: HealingDone,
     damageDone: DamageDone,
+    damageTaken: DamageTaken,
 
     combatants: Combatants,
     enemies: Enemies,
@@ -157,20 +161,22 @@ class CombatLogParser {
       }
 
       if (missingDependencies.length === 0) {
-        // if (Object.keys(availableDependencies).length === 0) {
-        //   console.log('Loading', moduleClass.name);
-        // } else {
-        //   console.log('Loading', moduleClass.name, 'with dependencies:', Object.keys(availableDependencies));
-        // }
+        if (debug) {
+          if (Object.keys(availableDependencies).length === 0) {
+            console.log('Loading', moduleClass.name);
+          } else {
+            console.log('Loading', moduleClass.name, 'with dependencies:', Object.keys(availableDependencies));
+          }
+        }
         this.modules[desiredModuleName] = new moduleClass(this, availableDependencies, Object.keys(this.modules).length);
       } else {
-        // console.warn(moduleClass.name, 'could not be loaded, missing dependencies:', missingDependencies.map(d => d.name));
+        debug && console.warn(moduleClass.name, 'could not be loaded, missing dependencies:', missingDependencies.map(d => d.name));
         failedModules.push(desiredModuleName);
       }
     });
 
     if (failedModules.length !== 0) {
-      // console.warn(`${failedModules.length} modules failed to load, trying again:`, failedModules.map(key => modules[key].name));
+      debug && console.warn(`${failedModules.length} modules failed to load, trying again:`, failedModules.map(key => modules[key].name));
       const newBatch = {};
       failedModules.forEach(key => {
         newBatch[key] = modules[key];
