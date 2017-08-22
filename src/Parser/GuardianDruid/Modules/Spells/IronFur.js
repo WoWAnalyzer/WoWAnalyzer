@@ -59,9 +59,9 @@ class IronFur extends Module {
     
     when(physicalDamageMitigatedPercent).isLessThan(0.90)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You only had the <SpellLink id={SPELLS.IRONFUR.id} /> buff for {formatPercentage(physicalDamageMitigatedPercent)}% of physical damage taken. You should have the Ironfur buff up to mitigate as much physical damage as possible.</span>)
+        return suggest(<span>You only had the <SpellLink id={SPELLS.IRONFUR.id} /> buff for {formatPercentage(actual)}% of physical damage taken. You should have the Ironfur buff up to mitigate as much physical damage as possible.</span>)
           .icon(SPELLS.IRONFUR.icon)
-          .actual(`${formatPercentage(physicalDamageMitigatedPercent)}% unmitigated`)
+          .actual(`${formatPercentage(actual)}% was mitigated by Ironfur`)
           .recommended(`${Math.round(formatPercentage(recommended))}% or more is recommended`)
           .regular(recommended - 0.10).major(recommended - 0.2);
       });

@@ -6,7 +6,7 @@ import SPELLS from 'common/SPELLS';
 import Icon from 'common/Icon';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import SpellLink from "../../../../common/SpellLink";
+import SpellLink from 'common/SpellLink';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   static ABILITIES_ON_GCD = [

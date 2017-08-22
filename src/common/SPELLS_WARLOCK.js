@@ -219,7 +219,7 @@ export default {
     name: 'Reap Souls',
     icon: 'inv_staff_2h_artifactdeadwind_d_01',
   },
-  TORMENTED_SOULS: {
+  WARLOCK_TORMENTED_SOULS: {
     id: 216695,
     name: 'Tormented Souls',
     icon: 'inv_staff_2h_artifactdeadwind_d_01',
@@ -297,6 +297,22 @@ export default {
     id: 242290,
     name: 'Affliction Warlock T20 2P bonus',
     icon: 'inv_helm_cloth_raidwarlock_r_01',
+  },
+  WARLOCK_AFFLI_T20_4P_BONUS: {
+    id: 242291,
+    name: 'Affliction Warlock T20 4P bonus',
+    icon: 'inv_chest_cloth_raidwarlock_r_01',
+  },
+  WARLOCK_AFFLI_T20_4P_BUFF: {
+  id: 242292,
+    name: 'Demonic Speed',
+    icon: 'spell_shadow_soulleech_3',
+  },
+  //Artifact Traits
+  FATAL_ECHOES: {
+    id: 199257,
+    name: 'Fatal Echoes',
+    icon: 'inv_misc_bell_01',
   },
   //Affliction shard generating effects
   AGONY_SHARD_GEN: {

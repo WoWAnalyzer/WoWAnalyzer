@@ -33,12 +33,10 @@ class DeathsEmbrace extends Module {
 
   on_byPlayer_damage(event) {
     const targetHealthPercentage = event.hitPoints / event.maxHitPoints;
-    if (!targetHealthPercentage) {
-      //on random occasion (happened at least once), damage event doesn't have hitPoints and maxHitPoints, which results in NaN and messes up entire module, turning bonusDmg into NaN
+    if (!targetHealthPercentage || targetHealthPercentage > 0.35) {
+      //on random occasion (happened at least once), damage event doesn't have hitPoints and maxHitPoints, which results in targetHealthPercentage = NaN and messes up entire module, turning bonusDmg into NaN
+      //also, above 35% target HP, the talent doesn't even do anything
       return;
-    }
-    if (targetHealthPercentage > 0.35) {
-      return; //talent doesn't even do anything till 35% target HP
     }
 
     const spellId = event.ability.guid;
