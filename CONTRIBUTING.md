@@ -89,6 +89,8 @@ Then make a pull request, the easiest way to do this is through the GitHub inter
 
 Don't forget to update the changelog, but only include changes that users might notice.
 
+Please make small Pull Requests. For example one PR when you got your spec working with Cast Efficiency set up and maybe ABC, and then preferably 1 PR per additional module. Larger PRs may take a long time to be reviewed.
+
 # Code style
 
 Please try to respect the eslint rules.
