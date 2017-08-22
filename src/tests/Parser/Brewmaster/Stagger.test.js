@@ -8,7 +8,7 @@ describe('Brewmaster.Stagger', () => {
     processEvents(events, stagger);
   });
   it('Total amount of stagger damage taken', () => {
-    expect(stagger.totalStaggerTaken).toBe(TOTAL_STAGGERED);
+    expect(stagger.totalStaggerTaken).toBe(240);
   });
   it('Ensure the end of fight is handled correctly', () => {
     const myOwner = {fight: {end_time: FIGHT_END}}

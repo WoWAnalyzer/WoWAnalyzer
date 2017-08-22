@@ -1,7 +1,6 @@
 import SPELLS from 'common/SPELLS';
 
 export const FIGHT_END = 11000;
-export const TOTAL_STAGGERED = 240;
 
 const thisPlayer = 1;
 const enemy = 2;
