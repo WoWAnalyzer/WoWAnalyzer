@@ -1,20 +1,33 @@
 import Gore from 'Parser/GuardianDruid/Modules/Features/Gore';
-import { events, processEvents } from './SimpleFight';
+import { SimpleFight, damageTaken, buffsRefreshed } from './Fixtures/SimpleFight';
+import { processEvents } from './Fixtures/processEvents';
 
-describe('Features.GuardianOfElune', () => {
-  it('Total Gore Procs', () => {
-    const gore = new Gore();
-    processEvents(events, gore);
+describe('GuardianDruid.Gore', () => {
+  let gore;
+  beforeEach(() => {
+    gore = new Gore();
+  });
+  it('track gore procs with no events', () => {
+    expect(gore.GoreProcsTotal).toBe(0);
+  });
+  it('track gore procs with only damage events', () => {
+    processEvents(damageTaken, gore);
+    expect(gore.GoreProcsTotal).toBe(0);
+  });
+  it('track gore procs with single refresh event', () => {
+    processEvents(buffsRefreshed, gore);
+    expect(gore.GoreProcsTotal).toBe(1);
+  });
+  it('track gore procs over the course of a fight', () => {
+    processEvents(SimpleFight, gore);
     expect(gore.GoreProcsTotal).toBe(2);
   });
-  it('Consumed Gore Procs', () => {
-    const gore = new Gore();
-    processEvents(events, gore);
+  it('track consumed gore procs', () => {
+    processEvents(SimpleFight, gore);
     expect(gore.consumedGoreProc).toBe(1);
   });
-  it('Overwritten Gore Procs', () => {
-    const gore = new Gore();
-    processEvents(events, gore);
+  it('track wasted gore procs', () => {
+    processEvents(SimpleFight, gore);
     expect(gore.overwrittenGoreProc).toBe(1);
   });
 });

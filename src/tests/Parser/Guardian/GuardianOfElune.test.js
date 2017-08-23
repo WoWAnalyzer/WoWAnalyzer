@@ -1,20 +1,37 @@
 import GuardianOfElune from 'Parser/GuardianDruid/Modules/Features/GuardianOfElune';
-import { events, processEvents } from './SimpleFight';
+import { damageTaken, buffsApplied, SimpleFight } from './Fixtures/SimpleFight';
+import { processEvents } from './Fixtures/processEvents';
 
 describe('Features.GuardianOfElune', () => {
-  it('Total GoE Procs', () => {
+  let guardian;
+  beforeEach(() => {
+    guardian = new GuardianOfElune();
+  });
+  it('trach GoE procs with no events', () => {
+    expect(guardian.GoEProcsTotal).toBe(0);
+  });
+  it('trach GoE procs with only damage events', () => {
+    processEvents(damageTaken, guardian);
+    expect(guardian.GoEProcsTotal).toBe(0);
+  });
+  it('track GoE procs with only buffs applied', () => {
     const guardian = new GuardianOfElune();
-    processEvents(events, guardian);
+    processEvents(buffsApplied, guardian);
     expect(guardian.GoEProcsTotal).toBe(2);
   });
-  it('Consumed GoE Procs', () => {
+  it('track GoE procs over a simple fight', () => {
     const guardian = new GuardianOfElune();
-    processEvents(events, guardian);
+    processEvents(SimpleFight, guardian);
+    expect(guardian.GoEProcsTotal).toBe(2);
+  });
+  it('track consumed GoE procs over a simple fight', () => {
+    const guardian = new GuardianOfElune();
+    processEvents(SimpleFight, guardian);
     expect(guardian.consumedGoEProc).toBe(1);
   });
-  it('Last proc time', () => {
+  it('track last proc time', () => {
     const guardian = new GuardianOfElune();
-    processEvents(events, guardian);
+    processEvents(SimpleFight, guardian);
     expect(guardian.lastGoEProcTime).toBe(11500);
   });
 });
