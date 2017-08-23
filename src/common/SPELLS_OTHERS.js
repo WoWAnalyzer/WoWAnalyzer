@@ -5,6 +5,11 @@
 
 export default {
   // General:
+  MELEE: {
+    id: 1,
+    name: 'Melee',
+    icon: 'inv_axe_02',
+  },
   LEECH: {
     id: 143924,
     name: 'Leech',
@@ -49,6 +54,11 @@ export default {
 	  id: 223573,
 	  name: 'Spirit Berries',
 	  icon: 'inv_misc_food_93_skethylberries',
+  },
+  PURE_RAGE_POTION: {
+    id: 175821,
+    name: 'Pure Rage Potion',
+    icon: 'trade_alchemy_dpotion_a13',
   },
   // Items buffs:
   GNAWED_THUMB_RING: {

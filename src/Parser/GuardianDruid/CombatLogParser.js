@@ -15,6 +15,7 @@ import GalacticGuardian from './Modules/Features/GalacticGuardian';
 import GuardianOfElune from './Modules/Features/GuardianOfElune';
 import IronFurGoEProcs from './Modules/Features/IronFurGoEProcs';
 import FrenziedRegenGoEProcs from './Modules/Features/FrenziedRegenGoEProcs';
+import RageWasted from './Modules/Features/RageWasted';
 import IronFur from './Modules/Spells/IronFur';
 import Thrash from './Modules/Spells/Thrash';
 import Moonfire from './Modules/Spells/Moonfire';
@@ -38,6 +39,7 @@ class CombatLogParser extends MainCombatLogParser {
     guardianOfEluneProcs: GuardianOfElune,
     ironFurGoEProcs: IronFurGoEProcs,
     frenziedRegenGoEProcs: FrenziedRegenGoEProcs,
+    rageWasted: RageWasted,
     ironFur: IronFur,
     thrash: Thrash,
     moonfire: Moonfire,

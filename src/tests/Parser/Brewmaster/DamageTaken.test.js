@@ -8,50 +8,50 @@ describe('Brewmaster.DamageTaken', () => {
     damageTaken = new DamageTaken();
   });
   it('damage taken with no events', () => {
-    expect(damageTaken.totalDamage.amount).toBe(0);
-    expect(damageTaken.totalDamage.absorb).toBe(0);
-    expect(damageTaken.totalDamage.overkill).toBe(0);
+    expect(damageTaken.total.regular).toBe(0);
+    expect(damageTaken.total.absorbed).toBe(0);
+    expect(damageTaken.total.overkill).toBe(0);
   });
   it('damage taken with only healing events', () => {
     processEvents(heal, damageTaken);
-    expect(damageTaken.totalDamage.amount).toBe(0);
-    expect(damageTaken.totalDamage.absorb).toBe(0);
-    expect(damageTaken.totalDamage.overkill).toBe(0);
+    expect(damageTaken.total.regular).toBe(0);
+    expect(damageTaken.total.absorbed).toBe(0);
+    expect(damageTaken.total.overkill).toBe(0);
   });
   it('damage taken with only non-stagger absorbs', () => {
     processEvents(absorbed, damageTaken);
-    expect(damageTaken.totalDamage.amount).toBe(0);
-    expect(damageTaken.totalDamage.absorb).toBe(0);
-    expect(damageTaken.totalDamage.overkill).toBe(0);
+    expect(damageTaken.total.regular).toBe(0);
+    expect(damageTaken.total.absorbed).toBe(0);
+    expect(damageTaken.total.overkill).toBe(0);
   });
   it('damage taken with only stagger absorbs', () => {
     processEvents(staggerAbsorbed, damageTaken);
-    expect(damageTaken.totalDamage.amount).toBe(0);
-    expect(damageTaken.totalDamage.absorb).toBe(-599);
-    expect(damageTaken.totalDamage.overkill).toBe(0);
+    expect(damageTaken.total.regular).toBe(0);
+    expect(damageTaken.total.absorbed).toBe(-599);
+    expect(damageTaken.total.overkill).toBe(0);
   });
   it('damage taken with only boss damage', () => {
     processEvents(incomingDamage, damageTaken);
-    expect(damageTaken.totalDamage.amount).toBe(1200);
-    expect(damageTaken.totalDamage.absorb).toBe(599);
-    expect(damageTaken.totalDamage.overkill).toBe(0);
+    expect(damageTaken.total.regular).toBe(1200);
+    expect(damageTaken.total.absorbed).toBe(599);
+    expect(damageTaken.total.overkill).toBe(0);
   });
   it('damage taken with boss damage and stagger absorbs', () => {
     processEvents([...incomingDamage, ...staggerAbsorbed], damageTaken);
-    expect(damageTaken.totalDamage.amount).toBe(1200);
-    expect(damageTaken.totalDamage.absorb).toBe(0);
-    expect(damageTaken.totalDamage.overkill).toBe(0);
+    expect(damageTaken.total.regular).toBe(1200);
+    expect(damageTaken.total.absorbed).toBe(0);
+    expect(damageTaken.total.overkill).toBe(0);
   });
   it('damage taken with only stagger dot', () => {
     processEvents(staggerTicks, damageTaken);
-    expect(damageTaken.totalDamage.amount).toBe(224);
-    expect(damageTaken.totalDamage.absorb).toBe(16);
-    expect(damageTaken.totalDamage.overkill).toBe(0);
+    expect(damageTaken.total.regular).toBe(224);
+    expect(damageTaken.total.absorbed).toBe(16);
+    expect(damageTaken.total.overkill).toBe(0);
   });
   it('total damage taken for the fight', () => {
     processEvents(SimpleFight, damageTaken);
-    expect(damageTaken.totalDamage.amount).toBe(1424);
-    expect(damageTaken.totalDamage.absorb).toBe(16);
-    expect(damageTaken.totalDamage.overkill).toBe(0);
+    expect(damageTaken.total.regular).toBe(1424);
+    expect(damageTaken.total.absorbed).toBe(16);
+    expect(damageTaken.total.overkill).toBe(0);
   });
 });
