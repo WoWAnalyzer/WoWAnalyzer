@@ -1,5 +1,5 @@
 import Gore from 'Parser/GuardianDruid/Modules/Features/Gore';
-import { SimpleFight, damageTaken, buffsRefreshed } from './Fixtures/SimpleFight';
+import { SimpleFight, damageTaken, buffsRefreshed, casts } from './Fixtures/SimpleFight';
 import { processEvents } from './Fixtures/processEvents';
 
 describe('GuardianDruid.Gore', () => {
@@ -14,6 +14,10 @@ describe('GuardianDruid.Gore', () => {
     processEvents(damageTaken, gore);
     expect(gore.GoreProcsTotal).toBe(0);
   });
+  it('track the number of times mangle was cast with just casts', () => {
+    processEvents(casts, gore);
+    expect(gore.nonGoreMangle).toBe(2);
+  });
   it('track gore procs with single refresh event', () => {
     processEvents(buffsRefreshed, gore);
     expect(gore.GoreProcsTotal).toBe(1);
@@ -25,6 +29,10 @@ describe('GuardianDruid.Gore', () => {
   it('track consumed gore procs', () => {
     processEvents(SimpleFight, gore);
     expect(gore.consumedGoreProc).toBe(1);
+  });
+  it('track the number of times mangle was cast without gore', () => {
+    processEvents(SimpleFight, gore);
+    expect(gore.nonGoreMangle).toBe(1);
   });
   it('track wasted gore procs', () => {
     processEvents(SimpleFight, gore);
