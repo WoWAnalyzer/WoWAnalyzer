@@ -425,6 +425,8 @@ class CombatLogParser extends MainCombatLogParser {
               actorId={this.playerId}
               start={this.fight.start_time}
               end={this.fight.end_time}
+              manaUpdates={this.modules.manaValues.manaUpdates}
+              currentTimestamp={this.currentTimestamp}
             />
           </Tab>
         ),

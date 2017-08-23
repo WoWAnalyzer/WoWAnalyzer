@@ -21,12 +21,12 @@ class Mana extends React.PureComponent {
     actorId: PropTypes.number.isRequired,
     start: PropTypes.number.isRequired,
     end: PropTypes.number.isRequired,
+    manaUpdates: PropTypes.object.isRequired,
   };
 
   constructor() {
     super();
     this.state = {
-      mana: null,
       bossHealth: null,
     };
   }
@@ -40,24 +40,6 @@ class Mana extends React.PureComponent {
     }
   }
   load(reportCode, actorId, start, end) {
-    const manaPromise = fetch(makeWclUrl(`report/tables/resources/${reportCode}`, {
-      start,
-      end,
-      sourceid: actorId,
-      abilityid: 100,
-    }))
-      .then(response => response.json())
-      .then((json) => {
-        console.log('Received mana', json);
-        if (json.status === 400 || json.status === 401) {
-          throw json.error;
-        } else {
-          this.setState({
-            mana: json,
-          });
-        }
-      });
-
     const bossHealthPromise = fetch(makeWclUrl(`report/tables/resources/${reportCode}`, {
       start,
       end,
@@ -77,11 +59,11 @@ class Mana extends React.PureComponent {
         }
       });
 
-    return Promise.all([ manaPromise, bossHealthPromise ]);
+    return bossHealthPromise;
   }
 
   render() {
-    if (!this.state.mana || !this.state.bossHealth) {
+    if (!this.state.bossHealth) {
       return (
         <div>
           Loading...
@@ -89,15 +71,15 @@ class Mana extends React.PureComponent {
       );
     }
 
-    const { start, end } = this.props;
+    const { start, end, manaUpdates } = this.props;
 
     const manaBySecond = {
       0: 100,
     };
-    this.state.mana.series[0].data.forEach((item) => {
+    manaUpdates.forEach(item => {
       const secIntoFight = Math.floor((item[0] - start) / 1000);
 
-      manaBySecond[secIntoFight] = item[1];
+      manaBySecond[secIntoFight] = item[1] * 100;
     });
     const bosses = [];
     const deadBosses = [];
@@ -122,7 +104,7 @@ class Mana extends React.PureComponent {
       bosses.push(newSeries);
     });
     const deathsBySecond = {};
-    this.state.mana.deaths.forEach((death) => {
+    this.state.bossHealth.deaths.forEach((death) => {
       const secIntoFight = Math.floor((death.timestamp - start) / 1000);
 
       if (death.targetIsFriendly) {

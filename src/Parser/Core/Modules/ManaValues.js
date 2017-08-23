@@ -1,16 +1,14 @@
 import Module from 'Parser/Core/Module';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 
-const debug = false;
-
 class ManaValue extends Module {
-  lowestMana = 1100000;
+  lowestMana = null; // start at `null` and fill it with the first value to account for users starting at a non-default amount for whatever reason
   endingMana = 0;
 
+  manaUpdates = [];
+
   on_byPlayer_cast(event) {
-    // class resource type 0 means the resource is mana
-    if(event.classResources) {
-      debug && console.log('Current Ending Mana: ', this.endingMana);
+    if (event.classResources) {
       event.classResources.forEach(classResource => {
         if (classResource.type === RESOURCE_TYPES.MANA) {
           const manaValue = classResource.amount;
@@ -18,21 +16,14 @@ class ManaValue extends Module {
           const currMana = manaValue - manaEvent;
           this.endingMana = currMana;
 
-          if(this.lowestMana > currMana) {
+          if (this.lowestMana === null || currMana < this.lowestMana) {
             this.lowestMana = currMana;
           }
+          this.manaUpdates.push([event.timestamp, currMana / classResource.max]);
         }
       });
     }
   }
-
-  on_finished() {
-    if(debug) {
-      console.log('Ending Mana: ', this.endingMana);
-      console.log('Lowest Mana: ', this.lowestMana);
-    }
-  }
-
 }
 
 export default ManaValue;
