@@ -177,7 +177,7 @@ class Mana extends React.PureComponent {
               showArea: true,
               showPoint: false,
               fullWidth: true,
-              height: '300px',
+              height: '350px',
               lineSmooth: Chartist.Interpolation.none({
                 fillHoles: true,
               }),
