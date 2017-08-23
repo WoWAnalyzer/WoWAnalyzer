@@ -1,12 +1,19 @@
 import Module from 'Parser/Core/Module';
-import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
+
 import SPELLS from 'common/SPELLS';
+
+import HealingDone from 'Parser/Core/Modules/HealingDone';
+import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
 const BLOSSOMING_EFFLORESCENCE_HEAL_INCREASE = 2;
 const T20P2_MAX_SWIFTMEND_REDUCTION = 0.4;
 const debug = false;
 
 class T20 extends Module {
+  static dependencies = {
+    healingDone: HealingDone,
+  };
+
   healing = 0;
   swiftmendReduced = 0;
   swiftmends = 0;
@@ -39,13 +46,15 @@ class T20 extends Module {
   }
 
   on_finished() {
-    debug && console.log("4P Uptime: " + ((this.owner.selectedCombatant.getBuffUptime(SPELLS.BLOSSOMING_EFFLORESCENCE.id)/this.owner.fightDuration)*100).toFixed(2)+"%");
-    debug && console.log("4P Healing %: " + ((this.healing/this.owner.totalHealing)*100).toFixed(2)+ "%");
-    debug && console.log("4P Healing: " + this.healing);
-    debug && console.log("Total Healing: " + this.owner.totalHealing);
-    debug && console.log("Swiftmends cast: " + this.swiftmends);
-    debug && console.log("2P swiftmend reduction: " + this.swiftmendReduced.toFixed(1)+"s");
-    debug && console.log("Avg reduction per swiftmend: " + (this.swiftmendReduced/this.swiftmends).toFixed(1)+"s");
+    if (debug) {
+      console.log("4P Uptime: " + ((this.owner.selectedCombatant.getBuffUptime(SPELLS.BLOSSOMING_EFFLORESCENCE.id) / this.owner.fightDuration) * 100).toFixed(2) + "%");
+      console.log("4P Healing %: " + (this.owner.getPercentageOfTotalHealingDone(this.healing) * 100).toFixed(2) + "%");
+      console.log("4P Healing: " + this.healing);
+      console.log("Total Healing: " + this.healingDone.total.effective);
+      console.log("Swiftmends cast: " + this.swiftmends);
+      console.log("2P swiftmend reduction: " + this.swiftmendReduced.toFixed(1) + "s");
+      console.log("Avg reduction per swiftmend: " + (this.swiftmendReduced / this.swiftmends).toFixed(1) + "s");
+    }
   }
 }
 

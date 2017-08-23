@@ -74,8 +74,46 @@ describe('Core.CombatLogParser', () => {
       expect(Object.keys(parser.modules).length).toBe(0);
     });
   });
-  describe('module finding', () => {
-
+  describe('findModule', () => {
+    it('finds a module by type', () => {
+      class MyCombatLogParser extends CombatLogParser {
+        modules = {
+          alternative: {},
+          test: myModule,
+          another: {},
+          onemore: {},
+        };
+      }
+      const parser = new MyCombatLogParser(null, null, null);
+      expect(parser.findModule(MyModule)).toBe(parser.modules.test);
+      expect(parser.findModule(MyModule)).toBeInstanceOf(MyModule);
+      expect(parser.findModule(MyModule)).toBe(myModule);
+    });
+    it('finds a submodule even when looking for the parent module', () => {
+      class MyCombatLogParser extends CombatLogParser {
+        modules = {
+          alternative: {},
+          test: mySubModule,
+          another: {},
+          onemore: {},
+        };
+      }
+      const parser = new MyCombatLogParser(null, null, null);
+      expect(parser.findModule(MyModule)).toBe(parser.modules.test);
+      expect(parser.findModule(MyModule)).toBeInstanceOf(MySubModule);
+      expect(parser.findModule(MyModule)).toBe(mySubModule);
+      expect(parser.findModule(MySubModule)).toBeInstanceOf(MySubModule);
+      expect(parser.findModule(MySubModule)).toBe(mySubModule);
+    });
+    it('returns undefined is module doesn\'t exist', () => {
+      class MyCombatLogParser extends CombatLogParser {
+        modules = {
+          onemore: {},
+        };
+      }
+      const parser = new MyCombatLogParser(null, null, null);
+      expect(parser.findModule(MyModule)).toBe(undefined);
+    });
   });
   describe('module dependencies', () => {
     it('loads a module without dependencies and reveals it under the `modules` property', () => { // this is more or less just a test whether our test method actually works

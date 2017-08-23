@@ -14,6 +14,7 @@ const styles = {
     opacity: 0,
     zIndex: -10,
     transition: 'opacity 1s',
+    background: '#000',
   },
   active: {
     opacity: 1,

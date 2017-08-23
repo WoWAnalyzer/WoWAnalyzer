@@ -39,7 +39,6 @@ import ReapAndSow from './Modules/Items/Legendaries/ReapAndSow';
 import Tier20_2set from './Modules/Items/Tier20_2set';
 import Tier20_4set from './Modules/Items/Tier20_4set';
 class CombatLogParser extends MainCombatLogParser {
-
   static specModules = {
     // Features
     castEfficiency: CastEfficiency,

@@ -1,6 +1,10 @@
 import { formatNumber, formatPercentage } from 'common/format';
 
 import Status from './Modules/Status';
+import HealingDone from './Modules/HealingDone';
+import DamageDone from './Modules/DamageDone';
+import DamageTaken from './Modules/DamageTaken';
+
 import Combatants from './Modules/Combatants';
 import AbilityTracker from './Modules/AbilityTracker';
 import AlwaysBeCasting from './Modules/AlwaysBeCasting';
@@ -38,11 +42,16 @@ import VantusRune from './Modules/VantusRune';
 
 import ParseResults from './ParseResults';
 
+const debug = false;
+
 class CombatLogParser {
   static abilitiesAffectedByHealingIncreases = [];
 
   static defaultModules = {
     status: Status,
+    healingDone: HealingDone,
+    damageDone: DamageDone,
+    damageTaken: DamageTaken,
 
     combatants: Combatants,
     enemies: Enemies,
@@ -162,20 +171,22 @@ class CombatLogParser {
       }
 
       if (missingDependencies.length === 0) {
-        // if (Object.keys(availableDependencies).length === 0) {
-        //   console.log('Loading', moduleClass.name);
-        // } else {
-        //   console.log('Loading', moduleClass.name, 'with dependencies:', Object.keys(availableDependencies));
-        // }
+        if (debug) {
+          if (Object.keys(availableDependencies).length === 0) {
+            console.log('Loading', moduleClass.name);
+          } else {
+            console.log('Loading', moduleClass.name, 'with dependencies:', Object.keys(availableDependencies));
+          }
+        }
         this.modules[desiredModuleName] = new moduleClass(this, availableDependencies, Object.keys(this.modules).length);
       } else {
-        // console.warn(moduleClass.name, 'could not be loaded, missing dependencies:', missingDependencies.map(d => d.name));
+        debug && console.warn(moduleClass.name, 'could not be loaded, missing dependencies:', missingDependencies.map(d => d.name));
         failedModules.push(desiredModuleName);
       }
     });
 
     if (failedModules.length !== 0) {
-      // console.warn(`${failedModules.length} modules failed to load, trying again:`, failedModules.map(key => modules[key].name));
+      debug && console.warn(`${failedModules.length} modules failed to load, trying again:`, failedModules.map(key => modules[key].name));
       const newBatch = {};
       failedModules.forEach(key => {
         newBatch[key] = modules[key];
@@ -241,52 +252,14 @@ class CombatLogParser {
   byPlayer(event, playerId = this.player.id) {
     return (event.sourceID === playerId);
   }
-
   toPlayer(event, playerId = this.player.id) {
     return (event.targetID === playerId);
-  }
-
-  // This used to be implemented as a sanity check, may be replaced by a cleaner solution.
-  totalHealing = 0;
-  totalOverhealingDone = 0;
-  get totalRawHealingDone() {
-    return this.totalHealing + this.totalOverhealingDone;
-  }
-  on_byPlayer_heal(event) {
-    this.totalHealing += event.amount + (event.absorbed || 0);
-    this.totalOverhealingDone += event.overheal || 0;
-  }
-  on_byPlayer_absorbed(event) {
-    this.totalHealing += event.amount + (event.absorbed || 0);
-  }
-  on_byPlayer_removebuff(event) {
-    if (event.absorb) {
-      this.totalOverhealingDone += event.absorb;
-    }
-  }
-
-  totalDamageDone = 0;
-  totalDamageDoneToFriendly = 0;
-  on_byPlayer_damage(event) {
-    const damageDone = event.amount + (event.absorbed || 0);
-    if (event.targetIsFriendly) {
-      this.totalDamageDoneToFriendly += damageDone;
-    } else {
-      this.totalDamageDone += damageDone;
-    }
-  }
-
-  totalDamageTaken = 0;
-  totalDamageTakenAbsorb = 0;
-  on_toPlayer_damage(event) {
-    this.totalDamageTaken += event.amount + (event.absorbed || 0);
-    this.totalDamageTakenAbsorb += (event.absorbed || 0); // this also triggers an `absorbed` event for the player responsible for the absorb, which may be someone else
   }
 
   // TODO: Damage taken from LOTM
 
   getPercentageOfTotalHealingDone(healingDone) {
-    return healingDone / this.totalHealing;
+    return healingDone / this.modules.healingDone.total.effective;
   }
   formatItemHealingDone(healingDone) {
     return `${formatPercentage(this.getPercentageOfTotalHealingDone(healingDone))} % / ${formatNumber(healingDone / this.fightDuration * 1000)} HPS`;
@@ -295,7 +268,7 @@ class CombatLogParser {
     return `${formatNumber(absorbDone)}`;
   }
   getPercentageOfTotalDamageDone(damageDone) {
-    return damageDone / this.totalDamageDone;
+    return damageDone / this.modules.damageDone.total.effective;
   }
   formatItemDamageDone(damageDone) {
     return `${formatPercentage(this.getPercentageOfTotalDamageDone(damageDone))} % / ${formatNumber(damageDone / this.fightDuration * 1000)} DPS`;

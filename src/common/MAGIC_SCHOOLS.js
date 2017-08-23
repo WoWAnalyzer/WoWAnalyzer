@@ -1,4 +1,4 @@
-export const damageType = {
+export default {
   1: 'Physical',
   2: 'Holy',
   4: 'Fire',
@@ -16,10 +16,3 @@ export const damageType = {
   100: 'Special',
   124: 'Chaos',
 };
-
-export function getMagicDescription(type) {
-  if (damageType[type] === undefined) {
-    return 'Chaos';
-  }
-  return damageType[type];
-}

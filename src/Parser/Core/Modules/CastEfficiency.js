@@ -13,65 +13,80 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 
 class CastEfficiency extends Module {
-  static SPELL_CATEGORIES = [
-    {
-      ROTATIONAL: 'Rotational Spell',
-    },
-    {
-      ROTATIONAL_AOE: 'Spell (AOE)',
-    },
-    {
-      COOLDOWNS: 'Cooldown',
-    },
-    {
-      OTHERS: 'Spell',
-    },
-  ];
+  static SPELL_CATEGORIES = {
+    ROTATIONAL: 'Rotational Spell',
+    ROTATIONAL_AOE: 'Spell (AOE)',
+    COOLDOWNS: 'Cooldown',
+    OTHERS: 'Spell',
+    UTILITY: 'Utility',
+    ITEMS: 'Item',
+  };
   static CPM_ABILITIES = [
     //Shared trinkets and legendaries
     {
       spell: SPELLS.CLEANSING_MATRIX,
+      name: `${ITEMS.ARCHIVE_OF_FAITH.name}`,
+      category: CastEfficiency.SPELL_CATEGORIES.ITEMS,
       getCooldown: haste => 60,
       isActive: combatant => combatant.hasTrinket(ITEMS.ARCHIVE_OF_FAITH.id),
     },
     {
       spell: SPELLS.GUIDING_HAND,
+      name: `${ITEMS.DECEIVERS_GRAND_DESIGN.name}`,
       charges: 2,
+      category: CastEfficiency.SPELL_CATEGORIES.ITEMS,
       getCooldown: haste => 120,
       isActive: combatant => combatant.hasTrinket(ITEMS.DECEIVERS_GRAND_DESIGN.id),
     },
     {
       spell: SPELLS.GNAWED_THUMB_RING,
+      category: CastEfficiency.SPELL_CATEGORIES.ITEMS,
       getCooldown: haste => 180,
       isActive: combatant => combatant.hasFinger(ITEMS.GNAWED_THUMB_RING.id),
     },
     {
       spell: SPELLS.KILJAEDENS_BURNING_WISH_CAST,
+      category: CastEfficiency.SPELL_CATEGORIES.ITEMS,
       getCooldown: haste => 75,
       isActive: combatant => combatant.hasTrinket(ITEMS.KILJAEDENS_BURNING_WISH.id),
     },
     {
+      spell: SPELLS.ARCHIMONDES_HATRED_REBORN_ABSORB,
+      category: CastEfficiency.SPELL_CATEGORIES.ITEMS,
+      getCooldown: haste => 75,
+      isActive: combatant => combatant.hasTrinket(ITEMS.ARCHIMONDES_HATRED_REBORN.id),
+    },
+    {
       spell: SPELLS.SPECTRAL_OWL,
+      name: `${ITEMS.TARNISHED_SENTINEL_MEDALLION.name}`,
+      category: CastEfficiency.SPELL_CATEGORIES.ITEMS,
       getCooldown: haste => 120,
       isActive: combatant => combatant.hasTrinket(ITEMS.TARNISHED_SENTINEL_MEDALLION.id),
     },
     {
       spell: SPELLS.TOME_OF_UNRAVELING_SANITY_DAMAGE,
+      name: `${ITEMS.TOME_OF_UNRAVELING_SANITY.name}`,
+      category: CastEfficiency.SPELL_CATEGORIES.ITEMS,
       getCooldown: haste => 60,
       isActive: combatant => combatant.hasTrinket(ITEMS.TOME_OF_UNRAVELING_SANITY.id),
     },
     {
       spell: SPELLS.VELENS_FUTURE_SIGHT,
+      category: CastEfficiency.SPELL_CATEGORIES.ITEMS,
       getCooldown: haste => 75,
       isActive: combatant => combatant.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT.id),
     },
     {
       spell: SPELLS.SUMMON_DREAD_REFLECTION,
+      name: `${ITEMS.SPECTER_OF_BETRAYAL.name}`,
+      category: CastEfficiency.SPELL_CATEGORIES.ITEMS,
       getCooldown: haste => 45,
       isActive: combatant => combatant.hasTrinket(ITEMS.SPECTER_OF_BETRAYAL.id),
     },
     {
       spell: SPELLS.CEASELESS_TOXIN,
+      name: `${ITEMS.VIAL_OF_CEASELESS_TOXINS.name}`,
+      category: CastEfficiency.SPELL_CATEGORIES.ITEMS,
       getCooldown: haste => 60,//TODO: add detection if target has died and reduced cooldown
       isActive: combatant => combatant.hasTrinket(ITEMS.VIAL_OF_CEASELESS_TOXINS.id),
     },

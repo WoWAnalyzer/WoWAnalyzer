@@ -129,7 +129,7 @@ h1 {
   border-radius: 5px;
   border: none;
   margin-bottom: 20px;
-  background: rgba(1, 12, 19, 0.5);
+  background: rgba(9, 20, 27, 0.8);
   box-shadow: 0 5px 5px 0 rgba(0,0,0,.2);
 }
 .panel-heading {
@@ -205,7 +205,7 @@ h1 {
 
 .navbar-default {
   line-height: 66px;
-  background: rgba(3, 3, 6, 0.5);
+  background: rgba(9, 20, 27, 0.8);
   border: 0;
   box-shadow: 2px 0 3px rgba(0,0,0,.5);
   margin-bottom: 24px;

@@ -1,17 +1,20 @@
 import React from 'react';
-import { formatThousands, formatNumber } from 'common/format';
-import Module from 'Parser/Core/Module';
+
 import Icon from 'common/Icon';
+import { formatThousands, formatNumber } from 'common/format';
+
+import CoreDamageDone from 'Parser/Core/Modules/DamageDone';
+
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-class DamageDone extends Module {
+class DamageDone extends CoreDamageDone {
   statistic() {
     return (
       <StatisticBox
         icon={<Icon icon="class_monk" alt="Damage done" />}
-        value={`${formatNumber(this.owner.totalDamageDone / this.owner.fightDuration * 1000)} DPS`}
+        value={`${formatNumber(this.total.effective / this.owner.fightDuration * 1000)} DPS`}
         label='Damage done'
-        tooltip={`The total damage done was ${formatThousands(this.owner.totalDamageDone)}.`}
+        tooltip={`The total damage done was ${formatThousands(this.total.effective)}.`}
       />
     );
   }

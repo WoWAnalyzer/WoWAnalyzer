@@ -7,7 +7,7 @@ export const BREWS = [
   SPELLS.BLACK_OX_BREW_TALENT.id,
 ];
 
-// Yes there are 7
+// Yes there are 7... The cake is a lie (8 really)
 export const GIFT_OF_THE_OX_SPELLS = [
   SPELLS.GIFT_OF_THE_OX_1.id,
   SPELLS.GIFT_OF_THE_OX_2.id,
