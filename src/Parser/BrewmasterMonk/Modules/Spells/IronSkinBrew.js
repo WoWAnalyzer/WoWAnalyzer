@@ -17,9 +17,6 @@ class IronSkinBrew extends Module {
   hitsWithoutIronSkinBrew = 0;
   damageWithoutIronSkinBrew = 0;
 
-  // This value is just for dev purposes to check the total, its not shown on the tooltip.
-  staggerDot = 0;
-
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
     if (SPELLS.IRONSKIN_BREW_BUFF.id === spellId) {
@@ -45,9 +42,6 @@ class IronSkinBrew extends Module {
         this.damageWithoutIronSkinBrew += event.amount + (event.absorbed || 0) + (event.overkill || 0);
       }
     }
-    else {
-      this.staggerDot += event.amount + (event.absorbed || 0) + (event.overkill || 0);
-    }
   }
 
   on_toPlayer_absorbed(event) {
@@ -67,7 +61,6 @@ class IronSkinBrew extends Module {
       console.log('Damage with IronSkinBrew ' + this.damageWithIronSkinBrew);
       console.log('Hits without IronSkinBrew ' + this.hitsWithoutIronSkinBrew);
       console.log('Damage without IronSkinBrew ' + this.damageWithoutIronSkinBrew);
-      console.log('Stagger Dot ' + this.staggerDot);
       console.log('Total damage ' + (this.damageWithIronSkinBrew + this.damageWithoutIronSkinBrew + this.staggerDot));
     }
   }
