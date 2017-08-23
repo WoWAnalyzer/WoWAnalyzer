@@ -32,10 +32,10 @@ const RAGE_GENERATORS = {
 class RageWasted extends Module {
   rageWastedBySpell = {};
   totalRageGained = 0;
-  currentRawRage = 0;
+  _currentRawRage = 0;
 
   // Currently always 1000, but in case a future tier set/talent/artifact trait increases this it should "just work"
-  currentMaxRage = 0;
+  _currentMaxRage = 0;
 
   synchronizeRage(event) {
     if (!event.classResources) {
@@ -44,8 +44,8 @@ class RageWasted extends Module {
     }
     const rageResource = event.classResources.find(resource => resource.type === RESOURCE_TYPES.RAGE);
     if (rageResource) {
-      this.currentRawRage = rageResource.amount;
-      this.currentMaxRage = rageResource.max;
+      this._currentRawRage = rageResource.amount;
+      this._currentMaxRage = rageResource.max;
     }
   }
 
@@ -65,14 +65,15 @@ class RageWasted extends Module {
 
     if (event.waste > 0) {
       this.registerRageWaste(event.ability.guid, event.waste);
-      this.totalRageGained += event.resourceChange + event.waste;
     }
+
+    this.totalRageGained += event.resourceChange + event.waste;
   }
 
   on_byPlayer_cast(event) {
     if (event.ability.guid === SPELLS.MELEE.id) {
-      if (this.currentRawRage + RAW_RAGE_GAINED_FROM_MELEE > this.currentMaxRage) {
-        const realRageWasted = Math.round((this.currentRawRage + RAW_RAGE_GAINED_FROM_MELEE - this.currentMaxRage) / 10);
+      if (this._currentRawRage + RAW_RAGE_GAINED_FROM_MELEE > this._currentMaxRage) {
+        const realRageWasted = Math.floor((this._currentRawRage + RAW_RAGE_GAINED_FROM_MELEE - this._currentMaxRage) / 10);
         this.registerRageWaste(event.ability.guid, realRageWasted);
       }
       this.totalRageGained += RAW_RAGE_GAINED_FROM_MELEE;
@@ -84,13 +85,17 @@ class RageWasted extends Module {
     return Object.values(this.rageWastedBySpell).reduce((total, waste) => total + waste, 0);
   }
 
+  get wastedRageRatio() {
+    return this.totalWastedRage / this.totalRageGained;
+  }
+
   getWastedRageBreakdown() {
     const sortedWasteBySpell = [];
 
     for (const spellID in this.rageWastedBySpell) {
       if (this.rageWastedBySpell.hasOwnProperty(spellID)) {
         if (!RAGE_GENERATORS[spellID]) {
-          console.log('Unknown rage generator:', spellID);
+          console.warn('Unknown rage generator:', spellID);
         }
         sortedWasteBySpell.push({ name: RAGE_GENERATORS[spellID], waste: this.rageWastedBySpell[spellID] });
       }
@@ -102,25 +107,24 @@ class RageWasted extends Module {
   }
 
   suggestions(when) {
-    when(this.totalWastedRage).isGreaterThan(0)
+    when(this.wastedRageRatio).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>You are wasting rage.  Try to spend rage before you reach the rage cap so you aren't losing out on potential <SpellLink id={SPELLS.IRONFUR.id} />s or <SpellLink id={SPELLS.MAUL.id} />s.</span>)
           .icon(SPELLS.BRISTLING_FUR.icon)
-          .actual(`${actual} wasted rage`)
-          .recommended(`${recommended} is recommended`)
-          .regular(MINIMUM_ACCEPTABLE_RAGE_WASTE).major(MINIMUM_ACCEPTABLE_RAGE_WASTE * 2);
+          .actual(`${formatPercentage(actual)}% wasted rage`)
+          .recommended(`${formatPercentage(recommended)}% is recommended`)
+          .regular(recommended + 0.02).major(recommended + 0.05);
       });
   }
 
   statistic() {
-    const wastedRatio = (this.totalWastedRage / this.totalRageGained);
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.BRISTLING_FUR.id} />}
         label='Wasted Rage'
-        value={this.totalWastedRage}
+        value={`${formatPercentage(this.wastedRageRatio)}%`}
         tooltip={`
-          You wasted <strong>${this.totalWastedRage}</strong> rage out of <strong>${this.totalRageGained}</strong> total rage gained. (<strong>${formatPercentage(wastedRatio)}%</strong> of total)<br /><br />
+          You wasted <strong>${this.totalWastedRage}</strong> rage out of <strong>${this.totalRageGained}</strong> total rage gained. (<strong>${formatPercentage(this.wastedRageRatio)}%</strong> of total)<br /><br />
 
           ${this.getWastedRageBreakdown()}
         `}
