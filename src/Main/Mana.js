@@ -168,54 +168,56 @@ class Mana extends React.PureComponent {
       <div>
         Good mana usage usually means having your mana go down about as quickly as the health of the boss. Some fights require specific mana management though.<br /><br />
 
-        <ChartistGraph
-          data={chartData}
-          options={{
-            low: 0,
-            high: 100,
-            showArea: true,
-            showPoint: false,
-            fullWidth: true,
-            height: '300px',
-            lineSmooth: Chartist.Interpolation.none({
-              fillHoles: true,
-            }),
-            axisX: {
-              labelInterpolationFnc: function skipLabels(seconds) {
-                if (seconds < ((step - 1) * 30)) {
-                  step = 0;
-                }
-                if (step === 0 || seconds >= (step * 30)) {
-                  step += 1;
-                  return formatDuration(seconds);
-                }
-                return null;
-              },
-              offset: 20,
-            },
-            axisY: {
-              onlyInteger: true,
-              offset: 35,
-              labelInterpolationFnc: function skipLabels(percentage) {
-                return `${percentage}%`;
-              },
-            },
-            plugins: [
-              Chartist.plugins.legend({
-                classNames: [
-                  ...bosses.map((series, index) => `boss-health boss-${index} boss-${series.guid}`),
-                  'mana',
-                  'death',
-                ],
+        <div className="graph-container">
+          <ChartistGraph
+            data={chartData}
+            options={{
+              low: 0,
+              high: 100,
+              showArea: true,
+              showPoint: false,
+              fullWidth: true,
+              height: '300px',
+              lineSmooth: Chartist.Interpolation.none({
+                fillHoles: true,
               }),
-              specialEventIndicators({
-                series: ['death'],
-              }),
-              // tooltips(),
-            ],
-          }}
-          type="Line"
-        />
+              axisX: {
+                labelInterpolationFnc: function skipLabels(seconds) {
+                  if (seconds < ((step - 1) * 30)) {
+                    step = 0;
+                  }
+                  if (step === 0 || seconds >= (step * 30)) {
+                    step += 1;
+                    return formatDuration(seconds);
+                  }
+                  return null;
+                },
+                offset: 15,
+              },
+              axisY: {
+                onlyInteger: true,
+                offset: 40,
+                labelInterpolationFnc: function skipLabels(percentage) {
+                  return `${percentage}%`;
+                },
+              },
+              plugins: [
+                Chartist.plugins.legend({
+                  classNames: [
+                    ...bosses.map((series, index) => `boss-health boss-${index} boss-${series.guid}`),
+                    'mana',
+                    'death',
+                  ],
+                }),
+                specialEventIndicators({
+                  series: ['death'],
+                }),
+                // tooltips(),
+              ],
+            }}
+            type="Line"
+          />
+        </div>
       </div>
     );
   }
