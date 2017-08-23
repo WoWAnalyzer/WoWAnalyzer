@@ -15,9 +15,6 @@ import Module from 'Parser/Core/Module';
 // field with each event, this shouldn't be a problem.
 const RAW_RAGE_GAINED_FROM_MELEE = 60;
 
-// The cost of a Gory Fur-reduced Ironfur, or the minimum amount of rage that can be spent
-const MINIMUM_ACCEPTABLE_RAGE_WASTE = 34;
-
 const RAGE_GENERATORS = {
   [SPELLS.MELEE.id]: 'Melee',
   [SPELLS.MANGLE_BEAR.id]: 'Mangle',
