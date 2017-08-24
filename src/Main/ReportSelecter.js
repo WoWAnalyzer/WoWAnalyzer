@@ -56,8 +56,11 @@ class ReportSelecter extends Component {
         <form onSubmit={this.handleSubmit} className="form-inline">
           <div className="container">
             <div className="row">
-              <div className="col-md-12 col-lg-7">
-                https://www.warcraftlogs.com/reports/<input
+              <div className="col-md-12 col-lg-8 report-code-box">
+                <span className="hidden-xs">
+                  https://www.warcraftlogs.com/reports/
+                </span>
+                <input
                   type="text"
                   name="code"
                   className="form-control"
@@ -70,16 +73,17 @@ class ReportSelecter extends Component {
                   autoCorrect="off"
                   autoCapitalize="off"
                   spellCheck="false"
-                />/
+                />
+                <span className="hidden-xs">/</span>
 
                 <button type="submit" className="btn btn-primary analyze">
                   Analyze <span className="glyphicon glyphicon-chevron-right" aria-hidden />
                 </button>
               </div>
-              <div className="col-md-12 col-lg-5 text-right">
-                <DiscordButton style={{ marginLeft: 20 }} />
-                <PatreonButton style={{ marginLeft: 20 }} />
-                <GithubButton style={{ marginLeft: 20 }} />
+              <div className="col-md-12 col-lg-4 external-links">
+                <DiscordButton style={{ marginLeft: 0 }} />
+                <PatreonButton />
+                <GithubButton />
               </div>
             </div>
           </div>

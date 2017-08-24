@@ -408,7 +408,7 @@ class App extends Component {
               </ol>
             </div>
 
-            <ul className="nav navbar-nav navbar-right github-link">
+            <ul className="nav navbar-nav navbar-right github-link hidden-xs">
               <li><a href={githubUrl}><span className="hidden-xs"> View on GitHub </span><img src={GithubLogo} alt="GitHub logo" /></a></li>
             </ul>
           </div>
