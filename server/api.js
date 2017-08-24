@@ -50,7 +50,14 @@ module.exports = function (req, res) {
     console.log('GET', options.path);
     const wclStart = Date.now();
     https
-      .get(options, (wclResponse) => {
+      .get(options, wclResponse => {
+        if (wclResponse.statusCode >= 500 && wclResponse.statusCode < 600) {
+          const msg = 'WCL Error (' + wclResponse.statusCode + '): ' + wclResponse.statusMessage;
+          console.error(msg);
+          res.status(500).send(msg);
+          return;
+        }
+
         const gunzip = zlib.createGunzip();
         wclResponse.pipe(gunzip);
 
@@ -71,7 +78,7 @@ module.exports = function (req, res) {
             console.log('Finished (memory:', Math.ceil(getCurrentMemoryUsage() / 1024 / 1024), 'MB', 'wcl:', Date.now() - wclStart, 'ms', ')');
           })
           .on('error', (e) => {
-            console.error(e, wclResponse);
+            console.error('zlib error: ', e);
             res.status(500).send();
           });
       })
