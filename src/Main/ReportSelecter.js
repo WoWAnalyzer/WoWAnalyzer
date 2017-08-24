@@ -81,7 +81,7 @@ class ReportSelecter extends Component {
                 </button>
               </div>
               <div className="col-md-12 col-lg-4 external-links">
-                <DiscordButton style={{ marginLeft: 0 }} />
+                <DiscordButton />
                 <PatreonButton />
                 <GithubButton />
               </div>

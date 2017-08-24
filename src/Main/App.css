@@ -96,11 +96,13 @@ hr {
   border-top: 1px solid rgba(0, 0, 0, 0.4);
 }
 .report-selector .btn {
-  margin-left: 10px;
   font-size: 0.9em;
   padding: .5rem 1.4rem;
   height: 38px;
   line-height: 1.6;
+}
+.report-code-box .btn {
+  margin-left: 10px;
 }
 @media (min-width: 0px) {
   .form-inline .form-control {
@@ -651,12 +653,16 @@ table.data-table .performance-bar {
   line-height: 2.7rem;
   border: 0;
   font-size: 1.6rem;
+}
+.external-links .btn:not(:first-of-type) {
   margin-left: 20px;
 }
 @media (min-width: 1200px) and (max-width: 1400px) {
-  .btn.discord, .btn.github, .btn.patreon {
+  .external-links .btn {
     padding: .5rem 0.95rem;
     font-size: 1.4rem;
+  }
+  .external-links .btn:not(:first-of-type) {
     margin-left: 12px;
   }
 }
