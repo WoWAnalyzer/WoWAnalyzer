@@ -107,7 +107,7 @@ class CombatLogParser extends MainCombatLogParser {
     const getAbility = spellId => abilityTracker.getAbility(spellId);
 
     // Renew the Faith trait data calculations
-    const rtfPercHPS = formatPercentage(this.modules.renewTheFaith.healing / this.totalHealing);
+    const rtfPercHPS = formatPercentage(this.getPercentageOfTotalHealingDone(this.modules.renewTheFaith.healing));
     const rtfPercOH = formatPercentage(this.modules.renewTheFaith.overhealing / (this.modules.renewTheFaith.healing + this.modules.renewTheFaith.overhealing));
     const rtfRelPercHPS = formatPercentage(this.modules.renewTheFaith.healing / this.modules.divineHymn.healing);
 
@@ -116,29 +116,29 @@ class CombatLogParser extends MainCombatLogParser {
     const percPomIncFromSYP = ((1 + (sypTrait * SPELLS.SAY_YOUR_PRAYERS_TRAIT.coeff)) / (1 - (sypTrait * SPELLS.SAY_YOUR_PRAYERS_TRAIT.coeff))) - 1;
     const sypValue = this.modules.prayerOfMending.healing * percPomIncFromSYP / (1 + percPomIncFromSYP);
     const sypHPS = sypValue / this.fightDuration * 1000;
-    const sypPercHPSOverall = formatPercentage(sypValue / this.totalHealing);
+    const sypPercHPSOverall = formatPercentage(this.getPercentageOfTotalHealingDone(sypValue));
     const sypPercHPSPoM = formatPercentage(sypValue / this.modules.prayerOfMending.healing);
 
     // Missed Hymn ticks calculations
     const missedHymnTicks = (getAbility(SPELLS.DIVINE_HYMN_CAST.id).casts * 5) - this.modules.divineHymn.ticks;
 
     // Leggo Legs vars
-    const legsPercHPS = formatPercentage(this.modules.trousersOfAnjuna.healing / this.totalHealing);
+    const legsPercHPS = formatPercentage(this.getPercentageOfTotalHealingDone(this.modules.trousersOfAnjuna.healing));
     const legsHPS = formatNumber(this.modules.trousersOfAnjuna.healing / this.fightDuration * 1000);
 
     // Leggo cloak (Xan'shi) vars
-    const cloakPercHPS = formatPercentage(this.modules.xanshiCloak.healing / this.totalHealing);
+    const cloakPercHPS = formatPercentage(this.getPercentageOfTotalHealingDone(this.modules.xanshiCloak.healing));
     const cloakHPS = formatNumber(this.modules.xanshiCloak.healing / this.fightDuration * 1000);
 
     // Light of T'uure vars
     const lotSpellHealing = formatNumber(this.modules.lightOfTuure.spellHealing);
     const lotBuffHealing = formatNumber(this.modules.lightOfTuure.buffHealing);
     const lotTotal = this.modules.lightOfTuure.spellHealing + this.modules.lightOfTuure.buffHealing;
-    const lotPercHPS = formatPercentage(lotTotal / this.totalHealing);
+    const lotPercHPS = formatPercentage(this.getPercentageOfTotalHealingDone(lotTotal));
     const lotHPS = formatNumber(lotTotal / this.fightDuration * 1000);
 
     // Enduring Renewal vars
-    const erPercHPS = formatPercentage(this.modules.enduringRenewal.healing / this.totalHealing);
+    const erPercHPS = formatPercentage(this.getPercentageOfTotalHealingDone(this.modules.enduringRenewal.healing));
     const erHPS = formatNumber(this.modules.enduringRenewal.healing / this.fightDuration * 1000);
     const erGainPerRefresh = Math.round(this.modules.enduringRenewal.secsGained / this.modules.enduringRenewal.refreshedRenews * 100) / 100;
 
@@ -189,9 +189,9 @@ class CombatLogParser extends MainCombatLogParser {
             style={{ border: 0 }}
             alt="Healing"
           />)}
-        value={`${formatNumber(this.totalHealing / fightDuration * 1000)} HPS`}
+        value={`${formatNumber(this.modules.healingDone.total.effective / fightDuration * 1000)} HPS`}
         label={(
-          <dfn data-tip={`The total healing done recorded was ${formatThousands(this.totalHealing)}.`}>
+          <dfn data-tip={`The total healing done recorded was ${formatThousands(this.modules.healingDone.total.effective)}.`}>
             Healing done
           </dfn>
         )}
@@ -228,7 +228,7 @@ class CombatLogParser extends MainCombatLogParser {
           icon={<SpellIcon id={SPELLS.DIVINITY_TALENT.id} />}
           value={`${((this.selectedCombatant.getBuffUptime(SPELLS.DIVINITY_BUFF.id)/this.fightDuration)*100).toFixed(1)} %`}
           label={(
-            <dfn data-tip={`The effective healing contributed by Divinity was ${formatThousands(this.modules.divinity.healing)} / ${formatPercentage(this.modules.divinity.healing / this.totalHealing)} % / ${formatNumber(this.modules.divinity.healing / fightDuration * 1000)} HPS.`}>
+            <dfn data-tip={`The effective healing contributed by Divinity was ${formatThousands(this.modules.divinity.healing)} / ${formatPercentage(this.getPercentageOfTotalHealingDone(this.modules.divinity.healing))} % / ${formatNumber(this.modules.divinity.healing / fightDuration * 1000)} HPS.`}>
               Divinity uptime
             </dfn>
           )}

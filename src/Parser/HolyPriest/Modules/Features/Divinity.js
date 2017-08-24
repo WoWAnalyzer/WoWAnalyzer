@@ -11,9 +11,7 @@ class Divinity extends Module {
   healing = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasTalent(SPELLS.DIVINITY_TALENT.id);
-    }
+    this.active = this.owner.selectedCombatant.hasTalent(SPELLS.DIVINITY_TALENT.id);
   }
 
   on_byPlayer_heal(event) {

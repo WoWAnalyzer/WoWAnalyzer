@@ -19,9 +19,7 @@ class Tier20_2set extends Module {
   damage = 0;
   
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasBuff(SPELLS.DISC_PRIEST_T20_2SET_BONUS_PASSIVE.id);
-    }
+    this.active = this.owner.selectedCombatant.hasBuff(SPELLS.DISC_PRIEST_T20_2SET_BONUS_PASSIVE.id);
   }
 
   on_byPlayer_damage(event) {

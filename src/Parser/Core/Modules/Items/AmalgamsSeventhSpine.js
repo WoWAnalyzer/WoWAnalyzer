@@ -13,9 +13,7 @@ class AmalgamsSeventhSpine extends Module {
   refreshes = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasTrinket(ITEMS.AMALGAMS_SEVENTH_SPINE.id);
-    }
+    this.active = this.owner.selectedCombatant.hasTrinket(ITEMS.AMALGAMS_SEVENTH_SPINE.id);
   }
 
   on_toPlayer_energize(event) {

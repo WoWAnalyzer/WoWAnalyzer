@@ -8,12 +8,14 @@ import { formatThousands, formatPercentage } from 'common/format';
 
 import Module from 'Parser/Core/Module';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
+import HealingDone from 'Parser/Core/Modules/HealingDone';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class Overhealing extends Module {
   static dependencies = {
     abilityTracker: AbilityTracker,
+    healingDone: HealingDone,
   };
 
   getRawHealing(ability) {
@@ -79,9 +81,9 @@ class Overhealing extends Module {
     return (
       <StatisticBox
         icon={<Icon icon="inv_misc_volatilewater" />}
-        value={`${formatPercentage(this.owner.totalOverhealingDone / this.owner.totalRawHealingDone)} %`}
+        value={`${formatPercentage(this.healingDone.total.overheal / this.healingDone.total.raw)} %`}
         label="Overhealing"
-        tooltip={`The total overhealing done recorded was ${formatThousands(this.owner.totalOverhealingDone)}. Overhealing can be caused by playing poorly (such as selecting the wrong targets or casting abilities at the wrong time), other healers sniping, and/or brinding too many healers.`}
+        tooltip={`The total overhealing done recorded was ${formatThousands(this.healingDone.total.overheal)}. Overhealing can be caused by playing poorly (such as selecting the wrong targets or casting abilities at the wrong time), other healers sniping, and/or brinding too many healers.`}
       />
     );
   }

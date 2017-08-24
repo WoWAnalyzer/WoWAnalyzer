@@ -2,6 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
+import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import ItemLink from 'common/ItemLink';
 
 import Module from 'Parser/Core/Module';
@@ -13,6 +14,7 @@ const PRE_POTIONS = [
   SPELLS.POTION_OF_PROLONGED_POWER.id,
   SPELLS.POTION_OF_DEADLY_GRACE.id,
   SPELLS.POTION_OF_THE_OLD_WAR.id,
+  SPELLS.UNBENDING_POTION.id,
 ];
 
 const SECOND_POTIONS = [
@@ -21,13 +23,13 @@ const SECOND_POTIONS = [
   SPELLS.POTION_OF_THE_OLD_WAR.id,
   SPELLS.ANCIENT_MANA_POTION.id,
   SPELLS.LEYTORRENT_POTION.id,
+  SPELLS.UNBENDING_POTION.id,
+  SPELLS.SPIRIT_BERRIES.id,
 ];
 
 const DURATION = 30000;
 const DURATION_PROLONGED = 60000;
 const ANCIENT_MANA_POTION_AMOUNT = 152000;
-
-const MANA_CLASS_RESOURCE_ID = 0;
 
 class PrePotion extends Module {
   usedPrePotion = false;
@@ -57,8 +59,7 @@ class PrePotion extends Module {
       this.usedSecondPotion = true;
     }
 
-    // class resource type 0 means the resource is mana
-    if (event.classResources && event.classResources[0] && event.classResources[0].type === MANA_CLASS_RESOURCE_ID) {
+    if (event.classResources && event.classResources[0] && event.classResources[0].type === RESOURCE_TYPES.MANA) {
       const resource = event.classResources[0];
       const manaLeftAfterCast = resource.amount - resource.cost;
       if (manaLeftAfterCast < ANCIENT_MANA_POTION_AMOUNT) {

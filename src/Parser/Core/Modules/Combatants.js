@@ -44,6 +44,12 @@ class Combatants extends Entities {
       });
     });
   }
+
+  on_initialized() {
+    if (!this.selected) {
+      throw new Error('The selected player could not be found in this fight. Make sure the log is recorded with Advanced Combat Logging enabled.');
+    }
+  }
 }
 
 export default Combatants;

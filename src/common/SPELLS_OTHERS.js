@@ -1,5 +1,15 @@
+/**
+ * Anything that isn't a class specific ability nor a racial goes in here. You need to do this manually, usually an easy way to do this is by opening a WCL report and clicking the icons of spells to open the relevant Wowhead pages, here you can get the icon name by clicking the icon, copy the name of the spell and the ID is in the URL.
+ * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
+ */
+
 export default {
   // General:
+  MELEE: {
+    id: 1,
+    name: 'Melee',
+    icon: 'inv_axe_02',
+  },
   LEECH: {
     id: 143924,
     name: 'Leech',
@@ -34,6 +44,21 @@ export default {
     id: 188017,
     name: 'Ancient Mana Potion',
     icon: 'inv_alchemy_70_blue',
+  },
+  UNBENDING_POTION: {
+    id: 127845,
+    name: 'Unbending Potion',
+    icon: 'inv_alchemy_70_flask04',
+  },
+  SPIRIT_BERRIES: {
+	  id: 223573,
+	  name: 'Spirit Berries',
+	  icon: 'inv_misc_food_93_skethylberries',
+  },
+  PURE_RAGE_POTION: {
+    id: 175821,
+    name: 'Pure Rage Potion',
+    icon: 'trade_alchemy_dpotion_a13',
   },
   // Items buffs:
   GNAWED_THUMB_RING: {
@@ -131,6 +156,11 @@ export default {
     icon: 'spell_warlock_soulburn',
   },
   // Item Abilities
+  SPECTRAL_OWL: {
+    id: 242570,
+    name: 'Spectral Owl',
+    icon: 'inv_jewelcrafting_purpleowl',
+  },
   SPECTRAL_BLAST: {
     id: 246442,
     name: 'Spectral Blast',
@@ -140,6 +170,21 @@ export default {
     id: 242571,
     name: 'Spectral Bolt',
     icon: 'ability_thunderking_thunderstruck',
+  },
+  SPECTRAL_THURIBLE_DAMAGE: {
+    id: 246751,
+    name: 'Piercing Anguish',
+    icon: 'inv_spear_08',
+  },
+  TERROR_FROM_BELOW_DAMAGE: {
+    id: 242525,
+    name: 'Terror From Below',
+    icon: 'trade_archaeology_sharkjaws',
+  },
+  TOME_OF_UNRAVELING_SANITY_DAMAGE: {
+    id: 243941,
+    name: 'Insidious Corruption',
+    icon: 'inv_archaeology_70_demon_flayedskinchronicle',
   },
   //Engine of Eradication buff
   DEMONIC_VIGOR: {
@@ -151,5 +196,20 @@ export default {
     id: 228446,
     name: 'March of the Legion',
     icon: 'ability_warlock_fireandbrimstone',
+  },
+  KILJAEDENS_BURNING_WISH_DAMAGE: {
+    id: 235999,
+    name: 'Kil\'jaeden\'s Burning Wish',
+    icon: 'sha_spell_fire_bluepyroblast_nightmare',
+  },
+  KILJAEDENS_BURNING_WISH_CAST: {
+    id: 235991,
+    name: 'Kil\'jaeden\'s Burning Wish',
+    icon: 'sha_spell_fire_bluepyroblast_nightmare',
+  },
+  ARCHIMONDES_HATRED_REBORN_ABSORB: {
+    id: 235169,
+    name: 'Archimonde\'s Hatred Reborn',
+    icon: 'spell_nature_elementalshields',
   },
 };

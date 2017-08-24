@@ -1,4 +1,18 @@
 export default `
+21-08-2017 - Brewmaster Monk: Fixed bug with stagger if a tick of the dot is absorbed it will calculate correctly (by wopr)
+22-08-2017 - Guardian Druid: Fix to Ironfur uptime suggestion (by wopr).
+21-08-2017 - Affliction Warlock: Added rest of the legendaries (apart from head), some ToS trinkets and T20 set bonuses. (by Chizu)
+21-08-2017 - Brewmaster Monk: Added T20 2pc and 4pc stats (by wopr)
+20-08-2017 - Brewmaster Monk: Added more information about what occured while ISB was up or not (by wopr)
+20-08-2017 - Vengeance Demon Hunter: Added Pain tracker chart and changed Spirit Bomb uptime buff to Frailty debuff uptime. (by Mamtooth)
+20-08-2017 - Brewmaster Monk: This is an initial implementation, will be updated soon (by wopr)
+20-08-2017 - The background image will now be a screenshot of the boss currently analyzing when available. (by Zerotorescue)
+20-08-2017 - Restoration Shaman: Added Ancestral Vigor metric. (by Yuyz0112)
+19-08-2017 - Guardian Druid: Added detail on Ironfur usage.
+19-08-2017 - Vengeance Demon Hunter: Added more useful and specific statistics tooltips.
+18-08-2017 - Added <span class="Warlock">Affliction Warlock</span> support by @Chizu.
+18-08-2017 - Guardian Druid: Updates to align with new module structure and added overkill into DTPS display.
+16-08-2017 - Added <span class="DemonHunter">Vengeance Demon Hunter</span> support by @Mamtooth.
 16-08-2017 - Mistweaver Monk: Soothing Mist suggestion added (by anomoly)
 16-08-2017 - Mistweaver Monk: Added the effective healing contribute of Enveloping Mists as a statistic (by anomoly)
 15-08-2017 - Mistweaver Monk: Updates to Mistweaver module to align with new module structure. No information should be lost, but this will be moved around (by anomoly)

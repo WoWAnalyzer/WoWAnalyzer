@@ -8,9 +8,7 @@ class SephuzsSecret extends Module {
   uptime = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasFinger(ITEMS.SEPHUZS_SECRET.id);
-    }
+    this.active = this.owner.selectedCombatant.hasFinger(ITEMS.SEPHUZS_SECRET.id);
   }
 
   lastAppliedTimestamp = null;

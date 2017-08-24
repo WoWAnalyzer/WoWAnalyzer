@@ -8,9 +8,7 @@ import Module from 'Parser/Core/Module';
 
 class SoulOfTheHighlord extends Module {
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_HIGHLORD.id);
-    }
+    this.active = this.owner.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_HIGHLORD.id);
   }
 
   item() {

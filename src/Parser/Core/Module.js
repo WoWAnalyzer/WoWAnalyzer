@@ -18,9 +18,19 @@ class Module {
     this.owner = parser;
     this.priority = priority;
 
-    Object.keys(dependencies).forEach(key => {
-      this[key] = dependencies[key];
-    });
+    if (dependencies) {
+      Object.keys(dependencies).forEach(key => {
+        this[key] = dependencies[key];
+      });
+    }
+  }
+
+  triggerEvent(eventType, ...args) {
+    const methodName = `on_${eventType}`;
+    const method = this[methodName];
+    if (method) {
+      method.apply(this, args);
+    }
   }
 
   // Override these with functions that return info about their rendering in the specific slots

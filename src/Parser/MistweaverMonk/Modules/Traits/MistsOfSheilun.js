@@ -18,9 +18,7 @@ class MistsOfSheilun extends Module {
   overhealingMistsOfSheilun = 0;
 
   on_initialized() {
-    if(!this.owner.error) {
-      this.active = this.owner.selectedCombatant.traitsBySpellId[SPELLS.MISTS_OF_SHEILUN_TRAIT.id] === 1;
-    }
+    this.active = this.owner.selectedCombatant.traitsBySpellId[SPELLS.MISTS_OF_SHEILUN_TRAIT.id] === 1;
   }
   
   on_byPlayer_applybuff(event) {

@@ -31,9 +31,9 @@ class InfusionOfLightCastRatio extends Module {
 
     when(iolFoLToHLCastRatio).isLessThan(0.7)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your <i>IoL FoL to HL cast ratio</i> can likely be improved. When you get an <SpellLink id={SPELLS.INFUSION_OF_LIGHT.id} /> proc try to cast <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} /> as much as possible, it is a considerably stronger heal ({iolFlashOfLights} Flash of Lights.</span>)
+        return suggest(<span>Your <i>IoL FoL to HL cast ratio</i> can likely be improved. When you get an <SpellLink id={SPELLS.INFUSION_OF_LIGHT.id} /> proc try to cast <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} /> as much as possible, it is a considerably stronger heal.</span>)
           .icon(SPELLS.INFUSION_OF_LIGHT.icon)
-          .actual(`${formatPercentage(iolFoLToHLCastRatio)}%) to ${iolHolyLights} Holy Lights (${formatPercentage(1 - iolFoLToHLCastRatio)}%) cast with Infusion of Light`)
+          .actual(`${iolFlashOfLights} Flash of Lights (${formatPercentage(iolFoLToHLCastRatio)}%) to ${iolHolyLights} Holy Lights (${formatPercentage(1 - iolFoLToHLCastRatio)}%) cast with Infusion of Light`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`)
           .regular(recommended - 0.1).major(recommended - 0.3);
       });

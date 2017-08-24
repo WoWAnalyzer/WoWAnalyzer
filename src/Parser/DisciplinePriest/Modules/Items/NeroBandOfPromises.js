@@ -10,9 +10,7 @@ class NeroBandOfPromises extends Module {
   healing = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasFinger(ITEMS.NERO_BAND_OF_PROMISES.id);
-    }
+    this.active = this.owner.selectedCombatant.hasFinger(ITEMS.NERO_BAND_OF_PROMISES.id);
   }
 
   on_byPlayer_heal(event) {

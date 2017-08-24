@@ -58,7 +58,7 @@ class CombatLogParser extends MainCombatLogParser {
     lowHealthHealing: LowHealthHealing,
 
     // PaladinCore
-    healingDone: HealingDone,
+    healingDoneStatistic: HealingDone,
     beaconHealOriginMatcher: BeaconHealOriginMatcher,
     beaconTargets: BeaconTargets,
     beaconHealing: BeaconHealing,
@@ -107,7 +107,7 @@ class CombatLogParser extends MainCombatLogParser {
    * @param {Array} events
    * @returns {Array}
    */
-  reorderEvents(events) { // TODO: Unit test
+  reorderEvents(events) {
     const fixedEvents = [];
     events.forEach((event, eventIndex) => {
       fixedEvents.push(event);

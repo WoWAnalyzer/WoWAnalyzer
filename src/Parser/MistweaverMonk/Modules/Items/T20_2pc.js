@@ -18,9 +18,7 @@ class T20_2pc extends Module {
   procs = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasBuff(SPELLS.XUENS_BATTLEGEAR_2_PIECE_BUFF.id);
-    }
+    this.active = this.owner.selectedCombatant.hasBuff(SPELLS.XUENS_BATTLEGEAR_2_PIECE_BUFF.id);
   }
 
   on_byPlayer_cast(event) {

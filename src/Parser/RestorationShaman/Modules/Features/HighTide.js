@@ -16,11 +16,9 @@ class HighTide extends Module {
 
 
   on_initialized() {
-    if (!this.owner.error) {
-        // WIP
-        this.active = false;
-      //this.active = this.owner.selectedCombatant.hasTalent(SPELLS.HIGH_TIDE_TALENT.id);
-    }
+    // WIP
+    this.active = false;
+    //this.active = this.owner.selectedCombatant.hasTalent(SPELLS.HIGH_TIDE_TALENT.id);
   }
 
 

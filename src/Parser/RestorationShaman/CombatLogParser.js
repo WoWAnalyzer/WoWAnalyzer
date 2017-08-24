@@ -4,19 +4,16 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import ITEMS from 'common/ITEMS';
-import Icon from 'common/Icon';
 import ItemLink from 'common/ItemLink';
 
 import StatisticBox from 'Main/StatisticBox';
 import SuggestionsTab from 'Main/SuggestionsTab';
 import Tab from 'Main/Tab';
 import Talents from 'Main/Talents';
-import CastEfficiency from 'Main/CastEfficiency';
 import Mana from 'Main/Mana';
 import Feeding from 'Main/Feeding';
 
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
-import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
 
@@ -27,6 +24,7 @@ import EarthenShieldTotem from './Modules/Features/EarthenShieldTotem';
 import HighTide from './Modules/Features/HighTide';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownTracker from './Modules/Features/CooldownTracker';
+import CastEfficiency from './Modules/Features/CastEfficiency';
 
 import Nazjatar from './Modules/Legendaries/Nazjatar';
 import UncertainReminder from './Modules/Legendaries/UncertainReminder';
@@ -35,8 +33,8 @@ import Nobundo from './Modules/Legendaries/Nobundo';
 import Tidecallers from './Modules/Legendaries/Tidecallers';
 import Restoration_Shaman_T19_2Set from './Modules/Legendaries/T19_2Set';
 import Restoration_Shaman_T20_4Set from './Modules/Legendaries/T20_4Set';
+import AncestralVigor from './Modules/Features/AncestralVigor';
 
-import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
 import UnusedTidalWavesImage from './Images/spell_shaman_tidalwaves-bw.jpg';
@@ -74,15 +72,15 @@ class CombatLogParser extends MainCombatLogParser {
     abilityTracker: ShamanAbilityTracker,
     lowHealthHealing: LowHealthHealing,
 
-
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     masteryEffectiveness: MasteryEffectiveness,
     earthenShieldTotem: EarthenShieldTotem,
     highTide: HighTide,
     cooldownTracker: CooldownTracker,
-
-
+    ancestralVigor: AncestralVigor,
+    castEfficiency: CastEfficiency,
+    
     // Legendaries:
     nobundo: Nobundo,
     nazjatar: Nazjatar,
@@ -110,17 +108,14 @@ class CombatLogParser extends MainCombatLogParser {
 
     // The Earthenshield absorb is not directly attributed to the player and thus not
     // by default included in the total healing.
-    const totalHealing = this.totalHealing + (earthenShieldHealing || 0);
+    const totalHealing = this.modules.healingDone.total.effective + (earthenShieldHealing || 0);
 
     const riptide = getAbility(SPELLS.RIPTIDE.id);
     const healingWave = getAbility(SPELLS.HEALING_WAVE.id);
     const healingSurge = getAbility(SPELLS.HEALING_SURGE_RESTORATION.id);
     const chainHeal = getAbility(SPELLS.CHAIN_HEAL.id);
     const giftOfTheQueen = getAbility(SPELLS.GIFT_OF_THE_QUEEN.id);
-    const healingRain = getAbility(SPELLS.HEALING_RAIN_CAST.id);
 
-    const nonHealingTimePercentage = this.modules.alwaysBeCasting.totalHealingTimeWasted / fightDuration;
-    const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
     const nazjatarRiptideResets = this.modules.nazjatar.resets;
     const nobundoDiscountedHealingSurges = this.modules.nobundo.discounts;
     const jonatHealingPercentage = this.modules.jonat.healing / totalHealing;
@@ -182,29 +177,12 @@ class CombatLogParser extends MainCombatLogParser {
     const has2PT19 = this.selectedCombatant.hasBuff(SPELLS.RESTORATION_SHAMAN_T19_2SET_BONUS_BUFF.id);
     const t19_2PHealingPercentage = this.modules.t19_2Set.healing / totalHealing;
 
-    const has4PT20 = this.selectedCombatant.hasBuff(SPELLS.RESTORATION_SHAMAN_T20_4SET_BONUS_BUFF.id);
     const t20_4PHealingPercentage = this.modules.t20_4Set.healing / totalHealing;
-
-    const unbuffedHealingRainsPercentage = has4PT20 && ((healingRain.casts - healingRain.withT20Buff) / healingRain.casts);
 
     this.modules.cooldownTracker.processAll();
 
     const unusedTwRate = 1 - totalTwUsed / totalTwGenerated;
 
-    if (nonHealingTimePercentage > 0.3) {
-      results.addIssue({
-        issue: `Your non healing time can be improved. Try to cast heals more regularly (${Math.round(nonHealingTimePercentage * 100)}% non healing time).`,
-        icon: 'petbattle_health-down',
-        importance: getIssueImportance(nonHealingTimePercentage, 0.4, 0.45, true),
-      });
-    }
-    if (deadTimePercentage > 0.2) {
-      results.addIssue({
-        issue: `Your dead GCD time can be improved. Try to Always Be Casting (ABC); when you're not healing try to contribute some damage (${Math.round(deadTimePercentage * 100)}% dead GCD time).`,
-        icon: 'spell_mage_altertime',
-        importance: getIssueImportance(deadTimePercentage, 0.35, 0.4, true),
-      });
-    }
     if (unbuffedHealingSurges > 0) {
       results.addIssue({
         issue: <span>Casting <SpellLink id={SPELLS.HEALING_SURGE_RESTORATION.id} /> without <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} /> is very inefficient, try not to cast more than is necessary ({unbuffedHealingSurges}/{healingSurges} casts unbuffed).</span>,
@@ -254,25 +232,7 @@ class CombatLogParser extends MainCombatLogParser {
         importance: getIssueImportance(uncertainReminderHealingPercentage, 0.035, 0.025),
       });
     }
-    if (has4PT20 && unbuffedHealingRainsPercentage > 0) {
-      results.addIssue({
-        issue: <span><SpellLink id={SPELLS.RESTORATION_SHAMAN_T20_4SET_BONUS_BUFF.id} /> buffed <SpellLink id={SPELLS.HEALING_RAIN_CAST.id} /> can make for some very efficient healing, consider ensure casting them with <SpellLink id={SPELLS.RESTORATION_SHAMAN_T20_4SET_BONUS_BUFF.id} />({formatPercentage(unbuffedHealingRainsPercentage)}% healing rains were casted without <SpellLink id={SPELLS.RESTORATION_SHAMAN_T20_4SET_BONUS_BUFF.id} />).</span>,
-        icon: SPELLS.HEALING_RAIN_CAST.icon,
-        importance: getIssueImportance(unbuffedHealingRainsPercentage, 0.15, 0.30, true),
-      });
-    }
 
-    const castEfficiencyCategories = SPELL_CATEGORY;
-    const castEfficiency = getCastEfficiency(CPM_ABILITIES, this);
-    castEfficiency.forEach((cpm) => {
-      if (cpm.canBeImproved && !cpm.ability.noSuggestion) {
-        results.addIssue({
-          issue: <span>Try to cast <SpellLink id={cpm.ability.spell.id} /> more often ({cpm.casts}/{cpm.maxCasts} casts: {Math.round(cpm.castEfficiency * 100)}% cast efficiency). {cpm.ability.extraSuggestion || ''}</span>,
-          icon: cpm.ability.spell.icon,
-          importance: cpm.ability.importance || getIssueImportance(cpm.castEfficiency, cpm.recommendedCastEfficiency - 0.05, cpm.recommendedCastEfficiency - 0.15),
-        });
-      }
-    });
 
     results.statistics = [
       <StatisticBox
@@ -286,16 +246,6 @@ class CombatLogParser extends MainCombatLogParser {
         label={(
           <dfn data-tip={`The total healing done recorded was ${formatThousands(totalHealing)}.`}>
             Healing done
-          </dfn>
-        )}
-      />,
-      <StatisticBox
-        icon={<Icon icon="petbattle_health-down" alt="Non healing time" />}
-
-        value={`${formatPercentage(nonHealingTimePercentage)} %`}
-        label={(
-          <dfn data-tip={`Non healing time is available casting time not used for a spell that helps you heal. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), DPSing, etc. <br /><br />You spent ${formatPercentage(deadTimePercentage)}% of your time casting nothing at all.`}>
-            Non healing time
           </dfn>
         )}
       />,
@@ -454,18 +404,6 @@ class CombatLogParser extends MainCombatLogParser {
         url: 'suggestions',
         render: () => (
           <SuggestionsTab issues={results.issues} />
-        ),
-      },
-      {
-        title: 'Cast efficiency',
-        url: 'cast-efficiency',
-        render: () => (
-          <Tab title="Cast efficiency">
-            <CastEfficiency
-              categories={castEfficiencyCategories}
-              abilities={castEfficiency}
-            />
-          </Tab>
         ),
       },
       {

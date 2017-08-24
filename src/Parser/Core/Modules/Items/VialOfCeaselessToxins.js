@@ -10,9 +10,7 @@ class VialOfCeaselessToxins extends Module {
   totalCasts = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasTrinket(ITEMS.VIAL_OF_CEASELESS_TOXINS.id);
-    }
+    this.active = this.owner.selectedCombatant.hasTrinket(ITEMS.VIAL_OF_CEASELESS_TOXINS.id);
   }
 
   on_byPlayer_cast(event) {

@@ -10,10 +10,7 @@ class MarchOfTheLegion extends Module {
   healing = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasFinger(ITEMS.RING_OF_LOOMING_MENACE.id)
-                 && this.owner.selectedCombatant.hasNeck(ITEMS.CHAIN_OF_SCORCHED_BONES.id);
-    }
+    this.active = this.owner.selectedCombatant.hasFinger(ITEMS.RING_OF_LOOMING_MENACE.id) && this.owner.selectedCombatant.hasNeck(ITEMS.CHAIN_OF_SCORCHED_BONES.id);
   }
 
   on_byPlayer_heal(event) {

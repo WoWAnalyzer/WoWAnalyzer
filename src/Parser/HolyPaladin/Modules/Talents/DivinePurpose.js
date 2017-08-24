@@ -16,11 +16,9 @@ class DivinePurpose extends Module {
   };
 
   on_initialized() {
-    if (!this.owner.error) {
-      const hasDivinePurpose = this.owner.selectedCombatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id);
-      const hasSoulOfTheHighlord = this.owner.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_HIGHLORD.id);
-      this.active = hasDivinePurpose || hasSoulOfTheHighlord;
-    }
+    const hasDivinePurpose = this.owner.selectedCombatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id);
+    const hasSoulOfTheHighlord = this.owner.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_HIGHLORD.id);
+    this.active = hasDivinePurpose || hasSoulOfTheHighlord;
   }
 
   get holyShockProcs() {

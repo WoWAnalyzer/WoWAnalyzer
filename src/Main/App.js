@@ -11,15 +11,16 @@ import UnsupportedSpec from 'Parser/UnsupportedSpec/CONFIG';
 
 import './App.css';
 
+import GithubLogo from './Images/GitHub-Mark-Light-32px.png';
+
 import Home from './Home';
 import FightSelecter from './FightSelecter';
 import PlayerSelecter from './PlayerSelecter';
 import Results from './Results';
+import ReportSelecter from './ReportSelecter';
+import AppBackgroundImage from './AppBackgroundImage';
 
 import makeAnalyzerUrl from './makeAnalyzerUrl';
-
-import GithubLogo from './Images/GitHub-Mark-Light-32px.png';
-import ReportSelecter from "./ReportSelecter";
 
 const toolName = `WoW Analyzer`;
 const githubUrl = 'https://github.com/MartijnHols/WoWAnalyzer';
@@ -45,6 +46,9 @@ class App extends Component {
 
   get reportCode() {
     return this.props.params.reportCode;
+  }
+  get isReportValid() {
+    return this.state.report && this.state.report.code === this.reportCode;
   }
   get playerName() {
     return this.props.params.playerName;
@@ -77,6 +81,7 @@ class App extends Component {
       selectedSpec: null,
       progress: 0,
       dataVersion: 0,
+      bossId: null,
     };
 
     this.handleReportSelecterSubmit = this.handleReportSelecterSubmit.bind(this);
@@ -205,6 +210,7 @@ class App extends Component {
 
     const url = makeWclUrl(`report/fights/${code}`, {
       _: refresh ? +new Date() : undefined,
+      translate: true, // so long as we don't have the entire site localized, it's better to have 1 consistent language
     });
     return fetch(url)
       .then(response => response.json())
@@ -276,7 +282,13 @@ class App extends Component {
   }
 
   fetchEvents(code, start, end, actorId = undefined, filter = undefined) {
-    const url = makeWclUrl(`report/events/${code}`, { start, end, actorid: actorId, filter });
+    const url = makeWclUrl(`report/events/${code}`, {
+      start,
+      end,
+      actorid: actorId,
+      filter,
+      translate: true, // so long as we don't have the entire site localized, it's better to have 1 consistent language
+    });
     return fetch(url)
       .then(response => response.json());
   }
@@ -294,8 +306,7 @@ class App extends Component {
       // User provided a reportCode AND it changed since previous render, so fetch the new report
       this.fetchReport(this.reportCode);
     }
-    const isReportValid = this.state.report && this.state.report.code === this.reportCode;
-    if (isReportValid && this.fightId && (this.state.report !== prevState.report || this.props.params.fightId !== prevParams.fightId)) {
+    if (this.isReportValid && this.fightId && (this.state.report !== prevState.report || this.props.params.fightId !== prevParams.fightId)) {
       // A report has been loaded, it is the report the user wants (this can be a mismatch if a new report is still loading), a fight was selected, and one of the fight-relevant things was changed
       this.fetchCombatants(this.state.report, this.fightId);
     }
@@ -306,6 +317,13 @@ class App extends Component {
       }
     }
 
+    this.updatePageTitle();
+    if (this.reportCode !== prevParams.reportCode || this.state.report !== prevState.report || this.props.params.fightId !== prevParams.fightId) {
+      this.updateBossId();
+    }
+  }
+
+  updatePageTitle() {
     let title = toolName;
     if (this.reportCode && this.state.report) {
       if (this.playerName) {
@@ -319,6 +337,11 @@ class App extends Component {
       }
     }
     document.title = title;
+  }
+  updateBossId() {
+    this.setState({
+      bossId: (this.reportCode && this.isReportValid && this.fight && this.fight.boss) || null,
+    });
   }
 
   renderContent() {
@@ -371,6 +394,8 @@ class App extends Component {
 
     return (
       <div className={`app ${this.reportCode ? 'has-report' : ''}`}>
+        <AppBackgroundImage bossId={this.state.bossId} />
+
         <nav className="navbar navbar-default">
           <div className="navbar-progress" style={{ width: `${progress}%`, opacity: progress === 0 || progress === 100 ? 0 : 1 }} />
           <div className="container">

@@ -10,9 +10,7 @@ class EngineOfEradication extends Module {
   bufftime = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasTrinket(ITEMS.ENGINE_OF_ERADICATION.id);
-    }
+    this.active = this.owner.selectedCombatant.hasTrinket(ITEMS.ENGINE_OF_ERADICATION.id);
   }
 
   lastAppliedTimestamp = null;
