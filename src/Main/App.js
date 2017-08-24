@@ -235,12 +235,8 @@ class App extends Component {
           });
         }
       })
-      .catch((err) => {
-        if (err) {
-          alert(err);
-        } else {
-          alert('I\'m so terribly sorry, an error occured. Try again later or in an updated Google Chrome. (Is Warcraft Logs up?)');
-        }
+      .catch(err => {
+        alert('I\'m so terribly sorry, an error occured. Try again later or in an updated Google Chrome. (Is Warcraft Logs up?)\n\n' + err);
         console.error(err);
         this.setState({
           report: null,
