@@ -1,66 +1,44 @@
 import React from 'react';
 
-import SpellIcon from 'common/SpellIcon';
-import Icon from 'common/Icon';
 import ITEMS from 'common/ITEMS';
-import SPELLS from 'common/SPELLS';
-// import ItemLink from 'common/ItemLink';
-// import ItemIcon from 'common/ItemIcon';
 
-import StatisticBox from 'Main/StatisticBox';
 import SuggestionsTab from 'Main/SuggestionsTab';
 import Tab from 'Main/Tab';
 import Talents from 'Main/Talents';
 
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
-import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 import CastEfficiency from './Modules/Main/CastEfficiency';
 import Maelstrom from './Modules/Main/Maelstrom';
 
 import CooldownTracker from './Modules/Features/CooldownTracker';
-import ProcTracker from './Modules/Features/ProcTracker';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
+import DamageDone from './Modules/ShamanCore/DamageDone';
+import GCD from './Modules/ShamanCore/GCD';
+import ShamanStats from './Modules/ShamanCore/ShamanStats';
+import Flametongue from './Modules/ShamanCore/Flametongue';
+import Landslide from './Modules/ShamanCore/Landslide';
+import Frostbrand from './Modules/ShamanCore/Frostbrand';
+import FuryOfAir from './Modules/ShamanCore/FuryOfAir';
 
 // import SmolderingHeart from './Modules/Legendaries/SmolderingHeart';
 
 import './Modules/Main/main.css';
 
-function formatThousands(number) {
-  return (Math.round(number || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
-}
-
-function formatNumber(number) {
-  if (number > 1000000) {
-    return `${(number / 1000000).toFixed(2)}m`;
-  }
-  if (number > 10000) {
-    return `${Math.round(number / 1000)}k`;
-  }
-  return formatThousands(number);
-}
-
-function getIssueImportance(value, regular, major, higherIsWorse = false) {
-  if (higherIsWorse ? value > major : value < major) {
-    return ISSUE_IMPORTANCE.MAJOR;
-  }
-  if (higherIsWorse ? value > regular : value < regular) {
-    return ISSUE_IMPORTANCE.REGULAR;
-  }
-  return ISSUE_IMPORTANCE.MINOR;
-}
-function formatPercentage(percentage) {
-  return (Math.round((percentage || 0) * 10000) / 100).toFixed(2);
-}
-
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
+    // ShamanCore
+    damageDone: DamageDone,
+    gCD: GCD,
+    shamanStats: ShamanStats,
+    flametongue: Flametongue,
+    landslide: Landslide,
+    frostbrand: Frostbrand,
+    furyOfAir: FuryOfAir,
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     castEfficiency: CastEfficiency,
     cooldownTracker: CooldownTracker,
-    procTracker: ProcTracker,
-
     // Legendaries:
   };
 
@@ -70,14 +48,11 @@ class CombatLogParser extends MainCombatLogParser {
     //first row of talents
     // const hasWindSong = this.selectedCombatant.hasTalent(SPELLS.WINDSONG_TALENT.id);
     // const hasHotHand = this.selectedCombatant.hasTalent(SPELLS.HOT_HAND_TALENT.id);
-    const hasLandslide = this.selectedCombatant.hasTalent(SPELLS.LANDSLIDE_TALENT.id);
     //4th row of talents
-    const hasHailstorm = this.selectedCombatant.hasTalent(SPELLS.HAILSTORM_TALENT.id);
     //5th row of talents
     // const hasOvercharge = this.selectedCombatant.hasTalent(SPELLS.HAILSTORM_TALENT.id);
     //6th row of talents
     // const hasCrashingStorm = this.selectedCombatant.hasTalent(SPELLS.CRASHING_STORM_TALENT.id);
-    const hasFuryOfAir = this.selectedCombatant.hasTalent(SPELLS.FURY_OF_AIR_TALENT.id);
     // const hasSundering = this.selectedCombatant.hasTalent(SPELLS.SUNDERING_TALENT.id);
     //last row of talents
     // const hasAscendance = this.selectedCombatant.hasTalent(SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id);
@@ -90,20 +65,6 @@ class CombatLogParser extends MainCombatLogParser {
     // const flametongue = getAbility(SPELLS.FLAMETONGUE.id);
     // const frostbrand = getAbility(SPELLS.FROSTBRAND.id);
     // const stormBringer = getAbility(SPELLS.STORMBRINGER.id);
-
-    const fightDuration = this.fightDuration;
-
-    //uptimes
-    const flametongueUptime = this.selectedCombatant.getBuffUptime(SPELLS.FLAMETONGUE_BUFF.id) / this.fightDuration;
-    const frostbrandUptime = this.selectedCombatant.getBuffUptime(SPELLS.FROSTBRAND.id) / this.fightDuration;
-    const landslideUptime = this.selectedCombatant.getBuffUptime(SPELLS.LANDSLIDE_BUFF.id) / this.fightDuration;
-    const furyofairUptime = this.selectedCombatant.getBuffUptime(SPELLS.FURY_OF_AIR.id) / this.fightDuration;
-
-    const nonDpsTimePercentage = this.modules.alwaysBeCasting.totalDamagingTimeWasted / fightDuration;
-    const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
-
-    const masteryPercent = this.selectedCombatant.masteryPercentage;
-    const hastePercent = this.selectedCombatant.hastePercentage;
 
     //Legendaries
     // const hasUncertainReminder = this.selectedCombatant.hasHead(ITEMS.UNCERTAIN_REMINDER.id);
@@ -132,128 +93,8 @@ class CombatLogParser extends MainCombatLogParser {
       }
     });
 
-    if (nonDpsTimePercentage > 0.3) {
-      results.addIssue({
-        issue: `Your non DPS time can be improved. Try to cast damaging spells more regularly).`,
-        icon: 'petbattle_health-down',
-        stat: `${Math.round(nonDpsTimePercentage * 100)}% non DPS time (<30% is recommended)`,
-        importance: getIssueImportance(nonDpsTimePercentage, 0.4, 0.45, true),
-      });
-    }
-
-    if (deadTimePercentage > 0.2) {
-      results.addIssue({
-        issue: `Your dead GCD time can be improved. Try to Always Be Casting (ABC); cast instant spells during movement phases and focus on having no delays between spell casts`,
-        icon: 'spell_mage_altertime',
-        stat: `${Math.round(deadTimePercentage * 100)}% dead GCD time (<20% is recommended)`,
-        importance: getIssueImportance(deadTimePercentage, 0.35, 1, true),
-      });
-    }
-
-    if (flametongueUptime < .95) {
-      results.addIssue({
-        issue: `Try to make sure the Flametongue buff is always up, when it drops you should refresh it as soon as possible`,
-        stat: `Your Flametongue uptime of ${formatPercentage(flametongueUptime)}% is below 95%, try to get as close to 100% as possible`,
-        icon: SPELLS.FLAMETONGUE_BUFF.icon,
-        importance: getIssueImportance(flametongueUptime, 0.95, 0.9),
-      });
-    }
-
-    if (hasHailstorm && frostbrandUptime < .95) {
-      results.addIssue({
-        issue: `Try to make sure the Frostbrand buff is always up, when it drops you should refresh it as soon as possible`,
-        stat: `Your Frostbrand uptime of ${formatPercentage(frostbrandUptime)}% is below 95%, try to get as close to 100% as possible`,
-        icon: SPELLS.FROSTBRAND.icon,
-        importance: getIssueImportance(frostbrandUptime, 0.95, 0.9),
-      });
-    } else if (!hasHailstorm && frostbrandUptime > 0 && 1 === 2) {
-      //need to revist Frostbrand without Hailstorm logic
-      results.addIssue({
-        issue: `Casting Frostbrand without Hailstorm talent is not recommended`,
-        icon: SPELLS.FROSTBRAND.icon,
-        importance: ISSUE_IMPORTANCE.MAJOR,
-      });
-    }
-
-    if (hasLandslide && landslideUptime < .95) {
-      results.addIssue({
-        issue: `Try to make sure the Landslide buff from Rockbiter is always up, when it drops you should refresh it as soon as possible`,
-        stat: `Your Landslide uptime of ${formatPercentage(landslideUptime)}% is below 95%, try to get as close to 100% as possible`,
-        icon: SPELLS.LANDSLIDE_BUFF.icon,
-        importance: getIssueImportance(landslideUptime, 0.95, 0.9),
-      });
-    }
-
-    if (hasFuryOfAir && furyofairUptime < .95) {
-      results.addIssue({
-        issue: `Try to make sure the Fury of Air buff is always up, when it drops you should refresh it as soon as possible`,
-        stat: `Your Fury of Air uptime of ${formatPercentage(furyofairUptime)}% is below 95%, try to get as close to 100% as possible`,
-        icon: SPELLS.FURY_OF_AIR.icon,
-        importance: getIssueImportance(furyofairUptime, 0.95, 0.9),
-      });
-    }
-
-    //setup notworthyitems
-
     results.statistics = [
-      <StatisticBox
-        icon={<Icon icon="class_shaman" alt="DPS stats" />}
-        value={`${formatNumber(this.totalDamageDone / this.fightDuration * 1000)} DPS`}
-        label={(
-          <dfn data-tip={`The total damage done recorded was ${formatThousands(this.totalDamageDone)}.`}>
-            Damage done
-          </dfn>
-        )}
-      />,
-      <StatisticBox
-        icon={<Icon icon="spell_mage_altertime" alt="Dead GCD time" />}
-        value={`${formatPercentage(deadTimePercentage)} %`}
-        label={(
-          <dfn data-tip="Dead GCD time is available casting time not used. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), etc.">
-            Dead GCD time
-          </dfn>
-        )}
-      />,
-      <StatisticBox
-        icon={<Icon icon="spell_nature_shamanrage" alt="Core Stats" />}
-        value={`${formatPercentage(masteryPercent)} % M ${formatPercentage(hastePercent)} % H`}
-        label={(
-          <dfn data-tip={`Mastery is ${formatPercentage(masteryPercent)} % and Haste is ${formatPercentage(hastePercent)} %`}>
-            Core Secondary Stats
-          </dfn>
-        )}
-      />,
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.FLAMETONGUE_BUFF.id} />}
-        value={`${formatPercentage(flametongueUptime)} %`}
-        label={(
-          <dfn data-tip={`Goal should be 98-100% uptime`}>
-            Flametongue Uptime
-          </dfn>
-        )}
-      />,
-      hasHailstorm && (
-        <StatisticBox
-            icon={<SpellIcon id={SPELLS.FROSTBRAND.id} />}
-            value={`${formatPercentage(frostbrandUptime)} %`}
-            label={(
-              <dfn data-tip={`Goal should be 100% uptime`}>
-                Frostbrand Uptime
-              </dfn>
-            )}
-          />
-      ),
-      hasLandslide && (
-        <StatisticBox
-            icon={<SpellIcon id={SPELLS.LANDSLIDE_BUFF.id} />}
-            value={`${formatPercentage(landslideUptime)} %`}
-            label={(
-              <dfn data-tip={`Goal should be 100% uptime`}>
-                Landslide Uptime
-              </dfn>
-            )}
-          />
-      ),
+      ...results.statistics,
     ];
 
     results.items = [

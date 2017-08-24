@@ -34,7 +34,7 @@ class SpecterOfBetrayal extends Module {
   item() {
     return {
       item: ITEMS.SPECTER_OF_BETRAYAL,
-      result: (<dfn data-tip={`The effective damage contributed by Specter of Betrayal.<br/>Casts: ${this.totalCasts}<br/> Damage: ${this.owner.formatItemDamageDone(this.damageIncreased)}<br/> Total Damage: ${formatNumber(this.damageIncreased)}`}>
+      result: (<dfn data-tip={`The effective damage contributed by Specter of Betrayal.<br/>Casts: ${this.totalCast}<br/> Damage: ${this.owner.formatItemDamageDone(this.damageIncreased)}<br/> Total Damage: ${formatNumber(this.damageIncreased)}`}>
           {this.owner.formatItemDamageDone(this.damageIncreased)}
         </dfn>),
     };

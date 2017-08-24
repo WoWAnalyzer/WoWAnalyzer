@@ -4,6 +4,11 @@ export default {
     name: 'Astral Shift',
     icon: 'ability_shaman_astralshift',
   },
+  WIND_SHEAR: {
+    id: 57994,
+    name: 'Wind Shear',
+    icon: 'spell_nature_cyclone',
+  },
   // Elemental Shaman
   ELEMENTAL_MASTERY: {
     id: 168534,
@@ -171,7 +176,7 @@ export default {
   },
   // Enhancement Shaman
   ROCKBITER: {
-	   id: 193786,
+	  id: 193786,
     name: 'Rockbiter',
     icon: 'spell_nature_rockbiter',
   },
@@ -205,6 +210,7 @@ export default {
     id: 17364,
     name: 'Stormstrike',
     icon: 'ability_shaman_stormstrike',
+    maelstrom: 40,
   },
   STORMSTRIKE_BUFF: {
     id: 32175,
@@ -215,11 +221,13 @@ export default {
     id: 60103,
     name: 'Lava Lash',
     icon: 'ability_shaman_lavalash',
+    maelstrom: 30,
   },
   FURY_OF_AIR: {
     id: 197211,
     name: 'Fury of Air',
     icon: 'ability_ironmaidens_swirlingvortex',
+    maelstrom: 3,
   },
   EARTHEN_SPIKE: {
     id: 188089,
@@ -255,6 +263,7 @@ export default {
     id: 115356,
     name: 'Windstrike',
     icon: 'ability_skyreach_four_wind',
+    maelstrom: 40,
   },
   WORD_OF_RECALL_OLD: {
     id: 1,
@@ -276,6 +285,7 @@ export default {
     name: 'Healing Surge',
     icon: 'spell_nature_healingway',
     baseMana: 0.22,
+    maelstrom: 20,
   },
   FERAL_LUNGE: {
     id: 196881,

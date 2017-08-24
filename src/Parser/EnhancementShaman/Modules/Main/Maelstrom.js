@@ -145,6 +145,15 @@ class Maelstrom extends React.PureComponent {
     let lastOverCap;
     let lastSecFight = start;
     this.state.mana.series[0].events.forEach((event) => {
+      if(event.type === "cast" && event.ability.guid === 197211) {
+          console.log(event);
+      }
+
+      //healing surge incorrectly cast as energize
+      if(event.type === "energize" && event.ability.guid === 188070) {
+        event.type = "cast";
+      }
+
       const secIntoFight = Math.floor((event.timestamp - start) / 1000);
       if (event.waste === 0 && lastOverCap) {
         overCapBySecond[lastOverCap + 1] = 0;
@@ -156,12 +165,12 @@ class Maelstrom extends React.PureComponent {
         //  overCapBySecond[secIntoFight - 1] = 0;
       }
       if (event.type === 'cast') {
-          const spell = SPELLS[event.ability.guid];
+        const spell = SPELLS[event.ability.guid];
         if (!abilitiesAll[event.ability.guid + '_spend']) {
           abilitiesAll[event.ability.guid + '_spend'] = {
             ability: {
-                category: 'Spend',
-                name: (spell === undefined) ? event.ability.name : spell.name,
+              category: 'Spend',
+              name: (spell === undefined) ? event.ability.name : spell.name,
               spellId: event.ability.guid,
             },
             spend: 0,
@@ -177,7 +186,7 @@ class Maelstrom extends React.PureComponent {
         abilitiesAll[event.ability.guid + '_spend'].wasted += spell.max_maelstrom ? spell.max_maelstrom - spendResource: 0;
       } else if (event.type === 'energize') {
         if (!abilitiesAll[event.ability.guid + '_gen']) {
-            const spell = SPELLS[event.ability.guid];
+          const spell = SPELLS[event.ability.guid];
           abilitiesAll[event.ability.guid + '_gen'] = {
             ability: {
               category: 'Generated',

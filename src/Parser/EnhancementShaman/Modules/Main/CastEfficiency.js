@@ -4,16 +4,12 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 
 import CoreCastEfficiency from 'Parser/Core/Modules/CastEfficiency';
-import getCastEfficiency from 'Parser/Core/getCastEfficiency';
-
-import Tab from 'Main/Tab';
-
-import CastEfficiencyComponent from 'Main/CastEfficiency';
 
 const SPELL_CATEGORY = {
   ROTATIONAL: 'Spell',
   ROTATIONAL_AOE: 'Spell (AOE)',
   COOLDOWNS: 'Cooldown',
+  UTILITY: 'Utility',
 };
 
 class CastEfficiency extends CoreCastEfficiency {
@@ -53,6 +49,11 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => null, // 1.5 / (1 + haste)
     },
     {
+      spell: SPELLS.WIND_SHEAR,
+      category: SPELL_CATEGORY.ROTATIONAL,
+      getCooldown: haste => null, // 1.5 / (1 + haste)
+    },
+    {
       spell: SPELLS.ROCKBITER,
       category: SPELL_CATEGORY.ROTATIONAL,
       getCooldown: haste => null, // 1.5 / (1 + haste)
@@ -88,23 +89,24 @@ class CastEfficiency extends CoreCastEfficiency {
       category: SPELL_CATEGORY.ROTATIONAL_AOE,
       getCooldown: haste => null, // 1.5 / (1 + haste)
     },
+    {
+      spell: SPELLS.ASTRAL_SHIFT,
+      category: SPELL_CATEGORY.UTILITY,
+      getCooldown: haste => 90,
+    },
+    {
+      spell: SPELLS.FERAL_LUNGE,
+      category: SPELL_CATEGORY.UTILITY,
+      getCooldown: haste => 30,
+    },
+    {
+      spell: SPELLS.SPIRIT_WALK,
+      category: SPELL_CATEGORY.UTILITY,
+      getCooldown: haste => 60,
+    },
+    ...CoreCastEfficiency.CPM_ABILITIES,
   ];
   static SPELL_CATEGORIES = SPELL_CATEGORY;
-
-  tab() {
-    return {
-      title: 'Cast efficiency',
-      url: 'cast-efficiency',
-      render: () => (
-        <Tab title="Cast efficiency">
-          <CastEfficiencyComponent
-            categories={this.constructor.SPELL_CATEGORIES}
-            abilities={getCastEfficiency(this.constructor.CPM_ABILITIES, this.owner)}
-          />
-        </Tab>
-      ),
-    };
-  }
 }
 
 export default CastEfficiency;
