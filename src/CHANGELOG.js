@@ -1,4 +1,5 @@
 export default `
+24-08-2017 - Brewmaster Monk: Added blackout combo statistic (by wopr)
 21-08-2017 - Brewmaster Monk: Fixed bug with stagger if a tick of the dot is absorbed it will calculate correctly (by wopr)
 22-08-2017 - Guardian Druid: Fix to Ironfur uptime suggestion (by wopr).
 21-08-2017 - Affliction Warlock: Added rest of the legendaries (apart from head), some ToS trinkets and T20 set bonuses. (by Chizu)
