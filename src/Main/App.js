@@ -155,7 +155,7 @@ class App extends Component {
     const pageTimestamp = isFirstBatch ? fightStart : nextPageTimestamp;
     const actorId = player.id;
 
-    this.fetchEvents(code, pageTimestamp, fightEnd, actorId)
+    return this.fetchEvents(code, pageTimestamp, fightEnd, actorId)
       .then((json) => {
         if (parser !== this.state.parser) {
           return;
@@ -180,13 +180,21 @@ class App extends Component {
             }
           })
           .catch((err) => {
-            alert(`The report could not be parsed because an error occured. ${err.message}`);
+            alert(`The report could not be parsed because an error occured while running the analysis. ${err.message}`);
             if (process.env.NODE_ENV === 'development') {
               throw err;
             } else {
               console.error(err);
             }
           });
+      })
+      .catch((err) => {
+        alert(`The report could not be parsed because an error occured. Warcraft Logs might be having issues. ${err.message}`);
+        if (process.env.NODE_ENV === 'development') {
+          throw err;
+        } else {
+          console.error(err);
+        }
       });
   }
   onParsingFinished(parser) {
