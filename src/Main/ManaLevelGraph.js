@@ -144,8 +144,6 @@ class Mana extends React.PureComponent {
         },
       ],
     };
-    let step = 0;
-
     return (
       <div>
         Good mana usage usually means having your mana go down about as quickly as the health of the boss. Some fights require specific mana management though.<br /><br />
@@ -160,16 +158,12 @@ class Mana extends React.PureComponent {
               showPoint: false,
               fullWidth: true,
               height: '350px',
-              lineSmooth: Chartist.Interpolation.none({
+              lineSmooth: Chartist.Interpolation.simple({
                 fillHoles: true,
               }),
               axisX: {
                 labelInterpolationFnc: function skipLabels(seconds) {
-                  if (seconds < ((step - 1) * 30)) {
-                    step = 0;
-                  }
-                  if (step === 0 || seconds >= (step * 30)) {
-                    step += 1;
+                  if (seconds % 30 === 0) {
                     return formatDuration(seconds);
                   }
                   return null;

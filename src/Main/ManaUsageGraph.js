@@ -13,6 +13,41 @@ const formatDuration = (duration) => {
   return `${Math.floor(duration / 60)}:${seconds < 10 ? `0${seconds}` : seconds}`;
 };
 
+const baseConfig = {
+  showArea: true,
+  showPoint: false,
+  fullWidth: true,
+  height: '350px',
+  lineSmooth: Chartist.Interpolation.simple({
+    fillHoles: true,
+  }),
+  axisX: {
+    labelInterpolationFnc: function skipLabels(seconds) {
+      if (seconds % 30 === 0) {
+        return formatDuration(seconds);
+      }
+      return null;
+    },
+    offset: 15,
+  },
+  axisY: {
+    onlyInteger: true,
+    offset: 100,
+    labelInterpolationFnc: function skipLabels(percentage) {
+      return formatThousands(percentage);
+    },
+  },
+  plugins: [
+    Chartist.plugins.legend({
+      classNames: [
+        'mana',
+        'healing',
+        'mana-used',
+      ],
+    }),
+  ],
+};
+
 class HealingDoneGraph extends React.PureComponent {
   static propTypes = {
     start: PropTypes.number.isRequired,
@@ -28,12 +63,12 @@ class HealingDoneGraph extends React.PureComponent {
     };
   }
 
-  groupHealingBySeconds(healingBySecond, seconds) {
+  groupHealingBySeconds(healingBySecond, interval) {
     return Object.keys(healingBySecond)
       .reduce((obj, second) => {
         const healing = healingBySecond[second];
 
-        const index = Math.floor(second / seconds);
+        const index = Math.floor(second / interval);
 
         if (obj[index]) {
           obj[index] = obj[index].add(healing.regular, healing.absorbed, healing.overheal);
@@ -71,7 +106,7 @@ class HealingDoneGraph extends React.PureComponent {
       const frame = Math.floor((item.timestamp - start) / 1000 / interval);
 
       manaUsagePerFrame[frame] = (manaUsagePerFrame[frame] || 0) + item.used / item.max;
-      manaLevelPerFrame[frame] = item.current / item.max;
+      manaLevelPerFrame[frame] = item.current / item.max; // use the lowest value of the frame; likely to be more accurate
     });
     const fightDurationSec = Math.ceil((end - start) / 1000);
     const labels = [];
@@ -89,21 +124,20 @@ class HealingDoneGraph extends React.PureComponent {
         {
           className: 'mana',
           name: 'Mana',
-          data: Object.keys(manaLevelPerFrame).map(key => manaLevelPerFrame[key] * max),
+          data: Object.keys(manaLevelPerFrame).map(key => manaLevelPerFrame[key] !== null ? manaLevelPerFrame[key] * max : null),
         },
         {
           className: 'healing',
           name: 'HPS',
-          data: Object.keys(healingPerFrame).map(key => healingPerFrame[key] / interval),
+          data: Object.keys(healingPerFrame).map(key => healingPerFrame[key] !== null ? healingPerFrame[key] / interval : null),
         },
         {
           className: 'mana-used',
           name: 'Mana used',
-          data: Object.keys(manaUsagePerFrame).map(key => manaUsagePerFrame[key] * max),
+          data: Object.keys(manaUsagePerFrame).map(key => manaUsagePerFrame[key] !== null ? manaUsagePerFrame[key] * max : null),
         },
       ],
     };
-    let step = 0;
 
     return (
       <div>
@@ -119,43 +153,7 @@ class HealingDoneGraph extends React.PureComponent {
         <div className="graph-container">
           <ChartistGraph
             data={chartData}
-            options={{
-              low: 0,
-              high: max,
-              showArea: true,
-              showPoint: false,
-              fullWidth: true,
-              height: '350px',
-              axisX: {
-                labelInterpolationFnc: function skipLabels(seconds) {
-                  if (seconds < ((step - 1) * 30)) {
-                    step = 0;
-                  }
-                  if (step === 0 || seconds >= (step * 30)) {
-                    step += 1;
-                    return formatDuration(seconds);
-                  }
-                  return null;
-                },
-                offset: 15,
-              },
-              axisY: {
-                onlyInteger: true,
-                offset: 100,
-                labelInterpolationFnc: function skipLabels(percentage) {
-                  return formatThousands(percentage);
-                },
-              },
-              plugins: [
-                Chartist.plugins.legend({
-                  classNames: [
-                    'mana',
-                    'healing',
-                    'mana-used',
-                  ],
-                }),
-              ],
-            }}
+            options={baseConfig}
             type="Line"
           />
         </div>
