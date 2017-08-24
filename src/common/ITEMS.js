@@ -520,6 +520,12 @@ const ITEMS = {
     icon: 'inv_boots_mail_02',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+  OAKHEARTS_PUNY_QUODS: {
+    id: 144432,
+    name: 'Oakheart\'s Puny Quods',
+    icon: 'inv_helm_leather_raiddruid_m_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
 
   // Vengeance Demon Hunter legendaries
   KIREL_NARAK: {

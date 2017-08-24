@@ -446,4 +446,19 @@ export default {
     name: 'Skysec\'s Hold',
     icon: 'spell_druid_bearhug',
   },
+  BLOOD_FRENZY_TICK: {
+    id: 203961,
+    name: 'Blood Frenzy',
+    icon: 'ability_druid_primaltenacity',
+  },
+  BRISTLING_FUR: {
+    id: 155835,
+    name: 'Bristling Fur',
+    icon: 'spell_druid_bristlingfur',
+  },
+  OAKHEARTS_PUNY_QUODS_BUFF: {
+    id: 236479,
+    name: 'Oakheart\'s Puny Quods',
+    icon: 'spell_druid_bearhug',
+  },
 };
