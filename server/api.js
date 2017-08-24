@@ -71,7 +71,8 @@ module.exports = function (req, res) {
             console.log('Finished (memory:', Math.ceil(getCurrentMemoryUsage() / 1024 / 1024), 'MB', 'wcl:', Date.now() - wclStart, 'ms', ')');
           })
           .on('error', (e) => {
-            throw e;
+            console.error(e);
+            res.status(500).send();
           });
       })
       .on('error', (err) => {
