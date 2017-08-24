@@ -216,28 +216,24 @@ class CombatLogParser {
         this._timestamp = event.timestamp;
 
         // Triggering a lot of events here for development pleasure; does this have a significant performance impact?
-        this.triggerEvent('event', event);
         this.triggerEvent(event.type, event);
-        if (this.byPlayer(event)) {
-          this.triggerEvent(`byPlayer_${event.type}`, event);
-        }
-        if (this.toPlayer(event)) {
-          this.triggerEvent(`toPlayer_${event.type}`, event);
-        }
       });
 
       resolve(events.length);
-    })
-      .then((results) => {
-        this.triggerEvent('forceUpdate');
-        return results;
-      });
+    });
   }
-  triggerEvent(eventType, ...args) {
+  triggerEvent(eventType, event, ...args) {
     this.activeModules
       .sort((a, b) => a.priority - b.priority) // lowest should go first, as `priority = 0` will have highest prio
       .forEach(module => {
-        module.triggerEvent(eventType, ...args);
+        module.triggerEvent('event', eventType, event, ...args);
+        module.triggerEvent(eventType, event, ...args);
+        if (event && this.byPlayer(event)) {
+          module.triggerEvent(`byPlayer_${eventType}`, event, ...args);
+        }
+        if (event && this.toPlayer(event)) {
+          module.triggerEvent(`toPlayer_${eventType}`, event, ...args);
+        }
       });
   }
 
