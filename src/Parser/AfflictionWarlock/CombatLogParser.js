@@ -4,7 +4,7 @@ import SuggestionsTab from 'Main/SuggestionsTab';
 import Tab from 'Main/Tab';
 import Talents from 'Main/Talents';
 
-import MainCombatLogParser from 'Parser/Core/CombatLogParser';
+import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
@@ -38,7 +38,7 @@ import ReapAndSow from './Modules/Items/Legendaries/ReapAndSow';
 
 import Tier20_2set from './Modules/Items/Tier20_2set';
 import Tier20_4set from './Modules/Items/Tier20_4set';
-class CombatLogParser extends MainCombatLogParser {
+class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Features
     castEfficiency: CastEfficiency,

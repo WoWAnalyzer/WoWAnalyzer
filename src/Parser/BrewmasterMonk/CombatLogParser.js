@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import MainCombatLogParser from 'Parser/Core/CombatLogParser';
+import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 
 import SuggestionsTab from 'Main/SuggestionsTab';
 import Tab from 'Main/Tab';
@@ -28,7 +28,7 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import T20_2pc from './Modules/Items/T20_2pc';
 import T20_4pc from './Modules/Items/T20_4pc';
 
-class CombatLogParser extends MainCombatLogParser {
+class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core
     healingDone: HealingDone,

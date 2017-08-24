@@ -12,7 +12,7 @@ import Tab from 'Main/Tab';
 import Talents from 'Main/Talents';
 import Mana from 'Main/Mana';
 
-import MainCombatLogParser from 'Parser/Core/CombatLogParser';
+import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 import Ekowraith from './Modules/Legendaries/Ekowraith';
@@ -65,7 +65,7 @@ function formatPercentage(percentage) {
   return (Math.round((percentage || 0) * 10000) / 100).toFixed(2);
 }
 
-class CombatLogParser extends MainCombatLogParser {
+class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
 
   static specModules = {
@@ -712,12 +712,7 @@ class CombatLogParser extends MainCombatLogParser {
         url: 'mana',
         render: () => (
           <Tab title="Mana" style={{ padding: '15px 22px' }}>
-            <Mana
-              reportCode={this.report.code}
-              actorId={this.playerId}
-              start={this.fight.start_time}
-              end={this.fight.end_time}
-            />
+            <Mana parser={this} />
           </Tab>
         ),
       },
