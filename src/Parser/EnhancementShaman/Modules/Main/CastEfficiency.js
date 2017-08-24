@@ -1,9 +1,6 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
 
 import CoreCastEfficiency from 'Parser/Core/Modules/CastEfficiency';
-
 
 class CastEfficiency extends CoreCastEfficiency {
   static CPM_ABILITIES = [
@@ -34,6 +31,7 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.WIND_SHEAR,
       category: CastEfficiency.SPELL_CATEGORIES.OTHERS,
       getCooldown: haste => null, // 1.5 / (1 + haste)
+      noSuggestion: true,
     },
     {
       spell: SPELLS.ROCKBITER,
@@ -73,36 +71,23 @@ class CastEfficiency extends CoreCastEfficiency {
     },
     {
       spell: SPELLS.ASTRAL_SHIFT,
-      category: SPELL_CATEGORY.UTILITY,
+      category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => 90,
+      noSuggestion: true,
     },
     {
       spell: SPELLS.FERAL_LUNGE,
-      category: SPELL_CATEGORY.UTILITY,
+      category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => 30,
+      noSuggestion: true,
     },
     {
       spell: SPELLS.SPIRIT_WALK,
-      category: SPELL_CATEGORY.UTILITY,
+      category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => 60,
+      noSuggestion: true,
     },
-    ...CoreCastEfficiency.CPM_ABILITIES,
   ];
-
-  tab() {
-    return {
-      title: 'Cast efficiency',
-      url: 'cast-efficiency',
-      render: () => (
-        <Tab title="Cast efficiency">
-          <CastEfficiencyComponent
-            categories={this.constructor.SPELL_CATEGORIES}
-            abilities={getCastEfficiency(this.constructor.CPM_ABILITIES, this.owner)}
-          />
-        </Tab>
-      ),
-    };
-  }
 }
 
 export default CastEfficiency;

@@ -2,13 +2,13 @@ import React from 'react';
 import Icon from 'common/Icon';
 import { formatNumber, formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import CoreDamageDone from 'Parser/Core/Modules/DamageDone';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-class DamageDone extends Module {
+class DamageDone extends CoreDamageDone {
   suggestions(when) {
-    const nonDpsTimePercentage = this.owner.modules.alwaysBeCasting.totalDamagingTimeWasted / this.owner.fightDuration;
+    const nonDpsTimePercentage = this.owner.modules.alwaysBeCasting.totalTimeWasted / this.owner.fightDuration;
     when(nonDpsTimePercentage).isGreaterThan(0.3)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(`Your non DPS time can be improved. Try to cast damaging spells more regularly`)
@@ -23,9 +23,9 @@ class DamageDone extends Module {
     return (
       <StatisticBox
         icon={<Icon icon="class_shaman" alt="DPS stats" />}
-        value={`${formatNumber(this.owner.totalDamageDone / this.owner.fightDuration * 1000)} DPS`}
+        value={`${formatNumber(this.total.effective / this.owner.fightDuration * 1000)} DPS`}
         label="Damage Done"
-        tooltip={`The total damage done recorded was ${formatNumber(this.owner.totalDamageDone)}.`}
+        tooltip={`The total damage done recorded was ${formatNumber(this.total.effective)}.`}
       />
     );
   }

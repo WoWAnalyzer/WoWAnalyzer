@@ -23,8 +23,6 @@ import FuryOfAir from './Modules/ShamanCore/FuryOfAir';
 
 // import SmolderingHeart from './Modules/Legendaries/SmolderingHeart';
 
-import './Modules/Main/main.css';
-
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
     // ShamanCore
@@ -92,10 +90,6 @@ class CombatLogParser extends MainCombatLogParser {
         });
       }
     });
-
-    results.statistics = [
-      ...results.statistics,
-    ];
 
     results.items = [
       ...results.items,
