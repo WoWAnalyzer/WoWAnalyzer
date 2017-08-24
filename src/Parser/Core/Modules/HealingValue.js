@@ -19,7 +19,7 @@ class HealingValue {
     this._overheal = overheal;
   }
 
-  add(regular, absorbed, overheal) {
+  add(regular = 0, absorbed = 0, overheal = 0) {
     return new this.constructor(this.regular + regular, this.absorbed + absorbed, this.overheal + overheal);
   }
   // TODO: reduceDamage (e.g. LotM self-damage)

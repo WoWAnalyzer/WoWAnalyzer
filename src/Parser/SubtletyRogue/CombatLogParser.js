@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Icon from 'common/Icon';
-import MainCombatLogParser from 'Parser/Core/CombatLogParser';
+import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import StatisticBox from 'Main/StatisticBox';
@@ -31,8 +31,7 @@ function formatPercentage(percentage) {
   return (Math.round((percentage || 0) * 10000) / 100).toFixed(2);
 }
 
-class CombatLogParser extends MainCombatLogParser {
-
+class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     shadowDance: ShadowDance,
     castEfficiency: CastEfficiency,

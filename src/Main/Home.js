@@ -19,7 +19,7 @@ class Home extends Component {
     return (
       <div>
         <div className="row">
-          <div className="col-md-6">
+          <div className="col-lg-8 col-md-7">
             <div className="panel">
               <div className="panel-heading">
                 <h2>The World of Warcraft Analyzer</h2>
@@ -40,43 +40,9 @@ class Home extends Component {
 
             <div className="panel">
               <div className="panel-heading">
-                <h2>About</h2>
-              </div>
-              <div className="panel-body text-muted">
-                Full source is available on <a href="https://github.com/MartijnHols/WoWAnalyzer">GitHub</a>. Contributions are extremely welcome! Add your own module or spec if you want to be able to analyze something not yet available. The repository contains information on how to contribute, if you need any more information please join our Discord (link further below).<br /><br />
-
-                The following specs are available:<br />
-                <ul>
-                  {AVAILABLE_CONFIGS.map((config) => (
-                    <li key={config.spec.id}><span className={config.spec.className.replace(/ /g, '')}>{config.spec.specName} {config.spec.className}</span> maintained by <span style={{ color: '#fff' }}>{config.maintainer}</span></li>
-                  ))}
-                </ul>
-                The best way to get support for a spec is to add it yourself. Adding specs is easy if you're familiar with JavaScript (ES6), see <a href="https://github.com/MartijnHols/WoWAnalyzer">GitHub</a> and the WoW Analyzer Discord for more information.<br /><br />
-
-                If you're looking to help out development in other ways, please consider donating.<br />
-
-                <PatreonButton text="Become a Patron" />
-              </div>
-            </div>
-
-            <div className="panel">
-              <div className="panel-heading">
-                <h2>Discord</h2>
-              </div>
-              <div className="panel-body text-muted">
-                I believe it's important to keep class discussion as much in class Discords as possible, so if you have spec specific questions and/or suggestions please try to discuss them in your class Discord (class Discords mods approve of this message <img src={OkHandImage} alt=":ok_hand:" style={{ height: '1.5em' }} />). The WoW Analyzer Discord is for more general questions and developers looking to contribute.<br /><br />
-
-                <iframe src="https://discordapp.com/widget?id=316864121536512000&theme=dark" width="100%" height="300" allowTransparency="true" frameBorder="0" title="Discord Widget" />
-              </div>
-            </div>
-          </div>
-
-          <div className="col-md-6">
-            <div className="panel">
-              <div className="panel-heading">
                 <h2>Features</h2>
               </div>
-              <div className="panel-body">
+              <div className="panel-body text-muted">
                 <div className="row">
                   <div className="col-md-6 text-center">
                     <img src={ItemsImage} style={{ maxWidth: '100%', border: '1px solid black', borderRadius: 5 }} alt="Item performance breakdowns" /><br />
@@ -106,7 +72,9 @@ class Home extends Component {
                     <img src={OpenSourceImage} style={{ maxWidth: '100%', border: '1px solid black', borderRadius: 5 }} alt="Open source" /><br />
                     Open source
                   </div>
-                </div>
+                </div><br />
+
+                Full source is available on <a href="https://github.com/MartijnHols/WoWAnalyzer">GitHub</a>. Contributions are extremely welcome! Add your own module or spec if you want to be able to analyze something not yet available. The repository contains information on how to contribute, if you need any more information please join our Discord (link further below).
               </div>
             </div>
 
@@ -116,6 +84,43 @@ class Home extends Component {
               </div>
               <div className="panel-body text-muted">
                 <Changelog />
+              </div>
+            </div>
+          </div>
+
+          <div className="col-lg-4 col-md-5">
+            <div className="panel">
+              <div className="panel-heading">
+                <h2>Available specs</h2>
+              </div>
+              <div className="panel-body text-muted">
+                <ul className="list-unstyled">
+                  {AVAILABLE_CONFIGS.map((config) => {
+                    const className = config.spec.className.replace(/ /g, '');
+                    return (
+                      <li key={config.spec.id} style={{ marginBottom: 3 }}>
+                        <img src={`/specs/${className}-${config.spec.specName.replace(' ', '')}.jpg`} alt="Spec logo" style={{ height: '1.6em', marginRight: 10 }} />{' '}
+                        <span className={className}>{config.spec.specName} {config.spec.className}</span> maintained by <span style={{ color: '#fff' }}>{config.maintainer}</span>
+                      </li>
+                    );
+                  })}
+                </ul>
+
+                If your spec is not in the list it may not be supported yet. Specs are added by enthusiastic players of the spec themselves. Adding specs is easy if you're familiar with JavaScript, find out more on <a href="https://github.com/MartijnHols/WoWAnalyzer/blob/master/CONTRIBUTING.md">GitHub</a> or <a href="https://discord.gg/AxphPxU" target="_blank" rel="noopener noreferrer">join the WoW Analyzer Discord</a> for additional help.<br /><br />
+
+                If you're looking to help out development in other ways, please consider donating.<br />
+                <PatreonButton text="Become a Patron" />
+              </div>
+            </div>
+
+            <div className="panel">
+              <div className="panel-heading">
+                <h2>Discord</h2>
+              </div>
+              <div className="panel-body text-muted">
+                I believe it's important to keep class discussion as much in class Discords as possible, so if you have spec specific questions and/or suggestions please try to discuss them in your class Discord (class Discords mods approve of this message <img src={OkHandImage} alt=":ok_hand:" style={{ height: '1.5em' }} />). The WoW Analyzer Discord is for more general questions and developers looking to contribute.<br /><br />
+
+                <iframe src="https://discordapp.com/widget?id=316864121536512000&theme=dark" width="100%" height="300" allowTransparency="true" frameBorder="0" title="Discord Widget" />
               </div>
             </div>
           </div>
