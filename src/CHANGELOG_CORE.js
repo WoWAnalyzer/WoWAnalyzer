@@ -1,4 +1,5 @@
 export default `
+24-08-2018 - Better error handling when the WCL API is sending weird responses. (by Zerotorescue)
 24-08-2018 - Slightly improve layouts for both desktop and mobile. (by Zerotorescue)
 24-08-2018 - Changelogs are now seperated by a select box. (by Blazyb)
 24-08-2017 - Added a mana usage graph to the mana tab for all healers. (by Zerotorescue)
