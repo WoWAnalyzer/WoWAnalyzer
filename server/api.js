@@ -13,6 +13,8 @@ function getCurrentMemoryUsage() {
 const keepAliveAgent = new Agent({
 });
 
+const WCL_MAINTENANCE_STRING = 'Warcraft Logs is down for maintenance';
+
 module.exports = function (req, res) {
   // This allows users to cache bust, this is useful when live logging. It stores the result in the regular (uncachebusted) spot so that future requests for the regular request are also updated.
   let cacheBust = false;
@@ -66,6 +68,12 @@ module.exports = function (req, res) {
           .on('data', chunk => { jsonString += chunk.toString(); })
           .on('end', () => {
             if (wclResponse.statusCode === 200) {
+              if (jsonString.indexOf(WCL_MAINTENANCE_STRING) !== -1) {
+                console.error(WCL_MAINTENANCE_STRING);
+                res.status(500).send(WCL_MAINTENANCE_STRING);
+                return;
+              }
+
               cache.set(requestUrl, jsonString);
             } else {
               console.error('Error status:', wclResponse.statusCode);
