@@ -234,14 +234,6 @@ class CombatLogParser {
       });
   }
   triggerEvent(eventType, ...args) {
-    const methodName = `on_${eventType}`;
-
-    // Temp: this should be removed once all CombatLogParser event handlers have been removed.
-    const method = this[methodName];
-    if (method) {
-      method.apply(this, args);
-    }
-
     this.activeModules
       .sort((a, b) => a.priority - b.priority) // lowest should go first, as `priority = 0` will have highest prio
       .forEach(module => {

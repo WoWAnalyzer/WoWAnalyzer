@@ -23,7 +23,7 @@ export default {
   NECROSIS_TALENT: { id: 207346, name: "Necrosis", icon: "inv_weapon_shortblade_60" },
   INFECTED_CLAWS_TALENT: { id: 207272, name: "Infected Claws", icon: "spell_deathknight_thrash_ghoul" },
   DARK_ARBITER_TALENT: { id: 207349, name: "Dark Arbiter", icon: "achievement_boss_svalasorrowgrave" },
-  DEFILE_TALENT: { id: 152280, name: "Defile", icon: "spell_deathknight_defile" },
+  DEFILE_TALENT: { id: 152280, name: "Defile", icon: "spell_deathknight_defile", runicPowerCost: 10 },
   SOUL_REAPER_TALENT: { id: 130736, name: "Soul Reaper", icon: "ability_deathknight_soulreaper" },
   // Blood
   BLOODWORMS_TALENT: { id: 195679, name: "Bloodworms", icon: "spell_shadow_soulleech" },
@@ -42,9 +42,9 @@ export default {
   TREMBLE_BEFORE_ME_TALENT: { id: 206960, name: "Tremble Before Me", icon: "spell_shadow_auraofdarkness" },
   MARCH_OF_THE_DAMNED_TALENT: { id: 219779, name: "March of the Damned", icon: "spell_shadow_demonicempathy" },
   WILL_OF_THE_NECROPOLIS_TALENT: { id: 206967, name: "Will of the Necropolis", icon: "achievement_boss_kelthuzad_01" },
-  RUNE_TAP_TALENT: { id: 194679, name: "Rune Tap", icon: "spell_deathknight_runetap" },
+  RUNE_TAP_TALENT: { id: 194679, name: "Rune Tap", icon: "spell_deathknight_runetap", runicPowerCost: 60 },
   FOUL_BULWARK_TALENT: { id: 206974, name: "Foul Bulwark", icon: "inv_armor_shield_naxxramas_d_02" },
-  BONESTORM_TALENT: { id: 194844, name: "Bonestorm", icon: "achievement_boss_lordmarrowgar" },
+  BONESTORM_TALENT: { id: 194844, name: "Bonestorm", icon: "achievement_boss_lordmarrowgar", runicPowerCost: 20 },
   BLOOD_MIRROR_TALENT: { id: 206977, name: "Blood Mirror", icon: "inv_misc_gem_bloodstone_01" },
   PURGATORY_TALENT: { id: 114556, name: "Purgatory", icon: "inv_misc_shadowegg" },
   // Frost

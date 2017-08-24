@@ -59,6 +59,16 @@ class CastEfficiency extends CoreCastEfficiency {
       },
     },
     {
+      spell: SPELLS.BEACON_OF_VIRTUE_TALENT,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => 15,
+      isActive: combatant => combatant.hasTalent(SPELLS.BEACON_OF_VIRTUE_TALENT.id),
+      getOverhealing: (_, getAbility) => {
+        const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.BEACON_OF_VIRTUE_TALENT.id);
+        return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
+      },
+    },
+    {
       spell: SPELLS.CRUSADER_STRIKE,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 4.5 / (1 + haste),

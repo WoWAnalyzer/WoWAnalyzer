@@ -3,7 +3,7 @@ import React from 'react';
 import SuggestionsTab from 'Main/SuggestionsTab';
 import Tab from 'Main/Tab';
 import Talents from 'Main/Talents';
-import MainCombatLogParser from 'Parser/Core/CombatLogParser';
+import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 
 import CastEfficiency from './Modules/Features/CastEfficiency';
 
@@ -15,6 +15,7 @@ import GalacticGuardian from './Modules/Features/GalacticGuardian';
 import GuardianOfElune from './Modules/Features/GuardianOfElune';
 import IronFurGoEProcs from './Modules/Features/IronFurGoEProcs';
 import FrenziedRegenGoEProcs from './Modules/Features/FrenziedRegenGoEProcs';
+import RageWasted from './Modules/Features/RageWasted';
 import IronFur from './Modules/Spells/IronFur';
 import Thrash from './Modules/Spells/Thrash';
 import Moonfire from './Modules/Spells/Moonfire';
@@ -24,7 +25,7 @@ import SkysecsHold from './Modules/Items/Skysecs';
 
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 
-class CombatLogParser extends MainCombatLogParser {
+class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     //Core
     damageTaken: DamageTaken,
@@ -38,6 +39,7 @@ class CombatLogParser extends MainCombatLogParser {
     guardianOfEluneProcs: GuardianOfElune,
     ironFurGoEProcs: IronFurGoEProcs,
     frenziedRegenGoEProcs: FrenziedRegenGoEProcs,
+    rageWasted: RageWasted,
     ironFur: IronFur,
     thrash: Thrash,
     moonfire: Moonfire,
