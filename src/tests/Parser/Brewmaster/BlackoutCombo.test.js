@@ -29,6 +29,12 @@ describe('Brewmaster.BlackoutCombo', () => {
     expect(hasTalentMethod).toBeCalledWith(SPELLS.BLACKOUT_COMBO_TALENT.id);
     expect(blackoutCombo.active).toBe(true);
   });
+  it('blackout combo when no events have been found', () => {
+    expect(blackoutCombo.blackoutComboBuffs).toBe(0);
+    expect(blackoutCombo.lastBlackoutComboCast).toBe(0);
+    expect(blackoutCombo.blackoutComboWasted).toBe(0);
+    expect(blackoutCombo.blackoutComboConsumed).toBe(0);
+  });
   it('track blackout combo buffs applied', () => {
     processEvents([...applybuff, ...refreshBuff], blackoutCombo)
     expect(blackoutCombo.blackoutComboBuffs).toBe(4);
