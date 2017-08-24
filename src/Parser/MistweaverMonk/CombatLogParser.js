@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import MainCombatLogParser from 'Parser/Core/CombatLogParser';
+import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 
 import SuggestionsTab from 'Main/SuggestionsTab';
 import Tab from 'Main/Tab';
@@ -53,7 +53,7 @@ import OvydsWinterWrap from './Modules/Items/OvydsWinterWrap';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
-class CombatLogParser extends MainCombatLogParser {
+class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
 
   static specModules = {
@@ -98,11 +98,6 @@ class CombatLogParser extends MainCombatLogParser {
     petrichorLagniappe: PetrichorLagniappe,
     ovydsWinterWrap: OvydsWinterWrap,
   };
-
-  damageTaken = 0;
-  on_toPlayer_damage(event){
-    this.damageTaken += event.amount;
-  }
 
   generateResults() {
     const results = super.generateResults();

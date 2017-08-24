@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Icon from 'common/Icon';
-import MainCombatLogParser from 'Parser/Core/CombatLogParser';
+import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -50,7 +50,7 @@ function getIssueImportance(value, regular, major, higherIsWorse = false) {
   return ISSUE_IMPORTANCE.MINOR;
 }
 
-class CombatLogParser extends MainCombatLogParser {
+class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Features
     alwaysBeCasting: AlwaysBeCasting,
