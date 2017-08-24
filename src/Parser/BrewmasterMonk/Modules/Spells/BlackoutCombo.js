@@ -55,13 +55,13 @@ class BlackoutCombo extends Module {
   suggestions(when) {
     const wastedPerc = this.blackoutComboWasted / this.blackoutComboBuffs;
     
-    when(wastedPerc).isGreaterThan(0.3)
+    when(wastedPerc).isGreaterThan(0.1)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>You wasted {formatPercentage(actual)}% of your <SpellLink id={SPELLS.BLACKOUT_COMBO_BUFF.id} /> procs. Try to use the procs as soon as you get them so they are not overwritten.</span>)
           .icon(SPELLS.BLACKOUT_COMBO_BUFF.icon)
           .actual(`${formatPercentage(actual)}% unused`)
           .recommended(`${Math.round(formatPercentage(recommended))}% or less is recommended`)
-          .regular(recommended + 0.15).major(recommended + 0.3);
+          .regular(recommended + 0.1).major(recommended + 0.2);
       });
   }
 
