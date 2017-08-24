@@ -461,4 +461,9 @@ export default {
     name: 'Oakheart\'s Puny Quods',
     icon: 'spell_druid_bearhug',
   },
+  EARTHWARDEN_BUFF: {
+    id: 203975,
+    name: 'Earthwarden',
+    icon: 'spell_shaman_blessingofeternals',
+  },
 };

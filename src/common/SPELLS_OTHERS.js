@@ -10,6 +10,11 @@ export default {
     name: 'Melee',
     icon: 'inv_axe_02',
   },
+  MAGIC_MELEE: {
+    id: -32, // No idea why it's negative, but adds with "magic melee attacks" (eels on Mistress/tank add on KJ melee) cast an ability with this ID
+    name: 'Melee',
+    icon: 'inv_axe_02',
+  },
   LEECH: {
     id: 143924,
     name: 'Leech',
