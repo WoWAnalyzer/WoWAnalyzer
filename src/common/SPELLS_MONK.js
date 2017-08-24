@@ -443,4 +443,9 @@ export default {
     name: 'Gift of the Ox',
     icon: 'ability_monk_healthsphere',
   },
+  BLACKOUT_COMBO_BUFF: {
+    id: 223563,
+    name: 'Blackout Combo',
+    icon: 'ability_monk_blackoutkick',
+  },
 };
