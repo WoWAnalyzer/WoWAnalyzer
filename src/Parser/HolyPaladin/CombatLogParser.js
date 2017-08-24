@@ -58,7 +58,7 @@ class CombatLogParser extends MainCombatLogParser {
     lowHealthHealing: LowHealthHealing,
 
     // PaladinCore
-    healingDoneStatistic: HealingDone,
+    healingDone: HealingDone,
     beaconHealOriginMatcher: BeaconHealOriginMatcher,
     beaconTargets: BeaconTargets,
     beaconHealing: BeaconHealing,
@@ -163,16 +163,9 @@ class CombatLogParser extends MainCombatLogParser {
         url: 'mana',
         render: () => (
           <Tab title="Mana" style={{ padding: '15px 22px' }}>
-            <Mana
-              reportCode={this.report.code}
-              actorId={this.playerId}
-              start={this.fight.start_time}
-              end={this.fight.end_time}
-              manaUpdates={this.modules.manaValues.manaUpdates}
-              currentTimestamp={this.currentTimestamp}
-            />
+            <Mana parser={this} />
           </Tab>
-        ), // the currentTimestamp makes sure the Mana tab re-renders after parsing events
+        ),
       },
       ...results.tabs,
     ];

@@ -45,6 +45,14 @@ h1 {
   font-weight: 600;
   font-size: 24px;
 }
+.panel h1 {
+  margin-top: 0.2em;
+  margin-bottom: 0.8em;
+}
+hr {
+  margin: 15px 0;
+  border-top: 1px solid #4f4f4f;
+}
 
 .app > header {
   background-image: url(./Images/header.jpg);
@@ -665,4 +673,5 @@ code.inactive {
   background: rgba(0,0,0,0.3);
   border-radius: 7px;
   padding: 10px;
+  margin-bottom: 2rem;
 }

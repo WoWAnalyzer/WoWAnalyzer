@@ -712,14 +712,7 @@ class CombatLogParser extends MainCombatLogParser {
         url: 'mana',
         render: () => (
           <Tab title="Mana" style={{ padding: '15px 22px' }}>
-            <Mana
-              reportCode={this.report.code}
-              actorId={this.playerId}
-              start={this.fight.start_time}
-              end={this.fight.end_time}
-              manaUpdates={this.modules.manaValues.manaUpdates}
-              currentTimestamp={this.currentTimestamp}
-            />
+            <Mana parser={this} />
           </Tab>
         ),
       },

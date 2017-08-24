@@ -12,14 +12,19 @@ class ManaValue extends Module {
       event.classResources.forEach(classResource => {
         if (classResource.type === RESOURCE_TYPES.MANA) {
           const manaValue = classResource.amount;
-          const manaEvent = classResource.cost || 0;
-          const currMana = manaValue - manaEvent;
-          this.endingMana = currMana;
+          const manaCost = classResource.cost || 0;
+          const currentMana = manaValue - manaCost;
+          this.endingMana = currentMana;
 
-          if (this.lowestMana === null || currMana < this.lowestMana) {
-            this.lowestMana = currMana;
+          if (this.lowestMana === null || currentMana < this.lowestMana) {
+            this.lowestMana = currentMana;
           }
-          this.manaUpdates.push([event.timestamp, currMana / classResource.max]);
+          this.manaUpdates.push({
+            timestamp: event.timestamp,
+            current: currentMana,
+            max: classResource.max,
+            used: manaCost,
+          });
         }
       });
     }

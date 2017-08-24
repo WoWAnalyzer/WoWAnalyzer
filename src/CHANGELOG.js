@@ -1,4 +1,5 @@
 export default `
+24-08-2017 - Added a mana usage graph to the mana tab for all healers. (by Zerotorescue)
 23-08-2017 - Holy Paladin: Added Beacon of Virtue to cast efficiency and a suggestion. (by Zerotorescue)
 21-08-2017 - Brewmaster Monk: Fixed bug with stagger if a tick of the dot is absorbed it will calculate correctly (by wopr)
 22-08-2017 - Guardian Druid: Fix to Ironfur uptime suggestion (by wopr).
