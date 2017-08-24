@@ -48,7 +48,8 @@ export const dpsCasts = [
   { type: "cast", sourceid: thisPlayer, targetid: enemy, timestamp: 4500, ability: { guid: SPELLS.KEG_SMASH.id } },
   { type: "cast", sourceid: thisPlayer, targetid: enemy, timestamp: 6500, ability: { guid: SPELLS.BLACKOUT_STRIKE.id } },
   { type: "cast", sourceid: thisPlayer, targetid: enemy, timestamp: 8500, ability: { guid: SPELLS.BLACKOUT_STRIKE.id } },
-  { type: "cast", sourceid: thisPlayer, targetid: enemy, timestamp: 97500, ability: { guid: SPELLS.BREATH_OF_FIRE.id } },
+  { type: "cast", sourceid: thisPlayer, targetid: enemy, timestamp: 9000, ability: { guid: SPELLS.BLACKOUT_STRIKE.id } },
+  { type: "cast", sourceid: thisPlayer, targetid: enemy, timestamp: 9700, ability: { guid: SPELLS.BREATH_OF_FIRE.id } },
 ];
 
 // Damage taken: amount: 0, absorbed: 0, overkill: 0
@@ -61,15 +62,17 @@ export const applybuff = [
   { type: "applybuff", sourceid: thisPlayer, targetid: thisPlayer, timestamp: 200, ability: { guid: SPELLS.IRONSKIN_BREW_BUFF.id } },
   { type: "applybuff", sourceid: thisPlayer, targetid: thisPlayer, timestamp: 3500, ability: { guid: SPELLS.BLACKOUT_COMBO_BUFF.id } },
   { type: "applybuff", sourceid: thisPlayer, targetid: thisPlayer, timestamp: 6500, ability: { guid: SPELLS.BLACKOUT_COMBO_BUFF.id } },
+  { type: "applybuff", sourceid: thisPlayer, targetid: thisPlayer, timestamp: 8500, ability: { guid: SPELLS.BLACKOUT_COMBO_BUFF.id } },
 ];
 
 export const refreshBuff = [
-  { type: "refreshbuff", sourceid: thisPlayer, targetid: thisPlayer, timestamp: 8500, ability: { guid: SPELLS.BLACKOUT_COMBO_BUFF.id } },
+  { type: "refreshbuff", sourceid: thisPlayer, targetid: thisPlayer, timestamp: 9000, ability: { guid: SPELLS.BLACKOUT_COMBO_BUFF.id } },
 ];
 
 export const removebuff = [
   { type: "removebuff", sourceid: thisPlayer, targetid: thisPlayer, timestamp: 4500, ability: { guid: SPELLS.BLACKOUT_COMBO_BUFF.id } },
-  { type: "removebuff", sourceid: thisPlayer, targetid: thisPlayer, timestamp: 9500, ability: { guid: SPELLS.BLACKOUT_COMBO_BUFF.id } },
+  { type: "removebuff", sourceid: thisPlayer, targetid: thisPlayer, timestamp: 8200, ability: { guid: SPELLS.BLACKOUT_COMBO_BUFF.id } },
+  { type: "removebuff", sourceid: thisPlayer, targetid: thisPlayer, timestamp: 9700, ability: { guid: SPELLS.BLACKOUT_COMBO_BUFF.id } },
 ];
 
 // This absorb is used from the damage line

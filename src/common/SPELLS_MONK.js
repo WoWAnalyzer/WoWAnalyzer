@@ -444,7 +444,7 @@ export default {
     icon: 'ability_monk_healthsphere',
   },
   BLACKOUT_COMBO_BUFF: {
-    id: 223563,
+    id: 228563,
     name: 'Blackout Combo',
     icon: 'ability_monk_blackoutkick',
   },

@@ -31,7 +31,11 @@ describe('Brewmaster.BlackoutCombo', () => {
   });
   it('track blackout combo buffs applied', () => {
     processEvents([...applybuff, ...refreshBuff], blackoutCombo)
-    expect(blackoutCombo.blackoutComboBuffs).toBe(3);
+    expect(blackoutCombo.blackoutComboBuffs).toBe(4);
+  });
+  it('track when last blackout combo was applied', () => {
+    processEvents([...applybuff, ...refreshBuff], blackoutCombo)
+    expect(blackoutCombo.lastBlackoutComboCast).toBe(9000);
   });
   it('track blackout combos wasted', () => {
     processEvents([...applybuff, ...refreshBuff], blackoutCombo)
@@ -39,6 +43,6 @@ describe('Brewmaster.BlackoutCombo', () => {
   });
   it('track blackout combos consumed by other spells', () => {
     processEvents(SimpleFight, blackoutCombo)
-    expect(blackoutCombo.blackoutComboConsumed).toBe(2);
+    expect(blackoutCombo.blackoutComboConsumed).toBe(3);
   });
 });
