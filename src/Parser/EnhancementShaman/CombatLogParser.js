@@ -6,7 +6,7 @@ import SuggestionsTab from 'Main/SuggestionsTab';
 import Tab from 'Main/Tab';
 import Talents from 'Main/Talents';
 
-import MainCombatLogParser from 'Parser/Core/CombatLogParser';
+import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 
 import CastEfficiency from './Modules/Main/CastEfficiency';
 import Maelstrom from './Modules/Main/Maelstrom';
@@ -22,7 +22,7 @@ import FuryOfAir from './Modules/ShamanCore/FuryOfAir';
 
 // import SmolderingHeart from './Modules/Legendaries/SmolderingHeart';
 
-class CombatLogParser extends MainCombatLogParser {
+class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // ShamanCore
     damageDone: DamageDone,
