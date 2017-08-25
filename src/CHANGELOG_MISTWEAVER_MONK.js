@@ -1,4 +1,5 @@
 export default `
+25-08-2017 - Mistweaver Monk: Corrected issue with MonkSpreadsheet tab. Removed / Trimmed some suggestions as this data was redundant when combined with WCL (by anomoly)
 16-08-2017 - Mistweaver Monk: Soothing Mist suggestion added (by anomoly)
 16-08-2017 - Mistweaver Monk: Added the effective healing contribute of Enveloping Mists as a statistic (by anomoly)
 15-08-2017 - Mistweaver Monk: Updates to Mistweaver module to align with new module structure. No information should be lost, but this will be moved around (by anomoly)

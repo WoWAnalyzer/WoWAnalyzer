@@ -1,12 +1,7 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
-import { formatNumber } from 'common/format';
 
 import Module from 'Parser/Core/Module';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 const debug = false;
 
@@ -42,6 +37,7 @@ class CelestialBreath extends Module {
     }
   }
 
+  /* Commenting out for now - Removing because of bloat.
   statistic() {
     const avgCelestialBreathHealing = this.healingCelestialBreath / this.healsCelestialBreath || 0;
     const avgCelestialBreathTargets = (this.healsCelestialBreath / this.procsCelestialBreath) / 3 || 0;
@@ -59,6 +55,7 @@ class CelestialBreath extends Module {
       );
     }
   statisticOrder = STATISTIC_ORDER.OPTIONAL();
+  */
 
   on_finished() {
     if(debug) {

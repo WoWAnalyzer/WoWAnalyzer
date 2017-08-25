@@ -2,11 +2,8 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
 
 import Module from 'Parser/Core/Module';
-
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 const debug = false;
 
@@ -44,6 +41,7 @@ class WhispersOfShaohao extends Module {
       });
     }
 
+  /* Commenting out for now - Removing because of bloat.
   statistic() {
     const missedWhispersHeal = ((Math.floor(this.owner.fightDuration / 10000) + this.owner.modules.sheilunsGift.countEff) - this.countWhispersHeal) || 0;
     return (
@@ -59,6 +57,7 @@ class WhispersOfShaohao extends Module {
     );
   }
   statisticOrder = STATISTIC_ORDER.OPTIONAL();
+  */
 
   on_finished() {
     if(debug) {
