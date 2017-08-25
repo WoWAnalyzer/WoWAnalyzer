@@ -14,7 +14,6 @@ import Maelstrom from './Modules/Main/Maelstrom';
 import CooldownTracker from './Modules/Features/CooldownTracker';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import DamageDone from './Modules/ShamanCore/DamageDone';
-import GCD from './Modules/ShamanCore/GCD';
 import ShamanStats from './Modules/ShamanCore/ShamanStats';
 import Flametongue from './Modules/ShamanCore/Flametongue';
 import Landslide from './Modules/ShamanCore/Landslide';
@@ -27,7 +26,6 @@ class CombatLogParser extends MainCombatLogParser {
   static specModules = {
     // ShamanCore
     damageDone: DamageDone,
-    gCD: GCD,
     shamanStats: ShamanStats,
     flametongue: Flametongue,
     landslide: Landslide,
