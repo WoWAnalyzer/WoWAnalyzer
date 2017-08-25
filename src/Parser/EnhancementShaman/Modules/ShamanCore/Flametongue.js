@@ -15,7 +15,7 @@ class Flametongue extends Module {
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(`Your Flametongue uptime of ${formatPercentage(flametongueUptime)}% is below 95%, try to get as close to 100% as possible`)
           .icon(SPELLS.FLAMETONGUE_BUFF.icon)
-          .actual(`${formatPercentage(flametongueUptime)}% uptime`)
+          .actual(`${formatPercentage(actual)}% uptime`)
           .recommended(`${(formatPercentage(recommended))}% is recommended`)
           .regular(recommended).major(recommended - 0.5);
       });

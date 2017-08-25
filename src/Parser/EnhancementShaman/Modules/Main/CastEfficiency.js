@@ -18,6 +18,12 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 60,
     },
     {
+      spell: SPELLS.EARTHEN_SPIKE_TALENT,
+      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
+      isActive: combatant => combatant.hasTalent(SPELLS.EARTHEN_SPIKE_TALENT.id),
+      getCooldown: haste => 20,
+    },
+    {
       spell: SPELLS.FERAL_SPIRIT,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 120,

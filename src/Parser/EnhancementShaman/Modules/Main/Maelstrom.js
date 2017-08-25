@@ -134,7 +134,6 @@ class Maelstrom extends React.PureComponent {
       }
     });
 
-
     const abilitiesAll = {};
     const categories = {
       'generated': 'Generated',

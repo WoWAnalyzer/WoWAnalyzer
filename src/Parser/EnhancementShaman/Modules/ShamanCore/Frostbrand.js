@@ -17,12 +17,11 @@ class Frostbrand extends Module {
   suggestions(when) {
     const frostbrandUptime = this.owner.selectedCombatant.getBuffUptime(SPELLS.FROSTBRAND.id) / this.owner.fightDuration;
 
-    this.active &&
     when(frostbrandUptime).isLessThan(.95)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(`Try to make sure the Frostbrand is always up, when it drops you should refresh it as soon as possible`)
           .icon(SPELLS.FROSTBRAND.icon)
-          .actual(`${formatPercentage(frostbrandUptime)}% uptime`)
+          .actual(`${formatPercentage(actual)}% uptime`)
           .recommended(`${(formatPercentage(recommended))}% is recommended`)
           .regular(recommended).major(recommended - 0.5);
       });
@@ -31,7 +30,7 @@ class Frostbrand extends Module {
   statistic() {
     const frostbrandUptime = this.owner.selectedCombatant.getBuffUptime(SPELLS.FROSTBRAND.id) / this.owner.fightDuration;
     return (
-      this.active && (<StatisticBox
+      (<StatisticBox
         icon={<SpellIcon id={SPELLS.FROSTBRAND.id} />}
         value={`${formatPercentage(frostbrandUptime)} %`}
         label="Frostbrand Uptime"

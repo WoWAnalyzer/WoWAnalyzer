@@ -21,9 +21,9 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.LIGHTNING_BOLT.id,
     SPELLS.STORMSTRIKE.id,
     SPELLS.LAVA_LASH.id,
-    SPELLS.FURY_OF_AIR.id,
+    SPELLS.FURY_OF_AIR_TALENT.id,
 
-    SPELLS.EARTHEN_SPIKE.id,
+    SPELLS.EARTHEN_SPIKE_TALENT.id,
     SPELLS.DOOM_WINDS.id,
     SPELLS.SUNDERING.id,
   ];

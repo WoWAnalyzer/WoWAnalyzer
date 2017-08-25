@@ -13,7 +13,7 @@ class DamageDone extends CoreDamageDone {
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(`Your non DPS time can be improved. Try to cast damaging spells more regularly`)
           .icon("petbattle_health")
-          .actual(`${Math.round(nonDpsTimePercentage * 100)}% non DPS time`)
+          .actual(`${Math.round(actual * 100)}% non DPS time`)
           .recommended(`<${(formatPercentage(recommended))}% is recommended`)
           .regular(recommended).major(recommended + 0.15);
       });

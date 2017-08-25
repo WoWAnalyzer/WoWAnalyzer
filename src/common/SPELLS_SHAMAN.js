@@ -229,17 +229,6 @@ export default {
     icon: 'ability_shaman_lavalash',
     maelstrom: 30,
   },
-  FURY_OF_AIR: {
-    id: 197211,
-    name: 'Fury of Air',
-    icon: 'ability_ironmaidens_swirlingvortex',
-    maelstrom: 3,
-  },
-  EARTHEN_SPIKE: {
-    id: 188089,
-    name: 'Earthen Spike',
-    icon: 'ability_earthen_pillar',
-  },
   DOOM_WINDS: {
     id: 204945,
     name: 'Doom Winds',

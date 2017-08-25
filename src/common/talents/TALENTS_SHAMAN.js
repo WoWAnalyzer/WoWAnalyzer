@@ -51,9 +51,9 @@ export default {
   OVERCHARGE_TALENT: { id: 210727, name: "Overcharge", icon: "spell_nature_callstorm" },
   EMPOWERED_STORMLASH_TALENT: { id: 210731, name: "Empowered Stormlash", icon: "spell_lightning_lightningbolt01" },
   CRASHING_STORM_TALENT: { id: 192246, name: "Crashing Storm", icon: "spell_nature_unrelentingstorm" },
-  FURY_OF_AIR_TALENT: { id: 197211, name: "Fury of Air", icon: "ability_ironmaidens_swirlingvortex" },
+  FURY_OF_AIR_TALENT: { id: 197211, name: "Fury of Air", icon: "ability_ironmaidens_swirlingvortex", maelstrom: 3 },
   SUNDERING_TALENT: { id: 197214, name: "Sundering", icon: "ability_rhyolith_lavapool" },
   BOULDERFIST_TALENT: { id: 246035, name: "Boulderfist", icon: "ability_earthenfury_giftofearth" },
-  EARTHEN_SPIKE_TALENT: { id: 188089, name: "Earthen Spike", icon: "ability_earthen_pillar" },
+  EARTHEN_SPIKE_TALENT: { id: 188089, name: "Earthen Spike", icon: "ability_earthen_pillar", maelstrom: 20 },
   ASCENDANCE_TALENT_ENHANCEMENT: { id: 114051, name: "Ascendance", icon: "spell_fire_elementaldevastation" },
 };

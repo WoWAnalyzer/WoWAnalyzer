@@ -17,12 +17,11 @@ class Landslide extends Module {
   suggestions(when) {
     const landslideUptime = this.owner.selectedCombatant.getBuffUptime(SPELLS.LANDSLIDE_BUFF.id) / this.owner.fightDuration;
 
-    this.active &&
     when(landslideUptime).isLessThan(.95)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(`Try to make sure the Landslide buff from Rockbiter is always up, when it drops you should refresh it as soon as possible`)
           .icon(SPELLS.LANDSLIDE_BUFF.icon)
-          .actual(`${formatPercentage(landslideUptime)}% uptime`)
+          .actual(`${formatPercentage(actual)}% uptime`)
           .recommended(`${(formatPercentage(recommended))}% is recommended`)
           .regular(recommended).major(recommended - 0.5);
       });
@@ -31,7 +30,7 @@ class Landslide extends Module {
   statistic() {
     const landslideUptime = this.owner.selectedCombatant.getBuffUptime(SPELLS.LANDSLIDE_BUFF.id) / this.owner.fightDuration;
     return (
-      this.active && (<StatisticBox
+      (<StatisticBox
         icon={<SpellIcon id={SPELLS.LANDSLIDE_BUFF.id} />}
         value={`${formatPercentage(landslideUptime)} %`}
         label="Landslide Uptime"
