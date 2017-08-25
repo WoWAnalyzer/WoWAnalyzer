@@ -13,9 +13,9 @@ const BOC_DURATION = 15000;
 
 class BlackoutCombo extends Module {
   blackoutComboConsumed = 0;
-  blackoutComboWasted = 0;
   blackoutComboBuffs = 0;
   lastBlackoutComboCast = 0;
+  spellsBOCWasUsedOn = {};
 
   on_initialized() {
     this.active = this.owner.selectedCombatant.hasTalent(SPELLS.BLACKOUT_COMBO_TALENT.id);
@@ -35,7 +35,6 @@ class BlackoutCombo extends Module {
     if (SPELLS.BLACKOUT_COMBO_BUFF.id === spellId) {
       debug && console.log('Blackout combo refreshed');
       this.blackoutComboBuffs++;
-      this.blackoutComboWasted++;
       this.lastBlackoutComboCast = event.timestamp;
     }
   }
@@ -48,13 +47,17 @@ class BlackoutCombo extends Module {
     // BOC should be up
     if (this.lastBlackoutComboCast > 0 && this.lastBlackoutComboCast + BOC_DURATION > event.timestamp) {
       this.blackoutComboConsumed++;
+      if (this.spellsBOCWasUsedOn[spellId] === undefined) {
+        this.spellsBOCWasUsedOn[spellId] = 0;
+      }
+      this.spellsBOCWasUsedOn[spellId]++;
     }
     this.lastBlackoutComboCast = 0;
   }
 
   suggestions(when) {
-    const wastedPerc = this.blackoutComboWasted / this.blackoutComboBuffs;
-    
+    const wastedPerc = (this.blackoutComboBuffs - this.blackoutComboConsumed) / this.blackoutComboBuffs;
+
     when(wastedPerc).isGreaterThan(0.1)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>You wasted {formatPercentage(actual)}% of your <SpellLink id={SPELLS.BLACKOUT_COMBO_BUFF.id} /> procs. Try to use the procs as soon as you get them so they are not overwritten.</span>)
@@ -66,14 +69,22 @@ class BlackoutCombo extends Module {
   }
 
   statistic() {
-    const wastedPerc = this.blackoutComboWasted / this.blackoutComboBuffs;
+    const wastedPerc = (this.blackoutComboBuffs - this.blackoutComboConsumed) / this.blackoutComboBuffs;
     
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.BLACKOUT_COMBO_BUFF.id} />}
         value={`${formatPercentage(wastedPerc)}%`}
         label='Wasted blackout combo'
-        tooltip={`You got total <b>${this.blackoutComboBuffs}</b> blackout combo procs procs and used <b>${this.blackoutComboConsumed}</b> of them.`}
+        tooltip={`You got total <b>${this.blackoutComboBuffs}</b> blackout combo procs procs and used <b>${this.blackoutComboConsumed}</b> of them.
+
+        Blackout combo buff usage:
+          <ul>
+            ${Object.keys(this.spellsBOCWasUsedOn)
+            .sort((a, b) => this.spellsBOCWasUsedOn[b] - this.spellsBOCWasUsedOn[a])
+            .map(type => `<li><i>${SPELLS[type].name || 'Unknown'}</i> was used ${this.spellsBOCWasUsedOn[type]} time${this.spellsBOCWasUsedOn[type] === 1 ? '' : 's'} (${formatPercentage(this.spellsBOCWasUsedOn[type] / this.blackoutComboConsumed)}%)</li>`)
+            .join('')}
+          </ul>`}
       />
     );
   }

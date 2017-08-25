@@ -46,6 +46,7 @@ export const casts = [
 export const dpsCasts = [
   { type: "cast", sourceid: thisPlayer, targetid: enemy, timestamp: 3500, ability: { guid: SPELLS.BLACKOUT_STRIKE.id } },
   { type: "cast", sourceid: thisPlayer, targetid: enemy, timestamp: 4500, ability: { guid: SPELLS.KEG_SMASH.id } },
+  { type: "cast", sourceid: thisPlayer, targetid: enemy, timestamp: 4700, ability: { guid: SPELLS.KEG_SMASH.id } },
   { type: "cast", sourceid: thisPlayer, targetid: enemy, timestamp: 6500, ability: { guid: SPELLS.BLACKOUT_STRIKE.id } },
   { type: "cast", sourceid: thisPlayer, targetid: enemy, timestamp: 8500, ability: { guid: SPELLS.BLACKOUT_STRIKE.id } },
   { type: "cast", sourceid: thisPlayer, targetid: enemy, timestamp: 9000, ability: { guid: SPELLS.BLACKOUT_STRIKE.id } },
