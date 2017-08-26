@@ -59,7 +59,7 @@ class Tier21_4set extends Module {
 
     this.healing += effectiveHealing;
   }
-  on_beacon_heal({ beaconTransferEvent, matchedHeal: healEvent }) {
+  on_beacon_heal(beaconTransferEvent, healEvent) {
     if (!this.isApplicable(healEvent)) {
       return;
     }

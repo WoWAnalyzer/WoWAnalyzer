@@ -12,7 +12,7 @@ class DrapeOfShame extends CoreDrapeOfShame {
     }
     super.on_byPlayer_heal(event);
   }
-  on_beacon_heal({ beaconTransferEvent, matchedHeal: healEvent }) {
+  on_beacon_heal(beaconTransferEvent, healEvent) {
     const spellId = healEvent.ability.guid;
     if (this.owner.constructor.abilitiesAffectedByHealingIncreases.indexOf(spellId) === -1 || spellId === SPELLS.BEACON_OF_LIGHT.id) {
       return;

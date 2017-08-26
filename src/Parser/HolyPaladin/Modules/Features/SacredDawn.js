@@ -52,7 +52,7 @@ class SacredDawn extends Module {
 
     this.healing += calculateEffectiveHealing(event, SACRED_DAWN_HEALING_INCREASE);
   }
-  on_beacon_heal({ beaconTransferEvent, matchedHeal: healEvent }) {
+  on_beacon_heal(beaconTransferEvent, healEvent) {
     const spellId = healEvent.ability.guid;
     if (ABILITIES_AFFECTED_BY_HEALING_INCREASES.indexOf(spellId) === -1) {
       return;
