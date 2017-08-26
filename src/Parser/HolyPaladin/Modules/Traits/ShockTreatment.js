@@ -80,7 +80,7 @@ class ShockTreatment extends Module {
         icon={<SpellIcon id={SPELLS.SHOCK_TREATMENT.id} />}
         value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %`}
         label="Shock Treatment healing"
-        tooltip="This only calculates the value of the last Shock Treatment point, for you with your gear and only during this fight. The value of an additional point would be lower."
+        tooltip="This only calculates the value of the last Shock Treatment point, for you with your gear and only during this fight. The value of an additional point would be slightly lower."
       />
     );
   }

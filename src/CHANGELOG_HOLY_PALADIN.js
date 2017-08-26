@@ -1,4 +1,5 @@
 export default `
+26-08-2017 - Added Expel the Darkness trait healing contribution display. (by Zerotorescue)
 26-08-2017 - Added Deliver the Light trait healing contribution display. (by Zerotorescue)
 26-08-2017 - Added Shock Treatment healing contribution display. This only calculates the value of the last Shock Treatment point, for you with your gear and only during this fight. The value of an additional point would be lower due to the likely increase in overhealing (although small). (by Zerotorescue)
 26-08-2017 - Fixed Drape of Shame interaction with the tier 21 4 piece set bonus. (by Zerotorescue)

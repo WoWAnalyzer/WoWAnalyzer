@@ -77,7 +77,7 @@ class SacredDawn extends Module {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.TRAITS(1);
+  statisticOrder = STATISTIC_ORDER.TRAITS(10);
 }
 
 export default SacredDawn;

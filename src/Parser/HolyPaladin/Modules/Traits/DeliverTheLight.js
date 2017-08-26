@@ -13,7 +13,7 @@ const DELIVER_THE_LIGHT_HEALING_INCREASE = 0.03;
 
 /**
  * Deliver the Light (Artifact Trait)
- * Increases critical strike damage and critical healing of Holy Shock by 8%.
+ * Increases healing done by Holy Light and Flash of Light by 3%.
  */
 class DeliverTheLight extends Module {
   rank = 0;
@@ -45,11 +45,11 @@ class DeliverTheLight extends Module {
         icon={<SpellIcon id={SPELLS.DELIVER_THE_LIGHT.id} />}
         value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %`}
         label="Deliver the Light healing"
-        tooltip="This only calculates the value of the last Deliver the Light point, for you with your gear and only during this fight. The value of an additional point would be lower."
+        tooltip="This only calculates the value of the last Deliver the Light point, for you with your gear and only during this fight. The value of an additional point would be slightly lower."
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.TRAITS(1);
+  statisticOrder = STATISTIC_ORDER.TRAITS(2);
 }
 
 export default DeliverTheLight;

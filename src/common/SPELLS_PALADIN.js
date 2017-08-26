@@ -256,6 +256,11 @@ export default {
     name: 'Deliver the Light',
     icon: 'spell_holy_surgeoflight',
   },
+  EXPEL_THE_DARKNESS: {
+    id: 200296,
+    name: 'Expel the Darkness',
+    icon: 'spell_paladin_lightofdawn',
+  },
   PROTECTION_OF_TYR: {
     id: 211210,
     name: 'Protection of Tyr',
