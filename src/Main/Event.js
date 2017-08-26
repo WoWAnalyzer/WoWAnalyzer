@@ -16,7 +16,7 @@ class Event extends React.PureComponent {
   static propTypes = {
     event: PropTypes.object.isRequired,
     fightStart: PropTypes.number.isRequired,
-    source: PropTypes.object.isRequired,
+    source: PropTypes.object,
     target: PropTypes.object,
   };
 

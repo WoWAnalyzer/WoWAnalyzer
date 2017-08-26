@@ -261,6 +261,11 @@ export default {
     name: 'Expel the Darkness',
     icon: 'spell_paladin_lightofdawn',
   },
+  SECOND_SUNRISE: {
+    id: 200482,
+    name: 'Second Sunrise',
+    icon: 'spell_paladin_lightofdawn',
+  },
   PROTECTION_OF_TYR: {
     id: 211210,
     name: 'Protection of Tyr',

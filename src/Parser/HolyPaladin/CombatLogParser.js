@@ -38,6 +38,7 @@ import DivinePurpose from './Modules/Talents/DivinePurpose';
 import DeliverTheLight from './Modules/Traits/DeliverTheLight';
 import ExpelTheDarkness from './Modules/Traits/ExpelTheDarkness';
 import SacredDawn from './Modules/Traits/SacredDawn';
+import SecondSunrise from './Modules/Traits/SecondSunrise';
 import ShockTreatment from './Modules/Traits/ShockTreatment';
 
 import DrapeOfShame from './Modules/Items/DrapeOfShame';
@@ -92,6 +93,7 @@ class CombatLogParser extends CoreCombatLogParser {
     deliverTheLight: DeliverTheLight,
     expelTheDarkness: ExpelTheDarkness,
     sacredDawn: SacredDawn,
+    secondSunrise: SecondSunrise,
     shockTreatment: ShockTreatment,
 
     // Items:

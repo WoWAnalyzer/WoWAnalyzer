@@ -45,7 +45,7 @@ class DeliverTheLight extends Module {
         icon={<SpellIcon id={SPELLS.DELIVER_THE_LIGHT.id} />}
         value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %`}
         label="Deliver the Light healing"
-        tooltip="This only calculates the value of the last Deliver the Light point, for you with your gear and only during this fight. The value of an additional point would be slightly lower."
+        tooltip={`This only calculates the value of the last Deliver the Light point (you have a total of ${this.rank} points), for you with your gear and only during this fight. The value of an additional point would be slightly lower.`}
       />
     );
   }

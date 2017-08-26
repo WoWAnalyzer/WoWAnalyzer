@@ -45,11 +45,11 @@ class ExpelTheDarkness extends Module {
         icon={<SpellIcon id={SPELLS.EXPEL_THE_DARKNESS.id} />}
         value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %`}
         label="Expel the Darkness healing"
-        tooltip="This only calculates the value of the last Expel the Darkness point, for you with your gear and only during this fight. The value of an additional point would be slightly lower."
+        tooltip={`This only calculates the value of the last Expel the Darkness point (you have a total of ${this.rank} points), for you with your gear and only during this fight. The value of an additional point would be slightly lower.`}
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.TRAITS(3);
+  statisticOrder = STATISTIC_ORDER.TRAITS(4);
 }
 
 export default ExpelTheDarkness;

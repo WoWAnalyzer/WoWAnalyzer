@@ -1,4 +1,5 @@
 export default `
+26-08-2017 - Added Second Sunrise trait healing contribution display (please read its tooltip). (by Zerotorescue)
 26-08-2017 - Added Expel the Darkness trait healing contribution display. (by Zerotorescue)
 26-08-2017 - Added Deliver the Light trait healing contribution display. (by Zerotorescue)
 26-08-2017 - Added Shock Treatment healing contribution display. This only calculates the value of the last Shock Treatment point, for you with your gear and only during this fight. The value of an additional point would be lower due to the likely increase in overhealing (although small). (by Zerotorescue)
