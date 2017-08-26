@@ -699,3 +699,12 @@ code.inactive {
   padding: 10px;
   margin-bottom: 2rem;
 }
+
+.selectorHeader {
+  position: absolute;
+  line-height: 1em;
+  left: 15px;
+  top: 66px;
+  width: 600px;
+  max-width: calc(100vw - 45px);
+}
