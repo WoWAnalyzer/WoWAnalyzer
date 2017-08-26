@@ -40,7 +40,7 @@ class HolyAvenger extends Module {
       }
     }
   }
-  on_beacon_heal({ beaconTransferEvent, matchedHeal: healEvent }) {
+  on_beacon_heal(beaconTransferEvent, healEvent) {
     if (this.owner.selectedCombatant.hasBuff(SPELLS.HOLY_AVENGER_TALENT.id, healEvent.timestamp)) {
       const effectiveHealing = (beaconTransferEvent.amount + (beaconTransferEvent.absorbed || 0));
       this.regularHealing += effectiveHealing - effectiveHealing / (1 + HOLY_AVENGER_HASTE_INCREASE);

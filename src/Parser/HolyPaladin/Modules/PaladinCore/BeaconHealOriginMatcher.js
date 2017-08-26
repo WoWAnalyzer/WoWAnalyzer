@@ -60,10 +60,7 @@ class BeaconHealOriginMatcher extends Module {
       return;
     }
     // console.log('Matched beacon transfer', beaconTransferEvent, 'to heal', matchedHeal);
-    this.owner.triggerEvent('beacon_heal', {
-      beaconTransferEvent,
-      matchedHeal,
-    });
+    this.owner.triggerEvent('beacon_heal', beaconTransferEvent, matchedHeal);
 
     matchedHeal.remainingBeaconTransfers -= 1;
     if (matchedHeal.remainingBeaconTransfers < 1) {

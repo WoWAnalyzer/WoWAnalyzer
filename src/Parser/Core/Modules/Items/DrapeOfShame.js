@@ -4,7 +4,8 @@ import Module from 'Parser/Core/Module';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 
 import CritEffectBonus from '../Helpers/CritEffectBonus';
-import DRAPE_OF_SHAME_CRIT_EFFECT from './DRAPE_OF_SHAME_CRIT_EFFECT';
+
+export const DRAPE_OF_SHAME_CRIT_EFFECT = 0.05;
 
 class DrapeOfShame extends Module {
   static dependencies = {
@@ -15,6 +16,14 @@ class DrapeOfShame extends Module {
 
   on_initialized() {
     this.active = this.owner.selectedCombatant.hasBack(ITEMS.DRAPE_OF_SHAME.id);
+
+    if (this.active) {
+      this.critEffectBonus.hook(this.getCritEffectBonus);
+    }
+  }
+
+  getCritEffectBonus(critEffectModifier, event) {
+    return critEffectModifier + 0.05;
   }
 
   on_byPlayer_heal(event) {

@@ -25,7 +25,7 @@ class Tier21_2set extends Module {
     this.active = this.owner.selectedCombatant.hasBuff(SPELLS.HOLY_PALADIN_T21_2SET_BONUS_BUFF.id);
   }
 
-  on_beacon_heal({ beaconTransferEvent, matchedHeal: healEvent }) {
+  on_beacon_heal(beaconTransferEvent, healEvent) {
     if (!this.isApplicable(healEvent)) {
       return;
     }

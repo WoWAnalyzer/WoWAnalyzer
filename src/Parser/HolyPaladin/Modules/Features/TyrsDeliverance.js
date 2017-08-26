@@ -58,7 +58,7 @@ class TyrsDeliverance extends Module {
       default: break;
     }
   }
-  on_beacon_heal({ beaconTransferEvent, matchedHeal: healEvent }) {
+  on_beacon_heal(beaconTransferEvent, healEvent) {
     const spellId = healEvent.ability.guid;
     if (spellId !== SPELLS.FLASH_OF_LIGHT.id && spellId !== SPELLS.HOLY_LIGHT.id) {
       return;
