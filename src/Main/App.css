@@ -708,3 +708,7 @@ code.inactive {
   width: 600px;
   max-width: calc(100vw - 45px);
 }
+
+.selectorHeader .panel {
+  background: rgba(0,0,0,0.75);
+}
