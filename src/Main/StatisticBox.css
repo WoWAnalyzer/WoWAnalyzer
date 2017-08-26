@@ -5,10 +5,10 @@
 .panel.statistic-box > .panel-body:hover {
   background-color: rgba(255, 255, 255, 0.1);
 }
-.panel.statistic-box .statistic-value {
+.panel.statistic-box .value {
   font-size: 2em;
 }
-.panel.statistic-box .statistic-label {
+.panel.statistic-box .slabel {
   margin-top: -0.3em;
 }
 .panel.statistic-box img {
