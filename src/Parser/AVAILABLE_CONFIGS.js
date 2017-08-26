@@ -5,6 +5,7 @@ import GuardianDruid from './GuardianDruid/CONFIG';
 
 import DisciplinePriest from './DisciplinePriest/CONFIG';
 import HolyPriest from './HolyPriest/CONFIG';
+import ShadowPriest from './ShadowPriest/CONFIG';
 
 import ElementalShaman from './ElementalShaman/CONFIG';
 import EnhancementShaman from './EnhancementShaman/CONFIG';
@@ -29,6 +30,7 @@ export default [
 
   DisciplinePriest,
   HolyPriest,
+  ShadowPriest,
 
   MistweaverMonk,
   WindwalkerMonk,
