@@ -2,11 +2,9 @@ import React from 'react';
 
 import Module from 'Parser/Core/Module';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import { formatPercentage, formatNumber } from 'common/format';
+import { formatPercentage } from 'common/format';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 const debug = false;
 
@@ -56,6 +54,7 @@ class ChiBurst extends Module {
         });
   }
 
+  /* Commenting out for now - Removing because of bloat.
   statistic() {
     return (
       <StatisticBox
@@ -70,6 +69,7 @@ class ChiBurst extends Module {
     );
   }
   statisticOrder = STATISTIC_ORDER.OPTIONAL();
+  */
   on_finished() {
     this.avgChiBurstTargets = this.targetsChiBurst / this.castChiBurst || 0;
     if(debug) {

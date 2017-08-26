@@ -3,7 +3,7 @@ import React from 'react';
 import SuggestionsTab from 'Main/SuggestionsTab';
 import Tab from 'Main/Tab';
 import Talents from 'Main/Talents';
-import MainCombatLogParser from 'Parser/Core/CombatLogParser';
+import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 
 import CastEfficiency from './Modules/Features/CastEfficiency';
 
@@ -25,7 +25,7 @@ import SkysecsHold from './Modules/Items/Skysecs';
 
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 
-class CombatLogParser extends MainCombatLogParser {
+class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     //Core
     damageTaken: DamageTaken,

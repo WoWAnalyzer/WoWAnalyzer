@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import MainCombatLogParser from 'Parser/Core/CombatLogParser';
+import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 
 import SuggestionsTab from 'Main/SuggestionsTab';
 import Tab from 'Main/Tab';
@@ -14,7 +14,11 @@ import DamageTaken from './Modules/Core/DamageTaken';
 import DamageDone from './Modules/Core/DamageDone';
 import HealingReceived from './Modules/Core/HealingReceived';
 import Stagger from './Modules/Core/Stagger';
+
+//Spells
 import IronSkinBrew from './Modules/Spells/IronSkinBrew';
+import BlackoutCombo from './Modules/Spells/BlackoutCombo';
+
 
 // Features
 import CastEfficiency from './Modules/Features/CastEfficiency';
@@ -24,7 +28,7 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import T20_2pc from './Modules/Items/T20_2pc';
 import T20_4pc from './Modules/Items/T20_4pc';
 
-class CombatLogParser extends MainCombatLogParser {
+class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core
     healingDone: HealingDone,
@@ -39,6 +43,7 @@ class CombatLogParser extends MainCombatLogParser {
     
     // Spells
     ironSkinBrew: IronSkinBrew,
+    blackoutCombo: BlackoutCombo,
 
     // Items
     t20_2pc: T20_2pc,

@@ -10,7 +10,6 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.RENEWING_MIST,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 8,
-      recommendedCastEfficiency: .9,
       getOverhealing: (_, getAbility) => {
         const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.RENEWING_MIST_HEAL.id);
         return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);

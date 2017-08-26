@@ -7,7 +7,7 @@ import Tab from 'Main/Tab';
 import Talents from 'Main/Talents';
 import Mana from 'Main/Mana';
 
-import MainCombatLogParser from 'Parser/Core/CombatLogParser';
+import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
 
 import HealingDone from './Modules/PaladinCore/HealingDone';
@@ -21,6 +21,8 @@ import FilledCastRatio from './Modules/PaladinCore/FilledCastRatio';
 import Overhealing from './Modules/PaladinCore/Overhealing';
 import FillerLightOfTheMartyrs from './Modules/PaladinCore/FillerLightOfTheMartyrs';
 import LightOfDawn from './Modules/PaladinCore/LightOfDawn';
+
+import CritEffectBonus from './Modules/Helpers/CritEffectBonus';
 
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import MasteryEffectiveness from './Modules/Features/MasteryEffectiveness';
@@ -49,7 +51,7 @@ import Tier21_4set from './Modules/Items/Tier21_4set';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
-class CombatLogParser extends MainCombatLogParser {
+class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
 
   static specModules = {
@@ -58,7 +60,7 @@ class CombatLogParser extends MainCombatLogParser {
     lowHealthHealing: LowHealthHealing,
 
     // PaladinCore
-    healingDoneStatistic: HealingDone,
+    healingDone: HealingDone,
     beaconHealOriginMatcher: BeaconHealOriginMatcher,
     beaconTargets: BeaconTargets,
     beaconHealing: BeaconHealing,
@@ -68,6 +70,9 @@ class CombatLogParser extends MainCombatLogParser {
     overhealing: Overhealing,
     fillerLightOfTheMartyrs: FillerLightOfTheMartyrs,
     lightOfDawn: LightOfDawn,
+
+    // Helpers
+    critEffectBonus: CritEffectBonus,
 
     // Features
     castEfficiency: CastEfficiency,
@@ -163,12 +168,7 @@ class CombatLogParser extends MainCombatLogParser {
         url: 'mana',
         render: () => (
           <Tab title="Mana" style={{ padding: '15px 22px' }}>
-            <Mana
-              reportCode={this.report.code}
-              actorId={this.playerId}
-              start={this.fight.start_time}
-              end={this.fight.end_time}
-            />
+            <Mana parser={this} />
           </Tab>
         ),
       },

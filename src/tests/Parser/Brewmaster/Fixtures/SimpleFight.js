@@ -25,7 +25,7 @@ export const staggerTicks = [
   { type: "damage", sourceid: enemy, targetid: thisPlayer, amount: 13, timestamp: 9500, ability: { guid: SPELLS.STAGGER_TAKEN.id } },
   { type: "damage", sourceid: enemy, targetid: thisPlayer, amount: 13, timestamp: 10000, ability: { guid: SPELLS.STAGGER_TAKEN.id } },
   { type: "damage", sourceid: enemy, targetid: thisPlayer, amount: 13, timestamp: 10500, ability: { guid: SPELLS.STAGGER_TAKEN.id } },
-]
+];
 
 // 599 will be removed by the stagger array below when combined
 // Damage taken: amount: 1200, absorbed: 599, overkill: 0
@@ -33,7 +33,7 @@ export const incomingDamage = [
   { type: "damage", sourceid: enemy, targetid: thisPlayer, amount: 400, timestamp: 1, ability: { guid: 1 } },
   { type: "damage", sourceid: enemy, targetid: thisPlayer, amount: 400, absorbed: 300, timestamp: 500, ability: { guid: 1 } },
   { type: "damage", sourceid: enemy, targetid: thisPlayer, amount: 400, absorbed: 299, timestamp: 5700, ability: { guid: 4 } },
-]
+];
 
 // Damage taken: amount: 0, absorbed: 0, overkill: 0
 export const casts = [
@@ -41,36 +41,59 @@ export const casts = [
   { type: "cast", sourceid: thisPlayer, targetid: thisPlayer, timestamp: 204, ability: { guid: SPELLS.GIFT_OF_THE_OX_1.id } },
   { type: "cast", sourceid: thisPlayer, targetid: thisPlayer, timestamp: 4700, ability: { guid: SPELLS.GIFT_OF_THE_OX_1.id } },
   { type: "cast", sourceid: thisPlayer, targetid: thisPlayer, timestamp: 8200, ability: { guid: SPELLS.PURIFYING_BREW.id } },
-]
+];
+
+export const dpsCasts = [
+  { type: "cast", sourceid: thisPlayer, targetid: enemy, timestamp: 3500, ability: { guid: SPELLS.BLACKOUT_STRIKE.id } },
+  { type: "cast", sourceid: thisPlayer, targetid: enemy, timestamp: 4500, ability: { guid: SPELLS.KEG_SMASH.id } },
+  { type: "cast", sourceid: thisPlayer, targetid: enemy, timestamp: 4700, ability: { guid: SPELLS.KEG_SMASH.id } },
+  { type: "cast", sourceid: thisPlayer, targetid: enemy, timestamp: 6500, ability: { guid: SPELLS.BLACKOUT_STRIKE.id } },
+  { type: "cast", sourceid: thisPlayer, targetid: enemy, timestamp: 8500, ability: { guid: SPELLS.BLACKOUT_STRIKE.id } },
+  { type: "cast", sourceid: thisPlayer, targetid: enemy, timestamp: 9000, ability: { guid: SPELLS.BLACKOUT_STRIKE.id } },
+  { type: "cast", sourceid: thisPlayer, targetid: enemy, timestamp: 9700, ability: { guid: SPELLS.BREATH_OF_FIRE.id } },
+];
 
 // Damage taken: amount: 0, absorbed: 0, overkill: 0
 export const isbCasts = [
   { type: "cast", sourceid: thisPlayer, targetid: thisPlayer, timestamp: 200, ability: { guid: SPELLS.IRONSKIN_BREW.id } },
-]
+];
 
 // Damage taken: amount: 0, absorbed: 0, overkill: 0
 export const applybuff = [
   { type: "applybuff", sourceid: thisPlayer, targetid: thisPlayer, timestamp: 200, ability: { guid: SPELLS.IRONSKIN_BREW_BUFF.id } },
-]
+  { type: "applybuff", sourceid: thisPlayer, targetid: thisPlayer, timestamp: 3500, ability: { guid: SPELLS.BLACKOUT_COMBO_BUFF.id } },
+  { type: "applybuff", sourceid: thisPlayer, targetid: thisPlayer, timestamp: 6500, ability: { guid: SPELLS.BLACKOUT_COMBO_BUFF.id } },
+  { type: "applybuff", sourceid: thisPlayer, targetid: thisPlayer, timestamp: 8500, ability: { guid: SPELLS.BLACKOUT_COMBO_BUFF.id } },
+];
+
+export const refreshBuff = [
+  { type: "refreshbuff", sourceid: thisPlayer, targetid: thisPlayer, timestamp: 9000, ability: { guid: SPELLS.BLACKOUT_COMBO_BUFF.id } },
+];
+
+export const removebuff = [
+  { type: "removebuff", sourceid: thisPlayer, targetid: thisPlayer, timestamp: 4500, ability: { guid: SPELLS.BLACKOUT_COMBO_BUFF.id } },
+  { type: "removebuff", sourceid: thisPlayer, targetid: thisPlayer, timestamp: 8200, ability: { guid: SPELLS.BLACKOUT_COMBO_BUFF.id } },
+  { type: "removebuff", sourceid: thisPlayer, targetid: thisPlayer, timestamp: 9700, ability: { guid: SPELLS.BLACKOUT_COMBO_BUFF.id } },
+];
 
 // This absorb is used from the damage line
 // Damage taken: amount: 0, absorbed: 0, overkill: 0
 export const absorbed = [
   { type: "absorbed", sourceid: enemy, targetid: thisPlayer, amount: 9, timestamp: 3500, ability: { guid: 99999 }, extraAbility: { guid: 1, type: 1}},
   { type: "absorbed", sourceid: enemy, targetid: thisPlayer, amount: 7, timestamp: 6000, ability: { guid: 99999 }, extraAbility: { guid: 1, type: 1}},
-]
+];
 
 // Damage taken: amount: 0, absorbed: 0, overkill: 0
 // Stagger damage taken: amount: 0, absorbed: -599, overkill: 0
 export const staggerAbsorbed = [
   { type: "absorbed", sourceid: enemy, targetid: thisPlayer, amount: 300, timestamp: 500, ability: { guid: SPELLS.STAGGER.id }, extraAbility: { guid: 1, type: 1}},
   { type: "absorbed", sourceid: enemy, targetid: thisPlayer, amount: 299, timestamp: 5700, ability: { guid: SPELLS.STAGGER.id }, extraAbility: { guid: 4, type: 4}},
-]
+];
 
 // Damage taken: amount: 0, absorbed: 0, overkill: 0
 export const heal = [
   { type: "heal", sourceid: thisPlayer, targetid: thisPlayer, amount: 10, timestamp: 6700, ability: { guid: SPELLS.GIFT_OF_THE_OX_1.id } },
-]
+];
 
 export const SimpleFight = [
   ...staggerTicks,
@@ -81,6 +104,9 @@ export const SimpleFight = [
   ...staggerAbsorbed,
   ...heal,
   ...isbCasts,
+  ...dpsCasts,
+  ...refreshBuff,
+  ...removebuff,
 ].sort((a, b) => a.timestamp - b.timestamp);
 
 export const EarlyFinish = [
@@ -92,4 +118,7 @@ export const EarlyFinish = [
   ...staggerAbsorbed,
   ...heal,
   ...isbCasts,
+  ...dpsCasts,
+  ...refreshBuff,
+  ...removebuff,
 ].sort((a, b) => a.timestamp - b.timestamp).filter(event => event.timestamp <= 6000);

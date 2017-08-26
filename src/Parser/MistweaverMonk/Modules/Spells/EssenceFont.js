@@ -1,12 +1,9 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
 import Module from 'Parser/Core/Module';
-
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 const debug = false;
 
@@ -58,6 +55,7 @@ class EssenceFontMastery extends Module {
       });
   }
 
+  /* Commenting out for now - Removing because of bloat.
   statistic() {
     const avgTargetsHitPerEF = (this.targetsEF / this.castEF) || 0;
     return (
@@ -73,6 +71,7 @@ class EssenceFontMastery extends Module {
     );
   }
   statisticOrder = STATISTIC_ORDER.OPTIONAL();
+  */
 }
 
 export default EssenceFontMastery;

@@ -16,6 +16,9 @@ const PURITY_OF_LIGHT_AFFECTED_HEALS = [
   SPELLS.LIGHT_OF_DAWN_HEAL.id,
 ];
 
+/**
+ * 4 pieces (Holy) : Holy Shock has a 30% chance to increase the critical healing of your Flash of Light, Holy Light, and Light of Dawn by 100% for 10 sec.
+ */
 class Tier21_4set extends Module {
   healing = 0;
 

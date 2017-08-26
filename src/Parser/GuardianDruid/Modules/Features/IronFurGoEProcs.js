@@ -4,15 +4,20 @@ import SpellIcon from 'common/SpellIcon';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SPELLS from 'common/SPELLS';
 import Module from 'Parser/Core/Module';
+import GuardianOfElune from './GuardianOfElune';
 
 class IronFurGoEProcs extends Module {
+  static dependencies = {
+    guardianOfElune: GuardianOfElune,
+  };
+
   on_initialized() {
     this.active = this.owner.selectedCombatant.hasTalent(SPELLS.GUARDIAN_OF_ELUNE_TALENT.id);
   }
 
   statistic() {
-    const nonGoEIronFur = this.owner.modules.guardianOfEluneProcs.nonGoEIronFur;
-    const GoEIronFur = this.owner.modules.guardianOfEluneProcs.GoEIronFur;
+    const nonGoEIronFur = this.guardianOfElune.nonGoEIronFur;
+    const GoEIronFur = this.guardianOfElune.GoEIronFur;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.IRONFUR.id} />}

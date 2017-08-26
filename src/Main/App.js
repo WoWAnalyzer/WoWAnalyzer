@@ -155,7 +155,7 @@ class App extends Component {
     const pageTimestamp = isFirstBatch ? fightStart : nextPageTimestamp;
     const actorId = player.id;
 
-    this.fetchEvents(code, pageTimestamp, fightEnd, actorId)
+    return this.fetchEvents(code, pageTimestamp, fightEnd, actorId)
       .then((json) => {
         if (parser !== this.state.parser) {
           return;
@@ -180,13 +180,21 @@ class App extends Component {
             }
           })
           .catch((err) => {
-            alert(`The report could not be parsed because an error occured. ${err.message}`);
+            alert(`The report could not be parsed because an error occured while running the analysis. ${err.message}`);
             if (process.env.NODE_ENV === 'development') {
               throw err;
             } else {
               console.error(err);
             }
           });
+      })
+      .catch((err) => {
+        alert(`The report could not be parsed because an error occured. Warcraft Logs might be having issues. ${err.message}`);
+        if (process.env.NODE_ENV === 'development') {
+          throw err;
+        } else {
+          console.error(err);
+        }
       });
   }
   onParsingFinished(parser) {
@@ -227,12 +235,8 @@ class App extends Component {
           });
         }
       })
-      .catch((err) => {
-        if (err) {
-          alert(err);
-        } else {
-          alert('I\'m so terribly sorry, an error occured. Try again later or in an updated Google Chrome. (Is Warcraft Logs up?)');
-        }
+      .catch(err => {
+        alert('I\'m so terribly sorry, an error occured. Try again later or in an updated Google Chrome. (Is Warcraft Logs up?)\n\n' + err);
         console.error(err);
         this.setState({
           report: null,
@@ -408,7 +412,7 @@ class App extends Component {
               </ol>
             </div>
 
-            <ul className="nav navbar-nav navbar-right github-link">
+            <ul className="nav navbar-nav navbar-right github-link hidden-xs">
               <li><a href={githubUrl}><span className="hidden-xs"> View on GitHub </span><img src={GithubLogo} alt="GitHub logo" /></a></li>
             </ul>
           </div>
