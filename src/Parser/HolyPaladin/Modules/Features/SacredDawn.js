@@ -9,8 +9,6 @@ import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
-
 const debug = false;
 
 const SACRED_DAWN_BUFF_SPELL_ID = 243174;
@@ -25,7 +23,7 @@ class SacredDawn extends Module {
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
-    if (ABILITIES_AFFECTED_BY_HEALING_INCREASES.indexOf(spellId) === -1) {
+    if (this.owner.constructor.abilitiesAffectedByHealingIncreases.indexOf(spellId) === -1) {
       return;
     }
     if (spellId === SPELLS.BEACON_OF_LIGHT.id) {
@@ -54,7 +52,7 @@ class SacredDawn extends Module {
   }
   on_beacon_heal(beaconTransferEvent, healEvent) {
     const spellId = healEvent.ability.guid;
-    if (ABILITIES_AFFECTED_BY_HEALING_INCREASES.indexOf(spellId) === -1) {
+    if (this.owner.constructor.abilitiesAffectedByHealingIncreases.indexOf(spellId) === -1) {
       return;
     }
     const combatant = this.owner.combatants.players[healEvent.targetID];
