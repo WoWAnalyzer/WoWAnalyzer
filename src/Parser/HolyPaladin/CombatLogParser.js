@@ -22,6 +22,8 @@ import Overhealing from './Modules/PaladinCore/Overhealing';
 import FillerLightOfTheMartyrs from './Modules/PaladinCore/FillerLightOfTheMartyrs';
 import LightOfDawn from './Modules/PaladinCore/LightOfDawn';
 
+import CritEffectBonus from './Modules/Helpers/CritEffectBonus';
+
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import MasteryEffectiveness from './Modules/Features/MasteryEffectiveness';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
@@ -68,6 +70,9 @@ class CombatLogParser extends CoreCombatLogParser {
     overhealing: Overhealing,
     fillerLightOfTheMartyrs: FillerLightOfTheMartyrs,
     lightOfDawn: LightOfDawn,
+
+    // Helpers
+    critEffectBonus: CritEffectBonus,
 
     // Features
     castEfficiency: CastEfficiency,

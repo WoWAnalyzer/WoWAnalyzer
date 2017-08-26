@@ -15,6 +15,9 @@ const T21_2SET_AFFECTED_HEALS = [
   SPELLS.HOLY_LIGHT.id,
 ];
 
+/**
+ * 2 pieces (Holy) : Flash of Light and Holy Light transfer 40% additional healing to your Beacon of Light target.
+ */
 class Tier21_2set extends Module {
   healing = 0;
 

@@ -12,6 +12,7 @@ import Enemies from './Modules/Enemies';
 import HealEventTracker from './Modules/HealEventTracker';
 import ManaValues from './Modules/ManaValues';
 import SpellManaCost from './Modules/SpellManaCost';
+import CritEffectBonus from './Modules/Helpers/CritEffectBonus';
 
 // Shared Legendaries
 import Prydaz from './Modules/Items/Prydaz';
@@ -61,6 +62,8 @@ class CombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     manaValues: ManaValues,
     vantusRune: VantusRune,
+
+    critEffectBonus: CritEffectBonus,
 
     // Items:
     // Legendaries:
