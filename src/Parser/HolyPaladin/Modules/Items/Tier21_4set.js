@@ -7,6 +7,8 @@ import SpellLink from 'common/SpellLink';
 import Module from 'Parser/Core/Module';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 
+import CritEffectBonus from 'Parser/Core/Modules/Helpers/CritEffectBonus';
+
 const BASE_HEALING_MODIFIER = 1.0;
 const CRIT_HEALING_MODIFIER_INCREASE = 1.0;
 const PURITY_OF_LIGHT_CRITICAL_HEALING_INCREASE = 1.0;
@@ -20,10 +22,15 @@ const PURITY_OF_LIGHT_AFFECTED_HEALS = [
  * 4 pieces (Holy) : Holy Shock has a 30% chance to increase the critical healing of your Flash of Light, Holy Light, and Light of Dawn by 100% for 10 sec.
  */
 class Tier21_4set extends Module {
+  static dependencies = {
+    critEffectBonus: CritEffectBonus,
+  };
   healing = 0;
 
   on_initialized() {
     this.active = this.owner.selectedCombatant.hasBuff(SPELLS.HOLY_PALADIN_T21_4SET_BONUS_BUFF.id);
+
+    // Purity of Light (Tier 21 4 set) is multiplicative, so with it Drape of Shame's increase becomes 10%. Because of this we don't need to do anything here to keep it accurate.
   }
 
   lastLightOfDawnHealTimestamp = null;

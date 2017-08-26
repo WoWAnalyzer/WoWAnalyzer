@@ -22,8 +22,6 @@ import Overhealing from './Modules/PaladinCore/Overhealing';
 import FillerLightOfTheMartyrs from './Modules/PaladinCore/FillerLightOfTheMartyrs';
 import LightOfDawn from './Modules/PaladinCore/LightOfDawn';
 
-import CritEffectBonus from './Modules/Helpers/CritEffectBonus';
-
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import MasteryEffectiveness from './Modules/Features/MasteryEffectiveness';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
@@ -37,6 +35,8 @@ import AuraOfSacrifice from './Modules/Talents/AuraOfSacrifice';
 import AuraOfMercy from './Modules/Talents/AuraOfMercy';
 import HolyAvenger from './Modules/Talents/HolyAvenger';
 import DivinePurpose from './Modules/Talents/DivinePurpose';
+
+import ShockTreatment from './Modules/Traits/ShockTreatment';
 
 import DrapeOfShame from './Modules/Items/DrapeOfShame';
 import Ilterendi from './Modules/Items/Ilterendi';
@@ -71,9 +71,6 @@ class CombatLogParser extends CoreCombatLogParser {
     fillerLightOfTheMartyrs: FillerLightOfTheMartyrs,
     lightOfDawn: LightOfDawn,
 
-    // Helpers
-    critEffectBonus: CritEffectBonus,
-
     // Features
     castEfficiency: CastEfficiency,
     masteryEffectiveness: MasteryEffectiveness,
@@ -89,6 +86,9 @@ class CombatLogParser extends CoreCombatLogParser {
     auraOfMercy: AuraOfMercy,
     holyAvenger: HolyAvenger,
     divinePurpose: DivinePurpose,
+
+    // Traits
+    shockTreatment: ShockTreatment,
 
     // Items:
     drapeOfShame: DrapeOfShame,
