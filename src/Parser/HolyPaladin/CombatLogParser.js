@@ -25,7 +25,6 @@ import LightOfDawn from './Modules/PaladinCore/LightOfDawn';
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import MasteryEffectiveness from './Modules/Features/MasteryEffectiveness';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
-import SacredDawn from './Modules/Features/SacredDawn';
 import TyrsDeliverance from './Modules/Features/TyrsDeliverance';
 import CooldownTracker from './Modules/Features/CooldownTracker';
 
@@ -36,6 +35,7 @@ import AuraOfMercy from './Modules/Talents/AuraOfMercy';
 import HolyAvenger from './Modules/Talents/HolyAvenger';
 import DivinePurpose from './Modules/Talents/DivinePurpose';
 
+import SacredDawn from './Modules/Traits/SacredDawn';
 import ShockTreatment from './Modules/Traits/ShockTreatment';
 
 import DrapeOfShame from './Modules/Items/DrapeOfShame';
@@ -75,7 +75,6 @@ class CombatLogParser extends CoreCombatLogParser {
     castEfficiency: CastEfficiency,
     masteryEffectiveness: MasteryEffectiveness,
     alwaysBeCasting: AlwaysBeCasting,
-    sacredDawn: SacredDawn,
     tyrsDeliverance: TyrsDeliverance,
     cooldownTracker: CooldownTracker,
 
@@ -88,6 +87,7 @@ class CombatLogParser extends CoreCombatLogParser {
     divinePurpose: DivinePurpose,
 
     // Traits
+    sacredDawn: SacredDawn,
     shockTreatment: ShockTreatment,
 
     // Items:
