@@ -16,8 +16,9 @@ import UABuffTracker from './Modules/Features/UABuffTracker';
 
 import SoulShardTracker from './Modules/SoulShards/SoulShardTracker';
 import SoulShardDetails from './Modules/SoulShards/SoulShardDetails';
-import DamageDone from './Modules/WarlockCore/DamageDone';
-import FatalEchoes from './Modules/WarlockCore/FatalEchoes';
+import DamageDone from './Modules/Features/DamageDone';
+import FatalEchoes from './Modules/Features/FatalEchoes';
+import Sniping from './Modules/Features/Sniping';
 
 import Haunt from './Modules/Talents/Haunt';
 import MaleficGrasp from './Modules/Talents/MaleficGrasp';
@@ -44,6 +45,9 @@ class CombatLogParser extends CoreCombatLogParser {
     castEfficiency: CastEfficiency,
     alwaysBeCasting: AlwaysBeCasting,
     cooldownTracker: CooldownTracker,
+    damageDone: DamageDone,
+    fatalEchoes: FatalEchoes,
+    sniping: Sniping,
 
     // DoTs
     agonyUptime: AgonyUptime,
@@ -53,8 +57,6 @@ class CombatLogParser extends CoreCombatLogParser {
     //Core
     soulShardTracker: SoulShardTracker,
     soulShardDetails: SoulShardDetails,
-    damageDone: DamageDone,
-    fatalEchoes: FatalEchoes,
 
     //Talents
     haunt: Haunt,
@@ -74,6 +76,7 @@ class CombatLogParser extends CoreCombatLogParser {
     powerCordOfLethtendris: PowerCordOfLethtendris,
     sacrolashsDarkStrike: SacrolashsDarkStrike,
     reapAndSow: ReapAndSow,
+    
     //Items
     tier20_2set: Tier20_2set,
     tier20_4set: Tier20_4set,

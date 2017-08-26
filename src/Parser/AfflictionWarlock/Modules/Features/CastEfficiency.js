@@ -75,13 +75,6 @@ class CastEfficiency extends CoreCastEfficiency {
 
     //Cooldowns
     {
-      spell: SPELLS.REAP_SOULS,
-      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
-      getCooldown: haste => 5,
-      noSuggestion: true,
-      noCanBeImproved: true,
-    },
-    {
       spell: SPELLS.SOUL_HARVEST,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 120,
