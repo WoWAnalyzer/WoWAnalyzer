@@ -11,6 +11,8 @@ import makeAnalyzerUrl from './makeAnalyzerUrl';
 
 class PlayerSelectorHeader extends Component {
   static propTypes = {
+    show: PropTypes.bool.isRequired,
+    callbackSelectors: PropTypes.func.isRequired,
     selectedPlayerName: PropTypes.string.isRequired,
     report: PropTypes.shape({
       code: PropTypes.string.isRequired,
@@ -29,32 +31,27 @@ class PlayerSelectorHeader extends Component {
 
   constructor() {
     super();
-    this.state = {
-      showPlayerDown: false,
-    };
-    this.handlePlayerClick = this.handlePlayerClick.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentWillUnmount() {
     ReactTooltip.hide();
   }
 
-  handlePlayerClick(event) {
-    this.setState({
-      showPlayerDown: !this.state.showPlayerDown,
-    });
+  handleClick(event) {
+    this.props.callbackSelectors('Players', !this.props.show);
   }
 
   render() {
-    const { report, fightId, combatants, selectedPlayerName } = this.props;
+    const { report, fightId, combatants, selectedPlayerName, show } = this.props;
     return (
       <span>
-        <Link onClick={this.handlePlayerClick}>{selectedPlayerName}</Link>
-        {this.state.showPlayerDown &&
+        <Link onClick={this.handleClick}>{selectedPlayerName}</Link>
+        {show &&
           <span className="selectorHeader">
             <div className="panel">
               <div className="panel-body" style={{ padding: 0 }}>
-                <ul className="list selection players" onClick={this.handlePlayerClick}>
+                <ul className="list selection players" onClick={this.handleClick}>
                   {combatants.length === 0 && (
                     <li className="text-danger" style={{ padding: '15px 22px' }}>
                       Could not find any players in this report. Make sure the log is recorded with Advanced Combat Logging enabled. You can enable this in-game in the network settings.

@@ -15,6 +15,7 @@ import GithubLogo from './Images/GitHub-Mark-Light-32px.png';
 
 import Home from './Home';
 import FightSelecter from './FightSelecter';
+import FightSelectorHeader from './FightSelectorHeader';
 import PlayerSelecter from './PlayerSelecter';
 import PlayerSelectorHeader from './PlayerSelectorHeader';
 import Results from './Results';
@@ -83,10 +84,13 @@ class App extends Component {
       progress: 0,
       dataVersion: 0,
       bossId: null,
+      showSelectorPlayers: false,
+      showSelectorFights: false,
     };
 
     this.handleReportSelecterSubmit = this.handleReportSelecterSubmit.bind(this);
     this.handleRefresh = this.handleRefresh.bind(this);
+    this.handleSelectorsClick = this.handleSelectorsClick.bind(this);
   }
   getChildContext() {
     return {
@@ -283,6 +287,8 @@ class App extends Component {
       config: null,
       parser: null,
       progress: 0,
+      showSelectorPlayers: false,
+      showSelectorFights: false,
     });
   }
 
@@ -392,8 +398,20 @@ class App extends Component {
     );
   }
 
+  handleSelectorsClick(from, state) {
+    const other = (from === 'Players' ? 'Fights' : 'Players');
+    this.setState({
+      ['showSelector' + from]: state,
+    });
+    if (this.state['showSelector' + other]) {
+      this.setState({
+        ['showSelector' + other]: !state,
+      });
+    }
+  }
+
   render() {
-    const { report, combatants } = this.state;
+    const { report, combatants, parser } = this.state;
 
     const progress = Math.floor(this.state.progress * 100);
 
@@ -408,8 +426,8 @@ class App extends Component {
               <ol className="breadcrumb">
                 <li className="breadcrumb-item"><Link to={makeAnalyzerUrl()}>{toolName}</Link></li>
                 {this.reportCode && report && <li className="breadcrumb-item"><Link to={makeAnalyzerUrl(report)}>{report.title}</Link></li>}
-                {this.fight && report && <li className="breadcrumb-item"><Link to={makeAnalyzerUrl(report, this.fightId)}>{getFightName(report, this.fight)}</Link></li>}
-                {this.playerName && report && <li className="breadcrumb-item"><PlayerSelectorHeader report={report} fightId={this.fightId} combatants={combatants || []} selectedPlayerName={this.playerName}/></li>}
+                {this.fight && report && <li className="breadcrumb-item"><FightSelectorHeader show={this.state.showSelectorFights} callbackSelectors={this.handleSelectorsClick} report={report} selectedFightName={getFightName(report, this.fight)} parser={parser}/></li>}
+                {this.playerName && report && <li className="breadcrumb-item"><PlayerSelectorHeader show={this.state.showSelectorPlayers} callbackSelectors={this.handleSelectorsClick} report={report} fightId={this.fightId} combatants={combatants || []} selectedPlayerName={this.playerName}/></li>}
               </ol>
             </div>
 
