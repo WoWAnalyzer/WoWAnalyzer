@@ -63,7 +63,7 @@ class Event extends React.PureComponent {
       <tr onClick={this.handleClick} data-tip={`<pre>${JSON.stringify(event, null, 2)}</pre>`} data-place="left" data-effect="solid">
         <td>{formatDuration(event.timestamp - fightStart)}</td>
         <td>{this.renderEntity(source)} ({event.sourceID})</td>
-        <td>{event.type}</td>
+        <td className={event.type}>{event.type}</td>
         <td>{this.renderAbility(event.ability)}</td>
         {target ? <td>on {this.renderEntity(target)} ({event.targetID})</td> : <td />}
         <td>
