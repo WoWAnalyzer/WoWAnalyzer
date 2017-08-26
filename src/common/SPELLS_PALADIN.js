@@ -251,6 +251,11 @@ export default {
     name: 'Shock Treatment',
     icon: 'spell_holy_searinglight',
   },
+  DELIVER_THE_LIGHT: {
+    id: 200294,
+    name: 'Deliver the Light',
+    icon: 'spell_holy_surgeoflight',
+  },
   PROTECTION_OF_TYR: {
     id: 211210,
     name: 'Protection of Tyr',

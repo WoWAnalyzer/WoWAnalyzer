@@ -35,6 +35,7 @@ import AuraOfMercy from './Modules/Talents/AuraOfMercy';
 import HolyAvenger from './Modules/Talents/HolyAvenger';
 import DivinePurpose from './Modules/Talents/DivinePurpose';
 
+import DeliverTheLight from './Modules/Traits/DeliverTheLight';
 import SacredDawn from './Modules/Traits/SacredDawn';
 import ShockTreatment from './Modules/Traits/ShockTreatment';
 
@@ -87,6 +88,7 @@ class CombatLogParser extends CoreCombatLogParser {
     divinePurpose: DivinePurpose,
 
     // Traits
+    deliverTheLight: DeliverTheLight,
     sacredDawn: SacredDawn,
     shockTreatment: ShockTreatment,
 

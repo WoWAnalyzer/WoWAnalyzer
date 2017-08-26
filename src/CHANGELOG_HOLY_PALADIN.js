@@ -1,5 +1,6 @@
 export default `
-26-08-2017 - Added Shock Treatment healing display. This only calculates the value of the last Shock Treatment point, for you with your gear and only during this fight. The value of an additional point would be lower due to the likely increase in overhealing (although small). (by Zerotorescue)
+26-08-2017 - Added Deliver the Light trait healing contribution display. (by Zerotorescue)
+26-08-2017 - Added Shock Treatment healing contribution display. This only calculates the value of the last Shock Treatment point, for you with your gear and only during this fight. The value of an additional point would be lower due to the likely increase in overhealing (although small). (by Zerotorescue)
 26-08-2017 - Fixed Drape of Shame interaction with the tier 21 4 piece set bonus. (by Zerotorescue)
 23-08-2017 - Added Beacon of Virtue to cast efficiency and a suggestion. (by Zerotorescue)
 14-08-2017 - Reworded Maraad's Dying Breath display to be less confusing and moved the total display to the tooltip since it was being used wrong. (by Zerotorescue)
