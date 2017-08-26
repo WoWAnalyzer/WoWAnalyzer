@@ -14,6 +14,9 @@ import LightOfDawn from '../PaladinCore/LightOfDawn';
 
 const LIGHTS_EMBRACE_BEACON_HEAL_INCREASE = 0.4;
 
+/**
+ * 4 pieces (Holy) : For 5 sec after casting Light of Dawn, your healing spells will transfer an additional 40% to your Beacon of Light target.
+ */
 class Tier20_4set extends Module {
   static dependencies = {
     lightOfDawn: LightOfDawn,
@@ -26,7 +29,7 @@ class Tier20_4set extends Module {
     this.active = this.owner.selectedCombatant.hasBuff(SPELLS.HOLY_PALADIN_T20_4SET_BONUS_BUFF.id);
   }
 
-  on_beacon_heal({ beaconTransferEvent, matchedHeal: healEvent }) {
+  on_beacon_heal(beaconTransferEvent, healEvent) {
     const baseBeaconTransferFactor = this.getBaseBeaconTransferFactor(healEvent);
     const lightsEmbraceBeaconTransferFactor = this.getLightsEmbraceBeaconTransferFactor(healEvent);
     if (lightsEmbraceBeaconTransferFactor === 0) {

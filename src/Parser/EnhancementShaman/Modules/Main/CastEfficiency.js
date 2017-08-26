@@ -1,14 +1,6 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
 
 import CoreCastEfficiency from 'Parser/Core/Modules/CastEfficiency';
-import getCastEfficiency from 'Parser/Core/getCastEfficiency';
-
-import Tab from 'Main/Tab';
-
-import CastEfficiencyComponent from 'Main/CastEfficiency';
-
 
 class CastEfficiency extends CoreCastEfficiency {
   static CPM_ABILITIES = [
@@ -26,14 +18,26 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 60,
     },
     {
+      spell: SPELLS.EARTHEN_SPIKE_TALENT,
+      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
+      isActive: combatant => combatant.hasTalent(SPELLS.EARTHEN_SPIKE_TALENT.id),
+      getCooldown: haste => 20,
+    },
+    {
       spell: SPELLS.FERAL_SPIRIT,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 120,
     },
     {
       spell: SPELLS.LIGHTNING_BOLT,
-      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      category: CastEfficiency.SPELL_CATEGORIES.OTHERS,
       getCooldown: haste => null, // 1.5 / (1 + haste)
+    },
+    {
+      spell: SPELLS.WIND_SHEAR,
+      category: CastEfficiency.SPELL_CATEGORIES.OTHERS,
+      getCooldown: haste => null, // 1.5 / (1 + haste)
+      noSuggestion: true,
     },
     {
       spell: SPELLS.ROCKBITER,
@@ -71,22 +75,25 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL_AOE,
       getCooldown: haste => null, // 1.5 / (1 + haste)
     },
+    {
+      spell: SPELLS.ASTRAL_SHIFT,
+      category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
+      getCooldown: haste => 90,
+      noSuggestion: true,
+    },
+    {
+      spell: SPELLS.FERAL_LUNGE,
+      category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
+      getCooldown: haste => 30,
+      noSuggestion: true,
+    },
+    {
+      spell: SPELLS.SPIRIT_WALK,
+      category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
+      getCooldown: haste => 60,
+      noSuggestion: true,
+    },
   ];
-
-  tab() {
-    return {
-      title: 'Cast efficiency',
-      url: 'cast-efficiency',
-      render: () => (
-        <Tab title="Cast efficiency">
-          <CastEfficiencyComponent
-            categories={this.constructor.SPELL_CATEGORIES}
-            abilities={getCastEfficiency(this.constructor.CPM_ABILITIES, this.owner)}
-          />
-        </Tab>
-      ),
-    };
-  }
 }
 
 export default CastEfficiency;

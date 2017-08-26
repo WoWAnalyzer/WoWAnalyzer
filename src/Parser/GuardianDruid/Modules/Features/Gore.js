@@ -44,7 +44,7 @@ class Gore extends Module {
       return;
     }
     if(this.lastGoreProcTime !== event.timestamp) {
-      if(this.lastGoreProcTime === null) {
+      if(this.lastGoreProcTime === 0) {
         this.nonGoreMangle++;
         return;
       }
@@ -54,7 +54,7 @@ class Gore extends Module {
       } else {
         this.consumedGoreProc++;
         debug && console.log('Gore Proc Consumed / Timestamp: ' + event.timestamp);
-        this.lastGoreProcTime = null;
+        this.lastGoreProcTime = 0;
       }
     }
   }

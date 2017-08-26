@@ -1,20 +1,25 @@
 export default `
-23-08-2017 - Holy Paladin: Added Beacon of Virtue to cast efficiency and a suggestion. (by Zerotorescue)
-14-08-2017 - Holy Paladin: Reworded Maraad's Dying Breath display to be less confusing and moved the total display to the tooltip since it was being used wrong. (by Zerotorescue)
-12-08-2017 - Holy Paladin: Changed Crusader Strike cast efficiency suggestion (by Zerotorescue)
-09-08-2017 - Holy Paladin: fully migrated to the new suggestions layout. Changed wording on several suggestions to make them clearer, and increased the <i>LotM is inefficient</i> suggestion breakpoints to 1.5/2/3 CPM (up from 1.0/1.5/2.0) (by Zerotorescue)
-02-08-2017 - Holy Paladin: Added tier 21 2 set bonus (experimental, please send logs). (by Zerotorescue)
-02-08-2017 - Holy Paladin: Added tier 21 4 set bonus (experimental, please send logs). (by Zerotorescue)
-02-08-2017 - Holy Paladin: fixed talent description for Aura of Sacrifice stating Light of Dawn doesn't work (it was fixed). Thanks to @Moonmoon for pointing this out. (by Zerotorescue)
-19-07-2017 - Holy Paladin: Changed Devotion Aura's passive estimated DRPS to be based on the paladin's damage taken instead of raid average. This should be more accurate as it doesn't include tank damage taken. (by Zerotorescue)
-01-07-2017 - Holy Paladin: Added Devotion Aura estimated damage reduced statistic. This statistic requires you to click it to be calculated to minimize the used resources. (by Zerotorescue)
-17-06-2017 - Holy Paladin: Add Soul of the Highlord legendary. (by Zerotorescue)
-08-06-2017 - Holy Paladin: Improve Maraad's healing display; show default an esimation of its value given a Flash of Light as opportunity cost (this should make it easy to compare with other legendaries), in tooltip show gain over casting a filler LotM (may be relevant if the cast time reduction is important to you), and show the total healing done with LotM during the Maraad's buff. (by Zerotorescue)
-08-06-2017 - Holy Paladin: Added Holy Avenger estimated healing statistic. (by Zerotorescue)
-07-06-2017 - Holy Paladin: Added Tier 19 4 set healing statistic. (by Zerotorescue)
-27-05-2017 - Holy Paladin: Added Tier 20 4 set bonus statistic. Reworked how spells and their beacon transfer are matched to be much more reliable. (by Zerotorescue)
-21-05-2017 - Holy Paladin: Show overhealing during cooldowns too. Innervates properly shows mana costs.
-16-05-2017 - Holy Paladin: Added Darkmoon Deck: Promises statistic. Disc Priest: Added Darkmoon Deck: Promises statistic. Added Light's Wrath to cast efficiency. Changed Pain Suppression cooldown to take into account the Pain is in your Mind trait.
+26-08-2017 - Added Second Sunrise trait healing contribution display (please read its tooltip). (by Zerotorescue)
+26-08-2017 - Added Expel the Darkness trait healing contribution display. (by Zerotorescue)
+26-08-2017 - Added Deliver the Light trait healing contribution display. (by Zerotorescue)
+26-08-2017 - Added Shock Treatment healing contribution display. This only calculates the value of the last Shock Treatment point, for you with your gear and only during this fight. The value of an additional point would be lower due to the likely increase in overhealing (although small). (by Zerotorescue)
+26-08-2017 - Fixed Drape of Shame interaction with the tier 21 4 piece set bonus. (by Zerotorescue)
+23-08-2017 - Added Beacon of Virtue to cast efficiency and a suggestion. (by Zerotorescue)
+14-08-2017 - Reworded Maraad's Dying Breath display to be less confusing and moved the total display to the tooltip since it was being used wrong. (by Zerotorescue)
+12-08-2017 - Changed Crusader Strike cast efficiency suggestion (by Zerotorescue)
+09-08-2017 - fully migrated to the new suggestions layout. Changed wording on several suggestions to make them clearer, and increased the <i>LotM is inefficient</i> suggestion breakpoints to 1.5/2/3 CPM (up from 1.0/1.5/2.0) (by Zerotorescue)
+02-08-2017 - Added tier 21 2 set bonus (experimental, please send logs). (by Zerotorescue)
+02-08-2017 - Added tier 21 4 set bonus (experimental, please send logs). (by Zerotorescue)
+02-08-2017 - fixed talent description for Aura of Sacrifice stating Light of Dawn doesn't work (it was fixed). Thanks to @Moonmoon for pointing this out. (by Zerotorescue)
+19-07-2017 - Changed Devotion Aura's passive estimated DRPS to be based on the paladin's damage taken instead of raid average. This should be more accurate as it doesn't include tank damage taken. (by Zerotorescue)
+01-07-2017 - Added Devotion Aura estimated damage reduced statistic. This statistic requires you to click it to be calculated to minimize the used resources. (by Zerotorescue)
+17-06-2017 - Add Soul of the Highlord legendary. (by Zerotorescue)
+08-06-2017 - Improve Maraad's healing display; show default an esimation of its value given a Flash of Light as opportunity cost (this should make it easy to compare with other legendaries), in tooltip show gain over casting a filler LotM (may be relevant if the cast time reduction is important to you), and show the total healing done with LotM during the Maraad's buff. (by Zerotorescue)
+08-06-2017 - Added Holy Avenger estimated healing statistic. (by Zerotorescue)
+07-06-2017 - Added Tier 19 4 set healing statistic. (by Zerotorescue)
+27-05-2017 - Added Tier 20 4 set bonus statistic. Reworked how spells and their beacon transfer are matched to be much more reliable. (by Zerotorescue)
+21-05-2017 - Show overhealing during cooldowns too. Innervates properly shows mana costs.
+16-05-2017 - Added Darkmoon Deck: Promises statistic. Disc Priest: Added Darkmoon Deck: Promises statistic. Added Light's Wrath to cast efficiency. Changed Pain Suppression cooldown to take into account the Pain is in your Mind trait.
 08-05-2017 - Oops one of the lines got mixed up. Fixed Holy Light instead of Flash of Light being suggested to improve Infusion of Light proc usage. Casting Holy Light during IoL is worse, m'kay.
 26-03-2017 - Completely refactor the core, rename to Holy Paladin Analyzer.
 05-05-2017 - Added Aura of Mercy and Sacrifice healing done statistic.

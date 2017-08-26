@@ -67,7 +67,7 @@ class Tier19_4set extends Module {
     }
   }
 
-  on_beacon_heal({ beaconTransferEvent, matchedHeal: healEvent }) {
+  on_beacon_heal(beaconTransferEvent, healEvent) {
     const spellId = healEvent.ability.guid;
     if (spellId !== SPELLS.FLASH_OF_LIGHT.id) {
       return;

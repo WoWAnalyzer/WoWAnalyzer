@@ -1,12 +1,6 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
-import { formatNumber } from 'common/format';
 
 import Module from 'Parser/Core/Module';
-
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 const debug = false;
 
@@ -20,7 +14,7 @@ class MistsOfSheilun extends Module {
   on_initialized() {
     this.active = this.owner.selectedCombatant.traitsBySpellId[SPELLS.MISTS_OF_SHEILUN_TRAIT.id] === 1;
   }
-  
+
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
 
@@ -41,6 +35,7 @@ class MistsOfSheilun extends Module {
     }
   }
 
+  /* Commenting out for now - Removing because of bloat.
   statistic() {
     const avgMistsOfSheilunHealing = this.healingMistsOfSheilun / this.healsMistsOfSheilun || 0;
     const avgMistsOfSheilunTargets = this.healsMistsOfSheilun / this.procsMistsOfSheilun || 0;
@@ -58,6 +53,7 @@ class MistsOfSheilun extends Module {
       );
   }
   statisticOrder = STATISTIC_ORDER.OPTIONAL();
+  */
 
   on_finished() {
     if(debug) {

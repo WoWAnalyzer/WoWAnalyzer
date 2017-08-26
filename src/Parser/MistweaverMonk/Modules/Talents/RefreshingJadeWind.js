@@ -2,12 +2,9 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
-import { formatNumber , formatPercentage } from 'common/format';
+import { formatPercentage } from 'common/format';
 
 import Module from 'Parser/Core/Module';
-
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 const debug = false;
 
@@ -54,6 +51,7 @@ class RefreshingJadeWind extends Module {
       });
   }
 
+  /* Commenting out for now - Removing because of bloat.
   statistic() {
     const avgRJWHealing = this.healingRJW / this.castRJW || 0;
     const avgRJWTargets = this.healsRJW / this.castRJW || 0;
@@ -70,6 +68,7 @@ class RefreshingJadeWind extends Module {
       );
     }
   statisticOrder = STATISTIC_ORDER.OPTIONAL();
+  */
 
   on_finished() {
     if(debug) {

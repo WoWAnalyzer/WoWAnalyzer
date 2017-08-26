@@ -14,7 +14,11 @@ import DamageTaken from './Modules/Core/DamageTaken';
 import DamageDone from './Modules/Core/DamageDone';
 import HealingReceived from './Modules/Core/HealingReceived';
 import Stagger from './Modules/Core/Stagger';
+
+//Spells
 import IronSkinBrew from './Modules/Spells/IronSkinBrew';
+import BlackoutCombo from './Modules/Spells/BlackoutCombo';
+
 
 // Features
 import CastEfficiency from './Modules/Features/CastEfficiency';
@@ -39,6 +43,7 @@ class CombatLogParser extends CoreCombatLogParser {
     
     // Spells
     ironSkinBrew: IronSkinBrew,
+    blackoutCombo: BlackoutCombo,
 
     // Items
     t20_2pc: T20_2pc,

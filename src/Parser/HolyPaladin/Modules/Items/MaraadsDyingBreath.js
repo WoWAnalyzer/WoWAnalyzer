@@ -64,7 +64,7 @@ class MaraadsDyingBreath extends Module {
     // One heal per buff
     this._lastHeal = null;
   }
-  on_beacon_heal({ beaconTransferEvent, matchedHeal }) {
+  on_beacon_heal(beaconTransferEvent, matchedHeal) {
     const spellId = matchedHeal.ability.guid;
     if (spellId !== SPELLS.LIGHT_OF_THE_MARTYR.id) {
       return;

@@ -15,11 +15,10 @@ body {
   background-size: cover;
   background-attachment: fixed;
   color: #fff;
-  min-width: 600px;
+  min-width: 450px;
 }
 @media (min-width: 1200px) {
   .container {
-    transition: width 600ms;
     width: 1170px;
   }
 }
@@ -84,6 +83,7 @@ hr {
   text-transform: uppercase;
   font-weight: 600;
   font-size: 3em;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.2);
 }
 .report-selector {
   position: absolute;
@@ -96,11 +96,13 @@ hr {
   border-top: 1px solid rgba(0, 0, 0, 0.4);
 }
 .report-selector .btn {
-  margin-left: 10px;
   font-size: 0.9em;
   padding: .5rem 1.4rem;
   height: 38px;
   line-height: 1.6;
+}
+.report-code-box .btn {
+  margin-left: 10px;
 }
 @media (min-width: 0px) {
   .form-inline .form-control {
@@ -137,8 +139,11 @@ hr {
   border-radius: 5px;
   border: none;
   margin-bottom: 20px;
-  background: rgba(9, 20, 27, 0.8);
+  background: rgba(9, 20, 27, 0.7);
   box-shadow: 0 5px 5px 0 rgba(0,0,0,.2);
+}
+.panel:not(.statistic-box) {
+  border-top: 4px solid #d84141;
 }
 .panel-heading {
   border-bottom: 1px solid rgba(0, 0, 0, .4);
@@ -149,6 +154,7 @@ hr {
   font-weight: 400;
   opacity: .9;
   text-transform: uppercase;
+  letter-spacing: 0.4px;
   margin: 0;
   font-size: 1.2em;
 }
@@ -187,6 +193,7 @@ hr {
   border: none;
   background: #d84141;
   padding: 7px 30px;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
 }
 .btn-primary:hover, .btn-primary:focus {
   background: #912f2f;
@@ -641,11 +648,28 @@ table.data-table .performance-bar {
   background: #bf3917;
 }
 .btn.discord, .btn.github, .btn.patreon {
-  padding: .5rem 1.4rem;
+  padding: .5rem 1.23rem;
   height: 38px;
   line-height: 2.7rem;
   border: 0;
   font-size: 1.6rem;
+}
+.external-links .btn:not(:first-of-type) {
+  margin-left: 20px;
+}
+@media (min-width: 1200px) and (max-width: 1400px) {
+  .external-links .btn {
+    padding: .5rem 0.95rem;
+    font-size: 1.4rem;
+  }
+  .external-links .btn:not(:first-of-type) {
+    margin-left: 12px;
+  }
+}
+@media (max-width: 1200px) {
+  .report-code-box, .external-links {
+    text-align: center;
+  }
 }
 
 .fade-in {

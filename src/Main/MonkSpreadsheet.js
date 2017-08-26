@@ -64,7 +64,7 @@ class MonkSpreadsheet extends React.Component {
           <tr><td>{Math.floor(parser.fightDuration / 1000 / 60)}</td></tr>
           <tr><td>{Math.floor((parser.fightDuration / 1000) % 60)}</td></tr>
           <tr style={styles.cellBorder}><td>{parser.modules.manaValues.endingMana}</td></tr>
-          <tr style={styles.cellBorder}><td>{(parser.damageTaken / parser.fightDuration * 1000).toFixed(2)}</td></tr>
+          <tr style={styles.cellBorder}><td>{(parser.modules.damageTaken.total.regular / parser.fightDuration * 1000).toFixed(2)}</td></tr>
           <tr style={styles.cellBorder}><td>{parser.modules.thunderFocusTea.castsTft}</td></tr>
           <tr><td>{(parser.modules.thunderFocusTea.castsTftEff / parser.modules.thunderFocusTea.castsTft).toFixed(4)}</td></tr>
           <tr><td>{(parser.modules.thunderFocusTea.castsTftEnm / parser.modules.thunderFocusTea.castsTft).toFixed(4)}</td></tr>

@@ -15,18 +15,6 @@ class ProcTracker extends CoreCooldownTracker {
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],
     },
-    {
-      spell: SPELLS.STORMBRINGER,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.DAMAGE,
-      ],
-    },
-    {
-      spell: SPELLS.LAVA_SURGE,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.DAMAGE,
-      ],
-    },
   ];
 
   tab() {

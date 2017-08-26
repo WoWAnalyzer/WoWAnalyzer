@@ -6,7 +6,7 @@ import ManaUsageGraph from 'Main/ManaUsageGraph';
 
 const Mana = ({ parser }) => (
   <div>
-    <h1>Mana level</h1>
+    <h1>Mana pool</h1>
     <ManaLevelGraph
       reportCode={parser.report.code}
       actorId={parser.playerId}
