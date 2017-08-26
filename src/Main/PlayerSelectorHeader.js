@@ -26,8 +26,8 @@ class PlayerSelectorHeader extends Component {
     })).isRequired,
   };
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.handleClick = this.handleClick.bind(this);
   }
 

@@ -4,10 +4,7 @@ import { Link } from 'react-router';
 import ReactTooltip from 'react-tooltip';
 import Toggle from 'react-toggle';
 
-import getWipeCount from 'common/getWipeCount';
-
-import Fight from './Fight';
-import makeAnalyzerUrl from './makeAnalyzerUrl';
+import FightSelectionList from './FightSelectionList';
 
 class FightSelectorHeader extends Component {
   static propTypes = {
@@ -75,31 +72,18 @@ class FightSelectorHeader extends Component {
               </div>
             </div>
             <div className="panel-body" style={{ padding: 0 }}>
-              <ul className="list selection" onClick={this.handleClick}>
-                {
-                  parser && parser.player &&
+            {
+              parser && parser.player &&
+              <FightSelectionList
+                report={report}
+                fights={
                   parser.player.fights.map(f => report.fights[f.id - 1]) // TODO: We should check if the id's match!
-                    .filter(fight => {
-                      if (!fight) {
-                        return false;
-                      }
-                      if (fight.boss === 0) {
-                        return false;
-                      }
-                      if (killsOnly && fight.kill === false) {
-                        return false;
-                      }
-                      return true;
-                    })
-                    .map(fight => (
-                      <li key={`${fight.id}`} className="item selectable">
-                        <Link to={makeAnalyzerUrl(report, fight.id, parser.player.name)}>
-                          <Fight {...fight} wipes={getWipeCount(report, fight)} />
-                        </Link>
-                      </li>
-                    ))
                 }
-              </ul>
+                playerName={parser.player.name}
+                onClick={this.handleClick}
+                killsOnly={this.state.killsOnly}
+              />
+            }
             </div>
           </div>
         </span>}
