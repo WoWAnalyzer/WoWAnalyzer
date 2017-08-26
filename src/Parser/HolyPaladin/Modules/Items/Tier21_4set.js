@@ -9,8 +9,7 @@ import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 
 import CritEffectBonus from 'Parser/Core/Modules/Helpers/CritEffectBonus';
 
-const BASE_HEALING_MODIFIER = 1.0;
-const CRIT_HEALING_MODIFIER_INCREASE = 1.0;
+const BASE_HEALING_PERCENTAGE = 1.0;
 const PURITY_OF_LIGHT_CRITICAL_HEALING_INCREASE = 1.0;
 const PURITY_OF_LIGHT_AFFECTED_HEALS = [
   SPELLS.FLASH_OF_LIGHT.id,
@@ -30,7 +29,17 @@ class Tier21_4set extends Module {
   on_initialized() {
     this.active = this.owner.selectedCombatant.hasBuff(SPELLS.HOLY_PALADIN_T21_4SET_BONUS_BUFF.id);
 
-    // Purity of Light (Tier 21 4 set) is multiplicative, so with it Drape of Shame's increase becomes 10%. Because of this we don't need to do anything here to keep it accurate.
+    if (this.active) {
+      this.critEffectBonus.hook(this.getCritEffectBonus.bind(this));
+    }
+  }
+
+  getCritEffectBonus(critEffectModifier, event) {
+    if (this.isApplicable(event)) {
+      // Purity of Light (Tier 21 4 set) is multiplicative of the crit effect modifier, so with it Drape of Shame's increase becomes 10%. It is known.
+      critEffectModifier = (critEffectModifier - BASE_HEALING_PERCENTAGE) * (1 + PURITY_OF_LIGHT_CRITICAL_HEALING_INCREASE) + BASE_HEALING_PERCENTAGE;
+    }
+    return critEffectModifier;
   }
 
   lastLightOfDawnHealTimestamp = null;
@@ -43,7 +52,7 @@ class Tier21_4set extends Module {
     const absorbed = event.absorbed || 0;
     const overheal = event.overheal || 0;
     const raw = amount + absorbed + overheal;
-    const rawNormalPart = raw / (BASE_HEALING_MODIFIER + CRIT_HEALING_MODIFIER_INCREASE + PURITY_OF_LIGHT_CRITICAL_HEALING_INCREASE);
+    const rawNormalPart = raw / this.critEffectBonus.getBonus(event);
     const rawDrapeHealing = rawNormalPart * PURITY_OF_LIGHT_CRITICAL_HEALING_INCREASE;
 
     const effectiveHealing = Math.max(0, rawDrapeHealing - overheal);
@@ -59,7 +68,7 @@ class Tier21_4set extends Module {
     const absorbed = beaconTransferEvent.absorbed || 0;
     const overheal = beaconTransferEvent.overheal || 0;
     const raw = amount + absorbed + overheal;
-    const rawNormalPart = raw / (BASE_HEALING_MODIFIER + CRIT_HEALING_MODIFIER_INCREASE + PURITY_OF_LIGHT_CRITICAL_HEALING_INCREASE);
+    const rawNormalPart = raw / this.critEffectBonus.getBonus(healEvent);
     const rawDrapeHealing = rawNormalPart * PURITY_OF_LIGHT_CRITICAL_HEALING_INCREASE;
 
     const effectiveHealing = Math.max(0, rawDrapeHealing - overheal);
