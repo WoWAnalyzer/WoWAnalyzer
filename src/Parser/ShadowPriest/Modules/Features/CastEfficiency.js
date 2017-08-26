@@ -1,6 +1,6 @@
 // import React from 'react';
 
-import ITEMS from 'common/ITEMS';
+// import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 
 import CoreCastEfficiency from 'Parser/Core/Modules/CastEfficiency';
