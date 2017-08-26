@@ -32,6 +32,7 @@ class PlayerSelectorHeader extends Component {
     this.state = {
       showPlayerDown: false,
     };
+    this.handlePlayerClick = this.handlePlayerClick.bind(this);
   }
 
   componentWillUnmount() {
@@ -48,12 +49,12 @@ class PlayerSelectorHeader extends Component {
     const { report, fightId, combatants, selectedPlayerName } = this.props;
     return (
       <span>
-        <Link onClick={this.handlePlayerClick.bind(this)}>{selectedPlayerName}</Link>
+        <Link onClick={this.handlePlayerClick}>{selectedPlayerName}</Link>
         {this.state.showPlayerDown &&
           <span className="selectorHeader">
             <div className="panel">
               <div className="panel-body" style={{ padding: 0 }}>
-                <ul className="list selection players" onClick={this.handlePlayerClick.bind(this)}>
+                <ul className="list selection players" onClick={this.handlePlayerClick}>
                   {combatants.length === 0 && (
                     <li className="text-danger" style={{ padding: '15px 22px' }}>
                       Could not find any players in this report. Make sure the log is recorded with Advanced Combat Logging enabled. You can enable this in-game in the network settings.
