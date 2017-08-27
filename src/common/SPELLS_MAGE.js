@@ -16,4 +16,9 @@ export default {
 
   // Shared:
   // ...
+  TIME_WARP: {
+    id: 80353,
+    name: 'Time Warp',
+    icon: 'ability_mage_timewarp',
+  },
 };
