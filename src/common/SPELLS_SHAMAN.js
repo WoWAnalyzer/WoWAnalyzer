@@ -220,6 +220,11 @@ export default {
     name: 'Aftershock',
     icon: 'spell_nature_stormreach',
   },
+  AFTERSHOCK_TALENT: {
+    id: 210707,
+    name: 'Aftershock',
+    icon: 'spell_nature_stormreach',
+  },
   LIGHTNING_ROD: {
     id: 210689,
     name: 'Lightning Rod',

@@ -22,6 +22,8 @@ import CooldownTracker from './Modules/Features/CooldownTracker';
 import ProcTracker from './Modules/Features/ProcTracker';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 
+import Aftershock from './Modules/Talents/Aftershock';
+
 import './Modules/Main/main.css';
 
 function formatThousands(number) {
@@ -58,6 +60,8 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     cooldownTracker: CooldownTracker,
     procTracker: ProcTracker,
+    // Talents
+    aftershock: Aftershock,
 
     // Legendaries:
   };
