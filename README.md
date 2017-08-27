@@ -6,13 +6,16 @@ You will need a Warcraft Logs report with advanced combat logging enabled to sta
 
 Run it: [https://wowanalyzer.com](https://wowanalyzer.com)
 
-Feature requests (and bug reports provided that you're not using one of Microsoft's browsers) are welcome! Your our Discord: https://discord.gg/AxphPxU or create an issue [here](https://github.com/MartijnHols/WoWAnalyzer/issues).
+Feature requests (and bug reports provided that you're not using one of Microsoft's browsers) are welcome! On our Discord: https://discord.gg/AxphPxU or create an issue [here](https://github.com/MartijnHols/WoWAnalyzer/issues).
 
 ## Contributing
 
-Want to add support for your spec or a module? See the [contributing guidelines](CONTRIBUTING.md).
+You don't need to to do anything special to add a spec. The real issue preventing specs from being added is that in order to add a spec, you need to have the following 3 properties:
+1. Know the spec well enough to actually create something useful
+2. Know how to program well enough to implement the analysis
+3. Have the time and motivation to actually do it
 
-I will likely not have time to work on many more specs by myself, so the only way to get your spec in is to help build it.
+See the [contributing guidelines](CONTRIBUTING.md) if you want to give it a try.
 
 ## Current specs:
 
