@@ -16,3 +16,16 @@
   border-radius: 5px;
   border: 1px solid rgba(0, 0, 0, 0.6);
 }
+.panel.statistic-box.list .panel-heading {
+  text-align: center;
+  padding: 11px 22px 10px;
+}
+.panel.statistic-box.list .panel-body {
+  padding: 8px 12px;
+}
+.panel.statistic-box.list img {
+  height: 1.6em;
+}
+.panel.statistic-box.list .items > * {
+  margin-bottom: 0.3em;
+}
