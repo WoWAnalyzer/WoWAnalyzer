@@ -2,37 +2,39 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
 import Module from 'Parser/Core/Module';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
-
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-
-import TyrsMunificence from '../Traits/TyrsMunificence';
-
-const debug = true;
+import HealingValue from 'Parser/Core/Modules/HealingValue';
 
 const TYRS_DELIVERANCE_BASE_HEALING_INCREASE = 0.2;
 const TYRS_MUNIFICENCE_POINT_HEALING_INCREASE = 0.05;
+const debug = true;
 
-class TyrsDeliverance extends Module {
-  static dependencies = {
-    tyrsMunificence: TyrsMunificence,
-  };
+/**
+ * Tyr's Munificence (Artifact Trait)
+ * Increases the range of Tyr's Deliverance by 2 yards, healing by 5%, and the healing bonus by 5%.
+ */
+class TyrsMunificence extends Module {
+  rank = 0;
+  healing = 0;
 
-  healHealing = 0;
-  buffFoLHLHealing = 0;
+  on_initialized() {
+    this.rank = this.owner.selectedCombatant.traitsBySpellId[SPELLS.TYRS_MUNIFICENCE.id];
+    this.active = this.rank > 0;
+  }
 
   get tyrsHealingIncrease() {
-    return TYRS_DELIVERANCE_BASE_HEALING_INCREASE + this.tyrsMunificence.rank * TYRS_MUNIFICENCE_POINT_HEALING_INCREASE;
+    return TYRS_DELIVERANCE_BASE_HEALING_INCREASE + this.rank * TYRS_MUNIFICENCE_POINT_HEALING_INCREASE;
   }
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
     switch (spellId) {
       case SPELLS.TYRS_DELIVERANCE_HEAL.id:
-        this.healHealing += event.amount + (event.absorbed || 0);
+        this.healing += calculateEffectiveHealing(event, TYRS_MUNIFICENCE_POINT_HEALING_INCREASE); // the passive healing gain from this is likely additive with itself (so 4 traits = 20%, not 21.55%), but testing this is hard and the difference is minimal. Just assuming multiplicative for simplicity sake, it might only be a tiny bit off, and maybe Blizzard actually tried with this trait and it's multiplicative after all.
         break;
       case SPELLS.FLASH_OF_LIGHT.id:
       case SPELLS.HOLY_LIGHT.id: {
@@ -46,7 +48,11 @@ class TyrsDeliverance extends Module {
           break;
         }
 
-        this.buffFoLHLHealing += calculateEffectiveHealing(event, this.tyrsHealingIncrease);
+        const heal = new HealingValue(event.amount, event.absorbed, event.overheal);
+        const base = heal.raw / this.tyrsHealingIncrease;
+        const rawContribution = base * TYRS_MUNIFICENCE_POINT_HEALING_INCREASE;
+
+        this.healing += Math.max(0, rawContribution - heal.overheal);
         break;
       }
       default: break;
@@ -70,21 +76,20 @@ class TyrsDeliverance extends Module {
     this.buffFoLHLHealing += calculateEffectiveHealing(beaconTransferEvent, this.tyrsHealingIncrease);
   }
 
-  statistic() {
-    const tyrsDeliveranceHealHealingPercentage = this.owner.getPercentageOfTotalHealingDone(this.healHealing);
-    const tyrsDeliveranceBuffFoLHLHealingPercentage = this.owner.getPercentageOfTotalHealingDone(this.buffFoLHLHealing);
-    const tyrsDeliverancePercentage = tyrsDeliveranceHealHealingPercentage + tyrsDeliveranceBuffFoLHLHealingPercentage;
-
+  subStatistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.TYRS_DELIVERANCE_CAST.id} />}
-        value={`${formatPercentage(tyrsDeliverancePercentage)} %`}
-        label="Tyr's Deliverance healing"
-        tooltip={`The total actual effective healing contributed by Tyr's Deliverance. This includes the gains from the increase to healing by Flash of Light and Holy Light.<br /><br />The actual healing done by the effect was ${formatPercentage(tyrsDeliveranceHealHealingPercentage)}% of your healing done, and the healing contribution from the Flash of Light and Holy Light heal increase was ${formatPercentage(tyrsDeliveranceBuffFoLHLHealingPercentage)}% of your healing done.`}
-      />
+      <div className="flex">
+        <div className="flex-main">
+          <SpellLink id={SPELLS.TYRS_MUNIFICENCE.id}>
+            <SpellIcon id={SPELLS.TYRS_MUNIFICENCE.id} noLink /> Tyr's Munificence
+          </SpellLink>
+        </div>
+        <div className="flex-sub text-right">
+          {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %
+        </div>
+      </div>
     );
   }
-  statisticOrder = STATISTIC_ORDER.TRAITS();
 }
 
-export default TyrsDeliverance;
+export default TyrsMunificence;

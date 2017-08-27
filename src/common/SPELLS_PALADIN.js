@@ -266,6 +266,11 @@ export default {
     name: 'Second Sunrise',
     icon: 'spell_paladin_lightofdawn',
   },
+  TYRS_MUNIFICENCE: {
+    id: 238060,
+    name: 'Tyr\'s Munificence',
+    icon: 'inv_mace_2h_artifactsilverhand_d_01',
+  },
   PROTECTION_OF_TYR: {
     id: 211210,
     name: 'Protection of Tyr',

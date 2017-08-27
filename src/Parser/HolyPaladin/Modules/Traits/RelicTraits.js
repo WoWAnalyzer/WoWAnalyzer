@@ -8,6 +8,7 @@ import DeliverTheLight from './DeliverTheLight';
 import ExpelTheDarkness from './ExpelTheDarkness';
 import SecondSunrise from './SecondSunrise';
 import ShockTreatment from './ShockTreatment';
+import TyrsMunificence from './TyrsMunificence';
 
 class RelicTraits extends Module {
   static dependencies = {
@@ -15,6 +16,7 @@ class RelicTraits extends Module {
     expelTheDarkness: ExpelTheDarkness,
     secondSunrise: SecondSunrise,
     shockTreatment: ShockTreatment,
+    tyrsMunificence: TyrsMunificence,
   };
 
   statistic() {
@@ -28,6 +30,7 @@ class RelicTraits extends Module {
         {this.deliverTheLight.subStatistic()}
         {this.secondSunrise.subStatistic()}
         {this.expelTheDarkness.subStatistic()}
+        {this.tyrsMunificence.subStatistic()}
       </StatisticsListBox>
     );
   }
