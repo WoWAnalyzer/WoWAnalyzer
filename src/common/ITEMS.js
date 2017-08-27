@@ -230,6 +230,12 @@ const ITEMS = {
     icon: 'inv_shoulder_robe_raidpriest_k_01',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+  MANGAZAS_MADNESS: {
+    id: 132864,
+    name: 'Mangaza\'s Madness',
+    icon: 'inv_belt_92v4',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
   // Trinkets
   DARKMOON_DECK_PROMISES: {
     id: 128710,
