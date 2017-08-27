@@ -18,7 +18,9 @@ class Results extends React.Component {
       updateResults: this.forceUpdate.bind(this),
     };
   }
-
+  static contextTypes = {
+    config: PropTypes.object.isRequired,
+  };
   static propTypes = {
     parser: PropTypes.object.isRequired,
     tab: PropTypes.string,
@@ -78,7 +80,7 @@ class Results extends React.Component {
 
     return (
       <div style={{ width: '100%' }}>
-        <h1>
+        <h1 style={{ marginBottom: 0 }}>
           <div className="back-button">
             <Link to={`/report/${parser.report.code}/${parser.fight.id}`} data-tip="Back to player selection">
               <span className="glyphicon glyphicon-chevron-left" aria-hidden />
@@ -95,6 +97,7 @@ class Results extends React.Component {
             <span className="glyphicon glyphicon-link" aria-hidden /> Open report
           </a>
         </h1>
+        <div className="text-muted" style={{ marginBottom: 20 }}>The {this.context.config.spec.specName} {this.context.config.spec.className} analysis is being maintained by {this.context.config.maintainer}.</div>
 
         <div className="row">
           <div className="col-md-8">

@@ -1,4 +1,5 @@
 export default `
+27-08-2017 - Added a small line showing the maintainer of a spec to the results page. (by Zerotorescue)
 24-08-2017 - Better error handling when the WCL API is sending weird responses. (by Zerotorescue)
 24-08-2017 - Slightly improve layouts for both desktop and mobile. (by Zerotorescue)
 24-08-2017 - Changelogs are now seperated by a select box. (by Blazyb)
