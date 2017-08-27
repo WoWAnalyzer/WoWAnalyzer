@@ -6,7 +6,7 @@ import './StatisticBox.css';
 export { default as STATISTIC_ORDER } from './STATISTIC_ORDER';
 
 const StatisticsListBox = ({ title, tooltip, children, ...others }) => (
-  <div className="panel statistic-box list" {...others}>
+  <div className="panel statistic-box statistic-list" {...others}>
     <div className="panel-heading">
       <h2>{tooltip ? <dfn data-tip={tooltip}>{title}</dfn> : title}</h2>
     </div>
