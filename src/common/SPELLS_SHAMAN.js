@@ -122,6 +122,16 @@ export default {
     name: 'Lava Beam Overload',
     icon: 'spell_fire_soulburn',
   },
+  LAVA_BEAM_INSTANT: {
+    id: 217891,
+    name: 'Lava Beam',
+    icon: 'ability_mage_firestarter',
+  },
+  LAVA_BEAM_OVERLOAD_INSTANT: {
+    id: 218559,
+    name: 'Lava Beam Overload',
+    icon: 'spell_fire_soulburn',
+  },
   EARTHQUAKE: {
     id: 61882,
     name: 'Earthquake',
@@ -230,6 +240,11 @@ export default {
     id: 224852,
     name: 'Pristine Proto-Scale Girdle',
     icon: 'spell_shaman_lavaburst',
+  },
+  THE_DECEIVERS_BLOOD_PACT_BUFF: {
+    id: 214134,
+    name: 'The Deceiver\'s Blood Pact',
+    icon: 'ability_creature_cursed_04',
   },
   // Enhancement Shaman
   ROCKBITER: {

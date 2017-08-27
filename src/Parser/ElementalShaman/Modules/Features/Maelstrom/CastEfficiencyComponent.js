@@ -65,7 +65,7 @@ CastEfficiency.propTypes = {
       spellId: PropTypes.number.isRequired,
     }).isRequired,
   })).isRequired,
-  categories: PropTypes.array,
+  categories: PropTypes.shape(),
 };
 
 export default CastEfficiency;
