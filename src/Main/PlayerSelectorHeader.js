@@ -8,8 +8,6 @@ import PlayerSelectionList from './PlayerSelectionList';
 
 class PlayerSelectorHeader extends Component {
   static propTypes = {
-    show: PropTypes.bool.isRequired,
-    callbackSelectors: PropTypes.func.isRequired,
     selectedPlayerName: PropTypes.string.isRequired,
     report: PropTypes.shape({
       code: PropTypes.string.isRequired,
@@ -28,27 +26,48 @@ class PlayerSelectorHeader extends Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      show: false,
+    };
     this.handleClick = this.handleClick.bind(this);
+    this.handleDocumentClick = this.handleDocumentClick.bind(this);
+    this.setRef = this.setRef.bind(this);
+  }
+
+  componentDidMount() {
+    document.body.addEventListener('click', this.handleDocumentClick);
   }
 
   componentWillUnmount() {
+    document.body.removeEventListener('click', this.handleDocumentClick);
     ReactTooltip.hide();
   }
 
   handleClick(event) {
-    this.props.callbackSelectors('Players', !this.props.show);
+    this.setState({show: !this.state.show});
+  }
+
+  handleDocumentClick(event) {
+    if (this.ref && !this.ref.contains(event.target)) {
+      this.setState({show: false});
+    }
+  }
+
+  setRef(node) {
+    this.ref = node;
   }
 
   render() {
-    const { report, fightId, combatants, selectedPlayerName, show } = this.props;
+    const { report, fightId, combatants, selectedPlayerName } = this.props;
+    const { show } = this.state;
     return (
-      <span>
+      <span ref={this.setRef}>
         <Link onClick={this.handleClick}>{selectedPlayerName}</Link>
         {show &&
           <span className="selectorHeader">
             <div className="panel">
-              <div className="panel-body" style={{ padding: 0 }}>
-                <PlayerSelectionList report={report} onClick={this.handleClick} fightId={fightId} combatants={combatants}/>
+              <div className="panel-body" style={{ padding: 0 }} onClick={this.handleClick}>
+                <PlayerSelectionList report={report} fightId={fightId} combatants={combatants}/>
               </div>
             </div>
           </span>}
