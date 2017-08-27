@@ -65,7 +65,7 @@ class CombatLogParser extends CoreCombatLogParser {
   generateResults() {
     const results = super.generateResults();
     
-    // const hasElementalBlast = this.selectedCombatant.hasTalent(SPELLS.ELEMENTAL_BLAST_TALENT.id);
+    const hasElementalBlast = this.selectedCombatant.hasTalent(SPELLS.ELEMENTAL_BLAST_TALENT.id);
     // const hasEchosElements = this.selectedCombatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id);
     // const hasAscendance = this.selectedCombatant.hasTalent(SPELLS.ASCENDANCE_ELEMENTAL_TALENT.id);
     // const hasLightningRod = this.selectedCombatant.hasTalent(SPELLS.LIGHTNING_ROD.id);
@@ -192,6 +192,7 @@ class CombatLogParser extends CoreCombatLogParser {
         )}
         label={'Overload procs'}
       />,
+      hasElementalBlast &&
       <StatisticBox
         icon={<SpellIcon id={SPELLS.ELEMENTAL_BLAST.id} />}
         value={`${formatPercentage(elementalBlastUptime)} %`}
