@@ -33,6 +33,11 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => null, // 2 / (1 + haste)
     },
     {
+      spell: SPELLS.LAVA_BEAM,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL_AOE,
+      getCooldown: haste => null,
+    },
+    {
       spell: SPELLS.EARTHQUAKE,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL_AOE,
       getCooldown: haste => null,
