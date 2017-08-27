@@ -97,7 +97,7 @@ class Results extends React.Component {
             <span className="glyphicon glyphicon-link" aria-hidden /> Open report
           </a>
         </h1>
-        <div className="text-muted" style={{ marginBottom: 20 }}>The {this.context.config.spec.specName} {this.context.config.spec.className} analysis is being maintained by {this.context.config.maintainer}.</div>
+        <div className="text-muted" style={{ marginBottom: 20 }}>The {this.context.config.spec.specName} {this.context.config.spec.className} analyzer is being maintained by {this.context.config.maintainer}.</div>
 
         <div className="row">
           <div className="col-md-8">
