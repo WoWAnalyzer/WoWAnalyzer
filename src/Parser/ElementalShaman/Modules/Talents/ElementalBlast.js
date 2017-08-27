@@ -35,11 +35,11 @@ class ElementalBlast extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.ELEMENTAL_BLAST.id} />}
         value={`${formatPercentage(this.elementalBlastUptime)} %`}
-        label={(
-          <dfn data-tip={`With <b class="stat-mastery">${formatPercentage(this.masteryUptime)}% Mastery</b>, <b class="stat-criticalstrike">${formatPercentage(this.critUptime)}% Crit</b>, <b  class="stat-haste">${formatPercentage(this.hasteUptime)}% Haste</b> Uptime`}>
-            Uptime
-          </dfn>
-        )}
+        label={`Uptime`}
+        tooltip={`
+          <b class="stat-mastery">${formatPercentage(this.masteryUptime)}% Mastery</b><br/>
+          <b class="stat-criticalstrike">${formatPercentage(this.critUptime)}% Crit</b><br/>
+          <b class="stat-haste">${formatPercentage(this.hasteUptime)}% Haste</b>`}
       />
     );
   }
