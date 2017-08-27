@@ -50,12 +50,16 @@ Continue reading below for more general contribution information.
 
 When you are done with your changes you need to [commit your work](http://dont-be-afraid-to-commit.readthedocs.io/en/latest/git/commandlinegit.html). When you're finished, push your changes to your fork, then open the GitHub page for your fork and it should show a button to *Create pull request*, this is often the easiest way to make a pull request. Explain why what you did matters and why you did what you did (although if you have to explain why you did what you did then you should probably include that as comments in your code). Your PR will be reviewed to find potential issues.
 
+<p align="center">
+   <img src="https://media.giphy.com/media/l1J3vV5lCmv8qx16M/giphy.gif">
+</p>
+
 Don't forget to update the changelog, but only include changes that users might notice.
 
 <table align="center">
   <tr>
     <td align="center" width="100"><img src="https://cdn1.iconfinder.com/data/icons/CrystalClear/48x48/apps/important.png" alt="Important"></td>
-    <td>Please make small Pull Requests. For example one PR when you got your spec working with Cast Efficiency set up and maybe ABC, and then preferably 1 PR per additional module. Larger PRs may take a long time to be reviewed.</td>
+    <td>Please make small Pull Requests. For example one PR when you got your spec working with Cast Efficiency set up and maybe ABC, and then preferably 1 PR per additional module. Larger PRs may take a long time to be reviewed and merged.</td>
   </tr>
 </table>
 
