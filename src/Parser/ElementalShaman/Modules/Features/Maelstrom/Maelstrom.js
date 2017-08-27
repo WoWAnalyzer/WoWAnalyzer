@@ -14,7 +14,7 @@ import specialEventIndicators from 'Main/Chartist/specialEventIndicators';
 
 import 'Main/Mana.css';
 
-import CastEfficiency from '../Features/CastEfficiency';
+import CastEfficiency from './CastEfficiencyComponent';
 import './Maelstrom.css';
 
 const formatDuration = (duration) => {

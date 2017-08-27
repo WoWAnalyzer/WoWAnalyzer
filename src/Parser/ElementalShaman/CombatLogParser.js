@@ -15,7 +15,7 @@ import Talents from 'Main/Talents';
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
-import Maelstrom from './Modules/Main/Maelstrom';
+import Maelstrom from './Modules/Features/Maelstrom/Maelstrom';
 
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import CooldownTracker from './Modules/Features/CooldownTracker';
