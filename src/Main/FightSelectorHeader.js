@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import ReactTooltip from 'react-tooltip';
 import Toggle from 'react-toggle';
 
+import SelectorBase from './SelectorBase';
 import FightSelectionList from './FightSelectionList';
 
-class FightSelectorHeader extends Component {
+class FightSelectorHeader extends SelectorBase {
   static propTypes = {
     selectedFightName: PropTypes.string.isRequired,
     parser: PropTypes.shape(),
@@ -29,40 +29,12 @@ class FightSelectorHeader extends Component {
     super(props);
     this.state = {
       killsOnly: false,
-      show: false,
     };
-    this.handleClick = this.handleClick.bind(this);
-    this.handleDocumentClick = this.handleDocumentClick.bind(this);
-    this.setRef = this.setRef.bind(this);
-  }
-
-  componentDidMount() {
-    document.body.addEventListener('click', this.handleDocumentClick);
-  }
-
-  componentWillUnmount() {
-    document.body.removeEventListener('click', this.handleDocumentClick);
-    ReactTooltip.hide();
-  }
-
-  handleClick(event) {
-    this.setState({show: !this.state.show});
-  }
-
-  handleDocumentClick(event) {
-    if (this.ref && !this.ref.contains(event.target)) {
-      this.setState({show: false});
-    }
-  }
-
-  setRef(node) {
-    this.ref = node;
   }
 
   render() {
     const { report, selectedFightName, parser } = this.props;
     const { killsOnly, show } = this.state;
-
     return (
       <span ref={this.setRef}>
         <Link onClick={this.handleClick}>{selectedFightName}</Link>

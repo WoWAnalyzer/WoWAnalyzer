@@ -1,12 +1,12 @@
 // Note: Based on PlayerSelecter
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import ReactTooltip from 'react-tooltip';
 
+import SelectorBase from './SelectorBase';
 import PlayerSelectionList from './PlayerSelectionList';
 
-class PlayerSelectorHeader extends Component {
+class PlayerSelectorHeader extends SelectorBase {
   static propTypes = {
     selectedPlayerName: PropTypes.string.isRequired,
     report: PropTypes.shape({
@@ -23,39 +23,6 @@ class PlayerSelectorHeader extends Component {
 
     })).isRequired,
   };
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      show: false,
-    };
-    this.handleClick = this.handleClick.bind(this);
-    this.handleDocumentClick = this.handleDocumentClick.bind(this);
-    this.setRef = this.setRef.bind(this);
-  }
-
-  componentDidMount() {
-    document.body.addEventListener('click', this.handleDocumentClick);
-  }
-
-  componentWillUnmount() {
-    document.body.removeEventListener('click', this.handleDocumentClick);
-    ReactTooltip.hide();
-  }
-
-  handleClick(event) {
-    this.setState({show: !this.state.show});
-  }
-
-  handleDocumentClick(event) {
-    if (this.ref && !this.ref.contains(event.target)) {
-      this.setState({show: false});
-    }
-  }
-
-  setRef(node) {
-    this.ref = node;
-  }
 
   render() {
     const { report, fightId, combatants, selectedPlayerName } = this.props;
