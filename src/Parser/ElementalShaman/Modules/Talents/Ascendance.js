@@ -16,6 +16,8 @@ class Ascendance extends Module {
 
   numCasts = {
     [SPELLS.LAVA_BURST.id]: 1,
+    [SPELLS.EARTH_SHOCK.id]: 1,
+    [SPELLS.ELEMENTAL_BLAST.id]: 1,
     [SPELLS.FLAME_SHOCK.id]: 1,
     [SPELLS.LIGHTNING_BOLT.id]: 1,
     'others': 1,
@@ -59,9 +61,11 @@ class Ascendance extends Module {
         tooltip={`With a uptime of: ${formatPercentage(this.AscendanceUptime)} %<br>
         Casts while Ascendance was up:<br>
         <ul>
-          <li>Flame Shock(s): ${this.numCasts[SPELLS.FLAME_SHOCK.id]}</li>
-          <li>Lightning Bolt(s): ${this.numCasts[SPELLS.LIGHTNING_BOLT.id]}</li>
-          <li>Other Spell(s): ${this.numCasts['others']}</li>
+          <li>Earth Shock: ${this.numCasts[SPELLS.EARTH_SHOCK.id]}</li>
+          <li>Elemental Blast: ${this.numCasts[SPELLS.ELEMENTAL_BLAST.id]}</li>
+          <li>Flame Shock: ${this.numCasts[SPELLS.FLAME_SHOCK.id]}</li>
+          <li>Lightning Bolt: ${this.numCasts[SPELLS.LIGHTNING_BOLT.id]}</li>
+          <li>Other Spells: ${this.numCasts['others']}</li>
         </ul>
         `}
       />
