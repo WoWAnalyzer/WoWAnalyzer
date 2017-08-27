@@ -98,18 +98,16 @@ class Results extends React.Component {
 
         <div className="row">
           <div className="col-md-8">
-            <div className="row">
+            <div className="row statistics">
               {results.statistics
                 .filter(statistic => !!statistic) // filter optionals
                 .map(statistic => statistic.statistic ? statistic : { statistic, order: 0 }) // normalize
                 .sort((a, b) => a.order - b.order)
-                .map((statistic, i) => {
-                  return (
-                    <div className="col-lg-4 col-sm-6 col-xs-12" key={i}>
-                      {statistic.statistic}
-                    </div>
-                  );
-                })}
+                .map((statistic, i) => (
+                  <div className="col-lg-4 col-sm-6 col-xs-12" key={`${statistic.order}-${i}`}>
+                    {statistic.statistic}
+                  </div>
+                ))}
             </div>
           </div>
           <div className="col-md-4">
