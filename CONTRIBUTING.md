@@ -83,3 +83,5 @@ Examples:
 
 If you're planning on working on a radical idea I recommend discussing it before you invest a lot of time. It would be a shame if your idea does not fit the project and your work was for naught. Example:
 * Don't convert primary/secondary stats into DPS/HPS values. I'm open to giving this a try, but it needs to be thought through extensively and you'll need to convince it's accurate enough. The buff uptime or average stat gain is probably the most accurate information you could show. This also goes for resources such as mana.
+
+![](https://media.giphy.com/media/J1WCiEDZ74RvW/giphy.gif)
