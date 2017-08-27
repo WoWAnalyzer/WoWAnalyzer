@@ -71,10 +71,14 @@ export default {
   },
   DEMON_SPIKES: {
     id: 203720,
-    buffId: 203819,
     name: 'Demon Spikes',
     icon: 'ability_demonhunter_demonspikes',
     painCost: 20,
+  },
+  DEMON_SPIKES_BUFF: {
+    id: 203819,
+    name: 'Demon Spikes',
+    icon: 'ability_demonhunter_demonspikes',
   },
   FIERY_BRAND: {
     id: 204021,
@@ -139,6 +143,11 @@ export default {
     id: 247456,
     name: 'Frailty',
     icon: 'inv_icon_shadowcouncilorb_purple',
+  },
+  FELBLADE_PAIN_GENERATION: {
+    id: 213243,
+    name: 'Felblade',
+    icon: 'ability_demonhunter_felblade',
   },
 
   // Artifact Traits:

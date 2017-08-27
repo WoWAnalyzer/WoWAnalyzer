@@ -1,18 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import SPELLS from 'common/SPELLS';
-import Icon from 'common/Icon';
-import { formatThousands } from 'common/format';
-
+import Event from './Event';
 import './EventsTab.css';
-
-function formatDuration(duration) {
-  const sumSeconds = duration / 1000;
-  const seconds = (sumSeconds % 60);
-  const minutes = Math.floor(sumSeconds / 60);
-  return `${minutes < 10 ? `0${minutes}` : minutes}:${seconds < 10 ? `0${seconds.toFixed(3)}` : seconds.toFixed(3)}`;
-}
 
 class EventsTab extends React.Component {
   static propTypes = {
@@ -23,7 +13,9 @@ class EventsTab extends React.Component {
   constructor() {
     super();
     this.state = {
-      page: 0,
+      sourceFilter: null,
+      typeFilter: null,
+      abilityFilter: null,
     };
   }
 
@@ -39,28 +31,13 @@ class EventsTab extends React.Component {
     return null;
   }
 
-  renderEntity(entity) {
-    if (!entity) {
-      return null;
-    }
-    return <span className={entity.type}>{entity.name}</span>;
-  }
-  renderAbility(ability) {
-    if (!ability) {
-      return null;
-    }
-    const spellId = ability.guid;
-    const exists = !!SPELLS[spellId];
-
-    return (
-      <a href={`http://www.wowhead.com/spell=${spellId}`} target="_blank" rel="noopener noreferrer" className={exists ? 'exists' : 'missing'}>
-        {exists ? '✔' : '✖'} <Icon icon={ability.abilityIcon} /> {ability.name}
-      </a>
-    );
-  }
-
   render() {
     const { parser } = this.props;
+
+    const sourceFilterRegExp = this.state.sourceFilter && new RegExp(this.state.sourceFilter, 'i');
+    const typeFilterRegExp = this.state.typeFilter && new RegExp(this.state.typeFilter, 'i');
+    const abilityFilterRegExp = this.state.abilityFilter && new RegExp(this.state.abilityFilter, 'i');
+    const targetFilterRegExp = this.state.targetFilter && new RegExp(this.state.targetFilter, 'i');
 
     return (
       <div>
@@ -68,40 +45,53 @@ class EventsTab extends React.Component {
           <h2>Combatlog Events</h2>
         </div>
         <div className="panel-body">
+          The filters can be regular expressions (e.g. <code>cast|heal</code>). Source/target currently only search by ID. Note: Rendering the list is extremely slow right now.
+
           <table className="events">
-            {parser._debugEventHistory.map((event, index) => {
-              const source = event.sourceID ? this.findEntity(event.sourceID) : event.source;
-              const target = event.targetID ? this.findEntity(event.targetID) : event.target;
+            <thead>
+              <tr>
+                <td />
+                <td>
+                  <input type="text" className="form-control" onChange={e => this.setState({ sourceFilter: e.target.value })} value={this.state.sourceFilter || ''} />
+                </td>
+                <td>
+                  <input type="text" className="form-control" onChange={e => this.setState({ typeFilter: e.target.value })} value={this.state.typeFilter || ''} />
+                </td>
+                <td>
+                  <input type="text" className="form-control" onChange={e => this.setState({ abilityFilter: e.target.value })} value={this.state.abilityFilter || ''} />
+                </td>
+                <td>
+                  <input type="text" className="form-control" onChange={e => this.setState({ targetFilter: e.target.value })} value={this.state.targetFilter || ''} />
+                </td>
+                <td />
+              </tr>
+            </thead>
+            <tbody>
+              {parser._debugEventHistory
+                .filter(event => {
+                  if (sourceFilterRegExp && !sourceFilterRegExp.test(event.sourceID)) {
+                    return false;
+                  }
+                  if (typeFilterRegExp && !typeFilterRegExp.test(event.type)) {
+                    return false;
+                  }
+                  if (abilityFilterRegExp && event.ability && !abilityFilterRegExp.test(event.ability.name)) {
+                    return false;
+                  }
+                  if (targetFilterRegExp && !targetFilterRegExp.test(event.targetID)) {
+                    return false;
+                  }
+                  return true;
+                })
+                .map((event, index) => {
+                  const source = event.sourceID ? this.findEntity(event.sourceID) : event.source;
+                  const target = event.targetID ? this.findEntity(event.targetID) : event.target;
 
-              const trimmedEvent = { ...event };
-              delete trimmedEvent.ability;
-              delete trimmedEvent.type;
-              delete trimmedEvent.timestamp;
-              delete trimmedEvent.sourceID;
-              delete trimmedEvent.targetID;
-
-              return (
-                <tr key={index} onClick={() => console.log(event)} data-tip={`<pre>${JSON.stringify(event, null, 2)}</pre>`} data-place="left" data-effect="solid">
-                  <td>{formatDuration(event.timestamp - parser.fight.start_time)}</td>
-                  <td>{this.renderEntity(source)}</td>
-                  <td>{event.type}</td>
-                  <td>{this.renderAbility(event.ability)}</td>
-                  {target ? <td>on {this.renderEntity(target)}</td> : <td />}
-                  <td>
-                    {event.type === 'damage' && (
-                      <span className={event.type}>
-                        {formatThousands(event.amount)} {event.absorbed ? <span className="absorbed">(A: {formatThousands(event.absorbed)})</span> : null}
-                      </span>
-                    )}
-                    {event.type === 'heal' && (
-                      <span className={event.type}>
-                        {formatThousands(event.amount)} {event.absorbed ? <span className="absorbed">(A: {formatThousands(event.absorbed)})</span> : null} {event.overheal ? <span className="overheal">(O: {formatThousands(event.overheal)})</span> : null}
-                      </span>
-                    )}
-                  </td>
-                </tr>
-              );
-            })}
+                  return (
+                    <Event key={index} event={event} fightStart={parser.fight.start_time} source={source} target={target} />
+                  );
+                })}
+            </tbody>
           </table>
         </div>
       </div>
