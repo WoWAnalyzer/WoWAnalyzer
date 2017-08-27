@@ -36,11 +36,11 @@ If you are currently dealing with some path errors (module not found), instead o
 
 # Editing
 
-Start small. Try changing something to see things change (your browser should refresh automatically after automatically recompiling). If you verified everything is working, you're ready to go to the real stuff.
+Make a feature branch `git checkout -b my-new-feature`. Start small. Try changing something to see things change (your browser should refresh automatically after automatically recompiling). If you verified everything is working, you're ready to go to the real stuff.
 
 Looking into the Holy Paladin implementation is a great way to find out how to do things. This spec is usually the most up-to-date with the best practices in this project.
 
-How to develop parts of the app are described in the following files:
+How to develop parts of the app is further explained in the following files:
 - [CONTRIBUTING.SPEC.md](CONTRIBUTING.SPEC.md): Information on how to create a spec.
 - [CONTRIBUTING.MODULE.md](CONTRIBUTING.MODULE.md): Information on how to create a module.
 
