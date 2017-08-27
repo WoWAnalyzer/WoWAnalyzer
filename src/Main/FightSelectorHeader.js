@@ -8,8 +8,6 @@ import FightSelectionList from './FightSelectionList';
 
 class FightSelectorHeader extends Component {
   static propTypes = {
-    show: PropTypes.bool.isRequired,
-    callbackSelectors: PropTypes.func.isRequired,
     selectedFightName: PropTypes.string.isRequired,
     parser: PropTypes.shape(),
     report: PropTypes.shape({
@@ -31,24 +29,42 @@ class FightSelectorHeader extends Component {
     super(props);
     this.state = {
       killsOnly: false,
+      show: false,
     };
     this.handleClick = this.handleClick.bind(this);
+    this.handleDocumentClick = this.handleDocumentClick.bind(this);
+    this.setRef = this.setRef.bind(this);
+  }
+
+  componentDidMount() {
+    document.body.addEventListener('click', this.handleDocumentClick);
   }
 
   componentWillUnmount() {
+    document.body.removeEventListener('click', this.handleDocumentClick);
     ReactTooltip.hide();
   }
 
   handleClick(event) {
-    this.props.callbackSelectors('Fights', !this.props.show);
+    this.setState({show: !this.state.show});
+  }
+
+  handleDocumentClick(event) {
+    if (this.ref && !this.ref.contains(event.target)) {
+      this.setState({show: false});
+    }
+  }
+
+  setRef(node) {
+    this.ref = node;
   }
 
   render() {
-    const { report, selectedFightName, parser, show } = this.props;
-    const { killsOnly } = this.state;
+    const { report, selectedFightName, parser } = this.props;
+    const { killsOnly, show } = this.state;
 
     return (
-      <span>
+      <span ref={this.setRef}>
         <Link onClick={this.handleClick}>{selectedFightName}</Link>
         {show && parser && parser.player &&
         <span className="selectorHeader">
@@ -71,16 +87,14 @@ class FightSelectorHeader extends Component {
                 </div>
               </div>
             </div>
-            <div className="panel-body" style={{ padding: 0 }}>
-            {
-              parser && parser.player &&
+            <div className="panel-body" style={{ padding: 0 }} onClick={this.handleClick}>
+            {parser && parser.player &&
               <FightSelectionList
                 report={report}
                 fights={
                   parser.player.fights.map(f => report.fights[f.id - 1]) // TODO: We should check if the id's match!
                 }
                 playerName={parser.player.name}
-                onClick={this.handleClick}
                 killsOnly={this.state.killsOnly}
               />
             }
