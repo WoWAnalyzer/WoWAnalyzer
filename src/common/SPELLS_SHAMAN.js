@@ -572,6 +572,12 @@ export default {
     name: 'Ancestral Vigor',
     icon: 'spell_shaman_blessingoftheeternals',
   },
+  BLOOD_LUST: {
+    id: 32182,
+    name: 'Heroism',
+    icon: 'ability_shaman_heroism',
+    baseMana: 0.215,
+  },
 
   // Traits:
   // Restoration Shaman:
