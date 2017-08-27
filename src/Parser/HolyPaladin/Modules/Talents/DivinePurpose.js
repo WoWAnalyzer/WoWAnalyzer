@@ -67,7 +67,7 @@ class DivinePurpose extends Module {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(75);
 }
 
 export default DivinePurpose;

@@ -72,7 +72,7 @@ class HolyAvenger extends Module {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(1);
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(75);
 }
 
 export default HolyAvenger;

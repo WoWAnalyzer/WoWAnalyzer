@@ -35,6 +35,7 @@ import AuraOfMercy from './Modules/Talents/AuraOfMercy';
 import HolyAvenger from './Modules/Talents/HolyAvenger';
 import DivinePurpose from './Modules/Talents/DivinePurpose';
 
+import RelicTraits from './Modules/Traits/RelicTraits';
 import DeliverTheLight from './Modules/Traits/DeliverTheLight';
 import ExpelTheDarkness from './Modules/Traits/ExpelTheDarkness';
 import SacredDawn from './Modules/Traits/SacredDawn';
@@ -95,6 +96,7 @@ class CombatLogParser extends CoreCombatLogParser {
     sacredDawn: SacredDawn,
     secondSunrise: SecondSunrise,
     shockTreatment: ShockTreatment,
+    relicTraits: RelicTraits,
 
     // Items:
     drapeOfShame: DrapeOfShame,

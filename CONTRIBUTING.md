@@ -1,26 +1,34 @@
 # Contributing
 
-Hey, welcome! Awesome you're interested in helping out! This should get you along the way. If you have any questions the WoW Analyzer Discord is the place to ask: https://discord.gg/AxphPxU
+<img align="right" src="http://i.imgur.com/k8NZMmV.gif">
 
+Hey, welcome! Awesome you're interested in helping out! This should help get you started. If you have any questions the WoW Analyzer Discord is the place to ask: https://discord.gg/AxphPxU
+<br /><br /><br />
 # Installing
 
- * Get Git.
- * Clone the repo.
- * Get Node (6+): https://nodejs.org/en/
+To get the code running on your computer you will need a few things. You might already have a bunch of things, feel free to skip ahead.
+
+ * [Make a *fork* of the repo](https://help.github.com/articles/fork-a-repo/); this is your own public copy on GitHub for you to work in before sharing it.
+ * [Get Git.](https://git-scm.com/) You can also consider installing the [GitHub Desktop](https://desktop.github.com/) client to get an interface to work with.
+ * Clone your fork to your computer.
+ * [Get NodeJS (6+).](https://nodejs.org/en/)
  * Open a command window to the cloned repo (do this after installing Node).
- * run this command: `npm install`
+ * Run this command: `npm install`, this will take a minute.
  * Meanwhile:
     * Go to project root
-    * Copy `.env.local.example`
-    * Paste it in the same directory with the name `.env.local`
-    * Go to https://www.warcraftlogs.com/accounts/changeuser to get your API key (at the bottom)
-    * Replace `INSERT_YOUR_OWN_API_KEY_HERE` in `env.local` with your API key
+    * Copy `.env.local.example` in the same directory
+    * Name it `.env.local`
+    * Go to https://www.warcraftlogs.com/accounts/changeuser to get your WCL API key (at the bottom)
+    * Open `.env.local` with your IDE and replace `INSERT_YOUR_OWN_API_KEY_HERE` in `.env.local` with your API key
+ * You're done once `npm install` finishes.
 
 # Running
 
  * run this command: `npm start`
 
-Your command window should now start compiling the application and if all went well open a browser window with everything running :)
+Your command window should now start compiling the application and if all went well open a browser tab to http://localhost:3000/ with everything running :)
+
+![Thumbs up!](https://media.giphy.com/media/111ebonMs90YLu/giphy.gif)
 
 ## Troubleshooting
 
@@ -28,81 +36,40 @@ If you are currently dealing with some path errors (module not found), instead o
 
 # Editing
 
-Start small. Try changing something to see things change. If you verified everything is working, you're ready to go to the real stuff.
+Start small. Try changing something to see things change (your browser should refresh automatically after automatically recompiling). If you verified everything is working, you're ready to go to the real stuff.
 
-The easiest things to contribute are specific modules for statistics such as from spells, traits or items. Go through the Parser directory to see how everything is set up. Once you've decided what you want to add, make a new file in the right directory. Here's a template you can use:
+Looking into the Holy Paladin implementation is a great way to find out how to do things. This spec is usually the most up-to-date with the best practices in this project.
 
-```js
-import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
-import ItemIcon from 'common/ItemIcon';
-import { formatNumber } from 'common/format';
+How to develop parts of the app are described in the following files:
+- [CONTRIBUTING.SPEC.md](CONTRIBUTING.SPEC.md): Information on how to create a spec.
+- [CONTRIBUTING.MODULE.md](CONTRIBUTING.MODULE.md): Information on how to create a module.
 
-import Module from 'Parser/Core/Module';
+Continue reading below for more general contribution information.
 
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+# Sharing your changes
 
-class MyCuteRock extends Module {
-  healing = 0;
+When you are done with your changes you need to [commit your work](http://dont-be-afraid-to-commit.readthedocs.io/en/latest/git/commandlinegit.html). When you're finished, push your changes to your fork, then open the GitHub page for your fork and it should show a button to *Create pull request*, this is often the easiest way to make a pull request. Explain why what you did matters and why you did what you did (although if you have to explain why you did what you did then you should probably include that as comments in your code). Your PR will be reviewed to find potential issues.
 
-  on_initialized() {
-  	this.active = this.owner.selectedCombatant.hasTrinket(ITEMS.STUPID_ROCK.id);
-  }
-
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-
-    // Do something when the player cast something
-    // to see what event holds you can do a console.log:
-    console.log(event);
-  }
-
-  statistic() {
-    return (
-      <StatisticBox
-        icon={<ItemIcon id={ITEMS.STUPID_ROCK.id} />}
-        value={`${formatNumber(this.healing)} %`}
-        label="Healing contributed"
-      />
-    );
-  }
-  statisticOrder = STATISTIC_ORDER.CORE(40);
-}
-
-export default MyCuteRock;
-```
-
-This is the worker behind the statistic. The `on_` functions are your event listeners. Through some magic these functions get called whenever an event with their name is triggered. See [EVENTS.md](EVENTS.md) for the available events.
-
-The `byPlayer` (and `toPlayer`) part of the function names are just there for ease of use; these make sure only events done **by the player** or **to the player** are listened to. Purely convenience, you can also just do `on_cast` and filter inside with `if (!this.owner.byPlayer(event)) { return; }`, but putting that everywhere gets messy quickly. Do note **only events that involve the selected player are available for performance reasons**, so if you wanted to listen to events when other players take damage you're out of luck (but the selected player taking damage is of course available at `on_toPlayer_damage`).
-
-The file you just made still doesn't do anything as it hasn't been enabled in a parser yet. I assume you're working on a spec specific statistic, let's say for Holy Paladin. Go to `Parser/HolyPaladin/CombatLogParser.js`. Import your new module next to the other imports, for example: `import MyCuteRock from './Modules/Items/MyCuteRock';`, then scroll down to the `specModules` static property. Add your module: `myCuteRock: MyCuteRock,`, now it is active and the statistic should appear on the spec.
-
-**Further documentation for modules is a work in progress. For now looking at the Holy Paladin implementation may be the best way to find out how things are done, as I always try to keep this updated with the latest best practices.** If you want to add something to the items display just do a find-in-files for `item()` to find examples. For suggestions search for `suggestions(when)` (plural, unlike the other functions). You can also add your own tab with the `tab()` function. Almost every problem imaginable has been solved, so looking at other places is one way to find how to do things. Alternatively your questions are always welcome in the WoW Analyzer Discord.
-
-[Click here for information about adding a spec.](CONTRIBUTING.NEW_SPEC.md)
-
-# Contributing
-
-When done commit your work.
-Then make a pull request, the easiest way to do this is through the GitHub interface. If you cloned it will show a "Create pull request" button in your repository page, if you're using the interface it should be there somewhere too. Explain why what you did matters and why you did what you did (although if you have to explain why you did what you did then you should probably include that as comments in your code).
+<p align="center">
+   <img src="https://media.giphy.com/media/l1J3vV5lCmv8qx16M/giphy.gif">
+</p>
 
 Don't forget to update the changelog, but only include changes that users might notice.
 
 <table align="center">
   <tr>
     <td align="center" width="100"><img src="https://cdn1.iconfinder.com/data/icons/CrystalClear/48x48/apps/important.png" alt="Important"></td>
-    <td>Please make small Pull Requests. For example one PR when you got your spec working with Cast Efficiency set up and maybe ABC, and then preferably 1 PR per additional module. Larger PRs may take a long time to be reviewed.</td>
+    <td>Please make small Pull Requests. For example one PR when you got your spec working with Cast Efficiency set up and maybe ABC, and then preferably 1 PR per additional module. Larger PRs may take a long time to be reviewed and merged.</td>
   </tr>
 </table>
 
 # Code style
 
-The eslint rules must be followed to have your PR pass the automatic TravisCI check.
+The eslint rules must be followed to have your PR pass the automatic TravisCI check. These are mostly checks to reveal issues that might indicate bugs. There are no hard code style rules to allow you to develop without worrying about this. If you are in doubt, check the Holy Paladin spec for how things are solved.
 
 Please never comment *what* you do, comment *why* you do it. I can read code so I know that `hasBuff` checks if someone has a buff, but if it's not obvious why that buff is relevant then include it as a comment (you're free to assume anyone reading your code knows the spec, so this example would have to be pretty weird to warrant a comment).
 
-# Consistency
+## Consistency
 
 Many users parse logs for multiple specs, having everything consistent makes it easier to understand and compare different things between specs. Please try to stay as consistent as possible with other specs and similar statistics.
 
@@ -116,3 +83,5 @@ Examples:
 
 If you're planning on working on a radical idea I recommend discussing it before you invest a lot of time. It would be a shame if your idea does not fit the project and your work was for naught. Example:
 * Don't convert primary/secondary stats into DPS/HPS values. I'm open to giving this a try, but it needs to be thought through extensively and you'll need to convince it's accurate enough. The buff uptime or average stat gain is probably the most accurate information you could show. This also goes for resources such as mana.
+
+![](https://media.giphy.com/media/J1WCiEDZ74RvW/giphy.gif)

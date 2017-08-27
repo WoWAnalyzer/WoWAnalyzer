@@ -2,12 +2,11 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
 import Module from 'Parser/Core/Module';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
-
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 const DELIVER_THE_LIGHT_HEALING_INCREASE = 0.03;
 
@@ -39,17 +38,20 @@ class DeliverTheLight extends Module {
     this.healing += calculateEffectiveHealing(beaconTransferEvent, DELIVER_THE_LIGHT_HEALING_INCREASE);
   }
 
-  statistic() {
+  subStatistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.DELIVER_THE_LIGHT.id} />}
-        value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %`}
-        label="Deliver the Light healing"
-        tooltip={`This only calculates the value of the last Deliver the Light point (you have a total of ${this.rank} points), for you with your gear and only during this fight. The value of an additional point would be slightly lower.`}
-      />
+      <div className="flex">
+        <div className="flex-main">
+          <SpellLink id={SPELLS.DELIVER_THE_LIGHT.id}>
+            <SpellIcon id={SPELLS.DELIVER_THE_LIGHT.id} noLink /> Deliver the Light
+          </SpellLink>
+        </div>
+        <div className="flex-sub text-right">
+          {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %
+        </div>
+      </div>
     );
   }
-  statisticOrder = STATISTIC_ORDER.TRAITS(2);
 }
 
 export default DeliverTheLight;
