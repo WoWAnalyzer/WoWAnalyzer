@@ -2,16 +2,22 @@
 
 import SPELLS from 'common/SPELLS';
 import Module from 'Parser/Core/Module';
+import PETS from 'common/PETS';
+
+import Pets from '../Core/Pets';
 
 // import Icon from 'common/Icon';
 // import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 // import { formatThousands, formatNumber } from 'common/format';
 
-import makeWclUrl from 'common/makeWclUrl';
-
+const INSANITY_GENERATED_EACH_TICK = 3;
 
 class CallToTheVoid extends Module {
+  static dependencies = {
+    pets: Pets,
+  };
+
   _damageDone = 0;
   _generatedInsanity = 0;
 
@@ -20,7 +26,14 @@ class CallToTheVoid extends Module {
   on_initialized() {
     if (!this.owner.error) {
       this.active = this.owner.selectedCombatant.traitsBySpellId[SPELLS.CALL_TO_THE_VOID_TRAIT.id];
-      this.load();
+      this._sourceId  = this.pets.fetchPet(PETS.VOID_TENDRIL).id;
+    }
+  }
+
+  on_event(eventType, event){
+    if(eventType === 'damage' && event.sourceID === this._sourceId && this._sourceId !== undefined){
+      this._damageDone += event.amount;
+      this._generatedInsanity += INSANITY_GENERATED_EACH_TICK;
     }
   }
 
@@ -34,24 +47,6 @@ class CallToTheVoid extends Module {
 
   get insanityGeneratedPerSecond(){
     return this.insanityGenerated / (this.owner.fightDuration / 1000);
-  }
-
-  load() {
-    return fetch(makeWclUrl(`report/tables/damage-done/${this.owner.report.code}`, {
-      start: this.owner.fight.start_time,
-      end: this.owner.fight.end_time,
-      sourceid: this.owner.player.id,
-    }))
-      .then(response => response.json())
-      .then((json) => {
-        const callOfTheVoids = json.entries.find(entry => entry.guid === SPELLS.CALL_TO_THE_VOID_ENTITY.id);
-        if(callOfTheVoids){
-          this._damageDone = callOfTheVoids.total;
-          if(this.owner.selectedCombatant.traitsBySpellId[SPELLS.LASH_OF_INSANITY_TRAIT.id]){
-            this._generatedInsanity = callOfTheVoids.tickCount * 3;
-          }
-        }
-      });
   }
 
   // unnecessary stat probably:

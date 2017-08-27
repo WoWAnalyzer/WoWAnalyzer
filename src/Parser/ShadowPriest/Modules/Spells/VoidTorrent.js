@@ -12,7 +12,8 @@ function formatSeconds(seconds){
 }
 
 // account for some logger delay (should be 4000):
-const VOID_TORRENT_MAX_TIME = 3900;
+const TIMESTAMP_ERROR_MARGIN = 100;
+const VOID_TORRENT_MAX_TIME = 4000;
 
 class VoidTorrent extends Module {
   _voidTorrents = {};
@@ -36,16 +37,12 @@ class VoidTorrent extends Module {
     this._previousVoidTorrentCast = null;
   }
 
-  get voidTorrentsAsArray(){
+  get voidTorrents(){
     return Object.keys(this._voidTorrents).map(key => this._voidTorrents[key]);
   }
 
   get totalWasted(){
-    return this.voidTorrentsAsArray.reduce((p, c) => p += c.wastedTime, 0) / 1000;
-  }
-
-  on_initialized() {
-    this.active = true;
+    return this.voidTorrents.reduce((p, c) => p += c.wastedTime, 0) / 1000;
   }
 
   on_byPlayer_cast(event) {
@@ -58,8 +55,8 @@ class VoidTorrent extends Module {
   on_byPlayer_removebuff(event){
     const spellId = event.ability.guid;
     if (spellId === SPELLS.VOID_TORRENT.id) {
-      const timespentChanneling = event.timestamp - this._previousVoidTorrentCast.timestamp;
-      const wastedTime = VOID_TORRENT_MAX_TIME > timespentChanneling ? (4000 - timespentChanneling) : 0;
+      const timeSpentChanneling = event.timestamp - this._previousVoidTorrentCast.timestamp;
+      const wastedTime = (VOID_TORRENT_MAX_TIME - TIMESTAMP_ERROR_MARGIN) > timeSpentChanneling ? (VOID_TORRENT_MAX_TIME - timeSpentChanneling) : 0;
       this.finishedVoidTorrent({event, wastedTime});
     }
   }
@@ -76,13 +73,12 @@ class VoidTorrent extends Module {
   }
 
   statistic() {
-    if(this.totalWasted < 0.5) return null;
     return (<StatisticBox
       icon={<SpellIcon id={SPELLS.VOID_TORRENT.id} />}
       value={`${formatSeconds(this.totalWasted)} seconds`}
       label={(
-        <dfn data-tip={`Void torrent was interrupted early. This should be avoided!`}>
-          Interrupted void torrents
+        <dfn data-tip={`Lost Void Torrent channeling time.`}>
+          Interrupted Void Torrents
         </dfn>
       )}
     />);

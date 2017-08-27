@@ -459,16 +459,40 @@ export default {
     icon: 'ability_ironmaidens_convulsiveshadows',
   },
 
-  MINDBENDER: {
-    id: 200174,
-    name: 'Mindbender',
-    icon: 'spell_shadow_soulleech_3',
-  },
-
   DISPERSION: {
     id: 47585,
     name: 'Dispersion',
     icon: 'spell_shadow_dispersion',
+  },
+
+  VAMPIRIC_EMBRACE: {
+    id: 15286,
+    name: 'Vampiric Embrace',
+    icon: 'spell_shadow_unsummonbuilding',
+  },
+
+  SILENCE: {
+    id: 15487,
+    name: 'Silence',
+    icon: 'ability_priest_silence',
+  },
+
+  PURIFY_DISEASE: {
+    id: 213634,
+    name: 'Purify Disease',
+    icon: 'spell_holy_nullifydisease',
+  },
+
+  SHADOWFORM: {
+    id: 232698,
+    name: 'Shadowform',
+    icon: 'spell_shadow_shadowform',
+  },
+
+  MIND_VISION: {
+    id: 2096,
+    name: 'Mind Vision',
+    icon: 'spell_holy_mindvision',
   },
 
   // Shadow Buffs
@@ -523,13 +547,8 @@ export default {
     icon: 'spell_shadow_shadowfiend',
   },
 
-  // Shadow summons
 
-  CALL_TO_THE_VOID_ENTITY: {
-    id: 193470,
-    name: 'Call to the Void',
-    icon: 'achievement_boss_yoggsaron_01',
-  },
+  
   
 
 };

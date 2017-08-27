@@ -9,7 +9,7 @@ import SpellIcon from 'common/SpellIcon';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Tab from 'Main/Tab';
 
-import { formatPercentage, formatNumber } from 'common/format';
+import { formatPercentage } from 'common/format';
 
 import Mindbender from './Mindbender';
 import Dispersion from './Dispersion';
@@ -26,59 +26,41 @@ class Voidform extends Module {
   };
 
   _previousVoidformCast = null;
-  _totalHasteAcquiredOutsideVoidform = null;
+  _totalHasteAcquiredOutsideVoidform = 0;
   _totalLingeringInsanityTimeOutsideVoidform = 0;
-  _voidformStatistics   = {};
   _inVoidform           = false;
-  // _totalHasteAcquired = 0;
+
+  _voidforms            = {};
 
 
-  on_initialized() {
-    this.active = true;
+  get voidforms(){
+    return Object.keys(this._voidforms).map(key => this._voidforms[key]);
   }
 
-  get voidformStatistics() {
-    return Object.keys(this._voidformStatistics).map(key => this._voidformStatistics[key]);
-  }
-
-  get voidformAverageDuration(){
-    return this.voidformStatistics.reduce((p, c) => c.excluded ? p : p += c.stacks.length, 0) / this.voidformStatistics.reduce((p, c) => c.excluded ? p : p += 1, 0);
-  }
-
-  // excludes dispersion time:
-  get voidformUptime(){
-    return this.voidformStatistics.reduce((p, c) => p += c.stacks.length, 0) * 1000;
-  }
-
-  // full voidform time:
-  get voidformTrueUptime(){
-    return this.voidformStatistics.reduce((p, c) => c.ended ? p += c.ended - c.start : p, 0);
-  }
-
-  get lastVoidformWasExcluded(){
-    return this.voidformStatistics.reduce((p, c) => p = c.excluded, false);
-  }
-
-  get averageHasteOutsideVoidform(){
-    return (1 + this.owner.selectedCombatant.hastePercentage) * (1 + (this._totalHasteAcquiredOutsideVoidform / this._totalLingeringInsanityTimeOutsideVoidform)/100);
-  }
-
-  get voidformAverageHaste(){
-    const averageHasteFromVoidform = (this.voidformStatistics.reduce((p, c) => p += c.totalHasteAcquired / ((c.ended - c.start)/1000), 0) / this.voidformStatistics.length) / 100;
+  get averageVoidformHaste(){
+    const averageHasteFromVoidform = (this.voidforms.reduce((p, c) => p += c.totalHasteAcquired / ((c.ended - c.start)/1000), 0) / this.voidforms.length) / 100;
     return (1 + this.owner.selectedCombatant.hastePercentage) * (1 + averageHasteFromVoidform);
   }
 
+  get averageNonVoidformHaste(){
+    return (1 + this.owner.selectedCombatant.hastePercentage) * (1 + (this._totalHasteAcquiredOutsideVoidform / this._totalLingeringInsanityTimeOutsideVoidform)/100);
+  }
+
+  get averageVoidformStacks(){
+    if(this.voidforms.length === 0) return 0;
+
+    // ignores last voidform if seen as skewing
+    const nonExcludedVoidforms = this.voidforms.filter(voidform => !voidform.excluded);
+    return nonExcludedVoidforms.reduce((p, c) => p += c.stacks.length, 0)/nonExcludedVoidforms.length;
+  }
+
   getCurrentVoidform(){
-    if(this._inVoidform){
-      return this._voidformStatistics[this._previousVoidformCast.timestamp];
-    } else {
-      return false;
-    }
+    return this._inVoidform ? this._voidforms[this._previousVoidformCast.timestamp] : false;
   }
 
   setCurrentVoidform(voidform){
     if(this._inVoidform){
-      this._voidformStatistics[this._previousVoidformCast.timestamp] = voidform;
+      this._voidforms[this._previousVoidformCast.timestamp] = voidform;
     }
   }
 
@@ -90,7 +72,7 @@ class Voidform extends Module {
 
     this._inVoidform = true;
     this._previousVoidformCast = event;
-    this._voidformStatistics[event.timestamp] = {
+    this._voidforms[event.timestamp] = {
       start: event.timestamp,
       stacks: [{
         stack: 1,
@@ -105,7 +87,7 @@ class Voidform extends Module {
   on_byPlayer_removebuff(event){
     const spellId = event.ability.guid;
     if (spellId === SPELLS.VOIDFORM_BUFF.id) {
-      this._voidformStatistics[this._previousVoidformCast.timestamp].ended = event.timestamp;
+      this._voidforms[this._previousVoidformCast.timestamp].ended = event.timestamp;
       this._inVoidform = false;
     }
   }
@@ -159,77 +141,48 @@ class Voidform extends Module {
 
   on_finished(){
     const player = this.owner.selectedCombatant;
-    if(player.hasBuff(SPELLS.VOIDFORM_BUFF.id)){
-      // excludes last one to avoid skewing the average:
-      const averageVoidformDuration = this.voidformStatistics.slice(0, this.voidformStatistics.length - 1).reduce((p, c) => p += c.stacks.length, 0) / (Object.keys(this._voidformStatistics).length - 1);
-      if(averageVoidformDuration < (this.voidformStatistics.reduce((p, c) => p += c.stacks.length, 0) / (Object.keys(this._voidformStatistics).length - 1)) - 5){
 
-        this._voidformStatistics[this._previousVoidformCast.timestamp] = {
-          ...this._voidformStatistics[this._previousVoidformCast.timestamp],
-          excluded: true,
-        };
+    // excludes last one to avoid skewing the average (if in voidform when the encounter ends):
+    if(player.hasBuff(SPELLS.VOIDFORM_BUFF.id)){
+      const averageVoidformStacks = this.voidforms.slice(0, this.voidforms.length - 1).reduce((p, c) => p += c.stacks.length, 0) / (this.voidforms.length - 1);
+      const lastVoidformStacks    = this.voidforms[this.voidforms.length-1].stacks.length;
+
+      if(lastVoidformStacks + 5 < averageVoidformStacks){
+        this._voidforms[this._previousVoidformCast.timestamp].excluded = true;
       }
     }
 
     // set end to last voidform of the fight:
-    if(this._voidformStatistics[this._previousVoidformCast.timestamp].ended === undefined){
-      this._voidformStatistics[this._previousVoidformCast.timestamp] = {
-        ...this._voidformStatistics[this._previousVoidformCast.timestamp],
-        ended: this.owner._timestamp,
-      };
+    if(this._voidforms[this._previousVoidformCast.timestamp].ended === undefined){
+      this._voidforms[this._previousVoidformCast.timestamp].ended = this.owner._timestamp;
     }
   }
 
   suggestions(when) {
-    const { selectedCombatant, fightDuration } = this.owner;
-    const uptime = selectedCombatant.getBuffUptime(SPELLS.VOIDFORM_BUFF.id) / (fightDuration - this.dispersion.uptime);
+    const uptime = this.owner.selectedCombatant.getBuffUptime(SPELLS.VOIDFORM_BUFF.id) / (this.owner.fightDuration - this.owner.selectedCombatant.getBuffUptime(SPELLS.DISPERSION.id));
 
-
-    when(uptime).isLessThan(0.85)
+    when(uptime).isLessThan(0.80)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your <SpellLink id={SPELLS.VOIDFORM.id} /> uptime can be improved. Try to maximize the uptime by using <SpellLink id={SPELLS.VOID_TORRENT.id} />, <SpellLink id={SPELLS.MINDBENDER.id} /> at optimal stacks.
-
-            <br /><br />
-            Managing your <SpellLink id={SPELLS.VOIDFORM.id} />s is a large part of playing shadow. The recommended way is to try to keep your <SpellLink id={SPELLS.VOIDFORM.id} /> cycles to around 60 seconds each, meaning you will have access to 1 <SpellLink id={SPELLS.VOID_TORRENT.id} /> & 1 <SpellLink id={SPELLS.MINDBENDER.id} /> each <SpellLink id={SPELLS.VOIDFORM.id} />.
-            <br /><br />
-            A good practice is to use <SpellLink id={SPELLS.VOID_TORRENT.id} /> shortly after entering <SpellLink id={SPELLS.VOIDFORM.id} />. <br/>
-            At around 28-33 <SpellLink id={SPELLS.VOIDFORM.id} /> stacks, use <SpellLink id={SPELLS.MINDBENDER.id} />.
-
-            <br /><br />
-            <SpellLink id={SPELLS.DISPERSION.id} /> can be used to synchronize your cooldowns back in order or in case of an emergency if you are about to fall out of <SpellLink id={SPELLS.VOIDFORM.id} /> and you have an <SpellLink id={SPELLS.MINDBENDER.id} /> active.
+        return suggest(<span>Your <SpellLink id={SPELLS.VOIDFORM.id} /> uptime can be improved. Try to maximize the uptime by using your insanity generating spells.
+          <br/><br/>
+          Use the generators with the priority:
+          <br/><SpellLink id={SPELLS.VOID_BOLT.id} />
+          <br/><SpellLink id={SPELLS.MIND_BLAST.id} />
+          <br/><SpellLink id={SPELLS.MIND_FLAY.id} />
           </span>)
           .icon(SPELLS.VOIDFORM_BUFF.icon)
           .actual(`${formatPercentage(actual)}% Voidform uptime`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`)
           .regular(recommended).major(recommended - 0.10);
       });
-
-    when(this.voidformAverageDuration).isLessThan(50)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your <SpellLink id={SPELLS.VOIDFORM.id} /> uptime can be improved. Try to maximize the uptime by using <SpellLink id={SPELLS.VOID_TORRENT.id} />, <SpellLink id={SPELLS.MINDBENDER.id} /> at optimal stacks.
-
-            <br /><br />
-            Managing your <SpellLink id={SPELLS.VOIDFORM.id} />s is a large part of playing shadow. The recommended way is to try to keep your <SpellLink id={SPELLS.VOIDFORM.id} /> cycles to around 60 seconds each, meaning you will have access to 1 <SpellLink id={SPELLS.VOID_TORRENT.id} /> & 1 <SpellLink id={SPELLS.MINDBENDER.id} /> each <SpellLink id={SPELLS.VOIDFORM.id} />.
-            <br /><br />
-            A good practice is to use <SpellLink id={SPELLS.VOID_TORRENT.id} /> shortly after entering <SpellLink id={SPELLS.VOIDFORM.id} />. <br/>
-            At around 28-33 <SpellLink id={SPELLS.VOIDFORM.id} /> stacks, use <SpellLink id={SPELLS.MINDBENDER.id} />.
-
-            <br /><br />
-            <SpellLink id={SPELLS.DISPERSION.id} /> can be used to synchronize your cooldowns back in order or in case of an emergency if you are about to fall out of <SpellLink id={SPELLS.VOIDFORM.id} /> and you have an <SpellLink id={SPELLS.MINDBENDER.id} /> active.
-          </span>)
-          .icon(SPELLS.VOIDFORM_BUFF.icon)
-          .actual(`${formatNumber(actual)} average Voidform stacks.`)
-          .recommended(`>${formatNumber(recommended)} stacks is recommended.`)
-          .regular(recommended).major(recommended - 5);
-      });
   }
 
   statistic() {
     return (<StatisticBox
       icon={<SpellIcon id={SPELLS.VOIDFORM.id} />}
-      value={`${formatPercentage(this.voidformUptime / (this.owner.fightDuration - this.dispersion.uptime))} %`}
+      value={`${formatPercentage(this.owner.selectedCombatant.getBuffUptime(SPELLS.VOIDFORM_BUFF.id) / (this.owner.fightDuration - this.owner.selectedCombatant.getBuffUptime(SPELLS.DISPERSION.id)))} %`}
       label={(
-        <dfn data-tip={`Time spent in dispersion (${Math.round(this.dispersion.uptime / 1000)} seconds) is excluded from the fight.`}>
+        <dfn data-tip={`Time spent in dispersion (${Math.round(this.owner.selectedCombatant.getBuffUptime(SPELLS.DISPERSION.id) / 1000)} seconds) is excluded from the fight.`}>
           Voidform uptime
         </dfn>
       )}
@@ -244,7 +197,13 @@ class Voidform extends Module {
       url: 'voidforms',
       render: () => (
         <Tab title="Voidforms">
-          <VoidformsTab voidforms={this.voidformStatistics} voidTorrents={this.voidTorrent.voidTorrentsAsArray} mindbenders={this.mindbender.mindbendersAsArray} dispersions={this.dispersion.dispersionsAsArray} fightEnd={this.owner.fight.end_time} />
+          <VoidformsTab 
+            voidforms={this.voidforms} 
+            voidTorrents={this.voidTorrent.voidTorrents} 
+            mindbenders={this.mindbender.mindbenders} 
+            dispersions={this.dispersion.dispersions} 
+            fightEnd={this.owner.fight.end_time} 
+          />
         </Tab>
       ),
     };

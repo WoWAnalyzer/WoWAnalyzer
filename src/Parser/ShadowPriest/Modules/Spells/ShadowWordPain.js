@@ -18,7 +18,7 @@ class ShadowWordPain extends Module {
     const shadowWordPainUptime = this.enemies.getBuffUptime(SPELLS.SHADOW_WORD_PAIN.id) / this.owner.fightDuration;
     when(shadowWordPainUptime).isLessThan(0.95)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> uptime can be improved.</span>)
+        return suggest(<span>Your <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> uptime can be improved. Try to pay more attention to your <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> on the boss.</span>)
           .icon(SPELLS.SHADOW_WORD_PAIN.icon)
           .actual(`${formatPercentage(actual)}% Shadow Word: Pain uptime`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`)

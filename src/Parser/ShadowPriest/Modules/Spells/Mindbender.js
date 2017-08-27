@@ -1,18 +1,33 @@
 import Module from 'Parser/Core/Module';
 import SPELLS from 'common/SPELLS';
+import PETS from 'common/PETS';
 
-import makeWclUrl from 'common/makeWclUrl';
+import Pets from '../Core/Pets';
+
+const MINDBENDER_UPTIME_MS = 15000;
+const MINDBENDER_ADDED_UPTIME_MS_PER_TRAIT = 1500;
 
 class Mindbender extends Module {
+  static dependencies = {
+    pets: Pets,
+  };
+
+  _sourceId = null;
   _damageDone = 0;
   _mindbenders = {};
 
   on_initialized() {
-    this.active = true;
-    this.load();
+    this.active     = this.owner.selectedCombatant.hasTalent(SPELLS.MINDBENDER_TALENT_SHADOW.id);
+    this._sourceId  = this.pets.fetchPet(PETS.MINDBENDER).id;
   }
 
-  get mindbendersAsArray(){
+  on_event(eventType, event){
+    if(eventType === 'damage' && event.sourceID === this._sourceId && this._sourceId !== undefined){
+      this._damageDone += event.amount;
+    }
+  }
+
+  get mindbenders(){
     return Object.keys(this._mindbenders).map(key => this._mindbenders[key]);
   }
 
@@ -22,28 +37,13 @@ class Mindbender extends Module {
 
   on_byPlayer_summon(event) {
     const spellId = event.ability.guid;
-    if (spellId === SPELLS.MINDBENDER.id) {
+    if (spellId === SPELLS.MINDBENDER_TALENT_SHADOW.id) {
 
       this._mindbenders[event.timestamp] = {
         start: event.timestamp,
-        end: event.timestamp + 15000 + (1500 * this.owner.selectedCombatant.traitsBySpellId[SPELLS.FIENDING_DARK_TRAIT.id]),
+        end: event.timestamp + MINDBENDER_UPTIME_MS + (MINDBENDER_ADDED_UPTIME_MS_PER_TRAIT * this.owner.selectedCombatant.traitsBySpellId[SPELLS.FIENDING_DARK_TRAIT.id]),
       };
     }
-  }
-
-  load() {
-    return fetch(makeWclUrl(`report/tables/damage-done/${this.owner.report.code}`, {
-      start: this.owner.fight.start_time,
-      end: this.owner.fight.end_time,
-      sourceid: this.owner.player.id,
-    }))
-      .then(response => response.json())
-      .then((json) => {
-        const mindbenders = json.entries.find(entry => entry.guid === SPELLS.MINDBENDER.id);
-        if(mindbenders){
-          this._damageDone = mindbenders.total;
-        }
-      });
   }
 
 }

@@ -8,24 +8,15 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import { calculateMaxCasts } from 'Parser/Core/getCastEfficiency';
 
+const DISPERSION_BASE_CD = 90;
+const DISPERSION_REDUCTION_CD_PER_TRAIT = 10;
+const DISPERSION_UPTIME_MS = 6000;
+
 class Disperion extends Module {
   _dispersions = {};
   _previousDispersionCast = null;
 
-  on_initialized() {
-    this.active = true;
-  }
-
-  get uptime(){
-    return this.dispersionsAsArray.reduce((p, c) => p += c.end - c.start, 0);
-  }
-
-  get maxUptime(){
-    const fightDuration = this.owner.fight.end_time - this.owner.fight.start_time;
-    return Math.round(calculateMaxCasts(90 - (10 * this.owner.selectedCombatant.traitsBySpellId[SPELLS.FROM_THE_SHADOWS_TRAIT.id]), fightDuration)) * 6000;
-  }
-
-  get dispersionsAsArray(){
+  get dispersions(){
     return Object.keys(this._dispersions).map(key => this._dispersions[key]);
   }
 
@@ -65,10 +56,14 @@ class Disperion extends Module {
   }
 
   suggestions(when) {
-    const dispersedTime       = this.uptime / this.maxUptime;
+    const dispersionUptime    = this.owner.selectedCombatant.getBuffUptime(SPELLS.DISPERSION.id);
+    const maxDispersiontime   = Math.floor(calculateMaxCasts(DISPERSION_BASE_CD - (DISPERSION_REDUCTION_CD_PER_TRAIT * this.owner.selectedCombatant.traitsBySpellId[SPELLS.FROM_THE_SHADOWS_TRAIT.id]), this.owner.fightDuration)) * DISPERSION_UPTIME_MS;
+    const dispersedTime       = dispersionUptime / this.maxUptime;
+    
+
     when(dispersedTime).isGreaterThan(0.20)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You spent {Math.round(this.uptime/1000)} seconds (out of a possible {Math.round(this.maxUptime/1000)} seconds) in <SpellLink id={SPELLS.DISPERSION.id} />. Consider using <SpellLink id={SPELLS.DISPERSION.id} /> less or cancel it early.</span>)
+        return suggest(<span>You spent {Math.round(dispersionUptime/1000)} seconds (out of a possible {Math.round(maxDispersiontime/1000)} seconds) in <SpellLink id={SPELLS.DISPERSION.id} />. Consider using <SpellLink id={SPELLS.DISPERSION.id} /> less or cancel it early.</span>)
           .icon(SPELLS.DISPERSION.icon)
           .actual(`${formatPercentage(actual)}% Dispersion uptime`)
           .recommended(`<${formatPercentage(recommended)}% is recommended, unless the encounter requires it.`)

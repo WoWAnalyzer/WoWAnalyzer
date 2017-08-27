@@ -23,6 +23,16 @@ const PETS = {
     id: 11859,
     name: 'Doomguard',
   },
+
+  // priest:
+  MINDBENDER: {
+    id: 62982,
+    name: 'Mindbender',
+  },
+  VOID_TENDRIL: {
+    id: 98167,
+    name: 'Void Tendril',
+  },
 };
 
 export default indexById(PETS);

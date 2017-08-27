@@ -27,7 +27,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.SHADOW_WORD_PAIN.id,
     SPELLS.SHADOW_MEND.id,
     SPELLS.MINDBENDER_TALENT_SHARED.id,
-    SPELLS.MINDBENDER.id,
+    SPELLS.MINDBENDER_TALENT_SHADOW.id,
     SPELLS.MASS_DISPEL.id,
     SPELLS.DISPEL_MAGIC.id,
     SPELLS.LEVITATE.id,
@@ -53,7 +53,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     }
 
     if (spellId === SPELLS.VOID_TORRENT.id) {
-        this._previousVoidTorrent = event;
         return;
     }
     
