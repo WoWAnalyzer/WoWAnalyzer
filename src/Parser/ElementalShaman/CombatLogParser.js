@@ -25,6 +25,7 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import Aftershock from './Modules/Talents/Aftershock';
 import ElementalBlast from './Modules/Talents/ElementalBlast';
 import Ascendance from './Modules/Talents/Ascendance';
+import TotemMastery from './Modules/Talents/TotemMastery';
 
 import './Modules/Main/main.css';
 
@@ -66,6 +67,7 @@ class CombatLogParser extends CoreCombatLogParser {
     aftershock: Aftershock,
     elementalBlast: ElementalBlast,
     ascendance: Ascendance,
+    totemMastery: TotemMastery,
 
     // Legendaries:
   };
