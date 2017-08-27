@@ -11,9 +11,9 @@ class ShamanStats extends Module {
     return (
       <StatisticBox
         icon={<Icon icon="spell_nature_shamanrage" alt="Core Stats" />}
-        value={`${formatPercentage(this.owner.selectedCombatant.masteryPercentage)} % M ${formatPercentage(this.owner.selectedCombatant.hastePercentage)} % H`}
+        value={`${formatPercentage(this.owner.selectedCombatant.masteryPercentage, 0)}% M ${formatPercentage(this.owner.selectedCombatant.hastePercentage, 0)}% H`}
         label="Core Secondary Stats"
-        tooltip={`Mastery is ${formatPercentage(this.owner.selectedCombatant.masteryPercentage)} % and Haste is ${formatPercentage(this.owner.selectedCombatant.hastePercentage)} %`}
+        tooltip={`Mastery ${formatPercentage(this.owner.selectedCombatant.masteryPercentage)}% and Haste ${formatPercentage(this.owner.selectedCombatant.hastePercentage)}%`}
       />
     );
   }
