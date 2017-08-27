@@ -13,13 +13,6 @@ import Module from 'Parser/Core/Module';
 const SECOND_SUNRISE_MINIMAL_DELAY = 300;
 const SECOND_SUNRISE_PROC_CHANCE = 0.05;
 
-function formatDuration(duration) {
-  const sumSeconds = duration / 1000;
-  const seconds = (sumSeconds % 60);
-  const minutes = Math.floor(sumSeconds / 60);
-  return `${minutes < 10 ? `0${minutes}` : minutes}:${seconds < 10 ? `0${seconds.toFixed(3)}` : seconds.toFixed(3)}`;
-}
-
 /**
  * Second Sunrise (Artifact Trait)
  * Light of Dawn has a 5% chance to cast a second time for no additional mana cost.
@@ -51,7 +44,6 @@ class SecondSunrise extends Module {
     const timeSinceLastCast = event.timestamp - this._lastCast;
     if (timeSinceLastCast > SECOND_SUNRISE_MINIMAL_DELAY) {
       this.healing += (event.amount + (event.absorbed || 0));
-      console.log(formatDuration(event.timestamp - this.owner.fight.start_time));
     }
   }
   on_beacon_heal(beaconTransferEvent, healEvent) {
@@ -61,7 +53,6 @@ class SecondSunrise extends Module {
     const timeSinceLastCast = healEvent.timestamp - this._lastCast;
     if (timeSinceLastCast > SECOND_SUNRISE_MINIMAL_DELAY) {
       this.healing += (beaconTransferEvent.amount + (beaconTransferEvent.absorbed || 0));
-      console.log(formatDuration(beaconTransferEvent.timestamp - this.owner.fight.start_time));
     }
   }
 
