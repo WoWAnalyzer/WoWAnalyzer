@@ -20,8 +20,9 @@ class RelicTraits extends Module {
   statistic() {
     return (
       <StatisticsListBox
-        title="Traits"
-        tooltip="This only calculates the value of the last point of each trait; for you with your gear and only during this fight. The value of an additional point would likely be slightly lower due to increased overhealing."
+        title="Relic traits"
+        tooltip="This only calculates the value of the last point of each relic trait; for you with your gear and only during this fight. The value of an additional point would likely be slightly lower due to increased overhealing."
+        style={{ minHeight: 186 }}
       >
         {this.shockTreatment.subStatistic()}
         {this.deliverTheLight.subStatistic()}
@@ -30,7 +31,7 @@ class RelicTraits extends Module {
       </StatisticsListBox>
     );
   }
-  statisticOrder = STATISTIC_ORDER.TRAITS(0);
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(0);
 }
 
 export default RelicTraits;
