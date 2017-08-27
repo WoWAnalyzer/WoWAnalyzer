@@ -1,26 +1,33 @@
 # Contributing
 
-Hey, welcome! Awesome you're interested in helping out! This should get you along the way. If you have any questions the WoW Analyzer Discord is the place to ask: https://discord.gg/AxphPxU
+<img align="right" src="http://i.imgur.com/k8NZMmV.gif">
 
+Hey, welcome! Awesome you're interested in helping out! This should help get you started. If you have any questions the WoW Analyzer Discord is the place to ask: https://discord.gg/AxphPxU
+<br /><br /><br />
 # Installing
 
- * Get Git.
- * Clone the repo.
- * Get Node (6+): https://nodejs.org/en/
+To get the code running on your computer you will need a few things. You might already have a bunch of things, feel free to skip ahead.
+
+ * [Get Git.](https://git-scm.com/)
+ * Clone the repo. `git clone https://github.com/MartijnHols/WoWAnalyzer.git`
+ * [Get NodeJS (6+).](https://nodejs.org/en/)
  * Open a command window to the cloned repo (do this after installing Node).
- * run this command: `npm install`
+ * Run this command: `npm install`, this will take a minute.
  * Meanwhile:
     * Go to project root
-    * Copy `.env.local.example`
-    * Paste it in the same directory with the name `.env.local`
-    * Go to https://www.warcraftlogs.com/accounts/changeuser to get your API key (at the bottom)
-    * Replace `INSERT_YOUR_OWN_API_KEY_HERE` in `env.local` with your API key
+    * Copy `.env.local.example` in the same directory
+    * Name it `.env.local`
+    * Go to https://www.warcraftlogs.com/accounts/changeuser to get your WCL API key (at the bottom)
+    * Open `.env.local` with your IDE and replace `INSERT_YOUR_OWN_API_KEY_HERE` in `.env.local` with your API key
+ * You're done once `npm install` finishes.
 
 # Running
 
  * run this command: `npm start`
 
-Your command window should now start compiling the application and if all went well open a browser window with everything running :)
+Your command window should now start compiling the application and if all went well open a browser tab to http://localhost:3000/ with everything running :)
+
+![Thumbs up!](https://media.giphy.com/media/111ebonMs90YLu/giphy.gif)
 
 ## Troubleshooting
 
