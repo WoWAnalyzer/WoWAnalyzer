@@ -1,43 +1,14 @@
 import React from 'react';
 
-import CHANGELOG_CORE from '../ChangeLogs/CHANGELOG_CORE';
-import CHANGELOG_HOLY_PALADIN from '../ChangeLogs/CHANGELOG_HOLY_PALADIN';
-import CHANGELOG_DISCIPLINE_PRIEST from '../ChangeLogs/CHANGELOG_DISCIPLINE_PRIEST';
-import CHANGELOG_HOLY_PRIEST from '../ChangeLogs/CHANGELOG_HOLY_PRIEST';
-import CHANGELOG_RESTORATION_DRUID from '../ChangeLogs/CHANGELOG_RESTORATION_DRUID';
-import CHANGELOG_GUARDIAN_DRUID from '../ChangeLogs/CHANGELOG_GUARDIAN_DRUID';
-import CHANGELOG_MISTWEAVER_MONK from '../ChangeLogs/CHANGELOG_MISTWEAVER_MONK';
-import CHANGELOG_WINDWALKER_MONK from '../ChangeLogs/CHANGELOG_WINDWALKER_MONK';
-import CHANGELOG_RESTORATION_SHAMAN from '../ChangeLogs/CHANGELOG_RESTORATION_SHAMAN';
-import CHANGELOG_ELEMENTAL_SHAMAN from '../ChangeLogs/CHANGELOG_ELEMENTAL_SHAMAN';
-import CHANGELOG_ENHANCEMENT_SHAMAN from "../ChangeLogs/CHANGELOG_ENHANCEMENT_SHAMAN";
-import CHANGELOG_AFFLICTION_WARLOCK from "../ChangeLogs/CHANGELOG_AFFLICTION_WARLOCK";
-import CHANGELOG_BREWMASTER_MONK from "../ChangeLogs/CHANGELOG_BREWMASTER_MONK";
-import CHANGELOG_VENGEANCE_DEMON_HUNTER from "../ChangeLogs/CHANGELOG_VENGEANCE_DEMON_HUNTER";
-
-const changelogs = {
-  core:CHANGELOG_CORE,
-  holyPaladin:CHANGELOG_HOLY_PALADIN,
-  disciplinePriest:CHANGELOG_DISCIPLINE_PRIEST,
-  holyPriest:CHANGELOG_HOLY_PRIEST,
-  restorationDruid:CHANGELOG_RESTORATION_DRUID,
-  guardianDruid:CHANGELOG_GUARDIAN_DRUID,
-  mistweaverMonk:CHANGELOG_MISTWEAVER_MONK,
-  windwalkerMonk:CHANGELOG_WINDWALKER_MONK,
-  restorationShaman:CHANGELOG_RESTORATION_SHAMAN,
-  elementalShaman:CHANGELOG_ELEMENTAL_SHAMAN,
-  enhancementShaman:CHANGELOG_ENHANCEMENT_SHAMAN,
-  afflictionWarlock:CHANGELOG_AFFLICTION_WARLOCK,
-  brewmasterMonk:CHANGELOG_BREWMASTER_MONK,
-  vengeanceDemonHunter:CHANGELOG_VENGEANCE_DEMON_HUNTER,
-};
+import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
+import CORE_CHANGELOG from '../CHANGELOG';
 
 class Changelog extends React.PureComponent {
   constructor() {
     super();
     this.state = {
       expanded: false,
-      changelogType: "core",
+      changelogType: 0,
     };
   }
 
@@ -46,26 +17,19 @@ class Changelog extends React.PureComponent {
 
     return (
       <div className="form-group">
-        <select className="form-control" value={this.state.changelogType} onChange={(e) => this.setState({ changelogType: e.target.value })}>
-          <option value="core">Core</option>
-          <option value="holyPaladin">Holy Paladin</option>
-          <option value="disciplinePriest">Discipline Priest</option>
-          <option value="holyPriest">Holy Priest</option>
-          <option value="restorationDruid">Restoration Druid</option>
-          <option value="guardianDruid">Guardian Druid</option>
-          <option value="mistweaverMonk">Mistweaver Monk</option>
-          <option value="windwalkerMonk">Windwalker Monk</option>
-          <option value="restorationShaman">Restoration Shaman</option>
-          <option value="elementalShaman">Elemental Shaman</option>
-          <option value="enhancementShaman">Enhancement Shaman</option>
-          <option value="afflictionWarlock">Affliction Warlock</option>
-          <option value="brewmasterMonk">Brewmaster Monk</option>
-          <option value="vengeanceDemonHunter">Vengeance Demon Hunter</option>
+        <select className="form-control" value={this.state.changelogType} onChange={(e) => this.setState({ changelogType: Number(e.target.value) })}>
+          <option value={0}>Core</option>
+          {AVAILABLE_CONFIGS.map(config => (
+            <option value={config.spec.id} key={config.spec.id}>{config.spec.specName} {config.spec.className}</option>
+          ))}
         </select>
 
-        {changelogs[this.state.changelogType].split('\n').filter((_, i) => limit === null || i <= limit).map((change, i) => (
-          <div key={`${i}`} dangerouslySetInnerHTML={{ __html: change }} />
-        ))}
+        {(this.state.changelogType ? AVAILABLE_CONFIGS.find(config => config.spec.id === this.state.changelogType).changelog : CORE_CHANGELOG)
+          .split('\n')
+          .filter((_, i) => limit === null || i <= limit)
+          .map((change, i) => (
+            <div key={`${i}`} dangerouslySetInnerHTML={{ __html: change }} />
+          ))}
         {limit !== null && (
           <a onClick={() => this.setState({ expanded: true })}>More</a>
         )}

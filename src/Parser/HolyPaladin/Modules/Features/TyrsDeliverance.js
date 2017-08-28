@@ -9,33 +9,27 @@ import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
+import TyrsMunificence from '../Traits/TyrsMunificence';
 
 const debug = true;
 
-export const TYRS_MUNIFICENCE_TRAIT_ID = 238060;
-const TYRS_DELIVERANCE_BUFF_SPELL_ID = SPELLS.TYRS_DELIVERANCE_HEAL.id;
 const TYRS_DELIVERANCE_BASE_HEALING_INCREASE = 0.2;
 const TYRS_MUNIFICENCE_POINT_HEALING_INCREASE = 0.05;
 
 class TyrsDeliverance extends Module {
+  static dependencies = {
+    tyrsMunificence: TyrsMunificence,
+  };
+
   healHealing = 0;
   buffFoLHLHealing = 0;
 
-  tyrsMunificenceTraits = null;
-  on_initialized() {
-    this.tyrsMunificenceTraits = this.owner.selectedCombatant.traitsBySpellId[TYRS_MUNIFICENCE_TRAIT_ID] || 0;
-  }
-
   get tyrsHealingIncrease() {
-    return TYRS_DELIVERANCE_BASE_HEALING_INCREASE + this.tyrsMunificenceTraits * TYRS_MUNIFICENCE_POINT_HEALING_INCREASE;
+    return TYRS_DELIVERANCE_BASE_HEALING_INCREASE + this.tyrsMunificence.rank * TYRS_MUNIFICENCE_POINT_HEALING_INCREASE;
   }
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
-    if (ABILITIES_AFFECTED_BY_HEALING_INCREASES.indexOf(spellId) === -1) {
-      return;
-    }
     switch (spellId) {
       case SPELLS.TYRS_DELIVERANCE_HEAL.id:
         this.healHealing += event.amount + (event.absorbed || 0);
@@ -48,7 +42,7 @@ class TyrsDeliverance extends Module {
           debug && console.log('Skipping event since combatant couldn\'t be found:', event);
           return;
         }
-        if (!combatant.hasBuff(TYRS_DELIVERANCE_BUFF_SPELL_ID, event.timestamp)) {
+        if (!combatant.hasBuff(SPELLS.TYRS_DELIVERANCE_HEAL.id, event.timestamp)) {
           break;
         }
 
@@ -69,7 +63,7 @@ class TyrsDeliverance extends Module {
       debug && console.log('Skipping beacon heal event since combatant couldn\'t be found:', beaconTransferEvent, 'for heal:', healEvent);
       return;
     }
-    if (!combatant.hasBuff(TYRS_DELIVERANCE_BUFF_SPELL_ID, healEvent.timestamp)) {
+    if (!combatant.hasBuff(SPELLS.TYRS_DELIVERANCE_HEAL.id, healEvent.timestamp)) {
       return;
     }
 

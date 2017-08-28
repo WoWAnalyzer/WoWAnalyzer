@@ -2,13 +2,12 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
 import Module from 'Parser/Core/Module';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import CritEffectBonus from 'Parser/Core/Modules/Helpers/CritEffectBonus';
-
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 // This critical healing works on both the regular part and the critical part (unlike Drape of Shame), so we double it.
 const SHOCK_TREATMENT_CRIT_EFFECT = 0.08 * 2;
@@ -74,17 +73,20 @@ class ShockTreatment extends Module {
     this.healing += effectiveHealing;
   }
 
-  statistic() {
+  subStatistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.SHOCK_TREATMENT.id} />}
-        value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %`}
-        label="Shock Treatment healing"
-        tooltip={`This only calculates the value of the last Shock Treatment point (you have a total of ${this.rank} points), for you with your gear and only during this fight. The value of an additional point would be slightly lower.`}
-      />
+      <div className="flex">
+        <div className="flex-main">
+          <SpellLink id={SPELLS.SHOCK_TREATMENT.id}>
+            <SpellIcon id={SPELLS.SHOCK_TREATMENT.id} noLink /> Shock Treatment
+          </SpellLink>
+        </div>
+        <div className="flex-sub text-right">
+          {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %
+        </div>
+      </div>
     );
   }
-  statisticOrder = STATISTIC_ORDER.TRAITS(1);
 }
 
 export default ShockTreatment;

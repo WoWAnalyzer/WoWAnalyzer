@@ -48,7 +48,7 @@ class AuraOfSacrifice extends Module {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(60);
 }
 
 export default AuraOfSacrifice;

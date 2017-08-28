@@ -2,12 +2,11 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
 import Module from 'Parser/Core/Module';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
-
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 const EXPEL_THE_DARKNESS_HEALING_INCREASE = 0.03;
 
@@ -39,17 +38,20 @@ class ExpelTheDarkness extends Module {
     this.healing += calculateEffectiveHealing(beaconTransferEvent, EXPEL_THE_DARKNESS_HEALING_INCREASE);
   }
 
-  statistic() {
+  subStatistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.EXPEL_THE_DARKNESS.id} />}
-        value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %`}
-        label="Expel the Darkness healing"
-        tooltip={`This only calculates the value of the last Expel the Darkness point (you have a total of ${this.rank} points), for you with your gear and only during this fight. The value of an additional point would be slightly lower.`}
-      />
+      <div className="flex">
+        <div className="flex-main">
+          <SpellLink id={SPELLS.EXPEL_THE_DARKNESS.id}>
+            <SpellIcon id={SPELLS.EXPEL_THE_DARKNESS.id} noLink /> Expel the Darkness
+          </SpellLink>
+        </div>
+        <div className="flex-sub text-right">
+          {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %
+        </div>
+      </div>
     );
   }
-  statisticOrder = STATISTIC_ORDER.TRAITS(4);
 }
 
 export default ExpelTheDarkness;
