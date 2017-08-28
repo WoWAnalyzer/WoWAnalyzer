@@ -25,6 +25,14 @@ const PETS = {
   },
 
   // priest:
+  SHADOWFIEND: {
+    id: 19668,
+    name: 'Shadowfiend',
+  },
+  SHADOWFIEND_SHA_GLYPH: {
+    id: 67235,
+    name: 'Shadowfiend',
+  },
   MINDBENDER: {
     id: 62982,
     name: 'Mindbender',

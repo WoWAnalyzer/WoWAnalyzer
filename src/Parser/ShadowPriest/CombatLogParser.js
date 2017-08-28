@@ -8,10 +8,10 @@ import AbilityTracker from './Modules/Core/AbilityTracker';
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import DamageDone from './Modules/Core/DamageDone';
-import Pets from './Modules/Core/Pets';
 
 
 import Mindbender from './Modules/Spells/Mindbender';
+import Shadowfiend from './Modules/Spells/Shadowfiend';
 import VampiricTouch from './Modules/Spells/VampiricTouch';
 import ShadowWordPain from './Modules/Spells/ShadowWordPain';
 import Voidform from './Modules/Spells/Voidform';
@@ -29,10 +29,10 @@ class CombatLogParser extends MainCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     abilityTracker: AbilityTracker,
     castEfficiency: CastEfficiency,
-    pets: Pets,
 
     // Abilities
     mindbender: Mindbender,
+    shadowfiend: Shadowfiend,
     vampiricTouch: VampiricTouch,
     shadowWordPain: ShadowWordPain,
     voidform: Voidform,

@@ -114,6 +114,14 @@ class CastEfficiency extends CoreCastEfficiency {
       noCanBeImproved: true,
     },
 
+    {
+      spell: SPELLS.VOID_ERUPTION,
+      category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
+      getCooldown: haste => null,
+      noSuggestion: true,
+      noCanBeImproved: true,
+    },
+
 
     // Cooldowns
     {
@@ -128,10 +136,11 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       recommendedCastEfficiency: 0.8,
       getCooldown: haste => 60,
+      isActive: combatant => combatant.hasTalent(SPELLS.MINDBENDER_TALENT_SHADOW.id),
     },
 
     {
-      spell: SPELLS.SHADOW_FIEND,
+      spell: SPELLS.SHADOWFIEND,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       recommendedCastEfficiency: 0.8,
       getCooldown: haste => 180,
@@ -139,7 +148,7 @@ class CastEfficiency extends CoreCastEfficiency {
     },
 
     {
-      spell: SPELLS.POWER_INFUSION,
+      spell: SPELLS.POWER_INFUSION_TALENT,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       recommendedCastEfficiency: 0.8,
       getCooldown: haste => 120,
@@ -155,9 +164,11 @@ class CastEfficiency extends CoreCastEfficiency {
     },
 
     {
-      spell: SPELLS.SURRENDER_TO_MADNESS,
+      spell: SPELLS.SURRENDER_TO_MADNESS_TALENT,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 600,
+      noSuggestion: true,
+      noCanBeImproved: true,
       isActive: combatant => combatant.hasTalent(SPELLS.SURRENDER_TO_MADNESS_TALENT.id),
     },
 
@@ -218,14 +229,6 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.FADE,
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => 30,
-      noSuggestion: true,
-      noCanBeImproved: true,
-    },
-
-    {
-      spell: SPELLS.VOID_ERUPTION,
-      category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
-      getCooldown: haste => null,
       noSuggestion: true,
       noCanBeImproved: true,
     },
