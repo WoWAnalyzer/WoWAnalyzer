@@ -21,8 +21,8 @@ class Mindbender extends Module {
     this._sourceId  = this.pets.fetchPet(PETS.MINDBENDER).id;
   }
 
-  on_event(eventType, event){
-    if(eventType === 'damage' && event.sourceID === this._sourceId && this._sourceId !== undefined){
+  on_event(event){
+    if(event.type === 'damage' && event.sourceID === this._sourceId && this._sourceId !== undefined){
       this._damageDone += event.amount;
     }
   }
