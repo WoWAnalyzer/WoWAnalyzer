@@ -1,4 +1,3 @@
-import Module from 'Parser/Core/Module';
 import SPELLS from 'common/SPELLS';
 import PETS from 'common/PETS';
 
@@ -7,32 +6,12 @@ import Pets from '../Core/Pets';
 const MINDBENDER_UPTIME_MS = 15000;
 const MINDBENDER_ADDED_UPTIME_MS_PER_TRAIT = 1500;
 
-class Mindbender extends Module {
-  static dependencies = {
-    pets: Pets,
-  };
-
-  _sourceId = null;
-  _damageDone = 0;
+class Mindbender extends Pets {
+  _pet = PETS.MINDBENDER;
   _mindbenders = {};
-
-  on_initialized() {
-    this.active     = this.owner.selectedCombatant.hasTalent(SPELLS.MINDBENDER_TALENT_SHADOW.id);
-    this._sourceId  = this.pets.fetchPet(PETS.MINDBENDER).id;
-  }
-
-  on_event(eventType, event){
-    if(eventType === 'damage' && event.sourceID === this._sourceId && this._sourceId !== undefined){
-      this._damageDone += event.amount;
-    }
-  }
 
   get mindbenders(){
     return Object.keys(this._mindbenders).map(key => this._mindbenders[key]);
-  }
-
-  get damageDone(){
-    return this._damageDone;
   }
 
   on_byPlayer_summon(event) {
