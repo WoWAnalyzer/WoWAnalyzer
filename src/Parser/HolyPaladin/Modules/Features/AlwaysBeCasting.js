@@ -3,7 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import Icon from 'common/Icon';
-import { formatPercentage } from 'common/format';
+import { formatPercentage, formatDuration } from 'common/format';
 
 import CoreAlwaysBeCastingHealing from 'Parser/Core/Modules/AlwaysBeCastingHealing';
 
@@ -83,7 +83,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     }
     const castTime = cast.timestamp - begincast.timestamp;
     if (!this.constructor.inRange(castTime, globalCooldown, 50)) { // cast times seem to fluctuate by 50ms, not sure if it depends on player latency, in that case it could be a lot more flexible
-      console.warn(`Expected Flash of Light cast time (${castTime}) to match GCD (${Math.round(globalCooldown)}) @${cast.timestamp - this.owner.fight.start_time}`);
+      console.warn(`Expected Flash of Light cast time (${castTime}) to match GCD (${Math.round(globalCooldown)}) @${formatDuration((cast.timestamp - this.owner.fight.start_time) / 1000)}`, this.combatants.selected.activeBuffs());
     }
   }
 

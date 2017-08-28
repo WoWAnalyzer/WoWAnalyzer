@@ -29,6 +29,7 @@ class AlwaysBeCasting extends Module {
     [SPELLS.POWER_INFUSION_TALENT.id]: 0.25,
     [240673]: 800 / 37500, // Shadow Priest artifact trait that shared with 4 allies: http://www.wowhead.com/spell=240673/mind-quickening
     [SPELLS.WARLOCK_AFFLI_T20_4P_BUFF.id]: 0.15,
+    [242543]: 3619 / 37500, // Chalice of Moonlight Haste buff (900 item level since we can't scale with item level yet)
     // Boss abilities:
     [209166]: 0.3, // DEBUFF - Fast Time from Elisande
     [209165]: -0.3, // DEBUFF - Slow Time from Elisande
