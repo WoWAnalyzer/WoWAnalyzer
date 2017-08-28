@@ -4,10 +4,9 @@ import SuggestionsTab from 'Main/SuggestionsTab';
 import Tab from 'Main/Tab';
 import Talents from 'Main/Talents';
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
-
-import CastEfficiency from './Modules/Features/CastEfficiency'
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
+import CastEfficiency from './Modules/Features/CastEfficiency';
 import DamageTaken from './Modules/Core/DamageTaken';
 import HealingDone from './Modules/Core/HealingDone';
 import DamageDone from './Modules/Core/DamageDone';

@@ -6,10 +6,11 @@ import Module from 'Parser/Core/Module';
 
 import StatisticBox from 'Main/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
 
 import { formatNumber, formatPercentage } from 'common/format';
 
-// TODO: determine whether total mitigated damage from EW compared to total damage taken is sufficient
+const EARTHWARDEN_REDUCTION_MODIFIER = 0.3;
 
 const ABILITIES_THAT_CONSUME_EW = [
   SPELLS.MELEE.id,
@@ -49,24 +50,54 @@ class Earthwarden extends Module {
     return healingDone / fightLengthSec;
   }
 
-  get percentMitigated() {
+  get percentOfPotentialMitigated() {
     return this.swingsMitigated / this.totalSwings;
   }
 
-  getPercentofTotalDamageMitigated() {
+  get percentOfTotalMitigatable() {
+    const totalDamageTaken = this.owner.modules.damageTaken.total.effective;
+    return this.damageFromMelees / totalDamageTaken;
+  }
 
+  get percentOfTotalMitigated() {
+    const totalDamageTaken = this.owner.modules.damageTaken.total.effective;
+    const mitigatableDamagePercentage = this.damageFromMelees / totalDamageTaken;
+    return this.percentOfPotentialMitigated * mitigatableDamagePercentage * EARTHWARDEN_REDUCTION_MODIFIER;
   }
 
   statistic() {
-    console.log(this.percentMitigated);
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.EARTHWARDEN_BUFF.id} />}
-        label='Earthwarden'
-        value={`${formatNumber(this.hps)} HPS`}
-        tooltip={`You mitigated ${this.swingsMitigated} out of ${this.totalSwings} attacks that Earthwarden works on. (${formatPercentage(this.percentMitigated)}% mitigated)`}
+        label='Hits mitigated by Earthwarden'
+        value={`${formatPercentage(this.percentOfPotentialMitigated)}%`}
+        tooltip={`You mitigated ${this.swingsMitigated} out of a possible ${this.totalSwings} attacks (${formatPercentage(this.percentOfPotentialMitigated)}%) that Earthwarden works on. <br /><br />(${formatPercentage(this.percentOfTotalMitigated)}% of total damage, ${formatNumber(this.hps)} HPS)`}
       />
     );
+  }
+
+  suggestions(when) {
+    // Suggestion 1: EW stacks are not being generated fast enough
+    when(this.percentOfPotentialMitigated).isLessThan(0.6)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<span><SpellLink id={SPELLS.EARTHWARDEN_TALENT.id} /> is not mitigating enough potential damage to be effective.  This is often caused by stacks being consumed too quickly due to tanking multiple mobs or low <SpellLink id={SPELLS.THRASH_BEAR.id} /> casts.  Consider using a different talent if you cannot get better usage from Earthwarden.</span>)
+          .icon(SPELLS.EARTHWARDEN_TALENT.icon)
+          .actual(`${formatPercentage(actual)}% of potential damage was mitigated by Earthwarden`)
+          .recommended(`${formatPercentage(recommended, 0)}% or more is recommended`)
+          .regular(recommended - 0.1).major(recommended - 0.2);
+
+      });
+
+    // Suggestion 2: Melee damage is not relevant enough for EW to be effective
+    when(this.percentOfTotalMitigatable).isLessThan(0.4)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<span>The damage pattern of this encounter makes <SpellLink id={SPELLS.EARTHWARDEN_TALENT.id} /> less effective. Consider using a different talent that will provide more value against non-melee damage.</span>)
+          .icon(SPELLS.EARTHWARDEN_TALENT.icon)
+          .actual(`${formatPercentage(actual)}% of total damage was mitigatable by Earthwarden`)
+          .recommended(`${formatPercentage(recommended, 0)}% or more is recommended`)
+          .regular(recommended - 0.05).major(recommended - 0.1);
+
+      });
   }
 }
 
