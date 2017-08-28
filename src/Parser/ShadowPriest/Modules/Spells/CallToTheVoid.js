@@ -30,8 +30,8 @@ class CallToTheVoid extends Module {
     }
   }
 
-  on_event(eventType, event){
-    if(eventType === 'damage' && event.sourceID === this._sourceId && this._sourceId !== undefined){
+  on_event(event){
+    if(event.type === 'damage' && event.sourceID === this._sourceId && this._sourceId !== undefined){
       this._damageDone += event.amount;
       this._generatedInsanity += INSANITY_GENERATED_EACH_TICK;
     }
