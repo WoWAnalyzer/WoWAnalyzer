@@ -8,11 +8,11 @@ describe('GuardianDruid.Gore', () => {
     gore = new Gore();
   });
   it('track gore procs with no events', () => {
-    expect(gore.GoreProcsTotal).toBe(0);
+    expect(gore.totalProcs).toBe(0);
   });
   it('track gore procs with only damage events', () => {
     processEvents(damageTaken, gore);
-    expect(gore.GoreProcsTotal).toBe(0);
+    expect(gore.totalProcs).toBe(0);
   });
   it('track the number of times mangle was cast with just casts', () => {
     processEvents(casts, gore);
@@ -20,11 +20,11 @@ describe('GuardianDruid.Gore', () => {
   });
   it('track gore procs with single refresh event', () => {
     processEvents(buffsRefreshed, gore);
-    expect(gore.GoreProcsTotal).toBe(1);
+    expect(gore.totalProcs).toBe(1);
   });
   it('track gore procs over the course of a fight', () => {
     processEvents(SimpleFight, gore);
-    expect(gore.GoreProcsTotal).toBe(2);
+    expect(gore.totalProcs).toBe(2);
   });
   it('track consumed gore procs', () => {
     processEvents(SimpleFight, gore);
@@ -39,5 +39,3 @@ describe('GuardianDruid.Gore', () => {
     expect(gore.overwrittenGoreProc).toBe(1);
   });
 });
-  
-
