@@ -17,6 +17,7 @@ const ABILITIES_THAT_CONSUME_EW = [
 ];
 
 class Earthwarden extends Module {
+  damageFromMelees = 0;
   swingsMitigated = 0;
   totalSwings = 0;
 
@@ -26,6 +27,8 @@ class Earthwarden extends Module {
 
   on_toPlayer_damage(event) {
     if (ABILITIES_THAT_CONSUME_EW.includes(event.ability.guid)) {
+      this.damageFromMelees += event.amount + event.absorbed;
+
       // Dodged swings and fully absorbed swings should not count towards total swings,
       // since we only care about attacks that EW would have mitigated
       if (event.hitType !== HIT_TYPES.DODGE || event.amount > 0) {
@@ -48,6 +51,10 @@ class Earthwarden extends Module {
 
   get percentMitigated() {
     return this.swingsMitigated / this.totalSwings;
+  }
+
+  getPercentofTotalDamageMitigated() {
+
   }
 
   statistic() {
