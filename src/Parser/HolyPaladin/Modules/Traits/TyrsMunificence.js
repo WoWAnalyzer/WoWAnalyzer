@@ -27,7 +27,7 @@ class TyrsMunificence extends Module {
   healing = 0;
 
   on_initialized() {
-    this.rank = this.owner.selectedCombatant.traitsBySpellId[SPELLS.TYRS_MUNIFICENCE.id];
+    this.rank = this.combatants.selected.traitsBySpellId[SPELLS.TYRS_MUNIFICENCE.id];
     this.active = this.rank > 0;
   }
 

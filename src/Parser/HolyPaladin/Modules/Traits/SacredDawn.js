@@ -23,7 +23,7 @@ class SacredDawn extends Module {
   healing = 0;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.traitsBySpellId[SPELLS.SACRED_DAWN.id] === 1;
+    this.active = this.combatants.selected.traitsBySpellId[SPELLS.SACRED_DAWN.id] === 1;
   }
 
   on_byPlayer_heal(event) {

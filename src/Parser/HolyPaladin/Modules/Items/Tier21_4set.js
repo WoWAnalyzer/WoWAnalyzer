@@ -6,8 +6,8 @@ import SpellLink from 'common/SpellLink';
 
 import Module from 'Parser/Core/Module';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
-
 import CritEffectBonus from 'Parser/Core/Modules/Helpers/CritEffectBonus';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 const BASE_HEALING_PERCENTAGE = 1.0;
 const PURITY_OF_LIGHT_CRITICAL_HEALING_INCREASE = 1.0;
@@ -22,12 +22,13 @@ const PURITY_OF_LIGHT_AFFECTED_HEALS = [
  */
 class Tier21_4set extends Module {
   static dependencies = {
+    combatants: Combatants,
     critEffectBonus: CritEffectBonus,
   };
   healing = 0;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasBuff(SPELLS.HOLY_PALADIN_T21_4SET_BONUS_BUFF.id);
+    this.active = this.combatants.selected.hasBuff(SPELLS.HOLY_PALADIN_T21_4SET_BONUS_BUFF.id);
 
     if (this.active) {
       this.critEffectBonus.hook(this.getCritEffectBonus.bind(this));
@@ -81,7 +82,7 @@ class Tier21_4set extends Module {
     if (PURITY_OF_LIGHT_AFFECTED_HEALS.indexOf(spellId) === -1) {
       return false;
     }
-    if (!this.owner.selectedCombatant.hasBuff(SPELLS.PURITY_OF_LIGHT.id, event.timestamp)) {
+    if (!this.combatants.selected.hasBuff(SPELLS.PURITY_OF_LIGHT.id, event.timestamp)) {
       return false;
     }
     if (event.hitType !== HIT_TYPES.CRIT) {

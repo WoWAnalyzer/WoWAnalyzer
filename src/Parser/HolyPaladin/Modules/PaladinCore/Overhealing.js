@@ -9,11 +9,13 @@ import { formatThousands, formatPercentage } from 'common/format';
 import Module from 'Parser/Core/Module';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class Overhealing extends Module {
   static dependencies = {
+    combatants: Combatants,
     abilityTracker: AbilityTracker,
     healingDone: HealingDone,
   };
@@ -26,8 +28,8 @@ class Overhealing extends Module {
   }
 
   suggestions(when) {
-    const hasSoulOfTheHighlord = this.owner.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_HIGHLORD.id);
-    const hasDivinePurpose = hasSoulOfTheHighlord || this.owner.selectedCombatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id);
+    const hasSoulOfTheHighlord = this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_HIGHLORD.id);
+    const hasDivinePurpose = hasSoulOfTheHighlord || this.combatants.selected.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id);
 
     const abilityTracker = this.abilityTracker;
     const getAbility = spellId => abilityTracker.getAbility(spellId);

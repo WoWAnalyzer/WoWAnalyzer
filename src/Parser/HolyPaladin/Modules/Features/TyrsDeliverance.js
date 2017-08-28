@@ -20,9 +20,6 @@ const TYRS_MUNIFICENCE_POINT_HEALING_INCREASE = 0.05;
 class TyrsDeliverance extends Module {
   static dependencies = {
     combatants: Combatants,
-  };
-
-  static dependencies = {
     tyrsMunificence: TyrsMunificence,
   };
 
