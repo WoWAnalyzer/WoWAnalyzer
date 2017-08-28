@@ -5,7 +5,7 @@ import { BEACON_TYPES } from '../../Constants';
 
 const BEACONS = Object.keys(BEACON_TYPES).map(key => BEACON_TYPES[key]);
 
-const debug = false;
+const debug = true;
 
 class BeaconTargets extends Module {
   static dependencies = {
@@ -23,13 +23,16 @@ class BeaconTargets extends Module {
 
   on_combatantinfo(event) {
     const playerId = this.owner.playerId;
-    if (event.sourceID === playerId) return;
     event.auras.forEach((aura) => {
       const { source, ability } = aura;
       if (source === playerId && BEACONS.indexOf(ability) !== -1) {
-        this.currentBeaconTargets.push(event.sourceID);
-        debug && console.log(`%c${this.combatants.players[event.sourceID].name} has a beacon`, 'color:green', this.currentBeaconTargets);
-        this.owner.triggerEvent('beacon_changed', event);
+        if (this.currentBeaconTargets.indexOf(event.sourceID) === -1) {
+          this.currentBeaconTargets.push(event.sourceID);
+          debug && console.log(`%c${this.combatants.players[event.sourceID].name} has a beacon`, 'color:green', this.currentBeaconTargets);
+          this.owner.triggerEvent('beacon_changed', event);
+        } else {
+          debug && console.error(`Trying to assign a beacon to ${this.combatants.players[event.sourceID].name}, but he already has one.`, this.currentBeaconTargets);
+        }
       }
     });
   }
