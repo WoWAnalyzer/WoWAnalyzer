@@ -66,7 +66,7 @@ class VoidTorrent extends Module {
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>You interrupted <SpellLink id={SPELLS.VOID_TORRENT.id} /> early, wasting {formatSeconds(this.totalWasted)} channeling seconds! Try to position yourself & time it so you don't get interrupted due to mechanics.</span>)
           .icon(SPELLS.VOID_TORRENT.icon)
-          .actual(`Lost ${formatSeconds(this.totalWasted)} seconds of Void Torrent.`)
+          .actual(`Lost ${formatSeconds(actual)} seconds of Void Torrent.`)
           .recommended(`No time wasted is recommended.`)
           .regular(recommended - 0.5).major(recommended - 2);
       });
