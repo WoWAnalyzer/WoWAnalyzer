@@ -8,9 +8,7 @@ class ObsidianStoneSpaulders extends Module {
   healing = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasShoulder(ITEMS.OBSIDIAN_STONE_SPAULDERS.id);
-    }
+    this.active = this.owner.selectedCombatant.hasShoulder(ITEMS.OBSIDIAN_STONE_SPAULDERS.id);
   }
 
   on_byPlayer_heal(event) {
@@ -18,6 +16,13 @@ class ObsidianStoneSpaulders extends Module {
     if (spellId === OBSIDIAN_STONE_SPAULDERS_HEAL_SPELL_ID) {
       this.healing += event.amount;
     }
+  }
+
+  item() {
+    return {
+      item: ITEMS.OBSIDIAN_STONE_SPAULDERS,
+      result: this.owner.formatItemHealingDone(this.healing),
+    };
   }
 }
 

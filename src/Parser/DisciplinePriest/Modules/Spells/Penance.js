@@ -9,11 +9,9 @@ import Module from 'Parser/Core/Module';
 const PENANCE_MINIMUM_RECAST_TIME = 3500; // Minimum duration from one Penance to Another
 
 class Penance extends Module {
-  priority = 9;
-
   _speedOfThePiousAcquired = false;
   _previousPenanceTimestamp = null;
-  _penanceFirstBolt = false;
+  _penanceBoltNumber = 0;
 
   isNewPenanceCast(timestamp) {
     return !this._previousPenanceTimestamp || (timestamp - this._previousPenanceTimestamp) > PENANCE_MINIMUM_RECAST_TIME;
@@ -27,7 +25,8 @@ class Penance extends Module {
 
     if (this.isNewPenanceCast(event.timestamp)) {
       this._previousPenanceTimestamp = event.timestamp;
-      this._penanceFirstBolt = true;
+      this._penanceBoltNumber = 0;
+      // event.isInitialPenanceCast = true; doesn't work since `this._speedOfThePiousAcquired` is permanently true after first cast
     }
   }
 
@@ -37,7 +36,7 @@ class Penance extends Module {
       return;
     }
     this._speedOfThePiousAcquired = true;
-    this._penanceFirstBolt = true;
+    this._penanceBoltNumber = 0;
   }
 
   on_byPlayer_damage(event) {
@@ -45,10 +44,8 @@ class Penance extends Module {
       return;
     }
 
-    if (this._penanceFirstBolt) {
-      event.isFirstPenanceBolt = true;
-      this._penanceFirstBolt = false;
-    }
+    event.penanceBoltNumber = this._penanceBoltNumber;
+    this._penanceBoltNumber += 1;
   }
 
   on_byPlayer_heal(event) {
@@ -56,10 +53,8 @@ class Penance extends Module {
       return;
     }
 
-    if (this._penanceFirstBolt) {
-      event.isFirstPenanceBolt = true;
-      this._penanceFirstBolt = false;
-    }
+    event.penanceBoltNumber = this._penanceBoltNumber;
+    this._penanceBoltNumber += 1;
   }
 }
 

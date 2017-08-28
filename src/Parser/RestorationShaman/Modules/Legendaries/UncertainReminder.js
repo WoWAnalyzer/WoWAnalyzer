@@ -7,7 +7,7 @@ import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
 
 const SENSE_OF_URGENCY_HEALING_INCREASE = 0.25;
-const START_EXTRA_HEROISM_UPTIME = 1/(1+0.75); // We only count healing increases ater this % of the hero has passed. 
+const START_EXTRA_HEROISM_UPTIME = 1/(1+0.75); // We only count healing increases ater this % of the hero has passed.
 
 const HEROISM_30_PERCENT = [
     32182, // Heroism
@@ -25,7 +25,7 @@ const HEROISM_25_PERCENT = [
 const SPELLS_SCALING_WITH_HASTE = [
     SPELLS.HEALING_RAIN_HEAL.id,
     SPELLS.HEALING_WAVE.id,
-    SPELLS.HEALING_SURGE.id,
+    SPELLS.HEALING_SURGE_RESTORATION.id,
     SPELLS.CHAIN_HEAL.id,
     SPELLS.HEALING_STREAM_TOTEM_HEAL.id,
     SPELLS.HEALING_TIDE_TOTEM_HEAL.id,
@@ -46,14 +46,12 @@ class UncertainReminder extends Module {
   hasteHealing = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasHead(ITEMS.UNCERTAIN_REMINDER.id);
-      // We apply heroism at the start incase it was popped before the pull. If we see it's
-      // applied before it drops, we discard all the events.
-      this.heroismStart = this.owner.fight.start_time;
-      this.hastePercent = 0.30;
-      this.events = [];
-    }
+    this.active = this.owner.selectedCombatant.hasHead(ITEMS.UNCERTAIN_REMINDER.id);
+    // We apply heroism at the start incase it was popped before the pull. If we see it's
+    // applied before it drops, we discard all the events.
+    this.heroismStart = this.owner.fight.start_time;
+    this.hastePercent = 0.30;
+    this.events = [];
   }
 
   // See if we have heroism when the boss is engaged (prelust)
@@ -63,8 +61,8 @@ class UncertainReminder extends Module {
   process_events(start, end, combatEnded) {
     const duration = end - start;
     let startExtraHeroTime = null;
-      
-    if (combatEnded) { 
+
+    if (combatEnded) {
       // If the fight ended with hero up, we assume there were no mechanic shortening hero duration.
       startExtraHeroTime = start + 40000;
     } else {
@@ -75,7 +73,7 @@ class UncertainReminder extends Module {
     this.events.forEach((event) => {
         if (event.timestamp > startExtraHeroTime) {
 
-          const spellId = event.ability.guid; 
+          const spellId = event.ability.guid;
 
           if (SPELLS_SCALING_WITH_HASTE.indexOf(spellId) > -1) {
             const increase = (1+this.hastePercent) * (1+SENSE_OF_URGENCY_HEALING_INCREASE) - 1;
@@ -91,7 +89,7 @@ class UncertainReminder extends Module {
 
   on_toPlayer_applybuff(event) {
 
-      const spellId = event.ability.guid; 
+      const spellId = event.ability.guid;
 
       if (HEROISM_30_PERCENT.indexOf(spellId) > -1){
          this.heroismStart = event.timestamp;
@@ -108,7 +106,7 @@ class UncertainReminder extends Module {
 
   on_toPlayer_removebuff(event) {
 
-      const spellId = event.ability.guid; 
+      const spellId = event.ability.guid;
 
       if (HEROISM_30_PERCENT.indexOf(spellId) > -1){
          this.process_events(this.heroismStart, event.timestamp);

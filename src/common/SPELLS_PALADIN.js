@@ -1,3 +1,11 @@
+/**
+ * All Paladin abilities except talents go in here. You can also put a talent in here if you want to override something imported in the `./talents` folder, but that should be extremely rare.
+ * You need to do this manually, usually an easy way to do this is by opening a WCL report and clicking the icons of spells to open the relevant Wowhead pages, here you can get the icon name by clicking the icon, copy the name of the spell and the ID is in the URL.
+ * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
+ */
+
+import TALENTS from 'common/talents/TALENTS_PALADIN';
+
 export default {
   // Paladin:
   CRUSADER_STRIKE: {
@@ -40,6 +48,8 @@ export default {
   },
 
   // Holy Paladin:
+  // Fix talent mana costs (due to rounding errors)
+  BEACON_OF_FAITH_TALENT: { ...TALENTS.BEACON_OF_FAITH_TALENT, manaCost: 6875 },
   BEACON_OF_LIGHT: {
     id: 53652,
     name: 'Beacon of Light',
@@ -166,6 +176,21 @@ export default {
     name: 'Light\'s Embrace',
     icon: 'spell_holy_holybolt',
   },
+  HOLY_PALADIN_T21_2SET_BONUS_BUFF: {
+    id: 251863,
+    name: 'T21 2 set bonus',
+    icon: 'ability_paladin_conviction',
+  },
+  HOLY_PALADIN_T21_4SET_BONUS_BUFF: {
+    id: 251865,
+    name: 'T21 4 set bonus',
+    icon: 'ability_paladin_conviction',
+  },
+  PURITY_OF_LIGHT: {
+    id: 254332,
+    name: 'Purity of Light',
+    icon: 'ability_paladin_conviction',
+  },
   INFUSION_OF_LIGHT: {
     id: 54149,
     name: 'Infusion of Light',
@@ -212,28 +237,6 @@ export default {
     id: 184662,
     name: 'Shield of Vengeance',
     icon: 'ability_paladin_shieldofthetemplar',
-  },
-
-  // Talents:
-  // Holy Paladin:
-  // lv15
-  BESTOW_FAITH_TALENT: {
-    id: 223306,
-    name: 'Bestow Faith',
-    icon: 'ability_paladin_blessedmending',
-    manaCost: 13200,
-  },
-  LIGHTS_HAMMER_TALENT: {
-    id: 114158,
-    name: 'Light\'s Hammer',
-    icon: 'spell_paladin_lightshammer',
-    manaCost: 61600,
-  },
-  HOLY_PRISM_TALENT: {
-    id: 114165,
-    name: 'Holy Prism',
-    icon: 'spell_paladin_holyprism',
-    manaCost: 37400,
   },
 
   // Traits:

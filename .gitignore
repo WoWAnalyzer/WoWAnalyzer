@@ -31,3 +31,9 @@ temp
 # Regularly changing or system specific IDE files
 /.idea/workspace.xml
 /.vscode
+
+.vs/ProjectSettings.json
+.vs/slnx.sqlite
+.vs/slnx.sqlite-journal
+.vs/VSWorkspaceState.json
+.vs/WoWAnalyzer/v15/.suo

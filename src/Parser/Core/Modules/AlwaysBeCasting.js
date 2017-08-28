@@ -1,9 +1,15 @@
 import Module from 'Parser/Core/Module';
 import SPELLS from 'common/SPELLS';
 
+import Combatants from 'Parser/Core/Modules/Combatants';
+
 const debug = false;
 
 class AlwaysBeCasting extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
   static ABILITIES_ON_GCD = [
     // Extend this class and override this property in your spec class to implement this module.
   ];
@@ -113,7 +119,7 @@ class AlwaysBeCasting extends Module {
   baseHaste = null;
   currentHaste = null;
   on_initialized() {
-    const combatant = this.owner.modules.combatants.selected;
+    const combatant = this.combatants.selected;
     this.baseHaste = combatant.hastePercentage;
     this.currentHaste = this.baseHaste;
 

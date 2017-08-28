@@ -90,6 +90,19 @@ describe('RestoDruid.CombatLogParser', () => {
       ],
       result: [1, 2],
     },
+    {
+      // 9: test multiple reorderings
+      playerId: 1,
+      events: [
+        {testid: 1, timestamp: 1, targetID: 1, ability: {guid: SPELLS.WILD_GROWTH.id}, type: "applybuff"},
+        {testid: 2, timestamp: 1, targetID: null, ability: {guid: SPELLS.WILD_GROWTH.id}, type: "cast"},
+        {testid: 3, timestamp: 2, targetID: 1, ability: {guid: SPELLS.WILD_GROWTH.id}, type: "applybuff"},
+        {testid: 4, timestamp: 2, targetID: null, ability: {guid: SPELLS.WILD_GROWTH.id}, type: "cast"},
+        {testid: 5, timestamp: 3, targetID: 1, ability: {guid: SPELLS.WILD_GROWTH.id}, type: "applybuff"},
+        {testid: 6, timestamp: 3, targetID: null, ability: {guid: SPELLS.WILD_GROWTH.id}, type: "cast"},
+      ],
+      result: [2, 1, 4, 3, 6, 5],
+    },
   ];
 
   reorderScenarios.forEach((scenario, idx) => {

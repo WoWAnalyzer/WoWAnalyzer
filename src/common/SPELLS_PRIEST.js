@@ -1,3 +1,9 @@
+/**
+ * All Priest abilities except talents go in here. You can also put a talent in here if you want to override something imported in the `./talents` folder, but that should be extremely rare.
+ * You need to do this manually, usually an easy way to do this is by opening a WCL report and clicking the icons of spells to open the relevant Wowhead pages, here you can get the icon name by clicking the icon, copy the name of the spell and the ID is in the URL.
+ * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
+ */
+
 export default {
   // Discipline Priest:
   PENANCE: {
@@ -408,5 +414,141 @@ export default {
     name: 'Xan\'shi, Shroud of Archbishop Benedictus',
     icon: 'inv_enchant_essencemagiclarge',
   },
+
+  // Shadow Spells
+
+  VOID_TORRENT: {
+    id: 205065,
+    name: 'Void Torrent',
+    icon: 'inv_knife_1h_artifactcthun_d_01',
+  },
+
+  MIND_BLAST: {
+    id: 8092,
+    name: 'Mind Blast',
+    icon: 'spell_shadow_unholyfrenzy',
+  },
+
+  MIND_FLAY: {
+    id: 15407,
+    name: 'Mind Flay',
+    icon: 'spell_shadow_siphonmana',
+  },
+
+  VAMPIRIC_TOUCH: {
+    id: 34914,
+    name: 'Vampiric Touch',
+    icon: 'spell_holy_stoicism',
+  },
+
+  SHADOW_WORD_DEATH: {
+    id: 32379,
+    name: 'Shadow Word: Death',
+    icon: 'spell_shadow_demonicfortitude',
+  },
+
+  VOID_ERUPTION: {
+    id: 228260,
+    name: 'Void Eruption',
+    icon: 'spell_priest_void-blast',
+  },
+
+  VOID_BOLT: {
+    id: 205448,
+    name: 'Void Bolt',
+    icon: 'ability_ironmaidens_convulsiveshadows',
+  },
+
+  DISPERSION: {
+    id: 47585,
+    name: 'Dispersion',
+    icon: 'spell_shadow_dispersion',
+  },
+
+  VAMPIRIC_EMBRACE: {
+    id: 15286,
+    name: 'Vampiric Embrace',
+    icon: 'spell_shadow_unsummonbuilding',
+  },
+
+  SILENCE: {
+    id: 15487,
+    name: 'Silence',
+    icon: 'ability_priest_silence',
+  },
+
+  PURIFY_DISEASE: {
+    id: 213634,
+    name: 'Purify Disease',
+    icon: 'spell_holy_nullifydisease',
+  },
+
+  SHADOWFORM: {
+    id: 232698,
+    name: 'Shadowform',
+    icon: 'spell_shadow_shadowform',
+  },
+
+  MIND_VISION: {
+    id: 2096,
+    name: 'Mind Vision',
+    icon: 'spell_holy_mindvision',
+  },
+
+  // Shadow Buffs
+
+  VOIDFORM: {
+    id: 228264,
+    name: 'Voidform',
+    icon: 'spell_priest_voidform',
+  },
+
+  VOIDFORM_BUFF: {
+    id: 194249,
+    name: 'Voidform',
+    icon: 'spell_priest_voidform',
+  },
+
+  LINGERING_INSANITY: {
+    id: 197937,
+    name: 'Lingering Insanity',
+    icon: 'spell_shadow_twistedfaith',
+  },
+
+  // Shadow traits
+
+  FROM_THE_SHADOWS_TRAIT: {
+    id: 193642,
+    name: 'From the Shadows',
+    icon: 'spell_shadow_summonvoidwalker',
+  },
+
+  CALL_TO_THE_VOID_TRAIT: {
+    id: 193642,
+    name: 'From the Shadows',
+    icon: 'achievement_boss_yoggsaron_01',
+  },
+
+  LASH_OF_INSANITY_TRAIT: {
+    id: 238137,
+    name: 'Lash of Insanity',
+    icon: 'achievement_boss_yoggsaron_01',
+  },
+
+  CALL_TO_THE_VOID_MIND_FLAY: {
+    id: 237388,
+    name: 'Mind Flay',
+    icon: 'spell_shadow_mindshear',
+  },
+
+  FIENDING_DARK_TRAIT: {
+    id: 238065,
+    name: 'Fiending Dark',
+    icon: 'spell_shadow_shadowfiend',
+  },
+
+
+  
+  
 
 };

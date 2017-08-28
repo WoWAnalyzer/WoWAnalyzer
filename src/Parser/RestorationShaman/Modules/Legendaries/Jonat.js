@@ -12,9 +12,7 @@ class Jonat extends Module {
   healing = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasFinger(ITEMS.FOCUSER_OF_JONAT.id);
-    }
+    this.active = this.owner.selectedCombatant.hasFinger(ITEMS.FOCUSER_OF_JONAT.id);
   }
 
   on_byPlayer_heal(event) {

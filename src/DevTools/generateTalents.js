@@ -88,6 +88,38 @@ Object.values(talents).forEach(classTalents => {
       if (mana) {
         spellsTalent.manaCost = Math.round(mana[1] / 100 * BASE_MANA[className]);
       }
+      const pain = spell.powerCost.match(/^([0-9.]+) Pain/);
+      if (pain) {
+        spellsTalent.painCost = Number(pain[1]);
+      }
+      const maelstrom = spell.powerCost.match(/^([0-9.]+) Maelstrom/);
+      if (maelstrom) {
+        spellsTalent.maelstromCost = Number(maelstrom[1]);
+      }
+      const holyPower = spell.powerCost.match(/^([0-9.]+) Holy Power/);
+      if (holyPower) {
+        spellsTalent.maelstromCost = Number(holyPower[1]);
+      }
+      const rage = spell.powerCost.match(/^([0-9.]+) Rage/);
+      if (rage) {
+        spellsTalent.rageCost = Number(rage[1]);
+      }
+      const focus = spell.powerCost.match(/^([0-9.]+) Focus/);
+      if (focus) {
+        spellsTalent.focusCost = Number(focus[1]);
+      }
+      const energy = spell.powerCost.match(/^([0-9.]+) Energy/);
+      if (energy) {
+        spellsTalent.energyCost = Number(energy[1]);
+      }
+      const runicPower = spell.powerCost.match(/^([0-9.]+) Runic Power/);
+      if (runicPower) {
+        spellsTalent.runicPowerCost = Number(runicPower[1]);
+      }
+      const chi = spell.powerCost.match(/^([0-9.]+) Chi/);
+      if (chi) {
+        spellsTalent.chiCost = Number(chi[1]);
+      }
       // TODO: As desired add other powers
     }
 

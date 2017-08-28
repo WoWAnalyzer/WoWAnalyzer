@@ -10,9 +10,7 @@ class EarthenShieldTotem extends Module {
 
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasTalent(SPELLS.EARTHEN_SHIELD_TOTEM_TALENT.id);
-    }
+    this.active = this.owner.selectedCombatant.hasTalent(SPELLS.EARTHEN_SHIELD_TOTEM_TALENT.id);
   }
 
   on_damage(event) {

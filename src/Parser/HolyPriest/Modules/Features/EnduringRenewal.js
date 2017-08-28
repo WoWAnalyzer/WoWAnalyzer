@@ -20,11 +20,9 @@ class EnduringRenewal extends Module {
   // Enduring Renewal
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasTalent(SPELLS.ENDURING_RENEWAL_TALENT.id);
-      this._usingLegendaryLegs = this.owner.selectedCombatant.hasLegs(ITEMS.ENTRANCING_TROUSERS_OF_ANJUNA.id);
-      this._baseRenewLength = 15 + (this._usingLegendaryLegs ? 6 : 0);
-    }
+    this.active = this.owner.selectedCombatant.hasTalent(SPELLS.ENDURING_RENEWAL_TALENT.id);
+    this._usingLegendaryLegs = this.owner.selectedCombatant.hasLegs(ITEMS.ENTRANCING_TROUSERS_OF_ANJUNA.id);
+    this._baseRenewLength = 15 + (this._usingLegendaryLegs ? 6 : 0);
   }
 
   // We do not track "casts" of Renew because casting Renew on an existing target

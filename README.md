@@ -16,14 +16,11 @@ I will likely not have time to work on many more specs by myself, so the only wa
 
 ## Current specs:
 
- * [Holy Paladin](src/Parser/HolyPaladin/README.md) (maintained by @Zerotorescue)
- * Disc Priest (maintained by @Zerotorescue with considerable help from @Josh)
+See the site for a list of current specs. The following specs bothered to make a custom readme:
  * [Resto Druid](src/Parser/RestoDruid/README.md) (maintained by @blazyb)
  * [Resto Shaman](src/Parser/RestorationShaman/README.md) (maintained by @versaya)
  * [Mistweaver Monk](src/Parser/MistweaverMonk/README.md) (maintained by @anom0ly)
 
 ## License
 
-You are free to use pieces of this project for your own open source non-commercial projects. Other uses will be assessed on a case-by-case basis.
-
-Usage of any API keys found in the source is not allowed. You must at all times use your own API keys.
+See the [LICENSE](LICENSE) file. Usage of any API keys found in the source is not allowed for other purposes than described in the source code and/or its documentation. You must at all times use your own API keys.

@@ -11,9 +11,7 @@ class ChainOfThrayn extends Module {
   healing = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasWaist(ITEMS.CHAIN_OF_THRAYN.id);
-    }
+    this.active = this.owner.selectedCombatant.hasWaist(ITEMS.CHAIN_OF_THRAYN.id);
   }
 
   on_heal(event) {
@@ -47,6 +45,13 @@ class ChainOfThrayn extends Module {
   }
 
   // Beacon transfer is included in `ABILITIES_AFFECTED_BY_HEALING_INCREASES`
+
+  item() {
+    return {
+      item: ITEMS.CHAIN_OF_THRAYN,
+      result: this.owner.formatItemHealingDone(this.healing),
+    };
+  }
 }
 
 export default ChainOfThrayn;

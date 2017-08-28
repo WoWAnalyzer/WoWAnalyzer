@@ -4,9 +4,10 @@ import { Link } from 'react-router';
 import ReactTooltip from 'react-tooltip';
 import Toggle from 'react-toggle';
 
+import getWipeCount from 'common/getWipeCount';
+
 import Fight from './Fight';
 import makeAnalyzerUrl from './makeAnalyzerUrl';
-import getWipeCount from './getWipeCount';
 
 class FightSelecter extends Component {
   static propTypes = {
@@ -45,7 +46,7 @@ class FightSelecter extends Component {
       <div>
         <h1>
           <div className="back-button">
-            <Link to="/" data-tip="Back to report selection">
+            <Link to={makeAnalyzerUrl()} data-tip="Back to report selection">
               <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
             </Link>
           </div>
@@ -68,7 +69,7 @@ class FightSelecter extends Component {
                 <label htmlFor="kills-only-toggle">
                   Kills only
                 </label>
-                <Link to={`/report/${report.code}`} onClick={onRefresh} data-tip="This will refresh the fights list which can be useful if you're live logging.">
+                <Link to={makeAnalyzerUrl(report)} onClick={onRefresh} data-tip="This will refresh the fights list which can be useful if you're live logging.">
                   <span className="glyphicon glyphicon-refresh" aria-hidden="true" /> Refresh
                 </Link>
               </div>
@@ -88,15 +89,22 @@ class FightSelecter extends Component {
                     return true;
                   })
                   .map(fight => (
-                    <li key={`${fight.id}`}>
-                      <Link to={makeAnalyzerUrl(report.code, fight.id)}>
+                    <li key={`${fight.id}`} className="item selectable">
+                      <Link to={makeAnalyzerUrl(report, fight.id)}>
                         <Fight {...fight} wipes={getWipeCount(report, fight)} />
                       </Link>
                     </li>
                   ))
               }
+              <li className="item clearfix text-muted" style={{ paddingTop: 10, paddingBottom: 10 }}>
+                You will usually get the best results using logs where you're really being challenged, such as progress raids.
+              </li>
             </ul>
           </div>
+        </div>
+
+        <div className="text-muted">
+          Icons by <a href="https://icons8.com/" rel="noopener noreferrer">Icons8</a>.
         </div>
       </div>
     );

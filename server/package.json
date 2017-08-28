@@ -10,8 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "agentkeepalive": "^3.2.0",
-    "compression": "^1.6.2",
+    "agentkeepalive": "^3.3.0",
+    "compression": "^1.7.0",
     "express": "^4.15.3",
     "node-cache": "^4.1.1"
   }

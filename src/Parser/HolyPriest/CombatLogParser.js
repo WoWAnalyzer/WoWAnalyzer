@@ -8,23 +8,23 @@ import ITEMS from 'common/ITEMS';
 
 import StatisticBox from 'Main/StatisticBox';
 import SuggestionsTab from 'Main/SuggestionsTab';
-import TalentsTab from 'Main/TalentsTab';
-import CastEfficiencyTab from 'Main/CastEfficiencyTab';
-import CooldownsTab from 'Main/CooldownsTab';
-import ManaTab from 'Main/ManaTab';
-import LowHealthHealingTab from 'Main/LowHealthHealingTab';
+import Tab from 'Main/Tab';
+import Talents from 'Main/Talents';
+import Mana from 'Main/Mana';
 
-import MainCombatLogParser from 'Parser/Core/CombatLogParser';
-import getCastEfficiency from 'Parser/Core/getCastEfficiency';
+import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
+import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
 
-import AbilityTracker from './Modules/Core/AbilityTracker';
+import SpellManaCost from './Modules/Core/SpellManaCost';
 
 // Spell data
 import PrayerOfMending from './Modules/Spells/PrayerOfMending';
 import DivineHymn from './Modules/Spells/DivineHymn';
+import Sanctify from './Modules/Spells/Sanctify';
 
 // Features
+import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownTracker from './Modules/Features/CooldownTracker';
 import RenewTheFaith from './Modules/Features/RenewTheFaith';
@@ -36,7 +36,6 @@ import EnduringRenewal from './Modules/Features/EnduringRenewal';
 import TrousersOfAnjuna from './Modules/Items/TrousersOfAnjuna';
 import XanshiCloak from './Modules/Items/XanshiCloak';
 
-import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
 // Imports that will likely be used in the future but currently unused (go away npm warnings)
@@ -71,11 +70,13 @@ function formatPercentage(percentage) {
   return (Math.round((percentage || 0) * 10000) / 100).toFixed(2);
 }
 
-class CombatLogParser extends MainCombatLogParser {
+class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
 
   static specModules = {
-    abilityTracker: AbilityTracker,
+    spellManaCost: SpellManaCost,
+    castEfficiency: CastEfficiency,
+    lowHealthHealing: LowHealthHealing,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -88,6 +89,7 @@ class CombatLogParser extends MainCombatLogParser {
     // Spells
     prayerOfMending: PrayerOfMending,
     divineHymn: DivineHymn,
+    sanctify: Sanctify,
 
     // Items
     trousersOfAnjuna: TrousersOfAnjuna,
@@ -104,11 +106,8 @@ class CombatLogParser extends MainCombatLogParser {
     const abilityTracker = this.modules.abilityTracker;
     const getAbility = spellId => abilityTracker.getAbility(spellId);
 
-    const castEfficiencyCategories = SPELL_CATEGORY;
-    const castEfficiency = getCastEfficiency(CPM_ABILITIES, this);
-
     // Renew the Faith trait data calculations
-    const rtfPercHPS = formatPercentage(this.modules.renewTheFaith.healing / this.totalHealing);
+    const rtfPercHPS = formatPercentage(this.getPercentageOfTotalHealingDone(this.modules.renewTheFaith.healing));
     const rtfPercOH = formatPercentage(this.modules.renewTheFaith.overhealing / (this.modules.renewTheFaith.healing + this.modules.renewTheFaith.overhealing));
     const rtfRelPercHPS = formatPercentage(this.modules.renewTheFaith.healing / this.modules.divineHymn.healing);
 
@@ -117,38 +116,41 @@ class CombatLogParser extends MainCombatLogParser {
     const percPomIncFromSYP = ((1 + (sypTrait * SPELLS.SAY_YOUR_PRAYERS_TRAIT.coeff)) / (1 - (sypTrait * SPELLS.SAY_YOUR_PRAYERS_TRAIT.coeff))) - 1;
     const sypValue = this.modules.prayerOfMending.healing * percPomIncFromSYP / (1 + percPomIncFromSYP);
     const sypHPS = sypValue / this.fightDuration * 1000;
-    const sypPercHPSOverall = formatPercentage(sypValue / this.totalHealing);
+    const sypPercHPSOverall = formatPercentage(this.getPercentageOfTotalHealingDone(sypValue));
     const sypPercHPSPoM = formatPercentage(sypValue / this.modules.prayerOfMending.healing);
 
     // Missed Hymn ticks calculations
     const missedHymnTicks = (getAbility(SPELLS.DIVINE_HYMN_CAST.id).casts * 5) - this.modules.divineHymn.ticks;
 
     // Leggo Legs vars
-    const legsPercHPS = formatPercentage(this.modules.trousersOfAnjuna.healing / this.totalHealing);
+    const legsPercHPS = formatPercentage(this.getPercentageOfTotalHealingDone(this.modules.trousersOfAnjuna.healing));
     const legsHPS = formatNumber(this.modules.trousersOfAnjuna.healing / this.fightDuration * 1000);
 
     // Leggo cloak (Xan'shi) vars
-    const cloakPercHPS = formatPercentage(this.modules.xanshiCloak.healing / this.totalHealing);
+    const cloakPercHPS = formatPercentage(this.getPercentageOfTotalHealingDone(this.modules.xanshiCloak.healing));
     const cloakHPS = formatNumber(this.modules.xanshiCloak.healing / this.fightDuration * 1000);
 
     // Light of T'uure vars
     const lotSpellHealing = formatNumber(this.modules.lightOfTuure.spellHealing);
     const lotBuffHealing = formatNumber(this.modules.lightOfTuure.buffHealing);
     const lotTotal = this.modules.lightOfTuure.spellHealing + this.modules.lightOfTuure.buffHealing;
-    const lotPercHPS = formatPercentage(lotTotal / this.totalHealing);
+    const lotPercHPS = formatPercentage(this.getPercentageOfTotalHealingDone(lotTotal));
     const lotHPS = formatNumber(lotTotal / this.fightDuration * 1000);
 
     // Enduring Renewal vars
-    const erPercHPS = formatPercentage(this.modules.enduringRenewal.healing / this.totalHealing);
+    const erPercHPS = formatPercentage(this.getPercentageOfTotalHealingDone(this.modules.enduringRenewal.healing));
     const erHPS = formatNumber(this.modules.enduringRenewal.healing / this.fightDuration * 1000);
     const erGainPerRefresh = Math.round(this.modules.enduringRenewal.secsGained / this.modules.enduringRenewal.refreshedRenews * 100) / 100;
 
+    // Sanctify efficiency vars
+    const sancAvgHits = this.modules.sanctify.hits / this.modules.sanctify.casts;
+    const sancMissedHits = (this.modules.sanctify.casts * 6) - this.modules.sanctify.hits;
 
     if (deadTimePercentage > 0.05) {
       results.addIssue({
         issue: `Your dead GCD time can be improved. Try to Always Be Casting (ABC); when there's nothing to heal try to contribute some damage (${Math.round(deadTimePercentage * 100)}% dead GCD time).`,
         icon: 'spell_mage_altertime',
-        importance: getIssueImportance(deadTimePercentage, 0.20, 0.35, true),
+        importance: getIssueImportance(deadTimePercentage, 0.20, 1, true),
       });
     }
 
@@ -171,15 +173,13 @@ class CombatLogParser extends MainCombatLogParser {
       });
     }
 
-    castEfficiency.forEach((cpm) => {
-      if (cpm.canBeImproved && !cpm.ability.noSuggestion) {
-        results.addIssue({
-          issue: <span>Try to cast <SpellLink id={cpm.ability.spell.id} /> more often ({cpm.casts}/{cpm.maxCasts} casts: {Math.round(cpm.castEfficiency * 100)}% cast efficiency). {cpm.ability.extraSuggestion || ''}</span>,
-          icon: cpm.ability.spell.icon,
-          importance: cpm.ability.importance || getIssueImportance(cpm.castEfficiency, cpm.recommendedCastEfficiency - 0.05, cpm.recommendedCastEfficiency - 0.15),
-        });
-      }
-    });
+    if (sancAvgHits < 5.75) {
+      results.addIssue({
+        issue: <span>Your <SpellLink id={SPELLS.HOLY_WORD_SANCTIFY.id} /> effectively hit an average of {sancAvgHits.toFixed(2)} players. Try to position your Sanctify casts better to make sure you hit players who need the healing.</span>,
+        icon: 'spell_holy_divineprovidence',
+        importance: getIssueImportance(sancAvgHits, 5.5, 4.25),
+      });
+    }
 
     results.statistics = [
       <StatisticBox
@@ -189,9 +189,9 @@ class CombatLogParser extends MainCombatLogParser {
             style={{ border: 0 }}
             alt="Healing"
           />)}
-        value={`${formatNumber(this.totalHealing / fightDuration * 1000)} HPS`}
+        value={`${formatNumber(this.modules.healingDone.total.effective / fightDuration * 1000)} HPS`}
         label={(
-          <dfn data-tip={`The total healing done recorded was ${formatThousands(this.totalHealing)}.`}>
+          <dfn data-tip={`The total healing done recorded was ${formatThousands(this.modules.healingDone.total.effective)}.`}>
             Healing done
           </dfn>
         )}
@@ -214,12 +214,21 @@ class CombatLogParser extends MainCombatLogParser {
           </dfn>
         )}
       />,
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.HOLY_WORD_SANCTIFY.id} />}
+        value={`${sancAvgHits.toFixed(2)}`}
+        label={(
+          <dfn data-tip={`A measure of how many targets were effectively healed by your Holy Word: Sanctify. Over 80% overhealing on a hit is considered a "miss". You missed ${sancMissedHits} of ${this.modules.sanctify.casts * 6} potential hits.`}>
+            Average hits
+          </dfn>
+        )}
+      />,
       this.modules.divinity.active && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.DIVINITY_TALENT.id} />}
           value={`${((this.selectedCombatant.getBuffUptime(SPELLS.DIVINITY_BUFF.id)/this.fightDuration)*100).toFixed(1)} %`}
           label={(
-            <dfn data-tip={`The effective healing contributed by Divinity was ${formatThousands(this.modules.divinity.healing)} / ${formatPercentage(this.modules.divinity.healing / this.totalHealing)} % / ${formatNumber(this.modules.divinity.healing / fightDuration * 1000)} HPS.`}>
+            <dfn data-tip={`The effective healing contributed by Divinity was ${formatThousands(this.modules.divinity.healing)} / ${formatPercentage(this.getPercentageOfTotalHealingDone(this.modules.divinity.healing))} % / ${formatNumber(this.modules.divinity.healing / fightDuration * 1000)} HPS.`}>
               Divinity uptime
             </dfn>
           )}
@@ -264,7 +273,7 @@ class CombatLogParser extends MainCombatLogParser {
           )}
         />
       ),
-
+      ...results.statistics,
     ];
 
     results.items = [
@@ -296,52 +305,24 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       },
       {
-        title: 'Cast efficiency',
-        url: 'cast-efficiency',
-        render: () => (
-          <CastEfficiencyTab
-            categories={castEfficiencyCategories}
-            abilities={castEfficiency}
-          />
-        ),
-      },
-      {
-        title: 'Cooldowns',
-        url: 'cooldowns',
-        render: () => (
-          <CooldownsTab
-            fightStart={this.fight.start_time}
-            fightEnd={this.fight.end_time}
-            cooldowns={this.modules.cooldownTracker.pastCooldowns}
-          />
-        ),
-      },
-      {
         title: 'Talents',
         url: 'talents',
         render: () => (
-          <TalentsTab combatant={this.selectedCombatant} />
-        ),
-      },
-      {
-        title: 'Low health healing',
-        url: 'low-health-healing',
-        render: () => (
-          <LowHealthHealingTab parser={this} />
+          <Tab title="Talents">
+            <Talents combatant={this.selectedCombatant} />
+          </Tab>
         ),
       },
       {
         title: 'Mana',
         url: 'mana',
         render: () => (
-          <ManaTab
-            reportCode={this.report.code}
-            actorId={this.playerId}
-            start={this.fight.start_time}
-            end={this.fight.end_time}
-          />
+          <Tab title="Mana" style={{ padding: '15px 22px' }}>
+            <Mana parser={this} />
+          </Tab>
         ),
       },
+      ...results.tabs,
     ];
 
     return results;

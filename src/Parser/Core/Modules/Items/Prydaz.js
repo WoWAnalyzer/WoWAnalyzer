@@ -7,9 +7,7 @@ class Prydaz extends Module {
   healing = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasNeck(ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id);
-    }
+    this.active = this.owner.selectedCombatant.hasNeck(ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id);
   }
 
   on_byPlayer_absorbed(event) {
@@ -17,6 +15,13 @@ class Prydaz extends Module {
     if (spellId === SPELLS.XAVARICS_MAGNUM_OPUS.id) {
       this.healing += event.amount;
     }
+  }
+
+  item() {
+    return {
+      item: ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS,
+      result: `${this.owner.formatItemHealingDone(this.healing)}`,
+    };
   }
 }
 

@@ -27,10 +27,8 @@ class SoulOfTheForest extends Module {
   rejuvenationDuration = REJUVENATION_BASE_DURATION;
 
   on_initialized() {
-    if (!this.owner.error) {
-      const persistanceTraits = this.owner.selectedCombatant.traitsBySpellId[SPELLS.PERSISTANCE_TRAIT.id] || 0;
-      this.rejuvenationDuration += persistanceTraits*1000;
-    }
+    const persistanceTraits = this.owner.selectedCombatant.traitsBySpellId[SPELLS.PERSISTANCE_TRAIT.id] || 0;
+    this.rejuvenationDuration += persistanceTraits*1000;
   }
 
   on_byPlayer_applybuff(event) {

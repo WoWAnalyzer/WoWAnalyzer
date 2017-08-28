@@ -8,9 +8,7 @@ class ShelterOfRin extends Module {
   healing = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasChest(ITEMS.SHELTER_OF_RIN.id);
-    }
+    this.active = this.owner.selectedCombatant.hasChest(ITEMS.SHELTER_OF_RIN.id);
   }
 
   on_byPlayer_heal(event) {
@@ -25,6 +23,13 @@ class ShelterOfRin extends Module {
     if(debug) {
       console.log('Shelter of Rin Healing: ' + this.healing);
     }
+  }
+
+  item() {
+    return {
+      item: ITEMS.SHELTER_OF_RIN,
+      result: this.owner.formatItemHealingDone(this.healing),
+    };
   }
 }
 

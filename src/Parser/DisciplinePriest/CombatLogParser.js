@@ -9,18 +9,18 @@ import ITEMS from 'common/ITEMS';
 import StatisticBox from 'Main/StatisticBox';
 import ExpandableStatisticBox from 'Main/ExpandableStatisticBox';
 import SuggestionsTab from 'Main/SuggestionsTab';
-import TalentsTab from 'Main/TalentsTab';
-import CastEfficiencyTab from 'Main/CastEfficiencyTab';
-import CooldownsTab from 'Main/CooldownsTab';
-import ManaTab from 'Main/ManaTab';
-import LowHealthHealingTab from 'Main/LowHealthHealingTab';
+import Tab from 'Main/Tab';
+import Talents from 'Main/Talents';
+import Mana from 'Main/Mana';
 
-import MainCombatLogParser from 'Parser/Core/CombatLogParser';
-import getCastEfficiency from 'Parser/Core/getCastEfficiency';
+import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
+import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
 
+import SpellManaCost from './Modules/Core/SpellManaCost';
 import AbilityTracker from './Modules/Core/AbilityTracker';
 
+import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownTracker from './Modules/Features/CooldownTracker';
 import PowerWordShieldWasted from './Modules/Features/PowerWordShieldWasted';
@@ -40,12 +40,12 @@ import Tier20_2set from './Modules/Items/Tier20_2set';
 import Tier20_4set from './Modules/Items/Tier20_4set';
 
 import TwistOfFate from './Modules/Spells/TwistOfFate';
+import Castigation from './Modules/Spells/Castigation';
 import Atonement from './Modules/Spells/Atonement';
 import Evangelism from './Modules/Spells/Evangelism';
 import Penance from './Modules/Spells/Penance';
 import TouchOfTheGrave from './Modules/Spells/TouchOfTheGrave';
 
-import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
 function formatThousands(number) {
@@ -73,12 +73,15 @@ function formatPercentage(percentage) {
   return (Math.round((percentage || 0) * 10000) / 100).toFixed(2);
 }
 
-class CombatLogParser extends MainCombatLogParser {
+class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
 
   static specModules = {
     // Override the ability tracker so we also get stats for IoL and beacon healing
+    spellManaCost: SpellManaCost,
     abilityTracker: AbilityTracker,
+    lowHealthHealing: LowHealthHealing,
+    castEfficiency: CastEfficiency,
 
     // Abilities
     penance: Penance,
@@ -86,6 +89,8 @@ class CombatLogParser extends MainCombatLogParser {
     cooldownTracker: CooldownTracker,
     powerWordShieldWasted: PowerWordShieldWasted,
     atonementSource: AtonementSource,
+    powerWordBarrier: PowerWordBarrier,
+    leniencesReward: LeniencesReward,
 
     // Items:
     tier19_2set: Tier19_2set,
@@ -101,6 +106,7 @@ class CombatLogParser extends MainCombatLogParser {
 
     // Spells (talents and traits):
     twistOfFate: TwistOfFate,
+    castigation: Castigation,
     atonement: Atonement,
     evangelism: Evangelism,
     touchOfTheGrave: TouchOfTheGrave,
@@ -119,13 +125,12 @@ class CombatLogParser extends MainCombatLogParser {
     const hasCastigation = this.selectedCombatant.hasTalent(SPELLS.CASTIGATION_TALENT.id);
     const missedPenanceTicks = (this.modules.alwaysBeCasting.truePenanceCasts * (3 + (hasCastigation ? 1 : 0))) - (penance.casts || 0);
     const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
-    const owlHealingPercentage = this.modules.tarnishedSentinelMedallion.healing / this.totalHealing;
-    const marchHealingPercentage = this.modules.marchOfTheLegion.healing / this.totalHealing;
+    const owlHealingPercentage = this.getPercentageOfTotalHealingDone(this.modules.tarnishedSentinelMedallion.healing);
+    const marchHealingPercentage = this.getPercentageOfTotalHealingDone(this.modules.marchOfTheLegion.healing);
     const improperAtonementRefreshPercentage = this.modules.atonement.improperAtonementRefreshes.length / this.modules.atonement.totalAtones;
 
-    const tier19_2setHealingPercentage = this.modules.tier19_2set.healing / this.totalHealing;
-    const tier20_2setHealingPercentage = this.modules.tier20_2set.healing / this.totalHealing;
-
+    const tier19_2setHealingPercentage = this.getPercentageOfTotalHealingDone(this.modules.tier19_2set.healing);
+    const tier20_2setHealingPercentage = this.getPercentageOfTotalHealingDone(this.modules.tier20_2set.healing);
 
     if (improperAtonementRefreshPercentage > .05) {
       results.addIssue({
@@ -142,18 +147,6 @@ class CombatLogParser extends MainCombatLogParser {
         importance: getIssueImportance(deadTimePercentage, 0.35, 0.4, true),
       });
     }
-    // PtW uptime should be > 95%
-    const castEfficiencyCategories = SPELL_CATEGORY;
-    const castEfficiency = getCastEfficiency(CPM_ABILITIES, this);
-    castEfficiency.forEach((cpm) => {
-      if (cpm.canBeImproved && !cpm.ability.noSuggestion) {
-        results.addIssue({
-          issue: <span>Try to cast <SpellLink id={cpm.ability.spell.id} /> more often ({cpm.casts}/{cpm.maxCasts} casts: {Math.round(cpm.castEfficiency * 100)}% cast efficiency). {cpm.ability.extraSuggestion || ''}</span>,
-          icon: cpm.ability.spell.icon,
-          importance: cpm.ability.importance || getIssueImportance(cpm.castEfficiency, cpm.recommendedCastEfficiency - 0.05, cpm.recommendedCastEfficiency - 0.15),
-        });
-      }
-    });
 
     results.statistics = [
       <StatisticBox
@@ -163,9 +156,9 @@ class CombatLogParser extends MainCombatLogParser {
             style={{ border: 0 }}
             alt="Healing"
           />)}
-        value={`${formatNumber(this.totalHealing / fightDuration * 1000)} HPS`}
+        value={`${formatNumber(this.modules.healingDone.total.effective / fightDuration * 1000)} HPS`}
         label={(
-          <dfn data-tip={`The total healing done recorded was ${formatThousands(this.totalHealing)}.`}>
+          <dfn data-tip={`The total healing done recorded was ${formatThousands(this.modules.healingDone.total.effective)}.`}>
             Healing done
           </dfn>
         )}
@@ -184,7 +177,7 @@ class CombatLogParser extends MainCombatLogParser {
           icon={<SpellIcon id={SPELLS.EVANGELISM_TALENT.id} />}
           value={`${formatNumber(this.modules.evangelism.evangelismStatistics.reduce((p, c) => p += c.healing, 0) / fightDuration * 1000)} HPS`}
           label={(
-            <dfn data-tip={`Evangelism accounted for approximately ${ formatPercentage(this.modules.evangelism.evangelismStatistics.reduce((p, c) => p + c.healing, 0) / this.totalHealing) }% of your healing.`}>
+            <dfn data-tip={`Evangelism accounted for approximately ${formatPercentage(this.getPercentageOfTotalHealingDone(this.modules.evangelism.evangelismStatistics.reduce((p, c) => p + c.healing, 0)) )}% of your healing.`}>
               Evangelism contribution
             </dfn>
           )}
@@ -214,8 +207,6 @@ class CombatLogParser extends MainCombatLogParser {
           </table>
         </ExpandableStatisticBox>
       ),
-      <PowerWordBarrier owner={this} />,
-      <LeniencesReward owner={this} />,
       missedPenanceTicks && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.PENANCE.id} />}
@@ -243,8 +234,19 @@ class CombatLogParser extends MainCombatLogParser {
           icon={<SpellIcon id={SPELLS.TWIST_OF_FATE_TALENT.id} />}
           value={`${formatNumber(this.modules.twistOfFate.healing / fightDuration * 1000)} HPS`}
           label={(
-            <dfn data-tip={`The effective healing contributed by Twist of Fate (${formatPercentage(this.modules.twistOfFate.healing / this.totalHealing)}% of total healing done). Twist of Fate also contributed ${formatNumber(this.modules.twistOfFate.damage / fightDuration * 1000)} DPS (${formatPercentage(this.modules.twistOfFate.damage / this.totalDamageDone)}% of total damage done), the healing gain of this damage was included in the shown numbers.`}>
+            <dfn data-tip={`The effective healing contributed by Twist of Fate (${formatPercentage(this.getPercentageOfTotalHealingDone(this.modules.twistOfFate.healing))}% of total healing done). Twist of Fate also contributed ${formatNumber(this.modules.twistOfFate.damage / fightDuration * 1000)} DPS (${formatPercentage(this.getPercentageOfTotalDamageDone(this.modules.twistOfFate.damage))}% of total damage done), the healing gain of this damage was included in the shown numbers.`}>
               Twist of Fate healing
+            </dfn>
+          )}
+        />
+      ),
+      this.modules.castigation.active && (
+        <StatisticBox
+          icon={<SpellIcon id={SPELLS.CASTIGATION_TALENT.id} />}
+          value={`${formatNumber(this.modules.castigation.healing / fightDuration * 1000)} HPS`}
+          label={(
+            <dfn data-tip={`The effective healing contributed by Castigation (${formatPercentage(this.getPercentageOfTotalHealingDone(this.modules.castigation.healing))}% of total healing done). Castigation also contributed ${formatNumber(this.modules.castigation.damage / fightDuration * 1000)} DPS (${formatPercentage(this.getPercentageOfTotalDamageDone(this.modules.castigation.damage))}% of total damage done), the healing gain of this damage was included in the shown numbers.`}>
+              Castigation healing
             </dfn>
           )}
         />
@@ -279,12 +281,13 @@ class CombatLogParser extends MainCombatLogParser {
           icon={<SpellIcon id={SPELLS.TOUCH_OF_THE_GRAVE.id} />}
           value={`${formatNumber(this.modules.touchOfTheGrave.healing / fightDuration * 1000)} HPS`}
           label={(
-            <dfn data-tip={`The effective healing contributed by the Undead racial Touch of the Grave (${formatPercentage(this.modules.touchOfTheGrave.healing / this.totalHealing)}% of total healing done). Touch of the Grave also contributed ${formatNumber(this.modules.touchOfTheGrave.damage / fightDuration * 1000)} DPS (${formatPercentage(this.modules.touchOfTheGrave.damage / this.totalDamageDone)}% of total damage done).`}>
+            <dfn data-tip={`The effective healing contributed by the Undead racial Touch of the Grave (${formatPercentage(this.getPercentageOfTotalHealingDone(this.modules.touchOfTheGrave.healing))}% of total healing done). Touch of the Grave also contributed ${formatNumber(this.modules.touchOfTheGrave.damage / fightDuration * 1000)} DPS (${formatPercentage(this.getPercentageOfTotalDamageDone(this.modules.touchOfTheGrave.damage))}% of total damage done).`}>
               Touch of the Grave healing
             </dfn>
           )}
         />
       ),
+      ...results.statistics,
     ];
 
     results.items = [
@@ -327,7 +330,7 @@ class CombatLogParser extends MainCombatLogParser {
         item: ITEMS.SKJOLDR_SANCTUARY_OF_IVAGONT,
         result: (
           <dfn data-tip="The effective healing contributed by the Skjoldr, Sanctuary of Ivagont equip effect. This includes the healing gained via Share in the Light.">
-            {((this.modules.skjoldr.healing / this.totalHealing * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.skjoldr.healing / fightDuration * 1000)} HPS
+            {((this.getPercentageOfTotalHealingDone(this.modules.skjoldr.healing) * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.skjoldr.healing / fightDuration * 1000)} HPS
           </dfn>
         ),
       },
@@ -335,7 +338,7 @@ class CombatLogParser extends MainCombatLogParser {
         item: ITEMS.XALAN_THE_FEAREDS_CLENCH,
         result: (
           <span>
-            {((this.modules.xalan.healing / this.totalHealing * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.xalan.healing / fightDuration * 1000)} HPS
+            {((this.getPercentageOfTotalHealingDone(this.modules.xalan.healing) * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.xalan.healing / fightDuration * 1000)} HPS
           </span>
         ),
       },
@@ -343,15 +346,15 @@ class CombatLogParser extends MainCombatLogParser {
         item: ITEMS.NERO_BAND_OF_PROMISES,
         result: (
           <span>
-            {((this.modules.neroBandOfPromises.healing / this.totalHealing * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.neroBandOfPromises.healing / fightDuration * 1000)} HPS
+            {((this.getPercentageOfTotalHealingDone(this.modules.neroBandOfPromises.healing) * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.neroBandOfPromises.healing / fightDuration * 1000)} HPS
           </span>
         ),
       },
       this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_HIGH_PRIEST.id) && {
         item: ITEMS.SOUL_OF_THE_HIGH_PRIEST,
         result: (
-          <dfn data-tip={`The effective healing contributed by Twist of Fate (${formatPercentage(this.modules.twistOfFate.healing / this.totalHealing)}% of total healing done). Twist of Fate also contributed ${formatNumber(this.modules.twistOfFate.damage / fightDuration * 1000)} DPS (${formatPercentage(this.modules.twistOfFate.damage / this.totalDamageDone)}% of total damage done), the healing gain of this damage was included in the shown numbers.`}>
-            {((this.modules.twistOfFate.healing / this.totalHealing * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.twistOfFate.healing / fightDuration * 1000)} HPS
+          <dfn data-tip={`The effective healing contributed by Twist of Fate (${formatPercentage(this.getPercentageOfTotalHealingDone(this.modules.twistOfFate.healing))}% of total healing done). Twist of Fate also contributed ${formatNumber(this.modules.twistOfFate.damage / fightDuration * 1000)} DPS (${formatPercentage(this.getPercentageOfTotalDamageDone(this.modules.twistOfFate.damage))}% of total damage done), the healing gain of this damage was included in the shown numbers.`}>
+            {((this.getPercentageOfTotalHealingDone(this.modules.twistOfFate.healing) * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.twistOfFate.healing / fightDuration * 1000)} HPS
           </dfn>
         ),
       },
@@ -396,52 +399,24 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       },
       {
-        title: 'Cast efficiency',
-        url: 'cast-efficiency',
-        render: () => (
-          <CastEfficiencyTab
-            categories={castEfficiencyCategories}
-            abilities={castEfficiency}
-          />
-        ),
-      },
-      {
-        title: 'Cooldowns',
-        url: 'cooldowns',
-        render: () => (
-          <CooldownsTab
-            fightStart={this.fight.start_time}
-            fightEnd={this.fight.end_time}
-            cooldowns={this.modules.cooldownTracker.pastCooldowns}
-          />
-        ),
-      },
-      {
         title: 'Talents',
         url: 'talents',
         render: () => (
-          <TalentsTab combatant={this.selectedCombatant} />
+          <Tab title="Talents">
+            <Talents combatant={this.selectedCombatant} />
+          </Tab>
         ),
       },
       {
         title: 'Mana',
         url: 'mana',
         render: () => (
-          <ManaTab
-            reportCode={this.report.code}
-            actorId={this.playerId}
-            start={this.fight.start_time}
-            end={this.fight.end_time}
-          />
+          <Tab title="Mana" style={{ padding: '15px 22px' }}>
+            <Mana parser={this} />
+          </Tab>
         ),
       },
-      {
-        title: 'Low health healing',
-        url: 'low-health-healing',
-        render: () => (
-          <LowHealthHealingTab parser={this} />
-        ),
-      },
+      ...results.tabs,
     ];
 
     return results;

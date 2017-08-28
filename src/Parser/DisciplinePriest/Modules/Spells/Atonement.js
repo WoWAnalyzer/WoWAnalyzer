@@ -2,7 +2,8 @@ import SPELLS from 'common/SPELLS';
 
 import Module from 'Parser/Core/Module';
 
-import isAtonement from './../Core/isAtonement';
+import isAtonement from '../Core/isAtonement';
+import AtonementSource from '../Features/AtonementSource';
 
 const debug = false;
 
@@ -10,7 +11,10 @@ const debug = false;
 const IMPROPER_REFRESH_TIME = 3000;
 
 class Atonement extends Module {
-  priority = 9;
+  static dependencies = {
+    atonementSource: AtonementSource,
+  };
+
   healing = 0;
   totalAtones = 0;
   totalAtonementRefreshes = 0;
@@ -18,12 +22,12 @@ class Atonement extends Module {
   improperAtonementRefreshes = [];
 
   get atonementDuration() {
-    const applicatorEvent = this.owner.modules.atonementSource.atonementApplicationSourceEvent;
+    const applicatorEvent = this.atonementSource.atonementApplicationSourceEvent;
     if (!applicatorEvent) {
       return 15;
     }
     const applicatorSpellId = applicatorEvent.ability.guid;
-    let duration = this.owner.modules.atonementSource.atonementDuration.get(applicatorSpellId);
+    let duration = this.atonementSource.atonementDuration.get(applicatorSpellId);
 
     if (applicatorSpellId === SPELLS.POWER_WORD_SHIELD.id && this.owner.selectedCombatant.hasBuff(SPELLS.DISC_PRIEST_T19_4SET_BONUS_BUFF.id, applicatorEvent.timestamp) && this.owner.selectedCombatant.hasBuff(SPELLS.RAPTURE.id, applicatorEvent.timestamp)) {
       duration += 6;

@@ -1,12 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import StatisticBox from './StatisticBox';
+import StatisticBox  from './StatisticBox';
+export { STATISTIC_ORDER } from './StatisticBox';
 
 class LazyLoadStatisticBox extends React.PureComponent {
   static propTypes = {
     loader: PropTypes.func.isRequired,
     value: PropTypes.node.isRequired,
+  };
+  static contextTypes = {
+    updateResults: PropTypes.func.isRequired,
   };
 
   constructor() {
@@ -31,6 +35,7 @@ class LazyLoadStatisticBox extends React.PureComponent {
         loading: false,
         loaded: true,
       });
+      this.context.updateResults();
       return result;
     });
   }

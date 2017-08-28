@@ -1,8 +1,19 @@
+/**
+ * All Shaman abilities except talents go in here. You can also put a talent in here if you want to override something imported in the `./talents` folder, but that should be extremely rare.
+ * You need to do this manually, usually an easy way to do this is by opening a WCL report and clicking the icons of spells to open the relevant Wowhead pages, here you can get the icon name by clicking the icon, copy the name of the spell and the ID is in the URL.
+ * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
+ */
+
 export default {
   ASTRAL_SHIFT: {
     id: 108271,
     name: 'Astral Shift',
     icon: 'ability_shaman_astralshift',
+  },
+  WIND_SHEAR: {
+    id: 57994,
+    name: 'Wind Shear',
+    icon: 'spell_nature_cyclone',
   },
   // Elemental Shaman
   ELEMENTAL_MASTERY: {
@@ -169,25 +180,245 @@ export default {
     name: 'Lightning Rod',
     icon: 'inv_rod_enchantedcobalt',
   },
-
   // Enhancement Shaman
-  // TODO: add spells
-
+  ROCKBITER: {
+	  id: 193786,
+    name: 'Rockbiter',
+    icon: 'spell_nature_rockbiter',
+  },
+  FROSTBRAND: {
+    id: 196834,
+    name: 'Frostbrand',
+    icon: 'spell_shaman_unleashweapon_frost',
+  },
+  FLAMETONGUE: {
+    id: 193796,
+    name: 'Flametongue',
+    icon: 'spell_fire_flametounge',
+  },
+  FLAMETONGUE_BUFF: {
+    id: 194084,
+    name: 'Flametongue',
+    icon: 'spell_fire_flametounge',
+  },
+  CRASH_LIGHTNING: {
+    id: 187874,
+    name: 'Crash Lightning',
+    icon: 'spell_shaman_crashlightning',
+    maelstrom: 20,
+  },
+  FERAL_SPIRIT: {
+    id: 51533,
+    name: 'Feral Spirit',
+    icon: 'spell_shaman_feralspirit',
+  },
+  STORMSTRIKE: {
+    id: 17364,
+    name: 'Stormstrike',
+    icon: 'ability_shaman_stormstrike',
+    maelstrom: 40,
+  },
+  STORMSTRIKE_BUFF: {
+    id: 32175,
+    name: 'Stormstrike',
+    icon: 'ability_shaman_stormstrike',
+  },
+  LAVA_LASH: {
+    id: 60103,
+    name: 'Lava Lash',
+    icon: 'ability_shaman_lavalash',
+    maelstrom: 30,
+  },
+  DOOM_WINDS: {
+    id: 204945,
+    name: 'Doom Winds',
+    icon: 'inv_mace_1h_artifactdoomhammer_d_01',
+  },
+  SUNDERING: {
+    id: 197214,
+    name: 'Sundering',
+    icon: 'ability_rhyolith_lavapool',
+  },
+  STORMBRINGER: {
+    id: 201845,
+    name: 'Stormbringer',
+    icon: 'spell_nature_stormreach',
+  },
+  MAELSTROM_WEAPON: {
+    id: 187890,
+    name: 'Maelstrom Weapon',
+    icon: 'spell_shaman_maelstromweapon',
+  },
+  FERAL_SPIRIT_BUFF: {
+    id: 190185,
+    name: 'Feral Spirit',
+    icon: 'spell_shaman_feralspirit',
+  },
+  WINDSTRIKE: {
+    id: 115356,
+    name: 'Windstrike',
+    icon: 'ability_skyreach_four_wind',
+    maelstrom: 40,
+  },
+  WORD_OF_RECALL_OLD: {
+    id: 1,
+    name: 'Word of Recall (OLD)',
+    icon: 'trade_engineering',
+  },
+  DOOM_VORTEX: {
+    id: 199116,
+    name: 'Doom Vortex',
+    icon: 'ability_shaman_stormstrike',
+  },
+  GHOST_WOLF: {
+    id: 2645,
+    name: 'Ghost Wolf',
+    icon: 'spell_nature_spiritwolf',
+  },
+  HEALING_SURGE_ENHANCE: {
+    id: 188070,
+    name: 'Healing Surge',
+    icon: 'spell_nature_healingway',
+    baseMana: 0.22,
+    maelstrom: 20,
+  },
+  FERAL_LUNGE: {
+    id: 196881,
+    name: 'Feral Lunge',
+    icon: 'spell_beastmaster_wolf',
+  },
+  FERAL_LUNGE_DAMAGE: {
+    id: 215802,
+    name: 'Feral Lunge',
+    icon: 'spell_beastmaster_wolf',
+  },
+  HEROISM: {
+    id: 32182,
+    name: 'Heroism',
+    icon: 'ability_shaman_heroism',
+    baseMana: 0.215,
+  },
+  REINCARNATION: {
+    id: 21169,
+    name: 'Reincarnation',
+    icon: 'spell_shaman_improvedreincarnation',
+  },
+  SPIRIT_WALK: {
+    id: 58875,
+    name: 'Spirit Walk',
+    icon: 'ability_tracking',
+  },
+  WINDLASH: {
+    id: 114089,
+    name: 'Windlash',
+    icon: 'spell_nature_cyclone',
+  },
+  STORMLASH: {
+    id: 195256,
+    name: 'Stormlash',
+    icon: 'spell_lightning_lightningbolt01',
+  },
+  WINDLASH_OFFHAND: {
+    id: 114093,
+    name: 'Windlash Off-Hand',
+    icon: 'spell_nature_cyclone',
+  },
+  WINDFURY_ATTACK: {
+    id: 33750,
+    name: 'Windfury Attack',
+    icon: 'spell_shaman_unleashweapon_wind',
+  },
+  ELEMENTAL_HEALING: {
+    id: 198249,
+    name: 'Elemental Healing',
+    icon: 'spell_shaman_improvedreincarnation',
+  },
+  UNLEASH_LAVA: {
+    id: 199053,
+    name: 'Unleash Lava',
+    icon: 'ability_shaman_stormstrike',
+  },
+  UNLEASH_LIGHTNING: {
+    id: 199054,
+    name: 'Unleash Lightning',
+    icon: 'ability_shaman_stormstrike',
+  },
+  FLAMETONGUE_ATTACK: {
+    id: 10444,
+    name: 'Flametongue Attack',
+    icon: 'spell_shaman_unleashweapon_flame',
+  },
+  WINDSTRIKE_OFFHAND: {
+    id: 115360,
+    name: 'Windstrike Off-Hand',
+    icon: 'ability_skyreach_four_wind',
+  },
+  STORMSTRIKE_OFFHAND: {
+    id: 32176,
+    name: 'Stormstrike Off-Hand',
+    icon: 'ability_shaman_stormstrike',
+  },
+  CRASH_LIGHTNING_BUFF: {
+    id: 195592,
+    name: 'Crash Lightning',
+    icon: 'spell_shaman_crashlightning',
+  },
+  WINDSTRIKE_BUFF: {
+    id: 115357,
+    name: 'Windstrike',
+    icon: 'ability_skyreach_four_wind',
+  },
+  SPIRIT_OF_THE_MAELSTROM: {
+    id: 204880,
+    name: 'Spirit of the Maelstrom',
+    icon: 'ability_shaman_freedomwolf',
+  },
+  FURY_OF_AIR_BUFF: {
+    id: 197385,
+    name: 'Fury of Air',
+    icon: 'ability_ironmaidens_swirlingvortex',
+  },
+  WINDFURY_ATTACK_BUFF: {
+    id: 25504,
+    name: 'Windfury Attack',
+    icon: 'spell_shaman_unleashweapon_wind',
+  },
+  CRASHING_STORM_BUFF: {
+    id: 210801,
+    name: 'Crashing Storm',
+    icon: 'spell_nature_unrelentingstorm',
+  },
+  HAILSTORM_BUFF: {
+    id: 210854,
+    name: 'Hailstorm',
+    icon: 'spell_frost_frostbrand',
+  },
+  LANDSLIDE_BUFF: {
+    id: 202004,
+    name: 'Landslide',
+    icon: 'inv_ore_blackrock_nugget',
+  },
+  ASCENDANCE_ENHANCE: {
+    id: 114051,
+    name: 'Ascendance',
+    icon: 'spell_fire_elementaldevastation',
+    cooldownType: 'DAMAGE',
+  },
   // Restoration Shaman
   CHAIN_HEAL: {
     id: 1064,
     name: 'Chain Heal',
     icon: 'spell_nature_healingwavegreater',
   },
+  HEALING_SURGE_RESTORATION: {
+    id: 8004,
+    name: 'Healing Surge',
+    icon: 'spell_nature_healingway',
+  },
   HEALING_WAVE: {
     id: 77472,
     name: 'Healing Waves',
     icon: 'spell_nature_healingwavelesser',
-  },
-  HEALING_SURGE: {
-    id: 8004,
-    name: 'Healing Surge',
-    icon: 'spell_nature_healingway',
   },
   TIDAL_WAVES_BUFF: {
     id: 53390,
@@ -335,6 +566,11 @@ export default {
     id: 77226,
     name: 'Mastery: Deep Healing',
     icon: 'spell_nature_healingtouch',
+  },
+  ANCESTRAL_VIGOR: {
+    id: 207400,
+    name: 'Ancestral Vigor',
+    icon: 'spell_shaman_blessingoftheeternals',
   },
 
   // Traits:

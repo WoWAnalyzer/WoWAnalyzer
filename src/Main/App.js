@@ -4,29 +4,23 @@ import { Link, browserHistory } from 'react-router';
 import ReactTooltip from 'react-tooltip';
 
 import makeWclUrl from 'common/makeWclUrl';
+import getFightName from 'common/getFightName';
 
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
 import UnsupportedSpec from 'Parser/UnsupportedSpec/CONFIG';
 
 import './App.css';
 
-import DIFFICULTIES from './DIFFICULTIES';
+import GithubLogo from './Images/GitHub-Mark-Light-32px.png';
 
 import Home from './Home';
 import FightSelecter from './FightSelecter';
 import PlayerSelecter from './PlayerSelecter';
 import Results from './Results';
+import ReportSelecter from './ReportSelecter';
+import AppBackgroundImage from './AppBackgroundImage';
 
 import makeAnalyzerUrl from './makeAnalyzerUrl';
-import getWipeCount from './getWipeCount';
-
-import GithubLogo from './Images/GitHub-Mark-Light-32px.png';
-import ReportSelecter from "./ReportSelecter";
-
-const formatDuration = (duration) => {
-  const seconds = Math.floor(duration % 60);
-  return `${Math.floor(duration / 60)}:${seconds < 10 ? `0${seconds}` : seconds}`;
-};
 
 const toolName = `WoW Analyzer`;
 const githubUrl = 'https://github.com/MartijnHols/WoWAnalyzer';
@@ -53,11 +47,17 @@ class App extends Component {
   get reportCode() {
     return this.props.params.reportCode;
   }
+  get isReportValid() {
+    return this.state.report && this.state.report.code === this.reportCode;
+  }
   get playerName() {
     return this.props.params.playerName;
   }
   get fightId() {
-    return this.props.params.fightId ? Number(this.props.params.fightId) : null;
+    if (this.props.params.fightId) {
+      return Number(this.props.params.fightId.split('-')[0]);
+    }
+    return null;
   }
   get fight() {
     return this.fightId && this.state.report && this.getFightFromReport(this.state.report, this.fightId);
@@ -81,6 +81,7 @@ class App extends Component {
       selectedSpec: null,
       progress: 0,
       dataVersion: 0,
+      bossId: null,
     };
 
     this.handleReportSelecterSubmit = this.handleReportSelecterSubmit.bind(this);
@@ -95,7 +96,7 @@ class App extends Component {
   handleReportSelecterSubmit(code) {
     console.log('Selected report:', code);
 
-    this.props.router.push(makeAnalyzerUrl(code));
+    this.props.router.push(`report/${code}`);
   }
   handleRefresh() {
     this.fetchReport(this.reportCode, true);
@@ -103,7 +104,7 @@ class App extends Component {
 
   config = null;
   parser = null;
-  parse(report, fightId, playerName) {
+  parse(report, combatants, fightId, playerName) {
     const player = this.getPlayerFromReport(report, playerName);
     if (!player) {
       alert(`Unknown player: ${playerName}`);
@@ -111,7 +112,7 @@ class App extends Component {
     }
     const fight = this.getFightFromReport(report, fightId);
 
-    const combatant = this.state.combatants.find(combatant => combatant.sourceID === player.id);
+    const combatant = combatants.find(combatant => combatant.sourceID === player.id);
     if (!combatant) {
       alert('This player does not seem to be in this fight.');
       return;
@@ -134,7 +135,7 @@ class App extends Component {
       parser,
       progress: 0,
     }, () => {
-      parser.parseEvents(this.state.combatants)
+      parser.parseEvents(combatants)
         .then(() => {
           parser.triggerEvent('initialized');
           this.setState({
@@ -154,7 +155,7 @@ class App extends Component {
     const pageTimestamp = isFirstBatch ? fightStart : nextPageTimestamp;
     const actorId = player.id;
 
-    this.fetchEvents(code, pageTimestamp, fightEnd, actorId)
+    return this.fetchEvents(code, pageTimestamp, fightEnd, actorId)
       .then((json) => {
         if (parser !== this.state.parser) {
           return;
@@ -179,13 +180,21 @@ class App extends Component {
             }
           })
           .catch((err) => {
-            alert(`The report could not be parsed because an error occured. ${err.message}`);
+            alert(`The report could not be parsed because an error occured while running the analysis. ${err.message}`);
             if (process.env.NODE_ENV === 'development') {
               throw err;
             } else {
               console.error(err);
             }
           });
+      })
+      .catch((err) => {
+        alert(`The report could not be parsed because an error occured. Warcraft Logs might be having issues. ${err.message}`);
+        if (process.env.NODE_ENV === 'development') {
+          throw err;
+        } else {
+          console.error(err);
+        }
       });
   }
   onParsingFinished(parser) {
@@ -209,6 +218,7 @@ class App extends Component {
 
     const url = makeWclUrl(`report/fights/${code}`, {
       _: refresh ? +new Date() : undefined,
+      translate: true, // so long as we don't have the entire site localized, it's better to have 1 consistent language
     });
     return fetch(url)
       .then(response => response.json())
@@ -225,12 +235,8 @@ class App extends Component {
           });
         }
       })
-      .catch((err) => {
-        if (err) {
-          alert(err);
-        } else {
-          alert('I\'m so terribly sorry, an error occured. Try again later or in an updated Google Chrome. (Is Warcraft Logs up?)');
-        }
+      .catch(err => {
+        alert('I\'m so terribly sorry, an error occured. Try again later or in an updated Google Chrome. (Is Warcraft Logs up?)\n\n' + err);
         console.error(err);
         this.setState({
           report: null,
@@ -280,7 +286,13 @@ class App extends Component {
   }
 
   fetchEvents(code, start, end, actorId = undefined, filter = undefined) {
-    const url = makeWclUrl(`report/events/${code}`, { start, end, actorid: actorId, filter });
+    const url = makeWclUrl(`report/events/${code}`, {
+      start,
+      end,
+      actorid: actorId,
+      filter,
+      translate: true, // so long as we don't have the entire site localized, it's better to have 1 consistent language
+    });
     return fetch(url)
       .then(response => response.json());
   }
@@ -298,23 +310,29 @@ class App extends Component {
       // User provided a reportCode AND it changed since previous render, so fetch the new report
       this.fetchReport(this.reportCode);
     }
-    const isReportValid = this.state.report && this.state.report.code === this.reportCode;
-    if (isReportValid && this.fightId && (this.state.report !== prevState.report || this.props.params.fightId !== prevParams.fightId)) {
+    if (this.isReportValid && this.fightId && (this.state.report !== prevState.report || this.props.params.fightId !== prevParams.fightId)) {
       // A report has been loaded, it is the report the user wants (this can be a mismatch if a new report is still loading), a fight was selected, and one of the fight-relevant things was changed
       this.fetchCombatants(this.state.report, this.fightId);
     }
     if (this.state.report !== prevState.report || this.state.combatants !== prevState.combatants || this.props.params.fightId !== prevParams.fightId || this.playerName !== prevParams.playerName) {
       this.reset();
       if (this.state.report && this.state.combatants && this.fightId && this.playerName) {
-        this.parse(this.state.report, this.fightId, this.playerName);
+        this.parse(this.state.report, this.state.combatants, this.fightId, this.playerName);
       }
     }
 
+    this.updatePageTitle();
+    if (this.reportCode !== prevParams.reportCode || this.state.report !== prevState.report || this.props.params.fightId !== prevParams.fightId) {
+      this.updateBossId();
+    }
+  }
+
+  updatePageTitle() {
     let title = toolName;
     if (this.reportCode && this.state.report) {
       if (this.playerName) {
         if (this.fight) {
-          title = `${this.getFightName(this.fight)} by ${this.playerName} in ${this.state.report.title} - ${title}`;
+          title = `${getFightName(this.state.report, this.fight)} by ${this.playerName} in ${this.state.report.title} - ${title}`;
         } else {
           title = `${this.playerName} in ${this.state.report.title} - ${title}`;
         }
@@ -324,10 +342,10 @@ class App extends Component {
     }
     document.title = title;
   }
-
-  getFightName(fight) {
-    const wipeCount = getWipeCount(this.state.report, fight);
-    return `${DIFFICULTIES[fight.difficulty]} ${fight.name} - ${fight.kill ? 'Kill' : `Wipe ${wipeCount}`} (${formatDuration((fight.end_time - fight.start_time) / 1000)})`;
+  updateBossId() {
+    this.setState({
+      bossId: (this.reportCode && this.isReportValid && this.fight && this.fight.boss) || null,
+    });
   }
 
   renderContent() {
@@ -368,7 +386,7 @@ class App extends Component {
         parser={parser}
         dataVersion={this.state.dataVersion}
         tab={this.resultTab}
-        onChangeTab={newTab => browserHistory.push(makeAnalyzerUrl(report.code, this.fightId, this.playerName, newTab))}
+        onChangeTab={newTab => browserHistory.push(makeAnalyzerUrl(report, this.fightId, this.playerName, newTab))}
       />
     );
   }
@@ -380,19 +398,21 @@ class App extends Component {
 
     return (
       <div className={`app ${this.reportCode ? 'has-report' : ''}`}>
+        <AppBackgroundImage bossId={this.state.bossId} />
+
         <nav className="navbar navbar-default">
           <div className="navbar-progress" style={{ width: `${progress}%`, opacity: progress === 0 || progress === 100 ? 0 : 1 }} />
           <div className="container">
             <div className="navbar-header">
               <ol className="breadcrumb">
                 <li className="breadcrumb-item"><Link to={makeAnalyzerUrl()}>{toolName}</Link></li>
-                {this.reportCode && report && <li className="breadcrumb-item"><Link to={makeAnalyzerUrl(this.reportCode)}>{report.title}</Link></li>}
-                {this.fight && <li className="breadcrumb-item"><Link to={makeAnalyzerUrl(this.reportCode, this.fightId)}>{this.getFightName(this.fight)}</Link></li>}
-                {this.playerName && <li className="breadcrumb-item"><Link to={makeAnalyzerUrl(this.reportCode, this.fightId, this.playerName)}>{this.playerName}</Link></li>}
+                {this.reportCode && report && <li className="breadcrumb-item"><Link to={makeAnalyzerUrl(report)}>{report.title}</Link></li>}
+                {this.fight && report && <li className="breadcrumb-item"><Link to={makeAnalyzerUrl(report, this.fightId)}>{getFightName(report, this.fight)}</Link></li>}
+                {this.playerName && report && <li className="breadcrumb-item"><Link to={makeAnalyzerUrl(report, this.fightId, this.playerName)}>{this.playerName}</Link></li>}
               </ol>
             </div>
 
-            <ul className="nav navbar-nav navbar-right github-link">
+            <ul className="nav navbar-nav navbar-right github-link hidden-xs">
               <li><a href={githubUrl}><span className="hidden-xs"> View on GitHub </span><img src={GithubLogo} alt="GitHub logo" /></a></li>
             </ul>
           </div>

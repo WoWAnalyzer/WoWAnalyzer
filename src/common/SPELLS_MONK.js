@@ -1,3 +1,9 @@
+/**
+ * All Monk abilities except talents go in here. You can also put a talent in here if you want to override something imported in the `./talents` folder, but that should be extremely rare.
+ * You need to do this manually, usually an easy way to do this is by opening a WCL report and clicking the icons of spells to open the relevant Wowhead pages, here you can get the icon name by clicking the icon, copy the name of the spell and the ID is in the URL.
+ * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
+ */
+
 export default {
   // Mistweaver Monk Spells
   EFFUSE: {
@@ -304,5 +310,142 @@ export default {
     id: 246328,
     name: 'Surge of Mists',
     icon: 'spell_monk_mistweaver_spec',
+  },
+
+  //Brewmaster
+  BLACKOUT_STRIKE: {
+    id: 205523,
+    name: 'Blackout Strike',
+    icon: 'ability_monk_blackoutstrike',
+  },
+  KEG_SMASH: {
+    id: 121253,
+    name: 'Keg Smash',
+    icon: 'achievement_brewery_2',
+  },
+  IRONSKIN_BREW: {
+    id: 115308,
+    name: 'Ironskin Brew',
+    icon: 'ability_monk_ironskinbrew',
+  },
+  IRONSKIN_BREW_BUFF: {
+    id: 215479,
+    name: 'Ironskin Brew',
+    icon: 'ability_monk_ironskinbrew',
+  },
+  PURIFYING_BREW: {
+    id: 119582,
+    name: 'Purifying Brew',
+    icon: 'inv_misc_beer_06',
+  },
+  BREATH_OF_FIRE: {
+    id: 115181,
+    name: 'Breath of Fire',
+    icon: 'ability_monk_breathoffire',
+  },
+  FORTIFYING_BREW_BRM: {
+    id: 115203,
+    name: 'Fortifying Brew',
+    icon: 'ability_monk_fortifyingale_new',
+  },
+  EXPLODING_KEG: {
+    id: 214326,
+    name: 'Exploding Keg',
+    icon: 'inv_staff_2h_artifactmonkeyking_d_02',
+  },
+  STAGGER: {
+    id: 115069,
+    name: 'Stagger',
+    icon: 'monk_stance_drunkenox',
+  },
+  STAGGER_TAKEN: {
+    id: 124255,
+    name: 'Stagger',
+    icon: 'ability_rogue_cheatdeath',
+  },
+  EXPEL_HARM_DAMAGE: {
+    id: 115129,
+    name: 'Expel Harm',
+    icon: 'ability_monk_expelharm',
+  },
+  RUSHING_JADE_WIND: {
+    id: 148187,
+    name: 'Rushing Jade Wind',
+    icon: 'ability_monk_rushingjadewind',
+  },
+  EXPEL_HARM: {
+    id: 115072,
+    name: 'Expel Harm',
+    icon: 'ability_monk_expelharm',
+  },
+  PROVOKE: {
+    id: 115546,
+    name: 'Provoke',
+    icon: 'ability_monk_provoke',
+  },
+  HOT_BLOODED: {
+    id: 227686,
+    name: 'Hot Blooded',
+    icon: 'ability_monk_breathoffire',
+  },
+  ZEN_MEDITATION: {
+    id: 115176,
+    name: 'Zen Meditation',
+    icon: 'ability_monk_zenmeditation',
+  },
+  XUENS_BATTLEGEAR_2_PIECE_BUFF_BRM: {
+    id: 242255,
+    name: 'Monk T20 Brewmaster 2P Bonus',
+    icon: 'spell_monk_brewmaster_spec',
+  },
+  XUENS_BATTLEGEAR_4_PIECE_BUFF_BRM: {
+    id: 242256,
+    name: 'Monk T20 Brewmaster 4P Bonus',
+    icon: 'spell_monk_brewmaster_spec',
+  },
+  GIFT_OF_THE_OX_1: {
+    id: 124507,
+    name: 'Gift of the Ox',
+    icon: 'ability_monk_healthsphere',
+  },
+  GIFT_OF_THE_OX_2: {
+    id: 178173,
+    name: 'Gift of the Ox',
+    icon: 'ability_monk_healthsphere',
+  },
+  GIFT_OF_THE_OX_3: {
+    id: 214417,
+    name: 'Gift of the Ox',
+    icon: 'ability_monk_healthsphere',
+  },
+  GIFT_OF_THE_OX_4: {
+    id: 124503,
+    name: 'Gift of the Ox',
+    icon: 'inv_misc_gem_pearl_13',
+  },
+  GIFT_OF_THE_OX_5: {
+    id: 124506,
+    name: 'Gift of the Ox',
+    icon: 'inv_misc_gem_pearl_13',
+  },
+  GIFT_OF_THE_OX_6: {
+    id: 214420,
+    name: 'Gift of the Ox',
+    icon: 'inv_misc_gem_pearl_13',
+  },
+  GIFT_OF_THE_OX_7: {
+    id: 214418,
+    name: 'Gift of the Ox',
+    icon: 'inv_misc_gem_pearl_13',
+  },
+  GIFT_OF_THE_OX_8: {
+    id: 214416,
+    name: 'Gift of the Ox',
+    icon: 'ability_monk_healthsphere',
+  },
+  BLACKOUT_COMBO_BUFF: {
+    id: 228563,
+    name: 'Blackout Combo',
+    icon: 'ability_monk_blackoutkick',
   },
 };
