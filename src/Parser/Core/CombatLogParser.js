@@ -228,16 +228,7 @@ class CombatLogParser {
   triggerEvent(eventType, event, ...args) {
     this.activeModules
       .sort((a, b) => a.priority - b.priority) // lowest should go first, as `priority = 0` will have highest prio
-      .forEach(module => {
-        module.triggerEvent('event', eventType, event, ...args);
-        module.triggerEvent(eventType, event, ...args);
-        if (event && this.byPlayer(event)) {
-          module.triggerEvent(`byPlayer_${eventType}`, event, ...args);
-        }
-        if (event && this.toPlayer(event)) {
-          module.triggerEvent(`toPlayer_${eventType}`, event, ...args);
-        }
-      });
+      .forEach(module => module.triggerEvent(eventType, event, ...args));
   }
 
   byPlayer(event, playerId = this.player.id) {
