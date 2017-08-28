@@ -116,7 +116,7 @@ class CastEfficiency extends CoreCastEfficiency {
 
     {
       spell: SPELLS.VOID_ERUPTION,
-      category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => null,
       noSuggestion: true,
       noCanBeImproved: true,
