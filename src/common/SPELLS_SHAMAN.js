@@ -225,6 +225,11 @@ export default {
     name: 'Lightning Rod',
     icon: 'inv_rod_enchantedcobalt',
   },
+  LIGHTNING_ROD_DEBUFF: {
+    id: 197209,
+    name: 'Lightning Rod Buff',
+    icon: 'inv_rod_enchantedcobalt',
+  },
   LIGHTNING_ROD_DAMAGE: {
     id: 197568,
     name: 'Lightning Rod',
