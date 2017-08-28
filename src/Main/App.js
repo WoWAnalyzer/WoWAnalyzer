@@ -15,7 +15,9 @@ import GithubLogo from './Images/GitHub-Mark-Light-32px.png';
 
 import Home from './Home';
 import FightSelecter from './FightSelecter';
+import FightSelectorHeader from './FightSelectorHeader';
 import PlayerSelecter from './PlayerSelecter';
+import PlayerSelectorHeader from './PlayerSelectorHeader';
 import Results from './Results';
 import ReportSelecter from './ReportSelecter';
 import AppBackgroundImage from './AppBackgroundImage';
@@ -392,7 +394,7 @@ class App extends Component {
   }
 
   render() {
-    const { report } = this.state;
+    const { report, combatants, parser } = this.state;
 
     const progress = Math.floor(this.state.progress * 100);
 
@@ -407,8 +409,8 @@ class App extends Component {
               <ol className="breadcrumb">
                 <li className="breadcrumb-item"><Link to={makeAnalyzerUrl()}>{toolName}</Link></li>
                 {this.reportCode && report && <li className="breadcrumb-item"><Link to={makeAnalyzerUrl(report)}>{report.title}</Link></li>}
-                {this.fight && report && <li className="breadcrumb-item"><Link to={makeAnalyzerUrl(report, this.fightId)}>{getFightName(report, this.fight)}</Link></li>}
-                {this.playerName && report && <li className="breadcrumb-item"><Link to={makeAnalyzerUrl(report, this.fightId, this.playerName)}>{this.playerName}</Link></li>}
+                {this.fight && report && <li className="breadcrumb-item"><FightSelectorHeader report={report} selectedFightName={getFightName(report, this.fight)} parser={parser}/></li>}
+                {this.playerName && report && <li className="breadcrumb-item"><PlayerSelectorHeader report={report} fightId={this.fightId} combatants={combatants || []} selectedPlayerName={this.playerName}/></li>}
               </ol>
             </div>
 
