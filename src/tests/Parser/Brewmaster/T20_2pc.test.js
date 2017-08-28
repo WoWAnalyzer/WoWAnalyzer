@@ -5,7 +5,10 @@ import { SimpleFight } from './Fixtures/SimpleFight';
 describe('Brewmaster.T20_2pc', () => {
   let item;
   beforeEach(() => {
-    item = new T20_2pc();
+    item = new T20_2pc({
+      toPlayer: () => true,
+      byPlayer: () => true,
+    });
   });
   it('tracks the number of orbs spawned by the T202pc', () => {
     processEvents(SimpleFight, item);

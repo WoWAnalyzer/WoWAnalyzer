@@ -45,7 +45,10 @@ describe('Core.CombatLogParser', () => {
       class MyModule extends Module {
         on_success = on_success;
       }
-      const myModule = new MyModule();
+      const myModule = new MyModule({
+        toPlayer: () => true,
+        byPlayer: () => true,
+      });
       const firstArg = {};
       const secondArg = 'my_second_arg';
       myModule.triggerEvent('success', firstArg, secondArg);

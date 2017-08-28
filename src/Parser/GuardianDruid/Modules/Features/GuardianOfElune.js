@@ -10,7 +10,6 @@ const GoE_DURATION = 15000;
 const debug = false;
 
 class GuardianOfElune extends Module {
-
   GoEProcsTotal = 0;
   lastGoEProcTime = 0;
   consumedGoEProc = 0;

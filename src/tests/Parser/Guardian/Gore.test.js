@@ -5,7 +5,10 @@ import { processEvents } from './Fixtures/processEvents';
 describe('GuardianDruid.Gore', () => {
   let gore;
   beforeEach(() => {
-    gore = new Gore();
+    gore = new Gore({
+      toPlayer: () => true,
+      byPlayer: () => true,
+    });
   });
   it('track gore procs with no events', () => {
     expect(gore.totalProcs).toBe(0);
