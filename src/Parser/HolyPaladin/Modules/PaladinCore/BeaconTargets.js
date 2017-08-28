@@ -1,4 +1,5 @@
 import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 import { BEACON_TYPES } from '../../Constants';
 
@@ -7,6 +8,10 @@ const BEACONS = Object.keys(BEACON_TYPES).map(key => BEACON_TYPES[key]);
 const debug = false;
 
 class BeaconTargets extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
+  
   currentBeaconTargets = [];
 
   hasBeacon(playerId) {
@@ -23,7 +28,7 @@ class BeaconTargets extends Module {
       const { source, ability } = aura;
       if (source === playerId && BEACONS.indexOf(ability) !== -1) {
         this.currentBeaconTargets.push(event.sourceID);
-        debug && console.log(`%c${this.owner.combatants.players[event.sourceID].name} has a beacon`, 'color:green', this.currentBeaconTargets);
+        debug && console.log(`%c${this.combatants.players[event.sourceID].name} has a beacon`, 'color:green', this.currentBeaconTargets);
         this.owner.triggerEvent('beacon_changed', event);
       }
     });
@@ -36,7 +41,7 @@ class BeaconTargets extends Module {
     }
     const targetId = event.targetID;
     this.currentBeaconTargets.push(targetId);
-    debug && console.log(`%c${this.owner.combatants.players[targetId].name} gained a beacon`, 'color:green', this.currentBeaconTargets);
+    debug && console.log(`%c${this.combatants.players[targetId].name} gained a beacon`, 'color:green', this.currentBeaconTargets);
     this.owner.triggerEvent('beacon_changed', event);
   }
   on_byPlayer_removebuff(event) {
@@ -46,7 +51,7 @@ class BeaconTargets extends Module {
     }
     const targetId = event.targetID;
     this.currentBeaconTargets = this.currentBeaconTargets.filter(id => id !== targetId);
-    debug && console.log(`%c${this.owner.combatants.players[targetId].name} lost a beacon`, 'color:red', this.currentBeaconTargets);
+    debug && console.log(`%c${this.combatants.players[targetId].name} lost a beacon`, 'color:red', this.currentBeaconTargets);
     this.owner.triggerEvent('beacon_changed', event);
   }
 }

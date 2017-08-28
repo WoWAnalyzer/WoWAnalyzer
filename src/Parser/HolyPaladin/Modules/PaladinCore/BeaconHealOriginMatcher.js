@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 
 import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 import BeaconTargets from './BeaconTargets';
 import { BEACON_TRANSFERING_ABILITIES, BEACON_TYPES } from '../../Constants';
@@ -10,6 +11,7 @@ const debug = false;
 
 class BeaconHealOriginMatcher extends Module {
   static dependencies = {
+    combatants: Combatants,
     beaconTargets: BeaconTargets,
     lightOfDawn: LightOfDawn,
   };
@@ -35,7 +37,7 @@ class BeaconHealOriginMatcher extends Module {
     let remainingBeaconTransfers = beaconTargets.numBeaconsActive;
     if (beaconTargets.hasBeacon(event.targetID)) {
       remainingBeaconTransfers -= 1;
-      debug && console.log(`${this.owner.combatants.players[event.targetID].name} has beacon, remaining beacon transfers reduced by 1 and is now ${remainingBeaconTransfers}`);
+      debug && console.log(`${this.combatants.players[event.targetID].name} has beacon, remaining beacon transfers reduced by 1 and is now ${remainingBeaconTransfers}`);
     }
 
     if (remainingBeaconTransfers > 0) {
@@ -155,7 +157,7 @@ class BeaconHealOriginMatcher extends Module {
     let raw = amount + absorbed + overheal;
 
     const healTargetId = healEvent.targetID;
-    const healCombatant = this.owner.combatants.players[healTargetId];
+    const healCombatant = this.combatants.players[healTargetId];
     if (healCombatant) {
       if (healCombatant.hasBuff(SPELLS.PROTECTION_OF_TYR.id, healEvent.timestamp)) {
         raw /= 1.15;
@@ -168,7 +170,7 @@ class BeaconHealOriginMatcher extends Module {
     let expectedBeaconTransfer = Math.round(raw * this.getBeaconTransferFactor(healEvent) * healEvent.spellBeaconTransferFactor);
 
     const beaconTargetId = beaconTransferEvent.targetID;
-    const beaconCombatant = this.owner.combatants.players[beaconTargetId];
+    const beaconCombatant = this.combatants.players[beaconTargetId];
     if (beaconCombatant) {
       if (beaconCombatant.hasBuff(55233, healEvent.timestamp)) {
         expectedBeaconTransfer *= 1.3;

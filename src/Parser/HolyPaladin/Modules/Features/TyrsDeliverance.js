@@ -6,6 +6,7 @@ import { formatPercentage } from 'common/format';
 
 import Module from 'Parser/Core/Module';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
@@ -17,6 +18,10 @@ const TYRS_DELIVERANCE_BASE_HEALING_INCREASE = 0.2;
 const TYRS_MUNIFICENCE_POINT_HEALING_INCREASE = 0.05;
 
 class TyrsDeliverance extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
   static dependencies = {
     tyrsMunificence: TyrsMunificence,
   };
@@ -36,7 +41,7 @@ class TyrsDeliverance extends Module {
         break;
       case SPELLS.FLASH_OF_LIGHT.id:
       case SPELLS.HOLY_LIGHT.id: {
-        const combatant = this.owner.combatants.players[event.targetID];
+        const combatant = this.combatants.players[event.targetID];
         if (!combatant) {
           // If combatant doesn't exist it's probably a pet.
           debug && console.log('Skipping event since combatant couldn\'t be found:', event);
@@ -57,7 +62,7 @@ class TyrsDeliverance extends Module {
     if (spellId !== SPELLS.FLASH_OF_LIGHT.id && spellId !== SPELLS.HOLY_LIGHT.id) {
       return;
     }
-    const combatant = this.owner.combatants.players[healEvent.targetID];
+    const combatant = this.combatants.players[healEvent.targetID];
     if (!combatant) {
       // If combatant doesn't exist it's probably a pet.
       debug && console.log('Skipping beacon heal event since combatant couldn\'t be found:', beaconTransferEvent, 'for heal:', healEvent);

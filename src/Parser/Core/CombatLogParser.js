@@ -109,17 +109,9 @@ class CombatLogParser {
     return this.player.id;
   }
 
-  /** @returns Combatants */
-  get combatants() {
-    return this.modules.combatants;
-  }
-  get playerCount() {
-    return this.modules.combatants.playerCount;
-  }
-
   /** @returns {Combatant} */
   get selectedCombatant() {
-    return this.combatants.selected;
+    return this.modules.combatants.selected;
   }
 
   get currentTimestamp() {
