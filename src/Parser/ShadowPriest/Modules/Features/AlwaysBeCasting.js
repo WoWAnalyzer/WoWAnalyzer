@@ -29,6 +29,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.SHADOW_WORD_DEATH.id,
     SPELLS.SHADOW_WORD_PAIN.id,
     SPELLS.SHADOWFIEND.id,
+    SPELLS.SHADOWFIEND_WITH_GLYPH_OF_THE_SHA.id,
     
     // talents:
     SPELLS.MINDBENDER_TALENT_SHADOW.id,

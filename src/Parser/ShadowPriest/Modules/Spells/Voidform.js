@@ -54,6 +54,21 @@ class Voidform extends Module {
     return nonExcludedVoidforms.reduce((p, c) => p += c.stacks.length, 0)/nonExcludedVoidforms.length;
   }
 
+  createVoidform(event){
+    this._inVoidform = true;
+    this._previousVoidformCast = event;
+    this._voidforms[event.timestamp] = {
+      start: event.timestamp,
+      stacks: [{
+        stack: 1,
+        timestamp: event.timestamp,
+      }],
+      lingeringInsanityStacks: [],
+      excluded: false,
+      totalHasteAcquired: 0,
+    };
+  }
+
   getCurrentVoidform(){
     return this._inVoidform ? this._voidforms[this._previousVoidformCast.timestamp] : false;
   }
@@ -70,23 +85,13 @@ class Voidform extends Module {
       return;
     }
 
-    this._inVoidform = true;
-    this._previousVoidformCast = event;
-    this._voidforms[event.timestamp] = {
-      start: event.timestamp,
-      stacks: [{
-        stack: 1,
-        timestamp: event.timestamp,
-      }],
-      lingeringInsanityStacks: [],
-      excluded: false,
-      totalHasteAcquired: 0,
-    };
+    this.createVoidform(event);
   }
 
   on_byPlayer_removebuff(event){
     const spellId = event.ability.guid;
     if (spellId === SPELLS.VOIDFORM_BUFF.id) {
+
       this._voidforms[this._previousVoidformCast.timestamp].ended = event.timestamp;
       this._inVoidform = false;
     }
@@ -95,6 +100,12 @@ class Voidform extends Module {
   on_byPlayer_applybuffstack(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.VOIDFORM_BUFF.id) {
+
+      // for those prepull voidforms:
+      if(this._previousVoidformCast === null){
+        this.createVoidform(event);
+      }
+
       let currentVoidform = this.getCurrentVoidform();
       currentVoidform = {
         ...currentVoidform,

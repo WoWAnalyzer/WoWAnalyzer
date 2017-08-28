@@ -495,6 +495,12 @@ export default {
     icon: 'spell_holy_mindvision',
   },
 
+  MIND_SEAR: {
+    id: 234702,
+    name: 'Mind Sear',
+    icon: 'spell_shadow_mindshear',
+  },
+
   // Shadow Buffs
 
   VOIDFORM: {

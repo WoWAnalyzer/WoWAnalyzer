@@ -1,11 +1,10 @@
 import Module from 'Parser/Core/Module';
 
-class Pets extends Module {
+class Pet extends Module {
   _sourceId = null;
   _pets = {}
 
   on_initialized() {
-    this.active = true;
     this._pets = this.owner.report.friendlyPets.filter(pet => pet.petOwner === this.owner.player.id);
 
     if(this._pet !== undefined){
@@ -34,4 +33,4 @@ class Pets extends Module {
 
 }
 
-export default Pets;
+export default Pet;

@@ -1,11 +1,11 @@
 import PETS from 'common/PETS';
 
-import Pets from '../Core/Pets';
+import Pet from '../Core/Pet';
 
 
 const INSANITY_GENERATED_EACH_TICK = 3;
 
-class CallToTheVoid extends Pets {
+class CallToTheVoid extends Pet {
   _pet = PETS.VOID_TENDRIL;
   _generatedInsanity = 0;
   _tentacles = {};
