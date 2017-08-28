@@ -1,13 +1,6 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
 
 import CoreCastEfficiency from 'Parser/Core/Modules/CastEfficiency';
-import getCastEfficiency from 'Parser/Core/getCastEfficiency';
-
-import Tab from 'Main/Tab';
-
-import CastEfficiencyComponent from './CastEfficiencyComponent';
 
 class CastEfficiency extends CoreCastEfficiency {
   static SPELL_CATEGORIES = {
@@ -38,6 +31,11 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.CHAIN_LIGHTNING,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL_AOE,
       getCooldown: haste => null, // 2 / (1 + haste)
+    },
+    {
+      spell: SPELLS.LAVA_BEAM,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL_AOE,
+      getCooldown: haste => null,
     },
     {
       spell: SPELLS.EARTHQUAKE,
@@ -80,21 +78,6 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => null,
     },
   ];
-
-  tab() {
-    return {
-      title: 'Cast efficiency',
-      url: 'cast-efficiency',
-      render: () => (
-        <Tab title="Cast efficiency">
-          <CastEfficiencyComponent
-            categories={this.constructor.SPELL_CATEGORIES}
-            abilities={getCastEfficiency(this.constructor.CPM_ABILITIES, this.owner)}
-          />
-        </Tab>
-      ),
-    };
-  }
 }
 
 export default CastEfficiency;

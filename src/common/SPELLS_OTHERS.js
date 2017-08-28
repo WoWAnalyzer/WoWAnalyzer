@@ -51,14 +51,29 @@ export default {
     icon: 'inv_alchemy_70_flask04',
   },
   SPIRIT_BERRIES: {
-	  id: 223573,
-	  name: 'Spirit Berries',
-	  icon: 'inv_misc_food_93_skethylberries',
+    id: 223573,
+    name: 'Spirit Berries',
+    icon: 'inv_misc_food_93_skethylberries',
   },
   PURE_RAGE_POTION: {
     id: 175821,
     name: 'Pure Rage Potion',
     icon: 'trade_alchemy_dpotion_a13',
+  },
+  SUNFRUIT: {
+    id: 223595,
+    name: 'Sunfruit',
+    icon: 'inv_misc_food_42',
+  },
+  HEALTHSTONE: {
+    id: 6262,
+    name: 'Healthstone',
+    icon: 'warlock_healthstone',
+  },
+  ANCIENT_REJUVENATION_POTION: {
+    id: 188018,
+    name: 'Ancient Rejuvenation Potion',
+    icon: 'inv_alchemy_70_purple',
   },
   // Items buffs:
   GNAWED_THUMB_RING: {
