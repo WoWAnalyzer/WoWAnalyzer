@@ -15,15 +15,17 @@ const formatDuration = (duration) => {
 const timeAsSeconds = (time) => time/1000;
 const timeAsInteger = (time) => Math.floor(time/1000);
 
-const MAX_SECONDS = 65;
+
 const MAX_MINDBENDER_TIME = 21500;
 const TIMESTAMP_ERROR_MARGIN = 500;
 
 
 
-const VoidformGraph = ({start, ended, stacks, lingeringInsanityStacks, fightEnd, mindbenders, voidTorrents, dispersions}) => {
+const VoidformGraph = ({start, ended, stacks, lingeringInsanityStacks, fightEnd, mindbenders, voidTorrents, dispersions, surrenderToMadness=false}) => {
     const voidFormEnd = ended === undefined ? fightEnd : ended;
     const includesEndOfFight = ended === undefined || fightEnd <= ended + TIMESTAMP_ERROR_MARGIN;
+
+    const MAX_SECONDS = surrenderToMadness ? 150 : 65;
 
     const mindbendersInCurrent   = mindbenders.filter(mindbender => mindbender.start >= start && mindbender.end <= voidFormEnd + MAX_MINDBENDER_TIME);
     const voidTorrentsInCurrent  = voidTorrents.filter(voidTorrent => voidTorrent.start >= start && voidTorrent.end <= voidFormEnd + TIMESTAMP_ERROR_MARGIN);

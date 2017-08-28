@@ -213,7 +213,8 @@ class Voidform extends Module {
             voidTorrents={this.voidTorrent.voidTorrents} 
             mindbenders={this.mindbender.mindbenders} 
             dispersions={this.dispersion.dispersions} 
-            fightEnd={this.owner.fight.end_time} 
+            fightEnd={this.owner.fight.end_time}
+            surrenderToMadness={this.owner.selectedCombatant.hasTalent(SPELLS.SURRENDER_TO_MADNESS_TALENT.id)}
           />
         </Tab>
       ),
