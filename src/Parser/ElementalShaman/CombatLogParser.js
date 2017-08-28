@@ -22,6 +22,8 @@ import CooldownTracker from './Modules/Features/CooldownTracker';
 import ProcTracker from './Modules/Features/ProcTracker';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 
+import FlameShock from './Modules/ShamanCore/FlameShock';
+
 import Aftershock from './Modules/Talents/Aftershock';
 import ElementalBlast from './Modules/Talents/ElementalBlast';
 import Ascendance from './Modules/Talents/Ascendance';
@@ -64,6 +66,8 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     cooldownTracker: CooldownTracker,
     procTracker: ProcTracker,
+    flameShock: FlameShock,
+
     // Talents
     aftershock: Aftershock,
     elementalBlast: ElementalBlast,
