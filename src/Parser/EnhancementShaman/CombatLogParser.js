@@ -19,6 +19,7 @@ import Flametongue from './Modules/ShamanCore/Flametongue';
 import Landslide from './Modules/ShamanCore/Landslide';
 import Frostbrand from './Modules/ShamanCore/Frostbrand';
 import FuryOfAir from './Modules/ShamanCore/FuryOfAir';
+import Tier20_2set from './Modules/Items/Tier20_2set';
 
 // import SmolderingHeart from './Modules/Legendaries/SmolderingHeart';
 
@@ -36,6 +37,8 @@ class CombatLogParser extends CoreCombatLogParser {
     castEfficiency: CastEfficiency,
     cooldownTracker: CooldownTracker,
     // Legendaries:
+    //Tier
+    tier20_2set: Tier20_2set,
   };
 
   generateResults() {

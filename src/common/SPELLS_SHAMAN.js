@@ -404,6 +404,11 @@ export default {
     icon: 'spell_fire_elementaldevastation',
     cooldownType: 'DAMAGE',
   },
+  ENHANCE_SHAMAN_T20_2SET_BONUS_BUFF: {
+    id: 242283,
+    name: 'T20 2 set bonus',
+    icon: 'spell_shaman_improvedstormstrike',
+  },
   // Restoration Shaman
   CHAIN_HEAL: {
     id: 1064,

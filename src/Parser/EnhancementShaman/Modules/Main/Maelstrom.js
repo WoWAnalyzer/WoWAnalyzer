@@ -7,6 +7,7 @@ import Chartist from 'chartist';
 import 'chartist-plugin-legend';
 
 import makeWclUrl from 'common/makeWclUrl';
+import { formatDuration } from 'common/format';
 
 import SPELLS from 'common/SPELLS';
 
@@ -16,11 +17,6 @@ import 'Main/Mana.css';
 
 import MaelstromComponent from './MaelstromComponent';
 import './Maelstrom.css';
-
-const formatDuration = (duration) => {
-  const seconds = Math.floor(duration % 60);
-  return `${Math.floor(duration / 60)}:${seconds < 10 ? `0${seconds}` : seconds}`;
-};
 
 class Maelstrom extends React.PureComponent {
   static propTypes = {
