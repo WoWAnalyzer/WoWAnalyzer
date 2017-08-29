@@ -1,7 +1,5 @@
 import React from 'react';
 
-import SPELLS from 'common/SPELLS';
-
 import SuggestionsTab from 'Main/SuggestionsTab';
 import Tab from 'Main/Tab';
 import Talents from 'Main/Talents';
