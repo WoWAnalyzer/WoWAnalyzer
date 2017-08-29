@@ -24,7 +24,8 @@ const SURRENDER_TO_MADNESS_VOIDFORM_MS_THRESHOLD = 150000;
 // current insanity formula:
 // d = 6 + (2/3)*x
 // where d = total drain of Insanity over 1 second 
-// max insanity is 10000 (100 ingame):
+// max insanity is 10000 (100 ingame)
+const INSANITY_DRAIN_INCREASE = 66.67;
 
 
 const T20_4P_DECREASE_DRAIN_MODIFIER_NORMAL = 0.9;
@@ -72,7 +73,7 @@ const VoidformGraph = ({
       : 1;
 
     const INSANITY_DRAIN_START = 600 * INSANITY_DRAIN_MODIFIER;
-    const INSANITY_DRAIN_INCREASE_BY_SECOND = Math.round(66.667 * INSANITY_DRAIN_MODIFIER);
+    const INSANITY_DRAIN_INCREASE_BY_SECOND = Math.round(INSANITY_DRAIN_INCREASE * INSANITY_DRAIN_MODIFIER);
 
 
     const atLabel = (timestamp) => {
