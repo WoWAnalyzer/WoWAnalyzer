@@ -31,21 +31,21 @@ const INSANITY_DRAIN_INCREASE = 66.67;
 const T20_4P_DECREASE_DRAIN_MODIFIER_NORMAL = 0.9;
 const T20_4P_DECREASE_DRAIN_MODIFIER_SURRENDER_TO_MADNESS = 0.95;
 
-const VoidformGraph = ({
-    start, 
-    ended, 
-    stacks, 
+const VoidformGraph = ({ 
     lingeringInsanityStacks, 
-    fightEnd, 
     mindbenderEvents, 
     voidTorrentEvents, 
     dispersionEvents,
     insanityEvents,
     surrenderToMadness=false,
     setT20P4=false,
+    fightEnd, 
+    ...voidform
 }) => {
-    const voidFormEnd = ended === undefined ? fightEnd : ended;
-    const includesEndOfFight = ended === undefined || fightEnd <= ended + TIMESTAMP_ERROR_MARGIN;
+    // todo: change ended to end on Voidform for consistency;
+
+    const voidFormEnd = voidform.ended === undefined ? fightEnd : voidform.ended;
+    const includesEndOfFight = voidform.ended === undefined || fightEnd <= voidform.ended + TIMESTAMP_ERROR_MARGIN;
 
     const MAX_TIME_IN_VOIDFORM = surrenderToMadness ? SURRENDER_TO_MADNESS_VOIDFORM_MS_THRESHOLD : NORMAL_VOIDFORM_MS_THRESHOLD;
 
@@ -77,14 +77,18 @@ const VoidformGraph = ({
 
 
     const atLabel = (timestamp) => {
-      return Math.floor((timestamp - start)/RESOLUTION_MS);
+      return Math.floor((timestamp - voidform.start)/RESOLUTION_MS);
+    };
+
+    const voidFormIsOver = (i) => {
+      return voidform.start + i * RESOLUTION_MS >= voidform.ended;
     };
 
     const fillData = (array, eventStart, eventEnd, data=false) => {
       const amountOfSteps = Math.round((eventEnd - eventStart)/RESOLUTION_MS);
       const startStep = atLabel(eventStart);
       for(let i = 0; i < amountOfSteps; i++){
-        if(eventStart + i * RESOLUTION_MS >= ended) break;
+        if(eventStart + i * RESOLUTION_MS >= voidform.ended) break;
         array[startStep+i] = data ? data : stacksData[startStep+i];
       }
     };
@@ -107,30 +111,30 @@ const VoidformGraph = ({
       endOfVoidformData[i]      = null;
     }
 
-    stacks.forEach(({stack, timestamp}) => {
+    voidform.stacks.forEach(({stack, timestamp}) => {
       fillData(stacksData, timestamp, timestamp+1000, stack);
     });
 
     // fill in dispersion gaps & 100s+ voidforms:
     for (let i = 0; i <= steps; i++){
-      if(stacksData[i] === null && (i * RESOLUTION_MS) + start < ended) stacksData[i] = stacksData[i-1];
+      if(stacksData[i] === null && (i * RESOLUTION_MS) + voidform.start < voidform.ended) stacksData[i] = stacksData[i-1];
     }
 
-    endOfVoidformData[atLabel(ended)+1] = 100;
-    endOfVoidformData[atLabel(ended)]   = 100;
+    endOfVoidformData[atLabel(voidform.ended)+1] = 100;
+    endOfVoidformData[atLabel(voidform.ended)]   = 100;
 
 
     if(lingeringInsanityStacks.length > 0) lingeringInsanityData[0] = lingeringInsanityStacks[0].stack + 2;
     lingeringInsanityStacks.forEach(lingering => lingeringInsanityData[atLabel(lingering.timestamp)] = lingering.stack);
 
-    dispersionEvents.filter(dispersion => dispersion.start >= start && dispersion.end <= voidFormEnd + TIMESTAMP_ERROR_MARGIN).forEach(dispersion => fillData(dispersionData, dispersion.start, dispersion.end));
-    mindbenderEvents.filter(mindbender => mindbender.start >= start && mindbender.end <= voidFormEnd + MAX_MINDBENDER_MS).forEach(mindbender => fillData(mindbenderData, mindbender.start, mindbender.end));
-    voidTorrentEvents.filter(voidTorrent => voidTorrent.start >= start && voidTorrent.end <= voidFormEnd + TIMESTAMP_ERROR_MARGIN).forEach(voidTorrent => fillData(voidTorrentData, voidTorrent.start, voidTorrent.end));
+    dispersionEvents.filter(dispersion => dispersion.start >= voidform.start && dispersion.end <= voidFormEnd + TIMESTAMP_ERROR_MARGIN).forEach(dispersion => fillData(dispersionData, dispersion.start, dispersion.end));
+    mindbenderEvents.filter(mindbender => mindbender.start >= voidform.start && mindbender.end <= voidFormEnd + MAX_MINDBENDER_MS).forEach(mindbender => fillData(mindbenderData, mindbender.start, mindbender.end));
+    voidTorrentEvents.filter(voidTorrent => voidTorrent.start >= voidform.start && voidTorrent.end <= voidFormEnd + TIMESTAMP_ERROR_MARGIN).forEach(voidTorrent => fillData(voidTorrentData, voidTorrent.start, voidTorrent.end));
 
     let currentDrain = INSANITY_DRAIN_START;
     for(let i = 0; i < steps; i++){
       // set drain to 0 if voidform ended:
-      if(start + i * RESOLUTION_MS >= ended){
+      if(voidFormIsOver(i)){
         currentDrain = 0;
         break;
       }
@@ -181,12 +185,8 @@ const VoidformGraph = ({
         currentInsanity = lastestInsanityGenerated - totalInsanityDrained + initialInsanity;
       }
       
-      if(start + i * RESOLUTION_MS >= ended){
-        insanityData[i] = 0;
-      } else {
-        insanityData[i] = currentInsanity > 0 ? currentInsanity/100 : 0;
-      }
-      
+
+      insanityData[i] = voidFormIsOver(i) ? 0 : (currentInsanity > 0 ? currentInsanity/100 : 0);
     }
 
 
@@ -380,10 +380,7 @@ const VoidformGraph = ({
 };
 
 VoidformGraph.propTypes = {
-  start: PropTypes.number.isRequired,
-  ended: PropTypes.number,
   fightEnd: PropTypes.number,
-  stacks: PropTypes.array.isRequired,
   lingeringInsanityStacks: PropTypes.array,
   insanityEvents: PropTypes.array,
   mindbenderEvents: PropTypes.array,
