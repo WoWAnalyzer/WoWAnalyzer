@@ -35,7 +35,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span> Your downtime can be improved. Try to Always Be Casting (ABC)...</span>)
           .icon('spell_mage_altertime')
-          .actual(`${formatPercentage(deadTimePercentage)}% dead GCD time`)
+          .actual(`${formatPercentage(this.deadTimePercentage)}% dead GCD time`)
           .recommended(`${Math.round(formatPercentage(recommended))}% is recommended`)
           .regular(recommended + 0.03).major(recommended + 0.08);
       });
