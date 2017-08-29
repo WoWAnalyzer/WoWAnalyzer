@@ -20,5 +20,5 @@ after_success:
   - export REPO=martijnhols/wowanalyzer
   - export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH; fi else echo pr-$TRAVIS_PULL_REQUEST-$TRAVIS_PULL_REQUEST_BRANCH; fi | sed -r 's/\//-/g')
   - docker login --username="$DOCKER_USERNAME" --password="$DOCKER_PASSWORD"
-  - docker build --file .dockerfile --tag $REPO:$BRANCH .
+  - docker build --tag $REPO:$BRANCH .
   - docker push $REPO:$BRANCH

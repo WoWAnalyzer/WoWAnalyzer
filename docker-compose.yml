@@ -1,5 +1,17 @@
-version: '2'
+version: '3'
 services:
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: wowanalyzer-dev
+    environment:
+      - NODE_ENV=development
+    ports:
+     - 3000:3000
+     - 35729:35729
+    volumes:
+      - .:/usr/src/wowanalyzer
   webserver:
     build:
       context: .
