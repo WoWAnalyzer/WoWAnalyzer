@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-const debug = true;
+const debug = false;
 
 class AlwaysBeCasting extends Module {
   static dependencies = {
