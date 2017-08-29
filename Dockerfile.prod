@@ -8,12 +8,10 @@ COPY package.json package-lock.json /usr/src/
 RUN npm install
 
 COPY . /usr/src/wowanalyzer
-
 RUN npm run build
 
 # Server
 WORKDIR ./server
-
 RUN npm install
-
+USER node
 CMD ["npm", "start"]
