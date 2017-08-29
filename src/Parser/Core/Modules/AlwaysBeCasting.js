@@ -109,12 +109,7 @@ class AlwaysBeCasting extends Module {
     cast,
     spellId
   ) {
-    //Iskalla: Inserted this so time wasted never goes negative, even if there's a haste buff not yet implemented
-    //Because of this it doesnt reflect the real downtime, but its somewhat more accurate
-    ///TODO Implement every haste buff at some point?, remove this
-    const tWasted = castStartTimestamp - (this.lastCastFinishedTimestamp || this.owner.fight.start_time);
-    const timeWasted = tWasted < 0 ? 0 : tWasted;
-    //const timeWasted = castStartTimestamp - (this.lastCastFinishedTimestamp || this.owner.fight.start_time);
+    const timeWasted = castStartTimestamp - (this.lastCastFinishedTimestamp || this.owner.fight.start_time);
     this.totalTimeWasted += timeWasted;
 
     debug && console.log(`ABC: tot.:${Math.floor(this.totalTimeWasted)}\tthis:${Math.floor(timeWasted)}\t%c${cast.ability.name} (${spellId}): ${begincast ? 'channeled' : 'instant'}\t%cgcd:${Math.floor(globalCooldown)}\t%ccasttime:${cast.timestamp - castStartTimestamp}\tfighttime:${castStartTimestamp - this.owner.fight.start_time}`, 'color:red', 'color:green', 'color:black');
