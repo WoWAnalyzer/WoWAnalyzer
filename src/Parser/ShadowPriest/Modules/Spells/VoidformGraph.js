@@ -25,7 +25,7 @@ const SURRENDER_TO_MADNESS_VOIDFORM_MS_THRESHOLD = 150000;
 // d = 6 + (2/3)*x
 // where d = total drain of Insanity over 1 second 
 // max insanity is 10000 (100 ingame)
-const INSANITY_DRAIN_INCREASE = 66.67;
+const INSANITY_DRAIN_INCREASE = 2/3 * 100; // ~66.67;
 
 
 const T20_4P_DECREASE_DRAIN_MODIFIER_NORMAL = 0.9;
@@ -55,7 +55,7 @@ const VoidformGraph = ({
     const insanityData = [];
     const insanityGeneratedData = [];
     const insanityDrain = [];
-    const initialInsanity = insanityEvents.length > 0 ? insanityEvents[0].classResources[0].amount - insanityEvents[0].resourceChange * 100 : 7000;
+    const initialInsanity = insanityEvents.length > 0 ? insanityEvents[0].classResources[0].amount - (insanityEvents[0].resourceChange * 100) - (insanityEvents[0].waste * 100) : 7000;
 
 
     const lingeringInsanityData = [];
@@ -132,6 +132,7 @@ const VoidformGraph = ({
     voidTorrentEvents.filter(voidTorrent => voidTorrent.start >= voidform.start && voidTorrent.end <= voidFormEnd + TIMESTAMP_ERROR_MARGIN).forEach(voidTorrent => fillData(voidTorrentData, voidTorrent.start, voidTorrent.end));
 
     let currentDrain = INSANITY_DRAIN_START;
+    let lastestDrainIncrease = 0;
     for(let i = 0; i < steps; i++){
       // set drain to 0 if voidform ended:
       if(voidFormIsOver(i)){
@@ -141,54 +142,36 @@ const VoidformGraph = ({
 
       // dont increase if dispersion/voidtorrent is active:
       if(dispersionData[i] === null && voidTorrentData[i] === null){
-        currentDrain += INSANITY_DRAIN_INCREASE_BY_SECOND * RESOLUTION_MS/1000;
+        lastestDrainIncrease += 1;
+
+        // only increase drain every second:
+        if(lastestDrainIncrease%(1000/RESOLUTION_MS)===0){
+          currentDrain += INSANITY_DRAIN_INCREASE_BY_SECOND;
+        }
       }
 
       insanityDrain[i] = currentDrain;
     }
 
 
-    let totalInsanityGenerated = 0;
-    insanityEvents.forEach(event => {
-      let addInsanity = 0;
-      // sometimes mindflay gives negative resourceChange for some unknown reason (adding this fix corrected the graphs).
-      if(event.resourceChange < 0){
-        addInsanity = event.resourceChange * -1 * 100;
-      } else {
-        const insanityGain = event.resourceChange - event.waste;
-        addInsanity = insanityGain > 0 ? insanityGain * 100 : 0;
-      }
+    insanityData[0] = initialInsanity;
+    insanityEvents.forEach(event => insanityData[atLabel(event.timestamp)] = event.classResources[0].amount);
 
-      totalInsanityGenerated += addInsanity;
-      if(insanityGeneratedData[atLabel(event.timestamp)] === null){
-        insanityGeneratedData[atLabel(event.timestamp)] = totalInsanityGenerated;
-      } else {
-        // if 2 events occured on same label:
-        insanityGeneratedData[atLabel(event.timestamp)] += addInsanity;
-      }
-      
-    });
-
-
-    let currentInsanity       = initialInsanity;
-    let totalInsanityDrained  = 0;
-    let lastestInsanityGenerated = 0;
+    let latestInsanityDataAt = 0;
     for(let i = 0; i < steps; i++){
-      if(insanityGeneratedData[i] !== null) lastestInsanityGenerated = insanityGeneratedData[i];
+      if(insanityData[i] === null){
+        insanityData[i] = insanityData[latestInsanityDataAt];
+        for(let j = latestInsanityDataAt; j <= i; j++){
 
-      // Increase drain if dispersion/voidtorrent isnt active:
-      if(dispersionData[i] === null && voidTorrentData[i] === null){
-        currentInsanity = insanityDrain[i] * RESOLUTION_MS/1000 + lastestInsanityGenerated - totalInsanityDrained + initialInsanity;
+          if(dispersionData[j] === null && voidTorrentData[j] === null)
+            insanityData[i] -= insanityDrain[j] /(1000/RESOLUTION_MS);
+        }
 
-        totalInsanityDrained += insanityDrain[i] * RESOLUTION_MS/1000;
+        if(insanityData[i] < 0) insanityData[i] = 0;
       } else {
-        currentInsanity = lastestInsanityGenerated - totalInsanityDrained + initialInsanity;
+        latestInsanityDataAt = i;
       }
-      
-
-      insanityData[i] = voidFormIsOver(i) ? 0 : (currentInsanity > 0 ? currentInsanity/100 : 0);
     }
-
 
     
     let legends = {
@@ -216,7 +199,7 @@ const VoidformGraph = ({
         {
           className: 'insanity',
           name: 'Insanity',
-          data: Object.keys(insanityData).map(key => insanityData[key]).slice(0, steps),
+          data: Object.keys(insanityData).map(key => insanityData[key]/100).slice(0, steps),
         },
 
         {
