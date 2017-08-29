@@ -197,6 +197,7 @@ class CombatLogParser {
 
   _debugEventHistory = [];
   parseEvents(events) {
+    events = this.reorderEvents(events);
     if (process.env.NODE_ENV === 'development') {
       this._debugEventHistory = [
         ...this._debugEventHistory,
@@ -217,6 +218,18 @@ class CombatLogParser {
       resolve(events.length);
     });
   }
+
+  reorderEvents(events) {
+    this.activeModules
+      .sort((a, b) => a.priority - b.priority) // lowest should go first, as `priority = 0` will have highest prio
+      .forEach(module => {
+        if (module.reorderEvents) {
+          events = module.reorderEvents(events);
+        }
+      });
+    return events;
+  }
+
   triggerEvent(eventType, event, ...args) {
     this.activeModules
       .sort((a, b) => a.priority - b.priority) // lowest should go first, as `priority = 0` will have highest prio
