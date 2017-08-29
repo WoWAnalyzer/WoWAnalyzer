@@ -9,9 +9,7 @@ class SeaStarOfTheDepthmother extends Module {
   healing = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasTrinket(ITEMS.SEA_STAR_OF_THE_DEPTHMOTHER.id);
-    }
+    this.active = this.owner.selectedCombatant.hasTrinket(ITEMS.SEA_STAR_OF_THE_DEPTHMOTHER.id);
   }
 
   on_byPlayer_heal(event) {
@@ -26,6 +24,13 @@ class SeaStarOfTheDepthmother extends Module {
     if(debug) {
       console.log('Healing: ' + this.healing);
     }
+  }
+
+  item() {
+    return {
+      item: ITEMS.SEA_STAR_OF_THE_DEPTHMOTHER,
+      result: this.owner.formatItemHealingDone(this.healing),
+    };
   }
 }
 

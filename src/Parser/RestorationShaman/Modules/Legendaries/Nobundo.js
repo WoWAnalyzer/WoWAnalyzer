@@ -11,20 +11,18 @@ class Nobundo extends Module {
   discounts = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasWrists(ITEMS.NOBUNDOS_REDEMPTION.id);
-    }
+    this.active = this.owner.selectedCombatant.hasWrists(ITEMS.NOBUNDOS_REDEMPTION.id);
   }
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
 
-        if (!(spellId === SPELLS.HEALING_SURGE.id)) {
+        if (!(spellId === SPELLS.HEALING_SURGE_RESTORATION.id)) {
         return;
     }
 
     const buff = this.owner.selectedCombatant.getBuff(LEGENDARY_NOBUNDO_BUFF, event.timestamp, LEGENDARY_NOBUNDO_BUFF_EXPIRATION_BUFFER);
-        
+
     if (buff) {
         this.discounts += 1;
     }

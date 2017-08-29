@@ -1,6 +1,11 @@
+import React from 'react';
+
 import SPELLS from 'common/SPELLS';
 
 import Module from 'Parser/Core/Module';
+
+import Tab from 'Main/Tab';
+import CooldownOverview from 'Main/CooldownOverview';
 
 const debug = false;
 
@@ -106,6 +111,22 @@ class CooldownTracker extends Module {
     this.trackEvent(event);
   }
   // endregion
+
+  tab() {
+    return {
+      title: 'Cooldowns',
+      url: 'cooldowns',
+      render: () => (
+        <Tab title="Cooldowns">
+          <CooldownOverview
+            fightStart={this.owner.fight.start_time}
+            fightEnd={this.owner.fight.end_time}
+            cooldowns={this.pastCooldowns}
+          />
+        </Tab>
+      ),
+    };
+  }
 }
 
 export default CooldownTracker;

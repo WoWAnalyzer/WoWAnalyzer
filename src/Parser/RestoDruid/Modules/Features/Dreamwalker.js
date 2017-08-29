@@ -6,10 +6,8 @@ class Dreamwalker extends Module {
   healing = 0;
   hasTrait = false;
   on_initialized() {
-    if (!this.owner.error) {
-      if(this.owner.selectedCombatant.traitsBySpellId[SPELLS.DREAMWALKER_TRAIT.id]>0) {
-        this.hasTrait = true;
-      }
+    if(this.owner.selectedCombatant.traitsBySpellId[SPELLS.DREAMWALKER_TRAIT.id]>0) {
+      this.hasTrait = true;
     }
   }
 

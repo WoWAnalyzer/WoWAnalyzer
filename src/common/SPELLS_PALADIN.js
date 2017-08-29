@@ -1,3 +1,9 @@
+/**
+ * All Paladin abilities except talents go in here. You can also put a talent in here if you want to override something imported in the `./talents` folder, but that should be extremely rare.
+ * You need to do this manually, usually an easy way to do this is by opening a WCL report and clicking the icons of spells to open the relevant Wowhead pages, here you can get the icon name by clicking the icon, copy the name of the spell and the ID is in the URL.
+ * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
+ */
+
 import TALENTS from 'common/talents/TALENTS_PALADIN';
 
 export default {
@@ -244,6 +250,26 @@ export default {
     id: 200315,
     name: 'Shock Treatment',
     icon: 'spell_holy_searinglight',
+  },
+  DELIVER_THE_LIGHT: {
+    id: 200294,
+    name: 'Deliver the Light',
+    icon: 'spell_holy_surgeoflight',
+  },
+  EXPEL_THE_DARKNESS: {
+    id: 200296,
+    name: 'Expel the Darkness',
+    icon: 'spell_paladin_lightofdawn',
+  },
+  SECOND_SUNRISE: {
+    id: 200482,
+    name: 'Second Sunrise',
+    icon: 'spell_paladin_lightofdawn',
+  },
+  TYRS_MUNIFICENCE: {
+    id: 238060,
+    name: 'Tyr\'s Munificence',
+    icon: 'inv_mace_2h_artifactsilverhand_d_01',
   },
   PROTECTION_OF_TYR: {
     id: 211210,

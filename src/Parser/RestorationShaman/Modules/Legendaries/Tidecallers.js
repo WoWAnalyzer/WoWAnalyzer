@@ -18,9 +18,7 @@ class Tidecallers extends Module {
 
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasHands(ITEMS.PRAETORIANS_TIDECALLERS.id);
-    }
+    this.active = this.owner.selectedCombatant.hasHands(ITEMS.PRAETORIANS_TIDECALLERS.id);
   }
 
   on_byPlayer_heal(event) {

@@ -23,9 +23,7 @@ class Tier20_4set extends Module {
   }
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasBuff(SPELLS.DISC_PRIEST_T20_4SET_BONUS_PASSIVE.id);
-    }
+    this.active = this.owner.selectedCombatant.hasBuff(SPELLS.DISC_PRIEST_T20_4SET_BONUS_PASSIVE.id);
   }
 
   on_byPlayer_combatantinfo(event) {

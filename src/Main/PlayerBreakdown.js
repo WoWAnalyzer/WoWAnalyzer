@@ -5,7 +5,7 @@ import SPECS from 'common/SPECS';
 
 class PlayerBreakdown extends React.Component {
   static propTypes = {
-    stats: PropTypes.object.isRequired,
+    report: PropTypes.object.isRequired,
     playersById: PropTypes.object.isRequired,
   };
 
@@ -31,9 +31,9 @@ class PlayerBreakdown extends React.Component {
   }
 
   render() {
-    const { stats, playersById } = this.props;
+    const { report, playersById } = this.props;
 
-    const friendlyStats = this.calculatePlayerBreakdown(stats, playersById);
+    const friendlyStats = this.calculatePlayerBreakdown(report, playersById);
     const highestHealingFromMastery = friendlyStats.reduce((highest, player) => Math.max(highest, player.healingFromMastery), 1);
 
     return (
@@ -54,7 +54,7 @@ class PlayerBreakdown extends React.Component {
               // We want the performance bar to show a full bar for whatever healing done percentage is highest to make
               // it easier to see relative amounts.
               const performanceBarHealingReceivedPercentage = player.healingFromMastery / highestHealingFromMastery;
-              const actualHealingReceivedPercentage = player.healingFromMastery / (stats.totalHealingFromMastery || 1);
+              const actualHealingReceivedPercentage = player.healingFromMastery / (report.totalHealingFromMastery || 1);
 
               return (
                 <tr key={player.combatant.name}>

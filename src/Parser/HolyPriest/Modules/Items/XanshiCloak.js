@@ -13,9 +13,7 @@ class XanshiCloak extends Module {
   casts = [];
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasBack(ITEMS.XANSHI_CLOAK.id);
-    }
+    this.active = this.owner.selectedCombatant.hasBack(ITEMS.XANSHI_CLOAK.id);
   }
 
   on_byPlayer_removebuff(event) {

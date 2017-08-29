@@ -1,18 +1,22 @@
 import SPELLS from 'common/SPELLS';
 
 import Module from 'Parser/Core/Module';
-import isAtonement from './../Core/isAtonement';
+
+import isAtonement from '../Core/isAtonement';
+import Penance from '../Spells/Penance';
 
 class Castigation extends Module {
+  static dependencies = {
+    penance: Penance, // we need this to add `penanceBoltNumber` to the damage and heal events
+  };
+
   healing = 0;
   damage = 0;
 
   _isCastigationBolt = false;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasTalent(SPELLS.CASTIGATION_TALENT.id);
-    }
+    this.active = this.owner.selectedCombatant.hasTalent(SPELLS.CASTIGATION_TALENT.id);
   }
 
   on_byPlayer_damage(event) {

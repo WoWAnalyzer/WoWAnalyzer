@@ -9,6 +9,10 @@ class Entity {
    */
 
   buffs = [];
+  activeBuffs(forTimestamp = null, bufferTime = 0, minimalActiveTime = 0) {
+    const currentTimestamp = forTimestamp || this.owner.currentTimestamp;
+    return this.buffs.filter(buff => (currentTimestamp - minimalActiveTime) >= buff.start && (buff.end === null || (buff.end + bufferTime) >= currentTimestamp));
+  }
   /**
    * @param spellId
    * @param forTimestamp

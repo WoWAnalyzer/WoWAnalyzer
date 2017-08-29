@@ -2,18 +2,21 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 
 import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES, AVENGING_WRATH_HEALING_INCREASE } from '../../Constants';
 
 const CHAIN_OF_THRAYN_HEALING_INCREASE = 0.25;
 
 class ChainOfThrayn extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
   healing = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasWaist(ITEMS.CHAIN_OF_THRAYN.id);
-    }
+    this.active = this.combatants.selected.hasWaist(ITEMS.CHAIN_OF_THRAYN.id);
   }
 
   on_heal(event) {
@@ -27,7 +30,7 @@ class ChainOfThrayn extends Module {
       return;
     }
 
-    if (!this.owner.selectedCombatant.hasBuff(SPELLS.AVENGING_WRATH.id, event.timestamp)) {
+    if (!this.combatants.selected.hasBuff(SPELLS.AVENGING_WRATH.id, event.timestamp)) {
       return;
     }
 
@@ -47,6 +50,13 @@ class ChainOfThrayn extends Module {
   }
 
   // Beacon transfer is included in `ABILITIES_AFFECTED_BY_HEALING_INCREASES`
+
+  item() {
+    return {
+      item: ITEMS.CHAIN_OF_THRAYN,
+      result: this.owner.formatItemHealingDone(this.healing),
+    };
+  }
 }
 
 export default ChainOfThrayn;

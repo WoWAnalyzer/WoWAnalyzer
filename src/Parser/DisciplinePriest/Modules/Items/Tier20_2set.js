@@ -2,20 +2,24 @@ import SPELLS from 'common/SPELLS';
 
 import Module from 'Parser/Core/Module';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
-import isAtonement from './../Core/isAtonement';
+
+import isAtonement from '../Core/isAtonement';
+import Penance from '../Spells/Penance';
 
 const TIER_20_TWO_SET_BONUS = 1;
 
 class Tier20_2set extends Module {
+  static dependencies = {
+    penance: Penance, // we need this to add `penanceBoltNumber` to the damage and heal events
+  };
+
   _firstPenanceBoltLastDamageEvent = false;
 
   healing = 0;
   damage = 0;
   
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasBuff(SPELLS.DISC_PRIEST_T20_2SET_BONUS_PASSIVE.id);
-    }
+    this.active = this.owner.selectedCombatant.hasBuff(SPELLS.DISC_PRIEST_T20_2SET_BONUS_PASSIVE.id);
   }
 
   on_byPlayer_damage(event) {

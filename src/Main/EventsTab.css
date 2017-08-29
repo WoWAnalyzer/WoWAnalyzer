@@ -1,0 +1,37 @@
+.events {
+  width: 100%;
+}
+.events tr:nth-child(2n) {
+  background: rgba(255, 255, 255, 0.1);
+}
+.events tr:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+.events tr td {
+  border: 1px solid #000;
+  padding: 3px 5px;
+}
+.events .exists {
+  color: green;
+}
+.events .cast {
+  color: brown;
+}
+.events .damage {
+  color: red;
+}
+.events .heal {
+  color: green;
+}
+.events .absorbed {
+  color: orange;
+}
+.events .overheal, .events .NPC, .events .combatantinfo {
+  color: gray;
+}
+
+.events a img {
+  height: 1.6em;
+  border-radius: 3px;
+  border: 1px solid #000;
+}

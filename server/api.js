@@ -13,6 +13,8 @@ function getCurrentMemoryUsage() {
 const keepAliveAgent = new Agent({
 });
 
+const WCL_MAINTENANCE_STRING = 'Warcraft Logs is down for maintenance';
+
 module.exports = function (req, res) {
   // This allows users to cache bust, this is useful when live logging. It stores the result in the regular (uncachebusted) spot so that future requests for the regular request are also updated.
   let cacheBust = false;
@@ -21,6 +23,9 @@ module.exports = function (req, res) {
     cacheBust = true;
     delete req.query._;
   }
+  // Allow users to provide their own API key. This is required during development so that other developers don't lock out the production in case they mess something up.
+  const api_key = req.query.api_key || '97c84db1a100b32a6d5abb763711244e';
+  delete req.query.api_key; // don't use a separate cache for different API keys
 
   // Set header already so that all request, good or bad, have it
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -28,15 +33,12 @@ module.exports = function (req, res) {
   const requestUrl = `${req.params[0]}?${querystring.stringify(req.query)}`;
   const jsonString = !cacheBust && cache.get(requestUrl);
   if (jsonString) {
-    console.log('++++++cache hit', requestUrl);
+    console.log('cache HIT', requestUrl);
     res.setHeader('Content-Type', 'application/json; charset=utf-8');
     res.send(jsonString);
   } else {
-    console.log('------cache miss', requestUrl);
-    const query = Object.assign({}, req.query, {
-      // Allow users to provide their own API key. This is required during development so that other developers don't lock out the production in case they mess something up.
-      api_key: req.query.api_key || '97c84db1a100b32a6d5abb763711244e',
-    });
+    console.log('cache MISS', requestUrl);
+    const query = Object.assign({}, req.query, { api_key });
 
     const options = {
       host: 'www.warcraftlogs.com',
@@ -50,7 +52,14 @@ module.exports = function (req, res) {
     console.log('GET', options.path);
     const wclStart = Date.now();
     https
-      .get(options, (wclResponse) => {
+      .get(options, wclResponse => {
+        if (wclResponse.statusCode >= 500 && wclResponse.statusCode < 600) {
+          const msg = 'WCL Error (' + wclResponse.statusCode + '): ' + wclResponse.statusMessage;
+          console.error(msg);
+          res.status(500).send(msg);
+          return;
+        }
+
         const gunzip = zlib.createGunzip();
         wclResponse.pipe(gunzip);
 
@@ -59,6 +68,12 @@ module.exports = function (req, res) {
           .on('data', chunk => { jsonString += chunk.toString(); })
           .on('end', () => {
             if (wclResponse.statusCode === 200) {
+              if (jsonString.indexOf(WCL_MAINTENANCE_STRING) !== -1) {
+                console.error(WCL_MAINTENANCE_STRING);
+                res.status(500).send(WCL_MAINTENANCE_STRING);
+                return;
+              }
+
               cache.set(requestUrl, jsonString);
             } else {
               console.error('Error status:', wclResponse.statusCode);
@@ -71,7 +86,8 @@ module.exports = function (req, res) {
             console.log('Finished (memory:', Math.ceil(getCurrentMemoryUsage() / 1024 / 1024), 'MB', 'wcl:', Date.now() - wclStart, 'ms', ')');
           })
           .on('error', (e) => {
-            throw e;
+            console.error('zlib error: ', e);
+            res.status(500).send();
           });
       })
       .on('error', (err) => {

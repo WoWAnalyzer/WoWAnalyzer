@@ -1,17 +1,22 @@
 import SPELLS from 'common/SPELLS';
 
 import Module from 'Parser/Core/Module';
-import isAtonement from './../Core/isAtonement';
+
+import isAtonement from '../Core/isAtonement';
+import Atonement from '../Spells/Atonement';
+
+const EVANGELISM_DURATION = 6;
 
 class Evangelism extends Module {
+  static dependencies = {
+    atonementModule: Atonement,
+  };
+
   _previousEvangelismCast = null;
   _evangelismStatistics = {};
-  atonementModule = this.owner.modules.atonement;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = !!this.owner.selectedCombatant.hasTalent(SPELLS.EVANGELISM_TALENT.id);
-    }
+    this.active = !!this.owner.selectedCombatant.hasTalent(SPELLS.EVANGELISM_TALENT.id);
   }
 
   get evangelismStatistics() {
@@ -28,13 +33,12 @@ class Evangelism extends Module {
 
     this._evangelismStatistics[event.timestamp] = {
       count: atonedPlayers,
-      atonementSeconds: atonedPlayers * 7,
+      atonementSeconds: atonedPlayers * EVANGELISM_DURATION,
       healing: 0,
     };
   }
 
   on_byPlayer_heal(event) {
-    // Only when in the last seven seconds of an atonement
     if (isAtonement(event)) {
       const target = this.atonementModule.currentAtonementTargets.find(id => id.target === event.targetID);
       // Pets, guardians, etc.

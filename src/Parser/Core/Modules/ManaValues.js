@@ -1,39 +1,34 @@
 import Module from 'Parser/Core/Module';
-
-const debug = false;
-
-const MANA_CLASS_RESOURCE_ID = 0;
+import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 
 class ManaValue extends Module {
-  lowestMana = 1100000;
+  lowestMana = null; // start at `null` and fill it with the first value to account for users starting at a non-default amount for whatever reason
   endingMana = 0;
 
-  on_byPlayer_cast(event) {
-    // class resource type 0 means the resource is mana
-    if(event.classResources) {
-      debug && console.log('Current Ending Mana: ', this.endingMana);
-      event.classResources.forEach(classResource => {
-        if (classResource.type === MANA_CLASS_RESOURCE_ID) {
-          const manaValue = classResource.amount;
-          const manaEvent = classResource.cost || 0;
-          const currMana = manaValue - manaEvent;
-          this.endingMana = currMana;
+  manaUpdates = [];
 
-          if(this.lowestMana > currMana) {
-            this.lowestMana = currMana;
+  on_byPlayer_cast(event) {
+    if (event.classResources) {
+      event.classResources.forEach(classResource => {
+        if (classResource.type === RESOURCE_TYPES.MANA) {
+          const manaValue = classResource.amount;
+          const manaCost = classResource.cost || 0;
+          const currentMana = manaValue - manaCost;
+          this.endingMana = currentMana;
+
+          if (this.lowestMana === null || currentMana < this.lowestMana) {
+            this.lowestMana = currentMana;
           }
+          this.manaUpdates.push({
+            timestamp: event.timestamp,
+            current: currentMana,
+            max: classResource.max,
+            used: manaCost,
+          });
         }
       });
     }
   }
-
-  on_finished() {
-    if(debug) {
-      console.log('Ending Mana: ', this.endingMana);
-      console.log('Lowest Mana: ', this.lowestMana);
-    }
-  }
-
 }
 
 export default ManaValue;

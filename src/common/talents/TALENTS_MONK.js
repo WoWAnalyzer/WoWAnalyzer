@@ -14,7 +14,7 @@ export default {
   HEALING_ELIXIR_TALENT: { id: 122281, name: "Healing Elixir", icon: "ability_monk_jasmineforcetea" },
   DIFFUSE_MAGIC_TALENT: { id: 122783, name: "Diffuse Magic", icon: "spell_monk_diffusemagic" },
   DAMPEN_HARM_TALENT: { id: 122278, name: "Dampen Harm", icon: "ability_monk_dampenharm" },
-  RUSHING_JADE_WIND_TALENT: { id: 116847, name: "Rushing Jade Wind", icon: "ability_monk_rushingjadewind" },
+  RUSHING_JADE_WIND_TALENT: { id: 116847, name: "Rushing Jade Wind", icon: "ability_monk_rushingjadewind", chiCost: 1 },
   // Mistweaver
   ZEN_PULSE_TALENT: { id: 124081, name: "Zen Pulse", icon: "ability_monk_forcesphere" },
   LIFECYCLES_TALENT: { id: 197915, name: "Lifecycles", icon: "ability_monk_souldance" },

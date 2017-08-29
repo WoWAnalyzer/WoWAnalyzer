@@ -1,6 +1,5 @@
 import React from 'react';
 
-import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import Icon from 'common/Icon';
 // import ITEMS from 'common/ITEMS';
@@ -10,23 +9,28 @@ import SPELLS from 'common/SPELLS';
 
 import StatisticBox from 'Main/StatisticBox';
 import SuggestionsTab from 'Main/SuggestionsTab';
-import TalentsTab from 'Main/TalentsTab';
-import CastEfficiencyTab from 'Main/CastEfficiencyTab';
-import CooldownsTab from 'Main/CooldownsTab';
+import Tab from 'Main/Tab';
+import Talents from 'Main/Talents';
 
-import MainCombatLogParser from 'Parser/Core/CombatLogParser';
-import getCastEfficiency from 'Parser/Core/getCastEfficiency';
+import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
-import ManaTab from './Modules/Main/MaelstromTab';
+import Maelstrom from './Modules/Features/Maelstrom/Maelstrom';
 
+import CastEfficiency from './Modules/Features/CastEfficiency';
 import CooldownTracker from './Modules/Features/CooldownTracker';
 import ProcTracker from './Modules/Features/ProcTracker';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 
-import './Modules/Main/main.css';
+import FlameShock from './Modules/ShamanCore/FlameShock';
 
-import CPM_ABILITIES, { SPELL_CATEGORY } from './CPM_ABILITIES';
+import Aftershock from './Modules/Talents/Aftershock';
+import ElementalBlast from './Modules/Talents/ElementalBlast';
+import Ascendance from './Modules/Talents/Ascendance';
+import TotemMastery from './Modules/Talents/TotemMastery';
+import LightningRod from './Modules/Talents/LightningRod';
+
+import './Modules/Main/main.css';
 
 function formatThousands(number) {
   return (Math.round(number || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
@@ -55,12 +59,21 @@ function formatPercentage(percentage) {
   return (Math.round((percentage || 0) * 10000) / 100).toFixed(2);
 }
 
-class CombatLogParser extends MainCombatLogParser {
+class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Features
+    castEfficiency: CastEfficiency,
     alwaysBeCasting: AlwaysBeCasting,
     cooldownTracker: CooldownTracker,
     procTracker: ProcTracker,
+    flameShock: FlameShock,
+
+    // Talents
+    aftershock: Aftershock,
+    elementalBlast: ElementalBlast,
+    ascendance: Ascendance,
+    totemMastery: TotemMastery,
+    lightningRod: LightningRod,
 
     // Legendaries:
   };
@@ -68,7 +81,6 @@ class CombatLogParser extends MainCombatLogParser {
   generateResults() {
     const results = super.generateResults();
     
-    // const hasElementalBlast = this.selectedCombatant.hasTalent(SPELLS.ELEMENTAL_BLAST_TALENT.id);
     // const hasEchosElements = this.selectedCombatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id);
     // const hasAscendance = this.selectedCombatant.hasTalent(SPELLS.ASCENDANCE_ELEMENTAL_TALENT.id);
     // const hasLightningRod = this.selectedCombatant.hasTalent(SPELLS.LIGHTNING_ROD.id);
@@ -79,7 +91,6 @@ class CombatLogParser extends MainCombatLogParser {
 
     // const lavaBurst = getAbility(SPELLS.LAVA_BURST.id);
     // const lightningBolt = getAbility(SPELLS.LIGHTNING_BOLT.id);
-    // const elementalBlast = getAbility(SPELLS.ELEMENTAL_BLAST.id);
     const overloadLavaBurst = getAbility(SPELLS.LAVA_BURST_OVERLOAD.id);
     const overloadLightningBolt = getAbility(SPELLS.LIGHTNING_BOLT_OVERLOAD_HIT.id);
     const overloadElementalBlast = getAbility(SPELLS.ELEMENTAL_BLAST_OVERLOAD.id);
@@ -88,11 +99,6 @@ class CombatLogParser extends MainCombatLogParser {
 
     const fightDuration = this.fightDuration;
 
-    const elementalBlastHasteUptime = this.selectedCombatant.getBuffUptime(SPELLS.ELEMENTAL_BLAST_HASTE.id) / this.fightDuration;
-    const elementalBlastCritUptime = this.selectedCombatant.getBuffUptime(SPELLS.ELEMENTAL_BLAST_CRIT.id) / this.fightDuration;
-    const elementalBlastMasteryUptime = this.selectedCombatant.getBuffUptime(SPELLS.ELEMENTAL_BLAST_MASTERY.id) / this.fightDuration;
-
-    const elementalBlastUptime = (elementalBlastHasteUptime + elementalBlastCritUptime + elementalBlastMasteryUptime);
     // const flameShockUptime = this.selectedCombatant.getBuffUptime(SPELLS.FLAME_SHOCK.id) / this.fightDuration;
 
     const nonDpsTimePercentage = this.modules.alwaysBeCasting.totalDamagingTimeWasted / fightDuration;
@@ -113,22 +119,10 @@ class CombatLogParser extends MainCombatLogParser {
       });
     }
 
-    const castEfficiencyCategories = SPELL_CATEGORY;
-    const castEfficiency = getCastEfficiency(CPM_ABILITIES, this);
-    castEfficiency.forEach((cpm) => {
-      if (cpm.canBeImproved && !cpm.ability.noSuggestion) {
-        results.addIssue({
-          issue: <span>Try to cast <SpellLink id={cpm.ability.spell.id} /> more often ({cpm.casts}/{cpm.maxCasts} casts: {Math.round(cpm.castEfficiency * 100)}% cast efficiency). {cpm.ability.extraSuggestion || ''}</span>,
-          icon: cpm.ability.spell.icon,
-          importance: cpm.ability.importance || getIssueImportance(cpm.castEfficiency, cpm.recommendedCastEfficiency - 0.05, cpm.recommendedCastEfficiency - 0.15),
-        });
-      }
-    });
-
     results.statistics = [
       <StatisticBox
         icon={ <Icon icon="class_shaman" alt="Dead GCD time" /> }
-        value={formatNumber(this.totalDamageDone)}
+        value={formatNumber(this.modules.damageDone.total.effective)}
         label={(
           <dfn data-tip="Without Fire Elemental Damage.">
             Damage done
@@ -207,15 +201,6 @@ class CombatLogParser extends MainCombatLogParser {
         )}
         label={'Overload procs'}
       />,
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.ELEMENTAL_BLAST.id} />}
-        value={`${formatPercentage(elementalBlastUptime)} %`}
-        label={(
-          <dfn data-tip={`With <b class="stat-mastery">${formatPercentage(elementalBlastMasteryUptime)}% Mastery</b>, <b class="stat-criticalstrike">${formatPercentage(elementalBlastCritUptime)}% Crit</b>, <b  class="stat-haste">${formatPercentage(elementalBlastHasteUptime)}% Haste</b> Uptime`}>
-            Uptime
-          </dfn>
-        )}
-      />,
       ...results.statistics,
     ];
 
@@ -233,58 +218,29 @@ class CombatLogParser extends MainCombatLogParser {
         ),
       },
       {
-        title: 'Cast efficiency',
-        url: 'cast-efficiency',
-        render: () => (
-          <CastEfficiencyTab
-            categories={castEfficiencyCategories}
-            abilities={castEfficiency}
-          />
-        ),
-      },
-      {
         title: 'Talents',
         url: 'talents',
         render: () => (
-          <TalentsTab combatant={this.selectedCombatant} />
-        ),
-      },
-      {
-        title: 'Cooldowns',
-        url: 'cooldowns',
-        render: () => (
-          <CooldownsTab
-            fightStart={this.fight.start_time}
-            fightEnd={this.fight.end_time}
-            cooldowns={this.modules.cooldownTracker.pastCooldowns}
-            showOutputStatistics
-          />
-        ),
-      },
-      {
-        title: 'Procs',
-        url: 'procs',
-        render: () => (
-          <CooldownsTab
-            fightStart={this.fight.start_time}
-            fightEnd={this.fight.end_time}
-            cooldowns={this.modules.procTracker.pastCooldowns}
-            showOutputStatistics
-          />
+          <Tab title="Talents">
+            <Talents combatant={this.selectedCombatant} />
+          </Tab>
         ),
       },
       {
         title: 'Maelstrom',
         url: 'maelstrom',
         render: () => (
-          <ManaTab
-            reportCode={this.report.code}
-            actorId={this.playerId}
-            start={this.fight.start_time}
-            end={this.fight.end_time}
-          />
+          <Tab title="Maelstrom" style={{ padding: '15px 22px' }}>
+            <Maelstrom
+              reportCode={this.report.code}
+              actorId={this.playerId}
+              start={this.fight.start_time}
+              end={this.fight.end_time}
+            />
+          </Tab>
         ),
       },
+      ...results.tabs,
     ];
 
     return results;

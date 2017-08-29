@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 
 import Cooldown from './Cooldown';
 
-const CooldownOverview = ({ fightStart, fightEnd, cooldowns, showOutputStatistics, showResourceStatistics }) => (
+const CooldownOverview = ({ fightStart, fightEnd, cooldowns }) => (
   <div style={{ marginTop: -10, marginBottom: -10 }}>
     <ul className="list">
       {cooldowns.map((cooldown) => (
         <li key={`${cooldown.spell.id}-${cooldown.start}`} className="item clearfix" style={{ padding: '1em' }}>
-          <Cooldown cooldown={cooldown} fightStart={fightStart} fightEnd={fightEnd} showOutputStatistics={showOutputStatistics} showResourceStatistics={showResourceStatistics} />
+          <Cooldown cooldown={cooldown} fightStart={fightStart} fightEnd={fightEnd} />
         </li>
       ))}
     </ul>
@@ -17,8 +17,6 @@ const CooldownOverview = ({ fightStart, fightEnd, cooldowns, showOutputStatistic
 CooldownOverview.propTypes = {
   fightStart: PropTypes.number.isRequired,
   fightEnd: PropTypes.number.isRequired,
-  showOutputStatistics: PropTypes.bool,
-  showResourceStatistics: PropTypes.bool,
   cooldowns: PropTypes.arrayOf(PropTypes.shape({
     ability: PropTypes.shape({
       id: PropTypes.number.isRequired,

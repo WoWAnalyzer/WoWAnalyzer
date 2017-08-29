@@ -1,7 +1,12 @@
+import React from 'react';
+
 import SPELLS from 'common/SPELLS';
+import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
 
 import Module from 'Parser/Core/Module';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 import { BEACON_TYPES, BASE_BEACON_TRANSFER, BEACON_OF_FAITH_TRANSFER_REDUCTION } from '../../Constants';
 
@@ -11,16 +16,21 @@ const T21_2SET_AFFECTED_HEALS = [
   SPELLS.HOLY_LIGHT.id,
 ];
 
+/**
+ * 2 pieces (Holy) : Flash of Light and Holy Light transfer 40% additional healing to your Beacon of Light target.
+ */
 class Tier21_2set extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
   healing = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasBuff(SPELLS.HOLY_PALADIN_T21_2SET_BONUS_BUFF.id);
-    }
+    this.active = this.combatants.selected.hasBuff(SPELLS.HOLY_PALADIN_T21_2SET_BONUS_BUFF.id);
   }
 
-  on_beacon_heal({ beaconTransferEvent, matchedHeal: healEvent }) {
+  on_beacon_heal(beaconTransferEvent, healEvent) {
     if (!this.isApplicable(healEvent)) {
       return;
     }
@@ -59,6 +69,15 @@ class Tier21_2set extends Module {
       beaconTransferFactor *= (1 - BEACON_OF_FAITH_TRANSFER_REDUCTION);
     }
     return beaconTransferFactor;
+  }
+
+  item() {
+    return {
+      id: `spell-${SPELLS.HOLY_PALADIN_T21_2SET_BONUS_BUFF.id}`,
+      icon: <SpellIcon id={SPELLS.HOLY_PALADIN_T21_2SET_BONUS_BUFF.id} />,
+      title: <SpellLink id={SPELLS.HOLY_PALADIN_T21_2SET_BONUS_BUFF.id} />,
+      result: this.owner.formatItemHealingDone(this.healing),
+    };
   }
 }
 

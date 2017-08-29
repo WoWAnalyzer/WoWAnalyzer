@@ -12,10 +12,8 @@ class InnerHallation extends Module {
   lastPowerInfusionCastStartTimestamp = null;
 
   on_initialized() {
-    if (!this.owner.error) {
-      const selectedCombatant = this.owner.selectedCombatant;
-      this.active = selectedCombatant.hasShoulder(ITEMS.INNER_HALLATION.id);
-    }
+    const selectedCombatant = this.owner.selectedCombatant;
+    this.active = selectedCombatant.hasShoulder(ITEMS.INNER_HALLATION.id);
   }
 
   on_byPlayer_cast(event) {
