@@ -8,7 +8,7 @@ RUN npm install
 
 COPY . /usr/src/wowanalyzer
 
-# Webpack dev server has to poll because https://github.com/webpack/webpack-dev-server/issues/143
-ENV WEBPOCK_WATCH_POLL=true
+# Webpack dev server has to poll because https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#npm-start-doesnt-detect-changes
+ENV CHOKIDAR_USEPOLLING=true
 
 CMD ["npm", "start"]
