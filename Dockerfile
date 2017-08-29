@@ -1,3 +1,4 @@
-FROM node:8.2.1
+FROM node:8.2.1-alpine
 WORKDIR /usr/src/wowanalyzer
-CMD ["/bin/bash", "dockerrun.sh"]
+COPY . /usr/src/wowanalyzer
+CMD ["/bin/sh", "dockerrun.sh"]
