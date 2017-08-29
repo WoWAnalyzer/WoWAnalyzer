@@ -64,6 +64,19 @@
   border-color: white;
 }
 
+.ct-series.insanity .ct-bar, .ct-series.insanity .ct-line, .ct-series.insanity .ct-point, .ct-series.insanity .ct-slice-donut {
+  stroke: gray;
+}
+.ct-series.insanity .ct-area, .ct-series.insanity .ct-slice-donut-solid, .ct-series.insanity .ct-slice-pie {
+  fill: gray;
+  fill-opacity: 0.2;
+}
+
+.ct-legend .insanity:before {
+  background-color: gray;
+  border-color: gray;
+}
+
 
 /*
 .ct-series.mindbender .ct-bar, .ct-series.mindbender .ct-line, .ct-series.mindbender .ct-point, .ct-series.mindbender .ct-slice-donut {
@@ -145,6 +158,16 @@
 }
 
 .ct-legend .endOfFight:before {
+  background-color: red;
+  border-color: red;
+}
+
+.ct-series.endOfVoidform .ct-area, .ct-series.endOfVoidform .ct-slice-donut-solid, .ct-series.endOfVoidform .ct-slice-pie {
+  fill: red;
+  fill-opacity: 0.4;
+}
+
+.ct-legend .endOfVoidform:before {
   background-color: red;
   border-color: red;
 }

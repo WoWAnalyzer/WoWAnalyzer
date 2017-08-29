@@ -11,6 +11,7 @@ import Tab from 'Main/Tab';
 
 import { formatPercentage } from 'common/format';
 
+import Insanity from '../Core/Insanity';
 import Mindbender from './Mindbender';
 import Dispersion from './Dispersion';
 import VoidTorrent from './VoidTorrent';
@@ -20,6 +21,7 @@ import VoidformsTab from './VoidformsTab';
 
 class Voidform extends Module {
   static dependencies = {
+    insanity: Insanity,
     dispersion: Dispersion,
     voidTorrent: VoidTorrent,
     mindbender: Mindbender,
@@ -215,6 +217,7 @@ class Voidform extends Module {
             dispersions={this.dispersion.dispersions} 
             fightEnd={this.owner.fight.end_time}
             surrenderToMadness={this.owner.selectedCombatant.hasTalent(SPELLS.SURRENDER_TO_MADNESS_TALENT.id)}
+            insanity={this.insanity.events}
           />
         </Tab>
       ),
