@@ -5,19 +5,18 @@ services:
       context: .
       dockerfile: Dockerfile.dev
     container_name: wowanalyzer-dev
-    environment:
-      - NODE_ENV=development
     ports:
      - 3000:3000
      - 35729:35729
     volumes:
       - .:/usr/src/wowanalyzer
-  webserver:
+  prod:
     build:
       context: .
-      dockerfile: .dockerfile
+      dockerfile: Dockerfile.prod
+    container_name: wowanalyzer-prod
     ports:
-     - "3001:3000" # make it easier to run the dev server side-by-side
+     - 3000:3000
   database:
     image: "mariadb:10.3"
     command: ['--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
