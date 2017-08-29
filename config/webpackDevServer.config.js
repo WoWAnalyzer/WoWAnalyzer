@@ -8,6 +8,8 @@ const paths = require('./paths');
 const protocol = process.env.HTTPS === 'true' ? 'https' : 'http';
 const host = process.env.HOST || '0.0.0.0';
 
+const webpackWatchPoll = process.env.WEBPOCK_WATCH_POLL || false;
+
 module.exports = function(proxy, allowedHost) {
   return {
     // WebpackDevServer 2.4.3 introduced a security fix that prevents remote
@@ -66,6 +68,8 @@ module.exports = function(proxy, allowedHost) {
     // https://github.com/facebookincubator/create-react-app/issues/293
     watchOptions: {
       ignored: /node_modules/,
+      // Enable polling if the WEBPOCK_WATCH_POLL environment variable is set
+      poll: webpackWatchPoll,
     },
     // Enable HTTPS if the HTTPS environment variable is set to 'true'
     https: protocol === 'https',
