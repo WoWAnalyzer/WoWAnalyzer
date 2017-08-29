@@ -405,7 +405,7 @@ export default {
     cooldownType: 'DAMAGE',
   },
   ENHANCE_SHAMAN_T20_2SET_BONUS_BUFF: {
-    id: 242283,
+    id: 242284,
     name: 'T20 2 set bonus',
     icon: 'spell_shaman_improvedstormstrike',
   },

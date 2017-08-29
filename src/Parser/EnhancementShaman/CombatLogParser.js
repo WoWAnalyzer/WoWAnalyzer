@@ -19,7 +19,9 @@ import Flametongue from './Modules/ShamanCore/Flametongue';
 import Landslide from './Modules/ShamanCore/Landslide';
 import Frostbrand from './Modules/ShamanCore/Frostbrand';
 import FuryOfAir from './Modules/ShamanCore/FuryOfAir';
+import Rockbiter from './Modules/ShamanCore/Rockbiter';
 import Tier20_2set from './Modules/Items/Tier20_2set';
+
 
 // import SmolderingHeart from './Modules/Legendaries/SmolderingHeart';
 
@@ -32,6 +34,7 @@ class CombatLogParser extends CoreCombatLogParser {
     landslide: Landslide,
     frostbrand: Frostbrand,
     furyOfAir: FuryOfAir,
+    rockbiter: Rockbiter,
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     castEfficiency: CastEfficiency,
