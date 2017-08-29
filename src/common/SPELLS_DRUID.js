@@ -391,6 +391,16 @@ export default {
     name: 'Scintillating Moonlight',
     icon: 'spell_nature_starfall',
   },
+  WILDFLESH_TRAIT: {
+    id: 200400,
+    name: 'Wildflesh',
+    icon: 'ability_bullrush',
+  },
+  FLESHKNITTING_TRAIT: {
+    id: 238085,
+    name: 'Fleshknitting',
+    icon: 'ability_bullrush',
+  },
   GORE_BEAR: {
     id: 93622,
     name: 'Gore',
