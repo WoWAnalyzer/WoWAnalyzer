@@ -10,11 +10,6 @@ export default {
     name: 'Melee',
     icon: 'inv_axe_02',
   },
-  MAGIC_MELEE: {
-    id: -32, // No idea why it's negative, but adds with "magic melee attacks" (eels on Mistress/tank add on KJ melee) cast an ability with this ID
-    name: 'Melee',
-    icon: 'inv_axe_02',
-  },
   LEECH: {
     id: 143924,
     name: 'Leech',
@@ -246,5 +241,17 @@ export default {
     id: 230935,
     name: 'Drums of the Mountain',
     icon: 'inv_archaeology_70_tauren_drum',
+  },
+
+  // Encounter mechanics
+  RECURSIVE_STRIKES_ENEMY: {
+    id: 218508,
+    name: 'Recursive Strikes',
+    icon: 'ability_mage_massinvisibility',
+  },
+  MAGIC_MELEE: {
+    id: -32, // No idea why it's negative, but adds with "magic melee attacks" (eels on Mistress/tank add on KJ melee) cast an ability with this ID
+    name: 'Melee',
+    icon: 'inv_axe_02',
   },
 };
