@@ -29,7 +29,7 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.FULL_MOON,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: (haste, combatant) => {
-        const hasMooncloak = combatant.hasFinger(ITEMS.RADIANT_MOONLIGHT.id);
+        const hasMooncloak = combatant.hasBack(ITEMS.RADIANT_MOONLIGHT.id);
         const cd = (combatant.owner.fightDuration / 1000) / (((combatant.owner.fightDuration / 1000) - 32)/45);
         return hasMooncloak ? cd*2 : cd;
       },
