@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-const debug = false;
+const debug = true;
 
 class AlwaysBeCasting extends Module {
   static dependencies = {
@@ -36,8 +36,6 @@ class AlwaysBeCasting extends Module {
     // [208944]: -Infinity, // DEBUFF - Time Stop from Elisande
   };
 
-  eventLog = [];
-
   totalTimeWasted = 0;
   totalHealingTimeWasted = 0;
 
@@ -52,7 +50,6 @@ class AlwaysBeCasting extends Module {
     };
 
     this._currentlyCasting = cast;
-    this.eventLog.push(cast);
   }
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
@@ -71,9 +68,6 @@ class AlwaysBeCasting extends Module {
       begincast: null,
     };
     logEntry.cast = event;
-    if (!this._currentlyCasting) {
-      this.eventLog.push(logEntry);
-    }
 
     this.processCast(logEntry);
     this._currentlyCasting = null;
@@ -155,34 +149,6 @@ class AlwaysBeCasting extends Module {
 
       debug && console.log(`ABC: Current haste: ${this.currentHaste} (lost ${hasteGain} from ${spellId})`);
     }
-  }
-
-  on_finished() {
-    const fightDuration = this.owner.fight.end_time - this.owner.fight.start_time;
-    debug && console.log('totalTimeWasted:', this.totalTimeWasted, 'totalTime:', fightDuration, (this.totalTimeWasted / fightDuration));
-    debug && console.log('totalHealingTimeWasted:', this.totalHealingTimeWasted, 'totalTime:', fightDuration, (this.totalHealingTimeWasted / fightDuration));
-
-    const selectedCombatant = this.owner.selectedCombatant;
-
-    this.totalTimeWasted = 0;
-    this.totalHealingTimeWasted = 0;
-
-    this.lastCastFinishedTimestamp = null;
-    this.lastHealingCastFinishedTimestamp = null;
-
-    this.eventLog.forEach((logEntry) => {
-      this.currentHaste = this.baseHaste;
-      Object.keys(this.constructor.HASTE_BUFFS).forEach((spellId) => {
-        if (selectedCombatant.hasBuff(spellId, (logEntry.begincast || logEntry.cast).timestamp)) {
-          this.applyHasteGain(this.constructor.HASTE_BUFFS[spellId]);
-        }
-      });
-
-      this.processCast(logEntry);
-    });
-
-    debug && console.log('totalTimeWasted:', this.totalTimeWasted, 'totalTime:', fightDuration, (this.totalTimeWasted / fightDuration));
-    debug && console.log('totalHealingTimeWasted:', this.totalHealingTimeWasted, 'totalTime:', fightDuration, (this.totalHealingTimeWasted / fightDuration));
   }
 
   static calculateGlobalCooldown(haste) {
