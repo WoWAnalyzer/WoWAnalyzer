@@ -5,10 +5,15 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 class SoulOfTheHighlord extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_HIGHLORD.id);
+    this.active = this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_HIGHLORD.id);
   }
 
   item() {

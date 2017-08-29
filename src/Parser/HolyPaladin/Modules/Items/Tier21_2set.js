@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 
 import Module from 'Parser/Core/Module';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 import { BEACON_TYPES, BASE_BEACON_TRANSFER, BEACON_OF_FAITH_TRANSFER_REDUCTION } from '../../Constants';
 
@@ -19,10 +20,14 @@ const T21_2SET_AFFECTED_HEALS = [
  * 2 pieces (Holy) : Flash of Light and Holy Light transfer 40% additional healing to your Beacon of Light target.
  */
 class Tier21_2set extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
   healing = 0;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasBuff(SPELLS.HOLY_PALADIN_T21_2SET_BONUS_BUFF.id);
+    this.active = this.combatants.selected.hasBuff(SPELLS.HOLY_PALADIN_T21_2SET_BONUS_BUFF.id);
   }
 
   on_beacon_heal(beaconTransferEvent, healEvent) {

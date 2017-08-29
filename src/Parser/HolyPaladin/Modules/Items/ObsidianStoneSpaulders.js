@@ -1,14 +1,19 @@
 import ITEMS from 'common/ITEMS';
 
 import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 const OBSIDIAN_STONE_SPAULDERS_HEAL_SPELL_ID = 210999;
 
 class ObsidianStoneSpaulders extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
   healing = 0;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasShoulder(ITEMS.OBSIDIAN_STONE_SPAULDERS.id);
+    this.active = this.combatants.selected.hasShoulder(ITEMS.OBSIDIAN_STONE_SPAULDERS.id);
   }
 
   on_byPlayer_heal(event) {

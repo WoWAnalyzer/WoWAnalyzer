@@ -5,7 +5,10 @@ import { processEvents } from './Fixtures/processEvents';
 describe('Core.IronFur', () => {
   let ironfur;
   beforeEach(() => {
-    ironfur = new IronFur();
+    ironfur = new IronFur({
+      toPlayer: () => true,
+      byPlayer: () => true,
+    });
   });
   it('track last ironfur time with noevents', () => {
     expect(ironfur.lastIronfurBuffApplied).toBe(0);

@@ -8,6 +8,7 @@ import { formatPercentage } from 'common/format';
 import Module from 'Parser/Core/Module';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import CritEffectBonus from 'Parser/Core/Modules/Helpers/CritEffectBonus';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 // This critical healing works on both the regular part and the critical part (unlike Drape of Shame), so we double it.
 const SHOCK_TREATMENT_CRIT_EFFECT = 0.08 * 2;
@@ -18,6 +19,7 @@ const SHOCK_TREATMENT_CRIT_EFFECT = 0.08 * 2;
  */
 class ShockTreatment extends Module {
   static dependencies = {
+    combatants: Combatants,
     critEffectBonus: CritEffectBonus,
   };
 
@@ -25,7 +27,7 @@ class ShockTreatment extends Module {
   healing = 0;
 
   on_initialized() {
-    this.rank = this.owner.selectedCombatant.traitsBySpellId[SPELLS.SHOCK_TREATMENT.id];
+    this.rank = this.combatants.selected.traitsBySpellId[SPELLS.SHOCK_TREATMENT.id];
     this.active = this.rank > 0;
 
     if (this.active) {

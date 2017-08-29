@@ -25,11 +25,23 @@ class Module {
     }
   }
 
-  triggerEvent(eventType, ...args) {
-    const methodName = `on_${eventType}`;
+  triggerEvent(eventType, event, ...args) {
+    this._callMethod(this._eventHandlerName('event'), eventType, event, ...args);
+    this._callMethod(this._eventHandlerName(eventType), event, ...args);
+    if (event && this.owner.byPlayer(event)) {
+      this._callMethod(this._eventHandlerName(`byPlayer_${eventType}`), event, ...args);
+    }
+    if (event && this.owner.toPlayer(event)) {
+      this._callMethod(this._eventHandlerName(`toPlayer_${eventType}`), event, ...args);
+    }
+  }
+  _eventHandlerName(eventType) {
+    return `on_${eventType}`;
+  }
+  _callMethod(methodName, ...args) {
     const method = this[methodName];
     if (method) {
-      method.apply(this, args);
+      method.call(this, ...args);
     }
   }
 

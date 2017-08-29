@@ -37,6 +37,11 @@ export default {
     name: 'Lava Burst',
     icon: 'spell_shaman_lavaburst',
   },
+  LAVA_BURST_VOLCANIC_INFERNO: {
+    id: 205533,
+    name: 'Volcanic Inferno',
+    icon: 'spell_shaman_lavaflow',
+  },
   LAVA_BURST_OVERLOAD: {
     id: 77451,
     name: 'Lava Burst Overload',
@@ -107,11 +112,51 @@ export default {
     name: 'Chain Lightning Overload',
     icon: 'spell_nature_chainlightning',
   },
+  LAVA_BEAM: {
+    id: 114074,
+    name: 'Lava Beam',
+    icon: 'ability_mage_firestarter',
+  },
+  LAVA_BEAM_OVERLOAD: {
+    id: 114738,
+    name: 'Lava Beam Overload',
+    icon: 'spell_fire_soulburn',
+  },
+  LAVA_BEAM_INSTANT: {
+    id: 217891,
+    name: 'Lava Beam',
+    icon: 'ability_mage_firestarter',
+  },
+  LAVA_BEAM_OVERLOAD_INSTANT: {
+    id: 218559,
+    name: 'Lava Beam Overload',
+    icon: 'spell_fire_soulburn',
+  },
   EARTHQUAKE: {
     id: 61882,
     name: 'Earthquake',
     icon: 'spell_shaman_earthquake',
     maelstrom: 50,
+  },
+  EARTHQUAKE_DAMAGE: {
+    id: 77478,
+    name: 'Earthquake',
+    icon: 'spell_shaman_earthquake',
+  },
+  EARTHQUAKE_SEISMIC_LIGHTNING: {
+    id: 243073,
+    name: 'Seismic Lightning',
+    icon: 'inv_misc_stormlordsfavor',
+  },
+  EARTHQUAKE_CAST_TARGET: {
+    id: 182387,
+    name: 'Earthquake',
+    icon: 'spell_shaman_earthquake',
+  },
+  EARTHQUAKE_STUNS: {
+    id: 77505,
+    name: 'Earthquake',
+    icon: 'spell_shaman_earthquake',
   },
   LIQUID_MAGMA_TOTEM: {
     id: 192222,
@@ -179,6 +224,32 @@ export default {
     id: 210689,
     name: 'Lightning Rod',
     icon: 'inv_rod_enchantedcobalt',
+  },
+  LIGHTNING_ROD_DEBUFF: {
+    id: 197209,
+    name: 'Lightning Rod Buff',
+    icon: 'inv_rod_enchantedcobalt',
+  },
+  LIGHTNING_ROD_DAMAGE: {
+    id: 197568,
+    name: 'Lightning Rod',
+    icon: 'inv_rod_enchantedcobalt',
+  },
+  NATURES_ESSENCE: {
+    id: 191580,
+    name: 'Nature\'s Essence',
+    icon: 'spell_nature_healingway',
+  },
+  // Elemental Legendaries
+  PRISTINE_PROTOSCALE_GIRDLE: {
+    id: 224852,
+    name: 'Pristine Proto-Scale Girdle',
+    icon: 'spell_shaman_lavaburst',
+  },
+  THE_DECEIVERS_BLOOD_PACT_BUFF: {
+    id: 214134,
+    name: 'The Deceiver\'s Blood Pact',
+    icon: 'ability_creature_cursed_04',
   },
   // Enhancement Shaman
   ROCKBITER: {

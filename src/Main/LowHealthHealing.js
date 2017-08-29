@@ -31,7 +31,7 @@ class LowHealthHealing extends React.Component {
   render() {
     const { parser } = this.props;
     const events = parser.modules.healEventTracker.events;
-    const players = parser.combatants.players;
+    const players = parser.modules.combatants.players;
     const fightStart = parser.fight.start_time;
 
     let total = 0;

@@ -1,4 +1,5 @@
 export default `
+28-08-2017 - Fixed a bug where beaconing yourself wasn't being detected properly. (by Zerotorescue)
 27-08-2017 - Added Tyr's Munificence trait healing contribution to complete the list. (by Zerotorescue)
 27-08-2017 - Combined relic traits into one box to clean up the layout. (by Zerotorescue)
 26-08-2017 - Added Second Sunrise trait healing contribution display (please read its tooltip). (by Zerotorescue)

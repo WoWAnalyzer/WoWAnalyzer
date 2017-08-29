@@ -109,17 +109,9 @@ class CombatLogParser {
     return this.player.id;
   }
 
-  /** @returns Combatants */
-  get combatants() {
-    return this.modules.combatants;
-  }
-  get playerCount() {
-    return this.modules.combatants.playerCount;
-  }
-
   /** @returns {Combatant} */
   get selectedCombatant() {
-    return this.combatants.selected;
+    return this.modules.combatants.selected;
   }
 
   get currentTimestamp() {
@@ -228,16 +220,7 @@ class CombatLogParser {
   triggerEvent(eventType, event, ...args) {
     this.activeModules
       .sort((a, b) => a.priority - b.priority) // lowest should go first, as `priority = 0` will have highest prio
-      .forEach(module => {
-        module.triggerEvent('event', eventType, event, ...args);
-        module.triggerEvent(eventType, event, ...args);
-        if (event && this.byPlayer(event)) {
-          module.triggerEvent(`byPlayer_${eventType}`, event, ...args);
-        }
-        if (event && this.toPlayer(event)) {
-          module.triggerEvent(`toPlayer_${eventType}`, event, ...args);
-        }
-      });
+      .forEach(module => module.triggerEvent(eventType, event, ...args));
   }
 
   byPlayer(event, playerId = this.player.id) {

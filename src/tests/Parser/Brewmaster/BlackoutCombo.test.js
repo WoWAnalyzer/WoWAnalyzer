@@ -6,7 +6,10 @@ import { SimpleFight, applybuff, refreshBuff, dpsCasts } from './Fixtures/Simple
 describe('Brewmaster.BlackoutCombo', () => {
   let blackoutCombo;
   beforeEach(() => {
-    blackoutCombo = new BlackoutCombo();
+    blackoutCombo = new BlackoutCombo({
+      toPlayer: () => true,
+      byPlayer: () => true,
+    });
   });
   it('blackout combo is active by default', () => {
     expect(blackoutCombo.active).toBe(true);

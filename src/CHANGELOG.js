@@ -1,4 +1,6 @@
 export default `
+28-08-2017 - Select fights for the currently selected player with a pull down menu. (by fasib)
+28-08-2017 - Select other players with a pull down menu from the currently selected player. (by fasib)
 27-08-2017 - Added a small line showing the maintainer of a spec to the results page. (by Zerotorescue)
 24-08-2017 - Better error handling when the WCL API is sending weird responses. (by Zerotorescue)
 24-08-2017 - Slightly improve layouts for both desktop and mobile. (by Zerotorescue)

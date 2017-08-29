@@ -130,7 +130,7 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.STAMPEDING_ROAR_BEAR,
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
-      getCooldown: haste => 120,
+      getCooldown: (haste, combatant) => (combatant.hasTalent(SPELLS.GUTTURAL_ROARS_TALENT.id) ? 60 : 120),
       noSuggestion: true,
     },
     {
