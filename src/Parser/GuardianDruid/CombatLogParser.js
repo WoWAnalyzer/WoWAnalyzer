@@ -22,6 +22,7 @@ import Moonfire from './Modules/Spells/Moonfire';
 import Pulverize from './Modules/Spells/Pulverize';
 import DualDetermination from './Modules/Items/DualDetermination';
 import SkysecsHold from './Modules/Items/Skysecs';
+import LuffaWrappings from './Modules/Items/LuffaWrappings';
 
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 
@@ -48,6 +49,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Legendaries:
     dualDetermination: DualDetermination,
     skysecs: SkysecsHold,
+    luffaWrappings: LuffaWrappings,
   };
 
   generateResults() {
