@@ -15,14 +15,14 @@ class AlwaysBeCasting extends Module {
   ];
   /* eslint-disable no-useless-computed-key */
   static HASTE_BUFFS = { // This includes debuffs
-    [2825]: 0.3, // Bloodlust
-    [32182]: 0.3, // Heroism
-    [80353]: 0.3, // Time Warp
-    [90355]: 0.3, // Ancient Hysteria (Hunter pet BL)
-    [160452]: 0.3, // Netherwinds (Hunter pet BL)
-    [178207]: 0.25, // Drums of Fury
-    [230935]: 0.25, // Drums of the Mountain
-    [146555]: 0.25, // Drums of Rage
+    [SPELLS.BLOODLUST.id]: 0.3,
+    [SPELLS.HEROISM.id]: 0.3,
+    [SPELLS.TIME_WARP.id]: 0.3,
+    [SPELLS.ANCIENT_HYSTERIA.id]: 0.3, // Hunter pet BL
+    [SPELLS.NETHERWINDS.id]: 0.3, // Hunter pet BL
+    [SPELLS.DRUMS_OF_FURY.id]: 0.25,
+    [SPELLS.DRUMS_OF_THE_MOUNTAIN.id]: 0.25,
+    [SPELLS.DRUMS_OF_RAGE.id]: 0.25,
     [SPELLS.HOLY_AVENGER_TALENT.id]: 0.3,
     [SPELLS.BERSERKING.id]: 0.15,
     [202842]: 0.1, // Rapid Innervation (Balance Druid trait increasing Haste from Innervate)

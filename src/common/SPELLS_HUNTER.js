@@ -16,7 +16,7 @@ export default {
 
   // Shared:
   // ...
-  NETHER_WINDS: {
+  NETHERWINDS: {
     id: 160452,
     name: 'Netherwinds',
     icon: 'spell_arcane_massdispel',
