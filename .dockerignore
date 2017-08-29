@@ -4,3 +4,5 @@
 .editorconfig
 browser-extensions
 build
+node_modules
+server/node_modules
