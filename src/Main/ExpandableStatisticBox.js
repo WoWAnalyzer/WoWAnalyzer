@@ -52,7 +52,7 @@ class ExpandableStatisticBox extends React.PureComponent {
               {this.state.icon}
             </div>
             <div className="flex-main text-right">
-              <div className="valueright">
+              <div className="value">
                 {this.state.value}
               </div>
               <div className="slabel">
