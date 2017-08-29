@@ -12,20 +12,23 @@ const formatDuration = (duration) => {
   return `${Math.floor(duration / 60)}:${seconds < 10 ? `0${seconds}` : seconds}`;
 };
 
-// const timeAsSeconds = (time) => time/1000;
-// const timeAsInteger = (time) => Math.floor(time/1000);
-
 
 
 const MAX_MINDBENDER_MS = 21500;
-const RESOLUTION_MS = 100;
+// changing this value will have a large impact on webbrowser performance. About 200 seems to be best of 2 worlds.
+const RESOLUTION_MS = 200;
 const TIMESTAMP_ERROR_MARGIN = 500;
 const NORMAL_VOIDFORM_MS_THRESHOLD = 70000;
 const SURRENDER_TO_MADNESS_VOIDFORM_MS_THRESHOLD = 150000;
 
-const INSANITY_DRAIN_MS_START = 1.8;
+// current insanity formula:
+// d = 6 + (2/3)*x
+// where d = total drain of Insanity over 1 second 
+// max insanity is 10000 (100 ingame):
 
 
+const T20_4P_DECREASE_DRAIN_MODIFIER_NORMAL = 0.9;
+const T20_4P_DECREASE_DRAIN_MODIFIER_SURRENDER_TO_MADNESS = 0.95;
 
 const VoidformGraph = ({
     start, 
@@ -33,42 +36,59 @@ const VoidformGraph = ({
     stacks, 
     lingeringInsanityStacks, 
     fightEnd, 
-    mindbenders, 
-    voidTorrents, 
-    dispersions,
-    insanity,
+    mindbenderEvents, 
+    voidTorrentEvents, 
+    dispersionEvents,
+    insanityEvents,
     surrenderToMadness=false,
+    setT20P4=false,
 }) => {
     const voidFormEnd = ended === undefined ? fightEnd : ended;
     const includesEndOfFight = ended === undefined || fightEnd <= ended + TIMESTAMP_ERROR_MARGIN;
 
     const MAX_TIME_IN_VOIDFORM = surrenderToMadness ? SURRENDER_TO_MADNESS_VOIDFORM_MS_THRESHOLD : NORMAL_VOIDFORM_MS_THRESHOLD;
 
-    // const mindbendersInCurrent   = ;
-    // const voidTorrentsInCurrent  = ;
-    // const dispersionsInCurrent   = ;
-
     const labels = [];
+
     const stacksData = [];
-    const lingeringInsanityData = [];
     const insanityData = [];
+    const insanityGeneratedData = [];
+    const insanityDrain = [];
+    const initialInsanity = insanityEvents.length > 0 ? insanityEvents[0].classResources[0].amount - insanityEvents[0].resourceChange * 100 : 7000;
+
+
+    const lingeringInsanityData = [];
     const mindbenderData = [];
     const voidTorrentData = [];
     const dispersionData = [];
-    const endData = [];
+
     const endOfVoidformData = [];
+    const endData = [];
+
+    const INSANITY_DRAIN_MODIFIER = setT20P4 ? 
+      (surrenderToMadness ? 
+        T20_4P_DECREASE_DRAIN_MODIFIER_SURRENDER_TO_MADNESS :
+        T20_4P_DECREASE_DRAIN_MODIFIER_NORMAL) 
+      : 1;
+
+    const INSANITY_DRAIN_START = 600 * INSANITY_DRAIN_MODIFIER;
+    const INSANITY_DRAIN_INCREASE_BY_SECOND = Math.round(66.667 * INSANITY_DRAIN_MODIFIER);
+
 
     const atLabel = (timestamp) => {
       return Math.floor((timestamp - start)/RESOLUTION_MS);
-    }
+    };
 
     const fillData = (array, eventStart, eventEnd, data=false) => {
-      const amountOfSteps = Math.floor((eventEnd - eventStart)/RESOLUTION_MS);
+      const amountOfSteps = Math.round((eventEnd - eventStart)/RESOLUTION_MS);
       const startStep = atLabel(eventStart);
       for(let i = 0; i < amountOfSteps; i++){
+        if(eventStart + i * RESOLUTION_MS >= ended) break;
         array[startStep+i] = data ? data : stacksData[startStep+i];
       }
-    }
+    };
+
+
 
     const steps = MAX_TIME_IN_VOIDFORM / RESOLUTION_MS;
     for (let i = 0; i < steps; i += 1) {
@@ -77,6 +97,8 @@ const VoidformGraph = ({
       stacksData[i]             = null;
       lingeringInsanityData[i]  = null;
       insanityData[i]           = null;
+      insanityGeneratedData[i]  = null;
+
       mindbenderData[i]         = null;
       voidTorrentData[i]        = null;
       dispersionData[i]         = null;
@@ -93,113 +115,89 @@ const VoidformGraph = ({
       if(stacksData[i] === null && (i * RESOLUTION_MS) + start < ended) stacksData[i] = stacksData[i-1];
     }
 
-    // console.log(stacksData)
-    // stacksData.forEach(stack => {
+    endOfVoidformData[atLabel(ended)+1] = 100;
+    endOfVoidformData[atLabel(ended)]   = 100;
 
-    // })
-
-    // for 100sec+ voidforms
-    // if(stacks.length > 0){
-    //   const lastStack = stacks[stacks.length-1];
-    //   stacksData[atLabel(ended)] = lastStack.stack;
-    // }
-
-    endOfVoidformData[atLabel(ended)+1] = MAX_TIME_IN_VOIDFORM/1000;
-    endOfVoidformData[atLabel(ended)]   = MAX_TIME_IN_VOIDFORM/1000;
-    // console.log(endOfVoidformData)
-
-    insanity.forEach(event => insanityData[atLabel(event.timestamp)] = event.classResources[0].amount/100);
 
     if(lingeringInsanityStacks.length > 0) lingeringInsanityData[0] = lingeringInsanityStacks[0].stack + 2;
     lingeringInsanityStacks.forEach(lingering => lingeringInsanityData[atLabel(lingering.timestamp)] = lingering.stack);
 
-    dispersions.filter(dispersion => dispersion.start >= start && dispersion.end <= voidFormEnd + TIMESTAMP_ERROR_MARGIN).forEach(dispersion => fillData(dispersionData, dispersion.start, dispersion.end));
-    mindbenders.filter(mindbender => mindbender.start >= start && mindbender.end <= voidFormEnd + MAX_MINDBENDER_MS).forEach(mindbender => fillData(mindbenderData, mindbender.start, mindbender.end));
-    voidTorrents.filter(voidTorrent => voidTorrent.start >= start && voidTorrent.end <= voidFormEnd + TIMESTAMP_ERROR_MARGIN).forEach(voidTorrent => fillData(voidTorrentData, voidTorrent.start, voidTorrent.end));
+    dispersionEvents.filter(dispersion => dispersion.start >= start && dispersion.end <= voidFormEnd + TIMESTAMP_ERROR_MARGIN).forEach(dispersion => fillData(dispersionData, dispersion.start, dispersion.end));
+    mindbenderEvents.filter(mindbender => mindbender.start >= start && mindbender.end <= voidFormEnd + MAX_MINDBENDER_MS).forEach(mindbender => fillData(mindbenderData, mindbender.start, mindbender.end));
+    voidTorrentEvents.filter(voidTorrent => voidTorrent.start >= start && voidTorrent.end <= voidFormEnd + TIMESTAMP_ERROR_MARGIN).forEach(voidTorrent => fillData(voidTorrentData, voidTorrent.start, voidTorrent.end));
 
-    // dispersions.filter(dispersion => dispersion.start >= start && dispersion.end <= voidFormEnd + TIMESTAMP_ERROR_MARGIN).forEach(dispersion => {
-    //   const dispersionSteps     = Math.floor((dispersion.end - dispersion.start)/RESOLUTION_MS);
-    //   const dispersionStartStep = Math.floor((dispersion.start - start)/RESOLUTION_MS);
-    //   for(let i = 0; i < dispersionSteps; i++){
-    //     dispersionData[dispersionStartStep+i] = MAX_TIME_IN_VOIDFORM/1000;
-    //   } 
-    // });
+    let currentDrain = INSANITY_DRAIN_START;
+    for(let i = 0; i < steps; i++){
+      // set drain to 0 if voidform ended:
+      if(start + i * RESOLUTION_MS >= ended){
+        currentDrain = 0;
+        break;
+      }
 
-    // mindbenders.filter(mindbender => mindbender.start >= start && mindbender.end <= voidFormEnd ).forEach(mindbender => {
-    //   const mindbenderSteps     = Math.floor((mindbender.end - mindbender.start)/RESOLUTION_MS);
-    //   const mindbenderStartStep = Math.floor((mindbender.start - start)/RESOLUTION_MS);
-    //   for(let i = 0; i < mindbenderSteps; i++){
-    //     mindbenderData[mindbenderStartStep+i] = 20;
-    //   } 
-    // });
+      // dont increase if dispersion/voidtorrent is active:
+      if(dispersionData[i] === null && voidTorrentData[i] === null){
+        currentDrain += INSANITY_DRAIN_INCREASE_BY_SECOND * RESOLUTION_MS/1000;
+      }
 
-    // voidTorrents.filter(voidTorrent => voidTorrent.start >= start && voidTorrent.end <= voidFormEnd + TIMESTAMP_ERROR_MARGIN)
+      insanityDrain[i] = currentDrain;
+    }
 
 
-    // console.log(lingeringInsanityData)
+    let totalInsanityGenerated = 0;
+    insanityEvents.forEach(event => {
+      let addInsanity = 0;
+      // sometimes mindflay gives negative resourceChange for some unknown reason (adding this fix corrected the graphs).
+      if(event.resourceChange < 0){
+        addInsanity = event.resourceChange * -1 * 100;
+      } else {
+        const insanityGain = event.resourceChange - event.waste;
+        addInsanity = insanityGain > 0 ? insanityGain * 100 : 0;
+      }
 
-    // console.log(labels)
-    // return null
-
-    // console.log(lingeringInsanityStacks);
-
-    // console.log(lingeringInsanityData)
-
-    // if(lingeringInsanityStacks.length > 0){
-
-    //   const startingInsanity = lingeringInsanityStacks[0].stack;
-    //   for (let i = 0; i <= startingInsanity/2; i++){
-
-    //     lingeringInsanityData[i*(RESOLUTION_MS/1000)] = startingInsanity - i*2;
-    //   }
-    // }
-
-    // console.log(lingeringInsanityStacks)
-
-    // stacks.forEach(stack => {
-    //   const atSecond = timeAsInteger(stack.timestamp - start);
-    //   stacksBySecond[atSecond] = stack.stack;
-
-    // });
-
-    // dispersionsInCurrent.forEach(dispersion => {
-    //   const durationInSeconds = timeAsSeconds(dispersion.end - dispersion.start);
-    //   const latestVoidformStack = timeAsInteger(dispersion.start - start);
-    //   for (let i = 0; i <= durationInSeconds; i += 1){
-    //     const atSecond = timeAsInteger(dispersion.start - start) + i;
-    //     stacksBySecond[latestVoidformStack+i] = latestVoidformStack; 
-    //     dispersionBySecond[atSecond] = stacksBySecond[atSecond];
-    //   }
-    // });
-
-    // mindbendersInCurrent.forEach(mindbender => {
-    //   const durationInSeconds = timeAsSeconds(mindbender.end - mindbender.start);
-    //   for (let i = 0; i <= durationInSeconds; i += 1){
-    //     const atSecond = timeAsInteger(mindbender.start - start) + i;
-
-    //     mindBenderBySecond[atSecond] = stacksBySecond[atSecond] ? stacksBySecond[atSecond] : mindBenderBySecond[atSecond-1];
-    //   }
-    // });
+      totalInsanityGenerated += addInsanity;
+      if(insanityGeneratedData[atLabel(event.timestamp)] === null){
+        insanityGeneratedData[atLabel(event.timestamp)] = totalInsanityGenerated;
+      } else {
+        // if 2 events occured on same label:
+        insanityGeneratedData[atLabel(event.timestamp)] += addInsanity;
+      }
+      
+    });
 
 
-    // voidTorrentsInCurrent.forEach(voidTorrent => {
-    //   const durationInSeconds = timeAsSeconds(voidTorrent.end - voidTorrent.start);
-    //   for (let i = 0; i <= durationInSeconds; i += 1){
-    //     let atSecond = timeAsInteger(voidTorrent.start - start) + i;
-    //     if(atSecond < 0) atSecond = 0;
-    //     voidTorrentBySecond[atSecond] = stacksBySecond[atSecond];
-    //   }
-    // });
+    let currentInsanity       = initialInsanity;
+    let totalInsanityDrained  = 0;
+    let lastestInsanityGenerated = 0;
+    for(let i = 0; i < steps; i++){
+      if(insanityGeneratedData[i] !== null) lastestInsanityGenerated = insanityGeneratedData[i];
+
+      // Increase drain if dispersion/voidtorrent isnt active:
+      if(dispersionData[i] === null && voidTorrentData[i] === null){
+        currentInsanity = insanityDrain[i] * RESOLUTION_MS/1000 + lastestInsanityGenerated - totalInsanityDrained + initialInsanity;
+
+        totalInsanityDrained += insanityDrain[i] * RESOLUTION_MS/1000;
+      } else {
+        currentInsanity = lastestInsanityGenerated - totalInsanityDrained + initialInsanity;
+      }
+      
+      if(start + i * RESOLUTION_MS >= ended){
+        insanityData[i] = 0;
+      } else {
+        insanityData[i] = currentInsanity > 0 ? currentInsanity/100 : 0;
+      }
+      
+    }
+
 
     
     let legends = {
       classNames: [
         'stacks',
         'insanity',
-        'mindbender',
+        // 'insanityDrain',
         'voidtorrent',
+        'mindbender',
         'dispersion',
-        'lingeringInsanity',
         'endOfVoidform',
       ],
     };
@@ -207,6 +205,8 @@ const VoidformGraph = ({
     let chartData = {
       labels: labels,
       series: [
+        
+
         {
           className: 'stacks',
           name: 'Stacks',
@@ -217,17 +217,23 @@ const VoidformGraph = ({
           name: 'Insanity',
           data: Object.keys(insanityData).map(key => insanityData[key]).slice(0, steps),
         },
-        {
-          className: 'mindbender',
-          name: 'Mindbender',
-          data: Object.keys(mindbenderData).map(key => mindbenderData[key]).slice(0, steps),
-        },
 
         {
           className: 'voidtorrent',
           name: 'Void Torrent',
           data: Object.keys(voidTorrentData).map(key => voidTorrentData[key]).slice(0, steps),
         },
+        // {
+        //   className: 'insanityDrain',
+        //   name: 'InsanityDrain',
+        //   data: Object.keys(insanityDrain).map(key => insanityDrain[key]/100).slice(0, steps),
+        // },
+        {
+          className: 'mindbender',
+          name: 'Mindbender',
+          data: Object.keys(mindbenderData).map(key => mindbenderData[key]).slice(0, steps),
+        },
+        
 
         {
           className: 'dispersion',
@@ -235,11 +241,7 @@ const VoidformGraph = ({
           data: Object.keys(dispersionData).map(key => dispersionData[key]).slice(0, steps),
         },
 
-        {
-          className: 'lingeringInsanity',
-          name: 'Lingering Insanity',
-          data: Object.keys(lingeringInsanityData).map(key => lingeringInsanityData[key]).slice(0, steps),
-        },
+        
         {
           className: 'endOfVoidform',
           name: 'End of Voidform',
@@ -248,10 +250,34 @@ const VoidformGraph = ({
       ],
     };
 
+    if(lingeringInsanityStacks.length > 0){
+      chartData = {
+        ...chartData,
+        series: [
+          {
+            className: 'lingeringInsanity',
+            name: 'Lingering Insanity',
+            data: Object.keys(lingeringInsanityData).map(key => lingeringInsanityData[key]).slice(0, steps),
+          },
+
+          ...chartData.series,
+        ],
+      };
+
+      legends = {
+        ...legends,
+        classNames: [
+          'lingeringInsanity',
+          ...legends.classNames,
+        ],
+      };
+
+    }
+
     if(includesEndOfFight){
       const fightEndedAtSecond = atLabel(fightEnd);
-      endData[fightEndedAtSecond-1] = MAX_TIME_IN_VOIDFORM/1000;
-      endData[fightEndedAtSecond]   = MAX_TIME_IN_VOIDFORM/1000;
+      endData[fightEndedAtSecond-1] = 100;
+      endData[fightEndedAtSecond]   = 100;
 
       chartData = {
         ...chartData,
@@ -279,7 +305,7 @@ const VoidformGraph = ({
       
       options={{
         low: 0,
-        high: MAX_TIME_IN_VOIDFORM/1000,
+        high: 100,
         series: {
           'Stacks': {
             lineSmooth: Chartist.Interpolation.none({
@@ -287,8 +313,15 @@ const VoidformGraph = ({
             }),
             showPoint: false,
           },
+          // 'insanityDrain': {
+          //   lineSmooth: Chartist.Interpolation.none({
+          //     fillHoles: true,
+          //   }),
+          //   showPoint: false,
+          //   show: false,
+          // },
           'Insanity': {
-            lineSmooth: Chartist.Interpolation.step({
+            lineSmooth: Chartist.Interpolation.none({
               fillHoles: true,
             }),
             showPoint: false,
@@ -325,7 +358,8 @@ const VoidformGraph = ({
         height: '200px',
         axisX: {
           labelInterpolationFnc: function skipLabels(ms) {
-            return (ms*(RESOLUTION_MS/1000))%5===0 ? formatDuration(ms*(RESOLUTION_MS/1000)) : null;
+            const everySecond = surrenderToMadness ? 10 : 5;
+            return (ms*(RESOLUTION_MS/1000))%everySecond===0 ? formatDuration(ms*(RESOLUTION_MS/1000)) : null;
           },
           offset: 30,
         },
@@ -350,9 +384,12 @@ VoidformGraph.propTypes = {
   fightEnd: PropTypes.number,
   stacks: PropTypes.array.isRequired,
   lingeringInsanityStacks: PropTypes.array,
-  mindbenders: PropTypes.array,
-  voidTorrents: PropTypes.array,
-  dispersions: PropTypes.array,
+  insanityEvents: PropTypes.array,
+  mindbenderEvents: PropTypes.array,
+  voidTorrentEvents: PropTypes.array,
+  dispersionEvents: PropTypes.array,
+  surrenderToMadness: PropTypes.bool,
+  setT20P4: PropTypes.bool.isRequired,
 };
 
 export default VoidformGraph;

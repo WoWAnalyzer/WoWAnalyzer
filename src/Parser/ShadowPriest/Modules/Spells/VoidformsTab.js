@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import VoidformGraph from './VoidformGraph';
 
-const VoidformsTab = ({voidforms=[], insanity, ...modules}) => {
+const VoidformsTab = ({voidforms=[], insanityEvents, ...modules}) => {
 	if(voidforms.length === 0) return null;
 	return (<div className="voidforms">
 		{voidforms.map((voidform, i) => 
 			<VoidformGraph key={i} 
 				{...voidform} 
 				{...modules} 
-				insanity={insanity.filter(event => event.timestamp >= voidform.start && event.timestamp <= voidform.ended)} 
+				insanityEvents={insanityEvents.filter(event => event.timestamp >= voidform.start && event.timestamp <= voidform.ended)} 
 			/>
 		)}
 	</div>);
@@ -18,7 +18,7 @@ const VoidformsTab = ({voidforms=[], insanity, ...modules}) => {
 VoidformsTab.propTypes = {
   voidforms: PropTypes.array.isRequired,
   fightEnd: PropTypes.number.isRequired,
-  insanity: PropTypes.array,
+  insanityEvents: PropTypes.array,
 };
 
 
