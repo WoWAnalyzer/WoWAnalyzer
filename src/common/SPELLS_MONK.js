@@ -306,7 +306,7 @@ export default {
   PROTECTION_OF_SHAOHAO: {
     id: 199367,
     name: 'Protection of Shaohao',
-    icon: 'Ability_monk_chicocoon',
+    icon: 'ability_monk_chicocoon',
   },
 
   // Legendary Effects
