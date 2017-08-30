@@ -9,6 +9,7 @@ cache:
     - server/node_modules
 env:
   - NODE_ENV=production
+  - WCL_API_KEY=$WCL_API_KEY
 install:
   - npm install
 script:
