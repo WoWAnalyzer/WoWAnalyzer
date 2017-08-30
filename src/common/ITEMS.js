@@ -562,6 +562,12 @@ const ITEMS = {
     icon: 'inv_helm_leather_raiddruid_m_01',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+  LUFFA_WRAPPINGS: {
+    id: 137056,
+    name: 'Luffa Wrappings',
+    icon: 'inv_bracer_cloth_raidpriest_o_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
 
   // Vengeance Demon Hunter legendaries
   KIREL_NARAK: {
