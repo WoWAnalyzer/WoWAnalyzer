@@ -106,9 +106,6 @@ class CombatLogParser extends CoreCombatLogParser {
     const abilityTracker = this.modules.abilityTracker;
     const getAbility = spellId => abilityTracker.getAbility(spellId);
 
-    // Missed Hymn ticks calculations
-    const missedHymnTicks = (getAbility(SPELLS.DIVINE_HYMN_CAST.id).casts * 5) - this.modules.divineHymn.ticks;
-
     // Leggo Legs vars
     const legsPercHPS = formatPercentage(this.getPercentageOfTotalHealingDone(this.modules.trousersOfAnjuna.healing));
     const legsHPS = formatNumber(this.modules.trousersOfAnjuna.healing / this.fightDuration * 1000);
@@ -129,25 +126,6 @@ class CombatLogParser extends CoreCombatLogParser {
         issue: `Your dead GCD time can be improved. Try to Always Be Casting (ABC); when there's nothing to heal try to contribute some damage (${Math.round(deadTimePercentage * 100)}% dead GCD time).`,
         icon: 'spell_mage_altertime',
         importance: getIssueImportance(deadTimePercentage, 0.20, 1, true),
-      });
-    }
-
-    // Because Holy Priest can gain a large amount of benefit from chain casting Heal even during downtime (for Serendipity or Blessing of T'uure procs)
-    // it is very important to have a lower wasted healing time than most classes. The exception to this is when healers should be DPSing.
-    if (nonHealingTimePercentage > 0.2) {
-      results.addIssue({
-        issue: <span>Your non healing time can be improved. Try to cast heals more regularly ({Math.round(nonHealingTimePercentage * 100)}% non healing time). If there is downtime, try casting <SpellLink id={SPELLS.GREATER_HEAL.id} /> to proc <SpellLink id={SPELLS.BLESSING_OF_TUURE_BUFF.id} />.</span>,
-        icon: 'petbattle_health-down',
-        importance: getIssueImportance(nonHealingTimePercentage, 0.3, 0.4, true),
-      });
-    }
-
-    // This is usually caused by clipping the end of your Hymn on accident, or when you use Hymn right before a mechanic that requires you to move or displaces you. This should always be 0.
-    if (missedHymnTicks > 0) {
-      results.addIssue({
-        issue: <span>You wasted {missedHymnTicks} <SpellLink id={SPELLS.DIVINE_HYMN_CAST.id} /> tick(s). Try to avoid clipping the end of Divine Hymn, as well timing it such that you will not have to move for its duration.</span>,
-        icon: 'spell_holy_divinehymn',
-        importance: getIssueImportance(missedHymnTicks, 0, 0, true),
       });
     }
 
