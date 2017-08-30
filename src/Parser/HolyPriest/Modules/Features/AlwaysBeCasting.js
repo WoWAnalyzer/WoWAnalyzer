@@ -1,8 +1,7 @@
 import React from 'react';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Icon from 'common/Icon';
-import SpellIcon from 'common/SpellIcon';
-import { formatPercentage, formatNumber } from 'common/format';
+import { formatPercentage } from 'common/format';
 
 import SPELLS from 'common/SPELLS';
 
@@ -54,7 +53,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
           Dead GCD time
         </dfn>
       )}
-    />
+    />;
     //
   }
 

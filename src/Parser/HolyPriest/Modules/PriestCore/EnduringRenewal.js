@@ -99,7 +99,7 @@ class EnduringRenewal extends Module {
           </dfn>
         )}
       />
-    )
+    );
     //
   }
 

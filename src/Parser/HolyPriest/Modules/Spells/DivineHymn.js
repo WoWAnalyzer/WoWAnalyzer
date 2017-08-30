@@ -1,8 +1,3 @@
-import React from 'react';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import SpellIcon from 'common/SpellIcon';
-import { formatPercentage, formatNumber } from 'common/format';
-
 import SPELLS from 'common/SPELLS';
 import Module from 'Parser/Core/Module';
 
@@ -44,7 +39,7 @@ class DivineHymn extends Module {
           .icon('spell_holy_divinehymn')
           .actual(`${actual} missed Hymn ticks`)
           .recommended(`0 is recommended`)
-          .regular(recommended).major(recommended)
+          .regular(recommended).major(recommended);
       });
   }
 

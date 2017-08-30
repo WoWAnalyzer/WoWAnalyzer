@@ -51,7 +51,7 @@ class Divinity extends Module {
           </dfn>
         )}
       />
-    )
+    );
     //
   }
 
