@@ -521,6 +521,12 @@ export default {
     icon: 'spell_shadow_twistedfaith',
   },
 
+  SHADOW_PRIEST_T20_4SET_BONUS_PASSIVE: {
+    id: 242273,
+    name: 'T20 4 Set Bonus',
+    icon: 'spell_shadow_shadowwordpain',
+  },
+
   // Shadow traits
 
   FROM_THE_SHADOWS_TRAIT: {
