@@ -6,7 +6,6 @@ import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 
 import SuggestionsTab from 'Main/SuggestionsTab';
 import Tab from 'Main/Tab';
-import Talents from 'Main/Talents';
 import Mana from 'Main/Mana';
 import MonkSpreadsheet from 'Main/MonkSpreadsheet';
 import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
@@ -24,6 +23,13 @@ import EssenceFontMastery from './Modules/Features/EssenceFontMastery';
 import MistsOfSheilun from './Modules/Traits/MistsOfSheilun';
 import CelestialBreath from './Modules/Traits/CelestialBreath';
 import WhispersOfShaohao from './Modules/Traits/WhispersOfShaohao';
+import CoalescingMists from './Modules/Traits/CoalescingMists';
+import SoothingRemedies from './Modules/Traits/SoothingRemedies';
+import EssenceOfTheMist from './Modules/Traits/EssenceOfTheMist';
+import WayOfTheMistweaver from './Modules/Traits/WayOfTheMistweaver';
+import InfusionOfLife from './Modules/Traits/InfusionOfLife';
+import ProtectionOfShaohao from './Modules/Traits/ProtectionOfShaohao';
+import RelicTraits from './Modules/Traits/RelicTraits';
 
 // Spells
 import UpliftingTrance from './Modules/Spells/UpliftingTrance';
@@ -71,6 +77,13 @@ class CombatLogParser extends CoreCombatLogParser {
     mistsOfSheilun: MistsOfSheilun,
     celestialBreath: CelestialBreath,
     whispersOfShaohao: WhispersOfShaohao,
+    coalescingMists: CoalescingMists,
+    soothingRemedies: SoothingRemedies,
+    essenceOfTheMist: EssenceOfTheMist,
+    wayOfTheMistweaver: WayOfTheMistweaver,
+    infusionOfLife: InfusionOfLife,
+    protectionOfShaohao: ProtectionOfShaohao,
+    relicTraits: RelicTraits,
 
     // Spells
     essenceFont: EssenceFont,
@@ -108,15 +121,6 @@ class CombatLogParser extends CoreCombatLogParser {
         url: 'suggestions',
         render: () => (
           <SuggestionsTab issues={results.issues} />
-        ),
-      },
-      {
-        title: 'Talents',
-        url: 'talents',
-        render: () => (
-          <Tab title="Talents">
-            <Talents combatant={this.selectedCombatant} />
-          </Tab>
         ),
       },
       ...results.tabs,
