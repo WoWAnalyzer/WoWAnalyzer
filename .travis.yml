@@ -4,7 +4,7 @@ language: node_js
 services:
   - docker
 node_js:
-- '8.2.1'
+  - 8.2.1
 cache:
   directories:
     - node_modules
@@ -17,8 +17,9 @@ script:
   - npm test
   - npm run build
 after_success:
+  - cd server && npm install --production
   - export REPO=martijnhols/wowanalyzer
   - export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH; fi else echo pr-$TRAVIS_PULL_REQUEST-$TRAVIS_PULL_REQUEST_BRANCH; fi | sed -r 's/\//-/g')
+  - docker build --tag $REPO:$BRANCH --file Dockerfile.package .
   - docker login --username="$DOCKER_USERNAME" --password="$DOCKER_PASSWORD"
-  - docker build --tag $REPO:$BRANCH .
   - docker push $REPO:$BRANCH

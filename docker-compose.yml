@@ -10,11 +10,11 @@ services:
      - 35729:35729
     volumes:
       - .:/usr/src/wowanalyzer
-  prod:
+  package:
     build:
       context: .
-      dockerfile: Dockerfile.prod
-    container_name: wowanalyzer-prod
+      dockerfile: Dockerfile.package
+    container_name: wowanalyzer
     ports:
      - 3000:3000
   database:
@@ -23,4 +23,4 @@ services:
     environment:
      - MYSQL_ROOT_PASSWORD=my-secret-pw
     ports:
-      - '4306:3306' # don't conflict with existing MySQL servers
+      - 4306:3306 # don't conflict with existing MySQL servers
