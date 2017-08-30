@@ -5,7 +5,7 @@ import { BEACON_TYPES } from '../../Constants';
 
 const BEACONS = Object.keys(BEACON_TYPES).map(key => BEACON_TYPES[key]);
 
-const debug = true;
+const debug = false;
 
 class BeaconTargets extends Module {
   static dependencies = {

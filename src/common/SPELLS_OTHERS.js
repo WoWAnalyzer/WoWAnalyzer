@@ -227,6 +227,11 @@ export default {
     name: 'Archimonde\'s Hatred Reborn',
     icon: 'spell_nature_elementalshields',
   },
+  DRUMS_OF_FURY: {
+    id: 178207,
+    name: 'Drums of Fury',
+    icon: 'inv_misc_drum_01',
+  },
   DRUMS_OF_RAGE: {
     id: 146555,
     name: 'Drums of Rage',

@@ -19,7 +19,7 @@ class BeaconHealing extends Module {
   };
 
   getTotalHealsOnBeaconPercentage() {
-    const abilityTracker = this.owner.modules.abilityTracker;
+    const abilityTracker = this.abilityTracker;
     const getCastCount = spellId => abilityTracker.getAbility(spellId);
 
     let casts = 0;
@@ -27,9 +27,10 @@ class BeaconHealing extends Module {
 
     CastEfficiency.CPM_ABILITIES
       .filter(ability => ability.isActive === undefined || ability.isActive(this.combatants.selected))
+      .filter(ability => ability.category !== CastEfficiency.SPELL_CATEGORIES.ITEMS)
       .forEach((ability) => {
         const castCount = getCastCount(ability.spell.id);
-        casts += (ability.getCasts ? ability.getCasts(castCount) : castCount.casts) || 0;
+        casts += castCount.healingHits || 0;
         castsOnBeacon += castCount.healingBeaconHits || 0;
       });
 
@@ -43,7 +44,7 @@ class BeaconHealing extends Module {
       .addSuggestion((suggest, actual, recommended) => {
         return suggest('You cast a lot of direct heals on beacon targets. Direct healing beacon targets is inefficient. Try to only cast on beacon targets when they would otherwise die.')
           .icon('ability_paladin_beaconoflight')
-          .actual(`${formatPercentage(totalHealsOnBeaconPercentage)}% of all your healing spell casts were on a beacon target`)
+          .actual(`${formatPercentage(actual)}% of all your healing spell casts were on a beacon target`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
           .regular(recommended + 0.05).major(recommended + 0.15);
       });
