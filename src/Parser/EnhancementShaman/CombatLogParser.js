@@ -14,7 +14,7 @@ import Maelstrom from './Modules/Main/Maelstrom';
 import CooldownTracker from './Modules/Features/CooldownTracker';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import DamageDone from './Modules/ShamanCore/DamageDone';
-import ShamanStats from './Modules/ShamanCore/ShamanStats';
+//import ShamanStats from './Modules/ShamanCore/ShamanStats';
 import Flametongue from './Modules/ShamanCore/Flametongue';
 import Landslide from './Modules/ShamanCore/Landslide';
 import Frostbrand from './Modules/ShamanCore/Frostbrand';
