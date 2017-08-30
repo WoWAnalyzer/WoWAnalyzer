@@ -106,11 +106,6 @@ class CombatLogParser extends CoreCombatLogParser {
     const abilityTracker = this.modules.abilityTracker;
     const getAbility = spellId => abilityTracker.getAbility(spellId);
 
-    // Renew the Faith trait data calculations
-    const rtfPercHPS = formatPercentage(this.getPercentageOfTotalHealingDone(this.modules.renewTheFaith.healing));
-    const rtfPercOH = formatPercentage(this.modules.renewTheFaith.overhealing / (this.modules.renewTheFaith.healing + this.modules.renewTheFaith.overhealing));
-    const rtfRelPercHPS = formatPercentage(this.modules.renewTheFaith.healing / this.modules.divineHymn.healing);
-
     // Missed Hymn ticks calculations
     const missedHymnTicks = (getAbility(SPELLS.DIVINE_HYMN_CAST.id).casts * 5) - this.modules.divineHymn.ticks;
 
@@ -220,17 +215,6 @@ class CombatLogParser extends CoreCombatLogParser {
           label={(
             <dfn data-tip={`The benefit from both Light of T'uure casts and additional casts on targets with the buff. ${lotSpellHealing} from the spell itself and ${lotBuffHealing} from the buff it provides. This was ${lotPercHPS}% / ${lotHPS} of your total healing.`}>
               Light of Tuure
-            </dfn>
-          )}
-        />
-      ),
-      this.modules.renewTheFaith.active && (
-        <StatisticBox
-          icon={<SpellIcon id={SPELLS.DIVINE_HYMN_CAST.id} />}
-          value={`${formatNumber(this.modules.renewTheFaith.healing)}`}
-          label={(
-            <dfn data-tip={`Benefit gained from Renew the Faith (does not include Benediction renews). Assumes that every Divine Hymn cast is fully channeled. This was ${rtfPercHPS}% of your healing, had ${rtfPercOH}% overhealing and increased your Divine Hymn healing by ${rtfRelPercHPS}%`}>
-              Renew the Faith
             </dfn>
           )}
         />
