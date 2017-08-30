@@ -67,7 +67,7 @@ class LightOfTuure extends Module {
           </dfn>
         )}
       />
-    )
+    );
     //
   }
 

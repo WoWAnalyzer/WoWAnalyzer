@@ -50,7 +50,7 @@ class RenewTheFaith extends Module {
           </dfn>
         )}
       />
-    )
+    );
     //
   }
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
-import { formatPercentage, formatNumber } from 'common/format';
 
 import SPELLS from 'common/SPELLS';
 import Module from 'Parser/Core/Module';
@@ -33,12 +32,12 @@ class Sanctify extends Module {
   }
 
   get report() {
-    let sancAvgHits = this.hits / this.casts;
-    let sancMissedHits = (this.casts * 6) - this.hits;
+    const sancAvgHits = this.hits / this.casts;
+    const sancMissedHits = (this.casts * 6) - this.hits;
 
     return {
       sancAvgHits,
-      sancMissedHits
+      sancMissedHits,
     };
   }
 
@@ -66,7 +65,7 @@ class Sanctify extends Module {
           .icon('spell_holy_divineprovidence')
           .actual(`${actual.toFixed(2)} average hits`)
           .recommended(`>${recommended} is recommended`)
-          .regular(recommended - 0.5).major(recommended - 1.5)
+          .regular(recommended - 0.5).major(recommended - 1.5);
       });
   }
 }
