@@ -20,8 +20,10 @@ import IronFur from './Modules/Spells/IronFur';
 import Thrash from './Modules/Spells/Thrash';
 import Moonfire from './Modules/Spells/Moonfire';
 import Pulverize from './Modules/Spells/Pulverize';
+
 import DualDetermination from './Modules/Items/DualDetermination';
 import SkysecsHold from './Modules/Items/Skysecs';
+import FuryOfNature from './Modules/Items/FuryOfNature';
 
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 
@@ -48,6 +50,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Legendaries:
     dualDetermination: DualDetermination,
     skysecs: SkysecsHold,
+    furyOfNature: FuryOfNature,
   };
 
   generateResults() {

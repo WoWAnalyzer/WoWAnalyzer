@@ -32,7 +32,7 @@ class DamageTaken extends Module {
   on_toPlayer_damage(event) {
     this._addDamage(event.ability, event.amount, event.absorbed, event.overkill);
   }
-  
+
   _addDamage(ability, amount = 0, absorbed = 0, overkill = 0) {
     const spellId = ability.guid;
     if (this.constructor.IGNORED_ABILITIES.indexOf(spellId) !== -1) {
@@ -71,7 +71,7 @@ class DamageTaken extends Module {
           Damage taken by magic school:
           <ul>
             ${Object.keys(this._byMagicSchool)
-            .map(type => `<li><i>${MAGIC_SCHOOLS[type] || 'Unknown'}</i> damage taken ${formatThousands(this._byMagicSchool[type].effective)} (${formatPercentage(this._byMagicSchool[type].effective / this.total.effective)}%)</li>`)
+            .map(type => `<li><i>${MAGIC_SCHOOLS.names[type] || 'Unknown'}</i> damage taken ${formatThousands(this._byMagicSchool[type].effective)} (${formatPercentage(this._byMagicSchool[type].effective / this.total.effective)}%)</li>`)
             .join('')}
           </ul>`}
       />

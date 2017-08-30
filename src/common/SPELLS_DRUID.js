@@ -461,6 +461,11 @@ export default {
     name: 'Oakheart\'s Puny Quods',
     icon: 'spell_druid_bearhug',
   },
+  FURY_OF_NATURE_HEAL: {
+    id: 248522,
+    name: 'Fury of Nature',
+    icon: 'ability_creature_cursed_04',
+  },
   //Moonkin
   STARSURGE_MOONKIN: {
     id: 78674,
