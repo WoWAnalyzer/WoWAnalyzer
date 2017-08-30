@@ -58,23 +58,20 @@ class ReportSelecter extends Component {
             <div className="row">
               <div className="col-md-12 col-lg-8 report-code-box">
                 <span className="hidden-xs">
-                  https://www.warcraftlogs.com/reports/
+                  Enter a WCL report link:{' '}
                 </span>
                 <input
                   type="text"
                   name="code"
                   className="form-control"
-                  ref={(elem) => {
-                    this.codeInput = elem;
-                  }}
+                  ref={elem => this.codeInput = elem}
                   onChange={this.handleChange}
-                  style={{ width: 175 }}
-                  placeholder="report code"
+                  style={{ width: 360 }}
+                  placeholder="https://www.warcraftlogs.com/reports/<report code>"
                   autoCorrect="off"
                   autoCapitalize="off"
                   spellCheck="false"
                 />
-                <span className="hidden-xs">/</span>
 
                 <button type="submit" className="btn btn-primary analyze">
                   Analyze <span className="glyphicon glyphicon-chevron-right" aria-hidden />
