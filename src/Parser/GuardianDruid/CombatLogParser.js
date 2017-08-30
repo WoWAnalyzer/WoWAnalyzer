@@ -4,9 +4,9 @@ import SuggestionsTab from 'Main/SuggestionsTab';
 import Tab from 'Main/Tab';
 import Talents from 'Main/Talents';
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
+import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 import CastEfficiency from './Modules/Features/CastEfficiency';
-
 import DamageTaken from './Modules/Core/DamageTaken';
 import HealingDone from './Modules/Core/HealingDone';
 import DamageDone from './Modules/Core/DamageDone';
@@ -20,6 +20,7 @@ import IronFur from './Modules/Spells/IronFur';
 import Thrash from './Modules/Spells/Thrash';
 import Moonfire from './Modules/Spells/Moonfire';
 import Pulverize from './Modules/Spells/Pulverize';
+import Earthwarden from './Modules/Talents/Earthwarden';
 
 import DualDetermination from './Modules/Items/DualDetermination';
 import SkysecsHold from './Modules/Items/Skysecs';
@@ -33,6 +34,7 @@ class CombatLogParser extends CoreCombatLogParser {
     damageTaken: DamageTaken,
     healingDone: HealingDone,
     damageDone: DamageDone,
+    abilityTracker: AbilityTracker,
     // Features
     castEfficiency: CastEfficiency,
     alwaysBeCasting: AlwaysBeCasting,
@@ -46,6 +48,9 @@ class CombatLogParser extends CoreCombatLogParser {
     thrash: Thrash,
     moonfire: Moonfire,
     pulverize: Pulverize,
+
+    // Talents:
+    earthwarden: Earthwarden,
 
     // Legendaries:
     dualDetermination: DualDetermination,
