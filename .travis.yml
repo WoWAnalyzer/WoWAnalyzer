@@ -1,6 +1,4 @@
 language: node_js
-services:
-  - docker
 node_js:
   - 8.2.1
 cache:
@@ -16,6 +14,8 @@ jobs:
     - script: npm test
     - script: npm run build
     - stage: deploy
+      services:
+        - docker
       script:
        - if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
            cd server && npm install --production && cd ..;
