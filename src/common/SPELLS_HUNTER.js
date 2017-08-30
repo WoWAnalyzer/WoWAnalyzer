@@ -16,4 +16,14 @@ export default {
 
   // Shared:
   // ...
+  NETHERWINDS: {
+    id: 160452,
+    name: 'Netherwinds',
+    icon: 'spell_arcane_massdispel',
+  },
+  ANCIENT_HYSTERIA: {
+    id: 90355,
+    name: 'Ancient Hysteria',
+    icon: 'spell_shadow_unholyfrenzy',
+  },
 };

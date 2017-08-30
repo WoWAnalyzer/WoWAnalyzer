@@ -25,12 +25,34 @@ class Module {
     }
   }
 
-  triggerEvent(eventType, ...args) {
-    const methodName = `on_${eventType}`;
+  triggerEvent(eventType, event, ...args) {
+    this._callMethod(this._eventHandlerName('event'), eventType, event, ...args);
+    this._callMethod(this._eventHandlerName(eventType), event, ...args);
+    if (event && this.owner.byPlayer(event)) {
+      this._callMethod(this._eventHandlerName(`byPlayer_${eventType}`), event, ...args);
+    }
+    if (event && this.owner.toPlayer(event)) {
+      this._callMethod(this._eventHandlerName(`toPlayer_${eventType}`), event, ...args);
+    }
+  }
+  _eventHandlerName(eventType) {
+    return `on_${eventType}`;
+  }
+  _callMethod(methodName, ...args) {
     const method = this[methodName];
     if (method) {
-      method.apply(this, args);
+      method.call(this, ...args);
     }
+  }
+
+  /**
+   * The combatlog has a lot of issues with the order of events. You can use this to fix this order.
+   * Caution: advanced usage, this should only be used as an exception.
+   * @param {Array} events
+   * @returns {Array}
+   */
+  reorderEvents(events) {
+    return events;
   }
 
   // Override these with functions that return info about their rendering in the specific slots

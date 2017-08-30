@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 
 import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 import BeaconTargets from './BeaconTargets';
 import { BEACON_TRANSFERING_ABILITIES, BEACON_TYPES } from '../../Constants';
@@ -10,6 +11,7 @@ const debug = false;
 
 class BeaconHealOriginMatcher extends Module {
   static dependencies = {
+    combatants: Combatants,
     beaconTargets: BeaconTargets,
     lightOfDawn: LightOfDawn,
   };
@@ -35,7 +37,7 @@ class BeaconHealOriginMatcher extends Module {
     let remainingBeaconTransfers = beaconTargets.numBeaconsActive;
     if (beaconTargets.hasBeacon(event.targetID)) {
       remainingBeaconTransfers -= 1;
-      debug && console.log(`${this.owner.combatants.players[event.targetID].name} has beacon, remaining beacon transfers reduced by 1 and is now ${remainingBeaconTransfers}`);
+      debug && console.log(`${this.combatants.players[event.targetID].name} has beacon, remaining beacon transfers reduced by 1 and is now ${remainingBeaconTransfers}`);
     }
 
     if (remainingBeaconTransfers > 0) {
@@ -60,10 +62,7 @@ class BeaconHealOriginMatcher extends Module {
       return;
     }
     // console.log('Matched beacon transfer', beaconTransferEvent, 'to heal', matchedHeal);
-    this.owner.triggerEvent('beacon_heal', {
-      beaconTransferEvent,
-      matchedHeal,
-    });
+    this.owner.triggerEvent('beacon_heal', beaconTransferEvent, matchedHeal);
 
     matchedHeal.remainingBeaconTransfers -= 1;
     if (matchedHeal.remainingBeaconTransfers < 1) {
@@ -72,7 +71,7 @@ class BeaconHealOriginMatcher extends Module {
   }
 
   get beaconType() {
-    return this.owner.selectedCombatant.lv100Talent;
+    return this.combatants.selected.lv100Talent;
   }
   /**
    * Verify that the beacon transfer matches what we would expect. This isn't 100% reliable due to weird interactions with stuff like Blood Death Knights (Vampiric Blood and probably other things), and other healing received increasers.
@@ -140,7 +139,7 @@ class BeaconHealOriginMatcher extends Module {
     // What happens here are 2 situations:
     // - Light of Dawn applies Light's Embrace, it acts a bit weird though since the FIRST heal from the cast does NOT get the increased beacon transfer, while all sebsequent heals do (even when the combatlog has't fired the Light's Embrace applybuff event yet). The first part checks for that. The combatlog looks different when the first heal is a self heal vs they're all on other people, but in both cases it always doesn't apply to the first LoD heal and does for all subsequent ones.
     // - If a FoL or something else is cast right before the LoD, the beacon transfer may be delayed until after the Light's Embrace is applied. This beacon transfer does not appear to benefit. My hypothesis is that the server does healing and buffs async and there's a small lag between the processes, and I think 50ms should be about the time required.
-    const hasLightsEmbrace = (healEvent.ability.guid === SPELLS.LIGHT_OF_DAWN_HEAL.id && healEvent.lightOfDawnHealIndex > 0) || this.owner.selectedCombatant.hasBuff(SPELLS.LIGHTS_EMBRACE_BUFF.id, null, 0, 100);
+    const hasLightsEmbrace = (healEvent.ability.guid === SPELLS.LIGHT_OF_DAWN_HEAL.id && healEvent.lightOfDawnHealIndex > 0) || this.combatants.selected.hasBuff(SPELLS.LIGHTS_EMBRACE_BUFF.id, null, 0, 100);
     if (hasLightsEmbrace) {
       beaconFactor += 0.4;
     }
@@ -158,7 +157,7 @@ class BeaconHealOriginMatcher extends Module {
     let raw = amount + absorbed + overheal;
 
     const healTargetId = healEvent.targetID;
-    const healCombatant = this.owner.combatants.players[healTargetId];
+    const healCombatant = this.combatants.players[healTargetId];
     if (healCombatant) {
       if (healCombatant.hasBuff(SPELLS.PROTECTION_OF_TYR.id, healEvent.timestamp)) {
         raw /= 1.15;
@@ -171,7 +170,7 @@ class BeaconHealOriginMatcher extends Module {
     let expectedBeaconTransfer = Math.round(raw * this.getBeaconTransferFactor(healEvent) * healEvent.spellBeaconTransferFactor);
 
     const beaconTargetId = beaconTransferEvent.targetID;
-    const beaconCombatant = this.owner.combatants.players[beaconTargetId];
+    const beaconCombatant = this.combatants.players[beaconTargetId];
     if (beaconCombatant) {
       if (beaconCombatant.hasBuff(55233, healEvent.timestamp)) {
         expectedBeaconTransfer *= 1.3;

@@ -7,16 +7,18 @@ import { formatNumber } from 'common/format';
 
 import Module from 'Parser/Core/Module';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class AuraOfMercy extends Module {
   static dependencies = {
+    combatants: Combatants,
     abilityTracker: AbilityTracker,
   };
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasTalent(SPELLS.AURA_OF_MERCY_TALENT.id);
+    this.active = this.combatants.selected.hasTalent(SPELLS.AURA_OF_MERCY_TALENT.id);
   }
 
   get healing() {
@@ -48,7 +50,7 @@ class AuraOfMercy extends Module {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(60);
 }
 
 export default AuraOfMercy;

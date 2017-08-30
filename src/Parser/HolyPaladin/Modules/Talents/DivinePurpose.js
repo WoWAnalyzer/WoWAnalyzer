@@ -7,25 +7,27 @@ import { formatPercentage } from 'common/format';
 
 import Module from 'Parser/Core/Module';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class DivinePurpose extends Module {
   static dependencies = {
+    combatants: Combatants,
     abilityTracker: AbilityTracker,
   };
 
   on_initialized() {
-    const hasDivinePurpose = this.owner.selectedCombatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id);
-    const hasSoulOfTheHighlord = this.owner.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_HIGHLORD.id);
+    const hasDivinePurpose = this.combatants.selected.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id);
+    const hasSoulOfTheHighlord = this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_HIGHLORD.id);
     this.active = hasDivinePurpose || hasSoulOfTheHighlord;
   }
 
   get holyShockProcs() {
-    return this.owner.selectedCombatant.getBuffTriggerCount(SPELLS.DIVINE_PURPOSE_HOLY_SHOCK_BUFF.id);
+    return this.combatants.selected.getBuffTriggerCount(SPELLS.DIVINE_PURPOSE_HOLY_SHOCK_BUFF.id);
   }
   get lightOfDawnProcs() {
-    return this.owner.selectedCombatant.getBuffTriggerCount(SPELLS.DIVINE_PURPOSE_LIGHT_OF_DAWN_BUFF.id);
+    return this.combatants.selected.getBuffTriggerCount(SPELLS.DIVINE_PURPOSE_LIGHT_OF_DAWN_BUFF.id);
   }
 
   statistic() {
@@ -67,7 +69,7 @@ class DivinePurpose extends Module {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(75);
 }
 
 export default DivinePurpose;

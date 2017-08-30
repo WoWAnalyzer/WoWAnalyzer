@@ -7,6 +7,7 @@ import SpellLink from 'common/SpellLink';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import Module from 'Parser/Core/Module';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 const INFUSION_OF_LIGHT_BUFF_EXPIRATION_BUFFER = 150; // the buff expiration can occur several MS before the heal event is logged, this is the buffer time that an IoL charge may have dropped during which it will still be considered active.
 const INFUSION_OF_LIGHT_BUFF_MINIMAL_ACTIVE_TIME = 200; // if someone heals with FoL and then immediately casts a HS race conditions may occur. This prevents that (although the buff is probably not applied before the FoL).
@@ -15,13 +16,17 @@ const INFUSION_OF_LIGHT_FOL_HEALING_INCREASE = 0.5;
 const debug = false;
 
 class Tier19_4set extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
   healing = 0;
   totalIolProcsUsed = 0;
   bonusIolProcsUsed = 0;
   bonusIolProcsUsedOnFol = 0;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasBuff(SPELLS.HOLY_PALADIN_T19_4SET_BONUS_BUFF.id);
+    this.active = this.combatants.selected.hasBuff(SPELLS.HOLY_PALADIN_T19_4SET_BONUS_BUFF.id);
   }
 
   iolProcsUsedSinceLastHolyShock = 0;
@@ -37,7 +42,7 @@ class Tier19_4set extends Module {
     }
 
     if (spellId === SPELLS.FLASH_OF_LIGHT.id || spellId === SPELLS.HOLY_LIGHT.id) {
-      const hasIol = this.owner.selectedCombatant.getBuff(SPELLS.INFUSION_OF_LIGHT.id, event.timestamp, INFUSION_OF_LIGHT_BUFF_EXPIRATION_BUFFER, INFUSION_OF_LIGHT_BUFF_MINIMAL_ACTIVE_TIME);
+      const hasIol = this.combatants.selected.getBuff(SPELLS.INFUSION_OF_LIGHT.id, event.timestamp, INFUSION_OF_LIGHT_BUFF_EXPIRATION_BUFFER, INFUSION_OF_LIGHT_BUFF_MINIMAL_ACTIVE_TIME);
 
       if (hasIol) {
         this.iolProcsUsedSinceLastHolyShock += 1;
@@ -67,18 +72,18 @@ class Tier19_4set extends Module {
     }
   }
 
-  on_beacon_heal({ beaconTransferEvent, matchedHeal: healEvent }) {
+  on_beacon_heal(beaconTransferEvent, healEvent) {
     const spellId = healEvent.ability.guid;
     if (spellId !== SPELLS.FLASH_OF_LIGHT.id) {
       return;
     }
-    const combatant = this.owner.combatants.players[healEvent.targetID];
+    const combatant = this.combatants.players[healEvent.targetID];
     if (!combatant) {
       // If combatant doesn't exist it's probably a pet.
       debug && console.log('Skipping beacon heal event since combatant couldn\'t be found:', beaconTransferEvent, 'for heal:', healEvent);
       return;
     }
-    const hasIol = this.owner.selectedCombatant.getBuff(SPELLS.INFUSION_OF_LIGHT.id, healEvent.timestamp, INFUSION_OF_LIGHT_BUFF_EXPIRATION_BUFFER, INFUSION_OF_LIGHT_BUFF_MINIMAL_ACTIVE_TIME);
+    const hasIol = this.combatants.selected.getBuff(SPELLS.INFUSION_OF_LIGHT.id, healEvent.timestamp, INFUSION_OF_LIGHT_BUFF_EXPIRATION_BUFFER, INFUSION_OF_LIGHT_BUFF_MINIMAL_ACTIVE_TIME);
     if (!hasIol) {
       return;
     }

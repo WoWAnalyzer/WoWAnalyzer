@@ -47,15 +47,15 @@ class ExpandableStatisticBox extends React.PureComponent {
     return (
       <div className="panel statistic-box expandable">
         <div className="panel-body">
-          <div className="row">
-            <div className="col-xs-3">
+          <div className="flex">
+            <div className="flex-sub">
               {this.state.icon}
             </div>
-            <div className="col-xs-9">
-              <div className="statistic-value text-right">
+            <div className="flex-main text-right">
+              <div className="value">
                 {this.state.value}
               </div>
-              <div className="statistic-label text-right">
+              <div className="slabel">
                 {this.state.label}
               </div>
             </div>

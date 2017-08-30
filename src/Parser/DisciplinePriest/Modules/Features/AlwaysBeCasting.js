@@ -69,14 +69,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       spellId
     );
   }
-
-
-  on_finished() {
-    this.lastPenanceStartTimestamp = null;
-    this.truePenanceCasts = 0;
-
-    super.on_finished();
-  }
 }
 
 export default AlwaysBeCasting;

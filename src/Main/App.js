@@ -15,7 +15,9 @@ import GithubLogo from './Images/GitHub-Mark-Light-32px.png';
 
 import Home from './Home';
 import FightSelecter from './FightSelecter';
+import FightSelectorHeader from './FightSelectorHeader';
 import PlayerSelecter from './PlayerSelecter';
+import PlayerSelectorHeader from './PlayerSelectorHeader';
 import Results from './Results';
 import ReportSelecter from './ReportSelecter';
 import AppBackgroundImage from './AppBackgroundImage';
@@ -222,11 +224,15 @@ class App extends Component {
     });
     return fetch(url)
       .then(response => response.json())
-      .then((json) => {
+      .then(json => {
         // console.log('Received report', code, ':', json);
         if (json.status === 400 || json.status === 401) {
           throw json.error;
         } else if (this.reportCode === code) {
+          if (!json.fights) {
+            throw new Error('Corrupt WCL response received.');
+          }
+
           this.setState({
             report: {
               ...json,
@@ -236,7 +242,7 @@ class App extends Component {
         }
       })
       .catch(err => {
-        alert('I\'m so terribly sorry, an error occured. Try again later or in an updated Google Chrome. (Is Warcraft Logs up?)\n\n' + err);
+        alert('I\'m so terribly sorry, an error occured. Try again later, in an updated Google Chrome and make sure that Warcraft Logs is up and functioning properly. Please let us know on Discord if the problem persists.\n\n' + err);
         console.error(err);
         this.setState({
           report: null,
@@ -392,7 +398,7 @@ class App extends Component {
   }
 
   render() {
-    const { report } = this.state;
+    const { report, combatants, parser } = this.state;
 
     const progress = Math.floor(this.state.progress * 100);
 
@@ -407,8 +413,8 @@ class App extends Component {
               <ol className="breadcrumb">
                 <li className="breadcrumb-item"><Link to={makeAnalyzerUrl()}>{toolName}</Link></li>
                 {this.reportCode && report && <li className="breadcrumb-item"><Link to={makeAnalyzerUrl(report)}>{report.title}</Link></li>}
-                {this.fight && report && <li className="breadcrumb-item"><Link to={makeAnalyzerUrl(report, this.fightId)}>{getFightName(report, this.fight)}</Link></li>}
-                {this.playerName && report && <li className="breadcrumb-item"><Link to={makeAnalyzerUrl(report, this.fightId, this.playerName)}>{this.playerName}</Link></li>}
+                {this.fight && report && <li className="breadcrumb-item"><FightSelectorHeader report={report} selectedFightName={getFightName(report, this.fight)} parser={parser}/></li>}
+                {this.playerName && report && <li className="breadcrumb-item"><PlayerSelectorHeader report={report} fightId={this.fightId} combatants={combatants || []} selectedPlayerName={this.playerName}/></li>}
               </ol>
             </div>
 

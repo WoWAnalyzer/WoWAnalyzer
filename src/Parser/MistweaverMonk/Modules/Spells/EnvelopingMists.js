@@ -2,10 +2,12 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-import Module from 'Parser/Core/Module';
-
 import { formatNumber } from 'common/format';
+
+import Module from 'Parser/Core/Module';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
+import Combatants from 'Parser/Core/Modules/Combatants';
+
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 const debug = false;
@@ -16,6 +18,10 @@ const UNAFFECTED_SPELLS = [
   ];
 
 class EnvelopingMists extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
   healing = 0;
 
   on_byPlayer_heal(event) {
@@ -27,8 +33,8 @@ class EnvelopingMists extends Module {
       return;
     }
 
-    if(this.owner.combatants.players[targetId]) {
-      if(this.owner.combatants.players[targetId].hasBuff(SPELLS.ENVELOPING_MISTS.id, event.timestamp, 0, 0) === true) {
+    if(this.combatants.players[targetId]) {
+      if(this.combatants.players[targetId].hasBuff(SPELLS.ENVELOPING_MISTS.id, event.timestamp, 0, 0) === true) {
         this.healing += calculateEffectiveHealing(event, EVM_HEALING_INCREASE);
       }
     }

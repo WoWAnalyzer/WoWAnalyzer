@@ -2,7 +2,6 @@ import Entities from './Entities';
 import Combatant from '../Combatant';
 
 class Combatants extends Entities {
-  priority = 100;
   players = {};
   get playerCount() {
     return Object.keys(this.players).length;
@@ -26,7 +25,7 @@ class Combatants extends Entities {
 
   on_combatantinfo(event) {
     if (event.error) {
-        console.log("Error retrieving combatant information for player with sourceID "+event.sourceID);
+        console.error(`Error retrieving combatant information for player with sourceID ${event.sourceID}`);
         return;
     }
 

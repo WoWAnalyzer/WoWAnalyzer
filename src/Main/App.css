@@ -154,7 +154,7 @@ hr {
   font-weight: 400;
   opacity: .9;
   text-transform: uppercase;
-  letter-spacing: 0.4px;
+  letter-spacing: 0.6px;
   margin: 0;
   font-size: 1.2em;
 }
@@ -340,28 +340,28 @@ h1 {
 }
 
 /* "item" here are not just in-game items but anything with an icon, link and text. this includes items, suggestions and talents. */
-.item {
+.list > .item {
   position: relative;
   border-bottom: 1px solid rgba(0, 0, 0, .4);
   box-shadow: 0 1px 0 0 rgba(255, 255, 255, .1);
 }
-.item header {
+.list > .item header {
   margin-top: 18px;
 }
-.item main {
+.list > .item main {
   margin-bottom: 15px;
 }
-.item > article {
+.list > .item > article {
   display: flex;
 }
-.item > article > figure {
+.list > .item > article > figure {
   flex: 0;
   margin-right: 22px;
   /* center the image */
   display: flex;
   align-items: center;
 }
-.item > article > figure img {
+.list > .item > article > figure img {
   height: 60px;
   border-radius: 50%;
   margin: 10px 0;
@@ -698,4 +698,23 @@ code.inactive {
   border-radius: 7px;
   padding: 10px;
   margin-bottom: 2rem;
+}
+.statistics {
+  margin-left: -10px;
+}
+.statistics > div {
+  padding: 0 10px;
+}
+
+.selectorHeader {
+  position: absolute;
+  line-height: 1em;
+  left: 15px;
+  top: 66px;
+  width: 600px;
+  max-width: calc(100vw - 45px);
+}
+
+.selectorHeader .panel {
+  background: rgba(0,0,0,0.75);
 }

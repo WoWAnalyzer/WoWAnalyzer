@@ -251,6 +251,26 @@ export default {
     name: 'Shock Treatment',
     icon: 'spell_holy_searinglight',
   },
+  DELIVER_THE_LIGHT: {
+    id: 200294,
+    name: 'Deliver the Light',
+    icon: 'spell_holy_surgeoflight',
+  },
+  EXPEL_THE_DARKNESS: {
+    id: 200296,
+    name: 'Expel the Darkness',
+    icon: 'spell_paladin_lightofdawn',
+  },
+  SECOND_SUNRISE: {
+    id: 200482,
+    name: 'Second Sunrise',
+    icon: 'spell_paladin_lightofdawn',
+  },
+  TYRS_MUNIFICENCE: {
+    id: 238060,
+    name: 'Tyr\'s Munificence',
+    icon: 'inv_mace_2h_artifactsilverhand_d_01',
+  },
   PROTECTION_OF_TYR: {
     id: 211210,
     name: 'Protection of Tyr',
