@@ -5,7 +5,7 @@ import CHANGELOG from './CHANGELOG';
 
 export default {
   spec: SPECS.MISTWEAVER_MONK,
-  maintainer: '@anom0ly',
+  maintainer: '@anomoly',
   changelog: CHANGELOG,
   parser: CombatLogParser,
 };
