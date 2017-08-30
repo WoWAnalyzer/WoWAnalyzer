@@ -114,12 +114,7 @@ class CombatLogParser extends CoreCombatLogParser {
     const cloakPercHPS = formatPercentage(this.getPercentageOfTotalHealingDone(this.modules.xanshiCloak.healing));
     const cloakHPS = formatNumber(this.modules.xanshiCloak.healing / this.fightDuration * 1000);
 
-    // Light of T'uure vars
-    const lotSpellHealing = formatNumber(this.modules.lightOfTuure.spellHealing);
-    const lotBuffHealing = formatNumber(this.modules.lightOfTuure.buffHealing);
-    const lotTotal = this.modules.lightOfTuure.spellHealing + this.modules.lightOfTuure.buffHealing;
-    const lotPercHPS = formatPercentage(this.getPercentageOfTotalHealingDone(lotTotal));
-    const lotHPS = formatNumber(lotTotal / this.fightDuration * 1000);
+
 
     if (deadTimePercentage > 0.05) {
       results.addIssue({
@@ -153,17 +148,7 @@ class CombatLogParser extends CoreCombatLogParser {
           </dfn>
         )}
       />,
-      this.modules.lightOfTuure.active && (
-        <StatisticBox
-          icon={<SpellIcon id={SPELLS.LIGHT_OF_TUURE_TRAIT.id} />}
-          value={`${formatNumber(lotTotal)}`}
-          label={(
-            <dfn data-tip={`The benefit from both Light of T'uure casts and additional casts on targets with the buff. ${lotSpellHealing} from the spell itself and ${lotBuffHealing} from the buff it provides. This was ${lotPercHPS}% / ${lotHPS} of your total healing.`}>
-              Light of Tuure
-            </dfn>
-          )}
-        />
-      ),
+  
       ...results.statistics,
     ];
 
