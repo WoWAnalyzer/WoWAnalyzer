@@ -2,7 +2,8 @@ FROM node:8.2.1-alpine
 
 # To get the latest version this requires having run `npm install`, `npm run build` and another `npm install` in the server directory prior to building the container
 
-COPY build server /usr/src/wowanalyzer/
-WORKDIR /usr/src/wowanalyzer/server
+COPY server /usr/src/wowanalyzer/server/
+COPY build /usr/src/wowanalyzer/build/
+WORKDIR /usr/src/wowanalyzer/server/
 USER node
 CMD ["npm", "start"]
