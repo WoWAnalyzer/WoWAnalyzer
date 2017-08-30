@@ -1,5 +1,9 @@
-import SPELLS from 'common/SPELLS';
+import React from 'react';
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import SpellIcon from 'common/SpellIcon';
+import { formatPercentage, formatNumber, formatThousands } from 'common/format';
 
+import SPELLS from 'common/SPELLS';
 import Module from 'Parser/Core/Module';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
@@ -34,6 +38,24 @@ class Divinity extends Module {
 
     this.healing += calculateEffectiveHealing(event, DIVINITY_HEALING_INCREASE);
   }
+
+  statistic() {
+    //
+    return this.active && (
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.DIVINITY_TALENT.id} />}
+        value={`${((this.owner.selectedCombatant.getBuffUptime(SPELLS.DIVINITY_BUFF.id)/this.owner.fightDuration)*100).toFixed(1)} %`}
+        label={(
+          <dfn data-tip={`The effective healing contributed by Divinity was ${formatThousands(this.healing)} / ${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} % / ${formatNumber(this.healing / this.owner.fightDuration * 1000)} HPS.`}>
+            Divinity uptime
+          </dfn>
+        )}
+      />
+    )
+    //
+  }
+
+  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 }
 
 export default Divinity;

@@ -180,17 +180,7 @@ class CombatLogParser extends CoreCombatLogParser {
           </dfn>
         )}
       />,
-      this.modules.divinity.active && (
-        <StatisticBox
-          icon={<SpellIcon id={SPELLS.DIVINITY_TALENT.id} />}
-          value={`${((this.selectedCombatant.getBuffUptime(SPELLS.DIVINITY_BUFF.id)/this.fightDuration)*100).toFixed(1)} %`}
-          label={(
-            <dfn data-tip={`The effective healing contributed by Divinity was ${formatThousands(this.modules.divinity.healing)} / ${formatPercentage(this.getPercentageOfTotalHealingDone(this.modules.divinity.healing))} % / ${formatNumber(this.modules.divinity.healing / fightDuration * 1000)} HPS.`}>
-              Divinity uptime
-            </dfn>
-          )}
-        />
-      ),
+      
       this.modules.enduringRenewal.active && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.ENDURING_RENEWAL_TALENT.id} />}
