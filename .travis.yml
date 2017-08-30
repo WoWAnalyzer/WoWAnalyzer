@@ -16,7 +16,7 @@ script:
   - npm run build
 after_success:
   - if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
-      cd server && npm install --production && cd ..;
+      cd server && npm install && cd ..;
       export REPO=martijnhols/wowanalyzer;
       export BRANCH=$(
         if [ "$TRAVIS_BRANCH" == "master" ]; then
