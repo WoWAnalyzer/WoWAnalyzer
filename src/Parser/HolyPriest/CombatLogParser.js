@@ -124,11 +124,6 @@ class CombatLogParser extends CoreCombatLogParser {
     const lotPercHPS = formatPercentage(this.getPercentageOfTotalHealingDone(lotTotal));
     const lotHPS = formatNumber(lotTotal / this.fightDuration * 1000);
 
-    // Enduring Renewal vars
-    const erPercHPS = formatPercentage(this.getPercentageOfTotalHealingDone(this.modules.enduringRenewal.healing));
-    const erHPS = formatNumber(this.modules.enduringRenewal.healing / this.fightDuration * 1000);
-    const erGainPerRefresh = Math.round(this.modules.enduringRenewal.secsGained / this.modules.enduringRenewal.refreshedRenews * 100) / 100;
-
     if (deadTimePercentage > 0.05) {
       results.addIssue({
         issue: `Your dead GCD time can be improved. Try to Always Be Casting (ABC); when there's nothing to heal try to contribute some damage (${Math.round(deadTimePercentage * 100)}% dead GCD time).`,
@@ -180,24 +175,6 @@ class CombatLogParser extends CoreCombatLogParser {
           </dfn>
         )}
       />,
-      
-      this.modules.enduringRenewal.active && (
-        <StatisticBox
-          icon={<SpellIcon id={SPELLS.ENDURING_RENEWAL_TALENT.id} />}
-          value={`${erHPS} HPS`}
-          label={(
-            <dfn data-tip={`
-              Healing done on targets as a result of Enduring Renewal's refresh.
-              This did ${formatNumber(this.modules.enduringRenewal.healing)} healing and was ${erPercHPS}% of your total healing.
-              <br/><br/>
-              You refreshed renews ${this.modules.enduringRenewal.refreshedRenews} times for a total of ${formatNumber(this.modules.enduringRenewal.secsGained)} additional seconds of Renew.
-              (+${erGainPerRefresh}s per refresh on average).
-            `}>
-              Enduring Renewal
-            </dfn>
-          )}
-        />
-      ),
       this.modules.lightOfTuure.active && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.LIGHT_OF_TUURE_TRAIT.id} />}
