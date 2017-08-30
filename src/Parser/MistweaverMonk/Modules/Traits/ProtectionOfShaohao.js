@@ -41,7 +41,7 @@ class ProtectionOfShaohao extends Module {
       <div className="flex">
         <div className="flex-main">
           <SpellLink id={SPELLS.PROTECTION_OF_SHAOHAO.id}>
-            <SpellIcon id={SPELLS.PROTECTION_OF_SHAOHAO.id} noLink /> Protection Of Shaohao
+            <SpellIcon id={SPELLS.PROTECTION_OF_SHAOHAO.id} noLink /> Protection of Shaohao
           </SpellLink>
         </div>
         <div className="flex-sub text-right">
