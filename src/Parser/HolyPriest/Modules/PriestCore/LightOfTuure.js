@@ -1,5 +1,9 @@
-import SPELLS from 'common/SPELLS';
+import React from 'react';
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import SpellIcon from 'common/SpellIcon';
+import { formatPercentage, formatNumber } from 'common/format';
 
+import SPELLS from 'common/SPELLS';
 import Module from 'Parser/Core/Module';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
@@ -44,6 +48,30 @@ class LightOfTuure extends Module {
       this.buffHealing += calculateEffectiveHealing(event, this.lotModifier);
     }
   }
+
+  statistic() {
+    const lotSpellHealing = formatNumber(this.spellHealing);
+    const lotBuffHealing = formatNumber(this.buffHealing);
+    const lotTotal = this.spellHealing + this.buffHealing;
+    const lotPercHPS = formatPercentage(this.owner.getPercentageOfTotalHealingDone(lotTotal));
+    const lotHPS = formatNumber(lotTotal / this.owner.fightDuration * 1000);
+
+    //
+    return this.active && (
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.LIGHT_OF_TUURE_TRAIT.id} />}
+        value={`${formatNumber(lotTotal)}`}
+        label={(
+          <dfn data-tip={`The benefit from both Light of T'uure casts and additional casts on targets with the buff. ${lotSpellHealing} from the spell itself and ${lotBuffHealing} from the buff it provides. This was ${lotPercHPS}% / ${lotHPS} of your total healing.`}>
+            Light of Tuure
+          </dfn>
+        )}
+      />
+    );
+    //
+  }
+
+  statisticOrder = STATISTIC_ORDER.TRAITS(1);
 }
 
 
