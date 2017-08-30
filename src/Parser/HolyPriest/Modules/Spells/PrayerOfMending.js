@@ -1,5 +1,9 @@
-import SPELLS from 'common/SPELLS';
+import React from 'react';
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import SpellIcon from 'common/SpellIcon';
+import { formatPercentage, formatNumber } from 'common/format';
 
+import SPELLS from 'common/SPELLS';
 import Module from 'Parser/Core/Module';
 
 class PrayerOfMending extends Module {
@@ -39,6 +43,25 @@ class PrayerOfMending extends Module {
     }
   }
 
+  statistic() {
+    const sypTrait = this.owner.selectedCombatant.traitsBySpellId[SPELLS.SAY_YOUR_PRAYERS_TRAIT.id];
+    const percPomIncFromSYP = ((1 + (sypTrait * SPELLS.SAY_YOUR_PRAYERS_TRAIT.coeff)) / (1 - (sypTrait * SPELLS.SAY_YOUR_PRAYERS_TRAIT.coeff))) - 1;
+    const sypValue = this.healing * percPomIncFromSYP / (1 + percPomIncFromSYP);
+    const sypHPS = sypValue / this.owner.fightDuration * 1000;
+    const sypPercHPSOverall = formatPercentage(sypValue / this.owner.totalHealing);
+    const sypPercHPSPoM = formatPercentage(sypValue / this.healing);
+
+    return (
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.PRAYER_OF_MENDING_CAST.id} />}
+        value={`${formatNumber(sypHPS)} HPS`}
+        label="Say Your Prayers"
+        tooltip={`Approximation of Say Your Prayers' value by viewing average stacks per PoM cast (does not include Benediction renews). This is ${sypPercHPSOverall}% of your healing and ≈${sypPercHPSPoM}% of your Prayer of Mending healing.`}
+      />
+    );
+  }
+
+  statisticOrder = STATISTIC_ORDER.TRAITS();
 }
 
 export default PrayerOfMending;

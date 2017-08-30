@@ -111,14 +111,6 @@ class CombatLogParser extends CoreCombatLogParser {
     const rtfPercOH = formatPercentage(this.modules.renewTheFaith.overhealing / (this.modules.renewTheFaith.healing + this.modules.renewTheFaith.overhealing));
     const rtfRelPercHPS = formatPercentage(this.modules.renewTheFaith.healing / this.modules.divineHymn.healing);
 
-    // Say Your Prayers trait data calculations / vars
-    const sypTrait = this.selectedCombatant.traitsBySpellId[SPELLS.SAY_YOUR_PRAYERS_TRAIT.id];
-    const percPomIncFromSYP = ((1 + (sypTrait * SPELLS.SAY_YOUR_PRAYERS_TRAIT.coeff)) / (1 - (sypTrait * SPELLS.SAY_YOUR_PRAYERS_TRAIT.coeff))) - 1;
-    const sypValue = this.modules.prayerOfMending.healing * percPomIncFromSYP / (1 + percPomIncFromSYP);
-    const sypHPS = sypValue / this.fightDuration * 1000;
-    const sypPercHPSOverall = formatPercentage(this.getPercentageOfTotalHealingDone(sypValue));
-    const sypPercHPSPoM = formatPercentage(sypValue / this.modules.prayerOfMending.healing);
-
     // Missed Hymn ticks calculations
     const missedHymnTicks = (getAbility(SPELLS.DIVINE_HYMN_CAST.id).casts * 5) - this.modules.divineHymn.ticks;
 
@@ -141,10 +133,6 @@ class CombatLogParser extends CoreCombatLogParser {
     const erPercHPS = formatPercentage(this.getPercentageOfTotalHealingDone(this.modules.enduringRenewal.healing));
     const erHPS = formatNumber(this.modules.enduringRenewal.healing / this.fightDuration * 1000);
     const erGainPerRefresh = Math.round(this.modules.enduringRenewal.secsGained / this.modules.enduringRenewal.refreshedRenews * 100) / 100;
-
-    // Sanctify efficiency vars
-    const sancAvgHits = this.modules.sanctify.hits / this.modules.sanctify.casts;
-    const sancMissedHits = (this.modules.sanctify.casts * 6) - this.modules.sanctify.hits;
 
     if (deadTimePercentage > 0.05) {
       results.addIssue({
@@ -173,14 +161,6 @@ class CombatLogParser extends CoreCombatLogParser {
       });
     }
 
-    if (sancAvgHits < 5.75) {
-      results.addIssue({
-        issue: <span>Your <SpellLink id={SPELLS.HOLY_WORD_SANCTIFY.id} /> effectively hit an average of {sancAvgHits.toFixed(2)} players. Try to position your Sanctify casts better to make sure you hit players who need the healing.</span>,
-        icon: 'spell_holy_divineprovidence',
-        importance: getIssueImportance(sancAvgHits, 5.5, 4.25),
-      });
-    }
-
     results.statistics = [
       <StatisticBox
         icon={(
@@ -202,24 +182,6 @@ class CombatLogParser extends CoreCombatLogParser {
         label={(
           <dfn data-tip="Dead GCD time is available casting time not used. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), etc.">
             Dead GCD time
-          </dfn>
-        )}
-      />,
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.PRAYER_OF_MENDING_CAST.id} />}
-        value={`${formatNumber(sypHPS)} HPS`}
-        label={(
-          <dfn data-tip={`Approximation of Say Your Prayers' value by viewing average stacks per PoM cast (does not include Benediction renews). This is ${sypPercHPSOverall}% of your healing and ≈${sypPercHPSPoM}% of your Prayer of Mending healing.`}>
-            Say Your Prayers
-          </dfn>
-        )}
-      />,
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.HOLY_WORD_SANCTIFY.id} />}
-        value={`${sancAvgHits.toFixed(2)}`}
-        label={(
-          <dfn data-tip={`A measure of how many targets were effectively healed by your Holy Word: Sanctify. Over 80% overhealing on a hit is considered a "miss". You missed ${sancMissedHits} of ${this.modules.sanctify.casts * 6} potential hits.`}>
-            Average hits
           </dfn>
         )}
       />,
