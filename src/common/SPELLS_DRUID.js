@@ -461,4 +461,82 @@ export default {
     name: 'Oakheart\'s Puny Quods',
     icon: 'spell_druid_bearhug',
   },
+  EARTHWARDEN_BUFF: {
+    id: 203975,
+    name: 'Earthwarden',
+    icon: 'spell_shaman_blessingofeternals',
+  },
+  FURY_OF_NATURE_HEAL: {
+    id: 248522,
+    name: 'Fury of Nature',
+    icon: 'ability_creature_cursed_04',
+  },
+  //Moonkin
+  STARSURGE_MOONKIN: {
+    id: 78674,
+    name: 'Starsurge',
+    icon: 'spell_arcane_arcane03',
+  },
+  LUNAR_STRIKE: {
+    id: 194153,
+    name: 'Lunar Strike',
+    icon: 'spell_arcane_starfire',
+  },
+  SOLAR_WRATH_MOONKIN: {
+    id: 190984,
+    name: 'Solar Wrath',
+    icon: 'spell_nature_wrathv2',
+  },
+  SUNFIRE: {
+    id: 164815,
+    name: 'Sunfire',
+    icon: 'ability_mage_firestarter',
+  },
+  SUNFIRE_CAST: {
+    id: 93402,
+    name: 'Sunfire',
+    icon: 'ability_mage_firestarter',
+  },
+  //MOONFIRE = MOONFIRE_BEAR
+  //MOONFIRE_CAST = MOONFIRE
+  STARFALL: {
+    id: 191037,
+    name: 'Starfall',
+    icon: 'ability_druid_starfall',
+  },
+  STARFALL_CAST: {
+    id: 191034,
+    name: 'Starfall',
+    icon: 'ability_druid_starfall',
+  },
+  FULL_MOON: {
+    id: 202771,
+    name: 'Full Moon',
+    icon: 'artifactability_balancedruid_fullmoon',
+  },
+  HALF_MOON: {
+    id: 202768,
+    name: 'Half Moon',
+    icon: 'artifactability_balancedruid_halfmoon',
+  },
+  NEW_MOON: {
+    id: 202767,
+    name: 'New Moon',
+    icon: 'artifactability_balancedruid_newmoon',
+  },
+  CELESTIAL_ALIGNMENT: {
+    id: 194223,
+    name: 'Celestial Alignment',
+    icon: 'artifactability_balancedruid_newmoon',
+  },
+  LUNAR_EMP_BUFF: {
+    id: 164547,
+    name: 'Lunar Empowement',
+    icon: 'artifactability_balancedruid_newmoon',
+  },
+  SOLAR_EMP_BUFF: {
+    id: 164545,
+    name: 'Celestial Alignment',
+    icon: 'artifactability_balancedruid_newmoon',
+  },
 };

@@ -304,6 +304,37 @@ const ITEMS = {
     name: 'Soul of the Archdruid',
     icon: 'inv_70_raid_ring6a',
     quality: ITEM_QUALITIES.LEGENDARY,
+  }, 
+  //Balance Druid Legendaries
+  IMPECCABLE_FEL_ESSENCE: {
+    id: 137039,
+    name: 'Impeccable Fel Essence',
+    icon: 'inv_misc_ring_mop13',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  ONETH_INTUITION: {
+    id: 137092,
+    name: 'Oneth\'s Intuition',
+    icon: 'inv_bracer_40',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  LADY_AND_THE_CHILD: {
+    id: 144295,
+    name: 'Lady and the Child',
+    icon: 'inv_shoulder_leather_draenorcrafted_d_01_alliance',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  EMERALD_DREAMCATCHER: {
+    id: 137062,
+    name: 'The Emerald Dreamcatcher',
+    icon: 'inv_helmet_81',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  RADIANT_MOONLIGHT: {
+    id: 151800,
+    name: 'Radiant Moonlight',
+    icon: 'inv_cape_felfire_raid_d_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
   },
   // Monk Legendaries
   EITHAS_LUNAR_GLIDES: {
