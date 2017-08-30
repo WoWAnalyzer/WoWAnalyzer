@@ -1,6 +1,10 @@
+import React from 'react';
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import SpellIcon from 'common/SpellIcon';
+import { formatPercentage, formatNumber } from 'common/format';
+
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-
 import Module from 'Parser/Core/Module';
 import { ABILITIES_THAT_TRIGGER_ENDURING_RENEWAL } from '../../Constants';
 
@@ -72,6 +76,34 @@ class EnduringRenewal extends Module {
     }
   }
 
+
+  statistic() {
+    const erPercHPS = formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing));
+    const erHPS = formatNumber(this.healing / this.owner.fightDuration * 1000);
+    const erGainPerRefresh = Math.round(this.secsGained / this.refreshedRenews * 100) / 100;
+
+    //
+    return this.active && (
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.ENDURING_RENEWAL_TALENT.id} />}
+        value={`${erHPS} HPS`}
+        label={(
+          <dfn data-tip={`
+            Healing done on targets as a result of Enduring Renewal's refresh.
+            This did ${formatNumber(this.healing)} healing and was ${erPercHPS}% of your total healing.
+            <br/><br/>
+            You refreshed renews ${this.refreshedRenews} times for a total of ${formatNumber(this.secsGained)} additional seconds of Renew.
+            (+${erGainPerRefresh}s per refresh on average).
+          `}>
+            Enduring Renewal
+          </dfn>
+        )}
+      />
+    )
+    //
+  }
+
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(1);
 }
 
 
