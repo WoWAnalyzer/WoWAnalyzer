@@ -29,7 +29,7 @@ class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // ShamanCore
     damageDone: DamageDone,
-    shamanStats: ShamanStats,
+    //shamanStats: ShamanStats,
     flametongue: Flametongue,
     landslide: Landslide,
     frostbrand: Frostbrand,

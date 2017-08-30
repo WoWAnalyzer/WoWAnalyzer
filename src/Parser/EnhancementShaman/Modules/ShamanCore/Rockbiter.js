@@ -23,13 +23,13 @@ class Rockbiter extends Module {
   }
 
   suggestions(when) {
-    when(this.rockbiterOveruse.length).isGreaterThan(10)
+    when(this.maelstromWasted).isGreaterThan(100)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(`Using Rockbiter when Maelstrom is at 120+ is wasted Maelstrom. You wasted ${this.maelstromWasted} Maelstrom`)
+        return suggest(`Try to minimize Maelstrom wastage as much as possible. Some of wasted MS is unavoidable due to maintaining Landslide buff `)
           .icon(SPELLS.ROCKBITER.icon)
-          .actual(`${this.rockbiterOveruse.length} uses at 120 or more Maelstrom`)
+          .actual(`${actual} wasted Maelstrom in ${this.rockbiterOveruse.length} RB uses`)
           .recommended(`No more than ${recommended} is recommended`)
-          .regular(recommended+10).major(recommended+15);
+          .regular(recommended+50).major(recommended+100);
       });
   }
 }
