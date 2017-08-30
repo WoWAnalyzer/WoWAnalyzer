@@ -18,6 +18,9 @@ import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
 
 import SpellManaCost from './Modules/Core/SpellManaCost';
 
+// General Core
+import HealingDone from './Modules/Core/HealingDone';
+
 // Spell data
 import PrayerOfMending from './Modules/Spells/PrayerOfMending';
 import DivineHymn from './Modules/Spells/DivineHymn';
@@ -27,10 +30,12 @@ import Sanctify from './Modules/Spells/Sanctify';
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownTracker from './Modules/Features/CooldownTracker';
-import RenewTheFaith from './Modules/Features/RenewTheFaith';
-import Divinity from './Modules/Features/Divinity';
-import LightOfTuure from './Modules/Features/LightOfTuure';
-import EnduringRenewal from './Modules/Features/EnduringRenewal';
+
+// Priest Core
+import RenewTheFaith from './Modules/PriestCore/RenewTheFaith';
+import Divinity from './Modules/PriestCore/Divinity';
+import LightOfTuure from './Modules/PriestCore/LightOfTuure';
+import EnduringRenewal from './Modules/PriestCore/EnduringRenewal';
 
 // Items
 import TrousersOfAnjuna from './Modules/Items/TrousersOfAnjuna';
@@ -75,6 +80,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
   static specModules = {
     spellManaCost: SpellManaCost,
+    healingDone: HealingDone,
     castEfficiency: CastEfficiency,
     lowHealthHealing: LowHealthHealing,
 
@@ -100,7 +106,6 @@ class CombatLogParser extends CoreCombatLogParser {
     const results = super.generateResults();
 
     const fightDuration = this.fightDuration;
-    const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
     const nonHealingTimePercentage = this.modules.alwaysBeCasting.totalHealingTimeWasted / fightDuration;
 
     const abilityTracker = this.modules.abilityTracker;
@@ -114,41 +119,7 @@ class CombatLogParser extends CoreCombatLogParser {
     const cloakPercHPS = formatPercentage(this.getPercentageOfTotalHealingDone(this.modules.xanshiCloak.healing));
     const cloakHPS = formatNumber(this.modules.xanshiCloak.healing / this.fightDuration * 1000);
 
-
-
-    if (deadTimePercentage > 0.05) {
-      results.addIssue({
-        issue: `Your dead GCD time can be improved. Try to Always Be Casting (ABC); when there's nothing to heal try to contribute some damage (${Math.round(deadTimePercentage * 100)}% dead GCD time).`,
-        icon: 'spell_mage_altertime',
-        importance: getIssueImportance(deadTimePercentage, 0.20, 1, true),
-      });
-    }
-
     results.statistics = [
-      <StatisticBox
-        icon={(
-          <img
-            src="/img/healing.png"
-            style={{ border: 0 }}
-            alt="Healing"
-          />)}
-        value={`${formatNumber(this.modules.healingDone.total.effective / fightDuration * 1000)} HPS`}
-        label={(
-          <dfn data-tip={`The total healing done recorded was ${formatThousands(this.modules.healingDone.total.effective)}.`}>
-            Healing done
-          </dfn>
-        )}
-      />,
-      <StatisticBox
-        icon={<Icon icon="petbattle_health-down" alt="Non healing time" />}
-        value={`${formatPercentage(deadTimePercentage)} %`}
-        label={(
-          <dfn data-tip="Dead GCD time is available casting time not used. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), etc.">
-            Dead GCD time
-          </dfn>
-        )}
-      />,
-  
       ...results.statistics,
     ];
 
