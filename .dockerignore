@@ -1,3 +1,7 @@
-*
-!build/*
-!server/*
+.git
+.gitignore
+.gitattributes
+.editorconfig
+browser-extensions
+node_modules
+server/node_modules

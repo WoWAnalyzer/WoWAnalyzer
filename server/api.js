@@ -24,7 +24,7 @@ module.exports = function (req, res) {
     delete req.query._;
   }
   // Allow users to provide their own API key. This is required during development so that other developers don't lock out the production in case they mess something up.
-  const api_key = req.query.api_key || '97c84db1a100b32a6d5abb763711244e';
+  const api_key = req.query.api_key || process.env.WCL_API_KEY;
   delete req.query.api_key; // don't use a separate cache for different API keys
 
   // Set header already so that all request, good or bad, have it
