@@ -6,6 +6,8 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
 import Module from 'Parser/Core/Module';
+import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
+import ManaValues from 'Parser/Core/Modules/ManaValues';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
@@ -14,6 +16,7 @@ import PaladinAbilityTracker from './PaladinAbilityTracker';
 class InfusionOfLightCastRatio extends Module {
   static dependencies = {
     abilityTracker: PaladinAbilityTracker,
+    manaValues: ManaValues,
   };
 
   suggestions(when) {
@@ -31,7 +34,14 @@ class InfusionOfLightCastRatio extends Module {
 
     when(iolFoLToHLCastRatio).isLessThan(0.7)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your <i>IoL FoL to HL cast ratio</i> can likely be improved. When you get an <SpellLink id={SPELLS.INFUSION_OF_LIGHT.id} /> proc try to cast <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} /> as much as possible, it is a considerably stronger heal.</span>)
+        const isLowMana = this.manaValues.lowestMana < (SPELLS.FLASH_OF_LIGHT.manaCost * 2);
+
+        let extraSuggestion = null;
+        if (isLowMana) {
+          extraSuggestion = 'During this fight your mana got very low which makes being mana efficient even more important. With Infusion of Light your Flash of Light does more Healing Per Mana than Holy Light, so especially when you\'re short on mana you should focus on casting FoL instead of HL when it wouldn\'t overheal.';
+        }
+
+        return suggest(<span>Your <i>IoL FoL to HL cast ratio</i> can likely be improved. When you get an <SpellLink id={SPELLS.INFUSION_OF_LIGHT.id} /> proc try to cast <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} /> when it wouldn't overheal as it is more efficient. {extraSuggestion}</span>)
           .icon(SPELLS.INFUSION_OF_LIGHT.icon)
           .actual(`${iolFlashOfLights} Flash of Lights (${formatPercentage(iolFoLToHLCastRatio)}%) to ${iolHolyLights} Holy Lights (${formatPercentage(1 - iolFoLToHLCastRatio)}%) cast with Infusion of Light`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`)
