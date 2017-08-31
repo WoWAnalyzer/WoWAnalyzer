@@ -18,6 +18,7 @@ RUN npm run build
 # Server
 WORKDIR ./server/
 RUN npm install
+EXPOSE 3000
 USER node
 
 CMD ["npm", "start"]
