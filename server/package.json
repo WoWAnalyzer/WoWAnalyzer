@@ -13,6 +13,8 @@
     "agentkeepalive": "^3.3.0",
     "compression": "^1.7.0",
     "express": "^4.15.3",
-    "node-cache": "^4.1.1"
+    "mysql2": "^1.4.2",
+    "node-cache": "^4.1.1",
+    "sequelize": "^4.8.0"
   }
 }

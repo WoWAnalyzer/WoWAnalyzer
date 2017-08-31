@@ -2,13 +2,31 @@ const compression = require('compression');
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
+const Sequelize = require('sequelize');
 
 const api = require('./api');
 
+const sequelize = new Sequelize('wowanalyzer', 'root', 'my-secret-pw', {
+  host: 'database',
+  dialect: 'mysql',
+
+  pool: {
+    max: 5,
+    min: 0,
+    idle: 10000,
+  },
+});
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });
+
 const app = express();
-
 app.use(compression());
-
 // Any files that exist can be accessed directly
 const buildFolder = path.join(__dirname, '..', 'build');
 app.use(express.static(buildFolder));
