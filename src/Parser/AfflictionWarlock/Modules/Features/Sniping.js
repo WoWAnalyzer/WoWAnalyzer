@@ -72,7 +72,7 @@ class Sniping extends Module {
     const mobsSnipedPercentage = mobsSniped / this.totalNumOfAdds;
     when(mobsSnipedPercentage).isLessThan(0.9)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You sniped {formatPercentage(mobsSnipedPercentage)} % of mobs in this fight ({mobsSniped} / {this.totalNumOfAdds}) for total of {shardsGained} Soul Shards. You could get up to {this.totalNumOfAdds * 2} Shards from them. You should try to get at least one shard per add (cast Drain Soul on them before they die) as it is a great source of extra Soul Shards.<br /><br /><small>Note that the number of adds <em>might be a bit higher than usual</em>, as there sometimes are adds that aren't meant to be killed or are not killed in the fight (such as Tormented Soul at the Demonic Inquisition fight).</small></span>)
+        return suggest(<span>You sniped {formatPercentage(mobsSnipedPercentage)} % of mobs in this fight ({mobsSniped} / {this.totalNumOfAdds}) for total of {shardsGained} Soul Shards. You could get up to {this.totalNumOfAdds * 2} Shards from them. Try to get at least one shard per add (cast Drain Soul on them before they die) as it is a great source of extra Soul Shards.<br /><br /><small>Note that the number of adds <em>might be a bit higher than usual</em>, as there sometimes are adds that aren't meant to be killed or are not killed in the fight (such as Tormented Soul at the Demonic Inquisition fight).</small></span>)
           .icon('ability_hunter_snipershot')
           .actual(`${formatPercentage(actual)} % of mobs sniped.`)
           .recommended(`>= ${formatPercentage(recommended)} % is recommended`)
