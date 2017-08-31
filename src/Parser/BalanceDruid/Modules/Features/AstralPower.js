@@ -42,11 +42,11 @@ class AstralPower extends Module {
   suggestions(when) {
       when(this.aspWasted).isGreaterThan(0)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<span>You wasted {this.aspWasted} Astral Power.</span>)
-            .icon(SPELLS.SOLAR_WRATH_MOONKIN.icon)
-            .actual(`${this.aspWasted} wasted Astral Power`)
-            .recommended(`You shouldn't waste any Astral Power, always prioritize spending it over avoiding the overcap or any other ability.`)
-            .regular(recommended).major(recommended + 15);
+          return suggest(<span>You overcapped {this.aspWasted} Astral Power.</span>)
+            .icon('ability_druid_cresentburn')
+            .actual(`${this.aspWasted} overcapped Astral Power`)
+            .recommended(`You shouldn't overcap any, always prioritize spending it over avoiding the overcap or any other ability.`)
+            .regular(recommended + 30).major(recommended + 30);
         });
     }
   
@@ -56,8 +56,8 @@ class AstralPower extends Module {
           <StatisticBox
               icon={<Icon icon='ability_druid_cresentburn' />}
               value={`${this.aspWasted}`}
-              label='Wasted AsP'
-              tooltip={`You wasted a total of <b>${this.aspWasted}</b> Astral Power`}
+              label='Overcapped AsP'
+              tooltip={`You overcapped a total of <b>${this.aspWasted}</b> Astral Power`}
           />
           );
       }
