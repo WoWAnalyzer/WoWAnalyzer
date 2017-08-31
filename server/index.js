@@ -6,7 +6,7 @@ const Sequelize = require('sequelize');
 
 const api = require('./api');
 
-const sequelize = new Sequelize('wowanalyzer', 'root', 'my-secret-pw', {
+const sequelize = new Sequelize('wowanalyzer', 'root', process.env.MYSQL_ROOT_PASSWORD, {
   host: 'database',
   dialect: 'mysql',
 
