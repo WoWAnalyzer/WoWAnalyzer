@@ -61,8 +61,21 @@ See [CONTRIBUTING.md](CONTRIBUTING.md#sharing-your-changes).
 
 Suggestions are one of the most important parts of a spec analysis. This is what will help most players improve their play and getting it right will allow your spec analysis to replace manual log analysis, which is the primary goal of the tool. It's hard getting the suggestions perfect right away, but that's ok. Expect to fiddle with thresholds and suggestion texts a lot.
 
-Suggestion texts can have 3 parts, but often only have the first two:
+## Suggestion texts
+Suggestion texts can consist of the following parts, but usually they only have the first two parts:
 
-1. Explain what was found. e.g. `Your Mastery Effectiveness can be improved.` or `You are wasting Soul Shards.` This should be a concise summary as it's usually further explained in the suggestion. This can be omitted when it's obvious enough from the suggestion (e.g. there's no point stating `Your Judgment cast efficiency can be improved.` when the suggestions reveals this well enough; `Try to cast Judgment more often.`).
-2. Make a suggestion, usually starting with `Try to...`. This should assume the player doesn't know what to do, so suggest an approach. For example `Try keeping at least 1 charge on cooldown; you should (almost) never be at max charges.` would be better than `Try to improve your uptime.`.
-3. Explain why doing something is important. While the tool doesn't aim to be a class guide we do want to help people improve their play. Understanding *why* they should do something makes it a lot easier to do it. Sometimes a certain item, talent or something else is much harder to use than an alternative, so suggestion to switch to the easier solution might be appropriate.
+1. **Explain what was found.** e.g. `Your Mastery Effectiveness can be improved.` or `You are wasting Soul Shards.` This should be a concise summary as it's usually further explained in the suggestion. This can be omitted when it's obvious enough from the suggestion (e.g. there's no point stating `Your Judgment cast efficiency can be improved.` when the suggestions reveals this well enough; `Try to cast Judgment more often.`).
+2. **Make a suggestion**, usually starting with `Try to...`. This should assume the player doesn't know what to do, so suggest an approach. For example `Try keeping at least 1 charge on cooldown; you should (almost) never be at max charges.` would be better than `Try to improve your uptime.`.
+3. **Explain why** doing something is important. While the tool doesn't aim to be a class guide we do want to help people improve their play. Understanding *why* they should do something makes it a lot easier to do it. For example `Light of the Martyr is an inefficient spell to cast` (you can go into more detail).
+4. **Suggest an alternative.** Sometimes a certain item, talent or something else is much harder to use than an alternative, so suggesting to switch to the easier solution might be appropriate (e.g. `Try to line up Light of Dawn and Holy Shock with the buff or consider using an easier legendary.`)
+
+## Suggestion thresholds
+
+It's important to properly tune the threshold for showing a suggestion and the thresholds for upgrading it to regular or major importance. **Make sure gameplay issues with a major impact get shown before and with higher importance than minor things.** This is very important. Don't nag at players for things they either can't improve or that's not important enough. If they're unimportant, mark them as minor importance and they'll be hidden behind the toggle. Only if an issue has a significant impact on someone's performance it should be of average importance, and only after really becoming serious it should be marked *major*.
+
+Suggestions thresholds should be consistent regardless of fight length. Wasting 100 Rage in a 3 minute fight is a much bigger issue than wasting 100 Rage in a 15 minute fight. The best suggestion triggers are either per minute amounts (e.g. *rage wasted per minute*) or percentages (e.g. *80% uptime* or *5% rage wasted*). You can't really blame a player for making a minor mistake a few times in a 15 minute fight, and while you can point it out, it shouldn't be bumped up to a major issue just because the fight lasted longer and therefore it happened several times.
+
+There are several properties in the cast efficiency configuration to change the threshold, or disable or limit the importance of suggestions. Use them. There's also the option to add a custom suggestion text.
+Some suggestions are never important enough to be marked average or major importance, you should limit these to minor.
+
+Please don't hesitate to ask for someone to review your suggestions thresholds outside a PR. We believe getting them right is important but also hard, having a second set of eyes look at them might help get them right.
