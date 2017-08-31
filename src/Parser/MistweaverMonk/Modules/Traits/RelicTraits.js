@@ -4,8 +4,8 @@ import StatisticsListBox, { STATISTIC_ORDER } from 'Main/StatisticsListBox';
 
 import Module from 'Parser/Core/Module';
 
-// TODO: Traits to add:
-//        Extended Healing - 1sec on Renewing Mist
+// TODO:
+// Improve Extended Healing Relic Module
 
 import CoalescingMists from './CoalescingMists';
 import SoothingRemedies from './SoothingRemedies';
@@ -13,6 +13,7 @@ import EssenceOfTheMist from './EssenceOfTheMist';
 import WayOfTheMistweaver from './WayOfTheMistweaver';
 import InfusionOfLife from './InfusionOfLife';
 import ProtectionOfShaohao from './ProtectionOfShaohao';
+import ExtendedHealing from './ExtendedHealing';
 
 class RelicTraits extends Module {
   static dependencies = {
@@ -22,6 +23,7 @@ class RelicTraits extends Module {
     wayOfTheMistweaver: WayOfTheMistweaver,
     infusionOfLife: InfusionOfLife,
     protectionOfShaohao: ProtectionOfShaohao,
+    extendedHealing: ExtendedHealing,
   };
 
   statistic() {
@@ -33,14 +35,15 @@ class RelicTraits extends Module {
       >
         {this.essenceOfTheMist.subStatistic()}
         {this.infusionOfLife.subStatistic()}
-        {this.coalescingMists.subStatistic()}
-        {this.soothingRemedies.subStatistic()}
+        {this.extendedHealing.subStatistic()}
         {this.wayOfTheMistweaver.subStatistic()}
+        {this.soothingRemedies.subStatistic()}
         {this.protectionOfShaohao.subStatistic()}
+        {this.coalescingMists.subStatistic()}
       </StatisticsListBox>
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(0);
+  statisticOrder = STATISTIC_ORDER.TRAITS();
 }
 
 export default RelicTraits;
