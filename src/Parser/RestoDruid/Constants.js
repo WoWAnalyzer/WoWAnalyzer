@@ -20,7 +20,7 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   // The following spells don't double dip in healing increases.
   SPELLS.LEECH.id,
   SPELLS.LIVING_SEED.id,
-  // TODO: add T21 when it goes live (if it matches PTR, will be spell id 253432)
+  SPELLS.DREAMER.id,
 ];
 
 export const HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR = [
@@ -32,7 +32,7 @@ export const HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR = [
   SPELLS.LIFEBLOOM_HOT_HEAL.id,
   // Make sure to check that event.tick is true, because regrowth uses the same id for the heal and the HoT part
   SPELLS.REGROWTH.id,
-  // TODO: add T21 when it goes live (if it matches PTR, will be spell id 253432)
+  SPELLS.DREAMER.id,
 ];
 
 export const HEALS_MASTERY_STACK = [
@@ -44,5 +44,5 @@ export const HEALS_MASTERY_STACK = [
   SPELLS.CENARION_WARD.id,
   SPELLS.LIFEBLOOM_HOT_HEAL.id,
   SPELLS.SPRING_BLOSSOMS.id,
-  // TODO: add T21 when it goes live (if it matches PTR, will be spell id 253432)
-]
+  SPELLS.DREAMER.id,
+];
