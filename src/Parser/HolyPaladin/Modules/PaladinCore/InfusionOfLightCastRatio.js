@@ -6,7 +6,6 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
 import Module from 'Parser/Core/Module';
-import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import ManaValues from 'Parser/Core/Modules/ManaValues';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
@@ -31,6 +30,8 @@ class InfusionOfLightCastRatio extends Module {
     const totalIols = iolFlashOfLights + iolHolyLights;
 
     const iolFoLToHLCastRatio = iolFlashOfLights / totalIols;
+
+    // TODO: Reduce trigger threshold if FoL IoL overhealing was high
 
     when(iolFoLToHLCastRatio).isLessThan(0.7)
       .addSuggestion((suggest, actual, recommended) => {
