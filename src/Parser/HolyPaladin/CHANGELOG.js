@@ -1,5 +1,6 @@
 export default `
-09-08-2017 - Fixed a bug where the direct beacon healing also included casts of abilities such as Blessing of Sacrifice and Deceiver's Grand Design. (by Zerotorescue)
+31-08-2017 - Added Justice through Sacrifice trait healing contribution display. (by Zerotorescue)
+29-08-2017 - Fixed a bug where the direct beacon healing also included casts of abilities such as Blessing of Sacrifice and Deceiver's Grand Design. (by Zerotorescue)
 28-08-2017 - Fixed a bug where beaconing yourself wasn't being detected properly. (by Zerotorescue)
 27-08-2017 - Added Tyr's Munificence trait healing contribution to complete the list. (by Zerotorescue)
 27-08-2017 - Combined relic traits into one box to clean up the layout. (by Zerotorescue)

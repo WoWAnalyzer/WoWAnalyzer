@@ -40,6 +40,7 @@ import SacredDawn from './Modules/Traits/SacredDawn';
 import SecondSunrise from './Modules/Traits/SecondSunrise';
 import ShockTreatment from './Modules/Traits/ShockTreatment';
 import TyrsMunificence from './Modules/Traits/TyrsMunificence';
+import JusticeThroughSacrifice from './Modules/Traits/JusticeThroughSacrifice';
 
 import DrapeOfShame from './Modules/Items/DrapeOfShame';
 import Ilterendi from './Modules/Items/Ilterendi';
@@ -90,13 +91,14 @@ class CombatLogParser extends CoreCombatLogParser {
     divinePurpose: DivinePurpose,
 
     // Traits
+    relicTraits: RelicTraits,
     deliverTheLight: DeliverTheLight,
     expelTheDarkness: ExpelTheDarkness,
     sacredDawn: SacredDawn,
     secondSunrise: SecondSunrise,
     shockTreatment: ShockTreatment,
     tyrsMunificence: TyrsMunificence,
-    relicTraits: RelicTraits,
+    justiceThroughSacrifice: JusticeThroughSacrifice,
 
     // Items:
     drapeOfShame: DrapeOfShame,
