@@ -17,7 +17,7 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 //import LunarUnemp from './Modules/Spells/Empowerments/LunarUnemp';
 //import LunarOvercap from './Modules/Spells/Empowerments/LunarOvercap';
 //import SolarOvercap from './Modules/Spells/Empowerments/SolarOvercap';
-//import AstralPower from './Modules/Features/AstralPower';
+import AstralPower from './Modules/Features/AstralPower';
 
 
 class CombatLogParser extends MainCombatLogParser {
@@ -35,7 +35,7 @@ class CombatLogParser extends MainCombatLogParser {
       //lunarumep: LunarUnemp,
       //lunarovercap: LunarOvercap,
       //solarovercap: SolarOvercap,
-      //astralpower: AstralPower,
+      astralpower: AstralPower,
     };
   
     generateResults() {
