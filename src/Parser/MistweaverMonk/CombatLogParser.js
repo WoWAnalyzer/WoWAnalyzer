@@ -29,6 +29,7 @@ import EssenceOfTheMist from './Modules/Traits/EssenceOfTheMist';
 import WayOfTheMistweaver from './Modules/Traits/WayOfTheMistweaver';
 import InfusionOfLife from './Modules/Traits/InfusionOfLife';
 import ProtectionOfShaohao from './Modules/Traits/ProtectionOfShaohao';
+import ExtendedHealing from './Modules/Traits/ExtendedHealing';
 import RelicTraits from './Modules/Traits/RelicTraits';
 
 // Spells
@@ -83,6 +84,7 @@ class CombatLogParser extends CoreCombatLogParser {
     wayOfTheMistweaver: WayOfTheMistweaver,
     infusionOfLife: InfusionOfLife,
     protectionOfShaohao: ProtectionOfShaohao,
+    extendedHealing: ExtendedHealing,
     relicTraits: RelicTraits,
 
     // Spells
