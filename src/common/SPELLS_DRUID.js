@@ -261,11 +261,6 @@ export default {
     name: 'Power of the Archdruid',
     icon: 'spell_druid_rampantgrowth',
   },
-  BLOSSOMING_EFFLORESCENCE: {
-    id: 242315,
-    name: 'Blossomming Efflorescence',
-    icon: 'inv_misc_herb_talandrasrose',
-  },
   DREAMWALKER: {
     id:189853,
     name:'Dreamwalker',
@@ -285,6 +280,29 @@ export default {
     id: 114108,
     name: 'Soul of the Forest',
     icon: 'ability_druid_manatree',
+  },
+
+  // Sets:
+  // Resto Druid:
+  ASTRAL_HARMONY: { // 2pc T19
+    id: 232378,
+    name: 'Astral Harmony',
+    icon: 'talentspec_druid_restoration',
+  },
+  BLOSSOMING_EFFLORESCENCE: { // 4pc T20
+    id: 242315,
+    name: 'Blossomming Efflorescence',
+    icon: 'inv_misc_herb_talandrasrose',
+  },
+  DREAMER: { // 2pc T21
+    id: 253432,
+    name: 'Dreamer',
+    icon: 'ability_druid_cower',
+  },
+  AWAKENED: { // 4pc T21
+    id: 253434,
+    name: 'Awakened',
+    icon: 'ability_druid_cower',
   },
 
   // Traits:
