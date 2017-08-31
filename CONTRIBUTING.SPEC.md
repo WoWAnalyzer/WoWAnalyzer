@@ -25,6 +25,8 @@ The next steps can be done in no particular order:
 * Add modules for relic trait performance (this may not be as useful for SimCraftable specs)
 * Configure the cooldown tracker
 
+The most useful things to do are to add information that isn't yet easily available and to fine-tune the suggestions so that they give the best possible recommendations to people.
+
 # Add an empty spec
 
 1. The easiest way to start is by copy pasting the HolyPaladin folder in `src/Parser`. Name it the full name of the spec you want to work on. I'll call your spec NewSpec from now on.
@@ -55,4 +57,12 @@ See Holy Paladin. (more docs coming)
 
 See [CONTRIBUTING.md](CONTRIBUTING.md#sharing-your-changes).
 
+# Suggestions
 
+Suggestions are one of the most important parts of a spec analysis. This is what will help most players improve their play and getting it right will allow your spec analysis to replace manual log analysis, which is the primary goal of the tool. It's hard getting the suggestions perfect right away, but that's ok. Expect to fiddle with thresholds and suggestion texts a lot.
+
+Suggestion texts can have 3 parts, but often only have the first two:
+
+1. Explain what was found. e.g. `Your Mastery Effectiveness can be improved.` or `You are wasting Soul Shards.` This should be a concise summary as it's usually further explained in the suggestion. This can be omitted when it's obvious enough from the suggestion (e.g. there's no point stating `Your Judgment cast efficiency can be improved.` when the suggestions reveals this well enough; `Try to cast Judgment more often.`).
+2. Make a suggestion, usually starting with `Try to...`. This should assume the player doesn't know what to do, so suggest an approach. For example `Try keeping at least 1 charge on cooldown; you should (almost) never be at max charges.` would be better than `Try to improve your uptime.`.
+3. Explain why doing something is important. While the tool doesn't aim to be a class guide we do want to help people improve their play. Understanding *why* they should do something makes it a lot easier to do it. Sometimes a certain item, talent or something else is much harder to use than an alternative, so suggestion to switch to the easier solution might be appropriate.
