@@ -3,6 +3,7 @@ import Icon from 'common/Icon';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Module from 'Parser/Core/Module';
 import SPELLS from 'common/SPELLS';
+import ResourceTypes from 'common/RESOURCE_TYPES';
 
 class AstralPower extends Module {
   
@@ -11,7 +12,7 @@ class AstralPower extends Module {
 
   on_toPlayer_energize(event) {
       for (let i = 0; i < event.classResources.length; i++) {
-          if (event.classResources[i].type === 8){
+          if (event.classResources[i].type === ResourceTypes.ASTRAL_POWER){
               const maxAsP = event.classResources[i].max / 10;
               const addedAsP = event.resourceChange;
 
@@ -31,7 +32,7 @@ class AstralPower extends Module {
       }
       
       for (let i = 0; i<event.classResources.length; i++) {
-          if (event.classResources[i].type === 8){
+          if (event.classResources[i].type === ResourceTypes.ASTRAL_POWER){
               if (event.classResources[i].cost) {
                   this.lastAstral = this.lastAstral - (event.classResources[i].cost / 10);
               }
