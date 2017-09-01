@@ -52,16 +52,14 @@ class AstralPower extends Module {
     }
   
     statistic() {
-        if (this.aspWasted > 0){
-          return (
-          <StatisticBox
-              icon={<Icon icon='ability_druid_cresentburn' />}
-              value={`${this.aspWasted / 10}`}
-              label='Overcapped AsP'
-              tooltip={`You overcapped a total of <b>${this.aspWasted / 10}</b> Astral Power`}
-          />
-          );
-      }
+        return (
+        <StatisticBox
+            icon={<Icon icon='ability_druid_cresentburn' />}
+            value={`${this.aspWasted / 10}`}
+            label='Overcapped AsP'
+            tooltip={`You overcapped a total of <b>${this.aspWasted / 10}</b> Astral Power`}
+        />
+        );
     }
     statisticOrder = STATISTIC_ORDER.CORE(7);
 }
