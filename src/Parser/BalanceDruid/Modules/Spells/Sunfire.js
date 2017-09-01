@@ -12,10 +12,10 @@ class Sunfire extends Module {
 
     when(sunfireUptimePercentage).isLessThan(0.98)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span> Your <SpellLink id={SPELLS.SUNFIRE.id} /> uptime was {formatPercentage(sunfireUptimePercentage)}%, unless you have extended periods of downtime it should be near 100%.</span>)
+        return suggest(<span> Your <SpellLink id={SPELLS.SUNFIRE.id} /> uptime was {formatPercentage(actual)}%, unless you have extended periods of downtime it should be near 100%.</span>)
           .icon(SPELLS.SUNFIRE.icon)
-          .actual(`${formatPercentage(sunfireUptimePercentage)}% uptime`)
-          .recommended(`${Math.round(formatPercentage(recommended))}% is recommended`)
+          .actual(`${formatPercentage(actual)}% uptime`)
+          .recommended(`${Math.round(formatPercentage(recommended))}% or more is recommended`)
           .regular(recommended - 0.03).major(recommended - 0.08);
       });
   }
