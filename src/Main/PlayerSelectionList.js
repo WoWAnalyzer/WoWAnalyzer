@@ -85,10 +85,6 @@ class PlayerSelectionList extends Component {
               }
             })
             .map(({ friendly, combatant }) => {
-              const isSupported = !!AVAILABLE_CONFIGS.find(config => config.spec.id === combatant.specID);
-              if (!isSupported && process.env.NODE_ENV !== 'development') {
-                return null;
-              }
               const spec = SPECS[combatant.specID];
 
               return (
