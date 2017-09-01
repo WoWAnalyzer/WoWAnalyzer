@@ -1,8 +1,8 @@
 export default {
-  TANK: 'TANK',
-  HEALER: 'HEALER',
+  TANK: 0,
+  HEALER: 1,
   DPS: {
-    MELEE: 'MELEE',
-    RANGED: 'RANGED',
+    MELEE: 2,
+    RANGED: 3,
   },
 };

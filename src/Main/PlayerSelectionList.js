@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import ReactTooltip from 'react-tooltip';
 
+import SPECS from 'common/SPECS';
+import ROLES from 'common/ROLES';
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
-import UnsupportedSpec from 'Parser/UnsupportedSpec/CONFIG';
 
 import makeAnalyzerUrl from './makeAnalyzerUrl';
 
@@ -29,6 +30,26 @@ class PlayerSelectionList extends Component {
     ReactTooltip.hide();
   }
 
+  renderRoleIcon(spec) {
+    let icon;
+    switch (spec.role) {
+      case ROLES.TANK: icon = 'tank'; break;
+      case ROLES.HEALER: icon = 'healer'; break;
+      case ROLES.DPS.MELEE: icon = 'dps'; break;
+      case ROLES.DPS.RANGED: icon = 'dps.ranged'; break;
+      default: break;
+    }
+
+    return (
+      <img src={`/roles/${icon}.jpg`} alt="Role icon" style={{ borderRadius: '50%', marginLeft: -5, marginRight: 10 }} />
+    );
+  }
+  renderSpecIcon(spec) {
+    return (
+      <img src={`/specs/${spec.className.replace(' ', '')}-${spec.specName.replace(' ', '')}.jpg`} alt="Spec logo" />
+    );
+  }
+
   render() {
     const { report, fightId, combatants } = this.props;
 
@@ -41,36 +62,41 @@ class PlayerSelectionList extends Component {
         )}
         {
           report.friendlies
+            .map(friendly => ({
+              friendly,
+              combatant: combatants.find(combatant => combatant.sourceID === friendly.id),
+            }))
+            .filter(player => !!player.combatant)
             .sort((a, b) => {
-              if (a.name > b.name) {
+              const aSpec = SPECS[a.combatant.specID];
+              const bSpec = SPECS[b.combatant.specID];
+              if (aSpec.role > bSpec.role) {
                 return 1;
-              } else if (a.name < b.name) {
+              } else if (aSpec.role < bSpec.role) {
                 return -1;
               } else {
-                return 0;
-              }
-            })
-            .map(friendly => {
-              const combatant = combatants.find(combatant => combatant.sourceID === friendly.id);
-              if (!combatant) {
-                return null;
-              }
-              let config = AVAILABLE_CONFIGS.find(config => config.spec.id === combatant.specID);
-              if (!config) {
-                if (process.env.NODE_ENV === 'development') {
-                  config = UnsupportedSpec;
+                if (a.friendly.name > b.friendly.name) {
+                  return 1;
+                } else if (a.friendly.name < b.friendly.name) {
+                  return -1;
                 } else {
-                  return null;
+                  return 0;
                 }
               }
-              const spec = config.spec;
-              const specClassName = spec.className.replace(' ', '');
+            })
+            .map(({ friendly, combatant }) => {
+              const isSupported = !!AVAILABLE_CONFIGS.find(config => config.spec.id === combatant.specID);
+              if (!isSupported && process.env.NODE_ENV !== 'development') {
+                return null;
+              }
+              const spec = SPECS[combatant.specID];
 
               return (
                 <li key={friendly.id} className="item selectable">
                   <Link to={makeAnalyzerUrl(report, fightId, friendly.name)}>
-                    <img src={`/specs/${specClassName}-${spec.specName.replace(' ', '')}.jpg`} alt="Spec logo" />{' '}
-                    {friendly.name} ({spec.specName} {spec.className === 'Unsupported' ? `${spec.className} - ${friendly.type}` : spec.className})
+                    {this.renderRoleIcon(spec)}{' '}
+                    {this.renderSpecIcon(spec)}{' '}
+                    {friendly.name} ({spec.specName} {spec.className})
                   </Link>
                 </li>
               );
