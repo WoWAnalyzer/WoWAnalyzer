@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
 import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
@@ -14,11 +15,12 @@ import PaladinAbilityTracker  from '../PaladinCore/PaladinAbilityTracker';
 
 class UnusedInfusionOfLights extends Module {
   static dependencies = {
+    combatants: Combatants,
     abilityTracker: PaladinAbilityTracker,
   };
 
   get iolProcsPerHolyShockCrit() {
-    return this.owner.selectedCombatant.hasBuff(SPELLS.HOLY_PALADIN_T19_4SET_BONUS_BUFF.id) ? 2 : 1;
+    return this.combatants.selected.hasBuff(SPELLS.HOLY_PALADIN_T19_4SET_BONUS_BUFF.id) ? 2 : 1;
   }
 
   suggestions(when) {
@@ -37,11 +39,11 @@ class UnusedInfusionOfLights extends Module {
     const iolProcsPerHolyShockCrit = this.iolProcsPerHolyShockCrit;
     const unusedIolRate = 1 - totalIols / (holyShockCrits * iolProcsPerHolyShockCrit);
 
-    const hasCrusadersMight = this.owner.selectedCombatant.hasTalent(SPELLS.CRUSADERS_MIGHT_TALENT.id);
-    const hasSoulOfTheHighlord = this.owner.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_HIGHLORD.id);
-    const hasDivinePurpose = hasSoulOfTheHighlord || this.owner.selectedCombatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id);
+    const hasCrusadersMight = this.combatants.selected.hasTalent(SPELLS.CRUSADERS_MIGHT_TALENT.id);
+    const hasSoulOfTheHighlord = this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_HIGHLORD.id);
+    const hasDivinePurpose = hasSoulOfTheHighlord || this.combatants.selected.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id);
 
-    const has4PT19 = this.owner.selectedCombatant.hasBuff(SPELLS.HOLY_PALADIN_T19_4SET_BONUS_BUFF.id);
+    const has4PT19 = this.combatants.selected.hasBuff(SPELLS.HOLY_PALADIN_T19_4SET_BONUS_BUFF.id);
 
     let recommendedUnusedIolRate = has4PT19 ? 0.2 : 0;
     if (hasCrusadersMight) {

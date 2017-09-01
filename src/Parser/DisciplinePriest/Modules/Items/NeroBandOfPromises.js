@@ -2,11 +2,17 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 
 import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
+
 import isAtonement from './../Core/isAtonement';
 
 const debug = true;
 
 class NeroBandOfPromises extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
   healing = 0;
 
   on_initialized() {
@@ -16,7 +22,7 @@ class NeroBandOfPromises extends Module {
   on_byPlayer_heal(event) {
     if (isAtonement(event)) {
       // N'ero appears in the log as regular Atonement healing
-      const combatant = this.owner.combatants.players[event.targetID];
+      const combatant = this.combatants.players[event.targetID];
       if (!combatant) {
         // If combatant doesn't exist it's probably a pet, this shouldn't be noteworthy.
         debug && console.log('Skipping Atonement heal event since combatant couldn\'t be found:', event);

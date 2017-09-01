@@ -5,7 +5,10 @@ import { SimpleFight } from './Fixtures/SimpleFight';
 describe('Brewmaster.T20_4pc', () => {
   let item;
   beforeEach(() => {
-    item = new T20_4pc();
+    item = new T20_4pc({
+      toPlayer: () => true,
+      byPlayer: () => true,
+    });
   });
   it('how many gift of the ox orbs were absorbed as a heal', () => {
     processEvents(SimpleFight, item);

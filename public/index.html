@@ -16,7 +16,6 @@
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <script src="https://ft-polyfill-service.herokuapp.com/v2/polyfill.js?features=es6"></script>
 <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css" />
-<script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
 
 <title>WoW Analyzer</title>
 </head>
@@ -25,7 +24,42 @@
 <noscript>
 	You need to enable JavaScript to run this app.
 </noscript>
-<div id="root"></div>
+<div id="root">
+	<div id="splash">
+		<div>
+			<h1>WoW Analyzer</h1>
+			<small>Loading...</small>
+		</div>
+	</div>
+</div>
+
+<style type="text/css">
+#splash {
+	background: #2e423f;
+	color: #fff;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	text-align: center;
+	display: flex;
+	align-items: center;
+	font-family: 'Century Gothic', 'Roboto', sans-serif;
+	box-shadow: 0 0 200px #172c34 inset;
+}
+#splash > div {
+	width: 100%;
+	text-transform: uppercase;
+}
+#splash h1 {
+	font-size: 50px;
+	letter-spacing: 1px;
+	font-weight: 400;
+	margin-bottom: 0;
+	color: #e45a5a;
+}
+</style>
 
 <script type="text/javascript" src="//wow.zamimg.com/widgets/power.js"></script>
 </body>

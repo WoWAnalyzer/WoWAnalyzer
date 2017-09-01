@@ -13,7 +13,7 @@ class Tier20_2set extends Module {
     penance: Penance, // we need this to add `penanceBoltNumber` to the damage and heal events
   };
 
-  _firstPenanceBoltLastDamageEvent = false;
+  _secondPenanceBoltLastDamageEvent = false;
 
   healing = 0;
   damage = 0;
@@ -23,26 +23,26 @@ class Tier20_2set extends Module {
   }
 
   on_byPlayer_damage(event) {
-    if (event.ability.guid !== SPELLS.PENANCE.id || event.penanceBoltNumber !== 0) {
-      this._firstPenanceBoltLastDamageEvent = false;
+    if (event.ability.guid !== SPELLS.PENANCE.id || event.penanceBoltNumber !== 1) {
+      this._secondPenanceBoltLastDamageEvent = false;
       return;
     }
 
-    this._firstPenanceBoltLastDamageEvent = true;
+    this._secondPenanceBoltLastDamageEvent = true;
     this.damage += (event.amount / 2);
   }
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.PENANCE_HEAL.id) {
-      if (event.penanceBoltNumber === 0) {
+      if (event.penanceBoltNumber === 1) {
         this.healing += calculateEffectiveHealing(event, TIER_20_TWO_SET_BONUS);
       }
     }
 
     // Atonement
     if (isAtonement(event)) {
-      if (this._firstPenanceBoltLastDamageEvent) {
+      if (this._secondPenanceBoltLastDamageEvent) {
         this.healing += calculateEffectiveHealing(event, TIER_20_TWO_SET_BONUS);
       }
     }

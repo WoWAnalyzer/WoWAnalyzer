@@ -53,14 +53,14 @@ class FuryOfAir extends Module {
           .icon(SPELLS.FURY_OF_AIR_TALENT.icon)
           .actual(`${formatPercentage(actual)}% uptime`)
           .recommended(`${(formatPercentage(recommended))}% is recommended`)
-          .regular(recommended).major(recommended - 0.5);
+          .regular(recommended).major(recommended - 0.05);
       });
   }
 
   statistic() {
     const furyofairUptime = this.owner.selectedCombatant.getBuffUptime(FURY_ID) / this.owner.fightDuration;
     return (
-      this.active && (<StatisticBox
+      (<StatisticBox
         icon={<SpellIcon id={FURY_ID} />}
         value={`${formatPercentage(furyofairUptime)} %`}
         label="Fury of Air uptime"

@@ -119,7 +119,7 @@ class UABuffTracker extends Module {
           `: ""}
 
           ${this.unbuffedTicks > 0 ? `
-            <li>${this.unbuffedTicks} ticks were unbuffed (${formatPercentage(this.unbuffedTicks/this.totalTicks)}%). You should try to minimize this amount as much as possible.</li>
+            <li>${this.unbuffedTicks} ticks were unbuffed (${formatPercentage(this.unbuffedTicks/this.totalTicks)}%). Try to minimize this amount as much as possible.</li>
           `: ""}
           </ul>
         `}

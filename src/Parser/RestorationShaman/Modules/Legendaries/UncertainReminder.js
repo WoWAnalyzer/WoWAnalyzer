@@ -7,33 +7,34 @@ import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
 
 const SENSE_OF_URGENCY_HEALING_INCREASE = 0.25;
-const START_EXTRA_HEROISM_UPTIME = 1/(1+0.75); // We only count healing increases ater this % of the hero has passed.
+const START_EXTRA_HEROISM_UPTIME = 1 / (1 + 0.75); // We only count healing increases ater this % of the hero has passed.
 
 const HEROISM_30_PERCENT = [
-    32182, // Heroism
-    2825,  // Bloodlust
-    80353, // Timewarp
-    160452,// Netherwinds
-    90355, // Ancient hysteria
+  SPELLS.HEROISM.id,
+  SPELLS.BLOODLUST.id,
+  SPELLS.TIME_WARP.id,
+  SPELLS.NETHERWINDS.id,// Netherwinds
+  SPELLS.ANCIENT_HYSTERIA.id,
 ];
 
 const HEROISM_25_PERCENT = [
-    146555, // Drums of Rage
-    230935, // Drums of the mountain
+  SPELLS.DRUMS_OF_FURY.id,
+  SPELLS.DRUMS_OF_RAGE.id,
+  SPELLS.DRUMS_OF_THE_MOUNTAIN.id,
 ];
 
 const SPELLS_SCALING_WITH_HASTE = [
-    SPELLS.HEALING_RAIN_HEAL.id,
-    SPELLS.HEALING_WAVE.id,
-    SPELLS.HEALING_SURGE_RESTORATION.id,
-    SPELLS.CHAIN_HEAL.id,
-    SPELLS.HEALING_STREAM_TOTEM_HEAL.id,
-    SPELLS.HEALING_TIDE_TOTEM_HEAL.id,
-    SPELLS.ANCESTRAL_GUIDANCE_HEAL.id,
-    SPELLS.ASCENDANCE_HEAL.id,
-    SPELLS.CLOUDBURST_TOTEM_HEAL.id,
-    SPELLS.QUEENS_DECREE.id,
-    SPELLS.TIDAL_TOTEM.id,
+  SPELLS.HEALING_RAIN_HEAL.id,
+  SPELLS.HEALING_WAVE.id,
+  SPELLS.HEALING_SURGE_RESTORATION.id,
+  SPELLS.CHAIN_HEAL.id,
+  SPELLS.HEALING_STREAM_TOTEM_HEAL.id,
+  SPELLS.HEALING_TIDE_TOTEM_HEAL.id,
+  SPELLS.ANCESTRAL_GUIDANCE_HEAL.id,
+  SPELLS.ASCENDANCE_HEAL.id,
+  SPELLS.CLOUDBURST_TOTEM_HEAL.id,
+  SPELLS.QUEENS_DECREE.id,
+  SPELLS.TIDAL_TOTEM.id,
 ];
 
 class UncertainReminder extends Module {
@@ -71,17 +72,17 @@ class UncertainReminder extends Module {
     }
 
     this.events.forEach((event) => {
-        if (event.timestamp > startExtraHeroTime) {
+      if (event.timestamp > startExtraHeroTime) {
 
-          const spellId = event.ability.guid;
+        const spellId = event.ability.guid;
 
-          if (SPELLS_SCALING_WITH_HASTE.indexOf(spellId) > -1) {
-            const increase = (1+this.hastePercent) * (1+SENSE_OF_URGENCY_HEALING_INCREASE) - 1;
-            this.urgencyHealing += calculateEffectiveHealing(event, increase);
-          } else {
-            this.urgencyHealing += calculateEffectiveHealing(event, SENSE_OF_URGENCY_HEALING_INCREASE);
-          }
+        if (SPELLS_SCALING_WITH_HASTE.indexOf(spellId) > -1) {
+          const increase = (1 + this.hastePercent) * (1 + SENSE_OF_URGENCY_HEALING_INCREASE) - 1;
+          this.urgencyHealing += calculateEffectiveHealing(event, increase);
+        } else {
+          this.urgencyHealing += calculateEffectiveHealing(event, SENSE_OF_URGENCY_HEALING_INCREASE);
         }
+      }
     });
 
     this.events = [];
@@ -89,36 +90,36 @@ class UncertainReminder extends Module {
 
   on_toPlayer_applybuff(event) {
 
-      const spellId = event.ability.guid;
+    const spellId = event.ability.guid;
 
-      if (HEROISM_30_PERCENT.indexOf(spellId) > -1){
-         this.heroismStart = event.timestamp;
-         this.hastePercent = 0.30;
-         this.events = [];
-      }
+    if (HEROISM_30_PERCENT.indexOf(spellId) > -1) {
+      this.heroismStart = event.timestamp;
+      this.hastePercent = 0.30;
+      this.events = [];
+    }
 
-      if (HEROISM_25_PERCENT.indexOf(spellId) > -1){
-         this.heroismStart = event.timestamp;
-         this.hastePercent = 0.25;
-         this.events = [];
-      }
+    if (HEROISM_25_PERCENT.indexOf(spellId) > -1) {
+      this.heroismStart = event.timestamp;
+      this.hastePercent = 0.25;
+      this.events = [];
+    }
   }
 
   on_toPlayer_removebuff(event) {
 
-      const spellId = event.ability.guid;
+    const spellId = event.ability.guid;
 
-      if (HEROISM_30_PERCENT.indexOf(spellId) > -1){
-         this.process_events(this.heroismStart, event.timestamp);
-         this.heroismStart = null;
-         this.hastePercent = null;
-      }
+    if (HEROISM_30_PERCENT.indexOf(spellId) > -1) {
+      this.process_events(this.heroismStart, event.timestamp);
+      this.heroismStart = null;
+      this.hastePercent = null;
+    }
 
-      if (HEROISM_25_PERCENT.indexOf(spellId) > -1){
-         this.process_events(this.heroismStart, event.timestamp);
-         this.heroismStart = null;
-         this.hastePercent = null;
-      }
+    if (HEROISM_25_PERCENT.indexOf(spellId) > -1) {
+      this.process_events(this.heroismStart, event.timestamp);
+      this.heroismStart = null;
+      this.hastePercent = null;
+    }
   }
 
   // If the fight ends before heroism drops, make sure to process all the pushed events.
@@ -131,8 +132,8 @@ class UncertainReminder extends Module {
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
 
-    if (!this.heroismStart){
-        return;
+    if (!this.heroismStart) {
+      return;
     }
 
     if (ABILITIES_AFFECTED_BY_HEALING_INCREASES.indexOf(spellId) === -1) {

@@ -30,7 +30,7 @@ class MasteryEffectiveness extends Module {
 
   hasBeaconOfTheLightbringer = false;
   on_initialized() {
-    this.hasBeaconOfTheLightbringer = this.owner.selectedCombatant.hasTalent(BEACON_TYPES.BEACON_OF_THE_LIGHTBRINGER);
+    this.hasBeaconOfTheLightbringer = this.combatants.selected.hasTalent(BEACON_TYPES.BEACON_OF_THE_LIGHTBRINGER);
   }
 
   on_cast(event) {
@@ -134,7 +134,7 @@ class MasteryEffectiveness extends Module {
       //   `playerMasteryPerc:${this.playerMasteryPerc}`, event);
 
       const distance = this.getDistanceForMastery(event);
-      const isRuleOfLawActive = this.owner.selectedCombatant.hasBuff(SPELLS.RULE_OF_LAW_TALENT.id, event.timestamp);
+      const isRuleOfLawActive = this.combatants.selected.hasBuff(SPELLS.RULE_OF_LAW_TALENT.id, event.timestamp);
       // We calculate the mastery effectiveness of this *one* heal
       const masteryEffectiveness = this.constructor.calculateMasteryEffectiveness(distance, isRuleOfLawActive);
 

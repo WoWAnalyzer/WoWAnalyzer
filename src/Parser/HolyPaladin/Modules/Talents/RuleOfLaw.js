@@ -6,16 +6,21 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
 import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class RuleOfLaw extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasTalent(SPELLS.RULE_OF_LAW_TALENT.id);
+    this.active = this.combatants.selected.hasTalent(SPELLS.RULE_OF_LAW_TALENT.id);
   }
 
   get uptime() {
-    return this.owner.selectedCombatant.getBuffUptime(SPELLS.RULE_OF_LAW_TALENT.id) / this.owner.fightDuration;
+    return this.combatants.selected.getBuffUptime(SPELLS.RULE_OF_LAW_TALENT.id) / this.owner.fightDuration;
   }
 
   suggestions(when) {

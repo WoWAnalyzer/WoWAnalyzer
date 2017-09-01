@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage, formatThousands } from 'common/format';
 
 import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 /**
  * Second Sunrise does not cause any special events aside from additional Light of Dawn heals. These heals occur after a static amount of time, this looks to be about 700ms. Initial LoD heals always occur within 100ms, so this is a save middle where the SS delay is more likely to vary than the initial heal delay.
@@ -18,6 +19,10 @@ const SECOND_SUNRISE_PROC_CHANCE = 0.05;
  * Light of Dawn has a 5% chance to cast a second time for no additional mana cost.
  */
 class SecondSunrise extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
+  
   rank = 0;
   healing = 0;
 
@@ -26,7 +31,7 @@ class SecondSunrise extends Module {
   }
 
   on_initialized() {
-    this.rank = this.owner.selectedCombatant.traitsBySpellId[SPELLS.SECOND_SUNRISE.id];
+    this.rank = this.combatants.selected.traitsBySpellId[SPELLS.SECOND_SUNRISE.id];
     this.active = this.rank > 0;
   }
 

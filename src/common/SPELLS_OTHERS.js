@@ -51,14 +51,29 @@ export default {
     icon: 'inv_alchemy_70_flask04',
   },
   SPIRIT_BERRIES: {
-	  id: 223573,
-	  name: 'Spirit Berries',
-	  icon: 'inv_misc_food_93_skethylberries',
+    id: 223573,
+    name: 'Spirit Berries',
+    icon: 'inv_misc_food_93_skethylberries',
   },
   PURE_RAGE_POTION: {
     id: 175821,
     name: 'Pure Rage Potion',
     icon: 'trade_alchemy_dpotion_a13',
+  },
+  SUNFRUIT: {
+    id: 223595,
+    name: 'Sunfruit',
+    icon: 'inv_misc_food_42',
+  },
+  HEALTHSTONE: {
+    id: 6262,
+    name: 'Healthstone',
+    icon: 'warlock_healthstone',
+  },
+  ANCIENT_REJUVENATION_POTION: {
+    id: 188018,
+    name: 'Ancient Rejuvenation Potion',
+    icon: 'inv_alchemy_70_purple',
   },
   // Items buffs:
   GNAWED_THUMB_RING: {
@@ -212,6 +227,11 @@ export default {
     name: 'Archimonde\'s Hatred Reborn',
     icon: 'spell_nature_elementalshields',
   },
+  DRUMS_OF_FURY: {
+    id: 178207,
+    name: 'Drums of Fury',
+    icon: 'inv_misc_drum_01',
+  },
   DRUMS_OF_RAGE: {
     id: 146555,
     name: 'Drums of Rage',
@@ -221,5 +241,17 @@ export default {
     id: 230935,
     name: 'Drums of the Mountain',
     icon: 'inv_archaeology_70_tauren_drum',
+  },
+
+  // Encounter mechanics
+  RECURSIVE_STRIKES_ENEMY: {
+    id: 218508,
+    name: 'Recursive Strikes',
+    icon: 'ability_mage_massinvisibility',
+  },
+  MAGIC_MELEE: {
+    id: -32, // No idea why it's negative, but adds with "magic melee attacks" (eels on Mistress/tank add on KJ melee) cast an ability with this ID
+    name: 'Melee',
+    icon: 'inv_axe_02',
   },
 };

@@ -5,7 +5,10 @@ import { processEvents } from './Fixtures/processEvents';
 describe('Features.GuardianOfElune', () => {
   let guardian;
   beforeEach(() => {
-    guardian = new GuardianOfElune();
+    guardian = new GuardianOfElune({
+      toPlayer: () => true,
+      byPlayer: () => true,
+    });
   });
   it('trach GoE procs with no events', () => {
     expect(guardian.GoEProcsTotal).toBe(0);
@@ -15,25 +18,19 @@ describe('Features.GuardianOfElune', () => {
     expect(guardian.GoEProcsTotal).toBe(0);
   });
   it('track GoE procs with only buffs applied', () => {
-    const guardian = new GuardianOfElune();
     processEvents(buffsApplied, guardian);
     expect(guardian.GoEProcsTotal).toBe(2);
   });
   it('track GoE procs over a simple fight', () => {
-    const guardian = new GuardianOfElune();
     processEvents(SimpleFight, guardian);
     expect(guardian.GoEProcsTotal).toBe(2);
   });
   it('track consumed GoE procs over a simple fight', () => {
-    const guardian = new GuardianOfElune();
     processEvents(SimpleFight, guardian);
     expect(guardian.consumedGoEProc).toBe(1);
   });
   it('track last proc time', () => {
-    const guardian = new GuardianOfElune();
     processEvents(SimpleFight, guardian);
     expect(guardian.lastGoEProcTime).toBe(11500);
   });
 });
-  
-

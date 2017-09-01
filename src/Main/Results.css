@@ -1,0 +1,6 @@
+.statistics {
+  margin-left: -10px;
+}
+.statistics > div {
+  padding: 0 10px;
+}

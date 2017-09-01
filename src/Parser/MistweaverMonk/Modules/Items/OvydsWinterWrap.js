@@ -1,7 +1,9 @@
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
+
 import Module from 'Parser/Core/Module';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 const debug = false;
 const OVYDS_HEALING_INCREASE = .4;
@@ -13,6 +15,10 @@ const UNAFFECTED_SPELLS = [
   ];
 
 class OvydsWinterWrap extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
   healing = 0;
 
   on_initialized() {
@@ -28,8 +34,8 @@ class OvydsWinterWrap extends Module {
       return;
     }
 
-    if(this.owner.combatants.players[targetId]) {
-      if(this.owner.combatants.players[targetId].hasBuff(SPELLS.OVYDS_WINTER_WRAP_BUFF.id, event.timestamp, 0, 0) === true) {
+    if(this.combatants.players[targetId]) {
+      if(this.combatants.players[targetId].hasBuff(SPELLS.OVYDS_WINTER_WRAP_BUFF.id, event.timestamp, 0, 0) === true) {
         this.healing += calculateEffectiveHealing(event, OVYDS_HEALING_INCREASE);
       }
     }

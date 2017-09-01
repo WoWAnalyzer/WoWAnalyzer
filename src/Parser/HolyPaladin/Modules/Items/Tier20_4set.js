@@ -7,6 +7,7 @@ import { formatNumber } from 'common/format';
 
 import Module from 'Parser/Core/Module';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 import { BEACON_TYPES, BASE_BEACON_TRANSFER, BEACON_OF_FAITH_TRANSFER_REDUCTION } from '../../Constants';
 
@@ -19,6 +20,7 @@ const LIGHTS_EMBRACE_BEACON_HEAL_INCREASE = 0.4;
  */
 class Tier20_4set extends Module {
   static dependencies = {
+    combatants: Combatants,
     lightOfDawn: LightOfDawn,
   };
 
@@ -26,7 +28,7 @@ class Tier20_4set extends Module {
   totalBeaconHealingDuringLightsEmbrace = 0;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasBuff(SPELLS.HOLY_PALADIN_T20_4SET_BONUS_BUFF.id);
+    this.active = this.combatants.selected.hasBuff(SPELLS.HOLY_PALADIN_T20_4SET_BONUS_BUFF.id);
   }
 
   on_beacon_heal(beaconTransferEvent, healEvent) {
@@ -58,7 +60,7 @@ class Tier20_4set extends Module {
     // What happens here are 2 situations:
     // - Light of Dawn applies Light's Embrace, it acts a bit weird though since the FIRST heal from the cast does NOT get the increased beacon transfer, while all sebsequent heals do (even when the combatlog has't fired the Light's Embrace applybuff event yet). The first part checks for that. The combatlog looks different when the first heal is a self heal vs they're all on other people, but in both cases it always doesn't apply to the first LoD heal and does for all subsequent ones.
     // - If a FoL or something else is cast right before the LoD, the beacon transfer may be delayed until after the Light's Embrace is applied. This beacon transfer does not appear to benefit. My hypothesis is that the server does healing and buffs async and there's a small lag between the processes, and I think 100ms should be about the time required.
-    const hasLightsEmbrace = (healEvent.ability.guid === SPELLS.LIGHT_OF_DAWN_HEAL.id && healEvent.lightOfDawnHealIndex > 0) || this.owner.selectedCombatant.hasBuff(SPELLS.LIGHTS_EMBRACE_BUFF.id, null, 0, 100);
+    const hasLightsEmbrace = (healEvent.ability.guid === SPELLS.LIGHT_OF_DAWN_HEAL.id && healEvent.lightOfDawnHealIndex > 0) || this.combatants.selected.hasBuff(SPELLS.LIGHTS_EMBRACE_BUFF.id, null, 0, 100);
     if (hasLightsEmbrace) {
       beaconTransferFactor += LIGHTS_EMBRACE_BEACON_HEAL_INCREASE;
     }

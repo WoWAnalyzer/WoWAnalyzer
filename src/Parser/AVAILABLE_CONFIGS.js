@@ -2,9 +2,11 @@ import HolyPaladin from './HolyPaladin/CONFIG';
 
 import RestoDruid from './RestoDruid/CONFIG';
 import GuardianDruid from './GuardianDruid/CONFIG';
+import BalanceDruid from './BalanceDruid/CONFIG';
 
 import DisciplinePriest from './DisciplinePriest/CONFIG';
 import HolyPriest from './HolyPriest/CONFIG';
+import ShadowPriest from './ShadowPriest/CONFIG';
 
 import ElementalShaman from './ElementalShaman/CONFIG';
 import EnhancementShaman from './EnhancementShaman/CONFIG';
@@ -26,9 +28,11 @@ export default [
 
   RestoDruid,
   GuardianDruid,
+  BalanceDruid,
 
   DisciplinePriest,
   HolyPriest,
+  ShadowPriest,
 
   MistweaverMonk,
   WindwalkerMonk,
