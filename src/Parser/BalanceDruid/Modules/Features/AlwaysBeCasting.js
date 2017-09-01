@@ -31,12 +31,12 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
   suggestions(when) {
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
     
-    when(this.deadTimePercentage).isGreaterThan(0.02)
+    when(deadTimePercentage).isGreaterThan(0.02)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span> Your downtime can be improved. Try to Always Be Casting (ABC)...</span>)
           .icon('spell_mage_altertime')
-          .actual(`${formatPercentage(deadTimePercentage)}% downtime`)
-          .recommended(`It's recommended that the downtime doesn't go over ${Math.round(formatPercentage(recommended))}%`)
+          .actual(`${formatPercentage(actual)}% downtime`)
+          .recommended(`${Math.round(formatPercentage(recommended))}% is recommended`)
           .regular(recommended + 0.03).major(recommended + 0.08);
       });
   }
