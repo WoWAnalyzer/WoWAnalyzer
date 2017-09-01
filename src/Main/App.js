@@ -121,12 +121,7 @@ class App extends Component {
     }
     let config = AVAILABLE_CONFIGS.find(config => config.spec.id === combatant.specID);
     if (!config) {
-      if (process.env.NODE_ENV === 'development') {
-        config = UnsupportedSpec;
-      } else {
-        alert('This spec is not yet supported. Your help adding support for this spec would be much appreciated! Click the GitHub link above to find out how you can contribute.');
-        return;
-      }
+      config = UnsupportedSpec;
     }
 
     const ParserClass = config.parser;

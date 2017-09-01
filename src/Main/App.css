@@ -699,12 +699,6 @@ code.inactive {
   padding: 10px;
   margin-bottom: 2rem;
 }
-.statistics {
-  margin-left: -10px;
-}
-.statistics > div {
-  padding: 0 10px;
-}
 
 .selectorHeader {
   position: absolute;
