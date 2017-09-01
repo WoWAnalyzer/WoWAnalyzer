@@ -16,6 +16,7 @@ services:
       dockerfile: Dockerfile.server-dev
     container_name: wowanalyzer-server-dev
     environment:
+     - MYSQL_HOST=database
      - MYSQL_ROOT_PASSWORD=my-secret-pw
     ports:
      - 3000:3000

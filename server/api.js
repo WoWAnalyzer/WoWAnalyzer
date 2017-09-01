@@ -4,6 +4,7 @@ const zlib = require('zlib');
 const Agent = require('agentkeepalive').HttpsAgent;
 
 const cache = require('./cache');
+const models = require('./models');
 
 function getCurrentMemoryUsage() {
   const memoryUsage = process.memoryUsage();
@@ -75,6 +76,11 @@ module.exports = function (req, res) {
               }
 
               cache.set(requestUrl, jsonString);
+              models.WclApiResponse.create({
+                url: requestUrl,
+                content: jsonString,
+                wclResponseTime: Date.now() - wclStart,
+              });
             } else {
               console.error('Error status:', wclResponse.statusCode);
             }
