@@ -13,6 +13,7 @@ function config() {
       timestamps: false, // I prefer manual control
       freezeTableName: true, // naming pattern: table name should reflect 1 entry (so it matches 1 instance of a model)
     },
+    logging: false, // I prefer to do my own logging
   };
 }
 
