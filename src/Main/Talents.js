@@ -9,9 +9,6 @@ class Talent extends React.Component {
   static propTypes = {
     talent: PropTypes.number,
   };
-  static contextTypes = {
-    config: PropTypes.object,
-  };
 
   render() {
     const { talent } = this.props;
@@ -23,12 +20,6 @@ class Talent extends React.Component {
       return <i>Talent not recognized: {talent}</i>;
     }
 
-    const talentDescriptions = this.context.config.talentDescriptions;
-    let description = talentDescriptions.descriptions[talent];
-    if (!description && process.env.NODE_ENV === 'development') {
-      description = <div className="alert alert-danger">Missing talent description.</div>;
-    }
-
     return (
       <article>
         <figure>
@@ -38,9 +29,6 @@ class Talent extends React.Component {
           <header>
             <SpellLink id={talent} />
           </header>
-          <main>
-            {description}
-          </main>
         </div>
       </article>
     );
@@ -59,9 +47,6 @@ class Talents extends React.Component {
       lv100Talent: PropTypes.number,
     }).isRequired,
   };
-  static contextTypes = {
-    config: PropTypes.object,
-  };
 
   render() {
     const { combatant } = this.props;
@@ -69,8 +54,6 @@ class Talents extends React.Component {
     if (!combatant) {
       return <div>Loading...</div>;
     }
-
-    const talentDescriptions = this.context.config.talentDescriptions;
 
     return (
       <div style={{ marginTop: -10, marginBottom: -10 }}>
@@ -96,11 +79,6 @@ class Talents extends React.Component {
           <li className="item clearfix">
             <Talent talent={combatant.lv100Talent} />
           </li>
-          {talentDescriptions.attribution && (
-            <li className="item clearfix text-muted" style={{ paddingTop: 10, paddingBottom: 10 }}>
-              {talentDescriptions.attribution}
-            </li>
-          )}
         </ul>
       </div>
     );

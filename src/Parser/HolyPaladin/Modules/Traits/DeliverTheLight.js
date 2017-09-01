@@ -7,6 +7,7 @@ import { formatPercentage } from 'common/format';
 
 import Module from 'Parser/Core/Module';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 const DELIVER_THE_LIGHT_HEALING_INCREASE = 0.03;
 
@@ -15,11 +16,15 @@ const DELIVER_THE_LIGHT_HEALING_INCREASE = 0.03;
  * Increases healing done by Holy Light and Flash of Light by 3%.
  */
 class DeliverTheLight extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
   rank = 0;
   healing = 0;
 
   on_initialized() {
-    this.rank = this.owner.selectedCombatant.traitsBySpellId[SPELLS.DELIVER_THE_LIGHT.id];
+    this.rank = this.combatants.selected.traitsBySpellId[SPELLS.DELIVER_THE_LIGHT.id];
     this.active = this.rank > 0;
   }
 

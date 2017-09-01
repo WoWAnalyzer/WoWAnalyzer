@@ -1,14 +1,19 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
+import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 const debug = false;
 
 class ChiBurst extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
   castChiBurst = 0;
   healing = 0;
   targetsChiBurst = 0;
@@ -18,7 +23,7 @@ class ChiBurst extends Module {
 
   on_initialized(){
     this.active = this.owner.selectedCombatant.hasTalent(SPELLS.CHI_BURST_TALENT.id);
-    this.raidSize = Object.entries(this.owner.combatants.players).length;
+    this.raidSize = Object.entries(this.combatants.players).length;
   }
 
   on_byPlayer_cast(event) {
@@ -33,7 +38,7 @@ class ChiBurst extends Module {
     const spellId = event.ability.guid;
     const targetId = event.targetID;
 
-    if (!this.owner.combatants.players[targetId]) {
+    if (!this.combatants.players[targetId]) {
       return;
     }
 

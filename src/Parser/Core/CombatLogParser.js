@@ -12,7 +12,9 @@ import Enemies from './Modules/Enemies';
 import HealEventTracker from './Modules/HealEventTracker';
 import ManaValues from './Modules/ManaValues';
 import SpellManaCost from './Modules/SpellManaCost';
+
 import CritEffectBonus from './Modules/Helpers/CritEffectBonus';
+import Bloodlust from './Modules/Helpers/Bloodlust';
 
 // Shared Legendaries
 import Prydaz from './Modules/Items/Prydaz';
@@ -64,6 +66,7 @@ class CombatLogParser {
     vantusRune: VantusRune,
 
     critEffectBonus: CritEffectBonus,
+    bloodlust: Bloodlust,
 
     // Items:
     // Legendaries:
@@ -109,17 +112,9 @@ class CombatLogParser {
     return this.player.id;
   }
 
-  /** @returns Combatants */
-  get combatants() {
-    return this.modules.combatants;
-  }
-  get playerCount() {
-    return this.modules.combatants.playerCount;
-  }
-
   /** @returns {Combatant} */
   get selectedCombatant() {
-    return this.combatants.selected;
+    return this.modules.combatants.selected;
   }
 
   get currentTimestamp() {
@@ -205,6 +200,7 @@ class CombatLogParser {
 
   _debugEventHistory = [];
   parseEvents(events) {
+    events = this.reorderEvents(events);
     if (process.env.NODE_ENV === 'development') {
       this._debugEventHistory = [
         ...this._debugEventHistory,
@@ -225,6 +221,18 @@ class CombatLogParser {
       resolve(events.length);
     });
   }
+
+  reorderEvents(events) {
+    this.activeModules
+      .sort((a, b) => a.priority - b.priority) // lowest should go first, as `priority = 0` will have highest prio
+      .forEach(module => {
+        if (module.reorderEvents) {
+          events = module.reorderEvents(events);
+        }
+      });
+    return events;
+  }
+
   triggerEvent(eventType, event, ...args) {
     this.activeModules
       .sort((a, b) => a.priority - b.priority) // lowest should go first, as `priority = 0` will have highest prio

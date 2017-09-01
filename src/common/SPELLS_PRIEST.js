@@ -495,6 +495,12 @@ export default {
     icon: 'spell_holy_mindvision',
   },
 
+  MIND_SEAR: {
+    id: 234702,
+    name: 'Mind Sear',
+    icon: 'spell_shadow_mindshear',
+  },
+
   // Shadow Buffs
 
   VOIDFORM: {
@@ -513,6 +519,12 @@ export default {
     id: 197937,
     name: 'Lingering Insanity',
     icon: 'spell_shadow_twistedfaith',
+  },
+
+  SHADOW_PRIEST_T20_4SET_BONUS_PASSIVE: {
+    id: 242273,
+    name: 'T20 4 Set Bonus',
+    icon: 'spell_shadow_shadowwordpain',
   },
 
   // Shadow traits

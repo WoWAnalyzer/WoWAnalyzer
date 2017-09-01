@@ -16,25 +16,39 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     _highestLingeringStack = 0;
 
   static ABILITIES_ON_GCD = [
+    // handled in _removebuff
     // SPELLS.VOID_TORRENT.id,
     // SPELLS.MIND_FLAY.id,
     // SPELLS.DISPERSION.id,
+
+    // rotational:
     SPELLS.VOID_BOLT.id,
-    SPELLS.SHADOW_WORD_DEATH.id,
-    SPELLS.POWER_WORD_SHIELD.id,
-    SPELLS.VAMPIRIC_TOUCH.id,
-    SPELLS.MIND_BLAST.id,
-    SPELLS.SHADOW_WORD_PAIN.id,
-    SPELLS.SHADOW_MEND.id,
-    SPELLS.MINDBENDER_TALENT_SHARED.id,
-    SPELLS.MINDBENDER_TALENT_SHADOW.id,
-    SPELLS.MASS_DISPEL.id,
-    SPELLS.DISPEL_MAGIC.id,
-    SPELLS.LEVITATE.id,
     SPELLS.VOID_ERUPTION.id,
-    SPELLS.POWER_INFUSION_TALENT.id,
-    SPELLS.SHACKLE_UNDEAD.id,
+    SPELLS.MIND_BLAST.id,
+    SPELLS.VAMPIRIC_TOUCH.id,
+    SPELLS.SHADOW_WORD_DEATH.id,
+    SPELLS.SHADOW_WORD_PAIN.id,
     SPELLS.SHADOWFIEND.id,
+    SPELLS.SHADOWFIEND_WITH_GLYPH_OF_THE_SHA.id,
+    
+    // talents:
+    SPELLS.MINDBENDER_TALENT_SHADOW.id,
+    SPELLS.POWER_INFUSION_TALENT.id,
+    SPELLS.SHADOW_CRASH_TALENT.id,
+    SPELLS.SHADOW_WORD_VOID_TALENT.id,
+    SPELLS.MIND_BOMB_TALENT.id,
+
+    // utility:
+    SPELLS.SHADOWFORM.id,
+    SPELLS.MIND_VISION.id,
+    SPELLS.POWER_WORD_SHIELD.id,
+    SPELLS.SHADOW_MEND.id,
+    SPELLS.DISPEL_MAGIC.id,
+    SPELLS.MASS_DISPEL.id,
+    SPELLS.LEVITATE.id,
+    SPELLS.SHACKLE_UNDEAD.id,
+    SPELLS.PURIFY_DISEASE.id,
+
   ];
 
   on_toPlayer_applybuff(event) {
@@ -114,7 +128,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Your dead GCD time can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. Even if you have to move, try casting something instant - maybe refresh your dots or replenish your mana with <SpellLink id={SPELLS.LIFE_TAP.id}/></span>)
           .icon('spell_mage_altertime')
-          .actual(`${formatPercentage(deadTimePercentage)}% dead GCD time`)
+          .actual(`${formatPercentage(actual)}% dead GCD time`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
           .regular(recommended + 0.15).major(recommended + 0.2);
       });

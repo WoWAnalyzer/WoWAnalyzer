@@ -39,6 +39,9 @@ class Combatant extends Entity {
   get specId() {
     return this._combatantInfo.specID;
   }
+  get spec() {
+    return SPECS[this.specId];
+  }
 
   // Primaries
   get stamina() {
@@ -72,12 +75,12 @@ class Combatant extends Entity {
     return this._combatantInfo.mastery;
   }
   get masteryPercentage() {
-    switch (this.specId) {
-      case SPECS.HOLY_PALADIN.id:
+    switch (this.spec) {
+      case SPECS.HOLY_PALADIN:
         return 0.12 + this.masteryRating / 26667;
-      case SPECS.RESTORATION_SHAMAN.id:
+      case SPECS.RESTORATION_SHAMAN:
         return 0.24 + this.masteryRating / 13333.3333333;
-      case SPECS.ENHANCEMENT_SHAMAN.id:
+      case SPECS.ENHANCEMENT_SHAMAN:
         return 0.2 + this.masteryRating / 13333.3333333;
 	  case SPECS.RESTORATION_DRUID.id:
 	    return 0.048 + this.masteryRating / 66666.6666666;

@@ -23,6 +23,9 @@ module.exports = function (req, res) {
     cacheBust = true;
     delete req.query._;
   }
+  // Allow users to provide their own API key. This is required during development so that other developers don't lock out the production in case they mess something up.
+  const api_key = req.query.api_key || process.env.WCL_API_KEY;
+  delete req.query.api_key; // don't use a separate cache for different API keys
 
   // Set header already so that all request, good or bad, have it
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -30,15 +33,12 @@ module.exports = function (req, res) {
   const requestUrl = `${req.params[0]}?${querystring.stringify(req.query)}`;
   const jsonString = !cacheBust && cache.get(requestUrl);
   if (jsonString) {
-    console.log('++++++cache hit', requestUrl);
+    console.log('cache HIT', requestUrl);
     res.setHeader('Content-Type', 'application/json; charset=utf-8');
     res.send(jsonString);
   } else {
-    console.log('------cache miss', requestUrl);
-    const query = Object.assign({}, req.query, {
-      // Allow users to provide their own API key. This is required during development so that other developers don't lock out the production in case they mess something up.
-      api_key: req.query.api_key || '97c84db1a100b32a6d5abb763711244e',
-    });
+    console.log('cache MISS', requestUrl);
+    const query = Object.assign({}, req.query, { api_key });
 
     const options = {
       host: 'www.warcraftlogs.com',

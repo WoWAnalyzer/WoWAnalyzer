@@ -63,7 +63,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
       .addSuggestion((suggest, actual, recommended) =>
         suggest(`Your dead GCD time can be improved. Try to Always Be Casting (ABC); when you're not healing try to contribute some damage (${Math.round(deadTimePercentage * 100)}% dead GCD time).`)
           .icon('spell_mage_altertime')
-          .actual(`${formatPercentage(deadTimePercentage)}% dead GCD time`)
+          .actual(`${formatPercentage(actual)}% dead GCD time`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
           .regular(recommended + 0.15).major(recommended + 0.2)
       );

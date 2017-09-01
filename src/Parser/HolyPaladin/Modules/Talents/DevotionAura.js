@@ -8,6 +8,7 @@ import { formatThousands, formatNumber } from 'common/format';
 import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'Main/LazyLoadStatisticBox';
 
 import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 // Protection of Tyr is applied to everyone that benefits from the AM effect. This is simply the easiest way to see if someone is affected by AM, other more robust solutions take a lot more effort/complexity.
 const PROTECTION_OF_TYR_ID = 211210;
@@ -26,6 +27,10 @@ const DEVOTION_AURA_DAMAGE_REDUCTION = 0.2;
 const FALLING_DAMAGE_ABILITY_ID = 3;
 
 class DevotionAura extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
   get auraMasteryDamageReduced() {
     return this.totalDamageTakenDuringAuraMastery / (1 - DEVOTION_AURA_DAMAGE_REDUCTION) * DEVOTION_AURA_DAMAGE_REDUCTION;
   }
@@ -48,7 +53,7 @@ class DevotionAura extends Module {
   totalDamageTakenDuringAuraMastery = 0;
   totalDamageTakenOutsideAuraMastery = 0;
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasTalent(SPELLS.DEVOTION_AURA_TALENT.id);
+    this.active = this.combatants.selected.hasTalent(SPELLS.DEVOTION_AURA_TALENT.id);
   }
 
   on_toPlayer_damage(event) {
@@ -56,7 +61,7 @@ class DevotionAura extends Module {
     if (spellId === FALLING_DAMAGE_ABILITY_ID) {
       return;
     }
-    const isAuraMasteryActive = this.owner.selectedCombatant.getBuffs(PROTECTION_OF_TYR_ID, event.timestamp).find(buff => buff.sourceID === this.owner.playerId);
+    const isAuraMasteryActive = this.combatants.selected.getBuffs(PROTECTION_OF_TYR_ID, event.timestamp).find(buff => buff.sourceID === this.owner.playerId);
     if (!isAuraMasteryActive) {
       this.totalDamageTakenOutsideAuraMastery = this.totalDamageTakenOutsideAuraMastery + event.amount + (event.absorbed || 0);
     }
@@ -66,7 +71,7 @@ class DevotionAura extends Module {
     const amDamageTakenPromise = fetch(makeWclUrl(`report/tables/damage-taken/${this.owner.report.code}`, {
       start: this.owner.fight.start_time,
       end: this.owner.fight.end_time,
-      filter: `(IN RANGE FROM type='applybuff' AND ability.id=${PROTECTION_OF_TYR_ID} AND source.name='${this.owner.selectedCombatant.name}' TO type='removebuff' AND ability.id=${PROTECTION_OF_TYR_ID} AND source.name='${this.owner.selectedCombatant.name}' GROUP BY target ON target END)`,
+      filter: `(IN RANGE FROM type='applybuff' AND ability.id=${PROTECTION_OF_TYR_ID} AND source.name='${this.combatants.selected.name}' TO type='removebuff' AND ability.id=${PROTECTION_OF_TYR_ID} AND source.name='${this.combatants.selected.name}' GROUP BY target ON target END)`,
     }))
       .then(response => response.json())
       .then((json) => {

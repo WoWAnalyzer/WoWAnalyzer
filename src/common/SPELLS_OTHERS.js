@@ -232,6 +232,11 @@ export default {
     name: 'Archimonde\'s Hatred Reborn',
     icon: 'spell_nature_elementalshields',
   },
+  DRUMS_OF_FURY: {
+    id: 178207,
+    name: 'Drums of Fury',
+    icon: 'inv_misc_drum_01',
+  },
   DRUMS_OF_RAGE: {
     id: 146555,
     name: 'Drums of Rage',
@@ -241,5 +246,17 @@ export default {
     id: 230935,
     name: 'Drums of the Mountain',
     icon: 'inv_archaeology_70_tauren_drum',
+  },
+
+  // Encounter mechanics
+  RECURSIVE_STRIKES_ENEMY: {
+    id: 218508,
+    name: 'Recursive Strikes',
+    icon: 'ability_mage_massinvisibility',
+  },
+  MAGIC_MELEE: {
+    id: -32, // No idea why it's negative, but adds with "magic melee attacks" (eels on Mistress/tank add on KJ melee) cast an ability with this ID
+    name: 'Melee',
+    icon: 'inv_axe_02',
   },
 };

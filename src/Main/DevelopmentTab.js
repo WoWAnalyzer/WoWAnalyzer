@@ -303,7 +303,7 @@ class DevelopmentTab extends React.Component {
               Pre-combat buffs:
               <ul className="list">
                 {combatant._combatantInfo.auras.map((aura, i) => {
-                  const source = parser.combatants.players[aura.source];
+                  const source = parser.modules.combatants.players[aura.source];
                   const spec = source && SPECS[source.specId];
                   const specClassName = spec && spec.className.replace(' ', '');
 

@@ -52,13 +52,6 @@ class Event extends React.PureComponent {
   render() {
     const { event, fightStart, source, target } = this.props;
 
-    const trimmedEvent = { ...event };
-    delete trimmedEvent.ability;
-    delete trimmedEvent.type;
-    delete trimmedEvent.timestamp;
-    delete trimmedEvent.sourceID;
-    delete trimmedEvent.targetID;
-
     return (
       <tr onClick={this.handleClick} data-tip={`<pre>${JSON.stringify(event, null, 2)}</pre>`} data-place="left" data-effect="solid">
         <td>{formatDuration(event.timestamp - fightStart)}</td>

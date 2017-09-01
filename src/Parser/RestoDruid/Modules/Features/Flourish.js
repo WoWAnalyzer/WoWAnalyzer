@@ -1,9 +1,15 @@
-import Module from 'Parser/Core/Module';
 import SPELLS from 'common/SPELLS';
+
+import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 const debug = false;
 
 class Flourish extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
   flourishCounter = 0;
   wildGrowth = 0;
   rejuvenation = 0;
@@ -37,8 +43,8 @@ class Flourish extends Module {
 
     // Wild growth
     const oldWgCount = this.wildGrowth;
-    Object.keys(this.owner.combatants.players)
-      .map(player => this.owner.combatants.players[player])
+    Object.keys(this.combatants.players)
+      .map(player => this.combatants.players[player])
       .forEach((player) => {
         if(player.hasBuff(SPELLS.WILD_GROWTH.id, event.timestamp, 0, 0) === true) {
           this.wildGrowth++;
@@ -51,8 +57,8 @@ class Flourish extends Module {
     }
 
     // Rejuvenation
-    Object.keys(this.owner.combatants.players)
-      .map(player => this.owner.combatants.players[player])
+    Object.keys(this.combatants.players)
+      .map(player => this.combatants.players[player])
       .forEach((player) => {
         if(player.hasBuff(SPELLS.REJUVENATION.id, event.timestamp, 0, 0) === true) {
           this.rejuvenation++;
@@ -65,8 +71,8 @@ class Flourish extends Module {
     });
 
     //Regrowth
-    Object.keys(this.owner.combatants.players)
-      .map(player => this.owner.combatants.players[player])
+    Object.keys(this.combatants.players)
+      .map(player => this.combatants.players[player])
       .forEach((player) => {
         if(player.hasBuff(SPELLS.REGROWTH.id, event.timestamp, 0, 0) === true) {
           this.regrowth++;
@@ -74,8 +80,8 @@ class Flourish extends Module {
     });
 
     // Cultivation
-    Object.keys(this.owner.combatants.players)
-      .map(player => this.owner.combatants.players[player])
+    Object.keys(this.combatants.players)
+      .map(player => this.combatants.players[player])
       .forEach((player) => {
         if(this.hasCultivation) {
           if(player.hasBuff(SPELLS.CULTIVATION.id, event.timestamp, 0, 0) === true) {
@@ -85,8 +91,8 @@ class Flourish extends Module {
     });
 
     // Cenarion Ward
-    Object.keys(this.owner.combatants.players)
-      .map(player => this.owner.combatants.players[player])
+    Object.keys(this.combatants.players)
+      .map(player => this.combatants.players[player])
       .forEach((player) => {
         if(this.hasCenarionWard) {
           if(player.hasBuff(SPELLS.CENARION_WARD.id, event.timestamp, 0, 0) === true) {
@@ -96,8 +102,8 @@ class Flourish extends Module {
     });
 
     // Lifebloom
-    Object.keys(this.owner.combatants.players)
-      .map(player => this.owner.combatants.players[player])
+    Object.keys(this.combatants.players)
+      .map(player => this.combatants.players[player])
       .forEach((player) => {
         if(player.hasBuff(SPELLS.LIFEBLOOM_HOT_HEAL.id, event.timestamp, 0, 0) === true) {
             this.lifebloom++;
@@ -105,8 +111,8 @@ class Flourish extends Module {
     });
 
     // Spring blossoms
-    Object.keys(this.owner.combatants.players)
-      .map(player => this.owner.combatants.players[player])
+    Object.keys(this.combatants.players)
+      .map(player => this.combatants.players[player])
       .forEach((player) => {
         if(this.hasSpringBlossoms) {
           if(player.hasBuff(SPELLS.SPRING_BLOSSOMS.id, event.timestamp, 0, 0) === true) {

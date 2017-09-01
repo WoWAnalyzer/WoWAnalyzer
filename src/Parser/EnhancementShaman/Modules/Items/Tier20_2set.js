@@ -25,10 +25,10 @@ class Tier20_2set extends Module {
     when(T202setUptime).isLessThan(.95)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(`Your Tier 20 2pc buff uptime of ${formatPercentage(actual)}% is below 95%, try to get as close to 100% as possible`)
-          .icon(SPELLS.FLAMETONGUE_BUFF.icon)
+          .icon(SPELLS.ENHANCE_SHAMAN_T20_2SET_BONUS_BUFF.icon)
           .actual(`${formatPercentage(actual)}% uptime`)
           .recommended(`${(formatPercentage(recommended))}% is recommended`)
-          .regular(recommended).major(recommended - 0.5);
+          .regular(recommended).major(recommended - 0.05);
       });
   }
 

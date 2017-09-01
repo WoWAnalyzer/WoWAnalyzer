@@ -363,6 +363,12 @@ export default {
     name: 'Feral Lunge',
     icon: 'spell_beastmaster_wolf',
   },
+  BLOODLUST: {
+    id: 2825,
+    name: 'Bloodlust',
+    icon: 'spell_nature_bloodlust',
+    baseMana: 0.215,
+  },
   HEROISM: {
     id: 32182,
     name: 'Heroism',
@@ -476,7 +482,7 @@ export default {
     cooldownType: 'DAMAGE',
   },
   ENHANCE_SHAMAN_T20_2SET_BONUS_BUFF: {
-    id: 242283,
+    id: 242284,
     name: 'T20 2 set bonus',
     icon: 'spell_shaman_improvedstormstrike',
   },
@@ -647,12 +653,6 @@ export default {
     id: 207400,
     name: 'Ancestral Vigor',
     icon: 'spell_shaman_blessingoftheeternals',
-  },
-  BLOOD_LUST: {
-    id: 32182,
-    name: 'Heroism',
-    icon: 'ability_shaman_heroism',
-    baseMana: 0.215,
   },
 
   // Traits:
