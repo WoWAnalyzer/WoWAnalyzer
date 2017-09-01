@@ -13,14 +13,14 @@ class AstralPower extends Module {
   on_toPlayer_energize(event) {
       for (let i = 0; i < event.classResources.length; i++) {
           if (event.classResources[i].type === ResourceTypes.ASTRAL_POWER){
-              const maxAsP = event.classResources[i].max / 10;
-              const addedAsP = event.resourceChange;
+              const maxAsP = event.classResources[i].max;
+              const addedAsP = event.resourceChange * 10;
 
               if (this.lastAstral + addedAsP > maxAsP){
                   this.aspWasted += this.lastAstral + addedAsP - maxAsP;
               }
 
-              this.lastAstral = event.classResources[i].amount / 10;
+              this.lastAstral = event.classResources[i].amount;
           }
       }
   }
@@ -34,7 +34,7 @@ class AstralPower extends Module {
       for (let i = 0; i<event.classResources.length; i++) {
           if (event.classResources[i].type === ResourceTypes.ASTRAL_POWER){
               if (event.classResources[i].cost) {
-                  this.lastAstral = this.lastAstral - (event.classResources[i].cost / 10);
+                  this.lastAstral = this.lastAstral - (event.classResources[i].cost);
               }
           }
       }
@@ -43,11 +43,11 @@ class AstralPower extends Module {
   suggestions(when) {
       when(this.aspWasted).isGreaterThan(0)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<span>You overcapped {this.aspWasted} Astral Power.</span>)
+          return suggest(<span>You overcapped {this.aspWasted / 10} Astral Power. Always prioritize spending it over avoiding the overcap or any other ability.</span>)
             .icon('ability_druid_cresentburn')
-            .actual(`${this.aspWasted} overcapped Astral Power`)
-            .recommended(`You shouldn't overcap any, always prioritize spending it over avoiding the overcap or any other ability.`)
-            .regular(recommended + 30).major(recommended + 30);
+            .actual(`${this.aspWasted / 10} overcapped Astral Power`)
+            .recommended(`0 overcapped Astral Power is recommended.`)
+            .regular(recommended + 300).major(recommended + 300);
         });
     }
   
@@ -56,9 +56,9 @@ class AstralPower extends Module {
           return (
           <StatisticBox
               icon={<Icon icon='ability_druid_cresentburn' />}
-              value={`${this.aspWasted}`}
+              value={`${this.aspWasted / 10}`}
               label='Overcapped AsP'
-              tooltip={`You overcapped a total of <b>${this.aspWasted}</b> Astral Power`}
+              tooltip={`You overcapped a total of <b>${this.aspWasted / 10}</b> Astral Power`}
           />
           );
       }
