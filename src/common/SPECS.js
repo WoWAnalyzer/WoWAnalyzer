@@ -36,9 +36,9 @@ const SPECS = {
   DESTRUCTION_WARLOCK: { id: 267, className: 'Warlock', specName: 'Destruction', role: ROLES.DPS.RANGED },
   BREWMASTER_MONK: { id: 268, className: 'Monk', specName: 'Brewmaster', role: ROLES.TANK },
   WINDWALKER_MONK: { id: 269, className: 'Monk', specName: 'Windwalker', role: ROLES.DPS.MELEE },
-  MISTWEAVER_MONK: { id: 270, className: 'Monk', specName: 'Mistweaver', role: ROLES.DPS.RANGED },
+  MISTWEAVER_MONK: { id: 270, className: 'Monk', specName: 'Mistweaver', role: ROLES.HEALER },
   HAVOC_DEMON_HUNTER: { id: 577, className: 'Demon Hunter', specName: 'Havoc', role: ROLES.DPS.MELEE },
-  VENGEANCE_DEMON_HUNTER: { id: 581, className: 'Demon Hunter', specName: 'Vengeance', role: ROLES.DPS.RANGED },
+  VENGEANCE_DEMON_HUNTER: { id: 581, className: 'Demon Hunter', specName: 'Vengeance', role: ROLES.TANK },
 };
 
 export default indexById(SPECS);
