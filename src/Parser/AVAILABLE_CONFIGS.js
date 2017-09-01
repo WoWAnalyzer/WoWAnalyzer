@@ -20,6 +20,7 @@ import SubtletyRogue from './SubtletyRogue/CONFIG';
 
 import VengeanceDemonHunter from './VengeanceDemonHunter/CONFIG';
 import AfflictionWarlock from './AfflictionWarlock/CONFIG';
+import DestructionWarlock from './DestructionWarlock/CONFIG';
 
 
 // Order of this should be the order in which specs were added to production
@@ -46,5 +47,5 @@ export default [
 
   VengeanceDemonHunter,
   AfflictionWarlock,
-
+  DestructionWarlock,
 ];
