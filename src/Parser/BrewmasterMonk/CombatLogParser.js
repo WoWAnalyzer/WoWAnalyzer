@@ -19,10 +19,11 @@ import Stagger from './Modules/Core/Stagger';
 import IronSkinBrew from './Modules/Spells/IronSkinBrew';
 import BlackoutCombo from './Modules/Spells/BlackoutCombo';
 
-
 // Features
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
+import Energy from './Modules/Features/Energy';
+import EnergyWaste from './Modules/Features/EnergyWaste';
 
 // Items
 import T20_2pc from './Modules/Items/T20_2pc';
@@ -40,10 +41,12 @@ class CombatLogParser extends CoreCombatLogParser {
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     castEfficiency: CastEfficiency,
+    energy: Energy,
     
     // Spells
     ironSkinBrew: IronSkinBrew,
     blackoutCombo: BlackoutCombo,
+    energyWaste: EnergyWaste,
 
     // Items
     t20_2pc: T20_2pc,
