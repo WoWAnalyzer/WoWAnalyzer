@@ -2,6 +2,7 @@ import React from 'react';
 
 import Module from 'Parser/Core/Module';
 import Enemies from 'Parser/Core/Modules/Enemies';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
@@ -23,6 +24,7 @@ const MALEFIC_GRASP_DAMAGE_BONUS = .25;
 class MaleficGrasp extends Module {
   static dependencies = {
     enemies: Enemies,
+    combatants: Combatants,
   };
 
   totalBonusDmg = 0;
@@ -32,7 +34,7 @@ class MaleficGrasp extends Module {
   unstableAfflictionBonusDmg = 0;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasTalent(SPELLS.MALEFIC_GRASP_TALENT.id);
+    this.active = this.combatants.selected.hasTalent(SPELLS.MALEFIC_GRASP_TALENT.id);
   }
 
   on_byPlayer_damage(event) {
