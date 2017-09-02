@@ -79,7 +79,7 @@ describe('Core.CombatLogParser', () => {
   describe('findModule', () => {
     it('finds a module by type', () => {
       class MyCombatLogParser extends CombatLogParser {
-        modules = {
+        _modules = {
           alternative: {},
           test: myModule,
           another: {},
@@ -93,7 +93,7 @@ describe('Core.CombatLogParser', () => {
     });
     it('finds a submodule even when looking for the parent module', () => {
       class MyCombatLogParser extends CombatLogParser {
-        modules = {
+        _modules = {
           alternative: {},
           test: mySubModule,
           another: {},
@@ -109,7 +109,7 @@ describe('Core.CombatLogParser', () => {
     });
     it('returns undefined is module doesn\'t exist', () => {
       class MyCombatLogParser extends CombatLogParser {
-        modules = {
+        _modules = {
           onemore: {},
         };
       }
