@@ -53,11 +53,11 @@ class Mastery extends Module {
     if(ABILITIES_AFFECTED_BY_HEALING_INCREASES.includes(spellId)) {
       let hotsOn = target.activeBuffs().filter(buff => HEALS_MASTERY_STACK.includes(buff.ability.guid));
       let numHotsOn = hotsOn.length;
-      let healWoMastery = getNoMasteryHealing(amount, numHotsOn);
+      let decomposedHeal = _decompHeal(amount, numHotsOn);
 
-      this.totalNoMasteryHealing += healWoMastery;
-      this.druidSpellNoMasteryHealing += healWoMastery;
-      this.masteryTimesHealing += healWoMastery * numHotsOn;
+      this.totalNoMasteryHealing += decomposedHeal.noMasteryHealing;
+      this.druidSpellNoMasteryHealing += decomposedHeal.noMasteryHealing;
+      this.masteryTimesHealing += decomposedHeal.noMasteryHealing * numHotsOn;
 
       // TODO give each HoT credit for mastery boosting
 
@@ -72,8 +72,10 @@ class Mastery extends Module {
 
   // TODO build suggested results
 
-  getNoMasteryHealing(amount, numHotsOn) {
+  _decompHeal(amount, hotCount) {
     // TODO implement
+    // return object with [no mastery healing], [one stack mastery healing], and [one mastery rating healing]
+    // takes place of all helpers
   }
 
 }
