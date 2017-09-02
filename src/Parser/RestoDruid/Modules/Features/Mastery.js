@@ -1,7 +1,7 @@
 import React from 'react';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-
+import {formatPercentage} from 'common/format';
 import Module from 'Parser/Core/Module';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
@@ -9,9 +9,9 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 import {ABILITIES_AFFECTED_BY_HEALING_INCREASES} from '../../Constants';
 import {HEALS_MASTERY_STACK} from '../../Constants';
-import {formatPercentage} from 'common/format';
 
 const MASTERY_BONUS_FROM_ONE_RATING = 1 / 66666.6666666;
+const BASE_MASTERY_PERCENT = 0.048;
 
 class Mastery extends Module {
   static dependencies = {
@@ -92,6 +92,10 @@ class Mastery extends Module {
     }
   }
 
+  on_byPlayer_absorbed(event) {
+    this.totalNoMasteryHealing += event.amount;
+  }
+
   on_finished() {
     console.log("Mastery results: ");
     for(const [hotId, hotObj] of this.hotHealingMap.entries()) {
@@ -100,6 +104,11 @@ class Mastery extends Module {
       console.log(hotObj.name + " - Direct:" + formatPercentage(directPerc) +
           "% Mastery:" + formatPercentage(masteryPerc) + "%");
     }
+
+    const avgMasteryStacksAllHealing = this.masteryTimesHealing / this.totalNoMasteryHealing;
+    const avgMasteryStacksDruidHealing = this.masteryTimesHealing / this.druidSpellNoMasteryHealing;
+
+    console.log("Avg Mastery Stacks - All Healing:" + avgMasteryStacksAllHealing + " Druid Healing:" + avgMasteryStacksDruidHealing);
   }
 
   statistic() {
@@ -113,8 +122,6 @@ class Mastery extends Module {
       />
     );
   }
-
-  // TODO also count absorbs in total no mastery healing?
 
   _decompHeal(amount, hotCount) {
     const masteryBonus = this._getCurrMasteryBonus();
@@ -132,8 +139,13 @@ class Mastery extends Module {
   }
 
   _getCurrMasteryBonus() {
-    // TODO add handling for mastery buffs
-    return this.combatants.selected.masteryPercentage;
+    let baseMasteryRating = this.combatants.selected.masteryRating;
+    for(const [buffId, buffObj] of this.masteryBuffs.entries()) {
+      if(this.combatants.selected.hasBuff(buffId)) {
+        baseMasteryRating += buffObj.amount;
+      }
+    }
+    return BASE_MASTERY_PERCENT + (baseMasteryRating * MASTERY_BONUS_FROM_ONE_RATING);
   }
 
 }
