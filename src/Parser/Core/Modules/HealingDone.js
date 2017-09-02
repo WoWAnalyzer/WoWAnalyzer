@@ -33,8 +33,8 @@ class HealingDone extends Module {
     const secondsIntoFight = Math.floor((timestamp - this.owner.fight.start_time) / 1000);
     this.bySecond[secondsIntoFight] = (this.bySecond[secondsIntoFight] || new HealingValue()).add(amount, absorbed, overheal);
   }
-  _subtractHealing(timestamp, amount = 0, absorbed = 0, overkill = 0) {
-    return this._addHealing(timestamp, -amount, -absorbed, -overkill);
+  _subtractHealing(timestamp, amount = 0, absorbed = 0, overheal = 0) {
+    return this._addHealing(timestamp, -amount, -absorbed, -overheal);
   }
 }
 
