@@ -27,6 +27,9 @@ services:
       context: .
       dockerfile: Dockerfile.package
     container_name: wowanalyzer
+    environment:
+     - MYSQL_HOST=database
+     - MYSQL_ROOT_PASSWORD=my-secret-pw
     ports:
      - 3000:3000
   database:

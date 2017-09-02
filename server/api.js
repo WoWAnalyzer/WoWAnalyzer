@@ -1,14 +1,10 @@
-const querystring = require('querystring');
-const request = require('request-promise-native');
+import querystring from 'querystring';
+import request from 'request-promise-native';
 
-const models = require('./models');
+import models from './models';
 import WclApiError from './WclApiError';
-const WclApiResponse = models.WclApiResponse;
 
-function getCurrentMemoryUsage() {
-  const memoryUsage = process.memoryUsage();
-  return memoryUsage.rss;
-}
+const WclApiResponse = models.WclApiResponse;
 
 const WCL_MAINTENANCE_STRING = 'Warcraft Logs is down for maintenance';
 
