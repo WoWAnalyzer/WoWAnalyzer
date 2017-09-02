@@ -161,7 +161,6 @@ class CastEfficiency extends CoreCastEfficiency {
       isActive: combatant => combatant.hasTalent(SPELLS.SHADOWFURY_TALENT.id),
       noSuggestion: true,
       noCanBeImproved: true,
-      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.BURNING_RUSH,
@@ -170,7 +169,6 @@ class CastEfficiency extends CoreCastEfficiency {
       isActive: combatant => combatant.hasTalent(SPELLS.BURNING_RUSH_TALENT.id),
       noSuggestion: true,
       noCanBeImproved: true,
-      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.DRAIN_LIFE,
@@ -178,7 +176,6 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => null,
       noSuggestion: true,
       noCanBeImproved: true,
-      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.UNENDING_RESOLVE,
@@ -194,7 +191,6 @@ class CastEfficiency extends CoreCastEfficiency {
       isActive: combatant => combatant.hasTalent(SPELLS.DEMONIC_CIRCLE_TALENT.id),
       noSuggestion: true,
       noCanBeImproved: true,
-      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.DEMONIC_CIRCLE_TELEPORT,
@@ -203,7 +199,6 @@ class CastEfficiency extends CoreCastEfficiency {
       isActive: combatant => combatant.hasTalent(SPELLS.DEMONIC_CIRCLE_TALENT.id),
       noSuggestion: true,
       noCanBeImproved: true,
-      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.SOULSTONE,
@@ -237,7 +232,6 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 10,
       noSuggestion: true,
       noCanBeImproved: true,
-      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.DARK_PACT,
@@ -262,7 +256,6 @@ class CastEfficiency extends CoreCastEfficiency {
       isActive: combatant => combatant.hasTalent(SPELLS.GRIMOIRE_OF_SACRIFICE_TALENT.id),
       noSuggestion: true,
       noCanBeImproved: true,
-      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.BANISH,
@@ -270,7 +263,6 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => null,
       noSuggestion: true,
       noCanBeImproved: true,
-      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.CREATE_HEALTHSTONE,
@@ -278,7 +270,6 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => null,
       noSuggestion: true,
       noCanBeImproved: true,
-      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.CREATE_SOULWELL,
@@ -286,7 +277,6 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 120,
       noSuggestion: true,
       noCanBeImproved: true,
-      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.ENSLAVE_DEMON,
@@ -294,7 +284,6 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => null,
       noSuggestion: true,
       noCanBeImproved: true,
-      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.EYE_OF_KILROGG,
@@ -302,7 +291,6 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => null,
       noSuggestion: true,
       noCanBeImproved: true,
-      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.FEAR_CAST,
@@ -310,7 +298,6 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => null,
       noSuggestion: true,
       noCanBeImproved: true,
-      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.HEALTH_FUNNEL_CAST,
@@ -318,7 +305,6 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => null,
       noSuggestion: true,
       noCanBeImproved: true,
-      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.SUMMON_IMP,
@@ -357,7 +343,6 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => null,
       noSuggestion: true,
       noCanBeImproved: true,
-      hideWithZeroCasts: true,
     },
   ];
 }
