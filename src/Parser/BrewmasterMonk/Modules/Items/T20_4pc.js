@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatThousands, formatNumber } from 'common/format';
 import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
 import { GIFT_OF_THE_OX_SPELLS } from '../../Constants';
 
 const BASE_STAGGER_TICKS = 20;
@@ -14,15 +15,19 @@ const T20_4PC_REDUCTION = 0.95;
 const debug = false;
 
 class T20_4pc extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  }
+
   lastStaggerTick = 0;
   staggerLength = BASE_STAGGER_TICKS;
   staggerSaved = 0;
   orbsEaten = 0;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasBuff(SPELLS.XUENS_BATTLEGEAR_4_PIECE_BUFF_BRM.id);
+    this.active = this.combatants.selected.hasBuff(SPELLS.XUENS_BATTLEGEAR_4_PIECE_BUFF_BRM.id);
     this.active && debug && console.log('You have the 4pc');
-    if (this.owner.selectedCombatant.getFinger(ITEMS.JEWEL_OF_THE_LOST_ABBEY.id)) {
+    if (this.combatants.selected.getFinger(ITEMS.JEWEL_OF_THE_LOST_ABBEY.id)) {
       debug && console.log('AND the stagger ring...');
       this.staggerLength += JEWEL_OF_THE_LOST_ABBEY_TICKS;
     }

@@ -6,12 +6,17 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 
 import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
 import { BREWS, GIFT_OF_THE_OX_SPELLS } from '../../Constants';
 
 const debug = false;
 const SUMMON_LATENCY = 5;
 
 class T20_2pc extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  }
+
   lastTrigger = 0;
   lastOrb = 0;
   brewCount = 0;
@@ -19,7 +24,7 @@ class T20_2pc extends Module {
   orbTriggeredBy2Pc = 0;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasBuff(SPELLS.XUENS_BATTLEGEAR_2_PIECE_BUFF_BRM.id);
+    this.active = this.combatants.selected.hasBuff(SPELLS.XUENS_BATTLEGEAR_2_PIECE_BUFF_BRM.id);
     this.active && debug && console.log('You have the 2pc');
   }
 
