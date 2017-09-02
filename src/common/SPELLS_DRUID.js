@@ -10,7 +10,7 @@ export default {
     id: 77495,
     name: "Mastery: Harmony",
     icon: 'spell_nature_healingway',
-  }
+  },
 
   RESTO_DRUID_T20_2SET_BONUS_BUFF: {
     id: 242238,
