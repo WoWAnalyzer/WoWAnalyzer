@@ -1,18 +1,14 @@
 const querystring = require('querystring');
-const https = require('https');
-const zlib = require('zlib');
-const Agent = require('agentkeepalive').HttpsAgent;
+const request = require('request-promise-native');
 
 const models = require('./models');
+import WclApiError from './WclApiError';
 const WclApiResponse = models.WclApiResponse;
 
 function getCurrentMemoryUsage() {
   const memoryUsage = process.memoryUsage();
   return memoryUsage.rss;
 }
-
-const keepAliveAgent = new Agent({
-});
 
 const WCL_MAINTENANCE_STRING = 'Warcraft Logs is down for maintenance';
 
@@ -56,83 +52,72 @@ class ApiRequestHandler {
     const cachedWclApiResponse = await WclApiResponse.findById(this.requestUrl);
     const jsonString = !this.cacheBust && cachedWclApiResponse ? cachedWclApiResponse.content : null;
     if (!this.cacheBust && jsonString) {
-      this.cacheHit(jsonString);
+      console.log('cache HIT', this.requestUrl);
+      this.sendJson(jsonString);
     } else {
-      this.cacheMiss();
+      console.log('cache MISS', this.requestUrl);
+      this.fetchFromWcl(cachedWclApiResponse);
     }
   }
 
   get requestUrl() {
     return `${this.req.params[0]}?${querystring.stringify(this.req.query)}`;
   }
-  cacheHit(jsonString) {
-    console.log('cache HIT', this.requestUrl);
-    this.sendJson(jsonString);
-  }
-  cacheMiss() {
-    console.log('cache MISS', this.requestUrl);
+  async fetchFromWcl(cachedWclApiResponse) {
     const query = Object.assign({}, this.req.query, { api_key: this.apiKey });
-
-    const options = {
-      host: 'www.warcraftlogs.com',
-      path: `/v1/${this.req.params[0]}?${querystring.stringify(query)}`,
-      headers: {
-        'User-Agent': 'WoWAnalyzer.com API',
-        'Accept-Encoding': 'gzip', // using gzip is 80% quicker
-      },
-      agent: keepAliveAgent,
-    };
-    console.log('GET', options.path);
-    const wclStart = Date.now();
-    https
-      .get(options, wclResponse => {
-        if (wclResponse.statusCode >= 500 && wclResponse.statusCode < 600) {
-          const msg = 'WCL Error (' + wclResponse.statusCode + '): ' + wclResponse.statusMessage;
-          console.error(msg);
-          this.res.status(500).send(msg);
-          return;
-        }
-
-        const gunzip = zlib.createGunzip();
-        wclResponse.pipe(gunzip);
-
-        let jsonString = '';
-        gunzip
-          .on('data', chunk => {
-            jsonString += chunk.toString();
-          })
-          .on('end', () => {
-            if (wclResponse.statusCode === 200) {
-              if (jsonString.indexOf(WCL_MAINTENANCE_STRING) !== -1) {
-                console.error(WCL_MAINTENANCE_STRING);
-                this.res.status(500).send(WCL_MAINTENANCE_STRING);
-                return;
-              }
-
-              WclApiResponse.create({
-                url: this.requestUrl,
-                content: jsonString,
-                wclResponseTime: Date.now() - wclStart,
-              });
-            } else {
-              console.error('Error status:', wclResponse.statusCode);
-            }
-
-            // Clone WCL response
-            this.res.setHeader('Content-Type', wclResponse.headers['content-type']);
-            this.res.status(wclResponse.statusCode);
-            this.res.send(jsonString);
-            console.log('Finished (memory:', Math.ceil(getCurrentMemoryUsage() / 1024 / 1024), 'MB', 'wcl:', Date.now() - wclStart, 'ms', ')');
-          })
-          .on('error', (e) => {
-            console.error('zlib error: ', e);
-            this.res.status(500).send();
-          });
-      })
-      .on('error', (err) => {
-        console.error('Error:', err);
-        this.res.sendStatus(500);
+    const path = `v1/${this.req.params[0]}?${querystring.stringify(query)}`;
+    console.log('GET', path);
+    try {
+      const wclStart = Date.now();
+      const jsonString = await request.get({
+        url: `https://www.warcraftlogs.com/${path}`,
+        headers: {
+          'User-Agent': 'WoWAnalyzer.com API',
+        },
+        gzip: true, // using gzip is 80% quicker
+        forever: true, // we'll be making several requests, so pool connections
       });
+      const wclResponseTime = Date.now() - wclStart;
+
+      // WCL maintenance mode returns 200 http code :(
+      if (jsonString.indexOf(WCL_MAINTENANCE_STRING) !== -1) {
+        throw new WclApiError(WCL_MAINTENANCE_STRING, 503);
+      }
+
+      if (cachedWclApiResponse) {
+        cachedWclApiResponse.update({
+          content: jsonString,
+          wclResponseTime,
+          numAccesses: cachedWclApiResponse.numAccesses + 1,
+          lastAccessedAt: new Date(),
+        });
+      } else {
+        WclApiResponse.create({
+          url: this.requestUrl,
+          content: jsonString,
+          wclResponseTime,
+        });
+      }
+
+      this.sendJson(jsonString);
+      console.log('Finished', 'wcl:', wclResponseTime, 'ms');
+    } catch (error) {
+      if (error.statusCode >= 400 && error.statusCode < 600) {
+        const message = error.error || error.message; // if this is a `request` error, `error` contains the plain JSON while `message` also has the statusCode so is polluted.
+        console.error('WCL Error (' + error.statusCode + '): ' + message);
+        this.res.status(error.statusCode);
+        this.sendJson({
+          error: 'WCL API error',
+          message,
+        });
+        return;
+      }
+      this.res.status(500).send({
+        error: 'A server error occured',
+        message: error.message,
+      });
+      console.error(error);
+    }
   }
 
   sendJson(json) {

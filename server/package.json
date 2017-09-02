@@ -16,6 +16,8 @@
     "compression": "^1.7.0",
     "express": "^4.15.3",
     "mysql2": "^1.4.2",
+    "request": "^2.81.0",
+    "request-promise-native": "^1.0.4",
     "sequelize": "^4.8.0",
     "sequelize-cli": "^2.8.0"
   },
