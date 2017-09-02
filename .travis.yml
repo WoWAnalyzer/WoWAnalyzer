@@ -10,8 +10,8 @@ cache:
 env:
   - NODE_ENV=production
 install:
-  - npm install --dev
-  - cd server && npm install && cd ..
+  - npm install
+  - cd server && npm install --dev && cd ..
 script:
   - npm test
   - npm run build
