@@ -1,4 +1,5 @@
 import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import { SPELLS_WITH_ENERGY_COST, SPELLS_WITH_HASTE } from '../../Constants';
@@ -8,7 +9,10 @@ const BASE_REGEN = 10;
 export const MAX_ENERGY = 100;
 
 class Energy extends Module {
-  
+  static dependencies = {
+    combatants: Combatants,
+  }
+
   energy = [];
   baseHaste = 0;
   currentRegen = 0;
@@ -21,7 +25,7 @@ class Energy extends Module {
   totalEnergyRegen = 0;
 
   on_initialized() {
-    this.baseHaste = this.owner.selectedCombatant.hastePercentage;
+    this.baseHaste = this.combatants.selected.hastePercentage;
     this.lastChangeInEnergy = this.owner.fight.start_time;
     this.fightEnd = this.owner.fight.end_time;
     this.currentRegen = this.calcEnergyRegen([this.baseHaste], this.lastChangeInEnergy);

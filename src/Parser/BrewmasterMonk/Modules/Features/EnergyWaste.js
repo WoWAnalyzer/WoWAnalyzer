@@ -1,5 +1,6 @@
 import React from 'react';
 import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
 import Icon from 'common/Icon';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
@@ -10,6 +11,7 @@ import Energy, { MAX_ENERGY } from '../Features/Energy';
 class EnergyWaste extends Module {
   static dependencies = {
     energy: Energy,
+    combatants: Combatants,
   };
 
   suggestions(when) {
@@ -39,7 +41,7 @@ class EnergyWaste extends Module {
 
   statistic() {
     const energyWasted = this.energy.energyWastedFromBOB + this.energy.energyWastedFromMax;
-    const hasBoB = this.owner.selectedCombatant.hasTalent(SPELLS.BLACK_OX_BREW_TALENT.id);
+    const hasBoB = this.combatants.selected.hasTalent(SPELLS.BLACK_OX_BREW_TALENT.id);
     const totalEnergy = this.energy.totalEnergyRegen + (this.energy.bobCasts * 100);
     return (
       <StatisticBox

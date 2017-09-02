@@ -67,8 +67,10 @@ describe('Brewmaster.Energy', () => {
     expect(val).toBe(40);
   });
   it('track haste in initialize with 10% haste', () => {
-    const owner = { selectedCombatant: { hastePercentage: 0.1 }, fight: {end_time: 10000}};
+    const owner = { fight: {end_time: 10000}};
+    const combatant = { selected: { hastePercentage: 0.1 } };
     energy.owner = owner;
+    energy.combatants = combatant;
     energy.triggerEvent('initialized');
     expect(energy.baseHaste).toBe(0.1);
     expect(energy.currentRegen).toBe(11);
