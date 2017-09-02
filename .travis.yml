@@ -11,12 +11,13 @@ env:
   - NODE_ENV=production
 install:
   - npm install
+  - cd server && npm install --production && cd ..
 script:
   - npm test
   - npm run build
+  - cd server && npm run build && cd ..
 after_success:
   - if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
-      cd server && npm install --production && cd ..;
       export REPO=martijnhols/wowanalyzer;
       export BRANCH=$(
         if [ "$TRAVIS_BRANCH" == "master" ]; then
