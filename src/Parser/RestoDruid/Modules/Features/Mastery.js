@@ -6,6 +6,8 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import {ABILITIES_AFFECTED_BY_HEALING_INCREASES} from '../../Constants';
 import {HEALS_MASTERY_STACK} from '../../Constants';
 
+const MASTERY_BONUS_FROM_ONE_RATING = 1 / 66666.6666666;
+
 class Mastery extends Module {
   static dependencies = {
     combatants: Combatants,
@@ -31,7 +33,6 @@ class Mastery extends Module {
     ]);
     for(let[buffId, buffObj] of this.masteryBuffs.entries()) {
   		buffObj.attributableHealing = 0;
-  		buffObj.isActive = false; // TODO: is buff presence already handled by WoWAnalyzer?
   	}
   }
 
@@ -51,21 +52,55 @@ class Mastery extends Module {
     }
 
     if(ABILITIES_AFFECTED_BY_HEALING_INCREASES.includes(spellId)) {
-      let hotsOn = target.activeBuffs().filter(buff => HEALS_MASTERY_STACK.includes(buff.ability.guid));
+      let hotsOn = target.activeBuffs()
+          .map(buffObj => buffObj.ability.guid)
+          .filter(buffId => HEALS_MASTERY_STACK.includes(buffId));
       let numHotsOn = hotsOn.length;
       let decomposedHeal = _decompHeal(amount, numHotsOn);
 
-      this.totalNoMasteryHealing += decomposedHeal.noMasteryHealing;
-      this.druidSpellNoMasteryHealing += decomposedHeal.noMasteryHealing;
-      this.masteryTimesHealing += decomposedHeal.noMasteryHealing * numHotsOn;
+      this.totalNoMasteryHealing += decomposedHeal.noMastery;
+      this.druidSpellNoMasteryHealing += decomposedHeal.noMastery;
+      this.masteryTimesHealing += decomposedHeal.noMastery * numHotsOn;
 
-      // TODO give each HoT credit for mastery boosting
+      hotsOn
+          .filter(hotOn => hotOn != spellId) // don't double count
+          .forEach(hotOn => this.hotHealingMap.get(hotOn).mastery += decomposedHeal.oneStack);
 
-      // TODO attribute healing to mastery buffs that are present
+/*
+      for(let hotOn of hotsOn) {
+        if(hotOn != spellId) { // don't double count
+          this.hotHealingMap.get(hotOn).mastery += decomposedHeal.oneStack;
+        }
+      }
+*/
+
+      // TODO implement this part functionally too
+      for(let[buffId, buffObj] of this.masteryBuffs.entries()) {
+        if(this.combatants.selected.hasBuff(buffId)) {
+          let attributableHealing = decomposedHeal.oneRating * buffObj.amount;
+          buffObj.attributableHealing += attributableHealing;
+        }
+      }
 
     } else {
       this.totalNoMasteryHealing += amount;
     }
+  }
+
+  statistic() {
+    // TODO const results
+
+    // TODO
+
+    return (
+      <StatisticBox
+        /* TODO */ icon={<SpellIcon id={MASTERY_HARMONY.id} />}
+        /* TODO */ value="Test"//value={`${formatPercentage(tyrsDeliverancePercentage)} %`}
+        /* TODO */ label="Masterty Effectiveness"
+        tooltip={`This is a test tooltip`}
+        /* TODO */ //tooltip={`The total actual effective healing contributed by Tyr's Deliverance. This includes the gains from the increase to healing by Flash of Light and Holy Light.<br /><br />The actual healing done by the effect was ${formatPercentage(tyrsDeliveranceHealHealingPercentage)}% of your healing done, and the healing contribution from the Flash of Light and Holy Light heal increase was ${formatPercentage(tyrsDeliveranceBuffFoLHLHealingPercentage)}% of your healing done.`}
+      />
+    );
   }
 
   // TODO also count absorbs in total no mastery healing?
@@ -73,9 +108,23 @@ class Mastery extends Module {
   // TODO build suggested results
 
   _decompHeal(amount, hotCount) {
-    // TODO implement
-    // return object with [no mastery healing], [one stack mastery healing], and [one mastery rating healing]
-    // takes place of all helpers
+    let masteryBonus = _getCurrMasteryBonus();
+    let healMasteryMult = 1 + (hotCount * masteryBonus);
+
+    let noMasteryHealing = healAmount / healMasteryMult;
+    let oneStackMasteryHealing = noMasteryHealing * masteryBonus;
+    let oneRatingMasteryHealing = noMasteryHealing * MASTERY_BONUS_FROM_ONE_RATING * hotCount;
+
+    return {
+      'noMastery': noMasteryHealing,
+      'oneStack': oneStackMasteryHealing,
+      'oneRating': oneRatingMasteryHealing,
+    };
+  }
+
+  _getCurrMasteryBonus() {
+    // TODO add handling for mastery buffs
+    return this.combatants.selected.masteryPercentage();
   }
 
 }
