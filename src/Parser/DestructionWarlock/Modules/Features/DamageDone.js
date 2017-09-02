@@ -32,9 +32,9 @@ class DamageDone extends CoreDamageDone {
       <StatisticBox
         icon={(
           <img
-            src="/specs/Warlock-Affliction.jpg"
+            src="/specs/Warlock-Destruction.jpg"
             style={{ border: 0 }}
-            alt="Affliction Warlock"
+            alt="Destruction Warlock"
           />)}
         value={`${formatNumber((totalDmg / this.owner.fightDuration) * 1000)} DPS`}
         label='Damage done'

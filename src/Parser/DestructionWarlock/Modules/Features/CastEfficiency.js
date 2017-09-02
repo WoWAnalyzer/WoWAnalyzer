@@ -7,51 +7,52 @@ class CastEfficiency extends CoreCastEfficiency {
     ...CoreCastEfficiency.CPM_ABILITIES,
     //Rotational spells
     {
-      spell: SPELLS.HAUNT,
+      spell: SPELLS.CHAOS_BOLT,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => 25,
-      isActive: combatant => combatant.hasTalent(SPELLS.HAUNT_TALENT.id),
-      recommendedCastEfficiency: 0.95,
-      extraSuggestion: 'This estimate may not be correct sometimes because of Haunt\'s resets. The real amount of possible Haunts will be higher if there were adds on this fight.',
-    },
-    {
-      spell: SPELLS.PHANTOM_SINGULARITY,
-      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => 40,
-      isActive: combatant => combatant.hasTalent(SPELLS.PHANTOM_SINGULARITY_TALENT.id),
+      getCooldown: haste => null,
       recommendedCastEfficiency: 0.95,
     },
     {
-      spell: SPELLS.AGONY,
+      spell: SPELLS.CHANNEL_DEMONFIRE_CAST,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => 25 / (1 + haste),
+      isActive: combatant => combatant.hasTalent(SPELLS.CHANNEL_DEMONFIRE_TALENT.id),
+      recommendedCastEfficiency: 0.95,
+    },
+    {
+      spell: SPELLS.CONFLAGRATE,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => 12 / (1 + haste),
+      charges: 2,
+      recommendedCastEfficiency: 0.95,
+      isActive: combatant => !combatant.hasTalent(SPELLS.SHADOWBURN.id),
+      //TODO: T19 4p set bonus grants another charge and reduces CD
+    },
+    {
+      spell: SPELLS.SHADOWBURN,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => 12 / (1 + haste),
+      charges: 2,
+      recommendedCastEfficiency: 0.95,
+      isActive: combatant => combatant.hasTalent(SPELLS.SHADOWBURN.id),
+      //TODO: T19 4p set bonus grants another charge and reduces CD
+    },
+    {
+      spell: SPELLS.DIMENSIONAL_RIFT_CAST,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => 45,
+      charges: 3,
+      recommendedCastEfficiency: 0.95,
+    },
+    {
+      spell: SPELLS.IMMOLATE_CAST,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => null,
       noSuggestion: true,
       noCanBeImproved: true,
     },
     {
-      spell: SPELLS.CORRUPTION_CAST,
-      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => null,
-      noSuggestion: true,
-      noCanBeImproved: true,
-    },
-    {
-      spell: SPELLS.SIPHON_LIFE,
-      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => null,
-      isActive: combatant => combatant.hasTalent(SPELLS.SIPHON_LIFE_TALENT.id),
-      noSuggestion: true,
-      noCanBeImproved: true,
-    },
-    {
-      spell: SPELLS.UNSTABLE_AFFLICTION_CAST,
-      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => null,
-      noSuggestion: true,
-      noCanBeImproved: true,
-    },
-    {
-      spell: SPELLS.DRAIN_SOUL,
+      spell: SPELLS.INCINERATE,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => null,
       noSuggestion: true,
@@ -66,14 +67,38 @@ class CastEfficiency extends CoreCastEfficiency {
       noCanBeImproved: true,
     },
     {
-      spell: SPELLS.SEED_OF_CORRUPTION_DEBUFF,
-      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      spell: SPELLS.RAIN_OF_FIRE_CAST,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL_AOE,
       getCooldown: haste => null,
       noSuggestion: true,
       noCanBeImproved: true,
     },
+    {
+      spell: SPELLS.CATACLYSM,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL_AOE,
+      getCooldown: haste => 30,
+      isActive: combatant => combatant.hasTalent(SPELLS.CATACLYSM_TALENT.id),
+    },
 
     //Cooldowns
+
+    //Havoc is a situational CD - it makes all your ST spells to cleave to the Havoc target for 10 seconds
+    //It is a baseline CD, but casting it on CD is useless, it doesn't add anything
+    {
+      spell: SPELLS.HAVOC,
+      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
+      getCooldown: haste => 45 / (1 + haste),
+      isActive: combatant => !combatant.hasTalent(SPELLS.WREAK_HAVOC_TALENT.id),
+      noSuggestion: true,
+      noCanBeImproved: true,
+    },
+    //But if you take Wreak Havoc (-20s CD), you probably intend to do some cleaving and then it should be used as much as possible (but with respect to the encounter)
+    {
+      spell: SPELLS.HAVOC,
+      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
+      getCooldown: haste => 25 / (1 + haste),
+      isActive: combatant => combatant.hasTalent(SPELLS.WREAK_HAVOC_TALENT.id),
+    },
     {
       spell: SPELLS.SOUL_HARVEST,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
@@ -105,21 +130,39 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 90,
       isActive: combatant => combatant.hasTalent(SPELLS.GRIMOIRE_OF_SERVICE_TALENT.id),
+      noSuggestion: true,
+      noCanBeImproved: true,
+      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.GRIMOIRE_FELHUNTER,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 90,
       isActive: combatant => combatant.hasTalent(SPELLS.GRIMOIRE_OF_SERVICE_TALENT.id),
+      noSuggestion: true,
+      noCanBeImproved: true,
+      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.GRIMOIRE_SUCCUBUS,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 90,
       isActive: combatant => combatant.hasTalent(SPELLS.GRIMOIRE_OF_SERVICE_TALENT.id),
+      noSuggestion: true,
+      noCanBeImproved: true,
+      hideWithZeroCasts: true,
     },
 
     //Utility
+    {
+      spell: SPELLS.SHADOWFURY,
+      category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
+      getCooldown: haste => 30,
+      isActive: combatant => combatant.hasTalent(SPELLS.SHADOWFURY_TALENT.id),
+      noSuggestion: true,
+      noCanBeImproved: true,
+      hideWithZeroCasts: true,
+    },
     {
       spell: SPELLS.BURNING_RUSH,
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
@@ -127,6 +170,15 @@ class CastEfficiency extends CoreCastEfficiency {
       isActive: combatant => combatant.hasTalent(SPELLS.BURNING_RUSH_TALENT.id),
       noSuggestion: true,
       noCanBeImproved: true,
+      hideWithZeroCasts: true,
+    },
+    {
+      spell: SPELLS.DRAIN_LIFE,
+      category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
+      getCooldown: haste => null,
+      noSuggestion: true,
+      noCanBeImproved: true,
+      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.UNENDING_RESOLVE,
@@ -142,6 +194,7 @@ class CastEfficiency extends CoreCastEfficiency {
       isActive: combatant => combatant.hasTalent(SPELLS.DEMONIC_CIRCLE_TALENT.id),
       noSuggestion: true,
       noCanBeImproved: true,
+      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.DEMONIC_CIRCLE_TELEPORT,
@@ -150,6 +203,7 @@ class CastEfficiency extends CoreCastEfficiency {
       isActive: combatant => combatant.hasTalent(SPELLS.DEMONIC_CIRCLE_TALENT.id),
       noSuggestion: true,
       noCanBeImproved: true,
+      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.SOULSTONE,
@@ -166,6 +220,7 @@ class CastEfficiency extends CoreCastEfficiency {
       isActive: combatant => combatant.hasTalent(SPELLS.GRIMOIRE_OF_SUPREMACY_TALENT.id),
       noSuggestion: true,
       noCanBeImproved: true,
+      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.SUMMON_INFERNAL_TALENTED,
@@ -174,6 +229,7 @@ class CastEfficiency extends CoreCastEfficiency {
       isActive: combatant => combatant.hasTalent(SPELLS.GRIMOIRE_OF_SUPREMACY_TALENT.id),
       noSuggestion: true,
       noCanBeImproved: true,
+      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.DEMONIC_GATEWAY_CAST,
@@ -181,6 +237,7 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 10,
       noSuggestion: true,
       noCanBeImproved: true,
+      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.DARK_PACT,
@@ -205,6 +262,7 @@ class CastEfficiency extends CoreCastEfficiency {
       isActive: combatant => combatant.hasTalent(SPELLS.GRIMOIRE_OF_SACRIFICE_TALENT.id),
       noSuggestion: true,
       noCanBeImproved: true,
+      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.BANISH,
@@ -212,6 +270,7 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => null,
       noSuggestion: true,
       noCanBeImproved: true,
+      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.CREATE_HEALTHSTONE,
@@ -219,6 +278,7 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => null,
       noSuggestion: true,
       noCanBeImproved: true,
+      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.CREATE_SOULWELL,
@@ -226,6 +286,7 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 120,
       noSuggestion: true,
       noCanBeImproved: true,
+      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.ENSLAVE_DEMON,
@@ -233,6 +294,7 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => null,
       noSuggestion: true,
       noCanBeImproved: true,
+      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.EYE_OF_KILROGG,
@@ -240,6 +302,7 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => null,
       noSuggestion: true,
       noCanBeImproved: true,
+      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.FEAR_CAST,
@@ -247,6 +310,7 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => null,
       noSuggestion: true,
       noCanBeImproved: true,
+      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.HEALTH_FUNNEL_CAST,
@@ -254,6 +318,7 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => null,
       noSuggestion: true,
       noCanBeImproved: true,
+      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.SUMMON_IMP,
@@ -268,6 +333,7 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => null,
       noSuggestion: true,
       noCanBeImproved: true,
+      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.SUMMON_FELHUNTER,
@@ -275,6 +341,7 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => null,
       noSuggestion: true,
       noCanBeImproved: true,
+      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.SUMMON_SUCCUBUS,
@@ -282,6 +349,7 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => null,
       noSuggestion: true,
       noCanBeImproved: true,
+      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.UNENDING_BREATH,
@@ -289,6 +357,7 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => null,
       noSuggestion: true,
       noCanBeImproved: true,
+      hideWithZeroCasts: true,
     },
   ];
 }
