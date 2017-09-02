@@ -23,7 +23,7 @@ class BlackoutCombo extends Module {
   spellsBOCWasUsedOn = {};
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasTalent(SPELLS.BLACKOUT_COMBO_TALENT.id);
+    this.active = this.combatants.selected.hasTalent(SPELLS.BLACKOUT_COMBO_TALENT.id);
   }
   
   on_byPlayer_applybuff(event) {
