@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
-import CombatLogParser from 'Parser/RestoDruid/CombatLogParser';
+import WildGrowth from 'Parser/RestoDruid/Modules/Features/WildGrowth';
 
-describe('RestoDruid.CombatLogParser', () => {
+describe('RestoDruid/Modules/WildGrowth', () => {
   const reorderScenarios = [
     {
       // 0: simple test to see if the events aren't touched when they're already in order
@@ -107,7 +107,9 @@ describe('RestoDruid.CombatLogParser', () => {
 
   reorderScenarios.forEach((scenario, idx) => {
     it('can reorder events ' + idx, () => {
-      const parser = new CombatLogParser(null, {id: scenario.playerId});
+      const parser = new WildGrowth({
+        playerId: scenario.playerId,
+      });
       expect(parser.reorderEvents(scenario.events).map((event) => { return event.testid; })).toEqual(scenario.result);
     });
   });

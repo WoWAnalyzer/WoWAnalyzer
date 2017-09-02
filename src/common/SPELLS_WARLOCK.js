@@ -5,7 +5,9 @@
  */
 
 export default {
+  // -------------
   // Shared spells
+  // -------------
   BANISH: {
     id: 710,
     name: 'Banish',
@@ -25,6 +27,11 @@ export default {
     id: 111771,
     name: 'Demonic Gateway',
     icon: 'spell_warlock_demonicportal_green',
+  },
+  DRAIN_LIFE: {
+    id: 234153,
+    name: 'Drain Life',
+    icon: 'spell_shadow_lifedrain02',
   },
   ENSLAVE_DEMON: {
     id: 1098,
@@ -112,7 +119,10 @@ export default {
     icon: 'spell_shadow_demonbreath',
   },
 
+  // --------------
   // Shared talents
+  // --------------
+
   BURNING_RUSH: {
     id: 111400,
     name: 'Burning Rush',
@@ -193,6 +203,10 @@ export default {
     name: 'Demonic Power',
     icon: 'warlock_grimoireofsacrifice',
   },
+
+  // ----------
+  // AFFLICTION
+  //-----------
   // Affliction spells
   AGONY: {
     id: 980,
@@ -270,7 +284,6 @@ export default {
     icon: 'spell_shadow_unstableaffliction_3',
   },
 
-
   // Affliction talents
   PHANTOM_SINGULARITY: {
     id: 205179,
@@ -292,7 +305,8 @@ export default {
     name: 'Siphon Life',
     icon: 'spell_shadow_requiem',
   },
-  //Tier sets
+
+  //Affliction tier sets
   WARLOCK_AFFLI_T20_2P_BONUS: {
     id: 242290,
     name: 'Affliction Warlock T20 2P bonus',
@@ -308,12 +322,14 @@ export default {
     name: 'Demonic Speed',
     icon: 'spell_shadow_soulleech_3',
   },
-  //Artifact Traits
+
+  //Affliction artifact traits
   FATAL_ECHOES: {
     id: 199257,
     name: 'Fatal Echoes',
     icon: 'inv_misc_bell_01',
   },
+
   //Affliction shard generating effects
   AGONY_SHARD_GEN: {
     id: 17941,
@@ -344,5 +360,108 @@ export default {
     id: 205756,
     name: 'Power Cord of Lethtendris',
     icon: 'inv_belt_30',
+  },
+
+  // -----------
+  // DESTRUCTION
+  // -----------
+
+  // Destruction spells
+  //TODO: check if all is correct (copypasta from Development tab)
+  INCINERATE: {
+    id: 29722,
+    name: 'Incinerate',
+    icon: 'spell_fire_burnout',
+    baseMana: 0.05,
+  },
+  CONFLAGRATE: {
+    id: 17962,
+    name: 'Conflagrate',
+    icon: 'spell_fire_fireball',
+  },
+  CHAOS_BOLT: {
+    id: 116858,
+    name: 'Chaos Bolt',
+    icon: 'ability_warlock_chaosbolt',
+  },
+  IMMOLATE_CAST: {
+    id: 348,
+    name: 'Immolate',
+    icon: 'spell_fire_immolation',
+    baseMana: 0.06,
+  },
+  IMMOLATE_DEBUFF: {
+    id: 157736,
+    name: 'Immolate',
+    icon: 'spell_fire_immolation',
+  },
+  HAVOC: {
+    id: 80240,
+    name: 'Havoc',
+    icon: 'ability_warlock_baneofhavoc',
+    baseMana: 0.08,
+  },
+  DIMENSIONAL_RIFT_CAST: {
+    id: 196586,
+    name: 'Dimensional Rift',
+    icon: 'spell_warlock_demonicportal_purple',
+  },
+  RAIN_OF_FIRE_CAST: {
+    id: 5740,
+    name: 'Rain of Fire',
+    icon: 'spell_shadow_rainoffire',
+  },
+  RAIN_OF_FIRE_DAMAGE: {
+    id: 42223,
+    name: 'Rain of Fire',
+    icon: 'spell_shadow_rainoffire',
+  },
+  // Destruction talents
+  BACKDRAFT: {
+    id: 117828,
+    name: 'Backdraft',
+    icon: 'ability_warlock_backdraft',
+  },
+  SHADOWBURN: {
+    id: 17877,
+    name: 'Shadowburn',
+    icon: 'spell_shadow_scourgebuild',
+  },
+  ERADICATION_DEBUFF: {
+    id: 196414,
+    name: 'Eradication',
+    icon: 'ability_warlock_eradication',
+  },
+  CATACLYSM: {
+    id: 152108,
+    name: 'Cataclysm',
+    icon: 'achievement_zone_cataclysm',
+  },
+  CHANNEL_DEMONFIRE_CAST: {
+    id: 196447,
+    name: 'Channel Demonfire',
+    icon: 'spell_fire_ragnaros_lavaboltgreen',
+    baseMana: 0.048,
+  },
+  CHANNEL_DEMONFIRE_DAMAGE: {
+    id: 196448,
+    name: 'Channel Demonfire',
+    icon: 'spell_fire_ragnaros_lavaboltgreen',
+  },
+  SHADOWFURY: {
+    id: 30283,
+    name: 'Shadowfury',
+    icon: 'ability_warlock_shadowfurytga',
+  },
+  // Destruction set bonuses
+  WARLOCK_DESTRO_T20_2P_BONUS: {
+    id: 242295,
+    name: 'Destruction Warlock T20 2P bonus',
+    icon: 'inv_helm_cloth_raidwarlock_r_01',
+  },
+  WARLOCK_DESTRO_T20_4P_BONUS: {
+    id: 242296,
+    name: 'Destruction Warlock T20 4P bonus',
+    icon: 'inv_chest_cloth_raidwarlock_r_01',
   },
 };

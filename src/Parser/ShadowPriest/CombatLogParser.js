@@ -8,6 +8,7 @@ import AbilityTracker from './Modules/Core/AbilityTracker';
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import DamageDone from './Modules/Core/DamageDone';
+import Insanity from './Modules/Core/Insanity';
 
 
 import Mindbender from './Modules/Spells/Mindbender';
@@ -29,6 +30,7 @@ class CombatLogParser extends MainCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     abilityTracker: AbilityTracker,
     castEfficiency: CastEfficiency,
+    insanity: Insanity,
 
     // Abilities
     mindbender: Mindbender,

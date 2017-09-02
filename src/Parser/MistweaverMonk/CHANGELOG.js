@@ -1,4 +1,6 @@
 export default `
+31-08-2017 - Initial Extended Healing Trait implementation. Currently estimating the trait as a 5% increase per rank. (by anomoly)
+30-08-2017 - Initial Relic Traits added to statics view. (by anomoly)
 25-08-2017 - Mistweaver Monk: Corrected issue with MonkSpreadsheet tab. Removed / Trimmed some suggestions as this data was redundant when combined with WCL (by anomoly)
 16-08-2017 - Mistweaver Monk: Soothing Mist suggestion added (by anomoly)
 16-08-2017 - Mistweaver Monk: Added the effective healing contribute of Enveloping Mists as a statistic (by anomoly)

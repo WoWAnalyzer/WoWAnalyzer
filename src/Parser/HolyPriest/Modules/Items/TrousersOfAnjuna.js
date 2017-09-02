@@ -1,3 +1,6 @@
+import React from 'react';
+import { formatPercentage, formatNumber } from 'common/format';
+
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 
@@ -72,6 +75,20 @@ class TrousersOfAnjuna extends Module {
       this.absorbed += event.absorbed || 0;
     }
 
+  }
+
+  item() {
+    const legsPercHPS = formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing));
+    const legsHPS = formatNumber(this.healing / this.owner.fightDuration * 1000);
+
+    return {
+      item: ITEMS.ENTRANCING_TROUSERS_OF_ANJUNA,
+      result: (
+        <span>
+          { legsPercHPS } % / { legsHPS } HPS
+        </span>
+      ),
+    };
   }
 }
 

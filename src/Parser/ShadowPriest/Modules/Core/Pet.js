@@ -1,6 +1,7 @@
 import Module from 'Parser/Core/Module';
 
 class Pet extends Module {
+  _damageDone = 0;
   _sourceId = null;
   _pets = {}
 

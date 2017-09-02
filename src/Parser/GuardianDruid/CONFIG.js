@@ -5,7 +5,7 @@ import CHANGELOG from './CHANGELOG';
 
 export default {
   spec: SPECS.GUARDIAN_DRUID,
-  maintainer: '@WOPR',
+  maintainer: '@faide',
   changelog: CHANGELOG,
   parser: CombatLogParser,
 };

@@ -15,14 +15,14 @@ class AlwaysBeCasting extends Module {
   ];
   /* eslint-disable no-useless-computed-key */
   static HASTE_BUFFS = { // This includes debuffs
-    [2825]: 0.3, // Bloodlust
-    [32182]: 0.3, // Heroism
-    [80353]: 0.3, // Time Warp
-    [90355]: 0.3, // Ancient Hysteria (Hunter pet BL)
-    [160452]: 0.3, // Netherwinds (Hunter pet BL)
-    [178207]: 0.25, // Drums of Fury
-    [230935]: 0.25, // Drums of the Mountain
-    [146555]: 0.25, // Drums of Rage
+    [SPELLS.BLOODLUST.id]: 0.3,
+    [SPELLS.HEROISM.id]: 0.3,
+    [SPELLS.TIME_WARP.id]: 0.3,
+    [SPELLS.ANCIENT_HYSTERIA.id]: 0.3, // Hunter pet BL
+    [SPELLS.NETHERWINDS.id]: 0.3, // Hunter pet BL
+    [SPELLS.DRUMS_OF_FURY.id]: 0.25,
+    [SPELLS.DRUMS_OF_THE_MOUNTAIN.id]: 0.25,
+    [SPELLS.DRUMS_OF_RAGE.id]: 0.25,
     [SPELLS.HOLY_AVENGER_TALENT.id]: 0.3,
     [SPELLS.BERSERKING.id]: 0.15,
     [202842]: 0.1, // Rapid Innervation (Balance Druid trait increasing Haste from Innervate)
@@ -35,8 +35,6 @@ class AlwaysBeCasting extends Module {
     [209165]: -0.3, // DEBUFF - Slow Time from Elisande
     // [208944]: -Infinity, // DEBUFF - Time Stop from Elisande
   };
-
-  eventLog = [];
 
   totalTimeWasted = 0;
   totalHealingTimeWasted = 0;
@@ -52,7 +50,6 @@ class AlwaysBeCasting extends Module {
     };
 
     this._currentlyCasting = cast;
-    this.eventLog.push(cast);
   }
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
@@ -71,9 +68,6 @@ class AlwaysBeCasting extends Module {
       begincast: null,
     };
     logEntry.cast = event;
-    if (!this._currentlyCasting) {
-      this.eventLog.push(logEntry);
-    }
 
     this.processCast(logEntry);
     this._currentlyCasting = null;
@@ -155,34 +149,6 @@ class AlwaysBeCasting extends Module {
 
       debug && console.log(`ABC: Current haste: ${this.currentHaste} (lost ${hasteGain} from ${spellId})`);
     }
-  }
-
-  on_finished() {
-    const fightDuration = this.owner.fight.end_time - this.owner.fight.start_time;
-    debug && console.log('totalTimeWasted:', this.totalTimeWasted, 'totalTime:', fightDuration, (this.totalTimeWasted / fightDuration));
-    debug && console.log('totalHealingTimeWasted:', this.totalHealingTimeWasted, 'totalTime:', fightDuration, (this.totalHealingTimeWasted / fightDuration));
-
-    const selectedCombatant = this.owner.selectedCombatant;
-
-    this.totalTimeWasted = 0;
-    this.totalHealingTimeWasted = 0;
-
-    this.lastCastFinishedTimestamp = null;
-    this.lastHealingCastFinishedTimestamp = null;
-
-    this.eventLog.forEach((logEntry) => {
-      this.currentHaste = this.baseHaste;
-      Object.keys(this.constructor.HASTE_BUFFS).forEach((spellId) => {
-        if (selectedCombatant.hasBuff(spellId, (logEntry.begincast || logEntry.cast).timestamp)) {
-          this.applyHasteGain(this.constructor.HASTE_BUFFS[spellId]);
-        }
-      });
-
-      this.processCast(logEntry);
-    });
-
-    debug && console.log('totalTimeWasted:', this.totalTimeWasted, 'totalTime:', fightDuration, (this.totalTimeWasted / fightDuration));
-    debug && console.log('totalHealingTimeWasted:', this.totalHealingTimeWasted, 'totalTime:', fightDuration, (this.totalHealingTimeWasted / fightDuration));
   }
 
   static calculateGlobalCooldown(haste) {

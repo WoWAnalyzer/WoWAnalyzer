@@ -9,6 +9,8 @@ import ItemIcon from 'common/ItemIcon';
 import DevelopmentTab from 'Main/DevelopmentTab';
 import EventsTab from 'Main/EventsTab';
 
+import './Results.css';
+
 class Results extends React.Component {
   static childContextTypes = {
     updateResults: PropTypes.func.isRequired,
@@ -97,7 +99,9 @@ class Results extends React.Component {
             <span className="glyphicon glyphicon-link" aria-hidden /> Open report
           </a>
         </h1>
-        <div className="text-muted" style={{ marginBottom: 20 }}>The {this.context.config.spec.specName} {this.context.config.spec.className} analyzer is being maintained by {this.context.config.maintainer}.</div>
+        <div className="text-muted" style={{ marginBottom: 20 }}>
+          The {this.context.config.spec.specName} {this.context.config.spec.className} analyzer is being maintained by {this.context.config.maintainer}.
+        </div>
 
         <div className="row">
           <div className="col-md-8">
@@ -106,17 +110,16 @@ class Results extends React.Component {
                 .filter(statistic => !!statistic) // filter optionals
                 .map(statistic => statistic.statistic ? statistic : { statistic, order: 0 }) // normalize
                 .sort((a, b) => a.order - b.order)
-                .map((statistic, i) => (
-                  <div className="col-lg-4 col-sm-6 col-xs-12" key={`${statistic.order}-${i}`}>
-                    {statistic.statistic}
-                  </div>
-                ))}
+                .map((statistic, i) => React.cloneElement(statistic.statistic, {
+                  key: `${statistic.order}-${i}`,
+                }))}
             </div>
           </div>
           <div className="col-md-4">
             <div className="panel items">
               <div className="panel-heading">
-                <h2><dfn data-tip="The values shown are only for the special equip effects of the items. The passive gain from the stats is <b>not</b> included.">Items</dfn></h2>
+                <h2><dfn data-tip="The values shown are only for the special equip effects of the items. The passive gain from the stats is <b>not</b> included.">Items</dfn>
+                </h2>
               </div>
               <div className="panel-body" style={{ padding: 0 }}>
                 <ul className="list">

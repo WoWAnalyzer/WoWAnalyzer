@@ -17,7 +17,7 @@ class Flametongue extends Module {
           .icon(SPELLS.FLAMETONGUE_BUFF.icon)
           .actual(`${formatPercentage(actual)}% uptime`)
           .recommended(`${(formatPercentage(recommended))}% is recommended`)
-          .regular(recommended).major(recommended - 0.5);
+          .regular(recommended).major(recommended - 0.05);
       });
   }
 
