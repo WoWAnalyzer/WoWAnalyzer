@@ -11,7 +11,7 @@ env:
   - NODE_ENV=production
 install:
   - npm install
-  - cd server && npm install --production && cd ..
+  - cd server && npm install && cd ..
 script:
   - npm test
   - npm run build
