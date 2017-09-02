@@ -53,6 +53,10 @@ class ApiRequestHandler {
     const jsonString = !this.cacheBust && cachedWclApiResponse ? cachedWclApiResponse.content : null;
     if (!this.cacheBust && jsonString) {
       console.log('cache HIT', this.requestUrl);
+      cachedWclApiResponse.update({
+        numAccesses: cachedWclApiResponse.numAccesses + 1,
+        lastAccessedAt: new Date(),
+      });
       this.sendJson(jsonString);
     } else {
       console.log('cache MISS', this.requestUrl);

@@ -5,12 +5,17 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
     },
     content: {
-      type: DataTypes.TEXT,
+      type: DataTypes.TEXT('long'),
       allowNull: false,
     },
     wclResponseTime: {
       type: DataTypes.INTEGER,
       allowNull: false,
+    },
+    numAccesses: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 1,
     },
     createdAt: {
       type: DataTypes.DATE, // this is actually DATETIME
