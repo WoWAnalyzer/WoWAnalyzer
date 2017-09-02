@@ -1,6 +1,6 @@
 import Energy from 'Parser/BrewmasterMonk/Modules/Features/Energy';
 import { processEvents } from './Fixtures/processEvents';
-import { EnergyFight } from './Fixtures/EnergyFight';
+import { EnergyFight, buffs } from './Fixtures/EnergyFight';
 
 describe('Brewmaster.Energy', () => {
   let energy;
@@ -75,9 +75,10 @@ describe('Brewmaster.Energy', () => {
     expect(energy.fightEnd).toBe(10000);
   });
   it('track time at max haste', () => {
+    energy.lastChangeInEnergy = 0;
     energy.fightEnd = 10000;
     energy.baseHaste = 0;
-    energy.currentRegen = energy.calcEnergyRegen([energy.baseHaste]);
+    energy.currentRegen = energy.calcEnergyRegen([energy.baseHaste], 0);
     processEvents(EnergyFight, energy);
     energy.triggerEvent('finished');
     // Energy Regen is 10
@@ -85,5 +86,25 @@ describe('Brewmaster.Energy', () => {
     // Second event at 5s has been max energy for 0.5s takes 2.5s to get up to max (7.5s)
     // Third event at 9s has been max energy for 1.5s
     expect(energy.timeAtMaxEnergy).toBe(2);
+  });
+  it('track total energy regen for fight', () => {
+    energy.fightEnd = 10000;
+    energy.baseHaste = 0.5;
+    energy.currentRegen = energy.calcEnergyRegen([energy.baseHaste], 0);
+    processEvents(EnergyFight, energy);
+    energy.triggerEvent('finished');
+    // Base haste = 50%
+    // 1s of hero (+30% haste) 1.3 * 1.5 = 95% haste
+    // 9s of base haste 50%
+    // (15 * 9) + (19.5 * 1) = 1
+    expect(energy.totalEnergyRegen).toBe(154.5);
+  });
+  it('track total energy just from hero with no base haste', () => {
+    energy.fightEnd = 1000;
+    energy.baseHaste = 0;
+    energy.currentRegen = energy.calcEnergyRegen([energy.baseHaste], 0);
+    processEvents(buffs, energy);
+    energy.triggerEvent('finished');
+    expect(energy.totalEnergyRegen).toBe(13);
   });
 });

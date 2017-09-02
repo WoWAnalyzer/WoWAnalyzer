@@ -5,7 +5,7 @@ import { SPELLS_WITH_ENERGY_COST, SPELLS_WITH_HASTE } from '../../Constants';
 
 const debug = false;
 const BASE_REGEN = 10;
-const MAX_ENERGY = 100;
+export const MAX_ENERGY = 100;
 
 class Energy extends Module {
   
@@ -13,18 +13,25 @@ class Energy extends Module {
   baseHaste = 0;
   currentRegen = 0;
   energyWastedFromBOB = 0;
+  bobCasts = 0;
   energyWastedFromMax = 0;
   timeAtMaxEnergy = 0;
   fightEnd = 0;
+  lastChangeInEnergy = 0;
+  totalEnergyRegen = 0;
 
   on_initialized() {
     this.baseHaste = this.owner.selectedCombatant.hastePercentage;
-    this.currentRegen = this.calcEnergyRegen([this.baseHaste]);
+    this.lastChangeInEnergy = this.owner.fight.start_time;
     this.fightEnd = this.owner.fight.end_time;
+    this.currentRegen = this.calcEnergyRegen([this.baseHaste], this.lastChangeInEnergy);
   }
 
   // Multiplicative haste bonuses by putting each one in an array and reducing it
-  calcEnergyRegen(hasteArray) {
+  calcEnergyRegen(hasteArray, timestamp) {
+    const addedEnergy = ((timestamp - this.lastChangeInEnergy) / 1000) * this.currentRegen;
+    this.lastChangeInEnergy = timestamp;
+    this.totalEnergyRegen += addedEnergy || 0;
     if (typeof hasteArray === 'object' && hasteArray.reduce) {
       const totalHaste = hasteArray.reduce((total, haste) => total *= (haste + 1), 1);
       return BASE_REGEN * totalHaste;
@@ -66,6 +73,7 @@ class Energy extends Module {
       const currentEnergy = this.getEnergyAtTime(event.timestamp);
       this.energyWastedFromBOB += (100 - currentEnergy);
       this.addEnergyEvent(event, 100, 0);
+      this.bobCasts++;
     }
     if (SPELLS_WITH_ENERGY_COST[spellId] !== undefined) {
       const currentEnergy = event.classResources.filter(a => a.type === RESOURCE_TYPES.ENERGY)[0].amount;
@@ -83,21 +91,22 @@ class Energy extends Module {
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
     if (SPELLS_WITH_HASTE[spellId] !== undefined) {
-      console.log('hero');
-      this.currentRegen = this.calcEnergyRegen([this.baseHaste, SPELLS_WITH_HASTE[spellId] / 100]);
+      debug && console.log('hero');
+      this.currentRegen = this.calcEnergyRegen([this.baseHaste, SPELLS_WITH_HASTE[spellId] / 100], event.timestamp);
     }
   }
 
   on_toPlayer_removebuff(event) {
     const spellId = event.ability.guid;
     if (SPELLS_WITH_HASTE[spellId] !== undefined) {
-      console.log('hero ended');
-      this.currentRegen = this.calcEnergyRegen([this.baseHaste]);
+      debug && console.log('hero ended');
+      this.currentRegen = this.calcEnergyRegen([this.baseHaste], event.timestamp);
     }
   }
 
   on_finished() {
     const timeAtEndOfTheFightAtMax = this.calcHowLongAtMax(this.fightEnd);
+    this.totalEnergyRegen += ((this.fightEnd - this.lastChangeInEnergy) / 1000) * this.currentRegen;
     if (timeAtEndOfTheFightAtMax > 0) {
       this.timeAtMaxEnergy += timeAtEndOfTheFightAtMax;
       this.energyWastedFromMax += timeAtEndOfTheFightAtMax * this.currentRegen;

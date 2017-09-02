@@ -94,7 +94,7 @@ class Stagger extends Module {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
+  statisticOrder = STATISTIC_ORDER.CORE(30);
 }
 
 export default Stagger;

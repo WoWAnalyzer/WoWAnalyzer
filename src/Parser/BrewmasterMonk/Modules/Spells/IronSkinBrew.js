@@ -95,7 +95,7 @@ class IronSkinBrew extends Module {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
+  statisticOrder = STATISTIC_ORDER.CORE(20);
 }
 
 export default IronSkinBrew;
