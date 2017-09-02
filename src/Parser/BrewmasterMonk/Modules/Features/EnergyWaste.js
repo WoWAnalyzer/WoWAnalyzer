@@ -15,18 +15,7 @@ class EnergyWaste extends Module {
   };
 
   suggestions(when) {
-    const totalEnergy = this.energy.totalEnergyRegen + (this.energy.bobCasts * 100);
-    const energyWastedFromRegenPerc = this.energy.energyWastedFromMax / totalEnergy;
     const energyWastedFromBobPerc = (this.energy.energyWastedFromBOB / this.energy.bobCasts) / MAX_ENERGY;
-    
-    when(energyWastedFromRegenPerc).isGreaterThan(0.05)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You wasted {formatPercentage(actual)}% of possible energy during the fight. You should try to prevent capping on energy (hitting 100 energy) to make best use of it.</span>)
-          .icon('class_monk')
-          .actual(`${formatPercentage(actual)}% wasted`)
-          .recommended(`${Math.round(formatPercentage(recommended))}% or less is recommended`)
-          .regular(recommended + 0.05).major(recommended + 0.1);
-      });
     
     this.energy.bobCasts > 0 && 
     when(energyWastedFromBobPerc).isGreaterThan(0.4)
