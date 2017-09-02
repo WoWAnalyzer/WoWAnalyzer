@@ -5,7 +5,6 @@ import ReactTooltip from 'react-tooltip';
 
 import SPECS from 'common/SPECS';
 import ROLES from 'common/ROLES';
-import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
 
 import makeAnalyzerUrl from './makeAnalyzerUrl';
 
