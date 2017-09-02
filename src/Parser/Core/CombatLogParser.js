@@ -47,6 +47,8 @@ import ParseResults from './ParseResults';
 
 const debug = false;
 
+let _selectedCombatantDeprectatedWarningSent = false;
+
 class CombatLogParser {
   static abilitiesAffectedByHealingIncreases = [];
 
@@ -114,6 +116,10 @@ class CombatLogParser {
 
   /** @returns {Combatant} */
   get selectedCombatant() {
+    if (!_selectedCombatantDeprectatedWarningSent) {
+      console.error('Using `this.owner.selectedCombatant` is deprectated. Instead you should add the `Combatants` module as a dependency and use `this.combatants.selected`.');
+      _selectedCombatantDeprectatedWarningSent = true;
+    }
     return this.modules.combatants.selected;
   }
 
