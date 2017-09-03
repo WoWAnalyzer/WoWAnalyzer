@@ -67,14 +67,6 @@ class Mastery extends Module {
           .filter(hotOn => hotOn !== spellId) // don't double count
           .forEach(hotOn => this.hotHealingMap.get(hotOn).mastery += decomposedHeal.oneStack);
 
-/*
-      for(let hotOn of hotsOn) {
-        if(hotOn != spellId) { // don't double count
-          this.hotHealingMap.get(hotOn).mastery += decomposedHeal.oneStack;
-        }
-      }
-*/
-
       // TODO implement this part functionally too
       for(const [buffId, buffObj] of this.masteryBuffs.entries()) {
         if(this.combatants.selected.hasBuff(buffId)) {
