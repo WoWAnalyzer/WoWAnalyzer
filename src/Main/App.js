@@ -225,7 +225,20 @@ class App extends Component {
           throw json.error;
         } else if (this.reportCode === code) {
           if (!json.fights) {
-            throw new Error('Corrupt WCL response received.');
+            let message = 'Corrupt WCL response received.';
+            if (json.error) {
+              message = json.error;
+              if (json.message) {
+                try {
+                  const errorMessage = JSON.parse(json.message);
+                  if (errorMessage.error) {
+                    message = errorMessage.error;
+                  }
+                } catch(error) {}
+              }
+            }
+
+            throw new Error(message);
           }
 
           this.setState({
