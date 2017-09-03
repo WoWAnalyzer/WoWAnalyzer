@@ -32,8 +32,12 @@ class SpringBlossoms extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.SPRING_BLOSSOMS.id} />}
         value={`${formatPercentage(totalPercent)} %`}
-        label="Spring Blossoms"
-        tooltip={`This is the sum of the direct healing from Spring Blossoms and the healing enabled by Spring Blossom's extra mastery stack. The direct healing from Spring Blossoms is ${formatPercentage(directPercent)}% of your healing done, and the mastery healing from Spring Blossoms is ${formatPercentage(masteryPercent)}%`}
+        label="Spring Blossoms Healing"
+        tooltip={`This is the sum of the direct healing from Spring Blossoms and the healing enabled by Spring Blossom's extra mastery stack.
+            <ul>
+            <li>Direct: <b>${formatPercentage(directPercent)}%</b></li>
+            <li>Mastery: <b>${formatPercentage(masteryPercent)}%</b></li>
+            </ul>`}
       />
     );
   }
