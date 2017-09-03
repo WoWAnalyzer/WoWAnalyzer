@@ -112,11 +112,12 @@ class ApiRequestHandler {
         });
         return;
       }
-      this.res.status(500).send({
+      console.error(error);
+      this.res.status(500);
+      this.sendJson({
         error: 'A server error occured',
         message: error.message,
       });
-      console.error(error);
     }
   }
 
