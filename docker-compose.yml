@@ -39,3 +39,5 @@ services:
      - MYSQL_ROOT_PASSWORD=my-secret-pw
      - MYSQL_DATABASE=wowanalyzer
     restart: always
+    ports:
+     - 4306:3306
