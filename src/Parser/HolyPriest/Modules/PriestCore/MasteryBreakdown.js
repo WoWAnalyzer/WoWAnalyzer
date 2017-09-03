@@ -21,6 +21,7 @@ class MasteryBreakdown extends Module {
   _maxHealVal = {};
   _masteryActive = {};
   effectiveHealDist = {};
+  effectiveOverhealDist = {};
   _eHDbyPlayer = {}; // for potential future features
 
   healing = 0;
@@ -41,11 +42,15 @@ class MasteryBreakdown extends Module {
       eHDPerc[spell] = this.effectiveHealDist[spell] / total;
     }
 
-    console.log(eHDPerc);
+    const eOHD = {};
+    for (spell in this.effectiveHealDist) {
+      eOHD[spell] = this.effectiveOverhealDist[spell] / (this.effectiveHealDist[spell] + this.effectiveOverhealDist[spell]);
+    }
+
     // Since JS objects lack order, we need to convert our dictionary to an array
     // to allow for it be ordered for display
     const eHDPArray = Object.keys(eHDPerc).map(function(spell) {
-      return [spell, eHDPerc[spell]];
+      return [spell, eHDPerc[spell], eOHD[spell]];
     });
     eHDPArray.sort(function(o1, o2) {
       return o2[1] - o1[1];
@@ -76,38 +81,48 @@ class MasteryBreakdown extends Module {
     this._maxHealVal[tId] = {};
   }
 
+  // v = true;
+  // v2 = true;
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
     const tId = event.targetID;
     if (spellId === SPELLS.ECHO_OF_LIGHT.id) {
       // logic for eol itself
-      this.healing += event.amount;
+      this.healing += (event.amount + (event.absorbed || 0));
+      this.effectiveHealDist = this.effectiveHealDist || {};
+      // this._eHDbyPlayer[tId] = this._eHDbyPlayer[tId] || {};
 
-      const percOH = event.amount / (event.amount + (event.overheal || 0));
+
+      const percH = (event.amount + (event.absorbed || 0)) / (event.amount + (event.absorbed || 0) + (event.overheal || 0));
       const tickMode = this._tickMode[tId];
 
       let spell;
       for (spell in this._healVal[tId]) {
-        this.effectiveHealDist = this.effectiveHealDist || {};
-        this._eHDbyPlayer[tId] = this._eHDbyPlayer[tId] || {};
-
         // For potential future Features //
-        if (spell in this._eHDbyPlayer[tId]) {
-          this._eHDbyPlayer[tId][spell] += this._maxHealVal[tId][spell] * percOH / tickMode;
-        } else {
-          this._eHDbyPlayer[tId][spell] = this._maxHealVal[tId][spell] * percOH / tickMode;
-        }
+        // if (spell in this._eHDbyPlayer[tId]) {
+        //   this._eHDbyPlayer[tId][spell] += this._maxHealVal[tId][spell] * percOH / tickMode;
+        // } else {
+        //   this._eHDbyPlayer[tId][spell] = this._maxHealVal[tId][spell] * percOH / tickMode;
+        // }
         // ----------------------------- //
 
-        //console.log(this._maxHealVal[tId]);
         if (spell in this.effectiveHealDist) {
-          this.effectiveHealDist[spell] += this._maxHealVal[tId][spell] * percOH / tickMode;
+          this.effectiveHealDist[spell] += (this._maxHealVal[tId][spell]) * percH / tickMode;
+          this.effectiveOverhealDist[spell] += (this._maxHealVal[tId][spell]) * (1 - percH) / tickMode;
         } else {
-          this.effectiveHealDist[spell] = this._maxHealVal[tId][spell] * percOH / tickMode;
+          this.effectiveHealDist[spell] = (this._maxHealVal[tId][spell]) * percH / tickMode;
+          this.effectiveOverhealDist[spell] = (this._maxHealVal[tId][spell]) * (1 - percH) / tickMode;
         }
 
         this._healVal[tId][spell] -= (this._maxHealVal[tId][spell] / tickMode);
 
+        // There's a rare issue that can cause the healVal allocation to dip to a negative value
+        // I'm not sure of the cause but it seems like it is due to an incorrect tickMode
+        // value. Likely something to do with events on the same timestamp (or just some bad
+        // logic in this file) but the value is much more accurate with this tweak
+        if (this._healVal[tId][spell] < 0) {
+          this._healVal[tId][spell] = 0;
+        }
       }
 
     } else {
@@ -131,9 +146,9 @@ class MasteryBreakdown extends Module {
       }
 
       if(!(spellId in this._healVal[tId])) {
-        this._healVal[tId][spellId] = event.amount;
+        this._healVal[tId][spellId] = event.amount + (event.absorbed || 0) + (event.overheal || 0);
       } else {
-        this._healVal[tId][spellId] += event.amount;
+        this._healVal[tId][spellId] += event.amount + (event.absorbed || 0) + (event.overheal || 0);
       }
       this._maxHealVal[tId][spellId] = this._healVal[tId][spellId];
     }
@@ -145,7 +160,9 @@ class MasteryBreakdown extends Module {
         icon={<SpellIcon id={SPELLS.ECHO_OF_LIGHT.id} />}
         value={`${formatNumber(this.healing)}`}
         label={(
-          <dfn data-tip={`Echo of Light healing breakdown. As our mastery is often very finicky, this could end up wrong in various situations. Please report any logs that seem strange to @enragednuke on the WoWAnalyzer discord.`}>
+          <dfn data-tip={`Echo of Light healing breakdown. As our mastery is often very finicky, this could end up wrong in various situations. Please report any logs that seem strange to @enragednuke on the WoWAnalyzer discord.<br/><br/>
+            <strong>Please do note this is not 100% accurate.</strong> It is probably around 90% accurate. <br/><br/>
+            Also, a mastery value can be more than just "healing done times mastery percent" because Echo of Light is based off raw healing. If the heal itself overheals, but the mastery does not, it can surpass that assumed "limit". Don't use this as a reason for a "strange log" unless something is absurdly higher than its effective healing.`}>
             Echo of Light
           </dfn>
         )}
@@ -155,8 +172,8 @@ class MasteryBreakdown extends Module {
             <tr>
               <th>Spell</th>
               <th>Amount</th>
-              <th>% of EoL</th>
               <th>% of Total</th>
+              <th>% OH</th>
             </tr>
           </thead>
           <tbody>
@@ -166,8 +183,8 @@ class MasteryBreakdown extends Module {
                   <tr key={index}>
                     <th scope="row"><SpellIcon id={item[0]} style={{ height: '2.4em' }}/></th>
                     <td>{ formatNumber(this.healing * item[1]) }</td>
-                    <td>{ formatPercentage(item[1]) }%</td>
                     <td>{ formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing) * item[1]) }%</td>
+                    <td>{ formatPercentage(item[2]) }%</td>
                   </tr>
                 ))
             }
