@@ -1,13 +1,19 @@
 import React from 'react';
 import { formatPercentage, formatNumber } from 'common/format';
 
+// dependencies
+import Combatants from 'Parser/Core/Modules/Combatants';
+
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 
 import Module from 'Parser/Core/Module';
 
-
 class XanshiCloak extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  }
+
   _xanshiActive = false;
   healing = 0;
   overhealing = 0;
@@ -16,7 +22,7 @@ class XanshiCloak extends Module {
   casts = [];
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasBack(ITEMS.XANSHI_CLOAK.id);
+    this.active = this.combatants.selected.hasBack(ITEMS.XANSHI_CLOAK.id);
   }
 
   on_byPlayer_removebuff(event) {

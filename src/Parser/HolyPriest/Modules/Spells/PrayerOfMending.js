@@ -3,10 +3,17 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage, formatNumber } from 'common/format';
 
+// dependencies
+import Combatants from 'Parser/Core/Modules/Combatants';
+
 import SPELLS from 'common/SPELLS';
 import Module from 'Parser/Core/Module';
 
 class PrayerOfMending extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  }
+
   _firstPoMCast = null;
   removed = 0;
   heals = 0;
@@ -44,7 +51,7 @@ class PrayerOfMending extends Module {
   }
 
   statistic() {
-    const sypTrait = this.owner.selectedCombatant.traitsBySpellId[SPELLS.SAY_YOUR_PRAYERS_TRAIT.id];
+    const sypTrait = this.combatants.selected.traitsBySpellId[SPELLS.SAY_YOUR_PRAYERS_TRAIT.id];
     const percPomIncFromSYP = ((1 + (sypTrait * SPELLS.SAY_YOUR_PRAYERS_TRAIT.coeff)) / (1 - (sypTrait * SPELLS.SAY_YOUR_PRAYERS_TRAIT.coeff))) - 1;
     const sypValue = this.healing * percPomIncFromSYP / (1 + percPomIncFromSYP);
     const sypHPS = sypValue / this.owner.fightDuration * 1000;
