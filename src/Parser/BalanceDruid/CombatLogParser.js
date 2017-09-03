@@ -8,8 +8,8 @@ import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 
 //Modules made but not loaded in the first PR
-//import Moonfire from './Modules/Spells/Moonfire';
-//import Sunfire from './Modules/Spells/Sunfire';
+import Moonfire from './Modules/Spells/Moonfire';
+import Sunfire from './Modules/Spells/Sunfire';
 //import NewMoon from './Modules/Spells/NewMoon';
 //import HalfMoon from './Modules/Spells/HalfMoon';
 //import FullMoon from './Modules/Spells/FullMoon';
@@ -26,8 +26,8 @@ class CombatLogParser extends MainCombatLogParser {
       castEfficiency: CastEfficiency,
       alwaysBeCasting: AlwaysBeCasting,
       //Modules made but not loaded in the first PR
-      //moonfire: Moonfire,
-      //sunfire: Sunfire,
+      moonfire: Moonfire,
+      sunfire: Sunfire,
       //newmoon: NewMoon,
       //halfmoon: HalfMoon,
       //fullmoon: FullMoon,
