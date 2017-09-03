@@ -5,23 +5,17 @@
  */
 
 export default {
-  // Resto Druid:
+
+  // RESTO DRUID //
+
+  // Mastery
   MASTERY_HARMONY: {
     id: 77495,
     name: "Mastery: Harmony",
     icon: 'spell_nature_healingway',
   },
 
-  RESTO_DRUID_T20_2SET_BONUS_BUFF: {
-    id: 242238,
-    name: 'T20 2 set bonus',
-    icon: 'inv_relics_idolofrejuvenation',
-  },
-  RESTO_DRUID_T20_4SET_BONUS_BUFF: {
-    id: 242313,
-    name: 'T20 4 set bonus',
-    icon: 'inv_misc_herb_talandrasrose',
-  },
+  // Spells / Buffs
   TRANQUILITY_CAST: {
     id: 740,
     name: 'Tranquility',
@@ -289,7 +283,16 @@ export default {
   },
 
   // Sets:
-  // Resto Druid:
+  RESTO_DRUID_T20_2SET_BONUS_BUFF: {
+    id: 242238,
+    name: 'T20 2 set bonus',
+    icon: 'inv_relics_idolofrejuvenation',
+  },
+  RESTO_DRUID_T20_4SET_BONUS_BUFF: {
+    id: 242313,
+    name: 'T20 4 set bonus',
+    icon: 'inv_misc_herb_talandrasrose',
+  },
   ASTRAL_HARMONY: { // 2pc T19
     id: 232378,
     name: 'Astral Harmony',
@@ -312,7 +315,6 @@ export default {
   },
 
   // Traits:
-  // Resto Druid:
   POWER_OF_THE_ARCHDRUID: {
     id: 189870,
     name: 'Power of the Archdruid',
@@ -340,8 +342,6 @@ export default {
   },
 
   // Talents:
-  // Resto Druid:
-
   CULTIVATION_TALENT: {
     id: 200390,
     name: 'Cultivation',
@@ -358,7 +358,7 @@ export default {
     icon: 'ability_druid_naturalperfection',
   },
 
-  //Guardian
+  // GUARDIAN //
   MANGLE_BEAR: {
     id:33917,
     name:'Mangle',
