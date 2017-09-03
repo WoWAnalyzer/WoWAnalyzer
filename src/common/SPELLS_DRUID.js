@@ -352,6 +352,11 @@ export default {
     name: 'Spring Blossoms',
     icon: 'inv_misc_trailofflowers',
   },
+  CENARION_WARD_TALENT: {
+    id: 102351,
+    name: 'Cenarion Ward',
+    icon: 'ability_druid_naturalperfection',
+  }
 
   //Guardian
   MANGLE_BEAR: {
