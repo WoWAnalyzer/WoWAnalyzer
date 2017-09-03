@@ -117,8 +117,6 @@ class MasteryBreakdown extends Module {
         return;
       }
 
-
-
       if(this._masteryActive[tId]) {
         this._tickMode[tId] = 3;
       } else {
@@ -167,7 +165,7 @@ class MasteryBreakdown extends Module {
               this.effectiveHealDistPerc
                 .map((item, index) => (
                   <tr key={index}>
-                    <th scope="row"><SpellLink id={item[0]} /></th>
+                    <th scope="row"><SpellIcon id={item[0]} style={{ height: '2.4em' }}/></th>
                     <td>{ formatNumber(this.healing * item[1]) }</td>
                     <td>{ formatPercentage(item[1]) }%</td>
                     <td>{ formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing) * item[1]) }%</td>
