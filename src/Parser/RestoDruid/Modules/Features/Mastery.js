@@ -18,19 +18,19 @@ class Mastery extends Module {
   druidSpellNoMasteryHealing = 0;
   masteryTimesHealing = 0;
 
-  hotHealingMap = null;
+  hotHealing = null;
   masteryBuffs = null;
 
   on_initialized() {
-    // TODO use JS objects instead of Maps for hotHealingMap and masteryBuffs?
-    this.hotHealingMap = new Map();
+    // TODO use JS objects instead of Maps for hotHealing and masteryBuffs?
+    this.hotHealing = new Map();
     for(const healId of HEALS_MASTERY_STACK) {
-      this.hotHealingMap.set(healId, {'name':SPELLS[healId].name, 'direct':0, 'mastery':0});
+      this.hotHealing.set(healId, { name:SPELLS[healId].name, direct:0, mastery:0 });
     }
 
     this.masteryBuffs = new Map([
-        [ SPELLS.ASTRAL_HARMONY.id, { 'spell':SPELLS.ASTRAL_HARMONY, 'amount':4000 } ],
-        [ SPELLS.JACINS_RUSE.id, { 'spell':SPELLS.JACINS_RUSE, 'amount':3000 } ],
+        [ SPELLS.ASTRAL_HARMONY.id, { amount:4000 } ],
+        [ SPELLS.JACINS_RUSE.id, { amount:3000 } ],
     ]);
     for(const buffObj of this.masteryBuffs.values()) {
   		buffObj.attributableHealing = 0;
@@ -48,8 +48,8 @@ class Mastery extends Module {
       return;
     }
 
-    if(this.hotHealingMap.has(spellId)) {
-      this.hotHealingMap.get(spellId).direct += amount;
+    if(this.hotHealing.has(spellId)) {
+      this.hotHealing.get(spellId).direct += amount;
     }
 
     if(ABILITIES_AFFECTED_BY_HEALING_INCREASES.includes(spellId)) {
@@ -65,9 +65,8 @@ class Mastery extends Module {
 
       hotsOn
           .filter(hotOn => hotOn !== spellId) // don't double count
-          .forEach(hotOn => this.hotHealingMap.get(hotOn).mastery += decomposedHeal.oneStack);
+          .forEach(hotOn => this.hotHealing.get(hotOn).mastery += decomposedHeal.oneStack);
 
-      // TODO implement this part functionally too
       for(const [buffId, buffObj] of this.masteryBuffs.entries()) {
         if(this.combatants.selected.hasBuff(buffId)) {
           const attributableHealing = decomposedHeal.oneRating * buffObj.amount;
@@ -86,7 +85,7 @@ class Mastery extends Module {
 
   on_finished() {
     console.log("Mastery results: ");
-    for(const hotObj of this.hotHealingMap.values()) {
+    for(const hotObj of this.hotHealing.values()) {
       const directPerc = this.owner.getPercentageOfTotalHealingDone(hotObj.direct);
       const masteryPerc = this.owner.getPercentageOfTotalHealingDone(hotObj.mastery);
       console.log(hotObj.name + " - Direct:" + formatPercentage(directPerc) +
@@ -102,11 +101,11 @@ class Mastery extends Module {
   /* accessors for computed values */
 
   getDirectHealing(healId) {
-    return this.hotHealingMap.get(healId).direct;
+    return this.hotHealing.get(healId).direct;
   }
 
   getMasteryHealing(healId) {
-    return this.hotHealingMap.get(healId).mastery;
+    return this.hotHealing.get(healId).mastery;
   }
 
   getBuffBenefit(buffId) {

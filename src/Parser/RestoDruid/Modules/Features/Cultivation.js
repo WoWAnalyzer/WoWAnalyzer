@@ -32,8 +32,12 @@ class Cultivation extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.CULTIVATION.id} />}
         value={`${formatPercentage(totalPercent)} %`}
-        label="Cultivation"
-        tooltip={`This is the sum of the direct healing from Cultivation and the healing enabled by Cultivation's extra mastery stack. The direct healing from Cultivation is ${formatPercentage(directPercent)}% of your healing done, and the mastery healing from Cultivation is ${formatPercentage(masteryPercent)}%`}
+        label="Cultivation Healing"
+        tooltip={`This is the sum of the direct healing from Cultivation and the healing enabled by Cultivation's extra mastery stack.
+            <ul>
+            <li>Direct: <b>${formatPercentage(directPercent)}%</b></li>
+            <li>Mastery: <b>${formatPercentage(masteryPercent)}%</b></li>
+            </ul>`}
       />
     );
   }
