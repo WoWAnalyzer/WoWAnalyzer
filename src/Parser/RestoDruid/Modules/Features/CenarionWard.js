@@ -32,7 +32,7 @@ class CenarionWard extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.CENARION_WARD.id} />}
         value={`${formatPercentage(totalPercent)} %`}
-        label="Cultivation"
+        label="Cenarion Ward"
         tooltip={`This is the sum of the direct healing from Cenarion Ward and the healing enabled by Cenarion Ward's extra mastery stack. The direct healing from Cenarion Ward is ${formatPercentage(directPercent)}% of your healing done, and the mastery healing from Cenarion Ward is ${formatPercentage(masteryPercent)}%`}
       />
     );

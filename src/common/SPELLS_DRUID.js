@@ -356,7 +356,7 @@ export default {
     id: 102351,
     name: 'Cenarion Ward',
     icon: 'ability_druid_naturalperfection',
-  }
+  },
 
   //Guardian
   MANGLE_BEAR: {
