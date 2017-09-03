@@ -339,6 +339,20 @@ export default {
     icon: 'spell_nature_starfall',
   },
 
+  // Talents:
+  // Resto Druid:
+
+  CULTIVATION_TALENT: {
+    id: 200390,
+    name: 'Cultivation',
+    icon: 'ability_druid_nourish',
+  },
+  SPRING_BLOSSOMS_TALENT: {
+    id: 207385,
+    name: 'Spring Blossoms',
+    icon: 'inv_misc_trailofflowers',
+  },
+
   //Guardian
   MANGLE_BEAR: {
     id:33917,

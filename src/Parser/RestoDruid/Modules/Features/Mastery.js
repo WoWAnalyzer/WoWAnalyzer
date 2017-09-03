@@ -1,10 +1,6 @@
-import React from 'react';
-
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import {formatPercentage} from 'common/format';
 import Module from 'Parser/Core/Module';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import {ABILITIES_AFFECTED_BY_HEALING_INCREASES} from '../../Constants';
@@ -36,7 +32,7 @@ class Mastery extends Module {
         [ SPELLS.ASTRAL_HARMONY.id, { 'spell':SPELLS.ASTRAL_HARMONY, 'amount':4000 } ],
         [ SPELLS.JACINS_RUSE.id, { 'spell':SPELLS.JACINS_RUSE, 'amount':3000 } ],
     ]);
-    for(const [buffId, buffObj] of this.masteryBuffs.entries()) {
+    for(const buffObj of this.masteryBuffs.values()) {
   		buffObj.attributableHealing = 0;
   	}
   }
@@ -98,7 +94,7 @@ class Mastery extends Module {
 
   on_finished() {
     console.log("Mastery results: ");
-    for(const [hotId, hotObj] of this.hotHealingMap.entries()) {
+    for(const hotObj of this.hotHealingMap.values()) {
       const directPerc = this.owner.getPercentageOfTotalHealingDone(hotObj.direct);
       const masteryPerc = this.owner.getPercentageOfTotalHealingDone(hotObj.mastery);
       console.log(hotObj.name + " - Direct:" + formatPercentage(directPerc) +
@@ -111,16 +107,18 @@ class Mastery extends Module {
     console.log("Avg Mastery Stacks - All Healing:" + avgMasteryStacksAllHealing + " Druid Healing:" + avgMasteryStacksDruidHealing);
   }
 
-  statistic() {
-    return (
-      <StatisticBox
-        /* TODO */ icon={<SpellIcon id={SPELLS.MASTERY_HARMONY.id} />}
-        /* TODO */ value="Test"//value={`${formatPercentage(tyrsDeliverancePercentage)} %`}
-        /* TODO */ label="Masterty Effectiveness"
-        tooltip={`This is a test tooltip`}
-        /* TODO */ //tooltip={`The total actual effective healing contributed by Tyr's Deliverance. This includes the gains from the increase to healing by Flash of Light and Holy Light.<br /><br />The actual healing done by the effect was ${formatPercentage(tyrsDeliveranceHealHealingPercentage)}% of your healing done, and the healing contribution from the Flash of Light and Holy Light heal increase was ${formatPercentage(tyrsDeliveranceBuffFoLHLHealingPercentage)}% of your healing done.`}
-      />
-    );
+  /* accessors for computed values */
+
+  getDirectHealing(healId) {
+    return this.hotHealingMap.get(healId).direct;
+  }
+
+  getMasteryHealing(healId) {
+    return this.hotHealingMap.get(healId).mastery;
+  }
+
+  getBuffBenefit(buffId) {
+    return this.masteryBuffs.get(buffId).attributableHealing;
   }
 
   _decompHeal(amount, hotCount) {
@@ -149,6 +147,5 @@ class Mastery extends Module {
   }
 
 }
-
 
 export default Mastery;
