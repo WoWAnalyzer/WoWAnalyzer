@@ -41,6 +41,7 @@ import EssenceOfGhanir from './Modules/Features/EssenceOfGhanir';
 import Mastery from './Modules/Features/Mastery';
 import Cultivation from './Modules/Features/Cultivation';
 import SpringBlossoms from './Modules/Features/SpringBlossoms';
+import CenarionWard from './Modules/Features/CenarionWard';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
@@ -91,6 +92,7 @@ class CombatLogParser extends CoreCombatLogParser {
     mastery: Mastery,
     springBlossoms: SpringBlossoms,
     cultivation: Cultivation,
+    cenarionWard: CenarionWard,
 
     // Legendaries:
     ekowraith: Ekowraith,
