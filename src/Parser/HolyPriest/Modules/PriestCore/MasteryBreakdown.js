@@ -2,7 +2,6 @@ import React from 'react';
 import { STATISTIC_ORDER } from 'Main/StatisticBox';
 import ExpandableStatisticBox from 'Main/ExpandableStatisticBox';
 import SpellIcon from 'common/SpellIcon';
-import SpellLink from 'common/SpellLink';
 import { formatPercentage, formatNumber } from 'common/format';
 
 // dependencies
@@ -14,7 +13,7 @@ import { ABILITIES_THAT_TRIGGER_MASTERY } from '../../Constants';
 
 class MasteryBreakdown extends Module {
   static dependencies = {
-    combatants: Combatants
+    combatants: Combatants,
   }
 
   _tickMode = {};
@@ -30,14 +29,14 @@ class MasteryBreakdown extends Module {
 
   on_finished() {
     // There's likely a far better way to do this, but my 2AM brain couldn't find it
-    var total = 0;
+    let total = 0;
 
-    var spell;
+    let spell;
     for (spell in this.effectiveHealDist) {
       total += this.effectiveHealDist[spell];
     }
 
-    var eHDPerc = {}
+    const eHDPerc = {};
     for (spell in this.effectiveHealDist) {
       eHDPerc[spell] = this.effectiveHealDist[spell] / total;
     }
@@ -45,7 +44,7 @@ class MasteryBreakdown extends Module {
     console.log(eHDPerc);
     // Since JS objects lack order, we need to convert our dictionary to an array
     // to allow for it be ordered for display
-    var eHDPArray = Object.keys(eHDPerc).map(function(spell) {
+    const eHDPArray = Object.keys(eHDPerc).map(function(spell) {
       return [spell, eHDPerc[spell]];
     });
     eHDPArray.sort(function(o1, o2) {
@@ -87,7 +86,7 @@ class MasteryBreakdown extends Module {
       const percOH = event.amount / (event.amount + (event.overheal || 0));
       const tickMode = this._tickMode[tId];
 
-      var spell;
+      let spell;
       for (spell in this._healVal[tId]) {
         this.effectiveHealDist = this.effectiveHealDist || {};
         this._eHDbyPlayer[tId] = this._eHDbyPlayer[tId] || {};
