@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Module from 'Parser/Core/Module';
-import Combatants from '/Parser/Core/Modules/Combatants';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';

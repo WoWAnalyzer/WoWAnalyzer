@@ -10,7 +10,6 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.CHAOS_BOLT,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => null,
-      recommendedCastEfficiency: 0.95,
     },
     {
       spell: SPELLS.CHANNEL_DEMONFIRE_CAST,
