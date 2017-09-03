@@ -4,11 +4,15 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage, formatThousands } from 'common/format';
 import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 const debug = false;
 
 class IronSkinBrew extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  }
 
   lastIronSkinBrewBuffApplied = 0;
 
@@ -66,7 +70,7 @@ class IronSkinBrew extends Module {
   }
 
   suggestions(when) {
-    const isbUptimePercentage = this.owner.selectedCombatant.getBuffUptime(SPELLS.IRONSKIN_BREW_BUFF.id)/ this.owner.fightDuration;
+    const isbUptimePercentage = this.combatants.selected.getBuffUptime(SPELLS.IRONSKIN_BREW_BUFF.id)/ this.owner.fightDuration;
 
     when(isbUptimePercentage).isLessThan(0.9)
       .addSuggestion((suggest, actual, recommended) => {
@@ -79,7 +83,7 @@ class IronSkinBrew extends Module {
   }
 
   statistic() {
-    const isbUptime = this.owner.selectedCombatant.getBuffUptime(SPELLS.IRONSKIN_BREW_BUFF.id)/ this.owner.fightDuration;
+    const isbUptime = this.combatants.selected.getBuffUptime(SPELLS.IRONSKIN_BREW_BUFF.id)/ this.owner.fightDuration;
     const hitsMitigatedPercent = this.hitsWithIronSkinBrew/(this.hitsWithIronSkinBrew+this.hitsWithoutIronSkinBrew);
     return (
       <StatisticBox
