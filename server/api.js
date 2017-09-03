@@ -1,98 +1,129 @@
-const querystring = require('querystring');
-const https = require('https');
-const zlib = require('zlib');
-const Agent = require('agentkeepalive').HttpsAgent;
+import querystring from 'querystring';
+import request from 'request-promise-native';
 
-const cache = require('./cache');
+import models from './models';
+import WclApiError from './WclApiError';
 
-function getCurrentMemoryUsage() {
-  const memoryUsage = process.memoryUsage();
-  return memoryUsage.rss;
-}
-
-const keepAliveAgent = new Agent({
-});
+const WclApiResponse = models.WclApiResponse;
 
 const WCL_MAINTENANCE_STRING = 'Warcraft Logs is down for maintenance';
 
-module.exports = function (req, res) {
-  // This allows users to cache bust, this is useful when live logging. It stores the result in the regular (uncachebusted) spot so that future requests for the regular request are also updated.
-  let cacheBust = false;
-  if (req.query._) {
-    console.log('Cache busting...');
-    cacheBust = true;
-    delete req.query._;
+class ApiController {
+  static handle(req, res) {
+    const handler = new ApiRequestHandler(req, res);
+
+    // This allows users to cache bust, this is useful when live logging. It stores the result in the regular (uncachebusted) spot so that future requests for the regular request are also updated.
+    if (req.query._) {
+      console.log('Cache busting...');
+      handler.cacheBust = true;
+      delete req.query._;
+    }
+
+    // Allow users to provide their own API key. This is required during development so that other developers don't lock out the production in case they mess something up.
+    if (req.query.api_key) {
+      handler.apiKey = req.query.api_key;
+      delete req.query.api_key; // don't use a separate cache for different API keys
+    }
+
+    // Set header already so that all request, good or bad, have it
+    res.setHeader('Access-Control-Allow-Origin', '*');
+
+    handler.handle();
   }
-  // Allow users to provide their own API key. This is required during development so that other developers don't lock out the production in case they mess something up.
-  const api_key = req.query.api_key || process.env.WCL_API_KEY;
-  delete req.query.api_key; // don't use a separate cache for different API keys
+}
 
-  // Set header already so that all request, good or bad, have it
-  res.setHeader('Access-Control-Allow-Origin', '*');
+class ApiRequestHandler {
+  req = null;
+  res = null;
 
-  const requestUrl = `${req.params[0]}?${querystring.stringify(req.query)}`;
-  const jsonString = !cacheBust && cache.get(requestUrl);
-  if (jsonString) {
-    console.log('cache HIT', requestUrl);
-    res.setHeader('Content-Type', 'application/json; charset=utf-8');
-    res.send(jsonString);
-  } else {
-    console.log('cache MISS', requestUrl);
-    const query = Object.assign({}, req.query, { api_key });
+  cacheBust = false;
+  apiKey = process.env.WCL_API_KEY;
 
-    const options = {
-      host: 'www.warcraftlogs.com',
-      path: `/v1/${req.params[0]}?${querystring.stringify(query)}`,
-      headers: {
-        'User-Agent': 'WoWAnalyzer.com API',
-        'Accept-Encoding': 'gzip', // using gzip is 80% quicker
-      },
-      agent: keepAliveAgent,
-    };
-    console.log('GET', options.path);
-    const wclStart = Date.now();
-    https
-      .get(options, wclResponse => {
-        if (wclResponse.statusCode >= 500 && wclResponse.statusCode < 600) {
-          const msg = 'WCL Error (' + wclResponse.statusCode + '): ' + wclResponse.statusMessage;
-          console.error(msg);
-          res.status(500).send(msg);
-          return;
-        }
+  constructor(req, res) {
+    this.req = req;
+    this.res = res;
+  }
 
-        const gunzip = zlib.createGunzip();
-        wclResponse.pipe(gunzip);
-
-        let jsonString = '';
-        gunzip
-          .on('data', chunk => { jsonString += chunk.toString(); })
-          .on('end', () => {
-            if (wclResponse.statusCode === 200) {
-              if (jsonString.indexOf(WCL_MAINTENANCE_STRING) !== -1) {
-                console.error(WCL_MAINTENANCE_STRING);
-                res.status(500).send(WCL_MAINTENANCE_STRING);
-                return;
-              }
-
-              cache.set(requestUrl, jsonString);
-            } else {
-              console.error('Error status:', wclResponse.statusCode);
-            }
-
-            // Clone WCL response
-            res.setHeader('Content-Type', wclResponse.headers['content-type']);
-            res.status(wclResponse.statusCode);
-            res.send(jsonString);
-            console.log('Finished (memory:', Math.ceil(getCurrentMemoryUsage() / 1024 / 1024), 'MB', 'wcl:', Date.now() - wclStart, 'ms', ')');
-          })
-          .on('error', (e) => {
-            console.error('zlib error: ', e);
-            res.status(500).send();
-          });
-      })
-      .on('error', (err) => {
-        console.error('Error:', err);
-        res.sendStatus(500);
+  async handle() {
+    const cachedWclApiResponse = await WclApiResponse.findById(this.requestUrl);
+    const jsonString = !this.cacheBust && cachedWclApiResponse ? cachedWclApiResponse.content : null;
+    if (!this.cacheBust && jsonString) {
+      console.log('cache HIT', this.requestUrl);
+      cachedWclApiResponse.update({
+        numAccesses: cachedWclApiResponse.numAccesses + 1,
+        lastAccessedAt: new Date(),
       });
+      this.sendJson(jsonString);
+    } else {
+      console.log('cache MISS', this.requestUrl);
+      this.fetchFromWcl(cachedWclApiResponse);
+    }
   }
-};
+
+  get requestUrl() {
+    return `${this.req.params[0]}?${querystring.stringify(this.req.query)}`;
+  }
+  async fetchFromWcl(cachedWclApiResponse) {
+    const query = Object.assign({}, this.req.query, { api_key: this.apiKey });
+    const path = `v1/${this.req.params[0]}?${querystring.stringify(query)}`;
+    console.log('GET', path);
+    try {
+      const wclStart = Date.now();
+      const jsonString = await request.get({
+        url: `https://www.warcraftlogs.com/${path}`,
+        headers: {
+          'User-Agent': 'WoWAnalyzer.com API',
+        },
+        gzip: true, // using gzip is 80% quicker
+        forever: true, // we'll be making several requests, so pool connections
+      });
+      const wclResponseTime = Date.now() - wclStart;
+
+      // WCL maintenance mode returns 200 http code :(
+      if (jsonString.indexOf(WCL_MAINTENANCE_STRING) !== -1) {
+        throw new WclApiError(WCL_MAINTENANCE_STRING, 503);
+      }
+
+      if (cachedWclApiResponse) {
+        cachedWclApiResponse.update({
+          content: jsonString,
+          wclResponseTime,
+          numAccesses: cachedWclApiResponse.numAccesses + 1,
+          lastAccessedAt: new Date(),
+        });
+      } else {
+        WclApiResponse.create({
+          url: this.requestUrl,
+          content: jsonString,
+          wclResponseTime,
+        });
+      }
+
+      this.sendJson(jsonString);
+      console.log('Finished', 'wcl:', wclResponseTime, 'ms');
+    } catch (error) {
+      if (error.statusCode >= 400 && error.statusCode < 600) {
+        const message = error.error || error.message; // if this is a `request` error, `error` contains the plain JSON while `message` also has the statusCode so is polluted.
+        console.error('WCL Error (' + error.statusCode + '): ' + message);
+        this.res.status(error.statusCode);
+        this.sendJson({
+          error: 'WCL API error',
+          message,
+        });
+        return;
+      }
+      this.res.status(500).send({
+        error: 'A server error occured',
+        message: error.message,
+      });
+      console.error(error);
+    }
+  }
+
+  sendJson(json) {
+    this.res.setHeader('Content-Type', 'application/json; charset=utf-8');
+    this.res.send(json);
+  }
+}
+
+module.exports = ApiController.handle;
