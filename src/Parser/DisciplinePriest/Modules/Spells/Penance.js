@@ -37,7 +37,6 @@ class Penance extends Module {
     if (event.ability.guid !== SPELLS.SPEED_OF_THE_PIOUS.id) {
       return;
     }
-    console.log("WutFace");
     this._speedOfThePiousAcquired = true;
     this.casts += 1;
     this._penanceBoltNumber = 0;
