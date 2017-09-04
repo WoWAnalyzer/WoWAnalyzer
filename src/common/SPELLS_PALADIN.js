@@ -241,6 +241,11 @@ export default {
 
   // Traits:
   // Holy Paladin:
+  PROTECTION_OF_TYR: {
+    id: 211210,
+    name: 'Protection of Tyr',
+    icon: 'spell_holy_auramastery',
+  },
   SACRED_DAWN: {
     id: 238132,
     name: 'Sacred Dawn',
@@ -266,10 +271,15 @@ export default {
     name: 'Second Sunrise',
     icon: 'spell_paladin_lightofdawn',
   },
-  PROTECTION_OF_TYR: {
-    id: 211210,
-    name: 'Protection of Tyr',
-    icon: 'spell_holy_auramastery',
+  TYRS_MUNIFICENCE: {
+    id: 238060,
+    name: 'Tyr\'s Munificence',
+    icon: 'inv_mace_2h_artifactsilverhand_d_01',
+  },
+  JUSTICE_THROUGH_SACRIFICE: {
+    id: 200316,
+    name: 'Justice through Sacrifice',
+    icon: 'spell_holy_power',
   },
   // Retribution Paladin:
   DEFLECTION: {

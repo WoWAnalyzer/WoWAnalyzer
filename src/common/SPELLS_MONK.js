@@ -273,6 +273,41 @@ export default {
     name: 'Spirit Tether',
     icon: 'monk_ability_transcendence',
   },
+  COALESCING_MISTS: {
+    id: 199364,
+    name: 'Coalescing Mists',
+    icon: 'ability_monk_effuse',
+  },
+  SOOTHING_REMEDIES: {
+    id: 199377,
+    name: 'Soothing Remedies',
+    icon: 'ability_monk_soothingmists',
+  },
+  ESSENCE_OF_THE_MIST: {
+    id: 199485,
+    name: 'Essence of the Mist',
+    icon: 'ability_monk_essencefont',
+  },
+  WAY_OF_THE_MISTWEAVER: {
+    id: 199366,
+    name: 'Way of the Mistweaver',
+    icon: 'spell_monk_envelopingmist',
+  },
+  INFUSION_OF_LIFE: {
+    id: 199380,
+    name: 'Infusion of Life',
+    icon: 'ability_monk_vivify',
+  },
+  EXTENDED_HEALING: {
+    id: 199372,
+    name: 'Extended Healing',
+    icon: 'ability_monk_renewingmists',
+  },
+  PROTECTION_OF_SHAOHAO: {
+    id: 199367,
+    name: 'Protection of Shaohao',
+    icon: 'ability_monk_chicocoon',
+  },
 
   // Legendary Effects
   SHELTER_OF_RIN_HEAL: {
@@ -290,6 +325,7 @@ export default {
     name: 'Ovyd\'s Winter Wrap',
     icon: 'ability_monk_souldance',
   },
+
   // Tier Set Bonus's
   XUENS_BATTLEGEAR_4_PIECE_BUFF: {
     id: 242258,

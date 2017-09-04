@@ -15,12 +15,20 @@ import Talents from 'Main/Talents';
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
-import Maelstrom from './Modules/Main/Maelstrom';
+import Maelstrom from './Modules/Features/Maelstrom/Maelstrom';
 
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import CooldownTracker from './Modules/Features/CooldownTracker';
 import ProcTracker from './Modules/Features/ProcTracker';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
+
+import FlameShock from './Modules/ShamanCore/FlameShock';
+
+import Aftershock from './Modules/Talents/Aftershock';
+import ElementalBlast from './Modules/Talents/ElementalBlast';
+import Ascendance from './Modules/Talents/Ascendance';
+import TotemMastery from './Modules/Talents/TotemMastery';
+import LightningRod from './Modules/Talents/LightningRod';
 
 import './Modules/Main/main.css';
 
@@ -58,6 +66,14 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     cooldownTracker: CooldownTracker,
     procTracker: ProcTracker,
+    flameShock: FlameShock,
+
+    // Talents
+    aftershock: Aftershock,
+    elementalBlast: ElementalBlast,
+    ascendance: Ascendance,
+    totemMastery: TotemMastery,
+    lightningRod: LightningRod,
 
     // Legendaries:
   };
@@ -65,7 +81,6 @@ class CombatLogParser extends CoreCombatLogParser {
   generateResults() {
     const results = super.generateResults();
     
-    // const hasElementalBlast = this.selectedCombatant.hasTalent(SPELLS.ELEMENTAL_BLAST_TALENT.id);
     // const hasEchosElements = this.selectedCombatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id);
     // const hasAscendance = this.selectedCombatant.hasTalent(SPELLS.ASCENDANCE_ELEMENTAL_TALENT.id);
     // const hasLightningRod = this.selectedCombatant.hasTalent(SPELLS.LIGHTNING_ROD.id);
@@ -76,7 +91,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // const lavaBurst = getAbility(SPELLS.LAVA_BURST.id);
     // const lightningBolt = getAbility(SPELLS.LIGHTNING_BOLT.id);
-    // const elementalBlast = getAbility(SPELLS.ELEMENTAL_BLAST.id);
     const overloadLavaBurst = getAbility(SPELLS.LAVA_BURST_OVERLOAD.id);
     const overloadLightningBolt = getAbility(SPELLS.LIGHTNING_BOLT_OVERLOAD_HIT.id);
     const overloadElementalBlast = getAbility(SPELLS.ELEMENTAL_BLAST_OVERLOAD.id);
@@ -85,11 +99,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     const fightDuration = this.fightDuration;
 
-    const elementalBlastHasteUptime = this.selectedCombatant.getBuffUptime(SPELLS.ELEMENTAL_BLAST_HASTE.id) / this.fightDuration;
-    const elementalBlastCritUptime = this.selectedCombatant.getBuffUptime(SPELLS.ELEMENTAL_BLAST_CRIT.id) / this.fightDuration;
-    const elementalBlastMasteryUptime = this.selectedCombatant.getBuffUptime(SPELLS.ELEMENTAL_BLAST_MASTERY.id) / this.fightDuration;
-
-    const elementalBlastUptime = (elementalBlastHasteUptime + elementalBlastCritUptime + elementalBlastMasteryUptime);
     // const flameShockUptime = this.selectedCombatant.getBuffUptime(SPELLS.FLAME_SHOCK.id) / this.fightDuration;
 
     const nonDpsTimePercentage = this.modules.alwaysBeCasting.totalDamagingTimeWasted / fightDuration;
@@ -191,15 +200,6 @@ class CombatLogParser extends CoreCombatLogParser {
           </span>
         )}
         label={'Overload procs'}
-      />,
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.ELEMENTAL_BLAST.id} />}
-        value={`${formatPercentage(elementalBlastUptime)} %`}
-        label={(
-          <dfn data-tip={`With <b class="stat-mastery">${formatPercentage(elementalBlastMasteryUptime)}% Mastery</b>, <b class="stat-criticalstrike">${formatPercentage(elementalBlastCritUptime)}% Crit</b>, <b  class="stat-haste">${formatPercentage(elementalBlastHasteUptime)}% Haste</b> Uptime`}>
-            Uptime
-          </dfn>
-        )}
       />,
       ...results.statistics,
     ];

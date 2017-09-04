@@ -2,6 +2,7 @@ import SPELLS from 'common/SPELLS';
 
 import Module from 'Parser/Core/Module';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
 
@@ -10,6 +11,10 @@ const debug = false;
 const HEALING_INCREASE = 0.3;
 
 class Tier19_2set extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
   healing = 0;
 
   on_initialized() {
@@ -32,7 +37,7 @@ class Tier19_2set extends Module {
     if (ABILITIES_AFFECTED_BY_HEALING_INCREASES.indexOf(spellId) === -1) {
       return;
     }
-    const combatant = this.owner.combatants.players[event.targetID];
+    const combatant = this.combatants.players[event.targetID];
     if (!combatant) {
       // If combatant doesn't exist it's probably a pet.
       debug && console.log('Skipping event since combatant couldn\'t be found:', event);

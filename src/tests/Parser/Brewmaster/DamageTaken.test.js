@@ -5,7 +5,10 @@ import { SimpleFight, heal, absorbed, incomingDamage, staggerAbsorbed, staggerTi
 describe('Brewmaster.DamageTaken', () => {
   let damageTaken;
   beforeEach(() => {
-    damageTaken = new DamageTaken();
+    damageTaken = new DamageTaken({
+      toPlayer: () => true,
+      byPlayer: () => true,
+    });
   });
   it('damage taken with no events', () => {
     expect(damageTaken.total.regular).toBe(0);

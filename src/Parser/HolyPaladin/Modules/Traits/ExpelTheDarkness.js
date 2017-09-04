@@ -7,6 +7,7 @@ import { formatPercentage } from 'common/format';
 
 import Module from 'Parser/Core/Module';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 const EXPEL_THE_DARKNESS_HEALING_INCREASE = 0.03;
 
@@ -15,11 +16,15 @@ const EXPEL_THE_DARKNESS_HEALING_INCREASE = 0.03;
  * Increases healing done by Light of Dawn by 3%.
  */
 class ExpelTheDarkness extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
   rank = 0;
   healing = 0;
 
   on_initialized() {
-    this.rank = this.owner.selectedCombatant.traitsBySpellId[SPELLS.EXPEL_THE_DARKNESS.id];
+    this.rank = this.combatants.selected.traitsBySpellId[SPELLS.EXPEL_THE_DARKNESS.id];
     this.active = this.rank > 0;
   }
 

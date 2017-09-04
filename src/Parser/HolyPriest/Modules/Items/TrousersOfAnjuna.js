@@ -1,17 +1,26 @@
+import React from 'react';
+import { formatPercentage, formatNumber } from 'common/format';
+
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 
+// dependencies
+import Combatants from 'Parser/Core/Modules/Combatants';
+
 import Module from 'Parser/Core/Module';
 
-
 class TrousersOfAnjuna extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  }
+
   _validAfterByPlayer = {};
   healing = 0;
   overhealing = 0;
   absorbed = 0;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasLegs(ITEMS.ENTRANCING_TROUSERS_OF_ANJUNA.id);
+    this.active = this.combatants.selected.hasLegs(ITEMS.ENTRANCING_TROUSERS_OF_ANJUNA.id);
   }
 
   on_byPlayer_removebuff(event) {
@@ -72,6 +81,20 @@ class TrousersOfAnjuna extends Module {
       this.absorbed += event.absorbed || 0;
     }
 
+  }
+
+  item() {
+    const legsPercHPS = formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing));
+    const legsHPS = formatNumber(this.healing / this.owner.fightDuration * 1000);
+
+    return {
+      item: ITEMS.ENTRANCING_TROUSERS_OF_ANJUNA,
+      result: (
+        <span>
+          { legsPercHPS } % / { legsHPS } HPS
+        </span>
+      ),
+    };
   }
 }
 

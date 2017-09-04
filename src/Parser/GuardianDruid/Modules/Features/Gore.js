@@ -11,8 +11,7 @@ const GORE_DURATION = 10000;
 const debug = false;
 
 class Gore extends Module {
-
-  GoreProcsTotal = 0;
+  totalProcs = 0;
   lastGoreProcTime = 0;
   consumedGoreProc = 0;
   overwrittenGoreProc = 0;
@@ -23,7 +22,7 @@ class Gore extends Module {
     if (SPELLS.GORE_BEAR.id === spellId) {
       this.lastGoreProcTime = event.timestamp;
       debug && console.log('Gore applied');
-      this.GoreProcsTotal++;
+      this.totalProcs++;
     }
   }
 
@@ -33,7 +32,7 @@ class Gore extends Module {
       // Captured Overwritten Gore Buffs for use in wasted buff calculations
       this.lastGoreProcTime = event.timestamp;
       debug && console.log('Gore Overwritten');
-      this.GoreProcsTotal++;
+      this.totalProcs++;
       this.overwrittenGoreProc++;
     }
   }
@@ -60,7 +59,7 @@ class Gore extends Module {
   }
 
   suggestions(when) {
-    const unusedGoreProcs = 1 - (this.consumedGoreProc / this.GoreProcsTotal);
+    const unusedGoreProcs = 1 - (this.consumedGoreProc / this.totalProcs);
     
     when(unusedGoreProcs).isGreaterThan(0.3)
       .addSuggestion((suggest, actual, recommended) => {
@@ -73,14 +72,14 @@ class Gore extends Module {
   }
 
   statistic() {
-    const unusedGoreProcs = 1 - (this.consumedGoreProc / this.GoreProcsTotal);
+    const unusedGoreProcs = 1 - (this.consumedGoreProc / this.totalProcs);
    
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.GORE_BEAR.id} />}
         value={`${formatPercentage(unusedGoreProcs)}%`}
         label='Unused Gore Procs'
-        tooltip={`You got total <b>${this.GoreProcsTotal}</b> gore procs and <b>used ${this.consumedGoreProc}</b> of them.`}
+        tooltip={`You got total <b>${this.totalProcs}</b> gore procs and <b>used ${this.consumedGoreProc}</b> of them.`}
       />
     );
   }

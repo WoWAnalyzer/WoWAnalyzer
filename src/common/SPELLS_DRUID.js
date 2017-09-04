@@ -5,17 +5,17 @@
  */
 
 export default {
-  // Resto Druid:
-  RESTO_DRUID_T20_2SET_BONUS_BUFF: {
-    id: 242238,
-    name: 'T20 2 set bonus',
-    icon: 'inv_relics_idolofrejuvenation',
+
+  // RESTO DRUID //
+
+  // Mastery
+  MASTERY_HARMONY: {
+    id: 77495,
+    name: "Mastery: Harmony",
+    icon: 'spell_nature_healingway',
   },
-  RESTO_DRUID_T20_4SET_BONUS_BUFF: {
-    id: 242313,
-    name: 'T20 4 set bonus',
-    icon: 'inv_misc_herb_talandrasrose',
-  },
+
+  // Spells / Buffs
   TRANQUILITY_CAST: {
     id: 740,
     name: 'Tranquility',
@@ -261,11 +261,6 @@ export default {
     name: 'Power of the Archdruid',
     icon: 'spell_druid_rampantgrowth',
   },
-  BLOSSOMING_EFFLORESCENCE: {
-    id: 242315,
-    name: 'Blossomming Efflorescence',
-    icon: 'inv_misc_herb_talandrasrose',
-  },
   DREAMWALKER: {
     id:189853,
     name:'Dreamwalker',
@@ -287,8 +282,39 @@ export default {
     icon: 'ability_druid_manatree',
   },
 
+  // Sets:
+  RESTO_DRUID_T20_2SET_BONUS_BUFF: {
+    id: 242238,
+    name: 'T20 2 set bonus',
+    icon: 'inv_relics_idolofrejuvenation',
+  },
+  RESTO_DRUID_T20_4SET_BONUS_BUFF: {
+    id: 242313,
+    name: 'T20 4 set bonus',
+    icon: 'inv_misc_herb_talandrasrose',
+  },
+  ASTRAL_HARMONY: { // 2pc T19
+    id: 232378,
+    name: 'Astral Harmony',
+    icon: 'talentspec_druid_restoration',
+  },
+  BLOSSOMING_EFFLORESCENCE: { // 4pc T20
+    id: 242315,
+    name: 'Blossomming Efflorescence',
+    icon: 'inv_misc_herb_talandrasrose',
+  },
+  DREAMER: { // 2pc T21
+    id: 253432,
+    name: 'Dreamer',
+    icon: 'ability_druid_cower',
+  },
+  AWAKENED: { // 4pc T21
+    id: 253434,
+    name: 'Awakened',
+    icon: 'ability_druid_cower',
+  },
+
   // Traits:
-  // Resto Druid:
   POWER_OF_THE_ARCHDRUID: {
     id: 189870,
     name: 'Power of the Archdruid',
@@ -315,7 +341,24 @@ export default {
     icon: 'spell_nature_starfall',
   },
 
-  //Guardian
+  // Talents:
+  CULTIVATION_TALENT: {
+    id: 200390,
+    name: 'Cultivation',
+    icon: 'ability_druid_nourish',
+  },
+  SPRING_BLOSSOMS_TALENT: {
+    id: 207385,
+    name: 'Spring Blossoms',
+    icon: 'inv_misc_trailofflowers',
+  },
+  CENARION_WARD_TALENT: {
+    id: 102351,
+    name: 'Cenarion Ward',
+    icon: 'ability_druid_naturalperfection',
+  },
+
+  // GUARDIAN //
   MANGLE_BEAR: {
     id:33917,
     name:'Mangle',
@@ -391,6 +434,16 @@ export default {
     name: 'Scintillating Moonlight',
     icon: 'spell_nature_starfall',
   },
+  WILDFLESH_TRAIT: {
+    id: 200400,
+    name: 'Wildflesh',
+    icon: 'ability_bullrush',
+  },
+  FLESHKNITTING_TRAIT: {
+    id: 238085,
+    name: 'Fleshknitting',
+    icon: 'ability_bullrush',
+  },
   GORE_BEAR: {
     id: 93622,
     name: 'Gore',
@@ -460,5 +513,83 @@ export default {
     id: 236479,
     name: 'Oakheart\'s Puny Quods',
     icon: 'spell_druid_bearhug',
+  },
+  EARTHWARDEN_BUFF: {
+    id: 203975,
+    name: 'Earthwarden',
+    icon: 'spell_shaman_blessingofeternals',
+  },
+  FURY_OF_NATURE_HEAL: {
+    id: 248522,
+    name: 'Fury of Nature',
+    icon: 'ability_creature_cursed_04',
+  },
+  //Moonkin
+  STARSURGE_MOONKIN: {
+    id: 78674,
+    name: 'Starsurge',
+    icon: 'spell_arcane_arcane03',
+  },
+  LUNAR_STRIKE: {
+    id: 194153,
+    name: 'Lunar Strike',
+    icon: 'spell_arcane_starfire',
+  },
+  SOLAR_WRATH_MOONKIN: {
+    id: 190984,
+    name: 'Solar Wrath',
+    icon: 'spell_nature_wrathv2',
+  },
+  SUNFIRE: {
+    id: 164815,
+    name: 'Sunfire',
+    icon: 'ability_mage_firestarter',
+  },
+  SUNFIRE_CAST: {
+    id: 93402,
+    name: 'Sunfire',
+    icon: 'ability_mage_firestarter',
+  },
+  //MOONFIRE = MOONFIRE_BEAR
+  //MOONFIRE_CAST = MOONFIRE
+  STARFALL: {
+    id: 191037,
+    name: 'Starfall',
+    icon: 'ability_druid_starfall',
+  },
+  STARFALL_CAST: {
+    id: 191034,
+    name: 'Starfall',
+    icon: 'ability_druid_starfall',
+  },
+  FULL_MOON: {
+    id: 202771,
+    name: 'Full Moon',
+    icon: 'artifactability_balancedruid_fullmoon',
+  },
+  HALF_MOON: {
+    id: 202768,
+    name: 'Half Moon',
+    icon: 'artifactability_balancedruid_halfmoon',
+  },
+  NEW_MOON: {
+    id: 202767,
+    name: 'New Moon',
+    icon: 'artifactability_balancedruid_newmoon',
+  },
+  CELESTIAL_ALIGNMENT: {
+    id: 194223,
+    name: 'Celestial Alignment',
+    icon: 'artifactability_balancedruid_newmoon',
+  },
+  LUNAR_EMP_BUFF: {
+    id: 164547,
+    name: 'Lunar Empowement',
+    icon: 'artifactability_balancedruid_newmoon',
+  },
+  SOLAR_EMP_BUFF: {
+    id: 164545,
+    name: 'Celestial Alignment',
+    icon: 'artifactability_balancedruid_newmoon',
   },
 };

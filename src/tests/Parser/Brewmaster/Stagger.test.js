@@ -5,7 +5,10 @@ import { SimpleFight, EarlyFinish, incomingDamage } from './Fixtures/SimpleFight
 describe('Brewmaster.Stagger', () => {
   let stagger;
   beforeEach(() => {
-    stagger = new Stagger();
+    stagger = new Stagger({
+      toPlayer: () => true,
+      byPlayer: () => true,
+    });
   });
   it('total amount of stagger taken with no events', () => {
     expect(stagger.totalStaggerTaken).toBe(0);

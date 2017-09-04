@@ -45,37 +45,39 @@ class ExpandableStatisticBox extends React.PureComponent {
 
   render() {
     return (
-      <div className="panel statistic-box expandable">
-        <div className="panel-body">
-          <div className="flex">
-            <div className="flex-sub">
-              {this.state.icon}
-            </div>
-            <div className="flex-main text-right">
-              <div className="valueright">
-                {this.state.value}
+      <div className="col-lg-4 col-sm-6 col-xs-12">
+        <div className="panel statistic-box expandable">
+          <div className="panel-body">
+            <div className="flex">
+              <div className="flex-sub">
+                {this.state.icon}
               </div>
-              <div className="slabel">
-                {this.state.label}
-              </div>
-            </div>
-          </div>
-
-          <div className="row">
-            <div className="col-xs-12">
-              {this.state.expanded && (
-                <div className="statistic-expansion">
-                  { this.props.children }
+              <div className="flex-main text-right">
+                <div className="value">
+                  {this.state.value}
                 </div>
-              )}
+                <div className="slabel">
+                  {this.state.label}
+                </div>
+              </div>
             </div>
-          </div>
 
-          <div className="statistic-expansion-button-holster">
-            <button onClick={this.toggleExpansion} className="btn btn-primary">
-              {!this.state.expanded && <span className="glyphicon glyphicon-chevron-down" />}
-              {this.state.expanded && <span className="glyphicon glyphicon-chevron-up" />}
-            </button>
+            <div className="row">
+              <div className="col-xs-12">
+                {this.state.expanded && (
+                  <div className="statistic-expansion">
+                    { this.props.children }
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="statistic-expansion-button-holster">
+              <button onClick={this.toggleExpansion} className="btn btn-primary">
+                {!this.state.expanded && <span className="glyphicon glyphicon-chevron-down" />}
+                {this.state.expanded && <span className="glyphicon glyphicon-chevron-up" />}
+              </button>
+            </div>
           </div>
         </div>
       </div>

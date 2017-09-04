@@ -5,7 +5,10 @@ import { SimpleFight, incomingDamage } from './Fixtures/SimpleFight';
 describe('Brewmaster.IronskinBrew', () => {
   let isb;
   beforeEach(() => {
-    isb = new IronSkinBrew();
+    isb = new IronSkinBrew({
+      toPlayer: () => true,
+      byPlayer: () => true,
+    });
   });
   it('tracks the number of hits with the ironskin brew buff with no events', () => {
     expect(isb.hitsWithIronSkinBrew).toBe(0);

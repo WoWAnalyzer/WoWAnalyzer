@@ -6,7 +6,10 @@ import { SimpleFight, applybuff, refreshBuff, dpsCasts } from './Fixtures/Simple
 describe('Brewmaster.BlackoutCombo', () => {
   let blackoutCombo;
   beforeEach(() => {
-    blackoutCombo = new BlackoutCombo();
+    blackoutCombo = new BlackoutCombo({
+      toPlayer: () => true,
+      byPlayer: () => true,
+    });
   });
   it('blackout combo is active by default', () => {
     expect(blackoutCombo.active).toBe(true);
@@ -14,8 +17,8 @@ describe('Brewmaster.BlackoutCombo', () => {
   it('blackout combo checks to see if active while talent is not selected', () => {
     const hasTalentMethod = jest.fn();
     hasTalentMethod.mockReturnValue(false);
-    const owner = { selectedCombatant: { hasTalent: hasTalentMethod}};
-    blackoutCombo.owner = owner;
+    const combatant = { selected: { hasTalent: hasTalentMethod}};
+    blackoutCombo.combatants = combatant;
     blackoutCombo.triggerEvent('initialized');
     expect(hasTalentMethod).toBeCalledWith(SPELLS.BLACKOUT_COMBO_TALENT.id);
     expect(blackoutCombo.active).toBe(false);
@@ -23,8 +26,8 @@ describe('Brewmaster.BlackoutCombo', () => {
   it('blackout combo checks to see if active while talent is selected', () => {
     const hasTalentMethod = jest.fn();
     hasTalentMethod.mockReturnValue(true);
-    const owner = { selectedCombatant: { hasTalent: hasTalentMethod}};
-    blackoutCombo.owner = owner;
+    const combatant = { selected: { hasTalent: hasTalentMethod}};
+    blackoutCombo.combatants = combatant;
     blackoutCombo.triggerEvent('initialized');
     expect(hasTalentMethod).toBeCalledWith(SPELLS.BLACKOUT_COMBO_TALENT.id);
     expect(blackoutCombo.active).toBe(true);

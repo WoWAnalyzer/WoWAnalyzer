@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 
 import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 import isAtonement from '../Core/isAtonement';
 import AtonementSource from '../Features/AtonementSource';
@@ -12,6 +13,7 @@ const IMPROPER_REFRESH_TIME = 3000;
 
 class Atonement extends Module {
   static dependencies = {
+    combatants: Combatants,
     atonementSource: AtonementSource,
   };
 
@@ -59,7 +61,7 @@ class Atonement extends Module {
     this.currentAtonementTargets = this.currentAtonementTargets.filter(id => id.target !== atonement.target);
     this.currentAtonementTargets.push(atonement);
     this.totalAtones++;
-    debug && console.log(`%c${this.owner.combatants.players[atonement.target].name} gained an atonement`, 'color:green', this.currentAtonementTargets);
+    debug && console.log(`%c${this.combatants.players[atonement.target].name} gained an atonement`, 'color:green', this.currentAtonementTargets);
     this.owner.triggerEvent('atonement_applied', event);
   }
   on_byPlayer_refreshbuff(event) {
@@ -80,7 +82,7 @@ class Atonement extends Module {
     const timeSinceApplication = event.timestamp - refreshedTarget.lastAtonementAppliedTimestamp;
     if (timeSinceApplication < ((this.atonementDuration * 1000) - IMPROPER_REFRESH_TIME)) {
       this.improperAtonementRefreshes.push(refreshedTarget);
-      debug && console.log(`%c${this.owner.combatants.players[event.targetID].name} refreshed an atonement too early %c${timeSinceApplication}`, 'color:red', this.currentAtonementTargets);
+      debug && console.log(`%c${this.combatants.players[event.targetID].name} refreshed an atonement too early %c${timeSinceApplication}`, 'color:red', this.currentAtonementTargets);
       this.owner.triggerEvent('atonement_refresh_improper', event);
     }
 
@@ -95,7 +97,7 @@ class Atonement extends Module {
 
     this.totalAtones++;
     this.totalAtonementRefreshes++;
-    debug && console.log(`%c${this.owner.combatants.players[atonement.target].name} refreshed an atonement`, 'color:orange', this.currentAtonementTargets);
+    debug && console.log(`%c${this.combatants.players[atonement.target].name} refreshed an atonement`, 'color:orange', this.currentAtonementTargets);
     this.owner.triggerEvent('atonement_refresh', event);
   }
   on_byPlayer_removebuff(event) {
@@ -108,7 +110,7 @@ class Atonement extends Module {
       lastAtonementAppliedTimestamp: event.timestamp,
     };
     this.currentAtonementTargets = this.currentAtonementTargets.filter(id => id.target !== atonement.target);
-    debug && console.log(`%c${this.owner.combatants.players[atonement.target].name} lost an atonement`, 'color:red', this.currentAtonementTargets);
+    debug && console.log(`%c${this.combatants.players[atonement.target].name} lost an atonement`, 'color:red', this.currentAtonementTargets);
     this.owner.triggerEvent('atonement_faded', event);
   }
 

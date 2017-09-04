@@ -3,6 +3,7 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage, formatThousands } from 'common/format';
+import Combatants from 'Parser/Core/Modules/Combatants';
 import Module from 'Parser/Core/Module';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
@@ -13,6 +14,9 @@ const JEWEL_OF_THE_LOST_ABBEY_TICKS = 6;
 const STAGGER_TICK_FREQUENCY = 500;
 
 class Stagger extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  }
 
   totalPhysicalStaggered = 0;
   totalMagicalStaggered = 0;
@@ -24,7 +28,7 @@ class Stagger extends Module {
   staggerMissingFromFight = 0;
 
   on_initialized() {
-    if (this.owner.selectedCombatant.getFinger(ITEMS.JEWEL_OF_THE_LOST_ABBEY.id)) {
+    if (this.combatants.selected.getFinger(ITEMS.JEWEL_OF_THE_LOST_ABBEY.id)) {
       debug && console.log('Has stagger ring');
       this.staggerLength += JEWEL_OF_THE_LOST_ABBEY_TICKS;
     }

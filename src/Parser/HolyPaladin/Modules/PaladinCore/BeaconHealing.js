@@ -5,6 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 
 import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
@@ -13,26 +14,23 @@ import PaladinAbilityTracker  from '../PaladinCore/PaladinAbilityTracker';
 
 class BeaconHealing extends Module {
   static dependencies = {
+    combatants: Combatants,
     abilityTracker: PaladinAbilityTracker,
   };
 
-  getTotalHealsOnBeaconPercentage(parser) {
-    const abilityTracker = parser.modules.abilityTracker;
+  getTotalHealsOnBeaconPercentage() {
+    const abilityTracker = this.abilityTracker;
     const getCastCount = spellId => abilityTracker.getAbility(spellId);
-
-    const selectedCombatant = parser.selectedCombatant;
-    if (!selectedCombatant) {
-      return null;
-    }
 
     let casts = 0;
     let castsOnBeacon = 0;
 
     CastEfficiency.CPM_ABILITIES
-      .filter(ability => ability.isActive === undefined || ability.isActive(selectedCombatant))
+      .filter(ability => ability.isActive === undefined || ability.isActive(this.combatants.selected))
+      .filter(ability => ability.category !== CastEfficiency.SPELL_CATEGORIES.ITEMS)
       .forEach((ability) => {
         const castCount = getCastCount(ability.spell.id);
-        casts += (ability.getCasts ? ability.getCasts(castCount) : castCount.casts) || 0;
+        casts += castCount.healingHits || 0;
         castsOnBeacon += castCount.healingBeaconHits || 0;
       });
 
@@ -40,13 +38,13 @@ class BeaconHealing extends Module {
   }
 
   suggestions(when) {
-    const totalHealsOnBeaconPercentage = this.getTotalHealsOnBeaconPercentage(this.owner);
+    const totalHealsOnBeaconPercentage = this.getTotalHealsOnBeaconPercentage();
 
     when(totalHealsOnBeaconPercentage).isGreaterThan(0.2)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest('You cast a lot of direct heals on beacon targets. Direct healing beacon targets is inefficient. Try to only cast on beacon targets when they would otherwise die.')
           .icon('ability_paladin_beaconoflight')
-          .actual(`${formatPercentage(totalHealsOnBeaconPercentage)}% of all your healing spell casts were on a beacon target`)
+          .actual(`${formatPercentage(actual)}% of all your healing spell casts were on a beacon target`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
           .regular(recommended + 0.05).major(recommended + 0.15);
       });
@@ -65,11 +63,11 @@ class BeaconHealing extends Module {
     const beaconFlashOfLights = flashOfLight.healingBeaconHits || 0;
     const beaconHolyLights = holyLight.healingBeaconHits || 0;
     const totalFolsAndHlsOnBeacon = beaconFlashOfLights + beaconHolyLights;
-    const totalHealsOnBeaconPercentage = this.getTotalHealsOnBeaconPercentage(this.owner);
+    const totalHealsOnBeaconPercentage = this.getTotalHealsOnBeaconPercentage();
 
     return (
       <StatisticBox
-        icon={<SpellIcon id={this.owner.selectedCombatant.lv100Talent} />}
+        icon={<SpellIcon id={this.combatants.selected.lv100Talent} />}
         value={`${formatPercentage(totalFolsAndHlsOnBeacon / totalFolsAndHls)} %`}
         label="FoL/HL cast on beacon"
         tooltip={`The amount of Flash of Lights and Holy Lights cast on beacon targets. You cast ${beaconFlashOfLights} Flash of Lights and ${beaconHolyLights} Holy Lights on beacon targets.<br /><br />

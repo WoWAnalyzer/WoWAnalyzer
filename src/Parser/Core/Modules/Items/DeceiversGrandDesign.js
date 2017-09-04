@@ -6,12 +6,17 @@ import ItemLink from 'common/ItemLink';
 import { formatNumber } from 'common/format';
 
 import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 const debug = false;
 const PROC_EVENT_START_BUFFER = 5000;
 const PROC_EVENT_END_BUFFER = 1000;
 
 class DecieversGrandDesign extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
   healing = 0;
   healingAbsorb = 0;
   targetOne = null;
@@ -100,10 +105,10 @@ class DecieversGrandDesign extends Module {
         }
 
         let name = "";
-        if(!this.owner.combatants.players[targetId]) {
+        if(!this.combatants.players[targetId]) {
           name = "Pet";
         } else {
-          name = this.owner.combatants.players[targetId].name;
+          name = this.combatants.players[targetId].name;
         }
 
         this.procs.push({

@@ -6,19 +6,24 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import Combatants from 'Parser/Core/Modules/Combatants';
 import { SPELLS_WHICH_REMOVE_BOC } from '../../Constants';
 
 const debug = false;
 const BOC_DURATION = 15000;
 
 class BlackoutCombo extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  }
+
   blackoutComboConsumed = 0;
   blackoutComboBuffs = 0;
   lastBlackoutComboCast = 0;
   spellsBOCWasUsedOn = {};
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasTalent(SPELLS.BLACKOUT_COMBO_TALENT.id);
+    this.active = this.combatants.selected.hasTalent(SPELLS.BLACKOUT_COMBO_TALENT.id);
   }
   
   on_byPlayer_applybuff(event) {

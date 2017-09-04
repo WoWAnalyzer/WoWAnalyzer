@@ -4,9 +4,7 @@ import { Link } from 'react-router';
 import ReactTooltip from 'react-tooltip';
 import Toggle from 'react-toggle';
 
-import getWipeCount from 'common/getWipeCount';
-
-import Fight from './Fight';
+import FightSelectionList from './FightSelectionList';
 import makeAnalyzerUrl from './makeAnalyzerUrl';
 
 class FightSelecter extends Component {
@@ -76,30 +74,7 @@ class FightSelecter extends Component {
             </div>
           </div>
           <div className="panel-body" style={{ padding: 0 }}>
-            <ul className="list selection">
-              {
-                report.fights
-                  .filter(fight => {
-                    if (fight.boss === 0) {
-                      return false;
-                    }
-                    if (killsOnly && fight.kill === false) {
-                      return false;
-                    }
-                    return true;
-                  })
-                  .map(fight => (
-                    <li key={`${fight.id}`} className="item selectable">
-                      <Link to={makeAnalyzerUrl(report, fight.id)}>
-                        <Fight {...fight} wipes={getWipeCount(report, fight)} />
-                      </Link>
-                    </li>
-                  ))
-              }
-              <li className="item clearfix text-muted" style={{ paddingTop: 10, paddingBottom: 10 }}>
-                You will usually get the best results using logs where you're really being challenged, such as progress raids.
-              </li>
-            </ul>
+            <FightSelectionList report={report} fights={report.fights} killsOnly={this.state.killsOnly}/>
           </div>
         </div>
 

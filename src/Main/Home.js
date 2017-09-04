@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import SPECS from 'common/SPECS';
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
 
 import PatreonButton from './PatreonButton';
@@ -32,9 +33,7 @@ class Home extends Component {
                 {' '}<a href="https://www.warcraftlogs.com/help/start/">upload your own logs</a> or change the existing logs to the
                 {' '}<i>unlisted</i> privacy option instead.<br /><br />
 
-                Feature requests (<dfn data-tip="Provided that you're not using one of Microsoft's browsers.">and bug reports*</dfn>) are welcome!{' '}
-                <i>@Zerotorescue</i> on <a href="https://discordapp.com/invite/hammerofwrath">Discord</a> or create an issue{' '}
-                <a href={`https://github.com/MartijnHols/WoWAnalyzer/issues`}>here</a>.
+                Feature requests (<dfn data-tip="Provided that you're not using one of Microsoft's browsers.">and bug reports*</dfn>) are welcome! On <a href="https://discord.gg/AxphPxU">Discord</a> or create an issue <a href={`https://github.com/MartijnHols/WoWAnalyzer/issues`}>here</a>.
               </div>
             </div>
 
@@ -95,20 +94,38 @@ class Home extends Component {
               </div>
               <div className="panel-body text-muted">
                 <ul className="list-unstyled">
-                  {AVAILABLE_CONFIGS.map((config) => {
-                    const className = config.spec.className.replace(/ /g, '');
-                    return (
-                      <li key={config.spec.id} style={{ marginBottom: 3 }}>
-                        <img src={`/specs/${className}-${config.spec.specName.replace(' ', '')}.jpg`} alt="Spec logo" style={{ height: '1.6em', marginRight: 10 }} />{' '}
-                        <span className={className}>{config.spec.specName} {config.spec.className}</span> maintained by <span style={{ color: '#fff' }}>{config.maintainer}</span>
-                      </li>
-                    );
-                  })}
+                  {Object.keys(SPECS)
+                    .filter(key => isNaN(key))
+                    .map(key => SPECS[key])
+                    .sort((a, b) => {
+                      if (a.className < b.className) {
+                        return -1;
+                      } else if (a.className > b.className) {
+                        return 1;
+                      } else {
+                        return a.id - b.id;
+                      }
+                    })
+                    .map(spec => {
+                      const className = spec.className.replace(/ /g, '');
+                      const config = AVAILABLE_CONFIGS.find(config => config.spec === spec);
+                      return (
+                        <li key={spec.id} style={{ marginBottom: 3 }}>
+                          <img src={`/specs/${className}-${spec.specName.replace(' ', '')}.jpg`} alt="Spec logo" style={{ height: '1.6em', marginRight: 10 }} />{' '}
+                          <span className={className}>{spec.specName} {spec.className}</span>{' '}
+                          {config ? (
+                            <span>maintained by <span style={{ color: '#fff' }}>{config.maintainer}</span></span>
+                          ) : (
+                            <span>isn't available yet. <a href="https://github.com/MartijnHols/WoWAnalyzer/blob/master/CONTRIBUTING.md">Add it!</a></span>
+                          )}
+                        </li>
+                      );
+                    })}
                 </ul>
 
-                If your spec is not in the list it may not be supported yet. Specs are added by enthusiastic players of the spec themselves. Adding specs is easy if you're familiar with JavaScript, find out more on <a href="https://github.com/MartijnHols/WoWAnalyzer/blob/master/CONTRIBUTING.md">GitHub</a> or <a href="https://discord.gg/AxphPxU" target="_blank" rel="noopener noreferrer">join the WoW Analyzer Discord</a> for additional help.<br /><br />
+                If your spec isn't in the list it's not yet supported. Specs are added by enthusiastic players of the spec themselves. Adding specs is easy if you're familiar with JavaScript, find out more on <a href="https://github.com/MartijnHols/WoWAnalyzer/blob/master/CONTRIBUTING.md">GitHub</a> or <a href="https://discord.gg/AxphPxU" target="_blank" rel="noopener noreferrer">join the WoW Analyzer Discord</a> for additional help.<br /><br />
 
-                If you're looking to help out development in other ways, please consider donating.<br />
+                If you're looking to help out in other ways please consider donating.<br />
                 <PatreonButton text="Become a Patron" />
               </div>
             </div>

@@ -7,6 +7,7 @@ import Chartist from 'chartist';
 import 'chartist-plugin-legend';
 
 import makeWclUrl from 'common/makeWclUrl';
+import { formatDuration } from 'common/format';
 
 import SPELLS from 'common/SPELLS';
 
@@ -16,11 +17,6 @@ import 'Main/Mana.css';
 
 import MaelstromComponent from './MaelstromComponent';
 import './Maelstrom.css';
-
-const formatDuration = (duration) => {
-  const seconds = Math.floor(duration % 60);
-  return `${Math.floor(duration / 60)}:${seconds < 10 ? `0${seconds}` : seconds}`;
-};
 
 class Maelstrom extends React.PureComponent {
   static propTypes = {
@@ -176,7 +172,7 @@ class Maelstrom extends React.PureComponent {
         }
         abilitiesAll[event.ability.guid + '_spend'].casts++;
         const lastMana = lastSecFight === secIntoFight ? manaBySecond[lastSecFight-1] : manaBySecond[lastSecFight];
-        const spendResource = (spell.maelstrom !== undefined) ? spell.maelstrom : (spell.max_maelstrom < lastMana ? spell.max_maelstrom : lastMana);
+        const spendResource = (spell.maelstromCost !== undefined) ? spell.maelstromCost : ((spell.maelstrom !== undefined) ? spell.maelstrom : (spell.max_maelstrom < lastMana ? spell.max_maelstrom : lastMana));
         abilitiesAll[event.ability.guid + '_spend'].spend += spendResource;
         abilitiesAll[event.ability.guid + '_spend'].wasted += spell.max_maelstrom ? spell.max_maelstrom - spendResource: 0;
       } else if (event.type === 'energize') {

@@ -27,6 +27,7 @@ import DarkmoonDeckPromises from './Modules/Legendaries/DarkmoonDeckPromises';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import CooldownTracker from './Modules/Features/CooldownTracker';
+import WildGrowth from './Modules/Features/WildGrowth';
 import Lifebloom from './Modules/Features/Lifebloom';
 import Efflorescence from './Modules/Features/Efflorescence';
 import Clearcasting from './Modules/Features/Clearcasting';
@@ -37,6 +38,10 @@ import PowerOfTheArchdruid from './Modules/Features/PowerOfTheArchdruid';
 import Dreamwalker from './Modules/Features/Dreamwalker';
 import SoulOfTheForest from './Modules/Features/SoulOfTheForest';
 import EssenceOfGhanir from './Modules/Features/EssenceOfGhanir';
+import Mastery from './Modules/Features/Mastery';
+import Cultivation from './Modules/Features/Cultivation';
+import SpringBlossoms from './Modules/Features/SpringBlossoms';
+import CenarionWard from './Modules/Features/CenarionWard';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
@@ -73,6 +78,7 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     cooldownTracker: CooldownTracker,
     castEfficiency: CastEfficiency,
+    wildGrowth: WildGrowth,
     lifebloom: Lifebloom,
     efflorescence: Efflorescence,
     clearcasting: Clearcasting,
@@ -83,6 +89,10 @@ class CombatLogParser extends CoreCombatLogParser {
     dreamwalker: Dreamwalker,
     soulOfTheForest: SoulOfTheForest,
     essenceOfGhanir: EssenceOfGhanir,
+    mastery: Mastery,
+    springBlossoms: SpringBlossoms,
+    cultivation: Cultivation,
+    cenarionWard: CenarionWard,
 
     // Legendaries:
     ekowraith: Ekowraith,
@@ -99,79 +109,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Shared:
     darkmoonDeckPromises: DarkmoonDeckPromises,
   };
-
-  /**
-   * when you cast WG and you yourself are one of the targets the applybuff event will be in the events log before the cast event
-   * this can make parsing certain things rather hard, so we need to swap them
-   * @param events
-   * @returns {Array}
-   */
-  reorderEvents(events) {
-    let _events = [];
-    let _newEvents = [];
-
-    events.forEach((event, idx) => {
-      _events.push(event);
-
-      // for WG cast events we look backwards through the events and any applybuff events we push forward
-      if (event.type === "cast" && event.ability.guid === SPELLS.WILD_GROWTH.id) {
-        for (let _idx = idx - 1; _idx >= 0; _idx--) {
-          const _event = _events[_idx];
-
-          if (_event.timestamp !== event.timestamp) {
-            _newEvents.reverse();
-            _events = _events.concat(_newEvents);
-            _newEvents = [];
-            break;
-          }
-
-          if (_event.type === "applybuff" && _event.ability.guid === SPELLS.WILD_GROWTH.id && _event.targetID === this.playerId) {
-            _events.splice(_idx, 1);
-            _newEvents.push(_event);
-          }
-        }
-
-        if (_newEvents.length) {
-          _newEvents.reverse();
-          _events = _events.concat(_newEvents);
-          _newEvents = [];
-        }
-      }
-
-      if (event.type === "cast" && event.ability.guid === SPELLS.REJUVENATION.id) {
-        for (let _idx = idx - 1; _idx >= 0; _idx--) {
-          const _event = _events[_idx];
-
-          if (_event.timestamp !== event.timestamp) {
-            _newEvents.reverse();
-            _events = _events.concat(_newEvents);
-            _newEvents = [];
-            break;
-          }
-
-          if (_event.type === "applybuff"
-            && [SPELLS.REJUVENATION.id, SPELLS.REJUVENATION_GERMINATION.id].indexOf(_event.ability.guid) !== -1
-            && _event.targetID === event.targetID) {
-            _events.splice(_idx, 1);
-            _newEvents.push(_event);
-          }
-        }
-
-        if (_newEvents.length) {
-          _newEvents.reverse();
-          _events = _events.concat(_newEvents);
-          _newEvents = [];
-        }
-      }
-    });
-
-    return _events;
-  }
-
-  parseEvents(events) {
-    return super.parseEvents(this.reorderEvents(events));
-  }
-
 
   generateResults() {
     const results = super.generateResults();

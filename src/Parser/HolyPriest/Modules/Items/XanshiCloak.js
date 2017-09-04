@@ -1,10 +1,19 @@
+import React from 'react';
+import { formatPercentage, formatNumber } from 'common/format';
+
+// dependencies
+import Combatants from 'Parser/Core/Modules/Combatants';
+
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 
 import Module from 'Parser/Core/Module';
 
-
 class XanshiCloak extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  }
+
   _xanshiActive = false;
   healing = 0;
   overhealing = 0;
@@ -13,7 +22,7 @@ class XanshiCloak extends Module {
   casts = [];
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasBack(ITEMS.XANSHI_CLOAK.id);
+    this.active = this.combatants.selected.hasBack(ITEMS.XANSHI_CLOAK.id);
   }
 
   on_byPlayer_removebuff(event) {
@@ -47,6 +56,20 @@ class XanshiCloak extends Module {
 
     this.manaSaved += event.rawManaCost || 0;
     this.casts.push(event.ability.guid);
+  }
+
+  item() {
+    const cloakPercHPS = formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing));
+    const cloakHPS = formatNumber(this.healing / this.owner.fightDuration * 1000);
+
+    return {
+      item: ITEMS.XANSHI_CLOAK,
+      result: (
+        <dfn data-tip="Value of spells cast during the cloak's buff. Does not assume all healing after cloak ends would be a result of the cloak.">
+          { cloakPercHPS } % / { cloakHPS } HPS / { formatNumber(this.manaSaved) } mana saved
+        </dfn>
+      ),
+    };
   }
 }
 

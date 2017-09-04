@@ -2,11 +2,7 @@
 
 # dependencies
 /node_modules
-/server/node_modules
 /browser-extensions/node_modules
-
-# testing
-/coverage
 
 # production
 /build
