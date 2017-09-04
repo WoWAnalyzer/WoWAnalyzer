@@ -9,6 +9,9 @@ import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownTracker from './Modules/Features/CooldownTracker';
+import DoomguardInfernal from './Modules/Features/DoomguardInfernal';
+import UnusedLordOfFlames from './Modules/Features/UnusedLordOfFlames';
+import GrimoireOfService from './Modules/Features/GrimoireOfService';
 
 // import SoulShardTracker from './Modules/SoulShards/SoulShardTracker';
 // import SoulShardDetails from './Modules/SoulShards/SoulShardDetails';
@@ -25,6 +28,9 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     cooldownTracker: CooldownTracker,
     damageDone: DamageDone,
+    doomguardInfernal: DoomguardInfernal,
+    unusedLordOfFlames: UnusedLordOfFlames,
+    grimoireOfService: GrimoireOfService,
 
     // DoTs
 
