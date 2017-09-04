@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Module from 'Parser/Core/Module';
-
+import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
@@ -12,10 +12,13 @@ import getDamageBonus from '../WarlockCore/getDamageBonus';
 const AC_DAMAGE_BONUS = .25;
 
 class AbsoluteCorruption extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
   bonusDmg = 0;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasTalent(SPELLS.ABSOLUTE_CORRUPTION_TALENT.id);
+    this.active = this.combatants.selected.hasTalent(SPELLS.ABSOLUTE_CORRUPTION_TALENT.id);
   }
 
   on_byPlayer_damage(event) {

@@ -39,7 +39,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
   ];
 
   lastPenanceStartTimestamp = null;
-  truePenanceCasts = 0;
 
   recordCastTime(
     castStartTimestamp,
@@ -48,10 +47,9 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     cast,
     spellId
   ) {
-    if (spellId === SPELLS.PENANCE.id) {
+    if (spellId === SPELLS.PENANCE.id || spellId === SPELLS.PENANCE_HEAL.id) {
       if (!this.lastPenanceStartTimestamp || (castStartTimestamp - this.lastPenanceStartTimestamp) > PENANCE_CHANNEL_TIME_BUFFER) {
         debug && console.log(`%cABC: New penance channel started`, 'color: orange');
-        this.truePenanceCasts += 1; // also track the amount of penance casts. Since we're already doing this here, this way we don't need a separate module.
         this.lastPenanceStartTimestamp = castStartTimestamp;
       } else {
         // This is a follow up from an existing Penance channel, it doesn't start its own GCD but the last cast is always after the initial GCD. This makes it so the last cast is still considered a valid cast.

@@ -1,6 +1,6 @@
 import React from 'react';
 import Module from 'Parser/Core/Module';
-
+import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import { formatNumber } from 'common/format';
@@ -11,6 +11,7 @@ import SoulShardTracker from '../../SoulShards/SoulShardTracker';
 class PowerCordOfLethtendris extends Module {
   static dependencies = {
     soulShardTracker: SoulShardTracker,
+    combatants: Combatants,
   };
 
   totalTicks = 0;
@@ -18,7 +19,7 @@ class PowerCordOfLethtendris extends Module {
 
   on_initialized() {
     if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasWaist(ITEMS.POWER_CORD_OF_LETHTENDRIS.id);
+      this.active = this.combatants.selected.hasWaist(ITEMS.POWER_CORD_OF_LETHTENDRIS.id);
     }
   }
 

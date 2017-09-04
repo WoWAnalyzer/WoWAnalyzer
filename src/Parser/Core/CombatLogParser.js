@@ -47,6 +47,9 @@ import ParseResults from './ParseResults';
 
 const debug = false;
 
+let _modulesDeprectatedWarningSent = false;
+let _selectedCombatantDeprectatedWarningSent = false;
+
 class CombatLogParser {
   static abilitiesAffectedByHealingIncreases = [];
 
@@ -101,10 +104,17 @@ class CombatLogParser {
   player = null;
   fight = null;
 
-  modules = {};
+  _modules = {};
+  get modules() {
+    if (!_modulesDeprectatedWarningSent) {
+      console.error('Using `this.owner.modules` is deprectated. You should add the module you want to use as a dependency and use the property that\'s added to your module instead.');
+      _modulesDeprectatedWarningSent = true;
+    }
+    return this._modules;
+  }
   get activeModules() {
-    return Object.keys(this.modules)
-      .map(key => this.modules[key])
+    return Object.keys(this._modules)
+      .map(key => this._modules[key])
       .filter(module => module.active);
   }
 
@@ -114,7 +124,11 @@ class CombatLogParser {
 
   /** @returns {Combatant} */
   get selectedCombatant() {
-    return this.modules.combatants.selected;
+    if (!_selectedCombatantDeprectatedWarningSent) {
+      console.error('Using `this.owner.selectedCombatant` is deprectated. You should add the `Combatants` module as a dependency and use `this.combatants.selected` instead.');
+      _selectedCombatantDeprectatedWarningSent = true;
+    }
+    return this._modules.combatants.selected;
   }
 
   get currentTimestamp() {
@@ -124,7 +138,7 @@ class CombatLogParser {
     return this.currentTimestamp - this.fight.start_time;
   }
   get finished() {
-    return this.modules.status.finished;
+    return this._modules.status.finished;
   }
 
   get playersById() {
@@ -176,7 +190,7 @@ class CombatLogParser {
             console.log('Loading', moduleClass.name, 'with dependencies:', Object.keys(availableDependencies));
           }
         }
-        this.modules[desiredModuleName] = new moduleClass(this, availableDependencies, Object.keys(this.modules).length);
+        this._modules[desiredModuleName] = new moduleClass(this, availableDependencies, Object.keys(this._modules).length);
       } else {
         debug && console.warn(moduleClass.name, 'could not be loaded, missing dependencies:', missingDependencies.map(d => d.name));
         failedModules.push(desiredModuleName);
@@ -193,8 +207,8 @@ class CombatLogParser {
     }
   }
   findModule(type) {
-    return Object.keys(this.modules)
-      .map(key => this.modules[key])
+    return Object.keys(this._modules)
+      .map(key => this._modules[key])
       .find(module => module instanceof type);
   }
 
@@ -249,7 +263,7 @@ class CombatLogParser {
   // TODO: Damage taken from LOTM
 
   getPercentageOfTotalHealingDone(healingDone) {
-    return healingDone / this.modules.healingDone.total.effective;
+    return healingDone / this._modules.healingDone.total.effective;
   }
   formatItemHealingDone(healingDone) {
     return `${formatPercentage(this.getPercentageOfTotalHealingDone(healingDone))} % / ${formatNumber(healingDone / this.fightDuration * 1000)} HPS`;
@@ -258,7 +272,7 @@ class CombatLogParser {
     return `${formatNumber(absorbDone)}`;
   }
   getPercentageOfTotalDamageDone(damageDone) {
-    return damageDone / this.modules.damageDone.total.effective;
+    return damageDone / this._modules.damageDone.total.effective;
   }
   formatItemDamageDone(damageDone) {
     return `${formatPercentage(this.getPercentageOfTotalDamageDone(damageDone))} % / ${formatNumber(damageDone / this.fightDuration * 1000)} DPS`;

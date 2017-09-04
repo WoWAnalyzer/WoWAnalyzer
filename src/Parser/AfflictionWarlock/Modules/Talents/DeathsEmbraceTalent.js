@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
@@ -12,10 +13,11 @@ import DeathsEmbrace from './DeathsEmbrace';
 class DeathsEmbraceTalent extends Module {
   static dependencies = {
     deathsEmbrace : DeathsEmbrace,
+    combatants: Combatants,
   };
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasTalent(SPELLS.DEATHS_EMBRACE_TALENT.id);
+    this.active = this.combatants.selected.hasTalent(SPELLS.DEATHS_EMBRACE_TALENT.id);
   }
 
   statistic() {

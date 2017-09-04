@@ -8,8 +8,8 @@ import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 
 //Modules made but not loaded in the first PR
-//import Moonfire from './Modules/Spells/Moonfire';
-//import Sunfire from './Modules/Spells/Sunfire';
+import Moonfire from './Modules/Spells/Moonfire';
+import Sunfire from './Modules/Spells/Sunfire';
 //import NewMoon from './Modules/Spells/NewMoon';
 //import HalfMoon from './Modules/Spells/HalfMoon';
 //import FullMoon from './Modules/Spells/FullMoon';
@@ -17,7 +17,7 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 //import LunarUnemp from './Modules/Spells/Empowerments/LunarUnemp';
 //import LunarOvercap from './Modules/Spells/Empowerments/LunarOvercap';
 //import SolarOvercap from './Modules/Spells/Empowerments/SolarOvercap';
-//import AstralPower from './Modules/Features/AstralPower';
+import AstralPower from './Modules/Features/AstralPower';
 
 
 class CombatLogParser extends MainCombatLogParser {
@@ -26,8 +26,8 @@ class CombatLogParser extends MainCombatLogParser {
       castEfficiency: CastEfficiency,
       alwaysBeCasting: AlwaysBeCasting,
       //Modules made but not loaded in the first PR
-      //moonfire: Moonfire,
-      //sunfire: Sunfire,
+      moonfire: Moonfire,
+      sunfire: Sunfire,
       //newmoon: NewMoon,
       //halfmoon: HalfMoon,
       //fullmoon: FullMoon,
@@ -35,7 +35,7 @@ class CombatLogParser extends MainCombatLogParser {
       //lunarumep: LunarUnemp,
       //lunarovercap: LunarOvercap,
       //solarovercap: SolarOvercap,
-      //astralpower: AstralPower,
+      astralpower: AstralPower,
     };
   
     generateResults() {

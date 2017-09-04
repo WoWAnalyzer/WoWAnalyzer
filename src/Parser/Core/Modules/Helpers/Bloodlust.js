@@ -15,7 +15,7 @@ export const BLOODLUST_BUFF_IDS = [
 
 class Bloodlust extends Module {
   /**
-   * When Bloodlust is applied pre-combat it doesn't show up as an `applybuff` event nor in the `combatantinfo` buffs array. It can still be detected by looking for a `removebuff` event, this does that and then fabricates an `applybuff` event.
+   * When Bloodlust is applied pre-combat it doesn't show up as an `applybuff` event nor in the `combatantinfo` buffs array. It can still be detected by looking for a `removebuff` event, this uses that to detect it and then fabricates an `applybuff` event at the start of the log.
    * @param {Array} events
    * @returns {Array}
    */

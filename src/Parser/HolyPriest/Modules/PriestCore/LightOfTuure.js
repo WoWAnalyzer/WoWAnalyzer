@@ -3,6 +3,9 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage, formatNumber } from 'common/format';
 
+// dependencies
+import Combatants from 'Parser/Core/Modules/Combatants';
+
 import SPELLS from 'common/SPELLS';
 import Module from 'Parser/Core/Module';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
@@ -10,14 +13,18 @@ import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
 
 class LightOfTuure extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  }
+
   _lotTargets = {};
   buffHealing = 0;
   spellHealing = 0;
 
   on_initialized() {
-    this.lotTraits = this.owner.selectedCombatant.traitsBySpellId[SPELLS.CARESS_OF_THE_NAARU_TRAIT.id] || 0;
+    this.lotTraits = this.combatants.selected.traitsBySpellId[SPELLS.CARESS_OF_THE_NAARU_TRAIT.id] || 0;
     this.lotModifier = 0.25 + (0.05 * this.lotTraits);
-    this.active = this.owner.selectedCombatant.traitsBySpellId[SPELLS.LIGHT_OF_TUURE_TRAIT.id] > 0;
+    this.active = this.combatants.selected.traitsBySpellId[SPELLS.LIGHT_OF_TUURE_TRAIT.id] > 0;
   }
 
   on_byPlayer_applybuff(event) {

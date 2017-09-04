@@ -16,12 +16,6 @@ class FatalEchoes extends Module {
   totalTicks = 0;
   totalDamage = 0;
 
-  on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasBuff(SPELLS.WARLOCK_AFFLI_T20_2P_BONUS.id);
-    }
-  }
-
   on_byPlayer_damage(event) {
     if (UNSTABLE_AFFLICTION_DEBUFF_IDS.some(id => event.ability.guid === id)) {
       this.totalTicks++;
