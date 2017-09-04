@@ -33,7 +33,7 @@ class CrimsonScourgeProcsWasted  extends Module {
 
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(5);
+  statisticOrder = STATISTIC_ORDER.CORE(1);
 }
 
 export default CrimsonScourgeProcsWasted;

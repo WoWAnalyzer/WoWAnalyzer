@@ -26,7 +26,7 @@ class OssuaryUptime extends Module {
 
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(3);
+  statisticOrder = STATISTIC_ORDER.CORE(1);
 }
 
 export default OssuaryUptime;
