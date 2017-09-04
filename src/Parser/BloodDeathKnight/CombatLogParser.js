@@ -15,7 +15,7 @@ import BoneShieldUptime from './Modules/Features/BoneShieldUptime';
 import OssuaryUptime from './Modules/Features/OssuaryUptime';
 import WastedDeathAndDecay from './Modules/Features/WastedDeathAndDecay';
 import RPWasted from './Modules/Features/RunicPowerWasted';
-//import CrimsonScourgeProcsWasted from './Modules/Features/CrimsonScourgeProcsWasted';
+
 
 class CombatLogParser extends CoreCombatLogParser {
 
@@ -31,7 +31,6 @@ class CombatLogParser extends CoreCombatLogParser {
     OssuaryUptime: OssuaryUptime,
     WastedDeathAndDecay: WastedDeathAndDecay,
     RunicPowerWasted: RPWasted,
-   // CrimsonScourgeProcsWasted: CrimsonScourgeProcsWasted, #probably a useless stat to track, might take it out.
 
     //DOT
     bloodplagueUptime: BloodPlagueUptime,

@@ -10,23 +10,6 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class BoneShieldUptime extends Module {
 
-  boneArmorBuffCounter=0;
-
-  on_byPlayer_applybuff(event) {
-    const spellId = event.ability.guid;
-    if (SPELLS.BONE_SHIELD.id === spellId) {
-      this.lastBoneArmorBuffApplied = event.timestamp;
-      this.boneArmorBuffCounter++;
-    }
-  }
-
-  on_byPlayer_removebuff(event) {
-    const spellId = event.ability.guid;
-    if (SPELLS.BONE_SHIELD.id === spellId) {
-      this.lastBoneArmorBuffApplied = 0;
-      this.boneArmorBuffCounter--;
-    }
-  }
 
   statistic() {
 
@@ -40,7 +23,6 @@ class BoneShieldUptime extends Module {
         label='Bone Shield Uptime'
         tooltip={`Bone Shield total uptime was ${formatDuration(boneshieldUptime / 1000)} seconds.`}
       />
-
 
     );
   }

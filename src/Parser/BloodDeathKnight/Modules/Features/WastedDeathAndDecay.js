@@ -16,7 +16,6 @@ class WastedDeathAndDecay  extends Module {
   };
 
   CrimsonScourgeProcsCounter = 0;
-  CrimsonScourgeWastedCounter = 0;
   FreeDeathAndDecayCounter = 0;
   DeathAndDecayCounter = 0;
   WastedDeathAndDecays = 0;

@@ -17,7 +17,6 @@ class RPWasted extends Module {
     if (event.resourceChangeType !== RESOURCE_TYPES.RUNIC_POWER) {
       return;
     }
-
     this.totalRPWasted+=event.waste;
     this.totalRPGained += event.resourceChange + event.waste;
   }

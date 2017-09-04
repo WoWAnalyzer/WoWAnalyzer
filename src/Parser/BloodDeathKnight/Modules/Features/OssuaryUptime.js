@@ -10,24 +10,6 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class OssuaryUptime extends Module {
 
-  ossuaryBuffCounter=0;
-
-  on_byPlayer_applybuff(event) {
-    const spellId = event.ability.guid;
-    if (SPELLS.Ossuary.id === spellId) {
-      //this.lastBoneArmorBuffApplied = event.timestamp;
-      this.ossuaryBuffCounter++;
-    }
-  }
-
-  on_byPlayer_removebuff(event) {
-    const spellId = event.ability.guid;
-    if (SPELLS.Ossuary.id === spellId) {
-      //this.lastBoneArmorBuffApplied = 0;
-      this.ossuaryBuffCounter--;
-    }
-  }
-
   statistic() {
 
     const ossuaryUptime = this.owner.modules.combatants.getBuffUptime(SPELLS.Ossuary.id);

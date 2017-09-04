@@ -19,13 +19,6 @@ export default {
     icon: 'spell_shadow_deathanddecay',
   },
 
-  //Free Death and Decay from Scorge Proc
-  DEATH_AND_DECAY_SCORGE_PROC: {
-    id: 188290,
-    name: 'Free Death and Decay',
-    icon: 'spell_shadow_deathanddecay',
-  },
-
   BLOOD_BOIL: {
     id: 50842,
     name: 'Blood Boil',
@@ -66,17 +59,6 @@ export default {
     icon: 'ability_animusdraw',
   },
 
-  HEART_STRIKE: {
-    id: 206930,
-    name: 'Heart-Strike',
-    icon: 'inv_weapon_shortblade_40',
-  },
-
-  MARROWREND: {
-    id: 195182,
-    name: 'Marrowrend',
-    icon: 'ability_deathknight_marrowrend',
-  },
   //Cool Downs
   ICEBOUND_FORTITUDE: {
     id: 48792,
@@ -131,6 +113,64 @@ export default {
     id: 81141,
     name: 'Crimson Scourge',
     icon: 'spell_deathknight_bloodboil',
+  },
+
+  //CC
+  Asphyxiate: {
+    id: 108194,
+    name: 'Asphyxiate',
+    icon: 'ability_deathknight_asphixiate',
+  },
+
+  DARK_COMMAND: {
+    id: 56222,
+    name: 'Dark Command',
+    icon: 'spell_nature_shamanrage',
+  },
+
+  DEATH_GRIP: {
+    id: 49576,
+    name: 'Death Grip',
+    icon: 'spell_deathknight_strangulate',
+  },
+
+  MIND_FREEZE: {
+    id: 47528,
+    name: 'Mind Freeze',
+    icon: 'spell_deathknight_mindfreeze',
+  },
+
+  GOREFIENDS_GRASP: {
+    id: 108199,
+    name: 'Gorefiend\'s Grasp',
+    icon: 'ability_deathknight_aoedeathgrip',
+  },
+
+  //Movement
+  WRAITH_WALK: {
+    id: 212552,
+    name: 'Wraith Walk',
+    icon: 'inv_helm_plate_raiddeathknight_p_01',
+  },
+
+
+  //MISC
+  CONTROL_UNDEAD: {
+    id: 111673,
+    name: 'Control Undead',
+    icon: 'inv_misc_bone_skull_01',
+  },
+
+  DEATH_GATE: {
+    id: 50977,
+    name: 'Death Gate',
+    icon: 'spell_arcane_teleportundercity',
+  },
+
+  RAISE_ALLY: {
+    id: 61999,
+    name: 'Raise Ally',
+    icon: 'spell_shadow_deadofnight',
   },
 
   // Frost:
