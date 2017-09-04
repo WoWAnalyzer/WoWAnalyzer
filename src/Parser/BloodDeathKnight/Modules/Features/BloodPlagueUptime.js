@@ -1,0 +1,43 @@
+import React from 'react';
+
+import Module from 'Parser/Core/Module';
+import Enemies from 'Parser/Core/Modules/Enemies';
+
+import SPELLS from 'common/SPELLS';
+import SpellIcon from 'common/SpellIcon';
+import { formatPercentage } from 'common/format';
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import SpellLink from 'common/SpellLink';
+
+class BloodPlagueUptime extends Module {
+  static dependencies = {
+    enemies: Enemies,
+  };
+
+  suggestions(when) {
+    const bloodplagueUptime = this.enemies.getBuffUptime(SPELLS.BLOOD_PLAGUE.id) / this.owner.fightDuration;
+      when(bloodplagueUptime).isLessThan(.95)
+        .addSuggestion((suggest, actual, recommended) => {
+          return suggest('Your Blood Plauge uptime can be improved. Perhaps use some debuff tracker.')
+            .icon(SPELLS.BLOOD_PLAGUE.icon)
+            .actual(`${formatPercentage(actual)}% Blood Plague uptime`)
+            .recommended(`>${formatPercentage(recommended)}% is recommended`)
+            .regular(recommended - 0.05).major(recommended - 0.15);
+        });
+    }
+
+  statistic() {
+    const bloodplagueUptime = this.enemies.getBuffUptime(SPELLS.BLOOD_PLAGUE.id) / this.owner.fightDuration;
+    return (
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.BLOOD_PLAGUE.id} />}
+        value={`${formatPercentage(bloodplagueUptime)} %`}
+        label='Blood Plague uptime'
+    />
+    );
+  }
+
+  statisticOrder = STATISTIC_ORDER.CORE(1);
+}
+
+export default BloodPlagueUptime;
