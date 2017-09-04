@@ -127,4 +127,4 @@ class ApiRequestHandler {
   }
 }
 
-module.exports = ApiController.handle;
+export default ApiController.handle;
