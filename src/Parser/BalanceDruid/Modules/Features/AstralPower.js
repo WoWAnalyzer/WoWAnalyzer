@@ -1,6 +1,7 @@
 import React from 'react';
 import Icon from 'common/Icon';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import { formatNumber } from 'common/format';
 import Module from 'Parser/Core/Module';
 import SPELLS from 'common/SPELLS';
 import ResourceTypes from 'common/RESOURCE_TYPES';
@@ -41,13 +42,14 @@ class AstralPower extends Module {
   }
 
   suggestions(when) {
-      when(this.aspWasted).isGreaterThan(0)
+      const wastedPerMin = ((this.aspWasted) / (this.owner.fightDuration / 100)) * 60;
+      when(wastedPerMin).isGreaterThan(0)
         .addSuggestion((suggest, actual, recommended) => {
           return suggest(<span>You overcapped {this.aspWasted / 10} Astral Power. Always prioritize spending it over avoiding the overcap or any other ability.</span>)
             .icon('ability_druid_cresentburn')
-            .actual(`${this.aspWasted / 10} overcapped Astral Power`)
+            .actual(`${formatNumber(actual)} overcapped Astral Power per minute`)
             .recommended(`0 overcapped Astral Power is recommended.`)
-            .regular(recommended + 300).major(recommended + 300);
+            .regular(recommended + 4).major(recommended + 8);
         });
     }
   
