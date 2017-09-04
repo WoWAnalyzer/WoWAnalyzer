@@ -2,6 +2,7 @@ import React from 'react';
 
 import Module from 'Parser/Core/Module';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 import { calculateMaxCasts } from 'Parser/Core/getCastEfficiency';
 import SPELLS from 'common/SPELLS';
@@ -12,8 +13,15 @@ const SUMMON_COOLDOWN = 180;
 class DoomguardInfernal extends Module {
   static dependencies = {
     abilityTracker: AbilityTracker,
+    combatants: Combatants,
   };
 
+  on_initialized() {
+    if (!this.owner.error) {
+      this.active = !this.combatants.selected.hasTalent(SPELLS.GRIMOIRE_OF_SUPREMACY_TALENT.id);
+    }
+  }
+  
   suggestions(when) {
     const maxCasts = Math.ceil(calculateMaxCasts(SUMMON_COOLDOWN, this.owner.fightDuration));
     const doomguardCasts = this.abilityTracker.getAbility(SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id).casts || 0;
