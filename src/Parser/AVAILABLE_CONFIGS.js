@@ -3,6 +3,7 @@ import HolyPaladin from './HolyPaladin/CONFIG';
 import RestoDruid from './RestoDruid/CONFIG';
 import GuardianDruid from './GuardianDruid/CONFIG';
 import BalanceDruid from './BalanceDruid/CONFIG';
+import FeralDruid from './FeralDruid/CONFIG';
 
 import DisciplinePriest from './DisciplinePriest/CONFIG';
 import HolyPriest from './HolyPriest/CONFIG';
@@ -20,7 +21,11 @@ import SubtletyRogue from './SubtletyRogue/CONFIG';
 
 import VengeanceDemonHunter from './VengeanceDemonHunter/CONFIG';
 import AfflictionWarlock from './AfflictionWarlock/CONFIG';
+
 import BloodDeathKnight from './BloodDeathKnight/CONFIG';
+
+import DestructionWarlock from './DestructionWarlock/CONFIG';
+
 
 // Order of this should be the order in which specs were added to production
 export default [
@@ -29,6 +34,7 @@ export default [
   RestoDruid,
   GuardianDruid,
   BalanceDruid,
+  FeralDruid,
 
   DisciplinePriest,
   HolyPriest,
@@ -49,4 +55,5 @@ export default [
 
   BloodDeathKnight,
 
+  DestructionWarlock,
 ];
