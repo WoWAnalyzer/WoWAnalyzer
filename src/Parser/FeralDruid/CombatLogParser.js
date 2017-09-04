@@ -8,6 +8,7 @@ import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
+import CooldownTracker from './Modules/Features/CooldownTracker';
 
 import DamageDone from './Modules/FeralCore/DamageDone';
 
@@ -19,6 +20,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     castEfficiency: CastEfficiency,
+    cooldownTracker: CooldownTracker,
   };
 
   generateResults() {
