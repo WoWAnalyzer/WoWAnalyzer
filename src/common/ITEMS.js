@@ -463,6 +463,12 @@ const ITEMS = {
     icon: 'inv_cape_pandaria_c_02',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+  FERETORY_OF_SOULS: {
+    id: 132456,
+    name: 'Feretory of Souls',
+    icon: 'inv_belt_cloth_raidwarlock_n_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
   // T20 Trinkets
   ARCHIVE_OF_FAITH: {
     id: 147006,

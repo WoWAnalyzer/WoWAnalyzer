@@ -13,7 +13,8 @@ import DoomguardInfernal from './Modules/Features/DoomguardInfernal';
 import UnusedLordOfFlames from './Modules/Features/UnusedLordOfFlames';
 import GrimoireOfService from './Modules/Features/GrimoireOfService';
 
-// import SoulShardTracker from './Modules/SoulShards/SoulShardTracker';
+import SoulShardEvents from './Modules/SoulShards/SoulShardEvents';
+import SoulShardTracker from './Modules/SoulShards/SoulShardTracker';
 // import SoulShardDetails from './Modules/SoulShards/SoulShardDetails';
 import DamageDone from './Modules/Features/DamageDone';
 
@@ -35,7 +36,8 @@ class CombatLogParser extends CoreCombatLogParser {
     // DoTs
 
     //Core
-    // soulShardTracker: SoulShardTracker,
+    soulShardEvents: SoulShardEvents,
+    soulShardTracker: SoulShardTracker,
     // soulShardDetails: SoulShardDetails,
 
     //Talents
