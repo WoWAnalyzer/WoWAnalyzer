@@ -76,6 +76,11 @@ export default {
     icon: 'inv_alchemy_70_purple',
   },
   // Items buffs:
+  JACINS_RUSE: {
+    id: 224149,
+    name: 'Jacin\'s Ruse',
+    icon: 'sha_ability_rogue_bloodyeye',
+  },
   GNAWED_THUMB_RING: {
     id: 228461,
     name: 'Gnawed Thumb Ring',

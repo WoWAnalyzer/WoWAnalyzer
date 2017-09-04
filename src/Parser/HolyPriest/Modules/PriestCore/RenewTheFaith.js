@@ -1,20 +1,30 @@
 import React from 'react';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
+
 import { formatPercentage, formatNumber } from 'common/format';
 
 import SPELLS from 'common/SPELLS';
 import Module from 'Parser/Core/Module';
 
+// dependencies
+import Combatants from 'Parser/Core/Modules/Combatants';
+import DivineHymn from '../Spells/DivineHymn';
+
 class RenewTheFaith extends Module {
+  static dependencies = {
+    combatants: Combatants,
+    divineHymn: DivineHymn,
+  }
+
   _validPoMBefore = 0;
   poms = 0;
   healing = 0;
   overhealing = 0;
 
   on_initialized() {
-    this._maxHymnDuration = 8 / (1 + this.owner.selectedCombatant.hastePercentage);
-    this.active = this.owner.selectedCombatant.traitsBySpellId[SPELLS.RENEW_THE_FAITH_TRAIT.id] > 0;
+    this._maxHymnDuration = 8 / (1 + this.combatants.selected.hastePercentage);
+    this.active = this.combatants.selected.traitsBySpellId[SPELLS.RENEW_THE_FAITH_TRAIT.id] > 0;
   }
 
   on_byPlayer_cast(event) {
@@ -37,7 +47,7 @@ class RenewTheFaith extends Module {
   statistic() {
     const rtfPercHPS = formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing));
     const rtfPercOH = formatPercentage(this.overhealing / (this.healing + this.overhealing));
-    const rtfRelPercHPS = formatPercentage(this.healing / this.owner.modules.divineHymn.healing);
+    const rtfRelPercHPS = formatPercentage(this.healing / this.divineHymn.healing);
 
     //
     return this.active && (
