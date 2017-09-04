@@ -12,6 +12,8 @@ class Penance extends Module {
   _speedOfThePiousAcquired = false;
   _previousPenanceTimestamp = null;
   _penanceBoltNumber = 0;
+  casts = 0;
+  hits = 0;
 
   isNewPenanceCast(timestamp) {
     return !this._previousPenanceTimestamp || (timestamp - this._previousPenanceTimestamp) > PENANCE_MINIMUM_RECAST_TIME;
@@ -26,7 +28,7 @@ class Penance extends Module {
     if (this.isNewPenanceCast(event.timestamp)) {
       this._previousPenanceTimestamp = event.timestamp;
       this._penanceBoltNumber = 0;
-      // event.isInitialPenanceCast = true; doesn't work since `this._speedOfThePiousAcquired` is permanently true after first cast
+      this.casts += 1;
     }
   }
 
@@ -35,7 +37,9 @@ class Penance extends Module {
     if (event.ability.guid !== SPELLS.SPEED_OF_THE_PIOUS.id) {
       return;
     }
+    console.log("WutFace");
     this._speedOfThePiousAcquired = true;
+    this.casts += 1;
     this._penanceBoltNumber = 0;
   }
 
@@ -46,6 +50,7 @@ class Penance extends Module {
 
     event.penanceBoltNumber = this._penanceBoltNumber;
     this._penanceBoltNumber += 1;
+    this.hits += 1;
   }
 
   on_byPlayer_heal(event) {
@@ -55,6 +60,7 @@ class Penance extends Module {
 
     event.penanceBoltNumber = this._penanceBoltNumber;
     this._penanceBoltNumber += 1;
+    this.hits += 1;
   }
 }
 
