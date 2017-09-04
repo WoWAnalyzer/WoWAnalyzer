@@ -1,16 +1,16 @@
-const compression = require('compression');
-const express = require('express');
-const path = require('path');
-const fs = require('fs');
+import compression from 'compression';
+import express from 'express';
+import path from 'path';
+import fs from 'fs';
 
-const api = require('./api');
+import api from './api';
+import status from './status';
 
 const app = express();
-
 app.use(compression());
-
-// Any files that exist can be accessed directly
-const buildFolder = path.join(__dirname, '..', 'build');
+// Any files that exist can be accessed directly.
+// If the server has been compiled, the path will be different.
+const buildFolder = path.basename(__dirname) === 'build' ? path.join(__dirname, '..', '..', 'build') : path.join(__dirname, '..', 'build');
 app.use(express.static(buildFolder));
 
 // Load the index file into memory so we don't have to access it all the time
@@ -50,6 +50,7 @@ app.get('/report/:reportCode([A-Za-z0-9]+)/:fightId([0-9]+)?:fightName(-[^/]+)?/
   res.send(response);
 });
 app.get('/api/v1/*', api);
+app.get('/api/status', status);
 
 app.listen(3000);
 console.log('Listening to port 3000');

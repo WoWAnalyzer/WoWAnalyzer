@@ -121,12 +121,7 @@ class App extends Component {
     }
     let config = AVAILABLE_CONFIGS.find(config => config.spec.id === combatant.specID);
     if (!config) {
-      if (process.env.NODE_ENV === 'development') {
-        config = UnsupportedSpec;
-      } else {
-        alert('This spec is not yet supported. Your help adding support for this spec would be much appreciated! Click the GitHub link above to find out how you can contribute.');
-        return;
-      }
+      config = UnsupportedSpec;
     }
 
     const ParserClass = config.parser;
@@ -230,7 +225,20 @@ class App extends Component {
           throw json.error;
         } else if (this.reportCode === code) {
           if (!json.fights) {
-            throw new Error('Corrupt WCL response received.');
+            let message = 'Corrupt WCL response received.';
+            if (json.error) {
+              message = json.error;
+              if (json.message) {
+                try {
+                  const errorMessage = JSON.parse(json.message);
+                  if (errorMessage.error) {
+                    message = errorMessage.error;
+                  }
+                } catch(error) {}
+              }
+            }
+
+            throw new Error(message);
           }
 
           this.setState({

@@ -8,6 +8,7 @@ RUN npm install
 
 COPY . /usr/src/wowanalyzer/
 
+EXPOSE 3000
 # Webpack dev server has to poll because https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#npm-start-doesnt-detect-changes
 ENV CHOKIDAR_USEPOLLING=true
 

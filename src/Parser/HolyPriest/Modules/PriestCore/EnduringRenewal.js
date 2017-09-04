@@ -3,12 +3,19 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage, formatNumber } from 'common/format';
 
+// dependencies
+import Combatants from 'Parser/Core/Modules/Combatants';
+
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import Module from 'Parser/Core/Module';
 import { ABILITIES_THAT_TRIGGER_ENDURING_RENEWAL } from '../../Constants';
 
 class EnduringRenewal extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  }
+
   _normalRenewDropoff = {};
   _newRenewDropoff = {};
   healing = 0;
@@ -24,8 +31,8 @@ class EnduringRenewal extends Module {
   // Enduring Renewal
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasTalent(SPELLS.ENDURING_RENEWAL_TALENT.id);
-    this._usingLegendaryLegs = this.owner.selectedCombatant.hasLegs(ITEMS.ENTRANCING_TROUSERS_OF_ANJUNA.id);
+    this.active = this.combatants.selected.hasTalent(SPELLS.ENDURING_RENEWAL_TALENT.id);
+    this._usingLegendaryLegs = this.combatants.selected.hasLegs(ITEMS.ENTRANCING_TROUSERS_OF_ANJUNA.id);
     this._baseRenewLength = 15 + (this._usingLegendaryLegs ? 6 : 0);
   }
 

@@ -4,17 +4,23 @@ import { formatPercentage, formatNumber } from 'common/format';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 
+// dependencies
+import Combatants from 'Parser/Core/Modules/Combatants';
+
 import Module from 'Parser/Core/Module';
 
-
 class TrousersOfAnjuna extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  }
+
   _validAfterByPlayer = {};
   healing = 0;
   overhealing = 0;
   absorbed = 0;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasLegs(ITEMS.ENTRANCING_TROUSERS_OF_ANJUNA.id);
+    this.active = this.combatants.selected.hasLegs(ITEMS.ENTRANCING_TROUSERS_OF_ANJUNA.id);
   }
 
   on_byPlayer_removebuff(event) {

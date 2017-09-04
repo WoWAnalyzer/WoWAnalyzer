@@ -1,4 +1,5 @@
 import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
@@ -19,6 +20,10 @@ const abilitiesAffected = [
 const SLOPE_OF_DAMAGE_INCREASE = -50/35;
 
 class DeathsEmbrace extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
   bonusDmg = 0;
 
   getDeathEmbraceBonus(healthPercentage) {
@@ -28,7 +33,7 @@ class DeathsEmbrace extends Module {
   }
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasTalent(SPELLS.DEATHS_EMBRACE_TALENT.id) || this.owner.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_NETHERLORD.id);
+    this.active = this.combatants.selected.hasTalent(SPELLS.DEATHS_EMBRACE_TALENT.id) || this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_NETHERLORD.id);
   }
 
   on_byPlayer_damage(event) {

@@ -1,6 +1,6 @@
 import React from 'react';
 import Module from 'Parser/Core/Module';
-
+import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
@@ -12,6 +12,7 @@ import SoulShardTracker from '../SoulShards/SoulShardTracker';
 class Tier20_2set extends Module {
   static dependencies = {
     soulShardTracker: SoulShardTracker,
+    combatants: Combatants,
   };
 
   totalTicks = 0;
@@ -19,7 +20,7 @@ class Tier20_2set extends Module {
 
   on_initialized() {
     if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasBuff(SPELLS.WARLOCK_AFFLI_T20_2P_BONUS.id);
+      this.active = this.combatants.selected.hasBuff(SPELLS.WARLOCK_AFFLI_T20_2P_BONUS.id);
     }
   }
 

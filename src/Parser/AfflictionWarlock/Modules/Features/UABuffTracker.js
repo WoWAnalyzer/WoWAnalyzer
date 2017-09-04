@@ -2,6 +2,7 @@ import React from 'react';
 
 import Module from 'Parser/Core/Module';
 import Enemies from 'Parser/Core/Modules/Enemies';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
@@ -13,6 +14,7 @@ import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../Constants';
 class UABuffTracker extends Module {
   static dependencies = {
     enemies: Enemies,
+    combatants: Combatants,
   };
 
   totalTicks = 0;
@@ -25,8 +27,8 @@ class UABuffTracker extends Module {
   hasHaunt = false;
 
   on_initialized() {
-    this.hasMG = this.owner.selectedCombatant.hasTalent(SPELLS.MALEFIC_GRASP_TALENT.id);
-    this.hasHaunt = this.owner.selectedCombatant.hasTalent(SPELLS.HAUNT_TALENT.id);
+    this.hasMG = this.combatants.selected.hasTalent(SPELLS.MALEFIC_GRASP_TALENT.id);
+    this.hasHaunt = this.combatants.selected.hasTalent(SPELLS.HAUNT_TALENT.id);
   }
 
   on_byPlayer_damage(event) {
@@ -36,7 +38,7 @@ class UABuffTracker extends Module {
     }
     const target = this.enemies.getEntity(event);
     this.totalTicks++;
-    const buffedByReap = this.owner.selectedCombatant.hasBuff(SPELLS.DEADWIND_HARVESTER.id, event.timestamp);
+    const buffedByReap = this.combatants.selected.hasBuff(SPELLS.DEADWIND_HARVESTER.id, event.timestamp);
     const buffedByDrain = target.hasBuff(SPELLS.DRAIN_SOUL.id, event.timestamp);
     const buffedByHaunt = target.hasBuff(SPELLS.HAUNT.id, event.timestamp);
 

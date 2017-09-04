@@ -287,7 +287,7 @@ export default {
   PRAYER_OF_HEALING: {
     id: 596,
     name: 'Prayer of Healing',
-    icon: 'spell_holy_prayerofhealing',
+    icon: 'spell_holy_prayerofhealing02',
     manaCost: 49500,
   },
 
@@ -560,7 +560,7 @@ export default {
   },
 
 
-  
-  
+
+
 
 };
