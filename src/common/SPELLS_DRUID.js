@@ -549,4 +549,40 @@ export default {
     name: 'Celestial Alignment',
     icon: 'artifactability_balancedruid_newmoon',
   },
+  // Feral
+  TIGERS_FURY: {
+    id: 5217,
+    name: 'Tiger\'s Fury',
+    icon: 'ability_mount_jungletiger',
+  },
+  SKULL_BASH_FERAL: {
+    id: 93985,
+    name: 'Skull Bash',
+    icon: 'inv_bone_skull_04',
+  },
+  SHADOWMELD: {
+    id: 58984,
+    name: 'Shadowmeld',
+    icon: 'ability_ambush',
+  },
+  ASHAMANES_FRENZY: {
+    id: 210722,
+    name: 'Ashamane\'s Frenzy',
+    icon: 'inv_knife_1h_artifactfrostsaber_d_01',
+  },
+  PRIMAL_FURY: {
+    id: 16953,
+    name: 'Primal Fury',
+    icon: 'ability_racial_cannibalize',
+  },
+  SAVAGE_ROAR: {
+    id: 52610,
+    name: 'Savage Roar',
+    icon: 'ability_druid_skinteeth',
+  },
+  MAIM: {
+    id: 22570,
+    name: 'Maim',
+    icon: 'ability_druid_mangle',
+  },
 };

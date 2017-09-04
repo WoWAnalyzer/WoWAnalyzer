@@ -3,6 +3,7 @@ import HolyPaladin from './HolyPaladin/CONFIG';
 import RestoDruid from './RestoDruid/CONFIG';
 import GuardianDruid from './GuardianDruid/CONFIG';
 import BalanceDruid from './BalanceDruid/CONFIG';
+import FeralDruid from './FeralDruid/CONFIG';
 
 import DisciplinePriest from './DisciplinePriest/CONFIG';
 import HolyPriest from './HolyPriest/CONFIG';
@@ -29,6 +30,7 @@ export default [
   RestoDruid,
   GuardianDruid,
   BalanceDruid,
+  FeralDruid,
 
   DisciplinePriest,
   HolyPriest,
