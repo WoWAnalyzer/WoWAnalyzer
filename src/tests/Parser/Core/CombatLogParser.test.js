@@ -9,6 +9,8 @@ class EmptyCombatLogParser extends CombatLogParser {
   static specModules = {};
 }
 
+// This uses `_modules` on the CombatLogParser. I know I shouldn't test private properties! But using the modules property directly throws a deprecation warning for now, and this is probably only temporary. So this is only a temp fix. (lol who am I kidding)
+
 describe('Core.CombatLogParser', () => {
   describe('module defining', () => {
     it('loads default modules', () => {
@@ -18,8 +20,8 @@ describe('Core.CombatLogParser', () => {
         };
       }
       const parser = new MyCombatLogParser(null, null, null);
-      expect(parser.modules.myModule).toBeInstanceOf(MyModule);
-      expect(Object.keys(parser.modules).length).toBe(1);
+      expect(parser._modules.myModule).toBeInstanceOf(MyModule);
+      expect(Object.keys(parser._modules).length).toBe(1);
     });
     it('loads spec modules', () => {
       class MyCombatLogParser extends EmptyCombatLogParser {
@@ -28,8 +30,8 @@ describe('Core.CombatLogParser', () => {
         };
       }
       const parser = new MyCombatLogParser(null, null, null);
-      expect(parser.modules.myModule).toBeInstanceOf(MyModule);
-      expect(Object.keys(parser.modules).length).toBe(1);
+      expect(parser._modules.myModule).toBeInstanceOf(MyModule);
+      expect(Object.keys(parser._modules).length).toBe(1);
     });
     it('spec modules override default modules', () => {
       class MyCombatLogParser extends EmptyCombatLogParser {
@@ -41,8 +43,8 @@ describe('Core.CombatLogParser', () => {
         };
       }
       const parser = new MyCombatLogParser(null, null, null);
-      expect(parser.modules.myModule).toBeInstanceOf(MySubModule);
-      expect(Object.keys(parser.modules).length).toBe(1);
+      expect(parser._modules.myModule).toBeInstanceOf(MySubModule);
+      expect(Object.keys(parser._modules).length).toBe(1);
     });
     it('only instantiates the overriding module', () => {
       const MyModule = jest.fn();
@@ -70,14 +72,14 @@ describe('Core.CombatLogParser', () => {
         };
       }
       const parser = new MyCombatLogParser(null, null, null);
-      expect(parser.modules.myModule).toBe(undefined);
-      expect(Object.keys(parser.modules).length).toBe(0);
+      expect(parser._modules.myModule).toBe(undefined);
+      expect(Object.keys(parser._modules).length).toBe(0);
     });
   });
   describe('findModule', () => {
     it('finds a module by type', () => {
       class MyCombatLogParser extends CombatLogParser {
-        modules = {
+        _modules = {
           alternative: {},
           test: myModule,
           another: {},
@@ -85,13 +87,13 @@ describe('Core.CombatLogParser', () => {
         };
       }
       const parser = new MyCombatLogParser(null, null, null);
-      expect(parser.findModule(MyModule)).toBe(parser.modules.test);
+      expect(parser.findModule(MyModule)).toBe(parser._modules.test);
       expect(parser.findModule(MyModule)).toBeInstanceOf(MyModule);
       expect(parser.findModule(MyModule)).toBe(myModule);
     });
     it('finds a submodule even when looking for the parent module', () => {
       class MyCombatLogParser extends CombatLogParser {
-        modules = {
+        _modules = {
           alternative: {},
           test: mySubModule,
           another: {},
@@ -99,7 +101,7 @@ describe('Core.CombatLogParser', () => {
         };
       }
       const parser = new MyCombatLogParser(null, null, null);
-      expect(parser.findModule(MyModule)).toBe(parser.modules.test);
+      expect(parser.findModule(MyModule)).toBe(parser._modules.test);
       expect(parser.findModule(MyModule)).toBeInstanceOf(MySubModule);
       expect(parser.findModule(MyModule)).toBe(mySubModule);
       expect(parser.findModule(MySubModule)).toBeInstanceOf(MySubModule);
@@ -107,7 +109,7 @@ describe('Core.CombatLogParser', () => {
     });
     it('returns undefined is module doesn\'t exist', () => {
       class MyCombatLogParser extends CombatLogParser {
-        modules = {
+        _modules = {
           onemore: {},
         };
       }
@@ -118,11 +120,11 @@ describe('Core.CombatLogParser', () => {
   describe('module dependencies', () => {
     it('loads a module without dependencies and reveals it under the `modules` property', () => { // this is more or less just a test whether our test method actually works
       const parser = new EmptyCombatLogParser();
-      expect(Object.keys(parser.modules).length).toBe(0); // sanity check
+      expect(Object.keys(parser._modules).length).toBe(0); // sanity check
       parser.initializeModules({
         myModule: MyModule,
       });
-      expect(parser.modules.myModule).toBeInstanceOf(MyModule);
+      expect(parser._modules.myModule).toBeInstanceOf(MyModule);
     });
     it('loads a module with a dependency', () => {
       class MyChildModule {
@@ -135,9 +137,9 @@ describe('Core.CombatLogParser', () => {
         myModule: MyModule,
         myChildModule: MyChildModule,
       });
-      expect(Object.keys(parser.modules).length).toBe(2);
-      expect(parser.modules.myModule).toBeInstanceOf(MyModule);
-      expect(parser.modules.myChildModule).toBeInstanceOf(MyChildModule);
+      expect(Object.keys(parser._modules).length).toBe(2);
+      expect(parser._modules.myModule).toBeInstanceOf(MyModule);
+      expect(parser._modules.myChildModule).toBeInstanceOf(MyChildModule);
     });
     it('delays loading a module until its dependencies are available', () => {
       class MyChildModule {
@@ -150,9 +152,9 @@ describe('Core.CombatLogParser', () => {
         myChildModule: MyChildModule, // this requires MyModule, so loading this will have to be delayed
         myParentModule: MyModule,
       });
-      expect(Object.keys(parser.modules).length).toBe(2);
-      expect(parser.modules.myParentModule).toBeInstanceOf(MyModule);
-      expect(parser.modules.myChildModule).toBeInstanceOf(MyChildModule);
+      expect(Object.keys(parser._modules).length).toBe(2);
+      expect(parser._modules.myParentModule).toBeInstanceOf(MyModule);
+      expect(parser._modules.myChildModule).toBeInstanceOf(MyChildModule);
     });
     it('throws when a module being depended on is not used by the CombatLogParser', () => {
       class MyChildModule {
@@ -178,9 +180,9 @@ describe('Core.CombatLogParser', () => {
         myModule: MySubModule,
         myChildModule: MyChildModule,
       });
-      expect(Object.keys(parser.modules).length).toBe(2);
-      expect(parser.modules.myModule).toBeInstanceOf(MySubModule);
-      expect(parser.modules.myChildModule).toBeInstanceOf(MyChildModule);
+      expect(Object.keys(parser._modules).length).toBe(2);
+      expect(parser._modules.myModule).toBeInstanceOf(MySubModule);
+      expect(parser._modules.myChildModule).toBeInstanceOf(MyChildModule);
     });
     it('passes the dependencies as a prop to the module', () => {
       const MyChildModule = jest.fn();
@@ -217,7 +219,7 @@ describe('Core.CombatLogParser', () => {
   describe('implementation', () => {
     it('has a default config that works', () => {
       const parser = new CombatLogParser(null, null, null);
-      expect(Object.keys(parser.modules).length).toBeGreaterThan(0);
+      expect(Object.keys(parser._modules).length).toBeGreaterThan(0);
     });
   });
 });

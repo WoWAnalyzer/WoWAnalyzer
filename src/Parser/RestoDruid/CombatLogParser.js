@@ -38,6 +38,10 @@ import PowerOfTheArchdruid from './Modules/Features/PowerOfTheArchdruid';
 import Dreamwalker from './Modules/Features/Dreamwalker';
 import SoulOfTheForest from './Modules/Features/SoulOfTheForest';
 import EssenceOfGhanir from './Modules/Features/EssenceOfGhanir';
+import Mastery from './Modules/Features/Mastery';
+import Cultivation from './Modules/Features/Cultivation';
+import SpringBlossoms from './Modules/Features/SpringBlossoms';
+import CenarionWard from './Modules/Features/CenarionWard';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
@@ -85,6 +89,10 @@ class CombatLogParser extends CoreCombatLogParser {
     dreamwalker: Dreamwalker,
     soulOfTheForest: SoulOfTheForest,
     essenceOfGhanir: EssenceOfGhanir,
+    mastery: Mastery,
+    springBlossoms: SpringBlossoms,
+    cultivation: Cultivation,
+    cenarionWard: CenarionWard,
 
     // Legendaries:
     ekowraith: Ekowraith,

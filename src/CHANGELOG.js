@@ -1,4 +1,5 @@
 export default `
+03-09-2017 - Reworked the WCL API cache to use a database so it persists between patches, improved performance and corrupt response detection. (by Zerotorescue)
 01-09-2017 - All players in a log now appear and selecting a spec that's not yet supported will show information on adding support for it. (by Zerotorescue)
 01-09-2017 - Added role icons to player selection list and it's now sorted by role then playername to make finding players easier. (by Zerotorescue)
 28-08-2017 - Select fights for the currently selected player with a pull down menu. (by fasib)
