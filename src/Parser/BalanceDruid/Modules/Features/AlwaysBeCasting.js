@@ -36,7 +36,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
         return suggest(<span> Your downtime can be improved. Try to Always Be Casting (ABC)...</span>)
           .icon('spell_mage_altertime')
           .actual(`${formatPercentage(actual)}% downtime`)
-          .recommended(`${Math.round(formatPercentage(recommended))}% is recommended`)
+          .recommended(`${Math.round(formatPercentage(recommended))}% or more is recommended`)
           .regular(recommended + 0.03).major(recommended + 0.08);
       });
   }
