@@ -1,5 +1,6 @@
 import Module from 'Parser/Core/Module';
 import Enemies from 'Parser/Core/Modules/Enemies';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 import ITEMS from 'common/ITEMS';
 import { formatNumber } from 'common/format';
@@ -12,12 +13,13 @@ const DAMAGE_BONUS_PER_TARGET = .04;
 class StretensSleeplessShackles extends Module {
   static dependencies = {
     enemies: Enemies,
+    combatants: Combatants,
   };
 
   bonusDmg = 0;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasWrists(ITEMS.STRETENS_SLEEPLESS_SHACKLES.id);
+    this.active = this.combatants.selected.hasWrists(ITEMS.STRETENS_SLEEPLESS_SHACKLES.id);
   }
 
   on_byPlayer_damage(event) {

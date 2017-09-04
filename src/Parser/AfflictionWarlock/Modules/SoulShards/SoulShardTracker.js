@@ -1,4 +1,5 @@
 import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
@@ -15,6 +16,10 @@ const shardSpendingAbilities = [
 ];
 
 class SoulShardTracker extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
   shardsGained = 0;
   shardsWasted = 0;
   shardsSpent = 0;
@@ -32,7 +37,7 @@ class SoulShardTracker extends Module {
     });
     shardSpendingAbilities.forEach(x => this.spent[x] = { shards: 0 });
 
-    const player = this.owner.selectedCombatant;
+    const player = this.combatants.selected;
     if (player.hasTalent(SPELLS.SOUL_CONDUIT_TALENT.id)) {
       this.gained[SPELLS.SOUL_CONDUIT_SHARD_GEN.id] = { shards: 0 };
       this.wasted[SPELLS.SOUL_CONDUIT_SHARD_GEN.id] = { shards: 0 };

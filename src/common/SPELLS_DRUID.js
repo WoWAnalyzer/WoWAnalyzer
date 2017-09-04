@@ -283,6 +283,12 @@ export default {
   },
 
   // Sets:
+  // Hidden buffs that indicate set is equipped:
+  RESTO_DRUID_T19_2SET_BONUS_BUFF: {
+    id: 211165,
+    name: 'T19 2 set bonus',
+    icon: 'talentspec_druid_restoration',
+  },
   RESTO_DRUID_T20_2SET_BONUS_BUFF: {
     id: 242238,
     name: 'T20 2 set bonus',
@@ -293,6 +299,7 @@ export default {
     name: 'T20 4 set bonus',
     icon: 'inv_misc_herb_talandrasrose',
   },
+  // Visible procs produced by set:
   ASTRAL_HARMONY: { // 2pc T19
     id: 232378,
     name: 'Astral Harmony',

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Module from 'Parser/Core/Module';
-
+import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
@@ -12,11 +12,12 @@ import SoulHarvest from './SoulHarvest';
 class SoulHarvestTalent extends Module {
   static dependencies = {
     soulHarvest: SoulHarvest,
+    combatants: Combatants,
   };
 
   on_initialized() {
     if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasTalent(SPELLS.SOUL_HARVEST_TALENT.id);
+      this.active = this.combatants.selected.hasTalent(SPELLS.SOUL_HARVEST_TALENT.id);
     }
   }
 
