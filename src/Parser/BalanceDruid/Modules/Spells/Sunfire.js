@@ -12,7 +12,7 @@ class Sunfire extends Module {
 
     when(sunfireUptimePercentage).isLessThan(0.98)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span> Your <SpellLink id={SPELLS.SUNFIRE.id} /> uptime was {formatPercentage(actual)}%, try to keep it active at all times on priority targets.</span>)
+        return suggest(<span> Your <SpellLink id={SPELLS.SUNFIRE.id} /> uptime can be improved, try to keep it active at all times on priority targets.</span>)
           .icon(SPELLS.SUNFIRE.icon)
           .actual(`${formatPercentage(actual)}% uptime`)
           .recommended(`${Math.round(formatPercentage(recommended))}% or more is recommended`)
