@@ -2,18 +2,20 @@ import SPELLS from 'common/SPELLS';
 
 import Module from 'Parser/Core/Module';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 const debug = false;
 
 class ChiJi extends Module {
   static dependencies = {
     healingDone: HealingDone,
+    combatants: Combatants,
   };
 
   petID = null;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasTalent(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id);
+    this.active = this.combatants.selected.hasTalent(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id);
   }
 
   on_byPlayer_summon(event) {
@@ -37,5 +39,3 @@ class ChiJi extends Module {
 }
 
 export default ChiJi;
-
-// 198664 - Chi-Ji Summon

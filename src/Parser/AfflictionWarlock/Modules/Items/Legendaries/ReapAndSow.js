@@ -1,4 +1,5 @@
 import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
@@ -9,13 +10,17 @@ const BASE_BUFF_TIME_PER_SOUL = 5000;
 const MAX_BUFF_DURATION = 78000;
 
 class ReapAndSow extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
   tormentedSoulCounter = 0;
   expectedBuffEndTimestamp = 0;
   totalTimeGained = 0;
 
   on_initialized() {
     if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasBack(ITEMS.REAP_AND_SOW.id);
+      this.active = this.combatants.selected.hasBack(ITEMS.REAP_AND_SOW.id);
     }
   }
 

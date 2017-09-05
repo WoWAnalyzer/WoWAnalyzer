@@ -10,7 +10,6 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.CHAOS_BOLT,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => null,
-      recommendedCastEfficiency: 0.95,
     },
     {
       spell: SPELLS.CHANNEL_DEMONFIRE_CAST,
@@ -108,27 +107,25 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.SUMMON_DOOMGUARD_UNTALENTED,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
-      getCooldown: haste => 180,
+      getCooldown: haste => null,
       isActive: combatant => !combatant.hasTalent(SPELLS.GRIMOIRE_OF_SUPREMACY_TALENT.id),
-      recommendedCastEfficiency: 0.95,
     },
     {
       spell: SPELLS.SUMMON_INFERNAL_UNTALENTED,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
-      getCooldown: haste => 180,
+      getCooldown: haste => null,
       isActive: combatant => !combatant.hasTalent(SPELLS.GRIMOIRE_OF_SUPREMACY_TALENT.id),
-      recommendedCastEfficiency: 0.95,
     },
     {
       spell: SPELLS.GRIMOIRE_IMP,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
-      getCooldown: haste => 90,
+      getCooldown: haste => null,
       isActive: combatant => combatant.hasTalent(SPELLS.GRIMOIRE_OF_SERVICE_TALENT.id),
     },
     {
       spell: SPELLS.GRIMOIRE_VOIDWALKER,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
-      getCooldown: haste => 90,
+      getCooldown: haste => null,
       isActive: combatant => combatant.hasTalent(SPELLS.GRIMOIRE_OF_SERVICE_TALENT.id),
       noSuggestion: true,
       noCanBeImproved: true,
@@ -137,7 +134,7 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.GRIMOIRE_FELHUNTER,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
-      getCooldown: haste => 90,
+      getCooldown: haste => null,
       isActive: combatant => combatant.hasTalent(SPELLS.GRIMOIRE_OF_SERVICE_TALENT.id),
       noSuggestion: true,
       noCanBeImproved: true,
@@ -146,7 +143,7 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.GRIMOIRE_SUCCUBUS,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
-      getCooldown: haste => 90,
+      getCooldown: haste => null,
       isActive: combatant => combatant.hasTalent(SPELLS.GRIMOIRE_OF_SERVICE_TALENT.id),
       noSuggestion: true,
       noCanBeImproved: true,

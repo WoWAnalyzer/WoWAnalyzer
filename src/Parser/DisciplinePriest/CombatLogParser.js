@@ -116,14 +116,8 @@ class CombatLogParser extends CoreCombatLogParser {
     const results = super.generateResults();
 
     const fightDuration = this.fightDuration;
-
-    const abilityTracker = this.modules.abilityTracker;
-    const getAbility = spellId => abilityTracker.getAbility(spellId);
-
-    const penance = getAbility(SPELLS.PENANCE.id);
-
     const hasCastigation = this.selectedCombatant.hasTalent(SPELLS.CASTIGATION_TALENT.id);
-    const missedPenanceTicks = (this.modules.alwaysBeCasting.truePenanceCasts * (3 + (hasCastigation ? 1 : 0))) - (penance.casts || 0);
+    const missedPenanceTicks = (this.modules.penance.casts * (3 + (hasCastigation ? 1 : 0))) - this.modules.penance.hits;
     const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
     const owlHealingPercentage = this.getPercentageOfTotalHealingDone(this.modules.tarnishedSentinelMedallion.healing);
     const marchHealingPercentage = this.getPercentageOfTotalHealingDone(this.modules.marchOfTheLegion.healing);
@@ -212,7 +206,7 @@ class CombatLogParser extends CoreCombatLogParser {
           icon={<SpellIcon id={SPELLS.PENANCE.id} />}
           value={missedPenanceTicks}
           label={(
-            <dfn data-tip={`Each Penance cast has 3 bolts (4 if you're using Castigation). You should try to let this channel finish as much as possible. You channeled Penance ${this.modules.alwaysBeCasting.truePenanceCasts} times.`}>
+            <dfn data-tip={`Each Penance cast has 3 bolts (4 if you're using Castigation). You should try to let this channel finish as much as possible. You channeled Penance ${this.modules.penance.casts} times.`}>
               Wasted Penance bolts
             </dfn>
           )}

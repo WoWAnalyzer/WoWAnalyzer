@@ -44,10 +44,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.GRIMOIRE_SUCCUBUS.id,
   ];
 
-  on_initialized() {
-    super.on_initialized();
-  }
-
   suggestions(when) {
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
 

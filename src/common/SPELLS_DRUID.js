@@ -5,17 +5,17 @@
  */
 
 export default {
-  // Resto Druid:
-  RESTO_DRUID_T20_2SET_BONUS_BUFF: {
-    id: 242238,
-    name: 'T20 2 set bonus',
-    icon: 'inv_relics_idolofrejuvenation',
+
+  // RESTO DRUID //
+
+  // Mastery
+  MASTERY_HARMONY: {
+    id: 77495,
+    name: "Mastery: Harmony",
+    icon: 'spell_nature_healingway',
   },
-  RESTO_DRUID_T20_4SET_BONUS_BUFF: {
-    id: 242313,
-    name: 'T20 4 set bonus',
-    icon: 'inv_misc_herb_talandrasrose',
-  },
+
+  // Spells / Buffs
   TRANQUILITY_CAST: {
     id: 740,
     name: 'Tranquility',
@@ -261,11 +261,6 @@ export default {
     name: 'Power of the Archdruid',
     icon: 'spell_druid_rampantgrowth',
   },
-  BLOSSOMING_EFFLORESCENCE: {
-    id: 242315,
-    name: 'Blossomming Efflorescence',
-    icon: 'inv_misc_herb_talandrasrose',
-  },
   DREAMWALKER: {
     id:189853,
     name:'Dreamwalker',
@@ -287,8 +282,46 @@ export default {
     icon: 'ability_druid_manatree',
   },
 
+  // Sets:
+  // Hidden buffs that indicate set is equipped:
+  RESTO_DRUID_T19_2SET_BONUS_BUFF: {
+    id: 211165,
+    name: 'T19 2 set bonus',
+    icon: 'talentspec_druid_restoration',
+  },
+  RESTO_DRUID_T20_2SET_BONUS_BUFF: {
+    id: 242238,
+    name: 'T20 2 set bonus',
+    icon: 'inv_relics_idolofrejuvenation',
+  },
+  RESTO_DRUID_T20_4SET_BONUS_BUFF: {
+    id: 242313,
+    name: 'T20 4 set bonus',
+    icon: 'inv_misc_herb_talandrasrose',
+  },
+  // Visible procs produced by set:
+  ASTRAL_HARMONY: { // 2pc T19
+    id: 232378,
+    name: 'Astral Harmony',
+    icon: 'talentspec_druid_restoration',
+  },
+  BLOSSOMING_EFFLORESCENCE: { // 4pc T20
+    id: 242315,
+    name: 'Blossomming Efflorescence',
+    icon: 'inv_misc_herb_talandrasrose',
+  },
+  DREAMER: { // 2pc T21
+    id: 253432,
+    name: 'Dreamer',
+    icon: 'ability_druid_cower',
+  },
+  AWAKENED: { // 4pc T21
+    id: 253434,
+    name: 'Awakened',
+    icon: 'ability_druid_cower',
+  },
+
   // Traits:
-  // Resto Druid:
   POWER_OF_THE_ARCHDRUID: {
     id: 189870,
     name: 'Power of the Archdruid',
@@ -315,7 +348,24 @@ export default {
     icon: 'spell_nature_starfall',
   },
 
-  //Guardian
+  // Talents:
+  CULTIVATION_TALENT: {
+    id: 200390,
+    name: 'Cultivation',
+    icon: 'ability_druid_nourish',
+  },
+  SPRING_BLOSSOMS_TALENT: {
+    id: 207385,
+    name: 'Spring Blossoms',
+    icon: 'inv_misc_trailofflowers',
+  },
+  CENARION_WARD_TALENT: {
+    id: 102351,
+    name: 'Cenarion Ward',
+    icon: 'ability_druid_naturalperfection',
+  },
+
+  // GUARDIAN //
   MANGLE_BEAR: {
     id:33917,
     name:'Mangle',
@@ -548,5 +598,51 @@ export default {
     id: 164545,
     name: 'Celestial Alignment',
     icon: 'artifactability_balancedruid_newmoon',
+  },
+  // Feral
+  TIGERS_FURY: {
+    id: 5217,
+    name: 'Tiger\'s Fury',
+    icon: 'ability_mount_jungletiger',
+  },
+  SKULL_BASH_FERAL: {
+    id: 93985,
+    name: 'Skull Bash',
+    icon: 'inv_bone_skull_04',
+  },
+  SHADOWMELD: {
+    id: 58984,
+    name: 'Shadowmeld',
+    icon: 'ability_ambush',
+  },
+  ASHAMANES_FRENZY: {
+    id: 210722,
+    name: 'Ashamane\'s Frenzy',
+    icon: 'inv_knife_1h_artifactfrostsaber_d_01',
+  },
+  PRIMAL_FURY: {
+    id: 16953,
+    name: 'Primal Fury',
+    icon: 'ability_racial_cannibalize',
+  },
+  SAVAGE_ROAR: {
+    id: 52610,
+    name: 'Savage Roar',
+    icon: 'ability_druid_skinteeth',
+  },
+  MAIM: {
+    id: 22570,
+    name: 'Maim',
+    icon: 'ability_druid_mangle',
+  },
+  RAKE_BLEED: {
+    id: 155722,
+    name: 'Rake',
+    icon: 'ability_druid_disembowel',
+  },
+  MOONFIRE_FERAL: {
+    id:155625,
+    name:'Moonfire',
+    icon:'spell_nature_starfall',
   },
 };

@@ -2,6 +2,7 @@ import React from 'react';
 
 import Module from 'Parser/Core/Module';
 import Enemies from 'Parser/Core/Modules/Enemies';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
@@ -16,12 +17,13 @@ const CONTAGION_DAMAGE_BONUS = .15;
 class Contagion extends Module {
   static dependencies = {
     enemies: Enemies,
+    combatants: Combatants,
   };
 
   bonusDmg = 0;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasTalent(SPELLS.CONTAGION_TALENT.id);
+    this.active = this.combatants.selected.hasTalent(SPELLS.CONTAGION_TALENT.id);
   }
 
   on_byPlayer_damage(event) {

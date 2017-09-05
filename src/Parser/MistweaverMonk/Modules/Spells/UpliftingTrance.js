@@ -48,13 +48,13 @@ class UpliftingTrance extends Module {
     }
     // Checking to see if non-UT'ed Viv is casted
     if(this.lastUTProcTime !== event.timestamp) {
-      if(this.lastUTProcTime === null/* && !this.owner.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id)*/) {
+      if(this.lastUTProcTime === null) {
         // No UT Proc with Vivify
         this.nonUTVivify++;
         return;
       }
       const utTimeframe = this.lastUTProcTime + UT_DURATION;
-      if(event.timestamp > utTimeframe/* && !this.owner.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id)*/) {
+      if(event.timestamp > utTimeframe) {
         this.nonUTVivify++;
       } else {
         this.consumedUTProc++;

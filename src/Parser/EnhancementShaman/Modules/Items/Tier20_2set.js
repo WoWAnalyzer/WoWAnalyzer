@@ -3,13 +3,18 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 import Module from 'Parser/Core/Module';
 
 
 class Tier20_2set extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  }
+
   item() {
-    const T202setUptime = this.owner.selectedCombatant.getBuffUptime(SPELLS.ENHANCE_SHAMAN_T20_2SET_BONUS_BUFF.id) / this.owner.fightDuration;
+    const T202setUptime = this.combatants.selected.getBuffUptime(SPELLS.ENHANCE_SHAMAN_T20_2SET_BONUS_BUFF.id) / this.owner.fightDuration;
     return {
       id: `spell-${SPELLS.ENHANCE_SHAMAN_T20_2SET_BONUS_BUFF.id}`,
       icon: <SpellIcon id={SPELLS.ENHANCE_SHAMAN_T20_2SET_BONUS_BUFF.id} />,
@@ -21,7 +26,7 @@ class Tier20_2set extends Module {
   }
 
   suggestions(when) {
-    const T202setUptime = this.owner.selectedCombatant.getBuffUptime(SPELLS.ENHANCE_SHAMAN_T20_2SET_BONUS_BUFF.id) / this.owner.fightDuration;
+    const T202setUptime = this.combatants.selected.getBuffUptime(SPELLS.ENHANCE_SHAMAN_T20_2SET_BONUS_BUFF.id) / this.owner.fightDuration;
     when(T202setUptime).isLessThan(.95)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(`Your Tier 20 2pc buff uptime of ${formatPercentage(actual)}% is below 95%, try to get as close to 100% as possible`)

@@ -6,6 +6,9 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber , formatThousands } from 'common/format';
 
+import Combatants from 'Parser/Core/Modules/Combatants';
+import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
+
 import Module from 'Parser/Core/Module';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
@@ -16,6 +19,11 @@ const baseMana = 1100000;
 const manaTeaReduction = .5;
 
 class ManaTea extends Module {
+  static dependencies = {
+    combatants: Combatants,
+    abilityTracker: AbilityTracker,
+  };
+
   manaSavedMT = 0;
   manateaCount = 0;
 
@@ -35,8 +43,8 @@ class ManaTea extends Module {
   casted = false;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasTalent(SPELLS.MANA_TEA_TALENT.id);
-    if (this.owner.selectedCombatant.hasTalent(SPELLS.LIFECYCLES_TALENT.id)) {
+    this.active = this.combatants.selected.hasTalent(SPELLS.MANA_TEA_TALENT.id);
+    if (this.combatants.selected.hasTalent(SPELLS.LIFECYCLES_TALENT.id)) {
       this.hasLifeCycles = true;
     }
   }
@@ -52,7 +60,7 @@ class ManaTea extends Module {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
-    if(this.owner.selectedCombatant.hasBuff(SPELLS.MANA_TEA_TALENT.id)) {
+    if(this.combatants.selected.hasBuff(SPELLS.MANA_TEA_TALENT.id)) {
       debug && console.log('Mana Tea Buff present');
       if(SPELLS.EFFUSE.id === spellId) {
         this.addToManaSaved(SPELLS.EFFUSE.manaPerc, spellId);
@@ -120,16 +128,16 @@ class ManaTea extends Module {
 
   addToManaSaved(spellBaseMana, spellId) {
     // If we cast TFT -> Viv, mana cost of Viv is 0
-    if(this.owner.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id) && SPELLS.VIVIFY.id === spellId) {
+    if(this.combatants.selected.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id) && SPELLS.VIVIFY.id === spellId) {
         this.nonManaCasts++;
         return;
     }
     // Lifecycles reduces the mana cost of both Vivify and Enveloping Mists.  We must take that into account when calculating mana saved.
     if(this.hasLifeCycles) {
-      if(this.owner.selectedCombatant.hasBuff(SPELLS.LIFECYCLES_VIVIFY_BUFF.id) && spellId === SPELLS.VIVIFY.id) {
+      if(this.combatants.selected.hasBuff(SPELLS.LIFECYCLES_VIVIFY_BUFF.id) && spellId === SPELLS.VIVIFY.id) {
         this.manaSavedMT += (((baseMana * spellBaseMana) * (1 - (SPELLS.LIFECYCLES_VIVIFY_BUFF.manaPercRed))) * (1 - manaTeaReduction));
         debug && console.log('LC Viv Cast');
-      } else if((this.owner.selectedCombatant.hasBuff(SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.id) && spellId === SPELLS.ENVELOPING_MISTS.id)) {
+      } else if((this.combatants.selected.hasBuff(SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.id) && spellId === SPELLS.ENVELOPING_MISTS.id)) {
         this.manaSavedMT += (((baseMana * spellBaseMana) * (1 - (SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed))) * (1 - manaTeaReduction));
       } else {
         this.manaSavedMT += ((baseMana * spellBaseMana) * (1 - manaTeaReduction));
@@ -150,7 +158,7 @@ class ManaTea extends Module {
   }
 
   suggestions(when) {
-    const abilityTracker = this.owner.modules.abilityTracker;
+    const abilityTracker = this.abilityTracker;
     const getAbility = spellId => abilityTracker.getAbility(spellId);
 
     const manaTea = getAbility(SPELLS.MANA_TEA_TALENT.id);
@@ -168,7 +176,7 @@ class ManaTea extends Module {
   }
 
   statistic() {
-    const abilityTracker = this.owner.modules.abilityTracker;
+    const abilityTracker = this.abilityTracker;
     const getAbility = spellId => abilityTracker.getAbility(spellId);
 
     const manaTea = getAbility(SPELLS.MANA_TEA_TALENT.id);
