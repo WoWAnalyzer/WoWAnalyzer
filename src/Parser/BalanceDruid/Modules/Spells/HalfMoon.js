@@ -54,7 +54,7 @@ class HalfMoon extends Module {
 
         when(percCasted).isLessThan(1)
         .addSuggestion((suggest, actual, recommended) => {
-            return suggest(<span> You casted {Math.round(formatPercentage(actual))}% of total available <SpellLink id={SPELLS.HALF_MOON.id} />, unless you have extended periods of downtime you should cast {Math.round(formatPercentage(recommended))}%.</span>)
+            return suggest(<span>  Your <SpellLink id={SPELLS.HALF_MOON.id} /> cast efficiency can be improved, try maintaining yourself at low Moon charges at all times; you should (almost) never be at max (3) charges.</span>)
             .icon(SPELLS.HALF_MOON.icon)
             .actual(`${Math.round(formatPercentage(actual))}% casted`)
             .recommended(`${Math.round(formatPercentage(recommended))}% Half Moon available casts is recommended`)
