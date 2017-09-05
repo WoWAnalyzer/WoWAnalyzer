@@ -55,7 +55,7 @@ class FullMoon extends Module {
 
         when(percCasted).isLessThan(1)
         .addSuggestion((suggest, actual, recommended) => {
-            return suggest(<span> Your <SpellLink id={SPELLS.FULL_MOON.id} /> cast efficiency can be improved, try maintaining yourself at low Moon charges at all times; you should (almost) never be at max (3) charges.</span>)
+            return suggest(<span> Your <SpellLink id={SPELLS.FULL_MOON.id} /> cast efficiency can be improved, try keeping yourself at low Moon charges at all times; you should (almost) never be at max (3) charges.</span>)
             .icon(SPELLS.FULL_MOON.icon)
             .actual(`${Math.round(formatPercentage(actual))}% casted`)
             .recommended(`${Math.round(formatPercentage(recommended))}% Full Moon available casts is recommended`)
