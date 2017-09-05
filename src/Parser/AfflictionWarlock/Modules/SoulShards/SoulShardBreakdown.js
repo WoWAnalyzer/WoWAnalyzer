@@ -27,7 +27,8 @@ class SoulShardBreakdown extends React.Component {
         abilityId: Number(abilityId),
         spent: shardSpent[abilityId].shards,
       }))
-      .sort((a, b) => b.spent - a.spent);
+      .sort((a, b) => b.spent - a.spent)
+      .filter(ability => ability.spent > 0);
   }
   render() {
     const { shardsGained, shardsSpent, shardsWasted } = this.props;
@@ -90,7 +91,7 @@ class SoulShardBreakdown extends React.Component {
         <table className='data-table'>
           <thead>
           <tr>
-            <th>Ability</th>
+            <th><dfn data-tip='Unused abilities were hidden'>Ability</dfn></th>
             <th colSpan='2'>Shards spent</th>
             {/* I know it shouldn't be done like this but I'm not proficient with CSS and this is the only way I could think of to align the columns with table above*/}
             <th colSpan='2'></th>
