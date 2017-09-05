@@ -26,7 +26,7 @@ class BoneShieldUptime extends Module {
 
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(1);
+  statisticOrder = STATISTIC_ORDER.CORE(2);
 }
 
 export default BoneShieldUptime;

@@ -1,9 +1,6 @@
 import React from 'react';
 import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
-import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
 import Icon from 'common/Icon';
 import Module from 'Parser/Core/Module';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
@@ -33,7 +30,7 @@ class RPWasted extends Module {
 
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(1);
+  statisticOrder = STATISTIC_ORDER.CORE(4);
 
 }
 export default RPWasted;

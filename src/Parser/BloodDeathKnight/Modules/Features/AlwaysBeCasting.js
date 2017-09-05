@@ -22,10 +22,10 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.ICEBOUND_FORTITUDE.id,
     SPELLS.DANCING_RUNE_WEAPON.id,
     SPELLS.VAMPIRIC_BLOOD.id,
-    SPELLS.Anti_Magic_Shell.id,
+    SPELLS.ANTI_MAGIC_SHELL.id,
     SPELLS.BLOOD_MIRROR.id,
     //CC
-    SPELLS.Asphyxiate.id,
+    SPELLS.ASPHYXIATE.id,
     SPELLS.DARK_COMMAND.id,
     SPELLS.DEATH_GRIP.id,
     SPELLS.MIND_FREEZE.id,

@@ -1,11 +1,8 @@
 import React from 'react';
-
 import Module from 'Parser/Core/Module';
 import SPELLS from 'common/SPELLS';
 import Icon from 'common/Icon';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
-import { formatPercentage } from 'common/format';
-import { formatDuration } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -56,7 +53,7 @@ class WastedDeathAndDecay  extends Module {
 
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(4);
+  statisticOrder = STATISTIC_ORDER.CORE(5);
 }
 
 export default WastedDeathAndDecay;

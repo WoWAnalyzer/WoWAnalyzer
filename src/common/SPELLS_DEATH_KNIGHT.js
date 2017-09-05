@@ -78,7 +78,7 @@ export default {
     icon: 'spell_shadow_lifedrain',
   },
 
-  Anti_Magic_Shell: {
+  ANTI_MAGIC_SHELL: {
     id: 48707,
     name: 'Anti-Magic Shell',
     icon: 'pell_shadow_antimagicshell',
@@ -103,9 +103,9 @@ export default {
   },
 
 //Buffs
-  Ossuary: {
+  OSSUARY: {
     id: 219788,
-    name: 'Ossuary',
+    name: 'OSSUARY',
     icon: 'ability_deathknight_brittlebones',
   },
 
@@ -116,9 +116,9 @@ export default {
   },
 
   //CC
-  Asphyxiate: {
+  ASPHYXIATE: {
     id: 108194,
-    name: 'Asphyxiate',
+    name: 'ASPHYXIATE',
     icon: 'ability_deathknight_asphixiate',
   },
 

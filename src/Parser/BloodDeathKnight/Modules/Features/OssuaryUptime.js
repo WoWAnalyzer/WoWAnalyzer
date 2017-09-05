@@ -12,7 +12,7 @@ class OssuaryUptime extends Module {
 
   statistic() {
 
-    const ossuaryUptime = this.owner.modules.combatants.getBuffUptime(SPELLS.Ossuary.id);
+    const ossuaryUptime = this.owner.modules.combatants.getBuffUptime(SPELLS.OSSUARY.id);
     const ossuaryUptimePercentage = ossuaryUptime / this.owner.fightDuration;
 
     return (
@@ -26,7 +26,7 @@ class OssuaryUptime extends Module {
 
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(1);
+  statisticOrder = STATISTIC_ORDER.CORE(3);
 }
 
 export default OssuaryUptime;

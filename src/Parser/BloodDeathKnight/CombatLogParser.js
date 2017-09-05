@@ -1,10 +1,7 @@
 import React from 'react';
-
 import SuggestionsTab from 'Main/SuggestionsTab';
 import Tab from 'Main/Tab';
 import Talents from 'Main/Talents';
-import Mana from 'Main/Mana';
-
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 
 import CastEfficiency from './Modules/Features/CastEfficiency';
@@ -47,11 +44,6 @@ class CombatLogParser extends CoreCombatLogParser {
   generateResults() {
     const results = super.generateResults();
 
-    // TODO: Suggestion for Devo when it didn't prevent enough damage to be worthwhile
-    // TODO: Suggestion for mana
-    // TODO: Suggestion for enchants
-    // TODO: Sanctified Wrath healing contribution
-
     results.tabs = [
       {
         title: 'Suggestions',
@@ -66,15 +58,6 @@ class CombatLogParser extends CoreCombatLogParser {
         render: () => (
           <Tab title="Talents">
             <Talents combatant={this.modules.combatants.selected} />
-          </Tab>
-        ),
-      },
-      {
-        title: 'Mana',
-        url: 'mana',
-        render: () => (
-          <Tab title="Mana" style={{ padding: '15px 22px' }}>
-            <Mana parser={this} />
           </Tab>
         ),
       },

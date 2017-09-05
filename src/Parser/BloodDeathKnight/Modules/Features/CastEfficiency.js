@@ -1,10 +1,6 @@
 import React from 'react';
-
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
-
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
-
 import CoreCastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 
 
