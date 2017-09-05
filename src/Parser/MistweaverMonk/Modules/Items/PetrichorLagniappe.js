@@ -4,12 +4,20 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
 
+import Combatants from 'Parser/Core/Modules/Combatants';
+import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
+
 import Module from 'Parser/Core/Module';
 
 const debug = false;
 const PETRICHOR_REDUCTION = 2000;
 
 class PetrichorLagniappe extends Module {
+  static dependencies = {
+    combatants: Combatants,
+    abilityTracker: AbilityTracker,
+  };
+  
   REVIVAL_BASE_COOLDOWN = 0;
   totalReductionTime = 0;
   currentReductionTime = 0;
@@ -20,9 +28,9 @@ class PetrichorLagniappe extends Module {
   cdReductionUsed = 0;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasWrists(ITEMS.PETRICHOR_LAGNIAPPE.id);
+    this.active = this.combatants.selected.hasWrists(ITEMS.PETRICHOR_LAGNIAPPE.id);
     if(this.active) {
-      this.REVIVAL_BASE_COOLDOWN = 180000 - (this.owner.selectedCombatant.traitsBySpellId[SPELLS.TENDRILS_OF_REVIVAL.id] || 0 ) * 10000;
+      this.REVIVAL_BASE_COOLDOWN = 180000 - (this.combatants.selected.traitsBySpellId[SPELLS.TENDRILS_OF_REVIVAL.id] || 0 ) * 10000;
     }
   }
 
@@ -65,8 +73,9 @@ class PetrichorLagniappe extends Module {
     }
   }
   item() {
-    const abilityTracker = this.owner.modules.abilityTracker;
+    const abilityTracker = this.abilityTracker;
     const getAbility = spellId => abilityTracker.getAbility(spellId);
+    
     return {
       item: ITEMS.PETRICHOR_LAGNIAPPE,
       result: (

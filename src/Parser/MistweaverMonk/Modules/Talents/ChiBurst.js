@@ -22,7 +22,7 @@ class ChiBurst extends Module {
 
 
   on_initialized(){
-    this.active = this.owner.selectedCombatant.hasTalent(SPELLS.CHI_BURST_TALENT.id);
+    this.active = this.combatants.selected.hasTalent(SPELLS.CHI_BURST_TALENT.id);
     this.raidSize = Object.entries(this.combatants.players).length;
   }
 
@@ -59,22 +59,6 @@ class ChiBurst extends Module {
         });
   }
 
-  /* Commenting out for now - Removing because of bloat.
-  statistic() {
-    return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.CHI_BURST_TALENT.id} />}
-        value={`${formatNumber(this.healing)}`}
-        label={(
-          <dfn data-tip={`You healed an average of ${this.avgChiBurstTargets.toFixed(2)} targets per Chi Burst cast over your ${this.castChiBurst} casts.`}>
-            Total Healing
-          </dfn>
-        )}
-      />
-    );
-  }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
-  */
   on_finished() {
     this.avgChiBurstTargets = this.targetsChiBurst / this.castChiBurst || 0;
     if(debug) {

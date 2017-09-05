@@ -54,16 +54,7 @@ class EssenceFontMastery extends Module {
       console.log('EF Avg Targets Hit per Cast: ' + (this.targetsEF / this.castEF));
     }
   }
-  /*
-  // EF Targets Hit
-  if(avgTargetsHitPerEF < 17) {
-    results.addIssue({
-      issue: <span>You are currently using not utilizing your <SpellLink id={SPELLS.ESSENCE_FONT.id} /> effectively. You only hit an average of {(avgTargetsHitPerEF).toFixed(0)} targets over {this.modules.essenceFontMastery.castEF} <SpellLink id={SPELLS.ESSENCE_FONT.id} /> casts. Each <SpellLink id={SPELLS.ESSENCE_FONT.id} /> cast should hit a total of 18 targets. Your missed an average of {(18 - avgTargetsHitPerEF).toFixed(0)} targets.</span>,
-      icon: SPELLS.ESSENCE_FONT.icon,
-      importance: getIssueImportance(avgTargetsHitPerEF, 14, 12),
-    });
-  }
-  */
+  
   suggestions(when) {
     const efMasteryCasts = (this.healEF / 2) || 0;
     const avgMasteryCastsPerEF = (efMasteryCasts / this.castEF) || 0;

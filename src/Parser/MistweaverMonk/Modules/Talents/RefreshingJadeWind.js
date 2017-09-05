@@ -4,19 +4,24 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
+import Combatants from 'Parser/Core/Modules/Combatants';
+
 import Module from 'Parser/Core/Module';
 
 const debug = false;
 
 class RefreshingJadeWind extends Module {
-  // Implement Mists of Sheilun, Celestial Breath, and Refreshing Jade Wind
+  static dependencies = {
+    combatants: Combatants,
+  };
+
   healsRJW = 0;
   healingRJW = 0;
   overhealingRJW = 0;
   castRJW = 0;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasTalent(SPELLS.REFRESHING_JADE_WIND_TALENT.id);
+    this.active = this.combatants.selected.hasTalent(SPELLS.REFRESHING_JADE_WIND_TALENT.id);
   }
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
