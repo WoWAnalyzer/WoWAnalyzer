@@ -40,7 +40,7 @@ class Mana extends React.PureComponent {
     }
   }
   load(reportCode, actorId, start, end) {
-    const bossHealthPromise = fetch(makeWclUrl(`report/tables/resources/${reportCode}`, {
+    return fetch(makeWclUrl(`report/tables/resources/${reportCode}`, {
       start,
       end,
       sourceclass: 'Boss',
@@ -58,8 +58,6 @@ class Mana extends React.PureComponent {
           });
         }
       });
-
-    return bossHealthPromise;
   }
 
   render() {

@@ -1,5 +1,6 @@
 import querystring from 'querystring';
 import request from 'request-promise-native';
+import Sequelize from 'sequelize';
 
 import models from './models';
 import WclApiError from './WclApiError';
@@ -89,7 +90,7 @@ class ApiRequestHandler {
           content: jsonString,
           wclResponseTime,
           numAccesses: cachedWclApiResponse.numAccesses + 1,
-          lastAccessedAt: new Date(),
+          lastAccessedAt: Sequelize.fn('NOW'),
         });
       } else {
         WclApiResponse.create({

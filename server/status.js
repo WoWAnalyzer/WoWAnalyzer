@@ -24,12 +24,13 @@ class ApiRequestHandler {
   }
 
   async handle() {
+    // TODO: Add an `updatedAt` column that is refreshed when
     const results = await WclApiResponse.findAll({
       attributes: [
         [Sequelize.fn('COUNT', Sequelize.col('wclResponseTime')), 'numRequests'],
         [Sequelize.fn('AVG', Sequelize.col('wclResponseTime')), 'avgResponseTime'],
         [Sequelize.fn('MAX', Sequelize.col('wclResponseTime')), 'maxResponseTime'],
-        [Sequelize.fn('TIMESTAMPDIFF', Sequelize.literal('MINUTE'), Sequelize.col('createdAt'), Sequelize.literal('NOW()')), 'minutesAgo'],
+        [Sequelize.fn('TIMESTAMPDIFF', Sequelize.literal('MINUTE'), Sequelize.col('createdAt'), Sequelize.fn('NOW')), 'minutesAgo'],
       ],
       group: [
         Sequelize.fn('DAY', Sequelize.col('createdAt')),
@@ -38,7 +39,7 @@ class ApiRequestHandler {
       ],
       where: {
         'createdAt': {
-          $gt: Sequelize.fn('DATE_SUB', Sequelize.literal('NOW()'), Sequelize.literal('INTERVAL 24 HOUR')),
+          $gt: Sequelize.fn('DATE_SUB', Sequelize.fn('NOW'), Sequelize.literal('INTERVAL 24 HOUR')),
         },
       },
     });
