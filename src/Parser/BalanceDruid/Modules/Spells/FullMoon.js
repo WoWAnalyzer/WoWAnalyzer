@@ -86,4 +86,5 @@ class FullMoon extends Module {
     }
     statisticOrder = STATISTIC_ORDER.CORE(5);
 } 
+
 export default FullMoon;
