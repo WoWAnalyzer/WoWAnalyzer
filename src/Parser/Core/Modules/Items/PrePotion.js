@@ -7,6 +7,7 @@ import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import ItemLink from 'common/ItemLink';
 
 import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
 import SUGGESTION_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 const debug = false;
@@ -42,6 +43,9 @@ const DURATION_PROLONGED = 60000;
 const ANCIENT_MANA_POTION_AMOUNT = 152000;
 
 class PrePotion extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
   usedPrePotion = false;
   usedSecondPotion = false;
   neededManaSecondPotion = false;
@@ -99,7 +103,7 @@ class PrePotion extends Module {
         // Only healer specs would use a mana potion all other specs either don't use mana as a primary resource (such as bears)
         // or have another method to regen mana, this fixes an issue with Guardian where they shift out of bear form and cast a 
         // spell but mana is not their primary resource and should not use a mana potion.
-        const healerSpec = HEALER_SPECS.indexOf(this.owner.selectedCombatant.specId) !== -1;
+        const healerSpec = HEALER_SPECS.indexOf(this.combatants.selected.specId) !== -1;
         if (!healerSpec) {
           suggestionText = <span>You forgot to use a potion during combat. By using a potion during combat such as <ItemLink id={ITEMS.POTION_OF_PROLONGED_POWER.id} /> you the increasing dps and also suvivability against a boss.</span>;
           importance = SUGGESTION_IMPORTANCE.MINOR;

@@ -3,14 +3,19 @@ import SPELLS from 'common/SPELLS_OTHERS';
 import { formatPercentage } from 'common/format';
 
 import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 class EngineOfEradication extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
   uptime = 0;
   damageIncreased = 0;
   bufftime = 0;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasTrinket(ITEMS.ENGINE_OF_ERADICATION.id);
+    this.active = this.combatants.selected.hasTrinket(ITEMS.ENGINE_OF_ERADICATION.id);
   }
 
   lastAppliedTimestamp = null;
