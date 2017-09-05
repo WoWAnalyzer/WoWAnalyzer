@@ -4,11 +4,16 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Module from 'Parser/Core/Module';
+import Enemies from 'Parser/Core/Modules/Enemies';
 import SPELLS from 'common/SPELLS';
 
 class Moonfire extends Module {
+  static dependencies = {
+    enemies: Enemies,
+  };
+
   suggestions(when) {
-    const moonfireUptimePercentage = this.owner.modules.enemies.getBuffUptime(SPELLS.MOONFIRE_BEAR.id) / this.owner.fightDuration;
+    const moonfireUptimePercentage = this.enemies.getBuffUptime(SPELLS.MOONFIRE_BEAR.id) / this.owner.fightDuration;
 
     when(moonfireUptimePercentage).isLessThan(0.95)
       .addSuggestion((suggest, actual, recommended) => {
@@ -21,8 +26,8 @@ class Moonfire extends Module {
   }
 
   statistic() {
-    const moonfireUptimePercentage = this.owner.modules.enemies.getBuffUptime(SPELLS.MOONFIRE_BEAR.id) / this.owner.fightDuration;
-    
+    const moonfireUptimePercentage = this.enemies.getBuffUptime(SPELLS.MOONFIRE_BEAR.id) / this.owner.fightDuration;
+
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.MOONFIRE_BEAR.id} />}
@@ -33,5 +38,5 @@ class Moonfire extends Module {
   }
   statisticOrder = STATISTIC_ORDER.CORE(12);
 }
-  
+
 export default Moonfire;
