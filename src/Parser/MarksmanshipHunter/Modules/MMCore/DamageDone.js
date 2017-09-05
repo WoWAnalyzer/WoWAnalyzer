@@ -33,7 +33,7 @@ class DamageDone extends CoreDamageDone {
   statistic() {
     return (
       <StatisticBox
-        icon={<Icon icon="class_shaman" alt="DPS stats" />}
+        icon={<Icon icon="class_hunter" alt="DPS stats" />}
         value={`${formatNumber(this.totalDmg / this.owner.fightDuration * 1000)} DPS`}
         label="Damage Done"
         tooltip={`The total damage done recorded was ${formatNumber(this.totalDmg)}. Wolves contributed ${formatNumber(this.petDmg)}`}
