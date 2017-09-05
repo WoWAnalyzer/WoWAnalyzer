@@ -106,7 +106,7 @@ class SoulShardBreakdown extends React.Component {
                   <SpellLink id={ability.abilityId}/>
                 </td>
                 <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>
-                  <dfn data-tip={`${formatPercentage(ability.spent / totalGenerated)} %`}>{ability.spent}</dfn>
+                  <dfn data-tip={`${formatPercentage(ability.spent / totalSpent)} %`}>{ability.spent}</dfn>
                 </td>
                 <td style={{ width: '40%' }}>
                   <div

@@ -15,7 +15,7 @@ import GrimoireOfService from './Modules/Features/GrimoireOfService';
 
 import SoulShardEvents from './Modules/SoulShards/SoulShardEvents';
 import SoulShardTracker from './Modules/SoulShards/SoulShardTracker';
-// import SoulShardDetails from './Modules/SoulShards/SoulShardDetails';
+import SoulShardDetails from './Modules/SoulShards/SoulShardDetails';
 import DamageDone from './Modules/Features/DamageDone';
 
 import SoulHarvest from './Modules/Talents/SoulHarvest';
@@ -38,7 +38,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //Core
     soulShardEvents: SoulShardEvents,
     soulShardTracker: SoulShardTracker,
-    // soulShardDetails: SoulShardDetails,
+    soulShardDetails: SoulShardDetails,
 
     //Talents
     soulHarvest: SoulHarvest,

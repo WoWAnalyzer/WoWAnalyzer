@@ -7,32 +7,33 @@ import { formatPercentage } from 'common/format';
 
 class SoulShardBreakdown extends React.Component {
   static propTypes = {
-    shardsGained: PropTypes.object.isRequired,
-    shardsSpent: PropTypes.object.isRequired,
-    shardsWasted: PropTypes.object.isRequired,
+    fragmentsGained: PropTypes.object.isRequired,
+    fragmentsSpent: PropTypes.object.isRequired,
+    fragmentsWasted: PropTypes.object.isRequired,
   };
-  prepareGenerated(shardGen, shardWasted) {
-    //shardGen and shardWasted has the same number of abilities (some having 0, these can be now filtered)
-    return Object.keys(shardGen)
+  prepareGenerated(fragmentsGenerated, fragmentsWasted) {
+    //fragmentsGenerated and fragmentsWasted has the same number of abilities (some having 0, these can be now filtered)
+    return Object.keys(fragmentsGenerated)
       .map(abilityId => ({
         abilityId: Number(abilityId),
-        generated: shardGen[abilityId].shards,
-        wasted: shardWasted[abilityId].shards,
+        generated: fragmentsGenerated[abilityId].fragments,
+        wasted: fragmentsWasted[abilityId].fragments,
       }))
       .sort((a, b) => b.generated - a.generated);
   }
-  prepareSpent(shardSpent) {
-    return Object.keys(shardSpent)
+  prepareSpent(fragmentsSpent) {
+    return Object.keys(fragmentsSpent)
       .map(abilityId => ({
         abilityId: Number(abilityId),
-        spent: shardSpent[abilityId].shards,
+        spent: fragmentsSpent[abilityId].fragments / 10, //abilities spend always whole Soul Shards and those are made of 10 Fragments
       }))
-      .sort((a, b) => b.spent - a.spent);
+      .sort((a, b) => b.spent - a.spent)
+      .filter(ability => ability.spent > 0);
   }
   render() {
-    const { shardsGained, shardsSpent, shardsWasted } = this.props;
-    const generated = this.prepareGenerated(shardsGained, shardsWasted);
-    const spent = this.prepareSpent(shardsSpent);
+    const { fragmentsGained, fragmentsSpent, fragmentsWasted } = this.props;
+    const generated = this.prepareGenerated(fragmentsGained, fragmentsWasted);
+    const spent = this.prepareSpent(fragmentsSpent);
 
     let totalGenerated = 0;
     let totalWasted = 0;
@@ -53,8 +54,8 @@ class SoulShardBreakdown extends React.Component {
           <thead>
             <tr>
               <th>Ability</th>
-              <th colSpan='2'>Shards generated</th>
-              <th colSpan='2'><dfn data-tip='This is the amount of shards that were generated while you were having full shards.'>Shards wasted</dfn></th>
+              <th colSpan='2'><dfn data-tip={`You generated ${totalGenerated} fragments in total`}>Fragments generated</dfn></th>
+              <th colSpan='2'><dfn data-tip='This is the amount of fragments that were generated while you were having full shards.'>Fragments wasted</dfn></th>
             </tr>
           </thead>
           <tbody>
@@ -90,7 +91,7 @@ class SoulShardBreakdown extends React.Component {
         <table className='data-table'>
           <thead>
           <tr>
-            <th>Ability</th>
+            <th><dfn data-tip='Unused abilities were hidden'>Ability</dfn></th>
             <th colSpan='2'>Shards spent</th>
             {/* I know it shouldn't be done like this but I'm not proficient with CSS and this is the only way I could think of to align the columns with table above*/}
             <th colSpan='2'></th>
@@ -105,7 +106,7 @@ class SoulShardBreakdown extends React.Component {
                   <SpellLink id={ability.abilityId}/>
                 </td>
                 <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>
-                  <dfn data-tip={`${formatPercentage(ability.spent / totalGenerated)} %`}>{ability.spent}</dfn>
+                  <dfn data-tip={`${formatPercentage(ability.spent / totalSpent)} %`}>{ability.spent}</dfn>
                 </td>
                 <td style={{ width: '40%' }}>
                   <div
