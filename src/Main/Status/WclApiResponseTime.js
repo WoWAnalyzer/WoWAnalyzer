@@ -4,9 +4,11 @@ import ChartistGraph from 'react-chartist';
 import Chartist from 'chartist';
 import 'chartist-plugin-legend';
 
+import { formatThousands } from 'common/format';
+
 import './Chart.css';
 
-class WclApiRequests extends React.PureComponent {
+class WclApiResponseTime extends React.PureComponent {
   static propTypes = {
     history: PropTypes.array,
   };
@@ -23,32 +25,56 @@ class WclApiRequests extends React.PureComponent {
     }
 
     const timeSpanMinutes = 24 * 60;
+    const groupingInterval = 1;
     const labelsPerHour = 720 / timeSpanMinutes;
 
-    const requestsByMinute = {};
+    const historyByInterval = {};
     history
       .forEach(moment => {
-        requestsByMinute[moment.minutesAgo] = (requestsByMinute[moment.minutesAgo] || 0) + moment.numRequests;
+        const intervalIndex = Math.floor(moment.minutesAgo / groupingInterval);
+        const existingItem = historyByInterval[intervalIndex];
+        if (existingItem) {
+          const totalNumRequests = existingItem.numRequests + moment.numRequests;
+          const totalResponseTime = existingItem.avgResponseTime * existingItem.numRequests + moment.avgResponseTime * moment.numRequests;
+          const averageResponseTime = totalResponseTime / totalNumRequests;
+          const maxResponseTime = Math.max(existingItem.maxResponseTime, moment.maxResponseTime);
+          historyByInterval[intervalIndex] = {
+            numRequests: totalNumRequests,
+            avgResponseTime: averageResponseTime,
+            maxResponseTime: maxResponseTime,
+          };
+        } else {
+          historyByInterval[intervalIndex] = moment;
+        }
       });
 
-    const requests = [];
+    const avgResponseTimes = [];
+    const maxResponseTimes = [];
     const labels = [];
-    for (let minutesAgo = 0; minutesAgo < timeSpanMinutes; minutesAgo += 1) {
-      const numRequests = requestsByMinute[minutesAgo];
-      requests.push(numRequests || 0);
+    for (let i = 0; i < Math.floor(timeSpanMinutes / groupingInterval); i += 1) {
+      const item = historyByInterval[i];
+      avgResponseTimes.push(item ? item.avgResponseTime : null);
+      maxResponseTimes.push(item ? item.maxResponseTime : null);
 
       const date = new Date();
-      date.setMinutes(date.getMinutes() - minutesAgo);
+      date.setMinutes(date.getMinutes() - (i * groupingInterval));
       labels.push(date);
     }
+
+    console.log(labels);
 
     const chartData = {
       labels: labels.reverse(),
       series: [
         {
           className: 'healing thin',
-          name: 'Requests',
-          data: requests.reverse(),
+          name: 'Average response time',
+          data: avgResponseTimes.reverse(),
+        },
+        {
+          className: 'mana-used thin',
+          name: 'Max response time',
+          data: maxResponseTimes.reverse(),
         },
       ],
     };
@@ -62,6 +88,8 @@ class WclApiRequests extends React.PureComponent {
               showPoint: false,
               fullWidth: true,
               height: '350px',
+              lineSmooth: Chartist.Interpolation.simple({
+              }),
               axisX: {
                 labelInterpolationFnc: function skipLabels(date) {
                   const minutes = date.getMinutes();
@@ -76,11 +104,15 @@ class WclApiRequests extends React.PureComponent {
               axisY: {
                 onlyInteger: true,
                 offset: 60,
+                labelInterpolationFnc: function skipLabels(responseTime) {
+                  return `${formatThousands(responseTime)}ms`;
+                },
               },
               plugins: [
                 Chartist.plugins.legend({
                   classNames: [
                     'healing',
+                    'mana-used',
                   ],
                 }),
                 // tooltips(),
@@ -94,4 +126,4 @@ class WclApiRequests extends React.PureComponent {
   }
 }
 
-export default WclApiRequests;
+export default WclApiResponseTime;

@@ -2,6 +2,7 @@ import React from 'react';
 
 import makeApiUrl from 'common/makeApiUrl';
 import WclApiRequests from './WclApiRequests';
+import WclApiResponseTime from './WclApiResponseTime';
 
 class Status extends React.Component {
   constructor() {
@@ -34,6 +35,10 @@ class Status extends React.Component {
       <div>
         <h1>WCL API requests per minute</h1>
         <WclApiRequests
+          history={this.state.status}
+        />
+        <h1>WCL API response time</h1>
+        <WclApiResponseTime
           history={this.state.status}
         />
       </div>
