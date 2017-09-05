@@ -2,17 +2,22 @@ import SPELLS from 'common/SPELLS';
 
 import Module from 'Parser/Core/Module';
 
+import Combatants from 'Parser/Core/Modules/Combatants';
+
 const debug = false;
 
 class MistsOfSheilun extends Module {
-  // Implement Mists of Sheilun, Celestial Breath, and Refreshing Jade Wind
+  static dependencies = {
+    combatants: Combatants,
+  };
+  
   procsMistsOfSheilun = 0;
   healsMistsOfSheilun = 0;
   healingMistsOfSheilun = 0;
   overhealingMistsOfSheilun = 0;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.traitsBySpellId[SPELLS.MISTS_OF_SHEILUN_TRAIT.id] === 1;
+    this.active = this.combatants.selected.traitsBySpellId[SPELLS.MISTS_OF_SHEILUN_TRAIT.id] === 1;
   }
 
   on_byPlayer_applybuff(event) {
@@ -34,26 +39,6 @@ class MistsOfSheilun extends Module {
       }
     }
   }
-
-  /* Commenting out for now - Removing because of bloat.
-  statistic() {
-    const avgMistsOfSheilunHealing = this.healingMistsOfSheilun / this.healsMistsOfSheilun || 0;
-    const avgMistsOfSheilunTargets = this.healsMistsOfSheilun / this.procsMistsOfSheilun || 0;
-
-    return (
-          <StatisticBox
-          icon={<SpellIcon id={SPELLS.MISTS_OF_SHEILUN_TRAIT.id} />}
-          value={`${formatNumber(avgMistsOfSheilunHealing)}`}
-          label={(
-            <dfn data-tip={`You healed an average of ${(avgMistsOfSheilunTargets).toFixed(2)} targets per Mists of Sheilun proc over your ${this.procsMistsOfSheilun} procs.`}>
-              Average Healing
-            </dfn>
-          )}
-        />
-      );
-  }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
-  */
 
   on_finished() {
     if(debug) {

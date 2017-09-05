@@ -2,11 +2,17 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Module from 'Parser/Core/Module';
 
+import Combatants from 'Parser/Core/Modules/Combatants';
+
 const debug = false;
 const DOORWAYACTIVETIME = 15000;
 const CHIJIACTIVETIME = 45000;
 
 class DoorwayToNowhere extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
   healing = 0;
   healingOverlap = 0;
   doorwayActive = 0;
@@ -15,7 +21,7 @@ class DoorwayToNowhere extends Module {
   chiJiActive = 0;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasBack(ITEMS.DOORWAY_TO_NOWHERE.id);
+    this.active = this.combatants.selected.hasBack(ITEMS.DOORWAY_TO_NOWHERE.id);
   }
 
   on_byPlayer_summon(event) {

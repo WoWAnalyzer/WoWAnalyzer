@@ -5,6 +5,8 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
 
+import Combatants from 'Parser/Core/Modules/Combatants';
+
 import Module from 'Parser/Core/Module';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
@@ -12,6 +14,10 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 const debug = false;
 
 class SpiritOfTheCrane extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
   castsTp = 0;
   buffTotm = 0;
   castsBk = 0;
@@ -24,7 +30,7 @@ class SpiritOfTheCrane extends Module {
   sotcWasted = 0;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasTalent(SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id);
+    this.active = this.combatants.selected.hasTalent(SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id);
   }
 
   on_byPlayer_applybuff(event) {
@@ -76,7 +82,7 @@ class SpiritOfTheCrane extends Module {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
-      if(!this.owner.selectedCombatant.hasBuff(SPELLS.TEACHINGS_OF_THE_MONASTERY.id)) {
+      if(!this.combatants.selected.hasBuff(SPELLS.TEACHINGS_OF_THE_MONASTERY.id)) {
         //console.log('No TotM Buff');
         return;
       }
@@ -89,7 +95,7 @@ class SpiritOfTheCrane extends Module {
       }
 
       if(spellId === SPELLS.BLACKOUT_KICK.id && this.buffTotm > 0) {
-        if(this.owner.selectedCombatant.hasBuff(SPELLS.TEACHINGS_OF_THE_MONASTERY.id)){
+        if(this.combatants.selected.hasBuff(SPELLS.TEACHINGS_OF_THE_MONASTERY.id)){
           this.totalTotmBuffs += this.buffTotm;
           //this.manaReturnSotc += (this.buffTotm * (baseMana * SPELLS.TEACHINGS_OF_THE_MONASTERY.manaRet));
           debug && console.log("Black Kick Casted with Totm at " + this.buffTotm + " stacks");
