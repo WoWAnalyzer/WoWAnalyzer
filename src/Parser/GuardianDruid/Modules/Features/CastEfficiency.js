@@ -35,10 +35,9 @@ class CastEfficiency extends CoreCastEfficiency {
         if (!hasMightBuff) {
           return 6;
         }
-        const abilityTracker = combatant.owner.modules.abilityTracker;
 
-        const mightBuff = abilityTracker.getAbility(SPELLS.INCARNATION_OF_URSOC.id).casts || 0;
         const fightDuration = combatant.owner.fightDuration/1000;
+        const mightBuff = Math.ceil(fightDuration / 180);
         const castsDuringMight = (mightBuff * 30) / (1.5 / (1+haste));
         const castsOutsideMight = (fightDuration - (mightBuff * 30)) / (6 / (1+haste));
         return fightDuration / (castsDuringMight + castsOutsideMight);

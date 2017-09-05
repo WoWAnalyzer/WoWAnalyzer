@@ -8,6 +8,8 @@ import ItemIcon from 'common/ItemIcon';
 
 import DevelopmentTab from 'Main/DevelopmentTab';
 import EventsTab from 'Main/EventsTab';
+import Tab from 'Main/Tab';
+import Status from 'Main/Status';
 
 import './Results.css';
 
@@ -73,6 +75,15 @@ class Results extends React.Component {
           <EventsTab
             parser={parser}
           />
+        ),
+      });
+      results.tabs.push({
+        title: 'Status',
+        url: 'status',
+        render: () => (
+          <Tab title="Status" style={{ padding: '15px 22px' }}>
+            <Status />
+          </Tab>
         ),
       });
     }

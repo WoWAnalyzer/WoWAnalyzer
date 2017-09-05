@@ -3,12 +3,15 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
+import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 import StatisticBox from 'Main/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
 import { formatNumber, formatPercentage } from 'common/format';
+import DamageTaken from '../Core/DamageTaken';
 
 const EARTHWARDEN_REDUCTION_MODIFIER = 0.3;
 
@@ -19,12 +22,18 @@ const ABILITIES_THAT_CONSUME_EW = [
 ];
 
 class Earthwarden extends Module {
+  static dependencies = {
+    combatants: Combatants,
+    abilityTracker: AbilityTracker,
+    damageTaken: DamageTaken,
+  };
+
   damageFromMelees = 0;
   swingsMitigated = 0;
   totalSwings = 0;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.lv90Talent === SPELLS.EARTHWARDEN_TALENT.id;
+    this.active = this.combatants.selected.lv90Talent === SPELLS.EARTHWARDEN_TALENT.id;
   }
 
   on_toPlayer_damage(event) {
@@ -46,7 +55,7 @@ class Earthwarden extends Module {
   }
 
   get hps() {
-    const healingDone = this.owner.modules.abilityTracker.getAbility(SPELLS.EARTHWARDEN_BUFF.id).healingEffective;
+    const healingDone = this.abilityTracker.getAbility(SPELLS.EARTHWARDEN_BUFF.id).healingEffective;
     const fightLengthSec = this.owner.fightDuration / 1000;
     return healingDone / fightLengthSec;
   }
@@ -56,7 +65,7 @@ class Earthwarden extends Module {
   }
 
   get meleeDamageContribution() {
-    const totalDamageTaken = this.owner.modules.damageTaken.total.effective;
+    const totalDamageTaken = this.damageTaken.total.effective;
     return this.damageFromMelees / totalDamageTaken;
   }
 
