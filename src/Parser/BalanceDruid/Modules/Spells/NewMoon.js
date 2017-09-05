@@ -87,5 +87,3 @@ class NewMoon extends Module {
 }
   
 export default NewMoon;
-
-//test

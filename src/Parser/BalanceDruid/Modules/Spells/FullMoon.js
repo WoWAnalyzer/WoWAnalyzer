@@ -88,5 +88,3 @@ class FullMoon extends Module {
 }
   
 export default FullMoon;
-
-//test
