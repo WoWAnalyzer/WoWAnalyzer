@@ -283,6 +283,12 @@ export default {
   },
 
   // Sets:
+  // Hidden buffs that indicate set is equipped:
+  RESTO_DRUID_T19_2SET_BONUS_BUFF: {
+    id: 211165,
+    name: 'T19 2 set bonus',
+    icon: 'talentspec_druid_restoration',
+  },
   RESTO_DRUID_T20_2SET_BONUS_BUFF: {
     id: 242238,
     name: 'T20 2 set bonus',
@@ -293,6 +299,7 @@ export default {
     name: 'T20 4 set bonus',
     icon: 'inv_misc_herb_talandrasrose',
   },
+  // Visible procs produced by set:
   ASTRAL_HARMONY: { // 2pc T19
     id: 232378,
     name: 'Astral Harmony',
@@ -591,5 +598,51 @@ export default {
     id: 164545,
     name: 'Celestial Alignment',
     icon: 'artifactability_balancedruid_newmoon',
+  },
+  // Feral
+  TIGERS_FURY: {
+    id: 5217,
+    name: 'Tiger\'s Fury',
+    icon: 'ability_mount_jungletiger',
+  },
+  SKULL_BASH_FERAL: {
+    id: 93985,
+    name: 'Skull Bash',
+    icon: 'inv_bone_skull_04',
+  },
+  SHADOWMELD: {
+    id: 58984,
+    name: 'Shadowmeld',
+    icon: 'ability_ambush',
+  },
+  ASHAMANES_FRENZY: {
+    id: 210722,
+    name: 'Ashamane\'s Frenzy',
+    icon: 'inv_knife_1h_artifactfrostsaber_d_01',
+  },
+  PRIMAL_FURY: {
+    id: 16953,
+    name: 'Primal Fury',
+    icon: 'ability_racial_cannibalize',
+  },
+  SAVAGE_ROAR: {
+    id: 52610,
+    name: 'Savage Roar',
+    icon: 'ability_druid_skinteeth',
+  },
+  MAIM: {
+    id: 22570,
+    name: 'Maim',
+    icon: 'ability_druid_mangle',
+  },
+  RAKE_BLEED: {
+    id: 155722,
+    name: 'Rake',
+    icon: 'ability_druid_disembowel',
+  },
+  MOONFIRE_FERAL: {
+    id:155625,
+    name:'Moonfire',
+    icon:'spell_nature_starfall',
   },
 };
