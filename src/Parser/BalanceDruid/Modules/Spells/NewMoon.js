@@ -5,6 +5,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import { formatPercentage } from 'common/format';
 import Module from 'Parser/Core/Module';
 import SPELLS from 'common/SPELLS';
+import isMoonMoon from '../Core/isMoonMoon';
 
 class NewMoon extends Module {
 
@@ -22,7 +23,7 @@ class NewMoon extends Module {
         }
 
         const spellId = event.ability.guid;
-        if (this.orderFound || (SPELLS.FULL_MOON.id !== spellId && SPELLS.HALF_MOON.id !== spellId && SPELLS.NEW_MOON.id !== spellId)) {
+        if (this.orderFound || !isMoonMoon(event)) {
             return;
         }
 
