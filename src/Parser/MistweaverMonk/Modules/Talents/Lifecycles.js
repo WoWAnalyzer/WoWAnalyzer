@@ -85,7 +85,7 @@ class Lifecycles extends Module {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(70);
 
   on_finished() {
     if(debug) {

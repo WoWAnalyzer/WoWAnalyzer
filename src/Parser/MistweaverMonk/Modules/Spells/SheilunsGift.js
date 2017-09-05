@@ -161,7 +161,7 @@ class SheilunsGift extends Module {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(20);
 
   on_finished() {
     if(debug) {
