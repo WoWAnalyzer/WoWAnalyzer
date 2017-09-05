@@ -7,11 +7,16 @@ import { formatPercentage } from 'common/format';
 
 import Module from 'Parser/Core/Module';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 const LEGENDARY_VELENS_HEAL_SPELL_ID = 235967;
 const LEGENDARY_VELENS_HEALING_INCREASE = 0.15;
 
 class Velens extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
   static SUGGESTION_VELENS_BREAKPOINT = 0.045;
 
   healingIncreaseHealing = 0;
@@ -21,7 +26,7 @@ class Velens extends Module {
   }
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT.id);
+    this.active = this.combatants.selected.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT.id);
   }
 
   on_byPlayer_heal(event) {
@@ -42,7 +47,7 @@ class Velens extends Module {
       return;
     }
 
-    if (!this.owner.selectedCombatant.hasBuff(SPELLS.VELENS_FUTURE_SIGHT.id, event.timestamp)) {
+    if (!this.combatants.selected.hasBuff(SPELLS.VELENS_FUTURE_SIGHT.id, event.timestamp)) {
       return;
     }
 

@@ -32,12 +32,15 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.LIGHTNING_BOLT,
       category: CastEfficiency.SPELL_CATEGORIES.OTHERS,
       getCooldown: haste => null, // 1.5 / (1 + haste)
+      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.WIND_SHEAR,
       category: CastEfficiency.SPELL_CATEGORIES.OTHERS,
       getCooldown: haste => null, // 1.5 / (1 + haste)
       noSuggestion: true,
+      hideWithZeroCasts: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.ROCKBITER,
@@ -80,18 +83,23 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => 90,
       noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.FERAL_LUNGE,
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => 30,
       noSuggestion: true,
+      noCanBeImproved: true,
+      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.SPIRIT_WALK,
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => 60,
       noSuggestion: true,
+      hideWithZeroCasts: true,
+      noCanBeImproved: true,
     },
   ];
 }

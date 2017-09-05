@@ -6,7 +6,7 @@ const Tab = ({ title, children, style }) => (
     <div className="panel-heading">
       <h2>{title}</h2>
     </div>
-    <div style={{ padding: '10px 0', ...style }}>
+    <div className="panel-body" style={{ padding: '10px 0', ...style }}>
       {children}
     </div>
   </div>

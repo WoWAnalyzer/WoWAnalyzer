@@ -4,15 +4,18 @@ import SpellIcon from 'common/SpellIcon';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SPELLS from 'common/SPELLS';
 import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
+
 import GuardianOfElune from './GuardianOfElune';
 
 class FrenziedRegenGoEProcs extends Module {
   static dependencies = {
+    combatants: Combatants,
     guardianOfElune: GuardianOfElune,
   };
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasTalent(SPELLS.GUARDIAN_OF_ELUNE_TALENT.id);
+    this.active = this.combatants.selected.hasTalent(SPELLS.GUARDIAN_OF_ELUNE_TALENT.id);
   }
 
   statistic() {
@@ -29,5 +32,5 @@ class FrenziedRegenGoEProcs extends Module {
   }
   statisticOrder = STATISTIC_ORDER.CORE(8);
 }
-  
+
 export default FrenziedRegenGoEProcs;

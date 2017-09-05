@@ -12,7 +12,7 @@ class Moonfire extends Module {
 
     when(moonfireUptimePercentage).isLessThan(0.98)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span> Your <SpellLink id={SPELLS.MOONFIRE_BEAR.id} /> uptime was {formatPercentage(actual)}%, unless you have extended periods of downtime it should be near 100%.</span>)
+        return suggest(<span> Your <SpellLink id={SPELLS.MOONFIRE_BEAR.id} /> uptime can be improved, try to keep it active at all times on priority targets. Moonfire is usually not woth casting on targets that'll last 8s or less.</span>)
           .icon(SPELLS.MOONFIRE_BEAR.icon)
           .actual(`${formatPercentage(actual)}% uptime`)
           .recommended(`${Math.round(formatPercentage(recommended))}% or more is recommended`)

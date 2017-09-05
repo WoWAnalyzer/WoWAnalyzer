@@ -26,6 +26,8 @@ import BloodDeathKnight from './BloodDeathKnight/CONFIG';
 
 import DestructionWarlock from './DestructionWarlock/CONFIG';
 
+import MarksmanshipHunter from './MarksmanshipHunter/CONFIG';
+
 
 // Order of this should be the order in which specs were added to production
 export default [
@@ -56,4 +58,6 @@ export default [
   BloodDeathKnight,
 
   DestructionWarlock,
+
+  MarksmanshipHunter,
 ];

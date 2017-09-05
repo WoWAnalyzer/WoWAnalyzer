@@ -5,11 +5,15 @@ import SpellLink from 'common/SpellLink';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Module from 'Parser/Core/Module';
 import SPELLS from 'common/SPELLS';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 const GG_DURATION = 10000;
 const debug = false;
 
 class GalacticGuardian extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
 
   GGProcsTotal = 0;
   lastGGProcTime = 0;
@@ -18,7 +22,7 @@ class GalacticGuardian extends Module {
   nonGGMoonFire = 0;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasTalent(SPELLS.GALACTIC_GUARDIAN_TALENT.id);
+    this.active = this.combatants.selected.hasTalent(SPELLS.GALACTIC_GUARDIAN_TALENT.id);
   }
 
   on_byPlayer_applybuff(event) {
@@ -76,7 +80,7 @@ class GalacticGuardian extends Module {
 
   statistic() {
     const unusedGGProcs = 1 - (this.consumedGGProc / this.GGProcsTotal);
-    
+
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.GALACTIC_GUARDIAN.id} />}
