@@ -1,12 +1,17 @@
 import SPELLS from 'common/SPELLS';
 
+import Combatants from 'Parser/Core/Modules/Combatants';
+
 import Module from 'Parser/Core/Module';
 
 
 const debug = false;
 
 class CelestialBreath extends Module {
-  // Implement Mists of Sheilun, Celestial Breath, and Refreshing Jade Wind
+  static dependencies = {
+    combatants: Combatants,
+  };
+
   procsCelestialBreath = 0;
   procsCelestialBreathRemove = 0;
   healsCelestialBreath = 0;
@@ -14,7 +19,7 @@ class CelestialBreath extends Module {
   overhealingCelestialBreath = 0;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.traitsBySpellId[SPELLS.CELESTIAL_BREATH_TRAIT.id] === 1;
+    this.active = this.combatants.selected.traitsBySpellId[SPELLS.CELESTIAL_BREATH_TRAIT.id] === 1;
   }
 
   on_byPlayer_applybuff(event) {

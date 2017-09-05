@@ -4,6 +4,7 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 
 import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
@@ -11,13 +12,17 @@ const FURY_OF_AIR_MAELSTROM_COST = SPELLS.FURY_OF_AIR_TALENT.maelstrom;
 const FURY_ID = SPELLS.FURY_OF_AIR_TALENT.id;
 
 class FuryOfAir extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  }
+
   furyUptime = 0;
   maelstromUsed = 0;
   applyTime = 0;
 
   on_initialized() {
     if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasTalent(SPELLS.FURY_OF_AIR_TALENT.id);
+      this.active = this.combatants.selected.hasTalent(SPELLS.FURY_OF_AIR_TALENT.id);
     }
   }
 
@@ -45,7 +50,7 @@ class FuryOfAir extends Module {
   }
 
   suggestions(when) {
-    const furyofairUptime = this.owner.selectedCombatant.getBuffUptime(FURY_ID) / this.owner.fightDuration;
+    const furyofairUptime = this.combatants.selected.getBuffUptime(FURY_ID) / this.owner.fightDuration;
 
     when(furyofairUptime).isLessThan(.95)
       .addSuggestion((suggest, actual, recommended) => {
@@ -58,7 +63,7 @@ class FuryOfAir extends Module {
   }
 
   statistic() {
-    const furyofairUptime = this.owner.selectedCombatant.getBuffUptime(FURY_ID) / this.owner.fightDuration;
+    const furyofairUptime = this.combatants.selected.getBuffUptime(FURY_ID) / this.owner.fightDuration;
     return (
       (<StatisticBox
         icon={<SpellIcon id={FURY_ID} />}

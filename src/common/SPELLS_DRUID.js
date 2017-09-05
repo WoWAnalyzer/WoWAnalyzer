@@ -635,4 +635,14 @@ export default {
     name: 'Maim',
     icon: 'ability_druid_mangle',
   },
+  RAKE_BLEED: {
+    id: 155722,
+    name: 'Rake',
+    icon: 'ability_druid_disembowel',
+  },
+  MOONFIRE_FERAL: {
+    id:155625,
+    name:'Moonfire',
+    icon:'spell_nature_starfall',
+  },
 };
