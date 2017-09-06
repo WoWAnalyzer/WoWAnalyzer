@@ -21,6 +21,9 @@ import SubtletyRogue from './SubtletyRogue/CONFIG';
 
 import VengeanceDemonHunter from './VengeanceDemonHunter/CONFIG';
 import AfflictionWarlock from './AfflictionWarlock/CONFIG';
+
+import BloodDeathKnight from './BloodDeathKnight/CONFIG';
+
 import DestructionWarlock from './DestructionWarlock/CONFIG';
 
 import MarksmanshipHunter from './MarksmanshipHunter/CONFIG';
@@ -51,6 +54,9 @@ export default [
 
   VengeanceDemonHunter,
   AfflictionWarlock,
+
+  BloodDeathKnight,
+
   DestructionWarlock,
 
   MarksmanshipHunter,
