@@ -1,7 +1,6 @@
 import Module from 'Parser/Core/Module';
 
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SoulShardEvents from './SoulShardEvents';
 
