@@ -304,7 +304,7 @@ const ITEMS = {
     name: 'Soul of the Archdruid',
     icon: 'inv_70_raid_ring6a',
     quality: ITEM_QUALITIES.LEGENDARY,
-  }, 
+  },
   //Balance Druid Legendaries
   IMPECCABLE_FEL_ESSENCE: {
     id: 137039,
@@ -586,6 +586,12 @@ const ITEMS = {
     id: 138854,
     name: 'Fragment of the Betrayer\'s Prison',
     icon:'inv_jewelry_ring_134',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  THE_DEFILERS_LOST_VAMBRACES: {
+    id: 137091,
+    name: 'The Defiler\'s Lost Vambraces',
+    icon:'inv_bracer_plate_pvpdeathknight_c_02',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
 
