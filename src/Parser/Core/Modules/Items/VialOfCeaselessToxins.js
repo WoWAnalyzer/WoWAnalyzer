@@ -4,13 +4,17 @@ import SPELLS from 'common/SPELLS_OTHERS';
 import { formatNumber } from 'common/format';
 
 import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 class VialOfCeaselessToxins extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
   damageIncreased = 0;
   totalCasts = 0;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasTrinket(ITEMS.VIAL_OF_CEASELESS_TOXINS.id);
+    this.active = this.combatants.selected.hasTrinket(ITEMS.VIAL_OF_CEASELESS_TOXINS.id);
   }
 
   on_byPlayer_cast(event) {

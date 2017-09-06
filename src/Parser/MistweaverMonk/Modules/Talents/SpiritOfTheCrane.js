@@ -142,7 +142,7 @@ class SpiritOfTheCrane extends Module {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(80);
 
   on_finished() {
     if(debug) {

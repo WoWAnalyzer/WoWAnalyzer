@@ -90,7 +90,7 @@ class UpliftingTrance extends Module {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(40);
 }
 
 export default UpliftingTrance;

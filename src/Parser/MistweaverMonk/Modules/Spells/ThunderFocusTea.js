@@ -142,7 +142,7 @@ class ThunderFocusTea extends Module {
         />
       );
     }
-    statisticOrder = STATISTIC_ORDER.OPTIONAL();
+    statisticOrder = STATISTIC_ORDER.OPTIONAL(30);
 }
 
 export default ThunderFocusTea;

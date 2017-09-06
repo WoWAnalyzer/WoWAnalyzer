@@ -1,13 +1,18 @@
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
+
 import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 class ArchimondesHatredReborn extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
   healing = 0;
 
   on_initialized() {
     if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasTrinket(ITEMS.ARCHIMONDES_HATRED_REBORN.id);
+      this.active = this.combatants.selected.hasTrinket(ITEMS.ARCHIMONDES_HATRED_REBORN.id);
     }
   }
 

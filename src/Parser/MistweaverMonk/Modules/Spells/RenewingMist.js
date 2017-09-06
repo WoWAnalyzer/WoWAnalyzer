@@ -113,7 +113,7 @@ class RenewingMist extends Module {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(5);
 }
 
 export default RenewingMist;

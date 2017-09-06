@@ -18,14 +18,17 @@
 }
 .panel.statistic-box.statistic-list .panel-heading {
   text-align: center;
-  padding: 11px 22px 10px;
+  padding: 13px 22px 13px;
 }
 .panel.statistic-box.statistic-list .panel-body {
-  padding: 8px 12px;
+  padding: 10px 12px;
 }
 .panel.statistic-box.statistic-list img {
   height: 1.6em;
+  margin-top: -0.2em;
 }
-.panel.statistic-box.statistic-list .items > * {
-  margin-bottom: 0.28em;
+.panel.statistic-box.statistic-list .items > *:not(:last-child) {
+  margin-bottom: 0.3em;
+  padding-bottom: 0.2em;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
 }

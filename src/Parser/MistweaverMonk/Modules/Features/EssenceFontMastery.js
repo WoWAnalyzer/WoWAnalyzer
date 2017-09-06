@@ -87,7 +87,7 @@ class EssenceFontMastery extends Module {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(0);
 }
 
 export default EssenceFontMastery;
