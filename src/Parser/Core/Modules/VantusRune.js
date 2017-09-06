@@ -11,6 +11,7 @@ import Module from 'Parser/Core/Module';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 import DamageTaken from 'Parser/Core/Modules/DamageTaken';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 // http://www.wowhead.com/uncategorized-spells/name:Vantus+Rune:?filter=29;42;0 $.makeArray($('.listview-cleartext[href^="/spell="]')).map(item => `${item.href.replace(/^.*spell=([0-9]+)$/, '$1')}, // ${item.innerText}`).join("\n")
 // buff id: boss id
@@ -58,6 +59,7 @@ class VantusRune extends Module {
     healingDone: HealingDone,
     damageDone: DamageDone,
     damageTaken: DamageTaken,
+    combatants: Combatants,
   };
 
   activeRune = null;
@@ -70,7 +72,7 @@ class VantusRune extends Module {
         // Vantus Runes only work on 1 boss each
         return;
       }
-      const match = this.owner.selectedCombatant.getBuff(spellId);
+      const match = this.combatants.selected.getBuff(spellId);
       if (match !== undefined) {
         this.activeRune = match;
       }

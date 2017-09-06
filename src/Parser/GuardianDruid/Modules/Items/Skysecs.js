@@ -4,6 +4,7 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
 import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 import { formatPercentage, formatNumber } from 'common/format';
 
@@ -20,6 +21,10 @@ const SKYSECS_HOLD_HP_PER_CAST = 0.12;
  * boots.
  */
 class SkysecsHold extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
   currentCycleFRTicksLeft = 0;
   currentCycleSHTicksLeft = 0;
   potentialHeal = 0;
@@ -30,7 +35,7 @@ class SkysecsHold extends Module {
   averagePlayerHPs = [];
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasFeet(ITEMS.SKYSECS_HOLD.id);
+    this.active = this.combatants.selected.hasFeet(ITEMS.SKYSECS_HOLD.id);
   }
 
   /**

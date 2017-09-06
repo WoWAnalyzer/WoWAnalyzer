@@ -5,16 +5,20 @@ import ITEMS from 'common/ITEMS';
 import { formatNumber } from 'common/format';
 
 import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 const debug = false;
 
 class ArchiveOfFaith extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
   casts = 0;
   healing = 0;
   healingOverTime = 0;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasTrinket(ITEMS.ARCHIVE_OF_FAITH.id);
+    this.active = this.combatants.selected.hasTrinket(ITEMS.ARCHIVE_OF_FAITH.id);
   }
 
   on_byPlayer_cast(event) {
