@@ -23,7 +23,7 @@ class CastEfficiency extends CoreCastEfficiency {
         category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
         getCooldown: haste => 90 / (1 + haste),
         recommendedCastEfficiency: 0.75,
-        extraSuggestion: <span>Good self sustain CD. Weave it in regularly to reduce the strain on your healers. Save for a big hit if needed.</span>,
+        extraSuggestion: <span>Use this ability regularly to reduce the strain on your healers. Save it for a big hit if needed.</span>,
       },
 
       {
@@ -33,7 +33,7 @@ class CastEfficiency extends CoreCastEfficiency {
         getCooldown: haste => 120 / (1 + haste),
         recommendedCastEfficiency: 0.75,
         isActive: combatant => combatant.hasTalent(SPELLS.BLOOD_MIRROR_TALENT.id),
-        extraSuggestion: <span>Provides both damage and mitigation.</span>,
+        extraSuggestion: <span>Provides both damage and mitigation, use it as regularly as possible.</span>,
       },
 
       {
@@ -41,7 +41,7 @@ class CastEfficiency extends CoreCastEfficiency {
         category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
         getCooldown: haste => 7.5 / (1 + haste),
         recommendedCastEfficiency: 0.95,
-        extraSuggestion: <span>Try to keep this spell on cooldown.</span>,
+        extraSuggestion: <span>Try to keep at least one charge of this ability on cooldown.</span>,
       },
       {
         spell: SPELLS.CONSUMPTION,
@@ -56,7 +56,7 @@ class CastEfficiency extends CoreCastEfficiency {
         category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
         getCooldown: haste => 180 / (1 + haste),
         recommendedCastEfficiency: 0.75,
-        extraSuggestion: <span>Use on cooldown.</span>,
+        extraSuggestion: <span>Use this ability on the pull, and then on cooldown.</span>,
       },
 
       {
