@@ -9,20 +9,23 @@ import Talents from 'Main/Talents';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CastEfficiency from './Modules/Features/CastEfficiency';
 
+import Momentum from './Modules/Statistics/Spells/Momentum';
+import Nemesis from './Modules/Statistics/Spells/Nemesis';
+
 import DamageDone from './Modules/Statistics/Core/DamageDone';
-import DamageTaken from './Modules/Statistics/Core/DamageTaken';
-import HealingDone from './Modules/Statistics/Core/HealingDone';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core Statistics
     damageDone: DamageDone,
-    damageTaken: DamageTaken,
-    healingDone: HealingDone,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     castEfficiency: CastEfficiency,
+
+    // Spells
+    momentum: Momentum,
+    nemesis: Nemesis,
   };
 
   generateResults() {
