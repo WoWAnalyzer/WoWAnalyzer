@@ -1,27 +1,44 @@
 import React from 'react';
-
 import SuggestionsTab from 'Main/SuggestionsTab';
 import Tab from 'Main/Tab';
 import Talents from 'Main/Talents';
-
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 
 import CastEfficiency from './Modules/Features/CastEfficiency';
-
-
-import CooldownTracker from './Modules/Features/CooldownTracker';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
-import DamageDone from './Modules/MMCore/DamageDone';
+import CooldownTracker from './Modules/Features/CooldownTracker';
+import BloodPlagueUptime from './Modules/Features/BloodPlagueUptime';
+import BoneShieldUptime from './Modules/Features/BoneShieldUptime';
+import OssuaryUptime from './Modules/Features/OssuaryUptime';
+import WastedDeathAndDecay from './Modules/Features/WastedDeathAndDecay';
+import RPWasted from './Modules/Features/RunicPowerWasted';
+
 
 class CombatLogParser extends CoreCombatLogParser {
+
   static specModules = {
-    // MM Core
-    damageDone: DamageDone,
+
+    //DeathKnight Core
 
     // Features
-    alwaysBeCasting: AlwaysBeCasting,
     castEfficiency: CastEfficiency,
+    alwaysBeCasting: AlwaysBeCasting,
     cooldownTracker: CooldownTracker,
+    BoneShieldUptime: BoneShieldUptime,
+    OssuaryUptime: OssuaryUptime,
+    WastedDeathAndDecay: WastedDeathAndDecay,
+    RunicPowerWasted: RPWasted,
+
+    //DOT
+    bloodplagueUptime: BloodPlagueUptime,
+    // Talents
+
+
+    // Traits
+
+
+    // Items:
+
   };
 
   generateResults() {
@@ -40,11 +57,10 @@ class CombatLogParser extends CoreCombatLogParser {
         url: 'talents',
         render: () => (
           <Tab title="Talents">
-            <Talents combatant={this.selectedCombatant} />
+            <Talents combatant={this.modules.combatants.selected} />
           </Tab>
         ),
       },
-
       ...results.tabs,
     ];
 
