@@ -4,7 +4,7 @@ import CoreAbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 class AbilityTracker extends CoreAbilityTracker {
   getAbility(spellId, abilityInfo = null) {
-    if (spellId === SPELLS.SHADOWFIEND_WITH_GLYPH_OF_THE_SHA.id) {
+    if (spellId === SPELLS.SHADOWFIEND_WITH_GLYPH_OF_THE_SHA.id || spellId === SPELLS.LIGHTSPAWN.id) {
       return super.getAbility(SPELLS.SHADOWFIEND.id, abilityInfo);
     }
     return super.getAbility(spellId, abilityInfo);
