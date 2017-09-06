@@ -33,13 +33,12 @@ class ApiRequestHandler {
         [Sequelize.fn('TIMESTAMPDIFF', Sequelize.literal('MINUTE'), Sequelize.col('createdAt'), Sequelize.fn('NOW')), 'minutesAgo'],
       ],
       group: [
-        Sequelize.fn('DAY', Sequelize.col('createdAt')),
-        Sequelize.fn('HOUR', Sequelize.col('createdAt')),
-        Sequelize.fn('MINUTE', Sequelize.col('createdAt')),
+        // This rounds down (since integer division) and being based around EPOCH the result will never change. This is better than using GROUP BY DAY,HOUR,MINUTE since this seems to change based on the current seconds.
+        Sequelize.literal('UNIX_TIMESTAMP(createdAt) DIV 60'),
       ],
       where: {
         'createdAt': {
-          $gt: Sequelize.fn('DATE_SUB', Sequelize.fn('NOW'), Sequelize.literal('INTERVAL 24 HOUR')),
+          $gt: Sequelize.fn('DATE_SUB', Sequelize.fn('NOW'), Sequelize.literal('INTERVAL 7 DAY')),
         },
       },
     });

@@ -184,11 +184,6 @@ hr {
   outline: none;
 }
 
-.btn-default {
-  border: 1px solid #fff;
-  background: transparent;
-  padding: 8px 30px;
-}
 .btn-primary {
   border: none;
   background: #d84141;
