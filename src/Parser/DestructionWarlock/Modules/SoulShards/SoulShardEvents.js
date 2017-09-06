@@ -7,48 +7,59 @@ import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 
 const debug = false;
 
-const SUMMON_COST = 10;
-const CHAOS_BOLT_COST = 20;
-const RAIN_OF_FIRE_COST = 30;
 const MAX_FRAGMENTS = 50;
 const FRAGMENTS_PER_SHARD = 10;
-
-const FRAGMENT_GENERATING_ABILITIES = [
-  SPELLS.IMMOLATE_DEBUFF.id,
-  SPELLS.CONFLAGRATE.id,
-  SPELLS.INCINERATE.id,
-  //Dimensional Rift would also be here, but that is evaluated on cast, not damage and would proc a lot of times
-];
-
-const FRAGMENT_SPENDING_ABILITIES  = {
-  [SPELLS.CHAOS_BOLT.id]: CHAOS_BOLT_COST,
-  [SPELLS.RAIN_OF_FIRE_CAST.id]: RAIN_OF_FIRE_COST,
-  [SPELLS.SUMMON_INFERNAL_UNTALENTED.id]: SUMMON_COST,
-  [SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id]: SUMMON_COST,
-  [SPELLS.GRIMOIRE_IMP.id]: SUMMON_COST,
-  [SPELLS.SUMMON_IMP.id]: SUMMON_COST,
-  //most likely unused but should be accounted for
-  [SPELLS.SUMMON_INFERNAL_TALENTED.id]: SUMMON_COST,
-  [SPELLS.SUMMON_DOOMGUARD_TALENTED.id]: SUMMON_COST,
-  [SPELLS.GRIMOIRE_VOIDWALKER.id]: SUMMON_COST,
-  [SPELLS.GRIMOIRE_SUCCUBUS.id]: SUMMON_COST,
-  [SPELLS.GRIMOIRE_FELHUNTER.id]: SUMMON_COST,
-  [SPELLS.SUMMON_VOIDWALKER.id]: SUMMON_COST,
-  [SPELLS.SUMMON_SUCCUBUS.id]: SUMMON_COST,
-  [SPELLS.SUMMON_FELHUNTER.id]: SUMMON_COST,
-};
-
-const FRAGMENT_GENERATING_ENERGIZE_ABILITIES = [
-  SPELLS.SOUL_CONDUIT_SHARD_GEN.id,
-  SPELLS.SOULSNATCHER_FRAGMENT_GEN.id,
-  SPELLS.FERETORY_OF_SOULS_FRAGMENT_GEN.id,
-];
 
 class SoulShardEvents extends Module {
   static dependencies = {
     enemies: Enemies,
     combatants: Combatants,
   };
+
+  FRAGMENT_GENERATING_ABILITIES = {
+    [SPELLS.IMMOLATE_DEBUFF.id]: (_) => 1,
+    [SPELLS.CONFLAGRATE.id]: (_) => 5,
+    [SPELLS.INCINERATE.id]: (event) => {
+      const enemy = this.enemies.getEntity(event);
+      if (!enemy) {
+        //shouldn't happen, bail out
+        return;
+      }
+
+      const hasHavoc = enemy.hasBuff(SPELLS.HAVOC.id, event.timestamp);
+      //Havoc is somehow bugged in the sense that it doesn't gain the benefit of T20 2p set bonus, so if the target has Havoc, it doesn't matter if we have the set or not, otherwise it counts it in
+      let rawFragments = hasHavoc ? 2 : (this.hasT20_2p ? 3 : 2);
+      if (event.hitType === HIT_TYPES.CRIT) {
+        rawFragments++;
+      }
+      return rawFragments;
+    },
+    [SPELLS.DIMENSIONAL_RIFT_CAST.id]: (_) => 3,
+    //can refund more shards
+    [SPELLS.SOUL_CONDUIT_SHARD_GEN.id]: (event) => (event.resourceChange || 0) * FRAGMENTS_PER_SHARD,
+    //these can refund only one shard at a time
+    [SPELLS.SOULSNATCHER_FRAGMENT_GEN.id]: (_) => 10,
+    [SPELLS.FERETORY_OF_SOULS_FRAGMENT_GEN.id]: (_) => 10,
+  };
+
+  FRAGMENT_SPENDING_ABILITIES  = {
+    [SPELLS.CHAOS_BOLT.id]: 20,
+    [SPELLS.RAIN_OF_FIRE_CAST.id]: 30,
+    [SPELLS.SUMMON_INFERNAL_UNTALENTED.id]: 10,
+    [SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id]: 10,
+    [SPELLS.GRIMOIRE_IMP.id]: 10,
+    [SPELLS.SUMMON_IMP.id]: 10,
+    //most likely unused but should be accounted for
+    [SPELLS.SUMMON_INFERNAL_TALENTED.id]: 10,
+    [SPELLS.SUMMON_DOOMGUARD_TALENTED.id]: 10,
+    [SPELLS.GRIMOIRE_VOIDWALKER.id]: 10,
+    [SPELLS.GRIMOIRE_SUCCUBUS.id]: 10,
+    [SPELLS.GRIMOIRE_FELHUNTER.id]: 10,
+    [SPELLS.SUMMON_VOIDWALKER.id]: 10,
+    [SPELLS.SUMMON_SUCCUBUS.id]: 10,
+    [SPELLS.SUMMON_FELHUNTER.id]: 10,
+  };
+
 
   hasT20_2p = false;
   currentFragments = 0;
@@ -65,117 +76,28 @@ class SoulShardEvents extends Module {
     if (event.resourceChangeType !== RESOURCE_TYPES.SOUL_SHARDS) {
       return;
     }
-    const spellId = event.ability.guid;
-    if (FRAGMENT_GENERATING_ENERGIZE_ABILITIES.indexOf(spellId) === -1) {
-      return;
+    if (this.FRAGMENT_GENERATING_ABILITIES[event.ability.guid]) {
+      this.processGenerators(event);
     }
-
-    const shardEvent = {
-      timestamp: event.timestamp,
-      type: 'soulshardfragment_gained',
-      ability: {
-        guid: spellId,
-        name: SPELLS[spellId].name,
-      },
-    };
-    //purposefully missing targetID and targetInstance because both source and target on energize is the player
-
-    const rawGain = event.resourceChange * FRAGMENTS_PER_SHARD;
-    let gain = 0;
-    let waste = 0;
-    if (this.currentFragments + rawGain > MAX_FRAGMENTS) {
-      gain = MAX_FRAGMENTS - this.currentFragments;
-      waste = this.currentFragments + rawGain - MAX_FRAGMENTS;
-    }
-    else {
-      gain = rawGain;
-    }
-
-    this.currentFragments += gain;
-
-    shardEvent.amount = gain;
-    shardEvent.waste = waste;
-    shardEvent.currentFragments = this.currentFragments;
-
-    debug && console.log('++ ' + shardEvent.amount + '(w: ' + shardEvent.waste + ') = ' + shardEvent.currentFragments + ', ' + shardEvent.ability.name + ', orig: ', event);
-    this.owner.triggerEvent('soulshardfragment_gained', shardEvent);
   }
 
-  //should also work with Havoc and talent Fire and Brimstone
   on_byPlayer_damage(event) {
-    const spellId = event.ability.guid;
-    if (FRAGMENT_GENERATING_ABILITIES.indexOf(spellId) === -1) {
-      return;
+    if (this.FRAGMENT_GENERATING_ABILITIES[event.ability.guid]) {
+      this.processGenerators(event);
     }
-
-    const shardEvent = {
-      timestamp: event.timestamp,
-      type: 'soulshardfragment_gained',
-      ability: {
-        guid: spellId,
-        name: SPELLS[spellId].name,
-      },
-      targetID: event.targetID,
-      targetInstance: event.targetInstance,
-    };
-    let rawGain;
-    let gain = 0;
-    let waste = 0;
-
-    switch (spellId) {
-      case SPELLS.IMMOLATE_DEBUFF.id:
-        rawGain = 1;
-        break;
-      case SPELLS.CONFLAGRATE.id:
-        rawGain = 5;
-        break;
-      case SPELLS.INCINERATE.id:
-        const enemy = this.enemies.getEntity(event);
-        if (!enemy) {
-          //shouldn't happen, bail out
-          return;
-        }
-
-        const hasHavoc = enemy.hasBuff(SPELLS.HAVOC.id, event.timestamp);
-        //Havoc is somehow bugged in the sense that it doesn't gain the benefit of T20 2p set bonus, so if the target has Havoc, it doesn't matter if we have the set or not, otherwise it counts it in
-        rawGain = hasHavoc ? 2 : (this.hasT20_2p ? 3 : 2);
-        if (event.hitType === HIT_TYPES.CRIT) {
-          rawGain++;
-        }
-        break;
-      default:
-        break;
-    }
-    if (this.currentFragments + rawGain > MAX_FRAGMENTS) {
-      gain = MAX_FRAGMENTS - this.currentFragments;
-      waste = this.currentFragments + rawGain - MAX_FRAGMENTS;
-    }
-    else {
-      gain = rawGain;
-    }
-
-    this.currentFragments += gain;
-
-    shardEvent.amount = gain;
-    shardEvent.waste = waste;
-    shardEvent.currentFragments = this.currentFragments; //AFTER adding the amount
-
-    debug && console.log('++ ' + shardEvent.amount + '(w: ' + shardEvent.waste + ') = ' + shardEvent.currentFragments + ', ' + shardEvent.ability.name + ', orig: ', event);
-    this.owner.triggerEvent('soulshardfragment_gained', shardEvent);
   }
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.DIMENSIONAL_RIFT_CAST.id) {
-      this.processDimensionalRift(event);
+      this.processGenerators(event);
     }
-    else if (FRAGMENT_SPENDING_ABILITIES[spellId]) {
+    else if (this.FRAGMENT_SPENDING_ABILITIES[spellId]) {
       this.processSpenders(event);
     }
   }
 
-  //in order to de-clutter on_byPlayer_cast()
-  processDimensionalRift(event) {
+  processGenerators(event) {
     const spellId = event.ability.guid;
     const shardEvent = {
       timestamp: event.timestamp,
@@ -184,18 +106,16 @@ class SoulShardEvents extends Module {
         guid: spellId,
         name: SPELLS[spellId].name,
       },
-      targetID: event.targetID,
-      targetInstance: event.targetInstance,
     };
-    const rawGain = 3;
+    const gainedFragmentsBeforeCap = this.FRAGMENT_GENERATING_ABILITIES[spellId](event);
     let gain = 0;
     let waste = 0;
-    if (this.currentFragments + rawGain > MAX_FRAGMENTS) {
+    if (this.currentFragments + gainedFragmentsBeforeCap > MAX_FRAGMENTS) {
       gain = MAX_FRAGMENTS - this.currentFragments;
-      waste = this.currentFragments + rawGain - MAX_FRAGMENTS;
+      waste = this.currentFragments + gainedFragmentsBeforeCap - MAX_FRAGMENTS;
     }
     else {
-      gain = rawGain;
+      gain = gainedFragmentsBeforeCap;
     }
 
     this.currentFragments += gain;
@@ -206,8 +126,8 @@ class SoulShardEvents extends Module {
 
     debug && console.log('++ ' + shardEvent.amount + '(w: ' + shardEvent.waste + ') = ' + shardEvent.currentFragments + ', ' + shardEvent.ability.name + ', orig: ', event);
     this.owner.triggerEvent('soulshardfragment_gained', shardEvent);
-  }
 
+  }
   processSpenders(event) {
     const spellId = event.ability.guid;
     const shardEvent = {
@@ -217,11 +137,9 @@ class SoulShardEvents extends Module {
         guid: spellId,
         name: SPELLS[spellId].name,
       },
-      targetID: event.targetID,
-      targetInstance: event.targetInstance,
     };
 
-    const amount = FRAGMENT_SPENDING_ABILITIES[spellId];
+    const amount = this.FRAGMENT_SPENDING_ABILITIES[spellId];
 
     if (this.currentFragments - amount < 0) {
       //create a "compensation" event for the random Immolate crits
