@@ -55,9 +55,8 @@ class SoulShardDetails extends Module {
       render: () => (
         <Tab title='Soul Shard usage breakdown'>
           <SoulShardBreakdown
-            shardsGained = {this.soulShardTracker.gained}
+            shardsGeneratedAndWasted = {this.soulShardTracker.generatedAndWasted}
             shardsSpent = {this.soulShardTracker.spent}
-            shardsWasted = {this.soulShardTracker.wasted}
           />
         </Tab>
       ),

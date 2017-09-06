@@ -7,32 +7,31 @@ import { formatPercentage } from 'common/format';
 
 class SoulShardBreakdown extends React.Component {
   static propTypes = {
-    shardsGained: PropTypes.object.isRequired,
+    shardsGeneratedAndWasted: PropTypes.object.isRequired,
     shardsSpent: PropTypes.object.isRequired,
-    shardsWasted: PropTypes.object.isRequired,
   };
-  prepareGenerated(shardGen, shardWasted) {
-    //shardGen and shardWasted has the same number of abilities (some having 0, these can be now filtered)
-    return Object.keys(shardGen)
+  prepareGenerated(shardsGeneratedAndWasted) {
+    return Object.keys(shardsGeneratedAndWasted)
       .map(abilityId => ({
         abilityId: Number(abilityId),
-        generated: shardGen[abilityId].shards,
-        wasted: shardWasted[abilityId].shards,
+        generated: shardsGeneratedAndWasted[abilityId].generated,
+        wasted: shardsGeneratedAndWasted[abilityId].wasted,
       }))
-      .sort((a, b) => b.generated - a.generated);
+      .sort((a, b) => b.generated - a.generated)
+      .filter(ability => ability.generated > 0);
   }
   prepareSpent(shardSpent) {
     return Object.keys(shardSpent)
       .map(abilityId => ({
         abilityId: Number(abilityId),
-        spent: shardSpent[abilityId].shards,
+        spent: shardSpent[abilityId],
       }))
       .sort((a, b) => b.spent - a.spent)
       .filter(ability => ability.spent > 0);
   }
   render() {
-    const { shardsGained, shardsSpent, shardsWasted } = this.props;
-    const generated = this.prepareGenerated(shardsGained, shardsWasted);
+    const { shardsGeneratedAndWasted, shardsSpent } = this.props;
+    const generated = this.prepareGenerated(shardsGeneratedAndWasted);
     const spent = this.prepareSpent(shardsSpent);
 
     let totalGenerated = 0;
@@ -53,7 +52,7 @@ class SoulShardBreakdown extends React.Component {
         <table className='data-table'>
           <thead>
             <tr>
-              <th>Ability</th>
+              <th><dfn data-tip="Abilities/effects that didn't generate a shard were hidden">Ability</dfn></th>
               <th colSpan='2'>Shards generated</th>
               <th colSpan='2'><dfn data-tip='This is the amount of shards that were generated while you were having full shards.'>Shards wasted</dfn></th>
             </tr>

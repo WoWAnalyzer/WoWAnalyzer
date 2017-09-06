@@ -4,106 +4,84 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 
-const SHARD_GENERATING_ABILITIES = [
-  SPELLS.AGONY_SHARD_GEN.id,
-  SPELLS.UNSTABLE_AFFLICTION_KILL_SHARD_GEN.id,
-  SPELLS.DRAIN_SOUL_KILL_SHARD_GEN.id,
-];
-
-const SHARD_SPENDING_ABILITIES = [
-  SPELLS.UNSTABLE_AFFLICTION_CAST.id,
-  SPELLS.SEED_OF_CORRUPTION_DEBUFF.id,
-  SPELLS.SUMMON_IMP.id,
-  SPELLS.SUMMON_VOIDWALKER.id,
-  SPELLS.SUMMON_SUCCUBUS.id,
-  SPELLS.SUMMON_FELHUNTER.id,
-];
-
 class SoulShardTracker extends Module {
   static dependencies = {
     combatants: Combatants,
   };
 
-  shardsGained = 0;
+  shardsGenerated = 0;
   shardsWasted = 0;
   shardsSpent = 0;
 
-  //stores number of shards gained/spent/wasted per ability ID
-  gained = {};
-  spent = {};
-  wasted = {};
+  //stores number of shards generated/spent/wasted per ability ID
+  generatedAndWasted = {
+    [SPELLS.AGONY_SHARD_GEN.id]: {
+      generated: 0,
+      wasted: 0,
+    },
+    [SPELLS.UNSTABLE_AFFLICTION_KILL_SHARD_GEN.id]: {
+      generated: 0,
+      wasted: 0,
+    },
+    [SPELLS.DRAIN_SOUL_KILL_SHARD_GEN.id]: {
+      generated: 0,
+      wasted: 0,
+    },
 
-  on_initialized() {
-    //initialize base abilities, rest depends on talents and equip
-    SHARD_GENERATING_ABILITIES.forEach(x => {
-      this.gained[x] = { shards: 0 };
-      this.wasted[x] = { shards: 0 };
-    });
-    SHARD_SPENDING_ABILITIES.forEach(x => this.spent[x] = { shards: 0 });
+    [SPELLS.SOUL_CONDUIT_SHARD_GEN.id]: {
+      generated: 0,
+      wasted: 0,
+    },
+    [SPELLS.WARLOCK_AFFLI_T20_2P_SHARD_GEN.id]: {
+      generated: 0,
+      wasted: 0,
+    },
+    [SPELLS.POWER_CORD_OF_LETHTENDRIS_SHARD_GEN.id]: {
+      generated: 0,
+      wasted: 0,
+    },
+  };
 
-    const player = this.combatants.selected;
-    if (player.hasTalent(SPELLS.SOUL_CONDUIT_TALENT.id)) {
-      this.gained[SPELLS.SOUL_CONDUIT_SHARD_GEN.id] = { shards: 0 };
-      this.wasted[SPELLS.SOUL_CONDUIT_SHARD_GEN.id] = { shards: 0 };
-      SHARD_GENERATING_ABILITIES.push(SPELLS.SOUL_CONDUIT_SHARD_GEN.id);
-    }
-    if (player.hasBuff(SPELLS.WARLOCK_AFFLI_T20_2P_BONUS.id)) {
-      this.gained[SPELLS.WARLOCK_AFFLI_T20_2P_SHARD_GEN.id] = { shards: 0 };
-      this.wasted[SPELLS.WARLOCK_AFFLI_T20_2P_SHARD_GEN.id] = { shards: 0 };
-      SHARD_GENERATING_ABILITIES.push(SPELLS.WARLOCK_AFFLI_T20_2P_SHARD_GEN.id);
-    }
-    if (player.hasWaist(ITEMS.POWER_CORD_OF_LETHTENDRIS.id)) {
-      this.gained[SPELLS.POWER_CORD_OF_LETHTENDRIS_SHARD_GEN.id] = { shards: 0 };
-      this.wasted[SPELLS.POWER_CORD_OF_LETHTENDRIS_SHARD_GEN.id] = { shards: 0 };
-      SHARD_GENERATING_ABILITIES.push(SPELLS.POWER_CORD_OF_LETHTENDRIS_SHARD_GEN.id);
-    }
+  spent = {
+    [SPELLS.UNSTABLE_AFFLICTION_CAST.id]: 0,
+    [SPELLS.SEED_OF_CORRUPTION_DEBUFF.id]: 0,
+    [SPELLS.SUMMON_IMP.id]: 0,
+    [SPELLS.SUMMON_VOIDWALKER.id]: 0,
+    [SPELLS.SUMMON_SUCCUBUS.id]: 0,
+    [SPELLS.SUMMON_FELHUNTER.id]: 0,
 
-    if (player.hasTalent(SPELLS.GRIMOIRE_OF_SUPREMACY_TALENT.id)) {
-      this.spent[SPELLS.SUMMON_DOOMGUARD_TALENTED.id] = { shards: 0 };
-      this.spent[SPELLS.SUMMON_INFERNAL_TALENTED.id] = { shards: 0 };
-      SHARD_SPENDING_ABILITIES.push(SPELLS.SUMMON_INFERNAL_TALENTED.id, SPELLS.SUMMON_DOOMGUARD_TALENTED.id);
-    }
-    else {
-      this.spent[SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id] = { shards: 0 };
-      this.spent[SPELLS.SUMMON_INFERNAL_UNTALENTED.id] = { shards: 0 };
-      SHARD_SPENDING_ABILITIES.push(SPELLS.SUMMON_INFERNAL_UNTALENTED.id, SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id);
-
-      if (player.hasTalent(SPELLS.GRIMOIRE_OF_SERVICE_TALENT.id)) {
-        this.spent[SPELLS.GRIMOIRE_IMP.id] = { shards: 0 };
-        this.spent[SPELLS.GRIMOIRE_VOIDWALKER.id] = { shards: 0 };
-        this.spent[SPELLS.GRIMOIRE_FELHUNTER.id] = { shards: 0 };
-        this.spent[SPELLS.GRIMOIRE_SUCCUBUS.id] = { shards: 0 };
-        SHARD_SPENDING_ABILITIES.push(SPELLS.GRIMOIRE_IMP.id,
-          SPELLS.GRIMOIRE_VOIDWALKER.id,
-          SPELLS.GRIMOIRE_FELHUNTER.id,
-          SPELLS.GRIMOIRE_SUCCUBUS.id);
-      }
-    }
-
-  }
+    [SPELLS.SUMMON_DOOMGUARD_TALENTED.id]: 0,
+    [SPELLS.SUMMON_INFERNAL_TALENTED.id]: 0,
+    [SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id]: 0,
+    [SPELLS.SUMMON_INFERNAL_UNTALENTED.id]: 0,
+    [SPELLS.GRIMOIRE_IMP.id]: 0,
+    [SPELLS.GRIMOIRE_VOIDWALKER.id]: 0,
+    [SPELLS.GRIMOIRE_FELHUNTER.id]: 0,
+    [SPELLS.GRIMOIRE_SUCCUBUS.id]: 0,
+  };
 
   on_toPlayer_energize(event) {
     const spellId = event.ability.guid;
-    if (SHARD_GENERATING_ABILITIES.indexOf(spellId) === -1) {
+    if (!this.generatedAndWasted[spellId]) {
       return;
     }
 
     if (event.waste !== 0) {
-      this.wasted[spellId].shards++;
+      this.generatedAndWasted[spellId].wasted++;
       this.shardsWasted++;
     }
     else {
-      this.gained[spellId].shards++;
-      this.shardsGained++;
+      this.generatedAndWasted[spellId].generated++;
+      this.shardsGenerated++;
     }
   }
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (SHARD_SPENDING_ABILITIES.indexOf(spellId) === -1) {
+    if (this.spent[spellId] === undefined) {
       return;
     }
-    this.spent[spellId].shards++;
+    this.spent[spellId]++;
     this.shardsSpent++;
   }
 }
