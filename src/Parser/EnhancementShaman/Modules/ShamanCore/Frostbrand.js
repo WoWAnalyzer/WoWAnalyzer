@@ -4,18 +4,23 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 
 import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class Frostbrand extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  }
+
   on_initialized() {
     if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasTalent(SPELLS.HAILSTORM_TALENT.id);
+      this.active = this.combatants.selected.hasTalent(SPELLS.HAILSTORM_TALENT.id);
     }
   }
 
   suggestions(when) {
-    const frostbrandUptime = this.owner.selectedCombatant.getBuffUptime(SPELLS.FROSTBRAND.id) / this.owner.fightDuration;
+    const frostbrandUptime = this.combatants.selected.getBuffUptime(SPELLS.FROSTBRAND.id) / this.owner.fightDuration;
 
     when(frostbrandUptime).isLessThan(.95)
       .addSuggestion((suggest, actual, recommended) => {
@@ -28,7 +33,7 @@ class Frostbrand extends Module {
   }
 
   statistic() {
-    const frostbrandUptime = this.owner.selectedCombatant.getBuffUptime(SPELLS.FROSTBRAND.id) / this.owner.fightDuration;
+    const frostbrandUptime = this.combatants.selected.getBuffUptime(SPELLS.FROSTBRAND.id) / this.owner.fightDuration;
     return (
       (<StatisticBox
         icon={<SpellIcon id={SPELLS.FROSTBRAND.id} />}

@@ -59,7 +59,7 @@ class EnvelopingMists extends Module {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(50);
 }
 
 export default EnvelopingMists;
