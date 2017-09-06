@@ -4,13 +4,17 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Module from 'Parser/Core/Module';
+import Enemies from 'Parser/Core/Modules/Enemies';
 import SPELLS from 'common/SPELLS';
 
 class Thrash extends Module {
+  static dependencies = {
+    enemies: Enemies,
+  };
 
   suggestions(when) {
-    const thrashUptimePercentage = this.owner.modules.enemies.getBuffUptime(SPELLS.THRASH_BEAR_DOT.id) / this.owner.fightDuration;
-    
+    const thrashUptimePercentage = this.enemies.getBuffUptime(SPELLS.THRASH_BEAR_DOT.id) / this.owner.fightDuration;
+
     when(thrashUptimePercentage).isLessThan(0.95)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span> Your <SpellLink id={SPELLS.THRASH_BEAR_DOT.id} /> uptime was {formatPercentage(thrashUptimePercentage)}%, unless you have extended periods of downtime it should be near 100%. <br/>Thrash applies a bleed which buffs the damage of <SpellLink id={SPELLS.MANGLE_BEAR.id} /> by 20%.  Thrash uptime is especially important if you are talented into <SpellLink id={SPELLS.REND_AND_TEAR_TALENT.id} />, since it buffs the rest of your damage and gives you extra damage reduction.</span>)
@@ -22,8 +26,8 @@ class Thrash extends Module {
   }
 
   statistic() {
-    const thrashUptimePercentage = this.owner.modules.enemies.getBuffUptime(SPELLS.THRASH_BEAR_DOT.id) / this.owner.fightDuration;
-   
+    const thrashUptimePercentage = this.enemies.getBuffUptime(SPELLS.THRASH_BEAR_DOT.id) / this.owner.fightDuration;
+
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.THRASH_BEAR.id} />}
@@ -34,5 +38,5 @@ class Thrash extends Module {
   }
   statisticOrder = STATISTIC_ORDER.CORE(11);
 }
-  
+
 export default Thrash;

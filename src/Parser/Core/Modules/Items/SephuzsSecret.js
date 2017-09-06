@@ -3,12 +3,16 @@ import ITEMS from 'common/ITEMS';
 import { formatPercentage } from 'common/format';
 
 import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 class SephuzsSecret extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
   uptime = 0;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasFinger(ITEMS.SEPHUZS_SECRET.id);
+    this.active = this.combatants.selected.hasFinger(ITEMS.SEPHUZS_SECRET.id);
   }
 
   lastAppliedTimestamp = null;

@@ -4,13 +4,17 @@ import SPELLS from 'common/SPELLS_OTHERS';
 import { formatNumber } from 'common/format';
 
 import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 class SpecterOfBetrayal extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
   damageIncreased = 0;
   totalCast = 0;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasTrinket(ITEMS.SPECTER_OF_BETRAYAL.id);
+    this.active = this.combatants.selected.hasTrinket(ITEMS.SPECTER_OF_BETRAYAL.id);
   }
 
   on_byPlayer_cast(event) {

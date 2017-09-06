@@ -14,9 +14,9 @@ export default {
     icon: 'ability_demonhunter_spectank',
   },
   VENG_DH_T20_4SET_BONUS_BUFF: {
-    id: 242229,
+    id: 242230,
     name: 'T20 4 set bonus',
-    icon: 'ability_demonhunter_spectank',
+    icon: 'spell_warlock_soulburn',
   },
 
   //Racial:
@@ -39,6 +39,8 @@ export default {
   },
 
   // Abilities:
+
+  // Vengeance
   SOUL_FRAGMENT: {
     id: 204255,
     name: 'Soul Fragment',
@@ -136,6 +138,48 @@ export default {
     id: 217832,
     name: 'Imprison',
     icon: 'ability_demonhunter_imprison',
+  },
+
+  // Havoc
+  CHAOS_STRIKE: {
+    id: 162794,
+    name: 'Chaos Strike',
+    icon: 'ability_demonhunter_chaosstrike',
+  },
+  ANNIHILATION: {
+    id: 201427,
+    name: 'Annihilation',
+    icon: 'inv_glaive_1h_npc_d_02',
+  },
+  BLADE_DANCE: {
+    id: 188499,
+    name: 'Blade Dance',
+    icon: 'ability_demonhunter_bladedance',
+  },
+  DEATH_SWEEP: {
+    id: 210152,
+    name: 'Death Sweep',
+    icon: 'inv_glaive_1h_artifactaldrochi_d_02dual',
+  },
+  FEL_RUSH: {
+    id: 195072,
+    name: 'Fel Rush',
+    icon: 'ability_demonhunter_felrush',
+  },
+  THROW_GLAIVE_HAVOC: {
+    id: 185123,
+    name: 'Throw Glaive',
+    icon: 'ability_demonhunter_throwglaive',
+  },
+  EYE_BEAM: {
+    id: 198013,
+    name: 'Eye Beam',
+    icon: 'ability_demonhunter_eyebeam',
+  },
+  FURY_OF_THE_ILLIDARI: {
+    id: 201467,
+    name: 'Fury of the Illidari',
+    icon: 'inv_glaive_1h_artifactazgalor_d_01',
   },
 
   // Talents

@@ -1,4 +1,5 @@
 export default `
+04-09-2017 - Refactored dependancies to follow new format. No change visible to user (by anomoly)
 31-08-2017 - Initial Extended Healing Trait implementation. Currently estimating the trait as a 5% increase per rank. (by anomoly)
 30-08-2017 - Initial Relic Traits added to statics view. (by anomoly)
 25-08-2017 - Mistweaver Monk: Corrected issue with MonkSpreadsheet tab. Removed / Trimmed some suggestions as this data was redundant when combined with WCL (by anomoly)

@@ -22,6 +22,7 @@ import DarkTitanAdvice from './Modules/Legendaries/DarkTitanAdvice';
 import EssenceOfInfusion from './Modules/Legendaries/EssenceOfInfusion';
 import Tearstone from './Modules/Legendaries/Tearstone';
 import T20 from './Modules/Legendaries/T20';
+import T19_2Set from './Modules/Legendaries/T19_2Set';
 import DarkmoonDeckPromises from './Modules/Legendaries/DarkmoonDeckPromises';
 
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
@@ -102,6 +103,7 @@ class CombatLogParser extends CoreCombatLogParser {
     essenceOfInfusion: EssenceOfInfusion,
     tearstone: Tearstone,
     t20: T20,
+    t19_2set: T19_2Set,
     // TODO:
     // Edraith
     // Aman'Thul's Wisdom

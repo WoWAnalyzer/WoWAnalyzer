@@ -18,7 +18,7 @@ class SigilOfFlame extends Module {
     const sigilOfFlameUptimePercentage = sigilOfFlameUptime / this.owner.fightDuration;
 
     if(this.owner.modules.abilityTracker.abilities[SPELLS.SIGIL_OF_FLAME_DEBUFF.id]) {
-      this.sigilOfFlameDamage = this.owner.modules.abilityTracker.abilities[SPELLS.SIGIL_OF_FLAME_DEBUFF.id].damangeEffective;
+      this.sigilOfFlameDamage = this.owner.modules.abilityTracker.abilities[SPELLS.SIGIL_OF_FLAME_DEBUFF.id].damageEffective;
     }
 
 

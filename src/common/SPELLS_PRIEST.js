@@ -122,6 +122,11 @@ export default {
     name: 'Shadowfiend',
     icon: 'spell_shadow_shadowfiend',
   },
+  LIGHTSPAWN: {
+    id: 254224,
+    name: 'Shadowfiend',
+    icon: 'spell_shadow_shadowfiend',
+  },
   SHADOWFIEND_WITH_GLYPH_OF_THE_SHA: {
     id: 132603,
     name: 'Shadowfiend',
