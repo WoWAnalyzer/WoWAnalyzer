@@ -3,11 +3,12 @@ import React from 'react';
 import ITEMS from 'common/ITEMS';
 import { formatPercentage, formatNumber, formatThousands } from 'common/format';
 
-import DarkmoonDeckPromisesCore from 'Parser/Core/Modules/Items/DarkmoonDeckPromises';
+import CoreDarkmoonDeckPromises from 'Parser/Core/Modules/Items/DarkmoonDeckPromises';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 
-class DarkmoonDeckPromises extends DarkmoonDeckPromisesCore {
+class DarkmoonDeckPromises extends CoreDarkmoonDeckPromises {
   static dependencies = {
+    ...CoreDarkmoonDeckPromises.dependencies,
     healingDone: HealingDone,
   };
 
