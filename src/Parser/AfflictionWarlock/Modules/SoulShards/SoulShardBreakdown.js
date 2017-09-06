@@ -52,7 +52,7 @@ class SoulShardBreakdown extends React.Component {
         <table className='data-table'>
           <thead>
             <tr>
-              <th><dfn data-tip="Abilities/effects that didn't generate a shard were hidden">Ability</dfn></th>
+              <th><dfn data-tip="Abilities/effects that didn't generate any shards were hidden">Ability</dfn></th>
               <th colSpan='2'>Shards generated</th>
               <th colSpan='2'><dfn data-tip='This is the amount of shards that were generated while you were having full shards.'>Shards wasted</dfn></th>
             </tr>

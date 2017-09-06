@@ -7,32 +7,31 @@ import { formatPercentage } from 'common/format';
 
 class SoulShardBreakdown extends React.Component {
   static propTypes = {
-    fragmentsGained: PropTypes.object.isRequired,
+    fragmentsGeneratedAndWasted: PropTypes.object.isRequired,
     fragmentsSpent: PropTypes.object.isRequired,
-    fragmentsWasted: PropTypes.object.isRequired,
   };
-  prepareGenerated(fragmentsGenerated, fragmentsWasted) {
-    //fragmentsGenerated and fragmentsWasted has the same number of abilities (some having 0, these can be now filtered)
-    return Object.keys(fragmentsGenerated)
+  prepareGenerated(fragmentsGeneratedAndWasted) {
+    return Object.keys(fragmentsGeneratedAndWasted)
       .map(abilityId => ({
         abilityId: Number(abilityId),
-        generated: fragmentsGenerated[abilityId].fragments,
-        wasted: fragmentsWasted[abilityId].fragments,
+        generated: fragmentsGeneratedAndWasted[abilityId].generated,
+        wasted: fragmentsGeneratedAndWasted[abilityId].wasted,
       }))
-      .sort((a, b) => b.generated - a.generated);
+      .sort((a, b) => b.generated - a.generated)
+      .filter(ability => ability.generated > 0);
   }
   prepareSpent(fragmentsSpent) {
     return Object.keys(fragmentsSpent)
       .map(abilityId => ({
         abilityId: Number(abilityId),
-        spent: fragmentsSpent[abilityId].fragments / 10, //abilities spend always whole Soul Shards and those are made of 10 Fragments
+        spent: fragmentsSpent[abilityId] / 10, //abilities spend always whole Soul Shards and those are made of 10 Fragments
       }))
       .sort((a, b) => b.spent - a.spent)
       .filter(ability => ability.spent > 0);
   }
   render() {
-    const { fragmentsGained, fragmentsSpent, fragmentsWasted } = this.props;
-    const generated = this.prepareGenerated(fragmentsGained, fragmentsWasted);
+    const { fragmentsGeneratedAndWasted, fragmentsSpent } = this.props;
+    const generated = this.prepareGenerated(fragmentsGeneratedAndWasted);
     const spent = this.prepareSpent(fragmentsSpent);
 
     let totalGenerated = 0;
@@ -53,7 +52,7 @@ class SoulShardBreakdown extends React.Component {
         <table className='data-table'>
           <thead>
             <tr>
-              <th>Ability</th>
+              <th><dfn data-tip="Abilities/effects that didn't generate any fragments were hidden">Ability</dfn></th>
               <th colSpan='2'><dfn data-tip={`You generated ${totalGenerated} fragments in total`}>Fragments generated</dfn></th>
               <th colSpan='2'><dfn data-tip='This is the amount of fragments that were generated while you were having full shards.'>Fragments wasted</dfn></th>
             </tr>

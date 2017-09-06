@@ -27,7 +27,6 @@ class SoulShardTracker extends Module {
       generated: 0,
       wasted: 0,
     },
-
     [SPELLS.SOUL_CONDUIT_SHARD_GEN.id]: {
       generated: 0,
       wasted: 0,
@@ -49,7 +48,6 @@ class SoulShardTracker extends Module {
     [SPELLS.SUMMON_VOIDWALKER.id]: 0,
     [SPELLS.SUMMON_SUCCUBUS.id]: 0,
     [SPELLS.SUMMON_FELHUNTER.id]: 0,
-
     [SPELLS.SUMMON_DOOMGUARD_TALENTED.id]: 0,
     [SPELLS.SUMMON_INFERNAL_TALENTED.id]: 0,
     [SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id]: 0,
@@ -66,6 +64,7 @@ class SoulShardTracker extends Module {
       return;
     }
 
+    //Affli abilities and effects generate/refund 1 shard at a time, so it's either generated or wasted, not both
     if (event.waste !== 0) {
       this.generatedAndWasted[spellId].wasted++;
       this.shardsWasted++;
