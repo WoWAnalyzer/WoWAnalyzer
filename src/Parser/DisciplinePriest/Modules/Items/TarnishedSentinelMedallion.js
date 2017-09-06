@@ -6,7 +6,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 import isAtonement from './../Core/isAtonement';
 
-const debug = true;
+const debug = false;
 
 class TarnishedSentinelMedallion extends Module {
   static dependencies = {

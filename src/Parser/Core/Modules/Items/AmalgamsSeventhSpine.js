@@ -5,15 +5,19 @@ import ITEMS from 'common/ITEMS';
 import { formatThousands } from 'common/format';
 
 import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 class AmalgamsSeventhSpine extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
   manaGained = 0;
   procs = 0;
   applications = 0;
   refreshes = 0;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasTrinket(ITEMS.AMALGAMS_SEVENTH_SPINE.id);
+    this.active = this.combatants.selected.hasTrinket(ITEMS.AMALGAMS_SEVENTH_SPINE.id);
   }
 
   on_toPlayer_energize(event) {

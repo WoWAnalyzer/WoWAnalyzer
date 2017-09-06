@@ -2,12 +2,16 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 
 import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 class Prydaz extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
   healing = 0;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasNeck(ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id);
+    this.active = this.combatants.selected.hasNeck(ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id);
   }
 
   on_byPlayer_absorbed(event) {

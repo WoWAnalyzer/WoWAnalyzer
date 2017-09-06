@@ -8,6 +8,8 @@ import ItemIcon from 'common/ItemIcon';
 
 import DevelopmentTab from 'Main/DevelopmentTab';
 import EventsTab from 'Main/EventsTab';
+import Tab from 'Main/Tab';
+import Status from 'Main/Status';
 
 import './Results.css';
 
@@ -36,7 +38,7 @@ class Results extends React.Component {
   render() {
     const { parser, tab, onChangeTab } = this.props;
 
-    if (!parser.selectedCombatant) {
+    if (!parser.modules.combatants.selected) {
       return (
         <div>
           <h1>
@@ -73,6 +75,15 @@ class Results extends React.Component {
           <EventsTab
             parser={parser}
           />
+        ),
+      });
+      results.tabs.push({
+        title: 'Status',
+        url: 'status',
+        render: () => (
+          <Tab title="Status" style={{ padding: '15px 22px' }}>
+            <Status />
+          </Tab>
         ),
       });
     }
@@ -158,7 +169,7 @@ class Results extends React.Component {
                         }
 
                         const id = item.id || item.item.id;
-                        const itemDetails = id && parser.selectedCombatant.getItem(id);
+                        const itemDetails = id && parser.modules.combatants.selected.getItem(id);
                         const icon = item.icon || <ItemIcon id={item.item.id} details={itemDetails} />;
                         const title = item.title || <ItemLink id={item.item.id} details={itemDetails} />;
 

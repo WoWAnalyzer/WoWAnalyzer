@@ -9,7 +9,8 @@ export default function getCastEfficiency(CPM_ABILITIES, parser) {
   const abilityTracker = parser.modules.abilityTracker;
   const getAbility = spellId => abilityTracker.getAbility(spellId);
 
-  const selectedCombatant = parser.selectedCombatant;
+  const combatants = parser.modules.combatants;
+  const selectedCombatant = combatants.selected;
   if (!selectedCombatant) {
     return null;
   }

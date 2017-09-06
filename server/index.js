@@ -4,6 +4,7 @@ import path from 'path';
 import fs from 'fs';
 
 import api from './api';
+import status from './status';
 
 const app = express();
 app.use(compression());
@@ -49,6 +50,7 @@ app.get('/report/:reportCode([A-Za-z0-9]+)/:fightId([0-9]+)?:fightName(-[^/]+)?/
   res.send(response);
 });
 app.get('/api/v1/*', api);
+app.get('/api/status', status);
 
 app.listen(3000);
 console.log('Listening to port 3000');

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -11,16 +12,19 @@ import getDamageBonus from '../WarlockCore/getDamageBonus';
 const T20_4SET_HASTE_BONUS = .15;
 
 class Tier20_4set extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
   bonusDmg = 0;
 
   on_initialized() {
     if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasBuff(SPELLS.WARLOCK_AFFLI_T20_4P_BONUS.id);
+      this.active = this.combatants.selected.hasBuff(SPELLS.WARLOCK_AFFLI_T20_4P_BONUS.id);
     }
   }
 
   on_byPlayer_damage(event) {
-    if (this.owner.selectedCombatant.hasBuff(SPELLS.WARLOCK_AFFLI_T20_4P_BUFF.id)) {
+    if (this.combatants.selected.hasBuff(SPELLS.WARLOCK_AFFLI_T20_4P_BUFF.id)) {
       this.bonusDmg += getDamageBonus(event, T20_4SET_HASTE_BONUS);
     }
   }

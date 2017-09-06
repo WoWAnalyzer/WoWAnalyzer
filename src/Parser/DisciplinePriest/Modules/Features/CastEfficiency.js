@@ -9,7 +9,7 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.PENANCE,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-      getCasts: (_, parser) => parser.modules.alwaysBeCasting.truePenanceCasts,
+      getCasts: (_, parser) => parser.modules.penance.casts,
       getCooldown: haste => 9,
     },
     {

@@ -1,4 +1,5 @@
 import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
@@ -8,6 +9,10 @@ import getDamageBonus from '../WarlockCore/getDamageBonus';
 const SOUL_HARVEST_DAMAGE_BONUS = .2;
 
 class SoulHarvest extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
   talentBonusDmg = 0;
   chestBonusDmg = 0;
 
@@ -25,7 +30,7 @@ class SoulHarvest extends Module {
 
   on_initialized() {
     if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasTalent(SPELLS.SOUL_HARVEST_TALENT.id) || this.owner.selectedCombatant.hasChest(ITEMS.THE_MASTER_HARVESTER.id);
+      this.active = this.combatants.selected.hasTalent(SPELLS.SOUL_HARVEST_TALENT.id) || this.combatants.selected.hasChest(ITEMS.THE_MASTER_HARVESTER.id);
     }
     this.owner.report.friendlyPets.filter(pet => pet.petOwner === this.owner.playerId).forEach(pet => {
       if (this.petIds.indexOf(pet.id) === -1) {
@@ -38,13 +43,13 @@ class SoulHarvest extends Module {
     if (this.petIds.indexOf(event.sourceID) === -1) {
       return;
     }
-    if (this.owner.selectedCombatant.hasBuff(SPELLS.SOUL_HARVEST.id, event.timestamp)) {
+    if (this.combatants.selected.hasBuff(SPELLS.SOUL_HARVEST.id, event.timestamp)) {
       this.addToCorrectSource(getDamageBonus(event, SOUL_HARVEST_DAMAGE_BONUS));
     }
   }
 
   on_byPlayer_damage(event) {
-    if (this.owner.selectedCombatant.hasBuff(SPELLS.SOUL_HARVEST.id, event.timestamp)) {
+    if (this.combatants.selected.hasBuff(SPELLS.SOUL_HARVEST.id, event.timestamp)) {
       this.addToCorrectSource(getDamageBonus(event, SOUL_HARVEST_DAMAGE_BONUS));
     }
   }

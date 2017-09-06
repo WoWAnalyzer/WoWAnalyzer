@@ -3,6 +3,7 @@ import SPELLS from 'common/SPELLS';
 
 import Module from 'Parser/Core/Module';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
+
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 const debug = false;
@@ -22,7 +23,7 @@ class OvydsWinterWrap extends Module {
   healing = 0;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasWaist(ITEMS.OVYDS_WINTER_WRAP.id);
+    this.active = this.combatants.selected.hasWaist(ITEMS.OVYDS_WINTER_WRAP.id);
   }
 
   on_byPlayer_heal(event) {
