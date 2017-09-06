@@ -2,7 +2,6 @@ import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
-//import ITEMS from 'common/ITEMS';
 
 const pointGeneratingAbilities = [
   SPELLS.SHRED.id,
