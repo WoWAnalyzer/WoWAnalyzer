@@ -2,7 +2,6 @@ import React from 'react';
 
 import Module from 'Parser/Core/Module';
 import Enemies from 'Parser/Core/Modules/Enemies';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
@@ -12,14 +11,13 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 class ImmolateUptime extends Module {
   static dependencies = {
     enemies: Enemies,
-    combatants: Combatants,
   };
 
   suggestions(when) {
     const immolateUptime = this.enemies.getBuffUptime(SPELLS.IMMOLATE_DEBUFF.id) / this.owner.fightDuration;
     when(immolateUptime).isLessThan(0.9)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest('Your Immolate uptime can be improved. Try to pay more attention to it as it passively produces a lot of shards over the fight.')
+        return suggest('Your Immolate uptime can be improved. Try to pay more attention to it as it provides a significant amount of Soul Shard Fragments over the fight and is also a big portion of your total damage.')
           .icon(SPELLS.IMMOLATE_DEBUFF.icon)
           .actual(`${formatPercentage(actual)}% Immolate uptime`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`)
