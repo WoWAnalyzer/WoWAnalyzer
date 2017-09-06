@@ -247,6 +247,12 @@ export default {
     name: 'Drums of the Mountain',
     icon: 'inv_archaeology_70_tauren_drum',
   },
+  // Cinidaria
+  SYMBIOTE_STRIKE: {
+    id: 207694,
+    name: 'Symbiote Strike',
+    icon: 'inv_leather_raiddruid_m_01belt',
+  },
 
   // Encounter mechanics
   RECURSIVE_STRIKES_ENEMY: {

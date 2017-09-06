@@ -207,20 +207,20 @@ ${properties.map(prop => `  ${prop},`).join('\n')}
                 <td>{formatThousands(cast.healingCriticalOverheal)}</td>
               </tr>
             )}
-            {cast.damangeHits && (
+            {cast.damageHits && (
               <tr>
                 <td>regular damage</td>
-                <td>{cast.damangeHits}</td>
-                <td>{formatThousands(cast.damangeEffective)}</td>
-                <td>{formatThousands(cast.damangeAbsorbed)}</td>
+                <td>{cast.damageHits}</td>
+                <td>{formatThousands(cast.damageEffective)}</td>
+                <td>{formatThousands(cast.damageAbsorbed)}</td>
               </tr>
             )}
-            {cast.damangeCriticalHits && (
+            {cast.damageCriticalHits && (
               <tr>
                 <td>critical damage</td>
-                <td>{cast.damangeCriticalHits}</td>
-                <td>{formatThousands(cast.damangeCriticalEffective)}</td>
-                <td>{formatThousands(cast.damangeCriticalAbsorbed)}</td>
+                <td>{cast.damageCriticalHits}</td>
+                <td>{formatThousands(cast.damageCriticalEffective)}</td>
+                <td>{formatThousands(cast.damageCriticalAbsorbed)}</td>
               </tr>
             )}
           </tbody>
