@@ -1,7 +1,5 @@
 import React from 'react';
 
-import ITEMS from 'common/ITEMS';
-
 import SuggestionsTab from 'Main/SuggestionsTab';
 import Tab from 'Main/Tab';
 import Talents from 'Main/Talents';
@@ -28,25 +26,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
   generateResults() {
     const results = super.generateResults();
-
-    this.selectedCombatant._combatantInfo.gear.forEach(function (value) {
-      const equippedItem = ITEMS[value.id];
-
-      if (equippedItem !== undefined && equippedItem.quality === 5) {
-        results.items.push({
-          item: equippedItem,
-          result: (
-            <dfn data-tip="">
-              Equipped Legendary
-            </dfn>
-          ),
-        });
-      }
-    });
-
-    results.items = [
-      ...results.items,
-    ];
 
     results.tabs = [
       {
