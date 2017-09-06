@@ -7,13 +7,15 @@ import SPELLS from 'common/SPELLS';
 const pointGeneratingAbilities = [
   SPELLS.SHRED.id,
   SPELLS.RAKE.id,
+  SPELLS.THRASH_FERAL.id,
+  SPELLS.CAT_SWIPE.id,
   SPELLS.PRIMAL_FURY.id,
   SPELLS.ASHAMANES_FRENZY.id,
 ];
 
 const pointSpendingAbilities = [
-  SPELLS.SAVAGE_ROAR_TALENT.id,
   SPELLS.RIP.id,
+  SPELLS.MAIM.id,
   SPELLS.FEROCIOUS_BITE.id,
 ];
 
@@ -25,6 +27,8 @@ class ComboPointTracker extends Module {
   pointsGained = 0;
   pointsWasted = 0;
   pointsSpent = 0;
+  currentPoints = 0;
+  maxPoints = 5;
 
   //stores number of points gained/spent/wasted per ability ID
   gained = {};
@@ -32,68 +36,68 @@ class ComboPointTracker extends Module {
   wasted = {};
 
   on_initialized() {
-    //initialize base abilities, rest depends on talents and equip
+    //initialize base abilities, the rest depends on talents and equip
     pointGeneratingAbilities.forEach(x => {
       this.gained[x] = { points: 0 };
       this.wasted[x] = { points: 0 };
     });
     pointSpendingAbilities.forEach(x => this.spent[x] = { points: 0 });
 
-    //const player = this.combatants.selected;
-    // if (player.hasTalent(SPELLS.SOUL_CONDUIT_TALENT.id)) {
-    //   this.gained[SPELLS.SOUL_CONDUIT_SHARD_GEN.id] = { points: 0 };
-    //   this.wasted[SPELLS.SOUL_CONDUIT_SHARD_GEN.id] = { points: 0 };
-    //   pointGeneratingAbilities.push(SPELLS.SOUL_CONDUIT_SHARD_GEN.id);
-    // }
-    // if (player.hasBuff(SPELLS.WARLOCK_AFFLI_T20_2P_BONUS.id)) {
-    //   this.gained[SPELLS.WARLOCK_AFFLI_T20_2P_SHARD_GEN.id] = { points: 0 };
-    //   this.wasted[SPELLS.WARLOCK_AFFLI_T20_2P_SHARD_GEN.id] = { points: 0 };
-    //   pointGeneratingAbilities.push(SPELLS.WARLOCK_AFFLI_T20_2P_SHARD_GEN.id);
-    // }
-    // if (player.hasWaist(ITEMS.POWER_CORD_OF_LETHTENDRIS.id)) {
-    //   this.gained[SPELLS.POWER_CORD_OF_LETHTENDRIS_SHARD_GEN.id] = { points: 0 };
-    //   this.wasted[SPELLS.POWER_CORD_OF_LETHTENDRIS_SHARD_GEN.id] = { points: 0 };
-    //   pointGeneratingAbilities.push(SPELLS.POWER_CORD_OF_LETHTENDRIS_SHARD_GEN.id);
-    // }
-    //
-    // if (player.hasTalent(SPELLS.GRIMOIRE_OF_SUPREMACY_TALENT.id)) {
-    //   this.spent[SPELLS.SUMMON_DOOMGUARD_TALENTED.id] = { points: 0 };
-    //   this.spent[SPELLS.SUMMON_INFERNAL_TALENTED.id] = { points: 0 };
-    //   pointSpendingAbilities.push(SPELLS.SUMMON_INFERNAL_TALENTED.id, SPELLS.SUMMON_DOOMGUARD_TALENTED.id);
-    // }
-    // else if (player.hasTalent(SPELLS.GRIMOIRE_OF_SERVICE_TALENT.id)) {
-    //   this.spent[SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id] = { points: 0 };
-    //   this.spent[SPELLS.SUMMON_INFERNAL_UNTALENTED.id] = { points: 0 };
-    //   this.spent[SPELLS.GRIMOIRE_IMP.id] = { points: 0 };
-    //   this.spent[SPELLS.GRIMOIRE_VOIDWALKER.id] = { points: 0 };
-    //   this.spent[SPELLS.GRIMOIRE_FELHUNTER.id] = { points: 0 };
-    //   this.spent[SPELLS.GRIMOIRE_SUCCUBUS.id] = { points: 0 };
-    //   pointSpendingAbilities.push(SPELLS.SUMMON_INFERNAL_UNTALENTED.id,
-    //     SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id,
-    //     SPELLS.GRIMOIRE_IMP.id,
-    //     SPELLS.GRIMOIRE_VOIDWALKER.id,
-    //     SPELLS.GRIMOIRE_FELHUNTER.id,
-    //     SPELLS.GRIMOIRE_SUCCUBUS.id);
-    // }
-    // else {
-    //   this.spent[SPELLS.SUMMON_IMP.id] = { points: 0 };
-    //   this.spent[SPELLS.SUMMON_VOIDWALKER.id] = { points: 0 };
-    //   this.spent[SPELLS.SUMMON_SUCCUBUS.id] = { points: 0 };
-    //   this.spent[SPELLS.SUMMON_FELHUNTER.id] = { points: 0 };
-    //   pointSpendingAbilities.push(SPELLS.SUMMON_IMP.id,
-    //     SPELLS.SUMMON_VOIDWALKER.id,
-    //     SPELLS.SUMMON_SUCCUBUS.id,
-    //     SPELLS.SUMMON_FELHUNTER.id);
-    // }
+    const player = this.combatants.selected;
+    if (player.hasTalent(SPELLS.LUNAR_INSPIRATION_TALENT.id)) {
+      this.gained[SPELLS.MOONFIRE.id] = { points: 0 };
+      this.wasted[SPELLS.MOONFIRE.id] = { points: 0 };
+      pointGeneratingAbilities.push(SPELLS.MOONFIRE.id);
+    }
+    if (player.hasTalent(SPELLS.BRUTAL_SLASH_TALENT.id)) {
+      this.gained[SPELLS.BRUTAL_SLASH_TALENT.id] = { points: 0 };
+      this.wasted[SPELLS.BRUTAL_SLASH_TALENT.id] = { points: 0 };
+      pointGeneratingAbilities.push(SPELLS.BRUTAL_SLASH_TALENT.id);
+    } // TODO if talent taken, remove swipe from list
+    if (player.hasTalent(SPELLS.SAVAGE_ROAR_TALENT.id)) {
+      this.spent[SPELLS.SAVAGE_ROAR_TALENT.id] = { points: 0 };
+      pointSpendingAbilities.push(SPELLS.SAVAGE_ROAR_TALENT.id);
+    }
   }
 
   on_toPlayer_energize(event) {
     const spellId = event.ability.guid;
+    const waste = event.waste;
+    const gain = event.resourceChange - waste;
+
     if (pointGeneratingAbilities.indexOf(spellId) === -1) {
       return;
     }
 
-    if (event.waste !== 0) {
+    if (waste !== 0) {
+      this.wasted[spellId].points += waste;
+      this.pointsWasted += waste;
+    }
+    if (gain !== 0) {
+      this.gained[spellId].points += gain;
+      this.pointsGained  += gain;
+      this.currentPoints += gain;
+    }
+  }
+
+  on_byPlayer_cast(event) {
+    const spellId = event.ability.guid;
+
+    // some point generating spells do not have energize events so they are handled here
+    if (spellId === SPELLS.THRASH_FERAL.id || spellId === SPELLS.BRUTAL_SLASH_TALENT.id){
+      this.processNonEnergizeCast(spellId);
+    }
+    if (pointSpendingAbilities.indexOf(spellId) === -1) {
+      return;
+    }
+    // checking for free no CP procs, classResources seems to be the only difference
+    if (event.classResources[1].amount){
+      this.processPointSpenders(event, spellId);
+    }
+  }
+
+  processNonEnergizeCast(spellId) {
+    if (this.currentPoints === this.maxPoints) {
       this.wasted[spellId].points++;
       this.pointsWasted++;
     }
@@ -103,15 +107,13 @@ class ComboPointTracker extends Module {
     }
   }
 
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-    if (pointSpendingAbilities.indexOf(spellId) === -1) {
-      return;
-    }
+  processPointSpenders(event, spellId) {
     // each finisher uses all available points, varying from 1 to 5
     const pointsInCast = event.classResources[1].amount;
+
     this.spent[spellId].points += pointsInCast;
     this.pointsSpent += pointsInCast;
+    this.currentPoints = 0;
   }
 }
 

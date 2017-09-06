@@ -645,4 +645,9 @@ export default {
     name:'Moonfire',
     icon:'spell_nature_starfall',
   },
+  THRASH_FERAL: {
+    id:106830,
+    name:'Thrash',
+    icon:'spell_druid_thrash',
+  },
 };
