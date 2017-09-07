@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Line as LineChart } from 'react-chartjs-2';
 
 import { formatThousands } from 'common/format';
+import Chart from './Chart';
 
 class WclApiResponseTime extends React.PureComponent {
   static propTypes = {
@@ -60,52 +61,36 @@ class WclApiResponseTime extends React.PureComponent {
       labels: labels.reverse(),
       datasets: [
         {
-          className: 'healing thin',
+          borderColor: "rgba(75,192,192,1)",
           label: 'Average response time',
           data: avgResponseTimes.reverse(),
-          lineTension: 0,
-          showLine: false,
         },
         {
-          className: 'mana-used thin',
+          borderColor: "rgba(192,0,0,1)",
           label: 'Max response time',
           data: maxResponseTimes.reverse(),
-          lineTension: 0,
-          showLine: false,
         },
       ],
     };
-    {/*<Chart*/}
-      {/*data={chartData}*/}
-      {/*timeSpanMinutes={timeSpanMinutes}*/}
-      {/*options={{*/}
-        {/*axisY: {*/}
-          {/*onlyInteger: true,*/}
-          {/*offset: 60,*/}
-          {/*labelInterpolationFnc: responseTime => `${formatThousands(responseTime)}ms`,*/}
-        {/*},*/}
-      {/*}}*/}
-    {/*/>*/}
-    const labelsPerHour = 720 / timeSpanMinutes;
-    const dayLabels = timeSpanMinutes > 1440;
-    let previousDay = null;
+
     return (
       <div>
         <div className="chart-container">
-          <LineChart
+          <Chart
             data={chartData}
-            options={{
-              animation: {
-                duration: 0, // general animation time
-              },
-              hover: {
-                animationDuration: 0, // duration of animations when hovering an item
-              },
-              responsiveAnimationDuration: 0, // animation duration after a resize
-              responsive: true,
-              maintainAspectRatio: false,
+            options={options => {
+              options.tooltips.callbacks.label = (item, data) => {
+                console.log(item, data);
+                const dataSetName = data.datasets[item.datasetIndex].label;
+                return `${dataSetName}: ${formatThousands(item.yLabel)}ms`;
+              };
+              options.scales.yAxes[0].ticks.callback = time => `${formatThousands(time)}ms`;
+              options.scales.yAxes[0].scaleLabel = {
+                display: true,
+                labelString: 'Response time',
+              };
+              return options;
             }}
-            height={350}
           />
         </div>
       </div>
