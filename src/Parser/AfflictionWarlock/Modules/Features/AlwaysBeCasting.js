@@ -42,6 +42,10 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.GRIMOIRE_VOIDWALKER.id,
     SPELLS.GRIMOIRE_FELHUNTER.id,
     SPELLS.GRIMOIRE_SUCCUBUS.id,
+    SPELLS.SUMMON_IMP.id,
+    SPELLS.SUMMON_VOIDWALKER.id,
+    SPELLS.SUMMON_FELHUNTER.id,
+    SPELLS.SUMMON_SUCCUBUS.id,
   ];
 
   suggestions(when) {

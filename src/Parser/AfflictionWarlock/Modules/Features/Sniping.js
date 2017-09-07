@@ -68,7 +68,7 @@ class Sniping extends Module {
 
   suggestions(when) {
     const mobsSniped = this.removeDebuffs.length;
-    const shardsGained = this.soulShardTracker.gained[SPELLS.UNSTABLE_AFFLICTION_KILL_SHARD_GEN.id].shards + this.soulShardTracker.gained[SPELLS.DRAIN_SOUL_KILL_SHARD_GEN.id].shards - this.subtractBossShards;
+    const shardsGained = this.soulShardTracker.generatedAndWasted[SPELLS.UNSTABLE_AFFLICTION_KILL_SHARD_GEN.id].generated + this.soulShardTracker.generatedAndWasted[SPELLS.DRAIN_SOUL_KILL_SHARD_GEN.id].generated - this.subtractBossShards;
     const mobsSnipedPercentage = mobsSniped / this.totalNumOfAdds;
     when(mobsSnipedPercentage).isLessThan(0.9)
       .addSuggestion((suggest, actual, recommended) => {
@@ -81,7 +81,7 @@ class Sniping extends Module {
   }
 
   statistic() {
-    const shardsGained = this.soulShardTracker.gained[SPELLS.UNSTABLE_AFFLICTION_KILL_SHARD_GEN.id].shards + this.soulShardTracker.gained[SPELLS.DRAIN_SOUL_KILL_SHARD_GEN.id].shards - this.subtractBossShards;
+    const shardsGained = this.soulShardTracker.generatedAndWasted[SPELLS.UNSTABLE_AFFLICTION_KILL_SHARD_GEN.id].generated + this.soulShardTracker.generatedAndWasted[SPELLS.DRAIN_SOUL_KILL_SHARD_GEN.id].generated - this.subtractBossShards;
     return (
       <StatisticBox
         icon={<Icon icon='ability_hunter_snipershot'/>}
