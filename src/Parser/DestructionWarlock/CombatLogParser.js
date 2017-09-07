@@ -14,8 +14,9 @@ import UnusedLordOfFlames from './Modules/Features/UnusedLordOfFlames';
 import GrimoireOfService from './Modules/Features/GrimoireOfService';
 import ImmolateUptime from './Modules/Features/ImmolateUptime';
 
-// import SoulShardTracker from './Modules/SoulShards/SoulShardTracker';
-// import SoulShardDetails from './Modules/SoulShards/SoulShardDetails';
+import SoulShardEvents from './Modules/SoulShards/SoulShardEvents';
+import SoulShardTracker from './Modules/SoulShards/SoulShardTracker';
+import SoulShardDetails from './Modules/SoulShards/SoulShardDetails';
 import DamageDone from './Modules/Features/DamageDone';
 
 import SoulHarvest from './Modules/Talents/SoulHarvest';
@@ -37,8 +38,9 @@ class CombatLogParser extends CoreCombatLogParser {
     immolateUptime: ImmolateUptime,
     
     //Core
-    // soulShardTracker: SoulShardTracker,
-    // soulShardDetails: SoulShardDetails,
+    soulShardEvents: SoulShardEvents,
+    soulShardTracker: SoulShardTracker,
+    soulShardDetails: SoulShardDetails,
 
     //Talents
     soulHarvest: SoulHarvest,
