@@ -1,6 +1,9 @@
 import React from 'react';
 
 import Module from 'Parser/Core/Module';
+import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
+import Combatants from 'Parser/Core/Modules/Combatants';
+
 import SPELLS from 'common/SPELLS';
 import Icon from 'common/Icon';
 
@@ -10,7 +13,10 @@ import { formatDuration } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class ImmolationAura extends Module {
-
+  static dependencies = {
+    combatants: Combatants,
+    abilityTracker: AbilityTracker,
+    };
   statistic() {
 
     const immolationAuraUptime = this.owner.modules.combatants.getBuffUptime(SPELLS.IMMOLATION_AURA.id);

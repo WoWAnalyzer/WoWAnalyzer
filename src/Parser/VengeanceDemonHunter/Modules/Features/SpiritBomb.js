@@ -1,5 +1,8 @@
 import React from 'react';
 
+import Combatants from 'Parser/Core/Modules/Combatants';
+import Enemies from 'Parser/Core/Modules/Enemies';
+
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Module from 'Parser/Core/Module';
@@ -7,12 +10,16 @@ import Module from 'Parser/Core/Module';
 import { formatPercentage } from 'common/format';
 
 class SpiritBomb extends Module {
+  static dependencies = {
+    combatants: Combatants,
+    enemies: Enemies,
+  }
 
 suggestions(when) {
 
-  if(this.owner.selectedCombatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id))
+  if(this.combatants.selected.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id))
   {
-    const spiritBombUptimePercentage = this.owner.modules.enemies.getBuffUptime(SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id) / this.owner.fightDuration;
+    const spiritBombUptimePercentage = this.enemies.getBuffUptime(SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id) / this.owner.fightDuration;
 
     when(spiritBombUptimePercentage).isLessThan(0.95)
       .addSuggestion((suggest, actual, recommended) =>{
