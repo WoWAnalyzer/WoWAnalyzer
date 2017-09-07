@@ -36,12 +36,12 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     static STACKABLE_HASTE_BUFFS = {
       ...CoreAlwaysBeCasting.STACKABLE_HASTE_BUFFS,
       //Moonkin specific
-      [242232] : { //Astral Acceleration - From T20 4p
+      242232 : { //Astral Acceleration - From T20 4p
         Haste: () => 0.03,
         CurrentStacks: 0, 
         MaxStacks: 5,
       }, 
-      [202942] : { //StarPower - From casts in Incarnation / CA
+      202942 : { //StarPower - From casts in Incarnation / CA
         Haste: (combatant) => (
           combatant.hasTalent(SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id) ? 0.01 : 0.03
         ), 
