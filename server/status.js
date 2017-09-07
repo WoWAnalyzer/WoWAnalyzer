@@ -30,7 +30,7 @@ class ApiRequestHandler {
         [Sequelize.fn('COUNT', Sequelize.col('wclResponseTime')), 'numRequests'],
         [Sequelize.fn('AVG', Sequelize.col('wclResponseTime')), 'avgResponseTime'],
         [Sequelize.fn('MAX', Sequelize.col('wclResponseTime')), 'maxResponseTime'],
-        [Sequelize.fn('TIMESTAMPDIFF', Sequelize.literal('MINUTE'), Sequelize.col('createdAt'), Sequelize.fn('NOW')), 'minutesAgo'],
+        [Sequelize.literal('UNIX_TIMESTAMP() DIV 60 - UNIX_TIMESTAMP(createdAt) DIV 60'), 'minutesAgo'],
       ],
       group: [
         // This rounds down (since integer division) and being based around EPOCH the result will never change. This is better than using GROUP BY DAY,HOUR,MINUTE since this seems to change based on the current seconds.
