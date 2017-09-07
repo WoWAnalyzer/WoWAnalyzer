@@ -11,7 +11,7 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 10 / (1 + haste),
       recommendedCastEfficiency: 0.95,
-      extraSuggestion: <span>This is your main Fury filler spell. Try to always cast it on cooldown. It can be used to charge to the desired target too, making it very strong movimentation spell. </span>,
+      extraSuggestion: <span>This is your main Fury filler spell. Try to always cast it on cooldown. It can be used to charge to the desired target too, making it very strong movement spell. </span>,
     },
     {
       spell: SPELLS.FURY_OF_THE_ILLIDARI,

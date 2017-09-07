@@ -1,20 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ChartistGraph from 'react-chartist';
-import Chartist from 'chartist';
 import 'chartist-plugin-legend';
 
 import { formatThousands } from 'common/format';
 
-import './Chart.css';
+import Chart from './Chart';
 
 class WclApiResponseTime extends React.PureComponent {
   static propTypes = {
     history: PropTypes.array,
+    timeSpanMinutes: PropTypes.number.isRequired,
   };
 
   render() {
-    const { history } = this.props;
+    const { history, timeSpanMinutes } = this.props;
 
     if (!history) {
       return (
@@ -24,9 +23,7 @@ class WclApiResponseTime extends React.PureComponent {
       );
     }
 
-    const timeSpanMinutes = 24 * 60;
-    const groupingInterval = 1;
-    const labelsPerHour = 720 / timeSpanMinutes;
+    const groupingInterval = Math.round(timeSpanMinutes / 1440);
 
     const historyByInterval = {};
     history
@@ -81,44 +78,16 @@ class WclApiResponseTime extends React.PureComponent {
     return (
       <div>
         <div className="graph-container">
-          <ChartistGraph
+          <Chart
             data={chartData}
+            timeSpanMinutes={timeSpanMinutes}
             options={{
-              low: 0,
-              showPoint: false,
-              fullWidth: true,
-              height: '350px',
-              lineSmooth: Chartist.Interpolation.simple({
-              }),
-              axisX: {
-                labelInterpolationFnc: function skipLabels(date) {
-                  const minutes = date.getMinutes();
-                  if (minutes === 0 || (labelsPerHour >= 2 && minutes === 30) || (labelsPerHour >= 4 && (minutes === 15 || minutes === 45))) {
-                    const hours = date.getHours();
-                    return `${hours < 10 ? `0${hours}` : hours}:${minutes < 10 ? `0${minutes}` : minutes}`;
-                  }
-                  return null;
-                },
-                offset: 15,
-              },
               axisY: {
                 onlyInteger: true,
                 offset: 60,
-                labelInterpolationFnc: function skipLabels(responseTime) {
-                  return `${formatThousands(responseTime)}ms`;
-                },
+                labelInterpolationFnc: responseTime => `${formatThousands(responseTime)}ms`,
               },
-              plugins: [
-                Chartist.plugins.legend({
-                  classNames: [
-                    'healing',
-                    'mana-used',
-                  ],
-                }),
-                // tooltips(),
-              ],
             }}
-            type="Line"
           />
         </div>
       </div>
