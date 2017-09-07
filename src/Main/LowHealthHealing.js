@@ -31,7 +31,6 @@ class LowHealthHealing extends React.Component {
   render() {
     const { parser } = this.props;
     const events = parser.modules.healEventTracker.events;
-    const players = parser.modules.combatants.players;
     const fightStart = parser.fight.start_time;
 
     let total = 0;
@@ -110,7 +109,10 @@ class LowHealthHealing extends React.Component {
                   bigHealCount += 1;
                   totalBigHealing += effectiveHealing;
 
-                  const combatant = players[event.targetID];
+                  const combatant = parser.modules.combatants.getEntity(event);
+                  if (!combatant) {
+                    return null; // pet or something
+                  }
                   const spec = SPECS[combatant.specId];
                   const specClassName = spec.className.replace(' ', '');
 
