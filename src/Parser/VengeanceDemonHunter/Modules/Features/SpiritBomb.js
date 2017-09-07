@@ -15,21 +15,24 @@ class SpiritBomb extends Module {
     enemies: Enemies,
   }
 
+  on_initialized() {
+    if (!this.owner.error) {
+      this.active = this.combatants.selected.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id);
+    }
+  }
+
 suggestions(when) {
 
-  if(this.combatants.selected.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id))
-  {
-    const spiritBombUptimePercentage = this.enemies.getBuffUptime(SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id) / this.owner.fightDuration;
+  const spiritBombUptimePercentage = this.enemies.getBuffUptime(SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id) / this.owner.fightDuration;
 
-    when(spiritBombUptimePercentage).isLessThan(0.95)
-      .addSuggestion((suggest, actual, recommended) =>{
-        return suggest(<span>Try to cast <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> more often. This is your core healing ability by applying <SpellLink id={SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id} /> debuff. Try to refresh it even if you have just one <SpellLink id={SPELLS.SOUL_FRAGMENT.id} /> available.</span>)
-          .icon('inv_icon_shadowcouncilorb_purple')
-          .actual(`${formatPercentage(spiritBombUptimePercentage)}% debuff total uptime.`)
-          .recommended(`>${formatPercentage(recommended)}% is recommended`)
-          .regular(recommended - 0.05).major(recommended - 0.15);
-      });
-    }
+  when(spiritBombUptimePercentage).isLessThan(.95)
+    .addSuggestion((suggest, actual, recommended) =>{
+      return suggest(<span>Try to cast <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> more often. This is your core healing ability by applying <SpellLink id={SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id} /> debuff. Try to refresh it even if you have just one <SpellLink id={SPELLS.SOUL_FRAGMENT.id} /> available.</span>)
+        .icon('inv_icon_shadowcouncilorb_purple')
+        .actual(`${formatPercentage(spiritBombUptimePercentage)}% debuff total uptime.`)
+        .recommended(`>${formatPercentage(recommended)}% is recommended`)
+        .regular(recommended - 0.05).major(recommended - 0.15);
+    });
   }
 }
 

@@ -26,6 +26,8 @@ export default {
     icon: 'spell_shadow_teleport',
   },
 
+  // Vengeance
+
   // Passive:
   DEMONIC_WARDS: {
     id: 207014,
@@ -37,10 +39,8 @@ export default {
     name :'Sever',
     icon: 'ability_demonhunter_manabreak',
   },
-
+  
   // Abilities:
-
-  // Vengeance
   SOUL_FRAGMENT: {
     id: 204255,
     name: 'Soul Fragment',
@@ -87,7 +87,7 @@ export default {
     name: 'Fiery Brand',
     icon: 'ability_demonhunter_fierybrand',
   },
-  METAMORPHOSIS: {
+  METAMORPHOSIS_TANK: {
     id: 187827,
     name: 'Metamorphosis',
     icon: 'ability_demonhunter_metamorphasistank',
@@ -180,6 +180,21 @@ export default {
     id: 201467,
     name: 'Fury of the Illidari',
     icon: 'inv_glaive_1h_artifactazgalor_d_01',
+  },
+  CONSUME_MAGIC: {
+    id: 183752,
+    name: 'Consume Magic',
+    icon: 'ability_demonhunter_consumemagic',
+  },
+  VENGEFUL_RETREAT: {
+    id: 198793,
+    name: 'Vengeful Retreat',
+    icon: 'ability_demonhunter_vengefulretreat2',
+  },
+  METAMORPHOSIS_HAVOC: {
+    id: 200166,
+    name: 'Metamorphosis',
+    icon: 'ability_demonhunter_metamorphasisdps',
   },
 
   // Talents

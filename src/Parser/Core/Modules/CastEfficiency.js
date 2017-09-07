@@ -17,6 +17,7 @@ class CastEfficiency extends Module {
     ROTATIONAL: 'Rotational Spell',
     ROTATIONAL_AOE: 'Spell (AOE)',
     COOLDOWNS: 'Cooldown',
+    DEFENSIVE: 'Defensive Cooldown',
     OTHERS: 'Spell',
     UTILITY: 'Utility',
     ITEMS: 'Item',
