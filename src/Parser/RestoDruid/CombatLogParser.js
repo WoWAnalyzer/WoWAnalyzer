@@ -45,6 +45,18 @@ import Cultivation from './Modules/Features/Cultivation';
 import SpringBlossoms from './Modules/Features/SpringBlossoms';
 import CenarionWard from './Modules/Features/CenarionWard';
 
+import RelicTraits from './Modules/Traits/RelicTraits';
+import ArmorOfTheAncients from './Modules/Traits/ArmorOfTheAncients';
+import BlessingOfTheWorldTree from './Modules/Traits/BlessingOfTheWorldTree';
+import EssenceOfNordrassil from './Modules/Traits/EssenceOfNordrassil';
+import Grovewalker from './Modules/Traits/Grovewalker';
+import InfusionOfNature from './Modules/Traits/InfusionOfNature';
+import KnowledgeOfTheAncients from './Modules/Traits/KnowledgeOfTheAncients';
+import NaturalMending from './Modules/Traits/NaturalMending';
+import Persistence from './Modules/Traits/Persistence';
+import SeedsOfTheWorldTree from './Modules/Traits/SeedsOfTheWorldTree';
+import EternalRestoration from './Modules/Traits/EternalRestoration';
+
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
 function formatThousands(number) {
@@ -112,6 +124,19 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Shared:
     darkmoonDeckPromises: DarkmoonDeckPromises,
+
+    // Traits
+    RelicTraits: RelicTraits,
+    ArmorOfTheAncients: ArmorOfTheAncients,
+    BlessingOfTheWorldTree: BlessingOfTheWorldTree,
+    EssenceOfNordrassil: EssenceOfNordrassil,
+    Grovewalker: Grovewalker,
+    InfusionOfNature: InfusionOfNature,
+    KnowledgeOfTheAncients: KnowledgeOfTheAncients,
+    NaturalMending: NaturalMending,
+    Persistence: Persistence,
+    SeedsOfTheWorldTree: SeedsOfTheWorldTree,
+    EternalRestoration: EternalRestoration,
   };
 
   generateResults() {

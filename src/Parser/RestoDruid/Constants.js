@@ -37,6 +37,7 @@ export const HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR = [
 
 export const HEALS_MASTERY_STACK = [
   SPELLS.REJUVENATION.id,
+  // Make sure to check that event.tick is true, because regrowth uses the same id for the heal and the HoT part
   SPELLS.REGROWTH.id,
   SPELLS.WILD_GROWTH.id,
   SPELLS.REJUVENATION_GERMINATION.id,
