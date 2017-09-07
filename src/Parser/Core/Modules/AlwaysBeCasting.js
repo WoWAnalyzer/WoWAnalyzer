@@ -40,9 +40,14 @@ class AlwaysBeCasting extends Module {
     [209165]: -0.3, // DEBUFF - Slow Time from Elisande
     // [208944]: -Infinity, // DEBUFF - Time Stop from Elisande
   };
-
-  //Stackable haste buffs - Set Haste per stack and MaxStacks (0 for no max)
+  
   static STACKABLE_HASTE_BUFFS = {    
+    //Stackable haste buffs - Set Haste per stack and MaxStacks (0 for no max) - See example in Balance Druid ABC
+    //[id] : {
+    //  Haste: (combatant) => (),
+    //  CurrentStacks: 0,
+    //  MaxStacks: 0,
+    //},
   }
 
   totalTimeWasted = 0;
