@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import 'chartist-plugin-legend';
+import { Line as LineChart } from 'react-chartjs-2';
 
 import { formatThousands } from 'common/format';
-
-import Chart from './Chart';
 
 class WclApiResponseTime extends React.PureComponent {
   static propTypes = {
@@ -23,7 +21,7 @@ class WclApiResponseTime extends React.PureComponent {
       );
     }
 
-    const groupingInterval = Math.round(timeSpanMinutes / 1440);
+    const groupingInterval = Math.max(1, Math.round(timeSpanMinutes / 1440));
 
     const historyByInterval = {};
     history
@@ -58,36 +56,56 @@ class WclApiResponseTime extends React.PureComponent {
       labels.push(date);
     }
 
-    console.log(labels);
-
     const chartData = {
       labels: labels.reverse(),
-      series: [
+      datasets: [
         {
           className: 'healing thin',
-          name: 'Average response time',
+          label: 'Average response time',
           data: avgResponseTimes.reverse(),
+          lineTension: 0,
+          showLine: false,
         },
         {
           className: 'mana-used thin',
-          name: 'Max response time',
+          label: 'Max response time',
           data: maxResponseTimes.reverse(),
+          lineTension: 0,
+          showLine: false,
         },
       ],
     };
+    {/*<Chart*/}
+      {/*data={chartData}*/}
+      {/*timeSpanMinutes={timeSpanMinutes}*/}
+      {/*options={{*/}
+        {/*axisY: {*/}
+          {/*onlyInteger: true,*/}
+          {/*offset: 60,*/}
+          {/*labelInterpolationFnc: responseTime => `${formatThousands(responseTime)}ms`,*/}
+        {/*},*/}
+      {/*}}*/}
+    {/*/>*/}
+    const labelsPerHour = 720 / timeSpanMinutes;
+    const dayLabels = timeSpanMinutes > 1440;
+    let previousDay = null;
     return (
       <div>
-        <div className="graph-container">
-          <Chart
+        <div className="chart-container">
+          <LineChart
             data={chartData}
-            timeSpanMinutes={timeSpanMinutes}
             options={{
-              axisY: {
-                onlyInteger: true,
-                offset: 60,
-                labelInterpolationFnc: responseTime => `${formatThousands(responseTime)}ms`,
+              animation: {
+                duration: 0, // general animation time
               },
+              hover: {
+                animationDuration: 0, // duration of animations when hovering an item
+              },
+              responsiveAnimationDuration: 0, // animation duration after a resize
+              responsive: true,
+              maintainAspectRatio: false,
             }}
+            height={350}
           />
         </div>
       </div>
