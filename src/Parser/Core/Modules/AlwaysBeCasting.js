@@ -138,7 +138,6 @@ class AlwaysBeCasting extends Module {
   on_toPlayer_applybuff(event) {
     this.applyActiveBuff(event);
   }
-  //Added event listener for buff stacks applied
   on_toPlayer_applybuffstack(event){
     this.applyBuffStack(event);
   }
@@ -155,7 +154,6 @@ class AlwaysBeCasting extends Module {
     const spellId = event.ability.guid;
     let hasteGain;
     
-    //Added check so it gets the correct one, and adds stacks if necessary
     if (this.constructor.HASTE_BUFFS[spellId]){
       hasteGain = this.constructor.HASTE_BUFFS[spellId];
     }
@@ -170,7 +168,6 @@ class AlwaysBeCasting extends Module {
       debug && console.log(`ABC: Current haste: ${this.currentHaste} (gained ${hasteGain} from ${spellId})`);
     }
   }
-  //Added apply buff stack event for stackable haste buffs
   applyBuffStack(event) {
     const spellId = event.ability.guid;
     const stackInfo = this.constructor.STACKABLE_HASTE_BUFFS[spellId];
@@ -194,7 +191,6 @@ class AlwaysBeCasting extends Module {
     const spellId = event.ability.guid;
     let hasteLoss;
     
-    //Added check so it gets the correct one
     if (this.constructor.HASTE_BUFFS[spellId]){
       hasteLoss = this.constructor.HASTE_BUFFS[spellId];
     }
