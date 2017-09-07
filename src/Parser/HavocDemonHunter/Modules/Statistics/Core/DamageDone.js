@@ -18,7 +18,7 @@ class DamageDone extends CoreDamageDone {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(2);
+  statisticOrder = STATISTIC_ORDER.CORE(1);
 }
 
 export default DamageDone;
