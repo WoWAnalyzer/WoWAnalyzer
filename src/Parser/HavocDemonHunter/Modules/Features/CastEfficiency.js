@@ -10,7 +10,7 @@ class CastEfficiency extends CoreCastEfficiency {
       isActive: combatant => combatant.hasTalent(SPELLS.FELBLADE_TALENT.id),
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 10 / (1 + haste),
-      recommendedCastEfficiency: 0.95,
+      recommendedCastEfficiency: 0.85,
       extraSuggestion: <span>This is your main Fury filler spell. Try to always cast it on cooldown. It can be used to charge to the desired target too, making it very strong movement spell. </span>,
     },
     {
@@ -58,6 +58,21 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 60,
       recommendedCastEfficiency: 0.85,
       extraSuggestion: <span>This is a great AoE damage spell, but also does a great damage on single target. You should cast it as soon as it gets off cooldown. The only moment you can delay it's cast is if you already expect an add wave to maximize it's efficiency and damage output. </span>,
+    },
+    {
+      spell: SPELLS.FEL_BARRAGE_TALENT,
+      isActive: combatant => combatant.hasTalent(SPELLS.FEL_BARRAGE_TALENT.id),
+      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
+      getCooldown: haste => 60,
+      recommendedCastEfficiency: 0.85,
+      extraSuggestion: <span>This is a great AoE damage spell, but also does a great damage on single target. You should cast it as soon as it gets off cooldown. The only moment you can delay it's cast is if you already expect an add wave to maximize it's efficiency and damage output. </span>,
+    },
+    {
+      spell: SPELLS.CHAOS_STRIKE,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => 3,
+      recommendedCastEfficiency: 0.9,
+      noSuggestion: true,
     },
   ];
 }

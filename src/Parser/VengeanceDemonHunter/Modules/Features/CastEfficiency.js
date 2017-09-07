@@ -94,6 +94,13 @@ class CastEfficiency extends CoreCastEfficiency {
       recommendedCastEfficiency: 0.50,
       extraSuggestion: <span>This usage can be improved with <SpellLink id={SPELLS.SOUL_CARVER.id} /> for maximum efficiency. Also, this can be used more to soak burst instant damage when used with <SpellLink id={SPELLS.DEMON_SPIKES.id} /> for physical damage or with <SpellLink id={SPELLS.EMPOWER_WARDS.id} /> for magical damage. </span>,
     },
+    {
+      spell: SPELLS.EMPOWER_WARDS,
+      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
+      getCooldown: haste => 20,
+      recommendedCastEfficiency: 0.50,
+      noSuggestion: true,
+    },
   ];
 }
 
