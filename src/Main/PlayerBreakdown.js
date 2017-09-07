@@ -49,7 +49,11 @@ class PlayerBreakdown extends React.Component {
           {friendlyStats && friendlyStats
             .sort((a, b) => b.masteryEffectiveness - a.masteryEffectiveness)
             .map(player => {
-              const spec = SPECS[player.combatant.specId];
+              const combatants = player.combatant;
+              if (!combatants) {
+                return null; // pet or something
+              }
+              const spec = SPECS[combatants.specId];
               const specClassName = spec.className.replace(' ', '');
               // We want the performance bar to show a full bar for whatever healing done percentage is highest to make
               // it easier to see relative amounts.
