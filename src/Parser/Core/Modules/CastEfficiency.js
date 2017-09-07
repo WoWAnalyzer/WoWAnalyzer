@@ -12,7 +12,14 @@ import CastEfficiencyComponent from 'Main/CastEfficiency';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 
+import AbilityTracker from './AbilityTracker';
+import Combatants from './Combatants';
+
 class CastEfficiency extends Module {
+  static dependencies = {
+    abilityTracker: AbilityTracker,
+    combatants: Combatants,
+  };
   static SPELL_CATEGORIES = {
     ROTATIONAL: 'Rotational Spell',
     ROTATIONAL_AOE: 'Spell (AOE)',
@@ -94,7 +101,7 @@ class CastEfficiency extends Module {
   ];
 
   suggestions(when) {
-    const castEfficiency = getCastEfficiency(this.constructor.CPM_ABILITIES, this.owner);
+    const castEfficiency = getCastEfficiency(this.constructor.CPM_ABILITIES, this.abilityTracker, this.combatants, this.owner);
     castEfficiency.forEach(cpm => {
       if (cpm.ability.noSuggestion || cpm.castEfficiency === null) {
         return;
@@ -117,7 +124,7 @@ class CastEfficiency extends Module {
         <Tab title="Cast efficiency">
           <CastEfficiencyComponent
             categories={this.constructor.SPELL_CATEGORIES}
-            abilities={getCastEfficiency(this.constructor.CPM_ABILITIES, this.owner)}
+            abilities={getCastEfficiency(this.constructor.CPM_ABILITIES, this.abilityTracker, this.combatants, this.owner)}
           />
         </Tab>
       ),
