@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Line as LineChart } from 'react-chartjs-2';
 
 import { formatThousands } from 'common/format';
+
 import Chart from './Chart';
 
 class WclApiResponseTime extends React.PureComponent {

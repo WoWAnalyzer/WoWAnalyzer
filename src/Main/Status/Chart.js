@@ -105,7 +105,7 @@ const Chart = ({ data, options, timeSpanMinutes }) => {
 };
 Chart.propTypes = {
   data: PropTypes.object,
-  options: PropTypes.object,
+  options: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
   timeSpanMinutes: PropTypes.number,
 };
 
