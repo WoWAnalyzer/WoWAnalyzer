@@ -166,6 +166,11 @@ export default {
     name: 'T19 4 set bonus',
     icon: 'ability_paladin_infusionoflight',
   },
+  HOLY_PALADIN_T20_2SET_BONUS_BUFF: {
+    id: 242261,
+    name: 'T20 2 set bonus',
+    icon: 'spell_holy_holybolt',
+  },
   HOLY_PALADIN_T20_4SET_BONUS_BUFF: {
     id: 242262,
     name: 'T20 4 set bonus',
