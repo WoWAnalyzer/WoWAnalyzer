@@ -51,6 +51,7 @@ class PlayerBreakdown extends React.Component {
             .map(player => {
               const combatants = player.combatant;
               if (!combatants) {
+                console.error('Missing combatant:', player);
                 return null; // pet or something
               }
               const spec = SPECS[combatants.specId];

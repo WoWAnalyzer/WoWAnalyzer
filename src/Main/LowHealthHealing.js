@@ -111,6 +111,7 @@ class LowHealthHealing extends React.Component {
 
                   const combatant = parser.modules.combatants.getEntity(event);
                   if (!combatant) {
+                    console.error('Missing combatant for event:', event);
                     return null; // pet or something
                   }
                   const spec = SPECS[combatant.specId];
