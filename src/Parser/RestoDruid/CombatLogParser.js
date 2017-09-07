@@ -100,7 +100,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Legendaries:
     ekowraith: Ekowraith,
     xonisCaress: XonisCaress,
-    sephuz: Sephuz,
+    sephuzsSecret: Sephuz,
     darkTitanAdvice: DarkTitanAdvice,
     essenceOfInfusion: EssenceOfInfusion,
     tearstone: Tearstone,
@@ -159,8 +159,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     const potaHealing = (this.modules.powerOfTheArchdruid.rejuvenations * oneRejuvenationThroughput) + this.getPercentageOfTotalHealingDone(this.modules.powerOfTheArchdruid.healing);
     const hasMoC = this.selectedCombatant.lv100Talent === SPELLS.MOMENT_OF_CLARITY_TALENT_RESTORATION.id;
-    const sepuhzHasteRating = ((this.modules.sephuz.uptime / this.fightDuration) * this.modules.sephuz.sephuzProccInHasteRating) + this.modules.sephuz.sephuzStaticHasteInRating;
-    const sephuzThroughput = sepuhzHasteRating / this.selectedCombatant.intellect;
     const darkTitanAdviceHealing = this.getPercentageOfTotalHealingDone(this.modules.darkTitanAdvice.healing);
     const darkTitanAdviceHealingFromProcc = this.getPercentageOfTotalHealingDone(this.modules.darkTitanAdvice.healingFromProccs);
     const essenceOfInfusionHealing = this.getPercentageOfTotalHealingDone(this.modules.essenceOfInfusion.healing);
@@ -519,18 +517,6 @@ class CombatLogParser extends CoreCombatLogParser {
       ),
       ...results.statistics,
     ];
-
-    if (this.selectedCombatant.hasFinger(ITEMS.SEPHUZS_SECRET.id)) {
-      results.items = results.items.filter(item => item.item.id !== ITEMS.SEPHUZS_SECRET.id);
-      results.items.push({
-        item: ITEMS.SEPHUZS_SECRET,
-        result: (
-          <dfn data-tip="Estimated throughput gained by using Sephuz by calculating haste gained in throughput, given 1 haste = 1 INT.">
-            {((sephuzThroughput * 100) || 0).toFixed(2)} %
-          </dfn>
-        ),
-      });
-    }
 
     results.items = [
       ...results.items,
