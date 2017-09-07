@@ -39,9 +39,6 @@ class WclApiRequests extends React.PureComponent {
     history
       .forEach(moment => {
         const intervalIndex = Math.floor(moment.minutesAgo / groupingInterval);
-        // if (requestsByMinute[intervalIndex]) {
-        //   console.error('Time overlap:', moment.minutesAgo, moment);
-        // }
         requestsByMinute[intervalIndex] = (requestsByMinute[intervalIndex] || 0) + moment.numRequests;
       });
 
@@ -120,6 +117,7 @@ class WclApiRequests extends React.PureComponent {
                       return null;
                     },
                     autoSkip: false,
+                    maxRotation: 0,
                   },
                   gridLines: {
                     color: 'rgba(255, 255, 255, 0.1)',
