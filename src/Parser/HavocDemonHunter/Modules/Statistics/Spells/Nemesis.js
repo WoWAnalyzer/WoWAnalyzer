@@ -5,7 +5,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
 import SPELLS from 'common/SPELLS';
-import Icon from 'common/Icon';
+import SpellIcon from 'common/SpellIcon';
 
 import { formatPercentage } from 'common/format';
 import { formatDuration } from 'common/format';
@@ -30,7 +30,7 @@ class Nemesis extends Module {
 
     return (
       <StatisticBox
-        icon={<Icon icon="ability_warlock_improveddemonictactics" alt="Nemesis" />}
+        icon={<SpellIcon id={SPELLS.NEMESIS_TALENT.id} />}
         value={`${formatPercentage(nemesisUptimePercentage)}%`}
         label='Nemesis Uptime'
         tooltip={`The Nemesis buff total uptime was ${formatDuration(nemesisUptime / 1000)}.`}
