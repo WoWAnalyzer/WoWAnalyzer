@@ -16,11 +16,11 @@ class SoulHarvest extends Module {
   talentBonusDmg = 0;
   chestBonusDmg = 0;
 
-  petIds = [];
-  isFromTalent = false;
+  _petIds = [];
+  _isFromTalent = false;
 
   addToCorrectSource(bonusDmg) {
-    if (this.isFromTalent) {
+    if (this._isFromTalent) {
       this.talentBonusDmg += bonusDmg;
     }
     else {
@@ -33,14 +33,14 @@ class SoulHarvest extends Module {
       this.active = this.combatants.selected.hasTalent(SPELLS.SOUL_HARVEST_TALENT.id) || this.combatants.selected.hasChest(ITEMS.THE_MASTER_HARVESTER.id);
     }
     this.owner.report.friendlyPets.filter(pet => pet.petOwner === this.owner.playerId).forEach(pet => {
-      if (this.petIds.indexOf(pet.id) === -1) {
-        this.petIds.push(pet.id);
+      if (this._petIds.indexOf(pet.id) === -1) {
+        this._petIds.push(pet.id);
       }
     });
   }
 
   on_damage(event) {
-    if (this.petIds.indexOf(event.sourceID) === -1) {
+    if (this._petIds.indexOf(event.sourceID) === -1) {
       return;
     }
     if (this.combatants.selected.hasBuff(SPELLS.SOUL_HARVEST.id, event.timestamp)) {
@@ -56,22 +56,22 @@ class SoulHarvest extends Module {
 
   on_byPlayer_cast(event) {
     if (event.ability.guid === SPELLS.SOUL_HARVEST.id) {
-      this.isFromTalent = true;
+      this._isFromTalent = true;
     }
   }
 
   on_byPlayer_removebuff(event) {
     // Soul Harvest from the talent dropped off, so if any SH is present while this is false, it means it's a legendary proc
-    if (event.ability.guid === SPELLS.SOUL_HARVEST.id && this.isFromTalent) {
-      this.isFromTalent = false;
+    if (event.ability.guid === SPELLS.SOUL_HARVEST.id && this._isFromTalent) {
+      this._isFromTalent = false;
     }
   }
 
   on_byPlayer_refreshbuff(event) {
     // if the buff gets refreshed, it can't happen from the talent itself (it has 2 minute cooldown)
     // therefore the buff is now from the chest (if it prolonged the duration or overwritten it doesn't matter, all I care about is the source)
-    if (event.ability.guid === SPELLS.SOUL_HARVEST.id && this.isFromTalent) {
-      this.isFromTalent = false;
+    if (event.ability.guid === SPELLS.SOUL_HARVEST.id && this._isFromTalent) {
+      this._isFromTalent = false;
     }
   }
 }

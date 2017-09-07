@@ -14,6 +14,7 @@ import Mana from 'Main/Mana';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
+import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
 
 import Ekowraith from './Modules/Legendaries/Ekowraith';
 import XonisCaress from './Modules/Legendaries/XonisCaress';
@@ -76,6 +77,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
   static specModules = {
     // Features
+    lowHealthHealing: LowHealthHealing,
     alwaysBeCasting: AlwaysBeCasting,
     cooldownTracker: CooldownTracker,
     castEfficiency: CastEfficiency,

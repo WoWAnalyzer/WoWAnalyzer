@@ -49,7 +49,11 @@ class Status extends React.Component {
           {Object.keys(TIME_SPAN)
             .map(key => TIME_SPAN[key])
             .map(timeSpan => (
-              <button className={'btn btn-default btn-sm' + (timeSpanMinutes === timeSpan ? ' active' : '')} onClick={() => this.setState({ timeSpanMinutes: timeSpan })}>
+              <button
+                key={timeSpan}
+                className={'btn btn-default btn-sm' + (timeSpanMinutes === timeSpan ? ' active' : '')}
+                onClick={() => this.setState({ timeSpanMinutes: timeSpan })}
+              >
                 {TIME_SPAN_LABELS[timeSpan]}
               </button>
             ))}

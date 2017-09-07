@@ -5,34 +5,34 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
-class SoulShardBreakdown extends React.Component {
+class ComboPointBreakdown extends React.Component {
   static propTypes = {
-    fragmentsGeneratedAndWasted: PropTypes.object.isRequired,
-    fragmentsSpent: PropTypes.object.isRequired,
+    pointsGained: PropTypes.object.isRequired,
+    pointsSpent: PropTypes.object.isRequired,
+    pointsWasted: PropTypes.object.isRequired,
   };
-  prepareGenerated(fragmentsGeneratedAndWasted) {
-    return Object.keys(fragmentsGeneratedAndWasted)
+  prepareGenerated(pointGen, pointWasted) {
+
+    return Object.keys(pointGen)
       .map(abilityId => ({
         abilityId: Number(abilityId),
-        generated: fragmentsGeneratedAndWasted[abilityId].generated,
-        wasted: fragmentsGeneratedAndWasted[abilityId].wasted,
+        generated: pointGen[abilityId].points,
+        wasted: pointWasted[abilityId].points,
       }))
-      .sort((a, b) => b.generated - a.generated)
-      .filter(ability => ability.generated > 0);
+      .sort((a, b) => b.generated - a.generated);
   }
-  prepareSpent(fragmentsSpent) {
-    return Object.keys(fragmentsSpent)
+  prepareSpent(pointSpent) {
+    return Object.keys(pointSpent)
       .map(abilityId => ({
         abilityId: Number(abilityId),
-        spent: fragmentsSpent[abilityId] / 10, //abilities spend always whole Soul Shards and those are made of 10 Fragments
+        spent: pointSpent[abilityId].points,
       }))
-      .sort((a, b) => b.spent - a.spent)
-      .filter(ability => ability.spent > 0);
+      .sort((a, b) => b.spent - a.spent);
   }
   render() {
-    const { fragmentsGeneratedAndWasted, fragmentsSpent } = this.props;
-    const generated = this.prepareGenerated(fragmentsGeneratedAndWasted);
-    const spent = this.prepareSpent(fragmentsSpent);
+    const { pointsGained, pointsSpent, pointsWasted } = this.props;
+    const generated = this.prepareGenerated(pointsGained, pointsWasted);
+    const spent = this.prepareSpent(pointsSpent);
 
     let totalGenerated = 0;
     let totalWasted = 0;
@@ -52,9 +52,9 @@ class SoulShardBreakdown extends React.Component {
         <table className='data-table'>
           <thead>
             <tr>
-              <th><dfn data-tip="Abilities/effects that didn't generate any fragments were hidden">Ability</dfn></th>
-              <th colSpan='2'><dfn data-tip={`You generated ${totalGenerated} fragments in total`}>Fragments generated</dfn></th>
-              <th colSpan='2'><dfn data-tip='This is the amount of fragments that were generated while you were having full shards.'>Fragments wasted</dfn></th>
+              <th>Ability</th>
+              <th colSpan='2'>Combo Points generated</th>
+              <th colSpan='2'><dfn data-tip='This is the amount of points that were generated while you were already at cap.'>points wasted</dfn></th>
             </tr>
           </thead>
           <tbody>
@@ -90,8 +90,8 @@ class SoulShardBreakdown extends React.Component {
         <table className='data-table'>
           <thead>
           <tr>
-            <th><dfn data-tip='Unused abilities were hidden'>Ability</dfn></th>
-            <th colSpan='2'>Shards spent</th>
+            <th>Ability</th>
+            <th colSpan='2'>Points spent</th>
             {/* I know it shouldn't be done like this but I'm not proficient with CSS and this is the only way I could think of to align the columns with table above*/}
             <th colSpan='2'></th>
           </tr>
@@ -105,7 +105,7 @@ class SoulShardBreakdown extends React.Component {
                   <SpellLink id={ability.abilityId}/>
                 </td>
                 <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>
-                  <dfn data-tip={`${formatPercentage(ability.spent / totalSpent)} %`}>{ability.spent}</dfn>
+                  <dfn data-tip={`${formatPercentage(ability.spent / totalGenerated)} %`}>{ability.spent}</dfn>
                 </td>
                 <td style={{ width: '40%' }}>
                   <div
@@ -125,4 +125,4 @@ class SoulShardBreakdown extends React.Component {
   }
 }
 
-export default SoulShardBreakdown;
+export default ComboPointBreakdown;

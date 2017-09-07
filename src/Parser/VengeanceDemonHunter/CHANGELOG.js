@@ -1,4 +1,5 @@
 export default `
+07-09-2017 - Updated timers in the statistics tooltips. (by Mamtooth)
 06-09-2017 - Added more suggestions to Immolation Aura buff uptime. (by Mamtooth)
 06-09-2017 - Fixed Sigil of Flame debuff uptime to best fit in more cases. (by Mamtooth)
 27-08-2017 - Fixed a bug with Spirit Bomb uptime suggestions and modified the Dead GCD recommended time (ABC). (by Mamtooth)

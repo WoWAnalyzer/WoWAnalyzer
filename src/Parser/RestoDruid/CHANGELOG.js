@@ -1,4 +1,6 @@
 export default `
+09-07-2017 - Resto Druid: Activated low health healing module (By Blazyb)
+09-07-2017 - Resto Druid: Added suggestions to cultivation and spring blossoms (By Blazyb)
 09-04-2017 - Resto Druid: Added Mastery calculations, with support for Spring Blossoms, Cenarion Ward, Cultivation, and the T19 2Set
 06-07-2017 - Resto Druid: Added mana costs for spells, the cooldown tab should now properly calculate mana costs
 06-07-2017 - Resto Druid: Fixed a bug on 4PT20 calculations. Also added swiftmend to cast efficiency tab. (by Blazyb)

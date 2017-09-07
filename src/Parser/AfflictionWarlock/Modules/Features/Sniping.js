@@ -18,21 +18,25 @@ class Sniping extends Module {
     soulShardTracker : SoulShardTracker,
   };
 
-  totalNumOfAdds = 0;
-
-  removeDebuffs = [];
-  lastEnergize = 0;
+  _removeDebuffs = [];
+  _lastEnergize = 0;
 
   //this is to avoid counting soul shards from boss kill, the SoulShardTracker module tracks all shards gained and we're not interested in those we gained from boss kill
-  subtractBossShards = 0;
-  lastEnergizeWasted = false;
+  _subtractBossShards = 0;
+  _lastEnergizeWasted = false;
+
+  _shardsGained = 0;
+
+  totalNumOfAdds = 0;
+  mobsSniped = 0;
+
   on_byPlayer_energize(event) {
     if (event.ability.guid !== SPELLS.UNSTABLE_AFFLICTION_KILL_SHARD_GEN.id && event.ability.guid !== SPELLS.DRAIN_SOUL_KILL_SHARD_GEN.id) {
       return;
     }
-    if (this.lastEnergize !== event.timestamp) {
-      this.lastEnergize = event.timestamp;
-      this.lastEnergizeWasted = event.waste > 0;
+    if (this._lastEnergize !== event.timestamp) {
+      this._lastEnergize = event.timestamp;
+      this._lastEnergizeWasted = event.waste > 0;
     }
   }
 
@@ -40,19 +44,19 @@ class Sniping extends Module {
     if (UNSTABLE_AFFLICTION_DEBUFF_IDS.every(id => event.ability.guid !== id) && event.ability.guid !== SPELLS.DRAIN_SOUL.id) {
       return;
     }
-    if (event.timestamp < this.lastEnergize + ENERGIZE_REMOVEDEBUFF_THRESHOLD) {
+    if (event.timestamp < this._lastEnergize + ENERGIZE_REMOVEDEBUFF_THRESHOLD) {
       const enemy = this.enemies.getEntity(event);
       if(!enemy) {
         return;
       }
       if (enemy.type === "NPC") {
-        if (!this.removeDebuffs.some(e => e.timestamp === event.timestamp && e.targetID === event.targetID && e.targetInstance === event.targetInstance)) {
-          this.removeDebuffs.push({timestamp: event.timestamp, name: event.ability.name, abilityID: event.ability.guid, targetID: event.targetID, targetInstance: event.targetInstance});
+        if (!this._removeDebuffs.some(e => e.timestamp === event.timestamp && e.targetID === event.targetID && e.targetInstance === event.targetInstance)) {
+          this._removeDebuffs.push({timestamp: event.timestamp, name: event.ability.name, abilityID: event.ability.guid, targetID: event.targetID, targetInstance: event.targetInstance});
         }
       }
       //it's a boss kill and we didn't waste the shard, subtract it
-      else if (!this.lastEnergizeWasted) {
-          this.subtractBossShards++;
+      else if (!this._lastEnergizeWasted) {
+          this._subtractBossShards++;
       }
     }
   }
@@ -64,15 +68,15 @@ class Sniping extends Module {
       .filter(enemy => enemy.type === 'NPC')
       .reduce((count, enemy) => count + enemy._baseInfo.fights[0].instances, 0);
     this.active = this.totalNumOfAdds > 0;
+    this.mobsSniped = this._removeDebuffs.length;
+    this._shardsGained = this.soulShardTracker.generatedAndWasted[SPELLS.UNSTABLE_AFFLICTION_KILL_SHARD_GEN.id].generated + this.soulShardTracker.generatedAndWasted[SPELLS.DRAIN_SOUL_KILL_SHARD_GEN.id].generated - this._subtractBossShards;
   }
 
   suggestions(when) {
-    const mobsSniped = this.removeDebuffs.length;
-    const shardsGained = this.soulShardTracker.gained[SPELLS.UNSTABLE_AFFLICTION_KILL_SHARD_GEN.id].shards + this.soulShardTracker.gained[SPELLS.DRAIN_SOUL_KILL_SHARD_GEN.id].shards - this.subtractBossShards;
-    const mobsSnipedPercentage = mobsSniped / this.totalNumOfAdds;
+    const mobsSnipedPercentage = this.mobsSniped / this.totalNumOfAdds;
     when(mobsSnipedPercentage).isLessThan(0.9)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You sniped {formatPercentage(mobsSnipedPercentage)} % of mobs in this fight ({mobsSniped} / {this.totalNumOfAdds}) for total of {shardsGained} Soul Shards. You could get up to {this.totalNumOfAdds * 2} Shards from them. Try to get at least one shard per add (cast Drain Soul on them before they die) as it is a great source of extra Soul Shards.<br /><br /><small>Note that the number of adds <em>might be a bit higher than usual</em>, as there sometimes are adds that aren't meant to be killed or are not killed in the fight (such as Tormented Soul at the Demonic Inquisition fight).</small></span>)
+        return suggest(<span>You sniped {formatPercentage(mobsSnipedPercentage)} % of mobs in this fight ({this.mobsSniped} / {this.totalNumOfAdds}) for total of {this._shardsGained} Soul Shards. You could get up to {this.totalNumOfAdds * 2} Shards from them. Try to get at least one shard per add (cast Drain Soul on them before they die) as it is a great source of extra Soul Shards.<br /><br /><small>Note that the number of adds <em>might be a bit higher than usual</em>, as there sometimes are adds that aren't meant to be killed or are not killed in the fight (such as Tormented Soul at the Demonic Inquisition fight).</small></span>)
           .icon('ability_hunter_snipershot')
           .actual(`${formatPercentage(actual)} % of mobs sniped.`)
           .recommended(`>= ${formatPercentage(recommended)} % is recommended`)
@@ -81,11 +85,10 @@ class Sniping extends Module {
   }
 
   statistic() {
-    const shardsGained = this.soulShardTracker.gained[SPELLS.UNSTABLE_AFFLICTION_KILL_SHARD_GEN.id].shards + this.soulShardTracker.gained[SPELLS.DRAIN_SOUL_KILL_SHARD_GEN.id].shards - this.subtractBossShards;
     return (
       <StatisticBox
         icon={<Icon icon='ability_hunter_snipershot'/>}
-        value={shardsGained}
+        value={this._shardsGained}
         label='Shards sniped'
       />
     );

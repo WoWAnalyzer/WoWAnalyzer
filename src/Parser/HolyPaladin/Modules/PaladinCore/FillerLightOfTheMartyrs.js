@@ -7,14 +7,21 @@ import ItemLink from 'common/ItemLink';
 
 import Module from 'Parser/Core/Module';
 
+import AbilityTracker from './PaladinAbilityTracker';
+import MaraadsDyingBreath from '../Items/MaraadsDyingBreath';
+
 class FillerLightOfTheMartyrs extends Module {
+  static dependencies = {
+    abilityTracker: AbilityTracker,
+    maraadsDyingBreath: MaraadsDyingBreath,
+  };
+
   suggestions(when) {
-    const abilityTracker = this.owner.modules.abilityTracker;
-    const getAbility = spellId => abilityTracker.getAbility(spellId);
+    const getAbility = spellId => this.abilityTracker.getAbility(spellId);
 
     const lightOfTheMartyrs = getAbility(SPELLS.LIGHT_OF_THE_MARTYR.id).casts || 0;
     let fillerLotms = lightOfTheMartyrs;
-    if (this.owner.modules.maraadsDyingBreath.active) {
+    if (this.maraadsDyingBreath.active) {
       const lightOfTheDawns = getAbility(SPELLS.LIGHT_OF_DAWN_CAST.id).casts || 0;
       fillerLotms -= lightOfTheDawns;
     }
@@ -23,7 +30,7 @@ class FillerLightOfTheMartyrs extends Module {
       .addSuggestion((suggest, actual, recommended) => {
         let suggestionText;
         let actualText;
-        if (this.owner.modules.maraadsDyingBreath.active) {
+        if (this.maraadsDyingBreath.active) {
           suggestionText = <span>With <ItemLink id={ITEMS.MARAADS_DYING_BREATH.id} /> you should only cast <b>one</b> <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> per <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} />. Without the buff <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> is a very inefficient spell to cast. Try to only cast Light of the Martyr when it will save someone's life or when moving and all other instant cast spells are on cooldown.</span>;
           actualText = `${fillerLotmsPerMinute.toFixed(2)} Casts Per Minute - ${fillerLotms} casts total (unbuffed only)`;
         } else {
