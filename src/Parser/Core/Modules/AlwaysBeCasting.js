@@ -35,6 +35,7 @@ class AlwaysBeCasting extends Module {
     [209166]: 0.3, // DEBUFF - Fast Time from Elisande
     [209165]: -0.3, // DEBUFF - Slow Time from Elisande
     // [208944]: -Infinity, // DEBUFF - Time Stop from Elisande
+    [SPELLS.BONE_SHIELD.id]: 0.1, //Blood BK haste buff from maintaining boneshield
   };
 
   totalTimeWasted = 0;
