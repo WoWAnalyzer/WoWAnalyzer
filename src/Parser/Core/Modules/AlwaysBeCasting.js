@@ -152,12 +152,9 @@ class AlwaysBeCasting extends Module {
   }
   applyActiveBuff(event) {
     const spellId = event.ability.guid;
-    let hasteGain;
+    let hasteGain = this.constructor.HASTE_BUFFS[spellId] || undefined;
     
-    if (this.constructor.HASTE_BUFFS[spellId]){
-      hasteGain = this.constructor.HASTE_BUFFS[spellId];
-    }
-    else if (this.constructor.STACKABLE_HASTE_BUFFS[spellId]){
+    if (this.constructor.STACKABLE_HASTE_BUFFS[spellId]){
       hasteGain = this.constructor.STACKABLE_HASTE_BUFFS[spellId].Haste(this.combatants.selected);
       this.constructor.STACKABLE_HASTE_BUFFS[spellId].CurrentStacks ++;
     }
@@ -189,12 +186,9 @@ class AlwaysBeCasting extends Module {
   }
   removeActiveBuff(event) {
     const spellId = event.ability.guid;
-    let hasteLoss;
+    let hasteLoss = this.constructor.HASTE_BUFFS[spellId] || undefined;
     
-    if (this.constructor.HASTE_BUFFS[spellId]){
-      hasteLoss = this.constructor.HASTE_BUFFS[spellId];
-    }
-    else if (this.constructor.STACKABLE_HASTE_BUFFS[spellId]){
+    if (this.constructor.STACKABLE_HASTE_BUFFS[spellId]){
       //When buff loss, it should lose haste equal to base buff haste * number of stacks
       hasteLoss = this.constructor.STACKABLE_HASTE_BUFFS[spellId].Haste(this.combatants.selected) * this.constructor.STACKABLE_HASTE_BUFFS[spellId].CurrentStacks;
       this.constructor.STACKABLE_HASTE_BUFFS[spellId].CurrentStacks = 0;
