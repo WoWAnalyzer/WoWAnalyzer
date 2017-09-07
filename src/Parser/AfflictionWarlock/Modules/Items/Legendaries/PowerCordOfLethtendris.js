@@ -35,7 +35,7 @@ class PowerCordOfLethtendris extends Module {
     // but with denominator 1 in this case, if this.totalDamage = 0, then dividing by 1 still gives correct result of average damage = 0
     const avgDamage = this.totalDamage / (this.totalTicks > 0 ? this.totalTicks : 1);
     const TICKS_PER_UA = 4;
-    const shardsGained = this.soulShardTracker.gained[SPELLS.POWER_CORD_OF_LETHTENDRIS_SHARD_GEN.id].shards;
+    const shardsGained = this.soulShardTracker.generatedAndWasted[SPELLS.POWER_CORD_OF_LETHTENDRIS_SHARD_GEN.id].generated;
     const estimatedUAdamage = shardsGained * TICKS_PER_UA * avgDamage;
     return {
       item: ITEMS.POWER_CORD_OF_LETHTENDRIS,
