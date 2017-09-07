@@ -10,33 +10,33 @@ import { formatNumber } from 'common/format';
 import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../Constants';
 
 class FatalEchoes extends Module {
-  playerCasts = 0;
-  uasApplied = 0;
+  _playerCasts = 0;
+  _uasApplied = 0;
 
-  totalTicks = 0;
+  _totalTicks = 0;
   totalDamage = 0;
 
   on_byPlayer_damage(event) {
     if (UNSTABLE_AFFLICTION_DEBUFF_IDS.some(id => event.ability.guid === id)) {
-      this.totalTicks++;
+      this._totalTicks++;
       this.totalDamage += event.amount + (event.absorbed || 0);
     }
   }
   on_byPlayer_cast(event) {
     if (event.ability.guid === SPELLS.UNSTABLE_AFFLICTION_CAST.id) {
-      this.playerCasts++;
+      this._playerCasts++;
     }
   }
 
   on_byPlayer_applydebuff(event) {
     if (UNSTABLE_AFFLICTION_DEBUFF_IDS.some(id => event.ability.guid === id)) {
-      this.uasApplied++;
+      this._uasApplied++;
     }
   }
 
   statistic() {
-    const totalProcs = this.uasApplied - this.playerCasts;
-    const avgDamage = this.totalDamage / (this.totalTicks > 0 ? this.totalTicks : 1);
+    const totalProcs = this._uasApplied - this._playerCasts;
+    const avgDamage = this.totalDamage / (this._totalTicks > 0 ? this._totalTicks : 1);
     const TICKS_PER_UA = 4;
     const estimatedUAdamage = totalProcs * TICKS_PER_UA * avgDamage;
     return (
