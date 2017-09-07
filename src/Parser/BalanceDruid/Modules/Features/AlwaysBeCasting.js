@@ -26,12 +26,13 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       SPELLS.WILD_CHARGE_TALENT.id,
     ];
 
-    static FULLGCD_ABILITIES = [
+    static STATIC_GCD_ABILITIES = {
+      ...CoreAlwaysBeCasting.STATIC_GCD_ABILITIES,
       ///Shapeshifts
-      SPELLS.MOONKIN_FORM.id,
-      SPELLS.DISPLACER_BEAST_TALENT.id,
-      SPELLS.BEAR_FORM.id,
-    ];
+      [SPELLS.MOONKIN_FORM.id] : 1.5,
+      [SPELLS.DISPLACER_BEAST_TALENT.id] : 1.5,
+      [SPELLS.BEAR_FORM.id] : 1.5,
+    };
 
     static STACKABLE_HASTE_BUFFS = {
       ...CoreAlwaysBeCasting.STACKABLE_HASTE_BUFFS,

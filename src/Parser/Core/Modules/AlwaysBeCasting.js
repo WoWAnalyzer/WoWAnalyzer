@@ -13,9 +13,10 @@ class AlwaysBeCasting extends Module {
   static ABILITIES_ON_GCD = [
     // Extend this class and override this property in your spec class to implement this module.
   ];
-  static FULLGCD_ABILITIES = [
-    //Override this property in your spec class
-  ];
+  static STATIC_GCD_ABILITIES = {
+    //Abilities which GCD is not affected by haste.
+    //[spellId] : [gcd value in seconds]
+  };
 
   /* eslint-disable no-useless-computed-key */
   static HASTE_BUFFS = { // This includes debuffs
@@ -93,14 +94,14 @@ class AlwaysBeCasting extends Module {
     }
     const spellId = cast.ability.guid;
     const isOnGcd = this.constructor.ABILITIES_ON_GCD.indexOf(spellId) !== -1;
-    const isFullGcd = this.constructor.FULLGCD_ABILITIES.indexOf(spellId) !== -1;
+    //const isFullGcd = this.constructor.FULLGCD_ABILITIES.indexOf(spellId) !== -1;
 
     if (!isOnGcd) {
       debug && console.log(`%cABC: ${cast.ability.name} (${spellId}) ignored`, 'color: gray');
       return;
     }
 
-    const globalCooldown = isFullGcd ? 1500 : this.constructor.calculateGlobalCooldown(this.currentHaste) * 1000;
+    const globalCooldown = this.getCurrentGlobalCooldown(spellId) * 1000 || this.constructor.calculateGlobalCooldown(this.currentHaste) * 1000;
 
     const castStartTimestamp = (begincast ? begincast : cast).timestamp;
 
@@ -217,6 +218,10 @@ class AlwaysBeCasting extends Module {
   }
   applyHasteLoss(hasteGain) {
     this.currentHaste = this.constructor.applyHasteLoss(this.currentHaste, hasteGain);
+  }
+
+  getCurrentGlobalCooldown(spellId) {
+    return this.constructor.STATIC_GCD_ABILITIES[spellId];
   }
 }
 
