@@ -8,7 +8,6 @@ class SoulShardTracker extends Module {
     combatants: Combatants,
   };
 
-  shardsGenerated = 0;
   shardsWasted = 0;
   shardsSpent = 0;
 
@@ -70,7 +69,6 @@ class SoulShardTracker extends Module {
     }
     else {
       this.generatedAndWasted[spellId].generated++;
-      this.shardsGenerated++;
     }
   }
 

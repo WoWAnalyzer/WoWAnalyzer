@@ -13,6 +13,11 @@ class AlwaysBeCasting extends Module {
   static ABILITIES_ON_GCD = [
     // Extend this class and override this property in your spec class to implement this module.
   ];
+  static STATIC_GCD_ABILITIES = {
+    //Abilities which GCD is not affected by haste.
+    //[spellId] : [gcd value in seconds]
+  };
+
   /* eslint-disable no-useless-computed-key */
   static HASTE_BUFFS = { // This includes debuffs
     [SPELLS.BLOODLUST.id]: 0.3,
@@ -36,6 +41,15 @@ class AlwaysBeCasting extends Module {
     [209165]: -0.3, // DEBUFF - Slow Time from Elisande
     // [208944]: -Infinity, // DEBUFF - Time Stop from Elisande
   };
+  
+  static STACKABLE_HASTE_BUFFS = {    
+    //Stackable haste buffs - Set Haste per stack and MaxStacks (0 for no max) - See example in Balance Druid ABC
+    //[id] : {
+    //  Haste: (combatant) => (),
+    //  CurrentStacks: 0,
+    //  MaxStacks: 0,
+    //},
+  }
 
   totalTimeWasted = 0;
   totalHealingTimeWasted = 0;
@@ -80,13 +94,14 @@ class AlwaysBeCasting extends Module {
     }
     const spellId = cast.ability.guid;
     const isOnGcd = this.constructor.ABILITIES_ON_GCD.indexOf(spellId) !== -1;
+    //const isFullGcd = this.constructor.FULLGCD_ABILITIES.indexOf(spellId) !== -1;
 
     if (!isOnGcd) {
       debug && console.log(`%cABC: ${cast.ability.name} (${spellId}) ignored`, 'color: gray');
       return;
     }
 
-    const globalCooldown = this.constructor.calculateGlobalCooldown(this.currentHaste) * 1000;
+    const globalCooldown = this.getCurrentGlobalCooldown(spellId) * 1000 || this.constructor.calculateGlobalCooldown(this.currentHaste) * 1000;
 
     const castStartTimestamp = (begincast ? begincast : cast).timestamp;
 
@@ -124,6 +139,9 @@ class AlwaysBeCasting extends Module {
   on_toPlayer_applybuff(event) {
     this.applyActiveBuff(event);
   }
+  on_toPlayer_applybuffstack(event){
+    this.applyBuffStack(event);
+  }
   on_toPlayer_removebuff(event) {
     this.removeActiveBuff(event);
   }
@@ -135,25 +153,59 @@ class AlwaysBeCasting extends Module {
   }
   applyActiveBuff(event) {
     const spellId = event.ability.guid;
-    const hasteGain = this.constructor.HASTE_BUFFS[spellId];
+    let hasteGain = this.constructor.HASTE_BUFFS[spellId] || undefined;
+    
+    if (this.constructor.STACKABLE_HASTE_BUFFS[spellId]){
+      hasteGain = this.constructor.STACKABLE_HASTE_BUFFS[spellId].Haste(this.combatants.selected);
+      this.constructor.STACKABLE_HASTE_BUFFS[spellId].CurrentStacks ++;
+    }
+
     if (hasteGain) {
       this.applyHasteGain(hasteGain);
 
       debug && console.log(`ABC: Current haste: ${this.currentHaste} (gained ${hasteGain} from ${spellId})`);
     }
   }
+  applyBuffStack(event) {
+    const spellId = event.ability.guid;
+    const stackInfo = this.constructor.STACKABLE_HASTE_BUFFS[spellId];
+    let hasteGain;
+
+    if (stackInfo){
+      hasteGain = stackInfo.Haste(this.combatants.selected);
+    }
+
+    if (hasteGain) {
+      //Only add haste stack if max stacks not already reached
+      if (stackInfo.MaxStacks === 0 || stackInfo.CurrentStacks < stackInfo.MaxStacks){
+        this.applyHasteGain(hasteGain);
+        stackInfo.CurrentStacks ++;
+      }
+
+      debug && console.log(`ABC: Current haste: ${this.currentHaste} (gained ${hasteGain} from ${spellId})`);
+    }
+  }
   removeActiveBuff(event) {
     const spellId = event.ability.guid;
-    const hasteGain = this.constructor.HASTE_BUFFS[spellId];
-    if (hasteGain) {
-      this.applyHasteLoss(hasteGain);
+    let hasteLoss = this.constructor.HASTE_BUFFS[spellId] || undefined;
+    
+    if (this.constructor.STACKABLE_HASTE_BUFFS[spellId]){
+      //When buff loss, it should lose haste equal to base buff haste * number of stacks
+      hasteLoss = this.constructor.STACKABLE_HASTE_BUFFS[spellId].Haste(this.combatants.selected) * this.constructor.STACKABLE_HASTE_BUFFS[spellId].CurrentStacks;
+      this.constructor.STACKABLE_HASTE_BUFFS[spellId].CurrentStacks = 0;
+    }
 
-      debug && console.log(`ABC: Current haste: ${this.currentHaste} (lost ${hasteGain} from ${spellId})`);
+    if (hasteLoss) {
+      this.applyHasteLoss(hasteLoss);
+
+      debug && console.log(`ABC: Current haste: ${this.currentHaste} (lost ${hasteLoss} from ${spellId})`);
     }
   }
 
   static calculateGlobalCooldown(haste) {
-    return 1.5 / (1 + haste);
+    const gcd = 1.5 / (1 + haste);
+    //Check the gcd doesnt go under the limit
+    return gcd > 0.75 ? gcd : 0.75;
   }
   static applyHasteGain(baseHaste, hasteGain) {
     return baseHaste * (1 + hasteGain) + hasteGain;
@@ -166,6 +218,10 @@ class AlwaysBeCasting extends Module {
   }
   applyHasteLoss(hasteGain) {
     this.currentHaste = this.constructor.applyHasteLoss(this.currentHaste, hasteGain);
+  }
+
+  getCurrentGlobalCooldown(spellId) {
+    return this.constructor.STATIC_GCD_ABILITIES[spellId];
   }
 }
 
