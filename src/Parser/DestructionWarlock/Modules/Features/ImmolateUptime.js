@@ -14,9 +14,14 @@ class ImmolateUptime extends Module {
     enemies: Enemies,
   };
 
+  immolateUptime = 0;
+
+  on_finished() {
+    this.immolateUptime = this.enemies.getBuffUptime(SPELLS.IMMOLATE_DEBUFF.id) / this.owner.fightDuration;
+  }
+
   suggestions(when) {
-    const immolateUptime = this.enemies.getBuffUptime(SPELLS.IMMOLATE_DEBUFF.id) / this.owner.fightDuration;
-    when(immolateUptime).isLessThan(0.9)
+    when(this.immolateUptime).isLessThan(0.9)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Your <SpellLink id={SPELLS.IMMOLATE_DEBUFF.id}/> uptime can be improved. Try to pay more attention to it as it provides a significant amount of Soul Shard Fragments over the fight and is also a big portion of your total damage.</span>)
           .icon(SPELLS.IMMOLATE_DEBUFF.icon)
@@ -27,11 +32,10 @@ class ImmolateUptime extends Module {
   }
 
   statistic() {
-    const immolateUptime = this.enemies.getBuffUptime(SPELLS.IMMOLATE_DEBUFF.id) / this.owner.fightDuration;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.IMMOLATE_DEBUFF.id} />}
-        value={`${formatPercentage(immolateUptime)} %`}
+        value={`${formatPercentage(this.immolateUptime)} %`}
         label='Immolate uptime'
       />
     );
