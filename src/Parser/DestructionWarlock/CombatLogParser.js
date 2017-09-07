@@ -12,6 +12,7 @@ import CooldownTracker from './Modules/Features/CooldownTracker';
 import DoomguardInfernal from './Modules/Features/DoomguardInfernal';
 import UnusedLordOfFlames from './Modules/Features/UnusedLordOfFlames';
 import GrimoireOfService from './Modules/Features/GrimoireOfService';
+import ImmolateUptime from './Modules/Features/ImmolateUptime';
 
 import SoulShardEvents from './Modules/SoulShards/SoulShardEvents';
 import SoulShardTracker from './Modules/SoulShards/SoulShardTracker';
@@ -34,7 +35,8 @@ class CombatLogParser extends CoreCombatLogParser {
     grimoireOfService: GrimoireOfService,
 
     // DoTs
-
+    immolateUptime: ImmolateUptime,
+    
     //Core
     soulShardEvents: SoulShardEvents,
     soulShardTracker: SoulShardTracker,
