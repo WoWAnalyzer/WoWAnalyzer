@@ -599,6 +599,16 @@ export default {
     name: 'Celestial Alignment',
     icon: 'artifactability_balancedruid_newmoon',
   },
+  ASTRAL_ACCELERATION:{
+    id: 242232,
+    name: 'Astral Acceleration',
+    icon: 'inv_enchant_essenceastrallarge',
+  },
+  STAR_POWER:{
+    id: 202942,
+    name: 'Star Power',
+    icon: 'artifactability_balancedruid_moonandstars',
+  },
   // Feral
   TIGERS_FURY: {
     id: 5217,
