@@ -5,6 +5,7 @@ import Enemies from 'Parser/Core/Modules/Enemies';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
@@ -17,7 +18,7 @@ class ImmolateUptime extends Module {
     const immolateUptime = this.enemies.getBuffUptime(SPELLS.IMMOLATE_DEBUFF.id) / this.owner.fightDuration;
     when(immolateUptime).isLessThan(0.9)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest('Your Immolate uptime can be improved. Try to pay more attention to it as it provides a significant amount of Soul Shard Fragments over the fight and is also a big portion of your total damage.')
+        return suggest(<span>Your <SpellLink id={SPELLS.IMMOLATE_DEBUFF.id}/> uptime can be improved. Try to pay more attention to it as it provides a significant amount of Soul Shard Fragments over the fight and is also a big portion of your total damage.</span>)
           .icon(SPELLS.IMMOLATE_DEBUFF.icon)
           .actual(`${formatPercentage(actual)}% Immolate uptime`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`)
