@@ -14,6 +14,9 @@ import CooldownTracker from './Modules/Features/CooldownTracker';
 import RakeUptime from './Modules/Bleeds/RakeUptime';
 import RipUptime from './Modules/Bleeds/RipUptime';
 
+import ComboPointTracker from './Modules/ComboPoints/ComboPointTracker';
+import ComboPointDetails from './Modules/ComboPoints/ComboPointDetails';
+
 import SavageRoarUptime from './Modules/Talents/SavageRoarUptime';
 import MoonfireUptime from './Modules/Talents/MoonfireUptime';
 
@@ -34,6 +37,10 @@ class CombatLogParser extends CoreCombatLogParser {
     // talents
     savageRoarUptime: SavageRoarUptime,
     moonfireUptime: MoonfireUptime,
+
+    // resources
+    comboPointTracker: ComboPointTracker,
+    comboPointDetails: ComboPointDetails,
   };
 
   generateResults() {
