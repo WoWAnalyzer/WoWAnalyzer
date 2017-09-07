@@ -42,6 +42,7 @@ class AlwaysBeCasting extends Module {
     [209166]: 0.3, // DEBUFF - Fast Time from Elisande
     [209165]: -0.3, // DEBUFF - Slow Time from Elisande
     // [208944]: -Infinity, // DEBUFF - Time Stop from Elisande
+    [SPELLS.BONE_SHIELD.id]: 0.1, //Blood BK haste buff from maintaining boneshield
   };
   // TODO: Maybe extract "time" changing abilities since they also scale the minimum GCD cap? Probably better to dive into the tooltips to find out how the stat that does that is actually called. Spell Haste, Casting Speed, Attack Speed, Haste, ... are all different variants that look like Haste but act different.
   // TODO: Support time freeze kinda effects, like Elisande's Time Stop or unavoidable stuns?
