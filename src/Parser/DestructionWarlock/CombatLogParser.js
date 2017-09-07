@@ -19,6 +19,7 @@ import SoulShardTracker from './Modules/SoulShards/SoulShardTracker';
 import SoulShardDetails from './Modules/SoulShards/SoulShardDetails';
 import DamageDone from './Modules/Features/DamageDone';
 
+import Backdraft from './Modules/Talents/Backdraft';
 import SoulHarvest from './Modules/Talents/SoulHarvest';
 import SoulHarvestTalent from './Modules/Talents/SoulHarvestTalent';
 
@@ -43,6 +44,7 @@ class CombatLogParser extends CoreCombatLogParser {
     soulShardDetails: SoulShardDetails,
 
     //Talents
+    backdraft: Backdraft,
     soulHarvest: SoulHarvest,
     soulHarvestTalent: SoulHarvestTalent,
 
