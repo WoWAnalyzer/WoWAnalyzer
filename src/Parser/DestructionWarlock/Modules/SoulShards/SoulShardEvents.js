@@ -9,7 +9,6 @@ const debug = false;
 
 const MAX_FRAGMENTS = 50;
 const FRAGMENTS_PER_SHARD = 10;
-const SHADOWBURN_DEBUFF_DURATION = 5000;
 
 class SoulShardEvents extends Module {
   static dependencies = {
@@ -68,7 +67,7 @@ class SoulShardEvents extends Module {
 
   _hasT20_2p = false;
   _currentFragments = 0;
-  _expectedShadowburnDebuffEnds = []; //we can have up to 2 Shadowburn debuffs active on mobs (it has 2 charges)
+
 
   on_initialized() {
     if (!this.owner.error) {
@@ -86,56 +85,16 @@ class SoulShardEvents extends Module {
     }
   }
 
+  //handles regular Shadowburn fragment gen
   on_byPlayer_damage(event) {
     if (this._FRAGMENT_GENERATING_ABILITIES[event.ability.guid]) {
       this.processGenerators(event);
     }
   }
 
-  // Shadowburn handling
-
-  on_byPlayer_applydebuff(event) {
-    if (event.ability.guid === SPELLS.SHADOWBURN.id) {
-      this._expectedShadowburnDebuffEnds.push({
-        targetID: event.targetID,
-        targetInstance: event.targetInstance,
-        expectedEnd: event.timestamp + SHADOWBURN_DEBUFF_DURATION,
-      });
-
-      debug && console.log("Shadowburn applydebuff, debuffEnds:", JSON.stringify(this._expectedShadowburnDebuffEnds));
-    }
-  }
-
-  on_byPlayer_refreshdebuff(event) {
-    if (event.ability.guid === SPELLS.SHADOWBURN.id) {
-      this._expectedShadowburnDebuffEnds.forEach(debuff => {
-        if (debuff.targetID === event.targetID && debuff.targetInstance === event.targetInstance) {
-          debug && console.log("found SB, refreshing");
-          debuff.expectedEnd = event.timestamp + SHADOWBURN_DEBUFF_DURATION;
-        }
-      });
-
-      debug && console.log("Shadowburn refreshdebuff, debuffEnds:", JSON.stringify(this._expectedShadowburnDebuffEnds));
-    }
-  }
-
-  on_byPlayer_removedebuff(event) {
-    if (event.ability.guid === SPELLS.SHADOWBURN.id) {
-      //find the expected end timestamp for the given debuff
-      const debuffTargetIndex = this._expectedShadowburnDebuffEnds.findIndex(debuff => debuff.targetID === event.targetID && debuff.targetInstance === event.targetInstance);
-      if (debuffTargetIndex === -1) { //should always exist, if not then panic and bail out
-        return;
-      }
-
-      if (event.timestamp < this._expectedShadowburnDebuffEnds[debuffTargetIndex].expectedEnd) {
-        //Shadowburn debuff expired sooner than it should = target died = generate another 5 fragments
-        debug && console.log("Shadowburn kill");
-        event.isFromShadowburnKill = true;
-        this.processGenerators(event);
-      }
-      this._expectedShadowburnDebuffEnds.splice(debuffTargetIndex, 1); //remove the debuff from array
-      debug && console.log("Shadowburn removedebuff (end), debuffEnds:", JSON.stringify(this._expectedShadowburnDebuffEnds));
-    }
+  //sent from Shadowburn module when target with Shadowburn debuff dies
+  on_shadowburn_kill(event) {
+    this.processGenerators(event);
   }
 
   on_byPlayer_cast(event) {
