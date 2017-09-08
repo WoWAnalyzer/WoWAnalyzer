@@ -34,7 +34,7 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.DEMON_SPIKES,
       isActive: combatant => combatant.hasTalent(SPELLS.RAZOR_SPIKES_TALENT.id),
-      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      category: CastEfficiency.SPELL_CATEGORIES.DEFENSIVE,
       getCooldown: haste => 15 / (1 + haste),
       recommendedCastEfficiency: 1.0,
       extraSuggestion: <span>This is a great physical reduction spell and it also provides a great physical damage increase in your case, giving your <SpellLink id={SPELLS.RAZOR_SPIKES_TALENT.id} /> talent choice. Try to always cast it on cooldown. </span>,
@@ -42,7 +42,7 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.DEMON_SPIKES,
       isActive: combatant => !(combatant.hasTalent(SPELLS.RAZOR_SPIKES_TALENT.id)),
-      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      category: CastEfficiency.SPELL_CATEGORIES.DEFENSIVE,
       getCooldown: haste => 15 / (1 + haste),
       recommendedCastEfficiency: 0.75,
       extraSuggestion: <span>This is a great physical reduction spell. Try to always cast it as soons as it gets available or when you expect a higher physical damage. </span>,
@@ -89,10 +89,45 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.SOUL_BARRIER_TALENT,
       isActive: combatant => combatant.hasTalent(SPELLS.SOUL_BARRIER_TALENT.id),
-      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
+      category: CastEfficiency.SPELL_CATEGORIES.DEFENSIVE,
       getCooldown: haste => 30,
       recommendedCastEfficiency: 0.50,
       extraSuggestion: <span>This usage can be improved with <SpellLink id={SPELLS.SOUL_CARVER.id} /> for maximum efficiency. Also, this can be used more to soak burst instant damage when used with <SpellLink id={SPELLS.DEMON_SPIKES.id} /> for physical damage or with <SpellLink id={SPELLS.EMPOWER_WARDS.id} /> for magical damage. </span>,
+    },
+    {
+      spell: SPELLS.EMPOWER_WARDS,
+      category: CastEfficiency.SPELL_CATEGORIES.DEFENSIVE,
+      getCooldown: haste => 20,
+      recommendedCastEfficiency: 0.50,
+      noSuggestion: true,
+    },
+    {
+      spell: SPELLS.FIERY_BRAND,
+      category: CastEfficiency.SPELL_CATEGORIES.DEFENSIVE,
+      getCooldown: haste => 20,
+      recommendedCastEfficiency: 0.50,
+      noSuggestion: true,
+    },
+    {
+      spell: SPELLS.METAMORPHOSIS_TANK,
+      category: CastEfficiency.SPELL_CATEGORIES.DEFENSIVE,
+      getCooldown: haste => 180,
+      recommendedCastEfficiency: 0.50,
+      noSuggestion: true,
+    },
+    {
+      spell: SPELLS.THROW_GLAIVE,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => 3,
+      recommendedCastEfficiency: 0.10,
+      noSuggestion: true,
+    },
+    {
+      spell: SPELLS.SHEAR,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => 3,
+      recommendedCastEfficiency: 0.70,
+      noSuggestion: true,
     },
   ];
 }

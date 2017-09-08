@@ -1,6 +1,7 @@
-import Module from 'Parser/Core/Module';
 import SPELLS from 'common/SPELLS';
+import { calculateSecondaryStatDefault } from 'common/stats';
 
+import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 const debug = false;
@@ -10,6 +11,7 @@ class AlwaysBeCasting extends Module {
     combatants: Combatants,
   };
 
+  // TODO: Should all this props be lower case?
   static ABILITIES_ON_GCD = [
     // Extend this class and override this property in your spec class to implement this module.
   ];
@@ -43,6 +45,8 @@ class AlwaysBeCasting extends Module {
     // [208944]: -Infinity, // DEBUFF - Time Stop from Elisande
     [SPELLS.BONE_SHIELD.id]: 0.1, //Blood BK haste buff from maintaining boneshield
   };
+  // TODO: Maybe extract "time" changing abilities since they also scale the minimum GCD cap? Probably better to dive into the tooltips to find out how the stat that does that is actually called. Spell Haste, Casting Speed, Attack Speed, Haste, ... are all different variants that look like Haste but act different.
+  // TODO: Support time freeze kinda effects, like Elisande's Time Stop or unavoidable stuns?
   
   static STACKABLE_HASTE_BUFFS = {    
     //Stackable haste buffs - Set Haste per stack and MaxStacks (0 for no max) - See example in Balance Druid ABC
@@ -51,7 +55,19 @@ class AlwaysBeCasting extends Module {
     //  CurrentStacks: 0,
     //  MaxStacks: 0,
     //},
-  }
+  };
+
+  // Not yet implemented, for now this is just the general idea. This approach could also be used for merging HASTE_BUFFS and STACKABLE_HASTE_BUFFS.
+  // TODO: Extract 37500, this might also be different for some specs
+  static ITEMS = {
+    // Chalice of Moonlight
+    // TODO: Is this buff included in the combatant Haste or like DMD:Hellfire not and then applied when you enter combat??? Having this here likely includes it in Haste twice.
+    [242543]: item => calculateSecondaryStatDefault(855, 305, item.itemLevel) / 37500,
+    // Charm of the Rising Tide (Rising Tides buff)
+    [242458]: item => ({
+      hastePerTick: calculateSecondaryStatDefault(900, 576, item.itemLevel) / 37500,
+    }),
+  };
 
   totalTimeWasted = 0;
   totalHealingTimeWasted = 0;
@@ -103,8 +119,9 @@ class AlwaysBeCasting extends Module {
       return;
     }
 
-    const globalCooldown = this.getCurrentGlobalCooldown(spellId) * 1000 || this.constructor.calculateGlobalCooldown(this.currentHaste) * 1000;
+    const globalCooldown = this.getCurrentGlobalCooldown(spellId);
 
+    // TODO: Change this to begincast || cast
     const castStartTimestamp = (begincast ? begincast : cast).timestamp;
 
     this.recordCastTime(
@@ -138,6 +155,7 @@ class AlwaysBeCasting extends Module {
 
     debug && console.log(`ABC: Current haste: ${this.currentHaste}`);
   }
+  // TODO: Determine whether buffs in combatants are already included in Haste. This may be the case for actual Haste buffs, but what about Spell Haste like the Whispers trinket?
   on_toPlayer_applybuff(event) {
     this.applyActiveBuff(event);
   }
@@ -159,7 +177,7 @@ class AlwaysBeCasting extends Module {
     
     if (this.constructor.STACKABLE_HASTE_BUFFS[spellId]){
       hasteGain = this.constructor.STACKABLE_HASTE_BUFFS[spellId].Haste(this.combatants.selected);
-      this.constructor.STACKABLE_HASTE_BUFFS[spellId].CurrentStacks ++;
+      this.constructor.STACKABLE_HASTE_BUFFS[spellId].CurrentStacks += 1;
     }
 
     if (hasteGain) {
@@ -181,7 +199,7 @@ class AlwaysBeCasting extends Module {
       //Only add haste stack if max stacks not already reached
       if (stackInfo.MaxStacks === 0 || stackInfo.CurrentStacks < stackInfo.MaxStacks){
         this.applyHasteGain(hasteGain);
-        stackInfo.CurrentStacks ++;
+        stackInfo.CurrentStacks += 1;
       }
 
       debug && console.log(`ABC: Current haste: ${this.currentHaste} (gained ${hasteGain} from ${spellId})`);
@@ -193,6 +211,8 @@ class AlwaysBeCasting extends Module {
     
     if (this.constructor.STACKABLE_HASTE_BUFFS[spellId]){
       //When buff loss, it should lose haste equal to base buff haste * number of stacks
+      // TODO: If possible it would be nice to make this so it doesn't mutate the static property
+      // TODO: change the properties of STACKABLE_HASTE_BUFFS to lower case
       hasteLoss = this.constructor.STACKABLE_HASTE_BUFFS[spellId].Haste(this.combatants.selected) * this.constructor.STACKABLE_HASTE_BUFFS[spellId].CurrentStacks;
       this.constructor.STACKABLE_HASTE_BUFFS[spellId].CurrentStacks = 0;
     }
@@ -205,6 +225,8 @@ class AlwaysBeCasting extends Module {
   }
 
   static calculateGlobalCooldown(haste) {
+    // TODO: Extract 1.5 to a static variable as the default is different in several specs
+    // TODO: Change 1.5 to ms (1500) to be consistent across the class
     const gcd = 1.5 / (1 + haste);
     //Check the gcd doesnt go under the limit
     return gcd > 0.75 ? gcd : 0.75;
@@ -223,7 +245,7 @@ class AlwaysBeCasting extends Module {
   }
 
   getCurrentGlobalCooldown(spellId) {
-    return this.constructor.STATIC_GCD_ABILITIES[spellId];
+    return this.constructor.STATIC_GCD_ABILITIES[spellId] || this.constructor.calculateGlobalCooldown(this.currentHaste) * 1000;
   }
 }
 

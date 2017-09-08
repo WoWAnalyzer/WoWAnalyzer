@@ -2,7 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import { calculatePrimaryStat } from 'common/helpers';
+import { calculatePrimaryStat } from 'common/stats';
 import { formatThousands } from 'common/format';
 
 import Module from 'Parser/Core/Module';
