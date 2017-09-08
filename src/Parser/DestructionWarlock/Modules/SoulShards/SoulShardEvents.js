@@ -130,6 +130,7 @@ class SoulShardEvents extends Module {
       if (event.timestamp < this._expectedShadowburnDebuffEnds[debuffTargetIndex].expectedEnd) {
         //Shadowburn debuff expired sooner than it should = target died = generate another 5 fragments
         debug && console.log("Shadowburn kill");
+        event.isFromShadowburnKill = true;
         this.processGenerators(event);
       }
       this._expectedShadowburnDebuffEnds.splice(debuffTargetIndex, 1); //remove the debuff from array
@@ -172,6 +173,9 @@ class SoulShardEvents extends Module {
 
     shardEvent.amount = gain;
     shardEvent.waste = waste;
+    if (event.isFromShadowburnKill) {
+      shardEvent.isFromShadowburnKill = true;
+    }
     shardEvent.currentFragments = this._currentFragments;
 
     debug && console.log('++ ' + shardEvent.amount + '(w: ' + shardEvent.waste + ') = ' + shardEvent.currentFragments + ', ' + shardEvent.ability.name + ', orig: ', event);
