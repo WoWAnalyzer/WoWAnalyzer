@@ -224,11 +224,10 @@ class AlwaysBeCasting extends Module {
   }
 
   static calculateGlobalCooldown(haste) {
-    // TODO: Extract 1.5 to a static variable as the default is different in several specs
-    // TODO: Change 1.5 to ms (1500) to be consistent across the class
-    const gcd = 1.5 / (1 + haste);
-    //Check the gcd doesnt go under the limit
-    return gcd > 0.75 ? gcd : 0.75;
+    // TODO: Extract 1500 to a static variable as the default is different in several specs
+    const gcd = 1500 / (1 + haste);
+    // Global cooldowns can't normally drop below a certain threshold
+    return Math.max(750, gcd);
   }
   static applyHasteGain(baseHaste, hasteGain) {
     return baseHaste * (1 + hasteGain) + hasteGain;
@@ -244,7 +243,7 @@ class AlwaysBeCasting extends Module {
   }
 
   getCurrentGlobalCooldown(spellId) {
-    return this.constructor.STATIC_GCD_ABILITIES[spellId] || this.constructor.calculateGlobalCooldown(this.currentHaste) * 1000;
+    return this.constructor.STATIC_GCD_ABILITIES[spellId] || this.constructor.calculateGlobalCooldown(this.currentHaste);
   }
 }
 
