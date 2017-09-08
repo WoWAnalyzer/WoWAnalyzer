@@ -9,7 +9,7 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-class ripUptime extends Module {
+class RipUptime extends Module {
   static dependencies = {
     enemies: Enemies,
   };
@@ -41,4 +41,4 @@ class ripUptime extends Module {
   statisticOrder = STATISTIC_ORDER.CORE(3);
 }
 
-export default ripUptime;
+export default RipUptime;

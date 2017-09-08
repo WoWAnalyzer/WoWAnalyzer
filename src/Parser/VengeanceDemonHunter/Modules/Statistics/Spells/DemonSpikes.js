@@ -4,7 +4,7 @@ import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
-import Icon from 'common/Icon';
+import SpellIcon from 'common/SpellIcon';
 
 import { formatPercentage } from 'common/format';
 import { formatDuration } from 'common/format';
@@ -23,7 +23,7 @@ class DemonSpikes extends Module {
 
     return (
       <StatisticBox
-        icon={<Icon icon="ability_demonhunter_demonspikes" alt="Demon Spikes" />}
+        icon={<SpellIcon id={SPELLS.DEMON_SPIKES.id} />}
         value={`${formatPercentage(demonSpikesUptimePercentage)}%`}
         label='Demon Spikes Uptime'
         tooltip={`The Demon Spikes total uptime was ${formatDuration(demonSpikesUptime / 1000)}.`}

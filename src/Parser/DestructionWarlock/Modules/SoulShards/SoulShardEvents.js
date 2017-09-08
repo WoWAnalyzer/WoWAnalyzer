@@ -17,7 +17,7 @@ class SoulShardEvents extends Module {
     combatants: Combatants,
   };
 
-  FRAGMENT_GENERATING_ABILITIES = {
+  _FRAGMENT_GENERATING_ABILITIES = {
     [SPELLS.IMMOLATE_DEBUFF.id]: (_) => 1,
     [SPELLS.CONFLAGRATE.id]: (_) => 5,
     //the Shadowburn itself generates 5 fragments, but leaves a debuff on target for 5 seconds, and if it dies, it generates additional 5 fragments
@@ -47,7 +47,7 @@ class SoulShardEvents extends Module {
     [SPELLS.FERETORY_OF_SOULS_FRAGMENT_GEN.id]: (_) => 10,
   };
 
-  FRAGMENT_SPENDING_ABILITIES  = {
+  _FRAGMENT_SPENDING_ABILITIES  = {
     [SPELLS.CHAOS_BOLT.id]: 20,
     [SPELLS.RAIN_OF_FIRE_CAST.id]: 30,
     [SPELLS.SUMMON_INFERNAL_UNTALENTED.id]: 10,
@@ -68,7 +68,6 @@ class SoulShardEvents extends Module {
 
   _hasT20_2p = false;
   _currentFragments = 0;
-
   _expectedShadowburnDebuffEnds = []; //we can have up to 2 Shadowburn debuffs active on mobs (it has 2 charges)
 
   on_initialized() {
@@ -82,13 +81,13 @@ class SoulShardEvents extends Module {
     if (event.resourceChangeType !== RESOURCE_TYPES.SOUL_SHARDS) {
       return;
     }
-    if (this.FRAGMENT_GENERATING_ABILITIES[event.ability.guid]) {
+    if (this._FRAGMENT_GENERATING_ABILITIES[event.ability.guid]) {
       this.processGenerators(event);
     }
   }
 
   on_byPlayer_damage(event) {
-    if (this.FRAGMENT_GENERATING_ABILITIES[event.ability.guid]) {
+    if (this._FRAGMENT_GENERATING_ABILITIES[event.ability.guid]) {
       this.processGenerators(event);
     }
   }
@@ -143,7 +142,7 @@ class SoulShardEvents extends Module {
     if (spellId === SPELLS.DIMENSIONAL_RIFT_CAST.id) {
       this.processGenerators(event);
     }
-    else if (this.FRAGMENT_SPENDING_ABILITIES[spellId]) {
+    else if (this._FRAGMENT_SPENDING_ABILITIES[spellId]) {
       this.processSpenders(event);
     }
   }
@@ -158,7 +157,7 @@ class SoulShardEvents extends Module {
         name: SPELLS[spellId].name,
       },
     };
-    const gainedFragmentsBeforeCap = this.FRAGMENT_GENERATING_ABILITIES[spellId](event);
+    const gainedFragmentsBeforeCap = this._FRAGMENT_GENERATING_ABILITIES[spellId](event);
     let gain = 0;
     let waste = 0;
     if (this._currentFragments + gainedFragmentsBeforeCap > MAX_FRAGMENTS) {
@@ -190,7 +189,7 @@ class SoulShardEvents extends Module {
       },
     };
 
-    const amount = this.FRAGMENT_SPENDING_ABILITIES[spellId];
+    const amount = this._FRAGMENT_SPENDING_ABILITIES[spellId];
 
     if (this._currentFragments - amount < 0) {
       //create a "compensation" event for the random Immolate crits

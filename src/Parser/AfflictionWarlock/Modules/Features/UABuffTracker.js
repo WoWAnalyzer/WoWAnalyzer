@@ -23,12 +23,12 @@ class UABuffTracker extends Module {
   ticksBuffedByDrain = 0;
   ticksBuffedByHaunt = 0;
   ticksBuffedByBoth = 0;
-  hasMG = false;
-  hasHaunt = false;
+  _hasMG = false;
+  _hasHaunt = false;
 
   on_initialized() {
-    this.hasMG = this.combatants.selected.hasTalent(SPELLS.MALEFIC_GRASP_TALENT.id);
-    this.hasHaunt = this.combatants.selected.hasTalent(SPELLS.HAUNT_TALENT.id);
+    this._hasMG = this.combatants.selected.hasTalent(SPELLS.MALEFIC_GRASP_TALENT.id);
+    this._hasHaunt = this.combatants.selected.hasTalent(SPELLS.HAUNT_TALENT.id);
   }
 
   on_byPlayer_damage(event) {
@@ -42,7 +42,7 @@ class UABuffTracker extends Module {
     const buffedByDrain = target.hasBuff(SPELLS.DRAIN_SOUL.id, event.timestamp);
     const buffedByHaunt = target.hasBuff(SPELLS.HAUNT.id, event.timestamp);
 
-    if (this.hasMG) {
+    if (this._hasMG) {
       if (buffedByReap && buffedByDrain) {
         this.ticksBuffedByBoth++;
       }
@@ -56,7 +56,7 @@ class UABuffTracker extends Module {
         this.unbuffedTicks++;
       }
     }
-    else if (this.hasHaunt) {
+    else if (this._hasHaunt) {
       if (buffedByReap && buffedByHaunt) {
         this.ticksBuffedByBoth++;
       }
@@ -101,10 +101,10 @@ class UABuffTracker extends Module {
         label='UA buffed ticks'
         tooltip={`Your Unstable Afflictions ticked ${this.totalTicks} times in total. Out of that amount:
           <ul>
-          ${this.hasMG && this.ticksBuffedByBoth > 0 ? `
+          ${this._hasMG && this.ticksBuffedByBoth > 0 ? `
             <li>${this.ticksBuffedByBoth} ticks were buffed by both Reap Souls and Drain Soul (${formatPercentage(this.ticksBuffedByBoth/this.totalTicks)}%)</li>
           `: ""}
-          ${this.hasHaunt && this.ticksBuffedByBoth > 0 ? `
+          ${this._hasHaunt && this.ticksBuffedByBoth > 0 ? `
             <li>${this.ticksBuffedByBoth} ticks were buffed by both Reap Souls and Haunt (${formatPercentage(this.ticksBuffedByBoth/this.totalTicks)}%)</li>
           `: ""}
 
@@ -112,11 +112,11 @@ class UABuffTracker extends Module {
             <li>${this.ticksBuffedByReap} ticks were buffed by Reap Souls only (${formatPercentage(this.ticksBuffedByReap/this.totalTicks)}%)</li>
           `: ""}
 
-          ${this.hasMG && this.ticksBuffedByDrain > 0 ? `
+          ${this._hasMG && this.ticksBuffedByDrain > 0 ? `
             <li>${this.ticksBuffedByDrain} ticks were buffed by Drain Soul only (${formatPercentage(this.ticksBuffedByDrain/this.totalTicks)}%)</li>
           `: ""}
 
-          ${this.hasHaunt && this.ticksBuffedByHaunt > 0 ? `
+          ${this._hasHaunt && this.ticksBuffedByHaunt > 0 ? `
             <li>${this.ticksBuffedByHaunt} ticks were buffed by Haunt only (${formatPercentage(this.ticksBuffedByHaunt/this.totalTicks)}%)</li>
           `: ""}
 

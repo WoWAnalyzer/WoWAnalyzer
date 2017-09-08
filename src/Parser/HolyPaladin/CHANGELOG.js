@@ -1,4 +1,5 @@
 export default `
+07-09-2017 - Fix the cooldown of Light of Dawn in cast efficiency to take the tier 20 2 set into account. (by Zerotorescue)
 31-08-2017 - When going (near) OOM during a fight and the <i>IoL FoL to HL cast ratio</i> is low, emphasize that FoL is the more mana efficient spell during IoL. (by Zerotorescue)
 31-08-2017 - Added Justice through Sacrifice trait healing contribution display. (by Zerotorescue)
 29-08-2017 - Fixed a bug where the direct beacon healing also included casts of abilities such as Blessing of Sacrifice and Deceiver's Grand Design. (by Zerotorescue)
