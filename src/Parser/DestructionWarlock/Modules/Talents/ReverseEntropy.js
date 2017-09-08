@@ -41,7 +41,7 @@ class ReverseEntropy extends Module {
     );
   }
 
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(1);
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(2);
 }
 
 export default ReverseEntropy;

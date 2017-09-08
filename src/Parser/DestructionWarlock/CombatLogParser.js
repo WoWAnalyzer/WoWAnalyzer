@@ -15,6 +15,8 @@ import GrimoireOfService from './Modules/Features/GrimoireOfService';
 import ImmolateUptime from './Modules/Features/ImmolateUptime';
 
 import ReverseEntropy from './Modules/Talents/ReverseEntropy';
+import Eradication from './Modules/Talents/Eradication';
+import EradicationTalent from './Modules/Talents/EradicationTalent';
 import SoulShardEvents from './Modules/SoulShards/SoulShardEvents';
 import SoulShardTracker from './Modules/SoulShards/SoulShardTracker';
 import SoulShardDetails from './Modules/SoulShards/SoulShardDetails';
@@ -23,6 +25,7 @@ import DamageDone from './Modules/Features/DamageDone';
 import SoulHarvest from './Modules/Talents/SoulHarvest';
 import SoulHarvestTalent from './Modules/Talents/SoulHarvestTalent';
 
+import SoulOfTheNetherlord from './Modules/Items/Legendaries/SoulOfTheNetherlord';
 import TheMasterHarvester from './Modules/Items/Legendaries/TheMasterHarvester';
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -45,10 +48,13 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Talents
     reverseEntropy: ReverseEntropy,
+    eradication: Eradication,
+    eradicationTalent: EradicationTalent,
     soulHarvest: SoulHarvest,
     soulHarvestTalent: SoulHarvestTalent,
 
     //Legendaries
+    soulOfTheNetherlord: SoulOfTheNetherlord,
     masterHarvester: TheMasterHarvester,
 
     //Items
