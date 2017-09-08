@@ -14,6 +14,7 @@ import UnusedLordOfFlames from './Modules/Features/UnusedLordOfFlames';
 import GrimoireOfService from './Modules/Features/GrimoireOfService';
 import ImmolateUptime from './Modules/Features/ImmolateUptime';
 
+import ReverseEntropy from './Modules/Talents/ReverseEntropy';
 import SoulShardEvents from './Modules/SoulShards/SoulShardEvents';
 import SoulShardTracker from './Modules/SoulShards/SoulShardTracker';
 import SoulShardDetails from './Modules/SoulShards/SoulShardDetails';
@@ -43,6 +44,7 @@ class CombatLogParser extends CoreCombatLogParser {
     soulShardDetails: SoulShardDetails,
 
     //Talents
+    reverseEntropy: ReverseEntropy,
     soulHarvest: SoulHarvest,
     soulHarvestTalent: SoulHarvestTalent,
 
