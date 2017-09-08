@@ -68,6 +68,9 @@ class AlwaysBeCasting extends Module {
     }),
   };
 
+  static baseGcd = 1500;
+  static minimumGcd = 750;
+
   totalTimeWasted = 0;
   totalHealingTimeWasted = 0;
 
@@ -224,10 +227,9 @@ class AlwaysBeCasting extends Module {
   }
 
   static calculateGlobalCooldown(haste) {
-    // TODO: Extract 1500 to a static variable as the default is different in several specs
-    const gcd = 1500 / (1 + haste);
+    const gcd = this.baseGcd / (1 + haste);
     // Global cooldowns can't normally drop below a certain threshold
-    return Math.max(750, gcd);
+    return Math.max(this.minimumGcd, gcd);
   }
   static applyHasteGain(baseHaste, hasteGain) {
     return baseHaste * (1 + hasteGain) + hasteGain;
