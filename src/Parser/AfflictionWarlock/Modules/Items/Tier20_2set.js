@@ -21,9 +21,7 @@ class Tier20_2set extends Module {
   totalUAdamage = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.combatants.selected.hasBuff(SPELLS.WARLOCK_AFFLI_T20_2P_BONUS.id);
-    }
+    this.active = this.combatants.selected.hasBuff(SPELLS.WARLOCK_AFFLI_T20_2P_BONUS.id);
   }
 
   on_byPlayer_damage(event) {
