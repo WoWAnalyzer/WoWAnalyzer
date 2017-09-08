@@ -13,6 +13,7 @@ class EssenceOfGhanir extends Module {
   cultivation = 0;
   lifebloom = 0;
   regrowth = 0;
+  dreamer = 0;
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
@@ -40,6 +41,9 @@ class EssenceOfGhanir extends Module {
           if(event.tick === true){
             this.wildGrowth += event.amount/2;
           }
+          break;
+        case SPELLS.DREAMER.id:
+          this.dreamer += event.amount/2;
           break;
         default:
           console.error("EssenceOfGhanir: Error, could not identify this object as a HoT: %o", event);
