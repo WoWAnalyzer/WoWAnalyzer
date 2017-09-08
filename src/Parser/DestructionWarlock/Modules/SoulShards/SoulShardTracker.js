@@ -24,6 +24,10 @@ class SoulShardTracker extends Module {
       generated: 0,
       wasted: 0,
     },
+    [SPELLS.SHADOWBURN.id]: {
+      generated: 0,
+      wasted: 0,
+    },
     [SPELLS.INCINERATE.id]: {
       generated: 0,
       wasted: 0,
