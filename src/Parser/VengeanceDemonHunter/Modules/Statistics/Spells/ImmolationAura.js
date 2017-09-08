@@ -5,7 +5,7 @@ import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
-import Icon from 'common/Icon';
+import SpellIcon from 'common/SpellIcon';
 
 import { formatPercentage } from 'common/format';
 import { formatThousands } from 'common/format';
@@ -30,10 +30,10 @@ class ImmolationAura extends Module {
 
     return (
       <StatisticBox
-            icon={<Icon icon="ability_demonhunter_immolation" alt="Immolation Aura" />}
-            value={`${formatPercentage(immolationAuraUptimePercentage)}%`}
-            label='Immolation Aura Uptime'
-            tooltip={`The Immolation Aura total damage was ${formatThousands(this.immolationAuraDamage)}.<br/>The Immolation Aura total uptime was ${formatDuration(immolationAuraUptime / 1000)}.`}
+        icon={<SpellIcon id={SPELLS.IMMOLATION_AURA.id} />}
+        value={`${formatPercentage(immolationAuraUptimePercentage)}%`}
+        label='Immolation Aura Uptime'
+        tooltip={`The Immolation Aura total damage was ${formatThousands(this.immolationAuraDamage)}.<br/>The Immolation Aura total uptime was ${formatDuration(immolationAuraUptime / 1000)}.`}
       />
     );
   }
