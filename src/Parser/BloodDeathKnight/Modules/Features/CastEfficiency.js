@@ -23,7 +23,7 @@ class CastEfficiency extends CoreCastEfficiency {
         category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
         getCooldown: haste => 90,
         recommendedCastEfficiency: 0.75,
-        extraSuggestion: <span>Good self sustain CD. Weave it in regularly to reduce the strain on your healers. Save for a big hit if needed.</span>,
+        extraSuggestion: <span>Use this ability regularly to reduce the strain on your healers. Save it for a big hit if needed.</span>,
       },
 
       {
@@ -33,7 +33,7 @@ class CastEfficiency extends CoreCastEfficiency {
         getCooldown: haste => 120,
         recommendedCastEfficiency: 0.75,
         isActive: combatant => combatant.hasTalent(SPELLS.BLOOD_MIRROR_TALENT.id),
-        extraSuggestion: <span>Mostly used as a mix of dps and surviablity CD. Since it reflects damage back used at high damage times.</span>,
+        extraSuggestion: <span>Provides both damage and mitigation, use it as regularly as possible.</span>,
       },
 
       {
@@ -41,14 +41,14 @@ class CastEfficiency extends CoreCastEfficiency {
         category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
         getCooldown: haste => 7.5 / (1 + haste),
         recommendedCastEfficiency: 0.95,
-        extraSuggestion: <span>Should be casting it so you have atleast one recharging.</span>,
+        extraSuggestion: <span>Try to keep at least one charge of this ability on cooldown.</span>,
       },
       {
         spell: SPELLS.CONSUMPTION,
         category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
         getCooldown: haste => 45,
         recommendedCastEfficiency: 0.95,
-        extraSuggestion: <span>Should be casting this on CD for the dps unless your saving the leach for something or saving it for a pack of adds.</span>,
+        extraSuggestion: <span>Use this on cooldown unless you require the leech for a specific moment, such as add spawns.</span>,
       },
 
       {
@@ -56,7 +56,7 @@ class CastEfficiency extends CoreCastEfficiency {
         category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
         getCooldown: haste => 180,
         recommendedCastEfficiency: 0.75,
-        extraSuggestion: <span>Should be used as an openner and used on CD for the dps boost.</span>,
+        extraSuggestion: <span>Use this ability on the pull, and then on cooldown.</span>,
       },
 
       {
@@ -65,7 +65,7 @@ class CastEfficiency extends CoreCastEfficiency {
         getCooldown: haste => 30,
         recommendedCastEfficiency: 0.85,
         isActive: combatant => combatant.hasTalent(SPELLS.BLOODDRINKER_TALENT.id),
-        extraSuggestion: <span>Mostly used as a dps CD. Should be almost casted on CD. Good to use when your running to the boss or cant melee them.</span>,
+        extraSuggestion: <span>Use this on cooldown, you can also save it for a small time in case you need ranged damage.</span>,
       },
 
 
