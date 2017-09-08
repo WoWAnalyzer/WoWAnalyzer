@@ -17,6 +17,8 @@ import ImmolateUptime from './Modules/Features/ImmolateUptime';
 import ReverseEntropy from './Modules/Talents/ReverseEntropy';
 import Eradication from './Modules/Talents/Eradication';
 import EradicationTalent from './Modules/Talents/EradicationTalent';
+import EmpoweredLifeTap from './Modules/Talents/EmpoweredLifeTap';
+
 import SoulShardEvents from './Modules/SoulShards/SoulShardEvents';
 import SoulShardTracker from './Modules/SoulShards/SoulShardTracker';
 import SoulShardDetails from './Modules/SoulShards/SoulShardDetails';
@@ -50,6 +52,7 @@ class CombatLogParser extends CoreCombatLogParser {
     reverseEntropy: ReverseEntropy,
     eradication: Eradication,
     eradicationTalent: EradicationTalent,
+    empoweredLifeTap: EmpoweredLifeTap,
     soulHarvest: SoulHarvest,
     soulHarvestTalent: SoulHarvestTalent,
 
