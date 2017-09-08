@@ -299,6 +299,16 @@ export default {
     name: 'T20 4 set bonus',
     icon: 'inv_misc_herb_talandrasrose',
   },
+  RESTO_DRUID_T21_2SET_BONUS_BUFF: {
+    id: 251813,
+    name: 'T21 2 set bonus',
+    icon: 'ability_druid_cower',
+  },
+  RESTO_DRUID_T21_4SET_BONUS_BUFF: {
+    id: 251814,
+    name: 'T21 4 set bonus',
+    icon: 'ability_druid_cower',
+  },
   // Visible procs produced by set:
   ASTRAL_HARMONY: { // 2pc T19
     id: 232378,
