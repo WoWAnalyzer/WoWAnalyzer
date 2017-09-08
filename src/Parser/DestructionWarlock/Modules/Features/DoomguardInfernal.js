@@ -17,9 +17,7 @@ class DoomguardInfernal extends Module {
   };
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = !this.combatants.selected.hasTalent(SPELLS.GRIMOIRE_OF_SUPREMACY_TALENT.id);
-    }
+    this.active = !this.combatants.selected.hasTalent(SPELLS.GRIMOIRE_OF_SUPREMACY_TALENT.id);
   }
   
   suggestions(when) {

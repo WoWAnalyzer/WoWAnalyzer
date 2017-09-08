@@ -71,10 +71,8 @@ class SoulShardEvents extends Module {
   _expectedShadowburnDebuffEnds = []; //we can have up to 2 Shadowburn debuffs active on mobs (it has 2 charges)
 
   on_initialized() {
-    if (!this.owner.error) {
-      this._hasT20_2p = this.combatants.selected.hasBuff(SPELLS.WARLOCK_DESTRO_T20_2P_BONUS.id);
-      this._currentFragments = 30; //on the start of the fight we should have 3 soul shards (30 fragments) by default
-    }
+    this._hasT20_2p = this.combatants.selected.hasBuff(SPELLS.WARLOCK_DESTRO_T20_2P_BONUS.id);
+    this._currentFragments = 30; //on the start of the fight we should have 3 soul shards (30 fragments) by default
   }
 
   on_byPlayer_energize(event) {

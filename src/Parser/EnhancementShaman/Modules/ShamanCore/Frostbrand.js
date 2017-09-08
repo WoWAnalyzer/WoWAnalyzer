@@ -11,12 +11,10 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 class Frostbrand extends Module {
   static dependencies = {
     combatants: Combatants,
-  }
+  };
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.combatants.selected.hasTalent(SPELLS.HAILSTORM_TALENT.id);
-    }
+    this.active = this.combatants.selected.hasTalent(SPELLS.HAILSTORM_TALENT.id);
   }
 
   suggestions(when) {

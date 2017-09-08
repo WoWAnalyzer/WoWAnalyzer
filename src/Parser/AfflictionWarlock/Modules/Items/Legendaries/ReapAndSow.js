@@ -19,9 +19,7 @@ class ReapAndSow extends Module {
   totalTimeGained = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.combatants.selected.hasBack(ITEMS.REAP_AND_SOW.id);
-    }
+    this.active = this.combatants.selected.hasBack(ITEMS.REAP_AND_SOW.id);
   }
 
   on_byPlayer_applybuff(event) {

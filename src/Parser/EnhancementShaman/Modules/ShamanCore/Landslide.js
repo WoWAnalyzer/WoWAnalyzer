@@ -11,12 +11,10 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 class Landslide extends Module {
   static dependencies = {
     combatants: Combatants,
-  }
+  };
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.combatants.selected.hasTalent(SPELLS.LANDSLIDE_TALENT.id);
-    }
+    this.active = this.combatants.selected.hasTalent(SPELLS.LANDSLIDE_TALENT.id);
   }
 
   suggestions(when) {

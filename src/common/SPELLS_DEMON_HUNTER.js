@@ -39,7 +39,7 @@ export default {
     name :'Sever',
     icon: 'ability_demonhunter_manabreak',
   },
-
+  
   // Abilities:
   SOUL_FRAGMENT: {
     id: 204255,
