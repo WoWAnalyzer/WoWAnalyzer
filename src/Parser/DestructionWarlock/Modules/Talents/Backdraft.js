@@ -26,9 +26,7 @@ class Backdraft extends Module {
   wastedStacks = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.combatants.selected.hasTalent(SPELLS.BACKDRAFT_TALENT.id);
-    }
+    this.active = this.combatants.selected.hasTalent(SPELLS.BACKDRAFT_TALENT.id);
   }
 
   on_byPlayer_cast(event) {
