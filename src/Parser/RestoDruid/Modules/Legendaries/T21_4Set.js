@@ -4,14 +4,9 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
-import { formatPercentage } from 'common/format';
-
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-import Mastery from '../Features/Mastery';
-
-// TODO check to make sure "400% more frequently" really does mean 'Five times as often'
 const T21_4SET_YSERAS_BOOST = 5;
 
 class T21_4Set extends Module {
@@ -31,19 +26,11 @@ class T21_4Set extends Module {
 
     if(this.combatants.selected.hasBuff(SPELLS.AWAKENED.id) && (spellId === SPELLS.YSERAS_GIFT_1.id || spellId === SPELLS.YSERAS_GIFT_2.id)) {
       this.yserasDuringAwakenedHealing += amount;
-      console.log("YG w/ Awake : " + amount + " @ " + event.timestamp);
-    }
-
-    if(!this.combatants.selected.hasBuff(SPELLS.AWAKENED.id) && (spellId === SPELLS.YSERAS_GIFT_1.id || spellId === SPELLS.YSERAS_GIFT_2.id)) {
-      console.log("YG : " + amount + " @ " + event.timestamp);
     }
   }
 
   item() {
     const t21_4set_healing = this.yserasDuringAwakenedHealing * (1 - (1 / T21_4SET_YSERAS_BOOST));
-
-    console.log("Yseras during Awakened : " + this.yserasDuringAwakenedHealing);
-    console.log("T21 4pc : " + t21_4set_healing);
 
     return {
       id: `spell-${SPELLS.RESTO_DRUID_T21_4SET_BONUS_BUFF.id}`,
