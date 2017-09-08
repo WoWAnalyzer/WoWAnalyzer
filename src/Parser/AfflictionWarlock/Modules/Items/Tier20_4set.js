@@ -18,9 +18,7 @@ class Tier20_4set extends Module {
   bonusDmg = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.combatants.selected.hasBuff(SPELLS.WARLOCK_AFFLI_T20_4P_BONUS.id);
-    }
+    this.active = this.combatants.selected.hasBuff(SPELLS.WARLOCK_AFFLI_T20_4P_BONUS.id);
   }
 
   on_byPlayer_damage(event) {

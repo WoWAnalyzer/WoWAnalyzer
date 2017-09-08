@@ -18,9 +18,7 @@ class PowerCordOfLethtendris extends Module {
   totalDamage = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.combatants.selected.hasWaist(ITEMS.POWER_CORD_OF_LETHTENDRIS.id);
-    }
+    this.active = this.combatants.selected.hasWaist(ITEMS.POWER_CORD_OF_LETHTENDRIS.id);
   }
 
   on_byPlayer_damage(event) {
