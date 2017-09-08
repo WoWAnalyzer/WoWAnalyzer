@@ -537,6 +537,18 @@ const ITEMS = {
     icon: 'inv_archaeology_70_demon_flayedskinchronicle',
     quality: ITEM_QUALITIES.EPIC,
   },
+  CHALICE_OF_MOONLIGHT: {
+    id: 147005,
+    name: 'Chalice of Moonlight',
+    icon: 'inv_offhand_pvealliance_d_01',
+    quality: ITEM_QUALITIES.EPIC,
+  },
+  CHARM_OF_THE_RISING_TIDE: {
+    id: 147002,
+    name: 'Charm of the Rising Tide',
+    icon: 'inv_7_0raid_trinket_04a',
+    quality: ITEM_QUALITIES.EPIC,
+  },
   // Guardian legendaries
   ELIZES_EVERLASTING_ENCASEMENT: {
     id: 137067,
@@ -608,6 +620,7 @@ const ITEMS = {
     icon: 'inv_jewelry_ring_138',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+
 };
 
 export default indexById(ITEMS);
