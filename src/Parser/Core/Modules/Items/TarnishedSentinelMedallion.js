@@ -9,13 +9,12 @@ class TarnishedSentinelMedallion extends Module {
   static dependencies = {
     combatants: Combatants,
   };
+
   damage = 0;
   damageAbilities = new Set([SPELLS.SPECTRAL_BOLT.id, SPELLS.SPECTRAL_BLAST.id]);
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.combatants.selected.hasTrinket(ITEMS.TARNISHED_SENTINEL_MEDALLION.id);
-    }
+    this.active = this.combatants.selected.hasTrinket(ITEMS.TARNISHED_SENTINEL_MEDALLION.id);
   }
 
   on_byPlayer_damage(event) {
