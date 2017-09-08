@@ -12,7 +12,7 @@ import BoneShieldUptime from './Modules/Features/BoneShieldUptime';
 import OssuaryUptime from './Modules/Features/OssuaryUptime';
 import WastedDeathAndDecay from './Modules/Features/WastedDeathAndDecay';
 import RPWasted from './Modules/Features/RunicPowerWasted';
-
+import BlooddrinkerTicks from './Modules/Features/BlooddrinkerTicks';
 
 class CombatLogParser extends CoreCombatLogParser {
 
@@ -28,6 +28,7 @@ class CombatLogParser extends CoreCombatLogParser {
     OssuaryUptime: OssuaryUptime,
     WastedDeathAndDecay: WastedDeathAndDecay,
     RunicPowerWasted: RPWasted,
+    BlooddrinkerTicks: BlooddrinkerTicks,
 
     //DOT
     bloodplagueUptime: BloodPlagueUptime,

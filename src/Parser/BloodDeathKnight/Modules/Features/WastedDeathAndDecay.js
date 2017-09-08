@@ -1,7 +1,7 @@
 import React from 'react';
 import Module from 'Parser/Core/Module';
 import SPELLS from 'common/SPELLS';
-import Icon from 'common/Icon';
+import SpellIcon from 'common/SpellIcon';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -45,7 +45,7 @@ class WastedDeathAndDecay  extends Module {
     this.WastedDeathAndDecays=this.CrimsonScourgeProcsCounter - this.FreeDeathAndDecayCounter;
     return (
       <StatisticBox
-        icon={<Icon icon="spell_shadow_deathanddecay" alt="Wasted Death and Decays" />}
+        icon={<SpellIcon id={SPELLS.CRIMSON_SCOURGE.id} />}
         value={this.WastedDeathAndDecays}
         label='Wasted Death and Decays'
         tooltip={'You let a Crimson Scorge Proc expire without casting Death and Decay.'}
