@@ -14,16 +14,14 @@ const FURY_ID = SPELLS.FURY_OF_AIR_TALENT.id;
 class FuryOfAir extends Module {
   static dependencies = {
     combatants: Combatants,
-  }
+  };
 
   furyUptime = 0;
   maelstromUsed = 0;
   applyTime = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.combatants.selected.hasTalent(SPELLS.FURY_OF_AIR_TALENT.id);
-    }
+    this.active = this.combatants.selected.hasTalent(SPELLS.FURY_OF_AIR_TALENT.id);
   }
 
   on_byPlayer_applybuff(event) {

@@ -65,11 +65,9 @@ class SoulShardEvents extends Module {
   _currentFragments = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this._hasT20_2p = this.combatants.selected.hasBuff(SPELLS.WARLOCK_DESTRO_T20_2P_BONUS.id);
-      this._currentFragments = 30; //on the start of the fight we should have 3 soul shards (30 fragments) by default
-      debug && console.log("start fragments " + this._currentFragments);
-    }
+    this._hasT20_2p = this.combatants.selected.hasBuff(SPELLS.WARLOCK_DESTRO_T20_2P_BONUS.id);
+    this._currentFragments = 30; //on the start of the fight we should have 3 soul shards (30 fragments) by default
+    debug && console.log("start fragments " + this._currentFragments);
   }
 
   on_byPlayer_energize(event) {

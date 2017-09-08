@@ -9,12 +9,11 @@ class TerrorFromBelow extends Module {
   static dependencies = {
     combatants: Combatants,
   };
+
   bonusDmg = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.combatants.selected.hasTrinket(ITEMS.TERROR_FROM_BELOW.id);
-    }
+    this.active = this.combatants.selected.hasTrinket(ITEMS.TERROR_FROM_BELOW.id);
   }
 
   on_byPlayer_damage(event) {

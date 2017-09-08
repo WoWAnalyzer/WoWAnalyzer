@@ -9,12 +9,11 @@ class KiljaedensBurningWish extends Module {
   static dependencies = {
     combatants: Combatants,
   };
+
   bonusDmg = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.combatants.selected.hasTrinket(ITEMS.KILJAEDENS_BURNING_WISH.id);
-    }
+    this.active = this.combatants.selected.hasTrinket(ITEMS.KILJAEDENS_BURNING_WISH.id);
   }
 
   on_byPlayer_damage(event) {
