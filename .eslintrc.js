@@ -16,6 +16,8 @@ module.exports = {
     }],
     'one-var': ['warn', 'never'],
     'one-var-declaration-per-line': ['warn', 'always'],
+    // https://github.com/airbnb/javascript#comparison--switch-blocks
+    'no-case-declarations': 'warn',
 
     // PropTypes:
     'react/prop-types': ['warn', { ignore: [], customValidators: [] }],

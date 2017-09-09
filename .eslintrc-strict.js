@@ -28,6 +28,7 @@ module.exports = {
     // Imports:
     'import/first': ['warn', 'absolute-first'],
 
+    // https://github.com/airbnb/javascript#variables--unary-increment-decrement
     'no-plusplus': 'warn',
   },
 };

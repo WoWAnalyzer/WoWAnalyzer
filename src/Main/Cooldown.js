@@ -233,7 +233,7 @@ class Cooldown extends React.Component {
                         </div>
                       );
                     }
-                    case BUILT_IN_SUMMARY_TYPES.MANA:
+                    case BUILT_IN_SUMMARY_TYPES.MANA: {
                       const manaUsed = cooldown.events.filter(event => event.type === 'cast').reduce((total, event) => total + (event.manaCost || 0), 0);
                       return (
                         <div className="col-md-4 text-center" key="mana">
@@ -241,7 +241,8 @@ class Cooldown extends React.Component {
                           mana used
                         </div>
                       );
-                    case BUILT_IN_SUMMARY_TYPES.DAMAGE:
+                    }
+                    case BUILT_IN_SUMMARY_TYPES.DAMAGE: {
                       const damageStatistics = this.calculateDamageStatistics(cooldown);
                       return (
                         <div className="col-md-4 text-center" key="damage">
@@ -249,6 +250,7 @@ class Cooldown extends React.Component {
                           <dfn data-tip="This number represents the total amount of damage done during the duration of this cooldown, any damage done by DOTs after the effect of this cooldown has exprired will not be included in this statistic.">damage ({formatNumber(damageStatistics.damageDone / (end - start) * 1000)} DPS)</dfn>
                         </div>
                       );
+                    }
                     default:
                       // Custom
                       return (
