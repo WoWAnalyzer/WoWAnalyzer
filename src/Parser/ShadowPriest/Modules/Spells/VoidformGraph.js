@@ -89,7 +89,7 @@ const VoidformGraph = ({
     const fillData = (array, eventStart, eventEnd, data=false) => {
       const amountOfSteps = Math.round((eventEnd - eventStart)/RESOLUTION_MS);
       const startStep = atLabel(eventStart);
-      for(let i = 0; i < amountOfSteps; i++){
+      for(let i = 0; i < amountOfSteps; i += 1){
         if(eventStart + i * RESOLUTION_MS >= voidform.ended) break;
         array[startStep+i] = data ? data : stacksData[startStep+i];
       }
@@ -118,7 +118,7 @@ const VoidformGraph = ({
     });
 
     // fill in dispersion gaps & 100s+ voidforms:
-    for (let i = 0; i <= steps; i++){
+    for (let i = 0; i <= steps; i += 1){
       if(stacksData[i] === null && (i * RESOLUTION_MS) + voidform.start < voidform.ended) stacksData[i] = stacksData[i-1];
     }
 
@@ -135,7 +135,7 @@ const VoidformGraph = ({
 
     let currentDrain = INSANITY_DRAIN_START;
     let lastestDrainIncrease = 0;
-    for(let i = 0; i < steps; i++){
+    for(let i = 0; i < steps; i += 1){
       // set drain to 0 if voidform ended:
       if(voidFormIsOver(i)){
         currentDrain = 0;
@@ -160,10 +160,10 @@ const VoidformGraph = ({
     insanityEvents.forEach(event => insanityData[atLabel(event.timestamp)] = event.classResources[0].amount);
 
     let latestInsanityDataAt = 0;
-    for(let i = 0; i < steps; i++){
+    for(let i = 0; i < steps; i += 1){
       if(insanityData[i] === null){
         insanityData[i] = insanityData[latestInsanityDataAt];
-        for(let j = latestInsanityDataAt; j <= i; j++){
+        for(let j = latestInsanityDataAt; j <= i; j += 1){
 
           if(dispersionData[j] === null && voidTorrentData[j] === null)
             insanityData[i] -= insanityDrain[j] /(1000/RESOLUTION_MS);

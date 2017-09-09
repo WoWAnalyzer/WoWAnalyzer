@@ -170,7 +170,7 @@ class Pain extends React.PureComponent {
             wasted: 0,
           };
         }
-        abilitiesAll[event.ability.guid + '_spend'].casts++;
+        abilitiesAll[event.ability.guid + '_spend'].casts += 1;
         const lastPain = lastSecFight === secIntoFight ? painBySecond[lastSecFight-1] : painBySecond[lastSecFight];
         const spendResource = (spell.painCost !== undefined) ? spell.painCost : (spell.max_pain < lastPain ? spell.max_pain : lastPain);
         abilitiesAll[event.ability.guid + '_spend'].spent += spendResource;
@@ -190,7 +190,7 @@ class Pain extends React.PureComponent {
             wasted: 0,
           };
         }
-        abilitiesAll[event.ability.guid + '_gen'].casts++;
+        abilitiesAll[event.ability.guid + '_gen'].casts += 1;
         abilitiesAll[event.ability.guid + '_gen'].created += event.resourceChange;
         abilitiesAll[event.ability.guid + '_gen'].wasted += event.waste;
       }

@@ -33,7 +33,7 @@ class GuardianOfElune extends Module {
     if (SPELLS.GUARDIAN_OF_ELUNE.id === spellId) {
       this.lastGoEProcTime = event.timestamp;
       debug && console.log('Guardian of Elune applied');
-      this.GoEProcsTotal++;
+      this.GoEProcsTotal += 1;
     }
   }
 
@@ -43,8 +43,8 @@ class GuardianOfElune extends Module {
       // Captured Overwritten GoE Buffs for use in wasted buff calculations
       this.lastGoEProcTime = event.timestamp;
       debug && console.log('Guardian of Elune Overwritten');
-      this.GoEProcsTotal++;
-      this.overwrittenGoEProc++;
+      this.GoEProcsTotal += 1;
+      this.overwrittenGoEProc += 1;
     }
   }
 
@@ -57,15 +57,15 @@ class GuardianOfElune extends Module {
     {
       if(this.lastGoEProcTime !== event.timestamp) {
         if(this.lastGoEProcTime === null) {
-          this.nonGoEIronFur++;
+          this.nonGoEIronFur += 1;
           return;
         }
         const GoETimeframe = this.lastGoEProcTime + GoE_DURATION;
         if(event.timestamp > GoETimeframe) {
-          this.nonGoEIronFur++;
+          this.nonGoEIronFur += 1;
         } else {
-          this.consumedGoEProc++;
-          this.GoEIronFur++;
+          this.consumedGoEProc += 1;
+          this.GoEIronFur += 1;
           debug && console.log('Guardian of Elune Proc Consumed / Timestamp: ' + event.timestamp);
           this.lastGoEProcTime = null;
         }
@@ -75,15 +75,15 @@ class GuardianOfElune extends Module {
     {
       if(this.lastGoEProcTime !== event.timestamp) {
         if(this.lastGoEProcTime === null) {
-          this.nonGoEFRegen++;
+          this.nonGoEFRegen += 1;
           return;
         }
         const GoETimeframe = this.lastGoEProcTime + GoE_DURATION;
         if(event.timestamp > GoETimeframe) {
-          this.nonGoEFRegen++;
+          this.nonGoEFRegen += 1;
         } else {
-          this.consumedGoEProc++;
-          this.GoEFRegen++;
+          this.consumedGoEProc += 1;
+          this.GoEFRegen += 1;
           debug && console.log('Guardian of Elune Proc Consumed / Timestamp: ' + event.timestamp);
           this.lastGoEProcTime = null;
         }

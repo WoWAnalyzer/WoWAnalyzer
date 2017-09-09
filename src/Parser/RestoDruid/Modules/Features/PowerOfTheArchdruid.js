@@ -22,7 +22,7 @@ class PowerOfTheArchdruid extends Module {
     if (SPELLS.POWER_OF_THE_ARCHDRUID_BUFF.id !== spellId) {
       return;
     }
-    this.proccs++;
+    this.proccs += 1;
 
     // Our 4PT19 can procc PotA
     if(this.lastPotaRemovedTimestamp !== null && Math.abs(event.timestamp-this.lastPotaRemovedTimestamp) < 32) {
@@ -69,7 +69,7 @@ class PowerOfTheArchdruid extends Module {
       if(this.potaRegrowthCounter > 0) {
         this.healing += event.amount;
       }
-      this.potaRegrowthCounter++;
+      this.potaRegrowthCounter += 1;
       if(this.potaRegrowthCounter === 3) {
         this.lastPotaRegrowthTimestamp = null;
         this.potaRegrowthCounter = 0;

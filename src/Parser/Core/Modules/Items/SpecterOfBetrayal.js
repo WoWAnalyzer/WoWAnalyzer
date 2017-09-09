@@ -20,8 +20,7 @@ class SpecterOfBetrayal extends Module {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.SUMMON_DREAD_REFLECTION.id) {
-      this.totalCast++;
-      return;
+      this.totalCast += 1;
     }
   }
 

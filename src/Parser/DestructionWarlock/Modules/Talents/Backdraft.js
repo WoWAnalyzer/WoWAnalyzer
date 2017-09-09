@@ -46,7 +46,7 @@ class Backdraft extends Module {
     if (event.ability.guid !== SPELLS.BACKDRAFT.id) {
       return;
     }
-    this._currentStacks--;
+    this._currentStacks -= 1;
   }
 
   on_toPlayer_removebuff(event) {

@@ -60,7 +60,7 @@ class Atonement extends Module {
 
     this.currentAtonementTargets = this.currentAtonementTargets.filter(id => id.target !== atonement.target);
     this.currentAtonementTargets.push(atonement);
-    this.totalAtones++;
+    this.totalAtones += 1;
     debug && console.log(`%c${this.combatants.players[atonement.target].name} gained an atonement`, 'color:green', this.currentAtonementTargets);
     this.owner.triggerEvent('atonement_applied', event);
   }
@@ -95,8 +95,8 @@ class Atonement extends Module {
     this.currentAtonementTargets = this.currentAtonementTargets.filter(item => item.target !== atonement.target);
     this.currentAtonementTargets.push(atonement);
 
-    this.totalAtones++;
-    this.totalAtonementRefreshes++;
+    this.totalAtones += 1;
+    this.totalAtonementRefreshes += 1;
     debug && console.log(`%c${this.combatants.players[atonement.target].name} refreshed an atonement`, 'color:orange', this.currentAtonementTargets);
     this.owner.triggerEvent('atonement_refresh', event);
   }

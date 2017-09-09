@@ -38,11 +38,11 @@ class IronSkinBrew extends Module {
   on_toPlayer_damage(event) {
     if (event.ability.guid !== SPELLS.STAGGER_TAKEN.id) {
       if (this.lastIronSkinBrewBuffApplied > 0) {
-        this.hitsWithIronSkinBrew++;
+        this.hitsWithIronSkinBrew += 1;
         this.damageWithIronSkinBrew += event.amount + (event.absorbed || 0) + (event.overkill || 0);
       }
       else {
-        this.hitsWithoutIronSkinBrew++;
+        this.hitsWithoutIronSkinBrew += 1;
         this.damageWithoutIronSkinBrew += event.amount + (event.absorbed || 0) + (event.overkill || 0);
       }
     }

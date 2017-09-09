@@ -36,12 +36,12 @@ class RenewingMist extends Module {
       } else {
         debug && console.log('REM Applied without Cast / Jump. Timestamp: ' + event.timestamp);
         debug && console.log('Target ID ' + event.targetID);
-        this.dancingMistProc++;
+        this.dancingMistProc += 1;
         this.dancingMistTarget.push(event.targetID);
         debug && console.log('Dancing Mist Targets: ' + this.dancingMistTarget);
       }
       this.remApplyTimestamp = event.timestamp;
-      this.remCount++;
+      this.remCount += 1;
     }
   }
 
@@ -58,7 +58,7 @@ class RenewingMist extends Module {
     });
     if(spellId === SPELLS.RENEWING_MIST_HEAL.id) {
       this.remRemoveTimestamp = event.timestamp;
-      this.remCount--;
+      this.remCount -= 1;
     }
   }
 
@@ -68,10 +68,10 @@ class RenewingMist extends Module {
     if(spellId === SPELLS.RENEWING_MIST.id || spellId === SPELLS.LIFE_COCOON.id) {
       // Added because the buff application for REM can occur either before or after the cast.
       if(event.timestamp === this.remApplyTimestamp) {
-        this.dancingMistProc--;
+        this.dancingMistProc -= 1;
         debug && console.log('Dancing Mist Proc Removed / Timestamp: ' + event.timestamp);
       }
-      this.castsREM++;
+      this.castsREM += 1;
       this.remCastTimestamp = event.timestamp;
     }
   }
@@ -80,7 +80,7 @@ class RenewingMist extends Module {
     const spellId = event.ability.guid;
 
     if(spellId === SPELLS.RENEWING_MIST_HEAL.id) {
-      this.remTicks++;
+      this.remTicks += 1;
       this.dancingMistTarget.forEach(targetID => {
         if(event.targetID === targetID) {
           debug && console.log('Dancing Mist Heal on: ' + targetID);

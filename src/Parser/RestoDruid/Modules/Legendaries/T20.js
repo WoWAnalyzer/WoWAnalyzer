@@ -38,7 +38,7 @@ class T20 extends Module {
       const hpPercentage = (event.hitPoints - event.amount)/event.maxHitPoints;
       const cooldownReduction = (T20P2_MAX_SWIFTMEND_REDUCTION - (hpPercentage * T20P2_MAX_SWIFTMEND_REDUCTION));
       this.swiftmendReduced += this.swiftmendCooldown * cooldownReduction;
-      this.swiftmends++;
+      this.swiftmends += 1;
       this.freeSwiftmends = this.swiftmendReduced/this.swiftmendCooldown;
       this.swiftmendHealing += event.amount;
     }

@@ -12,7 +12,7 @@ class AstralPower extends Module {
   aspWasted = 0;
 
   on_toPlayer_energize(event) {
-      for (let i = 0; i < event.classResources.length; i++) {
+      for (let i = 0; i < event.classResources.length; i += 1) {
           if (event.classResources[i].type === ResourceTypes.ASTRAL_POWER){
               const maxAsP = event.classResources[i].max;
               const addedAsP = event.resourceChange * 10;
@@ -32,7 +32,7 @@ class AstralPower extends Module {
           return;
       }
       
-      for (let i = 0; i<event.classResources.length; i++) {
+      for (let i = 0; i<event.classResources.length; i += 1) {
           if (event.classResources[i].type === ResourceTypes.ASTRAL_POWER){
               if (event.classResources[i].cost) {
                   this.lastAstral = this.lastAstral - (event.classResources[i].cost);

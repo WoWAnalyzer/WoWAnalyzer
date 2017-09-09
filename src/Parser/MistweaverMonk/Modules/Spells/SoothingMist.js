@@ -20,7 +20,7 @@ class SoothingMist extends Module {
     const spellId = event.ability.guid;
 
     if(spellId === SPELLS.SOOTHING_MIST.id) {
-      this.soomTicks++;
+      this.soomTicks += 1;
     }
   }
 

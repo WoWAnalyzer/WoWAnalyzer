@@ -38,21 +38,21 @@ class Lifecycles extends Module {
     if(spellId === SPELLS.VIVIFY.id && this.combatants.selected.hasBuff(SPELLS.LIFECYCLES_VIVIFY_BUFF.id)) {
       this.manaSaved += (baseMana * SPELLS.VIVIFY.manaPerc) * (SPELLS.LIFECYCLES_VIVIFY_BUFF.manaPercRed);
       this.manaSavedViv += (baseMana * SPELLS.VIVIFY.manaPerc) * (SPELLS.LIFECYCLES_VIVIFY_BUFF.manaPercRed);
-      this.castsRedViv++;
+      this.castsRedViv += 1;
       debug && console.log('Viv Reduced');
     }
     if(spellId === SPELLS.VIVIFY.id && !this.combatants.selected.hasBuff(SPELLS.LIFECYCLES_VIVIFY_BUFF.id)) {
-      this.castsNonRedViv++;
+      this.castsNonRedViv += 1;
     }
     // Checking to ensure player has cast Enveloping Mists and has the mana reduction buff
     if(spellId === SPELLS.ENVELOPING_MISTS.id && this.combatants.selected.hasBuff(SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.id)) {
       this.manaSaved += (baseMana * SPELLS.ENVELOPING_MISTS.manaPerc) * (SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed);
       this.manaSavedEnm += (baseMana * SPELLS.ENVELOPING_MISTS.manaPerc) * (SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed);
-      this.castsRedEnm++;
+      this.castsRedEnm += 1;
       debug && console.log('ENM Reduced');
     }
     if(spellId === SPELLS.ENVELOPING_MISTS.id && !this.combatants.selected.hasBuff(SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.id)) {
-      this.castsNonRedEnm++;
+      this.castsNonRedEnm += 1;
     }
   }
 

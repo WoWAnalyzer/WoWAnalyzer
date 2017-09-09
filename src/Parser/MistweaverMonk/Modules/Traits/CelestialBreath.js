@@ -26,7 +26,7 @@ class CelestialBreath extends Module {
     const spellId = event.ability.guid;
 
     if(spellId === SPELLS.CELESTIAL_BREATH_BUFF.id) {
-      this.procsCelestialBreath++;
+      this.procsCelestialBreath += 1;
     }
   }
 
@@ -34,7 +34,7 @@ class CelestialBreath extends Module {
     const spellId = event.ability.guid;
 
     if(spellId === SPELLS.CELESTIAL_BREATH.id) {
-      this.healsCelestialBreath++;
+      this.healsCelestialBreath += 1;
       this.healingCelestialBreath += event.amount;
       if(event.overheal) {
         this.overhealingCelestialBreath += event.overheal;

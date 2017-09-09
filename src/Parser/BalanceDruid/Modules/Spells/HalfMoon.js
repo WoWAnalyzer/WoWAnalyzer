@@ -33,7 +33,7 @@ class HalfMoon extends Module {
         }
 
         if (spellId !== SPELLS.HALF_MOON.id)
-            this.halfMoonOrder ++;
+            this.halfMoonOrder  += 1;
         else
             this.orderFound = true;
     }
@@ -47,7 +47,7 @@ class HalfMoon extends Module {
         let hmAvailableCasts = eachMoon + 1;
 
         const extraMoons = ((totalFromCD / 3) - eachMoon) * 3;
-        if (extraMoons > this.halfMoonOrder) hmAvailableCasts ++;
+        if (extraMoons > this.halfMoonOrder) hmAvailableCasts  += 1;
 
         const hmCasted = abilityTracker.getAbility(SPELLS.HALF_MOON.id).casts;
 
@@ -72,7 +72,7 @@ class HalfMoon extends Module {
         let hmAvailableCasts = eachMoon + 1;
 
         const extraMoons = ((totalFromCD / 3) - eachMoon) * 3;
-        if (extraMoons > this.halfMoonOrder) hmAvailableCasts ++;
+        if (extraMoons > this.halfMoonOrder) hmAvailableCasts  += 1;
 
         const hmCasted = abilityTracker.getAbility(SPELLS.HALF_MOON.id).casts;
         

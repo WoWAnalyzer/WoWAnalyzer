@@ -24,7 +24,7 @@ class MistsOfSheilun extends Module {
     const spellId = event.ability.guid;
 
     if(spellId === SPELLS.MISTS_OF_SHEILUN_BUFF.id) {
-      this.procsMistsOfSheilun++;
+      this.procsMistsOfSheilun += 1;
     }
   }
 
@@ -32,7 +32,7 @@ class MistsOfSheilun extends Module {
     const spellId = event.ability.guid;
 
     if(spellId === SPELLS.MISTS_OF_SHEILUN.id) {
-      this.healsMistsOfSheilun++;
+      this.healsMistsOfSheilun += 1;
       this.healingMistsOfSheilun += event.amount;
       if(event.overheal) {
         this.overhealingMistsOfSheilun += event.overheal;

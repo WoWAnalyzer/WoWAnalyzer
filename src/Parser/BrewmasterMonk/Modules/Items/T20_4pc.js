@@ -46,7 +46,7 @@ class T20_4pc extends Module {
       const currentStagger = this.lastStaggerTick * this.staggerLength;
       this.staggerSaved += currentStagger - (currentStagger * T20_4PC_REDUCTION);
       this.lastStaggerTick *= T20_4PC_REDUCTION;
-      this.orbsEaten++;
+      this.orbsEaten += 1;
     }
   }
 

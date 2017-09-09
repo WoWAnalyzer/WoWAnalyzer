@@ -40,7 +40,7 @@ class RoaringBlaze extends Module {
       if (!enemy || !enemy.hasBuff(SPELLS.IMMOLATE_DEBUFF.id, event.timestamp)) {
         return;
       }
-      this._currentBonus++;
+      this._currentBonus += 1;
     }
   }
 

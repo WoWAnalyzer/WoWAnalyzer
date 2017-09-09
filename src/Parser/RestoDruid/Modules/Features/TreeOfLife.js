@@ -86,32 +86,32 @@ class TreeOfLife extends Module {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     if (SPELLS.REJUVENATION.id === spellId) {
-      this.totalRejuvenationsEncounter++;
+      this.totalRejuvenationsEncounter += 1;
     }
 
     if (this.owner.modules.combatants.selected.hasBuff(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id)) {
       if (this.tolManualApplyTimestamp !== null && event.timestamp <= this.tolManualApplyTimestamp + TREE_OF_LIFE_DURATION) {
         if (SPELLS.REJUVENATION.id === spellId) {
-          this.totalRejuvenationsDuringToL++;
+          this.totalRejuvenationsDuringToL += 1;
         }
       } else {
         if (SPELLS.REJUVENATION.id === spellId) {
-          this.totalRejuvenationsDuringToLHelmet++;
+          this.totalRejuvenationsDuringToLHelmet += 1;
         }
       }
     }
 
     if (SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id === spellId && (this.tolManualApplyTimestamp === null || (this.tolManualApplyTimestamp + TREE_OF_LIFE_COOLDOWN) < event.timestamp)) {
       this.tolManualApplyTimestamp = event.timestamp;
-      this.tolCasts++;
-      this.proccs--;
+      this.tolCasts += 1;
+      this.proccs -= 1;
     }
   }
 
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
     if (SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id === spellId) {
-      this.proccs++;
+      this.proccs += 1;
     }
   }
 

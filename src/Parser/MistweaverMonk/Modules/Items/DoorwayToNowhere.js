@@ -30,7 +30,7 @@ class DoorwayToNowhere extends Module {
       if(spellId === SPELLS.DOORWAY_TO_NOWHERE_SUMMON.id) {
         this.doorwayActive = event.timestamp;
         this.petID = event.targetID;
-        this.doorwayProc++;
+        this.doorwayProc += 1;
       }
 
       if(spellId === SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id) {

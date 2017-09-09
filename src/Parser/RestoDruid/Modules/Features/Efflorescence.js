@@ -33,7 +33,7 @@ class Efflorescence extends Module {
     this.firstEffloTickTimestamp = this.owner.fight.end_time;
 
     debug && console.log("Uptime: " + this.totalUptime);
-    this.counter++;
+    this.counter += 1;
   }
 
   // Incase the player pre-cast efflorescence before the encounter, we need

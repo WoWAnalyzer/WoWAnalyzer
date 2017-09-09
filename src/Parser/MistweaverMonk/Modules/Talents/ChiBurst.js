@@ -30,7 +30,7 @@ class ChiBurst extends Module {
     const spellId = event.ability.guid;
 
     if(spellId === SPELLS.CHI_BURST_TALENT.id) {
-      this.castChiBurst++;
+      this.castChiBurst += 1;
     }
   }
 
@@ -44,7 +44,7 @@ class ChiBurst extends Module {
 
     if(spellId === SPELLS.CHI_BURST_HEAL.id) {
       this.healing += (event.amount || 0) + (event.absorbed || 0);
-      this.targetsChiBurst++;
+      this.targetsChiBurst += 1;
     }
   }
 

@@ -15,7 +15,7 @@ class EssenceFontMastery extends Module {
     const spellId = event.ability.guid;
 
     if(spellId === SPELLS.ESSENCE_FONT.id) {
-      this.castEF++;
+      this.castEF += 1;
     }
   }
 
@@ -23,7 +23,7 @@ class EssenceFontMastery extends Module {
     const spellId = event.ability.guid;
 
     if(spellId === SPELLS.ESSENCE_FONT_BUFF.id) {
-      this.targetsEF++;
+      this.targetsEF += 1;
     }
   }
 
@@ -31,7 +31,7 @@ class EssenceFontMastery extends Module {
     const spellId = event.ability.guid;
 
     if(spellId === SPELLS.ESSENCE_FONT_BUFF.id) {
-      this.targetsEF++;
+      this.targetsEF += 1;
     }
   }
 

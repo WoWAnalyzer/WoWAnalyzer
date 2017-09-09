@@ -27,7 +27,7 @@ class RefreshingJadeWind extends Module {
     const spellId = event.ability.guid;
 
     if(spellId === SPELLS.REFRESHING_JADE_WIND_TALENT.id) {
-      this.castRJW++;
+      this.castRJW += 1;
     }
   }
 
@@ -35,7 +35,7 @@ class RefreshingJadeWind extends Module {
     const spellId = event.ability.guid;
 
     if(spellId === SPELLS.REFRESHING_JADE_WIND_HEAL.id) {
-      this.healsRJW++;
+      this.healsRJW += 1;
       this.healingRJW += event.amount;
       if(event.overheal) {
         this.overhealingRJW += event.amount;

@@ -33,7 +33,7 @@ class NewMoon extends Module {
         }
 
         if (spellId !== SPELLS.NEW_MOON.id)
-            this.newMoonOrder ++;
+            this.newMoonOrder += 1;
         else
             this.orderFound = true;
     }
@@ -47,7 +47,7 @@ class NewMoon extends Module {
         let nmAvailableCasts = eachMoon + 1;
 
         const extraMoons = ((totalFromCD / 3) - eachMoon) * 3;
-        if (extraMoons > this.newMoonOrder) nmAvailableCasts ++;
+        if (extraMoons > this.newMoonOrder) nmAvailableCasts += 1;
 
         const nmCasted = abilityTracker.getAbility(SPELLS.NEW_MOON.id).casts;
         const percCasted = nmCasted / nmAvailableCasts;
@@ -71,7 +71,7 @@ class NewMoon extends Module {
         let nmAvailableCasts = eachMoon + 1;
         
         const extraMoons = ((totalFromCD / 3) - eachMoon) * 3;
-        if (extraMoons > this.newMoonOrder) nmAvailableCasts ++;
+        if (extraMoons > this.newMoonOrder) nmAvailableCasts += 1;
 
         const nmCasted = abilityTracker.getAbility(SPELLS.NEW_MOON.id).casts;
         

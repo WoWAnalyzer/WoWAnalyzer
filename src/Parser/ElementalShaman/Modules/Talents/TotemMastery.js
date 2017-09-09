@@ -32,7 +32,7 @@ class TotemMastery extends Module {
 
   on_byPlayer_cast(event) {
     if (event.ability.guid === SPELLS.TOTEM_MASTERY_TALENT.id) {
-      this.casts++;
+      this.casts += 1;
     }
   }
 

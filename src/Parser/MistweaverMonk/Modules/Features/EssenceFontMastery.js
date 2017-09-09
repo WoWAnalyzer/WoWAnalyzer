@@ -31,7 +31,7 @@ class EssenceFontMastery extends Module {
       }
       if(this.combatants.players[targetId].hasBuff(SPELLS.ESSENCE_FONT_BUFF.id, event.timestamp, 0, 0) === true) {
         debug && console.log('Player ID: ' + event.targetID + '  Timestamp: ' + event.timestamp);
-        this.healEF++;
+        this.healEF += 1;
         this.healing += (event.amount || 0 ) + (event.absorbed || 0);
       }
     }
@@ -41,7 +41,7 @@ class EssenceFontMastery extends Module {
     const spellId = event.ability.guid;
 
     if(spellId === SPELLS.ESSENCE_FONT.id) {
-      this.castEF++;
+      this.castEF += 1;
     }
   }
 

@@ -26,16 +26,16 @@ class WastedDeathAndDecay  extends Module {
       return;
     }
     if (this.combatants.selected.hasBuff(SPELLS.CRIMSON_SCOURGE.id, event.timestamp)) {
-    this.FreeDeathAndDecayCounter++;
+    this.FreeDeathAndDecayCounter += 1;
     }
   else {
-    this.DeathAndDecayCounter++;
+    this.DeathAndDecayCounter += 1;
     }
   }
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.CRIMSON_SCOURGE.id) {
-      this.CrimsonScourgeProcsCounter++;
+      this.CrimsonScourgeProcsCounter += 1;
     }
   }
 

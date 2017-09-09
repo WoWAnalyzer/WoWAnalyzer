@@ -42,7 +42,7 @@ class Innervate extends Module {
  on_toPlayer_applybuff(event) {
    const spellId = event.ability.guid;
    if (SPELLS.INNERVATE.id === spellId) {
-     this.innervateCount++;
+     this.innervateCount += 1;
      this.lastInnervateTimestamp = event.timestamp;
    }
  }
@@ -66,48 +66,48 @@ class Innervate extends Module {
       }
       if (SPELLS.REJUVENATION.id === spellId) {
         this.addToManaSaved(REJUVENATION_BASE_MANA);
-        this.castsUnderInnervate++;
-        this.rejuvenations++;
+        this.castsUnderInnervate += 1;
+        this.rejuvenations += 1;
       }
       if (SPELLS.WILD_GROWTH.id === spellId) {
           this.addToManaSaved(WILD_GROWTH_BASE_MANA);
-          this.castsUnderInnervate++;
-          this.wildGrowths++;
+          this.castsUnderInnervate += 1;
+          this.wildGrowths += 1;
       }
       if (SPELLS.EFFLORESCENCE_CAST.id === spellId) {
           this.addToManaSaved(EFFLORESCENCE_BASE_MANA);
-          this.castsUnderInnervate++;
-          this.efflorescences++;
+          this.castsUnderInnervate += 1;
+          this.efflorescences += 1;
       }
       if (SPELLS.CENARION_WARD === spellId) {
           this.addToManaSaved(CENARION_WARD_BASE_MANA);
-          this.castsUnderInnervate++;
-          this.cenarionWards++;
+          this.castsUnderInnervate += 1;
+          this.cenarionWards += 1;
       }
       if (SPELLS.REGROWTH.id === spellId) {
           this.addToManaSaved(REGROWTH_BASE_MANA);
-          this.castsUnderInnervate++;
-          this.regrowths++;
+          this.castsUnderInnervate += 1;
+          this.regrowths += 1;
       }
       if (SPELLS.LIFEBLOOM_HOT_HEAL.id === spellId) {
           this.addToManaSaved(LIFEBLOOM_BASE_MANA);
-          this.castsUnderInnervate++;
-          this.lifeblooms++;
+          this.castsUnderInnervate += 1;
+          this.lifeblooms += 1;
       }
       if (SPELLS.HEALING_TOUCH.id === spellId) {
           this.addToManaSaved(HEALING_TOUCH_BASE_MANA);
-          this.castsUnderInnervate++;
-          this.healingTouches++;
+          this.castsUnderInnervate += 1;
+          this.healingTouches += 1;
       }
       if (SPELLS.SWIFTMEND.id === spellId) {
           this.addToManaSaved(SWIFTMEND_BASE_MANA);
-          this.castsUnderInnervate++;
-          this.swiftmends++;
+          this.castsUnderInnervate += 1;
+          this.swiftmends += 1;
       }
       if (SPELLS.TRANQUILITY_HEAL.id === spellId) {
           this.addToManaSaved(TRANQUILITY_BASE_MANA);
-          this.castsUnderInnervate++;
-          this.tranquilities++;
+          this.castsUnderInnervate += 1;
+          this.tranquilities += 1;
       }
     }
   }
@@ -118,7 +118,7 @@ class Innervate extends Module {
     } else if(this.owner.modules.combatants.selected.hasBuff(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) && spellBaseMana === REJUVENATION_BASE_MANA){
       this.manaSaved += ((BASE_MANA * spellBaseMana) * (1-TOL_REJUVENATION_REDUCTION));
     } else if (this.owner.modules.combatants.selected.hasBuff(SPELLS.CLEARCASTING_BUFF.id) && spellBaseMana === REGROWTH_BASE_MANA){
-      this.freeRegrowths++;
+      this.freeRegrowths += 1;
     }else {
       this.manaSaved += (BASE_MANA * spellBaseMana);
     }

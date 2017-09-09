@@ -21,7 +21,7 @@ class Bloodlust extends Module {
    */
   reorderEvents(events) {
     let firstEventIndex = null;
-    for (let i = 0; i < events.length; i++) {
+    for (let i = 0; i < events.length; i += 1) {
       const event = events[i];
       if (firstEventIndex === null && event.type !== 'combatantinfo') {
         firstEventIndex = i;

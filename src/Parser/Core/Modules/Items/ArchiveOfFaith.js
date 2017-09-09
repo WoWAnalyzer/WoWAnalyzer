@@ -25,7 +25,7 @@ class ArchiveOfFaith extends Module {
     const spellId = event.ability.guid;
 
     if(spellId === SPELLS.CLEANSING_MATRIX.id) {
-      this.casts++;
+      this.casts += 1;
     }
   }
 

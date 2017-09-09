@@ -34,7 +34,7 @@ class T20_2pc extends Module {
       return;
     }
     if(this.combatants.selected.hasBuff(SPELLS.SURGE_OF_MISTS.id, event.timestamp)) {
-      this.casts++;
+      this.casts += 1;
       this.manaSaved += (BASEMANA * SPELLS.ENVELOPING_MISTS.manaPerc) * TWOPC_MANA_REDUCTION;
     }
   }
@@ -45,7 +45,7 @@ class T20_2pc extends Module {
     if(spellId !== SPELLS.SURGE_OF_MISTS.id) {
       return;
     }
-    this.procs++;
+    this.procs += 1;
   }
 
   on_toPlayer_refreshbuff(event) {
@@ -54,7 +54,7 @@ class T20_2pc extends Module {
     if(spellId !== SPELLS.SURGE_OF_MISTS.id) {
       return;
     }
-    this.procs++;
+    this.procs += 1;
   }
 
   on_finished() {

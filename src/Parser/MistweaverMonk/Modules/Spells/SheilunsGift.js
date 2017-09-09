@@ -49,7 +49,7 @@ class SheilunsGift extends Module {
     const spellId = event.ability.guid;
 
     if(spellId === SPELLS.SHEILUNS_GIFT_BUFF.id) {
-      this.stacksSG++;
+      this.stacksSG += 1;
       debug && console.log('SG stacks at ' + this.stacksSG);
     }
   }
@@ -58,7 +58,7 @@ class SheilunsGift extends Module {
     const spellId = event.ability.guid;
 
     if(spellId === SPELLS.SHEILUNS_GIFT_BUFF.id) {
-      this.stacksSG++;
+      this.stacksSG += 1;
       this.lastSGStack = event.timestamp;
       debug && console.log('SG stacks at ' + this.stacksSG + '  Timestamp: ' + event.timestamp);
     }
@@ -76,11 +76,11 @@ class SheilunsGift extends Module {
     const spellId = event.ability.guid;
 
     if(spellId === SPELLS.EFFUSE.id) {
-      this.countEff++;
+      this.countEff += 1;
     }
 
     if(spellId === SPELLS.SHEILUNS_GIFT.id) {
-      this.castsSG++;
+      this.castsSG += 1;
       this.stacksTotalSG += this.stacksSG;
       this.stacksSG = 0;
       this.diffLastSGStack = event.timestamp - this.lastSGStack;
@@ -93,7 +93,7 @@ class SheilunsGift extends Module {
       }
     }
     if(spellId === SPELLS.EFFUSE.ID && this.hasEffusiveMists && this.stacksSG === 12) {
-      this.stacksWastedSG++;
+      this.stacksWastedSG += 1;
       debug && console.log('Effuse Cast at Capped SG');
     }
   }

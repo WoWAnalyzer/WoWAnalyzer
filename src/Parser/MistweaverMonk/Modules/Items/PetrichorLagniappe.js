@@ -41,7 +41,7 @@ class PetrichorLagniappe extends Module {
       if (this.casts !== 0) {
         debug && console.log('Time since last Revival cast: ', (event.timestamp - this.lastCastTime), ' //// Revival CD: ', this.REVIVAL_BASE_COOLDOWN);
         if ((event.timestamp - this.lastCastTime) < this.REVIVAL_BASE_COOLDOWN) {
-          this.cdReductionUsed++;
+          this.cdReductionUsed += 1;
         }
         this.wastedReductionTime += (event.timestamp - this.lastCastTime) - (this.REVIVAL_BASE_COOLDOWN - this.currentReductionTime);
         this.lastCastTime = event.timestamp;
@@ -51,7 +51,7 @@ class PetrichorLagniappe extends Module {
       if (this.casts === 0) {
         this.wastedReductionTime += this.currentReductionTime;
         this.initialWastedReductionTime = this.currentReductionTime;
-        this.casts++;
+        this.casts += 1;
         this.lastCastTime = event.timestamp;
         this.currentReductionTime = 0;
       }

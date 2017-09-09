@@ -34,7 +34,7 @@ class SoulShardEvents extends Module {
       //Havoc is somehow bugged in the sense that it doesn't gain the benefit of T20 2p set bonus, so if the target has Havoc, it doesn't matter if we have the set or not, otherwise it counts it in
       let rawFragments = hasHavoc ? 2 : (this._hasT20_2p ? 3 : 2);
       if (event.hitType === HIT_TYPES.CRIT) {
-        rawFragments++;
+        rawFragments += 1;
       }
       return rawFragments;
     },

@@ -56,7 +56,7 @@ class Sniping extends Module {
       }
       //it's a boss kill and we didn't waste the shard, subtract it
       else if (!this._lastEnergizeWasted) {
-          this._subtractBossShards++;
+          this._subtractBossShards += 1;
       }
     }
   }

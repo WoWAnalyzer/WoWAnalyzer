@@ -37,7 +37,7 @@ class SpiritOfTheCrane extends Module {
     const spellId = event.ability.guid;
 
     if(spellId === SPELLS.TEACHINGS_OF_THE_MONASTERY.id) {
-      this.buffTotm++;
+      this.buffTotm += 1;
       this.lastTotmBuffTimestamp = event.timestamp;
       debug && console.log('ToTM at ' + this.buffTotm);
     }
@@ -47,7 +47,7 @@ class SpiritOfTheCrane extends Module {
     const spellId = event.ability.guid;
 
     if(spellId === SPELLS.TEACHINGS_OF_THE_MONASTERY.id) {
-      this.buffTotm++;
+      this.buffTotm += 1;
       this.lastTotmBuffTimestamp = event.timestamp;
       debug && console.log('ToTM at ' + this.buffTotm);
     }
@@ -59,7 +59,7 @@ class SpiritOfTheCrane extends Module {
     if(SPELLS.TEACHINGS_OF_THE_MONASTERY.id === spellId) {
       debug && console.log(event.timestamp);
       if((event.timestamp - this.lastTotmBuffTimestamp) > SPELLS.TEACHINGS_OF_THE_MONASTERY.buffDur) {
-        this.totmBuffWasted++;
+        this.totmBuffWasted += 1;
         this.buffTotm = 0;
         debug && console.log('ToTM Buff Wasted');
       }
@@ -91,7 +91,7 @@ class SpiritOfTheCrane extends Module {
       if(spellId === SPELLS.TIGER_PALM.id && this.buffTotm === 3) {
         debug && console.log('TP Casted at 3 stacks ' + event.timestamp);
         this.lastTotmBuffTimestamp = event.timestamp;
-        this.totmOverCap++;
+        this.totmOverCap += 1;
       }
 
       if(spellId === SPELLS.BLACKOUT_KICK.id && this.buffTotm > 0) {

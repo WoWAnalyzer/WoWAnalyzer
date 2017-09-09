@@ -37,45 +37,45 @@ class UABuffTracker extends Module {
       return;
     }
     const target = this.enemies.getEntity(event);
-    this.totalTicks++;
+    this.totalTicks += 1;
     const buffedByReap = this.combatants.selected.hasBuff(SPELLS.DEADWIND_HARVESTER.id, event.timestamp);
     const buffedByDrain = target.hasBuff(SPELLS.DRAIN_SOUL.id, event.timestamp);
     const buffedByHaunt = target.hasBuff(SPELLS.HAUNT.id, event.timestamp);
 
     if (this._hasMG) {
       if (buffedByReap && buffedByDrain) {
-        this.ticksBuffedByBoth++;
+        this.ticksBuffedByBoth += 1;
       }
       else if (buffedByReap) {
-        this.ticksBuffedByReap++;
+        this.ticksBuffedByReap += 1;
       }
       else if (buffedByDrain) {
-        this.ticksBuffedByDrain++;
+        this.ticksBuffedByDrain += 1;
       }
       else {
-        this.unbuffedTicks++;
+        this.unbuffedTicks += 1;
       }
     }
     else if (this._hasHaunt) {
       if (buffedByReap && buffedByHaunt) {
-        this.ticksBuffedByBoth++;
+        this.ticksBuffedByBoth += 1;
       }
       else if (buffedByReap) {
-        this.ticksBuffedByReap++;
+        this.ticksBuffedByReap += 1;
       }
       else if (buffedByHaunt) {
-        this.ticksBuffedByHaunt++;
+        this.ticksBuffedByHaunt += 1;
       }
       else {
-        this.unbuffedTicks++;
+        this.unbuffedTicks += 1;
       }
     }
     else {
       if (buffedByReap) {
-        this.ticksBuffedByReap++;
+        this.ticksBuffedByReap += 1;
       }
       else {
-        this.unbuffedTicks++;
+        this.unbuffedTicks += 1;
       }
     }
   }

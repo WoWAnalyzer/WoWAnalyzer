@@ -38,11 +38,11 @@ class IronFur extends Module {
     // Physical
     if (event.ability.type === 1) {
       if (this.lastIronfurBuffApplied > 0) {
-        this.physicalHitsWithIronFur++;
+        this.physicalHitsWithIronFur += 1;
         this.physicalDamageWithIronFur += event.amount + (event.absorbed || 0) + (event.overkill || 0);
       }
       else {
-        this.physicalHitsWithoutIronFur++;
+        this.physicalHitsWithoutIronFur += 1;
         this.physicalDamageWithoutIronFur += event.amount + (event.absorbed || 0) + (event.overkill || 0);
       }
     }

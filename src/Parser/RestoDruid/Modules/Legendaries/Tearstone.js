@@ -53,7 +53,7 @@ class Tearstone extends Module {
     if ((SPELLS.REJUVENATION.id === spellId || SPELLS.REJUVENATION_GERMINATION.id === spellId)
       && (event.timestamp - this.wildgrowthTimestamp) < 200
       && this.wildGrowthTargets.indexOf(event.targetID) !== -1) {
-      this.rejuvs++;
+      this.rejuvs += 1;
     }
   }
 }

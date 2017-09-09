@@ -39,16 +39,16 @@ class Ascendance extends Module {
     if (this.owner.modules.combatants.selected.hasBuff(SPELLS.ASCENDANCE.id, event.timestamp)) {
       const spellId = event.ability.guid;
       if (this.numCasts[spellId]) {
-        this.numCasts[spellId]++;
+        this.numCasts[spellId] += 1;
       } else {
-        this.numCasts.others++;
+        this.numCasts.others += 1;
       }
     }
   }
 
   on_finished() {
     for(const i in this.numCasts) {
-      this.numCasts[i]--;
+      this.numCasts[i] -= 1;
     }
   }
 
