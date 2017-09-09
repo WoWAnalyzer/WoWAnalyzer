@@ -66,8 +66,7 @@ class SoulShardTracker extends Module {
     if (event.waste !== 0) {
       this.generatedAndWasted[spellId].wasted += 1;
       this.shardsWasted += 1;
-    }
-    else {
+    }    else {
       this.generatedAndWasted[spellId].generated += 1;
     }
   }

@@ -22,8 +22,7 @@ class SoulHarvest extends Module {
   addToCorrectSource(bonusDmg) {
     if (this._isFromTalent) {
       this.talentBonusDmg += bonusDmg;
-    }
-    else {
+    }    else {
       this.chestBonusDmg += bonusDmg;
     }
   }

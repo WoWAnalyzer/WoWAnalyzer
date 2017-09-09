@@ -53,8 +53,7 @@ class GuardianOfElune extends Module {
     if (SPELLS.IRONFUR.id !== spellId && SPELLS.FRENZIED_REGENERATION.id !== spellId) {
       return;
     }
-    if (SPELLS.IRONFUR.id === spellId)
-    {
+    if (SPELLS.IRONFUR.id === spellId)    {
       if(this.lastGoEProcTime !== event.timestamp) {
         if(this.lastGoEProcTime === null) {
           this.nonGoEIronFur += 1;
@@ -71,8 +70,7 @@ class GuardianOfElune extends Module {
         }
       }
     }
-    if (SPELLS.FRENZIED_REGENERATION.id === spellId)
-    {
+    if (SPELLS.FRENZIED_REGENERATION.id === spellId)    {
       if(this.lastGoEProcTime !== event.timestamp) {
         if(this.lastGoEProcTime === null) {
           this.nonGoEFRegen += 1;

@@ -15,8 +15,7 @@ class HealingReceived extends Module {
   on_toPlayer_heal(event) {
     if (event.sourceID === this.owner.playerId) {
       this.HealingReceivedSelf += event.amount;
-    }
-    else {
+    }    else {
       this.HealingReceivedExternal += event.amount;
     }
   }

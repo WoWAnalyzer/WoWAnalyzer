@@ -40,8 +40,7 @@ class IronSkinBrew extends Module {
       if (this.lastIronSkinBrewBuffApplied > 0) {
         this.hitsWithIronSkinBrew += 1;
         this.damageWithIronSkinBrew += event.amount + (event.absorbed || 0) + (event.overkill || 0);
-      }
-      else {
+      }      else {
         this.hitsWithoutIronSkinBrew += 1;
         this.damageWithoutIronSkinBrew += event.amount + (event.absorbed || 0) + (event.overkill || 0);
       }
@@ -52,8 +51,7 @@ class IronSkinBrew extends Module {
     if (event.ability.guid === SPELLS.STAGGER.id) {
       if (this.lastIronSkinBrewBuffApplied > 0) {
         this.damageWithIronSkinBrew -= event.amount;
-      }
-      else {
+      }      else {
         this.damageWithoutIronSkinBrew -= event.amount;
       }
     }

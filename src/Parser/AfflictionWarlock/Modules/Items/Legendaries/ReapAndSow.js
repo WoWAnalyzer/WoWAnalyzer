@@ -43,16 +43,14 @@ class ReapAndSow extends Module {
     if (this.totalTimeGained === 0) {
       this.totalTimeGained += this._tormentedSoulCounter * BONUS_BUFF_TIME_PER_SOUL;
       this._expectedBuffEndTimestamp = event.timestamp + this._tormentedSoulCounter * BUFF_TIME_PER_SOUL;
-    }
-    else {
+    }    else {
       //we either refresh the buff or cast a fresh new reap
       //new reap will never exceed MAX_BUFF_DURATION (Tormented Souls has max stacks of 12 and the MAX_BUFF_DURATION = 12 * BUFF_TIME_PER_SOUL)
       if (event.timestamp >= this._expectedBuffEndTimestamp) {
         //we casted a new reap
         this.totalTimeGained += this._tormentedSoulCounter * BONUS_BUFF_TIME_PER_SOUL;
         this._expectedBuffEndTimestamp = event.timestamp + this._tormentedSoulCounter * BUFF_TIME_PER_SOUL;
-      }
-      else {
+      }      else {
         //we refreshed the buff
         const remainingDuration = this._expectedBuffEndTimestamp - event.timestamp;
         const buffDuration = this._tormentedSoulCounter * BUFF_TIME_PER_SOUL;
@@ -81,8 +79,7 @@ class ReapAndSow extends Module {
             effectiveBonusTimeGained += maxBuffTimestamp - maxBuffWithoutLastBonusTimestamp;
           }
           this._expectedBuffEndTimestamp = maxBuffTimestamp;
-        }
-        else {
+        }        else {
           effectiveBonusTimeGained = this._tormentedSoulCounter * BONUS_BUFF_TIME_PER_SOUL;
           this._expectedBuffEndTimestamp = event.timestamp + this._tormentedSoulCounter * BUFF_TIME_PER_SOUL;
         }

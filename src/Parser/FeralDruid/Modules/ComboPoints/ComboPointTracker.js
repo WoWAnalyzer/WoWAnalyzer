@@ -100,8 +100,7 @@ class ComboPointTracker extends Module {
     if (this.currentPoints === this.maxPoints) {
       this.wasted[spellId].points += 1;
       this.pointsWasted += 1;
-    }
-    else {
+    }    else {
       this.gained[spellId].points += 1;
       this.pointsGained += 1;
     }

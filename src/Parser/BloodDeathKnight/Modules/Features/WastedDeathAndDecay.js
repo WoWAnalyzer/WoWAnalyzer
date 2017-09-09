@@ -27,8 +27,7 @@ class WastedDeathAndDecay  extends Module {
     }
     if (this.combatants.selected.hasBuff(SPELLS.CRIMSON_SCOURGE.id, event.timestamp)) {
     this.FreeDeathAndDecayCounter += 1;
-    }
-  else {
+    }  else {
     this.DeathAndDecayCounter += 1;
     }
   }

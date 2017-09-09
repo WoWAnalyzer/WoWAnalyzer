@@ -34,8 +34,7 @@ class RoaringBlaze extends Module {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.IMMOLATE_CAST.id) {
       this._currentBonus = 0;
-    }
-    else if(spellId === SPELLS.CONFLAGRATE.id) {
+    }    else if(spellId === SPELLS.CONFLAGRATE.id) {
       const enemy = this.enemies.getEntity(event);
       if (!enemy || !enemy.hasBuff(SPELLS.IMMOLATE_DEBUFF.id, event.timestamp)) {
         return;

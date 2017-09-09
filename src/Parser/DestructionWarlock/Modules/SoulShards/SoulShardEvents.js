@@ -99,8 +99,7 @@ class SoulShardEvents extends Module {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.DIMENSIONAL_RIFT_CAST.id) {
       this.processGenerators(event);
-    }
-    else if (this._FRAGMENT_SPENDING_ABILITIES[spellId]) {
+    }    else if (this._FRAGMENT_SPENDING_ABILITIES[spellId]) {
       this.processSpenders(event);
     }
   }
@@ -121,8 +120,7 @@ class SoulShardEvents extends Module {
     if (this._currentFragments + gainedFragmentsBeforeCap > MAX_FRAGMENTS) {
       gain = MAX_FRAGMENTS - this._currentFragments;
       waste = this._currentFragments + gainedFragmentsBeforeCap - MAX_FRAGMENTS;
-    }
-    else {
+    }    else {
       gain = gainedFragmentsBeforeCap;
     }
 

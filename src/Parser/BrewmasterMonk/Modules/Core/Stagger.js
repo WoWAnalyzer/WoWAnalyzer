@@ -41,8 +41,7 @@ class Stagger extends Module {
       }
       if (event.extraAbility.type === PHYSICAL_DAMAGE) {
         this.totalPhysicalStaggered += event.amount;
-      }
-      else {
+      }      else {
         this.totalMagicalStaggered += event.amount;
       }
     }
@@ -53,8 +52,7 @@ class Stagger extends Module {
       this.totalStaggerTaken += event.amount + (event.absorbed || 0);
       this.lastDamageEventWasStagger = event.timestamp;
       this.lastStaggerValue = event.amount + (event.absorbed || 0);
-    }
-    else {
+    }    else {
       this.lastDamageEventNotStagger = event.timestamp;
     }
   }
