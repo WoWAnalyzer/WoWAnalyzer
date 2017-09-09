@@ -178,6 +178,7 @@ class CombatLogParser extends CoreCombatLogParser {
     const efflorescenceUptime = this.modules.efflorescence.totalUptime / this.fightDuration;
     const unusedClearcastings = 1 - (this.modules.clearcasting.used / this.modules.clearcasting.total);
 
+/*
     if (nonHealingTimePercentage > 0.3) {
       results.addIssue({
         issue: `Your non healing time can be improved. Try to cast heals more regularly.`,
@@ -194,6 +195,7 @@ class CombatLogParser extends CoreCombatLogParser {
         importance: getIssueImportance(deadTimePercentage, 0.35, 1, true),
       });
     }
+    */
     if (efflorescenceUptime < 0.85) {
       results.addIssue({
         issue: <span>Your <a href="http://www.wowhead.com/spell=81269" target="_blank" rel="noopener noreferrer">Efflorescence</a> uptime can be improved.</span>,
@@ -316,6 +318,7 @@ class CombatLogParser extends CoreCombatLogParser {
           </dfn>
         )}
       />,
+      /*
       <StatisticBox
         icon={<Icon icon="petbattle_health-down" alt="Non healing time" />}
         value={`${formatPercentage(nonHealingTimePercentage)} %`}
@@ -325,6 +328,7 @@ class CombatLogParser extends CoreCombatLogParser {
           </dfn>
         )}
       />,
+      */
       <StatisticBox
         icon={<SpellIcon id={SPELLS.LIFEBLOOM_HOT_HEAL.id} />}
         value={`${formatPercentage(lifebloomUptime)} %`}
