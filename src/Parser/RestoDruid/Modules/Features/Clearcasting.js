@@ -37,13 +37,13 @@ class Clearcasting extends Module {
     if (SPELLS.REGROWTH.id !== spellId) {
       return;
     }
-    if(event.tick === true) {
+    if (event.tick === true) {
       return;
     }
 
     // Check for regrowths used without a clearcasting procc
-    if(this.lastRegrowthTimestamp !== event.timestamp) {
-      if(this.lastCCTimestamp == null) { // TODO: Replace this with === or simple falsey check
+    if (this.lastRegrowthTimestamp !== event.timestamp) {
+      if (this.lastCCTimestamp == null) { // TODO: Replace this with === or simple falsey check
         // We got no CC buff up
         this.nonCCRegrowths += 1;
         return;

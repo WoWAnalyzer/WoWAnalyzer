@@ -35,14 +35,14 @@ class T20_4pc extends Module {
 
   on_toPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if(spellId === SPELLS.STAGGER_TAKEN.id) {
+    if (spellId === SPELLS.STAGGER_TAKEN.id) {
       this.lastStaggerTick = event.amount + (event.absorbed || 0);
     }
   }
 
   on_toPlayer_heal(event) {
     const spellId = event.ability.guid;
-    if(GIFT_OF_THE_OX_SPELLS.indexOf(spellId) !== -1) {
+    if (GIFT_OF_THE_OX_SPELLS.indexOf(spellId) !== -1) {
       const currentStagger = this.lastStaggerTick * this.staggerLength;
       this.staggerSaved += currentStagger - (currentStagger * T20_4PC_REDUCTION);
       this.lastStaggerTick *= T20_4PC_REDUCTION;

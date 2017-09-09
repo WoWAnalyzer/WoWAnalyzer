@@ -33,15 +33,15 @@ class EnvelopingMists extends Module {
       return;
     }
 
-    if(this.combatants.players[targetId]) {
-      if(this.combatants.players[targetId].hasBuff(SPELLS.ENVELOPING_MISTS.id, event.timestamp, 0, 0) === true) {
+    if (this.combatants.players[targetId]) {
+      if (this.combatants.players[targetId].hasBuff(SPELLS.ENVELOPING_MISTS.id, event.timestamp, 0, 0) === true) {
         this.healing += calculateEffectiveHealing(event, EVM_HEALING_INCREASE);
       }
     }
   }
 
   on_finished() {
-    if(debug) {
+    if (debug) {
       console.log('EvM Healing Contribution: ' + this.healing);
     }
   }

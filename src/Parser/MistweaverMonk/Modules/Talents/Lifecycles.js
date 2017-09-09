@@ -35,23 +35,23 @@ class Lifecycles extends Module {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     // Checking to ensure player has cast Vivify and has the mana reduction buff.
-    if(spellId === SPELLS.VIVIFY.id && this.combatants.selected.hasBuff(SPELLS.LIFECYCLES_VIVIFY_BUFF.id)) {
+    if (spellId === SPELLS.VIVIFY.id && this.combatants.selected.hasBuff(SPELLS.LIFECYCLES_VIVIFY_BUFF.id)) {
       this.manaSaved += (baseMana * SPELLS.VIVIFY.manaPerc) * (SPELLS.LIFECYCLES_VIVIFY_BUFF.manaPercRed);
       this.manaSavedViv += (baseMana * SPELLS.VIVIFY.manaPerc) * (SPELLS.LIFECYCLES_VIVIFY_BUFF.manaPercRed);
       this.castsRedViv += 1;
       debug && console.log('Viv Reduced');
     }
-    if(spellId === SPELLS.VIVIFY.id && !this.combatants.selected.hasBuff(SPELLS.LIFECYCLES_VIVIFY_BUFF.id)) {
+    if (spellId === SPELLS.VIVIFY.id && !this.combatants.selected.hasBuff(SPELLS.LIFECYCLES_VIVIFY_BUFF.id)) {
       this.castsNonRedViv += 1;
     }
     // Checking to ensure player has cast Enveloping Mists and has the mana reduction buff
-    if(spellId === SPELLS.ENVELOPING_MISTS.id && this.combatants.selected.hasBuff(SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.id)) {
+    if (spellId === SPELLS.ENVELOPING_MISTS.id && this.combatants.selected.hasBuff(SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.id)) {
       this.manaSaved += (baseMana * SPELLS.ENVELOPING_MISTS.manaPerc) * (SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed);
       this.manaSavedEnm += (baseMana * SPELLS.ENVELOPING_MISTS.manaPerc) * (SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed);
       this.castsRedEnm += 1;
       debug && console.log('ENM Reduced');
     }
-    if(spellId === SPELLS.ENVELOPING_MISTS.id && !this.combatants.selected.hasBuff(SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.id)) {
+    if (spellId === SPELLS.ENVELOPING_MISTS.id && !this.combatants.selected.hasBuff(SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.id)) {
       this.castsNonRedEnm += 1;
     }
   }
@@ -88,7 +88,7 @@ class Lifecycles extends Module {
   statisticOrder = STATISTIC_ORDER.OPTIONAL(70);
 
   on_finished() {
-    if(debug) {
+    if (debug) {
       console.log("Mana Reduced:" + this.manaSaved);
       console.log("Viv Mana Reduced:" + this.manaSavedViv);
       console.log("EnM Mana Reduced:" + this.manaSavedEnm);

@@ -36,14 +36,14 @@ class DecieversGrandDesign extends Module {
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
 
-    if(spellId === SPELLS.GUIDING_HAND.id) {
+    if (spellId === SPELLS.GUIDING_HAND.id) {
       this.healing += (event.amount || 0) + (event.absorbed || 0);
 
       // Account for precasting
-      if(this.targetOne === event.targetID || this.targetTwo === event.targetID) {
+      if (this.targetOne === event.targetID || this.targetTwo === event.targetID) {
         return;
       } else {
-        if(!this.targetOne) {
+        if (!this.targetOne) {
           this.targetOne = event.targetID;
         } else {
           this.targetTwo = event.targetID;
@@ -55,7 +55,7 @@ class DecieversGrandDesign extends Module {
   on_byPlayer_absorbed(event) {
     const spellId = event.ability.guid;
 
-    if(spellId === SPELLS.FRUITFUL_MACHINATIONS.id) {
+    if (spellId === SPELLS.FRUITFUL_MACHINATIONS.id) {
       this.healingAbsorb += (event.amount || 0) + (event.absorbed || 0);
     }
   }
@@ -63,11 +63,11 @@ class DecieversGrandDesign extends Module {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
-    if(spellId === SPELLS.GUIDING_HAND.id) {
-      if(this.targetOne === null) {
+    if (spellId === SPELLS.GUIDING_HAND.id) {
+      if (this.targetOne === null) {
         this.targetOne = event.targetID;
         debug && console.log('Target One: ' + this.targetOne);
-      } else if(this.targetTwo === null) {
+      } else if (this.targetTwo === null) {
         this.targetTwo = event.targetID;
         debug && console.log('Target Two: ' + this.targetTwo);
       } else {
@@ -80,20 +80,20 @@ class DecieversGrandDesign extends Module {
     const spellId = event.ability.guid;
     const targetId = event.targetID;
 
-    if(spellId === SPELLS.FRUITFUL_MACHINATIONS.id) {
+    if (spellId === SPELLS.FRUITFUL_MACHINATIONS.id) {
       this.proced = true;
       const startTime = event.timestamp - PROC_EVENT_START_BUFFER;
       const endTime = event.timestamp + PROC_EVENT_END_BUFFER;
-      if(targetId === this.targetOne) {
+      if (targetId === this.targetOne) {
         this.targetOne = null;
         this.procTimestampTargetOne = event.timestamp;
         debug && console.log('Proc on Target one:', targetId, ' @ timestamp: ', event.timestamp);
-      } else if(targetId === this.targetTwo) {
+      } else if (targetId === this.targetTwo) {
         this.targetTwo = null;
         this.procTimestampTargetTwo = event.timestamp;
         debug && console.log('Proc on Target two:', targetId, ' @ timestamp: ', event.timestamp);
       }
-      if(debug) {
+      if (debug) {
         this.procs.push({
           name: 'Test User',
           report: this.owner.report.code,
@@ -105,7 +105,7 @@ class DecieversGrandDesign extends Module {
       }
 
       let name = "";
-      if(!this.combatants.players[targetId]) {
+      if (!this.combatants.players[targetId]) {
         name = "Pet";
       } else {
         name = this.combatants.players[targetId].name;
@@ -125,7 +125,7 @@ class DecieversGrandDesign extends Module {
   }
 
   on_finished() {
-    if(debug) {
+    if (debug) {
       console.log('Proc Checks: ', this.procs);
       console.log('Healing: ' + this.healing);
       console.log('Absorbed: ' + this.healingAbsorb);

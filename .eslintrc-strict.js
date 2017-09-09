@@ -35,5 +35,15 @@ module.exports = {
     }],
     // https://github.com/airbnb/javascript#whitespace--before-blocks
     'space-before-blocks': 'warn',
+    // https://github.com/airbnb/javascript#whitespace--around-keywords
+    'keyword-spacing': ['warn', {
+      before: true,
+      after: true,
+      overrides: {
+        return: { after: true },
+        throw: { after: true },
+        case: { after: true }
+      }
+    }],
   },
 };

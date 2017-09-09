@@ -54,13 +54,13 @@ class GuardianOfElune extends Module {
       return;
     }
     if (SPELLS.IRONFUR.id === spellId)    {
-      if(this.lastGoEProcTime !== event.timestamp) {
-        if(this.lastGoEProcTime === null) {
+      if (this.lastGoEProcTime !== event.timestamp) {
+        if (this.lastGoEProcTime === null) {
           this.nonGoEIronFur += 1;
           return;
         }
         const GoETimeframe = this.lastGoEProcTime + GoE_DURATION;
-        if(event.timestamp > GoETimeframe) {
+        if (event.timestamp > GoETimeframe) {
           this.nonGoEIronFur += 1;
         } else {
           this.consumedGoEProc += 1;
@@ -71,13 +71,13 @@ class GuardianOfElune extends Module {
       }
     }
     if (SPELLS.FRENZIED_REGENERATION.id === spellId)    {
-      if(this.lastGoEProcTime !== event.timestamp) {
-        if(this.lastGoEProcTime === null) {
+      if (this.lastGoEProcTime !== event.timestamp) {
+        if (this.lastGoEProcTime === null) {
           this.nonGoEFRegen += 1;
           return;
         }
         const GoETimeframe = this.lastGoEProcTime + GoE_DURATION;
-        if(event.timestamp > GoETimeframe) {
+        if (event.timestamp > GoETimeframe) {
           this.nonGoEFRegen += 1;
         } else {
           this.consumedGoEProc += 1;

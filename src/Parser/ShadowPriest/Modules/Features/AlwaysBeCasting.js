@@ -100,7 +100,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
 
   on_toPlayer_removebuff(event) {
     const spellId = event.ability.guid;
-    if(
+    if (
         spellId === SPELLS.MIND_FLAY.id ||
         spellId === SPELLS.DISPERSION.id ||
         spellId === SPELLS.VOID_TORRENT.id

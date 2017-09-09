@@ -41,7 +41,7 @@ class FuryOfAir extends Module {
   }
 
   on_finished() {
-    if(this.applyTime !== 0) {
+    if (this.applyTime !== 0) {
       this.furyUptime += Math.floor((this.owner.fight.end_time - this.applyTime) / 1000);
     }
     this.maelstromUsed = this.furyUptime * FURY_OF_AIR_MAELSTROM_COST;

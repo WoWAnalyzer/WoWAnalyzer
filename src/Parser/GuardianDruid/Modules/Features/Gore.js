@@ -42,13 +42,13 @@ class Gore extends Module {
     if (SPELLS.MANGLE_BEAR.id !== spellId) {
       return;
     }
-    if(this.lastGoreProcTime !== event.timestamp) {
-      if(this.lastGoreProcTime === 0) {
+    if (this.lastGoreProcTime !== event.timestamp) {
+      if (this.lastGoreProcTime === 0) {
         this.nonGoreMangle += 1;
         return;
       }
       const goreTimeframe = this.lastGoreProcTime + GORE_DURATION;
-      if(event.timestamp > goreTimeframe) {
+      if (event.timestamp > goreTimeframe) {
         this.nonGoreMangle += 1;
       } else {
         this.consumedGoreProc += 1;

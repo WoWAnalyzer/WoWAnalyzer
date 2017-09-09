@@ -8,14 +8,14 @@ class Pet extends Module {
   on_initialized() {
     this._pets = this.owner.report.friendlyPets.filter(pet => pet.petOwner === this.owner.player.id);
 
-    if(this._pet !== undefined) {
+    if (this._pet !== undefined) {
       const pet = this.fetchPet(this._pet);
-      if(pet) this._sourceId = pet.id;
+      if (pet) this._sourceId = pet.id;
     }
   }
 
   on_damage(event) {
-    if(this._sourceId !== undefined && event.sourceID === this._sourceId) {
+    if (this._sourceId !== undefined && event.sourceID === this._sourceId) {
       this._damageDone += event.amount;
     }
   }

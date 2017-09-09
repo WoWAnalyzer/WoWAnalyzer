@@ -24,7 +24,7 @@ class Ekowraith extends Module {
   }
 
   on_toPlayer_damage(event) {
-    if(this.hasGuardianAffinity) {
+    if (this.hasGuardianAffinity) {
       this.damageReductionHealing += event.amount * ((GUARDIAN_DAMAGE_REDUCTION * EKOWRAITH_INCREASED_EFFECT)-GUARDIAN_DAMAGE_REDUCTION);
     }
   }

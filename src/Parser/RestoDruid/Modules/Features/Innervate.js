@@ -56,11 +56,11 @@ class Innervate extends Module {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
-    if(this.owner.modules.combatants.selected.hasBuff(SPELLS.INNERVATE.id)) {
+    if (this.owner.modules.combatants.selected.hasBuff(SPELLS.INNERVATE.id)) {
       // Checking if the player is mana capped during an innervate.
       // This is not 100% accuarate because we trigger the calculation on the first heal during an innervate.
       // Realistically the seconds mana capped is higher.
-      if(event.classResources[0].amount === event.classResources[0].max && !this.depleted) {
+      if (event.classResources[0].amount === event.classResources[0].max && !this.depleted) {
         this.secondsManaCapped = Math.abs(((this.lastInnervateTimestamp + 10000) - event.timestamp))/1000;
         this.depleted = true;
       }
@@ -113,19 +113,19 @@ class Innervate extends Module {
   }
 
   addToManaSaved(spellBaseMana) {
-    if(spellBaseMana === WILD_GROWTH_BASE_MANA) {
+    if (spellBaseMana === WILD_GROWTH_BASE_MANA) {
       this.manaSaved += ((BASE_MANA * spellBaseMana) * (1 - (this.infusionOfNatureTraits*INFUSION_OF_NATURE_REDUCTION)));
-    } else if(this.owner.modules.combatants.selected.hasBuff(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) && spellBaseMana === REJUVENATION_BASE_MANA) {
+    } else if (this.owner.modules.combatants.selected.hasBuff(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) && spellBaseMana === REJUVENATION_BASE_MANA) {
       this.manaSaved += ((BASE_MANA * spellBaseMana) * (1-TOL_REJUVENATION_REDUCTION));
     } else if (this.owner.modules.combatants.selected.hasBuff(SPELLS.CLEARCASTING_BUFF.id) && spellBaseMana === REGROWTH_BASE_MANA) {
       this.freeRegrowths += 1;
-    }else {
+    } else {
       this.manaSaved += (BASE_MANA * spellBaseMana);
     }
   }
 
   on_finished() {
-    if(debug) {
+    if (debug) {
       console.log("Innervates gained: " + this.innervateCount);
       console.log("Mana saved: " + this.manaSaved);
       console.log("Avg. Mana saved: " + (this.manaSaved/this.innervateCount));

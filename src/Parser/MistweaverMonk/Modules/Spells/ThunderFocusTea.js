@@ -36,7 +36,7 @@ class ThunderFocusTea extends Module {
 
   on_toPlayer_applybuff(event) {
     const spellId = event.ability.guid;
-    if(SPELLS.THUNDER_FOCUS_TEA.id === spellId) {
+    if (SPELLS.THUNDER_FOCUS_TEA.id === spellId) {
       this.castsTft += 1;
     }
   }
@@ -46,33 +46,33 @@ class ThunderFocusTea extends Module {
 
       // Implemented as a way to remove non-buffed REM or EF casts that occur at the same timestamp as the buffed Viv cast.
       // Need to think of cleaner solution
-    if((event.timestamp - this.castBufferTimestamp) < 25) {
+    if ((event.timestamp - this.castBufferTimestamp) < 25) {
       return;
     }
 
-    if(this.combatants.selected.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id)) {
-      if(SPELLS.VIVIFY.id === spellId && !event.classResources.cost) {
+    if (this.combatants.selected.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id)) {
+      if (SPELLS.VIVIFY.id === spellId && !event.classResources.cost) {
         this.castsUnderTft += 1;
         this.castsTftViv += 1;
         debug && console.log('Viv TFT Check ', event.timestamp);
         this.castBufferTimestamp = event.timestamp;
       }
-      if(SPELLS.EFFUSE.id === spellId) {
+      if (SPELLS.EFFUSE.id === spellId) {
         this.castsUnderTft += 1;
         this.castsTftEff += 1;
         debug && console.log('Eff TFT Check ', event.timestamp);
       }
-      if(SPELLS.ENVELOPING_MISTS.id === spellId) {
+      if (SPELLS.ENVELOPING_MISTS.id === spellId) {
         this.castsUnderTft += 1;
         this.castsTftEnm += 1;
         debug && console.log('Enm TFT Check ', event.timestamp);
       }
-      if(SPELLS.ESSENCE_FONT.id === spellId) {
+      if (SPELLS.ESSENCE_FONT.id === spellId) {
         this.castsUnderTft += 1;
         this.castsTftEf += 1;
         debug && console.log('EF TFT Check ', event.timestamp);
       }
-      if(SPELLS.RENEWING_MIST.id === spellId) {
+      if (SPELLS.RENEWING_MIST.id === spellId) {
         this.castsUnderTft += 1;
         this.castsTftRem += 1;
         debug && console.log('REM TFT Check ', event.timestamp);
@@ -81,10 +81,10 @@ class ThunderFocusTea extends Module {
   }
 
   on_finished() {
-    if(this.ftActive) {
+    if (this.ftActive) {
       this.castsTft += this.castsTft;
     }
-    if(debug) {
+    if (debug) {
       console.log("TFT Casts:" + this.castsTft);
       console.log("Eff Buffed:" + this.castsTftEff);
       console.log("Enm Buffed:" + this.castsTftEnm);

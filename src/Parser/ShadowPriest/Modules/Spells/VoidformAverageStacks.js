@@ -44,7 +44,7 @@ class VoidformAverageStacks extends Module {
 
   statistic() {
     const { voidforms } = this.voidform;
-    if(!voidforms || voidforms.length === 0) return null;
+    if (!voidforms || voidforms.length === 0) return null;
 
     const lastVoidformWasExcluded = voidforms[voidforms.length-1].excluded;
 

@@ -46,13 +46,13 @@ class Flourish extends Module {
     Object.keys(this.combatants.players)
       .map(player => this.combatants.players[player])
       .forEach((player) => {
-        if(player.hasBuff(SPELLS.WILD_GROWTH.id, event.timestamp, 0, 0) === true) {
+        if (player.hasBuff(SPELLS.WILD_GROWTH.id, event.timestamp, 0, 0) === true) {
           this.wildGrowth += 1;
         }
       });
     // If we are using Tree Of Life, our WG statistics will be a little skewed since each WG gives 8 WG applications instead of 6.
     // We solve this by simply reducing WGs counter by 2.
-    if(this.wildGrowth > (oldWgCount+6)) {
+    if (this.wildGrowth > (oldWgCount+6)) {
       this.wildGrowth = this.wildGrowth-2;
     }
 
@@ -60,11 +60,11 @@ class Flourish extends Module {
     Object.keys(this.combatants.players)
       .map(player => this.combatants.players[player])
       .forEach((player) => {
-        if(player.hasBuff(SPELLS.REJUVENATION.id, event.timestamp, 0, 0) === true) {
+        if (player.hasBuff(SPELLS.REJUVENATION.id, event.timestamp, 0, 0) === true) {
           this.rejuvenation += 1;
         }
-        if(this.hasGermination) {
-          if(player.hasBuff(SPELLS.REJUVENATION_GERMINATION.id, event.timestamp, 0, 0) === true) {
+        if (this.hasGermination) {
+          if (player.hasBuff(SPELLS.REJUVENATION_GERMINATION.id, event.timestamp, 0, 0) === true) {
             this.rejuvenation += 1;
           }
         }
@@ -74,7 +74,7 @@ class Flourish extends Module {
     Object.keys(this.combatants.players)
       .map(player => this.combatants.players[player])
       .forEach((player) => {
-        if(player.hasBuff(SPELLS.REGROWTH.id, event.timestamp, 0, 0) === true) {
+        if (player.hasBuff(SPELLS.REGROWTH.id, event.timestamp, 0, 0) === true) {
           this.regrowth += 1;
         }
       });
@@ -83,8 +83,8 @@ class Flourish extends Module {
     Object.keys(this.combatants.players)
       .map(player => this.combatants.players[player])
       .forEach((player) => {
-        if(this.hasCultivation) {
-          if(player.hasBuff(SPELLS.CULTIVATION.id, event.timestamp, 0, 0) === true) {
+        if (this.hasCultivation) {
+          if (player.hasBuff(SPELLS.CULTIVATION.id, event.timestamp, 0, 0) === true) {
             this.cultivation += 1;
           }
         }
@@ -94,8 +94,8 @@ class Flourish extends Module {
     Object.keys(this.combatants.players)
       .map(player => this.combatants.players[player])
       .forEach((player) => {
-        if(this.hasCenarionWard) {
-          if(player.hasBuff(SPELLS.CENARION_WARD.id, event.timestamp, 0, 0) === true) {
+        if (this.hasCenarionWard) {
+          if (player.hasBuff(SPELLS.CENARION_WARD.id, event.timestamp, 0, 0) === true) {
             this.cenarionWard += 1;
           }
         }
@@ -105,7 +105,7 @@ class Flourish extends Module {
     Object.keys(this.combatants.players)
       .map(player => this.combatants.players[player])
       .forEach((player) => {
-        if(player.hasBuff(SPELLS.LIFEBLOOM_HOT_HEAL.id, event.timestamp, 0, 0) === true) {
+        if (player.hasBuff(SPELLS.LIFEBLOOM_HOT_HEAL.id, event.timestamp, 0, 0) === true) {
           this.lifebloom += 1;
         }
       });
@@ -114,8 +114,8 @@ class Flourish extends Module {
     Object.keys(this.combatants.players)
       .map(player => this.combatants.players[player])
       .forEach((player) => {
-        if(this.hasSpringBlossoms) {
-          if(player.hasBuff(SPELLS.SPRING_BLOSSOMS.id, event.timestamp, 0, 0) === true) {
+        if (this.hasSpringBlossoms) {
+          if (player.hasBuff(SPELLS.SPRING_BLOSSOMS.id, event.timestamp, 0, 0) === true) {
             this.springBlossoms += 1;
           }
         }

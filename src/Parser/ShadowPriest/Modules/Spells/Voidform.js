@@ -49,7 +49,7 @@ class Voidform extends Module {
   }
 
   get averageVoidformStacks() {
-    if(this.voidforms.length === 0) return 0;
+    if (this.voidforms.length === 0) return 0;
 
     // ignores last voidform if seen as skewing
     const nonExcludedVoidforms = this.voidforms.filter(voidform => !voidform.excluded);
@@ -76,7 +76,7 @@ class Voidform extends Module {
   }
 
   setCurrentVoidform(voidform) {
-    if(this._inVoidform) {
+    if (this._inVoidform) {
       this._voidforms[this._previousVoidformCast.timestamp] = voidform;
     }
   }
@@ -104,7 +104,7 @@ class Voidform extends Module {
     if (spellId === SPELLS.VOIDFORM_BUFF.id) {
 
       // for those prepull voidforms:
-      if(this._previousVoidformCast === null) {
+      if (this._previousVoidformCast === null) {
         this.createVoidform(event);
       }
 
@@ -130,7 +130,7 @@ class Voidform extends Module {
     if (spellId === SPELLS.LINGERING_INSANITY.id) {
       
 
-      if(this._inVoidform) {
+      if (this._inVoidform) {
         const { timestamp, stack } = event;
         let currentVoidform = this.getCurrentVoidform();
         currentVoidform = {
@@ -156,17 +156,17 @@ class Voidform extends Module {
     const player = this.owner.modules.combatants.selected;
 
     // excludes last one to avoid skewing the average (if in voidform when the encounter ends):
-    if(player.hasBuff(SPELLS.VOIDFORM_BUFF.id)) {
+    if (player.hasBuff(SPELLS.VOIDFORM_BUFF.id)) {
       const averageVoidformStacks = this.voidforms.slice(0, this.voidforms.length - 1).reduce((p, c) => p += c.stacks.length, 0) / (this.voidforms.length - 1);
       const lastVoidformStacks    = this.voidforms[this.voidforms.length-1].stacks.length;
 
-      if(lastVoidformStacks + 5 < averageVoidformStacks) {
+      if (lastVoidformStacks + 5 < averageVoidformStacks) {
         this._voidforms[this._previousVoidformCast.timestamp].excluded = true;
       }
     }
 
     // set end to last voidform of the fight:
-    if(this._voidforms[this._previousVoidformCast.timestamp].ended === undefined) {
+    if (this._voidforms[this._previousVoidformCast.timestamp].ended === undefined) {
       this._voidforms[this._previousVoidformCast.timestamp].ended = this.owner._timestamp;
     }
   }

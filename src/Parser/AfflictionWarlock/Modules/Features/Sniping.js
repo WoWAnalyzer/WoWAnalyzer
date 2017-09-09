@@ -46,7 +46,7 @@ class Sniping extends Module {
     }
     if (event.timestamp < this._lastEnergize + ENERGIZE_REMOVEDEBUFF_THRESHOLD) {
       const enemy = this.enemies.getEntity(event);
-      if(!enemy) {
+      if (!enemy) {
         return;
       }
       if (enemy.type === 'NPC') {

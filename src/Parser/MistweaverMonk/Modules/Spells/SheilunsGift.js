@@ -48,7 +48,7 @@ class SheilunsGift extends Module {
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
 
-    if(spellId === SPELLS.SHEILUNS_GIFT_BUFF.id) {
+    if (spellId === SPELLS.SHEILUNS_GIFT_BUFF.id) {
       this.stacksSG += 1;
       debug && console.log('SG stacks at ' + this.stacksSG);
     }
@@ -57,7 +57,7 @@ class SheilunsGift extends Module {
   on_byPlayer_applybuffstack(event) {
     const spellId = event.ability.guid;
 
-    if(spellId === SPELLS.SHEILUNS_GIFT_BUFF.id) {
+    if (spellId === SPELLS.SHEILUNS_GIFT_BUFF.id) {
       this.stacksSG += 1;
       this.lastSGStack = event.timestamp;
       debug && console.log('SG stacks at ' + this.stacksSG + '  Timestamp: ' + event.timestamp);
@@ -67,7 +67,7 @@ class SheilunsGift extends Module {
   on_byPlayer_removebuff(event) {
     const spellId = event.ability.guid;
 
-    if(spellId === SPELLS.SHEILUNS_GIFT_BUFF.id) {
+    if (spellId === SPELLS.SHEILUNS_GIFT_BUFF.id) {
       debug && console.log('SG stacks at ' + this.stacksSG);
     }
   }
@@ -75,11 +75,11 @@ class SheilunsGift extends Module {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
-    if(spellId === SPELLS.EFFUSE.id) {
+    if (spellId === SPELLS.EFFUSE.id) {
       this.countEff += 1;
     }
 
-    if(spellId === SPELLS.SHEILUNS_GIFT.id) {
+    if (spellId === SPELLS.SHEILUNS_GIFT.id) {
       this.castsSG += 1;
       this.stacksTotalSG += this.stacksSG;
       this.stacksSG = 0;
@@ -92,7 +92,7 @@ class SheilunsGift extends Module {
         debug && console.log('SG Capped');
       }
     }
-    if(spellId === SPELLS.EFFUSE.ID && this.hasEffusiveMists && this.stacksSG === 12) {
+    if (spellId === SPELLS.EFFUSE.ID && this.hasEffusiveMists && this.stacksSG === 12) {
       this.stacksWastedSG += 1;
       debug && console.log('Effuse Cast at Capped SG');
     }
@@ -101,9 +101,9 @@ class SheilunsGift extends Module {
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
 
-    if(spellId === SPELLS.SHEILUNS_GIFT.id) {
+    if (spellId === SPELLS.SHEILUNS_GIFT.id) {
       this.sgHeal += event.amount + (event.absorbed || 0);
-      if(event.overheal) {
+      if (event.overheal) {
         this.overhealSG += event.overheal;
       }
       debug && console.log('SG Overheal: ' + event.overheal);
@@ -164,7 +164,7 @@ class SheilunsGift extends Module {
   statisticOrder = STATISTIC_ORDER.OPTIONAL(20);
 
   on_finished() {
-    if(debug) {
+    if (debug) {
       console.log("Total SG Stacks:" + this.stacksTotalSG);
       console.log("SG Casts: " + this.castsSG);
       console.log("Ending SG Stacks: " + this.stacksSG);

@@ -27,15 +27,15 @@ class DoorwayToNowhere extends Module {
   on_byPlayer_summon(event) {
     const spellId = event.ability.guid;
 
-    if(spellId === SPELLS.DOORWAY_TO_NOWHERE_SUMMON.id) {
+    if (spellId === SPELLS.DOORWAY_TO_NOWHERE_SUMMON.id) {
       this.doorwayActive = event.timestamp;
       this.petID = event.targetID;
       this.doorwayProc += 1;
     }
 
-    if(spellId === SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id) {
+    if (spellId === SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id) {
       this.chiJiActive = event.timestamp;
-      if(!this.petID) {
+      if (!this.petID) {
         this.petID = event.targetID;
       }
     }
@@ -44,17 +44,17 @@ class DoorwayToNowhere extends Module {
   on_heal(event) {
     const spellId = event.ability.guid;
 
-    if(event.sourceID === this.petID && spellId === SPELLS.CRANE_HEAL.id && event.timestamp < (this.doorwayActive + DOORWAYACTIVETIME) && event.timestamp < (this.chiJiActive + CHIJIACTIVETIME)) {
+    if (event.sourceID === this.petID && spellId === SPELLS.CRANE_HEAL.id && event.timestamp < (this.doorwayActive + DOORWAYACTIVETIME) && event.timestamp < (this.chiJiActive + CHIJIACTIVETIME)) {
       this.healingOverlap += ((event.amount || 0) + (event.absorbed || 0) / 2);
     }
-    if(event.sourceID === this.petID && spellId === SPELLS.CRANE_HEAL.id && event.timestamp < (this.doorwayActive + DOORWAYACTIVETIME) && event.timestamp > (this.chiJiActive + CHIJIACTIVETIME)) {
+    if (event.sourceID === this.petID && spellId === SPELLS.CRANE_HEAL.id && event.timestamp < (this.doorwayActive + DOORWAYACTIVETIME) && event.timestamp > (this.chiJiActive + CHIJIACTIVETIME)) {
       this.healing += (event.amount || 0) + (event.absorbed || 0);
     }
   }
 
   on_finished() {
     this.healing = this.healing + this.healingOverlap;
-    if(debug) {
+    if (debug) {
       console.log('Doorway Healing: ' + this.healing);
       console.log('Overlap Healing:', this.healingOverlap);
       console.log('Doorway Procs:', this.doorwayProc);

@@ -131,21 +131,21 @@ class MasteryBreakdown extends Module {
         return;
       }
 
-      if(this._masteryActive[tId]) {
+      if (this._masteryActive[tId]) {
         this._tickMode[tId] = 3;
       } else {
         this._tickMode[tId] = 2;
       }
 
-      if(!(tId in this._healVal)) {
+      if (!(tId in this._healVal)) {
         this._healVal[tId] = {};
       }
 
-      if(!(tId in this._maxHealVal)) {
+      if (!(tId in this._maxHealVal)) {
         this._maxHealVal[tId] = {};
       }
 
-      if(!(spellId in this._healVal[tId])) {
+      if (!(spellId in this._healVal[tId])) {
         this._healVal[tId][spellId] = event.amount + (event.absorbed || 0) + (event.overheal || 0);
       } else {
         this._healVal[tId][spellId] += event.amount + (event.absorbed || 0) + (event.overheal || 0);

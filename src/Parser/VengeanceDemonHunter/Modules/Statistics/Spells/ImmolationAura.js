@@ -23,7 +23,7 @@ class ImmolationAura extends Module {
 
     const immolationAuraUptimePercentage = immolationAuraUptime / this.owner.fightDuration;
 
-    if(this.owner.modules.abilityTracker.abilities[SPELLS.IMMOLATION_AURA.id]) {
+    if (this.owner.modules.abilityTracker.abilities[SPELLS.IMMOLATION_AURA.id]) {
 
       this.immolationAuraDamage = this.owner.modules.abilityTracker.abilities[SPELLS.IMMOLATION_AURA_FIRST_STRIKE.id].damageEffective + this.owner.modules.abilityTracker.abilities[SPELLS.IMMOLATION_AURA_BUFF.id].damageEffective;
     }

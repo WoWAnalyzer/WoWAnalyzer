@@ -29,7 +29,7 @@ class PetrichorLagniappe extends Module {
 
   on_initialized() {
     this.active = this.combatants.selected.hasWrists(ITEMS.PETRICHOR_LAGNIAPPE.id);
-    if(this.active) {
+    if (this.active) {
       this.REVIVAL_BASE_COOLDOWN = 180000 - (this.combatants.selected.traitsBySpellId[SPELLS.TENDRILS_OF_REVIVAL.id] || 0 ) * 10000;
     }
   }
@@ -67,7 +67,7 @@ class PetrichorLagniappe extends Module {
     if (((this.owner.fight.end_time - this.lastCastTime) - (this.REVIVAL_BASE_COOLDOWN - this.currentReductionTime)) > 0 ) {
       this.wastedReductionTime += (this.owner.fight.end_time - this.lastCastTime) - (this.REVIVAL_BASE_COOLDOWN - this.currentReductionTime);
     }
-    if(debug) {
+    if (debug) {
       console.log('Time Reduction: ', this.totalReductionTime);
       console.log('Wasted Reduction:', this.wastedReductionTime);
     }

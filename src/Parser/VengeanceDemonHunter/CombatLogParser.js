@@ -21,7 +21,7 @@ import SoulFragments from './Modules/Statistics/SoulFragments/SoulFragments';
 import ImmolationAura from './Modules/Statistics/Spells/ImmolationAura';
 import DemonSpikes from './Modules/Statistics/Spells/DemonSpikes';
 import EmpowerWards from './Modules/Statistics/Spells/EmpowerWards';
-import SigilOfFlame from'./Modules/Statistics/Spells/SigilOfFlame';
+import SigilOfFlame from './Modules/Statistics/Spells/SigilOfFlame';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {

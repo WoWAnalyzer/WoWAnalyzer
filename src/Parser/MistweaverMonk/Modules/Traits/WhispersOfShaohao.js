@@ -27,9 +27,9 @@ class WhispersOfShaohao extends Module {
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
 
-    if(spellId === SPELLS.WHISPERS_OF_SHAOHAO.id ) {
+    if (spellId === SPELLS.WHISPERS_OF_SHAOHAO.id ) {
       this.whispersHeal += event.amount;
-      if(event.overheal) {
+      if (event.overheal) {
         this.whispersOverHeal += event.overheal;
       }
       this.countWhispersHeal += 1;
@@ -50,7 +50,7 @@ class WhispersOfShaohao extends Module {
   }
 
   on_finished() {
-    if(debug) {
+    if (debug) {
       console.log('Whispers Heals: ', this.whispersHeal);
     }
   }

@@ -47,7 +47,7 @@ class Ascendance extends Module {
   }
 
   on_finished() {
-    for(const i in this.numCasts) {
+    for (const i in this.numCasts) {
       this.numCasts[i] -= 1;
     }
   }

@@ -50,13 +50,13 @@ class GalacticGuardian extends Module {
     if (SPELLS.MOONFIRE.id !== spellId) {
       return;
     }
-    if(this.lastGGProcTime !== event.timestamp) {
-      if(this.lastGGProcTime === null) {
+    if (this.lastGGProcTime !== event.timestamp) {
+      if (this.lastGGProcTime === null) {
         this.nonGGMoonFire += 1;
         return;
       }
       const GGTimeframe = this.lastGGProcTime + GG_DURATION;
-      if(event.timestamp > GGTimeframe) {
+      if (event.timestamp > GGTimeframe) {
         this.nonGGMoonFire += 1;
       } else {
         this.consumedGGProc += 1;

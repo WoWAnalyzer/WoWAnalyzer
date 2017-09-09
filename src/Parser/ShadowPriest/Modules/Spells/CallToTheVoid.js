@@ -11,7 +11,7 @@ class CallToTheVoid extends Pet {
   _tentacles = {};
 
   on_damage(event) {
-    if(this._sourceId !== undefined && event.sourceID === this._sourceId) {
+    if (this._sourceId !== undefined && event.sourceID === this._sourceId) {
       this._generatedInsanity += INSANITY_GENERATED_EACH_TICK;
     }
 

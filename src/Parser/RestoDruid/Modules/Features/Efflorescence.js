@@ -22,7 +22,7 @@ class Efflorescence extends Module {
 
     // Check if the player had a pre-casted efflorescence
     // If the last cast is bigger than the firstEffloTick it means we precast efflorescence.
-    if(this.firstEffloTickTimestamp !== null && event.timestamp > this.firstEffloTickTimestamp) {
+    if (this.firstEffloTickTimestamp !== null && event.timestamp > this.firstEffloTickTimestamp) {
       const firstTick = event.timestamp - this.firstEffloTickTimestamp;
       debug && console.log("The player had a precasted efflo which gained him " + firstTick);
       this.totalUptime += Math.min(firstTick, 30000);
@@ -44,7 +44,7 @@ class Efflorescence extends Module {
     if (SPELLS.EFFLORESCENCE_HEAL.id !== spellId) {
       return;
     }
-    if(this.firstEffloTickTimestamp === null) {
+    if (this.firstEffloTickTimestamp === null) {
       this.firstEffloTickTimestamp = event.timestamp;
     }
   }

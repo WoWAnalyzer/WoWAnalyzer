@@ -40,9 +40,9 @@ class SoulOfTheForest extends Module {
     }
 
     // Saving the "valid" targets to track the healing done on. I.e. get the targets that had an "empowered" WG/Rejuv applied on them.
-    if(this.wildGrowthProccTimestamp !== null && SPELLS.WILD_GROWTH.id === spellId && (event.timestamp - this.wildGrowthProccTimestamp) < 100) {
+    if (this.wildGrowthProccTimestamp !== null && SPELLS.WILD_GROWTH.id === spellId && (event.timestamp - this.wildGrowthProccTimestamp) < 100) {
       this.wildGrowthTargets.push(event.targetID);
-    } else if(this.rejuvenationProccTimestamp !== null && (SPELLS.REJUVENATION.id === spellId || SPELLS.REJUVENATION_GERMINATION.id === spellId) && (event.timestamp - this.rejuvenationProccTimestamp) < 100) {
+    } else if (this.rejuvenationProccTimestamp !== null && (SPELLS.REJUVENATION.id === spellId || SPELLS.REJUVENATION_GERMINATION.id === spellId) && (event.timestamp - this.rejuvenationProccTimestamp) < 100) {
       this.rejuvenationTargets.push(event.targetID);
     }
   }
@@ -51,15 +51,15 @@ class SoulOfTheForest extends Module {
     const spellId = event.ability.guid;
 
     // proccConsumsed it used because WG and RG has a cast time. So whenever you queue cast WG + rejuv they will happen at the exact same timestamp.
-    if(this.owner.modules.combatants.selected.hasBuff(SPELLS.SOUL_OF_THE_FOREST_BUFF.id) && this.proccConsumed === false) {
+    if (this.owner.modules.combatants.selected.hasBuff(SPELLS.SOUL_OF_THE_FOREST_BUFF.id) && this.proccConsumed === false) {
       if (SPELLS.REJUVENATION.id === spellId || SPELLS.REJUVENATION_GERMINATION === spellId) {
         this.rejuvenations += 1;
         this.rejuvenationProccTimestamp = event.timestamp;
-      } else if(SPELLS.REGROWTH.id === spellId) {
+      } else if (SPELLS.REGROWTH.id === spellId) {
         this.regrowths += 1;
         this.proccConsumed = true;
         this.regrowthProccTimestamp = event.timestamp;
-      } else if(SPELLS.WILD_GROWTH.id === spellId) {
+      } else if (SPELLS.WILD_GROWTH.id === spellId) {
         this.wildGrowths += 1;
         this.proccConsumed = true;
         this.wildGrowthProccTimestamp = event.timestamp;
@@ -71,27 +71,27 @@ class SoulOfTheForest extends Module {
     const spellId = event.ability.guid;
 
     // Reset procc variables
-    if((event.timestamp+200) > (this.rejuvenationProccTimestamp+this.rejuvenationDuration)) {
+    if ((event.timestamp+200) > (this.rejuvenationProccTimestamp+this.rejuvenationDuration)) {
       this.rejuvenationProccTimestamp = null;
       this.rejuvenationTargets = [];
-    } else if((event.timestamp+200) > (this.wildGrowthProccTimestamp+WILD_GROWTH_DURATION)) {
+    } else if ((event.timestamp+200) > (this.wildGrowthProccTimestamp+WILD_GROWTH_DURATION)) {
       this.wildGrowthProccTimestamp = null;
       this.wildGrowthTargets = [];
     }
 
-    if(SPELLS.REGROWTH.id === spellId && this.regrowthProccTimestamp === event.timestamp) {
+    if (SPELLS.REGROWTH.id === spellId && this.regrowthProccTimestamp === event.timestamp) {
       this.regrowthHealing += this.calculateEffectiveHealingFromIncrease(event, REGROWTH_HEALING_INCREASE);
       this.regrowthProccTimestamp = null;
-    } else if(this.rejuvenationProccTimestamp !== null
+    } else if (this.rejuvenationProccTimestamp !== null
         && (SPELLS.REJUVENATION.id === spellId || SPELLS.REJUVENATION_GERMINATION === spellId)
         && (event.timestamp - (this.rejuvenationProccTimestamp+this.rejuvenationDuration)) <= 0) {
-      if(this.rejuvenationTargets.indexOf(event.targetID) !== -1) {
+      if (this.rejuvenationTargets.indexOf(event.targetID) !== -1) {
         this.rejuvenationHealing += this.calculateEffectiveHealingFromIncrease(event, REJUVENATION_HEALING_INCREASE);
       }
-    } else if(this.wildGrowthProccTimestamp !== null
+    } else if (this.wildGrowthProccTimestamp !== null
       && SPELLS.WILD_GROWTH.id === spellId
       && (event.timestamp - (this.wildGrowthProccTimestamp+WILD_GROWTH_DURATION)) <= 0) {
-      if(this.wildGrowthTargets.indexOf(event.targetID) !== -1) {
+      if (this.wildGrowthTargets.indexOf(event.targetID) !== -1) {
         this.wildGrowthHealing += this.calculateEffectiveHealingFromIncrease(event, WILD_GROWTH_HEALING_INCREASE);
       }
     }
