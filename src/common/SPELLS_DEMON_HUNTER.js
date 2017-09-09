@@ -39,7 +39,7 @@ export default {
     name :'Sever',
     icon: 'ability_demonhunter_manabreak',
   },
-  
+
   // Abilities:
   SOUL_FRAGMENT: {
     id: 204255,
@@ -63,7 +63,7 @@ export default {
   },
   SIGIL_OF_FLAME_DEBUFF: {
       id: 204598,
-      name: 'Sigil of Flame Debuff',
+      name: 'Sigil of Flame',
       icon: 'ability_demonhunter_sigilofinquisition',
   },
   SIGIL_OF_MISERY: {
