@@ -59,19 +59,19 @@ class AlwaysBeCasting extends Module {
   };
 
   // Not yet implemented, for now this is just the general idea. This approach could also be used for merging HASTE_BUFFS and STACKABLE_HASTE_BUFFS.
-  // It would be nice to have this point to a value in the Combatant class, but that would be tricky this is `static`.
+  // It would be nice to have this point to a value in the Combatant class, but that would be tricky since this is `static`.
   static hasteRatingPerPercent = 37500;
+  // TODO: This could actually be generalized to a hasteBuffs array with itemId optional
   static hasteItems = {
-    // TODO: Is this buff included in the combatant Haste or like DMD:Hellfire not and then applied when you enter combat??? Having this here likely includes it in Haste twice.
     [SPELLS.LUNAR_INFUSION.id]: {
+      // TODO: Is this buff included in the combatant Haste or like DMD:Hellfire not and then applied when you enter combat??? Having this here likely includes it in Haste twice.
       itemId: ITEMS.CHALICE_OF_MOONLIGHT.id,
       haste: item => calculateSecondaryStatDefault(855, 305, item.itemLevel) / this.hasteRatingPerPercent,
     },
-    // Charm of the Rising Tide (Rising Tides buff)
-    [SPELLS.RISING_TIDES.id]: item => ({
+    [SPELLS.RISING_TIDES.id]: {
       itemId: ITEMS.CHARM_OF_THE_RISING_TIDE.id,
-      hastePerStack: calculateSecondaryStatDefault(900, 576, item.itemLevel) / this.hasteRatingPerPercent,
-    }),
+      hastePerStack: item => calculateSecondaryStatDefault(900, 576, item.itemLevel) / this.hasteRatingPerPercent,
+    },
   };
 
   static baseGcd = 1500;
