@@ -11,19 +11,19 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 class ElementalBlast extends Module {
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasTalent(SPELLS.ELEMENTAL_BLAST_TALENT.id);
+    this.active = this.owner.modules.combatants.selected.hasTalent(SPELLS.ELEMENTAL_BLAST_TALENT.id);
   }
 
   get hasteUptime() {
-    return this.owner.selectedCombatant.getBuffUptime(SPELLS.ELEMENTAL_BLAST_HASTE.id) / this.owner.fightDuration;
+    return this.owner.modules.combatants.selected.getBuffUptime(SPELLS.ELEMENTAL_BLAST_HASTE.id) / this.owner.fightDuration;
   }
 
   get critUptime() {
-    return this.owner.selectedCombatant.getBuffUptime(SPELLS.ELEMENTAL_BLAST_CRIT.id) / this.owner.fightDuration;
+    return this.owner.modules.combatants.selected.getBuffUptime(SPELLS.ELEMENTAL_BLAST_CRIT.id) / this.owner.fightDuration;
   }
 
   get masteryUptime() {
-    return this.owner.selectedCombatant.getBuffUptime(SPELLS.ELEMENTAL_BLAST_MASTERY.id) / this.owner.fightDuration;
+    return this.owner.modules.combatants.selected.getBuffUptime(SPELLS.ELEMENTAL_BLAST_MASTERY.id) / this.owner.fightDuration;
   }
 
   get elementalBlastUptime() {

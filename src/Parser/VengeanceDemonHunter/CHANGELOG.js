@@ -1,4 +1,5 @@
 export default `
+09-09-2017 - Some nearly unused abilities and/or no CD abilities now doesn't show 'can be improved' in Cast Efficiency tab. (by Mamtooth)
 07-09-2017 - Abilities now trigger mouseover tooltips on statistic boxes. (by Mamtooth)
 07-09-2017 - Updated timers in the statistics tooltips. (by Mamtooth)
 06-09-2017 - Added more suggestions to Immolation Aura buff uptime. (by Mamtooth)

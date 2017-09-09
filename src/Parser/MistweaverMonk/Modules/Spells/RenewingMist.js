@@ -22,7 +22,7 @@ class RenewingMist extends Module {
   dancingMistHeal = 0;
 
   on_initialize() {
-    this.active = this.selectedCombatant.traitsBySpellId[SPELLS.DANCING_MISTS.id] === 1;
+    this.active = this.modules.combatants.selected.traitsBySpellId[SPELLS.DANCING_MISTS.id] === 1;
   }
 
   on_byPlayer_applybuff(event) {

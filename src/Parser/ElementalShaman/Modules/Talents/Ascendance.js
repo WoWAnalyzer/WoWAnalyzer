@@ -24,11 +24,11 @@ class Ascendance extends Module {
   };
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasTalent(SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id) || this.owner.selectedCombatant.hasHands(ITEMS.SMOLDERING_HEART.id);
+    this.active = this.owner.modules.combatants.selected.hasTalent(SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id) || this.owner.modules.combatants.selected.hasHands(ITEMS.SMOLDERING_HEART.id);
   }
 
   get rawUpdate() {
-    return this.owner.selectedCombatant.getBuffUptime(SPELLS.ASCENDANCE.id) / this.owner.fightDuration;
+    return this.owner.modules.combatants.selected.getBuffUptime(SPELLS.ASCENDANCE.id) / this.owner.fightDuration;
   }
 
   get AscendanceUptime() {
@@ -36,7 +36,7 @@ class Ascendance extends Module {
   }
 
   on_byPlayer_cast(event) {
-    if (this.owner.selectedCombatant.hasBuff(SPELLS.ASCENDANCE.id, event.timestamp)) {
+    if (this.owner.modules.combatants.selected.hasBuff(SPELLS.ASCENDANCE.id, event.timestamp)) {
       const spellId = event.ability.guid;
       if (this.numCasts[spellId]) {
         this.numCasts[spellId]++;

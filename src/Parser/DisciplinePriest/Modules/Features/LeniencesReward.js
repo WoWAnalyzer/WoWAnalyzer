@@ -25,7 +25,7 @@ class LeniencesReward extends Module {
 
   totalDamageTakenDuringAtonement = 0;
   on_initialized() {
-    this._leniencesRewardRank = this.owner.selectedCombatant.traitsBySpellId[SPELLS.LENIENCES_REWARD_TRAIT.id];
+    this._leniencesRewardRank = this.owner.modules.combatants.selected.traitsBySpellId[SPELLS.LENIENCES_REWARD_TRAIT.id];
     this._leniencesRewardDR = this._leniencesRewardRank * LENIENCES_REWARD_DR_PER_RANK;
     this.active = this._leniencesRewardRank > 0;
   }
@@ -34,7 +34,7 @@ class LeniencesReward extends Module {
     return fetch(makeWclUrl(`report/tables/damage-taken/${this.owner.report.code}`, {
       start: this.owner.fight.start_time,
       end: this.owner.fight.end_time,
-      filter: `(IN RANGE FROM type='applybuff' AND ability.id=${SPELLS.ATONEMENT_BUFF.id} AND source.name='${this.owner.selectedCombatant.name}' TO type='removebuff' AND ability.id=${SPELLS.ATONEMENT_BUFF.id} AND source.name='${this.owner.selectedCombatant.name}' GROUP BY target ON target END)`,
+      filter: `(IN RANGE FROM type='applybuff' AND ability.id=${SPELLS.ATONEMENT_BUFF.id} AND source.name='${this.owner.modules.combatants.selected.name}' TO type='removebuff' AND ability.id=${SPELLS.ATONEMENT_BUFF.id} AND source.name='${this.owner.modules.combatants.selected.name}' GROUP BY target ON target END)`,
     }))
       .then(response => response.json())
       .then((json) => {

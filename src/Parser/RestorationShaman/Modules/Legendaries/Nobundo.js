@@ -11,7 +11,7 @@ class Nobundo extends Module {
   discounts = 0;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasWrists(ITEMS.NOBUNDOS_REDEMPTION.id);
+    this.active = this.owner.modules.combatants.selected.hasWrists(ITEMS.NOBUNDOS_REDEMPTION.id);
   }
 
   on_byPlayer_heal(event) {
@@ -21,7 +21,7 @@ class Nobundo extends Module {
         return;
     }
 
-    const buff = this.owner.selectedCombatant.getBuff(LEGENDARY_NOBUNDO_BUFF, event.timestamp, LEGENDARY_NOBUNDO_BUFF_EXPIRATION_BUFFER);
+    const buff = this.owner.modules.combatants.selected.getBuff(LEGENDARY_NOBUNDO_BUFF, event.timestamp, LEGENDARY_NOBUNDO_BUFF_EXPIRATION_BUFFER);
 
     if (buff) {
         this.discounts += 1;

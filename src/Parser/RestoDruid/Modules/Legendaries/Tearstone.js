@@ -24,7 +24,7 @@ class Tearstone extends Module {
     if (SPELLS.WILD_GROWTH.id === spellId) {
       this.wildgrowthTimestamp = event.timestamp;
       this.wildGrowthTargets = [];
-      if (this.owner.selectedCombatant.hasBuff(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id)) {
+      if (this.owner.modules.combatants.selected.hasBuff(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id)) {
         this.wildGrowths += 8;
       } else {
         this.wildGrowths += 6;

@@ -74,15 +74,15 @@ class MonkSpreadsheet extends React.Component {
           <tr style={styles.cellBorder}><td>{parser.modules.upliftingTrance.UTProcsTotal}</td></tr>
           <tr><td>{(1 - (parser.modules.upliftingTrance.consumedUTProc / parser.modules.upliftingTrance.UTProcsTotal)).toFixed(4)}</td></tr>
           <tr style={styles.cellBorder}><td>{(parser.modules.manaTea.manaSavedMT / parser.fightDuration * 1000 * 5).toFixed(0)}</td></tr>
-          <tr style={styles.cellBorder}><td>{(parser.selectedCombatant.hasTalent(SPELLS.LIFECYCLES_TALENT.id) && ((parser.modules.lifecycles.castsRedViv / (parser.modules.lifecycles.castsRedViv + parser.modules.lifecycles.castsNonRedViv)).toFixed(4))) || 0}</td></tr>
-          <tr><td>{(parser.selectedCombatant.hasTalent(SPELLS.LIFECYCLES_TALENT.id) && ((parser.modules.lifecycles.castsRedEnm / (parser.modules.lifecycles.castsRedEnm + parser.modules.lifecycles.castsNonRedEnm)).toFixed(4))) || 0}</td></tr>
+          <tr style={styles.cellBorder}><td>{(parser.modules.combatants.selected.hasTalent(SPELLS.LIFECYCLES_TALENT.id) && ((parser.modules.lifecycles.castsRedViv / (parser.modules.lifecycles.castsRedViv + parser.modules.lifecycles.castsNonRedViv)).toFixed(4))) || 0}</td></tr>
+          <tr><td>{(parser.modules.combatants.selected.hasTalent(SPELLS.LIFECYCLES_TALENT.id) && ((parser.modules.lifecycles.castsRedEnm / (parser.modules.lifecycles.castsRedEnm + parser.modules.lifecycles.castsNonRedEnm)).toFixed(4))) || 0}</td></tr>
           <tr style={styles.cellBorder}><td>{parser.modules.spiritOfTheCrane.manaReturnSotc}</td></tr>
           <tr style={styles.cellBorder}><td>{(parser.modules.sheilunsGift.stacksTotalSG / SGcasts || 0).toFixed(0)}</td></tr>
           <tr style={styles.cellBorder}><td>{(parser.modules.whispersOfShaohao.countWhispersHeal / ((Math.floor(parser.fightDuration / 10000) + parser.modules.sheilunsGift.countEff))).toFixed(4) || 0}</td></tr>
           <tr style={styles.cellBorder}><td>{((parser.modules.celestialBreath.healsCelestialBreath / parser.modules.celestialBreath.procsCelestialBreath) / 3).toFixed(2) || 0}</td></tr>
           <tr style={styles.cellBorder}><td>{parser.modules.mistsOfSheilun.procsMistsOfSheilun}</td></tr>
           <tr><td>{(parser.modules.mistsOfSheilun.healsMistsOfSheilun / parser.modules.mistsOfSheilun.procsMistsOfSheilun).toFixed(2) || 0}</td></tr>
-          <tr style={styles.cellBorder}><td>{(parser.selectedCombatant.hasTalent(SPELLS.REFRESHING_JADE_WIND_TALENT.id) && ((parser.modules.refreshingJadeWind.healsRJW / parser.modules.refreshingJadeWind.castRJW) / 78 ).toFixed(4)) || 0}</td></tr>
+          <tr style={styles.cellBorder}><td>{(parser.modules.combatants.selected.hasTalent(SPELLS.REFRESHING_JADE_WIND_TALENT.id) && ((parser.modules.refreshingJadeWind.healsRJW / parser.modules.refreshingJadeWind.castRJW) / 78 ).toFixed(4)) || 0}</td></tr>
           <tr style={styles.cellBorder}><td>{parser.modules.renewingMist.dancingMistHeal}</td></tr>
           <tr style={styles.cellBorder}><td>{(((parser.modules.essenceFontMastery.healEF / 2) / parser.modules.essenceFontMastery.castEF) || 0).toFixed(2)}</td></tr>
           <tr style={styles.cellBorder}><td>{(parser.modules.essenceFont.targetsEF / parser.modules.essenceFont.castEF).toFixed(2) || 0}</td></tr>
@@ -105,7 +105,7 @@ class MonkSpreadsheet extends React.Component {
             </td>
           </tr>
           <tr style={styles.cellBorder}><td>{(parser.modules.t20_2pc.manaSaved / parser.fightDuration * 1000 * 5).toFixed(0) || 0}</td></tr>
-          <tr style={styles.cellBorder}><td>{(parser.selectedCombatant.getBuffUptime(SPELLS.DANCE_OF_MISTS.id)/parser.fightDuration).toFixed(4) || 0}</td></tr>
+          <tr style={styles.cellBorder}><td>{(parser.modules.combatants.selected.getBuffUptime(SPELLS.DANCE_OF_MISTS.id)/parser.fightDuration).toFixed(4) || 0}</td></tr>
         </table>
         </div>
       </div>

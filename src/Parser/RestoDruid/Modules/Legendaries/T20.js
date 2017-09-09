@@ -22,7 +22,7 @@ class T20 extends Module {
   swiftmendHealing = 0;
 
   on_initialized() {
-    if(this.owner.selectedCombatant.lv15Talent === SPELLS.PROSPERITY_TALENT.id) {
+    if(this.owner.modules.combatants.selected.lv15Talent === SPELLS.PROSPERITY_TALENT.id) {
      this.swiftmendCooldown = 27;
     }
   }
@@ -31,7 +31,7 @@ class T20 extends Module {
     const spellId = event.ability.guid;
 
     if (spellId === SPELLS.EFFLORESCENCE_HEAL.id) {
-      if(this.owner.selectedCombatant.hasBuff(SPELLS.BLOSSOMING_EFFLORESCENCE.id, event.timestamp, 0, 0)) {
+      if(this.owner.modules.combatants.selected.hasBuff(SPELLS.BLOSSOMING_EFFLORESCENCE.id, event.timestamp, 0, 0)) {
         this.healing += calculateEffectiveHealing(event, BLOSSOMING_EFFLORESCENCE_HEAL_INCREASE);
       }
     } else if(spellId === SPELLS.SWIFTMEND.id) {
@@ -47,7 +47,7 @@ class T20 extends Module {
 
   on_finished() {
     if (debug) {
-      console.log("4P Uptime: " + ((this.owner.selectedCombatant.getBuffUptime(SPELLS.BLOSSOMING_EFFLORESCENCE.id) / this.owner.fightDuration) * 100).toFixed(2) + "%");
+      console.log("4P Uptime: " + ((this.owner.modules.combatants.selected.getBuffUptime(SPELLS.BLOSSOMING_EFFLORESCENCE.id) / this.owner.fightDuration) * 100).toFixed(2) + "%");
       console.log("4P Healing %: " + (this.owner.getPercentageOfTotalHealingDone(this.healing) * 100).toFixed(2) + "%");
       console.log("4P Healing: " + this.healing);
       console.log("Total Healing: " + this.healingDone.total.effective);

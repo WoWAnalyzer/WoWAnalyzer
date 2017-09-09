@@ -5,8 +5,7 @@ import Icon from 'common/Icon';
 import Module from 'Parser/Core/Module';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-
-class RPWasted extends Module {
+class RunicPowerWasted extends Module {
   totalRPWasted = 0;
   totalRPGained = 0;
 
@@ -22,7 +21,7 @@ class RPWasted extends Module {
 
     return (
       <StatisticBox
-        icon={<Icon icon="inv_sword_62" />}
+        icon={<Icon icon='inv_sword_62'/>}
         value={`${formatPercentage(this.totalRPWasted/this.totalRPGained)} %`}
         label='Runic Power Wasted'
         tooltip={''}
@@ -33,4 +32,4 @@ class RPWasted extends Module {
   statisticOrder = STATISTIC_ORDER.CORE(4);
 
 }
-export default RPWasted;
+export default RunicPowerWasted;

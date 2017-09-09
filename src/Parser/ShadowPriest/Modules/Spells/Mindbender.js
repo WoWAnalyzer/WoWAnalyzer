@@ -11,7 +11,7 @@ class Mindbender extends Pet {
   _mindbenders = {};
 
   on_initialized(){
-    this.active = this.owner.selectedCombatant.hasTalent(SPELLS.MINDBENDER_TALENT_SHADOW.id);
+    this.active = this.owner.modules.combatants.selected.hasTalent(SPELLS.MINDBENDER_TALENT_SHADOW.id);
 
     super.on_initialized();
   }
@@ -26,7 +26,7 @@ class Mindbender extends Pet {
 
       this._mindbenders[event.timestamp] = {
         start: event.timestamp,
-        end: event.timestamp + MINDBENDER_UPTIME_MS + (MINDBENDER_ADDED_UPTIME_MS_PER_TRAIT * this.owner.selectedCombatant.traitsBySpellId[SPELLS.FIENDING_DARK_TRAIT.id]),
+        end: event.timestamp + MINDBENDER_UPTIME_MS + (MINDBENDER_ADDED_UPTIME_MS_PER_TRAIT * this.owner.modules.combatants.selected.traitsBySpellId[SPELLS.FIENDING_DARK_TRAIT.id]),
       };
     }
   }

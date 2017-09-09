@@ -41,11 +41,11 @@ class Voidform extends Module {
 
   get averageVoidformHaste(){
     const averageHasteFromVoidform = (this.voidforms.reduce((p, c) => p += c.totalHasteAcquired / ((c.ended - c.start)/1000), 0) / this.voidforms.length) / 100;
-    return (1 + this.owner.selectedCombatant.hastePercentage) * (1 + averageHasteFromVoidform);
+    return (1 + this.owner.modules.combatants.selected.hastePercentage) * (1 + averageHasteFromVoidform);
   }
 
   get averageNonVoidformHaste(){
-    return (1 + this.owner.selectedCombatant.hastePercentage) * (1 + (this._totalHasteAcquiredOutsideVoidform / this._totalLingeringInsanityTimeOutsideVoidform)/100);
+    return (1 + this.owner.modules.combatants.selected.hastePercentage) * (1 + (this._totalHasteAcquiredOutsideVoidform / this._totalLingeringInsanityTimeOutsideVoidform)/100);
   }
 
   get averageVoidformStacks(){
@@ -153,7 +153,7 @@ class Voidform extends Module {
   }
 
   on_finished(){
-    const player = this.owner.selectedCombatant;
+    const player = this.owner.modules.combatants.selected;
 
     // excludes last one to avoid skewing the average (if in voidform when the encounter ends):
     if(player.hasBuff(SPELLS.VOIDFORM_BUFF.id)){
@@ -172,7 +172,7 @@ class Voidform extends Module {
   }
 
   suggestions(when) {
-    const uptime = this.owner.selectedCombatant.getBuffUptime(SPELLS.VOIDFORM_BUFF.id) / (this.owner.fightDuration - this.owner.selectedCombatant.getBuffUptime(SPELLS.DISPERSION.id));
+    const uptime = this.owner.modules.combatants.selected.getBuffUptime(SPELLS.VOIDFORM_BUFF.id) / (this.owner.fightDuration - this.owner.modules.combatants.selected.getBuffUptime(SPELLS.DISPERSION.id));
 
     when(uptime).isLessThan(0.80)
       .addSuggestion((suggest, actual, recommended) => {
@@ -191,15 +191,17 @@ class Voidform extends Module {
   }
 
   statistic() {
-    return (<StatisticBox
-      icon={<SpellIcon id={SPELLS.VOIDFORM.id} />}
-      value={`${formatPercentage(this.owner.selectedCombatant.getBuffUptime(SPELLS.VOIDFORM_BUFF.id) / (this.owner.fightDuration - this.owner.selectedCombatant.getBuffUptime(SPELLS.DISPERSION.id)))} %`}
-      label={(
-        <dfn data-tip={`Time spent in dispersion (${Math.round(this.owner.selectedCombatant.getBuffUptime(SPELLS.DISPERSION.id) / 1000)} seconds) is excluded from the fight.`}>
-          Voidform uptime
-        </dfn>
-      )}
-    />);
+    return (
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.VOIDFORM.id} />}
+        value={`${formatPercentage(this.owner.modules.combatants.selected.getBuffUptime(SPELLS.VOIDFORM_BUFF.id) / (this.owner.fightDuration - this.owner.modules.combatants.selected.getBuffUptime(SPELLS.DISPERSION.id)))} %`}
+        label={(
+          <dfn data-tip={`Time spent in dispersion (${Math.round(this.owner.modules.combatants.selected.getBuffUptime(SPELLS.DISPERSION.id) / 1000)} seconds) is excluded from the fight.`}>
+            Voidform uptime
+          </dfn>
+        )}
+      />
+    );
   }
 
   statisticOrder = STATISTIC_ORDER.CORE(3);
@@ -217,8 +219,8 @@ class Voidform extends Module {
             mindbenderEvents={this.mindbender.mindbenders} 
             dispersionEvents={this.dispersion.dispersions} 
             fightEnd={this.owner.fight.end_time}
-            surrenderToMadness={!!this.owner.selectedCombatant.hasTalent(SPELLS.SURRENDER_TO_MADNESS_TALENT.id)}
-            setT20P4={this.owner.selectedCombatant.hasBuff(SPELLS.SHADOW_PRIEST_T20_4SET_BONUS_PASSIVE.id)}
+            surrenderToMadness={!!this.owner.modules.combatants.selected.hasTalent(SPELLS.SURRENDER_TO_MADNESS_TALENT.id)}
+            setT20P4={this.owner.modules.combatants.selected.hasBuff(SPELLS.SHADOW_PRIEST_T20_4SET_BONUS_PASSIVE.id)}
           />
         </Tab>
       ),

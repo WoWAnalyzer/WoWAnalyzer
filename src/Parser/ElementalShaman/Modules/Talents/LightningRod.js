@@ -20,7 +20,7 @@ class LightningRod extends Module {
   };
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasTalent(SPELLS.LIGHTNING_ROD_TALENT.id);
+    this.active = this.owner.modules.combatants.selected.hasTalent(SPELLS.LIGHTNING_ROD_TALENT.id);
   }
 
   get rawUpdate() {

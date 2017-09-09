@@ -19,6 +19,10 @@ class SoulShardEvents extends Module {
   _FRAGMENT_GENERATING_ABILITIES = {
     [SPELLS.IMMOLATE_DEBUFF.id]: (_) => 1,
     [SPELLS.CONFLAGRATE.id]: (_) => 5,
+    //the Shadowburn itself generates 5 fragments, but leaves a debuff on target for 5 seconds, and if it dies, it generates additional 5 fragments
+    //don't know how to accurately separate these two (could do totalFragments - numberOfShadowburnCasts * 5, but this doesn't account for possible wasted fragments = inaccurate)
+    //solution would be to fabricate a dummy spell with id unused by any other ability and manipulate the event passed into processGenerators but that feels so wrong
+    [SPELLS.SHADOWBURN.id]: (_) => 5,
     [SPELLS.INCINERATE.id]: (event) => {
       const enemy = this.enemies.getEntity(event);
       if (!enemy) {
@@ -64,10 +68,10 @@ class SoulShardEvents extends Module {
   _hasT20_2p = false;
   _currentFragments = 0;
 
+
   on_initialized() {
     this._hasT20_2p = this.combatants.selected.hasBuff(SPELLS.WARLOCK_DESTRO_T20_2P_BONUS.id);
     this._currentFragments = 30; //on the start of the fight we should have 3 soul shards (30 fragments) by default
-    debug && console.log("start fragments " + this._currentFragments);
   }
 
   on_byPlayer_energize(event) {
@@ -82,10 +86,16 @@ class SoulShardEvents extends Module {
     }
   }
 
+  //handles regular Shadowburn fragment gen
   on_byPlayer_damage(event) {
     if (this._FRAGMENT_GENERATING_ABILITIES[event.ability.guid]) {
       this.processGenerators(event);
     }
+  }
+
+  //sent from Shadowburn module when target with Shadowburn debuff dies
+  on_shadowburn_kill(event) {
+    this.processGenerators(event);
   }
 
   on_byPlayer_cast(event) {
@@ -126,6 +136,9 @@ class SoulShardEvents extends Module {
 
     shardEvent.amount = gain;
     shardEvent.waste = waste;
+    if (event.isFromShadowburnKill) {
+      shardEvent.isFromShadowburnKill = true;
+    }
     shardEvent.currentFragments = this._currentFragments;
 
     debug && console.log('++ ' + shardEvent.amount + '(w: ' + shardEvent.waste + ') = ' + shardEvent.currentFragments + ', ' + shardEvent.ability.name + ', orig: ', event);
