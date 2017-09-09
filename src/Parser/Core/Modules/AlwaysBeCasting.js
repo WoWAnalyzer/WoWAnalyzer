@@ -3,6 +3,7 @@ import { calculateSecondaryStatDefault } from 'common/stats';
 
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import ITEMS from "../../../common/ITEMS";
 
 const debug = false;
 
@@ -58,16 +59,23 @@ class AlwaysBeCasting extends Module {
   };
 
   // Not yet implemented, for now this is just the general idea. This approach could also be used for merging HASTE_BUFFS and STACKABLE_HASTE_BUFFS.
-  // TODO: Extract 37500, this might also be different for some specs
-  static ITEMS = {
-    // Chalice of Moonlight
+  // It would be nice to have this point to a value in the Combatant class, but that would be tricky this is `static`.
+  static hasteRatingPerPercent = 37500;
+  static hasteItems = {
     // TODO: Is this buff included in the combatant Haste or like DMD:Hellfire not and then applied when you enter combat??? Having this here likely includes it in Haste twice.
-    [242543]: item => calculateSecondaryStatDefault(855, 305, item.itemLevel) / 37500,
+    [SPELLS.LUNAR_INFUSION.id]: {
+      itemId: ITEMS.CHALICE_OF_MOONLIGHT.id,
+      haste: item => calculateSecondaryStatDefault(855, 305, item.itemLevel) / this.hasteRatingPerPercent,
+    },
     // Charm of the Rising Tide (Rising Tides buff)
-    [242458]: item => ({
-      hastePerTick: calculateSecondaryStatDefault(900, 576, item.itemLevel) / 37500,
+    [SPELLS.RISING_TIDES.id]: item => ({
+      itemId: ITEMS.CHARM_OF_THE_RISING_TIDE.id,
+      hastePerStack: calculateSecondaryStatDefault(900, 576, item.itemLevel) / this.hasteRatingPerPercent,
     }),
   };
+
+  static baseGcd = 1500;
+  static minimumGcd = 750;
 
   totalTimeWasted = 0;
   totalHealingTimeWasted = 0;
@@ -225,11 +233,9 @@ class AlwaysBeCasting extends Module {
   }
 
   static calculateGlobalCooldown(haste) {
-    // TODO: Extract 1.5 to a static variable as the default is different in several specs
-    // TODO: Change 1.5 to ms (1500) to be consistent across the class
-    const gcd = 1.5 / (1 + haste);
-    //Check the gcd doesnt go under the limit
-    return gcd > 0.75 ? gcd : 0.75;
+    const gcd = this.baseGcd / (1 + haste);
+    // Global cooldowns can't normally drop below a certain threshold
+    return Math.max(this.minimumGcd, gcd);
   }
   static applyHasteGain(baseHaste, hasteGain) {
     return baseHaste * (1 + hasteGain) + hasteGain;
@@ -245,7 +251,7 @@ class AlwaysBeCasting extends Module {
   }
 
   getCurrentGlobalCooldown(spellId) {
-    return this.constructor.STATIC_GCD_ABILITIES[spellId] || this.constructor.calculateGlobalCooldown(this.currentHaste) * 1000;
+    return this.constructor.STATIC_GCD_ABILITIES[spellId] || this.constructor.calculateGlobalCooldown(this.currentHaste);
   }
 }
 

@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-import isAtonement from './../Core/isAtonement';
+import isAtonement from '../Core/isAtonement';
 
 const debug = true;
 

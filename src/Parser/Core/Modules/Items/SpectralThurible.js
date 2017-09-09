@@ -9,12 +9,11 @@ class SpectralThurible extends Module {
   static dependencies = {
     combatants: Combatants,
   };
+
   bonusDmg = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.combatants.selected.hasTrinket(ITEMS.SPECTRAL_THURIBLE.id);
-    }
+    this.active = this.combatants.selected.hasTrinket(ITEMS.SPECTRAL_THURIBLE.id);
   }
 
   on_byPlayer_damage(event) {

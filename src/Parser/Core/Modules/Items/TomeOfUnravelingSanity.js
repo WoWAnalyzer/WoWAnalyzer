@@ -9,12 +9,11 @@ class TomeOfUnravelingSanity extends Module {
   static dependencies = {
     combatants: Combatants,
   };
+
   bonusDmg = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.combatants.selected.hasTrinket(ITEMS.TOME_OF_UNRAVELING_SANITY.id);
-    }
+    this.active = this.combatants.selected.hasTrinket(ITEMS.TOME_OF_UNRAVELING_SANITY.id);
   }
 
   on_byPlayer_damage(event) {

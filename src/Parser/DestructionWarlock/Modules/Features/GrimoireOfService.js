@@ -26,9 +26,7 @@ class DoomguardInfernal extends Module {
   };
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.combatants.selected.hasTalent(SPELLS.GRIMOIRE_OF_SERVICE_TALENT.id);
-    }
+    this.active = this.combatants.selected.hasTalent(SPELLS.GRIMOIRE_OF_SERVICE_TALENT.id);
   }
   suggestions(when) {
     const maxCasts = Math.ceil(calculateMaxCasts(SUMMON_COOLDOWN, this.owner.fightDuration));
