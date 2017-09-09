@@ -19,10 +19,14 @@ import SoulShardTracker from './Modules/SoulShards/SoulShardTracker';
 import SoulShardDetails from './Modules/SoulShards/SoulShardDetails';
 import DamageDone from './Modules/Features/DamageDone';
 
+import Backdraft from './Modules/Talents/Backdraft';
+import RoaringBlaze from './Modules/Talents/RoaringBlaze';
+import Shadowburn from './Modules/Talents/Shadowburn';
 import SoulHarvest from './Modules/Talents/SoulHarvest';
 import SoulHarvestTalent from './Modules/Talents/SoulHarvestTalent';
 
 import TheMasterHarvester from './Modules/Items/Legendaries/TheMasterHarvester';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Features
@@ -43,6 +47,9 @@ class CombatLogParser extends CoreCombatLogParser {
     soulShardDetails: SoulShardDetails,
 
     //Talents
+    backdraft: Backdraft,
+    roaringBlaze: RoaringBlaze,
+    shadowburn: Shadowburn,
     soulHarvest: SoulHarvest,
     soulHarvestTalent: SoulHarvestTalent,
 
