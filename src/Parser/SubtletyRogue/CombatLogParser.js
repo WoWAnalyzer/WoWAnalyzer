@@ -56,7 +56,7 @@ class CombatLogParser extends CoreCombatLogParser {
         url: 'talents',
         render: () => (
           <Tab title="Talents">
-            <Talents combatant={this.selectedCombatant} />
+            <Talents combatant={this.modules.combatants.selected} />
           </Tab>
         ),
       },
@@ -76,7 +76,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
       <StatisticBox
         icon={ <SpellIcon id={SPELLS.SHADOW_BLADES.id} /> }
-        value={`${formatPercentage((this.selectedCombatant.getBuffUptime(SPELLS.SHADOW_BLADES.id)/this.fightDuration))} %`}
+        value={`${formatPercentage((this.modules.combatants.selected.getBuffUptime(SPELLS.SHADOW_BLADES.id)/this.fightDuration))} %`}
         label={(
           <dfn data-tip={`Shadow Blades up time`}>
             Shadow Blades up time
@@ -86,7 +86,7 @@ class CombatLogParser extends CoreCombatLogParser {
       
       <StatisticBox
         icon={ <SpellIcon id={SPELLS.SHADOW_DANCE.id} /> }
-        value={`${formatPercentage((this.selectedCombatant.getBuffUptime(SPELLS.SHADOW_DANCE_BUFF.id)/this.fightDuration))} %`}
+        value={`${formatPercentage((this.modules.combatants.selected.getBuffUptime(SPELLS.SHADOW_DANCE_BUFF.id)/this.fightDuration))} %`}
         label={(
           <dfn data-tip={`Shadow Dance up time`}>
             Shadow Dance up time
@@ -96,7 +96,7 @@ class CombatLogParser extends CoreCombatLogParser {
       
       <StatisticBox
         icon={ <SpellIcon id={SPELLS.SYMBOLS_OF_DEATH.id} /> }
-        value={`${formatPercentage((this.selectedCombatant.getBuffUptime(SPELLS.SYMBOLS_OF_DEATH.id)/this.fightDuration))} %`}
+        value={`${formatPercentage((this.modules.combatants.selected.getBuffUptime(SPELLS.SYMBOLS_OF_DEATH.id)/this.fightDuration))} %`}
         label={(
           <dfn data-tip={`Symbols of Death up time`}>
             Symbols of Death up time
@@ -104,7 +104,7 @@ class CombatLogParser extends CoreCombatLogParser {
         )}
       />,
       
-      this.selectedCombatant.hasTalent(SPELLS.DARK_SHADOW_TALENT.id) && this.modules.shadowDance.active && (
+      this.modules.combatants.selected.hasTalent(SPELLS.DARK_SHADOW_TALENT.id) && this.modules.shadowDance.active && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.EVISCERATE.id} />}
           value={`${formatPercentage(this.modules.shadowDance.totalEviscerateDamageInShadowDance/(this.modules.shadowDance.totalShadowDanceCast * 2))} %`}
@@ -116,7 +116,7 @@ class CombatLogParser extends CoreCombatLogParser {
         />),
       
       // Dark Shadow increase 30% damage during Shadow Dance
-      this.selectedCombatant.hasTalent(SPELLS.DARK_SHADOW_TALENT.id) && this.modules.shadowDance.active && (
+      this.modules.combatants.selected.hasTalent(SPELLS.DARK_SHADOW_TALENT.id) && this.modules.shadowDance.active && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.DARK_SHADOW_TALENT.id} />}
           value={`${formatNumber(this.modules.shadowDance.totalDamageDoneInShadowDance * 0.3 / 1.3 * 1000 / this.fightDuration)} DPS`}

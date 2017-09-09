@@ -7,7 +7,7 @@ class Nazjatar extends Module {
   resets = 0;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasWaist(ITEMS.INTACT_NAZJATAR_MOLTING.id);
+    this.active = this.owner.modules.combatants.selected.hasWaist(ITEMS.INTACT_NAZJATAR_MOLTING.id);
   }
 
   on_byPlayer_heal(event) {

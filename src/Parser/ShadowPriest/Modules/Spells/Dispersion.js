@@ -56,8 +56,8 @@ class Disperion extends Module {
   }
 
   suggestions(when) {
-    const dispersionUptime    = this.owner.selectedCombatant.getBuffUptime(SPELLS.DISPERSION.id);
-    const maxDispersiontime   = Math.floor(calculateMaxCasts(DISPERSION_BASE_CD - (DISPERSION_REDUCTION_CD_PER_TRAIT * this.owner.selectedCombatant.traitsBySpellId[SPELLS.FROM_THE_SHADOWS_TRAIT.id]), this.owner.fightDuration)) * DISPERSION_UPTIME_MS;
+    const dispersionUptime    = this.owner.modules.combatants.selected.getBuffUptime(SPELLS.DISPERSION.id);
+    const maxDispersiontime   = Math.floor(calculateMaxCasts(DISPERSION_BASE_CD - (DISPERSION_REDUCTION_CD_PER_TRAIT * this.owner.modules.combatants.selected.traitsBySpellId[SPELLS.FROM_THE_SHADOWS_TRAIT.id]), this.owner.fightDuration)) * DISPERSION_UPTIME_MS;
     const dispersedTime       = dispersionUptime / this.maxUptime;
     
 

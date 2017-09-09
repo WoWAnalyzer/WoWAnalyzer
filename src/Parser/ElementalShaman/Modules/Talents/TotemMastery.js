@@ -18,15 +18,15 @@ class TotemMastery extends Module {
   casts = 0;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasTalent(SPELLS.TOTEM_MASTERY_TALENT.id);
+    this.active = this.owner.modules.combatants.selected.hasTalent(SPELLS.TOTEM_MASTERY_TALENT.id);
   }
 
   get minUptime() {
     return Math.min(
-      this.owner.selectedCombatant.getBuffUptime(BUFF_TOTEM_RESONANCE_SPELL_ID),
-      this.owner.selectedCombatant.getBuffUptime(BUFF_TOTEM_EMBER_SPELL_ID),
-      this.owner.selectedCombatant.getBuffUptime(BUFF_TOTEM_TAILWIND_SPELL_ID),
-      this.owner.selectedCombatant.getBuffUptime(BUFF_TOTEM_STORM_SPELL_ID),
+      this.owner.modules.combatants.selected.getBuffUptime(BUFF_TOTEM_RESONANCE_SPELL_ID),
+      this.owner.modules.combatants.selected.getBuffUptime(BUFF_TOTEM_EMBER_SPELL_ID),
+      this.owner.modules.combatants.selected.getBuffUptime(BUFF_TOTEM_TAILWIND_SPELL_ID),
+      this.owner.modules.combatants.selected.getBuffUptime(BUFF_TOTEM_STORM_SPELL_ID),
     ) / this.owner.fightDuration;
   }
 

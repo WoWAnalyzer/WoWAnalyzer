@@ -16,7 +16,7 @@ class AncestralVigor extends Module {
   loaded = false;
   totalLifeSaved = 0;
   on_initialized() {
-    this.active = !!this.owner.selectedCombatant.hasTalent(SPELLS.ANCESTRAL_VIGOR_TALENT.id);
+    this.active = !!this.owner.modules.combatants.selected.hasTalent(SPELLS.ANCESTRAL_VIGOR_TALENT.id);
   }
 
   // recursively fetch events until no nextPageTimestamp is returned
@@ -57,10 +57,10 @@ class AncestralVigor extends Module {
           AND 10000*(resources.hitPoints+effectiveDamage)/resources.maxHitPoints>=${Math.floor(10000 * HP_THRESHOLD)}
         FROM type='applybuff'
           AND ability.id=${SPELLS.ANCESTRAL_VIGOR.id}
-          AND source.name='${this.owner.selectedCombatant.name}'
+          AND source.name='${this.owner.modules.combatants.selected.name}'
         TO type='removebuff'
           AND ability.id=${SPELLS.ANCESTRAL_VIGOR.id}
-          AND source.name='${this.owner.selectedCombatant.name}'
+          AND source.name='${this.owner.modules.combatants.selected.name}'
         END
       )`,
     };

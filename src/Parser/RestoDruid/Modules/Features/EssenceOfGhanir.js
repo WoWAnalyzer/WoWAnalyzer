@@ -17,7 +17,7 @@ class EssenceOfGhanir extends Module {
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
-    if(this.owner.selectedCombatant.hasBuff(SPELLS.ESSENCE_OF_GHANIR.id) && HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR.indexOf(spellId) !== -1){
+    if(this.owner.modules.combatants.selected.hasBuff(SPELLS.ESSENCE_OF_GHANIR.id) && HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR.indexOf(spellId) !== -1){
       switch(spellId) {
         case SPELLS.REJUVENATION.id:
           this.rejuvenation += event.amount/2;

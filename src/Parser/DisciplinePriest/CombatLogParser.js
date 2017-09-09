@@ -116,7 +116,7 @@ class CombatLogParser extends CoreCombatLogParser {
     const results = super.generateResults();
 
     const fightDuration = this.fightDuration;
-    const hasCastigation = this.selectedCombatant.hasTalent(SPELLS.CASTIGATION_TALENT.id);
+    const hasCastigation = this.modules.combatants.selected.hasTalent(SPELLS.CASTIGATION_TALENT.id);
     const missedPenanceTicks = (this.modules.penance.casts * (3 + (hasCastigation ? 1 : 0))) - this.modules.penance.hits;
     const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
     const owlHealingPercentage = this.getPercentageOfTotalHealingDone(this.modules.tarnishedSentinelMedallion.healing);
@@ -223,7 +223,7 @@ class CombatLogParser extends CoreCombatLogParser {
           )}
         />
       ),
-      this.modules.twistOfFate.active && !this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_HIGH_PRIEST.id) && (
+      this.modules.twistOfFate.active && !this.modules.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_HIGH_PRIEST.id) && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.TWIST_OF_FATE_TALENT.id} />}
           value={`${formatNumber(this.modules.twistOfFate.healing / fightDuration * 1000)} HPS`}
@@ -245,14 +245,14 @@ class CombatLogParser extends CoreCombatLogParser {
           )}
         />
       ),
-      this.selectedCombatant.hasTalent(SPELLS.PURGE_THE_WICKED_TALENT.id) && (
+      this.modules.combatants.selected.hasTalent(SPELLS.PURGE_THE_WICKED_TALENT.id) && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.PURGE_THE_WICKED_BUFF.id} />}
           value={`${formatPercentage(this.modules.enemies.getBuffUptime(SPELLS.PURGE_THE_WICKED_BUFF.id) / this.fightDuration)} %`}
           label="Purge the Wicked uptime"
         />
       ),
-      !this.selectedCombatant.hasTalent(SPELLS.PURGE_THE_WICKED_TALENT.id) && (
+      !this.modules.combatants.selected.hasTalent(SPELLS.PURGE_THE_WICKED_TALENT.id) && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.SHADOW_WORD_PAIN.id} />}
           value={`${formatPercentage(this.modules.enemies.getBuffUptime(SPELLS.SHADOW_WORD_PAIN.id) / this.fightDuration)} %`}
@@ -344,7 +344,7 @@ class CombatLogParser extends CoreCombatLogParser {
           </span>
         ),
       },
-      this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_HIGH_PRIEST.id) && {
+      this.modules.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_HIGH_PRIEST.id) && {
         item: ITEMS.SOUL_OF_THE_HIGH_PRIEST,
         result: (
           <dfn data-tip={`The effective healing contributed by Twist of Fate (${formatPercentage(this.getPercentageOfTotalHealingDone(this.modules.twistOfFate.healing))}% of total healing done). Twist of Fate also contributed ${formatNumber(this.modules.twistOfFate.damage / fightDuration * 1000)} DPS (${formatPercentage(this.getPercentageOfTotalDamageDone(this.modules.twistOfFate.damage))}% of total damage done), the healing gain of this damage was included in the shown numbers.`}>
@@ -397,7 +397,7 @@ class CombatLogParser extends CoreCombatLogParser {
         url: 'talents',
         render: () => (
           <Tab title="Talents">
-            <Talents combatant={this.selectedCombatant} />
+            <Talents combatant={this.modules.combatants.selected} />
           </Tab>
         ),
       },

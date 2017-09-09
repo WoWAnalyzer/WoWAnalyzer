@@ -12,7 +12,7 @@ class Jonat extends Module {
   healing = 0;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasFinger(ITEMS.FOCUSER_OF_JONAT.id);
+    this.active = this.owner.modules.combatants.selected.hasFinger(ITEMS.FOCUSER_OF_JONAT.id);
   }
 
   on_byPlayer_heal(event) {
@@ -22,7 +22,7 @@ class Jonat extends Module {
         return;
     }
 
-    const buff = this.owner.selectedCombatant.getBuff(LEGENDARY_JONAT_BUFF, event.timestamp, LEGENDARY_JONAT_BUFF_EXPIRATION_BUFFER);
+    const buff = this.owner.modules.combatants.selected.getBuff(LEGENDARY_JONAT_BUFF, event.timestamp, LEGENDARY_JONAT_BUFF_EXPIRATION_BUFFER);
         
     if (buff) {
       const stacks = buff.stacks || 1;

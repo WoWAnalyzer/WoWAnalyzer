@@ -12,7 +12,7 @@ class PowerOfTheArchdruid extends Module {
   potaRegrowthCounter = 0;
 
   on_initialized() {
-    if (this.owner.selectedCombatant.traitsBySpellId[SPELLS.POWER_OF_THE_ARCHDRUID.id]>0) {
+    if (this.owner.modules.combatants.selected.traitsBySpellId[SPELLS.POWER_OF_THE_ARCHDRUID.id]>0) {
       this.hasTrait = true;
     }
   }

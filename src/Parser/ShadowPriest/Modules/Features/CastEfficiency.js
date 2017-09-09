@@ -7,7 +7,6 @@ import { calculateMaxCasts } from 'Parser/Core/getCastEfficiency';
 class CastEfficiency extends CoreCastEfficiency {
   static CPM_ABILITIES = [
     ...CoreCastEfficiency.CPM_ABILITIES,
-    
 
     {
       spell: SPELLS.VOID_BOLT,
@@ -18,9 +17,9 @@ class CastEfficiency extends CoreCastEfficiency {
         const { averageVoidformHaste } = parser.modules.voidform;
 
         // const hasteFromOneBloodlust     =  30*40 / (fightDuration/1000)/100;
-        const cooldownVoidBolt          = 4.5 / averageVoidformHaste;
+        const cooldownVoidBolt = 4.5 / averageVoidformHaste;
 
-        return calculateMaxCasts(cooldownVoidBolt, parser.selectedCombatant.getBuffUptime(SPELLS.VOIDFORM_BUFF.id));
+        return calculateMaxCasts(cooldownVoidBolt, parser.modules.combatants.selected.getBuffUptime(SPELLS.VOIDFORM_BUFF.id));
       },
     },
 
@@ -31,21 +30,20 @@ class CastEfficiency extends CoreCastEfficiency {
       recommendedCastEfficiency: 0.55,
       getCooldown: haste => 4.65 / (1 + haste),
       getMaxCasts: (cooldown, fightDuration, getAbility, parser) => {
-        const { 
+        const {
           averageVoidformHaste,
           averageNonVoidformHaste,
         } = parser.modules.voidform;
 
         // todo: fix bloodlust casts, assuming one cast:
         // const hasteFromOneBloodlust     = 30*40 / (fightDuration/1000)/100;
-        const cooldownInVoidform        = 6 / (averageVoidformHaste);
-        const cooldownOutsideVoidform   = 9 / (averageNonVoidformHaste);
+        const cooldownInVoidform = 6 / (averageVoidformHaste);
+        const cooldownOutsideVoidform = 9 / (averageNonVoidformHaste);
 
+        const maxCastsInVoidform = calculateMaxCasts(cooldownInVoidform, parser.modules.combatants.selected.getBuffUptime(SPELLS.VOIDFORM_BUFF.id));
+        const maxCastsOutsideVoidform = calculateMaxCasts(cooldownOutsideVoidform, fightDuration - parser.modules.combatants.selected.getBuffUptime(SPELLS.VOIDFORM_BUFF.id));
 
-        const maxCastsInVoidform        = calculateMaxCasts(cooldownInVoidform, parser.selectedCombatant.getBuffUptime(SPELLS.VOIDFORM_BUFF.id));
-        const maxCastsOutsideVoidform   = calculateMaxCasts(cooldownOutsideVoidform, fightDuration - parser.selectedCombatant.getBuffUptime(SPELLS.VOIDFORM_BUFF.id));
-
-        return maxCastsInVoidform + maxCastsOutsideVoidform; 
+        return maxCastsInVoidform + maxCastsOutsideVoidform;
       },
     },
 
@@ -56,21 +54,20 @@ class CastEfficiency extends CoreCastEfficiency {
       recommendedCastEfficiency: 0.85,
       getCooldown: haste => 4.65 / (1 + haste),
       getMaxCasts: (cooldown, fightDuration, getAbility, parser) => {
-        const { 
+        const {
           averageVoidformHaste,
           averageNonVoidformHaste,
         } = parser.modules.voidform;
 
         // todo: fix bloodlust casts, assuming one cast:
         // const hasteFromOneBloodlust     = 30*40 / (fightDuration/1000)/100;
-        const cooldownInVoidform        = 6 / (averageVoidformHaste);
-        const cooldownOutsideVoidform   = 9 / (averageNonVoidformHaste);
+        const cooldownInVoidform = 6 / (averageVoidformHaste);
+        const cooldownOutsideVoidform = 9 / (averageNonVoidformHaste);
 
+        const maxCastsInVoidform = calculateMaxCasts(cooldownInVoidform, parser.modules.combatants.selected.getBuffUptime(SPELLS.VOIDFORM_BUFF.id));
+        const maxCastsOutsideVoidform = calculateMaxCasts(cooldownOutsideVoidform, fightDuration - parser.modules.combatants.selected.getBuffUptime(SPELLS.VOIDFORM_BUFF.id));
 
-        const maxCastsInVoidform        = calculateMaxCasts(cooldownInVoidform, parser.selectedCombatant.getBuffUptime(SPELLS.VOIDFORM_BUFF.id));
-        const maxCastsOutsideVoidform   = calculateMaxCasts(cooldownOutsideVoidform, fightDuration - parser.selectedCombatant.getBuffUptime(SPELLS.VOIDFORM_BUFF.id));
-
-        return maxCastsInVoidform + maxCastsOutsideVoidform; 
+        return maxCastsInVoidform + maxCastsOutsideVoidform;
       },
     },
 
@@ -122,7 +119,6 @@ class CastEfficiency extends CoreCastEfficiency {
       noCanBeImproved: true,
     },
 
-
     // Cooldowns
     {
       spell: SPELLS.VOID_TORRENT,
@@ -172,7 +168,6 @@ class CastEfficiency extends CoreCastEfficiency {
       isActive: combatant => combatant.hasTalent(SPELLS.SURRENDER_TO_MADNESS_TALENT.id),
     },
 
-
     // Utility
     {
       spell: SPELLS.DISPERSION,
@@ -181,8 +176,6 @@ class CastEfficiency extends CoreCastEfficiency {
       noSuggestion: true,
       noCanBeImproved: true,
     },
-
-    
 
     {
       spell: SPELLS.SILENCE,
@@ -233,14 +226,13 @@ class CastEfficiency extends CoreCastEfficiency {
       noCanBeImproved: true,
     },
 
-
     {
       spell: SPELLS.ARCANE_TORRENT,
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => 90,
       hideWithZeroCasts: true,
     },
-    
+
     {
       spell: SPELLS.MASS_DISPEL,
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
@@ -279,8 +271,6 @@ class CastEfficiency extends CoreCastEfficiency {
       noCanBeImproved: true,
     },
 
-    
-
     {
       spell: SPELLS.MIND_VISION,
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
@@ -305,10 +295,8 @@ class CastEfficiency extends CoreCastEfficiency {
       noCanBeImproved: true,
     },
 
-
   ];
 
-  
 }
 
 export default CastEfficiency;

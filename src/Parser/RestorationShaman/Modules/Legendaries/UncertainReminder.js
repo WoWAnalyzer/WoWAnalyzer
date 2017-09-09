@@ -47,7 +47,7 @@ class UncertainReminder extends Module {
   hasteHealing = 0;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasHead(ITEMS.UNCERTAIN_REMINDER.id);
+    this.active = this.owner.modules.combatants.selected.hasHead(ITEMS.UNCERTAIN_REMINDER.id);
     // We apply heroism at the start incase it was popped before the pull. If we see it's
     // applied before it drops, we discard all the events.
     this.heroismStart = this.owner.fight.start_time;

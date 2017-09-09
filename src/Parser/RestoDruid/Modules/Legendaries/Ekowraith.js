@@ -11,7 +11,7 @@ class Ekowraith extends Module {
   hasGuardianAffinity = false;
 
   on_initialized() {
-    this.hasGuardianAffinity = this.owner.selectedCombatant.lv45Talent === 197491;
+    this.hasGuardianAffinity = this.owner.modules.combatants.selected.lv45Talent === 197491;
   }
 
   on_byPlayer_heal(event) {

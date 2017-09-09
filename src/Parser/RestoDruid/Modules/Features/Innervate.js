@@ -36,7 +36,7 @@ class Innervate extends Module {
   lastInnervateTimestamp = 0;
   depleted = false;
   on_initialized() {
-   this.infusionOfNatureTraits = this.owner.selectedCombatant.traitsBySpellId[SPELLS.INFUSION_OF_NATURE_TRAIT.id] || 0;
+   this.infusionOfNatureTraits = this.owner.modules.combatants.selected.traitsBySpellId[SPELLS.INFUSION_OF_NATURE_TRAIT.id] || 0;
   }
 
  on_toPlayer_applybuff(event) {
@@ -56,7 +56,7 @@ class Innervate extends Module {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
-    if(this.owner.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)) {
+    if(this.owner.modules.combatants.selected.hasBuff(SPELLS.INNERVATE.id)) {
       // Checking if the player is mana capped during an innervate.
       // This is not 100% accuarate because we trigger the calculation on the first heal during an innervate.
       // Realistically the seconds mana capped is higher.
@@ -115,9 +115,9 @@ class Innervate extends Module {
   addToManaSaved(spellBaseMana) {
     if(spellBaseMana === WILD_GROWTH_BASE_MANA) {
       this.manaSaved += ((BASE_MANA * spellBaseMana) * (1 - (this.infusionOfNatureTraits*INFUSION_OF_NATURE_REDUCTION)));
-    } else if(this.owner.selectedCombatant.hasBuff(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) && spellBaseMana === REJUVENATION_BASE_MANA){
+    } else if(this.owner.modules.combatants.selected.hasBuff(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) && spellBaseMana === REJUVENATION_BASE_MANA){
       this.manaSaved += ((BASE_MANA * spellBaseMana) * (1-TOL_REJUVENATION_REDUCTION));
-    } else if (this.owner.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_BUFF.id) && spellBaseMana === REGROWTH_BASE_MANA){
+    } else if (this.owner.modules.combatants.selected.hasBuff(SPELLS.CLEARCASTING_BUFF.id) && spellBaseMana === REGROWTH_BASE_MANA){
       this.freeRegrowths++;
     }else {
       this.manaSaved += (BASE_MANA * spellBaseMana);

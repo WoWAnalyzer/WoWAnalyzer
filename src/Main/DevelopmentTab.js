@@ -275,7 +275,7 @@ class DevelopmentTab extends React.Component {
 
     window.parser = parser;
 
-    const combatant = parser.selectedCombatant;
+    const combatant = parser.modules.combatants.selected;
 
     return (
       <div>

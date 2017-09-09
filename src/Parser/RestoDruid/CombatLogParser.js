@@ -128,8 +128,8 @@ class CombatLogParser extends CoreCombatLogParser {
     const wildGrowths = getAbility(SPELLS.WILD_GROWTH.id).casts || 0;
 
     // Tree of Life
-    const hasFlourish = this.selectedCombatant.lv100Talent === SPELLS.FLOURISH_TALENT.id;
-    const hasTreeOfLife = this.selectedCombatant.lv75Talent === SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id;
+    const hasFlourish = this.modules.combatants.selected.lv100Talent === SPELLS.FLOURISH_TALENT.id;
+    const hasTreeOfLife = this.modules.combatants.selected.lv75Talent === SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id;
     const wildGrowthTargets = 6;
     const rejuvenationManaCost = 22000;
     const oneRejuvenationThroughput = this.getPercentageOfTotalHealingDone(this.modules.treeOfLife.totalHealingFromRejuvenationEncounter) / this.modules.treeOfLife.totalRejuvenationsEncounter;
@@ -138,7 +138,7 @@ class CombatLogParser extends CoreCombatLogParser {
     const rejuvenationMana = (((this.modules.treeOfLife.totalRejuvenationsDuringToL * 10) * 0.3) / 10) * oneRejuvenationThroughput;
     const wildGrowthIncreasedEffect = this.getPercentageOfTotalHealingDone(this.modules.treeOfLife.totalHealingFromWildgrowthsDuringToL / 1.15 - this.modules.treeOfLife.totalHealingFromWildgrowthsDuringToL / (1.15 * (8 / 6)));
     const treeOfLifeThroughput = rejuvenationIncreasedEffect + tolIncreasedHealingDone + rejuvenationMana + wildGrowthIncreasedEffect;
-    let treeOfLifeUptime = this.selectedCombatant.getBuffUptime(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) / this.fightDuration;
+    let treeOfLifeUptime = this.modules.combatants.selected.getBuffUptime(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) / this.fightDuration;
 
     // Chameleon Song
     const rejuvenationIncreasedEffectHelmet = this.getPercentageOfTotalHealingDone(this.modules.treeOfLife.totalHealingFromRejuvenationDuringToLHelmet / 1.15 - this.modules.treeOfLife.totalHealingFromRejuvenationDuringToLHelmet / (1.15 * 1.5));
@@ -146,24 +146,24 @@ class CombatLogParser extends CoreCombatLogParser {
     const rejuvenationManaHelmet = (((this.modules.treeOfLife.totalRejuvenationsDuringToLHelmet * 10) * 0.3) / 10) * oneRejuvenationThroughput;
     const wildGrowthIncreasedEffectHelmet = this.getPercentageOfTotalHealingDone(this.modules.treeOfLife.totalHealingFromWildgrowthsDuringToLHelmet / 1.15 - this.modules.treeOfLife.totalHealingFromWildgrowthsDuringToLHelmet / (1.15 * (8 / 6)));
     const treeOfLifeThroughputHelmet = rejuvenationIncreasedEffectHelmet + tolIncreasedHealingDoneHelmet + rejuvenationManaHelmet + wildGrowthIncreasedEffectHelmet;
-    const treeOfLifeUptimeHelmet = (this.selectedCombatant.getBuffUptime(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) - (this.modules.treeOfLife.tolCasts * 30000) + this.modules.treeOfLife.adjustHelmetUptime) / this.fightDuration;
-    if (this.selectedCombatant.hasHead(ITEMS.CHAMELEON_SONG.id)) {
+    const treeOfLifeUptimeHelmet = (this.modules.combatants.selected.getBuffUptime(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) - (this.modules.treeOfLife.tolCasts * 30000) + this.modules.treeOfLife.adjustHelmetUptime) / this.fightDuration;
+    if (this.modules.combatants.selected.hasHead(ITEMS.CHAMELEON_SONG.id)) {
       treeOfLifeUptime -= treeOfLifeUptimeHelmet;
     }
     const treeOfLifeProccHelmet = formatPercentage(this.modules.treeOfLife.proccs / wildGrowths);
 
-    const hasSoulOfTheForest = this.selectedCombatant.lv75Talent === SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id;
+    const hasSoulOfTheForest = this.modules.combatants.selected.lv75Talent === SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id;
     const soulOfTheForestHealing = this.modules.soulOfTheForest.wildGrowthHealing + this.modules.soulOfTheForest.rejuvenationHealing + this.modules.soulOfTheForest.regrowthHealing;
 
-    const has4PT20 = this.selectedCombatant.hasBuff(SPELLS.RESTO_DRUID_T20_4SET_BONUS_BUFF.id);
-    const has2PT20 = this.selectedCombatant.hasBuff(SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id);
+    const has4PT20 = this.modules.combatants.selected.hasBuff(SPELLS.RESTO_DRUID_T20_4SET_BONUS_BUFF.id);
+    const has2PT20 = this.modules.combatants.selected.hasBuff(SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id);
 
     const fightDuration = this.fightDuration;
     const nonHealingTimePercentage = this.modules.alwaysBeCasting.totalHealingTimeWasted / fightDuration;
     const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
 
     const potaHealing = (this.modules.powerOfTheArchdruid.rejuvenations * oneRejuvenationThroughput) + this.getPercentageOfTotalHealingDone(this.modules.powerOfTheArchdruid.healing);
-    const hasMoC = this.selectedCombatant.lv100Talent === SPELLS.MOMENT_OF_CLARITY_TALENT_RESTORATION.id;
+    const hasMoC = this.modules.combatants.selected.lv100Talent === SPELLS.MOMENT_OF_CLARITY_TALENT_RESTORATION.id;
     const darkTitanAdviceHealing = this.getPercentageOfTotalHealingDone(this.modules.darkTitanAdvice.healing);
     const darkTitanAdviceHealingFromProcc = this.getPercentageOfTotalHealingDone(this.modules.darkTitanAdvice.healingFromProccs);
     const essenceOfInfusionHealing = this.getPercentageOfTotalHealingDone(this.modules.essenceOfInfusion.healing);
@@ -525,7 +525,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     results.items = [
       ...results.items,
-      this.selectedCombatant.hasChest(ITEMS.EKOWRAITH_CREATOR_OF_WORLDS.id) && {
+      this.modules.combatants.selected.hasChest(ITEMS.EKOWRAITH_CREATOR_OF_WORLDS.id) && {
         item: ITEMS.EKOWRAITH_CREATOR_OF_WORLDS,
         result: (
           <span>
@@ -537,7 +537,7 @@ class CombatLogParser extends CoreCombatLogParser {
           </span>
         ),
       },
-      this.selectedCombatant.hasChest(ITEMS.XONIS_CARESS.id) && {
+      this.modules.combatants.selected.hasChest(ITEMS.XONIS_CARESS.id) && {
         item: ITEMS.XONIS_CARESS,
         result: (
           <dfn data-tip="The healing part from Ironbark. This doesn't include the reduced iron bark cooldown.">
@@ -545,7 +545,7 @@ class CombatLogParser extends CoreCombatLogParser {
           </dfn>
         ),
       },
-      this.selectedCombatant.hasWaist(ITEMS.THE_DARK_TITANS_ADVICE.id) && {
+      this.modules.combatants.selected.hasWaist(ITEMS.THE_DARK_TITANS_ADVICE.id) && {
         item: ITEMS.THE_DARK_TITANS_ADVICE,
         result: (
           <dfn data-tip={`Random bloom stood for ${((darkTitanAdviceHealingFromProcc * 100) || 0).toFixed(2)} % of the total throughput.`}>
@@ -553,11 +553,11 @@ class CombatLogParser extends CoreCombatLogParser {
           </dfn>
         ),
       },
-      this.selectedCombatant.hasFeet(ITEMS.ESSENCE_OF_INFUSION.id) && {
+      this.modules.combatants.selected.hasFeet(ITEMS.ESSENCE_OF_INFUSION.id) && {
         item: ITEMS.ESSENCE_OF_INFUSION,
         result: `${((essenceOfInfusionHealing * 100) || 0).toFixed(2)} % / ${formatNumber(this.modules.essenceOfInfusion.healing / fightDuration * 1000)} HPS`,
       },
-      this.selectedCombatant.hasFinger(ITEMS.TEARSTONE_OF_ELUNE.id) && {
+      this.modules.combatants.selected.hasFinger(ITEMS.TEARSTONE_OF_ELUNE.id) && {
         item: ITEMS.TEARSTONE_OF_ELUNE,
         result: (
           <dfn data-tip={`Your Tearstone gave ${this.modules.tearstone.rejuvs} bonus rejuvenations. Proccrate of ring was ${(this.modules.tearstone.rejuvs / this.modules.tearstone.wildGrowths * 100).toFixed(2)}%`}>
@@ -565,7 +565,7 @@ class CombatLogParser extends CoreCombatLogParser {
           </dfn>
         ),
       },
-      this.selectedCombatant.hasHead(ITEMS.CHAMELEON_SONG.id) && {
+      this.modules.combatants.selected.hasHead(ITEMS.CHAMELEON_SONG.id) && {
         item: ITEMS.CHAMELEON_SONG,
         result: (
           <dfn
@@ -599,13 +599,13 @@ class CombatLogParser extends CoreCombatLogParser {
         icon: <SpellIcon id={SPELLS.RESTO_DRUID_T20_4SET_BONUS_BUFF.id} />,
         title: <SpellLink id={SPELLS.RESTO_DRUID_T20_4SET_BONUS_BUFF.id} />,
         result: (
-          <dfn data-tip={`The actual healing contributed from 4P T20. <br/>${((this.selectedCombatant.getBuffUptime(SPELLS.BLOSSOMING_EFFLORESCENCE.id) / this.fightDuration) * 100).toFixed(2)}% uptime.`}>
+          <dfn data-tip={`The actual healing contributed from 4P T20. <br/>${((this.modules.combatants.selected.getBuffUptime(SPELLS.BLOSSOMING_EFFLORESCENCE.id) / this.fightDuration) * 100).toFixed(2)}% uptime.`}>
             {formatPercentage(this.getPercentageOfTotalHealingDone(this.modules.t20.healing))}% / {formatNumber(this.modules.t20.healing / fightDuration * 1000)} HPS
           </dfn>
         ),
       },
 
-      this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_ARCHDRUID.id) && {
+      this.modules.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_ARCHDRUID.id) && {
         item: ITEMS.SOUL_OF_THE_ARCHDRUID,
         result: (
           <dfn data-tip={`
@@ -635,7 +635,7 @@ class CombatLogParser extends CoreCombatLogParser {
         url: 'talents',
         render: () => (
           <Tab title="Talents">
-            <Talents combatant={this.selectedCombatant} />
+            <Talents combatant={this.modules.combatants.selected} />
           </Tab>
         ),
       },

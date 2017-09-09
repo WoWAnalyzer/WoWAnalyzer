@@ -15,7 +15,7 @@ class CordOfMaiev extends Module {
   procTime = 0;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasWaist(ITEMS.CORD_OF_MAIEV_PRIESTESS_OF_THE_MOON.id);
+    this.active = this.owner.modules.combatants.selected.hasWaist(ITEMS.CORD_OF_MAIEV_PRIESTESS_OF_THE_MOON.id);
   }
 
   lastPenanceStartTimestamp = null;

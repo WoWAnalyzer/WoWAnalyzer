@@ -26,11 +26,11 @@ class Flourish extends Module {
   hasTreeOfLife = false;
 
   on_initialized() {
-    this.hasGermination = this.owner.selectedCombatant.lv90Talent === SPELLS.GERMINATION_TALENT.id;
-    this.hasSpringBlossoms = this.owner.selectedCombatant.lv90Talent === SPELLS.SPRING_BLOSSOMS_TALENT.id;
-    this.hasCenarionWard = this.owner.selectedCombatant.lv15Talent === SPELLS.CENARION_WARD_TALENT.id;
-    this.hasCultivation = this.owner.selectedCombatant.lv75Talent === SPELLS.CULTIVATION_TALENT.id;
-    this.hasTreeOfLife = this.owner.selectedCombatant.lv75Talent === SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id;
+    this.hasGermination = this.owner.modules.combatants.selected.lv90Talent === SPELLS.GERMINATION_TALENT.id;
+    this.hasSpringBlossoms = this.owner.modules.combatants.selected.lv90Talent === SPELLS.SPRING_BLOSSOMS_TALENT.id;
+    this.hasCenarionWard = this.owner.modules.combatants.selected.lv15Talent === SPELLS.CENARION_WARD_TALENT.id;
+    this.hasCultivation = this.owner.modules.combatants.selected.lv75Talent === SPELLS.CULTIVATION_TALENT.id;
+    this.hasTreeOfLife = this.owner.modules.combatants.selected.lv75Talent === SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id;
   }
 
   on_byPlayer_cast(event) {

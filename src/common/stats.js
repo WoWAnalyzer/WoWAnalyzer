@@ -12,13 +12,13 @@ Once the stat at a given iLvL is found, the only variable that needs to be chang
 export function calculatePrimaryStat(baseItemLevel, baseStat, itemLevel) {
   // Blizzard looks to be rounding this up always
   // BaseStat * 1.15 ^ ((iLvL - Base iLvL) / 15)
-  return Math.ceil(baseStat * 1.15 ** ((itemLevel - baseItemLevel) / 15));
+  return Math.ceil(baseStat * (1.15 ** ((itemLevel - baseItemLevel) / 15)));
 }
 export function calculateSecondaryStatDefault(baseItemLevel, baseStat, itemLevel) {
   // BaseStat * 1.15 ^ ((iLvL - Base iLvL)/15) * 0.994435486 ^ (iLvL - Base iLvL)
-  return Math.ceil(baseStat * 1.15 ** ((itemLevel - baseItemLevel) / 15) * 0.994435486 ** (itemLevel - baseItemLevel));
+  return Math.ceil(baseStat * (1.15 ** ((itemLevel - baseItemLevel) / 15)) * (0.994435486 ** (itemLevel - baseItemLevel)));
 }
 export function calculateSecondaryStatJewelry(baseItemLevel, baseStat, itemLevel) {
   // Base Stat * 1.15 ^ ((iLvL - Base iLvL)/15) * 0.996754034 ^ (iLvL - Base iLvL)
-  return Math.ceil(baseStat * 1.15 ** ((itemLevel - baseItemLevel) / 15) * 0.996754034 ** (itemLevel - baseItemLevel));
+  return Math.ceil(baseStat * (1.15 ** ((itemLevel - baseItemLevel) / 15)) * (0.996754034 ** (itemLevel - baseItemLevel)));
 }
