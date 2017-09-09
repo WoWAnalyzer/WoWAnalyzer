@@ -6,6 +6,8 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellIcon from 'common/SpellIcon';
 
+const BLOODDRINKER_TICKS_PER_CAST = 4;
+
 class BlooddrinkerTicks  extends Module {
   static dependencies = {
     abilityTracker: AbilityTracker,
@@ -17,7 +19,7 @@ class BlooddrinkerTicks  extends Module {
   _currentTicks = 0;
   _wastedTicks = 0;
   _ruinedCasts = 0;
-  BLOODDRINKER_TICKS_PER_CAST = 4 ;
+
 
   on_byPlayer_cast(event) {
     if (event.ability.guid === SPELLS.BLOODDRINKER.id) {
@@ -33,8 +35,8 @@ class BlooddrinkerTicks  extends Module {
 
   on_byPlayer_removedebuff(event) {
     if (event.ability.guid === SPELLS.BLOODDRINKER.id) {
-      if (this._currentTicks < this.BLOODDRINKER_TICKS_PER_CAST) {
-        this._wastedTicks += (this.BLOODDRINKER_TICKS_PER_CAST - this._currentTicks);
+      if (this._currentTicks < BLOODDRINKER_TICKS_PER_CAST) {
+        this._wastedTicks += (BLOODDRINKER_TICKS_PER_CAST - this._currentTicks);
         this._ruinedCasts++;
       }
       this._currentTicks = 0;
@@ -43,7 +45,7 @@ class BlooddrinkerTicks  extends Module {
 
 
   statistic() {
-    this._totalTicks = this._totalCasts * this.BLOODDRINKER_TICKS_PER_CAST;
+    this._totalTicks = this._totalCasts * BLOODDRINKER_TICKS_PER_CAST;
     return (
 
       <StatisticBox
