@@ -35,7 +35,7 @@ class T20_4pc extends Module {
     if (!this.combatants.selected.hasBuff(SPELLS.DANCE_OF_MISTS.id, event.timestamp)) {
       return;
     }
-      this.healing += calculateEffectiveHealing(event, XUENS_BATTLEGEAR_4_PIECE_BUFF_HEALING_INCREASE);
+    this.healing += calculateEffectiveHealing(event, XUENS_BATTLEGEAR_4_PIECE_BUFF_HEALING_INCREASE);
   }
 
   item() {

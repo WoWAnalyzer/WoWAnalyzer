@@ -56,7 +56,7 @@ class ChiBurst extends Module {
           .actual(`${this.avgChiBurstTargets.toFixed(2)} targets hit per Chi Burst cast - ${formatPercentage(this.avgChiBurstTargets / this.raidSize)}% of raid hit`)
           .recommended(`30% of the raid hit is recommended`)
           .regular(recommended - .05).major(recommended - .1);
-        });
+      });
   }
 
   on_finished() {

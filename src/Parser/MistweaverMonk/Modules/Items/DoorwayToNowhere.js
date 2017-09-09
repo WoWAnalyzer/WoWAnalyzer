@@ -25,20 +25,20 @@ class DoorwayToNowhere extends Module {
   }
 
   on_byPlayer_summon(event) {
-      const spellId = event.ability.guid;
+    const spellId = event.ability.guid;
 
-      if(spellId === SPELLS.DOORWAY_TO_NOWHERE_SUMMON.id) {
-        this.doorwayActive = event.timestamp;
+    if(spellId === SPELLS.DOORWAY_TO_NOWHERE_SUMMON.id) {
+      this.doorwayActive = event.timestamp;
+      this.petID = event.targetID;
+      this.doorwayProc += 1;
+    }
+
+    if(spellId === SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id) {
+      this.chiJiActive = event.timestamp;
+      if(!this.petID) {
         this.petID = event.targetID;
-        this.doorwayProc += 1;
       }
-
-      if(spellId === SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id) {
-        this.chiJiActive = event.timestamp;
-        if(!this.petID) {
-          this.petID = event.targetID;
-        }
-      }
+    }
   }
 
   on_heal(event) {

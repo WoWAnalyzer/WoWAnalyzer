@@ -81,46 +81,46 @@ class DecieversGrandDesign extends Module {
     const targetId = event.targetID;
 
     if(spellId === SPELLS.FRUITFUL_MACHINATIONS.id) {
-        this.proced = true;
-        const startTime = event.timestamp - PROC_EVENT_START_BUFFER;
-        const endTime = event.timestamp + PROC_EVENT_END_BUFFER;
-        if(targetId === this.targetOne) {
-          this.targetOne = null;
-          this.procTimestampTargetOne = event.timestamp;
-          debug && console.log('Proc on Target one:', targetId, ' @ timestamp: ', event.timestamp);
-        } else if(targetId === this.targetTwo) {
-          this.targetTwo = null;
-          this.procTimestampTargetTwo = event.timestamp;
-          debug && console.log('Proc on Target two:', targetId, ' @ timestamp: ', event.timestamp);
-        }
-        if(debug) {
-          this.procs.push({
-            name: 'Test User',
-            report: this.owner.report.code,
-            fight: this.owner.fight.id,
-            target: targetId,
-            start: startTime,
-            end: endTime,
-          });
-        }
-
-        let name = "";
-        if(!this.combatants.players[targetId]) {
-          name = "Pet";
-        } else {
-          name = this.combatants.players[targetId].name;
-        }
-
+      this.proced = true;
+      const startTime = event.timestamp - PROC_EVENT_START_BUFFER;
+      const endTime = event.timestamp + PROC_EVENT_END_BUFFER;
+      if(targetId === this.targetOne) {
+        this.targetOne = null;
+        this.procTimestampTargetOne = event.timestamp;
+        debug && console.log('Proc on Target one:', targetId, ' @ timestamp: ', event.timestamp);
+      } else if(targetId === this.targetTwo) {
+        this.targetTwo = null;
+        this.procTimestampTargetTwo = event.timestamp;
+        debug && console.log('Proc on Target two:', targetId, ' @ timestamp: ', event.timestamp);
+      }
+      if(debug) {
         this.procs.push({
-          name: name,
+          name: 'Test User',
           report: this.owner.report.code,
           fight: this.owner.fight.id,
           target: targetId,
           start: startTime,
           end: endTime,
         });
-        debug && console.log(this.procs);
-        debug && console.log('https://www.warcraftlogs.com/reports/' + this.owner.report.code + '/#fight=' + this.owner.fight.id + '&source=' + this.procs[0].target + '&type=summary&start=' + this.procs[0].start + '&end=' + this.procs[0].end + '&view=events');
+      }
+
+      let name = "";
+      if(!this.combatants.players[targetId]) {
+        name = "Pet";
+      } else {
+        name = this.combatants.players[targetId].name;
+      }
+
+      this.procs.push({
+        name: name,
+        report: this.owner.report.code,
+        fight: this.owner.fight.id,
+        target: targetId,
+        start: startTime,
+        end: endTime,
+      });
+      debug && console.log(this.procs);
+      debug && console.log('https://www.warcraftlogs.com/reports/' + this.owner.report.code + '/#fight=' + this.owner.fight.id + '&source=' + this.procs[0].target + '&type=summary&start=' + this.procs[0].start + '&end=' + this.procs[0].end + '&view=events');
     }
   }
 

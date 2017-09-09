@@ -12,7 +12,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class DemonSpikes extends Module {
   static dependencies = {
-  combatants: Combatants,
+    combatants: Combatants,
   };
 
   statistic() {

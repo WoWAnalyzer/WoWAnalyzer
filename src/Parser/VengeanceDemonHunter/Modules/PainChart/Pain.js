@@ -156,12 +156,12 @@ class Pain extends React.PureComponent {
         //  overCapBySecond[secIntoFight - 1] = 0;
       }
       if (event.type === 'cast') {
-          const spell = SPELLS[event.ability.guid];
+        const spell = SPELLS[event.ability.guid];
         if (!abilitiesAll[event.ability.guid + '_spend']) {
           abilitiesAll[event.ability.guid + '_spend'] = {
             ability: {
-                category: 'Pain Spenders',
-                name: (spell === undefined) ? event.ability.name : spell.name,
+              category: 'Pain Spenders',
+              name: (spell === undefined) ? event.ability.name : spell.name,
               spellId: event.ability.guid,
             },
             spent: 0,
@@ -177,7 +177,7 @@ class Pain extends React.PureComponent {
         abilitiesAll[event.ability.guid + '_spend'].wasted += spell.max_pain ? spell.max_pain - spendResource: 0;
       } else if (event.type === 'energize') {
         if (!abilitiesAll[event.ability.guid + '_gen']) {
-            const spell = SPELLS[event.ability.guid];
+          const spell = SPELLS[event.ability.guid];
           abilitiesAll[event.ability.guid + '_gen'] = {
             ability: {
               category: 'Pain Generators',

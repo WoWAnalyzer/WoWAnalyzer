@@ -7,49 +7,49 @@ import Icon from 'common/Icon';
 import CoreAlwaysBeCasting from 'Parser/Core/Modules/AlwaysBeCasting';
   
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
-    static ABILITIES_ON_GCD = [
+  static ABILITIES_ON_GCD = [
       // Moonkin:
-      SPELLS.MOONFIRE.id,
-      SPELLS.SUNFIRE_CAST.id,
-      SPELLS.STARSURGE_MOONKIN.id,
-      SPELLS.STARFALL_CAST.id,
-      SPELLS.LUNAR_STRIKE.id,
-      SPELLS.SOLAR_WRATH_MOONKIN.id,
-      SPELLS.NEW_MOON.id,
-      SPELLS.HALF_MOON.id,
-      SPELLS.FULL_MOON.id,
+    SPELLS.MOONFIRE.id,
+    SPELLS.SUNFIRE_CAST.id,
+    SPELLS.STARSURGE_MOONKIN.id,
+    SPELLS.STARFALL_CAST.id,
+    SPELLS.LUNAR_STRIKE.id,
+    SPELLS.SOLAR_WRATH_MOONKIN.id,
+    SPELLS.NEW_MOON.id,
+    SPELLS.HALF_MOON.id,
+    SPELLS.FULL_MOON.id,
   
       // Talents
-      SPELLS.TYPHOON.id,
-      SPELLS.MASS_ENTANGLEMENT_TALENT.id,
-      SPELLS.FORCE_OF_NATURE_TALENT.id,
-      SPELLS.WILD_CHARGE_TALENT.id,
-    ];
+    SPELLS.TYPHOON.id,
+    SPELLS.MASS_ENTANGLEMENT_TALENT.id,
+    SPELLS.FORCE_OF_NATURE_TALENT.id,
+    SPELLS.WILD_CHARGE_TALENT.id,
+  ];
 
-    static STATIC_GCD_ABILITIES = {
-      ...CoreAlwaysBeCasting.STATIC_GCD_ABILITIES,
+  static STATIC_GCD_ABILITIES = {
+    ...CoreAlwaysBeCasting.STATIC_GCD_ABILITIES,
       ///Shapeshifts
-      [SPELLS.MOONKIN_FORM.id] : 1.5,
-      [SPELLS.DISPLACER_BEAST_TALENT.id] : 1.5,
-      [SPELLS.BEAR_FORM.id] : 1.5,
-    };
+    [SPELLS.MOONKIN_FORM.id] : 1.5,
+    [SPELLS.DISPLACER_BEAST_TALENT.id] : 1.5,
+    [SPELLS.BEAR_FORM.id] : 1.5,
+  };
 
-    static STACKABLE_HASTE_BUFFS = {
-      ...CoreAlwaysBeCasting.STACKABLE_HASTE_BUFFS,
+  static STACKABLE_HASTE_BUFFS = {
+    ...CoreAlwaysBeCasting.STACKABLE_HASTE_BUFFS,
       //Moonkin specific
-      [SPELLS.ASTRAL_ACCELERATION.id] : { //Astral Acceleration - From T20 4p
-        Haste: () => 0.03,
-        CurrentStacks: 0, 
-        MaxStacks: 5,
-      }, 
-      [SPELLS.STAR_POWER.id] : { //StarPower - From casts in Incarnation / CA
-        Haste: (combatant) => (
+    [SPELLS.ASTRAL_ACCELERATION.id] : { //Astral Acceleration - From T20 4p
+      Haste: () => 0.03,
+      CurrentStacks: 0, 
+      MaxStacks: 5,
+    }, 
+    [SPELLS.STAR_POWER.id] : { //StarPower - From casts in Incarnation / CA
+      Haste: (combatant) => (
           combatant.hasTalent(SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id) ? 0.01 : 0.03
         ), 
-        CurrentStacks: 0, 
-        MaxStacks: 0,
-      }, 
-    }
+      CurrentStacks: 0, 
+      MaxStacks: 0,
+    }, 
+  }
 
   suggestions(when) {
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;

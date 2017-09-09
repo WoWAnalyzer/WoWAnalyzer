@@ -82,23 +82,23 @@ class SpiritOfTheCrane extends Module {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
-      if(!this.combatants.selected.hasBuff(SPELLS.TEACHINGS_OF_THE_MONASTERY.id)) {
+    if(!this.combatants.selected.hasBuff(SPELLS.TEACHINGS_OF_THE_MONASTERY.id)) {
         //console.log('No TotM Buff');
-        return;
-      }
+      return;
+    }
 
       // Need to track when you over cap Teachings stacks.  There is no apply aura event fired, so manually tracking stacks.
-      if(spellId === SPELLS.TIGER_PALM.id && this.buffTotm === 3) {
-        debug && console.log('TP Casted at 3 stacks ' + event.timestamp);
-        this.lastTotmBuffTimestamp = event.timestamp;
-        this.totmOverCap += 1;
-      }
+    if(spellId === SPELLS.TIGER_PALM.id && this.buffTotm === 3) {
+      debug && console.log('TP Casted at 3 stacks ' + event.timestamp);
+      this.lastTotmBuffTimestamp = event.timestamp;
+      this.totmOverCap += 1;
+    }
 
-      if(spellId === SPELLS.BLACKOUT_KICK.id && this.buffTotm > 0) {
-        if(this.combatants.selected.hasBuff(SPELLS.TEACHINGS_OF_THE_MONASTERY.id)){
-          this.totalTotmBuffs += this.buffTotm;
+    if(spellId === SPELLS.BLACKOUT_KICK.id && this.buffTotm > 0) {
+      if(this.combatants.selected.hasBuff(SPELLS.TEACHINGS_OF_THE_MONASTERY.id)){
+        this.totalTotmBuffs += this.buffTotm;
           //this.manaReturnSotc += (this.buffTotm * (baseMana * SPELLS.TEACHINGS_OF_THE_MONASTERY.manaRet));
-          debug && console.log("Black Kick Casted with Totm at " + this.buffTotm + " stacks");
+        debug && console.log("Black Kick Casted with Totm at " + this.buffTotm + " stacks");
 
       }
     }

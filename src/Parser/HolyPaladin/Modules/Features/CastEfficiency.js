@@ -9,7 +9,7 @@ import CoreCastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 
 
 class CastEfficiency extends CoreCastEfficiency {
-    static CPM_ABILITIES = [
+  static CPM_ABILITIES = [
     ...CoreCastEfficiency.CPM_ABILITIES,
     {
       spell: SPELLS.HOLY_SHOCK_HEAL,

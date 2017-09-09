@@ -49,7 +49,7 @@ class Flourish extends Module {
         if(player.hasBuff(SPELLS.WILD_GROWTH.id, event.timestamp, 0, 0) === true) {
           this.wildGrowth += 1;
         }
-    });
+      });
     // If we are using Tree Of Life, our WG statistics will be a little skewed since each WG gives 8 WG applications instead of 6.
     // We solve this by simply reducing WGs counter by 2.
     if(this.wildGrowth > (oldWgCount+6)) {
@@ -68,7 +68,7 @@ class Flourish extends Module {
             this.rejuvenation += 1;
           }
         }
-    });
+      });
 
     //Regrowth
     Object.keys(this.combatants.players)
@@ -77,7 +77,7 @@ class Flourish extends Module {
         if(player.hasBuff(SPELLS.REGROWTH.id, event.timestamp, 0, 0) === true) {
           this.regrowth += 1;
         }
-    });
+      });
 
     // Cultivation
     Object.keys(this.combatants.players)
@@ -88,7 +88,7 @@ class Flourish extends Module {
             this.cultivation += 1;
           }
         }
-    });
+      });
 
     // Cenarion Ward
     Object.keys(this.combatants.players)
@@ -99,16 +99,16 @@ class Flourish extends Module {
             this.cenarionWard += 1;
           }
         }
-    });
+      });
 
     // Lifebloom
     Object.keys(this.combatants.players)
       .map(player => this.combatants.players[player])
       .forEach((player) => {
         if(player.hasBuff(SPELLS.LIFEBLOOM_HOT_HEAL.id, event.timestamp, 0, 0) === true) {
-            this.lifebloom += 1;
+          this.lifebloom += 1;
         }
-    });
+      });
 
     // Spring blossoms
     Object.keys(this.combatants.players)
@@ -116,10 +116,10 @@ class Flourish extends Module {
       .forEach((player) => {
         if(this.hasSpringBlossoms) {
           if(player.hasBuff(SPELLS.SPRING_BLOSSOMS.id, event.timestamp, 0, 0) === true) {
-              this.springBlossoms += 1;
+            this.springBlossoms += 1;
           }
         }
-    });
+      });
   }
 }
 

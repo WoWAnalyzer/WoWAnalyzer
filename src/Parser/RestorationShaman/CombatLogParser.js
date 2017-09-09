@@ -199,7 +199,7 @@ class CombatLogParser extends CoreCombatLogParser {
     }
     if (giftOfTheQueenTargetEfficiency < 0.95) {
       results.addIssue({
-          issue: <span>Try to always cast <SpellLink id={SPELLS.GIFT_OF_THE_QUEEN.id} /> at a position where both the initial hit and the echo from <SpellLink id={SPELLS.DEEP_WATERS.id} /> will hit all 6 potential targets (average of {giftOfTheQueenAvgHits.toFixed(2)}/6 targets healed).</span>,
+        issue: <span>Try to always cast <SpellLink id={SPELLS.GIFT_OF_THE_QUEEN.id} /> at a position where both the initial hit and the echo from <SpellLink id={SPELLS.DEEP_WATERS.id} /> will hit all 6 potential targets (average of {giftOfTheQueenAvgHits.toFixed(2)}/6 targets healed).</span>,
         icon: SPELLS.GIFT_OF_THE_QUEEN.icon,
         importance: getIssueImportance(giftOfTheQueenTargetEfficiency, 0.90, 0.80),
       });

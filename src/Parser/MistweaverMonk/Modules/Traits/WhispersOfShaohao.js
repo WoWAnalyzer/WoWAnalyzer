@@ -47,7 +47,7 @@ class WhispersOfShaohao extends Module {
           .recommended(`<${recommended} missed is recommended`)
           .regular(recommended + 2).major(recommended + 5);
       });
-    }
+  }
 
   on_finished() {
     if(debug) {

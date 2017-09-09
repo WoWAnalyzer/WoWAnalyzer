@@ -19,7 +19,7 @@ class Jonat extends Module {
     const spellId = event.ability.guid;
 
     if (!(spellId === SPELLS.CHAIN_HEAL.id)) {
-        return;
+      return;
     }
 
     const buff = this.owner.modules.combatants.selected.getBuff(LEGENDARY_JONAT_BUFF, event.timestamp, LEGENDARY_JONAT_BUFF_EXPIRATION_BUFFER);

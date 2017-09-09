@@ -12,8 +12,8 @@ import CoreAlwaysBeCasting from 'Parser/Core/Modules/AlwaysBeCasting';
 const debug = false;
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
-    _highestVoidformStack = 0;
-    _highestLingeringStack = 0;
+  _highestVoidformStack = 0;
+  _highestLingeringStack = 0;
 
   static ABILITIES_ON_GCD = [
     // handled in _removebuff
@@ -54,20 +54,20 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
   on_toPlayer_applybuff(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.LINGERING_INSANITY.id) {
-        this.applyHasteLoss(this._highestVoidformStack * 0.01);
-        debug && console.log(`ABC: Current haste: ${this.currentHaste} (lost ${0.01 * this._highestVoidformStack} from VOIDFORM_BUFF)`);
+      this.applyHasteLoss(this._highestVoidformStack * 0.01);
+      debug && console.log(`ABC: Current haste: ${this.currentHaste} (lost ${0.01 * this._highestVoidformStack} from VOIDFORM_BUFF)`);
 
-        this._highestLingeringStack = this._highestVoidformStack;
-        this.applyHasteGain(this._highestLingeringStack * 0.01);
+      this._highestLingeringStack = this._highestVoidformStack;
+      this.applyHasteGain(this._highestLingeringStack * 0.01);
         
-        this._highestVoidformStack = 0;
+      this._highestVoidformStack = 0;
         
-        debug && console.log(`ABC: Current haste: ${this.currentHaste} (gained ${0.01 * this._highestLingeringStack} from LINGERING_INSANITY)`);
-        return;
+      debug && console.log(`ABC: Current haste: ${this.currentHaste} (gained ${0.01 * this._highestLingeringStack} from LINGERING_INSANITY)`);
+      return;
     }
 
     if (spellId === SPELLS.VOID_TORRENT.id) {
-        return;
+      return;
     }
     
     super.on_toPlayer_applybuff(event);
@@ -77,11 +77,11 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
   on_toPlayer_applybuffstack(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.VOIDFORM_BUFF.id) {
-        this.applyHasteLoss(this._highestVoidformStack * 0.01);
-        this._highestVoidformStack = event.stack;
-        this.applyHasteGain(this._highestVoidformStack * 0.01);
+      this.applyHasteLoss(this._highestVoidformStack * 0.01);
+      this._highestVoidformStack = event.stack;
+      this.applyHasteGain(this._highestVoidformStack * 0.01);
 
-        debug && console.log(`ABC: Current haste: ${this.currentHaste} (gained ${0.01 * this._highestVoidformStack} from VOIDFORM_BUFF)`);
+      debug && console.log(`ABC: Current haste: ${this.currentHaste} (gained ${0.01 * this._highestVoidformStack} from VOIDFORM_BUFF)`);
     }
     
   }
@@ -89,11 +89,11 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
   on_toPlayer_removebuffstack(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.LINGERING_INSANITY.id) {
-        this.applyHasteLoss(this._highestLingeringStack * 0.01);
-        this._highestLingeringStack = event.stack;
-        this.applyHasteGain(this._highestLingeringStack * 0.01);
+      this.applyHasteLoss(this._highestLingeringStack * 0.01);
+      this._highestLingeringStack = event.stack;
+      this.applyHasteGain(this._highestLingeringStack * 0.01);
 
-        debug && console.log(`ABC: Current haste: ${this.currentHaste} (lost ${0.02} from LINGERING_INSANITY)`);
+      debug && console.log(`ABC: Current haste: ${this.currentHaste} (lost ${0.02} from LINGERING_INSANITY)`);
     }
     
   }
@@ -105,8 +105,8 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
         spellId === SPELLS.DISPERSION.id ||
         spellId === SPELLS.VOID_TORRENT.id
     ){
-        this.lastCastFinishedTimestamp = event.timestamp;
-        return;
+      this.lastCastFinishedTimestamp = event.timestamp;
+      return;
     }
 
 

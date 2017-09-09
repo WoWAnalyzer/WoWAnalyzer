@@ -42,10 +42,10 @@ class Efflorescence extends Module {
     const spellId = event.ability.guid;
 
     if (SPELLS.EFFLORESCENCE_HEAL.id !== spellId) {
-        return;
+      return;
     }
     if(this.firstEffloTickTimestamp === null) {
-        this.firstEffloTickTimestamp = event.timestamp;
+      this.firstEffloTickTimestamp = event.timestamp;
     }
   }
 

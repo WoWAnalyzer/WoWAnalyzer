@@ -57,19 +57,19 @@ export default {
     icon: 'ability_demonhunter_sigilofsilence',
   },
   SIGIL_OF_FLAME: {
-      id: 204596,
-      name: 'Sigil of Flame',
-      icon: 'ability_demonhunter_sigilofinquisition',
+    id: 204596,
+    name: 'Sigil of Flame',
+    icon: 'ability_demonhunter_sigilofinquisition',
   },
   SIGIL_OF_FLAME_DEBUFF: {
-      id: 204598,
-      name: 'Sigil of Flame',
-      icon: 'ability_demonhunter_sigilofinquisition',
+    id: 204598,
+    name: 'Sigil of Flame',
+    icon: 'ability_demonhunter_sigilofinquisition',
   },
   SIGIL_OF_MISERY: {
-      id: 207684,
-      name: 'Sigil of Misery',
-      icon: 'ability_demonhunter_sigilofmisery',
+    id: 207684,
+    name: 'Sigil of Misery',
+    icon: 'ability_demonhunter_sigilofmisery',
   },
   DEMON_SPIKES: {
     id: 203720,

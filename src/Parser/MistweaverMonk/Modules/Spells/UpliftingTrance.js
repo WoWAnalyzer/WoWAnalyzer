@@ -73,7 +73,7 @@ class UpliftingTrance extends Module {
           .actual(`${formatPercentage(unusedUTProcs)}% Unused Uplifting Trance procs`)
           .recommended(`<${formatPercentage(recommended)}% wasted UT Buffs is recommended`)
           .regular(recommended + .1).major(recommended + .2);
-    });
+      });
   }
 
   statistic() {

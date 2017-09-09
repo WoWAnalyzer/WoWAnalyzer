@@ -26,7 +26,7 @@ class HighTide extends Module {
     const spellId = event.ability.guid;
 
     if (!(spellId === SPELLS.EARTHEN_SHIELD_TOTEM_CAST.id)) {
-        return;
+      return;
     }
 
     this.potentialHealing += event.maxHitPoints;
@@ -38,7 +38,7 @@ class HighTide extends Module {
     const spellId = event.ability.guid;
 
     if (!(spellId === SPELLS.EARTHEN_SHIELD_TOTEM_CAST.id)) {
-        return;
+      return;
     }
 
     // Store the id of the totem we summoned so that we don't include the EST of other rshamans.

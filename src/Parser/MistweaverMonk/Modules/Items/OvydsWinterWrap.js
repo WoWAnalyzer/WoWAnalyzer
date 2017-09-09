@@ -10,10 +10,10 @@ const debug = false;
 const OVYDS_HEALING_INCREASE = .4;
 
 const UNAFFECTED_SPELLS = [
-    SPELLS.CRANE_HEAL.id,
-    SPELLS.ZEN_PULSE_TALENT.id,
-    SPELLS.REFRESHING_JADE_WIND_HEAL.id,
-  ];
+  SPELLS.CRANE_HEAL.id,
+  SPELLS.ZEN_PULSE_TALENT.id,
+  SPELLS.REFRESHING_JADE_WIND_HEAL.id,
+];
 
 class OvydsWinterWrap extends Module {
   static dependencies = {

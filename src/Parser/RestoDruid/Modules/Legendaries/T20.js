@@ -23,7 +23,7 @@ class T20 extends Module {
 
   on_initialized() {
     if(this.owner.modules.combatants.selected.lv15Talent === SPELLS.PROSPERITY_TALENT.id) {
-     this.swiftmendCooldown = 27;
+      this.swiftmendCooldown = 27;
     }
   }
 

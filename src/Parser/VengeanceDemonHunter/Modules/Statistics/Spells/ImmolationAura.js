@@ -16,7 +16,7 @@ class ImmolationAura extends Module {
   static dependencies = {
     combatants: Combatants,
     abilityTracker: AbilityTracker,
-    };
+  };
   statistic() {
 
     const immolationAuraUptime = this.owner.modules.combatants.getBuffUptime(SPELLS.IMMOLATION_AURA.id);

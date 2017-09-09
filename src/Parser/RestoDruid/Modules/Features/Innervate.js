@@ -36,16 +36,16 @@ class Innervate extends Module {
   lastInnervateTimestamp = 0;
   depleted = false;
   on_initialized() {
-   this.infusionOfNatureTraits = this.owner.modules.combatants.selected.traitsBySpellId[SPELLS.INFUSION_OF_NATURE_TRAIT.id] || 0;
+    this.infusionOfNatureTraits = this.owner.modules.combatants.selected.traitsBySpellId[SPELLS.INFUSION_OF_NATURE_TRAIT.id] || 0;
   }
 
- on_toPlayer_applybuff(event) {
-   const spellId = event.ability.guid;
-   if (SPELLS.INNERVATE.id === spellId) {
-     this.innervateCount += 1;
-     this.lastInnervateTimestamp = event.timestamp;
-   }
- }
+  on_toPlayer_applybuff(event) {
+    const spellId = event.ability.guid;
+    if (SPELLS.INNERVATE.id === spellId) {
+      this.innervateCount += 1;
+      this.lastInnervateTimestamp = event.timestamp;
+    }
+  }
   on_toPlayer_removebuff(event) {
     const spellId = event.ability.guid;
     if (SPELLS.INNERVATE.id === spellId) {
@@ -70,44 +70,44 @@ class Innervate extends Module {
         this.rejuvenations += 1;
       }
       if (SPELLS.WILD_GROWTH.id === spellId) {
-          this.addToManaSaved(WILD_GROWTH_BASE_MANA);
-          this.castsUnderInnervate += 1;
-          this.wildGrowths += 1;
+        this.addToManaSaved(WILD_GROWTH_BASE_MANA);
+        this.castsUnderInnervate += 1;
+        this.wildGrowths += 1;
       }
       if (SPELLS.EFFLORESCENCE_CAST.id === spellId) {
-          this.addToManaSaved(EFFLORESCENCE_BASE_MANA);
-          this.castsUnderInnervate += 1;
-          this.efflorescences += 1;
+        this.addToManaSaved(EFFLORESCENCE_BASE_MANA);
+        this.castsUnderInnervate += 1;
+        this.efflorescences += 1;
       }
       if (SPELLS.CENARION_WARD === spellId) {
-          this.addToManaSaved(CENARION_WARD_BASE_MANA);
-          this.castsUnderInnervate += 1;
-          this.cenarionWards += 1;
+        this.addToManaSaved(CENARION_WARD_BASE_MANA);
+        this.castsUnderInnervate += 1;
+        this.cenarionWards += 1;
       }
       if (SPELLS.REGROWTH.id === spellId) {
-          this.addToManaSaved(REGROWTH_BASE_MANA);
-          this.castsUnderInnervate += 1;
-          this.regrowths += 1;
+        this.addToManaSaved(REGROWTH_BASE_MANA);
+        this.castsUnderInnervate += 1;
+        this.regrowths += 1;
       }
       if (SPELLS.LIFEBLOOM_HOT_HEAL.id === spellId) {
-          this.addToManaSaved(LIFEBLOOM_BASE_MANA);
-          this.castsUnderInnervate += 1;
-          this.lifeblooms += 1;
+        this.addToManaSaved(LIFEBLOOM_BASE_MANA);
+        this.castsUnderInnervate += 1;
+        this.lifeblooms += 1;
       }
       if (SPELLS.HEALING_TOUCH.id === spellId) {
-          this.addToManaSaved(HEALING_TOUCH_BASE_MANA);
-          this.castsUnderInnervate += 1;
-          this.healingTouches += 1;
+        this.addToManaSaved(HEALING_TOUCH_BASE_MANA);
+        this.castsUnderInnervate += 1;
+        this.healingTouches += 1;
       }
       if (SPELLS.SWIFTMEND.id === spellId) {
-          this.addToManaSaved(SWIFTMEND_BASE_MANA);
-          this.castsUnderInnervate += 1;
-          this.swiftmends += 1;
+        this.addToManaSaved(SWIFTMEND_BASE_MANA);
+        this.castsUnderInnervate += 1;
+        this.swiftmends += 1;
       }
       if (SPELLS.TRANQUILITY_HEAL.id === spellId) {
-          this.addToManaSaved(TRANQUILITY_BASE_MANA);
-          this.castsUnderInnervate += 1;
-          this.tranquilities += 1;
+        this.addToManaSaved(TRANQUILITY_BASE_MANA);
+        this.castsUnderInnervate += 1;
+        this.tranquilities += 1;
       }
     }
   }

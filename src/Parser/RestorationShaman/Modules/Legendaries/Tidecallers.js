@@ -33,29 +33,29 @@ class Tidecallers extends Module {
           this.currentTick = event.timestamp;
         }
       } else {
-          this.currentTick = event.timestamp;
+        this.currentTick = event.timestamp;
       }
 
       if (this.httDropped && (this.httDropped + HTT_BASE_DURATION) < event.timestamp) {
-          if (!this.firstTickAfterBaseDuration) {
-              this.firstTickAfterBaseDuration = event.timestamp;
-          }
+        if (!this.firstTickAfterBaseDuration) {
+          this.firstTickAfterBaseDuration = event.timestamp;
+        }
 
           // If this is a heal in the first tick after the base duration, subtract the partial tick that we
           // would have gotten if we were not using tidecallers.
-          if (this.firstTickAfterBaseDuration === event.timestamp) {
-            const partialTickDuration = (this.httDropped + HTT_BASE_DURATION) - this.lastTick;
-            const fullTickDuration = event.timestamp - this.lastTick;
-            const partialTickFraction = partialTickDuration / fullTickDuration; 
-            this.httHealing -= healingDone * partialTickFraction;
-          }
+        if (this.firstTickAfterBaseDuration === event.timestamp) {
+          const partialTickDuration = (this.httDropped + HTT_BASE_DURATION) - this.lastTick;
+          const fullTickDuration = event.timestamp - this.lastTick;
+          const partialTickFraction = partialTickDuration / fullTickDuration; 
+          this.httHealing -= healingDone * partialTickFraction;
+        }
 
-          this.httHealing += healingDone;
+        this.httHealing += healingDone;
       }
     }
 
     if (spellId === SPELLS.HEALING_STREAM_TOTEM_HEAL.id || spellId === SPELLS.QUEENS_DECREE.id) {
-        this.hstHealing += healingDone / 6; // only add the extra 20% we're getting
+      this.hstHealing += healingDone / 6; // only add the extra 20% we're getting
     }
 
 
@@ -66,10 +66,10 @@ class Tidecallers extends Module {
     const spellId = event.ability.guid;
 
     if (spellId === SPELLS.HEALING_TIDE_TOTEM_CAST.id) {
-        this.httDropped = event.timestamp;
-        this.firstTickAfterBaseDuration = null;
-        this.currentTick = null;
-        this.lastTick = null;
+      this.httDropped = event.timestamp;
+      this.firstTickAfterBaseDuration = null;
+      this.currentTick = null;
+      this.lastTick = null;
     } 
   }
 }

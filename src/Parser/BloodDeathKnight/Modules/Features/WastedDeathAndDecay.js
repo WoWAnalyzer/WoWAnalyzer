@@ -18,7 +18,7 @@ class WastedDeathAndDecay  extends Module {
   WastedDeathAndDecays = 0;
 
   on_initialized() {
-    }
+  }
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
@@ -26,9 +26,9 @@ class WastedDeathAndDecay  extends Module {
       return;
     }
     if (this.combatants.selected.hasBuff(SPELLS.CRIMSON_SCOURGE.id, event.timestamp)) {
-    this.FreeDeathAndDecayCounter += 1;
+      this.FreeDeathAndDecayCounter += 1;
     }  else {
-    this.DeathAndDecayCounter += 1;
+      this.DeathAndDecayCounter += 1;
     }
   }
   on_byPlayer_applybuff(event) {

@@ -14,8 +14,8 @@ const debug = false;
 const EVM_HEALING_INCREASE = .3;
 
 const UNAFFECTED_SPELLS = [
-    SPELLS.CRANE_HEAL.id,
-  ];
+  SPELLS.CRANE_HEAL.id,
+];
 
 class EnvelopingMists extends Module {
   static dependencies = {
