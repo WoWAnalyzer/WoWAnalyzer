@@ -31,10 +31,6 @@ class NaturesEssence extends Module {
     }
   }
 
-  on_finished() {
-    console.log(this.effectiveHealing + " " + this.overHealing);
-  }
-
   suggestions(when) {
     const overhealPercent = (this.overHealing + this.effectiveHealing !== 0)
         ? this.overHealing / (this.effectiveHealing + this.overHealing)
