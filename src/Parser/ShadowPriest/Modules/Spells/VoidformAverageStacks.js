@@ -17,7 +17,7 @@ class VoidformAverageStacks extends Module {
     voidform: Voidform,
   };
 
-  on_initialized(){
+  on_initialized() {
     this.active = true;
   }
 
@@ -42,7 +42,7 @@ class VoidformAverageStacks extends Module {
 });
   }
 
-  statistic(){
+  statistic() {
     const { voidforms } = this.voidform;
     if(!voidforms || voidforms.length === 0) return null;
 

@@ -19,7 +19,7 @@ class DamageDone extends CoreDamageDone {
     shadowfiend: Shadowfiend,
   };
 
-  on_initialized(){
+  on_initialized() {
     this.active = true;
   }
 
@@ -33,7 +33,7 @@ class DamageDone extends CoreDamageDone {
 		/>);
   }
 
-  on_finished(){
+  on_finished() {
     this._total = this._total.add(this.callToTheVoid.damageDone || 0, 0, 0);
     this.owner.modules.combatants.selected.hasTalent(SPELLS.MINDBENDER_TALENT_SHADOW.id) ?
 			this._total = this._total.add(this.mindbender.damageDone || 0, 0, 0) :

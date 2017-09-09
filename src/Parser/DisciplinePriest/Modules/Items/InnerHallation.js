@@ -17,11 +17,11 @@ class InnerHallation extends Module {
   }
 
   on_byPlayer_cast(event) {
-    if(this.owner.modules.combatants.selected.hasTalent(SPELLS.POWER_INFUSION.id) && event.ability.guid === SPELLS.POWER_INFUSION.id){
+    if(this.owner.modules.combatants.selected.hasTalent(SPELLS.POWER_INFUSION.id) && event.ability.guid === SPELLS.POWER_INFUSION.id) {
       this.lastPowerInfusionCastStartTimestamp = event.timestamp;
       return;
       
-    } else if (this.owner.modules.combatants.selected.hasBuff(SPELLS.POWER_INFUSION.id) && (event.timestamp + 20000) > this.lastPowerInfusionCastStartTimestamp){
+    } else if (this.owner.modules.combatants.selected.hasBuff(SPELLS.POWER_INFUSION.id) && (event.timestamp + 20000) > this.lastPowerInfusionCastStartTimestamp) {
       const spellId   = event.ability.guid;
       const manaCost  = event.manaCost;
       if (!manaCost) {

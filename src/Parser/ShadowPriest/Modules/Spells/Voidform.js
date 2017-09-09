@@ -35,20 +35,20 @@ class Voidform extends Module {
   _voidforms            = {};
 
 
-  get voidforms(){
+  get voidforms() {
     return Object.keys(this._voidforms).map(key => this._voidforms[key]);
   }
 
-  get averageVoidformHaste(){
+  get averageVoidformHaste() {
     const averageHasteFromVoidform = (this.voidforms.reduce((p, c) => p += c.totalHasteAcquired / ((c.ended - c.start)/1000), 0) / this.voidforms.length) / 100;
     return (1 + this.owner.modules.combatants.selected.hastePercentage) * (1 + averageHasteFromVoidform);
   }
 
-  get averageNonVoidformHaste(){
+  get averageNonVoidformHaste() {
     return (1 + this.owner.modules.combatants.selected.hastePercentage) * (1 + (this._totalHasteAcquiredOutsideVoidform / this._totalLingeringInsanityTimeOutsideVoidform)/100);
   }
 
-  get averageVoidformStacks(){
+  get averageVoidformStacks() {
     if(this.voidforms.length === 0) return 0;
 
     // ignores last voidform if seen as skewing
@@ -56,7 +56,7 @@ class Voidform extends Module {
     return nonExcludedVoidforms.reduce((p, c) => p += c.stacks.length, 0)/nonExcludedVoidforms.length;
   }
 
-  createVoidform(event){
+  createVoidform(event) {
     this._inVoidform = true;
     this._previousVoidformCast = event;
     this._voidforms[event.timestamp] = {
@@ -71,12 +71,12 @@ class Voidform extends Module {
     };
   }
 
-  getCurrentVoidform(){
+  getCurrentVoidform() {
     return this._inVoidform ? this._voidforms[this._previousVoidformCast.timestamp] : false;
   }
 
-  setCurrentVoidform(voidform){
-    if(this._inVoidform){
+  setCurrentVoidform(voidform) {
+    if(this._inVoidform) {
       this._voidforms[this._previousVoidformCast.timestamp] = voidform;
     }
   }
@@ -90,7 +90,7 @@ class Voidform extends Module {
     this.createVoidform(event);
   }
 
-  on_byPlayer_removebuff(event){
+  on_byPlayer_removebuff(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.VOIDFORM_BUFF.id) {
 
@@ -104,7 +104,7 @@ class Voidform extends Module {
     if (spellId === SPELLS.VOIDFORM_BUFF.id) {
 
       // for those prepull voidforms:
-      if(this._previousVoidformCast === null){
+      if(this._previousVoidformCast === null) {
         this.createVoidform(event);
       }
 
@@ -125,12 +125,12 @@ class Voidform extends Module {
     }
   }
 
-  on_byPlayer_removebuffstack(event){
+  on_byPlayer_removebuffstack(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.LINGERING_INSANITY.id) {
       
 
-      if(this._inVoidform){
+      if(this._inVoidform) {
         const { timestamp, stack } = event;
         let currentVoidform = this.getCurrentVoidform();
         currentVoidform = {
@@ -152,21 +152,21 @@ class Voidform extends Module {
     }
   }
 
-  on_finished(){
+  on_finished() {
     const player = this.owner.modules.combatants.selected;
 
     // excludes last one to avoid skewing the average (if in voidform when the encounter ends):
-    if(player.hasBuff(SPELLS.VOIDFORM_BUFF.id)){
+    if(player.hasBuff(SPELLS.VOIDFORM_BUFF.id)) {
       const averageVoidformStacks = this.voidforms.slice(0, this.voidforms.length - 1).reduce((p, c) => p += c.stacks.length, 0) / (this.voidforms.length - 1);
       const lastVoidformStacks    = this.voidforms[this.voidforms.length-1].stacks.length;
 
-      if(lastVoidformStacks + 5 < averageVoidformStacks){
+      if(lastVoidformStacks + 5 < averageVoidformStacks) {
         this._voidforms[this._previousVoidformCast.timestamp].excluded = true;
       }
     }
 
     // set end to last voidform of the fight:
-    if(this._voidforms[this._previousVoidformCast.timestamp].ended === undefined){
+    if(this._voidforms[this._previousVoidformCast.timestamp].ended === undefined) {
       this._voidforms[this._previousVoidformCast.timestamp].ended = this.owner._timestamp;
     }
   }
@@ -206,7 +206,7 @@ class Voidform extends Module {
 
   statisticOrder = STATISTIC_ORDER.CORE(3);
 
-  tab(){
+  tab() {
     return {
       title: 'Voidforms',
       url: 'voidforms',

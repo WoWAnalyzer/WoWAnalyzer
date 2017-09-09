@@ -104,7 +104,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
         spellId === SPELLS.MIND_FLAY.id ||
         spellId === SPELLS.DISPERSION.id ||
         spellId === SPELLS.VOID_TORRENT.id
-    ){
+    ) {
       this.lastCastFinishedTimestamp = event.timestamp;
       return;
     }

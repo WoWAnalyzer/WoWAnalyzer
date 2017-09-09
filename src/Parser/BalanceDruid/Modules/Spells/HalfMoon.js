@@ -27,7 +27,7 @@ class HalfMoon extends Module {
       return;
     }
 
-    if (!this.firstMoonCast){
+    if (!this.firstMoonCast) {
       this.firstMoonTime = (event.timestamp - this.firstCastTime) / 1000;
       this.firstMoonCast = true;
     }

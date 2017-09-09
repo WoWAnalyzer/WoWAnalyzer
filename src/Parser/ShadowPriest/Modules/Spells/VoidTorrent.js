@@ -7,7 +7,7 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-function formatSeconds(seconds){
+function formatSeconds(seconds) {
   return Math.round(seconds * 10)/10;
 }
 
@@ -19,7 +19,7 @@ class VoidTorrent extends Module {
   _voidTorrents = {};
   _previousVoidTorrentCast = null;
 
-  startedVoidTorrent(event){
+  startedVoidTorrent(event) {
     this._voidTorrents[event.timestamp] = {
       start: event.timestamp,
     };
@@ -27,7 +27,7 @@ class VoidTorrent extends Module {
     this._previousVoidTorrentCast = event;
   }
 
-  finishedVoidTorrent({event, wastedTime}){
+  finishedVoidTorrent({event, wastedTime}) {
     this._voidTorrents[this._previousVoidTorrentCast.timestamp] = {
       ...this._voidTorrents[this._previousVoidTorrentCast.timestamp],
       wastedTime,
@@ -37,11 +37,11 @@ class VoidTorrent extends Module {
     this._previousVoidTorrentCast = null;
   }
 
-  get voidTorrents(){
+  get voidTorrents() {
     return Object.keys(this._voidTorrents).map(key => this._voidTorrents[key]);
   }
 
-  get totalWasted(){
+  get totalWasted() {
     return this.voidTorrents.reduce((p, c) => p += c.wastedTime, 0) / 1000;
   }
 
@@ -52,7 +52,7 @@ class VoidTorrent extends Module {
     }
   }
 
-  on_byPlayer_removebuff(event){
+  on_byPlayer_removebuff(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.VOID_TORRENT.id) {
       const timeSpentChanneling = event.timestamp - this._previousVoidTorrentCast.timestamp;

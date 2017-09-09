@@ -21,7 +21,7 @@ class ChiBurst extends Module {
   raidSize = 0;
 
 
-  on_initialized(){
+  on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.CHI_BURST_TALENT.id);
     this.raidSize = Object.entries(this.combatants.players).length;
   }

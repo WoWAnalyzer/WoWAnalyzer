@@ -16,11 +16,11 @@ class Disperion extends Module {
   _dispersions = {};
   _previousDispersionCast = null;
 
-  get dispersions(){
+  get dispersions() {
     return Object.keys(this._dispersions).map(key => this._dispersions[key]);
   }
 
-  startedDispersion(event){
+  startedDispersion(event) {
     this._dispersions[event.timestamp] = {
       start: event.timestamp,
     };
@@ -28,7 +28,7 @@ class Disperion extends Module {
     this._previousDispersionCast = event;
   }
 
-  finishedDispersion(event){
+  finishedDispersion(event) {
     this._dispersions[this._previousDispersionCast.timestamp] = {
       ...this._dispersions[this._previousDispersionCast.timestamp],
       end: event.timestamp,

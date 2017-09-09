@@ -84,14 +84,14 @@ class ComboPointTracker extends Module {
     const spellId = event.ability.guid;
 
     // some point generating spells do not have energize events so they are handled here
-    if (spellId === SPELLS.THRASH_FERAL.id || spellId === SPELLS.BRUTAL_SLASH_TALENT.id){
+    if (spellId === SPELLS.THRASH_FERAL.id || spellId === SPELLS.BRUTAL_SLASH_TALENT.id) {
       this.processNonEnergizeCast(spellId);
     }
     if (pointSpendingAbilities.indexOf(spellId) === -1) {
       return;
     }
     // checking for free no CP procs, classResources seems to be the only difference
-    if (event.classResources[1].amount){
+    if (event.classResources[1].amount) {
       this.processPointSpenders(event, spellId);
     }
   }

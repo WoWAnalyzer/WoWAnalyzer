@@ -43,7 +43,7 @@ class SpiritOfTheCrane extends Module {
     }
   }
 
-  on_byPlayer_applybuffstack(event){
+  on_byPlayer_applybuffstack(event) {
     const spellId = event.ability.guid;
 
     if(spellId === SPELLS.TEACHINGS_OF_THE_MONASTERY.id) {
@@ -95,7 +95,7 @@ class SpiritOfTheCrane extends Module {
     }
 
     if(spellId === SPELLS.BLACKOUT_KICK.id && this.buffTotm > 0) {
-      if(this.combatants.selected.hasBuff(SPELLS.TEACHINGS_OF_THE_MONASTERY.id)){
+      if(this.combatants.selected.hasBuff(SPELLS.TEACHINGS_OF_THE_MONASTERY.id)) {
         this.totalTotmBuffs += this.buffTotm;
           //this.manaReturnSotc += (this.buffTotm * (baseMana * SPELLS.TEACHINGS_OF_THE_MONASTERY.manaRet));
         debug && console.log("Black Kick Casted with Totm at " + this.buffTotm + " stacks");

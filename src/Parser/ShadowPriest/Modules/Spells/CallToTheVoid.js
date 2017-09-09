@@ -10,19 +10,19 @@ class CallToTheVoid extends Pet {
   _generatedInsanity = 0;
   _tentacles = {};
 
-  on_damage(event){
-    if(this._sourceId !== undefined && event.sourceID === this._sourceId){
+  on_damage(event) {
+    if(this._sourceId !== undefined && event.sourceID === this._sourceId) {
       this._generatedInsanity += INSANITY_GENERATED_EACH_TICK;
     }
 
     super.on_damage(event);
   }
 
-  get insanityGenerated(){
+  get insanityGenerated() {
     return this._generatedInsanity;
   }
 
-  get insanityGeneratedPerSecond(){
+  get insanityGeneratedPerSecond() {
     return this.insanityGenerated / (this.owner.fightDuration / 1000);
   }
 }
