@@ -173,6 +173,26 @@ export default {
     icon: 'spell_shadow_deadofnight',
   },
 
+  //Blood Tier Sets
+  //T20 2 Piece
+  BLOOD_T20_2PC_GRAVEWARDEN: {
+    id: 242001,
+    name: 'Death Knight T20 Blood 2P Bonus',
+    icon: 'spell_deathknight_bloodpresence',
+  },
+  //T20 4 Piece
+  BLOOD_T20_4PC_GRAVEWARDEN: {
+    id: 242009,
+    name: 'Death Knight T20 Blood 4P Bonus',
+    icon: 'spell_deathknight_bloodpresence',
+  },
+  //T20 Buff
+  BLOOD_T20_GRAVEWARDEN_BUFF: {
+    id: 242010,
+    name: 'Gravewarden',
+    icon: 'ability_warrior_bloodsurge',
+  },
+
   // Frost:
   // ...
 

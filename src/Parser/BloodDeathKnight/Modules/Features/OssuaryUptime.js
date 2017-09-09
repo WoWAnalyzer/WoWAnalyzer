@@ -5,9 +5,15 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-
+import Combatants from 'Parser/Core/Modules/Combatants';
 class OssuaryUptime extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
 
+  on_initialized() {
+    this.active = this.combatants.selected.hasTalent(SPELLS.OSSUARY_TALENT.id);
+  }
   statistic() {
 
     const ossuaryUptime = this.owner.modules.combatants.getBuffUptime(SPELLS.OSSUARY.id);
