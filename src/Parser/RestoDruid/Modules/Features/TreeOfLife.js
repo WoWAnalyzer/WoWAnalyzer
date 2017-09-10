@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS'
+import ITEMS from 'common/ITEMS';
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
