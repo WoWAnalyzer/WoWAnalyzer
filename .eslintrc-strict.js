@@ -54,6 +54,10 @@ module.exports = {
       requireForBlockBody: true,
     }],
 
+    // Modules
+    // https://github.com/airbnb/javascript#modules--no-duplicate-imports
+    'import/no-mutable-exports': 'warn',
+
     // Variables
     // https://github.com/airbnb/javascript#variables--unary-increment-decrement
     'no-plusplus': 'warn',
