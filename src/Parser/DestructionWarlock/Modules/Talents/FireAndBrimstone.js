@@ -77,7 +77,7 @@ class FireAndBrimstone extends Module {
             incinerateEvent,
           ]
         );
-        this._lastIncinerateIndex++;
+        this._lastIncinerateIndex += 1;
       }
     }
   }
