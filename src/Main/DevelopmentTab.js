@@ -56,7 +56,7 @@ class Item extends React.PureComponent {
 
     return fetch(`https://eu.api.battle.net/wow/item/${id}?locale=en_GB&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`)
       .then(response => response.json())
-      .then(data => {
+      .then((data) => {
         this.setState({
           data,
         });
@@ -133,7 +133,7 @@ class Cast extends React.PureComponent {
 
     return fetch(`https://eu.api.battle.net/wow/spell/${id}?locale=en_GB&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`)
       .then(response => response.json())
-      .then(data => {
+      .then((data) => {
         this.setState({
           data,
         });
@@ -295,7 +295,7 @@ class DevelopmentTab extends React.Component {
                   {Object.keys(parser.modules.abilityTracker.abilities)
                     .map(key => parser.modules.abilityTracker.abilities[key])
                     .sort((a, b) => (b.casts || 0) - (a.casts || 0))
-                    .map((cast) => cast.ability && <Cast key={cast.ability.guid} cast={cast} />)}
+                    .map(cast => cast.ability && <Cast key={cast.ability.guid} cast={cast} />)}
                 </ul>
               </div>
             )}

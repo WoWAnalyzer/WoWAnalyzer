@@ -93,7 +93,7 @@ class LowHealthHealing extends React.Component {
           <tbody>
             {
               events
-                .map(event => {
+                .map((event) => {
                   const effectiveHealing = event.amount + (event.absorbed || 0);
                   const hitPointsBeforeHeal = event.hitPoints - effectiveHealing;
                   const healthPercentage = hitPointsBeforeHeal / event.maxHitPoints;

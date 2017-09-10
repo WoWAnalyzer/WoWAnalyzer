@@ -199,7 +199,7 @@ class Maelstrom extends React.PureComponent {
       }
     });
 
-    const abilities = Object.keys(abilitiesAll).map((key) => abilitiesAll[key]);
+    const abilities = Object.keys(abilitiesAll).map(key => abilitiesAll[key]);
     abilities.sort((a,b) => {
       if (a.created < b.created) {
         return 1;

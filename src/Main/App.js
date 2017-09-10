@@ -219,7 +219,7 @@ class App extends Component {
     });
     return fetch(url)
       .then(response => response.json())
-      .then(json => {
+      .then((json) => {
         // console.log('Received report', code, ':', json);
         if (json.status === 400 || json.status === 401) {
           throw json.error;
@@ -249,7 +249,7 @@ class App extends Component {
           });
         }
       })
-      .catch(err => {
+      .catch((err) => {
         alert(`I'm so terribly sorry, an error occured. Try again later, in an updated Google Chrome and make sure that Warcraft Logs is up and functioning properly. Please let us know on Discord if the problem persists.\n\n${err}`);
         console.error(err);
         this.setState({

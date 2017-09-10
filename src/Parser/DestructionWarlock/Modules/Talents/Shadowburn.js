@@ -40,7 +40,7 @@ class Shadowburn extends Module {
 
   on_byPlayer_refreshdebuff(event) {
     if (event.ability.guid === SPELLS.SHADOWBURN.id) {
-      this._expectedShadowburnDebuffEnds.forEach(debuff => {
+      this._expectedShadowburnDebuffEnds.forEach((debuff) => {
         if (debuff.targetID === event.targetID && debuff.targetInstance === event.targetInstance) {
           debug && console.log('found SB, refreshing');
           debuff.expectedEnd = event.timestamp + SHADOWBURN_DEBUFF_DURATION;

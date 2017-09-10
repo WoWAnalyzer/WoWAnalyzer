@@ -15,7 +15,7 @@ const drawLine = (chartRect, stepLength, value) => {
   };
 };
 
-const specialEventIndicators = (options) => (chart) => {
+const specialEventIndicators = options => (chart) => {
   options = Chartist.extend({}, defaultOptions, options);
 
   if (chart instanceof Chartist.Line) {

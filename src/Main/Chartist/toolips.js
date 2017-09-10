@@ -19,7 +19,7 @@ function isInRect(point, rect) {
   return point.x >= rect.x1 && point.x <= rect.x2 && point.y >= rect.y2 && point.y <= rect.y1;
 }
 
-const tooltips = (options) => (chart) => {
+const tooltips = options => (chart) => {
   options = Chartist.extend({}, defaultOptions, options);
 
   if (!(chart instanceof Chartist.Line)) {

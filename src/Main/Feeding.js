@@ -66,8 +66,8 @@ class Feeding extends React.Component {
           }, 0).healing;
           return category;
         })
-          .filter((category) => category.totals.total > 0)
-          .map((category) => (
+          .filter(category => category.totals.total > 0)
+          .map(category => (
 
             <table className="data-table" key={category.name} style={{ marginTop: 10, marginBottom: 10 }}>
               <thead>
@@ -90,7 +90,7 @@ class Feeding extends React.Component {
                     const healingB = category.feed[b].healing;
                     return healingA > healingB ? -1 : (healingB > healingA ? 1 : 0);
                   })
-                  .filter((spellId) => (!this.state.expand) || category.feed[spellId].mergedHealing > 0)
+                  .filter(spellId => (!this.state.expand) || category.feed[spellId].mergedHealing > 0)
                   .map((spellId) => {
                     const ability = category.feed[spellId];
                     const healing = this.state.expand ? ability.mergedHealing : ability.healing;

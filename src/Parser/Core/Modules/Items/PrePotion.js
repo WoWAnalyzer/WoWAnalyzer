@@ -91,13 +91,13 @@ class PrePotion extends Module {
 
   suggestions(when) {
     when(this.usedPrePotion).isFalse()
-      .addSuggestion(suggest => {
+      .addSuggestion((suggest) => {
         return suggest(<span>You did not use a potion before combat. Using a potion before combat allows you the benefit of two potions in a single fight. A potion such as <ItemLink id={ITEMS.POTION_OF_PROLONGED_POWER.id} /> can be very effective (even for healers), especially during shorter encounters.</span>)
           .icon(ITEMS.POTION_OF_PROLONGED_POWER.icon)
           .staticImportance(SUGGESTION_IMPORTANCE.MINOR);
       });
     when(this.usedSecondPotion).isFalse()
-      .addSuggestion(suggest => {
+      .addSuggestion((suggest) => {
         let suggestionText;
         let importance;
         // Only healer specs would use a mana potion all other specs either don't use mana as a primary resource (such as bears)

@@ -74,7 +74,7 @@ class Mana extends React.PureComponent {
     const manaBySecond = {
       0: 100,
     };
-    manaUpdates.forEach(item => {
+    manaUpdates.forEach((item) => {
       const secIntoFight = Math.floor((item.timestamp - start) / 1000);
 
       manaBySecond[secIntoFight] = item.current / item.max * 100;

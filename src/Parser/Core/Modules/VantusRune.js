@@ -67,7 +67,7 @@ class VantusRune extends Module {
     const fight = this.owner.fight;
     const bossId = fight.boss;
 
-    Object.keys(VANTUS_RUNE_SPELL_IDS).forEach(spellId => {
+    Object.keys(VANTUS_RUNE_SPELL_IDS).forEach((spellId) => {
       if (VANTUS_RUNE_SPELL_IDS[spellId] !== bossId) {
         // Vantus Runes only work on 1 boss each
         return;

@@ -37,7 +37,7 @@ class SoulShardBreakdown extends React.Component {
     let totalGenerated = 0;
     let totalWasted = 0;
     let totalSpent = 0;
-    generated.forEach(ability => {
+    generated.forEach((ability) => {
       totalGenerated += ability.generated;
       totalWasted += ability.wasted;
     });

@@ -49,7 +49,7 @@ class MasteryBreakdown extends Module {
 
     // Since JS objects lack order, we need to convert our dictionary to an array
     // to allow for it be ordered for display
-    const eHDPArray = Object.keys(eHDPerc).map((spell) => [spell, eHDPerc[spell], eOHD[spell]]);
+    const eHDPArray = Object.keys(eHDPerc).map(spell => [spell, eHDPerc[spell], eOHD[spell]]);
     eHDPArray.sort((o1, o2) => o2[1] - o1[1]);
 
     this.effectiveHealDistPerc = eHDPArray;

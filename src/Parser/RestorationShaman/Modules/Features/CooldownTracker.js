@@ -58,7 +58,7 @@ class CooldownTracker extends CoreCooldownTracker {
 
   processAll() {
     this.pastCooldowns
-      .filter((cooldown) => cooldown.end && !cooldown.processed)
+      .filter(cooldown => cooldown.end && !cooldown.processed)
       .forEach((cooldown) => {
         let feed = null;
         let totals = null;

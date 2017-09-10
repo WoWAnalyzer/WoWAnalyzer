@@ -17,12 +17,12 @@ class SoulShardEvents extends Module {
   };
 
   _FRAGMENT_GENERATING_ABILITIES = {
-    [SPELLS.IMMOLATE_DEBUFF.id]: (_) => 1,
-    [SPELLS.CONFLAGRATE.id]: (_) => 5,
+    [SPELLS.IMMOLATE_DEBUFF.id]: _ => 1,
+    [SPELLS.CONFLAGRATE.id]: _ => 5,
     //the Shadowburn itself generates 5 fragments, but leaves a debuff on target for 5 seconds, and if it dies, it generates additional 5 fragments
     //don't know how to accurately separate these two (could do totalFragments - numberOfShadowburnCasts * 5, but this doesn't account for possible wasted fragments = inaccurate)
     //solution would be to fabricate a dummy spell with id unused by any other ability and manipulate the event passed into processGenerators but that feels so wrong
-    [SPELLS.SHADOWBURN.id]: (_) => 5,
+    [SPELLS.SHADOWBURN.id]: _ => 5,
     [SPELLS.INCINERATE.id]: (event) => {
       const enemy = this.enemies.getEntity(event);
       if (!enemy) {
@@ -38,12 +38,12 @@ class SoulShardEvents extends Module {
       }
       return rawFragments;
     },
-    [SPELLS.DIMENSIONAL_RIFT_CAST.id]: (_) => 3,
+    [SPELLS.DIMENSIONAL_RIFT_CAST.id]: _ => 3,
     //can refund more shards
-    [SPELLS.SOUL_CONDUIT_SHARD_GEN.id]: (event) => (event.resourceChange || 0) * FRAGMENTS_PER_SHARD,
+    [SPELLS.SOUL_CONDUIT_SHARD_GEN.id]: event => (event.resourceChange || 0) * FRAGMENTS_PER_SHARD,
     //these can refund only one shard at a time
-    [SPELLS.SOULSNATCHER_FRAGMENT_GEN.id]: (_) => 10,
-    [SPELLS.FERETORY_OF_SOULS_FRAGMENT_GEN.id]: (_) => 10,
+    [SPELLS.SOULSNATCHER_FRAGMENT_GEN.id]: _ => 10,
+    [SPELLS.FERETORY_OF_SOULS_FRAGMENT_GEN.id]: _ => 10,
   };
 
   _FRAGMENT_SPENDING_ABILITIES  = {

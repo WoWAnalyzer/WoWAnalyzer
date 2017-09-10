@@ -49,6 +49,10 @@ module.exports = {
     // 'arrow-body-style': ['warn', 'as-needed', {
     //   requireReturnForObjectLiteral: false,
     // }],
+    // https://github.com/airbnb/javascript#arrows--one-arg-parens
+    'arrow-parens': ['error', 'as-needed', {
+      requireForBlockBody: true,
+    }],
 
     // Variables
     // https://github.com/airbnb/javascript#variables--unary-increment-decrement

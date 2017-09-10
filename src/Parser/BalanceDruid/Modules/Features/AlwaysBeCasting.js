@@ -43,7 +43,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       MaxStacks: 5,
     }, 
     [SPELLS.STAR_POWER.id] : { //StarPower - From casts in Incarnation / CA
-      Haste: (combatant) => (
+      Haste: combatant => (
           combatant.hasTalent(SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id) ? 0.01 : 0.03
         ), 
       CurrentStacks: 0, 
