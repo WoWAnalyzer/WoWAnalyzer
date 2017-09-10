@@ -38,7 +38,7 @@ class FightSelectionList extends Component {
       <ul className="list selection">
         {
           fights
-            .filter((fight) => {
+            .filter(fight => {
               if (fight.boss === 0) {
                 return false;
               }

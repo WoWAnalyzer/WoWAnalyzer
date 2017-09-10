@@ -9,7 +9,7 @@ class ManaValues extends Module {
 
   on_byPlayer_cast(event) {
     if (event.classResources) {
-      event.classResources.forEach((classResource) => {
+      event.classResources.forEach(classResource => {
         if (classResource.type === RESOURCE_TYPES.MANA) {
           const manaValue = classResource.amount;
           const manaCost = classResource.cost || 0;

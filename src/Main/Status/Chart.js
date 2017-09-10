@@ -48,7 +48,7 @@ const Chart = ({ data, options, timeSpanMinutes }) => {
     scales: {
       xAxes: [{
         ticks: {
-          callback: (date) => {
+          callback: date => {
             if (dayLabels) {
               const day = date.getDay();
               // By only showing the label on the first hour of day we only really show the first label if there's enough space

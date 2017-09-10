@@ -24,7 +24,7 @@ class WclApiRequests extends React.PureComponent {
 
     const requestsByMinute = {};
     history
-      .forEach((moment) => {
+      .forEach(moment => {
         const intervalIndex = Math.floor(moment.minutesAgo / groupingInterval);
         requestsByMinute[intervalIndex] = (requestsByMinute[intervalIndex] || 0) + moment.numRequests;
       });
@@ -56,7 +56,7 @@ class WclApiRequests extends React.PureComponent {
         <div className="graph-container">
           <Chart
             data={chartData}
-            options={(options) => {
+            options={options => {
               options.tooltips.callbacks.label = item => `${item.yLabel} requests`;
               options.scales.yAxes[0].scaleLabel = {
                 display: true,

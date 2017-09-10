@@ -50,9 +50,7 @@ module.exports = {
     //   requireReturnForObjectLiteral: false,
     // }],
     // https://github.com/airbnb/javascript#arrows--one-arg-parens
-    'arrow-parens': ['error', 'as-needed', {
-      requireForBlockBody: true,
-    }],
+    'arrow-parens': ['error', 'as-needed'],
 
     // Modules
     // https://github.com/airbnb/javascript#modules--no-duplicate-imports

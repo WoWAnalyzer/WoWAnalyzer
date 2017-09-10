@@ -31,17 +31,17 @@ class MasteryBreakdown extends Module {
     // There's likely a far better way to do this, but my 2AM brain couldn't find it
     let total = 0;
 
-    Object.keys(this.effectiveHealDist).forEach((spell) => {
+    Object.keys(this.effectiveHealDist).forEach(spell => {
       total += this.effectiveHealDist[spell];
     });
 
     const eHDPerc = {};
-    Object.keys(this.effectiveHealDist).forEach((spell) => {
+    Object.keys(this.effectiveHealDist).forEach(spell => {
       eHDPerc[spell] = this.effectiveHealDist[spell] / total;
     });
 
     const eOHD = {};
-    Object.keys(this.effectiveHealDist).forEach((spell) => {
+    Object.keys(this.effectiveHealDist).forEach(spell => {
       eOHD[spell] = this.effectiveOverhealDist[spell] / (this.effectiveHealDist[spell] + this.effectiveOverhealDist[spell]);
     });
 
@@ -89,7 +89,7 @@ class MasteryBreakdown extends Module {
       const percH = (event.amount + (event.absorbed || 0)) / (event.amount + (event.absorbed || 0) + (event.overheal || 0));
       const tickMode = this._tickMode[tId];
 
-      Object.keys(this._healValByTargetId[tId]).forEach((spell) => {
+      Object.keys(this._healValByTargetId[tId]).forEach(spell => {
         // For potential future Features //
         // if (spell in this._eHDbyPlayer[tId]) {
         //   this._eHDbyPlayer[tId][spell] += this._maxHealVal[tId][spell] * percOH / tickMode;

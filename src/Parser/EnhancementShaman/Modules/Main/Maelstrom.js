@@ -50,7 +50,7 @@ class Maelstrom extends React.PureComponent {
       abilityid: 111,
     }))
       .then(response => response.json())
-      .then((json) => {
+      .then(json => {
         if (json.status === 400 || json.status === 401) {
           throw json.error;
         } else {
@@ -68,7 +68,7 @@ class Maelstrom extends React.PureComponent {
       abilityid: 1000,
     }))
       .then(response => response.json())
-      .then((json) => {
+      .then(json => {
         if (json.status === 400 || json.status === 401) {
           throw json.error;
         } else {
@@ -95,19 +95,19 @@ class Maelstrom extends React.PureComponent {
     const manaBySecond = {
       0: 100,
     };
-    this.state.mana.series[0].data.forEach((item) => {
+    this.state.mana.series[0].data.forEach(item => {
       const secIntoFight = Math.floor((item[0] - start) / 1000);
       manaBySecond[secIntoFight] = item[1];
     });
     const bosses = [];
     const deadBosses = [];
-    this.state.bossHealth.series.forEach((series) => {
+    this.state.bossHealth.series.forEach(series => {
       const newSeries = {
         ...series,
         data: {},
       };
 
-      series.data.forEach((item) => {
+      series.data.forEach(item => {
         const secIntoFight = Math.floor((item[0] - start) / 1000);
 
         if (deadBosses.indexOf(series.guid) === -1) {
@@ -122,7 +122,7 @@ class Maelstrom extends React.PureComponent {
       bosses.push(newSeries);
     });
     const deathsBySecond = {};
-    this.state.mana.deaths.forEach((death) => {
+    this.state.mana.deaths.forEach(death => {
       const secIntoFight = Math.floor((death.timestamp - start) / 1000);
 
       if (death.targetIsFriendly) {
@@ -139,7 +139,7 @@ class Maelstrom extends React.PureComponent {
     const overCapBySecond = {};
     let lastOverCap;
     let lastSecFight = start;
-    this.state.mana.series[0].events.forEach((event) => {
+    this.state.mana.series[0].events.forEach(event => {
       //healing surge incorrectly cast as energize
       if (event.type === 'energize' && event.ability.guid === 188070) {
         event.type = 'cast';
@@ -216,7 +216,7 @@ class Maelstrom extends React.PureComponent {
 
       manaBySecond[i] = manaBySecond[i] !== undefined ? manaBySecond[i] : null;
       overCapBySecond[i] = overCapBySecond[i] !== undefined ? overCapBySecond[i] : null;
-      bosses.forEach((series) => {
+      bosses.forEach(series => {
         series.data[i] = series.data[i] !== undefined ? series.data[i] : null;
       });
       deathsBySecond[i] = deathsBySecond[i] !== undefined ? deathsBySecond[i] : undefined;

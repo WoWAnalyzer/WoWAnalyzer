@@ -163,7 +163,7 @@ class Results extends React.Component {
                           return 0;
                         }
                       })
-                      .map((item) => {
+                      .map(item => {
                         if (!item) {
                           return null;
                         }

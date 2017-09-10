@@ -19,22 +19,22 @@ function isInRect(point, rect) {
   return point.x >= rect.x1 && point.x <= rect.x2 && point.y >= rect.y2 && point.y <= rect.y1;
 }
 
-const tooltips = options => (chart) => {
+const tooltips = options => chart => {
   options = Chartist.extend({}, defaultOptions, options);
 
   if (!(chart instanceof Chartist.Line)) {
     return;
   }
-  chart.on('created', (data) => {
+  chart.on('created', data => {
     console.log(data);
     const svgNode = data.svg._node;
     let line = null;
-    svgNode.addEventListener('mouseleave', (event) => {
+    svgNode.addEventListener('mouseleave', event => {
       if (!line) return;
       line.remove();
       line = null;
     });
-    svgNode.addEventListener('mousemove', (event) => {
+    svgNode.addEventListener('mousemove', event => {
       const point = position(event, svgNode);
 
       if (isInRect(point, data.chartRect)) {

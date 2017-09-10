@@ -71,7 +71,7 @@ class UncertainReminder extends Module {
       startExtraHeroTime = start + duration * START_EXTRA_HEROISM_UPTIME;
     }
 
-    this.events.forEach((event) => {
+    this.events.forEach(event => {
       if (event.timestamp > startExtraHeroTime) {
         const spellId = event.ability.guid;
 

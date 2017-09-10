@@ -23,7 +23,7 @@ class SoulShardEvents extends Module {
     //don't know how to accurately separate these two (could do totalFragments - numberOfShadowburnCasts * 5, but this doesn't account for possible wasted fragments = inaccurate)
     //solution would be to fabricate a dummy spell with id unused by any other ability and manipulate the event passed into processGenerators but that feels so wrong
     [SPELLS.SHADOWBURN.id]: _ => 5,
-    [SPELLS.INCINERATE.id]: (event) => {
+    [SPELLS.INCINERATE.id]: event => {
       const enemy = this.enemies.getEntity(event);
       if (!enemy) {
         //shouldn't happen, bail out

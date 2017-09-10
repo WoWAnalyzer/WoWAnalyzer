@@ -106,7 +106,7 @@ class Home extends Component {
                         return a.id - b.id;
                       }
                     })
-                    .map((spec) => {
+                    .map(spec => {
                       const className = spec.className.replace(/ /g, '');
                       const config = AVAILABLE_CONFIGS.find(config => config.spec === spec);
                       return (

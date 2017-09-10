@@ -7,7 +7,7 @@ import 'chartist-plugin-legend';
 
 import './VoidformsTab.css';
 
-const formatDuration = (duration) => {
+const formatDuration = duration => {
   const seconds = Math.floor(duration % 60);
   return `${Math.floor(duration / 60)}:${seconds < 10 ? `0${seconds}` : seconds}`;
 };

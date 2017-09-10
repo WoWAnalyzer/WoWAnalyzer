@@ -58,7 +58,7 @@ class Feeding extends React.Component {
             spell: SPELLS.ASCENDANCE_CAST,
             totals: cooldownTracker.ascTotals,
           },
-        ]).map((category) => {
+        ]).map(category => {
           category.max = category.feed.reduce((a, b) => {
             const aHealing = this.state.expand ? a.mergedHealing : a.healing;
             const bHealing = this.state.expand ? b.mergedHealing : b.healing;
@@ -91,7 +91,7 @@ class Feeding extends React.Component {
                     return healingA > healingB ? -1 : (healingB > healingA ? 1 : 0);
                   })
                   .filter(spellId => (!this.state.expand) || category.feed[spellId].mergedHealing > 0)
-                  .map((spellId) => {
+                  .map(spellId => {
                     const ability = category.feed[spellId];
                     const healing = this.state.expand ? ability.mergedHealing : ability.healing;
                     const effectiveHealing = this.state.expand ? ability.mergedEffectiveHealing : ability.effectiveHealing;

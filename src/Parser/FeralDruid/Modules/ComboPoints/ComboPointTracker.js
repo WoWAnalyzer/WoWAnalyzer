@@ -37,7 +37,7 @@ class ComboPointTracker extends Module {
 
   on_initialized() {
     //initialize base abilities, the rest depends on talents and equip
-    pointGeneratingAbilities.forEach((x) => {
+    pointGeneratingAbilities.forEach(x => {
       this.gained[x] = { points: 0 };
       this.wasted[x] = { points: 0 };
     });

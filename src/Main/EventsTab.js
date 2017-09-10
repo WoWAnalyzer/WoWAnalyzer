@@ -74,7 +74,7 @@ class EventsTab extends React.Component {
             <tbody>
               {parser._debugEventHistory
                 .map((event, i) => ({ ...event, eventUniqueId: i })) // this greatly speeds up rendering
-                .filter((event) => {
+                .filter(event => {
                   if (sourceFilterRegExp && !sourceFilterRegExp.test(event.sourceID)) {
                     return false;
                   }
@@ -89,7 +89,7 @@ class EventsTab extends React.Component {
                   }
                   return true;
                 })
-                .map((event) => {
+                .map(event => {
                   const source = event.sourceID ? this.findEntity(event.sourceID) : event.source;
                   const target = event.targetID ? this.findEntity(event.targetID) : event.target;
 

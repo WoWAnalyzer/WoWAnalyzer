@@ -31,7 +31,7 @@ class Combatants extends Entities {
 
     this.players[event.sourceID] = new Combatant(this.owner, event);
 
-    event.auras.forEach((aura) => {
+    event.auras.forEach(aura => {
       this.applyBuff({
         ability: {
           abilityIcon: aura.icon,

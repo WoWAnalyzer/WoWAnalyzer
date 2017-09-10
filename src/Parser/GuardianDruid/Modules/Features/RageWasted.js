@@ -90,7 +90,7 @@ class RageWasted extends Module {
 
   getWastedRageBreakdown() {
     return Object.keys(this.rageWastedBySpell)
-      .map((spellID) => {
+      .map(spellID => {
         if (!RAGE_GENERATORS[spellID]) {
           console.warn('Unknown rage generator:', spellID);
         }

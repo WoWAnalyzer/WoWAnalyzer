@@ -102,7 +102,7 @@ class CastEfficiency extends Module {
 
   suggestions(when) {
     const castEfficiency = getCastEfficiency(this.constructor.CPM_ABILITIES, this.abilityTracker, this.combatants, this.owner);
-    castEfficiency.forEach((cpm) => {
+    castEfficiency.forEach(cpm => {
       if (cpm.ability.noSuggestion || cpm.castEfficiency === null) {
         return;
       }

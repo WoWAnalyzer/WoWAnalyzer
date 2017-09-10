@@ -56,7 +56,7 @@ class Item extends React.PureComponent {
 
     return fetch(`https://eu.api.battle.net/wow/item/${id}?locale=en_GB&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`)
       .then(response => response.json())
-      .then((data) => {
+      .then(data => {
         this.setState({
           data,
         });
@@ -133,7 +133,7 @@ class Cast extends React.PureComponent {
 
     return fetch(`https://eu.api.battle.net/wow/spell/${id}?locale=en_GB&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`)
       .then(response => response.json())
-      .then((data) => {
+      .then(data => {
         this.setState({
           data,
         });
@@ -243,7 +243,7 @@ ${properties.map(prop => `  ${prop},`).join('\n')}
 }
 
 const Code = ({ children, dump, className, ...others }) => (
-  <a href={`javascript:console.log(${children})`} onClick={(e) => {
+  <a href={`javascript:console.log(${children})`} onClick={e => {
     e.preventDefault();
     console.log(dump);
   }}>

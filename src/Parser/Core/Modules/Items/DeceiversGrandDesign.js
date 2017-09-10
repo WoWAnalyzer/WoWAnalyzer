@@ -150,7 +150,7 @@ class DecieversGrandDesign extends Module {
   }
   suggestions(when) {
     when(this.proced).isTrue()
-      .addSuggestion((suggest) => {
+      .addSuggestion(suggest => {
         return suggest(
           <span>
               Your <ItemLink id={ITEMS.DECEIVERS_GRAND_DESIGN.id} /> procced earlier than expected. Try to cast it on players without spiky health pools. The following events procced the effect:<br />

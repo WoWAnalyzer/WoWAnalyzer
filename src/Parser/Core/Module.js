@@ -19,7 +19,7 @@ class Module {
     this.priority = priority;
 
     if (dependencies) {
-      Object.keys(dependencies).forEach((key) => {
+      Object.keys(dependencies).forEach(key => {
         this[key] = dependencies[key];
       });
     }
