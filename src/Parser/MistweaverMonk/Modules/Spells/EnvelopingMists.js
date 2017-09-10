@@ -42,7 +42,7 @@ class EnvelopingMists extends Module {
 
   on_finished() {
     if (debug) {
-      console.log('EvM Healing Contribution: ' + this.healing);
+      console.log(`EvM Healing Contribution: ${this.healing}`);
     }
   }
 

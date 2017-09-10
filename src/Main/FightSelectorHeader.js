@@ -44,7 +44,7 @@ class FightSelectorHeader extends SelectorBase {
             <div className="panel-heading">
               <div className="row">
                 <div className="col-md-8">
-                  <h2>Select the fight to parse {parser && parser.player ? ' for ' + parser.player.name : ''}</h2>
+                  <h2>Select the fight to parse {parser && parser.player ? ` for ${parser.player.name}` : ''}</h2>
                 </div>
                 <div className="col-md-4 text-right toggle-control action-buttons">
                   <Toggle

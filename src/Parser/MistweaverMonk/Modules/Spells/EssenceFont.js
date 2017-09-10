@@ -37,9 +37,9 @@ class EssenceFontMastery extends Module {
 
   on_finished() {
     if (debug) {
-      console.log('EF Casts: ' + this.castEF);
-      console.log('EF Targets Hit: ' + this.targetsEF);
-      console.log('EF Avg Targets Hit per Cast: ' + (this.targetsEF / this.castEF));
+      console.log(`EF Casts: ${this.castEF}`);
+      console.log(`EF Targets Hit: ${this.targetsEF}`);
+      console.log(`EF Avg Targets Hit per Cast: ${this.targetsEF / this.castEF}`);
     }
   }
 

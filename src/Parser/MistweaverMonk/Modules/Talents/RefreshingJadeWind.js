@@ -77,11 +77,11 @@ class RefreshingJadeWind extends Module {
 
   on_finished() {
     if (debug) {
-      console.log('RJW Casts: ' + this.castRJW);
-      console.log('RJW Targets Hit: ' + this.healsRJW);
+      console.log(`RJW Casts: ${this.castRJW}`);
+      console.log(`RJW Targets Hit: ${this.healsRJW}`);
       console.log('RJW Targets Hit per Cast: ', (this.healsRJW / this.castRJW));
-      console.log('Avg Heals per Cast: ' + (this.healingRJW / this.castRJW));
-      console.log('Avg Heals Amount: ' + (this.healingRJW / this.healsRJW));
+      console.log(`Avg Heals per Cast: ${this.healingRJW / this.castRJW}`);
+      console.log(`Avg Heals Amount: ${this.healingRJW / this.healsRJW}`);
     }
   }
 }

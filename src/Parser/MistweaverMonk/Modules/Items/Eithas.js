@@ -49,9 +49,9 @@ class Eithas extends Module {
   on_finished() {
     this.healing = this.healingCleave + this.healingMain + ((this.rawHealingCleave + this.healingCleave) / 3);
     if (debug) {
-      console.log('Boot Healing: ' + this.rawHealingCleave);
-      console.log('Viv Target Healing: ' + this.rawHealingMain);
-      console.log('Total Healing: ' + (this.totalVivHeal + this.healing));
+      console.log(`Boot Healing: ${this.rawHealingCleave}`);
+      console.log(`Viv Target Healing: ${this.rawHealingMain}`);
+      console.log(`Total Healing: ${this.totalVivHeal + this.healing}`);
     }
   }
   item() {

@@ -51,8 +51,8 @@ class T20_4pc extends Module {
   }
 
   on_finished() {
-    debug && console.log('Saved ' + this.staggerSaved);
-    debug && console.log('Orbs ' + this.orbsEaten);
+    debug && console.log(`Saved ${this.staggerSaved}`);
+    debug && console.log(`Orbs ${this.orbsEaten}`);
   }
 
   item() {

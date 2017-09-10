@@ -39,7 +39,7 @@ class SpiritOfTheCrane extends Module {
     if (spellId === SPELLS.TEACHINGS_OF_THE_MONASTERY.id) {
       this.buffTotm += 1;
       this.lastTotmBuffTimestamp = event.timestamp;
-      debug && console.log('ToTM at ' + this.buffTotm);
+      debug && console.log(`ToTM at ${this.buffTotm}`);
     }
   }
 
@@ -49,7 +49,7 @@ class SpiritOfTheCrane extends Module {
     if (spellId === SPELLS.TEACHINGS_OF_THE_MONASTERY.id) {
       this.buffTotm += 1;
       this.lastTotmBuffTimestamp = event.timestamp;
-      debug && console.log('ToTM at ' + this.buffTotm);
+      debug && console.log(`ToTM at ${this.buffTotm}`);
     }
   }
 
@@ -74,8 +74,8 @@ class SpiritOfTheCrane extends Module {
     if (spellId === SPELLS.SPIRIT_OF_THE_CRANE_BUFF.id) {
       this.manaReturnSotc += event.resourceChange - event.waste;
       this.sotcWasted += event.waste;
-      debug && console.log('SotC Entergize: ' + (event.resourceChange - event.waste) + ' Total: ' + this.manaReturnSotc);
-      debug && console.log('SotC Waste: ' + event.waste + ' Total: ' + this.sotcWasted + ' Timestamp: ' + event.timestamp);
+      debug && console.log(`SotC Entergize: ${event.resourceChange - event.waste} Total: ${this.manaReturnSotc}`);
+      debug && console.log(`SotC Waste: ${event.waste} Total: ${this.sotcWasted} Timestamp: ${event.timestamp}`);
     }
   }
 
@@ -89,7 +89,7 @@ class SpiritOfTheCrane extends Module {
 
       // Need to track when you over cap Teachings stacks.  There is no apply aura event fired, so manually tracking stacks.
     if (spellId === SPELLS.TIGER_PALM.id && this.buffTotm === 3) {
-      debug && console.log('TP Casted at 3 stacks ' + event.timestamp);
+      debug && console.log(`TP Casted at 3 stacks ${event.timestamp}`);
       this.lastTotmBuffTimestamp = event.timestamp;
       this.totmOverCap += 1;
     }
@@ -98,7 +98,7 @@ class SpiritOfTheCrane extends Module {
       if (this.combatants.selected.hasBuff(SPELLS.TEACHINGS_OF_THE_MONASTERY.id)) {
         this.totalTotmBuffs += this.buffTotm;
           //this.manaReturnSotc += (this.buffTotm * (baseMana * SPELLS.TEACHINGS_OF_THE_MONASTERY.manaRet));
-        debug && console.log('Black Kick Casted with Totm at ' + this.buffTotm + ' stacks');
+        debug && console.log(`Black Kick Casted with Totm at ${this.buffTotm} stacks`);
       }
     }
   }
@@ -145,12 +145,12 @@ class SpiritOfTheCrane extends Module {
 
   on_finished() {
     if (debug) {
-      console.log('TotM Buffs Wasted:' + this.totmBuffWasted);
-      console.log('TotM Buffs Overcap:' + this.totmOverCap);
-      console.log('SotC Mana Returned:' + this.manaReturnSotc);
-      console.log('Total TotM Buffs:' + this.totalTotmBuffs);
-      console.log('SotC Waste Total: ' + this.sotcWasted);
-      console.log('SotC Total: ' + (this.sotcWasted + this.manaReturnSotc));
+      console.log(`TotM Buffs Wasted:${this.totmBuffWasted}`);
+      console.log(`TotM Buffs Overcap:${this.totmOverCap}`);
+      console.log(`SotC Mana Returned:${this.manaReturnSotc}`);
+      console.log(`Total TotM Buffs:${this.totalTotmBuffs}`);
+      console.log(`SotC Waste Total: ${this.sotcWasted}`);
+      console.log(`SotC Total: ${this.sotcWasted + this.manaReturnSotc}`);
     }
   }
 }

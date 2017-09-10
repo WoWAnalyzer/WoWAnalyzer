@@ -38,7 +38,7 @@ class Flourish extends Module {
     if (SPELLS.FLOURISH.id !== spellId) {
       return;
     }
-    debug && console.log('Flourish cast #: ' + this.flourishCounter);
+    debug && console.log(`Flourish cast #: ${this.flourishCounter}`);
     this.flourishCounter += 1;
 
     // Wild growth

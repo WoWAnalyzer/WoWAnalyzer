@@ -157,8 +157,8 @@ class Maelstrom extends React.PureComponent {
       }
       if (event.type === 'cast') {
         const spell = SPELLS[event.ability.guid];
-        if (!abilitiesAll[event.ability.guid + '_spend']) {
-          abilitiesAll[event.ability.guid + '_spend'] = {
+        if (!abilitiesAll[`${event.ability.guid}_spend`]) {
+          abilitiesAll[`${event.ability.guid}_spend`] = {
             ability: {
               category: 'Spend',
               name: spell.name || event.ability.name,
@@ -170,15 +170,15 @@ class Maelstrom extends React.PureComponent {
             wasted: 0,
           };
         }
-        abilitiesAll[event.ability.guid + '_spend'].casts += 1;
+        abilitiesAll[`${event.ability.guid}_spend`].casts += 1;
         const lastMana = lastSecFight === secIntoFight ? manaBySecond[lastSecFight - 1] : manaBySecond[lastSecFight];
         const spendResource = spell.maelstrom ? spell.maelstrom : (spell.max_maelstrom < lastMana ? spell.max_maelstrom : lastMana);
-        abilitiesAll[event.ability.guid + '_spend'].spend += spendResource;
-        abilitiesAll[event.ability.guid + '_spend'].wasted += spell.max_maelstrom ? spell.max_maelstrom - spendResource : 0;
+        abilitiesAll[`${event.ability.guid}_spend`].spend += spendResource;
+        abilitiesAll[`${event.ability.guid}_spend`].wasted += spell.max_maelstrom ? spell.max_maelstrom - spendResource : 0;
       } else if (event.type === 'energize') {
-        if (!abilitiesAll[event.ability.guid + '_gen']) {
+        if (!abilitiesAll[`${event.ability.guid}_gen`]) {
           const spell = SPELLS[event.ability.guid];
-          abilitiesAll[event.ability.guid + '_gen'] = {
+          abilitiesAll[`${event.ability.guid}_gen`] = {
             ability: {
               category: 'Generated',
               name: spell.name || event.ability.name,
@@ -190,9 +190,9 @@ class Maelstrom extends React.PureComponent {
             wasted: 0,
           };
         }
-        abilitiesAll[event.ability.guid + '_gen'].casts += 1;
-        abilitiesAll[event.ability.guid + '_gen'].created += event.resourceChange;
-        abilitiesAll[event.ability.guid + '_gen'].wasted += event.waste;
+        abilitiesAll[`${event.ability.guid}_gen`].casts += 1;
+        abilitiesAll[`${event.ability.guid}_gen`].created += event.resourceChange;
+        abilitiesAll[`${event.ability.guid}_gen`].wasted += event.waste;
       }
       if (secIntoFight !== lastSecFight) {
         lastSecFight = secIntoFight;

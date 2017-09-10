@@ -30,7 +30,7 @@ class EssenceFontMastery extends Module {
         return;
       }
       if (this.combatants.players[targetId].hasBuff(SPELLS.ESSENCE_FONT_BUFF.id, event.timestamp, 0, 0) === true) {
-        debug && console.log('Player ID: ' + event.targetID + '  Timestamp: ' + event.timestamp);
+        debug && console.log(`Player ID: ${event.targetID}  Timestamp: ${event.timestamp}`);
         this.healEF += 1;
         this.healing += (event.amount || 0) + (event.absorbed || 0);
       }
@@ -47,11 +47,11 @@ class EssenceFontMastery extends Module {
 
   on_finished() {
     if (debug) {
-      console.log('EF Mastery Hots Casted into: ' + (this.healEF / 2));
-      console.log('EF Mastery Healing Amount: ' + this.healing);
-      console.log('EF Casts: ' + this.castEF);
-      console.log('EF Targets Hit: ' + this.targetsEF);
-      console.log('EF Avg Targets Hit per Cast: ' + (this.targetsEF / this.castEF));
+      console.log(`EF Mastery Hots Casted into: ${this.healEF / 2}`);
+      console.log(`EF Mastery Healing Amount: ${this.healing}`);
+      console.log(`EF Casts: ${this.castEF}`);
+      console.log(`EF Targets Hit: ${this.targetsEF}`);
+      console.log(`EF Avg Targets Hit per Cast: ${this.targetsEF / this.castEF}`);
     }
   }
   

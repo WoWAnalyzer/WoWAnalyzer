@@ -65,7 +65,7 @@ class GuardianOfElune extends Module {
         } else {
           this.consumedGoEProc += 1;
           this.GoEIronFur += 1;
-          debug && console.log('Guardian of Elune Proc Consumed / Timestamp: ' + event.timestamp);
+          debug && console.log(`Guardian of Elune Proc Consumed / Timestamp: ${event.timestamp}`);
           this.lastGoEProcTime = null;
         }
       }
@@ -82,7 +82,7 @@ class GuardianOfElune extends Module {
         } else {
           this.consumedGoEProc += 1;
           this.GoEFRegen += 1;
-          debug && console.log('Guardian of Elune Proc Consumed / Timestamp: ' + event.timestamp);
+          debug && console.log(`Guardian of Elune Proc Consumed / Timestamp: ${event.timestamp}`);
           this.lastGoEProcTime = null;
         }
       }

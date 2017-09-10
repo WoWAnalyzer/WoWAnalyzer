@@ -85,12 +85,12 @@ class ThunderFocusTea extends Module {
       this.castsTft += this.castsTft;
     }
     if (debug) {
-      console.log('TFT Casts:' + this.castsTft);
-      console.log('Eff Buffed:' + this.castsTftEff);
-      console.log('Enm Buffed:' + this.castsTftEnm);
-      console.log('EF Buffed:' + this.castsTftEf);
-      console.log('Viv Buffed:' + this.castsTftViv);
-      console.log('REM Buffed:' + this.castsTftRem);
+      console.log(`TFT Casts:${this.castsTft}`);
+      console.log(`Eff Buffed:${this.castsTftEff}`);
+      console.log(`Enm Buffed:${this.castsTftEnm}`);
+      console.log(`EF Buffed:${this.castsTftEf}`);
+      console.log(`Viv Buffed:${this.castsTftViv}`);
+      console.log(`REM Buffed:${this.castsTftRem}`);
     }
   }
 

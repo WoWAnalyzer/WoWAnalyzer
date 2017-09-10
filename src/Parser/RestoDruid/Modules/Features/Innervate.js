@@ -126,22 +126,22 @@ class Innervate extends Module {
 
   on_finished() {
     if (debug) {
-      console.log('Innervates gained: ' + this.innervateCount);
-      console.log('Mana saved: ' + this.manaSaved);
-      console.log('Avg. Mana saved: ' + (this.manaSaved / this.innervateCount));
-      console.log('Total Casts under innervate: ' + this.castsUnderInnervate);
-      console.log('Avg Casts under innervate: ' + (this.castsUnderInnervate / this.innervateCount));
-      console.log('Free regrowths cast: ' + this.freeRegrowths);
-      console.log('WGs: ' + this.wildGrowths);
-      console.log('Efflos: ' + this.efflorescences);
-      console.log('CWs: ' + this.cenarionWards);
-      console.log('Rejvus: ' + this.rejuvenations);
-      console.log('Regrowth: ' + this.regrowths);
-      console.log('LBs: ' + this.lifeblooms);
-      console.log('HT: ' + this.healingTouches);
-      console.log('SM: ' + this.swiftmends);
-      console.log('Tranq: ' + this.tranquilities);
-      console.log('Amount of seconds mana capped: ' + this.secondsManaCapped);
+      console.log(`Innervates gained: ${this.innervateCount}`);
+      console.log(`Mana saved: ${this.manaSaved}`);
+      console.log(`Avg. Mana saved: ${this.manaSaved / this.innervateCount}`);
+      console.log(`Total Casts under innervate: ${this.castsUnderInnervate}`);
+      console.log(`Avg Casts under innervate: ${this.castsUnderInnervate / this.innervateCount}`);
+      console.log(`Free regrowths cast: ${this.freeRegrowths}`);
+      console.log(`WGs: ${this.wildGrowths}`);
+      console.log(`Efflos: ${this.efflorescences}`);
+      console.log(`CWs: ${this.cenarionWards}`);
+      console.log(`Rejvus: ${this.rejuvenations}`);
+      console.log(`Regrowth: ${this.regrowths}`);
+      console.log(`LBs: ${this.lifeblooms}`);
+      console.log(`HT: ${this.healingTouches}`);
+      console.log(`SM: ${this.swiftmends}`);
+      console.log(`Tranq: ${this.tranquilities}`);
+      console.log(`Amount of seconds mana capped: ${this.secondsManaCapped}`);
     }
   }
 }

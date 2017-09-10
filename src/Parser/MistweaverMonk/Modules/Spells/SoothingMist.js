@@ -26,7 +26,7 @@ class SoothingMist extends Module {
 
   on_finished() {
     if (debug) {
-      console.log('SooM Ticks: ' + this.soomTicks);
+      console.log(`SooM Ticks: ${this.soomTicks}`);
       console.log('SooM Perc Uptime: ', (this.soomTicks * 2 / this.owner.fightDuration * 1000));
       console.log('SooM Buff Update: ', this.combatants.selected.getBuffUptime(SPELLS.SOOTHING_MIST.id), ' Percent: ', this.combatants.selected.getBuffUptime(SPELLS.SOOTHING_MIST.id) / this.owner.fightDuration);
     }

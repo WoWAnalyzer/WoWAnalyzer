@@ -49,7 +49,7 @@ import TouchOfTheGrave from './Modules/Spells/TouchOfTheGrave';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
 function formatThousands(number) {
-  return (Math.round(number || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+  return (`${Math.round(number || 0)}`).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 }
 function formatNumber(number) {
   if (number > 1000000) {

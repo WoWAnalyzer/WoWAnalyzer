@@ -9,7 +9,7 @@ import SpellIcon from 'common/SpellIcon';
 import Icon from 'common/Icon';
 
 function formatThousands(number) {
-  return (Math.round(number || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+  return (`${Math.round(number || 0)}`).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 }
 
 function formatNumber(number) {
@@ -98,7 +98,7 @@ class Feeding extends React.Component {
                     const totalHealing = this.state.expand ? category.totals.mergedTotal : category.totals.total;
 
                     return (
-                      <tr key={category.name + ' ' + ability.name}>
+                      <tr key={`${category.name} ${ability.name}`}>
                         <td style={{ width: '30%' }}>
                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <Icon icon={ability.icon} alt={ability.name} /> {ability.name}
                         </td>
@@ -121,7 +121,7 @@ class Feeding extends React.Component {
                       </tr>
                     );
                   })}
-                <tr key={category.name + 'Summary'}>
+                <tr key={`${category.name}Summary`}>
                   <td />
                   <td />
                   <td className="text-right"><b>Total:</b></td>

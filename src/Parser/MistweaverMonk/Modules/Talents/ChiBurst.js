@@ -62,9 +62,9 @@ class ChiBurst extends Module {
   on_finished() {
     this.avgChiBurstTargets = this.targetsChiBurst / this.castChiBurst || 0;
     if (debug) {
-      console.log('ChiBurst Casts: ' + this.castChiBurst);
-      console.log('Total Chi Burst Healing: ' + this.healing);
-      console.log('Chi Burst Targets Hit: ' + this.targetsChiBurst);
+      console.log(`ChiBurst Casts: ${this.castChiBurst}`);
+      console.log(`Total Chi Burst Healing: ${this.healing}`);
+      console.log(`Chi Burst Targets Hit: ${this.targetsChiBurst}`);
     }
   }
 }

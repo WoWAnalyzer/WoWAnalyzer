@@ -18,7 +18,7 @@ class Rockbiter extends Module {
   }
 
   on_finished() {
-    console.log('maelstromWasted ' + this.maelstromWasted);
+    console.log(`maelstromWasted ${this.maelstromWasted}`);
     console.log(this.rockbiterOveruse);
   }
 

@@ -27,7 +27,7 @@ class ShelterOfRin extends Module {
 
   on_finished() {
     if (debug) {
-      console.log('Shelter of Rin Healing: ' + this.healing);
+      console.log(`Shelter of Rin Healing: ${this.healing}`);
     }
   }
 

@@ -250,7 +250,7 @@ class App extends Component {
         }
       })
       .catch(err => {
-        alert('I\'m so terribly sorry, an error occured. Try again later, in an updated Google Chrome and make sure that Warcraft Logs is up and functioning properly. Please let us know on Discord if the problem persists.\n\n' + err);
+        alert(`I'm so terribly sorry, an error occured. Try again later, in an updated Google Chrome and make sure that Warcraft Logs is up and functioning properly. Please let us know on Discord if the problem persists.\n\n${err}`);
         console.error(err);
         this.setState({
           report: null,

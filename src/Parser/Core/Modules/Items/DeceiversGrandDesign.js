@@ -66,10 +66,10 @@ class DecieversGrandDesign extends Module {
     if (spellId === SPELLS.GUIDING_HAND.id) {
       if (this.targetOne === null) {
         this.targetOne = event.targetID;
-        debug && console.log('Target One: ' + this.targetOne);
+        debug && console.log(`Target One: ${this.targetOne}`);
       } else if (this.targetTwo === null) {
         this.targetTwo = event.targetID;
-        debug && console.log('Target Two: ' + this.targetTwo);
+        debug && console.log(`Target Two: ${this.targetTwo}`);
       } else {
         debug && console.log('Logic Error?!');
       }
@@ -120,16 +120,16 @@ class DecieversGrandDesign extends Module {
         end: endTime,
       });
       debug && console.log(this.procs);
-      debug && console.log('https://www.warcraftlogs.com/reports/' + this.owner.report.code + '/#fight=' + this.owner.fight.id + '&source=' + this.procs[0].target + '&type=summary&start=' + this.procs[0].start + '&end=' + this.procs[0].end + '&view=events');
+      debug && console.log(`https://www.warcraftlogs.com/reports/${this.owner.report.code}/#fight=${this.owner.fight.id}&source=${this.procs[0].target}&type=summary&start=${this.procs[0].start}&end=${this.procs[0].end}&view=events`);
     }
   }
 
   on_finished() {
     if (debug) {
       console.log('Proc Checks: ', this.procs);
-      console.log('Healing: ' + this.healing);
-      console.log('Absorbed: ' + this.healingAbsorb);
-      console.log('Report Code: ' + this.owner.report.code);
+      console.log(`Healing: ${this.healing}`);
+      console.log(`Absorbed: ${this.healingAbsorb}`);
+      console.log(`Report Code: ${this.owner.report.code}`);
     }
   }
 

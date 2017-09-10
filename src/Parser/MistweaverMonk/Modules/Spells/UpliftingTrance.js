@@ -58,7 +58,7 @@ class UpliftingTrance extends Module {
         this.nonUTVivify += 1;
       } else {
         this.consumedUTProc += 1;
-        debug && console.log('UT Proc Consumed / Timestamp: ' + event.timestamp);
+        debug && console.log(`UT Proc Consumed / Timestamp: ${event.timestamp}`);
         this.lastUTProcTime = null;
       }
     }

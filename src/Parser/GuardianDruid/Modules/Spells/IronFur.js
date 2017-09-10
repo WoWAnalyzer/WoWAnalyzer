@@ -49,11 +49,11 @@ class IronFur extends Module {
 
   on_finished() {
     if (debug) {
-      console.log('Hits with ironfur ' + this.physicalHitsWithIronFur);
-      console.log('Damage with ironfur ' + this.physicalDamageWithIronFur);
-      console.log('Hits without ironfur ' + this.physicalHitsWithoutIronFur);
-      console.log('Damage without ironfur ' + this.physicalDamageWithoutIronFur);
-      console.log('Total physical ' + this.physicalDamageWithoutIronFur + this.physicalDamageWithIronFur);
+      console.log(`Hits with ironfur ${this.physicalHitsWithIronFur}`);
+      console.log(`Damage with ironfur ${this.physicalDamageWithIronFur}`);
+      console.log(`Hits without ironfur ${this.physicalHitsWithoutIronFur}`);
+      console.log(`Damage without ironfur ${this.physicalDamageWithoutIronFur}`);
+      console.log(`Total physical ${this.physicalDamageWithoutIronFur}${this.physicalDamageWithIronFur}`);
     }
   }
 

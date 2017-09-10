@@ -28,7 +28,7 @@ function selectText(node) {
   }
 }
 function formatThousands(number) {
-  return (Math.round(number || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+  return (`${Math.round(number || 0)}`).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 }
 
 class Item extends React.PureComponent {

@@ -106,7 +106,7 @@ describe('RestoDruid/Modules/WildGrowth', () => {
   ];
 
   reorderScenarios.forEach((scenario, idx) => {
-    it('can reorder events ' + idx, () => {
+    it(`can reorder events ${idx}`, () => {
       const parser = new WildGrowth({
         playerId: scenario.playerId,
       });
