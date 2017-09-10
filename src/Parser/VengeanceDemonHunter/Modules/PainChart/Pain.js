@@ -150,7 +150,7 @@ class Pain extends React.PureComponent {
         overCapBySecond[lastOverCap + 1] = 0;
       }
       overCapBySecond[secIntoFight] = event.waste;
-      if (event.waste > 0 ) {
+      if (event.waste > 0) {
         lastOverCap = secIntoFight;
         //if (!overCapBySecond[secIntoFight - 1])
         //  overCapBySecond[secIntoFight - 1] = 0;

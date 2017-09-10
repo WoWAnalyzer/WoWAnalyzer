@@ -51,5 +51,7 @@ module.exports = {
     'eol-last': ['warn', 'always'],
     // https://github.com/airbnb/javascript#whitespace--padded-blocks
     'padded-blocks': ['warn', { blocks: 'never', classes: 'never', switches: 'never' }],
+    // https://github.com/airbnb/javascript#whitespace--in-parens
+    'space-in-parens': ['error', 'never'],
   },
 };

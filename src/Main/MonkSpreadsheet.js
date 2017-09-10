@@ -82,7 +82,7 @@ class MonkSpreadsheet extends React.Component {
           <tr style={styles.cellBorder}><td>{((parser.modules.celestialBreath.healsCelestialBreath / parser.modules.celestialBreath.procsCelestialBreath) / 3).toFixed(2) || 0}</td></tr>
           <tr style={styles.cellBorder}><td>{parser.modules.mistsOfSheilun.procsMistsOfSheilun}</td></tr>
           <tr><td>{(parser.modules.mistsOfSheilun.healsMistsOfSheilun / parser.modules.mistsOfSheilun.procsMistsOfSheilun).toFixed(2) || 0}</td></tr>
-          <tr style={styles.cellBorder}><td>{(parser.modules.combatants.selected.hasTalent(SPELLS.REFRESHING_JADE_WIND_TALENT.id) && ((parser.modules.refreshingJadeWind.healsRJW / parser.modules.refreshingJadeWind.castRJW) / 78 ).toFixed(4)) || 0}</td></tr>
+          <tr style={styles.cellBorder}><td>{(parser.modules.combatants.selected.hasTalent(SPELLS.REFRESHING_JADE_WIND_TALENT.id) && ((parser.modules.refreshingJadeWind.healsRJW / parser.modules.refreshingJadeWind.castRJW) / 78).toFixed(4)) || 0}</td></tr>
           <tr style={styles.cellBorder}><td>{parser.modules.renewingMist.dancingMistHeal}</td></tr>
           <tr style={styles.cellBorder}><td>{(((parser.modules.essenceFontMastery.healEF / 2) / parser.modules.essenceFontMastery.castEF) || 0).toFixed(2)}</td></tr>
           <tr style={styles.cellBorder}><td>{(parser.modules.essenceFont.targetsEF / parser.modules.essenceFont.castEF).toFixed(2) || 0}</td></tr>
