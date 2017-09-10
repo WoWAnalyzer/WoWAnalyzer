@@ -16,13 +16,12 @@ class OssuaryUptime extends Module {
   }
 
   statistic() {
-    const ossuaryUptime = this.owner.modules.combatants.getBuffUptime(SPELLS.OSSUARY.id);
-    const ossuaryUptimePercentage = ossuaryUptime / this.owner.fightDuration;
+    const Uptime = this.owner.modules.combatants.getBuffUptime(SPELLS.OSSUARY.id);
 
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.OSSUARY.id} />}
-        value={`${formatPercentage(ossuaryUptimePercentage)}%`}
+        value={`${formatPercentage(Uptime / this.owner.fightDuration)}%`}
         label='Ossuary Uptime'
         tooltip={'Important to maintain. Reduces cost of Death Strike and increases runic power cap by 10.'}
       />
