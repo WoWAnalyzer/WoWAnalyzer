@@ -15,18 +15,16 @@ class T20_2pc extends Module {
 
 
   on_initialized() {
-    this.active = this.combatants.selected.hasBuff(SPELLS.BLOOD_T20_2PC_GRAVEWARDEN.id);
-    console.log('You have the 2pc');
+    this.active = this.combatants.selected.hasBuff(SPELLS.BLOOD_DEATH_KNIGHT_T20_2SET_BONUS_BUFF.id);
   }
 
   item() {
-    const T20_2PC_Uptime = this.owner.modules.combatants.getBuffUptime(SPELLS.BLOOD_T20_GRAVEWARDEN_BUFF.id);
-    const T20_2PC_UptimePercentage = T20_2PC_Uptime / this.owner.fightDuration;
+    const uptime = this.owner.modules.combatants.getBuffUptime(SPELLS.GRAVEWARDEN.id);
     return {
-      id: `spell-${SPELLS.BLOOD_T20_2PC_GRAVEWARDEN.id}`,
-      icon: <SpellIcon id={SPELLS.BLOOD_T20_2PC_GRAVEWARDEN.id} />,
-      title: <SpellLink id={SPELLS.BLOOD_T20_2PC_GRAVEWARDEN.id} />,
-      result: `Gravewarden uptime - ${formatPercentage(T20_2PC_UptimePercentage)} %`,
+      id: `spell-${SPELLS.BLOOD_DEATH_KNIGHT_T20_2SET_BONUS_BUFF.id}`,
+      icon: <SpellIcon id={SPELLS.BLOOD_DEATH_KNIGHT_T20_2SET_BONUS_BUFF.id} />,
+      title: <SpellLink id={SPELLS.BLOOD_DEATH_KNIGHT_T20_2SET_BONUS_BUFF.id} />,
+      result: `Gravewarden ${formatPercentage((uptime / this.owner.fightDuration) || 0)} % uptime`,
     };
   }
 }

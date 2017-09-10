@@ -7,36 +7,35 @@ import SpellIcon from 'common/SpellIcon';
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-const RuinicDiscound=5;
+const GRAVEWARDEN_RUNIC_DISCOUNT=5;
 
 class T20_2pc extends Module {
   static dependencies = {
     combatants: Combatants,
   }
 
-  DeathAndDecayCounter = 0;
-  RunicPowerSaved=0;
+  deathAndDecayCounter = 0;
+
 
   on_initialized() {
-    this.active = this.combatants.selected.hasBuff(SPELLS.BLOOD_T20_4PC_GRAVEWARDEN.id);
-    console.log('You have the 4pc');
+    this.active = this.combatants.selected.hasBuff(SPELLS.BLOOD_DEATH_KNIGHT_T20_4SET_BONUS_BUFF.id);
   }
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.DEATH_AND_DECAY.id) {
-      this.DeathAndDecayCounter++;
+    if (spellId === SPELLS.DEATH_AND_DECAY.id) {
+      this.deathAndDecayCounter++;
     }
   }
 
 
   item() {
-    this.RunicPowerSaved=this.DeathAndDecayCounter*RuinicDiscound;
+    const runicPowerSaved = this.deathAndDecayCounter * GRAVEWARDEN_RUNIC_DISCOUNT;
     return {
-      id: `spell-${SPELLS.BLOOD_T20_4PC_GRAVEWARDEN.id}`,
-      icon: <SpellIcon id={SPELLS.BLOOD_T20_4PC_GRAVEWARDEN.id} />,
-      title: <SpellLink id={SPELLS.BLOOD_T20_4PC_GRAVEWARDEN.id}/>,
-      result: <span>Saved Runic Power - <strong>{this.RunicPowerSaved}</strong></span>,
+      id: `spell-${SPELLS.BLOOD_DEATH_KNIGHT_T20_4SET_BONUS_BUFF.id}`,
+      icon: <SpellIcon id={SPELLS.BLOOD_DEATH_KNIGHT_T20_4SET_BONUS_BUFF.id} />,
+      title: <SpellLink id={SPELLS.BLOOD_DEATH_KNIGHT_T20_4SET_BONUS_BUFF.id}/>,
+      result: <span><strong>{runicPowerSaved}</strong> Runic Power Saved</span>,
     };
   }
 }

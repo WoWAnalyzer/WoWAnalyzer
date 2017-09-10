@@ -175,19 +175,19 @@ export default {
 
   //Blood Tier Sets
   //T20 2 Piece
-  BLOOD_T20_2PC_GRAVEWARDEN: {
+  BLOOD_DEATH_KNIGHT_T20_2SET_BONUS_BUFF: {
     id: 242001,
-    name: 'Death Knight T20 Blood 2P Bonus',
+    name: 'T20 2 Set Bonus',
     icon: 'spell_deathknight_bloodpresence',
   },
   //T20 4 Piece
-  BLOOD_T20_4PC_GRAVEWARDEN: {
+  BLOOD_DEATH_KNIGHT_T20_4SET_BONUS_BUFF: {
     id: 242009,
-    name: 'Death Knight T20 Blood 4P Bonus',
+    name: 'T20 4 Set Bonus',
     icon: 'spell_deathknight_bloodpresence',
   },
   //T20 Buff
-  BLOOD_T20_GRAVEWARDEN_BUFF: {
+  GRAVEWARDEN: {
     id: 242010,
     name: 'Gravewarden',
     icon: 'ability_warrior_bloodsurge',
