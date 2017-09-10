@@ -37,6 +37,14 @@ module.exports = {
     // https://github.com/airbnb/javascript#functions--spread-vs-apply
     'prefer-spread': 'warn',
 
+    // Arrow Functions
+    // https://github.com/airbnb/javascript#arrows--use-them
+    'prefer-arrow-callback': ['warn', {
+      allowNamedFunctions: false,
+      allowUnboundThis: true,
+    }],
+    'arrow-spacing': ['warn', { before: true, after: true }],
+
     // Variables
     // https://github.com/airbnb/javascript#variables--unary-increment-decrement
     'no-plusplus': 'warn',

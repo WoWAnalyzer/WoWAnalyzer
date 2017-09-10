@@ -25,10 +25,10 @@ function escapeHtml(unsafe) {
     .replace(/'/g, '&#039;');
 }
 
-app.get('/', function (req, res) {
+app.get('/', (req, res) => {
   res.sendFile(path.join(buildFolder, 'index.html'));
 });
-app.get('/report/:reportCode([A-Za-z0-9]+)/:fightId([0-9]+)?:fightName(-[^/]+)?/:playerName([^/]{2,})?/:tab([A-Za-z0-9-]+)?', function (req, res) {
+app.get('/report/:reportCode([A-Za-z0-9]+)/:fightId([0-9]+)?:fightName(-[^/]+)?/:playerName([^/]{2,})?/:tab([A-Za-z0-9-]+)?', (req, res) => {
   let response = index;
   if (req.params.fightName) {
     const fightName = decodeURI(req.params.fightName.substr(1).replace(/\+/g, ' '));

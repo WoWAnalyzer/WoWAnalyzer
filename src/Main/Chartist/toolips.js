@@ -26,16 +26,16 @@ const tooltips = (options) => {
     if (!(chart instanceof Chartist.Line)) {
       return;
     }
-    chart.on('created', function (data) {
+    chart.on('created', (data) => {
       console.log(data);
       const svgNode = data.svg._node;
       let line = null;
-      svgNode.addEventListener('mouseleave', function (event) {
+      svgNode.addEventListener('mouseleave', (event) => {
         if (!line) return;
         line.remove();
         line = null;
       });
-      svgNode.addEventListener('mousemove', function (event) {
+      svgNode.addEventListener('mousemove', (event) => {
         const point = position(event, svgNode);
 
         if (isInRect(point, data.chartRect)) {
