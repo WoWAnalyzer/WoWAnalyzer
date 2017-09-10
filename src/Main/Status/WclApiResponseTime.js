@@ -37,7 +37,7 @@ class WclApiResponseTime extends React.PureComponent {
           historyByInterval[intervalIndex] = {
             numRequests: totalNumRequests,
             avgResponseTime: averageResponseTime,
-            maxResponseTime: maxResponseTime,
+            maxResponseTime,
           };
         } else {
           historyByInterval[intervalIndex] = moment;

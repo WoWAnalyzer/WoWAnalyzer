@@ -52,7 +52,7 @@ class CombatLogParser extends CoreCombatLogParser {
     divinity: Divinity,
     lightOfTuure: LightOfTuure,
     enduringRenewal: EnduringRenewal,
-    MasteryBreakdown: MasteryBreakdown,
+    MasteryBreakdown,
 
     // Spells
     prayerOfMending: PrayerOfMending,

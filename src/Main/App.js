@@ -244,7 +244,7 @@ class App extends Component {
           this.setState({
             report: {
               ...json,
-              code: code,
+              code,
             },
           });
         }

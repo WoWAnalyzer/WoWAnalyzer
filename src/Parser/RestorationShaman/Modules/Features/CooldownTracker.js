@@ -83,7 +83,7 @@ class CooldownTracker extends CoreCooldownTracker {
         }
 
         Object.keys(cooldown.feed).forEach((spellId) => {
-          spellId = parseInt(spellId, 10);
+          spellId = Number(spellId);
           if (!feed[spellId]) {
             feed[spellId] = [];
             feed[spellId].healing = 0;

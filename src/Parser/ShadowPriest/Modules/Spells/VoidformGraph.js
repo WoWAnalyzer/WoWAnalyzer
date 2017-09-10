@@ -188,7 +188,7 @@ const VoidformGraph = ({
   };
 
   let chartData = {
-    labels: labels,
+    labels,
     series: [
         
 

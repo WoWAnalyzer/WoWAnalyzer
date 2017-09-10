@@ -223,7 +223,7 @@ class Pain extends React.PureComponent {
     }
 
     const chartData = {
-      labels: labels,
+      labels,
       series: [
         ...bosses.map((series, index) => ({
           className: `boss-health boss-${index} boss-${series.guid}`,

@@ -119,7 +119,7 @@ class HealingDoneGraph extends React.PureComponent {
     }
 
     const chartData = {
-      labels: labels,
+      labels,
       series: [
         {
           className: 'mana',
