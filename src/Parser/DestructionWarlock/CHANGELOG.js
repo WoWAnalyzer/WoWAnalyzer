@@ -1,4 +1,5 @@
 export default `
+10-09-2017 - Fixed the issue with Empowered Life Tap showing 0 % uptime if it was applied before combat and never fell off. (by Chizu)
 10-09-2017 - Added Fire and Brimstone cleave and fragment tracker. (by Chizu).
 09-09-2017 - Added Reverse Entropy, Eradication and Empowered Life Tap modules. (by Chizu)
 08-09-2017 - Added Backdraft, Roaring Blaze and Shadowburn modules. (by Chizu)
