@@ -25,6 +25,10 @@ module.exports = {
     'prefer-template': 'warn',
     'template-curly-spacing': 'warn',
 
+    // Functions
+    // https://github.com/airbnb/javascript#es6-rest
+    'prefer-rest-params': 'warn',
+
     // Variables
     // https://github.com/airbnb/javascript#variables--unary-increment-decrement
     'no-plusplus': 'warn',
