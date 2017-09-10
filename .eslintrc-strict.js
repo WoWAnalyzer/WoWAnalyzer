@@ -47,5 +47,7 @@ module.exports = {
     }],
     // https://github.com/airbnb/javascript#whitespace--infix-ops
     'space-infix-ops': 'warn',
+    // https://github.com/airbnb/javascript#whitespace--newline-at-end
+    'eol-last': ['warn', 'always'],
   },
 };
