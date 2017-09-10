@@ -59,7 +59,7 @@ class Ascendance extends Module {
           <li>Elemental Blast: ${this.numCasts[SPELLS.ELEMENTAL_BLAST.id]}</li>
           <li>Flame Shock: ${this.numCasts[SPELLS.FLAME_SHOCK.id]}</li>
           <li>Lightning Bolt: ${this.numCasts[SPELLS.LIGHTNING_BOLT.id]}</li>
-          <li>Other Spells: ${this.numCasts['others']}</li>
+          <li>Other Spells: ${this.numCasts.others}</li>
         </ul>
         `}
       />

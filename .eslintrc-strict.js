@@ -79,6 +79,10 @@ module.exports = {
       },
     ],
 
+    // Properties
+    // https://github.com/airbnb/javascript#properties--dot
+    'dot-notation': ['warn', { allowKeywords: true }],
+
     // Variables
     // https://github.com/airbnb/javascript#variables--unary-increment-decrement
     'no-plusplus': 'warn',
