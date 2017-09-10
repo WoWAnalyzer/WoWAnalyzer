@@ -1,10 +1,12 @@
 module.exports = {
   "extends": "react-app",
   "rules": {
+    // https://github.com/airbnb/javascript#commas--dangling
     "comma-dangle": ["warn", "always-multiline"],
 
     // Semicolons:
     'no-extra-semi': 'warn',
+    // https://github.com/airbnb/javascript#semicolons--required
     semi: ['warn', 'always'],
     'semi-spacing': ['warn', { before: false, after: true }],
 
@@ -29,5 +31,8 @@ module.exports = {
 
     // Imports:
     'import/first': ['warn', 'absolute-first'],
+
+    // https://github.com/airbnb/javascript#coercion--numbers
+    radix: 'warn',
   },
 };
