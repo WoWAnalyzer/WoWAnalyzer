@@ -17,7 +17,7 @@ const abilitiesAffected = [
 ];
 
 //based on the fact that it's a linear increase in damage that is +0% damage at 35% HP and +50% damage at 0% HP
-const SLOPE_OF_DAMAGE_INCREASE = -50/35;
+const SLOPE_OF_DAMAGE_INCREASE = -50 / 35;
 
 class DeathsEmbrace extends Module {
   static dependencies = {

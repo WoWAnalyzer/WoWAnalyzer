@@ -14,6 +14,7 @@ import Mana from 'Main/Mana';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
+import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
 
 import Ekowraith from './Modules/Legendaries/Ekowraith';
 import XonisCaress from './Modules/Legendaries/XonisCaress';
@@ -21,9 +22,12 @@ import Sephuz from './Modules/Legendaries/Sephuz';
 import DarkTitanAdvice from './Modules/Legendaries/DarkTitanAdvice';
 import EssenceOfInfusion from './Modules/Legendaries/EssenceOfInfusion';
 import Tearstone from './Modules/Legendaries/Tearstone';
-import T20 from './Modules/Legendaries/T20';
-import T19_2Set from './Modules/Legendaries/T19_2Set';
 import DarkmoonDeckPromises from './Modules/Legendaries/DarkmoonDeckPromises';
+
+import T19_2Set from './Modules/Legendaries/T19_2Set';
+import T20 from './Modules/Legendaries/T20';
+import T21_2Set from './Modules/Legendaries/T21_2Set';
+import T21_4Set from './Modules/Legendaries/T21_4Set';
 
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CastEfficiency from './Modules/Features/CastEfficiency';
@@ -43,11 +47,12 @@ import Mastery from './Modules/Features/Mastery';
 import Cultivation from './Modules/Features/Cultivation';
 import SpringBlossoms from './Modules/Features/SpringBlossoms';
 import CenarionWard from './Modules/Features/CenarionWard';
+import NaturesEssence from './Modules/Features/NaturesEssence';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
 function formatThousands(number) {
-  return (Math.round(number || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+  return (`${Math.round(number || 0)}`).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 }
 function formatNumber(number) {
   if (number > 1000000) {
@@ -76,6 +81,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
   static specModules = {
     // Features
+    lowHealthHealing: LowHealthHealing,
     alwaysBeCasting: AlwaysBeCasting,
     cooldownTracker: CooldownTracker,
     castEfficiency: CastEfficiency,
@@ -94,16 +100,19 @@ class CombatLogParser extends CoreCombatLogParser {
     springBlossoms: SpringBlossoms,
     cultivation: Cultivation,
     cenarionWard: CenarionWard,
+    naturesEssence: NaturesEssence,
 
     // Legendaries:
     ekowraith: Ekowraith,
     xonisCaress: XonisCaress,
-    sephuz: Sephuz,
+    sephuzsSecret: Sephuz,
     darkTitanAdvice: DarkTitanAdvice,
     essenceOfInfusion: EssenceOfInfusion,
     tearstone: Tearstone,
-    t20: T20,
     t19_2set: T19_2Set,
+    t20: T20,
+    t21_2set: T21_2Set,
+    t21_4set: T21_4Set,
     // TODO:
     // Edraith
     // Aman'Thul's Wisdom
@@ -121,8 +130,8 @@ class CombatLogParser extends CoreCombatLogParser {
     const wildGrowths = getAbility(SPELLS.WILD_GROWTH.id).casts || 0;
 
     // Tree of Life
-    const hasFlourish = this.selectedCombatant.lv100Talent === SPELLS.FLOURISH_TALENT.id;
-    const hasTreeOfLife = this.selectedCombatant.lv75Talent === SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id;
+    const hasFlourish = this.modules.combatants.selected.lv100Talent === SPELLS.FLOURISH_TALENT.id;
+    const hasTreeOfLife = this.modules.combatants.selected.lv75Talent === SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id;
     const wildGrowthTargets = 6;
     const rejuvenationManaCost = 22000;
     const oneRejuvenationThroughput = this.getPercentageOfTotalHealingDone(this.modules.treeOfLife.totalHealingFromRejuvenationEncounter) / this.modules.treeOfLife.totalRejuvenationsEncounter;
@@ -131,7 +140,7 @@ class CombatLogParser extends CoreCombatLogParser {
     const rejuvenationMana = (((this.modules.treeOfLife.totalRejuvenationsDuringToL * 10) * 0.3) / 10) * oneRejuvenationThroughput;
     const wildGrowthIncreasedEffect = this.getPercentageOfTotalHealingDone(this.modules.treeOfLife.totalHealingFromWildgrowthsDuringToL / 1.15 - this.modules.treeOfLife.totalHealingFromWildgrowthsDuringToL / (1.15 * (8 / 6)));
     const treeOfLifeThroughput = rejuvenationIncreasedEffect + tolIncreasedHealingDone + rejuvenationMana + wildGrowthIncreasedEffect;
-    let treeOfLifeUptime = this.selectedCombatant.getBuffUptime(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) / this.fightDuration;
+    let treeOfLifeUptime = this.modules.combatants.selected.getBuffUptime(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) / this.fightDuration;
 
     // Chameleon Song
     const rejuvenationIncreasedEffectHelmet = this.getPercentageOfTotalHealingDone(this.modules.treeOfLife.totalHealingFromRejuvenationDuringToLHelmet / 1.15 - this.modules.treeOfLife.totalHealingFromRejuvenationDuringToLHelmet / (1.15 * 1.5));
@@ -139,26 +148,24 @@ class CombatLogParser extends CoreCombatLogParser {
     const rejuvenationManaHelmet = (((this.modules.treeOfLife.totalRejuvenationsDuringToLHelmet * 10) * 0.3) / 10) * oneRejuvenationThroughput;
     const wildGrowthIncreasedEffectHelmet = this.getPercentageOfTotalHealingDone(this.modules.treeOfLife.totalHealingFromWildgrowthsDuringToLHelmet / 1.15 - this.modules.treeOfLife.totalHealingFromWildgrowthsDuringToLHelmet / (1.15 * (8 / 6)));
     const treeOfLifeThroughputHelmet = rejuvenationIncreasedEffectHelmet + tolIncreasedHealingDoneHelmet + rejuvenationManaHelmet + wildGrowthIncreasedEffectHelmet;
-    const treeOfLifeUptimeHelmet = (this.selectedCombatant.getBuffUptime(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) - (this.modules.treeOfLife.tolCasts * 30000) + this.modules.treeOfLife.adjustHelmetUptime) / this.fightDuration;
-    if (this.selectedCombatant.hasHead(ITEMS.CHAMELEON_SONG.id)) {
+    const treeOfLifeUptimeHelmet = (this.modules.combatants.selected.getBuffUptime(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) - (this.modules.treeOfLife.tolCasts * 30000) + this.modules.treeOfLife.adjustHelmetUptime) / this.fightDuration;
+    if (this.modules.combatants.selected.hasHead(ITEMS.CHAMELEON_SONG.id)) {
       treeOfLifeUptime -= treeOfLifeUptimeHelmet;
     }
     const treeOfLifeProccHelmet = formatPercentage(this.modules.treeOfLife.proccs / wildGrowths);
 
-    const hasSoulOfTheForest = this.selectedCombatant.lv75Talent === SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id;
+    const hasSoulOfTheForest = this.modules.combatants.selected.lv75Talent === SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id;
     const soulOfTheForestHealing = this.modules.soulOfTheForest.wildGrowthHealing + this.modules.soulOfTheForest.rejuvenationHealing + this.modules.soulOfTheForest.regrowthHealing;
 
-    const has4PT20 = this.selectedCombatant.hasBuff(SPELLS.RESTO_DRUID_T20_4SET_BONUS_BUFF.id);
-    const has2PT20 = this.selectedCombatant.hasBuff(SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id);
+    const has4PT20 = this.modules.combatants.selected.hasBuff(SPELLS.RESTO_DRUID_T20_4SET_BONUS_BUFF.id);
+    const has2PT20 = this.modules.combatants.selected.hasBuff(SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id);
 
     const fightDuration = this.fightDuration;
     const nonHealingTimePercentage = this.modules.alwaysBeCasting.totalHealingTimeWasted / fightDuration;
     const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
 
     const potaHealing = (this.modules.powerOfTheArchdruid.rejuvenations * oneRejuvenationThroughput) + this.getPercentageOfTotalHealingDone(this.modules.powerOfTheArchdruid.healing);
-    const hasMoC = this.selectedCombatant.lv100Talent === SPELLS.MOMENT_OF_CLARITY_TALENT_RESTORATION.id;
-    const sepuhzHasteRating = ((this.modules.sephuz.uptime / this.fightDuration) * this.modules.sephuz.sephuzProccInHasteRating) + this.modules.sephuz.sephuzStaticHasteInRating;
-    const sephuzThroughput = sepuhzHasteRating / this.selectedCombatant.intellect;
+    const hasMoC = this.modules.combatants.selected.lv100Talent === SPELLS.MOMENT_OF_CLARITY_TALENT_RESTORATION.id;
     const darkTitanAdviceHealing = this.getPercentageOfTotalHealingDone(this.modules.darkTitanAdvice.healing);
     const darkTitanAdviceHealingFromProcc = this.getPercentageOfTotalHealingDone(this.modules.darkTitanAdvice.healingFromProccs);
     const essenceOfInfusionHealing = this.getPercentageOfTotalHealingDone(this.modules.essenceOfInfusion.healing);
@@ -175,7 +182,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     if (nonHealingTimePercentage > 0.3) {
       results.addIssue({
-        issue: `Your non healing time can be improved. Try to cast heals more regularly.`,
+        issue: 'Your non healing time can be improved. Try to cast heals more regularly.',
         stat: `${Math.round(nonHealingTimePercentage * 100)}% non healing time. (<30% is recommended)`,
         icon: 'petbattle_health-down',
         importance: getIssueImportance(nonHealingTimePercentage, 0.4, 1, true),
@@ -183,7 +190,7 @@ class CombatLogParser extends CoreCombatLogParser {
     }
     if (deadTimePercentage > 0.2) {
       results.addIssue({
-        issue: `Your dead GCD time can be improved. Try to Always Be Casting (ABC); when you're not healing try to contribute some damage.`,
+        issue: 'Your dead GCD time can be improved. Try to Always Be Casting (ABC); when you\'re not healing try to contribute some damage.',
         stat: `${Math.round(deadTimePercentage * 100)}% dead GCD time. (<20% is recommended)`,
         icon: 'spell_mage_altertime',
         importance: getIssueImportance(deadTimePercentage, 0.35, 1, true),
@@ -338,27 +345,27 @@ class CombatLogParser extends CoreCombatLogParser {
             `<ul>
               ${this.modules.essenceOfGhanir.wildGrowth > 0 ?
               `<li>${formatThroughput(this.modules.essenceOfGhanir.wildGrowth)} from <a href="http://www.wowhead.com/spell=182874" target="_blank" rel="noopener noreferrer">wild growth</a></li>`
-              : ""
+              : ''
               }
               ${this.modules.essenceOfGhanir.rejuvenation > 0 ?
               `<li>${formatThroughput(this.modules.essenceOfGhanir.rejuvenation)} from <a href="http://www.wowhead.com/spell=774" target="_blank" rel="noopener noreferrer">rejuvenation</a></li>`
-              : ""
+              : ''
               }
               ${this.modules.essenceOfGhanir.cenarionWard > 0 ?
               `<li>${formatThroughput(this.modules.essenceOfGhanir.cenarionWard)} from <a href="http://www.wowhead.com/spell=102351" target="_blank" rel="noopener noreferrer">cenarion ward</a></li>`
-              : ""
+              : ''
               }
               ${this.modules.essenceOfGhanir.regrowth > 0 ?
               `<li>${formatThroughput(this.modules.essenceOfGhanir.regrowth)} from <a href="http://www.wowhead.com/spell=8936" target="_blank" rel="noopener noreferrer">regrowth</a></li>`
-              : ""
+              : ''
               }
               ${this.modules.essenceOfGhanir.lifebloom > 0 ?
               `<li>${formatThroughput(this.modules.essenceOfGhanir.lifebloom)} from <a href="http://www.wowhead.com/spell=33763" target="_blank" rel="noopener noreferrer">lifebloom</a></li>`
-              : ""
+              : ''
               }
               ${this.modules.essenceOfGhanir.cultivation > 0 ?
               `<li>${formatThroughput(this.modules.essenceOfGhanir.cultivation)} from <a href="http://www.wowhead.com/spell=200389" target="_blank" rel="noopener noreferrer">cultivation</a></li>`
-              : ""
+              : ''
               }
               </ul>`
           }>
@@ -398,23 +405,23 @@ class CombatLogParser extends CoreCombatLogParser {
                   <li>${this.modules.flourish.cenarionWard}/${this.modules.flourish.flourishCounter} <a href="http://www.wowhead.com/spell=102351" target="_blank" rel="noopener noreferrer">Cenarion wards</a></li>
                   ${this.modules.flourish.rejuvenation > 0 ?
                 `<li>${this.modules.flourish.rejuvenation} <a href="http://www.wowhead.com/spell=774" target="_blank" rel="noopener noreferrer">rejuvenations</a></li>`
-                : ""
+                : ''
                 }
                           ${this.modules.flourish.regrowth > 0 ?
                 `<li>${this.modules.flourish.regrowth} <a href="http://www.wowhead.com/spell=8936" target="_blank" rel="noopener noreferrer">regrowths</a></li>`
-                : ""
+                : ''
                 }
                           ${this.modules.flourish.lifebloom > 0 ?
                 `<li>${this.modules.flourish.lifebloom} <a href="http://www.wowhead.com/spell=33763" target="_blank" rel="noopener noreferrer">lifebloom</a></li>`
-                : ""
+                : ''
                 }
                           ${this.modules.flourish.springBlossoms > 0 ?
                 `<li>${this.modules.flourish.springBlossoms} <a href="http://www.wowhead.com/spell=207386" target="_blank" rel="noopener noreferrer">spring blossoms</a></li>`
-                : ""
+                : ''
                 }
                           ${this.modules.flourish.cultivation > 0 ?
                 `<li>${this.modules.flourish.cultivation} <a href="http://www.wowhead.com/spell=200389" target="_blank" rel="noopener noreferrer">cultivations</a></li>`
-                : ""
+                : ''
                 }
               </ul>`
             }>
@@ -434,31 +441,31 @@ class CombatLogParser extends CoreCombatLogParser {
                 <li>${this.modules.innervate.efflorescences}/${this.modules.innervate.innervateCount} <a href="http://www.wowhead.com/spell=81269" target="_blank" rel="noopener noreferrer">Efflorescences</a></li>
                 ${this.modules.innervate.cenarionWards > 0 ?
               `<li>${this.modules.innervate.cenarionWards} <a href="http://www.wowhead.com/spell=102351" target="_blank" rel="noopener noreferrer">Cenarion wards</a></li>`
-              : ""
+              : ''
               }
                         ${this.modules.innervate.rejuvenations > 0 ?
               `<li>${this.modules.innervate.rejuvenations} <a href="http://www.wowhead.com/spell=774" target="_blank" rel="noopener noreferrer">Rejuvenations</a></li>`
-              : ""
+              : ''
               }
                         ${this.modules.innervate.regrowths > 0 ?
               `<li>${this.modules.innervate.regrowths} <a href="http://www.wowhead.com/spell=8936" target="_blank" rel="noopener noreferrer">Regrowths</a></li>`
-              : ""
+              : ''
               }
                         ${this.modules.innervate.lifeblooms > 0 ?
               `<li>${this.modules.innervate.lifeblooms} <a href="http://www.wowhead.com/spell=33763" target="_blank" rel="noopener noreferrer">Lifeblooms</a></li>`
-              : ""
+              : ''
               }
                         ${this.modules.innervate.healingTouches > 0 ?
               `<li>${this.modules.innervate.healingTouches} <a href="http://www.wowhead.com/spell=5185" target="_blank" rel="noopener noreferrer">Healing touches</a></li>`
-              : ""
+              : ''
               }
                         ${this.modules.innervate.swiftmends > 0 ?
               `<li>${this.modules.innervate.swiftmends} <a href="http://www.wowhead.com/spell=18562" target="_blank" rel="noopener noreferrer">Swiftmends</a></li>`
-              : ""
+              : ''
               }
                         ${this.modules.innervate.tranquilities > 0 ?
               `<li>${this.modules.innervate.tranquilities} <a href="http://www.wowhead.com/spell=157982" target="_blank" rel="noopener noreferrer">tranquilities</a></li>`
-              : ""
+              : ''
               }
                         </ul>
                         `
@@ -518,21 +525,9 @@ class CombatLogParser extends CoreCombatLogParser {
       ...results.statistics,
     ];
 
-    if (this.selectedCombatant.hasFinger(ITEMS.SEPHUZS_SECRET.id)) {
-      results.items = results.items.filter(item => item.item.id !== ITEMS.SEPHUZS_SECRET.id);
-      results.items.push({
-        item: ITEMS.SEPHUZS_SECRET,
-        result: (
-          <dfn data-tip="Estimated throughput gained by using Sephuz by calculating haste gained in throughput, given 1 haste = 1 INT.">
-            {((sephuzThroughput * 100) || 0).toFixed(2)} %
-          </dfn>
-        ),
-      });
-    }
-
     results.items = [
       ...results.items,
-      this.selectedCombatant.hasChest(ITEMS.EKOWRAITH_CREATOR_OF_WORLDS.id) && {
+      this.modules.combatants.selected.hasChest(ITEMS.EKOWRAITH_CREATOR_OF_WORLDS.id) && {
         item: ITEMS.EKOWRAITH_CREATOR_OF_WORLDS,
         result: (
           <span>
@@ -544,7 +539,7 @@ class CombatLogParser extends CoreCombatLogParser {
           </span>
         ),
       },
-      this.selectedCombatant.hasChest(ITEMS.XONIS_CARESS.id) && {
+      this.modules.combatants.selected.hasChest(ITEMS.XONIS_CARESS.id) && {
         item: ITEMS.XONIS_CARESS,
         result: (
           <dfn data-tip="The healing part from Ironbark. This doesn't include the reduced iron bark cooldown.">
@@ -552,7 +547,7 @@ class CombatLogParser extends CoreCombatLogParser {
           </dfn>
         ),
       },
-      this.selectedCombatant.hasWaist(ITEMS.THE_DARK_TITANS_ADVICE.id) && {
+      this.modules.combatants.selected.hasWaist(ITEMS.THE_DARK_TITANS_ADVICE.id) && {
         item: ITEMS.THE_DARK_TITANS_ADVICE,
         result: (
           <dfn data-tip={`Random bloom stood for ${((darkTitanAdviceHealingFromProcc * 100) || 0).toFixed(2)} % of the total throughput.`}>
@@ -560,11 +555,11 @@ class CombatLogParser extends CoreCombatLogParser {
           </dfn>
         ),
       },
-      this.selectedCombatant.hasFeet(ITEMS.ESSENCE_OF_INFUSION.id) && {
+      this.modules.combatants.selected.hasFeet(ITEMS.ESSENCE_OF_INFUSION.id) && {
         item: ITEMS.ESSENCE_OF_INFUSION,
         result: `${((essenceOfInfusionHealing * 100) || 0).toFixed(2)} % / ${formatNumber(this.modules.essenceOfInfusion.healing / fightDuration * 1000)} HPS`,
       },
-      this.selectedCombatant.hasFinger(ITEMS.TEARSTONE_OF_ELUNE.id) && {
+      this.modules.combatants.selected.hasFinger(ITEMS.TEARSTONE_OF_ELUNE.id) && {
         item: ITEMS.TEARSTONE_OF_ELUNE,
         result: (
           <dfn data-tip={`Your Tearstone gave ${this.modules.tearstone.rejuvs} bonus rejuvenations. Proccrate of ring was ${(this.modules.tearstone.rejuvs / this.modules.tearstone.wildGrowths * 100).toFixed(2)}%`}>
@@ -572,7 +567,7 @@ class CombatLogParser extends CoreCombatLogParser {
           </dfn>
         ),
       },
-      this.selectedCombatant.hasHead(ITEMS.CHAMELEON_SONG.id) && {
+      this.modules.combatants.selected.hasHead(ITEMS.CHAMELEON_SONG.id) && {
         item: ITEMS.CHAMELEON_SONG,
         result: (
           <dfn
@@ -606,13 +601,13 @@ class CombatLogParser extends CoreCombatLogParser {
         icon: <SpellIcon id={SPELLS.RESTO_DRUID_T20_4SET_BONUS_BUFF.id} />,
         title: <SpellLink id={SPELLS.RESTO_DRUID_T20_4SET_BONUS_BUFF.id} />,
         result: (
-          <dfn data-tip={`The actual healing contributed from 4P T20. <br/>${((this.selectedCombatant.getBuffUptime(SPELLS.BLOSSOMING_EFFLORESCENCE.id) / this.fightDuration) * 100).toFixed(2)}% uptime.`}>
+          <dfn data-tip={`The actual healing contributed from 4P T20. <br/>${((this.modules.combatants.selected.getBuffUptime(SPELLS.BLOSSOMING_EFFLORESCENCE.id) / this.fightDuration) * 100).toFixed(2)}% uptime.`}>
             {formatPercentage(this.getPercentageOfTotalHealingDone(this.modules.t20.healing))}% / {formatNumber(this.modules.t20.healing / fightDuration * 1000)} HPS
           </dfn>
         ),
       },
 
-      this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_ARCHDRUID.id) && {
+      this.modules.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_ARCHDRUID.id) && {
         item: ITEMS.SOUL_OF_THE_ARCHDRUID,
         result: (
           <dfn data-tip={`
@@ -642,7 +637,7 @@ class CombatLogParser extends CoreCombatLogParser {
         url: 'talents',
         render: () => (
           <Tab title="Talents">
-            <Talents combatant={this.selectedCombatant} />
+            <Talents combatant={this.modules.combatants.selected} />
           </Tab>
         ),
       },

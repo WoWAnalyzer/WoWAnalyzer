@@ -29,10 +29,9 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     SPELLS.TIGERS_LUST_TALENT.id,
   ];
 
-  // BrM has a fixed 1s GCD 
-  static calculateGlobalCooldown(haste) {
-    return 1;
-  }
+  // BrM has a fixed 1s GCD
+  static baseGcd = 1000;
+  static minimumGcd = 1000;
 
   suggestions(when) {
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;

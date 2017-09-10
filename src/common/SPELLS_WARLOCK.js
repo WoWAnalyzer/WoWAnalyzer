@@ -318,7 +318,7 @@ export default {
     icon: 'inv_chest_cloth_raidwarlock_r_01',
   },
   WARLOCK_AFFLI_T20_4P_BUFF: {
-  id: 242292,
+    id: 242292,
     name: 'Demonic Speed',
     icon: 'spell_shadow_soulleech_3',
   },
@@ -453,6 +453,12 @@ export default {
     name: 'Shadowfury',
     icon: 'ability_warlock_shadowfurytga',
   },
+  // Destruction traits
+  SOULSNATCHER_FRAGMENT_GEN: {
+    id: 196234,
+    name: 'Soulsnatcher',
+    icon: 'spell_shadow_soulleech_3',
+  },
   // Destruction set bonuses
   WARLOCK_DESTRO_T20_2P_BONUS: {
     id: 242295,
@@ -463,5 +469,11 @@ export default {
     id: 242296,
     name: 'Destruction Warlock T20 4P bonus',
     icon: 'inv_chest_cloth_raidwarlock_r_01',
+  },
+  // Destruction legendary effects
+  FERETORY_OF_SOULS_FRAGMENT_GEN: {
+    id: 205704,
+    name: 'Fiery Soul',
+    icon: 'inv_belt_cloth_raidwarlock_n_01',
   },
 };

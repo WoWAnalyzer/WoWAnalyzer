@@ -39,6 +39,11 @@ class EventsTab extends React.Component {
     const abilityFilterRegExp = this.state.abilityFilter && new RegExp(this.state.abilityFilter, 'i');
     const targetFilterRegExp = this.state.targetFilter && new RegExp(this.state.targetFilter, 'i');
 
+    // TODO: Use react-virtualized for performance
+    // TODO: Show active buffs like WCL
+    // TODO: Allow searching for players by name
+    // TODO: Pollish so this can be turned on for everyone
+
     return (
       <div>
         <div className="panel-heading">

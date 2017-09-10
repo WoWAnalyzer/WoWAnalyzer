@@ -62,16 +62,16 @@ class DamageTracker extends HealingTracker {
     const spellId = event.ability.guid;
     const cast = this.getAbility(spellId, event.ability);
 
-    cast.damangeHits = (cast.damangeHits || 0) + 1;
+    cast.damageHits = (cast.damageHits || 0) + 1;
     // TODO: Use DamageValue class
-    cast.damangeEffective = (cast.damangeEffective || 0) + (event.amount || 0);
-    cast.damangeAbsorbed = (cast.damangeAbsorbed || 0) + (event.absorbed || 0); // Not sure
+    cast.damageEffective = (cast.damageEffective || 0) + (event.amount || 0);
+    cast.damageAbsorbed = (cast.damageAbsorbed || 0) + (event.absorbed || 0); // Not sure
 
     const isCrit = event.hitType === HIT_TYPES.CRIT;
     if (isCrit) {
-      cast.damangeCriticalHits = (cast.damangeCriticalHits || 0) + 1;
-      cast.damangeCriticalEffective = (cast.damangeCriticalEffective || 0) + (event.amount || 0);
-      cast.damangeCriticalAbsorbed = (cast.damangeCriticalAbsorbed || 0) + (event.absorbed || 0); // Not sure
+      cast.damageCriticalHits = (cast.damageCriticalHits || 0) + 1;
+      cast.damageCriticalEffective = (cast.damageCriticalEffective || 0) + (event.amount || 0);
+      cast.damageCriticalAbsorbed = (cast.damageCriticalAbsorbed || 0) + (event.absorbed || 0); // Not sure
     }
   }
 }

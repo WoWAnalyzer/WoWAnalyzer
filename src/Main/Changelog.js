@@ -17,7 +17,7 @@ class Changelog extends React.PureComponent {
 
     return (
       <div className="form-group">
-        <select className="form-control" value={this.state.changelogType} onChange={(e) => this.setState({ changelogType: Number(e.target.value) })}>
+        <select className="form-control" value={this.state.changelogType} onChange={e => this.setState({ changelogType: Number(e.target.value) })}>
           <option value={0}>Core</option>
           {AVAILABLE_CONFIGS.map(config => (
             <option value={config.spec.id} key={config.spec.id}>{config.spec.specName} {config.spec.className}</option>

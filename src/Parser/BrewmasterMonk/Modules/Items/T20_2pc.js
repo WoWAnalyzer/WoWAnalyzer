@@ -34,28 +34,28 @@ class T20_2pc extends Module {
     const spellId = event.ability.guid;
     if (BREWS.indexOf(spellId) !== -1) {
       this.lastTrigger = event.timestamp;
-      this.brewCount++;
+      this.brewCount += 1;
       this.hastCastNewBrew = true;
     }
-    if(GIFT_OF_THE_OX_SPELLS.indexOf(spellId) !== -1) {
+    if (GIFT_OF_THE_OX_SPELLS.indexOf(spellId) !== -1) {
       this.lastOrb = event.timestamp;
     }
     if (this.hastCastNewBrew && Math.abs(this.lastTrigger - this.lastOrb) <= SUMMON_LATENCY) {
-      this.orbTriggeredBy2Pc++;
+      this.orbTriggeredBy2Pc += 1;
       this.hastCastNewBrew = false;
     }
   }
 
   on_finished() {
-    if(debug) {
+    if (debug) {
       console.log('T20 2pc potential triggers: ', this.brewCount);
       console.log('T20 2pc triggers: ', this.orbTriggeredBy2Pc);
-      console.log('T20 2pc triggers: ', formatPercentage(this.orbTriggeredBy2Pc/this.brewCount));
+      console.log('T20 2pc triggers: ', formatPercentage(this.orbTriggeredBy2Pc / this.brewCount));
     }
   }
 
   item() {
-    const procRate = formatPercentage(this.orbTriggeredBy2Pc/this.brewCount);
+    const procRate = formatPercentage(this.orbTriggeredBy2Pc / this.brewCount);
     return {
       id: `spell-${SPELLS.XUENS_BATTLEGEAR_2_PIECE_BUFF_BRM.id}`,
       icon: <SpellIcon id={SPELLS.XUENS_BATTLEGEAR_2_PIECE_BUFF_BRM.id} />,

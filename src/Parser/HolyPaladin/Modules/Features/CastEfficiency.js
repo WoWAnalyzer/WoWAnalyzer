@@ -9,24 +9,25 @@ import CoreCastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 
 
 class CastEfficiency extends CoreCastEfficiency {
-    static CPM_ABILITIES = [
+  static CPM_ABILITIES = [
     ...CoreCastEfficiency.CPM_ABILITIES,
     {
       spell: SPELLS.HOLY_SHOCK_HEAL,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCasts: castCount => castCount.healingHits,
       getCooldown: haste => 9 / (1 + haste),
-      extraSuggestion: 'Casting Holy Shock often enough is very important.',
+      extraSuggestion: 'Casting Holy Shock regularly is very important for performing well.',
     },
     {
       spell: SPELLS.LIGHT_OF_DAWN_CAST,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => 12 / (1 + haste), // TODO: Implement 4PT20
+      // Item - Paladin T20 Holy 2P Bonus: Reduces the cooldown of Light of Dawn by 2.0 sec.
+      getCooldown: (haste, combatant) => (12 - (combatant.hasBuff(SPELLS.HOLY_PALADIN_T20_2SET_BONUS_BUFF.id) ? 2 : 0)) / (1 + haste),
       getOverhealing: (_, getAbility) => {
         const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.LIGHT_OF_DAWN_HEAL.id);
         return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
       },
-      extraSuggestion: 'Casting Light of Dawn often enough is very important.',
+      extraSuggestion: 'Casting Light of Dawn regularly is very important for performing well.',
     },
     {
       spell: SPELLS.JUDGMENT_CAST,
@@ -38,7 +39,7 @@ class CastEfficiency extends CoreCastEfficiency {
         const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.JUDGMENT_OF_LIGHT_HEAL.id);
         return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
       },
-      extraSuggestion: 'You should cast it whenever Judgment of Light has dropped, which is usually on cooldown without delay. Alternatively you can ignore the debuff and just cast it whenever Judgment is available; there\'s nothing wrong with ignoring unimportant things to focus on important things.',
+      extraSuggestion: <span>You should cast it whenever <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_TALENT.id} /> has dropped, which is usually on cooldown without delay. Alternatively you can ignore the debuff and just cast it whenever Judgment is available; there's nothing wrong with ignoring unimportant things to focus on important things.</span>,
     },
     {
       spell: SPELLS.BESTOW_FAITH_TALENT,
@@ -46,7 +47,7 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 12,
       isActive: combatant => combatant.hasTalent(SPELLS.BESTOW_FAITH_TALENT.id),
       recommendedCastEfficiency: 0.7,
-      extraSuggestion: <span>If you can't or don't want to cast <SpellLink id={SPELLS.BESTOW_FAITH_TALENT.id} /> more consider using <SpellLink id={SPELLS.LIGHTS_HAMMER_TALENT.id} /> or <SpellLink id={SPELLS.CRUSADERS_MIGHT_TALENT.id} /> instead.</span>,
+      extraSuggestion: <span>If you can't or don't want to cast it more consider using <SpellLink id={SPELLS.LIGHTS_HAMMER_TALENT.id} /> or <SpellLink id={SPELLS.CRUSADERS_MIGHT_TALENT.id} /> instead.</span>,
     },
     {
       spell: SPELLS.LIGHTS_HAMMER_TALENT,
@@ -108,7 +109,6 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.TYRS_DELIVERANCE_CAST,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 90,
-      extraSuggestion: '',
     },
     {
       spell: SPELLS.HOLY_AVENGER_TALENT,

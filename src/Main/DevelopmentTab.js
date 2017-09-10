@@ -28,7 +28,7 @@ function selectText(node) {
   }
 }
 function formatThousands(number) {
-  return (Math.round(number || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+  return (`${Math.round(number || 0)}`).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 }
 
 class Item extends React.PureComponent {
@@ -51,14 +51,14 @@ class Item extends React.PureComponent {
     });
 
     if (this.state.data) {
-      return;
+      return null;
     }
 
     return fetch(`https://eu.api.battle.net/wow/item/${id}?locale=en_GB&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`)
       .then(response => response.json())
       .then(data => {
         this.setState({
-          data: data,
+          data,
         });
       });
   }
@@ -68,7 +68,7 @@ class Item extends React.PureComponent {
     return `
 ${item.name.toUpperCase().replace(/[^A-Z ]/g, '').replace(/ /g, '_')}: {
   id: ${item.id},
-  name: '${item.name.replace("'", "\\'")}',
+  name: '${item.name.replace('\'', '\\\'')}',
   icon: '${item.icon}',
   quality: ITEM_QUALITIES.${getItemQualityLabel(item.quality).toUpperCase()},
 },`;
@@ -128,14 +128,14 @@ class Cast extends React.PureComponent {
     });
 
     if (this.state.data) {
-      return;
+      return null;
     }
 
     return fetch(`https://eu.api.battle.net/wow/spell/${id}?locale=en_GB&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`)
       .then(response => response.json())
       .then(data => {
         this.setState({
-          data: data,
+          data,
         });
       });
   }
@@ -144,7 +144,7 @@ class Cast extends React.PureComponent {
     const data = this.state.data;
     const properties = [
       `id: ${data.id}`,
-      `name: '${data.name.replace("'", "\\'")}'`,
+      `name: '${data.name.replace('\'', '\\\'')}'`,
       `icon: '${data.icon}'`,
     ];
     if (data.powerCost) {
@@ -207,20 +207,20 @@ ${properties.map(prop => `  ${prop},`).join('\n')}
                 <td>{formatThousands(cast.healingCriticalOverheal)}</td>
               </tr>
             )}
-            {cast.damangeHits && (
+            {cast.damageHits && (
               <tr>
                 <td>regular damage</td>
-                <td>{cast.damangeHits}</td>
-                <td>{formatThousands(cast.damangeEffective)}</td>
-                <td>{formatThousands(cast.damangeAbsorbed)}</td>
+                <td>{cast.damageHits}</td>
+                <td>{formatThousands(cast.damageEffective)}</td>
+                <td>{formatThousands(cast.damageAbsorbed)}</td>
               </tr>
             )}
-            {cast.damangeCriticalHits && (
+            {cast.damageCriticalHits && (
               <tr>
                 <td>critical damage</td>
-                <td>{cast.damangeCriticalHits}</td>
-                <td>{formatThousands(cast.damangeCriticalEffective)}</td>
-                <td>{formatThousands(cast.damangeCriticalAbsorbed)}</td>
+                <td>{cast.damageCriticalHits}</td>
+                <td>{formatThousands(cast.damageCriticalEffective)}</td>
+                <td>{formatThousands(cast.damageCriticalAbsorbed)}</td>
               </tr>
             )}
           </tbody>
@@ -243,7 +243,7 @@ ${properties.map(prop => `  ${prop},`).join('\n')}
 }
 
 const Code = ({ children, dump, className, ...others }) => (
-  <a href={`javascript:console.log(${children})`} onClick={(e) => {
+  <a href={`javascript:console.log(${children})`} onClick={e => {
     e.preventDefault();
     console.log(dump);
   }}>
@@ -275,7 +275,7 @@ class DevelopmentTab extends React.Component {
 
     window.parser = parser;
 
-    const combatant = parser.selectedCombatant;
+    const combatant = parser.modules.combatants.selected;
 
     return (
       <div>
@@ -295,7 +295,7 @@ class DevelopmentTab extends React.Component {
                   {Object.keys(parser.modules.abilityTracker.abilities)
                     .map(key => parser.modules.abilityTracker.abilities[key])
                     .sort((a, b) => (b.casts || 0) - (a.casts || 0))
-                    .map((cast) => cast.ability && <Cast key={cast.ability.guid} cast={cast} />)}
+                    .map(cast => cast.ability && <Cast key={cast.ability.guid} cast={cast} />)}
                 </ul>
               </div>
             )}

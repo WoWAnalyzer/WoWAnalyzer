@@ -12,6 +12,7 @@
     "babel-runtime": "6.23.0",
     "case-sensitive-paths-webpack-plugin": "2.1.1",
     "chalk": "1.1.3",
+    "chart.js": "^2.6.0",
     "chartist": "^0.11.0",
     "chartist-plugin-legend": "^0.6.1",
     "css-loader": "0.28.4",
@@ -36,6 +37,7 @@
     "rc-slider": "^8.3.0",
     "react": "^15.6.1",
     "react-chartist": "^0.13.0",
+    "react-chartjs-2": "^2.6.2",
     "react-dev-utils": "^3.0.2",
     "react-dom": "^15.6.1",
     "react-error-overlay": "^1.0.9",
@@ -54,7 +56,9 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "lint:strict": "eslint . -c .eslintrc-strict.js",
+    "lint:strict:fix": "eslint . -c .eslintrc-strict.js --fix"
   },
   "jest": {
     "collectCoverageFrom": [

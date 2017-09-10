@@ -24,7 +24,6 @@ import CallToTheVoid from './Modules/Spells/CallToTheVoid';
 
 
 class CombatLogParser extends MainCombatLogParser {
-
   static specModules = {
     damageDone: DamageDone,
     alwaysBeCasting: AlwaysBeCasting,

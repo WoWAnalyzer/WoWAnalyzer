@@ -23,7 +23,7 @@ class BeaconTargets extends Module {
 
   on_combatantinfo(event) {
     const playerId = this.owner.playerId;
-    event.auras.forEach((aura) => {
+    event.auras.forEach(aura => {
       const { source, ability } = aura;
       if (source === playerId && BEACONS.indexOf(ability) !== -1) {
         if (this.currentBeaconTargets.indexOf(event.sourceID) === -1) {

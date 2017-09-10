@@ -30,7 +30,7 @@ class GalacticGuardian extends Module {
     if (SPELLS.GALACTIC_GUARDIAN.id === spellId) {
       this.lastGGProcTime = event.timestamp;
       debug && console.log('Galactic Guardian applied');
-      this.GGProcsTotal++;
+      this.GGProcsTotal += 1;
     }
   }
 
@@ -40,8 +40,8 @@ class GalacticGuardian extends Module {
       // Captured Overwritten GG Buffs for use in wasted buff calculations
       this.lastGGProcTime = event.timestamp;
       debug && console.log('Galactic Guardian Overwritten');
-      this.GGProcsTotal++;
-      this.overwrittenGGProc++;
+      this.GGProcsTotal += 1;
+      this.overwrittenGGProc += 1;
     }
   }
 
@@ -50,17 +50,17 @@ class GalacticGuardian extends Module {
     if (SPELLS.MOONFIRE.id !== spellId) {
       return;
     }
-    if(this.lastGGProcTime !== event.timestamp) {
-      if(this.lastGGProcTime === null) {
-        this.nonGGMoonFire++;
+    if (this.lastGGProcTime !== event.timestamp) {
+      if (this.lastGGProcTime === null) {
+        this.nonGGMoonFire += 1;
         return;
       }
       const GGTimeframe = this.lastGGProcTime + GG_DURATION;
-      if(event.timestamp > GGTimeframe) {
-        this.nonGGMoonFire++;
+      if (event.timestamp > GGTimeframe) {
+        this.nonGGMoonFire += 1;
       } else {
-        this.consumedGGProc++;
-        debug && console.log('Galactic Guardian Proc Consumed / Timestamp: ' + event.timestamp);
+        this.consumedGGProc += 1;
+        debug && console.log(`Galactic Guardian Proc Consumed / Timestamp: ${event.timestamp}`);
         this.lastGGProcTime = null;
       }
     }

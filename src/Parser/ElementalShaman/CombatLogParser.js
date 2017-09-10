@@ -33,7 +33,7 @@ import LightningRod from './Modules/Talents/LightningRod';
 import './Modules/Main/main.css';
 
 function formatThousands(number) {
-  return (Math.round(number || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+  return (`${Math.round(number || 0)}`).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 }
 
 function formatNumber(number) {
@@ -80,12 +80,12 @@ class CombatLogParser extends CoreCombatLogParser {
 
   generateResults() {
     const results = super.generateResults();
-    
+
     // const hasEchosElements = this.selectedCombatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id);
     // const hasAscendance = this.selectedCombatant.hasTalent(SPELLS.ASCENDANCE_ELEMENTAL_TALENT.id);
     // const hasLightningRod = this.selectedCombatant.hasTalent(SPELLS.LIGHTNING_ROD.id);
-    const hasIcefury = this.selectedCombatant.hasTalent(SPELLS.ICEFURY_TALENT.id);
-    
+    const hasIcefury = this.modules.combatants.selected.hasTalent(SPELLS.ICEFURY_TALENT.id);
+
     const abilityTracker = this.modules.abilityTracker;
     const getAbility = spellId => abilityTracker.getAbility(spellId);
 
@@ -150,7 +150,7 @@ class CombatLogParser extends CoreCombatLogParser {
                   marginTop: '-.1em',
                 }}
               />
-              {overloadLavaBurst.damangeHits}{' '}
+              {overloadLavaBurst.damageHits}{' '}
             </span>
             {' '}
             <span>
@@ -161,7 +161,7 @@ class CombatLogParser extends CoreCombatLogParser {
                   marginTop: '-.1em',
                 }}
               />
-              {overloadLightningBolt.damangeHits}{' '}
+              {overloadLightningBolt.damageHits}{' '}
             </span>
             {' '}
             <span>
@@ -172,7 +172,7 @@ class CombatLogParser extends CoreCombatLogParser {
                   marginTop: '-.1em',
                 }}
               />
-              {overloadElementalBlast.damangeHits}{' '}
+              {overloadElementalBlast.damageHits}{' '}
             </span>
             {' '}
             <span className="hideWider1200">
@@ -183,7 +183,7 @@ class CombatLogParser extends CoreCombatLogParser {
                   marginTop: '-.1em',
                 }}
               />
-              {overloadChainLightning.damangeHits}{' '}
+              {overloadChainLightning.damageHits}{' '}
             </span>
             { hasIcefury &&
               <span className="hideWider1200">
@@ -194,7 +194,7 @@ class CombatLogParser extends CoreCombatLogParser {
                     marginTop: '-.1em',
                   }}
                 />
-                {overloadIcefury ? overloadIcefury.damangeHits : '-' }{' '}
+                {overloadIcefury ? overloadIcefury.damageHits : '-' }{' '}
               </span>
             }
           </span>
@@ -222,7 +222,7 @@ class CombatLogParser extends CoreCombatLogParser {
         url: 'talents',
         render: () => (
           <Tab title="Talents">
-            <Talents combatant={this.selectedCombatant} />
+            <Talents combatant={this.modules.combatants.selected} />
           </Tab>
         ),
       },

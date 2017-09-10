@@ -9,18 +9,18 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 class DamageDone extends CoreDamageDone {
   petDmg = 0;
 
-  petIds = [];
+  _petIds = [];
 
   on_initialized() {
     this.owner.report.friendlyPets.filter(pet => pet.petOwner === this.owner.playerId).forEach(pet => {
-      if (this.petIds.indexOf(pet.id) === -1) {
-        this.petIds.push(pet.id);
+      if (this._petIds.indexOf(pet.id) === -1) {
+        this._petIds.push(pet.id);
       }
     });
   }
 
   on_damage(event) {
-    if (this.petIds.indexOf(event.sourceID) === -1) {
+    if (this._petIds.indexOf(event.sourceID) === -1) {
       return;
     }
     this.petDmg += event.amount + (event.absorbed || 0);

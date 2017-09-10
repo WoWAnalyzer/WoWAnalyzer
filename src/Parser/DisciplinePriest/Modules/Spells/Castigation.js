@@ -16,7 +16,7 @@ class Castigation extends Module {
   _isCastigationBolt = false;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasTalent(SPELLS.CASTIGATION_TALENT.id);
+    this.active = this.owner.modules.combatants.selected.hasTalent(SPELLS.CASTIGATION_TALENT.id);
   }
 
   on_byPlayer_damage(event) {
@@ -46,7 +46,6 @@ class Castigation extends Module {
       }
     }
   }
-
 }
 
 export default Castigation;

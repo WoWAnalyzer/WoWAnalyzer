@@ -12,15 +12,27 @@ import CooldownTracker from './Modules/Features/CooldownTracker';
 import DoomguardInfernal from './Modules/Features/DoomguardInfernal';
 import UnusedLordOfFlames from './Modules/Features/UnusedLordOfFlames';
 import GrimoireOfService from './Modules/Features/GrimoireOfService';
+import ImmolateUptime from './Modules/Features/ImmolateUptime';
 
-// import SoulShardTracker from './Modules/SoulShards/SoulShardTracker';
-// import SoulShardDetails from './Modules/SoulShards/SoulShardDetails';
+import ReverseEntropy from './Modules/Talents/ReverseEntropy';
+import Eradication from './Modules/Talents/Eradication';
+import EradicationTalent from './Modules/Talents/EradicationTalent';
+import EmpoweredLifeTap from './Modules/Talents/EmpoweredLifeTap';
+
+import SoulShardEvents from './Modules/SoulShards/SoulShardEvents';
+import SoulShardTracker from './Modules/SoulShards/SoulShardTracker';
+import SoulShardDetails from './Modules/SoulShards/SoulShardDetails';
 import DamageDone from './Modules/Features/DamageDone';
 
+import Backdraft from './Modules/Talents/Backdraft';
+import RoaringBlaze from './Modules/Talents/RoaringBlaze';
+import Shadowburn from './Modules/Talents/Shadowburn';
 import SoulHarvest from './Modules/Talents/SoulHarvest';
 import SoulHarvestTalent from './Modules/Talents/SoulHarvestTalent';
 
+import SoulOfTheNetherlord from './Modules/Items/Legendaries/SoulOfTheNetherlord';
 import TheMasterHarvester from './Modules/Items/Legendaries/TheMasterHarvester';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Features
@@ -33,16 +45,26 @@ class CombatLogParser extends CoreCombatLogParser {
     grimoireOfService: GrimoireOfService,
 
     // DoTs
-
+    immolateUptime: ImmolateUptime,
+    
     //Core
-    // soulShardTracker: SoulShardTracker,
-    // soulShardDetails: SoulShardDetails,
+    soulShardEvents: SoulShardEvents,
+    soulShardTracker: SoulShardTracker,
+    soulShardDetails: SoulShardDetails,
 
     //Talents
+    reverseEntropy: ReverseEntropy,
+    eradication: Eradication,
+    eradicationTalent: EradicationTalent,
+    empoweredLifeTap: EmpoweredLifeTap,
+    backdraft: Backdraft,
+    roaringBlaze: RoaringBlaze,
+    shadowburn: Shadowburn,
     soulHarvest: SoulHarvest,
     soulHarvestTalent: SoulHarvestTalent,
 
     //Legendaries
+    soulOfTheNetherlord: SoulOfTheNetherlord,
     masterHarvester: TheMasterHarvester,
 
     //Items
@@ -63,7 +85,7 @@ class CombatLogParser extends CoreCombatLogParser {
         url: 'talents',
         render: () => (
           <Tab title='Talents'>
-            <Talents combatant={this.selectedCombatant} />
+            <Talents combatant={this.modules.combatants.selected} />
           </Tab>
         ),
       },
