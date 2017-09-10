@@ -23,7 +23,7 @@ class Sephuz extends CoreSephuz {
     if (!this.owner.error) {
       this.active = this.combatants.selected.hasFinger(ITEMS.SEPHUZS_SECRET.id);
     }
-    this.sephuzStaticHasteInRating = ((this.owner.modules.combatants.selected.hastePercentage+1)-((this.owner.modules.combatants.selected.hastePercentage+1) / 1.02))*100*ONE_PERCENT_HASTE_RATING;
+    this.sephuzStaticHasteInRating = ((this.owner.modules.combatants.selected.hastePercentage + 1) - ((this.owner.modules.combatants.selected.hastePercentage + 1) / 1.02)) * 100 * ONE_PERCENT_HASTE_RATING;
   }
 
   on_toPlayer_applybuff(event) {

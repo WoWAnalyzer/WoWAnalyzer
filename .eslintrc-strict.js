@@ -45,5 +45,7 @@ module.exports = {
         case: { after: true }
       }
     }],
+    // https://github.com/airbnb/javascript#whitespace--infix-ops
+    'space-infix-ops': 'warn',
   },
 };

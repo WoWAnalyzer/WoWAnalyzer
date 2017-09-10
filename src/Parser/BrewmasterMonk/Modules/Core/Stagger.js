@@ -89,8 +89,8 @@ class Stagger extends Module {
           </ul>
           Damage taken from stagger:
           <ul>
-            <li>Total damage from stagger dot: ${formatThousands(this.totalStaggerTaken)} (${formatPercentage(this.totalStaggerTaken/totalStaggered)}% of total staggered)</li>
-            <li>Total damage removed from stagger dot before damaging you: ${formatThousands(damageAvoided)} (${formatPercentage(damageAvoided/totalStaggered)}% of total staggered)</li>
+            <li>Total damage from stagger dot: ${formatThousands(this.totalStaggerTaken)} (${formatPercentage(this.totalStaggerTaken / totalStaggered)}% of total staggered)</li>
+            <li>Total damage removed from stagger dot before damaging you: ${formatThousands(damageAvoided)} (${formatPercentage(damageAvoided / totalStaggered)}% of total staggered)</li>
           </ul>
         `}
       />

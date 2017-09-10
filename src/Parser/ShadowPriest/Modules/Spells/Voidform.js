@@ -40,12 +40,12 @@ class Voidform extends Module {
   }
 
   get averageVoidformHaste() {
-    const averageHasteFromVoidform = (this.voidforms.reduce((p, c) => p += c.totalHasteAcquired / ((c.ended - c.start)/1000), 0) / this.voidforms.length) / 100;
+    const averageHasteFromVoidform = (this.voidforms.reduce((p, c) => p += c.totalHasteAcquired / ((c.ended - c.start) / 1000), 0) / this.voidforms.length) / 100;
     return (1 + this.owner.modules.combatants.selected.hastePercentage) * (1 + averageHasteFromVoidform);
   }
 
   get averageNonVoidformHaste() {
-    return (1 + this.owner.modules.combatants.selected.hastePercentage) * (1 + (this._totalHasteAcquiredOutsideVoidform / this._totalLingeringInsanityTimeOutsideVoidform)/100);
+    return (1 + this.owner.modules.combatants.selected.hastePercentage) * (1 + (this._totalHasteAcquiredOutsideVoidform / this._totalLingeringInsanityTimeOutsideVoidform) / 100);
   }
 
   get averageVoidformStacks() {
@@ -53,7 +53,7 @@ class Voidform extends Module {
 
     // ignores last voidform if seen as skewing
     const nonExcludedVoidforms = this.voidforms.filter(voidform => !voidform.excluded);
-    return nonExcludedVoidforms.reduce((p, c) => p += c.stacks.length, 0)/nonExcludedVoidforms.length;
+    return nonExcludedVoidforms.reduce((p, c) => p += c.stacks.length, 0) / nonExcludedVoidforms.length;
   }
 
   createVoidform(event) {
@@ -158,7 +158,7 @@ class Voidform extends Module {
     // excludes last one to avoid skewing the average (if in voidform when the encounter ends):
     if (player.hasBuff(SPELLS.VOIDFORM_BUFF.id)) {
       const averageVoidformStacks = this.voidforms.slice(0, this.voidforms.length - 1).reduce((p, c) => p += c.stacks.length, 0) / (this.voidforms.length - 1);
-      const lastVoidformStacks    = this.voidforms[this.voidforms.length-1].stacks.length;
+      const lastVoidformStacks    = this.voidforms[this.voidforms.length - 1].stacks.length;
 
       if (lastVoidformStacks + 5 < averageVoidformStacks) {
         this._voidforms[this._previousVoidformCast.timestamp].excluded = true;

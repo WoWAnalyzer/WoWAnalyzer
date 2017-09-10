@@ -28,7 +28,7 @@ class SoulOfTheForest extends Module {
 
   on_initialized() {
     const persistanceTraits = this.owner.modules.combatants.selected.traitsBySpellId[SPELLS.PERSISTANCE_TRAIT.id] || 0;
-    this.rejuvenationDuration += persistanceTraits*1000;
+    this.rejuvenationDuration += persistanceTraits * 1000;
   }
 
   on_byPlayer_applybuff(event) {
@@ -71,10 +71,10 @@ class SoulOfTheForest extends Module {
     const spellId = event.ability.guid;
 
     // Reset procc variables
-    if ((event.timestamp+200) > (this.rejuvenationProccTimestamp+this.rejuvenationDuration)) {
+    if ((event.timestamp + 200) > (this.rejuvenationProccTimestamp + this.rejuvenationDuration)) {
       this.rejuvenationProccTimestamp = null;
       this.rejuvenationTargets = [];
-    } else if ((event.timestamp+200) > (this.wildGrowthProccTimestamp+WILD_GROWTH_DURATION)) {
+    } else if ((event.timestamp + 200) > (this.wildGrowthProccTimestamp + WILD_GROWTH_DURATION)) {
       this.wildGrowthProccTimestamp = null;
       this.wildGrowthTargets = [];
     }
@@ -84,13 +84,13 @@ class SoulOfTheForest extends Module {
       this.regrowthProccTimestamp = null;
     } else if (this.rejuvenationProccTimestamp !== null
         && (SPELLS.REJUVENATION.id === spellId || SPELLS.REJUVENATION_GERMINATION === spellId)
-        && (event.timestamp - (this.rejuvenationProccTimestamp+this.rejuvenationDuration)) <= 0) {
+        && (event.timestamp - (this.rejuvenationProccTimestamp + this.rejuvenationDuration)) <= 0) {
       if (this.rejuvenationTargets.indexOf(event.targetID) !== -1) {
         this.rejuvenationHealing += this.calculateEffectiveHealingFromIncrease(event, REJUVENATION_HEALING_INCREASE);
       }
     } else if (this.wildGrowthProccTimestamp !== null
       && SPELLS.WILD_GROWTH.id === spellId
-      && (event.timestamp - (this.wildGrowthProccTimestamp+WILD_GROWTH_DURATION)) <= 0) {
+      && (event.timestamp - (this.wildGrowthProccTimestamp + WILD_GROWTH_DURATION)) <= 0) {
       if (this.wildGrowthTargets.indexOf(event.targetID) !== -1) {
         this.wildGrowthHealing += this.calculateEffectiveHealingFromIncrease(event, WILD_GROWTH_HEALING_INCREASE);
       }
@@ -99,8 +99,8 @@ class SoulOfTheForest extends Module {
 
   // TODO: Refactor this method, as there's many features that uses this formula to calculate healing contributed by healing increases with partial overheals.
   calculateEffectiveHealingFromIncrease(event, healingIncrease) {
-    const baseHeal = (event.amount + event.overheal||0)/healingIncrease;
-    return Math.max(0, event.amount - baseHeal)/healingIncrease;
+    const baseHeal = (event.amount + event.overheal || 0) / healingIncrease;
+    return Math.max(0, event.amount - baseHeal) / healingIncrease;
   }
 }
 

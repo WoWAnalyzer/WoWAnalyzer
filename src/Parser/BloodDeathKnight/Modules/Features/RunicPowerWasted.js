@@ -13,7 +13,7 @@ class RunicPowerWasted extends Module {
     if (event.resourceChangeType !== RESOURCE_TYPES.RUNIC_POWER) {
       return;
     }
-    this.totalRPWasted+=event.waste;
+    this.totalRPWasted += event.waste;
     this.totalRPGained += event.resourceChange + event.waste;
   }
 
@@ -22,7 +22,7 @@ class RunicPowerWasted extends Module {
     return (
       <StatisticBox
         icon={<Icon icon='inv_sword_62'/>}
-        value={`${formatPercentage(this.totalRPWasted/this.totalRPGained)} %`}
+        value={`${formatPercentage(this.totalRPWasted / this.totalRPGained)} %`}
         label='Runic Power Wasted'
         tooltip={''}
       />

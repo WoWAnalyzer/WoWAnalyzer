@@ -8,7 +8,7 @@ import SpellIcon from 'common/SpellIcon';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 function formatSeconds(seconds) {
-  return Math.round(seconds * 10)/10;
+  return Math.round(seconds * 10) / 10;
 }
 
 // account for some logger delay (should be 4000):

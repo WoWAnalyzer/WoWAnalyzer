@@ -41,7 +41,7 @@ class WastedDeathAndDecay  extends Module {
 
 
   statistic() {
-    this.WastedDeathAndDecays=this.CrimsonScourgeProcsCounter - this.FreeDeathAndDecayCounter;
+    this.WastedDeathAndDecays = this.CrimsonScourgeProcsCounter - this.FreeDeathAndDecayCounter;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.CRIMSON_SCOURGE.id} />}

@@ -171,10 +171,10 @@ class Maelstrom extends React.PureComponent {
           };
         }
         abilitiesAll[event.ability.guid + '_spend'].casts += 1;
-        const lastMana = lastSecFight === secIntoFight ? manaBySecond[lastSecFight-1] : manaBySecond[lastSecFight];
+        const lastMana = lastSecFight === secIntoFight ? manaBySecond[lastSecFight - 1] : manaBySecond[lastSecFight];
         const spendResource = spell.maelstrom ? spell.maelstrom : (spell.max_maelstrom < lastMana ? spell.max_maelstrom : lastMana);
         abilitiesAll[event.ability.guid + '_spend'].spend += spendResource;
-        abilitiesAll[event.ability.guid + '_spend'].wasted += spell.max_maelstrom ? spell.max_maelstrom - spendResource: 0;
+        abilitiesAll[event.ability.guid + '_spend'].wasted += spell.max_maelstrom ? spell.max_maelstrom - spendResource : 0;
       } else if (event.type === 'energize') {
         if (!abilitiesAll[event.ability.guid + '_gen']) {
           const spell = SPELLS[event.ability.guid];

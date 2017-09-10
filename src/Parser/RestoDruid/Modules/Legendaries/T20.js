@@ -35,14 +35,14 @@ class T20 extends Module {
         this.healing += calculateEffectiveHealing(event, BLOSSOMING_EFFLORESCENCE_HEAL_INCREASE);
       }
     } else if (spellId === SPELLS.SWIFTMEND.id) {
-      const hpPercentage = (event.hitPoints - event.amount)/event.maxHitPoints;
+      const hpPercentage = (event.hitPoints - event.amount) / event.maxHitPoints;
       const cooldownReduction = (T20P2_MAX_SWIFTMEND_REDUCTION - (hpPercentage * T20P2_MAX_SWIFTMEND_REDUCTION));
       this.swiftmendReduced += this.swiftmendCooldown * cooldownReduction;
       this.swiftmends += 1;
-      this.freeSwiftmends = this.swiftmendReduced/this.swiftmendCooldown;
+      this.freeSwiftmends = this.swiftmendReduced / this.swiftmendCooldown;
       this.swiftmendHealing += event.amount;
     }
-    this.swiftmendThroughput = (this.healing/this.swiftmends)*this.freeSwiftmends + this.swiftmendHealing/this.swiftmends;
+    this.swiftmendThroughput = (this.healing / this.swiftmends) * this.freeSwiftmends + this.swiftmendHealing / this.swiftmends;
   }
 
   on_finished() {

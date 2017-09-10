@@ -28,7 +28,7 @@ class InnerHallation extends Module {
         return;
       }
 
-      const manaSaved   = Math.floor(manaCost/3);
+      const manaSaved   = Math.floor(manaCost / 3);
 
       if (!event.isManaCostNullified) {
         this.manaGained   += manaSaved;

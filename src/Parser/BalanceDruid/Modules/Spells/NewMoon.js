@@ -42,7 +42,7 @@ class NewMoon extends Module {
     const abilityTracker = this.owner.modules.abilityTracker;
         
     const offSet = this.firstMoonTime + 15;
-    const totalFromCD = ((this.owner.fightDuration/1000) - offSet) / 15;
+    const totalFromCD = ((this.owner.fightDuration / 1000) - offSet) / 15;
     const eachMoon = Math.floor(totalFromCD / 3);
     let nmAvailableCasts = eachMoon + 1;
 
@@ -66,7 +66,7 @@ class NewMoon extends Module {
     const abilityTracker = this.owner.modules.abilityTracker;
         
     const offSet = this.firstMoonTime + 15;
-    const totalFromCD = ((this.owner.fightDuration/1000) - offSet) / 15;
+    const totalFromCD = ((this.owner.fightDuration / 1000) - offSet) / 15;
     const eachMoon = Math.floor(totalFromCD / 3);
     let nmAvailableCasts = eachMoon + 1;
         

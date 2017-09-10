@@ -25,7 +25,7 @@ const SURRENDER_TO_MADNESS_VOIDFORM_MS_THRESHOLD = 150000;
 // d = 6 + (2/3)*x
 // where d = total drain of Insanity over 1 second 
 // max insanity is 10000 (100 ingame)
-const INSANITY_DRAIN_INCREASE = 2/3 * 100; // ~66.67;
+const INSANITY_DRAIN_INCREASE = 2 / 3 * 100; // ~66.67;
 const INSANITY_DRAIN_INITIAL = 6 * 100; // 600;
 const VOIDFORM_MINIMUM_INITIAL_INSANITY = 65 * 100; // 6500;
 
@@ -39,8 +39,8 @@ const VoidformGraph = ({
     voidTorrentEvents, 
     dispersionEvents,
     insanityEvents,
-    surrenderToMadness=false,
-    setT20P4=false,
+    surrenderToMadness = false,
+    setT20P4 = false,
     fightEnd, 
     ...voidform
 }) => {
@@ -79,19 +79,19 @@ const VoidformGraph = ({
 
 
   const atLabel = (timestamp) => {
-    return Math.floor((timestamp - voidform.start)/RESOLUTION_MS);
+    return Math.floor((timestamp - voidform.start) / RESOLUTION_MS);
   };
 
   const voidFormIsOver = (i) => {
     return voidform.start + i * RESOLUTION_MS >= voidform.ended;
   };
 
-  const fillData = (array, eventStart, eventEnd, data=false) => {
-    const amountOfSteps = Math.round((eventEnd - eventStart)/RESOLUTION_MS);
+  const fillData = (array, eventStart, eventEnd, data = false) => {
+    const amountOfSteps = Math.round((eventEnd - eventStart) / RESOLUTION_MS);
     const startStep = atLabel(eventStart);
     for (let i = 0; i < amountOfSteps; i += 1) {
       if (eventStart + i * RESOLUTION_MS >= voidform.ended) break;
-      array[startStep+i] = data ? data : stacksData[startStep+i];
+      array[startStep + i] = data ? data : stacksData[startStep + i];
     }
   };
 
@@ -114,15 +114,15 @@ const VoidformGraph = ({
   }
 
   voidform.stacks.forEach(({stack, timestamp}) => {
-    fillData(stacksData, timestamp, timestamp+1000, stack);
+    fillData(stacksData, timestamp, timestamp + 1000, stack);
   });
 
     // fill in dispersion gaps & 100s+ voidforms:
   for (let i = 0; i <= steps; i += 1) {
-    if (stacksData[i] === null && (i * RESOLUTION_MS) + voidform.start < voidform.ended) stacksData[i] = stacksData[i-1];
+    if (stacksData[i] === null && (i * RESOLUTION_MS) + voidform.start < voidform.ended) stacksData[i] = stacksData[i - 1];
   }
 
-  endOfVoidformData[atLabel(voidform.ended)+1] = 100;
+  endOfVoidformData[atLabel(voidform.ended) + 1] = 100;
   endOfVoidformData[atLabel(voidform.ended)]   = 100;
 
 
@@ -147,7 +147,7 @@ const VoidformGraph = ({
       lastestDrainIncrease += 1;
 
         // only increase drain every second:
-      if (lastestDrainIncrease%(1000/RESOLUTION_MS)===0) {
+      if (lastestDrainIncrease % (1000 / RESOLUTION_MS) === 0) {
         currentDrain += INSANITY_DRAIN_INCREASE_BY_SECOND;
       }
     }
@@ -166,7 +166,7 @@ const VoidformGraph = ({
       for (let j = latestInsanityDataAt; j <= i; j += 1) {
 
         if (dispersionData[j] === null && voidTorrentData[j] === null)
-          insanityData[i] -= insanityDrain[j] /(1000/RESOLUTION_MS);
+          insanityData[i] -= insanityDrain[j] / (1000 / RESOLUTION_MS);
       }
 
       if (insanityData[i] < 0) insanityData[i] = 0;
@@ -201,7 +201,7 @@ const VoidformGraph = ({
       {
         className: 'insanity',
         name: 'Insanity',
-        data: Object.keys(insanityData).map(key => insanityData[key]/100).slice(0, steps),
+        data: Object.keys(insanityData).map(key => insanityData[key] / 100).slice(0, steps),
       },
 
       {
@@ -262,7 +262,7 @@ const VoidformGraph = ({
 
   if (includesEndOfFight) {
     const fightEndedAtSecond = atLabel(fightEnd);
-    endData[fightEndedAtSecond-1] = 100;
+    endData[fightEndedAtSecond - 1] = 100;
     endData[fightEndedAtSecond]   = 100;
 
     chartData = {
@@ -345,7 +345,7 @@ const VoidformGraph = ({
         axisX: {
           labelInterpolationFnc: function skipLabels(ms) {
             const everySecond = surrenderToMadness ? 10 : 5;
-            return (ms*(RESOLUTION_MS/1000))%everySecond===0 ? formatDuration(ms*(RESOLUTION_MS/1000)) : null;
+            return (ms * (RESOLUTION_MS / 1000)) % everySecond === 0 ? formatDuration(ms * (RESOLUTION_MS / 1000)) : null;
           },
           offset: 30,
         },

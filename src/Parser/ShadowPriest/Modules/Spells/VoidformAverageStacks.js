@@ -46,7 +46,7 @@ class VoidformAverageStacks extends Module {
     const { voidforms } = this.voidform;
     if (!voidforms || voidforms.length === 0) return null;
 
-    const lastVoidformWasExcluded = voidforms[voidforms.length-1].excluded;
+    const lastVoidformWasExcluded = voidforms[voidforms.length - 1].excluded;
 
     return (<StatisticBox
 			icon={<SpellIcon id={SPELLS.VOIDFORM.id} />}

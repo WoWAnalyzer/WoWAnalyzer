@@ -12,7 +12,7 @@ class PowerOfTheArchdruid extends Module {
   potaRegrowthCounter = 0;
 
   on_initialized() {
-    if (this.owner.modules.combatants.selected.traitsBySpellId[SPELLS.POWER_OF_THE_ARCHDRUID.id]>0) {
+    if (this.owner.modules.combatants.selected.traitsBySpellId[SPELLS.POWER_OF_THE_ARCHDRUID.id] > 0) {
       this.hasTrait = true;
     }
   }
@@ -25,7 +25,7 @@ class PowerOfTheArchdruid extends Module {
     this.proccs += 1;
 
     // Our 4PT19 can procc PotA
-    if (this.lastPotaRemovedTimestamp !== null && Math.abs(event.timestamp-this.lastPotaRemovedTimestamp) < 32) {
+    if (this.lastPotaRemovedTimestamp !== null && Math.abs(event.timestamp - this.lastPotaRemovedTimestamp) < 32) {
       if (SPELLS.REJUVENATION.id === spellId) {
         this.rejuvenations = this.rejuvenations + 2;
       } else if (SPELLS.REGROWTH.id === spellId) {
@@ -47,7 +47,7 @@ class PowerOfTheArchdruid extends Module {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
-    if (this.lastPotaRemovedTimestamp !== null && Math.abs(event.timestamp-this.lastPotaRemovedTimestamp) < 32) {
+    if (this.lastPotaRemovedTimestamp !== null && Math.abs(event.timestamp - this.lastPotaRemovedTimestamp) < 32) {
       if (SPELLS.REJUVENATION.id === spellId) {
         this.rejuvenations = this.rejuvenations + 2;
       } else if (SPELLS.REGROWTH.id === spellId) {

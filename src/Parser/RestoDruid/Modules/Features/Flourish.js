@@ -52,8 +52,8 @@ class Flourish extends Module {
       });
     // If we are using Tree Of Life, our WG statistics will be a little skewed since each WG gives 8 WG applications instead of 6.
     // We solve this by simply reducing WGs counter by 2.
-    if (this.wildGrowth > (oldWgCount+6)) {
-      this.wildGrowth = this.wildGrowth-2;
+    if (this.wildGrowth > (oldWgCount + 6)) {
+      this.wildGrowth = this.wildGrowth - 2;
     }
 
     // Rejuvenation

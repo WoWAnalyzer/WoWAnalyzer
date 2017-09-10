@@ -21,7 +21,7 @@ class EarthenShieldTotem extends Module {
     }
 
     if (event.targetID === this.activeEST) {
-      this.healing += (event.amount || 0) + (event.overheal || 0) + (event.absorb ||0);
+      this.healing += (event.amount || 0) + (event.overheal || 0) + (event.absorb || 0);
     }
   }
 

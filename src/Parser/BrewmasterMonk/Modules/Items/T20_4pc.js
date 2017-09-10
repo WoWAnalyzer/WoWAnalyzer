@@ -56,7 +56,7 @@ class T20_4pc extends Module {
   }
 
   item() {
-    const damageSavedPerSecond = this.staggerSaved/(this.owner.fightDuration/1000);
+    const damageSavedPerSecond = this.staggerSaved / (this.owner.fightDuration / 1000);
     return {
       id: `spell-${SPELLS.XUENS_BATTLEGEAR_4_PIECE_BUFF_BRM.id}`,
       icon: <SpellIcon id={SPELLS.XUENS_BATTLEGEAR_4_PIECE_BUFF_BRM.id} />,

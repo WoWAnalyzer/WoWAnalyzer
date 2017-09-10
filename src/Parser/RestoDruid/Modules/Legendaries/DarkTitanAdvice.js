@@ -18,7 +18,7 @@ class DarkTitanAdvice extends Module {
         this.healing += event.amount;
         this.healingFromProccs += event.amount;
       } else {
-        const baseHeal = (event.amount + event.overheal||0)/DARK_TITAN_FINAL_HEALING_INCREASE;
+        const baseHeal = (event.amount + event.overheal || 0) / DARK_TITAN_FINAL_HEALING_INCREASE;
         this.healing += Math.max(0, event.amount - baseHeal);
       }
 

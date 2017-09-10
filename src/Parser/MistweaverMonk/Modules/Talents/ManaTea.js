@@ -150,9 +150,9 @@ class ManaTea extends Module {
     if (debug) {
       console.log("Mana Tea Casted: " + this.manateaCount);
       console.log("Mana saved: " + this.manaSavedMT);
-      console.log("Avg. Mana saved: " + (this.manaSavedMT/this.manateaCount));
+      console.log("Avg. Mana saved: " + (this.manaSavedMT / this.manateaCount));
       console.log("Total Casts under Mana Tea: " + this.castsUnderManaTea);
-      console.log("Avg Casts under Mana Tea: " + (this.castsUnderManaTea/this.manateaCount));
+      console.log("Avg Casts under Mana Tea: " + (this.castsUnderManaTea / this.manateaCount));
       console.log("Free spells cast: " + this.nonManaCasts);
     }
   }

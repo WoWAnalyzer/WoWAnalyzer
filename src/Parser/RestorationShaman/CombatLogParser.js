@@ -152,7 +152,7 @@ class CombatLogParser extends CoreCombatLogParser {
     const maxChainHealTargets = this.modules.combatants.selected.hasTalent(SPELLS.HIGH_TIDE_TALENT.id) ? 5 : 4;
     const chainHealTargetEfficiency = chainHealAvgHits / maxChainHealTargets;
 
-    const hasDeepWaters = this.modules.combatants.selected.traitsBySpellId[SPELLS.DEEP_WATERS.id]>0;
+    const hasDeepWaters = this.modules.combatants.selected.traitsBySpellId[SPELLS.DEEP_WATERS.id] > 0;
     const giftOfTheQueenHits = giftOfTheQueen.healingHits || 0;
     const giftOfTheQueenAvgHits = giftOfTheQueenHits / giftOfTheQueenCasts / (hasDeepWaters ? 2 : 1);
     const giftOfTheQueenTargetEfficiency = giftOfTheQueenAvgHits / 6;
@@ -187,7 +187,7 @@ class CombatLogParser extends CoreCombatLogParser {
       results.addIssue({
         issue: <span>Casting <SpellLink id={SPELLS.HEALING_SURGE_RESTORATION.id} /> without <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} /> is very inefficient, try not to cast more than is necessary ({unbuffedHealingSurges}/{healingSurges} casts unbuffed).</span>,
         icon: SPELLS.HEALING_SURGE_RESTORATION.icon,
-        importance: getIssueImportance(unbuffedHealingSurges / (healingSurges+healingWaves), 0.15, 0.30, true),
+        importance: getIssueImportance(unbuffedHealingSurges / (healingSurges + healingWaves), 0.15, 0.30, true),
       });
     }
     if (chainHealTargetEfficiency < 0.97) {
@@ -356,7 +356,7 @@ class CombatLogParser extends CoreCombatLogParser {
         item: ITEMS.PRAETORIANS_TIDECALLERS,
         result: (
           <dfn data-tip={`The healing gained from the extra duration that Praetorian's Tidecallers give to Healing Tide Totem and Healing Stream Totem. The increased duration on Healing Stream Totem accounts for ${formatPercentage(tidecallersHSTPercentage)}% healing, the increased duration on Healing Tide Totem for ${formatPercentage(tidecallersHTTPercentage)}% healing.`}>
-            {((tidecallersHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber((this.modules.tidecallers.httHealing+this.modules.tidecallers.hstHealing) / fightDuration * 1000)} HPS
+            {((tidecallersHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber((this.modules.tidecallers.httHealing + this.modules.tidecallers.hstHealing) / fightDuration * 1000)} HPS
           </dfn>
         ),
       },

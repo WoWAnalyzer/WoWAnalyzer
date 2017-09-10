@@ -53,7 +53,7 @@ class TotemMastery extends Module {
         icon={<SpellIcon id={SPELLS.TOTEM_MASTERY_TALENT.id} />}
         value={`${formatPercentage(this.minUptime)} %`}
         label={`Uptime`}
-        tooltip={`With ${this.casts} infight cast${this.casts > 1 ? 's': ''}.`}
+        tooltip={`With ${this.casts} infight cast${this.casts > 1 ? 's' : ''}.`}
       />
     );
   }
