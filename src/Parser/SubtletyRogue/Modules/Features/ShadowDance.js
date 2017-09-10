@@ -14,7 +14,7 @@ class ShadowDance extends Module {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.SHADOW_DANCE.id) {
-      this.totalShadowDanceCast++;
+      this.totalShadowDanceCast += 1;
       return;
     }
   }
@@ -24,7 +24,7 @@ class ShadowDance extends Module {
     if (this.inShadowDance) {
       this.totalDamageDoneInShadowDance += event.amount;
       if (spellId === SPELLS.EVISCERATE.id) {
-        this.totalEviscerateDamageInShadowDance++;
+        this.totalEviscerateDamageInShadowDance += 1;
       }
     }
   }

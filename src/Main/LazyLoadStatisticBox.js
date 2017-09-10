@@ -30,7 +30,7 @@ class LazyLoadStatisticBox extends React.PureComponent {
     this.setState({
       loading: true,
     });
-    this.props.loader().then((result) => {
+    this.props.loader().then(result => {
       this.setState({
         loading: false,
         loaded: true,

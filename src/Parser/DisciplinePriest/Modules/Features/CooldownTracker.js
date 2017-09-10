@@ -49,7 +49,7 @@ class CooldownTracker extends CoreCooldownTracker {
 
       // Since Evangelism isn't a buff it doesn't really have a duration, for the sake of still providing somewhat useful info we just set the end to the last moment that Evangelism's effect did something
       let lastAtonementExpiration = event.timestamp;
-      this.atonementModule.currentAtonementTargets.forEach((target) => {
+      this.atonementModule.currentAtonementTargets.forEach(target => {
         if (lastAtonementExpiration === null || target.atonementExpirationTimestamp > lastAtonementExpiration) {
           lastAtonementExpiration = target.atonementExpirationTimestamp;
         }

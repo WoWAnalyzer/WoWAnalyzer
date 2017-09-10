@@ -28,7 +28,7 @@ class Status extends React.Component {
   load() {
     return fetch(makeApiUrl('status'))
       .then(response => response.json())
-      .then((json) => {
+      .then(json => {
         console.log('Received status', json);
         if (json.status === 400 || json.status === 401) {
           throw json.error;
@@ -51,7 +51,7 @@ class Status extends React.Component {
             .map(timeSpan => (
               <button
                 key={timeSpan}
-                className={'btn btn-default btn-sm' + (timeSpanMinutes === timeSpan ? ' active' : '')}
+                className={`btn btn-default btn-sm${timeSpanMinutes === timeSpan ? ' active' : ''}`}
                 onClick={() => this.setState({ timeSpanMinutes: timeSpan })}
               >
                 {TIME_SPAN_LABELS[timeSpan]}

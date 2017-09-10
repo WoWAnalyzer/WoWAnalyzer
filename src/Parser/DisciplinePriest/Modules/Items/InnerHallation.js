@@ -12,23 +12,22 @@ class InnerHallation extends Module {
   lastPowerInfusionCastStartTimestamp = null;
 
   on_initialized() {
-    const selectedCombatant = this.owner.selectedCombatant;
+    const selectedCombatant = this.owner.modules.combatants.selected;
     this.active = selectedCombatant.hasShoulder(ITEMS.INNER_HALLATION.id);
   }
 
   on_byPlayer_cast(event) {
-    if(this.owner.selectedCombatant.hasTalent(SPELLS.POWER_INFUSION.id) && event.ability.guid === SPELLS.POWER_INFUSION.id){
+    if (this.owner.modules.combatants.selected.hasTalent(SPELLS.POWER_INFUSION.id) && event.ability.guid === SPELLS.POWER_INFUSION.id) {
       this.lastPowerInfusionCastStartTimestamp = event.timestamp;
       return;
-      
-    } else if (this.owner.selectedCombatant.hasBuff(SPELLS.POWER_INFUSION.id) && (event.timestamp + 20000) > this.lastPowerInfusionCastStartTimestamp){
+    } else if (this.owner.modules.combatants.selected.hasBuff(SPELLS.POWER_INFUSION.id) && (event.timestamp + 20000) > this.lastPowerInfusionCastStartTimestamp) {
       const spellId   = event.ability.guid;
       const manaCost  = event.manaCost;
       if (!manaCost) {
         return;
       }
 
-      const manaSaved   = Math.floor(manaCost/3);
+      const manaSaved   = Math.floor(manaCost / 3);
 
       if (!event.isManaCostNullified) {
         this.manaGained   += manaSaved;
@@ -36,7 +35,6 @@ class InnerHallation extends Module {
       } else {
         debug && console.log('Inner Hallation saved 0 mana on', SPELLS[spellId].name, 'costing', manaCost, 'since Innervate or Symbol of Hope is active (normally ', manaSaved, ' mana)', event);
       }
-
     }
   }
 }

@@ -60,26 +60,18 @@ class CastEfficiency extends CoreCastEfficiency {
       extraSuggestion: <span>This is a great AoE damage spell, but also does a great damage on single target. You should cast it as soon as it gets off cooldown. The only moment you can delay it's cast is if you already expect an add wave to maximize it's efficiency and damage output. </span>,
     },
     {
-      spell: SPELLS.FEL_BARRAGE_TALENT,
-      isActive: combatant => combatant.hasTalent(SPELLS.FEL_BARRAGE_TALENT.id),
-      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
-      getCooldown: haste => 60,
-      recommendedCastEfficiency: 0.85,
-      extraSuggestion: <span>This is a great AoE damage spell, but also does a great damage on single target. You should cast it as soon as it gets off cooldown. The only moment you can delay it's cast is if you already expect an add wave to maximize it's efficiency and damage output. </span>,
-    },
-    {
       spell: SPELLS.CHAOS_STRIKE,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => 3,
-      recommendedCastEfficiency: 0.8,
+      getCooldown: haste => null,
       noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.ANNIHILATION,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => 14,
-      recommendedCastEfficiency: 0.8,
+      getCooldown: haste => null,
       noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.BLADE_DANCE,
@@ -91,9 +83,9 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.DEATH_SWEEP,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => 45,
-      recommendedCastEfficiency: 0.8,
+      getCooldown: haste => null,
       noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.METAMORPHOSIS_HAVOC,
@@ -113,8 +105,8 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.THROW_GLAIVE_HAVOC,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 10,
-      recommendedCastEfficiency: 0.5,
       noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.VENGEFUL_RETREAT,

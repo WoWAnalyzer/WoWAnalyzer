@@ -37,7 +37,7 @@ class WclApiResponseTime extends React.PureComponent {
           historyByInterval[intervalIndex] = {
             numRequests: totalNumRequests,
             avgResponseTime: averageResponseTime,
-            maxResponseTime: maxResponseTime,
+            maxResponseTime,
           };
         } else {
           historyByInterval[intervalIndex] = moment;
@@ -61,12 +61,12 @@ class WclApiResponseTime extends React.PureComponent {
       labels: labels.reverse(),
       datasets: [
         {
-          borderColor: "rgba(75,192,192,1)",
+          borderColor: 'rgba(75,192,192,1)',
           label: 'Average response time',
           data: avgResponseTimes.reverse(),
         },
         {
-          borderColor: "rgba(192,0,0,1)",
+          borderColor: 'rgba(192,0,0,1)',
           label: 'Max response time',
           data: maxResponseTimes.reverse(),
         },

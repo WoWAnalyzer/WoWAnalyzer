@@ -4,6 +4,8 @@ import SPELLS from 'common/SPELLS';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SoulShardEvents from './SoulShardEvents';
 
+const SHADOWBURN_KILL = 'Shadowburn kill';
+
 class SoulShardTracker extends Module {
   static dependencies = {
     soulShardEvents: SoulShardEvents,
@@ -16,31 +18,48 @@ class SoulShardTracker extends Module {
 
   //stores number of shards gained/spent/wasted per ability ID
   generatedAndWasted = {
-    [SPELLS.IMMOLATE_DEBUFF.id]: {
+    [SPELLS.IMMOLATE_DEBUFF.name]: {
+      id: SPELLS.IMMOLATE_DEBUFF.id,
       generated: 0,
       wasted: 0,
     },
-    [SPELLS.CONFLAGRATE.id]: {
+    [SPELLS.CONFLAGRATE.name]: {
+      id: SPELLS.CONFLAGRATE.id,
       generated: 0,
       wasted: 0,
     },
-    [SPELLS.INCINERATE.id]: {
+    [SPELLS.SHADOWBURN.name]: {
+      id: SPELLS.SHADOWBURN.id,
       generated: 0,
       wasted: 0,
     },
-    [SPELLS.DIMENSIONAL_RIFT_CAST.id]: {
+    [SHADOWBURN_KILL]: {
+      id: SPELLS.SHADOWBURN.id,
       generated: 0,
       wasted: 0,
     },
-    [SPELLS.SOULSNATCHER_FRAGMENT_GEN.id]: {
+    [SPELLS.INCINERATE.name]: {
+      id: SPELLS.INCINERATE.id,
       generated: 0,
       wasted: 0,
     },
-    [SPELLS.SOUL_CONDUIT_TALENT.id]: {
+    [SPELLS.DIMENSIONAL_RIFT_CAST.name]: {
+      id: SPELLS.DIMENSIONAL_RIFT_CAST.id,
       generated: 0,
       wasted: 0,
     },
-    [SPELLS.FERETORY_OF_SOULS_FRAGMENT_GEN.id]: {
+    [SPELLS.SOULSNATCHER_FRAGMENT_GEN.name]: {
+      id: SPELLS.SOULSNATCHER_FRAGMENT_GEN.id,
+      generated: 0,
+      wasted: 0,
+    },
+    [SPELLS.SOUL_CONDUIT_TALENT.name]: {
+      id: SPELLS.SOUL_CONDUIT_TALENT.id,
+      generated: 0,
+      wasted: 0,
+    },
+    [SPELLS.FERETORY_OF_SOULS_FRAGMENT_GEN.name]: {
+      id: SPELLS.FERETORY_OF_SOULS_FRAGMENT_GEN.id,
       generated: 0,
       wasted: 0,
     },
@@ -64,14 +83,18 @@ class SoulShardTracker extends Module {
   };
 
   on_soulshardfragment_gained(event) {
-    const spellId = event.ability.guid;
-    if (!this.generatedAndWasted[spellId]) {
+    const spellName = event.ability.name;
+    if (!this.generatedAndWasted[spellName]) {
       //shouldn't happen
       return;
     }
-
-    this.generatedAndWasted[spellId].wasted += event.waste;
-    this.generatedAndWasted[spellId].generated += event.amount;
+    if (spellName === SPELLS.SHADOWBURN.name && event.isFromShadowburnKill) {
+      this.generatedAndWasted[SHADOWBURN_KILL].wasted += event.waste;
+      this.generatedAndWasted[SHADOWBURN_KILL].generated += event.amount;
+    }    else {
+      this.generatedAndWasted[spellName].wasted += event.waste;
+      this.generatedAndWasted[spellName].generated += event.amount;
+    }
     this.fragmentsWasted += event.waste;
     this.fragmentsGained += event.amount;
   }

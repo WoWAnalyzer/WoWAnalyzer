@@ -5,8 +5,7 @@ import Icon from 'common/Icon';
 import Module from 'Parser/Core/Module';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-
-class RPWasted extends Module {
+class RunicPowerWasted extends Module {
   totalRPWasted = 0;
   totalRPGained = 0;
 
@@ -14,16 +13,15 @@ class RPWasted extends Module {
     if (event.resourceChangeType !== RESOURCE_TYPES.RUNIC_POWER) {
       return;
     }
-    this.totalRPWasted+=event.waste;
+    this.totalRPWasted += event.waste;
     this.totalRPGained += event.resourceChange + event.waste;
   }
 
   statistic() {
-
     return (
       <StatisticBox
-        icon={<Icon icon="inv_sword_62" />}
-        value={`${formatPercentage(this.totalRPWasted/this.totalRPGained)} %`}
+        icon={<Icon icon='inv_sword_62'/>}
+        value={`${formatPercentage(this.totalRPWasted / this.totalRPGained)} %`}
         label='Runic Power Wasted'
         tooltip={''}
       />
@@ -31,6 +29,5 @@ class RPWasted extends Module {
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(4);
-
 }
-export default RPWasted;
+export default RunicPowerWasted;

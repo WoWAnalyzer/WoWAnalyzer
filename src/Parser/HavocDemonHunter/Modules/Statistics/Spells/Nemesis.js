@@ -24,7 +24,6 @@ class Nemesis extends Module {
   }
 
   statistic() {
-
     const nemesisUptime = this.enemies.getBuffUptime(SPELLS.NEMESIS_TALENT.id);
     const nemesisUptimePercentage = nemesisUptime / this.owner.fightDuration;
 

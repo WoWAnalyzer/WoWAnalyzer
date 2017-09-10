@@ -19,7 +19,6 @@ class SigilOfFlame extends Module {
   };
 
   statistic() {
-
     const sigilOfFlameUptime = this.enemies.getBuffUptime(SPELLS.SIGIL_OF_FLAME_DEBUFF.id);
 
     const sigilOfFlameUptimePercentage = sigilOfFlameUptime / this.owner.fightDuration;

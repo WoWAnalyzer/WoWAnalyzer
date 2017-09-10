@@ -63,7 +63,7 @@ class PlayerBreakdown extends React.Component {
 
               return (
                 <tr key={player.combatant.name}>
-                  <td style={{ width: '20%'}}>
+                  <td style={{ width: '20%' }}>
                     <img src={`/specs/${specClassName}-${spec.specName.replace(' ', '')}.jpg`} alt="Spec logo" />{' '}
                     {player.combatant.name}
                   </td>

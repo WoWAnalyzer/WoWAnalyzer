@@ -13,7 +13,7 @@ class EssenceOfInfusion extends Module {
     if (spellId === SPELLS.TRANQUILITY_HEAL.id) {
       const healthBeforeHeal = event.hitPoints - event.amount;
       const healthBreakpoint = event.maxHitPoints * 0.6;
-      if(healthBeforeHeal <= healthBreakpoint) {
+      if (healthBeforeHeal <= healthBreakpoint) {
         this.healing += (event.amount - (event.amount / ESSENCE_OF_INFUSION_HEALING_INCREASE));
       }
       return;

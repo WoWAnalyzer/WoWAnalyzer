@@ -1,4 +1,4 @@
-const fs = require("fs");
+const fs = require('fs');
 
 const talents = require('./talents.json');
 
@@ -168,8 +168,8 @@ ${Object.keys(spells).map(specName => {
   return `  // ${specName}
 ${Object.keys(spells[specName]).map(talentName => {
   return `  ${talentName}: { ${Object.keys(spells[specName][talentName]).map(prop => `${prop}: ${JSON.stringify(spells[specName][talentName][prop])}`).join(', ')} },`;
-}).join("\n")}`;
-}).join("\n")}
+}).join('\n')}`;
+}).join('\n')}
 };
 `);
   console.log('Saving', fileName);

@@ -23,8 +23,7 @@ class AgonyUptime extends Module {
     if (this.combatants.selected.hasTalent(SPELLS.WRITHE_IN_AGONY_TALENT.id)) {
       threshold = 0.95;
       suggestionText = <span>Your Agony uptime can be improved. Try to pay more attention to your Agony on the boss, especially since you're using <SpellLink id={SPELLS.WRITHE_IN_AGONY_TALENT.id}/> talent.</span>;
-    }
-    else {
+    }    else {
       threshold = 0.85;
       suggestionText = 'Your Agony uptime can be improved. Try to pay more attention to your Agony on the boss, perhaps use some debuff tracker.';
     }

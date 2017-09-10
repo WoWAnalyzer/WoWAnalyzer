@@ -26,7 +26,7 @@ class UpliftingTrance extends Module {
     if (SPELLS.UPLIFTING_TRANCE_BUFF.id === spellId) {
       this.lastUTProcTime = event.timestamp;
       debug && console.log('UT Proc Applied');
-      this.UTProcsTotal++;
+      this.UTProcsTotal += 1;
     }
   }
 
@@ -36,8 +36,8 @@ class UpliftingTrance extends Module {
       // Captured Overwritten UT Buffs for use in wasted buff calculations
       this.lastUTProcTime = event.timestamp;
       debug && console.log('UT Proc Overwritten');
-      this.UTProcsTotal++;
-      this.overwrittenUTProc++;
+      this.UTProcsTotal += 1;
+      this.overwrittenUTProc += 1;
     }
   }
 
@@ -47,18 +47,18 @@ class UpliftingTrance extends Module {
       return;
     }
     // Checking to see if non-UT'ed Viv is casted
-    if(this.lastUTProcTime !== event.timestamp) {
-      if(this.lastUTProcTime === null) {
+    if (this.lastUTProcTime !== event.timestamp) {
+      if (this.lastUTProcTime === null) {
         // No UT Proc with Vivify
-        this.nonUTVivify++;
+        this.nonUTVivify += 1;
         return;
       }
       const utTimeframe = this.lastUTProcTime + UT_DURATION;
-      if(event.timestamp > utTimeframe) {
-        this.nonUTVivify++;
+      if (event.timestamp > utTimeframe) {
+        this.nonUTVivify += 1;
       } else {
-        this.consumedUTProc++;
-        debug && console.log('UT Proc Consumed / Timestamp: ' + event.timestamp);
+        this.consumedUTProc += 1;
+        debug && console.log(`UT Proc Consumed / Timestamp: ${event.timestamp}`);
         this.lastUTProcTime = null;
       }
     }
@@ -73,7 +73,7 @@ class UpliftingTrance extends Module {
           .actual(`${formatPercentage(unusedUTProcs)}% Unused Uplifting Trance procs`)
           .recommended(`<${formatPercentage(recommended)}% wasted UT Buffs is recommended`)
           .regular(recommended + .1).major(recommended + .2);
-    });
+      });
   }
 
   statistic() {

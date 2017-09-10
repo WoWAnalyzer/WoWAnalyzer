@@ -81,7 +81,7 @@ class BeaconHealOriginMatcher extends Module {
     const beaconTransferAbsorbed = beaconTransferEvent.absorbed || 0;
     const beaconTransferOverheal = beaconTransferEvent.overheal || 0;
     const beaconTransferRaw = beaconTransferAmount + beaconTransferAbsorbed + beaconTransferOverheal;
-    const index = this.healBacklog.findIndex((healEvent) => {
+    const index = this.healBacklog.findIndex(healEvent => {
       const expectedBeaconTransfer = this.getExpectedBeaconTransfer(healEvent, beaconTransferEvent);
 
       return Math.abs(expectedBeaconTransfer - beaconTransferRaw) <= 2; // allow for rounding errors on Blizzard's end

@@ -17,8 +17,8 @@ class WildGrowth extends Module {
       _events.push(event);
 
       // for WG cast events we look backwards through the events and any applybuff events we push forward
-      if (event.type === "cast" && event.ability.guid === SPELLS.WILD_GROWTH.id) {
-        for (let _idx = idx - 1; _idx >= 0; _idx--) {
+      if (event.type === 'cast' && event.ability.guid === SPELLS.WILD_GROWTH.id) {
+        for (let _idx = idx - 1; _idx >= 0; _idx -= 1) {
           const _event = _events[_idx];
 
           if (_event.timestamp !== event.timestamp) {
@@ -28,7 +28,7 @@ class WildGrowth extends Module {
             break;
           }
 
-          if (_event.type === "applybuff" && _event.ability.guid === SPELLS.WILD_GROWTH.id && _event.targetID === this.owner.playerId) {
+          if (_event.type === 'applybuff' && _event.ability.guid === SPELLS.WILD_GROWTH.id && _event.targetID === this.owner.playerId) {
             _events.splice(_idx, 1);
             _newEvents.push(_event);
           }
@@ -41,8 +41,8 @@ class WildGrowth extends Module {
         }
       }
 
-      if (event.type === "cast" && event.ability.guid === SPELLS.REJUVENATION.id) {
-        for (let _idx = idx - 1; _idx >= 0; _idx--) {
+      if (event.type === 'cast' && event.ability.guid === SPELLS.REJUVENATION.id) {
+        for (let _idx = idx - 1; _idx >= 0; _idx -= 1) {
           const _event = _events[_idx];
 
           if (_event.timestamp !== event.timestamp) {
@@ -52,7 +52,7 @@ class WildGrowth extends Module {
             break;
           }
 
-          if (_event.type === "applybuff"
+          if (_event.type === 'applybuff'
             && [SPELLS.REJUVENATION.id, SPELLS.REJUVENATION_GERMINATION.id].indexOf(_event.ability.guid) !== -1
             && _event.targetID === event.targetID) {
             _events.splice(_idx, 1);

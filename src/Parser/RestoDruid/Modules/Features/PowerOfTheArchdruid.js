@@ -12,7 +12,7 @@ class PowerOfTheArchdruid extends Module {
   potaRegrowthCounter = 0;
 
   on_initialized() {
-    if (this.owner.selectedCombatant.traitsBySpellId[SPELLS.POWER_OF_THE_ARCHDRUID.id]>0) {
+    if (this.owner.modules.combatants.selected.traitsBySpellId[SPELLS.POWER_OF_THE_ARCHDRUID.id] > 0) {
       this.hasTrait = true;
     }
   }
@@ -22,13 +22,13 @@ class PowerOfTheArchdruid extends Module {
     if (SPELLS.POWER_OF_THE_ARCHDRUID_BUFF.id !== spellId) {
       return;
     }
-    this.proccs++;
+    this.proccs += 1;
 
     // Our 4PT19 can procc PotA
-    if(this.lastPotaRemovedTimestamp !== null && Math.abs(event.timestamp-this.lastPotaRemovedTimestamp) < 32) {
+    if (this.lastPotaRemovedTimestamp !== null && Math.abs(event.timestamp - this.lastPotaRemovedTimestamp) < 32) {
       if (SPELLS.REJUVENATION.id === spellId) {
         this.rejuvenations = this.rejuvenations + 2;
-      } else if(SPELLS.REGROWTH.id === spellId) {
+      } else if (SPELLS.REGROWTH.id === spellId) {
         this.regrowths = this.regrowths + 2;
         this.lastPotaRegrowthTimestamp = event.timestamp;
       }
@@ -47,10 +47,10 @@ class PowerOfTheArchdruid extends Module {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
-    if(this.lastPotaRemovedTimestamp !== null && Math.abs(event.timestamp-this.lastPotaRemovedTimestamp) < 32) {
+    if (this.lastPotaRemovedTimestamp !== null && Math.abs(event.timestamp - this.lastPotaRemovedTimestamp) < 32) {
       if (SPELLS.REJUVENATION.id === spellId) {
         this.rejuvenations = this.rejuvenations + 2;
-      } else if(SPELLS.REGROWTH.id === spellId) {
+      } else if (SPELLS.REGROWTH.id === spellId) {
         this.regrowths = this.regrowths + 2;
         this.lastPotaRegrowthTimestamp = event.timestamp;
       }
@@ -64,13 +64,13 @@ class PowerOfTheArchdruid extends Module {
     if (SPELLS.REGROWTH.id !== spellId) {
       return;
     }
-    if(this.lastPotaRegrowthTimestamp !== null) {
+    if (this.lastPotaRegrowthTimestamp !== null) {
       // Skipping the first regrowth, only taking the 2 other.
-      if(this.potaRegrowthCounter > 0) {
+      if (this.potaRegrowthCounter > 0) {
         this.healing += event.amount;
       }
-      this.potaRegrowthCounter++;
-      if(this.potaRegrowthCounter === 3) {
+      this.potaRegrowthCounter += 1;
+      if (this.potaRegrowthCounter === 3) {
         this.lastPotaRegrowthTimestamp = null;
         this.potaRegrowthCounter = 0;
       }

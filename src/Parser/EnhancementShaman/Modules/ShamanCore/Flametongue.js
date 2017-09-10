@@ -9,7 +9,6 @@ import Module from 'Parser/Core/Module';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class Flametongue extends Module {
-
   static dependencies = {
     combatants: Combatants,
   }
@@ -33,7 +32,7 @@ class Flametongue extends Module {
         icon={<SpellIcon id={SPELLS.FLAMETONGUE_BUFF.id} />}
         value={`${formatPercentage(flametongueUptime)} %`}
         label="Flametongue Uptime"
-        tooltip={`One of your highest priorities, get as close to 100% as possible`}
+        tooltip={'One of your highest priorities, get as close to 100% as possible'}
       />
     );
   }

@@ -17,29 +17,33 @@ class SoulShardEvents extends Module {
   };
 
   _FRAGMENT_GENERATING_ABILITIES = {
-    [SPELLS.IMMOLATE_DEBUFF.id]: (_) => 1,
-    [SPELLS.CONFLAGRATE.id]: (_) => 5,
-    [SPELLS.INCINERATE.id]: (event) => {
+    [SPELLS.IMMOLATE_DEBUFF.id]: _ => 1,
+    [SPELLS.CONFLAGRATE.id]: _ => 5,
+    //the Shadowburn itself generates 5 fragments, but leaves a debuff on target for 5 seconds, and if it dies, it generates additional 5 fragments
+    //don't know how to accurately separate these two (could do totalFragments - numberOfShadowburnCasts * 5, but this doesn't account for possible wasted fragments = inaccurate)
+    //solution would be to fabricate a dummy spell with id unused by any other ability and manipulate the event passed into processGenerators but that feels so wrong
+    [SPELLS.SHADOWBURN.id]: _ => 5,
+    [SPELLS.INCINERATE.id]: event => {
       const enemy = this.enemies.getEntity(event);
       if (!enemy) {
         //shouldn't happen, bail out
-        return;
+        return null;
       }
 
       const hasHavoc = enemy.hasBuff(SPELLS.HAVOC.id, event.timestamp);
       //Havoc is somehow bugged in the sense that it doesn't gain the benefit of T20 2p set bonus, so if the target has Havoc, it doesn't matter if we have the set or not, otherwise it counts it in
       let rawFragments = hasHavoc ? 2 : (this._hasT20_2p ? 3 : 2);
       if (event.hitType === HIT_TYPES.CRIT) {
-        rawFragments++;
+        rawFragments += 1;
       }
       return rawFragments;
     },
-    [SPELLS.DIMENSIONAL_RIFT_CAST.id]: (_) => 3,
+    [SPELLS.DIMENSIONAL_RIFT_CAST.id]: _ => 3,
     //can refund more shards
-    [SPELLS.SOUL_CONDUIT_SHARD_GEN.id]: (event) => (event.resourceChange || 0) * FRAGMENTS_PER_SHARD,
+    [SPELLS.SOUL_CONDUIT_SHARD_GEN.id]: event => (event.resourceChange || 0) * FRAGMENTS_PER_SHARD,
     //these can refund only one shard at a time
-    [SPELLS.SOULSNATCHER_FRAGMENT_GEN.id]: (_) => 10,
-    [SPELLS.FERETORY_OF_SOULS_FRAGMENT_GEN.id]: (_) => 10,
+    [SPELLS.SOULSNATCHER_FRAGMENT_GEN.id]: _ => 10,
+    [SPELLS.FERETORY_OF_SOULS_FRAGMENT_GEN.id]: _ => 10,
   };
 
   _FRAGMENT_SPENDING_ABILITIES  = {
@@ -64,10 +68,10 @@ class SoulShardEvents extends Module {
   _hasT20_2p = false;
   _currentFragments = 0;
 
+
   on_initialized() {
     this._hasT20_2p = this.combatants.selected.hasBuff(SPELLS.WARLOCK_DESTRO_T20_2P_BONUS.id);
     this._currentFragments = 30; //on the start of the fight we should have 3 soul shards (30 fragments) by default
-    debug && console.log("start fragments " + this._currentFragments);
   }
 
   on_byPlayer_energize(event) {
@@ -79,18 +83,23 @@ class SoulShardEvents extends Module {
     }
   }
 
+  //handles regular Shadowburn fragment gen
   on_byPlayer_damage(event) {
     if (this._FRAGMENT_GENERATING_ABILITIES[event.ability.guid]) {
       this.processGenerators(event);
     }
   }
 
+  //sent from Shadowburn module when target with Shadowburn debuff dies
+  on_shadowburn_kill(event) {
+    this.processGenerators(event);
+  }
+
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.DIMENSIONAL_RIFT_CAST.id) {
       this.processGenerators(event);
-    }
-    else if (this._FRAGMENT_SPENDING_ABILITIES[spellId]) {
+    }    else if (this._FRAGMENT_SPENDING_ABILITIES[spellId]) {
       this.processSpenders(event);
     }
   }
@@ -111,8 +120,7 @@ class SoulShardEvents extends Module {
     if (this._currentFragments + gainedFragmentsBeforeCap > MAX_FRAGMENTS) {
       gain = MAX_FRAGMENTS - this._currentFragments;
       waste = this._currentFragments + gainedFragmentsBeforeCap - MAX_FRAGMENTS;
-    }
-    else {
+    }    else {
       gain = gainedFragmentsBeforeCap;
     }
 
@@ -120,11 +128,13 @@ class SoulShardEvents extends Module {
 
     shardEvent.amount = gain;
     shardEvent.waste = waste;
+    if (event.isFromShadowburnKill) {
+      shardEvent.isFromShadowburnKill = true;
+    }
     shardEvent.currentFragments = this._currentFragments;
 
-    debug && console.log('++ ' + shardEvent.amount + '(w: ' + shardEvent.waste + ') = ' + shardEvent.currentFragments + ', ' + shardEvent.ability.name + ', orig: ', event);
+    debug && console.log(`++ ${shardEvent.amount}(w: ${shardEvent.waste}) = ${shardEvent.currentFragments}, ${shardEvent.ability.name}, orig: `, event);
     this.owner.triggerEvent('soulshardfragment_gained', shardEvent);
-
   }
   processSpenders(event) {
     const spellId = event.ability.guid;
@@ -154,7 +164,7 @@ class SoulShardEvents extends Module {
       this._currentFragments += balanceEvent.amount;
       balanceEvent.currentFragments = this._currentFragments;
 
-      debug && console.log('++ ' + balanceEvent.amount + '(w: ' + balanceEvent.waste + ') = ' + balanceEvent.currentFragments + ', ' + balanceEvent.ability.name);
+      debug && console.log(`++ ${balanceEvent.amount}(w: ${balanceEvent.waste}) = ${balanceEvent.currentFragments}, ${balanceEvent.ability.name}`);
       this.owner.triggerEvent('soulshardfragment_gained', balanceEvent);
     }
     this._currentFragments -= amount;
@@ -162,7 +172,7 @@ class SoulShardEvents extends Module {
     shardEvent.amount = amount;
     shardEvent.currentFragments = this._currentFragments;
 
-    debug && console.log('-- ' + shardEvent.amount + ' = ' + shardEvent.currentFragments + ', ' + shardEvent.ability.name + ', orig:', event);
+    debug && console.log(`-- ${shardEvent.amount} = ${shardEvent.currentFragments}, ${shardEvent.ability.name}, orig:`, event);
     this.owner.triggerEvent('soulshardfragment_spent', shardEvent);
   }
 }

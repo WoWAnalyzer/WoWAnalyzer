@@ -9,7 +9,6 @@ class AbilityTracker extends CoreAbilityTracker {
     }
     return super.getAbility(spellId, abilityInfo);
   }
-
 }
 
 export default AbilityTracker;

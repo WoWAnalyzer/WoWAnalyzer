@@ -12,7 +12,7 @@ describe('Core.CombatLogParser', () => {
     it('dependencies are available as properties', () => {
       const myDependency = {};
       const myModule = new Module(null, {
-        myDependency: myDependency,
+        myDependency,
       }, null);
 
       expect(myModule.myDependency).toBe(myDependency);
