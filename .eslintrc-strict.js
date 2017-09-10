@@ -12,6 +12,10 @@ module.exports = {
     // https://github.com/airbnb/javascript#objects--quoted-props
     'quote-props': ['warn', 'as-needed', { keywords: false, unnecessary: true, numbers: false }],
 
+    // Arrays
+    // https://github.com/airbnb/javascript#arrays--literals
+    'no-array-constructor': 'warn',
+
     // Variables
     // https://github.com/airbnb/javascript#variables--unary-increment-decrement
     'no-plusplus': 'warn',
