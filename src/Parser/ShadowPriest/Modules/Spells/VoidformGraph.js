@@ -291,7 +291,7 @@ const VoidformGraph = ({
         low: 0,
         high: 100,
         series: {
-          'Stacks': {
+          Stacks: {
             lineSmooth: Chartist.Interpolation.none({
               fillHoles: true,
             }),
@@ -304,13 +304,13 @@ const VoidformGraph = ({
           //   showPoint: false,
           //   show: false,
           // },
-          'Insanity': {
+          Insanity: {
             lineSmooth: Chartist.Interpolation.none({
               fillHoles: true,
             }),
             showPoint: false,
           },
-          'Mindbender': {
+          Mindbender: {
             showArea: true,
             lineSmooth: Chartist.Interpolation.none({
               fillHoles: true,
@@ -319,7 +319,7 @@ const VoidformGraph = ({
           'Void Torrent': {
             showArea: true,
           },
-          'Dispersion': {
+          Dispersion: {
             showArea: true,
             // lineSmooth: Chartist.Interpolation.step({
             //   fillHoles: true,

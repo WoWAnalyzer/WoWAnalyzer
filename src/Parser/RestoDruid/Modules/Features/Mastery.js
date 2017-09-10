@@ -120,9 +120,9 @@ class Mastery extends Module {
     const oneRatingMasteryHealing = noMasteryHealing * MASTERY_BONUS_FROM_ONE_RATING * hotCount;
 
     return {
-      'noMastery': noMasteryHealing,
-      'oneStack': oneStackMasteryHealing,
-      'oneRating': oneRatingMasteryHealing,
+      noMastery: noMasteryHealing,
+      oneStack: oneStackMasteryHealing,
+      oneRating: oneRatingMasteryHealing,
     };
   }
 

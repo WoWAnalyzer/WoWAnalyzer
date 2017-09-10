@@ -137,8 +137,8 @@ class Pain extends React.PureComponent {
 
     const abilitiesAll = {};
     const categories = {
-      'generated': 'Pain Generators',
-      'spent': 'Pain Spenders',
+      generated: 'Pain Generators',
+      spent: 'Pain Spenders',
     };
 
     const overCapBySecond = {};

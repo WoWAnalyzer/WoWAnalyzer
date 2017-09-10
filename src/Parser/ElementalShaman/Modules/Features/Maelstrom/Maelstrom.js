@@ -137,8 +137,8 @@ class Maelstrom extends React.PureComponent {
 
     const abilitiesAll = {};
     const categories = {
-      'generated': 'Generated',
-      'spend': 'Spend',
+      generated: 'Generated',
+      spend: 'Spend',
     };
 
     const overCapBySecond = {};

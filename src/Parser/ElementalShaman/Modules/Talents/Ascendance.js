@@ -20,7 +20,7 @@ class Ascendance extends Module {
     [SPELLS.ELEMENTAL_BLAST.id]: 1,
     [SPELLS.FLAME_SHOCK.id]: 1,
     [SPELLS.LIGHTNING_BOLT.id]: 1,
-    'others': 1,
+    others: 1,
   };
 
   on_initialized() {

@@ -9,6 +9,8 @@ module.exports = {
       ignoreConstructors: false,
       avoidQuotes: true,
     }],
+    // https://github.com/airbnb/javascript#objects--quoted-props
+    'quote-props': ['warn', 'as-needed', { keywords: false, unnecessary: true, numbers: false }],
 
     // Variables
     // https://github.com/airbnb/javascript#variables--unary-increment-decrement
