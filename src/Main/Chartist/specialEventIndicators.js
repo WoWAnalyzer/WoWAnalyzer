@@ -15,25 +15,23 @@ const drawLine = (chartRect, stepLength, value) => {
   };
 };
 
-const specialEventIndicators = (options) => {
-  return (chart) => {
-    options = Chartist.extend({}, defaultOptions, options);
+const specialEventIndicators = (options) => (chart) => {
+  options = Chartist.extend({}, defaultOptions, options);
 
-    if (chart instanceof Chartist.Line) {
-      chart.on('draw', (data) => {
-        if (data.type === 'line' && options.series.indexOf(data.series.className) !== -1) {
-          data.element.remove(); // don't show a line, we're handling this one.
-          data.values.forEach((point, x) => {
-            if (point !== undefined) {
-              const line = drawLine(data.chartRect, data.axisX.stepLength, x);
+  if (chart instanceof Chartist.Line) {
+    chart.on('draw', (data) => {
+      if (data.type === 'line' && options.series.indexOf(data.series.className) !== -1) {
+        data.element.remove(); // don't show a line, we're handling this one.
+        data.values.forEach((point, x) => {
+          if (point !== undefined) {
+            const line = drawLine(data.chartRect, data.axisX.stepLength, x);
 
-              data.group.elem('line', line, 'ct-line');
-            }
-          });
-        }
-      });
-    }
-  };
+            data.group.elem('line', line, 'ct-line');
+          }
+        });
+      }
+    });
+  }
 };
 
 export default specialEventIndicators;

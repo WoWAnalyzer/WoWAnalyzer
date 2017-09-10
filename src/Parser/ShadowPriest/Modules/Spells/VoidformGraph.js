@@ -78,13 +78,9 @@ const VoidformGraph = ({
   const INSANITY_DRAIN_INCREASE_BY_SECOND = Math.round(INSANITY_DRAIN_INCREASE * INSANITY_DRAIN_MODIFIER);
 
 
-  const atLabel = (timestamp) => {
-    return Math.floor((timestamp - voidform.start) / RESOLUTION_MS);
-  };
+  const atLabel = (timestamp) => Math.floor((timestamp - voidform.start) / RESOLUTION_MS);
 
-  const voidFormIsOver = (i) => {
-    return voidform.start + i * RESOLUTION_MS >= voidform.ended;
-  };
+  const voidFormIsOver = (i) => voidform.start + i * RESOLUTION_MS >= voidform.ended;
 
   const fillData = (array, eventStart, eventEnd, data = false) => {
     const amountOfSteps = Math.round((eventEnd - eventStart) / RESOLUTION_MS);

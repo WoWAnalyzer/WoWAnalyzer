@@ -44,6 +44,11 @@ module.exports = {
       allowUnboundThis: true,
     }],
     'arrow-spacing': ['warn', { before: true, after: true }],
+    // Don't enable 'arrow-body-style' as there are common situations where not following this rule improves readability
+    // https://github.com/airbnb/javascript#arrows--implicit-return
+    // 'arrow-body-style': ['warn', 'as-needed', {
+    //   requireReturnForObjectLiteral: false,
+    // }],
 
     // Variables
     // https://github.com/airbnb/javascript#variables--unary-increment-decrement

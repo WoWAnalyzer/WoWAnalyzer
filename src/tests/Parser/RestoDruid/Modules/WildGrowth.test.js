@@ -110,7 +110,7 @@ describe('RestoDruid/Modules/WildGrowth', () => {
       const parser = new WildGrowth({
         playerId: scenario.playerId,
       });
-      expect(parser.reorderEvents(scenario.events).map((event) => { return event.testid; })).toEqual(scenario.result);
+      expect(parser.reorderEvents(scenario.events).map((event) => event.testid)).toEqual(scenario.result);
     });
   });
 });
