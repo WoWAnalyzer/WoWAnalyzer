@@ -3,6 +3,13 @@ module.exports = {
   "rules": {
     // Based on https://github.com/airbnb/javascript#blocks--cuddled-elses
 
+    // Objects
+    // https://github.com/airbnb/javascript#es6-object-shorthand
+    'object-shorthand': ['warn', 'always', {
+      ignoreConstructors: false,
+      avoidQuotes: true,
+    }],
+
     // Variables
     // https://github.com/airbnb/javascript#variables--unary-increment-decrement
     'no-plusplus': 'warn',

@@ -58,7 +58,7 @@ class Item extends React.PureComponent {
       .then(response => response.json())
       .then(data => {
         this.setState({
-          data: data,
+          data,
         });
       });
   }
@@ -135,7 +135,7 @@ class Cast extends React.PureComponent {
       .then(response => response.json())
       .then(data => {
         this.setState({
-          data: data,
+          data,
         });
       });
   }

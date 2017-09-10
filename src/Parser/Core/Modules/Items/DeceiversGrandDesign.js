@@ -112,7 +112,7 @@ class DecieversGrandDesign extends Module {
       }
 
       this.procs.push({
-        name: name,
+        name,
         report: this.owner.report.code,
         fight: this.owner.fight.id,
         target: targetId,
