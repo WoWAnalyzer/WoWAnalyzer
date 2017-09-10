@@ -4,6 +4,10 @@ module.exports = {
     // https://github.com/airbnb/javascript#commas--dangling
     "comma-dangle": ["warn", "always-multiline"],
 
+    // Objects
+    // https://github.com/airbnb/javascript#objects--no-new
+    'no-new-object': 'warn',
+
     // Semicolons:
     'no-extra-semi': 'warn',
     // https://github.com/airbnb/javascript#semicolons--required
