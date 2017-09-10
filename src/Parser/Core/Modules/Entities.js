@@ -18,25 +18,27 @@ class Entities extends Module {
   on_applybuff(event) {
     this.applyBuff(event);
   }
+  // TODO: Add a sanity check to the `refreshbuff` event that checks if a buff that's being refreshed was applied, if it wasn't it might be a broken pre-combat applied buff not shown in the combatantinfo event
   // We don't store/use durations, so refreshing buff is useless. Removing the buff actually interferes with the `minimalActiveTime` parameter of `getBuff`.
   // on_refreshbuff(event) {
   //   this.removeActiveBuff(event);
   //   this.applyActiveBuff(event);
   // }
-  on_removebuff(event) {
-    this.removeBuff(event);
-  }
   on_removebuffstack(event) {
     this.removeBuffStack(event);
   }
+  on_removebuff(event) {
+    this.removeBuff(event);
+  }
+
   on_applydebuff(event) {
     this.applyBuff(event, true);
   }
-  on_removedebuff(event) {
-    this.removeBuff(event, true);
-  }
   on_removedebuffstack(event) {
     this.removeBuffStack(event, true);
+  }
+  on_removedebuff(event) {
+    this.removeBuff(event, true);
   }
 
   applyBuff(event, isDebuff) {
@@ -108,6 +110,7 @@ class Entities extends Module {
     if (existingBuff) {
       existingBuff.stacks = event.stack + 1;
     }
+    // TODO: Fire a custom event or something with the amount of gained stacks
   }
 
   // Surely this can be done with a couple less loops???
