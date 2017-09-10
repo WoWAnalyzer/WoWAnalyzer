@@ -15,6 +15,8 @@ module.exports = {
     // Arrays
     // https://github.com/airbnb/javascript#arrays--literals
     'no-array-constructor': 'warn',
+    // https://github.com/airbnb/javascript#arrays--callback-return
+    'array-callback-return': 'warn',
 
     // Variables
     // https://github.com/airbnb/javascript#variables--unary-increment-decrement
