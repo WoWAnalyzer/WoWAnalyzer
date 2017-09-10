@@ -13,6 +13,8 @@ import DoomguardInfernal from './Modules/Features/DoomguardInfernal';
 import UnusedLordOfFlames from './Modules/Features/UnusedLordOfFlames';
 import GrimoireOfService from './Modules/Features/GrimoireOfService';
 import ImmolateUptime from './Modules/Features/ImmolateUptime';
+import Havoc from './Modules/Features/Havoc';
+import DamageDone from './Modules/Features/DamageDone';
 
 import ReverseEntropy from './Modules/Talents/ReverseEntropy';
 import Eradication from './Modules/Talents/Eradication';
@@ -22,7 +24,6 @@ import EmpoweredLifeTap from './Modules/Talents/EmpoweredLifeTap';
 import SoulShardEvents from './Modules/SoulShards/SoulShardEvents';
 import SoulShardTracker from './Modules/SoulShards/SoulShardTracker';
 import SoulShardDetails from './Modules/SoulShards/SoulShardDetails';
-import DamageDone from './Modules/Features/DamageDone';
 
 import Backdraft from './Modules/Talents/Backdraft';
 import RoaringBlaze from './Modules/Talents/RoaringBlaze';
@@ -49,6 +50,7 @@ class CombatLogParser extends CoreCombatLogParser {
     immolateUptime: ImmolateUptime,
 
     //Core
+    havoc: Havoc,
     soulShardEvents: SoulShardEvents,
     soulShardTracker: SoulShardTracker,
     soulShardDetails: SoulShardDetails,
