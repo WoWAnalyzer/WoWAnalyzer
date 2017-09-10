@@ -1,4 +1,5 @@
 export default `
+10-09-2017 - Added Channel Demonfire and Havoc cleave module (not 100% accurate though). (by Chizu)
 09-09-2017 - Added Reverse Entropy, Eradication and Empowered Life Tap modules. (by Chizu)
 08-09-2017 - Added Backdraft, Roaring Blaze and Shadowburn modules. (by Chizu)
 07-09-2017 - Added Immolate uptime tracker. (by Chizu)
