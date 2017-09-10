@@ -48,7 +48,7 @@ class CorruptionUptime extends Module {
     );
   }
 
-  statisticOrder = STATISTIC_ORDER.CORE(3);
+  statisticOrder = STATISTIC_ORDER.CORE(4);
 }
 
 export default CorruptionUptime;

@@ -120,7 +120,7 @@ class UABuffTracker extends Module {
     );
   }
 
-  statisticOrder = STATISTIC_ORDER.CORE(4);
+  statisticOrder = STATISTIC_ORDER.CORE(5);
 }
 
 export default UABuffTracker;

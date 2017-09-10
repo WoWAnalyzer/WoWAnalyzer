@@ -48,7 +48,7 @@ class AgonyUptime extends Module {
     );
   }
 
-  statisticOrder = STATISTIC_ORDER.CORE(2);
+  statisticOrder = STATISTIC_ORDER.CORE(3);
 }
 
 export default AgonyUptime;
