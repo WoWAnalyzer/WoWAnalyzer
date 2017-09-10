@@ -29,8 +29,8 @@ class Mastery extends Module {
     }
 
     this.masteryBuffs = new Map([
-        [ SPELLS.ASTRAL_HARMONY.id, { amount:4000 } ],
-        [ SPELLS.JACINS_RUSE.id, { amount:3000 } ],
+        [SPELLS.ASTRAL_HARMONY.id, { amount:4000 }],
+        [SPELLS.JACINS_RUSE.id, { amount:3000 }],
     ]);
     for (const buffObj of this.masteryBuffs.values()) {
   		buffObj.attributableHealing = 0;

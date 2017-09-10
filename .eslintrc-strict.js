@@ -52,6 +52,8 @@ module.exports = {
     // https://github.com/airbnb/javascript#whitespace--padded-blocks
     'padded-blocks': ['warn', { blocks: 'never', classes: 'never', switches: 'never' }],
     // https://github.com/airbnb/javascript#whitespace--in-parens
-    'space-in-parens': ['error', 'never'],
+    'space-in-parens': ['warn', 'never'],
+    // https://github.com/airbnb/javascript#whitespace--in-brackets
+    'array-bracket-spacing': ['warn', 'never'],
   },
 };

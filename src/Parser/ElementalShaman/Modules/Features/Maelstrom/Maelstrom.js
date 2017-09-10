@@ -82,7 +82,7 @@ class Maelstrom extends React.PureComponent {
         }
       });
 
-    return Promise.all([ manaPromise, bossHealthPromise ]);
+    return Promise.all([manaPromise, bossHealthPromise]);
   }
 
   render() {

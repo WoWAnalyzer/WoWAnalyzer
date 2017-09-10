@@ -82,7 +82,7 @@ class Pain extends React.PureComponent {
         }
       });
 
-    return Promise.all([ painPromise, bossHealthPromise ]);
+    return Promise.all([painPromise, bossHealthPromise]);
   }
 
   render() {
