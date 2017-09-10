@@ -70,7 +70,7 @@ class EmpoweredLifeTap extends Module {
           .regular(recommended - 0.05).major(recommended - 0.15);
       });
   }
-  
+
   statistic() {
     return (
       <StatisticBox
@@ -82,7 +82,7 @@ class EmpoweredLifeTap extends Module {
     );
   }
 
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(2);
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(1);
 }
 
 export default EmpoweredLifeTap;

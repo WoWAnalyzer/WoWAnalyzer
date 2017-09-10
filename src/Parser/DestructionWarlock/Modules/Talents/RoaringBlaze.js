@@ -77,7 +77,7 @@ class RoaringBlaze extends Module {
     );
   }
 
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(1);
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(0);
 }
 
 export default RoaringBlaze;

@@ -81,7 +81,7 @@ class EmpoweredLifeTap extends Module {
     );
   }
 
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(2);
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(3);
 }
 
 export default EmpoweredLifeTap;

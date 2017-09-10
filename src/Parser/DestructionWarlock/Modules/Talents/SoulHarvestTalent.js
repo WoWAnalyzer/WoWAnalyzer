@@ -32,7 +32,7 @@ class SoulHarvestTalent extends Module {
     );
   }
 
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(3);
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(4);
 }
 
 export default SoulHarvestTalent;

@@ -93,7 +93,7 @@ class Sniping extends Module {
     );
   }
 
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(6);
+  statisticOrder = STATISTIC_ORDER.CORE(5);
 }
 
 export default Sniping;

@@ -41,7 +41,7 @@ class ImmolateUptime extends Module {
     );
   }
 
-  statisticOrder = STATISTIC_ORDER.CORE(3);
+  statisticOrder = STATISTIC_ORDER.CORE(2);
 }
 
 export default ImmolateUptime;
