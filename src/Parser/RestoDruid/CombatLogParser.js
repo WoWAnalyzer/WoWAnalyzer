@@ -88,7 +88,7 @@ class CombatLogParser extends CoreCombatLogParser {
     wildGrowth: WildGrowth, // event reorder, don't need to do anything?
     lifebloom: Lifebloom, // DONE
     efflorescence: Efflorescence, // DONE
-    clearcasting: Clearcasting,
+    clearcasting: Clearcasting, // DONE
     treeOfLife: TreeOfLife,
     flourish: Flourish,
     innervate: Innervate,
@@ -173,12 +173,12 @@ class CombatLogParser extends CoreCombatLogParser {
     const xonisCaressHealingPercentage = this.getPercentageOfTotalHealingDone(this.modules.xonisCaress.healing);
     const ekowraithHealingPercentage = this.getPercentageOfTotalHealingDone(this.modules.ekowraith.healing);
     const ekowraithDamageReductionHealingPercentage = (this.modules.ekowraith.damageReductionHealing / (this.modules.healingDone.total.effective + this.modules.ekowraith.damageReductionHealing));
-    let lifebloomUptime = this.modules.lifebloom.uptime / this.fightDuration;
-    if (lifebloomUptime > 1) {
-      lifebloomUptime -= 1;
-    }
-    const efflorescenceUptime = this.modules.efflorescence.totalUptime / this.fightDuration;
-    const unusedClearcastings = 1 - (this.modules.clearcasting.used / this.modules.clearcasting.total);
+    //let lifebloomUptime = this.modules.lifebloom.uptime / this.fightDuration;
+    //if (lifebloomUptime > 1) {
+    //  lifebloomUptime -= 1;
+    //}
+    //const efflorescenceUptime = this.modules.efflorescence.totalUptime / this.fightDuration;
+    //const unusedClearcastings = 1 - (this.modules.clearcasting.used / this.modules.clearcasting.total);
 
 /*
     if (nonHealingTimePercentage > 0.3) {
@@ -208,6 +208,7 @@ class CombatLogParser extends CoreCombatLogParser {
       });
     }
     */
+    /*
     if (!hasMoC && unusedClearcastings > 0.10) {
       results.addIssue({
         issue: <span>Your <a href="http://www.wowhead.com/spell=16870" target="_blank" rel="noopener noreferrer">Clearcasting</a> proccs should be used as soon as you get them so they are not overwritten.</span>,
@@ -216,6 +217,7 @@ class CombatLogParser extends CoreCombatLogParser {
         importance: getIssueImportance(unusedClearcastings, 0.5, 0.75, true),
       });
     }
+    */
     const wgsExtended = (this.modules.flourish.wildGrowth / wildGrowthTargets) / this.modules.flourish.flourishCounter;
     if (hasFlourish && wgsExtended < 1) {
       results.addIssue({
@@ -283,12 +285,13 @@ class CombatLogParser extends CoreCombatLogParser {
     const wgsPerRejuv = wildGrowths / rejuvenations;
     if (wgsPerRejuv < 0.20) {
       results.addIssue({
-        issue: <span>Your <a href="http://www.wowhead.com/spell=48438" target="_blank" rel="noopener noreferrer">Wild growth</a> to rejuv ratio can be improved, try to cast more wild growths if possible as it's usually more efficient.</span>,
+        issue: <span>Your <a href="http://www.wowhead.com/spell=48438" target="_blank" rel="noopener noreferrer">Wild growth</a> to rejuv ratio can be improved, try to cast more wild growths if possible as it is usually more efficient.</span>,
         stat: `${wildGrowths}/${rejuvenations} WGs per rejuv. (>20% is recommended)`,
         icon: SPELLS.WILD_GROWTH.icon,
         importance: getIssueImportance(wgsPerRejuv, 0.15, 0.1),
       });
     }
+    /*
     const regrowths = this.modules.clearcasting.used + this.modules.clearcasting.nonCCRegrowths;
     const nonCCRegrowths = this.modules.clearcasting.nonCCRegrowths;
     if (nonCCRegrowths / regrowths > 0) {
@@ -299,6 +302,7 @@ class CombatLogParser extends CoreCombatLogParser {
         importance: getIssueImportance(nonCCRegrowths / regrowths, 0.5, 0.25, true),
       });
     }
+    */
     const promisesThroughput = (this.modules.darkmoonDeckPromises.savings / rejuvenationManaCost) * oneRejuvenationThroughput;
     if (this.modules.darkmoonDeckPromises.active && promisesThroughput < 0.035) {
       results.addIssue({
@@ -523,6 +527,7 @@ class CombatLogParser extends CoreCombatLogParser {
           )}
         />
       ),
+      /*
       !hasMoC && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.CLEARCASTING_BUFF.id} />}
@@ -534,6 +539,7 @@ class CombatLogParser extends CoreCombatLogParser {
           )}
         />
       ),
+      */
       ...results.statistics,
     ];
 

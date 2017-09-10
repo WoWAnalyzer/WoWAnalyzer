@@ -21,5 +21,20 @@ export default {
     regular: 0.70,
     major: 0.50,
   },
+  MISSED_CLEARCASTS: {
+    minor: 0.10,
+    regular: 0.50,
+    major: 0.75,
+  },
+  NON_CC_REGROWTHS: {
+    minor: 0.00,
+    regular: 0.25,
+    major: 0.50,
+  },
+  TOL_THROUGHPUT: {
+    minor: 0.11,
+    regular: 0.07,
+    major: 0.04,
+  },
 
 };

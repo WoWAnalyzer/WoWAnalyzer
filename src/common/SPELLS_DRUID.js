@@ -38,6 +38,11 @@ export default {
     name: 'Essence of G\'Hanir',
     icon: 'inv_staff_2h_artifactnordrassil_d_01',
   },
+  INCARNATION_TREE_OF_LIFE: {
+    id: 33891,
+    name: 'Incarnation: Tree of Life',
+    icon: 'ability_druid_improvedtreeform',
+  },
   IRONBARK: {
     id: 102342,
     name: 'Ironbark',
@@ -356,23 +361,6 @@ export default {
     id:186396,
     name:'Persistance',
     icon: 'spell_nature_starfall',
-  },
-
-  // Talents:
-  CULTIVATION_TALENT: {
-    id: 200390,
-    name: 'Cultivation',
-    icon: 'ability_druid_nourish',
-  },
-  SPRING_BLOSSOMS_TALENT: {
-    id: 207385,
-    name: 'Spring Blossoms',
-    icon: 'inv_misc_trailofflowers',
-  },
-  CENARION_WARD_TALENT: {
-    id: 102351,
-    name: 'Cenarion Ward',
-    icon: 'ability_druid_naturalperfection',
   },
 
   // GUARDIAN //

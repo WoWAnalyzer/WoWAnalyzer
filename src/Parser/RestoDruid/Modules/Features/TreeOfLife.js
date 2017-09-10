@@ -1,11 +1,20 @@
-import SPELLS from 'common/SPELLS';
+import React from 'react';
+import StatisticBox from 'Main/StatisticBox';
+import { formatPercentage } from 'common/format';
+import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
 
+import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS'
 import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
+import SuggestionThresholds from '../../SuggestionThresholds';
 
 const debug = false;
+
 const WG_TARGETS = 6;
 const REJUV_BASE_MANA = 10;
 const REJUVENATION_REDUCED_MANA = 0.3;
@@ -18,9 +27,13 @@ const TREE_OF_LIFE_DURATION = 30000;
 class TreeOfLife extends Module {
   static dependencies = {
     healingDone: HealingDone,
+    combatants: Combatants,
   };
 
   hasGermination = false;
+  hasTol = false;
+  hasCs = false;
+
   totalHealingEncounter = 0;
   totalHealingDuringToL = 0;
   totalHealingFromRejuvenationDuringToL = 0;
@@ -42,8 +55,14 @@ class TreeOfLife extends Module {
   proccs = 0;
 
   on_initialized() {
-    this.hasGermination = this.owner.modules.combatants.selected.lv90Talent === SPELLS.GERMINATION_TALENT.id;
+    this.hasTol = this.combatants.selected.hasTalent(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id);
+    this.hasCs = this.combatants.selected.hasHead(ITEMS.CHAMELEON_SONG.id);
+
+    this.active = this.hasTol || this.hasCs;
+
+    this.hasGermination = this.combatants.selected.hasTalent(SPELLS.GERMINATION_TALENT.id);
   }
+
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
     if (ABILITIES_AFFECTED_BY_HEALING_INCREASES.indexOf(spellId) === -1) {
@@ -170,6 +189,89 @@ class TreeOfLife extends Module {
     debug && console.log(`throughputHelmet: ${(this.throughputHelmet * 100).toFixed(2)}%`);
     debug && console.log(`tolcasts: ${this.tolCasts}`);
   }
+
+  /*
+  // Tree of Life
+    const hasFlourish = this.modules.combatants.selected.lv100Talent === SPELLS.FLOURISH_TALENT.id;
+    const hasTreeOfLife = this.modules.combatants.selected.lv75Talent === SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id;
+    const wildGrowthTargets = 6;
+    const rejuvenationManaCost = 22000;
+    const oneRejuvenationThroughput = this.getPercentageOfTotalHealingDone(this.modules.treeOfLife.totalHealingFromRejuvenationEncounter) / this.modules.treeOfLife.totalRejuvenationsEncounter;
+    const rejuvenationIncreasedEffect = this.getPercentageOfTotalHealingDone(this.modules.treeOfLife.totalHealingFromRejuvenationDuringToL / 1.15 - this.modules.treeOfLife.totalHealingFromRejuvenationDuringToL / (1.15 * 1.5));
+    const tolIncreasedHealingDone = this.getPercentageOfTotalHealingDone(this.modules.treeOfLife.totalHealingDuringToL - this.modules.treeOfLife.totalHealingDuringToL / 1.15);
+    const rejuvenationMana = (((this.modules.treeOfLife.totalRejuvenationsDuringToL * 10) * 0.3) / 10) * oneRejuvenationThroughput;
+    const wildGrowthIncreasedEffect = this.getPercentageOfTotalHealingDone(this.modules.treeOfLife.totalHealingFromWildgrowthsDuringToL / 1.15 - this.modules.treeOfLife.totalHealingFromWildgrowthsDuringToL / (1.15 * (8 / 6)));
+    const treeOfLifeThroughput = rejuvenationIncreasedEffect + tolIncreasedHealingDone + rejuvenationMana + wildGrowthIncreasedEffect;
+    let treeOfLifeUptime = this.modules.combatants.selected.getBuffUptime(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) / this.fightDuration;
+
+    // Chameleon Song
+    const rejuvenationIncreasedEffectHelmet = this.getPercentageOfTotalHealingDone(this.modules.treeOfLife.totalHealingFromRejuvenationDuringToLHelmet / 1.15 - this.modules.treeOfLife.totalHealingFromRejuvenationDuringToLHelmet / (1.15 * 1.5));
+    const tolIncreasedHealingDoneHelmet = this.getPercentageOfTotalHealingDone(this.modules.treeOfLife.totalHealingDuringToLHelmet - this.modules.treeOfLife.totalHealingDuringToLHelmet / 1.15);
+    const rejuvenationManaHelmet = (((this.modules.treeOfLife.totalRejuvenationsDuringToLHelmet * 10) * 0.3) / 10) * oneRejuvenationThroughput;
+    const wildGrowthIncreasedEffectHelmet = this.getPercentageOfTotalHealingDone(this.modules.treeOfLife.totalHealingFromWildgrowthsDuringToLHelmet / 1.15 - this.modules.treeOfLife.totalHealingFromWildgrowthsDuringToLHelmet / (1.15 * (8 / 6)));
+    const treeOfLifeThroughputHelmet = rejuvenationIncreasedEffectHelmet + tolIncreasedHealingDoneHelmet + rejuvenationManaHelmet + wildGrowthIncreasedEffectHelmet;
+    const treeOfLifeUptimeHelmet = (this.modules.combatants.selected.getBuffUptime(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) - (this.modules.treeOfLife.tolCasts * 30000) + this.modules.treeOfLife.adjustHelmetUptime) / this.fightDuration;
+    if (this.modules.combatants.selected.hasHead(ITEMS.CHAMELEON_SONG.id)) {
+      treeOfLifeUptime -= treeOfLifeUptimeHelmet;
+    }
+    const treeOfLifeProccHelmet = formatPercentage(this.modules.treeOfLife.proccs / wildGrowths);
+    */
+
+    suggestions(when) {
+      if(!this.hasTol) { return; }
+
+      when(this.treeOfLifeThroughput).isLessThan(SuggestionThresholds.TOL_THROUGHPUT.minor)
+        .addSuggestion((suggest, actual, recommended) => {
+          return suggest(<span>Your <SpellLink id={SPELLS.INCARNATION_TREE_OF_LIFE.id} /> is not providing you much throughput. You may want to plan your CD usage better or pick another talent.</span>)
+            .icon(SPELLS.INCARNATION_TREE_OF_LIFE.icon)
+            .actual(`${formatPercentage(this.treeOfLifeThroughput)}% healing`)
+            .recommended(`>${Math.round(formatPercentage(recommended))}% is recommended`)
+            .regular(SuggestionThresholds.TOL_THROUGHPUT.regular).major(SuggestionThresholds.TOL_THROUGHPUT.major);
+        });
+    }
+
+    statistic() {
+      if(!this.hasTol) { return; }
+
+      return (
+        <StatisticBox
+          icon={<SpellIcon id={SPELLS.INCARNATION_TREE_OF_LIFE.id} />}
+          value={`${formatPercentage(this.treeOfLifeThroughput)} %`}
+          label="Tree of Life Healing"
+          tooltip={`
+            <ul>
+              <li>${formatPercentage(this.rejuvenationIncreasedEffect * 100)}% from increased rejuvenation healing</li>
+              <li>${formatPercentage(this.rejuvenationMana * 100)}% from reduced rejuvenation cost</li>
+              <li>${formatPercentage(this.wildGrowthIncreasedEffect * 100)}% from increased wildgrowth healing</li>
+              <li>${formatPercentage(this.tolIncreasedHealingDone * 100)}% from overall increased healing</li>
+              <li>${formatPercentage(this.treeOfLifeUptime * 100)}% uptime</li>
+            </ul>
+          `}
+        />
+      );
+    }
+
+    item() {
+      if(!this.hasCs) { return; }
+
+      return {
+        item: ITEMS.CHAMELEON_SONG,
+        result: (
+          <dfn data-tip={`
+            <ul>
+              <li>${formatPercentage(this.rejuvenationIncreasedEffectHelmet * 100)}% from increased rejuvenation effect</li>
+              <li>${formatPercentage(this.rejuvenationManaHelmet * 100)}% from reduced rejuvenation cost</li>
+              <li>${formatPercentage(this.wildGrowthIncreasedEffectHelmet * 100)}% from increased wildgrowth effect</li>
+              <li>${formatPercentage(this.tolIncreasedHealingDoneHelmet * 100)}% from overall increased healing effect</li>
+              <li>${formatPercentage(this.treeOfLifeUptimeHelmet * 100)}% uptime</li>
+              <li>${formatPercentage(this.treeOfLifeProccHelmet)}% procc rate</li> // TODO fix
+            </ul>`}>
+            {this.owner.formatItemHealingDone(0/* TODO get raw healing amount */)}
+          </dfn>
+        ),
+      };
+    }
+
 }
 
 export default TreeOfLife;
