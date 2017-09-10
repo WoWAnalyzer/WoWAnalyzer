@@ -7,7 +7,6 @@ import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Combatants from 'Parser/Core/Modules/Combatants';
 class OssuaryUptime extends Module {
-<<<<<<< HEAD
   static dependencies = {
     combatants: Combatants,
   };
@@ -15,8 +14,7 @@ class OssuaryUptime extends Module {
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.OSSUARY_TALENT.id);
   }
-=======
->>>>>>> upstream/master
+
   statistic() {
     const ossuaryUptime = this.owner.modules.combatants.getBuffUptime(SPELLS.OSSUARY.id);
     const ossuaryUptimePercentage = ossuaryUptime / this.owner.fightDuration;
