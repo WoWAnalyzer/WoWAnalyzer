@@ -180,6 +180,7 @@ class CombatLogParser {
             console.log('Loading', moduleClass.name, 'with dependencies:', Object.keys(availableDependencies));
           }
         }
+        // eslint-disable-next-line new-cap
         this._modules[desiredModuleName] = new moduleClass(this, availableDependencies, Object.keys(this._modules).length);
       } else {
         debug && console.warn(moduleClass.name, 'could not be loaded, missing dependencies:', missingDependencies.map(d => d.name));

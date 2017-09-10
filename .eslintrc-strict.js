@@ -60,5 +60,17 @@ module.exports = {
 
     // Commas
     'comma-style': ['warn', 'last'],
+
+    // Naming Conventions
+    // Can't enable camelcase since our `on_` event handlers don't follow it, and it also doesn't make sense for tier19_4set to be flagged (tier194set is terrible, as are other alternatives)
+    // https://github.com/airbnb/javascript#naming--camelCase
+    // camelcase: ['warn', { properties: 'never' }],
+    // https://github.com/airbnb/javascript#naming--PascalCase
+    'new-cap': ['warn', {
+      newIsCap: true,
+      newIsCapExceptions: [],
+      capIsNew: false,
+      capIsNewExceptions: ['Immutable.Map', 'Immutable.Set', 'Immutable.List'],
+    }],
   },
 };
