@@ -34,6 +34,8 @@ module.exports = {
       named: 'never',
       asyncArrow: 'always'
     }],
+    // https://github.com/airbnb/javascript#functions--spread-vs-apply
+    'prefer-spread': 'warn',
 
     // Variables
     // https://github.com/airbnb/javascript#variables--unary-increment-decrement
