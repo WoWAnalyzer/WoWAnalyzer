@@ -81,13 +81,13 @@ class CombatLogParser extends CoreCombatLogParser {
 
   static specModules = {
     // Features
-    lowHealthHealing: LowHealthHealing,
-    alwaysBeCasting: AlwaysBeCasting,
-    cooldownTracker: CooldownTracker,
-    castEfficiency: CastEfficiency,
-    wildGrowth: WildGrowth,
-    lifebloom: Lifebloom,
-    efflorescence: Efflorescence,
+    lowHealthHealing: LowHealthHealing, // looks core
+    alwaysBeCasting: AlwaysBeCasting, // DONE
+    cooldownTracker: CooldownTracker, // looks core
+    castEfficiency: CastEfficiency, // looks core
+    wildGrowth: WildGrowth, // event reorder, don't need to do anything?
+    lifebloom: Lifebloom, // DONE
+    efflorescence: Efflorescence, // DONE
     clearcasting: Clearcasting,
     treeOfLife: TreeOfLife,
     flourish: Flourish,
@@ -96,11 +96,11 @@ class CombatLogParser extends CoreCombatLogParser {
     dreamwalker: Dreamwalker,
     soulOfTheForest: SoulOfTheForest,
     essenceOfGhanir: EssenceOfGhanir,
-    mastery: Mastery,
-    springBlossoms: SpringBlossoms,
-    cultivation: Cultivation,
-    cenarionWard: CenarionWard,
-    naturesEssence: NaturesEssence,
+    mastery: Mastery, // already handled
+    springBlossoms: SpringBlossoms, // already handled
+    cultivation: Cultivation, // already handled
+    cenarionWard: CenarionWard, // already handled
+    naturesEssence: NaturesEssence, // already handled
 
     // Legendaries:
     ekowraith: Ekowraith,
@@ -109,10 +109,10 @@ class CombatLogParser extends CoreCombatLogParser {
     darkTitanAdvice: DarkTitanAdvice,
     essenceOfInfusion: EssenceOfInfusion,
     tearstone: Tearstone,
-    t19_2set: T19_2Set,
+    t19_2set: T19_2Set, // already handled
     t20: T20,
-    t21_2set: T21_2Set,
-    t21_4set: T21_4Set,
+    t21_2set: T21_2Set, // already handled
+    t21_4set: T21_4Set, // already handled
     // TODO:
     // Edraith
     // Aman'Thul's Wisdom
@@ -198,6 +198,7 @@ class CombatLogParser extends CoreCombatLogParser {
       });
     }
     */
+    /*
     if (efflorescenceUptime < 0.85) {
       results.addIssue({
         issue: <span>Your <a href="http://www.wowhead.com/spell=81269" target="_blank" rel="noopener noreferrer">Efflorescence</a> uptime can be improved.</span>,
@@ -206,6 +207,7 @@ class CombatLogParser extends CoreCombatLogParser {
         importance: getIssueImportance(efflorescenceUptime, 0.7, 0.5),
       });
     }
+    */
     if (!hasMoC && unusedClearcastings > 0.10) {
       results.addIssue({
         issue: <span>Your <a href="http://www.wowhead.com/spell=16870" target="_blank" rel="noopener noreferrer">Clearcasting</a> proccs should be used as soon as you get them so they are not overwritten.</span>,
@@ -232,6 +234,7 @@ class CombatLogParser extends CoreCombatLogParser {
         importance: getIssueImportance(cwExtended, 0, 0),
       });
     }
+    /*
     if (lifebloomUptime < 0.85) {
       results.addIssue({
         issue: <span>Your <a href="http://www.wowhead.com/spell=33763" target="_blank" rel="noopener noreferrer">Lifebloom</a> uptime can be improved.</span>,
@@ -240,6 +243,7 @@ class CombatLogParser extends CoreCombatLogParser {
         importance: getIssueImportance(lifebloomUptime, 0.7, 0.5),
       });
     }
+    */
     // Innervate mana spent
     if ((this.modules.innervate.manaSaved / this.modules.innervate.innervateCount) < 220000) {
       results.addIssue({
@@ -331,16 +335,20 @@ class CombatLogParser extends CoreCombatLogParser {
         )}
       />,
       */
+      /*
       <StatisticBox
         icon={<SpellIcon id={SPELLS.LIFEBLOOM_HOT_HEAL.id} />}
         value={`${formatPercentage(lifebloomUptime)} %`}
         label='Lifebloom uptime'
       />,
+      */
+      /*
       <StatisticBox
         icon={<SpellIcon id={SPELLS.EFFLORESCENCE_CAST.id} />}
         value={`${formatPercentage(efflorescenceUptime)} %`}
         label='Efflorescence uptime'
       />,
+      */
       <StatisticBox
         icon={<SpellIcon id={SPELLS.ESSENCE_OF_GHANIR.id} />}
         value={`${formatThroughput(this.modules.essenceOfGhanir.healingIncreaseHealing)}`}

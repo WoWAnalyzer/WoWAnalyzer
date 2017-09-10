@@ -1,13 +1,23 @@
-import Module from 'Parser/Core/Module';
+import React from 'react';
+import StatisticBox from 'Main/StatisticBox';
+import { formatPercentage } from 'common/format';
+import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
+
 import SPELLS from 'common/SPELLS';
+import Module from 'Parser/Core/Module';
+
+import SuggestionThresholds from '../../SuggestionThresholds';
 
 const debug = false;
 
 class Efflorescence extends Module {
+
   lastCast = null;
   totalUptime = 0;
   counter = 0;
   firstEffloTickTimestamp = null;
+
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     if (SPELLS.EFFLORESCENCE_CAST.id !== spellId) {
@@ -56,6 +66,32 @@ class Efflorescence extends Module {
     debug && console.log(`Last tick: ${lastTick}`);
     debug && console.log(`Total uptime: ${this.totalUptime}`);
   }
+
+  suggestions(when) {
+    const uptimePercent = this.totalUptime / this.owner.fightDuration;
+
+    when(uptimePercent).isLessThan(SuggestionThresholds.EFFLORESCENCE_UPTIME.minor)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<span>Your <SpellLink id={SPELLS.EFFLORESCENCE_CAST.id} /> uptime can be improved.</span>)
+          .icon(SPELLS.EFFLORESCENCE_CAST.icon)
+          .actual(`${formatPercentage(uptimePercent)}% uptime`)
+          .recommended(`>${Math.round(formatPercentage(recommended))}% is recommended`)
+          .regular(SuggestionThresholds.EFFLORESCENCE_UPTIME.regular).major(SuggestionThresholds.EFFLORESCENCE_UPTIME.major);
+      });
+  }
+
+  statistic() {
+    const uptimePercent = this.totalUptime / this.owner.fightDuration;
+
+    return (
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.EFFLORESCENCE_CAST.id} />}
+        value={`${formatPercentage(uptimePercent)} %`}
+        label="Efflorescence Uptime"
+      />
+    );
+  }
+
 }
 
 export default Efflorescence;
