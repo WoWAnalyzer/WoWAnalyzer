@@ -17,7 +17,7 @@ describe('Brewmaster.BlackoutCombo', () => {
   it('blackout combo checks to see if active while talent is not selected', () => {
     const hasTalentMethod = jest.fn();
     hasTalentMethod.mockReturnValue(false);
-    const combatant = { selected: { hasTalent: hasTalentMethod}};
+    const combatant = { selected: { hasTalent: hasTalentMethod } };
     blackoutCombo.combatants = combatant;
     blackoutCombo.triggerEvent('initialized');
     expect(hasTalentMethod).toBeCalledWith(SPELLS.BLACKOUT_COMBO_TALENT.id);
@@ -26,7 +26,7 @@ describe('Brewmaster.BlackoutCombo', () => {
   it('blackout combo checks to see if active while talent is selected', () => {
     const hasTalentMethod = jest.fn();
     hasTalentMethod.mockReturnValue(true);
-    const combatant = { selected: { hasTalent: hasTalentMethod}};
+    const combatant = { selected: { hasTalent: hasTalentMethod } };
     blackoutCombo.combatants = combatant;
     blackoutCombo.triggerEvent('initialized');
     expect(hasTalentMethod).toBeCalledWith(SPELLS.BLACKOUT_COMBO_TALENT.id);

@@ -79,15 +79,15 @@ export const removebuff = [
 // This absorb is used from the damage line
 // Damage taken: amount: 0, absorbed: 0, overkill: 0
 export const absorbed = [
-  { type: "absorbed", sourceid: enemy, targetid: thisPlayer, amount: 9, timestamp: 3500, ability: { guid: 99999 }, extraAbility: { guid: 1, type: 1}},
-  { type: "absorbed", sourceid: enemy, targetid: thisPlayer, amount: 7, timestamp: 6000, ability: { guid: 99999 }, extraAbility: { guid: 1, type: 1}},
+  { type: "absorbed", sourceid: enemy, targetid: thisPlayer, amount: 9, timestamp: 3500, ability: { guid: 99999 }, extraAbility: { guid: 1, type: 1 } },
+  { type: "absorbed", sourceid: enemy, targetid: thisPlayer, amount: 7, timestamp: 6000, ability: { guid: 99999 }, extraAbility: { guid: 1, type: 1 } },
 ];
 
 // Damage taken: amount: 0, absorbed: 0, overkill: 0
 // Stagger damage taken: amount: 0, absorbed: -599, overkill: 0
 export const staggerAbsorbed = [
-  { type: "absorbed", sourceid: enemy, targetid: thisPlayer, amount: 300, timestamp: 500, ability: { guid: SPELLS.STAGGER.id }, extraAbility: { guid: 1, type: 1}},
-  { type: "absorbed", sourceid: enemy, targetid: thisPlayer, amount: 299, timestamp: 5700, ability: { guid: SPELLS.STAGGER.id }, extraAbility: { guid: 4, type: 4}},
+  { type: "absorbed", sourceid: enemy, targetid: thisPlayer, amount: 300, timestamp: 500, ability: { guid: SPELLS.STAGGER.id }, extraAbility: { guid: 1, type: 1 } },
+  { type: "absorbed", sourceid: enemy, targetid: thisPlayer, amount: 299, timestamp: 5700, ability: { guid: SPELLS.STAGGER.id }, extraAbility: { guid: 4, type: 4 } },
 ];
 
 // Damage taken: amount: 0, absorbed: 0, overkill: 0

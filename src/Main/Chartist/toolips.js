@@ -50,7 +50,7 @@ const tooltips = (options) => {
             line.attr(location);
           } else {
             line = data.svg.elem('line', 'location', 'ct-line');
-            line.attr({ style: 'stroke-width:1px;stroke:#fff'});
+            line.attr({ style: 'stroke-width:1px;stroke:#fff' });
           }
         }
       });

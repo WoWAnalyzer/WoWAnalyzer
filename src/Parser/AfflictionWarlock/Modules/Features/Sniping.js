@@ -51,7 +51,7 @@ class Sniping extends Module {
       }
       if (enemy.type === 'NPC') {
         if (!this._removeDebuffs.some(e => e.timestamp === event.timestamp && e.targetID === event.targetID && e.targetInstance === event.targetInstance)) {
-          this._removeDebuffs.push({timestamp: event.timestamp, name: event.ability.name, abilityID: event.ability.guid, targetID: event.targetID, targetInstance: event.targetInstance});
+          this._removeDebuffs.push({ timestamp: event.timestamp, name: event.ability.name, abilityID: event.ability.guid, targetID: event.targetID, targetInstance: event.targetInstance });
         }
       } else if (!this._lastEnergizeWasted) {
         //it's a boss kill and we didn't waste the shard, subtract it

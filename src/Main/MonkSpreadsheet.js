@@ -18,7 +18,7 @@ class MonkSpreadsheet extends React.Component {
 
     const styles = {
       cellBorder: { borderTop: '.5px solid #dddddd' },
-      table:  {borderBottom: '1px solid #dddddd', borderTop: '1px solid #dddddd', align: 'left', padding: '8px', float: 'left', margin: '2px' },
+      table:  { borderBottom: '1px solid #dddddd', borderTop: '1px solid #dddddd', align: 'left', padding: '8px', float: 'left', margin: '2px' },
     };
 
     return (

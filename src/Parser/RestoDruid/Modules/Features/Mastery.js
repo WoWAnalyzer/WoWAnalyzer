@@ -1,10 +1,10 @@
-import {formatPercentage} from 'common/format';
+import { formatPercentage } from 'common/format';
 import Module from 'Parser/Core/Module';
 import SPELLS from 'common/SPELLS';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-import {ABILITIES_AFFECTED_BY_HEALING_INCREASES} from '../../Constants';
-import {HEALS_MASTERY_STACK} from '../../Constants';
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
+import { HEALS_MASTERY_STACK } from '../../Constants';
 
 const MASTERY_BONUS_FROM_ONE_RATING = 1 / 66666.6666666;
 const BASE_MASTERY_PERCENT = 0.048;

@@ -113,7 +113,7 @@ const VoidformGraph = ({
     endOfVoidformData[i]      = null;
   }
 
-  voidform.stacks.forEach(({stack, timestamp}) => {
+  voidform.stacks.forEach(({ stack, timestamp }) => {
     fillData(stacksData, timestamp, timestamp + 1000, stack);
   });
 

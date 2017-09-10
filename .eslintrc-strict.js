@@ -55,5 +55,7 @@ module.exports = {
     'space-in-parens': ['warn', 'never'],
     // https://github.com/airbnb/javascript#whitespace--in-brackets
     'array-bracket-spacing': ['warn', 'never'],
+    // https://github.com/airbnb/javascript#whitespace--in-braces
+    'object-curly-spacing': ['warn', 'always'],
   },
 };

@@ -27,7 +27,7 @@ class VoidTorrent extends Module {
     this._previousVoidTorrentCast = event;
   }
 
-  finishedVoidTorrent({event, wastedTime}) {
+  finishedVoidTorrent({ event, wastedTime }) {
     this._voidTorrents[this._previousVoidTorrentCast.timestamp] = {
       ...this._voidTorrents[this._previousVoidTorrentCast.timestamp],
       wastedTime,
@@ -57,7 +57,7 @@ class VoidTorrent extends Module {
     if (spellId === SPELLS.VOID_TORRENT.id) {
       const timeSpentChanneling = event.timestamp - this._previousVoidTorrentCast.timestamp;
       const wastedTime = (VOID_TORRENT_MAX_TIME - TIMESTAMP_ERROR_MARGIN) > timeSpentChanneling ? (VOID_TORRENT_MAX_TIME - timeSpentChanneling) : 0;
-      this.finishedVoidTorrent({event, wastedTime});
+      this.finishedVoidTorrent({ event, wastedTime });
     }
   }
 
