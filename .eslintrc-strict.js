@@ -28,8 +28,12 @@ module.exports = {
     // Functions
     // https://github.com/airbnb/javascript#es6-rest
     'prefer-rest-params': 'warn',
-    // https://github.com/airbnb/javascript#functions--constructor
-    'no-new-func': 'warn',
+    // https://github.com/airbnb/javascript#functions--signature-spacing
+    'space-before-function-paren': ['warn', {
+      anonymous: 'always',
+      named: 'never',
+      asyncArrow: 'always'
+    }],
 
     // Variables
     // https://github.com/airbnb/javascript#variables--unary-increment-decrement
