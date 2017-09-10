@@ -13,6 +13,7 @@ import DoomguardInfernal from './Modules/Features/DoomguardInfernal';
 import UnusedLordOfFlames from './Modules/Features/UnusedLordOfFlames';
 import GrimoireOfService from './Modules/Features/GrimoireOfService';
 import ImmolateUptime from './Modules/Features/ImmolateUptime';
+import DimensionalRift from './Modules/Features/DimensionalRift';
 
 import ReverseEntropy from './Modules/Talents/ReverseEntropy';
 import Eradication from './Modules/Talents/Eradication';
@@ -43,10 +44,11 @@ class CombatLogParser extends CoreCombatLogParser {
     doomguardInfernal: DoomguardInfernal,
     unusedLordOfFlames: UnusedLordOfFlames,
     grimoireOfService: GrimoireOfService,
+    dimensionalRift: DimensionalRift,
 
     // DoTs
     immolateUptime: ImmolateUptime,
-    
+
     //Core
     soulShardEvents: SoulShardEvents,
     soulShardTracker: SoulShardTracker,
