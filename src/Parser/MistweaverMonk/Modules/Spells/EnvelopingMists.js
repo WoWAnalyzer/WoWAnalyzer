@@ -14,8 +14,8 @@ const debug = false;
 const EVM_HEALING_INCREASE = .3;
 
 const UNAFFECTED_SPELLS = [
-    SPELLS.CRANE_HEAL.id,
-  ];
+  SPELLS.CRANE_HEAL.id,
+];
 
 class EnvelopingMists extends Module {
   static dependencies = {
@@ -33,15 +33,15 @@ class EnvelopingMists extends Module {
       return;
     }
 
-    if(this.combatants.players[targetId]) {
-      if(this.combatants.players[targetId].hasBuff(SPELLS.ENVELOPING_MISTS.id, event.timestamp, 0, 0) === true) {
+    if (this.combatants.players[targetId]) {
+      if (this.combatants.players[targetId].hasBuff(SPELLS.ENVELOPING_MISTS.id, event.timestamp, 0, 0) === true) {
         this.healing += calculateEffectiveHealing(event, EVM_HEALING_INCREASE);
       }
     }
   }
 
   on_finished() {
-    if(debug) {
+    if (debug) {
       console.log('EvM Healing Contribution: ' + this.healing);
     }
   }

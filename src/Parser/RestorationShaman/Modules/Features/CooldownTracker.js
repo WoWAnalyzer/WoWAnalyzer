@@ -199,7 +199,6 @@ class CooldownTracker extends CoreCooldownTracker {
     if (spellId === SPELLS.ASCENDANCE_CAST.id) {
       this.lastAsc = cooldown;
       this.hasBeenAscHealingOrCastEvent = true;
-
     }
     if (spellId === SPELLS.ANCESTRAL_GUIDANCE_CAST.id) {
       this.lastAG = cooldown;
@@ -328,7 +327,6 @@ class CooldownTracker extends CoreCooldownTracker {
      //this.agFeed[spellId] += (event.amount || 0);
      }
      */
-
   }
 
   on_byPlayer_absorbed(event) {

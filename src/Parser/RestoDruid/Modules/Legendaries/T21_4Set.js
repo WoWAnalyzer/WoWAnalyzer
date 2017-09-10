@@ -24,7 +24,7 @@ class T21_4Set extends Module {
     const spellId = event.ability.guid;
     const amount = event.amount + (event.absorbed === undefined ? 0 : event.absorbed);
 
-    if(this.combatants.selected.hasBuff(SPELLS.AWAKENED.id) && (spellId === SPELLS.YSERAS_GIFT_1.id || spellId === SPELLS.YSERAS_GIFT_2.id)) {
+    if (this.combatants.selected.hasBuff(SPELLS.AWAKENED.id) && (spellId === SPELLS.YSERAS_GIFT_1.id || spellId === SPELLS.YSERAS_GIFT_2.id)) {
       this.yserasDuringAwakenedHealing += amount;
     }
   }
@@ -44,7 +44,6 @@ class T21_4Set extends Module {
       ),
     };
   }
-
 }
 
 export default T21_4Set;

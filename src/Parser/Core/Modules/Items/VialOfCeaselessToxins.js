@@ -20,8 +20,7 @@ class VialOfCeaselessToxins extends Module {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.CEASELESS_TOXIN.id) {
-      this.totalCasts++;
-      return;
+      this.totalCasts += 1;
     }
   }
 

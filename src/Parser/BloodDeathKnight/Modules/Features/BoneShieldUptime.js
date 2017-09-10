@@ -7,10 +7,7 @@ import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class BoneShieldUptime extends Module {
-
-
   statistic() {
-
     const boneshieldUptime = this.owner.modules.combatants.getBuffUptime(SPELLS.BONE_SHIELD.id);
     const boneshieldUptimePercentage = boneshieldUptime / this.owner.fightDuration;
 

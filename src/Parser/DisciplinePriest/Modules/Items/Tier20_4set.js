@@ -52,7 +52,6 @@ class Tier20_4set extends Module {
       }
     }
   }
-  
 }
 
 export default Tier20_4set;

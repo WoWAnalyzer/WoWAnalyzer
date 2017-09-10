@@ -25,14 +25,14 @@ class EssenceFontMastery extends Module {
     const spellId = event.ability.guid;
 
     const targetId = event.targetID;
-    if(spellId === SPELLS.GUSTS_OF_MISTS.id) {
-      if(!this.combatants.players[targetId]) {
+    if (spellId === SPELLS.GUSTS_OF_MISTS.id) {
+      if (!this.combatants.players[targetId]) {
         return;
       }
-      if(this.combatants.players[targetId].hasBuff(SPELLS.ESSENCE_FONT_BUFF.id, event.timestamp, 0, 0) === true) {
+      if (this.combatants.players[targetId].hasBuff(SPELLS.ESSENCE_FONT_BUFF.id, event.timestamp, 0, 0) === true) {
         debug && console.log('Player ID: ' + event.targetID + '  Timestamp: ' + event.timestamp);
-        this.healEF++;
-        this.healing += (event.amount || 0 ) + (event.absorbed || 0);
+        this.healEF += 1;
+        this.healing += (event.amount || 0) + (event.absorbed || 0);
       }
     }
   }
@@ -40,13 +40,13 @@ class EssenceFontMastery extends Module {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
-    if(spellId === SPELLS.ESSENCE_FONT.id) {
-      this.castEF++;
+    if (spellId === SPELLS.ESSENCE_FONT.id) {
+      this.castEF += 1;
     }
   }
 
   on_finished() {
-    if(debug) {
+    if (debug) {
       console.log('EF Mastery Hots Casted into: ' + (this.healEF / 2));
       console.log('EF Mastery Healing Amount: ' + this.healing);
       console.log('EF Casts: ' + this.castEF);

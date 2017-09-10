@@ -46,7 +46,6 @@ class Castigation extends Module {
       }
     }
   }
-
 }
 
 export default Castigation;

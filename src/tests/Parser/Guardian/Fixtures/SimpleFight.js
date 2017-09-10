@@ -21,7 +21,7 @@ export const damageTaken = [
   { type: "damage", sourceid: enemy, targetid: thisPlayer, amount: 6000, timestamp: 13000, ability: { guid: 1, type: 1 } },
   { type: "damage", sourceid: enemy, targetid: thisPlayer, amount: 10000, timestamp: 14000, ability: { guid: 1, type: 1 } },
   { type: "damage", sourceid: enemy, targetid: thisPlayer, amount: 10000, timestamp: 15000, ability: { guid: 1, type: 1 } },
-]
+];
 
 export const buffsApplied = [
   { type: "applybuff", sourceid: thisPlayer, targetid: thisPlayer, timestamp: 2500, ability: { guid: SPELLS.GUARDIAN_OF_ELUNE.id, type: 1 } },
@@ -30,24 +30,24 @@ export const buffsApplied = [
   { type: "applybuff", sourceid: thisPlayer, targetid: thisPlayer, timestamp: 7500, ability: { guid: SPELLS.IRONFUR.id, type: 1 } },
   { type: "applybuff", sourceid: thisPlayer, targetid: thisPlayer, timestamp: 11500, ability: { guid: SPELLS.GUARDIAN_OF_ELUNE.id, type: 1 } },
   
-]
+];
 
 export const buffsRefreshed = [
   { type: "refreshbuff", sourceid: thisPlayer, targetid: thisPlayer, timestamp: 10500, ability: { guid: SPELLS.GORE_BEAR.id, type: 1 } },
   
-]
+];
 
 export const buffsRemoved = [
   { type: "removebuff", sourceid: thisPlayer, targetid: thisPlayer, timestamp: 3500, ability: { guid: SPELLS.GUARDIAN_OF_ELUNE.id, type: 1 } },
   { type: "removebuff", sourceid: thisPlayer, targetid: thisPlayer, timestamp: 13500, ability: { guid: SPELLS.IRONFUR.id, type: 1 } },  
-]
+];
 
 export const casts = [
   { type: "cast", sourceid: thisPlayer, targetid: thisPlayer, timestamp: 2500, ability: { guid: SPELLS.MANGLE_BEAR.id, type: 1 } },  
   { type: "cast", sourceid: thisPlayer, targetid: thisPlayer, timestamp: 3500, ability: { guid: SPELLS.IRONFUR.id, type: 1 } },
   { type: "cast", sourceid: thisPlayer, targetid: thisPlayer, timestamp: 7500, ability: { guid: SPELLS.IRONFUR.id, type: 1 } },
   { type: "cast", sourceid: thisPlayer, targetid: thisPlayer, timestamp: 11500, ability: { guid: SPELLS.MANGLE_BEAR.id, type: 1 } },
-]
+];
 
 export const SimpleFight = [
   ...damageTaken,

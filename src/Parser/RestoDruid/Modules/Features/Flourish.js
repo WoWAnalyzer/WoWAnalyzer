@@ -39,87 +39,87 @@ class Flourish extends Module {
       return;
     }
     debug && console.log("Flourish cast #: " + this.flourishCounter);
-    this.flourishCounter++;
+    this.flourishCounter += 1;
 
     // Wild growth
     const oldWgCount = this.wildGrowth;
     Object.keys(this.combatants.players)
       .map(player => this.combatants.players[player])
       .forEach((player) => {
-        if(player.hasBuff(SPELLS.WILD_GROWTH.id, event.timestamp, 0, 0) === true) {
-          this.wildGrowth++;
+        if (player.hasBuff(SPELLS.WILD_GROWTH.id, event.timestamp, 0, 0) === true) {
+          this.wildGrowth += 1;
         }
-    });
+      });
     // If we are using Tree Of Life, our WG statistics will be a little skewed since each WG gives 8 WG applications instead of 6.
     // We solve this by simply reducing WGs counter by 2.
-    if(this.wildGrowth > (oldWgCount+6)) {
-      this.wildGrowth = this.wildGrowth-2;
+    if (this.wildGrowth > (oldWgCount + 6)) {
+      this.wildGrowth = this.wildGrowth - 2;
     }
 
     // Rejuvenation
     Object.keys(this.combatants.players)
       .map(player => this.combatants.players[player])
       .forEach((player) => {
-        if(player.hasBuff(SPELLS.REJUVENATION.id, event.timestamp, 0, 0) === true) {
-          this.rejuvenation++;
+        if (player.hasBuff(SPELLS.REJUVENATION.id, event.timestamp, 0, 0) === true) {
+          this.rejuvenation += 1;
         }
-        if(this.hasGermination) {
-          if(player.hasBuff(SPELLS.REJUVENATION_GERMINATION.id, event.timestamp, 0, 0) === true) {
-            this.rejuvenation++;
+        if (this.hasGermination) {
+          if (player.hasBuff(SPELLS.REJUVENATION_GERMINATION.id, event.timestamp, 0, 0) === true) {
+            this.rejuvenation += 1;
           }
         }
-    });
+      });
 
     //Regrowth
     Object.keys(this.combatants.players)
       .map(player => this.combatants.players[player])
       .forEach((player) => {
-        if(player.hasBuff(SPELLS.REGROWTH.id, event.timestamp, 0, 0) === true) {
-          this.regrowth++;
+        if (player.hasBuff(SPELLS.REGROWTH.id, event.timestamp, 0, 0) === true) {
+          this.regrowth += 1;
         }
-    });
+      });
 
     // Cultivation
     Object.keys(this.combatants.players)
       .map(player => this.combatants.players[player])
       .forEach((player) => {
-        if(this.hasCultivation) {
-          if(player.hasBuff(SPELLS.CULTIVATION.id, event.timestamp, 0, 0) === true) {
-            this.cultivation++;
+        if (this.hasCultivation) {
+          if (player.hasBuff(SPELLS.CULTIVATION.id, event.timestamp, 0, 0) === true) {
+            this.cultivation += 1;
           }
         }
-    });
+      });
 
     // Cenarion Ward
     Object.keys(this.combatants.players)
       .map(player => this.combatants.players[player])
       .forEach((player) => {
-        if(this.hasCenarionWard) {
-          if(player.hasBuff(SPELLS.CENARION_WARD.id, event.timestamp, 0, 0) === true) {
-            this.cenarionWard++;
+        if (this.hasCenarionWard) {
+          if (player.hasBuff(SPELLS.CENARION_WARD.id, event.timestamp, 0, 0) === true) {
+            this.cenarionWard += 1;
           }
         }
-    });
+      });
 
     // Lifebloom
     Object.keys(this.combatants.players)
       .map(player => this.combatants.players[player])
       .forEach((player) => {
-        if(player.hasBuff(SPELLS.LIFEBLOOM_HOT_HEAL.id, event.timestamp, 0, 0) === true) {
-            this.lifebloom++;
+        if (player.hasBuff(SPELLS.LIFEBLOOM_HOT_HEAL.id, event.timestamp, 0, 0) === true) {
+          this.lifebloom += 1;
         }
-    });
+      });
 
     // Spring blossoms
     Object.keys(this.combatants.players)
       .map(player => this.combatants.players[player])
       .forEach((player) => {
-        if(this.hasSpringBlossoms) {
-          if(player.hasBuff(SPELLS.SPRING_BLOSSOMS.id, event.timestamp, 0, 0) === true) {
-              this.springBlossoms++;
+        if (this.hasSpringBlossoms) {
+          if (player.hasBuff(SPELLS.SPRING_BLOSSOMS.id, event.timestamp, 0, 0) === true) {
+            this.springBlossoms += 1;
           }
         }
-    });
+      });
   }
 }
 

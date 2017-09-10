@@ -167,7 +167,7 @@ class AlwaysBeCasting extends Module {
   on_toPlayer_applybuff(event) {
     this.applyActiveBuff(event);
   }
-  on_toPlayer_applybuffstack(event){
+  on_toPlayer_applybuffstack(event) {
     this.applyBuffStack(event);
   }
   on_toPlayer_removebuff(event) {
@@ -183,7 +183,7 @@ class AlwaysBeCasting extends Module {
     const spellId = event.ability.guid;
     let hasteGain = this.constructor.HASTE_BUFFS[spellId] || undefined;
     
-    if (this.constructor.STACKABLE_HASTE_BUFFS[spellId]){
+    if (this.constructor.STACKABLE_HASTE_BUFFS[spellId]) {
       hasteGain = this.constructor.STACKABLE_HASTE_BUFFS[spellId].Haste(this.combatants.selected);
       this.constructor.STACKABLE_HASTE_BUFFS[spellId].CurrentStacks += 1;
     }
@@ -199,13 +199,13 @@ class AlwaysBeCasting extends Module {
     const stackInfo = this.constructor.STACKABLE_HASTE_BUFFS[spellId];
     let hasteGain;
 
-    if (stackInfo){
+    if (stackInfo) {
       hasteGain = stackInfo.Haste(this.combatants.selected);
     }
 
     if (hasteGain) {
       //Only add haste stack if max stacks not already reached
-      if (stackInfo.MaxStacks === 0 || stackInfo.CurrentStacks < stackInfo.MaxStacks){
+      if (stackInfo.MaxStacks === 0 || stackInfo.CurrentStacks < stackInfo.MaxStacks) {
         this.applyHasteGain(hasteGain);
         stackInfo.CurrentStacks += 1;
       }
@@ -217,7 +217,7 @@ class AlwaysBeCasting extends Module {
     const spellId = event.ability.guid;
     let hasteLoss = this.constructor.HASTE_BUFFS[spellId] || undefined;
     
-    if (this.constructor.STACKABLE_HASTE_BUFFS[spellId]){
+    if (this.constructor.STACKABLE_HASTE_BUFFS[spellId]) {
       //When buff loss, it should lose haste equal to base buff haste * number of stacks
       // TODO: If possible it would be nice to make this so it doesn't mutate the static property
       // TODO: change the properties of STACKABLE_HASTE_BUFFS to lower case

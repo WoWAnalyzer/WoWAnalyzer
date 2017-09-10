@@ -15,7 +15,6 @@ class SoulFragments extends Module {
   }
 
   statistic() {
-
     const soulFragmentsCasts = this.abilityTracker.getAbility(SPELLS.SOUL_FRAGMENT.id).casts;
 
     const soulFragmentsCastsPerMinutes = (soulFragmentsCasts / this.owner.fightDuration) * 1000 * 60;

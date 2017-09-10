@@ -21,7 +21,7 @@ class ChiBurst extends Module {
   raidSize = 0;
 
 
-  on_initialized(){
+  on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.CHI_BURST_TALENT.id);
     this.raidSize = Object.entries(this.combatants.players).length;
   }
@@ -29,8 +29,8 @@ class ChiBurst extends Module {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
-    if(spellId === SPELLS.CHI_BURST_TALENT.id) {
-      this.castChiBurst++;
+    if (spellId === SPELLS.CHI_BURST_TALENT.id) {
+      this.castChiBurst += 1;
     }
   }
 
@@ -42,9 +42,9 @@ class ChiBurst extends Module {
       return;
     }
 
-    if(spellId === SPELLS.CHI_BURST_HEAL.id) {
+    if (spellId === SPELLS.CHI_BURST_HEAL.id) {
       this.healing += (event.amount || 0) + (event.absorbed || 0);
-      this.targetsChiBurst++;
+      this.targetsChiBurst += 1;
     }
   }
 
@@ -56,12 +56,12 @@ class ChiBurst extends Module {
           .actual(`${this.avgChiBurstTargets.toFixed(2)} targets hit per Chi Burst cast - ${formatPercentage(this.avgChiBurstTargets / this.raidSize)}% of raid hit`)
           .recommended(`30% of the raid hit is recommended`)
           .regular(recommended - .05).major(recommended - .1);
-        });
+      });
   }
 
   on_finished() {
     this.avgChiBurstTargets = this.targetsChiBurst / this.castChiBurst || 0;
-    if(debug) {
+    if (debug) {
       console.log('ChiBurst Casts: ' + this.castChiBurst);
       console.log('Total Chi Burst Healing: ' + this.healing);
       console.log('Chi Burst Targets Hit: ' + this.targetsChiBurst);

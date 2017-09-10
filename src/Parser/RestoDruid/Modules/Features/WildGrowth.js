@@ -18,7 +18,7 @@ class WildGrowth extends Module {
 
       // for WG cast events we look backwards through the events and any applybuff events we push forward
       if (event.type === "cast" && event.ability.guid === SPELLS.WILD_GROWTH.id) {
-        for (let _idx = idx - 1; _idx >= 0; _idx--) {
+        for (let _idx = idx - 1; _idx >= 0; _idx -= 1) {
           const _event = _events[_idx];
 
           if (_event.timestamp !== event.timestamp) {
@@ -42,7 +42,7 @@ class WildGrowth extends Module {
       }
 
       if (event.type === "cast" && event.ability.guid === SPELLS.REJUVENATION.id) {
-        for (let _idx = idx - 1; _idx >= 0; _idx--) {
+        for (let _idx = idx - 1; _idx >= 0; _idx -= 1) {
           const _event = _events[_idx];
 
           if (_event.timestamp !== event.timestamp) {

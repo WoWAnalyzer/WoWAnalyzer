@@ -22,8 +22,8 @@ class T20 extends Module {
   swiftmendHealing = 0;
 
   on_initialized() {
-    if(this.owner.modules.combatants.selected.lv15Talent === SPELLS.PROSPERITY_TALENT.id) {
-     this.swiftmendCooldown = 27;
+    if (this.owner.modules.combatants.selected.lv15Talent === SPELLS.PROSPERITY_TALENT.id) {
+      this.swiftmendCooldown = 27;
     }
   }
 
@@ -31,18 +31,18 @@ class T20 extends Module {
     const spellId = event.ability.guid;
 
     if (spellId === SPELLS.EFFLORESCENCE_HEAL.id) {
-      if(this.owner.modules.combatants.selected.hasBuff(SPELLS.BLOSSOMING_EFFLORESCENCE.id, event.timestamp, 0, 0)) {
+      if (this.owner.modules.combatants.selected.hasBuff(SPELLS.BLOSSOMING_EFFLORESCENCE.id, event.timestamp, 0, 0)) {
         this.healing += calculateEffectiveHealing(event, BLOSSOMING_EFFLORESCENCE_HEAL_INCREASE);
       }
-    } else if(spellId === SPELLS.SWIFTMEND.id) {
-      const hpPercentage = (event.hitPoints - event.amount)/event.maxHitPoints;
+    } else if (spellId === SPELLS.SWIFTMEND.id) {
+      const hpPercentage = (event.hitPoints - event.amount) / event.maxHitPoints;
       const cooldownReduction = (T20P2_MAX_SWIFTMEND_REDUCTION - (hpPercentage * T20P2_MAX_SWIFTMEND_REDUCTION));
       this.swiftmendReduced += this.swiftmendCooldown * cooldownReduction;
-      this.swiftmends++;
-      this.freeSwiftmends = this.swiftmendReduced/this.swiftmendCooldown;
+      this.swiftmends += 1;
+      this.freeSwiftmends = this.swiftmendReduced / this.swiftmendCooldown;
       this.swiftmendHealing += event.amount;
     }
-    this.swiftmendThroughput = (this.healing/this.swiftmends)*this.freeSwiftmends + this.swiftmendHealing/this.swiftmends;
+    this.swiftmendThroughput = (this.healing / this.swiftmends) * this.freeSwiftmends + this.swiftmendHealing / this.swiftmends;
   }
 
   on_finished() {

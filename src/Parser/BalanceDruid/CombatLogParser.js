@@ -21,39 +21,39 @@ import AstralPower from './Modules/Features/AstralPower';
 
 
 class CombatLogParser extends MainCombatLogParser {
-      static specModules = {
+  static specModules = {
       // Features
-      castEfficiency: CastEfficiency,
-      alwaysBeCasting: AlwaysBeCasting,
+    castEfficiency: CastEfficiency,
+    alwaysBeCasting: AlwaysBeCasting,
       //Modules made but not loaded in the first PR
-      moonfire: Moonfire,
-      sunfire: Sunfire,
-      newmoon: NewMoon,
-      halfmoon: HalfMoon,
-      fullmoon: FullMoon,
+    moonfire: Moonfire,
+    sunfire: Sunfire,
+    newmoon: NewMoon,
+    halfmoon: HalfMoon,
+    fullmoon: FullMoon,
       //solarunemp: SolarUnemp,
       //lunarumep: LunarUnemp,
       //lunarovercap: LunarOvercap,
       //solarovercap: SolarOvercap,
-      astralpower: AstralPower,
-    };
+    astralpower: AstralPower,
+  };
   
-    generateResults() {
-      const results = super.generateResults();
+  generateResults() {
+    const results = super.generateResults();
   
-      results.tabs = [
-        {
-          title: 'Suggestions',
-          url: 'suggestions',
-          render: () => (
+    results.tabs = [
+      {
+        title: 'Suggestions',
+        url: 'suggestions',
+        render: () => (
             <SuggestionsTab issues={results.issues} />
           ),
-        },
-        ...results.tabs,
-      ];
+      },
+      ...results.tabs,
+    ];
   
-      return results;
-    }
+    return results;
+  }
 }
 
 export default CombatLogParser;

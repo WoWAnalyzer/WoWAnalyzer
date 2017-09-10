@@ -38,11 +38,10 @@ class IronFur extends Module {
     // Physical
     if (event.ability.type === 1) {
       if (this.lastIronfurBuffApplied > 0) {
-        this.physicalHitsWithIronFur++;
+        this.physicalHitsWithIronFur += 1;
         this.physicalDamageWithIronFur += event.amount + (event.absorbed || 0) + (event.overkill || 0);
-      }
-      else {
-        this.physicalHitsWithoutIronFur++;
+      }      else {
+        this.physicalHitsWithoutIronFur += 1;
         this.physicalDamageWithoutIronFur += event.amount + (event.absorbed || 0) + (event.overkill || 0);
       }
     }
@@ -59,7 +58,7 @@ class IronFur extends Module {
   }
 
   suggestions(when) {
-    const physicalDamageMitigatedPercent = this.physicalDamageWithIronFur/(this.physicalDamageWithIronFur+this.physicalDamageWithoutIronFur);
+    const physicalDamageMitigatedPercent = this.physicalDamageWithIronFur / (this.physicalDamageWithIronFur + this.physicalDamageWithoutIronFur);
 
     when(physicalDamageMitigatedPercent).isLessThan(0.90)
       .addSuggestion((suggest, actual, recommended) => {
@@ -73,13 +72,13 @@ class IronFur extends Module {
 
   statistic() {
     const totalIronFurTime = this.combatants.selected.getBuffUptime(SPELLS.IRONFUR.id);
-    const physicalHitsMitigatedPercent = this.physicalHitsWithIronFur/(this.physicalHitsWithIronFur+this.physicalHitsWithoutIronFur);
-    const physicalDamageMitigatedPercent = this.physicalDamageWithIronFur/(this.physicalDamageWithIronFur+this.physicalDamageWithoutIronFur);
+    const physicalHitsMitigatedPercent = this.physicalHitsWithIronFur / (this.physicalHitsWithIronFur + this.physicalHitsWithoutIronFur);
+    const physicalDamageMitigatedPercent = this.physicalDamageWithIronFur / (this.physicalDamageWithIronFur + this.physicalDamageWithoutIronFur);
 
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.IRONFUR.id} />}
-        value={`${formatPercentage(totalIronFurTime/this.owner.fightDuration)}%`}
+        value={`${formatPercentage(totalIronFurTime / this.owner.fightDuration)}%`}
         label='Ironfur uptime'
         tooltip={`Ironfur usage breakdown:
             <ul>

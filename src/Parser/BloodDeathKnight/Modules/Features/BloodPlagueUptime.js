@@ -13,7 +13,7 @@ class BloodPlagueUptime extends Module {
 
   suggestions(when) {
     const bloodplagueUptime = this.enemies.getBuffUptime(SPELLS.BLOOD_PLAGUE.id) / this.owner.fightDuration;
-      when(bloodplagueUptime).isLessThan(.95)
+    when(bloodplagueUptime).isLessThan(.95)
         .addSuggestion((suggest, actual, recommended) => {
           return suggest('Your Blood Plauge uptime can be improved. Perhaps use some debuff tracker.')
             .icon(SPELLS.BLOOD_PLAGUE.icon)
@@ -21,7 +21,7 @@ class BloodPlagueUptime extends Module {
             .recommended(`>${formatPercentage(recommended)}% is recommended`)
             .regular(recommended - 0.05).major(recommended - 0.15);
         });
-    }
+  }
 
   statistic() {
     const bloodplagueUptime = this.enemies.getBuffUptime(SPELLS.BLOOD_PLAGUE.id) / this.owner.fightDuration;

@@ -21,11 +21,10 @@ class SpiritBomb extends Module {
     }
   }
 
-suggestions(when) {
+  suggestions(when) {
+    const spiritBombUptimePercentage = this.enemies.getBuffUptime(SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id) / this.owner.fightDuration;
 
-  const spiritBombUptimePercentage = this.enemies.getBuffUptime(SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id) / this.owner.fightDuration;
-
-  when(spiritBombUptimePercentage).isLessThan(0.95)
+    when(spiritBombUptimePercentage).isLessThan(0.95)
     .addSuggestion((suggest, actual, recommended) =>{
       return suggest(<span>Try to cast <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> more often. This is your core healing ability by applying <SpellLink id={SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id} /> debuff. Try to refresh it even if you have just one <SpellLink id={SPELLS.SOUL_FRAGMENT.id} /> available.</span>)
         .icon('inv_icon_shadowcouncilorb_purple')

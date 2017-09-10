@@ -61,7 +61,7 @@ class SoulShardBreakdown extends React.Component {
             {generated && generated
               .map(ability => (
                 <tr>
-                  <td style={{ width: '30%'}}>
+                  <td style={{ width: '30%' }}>
                     <SpellIcon id={ability.abilityId}/>{' '}
                     <SpellLink id={ability.abilityId}/>
                   </td>
@@ -100,7 +100,7 @@ class SoulShardBreakdown extends React.Component {
           {spent && spent
             .map(ability => (
               <tr>
-                <td style={{ width: '30%'}}>
+                <td style={{ width: '30%' }}>
                   <SpellIcon id={ability.abilityId}/>{' '}
                   <SpellLink id={ability.abilityId}/>
                 </td>

@@ -23,13 +23,13 @@ class BlooddrinkerTicks  extends Module {
 
   on_byPlayer_cast(event) {
     if (event.ability.guid === SPELLS.BLOODDRINKER.id) {
-      this._totalCasts++;
+      this._totalCasts += 1;
     }
   }
 
   on_byPlayer_damage(event) {
     if (event.ability.guid === SPELLS.BLOODDRINKER.id) {
-      this._currentTicks++;
+      this._currentTicks += 1;
     }
   }
 
@@ -37,7 +37,7 @@ class BlooddrinkerTicks  extends Module {
     if (event.ability.guid === SPELLS.BLOODDRINKER.id) {
       if (this._currentTicks < BLOODDRINKER_TICKS_PER_CAST) {
         this._wastedTicks += (BLOODDRINKER_TICKS_PER_CAST - this._currentTicks);
-        this._ruinedCasts++;
+        this._ruinedCasts += 1;
       }
       this._currentTicks = 0;
     }

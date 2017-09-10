@@ -26,18 +26,18 @@ class RefreshingJadeWind extends Module {
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
 
-    if(spellId === SPELLS.REFRESHING_JADE_WIND_TALENT.id) {
-      this.castRJW++;
+    if (spellId === SPELLS.REFRESHING_JADE_WIND_TALENT.id) {
+      this.castRJW += 1;
     }
   }
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
 
-    if(spellId === SPELLS.REFRESHING_JADE_WIND_HEAL.id) {
-      this.healsRJW++;
+    if (spellId === SPELLS.REFRESHING_JADE_WIND_HEAL.id) {
+      this.healsRJW += 1;
       this.healingRJW += event.amount;
-      if(event.overheal) {
+      if (event.overheal) {
         this.overhealingRJW += event.amount;
       }
     }
@@ -76,7 +76,7 @@ class RefreshingJadeWind extends Module {
   */
 
   on_finished() {
-    if(debug) {
+    if (debug) {
       console.log('RJW Casts: ' + this.castRJW);
       console.log('RJW Targets Hit: ' + this.healsRJW);
       console.log('RJW Targets Hit per Cast: ', (this.healsRJW / this.castRJW));

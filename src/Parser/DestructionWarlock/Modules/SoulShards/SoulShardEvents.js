@@ -34,7 +34,7 @@ class SoulShardEvents extends Module {
       //Havoc is somehow bugged in the sense that it doesn't gain the benefit of T20 2p set bonus, so if the target has Havoc, it doesn't matter if we have the set or not, otherwise it counts it in
       let rawFragments = hasHavoc ? 2 : (this._hasT20_2p ? 3 : 2);
       if (event.hitType === HIT_TYPES.CRIT) {
-        rawFragments++;
+        rawFragments += 1;
       }
       return rawFragments;
     },
@@ -102,8 +102,7 @@ class SoulShardEvents extends Module {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.DIMENSIONAL_RIFT_CAST.id) {
       this.processGenerators(event);
-    }
-    else if (this._FRAGMENT_SPENDING_ABILITIES[spellId]) {
+    }    else if (this._FRAGMENT_SPENDING_ABILITIES[spellId]) {
       this.processSpenders(event);
     }
   }
@@ -127,8 +126,7 @@ class SoulShardEvents extends Module {
     if (this._currentFragments + gainedFragmentsBeforeCap > MAX_FRAGMENTS) {
       gain = MAX_FRAGMENTS - this._currentFragments;
       waste = this._currentFragments + gainedFragmentsBeforeCap - MAX_FRAGMENTS;
-    }
-    else {
+    }    else {
       gain = gainedFragmentsBeforeCap;
     }
 
@@ -143,7 +141,6 @@ class SoulShardEvents extends Module {
 
     debug && console.log('++ ' + shardEvent.amount + '(w: ' + shardEvent.waste + ') = ' + shardEvent.currentFragments + ', ' + shardEvent.ability.name + ', orig: ', event);
     this.owner.triggerEvent('soulshardfragment_gained', shardEvent);
-
   }
   processSpenders(event) {
     const spellId = event.ability.guid;

@@ -9,10 +9,9 @@ import LazyLoadStatisticBox from 'Main/LazyLoadStatisticBox';
 import Module from 'Parser/Core/Module';
 
 const ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH = 0.1;
-const HP_THRESHOLD = 1 - 1/(1 + ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH);
+const HP_THRESHOLD = 1 - 1 / (1 + ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH);
 
 class AncestralVigor extends Module {
-
   loaded = false;
   totalLifeSaved = 0;
   on_initialized() {

@@ -41,8 +41,7 @@ class Stagger extends Module {
       }
       if (event.extraAbility.type === PHYSICAL_DAMAGE) {
         this.totalPhysicalStaggered += event.amount;
-      }
-      else {
+      }      else {
         this.totalMagicalStaggered += event.amount;
       }
     }
@@ -53,8 +52,7 @@ class Stagger extends Module {
       this.totalStaggerTaken += event.amount + (event.absorbed || 0);
       this.lastDamageEventWasStagger = event.timestamp;
       this.lastStaggerValue = event.amount + (event.absorbed || 0);
-    }
-    else {
+    }    else {
       this.lastDamageEventNotStagger = event.timestamp;
     }
   }
@@ -91,8 +89,8 @@ class Stagger extends Module {
           </ul>
           Damage taken from stagger:
           <ul>
-            <li>Total damage from stagger dot: ${formatThousands(this.totalStaggerTaken)} (${formatPercentage(this.totalStaggerTaken/totalStaggered)}% of total staggered)</li>
-            <li>Total damage removed from stagger dot before damaging you: ${formatThousands(damageAvoided)} (${formatPercentage(damageAvoided/totalStaggered)}% of total staggered)</li>
+            <li>Total damage from stagger dot: ${formatThousands(this.totalStaggerTaken)} (${formatPercentage(this.totalStaggerTaken / totalStaggered)}% of total staggered)</li>
+            <li>Total damage removed from stagger dot before damaging you: ${formatThousands(damageAvoided)} (${formatPercentage(damageAvoided / totalStaggered)}% of total staggered)</li>
           </ul>
         `}
       />

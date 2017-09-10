@@ -19,7 +19,7 @@ class Clearcasting extends Module {
     // Get the applied timestamp
     this.lastCCTimestamp = event.timestamp;
     debug && console.log("CC was applied");
-    this.total++;
+    this.total += 1;
   }
   on_byPlayer_refreshbuff(event) {
     const spellId = event.ability.guid;
@@ -29,7 +29,7 @@ class Clearcasting extends Module {
     // Get the applied timestamp
     this.lastCCTimestamp = event.timestamp;
     debug && console.log("CC was refreshed");
-    this.total++;
+    this.total += 1;
   }
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
@@ -37,22 +37,22 @@ class Clearcasting extends Module {
     if (SPELLS.REGROWTH.id !== spellId) {
       return;
     }
-    if(event.tick === true) {
+    if (event.tick === true) {
       return;
     }
 
     // Check for regrowths used without a clearcasting procc
-    if(this.lastRegrowthTimestamp !== event.timestamp) {
-      if(this.lastCCTimestamp == null) {
+    if (this.lastRegrowthTimestamp !== event.timestamp) {
+      if (this.lastCCTimestamp == null) { // TODO: Replace this with === or simple falsey check
         // We got no CC buff up
-        this.nonCCRegrowths++;
+        this.nonCCRegrowths += 1;
         return;
       }
       const clearcastingTimeframe = this.lastCCTimestamp + CLEARCASTING_DURATION;
       if (event.timestamp > clearcastingTimeframe) {
-        this.nonCCRegrowths++;
+        this.nonCCRegrowths += 1;
       } else {
-        this.used++;
+        this.used += 1;
         // Reset
         this.lastCCTimestamp = null;
       }

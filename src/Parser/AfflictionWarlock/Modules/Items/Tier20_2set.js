@@ -26,7 +26,7 @@ class Tier20_2set extends Module {
 
   on_byPlayer_damage(event) {
     if (UNSTABLE_AFFLICTION_DEBUFF_IDS.some(id => event.ability.guid === id)) {
-      this._totalTicks++;
+      this._totalTicks += 1;
       this.totalUAdamage += event.amount + (event.absorbed || 0);
     }
   }
@@ -47,7 +47,6 @@ class Tier20_2set extends Module {
         </dfn>
       ),
     };
-
   }
 }
 export default Tier20_2set;

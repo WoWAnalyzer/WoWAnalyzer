@@ -32,7 +32,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
   ];
 
   suggestions(when) {
-
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
 
     when(deadTimePercentage).isGreaterThan(0.15)
@@ -45,7 +44,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       });
   }
   statistic() {
-
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
 
     return (

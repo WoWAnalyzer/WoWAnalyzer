@@ -234,7 +234,7 @@ class App extends Component {
                   if (errorMessage.error) {
                     message = errorMessage.error;
                   }
-                } catch(error) {}
+                } catch (error) {}
               }
             }
 

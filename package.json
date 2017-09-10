@@ -56,7 +56,9 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "lint:strict": "eslint . -c .eslintrc-strict.js",
+    "lint:strict:fix": "eslint . -c .eslintrc-strict.js --fix"
   },
   "jest": {
     "collectCoverageFrom": [

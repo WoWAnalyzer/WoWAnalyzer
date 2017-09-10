@@ -35,18 +35,18 @@ class T20_4pc extends Module {
 
   on_toPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if(spellId === SPELLS.STAGGER_TAKEN.id) {
+    if (spellId === SPELLS.STAGGER_TAKEN.id) {
       this.lastStaggerTick = event.amount + (event.absorbed || 0);
     }
   }
 
   on_toPlayer_heal(event) {
     const spellId = event.ability.guid;
-    if(GIFT_OF_THE_OX_SPELLS.indexOf(spellId) !== -1) {
+    if (GIFT_OF_THE_OX_SPELLS.indexOf(spellId) !== -1) {
       const currentStagger = this.lastStaggerTick * this.staggerLength;
       this.staggerSaved += currentStagger - (currentStagger * T20_4PC_REDUCTION);
       this.lastStaggerTick *= T20_4PC_REDUCTION;
-      this.orbsEaten++;
+      this.orbsEaten += 1;
     }
   }
 
@@ -56,7 +56,7 @@ class T20_4pc extends Module {
   }
 
   item() {
-    const damageSavedPerSecond = this.staggerSaved/(this.owner.fightDuration/1000);
+    const damageSavedPerSecond = this.staggerSaved / (this.owner.fightDuration / 1000);
     return {
       id: `spell-${SPELLS.XUENS_BATTLEGEAR_4_PIECE_BUFF_BRM.id}`,
       icon: <SpellIcon id={SPELLS.XUENS_BATTLEGEAR_4_PIECE_BUFF_BRM.id} />,

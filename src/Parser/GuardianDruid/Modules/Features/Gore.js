@@ -22,7 +22,7 @@ class Gore extends Module {
     if (SPELLS.GORE_BEAR.id === spellId) {
       this.lastGoreProcTime = event.timestamp;
       debug && console.log('Gore applied');
-      this.totalProcs++;
+      this.totalProcs += 1;
     }
   }
 
@@ -32,8 +32,8 @@ class Gore extends Module {
       // Captured Overwritten Gore Buffs for use in wasted buff calculations
       this.lastGoreProcTime = event.timestamp;
       debug && console.log('Gore Overwritten');
-      this.totalProcs++;
-      this.overwrittenGoreProc++;
+      this.totalProcs += 1;
+      this.overwrittenGoreProc += 1;
     }
   }
 
@@ -42,16 +42,16 @@ class Gore extends Module {
     if (SPELLS.MANGLE_BEAR.id !== spellId) {
       return;
     }
-    if(this.lastGoreProcTime !== event.timestamp) {
-      if(this.lastGoreProcTime === 0) {
-        this.nonGoreMangle++;
+    if (this.lastGoreProcTime !== event.timestamp) {
+      if (this.lastGoreProcTime === 0) {
+        this.nonGoreMangle += 1;
         return;
       }
       const goreTimeframe = this.lastGoreProcTime + GORE_DURATION;
-      if(event.timestamp > goreTimeframe) {
-        this.nonGoreMangle++;
+      if (event.timestamp > goreTimeframe) {
+        this.nonGoreMangle += 1;
       } else {
-        this.consumedGoreProc++;
+        this.consumedGoreProc += 1;
         debug && console.log('Gore Proc Consumed / Timestamp: ' + event.timestamp);
         this.lastGoreProcTime = 0;
       }

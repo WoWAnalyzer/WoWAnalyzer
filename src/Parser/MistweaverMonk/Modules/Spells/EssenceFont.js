@@ -14,29 +14,29 @@ class EssenceFontMastery extends Module {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
-    if(spellId === SPELLS.ESSENCE_FONT.id) {
-      this.castEF++;
+    if (spellId === SPELLS.ESSENCE_FONT.id) {
+      this.castEF += 1;
     }
   }
 
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
 
-    if(spellId === SPELLS.ESSENCE_FONT_BUFF.id) {
-      this.targetsEF++;
+    if (spellId === SPELLS.ESSENCE_FONT_BUFF.id) {
+      this.targetsEF += 1;
     }
   }
 
   on_byPlayer_refreshbuff(event) {
     const spellId = event.ability.guid;
 
-    if(spellId === SPELLS.ESSENCE_FONT_BUFF.id) {
-      this.targetsEF++;
+    if (spellId === SPELLS.ESSENCE_FONT_BUFF.id) {
+      this.targetsEF += 1;
     }
   }
 
   on_finished() {
-    if(debug) {
+    if (debug) {
       console.log('EF Casts: ' + this.castEF);
       console.log('EF Targets Hit: ' + this.targetsEF);
       console.log('EF Avg Targets Hit per Cast: ' + (this.targetsEF / this.castEF));

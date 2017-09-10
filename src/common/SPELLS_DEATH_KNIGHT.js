@@ -26,31 +26,31 @@ export default {
   },
 
   HEART_STRIKE: {
-   id: 206930,
-   name: 'Heart Strike',
-   icon: 'inv_weapon_shortblade_40',
+    id: 206930,
+    name: 'Heart Strike',
+    icon: 'inv_weapon_shortblade_40',
   },
   MARROWREND: {
-   id: 195182,
-   name: 'Marrowrend',
-   icon: 'ability_deathknight_marrowrend',
+    id: 195182,
+    name: 'Marrowrend',
+    icon: 'ability_deathknight_marrowrend',
   },
   DEATH_STRIKE: {
-   id: 49998,
-   name: 'Death Strike',
-   icon: 'sspell-deathknight-butcher2',
+    id: 49998,
+    name: 'Death Strike',
+    icon: 'sspell-deathknight-butcher2',
   },
 
   BLOOD_PLAGUE: {
-   id: 55078,
-   name: 'Blood Plague',
-   icon: 'spell_deathknight_bloodplague',
+    id: 55078,
+    name: 'Blood Plague',
+    icon: 'spell_deathknight_bloodplague',
   },
 
   DEATHS_CARESS: {
-   id: 195292,
-   name: 'Death\'s Caress',
-   icon: 'ability_deathknight_deathscaress',
+    id: 195292,
+    name: 'Death\'s Caress',
+    icon: 'ability_deathknight_deathscaress',
   },
 
   BLOODDRINKER: {
@@ -67,9 +67,9 @@ export default {
   },
 
   DANCING_RUNE_WEAPON: {
-   id: 49028,
-   name: 'Dancing Rune Weapon',
-   icon: 'inv_sword_07',
+    id: 49028,
+    name: 'Dancing Rune Weapon',
+    icon: 'inv_sword_07',
   },
 
   VAMPIRIC_BLOOD: {

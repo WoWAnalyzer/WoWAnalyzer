@@ -47,13 +47,13 @@ class Tearstone extends Module {
       // "consume" the rejuv cast we were tracking
       this.rejuvTarget = null;
       this.rejuvTimestamp = null;
-        return;
+      return;
     }
 
     if ((SPELLS.REJUVENATION.id === spellId || SPELLS.REJUVENATION_GERMINATION.id === spellId)
       && (event.timestamp - this.wildgrowthTimestamp) < 200
       && this.wildGrowthTargets.indexOf(event.targetID) !== -1) {
-      this.rejuvs++;
+      this.rejuvs += 1;
     }
   }
 }

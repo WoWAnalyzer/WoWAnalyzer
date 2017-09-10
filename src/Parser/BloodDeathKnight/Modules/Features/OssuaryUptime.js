@@ -7,9 +7,7 @@ import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class OssuaryUptime extends Module {
-
   statistic() {
-
     const ossuaryUptime = this.owner.modules.combatants.getBuffUptime(SPELLS.OSSUARY.id);
     const ossuaryUptimePercentage = ossuaryUptime / this.owner.fightDuration;
 

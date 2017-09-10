@@ -60,7 +60,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     cast,
     spellId
   ) {
-
     super.recordCastTime(
       castStartTimestamp,
       globalCooldown,

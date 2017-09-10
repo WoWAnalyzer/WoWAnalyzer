@@ -9,10 +9,10 @@ class Rockbiter extends Module {
   maelstromWasted = 0;
 
   on_byPlayer_energize(event) {
-    if(event.ability.guid === SPELLS.ROCKBITER.id) {
-      if(event.classResources[0].amount >= MAELSTROM_THRESHOLD) {
+    if (event.ability.guid === SPELLS.ROCKBITER.id) {
+      if (event.classResources[0].amount >= MAELSTROM_THRESHOLD) {
         this.rockbiterOveruse.push(event);
-        this.maelstromWasted+= event.waste;
+        this.maelstromWasted += event.waste;
       }
     }
   }
@@ -29,7 +29,7 @@ class Rockbiter extends Module {
           .icon(SPELLS.ROCKBITER.icon)
           .actual(`${actual} wasted Maelstrom in ${this.rockbiterOveruse.length} RB uses`)
           .recommended(`No more than ${recommended} is recommended`)
-          .regular(recommended+50).major(recommended+100);
+          .regular(recommended + 50).major(recommended + 100);
       });
   }
 }

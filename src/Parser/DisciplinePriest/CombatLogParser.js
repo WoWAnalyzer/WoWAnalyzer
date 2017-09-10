@@ -171,7 +171,7 @@ class CombatLogParser extends CoreCombatLogParser {
           icon={<SpellIcon id={SPELLS.EVANGELISM_TALENT.id} />}
           value={`${formatNumber(this.modules.evangelism.evangelismStatistics.reduce((p, c) => p += c.healing, 0) / fightDuration * 1000)} HPS`}
           label={(
-            <dfn data-tip={`Evangelism accounted for approximately ${formatPercentage(this.getPercentageOfTotalHealingDone(this.modules.evangelism.evangelismStatistics.reduce((p, c) => p + c.healing, 0)) )}% of your healing.`}>
+            <dfn data-tip={`Evangelism accounted for approximately ${formatPercentage(this.getPercentageOfTotalHealingDone(this.modules.evangelism.evangelismStatistics.reduce((p, c) => p + c.healing, 0)))}% of your healing.`}>
               Evangelism contribution
             </dfn>
           )}
