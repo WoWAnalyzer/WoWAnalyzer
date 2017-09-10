@@ -24,7 +24,7 @@ import AppBackgroundImage from './AppBackgroundImage';
 
 import makeAnalyzerUrl from './makeAnalyzerUrl';
 
-const toolName = `WoW Analyzer`;
+const toolName = 'WoW Analyzer';
 const githubUrl = 'https://github.com/MartijnHols/WoWAnalyzer';
 
 class App extends Component {

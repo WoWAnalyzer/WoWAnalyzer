@@ -84,8 +84,8 @@ class PrePotion extends Module {
 
   on_finished() {
     if (debug) {
-      console.log("used potion:" + this.usedPrePotion);
-      console.log("used 2nd potion:" + this.usedSecondPotion);
+      console.log('used potion:' + this.usedPrePotion);
+      console.log('used 2nd potion:' + this.usedSecondPotion);
     }
   }
 

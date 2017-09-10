@@ -3,7 +3,7 @@ import { calculateSecondaryStatDefault } from 'common/stats';
 
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import ITEMS from "../../../common/ITEMS";
+import ITEMS from '../../../common/ITEMS';
 
 const debug = false;
 

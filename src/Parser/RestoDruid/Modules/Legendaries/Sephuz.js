@@ -31,7 +31,7 @@ class Sephuz extends CoreSephuz {
 
     if (spellId === SEPHUZ_BUFF_ID) {
       this.uptime += 10000;
-      console.log("Uptime: " + this.uptime);
+      console.log('Uptime: ' + this.uptime);
       return;
     }
   }

@@ -32,7 +32,7 @@ class LightningRod extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.LIGHTNING_ROD_TALENT.id} />}
         value={`${formatPercentage(this.rawUpdate)} %`}
-        label={`Uptime`}
+        label={'Uptime'}
       />
     );
   }

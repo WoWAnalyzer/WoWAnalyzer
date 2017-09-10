@@ -89,9 +89,9 @@ class Lifecycles extends Module {
 
   on_finished() {
     if (debug) {
-      console.log("Mana Reduced:" + this.manaSaved);
-      console.log("Viv Mana Reduced:" + this.manaSavedViv);
-      console.log("EnM Mana Reduced:" + this.manaSavedEnm);
+      console.log('Mana Reduced:' + this.manaSaved);
+      console.log('Viv Mana Reduced:' + this.manaSavedViv);
+      console.log('EnM Mana Reduced:' + this.manaSavedEnm);
     }
   }
 }

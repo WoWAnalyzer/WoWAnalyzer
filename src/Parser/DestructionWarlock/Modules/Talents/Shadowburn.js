@@ -34,7 +34,7 @@ class Shadowburn extends Module {
         expectedEnd: event.timestamp + SHADOWBURN_DEBUFF_DURATION,
       });
 
-      debug && console.log("Shadowburn applydebuff, debuffEnds:", JSON.stringify(this._expectedShadowburnDebuffEnds));
+      debug && console.log('Shadowburn applydebuff, debuffEnds:', JSON.stringify(this._expectedShadowburnDebuffEnds));
     }
   }
 
@@ -42,12 +42,12 @@ class Shadowburn extends Module {
     if (event.ability.guid === SPELLS.SHADOWBURN.id) {
       this._expectedShadowburnDebuffEnds.forEach(debuff => {
         if (debuff.targetID === event.targetID && debuff.targetInstance === event.targetInstance) {
-          debug && console.log("found SB, refreshing");
+          debug && console.log('found SB, refreshing');
           debuff.expectedEnd = event.timestamp + SHADOWBURN_DEBUFF_DURATION;
         }
       });
 
-      debug && console.log("Shadowburn refreshdebuff, debuffEnds:", JSON.stringify(this._expectedShadowburnDebuffEnds));
+      debug && console.log('Shadowburn refreshdebuff, debuffEnds:', JSON.stringify(this._expectedShadowburnDebuffEnds));
     }
   }
 
@@ -61,12 +61,12 @@ class Shadowburn extends Module {
 
       if (event.timestamp < this._expectedShadowburnDebuffEnds[debuffTargetIndex].expectedEnd) {
         //Shadowburn debuff expired sooner than it should = target died = generate another 5 fragments
-        debug && console.log("Shadowburn kill");
+        debug && console.log('Shadowburn kill');
         event.isFromShadowburnKill = true;
         this.owner.triggerEvent('shadowburn_kill', event);
       }
       this._expectedShadowburnDebuffEnds.splice(debuffTargetIndex, 1); //remove the debuff from array
-      debug && console.log("Shadowburn removedebuff (end), debuffEnds:", JSON.stringify(this._expectedShadowburnDebuffEnds));
+      debug && console.log('Shadowburn removedebuff (end), debuffEnds:', JSON.stringify(this._expectedShadowburnDebuffEnds));
     }
   }
 

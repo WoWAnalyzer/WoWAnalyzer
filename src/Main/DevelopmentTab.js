@@ -28,7 +28,7 @@ function selectText(node) {
   }
 }
 function formatThousands(number) {
-  return (Math.round(number || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+  return (Math.round(number || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 }
 
 class Item extends React.PureComponent {
@@ -68,7 +68,7 @@ class Item extends React.PureComponent {
     return `
 ${item.name.toUpperCase().replace(/[^A-Z ]/g, '').replace(/ /g, '_')}: {
   id: ${item.id},
-  name: '${item.name.replace("'", "\\'")}',
+  name: '${item.name.replace('\'', '\\\'')}',
   icon: '${item.icon}',
   quality: ITEM_QUALITIES.${getItemQualityLabel(item.quality).toUpperCase()},
 },`;
@@ -144,7 +144,7 @@ class Cast extends React.PureComponent {
     const data = this.state.data;
     const properties = [
       `id: ${data.id}`,
-      `name: '${data.name.replace("'", "\\'")}'`,
+      `name: '${data.name.replace('\'', '\\\'')}'`,
       `icon: '${data.icon}'`,
     ];
     if (data.powerCost) {

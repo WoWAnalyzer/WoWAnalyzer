@@ -85,12 +85,12 @@ class ThunderFocusTea extends Module {
       this.castsTft += this.castsTft;
     }
     if (debug) {
-      console.log("TFT Casts:" + this.castsTft);
-      console.log("Eff Buffed:" + this.castsTftEff);
-      console.log("Enm Buffed:" + this.castsTftEnm);
-      console.log("EF Buffed:" + this.castsTftEf);
-      console.log("Viv Buffed:" + this.castsTftViv);
-      console.log("REM Buffed:" + this.castsTftRem);
+      console.log('TFT Casts:' + this.castsTft);
+      console.log('Eff Buffed:' + this.castsTftEff);
+      console.log('Enm Buffed:' + this.castsTftEnm);
+      console.log('EF Buffed:' + this.castsTftEf);
+      console.log('Viv Buffed:' + this.castsTftViv);
+      console.log('REM Buffed:' + this.castsTftRem);
     }
   }
 
@@ -116,23 +116,23 @@ class ThunderFocusTea extends Module {
               <ul>
                 ${this.castsTftViv > 0 ?
                 `<li>${(this.castsTftViv)} Vivify buffed (${formatPercentage(this.castsTftViv / this.castsTft)}%)</li>`
-                : ""
+                : ''
                 }
                 ${this.castsTftRem > 0 ?
                 `<li>${(this.castsTftRem)} Renewing Mist buffed (${formatPercentage(this.castsTftRem / this.castsTft)}%)</li>`
-                : ""
+                : ''
                 }
                 ${this.castsTftEnm > 0 ?
                 `<li>${(this.castsTftEnm)} Enveloping Mists buffed (${formatPercentage(this.castsTftEnm / this.castsTft)}%)</li>`
-                : ""
+                : ''
                 }
                 ${this.castsTftEff > 0 ?
                 `<li>${(this.castsTftEff)} Effuse buffed (${formatPercentage(this.castsTftEff / this.castsTft)}%)</li>`
-                : ""
+                : ''
                 }
                 ${this.castsTftEf > 0 ?
                 `<li>${(this.castsTftEf)} Essence Font buffed (${formatPercentage(this.castsTftEf / this.castsTft)}%)</li>`
-                : ""
+                : ''
                 }
               </ul>
               `}>

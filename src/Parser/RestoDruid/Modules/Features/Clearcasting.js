@@ -18,7 +18,7 @@ class Clearcasting extends Module {
     }
     // Get the applied timestamp
     this.lastCCTimestamp = event.timestamp;
-    debug && console.log("CC was applied");
+    debug && console.log('CC was applied');
     this.total += 1;
   }
   on_byPlayer_refreshbuff(event) {
@@ -28,7 +28,7 @@ class Clearcasting extends Module {
     }
     // Get the applied timestamp
     this.lastCCTimestamp = event.timestamp;
-    debug && console.log("CC was refreshed");
+    debug && console.log('CC was refreshed');
     this.total += 1;
   }
   on_byPlayer_heal(event) {

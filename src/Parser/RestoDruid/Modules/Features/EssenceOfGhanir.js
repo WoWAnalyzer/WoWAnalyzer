@@ -46,7 +46,7 @@ class EssenceOfGhanir extends Module {
           this.dreamer += event.amount / 2;
           break;
         default:
-          console.error("EssenceOfGhanir: Error, could not identify this object as a HoT: %o", event);
+          console.error('EssenceOfGhanir: Error, could not identify this object as a HoT: %o', event);
       }
 
       if (SPELLS.REGROWTH.id === spellId && event.tick !== true) {

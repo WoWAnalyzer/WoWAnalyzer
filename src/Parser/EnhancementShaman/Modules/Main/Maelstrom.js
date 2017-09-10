@@ -141,8 +141,8 @@ class Maelstrom extends React.PureComponent {
     let lastSecFight = start;
     this.state.mana.series[0].events.forEach((event) => {
       //healing surge incorrectly cast as energize
-      if (event.type === "energize" && event.ability.guid === 188070) {
-        event.type = "cast";
+      if (event.type === 'energize' && event.ability.guid === 188070) {
+        event.type = 'cast';
       }
 
       const secIntoFight = Math.floor((event.timestamp - start) / 1000);

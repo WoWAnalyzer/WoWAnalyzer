@@ -151,8 +151,8 @@ class SheilunsGift extends Module {
         icon={<SpellIcon id={SPELLS.SHEILUNS_GIFT.id} />}
         value={`${(avgSGstacks).toFixed(0)}`}
         label={(
-          <dfn data-tip={`${SGcasts > 0 ? `You healed for an average of ${formatNumber(this.sgHeal / this.castsSG)} with each Sheilun's cast.` : ""}
-          ${wastedSGStacks > 0 ? `<br>You wasted ${(wastedSGStacks)} stack(s) during this fight.` : ""}
+          <dfn data-tip={`${SGcasts > 0 ? `You healed for an average of ${formatNumber(this.sgHeal / this.castsSG)} with each Sheilun's cast.` : ''}
+          ${wastedSGStacks > 0 ? `<br>You wasted ${(wastedSGStacks)} stack(s) during this fight.` : ''}
           `}>
           Avg stacks used
           </dfn>
@@ -164,11 +164,11 @@ class SheilunsGift extends Module {
 
   on_finished() {
     if (debug) {
-      console.log("Total SG Stacks:" + this.stacksTotalSG);
-      console.log("SG Casts: " + this.castsSG);
-      console.log("Ending SG Stacks: " + this.stacksSG);
-      console.log("SG Stacks Wasted: " + this.stacksWastedSG);
-      console.log("SG Overheal Total: " + this.overhealSG + "  Avg SG Overheal: " + (this.overhealSG / this.castsSG));
+      console.log('Total SG Stacks:' + this.stacksTotalSG);
+      console.log('SG Casts: ' + this.castsSG);
+      console.log('Ending SG Stacks: ' + this.stacksSG);
+      console.log('SG Stacks Wasted: ' + this.stacksWastedSG);
+      console.log('SG Overheal Total: ' + this.overhealSG + '  Avg SG Overheal: ' + (this.overhealSG / this.castsSG));
     }
   }
 }

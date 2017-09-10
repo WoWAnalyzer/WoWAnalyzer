@@ -52,7 +52,7 @@ class EnvelopingMists extends Module {
         icon={<SpellIcon id={SPELLS.ENVELOPING_MISTS.id} />}
         value={`${formatNumber(this.healing)}`}
         label={(
-          <dfn data-tip={`This is the effective healing contributed by the Eveloping Mists buff.`}>
+          <dfn data-tip={'This is the effective healing contributed by the Eveloping Mists buff.'}>
             Healing Contributed
           </dfn>
         )}

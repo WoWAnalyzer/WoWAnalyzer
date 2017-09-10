@@ -94,26 +94,26 @@ class UABuffTracker extends Module {
           <ul>
           ${this._hasMG && this.ticksBuffedByBoth > 0 ? `
             <li>${this.ticksBuffedByBoth} ticks were buffed by both Reap Souls and Drain Soul (${formatPercentage(this.ticksBuffedByBoth / this.totalTicks)}%)</li>
-          ` : ""}
+          ` : ''}
           ${this._hasHaunt && this.ticksBuffedByBoth > 0 ? `
             <li>${this.ticksBuffedByBoth} ticks were buffed by both Reap Souls and Haunt (${formatPercentage(this.ticksBuffedByBoth / this.totalTicks)}%)</li>
-          ` : ""}
+          ` : ''}
 
           ${this.ticksBuffedByReap > 0 ? `
             <li>${this.ticksBuffedByReap} ticks were buffed by Reap Souls only (${formatPercentage(this.ticksBuffedByReap / this.totalTicks)}%)</li>
-          ` : ""}
+          ` : ''}
 
           ${this._hasMG && this.ticksBuffedByDrain > 0 ? `
             <li>${this.ticksBuffedByDrain} ticks were buffed by Drain Soul only (${formatPercentage(this.ticksBuffedByDrain / this.totalTicks)}%)</li>
-          ` : ""}
+          ` : ''}
 
           ${this._hasHaunt && this.ticksBuffedByHaunt > 0 ? `
             <li>${this.ticksBuffedByHaunt} ticks were buffed by Haunt only (${formatPercentage(this.ticksBuffedByHaunt / this.totalTicks)}%)</li>
-          ` : ""}
+          ` : ''}
 
           ${this.unbuffedTicks > 0 ? `
             <li>${this.unbuffedTicks} ticks were unbuffed (${formatPercentage(this.unbuffedTicks / this.totalTicks)}%). Try to minimize this amount as much as possible.</li>
-          ` : ""}
+          ` : ''}
           </ul>
         `}
       />

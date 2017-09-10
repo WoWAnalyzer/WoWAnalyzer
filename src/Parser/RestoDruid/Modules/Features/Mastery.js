@@ -83,18 +83,18 @@ class Mastery extends Module {
   }
 
   on_finished() {
-    console.log("Mastery results: ");
+    console.log('Mastery results: ');
     for (const hotObj of this.hotHealing.values()) {
       const directPerc = this.owner.getPercentageOfTotalHealingDone(hotObj.direct);
       const masteryPerc = this.owner.getPercentageOfTotalHealingDone(hotObj.mastery);
-      console.log(hotObj.name + " - Direct:" + formatPercentage(directPerc) +
-          "% Mastery:" + formatPercentage(masteryPerc) + "%");
+      console.log(hotObj.name + ' - Direct:' + formatPercentage(directPerc) +
+          '% Mastery:' + formatPercentage(masteryPerc) + '%');
     }
 
     const avgMasteryStacksAllHealing = this.masteryTimesHealing / this.totalNoMasteryHealing;
     const avgMasteryStacksDruidHealing = this.masteryTimesHealing / this.druidSpellNoMasteryHealing;
 
-    console.log("Avg Mastery Stacks - All Healing:" + avgMasteryStacksAllHealing + " Druid Healing:" + avgMasteryStacksDruidHealing);
+    console.log('Avg Mastery Stacks - All Healing:' + avgMasteryStacksAllHealing + ' Druid Healing:' + avgMasteryStacksDruidHealing);
   }
 
   /* accessors for computed values */

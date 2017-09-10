@@ -104,9 +104,9 @@ class DecieversGrandDesign extends Module {
         });
       }
 
-      let name = "";
+      let name = '';
       if (!this.combatants.players[targetId]) {
-        name = "Pet";
+        name = 'Pet';
       } else {
         name = this.combatants.players[targetId].name;
       }

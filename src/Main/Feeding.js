@@ -9,7 +9,7 @@ import SpellIcon from 'common/SpellIcon';
 import Icon from 'common/Icon';
 
 function formatThousands(number) {
-  return (Math.round(number || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+  return (Math.round(number || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 }
 
 function formatNumber(number) {
@@ -41,19 +41,19 @@ class Feeding extends React.Component {
       <div>
         { ([
           {
-            name: "Cloudburst Totem",
+            name: 'Cloudburst Totem',
             feed: cooldownTracker.cbtFeed,
             spell: SPELLS.CLOUDBURST_TOTEM_CAST,
             totals: cooldownTracker.cbtTotals,
           },
           {
-            name: "Ancestral Guidance",
+            name: 'Ancestral Guidance',
             feed: cooldownTracker.agFeed,
             spell: SPELLS.ANCESTRAL_GUIDANCE_CAST,
             totals: cooldownTracker.agTotals,
           },
           {
-            name: "Ascendance",
+            name: 'Ascendance',
             feed: cooldownTracker.ascFeed,
             spell: SPELLS.ASCENDANCE_CAST,
             totals: cooldownTracker.ascTotals,
@@ -98,7 +98,7 @@ class Feeding extends React.Component {
                     const totalHealing = this.state.expand ? category.totals.mergedTotal : category.totals.total;
 
                     return (
-                      <tr key={category.name + " " + ability.name}>
+                      <tr key={category.name + ' ' + ability.name}>
                         <td style={{ width: '30%' }}>
                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <Icon icon={ability.icon} alt={ability.name} /> {ability.name}
                         </td>
@@ -121,7 +121,7 @@ class Feeding extends React.Component {
                       </tr>
                     );
                   })}
-                <tr key={category.name + "Summary"}>
+                <tr key={category.name + 'Summary'}>
                   <td />
                   <td />
                   <td className="text-right"><b>Total:</b></td>

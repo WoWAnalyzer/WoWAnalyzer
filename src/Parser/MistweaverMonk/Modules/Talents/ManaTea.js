@@ -148,12 +148,12 @@ class ManaTea extends Module {
   }
   on_finished() {
     if (debug) {
-      console.log("Mana Tea Casted: " + this.manateaCount);
-      console.log("Mana saved: " + this.manaSavedMT);
-      console.log("Avg. Mana saved: " + (this.manaSavedMT / this.manateaCount));
-      console.log("Total Casts under Mana Tea: " + this.castsUnderManaTea);
-      console.log("Avg Casts under Mana Tea: " + (this.castsUnderManaTea / this.manateaCount));
-      console.log("Free spells cast: " + this.nonManaCasts);
+      console.log('Mana Tea Casted: ' + this.manateaCount);
+      console.log('Mana saved: ' + this.manaSavedMT);
+      console.log('Avg. Mana saved: ' + (this.manaSavedMT / this.manateaCount));
+      console.log('Total Casts under Mana Tea: ' + this.castsUnderManaTea);
+      console.log('Avg Casts under Mana Tea: ' + (this.castsUnderManaTea / this.manateaCount));
+      console.log('Free spells cast: ' + this.nonManaCasts);
     }
   }
 
@@ -194,15 +194,15 @@ class ManaTea extends Module {
                 <ul>
                 ${this.efCasts > 0 ?
                 `<li>${(this.efCasts)} Essence Font casts</li>`
-                : ""
+                : ''
                 }
                 ${this.efCasts > 0 ?
                 `<li>${(this.vivCasts)} Vivfy casts</li>`
-                : ""
+                : ''
                 }
                 ${this.efCasts > 0 ?
                 `<li>${(this.enmCasts)} Enveloping Mists casts</li>`
-                : ""
+                : ''
                 }
                 <li>${(this.rjwCasts + this.revCasts + this.remCasts + this.lcCasts + this.effCasts)} other spells casted.</li>
                 <li>${(this.nonManaCasts)} non-mana casts during Mana Tea</li>

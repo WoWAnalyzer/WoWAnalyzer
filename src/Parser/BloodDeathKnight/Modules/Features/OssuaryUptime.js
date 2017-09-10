@@ -16,7 +16,7 @@ class OssuaryUptime extends Module {
         icon={<SpellIcon id={SPELLS.OSSUARY.id} />}
         value={`${formatPercentage(ossuaryUptimePercentage)}%`}
         label='Ossuary Uptime'
-        tooltip={`Important to maintain. Reduces cost of Death Strike and increases runic power cap by 10.`}
+        tooltip={'Important to maintain. Reduces cost of Death Strike and increases runic power cap by 10.'}
       />
 
 

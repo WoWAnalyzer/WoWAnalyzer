@@ -14,7 +14,7 @@ import CastEfficiency from './Modules/Features/CastEfficiency';
 
 
 function formatThousands(number) {
-  return (Math.round(number || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+  return (Math.round(number || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 }
 
 function formatNumber(number) {
@@ -78,7 +78,7 @@ class CombatLogParser extends CoreCombatLogParser {
         icon={ <SpellIcon id={SPELLS.SHADOW_BLADES.id} /> }
         value={`${formatPercentage((this.modules.combatants.selected.getBuffUptime(SPELLS.SHADOW_BLADES.id) / this.fightDuration))} %`}
         label={(
-          <dfn data-tip={`Shadow Blades up time`}>
+          <dfn data-tip={'Shadow Blades up time'}>
             Shadow Blades up time
           </dfn>
         )}
@@ -88,7 +88,7 @@ class CombatLogParser extends CoreCombatLogParser {
         icon={ <SpellIcon id={SPELLS.SHADOW_DANCE.id} /> }
         value={`${formatPercentage((this.modules.combatants.selected.getBuffUptime(SPELLS.SHADOW_DANCE_BUFF.id) / this.fightDuration))} %`}
         label={(
-          <dfn data-tip={`Shadow Dance up time`}>
+          <dfn data-tip={'Shadow Dance up time'}>
             Shadow Dance up time
           </dfn>
         )}
@@ -98,7 +98,7 @@ class CombatLogParser extends CoreCombatLogParser {
         icon={ <SpellIcon id={SPELLS.SYMBOLS_OF_DEATH.id} /> }
         value={`${formatPercentage((this.modules.combatants.selected.getBuffUptime(SPELLS.SYMBOLS_OF_DEATH.id) / this.fightDuration))} %`}
         label={(
-          <dfn data-tip={`Symbols of Death up time`}>
+          <dfn data-tip={'Symbols of Death up time'}>
             Symbols of Death up time
           </dfn>
         )}

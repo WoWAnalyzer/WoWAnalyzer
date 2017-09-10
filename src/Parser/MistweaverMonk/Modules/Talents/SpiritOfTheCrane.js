@@ -98,7 +98,7 @@ class SpiritOfTheCrane extends Module {
       if (this.combatants.selected.hasBuff(SPELLS.TEACHINGS_OF_THE_MONASTERY.id)) {
         this.totalTotmBuffs += this.buffTotm;
           //this.manaReturnSotc += (this.buffTotm * (baseMana * SPELLS.TEACHINGS_OF_THE_MONASTERY.manaRet));
-        debug && console.log("Black Kick Casted with Totm at " + this.buffTotm + " stacks");
+        debug && console.log('Black Kick Casted with Totm at ' + this.buffTotm + ' stacks');
       }
     }
   }
@@ -127,11 +127,11 @@ class SpiritOfTheCrane extends Module {
             <ul>
               ${this.totmOverCap > 0 ?
               `<li>You overcapped Teachings ${(this.totmOverCap)} times</li>`
-              : ""
+              : ''
               }
               ${this.totmBuffWasted > 0 ?
               `<li>You let Teachings drop off ${(this.totmBuffWasted)} times</li>`
-              : ""
+              : ''
               }
             </ul>
             `}>

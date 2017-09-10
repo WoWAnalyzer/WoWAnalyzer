@@ -145,7 +145,7 @@ class LowHealthHealing extends React.Component {
                           style={{ width: `${Math.min(50, healthPercentage * 50)}%`, float: 'left' }}
                         />
                         <div
-                          className={`performance-bar Hunter-bg`}
+                          className={'performance-bar Hunter-bg'}
                           style={{ width: `${Math.min(50, effectiveHealing / event.maxHitPoints * 50)}%`, float: 'left', opacity: 0.4 }}
                         />
                       </td>
