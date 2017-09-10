@@ -164,7 +164,6 @@ const VoidformGraph = ({
     if (insanityData[i] === null) {
       insanityData[i] = insanityData[latestInsanityDataAt];
       for (let j = latestInsanityDataAt; j <= i; j += 1) {
-
         if (dispersionData[j] === null && voidTorrentData[j] === null)
           insanityData[i] -= insanityDrain[j] / (1000 / RESOLUTION_MS);
       }
@@ -257,7 +256,6 @@ const VoidformGraph = ({
         ...legends.classNames,
       ],
     };
-
   }
 
   if (includesEndOfFight) {

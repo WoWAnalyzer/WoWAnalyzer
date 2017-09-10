@@ -27,7 +27,6 @@ class Restoration_Shaman_T19_2Set extends Module {
 
     this.healing += calculateEffectiveHealing(event, T19_2SET_HEALING_INCREASE);
   }
-
 }
 
 export default Restoration_Shaman_T19_2Set;

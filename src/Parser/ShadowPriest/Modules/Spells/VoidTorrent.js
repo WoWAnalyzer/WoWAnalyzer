@@ -85,7 +85,6 @@ class VoidTorrent extends Module {
   }
 
   statisticOrder = STATISTIC_ORDER.CORE(7);
-
 }
 
 export default VoidTorrent;

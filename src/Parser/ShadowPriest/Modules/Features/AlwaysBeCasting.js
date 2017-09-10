@@ -83,7 +83,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
 
       debug && console.log(`ABC: Current haste: ${this.currentHaste} (gained ${0.01 * this._highestVoidformStack} from VOIDFORM_BUFF)`);
     }
-    
   }
 
   on_toPlayer_removebuffstack(event) {
@@ -95,7 +94,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
 
       debug && console.log(`ABC: Current haste: ${this.currentHaste} (lost ${0.02} from LINGERING_INSANITY)`);
     }
-    
   }
 
   on_toPlayer_removebuff(event) {

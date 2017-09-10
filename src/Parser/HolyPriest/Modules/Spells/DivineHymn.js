@@ -42,7 +42,6 @@ class DivineHymn extends Module {
           .regular(recommended).major(recommended);
       });
   }
-
 }
 
 export default DivineHymn;

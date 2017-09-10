@@ -2,7 +2,6 @@ import Module from 'Parser/Core/Module';
 import SPELLS from 'common/SPELLS';
 
 class Dreamwalker extends Module {
-
   healing = 0;
   hasTrait = false;
   on_initialized() {
@@ -19,7 +18,6 @@ class Dreamwalker extends Module {
     }
     this.healing += event.amount;
   }
-
 }
 
 export default Dreamwalker;

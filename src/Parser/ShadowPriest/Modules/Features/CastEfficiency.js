@@ -296,7 +296,6 @@ class CastEfficiency extends CoreCastEfficiency {
     },
 
   ];
-
 }
 
 export default CastEfficiency;

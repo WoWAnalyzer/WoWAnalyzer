@@ -16,7 +16,6 @@ class Insanity extends Module {
   get events() {
     return this._insanityEvents;
   }
-
 }
 
 export default Insanity;

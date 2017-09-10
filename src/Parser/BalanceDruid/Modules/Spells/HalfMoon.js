@@ -8,7 +8,6 @@ import SPELLS from 'common/SPELLS';
 import isMoonMoon from '../Core/isMoonMoon';
 
 class HalfMoon extends Module {
-
   halfMoonOrder = 0;
   firstMoonTime = 0;
   firstCastTime = 0;

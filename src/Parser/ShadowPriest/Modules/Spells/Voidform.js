@@ -93,7 +93,6 @@ class Voidform extends Module {
   on_byPlayer_removebuff(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.VOIDFORM_BUFF.id) {
-
       this._voidforms[this._previousVoidformCast.timestamp].ended = event.timestamp;
       this._inVoidform = false;
     }
@@ -102,7 +101,6 @@ class Voidform extends Module {
   on_byPlayer_applybuffstack(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.VOIDFORM_BUFF.id) {
-
       // for those prepull voidforms:
       if (this._previousVoidformCast === null) {
         this.createVoidform(event);
@@ -128,8 +126,6 @@ class Voidform extends Module {
   on_byPlayer_removebuffstack(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.LINGERING_INSANITY.id) {
-      
-
       if (this._inVoidform) {
         const { timestamp, stack } = event;
         let currentVoidform = this.getCurrentVoidform();
@@ -226,7 +222,6 @@ class Voidform extends Module {
       ),
     };
   }
-
 }
 
 export default Voidform;

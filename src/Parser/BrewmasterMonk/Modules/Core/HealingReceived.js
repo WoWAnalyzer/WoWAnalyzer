@@ -4,7 +4,6 @@ import Module from 'Parser/Core/Module';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class HealingReceived extends Module {
-  
   HealingReceivedExternal = 0;
   HealingReceivedSelf = 0;
   on_initialized() {

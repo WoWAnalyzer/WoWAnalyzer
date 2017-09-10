@@ -23,14 +23,12 @@ class Mindbender extends Pet {
   on_byPlayer_summon(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.MINDBENDER_TALENT_SHADOW.id) {
-
       this._mindbenders[event.timestamp] = {
         start: event.timestamp,
         end: event.timestamp + MINDBENDER_UPTIME_MS + (MINDBENDER_ADDED_UPTIME_MS_PER_TRAIT * this.owner.modules.combatants.selected.traitsBySpellId[SPELLS.FIENDING_DARK_TRAIT.id]),
       };
     }
   }
-
 }
 
 export default Mindbender;

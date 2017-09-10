@@ -73,7 +73,6 @@ class UncertainReminder extends Module {
 
     this.events.forEach((event) => {
       if (event.timestamp > startExtraHeroTime) {
-
         const spellId = event.ability.guid;
 
         if (SPELLS_SCALING_WITH_HASTE.indexOf(spellId) > -1) {
@@ -89,7 +88,6 @@ class UncertainReminder extends Module {
   }
 
   on_toPlayer_applybuff(event) {
-
     const spellId = event.ability.guid;
 
     if (HEROISM_30_PERCENT.indexOf(spellId) > -1) {
@@ -106,7 +104,6 @@ class UncertainReminder extends Module {
   }
 
   on_toPlayer_removebuff(event) {
-
     const spellId = event.ability.guid;
 
     if (HEROISM_30_PERCENT.indexOf(spellId) > -1) {

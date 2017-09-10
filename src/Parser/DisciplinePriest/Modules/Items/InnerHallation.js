@@ -20,7 +20,6 @@ class InnerHallation extends Module {
     if (this.owner.modules.combatants.selected.hasTalent(SPELLS.POWER_INFUSION.id) && event.ability.guid === SPELLS.POWER_INFUSION.id) {
       this.lastPowerInfusionCastStartTimestamp = event.timestamp;
       return;
-      
     } else if (this.owner.modules.combatants.selected.hasBuff(SPELLS.POWER_INFUSION.id) && (event.timestamp + 20000) > this.lastPowerInfusionCastStartTimestamp) {
       const spellId   = event.ability.guid;
       const manaCost  = event.manaCost;
@@ -36,7 +35,6 @@ class InnerHallation extends Module {
       } else {
         debug && console.log('Inner Hallation saved 0 mana on', SPELLS[spellId].name, 'costing', manaCost, 'since Innervate or Symbol of Hope is active (normally ', manaSaved, ' mana)', event);
       }
-
     }
   }
 }

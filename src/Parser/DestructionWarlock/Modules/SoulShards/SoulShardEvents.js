@@ -135,7 +135,6 @@ class SoulShardEvents extends Module {
 
     debug && console.log('++ ' + shardEvent.amount + '(w: ' + shardEvent.waste + ') = ' + shardEvent.currentFragments + ', ' + shardEvent.ability.name + ', orig: ', event);
     this.owner.triggerEvent('soulshardfragment_gained', shardEvent);
-
   }
   processSpenders(event) {
     const spellId = event.ability.guid;

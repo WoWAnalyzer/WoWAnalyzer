@@ -3,7 +3,6 @@ import Module from 'Parser/Core/Module';
 import SPELLS from 'common/SPELLS';
 
 class HighTide extends Module {
-
   healing = 0;
 
   //const FACTOR_CONTRIBUTED_BY_HT_HIT_1 = 0;
@@ -30,11 +29,9 @@ class HighTide extends Module {
     }
 
     this.potentialHealing += event.maxHitPoints;
-
   }
 
   on_byPlayer_summon(event) {
-
     const spellId = event.ability.guid;
 
     if (!(spellId === SPELLS.EARTHEN_SHIELD_TOTEM_CAST.id)) {
@@ -44,7 +41,6 @@ class HighTide extends Module {
     // Store the id of the totem we summoned so that we don't include the EST of other rshamans.
     this.activeEST = event.targetID;
   }
-
 }
 
 export default HighTide;

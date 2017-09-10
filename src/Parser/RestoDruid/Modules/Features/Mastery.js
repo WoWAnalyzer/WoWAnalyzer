@@ -73,7 +73,6 @@ class Mastery extends Module {
           buffObj.attributableHealing += attributableHealing;
         }
       }
-
     } else {
       this.totalNoMasteryHealing += amount;
     }
@@ -136,7 +135,6 @@ class Mastery extends Module {
     }
     return BASE_MASTERY_PERCENT + (baseMasteryRating * MASTERY_BONUS_FROM_ONE_RATING);
   }
-
 }
 
 export default Mastery;

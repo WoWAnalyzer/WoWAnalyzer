@@ -22,7 +22,6 @@ class Momentum extends Module {
   }
 
   statistic() {
-
     const momentumUptime = this.combatants.selected.getBuffUptime(SPELLS.MOMENTUM_TALENT.id);
 
     const momentumUptimePercentage = momentumUptime / this.owner.fightDuration;

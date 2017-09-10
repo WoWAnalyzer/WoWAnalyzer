@@ -18,7 +18,6 @@ class RunicPowerWasted extends Module {
   }
 
   statistic() {
-
     return (
       <StatisticBox
         icon={<Icon icon='inv_sword_62'/>}
@@ -30,6 +29,5 @@ class RunicPowerWasted extends Module {
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(4);
-
 }
 export default RunicPowerWasted;

@@ -15,7 +15,6 @@ import RunicPowerWasted from './Modules/Features/RunicPowerWasted';
 import BlooddrinkerTicks from './Modules/Features/BlooddrinkerTicks';
 
 class CombatLogParser extends CoreCombatLogParser {
-
   static specModules = {
 
     //DeathKnight Core

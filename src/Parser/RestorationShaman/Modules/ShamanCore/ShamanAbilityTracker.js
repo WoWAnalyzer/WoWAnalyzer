@@ -42,7 +42,6 @@ class ShamanAbilityTracker extends AbilityTracker {
         cast.healingTwOverheal = (cast.healingTwOverheal || 0) + (event.overheal || 0);
       }
     }
-
   }
 }
 

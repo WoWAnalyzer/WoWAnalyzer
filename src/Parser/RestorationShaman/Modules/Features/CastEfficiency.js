@@ -97,7 +97,6 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 60,
       isActive: combatant => combatant.lv75Talent === SPELLS.EARTHEN_SHIELD_TOTEM_TALENT.id,
       getOverhealing: (_, getAbility, parser) => {
-
         const earthenShieldHealing = parser.modules.earthenShieldTotem.healing || 0;
         const earthenShieldPotentialHealing = parser.modules.earthenShieldTotem.potentialHealing || 0;
         const earthenShieldEfficiency = earthenShieldHealing / earthenShieldPotentialHealing;

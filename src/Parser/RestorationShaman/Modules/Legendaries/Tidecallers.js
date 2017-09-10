@@ -26,7 +26,6 @@ class Tidecallers extends Module {
     const healingDone = event.amount + (event.absorbed || 0);
 
     if (spellId === SPELLS.HEALING_TIDE_TOTEM_HEAL.id) {
-
       if (this.currentTick) {
         if (!(this.currentTick === event.timestamp)) {
           this.lastTick = this.currentTick;
@@ -57,12 +56,9 @@ class Tidecallers extends Module {
     if (spellId === SPELLS.HEALING_STREAM_TOTEM_HEAL.id || spellId === SPELLS.QUEENS_DECREE.id) {
       this.hstHealing += healingDone / 6; // only add the extra 20% we're getting
     }
-
-
   }
 
   on_byPlayer_cast(event) {
-
     const spellId = event.ability.guid;
 
     if (spellId === SPELLS.HEALING_TIDE_TOTEM_CAST.id) {

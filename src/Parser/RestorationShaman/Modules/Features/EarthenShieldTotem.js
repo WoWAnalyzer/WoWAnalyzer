@@ -3,7 +3,6 @@ import Module from 'Parser/Core/Module';
 import SPELLS from 'common/SPELLS';
 
 class EarthenShieldTotem extends Module {
-
   activeEST = null;
   potentialHealing = 0;
   healing = 0;
@@ -33,11 +32,9 @@ class EarthenShieldTotem extends Module {
     }
 
     this.potentialHealing += event.maxHitPoints;
-
   }
 
   on_byPlayer_summon(event) {
-
     const spellId = event.ability.guid;
 
     if (!(spellId === SPELLS.EARTHEN_SHIELD_TOTEM_CAST.id)) {
@@ -47,7 +44,6 @@ class EarthenShieldTotem extends Module {
     // Store the id of the totem we summoned so that we don't include the EST of other rshamans.
     this.activeEST = event.targetID;
   }
-
 }
 
 export default EarthenShieldTotem;

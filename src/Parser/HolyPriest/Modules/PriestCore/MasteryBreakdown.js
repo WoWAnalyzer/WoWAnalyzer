@@ -124,7 +124,6 @@ class MasteryBreakdown extends Module {
           this._healVal[tId][spell] = 0;
         }
       }
-
     } else {
       // logic for eol triggering spells
       if (ABILITIES_THAT_TRIGGER_MASTERY.indexOf(spellId) === -1) {

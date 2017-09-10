@@ -46,7 +46,6 @@ class CombatLogParser extends CoreCombatLogParser {
   };
 
   generateResults() {
-
     const results = super.generateResults();
 
     results.tabs = [

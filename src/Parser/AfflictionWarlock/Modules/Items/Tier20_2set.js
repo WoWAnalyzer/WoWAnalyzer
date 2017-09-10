@@ -47,7 +47,6 @@ class Tier20_2set extends Module {
         </dfn>
       ),
     };
-
   }
 }
 export default Tier20_2set;

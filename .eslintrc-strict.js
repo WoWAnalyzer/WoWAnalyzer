@@ -49,5 +49,7 @@ module.exports = {
     'space-infix-ops': 'warn',
     // https://github.com/airbnb/javascript#whitespace--newline-at-end
     'eol-last': ['warn', 'always'],
+    // https://github.com/airbnb/javascript#whitespace--padded-blocks
+    'padded-blocks': ['warn', { blocks: 'never', classes: 'never', switches: 'never' }],
   },
 };

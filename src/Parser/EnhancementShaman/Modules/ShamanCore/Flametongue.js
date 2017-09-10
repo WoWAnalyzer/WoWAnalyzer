@@ -9,7 +9,6 @@ import Module from 'Parser/Core/Module';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class Flametongue extends Module {
-
   static dependencies = {
     combatants: Combatants,
   }

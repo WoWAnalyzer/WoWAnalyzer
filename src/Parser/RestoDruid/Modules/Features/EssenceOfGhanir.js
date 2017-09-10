@@ -55,7 +55,6 @@ class EssenceOfGhanir extends Module {
       this.healingIncreaseHealing += event.amount / 2;
     }
   }
-
 }
 
 export default EssenceOfGhanir;

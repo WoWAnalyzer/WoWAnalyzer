@@ -16,7 +16,6 @@ class EmpowerWards extends Module {
   };
 
   statistic() {
-
     const empowerWardsUptime = this.combatants.selected.getBuffUptime(SPELLS.EMPOWER_WARDS.id);
 
     const empowerWardsUptimePercentage = empowerWardsUptime / this.owner.fightDuration;

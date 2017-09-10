@@ -29,9 +29,7 @@ class Jonat extends Module {
       const healingIncrease = stacks * LEGENDARY_JONAT_HEALING_INCREASE_PER_STACK;
       this.healing += calculateEffectiveHealing(event, healingIncrease);
     }
-
   }
-
 }
 
 export default Jonat;

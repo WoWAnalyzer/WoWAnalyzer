@@ -93,7 +93,6 @@ class Earthwarden extends Module {
           .actual(`${formatPercentage(actual)}% of potential damage was mitigated by Earthwarden`)
           .recommended(`${formatPercentage(recommended, 0)}% or more is recommended`)
           .regular(recommended - 0.1).major(recommended - 0.2);
-
       });
 
     // Suggestion 2: Melee damage is not relevant enough for EW to be effective
@@ -104,7 +103,6 @@ class Earthwarden extends Module {
           .actual(`${formatPercentage(actual)}% of total damage is melee attacks`)
           .recommended(`${formatPercentage(recommended, 0)}% or more is recommended`)
           .regular(recommended - 0.05).major(recommended - 0.1);
-
       });
   }
 }

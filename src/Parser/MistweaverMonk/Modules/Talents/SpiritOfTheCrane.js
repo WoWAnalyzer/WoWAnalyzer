@@ -99,7 +99,6 @@ class SpiritOfTheCrane extends Module {
         this.totalTotmBuffs += this.buffTotm;
           //this.manaReturnSotc += (this.buffTotm * (baseMana * SPELLS.TEACHINGS_OF_THE_MONASTERY.manaRet));
         debug && console.log("Black Kick Casted with Totm at " + this.buffTotm + " stacks");
-
       }
     }
   }

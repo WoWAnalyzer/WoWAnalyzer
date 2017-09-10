@@ -7,7 +7,6 @@ import SPELLS from 'common/SPELLS';
 import ResourceTypes from 'common/RESOURCE_TYPES';
 
 class AstralPower extends Module {
-  
   lastAstral = 0;
   aspWasted = 0;
 

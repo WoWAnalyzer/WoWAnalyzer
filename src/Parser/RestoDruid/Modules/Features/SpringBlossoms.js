@@ -61,7 +61,6 @@ class SpringBlossoms extends Module {
           .regular(recommended - 0.02).major(recommended - 0.02);
       });
   }
-
 }
 
 export default SpringBlossoms;

@@ -22,7 +22,6 @@ class SpiritBomb extends Module {
   }
 
   suggestions(when) {
-
     const spiritBombUptimePercentage = this.enemies.getBuffUptime(SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id) / this.owner.fightDuration;
 
     when(spiritBombUptimePercentage).isLessThan(0.95)

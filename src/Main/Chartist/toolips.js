@@ -56,7 +56,6 @@ const tooltips = (options) => {
       });
     });
   };
-
 };
 
 export default tooltips;

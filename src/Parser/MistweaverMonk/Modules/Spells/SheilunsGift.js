@@ -111,7 +111,6 @@ class SheilunsGift extends Module {
   }
 
   suggestions(when) {
-
     const abilityTracker = this.abilityTracker;
     const getAbility = spellId => abilityTracker.getAbility(spellId);
 

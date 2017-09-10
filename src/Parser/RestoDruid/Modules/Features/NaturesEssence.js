@@ -48,9 +48,6 @@ class NaturesEssence extends Module {
           .regular(AVERAGE).major(MAJOR);
       });
   }
-
-
-
 }
 
 export default NaturesEssence;

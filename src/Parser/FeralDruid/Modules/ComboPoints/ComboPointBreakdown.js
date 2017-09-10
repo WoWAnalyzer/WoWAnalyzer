@@ -12,7 +12,6 @@ class ComboPointBreakdown extends React.Component {
     pointsWasted: PropTypes.object.isRequired,
   };
   prepareGenerated(pointGen, pointWasted) {
-
     return Object.keys(pointGen)
       .map(abilityId => ({
         abilityId: Number(abilityId),

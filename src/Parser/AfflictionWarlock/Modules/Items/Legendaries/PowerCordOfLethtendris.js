@@ -45,7 +45,6 @@ class PowerCordOfLethtendris extends Module {
 
       ),
     };
-
   }
 }
 export default PowerCordOfLethtendris;

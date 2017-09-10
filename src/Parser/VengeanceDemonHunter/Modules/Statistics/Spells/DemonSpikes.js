@@ -16,7 +16,6 @@ class DemonSpikes extends Module {
   };
 
   statistic() {
-
     const demonSpikesUptime = this.combatants.selected.getBuffUptime(SPELLS.DEMON_SPIKES_BUFF.id);
 
     const demonSpikesUptimePercentage = demonSpikesUptime / this.owner.fightDuration;

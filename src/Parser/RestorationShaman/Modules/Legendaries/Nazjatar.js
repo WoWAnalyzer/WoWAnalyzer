@@ -11,7 +11,6 @@ class Nazjatar extends Module {
   }
 
   on_byPlayer_heal(event) {
-
     const spellId = event.ability.guid;
 
     if (!(spellId === SPELLS.RIPTIDE.id) || event.tick) {

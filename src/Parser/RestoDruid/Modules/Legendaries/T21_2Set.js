@@ -44,7 +44,6 @@ class T21_2Set extends Module {
       ),
     };
   }
-
 }
 
 export default T21_2Set;

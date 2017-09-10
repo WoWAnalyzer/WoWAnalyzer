@@ -31,7 +31,6 @@ class Pet extends Module {
   fetchPet(pet) {
     return this.fetchPets.find(_pet => _pet.guid === pet.id);
   }
-
 }
 
 export default Pet;
