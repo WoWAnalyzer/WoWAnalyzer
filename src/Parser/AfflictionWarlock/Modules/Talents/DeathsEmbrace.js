@@ -57,13 +57,12 @@ class DeathsEmbrace extends Module {
   }
 
   statistic() {
-    const bonusDmg = this.deathsEmbrace.bonusDmg;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.DEATHS_EMBRACE_TALENT.id} />}
-        value={`${formatNumber(bonusDmg / this.owner.fightDuration * 1000)} DPS`}
+        value={`${formatNumber(this.bonusDmg / this.owner.fightDuration * 1000)} DPS`}
         label='Damage contributed'
-        tooltip={`Your Death's Embrace talent contributed ${formatNumber(bonusDmg)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(bonusDmg))} %).`}
+        tooltip={`Your Death's Embrace talent contributed ${formatNumber(this.bonusDmg)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} %).`}
       />
     );
   }
