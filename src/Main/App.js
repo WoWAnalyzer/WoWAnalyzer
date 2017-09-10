@@ -144,7 +144,7 @@ class App extends Component {
   }
   parseNextBatch(parser, code, player, fightStart, fightEnd, nextPageTimestamp = null) {
     if (parser !== this.state.parser) {
-      return;
+      return null;
     }
 
     const isFirstBatch = nextPageTimestamp === null;

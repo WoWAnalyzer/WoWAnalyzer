@@ -51,7 +51,7 @@ class Item extends React.PureComponent {
     });
 
     if (this.state.data) {
-      return;
+      return null;
     }
 
     return fetch(`https://eu.api.battle.net/wow/item/${id}?locale=en_GB&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`)
@@ -128,7 +128,7 @@ class Cast extends React.PureComponent {
     });
 
     if (this.state.data) {
-      return;
+      return null;
     }
 
     return fetch(`https://eu.api.battle.net/wow/spell/${id}?locale=en_GB&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`)

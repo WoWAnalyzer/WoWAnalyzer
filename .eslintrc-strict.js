@@ -197,5 +197,9 @@ module.exports = {
       capIsNew: false,
       capIsNewExceptions: ['Immutable.Map', 'Immutable.Set', 'Immutable.List'],
     }],
+
+    // Others
+    // require return statements to either always or never specify values
+    'consistent-return': 'warn',
   },
 };

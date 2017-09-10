@@ -27,7 +27,7 @@ class SoulShardEvents extends Module {
       const enemy = this.enemies.getEntity(event);
       if (!enemy) {
         //shouldn't happen, bail out
-        return;
+        return null;
       }
 
       const hasHavoc = enemy.hasBuff(SPELLS.HAVOC.id, event.timestamp);
