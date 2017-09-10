@@ -25,8 +25,8 @@ class Combatants extends Entities {
 
   on_combatantinfo(event) {
     if (event.error) {
-        console.error(`Error retrieving combatant information for player with sourceID ${event.sourceID}`);
-        return;
+      console.error(`Error retrieving combatant information for player with sourceID ${event.sourceID}`);
+      return;
     }
 
     this.players[event.sourceID] = new Combatant(this.owner, event);

@@ -35,7 +35,7 @@ class Backdraft extends Module {
     }
     this._currentStacks += STACKS_PER_APPLICATION;
     if (this._currentStacks > MAX_STACKS) {
-      debug && console.log("backdraft stack waste at ", event.timestamp);
+      debug && console.log('backdraft stack waste at ', event.timestamp);
       this.wastedStacks += this._currentStacks - MAX_STACKS;
       this._currentStacks = MAX_STACKS;
     }
@@ -46,7 +46,7 @@ class Backdraft extends Module {
     if (event.ability.guid !== SPELLS.BACKDRAFT.id) {
       return;
     }
-    this._currentStacks--;
+    this._currentStacks -= 1;
   }
 
   on_toPlayer_removebuff(event) {
@@ -55,7 +55,7 @@ class Backdraft extends Module {
     }
     if (event.timestamp >= this._expectedBuffEnd - REMOVEBUFF_TOLERANCE) {
       //if the buff expired when it "should", we wasted some stacks
-      debug && console.log("backdraft stack waste at ", event.timestamp);
+      debug && console.log('backdraft stack waste at ', event.timestamp);
       this.wastedStacks += this._currentStacks;
     }
     this._currentStacks = 0;

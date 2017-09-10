@@ -41,7 +41,6 @@ class CenarionWard extends Module {
       />
     );
   }
-
 }
 
 export default CenarionWard;

@@ -64,7 +64,7 @@ class LowHealthHealing extends React.Component {
           Max health of target: <Slider
             {...sliderProps}
             defaultValue={this.state.maxPlayerHealthPercentage}
-            onChange={(value) => {
+            onChange={value => {
               this.setState({
                 maxPlayerHealthPercentage: value,
               });
@@ -73,7 +73,7 @@ class LowHealthHealing extends React.Component {
           Min effective healing (percentage of target's health): <Slider
             {...sliderProps}
             defaultValue={this.state.minHealOfMaxHealthPercentage}
-            onChange={(value) => {
+            onChange={value => {
               this.setState({
                 minHealOfMaxHealthPercentage: value,
               });
@@ -119,7 +119,7 @@ class LowHealthHealing extends React.Component {
 
                   return (
                     <tr key={`${event.timestamp}${effectiveHealing}${hitPointsBeforeHeal}`}>
-                      <td style={{ width: '5%'}}>
+                      <td style={{ width: '5%' }}>
                         {formatDuration((event.timestamp - fightStart) / 1000)}
                       </td>
                       <td style={{ width: '25%' }}>
@@ -145,7 +145,7 @@ class LowHealthHealing extends React.Component {
                           style={{ width: `${Math.min(50, healthPercentage * 50)}%`, float: 'left' }}
                         />
                         <div
-                          className={`performance-bar Hunter-bg`}
+                          className={'performance-bar Hunter-bg'}
                           style={{ width: `${Math.min(50, effectiveHealing / event.maxHitPoints * 50)}%`, float: 'left', opacity: 0.4 }}
                         />
                       </td>

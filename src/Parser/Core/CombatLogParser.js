@@ -48,7 +48,6 @@ import ParseResults from './ParseResults';
 const debug = false;
 
 let _modulesDeprectatedWarningSent = false;
-let _selectedCombatantDeprectatedWarningSent = false;
 
 class CombatLogParser {
   static abilitiesAffectedByHealingIncreases = [];
@@ -122,15 +121,6 @@ class CombatLogParser {
     return this.player.id;
   }
 
-  /** @returns {Combatant} */
-  get selectedCombatant() {
-    if (!_selectedCombatantDeprectatedWarningSent) {
-      console.error('Using `this.owner.selectedCombatant` is deprectated. You should add the `Combatants` module as a dependency and use `this.combatants.selected` instead.');
-      _selectedCombatantDeprectatedWarningSent = true;
-    }
-    return this._modules.combatants.selected;
-  }
-
   get currentTimestamp() {
     return this.finished ? this.fight.end_time : this._timestamp;
   }
@@ -190,6 +180,7 @@ class CombatLogParser {
             console.log('Loading', moduleClass.name, 'with dependencies:', Object.keys(availableDependencies));
           }
         }
+        // eslint-disable-next-line new-cap
         this._modules[desiredModuleName] = new moduleClass(this, availableDependencies, Object.keys(this._modules).length);
       } else {
         debug && console.warn(moduleClass.name, 'could not be loaded, missing dependencies:', missingDependencies.map(d => d.name));

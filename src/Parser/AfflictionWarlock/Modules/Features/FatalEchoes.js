@@ -18,19 +18,19 @@ class FatalEchoes extends Module {
 
   on_byPlayer_damage(event) {
     if (UNSTABLE_AFFLICTION_DEBUFF_IDS.some(id => event.ability.guid === id)) {
-      this._totalTicks++;
+      this._totalTicks += 1;
       this.totalDamage += event.amount + (event.absorbed || 0);
     }
   }
   on_byPlayer_cast(event) {
     if (event.ability.guid === SPELLS.UNSTABLE_AFFLICTION_CAST.id) {
-      this._playerCasts++;
+      this._playerCasts += 1;
     }
   }
 
   on_byPlayer_applydebuff(event) {
     if (UNSTABLE_AFFLICTION_DEBUFF_IDS.some(id => event.ability.guid === id)) {
-      this._uasApplied++;
+      this._uasApplied += 1;
     }
   }
 

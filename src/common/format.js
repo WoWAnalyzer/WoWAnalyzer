@@ -3,7 +3,7 @@
  * Ex: 5842923.7 => 5,842,924
  */
 export function formatThousands(number) {
-  return (Math.round(number || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+  return (`${Math.round(number || 0)}`).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 }
 
 /*

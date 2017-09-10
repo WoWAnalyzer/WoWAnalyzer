@@ -11,7 +11,7 @@ export default {
   // Mastery
   MASTERY_HARMONY: {
     id: 77495,
-    name: "Mastery: Harmony",
+    name: 'Mastery: Harmony',
     icon: 'spell_nature_healingway',
   },
 
@@ -266,7 +266,7 @@ export default {
     name:'Dreamwalker',
     icon: 'ability_druid_healinginstincts',
   },
-  NATURES_ESSENCE: {
+  NATURES_ESSENCE_DRUID: { // there is also a Shaman spell by the name "Nature's Essence"
     id:189800,
     name:'Nature\'s Essence',
     icon: 'ability_druid_flourish',

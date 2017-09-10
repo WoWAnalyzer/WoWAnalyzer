@@ -51,7 +51,7 @@ class Divinity extends Module {
     return this.active && (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.DIVINITY_TALENT.id} />}
-        value={`${((this.combatants.selected.getBuffUptime(SPELLS.DIVINITY_BUFF.id)/this.owner.fightDuration)*100).toFixed(1)} %`}
+        value={`${((this.combatants.selected.getBuffUptime(SPELLS.DIVINITY_BUFF.id) / this.owner.fightDuration) * 100).toFixed(1)} %`}
         label={(
           <dfn data-tip={`The effective healing contributed by Divinity was ${formatThousands(this.healing)} / ${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} % / ${formatNumber(this.healing / this.owner.fightDuration * 1000)} HPS.`}>
             Divinity uptime

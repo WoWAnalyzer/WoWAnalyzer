@@ -318,7 +318,7 @@ export default {
     icon: 'inv_chest_cloth_raidwarlock_r_01',
   },
   WARLOCK_AFFLI_T20_4P_BUFF: {
-  id: 242292,
+    id: 242292,
     name: 'Demonic Speed',
     icon: 'spell_shadow_soulleech_3',
   },

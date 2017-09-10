@@ -61,7 +61,7 @@ class SoulShardBreakdown extends React.Component {
             {generated && generated
               .map(ability => (
                 <tr>
-                  <td style={{ width: '30%'}}>
+                  <td style={{ width: '30%' }}>
                     <SpellIcon id={ability.abilityId}/>{' '}
                     <SpellLink id={ability.abilityId}/>
                   </td>
@@ -70,7 +70,7 @@ class SoulShardBreakdown extends React.Component {
                   </td>
                   <td style={{ width: '40%' }}>
                     <div
-                      className={`performance-bar`}
+                      className={'performance-bar'}
                       style={{ width: `${(ability.generated / totalGenerated) * 100}%` }}
                     />
                   </td>
@@ -79,7 +79,7 @@ class SoulShardBreakdown extends React.Component {
                   </td>
                   <td style={{ width: '30%' }}>
                     <div
-                      className={`performance-bar `}
+                      className={'performance-bar '}
                       style={{ width: `${(ability.wasted / totalWasted) * 100}%` }}
                     />
                   </td>
@@ -100,7 +100,7 @@ class SoulShardBreakdown extends React.Component {
           {spent && spent
             .map(ability => (
               <tr>
-                <td style={{ width: '30%'}}>
+                <td style={{ width: '30%' }}>
                   <SpellIcon id={ability.abilityId}/>{' '}
                   <SpellLink id={ability.abilityId}/>
                 </td>
@@ -109,7 +109,7 @@ class SoulShardBreakdown extends React.Component {
                 </td>
                 <td style={{ width: '40%' }}>
                   <div
-                    className={`performance-bar`}
+                    className={'performance-bar'}
                     style={{ width: `${(ability.spent / totalSpent) * 100}%` }}
                   />
                 </td>

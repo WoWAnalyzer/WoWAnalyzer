@@ -71,8 +71,6 @@ class EnduringRenewal extends Module {
     } else {
       return;
     }
-
-
   }
 
   parseRenew(event) {

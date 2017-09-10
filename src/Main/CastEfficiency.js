@@ -13,7 +13,7 @@ const CastEfficiency = ({ categories, abilities }) => {
       <table className="data-table" style={{ marginTop: 10, marginBottom: 10 }}>
         {Object.keys(categories)
           .filter(key => abilities.some(item => item.ability.category === categories[key])) //filters out categories without any abilities in it
-          .map((key) => (
+          .map(key => (
           <tbody key={key}>
             <tr>
               <th>{categories[key]}</th>

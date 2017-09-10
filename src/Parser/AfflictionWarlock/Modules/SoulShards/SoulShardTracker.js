@@ -64,11 +64,10 @@ class SoulShardTracker extends Module {
 
     //Affli abilities and effects generate/refund 1 shard at a time, so it's either generated or wasted, not both
     if (event.waste !== 0) {
-      this.generatedAndWasted[spellId].wasted++;
-      this.shardsWasted++;
-    }
-    else {
-      this.generatedAndWasted[spellId].generated++;
+      this.generatedAndWasted[spellId].wasted += 1;
+      this.shardsWasted += 1;
+    }    else {
+      this.generatedAndWasted[spellId].generated += 1;
     }
   }
 
@@ -77,8 +76,8 @@ class SoulShardTracker extends Module {
     if (this.spent[spellId] === undefined) {
       return;
     }
-    this.spent[spellId]++;
-    this.shardsSpent++;
+    this.spent[spellId] += 1;
+    this.shardsSpent += 1;
   }
 }
 

@@ -20,14 +20,14 @@ class ShelterOfRin extends Module {
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
 
-    if(spellId === SPELLS.SHELTER_OF_RIN_HEAL.id) {
+    if (spellId === SPELLS.SHELTER_OF_RIN_HEAL.id) {
       this.healing += (event.amount || 0) + (event.absorbed || 0);
     }
   }
 
   on_finished() {
-    if(debug) {
-      console.log('Shelter of Rin Healing: ' + this.healing);
+    if (debug) {
+      console.log(`Shelter of Rin Healing: ${this.healing}`);
     }
   }
 

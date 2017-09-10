@@ -25,12 +25,12 @@ class SelectorBase extends Component {
   }
 
   handleClick(event) {
-    this.setState({show: !this.state.show});
+    this.setState({ show: !this.state.show });
   }
 
   handleDocumentClick(event) {
     if (this.ref && !this.ref.contains(event.target)) {
-      this.setState({show: false});
+      this.setState({ show: false });
     }
   }
 

@@ -34,13 +34,12 @@ class RoaringBlaze extends Module {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.IMMOLATE_CAST.id) {
       this._currentBonus = 0;
-    }
-    else if(spellId === SPELLS.CONFLAGRATE.id) {
+    }    else if (spellId === SPELLS.CONFLAGRATE.id) {
       const enemy = this.enemies.getEntity(event);
       if (!enemy || !enemy.hasBuff(SPELLS.IMMOLATE_DEBUFF.id, event.timestamp)) {
         return;
       }
-      this._currentBonus++;
+      this._currentBonus += 1;
     }
   }
 
@@ -60,10 +59,10 @@ class RoaringBlaze extends Module {
     if (event.ability.guid === SPELLS.IMMOLATE_DEBUFF.id) {
       //total damage of the tick = base damage * (1.25) ^ number of conflagrates cast while Immolate is up
       //(1.25)^conflag - 1 gives us the total damage multiplier bonus of the base damage, number that getDamageBonus() can work with
-      const bonusMultiplier = Math.pow(1 + DAMAGE_BONUS_PER_CONFLAG, this._currentBonus) - 1;
-      debug && console.log("bonus multiplier", bonusMultiplier);
+      const bonusMultiplier = (1 + DAMAGE_BONUS_PER_CONFLAG ** this._currentBonus) - 1;
+      debug && console.log('bonus multiplier', bonusMultiplier);
       this.bonusDmg += getDamageBonus(event, bonusMultiplier);
-      debug && console.log("current bonus dmg", this.bonusDmg);
+      debug && console.log('current bonus dmg', this.bonusDmg);
     }
   }
 

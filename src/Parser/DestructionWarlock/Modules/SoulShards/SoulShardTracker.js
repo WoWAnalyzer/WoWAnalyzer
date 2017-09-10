@@ -91,8 +91,7 @@ class SoulShardTracker extends Module {
     if (spellName === SPELLS.SHADOWBURN.name && event.isFromShadowburnKill) {
       this.generatedAndWasted[SHADOWBURN_KILL].wasted += event.waste;
       this.generatedAndWasted[SHADOWBURN_KILL].generated += event.amount;
-    }
-    else {
+    }    else {
       this.generatedAndWasted[spellName].wasted += event.waste;
       this.generatedAndWasted[spellName].generated += event.amount;
     }

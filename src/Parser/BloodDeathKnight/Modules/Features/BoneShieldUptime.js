@@ -7,10 +7,7 @@ import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class BoneShieldUptime extends Module {
-
-
   statistic() {
-
     const boneshieldUptime = this.owner.modules.combatants.getBuffUptime(SPELLS.BONE_SHIELD.id);
     const boneshieldUptimePercentage = boneshieldUptime / this.owner.fightDuration;
 
@@ -19,7 +16,7 @@ class BoneShieldUptime extends Module {
         icon={<SpellIcon id={SPELLS.BONE_SHIELD.id} />}
         value={`${formatPercentage(boneshieldUptimePercentage)}%`}
         label='Bone Shield Uptime'
-        tooltip={`Important to maintain. Provides damage reduction and haste buff while you have atleast one charge.`}
+        tooltip={'Important to maintain. Provides damage reduction and haste buff while you have atleast one charge.'}
       />
 
     );

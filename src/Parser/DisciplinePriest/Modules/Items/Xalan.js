@@ -14,7 +14,7 @@ class Xalan extends Module {
   }
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasHands(ITEMS.XALAN_THE_FEAREDS_CLENCH.id);
+    this.active = this.owner.modules.combatants.selected.hasHands(ITEMS.XALAN_THE_FEAREDS_CLENCH.id);
   }
 
   lastAtonmentAppliedTimestamp = null;

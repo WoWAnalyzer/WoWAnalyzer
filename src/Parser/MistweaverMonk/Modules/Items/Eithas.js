@@ -28,7 +28,7 @@ class Eithas extends Module {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
-    if(spellId === SPELLS.VIVIFY.id && this.combatants.selected.hasBuff(SPELLS.UPLIFTING_TRANCE_BUFF.id)) {
+    if (spellId === SPELLS.VIVIFY.id && this.combatants.selected.hasBuff(SPELLS.UPLIFTING_TRANCE_BUFF.id)) {
       this.vivTarget = event.targetID;
     }
   }
@@ -36,11 +36,11 @@ class Eithas extends Module {
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
 
-    if(spellId === SPELLS.VIVIFY.id && event.targetID !== this.vivTarget && this.combatants.selected.hasBuff(SPELLS.UPLIFTING_TRANCE_BUFF.id, event.timestamp, 32, 0)) {
+    if (spellId === SPELLS.VIVIFY.id && event.targetID !== this.vivTarget && this.combatants.selected.hasBuff(SPELLS.UPLIFTING_TRANCE_BUFF.id, event.timestamp, 32, 0)) {
       this.healingCleave += calculateEffectiveHealing(event, EITHAS_LUNAR_GLIDES_HEALING_INCREASE);
       this.rawHealingCleave += (event.amount || 0) + (event.absorbed || 0);
     }
-    if(spellId === SPELLS.VIVIFY.id && event.targetID === this.vivTarget && this.combatants.selected.hasBuff(SPELLS.UPLIFTING_TRANCE_BUFF.id, event.timestamp, 32, 0)) {
+    if (spellId === SPELLS.VIVIFY.id && event.targetID === this.vivTarget && this.combatants.selected.hasBuff(SPELLS.UPLIFTING_TRANCE_BUFF.id, event.timestamp, 32, 0)) {
       this.healingMain += calculateEffectiveHealing(event, EITHAS_LUNAR_GLIDES_HEALING_INCREASE);
       this.rawHealingMain += (event.amount || 0) + (event.absorbed || 0);
     }
@@ -48,10 +48,10 @@ class Eithas extends Module {
 
   on_finished() {
     this.healing = this.healingCleave + this.healingMain + ((this.rawHealingCleave + this.healingCleave) / 3);
-    if(debug) {
-      console.log('Boot Healing: ' + this.rawHealingCleave);
-      console.log('Viv Target Healing: ' + this.rawHealingMain);
-      console.log('Total Healing: ' + (this.totalVivHeal + this.healing));
+    if (debug) {
+      console.log(`Boot Healing: ${this.rawHealingCleave}`);
+      console.log(`Viv Target Healing: ${this.rawHealingMain}`);
+      console.log(`Total Healing: ${this.totalVivHeal + this.healing}`);
     }
   }
   item() {

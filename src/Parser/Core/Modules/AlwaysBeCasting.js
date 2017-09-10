@@ -3,7 +3,7 @@ import { calculateSecondaryStatDefault } from 'common/stats';
 
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import ITEMS from "../../../common/ITEMS";
+import ITEMS from '../../../common/ITEMS';
 
 const debug = false;
 
@@ -59,19 +59,19 @@ class AlwaysBeCasting extends Module {
   };
 
   // Not yet implemented, for now this is just the general idea. This approach could also be used for merging HASTE_BUFFS and STACKABLE_HASTE_BUFFS.
-  // It would be nice to have this point to a value in the Combatant class, but that would be tricky this is `static`.
+  // It would be nice to have this point to a value in the Combatant class, but that would be tricky since this is `static`.
   static hasteRatingPerPercent = 37500;
+  // TODO: This could actually be generalized to a hasteBuffs array with itemId optional
   static hasteItems = {
-    // TODO: Is this buff included in the combatant Haste or like DMD:Hellfire not and then applied when you enter combat??? Having this here likely includes it in Haste twice.
     [SPELLS.LUNAR_INFUSION.id]: {
+      // TODO: Is this buff included in the combatant Haste or like DMD:Hellfire not and then applied when you enter combat??? Having this here likely includes it in Haste twice.
       itemId: ITEMS.CHALICE_OF_MOONLIGHT.id,
       haste: item => calculateSecondaryStatDefault(855, 305, item.itemLevel) / this.hasteRatingPerPercent,
     },
-    // Charm of the Rising Tide (Rising Tides buff)
-    [SPELLS.RISING_TIDES.id]: item => ({
+    [SPELLS.RISING_TIDES.id]: {
       itemId: ITEMS.CHARM_OF_THE_RISING_TIDE.id,
-      hastePerStack: calculateSecondaryStatDefault(900, 576, item.itemLevel) / this.hasteRatingPerPercent,
-    }),
+      hastePerStack: item => calculateSecondaryStatDefault(900, 576, item.itemLevel) / this.hasteRatingPerPercent,
+    },
   };
 
   static baseGcd = 1500;
@@ -167,7 +167,7 @@ class AlwaysBeCasting extends Module {
   on_toPlayer_applybuff(event) {
     this.applyActiveBuff(event);
   }
-  on_toPlayer_applybuffstack(event){
+  on_toPlayer_applybuffstack(event) {
     this.applyBuffStack(event);
   }
   on_toPlayer_removebuff(event) {
@@ -183,7 +183,7 @@ class AlwaysBeCasting extends Module {
     const spellId = event.ability.guid;
     let hasteGain = this.constructor.HASTE_BUFFS[spellId] || undefined;
     
-    if (this.constructor.STACKABLE_HASTE_BUFFS[spellId]){
+    if (this.constructor.STACKABLE_HASTE_BUFFS[spellId]) {
       hasteGain = this.constructor.STACKABLE_HASTE_BUFFS[spellId].Haste(this.combatants.selected);
       this.constructor.STACKABLE_HASTE_BUFFS[spellId].CurrentStacks += 1;
     }
@@ -199,13 +199,13 @@ class AlwaysBeCasting extends Module {
     const stackInfo = this.constructor.STACKABLE_HASTE_BUFFS[spellId];
     let hasteGain;
 
-    if (stackInfo){
+    if (stackInfo) {
       hasteGain = stackInfo.Haste(this.combatants.selected);
     }
 
     if (hasteGain) {
       //Only add haste stack if max stacks not already reached
-      if (stackInfo.MaxStacks === 0 || stackInfo.CurrentStacks < stackInfo.MaxStacks){
+      if (stackInfo.MaxStacks === 0 || stackInfo.CurrentStacks < stackInfo.MaxStacks) {
         this.applyHasteGain(hasteGain);
         stackInfo.CurrentStacks += 1;
       }
@@ -217,7 +217,7 @@ class AlwaysBeCasting extends Module {
     const spellId = event.ability.guid;
     let hasteLoss = this.constructor.HASTE_BUFFS[spellId] || undefined;
     
-    if (this.constructor.STACKABLE_HASTE_BUFFS[spellId]){
+    if (this.constructor.STACKABLE_HASTE_BUFFS[spellId]) {
       //When buff loss, it should lose haste equal to base buff haste * number of stacks
       // TODO: If possible it would be nice to make this so it doesn't mutate the static property
       // TODO: change the properties of STACKABLE_HASTE_BUFFS to lower case

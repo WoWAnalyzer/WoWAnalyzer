@@ -4,8 +4,8 @@ import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 class Insanity extends Module {
   _insanityEvents = [];
 
-  on_toPlayer_energize(event){
-    if(event.resourceChangeType === RESOURCE_TYPES.INSANITY){
+  on_toPlayer_energize(event) {
+    if (event.resourceChangeType === RESOURCE_TYPES.INSANITY) {
       this._insanityEvents = [
         ...this._insanityEvents,
         event,
@@ -13,10 +13,9 @@ class Insanity extends Module {
     }
   }
 
-  get events(){
+  get events() {
     return this._insanityEvents;
   }
-
 }
 
 export default Insanity;

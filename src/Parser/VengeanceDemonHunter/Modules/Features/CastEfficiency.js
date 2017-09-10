@@ -98,13 +98,13 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.EMPOWER_WARDS,
       category: CastEfficiency.SPELL_CATEGORIES.DEFENSIVE,
       getCooldown: haste => 20,
-      recommendedCastEfficiency: 0.50,
+      recommendedCastEfficiency: 0.20,
       noSuggestion: true,
     },
     {
       spell: SPELLS.FIERY_BRAND,
       category: CastEfficiency.SPELL_CATEGORIES.DEFENSIVE,
-      getCooldown: haste => 20,
+      getCooldown: haste => 60,
       recommendedCastEfficiency: 0.50,
       noSuggestion: true,
     },
@@ -118,16 +118,17 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.THROW_GLAIVE,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => 3,
-      recommendedCastEfficiency: 0.10,
+      getCooldown: haste => null,
       noSuggestion: true,
+      noCanBeImproved: true,
+      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.SHEAR,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => 3,
-      recommendedCastEfficiency: 0.70,
+      getCooldown: haste => null,
       noSuggestion: true,
+      noCanBeImproved: true,
     },
   ];
 }

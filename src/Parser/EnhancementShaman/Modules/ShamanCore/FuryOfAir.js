@@ -41,7 +41,7 @@ class FuryOfAir extends Module {
   }
 
   on_finished() {
-    if(this.applyTime !== 0) {
+    if (this.applyTime !== 0) {
       this.furyUptime += Math.floor((this.owner.fight.end_time - this.applyTime) / 1000);
     }
     this.maelstromUsed = this.furyUptime * FURY_OF_AIR_MAELSTROM_COST;
@@ -52,7 +52,7 @@ class FuryOfAir extends Module {
 
     when(furyofairUptime).isLessThan(.95)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(`Try to make sure the Fury of Air is always up, when it drops you should refresh it as soon as possible`)
+        return suggest('Try to make sure the Fury of Air is always up, when it drops you should refresh it as soon as possible')
           .icon(SPELLS.FURY_OF_AIR_TALENT.icon)
           .actual(`${formatPercentage(actual)}% uptime`)
           .recommended(`${(formatPercentage(recommended))}% is recommended`)
@@ -67,7 +67,7 @@ class FuryOfAir extends Module {
         icon={<SpellIcon id={FURY_ID} />}
         value={`${formatPercentage(furyofairUptime)} %`}
         label="Fury of Air uptime"
-        tooltip={`One of your highest priorities, get as close to 100% as possible`}
+        tooltip={'One of your highest priorities, get as close to 100% as possible'}
       />)
     );
   }

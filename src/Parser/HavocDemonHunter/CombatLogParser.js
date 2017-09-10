@@ -29,7 +29,6 @@ class CombatLogParser extends CoreCombatLogParser {
   };
 
   generateResults() {
-
     const results = super.generateResults();
 
     results.tabs = [
@@ -45,7 +44,7 @@ class CombatLogParser extends CoreCombatLogParser {
         url: 'talents',
         render: () => (
           <Tab title="Talents">
-            <Talents combatant={this.selectedCombatant} />
+            <Talents combatant={this.modules.combatants.selected} />
           </Tab>
         ),
       },
