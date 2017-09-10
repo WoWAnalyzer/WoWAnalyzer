@@ -29,6 +29,7 @@ import RoaringBlaze from './Modules/Talents/RoaringBlaze';
 import Shadowburn from './Modules/Talents/Shadowburn';
 import SoulHarvest from './Modules/Talents/SoulHarvest';
 import SoulHarvestTalent from './Modules/Talents/SoulHarvestTalent';
+import ChannelDemonfire from './Modules/Talents/ChannelDemonfire';
 
 import SoulOfTheNetherlord from './Modules/Items/Legendaries/SoulOfTheNetherlord';
 import TheMasterHarvester from './Modules/Items/Legendaries/TheMasterHarvester';
@@ -46,7 +47,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // DoTs
     immolateUptime: ImmolateUptime,
-    
+
     //Core
     soulShardEvents: SoulShardEvents,
     soulShardTracker: SoulShardTracker,
@@ -62,6 +63,7 @@ class CombatLogParser extends CoreCombatLogParser {
     shadowburn: Shadowburn,
     soulHarvest: SoulHarvest,
     soulHarvestTalent: SoulHarvestTalent,
+    channelDemonfire: ChannelDemonfire,
 
     //Legendaries
     soulOfTheNetherlord: SoulOfTheNetherlord,
