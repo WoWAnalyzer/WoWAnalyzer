@@ -160,8 +160,7 @@ const VoidformGraph = ({
     if (insanityData[i] === null) {
       insanityData[i] = insanityData[latestInsanityDataAt];
       for (let j = latestInsanityDataAt; j <= i; j += 1) {
-        if (dispersionData[j] === null && voidTorrentData[j] === null)
-          insanityData[i] -= insanityDrain[j] / (1000 / RESOLUTION_MS);
+        if (dispersionData[j] === null && voidTorrentData[j] === null)          {insanityData[i] -= insanityDrain[j] / (1000 / RESOLUTION_MS);}
       }
 
       if (insanityData[i] < 0) insanityData[i] = 0;

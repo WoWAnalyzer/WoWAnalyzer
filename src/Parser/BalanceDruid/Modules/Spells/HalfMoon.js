@@ -31,10 +31,7 @@ class HalfMoon extends Module {
       this.firstMoonCast = true;
     }
 
-    if (spellId !== SPELLS.HALF_MOON.id)
-      this.halfMoonOrder  += 1;
-    else
-            this.orderFound = true;
+    if (spellId !== SPELLS.HALF_MOON.id)      {this.halfMoonOrder  += 1;}    else            {this.orderFound = true;}
   }
 
   suggestions(when) {
