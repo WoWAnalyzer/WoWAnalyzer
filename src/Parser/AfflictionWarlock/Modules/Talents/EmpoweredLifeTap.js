@@ -21,29 +21,8 @@ class EmpoweredLifeTap extends Module {
   bonusDmg = 0;
   uptime = 0;
 
-  _applyOrRemoveELT = false;
-  _refreshELT = false;
-
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.EMPOWERED_LIFE_TAP_TALENT.id);
-  }
-
-  on_toPlayer_applybuff(event) {
-    if (event.ability.guid === SPELLS.EMPOWERED_LIFE_TAP_BUFF.id) {
-      this._applyOrRemoveELT = true;
-    }
-  }
-
-  on_toPlayer_removebuff(event) {
-    if (event.ability.guid === SPELLS.EMPOWERED_LIFE_TAP_BUFF.id) {
-      this._applyOrRemoveELT = true;
-    }
-  }
-
-  on_toPlayer_refreshbuff(event) {
-    if (event.ability.guid === SPELLS.EMPOWERED_LIFE_TAP_BUFF.id) {
-      this._refreshELT = true;
-    }
   }
 
   on_byPlayer_damage(event) {
@@ -54,16 +33,12 @@ class EmpoweredLifeTap extends Module {
 
   on_finished() {
     this.uptime = this.combatants.selected.getBuffUptime(SPELLS.EMPOWERED_LIFE_TAP_BUFF.id) / this.owner.fightDuration;
-    if (!this._applyOrRemoveELT && this._refreshELT) {
-      //buff was refreshed but never applied or removed = it was applied pre-combat and kept 100% uptime
-      this.uptime = 1;
-    }
   }
 
   suggestions(when) {
     when(this.uptime).isLessThan(0.9)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your uptime on the <SpellLink id={SPELLS.EMPOWERED_LIFE_TAP_BUFF.id}/> buff could be improved. You should cast <SpellLink id={SPELLS.LIFE_TAP.id}/> more often.</span>)
+        return suggest(<span>Your uptime on the <SpellLink id={SPELLS.EMPOWERED_LIFE_TAP_BUFF.id}/> buff could be improved. You should cast <SpellLink id={SPELLS.LIFE_TAP.id}/> more often.<br /><br /><small><em>NOTE:</em> If you're getting 0% uptime, it might be wrong if you used <SpellLink id={SPELLS.LIFE_TAP.id}/> before combat started and maintained the buff. Due to technical limitations it's not possible to track the bonus damage nor uptime in this case.</small></span>)
           .icon(SPELLS.EMPOWERED_LIFE_TAP_TALENT.icon)
           .actual(`${formatPercentage(actual)}% Empowered Life Tap uptime`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`)
