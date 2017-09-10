@@ -15,12 +15,12 @@ class Ascendance extends Module {
   numOtherCasts = 0;
 
   numCasts = {
-    [SPELLS.LAVA_BURST.id]: 1,
-    [SPELLS.EARTH_SHOCK.id]: 1,
-    [SPELLS.ELEMENTAL_BLAST.id]: 1,
-    [SPELLS.FLAME_SHOCK.id]: 1,
-    [SPELLS.LIGHTNING_BOLT.id]: 1,
-    others: 1,
+    [SPELLS.LAVA_BURST.id]: 0,
+    [SPELLS.EARTH_SHOCK.id]: 0,
+    [SPELLS.ELEMENTAL_BLAST.id]: 0,
+    [SPELLS.FLAME_SHOCK.id]: 0,
+    [SPELLS.LIGHTNING_BOLT.id]: 0,
+    others: 0,
   };
 
   on_initialized() {
@@ -38,17 +38,11 @@ class Ascendance extends Module {
   on_byPlayer_cast(event) {
     if (this.owner.modules.combatants.selected.hasBuff(SPELLS.ASCENDANCE.id, event.timestamp)) {
       const spellId = event.ability.guid;
-      if (this.numCasts[spellId]) {
+      if (this.numCasts[spellId] !== undefined) {
         this.numCasts[spellId] += 1;
       } else {
         this.numCasts.others += 1;
       }
-    }
-  }
-
-  on_finished() {
-    for (const i in this.numCasts) {
-      this.numCasts[i] -= 1;
     }
   }
 

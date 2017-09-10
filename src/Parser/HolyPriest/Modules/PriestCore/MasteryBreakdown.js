@@ -2,8 +2,7 @@ import React from 'react';
 import { STATISTIC_ORDER } from 'Main/StatisticBox';
 import ExpandableStatisticBox from 'Main/ExpandableStatisticBox';
 import SpellIcon from 'common/SpellIcon';
-import { formatPercentage, formatNumber } from 'common/format';
-
+import { formatNumber, formatPercentage } from 'common/format';
 // dependencies
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -14,10 +13,10 @@ import { ABILITIES_THAT_TRIGGER_MASTERY } from '../../Constants';
 class MasteryBreakdown extends Module {
   static dependencies = {
     combatants: Combatants,
-  }
+  };
 
   _tickMode = {};
-  _healVal = {};
+  _healValByTargetId = {};
   _maxHealVal = {};
   _masteryActive = {};
   effectiveHealDist = {};
@@ -32,20 +31,19 @@ class MasteryBreakdown extends Module {
     // There's likely a far better way to do this, but my 2AM brain couldn't find it
     let total = 0;
 
-    let spell;
-    for (spell in this.effectiveHealDist) {
+    Object.keys(this.effectiveHealDist).forEach((spell) => {
       total += this.effectiveHealDist[spell];
-    }
+    });
 
     const eHDPerc = {};
-    for (spell in this.effectiveHealDist) {
+    Object.keys(this.effectiveHealDist).forEach((spell) => {
       eHDPerc[spell] = this.effectiveHealDist[spell] / total;
-    }
+    });
 
     const eOHD = {};
-    for (spell in this.effectiveHealDist) {
+    Object.keys(this.effectiveHealDist).forEach((spell) => {
       eOHD[spell] = this.effectiveOverhealDist[spell] / (this.effectiveHealDist[spell] + this.effectiveOverhealDist[spell]);
-    }
+    });
 
     // Since JS objects lack order, we need to convert our dictionary to an array
     // to allow for it be ordered for display
@@ -73,7 +71,7 @@ class MasteryBreakdown extends Module {
     }
 
     this._masteryActive[tId] = false;
-    this._healVal[tId] = {};
+    this._healValByTargetId[tId] = {};
     this._maxHealVal[tId] = {};
   }
 
@@ -88,12 +86,10 @@ class MasteryBreakdown extends Module {
       this.effectiveHealDist = this.effectiveHealDist || {};
       // this._eHDbyPlayer[tId] = this._eHDbyPlayer[tId] || {};
 
-
       const percH = (event.amount + (event.absorbed || 0)) / (event.amount + (event.absorbed || 0) + (event.overheal || 0));
       const tickMode = this._tickMode[tId];
 
-      let spell;
-      for (spell in this._healVal[tId]) {
+      Object.keys(this._healValByTargetId[tId]).forEach((spell) => {
         // For potential future Features //
         // if (spell in this._eHDbyPlayer[tId]) {
         //   this._eHDbyPlayer[tId][spell] += this._maxHealVal[tId][spell] * percOH / tickMode;
@@ -110,16 +106,16 @@ class MasteryBreakdown extends Module {
           this.effectiveOverhealDist[spell] = (this._maxHealVal[tId][spell]) * (1 - percH) / tickMode;
         }
 
-        this._healVal[tId][spell] -= (this._maxHealVal[tId][spell] / tickMode);
+        this._healValByTargetId[tId][spell] -= (this._maxHealVal[tId][spell] / tickMode);
 
         // There's a rare issue that can cause the healVal allocation to dip to a negative value
         // I'm not sure of the cause but it seems like it is due to an incorrect tickMode
         // value. Likely something to do with events on the same timestamp (or just some bad
         // logic in this file) but the value is much more accurate with this tweak
-        if (this._healVal[tId][spell] < 0) {
-          this._healVal[tId][spell] = 0;
+        if (this._healValByTargetId[tId][spell] < 0) {
+          this._healValByTargetId[tId][spell] = 0;
         }
-      }
+      });
     } else {
       // logic for eol triggering spells
       if (ABILITIES_THAT_TRIGGER_MASTERY.indexOf(spellId) === -1) {
@@ -132,20 +128,20 @@ class MasteryBreakdown extends Module {
         this._tickMode[tId] = 2;
       }
 
-      if (!(tId in this._healVal)) {
-        this._healVal[tId] = {};
+      if (!(tId in this._healValByTargetId)) {
+        this._healValByTargetId[tId] = {};
       }
 
       if (!(tId in this._maxHealVal)) {
         this._maxHealVal[tId] = {};
       }
 
-      if (!(spellId in this._healVal[tId])) {
-        this._healVal[tId][spellId] = event.amount + (event.absorbed || 0) + (event.overheal || 0);
+      if (!(spellId in this._healValByTargetId[tId])) {
+        this._healValByTargetId[tId][spellId] = event.amount + (event.absorbed || 0) + (event.overheal || 0);
       } else {
-        this._healVal[tId][spellId] += event.amount + (event.absorbed || 0) + (event.overheal || 0);
+        this._healValByTargetId[tId][spellId] += event.amount + (event.absorbed || 0) + (event.overheal || 0);
       }
-      this._maxHealVal[tId][spellId] = this._healVal[tId][spellId];
+      this._maxHealVal[tId][spellId] = this._healValByTargetId[tId][spellId];
     }
   }
 
@@ -176,10 +172,10 @@ class MasteryBreakdown extends Module {
               this.effectiveHealDistPerc
                 .map((item, index) => (
                   <tr key={index}>
-                    <th scope="row"><SpellIcon id={item[0]} style={{ height: '2.4em' }}/></th>
-                    <td>{ formatNumber(this.healing * item[1]) }</td>
-                    <td>{ formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing) * item[1]) }%</td>
-                    <td>{ formatPercentage(item[2]) }%</td>
+                    <th scope="row"><SpellIcon id={item[0]} style={{ height: '2.4em' }} /></th>
+                    <td>{formatNumber(this.healing * item[1])}</td>
+                    <td>{formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing) * item[1])}%</td>
+                    <td>{formatPercentage(item[2])}%</td>
                   </tr>
                 ))
             }
