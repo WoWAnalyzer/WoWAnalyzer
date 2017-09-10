@@ -19,10 +19,31 @@ class EmpoweredLifeTap extends Module {
   };
 
   bonusDmg = 0;
-  ELTuptime = 0;
+  uptime = 0;
+
+  _applyOrRemoveELT = false;
+  _refreshELT = false;
 
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.EMPOWERED_LIFE_TAP_TALENT.id);
+  }
+
+  on_toPlayer_applybuff(event) {
+    if (event.ability.guid === SPELLS.EMPOWERED_LIFE_TAP_BUFF.id) {
+      this._applyOrRemoveELT = true;
+    }
+  }
+
+  on_toPlayer_removebuff(event) {
+    if (event.ability.guid === SPELLS.EMPOWERED_LIFE_TAP_BUFF.id) {
+      this._applyOrRemoveELT = true;
+    }
+  }
+
+  on_toPlayer_refreshbuff(event) {
+    if (event.ability.guid === SPELLS.EMPOWERED_LIFE_TAP_BUFF.id) {
+      this._refreshELT = true;
+    }
   }
 
   on_byPlayer_damage(event) {
@@ -32,11 +53,15 @@ class EmpoweredLifeTap extends Module {
   }
 
   on_finished() {
-    this.ELTuptime = this.combatants.selected.getBuffUptime(SPELLS.EMPOWERED_LIFE_TAP_BUFF.id) / this.owner.fightDuration;
+    this.uptime = this.combatants.selected.getBuffUptime(SPELLS.EMPOWERED_LIFE_TAP_BUFF.id) / this.owner.fightDuration;
+    if (!this._applyOrRemoveELT && this._refreshELT) {
+      //buff was refreshed but never applied or removed = it was applied pre-combat and kept 100% uptime
+      this.uptime = 1;
+    }
   }
 
   suggestions(when) {
-    when(this.ELTuptime).isLessThan(0.9)
+    when(this.uptime).isLessThan(0.9)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Your uptime on the <SpellLink id={SPELLS.EMPOWERED_LIFE_TAP_BUFF.id}/> buff could be improved. You should cast <SpellLink id={SPELLS.LIFE_TAP.id}/> more often.</span>)
           .icon(SPELLS.EMPOWERED_LIFE_TAP_TALENT.icon)
@@ -50,7 +75,7 @@ class EmpoweredLifeTap extends Module {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.EMPOWERED_LIFE_TAP_TALENT.id} />}
-        value={`${formatPercentage(this.ELTuptime)} %`}
+        value={`${formatPercentage(this.uptime)} %`}
         label='Empowered Life Tap uptime'
         tooltip={`Your Empowered Life Tap talent contributed ${formatNumber(this.bonusDmg)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} %)`}
       />
