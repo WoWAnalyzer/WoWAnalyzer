@@ -79,6 +79,9 @@ class SoulShardEvents extends Module {
       return;
     }
     if (this._FRAGMENT_GENERATING_ABILITIES[event.ability.guid]) {
+      //purposefully delete the event's target ID and instance (it's player anyway)
+      delete event.targetID;
+      delete event.targetInstance;
       this.processGenerators(event);
     }
   }
@@ -113,6 +116,9 @@ class SoulShardEvents extends Module {
         guid: spellId,
         name: SPELLS[spellId].name,
       },
+      damage: (event.amount || 0 ) + (event.absorbed || 0),
+      targetID: event.targetID,
+      targetInstance: event.targetInstance,
     };
     const gainedFragmentsBeforeCap = this._FRAGMENT_GENERATING_ABILITIES[spellId](event);
     let gain = 0;
@@ -158,6 +164,8 @@ class SoulShardEvents extends Module {
           guid: SPELLS.IMMOLATE_DEBUFF.id,
           name: SPELLS.IMMOLATE_DEBUFF.name,
         },
+        targetID: event.targetID,
+        targetInstance: event.targetInstance,
         amount: Math.abs(this._currentFragments - amount),
         waste: 0,
       };

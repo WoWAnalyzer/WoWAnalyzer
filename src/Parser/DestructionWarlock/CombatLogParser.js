@@ -15,10 +15,6 @@ import GrimoireOfService from './Modules/Features/GrimoireOfService';
 import ImmolateUptime from './Modules/Features/ImmolateUptime';
 import DimensionalRift from './Modules/Features/DimensionalRift';
 
-import ReverseEntropy from './Modules/Talents/ReverseEntropy';
-import Eradication from './Modules/Talents/Eradication';
-import EradicationTalent from './Modules/Talents/EradicationTalent';
-import EmpoweredLifeTap from './Modules/Talents/EmpoweredLifeTap';
 
 import SoulShardEvents from './Modules/SoulShards/SoulShardEvents';
 import SoulShardTracker from './Modules/SoulShards/SoulShardTracker';
@@ -28,6 +24,10 @@ import DamageDone from './Modules/Features/DamageDone';
 import Backdraft from './Modules/Talents/Backdraft';
 import RoaringBlaze from './Modules/Talents/RoaringBlaze';
 import Shadowburn from './Modules/Talents/Shadowburn';
+import ReverseEntropy from './Modules/Talents/ReverseEntropy';
+import Eradication from './Modules/Talents/Eradication';
+import EmpoweredLifeTap from './Modules/Talents/EmpoweredLifeTap';
+import FireAndBrimstone from './Modules/Talents/FireAndBrimstone';
 import SoulHarvest from './Modules/Talents/SoulHarvest';
 import SoulHarvestTalent from './Modules/Talents/SoulHarvestTalent';
 
@@ -55,13 +55,13 @@ class CombatLogParser extends CoreCombatLogParser {
     soulShardDetails: SoulShardDetails,
 
     //Talents
-    reverseEntropy: ReverseEntropy,
-    eradication: Eradication,
-    eradicationTalent: EradicationTalent,
-    empoweredLifeTap: EmpoweredLifeTap,
     backdraft: Backdraft,
     roaringBlaze: RoaringBlaze,
     shadowburn: Shadowburn,
+    reverseEntropy: ReverseEntropy,
+    eradication: Eradication,
+    empoweredLifeTap: EmpoweredLifeTap,
+    fireAndBrimstone: FireAndBrimstone,
     soulHarvest: SoulHarvest,
     soulHarvestTalent: SoulHarvestTalent,
 
