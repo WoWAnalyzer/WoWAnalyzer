@@ -142,7 +142,7 @@ class MasteryBreakdown extends Module {
         this._maxHealVal[tId] = {};
       }
 
-      let eh = event.amount + (event.absorbed || 0) + (event.overheal || 0);
+      let effectiveHealing = event.amount + (event.absorbed || 0) + (event.overheal || 0);
       if (spellId === SPELLS.RENEW.id) {
         // due to renew only applying off of initial tick and not from periodic ticks
         // and both of them having identical spell IDs, I chose to negate renew's mastery
@@ -153,20 +153,20 @@ class MasteryBreakdown extends Module {
         // (but I want to include it anyway, that way I can get the "unknown spell" warning to
         //  work optimally and let users report unknown spells)
 
-        eh = 0;
+        effectiveHealing = 0;
       }
 
       if (!(spellId in this._healValByTargetId[tId])) {
-        this._healValByTargetId[tId][spellId] = eh;
+        this._healValByTargetId[tId][spellId] = effectiveHealing;
       } else {
-        this._healValByTargetId[tId][spellId] += eh;
+        this._healValByTargetId[tId][spellId] += effectiveHealing;
       }
       this._maxHealVal[tId][spellId] = this._healValByTargetId[tId][spellId];
     }
   }
 
   statistic() {
-    const percOTHD = this.owner.getPercentageOfTotalHealingDone(this.healing);
+    const percOfTotalHealingDone = this.owner.getPercentageOfTotalHealingDone(this.healing);
     return (
       <ExpandableStatisticBox
         icon={<SpellIcon id={SPELLS.ECHO_OF_LIGHT.id} />}
@@ -179,13 +179,9 @@ class MasteryBreakdown extends Module {
           </dfn>
         )}
       >
-        {
-          (
-            <div>
-              Values under 0.5% of total (and Renew) are omitted.
-            </div>
-          )
-        }
+        <div>
+          Values under 1% of total (and Renew) are omitted.
+        </div>
         <table className="table table-condensed">
           <thead>
             <tr>
@@ -199,13 +195,13 @@ class MasteryBreakdown extends Module {
             {
               this.effectiveHealDistPerc
                 .filter((item, index) => (
-                  percOTHD * item[1] > 0.005
+                  percOfTotalHealingDone * item[1] > 0.01
                 ))
                 .map((item, index) => (
                   <tr key={index}>
                     <th scope="row"><SpellIcon id={item[0]} style={{ height: '2.4em' }} /></th>
                     <td>{formatNumber(this.healing * item[1])}</td>
-                    <td>{formatPercentage(percOTHD * item[1])}%</td>
+                    <td>{formatPercentage(percOfTotalHealingDone * item[1])}%</td>
                     <td>{formatPercentage(item[2])}%</td>
                   </tr>
                 ))
