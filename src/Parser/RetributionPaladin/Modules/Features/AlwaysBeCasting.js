@@ -1,10 +1,12 @@
+import React from 'react';
 import SPELLS from 'common/SPELLS';
+import Icon from 'common/Icon';
 
-import { formatPercentage, formatDuration } from 'common/format';
+import {formatPercentage} from 'common/format';
 
 import CoreAlwaysBeCasting from 'Parser/Core/Modules/AlwaysBeCasting';
 
-import { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
 
@@ -49,48 +51,18 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.HAND_OF_RECKONING.id,
   ];
 
-  recordCastTime(
-    castStartTimestamp,
-    globalCooldown,
-    begincast,
-    cast,
-    spellId
-  ) {
-    super.recordCastTime(
-      castStartTimestamp,
-      globalCooldown,
-      begincast,
-      cast,
-      spellId
-    );
-    this.verifyCast(begincast, cast, globalCooldown);
-  }
-  verifyCast(begincast, cast, globalCooldown) {
-    if (cast.ability.guid !== SPELLS.FLASH_OF_LIGHT.id) {
-      return;
-    }
-    const castTime = cast.timestamp - begincast.timestamp;
-    if (!this.constructor.inRange(castTime, globalCooldown, 50)) { // cast times seem to fluctuate by 50ms, not sure if it depends on player latency, in that case it could be a lot more flexible
-      console.warn(`Expected Flash of Light cast time (${castTime}) to match GCD (${Math.round(globalCooldown)}) @${formatDuration((cast.timestamp - this.owner.fight.start_time) / 1000)}`, this.combatants.selected.activeBuffs());
-    }
-  }
-
-  static inRange(num1, goal, buffer) {
-    return num1 > (goal - buffer) && num1 < (goal + buffer);
-  }
-
-  suggestions(when) {
-    const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
-
-    when(deadTimePercentage).isGreaterThan(0.2)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest('Your dead GCD time can be improved. Try to Always Be Casting (ABC)')
-          .icon('spell_mage_altertime')
-          .actual(`${formatPercentage(actual)}% dead GCD time`)
-          .recommended(`<${formatPercentage(recommended)}% is recommended`)
-          .regular(recommended + 0.15).major(1);
-      });
-  }
+ statistic() { 
+   const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration; 
+  
+   return ( 
+     <StatisticBox 
+       icon={<Icon icon='petbattle_health-down' alt='Dead time' />} 
+       value={`${formatPercentage(deadTimePercentage)} %`} 
+       label='Dead time' 
+       tooltip='Dead time is available casting time not used for casting any spell. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/being stunned), etc.' 
+     /> 
+   ); 
+ } 
   statisticOrder = STATISTIC_ORDER.CORE(10);
 }
 
