@@ -10,6 +10,8 @@ import SPELLS from 'common/SPELLS';
 
 import SoulShardEvents from '../SoulShards/SoulShardEvents';
 
+const debug = false;
+
 //estimated maximum time in ms between each Incinerate damage event to count as from one cast
 //the talent makes Incinerate cleave into all surrounding targets, so it makes sense that the Incinerates arrive at approximately same time, this is the tolerance for the "approximately"
 const CLEAVE_THRESHOLD = 50;
@@ -83,12 +85,16 @@ class FireAndBrimstone extends Module {
   }
 
   on_finished() {
-    console.log("primary targets", this._primaryTargets);
-    console.log("all targets", this._allTargets);
-    console.log("grouped targets", this._groupedTargets);
+    debug && console.log("primary targets", this._primaryTargets);
+    debug && console.log("all targets", this._allTargets);
+    debug && console.log("grouped targets", this._groupedTargets);
 
     //remove the primary targets, should be left with the cleaved targets
     this._primaryTargets.forEach((event, index) => {
+      if (!this._groupedTargets[index]) {
+        //can happen if _primaryTargets is larger than _groupedTargets, not sure why
+        return;
+      }
       //look into the same index in _groupedTargets, find an event with the same target ID and instance and delete it
       const primaryTargetIndex = this._groupedTargets[index].findIndex(groupedEvent => groupedEvent.targetID === event.targetID && groupedEvent.targetInstance === event.targetInstance);
       if (primaryTargetIndex === -1) {
