@@ -45,6 +45,27 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     },
   };
 
+  recordCastTime(
+    castStartTimestamp,
+    globalCooldown,
+    begincast,
+    cast,
+    spellId
+  ) {
+    super.recordCastTime(
+      castStartTimestamp,
+      globalCooldown,
+      begincast,
+      cast,
+      spellId
+    );
+    this._verifyChannel(SPELLS.NEW_MOON.id, 1000, begincast, cast);
+    this._verifyChannel(SPELLS.HALF_MOON.id, 2000, begincast, cast);
+    this._verifyChannel(SPELLS.FULL_MOON.id, 3000, begincast, cast);
+    this._verifyChannel(SPELLS.SOLAR_WRATH_MOONKIN.id, 1500, begincast, cast);
+    this._verifyChannel(SPELLS.LUNAR_STRIKE.id, 2500, begincast, cast);
+  }
+
   suggestions(when) {
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
     

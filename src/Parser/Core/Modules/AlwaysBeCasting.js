@@ -1,11 +1,12 @@
 import SPELLS from 'common/SPELLS';
 import { calculateSecondaryStatDefault } from 'common/stats';
+import { formatDuration } from 'common/format';
 
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ITEMS from '../../../common/ITEMS';
 
-const debug = false;
+const debug = true;
 
 class AlwaysBeCasting extends Module {
   static dependencies = {
@@ -137,7 +138,7 @@ class AlwaysBeCasting extends Module {
     const timeWasted = castStartTimestamp - (this._lastCastFinishedTimestamp || this.owner.fight.start_time);
     this.totalTimeWasted += timeWasted;
 
-    debug && console.log(`ABC: tot.:${Math.floor(this.totalTimeWasted)}\tthis:${Math.floor(timeWasted)}\t%c${cast.ability.name} (${spellId}): ${begincast ? 'channeled' : 'instant'}\t%cgcd:${Math.floor(globalCooldown)}\t%ccasttime:${cast.timestamp - castStartTimestamp}\tfighttime:${castStartTimestamp - this.owner.fight.start_time}`, 'color:red', 'color:green', 'color:black');
+    debug && console.log(`ABC: tot.:${Math.floor(this.totalTimeWasted)}\tthis:${Math.floor(timeWasted)}\t%c${cast.ability.name} (${spellId}): ${begincast ? 'channeled' : 'instant'}\t%cgcd:${Math.floor(globalCooldown)}\t%ccasttime:${cast.timestamp - castStartTimestamp}\tfighttime:${formatDuration((castStartTimestamp - this.owner.fight.start_time) / 1000)}`, 'color:red', 'color:green', 'color:black');
 
     this._lastCastFinishedTimestamp = Math.max(castStartTimestamp + globalCooldown, cast.timestamp);
   }
@@ -155,11 +156,8 @@ class AlwaysBeCasting extends Module {
   on_toPlayer_applybuff(event) {
     this._applyActiveBuff(event);
   }
-  on_toPlayer_applybuffstack(event) {
-    this._applyBuffStack(event);
-  }
-  on_toPlayer_removebuffstack(event) {
-    this._removeBuffStack(event);
+  on_toPlayer_changebuffstack(event) {
+    this._changeBuffStack(event);
   }
   on_toPlayer_removebuff(event) {
     this._removeActiveBuff(event);
@@ -168,11 +166,8 @@ class AlwaysBeCasting extends Module {
   on_toPlayer_applydebuff(event) {
     this._applyActiveBuff(event);
   }
-  on_toPlayer_applydebuffstack(event) {
-    this._applyBuffStack(event);
-  }
-  on_toPlayer_removedebuffstack(event) {
-    this._removeBuffStack(event);
+  on_toPlayer_changedebuffstack(event) {
+    this._changeBuffStack(event);
   }
   on_toPlayer_removedebuff(event) {
     this._removeActiveBuff(event);
@@ -190,31 +185,19 @@ class AlwaysBeCasting extends Module {
     if (hasteGain) {
       this._applyHasteGain(hasteGain);
 
-      debug && console.log(`ABC: Current haste: ${this.currentHaste} (gained ${hasteGain} from ${spellId})`);
+      debug && console.log(`ABC: Current haste: ${this.currentHaste} (gained ${hasteGain} from ${SPELLS[spellId] ? SPELLS[spellId].name : spellId})`);
     }
   }
-  _applyBuffStack(event) {
-    const spellId = event.ability.guid;
-    const haste = this._getHastePerStackGain(spellId);
-
-    // TODO: Track amount of current stacks so we can diff the amount of stacks gained
-    // TODO: Haste from buff stacks is most likely additive; 3% + 3% = 6%, so if we already added 3% we should get base by reducing current Haste by 3% then add 6% instead
-    // TODO: Actually this still needs to take the `.stack` property into account; 6 stacks = multiply haste by 6, but first reduce by already applied Haste in whatever previous event. This requires tracking buff stacks at which point we're kinda replicating the buff behavior of the Entity class, maybe we should look into changing that so we can use the existing buff tracking mechanisms?
-
-    if (haste) {
-      this._applyHasteGain(haste);
-
-      debug && console.log(`ABC: Current haste: ${this.currentHaste} (gained ${haste} from ${spellId})`);
-    }
-  }
-  _removeBuffStack(event) {
+  _changeBuffStack(event) {
     const spellId = event.ability.guid;
     const haste = this._getHastePerStackGain(spellId);
 
     if (haste) {
-      this._applyHasteLoss(haste);
+      // Haste stacks are usually additive, so at 5 stacks with 3% per you'd be at 15%, 6 stacks = 18%. This means the only right way to add a Haste stack is to reset to Haste without the old total and then add the new total Haste again.
+      this._applyHasteLoss(haste * event.oldStacks);
+      this._applyHasteGain(haste * event.newStacks);
 
-      debug && console.log(`ABC: Current haste: ${this.currentHaste} (lost ${haste} from ${spellId})`);
+      debug && console.log(`ABC: Current haste: ${this.currentHaste} (gained ${haste * event.stacksGained} from ${SPELLS[spellId] ? SPELLS[spellId].name : spellId})`);
     }
   }
   _removeActiveBuff(event) {
@@ -224,7 +207,7 @@ class AlwaysBeCasting extends Module {
     if (haste) {
       this._applyHasteLoss(haste);
 
-      debug && console.log(`ABC: Current haste: ${this.currentHaste} (lost ${haste} from ${spellId})`);
+      debug && console.log(`ABC: Current haste: ${this.currentHaste} (lost ${haste} from ${SPELLS[spellId] ? SPELLS[spellId].name : spellId})`);
     }
   }
 
@@ -287,6 +270,29 @@ class AlwaysBeCasting extends Module {
     }
   }
 
+  /**
+   * Can be used to determine the accuracy of the Haste tracking.
+   * @param spellId
+   * @param defaultCastTime
+   * @param begincast
+   * @param cast
+   * @private
+   */
+  _verifyChannel(spellId, defaultCastTime, begincast, cast) {
+    if (cast.ability.guid === spellId) {
+      if (!begincast) {
+        console.error('Missing begin cast for channeled ability:', cast);
+        return;
+      }
+
+      const actualCastTime = cast.timestamp - begincast.timestamp;
+      const expectedCastTime = Math.round(defaultCastTime / (1 + this.currentHaste));
+      if (!this.constructor.inRange(actualCastTime, expectedCastTime, 50)) { // cast times seem to fluctuate by 50ms, not sure if it depends on player latency, in that case it could be a lot more flexible
+        console.warn(`ABC: ${SPELLS[spellId].name} channel: Expected actual ${actualCastTime}ms to be expected ${expectedCastTime}ms ± 50ms @ ${formatDuration((cast.timestamp - this.owner.fight.start_time) / 1000)}`, this.combatants.selected.activeBuffs());
+      }
+    }
+  }
+
   static calculateGlobalCooldown(haste) {
     const gcd = this.BASE_GCD / (1 + haste);
     // Global cooldowns can't normally drop below a certain threshold
@@ -297,6 +303,9 @@ class AlwaysBeCasting extends Module {
   }
   static removeHaste(baseHaste, hasteLoss) {
     return (baseHaste - hasteLoss) / (1 + hasteLoss);
+  }
+  static inRange(num1, goal, buffer) {
+    return num1 > (goal - buffer) && num1 < (goal + buffer);
   }
 }
 

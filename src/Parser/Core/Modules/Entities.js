@@ -24,8 +24,11 @@ class Entities extends Module {
   //   this.removeActiveBuff(event);
   //   this.applyActiveBuff(event);
   // }
+  on_applybuffstack(event) {
+    this.updateBuffStack(event);
+  }
   on_removebuffstack(event) {
-    this.removeBuffStack(event);
+    this.updateBuffStack(event);
   }
   on_removebuff(event) {
     this.removeBuff(event);
@@ -34,8 +37,11 @@ class Entities extends Module {
   on_applydebuff(event) {
     this.applyBuff(event, true);
   }
+  on_applydebuffstack(event) {
+    this.updateBuffStack(event, true);
+  }
   on_removedebuffstack(event) {
-    this.removeBuffStack(event, true);
+    this.updateBuffStack(event, true);
   }
   on_removedebuff(event) {
     this.removeBuff(event, true);
@@ -63,6 +69,38 @@ class Entities extends Module {
       isDebuff,
     });
   }
+  updateBuffStack(event, isDebuff) {
+    if (!this.owner.byPlayer(event) && !this.owner.toPlayer(event)) {
+      // We don't need to know about debuffs on bosses or buffs on other players not caused by us, but we do want to know about our outgoing buffs, and other people's buffs on us
+      return;
+    }
+    const entity = this.getEntity(event);
+    if (!entity) {
+      return;
+    }
+
+    if (debug) {
+      const secondsIntoFight = (event.timestamp - this.owner.fight.start_time) / 1000;
+      console.log(secondsIntoFight, event.timestamp, `Apply buff stack ${event.ability.name} to ${entity.name}`);
+    }
+
+    const existingBuff = entity.buffs.find(item => item.ability.guid === event.ability.guid && item.end === null);
+    const oldStacks = existingBuff.stacks || 1; // the original spell counts as 1 stack
+    if (existingBuff) {
+      existingBuff.stacks = event.stack;
+    }
+
+    const type = isDebuff ? 'changedebuffstack' : 'changebuffstack';
+
+    this.triggerEvent(type, {
+      ...event,
+      type,
+      oldStacks,
+      newStacks: event.stack,
+      stacksGained: event.stack - oldStacks,
+      stack: undefined,
+    });
+  }
   removeBuff(event, isDebuff) {
     if (!this.owner.byPlayer(event) && !this.owner.toPlayer(event)) {
       // We don't need to know about debuffs on bosses or buffs on other players not caused by us, but we do want to know about our outgoing buffs, and other people's buffs on us
@@ -81,6 +119,20 @@ class Entities extends Module {
     const existingBuff = entity.buffs.find(item => item.ability.guid === event.ability.guid && item.end === null);
     if (existingBuff) {
       existingBuff.end = event.timestamp;
+
+      if (existingBuff.stacks) {
+        const oldStacks = existingBuff.stacks;
+        const type = isDebuff ? 'changedebuffstack' : 'changebuffstack';
+
+        this.triggerEvent(type, {
+          ...event,
+          type,
+          oldStacks,
+          newStacks: 0,
+          stacksGained: 0 - oldStacks,
+          stack: undefined,
+        });
+      }
     } else {
       entity.buffs.push({
         ...event,
@@ -89,28 +141,6 @@ class Entities extends Module {
         isDebuff,
       });
     }
-  }
-  removeBuffStack(event, isDebuff) {
-    if (!this.owner.byPlayer(event) && !this.owner.toPlayer(event)) {
-      // We don't need to know about debuffs on bosses or buffs on other players not caused by us, but we do want to know about our outgoing buffs, and other people's buffs on us
-      return;
-    }
-    const entity = this.getEntity(event);
-    if (!entity) {
-      return;
-    }
-
-    if (debug) {
-      const secondsIntoFight = (event.timestamp - this.owner.fight.start_time) / 1000;
-      console.log(secondsIntoFight, event.timestamp, `Remove buff stack ${event.ability.name} from ${entity.name}`);
-    }
-
-    // In the case of Maraad's Dying Breath it calls a `removebuffstack` that removes all additional stacks from the buff before it calls a `removebuff`, with this we can find the amount of stacks it had. The `buff.stacks` only includes the amount of removed stacks, which (at least for Maraad's) are all stacks minus one since the original buff is also considered a stack.
-    const existingBuff = entity.buffs.find(item => item.ability.guid === event.ability.guid && item.end === null);
-    if (existingBuff) {
-      existingBuff.stacks = event.stack + 1;
-    }
-    // TODO: Fire a custom event or something with the amount of gained stacks
   }
 
   // Surely this can be done with a couple less loops???
