@@ -1,19 +1,19 @@
-//import React from 'react';
+import SPELLS from 'common/SPELLS';
 
 import SPELLS from 'common/SPELLS';
-//import ITEMS from 'common/ITEMS';
-//import Icon from 'common/Icon';
+
 import { formatPercentage, formatDuration } from 'common/format';
 
 import CoreAlwaysBeCasting from 'Parser/Core/Modules/AlwaysBeCasting';
 
 import { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-//const debug = true;
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
 
   static ABILITIES_ON_GCD = [
+
     //Holy Power Builders
     SPELLS.CRUSADER_STRIKE.id,
     SPELLS.ZEAL_TALENT.id,
@@ -39,6 +39,12 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.REPENTANCE_TALENT.id,
     SPELLS.EYE_FOR_AN_EYE_TALENT.id,
     SPELLS.FLASH_OF_LIGHT.id,
+    SPELLS.JUDGMENT_CAST.id,
+    SPELLS.CRUSADER_STRIKE.id,
+    225141, // http://www.wowhead.com/spell=225141/fel-crazed-rage (Draught of Souls)
+    SPELLS.DIVINE_STEED.id,
+    26573, // Consecration
+    SPELLS.BLINDING_LIGHT_TALENT.id,
     642, // Divine Shield
     SPELLS.LAY_ON_HANDS.id,
     SPELLS.BLESSING_OF_FREEDOM.id,
@@ -82,16 +88,13 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
 
     when(deadTimePercentage).isGreaterThan(0.2)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest('Your dead GCD time can be improved. Try to Always Be Casting (ABC);')
+        return suggest('Your dead GCD time can be improved. Try to Always Be Casting (ABC)')
           .icon('spell_mage_altertime')
           .actual(`${formatPercentage(actual)}% dead GCD time`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
           .regular(recommended + 0.15).major(1);
       });
   }
-  /*statistic() {
-    const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
-  }*/
   statisticOrder = STATISTIC_ORDER.CORE(10);
 }
 
