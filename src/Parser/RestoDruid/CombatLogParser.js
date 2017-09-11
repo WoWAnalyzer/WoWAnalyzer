@@ -89,7 +89,7 @@ class CombatLogParser extends CoreCombatLogParser {
     lifebloom: Lifebloom, // DONE
     efflorescence: Efflorescence, // DONE
     clearcasting: Clearcasting, // DONE
-    treeOfLife: TreeOfLife,
+    treeOfLife: TreeOfLife, // DONE (includes Chameleon Song)
     flourish: Flourish,
     innervate: Innervate,
     powerOfTheArchdruid: PowerOfTheArchdruid,
@@ -135,6 +135,7 @@ class CombatLogParser extends CoreCombatLogParser {
     const wildGrowthTargets = 6;
     const rejuvenationManaCost = 22000;
     const oneRejuvenationThroughput = this.getPercentageOfTotalHealingDone(this.modules.treeOfLife.totalHealingFromRejuvenationEncounter) / this.modules.treeOfLife.totalRejuvenationsEncounter;
+    /*
     const rejuvenationIncreasedEffect = this.getPercentageOfTotalHealingDone(this.modules.treeOfLife.totalHealingFromRejuvenationDuringToL / 1.15 - this.modules.treeOfLife.totalHealingFromRejuvenationDuringToL / (1.15 * 1.5));
     const tolIncreasedHealingDone = this.getPercentageOfTotalHealingDone(this.modules.treeOfLife.totalHealingDuringToL - this.modules.treeOfLife.totalHealingDuringToL / 1.15);
     const rejuvenationMana = (((this.modules.treeOfLife.totalRejuvenationsDuringToL * 10) * 0.3) / 10) * oneRejuvenationThroughput;
@@ -153,6 +154,7 @@ class CombatLogParser extends CoreCombatLogParser {
       treeOfLifeUptime -= treeOfLifeUptimeHelmet;
     }
     const treeOfLifeProccHelmet = formatPercentage(this.modules.treeOfLife.proccs / wildGrowths);
+    */
 
     const hasSoulOfTheForest = this.modules.combatants.selected.lv75Talent === SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id;
     const soulOfTheForestHealing = this.modules.soulOfTheForest.wildGrowthHealing + this.modules.soulOfTheForest.rejuvenationHealing + this.modules.soulOfTheForest.regrowthHealing;
@@ -264,6 +266,7 @@ class CombatLogParser extends CoreCombatLogParser {
         importance: getIssueImportance(this.modules.innervate.secondsManaCapped, 0, 0, true),
       });
     }
+    /*
     if (hasTreeOfLife && treeOfLifeThroughput < 0.11) {
       results.addIssue({
         issue: <span>Your <a href="http://www.wowhead.com/spell=33891" target="_blank" rel="noopener noreferrer">Tree of Life</a> has quite low throughput, you might want to plan your CDs better or select another talent.</span>,
@@ -272,6 +275,7 @@ class CombatLogParser extends CoreCombatLogParser {
         importance: getIssueImportance(treeOfLifeThroughput, 0.07, 0.04),
       });
     }
+    */
     const healingTouches = getAbility(SPELLS.HEALING_TOUCH.id).casts || 0;
     const healingTouchesPerMinute = healingTouches / (fightDuration / 1000) * 60;
     if (healingTouchesPerMinute > 0) {
@@ -441,7 +445,7 @@ class CombatLogParser extends CoreCombatLogParser {
                 }
               </ul>`
             }>
-              Average seconds extended by flourish
+              Seconds extended per Flourish
             </dfn>
           )}
         />
@@ -486,10 +490,11 @@ class CombatLogParser extends CoreCombatLogParser {
                         </ul>
                         `
           }>
-            Average mana saved per innervate
+            Mana saved per Innervate
           </dfn>
         )}
       />,
+      /*
       hasTreeOfLife && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} />}
@@ -509,6 +514,7 @@ class CombatLogParser extends CoreCombatLogParser {
           )}
         />
       ),
+      */
       hasSoulOfTheForest && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id} />}
@@ -585,6 +591,7 @@ class CombatLogParser extends CoreCombatLogParser {
           </dfn>
         ),
       },
+      /*
       this.modules.combatants.selected.hasHead(ITEMS.CHAMELEON_SONG.id) && {
         item: ITEMS.CHAMELEON_SONG,
         result: (
@@ -604,6 +611,7 @@ class CombatLogParser extends CoreCombatLogParser {
           </dfn>
         ),
       },
+      */
       has2PT20 && {
         id: `spell-${SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id}`,
         icon: <SpellIcon id={SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id} />,
