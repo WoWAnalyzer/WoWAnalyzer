@@ -141,12 +141,10 @@ class AlwaysBeCasting extends Module {
 
     this.lastCastFinishedTimestamp = Math.max(castStartTimestamp + globalCooldown, cast.timestamp);
   }
-  baseHaste = null;
   currentHaste = null;
   on_initialized() {
     const combatant = this.combatants.selected;
-    this.baseHaste = combatant.hastePercentage;
-    this.currentHaste = this.baseHaste;
+    this.currentHaste = combatant.hastePercentage;
 
     debug && console.log(`ABC: Current haste: ${this.currentHaste}`);
   }
