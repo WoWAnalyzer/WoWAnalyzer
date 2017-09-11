@@ -5,30 +5,15 @@ import ITEMS from 'common/ITEMS';
 import Icon from 'common/Icon';
 import { formatPercentage, formatDuration } from 'common/format';
 
-import CoreAlwaysBeCastingHealing from 'Parser/Core/Modules/AlwaysBeCastingHealing';
+import CoreAlwaysBeCasting from 'Parser/Core/Modules/AlwaysBeCasting';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 const debug = true;
 
-const HEALING_ABILITIES_ON_GCD = [
-  SPELLS.FLASH_OF_LIGHT.id,
-  SPELLS.HOLY_LIGHT.id,
-  SPELLS.HOLY_SHOCK_CAST.id,
-  // ABILITIES.JUDGMENT_CAST.id, // Only with either JoL or Ilterendi
-  SPELLS.LIGHT_OF_DAWN_CAST.id,
-  SPELLS.LIGHT_OF_THE_MARTYR.id,
-  SPELLS.BESTOW_FAITH_TALENT.id,
-  SPELLS.TYRS_DELIVERANCE_CAST.id,
-  SPELLS.HOLY_PRISM_TALENT.id,
-  SPELLS.LIGHTS_HAMMER_TALENT.id,
-  // ABILITIES.CRUSADER_STRIKE.id, // Only with Crusader's Might, is added in on_byPlayer_combatantinfo if applicable
-];
+class AlwaysBeCasting extends CoreAlwaysBeCasting {
 
-class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
-  static HEALING_ABILITIES_ON_GCD = HEALING_ABILITIES_ON_GCD;
   static ABILITIES_ON_GCD = [
-    ...HEALING_ABILITIES_ON_GCD,
     SPELLS.JUDGMENT_CAST.id,
     SPELLS.CRUSADER_STRIKE.id,
     225141, // http://www.wowhead.com/spell=225141/fel-crazed-rage (Draught of Souls)
@@ -37,29 +22,11 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     SPELLS.BLINDING_LIGHT_TALENT.id,
     642, // Divine Shield
     SPELLS.LAY_ON_HANDS.id,
-    SPELLS.BEACON_OF_FAITH_TALENT.id,
-    SPELLS.BEACON_OF_THE_LIGHTBRINGER_TALENT.id, // pretty sure this will be the logged cast when BotLB is reapplied, not the below "Beacon of Light" which is the buff. Not yet tested so leaving both in.
-    53563, // Beacon of Light
-    SPELLS.BEACON_OF_VIRTUE_TALENT.id,
     SPELLS.BLESSING_OF_FREEDOM.id,
     1022, // Blessing of Protection
-    4987, // Cleanse
     853, // Hammer of Justice
     SPELLS.HAND_OF_RECKONING.id,
   ];
-
-  on_initialized() {
-    super.on_initialized();
-
-    const combatant = this.combatants.selected;
-
-    if (combatant.hasTalent(SPELLS.CRUSADERS_MIGHT_TALENT.id)) {
-      this.constructor.HEALING_ABILITIES_ON_GCD.push(SPELLS.CRUSADER_STRIKE.id);
-    }
-    if (combatant.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT.id) || combatant.hasFinger(ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id)) {
-      this.constructor.HEALING_ABILITIES_ON_GCD.push(SPELLS.JUDGMENT_CAST.id);
-    }
-  }
 
   recordCastTime(
     castStartTimestamp,
