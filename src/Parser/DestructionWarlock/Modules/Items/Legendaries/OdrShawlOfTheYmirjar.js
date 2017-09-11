@@ -1,11 +1,12 @@
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import Enemies from 'Parser/Core/Modules/Enemies';
+
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import { formatNumber } from 'common/format';
 
 import getDamageBonus from '../../WarlockCore/getDamageBonus';
-import Enemies from "../../../../Core/Modules/Enemies";
 
 const ODR_SHAWL_OF_THE_YMIRJAR_DAMAGE_BONUS = .15;
 
