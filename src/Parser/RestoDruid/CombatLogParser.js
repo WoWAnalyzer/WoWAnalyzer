@@ -129,9 +129,9 @@ class CombatLogParser extends CoreCombatLogParser {
     const wildGrowths = getAbility(SPELLS.WILD_GROWTH.id).casts || 0;
 
     // Tree of Life
-    const hasFlourish = this.modules.combatants.selected.lv100Talent === SPELLS.FLOURISH_TALENT.id;
+    //const hasFlourish = this.modules.combatants.selected.lv100Talent === SPELLS.FLOURISH_TALENT.id;
     //const hasTreeOfLife = this.modules.combatants.selected.lv75Talent === SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id;
-    const wildGrowthTargets = 6;
+    //const wildGrowthTargets = 6;
     const rejuvenationManaCost = 22000;
     const oneRejuvenationThroughput = this.getPercentageOfTotalHealingDone(this.modules.treeOfLife.totalHealingFromRejuvenationEncounter) / this.modules.treeOfLife.totalRejuvenationsEncounter;
     /*
@@ -219,6 +219,7 @@ class CombatLogParser extends CoreCombatLogParser {
       });
     }
     */
+    /*
     const wgsExtended = (this.modules.flourish.wildGrowth / wildGrowthTargets) / this.modules.flourish.flourishCounter;
     if (hasFlourish && wgsExtended < 1) {
       results.addIssue({
@@ -237,6 +238,7 @@ class CombatLogParser extends CoreCombatLogParser {
         importance: getIssueImportance(cwExtended, 0, 0),
       });
     }
+    */
     /*
     if (lifebloomUptime < 0.85) {
       results.addIssue({
@@ -412,6 +414,7 @@ class CombatLogParser extends CoreCombatLogParser {
           )}
         />
       ),
+      /*
       hasFlourish && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.FLOURISH_TALENT.id} />}
@@ -449,6 +452,7 @@ class CombatLogParser extends CoreCombatLogParser {
           )}
         />
       ),
+      */
       <StatisticBox
         icon={<SpellIcon id={SPELLS.INNERVATE.id} />}
         value={`${(((this.modules.innervate.manaSaved / this.modules.innervate.innervateCount) / 1000).toFixed(0) | 0)}k mana`}
