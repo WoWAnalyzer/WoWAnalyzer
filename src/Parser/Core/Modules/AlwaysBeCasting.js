@@ -271,12 +271,7 @@ class AlwaysBeCasting extends Module {
   }
 
   /**
-   * Can be used to determine the accuracy of the Haste tracking.
-   * @param spellId
-   * @param defaultCastTime
-   * @param begincast
-   * @param cast
-   * @private
+   * Can be used to determine the accuracy of the Haste tracking. This does not work properly on abilities that can get reduced channel times from other effects such as talents or traits.
    */
   _verifyChannel(spellId, defaultCastTime, begincast, cast) {
     if (cast.ability.guid === spellId) {
