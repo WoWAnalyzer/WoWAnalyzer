@@ -8,27 +8,15 @@ class CooldownTracker extends CoreCooldownTracker {
     {
       spell: SPELLS.AVENGING_WRATH,
       summary: [
-        BUILT_IN_SUMMARY_TYPES.HEALING,
-        BUILT_IN_SUMMARY_TYPES.OVERHEALING,
-        BUILT_IN_SUMMARY_TYPES.MANA,
+        BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],
     },
     {
-      spell: SPELLS.HOLY_AVENGER_TALENT,
+      spell: SPELLS.CRUSADE_TALENT,
       summary: [
-        BUILT_IN_SUMMARY_TYPES.HEALING,
-        BUILT_IN_SUMMARY_TYPES.OVERHEALING,
-        BUILT_IN_SUMMARY_TYPES.MANA,
+        BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],
-    },
-    {
-      spell: SPELLS.AURA_MASTERY,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.HEALING,
-        BUILT_IN_SUMMARY_TYPES.OVERHEALING,
-        BUILT_IN_SUMMARY_TYPES.MANA,
-      ],
-    },
+    }
   ];
 }
 
