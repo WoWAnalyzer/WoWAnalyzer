@@ -15,6 +15,7 @@ import GrimoireOfService from './Modules/Features/GrimoireOfService';
 import ImmolateUptime from './Modules/Features/ImmolateUptime';
 import Havoc from './Modules/Features/Havoc';
 import DamageDone from './Modules/Features/DamageDone';
+import DimensionalRift from './Modules/Features/DimensionalRift';
 
 import ReverseEntropy from './Modules/Talents/ReverseEntropy';
 import Eradication from './Modules/Talents/Eradication';
@@ -45,6 +46,7 @@ class CombatLogParser extends CoreCombatLogParser {
     doomguardInfernal: DoomguardInfernal,
     unusedLordOfFlames: UnusedLordOfFlames,
     grimoireOfService: GrimoireOfService,
+    dimensionalRift: DimensionalRift,
 
     // DoTs
     immolateUptime: ImmolateUptime,

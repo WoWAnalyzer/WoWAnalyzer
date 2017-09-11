@@ -30,6 +30,7 @@ class MasteryBreakdown extends Module {
   on_finished() {
     // There's likely a far better way to do this, but my 2AM brain couldn't find it
     let total = 0;
+    delete this.effectiveHealDist[SPELLS.RENEW.id]; // see the comment at line ~150 for why this happens
 
     Object.keys(this.effectiveHealDist).forEach(spell => {
       total += this.effectiveHealDist[spell];
@@ -75,8 +76,6 @@ class MasteryBreakdown extends Module {
     this._maxHealVal[tId] = {};
   }
 
-  // v = true;
-  // v2 = true;
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
     const tId = event.targetID;
@@ -84,10 +83,17 @@ class MasteryBreakdown extends Module {
       // logic for eol itself
       this.healing += (event.amount + (event.absorbed || 0));
       this.effectiveHealDist = this.effectiveHealDist || {};
-      // this._eHDbyPlayer[tId] = this._eHDbyPlayer[tId] || {};
 
       const percH = (event.amount + (event.absorbed || 0)) / (event.amount + (event.absorbed || 0) + (event.overheal || 0));
       const tickMode = this._tickMode[tId];
+
+
+      if (this._healValByTargetId[tId] === undefined) {
+        // If we have a spell that triggers Echo of Light, but is not known of in CONSTANTS.js, then we
+        // will potentially end up with a situation where that EoL ticks but there is nothing stored in the
+        // EoL data table. This fixes that issue.
+        return;
+      }
 
       Object.keys(this._healValByTargetId[tId]).forEach(spell => {
         // For potential future Features //
@@ -136,16 +142,31 @@ class MasteryBreakdown extends Module {
         this._maxHealVal[tId] = {};
       }
 
+      let effectiveHealing = event.amount + (event.absorbed || 0) + (event.overheal || 0);
+      if (spellId === SPELLS.RENEW.id) {
+        // due to renew only applying off of initial tick and not from periodic ticks
+        // and both of them having identical spell IDs, I chose to negate renew's mastery
+        // value since the current meta leads us towards never hard-casting renew anyway
+        // which means the mastery value for renew would be miniscule anyway. We uninclude
+        // the value in output for this reason as well.
+
+        // (but I want to include it anyway, that way I can get the "unknown spell" warning to
+        //  work optimally and let users report unknown spells)
+
+        effectiveHealing = 0;
+      }
+
       if (!(spellId in this._healValByTargetId[tId])) {
-        this._healValByTargetId[tId][spellId] = event.amount + (event.absorbed || 0) + (event.overheal || 0);
+        this._healValByTargetId[tId][spellId] = effectiveHealing;
       } else {
-        this._healValByTargetId[tId][spellId] += event.amount + (event.absorbed || 0) + (event.overheal || 0);
+        this._healValByTargetId[tId][spellId] += effectiveHealing;
       }
       this._maxHealVal[tId][spellId] = this._healValByTargetId[tId][spellId];
     }
   }
 
   statistic() {
+    const percOfTotalHealingDone = this.owner.getPercentageOfTotalHealingDone(this.healing);
     return (
       <ExpandableStatisticBox
         icon={<SpellIcon id={SPELLS.ECHO_OF_LIGHT.id} />}
@@ -158,6 +179,9 @@ class MasteryBreakdown extends Module {
           </dfn>
         )}
       >
+        <div>
+          Values under 1% of total (and Renew) are omitted.
+        </div>
         <table className="table table-condensed">
           <thead>
             <tr>
@@ -170,15 +194,19 @@ class MasteryBreakdown extends Module {
           <tbody>
             {
               this.effectiveHealDistPerc
+                .filter((item, index) => (
+                  percOfTotalHealingDone * item[1] > 0.01
+                ))
                 .map((item, index) => (
                   <tr key={index}>
                     <th scope="row"><SpellIcon id={item[0]} style={{ height: '2.4em' }} /></th>
                     <td>{formatNumber(this.healing * item[1])}</td>
-                    <td>{formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing) * item[1])}%</td>
+                    <td>{formatPercentage(percOfTotalHealingDone * item[1])}%</td>
                     <td>{formatPercentage(item[2])}%</td>
                   </tr>
                 ))
             }
+
           </tbody>
         </table>
       </ExpandableStatisticBox>
