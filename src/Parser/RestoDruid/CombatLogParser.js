@@ -89,7 +89,7 @@ class CombatLogParser extends CoreCombatLogParser {
     efflorescence: Efflorescence, // DONE
     clearcasting: Clearcasting, // DONE
     treeOfLife: TreeOfLife, // DONE (includes Chameleon Song)
-    flourish: Flourish,
+    flourish: Flourish, // DONE
     innervate: Innervate,
     powerOfTheArchdruid: PowerOfTheArchdruid,
     dreamwalker: Dreamwalker,
