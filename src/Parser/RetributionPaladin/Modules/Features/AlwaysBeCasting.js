@@ -1,14 +1,10 @@
 import SPELLS from 'common/SPELLS';
 
-import SPELLS from 'common/SPELLS';
-
 import { formatPercentage, formatDuration } from 'common/format';
 
 import CoreAlwaysBeCasting from 'Parser/Core/Modules/AlwaysBeCasting';
 
 import { STATISTIC_ORDER } from 'Main/StatisticBox';
-
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
 
