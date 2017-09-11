@@ -34,6 +34,8 @@ import SoulHarvestTalent from './Modules/Talents/SoulHarvestTalent';
 import ChannelDemonfire from './Modules/Talents/ChannelDemonfire';
 
 import LessonsOfSpaceTime from './Modules/Items/Legendaries/LessonsOfSpaceTime';
+import MagistrikeRestraints from './Modules/Items/Legendaries/MagistrikeRestraints';
+import OdrShawlOfTheYmirjar from './Modules/Items/Legendaries/OdrShawlOfTheYmirjar';
 import SoulOfTheNetherlord from './Modules/Items/Legendaries/SoulOfTheNetherlord';
 import TheMasterHarvester from './Modules/Items/Legendaries/TheMasterHarvester';
 
@@ -72,6 +74,8 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Legendaries
     lessonsOfSpaceTime: LessonsOfSpaceTime,
+    magistrikeRestraints: MagistrikeRestraints,
+    odrShawlOfTheYmirjar: OdrShawlOfTheYmirjar,
     soulOfTheNetherlord: SoulOfTheNetherlord,
     masterHarvester: TheMasterHarvester,
 
