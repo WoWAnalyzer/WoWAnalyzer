@@ -5,6 +5,10 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
     // Extend this class and override this property in your spec class to implement this module.
   ];
 
+  totalHealingTimeWasted = 0;
+
+  _lastHealingCastFinishedTimestamp = null;
+
   recordCastTime(
     castStartTimestamp,
     globalCooldown,
@@ -21,9 +25,9 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
     );
 
     if (this.countsAsHealingAbility(cast)) {
-      const healTimeWasted = castStartTimestamp - (this.lastHealingCastFinishedTimestamp || this.owner.fight.start_time);
+      const healTimeWasted = castStartTimestamp - (this._lastHealingCastFinishedTimestamp || this.owner.fight.start_time);
       this.totalHealingTimeWasted += healTimeWasted;
-      this.lastHealingCastFinishedTimestamp = Math.max(castStartTimestamp + globalCooldown, cast.timestamp);
+      this._lastHealingCastFinishedTimestamp = Math.max(castStartTimestamp + globalCooldown, cast.timestamp);
     }
   }
   countsAsHealingAbility(cast) {

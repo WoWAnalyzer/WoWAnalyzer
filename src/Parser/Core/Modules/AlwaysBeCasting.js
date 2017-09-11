@@ -21,7 +21,6 @@ class AlwaysBeCasting extends Module {
     //[spellId] : [gcd value in seconds]
   };
 
-  // Not yet implemented, for now this is just the general idea. This approach could also be used for merging HASTE_BUFFS and STACKABLE_HASTE_BUFFS.
   // It would be nice to have this point to a value in the Combatant class, but that would be tricky since this is `static`.
   static HASTE_RATING_PER_PERCENT = 37500;
   // TODO: Maybe extract "time" changing abilities since they also scale the minimum GCD cap? Probably better to dive into the tooltips to find out how the stat that does that is actually called. Spell Haste, Casting Speed, Attack Speed, Haste, ... are all different variants that look like Haste but act different.
@@ -64,11 +63,11 @@ class AlwaysBeCasting extends Module {
   static BASE_GCD = 1500;
   static MINIMUM_GCD = 750;
 
+  /**
+   * The amount of milliseconds not spent casting anything or waiting for the GCD.
+   * @type {number}
+   */
   totalTimeWasted = 0;
-  totalHealingTimeWasted = 0;
-
-  lastCastFinishedTimestamp = null;
-  lastHealingCastFinishedTimestamp = null;
 
   _currentlyCasting = null;
   on_byPlayer_begincast(event) {
@@ -127,6 +126,7 @@ class AlwaysBeCasting extends Module {
       spellId
     );
   }
+  _lastCastFinishedTimestamp = null;
   recordCastTime(
     castStartTimestamp,
     globalCooldown,
@@ -134,21 +134,21 @@ class AlwaysBeCasting extends Module {
     cast,
     spellId
   ) {
-    const timeWasted = castStartTimestamp - (this.lastCastFinishedTimestamp || this.owner.fight.start_time);
+    const timeWasted = castStartTimestamp - (this._lastCastFinishedTimestamp || this.owner.fight.start_time);
     this.totalTimeWasted += timeWasted;
 
     debug && console.log(`ABC: tot.:${Math.floor(this.totalTimeWasted)}\tthis:${Math.floor(timeWasted)}\t%c${cast.ability.name} (${spellId}): ${begincast ? 'channeled' : 'instant'}\t%cgcd:${Math.floor(globalCooldown)}\t%ccasttime:${cast.timestamp - castStartTimestamp}\tfighttime:${castStartTimestamp - this.owner.fight.start_time}`, 'color:red', 'color:green', 'color:black');
 
-    this.lastCastFinishedTimestamp = Math.max(castStartTimestamp + globalCooldown, cast.timestamp);
+    this._lastCastFinishedTimestamp = Math.max(castStartTimestamp + globalCooldown, cast.timestamp);
   }
   currentHaste = null;
   on_initialized() {
     const combatant = this.combatants.selected;
     this.currentHaste = combatant.hastePercentage;
+    // TODO: Determine whether buffs in combatants are already included in Haste. This may be the case for actual Haste buffs, but what about Spell Haste like the Whispers trinket?
 
-    debug && console.log(`ABC: Current haste: ${this.currentHaste}`);
+    debug && console.log(`ABC: Starting haste: ${this.currentHaste}`);
   }
-  // TODO: Determine whether buffs in combatants are already included in Haste. This may be the case for actual Haste buffs, but what about Spell Haste like the Whispers trinket?
 
   // region Event listeners
   // Buffs
@@ -179,12 +179,16 @@ class AlwaysBeCasting extends Module {
   }
   // endregion
 
+  getCurrentGlobalCooldown(spellId = null) {
+    return (spellId && this.constructor.STATIC_GCD_ABILITIES[spellId]) || this.constructor.calculateGlobalCooldown(this.currentHaste);
+  }
+
   _applyActiveBuff(event) {
     const spellId = event.ability.guid;
     const hasteGain = this._getBaseHasteGain(spellId);
 
     if (hasteGain) {
-      this.applyHasteGain(hasteGain);
+      this._applyHasteGain(hasteGain);
 
       debug && console.log(`ABC: Current haste: ${this.currentHaste} (gained ${hasteGain} from ${spellId})`);
     }
@@ -198,7 +202,7 @@ class AlwaysBeCasting extends Module {
     // TODO: Actually this still needs to take the `.stack` property into account; 6 stacks = multiply haste by 6, but first reduce by already applied Haste in whatever previous event. This requires tracking buff stacks at which point we're kinda replicating the buff behavior of the Entity class, maybe we should look into changing that so we can use the existing buff tracking mechanisms?
 
     if (haste) {
-      this.applyHasteGain(haste);
+      this._applyHasteGain(haste);
 
       debug && console.log(`ABC: Current haste: ${this.currentHaste} (gained ${haste} from ${spellId})`);
     }
@@ -208,7 +212,7 @@ class AlwaysBeCasting extends Module {
     const haste = this._getHastePerStackGain(spellId);
 
     if (haste) {
-      this.applyHasteLoss(haste);
+      this._applyHasteLoss(haste);
 
       debug && console.log(`ABC: Current haste: ${this.currentHaste} (lost ${haste} from ${spellId})`);
     }
@@ -218,21 +222,17 @@ class AlwaysBeCasting extends Module {
     const haste = this._getBaseHasteGain(spellId);
 
     if (haste) {
-      this.applyHasteLoss(haste);
+      this._applyHasteLoss(haste);
 
       debug && console.log(`ABC: Current haste: ${this.currentHaste} (lost ${haste} from ${spellId})`);
     }
   }
 
-  applyHasteGain(haste) {
+  _applyHasteGain(haste) {
     this.currentHaste = this.constructor.addHaste(this.currentHaste, haste);
   }
-  applyHasteLoss(haste) {
+  _applyHasteLoss(haste) {
     this.currentHaste = this.constructor.removeHaste(this.currentHaste, haste);
-  }
-
-  getCurrentGlobalCooldown(spellId = null) {
-    return (spellId && this.constructor.STATIC_GCD_ABILITIES[spellId]) || this.constructor.calculateGlobalCooldown(this.currentHaste);
   }
   /**
    * Gets the base Haste gain for the provided spell. If `hastePerStack` is setup this includes its value for the first stack.
