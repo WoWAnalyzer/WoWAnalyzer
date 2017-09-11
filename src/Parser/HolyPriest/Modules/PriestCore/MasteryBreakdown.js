@@ -182,7 +182,7 @@ class MasteryBreakdown extends Module {
         {
           (
             <div>
-              Values under 0.5% of total are omitted.
+              Values under 0.5% of total (and Renew) are omitted.
             </div>
           )
         }
