@@ -2,22 +2,6 @@ import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
-//import ITEMS from 'common/ITEMS';
-
-const pointGeneratingAbilities = [
-  SPELLS.SHRED.id,
-  SPELLS.RAKE.id,
-  SPELLS.THRASH_FERAL.id,
-  SPELLS.CAT_SWIPE.id,
-  SPELLS.PRIMAL_FURY.id,
-  SPELLS.ASHAMANES_FRENZY.id,
-];
-
-const pointSpendingAbilities = [
-  SPELLS.RIP.id,
-  SPELLS.MAIM.id,
-  SPELLS.FEROCIOUS_BITE.id,
-];
 
 class ComboPointTracker extends Module {
   static dependencies = {
@@ -36,28 +20,31 @@ class ComboPointTracker extends Module {
   wasted = {};
 
   on_initialized() {
-    //initialize base abilities, the rest depends on talents and equip
-    pointGeneratingAbilities.forEach(x => {
+    const player = this.combatants.selected;
+
+    this.pointGeneratingAbilities = [
+      SPELLS.SHRED.id,
+      SPELLS.RAKE.id,
+      SPELLS.THRASH_FERAL.id,
+      SPELLS.PRIMAL_FURY.id,
+      SPELLS.ASHAMANES_FRENZY.id,
+      ...(player.hasTalent(SPELLS.BRUTAL_SLASH_TALENT.id) ? [SPELLS.BRUTAL_SLASH_TALENT.id] : [SPELLS.CAT_SWIPE.id]),
+      ...(player.hasTalent(SPELLS.LUNAR_INSPIRATION_TALENT.id) ? [SPELLS.LUNAR_INSPIRATION_TALENT.id] : []),
+    ];
+
+    this.pointSpendingAbilities = [
+      SPELLS.RIP.id,
+      SPELLS.MAIM.id,
+      SPELLS.FEROCIOUS_BITE.id,
+      ...(player.hasTalent(SPELLS.SAVAGE_ROAR_TALENT.id) ? [SPELLS.SAVAGE_ROAR_TALENT.id] : []),
+    ];
+
+    //initialize abilties
+    this.pointGeneratingAbilities.forEach(x => {
       this.gained[x] = { points: 0 };
       this.wasted[x] = { points: 0 };
     });
-    pointSpendingAbilities.forEach(x => this.spent[x] = { points: 0 });
-
-    const player = this.combatants.selected;
-    if (player.hasTalent(SPELLS.LUNAR_INSPIRATION_TALENT.id)) {
-      this.gained[SPELLS.MOONFIRE.id] = { points: 0 };
-      this.wasted[SPELLS.MOONFIRE.id] = { points: 0 };
-      pointGeneratingAbilities.push(SPELLS.MOONFIRE.id);
-    }
-    if (player.hasTalent(SPELLS.BRUTAL_SLASH_TALENT.id)) {
-      this.gained[SPELLS.BRUTAL_SLASH_TALENT.id] = { points: 0 };
-      this.wasted[SPELLS.BRUTAL_SLASH_TALENT.id] = { points: 0 };
-      pointGeneratingAbilities.push(SPELLS.BRUTAL_SLASH_TALENT.id);
-    } // TODO if talent taken, remove swipe from list
-    if (player.hasTalent(SPELLS.SAVAGE_ROAR_TALENT.id)) {
-      this.spent[SPELLS.SAVAGE_ROAR_TALENT.id] = { points: 0 };
-      pointSpendingAbilities.push(SPELLS.SAVAGE_ROAR_TALENT.id);
-    }
+    this.pointSpendingAbilities.forEach(x => this.spent[x] = { points: 0 });
   }
 
   on_toPlayer_energize(event) {
@@ -65,7 +52,7 @@ class ComboPointTracker extends Module {
     const waste = event.waste;
     const gain = event.resourceChange - waste;
 
-    if (pointGeneratingAbilities.indexOf(spellId) === -1) {
+    if (this.pointGeneratingAbilities.indexOf(spellId) === -1) {
       return;
     }
 
@@ -87,11 +74,13 @@ class ComboPointTracker extends Module {
     if (spellId === SPELLS.THRASH_FERAL.id || spellId === SPELLS.BRUTAL_SLASH_TALENT.id) {
       this.processNonEnergizeCast(spellId);
     }
-    if (pointSpendingAbilities.indexOf(spellId) === -1) {
+    if (this.pointSpendingAbilities.indexOf(spellId) === -1) {
       return;
     }
     // checking for free no CP procs, classResources seems to be the only difference
-    if (event.classResources[1].amount) {
+    if (!event.classResources[1]) {
+      return;
+    } else if (event.classResources[1].amount) {
       this.processPointSpenders(event, spellId);
     }
   }

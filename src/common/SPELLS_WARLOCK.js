@@ -476,4 +476,25 @@ export default {
     name: 'Fiery Soul',
     icon: 'inv_belt_cloth_raidwarlock_n_01',
   },
+  // Destruction Dimensional Rift spells
+  SEARING_BOLT_RIFT: {
+    id: 243050,
+    name: 'Searing Bolt',
+    icon: 'inv_misc_volatilefire',
+  },
+  CHAOS_BARRAGE_RIFT: {
+    id: 187394,
+    name: 'Chaos Barrage',
+    icon: 'spell_warlock_demonicportal_green',
+  },
+  CHAOS_BOLT_RIFT: {
+    id: 215279,
+    name: 'Chaos Bolt',
+    icon: 'ability_warlock_chaosbolt',
+  },
+  SHADOW_BOLT_RIFT: {
+    id: 196657,
+    name: 'Shadow Bolt',
+    icon: 'spell_shadow_shadowbolt',
+  },
 };
