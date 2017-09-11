@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Custom" pattern="file[logparser]:*/&amp;&amp;!file[logparser]:build//*&amp;&amp;!file[logparser]:scripts//*&amp;&amp;!file[logparser]:config//*&amp;&amp;!file[logparser]:.idea//*&amp;&amp;!file[logparser]:src/static//*" />
+</component>
