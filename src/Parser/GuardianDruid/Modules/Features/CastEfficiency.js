@@ -7,6 +7,14 @@ import CoreCastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 
 const debug = false;
 
+const GCD = 1.5;
+const MANGLE_BASE_CD = 6;
+const THRASH_BASE_CD = 6;
+
+const GORE_BASE_CHANCE = 0.1;
+const BEAR_HUG_CHANCE = 0.05;
+const T19_2SET_CHANCE = 0.1;
+
 class CastEfficiency extends CoreCastEfficiency {
   static CPM_ABILITIES = [
     ...CoreCastEfficiency.CPM_ABILITIES,
@@ -14,7 +22,25 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.MANGLE_BEAR,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => null,
+      getCooldown: (haste, combatant) => {
+        const fightLengthSec = combatant.owner.fightDuration / 1000;
+        const gcdTime = GCD / (1 + haste);
+        const maxGCDs = Math.ceil(fightLengthSec / gcdTime);
+        const mangleCD = MANGLE_BASE_CD / (1 + haste);
+        const manglesOnCD = Math.ceil(fightLengthSec / mangleCD);
+
+        const potentialGoreProcs = maxGCDs - manglesOnCD;
+
+        const bearHug = combatant.traitsBySpellId[SPELLS.BEAR_HUG_TRAIT] > 0 ? BEAR_HUG_CHANCE : 0;
+        const t19 = combatant.hasBuff(SPELLS.GUARDIAN_DRUID_T19_2SET_BONUS_BUFF) ? T19_2SET_CHANCE : 0;
+        const goreChance = GORE_BASE_CHANCE + bearHug + t19;
+
+        const gainedMangles = potentialGoreProcs * goreChance;
+        const totalMangles = manglesOnCD + gainedMangles;
+        const effectiveCD = fightLengthSec / totalMangles;
+
+        return effectiveCD;
+      },
       noSuggestion: true,
     },
     {
@@ -35,7 +61,7 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: (haste, combatant) => {
         const hasMightBuff = combatant.hasTalent(SPELLS.INCARNATION_OF_URSOC.id);
         if (!hasMightBuff) {
-          return 6;
+          return 6 / (1 + haste);
         }
 
         const fightDuration = combatant.owner.fightDuration / 1000;

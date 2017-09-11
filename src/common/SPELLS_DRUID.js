@@ -339,6 +339,11 @@ export default {
     id: 235040,
     name: "X'oni's Caress",
     icon: 'spell_druid_ironbark',
+  //Guardian Druid T19 2set
+  GUARDIAN_DRUID_T19_2SET_BONUS_BUFF: {
+    id: 211149,
+    name: 'T19 2 set bonus',
+    icon: 'trade_engineering',
   },
 
   // Traits:
@@ -494,6 +499,11 @@ export default {
     name: 'Fleshknitting',
     icon: 'ability_bullrush',
   },
+  BEAR_HUG_TRAIT: {
+    id: 215799,
+    name: 'Bear Hug',
+    icon: 'spell_druid_bearhug',
+  },
   GORE_BEAR: {
     id: 93622,
     name: 'Gore',
@@ -642,7 +652,7 @@ export default {
     name: 'Celestial Alignment',
     icon: 'artifactability_balancedruid_newmoon',
   },
-  EMERALD_DREAMCATCHER_BUFF: {    
+  EMERALD_DREAMCATCHER_BUFF: {
     id: 224706,
     name: 'The Emerald Dreamcatcher',
     icon: 'inv_helmet_81',
