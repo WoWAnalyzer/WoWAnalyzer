@@ -26,7 +26,7 @@ class SeaStarOfTheDepthmother extends Module {
 
   on_finished() {
     if (debug) {
-      console.log('Healing: ' + this.healing);
+      console.log(`Healing: ${this.healing}`);
     }
   }
 

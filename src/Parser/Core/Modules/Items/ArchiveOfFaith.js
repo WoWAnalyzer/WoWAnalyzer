@@ -41,16 +41,16 @@ class ArchiveOfFaith extends Module {
     const spellId = event.ability.guid;
 
     if (spellId === SPELLS.AOF_INFUSION_OF_LIGHT.id) {
-      debug && console.log('HOT Casted: ' + event.amount);
+      debug && console.log(`HOT Casted: ${event.amount}`);
       this.healingOverTime += (event.amount || 0) + (event.absorbed || 0);
     }
   }
 
   on_finished() {
     if (debug) {
-      console.log('Healing: ' + this.healing);
-      console.log('Casts ' + this.casts);
-      console.log('HOT: ' + this.healingOverTime);
+      console.log(`Healing: ${this.healing}`);
+      console.log(`Casts ${this.casts}`);
+      console.log(`HOT: ${this.healingOverTime}`);
     }
   }
 

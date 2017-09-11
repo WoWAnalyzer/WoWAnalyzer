@@ -44,7 +44,7 @@ class OvydsWinterWrap extends Module {
 
   on_finished() {
     if (debug) {
-      console.log('Ovyd\'s Healing Contribution: ' + this.healing);
+      console.log(`Ovyd's Healing Contribution: ${this.healing}`);
     }
   }
 

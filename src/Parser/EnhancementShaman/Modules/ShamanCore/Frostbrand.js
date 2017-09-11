@@ -22,7 +22,7 @@ class Frostbrand extends Module {
 
     when(frostbrandUptime).isLessThan(.95)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(`Try to make sure the Frostbrand is always up, when it drops you should refresh it as soon as possible`)
+        return suggest('Try to make sure the Frostbrand is always up, when it drops you should refresh it as soon as possible')
           .icon(SPELLS.FROSTBRAND.icon)
           .actual(`${formatPercentage(actual)}% uptime`)
           .recommended(`${(formatPercentage(recommended))}% is recommended`)
@@ -37,7 +37,7 @@ class Frostbrand extends Module {
         icon={<SpellIcon id={SPELLS.FROSTBRAND.id} />}
         value={`${formatPercentage(frostbrandUptime)} %`}
         label="Frostbrand Uptime"
-        tooltip={`One of your highest priorities, get as close to 100% as possible`}
+        tooltip={'One of your highest priorities, get as close to 100% as possible'}
       />)
     );
   }

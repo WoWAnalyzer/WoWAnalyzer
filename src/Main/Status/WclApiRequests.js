@@ -44,7 +44,7 @@ class WclApiRequests extends React.PureComponent {
       labels: labels.reverse(),
       datasets: [
         {
-          borderColor: "rgba(75,192,192,1)",
+          borderColor: 'rgba(75,192,192,1)',
           label: 'Requests',
           data: requests.reverse(),
         },

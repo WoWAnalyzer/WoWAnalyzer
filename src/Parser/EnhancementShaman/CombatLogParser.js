@@ -80,7 +80,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // const hasEOTN = this.selectedCombatant.hasFinger(ITEMS.EYE_OF_THE_TWISTING_NETHER.id);
     // const hasSephuz = this.selectedCombatant.hasFinger(ITEMS.SEPHUZS_SECRET.id);
 
-    this.modules.combatants.selected._combatantInfo.gear.forEach(function (value) {
+    this.modules.combatants.selected._combatantInfo.gear.forEach(value => {
       const equippedItem = ITEMS[value.id];
 
       if (equippedItem !== undefined && equippedItem.quality === 5) {

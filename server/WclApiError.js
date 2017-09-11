@@ -1,5 +1,5 @@
 class WclApiError extends Error {
-  constructor (message, status) {
+  constructor(message, status) {
     super(message);
 
     // Capturing stack trace, excluding constructor call from it.

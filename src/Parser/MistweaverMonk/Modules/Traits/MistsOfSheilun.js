@@ -42,9 +42,9 @@ class MistsOfSheilun extends Module {
 
   on_finished() {
     if (debug) {
-      console.log('Mists of Sheilun Procs: ' + this.procsMistsOfSheilun);
-      console.log('Avg Heals per Procs: ' + (this.healsMistsOfSheilun / this.procsMistsOfSheilun));
-      console.log('Avg Heals Amount: ' + (this.healingMistsOfSheilun / this.healsMistsOfSheilun));
+      console.log(`Mists of Sheilun Procs: ${this.procsMistsOfSheilun}`);
+      console.log(`Avg Heals per Procs: ${this.healsMistsOfSheilun / this.procsMistsOfSheilun}`);
+      console.log(`Avg Heals Amount: ${this.healingMistsOfSheilun / this.healsMistsOfSheilun}`);
     }
   }
 }

@@ -23,7 +23,6 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
 
 // better off making things that -dont- proc it perhaps?
 export const ABILITIES_THAT_TRIGGER_MASTERY = [
-  // renew is not present due to the periodic ticking not proccing mastery
   SPELLS.DIVINE_HYMN_HEAL.id,
   SPELLS.GREATER_HEAL.id,
   SPELLS.FLASH_HEAL.id,
@@ -41,6 +40,7 @@ export const ABILITIES_THAT_TRIGGER_MASTERY = [
   SPELLS.DIVINE_STAR_TALENT.id, // might have diff id for heal?
   SPELLS.OCEANS_EMBRACE.id,
   SPELLS.GUILTY_CONSCIENCE.id,
+  SPELLS.RENEW.id, // this is reduced in calculations, due to the initial tick proccing EoL but not the periodic ticks
 ];
 
 export const ABILITIES_THAT_TRIGGER_ENDURING_RENEWAL = [

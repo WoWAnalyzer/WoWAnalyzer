@@ -52,7 +52,7 @@ class Gore extends Module {
         this.nonGoreMangle += 1;
       } else {
         this.consumedGoreProc += 1;
-        debug && console.log('Gore Proc Consumed / Timestamp: ' + event.timestamp);
+        debug && console.log(`Gore Proc Consumed / Timestamp: ${event.timestamp}`);
         this.lastGoreProcTime = 0;
       }
     }

@@ -7,7 +7,7 @@ import 'chartist-plugin-legend';
 
 import './VoidformsTab.css';
 
-const formatDuration = (duration) => {
+const formatDuration = duration => {
   const seconds = Math.floor(duration % 60);
   return `${Math.floor(duration / 60)}:${seconds < 10 ? `0${seconds}` : seconds}`;
 };
@@ -78,13 +78,9 @@ const VoidformGraph = ({
   const INSANITY_DRAIN_INCREASE_BY_SECOND = Math.round(INSANITY_DRAIN_INCREASE * INSANITY_DRAIN_MODIFIER);
 
 
-  const atLabel = (timestamp) => {
-    return Math.floor((timestamp - voidform.start) / RESOLUTION_MS);
-  };
+  const atLabel = timestamp => Math.floor((timestamp - voidform.start) / RESOLUTION_MS);
 
-  const voidFormIsOver = (i) => {
-    return voidform.start + i * RESOLUTION_MS >= voidform.ended;
-  };
+  const voidFormIsOver = i => voidform.start + i * RESOLUTION_MS >= voidform.ended;
 
   const fillData = (array, eventStart, eventEnd, data = false) => {
     const amountOfSteps = Math.round((eventEnd - eventStart) / RESOLUTION_MS);
@@ -164,8 +160,7 @@ const VoidformGraph = ({
     if (insanityData[i] === null) {
       insanityData[i] = insanityData[latestInsanityDataAt];
       for (let j = latestInsanityDataAt; j <= i; j += 1) {
-        if (dispersionData[j] === null && voidTorrentData[j] === null)
-          insanityData[i] -= insanityDrain[j] / (1000 / RESOLUTION_MS);
+        if (dispersionData[j] === null && voidTorrentData[j] === null)          {insanityData[i] -= insanityDrain[j] / (1000 / RESOLUTION_MS);}
       }
 
       if (insanityData[i] < 0) insanityData[i] = 0;
@@ -291,7 +286,7 @@ const VoidformGraph = ({
         low: 0,
         high: 100,
         series: {
-          'Stacks': {
+          Stacks: {
             lineSmooth: Chartist.Interpolation.none({
               fillHoles: true,
             }),
@@ -304,13 +299,13 @@ const VoidformGraph = ({
           //   showPoint: false,
           //   show: false,
           // },
-          'Insanity': {
+          Insanity: {
             lineSmooth: Chartist.Interpolation.none({
               fillHoles: true,
             }),
             showPoint: false,
           },
-          'Mindbender': {
+          Mindbender: {
             showArea: true,
             lineSmooth: Chartist.Interpolation.none({
               fillHoles: true,
@@ -319,7 +314,7 @@ const VoidformGraph = ({
           'Void Torrent': {
             showArea: true,
           },
-          'Dispersion': {
+          Dispersion: {
             showArea: true,
             // lineSmooth: Chartist.Interpolation.step({
             //   fillHoles: true,

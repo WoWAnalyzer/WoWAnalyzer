@@ -66,11 +66,11 @@ class Stagger extends Module {
       this.staggerMissingFromFight = this.lastStaggerValue * Math.max(staggerTicksLeft, 0);
     }
     if (debug) {
-      console.log('Total physical staggered: ' + formatNumber(this.totalPhysicalStaggered));
-      console.log('Total magical staggered: ' + formatNumber(this.totalMagicalStaggered));
-      console.log('Total taken: ' + formatNumber(this.totalStaggerTaken));
-      console.log('Stagger taken after fight: ' + formatNumber(this.staggerMissingFromFight));
-      console.log('Damage avoided: ' + formatNumber(this.totalPhysicalStaggered + this.totalMagicalStaggered - this.totalStaggerTaken));
+      console.log(`Total physical staggered: ${formatNumber(this.totalPhysicalStaggered)}`);
+      console.log(`Total magical staggered: ${formatNumber(this.totalMagicalStaggered)}`);
+      console.log(`Total taken: ${formatNumber(this.totalStaggerTaken)}`);
+      console.log(`Stagger taken after fight: ${formatNumber(this.staggerMissingFromFight)}`);
+      console.log(`Damage avoided: ${formatNumber(this.totalPhysicalStaggered + this.totalMagicalStaggered - this.totalStaggerTaken)}`);
     }
   }
 

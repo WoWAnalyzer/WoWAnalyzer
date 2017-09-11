@@ -47,13 +47,13 @@ class T20 extends Module {
 
   on_finished() {
     if (debug) {
-      console.log("4P Uptime: " + ((this.owner.modules.combatants.selected.getBuffUptime(SPELLS.BLOSSOMING_EFFLORESCENCE.id) / this.owner.fightDuration) * 100).toFixed(2) + "%");
-      console.log("4P Healing %: " + (this.owner.getPercentageOfTotalHealingDone(this.healing) * 100).toFixed(2) + "%");
-      console.log("4P Healing: " + this.healing);
-      console.log("Total Healing: " + this.healingDone.total.effective);
-      console.log("Swiftmends cast: " + this.swiftmends);
-      console.log("2P swiftmend reduction: " + this.swiftmendReduced.toFixed(1) + "s");
-      console.log("Avg reduction per swiftmend: " + (this.swiftmendReduced / this.swiftmends).toFixed(1) + "s");
+      console.log(`4P Uptime: ${((this.owner.modules.combatants.selected.getBuffUptime(SPELLS.BLOSSOMING_EFFLORESCENCE.id) / this.owner.fightDuration) * 100).toFixed(2)}%`);
+      console.log(`4P Healing %: ${(this.owner.getPercentageOfTotalHealingDone(this.healing) * 100).toFixed(2)}%`);
+      console.log(`4P Healing: ${this.healing}`);
+      console.log(`Total Healing: ${this.healingDone.total.effective}`);
+      console.log(`Swiftmends cast: ${this.swiftmends}`);
+      console.log(`2P swiftmend reduction: ${this.swiftmendReduced.toFixed(1)}s`);
+      console.log(`Avg reduction per swiftmend: ${(this.swiftmendReduced / this.swiftmends).toFixed(1)}s`);
     }
   }
 }

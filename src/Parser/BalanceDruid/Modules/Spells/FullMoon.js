@@ -31,10 +31,7 @@ class FullMoon extends Module {
       this.firstMoonCast = true;
     }
 
-    if (spellId !== SPELLS.FULL_MOON.id)
-      this.fullMoonOrder += 1;
-    else
-            this.orderFound = true;
+    if (spellId !== SPELLS.FULL_MOON.id)      {this.fullMoonOrder += 1;}    else            {this.orderFound = true;}
   }
 
   suggestions(when) {

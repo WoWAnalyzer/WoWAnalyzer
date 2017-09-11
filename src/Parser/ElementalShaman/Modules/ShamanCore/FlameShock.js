@@ -23,7 +23,7 @@ class FlameShock extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.FLAME_SHOCK.id} />}
         value={`${formatPercentage(this.uptime)} %`}
-        label={`Uptime`}
+        label={'Uptime'}
       />
     );
   }

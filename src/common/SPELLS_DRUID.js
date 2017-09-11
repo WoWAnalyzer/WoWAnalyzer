@@ -11,7 +11,7 @@ export default {
   // Mastery
   MASTERY_HARMONY: {
     id: 77495,
-    name: "Mastery: Harmony",
+    name: 'Mastery: Harmony',
     icon: 'spell_nature_healingway',
   },
 

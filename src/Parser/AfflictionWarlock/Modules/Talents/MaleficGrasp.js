@@ -83,19 +83,19 @@ class MaleficGrasp extends Module {
           <ul>
           ${this.agonyBonusDmg > 0 ? `
             <li>${formatNumber(this.agonyBonusDmg)} bonus Agony damage.</li>
-          ` : ""}
+          ` : ''}
 
           ${this.corruptionBonusDmg > 0 ? `
             <li>${formatNumber(this.corruptionBonusDmg)} bonus Corruption damage.</li>
-          ` : ""}
+          ` : ''}
 
           ${this.siphonLifeBonusDmg > 0 ? `
             <li>${formatNumber(this.siphonLifeBonusDmg)} bonus Siphon Life damage.</li>
-          ` : ""}
+          ` : ''}
 
           ${this.unstableAfflictionBonusDmg > 0 ? `
             <li>${formatNumber(this.unstableAfflictionBonusDmg)} bonus Unstable Affliction damage.</li>
-          ` : ""}
+          ` : ''}
           </ul>
         `}
       />

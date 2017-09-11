@@ -35,6 +35,7 @@ class AncestralVigor extends Module {
             self.loaded = true;
           }
         }
+        return null;
       } catch (err) {
         throw err;
       }

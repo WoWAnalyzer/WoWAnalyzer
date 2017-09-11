@@ -52,7 +52,7 @@ import NaturesEssence from './Modules/Features/NaturesEssence';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
 function formatThousands(number) {
-  return (Math.round(number || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+  return (`${Math.round(number || 0)}`).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 }
 function formatNumber(number) {
   if (number > 1000000) {
@@ -182,7 +182,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     if (nonHealingTimePercentage > 0.3) {
       results.addIssue({
-        issue: `Your non healing time can be improved. Try to cast heals more regularly.`,
+        issue: 'Your non healing time can be improved. Try to cast heals more regularly.',
         stat: `${Math.round(nonHealingTimePercentage * 100)}% non healing time. (<30% is recommended)`,
         icon: 'petbattle_health-down',
         importance: getIssueImportance(nonHealingTimePercentage, 0.4, 1, true),
@@ -190,7 +190,7 @@ class CombatLogParser extends CoreCombatLogParser {
     }
     if (deadTimePercentage > 0.2) {
       results.addIssue({
-        issue: `Your dead GCD time can be improved. Try to Always Be Casting (ABC); when you're not healing try to contribute some damage.`,
+        issue: 'Your dead GCD time can be improved. Try to Always Be Casting (ABC); when you\'re not healing try to contribute some damage.',
         stat: `${Math.round(deadTimePercentage * 100)}% dead GCD time. (<20% is recommended)`,
         icon: 'spell_mage_altertime',
         importance: getIssueImportance(deadTimePercentage, 0.35, 1, true),
@@ -345,27 +345,27 @@ class CombatLogParser extends CoreCombatLogParser {
             `<ul>
               ${this.modules.essenceOfGhanir.wildGrowth > 0 ?
               `<li>${formatThroughput(this.modules.essenceOfGhanir.wildGrowth)} from <a href="http://www.wowhead.com/spell=182874" target="_blank" rel="noopener noreferrer">wild growth</a></li>`
-              : ""
+              : ''
               }
               ${this.modules.essenceOfGhanir.rejuvenation > 0 ?
               `<li>${formatThroughput(this.modules.essenceOfGhanir.rejuvenation)} from <a href="http://www.wowhead.com/spell=774" target="_blank" rel="noopener noreferrer">rejuvenation</a></li>`
-              : ""
+              : ''
               }
               ${this.modules.essenceOfGhanir.cenarionWard > 0 ?
               `<li>${formatThroughput(this.modules.essenceOfGhanir.cenarionWard)} from <a href="http://www.wowhead.com/spell=102351" target="_blank" rel="noopener noreferrer">cenarion ward</a></li>`
-              : ""
+              : ''
               }
               ${this.modules.essenceOfGhanir.regrowth > 0 ?
               `<li>${formatThroughput(this.modules.essenceOfGhanir.regrowth)} from <a href="http://www.wowhead.com/spell=8936" target="_blank" rel="noopener noreferrer">regrowth</a></li>`
-              : ""
+              : ''
               }
               ${this.modules.essenceOfGhanir.lifebloom > 0 ?
               `<li>${formatThroughput(this.modules.essenceOfGhanir.lifebloom)} from <a href="http://www.wowhead.com/spell=33763" target="_blank" rel="noopener noreferrer">lifebloom</a></li>`
-              : ""
+              : ''
               }
               ${this.modules.essenceOfGhanir.cultivation > 0 ?
               `<li>${formatThroughput(this.modules.essenceOfGhanir.cultivation)} from <a href="http://www.wowhead.com/spell=200389" target="_blank" rel="noopener noreferrer">cultivation</a></li>`
-              : ""
+              : ''
               }
               </ul>`
           }>
@@ -405,23 +405,23 @@ class CombatLogParser extends CoreCombatLogParser {
                   <li>${this.modules.flourish.cenarionWard}/${this.modules.flourish.flourishCounter} <a href="http://www.wowhead.com/spell=102351" target="_blank" rel="noopener noreferrer">Cenarion wards</a></li>
                   ${this.modules.flourish.rejuvenation > 0 ?
                 `<li>${this.modules.flourish.rejuvenation} <a href="http://www.wowhead.com/spell=774" target="_blank" rel="noopener noreferrer">rejuvenations</a></li>`
-                : ""
+                : ''
                 }
                           ${this.modules.flourish.regrowth > 0 ?
                 `<li>${this.modules.flourish.regrowth} <a href="http://www.wowhead.com/spell=8936" target="_blank" rel="noopener noreferrer">regrowths</a></li>`
-                : ""
+                : ''
                 }
                           ${this.modules.flourish.lifebloom > 0 ?
                 `<li>${this.modules.flourish.lifebloom} <a href="http://www.wowhead.com/spell=33763" target="_blank" rel="noopener noreferrer">lifebloom</a></li>`
-                : ""
+                : ''
                 }
                           ${this.modules.flourish.springBlossoms > 0 ?
                 `<li>${this.modules.flourish.springBlossoms} <a href="http://www.wowhead.com/spell=207386" target="_blank" rel="noopener noreferrer">spring blossoms</a></li>`
-                : ""
+                : ''
                 }
                           ${this.modules.flourish.cultivation > 0 ?
                 `<li>${this.modules.flourish.cultivation} <a href="http://www.wowhead.com/spell=200389" target="_blank" rel="noopener noreferrer">cultivations</a></li>`
-                : ""
+                : ''
                 }
               </ul>`
             }>
@@ -441,31 +441,31 @@ class CombatLogParser extends CoreCombatLogParser {
                 <li>${this.modules.innervate.efflorescences}/${this.modules.innervate.innervateCount} <a href="http://www.wowhead.com/spell=81269" target="_blank" rel="noopener noreferrer">Efflorescences</a></li>
                 ${this.modules.innervate.cenarionWards > 0 ?
               `<li>${this.modules.innervate.cenarionWards} <a href="http://www.wowhead.com/spell=102351" target="_blank" rel="noopener noreferrer">Cenarion wards</a></li>`
-              : ""
+              : ''
               }
                         ${this.modules.innervate.rejuvenations > 0 ?
               `<li>${this.modules.innervate.rejuvenations} <a href="http://www.wowhead.com/spell=774" target="_blank" rel="noopener noreferrer">Rejuvenations</a></li>`
-              : ""
+              : ''
               }
                         ${this.modules.innervate.regrowths > 0 ?
               `<li>${this.modules.innervate.regrowths} <a href="http://www.wowhead.com/spell=8936" target="_blank" rel="noopener noreferrer">Regrowths</a></li>`
-              : ""
+              : ''
               }
                         ${this.modules.innervate.lifeblooms > 0 ?
               `<li>${this.modules.innervate.lifeblooms} <a href="http://www.wowhead.com/spell=33763" target="_blank" rel="noopener noreferrer">Lifeblooms</a></li>`
-              : ""
+              : ''
               }
                         ${this.modules.innervate.healingTouches > 0 ?
               `<li>${this.modules.innervate.healingTouches} <a href="http://www.wowhead.com/spell=5185" target="_blank" rel="noopener noreferrer">Healing touches</a></li>`
-              : ""
+              : ''
               }
                         ${this.modules.innervate.swiftmends > 0 ?
               `<li>${this.modules.innervate.swiftmends} <a href="http://www.wowhead.com/spell=18562" target="_blank" rel="noopener noreferrer">Swiftmends</a></li>`
-              : ""
+              : ''
               }
                         ${this.modules.innervate.tranquilities > 0 ?
               `<li>${this.modules.innervate.tranquilities} <a href="http://www.wowhead.com/spell=157982" target="_blank" rel="noopener noreferrer">tranquilities</a></li>`
-              : ""
+              : ''
               }
                         </ul>
                         `

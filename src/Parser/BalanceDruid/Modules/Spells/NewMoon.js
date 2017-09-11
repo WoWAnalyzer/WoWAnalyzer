@@ -31,10 +31,7 @@ class NewMoon extends Module {
       this.firstMoonCast = true;
     }
 
-    if (spellId !== SPELLS.NEW_MOON.id)
-      this.newMoonOrder += 1;
-    else
-            this.orderFound = true;
+    if (spellId !== SPELLS.NEW_MOON.id)      {this.newMoonOrder += 1;}    else            {this.orderFound = true;}
   }
 
   suggestions(when) {

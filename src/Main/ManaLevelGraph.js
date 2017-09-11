@@ -10,7 +10,7 @@ import specialEventIndicators from './Chartist/specialEventIndicators';
 
 import './Mana.css';
 
-const formatDuration = (duration) => {
+const formatDuration = duration => {
   const seconds = Math.floor(duration % 60);
   return `${Math.floor(duration / 60)}:${seconds < 10 ? `0${seconds}` : seconds}`;
 };
@@ -48,7 +48,7 @@ class Mana extends React.PureComponent {
       abilityid: 1000,
     }))
       .then(response => response.json())
-      .then((json) => {
+      .then(json => {
         console.log('Received boss health', json);
         if (json.status === 400 || json.status === 401) {
           throw json.error;
@@ -81,13 +81,13 @@ class Mana extends React.PureComponent {
     });
     const bosses = [];
     const deadBosses = [];
-    this.state.bossHealth.series.forEach((series) => {
+    this.state.bossHealth.series.forEach(series => {
       const newSeries = {
         ...series,
         data: {},
       };
 
-      series.data.forEach((item) => {
+      series.data.forEach(item => {
         const secIntoFight = Math.floor((item[0] - start) / 1000);
 
         if (deadBosses.indexOf(series.guid) === -1) {
@@ -102,7 +102,7 @@ class Mana extends React.PureComponent {
       bosses.push(newSeries);
     });
     const deathsBySecond = {};
-    this.state.bossHealth.deaths.forEach((death) => {
+    this.state.bossHealth.deaths.forEach(death => {
       const secIntoFight = Math.floor((death.timestamp - start) / 1000);
 
       if (death.targetIsFriendly) {
@@ -116,7 +116,7 @@ class Mana extends React.PureComponent {
       labels.push(i);
 
       manaBySecond[i] = manaBySecond[i] !== undefined ? manaBySecond[i] : null;
-      bosses.forEach((series) => {
+      bosses.forEach(series => {
         series.data[i] = series.data[i] !== undefined ? series.data[i] : null;
       });
       deathsBySecond[i] = deathsBySecond[i] !== undefined ? deathsBySecond[i] : undefined;

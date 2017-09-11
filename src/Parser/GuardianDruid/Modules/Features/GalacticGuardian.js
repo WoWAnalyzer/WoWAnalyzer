@@ -60,7 +60,7 @@ class GalacticGuardian extends Module {
         this.nonGGMoonFire += 1;
       } else {
         this.consumedGGProc += 1;
-        debug && console.log('Galactic Guardian Proc Consumed / Timestamp: ' + event.timestamp);
+        debug && console.log(`Galactic Guardian Proc Consumed / Timestamp: ${event.timestamp}`);
         this.lastGGProcTime = null;
       }
     }

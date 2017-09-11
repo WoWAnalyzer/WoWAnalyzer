@@ -37,7 +37,7 @@ class ApiRequestHandler {
         Sequelize.literal('UNIX_TIMESTAMP(createdAt) DIV 60'),
       ],
       where: {
-        'createdAt': {
+        createdAt: {
           $gt: Sequelize.fn('DATE_SUB', Sequelize.fn('NOW'), Sequelize.literal('INTERVAL 7 DAY')),
         },
       },

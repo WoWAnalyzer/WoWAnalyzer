@@ -38,7 +38,7 @@ class T21_4Set extends Module {
       title: <SpellLink id={SPELLS.RESTO_DRUID_T21_4SET_BONUS_BUFF.id} />,
       //result: this.owner.formatItemHealingDone(healing),
       result: (
-        <dfn data-tip={`This is the amount of healing done by the extra Ysera's Gift ticks only. Healing from the additional applications of Dreamer are counted under the T21 2Set number`}>
+        <dfn data-tip={'This is the amount of healing done by the extra Ysera\'s Gift ticks only. Healing from the additional applications of Dreamer are counted under the T21 2Set number'}>
           {this.owner.formatItemHealingDone(t21_4set_healing)}
         </dfn>
       ),

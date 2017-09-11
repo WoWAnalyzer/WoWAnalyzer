@@ -55,7 +55,7 @@ class DoorwayToNowhere extends Module {
   on_finished() {
     this.healing = this.healing + this.healingOverlap;
     if (debug) {
-      console.log('Doorway Healing: ' + this.healing);
+      console.log(`Doorway Healing: ${this.healing}`);
       console.log('Overlap Healing:', this.healingOverlap);
       console.log('Doorway Procs:', this.doorwayProc);
     }

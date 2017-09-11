@@ -33,7 +33,7 @@ class WhispersOfShaohao extends Module {
         this.whispersOverHeal += event.overheal;
       }
       this.countWhispersHeal += 1;
-      debug && console.log('Whispers Heal: ' + event.amount + ' / Whispers Overheal: ' + event.overheal);
+      debug && console.log(`Whispers Heal: ${event.amount} / Whispers Overheal: ${event.overheal}`);
     }
   }
 

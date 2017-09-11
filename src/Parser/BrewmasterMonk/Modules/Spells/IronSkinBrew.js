@@ -59,11 +59,11 @@ class IronSkinBrew extends Module {
 
   on_finished() {
     if (debug) {
-      console.log('Hits with IronSkinBrew ' + this.hitsWithIronSkinBrew);
-      console.log('Damage with IronSkinBrew ' + this.damageWithIronSkinBrew);
-      console.log('Hits without IronSkinBrew ' + this.hitsWithoutIronSkinBrew);
-      console.log('Damage without IronSkinBrew ' + this.damageWithoutIronSkinBrew);
-      console.log('Total damage ' + (this.damageWithIronSkinBrew + this.damageWithoutIronSkinBrew + this.staggerDot));
+      console.log(`Hits with IronSkinBrew ${this.hitsWithIronSkinBrew}`);
+      console.log(`Damage with IronSkinBrew ${this.damageWithIronSkinBrew}`);
+      console.log(`Hits without IronSkinBrew ${this.hitsWithoutIronSkinBrew}`);
+      console.log(`Damage without IronSkinBrew ${this.damageWithoutIronSkinBrew}`);
+      console.log(`Total damage ${this.damageWithIronSkinBrew + this.damageWithoutIronSkinBrew + this.staggerDot}`);
     }
   }
 

@@ -47,7 +47,7 @@ class AstralPower extends Module {
           return suggest(<span>You overcapped {this.aspWasted / 10} Astral Power. Always prioritize spending it over avoiding the overcap or any other ability.</span>)
             .icon('ability_druid_cresentburn')
             .actual(`${formatNumber(actual)} overcapped Astral Power per minute`)
-            .recommended(`0 overcapped Astral Power is recommended.`)
+            .recommended('0 overcapped Astral Power is recommended.')
             .regular(recommended + 4).major(recommended + 8);
         });
   }

@@ -18,9 +18,7 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 18,
       getCasts: castCount => castCount.casts,
-      getMaxCasts: (cooldown, fightDuration, getAbility, parser) => {
-        return calculateMaxCasts(cooldown, fightDuration, 2);
-      },
+      getMaxCasts: (cooldown, fightDuration, getAbility, parser) => calculateMaxCasts(cooldown, fightDuration, 2),
     },
     {
       spell: SPELLS.EVANGELISM_TALENT,

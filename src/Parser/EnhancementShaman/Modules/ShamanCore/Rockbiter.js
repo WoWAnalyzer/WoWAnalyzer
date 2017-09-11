@@ -18,14 +18,14 @@ class Rockbiter extends Module {
   }
 
   on_finished() {
-    console.log("maelstromWasted " + this.maelstromWasted);
+    console.log(`maelstromWasted ${this.maelstromWasted}`);
     console.log(this.rockbiterOveruse);
   }
 
   suggestions(when) {
     when(this.maelstromWasted).isGreaterThan(100)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(`Try to minimize Maelstrom wastage as much as possible. Some of wasted MS is unavoidable due to maintaining Landslide buff `)
+        return suggest('Try to minimize Maelstrom wastage as much as possible. Some of wasted MS is unavoidable due to maintaining Landslide buff ')
           .icon(SPELLS.ROCKBITER.icon)
           .actual(`${actual} wasted Maelstrom in ${this.rockbiterOveruse.length} RB uses`)
           .recommended(`No more than ${recommended} is recommended`)

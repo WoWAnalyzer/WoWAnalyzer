@@ -64,9 +64,9 @@ class CelestialBreath extends Module {
 
   on_finished() {
     if (debug) {
-      console.log('Celestial Breath Procs: ' + this.procsCelestialBreath);
-      console.log('Avg Heals per Procs: ' + (this.healsCelestialBreath / this.procsCelestialBreath));
-      console.log('Avg Heals Amount: ' + (this.healingCelestialBreath / this.healsCelestialBreath));
+      console.log(`Celestial Breath Procs: ${this.procsCelestialBreath}`);
+      console.log(`Avg Heals per Procs: ${this.healsCelestialBreath / this.procsCelestialBreath}`);
+      console.log(`Avg Heals Amount: ${this.healingCelestialBreath / this.healsCelestialBreath}`);
     }
   }
 }
