@@ -491,6 +491,16 @@ export default {
     name: 'Chaos Bolt',
     icon: 'ability_warlock_chaosbolt',
   },
+  ALYTHESSS_PYROGENICS_DEBUFF: {
+    id: 205675,
+    name: 'Alythess\'s Pyrogenics',
+    icon: 'inv_jewelry_ring_65',
+  },
+  SINDOREI_SPITE_BUFF: {
+    id: 208871,
+    name: 'Sin\'dorei Spite',
+    icon: 'creatureportrait_infernal_ball_02',
+  },
   // Destruction Dimensional Rift spells
   SEARING_BOLT_RIFT: {
     id: 243050,

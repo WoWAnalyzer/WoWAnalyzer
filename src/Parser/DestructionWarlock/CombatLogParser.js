@@ -37,6 +37,8 @@ import LessonsOfSpaceTime from './Modules/Items/Legendaries/LessonsOfSpaceTime';
 import MagistrikeRestraints from './Modules/Items/Legendaries/MagistrikeRestraints';
 import OdrShawlOfTheYmirjar from './Modules/Items/Legendaries/OdrShawlOfTheYmirjar';
 import FeretoryOfSouls from './Modules/Items/Legendaries/FeretoryOfSouls';
+import AlythesssPyrogenics from './Modules/Items/Legendaries/AlythesssPyrogenics';
+import SindoreiSpite from './Modules/Items/Legendaries/SindoreiSpite';
 import SoulOfTheNetherlord from './Modules/Items/Legendaries/SoulOfTheNetherlord';
 import TheMasterHarvester from './Modules/Items/Legendaries/TheMasterHarvester';
 
@@ -78,6 +80,8 @@ class CombatLogParser extends CoreCombatLogParser {
     magistrikeRestraints: MagistrikeRestraints,
     odrShawlOfTheYmirjar: OdrShawlOfTheYmirjar,
     feretoryOfSouls: FeretoryOfSouls,
+    alythesssPyrogenics: AlythesssPyrogenics,
+    sindoreiSpite: SindoreiSpite,
     soulOfTheNetherlord: SoulOfTheNetherlord,
     masterHarvester: TheMasterHarvester,
 

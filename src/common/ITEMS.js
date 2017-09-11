@@ -487,6 +487,18 @@ const ITEMS = {
     icon: 'inv_bracer_31b',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+  ALYTHESSS_PYROGENICS: {
+    id: 132460,
+    name: 'Alythess\'s Pyrogenics',
+    icon: 'inv_jewelry_ring_65',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  SINDOREI_SPITE: {
+    id: 132379,
+    name: 'Sin\'dorei Spite',
+    icon: 'inv_bracer_44',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
   // T20 Trinkets
   ARCHIVE_OF_FAITH: {
     id: 147006,
