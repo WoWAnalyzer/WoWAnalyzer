@@ -1,5 +1,5 @@
 import React from 'react';
-import StatisticBox from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import { formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
@@ -122,6 +122,7 @@ class Clearcasting extends Module {
       />
     );
   }
+  statisticOrder = STATISTIC_ORDER.CORE(12);
 
 }
 

@@ -114,7 +114,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(10);
+  statisticOrder = STATISTIC_ORDER.CORE(2);
 
 }
 

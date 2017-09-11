@@ -1,5 +1,5 @@
 import React from 'react';
-import StatisticBox from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import { formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
@@ -252,29 +252,12 @@ class TreeOfLife extends Module {
       />
     );
   }
+  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 
   item() {
     if(!this.hasCs) { return; }
 
     const oneRejuvenationThroughput = this.totalHealingFromRejuvenationEncounter / this.totalRejuvenationsEncounter;
-    const rejuvenationIncreasedEffect = (this.totalHealingFromRejuvenationDuringToL / 1.15) - (this.totalHealingFromRejuvenationDuringToL / (1.15 * 1.5));
-    const tolIncreasedHealingDone = this.totalHealingDuringToL - this.totalHealingDuringToL / 1.15;
-    const rejuvenationMana = (((this.totalRejuvenationsDuringToL * 10) * 0.3) / 10) * oneRejuvenationThroughput;
-    const wildGrowthIncreasedEffect = this.totalHealingFromWildgrowthsDuringToL / 1.15 - this.totalHealingFromWildgrowthsDuringToL / (1.15 * (8 / 6));
-
-    const treeOfLifeThroughput = rejuvenationIncreasedEffect + tolIncreasedHealingDone + rejuvenationMana + wildGrowthIncreasedEffect;
-
-    const treeOfLifeThroughputPercent = this.owner.getPercentageOfTotalHealingDone(treeOfLifeThroughput);
-    const rejuvenationIncreasedEffectPercent = this.owner.getPercentageOfTotalHealingDone(rejuvenationIncreasedEffect);
-    const rejuvenationManaPercent = this.owner.getPercentageOfTotalHealingDone(rejuvenationMana);
-    const wildGrowthIncreasedEffectPercent = this.owner.getPercentageOfTotalHealingDone(wildGrowthIncreasedEffect);
-    const tolIncreasedHealingDonePercent = this.owner.getPercentageOfTotalHealingDone(tolIncreasedHealingDone);
-
-    let treeOfLifeUptime = this.combatants.selected.getBuffUptime(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) / this.owner.fightDuration;
-    const chameleonSongUptime = (this.combatants.selected.getBuffUptime(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) - (this.tolCasts * 30000) + this.adjustHelmetUptime) / this.owner.fightDuration;
-    if (this.combatants.selected.hasHead(ITEMS.CHAMELEON_SONG.id)) {
-      treeOfLifeUptime -= chameleonSongUptime;
-    }
 
     const rejuvenationIncreasedEffectHelmet = this.totalHealingFromRejuvenationDuringToLHelmet / 1.15 - this.totalHealingFromRejuvenationDuringToLHelmet / (1.15 * 1.5);
     const tolIncreasedHealingDoneHelmet = this.totalHealingDuringToLHelmet - this.totalHealingDuringToLHelmet / 1.15;
@@ -287,6 +270,8 @@ class TreeOfLife extends Module {
     const tolIncreasedHealingDoneHelmetPercent = this.owner.getPercentageOfTotalHealingDone(tolIncreasedHealingDoneHelmet);
     const rejuvenationManaHelmetPercent = this.owner.getPercentageOfTotalHealingDone(rejuvenationManaHelmet);
     const wildGrowthIncreasedEffectHelmetPercent = this.owner.getPercentageOfTotalHealingDone(wildGrowthIncreasedEffectHelmet);
+
+    const chameleonSongUptime = (this.combatants.selected.getBuffUptime(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) - (this.tolCasts * 30000) + this.adjustHelmetUptime) / this.owner.fightDuration;
 
     const wildGrowths = this.owner.modules.abilityTracker.getAbility(SPELLS.WILD_GROWTH.id).casts || 0;
     const treeOfLifeProcHelmet = this.proccs / wildGrowths;
@@ -306,7 +291,7 @@ class TreeOfLife extends Module {
           {this.owner.formatItemHealingDone(treeOfLifeThroughputHelmet)}
         </dfn>
       ),
-    }
+    };
   }
 
 }

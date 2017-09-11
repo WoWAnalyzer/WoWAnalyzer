@@ -3,7 +3,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
-import Icon from 'common/Icon';
 import ITEMS from 'common/ITEMS';
 
 import StatisticBox from 'Main/StatisticBox';
@@ -131,7 +130,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Tree of Life
     const hasFlourish = this.modules.combatants.selected.lv100Talent === SPELLS.FLOURISH_TALENT.id;
-    const hasTreeOfLife = this.modules.combatants.selected.lv75Talent === SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id;
+    //const hasTreeOfLife = this.modules.combatants.selected.lv75Talent === SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id;
     const wildGrowthTargets = 6;
     const rejuvenationManaCost = 22000;
     const oneRejuvenationThroughput = this.getPercentageOfTotalHealingDone(this.modules.treeOfLife.totalHealingFromRejuvenationEncounter) / this.modules.treeOfLife.totalRejuvenationsEncounter;
@@ -163,11 +162,11 @@ class CombatLogParser extends CoreCombatLogParser {
     const has2PT20 = this.modules.combatants.selected.hasBuff(SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id);
 
     const fightDuration = this.fightDuration;
-    const nonHealingTimePercentage = this.modules.alwaysBeCasting.totalHealingTimeWasted / fightDuration;
-    const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
+    //const nonHealingTimePercentage = this.modules.alwaysBeCasting.totalHealingTimeWasted / fightDuration;
+    //const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
 
     const potaHealing = (this.modules.powerOfTheArchdruid.rejuvenations * oneRejuvenationThroughput) + this.getPercentageOfTotalHealingDone(this.modules.powerOfTheArchdruid.healing);
-    const hasMoC = this.modules.combatants.selected.lv100Talent === SPELLS.MOMENT_OF_CLARITY_TALENT_RESTORATION.id;
+    //const hasMoC = this.modules.combatants.selected.lv100Talent === SPELLS.MOMENT_OF_CLARITY_TALENT_RESTORATION.id;
     const darkTitanAdviceHealing = this.getPercentageOfTotalHealingDone(this.modules.darkTitanAdvice.healing);
     const darkTitanAdviceHealingFromProcc = this.getPercentageOfTotalHealingDone(this.modules.darkTitanAdvice.healingFromProccs);
     const essenceOfInfusionHealing = this.getPercentageOfTotalHealingDone(this.modules.essenceOfInfusion.healing);
