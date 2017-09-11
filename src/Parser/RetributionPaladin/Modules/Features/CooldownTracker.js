@@ -16,7 +16,7 @@ class CooldownTracker extends CoreCooldownTracker {
       summary: [
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],
-    }
+    },
   ];
 }
 

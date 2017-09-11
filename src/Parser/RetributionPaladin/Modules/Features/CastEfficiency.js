@@ -1,7 +1,9 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+
+//not sure where to use this yet
+//import SpellLink from 'common/SpellLink';
 
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
@@ -15,6 +17,8 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.WAKE_OF_ASHES,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 30,
+      recommendedCastEfficiency: 0.9,
+      extraSuggestion: <span>Try to use Wake as much as possible. It has a high damage per execute time and generates a lot of holy power. It is better to waste 1-2 holy power than to hold the ability.</span>,
     },
     {
       spell: SPELLS.CRUSADE_TALENT,
