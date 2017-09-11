@@ -42,6 +42,8 @@ import SindoreiSpite from './Modules/Items/Legendaries/SindoreiSpite';
 import SoulOfTheNetherlord from './Modules/Items/Legendaries/SoulOfTheNetherlord';
 import TheMasterHarvester from './Modules/Items/Legendaries/TheMasterHarvester';
 
+import T20_2set from './Modules/Items/T20_2set';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Features
@@ -86,6 +88,7 @@ class CombatLogParser extends CoreCombatLogParser {
     masterHarvester: TheMasterHarvester,
 
     //Items
+    t20_2set: T20_2set,
   };
 
   generateResults() {

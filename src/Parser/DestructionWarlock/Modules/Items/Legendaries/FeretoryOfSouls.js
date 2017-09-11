@@ -35,11 +35,11 @@ class FeretoryOfSouls extends Module {
     // but with denominator 1 in this case, if this._totalDamage = 0, then dividing by 1 still gives correct result of average damage = 0
     const avgDamage = this._totalDamage / (this._totalCasts > 0 ? this._totalCasts : 1);
     const fragmentsGained = this.soulShardTracker.generatedAndWasted[SPELLS.FERETORY_OF_SOULS_FRAGMENT_GEN.name].generated;
-    const estimatedUAdamage = Math.floor(fragmentsGained / CHAOS_BOLT_COST) * avgDamage;
+    const estimatedChaosBoltDamage = Math.floor(fragmentsGained / CHAOS_BOLT_COST) * avgDamage;
     return {
       item: ITEMS.FERETORY_OF_SOULS,
       result: (
-        <dfn data-tip={`${formatNumber(estimatedUAdamage)} damage - ${this.owner.formatItemDamageDone(estimatedUAdamage)} <br />This result is estimated by multiplying number of Soul Shard Fragments gained from this item, divided by 20 and floored down (because Chaos Bolt consumes 20 Soul Shard Fragments) by the average Chaos Bolt damage for the whole fight.`}>
+        <dfn data-tip={`${formatNumber(estimatedChaosBoltDamage)} damage - ${this.owner.formatItemDamageDone(estimatedChaosBoltDamage)} <br />This result is estimated by multiplying number of Soul Shard Fragments gained from this item, divided by 20 and floored down (because Chaos Bolt consumes 20 Soul Shard Fragments) by the average Chaos Bolt damage for the whole fight.`}>
           {`${fragmentsGained} Soul Shard Fragments gained`}
         </dfn>
       ),
