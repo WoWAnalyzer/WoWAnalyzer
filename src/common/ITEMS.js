@@ -469,6 +469,12 @@ const ITEMS = {
     icon: 'inv_belt_cloth_raidwarlock_n_01',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+  LESSONS_OF_SPACETIME: {
+    id: 144369,
+    name: 'Lessons of Space-Time',
+    icon: 'inv_shoulder_robe_pvpwarlock_d_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
   // T20 Trinkets
   ARCHIVE_OF_FAITH: {
     id: 147006,

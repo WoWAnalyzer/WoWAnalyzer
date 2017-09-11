@@ -33,6 +33,7 @@ import SoulHarvest from './Modules/Talents/SoulHarvest';
 import SoulHarvestTalent from './Modules/Talents/SoulHarvestTalent';
 import ChannelDemonfire from './Modules/Talents/ChannelDemonfire';
 
+import LessonsOfSpaceTime from './Modules/Items/Legendaries/LessonsOfSpaceTime';
 import SoulOfTheNetherlord from './Modules/Items/Legendaries/SoulOfTheNetherlord';
 import TheMasterHarvester from './Modules/Items/Legendaries/TheMasterHarvester';
 
@@ -70,6 +71,7 @@ class CombatLogParser extends CoreCombatLogParser {
     channelDemonfire: ChannelDemonfire,
 
     //Legendaries
+    lessonsOfSpaceTime: LessonsOfSpaceTime,
     soulOfTheNetherlord: SoulOfTheNetherlord,
     masterHarvester: TheMasterHarvester,
 

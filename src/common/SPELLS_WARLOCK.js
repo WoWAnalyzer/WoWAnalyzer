@@ -476,6 +476,11 @@ export default {
     name: 'Fiery Soul',
     icon: 'inv_belt_cloth_raidwarlock_n_01',
   },
+  LESSONS_OF_SPACETIME_BUFF: {
+    id: 236176,
+    name: 'Lessons Of Space-Time',
+    icon: 'spell_warlock_demonicportal_purple',
+  },
   // Destruction Dimensional Rift spells
   SEARING_BOLT_RIFT: {
     id: 243050,
