@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatNumber } from 'common/format';
 
-class LunarStrike extends Module {
+class UnempoweredLS extends Module {
   _castQueue = {
       Empowered: false,
       Enemies: 0,
@@ -67,9 +67,9 @@ class LunarStrike extends Module {
           .icon(SPELLS.LUNAR_STRIKE.icon)
           .actual(`${formatNumber(actual)} Unempowered LS per minute`)
           .recommended(`${recommended} Unempowered LS that hits less than 3 targets are recomended`)
-          .regular(recommended).major(recommended + 1);
+          .regular(recommended + 2).major(recommended + 4);
       });
   }
 }
 
-export default LunarStrike;
+export default UnempoweredLS;
