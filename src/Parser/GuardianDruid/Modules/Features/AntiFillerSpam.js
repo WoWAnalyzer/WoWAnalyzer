@@ -1,9 +1,8 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
 
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import Enemies from 'Parser/Core/Modules/Enemies';
 
 const MANGLE_BASE_CD = 6;
 const THRASH_BASE_CD = 6;
@@ -43,7 +42,7 @@ const GCD_SPELLS = {
       // TODO: make this stacks deficit
       const targetHasThrash = target.getBuff(SPELLS.THRASH_BEAR_DOT.id).stacks >= 2;
       return targetHasThrash;
-    }
+    },
   },
 
   // "Filler" spells
@@ -66,14 +65,21 @@ const GCD_SPELLS = {
 class AntiFillerSpam extends Module {
   static dependencies = {
     combatants: Combatants,
+    enemies: Enemies,
   };
 
-  seen = {};
+  abilityLastCasts = {};
 
   on_byPlayer_cast(event) {
-    if (!GCD_SPELLS[event.ability.guid] && !this.seen[event.ability.guid]) {
-      console.log('[non-gcd spell]:', SPELLS[event.ability.guid].name, event.ability.guid);
-      this.seen[event.ability.guid] = true;
+    const spellID = event.ability.guid;
+    if (!GCD_SPELLS[spellID]) {
+      const timestamp = event.timestamp;
+      const lastCast = this.abilityLastCasts[spellID] || -Infinity;
+      const target = this.enemies.enemies[event.targetID];
+      const combatant = this.combatants.selected;
+
+      this.abilityLastCasts[spellID] = timestamp;
+
     }
   }
 }
