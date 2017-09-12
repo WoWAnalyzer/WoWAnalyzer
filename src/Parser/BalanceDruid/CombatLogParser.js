@@ -32,6 +32,7 @@ class CombatLogParser extends MainCombatLogParser {
       halfmoon: HalfMoon,
       fullmoon: FullMoon,
       //solarunemp: SolarUnemp,
+      //lunarumep: LunarUnemp,
       //lunarovercap: LunarOvercap,
       //solarovercap: SolarOvercap,
       astralpower: AstralPower,
