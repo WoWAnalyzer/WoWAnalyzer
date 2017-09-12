@@ -37,8 +37,12 @@ import AlythesssPyrogenics from './Modules/Items/Legendaries/AlythesssPyrogenics
 import FeretoryOfSouls from './Modules/Items/Legendaries/FeretoryOfSouls';
 import LessonsOfSpaceTime from './Modules/Items/Legendaries/LessonsOfSpaceTime';
 import SindoreiSpite from './Modules/Items/Legendaries/SindoreiSpite';
+import MagistrikeRestraints from './Modules/Items/Legendaries/MagistrikeRestraints';
+import OdrShawlOfTheYmirjar from './Modules/Items/Legendaries/OdrShawlOfTheYmirjar';
 import SoulOfTheNetherlord from './Modules/Items/Legendaries/SoulOfTheNetherlord';
 import TheMasterHarvester from './Modules/Items/Legendaries/TheMasterHarvester';
+
+import T20_2set from './Modules/Items/T20_2set';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -78,10 +82,13 @@ class CombatLogParser extends CoreCombatLogParser {
     feretoryOfSouls: FeretoryOfSouls,
     lessonsOfSpaceTime: LessonsOfSpaceTime,
     sindoreiSpite: SindoreiSpite,
+    magistrikeRestraints: MagistrikeRestraints,
+    odrShawlOfTheYmirjar: OdrShawlOfTheYmirjar,
     soulOfTheNetherlord: SoulOfTheNetherlord,
     masterHarvester: TheMasterHarvester,
 
     //Items
+    t20_2set: T20_2set,
   };
 
   generateResults() {

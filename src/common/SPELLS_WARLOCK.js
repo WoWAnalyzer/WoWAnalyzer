@@ -491,6 +491,16 @@ export default {
     name: 'Lessons Of Space-Time',
     icon: 'spell_warlock_demonicportal_purple',
   },
+  ODR_SHAWL_OF_THE_YMIRJAR_DEBUFF: {
+    id: 212173,
+    name: 'Odr, Shawl of the Ymirjar',
+    icon: 'inv_misc_cape_cataclysm_tank_b_01',
+  },
+  MAGISTRIKE_RESTRAINTS_CHAOS_BOLT: {
+    id: 213229,
+    name: 'Chaos Bolt',
+    icon: 'ability_warlock_chaosbolt',
+  },
   // Destruction Dimensional Rift spells
   SEARING_BOLT_RIFT: {
     id: 243050,

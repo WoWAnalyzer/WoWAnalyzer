@@ -1,5 +1,5 @@
 export default `
-12-09-2017 - Added Alythess's Pyrogenics, Feretory of Souls, Lessons of Space-Time and Sin'dorei Spite. (by Chizu)
+12-09-2017 - Added Legendaries and T20 2set. (by Chizu)
 10-09-2017 - Added Channel Demonfire and Havoc cleave module (not 100% accurate though). (by Chizu)
 10-09-2017 - Added Fire and Brimstone cleave and fragment tracker. (by Chizu).
 10-09-2017 - Added Dimensional Rift damage tracker. (by Chizu)
