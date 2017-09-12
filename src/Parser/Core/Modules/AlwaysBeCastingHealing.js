@@ -30,6 +30,12 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
       this._lastHealingCastFinishedTimestamp = Math.max(castStartTimestamp + globalCooldown, cast.timestamp);
     }
   }
+  on_finished() {
+    super.on_finished();
+
+    const healTimeWasted = this.owner.fight.end_time - (this._lastHealingCastFinishedTimestamp || this.owner.fight.start_time);
+    this.totalHealingTimeWasted += healTimeWasted;
+  }
   countsAsHealingAbility(cast) {
     return this.constructor.HEALING_ABILITIES_ON_GCD.indexOf(cast.ability.guid) !== -1;
   }

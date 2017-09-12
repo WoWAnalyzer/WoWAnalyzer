@@ -6,7 +6,7 @@ import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ITEMS from '../../../common/ITEMS';
 
-const debug = true;
+const debug = false;
 
 class AlwaysBeCasting extends Module {
   static dependencies = {
@@ -50,16 +50,12 @@ class AlwaysBeCasting extends Module {
     // [208944]: -Infinity, // DEBUFF - Time Stop from Elisande
     [SPELLS.BONE_SHIELD.id]: 0.1, //Blood BK haste buff from maintaining boneshield
 
-    [SPELLS.LUNAR_INFUSION.id]: {
-      // TODO: Is this buff included in the combatant Haste or like DMD:Hellfire not and then applied when you enter combat??? Having this here likely includes it in Haste twice.
-      itemId: ITEMS.CHALICE_OF_MOONLIGHT.id,
-      haste: (_, item) => calculateSecondaryStatDefault(900, 3619, item.itemLevel) / this.HASTE_RATING_PER_PERCENT,
-    },
     [SPELLS.RISING_TIDES.id]: {
       itemId: ITEMS.CHARM_OF_THE_RISING_TIDE.id,
       hastePerStack: (_, item) => calculateSecondaryStatDefault(900, 576, item.itemLevel) / this.HASTE_RATING_PER_PERCENT,
     },
   };
+  // TODO: Add channels array to fix issues where is channel started pre-combat it doesn't register the `begincast` and considers the finish a GCD adding downtime. This can also be used to automatically add the channelVerifiers.
 
   static BASE_GCD = 1500;
   static MINIMUM_GCD = 750;
@@ -157,6 +153,10 @@ class AlwaysBeCasting extends Module {
 
     this._lastCastFinishedTimestamp = Math.max(castStartTimestamp + globalCooldown, cast.timestamp);
   }
+  on_finished() {
+    const timeWasted = this.owner.fight.end_time - (this._lastCastFinishedTimestamp || this.owner.fight.start_time);
+    this.totalTimeWasted += timeWasted;
+  }
 
   // region Event listeners
   // Buffs
@@ -194,6 +194,34 @@ class AlwaysBeCasting extends Module {
       debug && console.log(`ABC: Current haste: ${this.currentHaste} (gained ${hasteGain} from ${SPELLS[spellId] ? SPELLS[spellId].name : spellId})`);
     }
   }
+  _removeActiveBuff(event) {
+    const spellId = event.ability.guid;
+    const haste = this._getBaseHasteGain(spellId);
+
+    if (haste) {
+      this._applyHasteLoss(haste);
+
+      debug && console.log(`ABC: Current haste: ${this.currentHaste} (lost ${haste} from ${SPELLS[spellId] ? SPELLS[spellId].name : spellId})`);
+    }
+  }
+  /**
+   * Gets the base Haste gain for the provided spell.
+   */
+  _getBaseHasteGain(spellId) {
+    const hasteBuff = this.constructor.HASTE_BUFFS[spellId] || undefined;
+
+    if (typeof hasteBuff === 'number') {
+      // A regular number is a static Haste percentage
+      return hasteBuff;
+    } else if (typeof hasteBuff === 'object') {
+      // An object can provide more info
+      if (hasteBuff.haste) {
+        return this._getHasteValue(hasteBuff.haste, hasteBuff);
+      }
+    }
+    return null;
+  }
+
   _changeBuffStack(event) {
     const spellId = event.ability.guid;
     const haste = this._getHastePerStackGain(spellId);
@@ -205,45 +233,6 @@ class AlwaysBeCasting extends Module {
 
       debug && console.log(`ABC: Current haste: ${this.currentHaste} (gained ${haste * event.stacksGained} from ${SPELLS[spellId] ? SPELLS[spellId].name : spellId})`);
     }
-  }
-  _removeActiveBuff(event) {
-    const spellId = event.ability.guid;
-    const haste = this._getBaseHasteGain(spellId);
-
-    if (haste) {
-      this._applyHasteLoss(haste);
-
-      debug && console.log(`ABC: Current haste: ${this.currentHaste} (lost ${haste} from ${SPELLS[spellId] ? SPELLS[spellId].name : spellId})`);
-    }
-  }
-
-  _applyHasteGain(haste) {
-    this.currentHaste = this.constructor.addHaste(this.currentHaste, haste);
-  }
-  _applyHasteLoss(haste) {
-    this.currentHaste = this.constructor.removeHaste(this.currentHaste, haste);
-  }
-  /**
-   * Gets the base Haste gain for the provided spell. If `hastePerStack` is setup this includes its value for the first stack.
-   */
-  _getBaseHasteGain(spellId) {
-    const hasteBuff = this.constructor.HASTE_BUFFS[spellId] || undefined;
-
-    let hasteGain = 0;
-    if (typeof hasteBuff === 'number') {
-      // A regular number is a static Haste percentage
-      hasteGain = hasteBuff;
-    } else if (typeof hasteBuff === 'object') {
-      // An object can provide more info
-      if (hasteBuff.haste) {
-        hasteGain = this._getHasteValue(hasteBuff.haste, hasteBuff);
-      }
-      if (hasteBuff.hastePerStack) {
-        // The "base" buff is considered 1 stack
-        hasteGain += this._getHasteValue(hasteBuff.hastePerStack, hasteBuff);
-      }
-    }
-    return hasteGain;
   }
   _getHastePerStackGain(spellId) {
     const hasteBuff = this.constructor.HASTE_BUFFS[spellId] || undefined;
@@ -257,6 +246,14 @@ class AlwaysBeCasting extends Module {
     }
     return null;
   }
+
+  _applyHasteGain(haste) {
+    this.currentHaste = this.constructor.addHaste(this.currentHaste, haste);
+  }
+  _applyHasteLoss(haste) {
+    this.currentHaste = this.constructor.removeHaste(this.currentHaste, haste);
+  }
+
   /**
    * Get the actual Haste value from a prop allowing various formats.
    */
