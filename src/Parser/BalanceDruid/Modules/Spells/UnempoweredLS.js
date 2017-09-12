@@ -10,7 +10,7 @@ class UnempoweredLS extends Module {
       Enemies: 0,
     };
   casts = [];
-  lunarEmpsOn = false;
+  _lunarEmpsOn = false;
 
   suboptUmempLS = 0;
 
@@ -27,7 +27,7 @@ class UnempoweredLS extends Module {
     if (this.isLunarStrike(event)) {
         this.casts.push(this._castQueue);
         this._castQueue = {
-            Empowered: this.lunarEmpsOn,
+            Empowered: this._lunarEmpsOn,
             Enemies: 0,
         };
     }
@@ -42,12 +42,12 @@ class UnempoweredLS extends Module {
 
   on_toPlayer_applybuff(event){
     if (this.isLunarEmpowerment(event)) {
-        this.lunarEmpsOn = true;
+        this._lunarEmpsOn = true;
     }
   }
   on_toPlayer_removebuff(event){
     if (this.isLunarEmpowerment(event)) {
-        this.lunarEmpsOn = false;
+        this._lunarEmpsOn = false;
     }      
   }
 
@@ -60,8 +60,8 @@ class UnempoweredLS extends Module {
   }
 
   suggestions(when) {
-    const wastedPerMin = ((this.suboptUmempLS) / (this.owner.fightDuration / 1000)) * 60;
-    when(wastedPerMin).isGreaterThan(0)
+    const suboptPerMin = ((this.suboptUmempLS) / (this.owner.fightDuration / 1000)) * 60;
+    when(suboptPerMin).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>You casted {this.suboptUmempLS} unempowered <SpellLink id={SPELLS.LUNAR_STRIKE.id} /> that hit less than 3 targets. Always prioritize Solar Wrath as a filler if there are less than 3 targets.</span>)
           .icon(SPELLS.LUNAR_STRIKE.icon)
