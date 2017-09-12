@@ -31,7 +31,7 @@ class Sunfire extends Module {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(2);
+  statisticOrder = STATISTIC_ORDER.CORE(7);
 }
   
 export default Sunfire;

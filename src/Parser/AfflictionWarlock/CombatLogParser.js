@@ -28,7 +28,6 @@ import EmpoweredLifeTap from './Modules/Talents/EmpoweredLifeTap';
 import SoulHarvest from './Modules/Talents/SoulHarvest';
 import SoulHarvestTalent from './Modules/Talents/SoulHarvestTalent';
 import DeathsEmbrace from './Modules/Talents/DeathsEmbrace';
-import DeathsEmbraceTalent from './Modules/Talents/DeathsEmbraceTalent';
 import SiphonLifeUptime from './Modules/Talents/SiphonLifeUptime';
 
 import TheMasterHarvester from './Modules/Items/Legendaries/TheMasterHarvester';
@@ -68,7 +67,6 @@ class CombatLogParser extends CoreCombatLogParser {
     soulHarvest: SoulHarvest,
     soulHarvestTalent: SoulHarvestTalent,
     deathsEmbrace: DeathsEmbrace,
-    deathsEmbraceTalent: DeathsEmbraceTalent,
     siphonLifeUptime: SiphonLifeUptime,
 
     //Legendaries
