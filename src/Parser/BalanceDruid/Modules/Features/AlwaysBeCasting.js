@@ -23,7 +23,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.TYPHOON.id,
     SPELLS.MASS_ENTANGLEMENT_TALENT.id,
     SPELLS.FORCE_OF_NATURE_TALENT.id,
-    SPELLS.WILD_CHARGE_TALENT.id,
   ];
 
   static STATIC_GCD_ABILITIES = {
