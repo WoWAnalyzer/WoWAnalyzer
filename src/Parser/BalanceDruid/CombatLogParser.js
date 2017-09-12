@@ -18,6 +18,7 @@ import FullMoon from './Modules/Spells/FullMoon';
 //import LunarOvercap from './Modules/Spells/Empowerments/LunarOvercap';
 //import SolarOvercap from './Modules/Spells/Empowerments/SolarOvercap';
 import AstralPower from './Modules/Features/AstralPower';
+import UnempoweredLs from './Modules/Spells/UnempoweredLs';
 
 
 class CombatLogParser extends MainCombatLogParser {
@@ -37,6 +38,7 @@ class CombatLogParser extends MainCombatLogParser {
       //lunarovercap: LunarOvercap,
       //solarovercap: SolarOvercap,
     astralpower: AstralPower,
+    unempoweredLS: UnempoweredLs,
   };
   
   generateResults() {
