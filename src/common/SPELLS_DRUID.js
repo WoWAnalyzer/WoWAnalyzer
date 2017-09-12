@@ -589,6 +589,7 @@ export default {
     name: 'Celestial Alignment',
     icon: 'artifactability_balancedruid_newmoon',
   },
+  //Empowerment buffs   
   LUNAR_EMP_BUFF: {
     id: 164547,
     name: 'Lunar Empowement',
@@ -598,7 +599,8 @@ export default {
     id: 164545,
     name: 'Celestial Alignment',
     icon: 'artifactability_balancedruid_newmoon',
-  },
+  }, 
+  //Haste buffs
   ASTRAL_ACCELERATION:{
     id: 242232,
     name: 'Astral Acceleration',

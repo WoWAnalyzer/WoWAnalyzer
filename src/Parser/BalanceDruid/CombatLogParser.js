@@ -14,10 +14,11 @@ import NewMoon from './Modules/Spells/NewMoon';
 import HalfMoon from './Modules/Spells/HalfMoon';
 import FullMoon from './Modules/Spells/FullMoon';
 //import SolarUnemp from './Modules/Spells/Empowerments/SolarUnemp';
-//import LunarUnemp from './Modules/Spells/Empowerments/LunarUnemp';
+import LunarUnemp from './Modules/Spells/LunarUnemp';
 //import LunarOvercap from './Modules/Spells/Empowerments/LunarOvercap';
 //import SolarOvercap from './Modules/Spells/Empowerments/SolarOvercap';
 import AstralPower from './Modules/Features/AstralPower';
+import LunarStrike from './Modules/Spells/LunarStrike';
 
 
 class CombatLogParser extends MainCombatLogParser {
@@ -32,10 +33,11 @@ class CombatLogParser extends MainCombatLogParser {
       halfmoon: HalfMoon,
       fullmoon: FullMoon,
       //solarunemp: SolarUnemp,
-      //lunarumep: LunarUnemp,
+      lunarumep: LunarUnemp,
       //lunarovercap: LunarOvercap,
       //solarovercap: SolarOvercap,
       astralpower: AstralPower,
+      lunarstrike: LunarStrike,
     };
   
     generateResults() {
