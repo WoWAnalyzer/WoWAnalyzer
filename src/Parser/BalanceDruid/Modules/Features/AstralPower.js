@@ -62,7 +62,7 @@ class AstralPower extends Module {
         />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(7);
+  statisticOrder = STATISTIC_ORDER.CORE(2);
 }
 
 export default AstralPower;
