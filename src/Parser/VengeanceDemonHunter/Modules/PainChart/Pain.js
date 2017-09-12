@@ -17,7 +17,7 @@ import 'Main/Mana.css';
 import PainComponent from './PainComponent';
 import './Pain.css';
 
-const formatDuration = (duration) => {
+const formatDuration = duration => {
   const seconds = Math.floor(duration % 60);
   return `${Math.floor(duration / 60)}:${seconds < 10 ? `0${seconds}` : seconds}`;
 };
@@ -54,7 +54,7 @@ class Pain extends React.PureComponent {
       abilityid: 118,
     }))
       .then(response => response.json())
-      .then((json) => {
+      .then(json => {
         if (json.status === 400 || json.status === 401) {
           throw json.error;
         } else {
@@ -72,7 +72,7 @@ class Pain extends React.PureComponent {
       abilityid: 1000,
     }))
       .then(response => response.json())
-      .then((json) => {
+      .then(json => {
         if (json.status === 400 || json.status === 401) {
           throw json.error;
         } else {
@@ -82,7 +82,7 @@ class Pain extends React.PureComponent {
         }
       });
 
-    return Promise.all([ painPromise, bossHealthPromise ]);
+    return Promise.all([painPromise, bossHealthPromise]);
   }
 
   render() {
@@ -99,19 +99,19 @@ class Pain extends React.PureComponent {
     const painBySecond = {
       0: 0,
     };
-    this.state.pain.series[0].data.forEach((item) => {
+    this.state.pain.series[0].data.forEach(item => {
       const secIntoFight = Math.floor((item[0] - start) / 1000);
       painBySecond[secIntoFight] = item[1];
     });
     const bosses = [];
     const deadBosses = [];
-    this.state.bossHealth.series.forEach((series) => {
+    this.state.bossHealth.series.forEach(series => {
       const newSeries = {
         ...series,
         data: {},
       };
 
-      series.data.forEach((item) => {
+      series.data.forEach(item => {
         const secIntoFight = Math.floor((item[0] - start) / 1000);
 
         if (deadBosses.indexOf(series.guid) === -1) {
@@ -126,7 +126,7 @@ class Pain extends React.PureComponent {
       bosses.push(newSeries);
     });
     const deathsBySecond = {};
-    this.state.pain.deaths.forEach((death) => {
+    this.state.pain.deaths.forEach(death => {
       const secIntoFight = Math.floor((death.timestamp - start) / 1000);
 
       if (death.targetIsFriendly) {
@@ -137,31 +137,31 @@ class Pain extends React.PureComponent {
 
     const abilitiesAll = {};
     const categories = {
-      'generated': 'Pain Generators',
-      'spent': 'Pain Spenders',
+      generated: 'Pain Generators',
+      spent: 'Pain Spenders',
     };
 
     const overCapBySecond = {};
     let lastOverCap;
     let lastSecFight = start;
-    this.state.pain.series[0].events.forEach((event) => {
+    this.state.pain.series[0].events.forEach(event => {
       const secIntoFight = Math.floor((event.timestamp - start) / 1000);
       if (event.waste === 0 && lastOverCap) {
         overCapBySecond[lastOverCap + 1] = 0;
       }
       overCapBySecond[secIntoFight] = event.waste;
-      if (event.waste > 0 ) {
+      if (event.waste > 0) {
         lastOverCap = secIntoFight;
         //if (!overCapBySecond[secIntoFight - 1])
         //  overCapBySecond[secIntoFight - 1] = 0;
       }
       if (event.type === 'cast') {
-          const spell = SPELLS[event.ability.guid];
-        if (!abilitiesAll[event.ability.guid + '_spend']) {
-          abilitiesAll[event.ability.guid + '_spend'] = {
+        const spell = SPELLS[event.ability.guid];
+        if (!abilitiesAll[`${event.ability.guid}_spend`]) {
+          abilitiesAll[`${event.ability.guid}_spend`] = {
             ability: {
-                category: 'Pain Spenders',
-                name: (spell === undefined) ? event.ability.name : spell.name,
+              category: 'Pain Spenders',
+              name: (spell === undefined) ? event.ability.name : spell.name,
               spellId: event.ability.guid,
             },
             spent: 0,
@@ -170,15 +170,15 @@ class Pain extends React.PureComponent {
             wasted: 0,
           };
         }
-        abilitiesAll[event.ability.guid + '_spend'].casts++;
-        const lastPain = lastSecFight === secIntoFight ? painBySecond[lastSecFight-1] : painBySecond[lastSecFight];
+        abilitiesAll[`${event.ability.guid}_spend`].casts += 1;
+        const lastPain = lastSecFight === secIntoFight ? painBySecond[lastSecFight - 1] : painBySecond[lastSecFight];
         const spendResource = (spell.painCost !== undefined) ? spell.painCost : (spell.max_pain < lastPain ? spell.max_pain : lastPain);
-        abilitiesAll[event.ability.guid + '_spend'].spent += spendResource;
-        abilitiesAll[event.ability.guid + '_spend'].wasted += spell.max_pain ? spell.max_pain - spendResource: 0;
+        abilitiesAll[`${event.ability.guid}_spend`].spent += spendResource;
+        abilitiesAll[`${event.ability.guid}_spend`].wasted += spell.max_pain ? spell.max_pain - spendResource : 0;
       } else if (event.type === 'energize') {
-        if (!abilitiesAll[event.ability.guid + '_gen']) {
-            const spell = SPELLS[event.ability.guid];
-          abilitiesAll[event.ability.guid + '_gen'] = {
+        if (!abilitiesAll[`${event.ability.guid}_gen`]) {
+          const spell = SPELLS[event.ability.guid];
+          abilitiesAll[`${event.ability.guid}_gen`] = {
             ability: {
               category: 'Pain Generators',
               name: (spell === undefined) ? event.ability.name : spell.name,
@@ -190,16 +190,16 @@ class Pain extends React.PureComponent {
             wasted: 0,
           };
         }
-        abilitiesAll[event.ability.guid + '_gen'].casts++;
-        abilitiesAll[event.ability.guid + '_gen'].created += event.resourceChange;
-        abilitiesAll[event.ability.guid + '_gen'].wasted += event.waste;
+        abilitiesAll[`${event.ability.guid}_gen`].casts += 1;
+        abilitiesAll[`${event.ability.guid}_gen`].created += event.resourceChange;
+        abilitiesAll[`${event.ability.guid}_gen`].wasted += event.waste;
       }
       if (secIntoFight !== lastSecFight) {
         lastSecFight = secIntoFight;
       }
     });
 
-    const abilities = Object.keys(abilitiesAll).map((key) => abilitiesAll[key]);
+    const abilities = Object.keys(abilitiesAll).map(key => abilitiesAll[key]);
     abilities.sort((a,b) => {
       if (a.created < b.created) {
         return 1;
@@ -216,14 +216,14 @@ class Pain extends React.PureComponent {
 
       painBySecond[i] = painBySecond[i] !== undefined ? painBySecond[i] : null;
       overCapBySecond[i] = overCapBySecond[i] !== undefined ? overCapBySecond[i] : null;
-      bosses.forEach((series) => {
+      bosses.forEach(series => {
         series.data[i] = series.data[i] !== undefined ? series.data[i] : null;
       });
       deathsBySecond[i] = deathsBySecond[i] !== undefined ? deathsBySecond[i] : undefined;
     }
 
     const chartData = {
-      labels: labels,
+      labels,
       series: [
         ...bosses.map((series, index) => ({
           className: `boss-health boss-${index} boss-${series.guid}`,
@@ -233,7 +233,7 @@ class Pain extends React.PureComponent {
         {
           className: 'pain',
           name: 'Pain',
-          data: Object.keys(painBySecond).map(key => painBySecond[key]/10),
+          data: Object.keys(painBySecond).map(key => painBySecond[key] / 10),
         },
         {
           className: 'wasted',

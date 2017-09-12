@@ -38,11 +38,10 @@ class DivineHymn extends Module {
         return suggest('You wasted Divine Hymn ticks. Try to avoid clipping the end of Divine Hymn as well as positioning such that you will not have to move during its duration. ')
           .icon('spell_holy_divinehymn')
           .actual(`${actual} missed Hymn ticks`)
-          .recommended(`0 is recommended`)
+          .recommended('0 is recommended')
           .regular(recommended).major(recommended);
       });
   }
-
 }
 
 export default DivineHymn;

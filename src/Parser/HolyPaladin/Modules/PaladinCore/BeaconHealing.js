@@ -28,7 +28,7 @@ class BeaconHealing extends Module {
     CastEfficiency.CPM_ABILITIES
       .filter(ability => ability.isActive === undefined || ability.isActive(this.combatants.selected))
       .filter(ability => ability.category !== CastEfficiency.SPELL_CATEGORIES.ITEMS)
-      .forEach((ability) => {
+      .forEach(ability => {
         const castCount = getCastCount(ability.spell.id);
         casts += castCount.healingHits || 0;
         castsOnBeacon += castCount.healingBeaconHits || 0;

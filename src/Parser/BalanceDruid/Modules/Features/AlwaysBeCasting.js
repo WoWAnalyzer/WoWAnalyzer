@@ -1,13 +1,14 @@
 import React from 'react';
+import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import CoreAlwaysBeCasting from 'Parser/Core/Modules/AlwaysBeCasting';
-import SPELLS from 'common/SPELLS';
 import Icon from 'common/Icon';
 
+import CoreAlwaysBeCasting from 'Parser/Core/Modules/AlwaysBeCasting';
+  
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   static ABILITIES_ON_GCD = [
-    // Moonkin:
+      // Moonkin:
     SPELLS.MOONFIRE.id,
     SPELLS.SUNFIRE_CAST.id,
     SPELLS.STARSURGE_MOONKIN.id,
@@ -17,17 +18,39 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.NEW_MOON.id,
     SPELLS.HALF_MOON.id,
     SPELLS.FULL_MOON.id,
-    SPELLS.MOONKIN_FORM,
-
-    // Talents
-    SPELLS.DISPLACER_BEAST_TALENT.id,
+  
+      // Talents
     SPELLS.TYPHOON.id,
     SPELLS.MASS_ENTANGLEMENT_TALENT.id,
     SPELLS.FORCE_OF_NATURE_TALENT.id,
     SPELLS.WILD_CHARGE_TALENT.id,
   ];
-  ///TODO Add Moonkin haste buffs
-  
+
+  static STATIC_GCD_ABILITIES = {
+    ...CoreAlwaysBeCasting.STATIC_GCD_ABILITIES,
+      ///Shapeshifts
+    [SPELLS.MOONKIN_FORM.id] : 1.5,
+    [SPELLS.DISPLACER_BEAST_TALENT.id] : 1.5,
+    [SPELLS.BEAR_FORM.id] : 1.5,
+  };
+
+  static STACKABLE_HASTE_BUFFS = {
+    ...CoreAlwaysBeCasting.STACKABLE_HASTE_BUFFS,
+      //Moonkin specific
+    [SPELLS.ASTRAL_ACCELERATION.id] : { //Astral Acceleration - From T20 4p
+      Haste: () => 0.03,
+      CurrentStacks: 0, 
+      MaxStacks: 5,
+    }, 
+    [SPELLS.STAR_POWER.id] : { //StarPower - From casts in Incarnation / CA
+      Haste: combatant => (
+          combatant.hasTalent(SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id) ? 0.01 : 0.03
+        ), 
+      CurrentStacks: 0, 
+      MaxStacks: 0,
+    }, 
+  }
+
   suggestions(when) {
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
     
@@ -55,5 +78,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
   }
   statisticOrder = STATISTIC_ORDER.CORE(0);
 }
+
 
 export default AlwaysBeCasting;

@@ -38,11 +38,10 @@ class IronSkinBrew extends Module {
   on_toPlayer_damage(event) {
     if (event.ability.guid !== SPELLS.STAGGER_TAKEN.id) {
       if (this.lastIronSkinBrewBuffApplied > 0) {
-        this.hitsWithIronSkinBrew++;
+        this.hitsWithIronSkinBrew += 1;
         this.damageWithIronSkinBrew += event.amount + (event.absorbed || 0) + (event.overkill || 0);
-      }
-      else {
-        this.hitsWithoutIronSkinBrew++;
+      }      else {
+        this.hitsWithoutIronSkinBrew += 1;
         this.damageWithoutIronSkinBrew += event.amount + (event.absorbed || 0) + (event.overkill || 0);
       }
     }
@@ -52,8 +51,7 @@ class IronSkinBrew extends Module {
     if (event.ability.guid === SPELLS.STAGGER.id) {
       if (this.lastIronSkinBrewBuffApplied > 0) {
         this.damageWithIronSkinBrew -= event.amount;
-      }
-      else {
+      }      else {
         this.damageWithoutIronSkinBrew -= event.amount;
       }
     }
@@ -61,16 +59,16 @@ class IronSkinBrew extends Module {
 
   on_finished() {
     if (debug) {
-      console.log('Hits with IronSkinBrew ' + this.hitsWithIronSkinBrew);
-      console.log('Damage with IronSkinBrew ' + this.damageWithIronSkinBrew);
-      console.log('Hits without IronSkinBrew ' + this.hitsWithoutIronSkinBrew);
-      console.log('Damage without IronSkinBrew ' + this.damageWithoutIronSkinBrew);
-      console.log('Total damage ' + (this.damageWithIronSkinBrew + this.damageWithoutIronSkinBrew + this.staggerDot));
+      console.log(`Hits with IronSkinBrew ${this.hitsWithIronSkinBrew}`);
+      console.log(`Damage with IronSkinBrew ${this.damageWithIronSkinBrew}`);
+      console.log(`Hits without IronSkinBrew ${this.hitsWithoutIronSkinBrew}`);
+      console.log(`Damage without IronSkinBrew ${this.damageWithoutIronSkinBrew}`);
+      console.log(`Total damage ${this.damageWithIronSkinBrew + this.damageWithoutIronSkinBrew + this.staggerDot}`);
     }
   }
 
   suggestions(when) {
-    const isbUptimePercentage = this.combatants.selected.getBuffUptime(SPELLS.IRONSKIN_BREW_BUFF.id)/ this.owner.fightDuration;
+    const isbUptimePercentage = this.combatants.selected.getBuffUptime(SPELLS.IRONSKIN_BREW_BUFF.id) / this.owner.fightDuration;
 
     when(isbUptimePercentage).isLessThan(0.9)
       .addSuggestion((suggest, actual, recommended) => {
@@ -83,8 +81,8 @@ class IronSkinBrew extends Module {
   }
 
   statistic() {
-    const isbUptime = this.combatants.selected.getBuffUptime(SPELLS.IRONSKIN_BREW_BUFF.id)/ this.owner.fightDuration;
-    const hitsMitigatedPercent = this.hitsWithIronSkinBrew/(this.hitsWithIronSkinBrew+this.hitsWithoutIronSkinBrew);
+    const isbUptime = this.combatants.selected.getBuffUptime(SPELLS.IRONSKIN_BREW_BUFF.id) / this.owner.fightDuration;
+    const hitsMitigatedPercent = this.hitsWithIronSkinBrew / (this.hitsWithIronSkinBrew + this.hitsWithoutIronSkinBrew);
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.IRONSKIN_BREW.id} />}

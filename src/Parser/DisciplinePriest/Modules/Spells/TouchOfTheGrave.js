@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 
 import Module from 'Parser/Core/Module';
-import isAtonement from './../Core/isAtonement';
+import isAtonement from '../Core/isAtonement';
 
 class TouchOfTheGrave extends Module {
   healing = 0;

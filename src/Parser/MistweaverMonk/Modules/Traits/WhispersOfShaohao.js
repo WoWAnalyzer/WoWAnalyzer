@@ -27,13 +27,13 @@ class WhispersOfShaohao extends Module {
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
 
-    if(spellId === SPELLS.WHISPERS_OF_SHAOHAO.id ) {
+    if (spellId === SPELLS.WHISPERS_OF_SHAOHAO.id) {
       this.whispersHeal += event.amount;
-      if(event.overheal) {
+      if (event.overheal) {
         this.whispersOverHeal += event.overheal;
       }
-      this.countWhispersHeal++;
-      debug && console.log('Whispers Heal: ' + event.amount + ' / Whispers Overheal: ' + event.overheal);
+      this.countWhispersHeal += 1;
+      debug && console.log(`Whispers Heal: ${event.amount} / Whispers Overheal: ${event.overheal}`);
     }
   }
 
@@ -47,10 +47,10 @@ class WhispersOfShaohao extends Module {
           .recommended(`<${recommended} missed is recommended`)
           .regular(recommended + 2).major(recommended + 5);
       });
-    }
+  }
 
   on_finished() {
-    if(debug) {
+    if (debug) {
       console.log('Whispers Heals: ', this.whispersHeal);
     }
   }

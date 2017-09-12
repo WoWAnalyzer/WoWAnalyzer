@@ -1,20 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ChartistGraph from 'react-chartist';
-import Chartist from 'chartist';
-import 'chartist-plugin-legend';
 
 import { formatThousands } from 'common/format';
 
-import './Chart.css';
+import Chart from './Chart';
 
 class WclApiResponseTime extends React.PureComponent {
   static propTypes = {
     history: PropTypes.array,
+    timeSpanMinutes: PropTypes.number.isRequired,
   };
 
   render() {
-    const { history } = this.props;
+    const { history, timeSpanMinutes } = this.props;
 
     if (!history) {
       return (
@@ -24,9 +22,7 @@ class WclApiResponseTime extends React.PureComponent {
       );
     }
 
-    const timeSpanMinutes = 24 * 60;
-    const groupingInterval = 1;
-    const labelsPerHour = 720 / timeSpanMinutes;
+    const groupingInterval = Math.max(1, Math.round(timeSpanMinutes / 1440));
 
     const historyByInterval = {};
     history
@@ -41,7 +37,7 @@ class WclApiResponseTime extends React.PureComponent {
           historyByInterval[intervalIndex] = {
             numRequests: totalNumRequests,
             avgResponseTime: averageResponseTime,
-            maxResponseTime: maxResponseTime,
+            maxResponseTime,
           };
         } else {
           historyByInterval[intervalIndex] = moment;
@@ -61,64 +57,40 @@ class WclApiResponseTime extends React.PureComponent {
       labels.push(date);
     }
 
-    console.log(labels);
-
     const chartData = {
       labels: labels.reverse(),
-      series: [
+      datasets: [
         {
-          className: 'healing thin',
-          name: 'Average response time',
+          borderColor: 'rgba(75,192,192,1)',
+          label: 'Average response time',
           data: avgResponseTimes.reverse(),
         },
         {
-          className: 'mana-used thin',
-          name: 'Max response time',
+          borderColor: 'rgba(192,0,0,1)',
+          label: 'Max response time',
           data: maxResponseTimes.reverse(),
         },
       ],
     };
+
     return (
       <div>
-        <div className="graph-container">
-          <ChartistGraph
+        <div className="chart-container">
+          <Chart
             data={chartData}
-            options={{
-              low: 0,
-              showPoint: false,
-              fullWidth: true,
-              height: '350px',
-              lineSmooth: Chartist.Interpolation.simple({
-              }),
-              axisX: {
-                labelInterpolationFnc: function skipLabels(date) {
-                  const minutes = date.getMinutes();
-                  if (minutes === 0 || (labelsPerHour >= 2 && minutes === 30) || (labelsPerHour >= 4 && (minutes === 15 || minutes === 45))) {
-                    const hours = date.getHours();
-                    return `${hours < 10 ? `0${hours}` : hours}:${minutes < 10 ? `0${minutes}` : minutes}`;
-                  }
-                  return null;
-                },
-                offset: 15,
-              },
-              axisY: {
-                onlyInteger: true,
-                offset: 60,
-                labelInterpolationFnc: function skipLabels(responseTime) {
-                  return `${formatThousands(responseTime)}ms`;
-                },
-              },
-              plugins: [
-                Chartist.plugins.legend({
-                  classNames: [
-                    'healing',
-                    'mana-used',
-                  ],
-                }),
-                // tooltips(),
-              ],
+            options={options => {
+              options.tooltips.callbacks.label = (item, data) => {
+                console.log(item, data);
+                const dataSetName = data.datasets[item.datasetIndex].label;
+                return `${dataSetName}: ${formatThousands(item.yLabel)}ms`;
+              };
+              options.scales.yAxes[0].ticks.callback = time => `${formatThousands(time)}ms`;
+              options.scales.yAxes[0].scaleLabel = {
+                display: true,
+                labelString: 'Response time',
+              };
+              return options;
             }}
-            type="Line"
           />
         </div>
       </div>

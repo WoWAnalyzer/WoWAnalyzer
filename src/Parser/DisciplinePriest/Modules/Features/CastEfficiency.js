@@ -18,9 +18,7 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 18,
       getCasts: castCount => castCount.casts,
-      getMaxCasts: (cooldown, fightDuration, getAbility, parser) => {
-        return calculateMaxCasts(cooldown, fightDuration, 2);
-      },
+      getMaxCasts: (cooldown, fightDuration, getAbility, parser) => calculateMaxCasts(cooldown, fightDuration, 2),
     },
     {
       spell: SPELLS.EVANGELISM_TALENT,
@@ -36,7 +34,7 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 9 / (1 + haste),
       getCasts: castCount => castCount.casts - (castCount.raptureCasts || 0),
       getMaxCasts: (cooldown, fightDuration, getAbility, parser) => {
-        const timeSpentInRapture = parser.selectedCombatant.getBuffUptime(SPELLS.RAPTURE.id);
+        const timeSpentInRapture = parser.modules.combatants.selected.getBuffUptime(SPELLS.RAPTURE.id);
         const maxRegularCasts = calculateMaxCasts(cooldown, fightDuration - timeSpentInRapture);
 
         return maxRegularCasts;
@@ -50,8 +48,8 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 9 / (1 + haste),
       getCasts: castCount => castCount.raptureCasts || 0,
       getMaxCasts: (cooldown, fightDuration, getAbility, parser) => {
-        const gcd = 1.5 / (1 + parser.selectedCombatant.hastePercentage);
-        const timeSpentInRapture = parser.selectedCombatant.getBuffUptime(SPELLS.RAPTURE.id);
+        const gcd = 1.5 / (1 + parser.modules.combatants.selected.hastePercentage);
+        const timeSpentInRapture = parser.modules.combatants.selected.getBuffUptime(SPELLS.RAPTURE.id);
 
         const maxRaptureCasts = calculateMaxCasts(gcd, timeSpentInRapture);
 

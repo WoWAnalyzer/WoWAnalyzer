@@ -9,6 +9,7 @@ import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
 
 import getDamageBonus from '../WarlockCore/getDamageBonus';
+
 const T20_4SET_HASTE_BONUS = .15;
 
 class Tier20_4set extends Module {
@@ -18,9 +19,7 @@ class Tier20_4set extends Module {
   bonusDmg = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.combatants.selected.hasBuff(SPELLS.WARLOCK_AFFLI_T20_4P_BONUS.id);
-    }
+    this.active = this.combatants.selected.hasBuff(SPELLS.WARLOCK_AFFLI_T20_4P_BONUS.id);
   }
 
   on_byPlayer_damage(event) {
@@ -35,7 +34,7 @@ class Tier20_4set extends Module {
       icon: <SpellIcon id={SPELLS.WARLOCK_AFFLI_T20_4P_BONUS.id} />,
       title: <SpellLink id={SPELLS.WARLOCK_AFFLI_T20_4P_BONUS.id} />,
       result: (
-        <dfn data-tip={`This result may be inaccurate as effect of haste buffs is difficult to calculate. This result is based on the premise that 15% haste allows you to do <code>(baseHaste * (100% + 15%) + 15%) - baseHaste</code> more things in the same amount of time, therefore the set bonus is estimated to be technically 15% damage increase for 8 seconds.`}>
+        <dfn data-tip={'This result may be inaccurate as effect of haste buffs is difficult to calculate. This result is based on the premise that 15% haste allows you to do <code>(baseHaste * (100% + 15%) + 15%) - baseHaste</code> more things in the same amount of time, therefore the set bonus is estimated to be technically 15% damage increase for 8 seconds.'}>
           {`${formatNumber(this.bonusDmg)} damage - ${this.owner.formatItemDamageDone(this.bonusDmg)}`}
         </dfn>
       ),

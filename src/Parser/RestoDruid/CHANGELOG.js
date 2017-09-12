@@ -1,5 +1,9 @@
 export default `
-09-04-2017 - Resto Druid: Added Mastery calculations, with support for Spring Blossoms, Cenarion Ward, Cultivation, and the T19 2Set
+09-09-2017 - Resto Druid: Added suggestion when high Nature's Essence overheal. (By Sref)
+07-09-2017 - Resto Druid: Added support for T21. (By Sref)
+07-09-2017 - Resto Druid: Activated low health healing module (By Blazyb)
+07-09-2017 - Resto Druid: Added suggestions to cultivation and spring blossoms (By Blazyb)
+04-09-2017 - Resto Druid: Added Mastery calculations, with support for Spring Blossoms, Cenarion Ward, Cultivation, and the T19 2Set (By Sref)
 06-07-2017 - Resto Druid: Added mana costs for spells, the cooldown tab should now properly calculate mana costs
 06-07-2017 - Resto Druid: Fixed a bug on 4PT20 calculations. Also added swiftmend to cast efficiency tab. (by Blazyb)
 23-06-2017 - Resto Druid: Added Essence of G'hanir (by Blazyb)

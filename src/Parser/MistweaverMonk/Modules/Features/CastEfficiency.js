@@ -54,7 +54,7 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.REVIVAL,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
-      getCooldown: (haste, combatant) => 180 - (combatant.traitsBySpellId[SPELLS.TENDRILS_OF_REVIVAL.id] || 0 ) * 10,
+      getCooldown: (haste, combatant) => 180 - (combatant.traitsBySpellId[SPELLS.TENDRILS_OF_REVIVAL.id] || 0) * 10,
       noSuggestion: true,
       noCanBeImproved: true,
     },

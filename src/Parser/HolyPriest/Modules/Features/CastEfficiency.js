@@ -18,9 +18,7 @@ class CastEfficiency extends CoreCastEfficiency {
       name: 'Light of T\'uure',
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 45,
-      getMaxCasts: (cooldown, fightDuration, getAbility, parser) => {
-        return calculateMaxCasts(cooldown, fightDuration, 2);
-      },
+      getMaxCasts: (cooldown, fightDuration, getAbility, parser) => calculateMaxCasts(cooldown, fightDuration, 2),
       noSuggestion: true,
     },
     {

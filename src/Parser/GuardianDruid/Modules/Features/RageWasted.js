@@ -79,7 +79,9 @@ class RageWasted extends Module {
   }
 
   get totalWastedRage() {
-    return Object.values(this.rageWastedBySpell).reduce((total, waste) => total + waste, 0);
+    return Object.keys(this.rageWastedBySpell)
+      .map(key => this.rageWastedBySpell[key])
+      .reduce((total, waste) => total + waste, 0);
   }
 
   get wastedRageRatio() {
@@ -87,20 +89,18 @@ class RageWasted extends Module {
   }
 
   getWastedRageBreakdown() {
-    const sortedWasteBySpell = [];
-
-    for (const spellID in this.rageWastedBySpell) {
-      if (this.rageWastedBySpell.hasOwnProperty(spellID)) {
+    return Object.keys(this.rageWastedBySpell)
+      .map(spellID => {
         if (!RAGE_GENERATORS[spellID]) {
           console.warn('Unknown rage generator:', spellID);
         }
-        sortedWasteBySpell.push({ name: RAGE_GENERATORS[spellID], waste: this.rageWastedBySpell[spellID] });
-      }
-    }
-
-    sortedWasteBySpell.sort((a, b) => b.waste - a.waste);
-
-    return sortedWasteBySpell.reduce((str, spell) => `${str}<br />${spell.name}: ${spell.waste}`, 'Rage wasted per spell:');
+        return {
+          name: RAGE_GENERATORS[spellID],
+          waste: this.rageWastedBySpell[spellID],
+        };
+      })
+      .sort((a, b) => b.waste - a.waste)
+      .reduce((str, spell) => `${str}<br />${spell.name}: ${spell.waste}`, 'Rage wasted per spell:');
   }
 
   suggestions(when) {

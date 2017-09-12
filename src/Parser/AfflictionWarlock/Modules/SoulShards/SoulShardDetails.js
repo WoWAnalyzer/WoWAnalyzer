@@ -19,9 +19,9 @@ class SoulShardDetails extends Module {
   suggestions(when) {
     const shardsWasted = this.soulShardTracker.shardsWasted;
     const shardsWastedPerMinute = (shardsWasted / this.owner.fightDuration) * 1000 * 60;
-    const MINOR = 5/10; //5 shards per 10 minutes
-    const AVG = 5/3; //5 shards per 3 minutes
-    const MAJOR = 10/3; //10 shards per 3 minutes
+    const MINOR = 5 / 10; //5 shards per 10 minutes
+    const AVG = 5 / 3; //5 shards per 3 minutes
+    const MAJOR = 10 / 3; //10 shards per 3 minutes
     when(shardsWastedPerMinute).isGreaterThan(MINOR)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest('You are wasting Soul Shards. Try to use them and not let them cap and go to waste unless you\'re preparing for bursting adds etc.')
@@ -55,9 +55,8 @@ class SoulShardDetails extends Module {
       render: () => (
         <Tab title='Soul Shard usage breakdown'>
           <SoulShardBreakdown
-            shardsGained = {this.soulShardTracker.gained}
+            shardsGeneratedAndWasted = {this.soulShardTracker.generatedAndWasted}
             shardsSpent = {this.soulShardTracker.spent}
-            shardsWasted = {this.soulShardTracker.wasted}
           />
         </Tab>
       ),

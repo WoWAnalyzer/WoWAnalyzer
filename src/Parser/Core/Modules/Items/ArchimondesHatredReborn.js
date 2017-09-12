@@ -8,12 +8,11 @@ class ArchimondesHatredReborn extends Module {
   static dependencies = {
     combatants: Combatants,
   };
+
   healing = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.combatants.selected.hasTrinket(ITEMS.ARCHIMONDES_HATRED_REBORN.id);
-    }
+    this.active = this.combatants.selected.hasTrinket(ITEMS.ARCHIMONDES_HATRED_REBORN.id);
   }
 
   on_byPlayer_absorbed(event) {

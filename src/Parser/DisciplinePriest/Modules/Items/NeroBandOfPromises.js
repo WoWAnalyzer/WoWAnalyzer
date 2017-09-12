@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-import isAtonement from './../Core/isAtonement';
+import isAtonement from '../Core/isAtonement';
 
 const debug = true;
 
@@ -16,7 +16,7 @@ class NeroBandOfPromises extends Module {
   healing = 0;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasFinger(ITEMS.NERO_BAND_OF_PROMISES.id);
+    this.active = this.owner.modules.combatants.selected.hasFinger(ITEMS.NERO_BAND_OF_PROMISES.id);
   }
 
   on_byPlayer_heal(event) {

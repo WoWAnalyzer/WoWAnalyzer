@@ -304,7 +304,7 @@ const ITEMS = {
     name: 'Soul of the Archdruid',
     icon: 'inv_70_raid_ring6a',
     quality: ITEM_QUALITIES.LEGENDARY,
-  }, 
+  },
   //Balance Druid Legendaries
   IMPECCABLE_FEL_ESSENCE: {
     id: 137039,
@@ -463,6 +463,12 @@ const ITEMS = {
     icon: 'inv_cape_pandaria_c_02',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+  FERETORY_OF_SOULS: {
+    id: 132456,
+    name: 'Feretory of Souls',
+    icon: 'inv_belt_cloth_raidwarlock_n_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
   // T20 Trinkets
   ARCHIVE_OF_FAITH: {
     id: 147006,
@@ -531,6 +537,18 @@ const ITEMS = {
     icon: 'inv_archaeology_70_demon_flayedskinchronicle',
     quality: ITEM_QUALITIES.EPIC,
   },
+  CHALICE_OF_MOONLIGHT: {
+    id: 147005,
+    name: 'Chalice of Moonlight',
+    icon: 'inv_offhand_pvealliance_d_01',
+    quality: ITEM_QUALITIES.EPIC,
+  },
+  CHARM_OF_THE_RISING_TIDE: {
+    id: 147002,
+    name: 'Charm of the Rising Tide',
+    icon: 'inv_7_0raid_trinket_04a',
+    quality: ITEM_QUALITIES.EPIC,
+  },
   // Guardian legendaries
   ELIZES_EVERLASTING_ENCASEMENT: {
     id: 137067,
@@ -588,6 +606,12 @@ const ITEMS = {
     icon:'inv_jewelry_ring_134',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+  THE_DEFILERS_LOST_VAMBRACES: {
+    id: 137091,
+    name: 'The Defiler\'s Lost Vambraces',
+    icon:'inv_bracer_plate_pvpdeathknight_c_02',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
 
   //BrM Legendaries
   JEWEL_OF_THE_LOST_ABBEY: {
@@ -596,6 +620,7 @@ const ITEMS = {
     icon: 'inv_jewelry_ring_138',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+
 };
 
 export default indexById(ITEMS);

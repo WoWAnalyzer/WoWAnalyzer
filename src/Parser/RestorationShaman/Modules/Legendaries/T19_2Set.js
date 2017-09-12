@@ -11,23 +11,22 @@ class Restoration_Shaman_T19_2Set extends Module {
   healing = 0;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasBuff(SPELLS.RESTORATION_SHAMAN_T19_2SET_BONUS_BUFF.id);
+    this.active = this.owner.modules.combatants.selected.hasBuff(SPELLS.RESTORATION_SHAMAN_T19_2SET_BONUS_BUFF.id);
   }
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
     if (!(spellId === SPELLS.HEALING_WAVE.id) && !(spellId === SPELLS.HEALING_SURGE_RESTORATION.id)) {
-        return;
+      return;
     }
 
 
-    if (!this.owner.selectedCombatant.hasBuff(SPELLS.TIDAL_WAVES_BUFF.id, event.timestamp, TIDAL_WAVES_BUFF_EXPIRATION_BUFFER)) {
+    if (!this.owner.modules.combatants.selected.hasBuff(SPELLS.TIDAL_WAVES_BUFF.id, event.timestamp, TIDAL_WAVES_BUFF_EXPIRATION_BUFFER)) {
       return;
     }
 
     this.healing += calculateEffectiveHealing(event, T19_2SET_HEALING_INCREASE);
   }
-
 }
 
 export default Restoration_Shaman_T19_2Set;

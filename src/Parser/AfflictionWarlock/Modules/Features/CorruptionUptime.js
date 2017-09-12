@@ -23,8 +23,7 @@ class CorruptionUptime extends Module {
     if (this.combatants.selected.hasBuff(SPELLS.WARLOCK_AFFLI_T20_2P_BONUS.id)) {
       threshold = 0.95;
       suggestionText = <span>Your Corruption uptime can be improved. Try to pay more attention to your Corruption on the boss, which is especially important with the <SpellLink id={SPELLS.WARLOCK_AFFLI_T20_2P_BONUS.id}>T20 2-piece set bonus</SpellLink>.</span>;
-    }
-    else {
+    }    else {
       threshold = 0.85;
       suggestionText = 'Your Corruption uptime can be improved. Try to pay more attention to your Corruption on the boss, perhaps use some debuff tracker.';
     }

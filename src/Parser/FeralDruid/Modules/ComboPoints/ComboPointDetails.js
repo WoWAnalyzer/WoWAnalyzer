@@ -9,8 +9,6 @@ import ComboPointTracker from './ComboPointTracker';
 
 import WastedPointsIcon from '../Images/feralComboPointIcon.png';
 
-const COMBO_POINT_ICON = 'creatureportrait_bubble';
-
 class ComboPointDetails extends Module {
   static dependencies = {
     comboPointTracker: ComboPointTracker,
@@ -25,7 +23,7 @@ class ComboPointDetails extends Module {
     when(pointsWastedPerMinute).isGreaterThan(MINOR)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest('You are wasting Combo Points. Try to use them and not let them cap and go to waste unless you\'re preparing for bursting adds etc.')
-          .icon(COMBO_POINT_ICON)
+          .icon('creatureportrait_bubble')
           .actual(`${pointsWasted} Combo Points wasted (${pointsWastedPerMinute.toFixed(2)} per minute)`)
           .recommended(`< ${recommended.toFixed(2)} Combo Points per minute wasted are recommended`)
           .regular(AVG).major(MAJOR);
