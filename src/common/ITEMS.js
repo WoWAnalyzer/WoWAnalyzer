@@ -469,6 +469,23 @@ const ITEMS = {
     icon: 'inv_belt_cloth_raidwarlock_n_01',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+  ALYTHESSS_PYROGENICS: {
+    id: 132460,
+    name: 'Alythess\'s Pyrogenics',
+    icon: 'inv_jewelry_ring_65',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  SINDOREI_SPITE: {
+    id: 132379,
+    name: 'Sin\'dorei Spite',
+    icon: 'inv_bracer_44',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  LESSONS_OF_SPACETIME: {
+    id: 144369,
+    name: 'Lessons of Space-Time',
+    icon: 'inv_shoulder_robe_pvpwarlock_d_01',
+  },
   ODR_SHAWL_OF_THE_YMIRJAR: {
     id: 132375,
     name: 'Odr, Shawl of the Ymirjar',
