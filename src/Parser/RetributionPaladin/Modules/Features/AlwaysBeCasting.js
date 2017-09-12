@@ -1,5 +1,6 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
 import Icon from 'common/Icon';
 
 import {formatPercentage} from 'common/format';
@@ -50,6 +51,19 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     853, // Hammer of Justice
     SPELLS.HAND_OF_RECKONING.id,
   ];
+
+  suggestion(when) {
+    const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
+
+    when(deadTimePercentage).isGreaterThan(0.2)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<span>Your dead GCD time can be improved. Try to always be casting (ABC), try to reduce the delay betweeb casting spells. Think about preplanning your movement or using something with ranged like <SpellLink id ={SPELLS.DIVINE_STORM.id}/></span>)
+        .icon('spell_mage_altertime')
+        .actual(`${formatPercentage(actual)}% dead GCD time`)
+        .recommended(`<${formatPercentage(recommended)}% is recommended`)
+        .regular(recommended + 0.15).major(recommended + 0.2);
+      });
+  }
 
  statistic() { 
    const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration; 
