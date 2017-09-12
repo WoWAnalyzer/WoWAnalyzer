@@ -469,6 +469,18 @@ const ITEMS = {
     icon: 'inv_belt_cloth_raidwarlock_n_01',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+  ODR_SHAWL_OF_THE_YMIRJAR: {
+    id: 132375,
+    name: 'Odr, Shawl of the Ymirjar',
+    icon: 'inv_misc_cape_cataclysm_tank_b_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  MAGISTRIKE_RESTRAINTS: {
+    id: 132407,
+    name: 'Magistrike Restraints',
+    icon: 'inv_bracer_31b',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
   // T20 Trinkets
   ARCHIVE_OF_FAITH: {
     id: 147006,

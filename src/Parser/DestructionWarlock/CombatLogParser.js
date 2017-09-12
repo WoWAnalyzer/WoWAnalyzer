@@ -33,8 +33,12 @@ import SoulHarvest from './Modules/Talents/SoulHarvest';
 import SoulHarvestTalent from './Modules/Talents/SoulHarvestTalent';
 import ChannelDemonfire from './Modules/Talents/ChannelDemonfire';
 
+import MagistrikeRestraints from './Modules/Items/Legendaries/MagistrikeRestraints';
+import OdrShawlOfTheYmirjar from './Modules/Items/Legendaries/OdrShawlOfTheYmirjar';
 import SoulOfTheNetherlord from './Modules/Items/Legendaries/SoulOfTheNetherlord';
 import TheMasterHarvester from './Modules/Items/Legendaries/TheMasterHarvester';
+
+import T20_2set from './Modules/Items/T20_2set';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -70,10 +74,13 @@ class CombatLogParser extends CoreCombatLogParser {
     channelDemonfire: ChannelDemonfire,
 
     //Legendaries
+    magistrikeRestraints: MagistrikeRestraints,
+    odrShawlOfTheYmirjar: OdrShawlOfTheYmirjar,
     soulOfTheNetherlord: SoulOfTheNetherlord,
     masterHarvester: TheMasterHarvester,
 
     //Items
+    t20_2set: T20_2set,
   };
 
   generateResults() {
