@@ -8,7 +8,7 @@ import getDamageBonus from '../../WarlockCore/getDamageBonus';
 
 const SINDOREI_SPITE_DAMAGE_BONUS = .15;
 
-class SoulHarvest extends Module {
+class SindoreiSpite extends Module {
   static dependencies = {
     combatants: Combatants,
   };
@@ -49,4 +49,4 @@ class SoulHarvest extends Module {
   }
 }
 
-export default SoulHarvest;
+export default SindoreiSpite;
