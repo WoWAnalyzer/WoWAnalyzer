@@ -4,10 +4,10 @@ import SuggestionsTab from 'Main/SuggestionsTab';
 
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 
+import DamageDone from './Modules/Features/DamageDone';
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 
-//Modules made but not loaded in the first PR
 import Moonfire from './Modules/Spells/Moonfire';
 import Sunfire from './Modules/Spells/Sunfire';
 import NewMoon from './Modules/Spells/NewMoon';
@@ -23,6 +23,7 @@ import AstralPower from './Modules/Features/AstralPower';
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
       // Features
+    damageDone: DamageDone,
     castEfficiency: CastEfficiency,
     alwaysBeCasting: AlwaysBeCasting,
       //Modules made but not loaded in the first PR
