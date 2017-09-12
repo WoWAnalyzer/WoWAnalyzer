@@ -144,7 +144,7 @@ class Flourish extends Module {
         return suggest(<span>Your <SpellLink id={SPELLS.FLOURISH.id} /> should always aim to extend a <SpellLink id={SPELLS.WILD_GROWTH.id} /></span>)
           .icon(SPELLS.FLOURISH.icon)
           .actual(`${formatPercentage((this.wildGrowth / 6) / this.flourishCounter, 0)}% WGs extended.`)
-          .recommended(`<${Math.round(formatPercentage(recommended))}% is recommended`)
+          .recommended(`>${formatPercentage(recommended)}% is recommended`)
           .regular(SuggestionThresholds.FLOURISH_WG_EXTEND.regular).major(SuggestionThresholds.FLOURISH_WG_EXTEND.major);
       });
 
@@ -155,7 +155,7 @@ class Flourish extends Module {
           return suggest(<span>Your <SpellLink id={SPELLS.FLOURISH.id} /> should always aim to extend a <SpellLink id={SPELLS.CENARION_WARD.id} /></span>)
             .icon(SPELLS.FLOURISH.icon)
             .actual(`${this.cenarionWard}/${this.flourishCounter} CWs extended.`)
-            .recommended(`<${Math.round(formatPercentage(recommended))}% is recommended`)
+            .recommended(`>${formatPercentage(recommended)}% is recommended`)
             .regular(SuggestionThresholds.FLOURISH_CW_EXTEND.regular).major(SuggestionThresholds.FLOURISH_CW_EXTEND.major);
         });
     }

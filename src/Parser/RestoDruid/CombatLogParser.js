@@ -90,7 +90,7 @@ class CombatLogParser extends CoreCombatLogParser {
     clearcasting: Clearcasting, // DONE
     treeOfLife: TreeOfLife, // DONE (includes Chameleon Song)
     flourish: Flourish, // DONE
-    innervate: Innervate,
+    innervate: Innervate, // DONE
     powerOfTheArchdruid: PowerOfTheArchdruid,
     dreamwalker: Dreamwalker,
     soulOfTheForest: SoulOfTheForest,
@@ -133,6 +133,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //const hasTreeOfLife = this.modules.combatants.selected.lv75Talent === SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id;
     //const wildGrowthTargets = 6;
     const rejuvenationManaCost = 22000;
+    // TODO rejuv throughput module
     const oneRejuvenationThroughput = this.getPercentageOfTotalHealingDone(this.modules.treeOfLife.totalHealingFromRejuvenationEncounter) / this.modules.treeOfLife.totalRejuvenationsEncounter;
     /*
     const rejuvenationIncreasedEffect = this.getPercentageOfTotalHealingDone(this.modules.treeOfLife.totalHealingFromRejuvenationDuringToL / 1.15 - this.modules.treeOfLife.totalHealingFromRejuvenationDuringToL / (1.15 * 1.5));
@@ -250,6 +251,7 @@ class CombatLogParser extends CoreCombatLogParser {
     }
     */
     // Innervate mana spent
+    /*
     if ((this.modules.innervate.manaSaved / this.modules.innervate.innervateCount) < 220000) {
       results.addIssue({
         issue: <span>Your mana spent during an <a href="http://www.wowhead.com/spell=29166" target="_blank" rel="noopener noreferrer">Innervate</a> can be improved. Always aim to cast at least 1 wild growth, 1 efflorescence and fill the rest with rejuvations for optimal usage.</span>,
@@ -267,6 +269,7 @@ class CombatLogParser extends CoreCombatLogParser {
         importance: getIssueImportance(this.modules.innervate.secondsManaCapped, 0, 0, true),
       });
     }
+    */
     /*
     if (hasTreeOfLife && treeOfLifeThroughput < 0.11) {
       results.addIssue({
@@ -453,6 +456,7 @@ class CombatLogParser extends CoreCombatLogParser {
         />
       ),
       */
+      /*
       <StatisticBox
         icon={<SpellIcon id={SPELLS.INNERVATE.id} />}
         value={`${(((this.modules.innervate.manaSaved / this.modules.innervate.innervateCount) / 1000).toFixed(0) | 0)}k mana`}
@@ -497,6 +501,7 @@ class CombatLogParser extends CoreCombatLogParser {
           </dfn>
         )}
       />,
+      */
       /*
       hasTreeOfLife && (
         <StatisticBox

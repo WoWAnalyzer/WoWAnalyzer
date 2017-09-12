@@ -46,5 +46,15 @@ export default {
     regular: 0.00,
     major: 0.00,
   },
+  INNERVATE_MANA_SPENT: {
+    minor: 220000,
+    regular: 180000,
+    major: 130000,
+  },
+  INNERVATE_TIME_CAPPED: {
+    minor: 0,
+    regular: 0,
+    major: 0,
+  },
 
 };

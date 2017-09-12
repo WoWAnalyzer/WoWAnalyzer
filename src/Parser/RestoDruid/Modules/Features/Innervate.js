@@ -1,5 +1,13 @@
-import Module from 'Parser/Core/Module';
+import React from 'react';
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import { formatNumber } from 'common/format';
+import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
+
 import SPELLS from 'common/SPELLS';
+import Module from 'Parser/Core/Module';
+
+import SuggestionThresholds from '../../SuggestionThresholds';
 
 const BASE_MANA = 220000;
 const WILD_GROWTH_BASE_MANA = 0.34;
@@ -35,6 +43,7 @@ class Innervate extends Module {
   secondsManaCapped = 0;
   lastInnervateTimestamp = 0;
   depleted = false;
+
   on_initialized() {
     this.infusionOfNatureTraits = this.owner.modules.combatants.selected.traitsBySpellId[SPELLS.INFUSION_OF_NATURE_TRAIT.id] || 0;
   }
@@ -144,6 +153,73 @@ class Innervate extends Module {
       console.log(`Amount of seconds mana capped: ${this.secondsManaCapped}`);
     }
   }
+
+  suggestions(when) {
+    if(this.innervateCount === 0) {
+      return;
+    }
+
+    const manaPerInnervate = this.manaSaved / this.innervateCount;
+    when(manaPerInnervate).isLessThan(SuggestionThresholds.INNERVATE_MANA_SPENT.minor)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<span>Your mana spent during an <SpellLink id={SPELLS.INNERVATE.id} /> can be improved.
+              Always aim to cast 1 wild growth, 1 efflorescence, and fill the rest with rejuvations for optimal usage.</span>)
+          .icon(SPELLS.INNERVATE.icon)
+          .actual(`${formatNumber(manaPerInnervate)} avg mana spent.`)
+          .recommended(`>${formatNumber(recommended)} is recommended`)
+          .regular(SuggestionThresholds.INNERVATE_MANA_SPENT.regular).major(SuggestionThresholds.INNERVATE_MANA_SPENT.major);
+      });
+
+    const wholeSecondsCapped = Math.round(this.secondsManaCapped);
+    when(wholeSecondsCapped).isGreaterThan(SuggestionThresholds.INNERVATE_TIME_CAPPED.minor)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<span>You were capped on mana during <SpellLink id={SPELLS.INNERVATE.id} />. Try to not use Innervate if you are above 90% mana.</span>)
+          .icon(SPELLS.INNERVATE.icon)
+          .actual(`~${wholeSecondsCapped} seconds capped`)
+          .recommended(`${recommended} is recommended`)
+          .regular(SuggestionThresholds.INNERVATE_TIME_CAPPED.regular).major(SuggestionThresholds.INNERVATE_TIME_CAPPED.major);
+      });
+  }
+
+  statistic() {
+    return(
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.INNERVATE.id} />}
+        value={`${formatNumber((this.manaSaved / this.innervateCount) | 0)} mana`}
+        label="Mana saved per Innervate"
+        tooltip={
+          `<ul>
+                During your ${this.innervateCount} Innervates you cast:
+                <li>${this.wildGrowths}/${this.innervateCount} Wild Growths</li>
+                <li>${this.efflorescences}/${this.innervateCount} Efflorescences</li>
+                ${this.cenarionWards > 0
+                    ? `<li>${this.cenarionWards} Cenarion Wards</li>` : ''
+                    }
+                ${this.rejuvenations > 0
+                    ? `<li>${this.rejuvenations} Rejuvenations</li>` : ''
+                    }
+                ${this.regrowths > 0
+                    ? `<li>${this.regrowths} Regrowths</li>` : ''
+                    }
+                ${this.lifeblooms > 0
+                    ? `<li>${this.lifeblooms} Lifeblooms</li>` : ''
+                    }
+                ${this.healingTouches > 0
+                    ? `<li>${this.healingTouches} Healing Touches</li>` : ''
+                    }
+                ${this.swiftmends > 0
+                    ? `<li>${this.swiftmends} Swiftmends</li>` : ''
+                    }
+                ${this.tranquilities > 0
+                    ? `<li>${this.tranquilities} Tranquilities</li>` : ''
+                    }
+            </ul>`
+        }
+      />
+    );
+  }
+  statisticOrder = STATISTIC_ORDER.CORE(14);
+
 }
 
 export default Innervate;
