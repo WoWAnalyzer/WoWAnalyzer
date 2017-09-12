@@ -24,8 +24,8 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.EYE_BEAM,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 45,
-      recommendedCastEfficiency: 0.40,
       noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.NEMESIS_TALENT,
@@ -112,8 +112,8 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.VENGEFUL_RETREAT,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 25,
-      recommendedCastEfficiency: 0.5,
       noSuggestion: true,
+      noCanBeImproved: true,
     },
   ];
 }
