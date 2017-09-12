@@ -46,6 +46,8 @@ import Evangelism from './Modules/Spells/Evangelism';
 import Penance from './Modules/Spells/Penance';
 import TouchOfTheGrave from './Modules/Spells/TouchOfTheGrave';
 
+import BorrowedTime from './Modules/Spells/Traits/BorrowedTime';
+
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
 function formatThousands(number) {
@@ -110,6 +112,7 @@ class CombatLogParser extends CoreCombatLogParser {
     atonement: Atonement,
     evangelism: Evangelism,
     touchOfTheGrave: TouchOfTheGrave,
+    borrowedTime: BorrowedTime,
   };
 
   generateResults() {
