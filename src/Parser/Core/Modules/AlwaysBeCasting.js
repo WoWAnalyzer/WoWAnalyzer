@@ -70,6 +70,21 @@ class AlwaysBeCasting extends Module {
    */
   totalTimeWasted = 0;
 
+  currentHaste = null;
+  on_initialized() {
+    const combatant = this.combatants.selected;
+    this.currentHaste = combatant.hastePercentage;
+
+    if (this.combatants.selected.hasFinger(ITEMS.SEPHUZS_SECRET.id)) {
+      // Sephuz Secret provides a 2% Haste gain on top of its secondary stats
+      this._applyHasteGain(0.02);
+    }
+
+    // TODO: Determine whether buffs in combatants are already included in Haste. This may be the case for actual Haste buffs, but what about Spell Haste like the Whispers trinket?
+
+    debug && console.log(`ABC: Starting haste: ${this.currentHaste}`);
+  }
+
   _currentlyCasting = null;
   on_byPlayer_begincast(event) {
     const cast = {
@@ -142,19 +157,11 @@ class AlwaysBeCasting extends Module {
 
     this._lastCastFinishedTimestamp = Math.max(castStartTimestamp + globalCooldown, cast.timestamp);
   }
-  currentHaste = null;
-  on_initialized() {
-    const combatant = this.combatants.selected;
-    this.currentHaste = combatant.hastePercentage;
-    // TODO: Determine whether buffs in combatants are already included in Haste. This may be the case for actual Haste buffs, but what about Spell Haste like the Whispers trinket?
-
-    debug && console.log(`ABC: Starting haste: ${this.currentHaste}`);
-  }
 
   // region Event listeners
   // Buffs
   on_toPlayer_applybuff(event) {
-    this._applyActiveBuff(event);
+    this._applyActiveBuff(event.ability.guid);
   }
   on_toPlayer_changebuffstack(event) {
     this._changeBuffStack(event);
@@ -164,7 +171,7 @@ class AlwaysBeCasting extends Module {
   }
   // Debuffs
   on_toPlayer_applydebuff(event) {
-    this._applyActiveBuff(event);
+    this._applyActiveBuff(event.ability.guid);
   }
   on_toPlayer_changedebuffstack(event) {
     this._changeBuffStack(event);
@@ -178,8 +185,7 @@ class AlwaysBeCasting extends Module {
     return (spellId && this.constructor.STATIC_GCD_ABILITIES[spellId]) || this.constructor.calculateGlobalCooldown(this.currentHaste);
   }
 
-  _applyActiveBuff(event) {
-    const spellId = event.ability.guid;
+  _applyActiveBuff(spellId) {
     const hasteGain = this._getBaseHasteGain(spellId);
 
     if (hasteGain) {
@@ -233,6 +239,7 @@ class AlwaysBeCasting extends Module {
         hasteGain = this._getHasteValue(hasteBuff.haste, hasteBuff);
       }
       if (hasteBuff.hastePerStack) {
+        // The "base" buff is considered 1 stack
         hasteGain += this._getHasteValue(hasteBuff.hastePerStack, hasteBuff);
       }
     }
