@@ -101,7 +101,7 @@ class PowerOfTheArchdruid extends Module {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(22);
+  statisticOrder = STATISTIC_ORDER.CORE(20);
 
 
 }

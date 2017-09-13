@@ -85,7 +85,7 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting, // DONE
     cooldownTracker: CooldownTracker, // looks core
     castEfficiency: CastEfficiency, // looks core
-    rejuvenation: Rejuvenation,
+    rejuvenation: Rejuvenation, // already handled
     wildGrowth: WildGrowth, // event reorder, don't need to do anything?
     lifebloom: Lifebloom, // DONE
     efflorescence: Efflorescence, // DONE
@@ -93,8 +93,8 @@ class CombatLogParser extends CoreCombatLogParser {
     treeOfLife: TreeOfLife, // DONE (includes Chameleon Song)
     flourish: Flourish, // DONE
     innervate: Innervate, // DONE
-    powerOfTheArchdruid: PowerOfTheArchdruid,
-    dreamwalker: Dreamwalker,
+    powerOfTheArchdruid: PowerOfTheArchdruid, // DONE
+    dreamwalker: Dreamwalker, // DONE
     soulOfTheForest: SoulOfTheForest,
     essenceOfGhanir: EssenceOfGhanir,
     mastery: Mastery, // already handled
@@ -399,6 +399,7 @@ class CombatLogParser extends CoreCombatLogParser {
           </dfn>
         )}
       />,
+      /*
       this.modules.dreamwalker.hasTrait && (
         <StatisticBox icon={<SpellIcon id={SPELLS.DREAMWALKER.id} />}
           value={`${formatPercentage(this.getPercentageOfTotalHealingDone(this.modules.dreamwalker.healing))}%`}
@@ -408,6 +409,7 @@ class CombatLogParser extends CoreCombatLogParser {
             </dfn>
           )}
         />),
+        */
         /*
       this.modules.powerOfTheArchdruid.hasTrait && (
         <StatisticBox
