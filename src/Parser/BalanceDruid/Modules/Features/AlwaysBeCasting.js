@@ -34,17 +34,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     [SPELLS.BEAR_FORM.id] : 1.5,
   };
 
-  static HASTE_BUFFS = {
-    ...CoreAlwaysBeCasting.HASTE_BUFFS,
-    // Moonkin specific
-    [SPELLS.ASTRAL_ACCELERATION.id] : { // From T20 4p
-      hastePerStack: 0.03,
-    },
-    [SPELLS.STAR_POWER.id] : { // From casts in Incarnation / CA
-      hastePerStack: combatant => combatant.hasTalent(SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id) ? 0.01 : 0.03,
-    },
-  };
-
   recordCastTime(
     castStartTimestamp,
     globalCooldown,

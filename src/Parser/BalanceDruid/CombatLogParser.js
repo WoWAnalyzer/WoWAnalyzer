@@ -4,6 +4,8 @@ import SuggestionsTab from 'Main/SuggestionsTab';
 
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 
+import Haste from './Modules/Core/Haste';
+
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 
@@ -22,6 +24,7 @@ import AstralPower from './Modules/Features/AstralPower';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
+    haste: Haste,
       // Features
     castEfficiency: CastEfficiency,
     alwaysBeCasting: AlwaysBeCasting,
