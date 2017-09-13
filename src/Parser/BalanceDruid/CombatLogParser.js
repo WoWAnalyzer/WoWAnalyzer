@@ -6,10 +6,10 @@ import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 
 import Haste from './Modules/Core/Haste';
 
+import DamageDone from './Modules/Features/DamageDone';
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 
-//Modules made but not loaded in the first PR
 import Moonfire from './Modules/Spells/Moonfire';
 import Sunfire from './Modules/Spells/Sunfire';
 import NewMoon from './Modules/Spells/NewMoon';
@@ -20,12 +20,14 @@ import FullMoon from './Modules/Spells/FullMoon';
 //import LunarOvercap from './Modules/Spells/Empowerments/LunarOvercap';
 //import SolarOvercap from './Modules/Spells/Empowerments/SolarOvercap';
 import AstralPower from './Modules/Features/AstralPower';
+import UnempoweredLs from './Modules/Spells/UnempoweredLs';
 
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
     haste: Haste,
       // Features
+    damageDone: DamageDone,
     castEfficiency: CastEfficiency,
     alwaysBeCasting: AlwaysBeCasting,
       //Modules made but not loaded in the first PR
@@ -39,6 +41,7 @@ class CombatLogParser extends MainCombatLogParser {
       //lunarovercap: LunarOvercap,
       //solarovercap: SolarOvercap,
     astralpower: AstralPower,
+    unempoweredLS: UnempoweredLs,
   };
   
   generateResults() {

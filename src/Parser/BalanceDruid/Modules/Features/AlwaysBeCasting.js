@@ -23,7 +23,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.TYPHOON.id,
     SPELLS.MASS_ENTANGLEMENT_TALENT.id,
     SPELLS.FORCE_OF_NATURE_TALENT.id,
-    SPELLS.WILD_CHARGE_TALENT.id,
   ];
 
   static STATIC_GCD_ABILITIES = {
@@ -61,7 +60,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
         return suggest(<span> Your downtime can be improved. Try to Always Be Casting (ABC)...</span>)
           .icon('spell_mage_altertime')
           .actual(`${formatPercentage(actual)}% downtime`)
-          .recommended(`${Math.round(formatPercentage(recommended))}% or more is recommended`)
+          .recommended(`${Math.round(formatPercentage(recommended))}% or less is recommended`)
           .regular(recommended + 0.03).major(recommended + 0.08);
       });
   }
@@ -78,7 +77,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(0);
+  statisticOrder = STATISTIC_ORDER.CORE(1);
 }
 
 
