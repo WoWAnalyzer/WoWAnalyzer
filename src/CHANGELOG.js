@@ -1,4 +1,11 @@
 export default `
+12-09-2017 - The Always Be Casting module has the following changes:
+<ul>
+  <li>It now properly supports the passive Haste gain from Sephuz.</li>
+  <li>Fixed an issue where the downtime between the last cast and the fight end time wasn't included (this also makes it so dying before the boss dies will affect your downtime).</li>
+  <li>Haste buffs from items now scale with item level.</li>
+  <li>Changed how Haste from stacking (de)buffs are applied.</li>
+</ul> (by Zerotorescue)
 03-09-2017 - Reworked the WCL API cache to use a database so it persists between patches, improved performance and corrupt response detection. (by Zerotorescue)
 01-09-2017 - All players in a log now appear and selecting a spec that's not yet supported will show information on adding support for it. (by Zerotorescue)
 01-09-2017 - Added role icons to player selection list and it's now sorted by role then playername to make finding players easier. (by Zerotorescue)

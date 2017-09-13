@@ -23,32 +23,33 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.TYPHOON.id,
     SPELLS.MASS_ENTANGLEMENT_TALENT.id,
     SPELLS.FORCE_OF_NATURE_TALENT.id,
-    SPELLS.WILD_CHARGE_TALENT.id,
   ];
 
   static STATIC_GCD_ABILITIES = {
     ...CoreAlwaysBeCasting.STATIC_GCD_ABILITIES,
-      ///Shapeshifts
+    // Shapeshifts
     [SPELLS.MOONKIN_FORM.id] : 1.5,
     [SPELLS.DISPLACER_BEAST_TALENT.id] : 1.5,
     [SPELLS.BEAR_FORM.id] : 1.5,
   };
 
-  static STACKABLE_HASTE_BUFFS = {
-    ...CoreAlwaysBeCasting.STACKABLE_HASTE_BUFFS,
-      //Moonkin specific
-    [SPELLS.ASTRAL_ACCELERATION.id] : { //Astral Acceleration - From T20 4p
-      Haste: () => 0.03,
-      CurrentStacks: 0, 
-      MaxStacks: 5,
-    }, 
-    [SPELLS.STAR_POWER.id] : { //StarPower - From casts in Incarnation / CA
-      Haste: combatant => (
-          combatant.hasTalent(SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id) ? 0.01 : 0.03
-        ), 
-      CurrentStacks: 0, 
-      MaxStacks: 0,
-    }, 
+  recordCastTime(
+    castStartTimestamp,
+    globalCooldown,
+    begincast,
+    cast,
+    spellId
+  ) {
+    super.recordCastTime(
+      castStartTimestamp,
+      globalCooldown,
+      begincast,
+      cast,
+      spellId
+    );
+    this._verifyChannel(SPELLS.NEW_MOON.id, 1000, begincast, cast);
+    this._verifyChannel(SPELLS.HALF_MOON.id, 2000, begincast, cast);
+    this._verifyChannel(SPELLS.FULL_MOON.id, 3000, begincast, cast);
   }
 
   suggestions(when) {
@@ -59,7 +60,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
         return suggest(<span> Your downtime can be improved. Try to Always Be Casting (ABC)...</span>)
           .icon('spell_mage_altertime')
           .actual(`${formatPercentage(actual)}% downtime`)
-          .recommended(`${Math.round(formatPercentage(recommended))}% or more is recommended`)
+          .recommended(`${Math.round(formatPercentage(recommended))}% or less is recommended`)
           .regular(recommended + 0.03).major(recommended + 0.08);
       });
   }
@@ -76,7 +77,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(0);
+  statisticOrder = STATISTIC_ORDER.CORE(1);
 }
 
 

@@ -49,7 +49,7 @@ class FatalEchoes extends Module {
     );
   }
 
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(5);
+  statisticOrder = STATISTIC_ORDER.TRAITS(0);
 }
 
 export default FatalEchoes;

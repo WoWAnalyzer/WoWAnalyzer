@@ -58,11 +58,11 @@ class AstralPower extends Module {
             icon={<Icon icon='ability_druid_cresentburn' />}
             value={`${this.aspWasted / 10}`}
             label='Overcapped AsP'
-            tooltip={`You overcapped a total of <b>${this.aspWasted / 10}</b> Astral Power`}
+            tooltip={`Astral Power overcapping is often due to mismanagement of resources, but can also be due to an overwhelming amount of OI procs.`}
         />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(7);
+  statisticOrder = STATISTIC_ORDER.CORE(2);
 }
 
 export default AstralPower;

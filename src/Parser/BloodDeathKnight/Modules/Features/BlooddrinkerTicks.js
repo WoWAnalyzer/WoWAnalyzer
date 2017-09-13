@@ -20,6 +20,9 @@ class BlooddrinkerTicks  extends Module {
   _wastedTicks = 0;
   _ruinedCasts = 0;
 
+  on_initialized() {
+    this.active = this.combatants.selected.hasTalent(SPELLS.BLOODDRINKER_TALENT.id);
+  }
 
   on_byPlayer_cast(event) {
     if (event.ability.guid === SPELLS.BLOODDRINKER.id) {
@@ -50,7 +53,7 @@ class BlooddrinkerTicks  extends Module {
 
       <StatisticBox
         icon={<SpellIcon id={SPELLS.BLOODDRINKER.id} />}
-        value={this._ruinedCasts}
+        value={`${this._ruinedCasts} out of ${this._totalCasts}`}
         label='Blooddrinker Cancelled Early'
         tooltip={`You lost <strong>${this._wastedTicks}</strong> out of <strong>${this._totalTicks}</strong> ticks.`}
       />

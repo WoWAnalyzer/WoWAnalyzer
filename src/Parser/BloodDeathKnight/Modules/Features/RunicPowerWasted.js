@@ -15,7 +15,12 @@ class RunicPowerWasted extends Module {
     }
     this.totalRPWasted += event.waste;
     this.totalRPGained += event.resourceChange + event.waste;
+
   }
+    on_finished() {
+      console.log("Wasted", this.totalRPWasted);
+      console.log("Gained", this.totalRPGained);
+    }
 
   statistic() {
     return (
@@ -23,7 +28,7 @@ class RunicPowerWasted extends Module {
         icon={<Icon icon='inv_sword_62'/>}
         value={`${formatPercentage(this.totalRPWasted / this.totalRPGained)} %`}
         label='Runic Power Wasted'
-        tooltip={''}
+        tooltip={`${this.totalRPWasted} Runic Power Wasted`}
       />
 
     );

@@ -1,9 +1,14 @@
+import React from 'react';
+
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import SpellIcon from 'common/SpellIcon';
+import { formatNumber, formatPercentage } from 'common/format';
 
 import getDamageBonus from '../WarlockCore/getDamageBonus';
 
@@ -29,6 +34,19 @@ class Eradication extends Module {
     }
     this.bonusDmg += getDamageBonus(event, ERADICATION_DAMAGE_BONUS);
   }
+
+  statistic() {
+    return (
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.ERADICATION_TALENT.id} />}
+        value={`${formatNumber(this.bonusDmg / this.owner.fightDuration * 1000)} DPS`}
+        label='Damage contributed'
+        tooltip={`Your Eradication talent contributed ${formatNumber(this.bonusDmg)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} %)`}
+      />
+    );
+  }
+
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(2);
 }
 
 export default Eradication;
