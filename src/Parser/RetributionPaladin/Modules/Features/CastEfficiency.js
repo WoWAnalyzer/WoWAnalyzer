@@ -23,6 +23,7 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 120,
       isActive: combatant => combatant.hasTalent(SPELLS.CRUSADE_TALENT.id),
       recommendedCastEfficiency: 0.95,
+      importance: ISSUE_IMPORTANCE.MAJOR,
     },    
     {
       spell: SPELLS.AVENGING_WRATH,

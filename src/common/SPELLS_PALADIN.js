@@ -213,6 +213,11 @@ export default {
   },
 
   // Retribution Paladin:
+  TEMPLARS_VERDICT_DAMAGE: {
+    id: 224266,
+    name: 'Templar\'s Verdict',
+    icon: 'spell_paladin_templarsverdict',
+  },
   TEMPLARS_VERDICT: {
     id: 85256,
     name: 'Templar\'s Verdict',
@@ -228,10 +233,15 @@ export default {
     name: 'Divine Hammer',
     icon: 'spell_holy_auraoflight',
   },
-  DIVINE_STORM: {
-    id: 53385,
+  DIVINE_STORM_DAMAGE: {
+    id: 224239,
     name: 'Divine Storm',
     icon: 'ability_paladin_divinestorm',
+  },
+  DIVINE_STORM: {
+  id: 53385,
+  name: 'Divine Storm',
+  icon: 'ability_paladin_divinestorm',
   },
   WAKE_OF_ASHES: {
     id: 205273,
@@ -246,7 +256,7 @@ export default {
 
   //Ret Legendary Effects
   WHISPER_OF_THE_NATHREZIM: {
-    id: 207633,
+    id: 207635,
     name: 'Whisper of the Nathrezim',
     icon: 'ability_paladin_sheathoflight',
   },
