@@ -11,7 +11,7 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 10 / (1 + haste),
       recommendedCastEfficiency: 0.85,
-      extraSuggestion: <span>This is your main Fury filler spell. Try to always cast it on cooldown. It can be used to charge to the desired target too, making it very strong movement spell. </span>,
+      extraSuggestion: <span>This is your main Fury filler spell. Try to always cast on cooldown, but beware to not waste the Fury generation it provides. So use it when you have 30 or more Fury missing. And also it can be used to charge to the desired target, making it very strong movement spell. </span>,
     },
     {
       spell: SPELLS.FURY_OF_THE_ILLIDARI,
@@ -24,8 +24,8 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.EYE_BEAM,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 45,
-      recommendedCastEfficiency: 0.85,
-      extraSuggestion: <span>This is a great AoE damage spell, but also does a great damage on single target. You should cast it as soon as it gets off cooldown. The only moment you can delay it's cast is if you already expect an add wave to maximize it's efficiency and damage output. </span>,
+      noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.NEMESIS_TALENT,
@@ -112,8 +112,8 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.VENGEFUL_RETREAT,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 25,
-      recommendedCastEfficiency: 0.5,
       noSuggestion: true,
+      noCanBeImproved: true,
     },
   ];
 }

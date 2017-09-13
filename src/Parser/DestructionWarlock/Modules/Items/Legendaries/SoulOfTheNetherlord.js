@@ -1,14 +1,14 @@
+import React from 'react';
+
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import ITEMS from 'common/ITEMS';
-import { formatNumber } from 'common/format';
-
-import Eradication from '../../Talents/Eradication';
+import SpellLink from 'common/SpellLink';
+import SPELLS from 'common/SPELLS';
 
 class SoulOfTheNetherlord extends Module {
   static dependencies = {
-    eradication: Eradication,
     combatants: Combatants,
   };
 
@@ -17,10 +17,9 @@ class SoulOfTheNetherlord extends Module {
   }
 
   item() {
-    const bonusDmg = this.eradication.bonusDmg;
     return {
       item: ITEMS.SOUL_OF_THE_NETHERLORD,
-      result: `${formatNumber(bonusDmg)} damage - ${this.owner.formatItemDamageDone(bonusDmg)}`,
+      result: <span>This gave you <SpellLink id={SPELLS.ERADICATION_TALENT.id}/> talent.</span>,
     };
   }
 }

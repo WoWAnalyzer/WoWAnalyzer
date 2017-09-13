@@ -7,6 +7,7 @@ import DamageTaken from './Modules/DamageTaken';
 
 import Combatants from './Modules/Combatants';
 import AbilityTracker from './Modules/AbilityTracker';
+import Haste from './Modules/Haste';
 import AlwaysBeCasting from './Modules/AlwaysBeCasting';
 import Enemies from './Modules/Enemies';
 import HealEventTracker from './Modules/HealEventTracker';
@@ -63,6 +64,7 @@ class CombatLogParser {
     spellManaCost: SpellManaCost,
     abilityTracker: AbilityTracker,
     healEventTracker: HealEventTracker,
+    haste: Haste,
     alwaysBeCasting: AlwaysBeCasting,
     manaValues: ManaValues,
     vantusRune: VantusRune,
@@ -121,6 +123,7 @@ class CombatLogParser {
     return this.player.id;
   }
 
+  _timestamp = null;
   get currentTimestamp() {
     return this.finished ? this.fight.end_time : this._timestamp;
   }
