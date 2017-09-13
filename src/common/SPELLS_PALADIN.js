@@ -244,6 +244,13 @@ export default {
     icon: 'ability_paladin_shieldofthetemplar',
   },
 
+  //Ret Legendary Effects
+  WHISPER_OF_THE_NATHREZIM: {
+    id: 207633,
+    name: 'Whisper of the Nathrezim',
+    icon: 'ability_paladin_sheathoflight',
+  },
+
   // Traits:
   // Holy Paladin:
   PROTECTION_OF_TYR: {

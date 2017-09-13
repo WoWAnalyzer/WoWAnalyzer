@@ -58,18 +58,7 @@ const ITEMS = {
     icon: 'inv_70_dungeon_ring6a',
     quality: ITEM_QUALITIES.EPIC,
   },
-  OBSIDIAN_STONE_SPAULDERS: {
-    id: 137076,
-    name: 'Obsidian Stone Spaulders',
-    icon: 'inv_shoulder_plate_pvppaladin_o_01',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
-  ILTERENDI_CROWN_JEWEL_OF_SILVERMOON: {
-    id: 137046,
-    name: 'Ilterendi, Crown Jewel of Silvermoon',
-    icon: 'inv_jewelry_ring_firelandsraid_03a',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
+  //Shared Paladin
   SOUL_OF_THE_HIGHLORD: {
     id: 151644,
     name: 'Soul of the Highlord',
@@ -80,6 +69,19 @@ const ITEMS = {
     id: 137086,
     name: 'Chain of Thrayn',
     icon: 'inv_belt_leather_firelandsdruid_d_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  //Holy Paladin
+  OBSIDIAN_STONE_SPAULDERS: {
+    id: 137076,
+    name: 'Obsidian Stone Spaulders',
+    icon: 'inv_shoulder_plate_pvppaladin_o_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  ILTERENDI_CROWN_JEWEL_OF_SILVERMOON: {
+    id: 137046,
+    name: 'Ilterendi, Crown Jewel of Silvermoon',
+    icon: 'inv_jewelry_ring_firelandsraid_03a',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
   MARAADS_DYING_BREATH: {
@@ -94,6 +96,26 @@ const ITEMS = {
     icon: 'inv_cape_legionendgame_c_03',
     quality: ITEM_QUALITIES.EPIC,
   },
+  //Ret Paladin
+  WHISPER_OF_THE_NATHREZIM: {
+    id: 137020,
+    name: 'Whisper of the Nathrezim',
+    icon: 'inv_cape_pandaria_d_04',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  ASHES_TO_DUST: {
+    id: 144358,
+    name: 'Ashes to Dust',
+    icon: 'inv_plate_firelands_d_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  LIADRINS_FURY_UNLEASHED: {
+    id: 137048,
+    name: 'Liadrin\'s Fury Unleashed',
+    icon: 'inv_jewelry_ring_61',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  //Resto Shammy
   ROOTS_OF_SHALADRASSIL: {
     id: 132466,
     name: 'Roots of Shaladrassil',
