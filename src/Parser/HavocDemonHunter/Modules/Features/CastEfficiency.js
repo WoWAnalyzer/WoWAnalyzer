@@ -77,7 +77,7 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.BLADE_DANCE,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 10 / (1 + haste),
-      recommendedCastEfficiency: 0.8,
+      recommendedCastEfficiency: 0.7,
       noSuggestion: true,
     },
     {
@@ -98,8 +98,8 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.FEL_RUSH,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 10,
-      recommendedCastEfficiency: 0.6,
       noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.THROW_GLAIVE_HAVOC,
