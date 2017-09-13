@@ -123,6 +123,7 @@ class CombatLogParser {
     return this.player.id;
   }
 
+  _timestamp = null;
   get currentTimestamp() {
     return this.finished ? this.fight.end_time : this._timestamp;
   }

@@ -52,11 +52,11 @@ class Haste extends Module {
     const combatant = this.combatants.selected;
     this.current = combatant.hastePercentage;
 
-    this._triggerChangeHaste(null, this.current, null, combatant.hastePercentage);
+    this._triggerChangeHaste(null, null, this.current, null, combatant.hastePercentage);
 
     if (this.combatants.selected.hasFinger(ITEMS.SEPHUZS_SECRET.id)) {
       // Sephuz Secret provides a 2% Haste gain on top of its secondary stats
-      this._applyHasteGain(0.02);
+      this._applyHasteGain(null, 0.02);
     }
 
     // TODO: Determine whether buffs in combatants are already included in Haste. This may be the case for actual Haste buffs, but what about Spell Haste like the Whispers trinket?
@@ -64,7 +64,7 @@ class Haste extends Module {
     debug && console.log(`Haste: Starting haste: ${formatPercentage(this.current)}%`);
   }
   on_toPlayer_applybuff(event) {
-    this._applyActiveBuff(event.ability.guid);
+    this._applyActiveBuff(event);
   }
   on_toPlayer_changebuffstack(event) {
     this._changeBuffStack(event);
@@ -73,7 +73,7 @@ class Haste extends Module {
     this._removeActiveBuff(event);
   }
   on_toPlayer_applydebuff(event) {
-    this._applyActiveBuff(event.ability.guid);
+    this._applyActiveBuff(event);
   }
   on_toPlayer_changedebuffstack(event) {
     this._changeBuffStack(event);
@@ -83,11 +83,12 @@ class Haste extends Module {
   }
 
 
-  _applyActiveBuff(spellId) {
+  _applyActiveBuff(event) {
+    const spellId = event.ability.guid;
     const hasteGain = this._getBaseHasteGain(spellId);
 
     if (hasteGain) {
-      this._applyHasteGain(hasteGain);
+      this._applyHasteGain(event, hasteGain);
 
       debug && console.log(`Haste: Current haste: ${formatPercentage(this.current)}% (gained ${formatPercentage(hasteGain)}% from ${SPELLS[spellId] ? SPELLS[spellId].name : spellId})`);
     }
@@ -97,7 +98,7 @@ class Haste extends Module {
     const haste = this._getBaseHasteGain(spellId);
 
     if (haste) {
-      this._applyHasteLoss(haste);
+      this._applyHasteLoss(event, haste);
 
       debug && console.log(`Haste: Current haste: ${formatPercentage(this.current)}% (lost ${formatPercentage(haste)}% from ${SPELLS[spellId] ? SPELLS[spellId].name : spellId})`);
     }
@@ -126,8 +127,8 @@ class Haste extends Module {
 
     if (haste) {
       // Haste stacks are usually additive, so at 5 stacks with 3% per you'd be at 15%, 6 stacks = 18%. This means the only right way to add a Haste stack is to reset to Haste without the old total and then add the new total Haste again.
-      this._applyHasteLoss(haste * event.oldStacks);
-      this._applyHasteGain(haste * event.newStacks);
+      this._applyHasteLoss(event, haste * event.oldStacks);
+      this._applyHasteGain(event, haste * event.newStacks);
 
       debug && console.log(`Haste: Current haste: ${formatPercentage(this.current)}% (gained ${formatPercentage(haste * event.stacksGained)}% from ${SPELLS[spellId] ? SPELLS[spellId].name : spellId})`);
     }
@@ -164,24 +165,29 @@ class Haste extends Module {
     }
   }
 
-  _applyHasteGain(haste) {
+  _applyHasteGain(event, haste) {
     const oldHaste = this.current;
     this.current = this.constructor.addHaste(this.current, haste);
 
-    this._triggerChangeHaste(oldHaste, this.current, haste, null);
+    this._triggerChangeHaste(event, oldHaste, this.current, haste, null);
   }
-  _applyHasteLoss(haste) {
+  _applyHasteLoss(event, haste) {
     const oldHaste = this.current;
     this.current = this.constructor.removeHaste(this.current, haste);
 
-    this._triggerChangeHaste(oldHaste, this.current, null, haste);
+    this._triggerChangeHaste(event, oldHaste, this.current, null, haste);
   }
-  _triggerChangeHaste(oldHaste, newHaste, hasteGained, hasteLost) {
+  _triggerChangeHaste(event, oldHaste, newHaste, hasteGain, hasteLoss) {
     this.owner.triggerEvent('changehaste', {
+      timestamp: event ? event.timestamp : this.owner.currentTimestamp,
+      type: 'changehaste',
+      sourceID: event ? event.sourceID : this.owner.playerId,
+      targetID: this.owner.playerId,
+      reason: event,
       oldHaste,
       newHaste,
-      hasteGained,
-      hasteLost,
+      hasteGain,
+      hasteLoss,
     });
   }
 
