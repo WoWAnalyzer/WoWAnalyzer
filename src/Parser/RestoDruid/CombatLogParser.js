@@ -31,6 +31,7 @@ import T21_4Set from './Modules/Legendaries/T21_4Set';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import CooldownTracker from './Modules/Features/CooldownTracker';
+import Rejuvenation from './Modules/Features/Rejuvenation';
 import WildGrowth from './Modules/Features/WildGrowth';
 import Lifebloom from './Modules/Features/Lifebloom';
 import Efflorescence from './Modules/Features/Efflorescence';
@@ -84,6 +85,7 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting, // DONE
     cooldownTracker: CooldownTracker, // looks core
     castEfficiency: CastEfficiency, // looks core
+    rejuvenation: Rejuvenation,
     wildGrowth: WildGrowth, // event reorder, don't need to do anything?
     lifebloom: Lifebloom, // DONE
     efflorescence: Efflorescence, // DONE
@@ -166,7 +168,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //const nonHealingTimePercentage = this.modules.alwaysBeCasting.totalHealingTimeWasted / fightDuration;
     //const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
 
-    const potaHealing = (this.modules.powerOfTheArchdruid.rejuvenations * oneRejuvenationThroughput) + this.getPercentageOfTotalHealingDone(this.modules.powerOfTheArchdruid.healing);
+    //const potaHealing = (this.modules.powerOfTheArchdruid.rejuvenations * oneRejuvenationThroughput) + this.getPercentageOfTotalHealingDone(this.modules.powerOfTheArchdruid.healing);
     //const hasMoC = this.modules.combatants.selected.lv100Talent === SPELLS.MOMENT_OF_CLARITY_TALENT_RESTORATION.id;
     const darkTitanAdviceHealing = this.getPercentageOfTotalHealingDone(this.modules.darkTitanAdvice.healing);
     const darkTitanAdviceHealingFromProcc = this.getPercentageOfTotalHealingDone(this.modules.darkTitanAdvice.healingFromProccs);
@@ -406,6 +408,7 @@ class CombatLogParser extends CoreCombatLogParser {
             </dfn>
           )}
         />),
+        /*
       this.modules.powerOfTheArchdruid.hasTrait && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.POWER_OF_THE_ARCHDRUID.id} />}
@@ -417,6 +420,7 @@ class CombatLogParser extends CoreCombatLogParser {
           )}
         />
       ),
+      */
       /*
       hasFlourish && (
         <StatisticBox

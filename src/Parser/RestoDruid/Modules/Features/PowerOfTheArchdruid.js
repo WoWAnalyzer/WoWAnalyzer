@@ -1,20 +1,31 @@
-import Module from 'Parser/Core/Module';
+import React from 'react';
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import { formatPercentage } from 'common/format';
+import SpellIcon from 'common/SpellIcon';
+
 import SPELLS from 'common/SPELLS';
+import Module from 'Parser/Core/Module';
+
+import Combatants from 'Parser/Core/Modules/Combatants';
+import Rejuvenation from './Rejuvenation';
 
 class PowerOfTheArchdruid extends Module {
-  rejuvenations = 0;
+  static dependencies = {
+    combatants: Combatants,
+    rejuvenation: Rejuvenation,
+  };
+
+  potaRejuvs = 0;
   regrowths = 0;
-  hasTrait = false;
+
   lastPotaRemovedTimestamp = null;
   lastPotaRegrowthTimestamp = null;
   proccs = 0;
-  healing = 0;
+  regrowthDirect = 0;
   potaRegrowthCounter = 0;
 
   on_initialized() {
-    if (this.owner.modules.combatants.selected.traitsBySpellId[SPELLS.POWER_OF_THE_ARCHDRUID.id] > 0) {
-      this.hasTrait = true;
-    }
+    this.active = this.combatants.selected.traitsBySpellId[SPELLS.POWER_OF_THE_ARCHDRUID.id] > 0;
   }
 
   on_byPlayer_applybuff(event) {
@@ -27,7 +38,7 @@ class PowerOfTheArchdruid extends Module {
     // Our 4PT19 can procc PotA
     if (this.lastPotaRemovedTimestamp !== null && Math.abs(event.timestamp - this.lastPotaRemovedTimestamp) < 32) {
       if (SPELLS.REJUVENATION.id === spellId) {
-        this.rejuvenations = this.rejuvenations + 2;
+        this.potaRejuvs = this.potaRejuvs + 2;
       } else if (SPELLS.REGROWTH.id === spellId) {
         this.regrowths = this.regrowths + 2;
         this.lastPotaRegrowthTimestamp = event.timestamp;
@@ -49,7 +60,7 @@ class PowerOfTheArchdruid extends Module {
 
     if (this.lastPotaRemovedTimestamp !== null && Math.abs(event.timestamp - this.lastPotaRemovedTimestamp) < 32) {
       if (SPELLS.REJUVENATION.id === spellId) {
-        this.rejuvenations = this.rejuvenations + 2;
+        this.potaRejuvs = this.potaRejuvs + 2;
       } else if (SPELLS.REGROWTH.id === spellId) {
         this.regrowths = this.regrowths + 2;
         this.lastPotaRegrowthTimestamp = event.timestamp;
@@ -67,7 +78,7 @@ class PowerOfTheArchdruid extends Module {
     if (this.lastPotaRegrowthTimestamp !== null) {
       // Skipping the first regrowth, only taking the 2 other.
       if (this.potaRegrowthCounter > 0) {
-        this.healing += event.amount;
+        this.regrowthDirect += event.amount;
       }
       this.potaRegrowthCounter += 1;
       if (this.potaRegrowthCounter === 3) {
@@ -76,6 +87,23 @@ class PowerOfTheArchdruid extends Module {
       }
     }
   }
+
+  statistic() {
+    const potaHealing = (this.rejuvenation.avgRejuvHealing * this.potaRejuvs) + this.regrowthDirect;
+    const potaHealingPercent = this.owner.getPercentageOfTotalHealingDone(potaHealing);
+
+    return(
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.POWER_OF_THE_ARCHDRUID.id} />}
+        value={`${formatPercentage(potaHealingPercent)} %`}
+        label="Power of the Archdruid"
+        tooltip={`Power of the Archdruid gave you ${this.potaRejuvs} bonus rejuvenations, ${this.regrowths} bonus regrowths`}
+      />
+    );
+  }
+  statisticOrder = STATISTIC_ORDER.CORE(22);
+
+
 }
 
 export default PowerOfTheArchdruid;

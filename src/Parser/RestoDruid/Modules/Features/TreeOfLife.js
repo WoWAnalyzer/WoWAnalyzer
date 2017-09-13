@@ -12,6 +12,7 @@ import HealingDone from 'Parser/Core/Modules/HealingDone';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
 import SuggestionThresholds from '../../SuggestionThresholds';
+import Rejuvenation from './Rejuvenation';
 
 const debug = false;
 
@@ -28,6 +29,7 @@ class TreeOfLife extends Module {
   static dependencies = {
     healingDone: HealingDone,
     combatants: Combatants,
+    rejuvenation: Rejuvenation,
   };
 
   hasGermination = false;
@@ -151,7 +153,7 @@ class TreeOfLife extends Module {
     debug && console.log(`Total healing from wild growth during ToL: ${this.totalHealingFromWildgrowthsDuringToL}`);
 
     // Get 1 rejuv throughput worth
-    const oneRejuvenationThroughput = this.owner.getPercentageOfTotalHealingDone(this.totalHealingFromRejuvenationEncounter) / this.totalRejuvenationsEncounter;
+    const oneRejuvenationThroughput = this.owner.getPercentageOfTotalHealingDone(this.rejuvenation.avgRejuvHealing);
     debug && console.log(`1 Rejuvenation throughput: ${(oneRejuvenationThroughput * 100).toFixed(2)}%`);
 
     // 50% of total healing from rejuv+germ during ToL and divide it with the encounter total healing.
@@ -193,7 +195,7 @@ class TreeOfLife extends Module {
   suggestions(when) {
     if(!this.hasTol) { return; }
 
-    const oneRejuvenationThroughput = this.totalHealingFromRejuvenationEncounter / this.totalRejuvenationsEncounter;
+    const oneRejuvenationThroughput = this.rejuvenation.avgRejuvHealing;
     const rejuvenationIncreasedEffect = (this.totalHealingFromRejuvenationDuringToL / 1.15) - (this.totalHealingFromRejuvenationDuringToL / (1.15 * 1.5));
     const tolIncreasedHealingDone = this.totalHealingDuringToL - this.totalHealingDuringToL / 1.15;
     const rejuvenationMana = (((this.totalRejuvenationsDuringToL * 10) * 0.3) / 10) * oneRejuvenationThroughput;
@@ -215,7 +217,7 @@ class TreeOfLife extends Module {
   statistic() {
     if(!this.hasTol) { return; }
 
-    const oneRejuvenationThroughput = this.totalHealingFromRejuvenationEncounter / this.totalRejuvenationsEncounter;
+    const oneRejuvenationThroughput = this.rejuvenation.avgRejuvHealing;
     const rejuvenationIncreasedEffect = (this.totalHealingFromRejuvenationDuringToL / 1.15) - (this.totalHealingFromRejuvenationDuringToL / (1.15 * 1.5));
     const tolIncreasedHealingDone = this.totalHealingDuringToL - this.totalHealingDuringToL / 1.15;
     const rejuvenationMana = (((this.totalRejuvenationsDuringToL * 10) * 0.3) / 10) * oneRejuvenationThroughput;
@@ -257,7 +259,7 @@ class TreeOfLife extends Module {
   item() {
     if(!this.hasCs) { return; }
 
-    const oneRejuvenationThroughput = this.totalHealingFromRejuvenationEncounter / this.totalRejuvenationsEncounter;
+    const oneRejuvenationThroughput = this.rejuvenation.avgRejuvHealing;
 
     const rejuvenationIncreasedEffectHelmet = this.totalHealingFromRejuvenationDuringToLHelmet / 1.15 - this.totalHealingFromRejuvenationDuringToLHelmet / (1.15 * 1.5);
     const tolIncreasedHealingDoneHelmet = this.totalHealingDuringToLHelmet - this.totalHealingDuringToLHelmet / 1.15;
