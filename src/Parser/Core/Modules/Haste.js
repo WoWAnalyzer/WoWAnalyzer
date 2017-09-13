@@ -52,6 +52,8 @@ class Haste extends Module {
     const combatant = this.combatants.selected;
     this.current = combatant.hastePercentage;
 
+    this._triggerChangeHaste(null, this.current, null, combatant.hastePercentage);
+
     if (this.combatants.selected.hasFinger(ITEMS.SEPHUZS_SECRET.id)) {
       // Sephuz Secret provides a 2% Haste gain on top of its secondary stats
       this._applyHasteGain(0.02);
@@ -142,14 +144,6 @@ class Haste extends Module {
     }
     return null;
   }
-
-  _applyHasteGain(haste) {
-    this.current = this.constructor.addHaste(this.current, haste);
-  }
-  _applyHasteLoss(haste) {
-    this.current = this.constructor.removeHaste(this.current, haste);
-  }
-
   /**
    * Get the actual Haste value from a prop allowing various formats.
    */
@@ -168,6 +162,27 @@ class Haste extends Module {
     } else {
       return value;
     }
+  }
+
+  _applyHasteGain(haste) {
+    const oldHaste = this.current;
+    this.current = this.constructor.addHaste(this.current, haste);
+
+    this._triggerChangeHaste(oldHaste, this.current, haste, null);
+  }
+  _applyHasteLoss(haste) {
+    const oldHaste = this.current;
+    this.current = this.constructor.removeHaste(this.current, haste);
+
+    this._triggerChangeHaste(oldHaste, this.current, null, haste);
+  }
+  _triggerChangeHaste(oldHaste, newHaste, hasteGained, hasteLost) {
+    this.owner.triggerEvent('changehaste', {
+      oldHaste,
+      newHaste,
+      hasteGained,
+      hasteLost,
+    });
   }
 
   static addHaste(baseHaste, hasteGain) {
