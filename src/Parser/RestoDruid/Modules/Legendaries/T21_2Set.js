@@ -32,7 +32,6 @@ class T21_2Set extends Module {
       id: `spell-${SPELLS.RESTO_DRUID_T21_2SET_BONUS_BUFF.id}`,
       icon: <SpellIcon id={SPELLS.RESTO_DRUID_T21_2SET_BONUS_BUFF.id} />,
       title: <SpellLink id={SPELLS.RESTO_DRUID_T21_2SET_BONUS_BUFF.id} />,
-      //result: this.owner.formatItemHealingDone(healing),
       result: (
         <dfn data-tip={`This set bonus causes your Ysera's Gift passive to apply the Dreamer HoT, which gives a mastery stack in addition to healing directly. The displayed healing amount is the sum of the direct healing from Dreamer and the healing enabled by Dreamer's extra mastery stack.
             <ul>

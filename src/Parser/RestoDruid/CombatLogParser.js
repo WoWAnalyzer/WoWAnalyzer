@@ -95,7 +95,7 @@ class CombatLogParser extends CoreCombatLogParser {
     innervate: Innervate, // DONE
     powerOfTheArchdruid: PowerOfTheArchdruid, // DONE
     dreamwalker: Dreamwalker, // DONE
-    soulOfTheForest: SoulOfTheForest,
+    soulOfTheForest: SoulOfTheForest, // DONE
     essenceOfGhanir: EssenceOfGhanir,
     mastery: Mastery, // already handled
     springBlossoms: SpringBlossoms, // already handled
@@ -158,8 +158,8 @@ class CombatLogParser extends CoreCombatLogParser {
     const treeOfLifeProccHelmet = formatPercentage(this.modules.treeOfLife.proccs / wildGrowths);
     */
 
-    const hasSoulOfTheForest = this.modules.combatants.selected.lv75Talent === SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id;
-    const soulOfTheForestHealing = this.modules.soulOfTheForest.wildGrowthHealing + this.modules.soulOfTheForest.rejuvenationHealing + this.modules.soulOfTheForest.regrowthHealing;
+    //const hasSoulOfTheForest = this.modules.combatants.selected.lv75Talent === SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id;
+    //const soulOfTheForestHealing = this.modules.soulOfTheForest.wildGrowthHealing + this.modules.soulOfTheForest.rejuvenationHealing + this.modules.soulOfTheForest.regrowthHealing;
 
     const has4PT20 = this.modules.combatants.selected.hasBuff(SPELLS.RESTO_DRUID_T20_4SET_BONUS_BUFF.id);
     const has2PT20 = this.modules.combatants.selected.hasBuff(SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id);
@@ -529,6 +529,7 @@ class CombatLogParser extends CoreCombatLogParser {
         />
       ),
       */
+      /*
       hasSoulOfTheForest && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id} />}
@@ -547,6 +548,7 @@ class CombatLogParser extends CoreCombatLogParser {
           )}
         />
       ),
+      */
       /*
       !hasMoC && (
         <StatisticBox
@@ -646,7 +648,7 @@ class CombatLogParser extends CoreCombatLogParser {
           </dfn>
         ),
       },
-
+      /*
       this.modules.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_ARCHDRUID.id) && {
         item: ITEMS.SOUL_OF_THE_ARCHDRUID,
         result: (
@@ -662,6 +664,7 @@ class CombatLogParser extends CoreCombatLogParser {
           </dfn>
         ),
       },
+      */
     ];
 
     results.tabs = [
