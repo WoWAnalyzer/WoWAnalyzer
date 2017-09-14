@@ -24,7 +24,7 @@ class WhisperOfTheNathrezim extends Module {
 
 	on_byPlayer_damage(event) {
 		if (this.combatants.selected.hasBuff(SPELLS.WHISPER_OF_THE_NATHREZIM.id)){
-			if(event.ability.guid === SPELLS.TEMPLARS_VERDICT_DAMAGE.id || event.ability.guid === SPELLS.DIVINE_STORM.id){
+			if(event.ability.guid === SPELLS.TEMPLARS_VERDICT_DAMAGE.id || event.ability.guid === SPELLS.DIVINE_STORM_DAMAGE.id){
 				this.damageDone += ((event.amount || 0) + (event.aborbed || 0)) * WHISPER_OF_THE_NATHREZIM_MODIFIER / (1 + WHISPER_OF_THE_NATHREZIM_MODIFIER);
 			}
 		}
