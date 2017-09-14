@@ -19,7 +19,7 @@ const AFFECTED_SPELLS = [
   SPELLS.IMMOLATE_DEBUFF.id,
   SPELLS.IMMOLATE_CAST.id,
   // don't have these two statistically proven to be buffed, might be just RNG, but looks like they are
-  //SPELLS.MAGISTRIKE_RESTRAINTS_CHAOS_BOLT.id,
+  SPELLS.MAGISTRIKE_RESTRAINTS_CHAOS_BOLT.id,
   SPELLS.CHANNEL_DEMONFIRE_DAMAGE.id,
   // TODO: don't know if some other spells are affected, pet damage, Dimensional Rifts, Channel Demonfire, cleaved CB from leg wrists...
   // And Warlock discord has been ignoring me because it's by far the worst legendary and I "shouldn't even bother" with this
