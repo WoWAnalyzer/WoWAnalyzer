@@ -10,7 +10,7 @@ import getDamageBonus from '../../WarlockCore/getDamageBonus';
 
 const ODR_SHAWL_OF_THE_YMIRJAR_DAMAGE_BONUS = .15;
 
-const AFFECTED_SPELLS = [
+const AFFECTED_SPELLS = new Set([
   SPELLS.SHADOWBURN.id,
   SPELLS.INCINERATE.id,
   SPELLS.DRAIN_LIFE.id,
@@ -24,7 +24,7 @@ const AFFECTED_SPELLS = [
   // TODO: don't know if some other spells are affected, pet damage, Dimensional Rifts, Channel Demonfire, cleaved CB from leg wrists...
   // And Warlock discord has been ignoring me because it's by far the worst legendary and I "shouldn't even bother" with this
   // some sources suggest that pet damage (unfortunately including rifts as those are technically pets) isn't buffed
-];
+]);
 
 class OdrShawlOfTheYmirjar extends Module {
   static dependencies = {
@@ -40,7 +40,7 @@ class OdrShawlOfTheYmirjar extends Module {
 
   on_byPlayer_damage(event) {
     const enemy = this.enemies.getEntity(event);
-    if (!enemy || !enemy.hasBuff(SPELLS.ODR_SHAWL_OF_THE_YMIRJAR_DEBUFF.id, event.timestamp) || AFFECTED_SPELLS.indexOf(event.ability.guid) === -1) {
+    if (!enemy || !enemy.hasBuff(SPELLS.ODR_SHAWL_OF_THE_YMIRJAR_DEBUFF.id, event.timestamp) || !AFFECTED_SPELLS.has(event.ability.guid)) {
       return;
     }
     this.bonusDmg += getDamageBonus(event, ODR_SHAWL_OF_THE_YMIRJAR_DAMAGE_BONUS);
