@@ -4,6 +4,8 @@ import SuggestionsTab from 'Main/SuggestionsTab';
 
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 
+import Haste from './Modules/Core/Haste';
+
 import DamageDone from './Modules/Features/DamageDone';
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
@@ -23,6 +25,7 @@ import UnempoweredLs from './Modules/Spells/UnempoweredLs';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
+    haste: Haste,
       // Features
     damageDone: DamageDone,
     castEfficiency: CastEfficiency,

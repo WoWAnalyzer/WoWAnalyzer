@@ -30,8 +30,8 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   ];
 
   // BrM has a fixed 1s GCD
-  static baseGcd = 1000;
-  static minimumGcd = 1000;
+  static BASE_GCD = 1000;
+  static MINIMUM_GCD = 1000;
 
   suggestions(when) {
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
