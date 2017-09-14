@@ -11,6 +11,7 @@ class AstralPower extends Module {
   aspWasted = 0;
 
   on_toPlayer_energize(event) {
+    if(!event.classResources) { return; }
     for (let i = 0; i < event.classResources.length; i += 1) {
       if (event.classResources[i].type === ResourceTypes.ASTRAL_POWER) {
         const maxAsP = event.classResources[i].max;
@@ -30,7 +31,7 @@ class AstralPower extends Module {
     if (SPELLS.STARSURGE_MOONKIN.id !== spellId && SPELLS.STARFALL.id !== spellId && SPELLS.STARFALL_CAST.id !== spellId) {
       return;
     }
-      
+
     for (let i = 0; i < event.classResources.length; i += 1) {
       if (event.classResources[i].type === ResourceTypes.ASTRAL_POWER) {
         if (event.classResources[i].cost) {
@@ -51,7 +52,7 @@ class AstralPower extends Module {
             .regular(recommended + 4).major(recommended + 8);
         });
   }
-  
+
   statistic() {
     return (
         <StatisticBox

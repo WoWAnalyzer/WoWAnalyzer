@@ -10,7 +10,7 @@ class Rockbiter extends Module {
 
   on_byPlayer_energize(event) {
     if (event.ability.guid === SPELLS.ROCKBITER.id) {
-      if (event.classResources[0].amount >= MAELSTROM_THRESHOLD) {
+      if (event.classResources && event.classResources[0].amount >= MAELSTROM_THRESHOLD) {
         this.rockbiterOveruse.push(event);
         this.maelstromWasted += event.waste;
       }
