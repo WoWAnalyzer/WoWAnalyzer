@@ -38,11 +38,11 @@ export default {
     icon: 'inv_weapon_shortblade_40',
   },
 
-  //Provides the 5 RP from each target hit by Heart Strike
+  //Only used during Dancing Rune Weapon. Its the Heart Strike of the copied weapons. Generates 5 RP.
   BLOOD_STRIKE: {
     id: 220890,
     name: 'Blood Strike',
-    icon: 'spell_deathknight_frostfever',
+    icon: 'spell_deathknight_deathstrike',
   },
 
   MARROWREND: {
@@ -96,13 +96,13 @@ export default {
   ANTI_MAGIC_SHELL: {
     id: 48707,
     name: 'Anti-Magic Shell',
-    icon: 'pell_shadow_antimagicshell',
+    icon: 'spell_shadow_antimagicshell',
   },
 
   ANTI_MAGIC_SHELL_RP_GAINED: {
     id: 49088,
     name: 'Anti-Magic Shell RP Gained',
-    icon: 'pell_shadow_antimagicshell',
+    icon: 'spell_holy_righteousnessaura',
   },
 
   BONE_SHIELD: {
