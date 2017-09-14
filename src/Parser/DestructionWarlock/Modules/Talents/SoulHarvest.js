@@ -11,11 +11,11 @@ class SoulHarvest extends Module {
   static dependencies = {
     combatants: Combatants,
   };
-  
+
   talentBonusDmg = 0;
   chestBonusDmg = 0;
 
-  _petIds = [];
+  _petIds = new Set();
   _isFromTalent = false;
 
   addToCorrectSource(bonusDmg) {
@@ -29,14 +29,12 @@ class SoulHarvest extends Module {
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.SOUL_HARVEST_TALENT.id) || this.combatants.selected.hasChest(ITEMS.THE_MASTER_HARVESTER.id);
     this.owner.report.friendlyPets.filter(pet => pet.petOwner === this.owner.playerId).forEach(pet => {
-      if (this._petIds.indexOf(pet.id) === -1) {
-        this._petIds.push(pet.id);
-      }
+      this._petIds.has(pet.id);
     });
   }
 
   on_damage(event) {
-    if (this._petIds.indexOf(event.sourceID) === -1) {
+    if (!this._petIds.has(event.sourceID)) {
       return;
     }
     if (this.combatants.selected.hasBuff(SPELLS.SOUL_HARVEST.id, event.timestamp)) {

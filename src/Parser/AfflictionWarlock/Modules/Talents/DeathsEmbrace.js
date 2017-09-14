@@ -12,15 +12,14 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../Constants';
 import getDamageBonus from '../WarlockCore/getDamageBonus';
 
-const abilitiesAffected = [
+const AFFECTED_ABILITIES = new Set([
   SPELLS.AGONY.id,
   SPELLS.CORRUPTION_DEBUFF.id,
   SPELLS.PHANTOM_SINGULARITY.id,
   SPELLS.SEED_OF_CORRUPTION_EXPLOSION.id,
   SPELLS.DRAIN_SOUL.id,
   ...UNSTABLE_AFFLICTION_DEBUFF_IDS,
-];
-
+]);
 //based on the fact that it's a linear increase in damage that is +0% damage at 35% HP and +50% damage at 0% HP
 const SLOPE_OF_DAMAGE_INCREASE = -50 / 35;
 
@@ -50,7 +49,7 @@ class DeathsEmbrace extends Module {
     }
 
     const spellId = event.ability.guid;
-    if (abilitiesAffected.indexOf(spellId) === -1) {
+    if (!AFFECTED_ABILITIES.has(spellId)) {
       return;
     }
     this.bonusDmg += getDamageBonus(event, this.getDeathEmbraceBonus(targetHealthPercentage));

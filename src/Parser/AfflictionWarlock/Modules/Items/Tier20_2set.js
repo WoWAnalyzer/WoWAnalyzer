@@ -10,6 +10,7 @@ import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../Constants';
 import SoulShardTracker from '../SoulShards/SoulShardTracker';
 
 const TICKS_PER_UA = 4;
+const UA_IDS_SET = new Set(UNSTABLE_AFFLICTION_DEBUFF_IDS);
 
 class Tier20_2set extends Module {
   static dependencies = {
@@ -25,7 +26,7 @@ class Tier20_2set extends Module {
   }
 
   on_byPlayer_damage(event) {
-    if (UNSTABLE_AFFLICTION_DEBUFF_IDS.some(id => event.ability.guid === id)) {
+    if (UA_IDS_SET.has(event.ability.guid)) {
       this._totalTicks += 1;
       this.totalUAdamage += event.amount + (event.absorbed || 0);
     }

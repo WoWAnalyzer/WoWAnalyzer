@@ -9,14 +9,14 @@ import getDamageBonus from '../../WarlockCore/getDamageBonus';
 
 const ALYTHESSS_PYROGENICS_DAMAGE_BONUS = .1;
 
-const AFFECTED_SPELLS = [
+const AFFECTED_SPELLS = new Set([
   SPELLS.INCINERATE.id,
   SPELLS.CONFLAGRATE.id,
   SPELLS.IMMOLATE_DEBUFF.id,
   SPELLS.IMMOLATE_CAST.id,
   SPELLS.CHANNEL_DEMONFIRE_DAMAGE.id,
   SPELLS.RAIN_OF_FIRE_DAMAGE.id,
-];
+]);
 
 class AlythesssPyrogenics extends Module {
   static dependencies = {
@@ -32,7 +32,7 @@ class AlythesssPyrogenics extends Module {
 
   on_byPlayer_damage(event) {
     const enemy = this.enemies.getEntity(event);
-    if (!enemy || !enemy.hasBuff(SPELLS.ALYTHESSS_PYROGENICS_DEBUFF.id, event.timestamp) || AFFECTED_SPELLS.indexOf(event.ability.guid) === -1) {
+    if (!enemy || !enemy.hasBuff(SPELLS.ALYTHESSS_PYROGENICS_DEBUFF.id, event.timestamp) || !AFFECTED_SPELLS.has(event.ability.guid)) {
       return;
     }
     this.bonusDmg += getDamageBonus(event, ALYTHESSS_PYROGENICS_DAMAGE_BONUS);
