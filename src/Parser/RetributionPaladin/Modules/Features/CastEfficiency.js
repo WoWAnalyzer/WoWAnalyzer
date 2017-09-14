@@ -77,6 +77,7 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.TEMPLARS_VERDICT,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => null,
+      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.DIVINE_STORM,
