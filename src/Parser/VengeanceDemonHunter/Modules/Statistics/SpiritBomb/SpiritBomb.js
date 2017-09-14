@@ -16,9 +16,7 @@ class SpiritBomb extends Module {
   }
 
   on_initialized() {
-    if (!this.owner.error) {
       this.active = this.combatants.selected.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id);
-    }
   }
 
   suggestions(when) {

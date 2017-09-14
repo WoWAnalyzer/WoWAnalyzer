@@ -16,9 +16,7 @@ class Momentum extends Module {
   };
 
   on_initialized() {
-    if (!this.owner.error) {
       this.active = this.combatants.selected.hasTalent(SPELLS.MOMENTUM_TALENT.id);
-    }
   }
 
   statistic() {
