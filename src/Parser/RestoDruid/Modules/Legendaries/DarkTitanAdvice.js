@@ -1,8 +1,10 @@
 import Module from 'Parser/Core/Module';
 import SPELLS from 'common/SPELLS';
 
+import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
+
 export const DARK_TITAN_ADVICE_ITEM_ID = 137078;
-const DARK_TITAN_FINAL_HEALING_INCREASE = 3;
+const DARK_TITAN_FINAL_HEALING_INCREASE = 2;
 
 class DarkTitanAdvice extends Module {
   healing = 0;
@@ -18,8 +20,7 @@ class DarkTitanAdvice extends Module {
         this.healing += event.amount;
         this.healingFromProccs += event.amount;
       } else {
-        const baseHeal = (event.amount + event.overheal || 0) / DARK_TITAN_FINAL_HEALING_INCREASE;
-        this.healing += Math.max(0, event.amount - baseHeal);
+        this.healing += calculateEffectiveHealing(event, DARK_TITAN_FINAL_HEALING_INCREASE);
       }
 
       return;
