@@ -2,13 +2,7 @@ import Module from 'Parser/Core/Module';
 
 import HealingValue from './HealingValue';
 
-import ManaValues from './ManaValues';
-
 class HealingDone extends Module {
-  static dependencies = {
-    manaValues: ManaValues,
-  };
-
   _total = new HealingValue(); // consider this "protected", so don't change this from other modules. If you want special behavior you must add that code to an extended version of this module.
   get total() {
     return this._total;
