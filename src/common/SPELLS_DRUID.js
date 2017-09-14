@@ -565,7 +565,7 @@ export default {
     icon: 'ability_druid_primaltenacity',
   },
   BRISTLING_FUR: {
-    id: 155835,
+    id: 204031,
     name: 'Bristling Fur',
     icon: 'spell_druid_bristlingfur',
   },
