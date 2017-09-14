@@ -1,4 +1,5 @@
 export default `
+14-09-2017 - Fix issue where friendly fire damage was considered a valid Atonement damage source. (by Zerotorescue)
 14-09-2017 - Added atonement sources breakdown. This isn't very accurate yet, it's just showing the way it's assigned right now. Improved accuracy will come later. (by Zerotorescue)
 22-07-2017 - Added mana saved from the legendary Inner Hallation. (by hassebewlen)
 18-06-2017 - Added Touch of the Grave statistic. (by Zerotorescue)
