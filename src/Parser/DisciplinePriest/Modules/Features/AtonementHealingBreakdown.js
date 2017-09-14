@@ -45,6 +45,7 @@ class AtonementHealingBreakdown extends React.Component {
                     {(Math.round(healing.effective / total.effective * 10000) / 100).toFixed(2)}%
                   </td>
                   <td style={{ width: '70%' }}>
+                    {/*TODO: Color the bar based on the damage type, physical = yellow, chaos = gradient, etc. idk */}
                     <div
                       className={`performance-bar`}
                       style={{ width: `${performanceBarPercentage * 100}%` }}
