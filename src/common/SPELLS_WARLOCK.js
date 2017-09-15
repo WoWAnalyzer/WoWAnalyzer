@@ -588,7 +588,11 @@ export default {
     name: 'Felstorm',
     icon: 'ability_warrior_bladestorm',
   },
-
+  SUMMON_FELGUARD: {
+    id: 30146,
+    name: 'Summon Felguard',
+    icon: 'spell_shadow_summonfelguard',
+  },
   // Demonology talents
   SHADOWFLAME: {
     id: 205181,
