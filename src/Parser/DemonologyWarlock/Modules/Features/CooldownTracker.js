@@ -48,6 +48,18 @@ class CooldownTracker extends CoreCooldownTracker {
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],
     },
+    {
+      spell: SPELLS.GRIMOIRE_FELGUARD,
+      summary: [
+        BUILT_IN_SUMMARY_TYPES.DAMAGE,
+      ],
+    },
+    {
+      spell: SPELLS.SUMMON_DARKGLARE,
+      summary: [
+        BUILT_IN_SUMMARY_TYPES.DAMAGE,
+      ],
+    },
   ];
 }
 
