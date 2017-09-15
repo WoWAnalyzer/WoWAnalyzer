@@ -19,7 +19,7 @@ const GRIMOIRE_IDS = [
   SPELLS.GRIMOIRE_SUCCUBUS.id,
 ];
 
-class DoomguardInfernal extends Module {
+class GrimoireOfService extends Module {
   static dependencies = {
     abilityTracker: AbilityTracker,
     combatants: Combatants,
@@ -42,4 +42,4 @@ class DoomguardInfernal extends Module {
       });
   }
 }
-export default DoomguardInfernal;
+export default GrimoireOfService;

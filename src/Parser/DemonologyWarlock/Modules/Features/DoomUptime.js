@@ -8,7 +8,7 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-class SiphonLifeUptime extends Module {
+class DoomUptime extends Module {
   static dependencies = {
     enemies: Enemies,
   };
@@ -39,4 +39,4 @@ class SiphonLifeUptime extends Module {
   statisticOrder = STATISTIC_ORDER.OPTIONAL(4);
 }
 
-export default SiphonLifeUptime;
+export default DoomUptime;
