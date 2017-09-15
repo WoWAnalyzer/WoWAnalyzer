@@ -108,8 +108,8 @@ class CombatLogParser extends CoreCombatLogParser {
     xonisCaress: XonisCaress, // DONE
     sephuzsSecret: Sephuz, // already handled, and also really we should be using the core version
     darkTitanAdvice: DarkTitanAdvice, // DONE
-    essenceOfInfusion: EssenceOfInfusion,
-    tearstone: Tearstone,
+    essenceOfInfusion: EssenceOfInfusion, // DONE
+    tearstone: Tearstone, // DONE
     t19_2set: T19_2Set, // already handled
     t20: T20,
     t21_2set: T21_2Set, // already handled
@@ -173,7 +173,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //const darkTitanAdviceHealing = this.getPercentageOfTotalHealingDone(this.modules.darkTitanAdvice.healing);
     //const darkTitanAdviceHealingFromProcc = this.getPercentageOfTotalHealingDone(this.modules.darkTitanAdvice.healingFromProccs);
     //const essenceOfInfusionHealing = this.getPercentageOfTotalHealingDone(this.modules.essenceOfInfusion.healing);
-    const tearstoneHealing = this.modules.tearstone.rejuvs * oneRejuvenationThroughput;
+    //const tearstoneHealing = this.modules.tearstone.rejuvs * oneRejuvenationThroughput;
     //const xonisCaressHealingPercentage = this.getPercentageOfTotalHealingDone(this.modules.xonisCaress.healing);
     //const ekowraithHealingPercentage = this.getPercentageOfTotalHealingDone(this.modules.ekowraith.healing);
     //const ekowraithDamageReductionHealingPercentage = (this.modules.ekowraith.damageReductionHealing / (this.modules.healingDone.total.effective + this.modules.ekowraith.damageReductionHealing));
@@ -609,6 +609,7 @@ class CombatLogParser extends CoreCombatLogParser {
         result: `${((essenceOfInfusionHealing * 100) || 0).toFixed(2)} % / ${formatNumber(this.modules.essenceOfInfusion.healing / fightDuration * 1000)} HPS`,
       },
       */
+      /*
       this.modules.combatants.selected.hasFinger(ITEMS.TEARSTONE_OF_ELUNE.id) && {
         item: ITEMS.TEARSTONE_OF_ELUNE,
         result: (
@@ -617,6 +618,7 @@ class CombatLogParser extends CoreCombatLogParser {
           </dfn>
         ),
       },
+      */
       /*
       this.modules.combatants.selected.hasHead(ITEMS.CHAMELEON_SONG.id) && {
         item: ITEMS.CHAMELEON_SONG,
