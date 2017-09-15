@@ -44,7 +44,10 @@ class AtonementSource extends Module {
     }
   }
 
-  on_byPlayer_damage(event) {
+  on_damage(event) {
+    if (!this.owner.byPlayer(event) && !this.owner.byPlayerPet(event)) {
+      return;
+    }
     // Some Atonement events have the type 'damage', this prevents them registering as a source
     if (event.ability.guid === SPELLS.ATONEMENT_HEAL_NON_CRIT.id) {
       return;
