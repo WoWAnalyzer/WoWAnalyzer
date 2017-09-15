@@ -102,7 +102,7 @@ class Clearcasting extends Module {
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span><SpellLink id={SPELLS.REGROWTH.id} /> is an inefficient spell to cast without a <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} /> proc.</span>)
           .icon(SPELLS.REGROWTH.icon)
-          .actual(`${percentNonCCRegrowths}% of your Regrowths were casted without a Clearcasting proc.`)
+          .actual(`${formatPercentage(percentNonCCRegrowths)}% of your Regrowths were cast without a Clearcasting proc.`)
           .recommended(`<${Math.round(formatPercentage(recommended))}% is recommended`)
           .regular(SuggestionThresholds.MISSED_CLEARCASTS.regular).major(SuggestionThresholds.MISSED_CLEARCASTS.major);
       });
