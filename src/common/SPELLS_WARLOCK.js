@@ -583,8 +583,15 @@ export default {
     name: 'Thal\'kiel\'s Consumption',
     icon: 'inv_offhand_1h_artifactskulloferedar_d_01',
   },
-  FELSTORM: { // Felguard's ability, also triggered by our Command Demon ability
+  // Felguard's ability, triggered by our Command Demon ability
+  FELSTORM: {
     id: 119914,
+    name: 'Felstorm',
+    icon: 'ability_warrior_bladestorm',
+  },
+  // Felguard gets a buff when he uses Felstorm, then follows up always with cast <another Felstorm ID - 89753>, cast this ID, damage <another Felstorm ID 89753> and then always pairs up cast 89753 + damage 89753 (x targets hit)
+  FELSTORM_BUFF: {
+    id: 89751,
     name: 'Felstorm',
     icon: 'ability_warrior_bladestorm',
   },
@@ -593,6 +600,7 @@ export default {
     name: 'Summon Felguard',
     icon: 'spell_shadow_summonfelguard',
   },
+
   // Demonology talents
   SHADOWFLAME: {
     id: 205181,

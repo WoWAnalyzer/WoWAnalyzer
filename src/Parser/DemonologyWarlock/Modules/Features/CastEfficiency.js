@@ -53,11 +53,6 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 45,
     },
     {
-      spell: SPELLS.FELSTORM,
-      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => 45,
-    },
-    {
       spell: SPELLS.LIFE_TAP,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => null,
