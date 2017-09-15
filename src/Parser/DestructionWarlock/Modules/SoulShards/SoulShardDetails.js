@@ -7,7 +7,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SoulShardBreakdown from './SoulShardBreakdown';
 import SoulShardTracker from './SoulShardTracker';
 
-import WastedShardsIcon from '../../Images/affliction_warlock_soulshard_bw.jpg';
+import WastedShardsIcon from '../../Images/warlock_soulshard_bw.jpg';
 
 const soulShardIcon = 'inv_misc_gem_amethyst_02';
 
