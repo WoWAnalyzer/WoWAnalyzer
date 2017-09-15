@@ -218,7 +218,7 @@ class Innervate extends Module {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(10);
+  statisticOrder = STATISTIC_ORDER.CORE(12);
 
 }
 

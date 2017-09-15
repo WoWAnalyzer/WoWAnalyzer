@@ -56,5 +56,15 @@ export default {
     regular: 0,
     major: 0,
   },
+  HTS_PER_MINUTE: {
+    minor: 0.0,
+    regular: 0.5,
+    major: 2.0,
+  },
+  WGS_PER_REJUV: {
+    minor: 0.20,
+    regular: 0.15,
+    major: 0.10,
+  },
 
 };

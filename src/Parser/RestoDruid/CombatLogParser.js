@@ -1,15 +1,11 @@
 import React from 'react';
 
-import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
-
 import SuggestionsTab from 'Main/SuggestionsTab';
 import Tab from 'Main/Tab';
 import Talents from 'Main/Talents';
 import Mana from 'Main/Mana';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
-import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
 
 import HealingDone from './Modules/Core/HealingDone';
@@ -28,6 +24,7 @@ import T20_4Set from './Modules/Legendaries/T20_4Set';
 import T21_2Set from './Modules/Legendaries/T21_2Set';
 import T21_4Set from './Modules/Legendaries/T21_4Set';
 
+import HealingTouch from './Modules/Features/HealingTouch';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import CooldownTracker from './Modules/Features/CooldownTracker';
@@ -51,24 +48,6 @@ import NaturesEssence from './Modules/Features/NaturesEssence';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
-
-function formatThousands(number) {
-  return (`${Math.round(number || 0)}`).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-}
-function getIssueImportance(value, regular, major, higherIsWorse = false) {
-  if (higherIsWorse ? value > major : value < major) {
-    return ISSUE_IMPORTANCE.MAJOR;
-  }
-  if (higherIsWorse ? value > regular : value < regular) {
-    return ISSUE_IMPORTANCE.REGULAR;
-  }
-  return ISSUE_IMPORTANCE.MINOR;
-}
-function formatPercentage(percentage) {
-  return (Math.round((percentage || 0) * 10000) / 100).toFixed(2);
-}
-
-
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
 
@@ -78,6 +57,7 @@ class CombatLogParser extends CoreCombatLogParser {
     healingDone: HealingDone,
 
     // Features
+    healingTouch : HealingTouch,
     lowHealthHealing: LowHealthHealing,
     alwaysBeCasting: AlwaysBeCasting,
     cooldownTracker: CooldownTracker,
@@ -122,46 +102,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
   generateResults() {
     const results = super.generateResults();
-
-    const abilityTracker = this.modules.abilityTracker;
-    const getAbility = spellId => abilityTracker.getAbility(spellId);
-    const rejuvenations = getAbility(SPELLS.REJUVENATION.id).casts || 0;
-    const wildGrowths = getAbility(SPELLS.WILD_GROWTH.id).casts || 0;
-
-    const rejuvenationManaCost = 22000;
-    const oneRejuvenationThroughput = this.getPercentageOfTotalHealingDone(this.modules.treeOfLife.totalHealingFromRejuvenationEncounter) / this.modules.treeOfLife.totalRejuvenationsEncounter;
-
-    const fightDuration = this.fightDuration;
-
-
-    const healingTouches = getAbility(SPELLS.HEALING_TOUCH.id).casts || 0;
-    const healingTouchesPerMinute = healingTouches / (fightDuration / 1000) * 60;
-    if (healingTouchesPerMinute > 0) {
-      results.addIssue({
-        issue: <span><a href="http://www.wowhead.com/spell=5185" target="_blank" rel="noopener noreferrer">Healing Touch</a> is an inefficient spell to cast. You should trust your co-healer to top people off, if you got nothing to do you can always dps.</span>,
-        stat: `${healingTouchesPerMinute.toFixed(2)} CPM. (0 CPM is recommended)`,
-        icon: SPELLS.HEALING_TOUCH.icon,
-        importance: getIssueImportance(healingTouchesPerMinute, 0.5, 1, true),
-      });
-    }
-    const wgsPerRejuv = wildGrowths / rejuvenations;
-    if (wgsPerRejuv < 0.20) {
-      results.addIssue({
-        issue: <span>Your <a href="http://www.wowhead.com/spell=48438" target="_blank" rel="noopener noreferrer">Wild growth</a> to rejuv ratio can be improved, try to cast more wild growths if possible as it is usually more efficient.</span>,
-        stat: `${wildGrowths}/${rejuvenations} WGs per rejuv. (>20% is recommended)`,
-        icon: SPELLS.WILD_GROWTH.icon,
-        importance: getIssueImportance(wgsPerRejuv, 0.15, 0.1),
-      });
-    }
-    const promisesThroughput = (this.modules.darkmoonDeckPromises.savings / rejuvenationManaCost) * oneRejuvenationThroughput;
-    if (this.modules.darkmoonDeckPromises.active && promisesThroughput < 0.035) {
-      results.addIssue({
-        issue: <span>Your <a href="http://www.wowhead.com/item=128710" target="_blank" rel="noopener noreferrer">Darkmoon Deck: Promises</a> effect was not fully utilizied because you did not need the extra mana gained. You may want to consider using another trinket in these scenarios.</span>,
-        stat: `${this.modules.darkmoonDeckPromises.savings + this.modules.darkmoonDeckPromises.manaGained} mana gained potentially, ${this.modules.darkmoonDeckPromises.savings} mana gained, ${formatPercentage(promisesThroughput)}% healing contributed. (>3.5% is recommended)`,
-        icon: ITEMS.DARKMOON_DECK_PROMISES.icon,
-        importance: getIssueImportance(promisesThroughput, 0.01, 0.025),
-      });
-    }
 
     results.tabs = [
       {
