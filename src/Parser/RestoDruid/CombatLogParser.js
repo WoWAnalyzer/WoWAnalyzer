@@ -3,7 +3,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 
-import StatisticBox from 'Main/StatisticBox';
 import SuggestionsTab from 'Main/SuggestionsTab';
 import Tab from 'Main/Tab';
 import Talents from 'Main/Talents';
@@ -12,6 +11,8 @@ import Mana from 'Main/Mana';
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
+
+import HealingDone from './Modules/Core/HealingDone';
 
 import Ekowraith from './Modules/Legendaries/Ekowraith';
 import XonisCaress from './Modules/Legendaries/XonisCaress';
@@ -54,15 +55,6 @@ import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 function formatThousands(number) {
   return (`${Math.round(number || 0)}`).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 }
-function formatNumber(number) {
-  if (number > 1000000) {
-    return `${(number / 1000000).toFixed(2)}m`;
-  }
-  if (number > 10000) {
-    return `${Math.round(number / 1000)}k`;
-  }
-  return formatThousands(number);
-}
 function getIssueImportance(value, regular, major, higherIsWorse = false) {
   if (higherIsWorse ? value > major : value < major) {
     return ISSUE_IMPORTANCE.MAJOR;
@@ -81,6 +73,10 @@ class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
 
   static specModules = {
+
+    // Core
+    healingDone: HealingDone,
+
     // Features
     lowHealthHealing: LowHealthHealing,
     alwaysBeCasting: AlwaysBeCasting,
@@ -126,6 +122,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
   generateResults() {
     const results = super.generateResults();
+
     const abilityTracker = this.modules.abilityTracker;
     const getAbility = spellId => abilityTracker.getAbility(spellId);
     const rejuvenations = getAbility(SPELLS.REJUVENATION.id).casts || 0;
@@ -165,28 +162,6 @@ class CombatLogParser extends CoreCombatLogParser {
         importance: getIssueImportance(promisesThroughput, 0.01, 0.025),
       });
     }
-
-    results.statistics = [
-      <StatisticBox
-        icon={(
-          <img
-            src="/img/healing.png"
-            style={{ border: 0 }}
-            alt="Healing"
-          />)}
-        value={`${formatNumber(this.modules.healingDone.total.effective / this.fightDuration * 1000)} HPS`}
-        label={(
-          <dfn data-tip={`The total healing done recorded was ${formatThousands(this.modules.healingDone.total.effective)}.`}>
-            Healing done
-          </dfn>
-        )}
-      />,
-      ...results.statistics,
-    ];
-
-    results.items = [
-      ...results.items,
-    ];
 
     results.tabs = [
       {
