@@ -1,8 +1,6 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
-import SpellLink from 'common/SpellLink';
 import ITEMS from 'common/ITEMS';
 import { formatNumber, formatPercentage } from 'common/format';
 
@@ -31,17 +29,16 @@ class WhisperOfTheNathrezim extends Module {
 	}
 
 	item() {
-	
-		const RetLeggoCloakUptime = this.combatants.selected.getBuffUptime(SPELLS.WHISPER_OF_THE_NATHREZIM_BUFF.id) / this.owner.fightDuration;
-		const fightLengthSec = this.owner.fightDuration / 1000;
-		const dps = this.damageDone / fightLengthSec;
+		const uptime = this.combatants.selected.getBuffUptime(SPELLS.WHISPER_OF_THE_NATHREZIM_BUFF.id) / this.owner.fightDuration;
 		return {
-			id: `spell-${SPELLS.WHISPER_OF_THE_NATHREZIM_BUFF.id}`,
-			icon: <SpellIcon id={SPELLS.WHISPER_OF_THE_NATHREZIM_BUFF.id} />,
-			title: <SpellLink id={SPELLS.WHISPER_OF_THE_NATHREZIM_BUFF.id} />,
-			result: (
-				`${formatPercentage(RetLeggoCloakUptime)}% uptime / ${formatNumber(dps)} DPS`
-			),
+			item: ITEMS.WHISPER_OF_THE_NATHREZIM,
+			result: (<dfn data-tip={`
+				The effective damage contributed by Whisper of the Nathrezim.<br/>
+				Damage: ${this.owner.formatItemDamageDone(this.damageDone)}<br/>
+				Total Damage: ${formatNumber(this.damageDone)}<br/>
+				Percent Uptime: ${formatPercentage(uptime)}%`}>
+          		{this.owner.formatItemDamageDone(this.damageDone)}
+       		</dfn>),
 		};
 	}
 }
