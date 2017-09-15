@@ -1,8 +1,8 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
+//import SpellLink from 'common/SpellLink';
+//import SpellIcon from 'common/SpellIcon';
 import ITEMS from 'common/ITEMS';
 
 import StatisticBox from 'Main/StatisticBox';
@@ -24,7 +24,8 @@ import Tearstone from './Modules/Legendaries/Tearstone';
 import DarkmoonDeckPromises from './Modules/Legendaries/DarkmoonDeckPromises';
 
 import T19_2Set from './Modules/Legendaries/T19_2Set';
-import T20 from './Modules/Legendaries/T20';
+import T20_2Set from './Modules/Legendaries/T20_2Set';
+import T20_4Set from './Modules/Legendaries/T20_4Set';
 import T21_2Set from './Modules/Legendaries/T21_2Set';
 import T21_4Set from './Modules/Legendaries/T21_4Set';
 
@@ -111,7 +112,8 @@ class CombatLogParser extends CoreCombatLogParser {
     essenceOfInfusion: EssenceOfInfusion, // DONE
     tearstone: Tearstone, // DONE
     t19_2set: T19_2Set, // already handled
-    t20: T20,
+    t20_2set: T20_2Set, // DONE
+    t20_4set: T20_4Set, // DONE
     t21_2set: T21_2Set, // already handled
     t21_4set: T21_4Set, // already handled
     // TODO:
@@ -161,8 +163,8 @@ class CombatLogParser extends CoreCombatLogParser {
     //const hasSoulOfTheForest = this.modules.combatants.selected.lv75Talent === SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id;
     //const soulOfTheForestHealing = this.modules.soulOfTheForest.wildGrowthHealing + this.modules.soulOfTheForest.rejuvenationHealing + this.modules.soulOfTheForest.regrowthHealing;
 
-    const has4PT20 = this.modules.combatants.selected.hasBuff(SPELLS.RESTO_DRUID_T20_4SET_BONUS_BUFF.id);
-    const has2PT20 = this.modules.combatants.selected.hasBuff(SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id);
+    //const has4PT20 = this.modules.combatants.selected.hasBuff(SPELLS.RESTO_DRUID_T20_4SET_BONUS_BUFF.id);
+    //const has2PT20 = this.modules.combatants.selected.hasBuff(SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id);
 
     const fightDuration = this.fightDuration;
     //const nonHealingTimePercentage = this.modules.alwaysBeCasting.totalHealingTimeWasted / fightDuration;
@@ -640,6 +642,7 @@ class CombatLogParser extends CoreCombatLogParser {
         ),
       },
       */
+      /*
       has2PT20 && {
         id: `spell-${SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id}`,
         icon: <SpellIcon id={SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id} />,
@@ -660,6 +663,7 @@ class CombatLogParser extends CoreCombatLogParser {
           </dfn>
         ),
       },
+      */
       /*
       this.modules.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_ARCHDRUID.id) && {
         item: ITEMS.SOUL_OF_THE_ARCHDRUID,
