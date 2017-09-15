@@ -36,7 +36,7 @@ class DimensionalRift extends Module {
   _rifts = {};
 
   on_initialized() {
-    this.owner.report.friendlyPets.filter(pet => pet.petOwner === this.owner.playerId && this._riftDetails[pet.name]).forEach(pet => {
+    this.owner.playerPets.filter(pet => this._riftDetails[pet.name]).forEach(pet => {
       this._rifts[pet.id] = {
         ...this._riftDetails[pet.name],
         damage: 0,
