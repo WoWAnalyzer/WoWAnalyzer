@@ -96,7 +96,7 @@ class CombatLogParser extends CoreCombatLogParser {
     powerOfTheArchdruid: PowerOfTheArchdruid, // DONE
     dreamwalker: Dreamwalker, // DONE
     soulOfTheForest: SoulOfTheForest, // DONE
-    essenceOfGhanir: EssenceOfGhanir,
+    essenceOfGhanir: EssenceOfGhanir, // DONE
     mastery: Mastery, // already handled
     springBlossoms: SpringBlossoms, // already handled
     cultivation: Cultivation, // already handled
@@ -124,7 +124,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
   generateResults() {
     const results = super.generateResults();
-    const formatThroughput = healingDone => `${formatPercentage(this.getPercentageOfTotalHealingDone(healingDone))} %`;
+//    const formatThroughput = healingDone => `${formatPercentage(this.getPercentageOfTotalHealingDone(healingDone))} %`;
     const abilityTracker = this.modules.abilityTracker;
     const getAbility = spellId => abilityTracker.getAbility(spellId);
     const rejuvenations = getAbility(SPELLS.REJUVENATION.id).casts || 0;
@@ -363,6 +363,7 @@ class CombatLogParser extends CoreCombatLogParser {
         label='Efflorescence uptime'
       />,
       */
+      /*
       <StatisticBox
         icon={<SpellIcon id={SPELLS.ESSENCE_OF_GHANIR.id} />}
         value={`${formatThroughput(this.modules.essenceOfGhanir.healingIncreaseHealing)}`}
@@ -399,6 +400,7 @@ class CombatLogParser extends CoreCombatLogParser {
           </dfn>
         )}
       />,
+      */
       /*
       this.modules.dreamwalker.hasTrait && (
         <StatisticBox icon={<SpellIcon id={SPELLS.DREAMWALKER.id} />}
