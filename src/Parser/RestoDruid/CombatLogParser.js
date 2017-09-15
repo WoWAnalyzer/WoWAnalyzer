@@ -106,8 +106,8 @@ class CombatLogParser extends CoreCombatLogParser {
     // Legendaries:
     ekowraith: Ekowraith, // DONE
     xonisCaress: XonisCaress, // DONE
-    sephuzsSecret: Sephuz,
-    darkTitanAdvice: DarkTitanAdvice,
+    sephuzsSecret: Sephuz, // already handled, and also really we should be using the core version
+    darkTitanAdvice: DarkTitanAdvice, // DONE
     essenceOfInfusion: EssenceOfInfusion,
     tearstone: Tearstone,
     t19_2set: T19_2Set, // already handled
@@ -170,9 +170,9 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //const potaHealing = (this.modules.powerOfTheArchdruid.rejuvenations * oneRejuvenationThroughput) + this.getPercentageOfTotalHealingDone(this.modules.powerOfTheArchdruid.healing);
     //const hasMoC = this.modules.combatants.selected.lv100Talent === SPELLS.MOMENT_OF_CLARITY_TALENT_RESTORATION.id;
-    const darkTitanAdviceHealing = this.getPercentageOfTotalHealingDone(this.modules.darkTitanAdvice.healing);
-    const darkTitanAdviceHealingFromProcc = this.getPercentageOfTotalHealingDone(this.modules.darkTitanAdvice.healingFromProccs);
-    const essenceOfInfusionHealing = this.getPercentageOfTotalHealingDone(this.modules.essenceOfInfusion.healing);
+    //const darkTitanAdviceHealing = this.getPercentageOfTotalHealingDone(this.modules.darkTitanAdvice.healing);
+    //const darkTitanAdviceHealingFromProcc = this.getPercentageOfTotalHealingDone(this.modules.darkTitanAdvice.healingFromProccs);
+    //const essenceOfInfusionHealing = this.getPercentageOfTotalHealingDone(this.modules.essenceOfInfusion.healing);
     const tearstoneHealing = this.modules.tearstone.rejuvs * oneRejuvenationThroughput;
     //const xonisCaressHealingPercentage = this.getPercentageOfTotalHealingDone(this.modules.xonisCaress.healing);
     //const ekowraithHealingPercentage = this.getPercentageOfTotalHealingDone(this.modules.ekowraith.healing);
@@ -593,6 +593,7 @@ class CombatLogParser extends CoreCombatLogParser {
         ),
       },
       */
+      /*
       this.modules.combatants.selected.hasWaist(ITEMS.THE_DARK_TITANS_ADVICE.id) && {
         item: ITEMS.THE_DARK_TITANS_ADVICE,
         result: (
@@ -601,10 +602,13 @@ class CombatLogParser extends CoreCombatLogParser {
           </dfn>
         ),
       },
+      */
+      /*
       this.modules.combatants.selected.hasFeet(ITEMS.ESSENCE_OF_INFUSION.id) && {
         item: ITEMS.ESSENCE_OF_INFUSION,
         result: `${((essenceOfInfusionHealing * 100) || 0).toFixed(2)} % / ${formatNumber(this.modules.essenceOfInfusion.healing / fightDuration * 1000)} HPS`,
       },
+      */
       this.modules.combatants.selected.hasFinger(ITEMS.TEARSTONE_OF_ELUNE.id) && {
         item: ITEMS.TEARSTONE_OF_ELUNE,
         result: (
