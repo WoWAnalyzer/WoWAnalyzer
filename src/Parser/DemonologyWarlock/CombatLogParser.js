@@ -13,6 +13,8 @@ import DoomguardInfernal from './Modules/Features/DoomguardInfernal';
 import GrimoireOfService from './Modules/Features/GrimoireOfService';
 import Felstorm from './Modules/Features/Felstorm';
 
+import Doom from './Modules/Features/DoomUptime';
+
 // import SoulShardTracker from './Modules/SoulShards/SoulShardTracker';
 // import SoulShardDetails from './Modules/SoulShards/SoulShardDetails';
 import DamageDone from './Modules/Features/DamageDone';
@@ -33,7 +35,9 @@ class CombatLogParser extends CoreCombatLogParser {
     doomguardInfernal: DoomguardInfernal,
     grimoireOfService: GrimoireOfService,
     felstorm: Felstorm,
+
     // DoTs
+    doom: Doom,
 
     //Core
     // soulShardTracker: SoulShardTracker,
