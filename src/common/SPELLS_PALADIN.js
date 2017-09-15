@@ -211,7 +211,6 @@ export default {
     name: 'Divine Purpose',
     icon: 'spell_holy_divinepurpose',
   },
-
   // Retribution Paladin:
   TEMPLARS_VERDICT_DAMAGE: {
     id: 224266,
@@ -254,13 +253,32 @@ export default {
     icon: 'ability_paladin_shieldofthetemplar',
   },
 
-  //Ret Legendary Effects
-  WHISPER_OF_THE_NATHREZIM: {
+  //Ret Item Effects
+  WHISPER_OF_THE_NATHREZIM_BUFF: {
     id: 207635,
     name: 'Whisper of the Nathrezim',
     icon: 'ability_paladin_sheathoflight',
   },
-
+  RET_PALADIN_T19_2SET_BONUS_BUFF: {
+    id: 211444,
+    name: 'T19 2 set bonus',
+    icon: 'inv_helm_plate_raidpaladinmythic_q_01',
+  },
+  RET_PALADIN_T19_4SET_BONUS_BUFF: {
+    id: 211448,
+    name: 'T19 4 set bonus',
+    icon: 'inv_cape_plate_raidpaladinmythic_q_01',
+  },
+  RET_PALADIN_T20_2SET_BONUS_BUFF: {
+    id: 246973,
+    name: 'T20 2 set bonus',
+    icon: 'paladin_retribution',
+  },
+  RET_PALADIN_T20_4SET_BONUS_BUFF: {
+    id: 242266,
+    name: 'T20 4 set bonus',
+    icon: 'paladin_retribution',
+  },
   // Traits:
   // Holy Paladin:
   PROTECTION_OF_TYR: {
