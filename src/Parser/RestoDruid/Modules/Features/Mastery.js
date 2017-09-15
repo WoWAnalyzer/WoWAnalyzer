@@ -35,7 +35,7 @@ class Mastery extends Module {
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
     const target = this.combatants.getEntity(event);
-    const amount = event.amount + (event.absorbed === undefined ? 0 : event.absorbed);
+    const amount = event.amount + (event.absorbed || 0);
 
     if (target === null) {
       return;

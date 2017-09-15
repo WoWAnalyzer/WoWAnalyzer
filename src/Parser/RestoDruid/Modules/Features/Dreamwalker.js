@@ -22,7 +22,7 @@ class Dreamwalker extends Module {
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
     if (SPELLS.DREAMWALKER.id === spellId) {
-      this.healing += event.amount;
+      this.healing += event.amount + (event.absorbed || 0);
     }
   }
 

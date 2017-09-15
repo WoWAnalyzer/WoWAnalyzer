@@ -78,7 +78,7 @@ class PowerOfTheArchdruid extends Module {
     if (this.lastPotaRegrowthTimestamp !== null) {
       // Skipping the first regrowth, only taking the 2 other.
       if (this.potaRegrowthCounter > 0) {
-        this.regrowthDirect += event.amount;
+        this.regrowthDirect += event.amount + (event.absorbed || 0);
       }
       this.potaRegrowthCounter += 1;
       if (this.potaRegrowthCounter === 3) {

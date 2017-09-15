@@ -15,7 +15,7 @@ class Rejuvenation extends Module {
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
-    const amount = event.amount + (event.absorbed === undefined ? 0 : event.absorbed);
+    const amount = event.amount + (event.absorbed || 0);
 
     if (spellId === SPELLS.REJUVENATION.id || spellId === SPELLS.REJUVENATION_GERMINATION.id) {
       this.totalRejuvHealing += amount;

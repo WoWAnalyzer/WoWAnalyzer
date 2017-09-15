@@ -36,7 +36,8 @@ class Ekowraith extends Module {
     // TODO does damage taken also have an 'absorbed' amount that must be accounted for?
     if (this.hasGuardianAffinity) {
       // TODO is this calculation correct?
-      this.damageReduction += event.amount * ((GUARDIAN_DAMAGE_REDUCTION * EKOWRAITH_INCREASED_EFFECT) - GUARDIAN_DAMAGE_REDUCTION);
+      const damage = event.amount + (event.absorbed || 0);
+      this.damageReduction += damage * ((GUARDIAN_DAMAGE_REDUCTION * EKOWRAITH_INCREASED_EFFECT) - GUARDIAN_DAMAGE_REDUCTION);
     }
   }
 

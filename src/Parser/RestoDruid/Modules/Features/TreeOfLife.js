@@ -67,39 +67,40 @@ class TreeOfLife extends Module {
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
+    const amount = event.amount + (event.absorbed || 0);
     if (ABILITIES_AFFECTED_BY_HEALING_INCREASES.indexOf(spellId) === -1) {
       return;
     }
 
     // Get total healing from rejuv + germ (if specced).
     if (SPELLS.REJUVENATION.id === spellId) {
-      this.totalHealingFromRejuvenationEncounter += event.amount;
+      this.totalHealingFromRejuvenationEncounter += amount;
     } else if (this.hasGermination && SPELLS.REJUVENATION_GERMINATION.id === spellId) {
-      this.totalHealingFromRejuvenationEncounter += event.amount;
+      this.totalHealingFromRejuvenationEncounter += amount;
     }
 
     // Get total healing from rejuv + germ (if specced) during ToL
     if (this.owner.modules.combatants.selected.hasBuff(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id)) {
       if (this.tolManualApplyTimestamp !== null && event.timestamp <= this.tolManualApplyTimestamp + TREE_OF_LIFE_DURATION) {
         if (SPELLS.REJUVENATION.id === spellId) {
-          this.totalHealingFromRejuvenationDuringToL += event.amount;
+          this.totalHealingFromRejuvenationDuringToL += amount;
         } else if (this.hasGermination && SPELLS.REJUVENATION_GERMINATION.id === spellId) {
-          this.totalHealingFromRejuvenationDuringToL += event.amount;
+          this.totalHealingFromRejuvenationDuringToL += amount;
         } else if (SPELLS.WILD_GROWTH.id === spellId) {
-          this.totalHealingFromWildgrowthsDuringToL += event.amount;
+          this.totalHealingFromWildgrowthsDuringToL += amount;
         }
         // Get total healing during ToL
-        this.totalHealingDuringToL += event.amount;
+        this.totalHealingDuringToL += amount;
       } else {
         if (SPELLS.REJUVENATION.id === spellId) {
-          this.totalHealingFromRejuvenationDuringToLHelmet += event.amount;
+          this.totalHealingFromRejuvenationDuringToLHelmet += amount;
         } else if (this.hasGermination && SPELLS.REJUVENATION_GERMINATION.id === spellId) {
-          this.totalHealingFromRejuvenationDuringToLHelmet += event.amount;
+          this.totalHealingFromRejuvenationDuringToLHelmet += amount;
         } else if (SPELLS.WILD_GROWTH.id === spellId) {
-          this.totalHealingFromWildgrowthsDuringToLHelmet += event.amount;
+          this.totalHealingFromWildgrowthsDuringToLHelmet += amount;
         }
         // Get total healing during ToL
-        this.totalHealingDuringToLHelmet += event.amount;
+        this.totalHealingDuringToLHelmet += amount;
       }
     }
   }

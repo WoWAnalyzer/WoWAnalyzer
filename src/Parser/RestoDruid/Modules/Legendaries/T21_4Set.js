@@ -22,7 +22,7 @@ class T21_4Set extends Module {
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
-    const amount = event.amount + (event.absorbed === undefined ? 0 : event.absorbed);
+    const amount = event.amount + (event.absorbed || 0);
 
     if (this.combatants.selected.hasBuff(SPELLS.AWAKENED.id) && (spellId === SPELLS.YSERAS_GIFT_1.id || spellId === SPELLS.YSERAS_GIFT_2.id)) {
       this.yserasDuringAwakenedHealing += amount;
