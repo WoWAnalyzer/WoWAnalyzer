@@ -104,8 +104,8 @@ class CombatLogParser extends CoreCombatLogParser {
     naturesEssence: NaturesEssence, // already handled
 
     // Legendaries:
-    ekowraith: Ekowraith,
-    xonisCaress: XonisCaress,
+    ekowraith: Ekowraith, // DONE
+    xonisCaress: XonisCaress, // DONE
     sephuzsSecret: Sephuz,
     darkTitanAdvice: DarkTitanAdvice,
     essenceOfInfusion: EssenceOfInfusion,
@@ -174,9 +174,9 @@ class CombatLogParser extends CoreCombatLogParser {
     const darkTitanAdviceHealingFromProcc = this.getPercentageOfTotalHealingDone(this.modules.darkTitanAdvice.healingFromProccs);
     const essenceOfInfusionHealing = this.getPercentageOfTotalHealingDone(this.modules.essenceOfInfusion.healing);
     const tearstoneHealing = this.modules.tearstone.rejuvs * oneRejuvenationThroughput;
-    const xonisCaressHealingPercentage = this.getPercentageOfTotalHealingDone(this.modules.xonisCaress.healing);
-    const ekowraithHealingPercentage = this.getPercentageOfTotalHealingDone(this.modules.ekowraith.healing);
-    const ekowraithDamageReductionHealingPercentage = (this.modules.ekowraith.damageReductionHealing / (this.modules.healingDone.total.effective + this.modules.ekowraith.damageReductionHealing));
+    //const xonisCaressHealingPercentage = this.getPercentageOfTotalHealingDone(this.modules.xonisCaress.healing);
+    //const ekowraithHealingPercentage = this.getPercentageOfTotalHealingDone(this.modules.ekowraith.healing);
+    //const ekowraithDamageReductionHealingPercentage = (this.modules.ekowraith.damageReductionHealing / (this.modules.healingDone.total.effective + this.modules.ekowraith.damageReductionHealing));
     //let lifebloomUptime = this.modules.lifebloom.uptime / this.fightDuration;
     //if (lifebloomUptime > 1) {
     //  lifebloomUptime -= 1;
@@ -569,6 +569,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     results.items = [
       ...results.items,
+      /*
       this.modules.combatants.selected.hasChest(ITEMS.EKOWRAITH_CREATOR_OF_WORLDS.id) && {
         item: ITEMS.EKOWRAITH_CREATOR_OF_WORLDS,
         result: (
@@ -581,6 +582,8 @@ class CombatLogParser extends CoreCombatLogParser {
           </span>
         ),
       },
+      */
+      /*
       this.modules.combatants.selected.hasChest(ITEMS.XONIS_CARESS.id) && {
         item: ITEMS.XONIS_CARESS,
         result: (
@@ -589,6 +592,7 @@ class CombatLogParser extends CoreCombatLogParser {
           </dfn>
         ),
       },
+      */
       this.modules.combatants.selected.hasWaist(ITEMS.THE_DARK_TITANS_ADVICE.id) && {
         item: ITEMS.THE_DARK_TITANS_ADVICE,
         result: (
