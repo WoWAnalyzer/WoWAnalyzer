@@ -26,7 +26,7 @@ class SavageRoar extends Module {
   }
 
   on_damage(event) {
-    if (this.combatants.selected.hasBuff(SPELLS.SAVAGE_ROAR_TALENT.id, event.timestamp)) {
+    if (this.combatants.selected.hasBuff(SPELLS.SAVAGE_ROAR_TALENT.id, event.timestamp) && event.targetIsFriendly === false) {
       this.bonusDmg += getDamageBonus(event, SAVAGE_ROAR_DAMAGE_BONUS);
     }
   }
