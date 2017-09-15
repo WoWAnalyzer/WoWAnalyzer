@@ -15,19 +15,17 @@ class SindoreiSpite extends Module {
 
   bonusDmg = 0;
 
-  _petIds = [];
+  _petIds = new Set();
 
   on_initialized() {
     this.active = this.combatants.selected.hasWrists(ITEMS.SINDOREI_SPITE.id);
     this.owner.report.friendlyPets.filter(pet => pet.petOwner === this.owner.playerId).forEach(pet => {
-      if (this._petIds.indexOf(pet.id) === -1) {
-        this._petIds.push(pet.id);
-      }
+      this._petIds.add(pet.id);
     });
   }
 
   on_damage(event) {
-    if (this._petIds.indexOf(event.sourceID) === -1) {
+    if (!this._petIds.has(event.sourceID)) {
       return;
     }
     if (this.combatants.selected.hasBuff(SPELLS.SINDOREI_SPITE_BUFF.id, event.timestamp)) {

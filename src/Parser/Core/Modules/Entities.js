@@ -89,8 +89,8 @@ class Entities extends Module {
     }
 
     const existingBuff = entity.buffs.find(item => item.ability.guid === event.ability.guid && item.end === null);
-    const oldStacks = existingBuff.stacks || 1; // the original spell counts as 1 stack
     if (existingBuff) {
+      const oldStacks = existingBuff.stacks || 1; // the original spell counts as 1 stack
       existingBuff.stacks = event.stack;
 
       this._triggerChangeBuffStack(existingBuff, oldStacks, existingBuff.stacks);

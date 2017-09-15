@@ -13,21 +13,19 @@ class LessonsOfSpaceTime extends Module {
     combatants: Combatants,
   };
 
-  _petIds = [];
+  _petIds = new Set();
 
   bonusDmg = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.hasShoulder(ITEMS.LESSONS_OF_SPACETIME.id);
     this.owner.report.friendlyPets.filter(pet => pet.petOwner === this.owner.playerId).forEach(pet => {
-      if (this._petIds.indexOf(pet.id) === -1) {
-        this._petIds.push(pet.id);
-      }
+      this._petIds.add(pet.id);
     });
   }
 
   on_damage(event) {
-    if (this._petIds.indexOf(event.sourceID) === -1) {
+    if (!this._petIds.has(event.sourceID)) {
       return;
     }
     if (this.combatants.selected.hasBuff(SPELLS.LESSONS_OF_SPACETIME_BUFF.id, event.timestamp)) {

@@ -1,4 +1,4 @@
-import React from 'react';
+
 
 import SPELLS from 'common/SPELLS';
 
@@ -15,19 +15,22 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 30,
       recommendedCastEfficiency: 0.9,
-      extraSuggestion: <span>Try to use Wake as much as possible. It has a high damage per execute time and generates a lot of holy power. It is better to waste 1-2 holy power than to hold the ability.</span>,
+      extraSuggestion: 'Try to use Wake as much as possible. It has a high damage per execute time and generates a lot of holy power. It is better to waste 1-2 holy power than to hold the ability.',
     },
     {
       spell: SPELLS.CRUSADE_TALENT,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 120,
       isActive: combatant => combatant.hasTalent(SPELLS.CRUSADE_TALENT.id),
+      recommendedCastEfficiency: 0.95,
+      importance: ISSUE_IMPORTANCE.MAJOR,
     },    
     {
       spell: SPELLS.AVENGING_WRATH,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 120,
       hideWithZeroCasts: true,
+      recommendedCastEfficiency: 0.95,
     },
     {
       spell: SPELLS.HOLY_WRATH_TALENT,
@@ -45,6 +48,7 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.CRUSADER_STRIKE,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 4.5 / (1 + haste),
+      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.ZEAL_TALENT,
@@ -73,6 +77,7 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.TEMPLARS_VERDICT,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => null,
+      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.DIVINE_STORM,
@@ -98,6 +103,7 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => null,
       isActive: combatant => combatant.hasTalent(SPELLS.JUSTICARS_VENGEANCE_TALENT.id),
+      noSuggestion: true,
       hideWithZeroCasts: true,
     },
     {
@@ -105,6 +111,7 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => null,
       isActive: combatant => combatant.hasTalent(SPELLS.EYE_FOR_AN_EYE_TALENT.id),
+      noSuggestion: true,
       hideWithZeroCasts: true,
     },
     {
@@ -112,6 +119,7 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => null,
       isActive: combatant => combatant.hasTalent(SPELLS.WORD_OF_GLORY_TALENT.id),
+      noSuggestion: true,
       hideWithZeroCasts: true,
     },
   ];

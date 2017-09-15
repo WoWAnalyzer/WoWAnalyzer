@@ -11,6 +11,8 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownTracker from './Modules/Features/CooldownTracker';
 import DamageDone from './Modules/PaladinCore/DamageDone';
 
+import WhisperOfTheNathrezim from './Modules/Items/WhisperOfTheNathrezim';
+
 class CombatLogParser extends CoreCombatLogParser {
 
   static specModules = {
@@ -29,6 +31,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Traits
 
     // Items:
+    whisperOfTheNathrezim: WhisperOfTheNathrezim,
   };
 
   generateResults() {
