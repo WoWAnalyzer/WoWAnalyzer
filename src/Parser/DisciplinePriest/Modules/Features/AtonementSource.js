@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-
 import Module from 'Parser/Core/Module';
 
 class AtonementSource extends Module {
