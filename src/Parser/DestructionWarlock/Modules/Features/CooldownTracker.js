@@ -30,7 +30,6 @@ class CooldownTracker extends CoreCooldownTracker {
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],
     },
-    //now when I think of it, neither of the following will show up as a cooldown either :/
     {
       spell: SPELLS.SUMMON_DOOMGUARD_UNTALENTED,
       duration: 25,
