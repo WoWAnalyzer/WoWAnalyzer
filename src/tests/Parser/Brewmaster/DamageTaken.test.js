@@ -8,6 +8,8 @@ describe('Brewmaster.DamageTaken', () => {
     damageTaken = new DamageTaken({
       toPlayer: () => true,
       byPlayer: () => true,
+      toPlayerPet: () => false,
+      byPlayerPet: () => false,
     });
   });
   it('damage taken with no events', () => {

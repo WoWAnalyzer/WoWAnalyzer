@@ -8,6 +8,8 @@ describe('GuardianDruid.Gore', () => {
     gore = new Gore({
       toPlayer: () => true,
       byPlayer: () => true,
+      toPlayerPet: () => false,
+      byPlayerPet: () => false,
     });
   });
   it('track gore procs with no events', () => {
