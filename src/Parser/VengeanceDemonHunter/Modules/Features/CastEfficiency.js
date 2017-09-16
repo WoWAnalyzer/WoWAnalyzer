@@ -16,27 +16,11 @@ class CastEfficiency extends CoreCastEfficiency {
       extraSuggestion: <span>This is a great Pain filler spell. Try to always cast it on cooldown, specially when using <ItemLink id={ITEMS.KIREL_NARAK.id} /> legendary to trigger it's passive and/or using the <SpellLink id={SPELLS.FALLOUT_TALENT.id} /> talent in order to maximize your <SpellLink id={SPELLS.SOUL_FRAGMENT.id} /> generation. </span>,
     },
     {
-      spell: SPELLS.SIGIL_OF_FLAME_DEBUFF,
-      isActive: combatant => (combatant.hasTalent(SPELLS.FLAME_CRASH_TALENT.id) || combatant.hasWrists(ITEMS.THE_DEFILERS_LOST_VAMBRACES.id)),
-      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => 9,
-      recommendedCastEfficiency: 0.75,
-      extraSuggestion: <span>This is a great fire DoT spell. Try to always cast it on cooldown, specially when using <SpellLink id={SPELLS.FLAME_CRASH_TALENT.id} /> talent to apply it just by using <SpellLink id={SPELLS.INFERNAL_STRIKE.id} /> ability and/or using the <ItemLink id={ITEMS.THE_DEFILERS_LOST_VAMBRACES.id} /> legendary to reduce it's cooldown. </span>,
-    },
-    {
-      spell: SPELLS.SIGIL_OF_FLAME_DEBUFF,
-      isActive: combatant => !(combatant.hasTalent(SPELLS.FLAME_CRASH_TALENT.id) || combatant.hasWrists(ITEMS.THE_DEFILERS_LOST_VAMBRACES.id)),
-      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => 30 / (1 + haste),
-      recommendedCastEfficiency: 0.5,
-      extraSuggestion: <span>This is a great fire DoT spell. Try to always cast it on cooldown. </span>,
-    },
-    {
       spell: SPELLS.DEMON_SPIKES,
       isActive: combatant => combatant.hasTalent(SPELLS.RAZOR_SPIKES_TALENT.id),
       category: CastEfficiency.SPELL_CATEGORIES.DEFENSIVE,
       getCooldown: haste => 15 / (1 + haste),
-      recommendedCastEfficiency: 1.0,
+      recommendedCastEfficiency: 0.9,
       extraSuggestion: <span>This is a great physical reduction spell and it also provides a great physical damage increase in your case, giving your <SpellLink id={SPELLS.RAZOR_SPIKES_TALENT.id} /> talent choice. Try to always cast it on cooldown. </span>,
     },
     {
@@ -51,7 +35,7 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.SOUL_CARVER,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 40,
-      recommendedCastEfficiency: 0.9,
+      recommendedCastEfficiency: 0.90,
       extraSuggestion: <span>This is your cooldown <SpellLink id={SPELLS.SOUL_FRAGMENT.id} /> generator spell and it does the higher damage / casting time of all your abilities. The only moment you can delay it's cast is if you already have 5 unused <SpellLink id={SPELLS.SOUL_FRAGMENT.id} /> or if you are waiting for a damage burst combo with <SpellLink id={SPELLS.FIERY_BRAND.id} /> (with the <SpellLink id={SPELLS.FIERY_DEMISE.id} /> artifact trait). </span>,
     },
     {
@@ -67,7 +51,7 @@ class CastEfficiency extends CoreCastEfficiency {
       isActive: combatant => combatant.hasTalent(SPELLS.FEL_ERUPTION_TALENT.id),
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 30,
-      recommendedCastEfficiency: 0.95,
+      recommendedCastEfficiency: 0.90,
       extraSuggestion: <span>This is a great Chaos burst damage spell and it does a huge single target DPS increase by just 10 Pain per cast. Should definitively be used as soon as it gets available. </span>,
     },
     {
