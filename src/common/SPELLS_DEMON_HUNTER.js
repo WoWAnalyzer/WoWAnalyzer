@@ -46,6 +46,11 @@ export default {
     name: 'Soul Fragment',
     icon: 'spell_shadow_soulgem',
   },
+  SOUL_FRAGMENT_STACK: {
+    id: 203981,
+    name: 'Soul Fragment',
+    icon: 'spell_shadow_soulgem',
+  },
   EMPOWER_WARDS: {
     id: 218256,
     name: 'Empower Wards',
@@ -201,6 +206,11 @@ export default {
   FRAILTY_SPIRIT_BOMB_DEBUFF: {
     id: 247456,
     name: 'Frailty',
+    icon: 'inv_icon_shadowcouncilorb_purple',
+  },
+  SPIRIT_BOMB_DAMAGE: {
+    id: 247455,
+    name: 'Spirit Bomb',
     icon: 'inv_icon_shadowcouncilorb_purple',
   },
   FELBLADE_PAIN_GENERATION: {
