@@ -94,6 +94,10 @@ class CooldownTracker extends CoreCooldownTracker {
     });
     super.trackEvent(event);
   }
+
+  on_byPlayerPet_damage(event) {
+    this.trackEvent(event);
+  }
 }
 
 export default CooldownTracker;
