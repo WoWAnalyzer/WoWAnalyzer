@@ -1,8 +1,6 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
-import SpellLink from 'common/SpellLink';
 import ITEMS from 'common/ITEMS';
 import { formatNumber, formatPercentage } from 'common/format';
 
@@ -23,25 +21,24 @@ class WhisperOfTheNathrezim extends Module {
 	}
 
 	on_byPlayer_damage(event) {
-		if (this.combatants.selected.hasBuff(SPELLS.WHISPER_OF_THE_NATHREZIM.id)){
-			if(event.ability.guid === SPELLS.TEMPLARS_VERDICT_DAMAGE.id || event.ability.guid === SPELLS.DIVINE_STORM.id){
-				this.damageDone += ((event.amount || 0) + (event.aborbed || 0)) * WHISPER_OF_THE_NATHREZIM_MODIFIER / (1 + WHISPER_OF_THE_NATHREZIM_MODIFIER);
+		if (this.combatants.selected.hasBuff(SPELLS.WHISPER_OF_THE_NATHREZIM_BUFF.id)){
+			if(event.ability.guid === SPELLS.TEMPLARS_VERDICT_DAMAGE.id || event.ability.guid === SPELLS.DIVINE_STORM_DAMAGE.id){
+				this.damageDone += ((event.amount || 0) + (event.absorbed || 0)) * WHISPER_OF_THE_NATHREZIM_MODIFIER / (1 + WHISPER_OF_THE_NATHREZIM_MODIFIER);
 			}
 		}
 	}
 
 	item() {
-	
-		const RetLeggoCloakUptime = this.combatants.selected.getBuffUptime(SPELLS.WHISPER_OF_THE_NATHREZIM.id) / this.owner.fightDuration;
-		const fightLengthSec = this.owner.fightDuration / 1000;
-		const dps = this.damageDone / fightLengthSec;
+		const uptime = this.combatants.selected.getBuffUptime(SPELLS.WHISPER_OF_THE_NATHREZIM_BUFF.id) / this.owner.fightDuration;
 		return {
-			id: `spell-${SPELLS.WHISPER_OF_THE_NATHREZIM.id}`,
-			icon: <SpellIcon id={SPELLS.WHISPER_OF_THE_NATHREZIM.id} />,
-			title: <SpellLink id={SPELLS.WHISPER_OF_THE_NATHREZIM.id} />,
-			result: (
-				`${formatPercentage(RetLeggoCloakUptime)}% uptime / ${formatNumber(dps)} DPS`
-			),
+			item: ITEMS.WHISPER_OF_THE_NATHREZIM,
+			result: (<dfn data-tip={`
+				The effective damage contributed by Whisper of the Nathrezim.<br/>
+				Damage: ${this.owner.formatItemDamageDone(this.damageDone)}<br/>
+				Total Damage: ${formatNumber(this.damageDone)}<br/>
+				Percent Uptime: ${formatPercentage(uptime)}%`}>
+          		{this.owner.formatItemDamageDone(this.damageDone)}
+       		</dfn>),
 		};
 	}
 }

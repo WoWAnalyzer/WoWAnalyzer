@@ -15,7 +15,7 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 30,
       recommendedCastEfficiency: 0.9,
-      extraSuggestion: 'Try to use Wake as much as possible. It has a high damage per execute time and generates a lot of holy power. It is better to waste 1-2 holy power than to hold the ability.',
+      extraSuggestion: 'It has a high damage per execute time and generates a lot of holy power. It is better to waste 1-2 holy power than to hold the ability.',
     },
     {
       spell: SPELLS.CRUSADE_TALENT,
