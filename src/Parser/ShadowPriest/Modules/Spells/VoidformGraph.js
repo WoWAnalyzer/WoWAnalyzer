@@ -23,9 +23,9 @@ const SURRENDER_TO_MADNESS_VOIDFORM_MS_THRESHOLD = 150000;
 
 // current insanity formula:
 // d = 6 + (2/3)*x
-// where d = total drain of Insanity over 1 second 
+// where d = total drain of Insanity over 1 second
 // max insanity is 10000 (100 ingame)
-const INSANITY_DRAIN_INCREASE = 2 / 3 * 100; // ~66.67;
+const INSANITY_DRAIN_INCREASE = 2/3 * 100; // ~66.67;
 const INSANITY_DRAIN_INITIAL = 6 * 100; // 600;
 const VOIDFORM_MINIMUM_INITIAL_INSANITY = 65 * 100; // 6500;
 
@@ -33,15 +33,15 @@ const VOIDFORM_MINIMUM_INITIAL_INSANITY = 65 * 100; // 6500;
 const T20_4P_DECREASE_DRAIN_MODIFIER_NORMAL = 0.9;
 const T20_4P_DECREASE_DRAIN_MODIFIER_SURRENDER_TO_MADNESS = 0.95;
 
-const VoidformGraph = ({ 
-    lingeringInsanityStacks, 
-    mindbenderEvents, 
-    voidTorrentEvents, 
+const VoidformGraph = ({
+    lingeringInsanityStacks,
+    mindbenderEvents,
+    voidTorrentEvents,
     dispersionEvents,
     insanityEvents,
     surrenderToMadness = false,
     setT20P4 = false,
-    fightEnd, 
+    fightEnd,
     ...voidform
 }) => {
     // todo: change ended to end on Voidform for consistency;
@@ -68,10 +68,10 @@ const VoidformGraph = ({
   const endOfVoidformData = [];
   const endData = [];
 
-  const INSANITY_DRAIN_MODIFIER = setT20P4 ? 
-      (surrenderToMadness ? 
+  const INSANITY_DRAIN_MODIFIER = setT20P4 ?
+      (surrenderToMadness ?
         T20_4P_DECREASE_DRAIN_MODIFIER_SURRENDER_TO_MADNESS :
-        T20_4P_DECREASE_DRAIN_MODIFIER_NORMAL) 
+        T20_4P_DECREASE_DRAIN_MODIFIER_NORMAL)
       : 1;
 
   const INSANITY_DRAIN_START = INSANITY_DRAIN_INITIAL * INSANITY_DRAIN_MODIFIER;
@@ -169,7 +169,7 @@ const VoidformGraph = ({
     }
   }
 
-    
+
   let legends = {
     classNames: [
       'stacks',
@@ -185,7 +185,7 @@ const VoidformGraph = ({
   let chartData = {
     labels,
     series: [
-        
+
 
       {
         className: 'stacks',
@@ -213,7 +213,7 @@ const VoidformGraph = ({
         name: 'Mindbender',
         data: Object.keys(mindbenderData).map(key => mindbenderData[key]).slice(0, steps),
       },
-        
+
 
       {
         className: 'dispersion',
@@ -221,7 +221,7 @@ const VoidformGraph = ({
         data: Object.keys(dispersionData).map(key => dispersionData[key]).slice(0, steps),
       },
 
-        
+
       {
         className: 'endOfVoidform',
         name: 'End of Voidform',
@@ -281,7 +281,7 @@ const VoidformGraph = ({
 
   return (<ChartistGraph
       data={chartData}
-      
+
       options={{
         low: 0,
         high: 100,
