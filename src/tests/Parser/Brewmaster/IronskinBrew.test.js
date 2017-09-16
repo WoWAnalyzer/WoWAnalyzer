@@ -8,6 +8,8 @@ describe('Brewmaster.IronskinBrew', () => {
     isb = new IronSkinBrew({
       toPlayer: () => true,
       byPlayer: () => true,
+      toPlayerPet: () => false,
+      byPlayerPet: () => false,
     });
   });
   it('tracks the number of hits with the ironskin brew buff with no events', () => {

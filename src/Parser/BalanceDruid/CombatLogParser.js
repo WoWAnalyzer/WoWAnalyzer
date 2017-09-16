@@ -4,6 +4,8 @@ import SuggestionsTab from 'Main/SuggestionsTab';
 
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 
+import Haste from './Modules/Core/Haste';
+
 import DamageDone from './Modules/Features/DamageDone';
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
@@ -18,10 +20,12 @@ import FullMoon from './Modules/Spells/FullMoon';
 //import LunarOvercap from './Modules/Spells/Empowerments/LunarOvercap';
 //import SolarOvercap from './Modules/Spells/Empowerments/SolarOvercap';
 import AstralPower from './Modules/Features/AstralPower';
+import UnempoweredLs from './Modules/Spells/UnempoweredLs';
 
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
+    haste: Haste,
       // Features
     damageDone: DamageDone,
     castEfficiency: CastEfficiency,
@@ -37,6 +41,7 @@ class CombatLogParser extends MainCombatLogParser {
       //lunarovercap: LunarOvercap,
       //solarovercap: SolarOvercap,
     astralpower: AstralPower,
+    unempoweredLS: UnempoweredLs,
   };
   
   generateResults() {

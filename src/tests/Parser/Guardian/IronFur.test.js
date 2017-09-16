@@ -8,6 +8,8 @@ describe('Core.IronFur', () => {
     ironfur = new IronFur({
       toPlayer: () => true,
       byPlayer: () => true,
+      toPlayerPet: () => false,
+      byPlayerPet: () => false,
     });
   });
   it('track last ironfur time with noevents', () => {

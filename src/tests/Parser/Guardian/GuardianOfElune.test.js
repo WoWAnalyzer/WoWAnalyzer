@@ -8,6 +8,8 @@ describe('Features.GuardianOfElune', () => {
     guardian = new GuardianOfElune({
       toPlayer: () => true,
       byPlayer: () => true,
+      toPlayerPet: () => false,
+      byPlayerPet: () => false,
     });
   });
   it('trach GoE procs with no events', () => {

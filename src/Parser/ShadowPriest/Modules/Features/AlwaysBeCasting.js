@@ -9,8 +9,6 @@ import SPELLS from 'common/SPELLS';
 
 import CoreAlwaysBeCasting from 'Parser/Core/Modules/AlwaysBeCasting';
 
-const debug = false;
-
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   _highestVoidformStack = 0;
   _highestLingeringStack = 0;
@@ -51,51 +49,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
 
   ];
 
-  on_toPlayer_applybuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.LINGERING_INSANITY.id) {
-      this.applyHasteLoss(this._highestVoidformStack * 0.01);
-      debug && console.log(`ABC: Current haste: ${this.currentHaste} (lost ${0.01 * this._highestVoidformStack} from VOIDFORM_BUFF)`);
-
-      this._highestLingeringStack = this._highestVoidformStack;
-      this.applyHasteGain(this._highestLingeringStack * 0.01);
-        
-      this._highestVoidformStack = 0;
-        
-      debug && console.log(`ABC: Current haste: ${this.currentHaste} (gained ${0.01 * this._highestLingeringStack} from LINGERING_INSANITY)`);
-      return;
-    }
-
-    if (spellId === SPELLS.VOID_TORRENT.id) {
-      return;
-    }
-    
-    super.on_toPlayer_applybuff(event);
-  }
-
-
-  on_toPlayer_applybuffstack(event) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.VOIDFORM_BUFF.id) {
-      this.applyHasteLoss(this._highestVoidformStack * 0.01);
-      this._highestVoidformStack = event.stack;
-      this.applyHasteGain(this._highestVoidformStack * 0.01);
-
-      debug && console.log(`ABC: Current haste: ${this.currentHaste} (gained ${0.01 * this._highestVoidformStack} from VOIDFORM_BUFF)`);
-    }
-  }
-
-  on_toPlayer_removebuffstack(event) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.LINGERING_INSANITY.id) {
-      this.applyHasteLoss(this._highestLingeringStack * 0.01);
-      this._highestLingeringStack = event.stack;
-      this.applyHasteGain(this._highestLingeringStack * 0.01);
-
-      debug && console.log(`ABC: Current haste: ${this.currentHaste} (lost ${0.02} from LINGERING_INSANITY)`);
-    }
-  }
-
   on_toPlayer_removebuff(event) {
     const spellId = event.ability.guid;
     if (
@@ -103,20 +56,8 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
         spellId === SPELLS.DISPERSION.id ||
         spellId === SPELLS.VOID_TORRENT.id
     ) {
-      this.lastCastFinishedTimestamp = event.timestamp;
-      return;
+      this._lastCastFinishedTimestamp = event.timestamp;
     }
-
-
-    super.on_toPlayer_removebuff(event);
-  }
-
-  on_finished() {
-    const fightDuration = this.owner.fight.end_time - this.owner.fight.start_time;
-    debug && console.log('totalTimeWasted:', this.totalTimeWasted, 'totalTime:', fightDuration, (this.totalTimeWasted / fightDuration));
-    debug && console.log('totalHealingTimeWasted:', this.totalHealingTimeWasted, 'totalTime:', fightDuration, (this.totalHealingTimeWasted / fightDuration));
-
-    // override default as it never does the voidform/lingering insanity haste changes
   }
 
   suggestions(when) {

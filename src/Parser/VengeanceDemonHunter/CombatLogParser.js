@@ -10,13 +10,13 @@ import PainChart from './Modules/PainChart/Pain';
 
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CastEfficiency from './Modules/Features/CastEfficiency';
-import SpiritBomb from './Modules/Features/SpiritBomb';
 
 import DamageDone from './Modules/Statistics/Core/DamageDone';
 import DamageTaken from './Modules/Statistics/Core/DamageTaken';
 import HealingDone from './Modules/Statistics/Core/HealingDone';
 
 import SoulFragments from './Modules/Statistics/SoulFragments/SoulFragments';
+import SpiritBomb from './Modules/Statistics/SpiritBomb/SpiritBomb';
 
 import ImmolationAura from './Modules/Statistics/Spells/ImmolationAura';
 import DemonSpikes from './Modules/Statistics/Spells/DemonSpikes';

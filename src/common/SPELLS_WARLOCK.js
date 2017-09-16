@@ -476,6 +476,21 @@ export default {
     name: 'Fiery Soul',
     icon: 'inv_belt_cloth_raidwarlock_n_01',
   },
+  ALYTHESSS_PYROGENICS_DEBUFF: {
+    id: 205675,
+    name: 'Alythess\'s Pyrogenics',
+    icon: 'inv_jewelry_ring_65',
+  },
+  SINDOREI_SPITE_BUFF: {
+    id: 208871,
+    name: 'Sin\'dorei Spite',
+    icon: 'creatureportrait_infernal_ball_02',
+  },
+  LESSONS_OF_SPACETIME_BUFF: {
+    id: 236176,
+    name: 'Lessons Of Space-Time',
+    icon: 'spell_warlock_demonicportal_purple',
+  },
   ODR_SHAWL_OF_THE_YMIRJAR_DEBUFF: {
     id: 212173,
     name: 'Odr, Shawl of the Ymirjar',
