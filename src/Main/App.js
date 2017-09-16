@@ -71,6 +71,9 @@ class App extends Component {
   getPlayerFromReport(report, playerName) {
     return report.friendlies.find(friendly => friendly.name === playerName);
   }
+  getPlayerPetsFromReport(report, playerId) {
+    return report.friendlyPets.filter(pet => pet.petOwner === playerId);
+  }
   getFightFromReport(report, fightId) {
     return report.fights.find(fight => fight.id === fightId);
   }
@@ -112,6 +115,7 @@ class App extends Component {
       alert(`Unknown player: ${playerName}`);
       return;
     }
+    const playerPets = this.getPlayerPetsFromReport(report, player.id);
     const fight = this.getFightFromReport(report, fightId);
 
     const combatant = combatants.find(combatant => combatant.sourceID === player.id);
@@ -125,7 +129,7 @@ class App extends Component {
     }
 
     const ParserClass = config.parser;
-    const parser = new ParserClass(report, player, fight);
+    const parser = new ParserClass(report, player, playerPets, fight);
 
     this.setState({
       config,

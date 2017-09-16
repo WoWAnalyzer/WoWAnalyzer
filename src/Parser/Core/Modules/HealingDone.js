@@ -9,15 +9,21 @@ class HealingDone extends Module {
   }
   bySecond = {};
 
-  on_byPlayer_heal(event) {
-    this._addHealing(event.timestamp, event.amount, event.absorbed, event.overheal);
+  on_heal(event) {
+    if (this.owner.byPlayer(event) || this.owner.byPlayerPet(event)) {
+      this._addHealing(event.timestamp, event.amount, event.absorbed, event.overheal);
+    }
   }
-  on_byPlayer_absorbed(event) {
-    this._addHealing(event.timestamp, 0, event.amount, 0);
+  on_absorbed(event) {
+    if (this.owner.byPlayer(event) || this.owner.byPlayerPet(event)) {
+      this._addHealing(event.timestamp, 0, event.amount, 0);
+    }
   }
-  on_byPlayer_removebuff(event) {
-    if (event.absorb) {
-      this._addHealing(event.timestamp, 0, 0, event.absorb);
+  on_removebuff(event) {
+    if (this.owner.byPlayer(event) || this.owner.byPlayerPet(event)) {
+      if (event.absorb) {
+        this._addHealing(event.timestamp, 0, 0, event.absorb);
+      }
     }
   }
 
