@@ -36,7 +36,7 @@ class HealingDone extends Module {
   _addHealing(event, amount = 0, absorbed = 0, overheal = 0) {
     this._total = this._total.add(amount, absorbed, overheal);
 
-    const spellId = event.guid;
+    const spellId = event.ability.guid;
     if (this._byAbility[spellId]) {
       this._byAbility[spellId] = this._byAbility[spellId].add(amount, absorbed, overheal);
     } else {
