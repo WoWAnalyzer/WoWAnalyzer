@@ -12,7 +12,11 @@ class HealingDone extends Module {
 
   _byAbility = {};
   byAbility(spellId) {
-    return this._byAbility[spellId];
+    if(!this._byAbility[spellId]) {
+      return new HealingValue(0, 0, 0);
+    } else {
+      return this._byAbility[spellId];
+    }
   }
 
   on_heal(event) {
