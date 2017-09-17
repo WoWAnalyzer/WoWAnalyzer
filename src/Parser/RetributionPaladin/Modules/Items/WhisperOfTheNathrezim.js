@@ -7,7 +7,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-const WHISPER_OF_THE_NATHREZIM_MODIFIER = .15;
+const WHISPER_OF_THE_NATHREZIM_MODIFIER = 0.15;
 
 class WhisperOfTheNathrezim extends Module {
   static dependencies = {

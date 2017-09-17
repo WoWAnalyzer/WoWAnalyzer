@@ -9,7 +9,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import getDamageBonus from '../WarlockCore/getDamageBonus';
 
-const AC_DAMAGE_BONUS = .25;
+const AC_DAMAGE_BONUS = 0.25;
 
 class AbsoluteCorruption extends Module {
   static dependencies = {

@@ -201,9 +201,62 @@ module.exports = {
     // Others
 
     // Best practices
+    // treat var statements as if they were block scoped
+    'block-scoped-var': 'warn',
     // require return statements to either always or never specify values
     'consistent-return': 'warn',
     // specify curly brace conventions for all control statements
     curly: ['warn', 'multi-line'],
+    // require default case in switch statements
+    'default-case': ['warn', { commentPattern: '^no default$' }],
+    // enforces consistent newlines before or after dots
+    // http://eslint.org/docs/rules/dot-location
+    'dot-location': ['warn', 'property'],
+    // require the use of === and !==
+    // http://eslint.org/docs/rules/eqeqeq
+    eqeqeq: ['warn', 'always', { null: 'ignore' }],
+    // make sure for-in loops have an if statement
+    'guard-for-in': 'warn',
+    // disallow the use of alert, confirm, and prompt
+    'no-alert': 'warn',
+    // disallow use of arguments.caller or arguments.callee
+    'no-caller': 'warn',
+    // disallow empty functions, except for standalone funcs/arrows
+    // http://eslint.org/docs/rules/no-empty-function
+    'no-empty-function': ['warn', {
+      allow: [
+        'arrowFunctions',
+        'functions',
+        'methods',
+      ]
+    }],
+    // disallow empty destructuring patterns
+    // http://eslint.org/docs/rules/no-empty-pattern
+    'no-empty-pattern': 'warn',
+    // disallow use of eval()
+    'no-eval': 'warn',
+    // disallow adding to native types
+    'no-extend-native': 'warn',
+    // disallow unnecessary function binding
+    'no-extra-bind': 'warn',
+    // disallow Unnecessary Labels
+    // http://eslint.org/docs/rules/no-extra-label
+    'no-extra-label': 'warn',
+    // disallow fallthrough of case statements
+    'no-fallthrough': 'warn',
+    // disallow the use of leading or trailing decimal points in numeric literals
+    'no-floating-decimal': 'warn',
+    // disallow reassignments of native objects or read-only globals
+    // http://eslint.org/docs/rules/no-global-assign
+    'no-global-assign': ['warn', { exceptions: [] }],
+    // disallow use of eval()-like methods
+    'no-implied-eval': 'warn',
+    // disallow usage of __iterator__ property
+    'no-iterator': 'warn',
+    // disallow use of labels for anything other then loops and switches
+    'no-labels': ['warn', { allowLoop: false, allowSwitch: false }],
+    // disallow unnecessary nested blocks
+    // https://eslint.org/docs/rules/no-lone-blocks
+    'no-lone-blocks': 'warn',
   },
 };

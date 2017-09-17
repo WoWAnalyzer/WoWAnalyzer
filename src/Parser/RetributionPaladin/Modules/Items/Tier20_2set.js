@@ -8,7 +8,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-const RET_PALADIN_T20_2SET_MODIFIER = .2;
+const RET_PALADIN_T20_2SET_MODIFIER = 0.2;
 
 class Tier20_2set extends Module {
   static dependencies = {

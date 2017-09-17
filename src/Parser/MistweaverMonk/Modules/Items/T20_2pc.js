@@ -12,7 +12,7 @@ import Module from 'Parser/Core/Module';
 const debug = false;
 
 const BASEMANA = 1100000;
-const TWOPC_MANA_REDUCTION = .75;
+const TWOPC_MANA_REDUCTION = 0.75;
 
 class T20_2pc extends Module {
   static dependencies = {

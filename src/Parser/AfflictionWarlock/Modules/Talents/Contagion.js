@@ -12,7 +12,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../Constants';
 import getDamageBonus from '../WarlockCore/getDamageBonus';
 
-const CONTAGION_DAMAGE_BONUS = .15;
+const CONTAGION_DAMAGE_BONUS = 0.15;
 
 class Contagion extends Module {
   static dependencies = {

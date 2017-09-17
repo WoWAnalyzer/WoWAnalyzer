@@ -16,7 +16,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 const debug = false;
 
 const baseMana = 1100000;
-const manaTeaReduction = .5;
+const manaTeaReduction = 0.5;
 
 class ManaTea extends Module {
   static dependencies = {

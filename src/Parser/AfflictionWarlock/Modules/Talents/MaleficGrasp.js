@@ -19,7 +19,7 @@ const AFFECTED_ABILITIES = new Set([
   ...UNSTABLE_AFFLICTION_DEBUFF_IDS,
 ]);
 
-const MALEFIC_GRASP_DAMAGE_BONUS = .25;
+const MALEFIC_GRASP_DAMAGE_BONUS = 0.25;
 
 class MaleficGrasp extends Module {
   static dependencies = {

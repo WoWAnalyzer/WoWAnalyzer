@@ -57,6 +57,7 @@ function registerValidSW(swUrl) {
               // It's the perfect time to display a "New content is
               // available; please refresh." message in your web app.
               console.log('New content is available; please refresh.');
+              // eslint-disable-next-line no-alert
               if (window.confirm('A new version is available, do you wish to refresh to load it?')) {
                 window.location.reload();
               }

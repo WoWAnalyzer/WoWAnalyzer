@@ -6,7 +6,7 @@ import { formatNumber } from 'common/format';
 
 import getDamageBonus from '../../WarlockCore/getDamageBonus';
 
-const LESSONS_OF_SPACETIME_DAMAGE_BONUS = .1;
+const LESSONS_OF_SPACETIME_DAMAGE_BONUS = 0.1;
 
 class LessonsOfSpaceTime extends Module {
   static dependencies = {

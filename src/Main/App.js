@@ -33,6 +33,8 @@ const PROGRESS_STEP1_INITIALIZATION = 0.02;
 const PROGRESS_STEP2_FETCH_EVENTS = 0.13;
 const PROGRESS_STEP3_PARSE_EVENTS = 0.99;
 
+/* eslint-disable no-alert */
+
 class App extends Component {
   static propTypes = {
     router: PropTypes.shape({

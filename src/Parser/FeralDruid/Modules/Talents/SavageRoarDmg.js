@@ -11,7 +11,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import getDamageBonus from '../FeralCore/getDamageBonus';
 
-const SAVAGE_ROAR_DAMAGE_BONUS = .15;
+const SAVAGE_ROAR_DAMAGE_BONUS = 0.15;
 
 class SavageRoar extends Module {
   static dependencies = {

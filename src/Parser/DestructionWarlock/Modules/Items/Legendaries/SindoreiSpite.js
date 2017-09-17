@@ -6,7 +6,7 @@ import { formatNumber } from 'common/format';
 
 import getDamageBonus from '../../WarlockCore/getDamageBonus';
 
-const SINDOREI_SPITE_DAMAGE_BONUS = .15;
+const SINDOREI_SPITE_DAMAGE_BONUS = 0.15;
 
 class SindoreiSpite extends Module {
   static dependencies = {

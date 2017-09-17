@@ -6,7 +6,7 @@ import ITEMS from 'common/ITEMS';
 
 import getDamageBonus from '../WarlockCore/getDamageBonus';
 
-const SOUL_HARVEST_DAMAGE_BONUS = .2;
+const SOUL_HARVEST_DAMAGE_BONUS = 0.2;
 
 class SoulHarvest extends Module {
   static dependencies = {
