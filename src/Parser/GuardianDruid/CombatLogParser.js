@@ -6,6 +6,8 @@ import Talents from 'Main/Talents';
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
+import Cinidaria from 'Parser/Core/Modules/Items/Cinidaria';
+
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import DamageTaken from './Modules/Core/DamageTaken';
 import HealingDone from './Modules/Core/HealingDone';
@@ -60,6 +62,7 @@ class CombatLogParser extends CoreCombatLogParser {
     skysecs: SkysecsHold,
     luffaWrappings: LuffaWrappings,
     furyOfNature: FuryOfNature,
+    cinidaria: Cinidaria,
   };
 
   generateResults() {
@@ -78,7 +81,7 @@ class CombatLogParser extends CoreCombatLogParser {
         url: 'talents',
         render: () => (
           <Tab title="Talents">
-            <Talents combatant={this.selectedCombatant} />
+            <Talents combatant={this.modules.combatants.selected} />
           </Tab>
         ),
       },

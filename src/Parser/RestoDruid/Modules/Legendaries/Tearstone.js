@@ -24,7 +24,7 @@ class Tearstone extends Module {
     if (SPELLS.WILD_GROWTH.id === spellId) {
       this.wildgrowthTimestamp = event.timestamp;
       this.wildGrowthTargets = [];
-      if (this.owner.selectedCombatant.hasBuff(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id)) {
+      if (this.owner.modules.combatants.selected.hasBuff(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id)) {
         this.wildGrowths += 8;
       } else {
         this.wildGrowths += 6;
@@ -47,13 +47,13 @@ class Tearstone extends Module {
       // "consume" the rejuv cast we were tracking
       this.rejuvTarget = null;
       this.rejuvTimestamp = null;
-        return;
+      return;
     }
 
     if ((SPELLS.REJUVENATION.id === spellId || SPELLS.REJUVENATION_GERMINATION.id === spellId)
       && (event.timestamp - this.wildgrowthTimestamp) < 200
       && this.wildGrowthTargets.indexOf(event.targetID) !== -1) {
-      this.rejuvs++;
+      this.rejuvs += 1;
     }
   }
 }

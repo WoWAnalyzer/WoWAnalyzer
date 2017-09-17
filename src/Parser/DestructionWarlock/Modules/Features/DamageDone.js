@@ -9,18 +9,16 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 class DamageDone extends CoreDamageDone {
   petDmg = 0;
 
-  petIds = [];
+  _petIds = new Set();
 
   on_initialized() {
     this.owner.report.friendlyPets.filter(pet => pet.petOwner === this.owner.playerId).forEach(pet => {
-      if (this.petIds.indexOf(pet.id) === -1) {
-        this.petIds.push(pet.id);
-      }
+      this._petIds.add(pet.id);
     });
   }
 
   on_damage(event) {
-    if (this.petIds.indexOf(event.sourceID) === -1) {
+    if (!this._petIds.has(event.sourceID)) {
       return;
     }
     this.petDmg += event.amount + (event.absorbed || 0);

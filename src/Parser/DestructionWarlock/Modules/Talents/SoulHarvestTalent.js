@@ -17,9 +17,7 @@ class SoulHarvestTalent extends Module {
   };
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.combatants.selected.hasTalent(SPELLS.SOUL_HARVEST_TALENT.id);
-    }
+    this.active = this.combatants.selected.hasTalent(SPELLS.SOUL_HARVEST_TALENT.id);
   }
 
   statistic() {
@@ -34,7 +32,7 @@ class SoulHarvestTalent extends Module {
     );
   }
 
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(2);
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(4);
 }
 
 export default SoulHarvestTalent;

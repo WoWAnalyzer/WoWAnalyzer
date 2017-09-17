@@ -31,7 +31,6 @@ class LowHealthHealing extends React.Component {
   render() {
     const { parser } = this.props;
     const events = parser.modules.healEventTracker.events;
-    const players = parser.modules.combatants.players;
     const fightStart = parser.fight.start_time;
 
     let total = 0;
@@ -65,7 +64,7 @@ class LowHealthHealing extends React.Component {
           Max health of target: <Slider
             {...sliderProps}
             defaultValue={this.state.maxPlayerHealthPercentage}
-            onChange={(value) => {
+            onChange={value => {
               this.setState({
                 maxPlayerHealthPercentage: value,
               });
@@ -74,7 +73,7 @@ class LowHealthHealing extends React.Component {
           Min effective healing (percentage of target's health): <Slider
             {...sliderProps}
             defaultValue={this.state.minHealOfMaxHealthPercentage}
-            onChange={(value) => {
+            onChange={value => {
               this.setState({
                 minHealOfMaxHealthPercentage: value,
               });
@@ -110,13 +109,17 @@ class LowHealthHealing extends React.Component {
                   bigHealCount += 1;
                   totalBigHealing += effectiveHealing;
 
-                  const combatant = players[event.targetID];
+                  const combatant = parser.modules.combatants.getEntity(event);
+                  if (!combatant) {
+                    console.error('Missing combatant for event:', event);
+                    return null; // pet or something
+                  }
                   const spec = SPECS[combatant.specId];
                   const specClassName = spec.className.replace(' ', '');
 
                   return (
                     <tr key={`${event.timestamp}${effectiveHealing}${hitPointsBeforeHeal}`}>
-                      <td style={{ width: '5%'}}>
+                      <td style={{ width: '5%' }}>
                         {formatDuration((event.timestamp - fightStart) / 1000)}
                       </td>
                       <td style={{ width: '25%' }}>
@@ -142,7 +145,7 @@ class LowHealthHealing extends React.Component {
                           style={{ width: `${Math.min(50, healthPercentage * 50)}%`, float: 'left' }}
                         />
                         <div
-                          className={`performance-bar Hunter-bg`}
+                          className={'performance-bar Hunter-bg'}
                           style={{ width: `${Math.min(50, effectiveHealing / event.maxHitPoints * 50)}%`, float: 'left', opacity: 0.4 }}
                         />
                       </td>

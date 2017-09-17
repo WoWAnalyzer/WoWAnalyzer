@@ -52,7 +52,7 @@ class CombatLogParser extends CoreCombatLogParser {
     divinity: Divinity,
     lightOfTuure: LightOfTuure,
     enduringRenewal: EnduringRenewal,
-    MasteryBreakdown: MasteryBreakdown,
+    MasteryBreakdown,
 
     // Spells
     prayerOfMending: PrayerOfMending,
@@ -80,7 +80,7 @@ class CombatLogParser extends CoreCombatLogParser {
         url: 'talents',
         render: () => (
           <Tab title="Talents">
-            <Talents combatant={this.selectedCombatant} />
+            <Talents combatant={this.modules.combatants.selected} />
           </Tab>
         ),
       },

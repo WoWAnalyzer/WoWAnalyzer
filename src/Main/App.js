@@ -24,7 +24,7 @@ import AppBackgroundImage from './AppBackgroundImage';
 
 import makeAnalyzerUrl from './makeAnalyzerUrl';
 
-const toolName = `WoW Analyzer`;
+const toolName = 'WoW Analyzer';
 const githubUrl = 'https://github.com/MartijnHols/WoWAnalyzer';
 
 class App extends Component {
@@ -71,6 +71,9 @@ class App extends Component {
   getPlayerFromReport(report, playerName) {
     return report.friendlies.find(friendly => friendly.name === playerName);
   }
+  getPlayerPetsFromReport(report, playerId) {
+    return report.friendlyPets.filter(pet => pet.petOwner === playerId);
+  }
   getFightFromReport(report, fightId) {
     return report.fights.find(fight => fight.id === fightId);
   }
@@ -112,6 +115,7 @@ class App extends Component {
       alert(`Unknown player: ${playerName}`);
       return;
     }
+    const playerPets = this.getPlayerPetsFromReport(report, player.id);
     const fight = this.getFightFromReport(report, fightId);
 
     const combatant = combatants.find(combatant => combatant.sourceID === player.id);
@@ -125,7 +129,7 @@ class App extends Component {
     }
 
     const ParserClass = config.parser;
-    const parser = new ParserClass(report, player, fight);
+    const parser = new ParserClass(report, player, playerPets, fight);
 
     this.setState({
       config,
@@ -144,7 +148,7 @@ class App extends Component {
   }
   parseNextBatch(parser, code, player, fightStart, fightEnd, nextPageTimestamp = null) {
     if (parser !== this.state.parser) {
-      return;
+      return null;
     }
 
     const isFirstBatch = nextPageTimestamp === null;
@@ -153,7 +157,7 @@ class App extends Component {
     const actorId = player.id;
 
     return this.fetchEvents(code, pageTimestamp, fightEnd, actorId)
-      .then((json) => {
+      .then(json => {
         if (parser !== this.state.parser) {
           return;
         }
@@ -176,7 +180,7 @@ class App extends Component {
               this.onParsingFinished(parser);
             }
           })
-          .catch((err) => {
+          .catch(err => {
             alert(`The report could not be parsed because an error occured while running the analysis. ${err.message}`);
             if (process.env.NODE_ENV === 'development') {
               throw err;
@@ -185,7 +189,7 @@ class App extends Component {
             }
           });
       })
-      .catch((err) => {
+      .catch(err => {
         alert(`The report could not be parsed because an error occured. Warcraft Logs might be having issues. ${err.message}`);
         if (process.env.NODE_ENV === 'development') {
           throw err;
@@ -234,7 +238,7 @@ class App extends Component {
                   if (errorMessage.error) {
                     message = errorMessage.error;
                   }
-                } catch(error) {}
+                } catch (error) {}
               }
             }
 
@@ -244,13 +248,13 @@ class App extends Component {
           this.setState({
             report: {
               ...json,
-              code: code,
+              code,
             },
           });
         }
       })
       .catch(err => {
-        alert('I\'m so terribly sorry, an error occured. Try again later, in an updated Google Chrome and make sure that Warcraft Logs is up and functioning properly. Please let us know on Discord if the problem persists.\n\n' + err);
+        alert(`I'm so terribly sorry, an error occured. Try again later, in an updated Google Chrome and make sure that Warcraft Logs is up and functioning properly. Please let us know on Discord if the problem persists.\n\n${err}`);
         console.error(err);
         this.setState({
           report: null,
@@ -267,7 +271,7 @@ class App extends Component {
     const fight = this.getFightFromReport(report, fightId);
 
     return this.fetchEvents(report.code, fight.start_time, fight.end_time, undefined, 'type="combatantinfo"')
-      .then((json) => {
+      .then(json => {
         // console.log('Received combatants', report.code, ':', json);
         if (json.status === 400 || json.status === 401) {
           throw json.error;
@@ -277,7 +281,7 @@ class App extends Component {
           });
         }
       })
-      .catch((err) => {
+      .catch(err => {
         if (err) {
           alert(err);
         } else {

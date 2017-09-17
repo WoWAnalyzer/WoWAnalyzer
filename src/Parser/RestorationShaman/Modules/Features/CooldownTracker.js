@@ -58,8 +58,8 @@ class CooldownTracker extends CoreCooldownTracker {
 
   processAll() {
     this.pastCooldowns
-      .filter((cooldown) => cooldown.end && !cooldown.processed)
-      .forEach((cooldown) => {
+      .filter(cooldown => cooldown.end && !cooldown.processed)
+      .forEach(cooldown => {
         let feed = null;
         let totals = null;
         let feedingFactor = 0;
@@ -82,8 +82,8 @@ class CooldownTracker extends CoreCooldownTracker {
           percentOverheal = cooldown.overheal / (cooldown.healing + cooldown.overheal);
         }
 
-        Object.keys(cooldown.feed).forEach((spellId) => {
-          spellId = parseInt(spellId, 10);
+        Object.keys(cooldown.feed).forEach(spellId => {
+          spellId = Number(spellId);
           if (!feed[spellId]) {
             feed[spellId] = [];
             feed[spellId].healing = 0;
@@ -199,7 +199,6 @@ class CooldownTracker extends CoreCooldownTracker {
     if (spellId === SPELLS.ASCENDANCE_CAST.id) {
       this.lastAsc = cooldown;
       this.hasBeenAscHealingOrCastEvent = true;
-
     }
     if (spellId === SPELLS.ANCESTRAL_GUIDANCE_CAST.id) {
       this.lastAG = cooldown;
@@ -221,7 +220,7 @@ class CooldownTracker extends CoreCooldownTracker {
       this.removeLastCooldown(SPELLS.CLOUDBURST_TOTEM_CAST.id);
     }
 
-    this.activeCooldowns.forEach((cooldown) => {
+    this.activeCooldowns.forEach(cooldown => {
       cooldown.end = this.owner.fight.end_time;
 
       // If cloudburst is still up at the end of the fight, it didn't do any healing, so dont process it.
@@ -286,7 +285,7 @@ class CooldownTracker extends CoreCooldownTracker {
     const spellId = event.ability.guid;
     const healingDone = (event.amount || 0) + (event.overheal || 0) + (event.absorb || 0);
 
-    this.activeCooldowns.forEach((cooldown) => {
+    this.activeCooldowns.forEach(cooldown => {
       const cooldownId = cooldown.spell.id;
 
       if ((cooldownId === SPELLS.CLOUDBURST_TOTEM_CAST.id && (ABILITIES_NOT_FEEDING_INTO_CBT.indexOf(spellId) <= -1)) ||
@@ -328,11 +327,10 @@ class CooldownTracker extends CoreCooldownTracker {
      //this.agFeed[spellId] += (event.amount || 0);
      }
      */
-
   }
 
   on_byPlayer_absorbed(event) {
-    this.activeCooldowns.forEach((cooldown) => {
+    this.activeCooldowns.forEach(cooldown => {
       cooldown.events.push(event);
     });
   }

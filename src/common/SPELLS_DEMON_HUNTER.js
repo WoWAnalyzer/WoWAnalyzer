@@ -14,9 +14,9 @@ export default {
     icon: 'ability_demonhunter_spectank',
   },
   VENG_DH_T20_4SET_BONUS_BUFF: {
-    id: 242229,
+    id: 242230,
     name: 'T20 4 set bonus',
-    icon: 'ability_demonhunter_spectank',
+    icon: 'spell_warlock_soulburn',
   },
 
   //Racial:
@@ -25,6 +25,8 @@ export default {
     name: 'Arcane Torrent',
     icon: 'spell_shadow_teleport',
   },
+
+  // Vengeance
 
   // Passive:
   DEMONIC_WARDS: {
@@ -44,6 +46,11 @@ export default {
     name: 'Soul Fragment',
     icon: 'spell_shadow_soulgem',
   },
+  SOUL_FRAGMENT_STACK: {
+    id: 203981,
+    name: 'Soul Fragment',
+    icon: 'spell_shadow_soulgem',
+  },
   EMPOWER_WARDS: {
     id: 218256,
     name: 'Empower Wards',
@@ -55,19 +62,19 @@ export default {
     icon: 'ability_demonhunter_sigilofsilence',
   },
   SIGIL_OF_FLAME: {
-      id: 204596,
-      name: 'Sigil of Flame',
-      icon: 'ability_demonhunter_sigilofinquisition',
+    id: 204596,
+    name: 'Sigil of Flame',
+    icon: 'ability_demonhunter_sigilofinquisition',
   },
   SIGIL_OF_FLAME_DEBUFF: {
-      id: 204598,
-      name: 'Sigil of Flame Debuff',
-      icon: 'ability_demonhunter_sigilofinquisition',
+    id: 204598,
+    name: 'Sigil of Flame',
+    icon: 'ability_demonhunter_sigilofinquisition',
   },
   SIGIL_OF_MISERY: {
-      id: 207684,
-      name: 'Sigil of Misery',
-      icon: 'ability_demonhunter_sigilofmisery',
+    id: 207684,
+    name: 'Sigil of Misery',
+    icon: 'ability_demonhunter_sigilofmisery',
   },
   DEMON_SPIKES: {
     id: 203720,
@@ -85,7 +92,7 @@ export default {
     name: 'Fiery Brand',
     icon: 'ability_demonhunter_fierybrand',
   },
-  METAMORPHOSIS: {
+  METAMORPHOSIS_TANK: {
     id: 187827,
     name: 'Metamorphosis',
     icon: 'ability_demonhunter_metamorphasistank',
@@ -138,10 +145,72 @@ export default {
     icon: 'ability_demonhunter_imprison',
   },
 
+  // Havoc
+  CHAOS_STRIKE: {
+    id: 162794,
+    name: 'Chaos Strike',
+    icon: 'ability_demonhunter_chaosstrike',
+  },
+  ANNIHILATION: {
+    id: 201427,
+    name: 'Annihilation',
+    icon: 'inv_glaive_1h_npc_d_02',
+  },
+  BLADE_DANCE: {
+    id: 188499,
+    name: 'Blade Dance',
+    icon: 'ability_demonhunter_bladedance',
+  },
+  DEATH_SWEEP: {
+    id: 210152,
+    name: 'Death Sweep',
+    icon: 'inv_glaive_1h_artifactaldrochi_d_02dual',
+  },
+  FEL_RUSH: {
+    id: 195072,
+    name: 'Fel Rush',
+    icon: 'ability_demonhunter_felrush',
+  },
+  THROW_GLAIVE_HAVOC: {
+    id: 185123,
+    name: 'Throw Glaive',
+    icon: 'ability_demonhunter_throwglaive',
+  },
+  EYE_BEAM: {
+    id: 198013,
+    name: 'Eye Beam',
+    icon: 'ability_demonhunter_eyebeam',
+  },
+  FURY_OF_THE_ILLIDARI: {
+    id: 201467,
+    name: 'Fury of the Illidari',
+    icon: 'inv_glaive_1h_artifactazgalor_d_01',
+  },
+  CONSUME_MAGIC: {
+    id: 183752,
+    name: 'Consume Magic',
+    icon: 'ability_demonhunter_consumemagic',
+  },
+  VENGEFUL_RETREAT: {
+    id: 198793,
+    name: 'Vengeful Retreat',
+    icon: 'ability_demonhunter_vengefulretreat2',
+  },
+  METAMORPHOSIS_HAVOC: {
+    id: 200166,
+    name: 'Metamorphosis',
+    icon: 'ability_demonhunter_metamorphasisdps',
+  },
+
   // Talents
   FRAILTY_SPIRIT_BOMB_DEBUFF: {
     id: 247456,
     name: 'Frailty',
+    icon: 'inv_icon_shadowcouncilorb_purple',
+  },
+  SPIRIT_BOMB_DAMAGE: {
+    id: 247455,
+    name: 'Spirit Bomb',
     icon: 'inv_icon_shadowcouncilorb_purple',
   },
   FELBLADE_PAIN_GENERATION: {

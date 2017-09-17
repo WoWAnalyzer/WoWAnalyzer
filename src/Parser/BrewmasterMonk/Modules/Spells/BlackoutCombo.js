@@ -30,7 +30,7 @@ class BlackoutCombo extends Module {
     const spellId = event.ability.guid;
     if (SPELLS.BLACKOUT_COMBO_BUFF.id === spellId) {
       debug && console.log('Blackout combo applied');
-      this.blackoutComboBuffs++;
+      this.blackoutComboBuffs += 1;
       this.lastBlackoutComboCast = event.timestamp;
     }
   }
@@ -39,7 +39,7 @@ class BlackoutCombo extends Module {
     const spellId = event.ability.guid;
     if (SPELLS.BLACKOUT_COMBO_BUFF.id === spellId) {
       debug && console.log('Blackout combo refreshed');
-      this.blackoutComboBuffs++;
+      this.blackoutComboBuffs += 1;
       this.lastBlackoutComboCast = event.timestamp;
     }
   }
@@ -51,11 +51,11 @@ class BlackoutCombo extends Module {
     }
     // BOC should be up
     if (this.lastBlackoutComboCast > 0 && this.lastBlackoutComboCast + BOC_DURATION > event.timestamp) {
-      this.blackoutComboConsumed++;
+      this.blackoutComboConsumed += 1;
       if (this.spellsBOCWasUsedOn[spellId] === undefined) {
         this.spellsBOCWasUsedOn[spellId] = 0;
       }
-      this.spellsBOCWasUsedOn[spellId]++;
+      this.spellsBOCWasUsedOn[spellId] += 1;
     }
     this.lastBlackoutComboCast = 0;
   }

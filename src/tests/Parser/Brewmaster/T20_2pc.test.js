@@ -8,6 +8,8 @@ describe('Brewmaster.T20_2pc', () => {
     item = new T20_2pc({
       toPlayer: () => true,
       byPlayer: () => true,
+      toPlayerPet: () => false,
+      byPlayerPet: () => false,
     });
   });
   it('tracks the number of orbs spawned by the T202pc', () => {

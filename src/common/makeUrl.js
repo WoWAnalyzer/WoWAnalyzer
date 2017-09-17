@@ -2,7 +2,7 @@ export default function makeUrl(base, queryParams = {}) {
   const keys = Object.keys(queryParams);
 
   const parts = [];
-  keys.forEach((key) => {
+  keys.forEach(key => {
     const value = queryParams[key];
     if (value === undefined) {
       return;

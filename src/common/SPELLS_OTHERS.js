@@ -206,6 +206,16 @@ export default {
     name: 'Insidious Corruption',
     icon: 'inv_archaeology_70_demon_flayedskinchronicle',
   },
+  LUNAR_INFUSION: {
+    id: 242543,
+    name: 'Lunar Infusion',
+    icon: 'ability_druid_lunarguidance',
+  },
+  RISING_TIDES: {
+    id: 242458,
+    name: 'Rising Tides',
+    icon: 'inv_7_0raid_trinket_04a',
+  },
   //Engine of Eradication buff
   DEMONIC_VIGOR: {
     id: 242612,
@@ -232,6 +242,11 @@ export default {
     name: 'Archimonde\'s Hatred Reborn',
     icon: 'spell_nature_elementalshields',
   },
+  ARCHIMONDES_HATRED_REBORN_DAMAGE: {
+    id: 235188,
+    name: 'Archimonde\'s Hatred Reborn',
+    icon: 'spell_nature_elementalshields',
+  },
   DRUMS_OF_FURY: {
     id: 178207,
     name: 'Drums of Fury',
@@ -246,6 +261,12 @@ export default {
     id: 230935,
     name: 'Drums of the Mountain',
     icon: 'inv_archaeology_70_tauren_drum',
+  },
+  // Cinidaria
+  SYMBIOTE_STRIKE: {
+    id: 207694,
+    name: 'Symbiote Strike',
+    icon: 'inv_leather_raiddruid_m_01belt',
   },
 
   // Encounter mechanics

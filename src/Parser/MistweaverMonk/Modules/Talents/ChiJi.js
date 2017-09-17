@@ -21,7 +21,7 @@ class ChiJi extends Module {
   on_byPlayer_summon(event) {
     if (event.ability.guid === SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id) {
       this.petID = event.targetID;
-      debug && console.log('Chi-Ji Summoned: ' + this.petID);
+      debug && console.log(`Chi-Ji Summoned: ${this.petID}`);
     }
   }
 
@@ -33,7 +33,7 @@ class ChiJi extends Module {
 
   on_finished() {
     if (debug) {
-      console.log('Chi-Ji ID: ' + this.petID);
+      console.log(`Chi-Ji ID: ${this.petID}`);
     }
   }
 }

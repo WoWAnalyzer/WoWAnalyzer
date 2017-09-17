@@ -318,7 +318,7 @@ export default {
     icon: 'inv_chest_cloth_raidwarlock_r_01',
   },
   WARLOCK_AFFLI_T20_4P_BUFF: {
-  id: 242292,
+    id: 242292,
     name: 'Demonic Speed',
     icon: 'spell_shadow_soulleech_3',
   },
@@ -453,6 +453,12 @@ export default {
     name: 'Shadowfury',
     icon: 'ability_warlock_shadowfurytga',
   },
+  // Destruction traits
+  SOULSNATCHER_FRAGMENT_GEN: {
+    id: 196234,
+    name: 'Soulsnatcher',
+    icon: 'spell_shadow_soulleech_3',
+  },
   // Destruction set bonuses
   WARLOCK_DESTRO_T20_2P_BONUS: {
     id: 242295,
@@ -463,5 +469,57 @@ export default {
     id: 242296,
     name: 'Destruction Warlock T20 4P bonus',
     icon: 'inv_chest_cloth_raidwarlock_r_01',
+  },
+  // Destruction legendary effects
+  FERETORY_OF_SOULS_FRAGMENT_GEN: {
+    id: 205704,
+    name: 'Fiery Soul',
+    icon: 'inv_belt_cloth_raidwarlock_n_01',
+  },
+  ALYTHESSS_PYROGENICS_DEBUFF: {
+    id: 205675,
+    name: 'Alythess\'s Pyrogenics',
+    icon: 'inv_jewelry_ring_65',
+  },
+  SINDOREI_SPITE_BUFF: {
+    id: 208871,
+    name: 'Sin\'dorei Spite',
+    icon: 'creatureportrait_infernal_ball_02',
+  },
+  LESSONS_OF_SPACETIME_BUFF: {
+    id: 236176,
+    name: 'Lessons Of Space-Time',
+    icon: 'spell_warlock_demonicportal_purple',
+  },
+  ODR_SHAWL_OF_THE_YMIRJAR_DEBUFF: {
+    id: 212173,
+    name: 'Odr, Shawl of the Ymirjar',
+    icon: 'inv_misc_cape_cataclysm_tank_b_01',
+  },
+  MAGISTRIKE_RESTRAINTS_CHAOS_BOLT: {
+    id: 213229,
+    name: 'Chaos Bolt',
+    icon: 'ability_warlock_chaosbolt',
+  },
+  // Destruction Dimensional Rift spells
+  SEARING_BOLT_RIFT: {
+    id: 243050,
+    name: 'Searing Bolt',
+    icon: 'inv_misc_volatilefire',
+  },
+  CHAOS_BARRAGE_RIFT: {
+    id: 187394,
+    name: 'Chaos Barrage',
+    icon: 'spell_warlock_demonicportal_green',
+  },
+  CHAOS_BOLT_RIFT: {
+    id: 215279,
+    name: 'Chaos Bolt',
+    icon: 'ability_warlock_chaosbolt',
+  },
+  SHADOW_BOLT_RIFT: {
+    id: 196657,
+    name: 'Shadow Bolt',
+    icon: 'spell_shadow_shadowbolt',
   },
 };

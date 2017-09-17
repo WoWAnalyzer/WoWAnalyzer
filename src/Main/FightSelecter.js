@@ -61,7 +61,7 @@ class FightSelecter extends Component {
                 <Toggle
                   checked={killsOnly}
                   icons={false}
-                  onChange={(event) => this.setState({ killsOnly: event.currentTarget.checked })}
+                  onChange={event => this.setState({ killsOnly: event.currentTarget.checked })}
                   id="kills-only-toggle"
                 />
                 <label htmlFor="kills-only-toggle">

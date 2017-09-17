@@ -1,16 +1,16 @@
 import SPELLS from 'common/SPELLS';
 
 import Module from 'Parser/Core/Module';
-import isAtonement from './../Core/isAtonement';
+import isAtonement from '../Core/isAtonement';
+import AtonementSource from '../Features/AtonementSource';
 
 class TouchOfTheGrave extends Module {
+  static dependencies = {
+    atonementSource: AtonementSource,
+  };
+
   healing = 0;
   damage = 0;
-
-  // Can this be detected?
-  // on_initialized() {
-  //   this.active = this.owner.selectedCombatant.hasTalent(SPELLS.TWIST_OF_FATE_TALENT.id) || this.owner.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_HIGH_PRIEST.id);
-  // }
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
@@ -22,7 +22,7 @@ class TouchOfTheGrave extends Module {
     if (!isAtonement(event)) {
       return;
     }
-    if (this.owner.modules.atonementSource.atonementDamageSource.ability.guid !== SPELLS.TOUCH_OF_THE_GRAVE.id) {
+    if (this.atonementSource.atonementDamageSource.ability.guid !== SPELLS.TOUCH_OF_THE_GRAVE.id) {
       return;
     }
     this.healing += event.amount + (event.absorbed || 0);

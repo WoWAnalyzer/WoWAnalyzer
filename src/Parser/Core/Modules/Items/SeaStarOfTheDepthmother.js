@@ -19,14 +19,14 @@ class SeaStarOfTheDepthmother extends Module {
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
 
-    if(spellId === SPELLS.OCEANS_EMBRACE.id) {
+    if (spellId === SPELLS.OCEANS_EMBRACE.id) {
       this.healing += (event.amount || 0) + (event.absorbed || 0);
     }
   }
 
   on_finished() {
-    if(debug) {
-      console.log('Healing: ' + this.healing);
+    if (debug) {
+      console.log(`Healing: ${this.healing}`);
     }
   }
 

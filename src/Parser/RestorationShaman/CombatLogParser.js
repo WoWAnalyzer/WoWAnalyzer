@@ -40,7 +40,7 @@ import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 import UnusedTidalWavesImage from './Images/spell_shaman_tidalwaves-bw.jpg';
 
 function formatThousands(number) {
-  return (Math.round(number || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+  return (`${Math.round(number || 0)}`).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 }
 function formatNumber(number) {
   if (number > 1000000) {
@@ -137,7 +137,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     const chainHealCasts = chainHeal.casts || 0;
     const riptideCasts = riptide.casts || 0;
-    const twPerRiptide = this.selectedCombatant.hasTalent(SPELLS.CRASHING_WAVES_TALENT.id) ? 2 : 1;
+    const twPerRiptide = this.modules.combatants.selected.hasTalent(SPELLS.CRASHING_WAVES_TALENT.id) ? 2 : 1;
     const totalTwGenerated = twPerRiptide * riptideCasts + chainHealCasts;
     const twHealingWaves = healingWave.healingTwHits || 0;
     const healingWaves = healingWave.casts || 0;
@@ -149,10 +149,10 @@ class CombatLogParser extends CoreCombatLogParser {
 
     const chainHealHits = chainHeal.healingHits || 0;
     const chainHealAvgHits = chainHealHits / chainHealCasts;
-    const maxChainHealTargets = this.selectedCombatant.hasTalent(SPELLS.HIGH_TIDE_TALENT.id) ? 5 : 4;
+    const maxChainHealTargets = this.modules.combatants.selected.hasTalent(SPELLS.HIGH_TIDE_TALENT.id) ? 5 : 4;
     const chainHealTargetEfficiency = chainHealAvgHits / maxChainHealTargets;
 
-    const hasDeepWaters = this.selectedCombatant.traitsBySpellId[SPELLS.DEEP_WATERS.id]>0;
+    const hasDeepWaters = this.modules.combatants.selected.traitsBySpellId[SPELLS.DEEP_WATERS.id] > 0;
     const giftOfTheQueenHits = giftOfTheQueen.healingHits || 0;
     const giftOfTheQueenAvgHits = giftOfTheQueenHits / giftOfTheQueenCasts / (hasDeepWaters ? 2 : 1);
     const giftOfTheQueenTargetEfficiency = giftOfTheQueenAvgHits / 6;
@@ -162,7 +162,7 @@ class CombatLogParser extends CoreCombatLogParser {
     if (this.modules.cooldownTracker.cbtFeed[SPELLS.GIFT_OF_THE_QUEEN.id]) {
       giftOfTheQueenCBTFeeding = this.modules.cooldownTracker.cbtFeed[SPELLS.GIFT_OF_THE_QUEEN.id].healing;
     }
-    const hasCBT = this.selectedCombatant.hasTalent(SPELLS.CLOUDBURST_TOTEM_CAST.id);
+    const hasCBT = this.modules.combatants.selected.hasTalent(SPELLS.CLOUDBURST_TOTEM_CAST.id);
     const giftOfTheQueenCBTFeedingPercent = giftOfTheQueenCBTFeeding / giftOfTheQueenRawHealing;
 
 
@@ -170,11 +170,11 @@ class CombatLogParser extends CoreCombatLogParser {
     const totalMasteryHealing = this.modules.masteryEffectiveness.totalMasteryHealing || 0;
     const totalMaxPotentialMasteryHealing = this.modules.masteryEffectiveness.totalMaxPotentialMasteryHealing || 0;
     const masteryEffectivenessPercent = totalMasteryHealing / totalMaxPotentialMasteryHealing;
-    const masteryPercent = this.selectedCombatant.masteryPercentage;
+    const masteryPercent = this.modules.combatants.selected.masteryPercentage;
     const avgEffectiveMasteryPercent = masteryEffectivenessPercent * masteryPercent;
 
 
-    const has2PT19 = this.selectedCombatant.hasBuff(SPELLS.RESTORATION_SHAMAN_T19_2SET_BONUS_BUFF.id);
+    const has2PT19 = this.modules.combatants.selected.hasBuff(SPELLS.RESTORATION_SHAMAN_T19_2SET_BONUS_BUFF.id);
     const t19_2PHealingPercentage = this.modules.t19_2Set.healing / totalHealing;
 
     const t20_4PHealingPercentage = this.modules.t20_4Set.healing / totalHealing;
@@ -187,7 +187,7 @@ class CombatLogParser extends CoreCombatLogParser {
       results.addIssue({
         issue: <span>Casting <SpellLink id={SPELLS.HEALING_SURGE_RESTORATION.id} /> without <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} /> is very inefficient, try not to cast more than is necessary ({unbuffedHealingSurges}/{healingSurges} casts unbuffed).</span>,
         icon: SPELLS.HEALING_SURGE_RESTORATION.icon,
-        importance: getIssueImportance(unbuffedHealingSurges / (healingSurges+healingWaves), 0.15, 0.30, true),
+        importance: getIssueImportance(unbuffedHealingSurges / (healingSurges + healingWaves), 0.15, 0.30, true),
       });
     }
     if (chainHealTargetEfficiency < 0.97) {
@@ -199,7 +199,7 @@ class CombatLogParser extends CoreCombatLogParser {
     }
     if (giftOfTheQueenTargetEfficiency < 0.95) {
       results.addIssue({
-          issue: <span>Try to always cast <SpellLink id={SPELLS.GIFT_OF_THE_QUEEN.id} /> at a position where both the initial hit and the echo from <SpellLink id={SPELLS.DEEP_WATERS.id} /> will hit all 6 potential targets (average of {giftOfTheQueenAvgHits.toFixed(2)}/6 targets healed).</span>,
+        issue: <span>Try to always cast <SpellLink id={SPELLS.GIFT_OF_THE_QUEEN.id} /> at a position where both the initial hit and the echo from <SpellLink id={SPELLS.DEEP_WATERS.id} /> will hit all 6 potential targets (average of {giftOfTheQueenAvgHits.toFixed(2)}/6 targets healed).</span>,
         icon: SPELLS.GIFT_OF_THE_QUEEN.icon,
         importance: getIssueImportance(giftOfTheQueenTargetEfficiency, 0.90, 0.80),
       });
@@ -307,7 +307,7 @@ class CombatLogParser extends CoreCombatLogParser {
         icon={<SpellIcon id={SPELLS.HIGH_TIDE_TALENT.id} />}
         value={`${formatPercentage(highTideHealingPercentage)} %`}
         label={(
-          <dfn data-tip={`The percentage of your healing that is caused by High Tide.`}>
+          <dfn data-tip={'The percentage of your healing that is caused by High Tide.'}>
 
           High Tide healing
           </dfn>
@@ -344,7 +344,7 @@ class CombatLogParser extends CoreCombatLogParser {
           </span>
         ),
       },
-      this.selectedCombatant.hasLegs(ITEMS.ROOTS_OF_SHALADRASSIL.id) && {
+      this.modules.combatants.selected.hasLegs(ITEMS.ROOTS_OF_SHALADRASSIL.id) && {
         item: ITEMS.ROOTS_OF_SHALADRASSIL,
         result: (
           <dfn data-tip={`The effective healing contributed by Roots of Shaladrassil. Of this healing, ${formatPercentage(rootsRawHealingPercentage)}% is the raw healing they provide, and ${formatPercentage(rootsInteractionHealingPercentage)}% is indirect healing done through Cloudburst Totem, Ancestral Guidance and Ascendance. <br /><br />The interactions of these 3 cooldowns are currently not included, so in case there's overlap between these cooldowns the real healing would be slightly higher than indicated.`}>
@@ -356,7 +356,7 @@ class CombatLogParser extends CoreCombatLogParser {
         item: ITEMS.PRAETORIANS_TIDECALLERS,
         result: (
           <dfn data-tip={`The healing gained from the extra duration that Praetorian's Tidecallers give to Healing Tide Totem and Healing Stream Totem. The increased duration on Healing Stream Totem accounts for ${formatPercentage(tidecallersHSTPercentage)}% healing, the increased duration on Healing Tide Totem for ${formatPercentage(tidecallersHTTPercentage)}% healing.`}>
-            {((tidecallersHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber((this.modules.tidecallers.httHealing+this.modules.tidecallers.hstHealing) / fightDuration * 1000)} HPS
+            {((tidecallersHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber((this.modules.tidecallers.httHealing + this.modules.tidecallers.hstHealing) / fightDuration * 1000)} HPS
           </dfn>
         ),
       },
@@ -411,7 +411,7 @@ class CombatLogParser extends CoreCombatLogParser {
         url: 'talents',
         render: () => (
           <Tab title="Talents">
-            <Talents combatant={this.selectedCombatant} />
+            <Talents combatant={this.modules.combatants.selected} />
           </Tab>
         ),
       },

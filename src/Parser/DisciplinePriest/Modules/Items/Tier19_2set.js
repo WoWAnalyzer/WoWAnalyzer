@@ -18,7 +18,7 @@ class Tier19_2set extends Module {
   healing = 0;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasBuff(SPELLS.DISC_PRIEST_T19_2SET_BONUS_BUFF.id);
+    this.active = this.owner.modules.combatants.selected.hasBuff(SPELLS.DISC_PRIEST_T19_2SET_BONUS_BUFF.id);
   }
 
   on_byPlayer_heal(event) {
