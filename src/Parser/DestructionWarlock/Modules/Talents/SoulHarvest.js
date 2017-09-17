@@ -28,7 +28,7 @@ class SoulHarvest extends Module {
 
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.SOUL_HARVEST_TALENT.id) || this.combatants.selected.hasChest(ITEMS.THE_MASTER_HARVESTER.id);
-    this.owner.report.friendlyPets.filter(pet => pet.petOwner === this.owner.playerId).forEach(pet => {
+    this.owner.playerPets.forEach(pet => {
       this._petIds.has(pet.id);
     });
   }

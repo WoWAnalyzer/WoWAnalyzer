@@ -19,7 +19,7 @@ class SindoreiSpite extends Module {
 
   on_initialized() {
     this.active = this.combatants.selected.hasWrists(ITEMS.SINDOREI_SPITE.id);
-    this.owner.report.friendlyPets.filter(pet => pet.petOwner === this.owner.playerId).forEach(pet => {
+    this.owner.playerPets.forEach(pet => {
       this._petIds.add(pet.id);
     });
   }
