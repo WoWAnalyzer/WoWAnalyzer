@@ -32,7 +32,8 @@ class SpiritBomb extends Module {
         .icon('inv_icon_shadowcouncilorb_purple')
         .actual(`${formatPercentage(spiritBombUptimePercentage)}% debuff total uptime.`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`)
-        .regular(recommended - 0.05).major(recommended - 0.15);
+        .regular(recommended - 0.05)
+        .major(recommended - 0.15);
     });
   }
 

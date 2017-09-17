@@ -36,7 +36,7 @@ module.exports = {
       queryInterface.addIndex('WclApiResponse', ['createdAt']),
     ]);
   },
-  down: (queryInterface, Sequelize) => {
+  down: (queryInterface) => {
     return queryInterface.dropTable('WclApiResponse');
   },
 };

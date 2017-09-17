@@ -51,6 +51,9 @@ module.exports = {
 
     // Making half the code-base static does not improve code quality, and some methods are meant to be extended and who knows what they'll get then, and sometimes it's right.
     'class-methods-use-this': 'off',
+
+    // `undefined` is a perfectly fine default
+    'react/require-default-props': 'off',
   },
   settings: {
     'import/resolver': {
