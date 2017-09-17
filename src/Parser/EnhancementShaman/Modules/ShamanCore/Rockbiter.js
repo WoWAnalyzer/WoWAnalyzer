@@ -3,6 +3,7 @@ import SPELLS from 'common/SPELLS';
 import Module from 'Parser/Core/Module';
 
 const MAELSTROM_THRESHOLD = 95;//120 is threshold, but energize event values are after the 25 Maelstrom increase is applied
+const debug = false;
 
 class Rockbiter extends Module {
   rockbiterOveruse = [];
@@ -18,8 +19,8 @@ class Rockbiter extends Module {
   }
 
   on_finished() {
-    console.log("maelstromWasted " + this.maelstromWasted);
-    console.log(this.rockbiterOveruse);
+    debug && console.log("maelstromWasted " + this.maelstromWasted);
+    debug && console.log(this.rockbiterOveruse);
   }
 
   suggestions(when) {
