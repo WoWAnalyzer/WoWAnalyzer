@@ -10,8 +10,7 @@ import SPELLS from 'common/SPELLS';
 import CoreAlwaysBeCasting from 'Parser/Core/Modules/AlwaysBeCasting';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
-  _highestVoidformStack = 0;
-  _highestLingeringStack = 0;
+
 
   static ABILITIES_ON_GCD = [
     // handled in _removebuff
@@ -28,7 +27,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.SHADOW_WORD_PAIN.id,
     SPELLS.SHADOWFIEND.id,
     SPELLS.SHADOWFIEND_WITH_GLYPH_OF_THE_SHA.id,
-    
+
     // talents:
     SPELLS.MINDBENDER_TALENT_SHADOW.id,
     SPELLS.POWER_INFUSION_TALENT.id,
