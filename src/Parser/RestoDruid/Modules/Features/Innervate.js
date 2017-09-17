@@ -60,7 +60,7 @@ class Innervate extends Module {
       // Checking if the player is mana capped during an innervate.
       // This is not 100% accuarate because we trigger the calculation on the first heal during an innervate.
       // Realistically the seconds mana capped is higher.
-      if (event.classResources[0].amount === event.classResources[0].max && !this.depleted) {
+      if (event.classResources && event.classResources[0].amount === event.classResources[0].max && !this.depleted) {
         this.secondsManaCapped = Math.abs(((this.lastInnervateTimestamp + 10000) - event.timestamp)) / 1000;
         this.depleted = true;
       }

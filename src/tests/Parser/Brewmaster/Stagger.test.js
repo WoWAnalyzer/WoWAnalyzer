@@ -8,6 +8,8 @@ describe('Brewmaster.Stagger', () => {
     stagger = new Stagger({
       toPlayer: () => true,
       byPlayer: () => true,
+      toPlayerPet: () => false,
+      byPlayerPet: () => false,
     });
   });
   it('total amount of stagger taken with no events', () => {

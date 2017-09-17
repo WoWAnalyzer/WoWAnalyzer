@@ -10,6 +10,8 @@ describe('Brewmaster.DamageTaken', () => {
     healingDone = new HealingDone({
       toPlayer: () => true,
       byPlayer: () => true,
+      toPlayerPet: () => false,
+      byPlayerPet: () => false,
       fight: { start_time: 0 },
     });
   });

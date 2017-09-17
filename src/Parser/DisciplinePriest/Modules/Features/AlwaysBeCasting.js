@@ -54,7 +54,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       } else {
         // This is a follow up from an existing Penance channel, it doesn't start its own GCD but the last cast is always after the initial GCD. This makes it so the last cast is still considered a valid cast.
         debug && console.log('%cABC: Follow up penance cast, ignoring time wasted', 'color: gray');
-        this.lastCastFinishedTimestamp = Math.max(this.lastCastFinishedTimestamp, cast.timestamp);
+        this._lastCastFinishedTimestamp = Math.max(this._lastCastFinishedTimestamp, cast.timestamp);
         return; // by returning here we don't get an invalid time wasted added
       }
     }

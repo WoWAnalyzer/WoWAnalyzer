@@ -1,4 +1,5 @@
 import HolyPaladin from './HolyPaladin/CONFIG';
+import RetributionPaladin from './RetributionPaladin/CONFIG';
 
 import RestoDruid from './RestoDruid/CONFIG';
 import GuardianDruid from './GuardianDruid/CONFIG';
@@ -65,4 +66,6 @@ export default [
   MarksmanshipHunter,
 
   HavocDemonHunter,
+
+  RetributionPaladin,
 ];

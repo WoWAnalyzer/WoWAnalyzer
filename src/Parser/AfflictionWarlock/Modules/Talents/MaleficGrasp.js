@@ -12,12 +12,12 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../Constants';
 import getDamageBonus from '../WarlockCore/getDamageBonus';
 
-const abilitiesAffected = [
+const AFFECTED_ABILITIES = new Set([
   SPELLS.AGONY.id,
   SPELLS.CORRUPTION_DEBUFF.id,
   SPELLS.SIPHON_LIFE.id,
   ...UNSTABLE_AFFLICTION_DEBUFF_IDS,
-];
+]);
 
 const MALEFIC_GRASP_DAMAGE_BONUS = .25;
 
@@ -39,7 +39,7 @@ class MaleficGrasp extends Module {
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if (abilitiesAffected.indexOf(spellId) === -1) {
+    if (!AFFECTED_ABILITIES.has(spellId)) {
       return;
     }
     const target = this.enemies.getEntity(event);

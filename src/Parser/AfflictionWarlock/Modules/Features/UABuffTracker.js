@@ -11,6 +11,8 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../Constants';
 
+const UA_IDS_SET = new Set(UNSTABLE_AFFLICTION_DEBUFF_IDS);
+
 class UABuffTracker extends Module {
   static dependencies = {
     enemies: Enemies,
@@ -33,7 +35,7 @@ class UABuffTracker extends Module {
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if (UNSTABLE_AFFLICTION_DEBUFF_IDS.indexOf(spellId) === -1) {
+    if (!UA_IDS_SET.has(spellId)) {
       return;
     }
     const target = this.enemies.getEntity(event);

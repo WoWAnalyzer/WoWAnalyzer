@@ -58,18 +58,7 @@ const ITEMS = {
     icon: 'inv_70_dungeon_ring6a',
     quality: ITEM_QUALITIES.EPIC,
   },
-  OBSIDIAN_STONE_SPAULDERS: {
-    id: 137076,
-    name: 'Obsidian Stone Spaulders',
-    icon: 'inv_shoulder_plate_pvppaladin_o_01',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
-  ILTERENDI_CROWN_JEWEL_OF_SILVERMOON: {
-    id: 137046,
-    name: 'Ilterendi, Crown Jewel of Silvermoon',
-    icon: 'inv_jewelry_ring_firelandsraid_03a',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
+  //Shared Paladin
   SOUL_OF_THE_HIGHLORD: {
     id: 151644,
     name: 'Soul of the Highlord',
@@ -80,6 +69,19 @@ const ITEMS = {
     id: 137086,
     name: 'Chain of Thrayn',
     icon: 'inv_belt_leather_firelandsdruid_d_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  //Holy Paladin
+  OBSIDIAN_STONE_SPAULDERS: {
+    id: 137076,
+    name: 'Obsidian Stone Spaulders',
+    icon: 'inv_shoulder_plate_pvppaladin_o_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  ILTERENDI_CROWN_JEWEL_OF_SILVERMOON: {
+    id: 137046,
+    name: 'Ilterendi, Crown Jewel of Silvermoon',
+    icon: 'inv_jewelry_ring_firelandsraid_03a',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
   MARAADS_DYING_BREATH: {
@@ -94,6 +96,26 @@ const ITEMS = {
     icon: 'inv_cape_legionendgame_c_03',
     quality: ITEM_QUALITIES.EPIC,
   },
+  //Ret Paladin
+  WHISPER_OF_THE_NATHREZIM: {
+    id: 137020,
+    name: 'Whisper of the Nathrezim',
+    icon: 'inv_cape_pandaria_d_04',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  ASHES_TO_DUST: {
+    id: 144358,
+    name: 'Ashes to Dust',
+    icon: 'inv_plate_firelands_d_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  LIADRINS_FURY_UNLEASHED: {
+    id: 137048,
+    name: 'Liadrin\'s Fury Unleashed',
+    icon: 'inv_jewelry_ring_61',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  //Resto Shammy
   ROOTS_OF_SHALADRASSIL: {
     id: 132466,
     name: 'Roots of Shaladrassil',
@@ -467,6 +489,35 @@ const ITEMS = {
     id: 132456,
     name: 'Feretory of Souls',
     icon: 'inv_belt_cloth_raidwarlock_n_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  ALYTHESSS_PYROGENICS: {
+    id: 132460,
+    name: 'Alythess\'s Pyrogenics',
+    icon: 'inv_jewelry_ring_65',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  SINDOREI_SPITE: {
+    id: 132379,
+    name: 'Sin\'dorei Spite',
+    icon: 'inv_bracer_44',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  LESSONS_OF_SPACETIME: {
+    id: 144369,
+    name: 'Lessons of Space-Time',
+    icon: 'inv_shoulder_robe_pvpwarlock_d_01',
+  },
+  ODR_SHAWL_OF_THE_YMIRJAR: {
+    id: 132375,
+    name: 'Odr, Shawl of the Ymirjar',
+    icon: 'inv_misc_cape_cataclysm_tank_b_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  MAGISTRIKE_RESTRAINTS: {
+    id: 132407,
+    name: 'Magistrike Restraints',
+    icon: 'inv_bracer_31b',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
   // T20 Trinkets

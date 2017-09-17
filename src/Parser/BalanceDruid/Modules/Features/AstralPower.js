@@ -11,6 +11,7 @@ class AstralPower extends Module {
   aspWasted = 0;
 
   on_toPlayer_energize(event) {
+    if(!event.classResources) { return; }
     for (let i = 0; i < event.classResources.length; i += 1) {
       if (event.classResources[i].type === ResourceTypes.ASTRAL_POWER) {
         const maxAsP = event.classResources[i].max;
@@ -30,7 +31,7 @@ class AstralPower extends Module {
     if (SPELLS.STARSURGE_MOONKIN.id !== spellId && SPELLS.STARFALL.id !== spellId && SPELLS.STARFALL_CAST.id !== spellId) {
       return;
     }
-      
+
     for (let i = 0; i < event.classResources.length; i += 1) {
       if (event.classResources[i].type === ResourceTypes.ASTRAL_POWER) {
         if (event.classResources[i].cost) {
@@ -51,18 +52,18 @@ class AstralPower extends Module {
             .regular(recommended + 4).major(recommended + 8);
         });
   }
-  
+
   statistic() {
     return (
         <StatisticBox
             icon={<Icon icon='ability_druid_cresentburn' />}
             value={`${this.aspWasted / 10}`}
             label='Overcapped AsP'
-            tooltip={`You overcapped a total of <b>${this.aspWasted / 10}</b> Astral Power`}
+            tooltip={`Astral Power overcapping is often due to mismanagement of resources, but can also be due to an overwhelming amount of OI procs.`}
         />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(7);
+  statisticOrder = STATISTIC_ORDER.CORE(2);
 }
 
 export default AstralPower;

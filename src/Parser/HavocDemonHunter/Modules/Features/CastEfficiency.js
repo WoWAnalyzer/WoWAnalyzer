@@ -24,8 +24,8 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.EYE_BEAM,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 45,
-      recommendedCastEfficiency: 0.40,
       noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.NEMESIS_TALENT,
@@ -77,7 +77,7 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.BLADE_DANCE,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 10 / (1 + haste),
-      recommendedCastEfficiency: 0.8,
+      recommendedCastEfficiency: 0.5,
       noSuggestion: true,
     },
     {
@@ -98,8 +98,8 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.FEL_RUSH,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 10,
-      recommendedCastEfficiency: 0.6,
       noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.THROW_GLAIVE_HAVOC,
@@ -112,8 +112,8 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.VENGEFUL_RETREAT,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 25,
-      recommendedCastEfficiency: 0.5,
       noSuggestion: true,
+      noCanBeImproved: true,
     },
   ];
 }

@@ -18,13 +18,11 @@ class ImmolationAura extends Module {
     abilityTracker: AbilityTracker,
   };
   statistic() {
-    const immolationAuraUptime = this.owner.modules.combatants.getBuffUptime(SPELLS.IMMOLATION_AURA.id);
+    const immolationAuraUptime = this.combatants.selected.getBuffUptime(SPELLS.IMMOLATION_AURA.id);
 
     const immolationAuraUptimePercentage = immolationAuraUptime / this.owner.fightDuration;
 
-    if (this.owner.modules.abilityTracker.abilities[SPELLS.IMMOLATION_AURA.id]) {
-      this.immolationAuraDamage = this.owner.modules.abilityTracker.abilities[SPELLS.IMMOLATION_AURA_FIRST_STRIKE.id].damageEffective + this.owner.modules.abilityTracker.abilities[SPELLS.IMMOLATION_AURA_BUFF.id].damageEffective;
-    }
+    this.immolationAuraDamage = this.abilityTracker.getAbility(SPELLS.IMMOLATION_AURA_FIRST_STRIKE.id).damageEffective + this.abilityTracker.getAbility(SPELLS.IMMOLATION_AURA_BUFF.id).damageEffective;
 
     return (
       <StatisticBox
