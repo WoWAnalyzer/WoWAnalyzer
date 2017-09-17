@@ -22,7 +22,7 @@ class SpiritBomb extends Module {
   }
 
   on_initialized() {
-      this.active = this.combatants.selected.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id);
+    this.active = this.combatants.selected.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id);
   }
 
   suggestions(when) {
@@ -54,7 +54,7 @@ class SpiritBomb extends Module {
       />
     );
   }
-   statisticOrder = STATISTIC_ORDER.CORE(10);
+  statisticOrder = STATISTIC_ORDER.CORE(10);
 }
 
 export default SpiritBomb;

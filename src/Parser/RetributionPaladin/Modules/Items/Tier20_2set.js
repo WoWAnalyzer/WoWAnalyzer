@@ -11,33 +11,32 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 const RET_PALADIN_T20_2SET_MODIFIER = .2;
 
 class Tier20_2set extends Module {
-	static dependencies = {
-		combatants: Combatants,
-	};
+  static dependencies = {
+    combatants: Combatants,
+  };
 
-	damageDone = 0;
+  damageDone = 0;
 
-	get percentUptime(){
+  get percentUptime() {
 		//This calculates the total possible uptime based on buff duration (eight seconds) and the cooldown of judgement based on haste
-		const maxUptime = 8 * (1 + this.combatants.selected.hastePercentage) / 12;
-		const actualUptime = this.combatants.selected.getBuffUptime(SPELLS.RET_PALADIN_T20_2SET_BONUS_BUFF.id) / this.owner.fightDuration;
+    const maxUptime = 8 * (1 + this.combatants.selected.hastePercentage) / 12;
+    const actualUptime = this.combatants.selected.getBuffUptime(SPELLS.RET_PALADIN_T20_2SET_BONUS_BUFF.id) / this.owner.fightDuration;
 		//This is how much uptime you had over your actual uptime based on your haste
-		return actualUptime / maxUptime;
+    return actualUptime / maxUptime;
+  }
 
-	}
+  on_byPlayer_damage(event) {
+    if (this.combatants.selected.hasBuff(SPELLS.RET_PALADIN_T20_2SET_BONUS_BUFF.id) && (event.ability.guid === SPELLS.BLADE_OF_JUSTICE.id || event.ability.guid === SPELLS.DIVINE_HAMMER_HIT.id)) {
+      this.damageDone += ((event.amount || 0) + (event.absorbed || 0)) * RET_PALADIN_T20_2SET_MODIFIER / (1 + RET_PALADIN_T20_2SET_MODIFIER);		
+    }
+  }
 
-	on_byPlayer_damage(event) {
-		if(this.combatants.selected.hasBuff(SPELLS.RET_PALADIN_T20_2SET_BONUS_BUFF.id) && (event.ability.guid === SPELLS.BLADE_OF_JUSTICE.id || event.ability.guid === SPELLS.DIVINE_HAMMER_HIT.id)){
-			this.damageDone += ((event.amount || 0) + (event.absorbed || 0)) * RET_PALADIN_T20_2SET_MODIFIER / (1 + RET_PALADIN_T20_2SET_MODIFIER);		
-		}
-	}
-
-	item() {
-		return {
-			id: `spell-${SPELLS.RET_PALADIN_T20_2SET_BONUS_BUFF.id}`,
-			icon: <SpellIcon id={SPELLS.RET_PALADIN_T20_2SET_BONUS_BUFF.id} />,
-			title: <SpellLink id={SPELLS.RET_PALADIN_T20_2SET_BONUS_BUFF.id} />,
-			result: (<dfn data-tip={`
+  item() {
+    return {
+      id: `spell-${SPELLS.RET_PALADIN_T20_2SET_BONUS_BUFF.id}`,
+      icon: <SpellIcon id={SPELLS.RET_PALADIN_T20_2SET_BONUS_BUFF.id} />,
+      title: <SpellLink id={SPELLS.RET_PALADIN_T20_2SET_BONUS_BUFF.id} />,
+      result: (<dfn data-tip={`
 				The effective damage contributed by tier 20 2 peice.<br/>
 				Damage: ${this.owner.formatItemDamageDone(this.damageDone)}<br/>
 				Total Damage: ${formatNumber(this.damageDone)}<br/>
@@ -45,8 +44,8 @@ class Tier20_2set extends Module {
 				Percent Uptime: ${formatPercentage(this.percentUptime)}%`}>
           		{this.owner.formatItemDamageDone(this.damageDone)}
        		</dfn>),
-		};
-	}
+    };
+  }
 
 	//TODO add suggestion later 
 	// suggestions(when) {

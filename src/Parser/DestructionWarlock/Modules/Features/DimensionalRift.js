@@ -15,7 +15,6 @@ const SHADOWY_TEAR = 'Shadowy Tear';
 const UNSTABLE_TEAR = 'Unstable Tear';
 
 class DimensionalRift extends Module {
-
   _riftDetails = {
     [FLAME_RIFT]: {
       ...SPELLS.SEARING_BOLT_RIFT,

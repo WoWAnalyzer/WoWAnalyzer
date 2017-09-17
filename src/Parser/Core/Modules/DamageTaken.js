@@ -23,7 +23,7 @@ class DamageTaken extends Module {
 
   _byAbility = {};
   byAbility(spellId) {
-    if(!this._byAbility[spellId]) {
+    if (!this._byAbility[spellId]) {
       return new DamageValue(0, 0, 0);
     } else {
       return this._byAbility[spellId];
@@ -32,7 +32,7 @@ class DamageTaken extends Module {
 
   _byMagicSchool = {};
   byMagicSchool(magicSchool) {
-    if(!this._byMagicSchool[magicSchool]) {
+    if (!this._byMagicSchool[magicSchool]) {
       return new DamageValue(0, 0, 0);
     } else {
       return this._byMagicSchool[magicSchool];

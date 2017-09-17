@@ -3,14 +3,13 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Icon from 'common/Icon';
 
-import {formatPercentage} from 'common/format';
+import { formatPercentage } from 'common/format';
 
 import CoreAlwaysBeCasting from 'Parser/Core/Modules/AlwaysBeCasting';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
-
   static ABILITIES_ON_GCD = [
 
     //Holy Power Builders
@@ -65,18 +64,18 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       });
   }
 
- statistic() { 
-   const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration; 
+  statistic() { 
+    const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration; 
   
-   return ( 
+    return ( 
      <StatisticBox 
        icon={<Icon icon='petbattle_health-down' alt='Dead time' />} 
        value={`${formatPercentage(deadTimePercentage)} %`} 
        label='Dead time' 
        tooltip='Dead time is available casting time not used for casting any spell. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/being stunned), etc.' 
      /> 
-   ); 
- } 
+    ); 
+  } 
   statisticOrder = STATISTIC_ORDER.CORE(10);
 }
 

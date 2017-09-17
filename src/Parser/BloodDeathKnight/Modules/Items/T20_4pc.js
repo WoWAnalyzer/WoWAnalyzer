@@ -6,7 +6,7 @@ import SpellIcon from 'common/SpellIcon';
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-const GRAVEWARDEN_RUNIC_DISCOUNT=5;
+const GRAVEWARDEN_RUNIC_DISCOUNT = 5;
 
 class T20_4pc extends Module {
   static dependencies = {
@@ -24,7 +24,7 @@ class T20_4pc extends Module {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.DEATH_STRIKE.id && !this.combatants.selected.hasBuff(SPELLS.GRAVEWARDEN.id, event.timestamp)) {
-      this.deathStrinkeBuffless +=1;
+      this.deathStrinkeBuffless += 1;
     }
   }
 

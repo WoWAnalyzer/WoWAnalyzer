@@ -23,11 +23,10 @@ class SoulFragments extends Module {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.SOUL_FRAGMENT.id) {
-    this.generated += 1;
-      if(this.actual < 5) {
+      this.generated += 1;
+      if (this.actual < 5) {
         this.actual += 1;
-      }
-      else {
+      }      else {
         this.wasted += 1;
       }
     }

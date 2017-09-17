@@ -99,14 +99,14 @@ class BorrowedTime extends Module {
       <span>
       <StatisticBox
         icon={<SpellIcon id={SPELLS.BORROWED_TIME.id} />}
-        value={`${formatDuration(this.rawTimeSaved/1000)}`}
+        value={`${formatDuration(this.rawTimeSaved / 1000)}`}
         label="Gross Time Saved"
       />
       <StatisticBox
         icon={<SpellIcon id={SPELLS.BORROWED_TIME.id} />}
-        value={`${formatDuration(this.timeSaved/1000)}`}
+        value={`${formatDuration(this.timeSaved / 1000)}`}
         label={(
-            <dfn data-tip={`This is the amount of saved time that you actively casted during, this will not account for having to move or other similar checks.`}>
+            <dfn data-tip={'This is the amount of saved time that you actively casted during, this will not account for having to move or other similar checks.'}>
               Time Saved Used
             </dfn>
           )}
@@ -116,7 +116,6 @@ class BorrowedTime extends Module {
   }
 
   statisticOrder = STATISTIC_ORDER.OPTIONAL(60);
-
 }
 
 export default BorrowedTime;

@@ -18,7 +18,7 @@ class Nemesis extends Module {
   };
 
   on_initialized() {
-      this.active = this.combatants.selected.hasTalent(SPELLS.NEMESIS_TALENT.id);
+    this.active = this.combatants.selected.hasTalent(SPELLS.NEMESIS_TALENT.id);
   }
 
   statistic() {

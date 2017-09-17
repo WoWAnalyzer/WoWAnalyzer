@@ -65,13 +65,11 @@ class FireAndBrimstone extends Module {
           incinerateEvent,
         ]
       );
-    }
-    else {
+    }    else {
       //another Incinerate landed on target within 50ms of a previous one, add to the same group, also probably don't overwrite the timestamp?
       if (event.timestamp < this._lastIncinerate + CLEAVE_THRESHOLD) {
         this._groupedTargets[this._lastIncinerateIndex].push(incinerateEvent);
-      }
-      else {
+      }      else {
         //start another group
         this._lastIncinerate = event.timestamp;
         this._groupedTargets.push(
@@ -85,9 +83,9 @@ class FireAndBrimstone extends Module {
   }
 
   on_finished() {
-    debug && console.log("primary targets", this._primaryTargets);
-    debug && console.log("all targets", this._allTargets);
-    debug && console.log("grouped targets", this._groupedTargets);
+    debug && console.log('primary targets', this._primaryTargets);
+    debug && console.log('all targets', this._allTargets);
+    debug && console.log('grouped targets', this._groupedTargets);
 
     //remove the primary targets, should be left with the cleaved targets
     this._primaryTargets.forEach((event, index) => {

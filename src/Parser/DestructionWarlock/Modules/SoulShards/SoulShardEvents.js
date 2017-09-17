@@ -116,7 +116,7 @@ class SoulShardEvents extends Module {
         guid: spellId,
         name: SPELLS[spellId].name,
       },
-      damage: (event.amount || 0 ) + (event.absorbed || 0),
+      damage: (event.amount || 0) + (event.absorbed || 0),
       targetID: event.targetID,
       targetInstance: event.targetInstance,
     };

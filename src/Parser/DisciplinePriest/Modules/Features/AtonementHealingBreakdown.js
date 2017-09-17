@@ -47,7 +47,7 @@ class AtonementHealingBreakdown extends React.Component {
                   <td style={{ width: '70%' }}>
                     {/*TODO: Color the bar based on the damage type, physical = yellow, chaos = gradient, etc. idk */}
                     <div
-                      className={`performance-bar`}
+                      className={'performance-bar'}
                       style={{ width: `${performanceBarPercentage * 100}%` }}
                     />
                   </td>

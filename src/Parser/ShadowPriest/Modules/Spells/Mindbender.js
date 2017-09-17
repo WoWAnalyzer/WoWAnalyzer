@@ -7,7 +7,6 @@ const MINDBENDER_UPTIME_MS = 15000;
 const MINDBENDER_ADDED_UPTIME_MS_PER_TRAIT = 1500;
 
 class Mindbender extends Pet {
-
   _pet = PETS.MINDBENDER;
   _mindbenders = {};
 

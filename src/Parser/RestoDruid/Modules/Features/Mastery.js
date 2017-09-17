@@ -61,7 +61,6 @@ class Mastery extends Module {
       Object.entries(this.masteryBuffs)
           .filter(entry => this.combatants.selected.hasBuff(entry[0]))
           .forEach(entry => entry[1].attributableHealing += decomposedHeal.oneRating * entry[1].amount);
-
     } else {
       this.totalNoMasteryHealing += amount;
     }

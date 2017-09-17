@@ -10,7 +10,6 @@ import { formatPercentage } from 'common/format';
 const FELSTORM_COOLDOWN = 45;
 
 class Felstorm extends Module {
-
   mainPetFelstormCount = 0;
 
   // works with either direct /cast Felstorm or by using the Command Demon ability (if direct /cast Felstorm, then the player didn't cast it, but this buff gets applied either way)

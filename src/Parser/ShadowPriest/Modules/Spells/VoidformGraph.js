@@ -25,7 +25,7 @@ const SURRENDER_TO_MADNESS_VOIDFORM_MS_THRESHOLD = 150000;
 // d = 6 + (2/3)*x
 // where d = total drain of Insanity over 1 second
 // max insanity is 10000 (100 ingame)
-const INSANITY_DRAIN_INCREASE = 2/3 * 100; // ~66.67;
+const INSANITY_DRAIN_INCREASE = 2 / 3 * 100; // ~66.67;
 const INSANITY_DRAIN_INITIAL = 6 * 100; // 600;
 const VOIDFORM_MINIMUM_INITIAL_INSANITY = 65 * 100; // 6500;
 

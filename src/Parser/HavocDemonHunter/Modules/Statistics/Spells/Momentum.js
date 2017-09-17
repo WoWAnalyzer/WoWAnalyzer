@@ -16,7 +16,7 @@ class Momentum extends Module {
   };
 
   on_initialized() {
-      this.active = this.combatants.selected.hasTalent(SPELLS.MOMENTUM_TALENT.id);
+    this.active = this.combatants.selected.hasTalent(SPELLS.MOMENTUM_TALENT.id);
   }
 
   statistic() {

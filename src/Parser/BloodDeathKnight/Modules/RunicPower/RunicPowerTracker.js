@@ -69,7 +69,6 @@ class RunicPowerTracker extends Module {
     this.generatedAndWasted[spellId].wasted += (event.waste || 0);
     this.rpWasted += (event.waste || 0);
     this.totalRPGained += (event.resourceChange || 0) + (event.waste || 0);
-
   }
 
 
@@ -89,15 +88,13 @@ class RunicPowerTracker extends Module {
         this.combatants.selected.hasBuff(SPELLS.GRAVEWARDEN.id, event.timestamp)) {
         rpCost -= 5;
       }
-    }
-    else {
+    }    else {
       rpCost = event.classResources[0].cost / 10;
     }
     this.spent[spellId] += rpCost;
     this.rpSpent += rpCost;
     this.currentRP -= rpCost;
   }
-
 }
 
 export default RunicPowerTracker;

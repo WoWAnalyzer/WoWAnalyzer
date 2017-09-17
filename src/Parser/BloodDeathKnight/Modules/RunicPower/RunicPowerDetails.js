@@ -9,8 +9,7 @@ import { formatPercentage } from 'common/format';
 import RunicPowerBreakdown from './RunicPowerBreakdown';
 import RunicPowerTracker from './RunicPowerTracker';
 
-class RunicPowerDetails extends Module
-{
+class RunicPowerDetails extends Module {
   static
   dependencies = {
     runicPowerTracker: RunicPowerTracker,
