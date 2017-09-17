@@ -17,7 +17,7 @@ class Nazjatar extends Module {
       return;
     }
 
-    const healthBeforeHeal = event.hitPoints - (event.amount || 0) + (event.overheal || 0); 
+    const healthBeforeHeal = event.hitPoints - (event.amount || 0) + (event.overheal || 0);
     const healthPercentBeforeHeal = healthBeforeHeal / event.maxHitPoints;
 
     if (healthPercentBeforeHeal < 0.4) {

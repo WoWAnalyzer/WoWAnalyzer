@@ -48,7 +48,7 @@ class PlayerSelecter extends Component {
             <h2>Select the player you wish to analyze</h2>
           </div>
           <div className="panel-body" style={{ padding: 0 }}>
-            <PlayerSelectionList report={report} fightId={fightId} combatants={combatants}/>
+            <PlayerSelectionList report={report} fightId={fightId} combatants={combatants} />
           </div>
         </div>
 

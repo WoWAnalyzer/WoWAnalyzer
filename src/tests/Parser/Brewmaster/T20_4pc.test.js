@@ -1,5 +1,5 @@
 import T20_4pc from 'Parser/BrewmasterMonk/Modules/Items/T20_4pc';
-import { processEvents } from './Fixtures/processEvents';
+import processEvents from './Fixtures/processEvents';
 import { SimpleFight } from './Fixtures/SimpleFight';
 
 describe('Brewmaster.T20_4pc', () => {
@@ -21,5 +21,4 @@ describe('Brewmaster.T20_4pc', () => {
     expect(item.staggerSaved).toBe(15);
   });
 });
-  
 

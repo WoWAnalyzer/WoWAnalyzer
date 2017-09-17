@@ -129,7 +129,7 @@ export default {
     name: 'Mastery: Gust of Mists',
     icon: 'ability_monk_souldance',
   },
-  //Damage Abilities
+  // Damage Abilities
   BLACKOUT_KICK: {
     id: 100784,
     name: 'Blackout Kick',
@@ -348,7 +348,7 @@ export default {
     icon: 'spell_monk_mistweaver_spec',
   },
 
-  //Brewmaster
+  // Brewmaster
   BLACKOUT_STRIKE: {
     id: 205523,
     name: 'Blackout Strike',

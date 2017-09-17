@@ -37,7 +37,7 @@ class PlayerSelectorHeader extends SelectorBase {
                 <h2>Select the player you wish to analyze</h2>
               </div>
               <div className="panel-body" style={{ padding: 0 }} onClick={this.handleClick}>
-                <PlayerSelectionList report={report} fightId={fightId} combatants={combatants}/>
+                <PlayerSelectionList report={report} fightId={fightId} combatants={combatants} />
               </div>
             </div>
           </span>}

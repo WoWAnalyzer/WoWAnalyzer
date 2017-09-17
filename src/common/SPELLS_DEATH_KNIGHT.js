@@ -12,14 +12,14 @@ export default {
     name: 'Consumption',
     icon: 'inv_axe_2h_artifactmaw_d_01',
   },
-  //Damage Dealing
+  // Damage Dealing
   DEATH_AND_DECAY: {
     id: 43265,
     name: 'Death and Decay',
     icon: 'spell_shadow_deathanddecay',
   },
 
-  //Provides the 1 RP tick on DnD from Rapid Decomposition Talent
+  // Provides the 1 RP tick on DnD from Rapid Decomposition Talent
   RAPID_DECOMPOSITION_RP_TICK: {
     id: 188290,
     name: 'Rapid Decomposition RP Tick',
@@ -38,7 +38,7 @@ export default {
     icon: 'inv_weapon_shortblade_40',
   },
 
-  //Only used during Dancing Rune Weapon. Its the Heart Strike of the copied weapons. Generates 5 RP.
+  // Only used during Dancing Rune Weapon. Its the Heart Strike of the copied weapons. Generates 5 RP.
   BLOOD_STRIKE: {
     id: 220890,
     name: 'Blood Strike',
@@ -74,7 +74,7 @@ export default {
     icon: 'ability_animusdraw',
   },
 
-  //Cool Downs
+  // Cool Downs
   ICEBOUND_FORTITUDE: {
     id: 48792,
     name: 'Icebound Fortitude',
@@ -135,7 +135,7 @@ export default {
     icon: 'achievement_boss_lordmarrowgar',
   },
 
-//Buffs
+// Buffs
   OSSUARY: {
     id: 219788,
     name: 'OSSUARY',
@@ -149,7 +149,7 @@ export default {
   },
 
 
-  //CC
+  // CC
   ASPHYXIATE: {
     id: 108194,
     name: 'ASPHYXIATE',
@@ -180,7 +180,7 @@ export default {
     icon: 'ability_deathknight_aoedeathgrip',
   },
 
-  //Movement
+  // Movement
   WRAITH_WALK: {
     id: 212552,
     name: 'Wraith Walk',
@@ -188,7 +188,7 @@ export default {
   },
 
 
-  //MISC
+  // MISC
   CONTROL_UNDEAD: {
     id: 111673,
     name: 'Control Undead',
@@ -207,20 +207,20 @@ export default {
     icon: 'spell_shadow_deadofnight',
   },
 
-  //Blood Tier Sets
-  //T20 2 Piece
+  // Blood Tier Sets
+  // T20 2 Piece
   BLOOD_DEATH_KNIGHT_T20_2SET_BONUS_BUFF: {
     id: 242001,
     name: 'T20 2 Set Bonus',
     icon: 'spell_deathknight_bloodpresence',
   },
-  //T20 4 Piece
+  // T20 4 Piece
   BLOOD_DEATH_KNIGHT_T20_4SET_BONUS_BUFF: {
     id: 242009,
     name: 'T20 4 Set Bonus',
     icon: 'spell_deathknight_bloodpresence',
   },
-  //T20 Buff
+  // T20 Buff
   GRAVEWARDEN: {
     id: 242010,
     name: 'Gravewarden',

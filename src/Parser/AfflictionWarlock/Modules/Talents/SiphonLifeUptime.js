@@ -37,7 +37,7 @@ class SiphonLifeUptime extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.SIPHON_LIFE.id} />}
         value={`${formatPercentage(siphonLifeUptime)} %`}
-        label='Siphon Life uptime'
+        label="Siphon Life uptime"
       />
     );
   }

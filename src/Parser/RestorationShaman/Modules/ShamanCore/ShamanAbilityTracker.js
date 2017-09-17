@@ -33,7 +33,7 @@ class ShamanAbilityTracker extends AbilityTracker {
     const cast = this.getAbility(spellId, event.ability);
 
     if (spellId === SPELLS.HEALING_WAVE.id || spellId === SPELLS.HEALING_SURGE_RESTORATION.id) {
-      const hasTw = this.owner.modules.combatants.selected.hasBuff(TIDAL_WAVES_SPELL_ID, event.timestamp, TIDAL_WAVES_BUFF_EXPIRATION_BUFFER,TIDAL_WAVES_BUFF_MINIMAL_ACTIVE_TIME);
+      const hasTw = this.owner.modules.combatants.selected.hasBuff(TIDAL_WAVES_SPELL_ID, event.timestamp, TIDAL_WAVES_BUFF_EXPIRATION_BUFFER, TIDAL_WAVES_BUFF_MINIMAL_ACTIVE_TIME);
 
       if (hasTw) {
         cast.healingTwHits = (cast.healingTwHits || 0) + 1;

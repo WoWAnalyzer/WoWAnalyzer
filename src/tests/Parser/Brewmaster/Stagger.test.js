@@ -1,5 +1,5 @@
 import Stagger from 'Parser/BrewmasterMonk/Modules/Core/Stagger';
-import { processEvents } from './Fixtures/processEvents';
+import processEvents from './Fixtures/processEvents';
 import { SimpleFight, EarlyFinish, incomingDamage } from './Fixtures/SimpleFight';
 
 describe('Brewmaster.Stagger', () => {
@@ -52,5 +52,4 @@ describe('Brewmaster.Stagger', () => {
     expect(stagger.staggerMissingFromFight).toBe(285);
   });
 });
-  
 

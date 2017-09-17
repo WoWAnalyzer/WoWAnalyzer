@@ -31,12 +31,12 @@ class NewMoon extends Module {
       this.firstMoonCast = true;
     }
 
-    if (spellId !== SPELLS.NEW_MOON.id)      {this.newMoonOrder += 1;}    else            {this.orderFound = true;}
+    if (spellId !== SPELLS.NEW_MOON.id) { this.newMoonOrder += 1; } else { this.orderFound = true; }
   }
 
   suggestions(when) {
     const abilityTracker = this.owner.modules.abilityTracker;
-        
+
     const offSet = this.firstMoonTime + 15;
     const totalFromCD = ((this.owner.fightDuration / 1000) - offSet) / 15;
     const eachMoon = Math.floor(totalFromCD / 3);
@@ -60,26 +60,26 @@ class NewMoon extends Module {
 
   statistic() {
     const abilityTracker = this.owner.modules.abilityTracker;
-        
+
     const offSet = this.firstMoonTime + 15;
     const totalFromCD = ((this.owner.fightDuration / 1000) - offSet) / 15;
     const eachMoon = Math.floor(totalFromCD / 3);
     let nmAvailableCasts = eachMoon + 1;
-        
+
     const extraMoons = ((totalFromCD / 3) - eachMoon) * 3;
     if (extraMoons > this.newMoonOrder) nmAvailableCasts += 1;
 
     const nmCasted = abilityTracker.getAbility(SPELLS.NEW_MOON.id).casts;
-        
+
     return (
-        <StatisticBox
-            icon={<SpellIcon id={SPELLS.NEW_MOON.id} />}
-            value={`${nmCasted}/${nmAvailableCasts}`}
-            label='New Moon casts'
-        />
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.NEW_MOON.id} />}
+        value={`${nmCasted}/${nmAvailableCasts}`}
+        label="New Moon casts"
+      />
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(3);
 }
-  
+
 export default NewMoon;

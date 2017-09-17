@@ -19,7 +19,7 @@ class DoomguardInfernal extends Module {
   on_initialized() {
     this.active = !this.combatants.selected.hasTalent(SPELLS.GRIMOIRE_OF_SUPREMACY_TALENT.id);
   }
-  
+
   suggestions(when) {
     const maxCasts = Math.ceil(calculateMaxCasts(SUMMON_COOLDOWN, this.owner.fightDuration));
     const doomguardCasts = this.abilityTracker.getAbility(SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id).casts || 0;
@@ -28,7 +28,7 @@ class DoomguardInfernal extends Module {
     const percentage = actualCasts / maxCasts;
     when(percentage).isLessThan(1)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You should cast <SpellLink id={SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id}/> or <SpellLink id={SPELLS.SUMMON_INFERNAL_UNTALENTED.id}/> more often. Infernal has higher priority if you don't have the Lord of Flames debuff but it is otherwise weaker. Try to pair up the cooldowns with Bloodlust haste buffs (Bloodlust, Heroism, Time Warp etc.).</span>)
+        return suggest(<span>You should cast <SpellLink id={SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id} /> or <SpellLink id={SPELLS.SUMMON_INFERNAL_UNTALENTED.id} /> more often. Infernal has higher priority if you don't have the Lord of Flames debuff but it is otherwise weaker. Try to pair up the cooldowns with Bloodlust haste buffs (Bloodlust, Heroism, Time Warp etc.).</span>)
           .icon(SPELLS.SUMMON_DOOMGUARD_UNTALENTED.icon)
           .actual(`${actualCasts} out of ${maxCasts} buffed Summon Infernals.`)
           .recommended(`${maxCasts} is recommended`)

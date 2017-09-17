@@ -20,7 +20,7 @@ class Landslide extends Module {
   suggestions(when) {
     const landslideUptime = this.combatants.selected.getBuffUptime(SPELLS.LANDSLIDE_BUFF.id) / this.owner.fightDuration;
 
-    when(landslideUptime).isLessThan(.95)
+    when(landslideUptime).isLessThan(0.95)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest('Try to make sure the Landslide buff from Rockbiter is always up, when it drops you should refresh it as soon as possible')
           .icon(SPELLS.LANDSLIDE_BUFF.icon)

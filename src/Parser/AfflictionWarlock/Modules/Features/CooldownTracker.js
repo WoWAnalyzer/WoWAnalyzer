@@ -11,7 +11,7 @@ class CooldownTracker extends CoreCooldownTracker {
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],
     },
-    //for the sake of completeness, typically unused
+    // for the sake of completeness, typically unused
     {
       spell: SPELLS.SUMMON_INFERNAL_UNTALENTED,
       summary: [

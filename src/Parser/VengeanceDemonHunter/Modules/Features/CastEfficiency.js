@@ -5,6 +5,8 @@ import ItemLink from 'common/ItemLink';
 import SpellLink from 'common/SpellLink';
 import CoreCastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 
+/* eslint-disable no-unused-vars */
+
 class CastEfficiency extends CoreCastEfficiency {
   static CPM_ABILITIES = [
     ...CoreCastEfficiency.CPM_ABILITIES,
@@ -78,12 +80,12 @@ class CastEfficiency extends CoreCastEfficiency {
       noSuggestion: true,
     },
     {
-        spell: SPELLS.FRACTURE_TALENT,
-        isActive: combatant => combatant.hasTalent(SPELLS.FRACTURE_TALENT.id),
-        category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-        getCooldown: haste => null,
-        noSuggestion: true,
-        noCanBeImproved: true,
+      spell: SPELLS.FRACTURE_TALENT,
+      isActive: combatant => combatant.hasTalent(SPELLS.FRACTURE_TALENT.id),
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => null,
+      noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.FIERY_BRAND,

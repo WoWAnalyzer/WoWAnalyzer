@@ -1,8 +1,9 @@
 module.exports = {
-  "extends": "react-app",
-  "rules": {
+  extends: 'react-app',
+  parser: 'babel-eslint',
+  rules: {
     // https://github.com/airbnb/javascript#commas--dangling
-    "comma-dangle": ["warn", "always-multiline"],
+    'comma-dangle': ['warn', 'always-multiline'],
 
     // Objects
     // https://github.com/airbnb/javascript#objects--no-new
