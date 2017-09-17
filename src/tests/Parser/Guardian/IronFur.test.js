@@ -1,6 +1,6 @@
 import IronFur from 'Parser/GuardianDruid/Modules/Spells/IronFur';
 import { damageTaken, buffsApplied, SimpleFight } from './Fixtures/SimpleFight';
-import { processEvents } from './Fixtures/processEvents';
+import processEvents from './Fixtures/processEvents';
 
 describe('Core.IronFur', () => {
   let ironfur;

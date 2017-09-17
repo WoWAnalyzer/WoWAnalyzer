@@ -33,7 +33,7 @@ class AbsoluteCorruption extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.ABSOLUTE_CORRUPTION_TALENT.id} />}
         value={`${formatNumber(this.bonusDmg / this.owner.fightDuration * 1000)} DPS`}
-        label='Damage contributed'
+        label="Damage contributed"
         tooltip={`Your Absolute Corruption talent contributed ${formatNumber(this.bonusDmg)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} %).<br /><br />Note: This only accounts for the passive 25% increased damage. Actual bonus damage is a lot higher due to saved GCDs.`}
       />
     );

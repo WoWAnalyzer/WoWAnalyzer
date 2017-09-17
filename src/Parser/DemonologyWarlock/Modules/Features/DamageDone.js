@@ -12,7 +12,7 @@ class DamageDone extends CoreDamageDone {
   _petIds = new Set();
 
   on_initialized() {
-    this.owner.playerPets.forEach(pet => {
+    this.owner.playerPets.forEach((pet) => {
       this._petIds.add(pet.id);
     });
   }
@@ -35,7 +35,7 @@ class DamageDone extends CoreDamageDone {
             alt="Demonology Warlock"
           />)}
         value={`${formatNumber((totalDmg / this.owner.fightDuration) * 1000)} DPS`}
-        label='Damage done'
+        label="Damage done"
         tooltip={`The total damage (including pets) recorded was ${formatThousands(totalDmg)}`}
       />
     );

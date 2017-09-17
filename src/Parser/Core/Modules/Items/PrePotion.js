@@ -59,10 +59,8 @@ class PrePotion extends Module {
       if ((this.owner.fight.start_time + DURATION_PROLONGED) > event.timestamp) {
         this.usedPrePotion = true;
       }
-    } else {
-      if ((this.owner.fight.start_time + DURATION) > event.timestamp) {
-        this.usedPrePotion = true;
-      }
+    } else if ((this.owner.fight.start_time + DURATION) > event.timestamp) {
+      this.usedPrePotion = true;
     }
   }
 
@@ -91,27 +89,27 @@ class PrePotion extends Module {
 
   suggestions(when) {
     when(this.usedPrePotion).isFalse()
-      .addSuggestion(suggest => {
+      .addSuggestion((suggest) => {
         return suggest(<span>You did not use a potion before combat. Using a potion before combat allows you the benefit of two potions in a single fight. A potion such as <ItemLink id={ITEMS.POTION_OF_PROLONGED_POWER.id} /> can be very effective (even for healers), especially during shorter encounters.</span>)
           .icon(ITEMS.POTION_OF_PROLONGED_POWER.icon)
           .staticImportance(SUGGESTION_IMPORTANCE.MINOR);
       });
     when(this.usedSecondPotion).isFalse()
-      .addSuggestion(suggest => {
+      .addSuggestion((suggest) => {
         let suggestionText;
         let importance;
         // Only healer specs would use a mana potion all other specs either don't use mana as a primary resource (such as bears)
-        // or have another method to regen mana, this fixes an issue with Guardian where they shift out of bear form and cast a 
+        // or have another method to regen mana, this fixes an issue with Guardian where they shift out of bear form and cast a
         // spell but mana is not their primary resource and should not use a mana potion.
         const healerSpec = HEALER_SPECS.indexOf(this.combatants.selected.specId) !== -1;
         if (!healerSpec) {
           suggestionText = <span>You forgot to use a potion during combat. By using a potion during combat such as <ItemLink id={ITEMS.POTION_OF_PROLONGED_POWER.id} /> you the increasing dps and also suvivability against a boss.</span>;
           importance = SUGGESTION_IMPORTANCE.MINOR;
         } else if (!this.neededManaSecondPotion) {
-          suggestionText = <span>You forgot to use a potion during combat. Using a potion during combat allows you the benefit of either increasing output through <ItemLink id={ITEMS.POTION_OF_PROLONGED_POWER.id} /> or allowing you to gain mana using <ItemLink id={ITEMS.ANCIENT_MANA_POTION.id}/>, for example.</span>;
+          suggestionText = <span>You forgot to use a potion during combat. Using a potion during combat allows you the benefit of either increasing output through <ItemLink id={ITEMS.POTION_OF_PROLONGED_POWER.id} /> or allowing you to gain mana using <ItemLink id={ITEMS.ANCIENT_MANA_POTION.id} />, for example.</span>;
           importance = SUGGESTION_IMPORTANCE.MINOR;
         } else {
-          suggestionText = <span>You ran out of mana (OOM) during the encounter without using a second potion. Use a second potion such as <ItemLink id={ITEMS.ANCIENT_MANA_POTION.id}/> or if the fight allows <ItemLink id={ITEMS.LEYTORRENT_POTION.id}/> to regenerate some mana.</span>;
+          suggestionText = <span>You ran out of mana (OOM) during the encounter without using a second potion. Use a second potion such as <ItemLink id={ITEMS.ANCIENT_MANA_POTION.id} /> or if the fight allows <ItemLink id={ITEMS.LEYTORRENT_POTION.id} /> to regenerate some mana.</span>;
           importance = SUGGESTION_IMPORTANCE.REGULAR;
         }
         return suggest(suggestionText)

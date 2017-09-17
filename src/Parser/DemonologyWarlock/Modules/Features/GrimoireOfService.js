@@ -36,7 +36,7 @@ class GrimoireOfService extends Module {
     const percentage = actualCasts / maxCasts;
     when(percentage).isLessThan(0.9)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You should use <SpellLink id={SPELLS.GRIMOIRE_OF_SERVICE_TALENT.id}/> more often, preferably on <SpellLink id={SPELLS.GRIMOIRE_FELGUARD.id}/>.</span>)
+        return suggest(<span>You should use <SpellLink id={SPELLS.GRIMOIRE_OF_SERVICE_TALENT.id} /> more often, preferably on <SpellLink id={SPELLS.GRIMOIRE_FELGUARD.id} />.</span>)
           .icon(SPELLS.GRIMOIRE_OF_SERVICE_TALENT.icon)
           .actual(`${actualCasts} out of ${maxCasts} (${formatPercentage(actual)} %) Grimoire of Service casts.`)
           .recommended(`> ${formatPercentage(recommended)} % is recommended`)

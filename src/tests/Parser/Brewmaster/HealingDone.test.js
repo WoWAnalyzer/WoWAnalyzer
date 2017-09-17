@@ -1,5 +1,5 @@
 import HealingDone from 'Parser/BrewmasterMonk/Modules/Core/HealingDone';
-import { processEvents } from './Fixtures/processEvents';
+import processEvents from './Fixtures/processEvents';
 import { SimpleFight, heal, absorbed, incomingDamage, staggerAbsorbed, staggerTicks } from './Fixtures/SimpleFight';
 
 // Uses the same test structure as damage taken with the healing object.

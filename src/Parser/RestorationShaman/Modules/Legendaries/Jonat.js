@@ -27,7 +27,7 @@ class Jonat extends Module {
     }
 
     const buff = this.combatants.selected.getBuff(LEGENDARY_JONAT_BUFF, event.timestamp, LEGENDARY_JONAT_BUFF_EXPIRATION_BUFFER);
-        
+
     if (buff) {
       const stacks = buff.stacks || 1;
       const healingIncrease = stacks * LEGENDARY_JONAT_HEALING_INCREASE_PER_STACK;

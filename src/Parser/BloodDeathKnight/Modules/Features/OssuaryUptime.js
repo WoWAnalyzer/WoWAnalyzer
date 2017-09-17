@@ -6,6 +6,7 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Combatants from 'Parser/Core/Modules/Combatants';
+
 class OssuaryUptime extends Module {
   static dependencies = {
     combatants: Combatants,
@@ -22,7 +23,7 @@ class OssuaryUptime extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.OSSUARY.id} />}
         value={`${formatPercentage(Uptime / this.owner.fightDuration)}%`}
-        label='Ossuary Uptime'
+        label="Ossuary Uptime"
         tooltip={'Important to maintain. Reduces cost of Death Strike and increases runic power cap by 10.'}
       />
 

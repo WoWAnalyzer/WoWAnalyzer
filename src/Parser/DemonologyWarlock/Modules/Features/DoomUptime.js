@@ -31,7 +31,7 @@ class DoomUptime extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.DOOM.id} />}
         value={`${formatPercentage(doomUptime)} %`}
-        label='Doom uptime'
+        label="Doom uptime"
       />
     );
   }

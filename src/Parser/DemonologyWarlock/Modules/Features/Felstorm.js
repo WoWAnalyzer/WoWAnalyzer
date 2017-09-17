@@ -28,7 +28,7 @@ class Felstorm extends Module {
     const percentage = this.mainPetFelstormCount / maxCasts;
     when(percentage).isLessThan(0.9)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You should use your Felguard's <SpellLink id={SPELLS.FELSTORM.id}/> more often, preferably on cooldown.</span>)
+        return suggest(<span>You should use your Felguard's <SpellLink id={SPELLS.FELSTORM.id} /> more often, preferably on cooldown.</span>)
           .icon(SPELLS.FELSTORM.icon)
           .actual(`${this.mainPetFelstormCount} out of ${maxCasts} (${formatPercentage(actual)} %) Felstorm casts.`)
           .recommended(`> ${formatPercentage(recommended)} % is recommended`)

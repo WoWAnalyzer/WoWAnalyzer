@@ -33,8 +33,8 @@ class VulnerableUpTime extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.VULNERABLE.id} />}
         value={`${formatPercentage(vulnerableUptime)} %`}
-        label='Vulnerable uptime'
-    />
+        label="Vulnerable uptime"
+      />
     );
   }
 

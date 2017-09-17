@@ -41,7 +41,7 @@ class Haste extends Module {
     [209166]: 0.3, // DEBUFF - Fast Time from Elisande
     [209165]: -0.3, // DEBUFF - Slow Time from Elisande
     // [208944]: -Infinity, // DEBUFF - Time Stop from Elisande
-    [SPELLS.BONE_SHIELD.id]: 0.1, //Blood BK haste buff from maintaining boneshield
+    [SPELLS.BONE_SHIELD.id]: 0.1, // Blood BK haste buff from maintaining boneshield
 
     [SPELLS.RISING_TIDES.id]: {
       itemId: ITEMS.CHARM_OF_THE_RISING_TIDE.id,
@@ -162,9 +162,8 @@ class Haste extends Module {
         }
       }
       return value(selectedCombatant, itemDetails);
-    } else {
-      return value;
     }
+    return value;
   }
 
   _applyHasteGain(event, haste) {

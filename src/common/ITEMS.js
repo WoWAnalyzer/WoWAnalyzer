@@ -58,7 +58,7 @@ const ITEMS = {
     icon: 'inv_70_dungeon_ring6a',
     quality: ITEM_QUALITIES.EPIC,
   },
-  //Shared Paladin
+  // Shared Paladin
   SOUL_OF_THE_HIGHLORD: {
     id: 151644,
     name: 'Soul of the Highlord',
@@ -71,7 +71,7 @@ const ITEMS = {
     icon: 'inv_belt_leather_firelandsdruid_d_01',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
-  //Holy Paladin
+  // Holy Paladin
   OBSIDIAN_STONE_SPAULDERS: {
     id: 137076,
     name: 'Obsidian Stone Spaulders',
@@ -96,7 +96,7 @@ const ITEMS = {
     icon: 'inv_cape_legionendgame_c_03',
     quality: ITEM_QUALITIES.EPIC,
   },
-  //Ret Paladin
+  // Ret Paladin
   WHISPER_OF_THE_NATHREZIM: {
     id: 137020,
     name: 'Whisper of the Nathrezim',
@@ -115,7 +115,7 @@ const ITEMS = {
     icon: 'inv_jewelry_ring_61',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
-  //Resto Shammy
+  // Resto Shammy
   ROOTS_OF_SHALADRASSIL: {
     id: 132466,
     name: 'Roots of Shaladrassil',
@@ -327,7 +327,7 @@ const ITEMS = {
     icon: 'inv_70_raid_ring6a',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
-  //Balance Druid Legendaries
+  // Balance Druid Legendaries
   IMPECCABLE_FEL_ESSENCE: {
     id: 137039,
     name: 'Impeccable Fel Essence',
@@ -654,17 +654,17 @@ const ITEMS = {
   FRAGMENT_OF_THE_BETRAYERS_PRISON: {
     id: 138854,
     name: 'Fragment of the Betrayer\'s Prison',
-    icon:'inv_jewelry_ring_134',
+    icon: 'inv_jewelry_ring_134',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
   THE_DEFILERS_LOST_VAMBRACES: {
     id: 137091,
     name: 'The Defiler\'s Lost Vambraces',
-    icon:'inv_bracer_plate_pvpdeathknight_c_02',
+    icon: 'inv_bracer_plate_pvpdeathknight_c_02',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
 
-  //BrM Legendaries
+  // BrM Legendaries
   JEWEL_OF_THE_LOST_ABBEY: {
     id: 137044,
     name: 'Jewel of the Lost Abbey',

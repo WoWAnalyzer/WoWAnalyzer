@@ -25,7 +25,7 @@ class SoulHarvestTalent extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.SOUL_HARVEST.id} />}
         value={`${formatNumber(bonusDmg / this.owner.fightDuration * 1000)} DPS`}
-        label='Damage contributed'
+        label="Damage contributed"
         tooltip={`Your Soul Harvest contributed ${formatNumber(bonusDmg)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(bonusDmg))} %).`}
       />
     );

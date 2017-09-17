@@ -7,11 +7,10 @@ import 'chartist-plugin-legend';
 
 import './VoidformsTab.css';
 
-const formatDuration = duration => {
+const formatDuration = (duration) => {
   const seconds = Math.floor(duration % 60);
   return `${Math.floor(duration / 60)}:${seconds < 10 ? `0${seconds}` : seconds}`;
 };
-
 
 
 const MAX_MINDBENDER_MS = 21500;
@@ -87,26 +86,25 @@ const VoidformGraph = ({
     const startStep = atLabel(eventStart);
     for (let i = 0; i < amountOfSteps; i += 1) {
       if (eventStart + i * RESOLUTION_MS >= voidform.ended) break;
-      array[startStep + i] = data ? data : stacksData[startStep + i];
+      array[startStep + i] = data || stacksData[startStep + i];
     }
   };
-
 
 
   const steps = MAX_TIME_IN_VOIDFORM / RESOLUTION_MS;
   for (let i = 0; i < steps; i += 1) {
     labels[i] = i;
 
-    stacksData[i]             = null;
-    lingeringInsanityData[i]  = null;
-    insanityData[i]           = null;
-    insanityGeneratedData[i]  = null;
+    stacksData[i] = null;
+    lingeringInsanityData[i] = null;
+    insanityData[i] = null;
+    insanityGeneratedData[i] = null;
 
-    mindbenderData[i]         = null;
-    voidTorrentData[i]        = null;
-    dispersionData[i]         = null;
-    endData[i]                = null;
-    endOfVoidformData[i]      = null;
+    mindbenderData[i] = null;
+    voidTorrentData[i] = null;
+    dispersionData[i] = null;
+    endData[i] = null;
+    endOfVoidformData[i] = null;
   }
 
   voidform.stacks.forEach(({ stack, timestamp }) => {
@@ -119,7 +117,7 @@ const VoidformGraph = ({
   }
 
   endOfVoidformData[atLabel(voidform.ended) + 1] = 100;
-  endOfVoidformData[atLabel(voidform.ended)]   = 100;
+  endOfVoidformData[atLabel(voidform.ended)] = 100;
 
 
   if (lingeringInsanityStacks.length > 0) lingeringInsanityData[0] = lingeringInsanityStacks[0].stack + 2;
@@ -160,7 +158,7 @@ const VoidformGraph = ({
     if (insanityData[i] === null) {
       insanityData[i] = insanityData[latestInsanityDataAt];
       for (let j = latestInsanityDataAt; j <= i; j += 1) {
-        if (dispersionData[j] === null && voidTorrentData[j] === null)          {insanityData[i] -= insanityDrain[j] / (1000 / RESOLUTION_MS);}
+        if (dispersionData[j] === null && voidTorrentData[j] === null) { insanityData[i] -= insanityDrain[j] / (1000 / RESOLUTION_MS); }
       }
 
       if (insanityData[i] < 0) insanityData[i] = 0;
@@ -256,7 +254,7 @@ const VoidformGraph = ({
   if (includesEndOfFight) {
     const fightEndedAtSecond = atLabel(fightEnd);
     endData[fightEndedAtSecond - 1] = 100;
-    endData[fightEndedAtSecond]   = 100;
+    endData[fightEndedAtSecond] = 100;
 
     chartData = {
       ...chartData,
@@ -280,18 +278,18 @@ const VoidformGraph = ({
   }
 
   return (<ChartistGraph
-      data={chartData}
+    data={chartData}
 
-      options={{
-        low: 0,
-        high: 100,
-        series: {
-          Stacks: {
-            lineSmooth: Chartist.Interpolation.none({
-              fillHoles: true,
-            }),
-            showPoint: false,
-          },
+    options={{
+      low: 0,
+      high: 100,
+      series: {
+        Stacks: {
+          lineSmooth: Chartist.Interpolation.none({
+            fillHoles: true,
+          }),
+          showPoint: false,
+        },
           // 'insanityDrain': {
           //   lineSmooth: Chartist.Interpolation.none({
           //     fillHoles: true,
@@ -299,62 +297,62 @@ const VoidformGraph = ({
           //   showPoint: false,
           //   show: false,
           // },
-          Insanity: {
-            lineSmooth: Chartist.Interpolation.none({
-              fillHoles: true,
-            }),
-            showPoint: false,
-          },
-          Mindbender: {
-            showArea: true,
-            lineSmooth: Chartist.Interpolation.none({
-              fillHoles: true,
-            }),
-          },
-          'Void Torrent': {
-            showArea: true,
-          },
-          Dispersion: {
-            showArea: true,
+        Insanity: {
+          lineSmooth: Chartist.Interpolation.none({
+            fillHoles: true,
+          }),
+          showPoint: false,
+        },
+        Mindbender: {
+          showArea: true,
+          lineSmooth: Chartist.Interpolation.none({
+            fillHoles: true,
+          }),
+        },
+        'Void Torrent': {
+          showArea: true,
+        },
+        Dispersion: {
+          showArea: true,
             // lineSmooth: Chartist.Interpolation.step({
             //   fillHoles: true,
             // }),
-          },
-          'Lingering Insanity': {
-            showArea: true,
-            lineSmooth: Chartist.Interpolation.none({
-              fillHoles: true,
-            }),
-          },
-          'End of Fight': {
-            showArea: true,
-          },
-          'End of Voidform': {
-            showArea: true,
-          },
         },
-        fullWidth: true,
-        height: '200px',
-        axisX: {
-          labelInterpolationFnc: function skipLabels(ms) {
-            const everySecond = surrenderToMadness ? 10 : 5;
-            return (ms * (RESOLUTION_MS / 1000)) % everySecond === 0 ? formatDuration(ms * (RESOLUTION_MS / 1000)) : null;
-          },
-          offset: 30,
+        'Lingering Insanity': {
+          showArea: true,
+          lineSmooth: Chartist.Interpolation.none({
+            fillHoles: true,
+          }),
         },
-        axisY: {
-          onlyInteger: true,
-          offset: 50,
-          labelInterpolationFnc: function skipLabels(numberOfStacks) {
-            return numberOfStacks;
-          },
+        'End of Fight': {
+          showArea: true,
         },
-        plugins: [
-          Chartist.plugins.legend(legends),
-        ],
-      }}
-      type="Line"
-    />);
+        'End of Voidform': {
+          showArea: true,
+        },
+      },
+      fullWidth: true,
+      height: '200px',
+      axisX: {
+        labelInterpolationFnc: function skipLabels(ms) {
+          const everySecond = surrenderToMadness ? 10 : 5;
+          return (ms * (RESOLUTION_MS / 1000)) % everySecond === 0 ? formatDuration(ms * (RESOLUTION_MS / 1000)) : null;
+        },
+        offset: 30,
+      },
+      axisY: {
+        onlyInteger: true,
+        offset: 50,
+        labelInterpolationFnc: function skipLabels(numberOfStacks) {
+          return numberOfStacks;
+        },
+      },
+      plugins: [
+        Chartist.plugins.legend(legends),
+      ],
+    }}
+    type="Line"
+  />);
 };
 
 VoidformGraph.propTypes = {

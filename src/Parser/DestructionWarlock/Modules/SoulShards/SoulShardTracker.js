@@ -16,7 +16,7 @@ class SoulShardTracker extends Module {
   fragmentsWasted = 0;
   fragmentsSpent = 0;
 
-  //stores number of shards gained/spent/wasted per ability ID
+  // stores number of shards gained/spent/wasted per ability ID
   generatedAndWasted = {
     [SPELLS.IMMOLATE_DEBUFF.name]: {
       id: SPELLS.IMMOLATE_DEBUFF.id,
@@ -85,13 +85,13 @@ class SoulShardTracker extends Module {
   on_soulshardfragment_gained(event) {
     const spellName = event.ability.name;
     if (!this.generatedAndWasted[spellName]) {
-      //shouldn't happen
+      // shouldn't happen
       return;
     }
     if (spellName === SPELLS.SHADOWBURN.name && event.isFromShadowburnKill) {
       this.generatedAndWasted[SHADOWBURN_KILL].wasted += event.waste;
       this.generatedAndWasted[SHADOWBURN_KILL].generated += event.amount;
-    }    else {
+    } else {
       this.generatedAndWasted[spellName].wasted += event.waste;
       this.generatedAndWasted[spellName].generated += event.amount;
     }
@@ -102,7 +102,7 @@ class SoulShardTracker extends Module {
   on_soulshardfragment_spent(event) {
     const spellId = event.ability.guid;
     if (this.spent[spellId] === undefined) {
-      //shouldn't happen
+      // shouldn't happen
       return;
     }
     this.spent[spellId] += event.amount;

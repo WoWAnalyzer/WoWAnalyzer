@@ -25,18 +25,16 @@ class DamageTaken extends Module {
   byAbility(spellId) {
     if (!this._byAbility[spellId]) {
       return new DamageValue(0, 0, 0);
-    } else {
-      return this._byAbility[spellId];
     }
+    return this._byAbility[spellId];
   }
 
   _byMagicSchool = {};
   byMagicSchool(magicSchool) {
     if (!this._byMagicSchool[magicSchool]) {
       return new DamageValue(0, 0, 0);
-    } else {
-      return this._byMagicSchool[magicSchool];
     }
+    return this._byMagicSchool[magicSchool];
   }
 
   on_toPlayer_damage(event) {

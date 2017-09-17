@@ -31,7 +31,7 @@ module.exports = {
             defaultValue: Sequelize.NOW,
             allowNull: false,
           },
-        },
+        }
       ),
       queryInterface.addIndex('WclApiResponse', ['createdAt']),
     ]);

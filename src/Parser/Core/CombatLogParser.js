@@ -158,7 +158,7 @@ class CombatLogParser {
 
   initializeModules(modules) {
     const failedModules = [];
-    Object.keys(modules).forEach(desiredModuleName => {
+    Object.keys(modules).forEach((desiredModuleName) => {
       const moduleClass = modules[desiredModuleName];
       if (!moduleClass) {
         return;
@@ -167,7 +167,7 @@ class CombatLogParser {
       const availableDependencies = {};
       const missingDependencies = [];
       if (moduleClass.dependencies) {
-        Object.keys(moduleClass.dependencies).forEach(desiredDependencyName => {
+        Object.keys(moduleClass.dependencies).forEach((desiredDependencyName) => {
           const dependencyClass = moduleClass.dependencies[desiredDependencyName];
 
           const dependencyModule = this.findModule(dependencyClass);
@@ -198,7 +198,7 @@ class CombatLogParser {
     if (failedModules.length !== 0) {
       debug && console.warn(`${failedModules.length} modules failed to load, trying again:`, failedModules.map(key => modules[key].name));
       const newBatch = {};
-      failedModules.forEach(key => {
+      failedModules.forEach((key) => {
         newBatch[key] = modules[key];
       });
       this.initializeModules(newBatch);
@@ -219,7 +219,7 @@ class CombatLogParser {
       ];
     }
     return new Promise((resolve, reject) => {
-      events.forEach(event => {
+      events.forEach((event) => {
         if (this.error) {
           throw new Error(this.error);
         }
@@ -236,7 +236,7 @@ class CombatLogParser {
   reorderEvents(events) {
     this.activeModules
       .sort((a, b) => a.priority - b.priority) // lowest should go first, as `priority = 0` will have highest prio
-      .forEach(module => {
+      .forEach((module) => {
         if (module.reorderEvents) {
           events = module.reorderEvents(events);
         }
@@ -286,7 +286,7 @@ class CombatLogParser {
 
     this.activeModules
       .sort((a, b) => b.priority - a.priority)
-      .forEach(module => {
+      .forEach((module) => {
         if (module.statistic) {
           const statistic = module.statistic();
           if (statistic) {

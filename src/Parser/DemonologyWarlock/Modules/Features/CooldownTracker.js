@@ -44,7 +44,7 @@ class CooldownTracker extends CoreCooldownTracker {
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],
     },
-    //for the sake of completeness, typically unused
+    // for the sake of completeness, typically unused
     {
       spell: SPELLS.GRIMOIRE_IMP,
       duration: 25,
@@ -102,7 +102,7 @@ class CooldownTracker extends CoreCooldownTracker {
   // on_event() might be more accurate but it would be most likely called much more
   trackEvent(event) {
     const finishedCooldowns = this.activeCooldowns.filter(cooldown => cooldown.end && cooldown.end < event.timestamp).map((_, index) => index);
-    finishedCooldowns.forEach(index => {
+    finishedCooldowns.forEach((index) => {
       debug && console.log(`%cCooldown ended: ${this.activeCooldowns[index].spell.name}`, 'color: red', this.activeCooldowns[index]);
       this.activeCooldowns.splice(index, 1);
     });

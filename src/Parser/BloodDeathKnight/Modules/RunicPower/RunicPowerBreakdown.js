@@ -26,7 +26,7 @@ class RunicPowerBreakdown extends React.Component {
 
     let totalGenerated = 0;
     let totalWasted = 0;
-    generated.forEach(ability => {
+    generated.forEach((ability) => {
       totalGenerated += ability.generated;
       totalWasted += ability.wasted;
     });
@@ -36,12 +36,12 @@ class RunicPowerBreakdown extends React.Component {
 
     return (
       <div>
-        <table className='data-table'>
+        <table className="data-table">
           <thead>
             <tr>
               <th><dfn data-tip="Abilities/effects that didn't generate any Runic Power were hidden">Ability</dfn></th>
-              <th colSpan='2'>Runic Power Generated</th>
-              <th colSpan='2'><dfn data-tip='This is the amount of Runic Power that was generated while you were having full Runic Power.'>Runic Power Wasted</dfn></th>
+              <th colSpan="2">Runic Power Generated</th>
+              <th colSpan="2"><dfn data-tip="This is the amount of Runic Power that was generated while you were having full Runic Power.">Runic Power Wasted</dfn></th>
             </tr>
           </thead>
           <tbody>
@@ -49,8 +49,8 @@ class RunicPowerBreakdown extends React.Component {
               .map(ability => (
                 <tr>
                   <td style={{ width: '30%' }}>
-                    <SpellIcon id={ability.abilityId}/>{' '}
-                    <SpellLink id={ability.abilityId}/>
+                    <SpellIcon id={ability.abilityId} />{' '}
+                    <SpellLink id={ability.abilityId} />
                   </td>
                   <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>
                     <dfn data-tip={`${formatPercentage(ability.generated / totalGenerated)} %`}>{ability.generated}</dfn>

@@ -6,7 +6,7 @@ class RadianceStatistics extends Module {
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.POWER_WORD_RADIANCE.id) {
-      return;
+
     }
   }
 }

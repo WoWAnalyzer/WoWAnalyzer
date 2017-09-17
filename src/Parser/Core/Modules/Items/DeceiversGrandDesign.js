@@ -41,13 +41,11 @@ class DecieversGrandDesign extends Module {
 
       // Account for precasting
       if (this.targetOne === event.targetID || this.targetTwo === event.targetID) {
-        return;
+
+      } else if (!this.targetOne) {
+        this.targetOne = event.targetID;
       } else {
-        if (!this.targetOne) {
-          this.targetOne = event.targetID;
-        } else {
-          this.targetTwo = event.targetID;
-        }
+        this.targetTwo = event.targetID;
       }
     }
   }
@@ -142,7 +140,8 @@ class DecieversGrandDesign extends Module {
       result: (
         <dfn data-tip={`The effective healing contributed by the Deciever's Grand Design on-use effect.<br />
             HOT: ${((deceiversGrandDesignHealingPercentage * 100) || 0).toFixed(2)} % / ${formatNumber(this.healing / this.owner.fightDuration * 1000)} HPS<br />
-            Shield Proc: ${((deceiversGrandDesignAbsorbPercentage * 100) || 0).toFixed(2)} % / ${formatNumber(this.healingAbsorb / this.owner.fightDuration * 1000)} HPS`}>
+            Shield Proc: ${((deceiversGrandDesignAbsorbPercentage * 100) || 0).toFixed(2)} % / ${formatNumber(this.healingAbsorb / this.owner.fightDuration * 1000)} HPS`}
+        >
           {((deceiversGrandDesignTotalPercentage * 100) || 0).toFixed(2)} % / {formatNumber((this.healing + this.healingAbsorb) / this.owner.fightDuration * 1000)} HPS
         </dfn>
       ),
@@ -150,7 +149,7 @@ class DecieversGrandDesign extends Module {
   }
   suggestions(when) {
     when(this.proced).isTrue()
-      .addSuggestion(suggest => {
+      .addSuggestion((suggest) => {
         return suggest(
           <span>
               Your <ItemLink id={ITEMS.DECEIVERS_GRAND_DESIGN.id} /> procced earlier than expected. Try to cast it on players without spiky health pools. The following events procced the effect:<br />
@@ -163,7 +162,7 @@ class DecieversGrandDesign extends Module {
                   </div>
                 );
               })}
-            </span>
+          </span>
         )
           .icon(ITEMS.DECEIVERS_GRAND_DESIGN.icon);
       });

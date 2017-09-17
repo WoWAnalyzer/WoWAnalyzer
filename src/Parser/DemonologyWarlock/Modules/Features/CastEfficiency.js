@@ -2,10 +2,12 @@ import SPELLS from 'common/SPELLS';
 
 import CoreCastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 
+/* eslint-disable no-unused-vars */
+
 class CastEfficiency extends CoreCastEfficiency {
   static CPM_ABILITIES = [
     ...CoreCastEfficiency.CPM_ABILITIES,
-    //Rotational spells
+    // Rotational spells
     {
       spell: SPELLS.DEMONIC_EMPOWERMENT,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
@@ -31,7 +33,7 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.CALL_DREADSTALKERS,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => 15, //can be reset via T20 2pc
+      getCooldown: haste => 15, // can be reset via T20 2pc
     },
     {
       spell: SPELLS.HAND_OF_GULDAN_CAST,
@@ -81,7 +83,7 @@ class CastEfficiency extends CoreCastEfficiency {
       noSuggestion: true,
       noCanBeImproved: true,
     },
-    //Cooldowns
+    // Cooldowns
     {
       spell: SPELLS.SOUL_HARVEST,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
@@ -168,7 +170,7 @@ class CastEfficiency extends CoreCastEfficiency {
       noSuggestion: true,
       noCanBeImproved: true,
     },
-    //Utility
+    // Utility
     {
       spell: SPELLS.BURNING_RUSH,
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
@@ -197,7 +199,7 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.SOULSTONE,
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => 600,
-      //TODO: shares cooldown with other combat rezzes, don't know how to calculate properly
+      // TODO: shares cooldown with other combat rezzes, don't know how to calculate properly
       noSuggestion: true,
       noCanBeImproved: true,
     },

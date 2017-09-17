@@ -24,8 +24,8 @@ class Mastery extends Module {
     HEALS_MASTERY_STACK.forEach(healId => this.hotHealing[healId] = { direct: 0, mastery: 0 });
 
     this.masteryBuffs = {
-      [SPELLS.ASTRAL_HARMONY.id] : { amount: 4000 },
-      [SPELLS.JACINS_RUSE.id] : { amount: 3000 },
+      [SPELLS.ASTRAL_HARMONY.id]: { amount: 4000 },
+      [SPELLS.JACINS_RUSE.id]: { amount: 3000 },
     };
     Object.values(this.masteryBuffs).forEach(entry => entry.attributableHealing = 0);
   }

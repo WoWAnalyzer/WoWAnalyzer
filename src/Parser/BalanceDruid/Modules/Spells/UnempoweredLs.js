@@ -48,13 +48,13 @@ class UnempoweredLS extends Module {
   on_toPlayer_removebuff(event) {
     if (this.isLunarEmpowerment(event)) {
       this._lunarEmpsOn = false;
-    }      
+    }
   }
 
   on_finished() {
     this.casts.push(this._castQueue);
 
-    this.suboptUmempLS = this.casts.filter(cast => {
+    this.suboptUmempLS = this.casts.filter((cast) => {
       return !cast.Empowered && cast.Enemies > 0 && cast.Enemies < 3;
     }).length;
   }

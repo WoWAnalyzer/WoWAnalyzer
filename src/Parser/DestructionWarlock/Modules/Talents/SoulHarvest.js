@@ -21,14 +21,14 @@ class SoulHarvest extends Module {
   addToCorrectSource(bonusDmg) {
     if (this._isFromTalent) {
       this.talentBonusDmg += bonusDmg;
-    }    else {
+    } else {
       this.chestBonusDmg += bonusDmg;
     }
   }
 
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.SOUL_HARVEST_TALENT.id) || this.combatants.selected.hasChest(ITEMS.THE_MASTER_HARVESTER.id);
-    this.owner.playerPets.forEach(pet => {
+    this.owner.playerPets.forEach((pet) => {
       this._petIds.has(pet.id);
     });
   }

@@ -19,10 +19,10 @@ class SoulShardDetails extends Module {
   suggestions(when) {
     const fragmentsWasted = this.soulShardTracker.fragmentsWasted;
     const fragmentsWastedPerMinute = (fragmentsWasted / this.owner.fightDuration) * 1000 * 60;
-    //Shards wasted for Destro are much more strict because the shard generation in Destro is much more reliant and less random, so there should be almost no wasted shards (if so, it's your own fault, not RNG)
-    const MINOR = 1; //1 shard per 10 minutes
-    const AVG = 3; //3 shards per 10 minutes
-    const MAJOR = 5; //5 shards per 10 minutes
+    // Shards wasted for Destro are much more strict because the shard generation in Destro is much more reliant and less random, so there should be almost no wasted shards (if so, it's your own fault, not RNG)
+    const MINOR = 1; // 1 shard per 10 minutes
+    const AVG = 3; // 3 shards per 10 minutes
+    const MAJOR = 5; // 5 shards per 10 minutes
     when(fragmentsWastedPerMinute).isGreaterThan(MINOR)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest('You are wasting Soul Shards. Try to use them and not let them cap and go to waste unless you\'re preparing for bursting adds etc.')
@@ -38,13 +38,13 @@ class SoulShardDetails extends Module {
     return (
       <StatisticBox
         icon={(
-            <img
-              src={WastedShardsIcon}
-              alt='Wasted Soul Shards'
-            />
+          <img
+            src={WastedShardsIcon}
+            alt="Wasted Soul Shards"
+          />
         )}
         value={`${fragmentsWasted}`}
-        label='Wasted Soul Shard Fragments'
+        label="Wasted Soul Shard Fragments"
       />
     );
   }
@@ -54,10 +54,10 @@ class SoulShardDetails extends Module {
       title: 'Soul Shard usage',
       url: 'soul-shards',
       render: () => (
-        <Tab title='Soul Shard usage breakdown'>
+        <Tab title="Soul Shard usage breakdown">
           <SoulShardBreakdown
-            fragmentsGeneratedAndWasted = {this.soulShardTracker.generatedAndWasted}
-            fragmentsSpent = {this.soulShardTracker.spent}
+            fragmentsGeneratedAndWasted={this.soulShardTracker.generatedAndWasted}
+            fragmentsSpent={this.soulShardTracker.spent}
           />
         </Tab>
       ),

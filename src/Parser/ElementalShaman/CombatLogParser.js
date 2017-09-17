@@ -121,7 +121,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     results.statistics = [
       <StatisticBox
-        icon={ <Icon icon="class_shaman" alt="Dead GCD time" /> }
+        icon={<Icon icon="class_shaman" alt="Dead GCD time" />}
         value={formatNumber(this.modules.damageDone.total.effective)}
         label={(
           <dfn data-tip="Without Fire Elemental Damage.">
@@ -141,7 +141,7 @@ class CombatLogParser extends CoreCombatLogParser {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.ELEMENTAL_MASTERY.id} />}
         value={(
-          <span className='flexJustify'>
+          <span className="flexJustify">
             <span>
               <SpellIcon
                 id={SPELLS.LAVA_BURST_OVERLOAD.id}

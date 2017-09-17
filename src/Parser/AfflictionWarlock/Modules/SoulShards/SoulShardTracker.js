@@ -11,7 +11,7 @@ class SoulShardTracker extends Module {
   shardsWasted = 0;
   shardsSpent = 0;
 
-  //stores number of shards generated/spent/wasted per ability ID
+  // stores number of shards generated/spent/wasted per ability ID
   generatedAndWasted = {
     [SPELLS.AGONY_SHARD_GEN.id]: {
       generated: 0,
@@ -62,11 +62,11 @@ class SoulShardTracker extends Module {
       return;
     }
 
-    //Affli abilities and effects generate/refund 1 shard at a time, so it's either generated or wasted, not both
+    // Affli abilities and effects generate/refund 1 shard at a time, so it's either generated or wasted, not both
     if (event.waste !== 0) {
       this.generatedAndWasted[spellId].wasted += 1;
       this.shardsWasted += 1;
-    }    else {
+    } else {
       this.generatedAndWasted[spellId].generated += 1;
     }
   }

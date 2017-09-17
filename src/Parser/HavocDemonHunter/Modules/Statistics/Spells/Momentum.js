@@ -6,8 +6,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 
-import { formatPercentage } from 'common/format';
-import { formatDuration } from 'common/format';
+import { formatPercentage, formatDuration } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class Momentum extends Module {
@@ -28,7 +27,7 @@ class Momentum extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.MOMENTUM_TALENT.id} />}
         value={`${formatPercentage(momentumUptimePercentage)}%`}
-        label='Momentum Uptime'
+        label="Momentum Uptime"
         tooltip={`The Momentum buff total uptime was ${formatDuration(momentumUptime / 1000)}.`}
       />
     );

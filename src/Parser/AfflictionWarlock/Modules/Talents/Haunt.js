@@ -14,7 +14,7 @@ import getDamageBonus from '../WarlockCore/getDamageBonus';
 const HAUNT_DAMAGE_BONUS = 0.15;
 
 class Haunt extends Module {
-  //TODO: test on dummy or in raid on some boss, there are no logs with this talent to test, should work though
+  // TODO: test on dummy or in raid on some boss, there are no logs with this talent to test, should work though
   static dependencies = {
     enemies: Enemies,
     combatants: Combatants,
@@ -44,7 +44,7 @@ class Haunt extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.HAUNT.id} />}
         value={`${formatNumber(this.bonusDmg / this.owner.fightDuration * 1000)} DPS`}
-        label='Damage contributed'
+        label="Damage contributed"
         tooltip={`Your Haunt talent contributed ${formatNumber(this.bonusDmg)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} %).`}
       />
     );

@@ -3,7 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
-import { formatNumber , formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
@@ -153,7 +153,8 @@ class SheilunsGift extends Module {
         label={(
           <dfn data-tip={`${SGcasts > 0 ? `You healed for an average of ${formatNumber(this.sgHeal / this.castsSG)} with each Sheilun's cast.` : ''}
           ${wastedSGStacks > 0 ? `<br>You wasted ${(wastedSGStacks)} stack(s) during this fight.` : ''}
-          `}>
+          `}
+          >
           Avg stacks used
           </dfn>
         )}

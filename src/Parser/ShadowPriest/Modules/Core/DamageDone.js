@@ -27,12 +27,12 @@ class DamageDone extends CoreDamageDone {
 
   statistic() {
     return (<StatisticBox
-			icon={<Icon icon="class_priest" alt="DPS stats" />}
-			value={`${formatNumber(this.total.effective / this.owner.fightDuration * 1000)} DPS`}
-			label={(
-				<dfn data-tip={`The total damage done recorded was ${formatThousands(this.total.effective)}.`}>Damage done</dfn>
+      icon={<Icon icon="class_priest" alt="DPS stats" />}
+      value={`${formatNumber(this.total.effective / this.owner.fightDuration * 1000)} DPS`}
+      label={(
+        <dfn data-tip={`The total damage done recorded was ${formatThousands(this.total.effective)}.`}>Damage done</dfn>
 			)}
-		/>);
+    />);
   }
 
   on_finished() {

@@ -64,7 +64,7 @@ class T20_2pc extends Module {
       console.log('T20 2pc Mana Saved: ', this.manaSaved);
     }
   }
-  
+
   suggestions(when) {
     const missed2pcProcs = this.procs - this.casts;
     when(missed2pcProcs).isGreaterThan(0)

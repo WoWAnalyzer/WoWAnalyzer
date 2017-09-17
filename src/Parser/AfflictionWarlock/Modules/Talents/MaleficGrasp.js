@@ -78,7 +78,7 @@ class MaleficGrasp extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.MALEFIC_GRASP_TALENT.id} />}
         value={`${formatNumber(this.totalBonusDmg / this.owner.fightDuration * 1000)} DPS`}
-        label='Damage contributed'
+        label="Damage contributed"
         tooltip={`Your Malefic Grasp talent contributed ${formatNumber(this.totalBonusDmg)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.totalBonusDmg))} %).
           <ul>
           ${this.agonyBonusDmg > 0 ? `

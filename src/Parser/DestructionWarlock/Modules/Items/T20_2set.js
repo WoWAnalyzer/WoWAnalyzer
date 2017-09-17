@@ -30,7 +30,7 @@ class T20_2set extends Module {
     if (event.ability.guid === SPELLS.CHAOS_BOLT.id) {
       this._totalCasts += 1;
       this._totalDamage += event.amount + (event.absorbed || 0);
-    }    else if (event.ability.guid === SPELLS.INCINERATE.id) {
+    } else if (event.ability.guid === SPELLS.INCINERATE.id) {
       const enemy = this.enemies.getEntity(event);
 
       if (!enemy || enemy.hasBuff(SPELLS.HAVOC.id, event.timestamp)) {

@@ -26,7 +26,7 @@ class SoulFragments extends Module {
       this.generated += 1;
       if (this.actual < 5) {
         this.actual += 1;
-      }      else {
+      } else {
         this.wasted += 1;
       }
     }
@@ -58,7 +58,8 @@ class SoulFragments extends Module {
         .icon('spell_shadow_soulgem')
         .actual(`${formatNumber(this.wasted)} wasted Soul Fragments.`)
         .recommended(`<=${formatNumber(maximumWaste)} is recommended`)
-        .regular(recommended + 0.03).major(recommended + 0.05);
+        .regular(recommended + 0.03)
+        .major(recommended + 0.05);
     });
   }
 
@@ -67,7 +68,7 @@ class SoulFragments extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.SOUL_FRAGMENT.id} />}
         value={`${formatNumber(this.wasted)}`}
-        label='Soul Fragments wasted'
+        label="Soul Fragments wasted"
         tooltip={`The total Soul Fragments generated was ${formatNumber(this.generated)}.<br/>The total Soul Fragments spent was ${formatNumber(this.spent)}.<br/>The total Soul Fragments wasted was ${formatNumber(this.wasted)}.<br/>At the end of the fight, you had ${formatNumber(this.actual)} unused Soul Fragments.`}
       />
     );

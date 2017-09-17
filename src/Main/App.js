@@ -259,7 +259,7 @@ class App extends Component {
     });
     return fetch(url)
       .then(response => response.json())
-      .then(json => {
+      .then((json) => {
         // console.log('Received report', code, ':', json);
         if (json.status === 400 || json.status === 401) {
           throw json.error;
@@ -289,7 +289,7 @@ class App extends Component {
           });
         }
       })
-      .catch(err => {
+      .catch((err) => {
         alert(`I'm so terribly sorry, an error occured. Try again later, in an updated Google Chrome and make sure that Warcraft Logs is up and functioning properly. Please let us know on Discord if the problem persists.\n\n${err}`);
         console.error(err);
         this.setState({
@@ -307,7 +307,7 @@ class App extends Component {
     const fight = this.getFightFromReport(report, fightId);
 
     return this.fetchEvents(report.code, fight.start_time, fight.end_time, undefined, 'type="combatantinfo"')
-      .then(events => {
+      .then((events) => {
         // console.log('Received combatants', report.code, ':', json);
         if (this.reportCode === report.code && this.fightId === fightId) {
           this.setState({
@@ -315,7 +315,7 @@ class App extends Component {
           });
         }
       })
-      .catch(err => {
+      .catch((err) => {
         if (err) {
           alert(err);
         } else {
@@ -441,7 +441,7 @@ class App extends Component {
         <div>
           <h1>Fetching report information...</h1>
 
-          <div className="spinner"/>
+          <div className="spinner" />
         </div>
       );
     }
@@ -453,7 +453,7 @@ class App extends Component {
         <div>
           <h1>Fetching players...</h1>
 
-          <div className="spinner"/>
+          <div className="spinner" />
         </div>
       );
     }
@@ -496,8 +496,8 @@ class App extends Component {
               <ol className="breadcrumb">
                 <li className="breadcrumb-item"><Link to={makeAnalyzerUrl()}>{toolName}</Link></li>
                 {this.reportCode && report && <li className="breadcrumb-item"><Link to={makeAnalyzerUrl(report)}>{report.title}</Link></li>}
-                {this.fight && report && <li className="breadcrumb-item"><FightSelectorHeader report={report} selectedFightName={getFightName(report, this.fight)} parser={parser}/></li>}
-                {this.playerName && report && <li className="breadcrumb-item"><PlayerSelectorHeader report={report} fightId={this.fightId} combatants={combatants || []} selectedPlayerName={this.playerName}/></li>}
+                {this.fight && report && <li className="breadcrumb-item"><FightSelectorHeader report={report} selectedFightName={getFightName(report, this.fight)} parser={parser} /></li>}
+                {this.playerName && report && <li className="breadcrumb-item"><PlayerSelectorHeader report={report} fightId={this.fightId} combatants={combatants || []} selectedPlayerName={this.playerName} /></li>}
               </ol>
             </div>
 
@@ -518,7 +518,7 @@ class App extends Component {
           {this.renderContent()}
           {this.state.config && this.state.config.footer}
         </div>
-        <ReactTooltip html={true} place="bottom" />
+        <ReactTooltip html place="bottom" />
       </div>
     );
   }

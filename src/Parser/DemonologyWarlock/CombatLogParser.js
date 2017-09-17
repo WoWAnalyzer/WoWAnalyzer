@@ -39,19 +39,19 @@ class CombatLogParser extends CoreCombatLogParser {
     // DoTs
     doom: Doom,
 
-    //Core
+    // Core
     // soulShardTracker: SoulShardTracker,
     // soulShardDetails: SoulShardDetails,
 
-    //Talents
+    // Talents
     soulHarvest: SoulHarvest,
     soulHarvestTalent: SoulHarvestTalent,
 
-    //Legendaries
+    // Legendaries
     masterHarvester: TheMasterHarvester,
     soulOfTheNetherlord: SoulOfTheNetherlord,
 
-    //Items
+    // Items
   };
 
   generateResults() {
@@ -68,7 +68,7 @@ class CombatLogParser extends CoreCombatLogParser {
         title: 'Talents',
         url: 'talents',
         render: () => (
-          <Tab title='Talents'>
+          <Tab title="Talents">
             <Talents combatant={this.modules.combatants.selected} />
           </Tab>
         ),

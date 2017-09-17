@@ -14,7 +14,7 @@ class ComboPointTracker extends Module {
   currentPoints = 0;
   maxPoints = 5;
 
-  //stores number of points gained/spent/wasted per ability ID
+  // stores number of points gained/spent/wasted per ability ID
   gained = {};
   spent = {};
   wasted = {};
@@ -48,8 +48,8 @@ class ComboPointTracker extends Module {
       this.constructor.POINT_SPENDING_ABILITIES.push(SPELLS.SAVAGE_ROAR_TALENT.id);
     }
 
-    //initialize abilties
-    this.constructor.POINT_GENERATING_ABILITIES.forEach(x => {
+    // initialize abilties
+    this.constructor.POINT_GENERATING_ABILITIES.forEach((x) => {
       this.gained[x] = { points: 0 };
       this.wasted[x] = { points: 0 };
     });
@@ -71,7 +71,7 @@ class ComboPointTracker extends Module {
     }
     if (gain !== 0) {
       this.gained[spellId].points += gain;
-      this.pointsGained  += gain;
+      this.pointsGained += gain;
       this.currentPoints += gain;
     }
   }
@@ -88,7 +88,7 @@ class ComboPointTracker extends Module {
     }
     // checking for free no CP procs, classResources seems to be the only difference
     if (!event.classResources[1]) {
-      return;
+
     } else if (event.classResources[1].amount) {
       this.processPointSpenders(event, spellId);
     }
@@ -98,7 +98,7 @@ class ComboPointTracker extends Module {
     if (this.currentPoints === this.maxPoints) {
       this.wasted[spellId].points += 1;
       this.pointsWasted += 1;
-    }    else {
+    } else {
       this.gained[spellId].points += 1;
       this.pointsGained += 1;
     }

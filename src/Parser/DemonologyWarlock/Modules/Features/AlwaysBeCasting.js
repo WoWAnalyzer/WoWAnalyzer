@@ -14,7 +14,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.DEMONIC_EMPOWERMENT.id,
     SPELLS.DEMONWRATH_CAST.id,
     SPELLS.DOOM.id,
-    SPELLS.FELSTORM.id, //TODO: verify it is casted by player or pet
+    SPELLS.FELSTORM.id, // TODO: verify it is casted by player or pet
     SPELLS.HAND_OF_GULDAN_CAST.id,
     SPELLS.LIFE_TAP.id,
     SPELLS.SHADOW_BOLT.id,
@@ -26,7 +26,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.HEALTH_FUNNEL_CAST.id,
     SPELLS.UNENDING_RESOLVE.id,
     SPELLS.DEMONIC_GATEWAY_CAST.id,
-    //talents
+    // talents
     SPELLS.DEMONIC_CIRCLE_SUMMON.id,
     SPELLS.DEMONIC_CIRCLE_TELEPORT.id,
     SPELLS.MORTAL_COIL.id,
@@ -35,7 +35,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.GRIMOIRE_FELGUARD.id,
     SPELLS.SUMMON_DARKGLARE.id,
     SPELLS.DEMONBOLT.id,
-    //practically unused, for the sake of completeness
+    // practically unused, for the sake of completeness
     SPELLS.SHADOWFLAME.id,
     SPELLS.SHADOWFURY_TALENT.id,
     SPELLS.DARK_PACT.id,
@@ -57,7 +57,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
 
     when(deadTimePercentage).isGreaterThan(0.2)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your dead GCD time can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. Even if you have to move, try casting something instant - maybe refresh your dots or replenish your mana with <SpellLink id={SPELLS.LIFE_TAP.id}/></span>)
+        return suggest(<span>Your dead GCD time can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. Even if you have to move, try casting something instant - maybe refresh your dots or replenish your mana with <SpellLink id={SPELLS.LIFE_TAP.id} /></span>)
           .icon('spell_mage_altertime')
           .actual(`${formatPercentage(actual)}% dead GCD time`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
@@ -69,10 +69,10 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
 
     return (
       <StatisticBox
-        icon={<Icon icon='petbattle_health-down' alt='Dead time' />}
+        icon={<Icon icon="petbattle_health-down" alt="Dead time" />}
         value={`${formatPercentage(deadTimePercentage)} %`}
-        label='Dead time'
-        tooltip='Dead time is available casting time not used for casting any spell. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/being stunned), etc.'
+        label="Dead time"
+        tooltip="Dead time is available casting time not used for casting any spell. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/being stunned), etc."
       />
     );
   }

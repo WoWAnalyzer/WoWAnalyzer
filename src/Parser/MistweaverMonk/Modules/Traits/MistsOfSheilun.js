@@ -10,7 +10,7 @@ class MistsOfSheilun extends Module {
   static dependencies = {
     combatants: Combatants,
   };
-  
+
   procsMistsOfSheilun = 0;
   healsMistsOfSheilun = 0;
   healingMistsOfSheilun = 0;

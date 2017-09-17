@@ -253,7 +253,7 @@ export default {
     icon: 'ability_paladin_shieldofthetemplar',
   },
 
-  //Ret Item Effects
+  // Ret Item Effects
   WHISPER_OF_THE_NATHREZIM_BUFF: {
     id: 207635,
     name: 'Whisper of the Nathrezim',

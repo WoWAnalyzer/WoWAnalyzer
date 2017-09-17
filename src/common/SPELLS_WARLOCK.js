@@ -306,7 +306,7 @@ export default {
     icon: 'spell_shadow_requiem',
   },
 
-  //Affliction tier sets
+  // Affliction tier sets
   WARLOCK_AFFLI_T20_2P_BONUS: {
     id: 242290,
     name: 'Affliction Warlock T20 2P bonus',
@@ -323,14 +323,14 @@ export default {
     icon: 'spell_shadow_soulleech_3',
   },
 
-  //Affliction artifact traits
+  // Affliction artifact traits
   FATAL_ECHOES: {
     id: 199257,
     name: 'Fatal Echoes',
     icon: 'inv_misc_bell_01',
   },
 
-  //Affliction shard generating effects
+  // Affliction shard generating effects
   AGONY_SHARD_GEN: {
     id: 17941,
     name: 'Agony',
@@ -367,7 +367,7 @@ export default {
   // -----------
 
   // Destruction spells
-  //TODO: check if all is correct (copypasta from Development tab)
+  // TODO: check if all is correct (copypasta from Development tab)
   INCINERATE: {
     id: 29722,
     name: 'Incinerate',

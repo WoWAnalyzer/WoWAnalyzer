@@ -19,7 +19,6 @@ import VoidTorrent from './VoidTorrent';
 import VoidformsTab from './VoidformsTab';
 
 
-
 class Voidform extends Module {
   static dependencies = {
     combatants: Combatants,
@@ -32,9 +31,9 @@ class Voidform extends Module {
   _previousVoidformCast = null;
   _totalHasteAcquiredOutsideVoidform = 0;
   _totalLingeringInsanityTimeOutsideVoidform = 0;
-  _inVoidform           = false;
+  _inVoidform = false;
 
-  _voidforms            = {};
+  _voidforms = {};
 
 
   get voidforms() {
@@ -156,7 +155,7 @@ class Voidform extends Module {
     // excludes last one to avoid skewing the average (if in voidform when the encounter ends):
     if (player.hasBuff(SPELLS.VOIDFORM_BUFF.id)) {
       const averageVoidformStacks = this.voidforms.slice(0, this.voidforms.length - 1).reduce((p, c) => p += c.stacks.length, 0) / (this.voidforms.length - 1);
-      const lastVoidformStacks    = this.voidforms[this.voidforms.length - 1].stacks.length;
+      const lastVoidformStacks = this.voidforms[this.voidforms.length - 1].stacks.length;
 
       if (lastVoidformStacks + 5 < averageVoidformStacks) {
         this._voidforms[this._previousVoidformCast.timestamp].excluded = true;
@@ -175,12 +174,12 @@ class Voidform extends Module {
     when(uptime).isLessThan(0.80)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Your <SpellLink id={SPELLS.VOIDFORM.id} /> uptime can be improved. Try to maximize the uptime by using your insanity generating spells.
-          <br/><br/>
+          <br /><br />
           Use the generators with the priority:
-          <br/><SpellLink id={SPELLS.VOID_BOLT.id} />
-          <br/><SpellLink id={SPELLS.MIND_BLAST.id} />
-          <br/><SpellLink id={SPELLS.MIND_FLAY.id} />
-          </span>)
+          <br /><SpellLink id={SPELLS.VOID_BOLT.id} />
+          <br /><SpellLink id={SPELLS.MIND_BLAST.id} />
+          <br /><SpellLink id={SPELLS.MIND_FLAY.id} />
+        </span>)
           .icon(SPELLS.VOIDFORM_BUFF.icon)
           .actual(`${formatPercentage(actual)}% Voidform uptime`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`)

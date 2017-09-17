@@ -1,5 +1,5 @@
 import IronSkinBrew from 'Parser/BrewmasterMonk/Modules/Spells/IronSkinBrew';
-import { processEvents } from './Fixtures/processEvents';
+import processEvents from './Fixtures/processEvents';
 import { SimpleFight, incomingDamage } from './Fixtures/SimpleFight';
 
 describe('Brewmaster.IronskinBrew', () => {

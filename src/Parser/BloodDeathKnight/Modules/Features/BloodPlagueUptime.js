@@ -29,9 +29,9 @@ class BloodPlagueUptime extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.BLOOD_PLAGUE.id} />}
         value={`${formatPercentage(bloodplagueUptime)} %`}
-        label='Blood Plague uptime'
+        label="Blood Plague uptime"
         tooltip={'Provides small amount of damage and healing. Auto attacks against an infected target can proc Crimson Scourge.'}
-    />
+      />
     );
   }
 

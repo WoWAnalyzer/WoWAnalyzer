@@ -19,7 +19,7 @@ class SoulOfTheNetherlord extends Module {
   item() {
     return {
       item: ITEMS.SOUL_OF_THE_NETHERLORD,
-      result: <span>This gave you the <SpellLink id={SPELLS.GRIMOIRE_OF_SYNERGY_TALENT.id}/> talent.</span>,
+      result: <span>This gave you the <SpellLink id={SPELLS.GRIMOIRE_OF_SYNERGY_TALENT.id} /> talent.</span>,
     };
   }
 }

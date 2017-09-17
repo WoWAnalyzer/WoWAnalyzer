@@ -17,7 +17,7 @@ class PetrichorLagniappe extends Module {
     combatants: Combatants,
     abilityTracker: AbilityTracker,
   };
-  
+
   REVIVAL_BASE_COOLDOWN = 0;
   totalReductionTime = 0;
   currentReductionTime = 0;
@@ -75,7 +75,7 @@ class PetrichorLagniappe extends Module {
   item() {
     const abilityTracker = this.abilityTracker;
     const getAbility = spellId => abilityTracker.getAbility(spellId);
-    
+
     return {
       item: ITEMS.PETRICHOR_LAGNIAPPE,
       result: (

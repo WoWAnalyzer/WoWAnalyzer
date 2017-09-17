@@ -30,12 +30,12 @@ class ReverseEntropy extends Module {
     this.bonusDmg += getDamageBonus(event, REVERSE_ENTROPY_DAMAGE_BONUS);
   }
   statistic() {
-    //could show mana returned too, but that's kinda irrelevant for Warlocks anyway
+    // could show mana returned too, but that's kinda irrelevant for Warlocks anyway
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.REVERSE_ENTROPY_TALENT.id} />}
         value={`${formatNumber(this.bonusDmg / this.owner.fightDuration * 1000)} DPS`}
-        label='Damage contributed'
+        label="Damage contributed"
         tooltip={`Your Reverse Entropy talent contributed ${formatNumber(this.bonusDmg)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} %)`}
       />
     );
