@@ -210,7 +210,6 @@ class CombatLogParser {
 
   _debugEventHistory = [];
   parseEvents(events) {
-    events = this.reorderEvents(events);
     if (process.env.NODE_ENV === 'development') {
       this._debugEventHistory = [
         ...this._debugEventHistory,
