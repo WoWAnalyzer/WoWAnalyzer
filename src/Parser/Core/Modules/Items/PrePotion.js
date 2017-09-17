@@ -55,7 +55,7 @@ class PrePotion extends Module {
     if (PRE_POTIONS.indexOf(spellId) === -1) {
       return;
     }
-    if(SPELLS.POTION_OF_PROLONGED_POWER.id === spellId) {
+    if (SPELLS.POTION_OF_PROLONGED_POWER.id === spellId) {
       if ((this.owner.fight.start_time + DURATION_PROLONGED) > event.timestamp) {
         this.usedPrePotion = true;
       }
@@ -83,9 +83,9 @@ class PrePotion extends Module {
   }
 
   on_finished() {
-    if(debug) {
-      console.log("used potion:" + this.usedPrePotion);
-      console.log("used 2nd potion:" + this.usedSecondPotion);
+    if (debug) {
+      console.log(`used potion:${this.usedPrePotion}`);
+      console.log(`used 2nd potion:${this.usedSecondPotion}`);
     }
   }
 

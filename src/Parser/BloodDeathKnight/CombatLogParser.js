@@ -11,11 +11,17 @@ import BloodPlagueUptime from './Modules/Features/BloodPlagueUptime';
 import BoneShieldUptime from './Modules/Features/BoneShieldUptime';
 import OssuaryUptime from './Modules/Features/OssuaryUptime';
 import WastedDeathAndDecay from './Modules/Features/WastedDeathAndDecay';
-import RPWasted from './Modules/Features/RunicPowerWasted';
+import BlooddrinkerTicks from './Modules/Features/BlooddrinkerTicks';
 
+import RunicPowerDetails from './Modules/RunicPower/RunicPowerDetails';
+import RunicPowerTracker from './Modules/RunicPower/RunicPowerTracker';
+
+
+
+import T20_2pc from './Modules/Items/T20_2pc';
+import T20_4pc from './Modules/Items/T20_4pc';
 
 class CombatLogParser extends CoreCombatLogParser {
-
   static specModules = {
 
     //DeathKnight Core
@@ -24,13 +30,18 @@ class CombatLogParser extends CoreCombatLogParser {
     castEfficiency: CastEfficiency,
     alwaysBeCasting: AlwaysBeCasting,
     cooldownTracker: CooldownTracker,
-    BoneShieldUptime: BoneShieldUptime,
-    OssuaryUptime: OssuaryUptime,
-    WastedDeathAndDecay: WastedDeathAndDecay,
-    RunicPowerWasted: RPWasted,
+    boneShieldUptime: BoneShieldUptime,
+    ossuaryUptime: OssuaryUptime,
+    wastedDeathAndDecay: WastedDeathAndDecay,
+    blooddrinkerTicks: BlooddrinkerTicks,
 
     //DOT
     bloodplagueUptime: BloodPlagueUptime,
+
+    //RunicPower
+    runicPowerTracker: RunicPowerTracker,
+    runicPowerDetails: RunicPowerDetails,
+
     // Talents
 
 
@@ -38,7 +49,8 @@ class CombatLogParser extends CoreCombatLogParser {
 
 
     // Items:
-
+    t20_2pc: T20_2pc,
+    t20_4pc: T20_4pc,
   };
 
   generateResults() {

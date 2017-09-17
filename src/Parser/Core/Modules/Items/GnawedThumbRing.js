@@ -32,7 +32,7 @@ class GnawedThumbRing extends Module {
     }
   }
 
-  on_byPlayer_damage(event){
+  on_byPlayer_damage(event) {
     if (this.combatants.selected.hasBuff(SPELLS.GNAWED_THUMB_RING.id)) {
       this.damage += event.amount - (event.amount / (1 + GNAWED_THUMB_RING_DAMAGE_INCREASE));
     }

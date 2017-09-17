@@ -13,9 +13,9 @@ class DualDetermination extends Module {
 
   on_initialized() {
     this.active = this.combatants.selected.hasFinger(ITEMS.DUAL_DETERMINATION.id);
-    if(this.active) {
-        debug && console.log('Has Dual Determination');
-        this.SURVIVAL_INSTINCT_STACKS = 3;
+    if (this.active) {
+      debug && console.log('Has Dual Determination');
+      this.SURVIVAL_INSTINCT_STACKS = 3;
     }
   }
 }

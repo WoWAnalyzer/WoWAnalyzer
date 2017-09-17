@@ -13,25 +13,28 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
   static ABILITIES_ON_GCD = [
 
     // Abilities
-    SPELLS.CHAOS_STRIKE.id,
-    SPELLS.BLADE_DANCE.id,
-    SPELLS.THROW_GLAIVE.id,
-    SPELLS.FURY_OF_THE_ILLIDARI.id,
-    SPELLS.EYE_BEAM.id,
-    SPELLS.DEATH_SWEEP.id,
     SPELLS.ANNIHILATION.id,
+    SPELLS.BLADE_DANCE.id,
+    SPELLS.CHAOS_STRIKE.id,
+    SPELLS.DEATH_SWEEP.id,
+    SPELLS.EYE_BEAM.id,
+    SPELLS.FEL_RUSH.id,
+    SPELLS.FURY_OF_THE_ILLIDARI.id,
+    SPELLS.METAMORPHOSIS_HAVOC.id,
+    SPELLS.THROW_GLAIVE.id,
 
     // Talents
+    SPELLS.CHAOS_BLADES_TALENT.id,
     SPELLS.FELBLADE_TALENT.id,
-    SPELLS.FEL_ERUPTION_TALENT.id,
     SPELLS.FEL_BARRAGE_TALENT.id,
+    SPELLS.FEL_ERUPTION_TALENT.id,
+    SPELLS.NEMESIS_TALENT.id,
   ];
 
   suggestions(when) {
-
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
 
-    when(deadTimePercentage).isGreaterThan(0.25)
+    when(deadTimePercentage).isGreaterThan(0.15)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest('Your dead GCD time can be improved. Try to Always Be Casting (ABC); try to reduce the delay between casting spells and when you\'re not healing try to contribute some damage.')
           .icon('spell_mage_altertime')
@@ -41,7 +44,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       });
   }
   statistic() {
-
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
 
     return (
@@ -49,7 +51,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
         icon={<Icon icon="spell_mage_altertime" alt="Dead GDC time" />}
         value={`${formatPercentage(deadTimePercentage)} %`}
         label="Dead GCD time"
-        tooltip={`Dead GCD time is available casting time not used. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), etc.`}
+        tooltip={'Dead GCD time is available casting time not used. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), etc.'}
       />
     );
   }

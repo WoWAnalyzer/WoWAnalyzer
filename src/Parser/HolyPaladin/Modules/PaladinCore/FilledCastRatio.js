@@ -8,10 +8,15 @@ import Module from 'Parser/Core/Module';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
+import AbilityTracker from './PaladinAbilityTracker';
+
 class FilledCastRatio extends Module {
+  static dependencies = {
+    abilityTracker: AbilityTracker,
+  };
+
   statistic() {
-    const abilityTracker = this.owner.modules.abilityTracker;
-    const getAbility = spellId => abilityTracker.getAbility(spellId);
+    const getAbility = spellId => this.abilityTracker.getAbility(spellId);
 
     const flashOfLight = getAbility(SPELLS.FLASH_OF_LIGHT.id);
     const holyLight = getAbility(SPELLS.HOLY_LIGHT.id);

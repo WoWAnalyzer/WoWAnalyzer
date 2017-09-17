@@ -49,9 +49,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     // SPELLS.TRASH.id,
     // SPELLS.IRONFUR.id
   ];
-  on_initialized(event) {
-    super.on_initialized(arguments);
-  }
 
   recordCastTime(
     castStartTimestamp,
@@ -60,7 +57,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     cast,
     spellId
   ) {
-
     super.recordCastTime(
       castStartTimestamp,
       globalCooldown,

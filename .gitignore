@@ -25,6 +25,7 @@ temp
 .sass-cache
 
 # Regularly changing or system specific IDE files
+/.idea/vcs.xml
 /.idea/workspace.xml
 /.vscode
 

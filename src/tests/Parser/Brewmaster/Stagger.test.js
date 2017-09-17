@@ -8,6 +8,8 @@ describe('Brewmaster.Stagger', () => {
     stagger = new Stagger({
       toPlayer: () => true,
       byPlayer: () => true,
+      toPlayerPet: () => false,
+      byPlayerPet: () => false,
     });
   });
   it('total amount of stagger taken with no events', () => {
@@ -43,7 +45,7 @@ describe('Brewmaster.Stagger', () => {
   });
   it('Tracks the amount of stagger missing from the fight', () => {
     const earlyFightEnd = 6000;
-    const myOwner = {fight: {end_time: earlyFightEnd}}
+    const myOwner = { fight: { end_time: earlyFightEnd } };
     processEvents(EarlyFinish, stagger);
     stagger.owner = myOwner;
     stagger.triggerEvent('finished');

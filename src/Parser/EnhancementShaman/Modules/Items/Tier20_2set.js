@@ -36,7 +36,6 @@ class Tier20_2set extends Module {
           .regular(recommended).major(recommended - 0.05);
       });
   }
-
 }
 
 export default Tier20_2set;

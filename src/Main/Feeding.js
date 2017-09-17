@@ -9,7 +9,7 @@ import SpellIcon from 'common/SpellIcon';
 import Icon from 'common/Icon';
 
 function formatThousands(number) {
-  return (Math.round(number || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+  return (`${Math.round(number || 0)}`).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 }
 
 function formatNumber(number) {
@@ -41,24 +41,24 @@ class Feeding extends React.Component {
       <div>
         { ([
           {
-            name: "Cloudburst Totem",
+            name: 'Cloudburst Totem',
             feed: cooldownTracker.cbtFeed,
             spell: SPELLS.CLOUDBURST_TOTEM_CAST,
             totals: cooldownTracker.cbtTotals,
           },
           {
-            name: "Ancestral Guidance",
+            name: 'Ancestral Guidance',
             feed: cooldownTracker.agFeed,
             spell: SPELLS.ANCESTRAL_GUIDANCE_CAST,
             totals: cooldownTracker.agTotals,
           },
           {
-            name: "Ascendance",
+            name: 'Ascendance',
             feed: cooldownTracker.ascFeed,
             spell: SPELLS.ASCENDANCE_CAST,
             totals: cooldownTracker.ascTotals,
           },
-        ]).map((category) => {
+        ]).map(category => {
           category.max = category.feed.reduce((a, b) => {
             const aHealing = this.state.expand ? a.mergedHealing : a.healing;
             const bHealing = this.state.expand ? b.mergedHealing : b.healing;
@@ -66,8 +66,8 @@ class Feeding extends React.Component {
           }, 0).healing;
           return category;
         })
-          .filter((category) => category.totals.total > 0)
-          .map((category) => (
+          .filter(category => category.totals.total > 0)
+          .map(category => (
 
             <table className="data-table" key={category.name} style={{ marginTop: 10, marginBottom: 10 }}>
               <thead>
@@ -90,15 +90,15 @@ class Feeding extends React.Component {
                     const healingB = category.feed[b].healing;
                     return healingA > healingB ? -1 : (healingB > healingA ? 1 : 0);
                   })
-                  .filter((spellId) => (!this.state.expand) || category.feed[spellId].mergedHealing > 0)
-                  .map((spellId) => {
+                  .filter(spellId => (!this.state.expand) || category.feed[spellId].mergedHealing > 0)
+                  .map(spellId => {
                     const ability = category.feed[spellId];
                     const healing = this.state.expand ? ability.mergedHealing : ability.healing;
                     const effectiveHealing = this.state.expand ? ability.mergedEffectiveHealing : ability.effectiveHealing;
                     const totalHealing = this.state.expand ? category.totals.mergedTotal : category.totals.total;
 
                     return (
-                      <tr key={category.name + " " + ability.name}>
+                      <tr key={`${category.name} ${ability.name}`}>
                         <td style={{ width: '30%' }}>
                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <Icon icon={ability.icon} alt={ability.name} /> {ability.name}
                         </td>
@@ -121,7 +121,7 @@ class Feeding extends React.Component {
                       </tr>
                     );
                   })}
-                <tr key={category.name + "Summary"}>
+                <tr key={`${category.name}Summary`}>
                   <td />
                   <td />
                   <td className="text-right"><b>Total:</b></td>

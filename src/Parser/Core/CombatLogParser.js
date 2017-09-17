@@ -7,6 +7,7 @@ import DamageTaken from './Modules/DamageTaken';
 
 import Combatants from './Modules/Combatants';
 import AbilityTracker from './Modules/AbilityTracker';
+import Haste from './Modules/Haste';
 import AlwaysBeCasting from './Modules/AlwaysBeCasting';
 import Enemies from './Modules/Enemies';
 import HealEventTracker from './Modules/HealEventTracker';
@@ -48,7 +49,6 @@ import ParseResults from './ParseResults';
 const debug = false;
 
 let _modulesDeprectatedWarningSent = false;
-let _selectedCombatantDeprectatedWarningSent = false;
 
 class CombatLogParser {
   static abilitiesAffectedByHealingIncreases = [];
@@ -64,6 +64,7 @@ class CombatLogParser {
     spellManaCost: SpellManaCost,
     abilityTracker: AbilityTracker,
     healEventTracker: HealEventTracker,
+    haste: Haste,
     alwaysBeCasting: AlwaysBeCasting,
     manaValues: ManaValues,
     vantusRune: VantusRune,
@@ -102,6 +103,7 @@ class CombatLogParser {
 
   report = null;
   player = null;
+  playerPets = null;
   fight = null;
 
   _modules = {};
@@ -122,15 +124,7 @@ class CombatLogParser {
     return this.player.id;
   }
 
-  /** @returns {Combatant} */
-  get selectedCombatant() {
-    if (!_selectedCombatantDeprectatedWarningSent) {
-      console.error('Using `this.owner.selectedCombatant` is deprectated. You should add the `Combatants` module as a dependency and use `this.combatants.selected` instead.');
-      _selectedCombatantDeprectatedWarningSent = true;
-    }
-    return this._modules.combatants.selected;
-  }
-
+  _timestamp = null;
   get currentTimestamp() {
     return this.finished ? this.fight.end_time : this._timestamp;
   }
@@ -148,9 +142,10 @@ class CombatLogParser {
     }, {});
   }
 
-  constructor(report, player, fight) {
+  constructor(report, player, playerPets, fight) {
     this.report = report;
     this.player = player;
+    this.playerPets = playerPets;
     this.fight = fight;
 
     this.initializeModules({
@@ -190,6 +185,7 @@ class CombatLogParser {
             console.log('Loading', moduleClass.name, 'with dependencies:', Object.keys(availableDependencies));
           }
         }
+        // eslint-disable-next-line new-cap
         this._modules[desiredModuleName] = new moduleClass(this, availableDependencies, Object.keys(this._modules).length);
       } else {
         debug && console.warn(moduleClass.name, 'could not be loaded, missing dependencies:', missingDependencies.map(d => d.name));
@@ -258,6 +254,12 @@ class CombatLogParser {
   }
   toPlayer(event, playerId = this.player.id) {
     return (event.targetID === playerId);
+  }
+  byPlayerPet(event) {
+    return this.playerPets.some(pet => pet.id === event.sourceID);
+  }
+  toPlayerPet(event) {
+    return this.playerPets.some(pet => pet.id === event.targetID);
   }
 
   // TODO: Damage taken from LOTM

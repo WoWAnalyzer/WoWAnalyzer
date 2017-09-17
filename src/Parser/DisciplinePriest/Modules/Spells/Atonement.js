@@ -31,7 +31,7 @@ class Atonement extends Module {
     const applicatorSpellId = applicatorEvent.ability.guid;
     let duration = this.atonementSource.atonementDuration.get(applicatorSpellId);
 
-    if (applicatorSpellId === SPELLS.POWER_WORD_SHIELD.id && this.owner.selectedCombatant.hasBuff(SPELLS.DISC_PRIEST_T19_4SET_BONUS_BUFF.id, applicatorEvent.timestamp) && this.owner.selectedCombatant.hasBuff(SPELLS.RAPTURE.id, applicatorEvent.timestamp)) {
+    if (applicatorSpellId === SPELLS.POWER_WORD_SHIELD.id && this.owner.modules.combatants.selected.hasBuff(SPELLS.DISC_PRIEST_T19_4SET_BONUS_BUFF.id, applicatorEvent.timestamp) && this.owner.modules.combatants.selected.hasBuff(SPELLS.RAPTURE.id, applicatorEvent.timestamp)) {
       duration += 6;
     }
 
@@ -60,7 +60,7 @@ class Atonement extends Module {
 
     this.currentAtonementTargets = this.currentAtonementTargets.filter(id => id.target !== atonement.target);
     this.currentAtonementTargets.push(atonement);
-    this.totalAtones++;
+    this.totalAtones += 1;
     debug && console.log(`%c${this.combatants.players[atonement.target].name} gained an atonement`, 'color:green', this.currentAtonementTargets);
     this.owner.triggerEvent('atonement_applied', event);
   }
@@ -95,8 +95,8 @@ class Atonement extends Module {
     this.currentAtonementTargets = this.currentAtonementTargets.filter(item => item.target !== atonement.target);
     this.currentAtonementTargets.push(atonement);
 
-    this.totalAtones++;
-    this.totalAtonementRefreshes++;
+    this.totalAtones += 1;
+    this.totalAtonementRefreshes += 1;
     debug && console.log(`%c${this.combatants.players[atonement.target].name} refreshed an atonement`, 'color:orange', this.currentAtonementTargets);
     this.owner.triggerEvent('atonement_refresh', event);
   }

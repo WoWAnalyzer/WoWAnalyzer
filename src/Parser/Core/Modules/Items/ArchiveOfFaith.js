@@ -24,15 +24,15 @@ class ArchiveOfFaith extends Module {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
-    if(spellId === SPELLS.CLEANSING_MATRIX.id) {
-      this.casts++;
+    if (spellId === SPELLS.CLEANSING_MATRIX.id) {
+      this.casts += 1;
     }
   }
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
 
-    if(spellId === SPELLS.CLEANSING_MATRIX.id) {
+    if (spellId === SPELLS.CLEANSING_MATRIX.id) {
       this.healing += (event.amount || 0) + (event.absorbed || 0);
     }
   }
@@ -40,17 +40,17 @@ class ArchiveOfFaith extends Module {
   on_byPlayer_absorbed(event) {
     const spellId = event.ability.guid;
 
-    if(spellId === SPELLS.AOF_INFUSION_OF_LIGHT.id) {
-      debug && console.log('HOT Casted: ' + event.amount);
+    if (spellId === SPELLS.AOF_INFUSION_OF_LIGHT.id) {
+      debug && console.log(`HOT Casted: ${event.amount}`);
       this.healingOverTime += (event.amount || 0) + (event.absorbed || 0);
     }
   }
 
   on_finished() {
-    if(debug) {
-      console.log('Healing: ' + this.healing);
-      console.log('Casts ' + this.casts);
-      console.log('HOT: ' + this.healingOverTime);
+    if (debug) {
+      console.log(`Healing: ${this.healing}`);
+      console.log(`Casts ${this.casts}`);
+      console.log(`HOT: ${this.healingOverTime}`);
     }
   }
 

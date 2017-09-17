@@ -4,10 +4,12 @@ import SuggestionsTab from 'Main/SuggestionsTab';
 
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 
+import Haste from './Modules/Core/Haste';
+
+import DamageDone from './Modules/Features/DamageDone';
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 
-//Modules made but not loaded in the first PR
 import Moonfire from './Modules/Spells/Moonfire';
 import Sunfire from './Modules/Spells/Sunfire';
 import NewMoon from './Modules/Spells/NewMoon';
@@ -18,42 +20,46 @@ import FullMoon from './Modules/Spells/FullMoon';
 //import LunarOvercap from './Modules/Spells/Empowerments/LunarOvercap';
 //import SolarOvercap from './Modules/Spells/Empowerments/SolarOvercap';
 import AstralPower from './Modules/Features/AstralPower';
+import UnempoweredLs from './Modules/Spells/UnempoweredLs';
 
 
 class CombatLogParser extends MainCombatLogParser {
-      static specModules = {
+  static specModules = {
+    haste: Haste,
       // Features
-      castEfficiency: CastEfficiency,
-      alwaysBeCasting: AlwaysBeCasting,
+    damageDone: DamageDone,
+    castEfficiency: CastEfficiency,
+    alwaysBeCasting: AlwaysBeCasting,
       //Modules made but not loaded in the first PR
-      moonfire: Moonfire,
-      sunfire: Sunfire,
-      newmoon: NewMoon,
-      halfmoon: HalfMoon,
-      fullmoon: FullMoon,
+    moonfire: Moonfire,
+    sunfire: Sunfire,
+    newmoon: NewMoon,
+    halfmoon: HalfMoon,
+    fullmoon: FullMoon,
       //solarunemp: SolarUnemp,
       //lunarumep: LunarUnemp,
       //lunarovercap: LunarOvercap,
       //solarovercap: SolarOvercap,
-      astralpower: AstralPower,
-    };
+    astralpower: AstralPower,
+    unempoweredLS: UnempoweredLs,
+  };
   
-    generateResults() {
-      const results = super.generateResults();
+  generateResults() {
+    const results = super.generateResults();
   
-      results.tabs = [
-        {
-          title: 'Suggestions',
-          url: 'suggestions',
-          render: () => (
+    results.tabs = [
+      {
+        title: 'Suggestions',
+        url: 'suggestions',
+        render: () => (
             <SuggestionsTab issues={results.issues} />
           ),
-        },
-        ...results.tabs,
-      ];
+      },
+      ...results.tabs,
+    ];
   
-      return results;
-    }
+    return results;
+  }
 }
 
 export default CombatLogParser;

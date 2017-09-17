@@ -206,6 +206,16 @@ export default {
     name: 'Insidious Corruption',
     icon: 'inv_archaeology_70_demon_flayedskinchronicle',
   },
+  LUNAR_INFUSION: {
+    id: 242543,
+    name: 'Lunar Infusion',
+    icon: 'ability_druid_lunarguidance',
+  },
+  RISING_TIDES: {
+    id: 242458,
+    name: 'Rising Tides',
+    icon: 'inv_7_0raid_trinket_04a',
+  },
   //Engine of Eradication buff
   DEMONIC_VIGOR: {
     id: 242612,
@@ -229,6 +239,11 @@ export default {
   },
   ARCHIMONDES_HATRED_REBORN_ABSORB: {
     id: 235169,
+    name: 'Archimonde\'s Hatred Reborn',
+    icon: 'spell_nature_elementalshields',
+  },
+  ARCHIMONDES_HATRED_REBORN_DAMAGE: {
+    id: 235188,
     name: 'Archimonde\'s Hatred Reborn',
     icon: 'spell_nature_elementalshields',
   },

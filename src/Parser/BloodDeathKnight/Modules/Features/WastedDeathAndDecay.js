@@ -1,7 +1,7 @@
 import React from 'react';
 import Module from 'Parser/Core/Module';
 import SPELLS from 'common/SPELLS';
-import Icon from 'common/Icon';
+import SpellIcon from 'common/SpellIcon';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -18,7 +18,7 @@ class WastedDeathAndDecay  extends Module {
   WastedDeathAndDecays = 0;
 
   on_initialized() {
-    }
+  }
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
@@ -26,29 +26,28 @@ class WastedDeathAndDecay  extends Module {
       return;
     }
     if (this.combatants.selected.hasBuff(SPELLS.CRIMSON_SCOURGE.id, event.timestamp)) {
-    this.FreeDeathAndDecayCounter++;
-    }
-  else {
-    this.DeathAndDecayCounter++;
+      this.FreeDeathAndDecayCounter += 1;
+    }  else {
+      this.DeathAndDecayCounter += 1;
     }
   }
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.CRIMSON_SCOURGE.id) {
-      this.CrimsonScourgeProcsCounter++;
+      this.CrimsonScourgeProcsCounter += 1;
     }
   }
 
 
 
   statistic() {
-    this.WastedDeathAndDecays=this.CrimsonScourgeProcsCounter - this.FreeDeathAndDecayCounter;
+    this.WastedDeathAndDecays = this.CrimsonScourgeProcsCounter - this.FreeDeathAndDecayCounter;
     return (
       <StatisticBox
-        icon={<Icon icon="spell_shadow_deathanddecay" alt="Wasted Death and Decays" />}
+        icon={<SpellIcon id={SPELLS.CRIMSON_SCOURGE.id} />}
         value={this.WastedDeathAndDecays}
         label='Wasted Death and Decays'
-        tooltip={'You let a Crimson Scorge Proc expire without casting Death and Decay.'}
+        tooltip={'You let a Crimson Scourge Proc expire without casting Death and Decay.'}
       />
 
     );

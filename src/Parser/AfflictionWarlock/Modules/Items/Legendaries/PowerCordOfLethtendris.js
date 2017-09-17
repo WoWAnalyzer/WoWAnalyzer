@@ -8,34 +8,34 @@ import { formatNumber } from 'common/format';
 import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../../Constants';
 import SoulShardTracker from '../../SoulShards/SoulShardTracker';
 
+const TICKS_PER_UA = 4;
+const UA_IDS_SET = new Set(UNSTABLE_AFFLICTION_DEBUFF_IDS);
+
 class PowerCordOfLethtendris extends Module {
   static dependencies = {
     soulShardTracker: SoulShardTracker,
     combatants: Combatants,
   };
 
-  totalTicks = 0;
-  totalDamage = 0;
+  _totalTicks = 0;
+  _totalUAdamage = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.combatants.selected.hasWaist(ITEMS.POWER_CORD_OF_LETHTENDRIS.id);
-    }
+    this.active = this.combatants.selected.hasWaist(ITEMS.POWER_CORD_OF_LETHTENDRIS.id);
   }
 
   on_byPlayer_damage(event) {
-    if (UNSTABLE_AFFLICTION_DEBUFF_IDS.some(id => event.ability.guid === id)) {
-      this.totalTicks++;
-      this.totalDamage += event.amount + (event.absorbed || 0);
+    if (UA_IDS_SET.has(event.ability.guid)) {
+      this._totalTicks += 1;
+      this._totalUAdamage += event.amount + (event.absorbed || 0);
     }
   }
 
   item() {
-    // if we haven't cast any UAs, totalTicks would be 0 and we would get an exception
-    // but with denominator 1 in this case, if this.totalDamage = 0, then dividing by 1 still gives correct result of average damage = 0
-    const avgDamage = this.totalDamage / (this.totalTicks > 0 ? this.totalTicks : 1);
-    const TICKS_PER_UA = 4;
-    const shardsGained = this.soulShardTracker.gained[SPELLS.POWER_CORD_OF_LETHTENDRIS_SHARD_GEN.id].shards;
+    // if we haven't cast any UAs, _totalTicks would be 0 and we would get an exception
+    // but with denominator 1 in this case, if this._totalUAdamage = 0, then dividing by 1 still gives correct result of average damage = 0
+    const avgDamage = this._totalUAdamage / (this._totalTicks > 0 ? this._totalTicks : 1);
+    const shardsGained = this.soulShardTracker.generatedAndWasted[SPELLS.POWER_CORD_OF_LETHTENDRIS_SHARD_GEN.id].generated;
     const estimatedUAdamage = shardsGained * TICKS_PER_UA * avgDamage;
     return {
       item: ITEMS.POWER_CORD_OF_LETHTENDRIS,
@@ -46,7 +46,6 @@ class PowerCordOfLethtendris extends Module {
 
       ),
     };
-
   }
 }
 export default PowerCordOfLethtendris;

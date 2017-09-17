@@ -11,7 +11,7 @@ export default {
   // Mastery
   MASTERY_HARMONY: {
     id: 77495,
-    name: "Mastery: Harmony",
+    name: 'Mastery: Harmony',
     icon: 'spell_nature_healingway',
   },
 
@@ -266,7 +266,7 @@ export default {
     name:'Dreamwalker',
     icon: 'ability_druid_healinginstincts',
   },
-  NATURES_ESSENCE: {
+  NATURES_ESSENCE_DRUID: { // there is also a Shaman spell by the name "Nature's Essence"
     id:189800,
     name:'Nature\'s Essence',
     icon: 'ability_druid_flourish',
@@ -298,6 +298,16 @@ export default {
     id: 242313,
     name: 'T20 4 set bonus',
     icon: 'inv_misc_herb_talandrasrose',
+  },
+  RESTO_DRUID_T21_2SET_BONUS_BUFF: {
+    id: 251813,
+    name: 'T21 2 set bonus',
+    icon: 'ability_druid_cower',
+  },
+  RESTO_DRUID_T21_4SET_BONUS_BUFF: {
+    id: 251814,
+    name: 'T21 4 set bonus',
+    icon: 'ability_druid_cower',
   },
   // Visible procs produced by set:
   ASTRAL_HARMONY: { // 2pc T19
@@ -599,6 +609,16 @@ export default {
     name: 'Celestial Alignment',
     icon: 'artifactability_balancedruid_newmoon',
   },
+  ASTRAL_ACCELERATION:{
+    id: 242232,
+    name: 'Astral Acceleration',
+    icon: 'inv_enchant_essenceastrallarge',
+  },
+  STAR_POWER:{
+    id: 202942,
+    name: 'Star Power',
+    icon: 'artifactability_balancedruid_moonandstars',
+  },
   // Feral
   TIGERS_FURY: {
     id: 5217,
@@ -644,5 +664,10 @@ export default {
     id:155625,
     name:'Moonfire',
     icon:'spell_nature_starfall',
+  },
+  THRASH_FERAL: {
+    id:106830,
+    name:'Thrash',
+    icon:'spell_druid_thrash',
   },
 };

@@ -19,6 +19,13 @@ export default {
     icon: 'spell_shadow_deathanddecay',
   },
 
+  //Provides the 1 RP tick on DnD from Rapid Decomposition Talent
+  RAPID_DECOMPOSITION_RP_TICK: {
+    id: 188290,
+    name: 'Rapid Decomposition RP Tick',
+    icon: 'ability_deathknight_deathsiphon2',
+  },
+
   BLOOD_BOIL: {
     id: 50842,
     name: 'Blood Boil',
@@ -26,31 +33,39 @@ export default {
   },
 
   HEART_STRIKE: {
-   id: 206930,
-   name: 'Heart Strike',
-   icon: 'inv_weapon_shortblade_40',
+    id: 206930,
+    name: 'Heart Strike',
+    icon: 'inv_weapon_shortblade_40',
   },
+
+  //Only used during Dancing Rune Weapon. Its the Heart Strike of the copied weapons. Generates 5 RP.
+  BLOOD_STRIKE: {
+    id: 220890,
+    name: 'Blood Strike',
+    icon: 'spell_deathknight_deathstrike',
+  },
+
   MARROWREND: {
-   id: 195182,
-   name: 'Marrowrend',
-   icon: 'ability_deathknight_marrowrend',
+    id: 195182,
+    name: 'Marrowrend',
+    icon: 'ability_deathknight_marrowrend',
   },
   DEATH_STRIKE: {
-   id: 49998,
-   name: 'Death Strike',
-   icon: 'sspell-deathknight-butcher2',
+    id: 49998,
+    name: 'Death Strike',
+    icon: 'spell_deathknight_butcher2',
   },
 
   BLOOD_PLAGUE: {
-   id: 55078,
-   name: 'Blood Plague',
-   icon: 'spell_deathknight_bloodplague',
+    id: 55078,
+    name: 'Blood Plague',
+    icon: 'spell_deathknight_bloodplague',
   },
 
   DEATHS_CARESS: {
-   id: 195292,
-   name: 'Death\'s Caress',
-   icon: 'ability_deathknight_deathscaress',
+    id: 195292,
+    name: 'Death\'s Caress',
+    icon: 'ability_deathknight_deathscaress',
   },
 
   BLOODDRINKER: {
@@ -67,9 +82,9 @@ export default {
   },
 
   DANCING_RUNE_WEAPON: {
-   id: 49028,
-   name: 'Dancing Rune Weapon',
-   icon: 'inv_sword_07',
+    id: 49028,
+    name: 'Dancing Rune Weapon',
+    icon: 'inv_sword_07',
   },
 
   VAMPIRIC_BLOOD: {
@@ -81,7 +96,13 @@ export default {
   ANTI_MAGIC_SHELL: {
     id: 48707,
     name: 'Anti-Magic Shell',
-    icon: 'pell_shadow_antimagicshell',
+    icon: 'spell_shadow_antimagicshell',
+  },
+
+  ANTI_MAGIC_SHELL_RP_GAINED: {
+    id: 49088,
+    name: 'Anti-Magic Shell RP Gained',
+    icon: 'spell_holy_righteousnessaura',
   },
 
   BONE_SHIELD: {
@@ -102,6 +123,18 @@ export default {
     icon: 'inv_misc_gem_bloodstone_01',
   },
 
+  MARK_OF_BLOOD: {
+    id: 61606,
+    name: 'Mark of Blood',
+    icon: 'ability_hunter_rapidkilling',
+  },
+
+  BONESTORM: {
+    id: 194844,
+    name: 'Bonestorm',
+    icon: 'achievement_boss_lordmarrowgar',
+  },
+
 //Buffs
   OSSUARY: {
     id: 219788,
@@ -112,8 +145,9 @@ export default {
   CRIMSON_SCOURGE: {
     id: 81141,
     name: 'Crimson Scourge',
-    icon: 'spell_deathknight_bloodboil',
+    icon: 'ability_warrior_bloodnova',
   },
+
 
   //CC
   ASPHYXIATE: {
@@ -171,6 +205,26 @@ export default {
     id: 61999,
     name: 'Raise Ally',
     icon: 'spell_shadow_deadofnight',
+  },
+
+  //Blood Tier Sets
+  //T20 2 Piece
+  BLOOD_DEATH_KNIGHT_T20_2SET_BONUS_BUFF: {
+    id: 242001,
+    name: 'T20 2 Set Bonus',
+    icon: 'spell_deathknight_bloodpresence',
+  },
+  //T20 4 Piece
+  BLOOD_DEATH_KNIGHT_T20_4SET_BONUS_BUFF: {
+    id: 242009,
+    name: 'T20 4 Set Bonus',
+    icon: 'spell_deathknight_bloodpresence',
+  },
+  //T20 Buff
+  GRAVEWARDEN: {
+    id: 242010,
+    name: 'Gravewarden',
+    icon: 'ability_warrior_bloodsurge',
   },
 
   // Frost:

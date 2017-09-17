@@ -6,11 +6,9 @@ const APPLY = 'apply';
 const REMOVE = 'remove';
 
 class Entities extends Module {
-  //noinspection JSMethodCanBeStatic
   getEntities() {
     throw new Error('Not implemented');
   }
-  //noinspection JSMethodCanBeStatic,JSUnusedLocalSymbols
   getEntity(event) {
     throw new Error('Not implemented');
   }
@@ -18,25 +16,33 @@ class Entities extends Module {
   on_applybuff(event) {
     this.applyBuff(event);
   }
+  // TODO: Add a sanity check to the `refreshbuff` event that checks if a buff that's being refreshed was applied, if it wasn't it might be a broken pre-combat applied buff not shown in the combatantinfo event
   // We don't store/use durations, so refreshing buff is useless. Removing the buff actually interferes with the `minimalActiveTime` parameter of `getBuff`.
   // on_refreshbuff(event) {
   //   this.removeActiveBuff(event);
   //   this.applyActiveBuff(event);
   // }
+  on_applybuffstack(event) {
+    this.updateBuffStack(event);
+  }
+  on_removebuffstack(event) {
+    this.updateBuffStack(event);
+  }
   on_removebuff(event) {
     this.removeBuff(event);
   }
-  on_removebuffstack(event) {
-    this.removeBuffStack(event);
-  }
+
   on_applydebuff(event) {
     this.applyBuff(event, true);
   }
-  on_removedebuff(event) {
-    this.removeBuff(event, true);
+  on_applydebuffstack(event) {
+    this.updateBuffStack(event, true);
   }
   on_removedebuffstack(event) {
-    this.removeBuffStack(event, true);
+    this.updateBuffStack(event, true);
+  }
+  on_removedebuff(event) {
+    this.removeBuff(event, true);
   }
 
   applyBuff(event, isDebuff) {
@@ -54,12 +60,43 @@ class Entities extends Module {
       console.log(secondsIntoFight, event.timestamp, `Apply buff ${event.ability.name} to ${entity.name}`);
     }
 
-    entity.buffs.push({
+    const buff = {
       ...event,
       start: event.timestamp,
       end: null,
       isDebuff,
-    });
+    };
+
+    // The initial buff counts as 1 stack, to make the `changebuffstack` event complete it's fired for all applybuff events, including buffs that aren't actually stackable.
+    buff.stacks = 1;
+    this._triggerChangeBuffStack(buff, 0, 1);
+
+    entity.buffs.push(buff);
+  }
+  updateBuffStack(event) {
+    if (!this.owner.byPlayer(event) && !this.owner.toPlayer(event)) {
+      // We don't need to know about debuffs on bosses or buffs on other players not caused by us, but we do want to know about our outgoing buffs, and other people's buffs on us
+      return;
+    }
+    const entity = this.getEntity(event);
+    if (!entity) {
+      return;
+    }
+
+    if (debug) {
+      const secondsIntoFight = (event.timestamp - this.owner.fight.start_time) / 1000;
+      console.log(secondsIntoFight, event.timestamp, `Apply buff stack ${event.ability.name} to ${entity.name}`);
+    }
+
+    const existingBuff = entity.buffs.find(item => item.ability.guid === event.ability.guid && item.end === null);
+    if (existingBuff) {
+      const oldStacks = existingBuff.stacks || 1; // the original spell counts as 1 stack
+      existingBuff.stacks = event.stack;
+
+      this._triggerChangeBuffStack(existingBuff, oldStacks, existingBuff.stacks);
+    } else {
+      console.error('Buff stack updated while active buff wasn\'t known. Was this buff applied pre-combat? Maybe we should register the buff with start time as fight start when this happens, but it might also be a basic case of erroneous combatlog ordering.');
+    }
   }
   removeBuff(event, isDebuff) {
     if (!this.owner.byPlayer(event) && !this.owner.toPlayer(event)) {
@@ -79,35 +116,37 @@ class Entities extends Module {
     const existingBuff = entity.buffs.find(item => item.ability.guid === event.ability.guid && item.end === null);
     if (existingBuff) {
       existingBuff.end = event.timestamp;
+
+      this._triggerChangeBuffStack(existingBuff, existingBuff.stacks, 0);
     } else {
-      entity.buffs.push({
+      const buff = {
         ...event,
         start: this.owner.fight.start_time,
         end: event.timestamp,
         isDebuff,
-      });
+      };
+      entity.buffs.push(buff);
+
+      this._triggerChangeBuffStack(buff, 1, 0);
     }
   }
-  removeBuffStack(event, isDebuff) {
-    if (!this.owner.byPlayer(event) && !this.owner.toPlayer(event)) {
-      // We don't need to know about debuffs on bosses or buffs on other players not caused by us, but we do want to know about our outgoing buffs, and other people's buffs on us
-      return;
-    }
-    const entity = this.getEntity(event);
-    if (!entity) {
-      return;
-    }
 
-    if (debug) {
-      const secondsIntoFight = (event.timestamp - this.owner.fight.start_time) / 1000;
-      console.log(secondsIntoFight, event.timestamp, `Remove buff stack ${event.ability.name} from ${entity.name}`);
-    }
+  /**
+   * Trigger a custom `changebuffstack` event that provides all information available about the buff and its stacks, most notably `oldStacks`, `newStacks` and `stacksGained`.
+   * This event is also fired for `applybuff` where `oldStacks` will be 0 and `newStacks` will be 1. NOTE: This event is usually fired before the `applybuff` event!
+   * This event is also fired for `removebuff` where `oldStacks` will be either the old stacks (if there were multiple) or 1 and `newStacks` will be 0. NOTE: This event is usually fired before the `removebuff` event!
+   */
+  _triggerChangeBuffStack(buff, oldStacks, newStacks) {
+    const type = buff.isDebuff ? 'changedebuffstack' : 'changebuffstack';
 
-    // In the case of Maraad's Dying Breath it calls a `removebuffstack` that removes all additional stacks from the buff before it calls a `removebuff`, with this we can find the amount of stacks it had. The `buff.stacks` only includes the amount of removed stacks, which (at least for Maraad's) are all stacks minus one since the original buff is also considered a stack.
-    const existingBuff = entity.buffs.find(item => item.ability.guid === event.ability.guid && item.end === null);
-    if (existingBuff) {
-      existingBuff.stacks = event.stack + 1;
-    }
+    this.owner.triggerEvent(type, {
+      ...buff,
+      type,
+      oldStacks,
+      newStacks,
+      stacksGained: newStacks - oldStacks,
+      stack: undefined,
+    });
   }
 
   // Surely this can be done with a couple less loops???
@@ -115,8 +154,8 @@ class Entities extends Module {
     const events = [];
 
     const entities = this.getEntities();
-    Object.keys(entities).map(k => entities[k]).forEach((enemy) => {
-      enemy.buffs.forEach((buff) => {
+    Object.keys(entities).map(k => entities[k]).forEach(enemy => {
+      enemy.buffs.forEach(buff => {
         if (buff.ability.guid !== spellId) {
           return;
         }

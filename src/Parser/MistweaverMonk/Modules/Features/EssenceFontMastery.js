@@ -20,19 +20,28 @@ class EssenceFontMastery extends Module {
   healEF = 0;
   healing = 0;
   castEF = 0;
+  gustHeal = false;
+  secondGustOverheal = 0;
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
 
     const targetId = event.targetID;
-    if(spellId === SPELLS.GUSTS_OF_MISTS.id) {
-      if(!this.combatants.players[targetId]) {
+    if (spellId === SPELLS.GUSTS_OF_MISTS.id) {
+      if (!this.combatants.players[targetId]) {
         return;
       }
-      if(this.combatants.players[targetId].hasBuff(SPELLS.ESSENCE_FONT_BUFF.id, event.timestamp, 0, 0) === true) {
-        debug && console.log('Player ID: ' + event.targetID + '  Timestamp: ' + event.timestamp);
-        this.healEF++;
-        this.healing += (event.amount || 0 ) + (event.absorbed || 0);
+      if (this.combatants.players[targetId].hasBuff(SPELLS.ESSENCE_FONT_BUFF.id, event.timestamp, 0, 0) === true && !this.gustHeal) {
+        debug && console.log(`First Gust Heal: Player ID: ${event.targetID}  Timestamp: ${event.timestamp}`);
+        this.healEF += 1;
+        this.healing += (event.amount || 0) + (event.absorbed || 0);
+        this.gustHeal = true;
+      }
+      else if (this.combatants.players[targetId].hasBuff(SPELLS.ESSENCE_FONT_BUFF.id, event.timestamp, 0, 0) === true && this.gustHeal) {
+        this.healEF += 1;
+        this.healing += (event.amount || 0) + (event.absorbed || 0);
+        this.secondGustOverheal += (event.overheal || 0);
+        this.gustHeal = false;
       }
     }
   }
@@ -40,18 +49,18 @@ class EssenceFontMastery extends Module {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
-    if(spellId === SPELLS.ESSENCE_FONT.id) {
-      this.castEF++;
+    if (spellId === SPELLS.ESSENCE_FONT.id) {
+      this.castEF += 1;
     }
   }
 
   on_finished() {
-    if(debug) {
-      console.log('EF Mastery Hots Casted into: ' + (this.healEF / 2));
-      console.log('EF Mastery Healing Amount: ' + this.healing);
-      console.log('EF Casts: ' + this.castEF);
-      console.log('EF Targets Hit: ' + this.targetsEF);
-      console.log('EF Avg Targets Hit per Cast: ' + (this.targetsEF / this.castEF));
+    if (debug) {
+      console.log(`EF Mastery Hots Casted into: ${this.healEF / 2}`);
+      console.log(`EF Mastery Healing Amount: ${this.healing}`);
+      console.log(`EF Casts: ${this.castEF}`);
+      console.log(`EF Targets Hit: ${this.targetsEF}`);
+      console.log(`EF Avg Targets Hit per Cast: ${this.targetsEF / this.castEF}`);
     }
   }
   
@@ -80,7 +89,10 @@ class EssenceFontMastery extends Module {
         icon={<SpellIcon id={SPELLS.GUSTS_OF_MISTS.id} />}
         value={`${efMasteryCasts}`}
         label={(
-          <dfn data-tip={`You healed a total of ${efMasteryCasts} targets with the Essence Font buff for ${formatNumber(efMasteryEffectiveHealing)} healing. You also healed an average of ${avgMasteryCastsPerEF.toFixed(2)} targets per Essence Font cast. (${formatNumber(avgEFMasteryHealing)} average healing per cast.)`}>
+          <dfn data-tip={`You healed an average of ${avgMasteryCastsPerEF.toFixed(2)} targets per Essence Font cast.<ul>
+            <li>${formatNumber(avgEFMasteryHealing)} average healing per cast</li>
+            <li>${formatNumber(this.secondGustOverheal)} Second Gust of Mists overhealing</li>
+            </ul>`}>
             Mastery Buffs utilized
           </dfn>
         )}

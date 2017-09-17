@@ -60,7 +60,6 @@ class TrousersOfAnjuna extends Module {
       // 21s mark due to the new buff lasting the pandemic max of 27.
       this._validAfterByPlayer[event.targetID] = event.timestamp + 21000;
     }
-
   }
 
   on_byPlayer_heal(event) {
@@ -80,7 +79,6 @@ class TrousersOfAnjuna extends Module {
       this.overhealing += event.overheal || 0;
       this.absorbed += event.absorbed || 0;
     }
-
   }
 
   item() {

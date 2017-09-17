@@ -24,10 +24,10 @@ import Haunt from './Modules/Talents/Haunt';
 import MaleficGrasp from './Modules/Talents/MaleficGrasp';
 import Contagion from './Modules/Talents/Contagion';
 import AbsoluteCorruption from './Modules/Talents/AbsoluteCorruption';
+import EmpoweredLifeTap from './Modules/Talents/EmpoweredLifeTap';
 import SoulHarvest from './Modules/Talents/SoulHarvest';
 import SoulHarvestTalent from './Modules/Talents/SoulHarvestTalent';
 import DeathsEmbrace from './Modules/Talents/DeathsEmbrace';
-import DeathsEmbraceTalent from './Modules/Talents/DeathsEmbraceTalent';
 import SiphonLifeUptime from './Modules/Talents/SiphonLifeUptime';
 
 import TheMasterHarvester from './Modules/Items/Legendaries/TheMasterHarvester';
@@ -63,10 +63,10 @@ class CombatLogParser extends CoreCombatLogParser {
     maleficGrasp: MaleficGrasp,
     contagion: Contagion,
     absoluteCorruption: AbsoluteCorruption,
+    empoweredLifeTap: EmpoweredLifeTap,
     soulHarvest: SoulHarvest,
     soulHarvestTalent: SoulHarvestTalent,
     deathsEmbrace: DeathsEmbrace,
-    deathsEmbraceTalent: DeathsEmbraceTalent,
     siphonLifeUptime: SiphonLifeUptime,
 
     //Legendaries
@@ -97,7 +97,7 @@ class CombatLogParser extends CoreCombatLogParser {
         url: 'talents',
         render: () => (
           <Tab title='Talents'>
-            <Talents combatant={this.selectedCombatant} />
+            <Talents combatant={this.modules.combatants.selected} />
           </Tab>
         ),
       },

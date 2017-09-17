@@ -12,7 +12,7 @@ const CastEfficiency = ({ categories, abilities }) => {
   return (
     <div style={{ marginTop: -10, marginBottom: -10 }}>
       <table className="data-table" style={{ marginTop: 10, marginBottom: 10 }}>
-        {Object.keys(categories).map((key) => (
+        {Object.keys(categories).map(key => (
           <tbody key={key}>
             <tr>
               <th>{categories[key]}</th>
