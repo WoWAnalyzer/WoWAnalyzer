@@ -1,4 +1,5 @@
 export default `
+16-09-2017 - Archimonde's Hatred Reborn now shows total damage done % and DPS contribution on it's tooltip. (by Mamtooth)
 12-09-2017 - The Always Be Casting module has the following changes:
 <ul>
   <li>It now properly supports the passive Haste gain from Sephuz.</li>

@@ -9,6 +9,8 @@ describe('Brewmaster.BlackoutCombo', () => {
     blackoutCombo = new BlackoutCombo({
       toPlayer: () => true,
       byPlayer: () => true,
+      toPlayerPet: () => false,
+      byPlayerPet: () => false,
     });
   });
   it('blackout combo is active by default', () => {

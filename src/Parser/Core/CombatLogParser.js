@@ -103,6 +103,7 @@ class CombatLogParser {
 
   report = null;
   player = null;
+  playerPets = null;
   fight = null;
 
   _modules = {};
@@ -141,9 +142,10 @@ class CombatLogParser {
     }, {});
   }
 
-  constructor(report, player, fight) {
+  constructor(report, player, playerPets, fight) {
     this.report = report;
     this.player = player;
+    this.playerPets = playerPets;
     this.fight = fight;
 
     this.initializeModules({
@@ -252,6 +254,12 @@ class CombatLogParser {
   }
   toPlayer(event, playerId = this.player.id) {
     return (event.targetID === playerId);
+  }
+  byPlayerPet(event) {
+    return this.playerPets.some(pet => pet.id === event.sourceID);
+  }
+  toPlayerPet(event) {
+    return this.playerPets.some(pet => pet.id === event.targetID);
   }
 
   // TODO: Damage taken from LOTM

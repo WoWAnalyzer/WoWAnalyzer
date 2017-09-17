@@ -34,6 +34,12 @@ class Module {
     if (event && this.owner.toPlayer(event)) {
       this._callMethod(this._eventHandlerName(`toPlayer_${eventType}`), event, ...args);
     }
+    if (event && this.owner.byPlayerPet(event)) {
+      this._callMethod(this._eventHandlerName(`byPlayerPet_${eventType}`), event, ...args);
+    }
+    if (event && this.owner.toPlayerPet(event)) {
+      this._callMethod(this._eventHandlerName(`toPlayerPet_${eventType}`), event, ...args);
+    }
   }
   _eventHandlerName(eventType) {
     return `on_${eventType}`;

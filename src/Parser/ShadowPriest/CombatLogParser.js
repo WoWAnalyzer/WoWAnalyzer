@@ -5,6 +5,7 @@ import SuggestionsTab from 'Main/SuggestionsTab';
 
 
 import AbilityTracker from './Modules/Core/AbilityTracker';
+import Haste from './Modules/Core/Haste';
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import DamageDone from './Modules/Core/DamageDone';
@@ -28,6 +29,7 @@ class CombatLogParser extends MainCombatLogParser {
     damageDone: DamageDone,
     alwaysBeCasting: AlwaysBeCasting,
     abilityTracker: AbilityTracker,
+    haste: Haste,
     castEfficiency: CastEfficiency,
     insanity: Insanity,
 

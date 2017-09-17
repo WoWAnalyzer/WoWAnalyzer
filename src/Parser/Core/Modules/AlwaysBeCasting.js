@@ -6,7 +6,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 import Haste from './Haste';
 
-const debug = true;
+const debug = false;
 
 class AlwaysBeCasting extends Module {
   static dependencies = {
