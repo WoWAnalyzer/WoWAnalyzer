@@ -1,4 +1,5 @@
 export default `
+18-09-2017 - Resto Druid: Added Essence of G'hanir to the cooldowns tab. (By Blazyb) 
 09-07-2017 - Resto Druid: Added relic traits module (By Blazyb)
 09-09-2017 - Resto Druid: Added suggestion when high Nature's Essence overheal. (By Sref)
 07-09-2017 - Resto Druid: Added support for T21. (By Sref)
