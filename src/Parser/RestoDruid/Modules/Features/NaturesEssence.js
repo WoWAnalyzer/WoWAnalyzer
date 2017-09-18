@@ -26,7 +26,7 @@ class NaturesEssence extends Module {
     const spellId = event.ability.guid;
 
     if (SPELLS.NATURES_ESSENCE_DRUID.id === spellId) {
-      this.effectiveHealing += event.amount + (event.absorbed !== undefined ? event.absorbed : 0);
+      this.effectiveHealing += event.amount + (event.absorbed || 0);
       this.overHealing += (event.overheal !== undefined ? event.overheal : 0);
     }
   }

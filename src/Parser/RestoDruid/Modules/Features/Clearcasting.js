@@ -1,16 +1,34 @@
-import Module from 'Parser/Core/Module';
+import React from 'react';
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import { formatPercentage } from 'common/format';
+import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
+
 import SPELLS from 'common/SPELLS';
+import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
+
+import SuggestionThresholds from '../../SuggestionThresholds';
 
 const CLEARCASTING_DURATION = 15000;
 const debug = false;
 
-// Doesn't support MoC right now.
 class Clearcasting extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
   total = 0;
   lastCCTimestamp = 0;
   nonCCRegrowths = 0;
   used = 0;
   lastRegrowthTimestamp = 0;
+
+  on_initialized() {
+    // TODO: make this work with MoC
+    this.active = !this.combatants.selected.hasTalent(SPELLS.MOMENT_OF_CLARITY_TALENT_RESTORATION.id);
+  }
+
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
     if (SPELLS.CLEARCASTING_BUFF.id !== spellId) {
@@ -21,6 +39,7 @@ class Clearcasting extends Module {
     debug && console.log('CC was applied');
     this.total += 1;
   }
+
   on_byPlayer_refreshbuff(event) {
     const spellId = event.ability.guid;
     if (SPELLS.CLEARCASTING_BUFF.id !== spellId) {
@@ -31,6 +50,7 @@ class Clearcasting extends Module {
     debug && console.log('CC was refreshed');
     this.total += 1;
   }
+
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
 
@@ -61,6 +81,49 @@ class Clearcasting extends Module {
     // when you cast a regrowth with power of the druid buff up.
     this.lastRegrowthTimestamp = event.timestamp;
   }
+
+  get unusedClearcastingPercent() {
+    return 1 - (this.used / this.total);
+  }
+
+  suggestions(when) {
+    when(this.unusedClearcastingPercent).isGreaterThan(SuggestionThresholds.MISSED_CLEARCASTS.minor)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<span>Your <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} /> procs should be used quickly so they do not get overwritten or expire.</span>)
+          .icon(SPELLS.CLEARCASTING_BUFF.icon)
+          .actual(`You missed ${(this.total - this.used)}/${(this.total)} procs`)
+          .recommended(`<${Math.round(formatPercentage(recommended))}% is recommended`)
+          .regular(SuggestionThresholds.MISSED_CLEARCASTS.regular).major(SuggestionThresholds.MISSED_CLEARCASTS.major);
+      });
+
+    const percentNonCCRegrowths = this.nonCCRegrowths / this.total;
+
+    when(percentNonCCRegrowths).isGreaterThan(SuggestionThresholds.NON_CC_REGROWTHS.minor)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<span><SpellLink id={SPELLS.REGROWTH.id} /> is an inefficient spell to cast without a <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} /> proc.</span>)
+          .icon(SPELLS.REGROWTH.icon)
+          .actual(`${formatPercentage(percentNonCCRegrowths)}% of your Regrowths were cast without a Clearcasting proc.`)
+          .recommended(`<${Math.round(formatPercentage(recommended))}% is recommended`)
+          .regular(SuggestionThresholds.MISSED_CLEARCASTS.regular).major(SuggestionThresholds.MISSED_CLEARCASTS.major);
+      });
+  }
+
+  statistic() {
+    return (
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.CLEARCASTING_BUFF.id} />}
+        value={`${formatPercentage(this.unusedClearcastingPercent)} %`}
+        label="Unused Clearcasts"
+        tooltip={`You got <b>${this.total} Clearcasting procs</b> and <b>used ${this.used}</b> of them.
+            <b>${this.nonCCRegrowths} of your Regrowths were used without a Clearcasting proc</b>.
+            Using a clearcasting proc as soon as you get it should be one of your top priorities.
+            Even if it overheals you still get that extra mastery stack on a target and the minor HoT.
+            Spending your GCD on a free spell also helps with mana management in the long run.`}
+      />
+    );
+  }
+  statisticOrder = STATISTIC_ORDER.CORE(20);
+
 }
 
 export default Clearcasting;

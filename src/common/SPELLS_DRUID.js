@@ -38,6 +38,11 @@ export default {
     name: 'Essence of G\'Hanir',
     icon: 'inv_staff_2h_artifactnordrassil_d_01',
   },
+  INCARNATION_TREE_OF_LIFE: {
+    id: 33891,
+    name: 'Incarnation: Tree of Life',
+    icon: 'ability_druid_improvedtreeform',
+  },
   IRONBARK: {
     id: 102342,
     name: 'Ironbark',
@@ -282,7 +287,7 @@ export default {
     icon: 'ability_druid_manatree',
   },
 
-  // Sets:
+  // Sets/Items:
   // Hidden buffs that indicate set is equipped:
   RESTO_DRUID_T19_2SET_BONUS_BUFF: {
     id: 211165,
@@ -309,7 +314,7 @@ export default {
     name: 'T21 4 set bonus',
     icon: 'ability_druid_cower',
   },
-  // Visible procs produced by set:
+  // Visible procs produced by set/item:
   ASTRAL_HARMONY: { // 2pc T19
     id: 232378,
     name: 'Astral Harmony',
@@ -329,6 +334,11 @@ export default {
     id: 253434,
     name: 'Awakened',
     icon: 'ability_druid_cower',
+  },
+  XONIS_CARESS: {
+    id: 235040,
+    name: "X'oni's Caress",
+    icon: 'spell_druid_ironbark',
   },
 
   // Traits:
@@ -356,23 +366,6 @@ export default {
     id: 186396,
     name: 'Persistance',
     icon: 'spell_nature_starfall',
-  },
-
-  // Talents:
-  CULTIVATION_TALENT: {
-    id: 200390,
-    name: 'Cultivation',
-    icon: 'ability_druid_nourish',
-  },
-  SPRING_BLOSSOMS_TALENT: {
-    id: 207385,
-    name: 'Spring Blossoms',
-    icon: 'inv_misc_trailofflowers',
-  },
-  CENARION_WARD_TALENT: {
-    id: 102351,
-    name: 'Cenarion Ward',
-    icon: 'ability_druid_naturalperfection',
   },
 
   // GUARDIAN //
