@@ -11,6 +11,9 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownTracker from './Modules/Features/CooldownTracker';
 import DamageDone from './Modules/PaladinCore/DamageDone';
 
+import HolyPowerTracker from './Modules/HolyPower/HolyPowerTracker';
+import HolyPowerDetails from './Modules/HolyPower/HolyPowerDetails';
+
 import WhisperOfTheNathrezim from './Modules/Items/WhisperOfTheNathrezim';
 import Tier20_2set from './Modules/Items/Tier20_2set';
 import Tier20_4set from './Modules/Items/Tier20_4set';
@@ -28,6 +31,10 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownTracker: CooldownTracker,
 
     // Talents
+
+    // HolyPower
+    holyPowerTracker: HolyPowerTracker,
+    holyPowerDetails: HolyPowerDetails,
 
     // Traits
 

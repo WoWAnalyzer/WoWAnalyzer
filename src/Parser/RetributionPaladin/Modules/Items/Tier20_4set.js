@@ -15,9 +15,13 @@ class Tier20_4set extends Module {
 
 	holyPowerGained = 0;
 
+	on_initialized() {
+		this.active = this.combatants.selected.hasBuff(SPELLS.RET_PALADIN_T20_4SET_BONUS.id);
+	}
+
 	benefitsFrom4Pc(event) {
 		this.spellId = event.ability.guid;
-		return this.combatants.selected.hasBuff(SPELLS.RET_PALADIN_T20_4SET_BONUS_BUFF.id) 
+		return this.combatants.selected.hasBuff(SPELLS.RET_PALADIN_T20_4SET_BONUS.id) 
 				&& (this.spellId === SPELLS.BLADE_OF_JUSTICE.id || this.spellId === SPELLS.DIVINE_HAMMER_TALENT.id);
 	}
 
@@ -39,9 +43,9 @@ class Tier20_4set extends Module {
 		}
 
 		return {
-			id: `spell-${SPELLS.RET_PALADIN_T20_4SET_BONUS_BUFF.id}`,
+			id: `spell-${SPELLS.RET_PALADIN_T20_4SET_BONUS.id}`,
 			icon: <SpellIcon id ={this.builderId} />,
-			title: <SpellLink id={SPELLS.RET_PALADIN_T20_4SET_BONUS_BUFF.id} />,
+			title: <SpellLink id={SPELLS.RET_PALADIN_T20_4SET_BONUS.id} />,
 			result : (
 				`${formatNumber(this.holyPowerGained)} Holy Power gained from Tier 20 4 peice.`
 			),

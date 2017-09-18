@@ -247,6 +247,11 @@ export default {
     name: 'Wake of Ashes',
     icon: 'inv_sword_2h_artifactashbringer_d_01',
   },
+  WAKE_OF_ASHES_HP_GEN: {
+    id: 218001,
+    name: 'Wake of Ashes',
+    icon: 'inv_sword_2h_artifactashbringer_d_01',
+  },
   SHIELD_OF_VENGEANCE: {
     id: 184662,
     name: 'Shield of Vengeance',
@@ -259,22 +264,37 @@ export default {
     name: 'Whisper of the Nathrezim',
     icon: 'ability_paladin_sheathoflight',
   },
-  RET_PALADIN_T19_2SET_BONUS_BUFF: {
+  LIADRINS_FURY_UNLEASHED_BUFF: {
+    id: 208410,
+    name: 'Liandrin\'s Fury Unleashed',
+    icon: 'inv_jewelry_ring_61',
+  },
+  RET_PALADIN_T19_2SET_BONUS: {
     id: 211444,
     name: 'T19 2 set bonus',
     icon: 'inv_helm_plate_raidpaladinmythic_q_01',
   },
-  RET_PALADIN_T19_4SET_BONUS_BUFF: {
+  RET_PALADIN_T19_4SET_BONUS: {
     id: 211448,
     name: 'T19 4 set bonus',
     icon: 'inv_cape_plate_raidpaladinmythic_q_01',
+  },
+  RET_PALADIN_T19_4SET_HP_GEN: {
+    id: 231372,
+    name: 'T19 4 set bonus',
+    icon: 'inv_helm_plate_raidpaladinmythic_q_01',
+  },
+  RET_PALADIN_T20_2SET_BONUS: {
+    id: 242267,
+    name: 'T19 2 set bonus',
+    icon: 'paladin_retribution',
   },
   RET_PALADIN_T20_2SET_BONUS_BUFF: {
     id: 246973,
     name: 'T20 2 set bonus',
     icon: 'paladin_retribution',
   },
-  RET_PALADIN_T20_4SET_BONUS_BUFF: {
+  RET_PALADIN_T20_4SET_BONUS: {
     id: 242266,
     name: 'T20 4 set bonus',
     icon: 'paladin_retribution',
