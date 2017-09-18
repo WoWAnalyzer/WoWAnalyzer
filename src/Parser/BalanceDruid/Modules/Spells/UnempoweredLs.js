@@ -6,8 +6,8 @@ import { formatNumber } from 'common/format';
 
 class UnempoweredLS extends Module {
   _castQueue = {
-    Empowered: false,
-    Enemies: 0,
+    empowered: false,
+    enemies: 0,
   };
   casts = [];
   _lunarEmpsOn = false;
@@ -37,7 +37,7 @@ class UnempoweredLS extends Module {
     if (!this.isLunarStrike(event)) {
       return;
     }
-    this._castQueue.Enemies += 1;
+    this._castQueue.enemies += 1;
   }
 
   on_toPlayer_applybuff(event) {
@@ -55,7 +55,7 @@ class UnempoweredLS extends Module {
     this.casts.push(this._castQueue);
 
     this.suboptUmempLS = this.casts.filter((cast) => {
-      return !cast.Empowered && cast.Enemies > 0 && cast.Enemies < 3;
+      return !cast.empowered && cast.enemies > 0 && cast.enemies < 3;
     }).length;
   }
 
