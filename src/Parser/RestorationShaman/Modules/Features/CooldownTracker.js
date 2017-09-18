@@ -10,12 +10,12 @@ import { ABILITIES_NOT_FEEDING_INTO_CBT, ABILITIES_NOT_FEEDING_INTO_AG, ABILITIE
 // 2) Track the spells feeding into AG/Asc/CBT so we can provide a breakdownn of the feeding
 // for the Feeding tab.
 //
-// For each active AG/CBT/Asc we track for each spell how much raw- and effective healing it 
-// contributed. Whenever new results are generated in CombatLogParser.js processAll will 
-// be called. This function looks through all cooldowns that have not been processed yet 
+// For each active AG/CBT/Asc we track for each spell how much raw- and effective healing it
+// contributed. Whenever new results are generated in CombatLogParser.js processAll will
+// be called. This function looks through all cooldowns that have not been processed yet
 // and adds their healing to the total spell breakdown per cooldown, which is stored in
 // cbtFeed, agFeed and ascFeed. It is necessary to do it this way because only after
-// cloudburst has done all its healing you know how much overhealing it has done, and 
+// cloudburst has done all its healing you know how much overhealing it has done, and
 // thus how much effective healing each of the feeding spells did.
 //
 // getIndirectHealing can be used to query for one spellId how much healing it provided
@@ -59,7 +59,7 @@ class CooldownTracker extends CoreCooldownTracker {
   processAll() {
     this.pastCooldowns
       .filter(cooldown => cooldown.end && !cooldown.processed)
-      .forEach(cooldown => {
+      .forEach((cooldown) => {
         let feed = null;
         let totals = null;
         let feedingFactor = 0;
@@ -82,7 +82,7 @@ class CooldownTracker extends CoreCooldownTracker {
           percentOverheal = cooldown.overheal / (cooldown.healing + cooldown.overheal);
         }
 
-        Object.keys(cooldown.feed).forEach(spellId => {
+        Object.keys(cooldown.feed).forEach((spellId) => {
           spellId = Number(spellId);
           if (!feed[spellId]) {
             feed[spellId] = [];
@@ -220,7 +220,7 @@ class CooldownTracker extends CoreCooldownTracker {
       this.removeLastCooldown(SPELLS.CLOUDBURST_TOTEM_CAST.id);
     }
 
-    this.activeCooldowns.forEach(cooldown => {
+    this.activeCooldowns.forEach((cooldown) => {
       cooldown.end = this.owner.fight.end_time;
 
       // If cloudburst is still up at the end of the fight, it didn't do any healing, so dont process it.
@@ -285,7 +285,7 @@ class CooldownTracker extends CoreCooldownTracker {
     const spellId = event.ability.guid;
     const healingDone = (event.amount || 0) + (event.overheal || 0) + (event.absorb || 0);
 
-    this.activeCooldowns.forEach(cooldown => {
+    this.activeCooldowns.forEach((cooldown) => {
       const cooldownId = cooldown.spell.id;
 
       if ((cooldownId === SPELLS.CLOUDBURST_TOTEM_CAST.id && (ABILITIES_NOT_FEEDING_INTO_CBT.indexOf(spellId) <= -1)) ||
@@ -305,10 +305,10 @@ class CooldownTracker extends CoreCooldownTracker {
 
   on_byPlayer_damage(event) {
     const index = this.activeCooldowns.findIndex(cooldown => cooldown.spell.id === SPELLS.ANCESTRAL_GUIDANCE_CAST.id);
-    //const spellId = event.ability.guid;
+    // const spellId = event.ability.guid;
 
     if (index === -1) {
-      return;
+
     }
 
     // This should probably be done with a white list, too many damage events that do not
@@ -330,7 +330,7 @@ class CooldownTracker extends CoreCooldownTracker {
   }
 
   on_byPlayer_absorbed(event) {
-    this.activeCooldowns.forEach(cooldown => {
+    this.activeCooldowns.forEach((cooldown) => {
       cooldown.events.push(event);
     });
   }

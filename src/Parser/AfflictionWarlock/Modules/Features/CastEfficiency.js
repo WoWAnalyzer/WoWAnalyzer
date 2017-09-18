@@ -2,10 +2,12 @@ import SPELLS from 'common/SPELLS';
 
 import CoreCastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 
+/* eslint-disable no-unused-vars */
+
 class CastEfficiency extends CoreCastEfficiency {
   static CPM_ABILITIES = [
     ...CoreCastEfficiency.CPM_ABILITIES,
-    //Rotational spells
+    // Rotational spells
     {
       spell: SPELLS.HAUNT,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
@@ -73,7 +75,7 @@ class CastEfficiency extends CoreCastEfficiency {
       noCanBeImproved: true,
     },
 
-    //Cooldowns
+    // Cooldowns
     {
       spell: SPELLS.SOUL_HARVEST,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
@@ -119,7 +121,7 @@ class CastEfficiency extends CoreCastEfficiency {
       isActive: combatant => combatant.hasTalent(SPELLS.GRIMOIRE_OF_SERVICE_TALENT.id),
     },
 
-    //Utility
+    // Utility
     {
       spell: SPELLS.BURNING_RUSH,
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
@@ -155,7 +157,7 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.SOULSTONE,
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => 600,
-      //TODO: shares cooldown with other combat rezzes, don't know how to calculate properly
+      // TODO: shares cooldown with other combat rezzes, don't know how to calculate properly
       noSuggestion: true,
       noCanBeImproved: true,
     },

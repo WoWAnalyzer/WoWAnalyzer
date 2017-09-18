@@ -12,7 +12,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     // Monk:
 
     // Items:
-   
+
   ];
 }
 

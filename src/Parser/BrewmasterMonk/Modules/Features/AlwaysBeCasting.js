@@ -52,8 +52,8 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
       <StatisticBox
         icon={<Icon icon="spell_mage_altertime" alt="Dead GCD time" />}
         value={`${formatPercentage(deadTimePercentage)} %`}
-        label='Dead GCD time'
-        tooltip='Dead GCD time is available casting time not used. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), etc.'
+        label="Dead GCD time"
+        tooltip="Dead GCD time is available casting time not used. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), etc."
       />
     );
   }

@@ -7,7 +7,7 @@ import { formatNumber } from 'common/format';
 
 import getDamageBonus from '../../WarlockCore/getDamageBonus';
 
-const ALYTHESSS_PYROGENICS_DAMAGE_BONUS = .1;
+const ALYTHESSS_PYROGENICS_DAMAGE_BONUS = 0.1;
 
 const AFFECTED_SPELLS = new Set([
   SPELLS.INCINERATE.id,

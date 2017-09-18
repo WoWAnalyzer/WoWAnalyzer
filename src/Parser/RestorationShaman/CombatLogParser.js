@@ -80,7 +80,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownTracker: CooldownTracker,
     ancestralVigor: AncestralVigor,
     castEfficiency: CastEfficiency,
-    
+
     // Legendaries:
     nobundo: Nobundo,
     nazjatar: Nazjatar,
@@ -164,7 +164,6 @@ class CombatLogParser extends CoreCombatLogParser {
     }
     const hasCBT = this.modules.combatants.selected.hasTalent(SPELLS.CLOUDBURST_TOTEM_CAST.id);
     const giftOfTheQueenCBTFeedingPercent = giftOfTheQueenCBTFeeding / giftOfTheQueenRawHealing;
-
 
 
     const totalMasteryHealing = this.modules.masteryEffectiveness.totalMasteryHealing || 0;

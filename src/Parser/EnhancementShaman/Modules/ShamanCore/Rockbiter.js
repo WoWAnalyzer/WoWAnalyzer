@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 
 import Module from 'Parser/Core/Module';
 
-const MAELSTROM_THRESHOLD = 95;//120 is threshold, but energize event values are after the 25 Maelstrom increase is applied
+const MAELSTROM_THRESHOLD = 95;// 120 is threshold, but energize event values are after the 25 Maelstrom increase is applied
 
 class Rockbiter extends Module {
   rockbiterOveruse = [];

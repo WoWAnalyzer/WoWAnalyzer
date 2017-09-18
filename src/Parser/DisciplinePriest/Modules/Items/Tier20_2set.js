@@ -17,7 +17,7 @@ class Tier20_2set extends Module {
 
   healing = 0;
   damage = 0;
-  
+
   on_initialized() {
     this.active = this.owner.modules.combatants.selected.hasBuff(SPELLS.DISC_PRIEST_T20_2SET_BONUS_PASSIVE.id);
   }

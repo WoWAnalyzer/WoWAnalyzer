@@ -26,6 +26,7 @@ class AtonementHealingDone extends Module {
     const source = this.atonementSource.atonementDamageSource;
     this._addHealing(source, event.amount, event.absorbed, event.overheal);
   }
+  // FIXME: 'byAbility()' added to HealingDone, this should no longer require custom code
   _addHealing(source, amount = 0, absorbed = 0, overheal = 0) {
     const ability = source.ability;
     const spellId = ability.guid;

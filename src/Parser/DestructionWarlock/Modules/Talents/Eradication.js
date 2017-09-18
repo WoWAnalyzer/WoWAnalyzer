@@ -14,7 +14,7 @@ import getDamageBonus from '../WarlockCore/getDamageBonus';
 
 const ERADICATION_DAMAGE_BONUS = 0.15;
 
-//only calculates the bonus damage, output depends if we have the talent directly or via legendary finger (then it appears as either a Statistic or Item)
+// only calculates the bonus damage, output depends if we have the talent directly or via legendary finger (then it appears as either a Statistic or Item)
 class Eradication extends Module {
   static dependencies = {
     enemies: Enemies,
@@ -40,7 +40,7 @@ class Eradication extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.ERADICATION_TALENT.id} />}
         value={`${formatNumber(this.bonusDmg / this.owner.fightDuration * 1000)} DPS`}
-        label='Damage contributed'
+        label="Damage contributed"
         tooltip={`Your Eradication talent contributed ${formatNumber(this.bonusDmg)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} %)`}
       />
     );

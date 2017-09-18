@@ -32,17 +32,17 @@ class MasteryBreakdown extends Module {
     let total = 0;
     delete this.effectiveHealDist[SPELLS.RENEW.id]; // see the comment at line ~150 for why this happens
 
-    Object.keys(this.effectiveHealDist).forEach(spell => {
+    Object.keys(this.effectiveHealDist).forEach((spell) => {
       total += this.effectiveHealDist[spell];
     });
 
     const eHDPerc = {};
-    Object.keys(this.effectiveHealDist).forEach(spell => {
+    Object.keys(this.effectiveHealDist).forEach((spell) => {
       eHDPerc[spell] = this.effectiveHealDist[spell] / total;
     });
 
     const eOHD = {};
-    Object.keys(this.effectiveHealDist).forEach(spell => {
+    Object.keys(this.effectiveHealDist).forEach((spell) => {
       eOHD[spell] = this.effectiveOverhealDist[spell] / (this.effectiveHealDist[spell] + this.effectiveOverhealDist[spell]);
     });
 
@@ -95,7 +95,7 @@ class MasteryBreakdown extends Module {
         return;
       }
 
-      Object.keys(this._healValByTargetId[tId]).forEach(spell => {
+      Object.keys(this._healValByTargetId[tId]).forEach((spell) => {
         // For potential future Features //
         // if (spell in this._eHDbyPlayer[tId]) {
         //   this._eHDbyPlayer[tId][spell] += this._maxHealVal[tId][spell] * percOH / tickMode;
@@ -174,7 +174,8 @@ class MasteryBreakdown extends Module {
         label={(
           <dfn data-tip={`Echo of Light healing breakdown. As our mastery is often very finicky, this could end up wrong in various situations. Please report any logs that seem strange to @enragednuke on the WoWAnalyzer discord.<br/><br/>
             <strong>Please do note this is not 100% accurate.</strong> It is probably around 90% accurate. <br/><br/>
-            Also, a mastery value can be more than just "healing done times mastery percent" because Echo of Light is based off raw healing. If the heal itself overheals, but the mastery does not, it can surpass that assumed "limit". Don't use this as a reason for a "strange log" unless something is absurdly higher than its effective healing.`}>
+            Also, a mastery value can be more than just "healing done times mastery percent" because Echo of Light is based off raw healing. If the heal itself overheals, but the mastery does not, it can surpass that assumed "limit". Don't use this as a reason for a "strange log" unless something is absurdly higher than its effective healing.`}
+          >
             Echo of Light
           </dfn>
         )}

@@ -33,7 +33,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
 
     when(deadTimePercentage).isGreaterThan(0.2)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your dead GCD time can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. Even if you have to move, try casting something instant with range like <SpellLink id={SPELLS.FLAMETONGUE.id}/> or <SpellLink id={SPELLS.ROCKBITER.id}/></span>)
+        return suggest(<span>Your dead GCD time can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. Even if you have to move, try casting something instant with range like <SpellLink id={SPELLS.FLAMETONGUE.id} /> or <SpellLink id={SPELLS.ROCKBITER.id} /></span>)
           .icon('spell_mage_altertime')
           .actual(`${formatPercentage(actual)}% dead GCD time`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
@@ -45,10 +45,10 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
     return (
       <StatisticBox
-        icon={<Icon icon='spell_mage_altertime' alt='Dead time' />}
+        icon={<Icon icon="spell_mage_altertime" alt="Dead time" />}
         value={`${formatPercentage(deadTimePercentage)} %`}
-        label='Dead time'
-        tooltip='Dead time is available casting time not used for casting any spell. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/being stunned), etc.'
+        label="Dead time"
+        tooltip="Dead time is available casting time not used for casting any spell. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/being stunned), etc."
       />
     );
   }

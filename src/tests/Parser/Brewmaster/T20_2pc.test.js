@@ -1,5 +1,5 @@
 import T20_2pc from 'Parser/BrewmasterMonk/Modules/Items/T20_2pc';
-import { processEvents } from './Fixtures/processEvents';
+import processEvents from './Fixtures/processEvents';
 import { SimpleFight } from './Fixtures/SimpleFight';
 
 describe('Brewmaster.T20_2pc', () => {
@@ -21,5 +21,4 @@ describe('Brewmaster.T20_2pc', () => {
     expect(item.brewCount).toBe(2);
   });
 });
-  
 

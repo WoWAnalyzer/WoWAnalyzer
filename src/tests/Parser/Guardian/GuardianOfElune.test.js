@@ -1,6 +1,6 @@
 import GuardianOfElune from 'Parser/GuardianDruid/Modules/Features/GuardianOfElune';
 import { damageTaken, buffsApplied, SimpleFight } from './Fixtures/SimpleFight';
-import { processEvents } from './Fixtures/processEvents';
+import processEvents from './Fixtures/processEvents';
 
 describe('Features.GuardianOfElune', () => {
   let guardian;

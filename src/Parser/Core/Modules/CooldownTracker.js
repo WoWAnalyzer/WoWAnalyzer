@@ -82,7 +82,7 @@ class CooldownTracker extends Module {
     debug && console.log(`%cCooldown ended: ${cooldown.spell.name}`, 'color: red', cooldown);
   }
   on_finished() {
-    this.activeCooldowns.forEach(cooldown => {
+    this.activeCooldowns.forEach((cooldown) => {
       cooldown.end = this.owner.fight.end_time;
       debug && console.log(`%cCooldown ended: ${cooldown.spell.name}`, 'color: red', cooldown);
     });
@@ -91,7 +91,7 @@ class CooldownTracker extends Module {
 
   // region Event tracking
   trackEvent(event) {
-    this.activeCooldowns.forEach(cooldown => {
+    this.activeCooldowns.forEach((cooldown) => {
       cooldown.events.push(event);
     });
   }

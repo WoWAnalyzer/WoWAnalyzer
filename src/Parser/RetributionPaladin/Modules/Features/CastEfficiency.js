@@ -1,21 +1,20 @@
-
-
 import SPELLS from 'common/SPELLS';
 
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 import CoreCastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 
+/* eslint-disable no-unused-vars */
 
 class CastEfficiency extends CoreCastEfficiency {
-    static CPM_ABILITIES = [
+  static CPM_ABILITIES = [
     ...CoreCastEfficiency.CPM_ABILITIES,
     {
       spell: SPELLS.WAKE_OF_ASHES,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 30,
       recommendedCastEfficiency: 0.9,
-      extraSuggestion: 'Try to use Wake as much as possible. It has a high damage per execute time and generates a lot of holy power. It is better to waste 1-2 holy power than to hold the ability.',
+      extraSuggestion: 'It has a high damage per execute time and generates a lot of holy power. It is better to waste 1-2 holy power than to hold the ability.',
     },
     {
       spell: SPELLS.CRUSADE_TALENT,
@@ -24,7 +23,7 @@ class CastEfficiency extends CoreCastEfficiency {
       isActive: combatant => combatant.hasTalent(SPELLS.CRUSADE_TALENT.id),
       recommendedCastEfficiency: 0.95,
       importance: ISSUE_IMPORTANCE.MAJOR,
-    },    
+    },
     {
       spell: SPELLS.AVENGING_WRATH,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
@@ -64,7 +63,7 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.BLADE_OF_JUSTICE,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => null, //10.5 / (1 + haste)
+      getCooldown: haste => null, // 10.5 / (1 + haste)
       hideWithZeroCasts: true,
     },
     {

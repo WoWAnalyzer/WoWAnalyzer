@@ -4,6 +4,8 @@ import SPELLS from 'common/SPELLS';
 import CoreCastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 import { calculateMaxCasts } from 'Parser/Core/getCastEfficiency';
 
+/* eslint-disable no-unused-vars */
+
 class CastEfficiency extends CoreCastEfficiency {
   static CPM_ABILITIES = [
     ...CoreCastEfficiency.CPM_ABILITIES,

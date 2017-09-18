@@ -92,6 +92,11 @@ export default {
     name: 'Tar Trap',
     icon: 'spell_yorsahj_bloodboil_black',
   },
+  VULNERABLE: {
+    id: 187131,
+    name: 'Vulnerable',
+    icon: 'ability_hunter_mastermarksman',
+  },
 
   // Survival:
   // ...

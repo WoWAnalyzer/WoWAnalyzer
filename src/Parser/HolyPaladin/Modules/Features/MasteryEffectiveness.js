@@ -42,10 +42,8 @@ class MasteryEffectiveness extends Module {
       if (beaconPlayerId === null) {
         // No (valid) target so discard position to prevent an old position from being considered
         this.lastBeaconPositionUpdate = null;
-      } else {
-        if (this.owner.byPlayer(event, beaconPlayerId)) {
-          this.updateBeaconPosition(event);
-        }
+      } else if (this.owner.byPlayer(event, beaconPlayerId)) {
+        this.updateBeaconPosition(event);
       }
     }
   }
@@ -59,10 +57,8 @@ class MasteryEffectiveness extends Module {
       if (beaconPlayerId === null) {
         // No (valid) target so discard position to prevent an old position from being considered
         this.lastBeaconPositionUpdate = null;
-      } else {
-        if (this.owner.toPlayer(event, beaconPlayerId)) {
-          this.updateBeaconPosition(event);
-        }
+      } else if (this.owner.toPlayer(event, beaconPlayerId)) {
+        this.updateBeaconPosition(event);
       }
     }
   }
@@ -75,10 +71,8 @@ class MasteryEffectiveness extends Module {
       if (beaconPlayerId === null) {
         // No (valid) target so discard position to prevent an old position from being considered
         this.lastBeaconPositionUpdate = null;
-      } else {
-        if (this.owner.toPlayer(event, beaconPlayerId)) {
-          this.updateBeaconPosition(event);
-        }
+      } else if (this.owner.toPlayer(event, beaconPlayerId)) {
+        this.updateBeaconPosition(event);
       }
     }
   }
@@ -92,10 +86,8 @@ class MasteryEffectiveness extends Module {
       if (beaconPlayerId === null) {
         // No (valid) target so discard position to prevent an old position from being considered
         this.lastBeaconPositionUpdate = null;
-      } else {
-        if (this.owner.toPlayer(event, beaconPlayerId)) {
-          this.updateBeaconPosition(event);
-        }
+      } else if (this.owner.toPlayer(event, beaconPlayerId)) {
+        this.updateBeaconPosition(event);
       }
     }
 

@@ -12,9 +12,9 @@ import CooldownTracker from './Modules/Features/CooldownTracker';
 import DamageDone from './Modules/PaladinCore/DamageDone';
 
 import WhisperOfTheNathrezim from './Modules/Items/WhisperOfTheNathrezim';
+import Tier20_2set from './Modules/Items/Tier20_2set';
 
 class CombatLogParser extends CoreCombatLogParser {
-
   static specModules = {
     // Override the ability tracker so we also get stats for IoL and beacon healing
 
@@ -32,6 +32,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Items:
     whisperOfTheNathrezim: WhisperOfTheNathrezim,
+    tier20_2set: Tier20_2set,
   };
 
   generateResults() {

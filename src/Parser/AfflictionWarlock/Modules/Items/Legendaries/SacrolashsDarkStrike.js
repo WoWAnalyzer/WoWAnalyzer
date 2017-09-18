@@ -7,7 +7,7 @@ import { formatNumber } from 'common/format';
 
 import getDamageBonus from '../../WarlockCore/getDamageBonus';
 
-const SACROLASH_DAMAGE_BONUS = .15;
+const SACROLASH_DAMAGE_BONUS = 0.15;
 
 class SacrolashsDarkStrike extends Module {
   static dependencies = {

@@ -2,6 +2,8 @@ import SPELLS from 'common/SPELLS';
 
 import CoreCastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 
+/* eslint-disable no-unused-vars */
+
 class CastEfficiency extends CoreCastEfficiency {
   static SPELL_CATEGORIES = {
     ...CoreCastEfficiency.SPELL_CATEGORIES,

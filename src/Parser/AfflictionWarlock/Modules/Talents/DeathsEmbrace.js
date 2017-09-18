@@ -20,7 +20,7 @@ const AFFECTED_ABILITIES = new Set([
   SPELLS.DRAIN_SOUL.id,
   ...UNSTABLE_AFFLICTION_DEBUFF_IDS,
 ]);
-//based on the fact that it's a linear increase in damage that is +0% damage at 35% HP and +50% damage at 0% HP
+// based on the fact that it's a linear increase in damage that is +0% damage at 35% HP and +50% damage at 0% HP
 const SLOPE_OF_DAMAGE_INCREASE = -50 / 35;
 
 class DeathsEmbrace extends Module {
@@ -31,8 +31,8 @@ class DeathsEmbrace extends Module {
   bonusDmg = 0;
 
   getDeathEmbraceBonus(healthPercentage) {
-    //damageIncrease = (-50/35) * current_target_HP_percentage + 0.5
-    //gives 0 for healthPercentage = 0.35 and 0.5 for healthPercentage = 0
+    // damageIncrease = (-50/35) * current_target_HP_percentage + 0.5
+    // gives 0 for healthPercentage = 0.35 and 0.5 for healthPercentage = 0
     return SLOPE_OF_DAMAGE_INCREASE * healthPercentage + 0.5;
   }
 
@@ -43,8 +43,8 @@ class DeathsEmbrace extends Module {
   on_byPlayer_damage(event) {
     const targetHealthPercentage = event.hitPoints / event.maxHitPoints;
     if (!targetHealthPercentage || targetHealthPercentage > 0.35) {
-      //on random occasion (happened at least once), damage event doesn't have hitPoints and maxHitPoints, which results in targetHealthPercentage = NaN and messes up entire module, turning bonusDmg into NaN
-      //also, above 35% target HP, the talent doesn't even do anything
+      // on random occasion (happened at least once), damage event doesn't have hitPoints and maxHitPoints, which results in targetHealthPercentage = NaN and messes up entire module, turning bonusDmg into NaN
+      // also, above 35% target HP, the talent doesn't even do anything
       return;
     }
 
@@ -60,7 +60,7 @@ class DeathsEmbrace extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.DEATHS_EMBRACE_TALENT.id} />}
         value={`${formatNumber(this.bonusDmg / this.owner.fightDuration * 1000)} DPS`}
-        label='Damage contributed'
+        label="Damage contributed"
         tooltip={`Your Death's Embrace talent contributed ${formatNumber(this.bonusDmg)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} %).`}
       />
     );

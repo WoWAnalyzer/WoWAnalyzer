@@ -11,7 +11,7 @@ class ShamanStats extends Module {
   static dependencies = {
     combatants: Combatants,
   }
-  
+
   statistic() {
     return (
       <StatisticBox

@@ -12,7 +12,7 @@ export default {
   footer: (
     <div className="panel fade-in" style={{ margin: '15px auto 30px', maxWidth: 400, textAlign: 'center' }}>
       <div className="panel-body text-muted">
-        Questions about Marksmanship? Visit <a href='https://discord.gg/yqer4BX '>Trueshot Lodge</a> Discord.<br />
+        Questions about Marksmanship? Visit <a href="https://discord.gg/yqer4BX ">Trueshot Lodge</a> Discord.<br />
       </div>
     </div>
   ),
