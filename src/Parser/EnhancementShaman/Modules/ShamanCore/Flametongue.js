@@ -9,14 +9,13 @@ import Module from 'Parser/Core/Module';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class Flametongue extends Module {
-
   static dependencies = {
     combatants: Combatants,
   }
 
   suggestions(when) {
     const flametongueUptime = this.combatants.selected.getBuffUptime(SPELLS.FLAMETONGUE_BUFF.id) / this.owner.fightDuration;
-    when(flametongueUptime).isLessThan(.95)
+    when(flametongueUptime).isLessThan(0.95)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(`Your Flametongue uptime of ${formatPercentage(flametongueUptime)}% is below 95%, try to get as close to 100% as possible`)
           .icon(SPELLS.FLAMETONGUE_BUFF.icon)
@@ -33,7 +32,7 @@ class Flametongue extends Module {
         icon={<SpellIcon id={SPELLS.FLAMETONGUE_BUFF.id} />}
         value={`${formatPercentage(flametongueUptime)} %`}
         label="Flametongue Uptime"
-        tooltip={`One of your highest priorities, get as close to 100% as possible`}
+        tooltip={'One of your highest priorities, get as close to 100% as possible'}
       />
     );
   }

@@ -24,10 +24,10 @@ import Haunt from './Modules/Talents/Haunt';
 import MaleficGrasp from './Modules/Talents/MaleficGrasp';
 import Contagion from './Modules/Talents/Contagion';
 import AbsoluteCorruption from './Modules/Talents/AbsoluteCorruption';
+import EmpoweredLifeTap from './Modules/Talents/EmpoweredLifeTap';
 import SoulHarvest from './Modules/Talents/SoulHarvest';
 import SoulHarvestTalent from './Modules/Talents/SoulHarvestTalent';
 import DeathsEmbrace from './Modules/Talents/DeathsEmbrace';
-import DeathsEmbraceTalent from './Modules/Talents/DeathsEmbraceTalent';
 import SiphonLifeUptime from './Modules/Talents/SiphonLifeUptime';
 
 import TheMasterHarvester from './Modules/Items/Legendaries/TheMasterHarvester';
@@ -39,6 +39,7 @@ import ReapAndSow from './Modules/Items/Legendaries/ReapAndSow';
 
 import Tier20_2set from './Modules/Items/Tier20_2set';
 import Tier20_4set from './Modules/Items/Tier20_4set';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Features
@@ -54,30 +55,30 @@ class CombatLogParser extends CoreCombatLogParser {
     corruptionUptime: CorruptionUptime,
     uaBuffTracker: UABuffTracker,
 
-    //Core
+    // Core
     soulShardTracker: SoulShardTracker,
     soulShardDetails: SoulShardDetails,
 
-    //Talents
+    // Talents
     haunt: Haunt,
     maleficGrasp: MaleficGrasp,
     contagion: Contagion,
     absoluteCorruption: AbsoluteCorruption,
+    empoweredLifeTap: EmpoweredLifeTap,
     soulHarvest: SoulHarvest,
     soulHarvestTalent: SoulHarvestTalent,
     deathsEmbrace: DeathsEmbrace,
-    deathsEmbraceTalent: DeathsEmbraceTalent,
     siphonLifeUptime: SiphonLifeUptime,
 
-    //Legendaries
+    // Legendaries
     masterHarvester: TheMasterHarvester,
     stretensSleeplessShackles: StretensSleeplessShackles,
     soulOfTheNetherlord: SoulOfTheNetherlord,
     powerCordOfLethtendris: PowerCordOfLethtendris,
     sacrolashsDarkStrike: SacrolashsDarkStrike,
     reapAndSow: ReapAndSow,
-    
-    //Items
+
+    // Items
     tier20_2set: Tier20_2set,
     tier20_4set: Tier20_4set,
   };
@@ -96,8 +97,8 @@ class CombatLogParser extends CoreCombatLogParser {
         title: 'Talents',
         url: 'talents',
         render: () => (
-          <Tab title='Talents'>
-            <Talents combatant={this.selectedCombatant} />
+          <Tab title="Talents">
+            <Talents combatant={this.modules.combatants.selected} />
           </Tab>
         ),
       },

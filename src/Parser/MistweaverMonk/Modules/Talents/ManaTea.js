@@ -4,7 +4,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
-import { formatNumber , formatThousands } from 'common/format';
+import { formatNumber, formatThousands } from 'common/format';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
@@ -16,7 +16,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 const debug = false;
 
 const baseMana = 1100000;
-const manaTeaReduction = .5;
+const manaTeaReduction = 0.5;
 
 class ManaTea extends Module {
   static dependencies = {
@@ -51,76 +51,76 @@ class ManaTea extends Module {
 
   on_toPlayer_applybuff(event) {
     const spellId = event.ability.guid;
-    if(SPELLS.MANA_TEA_TALENT.id === spellId) {
-      this.manateaCount++;
-      debug && console.log('Mana Tea Cast +1. Total:' + this.manateaCount);
+    if (SPELLS.MANA_TEA_TALENT.id === spellId) {
+      this.manateaCount += 1;
+      debug && console.log(`Mana Tea Cast +1. Total:${this.manateaCount}`);
     }
   }
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
-    if(this.combatants.selected.hasBuff(SPELLS.MANA_TEA_TALENT.id)) {
+    if (this.combatants.selected.hasBuff(SPELLS.MANA_TEA_TALENT.id)) {
       debug && console.log('Mana Tea Buff present');
-      if(SPELLS.EFFUSE.id === spellId) {
+      if (SPELLS.EFFUSE.id === spellId) {
         this.addToManaSaved(SPELLS.EFFUSE.manaPerc, spellId);
-        this.castsUnderManaTea++;
-        this.effCasts++;
+        this.castsUnderManaTea += 1;
+        this.effCasts += 1;
         this.casted = true;
       }
       debug && console.log('Eff Check');
-      if(SPELLS.ENVELOPING_MISTS.id === spellId) {
+      if (SPELLS.ENVELOPING_MISTS.id === spellId) {
         this.addToManaSaved(SPELLS.ENVELOPING_MISTS.manaPerc, spellId);
-        this.castsUnderManaTea++;
-        this.enmCasts++;
+        this.castsUnderManaTea += 1;
+        this.enmCasts += 1;
         this.casted = true;
       }
       debug && console.log('Enm Check');
-      if(SPELLS.ESSENCE_FONT.id === spellId) {
+      if (SPELLS.ESSENCE_FONT.id === spellId) {
         this.addToManaSaved(SPELLS.ESSENCE_FONT.manaPerc, spellId);
-        this.castsUnderManaTea++;
-        this.efCasts++;
+        this.castsUnderManaTea += 1;
+        this.efCasts += 1;
         this.casted = true;
       }
       debug && console.log('Ef Check');
-      if(SPELLS.LIFE_COCOON.id === spellId) {
+      if (SPELLS.LIFE_COCOON.id === spellId) {
         this.addToManaSaved(SPELLS.LIFE_COCOON.manaPerc, spellId);
-        this.castsUnderManaTea++;
-        this.lcCasts++;
+        this.castsUnderManaTea += 1;
+        this.lcCasts += 1;
         this.casted = true;
       }
       debug && console.log('LC Check');
-      if(SPELLS.RENEWING_MIST.id === spellId) {
+      if (SPELLS.RENEWING_MIST.id === spellId) {
         this.addToManaSaved(SPELLS.RENEWING_MIST.manaPerc, spellId);
-        this.castsUnderManaTea++;
-        this.remCasts++;
+        this.castsUnderManaTea += 1;
+        this.remCasts += 1;
         this.casted = true;
       }
       debug && console.log('REM Check');
-      if(SPELLS.REVIVAL.id === spellId) {
+      if (SPELLS.REVIVAL.id === spellId) {
         this.addToManaSaved(SPELLS.REVIVAL.manaPerc, spellId);
-        this.castsUnderManaTea++;
-        this.revCasts++;
+        this.castsUnderManaTea += 1;
+        this.revCasts += 1;
         this.casted = true;
       }
       debug && console.log('Rev Check');
-      if(SPELLS.VIVIFY.id === spellId) {
+      if (SPELLS.VIVIFY.id === spellId) {
         this.addToManaSaved(SPELLS.VIVIFY.manaPerc, spellId);
-        this.castsUnderManaTea++;
-        this.vivCasts++;
+        this.castsUnderManaTea += 1;
+        this.vivCasts += 1;
         this.casted = true;
       }
       debug && console.log('Viv Check');
-      if(SPELLS.REFRESHING_JADE_WIND_TALENT.id === spellId) {
+      if (SPELLS.REFRESHING_JADE_WIND_TALENT.id === spellId) {
         this.addToManaSaved(SPELLS.REFRESHING_JADE_WIND_TALENT.manaPerc, spellId);
-        this.castsUnderManaTea++;
-        this.rjwCasts++;
+        this.castsUnderManaTea += 1;
+        this.rjwCasts += 1;
         this.casted = true;
       }
       debug && console.log('RJW Check');
       // Capture any Non Mana casts during Mana Tea
-      if(!this.casted) {
-        this.nonManaCasts++;
+      if (!this.casted) {
+        this.nonManaCasts += 1;
         this.casted = false;
       }
     }
@@ -128,16 +128,16 @@ class ManaTea extends Module {
 
   addToManaSaved(spellBaseMana, spellId) {
     // If we cast TFT -> Viv, mana cost of Viv is 0
-    if(this.combatants.selected.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id) && SPELLS.VIVIFY.id === spellId) {
-        this.nonManaCasts++;
-        return;
+    if (this.combatants.selected.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id) && SPELLS.VIVIFY.id === spellId) {
+      this.nonManaCasts += 1;
+      return;
     }
     // Lifecycles reduces the mana cost of both Vivify and Enveloping Mists.  We must take that into account when calculating mana saved.
-    if(this.hasLifeCycles) {
-      if(this.combatants.selected.hasBuff(SPELLS.LIFECYCLES_VIVIFY_BUFF.id) && spellId === SPELLS.VIVIFY.id) {
+    if (this.hasLifeCycles) {
+      if (this.combatants.selected.hasBuff(SPELLS.LIFECYCLES_VIVIFY_BUFF.id) && spellId === SPELLS.VIVIFY.id) {
         this.manaSavedMT += (((baseMana * spellBaseMana) * (1 - (SPELLS.LIFECYCLES_VIVIFY_BUFF.manaPercRed))) * (1 - manaTeaReduction));
         debug && console.log('LC Viv Cast');
-      } else if((this.combatants.selected.hasBuff(SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.id) && spellId === SPELLS.ENVELOPING_MISTS.id)) {
+      } else if ((this.combatants.selected.hasBuff(SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.id) && spellId === SPELLS.ENVELOPING_MISTS.id)) {
         this.manaSavedMT += (((baseMana * spellBaseMana) * (1 - (SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed))) * (1 - manaTeaReduction));
       } else {
         this.manaSavedMT += ((baseMana * spellBaseMana) * (1 - manaTeaReduction));
@@ -147,13 +147,13 @@ class ManaTea extends Module {
     }
   }
   on_finished() {
-    if(debug) {
-      console.log("Mana Tea Casted: " + this.manateaCount);
-      console.log("Mana saved: " + this.manaSavedMT);
-      console.log("Avg. Mana saved: " + (this.manaSavedMT/this.manateaCount));
-      console.log("Total Casts under Mana Tea: " + this.castsUnderManaTea);
-      console.log("Avg Casts under Mana Tea: " + (this.castsUnderManaTea/this.manateaCount));
-      console.log("Free spells cast: " + this.nonManaCasts);
+    if (debug) {
+      console.log(`Mana Tea Casted: ${this.manateaCount}`);
+      console.log(`Mana saved: ${this.manaSavedMT}`);
+      console.log(`Avg. Mana saved: ${this.manaSavedMT / this.manateaCount}`);
+      console.log(`Total Casts under Mana Tea: ${this.castsUnderManaTea}`);
+      console.log(`Avg Casts under Mana Tea: ${this.castsUnderManaTea / this.manateaCount}`);
+      console.log(`Free spells cast: ${this.nonManaCasts}`);
     }
   }
 
@@ -194,15 +194,15 @@ class ManaTea extends Module {
                 <ul>
                 ${this.efCasts > 0 ?
                 `<li>${(this.efCasts)} Essence Font casts</li>`
-                : ""
+                : ''
                 }
                 ${this.efCasts > 0 ?
                 `<li>${(this.vivCasts)} Vivfy casts</li>`
-                : ""
+                : ''
                 }
                 ${this.efCasts > 0 ?
                 `<li>${(this.enmCasts)} Enveloping Mists casts</li>`
-                : ""
+                : ''
                 }
                 <li>${(this.rjwCasts + this.revCasts + this.remCasts + this.lcCasts + this.effCasts)} other spells casted.</li>
                 <li>${(this.nonManaCasts)} non-mana casts during Mana Tea</li>

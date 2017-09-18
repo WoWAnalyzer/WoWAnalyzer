@@ -20,11 +20,11 @@ class WclApiRequests extends React.PureComponent {
       );
     }
 
-    const groupingInterval = Math.round(timeSpanMinutes / 1440);
+    const groupingInterval = Math.max(1, Math.round(timeSpanMinutes / 1440));
 
     const requestsByMinute = {};
     history
-      .forEach(moment => {
+      .forEach((moment) => {
         const intervalIndex = Math.floor(moment.minutesAgo / groupingInterval);
         requestsByMinute[intervalIndex] = (requestsByMinute[intervalIndex] || 0) + moment.numRequests;
       });
@@ -42,10 +42,10 @@ class WclApiRequests extends React.PureComponent {
 
     const chartData = {
       labels: labels.reverse(),
-      series: [
+      datasets: [
         {
-          className: 'healing thin',
-          name: 'Requests',
+          borderColor: 'rgba(75,192,192,1)',
+          label: 'Requests',
           data: requests.reverse(),
         },
       ],
@@ -54,7 +54,17 @@ class WclApiRequests extends React.PureComponent {
     return (
       <div>
         <div className="graph-container">
-          <Chart data={chartData} timeSpanMinutes={timeSpanMinutes} />
+          <Chart
+            data={chartData}
+            options={(options) => {
+              options.tooltips.callbacks.label = item => `${item.yLabel} requests`;
+              options.scales.yAxes[0].scaleLabel = {
+                display: true,
+                labelString: 'Requests',
+              };
+              return options;
+            }}
+          />
         </div>
       </div>
     );

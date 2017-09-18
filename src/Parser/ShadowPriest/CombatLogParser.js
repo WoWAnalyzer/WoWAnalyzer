@@ -3,6 +3,7 @@ import React from 'react';
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 import SuggestionsTab from 'Main/SuggestionsTab';
 
+import Haste from 'Parser/Core/Modules/Haste';
 
 import AbilityTracker from './Modules/Core/AbilityTracker';
 import CastEfficiency from './Modules/Features/CastEfficiency';
@@ -22,13 +23,12 @@ import Dispersion from './Modules/Spells/Dispersion';
 import CallToTheVoid from './Modules/Spells/CallToTheVoid';
 
 
-
 class CombatLogParser extends MainCombatLogParser {
-
   static specModules = {
     damageDone: DamageDone,
     alwaysBeCasting: AlwaysBeCasting,
     abilityTracker: AbilityTracker,
+    haste: Haste,
     castEfficiency: CastEfficiency,
     insanity: Insanity,
 

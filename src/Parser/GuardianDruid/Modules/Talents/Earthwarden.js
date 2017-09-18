@@ -77,7 +77,7 @@ class Earthwarden extends Module {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.EARTHWARDEN_BUFF.id} />}
-        label='Hits mitigated by Earthwarden'
+        label="Hits mitigated by Earthwarden"
         value={`${formatPercentage(this.percentOfSwingsMitigated)}%`}
         tooltip={`You mitigated ${this.swingsMitigated} out of a possible ${this.totalSwings} attacks (${formatPercentage(this.percentOfSwingsMitigated)}%) with Earthwarden. <br /><br />(${formatPercentage(this.totalMitigation)}% of total damage, ${formatNumber(this.hps)} HPS)`}
       />
@@ -93,7 +93,6 @@ class Earthwarden extends Module {
           .actual(`${formatPercentage(actual)}% of potential damage was mitigated by Earthwarden`)
           .recommended(`${formatPercentage(recommended, 0)}% or more is recommended`)
           .regular(recommended - 0.1).major(recommended - 0.2);
-
       });
 
     // Suggestion 2: Melee damage is not relevant enough for EW to be effective
@@ -104,7 +103,6 @@ class Earthwarden extends Module {
           .actual(`${formatPercentage(actual)}% of total damage is melee attacks`)
           .recommended(`${formatPercentage(recommended, 0)}% or more is recommended`)
           .regular(recommended - 0.05).major(recommended - 0.1);
-
       });
   }
 }

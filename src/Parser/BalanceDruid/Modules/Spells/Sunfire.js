@@ -22,16 +22,16 @@ class Sunfire extends Module {
 
   statistic() {
     const sunfireUptimePercentage = this.owner.modules.enemies.getBuffUptime(SPELLS.SUNFIRE.id) / this.owner.fightDuration;
-    
+
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.SUNFIRE.id} />}
         value={`${formatPercentage(sunfireUptimePercentage)}%`}
-        label='Sunfire uptime'
+        label="Sunfire uptime"
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(2);
+  statisticOrder = STATISTIC_ORDER.CORE(7);
 }
-  
+
 export default Sunfire;

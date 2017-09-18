@@ -16,7 +16,7 @@ class Restoration_Shaman_T20_4Set extends Module {
   healing = 0;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasBuff(SPELLS.RESTORATION_SHAMAN_T20_4SET_BONUS_BUFF.id);
+    this.active = this.owner.modules.combatants.selected.hasBuff(SPELLS.RESTORATION_SHAMAN_T20_4SET_BONUS_BUFF.id);
   }
 
   on_byPlayer_cast(event) {
@@ -25,7 +25,7 @@ class Restoration_Shaman_T20_4Set extends Module {
       return;
     }
 
-    if (!this.owner.selectedCombatant.hasBuff(SPELLS.RESTORATION_SHAMAN_T20_4SET_BONUS_BUFF.id, event.timestamp)) {
+    if (!this.owner.modules.combatants.selected.hasBuff(SPELLS.RESTORATION_SHAMAN_T20_4SET_BONUS_BUFF.id, event.timestamp)) {
       return;
     }
 
@@ -55,11 +55,11 @@ class Restoration_Shaman_T20_4Set extends Module {
 
   suggestions(when) {
     const healingRain = this.owner.modules.abilityTracker.getAbility(SPELLS.HEALING_RAIN_CAST.id);
-    const has4PT20 = this.owner.selectedCombatant.hasBuff(SPELLS.RESTORATION_SHAMAN_T20_4SET_BONUS_BUFF.id);
+    const has4PT20 = this.owner.modules.combatants.selected.hasBuff(SPELLS.RESTORATION_SHAMAN_T20_4SET_BONUS_BUFF.id);
     const unbuffedHealingRainsPercentage = has4PT20 && ((healingRain.casts - healingRain.withT20Buff) / healingRain.casts);
     if (has4PT20) {
       when(unbuffedHealingRainsPercentage).isGreaterThan(0)
-        .addSuggestion((suggest, actual, recommended) => 
+        .addSuggestion((suggest, actual, recommended) =>
           suggest(<span><SpellLink id={SPELLS.RESTORATION_SHAMAN_T20_4SET_BONUS_BUFF.id} /> buffed <SpellLink id={SPELLS.HEALING_RAIN_CAST.id} /> can make for some very efficient healing, consider ensure casting them with <SpellLink id={SPELLS.RESTORATION_SHAMAN_T20_4SET_BONUS_BUFF.id} />.</span>)
             .icon(SPELLS.HEALING_RAIN_CAST.icon)
             .actual(`${formatPercentage(unbuffedHealingRainsPercentage)}% healing rains were casted without T20 4set bonus buff.`)

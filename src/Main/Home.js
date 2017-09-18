@@ -33,7 +33,7 @@ class Home extends Component {
                 {' '}<a href="https://www.warcraftlogs.com/help/start/">upload your own logs</a> or change the existing logs to the
                 {' '}<i>unlisted</i> privacy option instead.<br /><br />
 
-                Feature requests (<dfn data-tip="Provided that you're not using one of Microsoft's browsers.">and bug reports*</dfn>) are welcome! On <a href="https://discord.gg/AxphPxU">Discord</a> or create an issue <a href={`https://github.com/MartijnHols/WoWAnalyzer/issues`}>here</a>.
+                Feature requests (<dfn data-tip="Provided that you're not using one of Microsoft's browsers.">and bug reports*</dfn>) are welcome! On <a href="https://discord.gg/AxphPxU">Discord</a> or create an issue <a href={'https://github.com/MartijnHols/WoWAnalyzer/issues'}>here</a>.
               </div>
             </div>
 
@@ -102,11 +102,10 @@ class Home extends Component {
                         return -1;
                       } else if (a.className > b.className) {
                         return 1;
-                      } else {
-                        return a.id - b.id;
                       }
+                      return a.id - b.id;
                     })
-                    .map(spec => {
+                    .map((spec) => {
                       const className = spec.className.replace(/ /g, '');
                       const config = AVAILABLE_CONFIGS.find(config => config.spec === spec);
                       return (

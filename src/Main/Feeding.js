@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-//import Toggle from 'react-toggle';
+// import Toggle from 'react-toggle';
 
 import SPELLS from 'common/SPELLS';
 
@@ -9,7 +9,7 @@ import SpellIcon from 'common/SpellIcon';
 import Icon from 'common/Icon';
 
 function formatThousands(number) {
-  return (Math.round(number || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+  return (`${Math.round(number || 0)}`).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 }
 
 function formatNumber(number) {
@@ -41,19 +41,19 @@ class Feeding extends React.Component {
       <div>
         { ([
           {
-            name: "Cloudburst Totem",
+            name: 'Cloudburst Totem',
             feed: cooldownTracker.cbtFeed,
             spell: SPELLS.CLOUDBURST_TOTEM_CAST,
             totals: cooldownTracker.cbtTotals,
           },
           {
-            name: "Ancestral Guidance",
+            name: 'Ancestral Guidance',
             feed: cooldownTracker.agFeed,
             spell: SPELLS.ANCESTRAL_GUIDANCE_CAST,
             totals: cooldownTracker.agTotals,
           },
           {
-            name: "Ascendance",
+            name: 'Ascendance',
             feed: cooldownTracker.ascFeed,
             spell: SPELLS.ASCENDANCE_CAST,
             totals: cooldownTracker.ascTotals,
@@ -66,8 +66,8 @@ class Feeding extends React.Component {
           }, 0).healing;
           return category;
         })
-          .filter((category) => category.totals.total > 0)
-          .map((category) => (
+          .filter(category => category.totals.total > 0)
+          .map(category => (
 
             <table className="data-table" key={category.name} style={{ marginTop: 10, marginBottom: 10 }}>
               <thead>
@@ -80,7 +80,7 @@ class Feeding extends React.Component {
                   </th>
                   <th className="text-center" colSpan="3"><dfn data-tip={`The amount of healing done by spells that feed into ${category.name} while it was up.`}>Feeding done per spell</dfn></th>
                   <th className="text-center"><dfn data-tip={`The approximated effective healing each of the spells feeding into ${category.name} did, accounting for overhealing. This should roughly at up to the total effective healing of ${category.name}.`}>Approx. effective healing</dfn></th>
-                  <th></th>
+                  <th />
                 </tr>
               </thead>
               <tbody>
@@ -90,7 +90,7 @@ class Feeding extends React.Component {
                     const healingB = category.feed[b].healing;
                     return healingA > healingB ? -1 : (healingB > healingA ? 1 : 0);
                   })
-                  .filter((spellId) => (!this.state.expand) || category.feed[spellId].mergedHealing > 0)
+                  .filter(spellId => (!this.state.expand) || category.feed[spellId].mergedHealing > 0)
                   .map((spellId) => {
                     const ability = category.feed[spellId];
                     const healing = this.state.expand ? ability.mergedHealing : ability.healing;
@@ -98,7 +98,7 @@ class Feeding extends React.Component {
                     const totalHealing = this.state.expand ? category.totals.mergedTotal : category.totals.total;
 
                     return (
-                      <tr key={category.name + " " + ability.name}>
+                      <tr key={`${category.name} ${ability.name}`}>
                         <td style={{ width: '30%' }}>
                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <Icon icon={ability.icon} alt={ability.name} /> {ability.name}
                         </td>
@@ -121,7 +121,7 @@ class Feeding extends React.Component {
                       </tr>
                     );
                   })}
-                <tr key={category.name + "Summary"}>
+                <tr key={`${category.name}Summary`}>
                   <td />
                   <td />
                   <td className="text-right"><b>Total:</b></td>

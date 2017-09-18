@@ -27,8 +27,8 @@ class CooldownTracker extends CoreCooldownTracker {
 
   trackEvent(event) {
     this.activeCooldowns.forEach((cooldown) => {
-      if(event.ability.guid !== SPELLS.DOOM_VORTEX.id) {
-          cooldown.events.push(event);
+      if (event.ability.guid !== SPELLS.DOOM_VORTEX.id) {
+        cooldown.events.push(event);
       }
     });
   }

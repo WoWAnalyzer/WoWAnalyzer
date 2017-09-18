@@ -74,7 +74,7 @@ class Mana extends React.PureComponent {
     const manaBySecond = {
       0: 100,
     };
-    manaUpdates.forEach(item => {
+    manaUpdates.forEach((item) => {
       const secIntoFight = Math.floor((item.timestamp - start) / 1000);
 
       manaBySecond[secIntoFight] = item.current / item.max * 100;
@@ -123,7 +123,7 @@ class Mana extends React.PureComponent {
     }
 
     const chartData = {
-      labels: labels,
+      labels,
       series: [
         ...bosses.map((series, index) => ({
           className: `boss-health boss-${index} boss-${series.guid}`,

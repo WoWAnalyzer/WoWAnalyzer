@@ -2,25 +2,29 @@ import React from 'react';
 
 import Module from 'Parser/Core/Module';
 import SPELLS from 'common/SPELLS';
-import Icon from 'common/Icon';
-
+import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import { formatDuration } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 class OssuaryUptime extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
+  on_initialized() {
+    this.active = this.combatants.selected.hasTalent(SPELLS.OSSUARY_TALENT.id);
+  }
 
   statistic() {
-
-    const ossuaryUptime = this.owner.modules.combatants.getBuffUptime(SPELLS.OSSUARY.id);
-    const ossuaryUptimePercentage = ossuaryUptime / this.owner.fightDuration;
+    const Uptime = this.owner.modules.combatants.getBuffUptime(SPELLS.OSSUARY.id);
 
     return (
       <StatisticBox
-        icon={<Icon icon="ability_deathknight_brittlebones" />}
-        value={`${formatPercentage(ossuaryUptimePercentage)}%`}
-        label='Ossuary Uptime'
-        tooltip={`Ossuary total uptime was ${formatDuration(ossuaryUptime / 1000)} seconds.`}
+        icon={<SpellIcon id={SPELLS.OSSUARY.id} />}
+        value={`${formatPercentage(Uptime / this.owner.fightDuration)}%`}
+        label="Ossuary Uptime"
+        tooltip={'Important to maintain. Reduces cost of Death Strike and increases runic power cap by 10.'}
       />
 
 

@@ -1,47 +1,38 @@
-import Module from 'Parser/Core/Module';
 import SPELLS from 'common/SPELLS';
+import { formatDuration } from 'common/format';
 
+import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
+
+import Haste from './Haste';
 
 const debug = false;
 
 class AlwaysBeCasting extends Module {
   static dependencies = {
     combatants: Combatants,
+    haste: Haste,
   };
 
+  // TODO: Should all this props be lower case?
   static ABILITIES_ON_GCD = [
     // Extend this class and override this property in your spec class to implement this module.
   ];
-  /* eslint-disable no-useless-computed-key */
-  static HASTE_BUFFS = { // This includes debuffs
-    [SPELLS.BLOODLUST.id]: 0.3,
-    [SPELLS.HEROISM.id]: 0.3,
-    [SPELLS.TIME_WARP.id]: 0.3,
-    [SPELLS.ANCIENT_HYSTERIA.id]: 0.3, // Hunter pet BL
-    [SPELLS.NETHERWINDS.id]: 0.3, // Hunter pet BL
-    [SPELLS.DRUMS_OF_FURY.id]: 0.25,
-    [SPELLS.DRUMS_OF_THE_MOUNTAIN.id]: 0.25,
-    [SPELLS.DRUMS_OF_RAGE.id]: 0.25,
-    [SPELLS.HOLY_AVENGER_TALENT.id]: 0.3,
-    [SPELLS.BERSERKING.id]: 0.15,
-    [202842]: 0.1, // Rapid Innervation (Balance Druid trait increasing Haste from Innervate)
-    [SPELLS.POWER_INFUSION_TALENT.id]: 0.25,
-    [240673]: 800 / 37500, // Shadow Priest artifact trait that shared with 4 allies: http://www.wowhead.com/spell=240673/mind-quickening
-    [SPELLS.WARLOCK_AFFLI_T20_4P_BUFF.id]: 0.15,
-    [SPELLS.TRUESHOT.id]: 0.4, //MM Hunter main CD
-    [242543]: 3619 / 37500, // Chalice of Moonlight Haste buff (900 item level since we can't scale with item level yet)
-    // Boss abilities:
-    [209166]: 0.3, // DEBUFF - Fast Time from Elisande
-    [209165]: -0.3, // DEBUFF - Slow Time from Elisande
-    // [208944]: -Infinity, // DEBUFF - Time Stop from Elisande
+  static STATIC_GCD_ABILITIES = {
+    // Abilities which GCD is not affected by haste.
+    // [spellId] : [gcd value in seconds]
   };
 
-  totalTimeWasted = 0;
-  totalHealingTimeWasted = 0;
+  // TODO: Add channels array to fix issues where is channel started pre-combat it doesn't register the `begincast` and considers the finish a GCD adding downtime. This can also be used to automatically add the channelVerifiers.
 
-  lastCastFinishedTimestamp = null;
-  lastHealingCastFinishedTimestamp = null;
+  static BASE_GCD = 1500;
+  static MINIMUM_GCD = 750;
+
+  /**
+   * The amount of milliseconds not spent casting anything or waiting for the GCD.
+   * @type {number}
+   */
+  totalTimeWasted = 0;
 
   _currentlyCasting = null;
   on_byPlayer_begincast(event) {
@@ -80,15 +71,17 @@ class AlwaysBeCasting extends Module {
     }
     const spellId = cast.ability.guid;
     const isOnGcd = this.constructor.ABILITIES_ON_GCD.indexOf(spellId) !== -1;
+    // const isFullGcd = this.constructor.FULLGCD_ABILITIES.indexOf(spellId) !== -1;
 
     if (!isOnGcd) {
       debug && console.log(`%cABC: ${cast.ability.name} (${spellId}) ignored`, 'color: gray');
       return;
     }
 
-    const globalCooldown = this.constructor.calculateGlobalCooldown(this.currentHaste) * 1000;
+    const globalCooldown = this.getCurrentGlobalCooldown(spellId);
 
-    const castStartTimestamp = (begincast ? begincast : cast).timestamp;
+    // TODO: Change this to begincast || cast
+    const castStartTimestamp = (begincast || cast).timestamp;
 
     this.recordCastTime(
       castStartTimestamp,
@@ -98,6 +91,7 @@ class AlwaysBeCasting extends Module {
       spellId
     );
   }
+  _lastCastFinishedTimestamp = null;
   recordCastTime(
     castStartTimestamp,
     globalCooldown,
@@ -105,69 +99,48 @@ class AlwaysBeCasting extends Module {
     cast,
     spellId
   ) {
-    const timeWasted = castStartTimestamp - (this.lastCastFinishedTimestamp || this.owner.fight.start_time);
+    const timeWasted = castStartTimestamp - (this._lastCastFinishedTimestamp || this.owner.fight.start_time);
     this.totalTimeWasted += timeWasted;
 
-    debug && console.log(`ABC: tot.:${Math.floor(this.totalTimeWasted)}\tthis:${Math.floor(timeWasted)}\t%c${cast.ability.name} (${spellId}): ${begincast ? 'channeled' : 'instant'}\t%cgcd:${Math.floor(globalCooldown)}\t%ccasttime:${cast.timestamp - castStartTimestamp}\tfighttime:${castStartTimestamp - this.owner.fight.start_time}`, 'color:red', 'color:green', 'color:black');
+    debug && console.log(`ABC: tot.:${Math.floor(this.totalTimeWasted)}\tthis:${Math.floor(timeWasted)}\t%c${cast.ability.name} (${spellId}): ${begincast ? 'channeled' : 'instant'}\t%cgcd:${Math.floor(globalCooldown)}\t%ccasttime:${cast.timestamp - castStartTimestamp}\tfighttime:${formatDuration((castStartTimestamp - this.owner.fight.start_time) / 1000)}`, 'color:red', 'color:green', 'color:black');
 
-    this.lastCastFinishedTimestamp = Math.max(castStartTimestamp + globalCooldown, cast.timestamp);
+    this._lastCastFinishedTimestamp = Math.max(castStartTimestamp + globalCooldown, cast.timestamp);
   }
-  baseHaste = null;
-  currentHaste = null;
-  on_initialized() {
-    const combatant = this.combatants.selected;
-    this.baseHaste = combatant.hastePercentage;
-    this.currentHaste = this.baseHaste;
+  on_finished() {
+    const timeWasted = this.owner.fight.end_time - (this._lastCastFinishedTimestamp || this.owner.fight.start_time);
+    this.totalTimeWasted += timeWasted;
+  }
 
-    debug && console.log(`ABC: Current haste: ${this.currentHaste}`);
+  getCurrentGlobalCooldown(spellId = null) {
+    return (spellId && this.constructor.STATIC_GCD_ABILITIES[spellId]) || this.constructor.calculateGlobalCooldown(this.haste.current);
   }
-  on_toPlayer_applybuff(event) {
-    this.applyActiveBuff(event);
-  }
-  on_toPlayer_removebuff(event) {
-    this.removeActiveBuff(event);
-  }
-  on_toPlayer_applydebuff(event) {
-    this.applyActiveBuff(event);
-  }
-  on_toPlayer_removedebuff(event) {
-    this.removeActiveBuff(event);
-  }
-  applyActiveBuff(event) {
-    const spellId = event.ability.guid;
-    const hasteGain = this.constructor.HASTE_BUFFS[spellId];
-    if (hasteGain) {
-      this.applyHasteGain(hasteGain);
 
-      debug && console.log(`ABC: Current haste: ${this.currentHaste} (gained ${hasteGain} from ${spellId})`);
-    }
-  }
-  removeActiveBuff(event) {
-    const spellId = event.ability.guid;
-    const hasteGain = this.constructor.HASTE_BUFFS[spellId];
-    if (hasteGain) {
-      this.applyHasteLoss(hasteGain);
+  /**
+   * Can be used to determine the accuracy of the Haste tracking. This does not work properly on abilities that can get reduced channel times from other effects such as talents or traits.
+   */
+  _verifyChannel(spellId, defaultCastTime, begincast, cast) {
+    if (cast.ability.guid === spellId) {
+      if (!begincast) {
+        console.error('Missing begin cast for channeled ability:', cast);
+        return;
+      }
 
-      debug && console.log(`ABC: Current haste: ${this.currentHaste} (lost ${hasteGain} from ${spellId})`);
+      const actualCastTime = cast.timestamp - begincast.timestamp;
+      const expectedCastTime = Math.round(defaultCastTime / (1 + this.haste.current));
+      if (!this.constructor.inRange(actualCastTime, expectedCastTime, 50)) { // cast times seem to fluctuate by 50ms, not sure if it depends on player latency, in that case it could be a lot more flexible
+        console.warn(`ABC: ${SPELLS[spellId].name} channel: Expected actual ${actualCastTime}ms to be expected ${expectedCastTime}ms ± 50ms @ ${formatDuration((cast.timestamp - this.owner.fight.start_time) / 1000)}`, this.combatants.selected.activeBuffs());
+      }
     }
   }
 
   static calculateGlobalCooldown(haste) {
-    return 1.5 / (1 + haste);
+    const gcd = this.BASE_GCD / (1 + haste);
+    // Global cooldowns can't normally drop below a certain threshold
+    return Math.max(this.MINIMUM_GCD, gcd);
   }
-  static applyHasteGain(baseHaste, hasteGain) {
-    return baseHaste * (1 + hasteGain) + hasteGain;
-  }
-  applyHasteGain(hasteGain) {
-    this.currentHaste = this.constructor.applyHasteGain(this.currentHaste, hasteGain);
-  }
-  static applyHasteLoss(baseHaste, hasteLoss) {
-    return (baseHaste - hasteLoss) / (1 + hasteLoss);
-  }
-  applyHasteLoss(hasteGain) {
-    this.currentHaste = this.constructor.applyHasteLoss(this.currentHaste, hasteGain);
+  static inRange(num1, goal, buffer) {
+    return num1 > (goal - buffer) && num1 < (goal + buffer);
   }
 }
-
 
 export default AlwaysBeCasting;

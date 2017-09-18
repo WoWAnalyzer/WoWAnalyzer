@@ -12,17 +12,27 @@ import CastEfficiencyComponent from 'Main/CastEfficiency';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 
+import AbilityTracker from './AbilityTracker';
+import Combatants from './Combatants';
+
+/* eslint-disable no-unused-vars */
+
 class CastEfficiency extends Module {
+  static dependencies = {
+    abilityTracker: AbilityTracker,
+    combatants: Combatants,
+  };
   static SPELL_CATEGORIES = {
     ROTATIONAL: 'Rotational Spell',
     ROTATIONAL_AOE: 'Spell (AOE)',
     COOLDOWNS: 'Cooldown',
+    DEFENSIVE: 'Defensive Cooldown',
     OTHERS: 'Spell',
     UTILITY: 'Utility',
     ITEMS: 'Item',
   };
   static CPM_ABILITIES = [
-    //Shared trinkets and legendaries
+    // Shared trinkets and legendaries
     {
       spell: SPELLS.CLEANSING_MATRIX,
       name: `${ITEMS.ARCHIVE_OF_FAITH.name}`,
@@ -87,14 +97,14 @@ class CastEfficiency extends Module {
       spell: SPELLS.CEASELESS_TOXIN,
       name: `${ITEMS.VIAL_OF_CEASELESS_TOXINS.name}`,
       category: CastEfficiency.SPELL_CATEGORIES.ITEMS,
-      getCooldown: haste => 60,//TODO: add detection if target has died and reduced cooldown
+      getCooldown: haste => 60, // TODO: add detection if target has died and reduced cooldown
       isActive: combatant => combatant.hasTrinket(ITEMS.VIAL_OF_CEASELESS_TOXINS.id),
     },
   ];
 
   suggestions(when) {
-    const castEfficiency = getCastEfficiency(this.constructor.CPM_ABILITIES, this.owner);
-    castEfficiency.forEach(cpm => {
+    const castEfficiency = getCastEfficiency(this.constructor.CPM_ABILITIES, this.abilityTracker, this.combatants, this.owner);
+    castEfficiency.forEach((cpm) => {
       if (cpm.ability.noSuggestion || cpm.castEfficiency === null) {
         return;
       }
@@ -116,7 +126,7 @@ class CastEfficiency extends Module {
         <Tab title="Cast efficiency">
           <CastEfficiencyComponent
             categories={this.constructor.SPELL_CATEGORIES}
-            abilities={getCastEfficiency(this.constructor.CPM_ABILITIES, this.owner)}
+            abilities={getCastEfficiency(this.constructor.CPM_ABILITIES, this.abilityTracker, this.combatants, this.owner)}
           />
         </Tab>
       ),

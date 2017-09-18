@@ -10,7 +10,7 @@ class MistsOfSheilun extends Module {
   static dependencies = {
     combatants: Combatants,
   };
-  
+
   procsMistsOfSheilun = 0;
   healsMistsOfSheilun = 0;
   healingMistsOfSheilun = 0;
@@ -23,28 +23,28 @@ class MistsOfSheilun extends Module {
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
 
-    if(spellId === SPELLS.MISTS_OF_SHEILUN_BUFF.id) {
-      this.procsMistsOfSheilun++;
+    if (spellId === SPELLS.MISTS_OF_SHEILUN_BUFF.id) {
+      this.procsMistsOfSheilun += 1;
     }
   }
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
 
-    if(spellId === SPELLS.MISTS_OF_SHEILUN.id) {
-      this.healsMistsOfSheilun++;
+    if (spellId === SPELLS.MISTS_OF_SHEILUN.id) {
+      this.healsMistsOfSheilun += 1;
       this.healingMistsOfSheilun += event.amount;
-      if(event.overheal) {
+      if (event.overheal) {
         this.overhealingMistsOfSheilun += event.overheal;
       }
     }
   }
 
   on_finished() {
-    if(debug) {
-      console.log('Mists of Sheilun Procs: ' + this.procsMistsOfSheilun);
-      console.log('Avg Heals per Procs: ' + (this.healsMistsOfSheilun / this.procsMistsOfSheilun));
-      console.log('Avg Heals Amount: ' + (this.healingMistsOfSheilun / this.healsMistsOfSheilun));
+    if (debug) {
+      console.log(`Mists of Sheilun Procs: ${this.procsMistsOfSheilun}`);
+      console.log(`Avg Heals per Procs: ${this.healsMistsOfSheilun / this.procsMistsOfSheilun}`);
+      console.log(`Avg Heals Amount: ${this.healingMistsOfSheilun / this.healsMistsOfSheilun}`);
     }
   }
 }

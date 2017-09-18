@@ -93,7 +93,7 @@ class LowHealthHealing extends React.Component {
           <tbody>
             {
               events
-                .map(event => {
+                .map((event) => {
                   const effectiveHealing = event.amount + (event.absorbed || 0);
                   const hitPointsBeforeHeal = event.hitPoints - effectiveHealing;
                   const healthPercentage = hitPointsBeforeHeal / event.maxHitPoints;
@@ -111,6 +111,7 @@ class LowHealthHealing extends React.Component {
 
                   const combatant = parser.modules.combatants.getEntity(event);
                   if (!combatant) {
+                    console.error('Missing combatant for event:', event);
                     return null; // pet or something
                   }
                   const spec = SPECS[combatant.specId];
@@ -118,7 +119,7 @@ class LowHealthHealing extends React.Component {
 
                   return (
                     <tr key={`${event.timestamp}${effectiveHealing}${hitPointsBeforeHeal}`}>
-                      <td style={{ width: '5%'}}>
+                      <td style={{ width: '5%' }}>
                         {formatDuration((event.timestamp - fightStart) / 1000)}
                       </td>
                       <td style={{ width: '25%' }}>
@@ -144,7 +145,7 @@ class LowHealthHealing extends React.Component {
                           style={{ width: `${Math.min(50, healthPercentage * 50)}%`, float: 'left' }}
                         />
                         <div
-                          className={`performance-bar Hunter-bg`}
+                          className={'performance-bar Hunter-bg'}
                           style={{ width: `${Math.min(50, effectiveHealing / event.maxHitPoints * 50)}%`, float: 'left', opacity: 0.4 }}
                         />
                       </td>

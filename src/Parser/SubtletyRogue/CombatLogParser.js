@@ -14,7 +14,7 @@ import CastEfficiency from './Modules/Features/CastEfficiency';
 
 
 function formatThousands(number) {
-  return (Math.round(number || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+  return (`${Math.round(number || 0)}`).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 }
 
 function formatNumber(number) {
@@ -39,9 +39,9 @@ class CombatLogParser extends CoreCombatLogParser {
 
   generateResults() {
     const results = super.generateResults();
-    
+
     const fightDuration = this.fightDuration;
-    
+
 
     results.tabs = [
       {
@@ -56,16 +56,16 @@ class CombatLogParser extends CoreCombatLogParser {
         url: 'talents',
         render: () => (
           <Tab title="Talents">
-            <Talents combatant={this.selectedCombatant} />
+            <Talents combatant={this.modules.combatants.selected} />
           </Tab>
         ),
       },
       ...results.tabs,
     ];
-    
+
     results.statistics = [
       <StatisticBox
-        icon={ <Icon icon="class_rogue" alt="Damage Per Second" /> }
+        icon={<Icon icon="class_rogue" alt="Damage Per Second" />}
         value={`${formatNumber(this.modules.damageDone.total.effective / fightDuration * 1000)} DPS`}
         label={(
           <dfn data-tip={`The total damage done recorded was ${formatThousands(this.modules.damageDone.total.effective)}.`}>
@@ -75,48 +75,48 @@ class CombatLogParser extends CoreCombatLogParser {
       />,
 
       <StatisticBox
-        icon={ <SpellIcon id={SPELLS.SHADOW_BLADES.id} /> }
-        value={`${formatPercentage((this.selectedCombatant.getBuffUptime(SPELLS.SHADOW_BLADES.id)/this.fightDuration))} %`}
+        icon={<SpellIcon id={SPELLS.SHADOW_BLADES.id} />}
+        value={`${formatPercentage((this.modules.combatants.selected.getBuffUptime(SPELLS.SHADOW_BLADES.id) / this.fightDuration))} %`}
         label={(
-          <dfn data-tip={`Shadow Blades up time`}>
+          <dfn data-tip={'Shadow Blades up time'}>
             Shadow Blades up time
           </dfn>
         )}
       />,
-      
+
       <StatisticBox
-        icon={ <SpellIcon id={SPELLS.SHADOW_DANCE.id} /> }
-        value={`${formatPercentage((this.selectedCombatant.getBuffUptime(SPELLS.SHADOW_DANCE_BUFF.id)/this.fightDuration))} %`}
+        icon={<SpellIcon id={SPELLS.SHADOW_DANCE.id} />}
+        value={`${formatPercentage((this.modules.combatants.selected.getBuffUptime(SPELLS.SHADOW_DANCE_BUFF.id) / this.fightDuration))} %`}
         label={(
-          <dfn data-tip={`Shadow Dance up time`}>
+          <dfn data-tip={'Shadow Dance up time'}>
             Shadow Dance up time
           </dfn>
         )}
       />,
-      
+
       <StatisticBox
-        icon={ <SpellIcon id={SPELLS.SYMBOLS_OF_DEATH.id} /> }
-        value={`${formatPercentage((this.selectedCombatant.getBuffUptime(SPELLS.SYMBOLS_OF_DEATH.id)/this.fightDuration))} %`}
+        icon={<SpellIcon id={SPELLS.SYMBOLS_OF_DEATH.id} />}
+        value={`${formatPercentage((this.modules.combatants.selected.getBuffUptime(SPELLS.SYMBOLS_OF_DEATH.id) / this.fightDuration))} %`}
         label={(
-          <dfn data-tip={`Symbols of Death up time`}>
+          <dfn data-tip={'Symbols of Death up time'}>
             Symbols of Death up time
           </dfn>
         )}
       />,
-      
-      this.selectedCombatant.hasTalent(SPELLS.DARK_SHADOW_TALENT.id) && this.modules.shadowDance.active && (
+
+      this.modules.combatants.selected.hasTalent(SPELLS.DARK_SHADOW_TALENT.id) && this.modules.shadowDance.active && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.EVISCERATE.id} />}
-          value={`${formatPercentage(this.modules.shadowDance.totalEviscerateDamageInShadowDance/(this.modules.shadowDance.totalShadowDanceCast * 2))} %`}
+          value={`${formatPercentage(this.modules.shadowDance.totalEviscerateDamageInShadowDance / (this.modules.shadowDance.totalShadowDanceCast * 2))} %`}
           label={(
             <dfn data-tip={`Your Eviscerate casts in Shadow Dance / (Shadow Dance casts * 2). Your actual / max possible casts is ${this.modules.shadowDance.totalEviscerateDamageInShadowDance}/${this.modules.shadowDance.totalShadowDanceCast * 2}. This number includes Eviscerates cast from Death from Above. Subtlety rogue should cast as many as possible (usually 2 times) Eviscerates in a Shadow Dance to get benefit from 30% damage increasing of Dark Shadow talent.`}>
               Actual/Possible Eviscerates in Shadow Dance
             </dfn>
           )}
         />),
-      
+
       // Dark Shadow increase 30% damage during Shadow Dance
-      this.selectedCombatant.hasTalent(SPELLS.DARK_SHADOW_TALENT.id) && this.modules.shadowDance.active && (
+      this.modules.combatants.selected.hasTalent(SPELLS.DARK_SHADOW_TALENT.id) && this.modules.shadowDance.active && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.DARK_SHADOW_TALENT.id} />}
           value={`${formatNumber(this.modules.shadowDance.totalDamageDoneInShadowDance * 0.3 / 1.3 * 1000 / this.fightDuration)} DPS`}
@@ -126,7 +126,7 @@ class CombatLogParser extends CoreCombatLogParser {
             </dfn>
           )}
         />),
-        
+
       ...results.statistics,
     ];
     return results;

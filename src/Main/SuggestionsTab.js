@@ -77,7 +77,7 @@ class SuggestionsTab extends React.Component {
             {issues
               .filter(issue => this.state.showMinorIssues || issue.importance !== ISSUE_IMPORTANCE.MINOR)
               .map((issue, i) => (
-                <li className={`item ${issue.importance  || ''}`} key={`${i}`}>
+                <li className={`item ${issue.importance || ''}`} key={`${i}`}>
                   <div className="icon">
                     <Icon icon={issue.icon} alt="Icon" />
                   </div>

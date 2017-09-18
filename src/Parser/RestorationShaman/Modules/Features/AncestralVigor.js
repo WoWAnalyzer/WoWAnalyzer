@@ -9,14 +9,13 @@ import LazyLoadStatisticBox from 'Main/LazyLoadStatisticBox';
 import Module from 'Parser/Core/Module';
 
 const ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH = 0.1;
-const HP_THRESHOLD = 1 - 1/(1 + ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH);
+const HP_THRESHOLD = 1 - 1 / (1 + ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH);
 
 class AncestralVigor extends Module {
-
   loaded = false;
   totalLifeSaved = 0;
   on_initialized() {
-    this.active = !!this.owner.selectedCombatant.hasTalent(SPELLS.ANCESTRAL_VIGOR_TALENT.id);
+    this.active = !!this.owner.modules.combatants.selected.hasTalent(SPELLS.ANCESTRAL_VIGOR_TALENT.id);
   }
 
   // recursively fetch events until no nextPageTimestamp is returned
@@ -32,10 +31,10 @@ class AncestralVigor extends Module {
           self.totalLifeSaved += json.events.length;
           if (json.nextPageTimestamp) {
             return checkAndFetch(Object.assign(query, { start: json.nextPageTimestamp }));
-          } else {
-            self.loaded = true;
           }
+          self.loaded = true;
         }
+        return null;
       } catch (err) {
         throw err;
       }
@@ -57,10 +56,10 @@ class AncestralVigor extends Module {
           AND 10000*(resources.hitPoints+effectiveDamage)/resources.maxHitPoints>=${Math.floor(10000 * HP_THRESHOLD)}
         FROM type='applybuff'
           AND ability.id=${SPELLS.ANCESTRAL_VIGOR.id}
-          AND source.name='${this.owner.selectedCombatant.name}'
+          AND source.name='${this.owner.modules.combatants.selected.name}'
         TO type='removebuff'
           AND ability.id=${SPELLS.ANCESTRAL_VIGOR.id}
-          AND source.name='${this.owner.selectedCombatant.name}'
+          AND source.name='${this.owner.modules.combatants.selected.name}'
         END
       )`,
     };

@@ -36,18 +36,16 @@ class DecieversGrandDesign extends Module {
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
 
-    if(spellId === SPELLS.GUIDING_HAND.id) {
+    if (spellId === SPELLS.GUIDING_HAND.id) {
       this.healing += (event.amount || 0) + (event.absorbed || 0);
 
       // Account for precasting
-      if(this.targetOne === event.targetID || this.targetTwo === event.targetID) {
-        return;
+      if (this.targetOne === event.targetID || this.targetTwo === event.targetID) {
+
+      } else if (!this.targetOne) {
+        this.targetOne = event.targetID;
       } else {
-        if(!this.targetOne) {
-          this.targetOne = event.targetID;
-        } else {
-          this.targetTwo = event.targetID;
-        }
+        this.targetTwo = event.targetID;
       }
     }
   }
@@ -55,7 +53,7 @@ class DecieversGrandDesign extends Module {
   on_byPlayer_absorbed(event) {
     const spellId = event.ability.guid;
 
-    if(spellId === SPELLS.FRUITFUL_MACHINATIONS.id) {
+    if (spellId === SPELLS.FRUITFUL_MACHINATIONS.id) {
       this.healingAbsorb += (event.amount || 0) + (event.absorbed || 0);
     }
   }
@@ -63,13 +61,13 @@ class DecieversGrandDesign extends Module {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
-    if(spellId === SPELLS.GUIDING_HAND.id) {
-      if(this.targetOne === null) {
+    if (spellId === SPELLS.GUIDING_HAND.id) {
+      if (this.targetOne === null) {
         this.targetOne = event.targetID;
-        debug && console.log('Target One: ' + this.targetOne);
-      } else if(this.targetTwo === null) {
+        debug && console.log(`Target One: ${this.targetOne}`);
+      } else if (this.targetTwo === null) {
         this.targetTwo = event.targetID;
-        debug && console.log('Target Two: ' + this.targetTwo);
+        debug && console.log(`Target Two: ${this.targetTwo}`);
       } else {
         debug && console.log('Logic Error?!');
       }
@@ -80,56 +78,56 @@ class DecieversGrandDesign extends Module {
     const spellId = event.ability.guid;
     const targetId = event.targetID;
 
-    if(spellId === SPELLS.FRUITFUL_MACHINATIONS.id) {
-        this.proced = true;
-        const startTime = event.timestamp - PROC_EVENT_START_BUFFER;
-        const endTime = event.timestamp + PROC_EVENT_END_BUFFER;
-        if(targetId === this.targetOne) {
-          this.targetOne = null;
-          this.procTimestampTargetOne = event.timestamp;
-          debug && console.log('Proc on Target one:', targetId, ' @ timestamp: ', event.timestamp);
-        } else if(targetId === this.targetTwo) {
-          this.targetTwo = null;
-          this.procTimestampTargetTwo = event.timestamp;
-          debug && console.log('Proc on Target two:', targetId, ' @ timestamp: ', event.timestamp);
-        }
-        if(debug) {
-          this.procs.push({
-            name: 'Test User',
-            report: this.owner.report.code,
-            fight: this.owner.fight.id,
-            target: targetId,
-            start: startTime,
-            end: endTime,
-          });
-        }
-
-        let name = "";
-        if(!this.combatants.players[targetId]) {
-          name = "Pet";
-        } else {
-          name = this.combatants.players[targetId].name;
-        }
-
+    if (spellId === SPELLS.FRUITFUL_MACHINATIONS.id) {
+      this.proced = true;
+      const startTime = event.timestamp - PROC_EVENT_START_BUFFER;
+      const endTime = event.timestamp + PROC_EVENT_END_BUFFER;
+      if (targetId === this.targetOne) {
+        this.targetOne = null;
+        this.procTimestampTargetOne = event.timestamp;
+        debug && console.log('Proc on Target one:', targetId, ' @ timestamp: ', event.timestamp);
+      } else if (targetId === this.targetTwo) {
+        this.targetTwo = null;
+        this.procTimestampTargetTwo = event.timestamp;
+        debug && console.log('Proc on Target two:', targetId, ' @ timestamp: ', event.timestamp);
+      }
+      if (debug) {
         this.procs.push({
-          name: name,
+          name: 'Test User',
           report: this.owner.report.code,
           fight: this.owner.fight.id,
           target: targetId,
           start: startTime,
           end: endTime,
         });
-        debug && console.log(this.procs);
-        debug && console.log('https://www.warcraftlogs.com/reports/' + this.owner.report.code + '/#fight=' + this.owner.fight.id + '&source=' + this.procs[0].target + '&type=summary&start=' + this.procs[0].start + '&end=' + this.procs[0].end + '&view=events');
+      }
+
+      let name = '';
+      if (!this.combatants.players[targetId]) {
+        name = 'Pet';
+      } else {
+        name = this.combatants.players[targetId].name;
+      }
+
+      this.procs.push({
+        name,
+        report: this.owner.report.code,
+        fight: this.owner.fight.id,
+        target: targetId,
+        start: startTime,
+        end: endTime,
+      });
+      debug && console.log(this.procs);
+      debug && console.log(`https://www.warcraftlogs.com/reports/${this.owner.report.code}/#fight=${this.owner.fight.id}&source=${this.procs[0].target}&type=summary&start=${this.procs[0].start}&end=${this.procs[0].end}&view=events`);
     }
   }
 
   on_finished() {
-    if(debug) {
+    if (debug) {
       console.log('Proc Checks: ', this.procs);
-      console.log('Healing: ' + this.healing);
-      console.log('Absorbed: ' + this.healingAbsorb);
-      console.log('Report Code: ' + this.owner.report.code);
+      console.log(`Healing: ${this.healing}`);
+      console.log(`Absorbed: ${this.healingAbsorb}`);
+      console.log(`Report Code: ${this.owner.report.code}`);
     }
   }
 
@@ -142,7 +140,8 @@ class DecieversGrandDesign extends Module {
       result: (
         <dfn data-tip={`The effective healing contributed by the Deciever's Grand Design on-use effect.<br />
             HOT: ${((deceiversGrandDesignHealingPercentage * 100) || 0).toFixed(2)} % / ${formatNumber(this.healing / this.owner.fightDuration * 1000)} HPS<br />
-            Shield Proc: ${((deceiversGrandDesignAbsorbPercentage * 100) || 0).toFixed(2)} % / ${formatNumber(this.healingAbsorb / this.owner.fightDuration * 1000)} HPS`}>
+            Shield Proc: ${((deceiversGrandDesignAbsorbPercentage * 100) || 0).toFixed(2)} % / ${formatNumber(this.healingAbsorb / this.owner.fightDuration * 1000)} HPS`}
+        >
           {((deceiversGrandDesignTotalPercentage * 100) || 0).toFixed(2)} % / {formatNumber((this.healing + this.healingAbsorb) / this.owner.fightDuration * 1000)} HPS
         </dfn>
       ),
@@ -150,7 +149,7 @@ class DecieversGrandDesign extends Module {
   }
   suggestions(when) {
     when(this.proced).isTrue()
-      .addSuggestion(suggest => {
+      .addSuggestion((suggest) => {
         return suggest(
           <span>
               Your <ItemLink id={ITEMS.DECEIVERS_GRAND_DESIGN.id} /> procced earlier than expected. Try to cast it on players without spiky health pools. The following events procced the effect:<br />
@@ -163,7 +162,7 @@ class DecieversGrandDesign extends Module {
                   </div>
                 );
               })}
-            </span>
+          </span>
         )
           .icon(ITEMS.DECEIVERS_GRAND_DESIGN.icon);
       });

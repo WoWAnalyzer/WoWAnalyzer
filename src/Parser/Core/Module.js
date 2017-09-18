@@ -19,7 +19,7 @@ class Module {
     this.priority = priority;
 
     if (dependencies) {
-      Object.keys(dependencies).forEach(key => {
+      Object.keys(dependencies).forEach((key) => {
         this[key] = dependencies[key];
       });
     }
@@ -33,6 +33,12 @@ class Module {
     }
     if (event && this.owner.toPlayer(event)) {
       this._callMethod(this._eventHandlerName(`toPlayer_${eventType}`), event, ...args);
+    }
+    if (event && this.owner.byPlayerPet(event)) {
+      this._callMethod(this._eventHandlerName(`byPlayerPet_${eventType}`), event, ...args);
+    }
+    if (event && this.owner.toPlayerPet(event)) {
+      this._callMethod(this._eventHandlerName(`toPlayerPet_${eventType}`), event, ...args);
     }
   }
   _eventHandlerName(eventType) {

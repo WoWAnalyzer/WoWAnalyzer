@@ -112,7 +112,6 @@ class FrenziedRegeneration extends Module {
           .actual(`${formatPercentage(actual, 0)}% of casts had a predicted heal of less than ${formatPercentage(HEAL_THRESHOLD, 0)}% and were cast above ${formatPercentage(HP_THRESHOLD, 0)}% HP`)
           .recommended(`${recommended}% is recommended`)
           .regular(recommended + 0.05).major(recommended + 0.1);
-
       });
   }
 }

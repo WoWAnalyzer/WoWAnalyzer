@@ -14,15 +14,13 @@ class DarkTitanAdvice extends Module {
     if (spellId === SPELLS.LIFEBLOOM_BLOOM_HEAL.id) {
       // Add 100% of the bloom if it came from the random 3% procc
       // Let's give it 32 ms tolerence for kicks.
-      if(this.lastRealBloomTimestamp !== null && (event.timestamp - this.lastRealBloomTimestamp) < 32) {
+      if (this.lastRealBloomTimestamp !== null && (event.timestamp - this.lastRealBloomTimestamp) < 32) {
         this.healing += event.amount;
         this.healingFromProccs += event.amount;
       } else {
-        const baseHeal = (event.amount + event.overheal||0)/DARK_TITAN_FINAL_HEALING_INCREASE;
+        const baseHeal = (event.amount + event.overheal || 0) / DARK_TITAN_FINAL_HEALING_INCREASE;
         this.healing += Math.max(0, event.amount - baseHeal);
       }
-
-      return;
     }
   }
 

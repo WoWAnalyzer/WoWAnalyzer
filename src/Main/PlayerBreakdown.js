@@ -13,7 +13,7 @@ class PlayerBreakdown extends React.Component {
     const statsByTargetId = stats.statsByTargetId;
     const friendlyStats = [];
     Object.keys(statsByTargetId)
-      .forEach(targetId => {
+      .forEach((targetId) => {
         const playerStats = statsByTargetId[targetId];
         const playerInfo = playersById[targetId];
 
@@ -48,9 +48,10 @@ class PlayerBreakdown extends React.Component {
         <tbody>
           {friendlyStats && friendlyStats
             .sort((a, b) => b.masteryEffectiveness - a.masteryEffectiveness)
-            .map(player => {
+            .map((player) => {
               const combatants = player.combatant;
               if (!combatants) {
+                console.error('Missing combatant:', player);
                 return null; // pet or something
               }
               const spec = SPECS[combatants.specId];
@@ -62,7 +63,7 @@ class PlayerBreakdown extends React.Component {
 
               return (
                 <tr key={player.combatant.name}>
-                  <td style={{ width: '20%'}}>
+                  <td style={{ width: '20%' }}>
                     <img src={`/specs/${specClassName}-${spec.specName.replace(' ', '')}.jpg`} alt="Spec logo" />{' '}
                     {player.combatant.name}
                   </td>

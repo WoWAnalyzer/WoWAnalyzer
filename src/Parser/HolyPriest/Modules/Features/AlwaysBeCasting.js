@@ -45,7 +45,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
 
     //
-    return <StatisticBox
+    return (<StatisticBox
       icon={<Icon icon="petbattle_health-down" alt="Non healing time" />}
       value={`${formatPercentage(deadTimePercentage)} %`}
       label={(
@@ -53,7 +53,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
           Dead GCD time
         </dfn>
       )}
-    />;
+    />);
     //
   }
 

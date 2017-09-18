@@ -7,7 +7,7 @@ import { formatNumber } from 'common/format';
 
 import getDamageBonus from '../../WarlockCore/getDamageBonus';
 
-const SACROLASH_DAMAGE_BONUS = .15;
+const SACROLASH_DAMAGE_BONUS = 0.15;
 
 class SacrolashsDarkStrike extends Module {
   static dependencies = {
@@ -17,9 +17,7 @@ class SacrolashsDarkStrike extends Module {
   bonusDmg = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.combatants.selected.hasFinger(ITEMS.SACROLASHS_DARK_STRIKE.id);
-    }
+    this.active = this.combatants.selected.hasFinger(ITEMS.SACROLASHS_DARK_STRIKE.id);
   }
 
   on_byPlayer_damage(event) {

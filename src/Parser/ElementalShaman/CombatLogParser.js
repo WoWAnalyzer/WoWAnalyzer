@@ -33,7 +33,7 @@ import LightningRod from './Modules/Talents/LightningRod';
 import './Modules/Main/main.css';
 
 function formatThousands(number) {
-  return (Math.round(number || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+  return (`${Math.round(number || 0)}`).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 }
 
 function formatNumber(number) {
@@ -84,7 +84,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // const hasEchosElements = this.selectedCombatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id);
     // const hasAscendance = this.selectedCombatant.hasTalent(SPELLS.ASCENDANCE_ELEMENTAL_TALENT.id);
     // const hasLightningRod = this.selectedCombatant.hasTalent(SPELLS.LIGHTNING_ROD.id);
-    const hasIcefury = this.selectedCombatant.hasTalent(SPELLS.ICEFURY_TALENT.id);
+    const hasIcefury = this.modules.combatants.selected.hasTalent(SPELLS.ICEFURY_TALENT.id);
 
     const abilityTracker = this.modules.abilityTracker;
     const getAbility = spellId => abilityTracker.getAbility(spellId);
@@ -121,7 +121,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     results.statistics = [
       <StatisticBox
-        icon={ <Icon icon="class_shaman" alt="Dead GCD time" /> }
+        icon={<Icon icon="class_shaman" alt="Dead GCD time" />}
         value={formatNumber(this.modules.damageDone.total.effective)}
         label={(
           <dfn data-tip="Without Fire Elemental Damage.">
@@ -141,7 +141,7 @@ class CombatLogParser extends CoreCombatLogParser {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.ELEMENTAL_MASTERY.id} />}
         value={(
-          <span className='flexJustify'>
+          <span className="flexJustify">
             <span>
               <SpellIcon
                 id={SPELLS.LAVA_BURST_OVERLOAD.id}
@@ -222,7 +222,7 @@ class CombatLogParser extends CoreCombatLogParser {
         url: 'talents',
         render: () => (
           <Tab title="Talents">
-            <Talents combatant={this.selectedCombatant} />
+            <Talents combatant={this.modules.combatants.selected} />
           </Tab>
         ),
       },

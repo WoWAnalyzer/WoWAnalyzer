@@ -11,20 +11,18 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 class Landslide extends Module {
   static dependencies = {
     combatants: Combatants,
-  }
+  };
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.combatants.selected.hasTalent(SPELLS.LANDSLIDE_TALENT.id);
-    }
+    this.active = this.combatants.selected.hasTalent(SPELLS.LANDSLIDE_TALENT.id);
   }
 
   suggestions(when) {
     const landslideUptime = this.combatants.selected.getBuffUptime(SPELLS.LANDSLIDE_BUFF.id) / this.owner.fightDuration;
 
-    when(landslideUptime).isLessThan(.95)
+    when(landslideUptime).isLessThan(0.95)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(`Try to make sure the Landslide buff from Rockbiter is always up, when it drops you should refresh it as soon as possible`)
+        return suggest('Try to make sure the Landslide buff from Rockbiter is always up, when it drops you should refresh it as soon as possible')
           .icon(SPELLS.LANDSLIDE_BUFF.icon)
           .actual(`${formatPercentage(actual)}% uptime`)
           .recommended(`${(formatPercentage(recommended))}% is recommended`)
@@ -39,7 +37,7 @@ class Landslide extends Module {
         icon={<SpellIcon id={SPELLS.LANDSLIDE_BUFF.id} />}
         value={`${formatPercentage(landslideUptime)} %`}
         label="Landslide Uptime"
-        tooltip={`One of your highest priorities, get as close to 100% as possible`}
+        tooltip={'One of your highest priorities, get as close to 100% as possible'}
       />)
     );
   }

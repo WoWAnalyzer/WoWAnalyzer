@@ -3,6 +3,8 @@ import SPELLS from 'common/SPELLS';
 
 import CoreCastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 
+/* eslint-disable no-unused-vars */
+
 const debug = false;
 
 class CastEfficiency extends CoreCastEfficiency {
@@ -28,7 +30,7 @@ class CastEfficiency extends CoreCastEfficiency {
       noSuggestion: true,
     },
     {
-      spell:SPELLS.THRASH_BEAR,
+      spell: SPELLS.THRASH_BEAR,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: (haste, combatant) => {
         const hasMightBuff = combatant.hasTalent(SPELLS.INCARNATION_OF_URSOC.id);
@@ -36,10 +38,10 @@ class CastEfficiency extends CoreCastEfficiency {
           return 6;
         }
 
-        const fightDuration = combatant.owner.fightDuration/1000;
+        const fightDuration = combatant.owner.fightDuration / 1000;
         const mightBuff = Math.ceil(fightDuration / 180);
-        const castsDuringMight = (mightBuff * 30) / (1.5 / (1+haste));
-        const castsOutsideMight = (fightDuration - (mightBuff * 30)) / (6 / (1+haste));
+        const castsDuringMight = (mightBuff * 30) / (1.5 / (1 + haste));
+        const castsOutsideMight = (fightDuration - (mightBuff * 30)) / (6 / (1 + haste));
         return fightDuration / (castsDuringMight + castsOutsideMight);
       },
       noSuggestion: true,
@@ -55,9 +57,9 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.BARKSKIN,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: (haste, combatant) => {
-        const baseCd = combatant.hasTalent(SPELLS.SURVIVAL_OF_THE_FITTEST_TALENT.id) ? 90-(90/3) : 90;
+        const baseCd = combatant.hasTalent(SPELLS.SURVIVAL_OF_THE_FITTEST_TALENT.id) ? 90 - (90 / 3) : 90;
         const cdTrait = combatant.traitsBySpellId[SPELLS.PERPETUAL_SPRING_TRAIT.id] || 0;
-        debug && console.log('Barkskin CD ' + baseCd * (1 - (cdTrait * 3 / 100)));
+        debug && console.log(`Barkskin CD ${baseCd * (1 - (cdTrait * 3 / 100))}`);
         return baseCd * (1 - (cdTrait * 3 / 100));
       },
       noSuggestion: true,
@@ -66,11 +68,11 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.SURVIVAL_INSTINCTS,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: (haste, combatant) => {
-        const baseCd = combatant.hasTalent(SPELLS.SURVIVAL_OF_THE_FITTEST_TALENT.id) ? 240-(240/3) : 240;
-        debug && console.log('Survival CD ' + baseCd);
+        const baseCd = combatant.hasTalent(SPELLS.SURVIVAL_OF_THE_FITTEST_TALENT.id) ? 240 - (240 / 3) : 240;
+        debug && console.log(`Survival CD ${baseCd}`);
         return baseCd;
       },
-      charges:3,
+      charges: 3,
       isActive: combatant => combatant.hasFinger(ITEMS.DUAL_DETERMINATION.id),
       noSuggestion: true,
     },
@@ -78,11 +80,11 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.SURVIVAL_INSTINCTS,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: (haste, combatant) => {
-        const baseCd = combatant.hasTalent(SPELLS.SURVIVAL_OF_THE_FITTEST_TALENT.id) ? 240-(240/3) : 240;
-        debug && console.log('Survival CD ' + baseCd);
+        const baseCd = combatant.hasTalent(SPELLS.SURVIVAL_OF_THE_FITTEST_TALENT.id) ? 240 - (240 / 3) : 240;
+        debug && console.log(`Survival CD ${baseCd}`);
         return baseCd;
       },
-      charges:2,
+      charges: 2,
       isActive: combatant => !combatant.hasFinger(ITEMS.DUAL_DETERMINATION.id),
       noSuggestion: true,
     },

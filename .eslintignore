@@ -1,3 +1,5 @@
 node_modules
 config
 scripts
+build
+browser-extensions/gulpfile.babel.js

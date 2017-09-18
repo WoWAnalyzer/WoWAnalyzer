@@ -11,20 +11,18 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 class Frostbrand extends Module {
   static dependencies = {
     combatants: Combatants,
-  }
+  };
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.combatants.selected.hasTalent(SPELLS.HAILSTORM_TALENT.id);
-    }
+    this.active = this.combatants.selected.hasTalent(SPELLS.HAILSTORM_TALENT.id);
   }
 
   suggestions(when) {
     const frostbrandUptime = this.combatants.selected.getBuffUptime(SPELLS.FROSTBRAND.id) / this.owner.fightDuration;
 
-    when(frostbrandUptime).isLessThan(.95)
+    when(frostbrandUptime).isLessThan(0.95)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(`Try to make sure the Frostbrand is always up, when it drops you should refresh it as soon as possible`)
+        return suggest('Try to make sure the Frostbrand is always up, when it drops you should refresh it as soon as possible')
           .icon(SPELLS.FROSTBRAND.icon)
           .actual(`${formatPercentage(actual)}% uptime`)
           .recommended(`${(formatPercentage(recommended))}% is recommended`)
@@ -39,7 +37,7 @@ class Frostbrand extends Module {
         icon={<SpellIcon id={SPELLS.FROSTBRAND.id} />}
         value={`${formatPercentage(frostbrandUptime)} %`}
         label="Frostbrand Uptime"
-        tooltip={`One of your highest priorities, get as close to 100% as possible`}
+        tooltip={'One of your highest priorities, get as close to 100% as possible'}
       />)
     );
   }

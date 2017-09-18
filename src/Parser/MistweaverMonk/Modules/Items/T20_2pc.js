@@ -12,7 +12,7 @@ import Module from 'Parser/Core/Module';
 const debug = false;
 
 const BASEMANA = 1100000;
-const TWOPC_MANA_REDUCTION = .75;
+const TWOPC_MANA_REDUCTION = 0.75;
 
 class T20_2pc extends Module {
   static dependencies = {
@@ -30,11 +30,11 @@ class T20_2pc extends Module {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
-    if(spellId !== SPELLS.ENVELOPING_MISTS.id) {
+    if (spellId !== SPELLS.ENVELOPING_MISTS.id) {
       return;
     }
-    if(this.combatants.selected.hasBuff(SPELLS.SURGE_OF_MISTS.id, event.timestamp)) {
-      this.casts++;
+    if (this.combatants.selected.hasBuff(SPELLS.SURGE_OF_MISTS.id, event.timestamp)) {
+      this.casts += 1;
       this.manaSaved += (BASEMANA * SPELLS.ENVELOPING_MISTS.manaPerc) * TWOPC_MANA_REDUCTION;
     }
   }
@@ -42,29 +42,29 @@ class T20_2pc extends Module {
   on_toPlayer_applybuff(event) {
     const spellId = event.ability.guid;
 
-    if(spellId !== SPELLS.SURGE_OF_MISTS.id) {
+    if (spellId !== SPELLS.SURGE_OF_MISTS.id) {
       return;
     }
-    this.procs++;
+    this.procs += 1;
   }
 
   on_toPlayer_refreshbuff(event) {
     const spellId = event.ability.guid;
 
-    if(spellId !== SPELLS.SURGE_OF_MISTS.id) {
+    if (spellId !== SPELLS.SURGE_OF_MISTS.id) {
       return;
     }
-    this.procs++;
+    this.procs += 1;
   }
 
   on_finished() {
-    if(debug) {
+    if (debug) {
       console.log('T20 2pc Procs: ', this.procs);
       console.log('T20 2pc Casts: ', this.casts);
       console.log('T20 2pc Mana Saved: ', this.manaSaved);
     }
   }
-  
+
   suggestions(when) {
     const missed2pcProcs = this.procs - this.casts;
     when(missed2pcProcs).isGreaterThan(0)
@@ -83,7 +83,7 @@ class T20_2pc extends Module {
       icon: <SpellIcon id={SPELLS.XUENS_BATTLEGEAR_2_PIECE_BUFF.id} />,
       title: <SpellLink id={SPELLS.XUENS_BATTLEGEAR_2_PIECE_BUFF.id} />,
       result: (
-        <dfn data-tip={`The actual mana saved by the Tier 20 2 piece effect.`}>
+        <dfn data-tip={'The actual mana saved by the Tier 20 2 piece effect.'}>
           {formatNumber(this.manaSaved)} mana saved ({formatNumber((this.manaSaved / this.owner.fightDuration * 1000 * 5))} MP5)
         </dfn>
       ),

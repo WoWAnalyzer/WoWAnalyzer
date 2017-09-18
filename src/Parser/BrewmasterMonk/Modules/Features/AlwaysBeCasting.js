@@ -29,10 +29,9 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     SPELLS.TIGERS_LUST_TALENT.id,
   ];
 
-  // BrM has a fixed 1s GCD 
-  static calculateGlobalCooldown(haste) {
-    return 1;
-  }
+  // BrM has a fixed 1s GCD
+  static BASE_GCD = 1000;
+  static MINIMUM_GCD = 1000;
 
   suggestions(when) {
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
@@ -53,8 +52,8 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
       <StatisticBox
         icon={<Icon icon="spell_mage_altertime" alt="Dead GCD time" />}
         value={`${formatPercentage(deadTimePercentage)} %`}
-        label='Dead GCD time'
-        tooltip='Dead GCD time is available casting time not used. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), etc.'
+        label="Dead GCD time"
+        tooltip="Dead GCD time is available casting time not used. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), etc."
       />
     );
   }

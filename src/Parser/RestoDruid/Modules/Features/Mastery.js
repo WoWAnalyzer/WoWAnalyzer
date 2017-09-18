@@ -1,10 +1,9 @@
-import {formatPercentage} from 'common/format';
 import Module from 'Parser/Core/Module';
 import SPELLS from 'common/SPELLS';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-import {ABILITIES_AFFECTED_BY_HEALING_INCREASES} from '../../Constants';
-import {HEALS_MASTERY_STACK} from '../../Constants';
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
+import { HEALS_MASTERY_STACK } from '../../Constants';
 
 const MASTERY_BONUS_FROM_ONE_RATING = 1 / 66666.6666666;
 const BASE_MASTERY_PERCENT = 0.048;
@@ -18,23 +17,17 @@ class Mastery extends Module {
   druidSpellNoMasteryHealing = 0;
   masteryTimesHealing = 0;
 
-  hotHealing = null;
-  masteryBuffs = null;
+  hotHealing = {};
+  masteryBuffs = {};
 
   on_initialized() {
-    // TODO use JS objects instead of Maps for hotHealing and masteryBuffs?
-    this.hotHealing = new Map();
-    for(const healId of HEALS_MASTERY_STACK) {
-      this.hotHealing.set(healId, { name:SPELLS[healId].name, direct:0, mastery:0 });
-    }
+    HEALS_MASTERY_STACK.forEach(healId => this.hotHealing[healId] = { direct: 0, mastery: 0 });
 
-    this.masteryBuffs = new Map([
-        [ SPELLS.ASTRAL_HARMONY.id, { amount:4000 } ],
-        [ SPELLS.JACINS_RUSE.id, { amount:3000 } ],
-    ]);
-    for(const buffObj of this.masteryBuffs.values()) {
-  		buffObj.attributableHealing = 0;
-  	}
+    this.masteryBuffs = {
+      [SPELLS.ASTRAL_HARMONY.id]: { amount: 4000 },
+      [SPELLS.JACINS_RUSE.id]: { amount: 3000 },
+    };
+    Object.values(this.masteryBuffs).forEach(entry => entry.attributableHealing = 0);
   }
 
   // TODO handle pre proc mastery buffs? Looks like pre-hots are already handled by the system.
@@ -44,15 +37,13 @@ class Mastery extends Module {
     const target = this.combatants.getEntity(event);
     const amount = event.amount + (event.absorbed === undefined ? 0 : event.absorbed);
 
-    if(target === null) {
+    if (target === null) {
       return;
     }
 
-    if(this.hotHealing.has(spellId)) {
-      this.hotHealing.get(spellId).direct += amount;
-    }
+    if (spellId in this.hotHealing) { this.hotHealing[spellId].direct += amount; }
 
-    if(ABILITIES_AFFECTED_BY_HEALING_INCREASES.includes(spellId)) {
+    if (ABILITIES_AFFECTED_BY_HEALING_INCREASES.includes(spellId)) {
       const hotsOn = target.activeBuffs()
           .map(buffObj => buffObj.ability.guid)
           .filter(buffId => HEALS_MASTERY_STACK.includes(buffId));
@@ -65,15 +56,11 @@ class Mastery extends Module {
 
       hotsOn
           .filter(hotOn => hotOn !== spellId) // don't double count
-          .forEach(hotOn => this.hotHealing.get(hotOn).mastery += decomposedHeal.oneStack);
+          .forEach(hotOn => this.hotHealing[hotOn].mastery += decomposedHeal.oneStack);
 
-      for(const [buffId, buffObj] of this.masteryBuffs.entries()) {
-        if(this.combatants.selected.hasBuff(buffId)) {
-          const attributableHealing = decomposedHeal.oneRating * buffObj.amount;
-          buffObj.attributableHealing += attributableHealing;
-        }
-      }
-
+      Object.entries(this.masteryBuffs)
+          .filter(entry => this.combatants.selected.hasBuff(entry[0]))
+          .forEach(entry => entry[1].attributableHealing += decomposedHeal.oneRating * entry[1].amount);
     } else {
       this.totalNoMasteryHealing += amount;
     }
@@ -83,33 +70,18 @@ class Mastery extends Module {
     this.totalNoMasteryHealing += event.amount;
   }
 
-  on_finished() {
-    console.log("Mastery results: ");
-    for(const hotObj of this.hotHealing.values()) {
-      const directPerc = this.owner.getPercentageOfTotalHealingDone(hotObj.direct);
-      const masteryPerc = this.owner.getPercentageOfTotalHealingDone(hotObj.mastery);
-      console.log(hotObj.name + " - Direct:" + formatPercentage(directPerc) +
-          "% Mastery:" + formatPercentage(masteryPerc) + "%");
-    }
-
-    const avgMasteryStacksAllHealing = this.masteryTimesHealing / this.totalNoMasteryHealing;
-    const avgMasteryStacksDruidHealing = this.masteryTimesHealing / this.druidSpellNoMasteryHealing;
-
-    console.log("Avg Mastery Stacks - All Healing:" + avgMasteryStacksAllHealing + " Druid Healing:" + avgMasteryStacksDruidHealing);
-  }
-
   /* accessors for computed values */
 
   getDirectHealing(healId) {
-    return this.hotHealing.get(healId).direct;
+    return this.hotHealing[healId].direct;
   }
 
   getMasteryHealing(healId) {
-    return this.hotHealing.get(healId).mastery;
+    return this.hotHealing[healId].mastery;
   }
 
   getBuffBenefit(buffId) {
-    return this.masteryBuffs.get(buffId).attributableHealing;
+    return this.masteryBuffs[buffId].attributableHealing;
   }
 
   _decompHeal(amount, hotCount) {
@@ -121,22 +93,19 @@ class Mastery extends Module {
     const oneRatingMasteryHealing = noMasteryHealing * MASTERY_BONUS_FROM_ONE_RATING * hotCount;
 
     return {
-      'noMastery': noMasteryHealing,
-      'oneStack': oneStackMasteryHealing,
-      'oneRating': oneRatingMasteryHealing,
+      noMastery: noMasteryHealing,
+      oneStack: oneStackMasteryHealing,
+      oneRating: oneRatingMasteryHealing,
     };
   }
 
   _getCurrMasteryBonus() {
-    let baseMasteryRating = this.combatants.selected.masteryRating;
-    for(const [buffId, buffObj] of this.masteryBuffs.entries()) {
-      if(this.combatants.selected.hasBuff(buffId)) {
-        baseMasteryRating += buffObj.amount;
-      }
-    }
-    return BASE_MASTERY_PERCENT + (baseMasteryRating * MASTERY_BONUS_FROM_ONE_RATING);
+    let currMasteryRating = this.combatants.selected.masteryRating;
+    Object.entries(this.masteryBuffs)
+        .filter(entry => this.combatants.selected.hasBuff(entry[0]))
+        .forEach(entry => currMasteryRating += entry[1].amount);
+    return BASE_MASTERY_PERCENT + (currMasteryRating * MASTERY_BONUS_FROM_ONE_RATING);
   }
-
 }
 
 export default Mastery;

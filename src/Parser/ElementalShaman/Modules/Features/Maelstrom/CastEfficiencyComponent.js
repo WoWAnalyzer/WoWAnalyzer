@@ -12,7 +12,7 @@ const CastEfficiency = ({ categories, abilities }) => {
   return (
     <div style={{ marginTop: -10, marginBottom: -10 }}>
       <table className="data-table" style={{ marginTop: 10, marginBottom: 10 }}>
-        {Object.keys(categories).map((key) => (
+        {Object.keys(categories).map(key => (
           <tbody key={key}>
             <tr>
               <th>{categories[key]}</th>
@@ -20,7 +20,7 @@ const CastEfficiency = ({ categories, abilities }) => {
               <th className="text-center">{key === 'spend' ? <dfn data-tip="Approxomatly.">Spend</dfn> : ''}</th>
               <th className="text-center">{key === 'generated' ? <dfn data-tip="Approxomatly.">Generated</dfn> : ''}</th>
               <th className="text-center"><dfn data-tip="Approxomatly.">Wasted</dfn></th>
-              <th></th>
+              <th />
             </tr>
             {abilities
               .filter(item => item.ability.category === categories[key])
@@ -37,13 +37,13 @@ const CastEfficiency = ({ categories, abilities }) => {
                     {casts}
                   </td>
                   <td className="text-center" style={{ minWidth: 80 }}>
-                    {spend ? spend : ''}
+                    {spend || ''}
                   </td>
                   <td className="text-center" style={{ minWidth: 80 }}>
-                    {created ? created : ''}
+                    {created || ''}
                   </td>
                   <td className="text-center" style={{ minWidth: 80 }}>
-                    {wasted ? wasted : ''}
+                    {wasted || ''}
                   </td>
                   <td style={{ width: '25%', color: 'orange' }}>
                     {canBeImproved && !ability.noCanBeImproved && 'Can be improved.'}

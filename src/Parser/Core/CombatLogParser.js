@@ -7,8 +7,10 @@ import DamageTaken from './Modules/DamageTaken';
 
 import Combatants from './Modules/Combatants';
 import AbilityTracker from './Modules/AbilityTracker';
+import Haste from './Modules/Haste';
 import AlwaysBeCasting from './Modules/AlwaysBeCasting';
 import Enemies from './Modules/Enemies';
+import Pets from './Modules/Pets';
 import HealEventTracker from './Modules/HealEventTracker';
 import ManaValues from './Modules/ManaValues';
 import SpellManaCost from './Modules/SpellManaCost';
@@ -48,7 +50,6 @@ import ParseResults from './ParseResults';
 const debug = false;
 
 let _modulesDeprectatedWarningSent = false;
-let _selectedCombatantDeprectatedWarningSent = false;
 
 class CombatLogParser {
   static abilitiesAffectedByHealingIncreases = [];
@@ -61,9 +62,11 @@ class CombatLogParser {
 
     combatants: Combatants,
     enemies: Enemies,
+    pets: Pets,
     spellManaCost: SpellManaCost,
     abilityTracker: AbilityTracker,
     healEventTracker: HealEventTracker,
+    haste: Haste,
     alwaysBeCasting: AlwaysBeCasting,
     manaValues: ManaValues,
     vantusRune: VantusRune,
@@ -102,6 +105,7 @@ class CombatLogParser {
 
   report = null;
   player = null;
+  playerPets = null;
   fight = null;
 
   _modules = {};
@@ -122,15 +126,7 @@ class CombatLogParser {
     return this.player.id;
   }
 
-  /** @returns {Combatant} */
-  get selectedCombatant() {
-    if (!_selectedCombatantDeprectatedWarningSent) {
-      console.error('Using `this.owner.selectedCombatant` is deprectated. You should add the `Combatants` module as a dependency and use `this.combatants.selected` instead.');
-      _selectedCombatantDeprectatedWarningSent = true;
-    }
-    return this._modules.combatants.selected;
-  }
-
+  _timestamp = null;
   get currentTimestamp() {
     return this.finished ? this.fight.end_time : this._timestamp;
   }
@@ -148,9 +144,10 @@ class CombatLogParser {
     }, {});
   }
 
-  constructor(report, player, fight) {
+  constructor(report, player, playerPets, fight) {
     this.report = report;
     this.player = player;
+    this.playerPets = playerPets;
     this.fight = fight;
 
     this.initializeModules({
@@ -161,7 +158,7 @@ class CombatLogParser {
 
   initializeModules(modules) {
     const failedModules = [];
-    Object.keys(modules).forEach(desiredModuleName => {
+    Object.keys(modules).forEach((desiredModuleName) => {
       const moduleClass = modules[desiredModuleName];
       if (!moduleClass) {
         return;
@@ -170,7 +167,7 @@ class CombatLogParser {
       const availableDependencies = {};
       const missingDependencies = [];
       if (moduleClass.dependencies) {
-        Object.keys(moduleClass.dependencies).forEach(desiredDependencyName => {
+        Object.keys(moduleClass.dependencies).forEach((desiredDependencyName) => {
           const dependencyClass = moduleClass.dependencies[desiredDependencyName];
 
           const dependencyModule = this.findModule(dependencyClass);
@@ -190,6 +187,7 @@ class CombatLogParser {
             console.log('Loading', moduleClass.name, 'with dependencies:', Object.keys(availableDependencies));
           }
         }
+        // eslint-disable-next-line new-cap
         this._modules[desiredModuleName] = new moduleClass(this, availableDependencies, Object.keys(this._modules).length);
       } else {
         debug && console.warn(moduleClass.name, 'could not be loaded, missing dependencies:', missingDependencies.map(d => d.name));
@@ -200,7 +198,7 @@ class CombatLogParser {
     if (failedModules.length !== 0) {
       debug && console.warn(`${failedModules.length} modules failed to load, trying again:`, failedModules.map(key => modules[key].name));
       const newBatch = {};
-      failedModules.forEach(key => {
+      failedModules.forEach((key) => {
         newBatch[key] = modules[key];
       });
       this.initializeModules(newBatch);
@@ -214,7 +212,6 @@ class CombatLogParser {
 
   _debugEventHistory = [];
   parseEvents(events) {
-    events = this.reorderEvents(events);
     if (process.env.NODE_ENV === 'development') {
       this._debugEventHistory = [
         ...this._debugEventHistory,
@@ -222,7 +219,7 @@ class CombatLogParser {
       ];
     }
     return new Promise((resolve, reject) => {
-      events.forEach(event => {
+      events.forEach((event) => {
         if (this.error) {
           throw new Error(this.error);
         }
@@ -239,7 +236,7 @@ class CombatLogParser {
   reorderEvents(events) {
     this.activeModules
       .sort((a, b) => a.priority - b.priority) // lowest should go first, as `priority = 0` will have highest prio
-      .forEach(module => {
+      .forEach((module) => {
         if (module.reorderEvents) {
           events = module.reorderEvents(events);
         }
@@ -258,6 +255,12 @@ class CombatLogParser {
   }
   toPlayer(event, playerId = this.player.id) {
     return (event.targetID === playerId);
+  }
+  byPlayerPet(event) {
+    return this.playerPets.some(pet => pet.id === event.sourceID);
+  }
+  toPlayerPet(event) {
+    return this.playerPets.some(pet => pet.id === event.targetID);
   }
 
   // TODO: Damage taken from LOTM
@@ -283,7 +286,7 @@ class CombatLogParser {
 
     this.activeModules
       .sort((a, b) => b.priority - a.priority)
-      .forEach(module => {
+      .forEach((module) => {
         if (module.statistic) {
           const statistic = module.statistic();
           if (statistic) {

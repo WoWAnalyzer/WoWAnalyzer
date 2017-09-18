@@ -12,14 +12,14 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../Constants';
 import getDamageBonus from '../WarlockCore/getDamageBonus';
 
-const abilitiesAffected = [
+const AFFECTED_ABILITIES = new Set([
   SPELLS.AGONY.id,
   SPELLS.CORRUPTION_DEBUFF.id,
   SPELLS.SIPHON_LIFE.id,
   ...UNSTABLE_AFFLICTION_DEBUFF_IDS,
-];
+]);
 
-const MALEFIC_GRASP_DAMAGE_BONUS = .25;
+const MALEFIC_GRASP_DAMAGE_BONUS = 0.25;
 
 class MaleficGrasp extends Module {
   static dependencies = {
@@ -39,7 +39,7 @@ class MaleficGrasp extends Module {
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if (abilitiesAffected.indexOf(spellId) === -1) {
+    if (!AFFECTED_ABILITIES.has(spellId)) {
       return;
     }
     const target = this.enemies.getEntity(event);
@@ -78,24 +78,24 @@ class MaleficGrasp extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.MALEFIC_GRASP_TALENT.id} />}
         value={`${formatNumber(this.totalBonusDmg / this.owner.fightDuration * 1000)} DPS`}
-        label='Damage contributed'
+        label="Damage contributed"
         tooltip={`Your Malefic Grasp talent contributed ${formatNumber(this.totalBonusDmg)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.totalBonusDmg))} %).
           <ul>
           ${this.agonyBonusDmg > 0 ? `
             <li>${formatNumber(this.agonyBonusDmg)} bonus Agony damage.</li>
-          `: ""}
+          ` : ''}
 
           ${this.corruptionBonusDmg > 0 ? `
             <li>${formatNumber(this.corruptionBonusDmg)} bonus Corruption damage.</li>
-          `: ""}
+          ` : ''}
 
           ${this.siphonLifeBonusDmg > 0 ? `
             <li>${formatNumber(this.siphonLifeBonusDmg)} bonus Siphon Life damage.</li>
-          `: ""}
+          ` : ''}
 
           ${this.unstableAfflictionBonusDmg > 0 ? `
             <li>${formatNumber(this.unstableAfflictionBonusDmg)} bonus Unstable Affliction damage.</li>
-          `: ""}
+          ` : ''}
           </ul>
         `}
       />

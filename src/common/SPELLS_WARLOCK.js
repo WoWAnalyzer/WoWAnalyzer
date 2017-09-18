@@ -306,7 +306,7 @@ export default {
     icon: 'spell_shadow_requiem',
   },
 
-  //Affliction tier sets
+  // Affliction tier sets
   WARLOCK_AFFLI_T20_2P_BONUS: {
     id: 242290,
     name: 'Affliction Warlock T20 2P bonus',
@@ -318,19 +318,19 @@ export default {
     icon: 'inv_chest_cloth_raidwarlock_r_01',
   },
   WARLOCK_AFFLI_T20_4P_BUFF: {
-  id: 242292,
+    id: 242292,
     name: 'Demonic Speed',
     icon: 'spell_shadow_soulleech_3',
   },
 
-  //Affliction artifact traits
+  // Affliction artifact traits
   FATAL_ECHOES: {
     id: 199257,
     name: 'Fatal Echoes',
     icon: 'inv_misc_bell_01',
   },
 
-  //Affliction shard generating effects
+  // Affliction shard generating effects
   AGONY_SHARD_GEN: {
     id: 17941,
     name: 'Agony',
@@ -367,7 +367,7 @@ export default {
   // -----------
 
   // Destruction spells
-  //TODO: check if all is correct (copypasta from Development tab)
+  // TODO: check if all is correct (copypasta from Development tab)
   INCINERATE: {
     id: 29722,
     name: 'Incinerate',
@@ -476,4 +476,154 @@ export default {
     name: 'Fiery Soul',
     icon: 'inv_belt_cloth_raidwarlock_n_01',
   },
+  ALYTHESSS_PYROGENICS_DEBUFF: {
+    id: 205675,
+    name: 'Alythess\'s Pyrogenics',
+    icon: 'inv_jewelry_ring_65',
+  },
+  SINDOREI_SPITE_BUFF: {
+    id: 208871,
+    name: 'Sin\'dorei Spite',
+    icon: 'creatureportrait_infernal_ball_02',
+  },
+  LESSONS_OF_SPACETIME_BUFF: {
+    id: 236176,
+    name: 'Lessons Of Space-Time',
+    icon: 'spell_warlock_demonicportal_purple',
+  },
+  ODR_SHAWL_OF_THE_YMIRJAR_DEBUFF: {
+    id: 212173,
+    name: 'Odr, Shawl of the Ymirjar',
+    icon: 'inv_misc_cape_cataclysm_tank_b_01',
+  },
+  MAGISTRIKE_RESTRAINTS_CHAOS_BOLT: {
+    id: 213229,
+    name: 'Chaos Bolt',
+    icon: 'ability_warlock_chaosbolt',
+  },
+  // Destruction Dimensional Rift spells
+  SEARING_BOLT_RIFT: {
+    id: 243050,
+    name: 'Searing Bolt',
+    icon: 'inv_misc_volatilefire',
+  },
+  CHAOS_BARRAGE_RIFT: {
+    id: 187394,
+    name: 'Chaos Barrage',
+    icon: 'spell_warlock_demonicportal_green',
+  },
+  CHAOS_BOLT_RIFT: {
+    id: 215279,
+    name: 'Chaos Bolt',
+    icon: 'ability_warlock_chaosbolt',
+  },
+  SHADOW_BOLT_RIFT: {
+    id: 196657,
+    name: 'Shadow Bolt',
+    icon: 'spell_shadow_shadowbolt',
+  },
+
+  // -----------
+  // DEMONOLOGY
+  // -----------
+
+  // Demonology spells
+  DEMONIC_EMPOWERMENT: {
+    id: 193396,
+    name: 'Demonic Empowerment',
+    icon: 'spell_warlock_demonicempowerment',
+  },
+  SHADOW_BOLT: {
+    id: 686,
+    name: 'Shadow Bolt',
+    icon: 'spell_shadow_shadowbolt',
+  },
+  DOOM: {
+    id: 603,
+    name: 'Doom',
+    icon: 'spell_shadow_auraofdarkness',
+  },
+  CALL_DREADSTALKERS: {
+    id: 104316,
+    name: 'Call Dreadstalkers',
+    icon: 'spell_warlock_calldreadstalkers',
+  },
+  GRIMOIRE_FELGUARD: {
+    id: 111898,
+    name: 'Grimoire: Felguard',
+    icon: 'spell_shadow_summonfelguard',
+  },
+  HAND_OF_GULDAN_CAST: {
+    id: 105174,
+    name: 'Hand of Gul\'dan',
+    icon: 'ability_warlock_handofguldan',
+  },
+  HAND_OF_GULDAN_DAMAGE: {
+    id: 86040,
+    name: 'Hand of Gul\'dan',
+    icon: 'ability_warlock_handofguldan',
+  },
+  DEMONWRATH_CAST: {
+    id: 193440,
+    name: 'Demonwrath',
+    icon: 'spell_warlock_demonwrath',
+  },
+  DEMONWRATH_DAMAGE: {
+    id: 193439,
+    name: 'Demonwrath',
+    icon: 'spell_warlock_demonwrath',
+  },
+  THALKIELS_CONSUMPTION_CAST: { // also friendly fire damage to pets
+    id: 211714,
+    name: 'Thal\'kiel\'s Consumption',
+    icon: 'inv_offhand_1h_artifactskulloferedar_d_01',
+  },
+  THALKIELS_CONSUMPTION_DAMAGE: {
+    id: 211715,
+    name: 'Thal\'kiel\'s Consumption',
+    icon: 'inv_offhand_1h_artifactskulloferedar_d_01',
+  },
+  // Felguard's ability, triggered by our Command Demon ability
+  FELSTORM: {
+    id: 119914,
+    name: 'Felstorm',
+    icon: 'ability_warrior_bladestorm',
+  },
+  // Felguard gets a buff when he uses Felstorm, then follows up always with cast <another Felstorm ID - 89753>, cast this ID, damage <another Felstorm ID 89753> and then always pairs up cast 89753 + damage 89753 (x targets hit)
+  FELSTORM_BUFF: {
+    id: 89751,
+    name: 'Felstorm',
+    icon: 'ability_warrior_bladestorm',
+  },
+  SUMMON_FELGUARD: {
+    id: 30146,
+    name: 'Summon Felguard',
+    icon: 'spell_shadow_summonfelguard',
+  },
+
+  // Demonology talents
+  SHADOWFLAME: {
+    id: 205181,
+    name: 'Shadowflame',
+    icon: 'ability_warlock_shadowflame',
+  },
+  SUMMON_DARKGLARE: {
+    id: 205180,
+    name: 'Summon Darkglare',
+    icon: 'achievement_boss_durumu',
+  },
+  DEMONBOLT: {
+    id: 157695,
+    name: 'Demonbolt',
+    icon: 'spell_warlock_demonbolt',
+  },
+
+  // Demonology traits
+  THALKIELS_DISCORD: {
+    id: 211727,
+    name: 'Thal\'kiel\'s Discord',
+    icon: 'inv_offhand_1h_artifactskulloferedar_d_01',
+  },
+
+
 };

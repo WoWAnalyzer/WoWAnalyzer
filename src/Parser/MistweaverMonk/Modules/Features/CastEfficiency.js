@@ -2,6 +2,8 @@ import SPELLS from 'common/SPELLS';
 
 import CoreCastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 
+/* eslint-disable no-unused-vars */
+
 class CastEfficiency extends CoreCastEfficiency {
   static CPM_ABILITIES = [
     ...CoreCastEfficiency.CPM_ABILITIES,
@@ -54,7 +56,7 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.REVIVAL,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
-      getCooldown: (haste, combatant) => 180 - (combatant.traitsBySpellId[SPELLS.TENDRILS_OF_REVIVAL.id] || 0 ) * 10,
+      getCooldown: (haste, combatant) => 180 - (combatant.traitsBySpellId[SPELLS.TENDRILS_OF_REVIVAL.id] || 0) * 10,
       noSuggestion: true,
       noCanBeImproved: true,
     },

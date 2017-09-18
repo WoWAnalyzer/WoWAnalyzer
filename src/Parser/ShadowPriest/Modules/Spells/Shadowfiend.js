@@ -6,8 +6,8 @@ import Pet from '../Core/Pet';
 class Shadowfiend extends Pet {
   _pet = PETS.SHADOWFIEND;
 
-  on_initialized(){
-    this.active = !this.owner.selectedCombatant.hasTalent(SPELLS.MINDBENDER_TALENT_SHADOW.id);
+  on_initialized() {
+    this.active = !this.combatants.selected.hasTalent(SPELLS.MINDBENDER_TALENT_SHADOW.id);
 
     super.on_initialized();
   }

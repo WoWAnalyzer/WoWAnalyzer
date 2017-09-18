@@ -42,10 +42,8 @@ class MasteryEffectiveness extends Module {
       if (beaconPlayerId === null) {
         // No (valid) target so discard position to prevent an old position from being considered
         this.lastBeaconPositionUpdate = null;
-      } else {
-        if (this.owner.byPlayer(event, beaconPlayerId)) {
-          this.updateBeaconPosition(event);
-        }
+      } else if (this.owner.byPlayer(event, beaconPlayerId)) {
+        this.updateBeaconPosition(event);
       }
     }
   }
@@ -59,10 +57,8 @@ class MasteryEffectiveness extends Module {
       if (beaconPlayerId === null) {
         // No (valid) target so discard position to prevent an old position from being considered
         this.lastBeaconPositionUpdate = null;
-      } else {
-        if (this.owner.toPlayer(event, beaconPlayerId)) {
-          this.updateBeaconPosition(event);
-        }
+      } else if (this.owner.toPlayer(event, beaconPlayerId)) {
+        this.updateBeaconPosition(event);
       }
     }
   }
@@ -75,10 +71,8 @@ class MasteryEffectiveness extends Module {
       if (beaconPlayerId === null) {
         // No (valid) target so discard position to prevent an old position from being considered
         this.lastBeaconPositionUpdate = null;
-      } else {
-        if (this.owner.toPlayer(event, beaconPlayerId)) {
-          this.updateBeaconPosition(event);
-        }
+      } else if (this.owner.toPlayer(event, beaconPlayerId)) {
+        this.updateBeaconPosition(event);
       }
     }
   }
@@ -92,10 +86,8 @@ class MasteryEffectiveness extends Module {
       if (beaconPlayerId === null) {
         // No (valid) target so discard position to prevent an old position from being considered
         this.lastBeaconPositionUpdate = null;
-      } else {
-        if (this.owner.toPlayer(event, beaconPlayerId)) {
-          this.updateBeaconPosition(event);
-        }
+      } else if (this.owner.toPlayer(event, beaconPlayerId)) {
+        this.updateBeaconPosition(event);
       }
     }
 
@@ -186,7 +178,7 @@ class MasteryEffectiveness extends Module {
     const timeSince = event.timestamp - lastPositionUpdate.timestamp;
     const maxDistance = Math.max(1, timeSince / 1000 * 10 * 1.5); // 10 yards per second + 50% margin of error
     if (distance > maxDistance) {
-      debug && console.warn(forWho, 'distance since previous event (' + (Math.round(timeSince / 100) / 10) + 's ago) was ' + (Math.round(distance * 10) / 10) + ' yards:', event.type, event, lastPositionUpdate.type, lastPositionUpdate);
+      debug && console.warn(forWho, `distance since previous event (${Math.round(timeSince / 100) / 10}s ago) was ${Math.round(distance * 10) / 10} yards:`, event.type, event, lastPositionUpdate.type, lastPositionUpdate);
     }
   }
 

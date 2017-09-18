@@ -12,6 +12,7 @@ import CastEfficiency from './Modules/Features/CastEfficiency';
 import CooldownTracker from './Modules/Features/CooldownTracker';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import DamageDone from './Modules/MMCore/DamageDone';
+import VulnerableUpTime from './Modules/Features/VulnerableUptime';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -22,6 +23,7 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     castEfficiency: CastEfficiency,
     cooldownTracker: CooldownTracker,
+    vulnerabluptime: VulnerableUpTime,
   };
 
   generateResults() {
@@ -40,7 +42,7 @@ class CombatLogParser extends CoreCombatLogParser {
         url: 'talents',
         render: () => (
           <Tab title="Talents">
-            <Talents combatant={this.selectedCombatant} />
+            <Talents combatant={this.modules.combatants.selected} />
           </Tab>
         ),
       },

@@ -11,7 +11,7 @@ class Ekowraith extends Module {
   hasGuardianAffinity = false;
 
   on_initialized() {
-    this.hasGuardianAffinity = this.owner.selectedCombatant.lv45Talent === 197491;
+    this.hasGuardianAffinity = this.owner.modules.combatants.selected.lv45Talent === 197491;
   }
 
   on_byPlayer_heal(event) {
@@ -19,13 +19,12 @@ class Ekowraith extends Module {
 
     if (spellId === SPELLS.YSERAS_GIFT_1.id || spellId === SPELLS.YSERAS_GIFT_2.id) {
       this.healing += (event.amount - (event.amount / EKOWRAITH_INCREASED_EFFECT));
-      return;
     }
   }
 
   on_toPlayer_damage(event) {
-    if(this.hasGuardianAffinity) {
-      this.damageReductionHealing += event.amount * ((GUARDIAN_DAMAGE_REDUCTION * EKOWRAITH_INCREASED_EFFECT)-GUARDIAN_DAMAGE_REDUCTION);
+    if (this.hasGuardianAffinity) {
+      this.damageReductionHealing += event.amount * ((GUARDIAN_DAMAGE_REDUCTION * EKOWRAITH_INCREASED_EFFECT) - GUARDIAN_DAMAGE_REDUCTION);
     }
   }
 }

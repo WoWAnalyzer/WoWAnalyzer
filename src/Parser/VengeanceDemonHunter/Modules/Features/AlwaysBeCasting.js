@@ -34,7 +34,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
   ];
 
   suggestions(when) {
-
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
 
     when(deadTimePercentage).isGreaterThan(0.20)
@@ -47,7 +46,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       });
   }
   statistic() {
-
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
 
     return (
@@ -55,7 +53,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
         icon={<Icon icon="spell_mage_altertime" alt="Dead GDC time" />}
         value={`${formatPercentage(deadTimePercentage)} %`}
         label="Dead GCD time"
-        tooltip={`Dead GCD time is available casting time not used. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), etc.`}
+        tooltip={'Dead GCD time is available casting time not used. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), etc.'}
       />
     );
   }

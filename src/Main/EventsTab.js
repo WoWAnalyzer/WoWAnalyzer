@@ -39,6 +39,11 @@ class EventsTab extends React.Component {
     const abilityFilterRegExp = this.state.abilityFilter && new RegExp(this.state.abilityFilter, 'i');
     const targetFilterRegExp = this.state.targetFilter && new RegExp(this.state.targetFilter, 'i');
 
+    // TODO: Use react-virtualized for performance
+    // TODO: Show active buffs like WCL
+    // TODO: Allow searching for players by name
+    // TODO: Pollish so this can be turned on for everyone
+
     return (
       <div>
         <div className="panel-heading">
@@ -69,7 +74,7 @@ class EventsTab extends React.Component {
             <tbody>
               {parser._debugEventHistory
                 .map((event, i) => ({ ...event, eventUniqueId: i })) // this greatly speeds up rendering
-                .filter(event => {
+                .filter((event) => {
                   if (sourceFilterRegExp && !sourceFilterRegExp.test(event.sourceID)) {
                     return false;
                   }
@@ -84,7 +89,7 @@ class EventsTab extends React.Component {
                   }
                   return true;
                 })
-                .map(event => {
+                .map((event) => {
                   const source = event.sourceID ? this.findEntity(event.sourceID) : event.source;
                   const target = event.targetID ? this.findEntity(event.targetID) : event.target;
 

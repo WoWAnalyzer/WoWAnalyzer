@@ -5,11 +5,9 @@ import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
 import SPELLS from 'common/SPELLS';
-import Icon from 'common/Icon';
+import SpellIcon from 'common/SpellIcon';
 
-import { formatPercentage } from 'common/format';
-import { formatThousands } from 'common/format';
-import { formatDuration } from 'common/format';
+import { formatPercentage, formatThousands, formatDuration } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class SigilOfFlame extends Module {
@@ -19,7 +17,6 @@ class SigilOfFlame extends Module {
   };
 
   statistic() {
-
     const sigilOfFlameUptime = this.enemies.getBuffUptime(SPELLS.SIGIL_OF_FLAME_DEBUFF.id);
 
     const sigilOfFlameUptimePercentage = sigilOfFlameUptime / this.owner.fightDuration;
@@ -28,9 +25,9 @@ class SigilOfFlame extends Module {
 
     return (
       <StatisticBox
-        icon={<Icon icon="ability_demonhunter_sigilofinquisition" alt="Sigil of Flame" />}
+        icon={<SpellIcon id={SPELLS.SIGIL_OF_FLAME.id} />}
         value={`${formatPercentage(sigilOfFlameUptimePercentage)}%`}
-        label='Sigil of Flame Uptime'
+        label="Sigil of Flame Uptime"
         tooltip={`The Sigil of Flame total damage was ${formatThousands(sigilOfFlameDamage)}.<br/>The Sigil of Flame total uptime was ${formatDuration(sigilOfFlameUptime / 1000)}.`}
       />
     );

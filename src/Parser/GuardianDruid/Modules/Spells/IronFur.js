@@ -38,11 +38,10 @@ class IronFur extends Module {
     // Physical
     if (event.ability.type === 1) {
       if (this.lastIronfurBuffApplied > 0) {
-        this.physicalHitsWithIronFur++;
+        this.physicalHitsWithIronFur += 1;
         this.physicalDamageWithIronFur += event.amount + (event.absorbed || 0) + (event.overkill || 0);
-      }
-      else {
-        this.physicalHitsWithoutIronFur++;
+      } else {
+        this.physicalHitsWithoutIronFur += 1;
         this.physicalDamageWithoutIronFur += event.amount + (event.absorbed || 0) + (event.overkill || 0);
       }
     }
@@ -50,16 +49,16 @@ class IronFur extends Module {
 
   on_finished() {
     if (debug) {
-      console.log('Hits with ironfur ' + this.physicalHitsWithIronFur);
-      console.log('Damage with ironfur ' + this.physicalDamageWithIronFur);
-      console.log('Hits without ironfur ' + this.physicalHitsWithoutIronFur);
-      console.log('Damage without ironfur ' + this.physicalDamageWithoutIronFur);
-      console.log('Total physical ' + this.physicalDamageWithoutIronFur + this.physicalDamageWithIronFur);
+      console.log(`Hits with ironfur ${this.physicalHitsWithIronFur}`);
+      console.log(`Damage with ironfur ${this.physicalDamageWithIronFur}`);
+      console.log(`Hits without ironfur ${this.physicalHitsWithoutIronFur}`);
+      console.log(`Damage without ironfur ${this.physicalDamageWithoutIronFur}`);
+      console.log(`Total physical ${this.physicalDamageWithoutIronFur}${this.physicalDamageWithIronFur}`);
     }
   }
 
   suggestions(when) {
-    const physicalDamageMitigatedPercent = this.physicalDamageWithIronFur/(this.physicalDamageWithIronFur+this.physicalDamageWithoutIronFur);
+    const physicalDamageMitigatedPercent = this.physicalDamageWithIronFur / (this.physicalDamageWithIronFur + this.physicalDamageWithoutIronFur);
 
     when(physicalDamageMitigatedPercent).isLessThan(0.90)
       .addSuggestion((suggest, actual, recommended) => {
@@ -73,14 +72,14 @@ class IronFur extends Module {
 
   statistic() {
     const totalIronFurTime = this.combatants.selected.getBuffUptime(SPELLS.IRONFUR.id);
-    const physicalHitsMitigatedPercent = this.physicalHitsWithIronFur/(this.physicalHitsWithIronFur+this.physicalHitsWithoutIronFur);
-    const physicalDamageMitigatedPercent = this.physicalDamageWithIronFur/(this.physicalDamageWithIronFur+this.physicalDamageWithoutIronFur);
+    const physicalHitsMitigatedPercent = this.physicalHitsWithIronFur / (this.physicalHitsWithIronFur + this.physicalHitsWithoutIronFur);
+    const physicalDamageMitigatedPercent = this.physicalDamageWithIronFur / (this.physicalDamageWithIronFur + this.physicalDamageWithoutIronFur);
 
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.IRONFUR.id} />}
-        value={`${formatPercentage(totalIronFurTime/this.owner.fightDuration)}%`}
-        label='Ironfur uptime'
+        value={`${formatPercentage(totalIronFurTime / this.owner.fightDuration)}%`}
+        label="Ironfur uptime"
         tooltip={`Ironfur usage breakdown:
             <ul>
                 <li>You were hit <b>${this.physicalHitsWithIronFur}</b> times with your Ironfur buff (<b>${formatThousands(this.physicalDamageWithIronFur)}</b> damage).</li>

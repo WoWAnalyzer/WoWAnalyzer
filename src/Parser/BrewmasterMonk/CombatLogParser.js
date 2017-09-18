@@ -15,7 +15,7 @@ import DamageDone from './Modules/Core/DamageDone';
 import HealingReceived from './Modules/Core/HealingReceived';
 import Stagger from './Modules/Core/Stagger';
 
-//Spells
+// Spells
 import IronSkinBrew from './Modules/Spells/IronSkinBrew';
 import BlackoutCombo from './Modules/Spells/BlackoutCombo';
 
@@ -36,11 +36,11 @@ class CombatLogParser extends CoreCombatLogParser {
     damageTaken: DamageTaken,
     stagger: Stagger,
     damageDone: DamageDone,
-    
+
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     castEfficiency: CastEfficiency,
-    
+
     // Spells
     ironSkinBrew: IronSkinBrew,
     blackoutCombo: BlackoutCombo,
@@ -66,7 +66,7 @@ class CombatLogParser extends CoreCombatLogParser {
         url: 'talents',
         render: () => (
           <Tab title="Talents">
-            <Talents combatant={this.selectedCombatant} />
+            <Talents combatant={this.modules.combatants.selected} />
           </Tab>
         ),
       },

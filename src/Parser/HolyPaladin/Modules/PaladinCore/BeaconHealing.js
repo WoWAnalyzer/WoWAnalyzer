@@ -9,8 +9,8 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-import CastEfficiency  from '../Features/CastEfficiency';
-import PaladinAbilityTracker  from '../PaladinCore/PaladinAbilityTracker';
+import CastEfficiency from '../Features/CastEfficiency';
+import PaladinAbilityTracker from '../PaladinCore/PaladinAbilityTracker';
 
 class BeaconHealing extends Module {
   static dependencies = {

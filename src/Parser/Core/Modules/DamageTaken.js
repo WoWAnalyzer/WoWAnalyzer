@@ -20,12 +20,20 @@ class DamageTaken extends Module {
   get total() {
     return this._total;
   }
+
   _byAbility = {};
   byAbility(spellId) {
+    if (!this._byAbility[spellId]) {
+      return new DamageValue(0, 0, 0);
+    }
     return this._byAbility[spellId];
   }
+
   _byMagicSchool = {};
   byMagicSchool(magicSchool) {
+    if (!this._byMagicSchool[magicSchool]) {
+      return new DamageValue(0, 0, 0);
+    }
     return this._byMagicSchool[magicSchool];
   }
 

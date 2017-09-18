@@ -11,14 +11,14 @@ class DamageDone extends CoreDamageDone {
   statistic() {
     return (
       <StatisticBox
-      icon={<Icon icon="class_demonhunter" alt="Damage done" />}
-      value={`${formatNumber(this.total.effective / this.owner.fightDuration * 1000)} DPS`}
-      label='Damage done'
-      tooltip={`The total damage done was ${formatThousands(this.total.effective)}.`}
+        icon={<Icon icon="class_demonhunter" alt="Damage done" />}
+        value={`${formatNumber(this.total.effective / this.owner.fightDuration * 1000)} DPS`}
+        label="Damage done"
+        tooltip={`The total damage done was ${formatThousands(this.total.effective)}.`}
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(2);
+  statisticOrder = STATISTIC_ORDER.CORE(1);
 }
 
 export default DamageDone;

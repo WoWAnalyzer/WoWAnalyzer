@@ -70,6 +70,11 @@ class Event extends React.PureComponent {
               {formatThousands(event.amount)} {event.absorbed ? <span className="absorbed">(A: {formatThousands(event.absorbed)})</span> : null} {event.overheal ? <span className="overheal">(O: {formatThousands(event.overheal)})</span> : null}
             </span>
           )}
+          {event.type === 'absorbed' && (
+            <span className={event.type}>
+              A: {formatThousands(event.amount)}
+            </span>
+          )}
         </td>
       </tr>
     );

@@ -34,7 +34,7 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
-    //Core
+    // Core
     damageTaken: DamageTaken,
     healingDone: HealingDone,
     damageDone: DamageDone,
@@ -81,7 +81,7 @@ class CombatLogParser extends CoreCombatLogParser {
         url: 'talents',
         render: () => (
           <Tab title="Talents">
-            <Talents combatant={this.selectedCombatant} />
+            <Talents combatant={this.modules.combatants.selected} />
           </Tab>
         ),
       },

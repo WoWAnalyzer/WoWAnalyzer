@@ -13,7 +13,7 @@ const HEROISM_30_PERCENT = [
   SPELLS.HEROISM.id,
   SPELLS.BLOODLUST.id,
   SPELLS.TIME_WARP.id,
-  SPELLS.NETHERWINDS.id,// Netherwinds
+  SPELLS.NETHERWINDS.id, // Netherwinds
   SPELLS.ANCIENT_HYSTERIA.id,
 ];
 
@@ -47,7 +47,7 @@ class UncertainReminder extends Module {
   hasteHealing = 0;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasHead(ITEMS.UNCERTAIN_REMINDER.id);
+    this.active = this.owner.modules.combatants.selected.hasHead(ITEMS.UNCERTAIN_REMINDER.id);
     // We apply heroism at the start incase it was popped before the pull. If we see it's
     // applied before it drops, we discard all the events.
     this.heroismStart = this.owner.fight.start_time;
@@ -73,7 +73,6 @@ class UncertainReminder extends Module {
 
     this.events.forEach((event) => {
       if (event.timestamp > startExtraHeroTime) {
-
         const spellId = event.ability.guid;
 
         if (SPELLS_SCALING_WITH_HASTE.indexOf(spellId) > -1) {
@@ -89,7 +88,6 @@ class UncertainReminder extends Module {
   }
 
   on_toPlayer_applybuff(event) {
-
     const spellId = event.ability.guid;
 
     if (HEROISM_30_PERCENT.indexOf(spellId) > -1) {
@@ -106,7 +104,6 @@ class UncertainReminder extends Module {
   }
 
   on_toPlayer_removebuff(event) {
-
     const spellId = event.ability.guid;
 
     if (HEROISM_30_PERCENT.indexOf(spellId) > -1) {

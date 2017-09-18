@@ -19,12 +19,14 @@ export default {
     icon: 'spell_warlock_soulburn',
   },
 
-  //Racial:
+  // Racial:
   ARCANE_TORRENT: {
     id: 202719,
     name: 'Arcane Torrent',
     icon: 'spell_shadow_teleport',
   },
+
+  // Vengeance
 
   // Passive:
   DEMONIC_WARDS: {
@@ -34,15 +36,18 @@ export default {
   },
   SEVER: {
     id: 235964,
-    name :'Sever',
+    name: 'Sever',
     icon: 'ability_demonhunter_manabreak',
   },
 
   // Abilities:
-
-  // Vengeance
   SOUL_FRAGMENT: {
     id: 204255,
+    name: 'Soul Fragment',
+    icon: 'spell_shadow_soulgem',
+  },
+  SOUL_FRAGMENT_STACK: {
+    id: 203981,
     name: 'Soul Fragment',
     icon: 'spell_shadow_soulgem',
   },
@@ -57,19 +62,19 @@ export default {
     icon: 'ability_demonhunter_sigilofsilence',
   },
   SIGIL_OF_FLAME: {
-      id: 204596,
-      name: 'Sigil of Flame',
-      icon: 'ability_demonhunter_sigilofinquisition',
+    id: 204596,
+    name: 'Sigil of Flame',
+    icon: 'ability_demonhunter_sigilofinquisition',
   },
   SIGIL_OF_FLAME_DEBUFF: {
-      id: 204598,
-      name: 'Sigil of Flame Debuff',
-      icon: 'ability_demonhunter_sigilofinquisition',
+    id: 204598,
+    name: 'Sigil of Flame',
+    icon: 'ability_demonhunter_sigilofinquisition',
   },
   SIGIL_OF_MISERY: {
-      id: 207684,
-      name: 'Sigil of Misery',
-      icon: 'ability_demonhunter_sigilofmisery',
+    id: 207684,
+    name: 'Sigil of Misery',
+    icon: 'ability_demonhunter_sigilofmisery',
   },
   DEMON_SPIKES: {
     id: 203720,
@@ -87,7 +92,7 @@ export default {
     name: 'Fiery Brand',
     icon: 'ability_demonhunter_fierybrand',
   },
-  METAMORPHOSIS: {
+  METAMORPHOSIS_TANK: {
     id: 187827,
     name: 'Metamorphosis',
     icon: 'ability_demonhunter_metamorphasistank',
@@ -181,11 +186,31 @@ export default {
     name: 'Fury of the Illidari',
     icon: 'inv_glaive_1h_artifactazgalor_d_01',
   },
+  CONSUME_MAGIC: {
+    id: 183752,
+    name: 'Consume Magic',
+    icon: 'ability_demonhunter_consumemagic',
+  },
+  VENGEFUL_RETREAT: {
+    id: 198793,
+    name: 'Vengeful Retreat',
+    icon: 'ability_demonhunter_vengefulretreat2',
+  },
+  METAMORPHOSIS_HAVOC: {
+    id: 200166,
+    name: 'Metamorphosis',
+    icon: 'ability_demonhunter_metamorphasisdps',
+  },
 
   // Talents
   FRAILTY_SPIRIT_BOMB_DEBUFF: {
     id: 247456,
     name: 'Frailty',
+    icon: 'inv_icon_shadowcouncilorb_purple',
+  },
+  SPIRIT_BOMB_DAMAGE: {
+    id: 247455,
+    name: 'Spirit Bomb',
     icon: 'inv_icon_shadowcouncilorb_purple',
   },
   FELBLADE_PAIN_GENERATION: {
@@ -217,7 +242,7 @@ export default {
   },
   CONCORDANCE_OF_THE_LEGIONFALL: {
     id: 239042,
-    name:'Concordance of the Legionfall',
+    name: 'Concordance of the Legionfall',
     icon: 'trade_archaeology_shark-jaws',
   },
   DEFENSIVE_SPIKES: {
@@ -301,8 +326,8 @@ export default {
     icon: 'inv_glaive_1h_artifactaldrochi_d_02dual',
   },
   TORMENTED_SOULS: {
-    id:214744,
-    name:'Tormented Souls',
+    id: 214744,
+    name: 'Tormented Souls',
     icon: 'ability_demonhunter_soulcleave',
   },
   WILL_OF_THE_ILLIDARI: {

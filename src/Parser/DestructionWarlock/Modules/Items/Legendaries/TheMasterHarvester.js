@@ -12,9 +12,7 @@ class TheMasterHarvester extends Module {
   };
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.combatants.selected.hasChest(ITEMS.THE_MASTER_HARVESTER.id);
-    }
+    this.active = this.combatants.selected.hasChest(ITEMS.THE_MASTER_HARVESTER.id);
   }
 
   item() {

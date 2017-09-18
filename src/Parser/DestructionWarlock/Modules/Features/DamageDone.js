@@ -9,18 +9,16 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 class DamageDone extends CoreDamageDone {
   petDmg = 0;
 
-  petIds = [];
+  _petIds = new Set();
 
   on_initialized() {
-    this.owner.report.friendlyPets.filter(pet => pet.petOwner === this.owner.playerId).forEach(pet => {
-      if (this.petIds.indexOf(pet.id) === -1) {
-        this.petIds.push(pet.id);
-      }
+    this.owner.playerPets.forEach((pet) => {
+      this._petIds.add(pet.id);
     });
   }
 
   on_damage(event) {
-    if (this.petIds.indexOf(event.sourceID) === -1) {
+    if (!this._petIds.has(event.sourceID)) {
       return;
     }
     this.petDmg += event.amount + (event.absorbed || 0);
@@ -37,7 +35,7 @@ class DamageDone extends CoreDamageDone {
             alt="Destruction Warlock"
           />)}
         value={`${formatNumber((totalDmg / this.owner.fightDuration) * 1000)} DPS`}
-        label='Damage done'
+        label="Damage done"
         tooltip={`The total damage (including pets) recorded was ${formatThousands(totalDmg)}`}
       />
     );

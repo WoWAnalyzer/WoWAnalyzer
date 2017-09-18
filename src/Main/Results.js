@@ -38,7 +38,7 @@ class Results extends React.Component {
   render() {
     const { parser, tab, onChangeTab } = this.props;
 
-    if (!parser.modules.combatants.selected) {
+    if (!parser._modules.combatants.selected) {
       return (
         <div>
           <h1>
@@ -50,7 +50,7 @@ class Results extends React.Component {
             Initializing report...
           </h1>
 
-          <div className="spinner"/>
+          <div className="spinner" />
         </div>
       );
     }
@@ -159,17 +159,16 @@ class Results extends React.Component {
                           return -1;
                         } else if (a.id > b.id) {
                           return 1;
-                        } else {
-                          return 0;
                         }
+                        return 0;
                       })
-                      .map(item => {
+                      .map((item) => {
                         if (!item) {
                           return null;
                         }
 
                         const id = item.id || item.item.id;
-                        const itemDetails = id && parser.modules.combatants.selected.getItem(id);
+                        const itemDetails = id && parser._modules.combatants.selected.getItem(id);
                         const icon = item.icon || <ItemIcon id={item.item.id} details={itemDetails} />;
                         const title = item.title || <ItemLink id={item.item.id} details={itemDetails} />;
 

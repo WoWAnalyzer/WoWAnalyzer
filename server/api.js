@@ -9,6 +9,8 @@ const WclApiResponse = models.WclApiResponse;
 
 const WCL_MAINTENANCE_STRING = 'Warcraft Logs is down for maintenance';
 
+/* eslint-disable no-use-before-define */
+
 class ApiController {
   static handle(req, res) {
     const handler = new ApiRequestHandler(req, res);
@@ -105,7 +107,7 @@ class ApiRequestHandler {
     } catch (error) {
       if (error.statusCode >= 400 && error.statusCode < 600) {
         const message = error.error || error.message; // if this is a `request` error, `error` contains the plain JSON while `message` also has the statusCode so is polluted.
-        console.error('WCL Error (' + error.statusCode + '): ' + message);
+        console.error(`WCL Error (${error.statusCode}): ${message}`);
         this.res.status(error.statusCode);
         this.sendJson({
           error: 'WCL API error',

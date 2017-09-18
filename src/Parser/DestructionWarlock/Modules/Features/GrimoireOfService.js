@@ -19,16 +19,14 @@ const GRIMOIRE_IDS = [
   SPELLS.GRIMOIRE_SUCCUBUS.id,
 ];
 
-class DoomguardInfernal extends Module {
+class GrimoireOfService extends Module {
   static dependencies = {
     abilityTracker: AbilityTracker,
     combatants: Combatants,
   };
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.combatants.selected.hasTalent(SPELLS.GRIMOIRE_OF_SERVICE_TALENT.id);
-    }
+    this.active = this.combatants.selected.hasTalent(SPELLS.GRIMOIRE_OF_SERVICE_TALENT.id);
   }
   suggestions(when) {
     const maxCasts = Math.ceil(calculateMaxCasts(SUMMON_COOLDOWN, this.owner.fightDuration));
@@ -36,7 +34,7 @@ class DoomguardInfernal extends Module {
     const percentage = actualCasts / maxCasts;
     when(percentage).isLessThan(0.9)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You should use <SpellLink id={SPELLS.GRIMOIRE_OF_SERVICE_TALENT.id}/> more often, preferably on <SpellLink id={SPELLS.GRIMOIRE_IMP.id}/>.</span>)
+        return suggest(<span>You should use <SpellLink id={SPELLS.GRIMOIRE_OF_SERVICE_TALENT.id} /> more often, preferably on <SpellLink id={SPELLS.GRIMOIRE_IMP.id} />.</span>)
           .icon(SPELLS.GRIMOIRE_OF_SERVICE_TALENT.icon)
           .actual(`${actualCasts} out of ${maxCasts} (${formatPercentage(actual)} %) Grimoire of Service casts.`)
           .recommended(`> ${formatPercentage(recommended)} % is recommended`)
@@ -44,4 +42,4 @@ class DoomguardInfernal extends Module {
       });
   }
 }
-export default DoomguardInfernal;
+export default GrimoireOfService;

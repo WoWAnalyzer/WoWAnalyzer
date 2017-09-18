@@ -82,7 +82,7 @@ class Maelstrom extends React.PureComponent {
         }
       });
 
-    return Promise.all([ manaPromise, bossHealthPromise ]);
+    return Promise.all([manaPromise, bossHealthPromise]);
   }
 
   render() {
@@ -137,8 +137,8 @@ class Maelstrom extends React.PureComponent {
 
     const abilitiesAll = {};
     const categories = {
-      'generated': 'Generated',
-      'spend': 'Spend',
+      generated: 'Generated',
+      spend: 'Spend',
     };
 
     const overCapBySecond = {};
@@ -150,15 +150,15 @@ class Maelstrom extends React.PureComponent {
         overCapBySecond[lastOverCap + 1] = 0;
       }
       overCapBySecond[secIntoFight] = event.waste;
-      if (event.waste > 0 ) {
+      if (event.waste > 0) {
         lastOverCap = secIntoFight;
-        //if (!overCapBySecond[secIntoFight - 1])
+        // if (!overCapBySecond[secIntoFight - 1])
         //  overCapBySecond[secIntoFight - 1] = 0;
       }
       if (event.type === 'cast') {
         const spell = SPELLS[event.ability.guid];
-        if (!abilitiesAll[event.ability.guid + '_spend']) {
-          abilitiesAll[event.ability.guid + '_spend'] = {
+        if (!abilitiesAll[`${event.ability.guid}_spend`]) {
+          abilitiesAll[`${event.ability.guid}_spend`] = {
             ability: {
               category: 'Spend',
               name: spell.name || event.ability.name,
@@ -170,15 +170,15 @@ class Maelstrom extends React.PureComponent {
             wasted: 0,
           };
         }
-        abilitiesAll[event.ability.guid + '_spend'].casts++;
-        const lastMana = lastSecFight === secIntoFight ? manaBySecond[lastSecFight-1] : manaBySecond[lastSecFight];
+        abilitiesAll[`${event.ability.guid}_spend`].casts += 1;
+        const lastMana = lastSecFight === secIntoFight ? manaBySecond[lastSecFight - 1] : manaBySecond[lastSecFight];
         const spendResource = spell.maelstrom ? spell.maelstrom : (spell.max_maelstrom < lastMana ? spell.max_maelstrom : lastMana);
-        abilitiesAll[event.ability.guid + '_spend'].spend += spendResource;
-        abilitiesAll[event.ability.guid + '_spend'].wasted += spell.max_maelstrom ? spell.max_maelstrom - spendResource: 0;
+        abilitiesAll[`${event.ability.guid}_spend`].spend += spendResource;
+        abilitiesAll[`${event.ability.guid}_spend`].wasted += spell.max_maelstrom ? spell.max_maelstrom - spendResource : 0;
       } else if (event.type === 'energize') {
-        if (!abilitiesAll[event.ability.guid + '_gen']) {
+        if (!abilitiesAll[`${event.ability.guid}_gen`]) {
           const spell = SPELLS[event.ability.guid];
-          abilitiesAll[event.ability.guid + '_gen'] = {
+          abilitiesAll[`${event.ability.guid}_gen`] = {
             ability: {
               category: 'Generated',
               name: spell.name || event.ability.name,
@@ -190,17 +190,17 @@ class Maelstrom extends React.PureComponent {
             wasted: 0,
           };
         }
-        abilitiesAll[event.ability.guid + '_gen'].casts++;
-        abilitiesAll[event.ability.guid + '_gen'].created += event.resourceChange;
-        abilitiesAll[event.ability.guid + '_gen'].wasted += event.waste;
+        abilitiesAll[`${event.ability.guid}_gen`].casts += 1;
+        abilitiesAll[`${event.ability.guid}_gen`].created += event.resourceChange;
+        abilitiesAll[`${event.ability.guid}_gen`].wasted += event.waste;
       }
       if (secIntoFight !== lastSecFight) {
         lastSecFight = secIntoFight;
       }
     });
 
-    const abilities = Object.keys(abilitiesAll).map((key) => abilitiesAll[key]);
-    abilities.sort((a,b) => {
+    const abilities = Object.keys(abilitiesAll).map(key => abilitiesAll[key]);
+    abilities.sort((a, b) => {
       if (a.created < b.created) {
         return 1;
       } else if (a.created === b.created) {
@@ -223,7 +223,7 @@ class Maelstrom extends React.PureComponent {
     }
 
     const chartData = {
-      labels: labels,
+      labels,
       series: [
         ...bosses.map((series, index) => ({
           className: `boss-health boss-${index} boss-${series.guid}`,
