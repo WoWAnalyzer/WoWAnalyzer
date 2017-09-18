@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import ITEMS  from 'common/ITEMS';
+import ITEMS from 'common/ITEMS';
 
 import Module from 'Parser/Core/Module';
 
@@ -19,18 +19,17 @@ class InnerHallation extends Module {
   on_byPlayer_cast(event) {
     if (this.owner.modules.combatants.selected.hasTalent(SPELLS.POWER_INFUSION.id) && event.ability.guid === SPELLS.POWER_INFUSION.id) {
       this.lastPowerInfusionCastStartTimestamp = event.timestamp;
-      return;
     } else if (this.owner.modules.combatants.selected.hasBuff(SPELLS.POWER_INFUSION.id) && (event.timestamp + 20000) > this.lastPowerInfusionCastStartTimestamp) {
-      const spellId   = event.ability.guid;
-      const manaCost  = event.manaCost;
+      const spellId = event.ability.guid;
+      const manaCost = event.manaCost;
       if (!manaCost) {
         return;
       }
 
-      const manaSaved   = Math.floor(manaCost / 3);
+      const manaSaved = Math.floor(manaCost / 3);
 
       if (!event.isManaCostNullified) {
-        this.manaGained   += manaSaved;
+        this.manaGained += manaSaved;
         debug && console.log('Inner Hallation saved', manaSaved, 'mana on', SPELLS[spellId].name, ', normally costing', manaCost, event);
       } else {
         debug && console.log('Inner Hallation saved 0 mana on', SPELLS[spellId].name, 'costing', manaCost, 'since Innervate or Symbol of Hope is active (normally ', manaSaved, ' mana)', event);

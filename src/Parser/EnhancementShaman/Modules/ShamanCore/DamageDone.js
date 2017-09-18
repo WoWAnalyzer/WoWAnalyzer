@@ -12,7 +12,7 @@ class DamageDone extends CoreDamageDone {
   totalDmg = 0;
 
   on_initialized() {
-    this.owner.report.friendlyPets.filter(pet => pet.petOwner === this.owner.playerId).forEach(pet => {
+    this.owner.report.friendlyPets.filter(pet => pet.petOwner === this.owner.playerId).forEach((pet) => {
       if (this.petIds.indexOf(pet.id) === -1) {
         this.petIds.push(pet.id);
       }

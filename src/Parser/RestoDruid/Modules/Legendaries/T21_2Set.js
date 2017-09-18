@@ -37,7 +37,8 @@ class T21_2Set extends Module {
             <ul>
             <li>Direct: <b>${formatPercentage(directPercent)}%</b></li>
             <li>Mastery: <b>${formatPercentage(masteryPercent)}%</b></li>
-            </ul>`}>
+            </ul>`}
+        >
           {this.owner.formatItemHealingDone(directHealing + masteryHealing)}
         </dfn>
       ),

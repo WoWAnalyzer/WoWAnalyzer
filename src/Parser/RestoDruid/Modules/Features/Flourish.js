@@ -56,7 +56,7 @@ class Flourish extends Module {
     const oldWgCount = this.wildGrowth;
     Object.keys(this.combatants.players)
       .map(player => this.combatants.players[player])
-      .forEach(player => {
+      .forEach((player) => {
         if (player.hasBuff(SPELLS.WILD_GROWTH.id, event.timestamp, 0, 0) === true) {
           this.wildGrowth += 1;
         }
@@ -70,7 +70,7 @@ class Flourish extends Module {
     // Rejuvenation
     Object.keys(this.combatants.players)
       .map(player => this.combatants.players[player])
-      .forEach(player => {
+      .forEach((player) => {
         if (player.hasBuff(SPELLS.REJUVENATION.id, event.timestamp, 0, 0) === true) {
           this.rejuvenation += 1;
         }
@@ -81,10 +81,10 @@ class Flourish extends Module {
         }
       });
 
-    //Regrowth
+    // Regrowth
     Object.keys(this.combatants.players)
       .map(player => this.combatants.players[player])
-      .forEach(player => {
+      .forEach((player) => {
         if (player.hasBuff(SPELLS.REGROWTH.id, event.timestamp, 0, 0) === true) {
           this.regrowth += 1;
         }
@@ -93,7 +93,7 @@ class Flourish extends Module {
     // Cultivation
     Object.keys(this.combatants.players)
       .map(player => this.combatants.players[player])
-      .forEach(player => {
+      .forEach((player) => {
         if (this.hasCultivation) {
           if (player.hasBuff(SPELLS.CULTIVATION.id, event.timestamp, 0, 0) === true) {
             this.cultivation += 1;
@@ -104,7 +104,7 @@ class Flourish extends Module {
     // Cenarion Ward
     Object.keys(this.combatants.players)
       .map(player => this.combatants.players[player])
-      .forEach(player => {
+      .forEach((player) => {
         if (this.hasCenarionWard) {
           if (player.hasBuff(SPELLS.CENARION_WARD.id, event.timestamp, 0, 0) === true) {
             this.cenarionWard += 1;
@@ -115,7 +115,7 @@ class Flourish extends Module {
     // Lifebloom
     Object.keys(this.combatants.players)
       .map(player => this.combatants.players[player])
-      .forEach(player => {
+      .forEach((player) => {
         if (player.hasBuff(SPELLS.LIFEBLOOM_HOT_HEAL.id, event.timestamp, 0, 0) === true) {
           this.lifebloom += 1;
         }
@@ -124,7 +124,7 @@ class Flourish extends Module {
     // Spring blossoms
     Object.keys(this.combatants.players)
       .map(player => this.combatants.players[player])
-      .forEach(player => {
+      .forEach((player) => {
         if (this.hasSpringBlossoms) {
           if (player.hasBuff(SPELLS.SPRING_BLOSSOMS.id, event.timestamp, 0, 0) === true) {
             this.springBlossoms += 1;

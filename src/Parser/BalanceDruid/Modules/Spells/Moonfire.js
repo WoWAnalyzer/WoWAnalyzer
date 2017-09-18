@@ -22,16 +22,16 @@ class Moonfire extends Module {
 
   statistic() {
     const moonfireUptimePercentage = this.owner.modules.enemies.getBuffUptime(SPELLS.MOONFIRE_BEAR.id) / this.owner.fightDuration;
-    
+
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.MOONFIRE_BEAR.id} />}
         value={`${formatPercentage(moonfireUptimePercentage)}%`}
-        label='Moonfire uptime'
+        label="Moonfire uptime"
       />
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(6);
 }
-  
+
 export default Moonfire;

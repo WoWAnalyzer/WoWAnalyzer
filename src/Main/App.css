@@ -273,7 +273,7 @@ hr {
   width: 0%;
   height: 100%;
   background: rgba(228, 90, 90, 0.5);
-  transition: opacity 400ms, width 400ms linear;
+  transition: opacity 400ms;
 }
 .navbar-progress + * {
   position: relative;

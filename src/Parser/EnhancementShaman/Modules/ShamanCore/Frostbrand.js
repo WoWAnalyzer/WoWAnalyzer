@@ -20,7 +20,7 @@ class Frostbrand extends Module {
   suggestions(when) {
     const frostbrandUptime = this.combatants.selected.getBuffUptime(SPELLS.FROSTBRAND.id) / this.owner.fightDuration;
 
-    when(frostbrandUptime).isLessThan(.95)
+    when(frostbrandUptime).isLessThan(0.95)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest('Try to make sure the Frostbrand is always up, when it drops you should refresh it as soon as possible')
           .icon(SPELLS.FROSTBRAND.icon)

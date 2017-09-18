@@ -10,9 +10,6 @@ import SPELLS from 'common/SPELLS';
 import CoreAlwaysBeCasting from 'Parser/Core/Modules/AlwaysBeCasting';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
-  _highestVoidformStack = 0;
-  _highestLingeringStack = 0;
-
   static ABILITIES_ON_GCD = [
     // handled in _removebuff
     // SPELLS.VOID_TORRENT.id,
@@ -28,7 +25,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.SHADOW_WORD_PAIN.id,
     SPELLS.SHADOWFIEND.id,
     SPELLS.SHADOWFIEND_WITH_GLYPH_OF_THE_SHA.id,
-    
+
     // talents:
     SPELLS.MINDBENDER_TALENT_SHADOW.id,
     SPELLS.POWER_INFUSION_TALENT.id,
@@ -65,7 +62,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
 
     when(deadTimePercentage).isGreaterThan(0.2)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your dead GCD time can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. Even if you have to move, try casting something instant - maybe refresh your dots or replenish your mana with <SpellLink id={SPELLS.LIFE_TAP.id}/></span>)
+        return suggest(<span>Your dead GCD time can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. Even if you have to move, try casting something instant - maybe refresh your dots or replenish your mana with <SpellLink id={SPELLS.LIFE_TAP.id} /></span>)
           .icon('spell_mage_altertime')
           .actual(`${formatPercentage(actual)}% dead GCD time`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
@@ -76,10 +73,10 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
   statistic() {
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
     return (<StatisticBox
-        icon={<Icon icon="spell_mage_altertime" alt="Dead GCD time" />}
-        value={`${formatPercentage(deadTimePercentage)} %`}
-        label={(
-          <dfn data-tip="Dead GCD time is available casting time not used. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), etc.">
+      icon={<Icon icon="spell_mage_altertime" alt="Dead GCD time" />}
+      value={`${formatPercentage(deadTimePercentage)} %`}
+      label={(
+        <dfn data-tip="Dead GCD time is available casting time not used. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), etc.">
             Dead GCD time
           </dfn>
         )}

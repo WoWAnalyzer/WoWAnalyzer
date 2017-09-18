@@ -5,7 +5,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Icon from 'common/Icon';
 
 import CoreAlwaysBeCasting from 'Parser/Core/Modules/AlwaysBeCasting';
-  
+
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   static ABILITIES_ON_GCD = [
       // Moonkin:
@@ -18,7 +18,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.NEW_MOON.id,
     SPELLS.HALF_MOON.id,
     SPELLS.FULL_MOON.id,
-  
+
       // Talents
     SPELLS.TYPHOON.id,
     SPELLS.MASS_ENTANGLEMENT_TALENT.id,
@@ -28,9 +28,9 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
   static STATIC_GCD_ABILITIES = {
     ...CoreAlwaysBeCasting.STATIC_GCD_ABILITIES,
     // Shapeshifts
-    [SPELLS.MOONKIN_FORM.id] : 1.5,
-    [SPELLS.DISPLACER_BEAST_TALENT.id] : 1.5,
-    [SPELLS.BEAR_FORM.id] : 1.5,
+    [SPELLS.MOONKIN_FORM.id]: 1.5,
+    [SPELLS.DISPLACER_BEAST_TALENT.id]: 1.5,
+    [SPELLS.BEAR_FORM.id]: 1.5,
   };
 
   recordCastTime(
@@ -54,7 +54,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
 
   suggestions(when) {
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
-    
+
     when(deadTimePercentage).isGreaterThan(0.02)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span> Your downtime can be improved. Try to Always Be Casting (ABC)...</span>)
@@ -67,13 +67,13 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
 
   statistic() {
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
-   
+
     return (
       <StatisticBox
         icon={<Icon icon="spell_mage_altertime" alt="Downtime" />}
         value={`${formatPercentage(deadTimePercentage)} %`}
-        label='Downtime'
-        tooltip='Downtime is available casting time not used. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), etc.'
+        label="Downtime"
+        tooltip="Downtime is available casting time not used. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), etc."
       />
     );
   }

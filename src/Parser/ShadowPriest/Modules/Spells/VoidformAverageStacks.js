@@ -29,11 +29,11 @@ class VoidformAverageStacks extends Module {
 				<br /><br />
 				Managing your <SpellLink id={SPELLS.VOIDFORM.id} />s is a large part of playing shadow. The recommended way is to try to keep your <SpellLink id={SPELLS.VOIDFORM.id} /> cycles to around 60 seconds each, meaning you will have access to 1 <SpellLink id={SPELLS.VOID_TORRENT.id} /> & 1 <SpellLink id={SPELLS.MINDBENDER_TALENT_SHADOW.id} /> each <SpellLink id={SPELLS.VOIDFORM.id} />.
 				<br /><br />
-				A good practice is to use <SpellLink id={SPELLS.VOID_TORRENT.id} /> shortly after entering <SpellLink id={SPELLS.VOIDFORM.id} />. <br/>
+				A good practice is to use <SpellLink id={SPELLS.VOID_TORRENT.id} /> shortly after entering <SpellLink id={SPELLS.VOIDFORM.id} />. <br />
 				At around 28-33 <SpellLink id={SPELLS.VOIDFORM.id} /> stacks, use <SpellLink id={SPELLS.MINDBENDER_TALENT_SHADOW.id} />.
 
 				<br /><br />
-				<SpellLink id={SPELLS.DISPERSION.id} /> can be used to synchronize your cooldowns back in order or in case of an emergency if you are about to fall out of <SpellLink id={SPELLS.VOIDFORM.id} /> and you have a <SpellLink id={SPELLS.MINDBENDER_TALENT_SHADOW.id} /> active.
+    <SpellLink id={SPELLS.DISPERSION.id} /> can be used to synchronize your cooldowns back in order or in case of an emergency if you are about to fall out of <SpellLink id={SPELLS.VOIDFORM.id} /> and you have a <SpellLink id={SPELLS.MINDBENDER_TALENT_SHADOW.id} /> active.
 				</span>)
 			.icon(SPELLS.VOIDFORM_BUFF.icon)
 			.actual(`${formatNumber(actual)} average Voidform stacks.`)
@@ -49,10 +49,10 @@ class VoidformAverageStacks extends Module {
     const lastVoidformWasExcluded = voidforms[voidforms.length - 1].excluded;
 
     return (<StatisticBox
-			icon={<SpellIcon id={SPELLS.VOIDFORM.id} />}
-			value={`${formatNumber(this.voidform.averageVoidformStacks)} stacks`}
-			label={(<dfn data-tip={`The average stacks of your voidforms.${lastVoidformWasExcluded ? 'The last voidform of the fight was excluded since it skewed the average.' : ''}`}>Average voidform</dfn>)}
-		/>);
+      icon={<SpellIcon id={SPELLS.VOIDFORM.id} />}
+      value={`${formatNumber(this.voidform.averageVoidformStacks)} stacks`}
+      label={(<dfn data-tip={`The average stacks of your voidforms.${lastVoidformWasExcluded ? 'The last voidform of the fight was excluded since it skewed the average.' : ''}`}>Average voidform</dfn>)}
+    />);
   }
 
   statisticOrder = STATISTIC_ORDER.CORE(0);

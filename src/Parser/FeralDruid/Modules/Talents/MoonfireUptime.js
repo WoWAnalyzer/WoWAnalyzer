@@ -39,12 +39,12 @@ class moonfireUptime extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.MOONFIRE_BEAR.id} />}
         value={`${formatPercentage(moonfireUptime)} %`}
-        label='Moonfire uptime'
-    />
+        label="Moonfire uptime"
+      />
     );
   }
 
-  statisticOrder = STATISTIC_ORDER.CORE(3);
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(2);
 }
 
 export default moonfireUptime;

@@ -71,7 +71,7 @@ describe('HolyPaladin.CombatLogParser', () => {
     },
   ];
 
-  reorderScenarios.forEach((scenario, idx) => {
+  reorderScenarios.forEach((scenario) => {
     it(scenario.test, () => {
       const parser = new CombatLogParser();
       expect(parser.reorderEvents(scenario.events).map(event => event.testid)).toEqual(scenario.result);

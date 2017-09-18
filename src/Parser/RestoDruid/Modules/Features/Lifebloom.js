@@ -19,7 +19,7 @@ class Lifebloom extends Module {
     return Object.keys(this.combatants.players)
       .map(key => this.combatants.players[key])
       .reduce((uptime, player) =>
-        uptime + player.getBuffUptime(SPELLS.LIFEBLOOM_HOT_HEAL.id),0);
+        uptime + player.getBuffUptime(SPELLS.LIFEBLOOM_HOT_HEAL.id), 0);
   }
 
   suggestions(when) {

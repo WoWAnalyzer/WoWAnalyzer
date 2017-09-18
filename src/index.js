@@ -10,11 +10,11 @@ import registerServiceWorker from './registerServiceWorker';
 
 render(
   <Router history={browserHistory}>
-    <Route path='/' component={App}>
-      <Route path='report/:reportCode' />
-      <Route path='report/:reportCode/:fightId' />
-      <Route path='report/:reportCode/:fightId/:playerName' />
-      <Route path='report/:reportCode/:fightId/:playerName/:resultTab' />
+    <Route path="/" component={App}>
+      <Route path="report/:reportCode" />
+      <Route path="report/:reportCode/:fightId" />
+      <Route path="report/:reportCode/:fightId/:playerName" />
+      <Route path="report/:reportCode/:fightId/:playerName/:resultTab" />
     </Route>
   </Router>,
   document.getElementById('root')

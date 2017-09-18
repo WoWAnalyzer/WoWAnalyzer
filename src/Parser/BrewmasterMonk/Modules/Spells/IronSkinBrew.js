@@ -34,13 +34,13 @@ class IronSkinBrew extends Module {
       this.lastIronSkinBrewBuffApplied = 0;
     }
   }
-  
+
   on_toPlayer_damage(event) {
     if (event.ability.guid !== SPELLS.STAGGER_TAKEN.id) {
       if (this.lastIronSkinBrewBuffApplied > 0) {
         this.hitsWithIronSkinBrew += 1;
         this.damageWithIronSkinBrew += event.amount + (event.absorbed || 0) + (event.overkill || 0);
-      }      else {
+      } else {
         this.hitsWithoutIronSkinBrew += 1;
         this.damageWithoutIronSkinBrew += event.amount + (event.absorbed || 0) + (event.overkill || 0);
       }
@@ -51,7 +51,7 @@ class IronSkinBrew extends Module {
     if (event.ability.guid === SPELLS.STAGGER.id) {
       if (this.lastIronSkinBrewBuffApplied > 0) {
         this.damageWithIronSkinBrew -= event.amount;
-      }      else {
+      } else {
         this.damageWithoutIronSkinBrew -= event.amount;
       }
     }
@@ -87,7 +87,7 @@ class IronSkinBrew extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.IRONSKIN_BREW.id} />}
         value={`${formatPercentage(isbUptime)}%`}
-        label='Ironskin Brew uptime'
+        label="Ironskin Brew uptime"
         tooltip={`Ironskin Brew breakdown (these values are direct damage and does not include damage added to stagger):
             <ul>
                 <li>You were hit <b>${this.hitsWithIronSkinBrew}</b> times with your Ironskin Brew buff (<b>${formatThousands(this.damageWithIronSkinBrew)}</b> damage).</li>

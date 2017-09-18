@@ -31,9 +31,8 @@ class AncestralVigor extends Module {
           self.totalLifeSaved += json.events.length;
           if (json.nextPageTimestamp) {
             return checkAndFetch(Object.assign(query, { start: json.nextPageTimestamp }));
-          } else {
-            self.loaded = true;
           }
+          self.loaded = true;
         }
         return null;
       } catch (err) {

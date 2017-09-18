@@ -19,7 +19,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.INCAPACITATING_ROAR.id,
     SPELLS.STAMPEDING_ROAR_BEAR.id,
     SPELLS.STAMPEDING_ROAR_CAT.id,
-    
+
     // Talents
     SPELLS.INTIMIDATING_ROAR_TALENT.id,
     SPELLS.TYPHOON.id,
@@ -31,7 +31,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
 
   suggestions(when) {
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
-    
+
     when(deadTimePercentage).isGreaterThan(0.2)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span> Your dead GCD time can be improved. Try to Always Be Casting (ABC)..</span>)
@@ -44,13 +44,13 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
 
   statistic() {
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
-   
+
     return (
       <StatisticBox
         icon={<Icon icon="spell_mage_altertime" alt="Dead GCD time" />}
         value={`${formatPercentage(deadTimePercentage)} %`}
-        label='Dead GCD time'
-        tooltip='Dead GCD time is available casting time not used. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), etc.'
+        label="Dead GCD time"
+        tooltip="Dead GCD time is available casting time not used. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), etc."
       />
     );
   }

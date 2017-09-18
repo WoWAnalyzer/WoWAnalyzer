@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import StatisticBox  from './StatisticBox';
+import StatisticBox from './StatisticBox';
+
 export { STATISTIC_ORDER } from './StatisticBox';
 
 class LazyLoadStatisticBox extends React.PureComponent {
@@ -30,7 +31,7 @@ class LazyLoadStatisticBox extends React.PureComponent {
     this.setState({
       loading: true,
     });
-    this.props.loader().then(result => {
+    this.props.loader().then((result) => {
       this.setState({
         loading: false,
         loaded: true,

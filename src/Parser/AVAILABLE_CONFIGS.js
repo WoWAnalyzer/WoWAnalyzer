@@ -32,6 +32,8 @@ import MarksmanshipHunter from './MarksmanshipHunter/CONFIG';
 
 import HavocDemonHunter from './HavocDemonHunter/CONFIG';
 
+import DemonologyWarlock from './DemonologyWarlock/CONFIG';
+
 // Order of this should be the order in which specs were added to production
 export default [
   HolyPaladin,
@@ -68,4 +70,6 @@ export default [
   HavocDemonHunter,
 
   RetributionPaladin,
+
+  DemonologyWarlock,
 ];

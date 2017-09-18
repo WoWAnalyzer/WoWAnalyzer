@@ -8,7 +8,7 @@ import { formatNumber } from 'common/format';
 import getDamageBonus from '../../WarlockCore/getDamageBonus';
 import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../../Constants';
 
-const DAMAGE_BONUS_PER_TARGET = .04;
+const DAMAGE_BONUS_PER_TARGET = 0.04;
 
 class StretensSleeplessShackles extends Module {
   static dependencies = {

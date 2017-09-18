@@ -102,11 +102,10 @@ class Home extends Component {
                         return -1;
                       } else if (a.className > b.className) {
                         return 1;
-                      } else {
-                        return a.id - b.id;
                       }
+                      return a.id - b.id;
                     })
-                    .map(spec => {
+                    .map((spec) => {
                       const className = spec.className.replace(/ /g, '');
                       const config = AVAILABLE_CONFIGS.find(config => config.spec === spec);
                       return (

@@ -60,7 +60,7 @@ class FightSelectorHeader extends SelectorBase {
               </div>
             </div>
             <div className="panel-body" style={{ padding: 0 }} onClick={this.handleClick}>
-            {parser && parser.player &&
+              {parser && parser.player &&
               <FightSelectionList
                 report={report}
                 fights={

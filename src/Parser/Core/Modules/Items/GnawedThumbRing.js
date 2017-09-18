@@ -44,7 +44,8 @@ class GnawedThumbRing extends Module {
       result: (
         <dfn data-tip={`The effective healing and damage contributed by Gnawed Thumb Ring.<br/>
             Damage: ${this.owner.formatItemDamageDone(this.damage)} <br/>
-            Healing: ${this.owner.formatItemHealingDone(this.healing)}`}>
+            Healing: ${this.owner.formatItemHealingDone(this.healing)}`}
+        >
           {this.healing > this.damage ? this.owner.formatItemHealingDone(this.healing) : this.owner.formatItemDamageDone(this.damage)}
         </dfn>
       ),

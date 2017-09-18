@@ -11,7 +11,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import UnusedInfusionOfLightImage from '../../Images/ability_paladin_infusionoflight-bw.jpg';
-import PaladinAbilityTracker  from '../PaladinCore/PaladinAbilityTracker';
+import PaladinAbilityTracker from '../PaladinCore/PaladinAbilityTracker';
 
 class UnusedInfusionOfLights extends Module {
   static dependencies = {
@@ -54,7 +54,7 @@ class UnusedInfusionOfLights extends Module {
     }
     when(unusedIolRate).isGreaterThan(recommendedUnusedIolRate)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your <SpellLink id={SPELLS.INFUSION_OF_LIGHT.id} /> proc usage can be improved. Try to use your Infusion of Light procs before casting your next <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id}/>.</span>)
+        return suggest(<span>Your <SpellLink id={SPELLS.INFUSION_OF_LIGHT.id} /> proc usage can be improved. Try to use your Infusion of Light procs before casting your next <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} />.</span>)
           .icon(SPELLS.INFUSION_OF_LIGHT.icon)
           .actual(`${formatPercentage(unusedIolRate)}% unused Infusion of Lights`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)

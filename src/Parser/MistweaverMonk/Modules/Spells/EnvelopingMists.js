@@ -11,7 +11,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 const debug = false;
-const EVM_HEALING_INCREASE = .3;
+const EVM_HEALING_INCREASE = 0.3;
 
 const UNAFFECTED_SPELLS = [
   SPELLS.CRANE_HEAL.id,

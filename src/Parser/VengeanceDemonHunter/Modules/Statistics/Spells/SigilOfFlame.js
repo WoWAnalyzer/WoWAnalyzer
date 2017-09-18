@@ -7,9 +7,7 @@ import Enemies from 'Parser/Core/Modules/Enemies';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 
-import { formatPercentage } from 'common/format';
-import { formatThousands } from 'common/format';
-import { formatDuration } from 'common/format';
+import { formatPercentage, formatThousands, formatDuration } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class SigilOfFlame extends Module {
@@ -29,7 +27,7 @@ class SigilOfFlame extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.SIGIL_OF_FLAME.id} />}
         value={`${formatPercentage(sigilOfFlameUptimePercentage)}%`}
-        label='Sigil of Flame Uptime'
+        label="Sigil of Flame Uptime"
         tooltip={`The Sigil of Flame total damage was ${formatThousands(sigilOfFlameDamage)}.<br/>The Sigil of Flame total uptime was ${formatDuration(sigilOfFlameUptime / 1000)}.`}
       />
     );
