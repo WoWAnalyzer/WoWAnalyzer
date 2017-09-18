@@ -45,7 +45,7 @@ class Tidecallers extends Module {
         if (this.firstTickAfterBaseDuration === event.timestamp) {
           const partialTickDuration = (this.httDropped + HTT_BASE_DURATION) - this.lastTick;
           const fullTickDuration = event.timestamp - this.lastTick;
-          const partialTickFraction = partialTickDuration / fullTickDuration; 
+          const partialTickFraction = partialTickDuration / fullTickDuration;
           this.httHealing -= healingDone * partialTickFraction;
         }
 
@@ -66,7 +66,7 @@ class Tidecallers extends Module {
       this.firstTickAfterBaseDuration = null;
       this.currentTick = null;
       this.lastTick = null;
-    } 
+    }
   }
 }
 

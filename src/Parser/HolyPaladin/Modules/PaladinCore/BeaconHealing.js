@@ -9,8 +9,8 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-import CastEfficiency  from '../Features/CastEfficiency';
-import PaladinAbilityTracker  from '../PaladinCore/PaladinAbilityTracker';
+import CastEfficiency from '../Features/CastEfficiency';
+import PaladinAbilityTracker from '../PaladinCore/PaladinAbilityTracker';
 
 class BeaconHealing extends Module {
   static dependencies = {
@@ -28,7 +28,7 @@ class BeaconHealing extends Module {
     CastEfficiency.CPM_ABILITIES
       .filter(ability => ability.isActive === undefined || ability.isActive(this.combatants.selected))
       .filter(ability => ability.category !== CastEfficiency.SPELL_CATEGORIES.ITEMS)
-      .forEach(ability => {
+      .forEach((ability) => {
         const castCount = getCastCount(ability.spell.id);
         casts += castCount.healingHits || 0;
         castsOnBeacon += castCount.healingBeaconHits || 0;

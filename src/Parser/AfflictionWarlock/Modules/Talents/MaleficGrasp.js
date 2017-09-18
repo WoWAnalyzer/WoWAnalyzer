@@ -19,7 +19,7 @@ const AFFECTED_ABILITIES = new Set([
   ...UNSTABLE_AFFLICTION_DEBUFF_IDS,
 ]);
 
-const MALEFIC_GRASP_DAMAGE_BONUS = .25;
+const MALEFIC_GRASP_DAMAGE_BONUS = 0.25;
 
 class MaleficGrasp extends Module {
   static dependencies = {
@@ -78,7 +78,7 @@ class MaleficGrasp extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.MALEFIC_GRASP_TALENT.id} />}
         value={`${formatNumber(this.totalBonusDmg / this.owner.fightDuration * 1000)} DPS`}
-        label='Damage contributed'
+        label="Damage contributed"
         tooltip={`Your Malefic Grasp talent contributed ${formatNumber(this.totalBonusDmg)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.totalBonusDmg))} %).
           <ul>
           ${this.agonyBonusDmg > 0 ? `

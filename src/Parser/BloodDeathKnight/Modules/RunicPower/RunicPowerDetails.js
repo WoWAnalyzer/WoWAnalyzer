@@ -9,8 +9,7 @@ import { formatPercentage } from 'common/format';
 import RunicPowerBreakdown from './RunicPowerBreakdown';
 import RunicPowerTracker from './RunicPowerTracker';
 
-class RunicPowerDetails extends Module
-{
+class RunicPowerDetails extends Module {
   static
   dependencies = {
     runicPowerTracker: RunicPowerTracker,
@@ -19,9 +18,9 @@ class RunicPowerDetails extends Module
   suggestions(when) {
     const rpWasted = this.runicPowerTracker.rpWasted;
     const rpWastedPercent = rpWasted / this.runicPowerTracker.totalRPGained;
-    const MINOR = 0.05; //5%
-    const AVG = 0.1; //10%
-    const MAJOR = 0.15; //15%
+    const MINOR = 0.05; // 5%
+    const AVG = 0.1; // 10%
+    const MAJOR = 0.15; // 15%
     when(rpWastedPercent).isGreaterThan(MINOR)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(`You wasted ${formatPercentage(rpWastedPercent)}% of your Runic Power.`)
@@ -37,9 +36,9 @@ class RunicPowerDetails extends Module
     const totalRPGained = this.runicPowerTracker.totalRPGained;
     return (
       <StatisticBox
-        icon={<Icon icon='inv_sword_62'/>}
+        icon={<Icon icon="inv_sword_62" />}
         value={`${formatPercentage(rpWasted / totalRPGained)} %`}
-        label='Runic Power Wasted'
+        label="Runic Power Wasted"
         tooltip={`${rpWasted} Runic Power Wasted`}
       />
 
@@ -51,9 +50,9 @@ class RunicPowerDetails extends Module
       title: 'Runic Power Usage',
       url: 'runic-power',
       render: () => (
-        <Tab title='Runic Power Usage Breakdown'>
+        <Tab title="Runic Power Usage Breakdown">
           <RunicPowerBreakdown
-            rpGeneratedAndWasted = {this.runicPowerTracker.generatedAndWasted}
+            rpGeneratedAndWasted={this.runicPowerTracker.generatedAndWasted}
           />
         </Tab>
       ),

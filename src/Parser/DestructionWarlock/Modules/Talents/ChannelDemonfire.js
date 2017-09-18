@@ -31,7 +31,7 @@ class ChannelDemonfire extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.CHANNEL_DEMONFIRE_TALENT.id} />}
         value={`${formatNumber(this.damage / this.owner.fightDuration * 1000)} DPS`}
-        label='Damage done'
+        label="Damage done"
         tooltip={`Your Channel Demonfire did ${formatNumber(this.damage)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} %).`}
       />
     );

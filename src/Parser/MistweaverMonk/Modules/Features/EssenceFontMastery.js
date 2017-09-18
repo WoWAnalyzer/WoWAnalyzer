@@ -36,8 +36,7 @@ class EssenceFontMastery extends Module {
         this.healEF += 1;
         this.healing += (event.amount || 0) + (event.absorbed || 0);
         this.gustHeal = true;
-      }
-      else if (this.combatants.players[targetId].hasBuff(SPELLS.ESSENCE_FONT_BUFF.id, event.timestamp, 0, 0) === true && this.gustHeal) {
+      } else if (this.combatants.players[targetId].hasBuff(SPELLS.ESSENCE_FONT_BUFF.id, event.timestamp, 0, 0) === true && this.gustHeal) {
         this.healEF += 1;
         this.healing += (event.amount || 0) + (event.absorbed || 0);
         this.secondGustOverheal += (event.overheal || 0);
@@ -63,7 +62,7 @@ class EssenceFontMastery extends Module {
       console.log(`EF Avg Targets Hit per Cast: ${this.targetsEF / this.castEF}`);
     }
   }
-  
+
   suggestions(when) {
     const efMasteryCasts = (this.healEF / 2) || 0;
     const avgMasteryCastsPerEF = (efMasteryCasts / this.castEF) || 0;
@@ -92,7 +91,8 @@ class EssenceFontMastery extends Module {
           <dfn data-tip={`You healed an average of ${avgMasteryCastsPerEF.toFixed(2)} targets per Essence Font cast.<ul>
             <li>${formatNumber(avgEFMasteryHealing)} average healing per cast</li>
             <li>${formatNumber(this.secondGustOverheal)} Second Gust of Mists overhealing</li>
-            </ul>`}>
+            </ul>`}
+          >
             Mastery Buffs utilized
           </dfn>
         )}

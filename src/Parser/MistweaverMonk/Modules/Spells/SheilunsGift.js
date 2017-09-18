@@ -3,7 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
-import { formatNumber , formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
@@ -121,7 +121,7 @@ class SheilunsGift extends Module {
     const sheilunsGiftHealing = getAbility(SPELLS.SHEILUNS_GIFT.id);
     const sheilunsGiftOverhealingPercentage = getOverhealingPercentage(sheilunsGiftHealing) || 0;
 
-    when(sheilunsGiftOverhealingPercentage).isGreaterThan(.5)
+    when(sheilunsGiftOverhealingPercentage).isGreaterThan(0.5)
       .addSuggestion((suggest, actual, recommended) => {
         let suggestionText;
         if (avgSGstacks >= 6) {
@@ -133,7 +133,7 @@ class SheilunsGift extends Module {
           .icon(SPELLS.SHEILUNS_GIFT.icon)
           .actual(`${formatPercentage(sheilunsGiftOverhealingPercentage)}% Sheilun's Gift Overhealing - ${avgSGstacks.toFixed(0)} average Sheilun's Gift stacks`)
           .recommended(`<${formatPercentage(recommended)}% Sheilun's Gift Overheal is recommended`)
-          .regular(recommended + .1).major(recommended + .2);
+          .regular(recommended + 0.1).major(recommended + 0.2);
       });
   }
 
@@ -153,7 +153,8 @@ class SheilunsGift extends Module {
         label={(
           <dfn data-tip={`${SGcasts > 0 ? `You healed for an average of ${formatNumber(this.sgHeal / this.castsSG)} with each Sheilun's cast.` : ''}
           ${wastedSGStacks > 0 ? `<br>You wasted ${(wastedSGStacks)} stack(s) during this fight.` : ''}
-          `}>
+          `}
+          >
           Avg stacks used
           </dfn>
         )}

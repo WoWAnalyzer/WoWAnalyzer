@@ -47,7 +47,7 @@ class ExtendedHealing extends Module {
           </SpellLink>
         </div>
         <div className="flex-sub text-right">
-            {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %
+          {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %
         </div>
       </div>
     );

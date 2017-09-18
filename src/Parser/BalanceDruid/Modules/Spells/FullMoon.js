@@ -31,20 +31,20 @@ class FullMoon extends Module {
       this.firstMoonCast = true;
     }
 
-    if (spellId !== SPELLS.FULL_MOON.id)      {this.fullMoonOrder += 1;}    else            {this.orderFound = true;}
+    if (spellId !== SPELLS.FULL_MOON.id) { this.fullMoonOrder += 1; } else { this.orderFound = true; }
   }
 
   suggestions(when) {
     const abilityTracker = this.owner.modules.abilityTracker;
-        
+
     const offSet = this.firstMoonTime + 15;
     const totalFromCD = ((this.owner.fightDuration / 1000) - offSet) / 15;
     const eachMoon = Math.floor(totalFromCD / 3);
     let fmAvailableCasts = eachMoon + 1;
-        
+
     const extraMoons = ((totalFromCD / 3) - eachMoon) * 3;
     if (extraMoons > this.fullMoonOrder) fmAvailableCasts += 1;
-        
+
     const fmCasted = abilityTracker.getAbility(SPELLS.FULL_MOON.id).casts;
 
     const percCasted = fmCasted / fmAvailableCasts;
@@ -61,26 +61,26 @@ class FullMoon extends Module {
 
   statistic() {
     const abilityTracker = this.owner.modules.abilityTracker;
-        
+
     const offSet = this.firstMoonTime + 15;
     const totalFromCD = ((this.owner.fightDuration / 1000) - offSet) / 15;
     const eachMoon = Math.floor(totalFromCD / 3);
     let fmAvailableCasts = eachMoon + 1;
-        
+
     const extraMoons = ((totalFromCD / 3) - eachMoon) * 3;
     if (extraMoons > this.fullMoonOrder) fmAvailableCasts += 1;
 
     const fmCasted = abilityTracker.getAbility(SPELLS.FULL_MOON.id).casts;
-        
+
     return (
-        <StatisticBox
-            icon={<SpellIcon id={SPELLS.FULL_MOON.id} />}
-            value={`${fmCasted}/${fmAvailableCasts}`}
-            label='Full Moon casts'
-        />
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.FULL_MOON.id} />}
+        value={`${fmCasted}/${fmAvailableCasts}`}
+        label="Full Moon casts"
+      />
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(5);
-} 
+}
 
 export default FullMoon;

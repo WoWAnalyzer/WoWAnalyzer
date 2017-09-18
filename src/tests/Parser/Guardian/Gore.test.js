@@ -1,6 +1,6 @@
 import Gore from 'Parser/GuardianDruid/Modules/Features/Gore';
 import { SimpleFight, damageTaken, buffsRefreshed, casts } from './Fixtures/SimpleFight';
-import { processEvents } from './Fixtures/processEvents';
+import processEvents from './Fixtures/processEvents';
 
 describe('GuardianDruid.Gore', () => {
   let gore;

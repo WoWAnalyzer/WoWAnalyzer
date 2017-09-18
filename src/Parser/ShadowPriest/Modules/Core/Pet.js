@@ -1,6 +1,11 @@
 import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 class Pet extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
   _damageDone = 0;
   _sourceId = null;
   _pets = {}

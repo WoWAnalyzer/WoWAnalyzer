@@ -9,9 +9,7 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import Module from 'Parser/Core/Module';
 
-import { formatPercentage } from 'common/format';
-import { formatThousands } from 'common/format';
-import { formatDuration } from 'common/format';
+import { formatPercentage, formatThousands, formatDuration } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class SpiritBomb extends Module {
@@ -19,10 +17,10 @@ class SpiritBomb extends Module {
     abilityTracker: AbilityTracker,
     combatants: Combatants,
     enemies: Enemies,
-  }
+  };
 
   on_initialized() {
-      this.active = this.combatants.selected.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id);
+    this.active = this.combatants.selected.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id);
   }
 
   suggestions(when) {
@@ -34,7 +32,8 @@ class SpiritBomb extends Module {
         .icon('inv_icon_shadowcouncilorb_purple')
         .actual(`${formatPercentage(spiritBombUptimePercentage)}% debuff total uptime.`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`)
-        .regular(recommended - 0.05).major(recommended - 0.15);
+        .regular(recommended - 0.05)
+        .major(recommended - 0.15);
     });
   }
 
@@ -49,12 +48,12 @@ class SpiritBomb extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.SPIRIT_BOMB_TALENT.id} />}
         value={`${formatPercentage(spiritBombUptimePercentage)}%`}
-        label='Spirit Bomb debuff Uptime'
+        label="Spirit Bomb debuff Uptime"
         tooltip={`The Spirit Bomb total damage was ${formatThousands(spiritBombDamage)}.<br/>The Spirit Bomb total uptime was ${formatDuration(spiritBombUptime / 1000)}.`}
       />
     );
   }
-   statisticOrder = STATISTIC_ORDER.CORE(10);
+  statisticOrder = STATISTIC_ORDER.CORE(10);
 }
 
 export default SpiritBomb;

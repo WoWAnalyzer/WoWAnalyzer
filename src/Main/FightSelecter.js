@@ -74,7 +74,7 @@ class FightSelecter extends Component {
             </div>
           </div>
           <div className="panel-body" style={{ padding: 0 }}>
-            <FightSelectionList report={report} fights={report.fights} killsOnly={this.state.killsOnly}/>
+            <FightSelectionList report={report} fights={report.fights} killsOnly={this.state.killsOnly} />
           </div>
         </div>
 

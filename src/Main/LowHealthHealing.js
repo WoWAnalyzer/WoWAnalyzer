@@ -64,7 +64,7 @@ class LowHealthHealing extends React.Component {
           Max health of target: <Slider
             {...sliderProps}
             defaultValue={this.state.maxPlayerHealthPercentage}
-            onChange={value => {
+            onChange={(value) => {
               this.setState({
                 maxPlayerHealthPercentage: value,
               });
@@ -73,7 +73,7 @@ class LowHealthHealing extends React.Component {
           Min effective healing (percentage of target's health): <Slider
             {...sliderProps}
             defaultValue={this.state.minHealOfMaxHealthPercentage}
-            onChange={value => {
+            onChange={(value) => {
               this.setState({
                 minHealOfMaxHealthPercentage: value,
               });
@@ -93,7 +93,7 @@ class LowHealthHealing extends React.Component {
           <tbody>
             {
               events
-                .map(event => {
+                .map((event) => {
                   const effectiveHealing = event.amount + (event.absorbed || 0);
                   const hitPointsBeforeHeal = event.hitPoints - effectiveHealing;
                   const healthPercentage = hitPointsBeforeHeal / event.maxHitPoints;
