@@ -46,7 +46,7 @@ class AppBackgroundImage extends React.PureComponent {
   static propTypes = {
     bossId: PropTypes.number,
   };
-  //url ? `url(${url})` : null
+  // url ? `url(${url})` : null
   /*
 */
 

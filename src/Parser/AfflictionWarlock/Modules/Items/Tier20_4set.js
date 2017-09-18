@@ -10,7 +10,7 @@ import { formatNumber } from 'common/format';
 
 import getDamageBonus from '../WarlockCore/getDamageBonus';
 
-const T20_4SET_HASTE_BONUS = .15;
+const T20_4SET_HASTE_BONUS = 0.15;
 
 class Tier20_4set extends Module {
   static dependencies = {

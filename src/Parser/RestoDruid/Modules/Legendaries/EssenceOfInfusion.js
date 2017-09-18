@@ -16,7 +16,6 @@ class EssenceOfInfusion extends Module {
       if (healthBeforeHeal <= healthBreakpoint) {
         this.healing += (event.amount - (event.amount / ESSENCE_OF_INFUSION_HEALING_INCREASE));
       }
-      return;
     }
   }
 }

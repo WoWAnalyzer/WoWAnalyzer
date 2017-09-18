@@ -1,14 +1,13 @@
-
-
 import SPELLS from 'common/SPELLS';
 
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 import CoreCastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 
+/* eslint-disable no-unused-vars */
 
 class CastEfficiency extends CoreCastEfficiency {
-    static CPM_ABILITIES = [
+  static CPM_ABILITIES = [
     ...CoreCastEfficiency.CPM_ABILITIES,
     {
       spell: SPELLS.WAKE_OF_ASHES,
@@ -24,7 +23,7 @@ class CastEfficiency extends CoreCastEfficiency {
       isActive: combatant => combatant.hasTalent(SPELLS.CRUSADE_TALENT.id),
       recommendedCastEfficiency: 0.95,
       importance: ISSUE_IMPORTANCE.MAJOR,
-    },    
+    },
     {
       spell: SPELLS.AVENGING_WRATH,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
@@ -68,12 +67,12 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 12 / (1 + haste),
       isActive: combatant => combatant.hasBuff(SPELLS.RET_PALADIN_T20_2SET_BONUS_BUFF.id),
       recommendedCastEfficiency: 0.95,
-      extraSuggestion: 'With tier 20 2 peice is is even more imporant to use Judgment on cooldown to keep up the buff',
+      extraSuggestion: 'With tier 20 2 peice it is even more imporant to use Judgment on cooldown to keep up the buff',
     },
     {
       spell: SPELLS.BLADE_OF_JUSTICE,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => null, //10.5 / (1 + haste)
+      getCooldown: haste => null, // 10.5 / (1 + haste)
       hideWithZeroCasts: true,
     },
     {

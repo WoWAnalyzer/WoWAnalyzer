@@ -8,7 +8,7 @@ import { formatNumber } from 'common/format';
 
 import getDamageBonus from '../../WarlockCore/getDamageBonus';
 
-const ODR_SHAWL_OF_THE_YMIRJAR_DAMAGE_BONUS = .15;
+const ODR_SHAWL_OF_THE_YMIRJAR_DAMAGE_BONUS = 0.15;
 
 const AFFECTED_SPELLS = new Set([
   SPELLS.SHADOWBURN.id,

@@ -19,6 +19,7 @@ import ComboPointDetails from './Modules/ComboPoints/ComboPointDetails';
 
 import SavageRoarUptime from './Modules/Talents/SavageRoarUptime';
 import MoonfireUptime from './Modules/Talents/MoonfireUptime';
+import SavageRoarDmg from './Modules/Talents/SavageRoarDmg';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -37,6 +38,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // talents
     savageRoarUptime: SavageRoarUptime,
     moonfireUptime: MoonfireUptime,
+    savageRoarDmg: SavageRoarDmg,
 
     // resources
     comboPointTracker: ComboPointTracker,

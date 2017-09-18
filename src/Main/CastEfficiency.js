@@ -12,17 +12,17 @@ const CastEfficiency = ({ categories, abilities }) => {
     <div style={{ marginTop: -10, marginBottom: -10 }}>
       <table className="data-table" style={{ marginTop: 10, marginBottom: 10 }}>
         {Object.keys(categories)
-          .filter(key => abilities.some(item => item.ability.category === categories[key])) //filters out categories without any abilities in it
+          .filter(key => abilities.some(item => item.ability.category === categories[key])) // filters out categories without any abilities in it
           .map(key => (
-          <tbody key={key}>
-            <tr>
-              <th>{categories[key]}</th>
-              <th className="text-center"><dfn data-tip="Casts Per Minute">CPM</dfn></th>
-              <th colSpan="3"><dfn data-tip="The max possible casts is a super simplified calculation based on the Haste you get from your gear alone. Any Haste increasers such as from talents, Bloodlust and boss abilities are not taken into consideration, so this is <b>always</b> lower than actually possible for abilities affected by Haste.">Cast efficiency</dfn></th>
-              <th>Overhealing</th>
-              <th></th>
-            </tr>
-          {abilities
+            <tbody key={key}>
+              <tr>
+                <th>{categories[key]}</th>
+                <th className="text-center"><dfn data-tip="Casts Per Minute">CPM</dfn></th>
+                <th colSpan="3"><dfn data-tip="The max possible casts is a super simplified calculation based on the Haste you get from your gear alone. Any Haste increasers such as from talents, Bloodlust and boss abilities are not taken into consideration, so this is <b>always</b> lower than actually possible for abilities affected by Haste.">Cast efficiency</dfn></th>
+                <th>Overhealing</th>
+                <th />
+              </tr>
+              {abilities
             .filter(item => item.ability.category === categories[key])
             .map(({ ability, cpm, maxCpm, casts, maxCasts, castEfficiency, overhealing, canBeImproved }) => {
               const name = ability.name || ability.spell.name;
@@ -59,7 +59,7 @@ const CastEfficiency = ({ categories, abilities }) => {
                 </tr>
               );
             })}
-          </tbody>
+            </tbody>
         ))}
       </table>
     </div>

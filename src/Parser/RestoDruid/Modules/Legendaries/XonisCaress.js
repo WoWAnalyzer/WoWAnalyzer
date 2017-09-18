@@ -11,7 +11,6 @@ class XonisCaress extends Module {
 
     if (spellId === XONIS_CARESS_HEAL_ID) {
       this.healing += event.amount;
-      return;
     }
   }
 }

@@ -85,7 +85,7 @@ class GalacticGuardian extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.GALACTIC_GUARDIAN.id} />}
         value={`${formatPercentage(unusedGGProcs)}%`}
-        label='Unused Galactic Guardian'
+        label="Unused Galactic Guardian"
         tooltip={`You got total <b>${this.GGProcsTotal}</b> galactic guardian procs and <b>used ${this.consumedGGProc}</b> of them.`}
       />
     );

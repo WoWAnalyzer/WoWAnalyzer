@@ -3,9 +3,9 @@ import React from 'react';
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 import SuggestionsTab from 'Main/SuggestionsTab';
 
+import Haste from 'Parser/Core/Modules/Haste';
 
 import AbilityTracker from './Modules/Core/AbilityTracker';
-import Haste from './Modules/Core/Haste';
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import DamageDone from './Modules/Core/DamageDone';
@@ -21,7 +21,6 @@ import VoidformAverageStacks from './Modules/Spells/VoidformAverageStacks';
 import VoidTorrent from './Modules/Spells/VoidTorrent';
 import Dispersion from './Modules/Spells/Dispersion';
 import CallToTheVoid from './Modules/Spells/CallToTheVoid';
-
 
 
 class CombatLogParser extends MainCombatLogParser {

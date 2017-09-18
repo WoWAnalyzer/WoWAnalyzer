@@ -52,7 +52,7 @@ const VANTUS_RUNE_VERSATILITY = 1500;
 const VERSATILITY_PER_PERCENT_THROUGHPUT = 47500;
 const VERSATILITY_PER_PERCENT_DAMAGE_REDUCTION = VERSATILITY_PER_PERCENT_THROUGHPUT * 2;
 const VANTUS_RUNE_PERCENTAGE_THROUGHPUT = VANTUS_RUNE_VERSATILITY / VERSATILITY_PER_PERCENT_THROUGHPUT;
-const VANTUS_RUNE_PERCENTAGE_DAMAGE_REDUCTION  = VANTUS_RUNE_VERSATILITY / VERSATILITY_PER_PERCENT_DAMAGE_REDUCTION;
+const VANTUS_RUNE_PERCENTAGE_DAMAGE_REDUCTION = VANTUS_RUNE_VERSATILITY / VERSATILITY_PER_PERCENT_DAMAGE_REDUCTION;
 
 class VantusRune extends Module {
   static dependencies = {
@@ -67,7 +67,7 @@ class VantusRune extends Module {
     const fight = this.owner.fight;
     const bossId = fight.boss;
 
-    Object.keys(VANTUS_RUNE_SPELL_IDS).forEach(spellId => {
+    Object.keys(VANTUS_RUNE_SPELL_IDS).forEach((spellId) => {
       if (VANTUS_RUNE_SPELL_IDS[spellId] !== bossId) {
         // Vantus Runes only work on 1 boss each
         return;

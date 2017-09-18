@@ -238,9 +238,9 @@ export default {
     icon: 'ability_paladin_divinestorm',
   },
   DIVINE_STORM: {
-  id: 53385,
-  name: 'Divine Storm',
-  icon: 'ability_paladin_divinestorm',
+    id: 53385,
+    name: 'Divine Storm',
+    icon: 'ability_paladin_divinestorm',
   },
   WAKE_OF_ASHES: {
     id: 205273,
@@ -253,7 +253,7 @@ export default {
     icon: 'ability_paladin_shieldofthetemplar',
   },
 
-  //Ret Item Effects
+  // Ret Item Effects
   WHISPER_OF_THE_NATHREZIM_BUFF: {
     id: 207635,
     name: 'Whisper of the Nathrezim',

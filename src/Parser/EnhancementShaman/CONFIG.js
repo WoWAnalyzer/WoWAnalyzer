@@ -12,7 +12,7 @@ export default {
   footer: (
     <div className="panel fade-in" style={{ margin: '15px auto 30px', maxWidth: 400, textAlign: 'center' }}>
       <div className="panel-body text-muted">
-        Questions about Enhancement? Visit <a href='http://www.discord.me/earthshrine'>Earthshrine</a> Discord.<br />
+        Questions about Enhancement? Visit <a href="http://www.discord.me/earthshrine">Earthshrine</a> Discord.<br />
       </div>
     </div>
   ),

@@ -47,29 +47,27 @@ class UABuffTracker extends Module {
     if (this._hasMG) {
       if (buffedByReap && buffedByDrain) {
         this.ticksBuffedByBoth += 1;
-      }      else if (buffedByReap) {
+      } else if (buffedByReap) {
         this.ticksBuffedByReap += 1;
-      }      else if (buffedByDrain) {
+      } else if (buffedByDrain) {
         this.ticksBuffedByDrain += 1;
-      }      else {
+      } else {
         this.unbuffedTicks += 1;
       }
-    }    else if (this._hasHaunt) {
+    } else if (this._hasHaunt) {
       if (buffedByReap && buffedByHaunt) {
         this.ticksBuffedByBoth += 1;
-      }      else if (buffedByReap) {
+      } else if (buffedByReap) {
         this.ticksBuffedByReap += 1;
-      }      else if (buffedByHaunt) {
+      } else if (buffedByHaunt) {
         this.ticksBuffedByHaunt += 1;
-      }      else {
+      } else {
         this.unbuffedTicks += 1;
       }
-    }    else {
-      if (buffedByReap) {
-        this.ticksBuffedByReap += 1;
-      }      else {
-        this.unbuffedTicks += 1;
-      }
+    } else if (buffedByReap) {
+      this.ticksBuffedByReap += 1;
+    } else {
+      this.unbuffedTicks += 1;
     }
   }
 
@@ -91,7 +89,7 @@ class UABuffTracker extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} />}
         value={`${formatPercentage(buffedTicksPercentage)} %`}
-        label='UA buffed ticks'
+        label="UA buffed ticks"
         tooltip={`Your Unstable Afflictions ticked ${this.totalTicks} times in total. Out of that amount:
           <ul>
           ${this._hasMG && this.ticksBuffedByBoth > 0 ? `

@@ -26,7 +26,7 @@ class TotemMastery extends Module {
       this.owner.modules.combatants.selected.getBuffUptime(BUFF_TOTEM_RESONANCE_SPELL_ID),
       this.owner.modules.combatants.selected.getBuffUptime(BUFF_TOTEM_EMBER_SPELL_ID),
       this.owner.modules.combatants.selected.getBuffUptime(BUFF_TOTEM_TAILWIND_SPELL_ID),
-      this.owner.modules.combatants.selected.getBuffUptime(BUFF_TOTEM_STORM_SPELL_ID),
+      this.owner.modules.combatants.selected.getBuffUptime(BUFF_TOTEM_STORM_SPELL_ID)
     ) / this.owner.fightDuration;
   }
 

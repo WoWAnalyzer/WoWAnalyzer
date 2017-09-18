@@ -15,8 +15,14 @@ class Tier20_4set extends Module {
 
 	holyPowerGained = 0;
 
+	benefitsFrom4Pc(event) {
+		this.spellId = event.ability.guid;
+		return this.combatants.selected.hasBuff(SPELLS.RET_PALADIN_T20_4SET_BONUS_BUFF.id) 
+				&& (this.spellId === SPELLS.BLADE_OF_JUSTICE.id || this.spellId === SPELLS.DIVINE_HAMMER_TALENT.id);
+	}
+
 	on_byPlayer_cast(event) {
-		if(this.combatants.selected.hasBuff(SPELLS.RET_PALADIN_T20_4SET_BONUS_BUFF.id) && (event.ability.guid === SPELLS.BLADE_OF_JUSTICE.id || event.ability.guid === SPELLS.DIVINE_HAMMER_TALENT.id)){
+		if(this.benefitsFrom4Pc(event)){
 			//The Tier bonus turns our 2 HP builders into 3 HP builders
 			this.holyPowerGained += 1;
 		}

@@ -41,7 +41,7 @@ class Stagger extends Module {
       }
       if (event.extraAbility.type === PHYSICAL_DAMAGE) {
         this.totalPhysicalStaggered += event.amount;
-      }      else {
+      } else {
         this.totalMagicalStaggered += event.amount;
       }
     }
@@ -52,7 +52,7 @@ class Stagger extends Module {
       this.totalStaggerTaken += event.amount + (event.absorbed || 0);
       this.lastDamageEventWasStagger = event.timestamp;
       this.lastStaggerValue = event.amount + (event.absorbed || 0);
-    }    else {
+    } else {
       this.lastDamageEventNotStagger = event.timestamp;
     }
   }
@@ -81,7 +81,7 @@ class Stagger extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.IRONSKIN_BREW.id} />}
         value={`${formatNumber(totalStaggered)} `}
-        label='Damage staggered'
+        label="Damage staggered"
         tooltip={`Incoming damage added to stagger:
           <ul>
             <li>Total physical damage added to stagger: ${formatThousands(this.totalPhysicalStaggered)}</li>

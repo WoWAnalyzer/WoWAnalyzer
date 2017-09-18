@@ -39,6 +39,7 @@ import ReapAndSow from './Modules/Items/Legendaries/ReapAndSow';
 
 import Tier20_2set from './Modules/Items/Tier20_2set';
 import Tier20_4set from './Modules/Items/Tier20_4set';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Features
@@ -54,11 +55,11 @@ class CombatLogParser extends CoreCombatLogParser {
     corruptionUptime: CorruptionUptime,
     uaBuffTracker: UABuffTracker,
 
-    //Core
+    // Core
     soulShardTracker: SoulShardTracker,
     soulShardDetails: SoulShardDetails,
 
-    //Talents
+    // Talents
     haunt: Haunt,
     maleficGrasp: MaleficGrasp,
     contagion: Contagion,
@@ -69,15 +70,15 @@ class CombatLogParser extends CoreCombatLogParser {
     deathsEmbrace: DeathsEmbrace,
     siphonLifeUptime: SiphonLifeUptime,
 
-    //Legendaries
+    // Legendaries
     masterHarvester: TheMasterHarvester,
     stretensSleeplessShackles: StretensSleeplessShackles,
     soulOfTheNetherlord: SoulOfTheNetherlord,
     powerCordOfLethtendris: PowerCordOfLethtendris,
     sacrolashsDarkStrike: SacrolashsDarkStrike,
     reapAndSow: ReapAndSow,
-    
-    //Items
+
+    // Items
     tier20_2set: Tier20_2set,
     tier20_4set: Tier20_4set,
   };
@@ -96,7 +97,7 @@ class CombatLogParser extends CoreCombatLogParser {
         title: 'Talents',
         url: 'talents',
         render: () => (
-          <Tab title='Talents'>
+          <Tab title="Talents">
             <Talents combatant={this.modules.combatants.selected} />
           </Tab>
         ),
