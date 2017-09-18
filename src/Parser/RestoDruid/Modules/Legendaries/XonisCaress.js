@@ -20,7 +20,7 @@ class XonisCaress extends Module {
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
 
-    if (spellId === ITEMS.XONIS_CARESS.id) {
+    if (spellId === SPELLS.XONIS_CARESS.id) {
       this.healing += event.amount;
     }
   }
