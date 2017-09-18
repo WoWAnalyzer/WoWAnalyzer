@@ -27,8 +27,8 @@ class UnempoweredLS extends Module {
     if (this.isLunarStrike(event)) {
       this.casts.push(this._castQueue);
       this._castQueue = {
-        Empowered: this._lunarEmpsOn,
-        Enemies: 0,
+        empowered: this._lunarEmpsOn,
+        enemies: 0,
       };
     }
   }
