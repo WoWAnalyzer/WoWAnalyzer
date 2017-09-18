@@ -9,7 +9,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
-const ESSENCE_OF_NORDRASSIL_HEALING_INCREASE = 0.1;
+const ESSENCE_OF_NORDRASSIL_HEALING_INCREASE = 0.05;
 
 /**
  * Essence of Nordrassil (Artifact Trait)

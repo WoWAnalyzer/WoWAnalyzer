@@ -40,6 +40,7 @@ class KnowledgeOfTheAncients extends Module {
   subStatistic() {
     const rejuvManaCost = BASE_MANA * REJUVENATION_BASE_MANA;
     const freeRejuvs = this.manaGained / rejuvManaCost;
+    //TODO Change the oneRejuvenationThroughput to the one in the rejuvenation module
     const oneRejuvenationThroughput = this.owner.getPercentageOfTotalHealingDone(this.owner.modules.treeOfLife.totalHealingFromRejuvenationEncounter) / this.owner.modules.treeOfLife.totalRejuvenationsEncounter;
     const knowledgeOfTheAncientsThroughput = oneRejuvenationThroughput * freeRejuvs;
     return (

@@ -32,12 +32,10 @@ class Grovewalker extends Module {
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
-    if(!HEALS_MASTERY_STACK.indexOf(spellId)) {
+    if(!HEALS_MASTERY_STACK.includes(spellId) || (SPELLS.REGROWTH.id === spellId && !event.tick)) {
       return;
     }
-    if(SPELLS.REGROWTH.id === spellId && !event.tick) {
-      return;
-    }
+
     this.healing += calculateEffectiveHealing(event, GROVEWALKER_HEALING_INCREASE * this.rank) / this.rank;
   }
 

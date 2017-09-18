@@ -38,11 +38,11 @@ class EternalRestoration extends Module {
     if(this.lastEoGApplied != null
       && (this.lastEoGApplied + this.eogDuration - 1000) <= event.timestamp
       && this.combatants.selected.hasBuff(SPELLS.ESSENCE_OF_GHANIR.id)
-      && HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR.indexOf(spellId) !== -1) {
-      if(SPELLS.REGROWTH.id === spellId && event.tick !== true) {
+      && HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR.includes(spellId)) {
+      if(!event.tick) {
         return;
       }
-        this.healing += event.amount/2;
+        this.healing += (event.amount + (event.absorbed || 0))/2;
     }
   }
 

@@ -9,7 +9,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
-const SEEDS_OF_THE_WORLD_TREE_HEALING_INCREASE = 0.08;
+const SEEDS_OF_THE_WORLD_TREE_HEALING_INCREASE = 0.08 / 0.25;
 
 /**
  * Seeds of the World Tree (Artifact Trait)

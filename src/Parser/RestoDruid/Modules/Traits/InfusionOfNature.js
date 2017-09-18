@@ -25,7 +25,6 @@ class InfusionOfNature extends Module {
   };
 
   rank = 0;
-  healing = 0;
   manaGained = 0;
   freeRejuvs = 0;
   wgManaCost = BASE_MANA * WILD_GROWTH_BASE_MANA;
@@ -47,6 +46,7 @@ class InfusionOfNature extends Module {
   }
 
   subStatistic() {
+    //TODO Change the oneRejuvenationThroughput to the one in the rejuvenation module
     const oneRejuvenationThroughput = this.owner.getPercentageOfTotalHealingDone(this.owner.modules.treeOfLife.totalHealingFromRejuvenationEncounter) / this.owner.modules.treeOfLife.totalRejuvenationsEncounter;
     const infusionOfNatureThroughput = oneRejuvenationThroughput * this.freeRejuvs;
     return (
