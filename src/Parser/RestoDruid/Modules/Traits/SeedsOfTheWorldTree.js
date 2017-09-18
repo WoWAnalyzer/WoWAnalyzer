@@ -13,7 +13,7 @@ const SEEDS_OF_THE_WORLD_TREE_HEALING_INCREASE = 0.08;
 
 /**
  * Seeds of the World Tree (Artifact Trait)
- * Increases healing done by Swiftmend by 10%
+ * Living Seed heals for an additional 8% of the initial heal which planted it.
  */
 class SeedsOfTheWorldTree extends Module {
   static dependencies = {
@@ -32,7 +32,7 @@ class SeedsOfTheWorldTree extends Module {
     if(event.ability.guid !== SPELLS.LIVING_SEED.id) {
       return;
     }
-    this.healing += calculateEffectiveHealing(event, SEEDS_OF_THE_WORLD_TREE_HEALING_INCREASE);
+    this.healing += calculateEffectiveHealing(event, SEEDS_OF_THE_WORLD_TREE_HEALING_INCREASE * this.rank) / this.rank;
   }
 
   subStatistic() {

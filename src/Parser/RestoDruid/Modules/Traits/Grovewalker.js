@@ -38,7 +38,7 @@ class Grovewalker extends Module {
     if(SPELLS.REGROWTH.id === spellId && !event.tick) {
       return;
     }
-    this.healing += calculateEffectiveHealing(event, GROVEWALKER_HEALING_INCREASE);
+    this.healing += calculateEffectiveHealing(event, GROVEWALKER_HEALING_INCREASE * this.rank) / this.rank;
   }
 
   subStatistic() {

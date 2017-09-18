@@ -32,7 +32,7 @@ class EssenceOfNordrassil extends Module {
     if(event.ability.guid !== SPELLS.EFFLORESCENCE_HEAL.id) {
       return;
     }
-    this.healing += calculateEffectiveHealing(event, ESSENCE_OF_NORDRASSIL_HEALING_INCREASE);
+    this.healing += calculateEffectiveHealing(event, (ESSENCE_OF_NORDRASSIL_HEALING_INCREASE * this.rank)) / this.rank;
   }
 
   subStatistic() {

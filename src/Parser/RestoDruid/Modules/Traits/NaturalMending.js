@@ -32,7 +32,7 @@ class NaturalMending extends Module {
     if(event.ability.guid !== SPELLS.SWIFTMEND.id) {
       return;
     }
-    this.healing += calculateEffectiveHealing(event, NATURAL_MENDING_HEALING_INCREASE);
+    this.healing += calculateEffectiveHealing(event, NATURAL_MENDING_HEALING_INCREASE * this.rank) / this.rank;
   }
 
   subStatistic() {

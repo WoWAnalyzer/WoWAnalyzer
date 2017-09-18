@@ -33,7 +33,7 @@ class BlessingOfTheWorldTree extends Module {
       return;
     }
 
-    this.healing += calculateEffectiveHealing(event, BLESSING_OF_THE_WORLD_TREE_HEALING_INCREASE);
+    this.healing += calculateEffectiveHealing(event, BLESSING_OF_THE_WORLD_TREE_HEALING_INCREASE * this.rank)/ this.rank;
   }
 
   subStatistic() {

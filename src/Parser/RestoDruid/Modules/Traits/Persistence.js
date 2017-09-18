@@ -12,8 +12,12 @@ import HealingDone from 'Parser/Core/Modules/HealingDone';
 /**
  * Persistence (Artifact Trait)
  * Increases the duration of Moonfire, Rejuvenation and Sunfire by 1s. We will only look at the Rejuvenation part.
- * This is may be a little underestimated since it doesn't include the increased bonuses from Dreamwalker, Amanthul's Wisdom,
- * Flourish, EoG etc. Rejuvenation has so many variables
+ * This is may be a little underestimated since it doesn't include the increased bonuses from Dreamwalker, Increased avg mastery, Amanthul's Wisdom,
+ * Flourish, EoG etc. Rejuvenation has so many external variables so this calculation is an estimate at best.
+ *
+ * This modules checks whenever a rejuvenation is applied or refreshed and add that as 1s to the variable persistanceValue.
+ * This doesn't take "magic" rejuvenations into account that doesn't trigger an apply/refreshbuff event.
+ * TODO: Improve this module
  */
 class Persistence extends Module {
   static dependencies = {

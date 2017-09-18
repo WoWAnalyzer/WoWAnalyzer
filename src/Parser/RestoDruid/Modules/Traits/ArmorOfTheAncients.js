@@ -2,8 +2,8 @@
 import Module from 'Parser/Core/Module';
 
 /**
- * Shock Treatment (Artifact Trait)
- * Increases critical strike damage and critical healing of Holy Shock by 8%.
+ * Armor of the Ancients
+ * Ironbark reduces all damage taken by the target by an additional 2%.
  */
 class ArmorOfTheAncients extends Module {
 //TODO
