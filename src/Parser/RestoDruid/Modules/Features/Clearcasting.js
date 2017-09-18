@@ -122,7 +122,7 @@ class Clearcasting extends Module {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(14);
+  statisticOrder = STATISTIC_ORDER.CORE(20);
 
 }
 

@@ -84,6 +84,22 @@ class Mastery extends Module {
     return this.masteryBuffs[buffId].attributableHealing;
   }
 
+  /**
+   * This is the average number of mastery stacks the player's heals benefitted from, weighted by healing done.
+   * Heals and absorbs that don't benefit from mastery are counted as zero mastery stack heals.
+   */
+  getAverageTotalMasteryStacks() {
+    return this.masteryTimesHealing / this.totalNoMasteryHealing;
+  }
+
+  /**
+   * This is the average number of mastery stacks the player's heals benefitted from, weighted by healing done.
+   * Only heals that benefit from mastery are counted.
+   */
+  getAverageDruidSpellMasteryStacks() {
+    return this.masteryTimesHealing / this.druidSpellNoMasteryHealing;
+  }
+
   _decompHeal(amount, hotCount) {
     const masteryBonus = this._getCurrMasteryBonus();
     const healMasteryMult = 1 + (hotCount * masteryBonus);

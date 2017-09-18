@@ -26,6 +26,7 @@ import T21_4Set from './Modules/Legendaries/T21_4Set';
 
 import HealingTouch from './Modules/Features/HealingTouch';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
+import AverageHots from './Modules/Features/AverageHots';
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import CooldownTracker from './Modules/Features/CooldownTracker';
 import Rejuvenation from './Modules/Features/Rejuvenation';
@@ -60,6 +61,7 @@ class CombatLogParser extends CoreCombatLogParser {
     healingTouch : HealingTouch,
     lowHealthHealing: LowHealthHealing,
     alwaysBeCasting: AlwaysBeCasting,
+    averageHots: AverageHots,
     cooldownTracker: CooldownTracker,
     castEfficiency: CastEfficiency,
     rejuvenation: Rejuvenation,
