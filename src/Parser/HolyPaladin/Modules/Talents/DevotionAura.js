@@ -74,7 +74,7 @@ class DevotionAura extends Module {
       filter: `(IN RANGE FROM type='applybuff' AND ability.id=${PROTECTION_OF_TYR_ID} AND source.name='${this.combatants.selected.name}' TO type='removebuff' AND ability.id=${PROTECTION_OF_TYR_ID} AND source.name='${this.combatants.selected.name}' GROUP BY target ON target END)`,
     }))
       .then(response => response.json())
-      .then(json => {
+      .then((json) => {
         console.log('Received AM damage taken', json);
         if (json.status === 400 || json.status === 401) {
           throw json.error;

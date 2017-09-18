@@ -19,8 +19,8 @@ class AlwaysBeCasting extends Module {
     // Extend this class and override this property in your spec class to implement this module.
   ];
   static STATIC_GCD_ABILITIES = {
-    //Abilities which GCD is not affected by haste.
-    //[spellId] : [gcd value in seconds]
+    // Abilities which GCD is not affected by haste.
+    // [spellId] : [gcd value in seconds]
   };
 
   // TODO: Add channels array to fix issues where is channel started pre-combat it doesn't register the `begincast` and considers the finish a GCD adding downtime. This can also be used to automatically add the channelVerifiers.
@@ -71,7 +71,7 @@ class AlwaysBeCasting extends Module {
     }
     const spellId = cast.ability.guid;
     const isOnGcd = this.constructor.ABILITIES_ON_GCD.indexOf(spellId) !== -1;
-    //const isFullGcd = this.constructor.FULLGCD_ABILITIES.indexOf(spellId) !== -1;
+    // const isFullGcd = this.constructor.FULLGCD_ABILITIES.indexOf(spellId) !== -1;
 
     if (!isOnGcd) {
       debug && console.log(`%cABC: ${cast.ability.name} (${spellId}) ignored`, 'color: gray');
@@ -81,7 +81,7 @@ class AlwaysBeCasting extends Module {
     const globalCooldown = this.getCurrentGlobalCooldown(spellId);
 
     // TODO: Change this to begincast || cast
-    const castStartTimestamp = (begincast ? begincast : cast).timestamp;
+    const castStartTimestamp = (begincast || cast).timestamp;
 
     this.recordCastTime(
       castStartTimestamp,

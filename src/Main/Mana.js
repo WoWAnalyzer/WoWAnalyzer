@@ -14,7 +14,7 @@ const Mana = ({ parser }) => (
       end={parser.fight.end_time}
       manaUpdates={parser.modules.manaValues.manaUpdates}
       currentTimestamp={parser.currentTimestamp}
-    /> {/* the currentTimestamp makes sure the Mana tab re-renders after parsing events*/}
+    /> {/* the currentTimestamp makes sure the Mana tab re-renders after parsing events */}
 
     <h1>Mana usage</h1>
     <ManaUsageGraph
@@ -23,7 +23,7 @@ const Mana = ({ parser }) => (
       healingBySecond={parser.modules.healingDone.bySecond}
       manaUpdates={parser.modules.manaValues.manaUpdates}
       timestamp={parser.currentTimestamp}
-    /> {/* the currentTimestamp makes sure the Mana tab re-renders after parsing events*/}
+    /> {/* the currentTimestamp makes sure the Mana tab re-renders after parsing events */}
   </div>
 );
 Mana.propTypes = {

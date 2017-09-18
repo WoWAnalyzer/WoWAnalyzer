@@ -15,6 +15,8 @@ import ITEMS from 'common/ITEMS';
 import AbilityTracker from './AbilityTracker';
 import Combatants from './Combatants';
 
+/* eslint-disable no-unused-vars */
+
 class CastEfficiency extends Module {
   static dependencies = {
     abilityTracker: AbilityTracker,
@@ -30,7 +32,7 @@ class CastEfficiency extends Module {
     ITEMS: 'Item',
   };
   static CPM_ABILITIES = [
-    //Shared trinkets and legendaries
+    // Shared trinkets and legendaries
     {
       spell: SPELLS.CLEANSING_MATRIX,
       name: `${ITEMS.ARCHIVE_OF_FAITH.name}`,
@@ -95,14 +97,14 @@ class CastEfficiency extends Module {
       spell: SPELLS.CEASELESS_TOXIN,
       name: `${ITEMS.VIAL_OF_CEASELESS_TOXINS.name}`,
       category: CastEfficiency.SPELL_CATEGORIES.ITEMS,
-      getCooldown: haste => 60,//TODO: add detection if target has died and reduced cooldown
+      getCooldown: haste => 60, // TODO: add detection if target has died and reduced cooldown
       isActive: combatant => combatant.hasTrinket(ITEMS.VIAL_OF_CEASELESS_TOXINS.id),
     },
   ];
 
   suggestions(when) {
     const castEfficiency = getCastEfficiency(this.constructor.CPM_ABILITIES, this.abilityTracker, this.combatants, this.owner);
-    castEfficiency.forEach(cpm => {
+    castEfficiency.forEach((cpm) => {
       if (cpm.ability.noSuggestion || cpm.castEfficiency === null) {
         return;
       }

@@ -22,7 +22,7 @@ class SecondSunrise extends Module {
   static dependencies = {
     combatants: Combatants,
   };
-  
+
   rank = 0;
   healing = 0;
 

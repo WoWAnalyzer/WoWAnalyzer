@@ -6,9 +6,9 @@ import { formatNumber } from 'common/format';
 
 class UnempoweredLS extends Module {
   _castQueue = {
-      Empowered: false,
-      Enemies: 0,
-    };
+    Empowered: false,
+    Enemies: 0,
+  };
   casts = [];
   _lunarEmpsOn = false;
 
@@ -18,18 +18,18 @@ class UnempoweredLS extends Module {
     const spellId = event.ability.guid;
     return spellId === SPELLS.LUNAR_STRIKE.id;
   }
-  isLunarEmpowerment(event){
-      const spellId = event.ability.guid;
-      return spellId === SPELLS.LUNAR_EMP_BUFF.id;
+  isLunarEmpowerment(event) {
+    const spellId = event.ability.guid;
+    return spellId === SPELLS.LUNAR_EMP_BUFF.id;
   }
 
   on_byPlayer_cast(event) {
     if (this.isLunarStrike(event)) {
-        this.casts.push(this._castQueue);
-        this._castQueue = {
-            Empowered: this._lunarEmpsOn,
-            Enemies: 0,
-        };
+      this.casts.push(this._castQueue);
+      this._castQueue = {
+        Empowered: this._lunarEmpsOn,
+        Enemies: 0,
+      };
     }
   }
 
@@ -37,25 +37,25 @@ class UnempoweredLS extends Module {
     if (!this.isLunarStrike(event)) {
       return;
     }
-    this._castQueue.Enemies++;
+    this._castQueue.Enemies += 1;
   }
 
-  on_toPlayer_applybuff(event){
+  on_toPlayer_applybuff(event) {
     if (this.isLunarEmpowerment(event)) {
-        this._lunarEmpsOn = true;
+      this._lunarEmpsOn = true;
     }
   }
-  on_toPlayer_removebuff(event){
+  on_toPlayer_removebuff(event) {
     if (this.isLunarEmpowerment(event)) {
-        this._lunarEmpsOn = false;
-    }      
+      this._lunarEmpsOn = false;
+    }
   }
 
   on_finished() {
     this.casts.push(this._castQueue);
 
-    this.suboptUmempLS = this.casts.filter(function(cast){
-        return !cast.Empowered && cast.Enemies > 0 && cast.Enemies < 3;
+    this.suboptUmempLS = this.casts.filter((cast) => {
+      return !cast.Empowered && cast.Enemies > 0 && cast.Enemies < 3;
     }).length;
   }
 

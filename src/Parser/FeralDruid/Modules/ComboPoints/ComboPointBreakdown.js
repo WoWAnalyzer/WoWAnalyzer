@@ -36,24 +36,24 @@ class ComboPointBreakdown extends React.Component {
     let totalGenerated = 0;
     let totalWasted = 0;
     let totalSpent = 0;
-    generated.forEach(ability => {
+    generated.forEach((ability) => {
       totalGenerated += ability.generated;
       totalWasted += ability.wasted;
     });
     spent.forEach(ability => totalSpent += ability.spent);
-    //looks wrong but totals are only for the purpose of percentage, and if nothing was wasted, then 0/1 gives correct result 0% wasted, if it's not 0 it retains its original value
+    // looks wrong but totals are only for the purpose of percentage, and if nothing was wasted, then 0/1 gives correct result 0% wasted, if it's not 0 it retains its original value
     totalGenerated = (totalGenerated === 0) ? 1 : totalGenerated;
     totalWasted = (totalWasted === 0) ? 1 : totalWasted;
     totalSpent = (totalSpent === 0) ? 1 : totalSpent;
 
     return (
       <div>
-        <table className='data-table'>
+        <table className="data-table">
           <thead>
             <tr>
               <th>Ability</th>
-              <th colSpan='2'>Combo Points generated</th>
-              <th colSpan='2'><dfn data-tip='This is the amount of points that were generated while you were already at cap.'>points wasted</dfn></th>
+              <th colSpan="2">Combo Points generated</th>
+              <th colSpan="2"><dfn data-tip="This is the amount of points that were generated while you were already at cap.">points wasted</dfn></th>
             </tr>
           </thead>
           <tbody>
@@ -61,8 +61,8 @@ class ComboPointBreakdown extends React.Component {
               .map(ability => (
                 <tr>
                   <td style={{ width: '30%' }}>
-                    <SpellIcon id={ability.abilityId}/>{' '}
-                    <SpellLink id={ability.abilityId}/>
+                    <SpellIcon id={ability.abilityId} />{' '}
+                    <SpellLink id={ability.abilityId} />
                   </td>
                   <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>
                     <dfn data-tip={`${formatPercentage(ability.generated / totalGenerated)} %`}>{ability.generated}</dfn>
@@ -86,22 +86,22 @@ class ComboPointBreakdown extends React.Component {
               ))}
           </tbody>
         </table>
-        <table className='data-table'>
+        <table className="data-table">
           <thead>
-          <tr>
-            <th>Ability</th>
-            <th colSpan='2'>Points spent</th>
-            {/* I know it shouldn't be done like this but I'm not proficient with CSS and this is the only way I could think of to align the columns with table above*/}
-            <th colSpan='2'></th>
-          </tr>
+            <tr>
+              <th>Ability</th>
+              <th colSpan="2">Points spent</th>
+              {/* I know it shouldn't be done like this but I'm not proficient with CSS and this is the only way I could think of to align the columns with table above */}
+              <th colSpan="2" />
+            </tr>
           </thead>
           <tbody>
-          {spent && spent
+            {spent && spent
             .map(ability => (
               <tr>
                 <td style={{ width: '30%' }}>
-                  <SpellIcon id={ability.abilityId}/>{' '}
-                  <SpellLink id={ability.abilityId}/>
+                  <SpellIcon id={ability.abilityId} />{' '}
+                  <SpellLink id={ability.abilityId} />
                 </td>
                 <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>
                   <dfn data-tip={`${formatPercentage(ability.spent / totalGenerated)} %`}>{ability.spent}</dfn>
@@ -112,8 +112,8 @@ class ComboPointBreakdown extends React.Component {
                     style={{ width: `${(ability.spent / totalSpent) * 100}%` }}
                   />
                 </td>
-                <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}></td>
-                <td style={{ width: '30%' }}></td>
+                <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }} />
+                <td style={{ width: '30%' }} />
               </tr>
             ))}
           </tbody>

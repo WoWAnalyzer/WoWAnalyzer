@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-//import Toggle from 'react-toggle';
+// import Toggle from 'react-toggle';
 
 import SPELLS from 'common/SPELLS';
 
@@ -58,7 +58,7 @@ class Feeding extends React.Component {
             spell: SPELLS.ASCENDANCE_CAST,
             totals: cooldownTracker.ascTotals,
           },
-        ]).map(category => {
+        ]).map((category) => {
           category.max = category.feed.reduce((a, b) => {
             const aHealing = this.state.expand ? a.mergedHealing : a.healing;
             const bHealing = this.state.expand ? b.mergedHealing : b.healing;
@@ -80,7 +80,7 @@ class Feeding extends React.Component {
                   </th>
                   <th className="text-center" colSpan="3"><dfn data-tip={`The amount of healing done by spells that feed into ${category.name} while it was up.`}>Feeding done per spell</dfn></th>
                   <th className="text-center"><dfn data-tip={`The approximated effective healing each of the spells feeding into ${category.name} did, accounting for overhealing. This should roughly at up to the total effective healing of ${category.name}.`}>Approx. effective healing</dfn></th>
-                  <th></th>
+                  <th />
                 </tr>
               </thead>
               <tbody>
@@ -91,7 +91,7 @@ class Feeding extends React.Component {
                     return healingA > healingB ? -1 : (healingB > healingA ? 1 : 0);
                   })
                   .filter(spellId => (!this.state.expand) || category.feed[spellId].mergedHealing > 0)
-                  .map(spellId => {
+                  .map((spellId) => {
                     const ability = category.feed[spellId];
                     const healing = this.state.expand ? ability.mergedHealing : ability.healing;
                     const effectiveHealing = this.state.expand ? ability.mergedEffectiveHealing : ability.effectiveHealing;

@@ -154,8 +154,8 @@ class Entities extends Module {
     const events = [];
 
     const entities = this.getEntities();
-    Object.keys(entities).map(k => entities[k]).forEach(enemy => {
-      enemy.buffs.forEach(buff => {
+    Object.keys(entities).map(k => entities[k]).forEach((enemy) => {
+      enemy.buffs.forEach((buff) => {
         if (buff.ability.guid !== spellId) {
           return;
         }

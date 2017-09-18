@@ -25,7 +25,7 @@ class IronFurGoEProcs extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.IRONFUR.id} />}
         value={`${formatPercentage(nonGoEIronFur / (nonGoEIronFur + GoEIronFur))}%`}
-        label='Unbuffed Ironfur'
+        label="Unbuffed Ironfur"
         tooltip={`You cast <b>${nonGoEIronFur + GoEIronFur}</b> total ${SPELLS.IRONFUR.name} and <b>${GoEIronFur}</b> were buffed by 2s.`}
       />
     );

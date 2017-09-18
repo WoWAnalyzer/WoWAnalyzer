@@ -13,7 +13,7 @@ class DamageDone extends CoreDamageDone {
       <StatisticBox
         icon={<Icon icon="class_monk" alt="Damage done" />}
         value={`${formatNumber(this.total.effective / this.owner.fightDuration * 1000)} DPS`}
-        label='Damage done'
+        label="Damage done"
         tooltip={`The total damage done was ${formatThousands(this.total.effective)}.`}
       />
     );

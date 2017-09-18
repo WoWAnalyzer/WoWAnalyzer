@@ -6,7 +6,7 @@ import SPELLS from 'common/SPELLS';
 import Icon from 'common/Icon';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-//import SpellLink from 'common/SpellLink';
+// import SpellLink from 'common/SpellLink';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   static ABILITIES_ON_GCD = [
@@ -50,10 +50,10 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
     return (
       <StatisticBox
-        icon={<Icon icon='spell_mage_altertime' alt='Dead time' />}
+        icon={<Icon icon="spell_mage_altertime" alt="Dead time" />}
         value={`${formatPercentage(deadTimePercentage)} %`}
-        label='Dead time'
-        tooltip='Dead time is available casting time not used for casting any spell. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/being stunned), etc.'
+        label="Dead time"
+        tooltip="Dead time is available casting time not used for casting any spell. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/being stunned), etc."
       />
     );
   }

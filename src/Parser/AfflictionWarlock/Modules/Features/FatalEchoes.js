@@ -43,9 +43,9 @@ class FatalEchoes extends Module {
     const estimatedUAdamage = totalProcs * TICKS_PER_UA * avgDamage;
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.FATAL_ECHOES.id}/>}
+        icon={<SpellIcon id={SPELLS.FATAL_ECHOES.id} />}
         value={`${totalProcs}`}
-        label='Fatal Echoes procs'
+        label="Fatal Echoes procs"
         tooltip={`${formatNumber(estimatedUAdamage)} damage - ${this.owner.formatItemDamageDone(estimatedUAdamage)} <br />This result is estimated by multiplying number of free Unstable Afflictions from the trait by the average Unstable Affliction damage for the whole fight.`}
       />
     );

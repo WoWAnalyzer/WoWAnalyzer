@@ -50,7 +50,7 @@ class Results extends React.Component {
             Initializing report...
           </h1>
 
-          <div className="spinner"/>
+          <div className="spinner" />
         </div>
       );
     }
@@ -159,11 +159,10 @@ class Results extends React.Component {
                           return -1;
                         } else if (a.id > b.id) {
                           return 1;
-                        } else {
-                          return 0;
                         }
+                        return 0;
                       })
-                      .map(item => {
+                      .map((item) => {
                         if (!item) {
                           return null;
                         }

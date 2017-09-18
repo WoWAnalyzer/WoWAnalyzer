@@ -3,6 +3,8 @@ import SPELLS from 'common/SPELLS';
 
 import CoreCastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 
+/* eslint-disable no-unused-vars */
+
 const debug = false;
 
 class CastEfficiency extends CoreCastEfficiency {
@@ -28,7 +30,7 @@ class CastEfficiency extends CoreCastEfficiency {
       noSuggestion: true,
     },
     {
-      spell:SPELLS.THRASH_BEAR,
+      spell: SPELLS.THRASH_BEAR,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: (haste, combatant) => {
         const hasMightBuff = combatant.hasTalent(SPELLS.INCARNATION_OF_URSOC.id);
@@ -70,7 +72,7 @@ class CastEfficiency extends CoreCastEfficiency {
         debug && console.log(`Survival CD ${baseCd}`);
         return baseCd;
       },
-      charges:3,
+      charges: 3,
       isActive: combatant => combatant.hasFinger(ITEMS.DUAL_DETERMINATION.id),
       noSuggestion: true,
     },
@@ -82,7 +84,7 @@ class CastEfficiency extends CoreCastEfficiency {
         debug && console.log(`Survival CD ${baseCd}`);
         return baseCd;
       },
-      charges:2,
+      charges: 2,
       isActive: combatant => !combatant.hasFinger(ITEMS.DUAL_DETERMINATION.id),
       noSuggestion: true,
     },
