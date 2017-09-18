@@ -73,15 +73,15 @@ class CooldownTracker extends CoreCooldownTracker {
     const cooldownSpell = this.constructor.castCooldowns.find(cooldownSpell => cooldownSpell.spell.id === spellId);
     if (cooldownSpell) {
       // adding the fixed cooldown, now we need to remove it from activeCooldowns too
-      const cooldown = this.addFixedCooldown(cooldownSpell, event.timestamp);
+      const cooldown = this._addFixedCooldown(cooldownSpell, event.timestamp);
       this.activeCooldowns.push(cooldown);
       debug && console.log(`%cCooldown started: ${cooldownSpell.spell.name}`, 'color: green', cooldown);
     }
     // super.on_byPlayer_cast(event) would call trackEvent anyway
-    this.trackEvent(event);
+    super.on_byPlayer_cast && super.on_byPlayer_cast(event);
   }
 
-  addFixedCooldown(cooldownSpell, timestamp) {
+  _addFixedCooldown(cooldownSpell, timestamp) {
     const cooldown = {
       ...cooldownSpell,
       start: timestamp,
@@ -94,11 +94,7 @@ class CooldownTracker extends CoreCooldownTracker {
 
   // on_event() might be more accurate but it would be most likely called much more
   trackEvent(event) {
-    const finishedCooldowns = this.activeCooldowns.filter(cooldown => cooldown.end && cooldown.end < event.timestamp).map((_, index) => index);
-    finishedCooldowns.forEach(index => {
-      debug && console.log(`%cCooldown ended: ${this.activeCooldowns[index].spell.name}`, 'color: red', this.activeCooldowns[index]);
-      this.activeCooldowns.splice(index, 1);
-    });
+    this.activeCooldowns = this.activeCooldowns.filter(cooldown => !cooldown.end || event.timestamp < cooldown.end);
     super.trackEvent(event);
   }
 
