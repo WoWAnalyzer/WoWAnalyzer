@@ -24,13 +24,14 @@ class UnempoweredLS extends Module {
   }
 
   on_byPlayer_cast(event) {
-    if (this.isLunarStrike(event)) {
-      this.casts.push(this._castQueue);
-      this._castQueue = {
-        empowered: this._lunarEmpsOn,
-        enemies: 0,
-      };
+    if (!this.isLunarStrike(event)) {
+      return;
     }
+    this.casts.push(this._castQueue);
+    this._castQueue = {
+      empowered: this._lunarEmpsOn,
+      enemies: 0,
+    };
   }
 
   on_byPlayer_damage(event) {
