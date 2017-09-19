@@ -1,7 +1,14 @@
-import SPELLS from 'common/SPELLS';
+import React from 'react';
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import { formatPercentage } from 'common/format';
+import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
 
+import SPELLS from 'common/SPELLS';
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
+
+import SuggestionThresholds from '../../SuggestionThresholds';
 
 const debug = false;
 
@@ -19,6 +26,8 @@ class Flourish extends Module {
   lifebloom = 0;
   springBlossoms = 0;
 
+  wildGrowthTargets = 6; // TODO handle extra targets during ToL
+
   hasGermination = false;
   hasSpringBlossoms = false;
   hasCenarionWard = false;
@@ -26,11 +35,13 @@ class Flourish extends Module {
   hasTreeOfLife = false;
 
   on_initialized() {
-    this.hasGermination = this.owner.modules.combatants.selected.lv90Talent === SPELLS.GERMINATION_TALENT.id;
-    this.hasSpringBlossoms = this.owner.modules.combatants.selected.lv90Talent === SPELLS.SPRING_BLOSSOMS_TALENT.id;
-    this.hasCenarionWard = this.owner.modules.combatants.selected.lv15Talent === SPELLS.CENARION_WARD_TALENT.id;
-    this.hasCultivation = this.owner.modules.combatants.selected.lv75Talent === SPELLS.CULTIVATION_TALENT.id;
-    this.hasTreeOfLife = this.owner.modules.combatants.selected.lv75Talent === SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id;
+    this.active = this.combatants.selected.hasTalent(SPELLS.FLOURISH_TALENT.id);
+
+    this.hasGermination = this.combatants.selected.hasTalent(SPELLS.GERMINATION_TALENT.id);
+    this.hasSpringBlossoms = this.combatants.selected.hasTalent(SPELLS.SPRING_BLOSSOMS_TALENT.id);
+    this.hasCenarionWard = this.combatants.selected.hasTalent(SPELLS.CENARION_WARD_TALENT.id);
+    this.hasCultivation = this.combatants.selected.hasTalent(SPELLS.CULTIVATION_TALENT.id);
+    this.hasTreeOfLife = this.combatants.selected.hasTalent(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id);
   }
 
   on_byPlayer_cast(event) {
@@ -121,6 +132,74 @@ class Flourish extends Module {
         }
       });
   }
+
+  suggestions(when) {
+    if(this.flourishCounter === 0) {
+      return;
+    }
+
+    const wgsExtended = (this.wildGrowth / this.wildGrowthTargets) / this.flourishCounter;
+    when(wgsExtended).isLessThan(SuggestionThresholds.FLOURISH_WG_EXTEND.minor)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<span>Your <SpellLink id={SPELLS.FLOURISH.id} /> should always aim to extend a <SpellLink id={SPELLS.WILD_GROWTH.id} /></span>)
+          .icon(SPELLS.FLOURISH.icon)
+          .actual(`${formatPercentage((this.wildGrowth / 6) / this.flourishCounter, 0)}% WGs extended.`)
+          .recommended(`>${formatPercentage(recommended)}% is recommended`)
+          .regular(SuggestionThresholds.FLOURISH_WG_EXTEND.regular).major(SuggestionThresholds.FLOURISH_WG_EXTEND.major);
+      });
+
+    if(this.hasCenarionWard) {
+      const cwsExtended = this.cenarionWard / this.flourishCounter;
+      when(cwsExtended).isLessThan(SuggestionThresholds.FLOURISH_CW_EXTEND.minor)
+        .addSuggestion((suggest, actual, recommended) => {
+          return suggest(<span>Your <SpellLink id={SPELLS.FLOURISH.id} /> should always aim to extend a <SpellLink id={SPELLS.CENARION_WARD.id} /></span>)
+            .icon(SPELLS.FLOURISH.icon)
+            .actual(`${this.cenarionWard}/${this.flourishCounter} CWs extended.`)
+            .recommended(`>${formatPercentage(recommended)}% is recommended`)
+            .regular(SuggestionThresholds.FLOURISH_CW_EXTEND.regular).major(SuggestionThresholds.FLOURISH_CW_EXTEND.major);
+        });
+    }
+  }
+
+  statistic() {
+    return(
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.FLOURISH_TALENT.id} />}
+        value={`${((((this.wildGrowth + this.cenarionWard + this.rejuvenation + this.regrowth + this.lifebloom + this.springBlossoms + this.cultivation) * 6) / this.flourishCounter).toFixed(0) | 0)}s`}
+        label="Seconds extended per Flourish"
+        tooltip={
+          `<ul>
+              Your ${this.flourishCounter} Flourishes extended:
+              <li>${this.wildGrowth}/${this.flourishCounter * this.wildGrowthTargets} Wild Growths</li>
+              <li>${this.cenarionWard}/${this.flourishCounter} Cenarion Wards</li>
+              ${this.rejuvenation > 0 ?
+            `<li>${this.rejuvenation} Rejuvenations</li>`
+            : ''
+            }
+                      ${this.regrowth > 0 ?
+            `<li>${this.regrowth} Regrowths</li>`
+            : ''
+            }
+                      ${this.lifebloom > 0 ?
+            `<li>${this.lifebloom} Lifeblooms</li>`
+            : ''
+            }
+                      ${this.springBlossoms > 0 ?
+            `<li>${this.springBlossoms} Spring Blossoms</li>`
+            : ''
+            }
+                      ${this.cultivation > 0 ?
+            `<li>${this.cultivation} Cultivations</li>`
+            : ''
+            }
+          </ul>`
+        }
+      />
+    );
+  }
+  statisticOrder = STATISTIC_ORDER.OPTIONAL();
+
+
 }
 
 export default Flourish;
