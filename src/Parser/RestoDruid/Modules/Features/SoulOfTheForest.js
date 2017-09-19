@@ -1,13 +1,30 @@
+import React from 'react';
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import { formatPercentage } from 'common/format';
+import SpellIcon from 'common/SpellIcon';
+
+import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
 import Module from 'Parser/Core/Module';
 import SPELLS from 'common/SPELLS';
 
-const REGROWTH_HEALING_INCREASE = 3;
-const REJUVENATION_HEALING_INCREASE = 3;
-const WILD_GROWTH_HEALING_INCREASE = 1.75;
+import Combatants from 'Parser/Core/Modules/Combatants';
+import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
+
+const REGROWTH_HEALING_INCREASE = 2;
+const REJUVENATION_HEALING_INCREASE = 2;
+const WILD_GROWTH_HEALING_INCREASE = 0.75;
 const WILD_GROWTH_DURATION = 7000;
 const REJUVENATION_BASE_DURATION = 12000;
 
 class SoulOfTheForest extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
+  hasSotf = false;
+  hasSota = false;
+
   regrowths = 0;
   wildGrowths = 0;
   rejuvenations = 0;
@@ -27,6 +44,10 @@ class SoulOfTheForest extends Module {
   rejuvenationDuration = REJUVENATION_BASE_DURATION;
 
   on_initialized() {
+    this.hasSotf = this.combatants.selected.hasTalent(SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id);
+    this.hasSota = this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_ARCHDRUID.id);
+    this.active = this.hasSotf || this.hasSota;
+
     const persistanceTraits = this.owner.modules.combatants.selected.traitsBySpellId[SPELLS.PERSISTENCE_TRAIT.id] || 0;
     this.rejuvenationDuration += persistanceTraits * 1000;
   }
@@ -80,28 +101,77 @@ class SoulOfTheForest extends Module {
     }
 
     if (SPELLS.REGROWTH.id === spellId && this.regrowthProccTimestamp === event.timestamp) {
-      this.regrowthHealing += this.calculateEffectiveHealingFromIncrease(event, REGROWTH_HEALING_INCREASE);
+      this.regrowthHealing += calculateEffectiveHealing(event, REGROWTH_HEALING_INCREASE);
       this.regrowthProccTimestamp = null;
     } else if (this.rejuvenationProccTimestamp !== null
         && (SPELLS.REJUVENATION.id === spellId || SPELLS.REJUVENATION_GERMINATION === spellId)
         && (event.timestamp - (this.rejuvenationProccTimestamp + this.rejuvenationDuration)) <= 0) {
       if (this.rejuvenationTargets.indexOf(event.targetID) !== -1) {
-        this.rejuvenationHealing += this.calculateEffectiveHealingFromIncrease(event, REJUVENATION_HEALING_INCREASE);
+        this.rejuvenationHealing += calculateEffectiveHealing(event, REJUVENATION_HEALING_INCREASE);
       }
     } else if (this.wildGrowthProccTimestamp !== null
       && SPELLS.WILD_GROWTH.id === spellId
       && (event.timestamp - (this.wildGrowthProccTimestamp + WILD_GROWTH_DURATION)) <= 0) {
       if (this.wildGrowthTargets.indexOf(event.targetID) !== -1) {
-        this.wildGrowthHealing += this.calculateEffectiveHealingFromIncrease(event, WILD_GROWTH_HEALING_INCREASE);
+        this.wildGrowthHealing += calculateEffectiveHealing(event, WILD_GROWTH_HEALING_INCREASE);
       }
     }
   }
 
-  // TODO: Refactor this method, as there's many features that uses this formula to calculate healing contributed by healing increases with partial overheals.
-  calculateEffectiveHealingFromIncrease(event, healingIncrease) {
-    const baseHeal = (event.amount + event.overheal || 0) / healingIncrease;
-    return Math.max(0, event.amount - baseHeal) / healingIncrease;
+  statistic() {
+    if(!this.hasSotf) { return; }
+
+    const total = this.wildGrowthHealing + this.rejuvenationHealing + this.regrowthHealing;
+    const totalPercent = this.owner.getPercentageOfTotalHealingDone(total);
+
+    const wgPercent = this.owner.getPercentageOfTotalHealingDone(this.wildGrowthHealing);
+    const rejuvPercent = this.owner.getPercentageOfTotalHealingDone(this.rejuvenationHealing);
+    const regrowthPercent = this.owner.getPercentageOfTotalHealingDone(this.regrowthHealing);
+
+    return(
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id} />}
+        value={`${formatPercentage(totalPercent)} %`}
+        label="Soul of the Forest"
+        tooltip={
+          `You gained ${this.proccs} total Soul of the Forest procs.
+          <ul>
+            <li>Consumed ${this.wildGrowths} procs with Wild Growth for ${formatPercentage(wgPercent)}% healing</li>
+            <li>Consumed ${this.rejuvenations} procs with Rejuvenation for ${formatPercentage(rejuvPercent)}% healing</li>
+            <li>Consumed ${this.regrowths} procs with Regrowth for ${formatPercentage(regrowthPercent)}% healing</li>
+          </ul>`
+        }
+      />
+    );
   }
+  statisticOrder = STATISTIC_ORDER.OPTIONAL();
+
+  item() {
+    if(!this.hasSota) { return; }
+
+    const total = this.wildGrowthHealing + this.rejuvenationHealing + this.regrowthHealing;
+
+    const wgPercent = this.owner.getPercentageOfTotalHealingDone(this.wildGrowthHealing);
+    const rejuvPercent = this.owner.getPercentageOfTotalHealingDone(this.rejuvenationHealing);
+    const regrowthPercent = this.owner.getPercentageOfTotalHealingDone(this.regrowthHealing);
+
+    return {
+      item: ITEMS.SOUL_OF_THE_ARCHDRUID,
+      result: (
+        <dfn data-tip={
+          `You gained ${this.proccs} total Soul of the Forest procs.
+          <ul>
+            <li>Consumed ${this.wildGrowths} procs with Wild Growth for ${formatPercentage(wgPercent)}% healing</li>
+            <li>Consumed ${this.rejuvenations} procs with Rejuvenation for ${formatPercentage(rejuvPercent)}% healing</li>
+            <li>Consumed ${this.regrowths} procs with Regrowth for ${formatPercentage(regrowthPercent)}% healing</li>
+          </ul>`
+        }>
+          {this.owner.formatItemHealingDone(total)}
+        </dfn>
+      ),
+    };
+  }
+
 }
 
 export default SoulOfTheForest;

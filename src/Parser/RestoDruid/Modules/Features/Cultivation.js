@@ -1,5 +1,5 @@
 import React from 'react';
-import StatisticBox from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import { formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
@@ -42,6 +42,7 @@ class Cultivation extends Module {
       />
     );
   }
+  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 
   suggestions(when) {
     const directHealing = this.mastery.getDirectHealing(SPELLS.CULTIVATION.id);

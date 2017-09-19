@@ -1,32 +1,60 @@
-import Module from 'Parser/Core/Module';
-import SPELLS from 'common/SPELLS';
+import React from 'react';
 
-export const EKOWRAITH_ITEM_ID = 137015;
+import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
+
+import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
+
 const GUARDIAN_DAMAGE_REDUCTION = 0.06;
 const EKOWRAITH_INCREASED_EFFECT = 1.75;
 
 class Ekowraith extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
   healing = 0;
-  damageReductionHealing = 0;
+  damageReduction = 0;
   hasGuardianAffinity = false;
 
   on_initialized() {
-    this.hasGuardianAffinity = this.owner.modules.combatants.selected.lv45Talent === 197491;
+    this.active = this.combatants.selected.hasChest(ITEMS.EKOWRAITH_CREATOR_OF_WORLDS.id);
+    this.hasGuardianAffinity = this.combatants.selected.hasTalent(SPELLS.GUARDIAN_AFFINITY_TALENT_SHARED.id);
   }
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
+    const amount = event.amount + (event.absorbed || 0);
 
     if (spellId === SPELLS.YSERAS_GIFT_1.id || spellId === SPELLS.YSERAS_GIFT_2.id) {
-      this.healing += (event.amount - (event.amount / EKOWRAITH_INCREASED_EFFECT));
+      this.healing += (amount - (amount / EKOWRAITH_INCREASED_EFFECT));
     }
   }
 
   on_toPlayer_damage(event) {
+    // TODO does damage taken also have an 'absorbed' amount that must be accounted for?
     if (this.hasGuardianAffinity) {
-      this.damageReductionHealing += event.amount * ((GUARDIAN_DAMAGE_REDUCTION * EKOWRAITH_INCREASED_EFFECT) - GUARDIAN_DAMAGE_REDUCTION);
+      // TODO is this calculation correct?
+      const damage = event.amount + (event.absorbed || 0);
+      this.damageReduction += damage * ((GUARDIAN_DAMAGE_REDUCTION * EKOWRAITH_INCREASED_EFFECT) - GUARDIAN_DAMAGE_REDUCTION);
     }
   }
+
+  item() {
+    return {
+      item: ITEMS.EKOWRAITH_CREATOR_OF_WORLDS,
+      result: (
+        <dfn data-tip={`This is the healing attributable to the bonus to Ysera's Gift.
+        ${!this.hasGuardianAffinity ? '' :
+        ` <b>In addition, the damage reduction attributable to the boosted strength of Guardian Affinity prevented the equivalent of ${this.owner.formatItemHealingDone(this.damageReduction)}</b>`}
+        `}>
+          {this.owner.formatItemHealingDone(this.healing)}
+        </dfn>
+      ),
+    };
+  }
+
 }
 
 export default Ekowraith;
