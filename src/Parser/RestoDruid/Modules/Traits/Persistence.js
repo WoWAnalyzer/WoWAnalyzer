@@ -8,32 +8,34 @@ import { formatPercentage } from 'common/format';
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
+import Rejuvenation from '../Features/Rejuvenation';
+
 
 /**
  * Persistence (Artifact Trait)
  * Increases the duration of Moonfire, Rejuvenation and Sunfire by 1s. We will only look at the Rejuvenation part.
- * This is may be a little underestimated since it doesn't include the increased bonuses from Dreamwalker, Increased avg mastery, Amanthul's Wisdom,
- * Flourish, EoG etc. Rejuvenation has so many external variables so this calculation is an estimate at best.
  *
  * This modules checks whenever a rejuvenation is applied or refreshed and add that as 1s to the variable persistanceValue.
+ * We make use of what the average healing from one second of rejuvenation did.
  * This doesn't take "magic" rejuvenations into account that doesn't trigger an apply/refreshbuff event.
- * TODO: Improve this module
+ * TODO: Improve this module:
+ * TODO: Add mastery healing, add cultivation (?),
+ * TODO: Subtractions for overheals on last tick, subtractions for early refreshes
+ * TODO: Include "magic rejuvenations" such as deep rooted.
  */
 class Persistence extends Module {
   static dependencies = {
     combatants: Combatants,
     healingDone: HealingDone,
+    rejuvenation: Rejuvenation,
   };
 
   rank = 0;
-  healing = 0;
   totalPersistanceValue = 0;
-  rejuvenationDuration = 12;
 
   on_initialized() {
     this.rank = this.combatants.selected.traitsBySpellId[SPELLS.PERSISTENCE_TRAIT.id];
     this.active = this.rank > 0;
-    this.rejuvenationDuration += this.rank;
   }
 
   on_byPlayer_applybuff(event) {
@@ -51,10 +53,19 @@ class Persistence extends Module {
     this.totalPersistanceValue++;
   }
 
+  getSpellUptime(spellId) {
+    return Object.keys(this.combatants.players)
+      .map(key => this.combatants.players[key])
+      .reduce((uptime, player) =>
+        uptime + player.getBuffUptime(spellId), 0);
+  }
+
   subStatistic() {
-    const freeRejuvs = this.totalPersistanceValue / this.rejuvenationDuration;
-    const oneRejuvenationThroughput = this.owner.getPercentageOfTotalHealingDone(this.owner.modules.treeOfLife.totalHealingFromRejuvenationEncounter) / this.owner.modules.treeOfLife.totalRejuvenationsEncounter;
-    const persistenceThroughput = oneRejuvenationThroughput * freeRejuvs;
+    const uptimeRejuvenation = Math.floor((this.getSpellUptime(SPELLS.REJUVENATION.id) + this.getSpellUptime(SPELLS.REJUVENATION_GERMINATION.id)) / 1000);
+    const totalRejuvenationHealing = this.rejuvenation.totalRejuvHealing;
+    const oneSecondRejuvenationHealing = totalRejuvenationHealing/uptimeRejuvenation;
+
+    const persistenceThroughput = this.owner.getPercentageOfTotalHealingDone(this.totalPersistanceValue * oneSecondRejuvenationHealing);
 
     return (
       <div className="flex">

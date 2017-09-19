@@ -3,7 +3,6 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import { formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 
-import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import Module from 'Parser/Core/Module';
 import SPELLS from 'common/SPELLS';
@@ -48,8 +47,8 @@ class SoulOfTheForest extends Module {
     this.hasSota = this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_ARCHDRUID.id);
     this.active = this.hasSotf || this.hasSota;
 
-    const persistanceTraits = this.owner.modules.combatants.selected.traitsBySpellId[SPELLS.PERSISTENCE_TRAIT.id] || 0;
-    this.rejuvenationDuration += persistanceTraits * 1000;
+    const persistenceTraits = this.owner.modules.combatants.selected.traitsBySpellId[SPELLS.PERSISTENCE_TRAIT.id] || 0;
+    this.rejuvenationDuration += persistenceTraits * 1000;
   }
 
   on_byPlayer_applybuff(event) {
