@@ -16,6 +16,7 @@ import HolyPowerDetails from './Modules/HolyPower/HolyPowerDetails';
 
 import WhisperOfTheNathrezim from './Modules/Items/WhisperOfTheNathrezim';
 import LiadrinsFuryUnleashed from './Modules/Items/LiadrinsFuryUnleashed';
+import AshesToDust from './Modules/Items/AshesToDust';
 import Tier20_2set from './Modules/Items/Tier20_2set';
 import Tier20_4set from './Modules/Items/Tier20_4set';
 
@@ -42,6 +43,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Items:
     whisperOfTheNathrezim: WhisperOfTheNathrezim,
     liadrinsFuryUnleahed: LiadrinsFuryUnleashed,
+    ashesToDust: AshesToDust,
     tier20_2set: Tier20_2set,
     tier20_4set: Tier20_4set,
   };
