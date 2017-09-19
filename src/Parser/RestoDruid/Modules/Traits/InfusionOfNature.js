@@ -8,6 +8,7 @@ import { formatPercentage } from 'common/format';
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
+import Rejuvenation from '../Features/Rejuvenation';
 
 const BASE_MANA = 220000;
 const WILD_GROWTH_BASE_MANA = 0.34;
@@ -22,6 +23,7 @@ class InfusionOfNature extends Module {
   static dependencies = {
     combatants: Combatants,
     healingDone: HealingDone,
+    rejuvenation: Rejuvenation,
   };
 
   rank = 0;
@@ -46,8 +48,7 @@ class InfusionOfNature extends Module {
   }
 
   subStatistic() {
-    //TODO Change the oneRejuvenationThroughput to the one in the rejuvenation module
-    const oneRejuvenationThroughput = this.owner.getPercentageOfTotalHealingDone(this.owner.modules.treeOfLife.totalHealingFromRejuvenationEncounter) / this.owner.modules.treeOfLife.totalRejuvenationsEncounter;
+    const oneRejuvenationThroughput = this.owner.getPercentageOfTotalHealingDone(this.rejuvenation.avgRejuvHealing);
     const infusionOfNatureThroughput = oneRejuvenationThroughput * this.freeRejuvs;
     return (
       <div className="flex">

@@ -8,6 +8,8 @@ import { formatPercentage } from 'common/format';
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
+import Rejuvenation from '../Features/Rejuvenation';
+
 
 const KNOWLEDGE_OF_THE_ANCIENT_MANA_GAIN = 880;
 const BASE_MANA = 220000;
@@ -20,6 +22,7 @@ class KnowledgeOfTheAncients extends Module {
   static dependencies = {
     combatants: Combatants,
     healingDone: HealingDone,
+    rejuvenation: Rejuvenation,
   };
 
   rank = 0;
@@ -40,8 +43,7 @@ class KnowledgeOfTheAncients extends Module {
   subStatistic() {
     const rejuvManaCost = BASE_MANA * REJUVENATION_BASE_MANA;
     const freeRejuvs = this.manaGained / rejuvManaCost;
-    //TODO Change the oneRejuvenationThroughput to the one in the rejuvenation module
-    const oneRejuvenationThroughput = this.owner.getPercentageOfTotalHealingDone(this.owner.modules.treeOfLife.totalHealingFromRejuvenationEncounter) / this.owner.modules.treeOfLife.totalRejuvenationsEncounter;
+    const oneRejuvenationThroughput = this.owner.getPercentageOfTotalHealingDone(this.rejuvenation.avgRejuvHealing);
     const knowledgeOfTheAncientsThroughput = oneRejuvenationThroughput * freeRejuvs;
     return (
       <div className="flex">
