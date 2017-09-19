@@ -29,7 +29,7 @@ class BlessingOfTheWorldTree extends Module {
   }
 
   on_byPlayer_heal(event) {
-    if(event.ability.guid !== SPELLS.HEALING_TOUCH.id || (event.ability.guid !== SPELLS.REGROWTH.id && event.tick) ) {
+    if(event.ability.guid !== SPELLS.HEALING_TOUCH.id && (event.ability.guid !== SPELLS.REGROWTH.id || event.tick) ) {
       return;
     }
 

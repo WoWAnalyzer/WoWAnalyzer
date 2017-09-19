@@ -17,6 +17,9 @@ const REJUVENATION_BASE_MANA = 0.1;
 /**
  * Knowledge of the Ancients (Artifact Trait)
  * Increases mana regeneration by 2%
+ *
+ * TODO: Reduce the effect of this trait if we didn't need the extra mana gained.
+ * TODO: Look at DarkmoonDeckPromises.js for inspiration
  */
 class KnowledgeOfTheAncients extends Module {
   static dependencies = {
@@ -53,7 +56,9 @@ class KnowledgeOfTheAncients extends Module {
           </SpellLink>
         </div>
         <div className="flex-sub text-right">
-          {formatPercentage(knowledgeOfTheAncientsThroughput)} %
+          <dfn data-tip={`Knowledge of the Ancient saved you ${Math.floor(this.manaGained)} mana. The extra mana gained is translated to throughput by assuming you'd cast more rejuvenations.`}>
+            ≈ {formatPercentage(knowledgeOfTheAncientsThroughput)} %
+          </dfn>
         </div>
       </div>
     );

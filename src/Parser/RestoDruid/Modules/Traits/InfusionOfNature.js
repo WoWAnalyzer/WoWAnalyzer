@@ -18,6 +18,9 @@ const INFUSION_OF_NATURE_REDUCTION = 0.02;
 /**
  * Infusion of Nature (Artifact Trait)
  * Reduces the mana cost of Wild Growth by 2%
+ *
+ * TODO: Reduce the effect of this trait if we didn't need the extra mana gained.
+ * TODO: Look at DarkmoonDeckPromises.js for inspiration
  */
 class InfusionOfNature extends Module {
   static dependencies = {
@@ -58,7 +61,9 @@ class InfusionOfNature extends Module {
           </SpellLink>
         </div>
         <div className="flex-sub text-right">
-          {formatPercentage(infusionOfNatureThroughput)} %
+          <dfn data-tip={`Infusion of nature saved you ${Math.floor(this.manaGained)} mana. The extra mana gained is translated to throughput by assuming you'd cast more rejuvenations.`}>
+            ≈ {formatPercentage(infusionOfNatureThroughput)} %
+          </dfn>
         </div>
       </div>
     );
