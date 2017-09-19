@@ -55,9 +55,7 @@ class UnempoweredLS extends Module {
   on_finished() {
     this.casts.push(this._castQueue);
 
-    this.suboptUmempLS = this.casts.filter((cast) => {
-      return !cast.empowered && cast.enemies > 0 && cast.enemies < 3;
-    }).length;
+    this.suboptUmempLS = this.casts.filter((cast) =>  !cast.empowered && cast.enemies > 0 && cast.enemies < 3).length;
   }
 
   suggestions(when) {
