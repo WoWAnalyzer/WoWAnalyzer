@@ -58,6 +58,14 @@ class Rejuvenation extends Module {
     return this.totalRejuvsCast === 0 ? 0 : total / this.totalRejuvsCast;
   }
 
+  get totalRejuvHealing() {
+    // TODO Check the above FIXME and add mastery to this method
+    // Should cultivation be added too?
+    const rejuvDirect = this.mastery.getDirectHealing(SPELLS.REJUVENATION.id);
+    const germDirect = this.mastery.getDirectHealing(SPELLS.REJUVENATION_GERMINATION.id);
+    return rejuvDirect + germDirect + this.dreamwalkerHealing;
+  }
+
   /*
    * The expected healing done by using the given amount of mana to fill with Rejuv casts
    */
