@@ -602,6 +602,16 @@ export default {
   },
 
   // Demonology talents
+  DEMONIC_CALLING_BUFF: {
+    id: 205146,
+    name: 'Demonic Calling',
+    icon: 'ability_warlock_impoweredimp',
+  },
+  SHADOWY_INSPIRATION_BUFF: {
+    id: 196606,
+    name: 'Shadowy Inspiration',
+    icon: 'warlock_curse_shadow',
+  },
   SHADOWFLAME: {
     id: 205181,
     name: 'Shadowflame',

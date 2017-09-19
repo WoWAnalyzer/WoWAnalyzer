@@ -19,6 +19,9 @@ import Doom from './Modules/Features/DoomUptime';
 // import SoulShardDetails from './Modules/SoulShards/SoulShardDetails';
 import DamageDone from './Modules/Features/DamageDone';
 
+import ShadowyInspiration from './Modules/Talents/ShadowyInspiration';
+import Shadowflame from './Modules/Talents/Shadowflame';
+import DemonicCalling from './Modules/Talents/DemonicCalling';
 import SoulHarvest from './Modules/Talents/SoulHarvest';
 import SoulHarvestTalent from './Modules/Talents/SoulHarvestTalent';
 
@@ -44,6 +47,9 @@ class CombatLogParser extends CoreCombatLogParser {
     // soulShardDetails: SoulShardDetails,
 
     // Talents
+    shadowyInspiration: ShadowyInspiration,
+    shadowflame: Shadowflame,
+    demonicCalling: DemonicCalling,
     soulHarvest: SoulHarvest,
     soulHarvestTalent: SoulHarvestTalent,
 
