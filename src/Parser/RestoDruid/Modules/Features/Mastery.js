@@ -21,7 +21,7 @@ class Mastery extends Module {
   masteryBuffs = {};
 
   on_initialized() {
-    HEALS_MASTERY_STACK.forEach(healId => this.hotHealing[healId] = { direct: 0, mastery: 0 });
+    HEALS_MASTERY_STACK.forEach(healId => this.hotHealing[healId] = { direct: 0, mastery: {} });
 
     this.masteryBuffs = {
       [SPELLS.ASTRAL_HARMONY.id]: { amount: 4000 },
@@ -56,7 +56,7 @@ class Mastery extends Module {
 
       hotsOn
           .filter(hotOn => hotOn !== spellId) // don't double count
-          .forEach(hotOn => this.hotHealing[hotOn].mastery += decomposedHeal.oneStack);
+          .forEach(hotOn => this._tallyMasteryBenefit(hotOn, spellId, decomposedHeal.oneStack));
 
       Object.entries(this.masteryBuffs)
           .filter(entry => this.combatants.selected.hasBuff(entry[0]))
@@ -72,14 +72,43 @@ class Mastery extends Module {
 
   /* accessors for computed values */
 
+  /*
+   * Gets the direct healing attributed to the given resto HoT ID
+   */
   getDirectHealing(healId) {
     return this.hotHealing[healId].direct;
   }
 
+  /*
+   * Gets the total mastery healing attributed to the given resto HoT ID
+   */
   getMasteryHealing(healId) {
-    return this.hotHealing[healId].mastery;
+    return Object.values(this.hotHealing[healId].mastery)
+        .reduce((s, v) => s + v, 0);
   }
 
+  /*
+   * Gets the total healing attributable to the given resto HoT IDs (in an array).
+   * Counts both direct and by mastery, and avoids the mastery/direct double count issue between the hots.
+   */
+  getMultiMasteryHealing(healIds) {
+    return healIds.reduce((s1, healId) => s1 +
+        Object.entries(this.hotHealing[healId].mastery)
+            .filter(entry => healIds.includes(entry[0]))
+            .reduce((s2, entry) => s2 + entry[1], 0) +
+        this.hotHealing[healId].direct, 0);
+  }
+
+  /*
+   * Gets detailed direct / mastery healing attribution info from the given resto HoT ID
+   */
+  getHealingDetails(healId) {
+    return this.hotHealing[healId];
+  }
+
+  /*
+   * Gets the total mastery healing attributed to the given mastery buff ID
+   */
   getBuffBenefit(buffId) {
     return this.masteryBuffs[buffId].attributableHealing;
   }
@@ -98,6 +127,15 @@ class Mastery extends Module {
    */
   getAverageDruidSpellMasteryStacks() {
     return this.masteryTimesHealing / this.druidSpellNoMasteryHealing;
+  }
+
+  _tallyMasteryBenefit(hotId, healId, amount) {
+    const hotMastery = this.hotHealing[hotId].mastery;
+    if(hotMastery[healId]) {
+      hotMastery[healId] += amount;
+    } else {
+      hotMastery[healId] = amount;
+    }
   }
 
   _decompHeal(amount, hotCount) {

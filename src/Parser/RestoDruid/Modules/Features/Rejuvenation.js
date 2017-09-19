@@ -43,19 +43,31 @@ class Rejuvenation extends Module {
   }
 
   /*
+   * The total healing attributable to Rejuvenation
+   */
+  get totalRejuvHealing() {
+    const rejuvTotals = this.mastery.getMultiMasteryHealing([SPELLS.REJUVENATION.id, SPELLS.REJUVENATION_GERMINATION.id]);
+    return rejuvTotals + this.dreamwalkerHealing;
+/*
+    const rejuvDetails = this.mastery.getHealingDetails(SPELLS.REJUVENATION.id);
+    const germDetails = this.mastery.getHealingDetails(SPELLS.REJUVENATION_GERMINATION.id);
+
+    const rejuvDirect = rejuvDetails.direct;
+    const rejuvMasteryWoGerm = Object.entries(rejuvDetails.mastery)
+        .filter(entry => entry[0] !== SPELLS.REJUVENATION_GERMINATION.id)
+        .reduce((s, v) => s + v, 0);
+    const germDirect = germDetails.direct;
+    const germMasteryWoRejuv = Object.entries(germDetails.mastery)
+        .filter(entry => entry[0] !== SPELLS.REJUVENATION.id)
+        .reduce((s, v) => s + v, 0);
+*/
+  }
+
+  /*
    * The average healing caused per cast of Rejuvenation
    */
   get avgRejuvHealing() {
-    const rejuvDirect = this.mastery.getDirectHealing(SPELLS.REJUVENATION.id);
-    //const rejuvMastery = this.mastery.getMasteryHealing(SPELLS.REJUVENATION.id);
-    const germDirect = this.mastery.getDirectHealing(SPELLS.REJUVENATION_GERMINATION.id);
-    //const germMastery = this.mastery.getMasteryHealing(SPELLS.REJUVENATION_GERMINATION.id);
-    const total = rejuvDirect + germDirect + this.dreamwalkerHealing;
-    // FIXME adding the direct + mastery of both moderately overcounts, because when both rejuv and germ are on same target,
-    //       there is a portion of double counting in rejuvDirect/germMastery and germDirect/rejuvMastery.
-    //       Enhancements to the Mastery module may be required.
-
-    return this.totalRejuvsCast === 0 ? 0 : total / this.totalRejuvsCast;
+    return this.totalRejuvHealing / this.totalRejuvsCast;
   }
 
   /*
