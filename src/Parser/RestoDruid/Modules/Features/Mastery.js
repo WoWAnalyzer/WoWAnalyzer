@@ -94,7 +94,7 @@ class Mastery extends Module {
   getMultiMasteryHealing(healIds) {
     return healIds.reduce((s1, healId) => s1 +
         Object.entries(this.hotHealing[healId].mastery)
-            .filter(entry => healIds.includes(entry[0]))
+            .filter(entry => !healIds.includes(entry[0]))
             .reduce((s2, entry) => s2 + entry[1], 0) +
         this.hotHealing[healId].direct, 0);
   }
