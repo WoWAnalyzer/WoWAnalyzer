@@ -99,7 +99,7 @@ class Results extends React.Component {
 
     return (
       <div style={{ width: '100%' }}>
-        <div className="row" style={{ marginTop: 40 }}>
+        <div className="row" style={{ marginTop: 20 }}>
           <div className="col-md-8" style={{ position: 'relative' }}>
             <div className="back-button" style={{ fontSize: 36, width: 20 }}>
               <Link to={`/report/${report.code}/${fight.id}`} data-tip="Back to player selection">
@@ -121,7 +121,7 @@ class Results extends React.Component {
             </a>
           </div>
         </div>
-        <div className="text-muted" style={{ marginBottom: 20 }}>
+        <div className="text-muted" style={{ marginBottom: 25 }}>
           The {config.spec.specName} {config.spec.className} analyzer is being maintained by {config.maintainer}. This spec's completeness is <dfn data-tip={getCompletenessExplanation(config.completeness)} style={{ color: getCompletenessColor(config.completeness) }}>{getCompletenessLabel(config.completeness)}</dfn>.
         </div>
 
