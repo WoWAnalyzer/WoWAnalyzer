@@ -11,6 +11,8 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownTracker from './Modules/Features/CooldownTracker';
 import DamageDone from './Modules/PaladinCore/DamageDone';
 
+import DivinePurpose from './Modules/Talents/DivinePurpose';
+
 import HolyPowerTracker from './Modules/HolyPower/HolyPowerTracker';
 import HolyPowerDetails from './Modules/HolyPower/HolyPowerDetails';
 
@@ -34,6 +36,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownTracker: CooldownTracker,
 
     // Talents
+    divinePurpose: DivinePurpose,
 
     // HolyPower
     holyPowerTracker: HolyPowerTracker,

@@ -1,4 +1,6 @@
 export default `
+08-20-2017 - (@Hewhosmites) Made a Divine Purpose Tracker.
+08-20-2017 - (@Hewhosmites) Added a Soul of the Highlord Module.
 08-19-2017 - (@Hewhosmites) Added a Ashes to Dust Module.
 08-19-2017 - (@Hewhosmites) Added a Liadrin's Fury Unleashed Module.
 08-18-2017 - (@Hewhosmites) Added a Holy Power Tracker and Graph.

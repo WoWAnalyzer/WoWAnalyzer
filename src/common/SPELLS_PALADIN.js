@@ -257,6 +257,11 @@ export default {
     name: 'Shield of Vengeance',
     icon: 'ability_paladin_shieldofthetemplar',
   },
+  DIVINE_PURPOSE_BUFF: {
+    id: 223819,
+    name: 'Divine Purpose',
+    icon: 'spell_holy_mindvision',
+  },
 
   // Ret Item Effects
   WHISPER_OF_THE_NATHREZIM_BUFF: {
