@@ -5,6 +5,7 @@ import Enemies from 'Parser/Core/Modules/Enemies';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
@@ -17,7 +18,7 @@ class DoomUptime extends Module {
     const doomUptime = this.enemies.getBuffUptime(SPELLS.DOOM.id) / this.owner.fightDuration;
     when(doomUptime).isLessThan(0.95)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest('Your Doom uptime can be improved. Try to pay more attention to your Doom on the boss, as it is one of your Soul Shard generators.')
+        return suggest(<span>Your <SpellLink id={SPELLS.DOOM.id}/> uptime can be improved. Try to pay more attention to your Doom on the boss, as it is one of your Soul Shard generators.</span>)
           .icon(SPELLS.DOOM.icon)
           .actual(`${formatPercentage(actual)}% Doom uptime`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`)
