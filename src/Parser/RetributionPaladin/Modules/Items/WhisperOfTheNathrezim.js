@@ -36,8 +36,7 @@ class WhisperOfTheNathrezim extends Module {
 				The effective damage contributed by Whisper of the Nathrezim.<br/>
 				Damage: ${this.owner.formatItemDamageDone(this.damageDone)}<br/>
 				Total Damage: ${formatNumber(this.damageDone)}<br/>
-				Percent Uptime: ${formatPercentage(uptime)}%`}
-      >
+				Percent Uptime: ${formatPercentage(uptime)}%`}>
         {this.owner.formatItemDamageDone(this.damageDone)}
       </dfn>),
     };

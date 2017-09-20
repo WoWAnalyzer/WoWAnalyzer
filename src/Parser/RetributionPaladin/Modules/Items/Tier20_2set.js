@@ -17,6 +17,10 @@ class Tier20_2set extends Module {
 
   damageDone = 0;
 
+  on_initialized() {
+    this.active = this.combatants.selected.hasBuff(SPELLS.RET_PALADIN_T20_2SET_BONUS.id);
+  }
+
   get percentUptime() {
     // This calculates the total possible uptime based on buff duration (eight seconds) and the cooldown of judgement based on haste
     const maxUptime = 8 * (1 + this.combatants.selected.hastePercentage) / 12;
