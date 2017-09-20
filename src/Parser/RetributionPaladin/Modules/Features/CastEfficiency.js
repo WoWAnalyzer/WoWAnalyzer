@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
 
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
@@ -15,6 +16,14 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 30,
       recommendedCastEfficiency: 0.9,
       extraSuggestion: 'It has a high damage per execute time and generates a lot of holy power. It is better to waste 1-2 holy power than to hold the ability.',
+    },
+    {
+      spell: SPELLS.WAKE_OF_ASHES,
+      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
+      getCooldown: haste => 30,
+      isActive: combatant => combatant.hasShoulder(ITEMS.ASHES_TO_DUST.id),
+      recommendedCastEfficiency: 1,
+      extraSuggestion: 'With legendary shoulders it is imperative you cast wake on cooldown to get the damage bonus.',
     },
     {
       spell: SPELLS.CRUSADE_TALENT,
@@ -59,6 +68,15 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.JUDGMENT_CAST,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 12 / (1 + haste),
+    },
+    //This is the judgment CE with t20
+    {
+      spell: SPELLS.JUDGMENT_CAST,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => 12 / (1 + haste),
+      isActive: combatant => combatant.hasBuff(SPELLS.RET_PALADIN_T20_2SET_BONUS_BUFF.id),
+      recommendedCastEfficiency: 0.95,
+      extraSuggestion: 'With tier 20 2 peice it is even more imporant to use Judgment on cooldown to keep up the buff',
     },
     {
       spell: SPELLS.BLADE_OF_JUSTICE,

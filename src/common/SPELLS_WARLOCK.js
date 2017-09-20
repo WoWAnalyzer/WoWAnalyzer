@@ -635,5 +635,42 @@ export default {
     icon: 'inv_offhand_1h_artifactskulloferedar_d_01',
   },
 
+  // Demonology shard generating effects
+  RECURRENT_RITUAL_SHARD_GEN: {
+    id: 214811,
+    name: 'Recurrent Ritual',
+    icon: 'inv_feldreadravenmount',
+  },
+  POWER_TRIP_SHARD_GEN: {
+    id: 216125,
+    name: 'Power Trip',
+    icon: 'spell_shadow_demonictactics',
+  },
+  SHADOW_BOLT_SHARD_GEN: {
+    id: 194192,
+    name: 'Shadow Bolt',
+    icon: 'spell_shadow_shadowbolt',
+  },
+  DEMONBOLT_SHARD_GEN: {
+    id: 196300,
+    name: 'Demonbolt',
+    icon: 'spell_warlock_demonbolt',
+  },
+  DOOM_SHARD_GEN: {
+    id: 193318,
+    name: 'Doom',
+    icon: 'spell_shadow_auraofdarkness',
+  },
+  DEMONWRATH_SHARD_GEN: {
+    id: 194379,
+    name: 'Demonwrath',
+    icon: 'spell_warlock_demonwrath',
+  },
 
+  // Demonology Tier sets
+  WARLOCK_DEMO_T19_2P_BONUS: {
+    id: 212005,
+    name: 'Demonology Warlock T19 2P Bonus',
+    icon: 'inv_helm_cloth_raidwarlock_q_01',
+  },
 };
