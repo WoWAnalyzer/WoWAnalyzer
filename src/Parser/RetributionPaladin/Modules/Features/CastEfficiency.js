@@ -60,6 +60,15 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 12 / (1 + haste),
     },
+    //This is the judgment CE with t20
+    {
+      spell: SPELLS.JUDGMENT_CAST,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => 12 / (1 + haste),
+      isActive: combatant => combatant.hasBuff(SPELLS.RET_PALADIN_T20_2SET_BONUS_BUFF.id),
+      recommendedCastEfficiency: 0.95,
+      extraSuggestion: 'With tier 20 2 peice it is even more imporant to use Judgment on cooldown to keep up the buff',
+    },
     {
       spell: SPELLS.BLADE_OF_JUSTICE,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
