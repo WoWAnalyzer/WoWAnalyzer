@@ -101,7 +101,7 @@ class Results extends React.Component {
     return (
       <div style={{ width: '100%' }}>
         <div className="row" style={{ marginTop: 20 }}>
-          <div className="col-md-8" style={{ position: 'relative' }}>
+          <div className="col-lg-10 col-md-8" style={{ position: 'relative' }}>
             <div className="back-button" style={{ fontSize: 36, width: 20 }}>
               <Link to={`/report/${report.code}/${fight.id}`} data-tip="Back to player selection">
                 <span className="glyphicon glyphicon-chevron-left" aria-hidden />
@@ -111,7 +111,7 @@ class Results extends React.Component {
               {getBossName(fight)} by <span className={config.spec.className.replace(' ', '')}>{selectedCombatant.name}</span>
             </h1>
           </div>
-          <div className="col-md-4" style={{ paddingTop: 20 }}>
+          <div className="col-lg-2 col-md-4" style={{ paddingTop: 20 }}>
             <a
               href={`https://www.warcraftlogs.com/reports/${report.code}/#fight=${fight.id}&source=${parser.playerId}`}
               target="_blank"
