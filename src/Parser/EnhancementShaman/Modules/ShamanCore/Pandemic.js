@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import Module from 'Parser/Core/Module';
 
 const PANDEMIC_THRESHOLD = 11500;
-const debug = true;
+const debug = false;
 
 class Pandemic extends Module {
   flametongueTimestamp = 0;
@@ -12,31 +12,30 @@ class Pandemic extends Module {
 
   on_byPlayer_applybuff(event) {
     if(event.ability.guid === SPELLS.FLAMETONGUE_BUFF.id) {
-      if(this.flametongueTimestamp === 0) {
-        this.flametongueTimestamp = event.timestamp;
-      } else {
+      if(this.flametongueTimestamp !== 0) {
         if(event.timestamp - this.flametongueTimestamp < PANDEMIC_THRESHOLD) {
           this.earlyRefresh += 1;
           this.refreshTimestamps.push(event.timestamp);
         }
       }
+      this.flametongueTimestamp = event.timestamp;
     }
   }
 
   on_byPlayer_refreshbuff(event) {
     if(event.ability.guid === SPELLS.FLAMETONGUE_BUFF.id) {
-      if(this.flametongueTimestamp === 0) {
-        this.flametongueTimestamp = event.timestamp;
-      } else {
+      if(this.flametongueTimestamp !== 0) {
         if(event.timestamp - this.flametongueTimestamp < PANDEMIC_THRESHOLD) {
           this.earlyRefresh += 1;
           this.refreshTimestamps.push(event.timestamp);
         }
       }
+      this.flametongueTimestamp = event.timestamp;
     }
   }
 
   on_finished() {
+    debug && console.log("this.refreshTimestamps");
     debug && console.log(this.refreshTimestamps);
   }
 
