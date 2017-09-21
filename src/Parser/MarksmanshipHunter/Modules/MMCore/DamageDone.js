@@ -10,7 +10,6 @@ class DamageDone extends CoreDamageDone {
   petDmg = 0;
   petIds = [];
   totalDmg = 0;
-  dmgTooltip = "";
 
   on_initialized() {
     this.owner.report.friendlyPets.filter(pet => pet.petOwner === this.owner.playerId).forEach((pet) => {
@@ -29,16 +28,15 @@ class DamageDone extends CoreDamageDone {
 
   on_finished() {
     this.totalDmg = this.petDmg + this.total.effective;
-    this.set_tooltip();
   }
-  set_tooltip() {
+
+  statistic() {
+    // Sets the tooltip when hovering over the "Damage Done" text, and show if you had a pet, and how much damage said pet contributed with.
     if (this.petDmg > 0) {
       this.dmgTooltip = `The total damage done recorded was ${formatNumber(this.totalDmg)}. Pet contributed ${formatNumber(this.petDmg)}`;
     } else
       this.dmgTooltip = `The total damage done recorded was ${formatNumber(this.totalDmg)}.`;
-  }
 
-  statistic() {
     return (
       <StatisticBox
         icon={<Icon icon="class_hunter" alt="DPS stats" />}
