@@ -1,7 +1,6 @@
 import React from 'react';
 import Icon from 'common/Icon';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import { formatNumber } from 'common/format';
 import Module from 'Parser/Core/Module';
 import SPELLS from 'common/SPELLS';
 import ResourceTypes from 'common/RESOURCE_TYPES';
