@@ -64,10 +64,10 @@ class LEmpowerment extends Module {
     const wastedPerMin = Math.round((((this.LunarEmpsOver) / (this.owner.fightDuration / 1000)) * 60)*10) / 10;
     when(wastedPerMin).isGreaterThan(0)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<span>You overcapped {this.LunarEmpsOver} Lunar Empowerments when you could have avoided it without overcapping Astral Power.</span>)
+          return suggest(<span>You overcapped {this.LunarEmpsOver} Lunar Empowerments when you could have avoided it without overcapping Astral Power. Try to prioritize casting Lunar Strike over Starsurge when not near max AsP and having Lunar Empowerment stacks up.</span>)
             .icon('ability_druid_eclipse')
             .actual(`${actual} avoidable overcapped Lunar Empowerments per minute`)
-            .recommended('0 avoidable overcapped Lunar Empowerments is recommended.')
+            .recommended('0 is recommended.')
             .regular(recommended + 1).major(recommended + 2);
         });
   }
