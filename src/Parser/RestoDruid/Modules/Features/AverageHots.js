@@ -27,7 +27,7 @@ class AverageHots extends Module {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(4);
+  statisticOrder = STATISTIC_ORDER.CORE(11);
 
 }
 
