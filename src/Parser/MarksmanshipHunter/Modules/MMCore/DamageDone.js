@@ -32,9 +32,9 @@ class DamageDone extends CoreDamageDone {
   }
   set_tooltip() {
     if (this.petDmg > 0) {
-      return `The total damage done recorded was ${formatNumber(this.totalDmg)}. Pets contributed ${formatNumber(this.petDmg)}`
+      return `The total damage done recorded was ${formatNumber(this.totalDmg)}. Pets contributed ${formatNumber(this.petDmg)}`;
     } else
-      return `The total damage done recorded was ${formatNumber(this.totalDmg)}.`
+      return `The total damage done recorded was ${formatNumber(this.totalDmg)}.`;
   }
 
   statistic() {
