@@ -484,4 +484,9 @@ export default {
     name: 'Blackout Combo',
     icon: 'ability_monk_blackoutkick',
   },
+  HIT_COMBO_BUFF: {
+    id: 196741,
+    name: 'Hit Combo',
+    icon: 'ability_monk_palmstrike',
+  },
 };
