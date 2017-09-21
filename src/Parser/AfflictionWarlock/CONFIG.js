@@ -7,7 +7,7 @@ import CHANGELOG from './CHANGELOG';
 export default {
   spec: SPECS.AFFLICTION_WARLOCK,
   maintainer: '@Chizu',
-  completeness: SPEC_ANALYSIS_COMPLETENESS.NEEDS_MORE_WORK, // When changing this please make a PR with ONLY this value changed, we will do a review of your analysis to find out of it is complete enough.
+  completeness: SPEC_ANALYSIS_COMPLETENESS.GOOD, 
   changelog: CHANGELOG,
   parser: CombatLogParser,
 };
