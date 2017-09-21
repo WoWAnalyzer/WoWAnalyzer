@@ -3,7 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
-import { formatNumber , formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -78,7 +78,8 @@ class Lifecycles extends Module {
             <li>On ${this.castsRedEnm} Enveloping Mists casts, you saved ${(this.manaSavedEnm / 1000).toFixed(0)}k mana. (${formatPercentage(this.castsRedEnm / (this.castsRedEnm + this.castsNonRedEnm))}%)</li>
             <li>You casted ${this.castsNonRedViv} Vivify's and ${this.castsNonRedEnm} Enveloping Mists at full mana.</li>
             </ul>
-            `}>
+            `}
+          >
             Mana Saved
           </dfn>
         )}

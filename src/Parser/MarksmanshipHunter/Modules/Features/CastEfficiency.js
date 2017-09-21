@@ -2,6 +2,8 @@ import SPELLS from 'common/SPELLS';
 
 import CoreCastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 
+/* eslint-disable no-unused-vars */
+
 class CastEfficiency extends CoreCastEfficiency {
   static CPM_ABILITIES = [
     ...CoreCastEfficiency.CPM_ABILITIES,
@@ -10,7 +12,7 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.WINDBURST,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 20,
-      recommendedCastEfficiency: 0.70, //TODO look at reasonable use, not on CD but as much as makes sense
+      recommendedCastEfficiency: 0.70, // TODO look at reasonable use, not on CD but as much as makes sense
       noSuggestion: true,
       noCanBeImproved: true,
     },
@@ -42,7 +44,7 @@ class CastEfficiency extends CoreCastEfficiency {
     },
     {
       spell: SPELLS.EXPLOSIVE_SHOT_TALENT,
-      category:CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 30,
       isActive: combatant => combatant.hasTalent(SPELLS.EXPLOSIVE_SHOT_TALENT.id),
     },

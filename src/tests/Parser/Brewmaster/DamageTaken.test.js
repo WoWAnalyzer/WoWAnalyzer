@@ -1,5 +1,5 @@
 import DamageTaken from 'Parser/BrewmasterMonk/Modules/Core/DamageTaken';
-import { processEvents } from './Fixtures/processEvents';
+import processEvents from './Fixtures/processEvents';
 import { SimpleFight, heal, absorbed, incomingDamage, staggerAbsorbed, staggerTicks } from './Fixtures/SimpleFight';
 
 describe('Brewmaster.DamageTaken', () => {
@@ -8,6 +8,8 @@ describe('Brewmaster.DamageTaken', () => {
     damageTaken = new DamageTaken({
       toPlayer: () => true,
       byPlayer: () => true,
+      toPlayerPet: () => false,
+      byPlayerPet: () => false,
     });
   });
   it('damage taken with no events', () => {

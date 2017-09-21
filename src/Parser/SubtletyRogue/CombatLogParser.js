@@ -39,9 +39,9 @@ class CombatLogParser extends CoreCombatLogParser {
 
   generateResults() {
     const results = super.generateResults();
-    
+
     const fightDuration = this.fightDuration;
-    
+
 
     results.tabs = [
       {
@@ -62,10 +62,10 @@ class CombatLogParser extends CoreCombatLogParser {
       },
       ...results.tabs,
     ];
-    
+
     results.statistics = [
       <StatisticBox
-        icon={ <Icon icon="class_rogue" alt="Damage Per Second" /> }
+        icon={<Icon icon="class_rogue" alt="Damage Per Second" />}
         value={`${formatNumber(this.modules.damageDone.total.effective / fightDuration * 1000)} DPS`}
         label={(
           <dfn data-tip={`The total damage done recorded was ${formatThousands(this.modules.damageDone.total.effective)}.`}>
@@ -75,7 +75,7 @@ class CombatLogParser extends CoreCombatLogParser {
       />,
 
       <StatisticBox
-        icon={ <SpellIcon id={SPELLS.SHADOW_BLADES.id} /> }
+        icon={<SpellIcon id={SPELLS.SHADOW_BLADES.id} />}
         value={`${formatPercentage((this.modules.combatants.selected.getBuffUptime(SPELLS.SHADOW_BLADES.id) / this.fightDuration))} %`}
         label={(
           <dfn data-tip={'Shadow Blades up time'}>
@@ -83,9 +83,9 @@ class CombatLogParser extends CoreCombatLogParser {
           </dfn>
         )}
       />,
-      
+
       <StatisticBox
-        icon={ <SpellIcon id={SPELLS.SHADOW_DANCE.id} /> }
+        icon={<SpellIcon id={SPELLS.SHADOW_DANCE.id} />}
         value={`${formatPercentage((this.modules.combatants.selected.getBuffUptime(SPELLS.SHADOW_DANCE_BUFF.id) / this.fightDuration))} %`}
         label={(
           <dfn data-tip={'Shadow Dance up time'}>
@@ -93,9 +93,9 @@ class CombatLogParser extends CoreCombatLogParser {
           </dfn>
         )}
       />,
-      
+
       <StatisticBox
-        icon={ <SpellIcon id={SPELLS.SYMBOLS_OF_DEATH.id} /> }
+        icon={<SpellIcon id={SPELLS.SYMBOLS_OF_DEATH.id} />}
         value={`${formatPercentage((this.modules.combatants.selected.getBuffUptime(SPELLS.SYMBOLS_OF_DEATH.id) / this.fightDuration))} %`}
         label={(
           <dfn data-tip={'Symbols of Death up time'}>
@@ -103,7 +103,7 @@ class CombatLogParser extends CoreCombatLogParser {
           </dfn>
         )}
       />,
-      
+
       this.modules.combatants.selected.hasTalent(SPELLS.DARK_SHADOW_TALENT.id) && this.modules.shadowDance.active && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.EVISCERATE.id} />}
@@ -114,7 +114,7 @@ class CombatLogParser extends CoreCombatLogParser {
             </dfn>
           )}
         />),
-      
+
       // Dark Shadow increase 30% damage during Shadow Dance
       this.modules.combatants.selected.hasTalent(SPELLS.DARK_SHADOW_TALENT.id) && this.modules.shadowDance.active && (
         <StatisticBox
@@ -126,7 +126,7 @@ class CombatLogParser extends CoreCombatLogParser {
             </dfn>
           )}
         />),
-        
+
       ...results.statistics,
     ];
     return results;

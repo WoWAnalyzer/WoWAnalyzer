@@ -62,7 +62,8 @@ class T20_2pc extends Module {
       title: <SpellLink id={SPELLS.XUENS_BATTLEGEAR_2_PIECE_BUFF_BRM.id} />,
       result: (
         <dfn data-tip={`The 2pc set bonus causes <b>${this.orbTriggeredBy2Pc}</b> additional Gift of the Ox orbs to spawn.</br>
-        This was from a total of <b>${this.brewCount}</b> brew casts, a <b>${Math.round(procRate)}%</b> chance.`}>
+        This was from a total of <b>${this.brewCount}</b> brew casts, a <b>${Math.round(procRate)}%</b> chance.`}
+        >
           {this.orbTriggeredBy2Pc} extra Gift of the Ox
         </dfn>
       ),

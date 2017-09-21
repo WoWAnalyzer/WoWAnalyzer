@@ -25,7 +25,7 @@ class BlackoutCombo extends Module {
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.BLACKOUT_COMBO_TALENT.id);
   }
-  
+
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
     if (SPELLS.BLACKOUT_COMBO_BUFF.id === spellId) {
@@ -75,12 +75,12 @@ class BlackoutCombo extends Module {
 
   statistic() {
     const wastedPerc = (this.blackoutComboBuffs - this.blackoutComboConsumed) / this.blackoutComboBuffs;
-    
+
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.BLACKOUT_COMBO_BUFF.id} />}
         value={`${formatPercentage(wastedPerc)}%`}
-        label='Wasted blackout combo'
+        label="Wasted blackout combo"
         tooltip={`You got total <b>${this.blackoutComboBuffs}</b> blackout combo procs procs and used <b>${this.blackoutComboConsumed}</b> of them.
 
         Blackout combo buff usage:

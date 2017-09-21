@@ -6,7 +6,7 @@ import { formatNumber } from 'common/format';
 
 import getDamageBonus from '../../WarlockCore/getDamageBonus';
 
-const LESSONS_OF_SPACETIME_DAMAGE_BONUS = .1;
+const LESSONS_OF_SPACETIME_DAMAGE_BONUS = 0.1;
 
 class LessonsOfSpaceTime extends Module {
   static dependencies = {
@@ -19,7 +19,7 @@ class LessonsOfSpaceTime extends Module {
 
   on_initialized() {
     this.active = this.combatants.selected.hasShoulder(ITEMS.LESSONS_OF_SPACETIME.id);
-    this.owner.report.friendlyPets.filter(pet => pet.petOwner === this.owner.playerId).forEach(pet => {
+    this.owner.playerPets.forEach((pet) => {
       this._petIds.add(pet.id);
     });
   }

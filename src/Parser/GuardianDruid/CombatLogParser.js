@@ -34,7 +34,7 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
-    //Core
+    // Core
     damageTaken: DamageTaken,
     healingDone: HealingDone,
     damageDone: DamageDone,

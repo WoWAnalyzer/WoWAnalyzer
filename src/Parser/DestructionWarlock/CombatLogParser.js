@@ -59,13 +59,13 @@ class CombatLogParser extends CoreCombatLogParser {
     // DoTs
     immolateUptime: ImmolateUptime,
 
-    //Core
+    // Core
     havoc: Havoc,
     soulShardEvents: SoulShardEvents,
     soulShardTracker: SoulShardTracker,
     soulShardDetails: SoulShardDetails,
 
-    //Talents
+    // Talents
     backdraft: Backdraft,
     roaringBlaze: RoaringBlaze,
     shadowburn: Shadowburn,
@@ -77,7 +77,7 @@ class CombatLogParser extends CoreCombatLogParser {
     soulHarvestTalent: SoulHarvestTalent,
     channelDemonfire: ChannelDemonfire,
 
-    //Legendaries
+    // Legendaries
     alythesssPyrogenics: AlythesssPyrogenics,
     feretoryOfSouls: FeretoryOfSouls,
     lessonsOfSpaceTime: LessonsOfSpaceTime,
@@ -87,7 +87,7 @@ class CombatLogParser extends CoreCombatLogParser {
     soulOfTheNetherlord: SoulOfTheNetherlord,
     masterHarvester: TheMasterHarvester,
 
-    //Items
+    // Items
     t20_2set: T20_2set,
   };
 
@@ -105,7 +105,7 @@ class CombatLogParser extends CoreCombatLogParser {
         title: 'Talents',
         url: 'talents',
         render: () => (
-          <Tab title='Talents'>
+          <Tab title="Talents">
             <Talents combatant={this.modules.combatants.selected} />
           </Tab>
         ),

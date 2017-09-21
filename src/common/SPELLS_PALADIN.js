@@ -211,7 +211,6 @@ export default {
     name: 'Divine Purpose',
     icon: 'spell_holy_divinepurpose',
   },
-
   // Retribution Paladin:
   TEMPLARS_VERDICT_DAMAGE: {
     id: 224266,
@@ -239,12 +238,17 @@ export default {
     icon: 'ability_paladin_divinestorm',
   },
   DIVINE_STORM: {
-  id: 53385,
-  name: 'Divine Storm',
-  icon: 'ability_paladin_divinestorm',
+    id: 53385,
+    name: 'Divine Storm',
+    icon: 'ability_paladin_divinestorm',
   },
   WAKE_OF_ASHES: {
     id: 205273,
+    name: 'Wake of Ashes',
+    icon: 'inv_sword_2h_artifactashbringer_d_01',
+  },
+  WAKE_OF_ASHES_HP_GEN: {
+    id: 218001,
     name: 'Wake of Ashes',
     icon: 'inv_sword_2h_artifactashbringer_d_01',
   },
@@ -253,14 +257,53 @@ export default {
     name: 'Shield of Vengeance',
     icon: 'ability_paladin_shieldofthetemplar',
   },
+  DIVINE_PURPOSE_BUFF: {
+    id: 223819,
+    name: 'Divine Purpose',
+    icon: 'spell_holy_mindvision',
+  },
 
-  //Ret Legendary Effects
-  WHISPER_OF_THE_NATHREZIM: {
+  // Ret Item Effects
+  WHISPER_OF_THE_NATHREZIM_BUFF: {
     id: 207635,
     name: 'Whisper of the Nathrezim',
     icon: 'ability_paladin_sheathoflight',
   },
-
+  LIADRINS_FURY_UNLEASHED_BUFF: {
+    id: 208410,
+    name: 'Liandrin\'s Fury Unleashed',
+    icon: 'inv_jewelry_ring_61',
+  },
+  RET_PALADIN_T19_2SET_BONUS: {
+    id: 211444,
+    name: 'T19 2 set bonus',
+    icon: 'inv_helm_plate_raidpaladinmythic_q_01',
+  },
+  RET_PALADIN_T19_4SET_BONUS: {
+    id: 211448,
+    name: 'T19 4 set bonus',
+    icon: 'inv_cape_plate_raidpaladinmythic_q_01',
+  },
+  RET_PALADIN_T19_4SET_HP_GEN: {
+    id: 231372,
+    name: 'T19 4 set bonus',
+    icon: 'inv_helm_plate_raidpaladinmythic_q_01',
+  },
+  RET_PALADIN_T20_2SET_BONUS: {
+    id: 242267,
+    name: 'T19 2 set bonus',
+    icon: 'paladin_retribution',
+  },
+  RET_PALADIN_T20_2SET_BONUS_BUFF: {
+    id: 246973,
+    name: 'T20 2 set bonus',
+    icon: 'paladin_retribution',
+  },
+  RET_PALADIN_T20_4SET_BONUS: {
+    id: 242266,
+    name: 'T20 4 set bonus',
+    icon: 'paladin_retribution',
+  },
   // Traits:
   // Holy Paladin:
   PROTECTION_OF_TYR: {

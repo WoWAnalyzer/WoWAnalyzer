@@ -15,7 +15,7 @@ class BoneShieldUptime extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.BONE_SHIELD.id} />}
         value={`${formatPercentage(boneshieldUptimePercentage)}%`}
-        label='Bone Shield Uptime'
+        label="Bone Shield Uptime"
         tooltip={'Important to maintain. Provides damage reduction and haste buff while you have atleast one charge.'}
       />
 

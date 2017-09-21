@@ -32,11 +32,10 @@ class Sephuz extends CoreSephuz {
     if (spellId === SEPHUZ_BUFF_ID) {
       this.uptime += 10000;
       console.log(`Uptime: ${this.uptime}`);
-      return;
     }
   }
 
-  //overrides Core implemented Sephuz module
+  // overrides Core implemented Sephuz module
   item() {
     const sepuhzHasteRating = ((this.uptime / this.owner.fightDuration) * this.sephuzProccInHasteRating) + this.sephuzStaticHasteInRating;
     const sephuzThroughput = sepuhzHasteRating / this.combatants.selected.intellect;

@@ -15,7 +15,7 @@ class HealingDone extends CoreHealingDone {
 
     const spellId = event.ability.guid;
     if (spellId === SPELLS.STAGGER.id) {
-      this._subtractHealing(event.timestamp, 0, event.amount, 0);
+      this._subtractHealing(event, 0, event.amount, 0);
     }
   }
 

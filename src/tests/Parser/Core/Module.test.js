@@ -52,17 +52,25 @@ describe('Core.CombatLogParser', () => {
     it('calls convenience handlers byPlayer and toPlayer', () => {
       const on_byPlayer_test = jest.fn();
       const on_toPlayer_test = jest.fn();
+      const on_byPlayerPet_test = jest.fn();
+      const on_toPlayerPet_test = jest.fn();
       class MyModule extends Module {
         on_byPlayer_test = on_byPlayer_test;
         on_toPlayer_test = on_toPlayer_test;
+        on_byPlayerPet_test = on_byPlayerPet_test;
+        on_toPlayerPet_test = on_toPlayerPet_test;
       }
       const myModule = new MyModule({
         byPlayer: () => true,
         toPlayer: () => true,
+        byPlayerPet: () => true,
+        toPlayerPet: () => true,
       });
       myModule.triggerEvent('test', {});
       expect(on_byPlayer_test).toBeCalled();
       expect(on_toPlayer_test).toBeCalled();
+      expect(on_byPlayerPet_test).toBeCalled();
+      expect(on_toPlayerPet_test).toBeCalled();
     });
     it('doesn\'t call convenience handlers byPlayer when event is by someone else', () => {
       const on_byPlayer_test = jest.fn();
@@ -72,6 +80,8 @@ describe('Core.CombatLogParser', () => {
       const myModule = new MyModule({
         byPlayer: () => false,
         toPlayer: () => true,
+        byPlayerPet: () => true,
+        toPlayerPet: () => true,
       });
       myModule.triggerEvent('test', {});
       expect(on_byPlayer_test).not.toBeCalled();
@@ -84,9 +94,39 @@ describe('Core.CombatLogParser', () => {
       const myModule = new MyModule({
         byPlayer: () => true,
         toPlayer: () => false,
+        byPlayerPet: () => true,
+        toPlayerPet: () => true,
       });
       myModule.triggerEvent('test', {});
       expect(on_toPlayer_test).not.toBeCalled();
+    });
+    it('doesn\'t call convenience handlers byPlayerPet when event is by someone else', () => {
+      const on_byPlayerPet_test = jest.fn();
+      class MyModule extends Module {
+        on_byPlayerPet_test = on_byPlayerPet_test;
+      }
+      const myModule = new MyModule({
+        byPlayer: () => true,
+        toPlayer: () => true,
+        byPlayerPet: () => false,
+        toPlayerPet: () => true,
+      });
+      myModule.triggerEvent('test', {});
+      expect(on_byPlayerPet_test).not.toBeCalled();
+    });
+    it('doesn\'t call convenience handlers toPlayerPet when event is to someone else', () => {
+      const on_toPlayerPet_test = jest.fn();
+      class MyModule extends Module {
+        on_toPlayerPet_test = on_toPlayerPet_test;
+      }
+      const myModule = new MyModule({
+        byPlayer: () => true,
+        toPlayer: () => true,
+        byPlayerPet: () => true,
+        toPlayerPet: () => false,
+      });
+      myModule.triggerEvent('test', {});
+      expect(on_toPlayerPet_test).not.toBeCalled();
     });
     it('passes all arguments to event handler', () => {
       const on_success = jest.fn();
@@ -96,6 +136,8 @@ describe('Core.CombatLogParser', () => {
       const myModule = new MyModule({
         toPlayer: () => true,
         byPlayer: () => true,
+        toPlayerPet: () => true,
+        byPlayerPet: () => true,
       });
       const firstArg = {};
       const secondArg = 'my_second_arg';

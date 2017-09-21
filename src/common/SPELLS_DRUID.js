@@ -38,6 +38,11 @@ export default {
     name: 'Essence of G\'Hanir',
     icon: 'inv_staff_2h_artifactnordrassil_d_01',
   },
+  INCARNATION_TREE_OF_LIFE: {
+    id: 33891,
+    name: 'Incarnation: Tree of Life',
+    icon: 'ability_druid_improvedtreeform',
+  },
   IRONBARK: {
     id: 102342,
     name: 'Ironbark',
@@ -222,38 +227,38 @@ export default {
     icon: 'spell_nature_forceofnature',
   },
   REJUVENATION_GERMINATION: {
-    id:155777,
-    name:'Germination',
+    id: 155777,
+    name: 'Germination',
     icon: 'spell_druid_germination',
   },
   CULTIVATION: {
-    id:200389,
-    name:'Cultivation',
+    id: 200389,
+    name: 'Cultivation',
     icon: 'ability_druid_nourish',
   },
   YSERAS_GIFT_1: {
-    id:145110,
-    name:'Ysera\'s gift',
+    id: 145110,
+    name: 'Ysera\'s gift',
     icon: 'spell_nature_healingtouch',
   },
   YSERAS_GIFT_2: {
-    id:145109,
-    name:'Ysera\'s gift',
+    id: 145109,
+    name: 'Ysera\'s gift',
     icon: 'spell_nature_healingtouch',
   },
   LIVING_SEED: {
-    id:48503,
-    name:'Living Seed',
+    id: 48503,
+    name: 'Living Seed',
     icon: 'ability_druid_giftoftheearthmother',
   },
   MARK_OF_SHIFTING: {
-    id:224392,
-    name:'Mark of Shifting',
+    id: 224392,
+    name: 'Mark of Shifting',
     icon: 'spell_druid_tirelesspursuit',
   },
   FLOURISH: {
-    id:197721,
-    name:'Flourish',
+    id: 197721,
+    name: 'Flourish',
     icon: 'spell_druid_wildburst',
   },
   POWER_OF_THE_ARCHDRUID_BUFF: {
@@ -262,13 +267,13 @@ export default {
     icon: 'spell_druid_rampantgrowth',
   },
   DREAMWALKER: {
-    id:189853,
-    name:'Dreamwalker',
+    id: 189853,
+    name: 'Dreamwalker',
     icon: 'ability_druid_healinginstincts',
   },
   NATURES_ESSENCE_DRUID: { // there is also a Shaman spell by the name "Nature's Essence"
-    id:189800,
-    name:'Nature\'s Essence',
+    id: 189800,
+    name: 'Nature\'s Essence',
     icon: 'ability_druid_flourish',
   },
   SPRING_BLOSSOMS: {
@@ -282,7 +287,7 @@ export default {
     icon: 'ability_druid_manatree',
   },
 
-  // Sets:
+  // Sets/Items:
   // Hidden buffs that indicate set is equipped:
   RESTO_DRUID_T19_2SET_BONUS_BUFF: {
     id: 211165,
@@ -309,7 +314,7 @@ export default {
     name: 'T21 4 set bonus',
     icon: 'ability_druid_cower',
   },
-  // Visible procs produced by set:
+  // Visible procs produced by set/item:
   ASTRAL_HARMONY: { // 2pc T19
     id: 232378,
     name: 'Astral Harmony',
@@ -330,6 +335,11 @@ export default {
     name: 'Awakened',
     icon: 'ability_druid_cower',
   },
+  XONIS_CARESS: {
+    id: 235040,
+    name: "X'oni's Caress",
+    icon: 'spell_druid_ironbark',
+  },
 
   // Traits:
   POWER_OF_THE_ARCHDRUID: {
@@ -338,53 +348,76 @@ export default {
     icon: 'spell_druid_rampantgrowth',
   },
   NATURES_ESSENCE_TRAIT: {
-    id:189787,
-    name:'Nature\'s Essence',
+    id: 189787,
+    name: 'Nature\'s Essence',
     icon: 'ability_druid_flourish',
   },
   DREAMWALKER_TRAIT: {
-    id:189849,
-    name:'Dreamwalker',
+    id: 189849,
+    name: 'Dreamwalker',
     icon: 'ability_druid_healinginstincts',
   },
   INFUSION_OF_NATURE_TRAIT: {
+    id: 189757,
+    name: 'Infusion of Nature',
+    icon: 'ability_druid_flourish',
+  },
+  PERSISTENCE_TRAIT: {
+    id: 186396,
+    name: 'Persistence',
+    icon: 'spell_nature_starfall',
+  },
+  GROVEWALKER: {
+    id:186320,
+    name:'Grovewalker',
+    icon: 'spell_nature_healingtouch',
+  },
+  NATURAL_MENDING: {
+    id:189749,
+    name:'Natural Mending',
+    icon: 'inv_relics_idolofrejuvenation',
+  },
+  ESSENCE_OF_NORDRASSIL: {
+    id:189760,
+    name:'Essence of Norddrassil',
+    icon: 'inv_misc_herb_talandrasrose',
+  },
+  BLESSING_OF_THE_WORLD_TREE: {
+    id:189744,
+    name:'Blessing of the World Tree',
+    icon: 'ability_druid_naturalperfection',
+  },
+  ETERNAL_RESTORATION: {
+    id:238050,
+    name:'Eternal Restoration',
+    icon: 'inv_staff_2h_artifactnordrassil_d_01',
+  },
+  SEEDS_OF_THE_WORLD_TREE: {
+    id:189768,
+    name:'Seeds of the World Tree',
+    icon: 'ability_druid_giftoftheearthmother',
+  },
+  INFUSION_OF_NATURE: {
     id:189757,
     name:'Infusion of Nature',
     icon: 'ability_druid_flourish',
   },
-  PERSISTANCE_TRAIT: {
-    id:186396,
-    name:'Persistance',
-    icon: 'spell_nature_starfall',
-  },
-
-  // Talents:
-  CULTIVATION_TALENT: {
-    id: 200390,
-    name: 'Cultivation',
-    icon: 'ability_druid_nourish',
-  },
-  SPRING_BLOSSOMS_TALENT: {
-    id: 207385,
-    name: 'Spring Blossoms',
-    icon: 'inv_misc_trailofflowers',
-  },
-  CENARION_WARD_TALENT: {
-    id: 102351,
-    name: 'Cenarion Ward',
-    icon: 'ability_druid_naturalperfection',
+  KNOWLEDGE_OF_THE_ANCIENTS: {
+    id:189772,
+    name:'Knowledge of the Ancients',
+    icon: 'ability_druid_manatree',
   },
 
   // GUARDIAN //
   MANGLE_BEAR: {
-    id:33917,
-    name:'Mangle',
-    icon:'ability_druid_mangle2',
+    id: 33917,
+    name: 'Mangle',
+    icon: 'ability_druid_mangle2',
   },
   THRASH_BEAR: {
-    id:77758,
-    name:'Thrash',
-    icon:'spell_druid_thrash',
+    id: 77758,
+    name: 'Thrash',
+    icon: 'spell_druid_thrash',
   },
   THRASH_BEAR_DOT: {
     id: 192090,
@@ -392,19 +425,19 @@ export default {
     icon: 'spell_druid_thrash',
   },
   SURVIVAL_INSTINCTS: {
-    id:61336,
-    name:'Survival Instincts',
-    icon:'ability_druid_tigersroar',
+    id: 61336,
+    name: 'Survival Instincts',
+    icon: 'ability_druid_tigersroar',
   },
   IRONFUR: {
-    id:192081,
-    name:'Ironfur',
-    icon:'ability_druid_ironfur',
+    id: 192081,
+    name: 'Ironfur',
+    icon: 'ability_druid_ironfur',
   },
   STAMPEDING_ROAR_CAT: {
-    id:106898,
-    name:'Stampeding Roar',
-    icon:'spell_druid_stampedingroar_cat',
+    id: 106898,
+    name: 'Stampeding Roar',
+    icon: 'spell_druid_stampedingroar_cat',
   },
   STAMPEDING_ROAR_BEAR: {
     id: 77761,
@@ -412,39 +445,39 @@ export default {
     icon: 'spell_druid_stamedingroar',
   },
   INCAPACITATING_ROAR: {
-    id:99,
-    name:'Incapacitating Roar',
-    icon:'ability_druid_demorolizingroar',
+    id: 99,
+    name: 'Incapacitating Roar',
+    icon: 'ability_druid_demorolizingroar',
   },
   INCARNATION_OF_URSOC: {
-    id:102558,
-    name:'Incarnation of Ursoc',
-    icon:'spell_druid_incarnation',
+    id: 102558,
+    name: 'Incarnation of Ursoc',
+    icon: 'spell_druid_incarnation',
   },
   RAGE_OF_THE_SLEEPER: {
-    id:200851,
-    name:'Rage of the sleeper',
-    icon:'inv_hand_1h_artifactursoc_d_01',
+    id: 200851,
+    name: 'Rage of the sleeper',
+    icon: 'inv_hand_1h_artifactursoc_d_01',
   },
   MOONFIRE_BEAR: {
-    id:164812,
-    name:'Moonfire',
-    icon:'spell_nature_starfall',
+    id: 164812,
+    name: 'Moonfire',
+    icon: 'spell_nature_starfall',
   },
   MOONFIRE: {
-    id:8921,
-    name:'Moonfire',
-    icon:'spell_nature_starfall',
+    id: 8921,
+    name: 'Moonfire',
+    icon: 'spell_nature_starfall',
   },
   PERPETUAL_SPRING_TRAIT: {
-    id:200402,
-    name:'Perpetual spring',
-    icon:'spell_nature_stoneclawtotem',
+    id: 200402,
+    name: 'Perpetual spring',
+    icon: 'spell_nature_stoneclawtotem',
   },
   EMBRACE_OF_THE_NIGHTMARE: {
-    id:200855,
-    name:'Embrace of the nightmare',
-    icon:'inv_misc_herb_nightmarevine',
+    id: 200855,
+    name: 'Embrace of the nightmare',
+    icon: 'inv_misc_herb_nightmarevine',
   },
   SCINTILLATING_MOONLIGHT: {
     id: 238049,
@@ -467,8 +500,8 @@ export default {
     icon: 'ability_druid_mangle2',
   },
   YSERAS_GIFT_BEAR: {
-    id:145108,
-    name:'Ysera\'s gift',
+    id: 145108,
+    name: 'Ysera\'s gift',
     icon: 'inv_misc_head_dragon_green',
   },
   MAUL: {
@@ -541,7 +574,7 @@ export default {
     name: 'Fury of Nature',
     icon: 'ability_creature_cursed_04',
   },
-  //Moonkin
+  // Moonkin
   STARSURGE_MOONKIN: {
     id: 78674,
     name: 'Starsurge',
@@ -567,8 +600,8 @@ export default {
     name: 'Sunfire',
     icon: 'ability_mage_firestarter',
   },
-  //MOONFIRE = MOONFIRE_BEAR
-  //MOONFIRE_CAST = MOONFIRE
+  // MOONFIRE = MOONFIRE_BEAR
+  // MOONFIRE_CAST = MOONFIRE
   STARFALL: {
     id: 191037,
     name: 'Starfall',
@@ -609,12 +642,12 @@ export default {
     name: 'Celestial Alignment',
     icon: 'artifactability_balancedruid_newmoon',
   },
-  ASTRAL_ACCELERATION:{
+  ASTRAL_ACCELERATION: {
     id: 242232,
     name: 'Astral Acceleration',
     icon: 'inv_enchant_essenceastrallarge',
   },
-  STAR_POWER:{
+  STAR_POWER: {
     id: 202942,
     name: 'Star Power',
     icon: 'artifactability_balancedruid_moonandstars',
@@ -661,13 +694,13 @@ export default {
     icon: 'ability_druid_disembowel',
   },
   MOONFIRE_FERAL: {
-    id:155625,
-    name:'Moonfire',
-    icon:'spell_nature_starfall',
+    id: 155625,
+    name: 'Moonfire',
+    icon: 'spell_nature_starfall',
   },
   THRASH_FERAL: {
-    id:106830,
-    name:'Thrash',
-    icon:'spell_druid_thrash',
+    id: 106830,
+    name: 'Thrash',
+    icon: 'spell_druid_thrash',
   },
 };

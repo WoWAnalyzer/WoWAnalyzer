@@ -48,7 +48,7 @@ class RenewingMist extends Module {
   on_byPlayer_removebuff(event) {
     const spellId = event.ability.guid;
 
-    this.dancingMistTarget.forEach(targetID => {
+    this.dancingMistTarget.forEach((targetID) => {
       if (event.targetID === targetID) {
         debug && console.log(`Dancing Mist REM Removed: ${targetID} / Timestamp: ${event.timestamp}`);
         const removeValue = this.dancingMistTarget.indexOf(targetID);
@@ -81,7 +81,7 @@ class RenewingMist extends Module {
 
     if (spellId === SPELLS.RENEWING_MIST_HEAL.id) {
       this.remTicks += 1;
-      this.dancingMistTarget.forEach(targetID => {
+      this.dancingMistTarget.forEach((targetID) => {
         if (event.targetID === targetID) {
           debug && console.log(`Dancing Mist Heal on: ${targetID}`);
           this.dancingMistHeal += (event.amount || 0) + (event.absorbed || 0);

@@ -7,7 +7,7 @@ import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 const debug = false;
-const OVYDS_HEALING_INCREASE = .4;
+const OVYDS_HEALING_INCREASE = 0.4;
 
 const UNAFFECTED_SPELLS = [
   SPELLS.CRANE_HEAL.id,

@@ -1,5 +1,5 @@
 import T20_4pc from 'Parser/BrewmasterMonk/Modules/Items/T20_4pc';
-import { processEvents } from './Fixtures/processEvents';
+import processEvents from './Fixtures/processEvents';
 import { SimpleFight } from './Fixtures/SimpleFight';
 
 describe('Brewmaster.T20_4pc', () => {
@@ -8,6 +8,8 @@ describe('Brewmaster.T20_4pc', () => {
     item = new T20_4pc({
       toPlayer: () => true,
       byPlayer: () => true,
+      toPlayerPet: () => false,
+      byPlayerPet: () => false,
     });
   });
   it('how many gift of the ox orbs were absorbed as a heal', () => {
@@ -19,5 +21,4 @@ describe('Brewmaster.T20_4pc', () => {
     expect(item.staggerSaved).toBe(15);
   });
 });
-  
 

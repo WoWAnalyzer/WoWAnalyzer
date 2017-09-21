@@ -1,5 +1,5 @@
 import T20_2pc from 'Parser/BrewmasterMonk/Modules/Items/T20_2pc';
-import { processEvents } from './Fixtures/processEvents';
+import processEvents from './Fixtures/processEvents';
 import { SimpleFight } from './Fixtures/SimpleFight';
 
 describe('Brewmaster.T20_2pc', () => {
@@ -8,6 +8,8 @@ describe('Brewmaster.T20_2pc', () => {
     item = new T20_2pc({
       toPlayer: () => true,
       byPlayer: () => true,
+      toPlayerPet: () => false,
+      byPlayerPet: () => false,
     });
   });
   it('tracks the number of orbs spawned by the T202pc', () => {
@@ -19,5 +21,4 @@ describe('Brewmaster.T20_2pc', () => {
     expect(item.brewCount).toBe(2);
   });
 });
-  
 

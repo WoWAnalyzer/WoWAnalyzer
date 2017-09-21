@@ -132,7 +132,7 @@ class Combatant extends Entity {
     this._parseGear(combatantInfo.gear);
   }
 
-  //region Talents
+  // region Talents
   _talentsByRow = {};
   _parseTalents(talents) {
     talents.forEach(({ id }, index) => {
@@ -166,18 +166,18 @@ class Combatant extends Entity {
   hasTalent(spellId) {
     return Object.keys(this._talentsByRow).find(row => this._talentsByRow[row] === spellId);
   }
-  //endregion
+  // endregion
 
-  //region Traits
+  // region Traits
   traitsBySpellId = {};
   _parseTraits(traits) {
     traits.forEach(({ spellID, rank }) => {
       this.traitsBySpellId[spellID] = rank;
     });
   }
-  //endregion
+  // endregion
 
-  //region Gear
+  // region Gear
   _gearItemsBySlotId = {};
   _parseGear(gear) {
     gear.forEach((item, index) => {
@@ -288,7 +288,7 @@ class Combatant extends Entity {
   getItem(itemId) {
     return Object.keys(this._gearItemsBySlotId).map(key => this._gearItemsBySlotId[key]).find(item => item.id === itemId);
   }
-  //endregion
+  // endregion
 }
 
 export default Combatant;

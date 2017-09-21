@@ -1,5 +1,5 @@
 import Stagger from 'Parser/BrewmasterMonk/Modules/Core/Stagger';
-import { processEvents } from './Fixtures/processEvents';
+import processEvents from './Fixtures/processEvents';
 import { SimpleFight, EarlyFinish, incomingDamage } from './Fixtures/SimpleFight';
 
 describe('Brewmaster.Stagger', () => {
@@ -8,6 +8,8 @@ describe('Brewmaster.Stagger', () => {
     stagger = new Stagger({
       toPlayer: () => true,
       byPlayer: () => true,
+      toPlayerPet: () => false,
+      byPlayerPet: () => false,
     });
   });
   it('total amount of stagger taken with no events', () => {
@@ -50,5 +52,4 @@ describe('Brewmaster.Stagger', () => {
     expect(stagger.staggerMissingFromFight).toBe(285);
   });
 });
-  
 

@@ -6,8 +6,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 
-import { formatPercentage } from 'common/format';
-import { formatDuration } from 'common/format';
+import { formatPercentage, formatDuration } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class EmpowerWards extends Module {
@@ -24,7 +23,7 @@ class EmpowerWards extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.EMPOWER_WARDS.id} />}
         value={`${formatPercentage(empowerWardsUptimePercentage)}%`}
-        label='Empower Wards Uptime'
+        label="Empower Wards Uptime"
         tooltip={`The Empower Wards total uptime was ${formatDuration(empowerWardsUptime / 1000)}.`}
       />
     );

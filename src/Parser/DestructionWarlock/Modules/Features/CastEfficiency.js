@@ -2,10 +2,12 @@ import SPELLS from 'common/SPELLS';
 
 import CoreCastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 
+/* eslint-disable no-unused-vars */
+
 class CastEfficiency extends CoreCastEfficiency {
   static CPM_ABILITIES = [
     ...CoreCastEfficiency.CPM_ABILITIES,
-    //Rotational spells
+    // Rotational spells
     {
       spell: SPELLS.CHAOS_BOLT,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
@@ -25,7 +27,7 @@ class CastEfficiency extends CoreCastEfficiency {
       charges: 2,
       recommendedCastEfficiency: 0.95,
       isActive: combatant => !combatant.hasTalent(SPELLS.SHADOWBURN.id),
-      //TODO: T19 4p set bonus grants another charge and reduces CD
+      // TODO: T19 4p set bonus grants another charge and reduces CD
     },
     {
       spell: SPELLS.SHADOWBURN,
@@ -34,7 +36,7 @@ class CastEfficiency extends CoreCastEfficiency {
       charges: 2,
       recommendedCastEfficiency: 0.95,
       isActive: combatant => combatant.hasTalent(SPELLS.SHADOWBURN.id),
-      //TODO: T19 4p set bonus grants another charge and reduces CD
+      // TODO: T19 4p set bonus grants another charge and reduces CD
     },
     {
       spell: SPELLS.DIMENSIONAL_RIFT_CAST,
@@ -79,10 +81,10 @@ class CastEfficiency extends CoreCastEfficiency {
       isActive: combatant => combatant.hasTalent(SPELLS.CATACLYSM_TALENT.id),
     },
 
-    //Cooldowns
+    // Cooldowns
 
-    //Havoc is a situational CD - it makes all your ST spells to cleave to the Havoc target for 10 seconds
-    //It is a baseline CD, but casting it on CD is useless, it doesn't add anything
+    // Havoc is a situational CD - it makes all your ST spells to cleave to the Havoc target for 10 seconds
+    // It is a baseline CD, but casting it on CD is useless, it doesn't add anything
     {
       spell: SPELLS.HAVOC,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
@@ -91,7 +93,7 @@ class CastEfficiency extends CoreCastEfficiency {
       noSuggestion: true,
       noCanBeImproved: true,
     },
-    //But if you take Wreak Havoc (-20s CD), you probably intend to do some cleaving and then it should be used as much as possible (but with respect to the encounter)
+    // But if you take Wreak Havoc (-20s CD), you probably intend to do some cleaving and then it should be used as much as possible (but with respect to the encounter)
     {
       spell: SPELLS.HAVOC,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
@@ -150,7 +152,7 @@ class CastEfficiency extends CoreCastEfficiency {
       hideWithZeroCasts: true,
     },
 
-    //Utility
+    // Utility
     {
       spell: SPELLS.SHADOWFURY,
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
@@ -201,7 +203,7 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.SOULSTONE,
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => 600,
-      //TODO: shares cooldown with other combat rezzes, don't know how to calculate properly
+      // TODO: shares cooldown with other combat rezzes, don't know how to calculate properly
       noSuggestion: true,
       noCanBeImproved: true,
     },

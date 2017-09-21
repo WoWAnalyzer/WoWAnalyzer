@@ -8,22 +8,22 @@ import SPELLS from 'common/SPELLS';
 import SoulShardTracker from '../SoulShards/SoulShardTracker';
 import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../Constants';
 
-//limit to filter out relevant removedebuffs (those what I'm interested in happen either at the same timestamp as energize, or about 20ms afterwards (tested on 2 logs, didn't surpass 30ms))
-//it's still possible that it can be a coincidence (mob dies and at the same time something falls off somewhere unrelated), but shouldn't happen too much
-//I'll test and adjust if needed
+// limit to filter out relevant removedebuffs (those what I'm interested in happen either at the same timestamp as energize, or about 20ms afterwards (tested on 2 logs, didn't surpass 30ms))
+// it's still possible that it can be a coincidence (mob dies and at the same time something falls off somewhere unrelated), but shouldn't happen too much
+// I'll test and adjust if needed
 const ENERGIZE_REMOVEDEBUFF_THRESHOLD = 100;
 const UA_IDS_SET = new Set(UNSTABLE_AFFLICTION_DEBUFF_IDS);
 
 class Sniping extends Module {
   static dependencies = {
     enemies: Enemies,
-    soulShardTracker : SoulShardTracker,
+    soulShardTracker: SoulShardTracker,
   };
 
   _removeDebuffs = [];
   _lastEnergize = 0;
 
-  //this is to avoid counting soul shards from boss kill, the SoulShardTracker module tracks all shards gained and we're not interested in those we gained from boss kill
+  // this is to avoid counting soul shards from boss kill, the SoulShardTracker module tracks all shards gained and we're not interested in those we gained from boss kill
   _subtractBossShards = 0;
   _lastEnergizeWasted = false;
 
@@ -56,7 +56,7 @@ class Sniping extends Module {
           this._removeDebuffs.push({ timestamp: event.timestamp, name: event.ability.name, abilityID: event.ability.guid, targetID: event.targetID, targetInstance: event.targetInstance });
         }
       } else if (!this._lastEnergizeWasted) {
-        //it's a boss kill and we didn't waste the shard, subtract it
+        // it's a boss kill and we didn't waste the shard, subtract it
         this._subtractBossShards += 1;
       }
     }
@@ -88,9 +88,9 @@ class Sniping extends Module {
   statistic() {
     return (
       <StatisticBox
-        icon={<Icon icon='ability_hunter_snipershot'/>}
+        icon={<Icon icon="ability_hunter_snipershot" />}
         value={this._shardsGained}
-        label='Shards sniped'
+        label="Shards sniped"
       />
     );
   }

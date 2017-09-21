@@ -1,4 +1,5 @@
 export default `
+16-09-2017 - Added Doomguard/Infernal/Grimoire of Service to Cooldowns tab. (by Chizu)
 12-09-2017 - Added Legendaries and T20 2set. (by Chizu)
 10-09-2017 - Added Channel Demonfire and Havoc cleave module (not 100% accurate though). (by Chizu)
 10-09-2017 - Added Fire and Brimstone cleave and fragment tracker. (by Chizu).

@@ -53,7 +53,7 @@ class GuardianOfElune extends Module {
     if (SPELLS.IRONFUR.id !== spellId && SPELLS.FRENZIED_REGENERATION.id !== spellId) {
       return;
     }
-    if (SPELLS.IRONFUR.id === spellId)    {
+    if (SPELLS.IRONFUR.id === spellId) {
       if (this.lastGoEProcTime !== event.timestamp) {
         if (this.lastGoEProcTime === null) {
           this.nonGoEIronFur += 1;
@@ -70,7 +70,7 @@ class GuardianOfElune extends Module {
         }
       }
     }
-    if (SPELLS.FRENZIED_REGENERATION.id === spellId)    {
+    if (SPELLS.FRENZIED_REGENERATION.id === spellId) {
       if (this.lastGoEProcTime !== event.timestamp) {
         if (this.lastGoEProcTime === null) {
           this.nonGoEFRegen += 1;
@@ -109,7 +109,7 @@ class GuardianOfElune extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.GUARDIAN_OF_ELUNE.id} />}
         value={`${formatPercentage(unusedGoEProcs)}%`}
-        label='Unused Guardian of Elune'
+        label="Unused Guardian of Elune"
         tooltip={`You got total <b>${this.GoEProcsTotal}</b> guardian of elune procs and <b>used ${this.consumedGoEProc}</b> of them.`}
       />
     );

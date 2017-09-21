@@ -40,7 +40,7 @@ class IronFur extends Module {
       if (this.lastIronfurBuffApplied > 0) {
         this.physicalHitsWithIronFur += 1;
         this.physicalDamageWithIronFur += event.amount + (event.absorbed || 0) + (event.overkill || 0);
-      }      else {
+      } else {
         this.physicalHitsWithoutIronFur += 1;
         this.physicalDamageWithoutIronFur += event.amount + (event.absorbed || 0) + (event.overkill || 0);
       }
@@ -79,7 +79,7 @@ class IronFur extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.IRONFUR.id} />}
         value={`${formatPercentage(totalIronFurTime / this.owner.fightDuration)}%`}
-        label='Ironfur uptime'
+        label="Ironfur uptime"
         tooltip={`Ironfur usage breakdown:
             <ul>
                 <li>You were hit <b>${this.physicalHitsWithIronFur}</b> times with your Ironfur buff (<b>${formatThousands(this.physicalDamageWithIronFur)}</b> damage).</li>
