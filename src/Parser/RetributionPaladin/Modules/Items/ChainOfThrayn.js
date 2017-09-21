@@ -7,6 +7,8 @@ import { formatNumber } from 'common/format';
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
+import GetDamageBonus from '../PaladinCore/GetDamageBonus';
+
 const CHAIN_OF_THRAYN_INCREASE = 0.1;
 
 class ChainOfThrayn extends Module {
@@ -22,8 +24,7 @@ class ChainOfThrayn extends Module {
 
 	on_byPlayer_damage(event) {
 		if(this.combatants.selected.hasBuff(SPELLS.CRUSADE_TALENT.id) || this.combatants.selected.hasBuff(SPELLS.AVENGING_WRATH_RET.id)){
-			const rawDamage = (event.amount || 0) + (event.absorbed || 0);
-			this.damageDone += rawDamage - (rawDamage / (1 + CHAIN_OF_THRAYN_INCREASE));
+			this.damageDone += GetDamageBonus(event, CHAIN_OF_THRAYN_INCREASE);
 		}
 	}
 
