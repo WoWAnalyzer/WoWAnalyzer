@@ -54,7 +54,7 @@ class LEmpowerment extends Module {
   }
 
   on_toPlayer_applybuff(event) {
-    if (this.isCoolDown) this.LSAsPGen = 180;
+    if (this.isCoolDown) this.LSAsPGen = 220;
   }
   on_toPlayer_removebuff(event) {
     if (this.isCoolDown) this.LSAsPGen = 150;
