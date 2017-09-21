@@ -9,6 +9,7 @@ import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownTracker from './Modules/Features/CooldownTracker';
+import Judgment from './Modules/Features/Judgment';
 import DamageDone from './Modules/PaladinCore/DamageDone';
 
 import DivinePurpose from './Modules/Talents/DivinePurpose';
@@ -35,6 +36,7 @@ class CombatLogParser extends CoreCombatLogParser {
     castEfficiency: CastEfficiency,
     alwaysBeCasting: AlwaysBeCasting,
     cooldownTracker: CooldownTracker,
+    judgment: Judgment,
 
     // Talents
     divinePurpose: DivinePurpose,
