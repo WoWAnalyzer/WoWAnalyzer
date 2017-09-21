@@ -1,25 +1,39 @@
+import React from 'react';
+
+import Combatants from 'Parser/Core/Modules/Combatants';
 import Module from 'Parser/Core/Module';
 import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
+import { formatPercentage } from 'common/format';
 
-export const DARK_TITAN_ADVICE_ITEM_ID = 137078;
-const DARK_TITAN_FINAL_HEALING_INCREASE = 3;
+import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
+
+const DARK_TITAN_FINAL_HEALING_INCREASE = 2;
 
 class DarkTitanAdvice extends Module {
-  healing = 0;
+  static dependencies = {
+    combatants: Combatants,
+  };
+
+  healingFromBoost = 0;
+  healingFromProcs = 0;
   lastRealBloomTimestamp = null;
-  healingFromProccs = 0;
+
+  on_initialized() {
+    this.active = this.combatants.selected.hasWaist(ITEMS.THE_DARK_TITANS_ADVICE.id);
+  }
+
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
+    const amount = event.amount + (event.absorbed || 0);
 
     if (spellId === SPELLS.LIFEBLOOM_BLOOM_HEAL.id) {
       // Add 100% of the bloom if it came from the random 3% procc
       // Let's give it 32 ms tolerence for kicks.
       if (this.lastRealBloomTimestamp !== null && (event.timestamp - this.lastRealBloomTimestamp) < 32) {
-        this.healing += event.amount;
-        this.healingFromProccs += event.amount;
+        this.healingFromBoost += calculateEffectiveHealing(event, DARK_TITAN_FINAL_HEALING_INCREASE);
       } else {
-        const baseHeal = (event.amount + event.overheal || 0) / DARK_TITAN_FINAL_HEALING_INCREASE;
-        this.healing += Math.max(0, event.amount - baseHeal);
+        this.healingFromProcs += amount;
       }
     }
   }
@@ -39,6 +53,27 @@ class DarkTitanAdvice extends Module {
       this.lastRealBloomTimestamp = event.timestamp;
     }
   }
+
+  item() {
+    const total = this.healingFromProcs + this.healingFromBoost;
+    const boostPercent = this.owner.getPercentageOfTotalHealingDone(this.healingFromBoost);
+    const procsPercent = this.owner.getPercentageOfTotalHealingDone(this.healingFromProcs);
+
+    return {
+      item: ITEMS.THE_DARK_TITANS_ADVICE,
+      result: (
+        <dfn data-tip={`This is the sum of the boosted portion of natrual blooms and the entirety of the proc'd blooms.
+          <ul>
+          <li>Boost: <b>${formatPercentage(boostPercent)}%</b></li>
+          <li>Procs: <b>${formatPercentage(procsPercent)}%</b></li>
+          </ul>
+        `}>
+          {this.owner.formatItemHealingDone(total)}
+        </dfn>
+      ),
+    };
+  }
+
 }
 
 export default DarkTitanAdvice;

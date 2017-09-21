@@ -1,15 +1,29 @@
+import React from 'react';
+
+import Combatants from 'Parser/Core/Modules/Combatants';
 import Module from 'Parser/Core/Module';
 import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
+import { formatPercentage } from 'common/format';
 
-export const TEARSTONE_ITEM_ID = 137042;
+import Rejuvenation from '../Features/Rejuvenation';
 
 class Tearstone extends Module {
+  static dependencies = {
+    combatants: Combatants,
+    rejuvenation: Rejuvenation,
+  };
+
   rejuvs = 0;
   rejuvTimestamp = null;
   rejuvTarget = null;
   wildgrowthTimestamp = null;
   wildGrowthTargets = [];
   wildGrowths = 0;
+
+  on_initialized() {
+    this.active = this.combatants.selected.hasFinger(ITEMS.TEARSTONE_OF_ELUNE.id);
+  }
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
@@ -56,6 +70,21 @@ class Tearstone extends Module {
       this.rejuvs += 1;
     }
   }
+
+  item() {
+    const healing = this.rejuvs * this.rejuvenation.avgRejuvHealing;
+    const procRate = this.rejuvs / this.wildGrowths;
+
+    return {
+      item: ITEMS.TEARSTONE_OF_ELUNE,
+      result: (
+        <dfn data-tip={`You gained <b>${this.rejuvs} bonus rejuvenations</b>, for a <b>proc rate of ${formatPercentage(procRate)}%</b>.`}>
+          {this.owner.formatItemHealingDone(healing)}
+        </dfn>
+      ),
+    };
+  }
+
 }
 
 export default Tearstone;
