@@ -6,7 +6,7 @@ import { formatPercentage } from 'common/format';
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-const debug = true;
+const debug = false;
 
 class Haste extends Module {
   static dependencies = {
@@ -34,12 +34,14 @@ class Haste extends Module {
     [240673]: 800 / 37500, // Shadow Priest artifact trait that's shared with 4 allies: http://www.wowhead.com/spell=240673/mind-quickening
     [SPELLS.WARLOCK_AFFLI_T20_4P_BUFF.id]: 0.15,
     [SPELLS.TRUESHOT.id]: 0.4, // MM Hunter main CD
+    [SPELLS.LINGERING_INSANITY.id]: 0.01,
+    [SPELLS.VOIDFORM_BUFF.id]: 0.01,
 
     // Boss abilities:
     [209166]: 0.3, // DEBUFF - Fast Time from Elisande
     [209165]: -0.3, // DEBUFF - Slow Time from Elisande
     // [208944]: -Infinity, // DEBUFF - Time Stop from Elisande
-    [SPELLS.BONE_SHIELD.id]: 0.1, //Blood BK haste buff from maintaining boneshield
+    [SPELLS.BONE_SHIELD.id]: 0.1, // Blood BK haste buff from maintaining boneshield
 
     [SPELLS.RISING_TIDES.id]: {
       itemId: ITEMS.CHARM_OF_THE_RISING_TIDE.id,
@@ -160,9 +162,8 @@ class Haste extends Module {
         }
       }
       return value(selectedCombatant, itemDetails);
-    } else {
-      return value;
     }
+    return value;
   }
 
   _applyHasteGain(event, haste) {

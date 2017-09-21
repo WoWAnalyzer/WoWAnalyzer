@@ -90,7 +90,7 @@ class RageWasted extends Module {
 
   getWastedRageBreakdown() {
     return Object.keys(this.rageWastedBySpell)
-      .map(spellID => {
+      .map((spellID) => {
         if (!RAGE_GENERATORS[spellID]) {
           console.warn('Unknown rage generator:', spellID);
         }
@@ -118,7 +118,7 @@ class RageWasted extends Module {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.BRISTLING_FUR.id} />}
-        label='Wasted Rage'
+        label="Wasted Rage"
         value={`${formatPercentage(this.wastedRageRatio)}%`}
         tooltip={`
           You wasted <strong>${this.totalWastedRage}</strong> rage out of <strong>${this.totalRageGained}</strong> total rage gained. (<strong>${formatPercentage(this.wastedRageRatio)}%</strong> of total)<br /><br />

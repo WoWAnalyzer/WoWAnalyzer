@@ -66,13 +66,13 @@ class UpliftingTrance extends Module {
 
   suggestions(when) {
     const unusedUTProcs = 1 - (this.consumedUTProc / this.UTProcsTotal);
-    when(unusedUTProcs).isGreaterThan(.3)
+    when(unusedUTProcs).isGreaterThan(0.3)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Your <SpellLink id={SPELLS.UPLIFTING_TRANCE_BUFF.id} /> procs should be used as soon as you get them so they are not overwritten. While some will be overwritten due to the nature of the spell interactions, holding <SpellLink id={SPELLS.UPLIFTING_TRANCE_BUFF.id} /> procs is not optimal.</span>)
           .icon(SPELLS.UPLIFTING_TRANCE_BUFF.icon)
           .actual(`${formatPercentage(unusedUTProcs)}% Unused Uplifting Trance procs`)
           .recommended(`<${formatPercentage(recommended)}% wasted UT Buffs is recommended`)
-          .regular(recommended + .1).major(recommended + .2);
+          .regular(recommended + 0.1).major(recommended + 0.2);
       });
   }
 

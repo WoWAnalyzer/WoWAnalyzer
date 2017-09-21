@@ -8,7 +8,7 @@ import SpellIcon from 'common/SpellIcon';
 
 const BLOODDRINKER_TICKS_PER_CAST = 4;
 
-class BlooddrinkerTicks  extends Module {
+class BlooddrinkerTicks extends Module {
   static dependencies = {
     abilityTracker: AbilityTracker,
     combatants: Combatants,

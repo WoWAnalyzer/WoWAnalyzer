@@ -19,7 +19,7 @@ export default {
     icon: 'spell_warlock_soulburn',
   },
 
-  //Racial:
+  // Racial:
   ARCANE_TORRENT: {
     id: 202719,
     name: 'Arcane Torrent',
@@ -36,13 +36,18 @@ export default {
   },
   SEVER: {
     id: 235964,
-    name :'Sever',
+    name: 'Sever',
     icon: 'ability_demonhunter_manabreak',
   },
 
   // Abilities:
   SOUL_FRAGMENT: {
     id: 204255,
+    name: 'Soul Fragment',
+    icon: 'spell_shadow_soulgem',
+  },
+  SOUL_FRAGMENT_STACK: {
+    id: 203981,
     name: 'Soul Fragment',
     icon: 'spell_shadow_soulgem',
   },
@@ -203,6 +208,11 @@ export default {
     name: 'Frailty',
     icon: 'inv_icon_shadowcouncilorb_purple',
   },
+  SPIRIT_BOMB_DAMAGE: {
+    id: 247455,
+    name: 'Spirit Bomb',
+    icon: 'inv_icon_shadowcouncilorb_purple',
+  },
   FELBLADE_PAIN_GENERATION: {
     id: 213243,
     name: 'Felblade',
@@ -232,7 +242,7 @@ export default {
   },
   CONCORDANCE_OF_THE_LEGIONFALL: {
     id: 239042,
-    name:'Concordance of the Legionfall',
+    name: 'Concordance of the Legionfall',
     icon: 'trade_archaeology_shark-jaws',
   },
   DEFENSIVE_SPIKES: {
@@ -316,8 +326,8 @@ export default {
     icon: 'inv_glaive_1h_artifactaldrochi_d_02dual',
   },
   TORMENTED_SOULS: {
-    id:214744,
-    name:'Tormented Souls',
+    id: 214744,
+    name: 'Tormented Souls',
     icon: 'ability_demonhunter_soulcleave',
   },
   WILL_OF_THE_ILLIDARI: {

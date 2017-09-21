@@ -10,7 +10,7 @@ import Enemies from 'Parser/Core/Modules/Enemies';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 /**
- * TODO: 
+ * TODO:
  * - Lightning Rod damage
  * - Number of enemys with debuff
  */

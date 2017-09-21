@@ -7,9 +7,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 
-import { formatPercentage } from 'common/format';
-import { formatThousands } from 'common/format';
-import { formatDuration } from 'common/format';
+import { formatPercentage, formatThousands, formatDuration } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class ImmolationAura extends Module {
@@ -28,7 +26,7 @@ class ImmolationAura extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.IMMOLATION_AURA.id} />}
         value={`${formatPercentage(immolationAuraUptimePercentage)}%`}
-        label='Immolation Aura Uptime'
+        label="Immolation Aura Uptime"
         tooltip={`The Immolation Aura total damage was ${formatThousands(this.immolationAuraDamage)}.<br/>The Immolation Aura total uptime was ${formatDuration(immolationAuraUptime / 1000)}.`}
       />
     );

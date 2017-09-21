@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-
 import Module from 'Parser/Core/Module';
 
 class AtonementSource extends Module {
@@ -37,7 +36,7 @@ class AtonementSource extends Module {
       this._previousAtonementApplicatorEvent = event;
     }
   }
-  
+
   on_byPlayer_applybuff(event) {
     if (this.atonementApplicators.has(event.ability.guid)) {
       this._previousAtonementApplicator = event.ability.guid;
@@ -45,9 +44,16 @@ class AtonementSource extends Module {
     }
   }
 
-  on_byPlayer_damage(event) {
+  on_damage(event) {
+    if (!this.owner.byPlayer(event) && !this.owner.byPlayerPet(event)) {
+      return;
+    }
     // Some Atonement events have the type 'damage', this prevents them registering as a source
     if (event.ability.guid === SPELLS.ATONEMENT_HEAL_NON_CRIT.id) {
+      return;
+    }
+    if (event.targetIsFriendly) {
+      // Friendly fire doesn't atonement transfer - I think. The only place I could find this is Aura of Sacrifice so it might also be restricted by spells not owned by the player (even though the player is the damage source), but that seems less likely.
       return;
     }
     this._previousDamageEvent = event;

@@ -37,7 +37,7 @@ class LeniencesReward extends Module {
       filter: `(IN RANGE FROM type='applybuff' AND ability.id=${SPELLS.ATONEMENT_BUFF.id} AND source.name='${this.owner.modules.combatants.selected.name}' TO type='removebuff' AND ability.id=${SPELLS.ATONEMENT_BUFF.id} AND source.name='${this.owner.modules.combatants.selected.name}' GROUP BY target ON target END)`,
     }))
       .then(response => response.json())
-      .then(json => {
+      .then((json) => {
         console.log('Received LR damage taken', json);
         if (json.status === 400 || json.status === 401) {
           throw json.error;

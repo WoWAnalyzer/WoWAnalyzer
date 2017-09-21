@@ -7,7 +7,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 const debug = false;
 
-const EITHAS_LUNAR_GLIDES_HEALING_INCREASE = .1;
+const EITHAS_LUNAR_GLIDES_HEALING_INCREASE = 0.1;
 
 class Eithas extends Module {
   static dependencies = {

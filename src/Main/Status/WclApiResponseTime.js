@@ -26,7 +26,7 @@ class WclApiResponseTime extends React.PureComponent {
 
     const historyByInterval = {};
     history
-      .forEach(moment => {
+      .forEach((moment) => {
         const intervalIndex = Math.floor(moment.minutesAgo / groupingInterval);
         const existingItem = historyByInterval[intervalIndex];
         if (existingItem) {
@@ -78,7 +78,7 @@ class WclApiResponseTime extends React.PureComponent {
         <div className="chart-container">
           <Chart
             data={chartData}
-            options={options => {
+            options={(options) => {
               options.tooltips.callbacks.label = (item, data) => {
                 console.log(item, data);
                 const dataSetName = data.datasets[item.datasetIndex].label;

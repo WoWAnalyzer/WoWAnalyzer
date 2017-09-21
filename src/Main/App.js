@@ -27,6 +27,14 @@ import makeAnalyzerUrl from './makeAnalyzerUrl';
 const toolName = 'WoW Analyzer';
 const githubUrl = 'https://github.com/MartijnHols/WoWAnalyzer';
 
+const timeAvailable = console.time && console.timeEnd;
+
+const PROGRESS_STEP1_INITIALIZATION = 0.02;
+const PROGRESS_STEP2_FETCH_EVENTS = 0.13;
+const PROGRESS_STEP3_PARSE_EVENTS = 0.99;
+
+/* eslint-disable no-alert */
+
 class App extends Component {
   static propTypes = {
     router: PropTypes.shape({
@@ -71,6 +79,9 @@ class App extends Component {
   getPlayerFromReport(report, playerName) {
     return report.friendlies.find(friendly => friendly.name === playerName);
   }
+  getPlayerPetsFromReport(report, playerId) {
+    return report.friendlyPets.filter(pet => pet.petOwner === playerId);
+  }
   getFightFromReport(report, fightId) {
     return report.fights.find(fight => fight.id === fightId);
   }
@@ -104,106 +115,135 @@ class App extends Component {
     this.fetchReport(this.reportCode, true);
   }
 
-  config = null;
-  parser = null;
-  parse(report, combatants, fightId, playerName) {
-    const player = this.getPlayerFromReport(report, playerName);
-    if (!player) {
-      alert(`Unknown player: ${playerName}`);
-      return;
-    }
-    const fight = this.getFightFromReport(report, fightId);
-
-    const combatant = combatants.find(combatant => combatant.sourceID === player.id);
-    if (!combatant) {
-      alert('This player does not seem to be in this fight.');
-      return;
-    }
-    let config = AVAILABLE_CONFIGS.find(config => config.spec.id === combatant.specID);
+  getConfig(specId) {
+    let config = AVAILABLE_CONFIGS.find(config => config.spec.id === specId);
     if (!config) {
       config = UnsupportedSpec;
     }
+    return config;
+  }
+  createParser(ParserClass, report, fight, player) {
+    const playerPets = this.getPlayerPetsFromReport(report, player.id);
 
-    const ParserClass = config.parser;
-    const parser = new ParserClass(report, player, fight);
+    return new ParserClass(report, player, playerPets, fight);
+  }
+  async fetchEventsAndParse(report, fight, combatants, combatant, player) {
+    // We use the setState callback for triggering UI updates to allow our CSS animations to work
 
-    this.setState({
-      config,
-      parser,
+    await this.setStatePromise({
       progress: 0,
-    }, () => {
-      parser.parseEvents(combatants)
-        .then(() => {
-          parser.triggerEvent('initialized');
-          this.setState({
-            progress: 0.1,
-          });
-          this.parseNextBatch(parser, report.code, player, fight.start_time, fight.end_time);
+    });
+    const config = this.getConfig(combatant.specID);
+    timeAvailable && console.time('full parse');
+    const parser = this.createParser(config.parser, report, fight, player);
+    parser.parseEvents(combatants)
+      .then(() => parser.triggerEvent('initialized'))
+      .then(async () => {
+        await this.setStatePromise({
+          config,
+          parser,
+          progress: PROGRESS_STEP1_INITIALIZATION,
         });
-    });
+        await this.parse(parser, report, player, fight);
+      });
   }
-  parseNextBatch(parser, code, player, fightStart, fightEnd, nextPageTimestamp = null) {
-    if (parser !== this.state.parser) {
-      return null;
+  async parse(parser, report, player, fight) {
+    let events;
+    try {
+      this.startFakeNetworkProgress();
+      events = await this.fetchEvents(report.code, fight.start_time, fight.end_time, player.id);
+      this.stopFakeNetworkProgress();
+    } catch (err) {
+      this.stopFakeNetworkProgress();
+      alert(`The report could not be parsed because an error occured. Warcraft Logs might be having issues. ${err.message}`);
+      if (process.env.NODE_ENV === 'development') {
+        throw err;
+      } else {
+        console.error(err);
+      }
     }
-
-    const isFirstBatch = nextPageTimestamp === null;
-    // If this is the first batch the first events will be at the fightStart
-    const pageTimestamp = isFirstBatch ? fightStart : nextPageTimestamp;
-    const actorId = player.id;
-
-    return this.fetchEvents(code, pageTimestamp, fightEnd, actorId)
-      .then(json => {
-        if (parser !== this.state.parser) {
-          return;
-        }
-
-        parser.parseEvents(json.events)
-          .then(() => {
-            // Update the interface with progress
-            this.setState({
-              progress: (pageTimestamp - fightStart) / (fightEnd - fightStart),
-              dataVersion: this.state.dataVersion + 1, // each time we parsed events we want to refresh the report, this triggers that while the `praser` object that's passed on the `<Results>` elem will always be the same reference
-            });
-
-            if (json.nextPageTimestamp) {
-              if (json.nextPageTimestamp > fightEnd) {
-                console.error('nextPageTimestamp is after fightEnd, do we need to manually filter too?');
-              }
-              this.parseNextBatch(parser, code, player, fightStart, fightEnd, json.nextPageTimestamp);
-            } else {
-              parser.triggerEvent('finished');
-              this.onParsingFinished(parser);
-            }
-          })
-          .catch(err => {
-            alert(`The report could not be parsed because an error occured while running the analysis. ${err.message}`);
-            if (process.env.NODE_ENV === 'development') {
-              throw err;
-            } else {
-              console.error(err);
-            }
-          });
-      })
-      .catch(err => {
-        alert(`The report could not be parsed because an error occured. Warcraft Logs might be having issues. ${err.message}`);
-        if (process.env.NODE_ENV === 'development') {
-          throw err;
-        } else {
-          console.error(err);
-        }
-      });
-  }
-  onParsingFinished(parser) {
-    console.log('Finished. Parser:', parser);
-
-    this.setState({
-      progress: 0.99,
-    }, () => {
-      this.setState({
-        progress: 1,
-      });
+    events = parser.reorderEvents(events);
+    await this.setStatePromise({
+      progress: PROGRESS_STEP2_FETCH_EVENTS,
     });
+
+    const batchSize = 300;
+    const numEvents = events.length;
+    let offset = 0;
+
+    try {
+      while (offset < numEvents) {
+        const eventsBatch = events.slice(offset, offset + batchSize);
+        await parser.parseEvents(eventsBatch);
+        // await-ing setState does not ensure we wait until a render completed, so instead we wait 1 frame
+        const progress = Math.min(1, (offset + batchSize) / numEvents);
+        this.setState({
+          progress: PROGRESS_STEP2_FETCH_EVENTS + (PROGRESS_STEP3_PARSE_EVENTS - PROGRESS_STEP2_FETCH_EVENTS) * progress,
+          dataVersion: this.state.dataVersion + 1, // each time we parsed events we want to refresh the report, progress might not have updated
+        });
+        await this.timeout(1000 / 60);
+
+        offset += batchSize;
+      }
+
+      parser.triggerEvent('finished');
+      timeAvailable && console.timeEnd('full parse');
+      this.setState({
+        progress: 1.0,
+      });
+    } catch (err) {
+      alert(`The report could not be parsed because an error occured while running the analysis. ${err.message}`);
+      if (process.env.NODE_ENV === 'development') {
+        throw err;
+      } else {
+        console.error(err);
+      }
+    }
+  }
+  _isFakeNetworking = false;
+  async startFakeNetworkProgress() {
+    this._isFakeNetworking = true;
+    const expectedDuration = 5000;
+    const stepInterval = 50;
+
+    let step = 1;
+    while (this._isFakeNetworking) {
+      const progress = Math.min(1, step * stepInterval / expectedDuration);
+      this.setState({
+        progress: PROGRESS_STEP1_INITIALIZATION + ((PROGRESS_STEP2_FETCH_EVENTS - PROGRESS_STEP1_INITIALIZATION) * progress),
+      });
+      await this.timeout(stepInterval);
+      step += 1;
+    }
+  }
+  stopFakeNetworkProgress() {
+    this._isFakeNetworking = false;
+  }
+  timeout(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+  async fetchEvents(reportCode, fightStart, fightEnd, actorId = undefined, filter = undefined) {
+    let pageStartTimestamp = fightStart;
+
+    let events = [];
+    while (true) {
+      timeAvailable && console.time('WCL events');
+      const json = await this.fetchEventsPage(reportCode, pageStartTimestamp, fightEnd, actorId, filter);
+      timeAvailable && console.timeEnd('WCL events');
+      events = [
+        ...events,
+        ...json.events,
+      ];
+      if (json.nextPageTimestamp) {
+        if (json.nextPageTimestamp > fightEnd) {
+          console.error('nextPageTimestamp is after fightEnd, do we need to manually filter too?');
+        }
+        pageStartTimestamp = json.nextPageTimestamp;
+      } else {
+        break;
+      }
+    }
+    return events;
   }
 
   fetchReport(code, refresh = false) {
@@ -219,7 +259,7 @@ class App extends Component {
     });
     return fetch(url)
       .then(response => response.json())
-      .then(json => {
+      .then((json) => {
         // console.log('Received report', code, ':', json);
         if (json.status === 400 || json.status === 401) {
           throw json.error;
@@ -249,7 +289,7 @@ class App extends Component {
           });
         }
       })
-      .catch(err => {
+      .catch((err) => {
         alert(`I'm so terribly sorry, an error occured. Try again later, in an updated Google Chrome and make sure that Warcraft Logs is up and functioning properly. Please let us know on Discord if the problem persists.\n\n${err}`);
         console.error(err);
         this.setState({
@@ -258,7 +298,7 @@ class App extends Component {
         this.reset();
       });
   }
-  fetchCombatants(report, fightId) {
+  fetchCombatantsForFight(report, fightId) {
     // console.log('Fetching combatants:', report, fightId);
 
     this.setState({
@@ -267,17 +307,15 @@ class App extends Component {
     const fight = this.getFightFromReport(report, fightId);
 
     return this.fetchEvents(report.code, fight.start_time, fight.end_time, undefined, 'type="combatantinfo"')
-      .then(json => {
+      .then((events) => {
         // console.log('Received combatants', report.code, ':', json);
-        if (json.status === 400 || json.status === 401) {
-          throw json.error;
-        } else if (this.reportCode === report.code) {
+        if (this.reportCode === report.code && this.fightId === fightId) {
           this.setState({
-            combatants: json.events,
+            combatants: events,
           });
         }
       })
-      .catch(err => {
+      .catch((err) => {
         if (err) {
           alert(err);
         } else {
@@ -299,16 +337,15 @@ class App extends Component {
     });
   }
 
-  fetchEvents(code, start, end, actorId = undefined, filter = undefined) {
+  fetchEventsPage(code, start, end, actorId = undefined, filter = undefined) {
     const url = makeWclUrl(`report/events/${code}`, {
       start,
       end,
       actorid: actorId,
       filter,
-      translate: true, // so long as we don't have the entire site localized, it's better to have 1 consistent language
+      translate: true, // it's better to have 1 consistent language so long as we don't have the entire site localized
     });
-    return fetch(url)
-      .then(response => response.json());
+    return fetch(url).then(response => response.json());
   }
 
   componentWillMount() {
@@ -319,24 +356,56 @@ class App extends Component {
   componentDidUpdate(prevProps, prevState) {
     ReactTooltip.rebuild();
 
+    this.fetchReportIfNecessary(prevProps);
+    this.fetchCombatantsIfNecessary(prevProps, prevState);
+    this.fetchEventsAndParseIfNecessary(prevProps, prevState);
+    this.updatePageTitle();
+    this.updateBossIdIfNecessary(prevProps, prevState);
+  }
+  fetchReportIfNecessary(prevProps) {
+    const curParams = this.props.params;
     const prevParams = prevProps.params;
-    if (this.reportCode && this.reportCode !== prevParams.reportCode) {
-      // User provided a reportCode AND it changed since previous render, so fetch the new report
-      this.fetchReport(this.reportCode);
+    if (curParams.reportCode && curParams.reportCode !== prevParams.reportCode) {
+      this.fetchReport(curParams.reportCode);
     }
-    if (this.isReportValid && this.fightId && (this.state.report !== prevState.report || this.props.params.fightId !== prevParams.fightId)) {
+  }
+  fetchCombatantsIfNecessary(prevProps, prevState) {
+    const curParams = this.props.params;
+    const prevParams = prevProps.params;
+    if (this.isReportValid && this.fightId && (this.state.report !== prevState.report || curParams.fightId !== prevParams.fightId)) {
       // A report has been loaded, it is the report the user wants (this can be a mismatch if a new report is still loading), a fight was selected, and one of the fight-relevant things was changed
-      this.fetchCombatants(this.state.report, this.fightId);
+      this.fetchCombatantsForFight(this.state.report, this.fightId);
     }
-    if (this.state.report !== prevState.report || this.state.combatants !== prevState.combatants || this.props.params.fightId !== prevParams.fightId || this.playerName !== prevParams.playerName) {
+  }
+  fetchEventsAndParseIfNecessary(prevProps, prevState) {
+    const curParams = this.props.params;
+    const prevParams = prevProps.params;
+    if (this.state.report !== prevState.report || this.state.combatants !== prevState.combatants || curParams.fightId !== prevParams.fightId || this.playerName !== prevParams.playerName) {
       this.reset();
-      if (this.state.report && this.state.combatants && this.fightId && this.playerName) {
-        this.parse(this.state.report, this.state.combatants, this.fightId, this.playerName);
+
+      const report = this.state.report;
+      const combatants = this.state.combatants;
+      const playerName = this.playerName;
+      if (report && combatants && this.fightId && playerName) {
+        const player = this.getPlayerFromReport(report, playerName);
+        if (!player) {
+          alert(`Unknown player: ${playerName}`);
+          return;
+        }
+        const combatant = combatants.find(combatant => combatant.sourceID === player.id);
+        if (!combatant) {
+          alert('This player does not seem to be in this fight.');
+          return;
+        }
+        const fight = this.getFightFromReport(report, this.fightId);
+        this.fetchEventsAndParse(report, fight, combatants, combatant, player);
       }
     }
-
-    this.updatePageTitle();
-    if (this.reportCode !== prevParams.reportCode || this.state.report !== prevState.report || this.props.params.fightId !== prevParams.fightId) {
+  }
+  updateBossIdIfNecessary(prevProps, prevState) {
+    const curParams = this.props.params;
+    const prevParams = prevProps.params;
+    if (curParams.reportCode !== prevParams.reportCode || this.state.report !== prevState.report || curParams.fightId !== prevParams.fightId) {
       this.updateBossId();
     }
   }
@@ -372,7 +441,7 @@ class App extends Component {
         <div>
           <h1>Fetching report information...</h1>
 
-          <div className="spinner"/>
+          <div className="spinner" />
         </div>
       );
     }
@@ -384,7 +453,7 @@ class App extends Component {
         <div>
           <h1>Fetching players...</h1>
 
-          <div className="spinner"/>
+          <div className="spinner" />
         </div>
       );
     }
@@ -405,24 +474,30 @@ class App extends Component {
     );
   }
 
+  async setStatePromise(newState) {
+    return new Promise((resolve, reject) => {
+      this.setState(newState, resolve);
+    });
+  }
+
   render() {
     const { report, combatants, parser } = this.state;
 
-    const progress = Math.floor(this.state.progress * 100);
+    const progress = (this.state.progress * 100);
 
     return (
       <div className={`app ${this.reportCode ? 'has-report' : ''}`}>
         <AppBackgroundImage bossId={this.state.bossId} />
 
         <nav className="navbar navbar-default">
-          <div className="navbar-progress" style={{ width: `${progress}%`, opacity: progress === 0 || progress === 100 ? 0 : 1 }} />
+          <div className="navbar-progress" style={{ width: `${progress}%`, opacity: progress === 0 || progress >= 100 ? 0 : 1 }} />
           <div className="container">
             <div className="navbar-header">
               <ol className="breadcrumb">
                 <li className="breadcrumb-item"><Link to={makeAnalyzerUrl()}>{toolName}</Link></li>
                 {this.reportCode && report && <li className="breadcrumb-item"><Link to={makeAnalyzerUrl(report)}>{report.title}</Link></li>}
-                {this.fight && report && <li className="breadcrumb-item"><FightSelectorHeader report={report} selectedFightName={getFightName(report, this.fight)} parser={parser}/></li>}
-                {this.playerName && report && <li className="breadcrumb-item"><PlayerSelectorHeader report={report} fightId={this.fightId} combatants={combatants || []} selectedPlayerName={this.playerName}/></li>}
+                {this.fight && report && <li className="breadcrumb-item"><FightSelectorHeader report={report} selectedFightName={getFightName(report, this.fight)} parser={parser} /></li>}
+                {this.playerName && report && <li className="breadcrumb-item"><PlayerSelectorHeader report={report} fightId={this.fightId} combatants={combatants || []} selectedPlayerName={this.playerName} /></li>}
               </ol>
             </div>
 
@@ -443,7 +518,7 @@ class App extends Component {
           {this.renderContent()}
           {this.state.config && this.state.config.footer}
         </div>
-        <ReactTooltip html={true} place="bottom" />
+        <ReactTooltip html place="bottom" />
       </div>
     );
   }

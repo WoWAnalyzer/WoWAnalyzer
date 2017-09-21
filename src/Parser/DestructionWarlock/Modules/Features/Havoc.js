@@ -32,7 +32,7 @@ class Havoc extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.HAVOC.id} />}
         value={`${formatNumber(this.damage / this.owner.fightDuration * 1000)} DPS`}
-        label='Damage cleaved'
+        label="Damage cleaved"
         tooltip={`You cleaved ${formatNumber(this.damage)} damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} %) to targets afflicted by your Havoc.<br /><br />Note: This number might be higher than it should be, as it also counts the damage you did directly to the Havoc target (not just the cleaved damage).`}
       />
     );

@@ -1,5 +1,12 @@
+import React from 'react';
+
 import SPELLS from 'common/SPELLS';
+import Icon from 'common/Icon';
 import CoreAlwaysBeCastingHealing from 'Parser/Core/Modules/AlwaysBeCastingHealing';
+import { formatPercentage } from 'common/format';
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+
+import SuggestionThresholds from '../../SuggestionThresholds';
 
 const HEALING_ABILITIES_ON_GCD = [
   SPELLS.REJUVENATION.id,
@@ -69,6 +76,46 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   static inRange(num1, goal, buffer) {
     return num1 > (goal - buffer) && num1 < (goal + buffer);
   }
+
+
+  suggestions(when) {
+    const nonHealingTimePercentage = this.totalHealingTimeWasted / this.owner.fightDuration;
+    const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
+
+    when(nonHealingTimePercentage).isGreaterThan(SuggestionThresholds.ABC_NOT_HEALING.minor)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest('Your non healing time can be improved. Try to reduce the delay between casting spells and try to continue healing when you have to move.')
+          .icon('petbattle_health-down')
+          .actual(`${formatPercentage(actual)}% non healing time`)
+          .recommended(`<${formatPercentage(recommended)}% is recommended`)
+          .regular(SuggestionThresholds.ABC_NOT_HEALING.regular).major(SuggestionThresholds.ABC_NOT_HEALING.major);
+      });
+
+    when(deadTimePercentage).isGreaterThan(SuggestionThresholds.ABC_NOT_CASTING.minor)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest('Your dead GCD time can be improved. Try to Always Be Casting (ABC); try to reduce the delay between casting spells and when you\'re not healing try to contribute some damage.')
+          .icon('spell_mage_altertime')
+          .actual(`${formatPercentage(actual)}% dead GCD time`)
+          .recommended(`<${formatPercentage(recommended)}% is recommended`)
+          .regular(SuggestionThresholds.ABC_NOT_CASTING.regular).major(SuggestionThresholds.ABC_NOT_CASTING.major);
+      });
+  }
+
+  statistic() {
+    const nonHealingTimePercentage = this.totalHealingTimeWasted / this.owner.fightDuration;
+    const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
+
+    return (
+      <StatisticBox
+        icon={<Icon icon="petbattle_health-down" alt="Non healing time" />}
+        value={`${formatPercentage(nonHealingTimePercentage)} %`}
+        label="Non healing time"
+        tooltip={`Non healing time is available casting time not used for a spell that helps you heal. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), DPSing, etc.<br /><br />You spent ${formatPercentage(deadTimePercentage)}% of your time casting nothing at all.`}
+      />
+    );
+  }
+  statisticOrder = STATISTIC_ORDER.CORE(2);
+
 }
 
 export default AlwaysBeCasting;

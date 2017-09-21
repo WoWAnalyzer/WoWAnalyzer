@@ -36,8 +36,8 @@ class VialOfCeaselessToxins extends Module {
     return {
       item: ITEMS.VIAL_OF_CEASELESS_TOXINS,
       result: (<dfn data-tip={`The effective damage contributed by Vial of Ceaseless Toxins.<br/>Casts: ${this.totalCasts}<br/> Damage: ${this.owner.formatItemDamageDone(this.damageIncreased)}<br/> Total Damage: ${formatNumber(this.damageIncreased)}`}>
-          {this.owner.formatItemDamageDone(this.damageIncreased)}
-        </dfn>),
+        {this.owner.formatItemDamageDone(this.damageIncreased)}
+      </dfn>),
     };
   }
 }

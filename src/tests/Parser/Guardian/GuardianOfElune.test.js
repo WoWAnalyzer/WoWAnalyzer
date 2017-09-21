@@ -1,6 +1,6 @@
 import GuardianOfElune from 'Parser/GuardianDruid/Modules/Features/GuardianOfElune';
 import { damageTaken, buffsApplied, SimpleFight } from './Fixtures/SimpleFight';
-import { processEvents } from './Fixtures/processEvents';
+import processEvents from './Fixtures/processEvents';
 
 describe('Features.GuardianOfElune', () => {
   let guardian;
@@ -8,6 +8,8 @@ describe('Features.GuardianOfElune', () => {
     guardian = new GuardianOfElune({
       toPlayer: () => true,
       byPlayer: () => true,
+      toPlayerPet: () => false,
+      byPlayerPet: () => false,
     });
   });
   it('trach GoE procs with no events', () => {

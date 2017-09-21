@@ -25,7 +25,7 @@ function getCategory(talent, spells) {
   let category = talent.spec.name;
 
   // Check if already exists in a spec, in that case we want it marked as shared (this happens when specs share a spell but they're not on the same row)
-  Object.keys(spells).forEach(specName => {
+  Object.keys(spells).forEach((specName) => {
     const existingKey = Object.keys(spells[specName]).find(key => spells[specName][key].id === talent.spell.id);
 
     if (existingKey) {
@@ -39,9 +39,9 @@ function getCategory(talent, spells) {
 }
 function flattenTalents(talents) {
   const flat = [];
-  talents.talents.forEach(tier => {
-    tier.forEach(column => {
-      column.forEach(talent => {
+  talents.talents.forEach((tier) => {
+    tier.forEach((column) => {
+      column.forEach((talent) => {
         flat.push(talent);
       });
     });
@@ -67,7 +67,7 @@ const BASE_MANA = {
   WARRIOR: 220000,
 };
 
-Object.values(talents).forEach(classTalents => {
+Object.values(talents).forEach((classTalents) => {
   const className = classTalents.class.replace('-', '_').toUpperCase();
 
   const spells = {
@@ -75,7 +75,7 @@ Object.values(talents).forEach(classTalents => {
   };
 
   const flat = flattenTalents(classTalents);
-  flat.forEach(talent => {
+  flat.forEach((talent) => {
     const spell = talent.spell;
 
     const spellsTalent = {
@@ -130,21 +130,21 @@ Object.values(talents).forEach(classTalents => {
   });
 
   // If the talent already exists, another spec has a talent by the same name. Deduplicate talent names with shared names
-  Object.keys(spells).forEach(specName => {
-    Object.keys(spells[specName]).forEach(spellKey => {
+  Object.keys(spells).forEach((specName) => {
+    Object.keys(spells[specName]).forEach((spellKey) => {
       const talent = spells[specName][spellKey];
 
-      const hasDuplicate = Object.values(spells).find(specTalents => {
-        return Object.keys(specTalents).find(key => {
+      const hasDuplicate = Object.values(spells).find((specTalents) => {
+        return Object.keys(specTalents).find((key) => {
           const altTalent = specTalents[key];
           return key === spellKey && altTalent.id !== talent.id;
         });
       });
 
       if (hasDuplicate) {
-        Object.keys(spells).forEach(duplicateSpecName => {
+        Object.keys(spells).forEach((duplicateSpecName) => {
           const duplicateSpecTalents = spells[duplicateSpecName];
-          Object.keys(duplicateSpecTalents).forEach(key => {
+          Object.keys(duplicateSpecTalents).forEach((key) => {
             if (key === spellKey) {
               console.log('Deduplicating', spellKey, 'in', duplicateSpecName);
               const newKeyIdentifier = `${spellKey}_${duplicateSpecName.toUpperCase()}`;
@@ -164,10 +164,10 @@ Object.values(talents).forEach(classTalents => {
     `// Generated file, changes will be overwritten!
 
 export default {
-${Object.keys(spells).map(specName => {
+${Object.keys(spells).map((specName) => {
   return `  // ${specName}
-${Object.keys(spells[specName]).map(talentName => {
-  return `  ${talentName}: { ${Object.keys(spells[specName][talentName]).map(prop => `${prop}: ${JSON.stringify(spells[specName][talentName][prop])}`).join(', ')} },`;
+${Object.keys(spells[specName]).map((talentName) => {
+  return `                                                                                                                                    ${talentName}: { ${Object.keys(spells[specName][talentName]).map(prop => `${prop}: ${JSON.stringify(spells[specName][talentName][prop])}`).join(', ')} },`;
 }).join('\n')}`;
 }).join('\n')}
 };

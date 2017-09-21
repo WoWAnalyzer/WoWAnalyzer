@@ -17,7 +17,7 @@ class HealingDone extends CoreHealingDone {
             alt="Healing"
           />
         )}
-        value={`${formatNumber(this.total.effective / this.owner.fightDuration * 1000)} HPS`}
+        value={`${formatNumber(this.total.effective / (this.owner.fightDuration / 1000))} HPS`}
         label="Healing done"
         tooltip={`The total healing done recorded was ${formatThousands(this.total.effective)}.`}
       />

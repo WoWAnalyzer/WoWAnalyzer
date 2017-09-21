@@ -69,7 +69,7 @@ class EnduringRenewal extends Module {
         this.secsGained += gain;
       }
     } else {
-      return;
+
     }
   }
 
@@ -99,7 +99,8 @@ class EnduringRenewal extends Module {
             <br/><br/>
             You refreshed renews ${this.refreshedRenews} times for a total of ${formatNumber(this.secsGained)} additional seconds of Renew.
             (+${erGainPerRefresh}s per refresh on average).
-          `}>
+          `}
+          >
             Enduring Renewal
           </dfn>
         )}

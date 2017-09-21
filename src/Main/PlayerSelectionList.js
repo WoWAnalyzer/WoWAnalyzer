@@ -73,15 +73,13 @@ class PlayerSelectionList extends Component {
                 return 1;
               } else if (aSpec.role < bSpec.role) {
                 return -1;
-              } else {
-                if (a.friendly.name > b.friendly.name) {
-                  return 1;
-                } else if (a.friendly.name < b.friendly.name) {
-                  return -1;
-                } else {
-                  return 0;
-                }
               }
+              if (a.friendly.name > b.friendly.name) {
+                return 1;
+              } else if (a.friendly.name < b.friendly.name) {
+                return -1;
+              }
+              return 0;
             })
             .map(({ friendly, combatant }) => {
               const spec = SPECS[combatant.specID];

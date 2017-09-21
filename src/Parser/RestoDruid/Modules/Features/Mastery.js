@@ -24,8 +24,8 @@ class Mastery extends Module {
     HEALS_MASTERY_STACK.forEach(healId => this.hotHealing[healId] = { direct: 0, mastery: 0 });
 
     this.masteryBuffs = {
-      [SPELLS.ASTRAL_HARMONY.id] : { amount: 4000 },
-      [SPELLS.JACINS_RUSE.id] : { amount: 3000 },
+      [SPELLS.ASTRAL_HARMONY.id]: { amount: 4000 },
+      [SPELLS.JACINS_RUSE.id]: { amount: 3000 },
     };
     Object.values(this.masteryBuffs).forEach(entry => entry.attributableHealing = 0);
   }
@@ -35,7 +35,7 @@ class Mastery extends Module {
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
     const target = this.combatants.getEntity(event);
-    const amount = event.amount + (event.absorbed === undefined ? 0 : event.absorbed);
+    const amount = event.amount + (event.absorbed || 0);
 
     if (target === null) {
       return;
@@ -61,7 +61,6 @@ class Mastery extends Module {
       Object.entries(this.masteryBuffs)
           .filter(entry => this.combatants.selected.hasBuff(entry[0]))
           .forEach(entry => entry[1].attributableHealing += decomposedHeal.oneRating * entry[1].amount);
-
     } else {
       this.totalNoMasteryHealing += amount;
     }
@@ -83,6 +82,22 @@ class Mastery extends Module {
 
   getBuffBenefit(buffId) {
     return this.masteryBuffs[buffId].attributableHealing;
+  }
+
+  /**
+   * This is the average number of mastery stacks the player's heals benefitted from, weighted by healing done.
+   * Heals and absorbs that don't benefit from mastery are counted as zero mastery stack heals.
+   */
+  getAverageTotalMasteryStacks() {
+    return this.masteryTimesHealing / this.totalNoMasteryHealing;
+  }
+
+  /**
+   * This is the average number of mastery stacks the player's heals benefitted from, weighted by healing done.
+   * Only heals that benefit from mastery are counted.
+   */
+  getAverageDruidSpellMasteryStacks() {
+    return this.masteryTimesHealing / this.druidSpellNoMasteryHealing;
   }
 
   _decompHeal(amount, hotCount) {
