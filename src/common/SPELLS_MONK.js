@@ -537,8 +537,8 @@ export default {
     name: 'Fists of Fury',
     icon: 'monk_ability_fistoffury',
   },
-  STRIKE_OF_THE_WINDLORD {
-    id: 205320
+  STRIKE_OF_THE_WINDLORD: {
+    id: 205320,
     name: 'Strike of the Windlord',
     icon: 'inv_hand_1h_artifactskywall_d_01',
   },
