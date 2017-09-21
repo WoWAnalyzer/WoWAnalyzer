@@ -5,6 +5,8 @@ import ReactTooltip from 'react-tooltip';
 
 import ItemLink from 'common/ItemLink';
 import ItemIcon from 'common/ItemIcon';
+import getBossName from 'common/getBossName';
+import { getCompletenessLabel, getCompletenessExplanation, getCompletenessColor } from 'common/SPEC_ANALYSIS_COMPLETENESS';
 
 import DevelopmentTab from 'Main/DevelopmentTab';
 import EventsTab from 'Main/EventsTab';
@@ -37,13 +39,17 @@ class Results extends React.Component {
 
   render() {
     const { parser, tab, onChangeTab } = this.props;
-
-    if (!parser._modules.combatants.selected) {
+    const report = parser.report;
+    const fight = parser.fight;
+    const config = this.context.config;
+    const modules = parser._modules;
+    const selectedCombatant = modules.combatants.selected;
+    if (!selectedCombatant) {
       return (
         <div>
           <h1>
             <div className="back-button">
-              <Link to={`/report/${parser.report.code}/${parser.fight.id}`} data-tip="Back to player selection">
+              <Link to={`/report/${report.code}/${fight.id}`} data-tip="Back to player selection">
                 <span className="glyphicon glyphicon-chevron-left" aria-hidden />
               </Link>
             </div>
@@ -93,25 +99,30 @@ class Results extends React.Component {
 
     return (
       <div style={{ width: '100%' }}>
-        <h1 style={{ marginBottom: 0 }}>
-          <div className="back-button">
-            <Link to={`/report/${parser.report.code}/${parser.fight.id}`} data-tip="Back to player selection">
-              <span className="glyphicon glyphicon-chevron-left" aria-hidden />
-            </Link>
+        <div className="row" style={{ marginTop: 20 }}>
+          <div className="col-md-8" style={{ position: 'relative' }}>
+            <div className="back-button" style={{ fontSize: 36, width: 20 }}>
+              <Link to={`/report/${report.code}/${fight.id}`} data-tip="Back to player selection">
+                <span className="glyphicon glyphicon-chevron-left" aria-hidden />
+              </Link>
+            </div>
+            <h1 style={{ marginBottom: 0, fontSize: 48, textTransform: 'none' }}>
+              {getBossName(fight)} by <span className={config.spec.className.replace(' ', '')}>{selectedCombatant.name}</span>
+            </h1>
           </div>
-          Results
-          <a
-            href={`https://www.warcraftlogs.com/reports/${parser.report.code}/#fight=${parser.fight.id}&source=${parser.playerId}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="pull-right"
-            style={{ fontSize: '.6em' }}
-          >
-            <span className="glyphicon glyphicon-link" aria-hidden /> Open report
-          </a>
-        </h1>
-        <div className="text-muted" style={{ marginBottom: 20 }}>
-          The {this.context.config.spec.specName} {this.context.config.spec.className} analyzer is being maintained by {this.context.config.maintainer}.
+          <div className="col-md-4" style={{ paddingTop: 20 }}>
+            <a
+              href={`https://www.warcraftlogs.com/reports/${report.code}/#fight=${fight.id}&source=${parser.playerId}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="pull-right"
+            >
+              <span className="glyphicon glyphicon-link" aria-hidden /> Open report
+            </a>
+          </div>
+        </div>
+        <div className="text-muted" style={{ marginBottom: 25 }}>
+          The {config.spec.specName} {config.spec.className} analyzer is being maintained by {config.maintainer}. This spec's completeness is <dfn data-tip={getCompletenessExplanation(config.completeness)} style={{ color: getCompletenessColor(config.completeness) }}>{getCompletenessLabel(config.completeness)}</dfn>.
         </div>
 
         <div className="row">
@@ -168,7 +179,7 @@ class Results extends React.Component {
                         }
 
                         const id = item.id || item.item.id;
-                        const itemDetails = id && parser._modules.combatants.selected.getItem(id);
+                        const itemDetails = id && selectedCombatant.getItem(id);
                         const icon = item.icon || <ItemIcon id={item.item.id} details={itemDetails} />;
                         const title = item.title || <ItemLink id={item.item.id} details={itemDetails} />;
 

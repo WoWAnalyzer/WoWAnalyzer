@@ -38,6 +38,11 @@ export default {
     name: 'Essence of G\'Hanir',
     icon: 'inv_staff_2h_artifactnordrassil_d_01',
   },
+  INCARNATION_TREE_OF_LIFE: {
+    id: 33891,
+    name: 'Incarnation: Tree of Life',
+    icon: 'ability_druid_improvedtreeform',
+  },
   IRONBARK: {
     id: 102342,
     name: 'Ironbark',
@@ -282,7 +287,7 @@ export default {
     icon: 'ability_druid_manatree',
   },
 
-  // Sets:
+  // Sets/Items:
   // Hidden buffs that indicate set is equipped:
   RESTO_DRUID_T19_2SET_BONUS_BUFF: {
     id: 211165,
@@ -309,7 +314,7 @@ export default {
     name: 'T21 4 set bonus',
     icon: 'ability_druid_cower',
   },
-  // Visible procs produced by set:
+  // Visible procs produced by set/item:
   ASTRAL_HARMONY: { // 2pc T19
     id: 232378,
     name: 'Astral Harmony',
@@ -329,6 +334,11 @@ export default {
     id: 253434,
     name: 'Awakened',
     icon: 'ability_druid_cower',
+  },
+  XONIS_CARESS: {
+    id: 235040,
+    name: "X'oni's Caress",
+    icon: 'spell_druid_ironbark',
   },
 
   // Traits:
@@ -352,27 +362,50 @@ export default {
     name: 'Infusion of Nature',
     icon: 'ability_druid_flourish',
   },
-  PERSISTANCE_TRAIT: {
+  PERSISTENCE_TRAIT: {
     id: 186396,
-    name: 'Persistance',
+    name: 'Persistence',
     icon: 'spell_nature_starfall',
   },
-
-  // Talents:
-  CULTIVATION_TALENT: {
-    id: 200390,
-    name: 'Cultivation',
-    icon: 'ability_druid_nourish',
+  GROVEWALKER: {
+    id:186320,
+    name:'Grovewalker',
+    icon: 'spell_nature_healingtouch',
   },
-  SPRING_BLOSSOMS_TALENT: {
-    id: 207385,
-    name: 'Spring Blossoms',
-    icon: 'inv_misc_trailofflowers',
+  NATURAL_MENDING: {
+    id:189749,
+    name:'Natural Mending',
+    icon: 'inv_relics_idolofrejuvenation',
   },
-  CENARION_WARD_TALENT: {
-    id: 102351,
-    name: 'Cenarion Ward',
+  ESSENCE_OF_NORDRASSIL: {
+    id:189760,
+    name:'Essence of Norddrassil',
+    icon: 'inv_misc_herb_talandrasrose',
+  },
+  BLESSING_OF_THE_WORLD_TREE: {
+    id:189744,
+    name:'Blessing of the World Tree',
     icon: 'ability_druid_naturalperfection',
+  },
+  ETERNAL_RESTORATION: {
+    id:238050,
+    name:'Eternal Restoration',
+    icon: 'inv_staff_2h_artifactnordrassil_d_01',
+  },
+  SEEDS_OF_THE_WORLD_TREE: {
+    id:189768,
+    name:'Seeds of the World Tree',
+    icon: 'ability_druid_giftoftheearthmother',
+  },
+  INFUSION_OF_NATURE: {
+    id:189757,
+    name:'Infusion of Nature',
+    icon: 'ability_druid_flourish',
+  },
+  KNOWLEDGE_OF_THE_ANCIENTS: {
+    id:189772,
+    name:'Knowledge of the Ancients',
+    icon: 'ability_druid_manatree',
   },
 
   // GUARDIAN //
