@@ -10,6 +10,7 @@ class DamageDone extends CoreDamageDone {
   petDmg = 0;
   petIds = [];
   totalDmg = 0;
+  dmgTooltip = "";
 
   on_initialized() {
     this.owner.report.friendlyPets.filter(pet => pet.petOwner === this.owner.playerId).forEach((pet) => {
@@ -28,23 +29,22 @@ class DamageDone extends CoreDamageDone {
 
   on_finished() {
     this.totalDmg = this.petDmg + this.total.effective;
-    this.dmgTooltip = (this.set_tooltip());
+    this.set_tooltip();
   }
   set_tooltip() {
     if (this.petDmg > 0) {
-      return `The total damage done recorded was ${formatNumber(this.totalDmg)}. Pets contributed ${formatNumber(this.petDmg)}`;
+      this.dmgTooltip = `The total damage done recorded was ${formatNumber(this.totalDmg)}. Pet contributed ${formatNumber(this.petDmg)}`;
     } else
-      return `The total damage done recorded was ${formatNumber(this.totalDmg)}.`;
+      this.dmgTooltip = `The total damage done recorded was ${formatNumber(this.totalDmg)}.`;
   }
 
   statistic() {
-    const mmDmgTooltip = this.dmgTooltip;
     return (
       <StatisticBox
         icon={<Icon icon="class_hunter" alt="DPS stats" />}
         value={`${formatNumber(this.totalDmg / this.owner.fightDuration * 1000)} DPS`}
         label="Damage Done"
-        tooltip={mmDmgTooltip}
+        tooltip={this.dmgTooltip}
       />
     );
   }
