@@ -484,4 +484,62 @@ export default {
     name: 'Blackout Combo',
     icon: 'ability_monk_blackoutkick',
   },
+
+  //Windwalker
+
+  CHI_ORBIT: {
+    id: 196743,
+    name: 'Chi Orbit',
+    icon: 'ability_monk_forcesphere',
+  },
+  SERENITY: {
+    id: 152173,
+    name: 'Serenity',
+    icon: 'ability_monk_serenity',
+  },
+  WHIRLING_DRAGON_PUNCH: {
+    id: 152175,
+    name: 'Whirling Dragon Punch',
+    icon: 'ability_monk_hurricanestrike',
+  },
+  HIT_COMBO: {
+    id: 196740, 
+    name: 'Hit Combo',
+    icon: 'ability_monk_palmstrike',
+  },
+  COMBO_STRIKES: {
+    id: 115636,
+    name: 'Mastery: Combo Strikes',
+    icon: 'trade_alchemy_potionb3'
+  },
+  STORM_EARTH_AND_FIRE: {
+    id: 137639,
+    name: 'Storm, Earth, and Fire',
+    icon: 'spell_nature_giftofthewild',
+  },
+  TOUCH_OF_KARMA: {
+    id: 122470,
+    name: 'Touch of Karma',
+    icon: 'ability_monk_touchofkarma',
+  },
+  FLYING_SERPENT_KICK: {
+    id: 101545,
+    name: 'Flying Serpent Kick',
+    icon: 'ability_monk_flyingdragonkick',
+  },
+  TOUCH_OF_DEATH: {
+    id: 115080,
+    name: 'Touch of Death',
+    icon: 'ability_monk_touchofdeath',
+  },
+  FISTS_OF_FURY: {
+    id: 113656,
+    name: 'Fists of Fury',
+    icon: 'monk_ability_fistoffury',
+  },
+  STRIKE_OF_THE_WINDLORD {
+    id: 205320
+    name: 'Strike of the Windlord',
+    icon: 'inv_hand_1h_artifactskywall_d_01',
+  },
 };
