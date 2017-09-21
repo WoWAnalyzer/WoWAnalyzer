@@ -21,8 +21,9 @@ class ChainOfThrayn extends Module {
 	}
 
 	on_byPlayer_damage(event) {
-		if(this.combatants.selected.hasBuff(SPELLS.CRUSADE_TALENT.id) || this.combatants.selected.hasBuff(SPELLS.CRUSADE_TALENT.id)){
-			this.damageDone += ((event.amount || 0) + (event.absorbed || 0)) * CHAIN_OF_THRAYN_INCREASE / (1 + CHAIN_OF_THRAYN_INCREASE);
+		if(this.combatants.selected.hasBuff(SPELLS.CRUSADE_TALENT.id) || this.combatants.selected.hasBuff(SPELLS.AVENGING_WRATH_RET.id)){
+			const rawDamage = (event.amount || 0) + (event.absorbed || 0);
+			this.damageDone += rawDamage - (rawDamage / (1 + CHAIN_OF_THRAYN_INCREASE));
 		}
 	}
 

@@ -262,6 +262,11 @@ export default {
     name: 'Divine Purpose',
     icon: 'spell_holy_mindvision',
   },
+  AVENGING_WRATH_RET: {
+    id: 31884,
+    name: 'Avenging Wrath',
+    icon: 'spell_holy_avenginewrath',
+  },
 
   // Ret Item Effects
   WHISPER_OF_THE_NATHREZIM_BUFF: {

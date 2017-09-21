@@ -50,7 +50,7 @@ class CombatLogParser extends CoreCombatLogParser {
     liadrinsFuryUnleahed: LiadrinsFuryUnleashed,
     soulOfTheHighlord: SoulOfTheHighlord,
     ashesToDust: AshesToDust,
-    chainofThrayn: ChainOfThrayn,
+    chainOfThrayn: ChainOfThrayn,
     tier20_2set: Tier20_2set,
     tier20_4set: Tier20_4set,
   };
