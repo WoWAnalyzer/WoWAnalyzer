@@ -116,6 +116,24 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
         value={`${formatPercentage(nonHealingTimePercentage)} %`}
         label="Non healing time"
         tooltip={`Non healing time is available casting time not used for a spell that helps you heal. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), DPSing, etc. Damaging Holy Shocks are considered non healing time, Crusader Strike is only considered non healing time if you do not have the Crusader's Might talent.<br /><br />You spent ${formatPercentage(deadTimePercentage)}% of your time casting nothing at all.`}
+        footer={(
+          <div className="statistic-bar">
+            <div
+              className="remainder Hunter-bg"
+              data-tip="Amount of time you were active."
+            >
+              <img src="/img/play.png" alt="Active time" />
+            </div>
+            <div
+              className="DeathKnight-bg"
+              style={{ width: `${this.totalHealingTimeWasted / this.owner.fightDuration * 100}%` }}
+              data-tip="Amount of downtime during which you could have been casting something."
+            >
+              <img src="/img/afk.png" alt="AFK time" />
+            </div>
+          </div>
+        )}
+        footerStyle={{ overflow: 'hidden' }}
       />
     );
   }
