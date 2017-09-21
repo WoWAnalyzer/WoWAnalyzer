@@ -496,10 +496,9 @@ table.data-table img {
 }
 table.data-table .performance-bar {
   opacity: .9;
-  height: 1.2em;
+  height: 1.4em;
   min-width: 1px;
   background-color: #ffffff;
-  margin-top: .1em;
 }
 
 .__react_component_tooltip {
