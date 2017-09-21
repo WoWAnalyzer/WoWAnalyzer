@@ -93,14 +93,8 @@ class EssenceFontMastery extends Module {
         label={(
           <dfn data-tip={`You healed an average of ${avgMasteryCastsPerEF.toFixed(2)} targets per Essence Font cast.<ul>
             <li>${formatNumber(avgEFMasteryHealing)} average healing per cast</li>
-<<<<<<< HEAD
             <li>${formatNumber(this.secondGustOverheal)} Second Gust of Mists overhealing (${formatPercentage(this.secondGustOverheal / this.healingDone.total.overheal)}%)</li>
             </ul>`}>
-=======
-            <li>${formatNumber(this.secondGustOverheal)} Second Gust of Mists overhealing</li>
-            </ul>`}
-          >
->>>>>>> upstream/master
             Mastery Buffs utilized
           </dfn>
         )}
