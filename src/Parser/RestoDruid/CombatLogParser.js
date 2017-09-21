@@ -7,8 +7,7 @@ import Mana from 'Main/Mana';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
-
-import HealingDone from './Modules/Core/HealingDone';
+import HealingDone from 'Parser/Core/Modules/HealingDone';
 
 import Ekowraith from './Modules/Legendaries/Ekowraith';
 import XonisCaress from './Modules/Legendaries/XonisCaress';
@@ -67,7 +66,7 @@ class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
 
     // Core
-    healingDone: HealingDone,
+    healingDone: [HealingDone, { showStatistic: true }],
 
     // Features
     healingTouch : HealingTouch,
