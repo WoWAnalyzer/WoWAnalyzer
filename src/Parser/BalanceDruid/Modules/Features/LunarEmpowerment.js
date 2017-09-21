@@ -7,31 +7,42 @@ import SPELLS from 'common/SPELLS';
 
 class LEmpowerment extends Module {
   lsEmpWasted = 0;
-  aspWasted = 0;
+  totalLSEmps = 0;
 
-  isLSEmpowerment(event) {
+  isLunarStrike(event) {
     const spellId = event.ability.guid;
-    return spellId === SPELLS.LUNAR_EMP_BUFF.id;
+    return spellId === SPELLS.LUNAR_STRIKE.id;
+  }
+  isStarsurge(event) {
+    const spellId = event.ability.guid;
+    return spellId === SPELLS.STARSURGE_MOONKIN.id;
   }
 
-  on_toPlayer_applybuff(event) {
-    if (!this.isLSEmpowerment(event)) return;
-  }
-  on_toPlayer_changebuffstack(event) {
-    if (!this.isLSEmpowerment(event)) return;
-  }
-  on_toPlayer_removebuff(event) {
-    if (!this.isLSEmpowerment(event)) return;
+  LunarEmpsActive = 0;
+  LunarEmpsOver = 0;
+
+  on_byPlayer_cast(event) {
+    if (!this.isLunarStrike(event) && !this.isStarsurge(event)) return;
+
+    if (this.isLunarStrike(event) && this.LunarEmpsActive > 0){
+        this.LunarEmpsActive--;
+    }
+    else if (this.isStarsurge(event)){
+      if (this.LunarEmpsActive < 3)
+        this.LunarEmpsActive++;
+      else
+        this.LunarEmpsOver++;
+    }
   }
 
   suggestions(when) {
-    const wastedPerMin = ((this.aspWasted) / (this.owner.fightDuration / 100)) * 60;
+    const wastedPerMin = ((this.lsEmpWasted) / (this.owner.fightDuration / 100)) * 60;
     when(wastedPerMin).isGreaterThan(0)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<span>You overcapped {this.aspWasted / 10} Astral Power. Always prioritize spending it over avoiding the overcap or any other ability.</span>)
-            .icon('ability_druid_cresentburn')
-            .actual(`${formatNumber(actual)} overcapped Astral Power per minute`)
-            .recommended('0 overcapped Astral Power is recommended.')
+          return suggest(<span>You overcapped {this.lsEmpWasted / 10} LS Empowerments.</span>)
+            .icon('spell_arcane_starfire')
+            .actual(`${formatNumber(actual)} overcapped LS Empowerments per minute`)
+            .recommended('0 overcapped LS Empowerments is recommended.')
             .regular(recommended + 4).major(recommended + 8);
         });
   }
@@ -39,14 +50,14 @@ class LEmpowerment extends Module {
   statistic() {
     return (
       <StatisticBox
-        icon={<Icon icon="ability_druid_cresentburn" />}
-        value={`${this.aspWasted / 10}`}
-        label="Overcapped AsP"
-        tooltip={'Astral Power overcapping is often due to mismanagement of resources, but can also be due to an overwhelming amount of OI procs.'}
+        icon={<Icon icon="spell_arcane_starfire" />}
+        value={`${this.lsEmpWasted / 10}`}
+        label="Overcapped LSEmp"
+        tooltip={'LS Empowerments overcapping is often due to mismanagement of resources, but can also be due to an overwhelming amount of OI procs.'}
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(2);
+  statisticOrder = STATISTIC_ORDER.CORE(8);
 }
 
 export default LEmpowerment;

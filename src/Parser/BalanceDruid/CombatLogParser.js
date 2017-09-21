@@ -17,7 +17,7 @@ import HalfMoon from './Modules/Spells/HalfMoon';
 import FullMoon from './Modules/Spells/FullMoon';
 // import SolarUnemp from './Modules/Spells/Empowerments/SolarUnemp';
 // import LunarUnemp from './Modules/Spells/Empowerments/LunarUnemp';
-// import LunarOvercap from './Modules/Spells/Empowerments/LunarOvercap';
+import LEmpowerment from './Modules/Features/LunarEmpowerment';
 // import SolarOvercap from './Modules/Spells/Empowerments/SolarOvercap';
 import AstralPower from './Modules/Features/AstralPower';
 import UnempoweredLs from './Modules/Spells/UnempoweredLs';
@@ -38,7 +38,7 @@ class CombatLogParser extends MainCombatLogParser {
     fullmoon: FullMoon,
       // solarunemp: SolarUnemp,
       // lunarumep: LunarUnemp,
-      // lunarovercap: LunarOvercap,
+    lsempowerment: LEmpowerment,
       // solarovercap: SolarOvercap,
     astralpower: AstralPower,
     unempoweredLS: UnempoweredLs,
