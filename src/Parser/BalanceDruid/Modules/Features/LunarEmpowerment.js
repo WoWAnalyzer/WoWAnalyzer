@@ -62,23 +62,23 @@ class LEmpowerment extends Module {
   }
   
   suggestions(when) {
-    const wastedPerMin = ((this.LunarEmpsOver) / (this.owner.fightDuration / 100)) * 60;
+    const wastedPerMin = Math.round((((this.LunarEmpsOver) / (this.owner.fightDuration / 1000)) * 60)*10) / 10;
     when(wastedPerMin).isGreaterThan(0)
         .addSuggestion((suggest, actual, recommended) => {
           return suggest(<span>You overcapped {this.LunarEmpsOver} Lunar Empowerments when you could have avoided it without overcapping Astral Power.</span>)
-            .icon('spell_arcane_starfire')
-            .actual(`${formatNumber(actual)} avoidable overcapped Lunar Empowerments per minute`)
+            .icon('ability_druid_eclipse')
+            .actual(`${actual} avoidable overcapped Lunar Empowerments per minute`)
             .recommended('0 avoidable overcapped Lunar Empowerments is recommended.')
-            .regular(recommended + 4).major(recommended + 8);
+            .regular(recommended + 1).major(recommended + 2);
         });
   }
 
   statistic() {
     return (
       <StatisticBox
-        icon={<Icon icon="spell_arcane_starfire" />}
+        icon={<Icon icon="ability_druid_eclipse" />}
         value={`${this.LunarEmpsOver}`}
-        label="Overcapped Lunar Empowerment"
+        label="Overcapped Lunar Emp"
         tooltip={'Lunar Empowerment overcapping should never occur when it\'s possible to cast a Lunar Strike without overcapping Astral Power.'}
       />
     );
