@@ -56,7 +56,7 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.CRUSADER_STRIKE,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 4.5 / (1 + haste),
-      hideWithZeroCasts: true,
+      isActive: combatant => combatant.hasTalent(SPELLS.GREATER_JUDGMENT_TALENT.id),
     },
     {
       spell: SPELLS.ZEAL_TALENT,

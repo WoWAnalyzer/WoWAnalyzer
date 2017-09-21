@@ -21,7 +21,7 @@ class HolyPowerDetails extends Module {
 		const hpWasted = this.holyPowerTracker.holyPowerWasted;
 		const hpWastedPercent = hpWasted / this.holyPowerTracker.totalHolyPowerGained;
 		const MINOR = 0.04;
-		const AVG = 0.8;
+		const AVG = 0.08;
 		const MAJOR = 0.12;
 		when(hpWastedPercent).isGreaterThan(MINOR)
 			.addSuggestion((suggest, actual, recommended) => {
