@@ -1,6 +1,7 @@
 import Module from 'Parser/Core/Module';
 import SPELLS from 'common/SPELLS';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import HealingValue from 'Parser/Core/Modules/HealingValue';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
 import { HEALS_MASTERY_STACK } from '../../Constants';
@@ -46,20 +47,20 @@ class Mastery extends Module {
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
     const target = this.combatants.getEntity(event);
-    const amount = event.amount + (event.absorbed || 0);
+    const healVal = new HealingValue(event.amount, event.absorbed, event.overheal);
 
     if (target === null) {
       return;
     }
 
-    if (spellId in this.hotHealingAttrib) { this.hotHealingAttrib[spellId].direct += amount; }
+    if (spellId in this.hotHealingAttrib) { this.hotHealingAttrib[spellId].direct += healVal.effective; }
 
     if (ABILITIES_AFFECTED_BY_HEALING_INCREASES.includes(spellId)) {
       const hotsOn = target.activeBuffs()
           .map(buffObj => buffObj.ability.guid)
           .filter(buffId => HEALS_MASTERY_STACK.includes(buffId));
       const numHotsOn = hotsOn.length;
-      const decomposedHeal = this._decompHeal(amount, numHotsOn);
+      const decomposedHeal = this._decompHeal(healVal, numHotsOn);
 
       this.totalNoMasteryHealing += decomposedHeal.noMastery;
       this.druidSpellNoMasteryHealing += decomposedHeal.noMastery;
@@ -73,7 +74,7 @@ class Mastery extends Module {
           .filter(entry => this.combatants.selected.hasBuff(entry[0]))
           .forEach(entry => entry[1].attributableHealing += decomposedHeal.oneRating * entry[1].amount);
     } else {
-      this.totalNoMasteryHealing += amount;
+      this.totalNoMasteryHealing += healVal.effective;
     }
   }
 
@@ -152,13 +153,19 @@ class Mastery extends Module {
     }
   }
 
-  _decompHeal(amount, hotCount) {
+  _decompHeal(healVal, hotCount) {
     const masteryBonus = this._getCurrMasteryBonus();
     const healMasteryMult = 1 + (hotCount * masteryBonus);
 
-    const noMasteryHealing = amount / healMasteryMult;
-    const oneStackMasteryHealing = noMasteryHealing * masteryBonus;
-    const oneRatingMasteryHealing = noMasteryHealing * MASTERY_BONUS_FROM_ONE_RATING * hotCount;
+    const rawNoMasteryHealing = healVal.raw / healMasteryMult;
+    const noMasteryHealing = Math.min(rawNoMasteryHealing, healVal.effective);
+
+    const masteryHealing = healVal.effective - noMasteryHealing;
+    const oneStackMasteryHealing = masteryHealing / hotCount;
+
+    // FIXME still using the old way to calculate one rating because it's less obvious how to update it
+    const oldNoMasteryHealing = healVal.effective / healMasteryMult;
+    const oneRatingMasteryHealing = oldNoMasteryHealing * MASTERY_BONUS_FROM_ONE_RATING * hotCount;
 
     return {
       noMastery: noMasteryHealing,
