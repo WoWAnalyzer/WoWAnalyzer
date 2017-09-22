@@ -2,22 +2,16 @@ import SPELLS from 'common/SPELLS';
 
 import Module from 'Parser/Core/Module';
 
-const PANDEMIC_THRESHOLD = 11500;
+const PANDEMIC_THRESHOLD = 11500;//don't refresh with more than 4.5 seconds left on Flametongue buff
 const debug = false;
 
-class Pandemic extends Module {
+class FlametongueRefresh extends Module {
   flametongueTimestamp = 0;
   earlyRefresh = 0;
   refreshTimestamps = [];
 
   on_byPlayer_applybuff(event) {
     if(event.ability.guid === SPELLS.FLAMETONGUE_BUFF.id) {
-      if(this.flametongueTimestamp !== 0) {
-        if(event.timestamp - this.flametongueTimestamp < PANDEMIC_THRESHOLD) {
-          this.earlyRefresh += 1;
-          this.refreshTimestamps.push(event.timestamp);
-        }
-      }
       this.flametongueTimestamp = event.timestamp;
     }
   }
@@ -27,7 +21,7 @@ class Pandemic extends Module {
       if(this.flametongueTimestamp !== 0) {
         if(event.timestamp - this.flametongueTimestamp < PANDEMIC_THRESHOLD) {
           this.earlyRefresh += 1;
-          this.refreshTimestamps.push(event.timestamp);
+          debug && this.refreshTimestamps.push(event.timestamp);
         }
       }
       this.flametongueTimestamp = event.timestamp;
