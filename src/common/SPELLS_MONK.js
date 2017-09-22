@@ -537,9 +537,40 @@ export default {
     name: 'Fists of Fury',
     icon: 'monk_ability_fistoffury',
   },
+
+  //WW Artifact & Traits
+
   STRIKE_OF_THE_WINDLORD: {
     id: 205320,
     name: 'Strike of the Windlord',
     icon: 'inv_hand_1h_artifactskywall_d_01',
+  },
+  GALE_BURST: {
+    id: 195399,
+    name: 'Gale Burst',
+    icon: 'ability_monk_palmstrike',
+  },
+  CROSSWINDS: {
+    id: 195650,
+    name: 'Crosswinds',
+    icon: 'ability_monk_cranekick',
+  },
+  THUNDERFIST: {
+    id: 238131,
+    name: 'Thunderfist',
+    icon: 'inv_hand_1h_artifactskywall_d_01',
+  },
+  CONCORDANCE_OF_THE_LEGIONFALL: {
+    id: 239042,
+    name: 'Concordance of the Legionfall',
+    icon: 'trade_archaeology_shark-jaws',
+  },
+
+  //Items and shiz
+
+  CENEDRIL_REFLECTOR_OF_HATRED: {
+    id: 208842,
+    name: 'Cenedril, Reflector of Hatred',
+    icon: 'inv_cape_pandaria_b_02',
   },
 };
