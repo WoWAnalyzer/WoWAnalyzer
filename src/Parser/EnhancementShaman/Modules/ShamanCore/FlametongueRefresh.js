@@ -4,7 +4,6 @@ import { formatPercentage } from 'common/format';
 import Module from 'Parser/Core/Module';
 
 const PANDEMIC_THRESHOLD = 11500;//don't refresh with more than 4.5 seconds left on Flametongue buff
-const debug = false;
 
 class FlametongueRefresh extends Module {
   flametongueTimestamp = 0;
