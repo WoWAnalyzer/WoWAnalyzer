@@ -33,8 +33,8 @@ class RakeUptime extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.RAKE_BLEED.id} />}
         value={`${formatPercentage(rakeUptime)} %`}
-        label='Rake uptime'
-    />
+        label="Rake uptime"
+      />
     );
   }
 

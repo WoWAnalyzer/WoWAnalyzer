@@ -29,21 +29,21 @@ export const buffsApplied = [
   { type: 'applybuff', sourceid: thisPlayer, targetid: thisPlayer, timestamp: 5500, ability: { guid: SPELLS.GORE_BEAR.id, type: 1 } },
   { type: 'applybuff', sourceid: thisPlayer, targetid: thisPlayer, timestamp: 7500, ability: { guid: SPELLS.IRONFUR.id, type: 1 } },
   { type: 'applybuff', sourceid: thisPlayer, targetid: thisPlayer, timestamp: 11500, ability: { guid: SPELLS.GUARDIAN_OF_ELUNE.id, type: 1 } },
-  
+
 ];
 
 export const buffsRefreshed = [
   { type: 'refreshbuff', sourceid: thisPlayer, targetid: thisPlayer, timestamp: 10500, ability: { guid: SPELLS.GORE_BEAR.id, type: 1 } },
-  
+
 ];
 
 export const buffsRemoved = [
   { type: 'removebuff', sourceid: thisPlayer, targetid: thisPlayer, timestamp: 3500, ability: { guid: SPELLS.GUARDIAN_OF_ELUNE.id, type: 1 } },
-  { type: 'removebuff', sourceid: thisPlayer, targetid: thisPlayer, timestamp: 13500, ability: { guid: SPELLS.IRONFUR.id, type: 1 } },  
+  { type: 'removebuff', sourceid: thisPlayer, targetid: thisPlayer, timestamp: 13500, ability: { guid: SPELLS.IRONFUR.id, type: 1 } },
 ];
 
 export const casts = [
-  { type: 'cast', sourceid: thisPlayer, targetid: thisPlayer, timestamp: 2500, ability: { guid: SPELLS.MANGLE_BEAR.id, type: 1 } },  
+  { type: 'cast', sourceid: thisPlayer, targetid: thisPlayer, timestamp: 2500, ability: { guid: SPELLS.MANGLE_BEAR.id, type: 1 } },
   { type: 'cast', sourceid: thisPlayer, targetid: thisPlayer, timestamp: 3500, ability: { guid: SPELLS.IRONFUR.id, type: 1 } },
   { type: 'cast', sourceid: thisPlayer, targetid: thisPlayer, timestamp: 7500, ability: { guid: SPELLS.IRONFUR.id, type: 1 } },
   { type: 'cast', sourceid: thisPlayer, targetid: thisPlayer, timestamp: 11500, ability: { guid: SPELLS.MANGLE_BEAR.id, type: 1 } },

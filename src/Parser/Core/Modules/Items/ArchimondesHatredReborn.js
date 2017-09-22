@@ -36,11 +36,12 @@ class ArchimondesHatredReborn extends Module {
     return {
       item: ITEMS.ARCHIMONDES_HATRED_REBORN,
       result: (
-          <dfn data-tip={`The effective absorb and damage contributed by Archimode's Hatred Reborn.<br/>
+        <dfn data-tip={`The effective absorb and damage contributed by Archimode's Hatred Reborn.<br/>
               Damage: ${this.owner.formatItemDamageDone(this.damage)} <br/>
-              Absorb: ${this.owner.formatItemHealingDone(this.healing)}`}>
-            {this.owner.formatItemHealingDone(this.healing)}
-          </dfn>
+              Absorb: ${this.owner.formatItemHealingDone(this.healing)}`}
+        >
+          {this.owner.formatItemHealingDone(this.healing)}
+        </dfn>
       ),
     };
   }

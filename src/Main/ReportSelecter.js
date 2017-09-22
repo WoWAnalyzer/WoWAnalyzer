@@ -34,6 +34,7 @@ class ReportSelecter extends Component {
     const code = this.codeInput.value;
 
     if (!code) {
+      // eslint-disable-next-line no-alert
       alert('Enter the report code.');
       return;
     }

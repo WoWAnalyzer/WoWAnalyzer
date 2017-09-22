@@ -18,7 +18,6 @@ class NotImplementedYet extends Module {
 
             If you want to give it a try you can find documentation here:{' '}
             <a href="https://github.com/MartijnHols/WoWAnalyzer/blob/master/README.md">https://github.com/MartijnHols/WoWAnalyzer/blob/master/README.md</a>
-
           </div>
         </div>
       </div>

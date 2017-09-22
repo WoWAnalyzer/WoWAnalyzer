@@ -6,7 +6,7 @@ import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-class WastedDeathAndDecay  extends Module {
+class WastedDeathAndDecay extends Module {
   static dependencies = {
     abilityTracker: AbilityTracker,
     combatants: Combatants,
@@ -27,7 +27,7 @@ class WastedDeathAndDecay  extends Module {
     }
     if (this.combatants.selected.hasBuff(SPELLS.CRIMSON_SCOURGE.id, event.timestamp)) {
       this.FreeDeathAndDecayCounter += 1;
-    }  else {
+    } else {
       this.DeathAndDecayCounter += 1;
     }
   }
@@ -39,7 +39,6 @@ class WastedDeathAndDecay  extends Module {
   }
 
 
-
   statistic() {
     this.WastedDeathAndDecays = this.CrimsonScourgeProcsCounter - this.FreeDeathAndDecayCounter;
     return (
@@ -47,7 +46,8 @@ class WastedDeathAndDecay  extends Module {
         icon={<SpellIcon id={SPELLS.CRIMSON_SCOURGE.id} />}
         value={this.WastedDeathAndDecays}
         label='Wasted Death and Decays'
-        tooltip={'You let a Crimson Scourge Proc expire without casting Death and Decay.'}
+        tooltip={'You let a Crimson Scourge Proc expire without casting DnD.'}
+
       />
 
     );

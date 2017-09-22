@@ -39,8 +39,8 @@ class moonfireUptime extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.MOONFIRE_BEAR.id} />}
         value={`${formatPercentage(moonfireUptime)} %`}
-        label='Moonfire uptime'
-    />
+        label="Moonfire uptime"
+      />
     );
   }
 

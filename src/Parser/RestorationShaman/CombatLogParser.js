@@ -16,6 +16,7 @@ import Feeding from 'Main/Feeding';
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
+import HealingDone from 'Parser/Core/Modules/HealingDone';
 
 import ShamanAbilityTracker from './Modules/ShamanCore/ShamanAbilityTracker';
 
@@ -71,6 +72,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Override the ability tracker so we also get stats for Tidal Waves and beacon healing
     abilityTracker: ShamanAbilityTracker,
     lowHealthHealing: LowHealthHealing,
+    healingDone: [HealingDone, { showStatistic: true }],
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -80,7 +82,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownTracker: CooldownTracker,
     ancestralVigor: AncestralVigor,
     castEfficiency: CastEfficiency,
-    
+
     // Legendaries:
     nobundo: Nobundo,
     nazjatar: Nazjatar,
@@ -166,7 +168,6 @@ class CombatLogParser extends CoreCombatLogParser {
     const giftOfTheQueenCBTFeedingPercent = giftOfTheQueenCBTFeeding / giftOfTheQueenRawHealing;
 
 
-
     const totalMasteryHealing = this.modules.masteryEffectiveness.totalMasteryHealing || 0;
     const totalMaxPotentialMasteryHealing = this.modules.masteryEffectiveness.totalMaxPotentialMasteryHealing || 0;
     const masteryEffectivenessPercent = totalMasteryHealing / totalMaxPotentialMasteryHealing;
@@ -235,20 +236,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
 
     results.statistics = [
-      <StatisticBox
-        icon={(
-          <img
-            src="/img/healing.png"
-            style={{ border: 0 }}
-            alt="Healing"
-          />)}
-        value={`${formatNumber(totalHealing / fightDuration * 1000)} HPS`}
-        label={(
-          <dfn data-tip={`The total healing done recorded was ${formatThousands(totalHealing)}.`}>
-            Healing done
-          </dfn>
-        )}
-      />,
+      ...results.statistics,
       <StatisticBox
         icon={<SpellIcon id={SPELLS.DEEP_HEALING.id} />}
         value={`${formatPercentage(masteryEffectivenessPercent)}%`}
@@ -323,7 +311,6 @@ class CombatLogParser extends CoreCombatLogParser {
           </dfn>
         )}
       />,
-      ...results.statistics,
     ];
 
     results.items = [

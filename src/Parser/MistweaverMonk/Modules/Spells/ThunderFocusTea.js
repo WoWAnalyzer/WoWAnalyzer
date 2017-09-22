@@ -108,11 +108,11 @@ class ThunderFocusTea extends Module {
 
   statistic() {
     return (
-        <StatisticBox
-          icon={<SpellIcon id={SPELLS.THUNDER_FOCUS_TEA.id} />}
-          value={`${this.castsTft}`}
-          label={(
-            <dfn data-tip={`With your ${this.castsTft} Thunder Focus Tea casts, you buffed the following spells:
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.THUNDER_FOCUS_TEA.id} />}
+        value={`${this.castsTft}`}
+        label={(
+          <dfn data-tip={`With your ${this.castsTft} Thunder Focus Tea casts, you buffed the following spells:
               <ul>
                 ${this.castsTftViv > 0 ?
                 `<li>${(this.castsTftViv)} Vivify buffed (${formatPercentage(this.castsTftViv / this.castsTft)}%)</li>`
@@ -135,11 +135,12 @@ class ThunderFocusTea extends Module {
                 : ''
                 }
               </ul>
-              `}>
+              `}
+          >
               Total casts
             </dfn>
           )}
-        />
+      />
     );
   }
   statisticOrder = STATISTIC_ORDER.OPTIONAL(30);

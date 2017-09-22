@@ -46,7 +46,7 @@ class RefreshingJadeWind extends Module {
   suggestions(when) {
     const avgRJWTargetsPercentage = (this.healsRJW / this.castRJW) / 78 || 0;
 
-    when(avgRJWTargetsPercentage).isLessThan(.9)
+    when(avgRJWTargetsPercentage).isLessThan(0.9)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>You are not utilizing your <SpellLink id={SPELLS.REFRESHING_JADE_WIND_TALENT.id} /> effectively. <SpellLink id={SPELLS.REFRESHING_JADE_WIND_TALENT.id} /> excells when you hit 6 targets for the duration of the spell. The easiest way to accomplish this is to stand in melee, but there can be other uses when the raid stacks for various abilities.</span>)
           .icon(SPELLS.REFRESHING_JADE_WIND_TALENT.icon)

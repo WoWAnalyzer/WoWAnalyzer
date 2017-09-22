@@ -29,7 +29,7 @@ class Tier20_4set extends Module {
   on_byPlayer_combatantinfo(event) {
     const fourSetAura = event.auras
       .filter(aura => aura.ability === SPELLS.DISC_PRIEST_T20_4SET_BONUS_BUFF.id);
-    
+
     this._procCount += fourSetAura ? 1 : 0;
   }
 

@@ -33,8 +33,8 @@ class RipUptime extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.RIP.id} />}
         value={`${formatPercentage(ripUptime)} %`}
-        label='Rip uptime'
-    />
+        label="Rip uptime"
+      />
     );
   }
 

@@ -16,6 +16,7 @@ import Mana from 'Main/Mana';
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
+import HealingDone from 'Parser/Core/Modules/HealingDone';
 
 import SpellManaCost from './Modules/Core/SpellManaCost';
 import AbilityTracker from './Modules/Core/AbilityTracker';
@@ -80,6 +81,8 @@ class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
 
   static specModules = {
+    healingDone: [HealingDone, { showStatistic: true }],
+
     // Override the ability tracker so we also get stats for IoL and beacon healing
     spellManaCost: SpellManaCost,
     abilityTracker: AbilityTracker,
@@ -131,11 +134,11 @@ class CombatLogParser extends CoreCombatLogParser {
     const tier19_2setHealingPercentage = this.getPercentageOfTotalHealingDone(this.modules.tier19_2set.healing);
     const tier20_2setHealingPercentage = this.getPercentageOfTotalHealingDone(this.modules.tier20_2set.healing);
 
-    if (improperAtonementRefreshPercentage > .05) {
+    if (improperAtonementRefreshPercentage > 0.05) {
       results.addIssue({
         issue: <span>Your <SpellLink id={SPELLS.ATONEMENT_HEAL_NON_CRIT.id} /> efficiency can be improved ({this.modules.atonement.improperAtonementRefreshes.length}/{this.modules.atonement.totalAtones} applications: {(improperAtonementRefreshPercentage * 100).toFixed(2)}% applied to already buffed players.)</span>,
         icon: SPELLS.ATONEMENT_HEAL_NON_CRIT.icon,
-        importance: getIssueImportance(improperAtonementRefreshPercentage, .07, .1, true),
+        importance: getIssueImportance(improperAtonementRefreshPercentage, 0.07, 0.1, true),
       });
     }
 
@@ -148,20 +151,7 @@ class CombatLogParser extends CoreCombatLogParser {
     }
 
     results.statistics = [
-      <StatisticBox
-        icon={(
-          <img
-            src="/img/healing.png"
-            style={{ border: 0 }}
-            alt="Healing"
-          />)}
-        value={`${formatNumber(this.modules.healingDone.total.effective / fightDuration * 1000)} HPS`}
-        label={(
-          <dfn data-tip={`The total healing done recorded was ${formatThousands(this.modules.healingDone.total.effective)}.`}>
-            Healing done
-          </dfn>
-        )}
-      />,
+      ...results.statistics,
       <StatisticBox
         icon={<Icon icon="petbattle_health-down" alt="Non healing time" />}
         value={`${formatPercentage(deadTimePercentage)} %`}
@@ -222,7 +212,7 @@ class CombatLogParser extends CoreCombatLogParser {
           icon={<SpellIcon id={SPELLS.ATONEMENT_HEAL_NON_CRIT.id} />}
           value={this.modules.atonement.improperAtonementRefreshes.length}
           label={(
-            <dfn data-tip={`The amount of Atonement instances that were refreshed earlier than within 3 seconds of the buff expiring. You applied Atonement ${this.modules.atonement.totalAtones} times in total, ${this.modules.atonement.totalAtonementRefreshes} (${((this.modules.atonement.totalAtonementRefreshes / this.modules.atonement.totalAtones * 100) || 0).toFixed(2)}%) of them were refreshes of existing Atonement instances, and ${this.modules.atonement.improperAtonementRefreshes.length} (${((this.modules.atonement.improperAtonementRefreshes.length / this.modules.atonement.totalAtones * 100) || 0).toFixed(2)}%) of them were considered early.` }>
+            <dfn data-tip={`The amount of Atonement instances that were refreshed earlier than within 3 seconds of the buff expiring. You applied Atonement ${this.modules.atonement.totalAtones} times in total, ${this.modules.atonement.totalAtonementRefreshes} (${((this.modules.atonement.totalAtonementRefreshes / this.modules.atonement.totalAtones * 100) || 0).toFixed(2)}%) of them were refreshes of existing Atonement instances, and ${this.modules.atonement.improperAtonementRefreshes.length} (${((this.modules.atonement.improperAtonementRefreshes.length / this.modules.atonement.totalAtones * 100) || 0).toFixed(2)}%) of them were considered early.`}>
               Early Atonement refreshes
             </dfn>
           )}
@@ -286,7 +276,6 @@ class CombatLogParser extends CoreCombatLogParser {
           )}
         />
       ),
-      ...results.statistics,
     ];
 
     results.items = [

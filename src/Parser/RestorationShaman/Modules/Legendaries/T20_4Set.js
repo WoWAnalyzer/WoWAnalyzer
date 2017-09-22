@@ -59,7 +59,7 @@ class Restoration_Shaman_T20_4Set extends Module {
     const unbuffedHealingRainsPercentage = has4PT20 && ((healingRain.casts - healingRain.withT20Buff) / healingRain.casts);
     if (has4PT20) {
       when(unbuffedHealingRainsPercentage).isGreaterThan(0)
-        .addSuggestion((suggest, actual, recommended) => 
+        .addSuggestion((suggest, actual, recommended) =>
           suggest(<span><SpellLink id={SPELLS.RESTORATION_SHAMAN_T20_4SET_BONUS_BUFF.id} /> buffed <SpellLink id={SPELLS.HEALING_RAIN_CAST.id} /> can make for some very efficient healing, consider ensure casting them with <SpellLink id={SPELLS.RESTORATION_SHAMAN_T20_4SET_BONUS_BUFF.id} />.</span>)
             .icon(SPELLS.HEALING_RAIN_CAST.icon)
             .actual(`${formatPercentage(unbuffedHealingRainsPercentage)}% healing rains were casted without T20 4set bonus buff.`)

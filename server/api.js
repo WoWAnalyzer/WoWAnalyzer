@@ -9,6 +9,8 @@ const WclApiResponse = models.WclApiResponse;
 
 const WCL_MAINTENANCE_STRING = 'Warcraft Logs is down for maintenance';
 
+/* eslint-disable no-use-before-define */
+
 class ApiController {
   static handle(req, res) {
     const handler = new ApiRequestHandler(req, res);

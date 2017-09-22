@@ -17,7 +17,7 @@ class Thrash extends Module {
 
     when(thrashUptimePercentage).isLessThan(0.95)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span> Your <SpellLink id={SPELLS.THRASH_BEAR_DOT.id} /> uptime was {formatPercentage(thrashUptimePercentage)}%, unless you have extended periods of downtime it should be near 100%. <br/>Thrash applies a bleed which buffs the damage of <SpellLink id={SPELLS.MANGLE_BEAR.id} /> by 20%.  Thrash uptime is especially important if you are talented into <SpellLink id={SPELLS.REND_AND_TEAR_TALENT.id} />, since it buffs the rest of your damage and gives you extra damage reduction.</span>)
+        return suggest(<span> Your <SpellLink id={SPELLS.THRASH_BEAR_DOT.id} /> uptime was {formatPercentage(thrashUptimePercentage)}%, unless you have extended periods of downtime it should be near 100%. <br />Thrash applies a bleed which buffs the damage of <SpellLink id={SPELLS.MANGLE_BEAR.id} /> by 20%.  Thrash uptime is especially important if you are talented into <SpellLink id={SPELLS.REND_AND_TEAR_TALENT.id} />, since it buffs the rest of your damage and gives you extra damage reduction.</span>)
           .icon(SPELLS.THRASH_BEAR.icon)
           .actual(`${formatPercentage(thrashUptimePercentage)}% uptime`)
           .recommended(`${Math.round(formatPercentage(recommended))}% is recommended`)
@@ -32,7 +32,7 @@ class Thrash extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.THRASH_BEAR.id} />}
         value={`${formatPercentage(thrashUptimePercentage)}%`}
-        label='Thrash uptime'
+        label="Thrash uptime"
       />
     );
   }

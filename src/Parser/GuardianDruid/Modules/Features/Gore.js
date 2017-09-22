@@ -60,7 +60,7 @@ class Gore extends Module {
 
   suggestions(when) {
     const unusedGoreProcs = 1 - (this.consumedGoreProc / this.totalProcs);
-    
+
     when(unusedGoreProcs).isGreaterThan(0.3)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>You wasted {formatPercentage(unusedGoreProcs)}% of your <SpellLink id={SPELLS.GORE_BEAR.id} /> procs. Try to use the procs as soon as you get them so they are not overwritten.</span>)
@@ -73,12 +73,12 @@ class Gore extends Module {
 
   statistic() {
     const unusedGoreProcs = 1 - (this.consumedGoreProc / this.totalProcs);
-   
+
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.GORE_BEAR.id} />}
         value={`${formatPercentage(unusedGoreProcs)}%`}
-        label='Unused Gore Procs'
+        label="Unused Gore Procs"
         tooltip={`You got total <b>${this.totalProcs}</b> gore procs and <b>used ${this.consumedGoreProc}</b> of them.`}
       />
     );

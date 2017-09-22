@@ -13,7 +13,7 @@ const HEROISM_30_PERCENT = [
   SPELLS.HEROISM.id,
   SPELLS.BLOODLUST.id,
   SPELLS.TIME_WARP.id,
-  SPELLS.NETHERWINDS.id,// Netherwinds
+  SPELLS.NETHERWINDS.id, // Netherwinds
   SPELLS.ANCIENT_HYSTERIA.id,
 ];
 
@@ -71,7 +71,7 @@ class UncertainReminder extends Module {
       startExtraHeroTime = start + duration * START_EXTRA_HEROISM_UPTIME;
     }
 
-    this.events.forEach(event => {
+    this.events.forEach((event) => {
       if (event.timestamp > startExtraHeroTime) {
         const spellId = event.ability.guid;
 

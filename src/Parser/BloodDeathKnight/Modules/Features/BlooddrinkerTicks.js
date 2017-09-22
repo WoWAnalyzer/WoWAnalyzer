@@ -8,7 +8,7 @@ import SpellIcon from 'common/SpellIcon';
 
 const BLOODDRINKER_TICKS_PER_CAST = 4;
 
-class BlooddrinkerTicks  extends Module {
+class BlooddrinkerTicks extends Module {
   static dependencies = {
     abilityTracker: AbilityTracker,
     combatants: Combatants,
@@ -54,7 +54,7 @@ class BlooddrinkerTicks  extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.BLOODDRINKER.id} />}
         value={`${this._ruinedCasts} out of ${this._totalCasts}`}
-        label='Blooddrinker Cancelled Early'
+        label='Cancelled Early'
         tooltip={`You lost <strong>${this._wastedTicks}</strong> out of <strong>${this._totalTicks}</strong> ticks.`}
       />
 

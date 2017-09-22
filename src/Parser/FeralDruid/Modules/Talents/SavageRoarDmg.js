@@ -6,12 +6,12 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-import { formatNumber , formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import getDamageBonus from '../FeralCore/getDamageBonus';
 
-const SAVAGE_ROAR_DAMAGE_BONUS = .15;
+const SAVAGE_ROAR_DAMAGE_BONUS = 0.15;
 
 class SavageRoar extends Module {
   static dependencies = {
@@ -26,7 +26,7 @@ class SavageRoar extends Module {
   }
 
   on_byPlayer_damage(event) {
-    if (event.targetIsFriendly){
+    if (event.targetIsFriendly) {
       return;
     }
     if (this.combatants.selected.hasBuff(SPELLS.SAVAGE_ROAR_TALENT.id, event.timestamp)) {
@@ -39,7 +39,7 @@ class SavageRoar extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.SAVAGE_ROAR_TALENT.id} />}
         value={`${formatNumber(this.bonusDmg / this.owner.fightDuration * 1000)} DPS`}
-        label='Damage contributed'
+        label="Damage contributed"
         tooltip={`Your Savage Roar talent contributed ${formatNumber(this.bonusDmg)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} %).`}
       />
     );

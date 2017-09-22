@@ -25,7 +25,7 @@ class FrenziedRegenGoEProcs extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.FRENZIED_REGENERATION.id} />}
         value={`${formatPercentage(nonGoEFRegen / (nonGoEFRegen + GoEFRegen))}%`}
-        label='Unbuffed Frenzied Regen'
+        label="Unbuffed Frenzied Regen"
         tooltip={`You cast <b>${nonGoEFRegen + GoEFRegen}</b> total ${SPELLS.FRENZIED_REGENERATION.name} and <b> ${GoEFRegen}</b> were buffed by 20%.`}
       />
     );

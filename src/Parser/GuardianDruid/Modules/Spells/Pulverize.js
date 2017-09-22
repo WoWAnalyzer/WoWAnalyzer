@@ -22,7 +22,7 @@ class Pulverize extends Module {
     this.combatants.selected.hasTalent(SPELLS.PULVERIZE_TALENT.id) &&
     when(pulverizeUptimePercentage).isLessThan(0.9)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span> Your <SpellLink id={SPELLS.PULVERIZE_TALENT.id} /> uptime was {formatPercentage(pulverizeUptimePercentage)}%, unless there are extended periods of downtime it should be over should be near 100%. <br/>All targets deal less damage to you due to the <SpellLink id={SPELLS.PULVERIZE_BUFF.id} /> buff.</span>)
+        return suggest(<span> Your <SpellLink id={SPELLS.PULVERIZE_TALENT.id} /> uptime was {formatPercentage(pulverizeUptimePercentage)}%, unless there are extended periods of downtime it should be over should be near 100%. <br />All targets deal less damage to you due to the <SpellLink id={SPELLS.PULVERIZE_BUFF.id} /> buff.</span>)
           .icon(SPELLS.PULVERIZE_TALENT.icon)
           .actual(`${formatPercentage(pulverizeUptimePercentage)}% uptime`)
           .recommended(`${Math.round(formatPercentage(recommended))}% is recommended`)
@@ -37,7 +37,7 @@ class Pulverize extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.PULVERIZE_TALENT.id} />}
         value={`${formatPercentage(pulverizeUptimePercentage)}%`}
-        label='Pulverize uptime'
+        label="Pulverize uptime"
       />
     );
   }

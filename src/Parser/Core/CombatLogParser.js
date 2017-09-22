@@ -10,6 +10,7 @@ import AbilityTracker from './Modules/AbilityTracker';
 import Haste from './Modules/Haste';
 import AlwaysBeCasting from './Modules/AlwaysBeCasting';
 import Enemies from './Modules/Enemies';
+import Pets from './Modules/Pets';
 import HealEventTracker from './Modules/HealEventTracker';
 import ManaValues from './Modules/ManaValues';
 import SpellManaCost from './Modules/SpellManaCost';
@@ -61,6 +62,7 @@ class CombatLogParser {
 
     combatants: Combatants,
     enemies: Enemies,
+    pets: Pets,
     spellManaCost: SpellManaCost,
     abilityTracker: AbilityTracker,
     healEventTracker: HealEventTracker,
@@ -156,16 +158,25 @@ class CombatLogParser {
 
   initializeModules(modules) {
     const failedModules = [];
-    Object.keys(modules).forEach(desiredModuleName => {
-      const moduleClass = modules[desiredModuleName];
-      if (!moduleClass) {
+    Object.keys(modules).forEach((desiredModuleName) => {
+      const moduleConfig = modules[desiredModuleName];
+      if (!moduleConfig) {
         return;
+      }
+      let moduleClass;
+      let options;
+      if (moduleConfig instanceof Array) {
+        moduleClass = moduleConfig[0];
+        options = moduleConfig[1];
+      } else {
+        moduleClass = moduleConfig;
+        options = null;
       }
 
       const availableDependencies = {};
       const missingDependencies = [];
       if (moduleClass.dependencies) {
-        Object.keys(moduleClass.dependencies).forEach(desiredDependencyName => {
+        Object.keys(moduleClass.dependencies).forEach((desiredDependencyName) => {
           const dependencyClass = moduleClass.dependencies[desiredDependencyName];
 
           const dependencyModule = this.findModule(dependencyClass);
@@ -186,7 +197,13 @@ class CombatLogParser {
           }
         }
         // eslint-disable-next-line new-cap
-        this._modules[desiredModuleName] = new moduleClass(this, availableDependencies, Object.keys(this._modules).length);
+        const module = new moduleClass(this, availableDependencies, Object.keys(this._modules).length);
+        // We can't set the options via the constructor since a parent constructor can't override the values of a child's class properties.
+        // See https://github.com/Microsoft/TypeScript/issues/6110 for more info
+        if (options) {
+          Object.keys(options).forEach(key => module[key] = options[key]);
+        }
+        this._modules[desiredModuleName] = module;
       } else {
         debug && console.warn(moduleClass.name, 'could not be loaded, missing dependencies:', missingDependencies.map(d => d.name));
         failedModules.push(desiredModuleName);
@@ -196,7 +213,7 @@ class CombatLogParser {
     if (failedModules.length !== 0) {
       debug && console.warn(`${failedModules.length} modules failed to load, trying again:`, failedModules.map(key => modules[key].name));
       const newBatch = {};
-      failedModules.forEach(key => {
+      failedModules.forEach((key) => {
         newBatch[key] = modules[key];
       });
       this.initializeModules(newBatch);
@@ -210,7 +227,6 @@ class CombatLogParser {
 
   _debugEventHistory = [];
   parseEvents(events) {
-    events = this.reorderEvents(events);
     if (process.env.NODE_ENV === 'development') {
       this._debugEventHistory = [
         ...this._debugEventHistory,
@@ -218,7 +234,7 @@ class CombatLogParser {
       ];
     }
     return new Promise((resolve, reject) => {
-      events.forEach(event => {
+      events.forEach((event) => {
         if (this.error) {
           throw new Error(this.error);
         }
@@ -235,7 +251,7 @@ class CombatLogParser {
   reorderEvents(events) {
     this.activeModules
       .sort((a, b) => a.priority - b.priority) // lowest should go first, as `priority = 0` will have highest prio
-      .forEach(module => {
+      .forEach((module) => {
         if (module.reorderEvents) {
           events = module.reorderEvents(events);
         }
@@ -285,7 +301,7 @@ class CombatLogParser {
 
     this.activeModules
       .sort((a, b) => b.priority - a.priority)
-      .forEach(module => {
+      .forEach((module) => {
         if (module.statistic) {
           const statistic = module.statistic();
           if (statistic) {

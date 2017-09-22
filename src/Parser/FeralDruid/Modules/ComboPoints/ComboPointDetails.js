@@ -48,13 +48,13 @@ class ComboPointDetails extends Module {
     return (
       <StatisticBox
         icon={(
-            <img
-              src={WastedPointsIcon}
-              alt='Wasted Combo Points'
-            />
+          <img
+            src={WastedPointsIcon}
+            alt="Wasted Combo Points"
+          />
         )}
         value={`${pointsWasted}`}
-        label='Wasted Combo Points'
+        label="Wasted Combo Points"
       />
     );
   }
@@ -64,12 +64,12 @@ class ComboPointDetails extends Module {
       title: 'Combo Point usage',
       url: 'combo-points',
       render: () => (
-        <Tab title='Combo Point usage breakdown'>
+        <Tab title="Combo Point usage breakdown">
           <ComboPointBreakdown
-            pointsGained = {this.comboPointTracker.gained}
-            pointsSpent = {this.comboPointTracker.spent}
-            pointsWasted = {this.comboPointTracker.wasted}
-            pointsCast = {this.comboPointTracker.casts}
+            pointsGained={this.comboPointTracker.gained}
+            pointsSpent={this.comboPointTracker.spent}
+            pointsWasted={this.comboPointTracker.wasted}
+            pointsCast={this.comboPointTracker.casts}
           />
         </Tab>
       ),
