@@ -585,5 +585,15 @@ export default {
     name: 'The Emperor\'s capacitor',
     icon: 'inv_chest_leather_raidrogue_l_01',
   },
-
+  KATSUOS_ECLIPSE: {
+    id: 208045,
+    name: 'Katsuo\'s Eclipse',
+    icon: 'inv_boots_cloth_33v4',
+  },
+  THE_WIND_BLOWS: {
+    id: 248101,
+    name: 'The Wind Blows',
+    icon: 'inv_helmet_leather_raidmonk_l_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  }
 };

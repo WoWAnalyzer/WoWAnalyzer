@@ -691,6 +691,18 @@ const ITEMS = {
     icon: 'inv_chest_leather_raidrogue_l_01',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+  KATSUOS_ECLIPSE: {
+    id: 137029,
+    name: 'Katsuo\'s Eclipse',
+    icon: 'inv_boots_cloth_33v4',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  THE_WIND_BLOWS: {
+    id: 151811,
+    name: 'The Wind Blows',
+    icon: 'inv_helmet_leather_raidmonk_l_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
 };
 
 export default indexById(ITEMS);
