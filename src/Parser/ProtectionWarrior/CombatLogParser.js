@@ -12,14 +12,19 @@ import DamageDone from './Modules/Core/DamageDone';
 import DamageTaken from './Modules/Core/DamageTaken';
 import HealingDone from './Modules/Core/HealingDone';
 
-import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
+import Shield_Block from './Modules/Spells/ShieldBlock';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
-        // Features
-        castEfficiency: CastEfficiency,
-        alwaysBeCasting: AlwaysBeCasting,
-      };
+    // Core
+    damageTaken: DamageTaken,
+    healingDone: [HealingDone, { showStatistic: true }],
+    damageDone: DamageDone,
+    // Features
+    castEfficiency: CastEfficiency,
+    alwaysBeCasting: AlwaysBeCasting,
+    shield_block: Shield_Block,
+  };
 
       generateResults() {
         const results = super.generateResults();
