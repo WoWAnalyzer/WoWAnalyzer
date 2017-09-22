@@ -87,7 +87,7 @@ class HealingDone extends Module {
             />
             <div
               className="remainder DeathKnight-bg"
-              data-tip={`You did a total of ${formatPercentage(this.total.overheal / this.total.raw)} % overhealing (${formatThousands(this.total.overheal)}). Overhealing can be caused by playing poorly such as selecting the wrong targets or casting abilities at the wrong time, other healers sniping, and/or brinding too many healers.`}
+              data-tip={`You did a total of ${formatPercentage(this.total.overheal / this.total.raw)} % overhealing (${formatThousands(this.total.overheal)}). Overhealing can be caused by playing poorly such as selecting the wrong targets or casting abilities at the wrong time, other healers sniping, and/or bringing too many healers.`}
             >
               <img src="/img/overhealing.png" alt="Overhealing" />
             </div>
