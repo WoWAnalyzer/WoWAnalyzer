@@ -59,7 +59,6 @@ class ComboPointTracker extends Module {
     this.constructor.POINT_SPENDING_ABILITIES.forEach(x => {
       this.spent[x] = { points: 0 };
       this.casts[x] = { total: 0, maxCP: 0 };
-      //this.casts[x] = { maxCP: 0 };
     });
   }
 
