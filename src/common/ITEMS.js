@@ -672,6 +672,25 @@ const ITEMS = {
     quality: ITEM_QUALITIES.LEGENDARY,
   },
 
+  //Windwalker Monk Legendaries
+  CENEDRIL_REFLECTOR_OF_HATRED: {
+    id: 137019,
+    name: 'Cenedril, Reflector of Hatred',
+    icon: 'inv_cape_pandaria_b_02',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  DRINKING_HORN_COVER: {
+    id: 137097,
+    name: 'Drinking Horn Cover',
+    icon: 'inv_bracer_26',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  THE_EMPERORS_CAPACITOR: {
+    id: 144239,
+    name: 'The Emperors Capacitor',
+    icon: 'inv_chest_leather_raidrogue_l_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
 };
 
 export default indexById(ITEMS);

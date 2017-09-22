@@ -566,6 +566,8 @@ export default {
     icon: 'trade_archaeology_shark-jaws',
   },
 
+  //TODO: Artifact Traits
+
   //Items and shiz
 
   CENEDRIL_REFLECTOR_OF_HATRED: {
@@ -573,4 +575,15 @@ export default {
     name: 'Cenedril, Reflector of Hatred',
     icon: 'inv_cape_pandaria_b_02',
   },
+  DRINKING_HORN_COVER: {
+    id: 209256,
+    name: 'Drinking Horn Cover',
+    icon: 'inv_bracer_26'
+  },
+  THE_EMPERORS_CAPACITOR: {
+    id: 235053,
+    name: 'The Emperor\'s capacitor',
+    icon: 'inv_chest_leather_raidrogue_l_01',
+  },
+
 };
