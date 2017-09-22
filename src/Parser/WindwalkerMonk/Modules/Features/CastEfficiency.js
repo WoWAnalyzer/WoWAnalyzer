@@ -6,16 +6,30 @@ import CoreCastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 class CastEfficiency extends CoreCastEfficiency {
   static CPM_ABILITIES = [
     ...CoreCastEfficiency.CPM_ABILITIES,
+
+    //Rotation
     {
       spell: SPELLS.RISING_SUN_KICK,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => null,
+      getCooldown: haste => 10,
     },
     {
-      spell: SPELLS.BLACKOUT_KICK,
+      spell: SPELLS.FISTS_OF_FURY,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => null,
+      getCooldown: haste => 24,
     },
+    {
+      spell: SPELLS.STRIKE_OF_THE_WINDLORD,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => 40,
+    },
+    {
+      spell: SPELLS.WHIRLING_DRAGON_PUNCH,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => 24
+    }
+    
+    //TODO: Cooldowns (SEF Charges?)
   ];
 }
 
