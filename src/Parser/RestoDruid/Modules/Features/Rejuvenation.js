@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import Module from 'Parser/Core/Module';
+import HealingDone from 'Parser/Core/Modules/HealingDone';
 
 import Mastery from './Mastery';
 
@@ -11,18 +12,14 @@ const REJUV_COST = 0.10; // % of base mana
  */
 class Rejuvenation extends Module {
   static dependencies = {
+    healingDone: HealingDone,
     mastery: Mastery,
   };
 
   totalRejuvsCast = 0;
 
-  dreamwalkerHealing = 0;
-
   on_byPlayer_heal(event) {
-    const spellId = event.ability.guid;
-    if(spellId === SPELLS.DREAMWALKER.id) {
-      this.dreamwalkerHealing += event.amount + (event.absorbed || 0);
-    }
+    // TODO
   }
 
   on_byPlayer_cast(event) {
@@ -47,8 +44,9 @@ class Rejuvenation extends Module {
    */
   get totalRejuvHealing() {
     const rejuvTotals = this.mastery.getMultiMasteryHealing([SPELLS.REJUVENATION.id, SPELLS.REJUVENATION_GERMINATION.id]);
+    const dreamwalkerHealing = this.healingDone.byAbility(SPELLS.DREAMWALKER.id).effective;
 
-    return rejuvTotals + this.dreamwalkerHealing;
+    return rejuvTotals + dreamwalkerHealing;
   }
 
   /*

@@ -7,7 +7,6 @@ import { formatPercentage } from 'common/format';
 
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import HealingDone from 'Parser/Core/Modules/HealingDone';
 import Rejuvenation from '../Features/Rejuvenation';
 
 
@@ -26,7 +25,6 @@ import Rejuvenation from '../Features/Rejuvenation';
 class Persistence extends Module {
   static dependencies = {
     combatants: Combatants,
-    healingDone: HealingDone,
     rejuvenation: Rejuvenation,
   };
 
