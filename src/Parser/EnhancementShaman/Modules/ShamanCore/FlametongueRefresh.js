@@ -45,4 +45,4 @@ class FlametongueRefresh extends Module {
   }
 }
 
-export default Pandemic;
+export default FlametongueRefresh;
