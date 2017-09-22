@@ -1,4 +1,5 @@
 export default `
+22-09-2019 - Feral Druid: Added 5 combo point finisher tracking (by Thieseract).
 11-09-2019 - Feral Druid: Refactored combo point tracking properties (by Thieseract).
 11-09-2019 - Feral Druid: Added Savage Roar damage contribution (by Thieseract).
 10-09-2019 - Feral Druid: Changed exceptions to conditional assignment on combo point tracker (by Thieseract).
