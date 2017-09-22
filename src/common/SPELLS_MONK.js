@@ -510,7 +510,7 @@ export default {
   COMBO_STRIKES: {
     id: 115636,
     name: 'Mastery: Combo Strikes',
-    icon: 'trade_alchemy_potionb3'
+    icon: 'trade_alchemy_potionb3',
   },
   STORM_EARTH_AND_FIRE: {
     id: 137639,
@@ -578,7 +578,7 @@ export default {
   DRINKING_HORN_COVER: {
     id: 209256,
     name: 'Drinking Horn Cover',
-    icon: 'inv_bracer_26'
+    icon: 'inv_bracer_26',
   },
   THE_EMPERORS_CAPACITOR: {
     id: 235053,
@@ -594,6 +594,5 @@ export default {
     id: 248101,
     name: 'The Wind Blows',
     icon: 'inv_helmet_leather_raidmonk_l_01',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  }
+  },
 };

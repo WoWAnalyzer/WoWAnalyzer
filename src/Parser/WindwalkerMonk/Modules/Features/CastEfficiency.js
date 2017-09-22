@@ -26,8 +26,8 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.WHIRLING_DRAGON_PUNCH,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => 24
-    }
+      getCooldown: haste => 24,
+    },
     
     //TODO: Cooldowns (SEF Charges?)
   ];
