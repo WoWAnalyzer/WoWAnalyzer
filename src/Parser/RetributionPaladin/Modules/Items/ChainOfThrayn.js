@@ -6,39 +6,33 @@ import { formatNumber } from 'common/format';
 
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import Enemies from 'Parser/Core/Modules/Enemies';
 
 import GetDamageBonus from '../PaladinCore/GetDamageBonus';
 
-const ASHES_TO_DUST_MODIFIER = 0.15;
+const CHAIN_OF_THRAYN_INCREASE = 0.1;
 
-class AshesToDust extends Module {
+class ChainOfThrayn extends Module {
 	static dependencies = {
 		combatants: Combatants,
-		enemies: Enemies,
 	};
 
 	damageDone = 0;
 
 	on_initialized() {
-		this.active = this.combatants.selected.hasShoulder(ITEMS.ASHES_TO_DUST.id);
+		this.active = this.combatants.selected.hasWaist(ITEMS.CHAIN_OF_THRAYN.id);
 	}
 
 	on_byPlayer_damage(event) {
-		const enemy = this.enemies.getEntity(event);
-		if (!enemy) {
-    		return;
-		}
-		else if(enemy.hasBuff(SPELLS.WAKE_OF_ASHES.id)) {
-			this.damageDone += GetDamageBonus(event, ASHES_TO_DUST_MODIFIER);
+		if(this.combatants.selected.hasBuff(SPELLS.CRUSADE_TALENT.id) || this.combatants.selected.hasBuff(SPELLS.AVENGING_WRATH_RET.id)){
+			this.damageDone += GetDamageBonus(event, CHAIN_OF_THRAYN_INCREASE);
 		}
 	}
 
 	item() {
 		return {
-			item: ITEMS.ASHES_TO_DUST,
-		    result: (<dfn data-tip={`
-				The effective damage contributed by Ashes to Dust.<br/>
+			item: ITEMS.CHAIN_OF_THRAYN,
+			result: (<dfn data-tip={`
+				The effective damage contributed by Chain of Thrayn.<br/>
 				Damage: ${this.owner.formatItemDamageDone(this.damageDone)}<br/>
 				Total Damage: ${formatNumber(this.damageDone)}`}>
         		{this.owner.formatItemDamageDone(this.damageDone)}
@@ -47,4 +41,4 @@ class AshesToDust extends Module {
 	}
 }
 
-export default AshesToDust;
+export default ChainOfThrayn;

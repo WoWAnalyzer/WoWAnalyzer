@@ -20,7 +20,6 @@ class LiadrinsFuryUnleashed extends Module {
 
 	item() {
 		const hpGained = this.holyPowerTracker.generatedAndWasted[SPELLS.LIADRINS_FURY_UNLEASHED_BUFF.id].generated;
-		console.log(hpGained);
 		return {
 			item: ITEMS.LIADRINS_FURY_UNLEASHED,
 			result: (

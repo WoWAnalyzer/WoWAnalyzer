@@ -9,6 +9,7 @@ import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownTracker from './Modules/Features/CooldownTracker';
+import Judgment from './Modules/Features/Judgment';
 import DamageDone from './Modules/PaladinCore/DamageDone';
 
 import DivinePurpose from './Modules/Talents/DivinePurpose';
@@ -20,6 +21,7 @@ import WhisperOfTheNathrezim from './Modules/Items/WhisperOfTheNathrezim';
 import LiadrinsFuryUnleashed from './Modules/Items/LiadrinsFuryUnleashed';
 import SoulOfTheHighlord from './Modules/Items/SoulOfTheHighlord';
 import AshesToDust from './Modules/Items/AshesToDust';
+import ChainOfThrayn from './Modules/Items/ChainOfThrayn';
 import Tier20_2set from './Modules/Items/Tier20_2set';
 import Tier20_4set from './Modules/Items/Tier20_4set';
 
@@ -34,6 +36,7 @@ class CombatLogParser extends CoreCombatLogParser {
     castEfficiency: CastEfficiency,
     alwaysBeCasting: AlwaysBeCasting,
     cooldownTracker: CooldownTracker,
+    judgment: Judgment,
 
     // Talents
     divinePurpose: DivinePurpose,
@@ -49,6 +52,7 @@ class CombatLogParser extends CoreCombatLogParser {
     liadrinsFuryUnleahed: LiadrinsFuryUnleashed,
     soulOfTheHighlord: SoulOfTheHighlord,
     ashesToDust: AshesToDust,
+    chainOfThrayn: ChainOfThrayn,
     tier20_2set: Tier20_2set,
     tier20_4set: Tier20_4set,
   };
