@@ -27,6 +27,8 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.WHIRLING_DRAGON_PUNCH,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 24,
+      isActive: combatant => combatant.hasTalent(SPELLS.WHIRLING_DRAGON_PUNCH),
+      
     },
     
     //TODO: Cooldowns (SEF Charges?)
