@@ -63,7 +63,7 @@ const Chart = ({ data, options, timeSpanMinutes }) => {
                 return formatTime(date);
               }
             }
-            return null;
+            return undefined;
           },
           autoSkip: false,
           maxRotation: 0,

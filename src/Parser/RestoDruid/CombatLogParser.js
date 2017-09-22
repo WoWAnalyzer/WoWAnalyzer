@@ -7,8 +7,7 @@ import Mana from 'Main/Mana';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
-
-import HealingDone from './Modules/Core/HealingDone';
+import HealingDone from 'Parser/Core/Modules/HealingDone';
 
 import Ekowraith from './Modules/Legendaries/Ekowraith';
 import XonisCaress from './Modules/Legendaries/XonisCaress';
@@ -47,6 +46,18 @@ import SpringBlossoms from './Modules/Features/SpringBlossoms';
 import CenarionWard from './Modules/Features/CenarionWard';
 import NaturesEssence from './Modules/Features/NaturesEssence';
 
+import RelicTraits from './Modules/Traits/RelicTraits';
+import ArmorOfTheAncients from './Modules/Traits/ArmorOfTheAncients';
+import BlessingOfTheWorldTree from './Modules/Traits/BlessingOfTheWorldTree';
+import EssenceOfNordrassil from './Modules/Traits/EssenceOfNordrassil';
+import Grovewalker from './Modules/Traits/Grovewalker';
+import InfusionOfNature from './Modules/Traits/InfusionOfNature';
+import KnowledgeOfTheAncients from './Modules/Traits/KnowledgeOfTheAncients';
+import NaturalMending from './Modules/Traits/NaturalMending';
+import Persistence from './Modules/Traits/Persistence';
+import SeedsOfTheWorldTree from './Modules/Traits/SeedsOfTheWorldTree';
+import EternalRestoration from './Modules/Traits/EternalRestoration';
+
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -55,7 +66,7 @@ class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
 
     // Core
-    healingDone: HealingDone,
+    healingDone: [HealingDone, { showStatistic: true }],
 
     // Features
     healingTouch : HealingTouch,
@@ -100,6 +111,19 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Shared:
     darkmoonDeckPromises: DarkmoonDeckPromises,
+
+    // Traits
+    RelicTraits: RelicTraits,
+    ArmorOfTheAncients: ArmorOfTheAncients,
+    BlessingOfTheWorldTree: BlessingOfTheWorldTree,
+    EssenceOfNordrassil: EssenceOfNordrassil,
+    Grovewalker: Grovewalker,
+    InfusionOfNature: InfusionOfNature,
+    KnowledgeOfTheAncients: KnowledgeOfTheAncients,
+    NaturalMending: NaturalMending,
+    Persistence: Persistence,
+    SeedsOfTheWorldTree: SeedsOfTheWorldTree,
+    EternalRestoration: EternalRestoration,
   };
 
   generateResults() {

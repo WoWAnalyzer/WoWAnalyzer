@@ -28,7 +28,7 @@ class DoomguardInfernal extends Module {
     const percentage = actualCasts / maxCasts;
     when(percentage).isLessThan(1)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You should cast <SpellLink id={SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id} /> or <SpellLink id={SPELLS.SUMMON_INFERNAL_UNTALENTED.id} /> more often. Doomguard is best for single target while Infernal is better for AoE. Try to pair up the cooldowns with Bloodlust like buffs (Bloodlust, Heroism, Time Warp etc.).</span>)
+        return suggest(<span>You should cast <SpellLink id={SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id} /> or <SpellLink id={SPELLS.SUMMON_INFERNAL_UNTALENTED.id} /> more often. Doomguard is best for single target while Infernal is better for AoE. Try to pair up the cooldowns with haste buffs like <SpellLink id={SPELLS.BLOODLUST.id}/>, <SpellLink id={SPELLS.TIME_WARP.id}/> etc..</span>)
           .icon(SPELLS.SUMMON_DOOMGUARD_UNTALENTED.icon)
           .actual(`${actualCasts} out of ${maxCasts} summons.`)
           .recommended(`${maxCasts} is recommended`)

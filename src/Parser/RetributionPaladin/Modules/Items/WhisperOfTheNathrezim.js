@@ -7,6 +7,8 @@ import { formatNumber, formatPercentage } from 'common/format';
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
+import GetDamageBonus from '../PaladinCore/GetDamageBonus';
+
 const WHISPER_OF_THE_NATHREZIM_MODIFIER = 0.15;
 
 class WhisperOfTheNathrezim extends Module {
@@ -23,7 +25,7 @@ class WhisperOfTheNathrezim extends Module {
   on_byPlayer_damage(event) {
     if (this.combatants.selected.hasBuff(SPELLS.WHISPER_OF_THE_NATHREZIM_BUFF.id)) {
       if (event.ability.guid === SPELLS.TEMPLARS_VERDICT_DAMAGE.id || event.ability.guid === SPELLS.DIVINE_STORM_DAMAGE.id) {
-        this.damageDone += ((event.amount || 0) + (event.absorbed || 0)) * WHISPER_OF_THE_NATHREZIM_MODIFIER / (1 + WHISPER_OF_THE_NATHREZIM_MODIFIER);
+        this.damageDone += GetDamageBonus(event, WHISPER_OF_THE_NATHREZIM_MODIFIER);
       }
     }
   }
@@ -36,8 +38,7 @@ class WhisperOfTheNathrezim extends Module {
 				The effective damage contributed by Whisper of the Nathrezim.<br/>
 				Damage: ${this.owner.formatItemDamageDone(this.damageDone)}<br/>
 				Total Damage: ${formatNumber(this.damageDone)}<br/>
-				Percent Uptime: ${formatPercentage(uptime)}%`}
-      >
+				Percent Uptime: ${formatPercentage(uptime)}%`}>
         {this.owner.formatItemDamageDone(this.damageDone)}
       </dfn>),
     };

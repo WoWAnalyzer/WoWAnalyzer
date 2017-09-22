@@ -54,7 +54,7 @@ class BlooddrinkerTicks extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.BLOODDRINKER.id} />}
         value={`${this._ruinedCasts} out of ${this._totalCasts}`}
-        label="Blooddrinker Cancelled Early"
+        label='Cancelled Early'
         tooltip={`You lost <strong>${this._wastedTicks}</strong> out of <strong>${this._totalTicks}</strong> ticks.`}
       />
 
