@@ -17,11 +17,22 @@ class Mastery extends Module {
   druidSpellNoMasteryHealing = 0;
   masteryTimesHealing = 0;
 
-  hotHealing = {};
+  /*
+   * Keeps track of the attribution of healing done by your hots. Each spellId gets an entry with a 'direct' and 'mastery' field.
+   * The 'direct' field just tracks the direct healing from the HoT, should be same as entry in WCL. Includes the benefit from own stack of Mastery.
+   * The 'mastery' field tracks which spells were boosted by the presence of this HoT, and by how much.
+   * The total healing attributable to the presence of the HoT is the sum of the direct field and all the attributions in the mastery field.
+   * While the attribution to any one HoT is correctly counted by simply summing, there are double counts when considering multiple HoTs together.
+   */
+  hotHealingAttrib = {};
+
+  /*
+   * Tracks common Mastery buff IDs, their strength, and the healing attributed to them over an encounter.
+   */
   masteryBuffs = {};
 
   on_initialized() {
-    HEALS_MASTERY_STACK.forEach(healId => this.hotHealing[healId] = { direct: 0, mastery: {} });
+    HEALS_MASTERY_STACK.forEach(healId => this.hotHealingAttrib[healId] = { direct: 0, mastery: {} });
 
     this.masteryBuffs = {
       [SPELLS.ASTRAL_HARMONY.id]: { amount: 4000 },
@@ -41,7 +52,7 @@ class Mastery extends Module {
       return;
     }
 
-    if (spellId in this.hotHealing) { this.hotHealing[spellId].direct += amount; }
+    if (spellId in this.hotHealingAttrib) { this.hotHealingAttrib[spellId].direct += amount; }
 
     if (ABILITIES_AFFECTED_BY_HEALING_INCREASES.includes(spellId)) {
       const hotsOn = target.activeBuffs()
@@ -76,34 +87,37 @@ class Mastery extends Module {
    * Gets the direct healing attributed to the given resto HoT ID
    */
   getDirectHealing(healId) {
-    return this.hotHealing[healId].direct;
+    return this.hotHealingAttrib[healId].direct;
   }
 
   /*
    * Gets the total mastery healing attributed to the given resto HoT ID
    */
   getMasteryHealing(healId) {
-    return Object.values(this.hotHealing[healId].mastery)
+    return Object.values(this.hotHealingAttrib[healId].mastery)
         .reduce((s, v) => s + v, 0);
   }
 
   /*
-   * Gets the total healing attributable to the given resto HoT IDs (in an array).
+   * Gets the total healing attributable to the given resto HoT IDs.
    * Counts both direct and by mastery, and avoids the mastery/direct double count issue between the hots.
    */
   getMultiMasteryHealing(healIds) {
-    return healIds.reduce((s1, healId) => s1 +
-        Object.entries(this.hotHealing[healId].mastery)
-            .filter(entry => !healIds.includes(entry[0]))
-            .reduce((s2, entry) => s2 + entry[1], 0) +
-        this.hotHealing[healId].direct, 0);
+    let total = 0;
+    healIds.forEach(healId => {
+      total += Object.entries(this.hotHealingAttrib[healId].mastery)
+        .filter(entry => !healIds.includes(parseInt(entry[0], 10)))
+        .reduce((sum, entry) => sum + entry[1], 0);
+      total += this.hotHealingAttrib[healId].direct;
+    });
+    return total;
   }
 
   /*
    * Gets detailed direct / mastery healing attribution info from the given resto HoT ID
    */
   getHealingDetails(healId) {
-    return this.hotHealing[healId];
+    return this.hotHealingAttrib[healId];
   }
 
   /*
@@ -130,7 +144,7 @@ class Mastery extends Module {
   }
 
   _tallyMasteryBenefit(hotId, healId, amount) {
-    const hotMastery = this.hotHealing[hotId].mastery;
+    const hotMastery = this.hotHealingAttrib[hotId].mastery;
     if(hotMastery[healId]) {
       hotMastery[healId] += amount;
     } else {

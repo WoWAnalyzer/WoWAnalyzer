@@ -47,20 +47,8 @@ class Rejuvenation extends Module {
    */
   get totalRejuvHealing() {
     const rejuvTotals = this.mastery.getMultiMasteryHealing([SPELLS.REJUVENATION.id, SPELLS.REJUVENATION_GERMINATION.id]);
-    return rejuvTotals + this.dreamwalkerHealing;
-/*
-    const rejuvDetails = this.mastery.getHealingDetails(SPELLS.REJUVENATION.id);
-    const germDetails = this.mastery.getHealingDetails(SPELLS.REJUVENATION_GERMINATION.id);
 
-    const rejuvDirect = rejuvDetails.direct;
-    const rejuvMasteryWoGerm = Object.entries(rejuvDetails.mastery)
-        .filter(entry => entry[0] !== SPELLS.REJUVENATION_GERMINATION.id)
-        .reduce((s, v) => s + v, 0);
-    const germDirect = germDetails.direct;
-    const germMasteryWoRejuv = Object.entries(germDetails.mastery)
-        .filter(entry => entry[0] !== SPELLS.REJUVENATION.id)
-        .reduce((s, v) => s + v, 0);
-*/
+    return rejuvTotals + this.dreamwalkerHealing;
   }
 
   /*
@@ -68,14 +56,6 @@ class Rejuvenation extends Module {
    */
   get avgRejuvHealing() {
     return this.totalRejuvHealing / this.totalRejuvsCast;
-  }
-
-  get totalRejuvHealing() {
-    // TODO Check the above FIXME and add mastery to this method
-    // Should cultivation be added too?
-    const rejuvDirect = this.mastery.getDirectHealing(SPELLS.REJUVENATION.id);
-    const germDirect = this.mastery.getDirectHealing(SPELLS.REJUVENATION_GERMINATION.id);
-    return rejuvDirect + germDirect + this.dreamwalkerHealing;
   }
 
   /*
