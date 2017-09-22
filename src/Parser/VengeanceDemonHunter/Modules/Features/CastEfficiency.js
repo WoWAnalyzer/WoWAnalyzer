@@ -123,6 +123,13 @@ class CastEfficiency extends CoreCastEfficiency {
       noSuggestion: true,
       noCanBeImproved: true,
     },
+    {
+      spell: SPELLS.SPIRIT_BOMB_TALENT,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => null,
+      noSuggestion: true,
+      noCanBeImproved: true,
+    },
   ];
 }
 
