@@ -35,7 +35,7 @@ class ComboPointDetails extends Module {
 
     when(maxComboPointPercent).isLessThan(0.95)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You are casting to many finishers with less that 5 combo points.</span>)
+        return suggest(<span>You are casting too many finishers with less that 5 combo points. Try to make sure that you are generating 5 combo points before casting a finisher unless it is an emergency.</span>)
           .icon('creatureportrait_bubble')
           .actual(`${formatPercentage(actual)}% of finishers were cast with 5 combo points`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`)
