@@ -78,11 +78,10 @@ class Persistence extends Module {
             that by amounts of seconds of rejuvenation one level of persistence would yield.</br></br>
             These factors are not yet considered in the module and may decrease the overall accuracy of the results:
             <ul>
-              <li>+ Mastery healing</li>
               <li>+ Cultivation</li>
               <li>+ "Magic" rejuvenations such as deep rooted</li>
-              <li>- Subtractions for generally higher overheal on the last tick</li>
-              <li>- Subtractions from early refreshes of rejuvenation.</li>
+              <li>- Generally higher overheal on the last tick</li>
+              <li>- Early refreshes of rejuvenation.</li>
             </ul>
             Estimated accuracy of the result is 80%
           `}>
