@@ -64,7 +64,7 @@ class Mastery extends Module {
 
       this.totalNoMasteryHealing += decomposedHeal.noMastery;
       this.druidSpellNoMasteryHealing += decomposedHeal.noMastery;
-      this.masteryTimesHealing += decomposedHeal.noMastery * numHotsOn;
+      this.masteryTimesHealing += decomposedHeal.noMastery * decomposedHeal.effectiveStackBenefit;
 
       hotsOn
           .filter(hotOn => hotOn !== spellId) // don't double count
@@ -160,8 +160,15 @@ class Mastery extends Module {
     const rawNoMasteryHealing = healVal.raw / healMasteryMult;
     const noMasteryHealing = Math.min(rawNoMasteryHealing, healVal.effective);
 
-    const masteryHealing = healVal.effective - noMasteryHealing;
-    const oneStackMasteryHealing = masteryHealing / hotCount;
+    // because Mastery is a bonus on top of the base healing, all overhealing is counted against Mastery
+    const effectiveMasteryHealing = healVal.effective - noMasteryHealing;
+    // when Mastery bonus is partially but not completely overhealing, the stacks equally share attribution
+    const oneStackMasteryHealingEffective = effectiveMasteryHealing / hotCount;
+
+    const oneStackMasteryHealingRaw = rawNoMasteryHealing * masteryBonus;
+    // the number of mastery stacks that we actually benefitted from once overheal is considered.
+    // if this heal didn't overheal at all, will be the same as hotCount
+    const effectiveStackBenefit = effectiveMasteryHealing / oneStackMasteryHealingRaw;
 
     // FIXME still using the old way to calculate one rating because it's less obvious how to update it
     const oldNoMasteryHealing = healVal.effective / healMasteryMult;
@@ -169,7 +176,8 @@ class Mastery extends Module {
 
     return {
       noMastery: noMasteryHealing,
-      oneStack: oneStackMasteryHealing,
+      oneStack: oneStackMasteryHealingEffective,
+      effectiveStackBenefit: effectiveStackBenefit,
       oneRating: oneRatingMasteryHealing,
     };
   }
