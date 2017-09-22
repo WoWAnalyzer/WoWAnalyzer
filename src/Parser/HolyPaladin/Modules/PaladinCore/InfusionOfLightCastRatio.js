@@ -63,12 +63,34 @@ class InfusionOfLightCastRatio extends Module {
     const iolFoLToHLCastRatio = iolFlashOfLights / totalIols;
 
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.INFUSION_OF_LIGHT.id} />}
-        value={`${formatPercentage(iolFoLToHLCastRatio)} %`}
-        label="IoL FoL to HL cast ratio"
-        tooltip={`The Infusion of Light Flash of Light to Infusion of Light Holy Light usage ratio is how many Flash of Lights you cast compared to Holy Lights during the Infusion of Light proc. You cast ${iolFlashOfLights} Flash of Lights and ${iolHolyLights} Holy Lights during Infusion of Light.`}
-      />
+      <div className="col-lg-4 col-sm-6 col-xs-12">
+        <div className="panel statistic-box">{/*style={{ background: 'linear-gradient(to right, rgba(255, 125, 10, 0.3) 0%,rgba(255, 125, 10, 0.3) 26.09%,rgba(246, 247, 203, 0.3) 26.09%,rgba(249, 248, 246, 0.3) 100%)' }}*/}
+          <div className="panel-body flex">
+            <div className="flex-sub" style={{ display: 'flex', alignItems: 'center' }}>
+              <SpellIcon id={SPELLS.HOLY_LIGHT.id} style={{ height: 55 }} />
+            </div>
+            <div className="flex-main text-center">
+              <div className="flex" style={{ fontSize: 18, lineHeight: 1, marginBottom: 10 }}>
+                <div className="flex-main">
+                  {formatPercentage(1 - iolFoLToHLCastRatio)}%
+                </div>
+                <div className="flex-sub" style={{ width: 1, position: 'relative' }}>
+                  <div style={{ position: 'absolute', top: -33, width: 1, height: 100, background: '#fff', transform: 'rotate(65deg)' }} />
+                </div>
+                <div className="flex-main" style={{ paddingTop: 16 }}>
+                  {formatPercentage(iolFoLToHLCastRatio)}%
+                </div>
+              </div>
+              <div className="slabel" style={{ fontSize: '90%' }}>
+                <dfn data-tip={`The Infusion of Light Flash of Light to Infusion of Light Holy Light usage ratio is how many Flash of Lights you cast compared to Holy Lights during the Infusion of Light proc. You cast ${iolFlashOfLights} Flash of Lights and ${iolHolyLights} Holy Lights during Infusion of Light.`}>Infusion of Light usage</dfn>
+              </div>
+            </div>
+            <div className="flex-sub" style={{ display: 'flex', alignItems: 'center' }}>
+              <SpellIcon id={SPELLS.FLASH_OF_LIGHT.id} style={{ height: 55 }} />
+            </div>
+          </div>
+        </div>
+      </div>
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(40);
