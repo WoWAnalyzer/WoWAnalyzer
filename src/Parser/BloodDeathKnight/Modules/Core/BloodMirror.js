@@ -6,7 +6,7 @@ import { calculateMaxCasts } from 'Parser/Core/getCastEfficiency';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import SpellLink from 'common/SpellLink';
 
-const BLOOD_MIRROR = 120
+const BLOOD_MIRROR = 120;
 
 class BloodMirror extends Module {
   static dependencies = {
