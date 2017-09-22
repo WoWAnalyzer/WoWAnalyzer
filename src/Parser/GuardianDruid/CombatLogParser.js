@@ -5,12 +5,12 @@ import Tab from 'Main/Tab';
 import Talents from 'Main/Talents';
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
+import HealingDone from 'Parser/Core/Modules/HealingDone';
 
 import Cinidaria from 'Parser/Core/Modules/Items/Cinidaria';
 
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import DamageTaken from './Modules/Core/DamageTaken';
-import HealingDone from './Modules/Core/HealingDone';
 import DamageDone from './Modules/Core/DamageDone';
 import Gore from './Modules/Features/Gore';
 import GalacticGuardian from './Modules/Features/GalacticGuardian';
@@ -36,7 +36,7 @@ class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core
     damageTaken: DamageTaken,
-    healingDone: HealingDone,
+    healingDone: [HealingDone, { showStatistic: true }],
     damageDone: DamageDone,
     abilityTracker: AbilityTracker,
     // Features

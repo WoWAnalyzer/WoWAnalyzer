@@ -32,3 +32,21 @@
   padding-bottom: 0.2em;
   border-bottom: 1px solid rgba(255,255,255,0.1);
 }
+.panel.statistic-box .statistic-bar {
+  display: flex;
+}
+.panel.statistic-box .statistic-bar > div {
+  flex: 0 0 auto;
+  height: 22px;
+  padding: 3px;
+  text-align: center;
+}
+.panel.statistic-box .statistic-bar > div.remainder {
+  flex: 1;
+}
+.panel.statistic-box .statistic-bar > div > img {
+  height: 16px;
+  border: 0;
+  border-radius: 0;
+  vertical-align: top;
+}

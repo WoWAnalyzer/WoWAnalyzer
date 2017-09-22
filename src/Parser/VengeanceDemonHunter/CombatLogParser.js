@@ -1,10 +1,11 @@
 import React from 'react';
 
-import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
-
 import SuggestionsTab from 'Main/SuggestionsTab';
 import Tab from 'Main/Tab';
 import Talents from 'Main/Talents';
+
+import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
+import HealingDone from 'Parser/Core/Modules/HealingDone';
 
 import PainChart from './Modules/PainChart/Pain';
 
@@ -13,7 +14,6 @@ import CastEfficiency from './Modules/Features/CastEfficiency';
 
 import DamageDone from './Modules/Statistics/Core/DamageDone';
 import DamageTaken from './Modules/Statistics/Core/DamageTaken';
-import HealingDone from './Modules/Statistics/Core/HealingDone';
 
 import SoulFragments from './Modules/Statistics/SoulFragments/SoulFragments';
 import SpiritBomb from './Modules/Statistics/SpiritBomb/SpiritBomb';
@@ -28,7 +28,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Core Statistics
     damageDone: DamageDone,
     damageTaken: DamageTaken,
-    healingDone: HealingDone,
+    healingDone: [HealingDone, { showStatistic: true }],
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,

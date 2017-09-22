@@ -212,6 +212,11 @@ export default {
     icon: 'spell_holy_divinepurpose',
   },
   // Retribution Paladin:
+  JUDGMENT_DEBUFF: {
+    id: 197277,
+    name: 'Judgment',
+    icon: 'spell_holy_righteousfury',
+  },
   TEMPLARS_VERDICT_DAMAGE: {
     id: 224266,
     name: 'Templar\'s Verdict',
