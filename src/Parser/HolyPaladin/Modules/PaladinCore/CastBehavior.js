@@ -105,7 +105,7 @@ class CastBehavior extends Module {
 
     const items = [
       {
-        color: '#fff',
+        color: '#ecd1b6',
         label: 'Flash of Light',
         spellId: SPELLS.FLASH_OF_LIGHT.id,
         value: iolFlashOfLights,
@@ -154,7 +154,7 @@ class CastBehavior extends Module {
 
     const items = [
       {
-        color: '#fff',
+        color: '#ecd1b6',
         label: 'Flash of Light',
         spellId: SPELLS.FLASH_OF_LIGHT.id,
         value: fillerFlashOfLights,
