@@ -1,4 +1,5 @@
 export default `
+22-09-2017 - Resto Druid: Updated display of 2PT20 to show average refunded cooldown instead of throughput estimate. (By Sref)
 21-09-2017 - Resto Druid: Minor bug fix to clearcasting module. (By Blazyb)
 19-09-2017 - Resto Druid: Added Average HoTs statistic (By Sref)
 18-09-2017 - Resto Druid: Added Essence of G'hanir to the cooldowns tab. (By Blazyb)

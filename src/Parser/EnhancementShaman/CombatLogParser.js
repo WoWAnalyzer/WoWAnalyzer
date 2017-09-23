@@ -16,6 +16,7 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import DamageDone from './Modules/ShamanCore/DamageDone';
 // import ShamanStats from './Modules/ShamanCore/ShamanStats';
 import Flametongue from './Modules/ShamanCore/Flametongue';
+import FlametongueRefresh from './Modules/ShamanCore/FlametongueRefresh';
 import Landslide from './Modules/ShamanCore/Landslide';
 import Frostbrand from './Modules/ShamanCore/Frostbrand';
 import FuryOfAir from './Modules/ShamanCore/FuryOfAir';
@@ -35,6 +36,7 @@ class CombatLogParser extends CoreCombatLogParser {
     frostbrand: Frostbrand,
     furyOfAir: FuryOfAir,
     rockbiter: Rockbiter,
+    flametongueRefresh: FlametongueRefresh,
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     castEfficiency: CastEfficiency,

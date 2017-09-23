@@ -5,9 +5,9 @@ import CombatLogParser from './CombatLogParser';
 import CHANGELOG from './CHANGELOG';
 
 export default {
-  spec: SPECS.GUARDIAN_DRUID,
-  maintainer: '@faide',
-  completeness: SPEC_ANALYSIS_COMPLETENESS.GREAT, // When changing this please make a PR with ONLY this value changed, we will do a review of your analysis to find out of it is complete enough.
+  spec: SPECS.PROTECTION_WARRIOR,
+  maintainer: '@Salarissia',
+  completeness: SPEC_ANALYSIS_COMPLETENESS.NEEDS_MORE_WORK, // When changing this please make a PR with ONLY this value changed, we will do a review of your analysis to find out of it is complete enough.
   changelog: CHANGELOG,
   parser: CombatLogParser,
 };
