@@ -35,7 +35,7 @@ class Pets extends Module {
 
   _getCorrectDuration(guid) {
     if (!PETS[guid]) {
-      // pet that's not in PETS.js, which is most likely a permanent pet, set duration to 0, it doesn't mess up with the filtering
+      // pet that's not in PETS.js, which is most likely a permanent pet, return something neutral
       return 0;
     }
     if (guid !== PETS.WILDIMP_ON_DREADSTALKER.id && guid !== PETS.DREADSTALKER.id) {
@@ -116,7 +116,7 @@ class Pets extends Module {
   }
 
   getPets(timestamp) {
-    return this.petsTimeline.filter(pet => timestamp >= pet.summonTimestamp && timestamp <= pet.despawnTimestamp);
+    return this.petsTimeline.filter(pet => (timestamp >= pet.summonTimestamp && timestamp <= pet.despawnTimestamp) || this._isPermanentPet(pet.guid));
   }
 }
 
