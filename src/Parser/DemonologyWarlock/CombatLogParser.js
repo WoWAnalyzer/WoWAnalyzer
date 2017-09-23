@@ -24,6 +24,7 @@ import ShadowyInspiration from './Modules/Talents/ShadowyInspiration';
 import Shadowflame from './Modules/Talents/Shadowflame';
 import DemonicCalling from './Modules/Talents/DemonicCalling';
 import ImpendingDoom from './Modules/Talents/ImpendingDoom';
+import ImprovedDreadstalkers from './Modules/Talents/ImprovedDreadstalkers';
 import SoulHarvest from './Modules/Talents/SoulHarvest';
 import SoulHarvestTalent from './Modules/Talents/SoulHarvestTalent';
 
@@ -54,6 +55,7 @@ class CombatLogParser extends CoreCombatLogParser {
     shadowflame: Shadowflame,
     demonicCalling: DemonicCalling,
     impendingDoom: ImpendingDoom,
+    improvedDreadstalkers: ImprovedDreadstalkers,
     soulHarvest: SoulHarvest,
     soulHarvestTalent: SoulHarvestTalent,
 

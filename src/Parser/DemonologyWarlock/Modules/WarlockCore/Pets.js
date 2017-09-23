@@ -77,7 +77,7 @@ class Pets extends Module {
       if (this.petDamage[petInfo.guid][instance] === undefined) {
         this.petDamage[petInfo.guid][instance] = 0;
       }
-      this.petDamage[petInfo.guid][instance] = event.amount + (event.absorbed || 0);
+      this.petDamage[petInfo.guid][instance] += event.amount + (event.absorbed || 0);
     }
   }
 
