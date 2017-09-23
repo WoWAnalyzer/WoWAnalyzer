@@ -14,7 +14,23 @@ class Pets extends Module {
   };
 
   // Keys are ids in PETS.js
-  petDamage = {};
+  petDamage = {
+    [PETS.WILDIMP_ON_DREADSTALKER.id]: {},
+    [PETS.WILDIMP.id]: {},
+    [PETS.DREADSTALKER.id]: {},
+    [PETS.GRIMOIRE_FELGUARD.id]: {},
+    [PETS.DOOMGUARD.id]: {},
+    [PETS.INFERNAL.id]: {},
+    [PETS.DARKGLARE.id]: {},
+    /*
+      [permanent_pet_guid]: 0, !!!
+      [pet_guid]: {
+        [pet_instance]: 0,
+        ...
+      },
+      ...
+    */
+  };
   petsTimeline = [];
 
   _getCorrectDuration(guid) {
@@ -27,6 +43,11 @@ class Pets extends Module {
     }
     return (this.combatants.selected.hasBuff(SPELLS.WARLOCK_DEMO_T19_4P_BONUS.id)) ? 14.5 : 12; // T19 4pc extends duration of either one
   }
+
+  _isPermanentPet(guid) {
+    return Object.keys(PETS).map(key => PETS[key]).every(pet => pet.id !== guid);
+  }
+
   on_byPlayer_summon(event) {
     const petInfo = this.owner.playerPets.find(pet => pet.id === event.targetID);
     const pet = {
@@ -39,12 +60,52 @@ class Pets extends Module {
   }
 
   on_byPlayerPet_damage(event) {
-    const petInfo = this.owner.playerPets.find(pet => pet.id === event.sourceID);
-    // should take care of all pets (even those permanent, they have unique guid for each player it seems)
-    if (this.petDamage[petInfo.guid] === undefined) {
-      this.petDamage[petInfo.guid] = 0;
+    const id = event.sourceID;
+    const instance = event.sourceInstance;
+    const petInfo = this.owner.playerPets.find(pet => pet.id === id);
+    // permanent pets don't have instances
+    if (this._isPermanentPet(petInfo.guid)) {
+      if (this.petDamage[petInfo.guid] === undefined) {
+        this.petDamage[petInfo.guid] = 0;
+      }
+      this.petDamage[petInfo.guid] += event.amount + (event.absorbed || 0);
     }
-    this.petDamage[petInfo.guid] += event.amount + (event.absorbed || 0);
+    else {
+      if (!this.petDamage[petInfo.guid]) {
+        this.petDamage[petInfo.guid] = {};
+      }
+      if (this.petDamage[petInfo.guid][instance] === undefined) {
+        this.petDamage[petInfo.guid][instance] = 0;
+      }
+      this.petDamage[petInfo.guid][instance] = event.amount + (event.absorbed || 0);
+    }
+  }
+
+  // we can't access (at least directly) the damage by our permanent pet, most likely Felguard, because its guid isn't in PETS
+  getPermanentPetDamage() {
+    const permanentPetGuid = Object.keys(this.petDamage).filter(guid => !PETS[guid]); // should only contain one? need to find if re-summoned main pets have the same guid or not
+    return this.petDamage[permanentPetGuid];
+  }
+
+  getTotalPetDamage(guid) {
+    if (this._isPermanentPet(guid)) {
+      return this.petDamage[guid];
+    }
+    else {
+      return Object.keys(this.petDamage[guid]).map(instance => this.petDamage[guid][instance]).reduce((s, v) => s + v, 0);
+    }
+  }
+
+  getAveragePetDamage(guid) {
+    if (this._isPermanentPet(guid)) {
+      return this.petDamage[guid]; // permanent pet is only one, so average = total
+    }
+    let instances = Object.keys(this.petDamage[guid]).length;
+    // if the pet haven't been summoned yet, totalDamage would come out as 0 as correct, but instances would be 0 too
+    // in order to avoid division by zero errors, set denominator to 1 (still gives average = 0 for 0 totalDamage)
+    instances = (instances > 0) ? instances : 1;
+    const totalDamage = this.getTotalPetDamage(guid);
+    return totalDamage / instances;
   }
 
   getPets(timestamp) {
