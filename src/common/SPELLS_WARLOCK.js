@@ -673,4 +673,9 @@ export default {
     name: 'Demonology Warlock T19 2P Bonus',
     icon: 'inv_helm_cloth_raidwarlock_q_01',
   },
+  WARLOCK_DEMO_T19_4P_BONUS: {
+    id: 212007,
+    name: 'Demonology Warlock T19 4P Bonus',
+    icon: 'inv_helm_cloth_raidwarlock_q_01',
+  },
 };
