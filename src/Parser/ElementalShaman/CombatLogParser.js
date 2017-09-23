@@ -6,6 +6,7 @@ import Icon from 'common/Icon';
 import SPELLS from 'common/SPELLS';
 // import ItemLink from 'common/ItemLink';
 // import ItemIcon from 'common/ItemIcon';
+import { formatPercentage } from 'common/format';
 
 import StatisticBox from 'Main/StatisticBox';
 import SuggestionsTab from 'Main/SuggestionsTab';
@@ -14,6 +15,7 @@ import Talents from 'Main/Talents';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
+import DamageDone from 'Parser/Core/Modules/DamageDone';
 
 import Maelstrom from './Modules/Features/Maelstrom/Maelstrom';
 
@@ -32,20 +34,6 @@ import LightningRod from './Modules/Talents/LightningRod';
 
 import './Modules/Main/main.css';
 
-function formatThousands(number) {
-  return (`${Math.round(number || 0)}`).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-}
-
-function formatNumber(number) {
-  if (number > 1000000) {
-    return `${(number / 1000000).toFixed(2)}m`;
-  }
-  if (number > 10000) {
-    return `${Math.round(number / 1000)}k`;
-  }
-  return formatThousands(number);
-}
-
 function getIssueImportance(value, regular, major, higherIsWorse = false) {
   if (higherIsWorse ? value > major : value < major) {
     return ISSUE_IMPORTANCE.MAJOR;
@@ -55,12 +43,11 @@ function getIssueImportance(value, regular, major, higherIsWorse = false) {
   }
   return ISSUE_IMPORTANCE.MINOR;
 }
-function formatPercentage(percentage) {
-  return (Math.round((percentage || 0) * 10000) / 100).toFixed(2);
-}
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
+    damageDone: [DamageDone, { showStatistic: true }],
+
     // Features
     castEfficiency: CastEfficiency,
     alwaysBeCasting: AlwaysBeCasting,
@@ -120,15 +107,6 @@ class CombatLogParser extends CoreCombatLogParser {
     }
 
     results.statistics = [
-      <StatisticBox
-        icon={<Icon icon="class_shaman" alt="Dead GCD time" />}
-        value={formatNumber(this.modules.damageDone.total.effective)}
-        label={(
-          <dfn data-tip="Without Fire Elemental Damage.">
-            Damage done
-          </dfn>
-        )}
-      />,
       <StatisticBox
         icon={<Icon icon="spell_mage_altertime" alt="Dead GCD time" />}
         value={`${formatPercentage(deadTimePercentage)} %`}

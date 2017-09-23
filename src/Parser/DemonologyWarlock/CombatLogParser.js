@@ -5,6 +5,7 @@ import Tab from 'Main/Tab';
 import Talents from 'Main/Talents';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
+import DamageDone from 'Parser/Core/Modules/DamageDone';
 
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
@@ -18,7 +19,6 @@ import Doom from './Modules/Features/DoomUptime';
 import SoulShardTracker from './Modules/SoulShards/SoulShardTracker';
 import SoulShardDetails from './Modules/SoulShards/SoulShardDetails';
 import DemoPets from './Modules/WarlockCore/Pets';
-import DamageDone from './Modules/Features/DamageDone';
 
 import ShadowyInspiration from './Modules/Talents/ShadowyInspiration';
 import Shadowflame from './Modules/Talents/Shadowflame';
@@ -38,7 +38,7 @@ class CombatLogParser extends CoreCombatLogParser {
     castEfficiency: CastEfficiency,
     alwaysBeCasting: AlwaysBeCasting,
     cooldownTracker: CooldownTracker,
-    damageDone: DamageDone,
+    damageDone: [DamageDone, { showStatistic: true }],
     doomguardInfernal: DoomguardInfernal,
     grimoireOfService: GrimoireOfService,
     felstorm: Felstorm,

@@ -8,11 +8,8 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 
-import DamageDone from '../Features/DamageDone';
-
 class Implosion extends Module {
   static dependencies = {
-    damageDone: DamageDone,
     combatants: Combatants,
   };
 
@@ -38,13 +35,12 @@ class Implosion extends Module {
   }
 
   statistic() {
-    const percentageOfTotal = this.damage / this.damageDone.totalDmg;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.IMPLOSION_TALENT.id} />}
         value={`${formatNumber(this.damage / this.owner.fightDuration * 1000)} DPS`}
         label="Implosion damage"
-        tooltip={`Your Implosion did ${formatNumber(this.damage)} total damage (${formatPercentage(percentageOfTotal)} %) and killed ${this.impsKilled} Wild Imps.`}
+        tooltip={`Your Implosion did ${formatNumber(this.damage)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} %) and killed ${this.impsKilled} Wild Imps.`}
       />
     );
   }

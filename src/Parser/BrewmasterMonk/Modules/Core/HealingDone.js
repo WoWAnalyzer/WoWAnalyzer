@@ -13,8 +13,6 @@ class HealingDone extends CoreHealingDone {
       this._subtractHealing(event, 0, event.amount, 0);
     }
   }
-
-  showStatistic = true;
 }
 
 export default HealingDone;

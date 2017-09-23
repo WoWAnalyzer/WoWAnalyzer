@@ -25,11 +25,11 @@ const Fight = ({ difficulty, name, kill, start_time, end_time, wipes, fightPerce
   const Icon = kill ? SkullIcon : CancelIcon;
 
   return (
-    <div className="row" {...others}>
-      <div className="col-xs-6 col-sm-5 col-md-4 col-lg-3">
+    <div className="flex" {...others}>
+      <div className="flex-sub fight-boss-name">
         {DIFFICULTIES[difficulty]} {name} {!kill && `(Wipe ${wipes})`}
       </div>
-      <div className={`col-xs-6 col-sm-7 col-md-8 col-lg-9 ${kill ? 'kill' : 'wipe'}`}>
+      <div className={`flex-main ${kill ? 'kill' : 'wipe'}`}>
         <Icon style={{ fontSize: '1.8em', display: 'inline-block', marginBottom: '-0.25em' }} />
         {' '}{formatDuration(duration)}
         <ProgressBar percentage={kill ? 100 : (10000 - fightPercentage) / 100} height={8} />

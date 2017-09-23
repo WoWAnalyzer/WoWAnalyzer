@@ -6,14 +6,13 @@ import Talents from 'Main/Talents';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
+import DamageDone from 'Parser/Core/Modules/DamageDone';
+import DamageTaken from 'Parser/Core/Modules/DamageTaken';
 
 import PainChart from './Modules/PainChart/Pain';
 
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CastEfficiency from './Modules/Features/CastEfficiency';
-
-import DamageDone from './Modules/Statistics/Core/DamageDone';
-import DamageTaken from './Modules/Statistics/Core/DamageTaken';
 
 import SoulFragments from './Modules/Statistics/SoulFragments/SoulFragments';
 import SpiritBomb from './Modules/Statistics/SpiritBomb/SpiritBomb';
@@ -26,8 +25,8 @@ import SigilOfFlame from './Modules/Statistics/Spells/SigilOfFlame';
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core Statistics
-    damageDone: DamageDone,
-    damageTaken: DamageTaken,
+    damageDone: [DamageDone, { showStatistic: true }],
+    damageTaken: [DamageTaken, { showStatistic: true }],
     healingDone: [HealingDone, { showStatistic: true }],
 
     // Features

@@ -2,6 +2,7 @@ import React from 'react';
 
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import DamageDone from 'Parser/Core/Modules/DamageDone';
 
 import SPELLS from 'common/SPELLS';
 import PETS from 'common/PETS';
@@ -10,7 +11,6 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 
 import DemoPets from '../WarlockCore/Pets';
-import DamageDone from '../Features/DamageDone';
 
 class ImpendingDoom extends Module {
   static dependencies = {
@@ -36,13 +36,12 @@ class ImpendingDoom extends Module {
   statistic() {
     const averageWildImpDamage = this.demoPets.getAveragePetDamage(PETS.WILDIMP.id);
     const estimatedBonusDamage = averageWildImpDamage * this.doomTicks;
-    const percentageOfTotal = estimatedBonusDamage / this.damageDone.totalDmg;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.IMPENDING_DOOM_TALENT.id} />}
         value={`${formatNumber(estimatedBonusDamage / this.owner.fightDuration * 1000)} DPS`}
         label="Bonus Wild Imp damage"
-        tooltip={`Your Wild Imps summoned by Doom did an estimated ${formatNumber(estimatedBonusDamage)} damage (${formatPercentage(percentageOfTotal)} %). This value is estimated by multiplying the number of Wild Imps summoned this way by average Wild Imp damage`}
+        tooltip={`Your Wild Imps summoned by Doom did an estimated ${formatNumber(estimatedBonusDamage)} damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(estimatedBonusDamage))} %). This value is estimated by multiplying the number of Wild Imps summoned this way by average Wild Imp damage`}
       />
     );
   }

@@ -1,9 +1,4 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
-
-import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 import CoreCastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 
@@ -46,6 +41,7 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 45,
       noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.SHIELD_BLOCK,
@@ -57,44 +53,54 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.DEMORALIZING_SHOUT,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 90,
+      noSuggestion: true,
     },
     {
       spell: SPELLS.LAST_STAND,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 180,
+      noSuggestion: true,
     },
     {
       spell: SPELLS.SHIELD_WALL,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 240,
+      noSuggestion: true,
     },
     {
       spell: SPELLS.SPELL_REFLECTION,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 25,
       noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.HEROIC_LEAP,
-      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
+      category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => 45,
+      noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.HEROIC_THROW,
-      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
+      category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => null,
       hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.INTERCEPT,
-      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
-      getCooldown: haste => 15
+      category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
+      getCooldown: haste => 15,
       charges: 2,
+      noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.TAUNT,
-      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
+      category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => 8,
+      noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.BATTLE_CRY,
@@ -108,13 +114,17 @@ class CastEfficiency extends CoreCastEfficiency {
     },
     {
       spell: SPELLS.PUMMEL,
-      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
+      category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => 15,
+      noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.VICTORY_RUSH,
       category: CastEfficiency.SPELL_CATEGORIES.OTHERS,
       getCooldown: haste => null,
+      noSuggestion: true,
+      noCanBeImproved: true,
     },
   ];
 }

@@ -3,10 +3,10 @@ import React from 'react';
 import SuggestionsTab from 'Main/SuggestionsTab';
 
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
+import DamageDone from 'Parser/Core/Modules/DamageDone';
 
 import Haste from './Modules/Core/Haste';
 
-import DamageDone from './Modules/Features/DamageDone';
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 
@@ -27,7 +27,7 @@ class CombatLogParser extends MainCombatLogParser {
   static specModules = {
     haste: Haste,
       // Features
-    damageDone: DamageDone,
+    damageDone: [DamageDone, { showStatistic: true }],
     castEfficiency: CastEfficiency,
     alwaysBeCasting: AlwaysBeCasting,
       // Modules made but not loaded in the first PR

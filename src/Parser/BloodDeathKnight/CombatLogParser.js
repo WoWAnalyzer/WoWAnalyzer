@@ -1,8 +1,13 @@
 import React from 'react';
+
 import SuggestionsTab from 'Main/SuggestionsTab';
 import Tab from 'Main/Tab';
 import Talents from 'Main/Talents';
+
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
+import HealingDone from 'Parser/Core/Modules/HealingDone';
+import DamageDone from 'Parser/Core/Modules/DamageDone';
+import DamageTaken from 'Parser/Core/Modules/DamageTaken';
 
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
@@ -22,6 +27,10 @@ import T20_4pc from './Modules/Items/T20_4pc';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
+    // Core Statistics
+    damageTaken: [DamageTaken, { showStatistic: true }],
+    damageDone: [DamageDone, { showStatistic: true }],
+    healingDone: [HealingDone, { showStatistic: true }],
 
     // DeathKnight Core
 
