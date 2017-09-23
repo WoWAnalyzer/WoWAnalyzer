@@ -59,6 +59,13 @@ class Pets extends Module {
     this.petsTimeline.push(pet);
   }
 
+  on_byPlayer_instakill(event) {
+    // triggered by talent Implosion - draws all Wild Imps towards target and makes them explode, event contains targetID and targetInstance as for each individual pet destroyed
+    const petInfo = this.owner.playerPets.find(pet => pet.id === event.targetID);
+    const pet = this.petsTimeline.find(pet => pet.guid === petInfo.guid && pet.instance === event.targetInstance);
+    pet.despawnTimestamp = event.timestamp;
+  }
+
   on_byPlayerPet_damage(event) {
     const id = event.sourceID;
     const instance = event.sourceInstance;

@@ -617,6 +617,11 @@ export default {
     name: 'Shadowflame',
     icon: 'ability_warlock_shadowflame',
   },
+  IMPLOSION_DAMAGE: {
+    id: 196278,
+    name: 'Implosion',
+    icon: 'spell_shadow_shadowandflame',
+  },
   SUMMON_DARKGLARE: {
     id: 205180,
     name: 'Summon Darkglare',
