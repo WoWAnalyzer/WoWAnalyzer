@@ -28,7 +28,6 @@ class Pets extends Module {
     return (this.combatants.selected.hasBuff(SPELLS.WARLOCK_DEMO_T19_4P_BONUS.id)) ? 14.5 : 12; // T19 4pc extends duration of either one
   }
   on_byPlayer_summon(event) {
-    console.log("byPlayer_summon", event);
     const petInfo = this.owner.playerPets.find(pet => pet.id === event.targetID);
     const pet = {
       guid: petInfo.guid,
@@ -40,7 +39,6 @@ class Pets extends Module {
   }
 
   on_byPlayerPet_damage(event) {
-    console.log("byPlayerPet_damage", event);
     const petInfo = this.owner.playerPets.find(pet => pet.id === event.sourceID);
     // should take care of all pets (even those permanent, they have unique guid for each player it seems)
     if (this.petDamage[petInfo.guid] === undefined) {
