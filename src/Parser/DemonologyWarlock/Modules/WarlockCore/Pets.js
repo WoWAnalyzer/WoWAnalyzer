@@ -70,6 +70,18 @@ class Pets extends Module {
     const id = event.sourceID;
     const instance = event.sourceInstance;
     const petInfo = this.owner.playerPets.find(pet => pet.id === id);
+    const permanentPetInTimeline = this.petsTimeline.find(pet => pet.guid === petInfo.guid);
+    if (!permanentPetInTimeline) {
+      // most likely will be only for the permanent pet, as the Felguard usually charges seconds after the fight starts which makes a damage event too
+      // so it artificially pushes it at the beginning of the timeline, meaning it was there when the combat began
+      const pet = {
+        guid: petInfo.guid,
+        instance: event.sourceInstance,
+        summonTimestamp: this.owner.fight.start_time,
+        despawnTimestamp: this.owner.fight.start_time + this._getCorrectDuration(petInfo.guid) * 1000,
+      };
+      this.petsTimeline.unshift(pet);
+    }
     // permanent pets don't have instances
     if (this._isPermanentPet(petInfo.guid)) {
       if (this.petDamage[petInfo.guid] === undefined) {
