@@ -49,7 +49,7 @@
 .panel.statistic-box .statistic-bar > div {
   flex: 0 0 auto;
   height: 22px;
-  padding: 3px;
+  padding: 4px 3px 3px;
   text-align: center;
 }
 .panel.statistic-box .statistic-bar > div.remainder {

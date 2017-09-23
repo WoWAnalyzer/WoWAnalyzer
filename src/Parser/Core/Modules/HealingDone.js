@@ -84,7 +84,9 @@ class HealingDone extends Module {
               className="Druid-bg"
               style={{ width: `${this.total.absorbed / this.total.raw * 100}%` }}
               data-tip="Absorbed healing. This currently includes both healing by absorbs as well as healing that gets absorbed by debuffs."
-            />
+            >
+              <img src="/img/absorbed.png" alt="Absorb Healing" />
+            </div>
             <div
               className="remainder DeathKnight-bg"
               data-tip={`You did a total of ${formatPercentage(this.total.overheal / this.total.raw)} % overhealing (${formatThousands(this.total.overheal)}). Overhealing can be caused by playing poorly such as selecting the wrong targets or casting abilities at the wrong time, other healers sniping, and/or bringing too many healers.`}
