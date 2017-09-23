@@ -52,7 +52,7 @@ class DamageDone extends Module {
         )}
         value={`${formatNumber(this.total.effective / (this.owner.fightDuration / 1000))} DPS`}
         label="Damage done"
-        tooltip={`The total damage done was ${formatThousands(this.total.effective)}. Pets contributed ${formatNumber(this.totalByPets.effective / (this.owner.fightDuration / 1000))} DPS.`}
+        tooltip={`${this.totalByPets.effective > 0 ? `The total damage done was ${formatThousands(this.total.effective)}.<br/>Pets contributed ${formatNumber(this.totalByPets.effective / (this.owner.fightDuration / 1000))} DPS.` : `The total damage done was ${formatThousands(this.total.effective)}.`}`}
       />
     );
   }
