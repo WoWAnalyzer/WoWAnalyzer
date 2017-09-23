@@ -63,8 +63,8 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
       <StatisticBox
         icon={<Icon icon="petbattle_health-down" alt="Non healing time" />}
         value={`${formatPercentage(deadTimePercentage)} %`}
-        label="Non casting time"
-        tooltip={`Non casting time is available time not being used to cast anything. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), etc.<br/>
+        label="Downtime"
+        tooltip={`Downtime is available time not used to cast anything. This can be caused by delays between casting spells, latency, cast interrupting or just simply not casting anything (e.g. due to movement/stunned).<br/>
         <li>You spent <b>${formatPercentage(healingTimePercentage)}%</b> of your time casting heals.</li>
         <li>You spent <b>${formatPercentage(nonHealCastTimePercentage)}%</b> of your time casting non-healing spells.</li>
         <li>You spent <b>${formatPercentage(deadTimePercentage)}%</b> of your time casting nothing at all.</li>
