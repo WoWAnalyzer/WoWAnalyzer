@@ -184,7 +184,7 @@ class CastBehavior extends Module {
       <StatisticsListBox
         title="Cast behavior"
       >
-        <div>With Infusion of Light</div>
+        <div><SpellLink id={SPELLS.INFUSION_OF_LIGHT.id}>Infusion of Light</SpellLink> usage</div>
         {this.iolCastRatioChart()}
         <div>Fillers</div>
         {this.fillerCastRatioChart()}
