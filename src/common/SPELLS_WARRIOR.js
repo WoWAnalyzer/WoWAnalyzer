@@ -49,6 +49,11 @@ export default {
     name: 'Shield Block',
     icon: 'ability_defend',
   },
+  SHIELD_BLOCK_BUFF: {
+    id: 132404,
+    name: 'Shield Block Buff',
+    icon: 'ability_defend',
+  },
   //Cooldown Spells
   DEMORALIZING_SHOUT: {
     id: 1160,
