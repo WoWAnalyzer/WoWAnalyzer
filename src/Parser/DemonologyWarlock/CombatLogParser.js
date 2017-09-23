@@ -17,6 +17,7 @@ import Doom from './Modules/Features/DoomUptime';
 
 import SoulShardTracker from './Modules/SoulShards/SoulShardTracker';
 import SoulShardDetails from './Modules/SoulShards/SoulShardDetails';
+import DemoPets from './Modules/WarlockCore/Pets';
 import DamageDone from './Modules/Features/DamageDone';
 
 import ShadowyInspiration from './Modules/Talents/ShadowyInspiration';
@@ -45,6 +46,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Core
     soulShardTracker: SoulShardTracker,
     soulShardDetails: SoulShardDetails,
+    demoPets: DemoPets,
 
     // Talents
     shadowyInspiration: ShadowyInspiration,

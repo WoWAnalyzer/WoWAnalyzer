@@ -17,32 +17,36 @@ class Pets extends Module {
   petDamage = {};
   petsTimeline = [];
 
-  _getCorrectDuration(pet) {
-    if (!PETS[pet.guid]) {
+  _getCorrectDuration(guid) {
+    if (!PETS[guid]) {
       // pet that's not in PETS.js, which is most likely a permanent pet, set duration to 0, it doesn't mess up with the filtering
       return 0;
     }
-    if (pet.guid !== PETS.WILDIMP_ON_DREADSTALKER.id && pet.guid !== PETS.DREADSTALKER.id) {
-      return PETS[pet.guid].baseDuration;
+    if (guid !== PETS.WILDIMP_ON_DREADSTALKER.id && guid !== PETS.DREADSTALKER.id) {
+      return PETS[guid].baseDuration;
     }
     return (this.combatants.selected.hasBuff(SPELLS.WARLOCK_DEMO_T19_4P_BONUS.id)) ? 14.5 : 12; // T19 4pc extends duration of either one
   }
-
   on_byPlayer_summon(event) {
-    const pet = this.pets.getEntity(event);
-    pet.instance = event.targetInstance;
-    pet.summonTimestamp = event.timestamp;
-    pet.despawnTimestamp = event.timestamp + this._getCorrectDuration(pet) * 1000; // duration is in seconds
+    console.log("byPlayer_summon", event);
+    const petInfo = this.owner.playerPets.find(pet => pet.id === event.targetID);
+    const pet = {
+      guid: petInfo.guid,
+      instance: event.targetInstance,
+      summonTimestamp: event.timestamp,
+      despawnTimestamp: event.timestamp + this._getCorrectDuration(petInfo.guid) * 1000, // duration is in seconds
+    };
     this.petsTimeline.push(pet);
   }
 
   on_byPlayerPet_damage(event) {
-    const pet = this.pets.getEntity(event);
+    console.log("byPlayerPet_damage", event);
+    const petInfo = this.owner.playerPets.find(pet => pet.id === event.sourceID);
     // should take care of all pets (even those permanent, they have unique guid for each player it seems)
-    if (this.petDamage[pet.guid] === undefined) {
-      this.petDamage[pet.guid] = 0;
+    if (this.petDamage[petInfo.guid] === undefined) {
+      this.petDamage[petInfo.guid] = 0;
     }
-    this.petDamage[pet.guid] += event.amount + (event.absorbed || 0);
+    this.petDamage[petInfo.guid] += event.amount + (event.absorbed || 0);
   }
 
   getPets(timestamp) {
