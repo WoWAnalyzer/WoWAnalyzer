@@ -115,6 +115,13 @@ const ITEMS = {
     icon: 'inv_jewelry_ring_61',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+  
+XUENS_HELM: {
+  id: 147154,
+  name: 'Xuen\'s Helm',
+  icon: 'inv_leather_raidmonk_r_01_helm',
+  quality: ITEM_QUALITIES.EPIC,
+},
   // Resto Shammy
   ROOTS_OF_SHALADRASSIL: {
     id: 132466,
@@ -519,6 +526,12 @@ const ITEMS = {
     name: 'Magistrike Restraints',
     icon: 'inv_bracer_31b',
     quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  CHAIN_OF_THE_UNDERKING: {
+    id: 134495,
+    name: 'Chain of the Underking',
+    icon: 'inv_7_0raid_necklace_11d',
+    quality: ITEM_QUALITIES.EPIC,
   },
   // T20 Trinkets
   ARCHIVE_OF_FAITH: {

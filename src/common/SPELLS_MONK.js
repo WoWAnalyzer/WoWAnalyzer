@@ -595,4 +595,24 @@ export default {
     name: 'The Wind Blows',
     icon: 'inv_helmet_leather_raidmonk_l_01',
   },
+  MONK_T19_WINDWALKER_2P_BONUS: {
+    id: 211427,
+    name: 'Tier 19 Windwalker 2 Piece Bonus',
+    icon: 'monk_stance_whitetiger',
+  },
+  MONK_T20_WINDWALKER_4P_BONUS: {
+    id: 211430,
+    name: 'Windwalker Tier 19 4 Piece Bonus',
+    icon: 'monk_stance_whitetiger',
+  },
+  MONK_T20_WINDWALKER_2P_BONUS: {
+    id: 242259,
+    name: 'Windwalker Tier 19 2 Piece',
+    icon: 'monk_stance_whitetiger',
+  },
+  MONK_T20_WINDWALKER_4P_BONUS: {
+    id: 242259,
+    name: 'Windwalker Tier 19 4 Piece',
+    icon: 'monk_stance_whitetiger',
+  },
 };
