@@ -24,8 +24,11 @@ class DamageDone extends CoreDamageDone {
     this.petDmg += event.amount + (event.absorbed || 0);
   }
 
+  get totalDmg() {
+    return this.total.effective + this.petDmg;
+  }
+
   statistic() {
-    const totalDmg = this.total.effective + this.petDmg;
     return (
       <StatisticBox
         icon={(
@@ -34,9 +37,9 @@ class DamageDone extends CoreDamageDone {
             style={{ border: 0 }}
             alt="Demonology Warlock"
           />)}
-        value={`${formatNumber((totalDmg / this.owner.fightDuration) * 1000)} DPS`}
+        value={`${formatNumber((this.totalDmg / this.owner.fightDuration) * 1000)} DPS`}
         label="Damage done"
-        tooltip={`The total damage (including pets) recorded was ${formatThousands(totalDmg)}`}
+        tooltip={`The total damage (including pets) recorded was ${formatThousands(this.totalDmg)}`}
       />
     );
   }

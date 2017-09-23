@@ -10,9 +10,11 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 
 import DemoPets from '../WarlockCore/Pets';
+import DamageDone from '../Features/DamageDone';
 
 class ImprovedDreadstalkers extends Module {
   static dependencies = {
+    damageDone: DamageDone,
     demoPets: DemoPets,
     combatants: Combatants,
   };
@@ -23,12 +25,13 @@ class ImprovedDreadstalkers extends Module {
 
   statistic() {
     const wildImpDamage = this.demoPets.getTotalPetDamage(PETS.WILDIMP_ON_DREADSTALKER.id); // fortunately, Wild Imps summoned by this talent have different guid than regular Wild Imps, making this rather easy
+    const percentageOfTotal = wildImpDamage / this.damageDone.totalDmg;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.IMPROVED_DREADSTALKERS_TALENT.id} />}
         value={`${formatNumber(wildImpDamage / this.owner.fightDuration * 1000)} DPS`}
         label="Bonus Wild Imp damage"
-        tooltip={`Your Wild Imps summoned with Dreadstalkers did ${formatNumber(wildImpDamage)} damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(wildImpDamage))} %).`}
+        tooltip={`Your Wild Imps summoned with Dreadstalkers did ${formatNumber(wildImpDamage)} damage (${formatPercentage(percentageOfTotal)} %).`}
       />
     );
   }
