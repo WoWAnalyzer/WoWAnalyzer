@@ -5,12 +5,12 @@ import Tab from 'Main/Tab';
 import Talents from 'Main/Talents';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
+import DamageDone from 'Parser/Core/Modules/DamageDone';
 
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownTracker from './Modules/Features/CooldownTracker';
 import Judgment from './Modules/Features/Judgment';
-import DamageDone from './Modules/PaladinCore/DamageDone';
 
 import DivinePurpose from './Modules/Talents/DivinePurpose';
 
@@ -30,7 +30,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Override the ability tracker so we also get stats for IoL and beacon healing
 
     // PaladinCore
-    damageDone: DamageDone,
+    damageDone: [DamageDone, { showStatistic: true }],
 
     // Features
     castEfficiency: CastEfficiency,

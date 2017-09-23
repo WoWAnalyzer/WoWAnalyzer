@@ -17,7 +17,7 @@ class HealingDone extends Module {
   _byAbility = {};
   byAbility(spellId) {
     if (!this._byAbility[spellId]) {
-      return new HealingValue(0, 0, 0);
+      return new HealingValue();
     }
     return this._byAbility[spellId];
   }

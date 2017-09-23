@@ -7,13 +7,13 @@ import Tab from 'Main/Tab';
 import Talents from 'Main/Talents';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
+import DamageDone from 'Parser/Core/Modules/DamageDone';
 
 import CastEfficiency from './Modules/Main/CastEfficiency';
 import Maelstrom from './Modules/Main/Maelstrom';
 
 import CooldownTracker from './Modules/Features/CooldownTracker';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
-import DamageDone from './Modules/ShamanCore/DamageDone';
 // import ShamanStats from './Modules/ShamanCore/ShamanStats';
 import Flametongue from './Modules/ShamanCore/Flametongue';
 import FlametongueRefresh from './Modules/ShamanCore/FlametongueRefresh';
@@ -29,7 +29,7 @@ import Tier20_2set from './Modules/Items/Tier20_2set';
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // ShamanCore
-    damageDone: DamageDone,
+    damageDone: [DamageDone, { showStatistic: true }],
     // shamanStats: ShamanStats,
     flametongue: Flametongue,
     landslide: Landslide,

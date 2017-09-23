@@ -5,21 +5,21 @@ import Tab from 'Main/Tab';
 import Talents from 'Main/Talents';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
+import HealingDone from 'Parser/Core/Modules/HealingDone';
+import DamageDone from 'Parser/Core/Modules/DamageDone';
+import DamageTaken from 'Parser/Core/Modules/DamageTaken';
 
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
-import DamageDone from './Modules/Core/DamageDone';
-import DamageTaken from './Modules/Core/DamageTaken';
-import HealingDone from './Modules/Core/HealingDone';
 
 import Shield_Block from './Modules/Spells/ShieldBlock';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core
-    damageTaken: DamageTaken,
+    damageTaken: [DamageTaken, { showStatistic: true }],
     healingDone: [HealingDone, { showStatistic: true }],
-    damageDone: DamageDone,
+    damageDone: [DamageDone, { showStatistic: true }],
     // Features
     castEfficiency: CastEfficiency,
     alwaysBeCasting: AlwaysBeCasting,

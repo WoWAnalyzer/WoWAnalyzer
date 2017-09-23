@@ -1,16 +1,14 @@
 import React from 'react';
 
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
-import SuggestionsTab from 'Main/SuggestionsTab';
+import DamageDone from 'Parser/Core/Modules/DamageDone';
 
-import Haste from 'Parser/Core/Modules/Haste';
+import SuggestionsTab from 'Main/SuggestionsTab';
 
 import AbilityTracker from './Modules/Core/AbilityTracker';
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
-import DamageDone from './Modules/Core/DamageDone';
 import Insanity from './Modules/Core/Insanity';
-
 
 import Mindbender from './Modules/Spells/Mindbender';
 import Shadowfiend from './Modules/Spells/Shadowfiend';
@@ -22,13 +20,11 @@ import VoidTorrent from './Modules/Spells/VoidTorrent';
 import Dispersion from './Modules/Spells/Dispersion';
 import CallToTheVoid from './Modules/Spells/CallToTheVoid';
 
-
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
-    damageDone: DamageDone,
+    damageDone: [DamageDone, { showStatistic: true }],
     alwaysBeCasting: AlwaysBeCasting,
     abilityTracker: AbilityTracker,
-    haste: Haste,
     castEfficiency: CastEfficiency,
     insanity: Insanity,
 

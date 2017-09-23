@@ -5,8 +5,7 @@ import Tab from 'Main/Tab';
 import Talents from 'Main/Talents';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
-
-import DamageDone from './Modules/FeralCore/DamageDone';
+import DamageDone from 'Parser/Core/Modules/DamageDone';
 
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
@@ -24,7 +23,7 @@ import SavageRoarDmg from './Modules/Talents/SavageRoarDmg';
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // FeralCore
-    damageDone: DamageDone,
+    damageDone: [DamageDone, { showStatistic: true }],
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
