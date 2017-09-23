@@ -80,15 +80,32 @@ class DamageTaken extends Module {
         value={`${formatNumber(this.total.raw / this.owner.fightDuration * 1000)} DTPS`}
         label="Damage taken"
         tooltip={
-          `The total damage taken was ${formatThousands(this.total.effective)} (${formatThousands(this.total.overkill)} overkill).<br /><br />
-
-          Damage taken by magic school:
-          <ul>
-            ${Object.keys(this._byMagicSchool)
-            .map(type => `<li><i>${MAGIC_SCHOOLS.names[type] || 'Unknown'}</i> damage taken ${formatThousands(this._byMagicSchool[type].effective)} (${formatPercentage(this._byMagicSchool[type].effective / this.total.effective)}%)</li>`)
-            .join('')}
-          </ul>`
+          `The total damage taken was ${formatThousands(this.total.effective)} (${formatThousands(this.total.overkill)} overkill).`
         }
+        footer={(
+          <div className="statistic-bar">
+            {Object.keys(this._byMagicSchool)
+              .map(type => {
+                const effective = this._byMagicSchool[type].effective;
+                return (
+                  <div
+                    key={type}
+                    className={`spell-school-${type}-bg`}
+                    style={{ width: `${effective / this.total.effective * 100}%` }}
+                    data-tip={
+                      `Damage taken by magic school:
+                      <ul>
+                        ${Object.keys(this._byMagicSchool)
+                          .map(type => `<li><b>${MAGIC_SCHOOLS.names[type] || 'Unknown'}</b>: ${formatThousands(this._byMagicSchool[type].effective)} (${formatPercentage(this._byMagicSchool[type].effective / this.total.effective)}%)</li>`)
+                          .join('')}
+                      </ul>`
+                    }
+                  />
+                );
+              })}
+          </div>
+        )}
+        footerStyle={{ overflow: 'hidden' }}
       />
     );
   }

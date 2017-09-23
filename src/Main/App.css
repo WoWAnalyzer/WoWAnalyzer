@@ -594,6 +594,33 @@ table.data-table .performance-bar {
 .stat-mastery-bg{background-color:#9256ff !important}
 .stat-versatility-bg{background-color:#bfbfbf !important}
 
+/*https://wow.gamepedia.com/COMBAT_LOG_EVENT*/
+/* Physical */
+.spell-school-1-bg { background-color: #ccb278 !important; }
+/* Holy */
+.spell-school-2-bg { background-color: #ffe680 !important; }
+/* Fire */
+.spell-school-4-bg { background-color: #d84141 !important; }
+/* Nature */
+.spell-school-8-bg { background-color: #4dff4d !important; }
+/* Frost */
+.spell-school-16-bg { background-color: #80ffff !important; }
+/* Shadow */
+.spell-school-32-bg { background-color: #8080ff !important; }
+/* Arcane */
+.spell-school-64-bg { background-color: #ff80ff !important; }
+/* Double schools */
+/* Spellshadow: Arcane + Shadow */
+.spell-school-96-bg { background-image: linear-gradient(to bottom, #ff80ff 0%, #8080ff 100%) !important; }
+/* Triple and multi schools */
+/* Elemental: Frost + Nature + Fire */
+.spell-school-28-bg { background-color: #8cc084 !important; }
+/* Chronomatic: Arcane + Shadow + Frost + Nature + Fire */
+.spell-school-124-bg { background-color: #a1a6b5 !important; }
+/* Magic: Arcane + Shadow + Frost + Nature + Fire + Holy */
+.spell-school-126-bg { background-color: #b1b1ac !important; }
+/* Chaos: Arcane + Shadow + Frost + Nature + Fire + Holy + Physical */
+.spell-school-127-bg { background-color: #b4b1a5 !important; }
 
 .toggle-control {
   margin: -2px 0;

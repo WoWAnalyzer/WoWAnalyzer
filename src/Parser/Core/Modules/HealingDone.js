@@ -74,7 +74,7 @@ class HealingDone extends Module {
         footer={(
           <div className="statistic-bar">
             <div
-              className="Hunter-bg"
+              className="stat-health-bg"
               style={{ width: `${this.total.regular / this.total.raw * 100}%` }}
               data-tip={`Regular healing done, not including absorbs.`}
             >
