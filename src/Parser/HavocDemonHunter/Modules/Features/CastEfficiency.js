@@ -7,12 +7,6 @@ class CastEfficiency extends CoreCastEfficiency {
   static CPM_ABILITIES = [
     ...CoreCastEfficiency.CPM_ABILITIES,
     {
-      spell: SPELLS.METAMORPHOSIS_HAVOC,
-      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
-      getCooldown: haste => 300 - (combatant.traitsBySpellId[SPELLS.UNLEASHED_DEMONS.id] || 0) * 20,
-      recommendedCastEfficiency: 1.0,
-    },
-    {
       spell: SPELLS.FURY_OF_THE_ILLIDARI,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 60,
@@ -20,11 +14,10 @@ class CastEfficiency extends CoreCastEfficiency {
       extraSuggestion: `This does a huge ammount of AoE passive damage and it's one of the main damage spells for Havoc Demon Hunters. You should cast it as soon as it become available. The only moment you can delay it's cast is if you already expect an add wave to maximize it's efficiency and damage output.`,
     },
     {
-      spell: SPELLS.EYE_BEAM,
+      spell: SPELLS.METAMORPHOSIS_HAVOC,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
-      getCooldown: haste => 45,
-      noSuggestion: true,
-      noCanBeImproved: true,
+      getCooldown: (haste, combatant) => 300 - (combatant.traitsBySpellId[SPELLS.UNLEASHED_DEMONS.id] || 0) * 20,
+      recommendedCastEfficiency: 1.0,
     },
     {
       spell: SPELLS.NEMESIS_TALENT,
@@ -75,13 +68,20 @@ class CastEfficiency extends CoreCastEfficiency {
       extraSuggestion: 'This is your main Fury filler spell. Try to always cast on cooldown, but beware to not waste the Fury generation it provides. So use it when you have 30 or more Fury missing. And also it can be used to charge to the desired target, making it very strong movement spell.',
     },
     {
+      spell: SPELLS.EYE_BEAM,
+      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
+      getCooldown: haste => 45,
+      noSuggestion: true,
+      noCanBeImproved: true,
+    },
+    {
       spell: SPELLS.DEMONS_BITE,
       isActive: combatant => !combatant.hasTalent(SPELLS.DEMON_BLADES_TALENT.id),
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => null,
-      noSuggestion true,
+      noSuggestion: true,
       noCanBeImproved: true,
-    }
+    },
     {
       spell: SPELLS.CHAOS_STRIKE,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,

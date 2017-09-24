@@ -13,7 +13,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
   static ABILITIES_ON_GCD = [
 
     // Abilities
-    SPELLS.DEMONS_BITE.id
+    SPELLS.DEMONS_BITE.id,
     SPELLS.ANNIHILATION.id,
     SPELLS.BLADE_DANCE.id,
     SPELLS.CHAOS_STRIKE.id,

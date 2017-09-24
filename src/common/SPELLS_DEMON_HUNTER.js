@@ -160,7 +160,7 @@ export default {
   // Havoc
   DEMONS_BITE: {
     id: 162243,
-    name: 'Demon\'s Bite'
+    name: 'Demon\'s Bite',
     icon: 'inv_weapon_glave_01',
   },
   CHAOS_STRIKE: {
@@ -232,7 +232,7 @@ export default {
     id: 179057,
     name: 'Chaos Nova',
     icon: 'spell_fire_felfirenova',
-  }
+  },
 
   // Talents
   FRAILTY_SPIRIT_BOMB_DEBUFF: {

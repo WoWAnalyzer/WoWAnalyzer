@@ -111,7 +111,7 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.SHIELD_OF_VENGEANCE,
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
-      getCooldown: haste => 120 - - (combatant.traitsBySpellId[SPELLS.DEFLECTION.id] || 0) * 10,
+      getCooldown: (haste, combatant) => 120 - (combatant.traitsBySpellId[SPELLS.DEFLECTION.id] || 0) * 10,
       noCanBeImproved: true,
       importance: ISSUE_IMPORTANCE.MINOR,
     },
