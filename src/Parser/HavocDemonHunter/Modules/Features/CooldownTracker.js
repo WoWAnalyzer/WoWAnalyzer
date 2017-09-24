@@ -6,13 +6,13 @@ class CooldownTracker extends CoreCooldownTracker {
   static cooldownSpells = [
     ...CooldownTracker.cooldownSpells,
     {
-      spell: SPELLS.AVENGING_WRATH,
+      spell: SPELLS.METAMORPHOSIS_HAVOC,
       summary: [
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],
     },
     {
-      spell: SPELLS.CRUSADE_TALENT,
+      spell: SPELLS.CHAOS_BLADES_TALENT,
       summary: [
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],
