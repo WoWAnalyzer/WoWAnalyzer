@@ -9,7 +9,6 @@ import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 
-
 /**
  * Light's Embrace
  * When you take damage, you have a chance to generate Light's Embrace, stacking up to 5 times. Light's Embrace heals for 45500damage over 6 sec.

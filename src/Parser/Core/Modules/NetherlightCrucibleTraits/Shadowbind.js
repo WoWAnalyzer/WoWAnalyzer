@@ -8,8 +8,6 @@ import { formatPercentage } from 'common/format';
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
-import DamageDone from 'Parser/Core/Modules/DamageDone';
-
 
 /**
  * Shadowbind
@@ -19,7 +17,6 @@ class Shadowbind extends Module {
   static dependencies = {
     combatants: Combatants,
     healingDone: HealingDone,
-    damageDone: DamageDone,
   };
 
   damage = 0;
@@ -49,7 +46,7 @@ class Shadowbind extends Module {
         </div>
         <div className="flex-sub text-right">
         Healing: {formatPercentage(this.owner.getPercentageOfTotalHealingDone(healing))} % <br />
-        Damage: {formatPercentage(this.damage / this.damageDone.total.effective)} % 
+        Damage: {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % 
         </div>
       </div>
     );

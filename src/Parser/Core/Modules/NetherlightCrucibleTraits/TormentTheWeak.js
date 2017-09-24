@@ -7,8 +7,6 @@ import { formatPercentage } from 'common/format';
 
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import DamageDone from 'Parser/Core/Modules/DamageDone';
-
 
 /**
  * Torment the Weak
@@ -17,7 +15,6 @@ import DamageDone from 'Parser/Core/Modules/DamageDone';
 class TormentTheWeak extends Module {
   static dependencies = {
     combatants: Combatants,
-    damageDone: DamageDone,
   };
 
   damage = 0;
@@ -45,7 +42,7 @@ class TormentTheWeak extends Module {
           </SpellLink>
         </div>
         <div className="flex-sub text-right">
-        Damage: {formatPercentage(this.damage / this.damageDone.total.effective)} % 
+        Damage: {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % 
         </div>
       </div>
     );

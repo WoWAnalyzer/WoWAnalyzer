@@ -9,7 +9,6 @@ import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 
-
 /**
  * Refractive Shell
  * Your spells and abilities have the chance to cause Refractive Shell, absorbing 300000 damage. Lasts 10 sec.
