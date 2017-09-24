@@ -45,6 +45,19 @@ import TomeOfUnravelingSanity from './Modules/Items/TomeOfUnravelingSanity';
 // Shared Buffs
 import VantusRune from './Modules/VantusRune';
 
+// Netherlight Crucible Traits
+import DarkSorrows from './Modules/NetherlightCrucibleTraits/DarkSorrows';
+import TormentTheWeak from './Modules/NetherlightCrucibleTraits/TormentTheWeak';
+import ChaoticDarkness from './Modules/NetherlightCrucibleTraits/ChaoticDarkness';
+import Shadowbind from './Modules/NetherlightCrucibleTraits/Shadowbind';
+import LightsEmbrace from './Modules/NetherlightCrucibleTraits/LightsEmbrace';
+import InfusionOfLight from './Modules/NetherlightCrucibleTraits/InfusionOfLight';
+import SecureInTheLight from './Modules/NetherlightCrucibleTraits/SecureInTheLight';
+import Shocklight from './Modules/NetherlightCrucibleTraits/Shocklight';
+import MurderousIntent from './Modules/NetherlightCrucibleTraits/MurderousIntent';
+import RefractiveShell from './Modules/NetherlightCrucibleTraits/RefractiveShell';
+import NLCTraits from './Modules/NetherlightCrucibleTraits/NLCTraits';
+
 import ParseResults from './ParseResults';
 
 const debug = false;
@@ -99,6 +112,18 @@ class CombatLogParser {
     spectralThurible: SpectralThurible,
     terrorFromBelow: TerrorFromBelow,
     tomeOfUnravelingSanity: TomeOfUnravelingSanity,
+    // Netherlight Crucible Traits
+    darkSorrows: DarkSorrows,
+    tormentTheWeak: TormentTheWeak,
+    chaoticDarkness: ChaoticDarkness,
+    shadowbind: Shadowbind,
+    lightsEmbrace: LightsEmbrace,
+    infusionOfLight: InfusionOfLight,
+    secureInTheLight: SecureInTheLight,
+    shocklight: Shocklight,
+    refractiveShell: RefractiveShell,
+    murderousIntent: MurderousIntent,
+    nlcTraits: NLCTraits,
   };
   // Override this with spec specific modules
   static specModules = {};
