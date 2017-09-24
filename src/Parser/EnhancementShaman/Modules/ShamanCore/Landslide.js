@@ -25,7 +25,7 @@ class Landslide extends Module {
         return suggest('Try to make sure the Landslide buff from Rockbiter is always up, when it drops you should refresh it as soon as possible')
           .icon(SPELLS.LANDSLIDE_BUFF.icon)
           .actual(`${formatPercentage(actual)}% uptime`)
-          .recommended(`${(formatPercentage(recommended))}% is recommended`)
+          .recommended(`${(formatPercentage(recommended, 0))}% is recommended`)
           .regular(recommended).major(recommended - 0.05);
       });
   }
