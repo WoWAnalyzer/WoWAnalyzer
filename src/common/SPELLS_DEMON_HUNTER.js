@@ -213,8 +213,13 @@ export default {
     name: 'Vengeful Retreat',
     icon: 'ability_demonhunter_vengefulretreat2',
   },
-  METAMORPHOSIS_HAVOC: {
+  METAMORPHOSIS_HAVOC_BUFF: {
     id: 162264,
+    name: 'Metamorphosis',
+    icon: 'ability_demonhunter_metamorphasisdps',
+  },
+  METAMORPHOSIS_HAVOC: {
+    id: 200166,
     name: 'Metamorphosis',
     icon: 'ability_demonhunter_metamorphasisdps',
   },
@@ -233,7 +238,17 @@ export default {
     name: 'Chaos Nova',
     icon: 'spell_fire_felfirenova',
   },
-
+  //Havoc Talents
+  CHAOS_BLADES_DAMAGE_MH: {
+    id: 211796,
+    name: 'Chaos Blades',
+    icon: 'inv_glaive_1h_artifactaldrochi_d_03dual',
+  },
+  CHAOS_BLADES_DAMAGE_OH: {
+    id: 211797,
+    name: 'Chaos Blades',
+    icon: 'inv_glaive_1h_artifactaldrochi_d_03dual',
+  },
   // Talents
   FRAILTY_SPIRIT_BOMB_DEBUFF: {
     id: 247456,

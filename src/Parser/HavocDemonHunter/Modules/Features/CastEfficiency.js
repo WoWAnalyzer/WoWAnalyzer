@@ -31,9 +31,9 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.CHAOS_BLADES_TALENT,
       isActive: combatant => combatant.hasTalent(SPELLS.CHAOS_BLADES_TALENT.id),
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
-      getCooldown: haste => 30,
+      getCooldown: haste => 180,
       recommendedCastEfficiency: 0.95,
-      extraSuggestion: `This plus Nemesis and Metamorphosis make up your huge windows.`
+      extraSuggestion: `This plus Nemesis and Metamorphosis make up your huge windows.`,
     },
     {
       spell: SPELLS.MOMENTUM_TALENT,
@@ -99,7 +99,7 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.BLADE_DANCE,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => 10 / (1 + haste),
+      getCooldown: haste => null, //10 / (1 + haste),
       noSuggestion: true,
     },
     {
