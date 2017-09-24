@@ -7,15 +7,13 @@ import Mana from 'Main/Mana';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
+import HealingDone from 'Parser/Core/Modules/HealingDone';
 
-import HealingDone from './Modules/PaladinCore/HealingDone';
 import PaladinAbilityTracker from './Modules/PaladinCore/PaladinAbilityTracker';
 import BeaconHealOriginMatcher from './Modules/PaladinCore/BeaconHealOriginMatcher';
 import BeaconTargets from './Modules/PaladinCore/BeaconTargets';
 import BeaconHealing from './Modules/PaladinCore/BeaconHealing';
-import InfusionOfLightCastRatio from './Modules/PaladinCore/InfusionOfLightCastRatio';
-import UnusedInfusionOfLights from './Modules/PaladinCore/UnusedInfusionOfLights';
-import FilledCastRatio from './Modules/PaladinCore/FilledCastRatio';
+import CastBehavior from './Modules/PaladinCore/CastBehavior';
 import Overhealing from './Modules/PaladinCore/Overhealing';
 import FillerLightOfTheMartyrs from './Modules/PaladinCore/FillerLightOfTheMartyrs';
 import LightOfDawn from './Modules/PaladinCore/LightOfDawn';
@@ -64,13 +62,11 @@ class CombatLogParser extends CoreCombatLogParser {
     lowHealthHealing: LowHealthHealing,
 
     // PaladinCore
-    healingDone: HealingDone,
+    healingDone: [HealingDone, { showStatistic: true }],
     beaconHealOriginMatcher: BeaconHealOriginMatcher,
     beaconTargets: BeaconTargets,
     beaconHealing: BeaconHealing,
-    infusionOfLightCastRatio: InfusionOfLightCastRatio,
-    unusedInfusionOfLights: UnusedInfusionOfLights,
-    filledCastRatio: FilledCastRatio,
+    castBehavior: CastBehavior,
     overhealing: Overhealing,
     fillerLightOfTheMartyrs: FillerLightOfTheMartyrs,
     lightOfDawn: LightOfDawn,

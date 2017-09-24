@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import Module from 'Parser/Core/Module';
+import HealingDone from 'Parser/Core/Modules/HealingDone';
 
 import Mastery from './Mastery';
 
@@ -11,18 +12,14 @@ const REJUV_COST = 0.10; // % of base mana
  */
 class Rejuvenation extends Module {
   static dependencies = {
+    healingDone: HealingDone,
     mastery: Mastery,
   };
 
   totalRejuvsCast = 0;
 
-  dreamwalkerHealing = 0;
-
   on_byPlayer_heal(event) {
-    const spellId = event.ability.guid;
-    if(spellId === SPELLS.DREAMWALKER.id) {
-      this.dreamwalkerHealing += event.amount + (event.absorbed || 0);
-    }
+    // TODO
   }
 
   on_byPlayer_cast(event) {
@@ -43,27 +40,20 @@ class Rejuvenation extends Module {
   }
 
   /*
+   * The total healing attributable to Rejuvenation
+   */
+  get totalRejuvHealing() {
+    const rejuvTotals = this.mastery.getMultiMasteryHealing([SPELLS.REJUVENATION.id, SPELLS.REJUVENATION_GERMINATION.id]);
+    const dreamwalkerHealing = this.healingDone.byAbility(SPELLS.DREAMWALKER.id).effective;
+
+    return rejuvTotals + dreamwalkerHealing;
+  }
+
+  /*
    * The average healing caused per cast of Rejuvenation
    */
   get avgRejuvHealing() {
-    const rejuvDirect = this.mastery.getDirectHealing(SPELLS.REJUVENATION.id);
-    //const rejuvMastery = this.mastery.getMasteryHealing(SPELLS.REJUVENATION.id);
-    const germDirect = this.mastery.getDirectHealing(SPELLS.REJUVENATION_GERMINATION.id);
-    //const germMastery = this.mastery.getMasteryHealing(SPELLS.REJUVENATION_GERMINATION.id);
-    const total = rejuvDirect + germDirect + this.dreamwalkerHealing;
-    // FIXME adding the direct + mastery of both moderately overcounts, because when both rejuv and germ are on same target,
-    //       there is a portion of double counting in rejuvDirect/germMastery and germDirect/rejuvMastery.
-    //       Enhancements to the Mastery module may be required.
-
-    return this.totalRejuvsCast === 0 ? 0 : total / this.totalRejuvsCast;
-  }
-
-  get totalRejuvHealing() {
-    // TODO Check the above FIXME and add mastery to this method
-    // Should cultivation be added too?
-    const rejuvDirect = this.mastery.getDirectHealing(SPELLS.REJUVENATION.id);
-    const germDirect = this.mastery.getDirectHealing(SPELLS.REJUVENATION_GERMINATION.id);
-    return rejuvDirect + germDirect + this.dreamwalkerHealing;
+    return this.totalRejuvHealing / this.totalRejuvsCast;
   }
 
   /*

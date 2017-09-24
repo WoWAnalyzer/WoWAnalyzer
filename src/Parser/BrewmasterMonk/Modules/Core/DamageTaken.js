@@ -2,8 +2,6 @@ import CoreDamageTaken from 'Parser/Core/Modules/DamageTaken';
 import SPELLS from 'common/SPELLS';
 
 class DamageTaken extends CoreDamageTaken {
-  showStatistic = true;
-
   on_toPlayer_absorbed(event) {
     // The `damage` events of Brewmaster Monks always includes the amount staggered as "absorbed" damage,
     // but this absorbed damage might also include absorbs received from other people (e.g. Power Word:

@@ -9,9 +9,7 @@ import Tab from 'Main/Tab';
 import Mana from 'Main/Mana';
 import MonkSpreadsheet from 'Main/MonkSpreadsheet';
 import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
-
-// Core
-import HealingDone from './Modules/Core/HealingDone';
+import HealingDone from 'Parser/Core/Modules/HealingDone';
 
 // Features
 import CastEfficiency from './Modules/Features/CastEfficiency';
@@ -66,7 +64,7 @@ class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core
     lowHealthHealing: LowHealthHealing,
-    healingDone: HealingDone,
+    healingDone: [HealingDone, { showStatistic: true }],
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,

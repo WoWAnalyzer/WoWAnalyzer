@@ -16,6 +16,7 @@ import Mana from 'Main/Mana';
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
+import HealingDone from 'Parser/Core/Modules/HealingDone';
 
 import SpellManaCost from './Modules/Core/SpellManaCost';
 import AbilityTracker from './Modules/Core/AbilityTracker';
@@ -80,6 +81,8 @@ class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
 
   static specModules = {
+    healingDone: [HealingDone, { showStatistic: true }],
+
     // Override the ability tracker so we also get stats for IoL and beacon healing
     spellManaCost: SpellManaCost,
     abilityTracker: AbilityTracker,
@@ -148,20 +151,7 @@ class CombatLogParser extends CoreCombatLogParser {
     }
 
     results.statistics = [
-      <StatisticBox
-        icon={(
-          <img
-            src="/img/healing.png"
-            style={{ border: 0 }}
-            alt="Healing"
-          />)}
-        value={`${formatNumber(this.modules.healingDone.total.effective / fightDuration * 1000)} HPS`}
-        label={(
-          <dfn data-tip={`The total healing done recorded was ${formatThousands(this.modules.healingDone.total.effective)}.`}>
-            Healing done
-          </dfn>
-        )}
-      />,
+      ...results.statistics,
       <StatisticBox
         icon={<Icon icon="petbattle_health-down" alt="Non healing time" />}
         value={`${formatPercentage(deadTimePercentage)} %`}
@@ -206,17 +196,15 @@ class CombatLogParser extends CoreCombatLogParser {
           </table>
         </ExpandableStatisticBox>
       ),
-      missedPenanceTicks && (
-        <StatisticBox
-          icon={<SpellIcon id={SPELLS.PENANCE.id} />}
-          value={missedPenanceTicks}
-          label={(
-            <dfn data-tip={`Each Penance cast has 3 bolts (4 if you're using Castigation). You should try to let this channel finish as much as possible. You channeled Penance ${this.modules.penance.casts} times.`}>
-              Wasted Penance bolts
-            </dfn>
-          )}
-        />
-      ),
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.PENANCE.id} />}
+        value={missedPenanceTicks}
+        label={(
+          <dfn data-tip={`Each Penance cast has 3 bolts (4 if you're using Castigation). You should try to let this channel finish as much as possible. You channeled Penance ${this.modules.penance.casts} times.`}>
+            Wasted Penance bolts
+          </dfn>
+        )}
+      />,
       this.modules.atonement.active && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.ATONEMENT_HEAL_NON_CRIT.id} />}
@@ -264,18 +252,16 @@ class CombatLogParser extends CoreCombatLogParser {
           label="Shadow Word: Pain uptime"
         />
       ),
-      this.modules.powerWordShieldWasted.wasted && (
-        <StatisticBox
-          icon={<SpellIcon id={SPELLS.POWER_WORD_SHIELD.id} />}
-          value={`${formatNumber(this.modules.powerWordShieldWasted.wasted / fightDuration * 1000)} HPS`}
-          label={(
-            <dfn data-tip={`The amount of shield absorb remaining on Power Word: Shield instances that have expired. There was a total of ${formatNumber(this.modules.powerWordShieldWasted.wasted)} unused Power Word: Shield absorb from ${this.modules.powerWordShieldWasted.count} shields with absorb remaining (a total of ${this.modules.powerWordShieldWasted.totalCount} shields were applied).`}>
-              Unused PW:S absorb
-            </dfn>
-          )}
-        />
-      ),
-      this.modules.touchOfTheGrave.damage > 0 && (
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.POWER_WORD_SHIELD.id} />}
+        value={`${formatNumber(this.modules.powerWordShieldWasted.wasted / fightDuration * 1000)} HPS`}
+        label={(
+          <dfn data-tip={`The amount of shield absorb remaining on Power Word: Shield instances that have expired. There was a total of ${formatNumber(this.modules.powerWordShieldWasted.wasted)} unused Power Word: Shield absorb from ${this.modules.powerWordShieldWasted.count} shields with absorb remaining (a total of ${this.modules.powerWordShieldWasted.totalCount} shields were applied).`}>
+            Unused PW:S absorb
+          </dfn>
+        )}
+      />,
+      this.modules.touchOfTheGrave.damage > 0 && ( // this needs to be optional since there's no other way of determining if you have a racial
         <StatisticBox
           icon={<SpellIcon id={SPELLS.TOUCH_OF_THE_GRAVE.id} />}
           value={`${formatNumber(this.modules.touchOfTheGrave.healing / fightDuration * 1000)} HPS`}
@@ -286,7 +272,6 @@ class CombatLogParser extends CoreCombatLogParser {
           )}
         />
       ),
-      ...results.statistics,
     ];
 
     results.items = [

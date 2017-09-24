@@ -3,18 +3,20 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
-import { formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import HealingDone from 'Parser/Core/Modules/HealingDone';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-const debug = false;
+const debug = true;
 
 class EssenceFontMastery extends Module {
   static dependencies = {
     combatants: Combatants,
+    healingDone: HealingDone,
   };
 
   healEF = 0;
@@ -60,6 +62,7 @@ class EssenceFontMastery extends Module {
       console.log(`EF Casts: ${this.castEF}`);
       console.log(`EF Targets Hit: ${this.targetsEF}`);
       console.log(`EF Avg Targets Hit per Cast: ${this.targetsEF / this.castEF}`);
+      console.log(`Overhealing?`, this.healingDone.total.overheal);
     }
   }
 
@@ -90,9 +93,8 @@ class EssenceFontMastery extends Module {
         label={(
           <dfn data-tip={`You healed an average of ${avgMasteryCastsPerEF.toFixed(2)} targets per Essence Font cast.<ul>
             <li>${formatNumber(avgEFMasteryHealing)} average healing per cast</li>
-            <li>${formatNumber(this.secondGustOverheal)} Second Gust of Mists overhealing</li>
-            </ul>`}
-          >
+            <li>${formatNumber(this.secondGustOverheal)} Second Gust of Mists overhealing (${formatPercentage(this.secondGustOverheal / this.healingDone.total.overheal)}%)</li>
+            </ul>`}>
             Mastery Buffs utilized
           </dfn>
         )}

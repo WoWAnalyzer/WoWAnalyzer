@@ -1,6 +1,7 @@
 import React from 'react';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
+import DamageDone from 'Parser/Core/Modules/DamageDone';
 
 import SuggestionsTab from 'Main/SuggestionsTab';
 import Tab from 'Main/Tab';
@@ -13,12 +14,10 @@ import CooldownTracker from './Modules/Features/CooldownTracker';
 import Momentum from './Modules/Statistics/Spells/Momentum';
 import Nemesis from './Modules/Statistics/Spells/Nemesis';
 
-import DamageDone from './Modules/Statistics/Core/DamageDone';
-
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core Statistics
-    damageDone: DamageDone,
+    damageDone: [DamageDone, { showStatistic: true }],
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,

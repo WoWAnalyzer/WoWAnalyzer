@@ -10,6 +10,7 @@ class ComboPointBreakdown extends React.Component {
     pointsGained: PropTypes.object.isRequired,
     pointsSpent: PropTypes.object.isRequired,
     pointsWasted: PropTypes.object.isRequired,
+    pointsCast: PropTypes.object.isRequired,
   };
   prepareGenerated(pointGen, pointWasted) {
     return Object.keys(pointGen)
@@ -20,18 +21,20 @@ class ComboPointBreakdown extends React.Component {
       }))
       .sort((a, b) => b.generated - a.generated);
   }
-  prepareSpent(pointSpent) {
+  prepareSpent(pointSpent, pointCast) {
     return Object.keys(pointSpent)
       .map(abilityId => ({
         abilityId: Number(abilityId),
         spent: pointSpent[abilityId].points,
+        maxCP: pointCast[abilityId].maxCP,
+        total: pointCast[abilityId].total,
       }))
       .sort((a, b) => b.spent - a.spent);
   }
   render() {
-    const { pointsGained, pointsSpent, pointsWasted } = this.props;
+    const { pointsGained, pointsSpent, pointsWasted, pointsCast } = this.props;
     const generated = this.prepareGenerated(pointsGained, pointsWasted);
-    const spent = this.prepareSpent(pointsSpent);
+    const spent = this.prepareSpent(pointsSpent, pointsCast);
 
     let totalGenerated = 0;
     let totalWasted = 0;
@@ -88,12 +91,11 @@ class ComboPointBreakdown extends React.Component {
         </table>
         <table className="data-table">
           <thead>
-            <tr>
-              <th>Ability</th>
-              <th colSpan="2">Points spent</th>
-              {/* I know it shouldn't be done like this but I'm not proficient with CSS and this is the only way I could think of to align the columns with table above */}
-              <th colSpan="2" />
-            </tr>
+          <tr>
+            <th>Ability</th>
+            <th colSpan='2'>Points spent</th>
+            <th colSpan='2'>5 CP uses</th>
+          </tr>
           </thead>
           <tbody>
             {spent && spent
@@ -106,14 +108,14 @@ class ComboPointBreakdown extends React.Component {
                 <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>
                   <dfn data-tip={`${formatPercentage(ability.spent / totalGenerated)} %`}>{ability.spent}</dfn>
                 </td>
-                <td style={{ width: '40%' }}>
+                <td style={{ width: '35%' }}>
                   <div
                     className={'performance-bar'}
                     style={{ width: `${(ability.spent / totalSpent) * 100}%` }}
                   />
                 </td>
-                <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }} />
-                <td style={{ width: '30%' }} />
+                <td style={{ width: 150, textAlign: 'center' }}>{ability.maxCP} / {ability.total}</td>
+                <td style={{ width: '25%' }} />
               </tr>
             ))}
           </tbody>

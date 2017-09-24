@@ -5,6 +5,7 @@ import Tab from 'Main/Tab';
 import Talents from 'Main/Talents';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
+import DamageDone from 'Parser/Core/Modules/DamageDone';
 
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
@@ -14,7 +15,6 @@ import UnusedLordOfFlames from './Modules/Features/UnusedLordOfFlames';
 import GrimoireOfService from './Modules/Features/GrimoireOfService';
 import ImmolateUptime from './Modules/Features/ImmolateUptime';
 import Havoc from './Modules/Features/Havoc';
-import DamageDone from './Modules/Features/DamageDone';
 import DimensionalRift from './Modules/Features/DimensionalRift';
 
 
@@ -50,7 +50,7 @@ class CombatLogParser extends CoreCombatLogParser {
     castEfficiency: CastEfficiency,
     alwaysBeCasting: AlwaysBeCasting,
     cooldownTracker: CooldownTracker,
-    damageDone: DamageDone,
+    damageDone: [DamageDone, { showStatistic: true }],
     doomguardInfernal: DoomguardInfernal,
     unusedLordOfFlames: UnusedLordOfFlames,
     grimoireOfService: GrimoireOfService,
