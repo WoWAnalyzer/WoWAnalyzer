@@ -18,9 +18,10 @@ class Clearcasting extends Module {
     combatants: Combatants,
   };
 
-  total = 0;
+  totalCCProccs = 0;
   lastCCTimestamp = 0;
   nonCCRegrowths = 0;
+  totalRegrowths = 0;
   used = 0;
   lastRegrowthTimestamp = 0;
 
@@ -37,7 +38,7 @@ class Clearcasting extends Module {
     // Get the applied timestamp
     this.lastCCTimestamp = event.timestamp;
     debug && console.log('CC was applied');
-    this.total += 1;
+    this.totalCCProccs += 1;
   }
 
   on_byPlayer_refreshbuff(event) {
@@ -48,7 +49,7 @@ class Clearcasting extends Module {
     // Get the applied timestamp
     this.lastCCTimestamp = event.timestamp;
     debug && console.log('CC was refreshed');
-    this.total += 1;
+    this.totalCCProccs += 1;
   }
 
   on_byPlayer_heal(event) {
@@ -82,8 +83,14 @@ class Clearcasting extends Module {
     this.lastRegrowthTimestamp = event.timestamp;
   }
 
+  on_byPlayer_cast(event) {
+    if (SPELLS.REGROWTH.id === event.ability.guid && !event.tick) {
+      this.totalRegrowths += 1;
+    }
+  }
+
   get unusedClearcastingPercent() {
-    return 1 - (this.used / this.total);
+    return 1 - (this.used / this.totalCCProccs);
   }
 
   suggestions(when) {
@@ -91,12 +98,12 @@ class Clearcasting extends Module {
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Your <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} /> procs should be used quickly so they do not get overwritten or expire.</span>)
           .icon(SPELLS.CLEARCASTING_BUFF.icon)
-          .actual(`You missed ${(this.total - this.used)}/${(this.total)} procs`)
+          .actual(`You missed ${(this.totalCCProccs - this.used)}/${(this.totalCCProccs)} procs`)
           .recommended(`<${Math.round(formatPercentage(recommended))}% is recommended`)
           .regular(SuggestionThresholds.MISSED_CLEARCASTS.regular).major(SuggestionThresholds.MISSED_CLEARCASTS.major);
       });
 
-    const percentNonCCRegrowths = this.nonCCRegrowths / this.total;
+    const percentNonCCRegrowths = this.nonCCRegrowths / this.totalRegrowths;
 
     when(percentNonCCRegrowths).isGreaterThan(SuggestionThresholds.NON_CC_REGROWTHS.minor)
       .addSuggestion((suggest, actual, recommended) => {
@@ -104,7 +111,7 @@ class Clearcasting extends Module {
           .icon(SPELLS.REGROWTH.icon)
           .actual(`${formatPercentage(percentNonCCRegrowths)}% of your Regrowths were cast without a Clearcasting proc.`)
           .recommended(`<${Math.round(formatPercentage(recommended))}% is recommended`)
-          .regular(SuggestionThresholds.MISSED_CLEARCASTS.regular).major(SuggestionThresholds.MISSED_CLEARCASTS.major);
+          .regular(SuggestionThresholds.NON_CC_REGROWTHS.regular).major(SuggestionThresholds.NON_CC_REGROWTHS.major);
       });
   }
 
@@ -114,7 +121,7 @@ class Clearcasting extends Module {
         icon={<SpellIcon id={SPELLS.CLEARCASTING_BUFF.id} />}
         value={`${formatPercentage(this.unusedClearcastingPercent)} %`}
         label="Unused Clearcasts"
-        tooltip={`You got <b>${this.total} Clearcasting procs</b> and <b>used ${this.used}</b> of them.
+        tooltip={`You got <b>${this.totalCCProccs} Clearcasting procs</b> and <b>used ${this.used}</b> of them.
             <b>${this.nonCCRegrowths} of your Regrowths were used without a Clearcasting proc</b>.
             Using a clearcasting proc as soon as you get it should be one of your top priorities.
             Even if it overheals you still get that extra mastery stack on a target and the minor HoT.

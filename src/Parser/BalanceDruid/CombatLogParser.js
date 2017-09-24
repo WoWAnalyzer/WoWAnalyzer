@@ -3,10 +3,10 @@ import React from 'react';
 import SuggestionsTab from 'Main/SuggestionsTab';
 
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
+import DamageDone from 'Parser/Core/Modules/DamageDone';
 
 import Haste from './Modules/Core/Haste';
 
-import DamageDone from './Modules/Features/DamageDone';
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 
@@ -17,8 +17,8 @@ import HalfMoon from './Modules/Spells/HalfMoon';
 import FullMoon from './Modules/Spells/FullMoon';
 // import SolarUnemp from './Modules/Spells/Empowerments/SolarUnemp';
 // import LunarUnemp from './Modules/Spells/Empowerments/LunarUnemp';
-// import LunarOvercap from './Modules/Spells/Empowerments/LunarOvercap';
-// import SolarOvercap from './Modules/Spells/Empowerments/SolarOvercap';
+import LEmpowerment from './Modules/Features/LunarEmpowerment';
+import SEmpowerment from './Modules/Features/SolarEmpowerment';
 import AstralPower from './Modules/Features/AstralPower';
 import UnempoweredLs from './Modules/Spells/UnempoweredLs';
 
@@ -27,7 +27,7 @@ class CombatLogParser extends MainCombatLogParser {
   static specModules = {
     haste: Haste,
       // Features
-    damageDone: DamageDone,
+    damageDone: [DamageDone, { showStatistic: true }],
     castEfficiency: CastEfficiency,
     alwaysBeCasting: AlwaysBeCasting,
       // Modules made but not loaded in the first PR
@@ -38,8 +38,8 @@ class CombatLogParser extends MainCombatLogParser {
     fullmoon: FullMoon,
       // solarunemp: SolarUnemp,
       // lunarumep: LunarUnemp,
-      // lunarovercap: LunarOvercap,
-      // solarovercap: SolarOvercap,
+    lsempowerment: LEmpowerment,
+    swempowerment: SEmpowerment,
     astralpower: AstralPower,
     unempoweredLS: UnempoweredLs,
   };

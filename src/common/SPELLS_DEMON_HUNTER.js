@@ -5,17 +5,29 @@
  */
 
 export default {
-  // Vengeance Demon Hunter:
+  // Vengeance Demon Hunter
 
   // Tier 20 Bonus:
-  VENG_DH_T20_2SET_BONUS_BUFF: {
+  VENG_DH_T20_2P_BONUS: {
     id: 242228,
-    name: 'T20 2 set bonus',
+    name: 'Vengeance Demon Hunter T20 2P bonus',
     icon: 'ability_demonhunter_spectank',
   },
-  VENG_DH_T20_4SET_BONUS_BUFF: {
+  VENG_DH_T20_4P_BONUS: {
+    id: 242229,
+    name: 'Vengeance Demon Hunter T20 4P bonus',
+    icon: 'spell_warlock_soulburn',
+  },
+
+  // Tier 20 Bonus Buffs:
+  VENG_DH_T20_2P_BONUS_BUFF: {
+    id: 246115,
+    name: 'Tormented',
+    icon: 'ability_demonhunter_vengefulretreat2',
+  },
+  VENG_DH_T20_4P_BONUS_BUFF: {
     id: 242230,
-    name: 'T20 4 set bonus',
+    name: 'Sigil of Versatility',
     icon: 'spell_warlock_soulburn',
   },
 
