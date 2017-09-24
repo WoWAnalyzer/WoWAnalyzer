@@ -13,17 +13,20 @@ class CastEfficiency extends CoreCastEfficiency {
     
     //Rotation
     {
-      //TODO: support serenity
+      //TODO: support serenity casts?
+  
       spell: SPELLS.RISING_SUN_KICK,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => 5,
+      isActive: combatant => combatant.hasBuff(SPELLS.MONK_T19_WINDWALKER_2P_BONUS),
+      getCooldown: haste => 4 / (1 + haste),
     },
     {
       spell: SPELLS.RISING_SUN_KICK,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       isActive: combatant => !combatant.hasBuff(SPELLS.MONK_T19_WINDWALKER_2P_BONUS),
-      getCooldown: haste => 10,
+      getCooldown: haste => 7 / (1 + haste),
     },
+    //TODO: Reduced CD from t20 set (7.3 so ?)
     {
       spell: SPELLS.FISTS_OF_FURY,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
@@ -46,7 +49,7 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWN,
       getCooldown: haste => 90,
       isActive: combatant => !combatant.hasTalent(SPELLS.SERENITY_TALENT),
-
+      noSuggestion: true,
     }  
   ];
 }
