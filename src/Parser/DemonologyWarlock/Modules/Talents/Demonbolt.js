@@ -29,9 +29,8 @@ class Demonbolt extends Module {
     if (event.ability.guid !== SPELLS.DEMONBOLT.id) {
       return;
     }
-    // formula borrowed from Destro/Talents/RoaringBlaze, principle is most likely the same (presumably multiplicative bonus per pet, didn't test)
-    // TODO: test?
-    const bonusMultiplier = (1 + DEMONBOLT_DAMAGE_BONUS_PER_PET ** this.demoPets.getPets(event.timestamp)) - 1;
+    // Demonbolt has additive bonus for each pet
+    const bonusMultiplier = DEMONBOLT_DAMAGE_BONUS_PER_PET * this.demoPets.getPets(event.timestamp);
     this.bonusDmg += getDamageBonus(event, bonusMultiplier);
   }
   statistic() {
