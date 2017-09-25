@@ -45,8 +45,8 @@ class InfusionOfLight extends Module {
           </SpellLink>
         </div>
         <div className="flex-sub text-right">
-        Healing: {formatPercentage(this.owner.getPercentageOfTotalHealingDone(healing))} % <br />
-        Damage: {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % 
+        {formatPercentage(this.owner.getPercentageOfTotalHealingDone(healing))} % healing<br />
+        {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % damage
         </div>
       </div>
     );

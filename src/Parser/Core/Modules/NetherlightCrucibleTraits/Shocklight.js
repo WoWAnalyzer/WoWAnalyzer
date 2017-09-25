@@ -31,7 +31,7 @@ class Shocklight extends Module {
           </SpellLink>
         </div>
         <div className="flex-sub text-right">
-          Uptime: {formatPercentage(murderousIntentUptime)} %
+          {formatPercentage(murderousIntentUptime)} % uptime
         </div>
       </div>
     );

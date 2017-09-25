@@ -4,7 +4,6 @@ import StatisticsListBox, { STATISTIC_ORDER } from 'Main/StatisticsListBox';
 
 import Module from 'Parser/Core/Module';
 
-// import CoalescingMists from './CoalescingMists';
 import MurderousIntent from './MurderousIntent';
 import RefractiveShell from './RefractiveShell';
 import Shocklight from './Shocklight';
@@ -18,7 +17,6 @@ import DarkSorrows from './DarkSorrows';
 
 class RelicTraits extends Module {
   static dependencies = {
-    // coalescingMists: CoalescingMists,
     murderousIntent: MurderousIntent,
     refractiveShell: RefractiveShell,
     shocklight: Shocklight,
@@ -36,7 +34,6 @@ class RelicTraits extends Module {
       <StatisticsListBox
         title="Netherlight Crucible"
         tooltip="This provides an overview of the increased provide by the Netherlight Crucible traits."
-        style={{ minHeight: 186 }}
       >
         {this.murderousIntent.active && this.murderousIntent.subStatistic()}
         {this.shocklight.active && this.shocklight.subStatistic()}
