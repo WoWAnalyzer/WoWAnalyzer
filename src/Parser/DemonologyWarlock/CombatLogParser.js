@@ -32,6 +32,7 @@ import SoulHarvestTalent from './Modules/Talents/SoulHarvestTalent';
 import GrimoireOfService from './Modules/Talents/GrimoireOfService';
 import GrimoireOfSynergy from './Modules/Talents/GrimoireOfSynergy';
 import SummonDarkglare from './Modules/Talents/SummonDarkglare';
+import Demonbolt from './Modules/Talents/Demonbolt';
 
 import TheMasterHarvester from './Modules/Items/Legendaries/TheMasterHarvester';
 import SoulOfTheNetherlord from './Modules/Items/Legendaries/SoulOfTheNetherlord';
@@ -68,7 +69,8 @@ class CombatLogParser extends CoreCombatLogParser {
     grimoireOfService: GrimoireOfService,
     grimoireOfSynergy: GrimoireOfSynergy,
     summonDarkglare: SummonDarkglare,
-
+    demonbolt: Demonbolt,
+    
     // Legendaries
     masterHarvester: TheMasterHarvester,
     soulOfTheNetherlord: SoulOfTheNetherlord,
