@@ -7,14 +7,17 @@ import SPELLS from 'common/SPELLS';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 
-// TODO: account properly for refreshes of the buff (now it can go to negative numbers, see nhCBDdvp6bFVZf7T, DI M, Priscilla
+const DOOM_CAST_THRESHOLD = 50;
+
 class HandOfDoom extends Module {
   static dependencies = {
     combatants: Combatants,
   };
 
-  _doomsApplied = 0;
-  _doomsCast = 0;
+  hogAppliedDooms = 0;
+
+  _lastDoomTimestamp = null;
+  _alreadyPaired = true;
 
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.HAND_OF_DOOM_TALENT.id);
@@ -24,24 +27,42 @@ class HandOfDoom extends Module {
     if (event.ability.guid !== SPELLS.DOOM.id) {
       return;
     }
-    this._doomsApplied += 1;
+    if ((event.timestamp <= this._lastDoomTimestamp + DOOM_CAST_THRESHOLD) && !this._alreadyPaired) {
+      // probably a manual cast, flag it so another ones don't get counted more than once
+      this._alreadyPaired = true;
+    }
+    else {
+      this.hogAppliedDooms += 1;
+    }
+  }
+
+  on_byPlayer_refreshdebuff(event) {
+    if (event.ability.guid !== SPELLS.DOOM.id) {
+      return;
+    }
+    if ((event.timestamp <= this._lastDoomTimestamp + DOOM_CAST_THRESHOLD) && !this._alreadyPaired) {
+      this._alreadyPaired = true;
+    }
+    else {
+      this.hogAppliedDooms += 1;
+    }
   }
 
   on_byPlayer_cast(event) {
     if (event.ability.guid !== SPELLS.DOOM.id) {
       return;
     }
-    this._doomsCast += 1;
+    this._lastDoomTimestamp = event.timestamp;
+    this._alreadyPaired = false;
   }
 
   statistic() {
-    const hogAppliedDooms = this._doomsApplied - this._doomsCast;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.HAND_OF_DOOM_TALENT.id} />}
-        value={hogAppliedDooms}
+        value={this.hogAppliedDooms}
         label="Saved GCDs"
-        tooltip={`Your Hand of Gul'dan has applied ${hogAppliedDooms} Dooms to the targets, saving you the global cooldowns to use on different things.`}
+        tooltip={`Your Hand of Gul'dan has applied or refreshed ${this.hogAppliedDooms} Dooms to the targets, saving you the global cooldowns to use on different things.`}
       />
     );
   }
