@@ -484,4 +484,87 @@ export default {
     name: 'Blackout Combo',
     icon: 'ability_monk_blackoutkick',
   },
+
+  // Windwalk Spells
+  COMBO_STRIKES: {
+    id: 115636,
+    name: 'Master: Combo Strikes',
+    icon: 'trade_alchemy_potionb3',
+  },
+  STORM_EARTH_AND_FIRE: {
+    id: 231627,
+    name: '231627',
+    icon: 'spell_nature_giftofthewild',
+  },
+  STORM_EARTH_AND_FIRE_CAST: {
+    id: 137639,
+    name: 'Storm, Earth, and Fire',
+    icon: 'spell_nature_giftofthewild',
+  },
+  FLYING_SERPENT_KICK: {
+    id: 101545,
+    name: 'Flying Serpent Kick',
+    icon: 'ability_monk_flyingdragonkick',
+  },
+  COMBO_BREAKER: {
+    id: 137384,
+    name: 'Combo Breaker',
+    icon: 'pandarenracial_bouncy',
+  },
+  TOUCH_OF_DEATH: {
+    id: 115080,
+    name: 'Touch of Death',
+    icon: 'ability_monk_touchofdeath',
+  },
+  CYCLONE_STRIKES: {
+    id: 220357,
+    name: 'Cyclone Strikes',
+    icon: 'ability_monk_cranekick_new',
+  },
+  FISTS_OF_FURY_CAST: {
+    id: 113656,
+    name: 'Fists of Fury',
+    icon: 'monk_ability_fistoffury',
+  },
+  FISTS_OF_FURY_DAMAGE: {
+    id: 117418,
+    name: 'Fists of Fury',
+    icon: 'monk_ability_fistoffury',
+  },
+  CROSSWINDS: {
+    id: 196061,
+    name: 'Crosswinds',
+    icon: 'inv_pandarenserpentgodmount_black',
+  },
+  TOUCH_OF_KARMA_CAST: {
+    id: 122470,
+    name: 'Touch of Karma',
+    icon: 'ability_monk_touchofkarma',
+  },
+  TOUCH_OF_KARMA_DAMAGE: {
+    id: 124280,
+    name: 'Touch of Karma',
+    icon: 'ability_monk_touchofkarma',
+  },
+  FLYING_SERPENT_KICK_DAMAGE: {
+    id: 123586,
+    name: 'Flying Serpent Kick',
+    icon: 'priest_icon_chakra_green',
+  },
+  RISING_SUN_KICK_SECOND: {
+  id: 185099,
+  name: 'Rising Sun Kick',
+  icon: 'ability_monk_risingsunkick',
+  },
+  HIT_COMBO_BUFF: {
+    id: 196741,
+    name: 'Hit Combo',
+    icon: 'ability_monk_palmstrike',
+  },
+  // Windwalker Artifact
+  STRIKE_OF_THE_WINDLORD: {
+    id: 205320,
+    name: 'Strike of the Windlord',
+    icon: 'inv_hand_1h_artifactskywall_d_01',
+  },
 };
