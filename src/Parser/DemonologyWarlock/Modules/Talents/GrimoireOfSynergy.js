@@ -15,7 +15,7 @@ import getDamageBonus from '../WarlockCore/getDamageBonus';
 
 const GRIMOIRE_OF_SYNERGY_DAMAGE_BONUS = 0.25;
 
-class SoulHarvestTalent extends Module {
+class GrimoireOfSynergy extends Module {
   static dependencies = {
     combatants: Combatants,
     pets: CorePets,
@@ -49,16 +49,14 @@ class SoulHarvestTalent extends Module {
   }
 
   statistic() {
-    // TODO: Works correctly, but perhaps showing the DPS as a statistic might be better? Seeing 45% uptime sounds like it's bad, but 160k DPS increase at the same time sounds better
-    // plus GoSyn is random proc, so we can't affect the uptime by any means anyway
-    const uptime = this.combatants.selected.getBuffUptime(SPELLS.GRIMOIRE_OF_SYNERGY_BUFF.id) / this.owner.fightDuration;
+    // could show uptime as well but it's out of our control so I thought showing the damage instead would be more beneficial.
     const totalBonusDamage = this._bonusPetDamage + this._bonusPlayerDamage;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.GRIMOIRE_OF_SYNERGY_TALENT.id} />}
-        value={`${formatPercentage(uptime)} %`}
-        label="GoSyn uptime"
-        tooltip={`Your Grimoire of Synergy contributed ${formatNumber(totalBonusDamage)} total damage (${this.owner.formatItemDamageDone(totalBonusDamage)}) - ${formatNumber(this._bonusPlayerDamage)} damage for you, ${formatNumber(this._bonusPetDamage)} damage for your pet.`}
+        value={`${formatNumber(totalBonusDamage / this.owner.fightDuration * 1000)} DPS`}
+        label="GoSyn damage"
+        tooltip={`Your Grimoire of Synergy contributed ${formatNumber(totalBonusDamage)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(totalBonusDamage))} %) - ${formatNumber(this._bonusPlayerDamage)} damage for you, ${formatNumber(this._bonusPetDamage)} damage for your pet.`}
       />
     );
   }
@@ -66,4 +64,4 @@ class SoulHarvestTalent extends Module {
   statisticOrder = STATISTIC_ORDER.OPTIONAL(4);
 }
 
-export default SoulHarvestTalent;
+export default GrimoireOfSynergy;
