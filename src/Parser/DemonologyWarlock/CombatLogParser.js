@@ -26,6 +26,7 @@ import DemonicCalling from './Modules/Talents/DemonicCalling';
 import ImpendingDoom from './Modules/Talents/ImpendingDoom';
 import ImprovedDreadstalkers from './Modules/Talents/ImprovedDreadstalkers';
 import Implosion from './Modules/Talents/Implosion';
+import HandOfDoom from './Modules/Talents/HandOfDoom';
 import SoulHarvest from './Modules/Talents/SoulHarvest';
 import SoulHarvestTalent from './Modules/Talents/SoulHarvestTalent';
 
@@ -58,6 +59,7 @@ class CombatLogParser extends CoreCombatLogParser {
     impendingDoom: ImpendingDoom,
     improvedDreadstalkers: ImprovedDreadstalkers,
     implosion: Implosion,
+    handOfDoom: HandOfDoom,
     soulHarvest: SoulHarvest,
     soulHarvestTalent: SoulHarvestTalent,
 
