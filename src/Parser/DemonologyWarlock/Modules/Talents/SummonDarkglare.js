@@ -22,7 +22,7 @@ class SummonDarkglare extends Module {
   }
 
   statistic() {
-    const darkglareDamage = this.demoPets.getTotalPetDamage(PETS.SUMMON_DARKGLARE.id);
+    const darkglareDamage = this.demoPets.getTotalPetDamage(PETS.DARKGLARE.id);
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.SUMMON_DARKGLARE_TALENT.id} />}

@@ -7,6 +7,7 @@ import SPELLS from 'common/SPELLS';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 
+// TODO: account properly for refreshes of the buff (now it can go to negative numbers, see nhCBDdvp6bFVZf7T, DI M, Priscilla
 class HandOfDoom extends Module {
   static dependencies = {
     combatants: Combatants,

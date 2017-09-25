@@ -49,6 +49,8 @@ class SoulHarvestTalent extends Module {
   }
 
   statistic() {
+    // TODO: Works correctly, but perhaps showing the DPS as a statistic might be better? Seeing 45% uptime sounds like it's bad, but 160k DPS increase at the same time sounds better
+    // plus GoSyn is random proc, so we can't affect the uptime by any means anyway
     const uptime = this.combatants.selected.getBuffUptime(SPELLS.GRIMOIRE_OF_SYNERGY_BUFF.id) / this.owner.fightDuration;
     const totalBonusDamage = this._bonusPetDamage + this._bonusPlayerDamage;
     return (
