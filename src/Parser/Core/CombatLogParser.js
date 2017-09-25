@@ -41,6 +41,8 @@ import TarnishedSentinelMedallion from './Modules/Items/TarnishedSentinelMedalli
 import SpectralThurible from './Modules/Items/SpectralThurible';
 import TerrorFromBelow from './Modules/Items/TerrorFromBelow';
 import TomeOfUnravelingSanity from './Modules/Items/TomeOfUnravelingSanity';
+import InfernalCinders from './Modules/Items/InfernalCinders';
+import UmbralMoonglaives from './Modules/Items/UmbralMoonglaives';
 
 // Shared Buffs
 import VantusRune from './Modules/VantusRune';
@@ -112,6 +114,7 @@ class CombatLogParser {
     spectralThurible: SpectralThurible,
     terrorFromBelow: TerrorFromBelow,
     tomeOfUnravelingSanity: TomeOfUnravelingSanity,
+
     // Netherlight Crucible Traits
     darkSorrows: DarkSorrows,
     tormentTheWeak: TormentTheWeak,
@@ -124,6 +127,9 @@ class CombatLogParser {
     refractiveShell: RefractiveShell,
     murderousIntent: MurderousIntent,
     nlcTraits: NLCTraits,
+
+    infernalCinders: InfernalCinders,
+    umbralMoonglaives: UmbralMoonglaives,
   };
   // Override this with spec specific modules
   static specModules = {};

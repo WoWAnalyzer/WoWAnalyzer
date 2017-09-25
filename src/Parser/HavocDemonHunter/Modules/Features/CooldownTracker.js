@@ -8,13 +8,13 @@ class CooldownTracker extends CoreCooldownTracker {
   static cooldownSpells = [
     ...CooldownTracker.cooldownSpells,
     {
-      spell: SPELLS.AVENGING_WRATH,
+      spell: SPELLS.METAMORPHOSIS_HAVOC_BUFF,
       summary: [
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],
     },
     {
-      spell: SPELLS.CRUSADE_TALENT,
+      spell: SPELLS.CHAOS_BLADES_TALENT,
       summary: [
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],
@@ -22,7 +22,8 @@ class CooldownTracker extends CoreCooldownTracker {
   ];
 
   castEventSpells = [
-    SPELLS.DIVINE_HAMMER_HIT.id,
+    SPELLS.CHAOS_BLADES_DAMAGE_MH.id,
+    SPELLS.CHAOS_BLADES_DAMAGE_OH.id,
   ];
 
   on_byPlayer_cast(event) {

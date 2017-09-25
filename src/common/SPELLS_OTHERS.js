@@ -175,6 +175,26 @@ export default {
     name: 'Dread Torrent',
     icon: 'spell_warlock_soulburn',
   },
+  INFERNAL_CINDERS: {
+    id: 242218,
+    name: 'Infernal Cinders',
+    icon: 'inv_weapon_shortblade_54',
+  },
+  UMBRAL_GLAIVE_STORM: {
+    id: 242556,
+    name: 'Umbral Glaive Storm',
+    icon: 'ability_upgrademoonglaive',
+  },
+  SHATTERING_UMBRAL_GLAIVES: {
+    id: 242557,
+    name: 'Shattering Umbral Glaives',
+    icon: 'ability_upgrademoonglaive',
+  },
+  STRENGTH_OF_WILL: {
+    id: 242642,
+    name: 'Strength of Will',
+    icon: 'inv_wand_36',
+  },
   // Item Abilities
   SPECTRAL_OWL: {
     id: 242570,

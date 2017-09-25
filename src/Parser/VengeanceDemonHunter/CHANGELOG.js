@@ -1,4 +1,5 @@
 export default `
+23-09-2017 - Tier 20 - 2 and 4 piece bonus is now being tracked. (by Mamtooth)
 16-09-2017 - Created a Soul Fragments tracker (with total generated/spent/wasted/unused) and improvement suggestion for wasted Soul Fragments. (by Mamtooth)
 16-09-2017 - Spirit Bomb is now on statistics boxes too. (by Mamtooth)
 09-09-2017 - Some nearly unused abilities and/or no CD abilities now doesn't show 'can be improved' in Cast Efficiency tab. (by Mamtooth)

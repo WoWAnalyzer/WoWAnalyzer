@@ -5,17 +5,29 @@
  */
 
 export default {
-  // Vengeance Demon Hunter:
+  // Vengeance Demon Hunter
 
   // Tier 20 Bonus:
-  VENG_DH_T20_2SET_BONUS_BUFF: {
+  VENG_DH_T20_2P_BONUS: {
     id: 242228,
-    name: 'T20 2 set bonus',
+    name: 'Vengeance Demon Hunter T20 2P bonus',
     icon: 'ability_demonhunter_spectank',
   },
-  VENG_DH_T20_4SET_BONUS_BUFF: {
+  VENG_DH_T20_4P_BONUS: {
+    id: 242229,
+    name: 'Vengeance Demon Hunter T20 4P bonus',
+    icon: 'spell_warlock_soulburn',
+  },
+
+  // Tier 20 Bonus Buffs:
+  VENG_DH_T20_2P_BONUS_BUFF: {
+    id: 246115,
+    name: 'Tormented',
+    icon: 'ability_demonhunter_vengefulretreat2',
+  },
+  VENG_DH_T20_4P_BONUS_BUFF: {
     id: 242230,
-    name: 'T20 4 set bonus',
+    name: 'Sigil of Versatility',
     icon: 'spell_warlock_soulburn',
   },
 
@@ -146,6 +158,11 @@ export default {
   },
 
   // Havoc
+  DEMONS_BITE: {
+    id: 162243,
+    name: 'Demon\'s Bite',
+    icon: 'inv_weapon_glave_01',
+  },
   CHAOS_STRIKE: {
     id: 162794,
     name: 'Chaos Strike',
@@ -196,12 +213,42 @@ export default {
     name: 'Vengeful Retreat',
     icon: 'ability_demonhunter_vengefulretreat2',
   },
+  METAMORPHOSIS_HAVOC_BUFF: {
+    id: 162264,
+    name: 'Metamorphosis',
+    icon: 'ability_demonhunter_metamorphasisdps',
+  },
   METAMORPHOSIS_HAVOC: {
     id: 200166,
     name: 'Metamorphosis',
     icon: 'ability_demonhunter_metamorphasisdps',
   },
-
+  BLUR: {
+    id: 198589,
+    name: 'Blur',
+    icon: 'ability_demonhunter_blur',
+  },
+  DARKNESS: {
+    id: 196718,
+    name: 'Darkness',
+    icon: 'ability_demonhunter_darkness',
+  },
+  CHAOS_NOVA: {
+    id: 179057,
+    name: 'Chaos Nova',
+    icon: 'spell_fire_felfirenova',
+  },
+  //Havoc Talents
+  CHAOS_BLADES_DAMAGE_MH: {
+    id: 211796,
+    name: 'Chaos Blades',
+    icon: 'inv_glaive_1h_artifactaldrochi_d_03dual',
+  },
+  CHAOS_BLADES_DAMAGE_OH: {
+    id: 211797,
+    name: 'Chaos Blades',
+    icon: 'inv_glaive_1h_artifactaldrochi_d_03dual',
+  },
   // Talents
   FRAILTY_SPIRIT_BOMB_DEBUFF: {
     id: 247456,
@@ -219,7 +266,7 @@ export default {
     icon: 'ability_demonhunter_felblade',
   },
 
-  // Artifact Traits:
+  // Artifact Traits Vengence:
   SOUL_CARVER: {
     id: 207407,
     name: 'Soul Carver',
@@ -334,5 +381,11 @@ export default {
     id: 212819,
     name: 'Will of the Illidari',
     icon: 'ability_demonhunter_spectank',
+  },
+  //Artifact Traits Havoc
+  UNLEASHED_DEMONS: {
+    id: 201460,
+    name: 'Unleashed Demons',
+    icon: 'ability_demonhunter_metamorphasisdps',
   },
 };

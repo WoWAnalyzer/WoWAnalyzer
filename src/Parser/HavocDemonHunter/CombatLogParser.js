@@ -9,6 +9,7 @@ import Talents from 'Main/Talents';
 
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CastEfficiency from './Modules/Features/CastEfficiency';
+import CooldownTracker from './Modules/Features/CooldownTracker';
 
 import Momentum from './Modules/Statistics/Spells/Momentum';
 import Nemesis from './Modules/Statistics/Spells/Nemesis';
@@ -21,6 +22,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     castEfficiency: CastEfficiency,
+    cooldownTracker: CooldownTracker,
 
     // Spells
     momentum: Momentum,
