@@ -1,4 +1,4 @@
-# WoW Analyzer [![Build Status](https://travis-ci.org/MartijnHols/WoWAnalyzer.svg?branch=master)](https://travis-ci.org/MartijnHols/WoWAnalyzer)
+# WoW Analyzer [![Build Status](https://travis-ci.org/WoWAnalyzer/WoWAnalyzer.svg?branch=master)](https://travis-ci.org/WoWAnalyzer/WoWAnalyzer)
 
 Use this tool to analyze your performance based on important metrics for your spec using a Warcraft Logs report.
 
@@ -6,7 +6,7 @@ You will need a Warcraft Logs report with advanced combat logging enabled to sta
 
 Run it: [https://wowanalyzer.com](https://wowanalyzer.com)
 
-Feature requests (and bug reports provided that you're not using one of Microsoft's browsers) are welcome! On our Discord: https://discord.gg/AxphPxU or create an issue [here](https://github.com/MartijnHols/WoWAnalyzer/issues).
+Feature requests (and bug reports provided that you're not using one of Microsoft's browsers) are welcome! On our Discord: https://discord.gg/AxphPxU or create an issue [here](https://github.com/WoWAnalyzer/WoWAnalyzer/issues).
 
 ## Contributing
 
