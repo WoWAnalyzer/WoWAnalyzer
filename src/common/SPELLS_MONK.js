@@ -496,6 +496,11 @@ export default {
     name: '231627',
     icon: 'spell_nature_giftofthewild',
   },
+  STORM_EARTH_AND_FIRE_CAST: {
+    id: 137639,
+    name: 'Storm, Earth, and Fire',
+    icon: 'spell_nature_giftofthewild',
+  },
   FLYING_SERPENT_KICK: {
     id: 101545,
     name: 'Flying Serpent Kick',
@@ -550,6 +555,11 @@ export default {
   id: 185099,
   name: 'Rising Sun Kick',
   icon: 'ability_monk_risingsunkick',
+  },
+  HIT_COMBO_BUFF: {
+    id: 196741,
+    name: 'Hit Combo',
+    icon: 'ability_monk_palmstrike',
   },
   // Windwalker Artifact
   STRIKE_OF_THE_WINDLORD: {

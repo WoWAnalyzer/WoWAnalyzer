@@ -6,11 +6,14 @@ import Talents from 'Main/Talents';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 
+// Features
 import DamageDone from 'Parser/Core/Modules/DamageDone';
-
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CastEfficiency from './Modules/Features/CastEfficiency';
+import CooldownTracker from './Modules/Features/CooldownTracker';
 
+// Talents
+import HitCombo from './Modules/Talents/HitCombo';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -18,6 +21,11 @@ class CombatLogParser extends CoreCombatLogParser {
     damageDone: [DamageDone, { showStatistic: true }],
     alwaysBeCasting: AlwaysBeCasting,
     castEfficiency: CastEfficiency,
+    cooldownTracker: CooldownTracker,
+
+    // Talents:
+    hitCombo: HitCombo,
+
     // Legendaries:
   };
 

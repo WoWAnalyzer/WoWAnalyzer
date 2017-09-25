@@ -21,17 +21,17 @@ class CastEfficiency extends CoreCastEfficiency {
     },
     {
       spell: SPELLS.BLACKOUT_KICK,
-      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      category: CastEfficiency.SPELL_CATEGORIES.OTHERS,
       getCooldown: haste => null,
     },
     {
       spell: SPELLS.TIGER_PALM,
-      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      category: CastEfficiency.SPELL_CATEGORIES.OTHERS,
       getCooldown: haste => null,
     },
     {
       spell: SPELLS.CHI_WAVE_TALENT,
-      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      category: CastEfficiency.SPELL_CATEGORIES.OTHERS,
       getCooldown: haste => 15,
       isActive: combatant => combatant.hasTalent(SPELLS.CHI_WAVE_TALENT.id),
     },
