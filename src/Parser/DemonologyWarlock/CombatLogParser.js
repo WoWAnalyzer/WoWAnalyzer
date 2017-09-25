@@ -27,10 +27,11 @@ import ImpendingDoom from './Modules/Talents/ImpendingDoom';
 import ImprovedDreadstalkers from './Modules/Talents/ImprovedDreadstalkers';
 import Implosion from './Modules/Talents/Implosion';
 import HandOfDoom from './Modules/Talents/HandOfDoom';
-import GrimoireOfService from './Modules/Talents/GrimoireOfService';
-import GrimoireOfSynergy from './Modules/Talents/GrimoireOfSynergy';
 import SoulHarvest from './Modules/Talents/SoulHarvest';
 import SoulHarvestTalent from './Modules/Talents/SoulHarvestTalent';
+import GrimoireOfService from './Modules/Talents/GrimoireOfService';
+import GrimoireOfSynergy from './Modules/Talents/GrimoireOfSynergy';
+import SummonDarkglare from './Modules/Talents/SummonDarkglare';
 
 import TheMasterHarvester from './Modules/Items/Legendaries/TheMasterHarvester';
 import SoulOfTheNetherlord from './Modules/Items/Legendaries/SoulOfTheNetherlord';
@@ -62,10 +63,11 @@ class CombatLogParser extends CoreCombatLogParser {
     improvedDreadstalkers: ImprovedDreadstalkers,
     implosion: Implosion,
     handOfDoom: HandOfDoom,
-    grimoireOfService: GrimoireOfService,
-    grimoireOfSynergy: GrimoireOfSynergy,
     soulHarvest: SoulHarvest,
     soulHarvestTalent: SoulHarvestTalent,
+    grimoireOfService: GrimoireOfService,
+    grimoireOfSynergy: GrimoireOfSynergy,
+    summonDarkglare: SummonDarkglare,
 
     // Legendaries
     masterHarvester: TheMasterHarvester,
