@@ -622,6 +622,11 @@ export default {
     name: 'Implosion',
     icon: 'spell_shadow_shadowandflame',
   },
+  GRIMOIRE_OF_SYNERGY_BUFF: {
+    id: 171982,
+    name: 'Grimoire of Synergy',
+    icon: 'warlock_grimoireofsacrifice',
+  },
   SUMMON_DARKGLARE: {
     id: 205180,
     name: 'Summon Darkglare',
