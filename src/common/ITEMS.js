@@ -115,6 +115,13 @@ const ITEMS = {
     icon: 'inv_jewelry_ring_61',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+  
+XUENS_HELM: {
+  id: 147154,
+  name: 'Xuen\'s Helm',
+  icon: 'inv_leather_raidmonk_r_01_helm',
+  quality: ITEM_QUALITIES.EPIC,
+},
   // Resto Shammy
   ROOTS_OF_SHALADRASSIL: {
     id: 132466,
@@ -520,6 +527,12 @@ const ITEMS = {
     icon: 'inv_bracer_31b',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+  CHAIN_OF_THE_UNDERKING: {
+    id: 134495,
+    name: 'Chain of the Underking',
+    icon: 'inv_7_0raid_necklace_11d',
+    quality: ITEM_QUALITIES.EPIC,
+  },
   // T20 Trinkets
   ARCHIVE_OF_FAITH: {
     id: 147006,
@@ -690,6 +703,37 @@ const ITEMS = {
     quality: ITEM_QUALITIES.LEGENDARY,
   },
 
+  //Windwalker Monk Legendaries
+  CENEDRIL_REFLECTOR_OF_HATRED: {
+    id: 137019,
+    name: 'Cenedril, Reflector of Hatred',
+    icon: 'inv_cape_pandaria_b_02',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  DRINKING_HORN_COVER: {
+    id: 137097,
+    name: 'Drinking Horn Cover',
+    icon: 'inv_bracer_26',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  THE_EMPERORS_CAPACITOR: {
+    id: 144239,
+    name: 'The Emperors Capacitor',
+    icon: 'inv_chest_leather_raidrogue_l_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  KATSUOS_ECLIPSE: {
+    id: 137029,
+    name: 'Katsuo\'s Eclipse',
+    icon: 'inv_boots_cloth_33v4',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  THE_WIND_BLOWS: {
+    id: 151811,
+    name: 'The Wind Blows',
+    icon: 'inv_helmet_leather_raidmonk_l_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
 };
 
 export default indexById(ITEMS);

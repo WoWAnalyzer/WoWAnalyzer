@@ -567,4 +567,51 @@ export default {
     name: 'Strike of the Windlord',
     icon: 'inv_hand_1h_artifactskywall_d_01',
   },
+  //Items and shiz
+
+  CENEDRIL_REFLECTOR_OF_HATRED: {
+    id: 208842,
+    name: 'Cenedril, Reflector of Hatred',
+    icon: 'inv_cape_pandaria_b_02',
+  },
+  DRINKING_HORN_COVER: {
+    id: 209256,
+    name: 'Drinking Horn Cover',
+    icon: 'inv_bracer_26',
+  },
+  THE_EMPERORS_CAPACITOR: {
+    id: 235053,
+    name: 'The Emperor\'s capacitor',
+    icon: 'inv_chest_leather_raidrogue_l_01',
+  },
+  KATSUOS_ECLIPSE: {
+    id: 208045,
+    name: 'Katsuo\'s Eclipse',
+    icon: 'inv_boots_cloth_33v4',
+  },
+  THE_WIND_BLOWS: {
+    id: 248101,
+    name: 'The Wind Blows',
+    icon: 'inv_helmet_leather_raidmonk_l_01',
+  },
+  MONK_T19_WINDWALKER_2P_BONUS: {
+    id: 211427,
+    name: 'Tier 19 Windwalker 2 Piece Bonus',
+    icon: 'monk_stance_whitetiger',
+  },
+  MONK_T20_WINDWALKER_4P_BONUS: {
+    id: 211430,
+    name: 'Windwalker Tier 19 4 Piece Bonus',
+    icon: 'monk_stance_whitetiger',
+  },
+  MONK_T20_WINDWALKER_2P_BONUS: {
+    id: 242259,
+    name: 'Windwalker Tier 19 2 Piece',
+    icon: 'monk_stance_whitetiger',
+  },
+  MONK_T20_WINDWALKER_4P_BONUS: {
+    id: 242259,
+    name: 'Windwalker Tier 19 4 Piece',
+    icon: 'monk_stance_whitetiger',
+  },
 };
