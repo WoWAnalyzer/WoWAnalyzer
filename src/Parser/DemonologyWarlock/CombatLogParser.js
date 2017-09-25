@@ -11,7 +11,7 @@ import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownTracker from './Modules/Features/CooldownTracker';
 import DoomguardInfernal from './Modules/Features/DoomguardInfernal';
-import GrimoireOfService from './Modules/Features/GrimoireOfService';
+import UnusedGrimoireOfService from './Modules/Features/UnusedGrimoireOfService';
 import Felstorm from './Modules/Features/Felstorm';
 
 import Doom from './Modules/Features/DoomUptime';
@@ -27,6 +27,7 @@ import ImpendingDoom from './Modules/Talents/ImpendingDoom';
 import ImprovedDreadstalkers from './Modules/Talents/ImprovedDreadstalkers';
 import Implosion from './Modules/Talents/Implosion';
 import HandOfDoom from './Modules/Talents/HandOfDoom';
+import GrimoireOfService from './Modules/Talents/GrimoireOfService';
 import GrimoireOfSynergy from './Modules/Talents/GrimoireOfSynergy';
 import SoulHarvest from './Modules/Talents/SoulHarvest';
 import SoulHarvestTalent from './Modules/Talents/SoulHarvestTalent';
@@ -42,7 +43,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownTracker: CooldownTracker,
     damageDone: [DamageDone, { showStatistic: true }],
     doomguardInfernal: DoomguardInfernal,
-    grimoireOfService: GrimoireOfService,
+    unusedGrimoireOfService: UnusedGrimoireOfService,
     felstorm: Felstorm,
 
     // DoTs
@@ -61,6 +62,7 @@ class CombatLogParser extends CoreCombatLogParser {
     improvedDreadstalkers: ImprovedDreadstalkers,
     implosion: Implosion,
     handOfDoom: HandOfDoom,
+    grimoireOfService: GrimoireOfService,
     grimoireOfSynergy: GrimoireOfSynergy,
     soulHarvest: SoulHarvest,
     soulHarvestTalent: SoulHarvestTalent,

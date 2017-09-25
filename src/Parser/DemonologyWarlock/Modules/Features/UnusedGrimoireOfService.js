@@ -20,7 +20,7 @@ const GRIMOIRE_IDS = [
   SPELLS.GRIMOIRE_SUCCUBUS.id,
 ];
 
-class GrimoireOfService extends Module {
+class UnusedGrimoireOfService extends Module {
   static dependencies = {
     abilityTracker: AbilityTracker,
     combatants: Combatants,
@@ -44,4 +44,4 @@ class GrimoireOfService extends Module {
       });
   }
 }
-export default GrimoireOfService;
+export default UnusedGrimoireOfService;
