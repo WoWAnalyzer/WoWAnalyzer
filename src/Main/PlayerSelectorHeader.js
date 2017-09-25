@@ -30,7 +30,7 @@ class PlayerSelectorHeader extends SelectorBase {
     return (
       <span ref={this.setRef}>
         <Link onClick={this.handleClick}>{selectedPlayerName}</Link>
-        {show &&
+        {show && (
           <span className="selectorHeader">
             <div className="panel">
               <div className="panel-heading">
@@ -40,7 +40,8 @@ class PlayerSelectorHeader extends SelectorBase {
                 <PlayerSelectionList report={report} fightId={fightId} combatants={combatants} />
               </div>
             </div>
-          </span>}
+          </span>
+        )}
       </span>
     );
   }

@@ -42,6 +42,7 @@
     "react-dev-utils": "^3.1.1",
     "react-dom": "^15.6.1",
     "react-error-overlay": "^1.0.10",
+    "react-masonry-component": "^5.0.7",
     "react-router": "^3.0.2",
     "react-toggle": "^4.0.1",
     "react-tooltip": "^3.2.9",

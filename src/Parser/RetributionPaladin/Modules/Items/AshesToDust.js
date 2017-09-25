@@ -8,6 +8,8 @@ import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
+import GetDamageBonus from '../PaladinCore/GetDamageBonus';
+
 const ASHES_TO_DUST_MODIFIER = 0.15;
 
 class AshesToDust extends Module {
@@ -28,7 +30,7 @@ class AshesToDust extends Module {
     		return;
 		}
 		else if(enemy.hasBuff(SPELLS.WAKE_OF_ASHES.id)) {
-			this.damageDone += ((event.amount || 0) + (event.absorbed || 0)) * ASHES_TO_DUST_MODIFIER / (1 + ASHES_TO_DUST_MODIFIER);
+			this.damageDone += GetDamageBonus(event, ASHES_TO_DUST_MODIFIER);
 		}
 	}
 
@@ -36,7 +38,7 @@ class AshesToDust extends Module {
 		return {
 			item: ITEMS.ASHES_TO_DUST,
 		    result: (<dfn data-tip={`
-				The effective damage contributed by Whisper of the Nathrezim.<br/>
+				The effective damage contributed by Ashes to Dust.<br/>
 				Damage: ${this.owner.formatItemDamageDone(this.damageDone)}<br/>
 				Total Damage: ${formatNumber(this.damageDone)}`}>
         		{this.owner.formatItemDamageDone(this.damageDone)}

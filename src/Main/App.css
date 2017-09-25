@@ -150,6 +150,13 @@ hr {
   box-shadow: 0 1px 0 0 rgba(255, 255, 255, .1);
   padding: 16px 22px 14px;
 }
+.panel-footer {
+  border-top: 1px solid rgba(0, 0, 0, .4);
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  box-shadow: 0 -1px 0 0 rgba(255, 255, 255, .1);
+  background: transparent;
+}
 .panel-heading h2 {
   font-weight: 400;
   opacity: .9;
@@ -496,15 +503,17 @@ table.data-table img {
 }
 table.data-table .performance-bar {
   opacity: .9;
-  height: 1.2em;
+  height: 1.4em;
   min-width: 1px;
   background-color: #ffffff;
-  margin-top: .1em;
 }
 
-.__react_component_tooltip {
+.__react_component_tooltip.show {
+  opacity: 1;
   text-align: left;
   max-width: 600px;
+  padding: 8px 15px;
+  border-radius: 4px;
 }
 .__react_component_tooltip.type-dark {
   background: rgba(10, 10, 10, 0.9) !important;
@@ -585,6 +594,33 @@ table.data-table .performance-bar {
 .stat-mastery-bg{background-color:#9256ff !important}
 .stat-versatility-bg{background-color:#bfbfbf !important}
 
+/*https://wow.gamepedia.com/COMBAT_LOG_EVENT*/
+/* Physical */
+.spell-school-1-bg { background-color: #ccb278 !important; }
+/* Holy */
+.spell-school-2-bg { background-color: #ffe680 !important; }
+/* Fire */
+.spell-school-4-bg { background-color: #d84141 !important; }
+/* Nature */
+.spell-school-8-bg { background-color: #4dff4d !important; }
+/* Frost */
+.spell-school-16-bg { background-color: #80ffff !important; }
+/* Shadow */
+.spell-school-32-bg { background-color: #8080ff !important; }
+/* Arcane */
+.spell-school-64-bg { background-color: #ff80ff !important; }
+/* Double schools */
+/* Spellshadow: Arcane + Shadow */
+.spell-school-96-bg { background-image: linear-gradient(to bottom, #ff80ff 0%, #8080ff 100%) !important; }
+/* Triple and multi schools */
+/* Elemental: Frost + Nature + Fire */
+.spell-school-28-bg { background-color: #8cc084 !important; }
+/* Chronomatic: Arcane + Shadow + Frost + Nature + Fire */
+.spell-school-124-bg { background-color: #a1a6b5 !important; }
+/* Magic: Arcane + Shadow + Frost + Nature + Fire + Holy */
+.spell-school-126-bg { background-color: #b1b1ac !important; }
+/* Chaos: Arcane + Shadow + Frost + Nature + Fire + Holy + Physical */
+.spell-school-127-bg { background-color: #b4b1a5 !important; }
 
 .toggle-control {
   margin: -2px 0;
@@ -701,10 +737,16 @@ code.inactive {
   line-height: 1em;
   left: 15px;
   top: 66px;
-  width: 600px;
+  width: 700px;
+  z-index: 10;
   max-width: calc(100vw - 45px);
 }
-
 .selectorHeader .panel {
-  background: rgba(0,0,0,0.75);
+  background: rgba(0,0,0,0.9);
+}
+.fight-boss-name {
+  min-width: 30%;
+}
+.selectorHeader .fight-boss-name {
+  min-width: 50%;
 }

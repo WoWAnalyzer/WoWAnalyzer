@@ -41,6 +41,8 @@ import TarnishedSentinelMedallion from './Modules/Items/TarnishedSentinelMedalli
 import SpectralThurible from './Modules/Items/SpectralThurible';
 import TerrorFromBelow from './Modules/Items/TerrorFromBelow';
 import TomeOfUnravelingSanity from './Modules/Items/TomeOfUnravelingSanity';
+import InfernalCinders from './Modules/Items/InfernalCinders';
+import UmbralMoonglaives from './Modules/Items/UmbralMoonglaives';
 
 // Shared Buffs
 import VantusRune from './Modules/VantusRune';
@@ -99,6 +101,8 @@ class CombatLogParser {
     spectralThurible: SpectralThurible,
     terrorFromBelow: TerrorFromBelow,
     tomeOfUnravelingSanity: TomeOfUnravelingSanity,
+    infernalCinders: InfernalCinders,
+    umbralMoonglaives: UmbralMoonglaives,
   };
   // Override this with spec specific modules
   static specModules = {};
@@ -159,9 +163,18 @@ class CombatLogParser {
   initializeModules(modules) {
     const failedModules = [];
     Object.keys(modules).forEach((desiredModuleName) => {
-      const moduleClass = modules[desiredModuleName];
-      if (!moduleClass) {
+      const moduleConfig = modules[desiredModuleName];
+      if (!moduleConfig) {
         return;
+      }
+      let moduleClass;
+      let options;
+      if (moduleConfig instanceof Array) {
+        moduleClass = moduleConfig[0];
+        options = moduleConfig[1];
+      } else {
+        moduleClass = moduleConfig;
+        options = null;
       }
 
       const availableDependencies = {};
@@ -188,7 +201,13 @@ class CombatLogParser {
           }
         }
         // eslint-disable-next-line new-cap
-        this._modules[desiredModuleName] = new moduleClass(this, availableDependencies, Object.keys(this._modules).length);
+        const module = new moduleClass(this, availableDependencies, Object.keys(this._modules).length);
+        // We can't set the options via the constructor since a parent constructor can't override the values of a child's class properties.
+        // See https://github.com/Microsoft/TypeScript/issues/6110 for more info
+        if (options) {
+          Object.keys(options).forEach(key => module[key] = options[key]);
+        }
+        this._modules[desiredModuleName] = module;
       } else {
         debug && console.warn(moduleClass.name, 'could not be loaded, missing dependencies:', missingDependencies.map(d => d.name));
         failedModules.push(desiredModuleName);

@@ -10,7 +10,7 @@ import HolyPowerTracker from './HolyPowerTracker';
 
 import WastedHPIcon from '../../images/paladin_hp.jpg';
 
-const holyPowerIcon = 'paladin_hp';
+const holyPowerIcon = 'inv_helmet_96';
 
 class HolyPowerDetails extends Module {
 	static dependencies = {
@@ -20,9 +20,9 @@ class HolyPowerDetails extends Module {
 	suggestions(when) {
 		const hpWasted = this.holyPowerTracker.holyPowerWasted;
 		const hpWastedPercent = hpWasted / this.holyPowerTracker.totalHolyPowerGained;
-		const MINOR = 0.05;
-		const AVG = 0.1;
-		const MAJOR = 0.15;
+		const MINOR = 0.04;
+		const AVG = 0.08;
+		const MAJOR = 0.12;
 		when(hpWastedPercent).isGreaterThan(MINOR)
 			.addSuggestion((suggest, actual, recommended) => {
 				return suggest(`You wasted ${formatPercentage(hpWastedPercent)}% of your Holy Power.`)

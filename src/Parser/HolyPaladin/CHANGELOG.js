@@ -1,4 +1,5 @@
 export default `
+23-09-2017 - Show cast behavior as doughnut charts to create more visual variety. (by Zerotorescue)
 07-09-2017 - Fix the cooldown of Light of Dawn in cast efficiency to take the tier 20 2 set into account. (by Zerotorescue)
 31-08-2017 - When going (near) OOM during a fight and the <i>IoL FoL to HL cast ratio</i> is low, emphasize that FoL is the more mana efficient spell during IoL. (by Zerotorescue)
 31-08-2017 - Added Justice through Sacrifice trait healing contribution display. (by Zerotorescue)

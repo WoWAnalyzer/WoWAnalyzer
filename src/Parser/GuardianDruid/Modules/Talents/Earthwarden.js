@@ -5,13 +5,13 @@ import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
+import DamageTaken from 'Parser/Core/Modules/DamageTaken';
 
 import StatisticBox from 'Main/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
 import { formatNumber, formatPercentage } from 'common/format';
-import DamageTaken from '../Core/DamageTaken';
 
 const EARTHWARDEN_REDUCTION_MODIFIER = 0.3;
 

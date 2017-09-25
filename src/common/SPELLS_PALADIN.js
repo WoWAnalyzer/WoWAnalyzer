@@ -212,6 +212,11 @@ export default {
     icon: 'spell_holy_divinepurpose',
   },
   // Retribution Paladin:
+  JUDGMENT_DEBUFF: {
+    id: 197277,
+    name: 'Judgment',
+    icon: 'spell_holy_righteousfury',
+  },
   TEMPLARS_VERDICT_DAMAGE: {
     id: 224266,
     name: 'Templar\'s Verdict',
@@ -261,6 +266,11 @@ export default {
     id: 223819,
     name: 'Divine Purpose',
     icon: 'spell_holy_mindvision',
+  },
+  AVENGING_WRATH_RET: {
+    id: 31884,
+    name: 'Avenging Wrath',
+    icon: 'spell_holy_avenginewrath',
   },
 
   // Ret Item Effects

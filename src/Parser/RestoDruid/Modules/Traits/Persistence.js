@@ -26,16 +26,41 @@ import Rejuvenation from '../Features/Rejuvenation';
 class Persistence extends Module {
   static dependencies = {
     combatants: Combatants,
-    healingDone: HealingDone,
     rejuvenation: Rejuvenation,
+    healingDone: HealingDone,
   };
 
   rank = 0;
   totalPersistanceValue = 0;
 
+  // Tracks if the last tick of rejuv/germ on each player was overhealing.
+  // Used to determine if a player still needed to be healed when rejuv fell.
+  lastTickTracker = { [SPELLS.REJUVENATION.id]: {}, [SPELLS.REJUVENATION_GERMINATION.id]: {} };
+  lastTickCount = 0;
+  lastTickOverhealCount = 0;
+
   on_initialized() {
     this.rank = this.combatants.selected.traitsBySpellId[SPELLS.PERSISTENCE_TRAIT.id];
     this.active = this.rank > 0;
+  }
+
+  on_byPlayer_heal(event) {
+    const spellId = event.ability.guid;
+    const targetId = event.targetID;
+    if(this.lastTickTracker[spellId]) {
+      this.lastTickTracker[spellId][targetId] = (event.overheal > 0);
+    }
+  }
+
+  on_byPlayer_removebuff(event) {
+    const spellId = event.ability.guid;
+    const targetId = event.targetID;
+    if(this.lastTickTracker[spellId]) {
+      this.lastTickCount += 1;
+      if(this.lastTickTracker[spellId][targetId]) {
+        this.lastTickOverhealCount += 1;
+      }
+    }
   }
 
   on_byPlayer_applybuff(event) {
@@ -61,9 +86,17 @@ class Persistence extends Module {
   }
 
   subStatistic() {
-    const uptimeRejuvenation = Math.floor((this.getSpellUptime(SPELLS.REJUVENATION.id) + this.getSpellUptime(SPELLS.REJUVENATION_GERMINATION.id)) / 1000);
+    const rejuvUptimeInSeconds = (this.getSpellUptime(SPELLS.REJUVENATION.id) + this.getSpellUptime(SPELLS.REJUVENATION_GERMINATION.id)) / 1000;
     const totalRejuvenationHealing = this.rejuvenation.totalRejuvHealing;
-    const oneSecondRejuvenationHealing = totalRejuvenationHealing/uptimeRejuvenation;
+
+    const rejuvHealingVal = this.healingDone.byAbility(SPELLS.REJUVENATION.id);
+    const germHealingVal = this.healingDone.byAbility(SPELLS.REJUVENATION_GERMINATION.id);
+    const rejuvGermHealingVal = rejuvHealingVal.add(germHealingVal.regular, germHealingVal.absorbed, germHealingVal.overheal);
+    const rejuvGermEffetivePercent = rejuvGermHealingVal.effective / rejuvGermHealingVal.raw;
+    const lastTickEffectivePercent = (this.lastTickCount - this.lastTickOverhealCount) / this.lastTickCount;
+    const totalRejuvHealingOverhealAdjusted = totalRejuvenationHealing / rejuvGermEffetivePercent * lastTickEffectivePercent;
+
+    const oneSecondRejuvenationHealing = totalRejuvHealingOverhealAdjusted / rejuvUptimeInSeconds;
 
     const persistenceThroughput = this.owner.getPercentageOfTotalHealingDone(this.totalPersistanceValue * oneSecondRejuvenationHealing);
 
@@ -76,15 +109,13 @@ class Persistence extends Module {
         </div>
         <div className="flex-sub text-right">
           <dfn data-tip={`
-            Disclaimer - as of right now this is an estimate at best. We take the average healing of one second of rejuvenation and multiply
-            that by amounts of seconds of rejuvenation one level of persistence would yield.</br></br>
+            Disclaimer - as of right now this is an estimate. We take the average healing of one second of rejuvenation and multiply
+            that by amounts of seconds of rejuvenation one level of persistence yields. Finally, we adjust this number based on the average overhealing at the end of a rejuvenation against the avg overhealing of rejuvenation as a whole.</br></br>
             These factors are not yet considered in the module and may decrease the overall accuracy of the results:
             <ul>
-              <li>+ Mastery healing</li>
               <li>+ Cultivation</li>
               <li>+ "Magic" rejuvenations such as deep rooted</li>
-              <li>- Subtractions for generally higher overheal on the last tick</li>
-              <li>- Subtractions from early refreshes of rejuvenation.</li>
+              <li>- Early refreshes of rejuvenation.</li>
             </ul>
             Estimated accuracy of the result is 80%
           `}>

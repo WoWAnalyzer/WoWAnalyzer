@@ -5,19 +5,18 @@ import Tab from 'Main/Tab';
 import Talents from 'Main/Talents';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
+import DamageDone from 'Parser/Core/Modules/DamageDone';
 
 import CastEfficiency from './Modules/Features/CastEfficiency';
 
-
 import CooldownTracker from './Modules/Features/CooldownTracker';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
-import DamageDone from './Modules/MMCore/DamageDone';
 import VulnerableUpTime from './Modules/Features/VulnerableUptime';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // MM Core
-    damageDone: DamageDone,
+    damageDone: [DamageDone, { showStatistic: true }],
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,

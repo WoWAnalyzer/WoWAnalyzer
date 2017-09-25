@@ -1,4 +1,5 @@
 import React from 'react';
+import { formatPercentage } from 'common/format';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
@@ -62,20 +63,15 @@ class T20_2Set extends Module {
     const freeSwiftmends = this.swiftmendReduced / this.swiftmendCooldown;
     const avgSwiftmendHealing = (this.swiftmendHealing / this.swiftmends) || 0;
     const throughput = avgSwiftmendHealing * freeSwiftmends;
-    // TODO make this account for how often you ACTUALLY use swiftmend, as the 'throughput' number is very idealized
+    const throughputPercent = this.owner.getPercentageOfTotalHealingDone(throughput);
 
     return {
       id: `spell-${SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id}`,
       icon: <SpellIcon id={SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id} />,
       title: <SpellLink id={SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id} />,
       result: (
-        <dfn data-tip={`This number assumes you used all the extra Swiftmend casts this bonus allowed you, and multiplies by your Swiftmend's average healing. If you weren't good about using Swiftmend on cooldown, the actual benefit to you will be lower than listed.<br>
-        <ul>
-          <li>Gained ${Math.floor(freeSwiftmends)} possible extra Swiftmend casts</li>
-          <li>Refunded an average of ${Math.round(avgCooldownReduction)}s cooldown per Swiftmend cast</li>
-        <ul>
-        `}>
-          {this.owner.formatItemHealingDone(throughput)}
+        <dfn data-tip={`This gained you <b>${Math.floor(freeSwiftmends)} to ${Math.ceil(freeSwiftmends)} extra Swiftmends</b> over the course of the fight.<br><br>If you kept Swiftmend on CD and used all the extra casts this bonus allowed you, we multiply by your average Swiftmend healing to get total throughput of <b>${formatPercentage(throughputPercent)}%</b>. This is an idealized number, your actual benefit was probably less.`}>
+          Reduced {avgCooldownReduction.toFixed(1)}s per cast / {this.swiftmendReduced.toFixed(1)}s total
         </dfn>
       ),
     };

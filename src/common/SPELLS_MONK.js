@@ -485,89 +485,88 @@ export default {
     icon: 'ability_monk_blackoutkick',
   },
 
-  //Windwalker
-
-  CHI_ORBIT: {
-    id: 196743,
-    name: 'Chi Orbit',
-    icon: 'ability_monk_forcesphere',
-  },
-  SERENITY: {
-    id: 152173,
-    name: 'Serenity',
-    icon: 'ability_monk_serenity',
-  },
-  WHIRLING_DRAGON_PUNCH: {
-    id: 152175,
-    name: 'Whirling Dragon Punch',
-    icon: 'ability_monk_hurricanestrike',
-  },
-  HIT_COMBO: {
-    id: 196740, 
-    name: 'Hit Combo',
-    icon: 'ability_monk_palmstrike',
-  },
+  // Windwalk Spells
   COMBO_STRIKES: {
     id: 115636,
-    name: 'Mastery: Combo Strikes',
+    name: 'Master: Combo Strikes',
     icon: 'trade_alchemy_potionb3',
   },
   STORM_EARTH_AND_FIRE: {
+    id: 231627,
+    name: '231627',
+    icon: 'spell_nature_giftofthewild',
+  },
+  STORM_EARTH_AND_FIRE_CAST: {
     id: 137639,
     name: 'Storm, Earth, and Fire',
     icon: 'spell_nature_giftofthewild',
-  },
-  TOUCH_OF_KARMA: {
-    id: 122470,
-    name: 'Touch of Karma',
-    icon: 'ability_monk_touchofkarma',
   },
   FLYING_SERPENT_KICK: {
     id: 101545,
     name: 'Flying Serpent Kick',
     icon: 'ability_monk_flyingdragonkick',
   },
+  COMBO_BREAKER: {
+    id: 137384,
+    name: 'Combo Breaker',
+    icon: 'pandarenracial_bouncy',
+  },
   TOUCH_OF_DEATH: {
     id: 115080,
     name: 'Touch of Death',
     icon: 'ability_monk_touchofdeath',
   },
-  FISTS_OF_FURY: {
+  CYCLONE_STRIKES: {
+    id: 220357,
+    name: 'Cyclone Strikes',
+    icon: 'ability_monk_cranekick_new',
+  },
+  FISTS_OF_FURY_CAST: {
     id: 113656,
     name: 'Fists of Fury',
     icon: 'monk_ability_fistoffury',
   },
-
-  //WW Artifact & Traits
-
+  FISTS_OF_FURY_DAMAGE: {
+    id: 117418,
+    name: 'Fists of Fury',
+    icon: 'monk_ability_fistoffury',
+  },
+  CROSSWINDS: {
+    id: 196061,
+    name: 'Crosswinds',
+    icon: 'inv_pandarenserpentgodmount_black',
+  },
+  TOUCH_OF_KARMA_CAST: {
+    id: 122470,
+    name: 'Touch of Karma',
+    icon: 'ability_monk_touchofkarma',
+  },
+  TOUCH_OF_KARMA_DAMAGE: {
+    id: 124280,
+    name: 'Touch of Karma',
+    icon: 'ability_monk_touchofkarma',
+  },
+  FLYING_SERPENT_KICK_DAMAGE: {
+    id: 123586,
+    name: 'Flying Serpent Kick',
+    icon: 'priest_icon_chakra_green',
+  },
+  RISING_SUN_KICK_SECOND: {
+  id: 185099,
+  name: 'Rising Sun Kick',
+  icon: 'ability_monk_risingsunkick',
+  },
+  HIT_COMBO_BUFF: {
+    id: 196741,
+    name: 'Hit Combo',
+    icon: 'ability_monk_palmstrike',
+  },
+  // Windwalker Artifact
   STRIKE_OF_THE_WINDLORD: {
     id: 205320,
     name: 'Strike of the Windlord',
     icon: 'inv_hand_1h_artifactskywall_d_01',
   },
-  GALE_BURST: {
-    id: 195399,
-    name: 'Gale Burst',
-    icon: 'ability_monk_palmstrike',
-  },
-  CROSSWINDS: {
-    id: 195650,
-    name: 'Crosswinds',
-    icon: 'ability_monk_cranekick',
-  },
-  THUNDERFIST: {
-    id: 238131,
-    name: 'Thunderfist',
-    icon: 'inv_hand_1h_artifactskywall_d_01',
-  },
-  CONCORDANCE_OF_THE_LEGIONFALL: {
-    id: 239042,
-    name: 'Concordance of the Legionfall',
-    icon: 'trade_archaeology_shark-jaws',
-  },
-
-  //TODO: Artifact Traits
-
   //Items and shiz
 
   CENEDRIL_REFLECTOR_OF_HATRED: {
