@@ -46,8 +46,9 @@ class CooldownTracker extends Module {
     },
   ];
 
-  ignoredSpells = [
-    // add spells that you don't want to see in the Cooldown description here (could be specific boss mechanics etc.)
+  static ignoredSpells = [
+    // general spells that you don't want to see in the Cooldown overview (could be boss mechanics etc.) should belong here
+    // if you want to add some spells specific to your spec, redefine this array in your spec CooldownTracker similarly to cooldownSpells (see Marksmanship Hunter for example)
     SPELLS.ASTRAL_VULNERABILITY.id,
   ];
 
@@ -96,7 +97,7 @@ class CooldownTracker extends Module {
 
   // region Event tracking
   trackEvent(event) {
-    if (this.ignoredSpells.includes(event.ability.guid)) {
+    if (this.constructor.ignoredSpells.includes(event.ability.guid)) {
       return;
     }
     this.activeCooldowns.forEach((cooldown) => {
