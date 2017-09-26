@@ -8,6 +8,7 @@ class ExpandableStatisticBox extends React.PureComponent {
     label: PropTypes.node.isRequired,
     expanded: PropTypes.bool,
     children: PropTypes.node,
+    tooltip: PropTypes.string,
   };
 
   constructor() {
@@ -25,6 +26,7 @@ class ExpandableStatisticBox extends React.PureComponent {
       value: this.props.value,
       label: this.props.label,
       expanded: this.props.expanded,
+      tooltip: this.props.tooltip,
     });
   }
 
@@ -34,6 +36,7 @@ class ExpandableStatisticBox extends React.PureComponent {
       value: newProps.value,
       label: newProps.label,
       expanded: newProps.expanded,
+      tooltip: newProps.tooltip,
     });
   }
 
@@ -57,7 +60,7 @@ class ExpandableStatisticBox extends React.PureComponent {
                   {this.state.value}
                 </div>
                 <div className="slabel">
-                  {this.state.label}
+                  {this.state.tooltip ? <dfn data-tip={this.state.tooltip}>{this.state.label}</dfn> : this.state.label}
                 </div>
               </div>
             </div>

@@ -17,12 +17,19 @@ You don't need to to do anything special to add a spec. The real issue preventin
 
 See the [contributing guidelines](CONTRIBUTING.md) if you want to give it a try.
 
-## Current specs:
+## Vision
 
-See the site for a list of current specs. The following specs bothered to make a custom readme:
- * [Resto Druid](src/Parser/RestoDruid/README.md) (maintained by @blazyb)
- * [Resto Shaman](src/Parser/RestorationShaman/README.md) (maintained by @versaya)
- * [Mistweaver Monk](src/Parser/MistweaverMonk/README.md) (maintained by @anom0ly)
+This project aims to give users tools to analyze their performance. The most important part of this is providing automated suggestions towards improving their performance based on recorded fights. This makes it so users can quickly, without any hassle and at any time consult this tool to find out points of improvement for their next pull.
+
+We focus on one player at a time. A major reason for this is that the Warcraft Logs API effectively only makes this available, but it also keeps things simpler. The priority is raids, other environments aren't really supported. While it would be nice to show things like who killed Explosive Orbs the most, we can't really with the API endpoints available to us.
+
+We also provide more advanced statistics such as item performance displays. These can be used to help pick what item to use or to see how effective certain abilities are that you can't find out elsewhere. These are secondary to suggestions.
+
+## Collaboration
+
+All contributions, big or small, are welcome. You are welcome to contribute to this project with whatever level of contribution you are comfortable with. We have no expectations for the amount or frequency of contributions from anyone.
+
+We want to share ownership and responsibility with the community where possible. To help with this we hand out *write access* when we deem pull requests consistently of sufficient quality.
 
 ## License
 
