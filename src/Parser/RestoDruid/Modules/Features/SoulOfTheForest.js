@@ -124,7 +124,8 @@ class SoulOfTheForest extends Module {
 
     when(wgUsage).isLessThan(SuggestionThresholds.SOTF_WG_USAGE.minor)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Try to use <SpellLink id={SPELLS.WILD_GROWTH.id} /> every time you get a <SpellLink id={SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id} /> buff.</span>)
+        return suggest(<span>You didn't consume all your <SpellLink id={SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id} /> buffs with <SpellLink id={SPELLS.WILD_GROWTH.id} />.
+          Try to use <SpellLink id={SPELLS.WILD_GROWTH.id} /> every time you get a <SpellLink id={SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id} /> buff.</span>)
           .icon(SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.icon)
           .actual(`Wild growth consumed ${formatPercentage(wgUsage)}% of all the buffs.`)
           .recommended(`${Math.round(formatPercentage(recommended))}% is recommended`)
