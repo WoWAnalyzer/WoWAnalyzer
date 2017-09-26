@@ -57,7 +57,7 @@ class GrimoireOfService extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.GRIMOIRE_OF_SERVICE_TALENT.id} />}
         value={`${formatNumber(grimoireFelguardDamage / this.owner.fightDuration * 1000)} DPS`}
-        label="GoServ damage"
+        label="Grimoire of Service damage"
         tooltip={`Your Grimoire of Service: Felguard did ${formatNumber(grimoireFelguardDamage)} damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(grimoireFelguardDamage))} %).`}
       />
     );

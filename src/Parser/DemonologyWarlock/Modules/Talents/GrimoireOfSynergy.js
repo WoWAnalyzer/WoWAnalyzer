@@ -55,7 +55,7 @@ class GrimoireOfSynergy extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.GRIMOIRE_OF_SYNERGY_TALENT.id} />}
         value={`${formatNumber(totalBonusDamage / this.owner.fightDuration * 1000)} DPS`}
-        label="GoSyn damage"
+        label="Grimoire of Synergy damage"
         tooltip={`Your Grimoire of Synergy contributed ${formatNumber(totalBonusDamage)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(totalBonusDamage))} %) - ${formatNumber(this._bonusPlayerDamage)} damage for you, ${formatNumber(this._bonusPetDamage)} damage for your pet.`}
       />
     );
