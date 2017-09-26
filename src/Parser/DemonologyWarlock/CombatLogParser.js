@@ -11,7 +11,6 @@ import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownTracker from './Modules/Features/CooldownTracker';
 import DoomguardInfernal from './Modules/Features/DoomguardInfernal';
-import UnusedGrimoireOfService from './Modules/Features/UnusedGrimoireOfService';
 import Felstorm from './Modules/Features/Felstorm';
 
 import Doom from './Modules/Features/DoomUptime';
@@ -45,7 +44,6 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownTracker: CooldownTracker,
     damageDone: [DamageDone, { showStatistic: true }],
     doomguardInfernal: DoomguardInfernal,
-    unusedGrimoireOfService: UnusedGrimoireOfService,
     felstorm: Felstorm,
 
     // DoTs
@@ -70,7 +68,7 @@ class CombatLogParser extends CoreCombatLogParser {
     grimoireOfSynergy: GrimoireOfSynergy,
     summonDarkglare: SummonDarkglare,
     demonbolt: Demonbolt,
-    
+
     // Legendaries
     masterHarvester: TheMasterHarvester,
     soulOfTheNetherlord: SoulOfTheNetherlord,
