@@ -7,9 +7,13 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import HealingValue from './HealingValue';
 
 class HealingDone extends Module {
-  _total = new HealingValue(); // consider this "protected", so don't change this from other modules. If you want special behavior you must add that code to an extended version of this module.
+  _total = new HealingValue();
   get total() {
     return this._total;
+  }
+  _healingByAbsorbs = new HealingValue();
+  get healingByAbsorbs() {
+    return this._healingByAbsorbs;
   }
 
   bySecond = {};
@@ -29,13 +33,13 @@ class HealingDone extends Module {
   }
   on_absorbed(event) {
     if (this.owner.byPlayer(event) || this.owner.byPlayerPet(event)) {
-      this._addHealing(event, 0, event.amount, 0);
+      this._addHealingByAbsorb(event, event.amount, 0, 0);
     }
   }
   on_removebuff(event) {
     if (this.owner.byPlayer(event) || this.owner.byPlayerPet(event)) {
       if (event.absorb) {
-        this._addHealing(event, 0, 0, event.absorb);
+        this._addHealingByAbsorb(event, 0, 0, event.absorb);
       }
     }
   }
@@ -53,13 +57,24 @@ class HealingDone extends Module {
     const secondsIntoFight = Math.floor((event.timestamp - this.owner.fight.start_time) / 1000);
     this.bySecond[secondsIntoFight] = (this.bySecond[secondsIntoFight] || new HealingValue()).add(amount, absorbed, overheal);
   }
+  _addHealingByAbsorb(event, amount = 0, absorbed = 0, overhealing = 0) {
+    this._addHealing(event, amount, absorbed, overhealing);
+    this._healingByAbsorbs = this._healingByAbsorbs.add(amount, absorbed, overhealing);
+  }
   _subtractHealing(event, amount = 0, absorbed = 0, overheal = 0) {
     return this._addHealing(event, -amount, -absorbed, -overheal);
+  }
+  _subtractHealingByAbsorb(event, amount = 0, absorbed = 0, overheal = 0) {
+    return this._addHealingByAbsorb(event, -amount, -absorbed, -overheal);
   }
 
   showStatistic = false;
   statistic() {
-    return this.showStatistic && (
+    if (!this.showStatistic) return null;
+
+    const healingWithoutAbsorbs = this.total.regular - this.healingByAbsorbs.regular;
+
+    return (
       <StatisticBox
         icon={(
           <img
@@ -74,22 +89,33 @@ class HealingDone extends Module {
         footer={(
           <div className="statistic-bar">
             <div
-              className="stat-health-bg"
-              style={{ width: `${this.total.regular / this.total.raw * 100}%` }}
-              data-tip={`Regular healing done, not including absorbs.`}
+              className="stat-healing-bg"
+              style={{ width: `${healingWithoutAbsorbs / this.total.raw * 100}%` }}
+              data-tip={`Regular healing done, not including absorbs. You did a total of ${formatNumber(healingWithoutAbsorbs)} regular healing (${formatPercentage(healingWithoutAbsorbs / this.total.raw)}% of raw healing).`}
             >
               <img src="/img/healing.png" alt="Healing" />
             </div>
+            {this.healingByAbsorbs.regular > 0 && (
+              <div
+                className="stat-healing-absorbs-bg"
+                style={{ width: `${this.healingByAbsorbs.regular / this.total.raw * 100}%` }}
+                data-tip={`Healing by absorbs. This only includes damage prevented by absorbs. You did a total of ${formatNumber(this.healingByAbsorbs.regular)} healing with absorbs (${formatPercentage(this.healingByAbsorbs.regular / this.total.raw)}% of raw healing).`}
+              >
+                <img src="/img/absorbed.png" alt="Absorb Healing" />
+              </div>
+            )}
+            {this.total.absorbed > 0 && (
+              <div
+                className="stat-negative-absorbs-bg"
+                style={{ width: `${this.total.absorbed / this.total.raw * 100}%` }}
+                data-tip={`Absorbed healing. This only includes healing that gets absorbed by debuffs. You had a total of ${formatNumber(this.total.absorbed)} healing absorbed (${formatPercentage(this.total.absorbed / this.total.raw)}% of raw healing).`}
+              >
+                <img src="/img/negative-absorbed.png" alt="Absorbed Healing" />
+              </div>
+            )}
             <div
-              className="Druid-bg"
-              style={{ width: `${this.total.absorbed / this.total.raw * 100}%` }}
-              data-tip="Absorbed healing. This currently includes both healing by absorbs as well as healing that gets absorbed by debuffs."
-            >
-              <img src="/img/absorbed.png" alt="Absorb Healing" />
-            </div>
-            <div
-              className="remainder DeathKnight-bg"
-              data-tip={`You did a total of ${formatPercentage(this.total.overheal / this.total.raw)} % overhealing (${formatThousands(this.total.overheal)}). Overhealing can be caused by playing poorly such as selecting the wrong targets or casting abilities at the wrong time, other healers sniping, and/or bringing too many healers.`}
+              className="remainder stat-overhealing-bg"
+              data-tip={`Overhealing. You did a total of ${formatNumber(this.total.overheal)} overhealing (${formatPercentage(this.total.overheal / this.total.raw)} % of raw healing). Overhealing can be caused by playing poorly such as selecting the wrong targets or casting abilities at the wrong time, other healers sniping, and/or bringing too many healers.`}
             >
               <img src="/img/overhealing.png" alt="Overhealing" />
             </div>

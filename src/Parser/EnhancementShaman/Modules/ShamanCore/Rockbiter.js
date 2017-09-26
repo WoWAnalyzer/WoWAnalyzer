@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { formatPercentage } from 'common/format';
 
 import Module from 'Parser/Core/Module';
 
@@ -6,15 +7,23 @@ const MAELSTROM_THRESHOLD = 95;//120 is threshold, but energize event values are
 const debug = false;
 
 class Rockbiter extends Module {
-  rockbiterOveruse = [];
+  rockbiterOveruse = 0;
+  rockbiterTotalCasts = 0;
   maelstromWasted = 0;
+  overusePercentage = 0;
 
   on_byPlayer_energize(event) {
     if (event.ability.guid === SPELLS.ROCKBITER.id) {
+      this.rockbiterTotalCasts += 1;
       if (event.classResources && event.classResources[0].amount >= MAELSTROM_THRESHOLD) {
-        this.rockbiterOveruse.push(event);
+        this.rockbiterOveruse += 1;
+      }
+
+      if(event.waste > 0) {
         this.maelstromWasted += event.waste;
       }
+
+      this.overusePercentage = this.rockbiterOveruse / this.rockbiterTotalCasts;
     }
   }
 
@@ -28,7 +37,7 @@ class Rockbiter extends Module {
       .addSuggestion((suggest, actual, recommended) => {
         return suggest('Try to minimize Maelstrom wastage as much as possible. Some of wasted MS is unavoidable due to maintaining Landslide buff ')
           .icon(SPELLS.ROCKBITER.icon)
-          .actual(`${actual} wasted Maelstrom in ${this.rockbiterOveruse.length} RB uses`)
+          .actual(`${actual} wasted Maelstrom in ${this.rockbiterOveruse} of ${this.rockbiterTotalCasts} (${formatPercentage(this.overusePercentage, 0)}%) casts`)
           .recommended(`No more than ${recommended} is recommended`)
           .regular(recommended + 50).major(recommended + 100);
       });
