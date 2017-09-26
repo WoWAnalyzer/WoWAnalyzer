@@ -22,7 +22,9 @@ class HalfMoon extends Module {
     let hmAvailableCasts = eachMoon + 1;
 
     const extraMoons = ((totalFromCD / 3) - eachMoon) * 3;
-    if (extraMoons > this.halfMoonOrder) { hmAvailableCasts += 1; }
+    if (extraMoons > this.halfMoonOrder) { 
+      hmAvailableCasts += 1; 
+    }
 
     return hmAvailableCasts;
   }

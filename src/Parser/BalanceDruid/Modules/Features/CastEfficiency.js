@@ -13,7 +13,7 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: (haste, combatant) => {
         const availableCasts = combatant.owner.modules.newmoon.nmAvailableCasts;
-        return ((combatant.owner.fightDuration / 1000) / availableCasts);
+        return (combatant.owner.fightDuration / 1000) / availableCasts;
       },
       noSuggestion: true,
     },

@@ -22,7 +22,9 @@ class NewMoon extends Module {
     let nmAvailableCasts = eachMoon + 1;
 
     const extraMoons = ((totalFromCD / 3) - eachMoon) * 3;
-    if (extraMoons > this.newMoonOrder) { nmAvailableCasts += 1; }
+    if (extraMoons > this.newMoonOrder) { 
+      nmAvailableCasts += 1; 
+    }
 
     return nmAvailableCasts;
   }

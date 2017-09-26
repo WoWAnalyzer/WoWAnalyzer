@@ -22,7 +22,9 @@ class FullMoon extends Module {
     let fmAvailableCasts = eachMoon + 1;
 
     const extraMoons = ((totalFromCD / 3) - eachMoon) * 3;
-    if (extraMoons > this.fullMoonOrder) { fmAvailableCasts += 1; }
+    if (extraMoons > this.fullMoonOrder) {
+       fmAvailableCasts += 1; 
+    }
 
     return fmAvailableCasts;
   }
