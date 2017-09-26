@@ -17,7 +17,7 @@ class NotImplementedYet extends Module {
             3. Have the time and motivation to actually do it<br /><br />
 
             If you want to give it a try you can find documentation here:{' '}
-            <a href="https://github.com/MartijnHols/WoWAnalyzer/blob/master/README.md">https://github.com/MartijnHols/WoWAnalyzer/blob/master/README.md</a>
+            <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/README.md">https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/README.md</a>
           </div>
         </div>
       </div>
