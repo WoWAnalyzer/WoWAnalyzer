@@ -9,7 +9,6 @@ import SPELLS from 'common/SPELLS';
 class Pets extends Module {
   static dependencies = {
     combatants: Combatants,
-    pets: CorePets,
   };
 
   // Keys are ids in PETS.js
