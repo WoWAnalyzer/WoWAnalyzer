@@ -45,7 +45,7 @@ class FullMoon extends Module {
     this.fmAvailableCasts = eachMoon + 1;
 
     const extraMoons = ((totalFromCD / 3) - eachMoon) * 3;
-    if (extraMoons > this.fullMoonOrder) this.fmAvailableCasts += 1;
+    if (extraMoons > this.fullMoonOrder) { this.fmAvailableCasts += 1; }
 
     const fmCasted = abilityTracker.getAbility(SPELLS.FULL_MOON.id).casts;
 
@@ -70,7 +70,7 @@ class FullMoon extends Module {
     this.fmAvailableCasts = eachMoon + 1;
 
     const extraMoons = ((totalFromCD / 3) - eachMoon) * 3;
-    if (extraMoons > this.fullMoonOrder) this.fmAvailableCasts += 1;
+    if (extraMoons > this.fullMoonOrder) { this.fmAvailableCasts += 1; }
 
     const fmCasted = abilityTracker.getAbility(SPELLS.FULL_MOON.id).casts;
 

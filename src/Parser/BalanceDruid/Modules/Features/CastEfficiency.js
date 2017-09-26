@@ -13,8 +13,7 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: (haste, combatant) => {
         const availableCasts = combatant.owner.modules.newmoon.nmAvailableCasts;
-        const cd = ((combatant.owner.fightDuration / 1000) / availableCasts);
-        return cd;
+        return ((combatant.owner.fightDuration / 1000) / availableCasts);
       },
       noSuggestion: true,
     },
@@ -23,8 +22,7 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: (haste, combatant) => {
         const availableCasts = combatant.owner.modules.halfmoon.hmAvailableCasts;
-        const cd = (combatant.owner.fightDuration / 1000) / availableCasts;
-        return cd;
+        return (combatant.owner.fightDuration / 1000) / availableCasts;
       },
       noSuggestion: true,
     },
@@ -33,8 +31,7 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: (haste, combatant) => {
         const availableCasts = combatant.owner.modules.fullmoon.fmAvailableCasts;
-        const cd = (combatant.owner.fightDuration / 1000) / availableCasts;
-        return cd;
+        return (combatant.owner.fightDuration / 1000) / availableCasts;
       },
       noSuggestion: true,
     },

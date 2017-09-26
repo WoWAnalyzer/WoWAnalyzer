@@ -45,7 +45,7 @@ class HalfMoon extends Module {
     this.hmAvailableCasts = eachMoon + 1;
 
     const extraMoons = ((totalFromCD / 3) - eachMoon) * 3;
-    if (extraMoons > this.halfMoonOrder) this.hmAvailableCasts += 1;
+    if (extraMoons > this.halfMoonOrder) { this.hmAvailableCasts += 1; }
 
     const hmCasted = abilityTracker.getAbility(SPELLS.HALF_MOON.id).casts;
 
@@ -70,7 +70,7 @@ class HalfMoon extends Module {
     this.hmAvailableCasts = eachMoon + 1;
 
     const extraMoons = ((totalFromCD / 3) - eachMoon) * 3;
-    if (extraMoons > this.halfMoonOrder) this.hmAvailableCasts += 1;
+    if (extraMoons > this.halfMoonOrder) { this.hmAvailableCasts += 1; }
 
     const hmCasted = abilityTracker.getAbility(SPELLS.HALF_MOON.id).casts;
 
