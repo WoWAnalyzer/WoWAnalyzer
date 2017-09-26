@@ -15,7 +15,17 @@ class FullMoon extends Module {
   firstMoonCast = false;
   orderFound = false;
 
-  fmAvailableCasts = 0;
+  getfmAvailableCasts() {
+    const offSet = this.firstMoonTime + 15;
+    const totalFromCD = ((this.owner.fightDuration / 1000) - offSet) / 15;
+    const eachMoon = Math.floor(totalFromCD / 3);
+    let fmAvailableCasts = eachMoon + 1;
+
+    const extraMoons = ((totalFromCD / 3) - eachMoon) * 3;
+    if (extraMoons > this.fullMoonOrder) { fmAvailableCasts += 1; }
+
+    return fmAvailableCasts;
+  }
 
   on_byPlayer_cast(event) {
     if (!this.firstCast) {
@@ -38,18 +48,11 @@ class FullMoon extends Module {
 
   suggestions(when) {
     const abilityTracker = this.owner.modules.abilityTracker;
-
-    const offSet = this.firstMoonTime + 15;
-    const totalFromCD = ((this.owner.fightDuration / 1000) - offSet) / 15;
-    const eachMoon = Math.floor(totalFromCD / 3);
-    this.fmAvailableCasts = eachMoon + 1;
-
-    const extraMoons = ((totalFromCD / 3) - eachMoon) * 3;
-    if (extraMoons > this.fullMoonOrder) { this.fmAvailableCasts += 1; }
-
+    
     const fmCasted = abilityTracker.getAbility(SPELLS.FULL_MOON.id).casts;
+    const fmAvailable = this.getfmAvailableCasts();
 
-    const percCasted = fmCasted / this.fmAvailableCasts;
+    const percCasted = fmCasted / fmAvailable;
 
     when(percCasted).isLessThan(1)
         .addSuggestion((suggest, actual, recommended) => {
@@ -64,20 +67,13 @@ class FullMoon extends Module {
   statistic() {
     const abilityTracker = this.owner.modules.abilityTracker;
 
-    const offSet = this.firstMoonTime + 15;
-    const totalFromCD = ((this.owner.fightDuration / 1000) - offSet) / 15;
-    const eachMoon = Math.floor(totalFromCD / 3);
-    this.fmAvailableCasts = eachMoon + 1;
-
-    const extraMoons = ((totalFromCD / 3) - eachMoon) * 3;
-    if (extraMoons > this.fullMoonOrder) { this.fmAvailableCasts += 1; }
-
     const fmCasted = abilityTracker.getAbility(SPELLS.FULL_MOON.id).casts;
+    const fmAvailable = this.getfmAvailableCasts();
 
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.FULL_MOON.id} />}
-        value={`${fmCasted}/${this.fmAvailableCasts}`}
+        value={`${fmCasted}/${fmAvailable}`}
         label="Full Moon casts"
       />
     );

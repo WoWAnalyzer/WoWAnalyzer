@@ -15,7 +15,17 @@ class NewMoon extends Module {
   firstMoonCast = false;
   orderFound = false;
 
-  nmAvailableCasts = 0;
+  getnmAvailableCasts() {
+    const offSet = this.firstMoonTime + 15;
+    const totalFromCD = ((this.owner.fightDuration / 1000) - offSet) / 15;
+    const eachMoon = Math.floor(totalFromCD / 3);
+    let nmAvailableCasts = eachMoon + 1;
+
+    const extraMoons = ((totalFromCD / 3) - eachMoon) * 3;
+    if (extraMoons > this.newMoonOrder) { nmAvailableCasts += 1; }
+
+    return nmAvailableCasts;
+  }
 
   getMoonAvailableCasts(){
     return this.nmAvailableCasts;
@@ -42,17 +52,11 @@ class NewMoon extends Module {
 
   suggestions(when) {
     const abilityTracker = this.owner.modules.abilityTracker;
-
-    const offSet = this.firstMoonTime + 15;
-    const totalFromCD = ((this.owner.fightDuration / 1000) - offSet) / 15;
-    const eachMoon = Math.floor(totalFromCD / 3);
-    this.nmAvailableCasts = eachMoon + 1;
-
-    const extraMoons = ((totalFromCD / 3) - eachMoon) * 3;
-    if (extraMoons > this.newMoonOrder) this.nmAvailableCasts += 1;
-
+    
     const nmCasted = abilityTracker.getAbility(SPELLS.NEW_MOON.id).casts;
-    const percCasted = nmCasted / this.nmAvailableCasts;
+    const nmAvailable = this.getnmAvailableCasts();
+
+    const percCasted = nmCasted / nmAvailable;
 
     when(percCasted).isLessThan(1)
         .addSuggestion((suggest, actual, recommended) => {
@@ -67,20 +71,13 @@ class NewMoon extends Module {
   statistic() {
     const abilityTracker = this.owner.modules.abilityTracker;
 
-    const offSet = this.firstMoonTime + 15;
-    const totalFromCD = ((this.owner.fightDuration / 1000) - offSet) / 15;
-    const eachMoon = Math.floor(totalFromCD / 3);
-    this.nmAvailableCasts = eachMoon + 1;
-
-    const extraMoons = ((totalFromCD / 3) - eachMoon) * 3;
-    if (extraMoons > this.newMoonOrder) this.nmAvailableCasts += 1;
-
     const nmCasted = abilityTracker.getAbility(SPELLS.NEW_MOON.id).casts;
+    const nmAvailable = this.getnmAvailableCasts();
 
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.NEW_MOON.id} />}
-        value={`${nmCasted}/${this.nmAvailableCasts}`}
+        value={`${nmCasted}/${nmAvailable}`}
         label="New Moon casts"
       />
     );
