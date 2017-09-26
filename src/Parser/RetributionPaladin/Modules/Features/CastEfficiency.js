@@ -56,7 +56,7 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.CRUSADER_STRIKE,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 4.5 / (1 + haste),
-      hideWithZeroCasts: true,
+      isActive: combatant => combatant.hasTalent(SPELLS.GREATER_JUDGMENT_TALENT.id),
     },
     {
       spell: SPELLS.ZEAL_TALENT,
@@ -111,7 +111,7 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.SHIELD_OF_VENGEANCE,
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
-      getCooldown: haste => 120, // TODO calculate cd reduction based on artifact
+      getCooldown: (haste, combatant) => 120 - (combatant.traitsBySpellId[SPELLS.DEFLECTION.id] || 0) * 10,
       noCanBeImproved: true,
       importance: ISSUE_IMPORTANCE.MINOR,
     },

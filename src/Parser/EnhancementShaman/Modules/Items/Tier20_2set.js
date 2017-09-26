@@ -27,13 +27,14 @@ class Tier20_2set extends Module {
 
   suggestions(when) {
     const T202setUptime = this.combatants.selected.getBuffUptime(SPELLS.ENHANCE_SHAMAN_T20_2SET_BONUS_BUFF.id) / this.owner.fightDuration;
-    when(T202setUptime).isLessThan(0.95)
+    when(T202setUptime).isLessThan(0.80)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(`Your Tier 20 2pc buff uptime of ${formatPercentage(actual)}% is below 95%, try to get as close to 100% as possible`)
+        return suggest(`Your Tier 20 2pc buff uptime of ${formatPercentage(actual)}% is below 80%, 80% or better is ideal`)
           .icon(SPELLS.ENHANCE_SHAMAN_T20_2SET_BONUS_BUFF.icon)
           .actual(`${formatPercentage(actual)}% uptime`)
-          .recommended(`${(formatPercentage(recommended))}% is recommended`)
-          .regular(recommended).major(recommended - 0.05);
+          .recommended(`${(formatPercentage(recommended, 0))}% is recommended`)
+          .regular(recommended-0.09) //71-79 % is not a big deal
+          .major(recommended - 0.1);
       });
   }
 }

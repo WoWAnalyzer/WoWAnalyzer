@@ -1,7 +1,6 @@
 import React from 'react';
 import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 
-import Icon from 'common/Icon';
 import SPELLS from 'common/SPELLS';
 import MAGIC_SCHOOLS from 'common/MAGIC_SCHOOLS';
 
@@ -67,21 +66,46 @@ class DamageTaken extends Module {
   }
 
   showStatistic = false;
-  statisticIcon = 'spell_holy_devotionaura';
   statistic() {
+    // TODO: Add a bar showing magic schools
     return this.showStatistic && (
       <StatisticBox
-        icon={<Icon icon={this.statisticIcon} alt="Damage taken" />}
+        icon={(
+          <img
+            src="/img/shield.png"
+            style={{ border: 0 }}
+            alt="Shield"
+          />
+        )}
         value={`${formatNumber(this.total.raw / this.owner.fightDuration * 1000)} DTPS`}
         label="Damage taken"
-        tooltip={`The total damage taken was ${formatThousands(this.total.effective)} (${formatThousands(this.total.overkill)} overkill).<br /><br />
-
-          Damage taken by magic school:
-          <ul>
-            ${Object.keys(this._byMagicSchool)
-            .map(type => `<li><i>${MAGIC_SCHOOLS.names[type] || 'Unknown'}</i> damage taken ${formatThousands(this._byMagicSchool[type].effective)} (${formatPercentage(this._byMagicSchool[type].effective / this.total.effective)}%)</li>`)
-            .join('')}
-          </ul>`}
+        tooltip={
+          `The total damage taken was ${formatThousands(this.total.effective)} (${formatThousands(this.total.overkill)} overkill).`
+        }
+        footer={(
+          <div className="statistic-bar">
+            {Object.keys(this._byMagicSchool)
+              .map(type => {
+                const effective = this._byMagicSchool[type].effective;
+                return (
+                  <div
+                    key={type}
+                    className={`spell-school-${type}-bg`}
+                    style={{ width: `${effective / this.total.effective * 100}%` }}
+                    data-tip={
+                      `Damage taken by magic school:
+                      <ul>
+                        ${Object.keys(this._byMagicSchool)
+                          .map(type => `<li><b>${MAGIC_SCHOOLS.names[type] || 'Unknown'}</b>: ${formatThousands(this._byMagicSchool[type].effective)} (${formatPercentage(this._byMagicSchool[type].effective / this.total.effective)}%)</li>`)
+                          .join('')}
+                      </ul>`
+                    }
+                  />
+                );
+              })}
+          </div>
+        )}
+        footerStyle={{ overflow: 'hidden' }}
       />
     );
   }

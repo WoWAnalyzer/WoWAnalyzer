@@ -7,7 +7,7 @@ const GithubButton = ({ text, ...others }) => (
   <a
     className="btn github"
     role="button"
-    href="https://github.com/MartijnHols/WoWAnalyzer"
+    href="https://github.com/WoWAnalyzer/WoWAnalyzer"
     {...others}
   >
     <img src={GithubLogo} alt="GitHub logo" style={{ height: '1.4em', marginTop: -2 }} /> {text}
