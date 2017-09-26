@@ -51,8 +51,8 @@ class DemonicCalling extends Module {
     const wastedPerMinute = this.wastedFreeCasts / this.owner.fightDuration * 1000 * 60;
     when(wastedPerMinute).isGreaterThan(1)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You should try to use your free <SpellLink id={SPELLS.CALL_DREADSTALKERS.id} /> as much as possible as Dreadstalkers make a great portion of your damage.</span>)
-          .icon(SPELLS.SHADOWY_INSPIRATION_TALENT.icon)
+        return suggest(<span>You should try to use your free <SpellLink id={SPELLS.CALL_DREADSTALKERS.id} /> as much as possible as Dreadstalkers make a great portion of your damage.<br/><br/><small>NOTE: Some wasted procs are probably unavoidable (e.g. Dreadstalkers on cooldown, proc waiting but gets overwritten by another)</small></span>)
+          .icon(SPELLS.DEMONIC_CALLING_TALENT.icon)
           .actual(`${actual.toFixed(2)} wasted procs per minute`)
           .recommended(`< ${recommended} is recommended`)
           .regular(recommended + 0.5).major(recommended + 1);
