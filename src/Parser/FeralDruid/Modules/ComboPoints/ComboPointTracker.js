@@ -12,12 +12,15 @@ class ComboPointTracker extends Module {
   pointsWasted = 0;
   pointsSpent = 0;
   currentPoints = 0;
+  maxCPCasts = 0;
+  totalCasts = 0;
   maxPoints = 5;
 
   // stores number of points gained/spent/wasted per ability ID
   gained = {};
   spent = {};
   wasted = {};
+  casts = {};
 
   static POINT_GENERATING_ABILITIES = [
     SPELLS.SHRED.id,
@@ -53,7 +56,10 @@ class ComboPointTracker extends Module {
       this.gained[x] = { points: 0 };
       this.wasted[x] = { points: 0 };
     });
-    this.constructor.POINT_SPENDING_ABILITIES.forEach(x => this.spent[x] = { points: 0 });
+    this.constructor.POINT_SPENDING_ABILITIES.forEach(x => {
+      this.spent[x] = { points: 0 };
+      this.casts[x] = { total: 0, maxCP: 0 };
+    });
   }
 
   on_toPlayer_energize(event) {
@@ -110,6 +116,12 @@ class ComboPointTracker extends Module {
 
     this.spent[spellId].points += pointsInCast;
     this.pointsSpent += pointsInCast;
+    if (pointsInCast === 5){
+      this.casts[spellId].maxCP += 1;
+      this.maxCPCasts += 1;
+    }
+    this.casts[spellId].total += 1;
+    this.totalCasts += 1;
     this.currentPoints = 0;
   }
 }

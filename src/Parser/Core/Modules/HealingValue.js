@@ -5,6 +5,7 @@ class HealingValue {
   _absorbed = 0;
   get absorbed() { return this._absorbed; }
   get effective() {
+    // `absorbed` is usually a negative debuff you need to remove as part of game mechanics. We should include this as to not punish for doing mechanics.
     return this.regular + this.absorbed;
   }
   _overheal = 0;

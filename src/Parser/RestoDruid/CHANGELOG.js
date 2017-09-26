@@ -1,4 +1,7 @@
 export default `
+26-09-2017 - Resto Druid: Updated display of flourish. (By blazyb)
+26-09-2017 - Resto Druid: Added suggestions on Soul of the forest/archdruid on WG usage. (Blazyb)
+23-09-2017 - Resto Druid: Updated Mastery calculations to be less friendly to overhealing. Expect lower results from Cultivation, Cenarion Ward, Spring Blossoms, and 2PT19. (By Sref)
 22-09-2017 - Resto Druid: Updated display of 2PT20 to show average refunded cooldown instead of throughput estimate. (By Sref)
 21-09-2017 - Resto Druid: Minor bug fix to clearcasting module. (By Blazyb)
 19-09-2017 - Resto Druid: Added Average HoTs statistic (By Sref)

@@ -25,8 +25,9 @@ class Frostbrand extends Module {
         return suggest('Try to make sure the Frostbrand is always up, when it drops you should refresh it as soon as possible')
           .icon(SPELLS.FROSTBRAND.icon)
           .actual(`${formatPercentage(actual)}% uptime`)
-          .recommended(`${(formatPercentage(recommended))}% is recommended`)
-          .regular(recommended).major(recommended - 0.05);
+          .recommended(`${(formatPercentage(recommended, 0))}% is recommended`)
+          .regular(recommended)
+          .major(recommended - 0.05);
       });
   }
 

@@ -131,7 +131,7 @@ class Results extends React.Component {
             <Masonry className="row statistics">
               {results.statistics
                 .filter(statistic => !!statistic) // filter optionals
-                .map(statistic => statistic.statistic ? statistic : { statistic, order: 0 }) // normalize
+                .map((statistic, index) => statistic.statistic ? statistic : { statistic, order: index }) // normalize
                 .sort((a, b) => a.order - b.order)
                 .map((statistic, i) => React.cloneElement(statistic.statistic, {
                   key: `${statistic.order}-${i}`,
