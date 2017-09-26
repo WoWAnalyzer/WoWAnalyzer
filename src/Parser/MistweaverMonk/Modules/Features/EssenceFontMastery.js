@@ -11,7 +11,7 @@ import HealingDone from 'Parser/Core/Modules/HealingDone';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-const debug = true;
+const debug = false;
 
 class EssenceFontMastery extends Module {
   static dependencies = {
