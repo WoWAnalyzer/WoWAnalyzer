@@ -15,13 +15,14 @@ class CooldownTracker extends CoreCooldownTracker {
     },
   ];
 
-  castEventSpells = [
+ // Define the spells to be ignored in the Cooldown window
+  ignoredSpells = [
     SPELLS.WINDBURST_MOVEMENT_SPEED.id,
   ];
-
+//Remove the defined spells from the Cooldown window
   on_byPlayer_cast(event) {
     const spellID = event.ability.guid;
-    if (this.castEventSpells.indexOf(spellID) !== -1)  {
+    if (this.ignoredSpells.includes(spellID))  {
       debug && console.log('Exiting');
       return;
     }
