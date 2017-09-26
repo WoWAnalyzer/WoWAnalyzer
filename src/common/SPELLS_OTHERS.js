@@ -300,6 +300,11 @@ export default {
     name: 'Melee',
     icon: 'inv_axe_02',
   },
+  ASTRAL_VULNERABILITY: {
+    id: 236330,
+    name: 'Astral Vulnerability',
+    icon: 'spell_frost_wisp',
+  },
 
   // Netherlight Cruicible Traits
   MURDEROUS_INTENT_TRAIT: {

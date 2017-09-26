@@ -46,6 +46,11 @@ class CooldownTracker extends Module {
     },
   ];
 
+  ignoredSpells = [
+    // add spells that you don't want to see in the Cooldown description here (could be specific boss mechanics etc.)
+    SPELLS.ASTRAL_VULNERABILITY.id,
+  ];
+
   pastCooldowns = [];
   activeCooldowns = [];
 
@@ -91,6 +96,9 @@ class CooldownTracker extends Module {
 
   // region Event tracking
   trackEvent(event) {
+    if (this.ignoredSpells.includes(event.ability.guid)) {
+      return;
+    }
     this.activeCooldowns.forEach((cooldown) => {
       cooldown.events.push(event);
     });
