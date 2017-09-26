@@ -15,7 +15,7 @@ class NewMoon extends Module {
   firstMoonCast = false;
   orderFound = false;
 
-  getnmAvailableCasts() {
+  get nmAvailableCasts() {
     const offSet = this.firstMoonTime + 15;
     const totalFromCD = ((this.owner.fightDuration / 1000) - offSet) / 15;
     const eachMoon = Math.floor(totalFromCD / 3);
@@ -25,10 +25,6 @@ class NewMoon extends Module {
     if (extraMoons > this.newMoonOrder) { nmAvailableCasts += 1; }
 
     return nmAvailableCasts;
-  }
-
-  getMoonAvailableCasts(){
-    return this.nmAvailableCasts;
   }
 
   on_byPlayer_cast(event) {
@@ -51,12 +47,10 @@ class NewMoon extends Module {
   }
 
   suggestions(when) {
-    const abilityTracker = this.owner.modules.abilityTracker;
-    
+    const abilityTracker = this.owner.modules.abilityTracker;    
     const nmCasted = abilityTracker.getAbility(SPELLS.NEW_MOON.id).casts;
-    const nmAvailable = this.getnmAvailableCasts();
 
-    const percCasted = nmCasted / nmAvailable;
+    const percCasted = nmCasted / this.nmAvailableCasts;
 
     when(percCasted).isLessThan(1)
         .addSuggestion((suggest, actual, recommended) => {
@@ -70,14 +64,12 @@ class NewMoon extends Module {
 
   statistic() {
     const abilityTracker = this.owner.modules.abilityTracker;
-
     const nmCasted = abilityTracker.getAbility(SPELLS.NEW_MOON.id).casts;
-    const nmAvailable = this.getnmAvailableCasts();
 
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.NEW_MOON.id} />}
-        value={`${nmCasted}/${nmAvailable}`}
+        value={`${nmCasted}/${this.nmAvailableCasts}`}
         label="New Moon casts"
       />
     );

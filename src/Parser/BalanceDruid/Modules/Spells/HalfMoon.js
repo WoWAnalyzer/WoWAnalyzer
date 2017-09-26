@@ -15,7 +15,7 @@ class HalfMoon extends Module {
   firstMoonCast = false;
   orderFound = false;
 
-  gethmAvailableCasts() {
+  get hmAvailableCasts() {
     const offSet = this.firstMoonTime + 15;
     const totalFromCD = ((this.owner.fightDuration / 1000) - offSet) / 15;
     const eachMoon = Math.floor(totalFromCD / 3);
@@ -48,11 +48,9 @@ class HalfMoon extends Module {
 
   suggestions(when) {
     const abilityTracker = this.owner.modules.abilityTracker;
-
     const hmCasted = abilityTracker.getAbility(SPELLS.HALF_MOON.id).casts;
-    const hmAvailable = this.gethmAvailableCasts();
 
-    const percCasted = hmCasted / hmAvailable;
+    const percCasted = hmCasted / this.hmAvailableCasts;
 
     when(percCasted).isLessThan(1)
         .addSuggestion((suggest, actual, recommended) => {
@@ -65,15 +63,13 @@ class HalfMoon extends Module {
   }
 
   statistic() {
-    const abilityTracker = this.owner.modules.abilityTracker;
-    
+    const abilityTracker = this.owner.modules.abilityTracker;    
     const hmCasted = abilityTracker.getAbility(SPELLS.HALF_MOON.id).casts;
-    const hmAvailable = this.gethmAvailableCasts();
 
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.HALF_MOON.id} />}
-        value={`${hmCasted}/${hmAvailable}`}
+        value={`${hmCasted}/${this.hmAvailableCasts}`}
         label="Half Moon casts"
       />
     );
