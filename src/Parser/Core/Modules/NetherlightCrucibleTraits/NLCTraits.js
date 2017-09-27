@@ -15,7 +15,7 @@ import ChaoticDarkness from './ChaoticDarkness';
 import TormentTheWeak from './TormentTheWeak';
 import DarkSorrows from './DarkSorrows';
 
-class RelicTraits extends Module {
+class NLCTraits extends Module {
   static dependencies = {
     murderousIntent: MurderousIntent,
     refractiveShell: RefractiveShell,
@@ -28,6 +28,18 @@ class RelicTraits extends Module {
     tormentTheWeak: TormentTheWeak,
     darkSorrows: DarkSorrows,
   };
+
+  activeTraits = false;
+
+  on_initialized() {
+    // Deactive this module if none of the underlying modules are active.
+    Object.keys(NLCTraits.dependencies).forEach((key) => {
+        if(!this.activeTraits) {
+          this.activeTraits = this[key].active;
+        }
+      });
+      this.active = this.activeTraits;
+  }
 
   statistic() {
     return (
@@ -51,4 +63,4 @@ class RelicTraits extends Module {
   statisticOrder = STATISTIC_ORDER.TRAITS(5);
 }
 
-export default RelicTraits;
+export default NLCTraits;
