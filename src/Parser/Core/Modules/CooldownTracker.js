@@ -97,14 +97,14 @@ class CooldownTracker extends Module {
 
   // region Event tracking
   trackEvent(event) {
-    if (this.constructor.ignoredSpells.includes(event.ability.guid)) {
-      return;
-    }
     this.activeCooldowns.forEach((cooldown) => {
       cooldown.events.push(event);
     });
   }
   on_byPlayer_cast(event) {
+    if (this.constructor.ignoredSpells.includes(event.ability.guid)) {
+      return;
+    }
     this.trackEvent(event);
   }
   on_byPlayer_heal(event) {
