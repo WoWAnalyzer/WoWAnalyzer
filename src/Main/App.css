@@ -753,3 +753,117 @@ code.inactive {
 .selectorHeader .fight-boss-name {
   min-width: 50%;
 }
+
+.blurred {
+  filter: blur(3px);
+  overflow: hidden;
+}
+#spec-description-overlay {
+  display: none;
+}
+#spec-description-overlay.open {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255, 76, 46, 0.8);
+  color: #000;
+  overflow: auto;
+  display: block;
+}
+#spec-description-overlay > main {
+  padding-top: 150px;
+}
+#spec-description-overlay .spec-name {
+  font-size: 80px;
+  line-height: 75px;
+  font-weight: bold;
+  text-align: center;
+}
+#spec-description-overlay .maintainer-name {
+  font-size: 40px;
+  text-align: right;
+}
+#spec-description-overlay .maintainer-name img {
+  border-radius: 50%;
+  border: 2px solid #000;
+  margin: -7px 8px 0;
+  height: 1.2em;
+}
+#spec-description-overlay .description {
+  margin-top: 50px;
+  font-size: 15px;
+  padding: 0 60px;
+  text-align: justify;
+}
+#spec-description-overlay .changelog {
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+#spec-description-overlay .changelog .log {
+  position: relative;
+  float: left;
+  padding: 30px 0;
+}
+#spec-description-overlay .changelog .log .line {
+  position: absolute;
+  left: 4%;
+  top: 0;
+  height: 100%;
+  width: 4px;
+  margin-left: -2px;
+  background: #333;
+}
+#spec-description-overlay .changelog .log > div:not(.line) {
+  position: relative;
+  border: 1px solid #333;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.05);
+  /*background: #d55039;*/
+  box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+  padding: 10px;
+  margin-bottom: 20px;
+  margin-left: 10%;
+  width: 90%;
+}
+#spec-description-overlay .changelog .log > div:not(.line):before {
+  content: '';
+  position: absolute;
+  top: 2rem;
+  width: 0;
+  height: 0;
+  border-top: 9px solid transparent;
+  border-bottom: 9px solid transparent;
+  border-right: 9px solid #333;
+  left: -1px;
+  -webkit-transform: translate(-100%,-50%);
+  -ms-transform: translate(-100%,-50%);
+  transform: translate(-100%,-50%);
+}
+#spec-description-overlay .changelog .log > div .edit {
+  position: absolute;
+  top: 2rem;
+  left: -7%;
+  font-size: 2rem;
+  line-height: 1;
+  border: 2px solid #333;
+  border-radius: 50%;
+  padding: .5rem;
+  color: #333;
+  background: #fff;
+  width: 3rem;
+  height: 3rem;
+  -webkit-box-shadow: rgba(0,0,0,.08) 0 2px 0 inset;
+  box-shadow: inset 0 2px 0 rgba(0,0,0,.08);
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+}
+#spec-description-overlay .changelog .log > div .edit img {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin-bottom: 0;
+}
