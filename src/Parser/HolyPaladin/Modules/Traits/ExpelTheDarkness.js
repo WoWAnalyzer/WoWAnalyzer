@@ -6,7 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
 import Module from 'Parser/Core/Module';
-import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
+import calculateEffectiveHealingStacked from 'Parser/Core/calculateEffectiveHealingStacked';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 const EXPEL_THE_DARKNESS_HEALING_INCREASE = 0.03;
@@ -33,14 +33,14 @@ class ExpelTheDarkness extends Module {
       return;
     }
 
-    this.healing += calculateEffectiveHealing(event, EXPEL_THE_DARKNESS_HEALING_INCREASE);
+    this.healing += calculateEffectiveHealingStacked(event, EXPEL_THE_DARKNESS_HEALING_INCREASE, this.rank);
   }
   on_beacon_heal(beaconTransferEvent, healEvent) {
     if (healEvent.ability.guid !== SPELLS.LIGHT_OF_DAWN_HEAL.id) {
       return;
     }
 
-    this.healing += calculateEffectiveHealing(beaconTransferEvent, EXPEL_THE_DARKNESS_HEALING_INCREASE);
+    this.healing += calculateEffectiveHealingStacked(beaconTransferEvent, EXPEL_THE_DARKNESS_HEALING_INCREASE, this.rank);
   }
 
   subStatistic() {
