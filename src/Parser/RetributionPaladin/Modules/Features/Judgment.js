@@ -59,7 +59,6 @@ class Judgment extends Module {
 
 	suggestions(when) {
 		const unbuffedJudgmentPercentage = this.spenderOutsideJudgment / this.totalSpender;
-		console.log('butts');
 		when(unbuffedJudgmentPercentage).isGreaterThan(0.05)
 			.addSuggestion((suggest,actual,recommended) => {
 				return suggest('You\'re spending Holy Power outisde of the Judgment debuff Window too much. Only spending while the enemy has Judgment on them is very important.')
