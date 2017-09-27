@@ -38,7 +38,6 @@ class WhisperOfTheNathrezim extends Module {
       item: ITEMS.WHISPER_OF_THE_NATHREZIM,
       result: (<dfn data-tip={`
         The effective damage contributed by Whisper of the Nathrezim.<br/>
-				Damage: ${this.owner.formatItemDamageDone(this.damageDone)}<br/>
 				Total Damage: ${formatNumber(this.damageDone)}<br/>
 				Percent Uptime: ${formatPercentage(uptime)}%`}>
         {this.owner.formatItemDamageDone(this.damageDone)}
@@ -49,7 +48,7 @@ class WhisperOfTheNathrezim extends Module {
   suggestions(when) {
     when(this.owner.getPercentageOfTotalDamageDone(this.damageDone)).isLessThan(0.055)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your usage of <ItemLink id={ITEMS.WHISPER_OF_THE_NATHREZIM.id} /> can be improved. Make sure to save up five holy power before your next <SpellLink id={SPELLS.JUDGMENT_CAST.id} /> window to get more time on the Whispers buff.</span>)
+        return suggest(<span>Your usage of <ItemLink id={ITEMS.WHISPER_OF_THE_NATHREZIM.id} /> can be improved. Make sure to save up five holy power before your next <SpellLink id={SPELLS.JUDGMENT_CAST.id} /> window to get more time on the Whisper buff.</span>)
           .icon(ITEMS.WHISPER_OF_THE_NATHREZIM.icon)
           .actual(`${this.owner.formatItemDamageDone(this.damageDone)} damage contributed`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`)
