@@ -6,7 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
 import Module from 'Parser/Core/Module';
-import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
+import calculateEffectiveHealingStacked from 'Parser/Core/calculateEffectiveHealingStacked';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 const DELIVER_THE_LIGHT_HEALING_INCREASE = 0.03;
@@ -33,14 +33,14 @@ class DeliverTheLight extends Module {
       return;
     }
 
-    this.healing += calculateEffectiveHealing(event, DELIVER_THE_LIGHT_HEALING_INCREASE);
+    this.healing += calculateEffectiveHealingStacked(event, DELIVER_THE_LIGHT_HEALING_INCREASE, this.rank);
   }
   on_beacon_heal(beaconTransferEvent, healEvent) {
     if (healEvent.ability.guid !== SPELLS.HOLY_LIGHT.id && healEvent.ability.guid !== SPELLS.FLASH_OF_LIGHT.id) {
       return;
     }
 
-    this.healing += calculateEffectiveHealing(beaconTransferEvent, DELIVER_THE_LIGHT_HEALING_INCREASE);
+    this.healing += calculateEffectiveHealingStacked(beaconTransferEvent, DELIVER_THE_LIGHT_HEALING_INCREASE, this.rank);
   }
 
   subStatistic() {

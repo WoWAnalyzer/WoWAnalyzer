@@ -123,7 +123,14 @@ class Results extends React.Component {
           </div>
         </div>
         <div className="text-muted" style={{ marginBottom: 25 }}>
-          The {config.spec.specName} {config.spec.className} analyzer is being maintained by {config.maintainer}. This spec's completeness is <dfn data-tip={getCompletenessExplanation(config.completeness)} style={{ color: getCompletenessColor(config.completeness) }}>{getCompletenessLabel(config.completeness)}</dfn>.
+          The <img
+            src={`/specs/${config.spec.className.replace(' ', '')}-${config.spec.specName.replace(' ', '')}.jpg`}
+            alt="Spec logo"
+            style={{
+              borderRadius: '50%',
+              height: '1.2em',
+            }}
+          /> {config.spec.specName} {config.spec.className} analyzer is being maintained by {config.maintainer}. This spec's completeness is <dfn data-tip={getCompletenessExplanation(config.completeness)} style={{ color: getCompletenessColor(config.completeness) }}>{getCompletenessLabel(config.completeness)}</dfn>.
         </div>
 
         <div className="row">

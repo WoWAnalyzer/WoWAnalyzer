@@ -39,7 +39,6 @@ class AshesToDust extends Module {
 			item: ITEMS.ASHES_TO_DUST,
 		    result: (<dfn data-tip={`
 				The effective damage contributed by Ashes to Dust.<br/>
-				Damage: ${this.owner.formatItemDamageDone(this.damageDone)}<br/>
 				Total Damage: ${formatNumber(this.damageDone)}`}>
         		{this.owner.formatItemDamageDone(this.damageDone)}
       		</dfn>),

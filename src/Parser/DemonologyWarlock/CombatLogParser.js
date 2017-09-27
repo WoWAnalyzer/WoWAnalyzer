@@ -11,7 +11,6 @@ import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownTracker from './Modules/Features/CooldownTracker';
 import DoomguardInfernal from './Modules/Features/DoomguardInfernal';
-import GrimoireOfService from './Modules/Features/GrimoireOfService';
 import Felstorm from './Modules/Features/Felstorm';
 
 import Doom from './Modules/Features/DoomUptime';
@@ -26,8 +25,13 @@ import DemonicCalling from './Modules/Talents/DemonicCalling';
 import ImpendingDoom from './Modules/Talents/ImpendingDoom';
 import ImprovedDreadstalkers from './Modules/Talents/ImprovedDreadstalkers';
 import Implosion from './Modules/Talents/Implosion';
+import HandOfDoom from './Modules/Talents/HandOfDoom';
 import SoulHarvest from './Modules/Talents/SoulHarvest';
 import SoulHarvestTalent from './Modules/Talents/SoulHarvestTalent';
+import GrimoireOfService from './Modules/Talents/GrimoireOfService';
+import GrimoireOfSynergy from './Modules/Talents/GrimoireOfSynergy';
+import SummonDarkglare from './Modules/Talents/SummonDarkglare';
+import Demonbolt from './Modules/Talents/Demonbolt';
 
 import TheMasterHarvester from './Modules/Items/Legendaries/TheMasterHarvester';
 import SoulOfTheNetherlord from './Modules/Items/Legendaries/SoulOfTheNetherlord';
@@ -40,7 +44,6 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownTracker: CooldownTracker,
     damageDone: [DamageDone, { showStatistic: true }],
     doomguardInfernal: DoomguardInfernal,
-    grimoireOfService: GrimoireOfService,
     felstorm: Felstorm,
 
     // DoTs
@@ -58,8 +61,13 @@ class CombatLogParser extends CoreCombatLogParser {
     impendingDoom: ImpendingDoom,
     improvedDreadstalkers: ImprovedDreadstalkers,
     implosion: Implosion,
+    handOfDoom: HandOfDoom,
     soulHarvest: SoulHarvest,
     soulHarvestTalent: SoulHarvestTalent,
+    grimoireOfService: GrimoireOfService,
+    grimoireOfSynergy: GrimoireOfSynergy,
+    summonDarkglare: SummonDarkglare,
+    demonbolt: Demonbolt,
 
     // Legendaries
     masterHarvester: TheMasterHarvester,
