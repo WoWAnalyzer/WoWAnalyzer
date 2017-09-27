@@ -29,16 +29,11 @@ class NLCTraits extends Module {
     darkSorrows: DarkSorrows,
   };
 
-  activeTraits = false;
-
   on_initialized() {
     // Deactive this module if none of the underlying modules are active.
-    Object.keys(NLCTraits.dependencies).forEach((key) => {
-        if(!this.activeTraits) {
-          this.activeTraits = this[key].active;
-        }
-      });
-      this.active = this.activeTraits;
+      this.active = Object.keys(this.constructor.dependencies)
+      .map(key => this[key])
+      .some(dependency => dependency.active);
   }
 
   statistic() {
