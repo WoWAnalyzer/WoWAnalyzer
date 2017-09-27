@@ -36,7 +36,14 @@ class CastBehavior extends Module {
         <SpellLink id={spellId}>{label}</SpellLink>
       ) : label;
       return (
-        <div className="flex" style={{ borderBottom: '3px solid rgba(255,255,255,0.1)', marginBottom: ((numItems - 1) === index) ? 0 : 5 }}>
+        <div
+          className="flex"
+          style={{
+            borderBottom: '3px solid rgba(255,255,255,0.1)',
+            marginBottom: ((numItems - 1) === index) ? 0 : 5,
+          }}
+          key={index}
+        >
           <div className="flex-sub">
             <div
               style={{
