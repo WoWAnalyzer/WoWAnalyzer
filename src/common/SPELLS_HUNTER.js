@@ -17,6 +17,11 @@ export default {
     name: 'Windburst',
     icon: 'inv_bow_1h_artifactwindrunner_d_02',
   },
+  WINDBURST_MOVEMENT_SPEED: {
+    id: 204477,
+    name: 'Windburst',
+    icon: 'ability_hunter_focusedaim',
+  },
   AIMED_SHOT: {
     id: 19434,
     name: 'Aimed Shot',

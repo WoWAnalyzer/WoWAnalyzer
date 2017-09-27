@@ -25,7 +25,7 @@ import AppBackgroundImage from './AppBackgroundImage';
 import makeAnalyzerUrl from './makeAnalyzerUrl';
 
 const toolName = 'WoW Analyzer';
-const githubUrl = 'https://github.com/MartijnHols/WoWAnalyzer';
+const githubUrl = 'https://github.com/WoWAnalyzer/WoWAnalyzer';
 
 const timeAvailable = console.time && console.timeEnd;
 

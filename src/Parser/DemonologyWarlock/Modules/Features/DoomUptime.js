@@ -37,7 +37,7 @@ class DoomUptime extends Module {
     );
   }
 
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(4);
+  statisticOrder = STATISTIC_ORDER.CORE(4);
 }
 
 export default DoomUptime;

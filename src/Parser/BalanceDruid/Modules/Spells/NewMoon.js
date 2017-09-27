@@ -15,6 +15,20 @@ class NewMoon extends Module {
   firstMoonCast = false;
   orderFound = false;
 
+  get nmAvailableCasts() {
+    const offSet = this.firstMoonTime + 15;
+    const totalFromCD = ((this.owner.fightDuration / 1000) - offSet) / 15;
+    const eachMoon = Math.floor(totalFromCD / 3);
+    let nmAvailableCasts = eachMoon + 1;
+
+    const extraMoons = ((totalFromCD / 3) - eachMoon) * 3;
+    if (extraMoons > this.newMoonOrder) { 
+      nmAvailableCasts += 1; 
+    }
+
+    return nmAvailableCasts;
+  }
+
   on_byPlayer_cast(event) {
     if (!this.firstCast) {
       this.firstCastTime = event.timestamp;
@@ -35,18 +49,10 @@ class NewMoon extends Module {
   }
 
   suggestions(when) {
-    const abilityTracker = this.owner.modules.abilityTracker;
-
-    const offSet = this.firstMoonTime + 15;
-    const totalFromCD = ((this.owner.fightDuration / 1000) - offSet) / 15;
-    const eachMoon = Math.floor(totalFromCD / 3);
-    let nmAvailableCasts = eachMoon + 1;
-
-    const extraMoons = ((totalFromCD / 3) - eachMoon) * 3;
-    if (extraMoons > this.newMoonOrder) nmAvailableCasts += 1;
-
+    const abilityTracker = this.owner.modules.abilityTracker;    
     const nmCasted = abilityTracker.getAbility(SPELLS.NEW_MOON.id).casts;
-    const percCasted = nmCasted / nmAvailableCasts;
+
+    const percCasted = nmCasted / this.nmAvailableCasts;
 
     when(percCasted).isLessThan(1)
         .addSuggestion((suggest, actual, recommended) => {
@@ -60,21 +66,12 @@ class NewMoon extends Module {
 
   statistic() {
     const abilityTracker = this.owner.modules.abilityTracker;
-
-    const offSet = this.firstMoonTime + 15;
-    const totalFromCD = ((this.owner.fightDuration / 1000) - offSet) / 15;
-    const eachMoon = Math.floor(totalFromCD / 3);
-    let nmAvailableCasts = eachMoon + 1;
-
-    const extraMoons = ((totalFromCD / 3) - eachMoon) * 3;
-    if (extraMoons > this.newMoonOrder) nmAvailableCasts += 1;
-
     const nmCasted = abilityTracker.getAbility(SPELLS.NEW_MOON.id).casts;
 
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.NEW_MOON.id} />}
-        value={`${nmCasted}/${nmAvailableCasts}`}
+        value={`${nmCasted}/${this.nmAvailableCasts}`}
         label="New Moon casts"
       />
     );

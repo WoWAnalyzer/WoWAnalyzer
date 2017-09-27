@@ -1,5 +1,6 @@
 import React from 'react';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import { STATISTIC_ORDER } from 'Main/StatisticBox';
+import ExpandableStatisticBox from 'Main/ExpandableStatisticBox';
 import { formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
@@ -11,7 +12,9 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import SuggestionThresholds from '../../SuggestionThresholds';
 
 const debug = false;
+const FLOURISH_EXTENSION_SECONDS = 6;
 
+// TODO: Idea - Give suggestions on low amount/duration extended with flourish on other HoTs
 class Flourish extends Module {
   static dependencies = {
     combatants: Combatants,
@@ -33,6 +36,10 @@ class Flourish extends Module {
   hasCenarionWard = false;
   hasCultivation = false;
   hasTreeOfLife = false;
+
+  // TODO: We may want to store all the HoTs instead of the amount of hots in here in the future
+  flourishes = [];
+  hotCount = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.FLOURISH_TALENT.id);
@@ -59,6 +66,7 @@ class Flourish extends Module {
       .forEach((player) => {
         if (player.hasBuff(SPELLS.WILD_GROWTH.id, event.timestamp, 0, 0) === true) {
           this.wildGrowth += 1;
+          this.hotCount += 1;
         }
       });
     // If we are using Tree Of Life, our WG statistics will be a little skewed since each WG gives 8 WG applications instead of 6.
@@ -73,10 +81,12 @@ class Flourish extends Module {
       .forEach((player) => {
         if (player.hasBuff(SPELLS.REJUVENATION.id, event.timestamp, 0, 0) === true) {
           this.rejuvenation += 1;
+          this.hotCount += 1;
         }
         if (this.hasGermination) {
           if (player.hasBuff(SPELLS.REJUVENATION_GERMINATION.id, event.timestamp, 0, 0) === true) {
             this.rejuvenation += 1;
+            this.hotCount += 1;
           }
         }
       });
@@ -87,6 +97,7 @@ class Flourish extends Module {
       .forEach((player) => {
         if (player.hasBuff(SPELLS.REGROWTH.id, event.timestamp, 0, 0) === true) {
           this.regrowth += 1;
+          this.hotCount += 1;
         }
       });
 
@@ -97,6 +108,7 @@ class Flourish extends Module {
         if (this.hasCultivation) {
           if (player.hasBuff(SPELLS.CULTIVATION.id, event.timestamp, 0, 0) === true) {
             this.cultivation += 1;
+            this.hotCount += 1;
           }
         }
       });
@@ -108,6 +120,7 @@ class Flourish extends Module {
         if (this.hasCenarionWard) {
           if (player.hasBuff(SPELLS.CENARION_WARD.id, event.timestamp, 0, 0) === true) {
             this.cenarionWard += 1;
+            this.hotCount += 1;
           }
         }
       });
@@ -118,6 +131,7 @@ class Flourish extends Module {
       .forEach((player) => {
         if (player.hasBuff(SPELLS.LIFEBLOOM_HOT_HEAL.id, event.timestamp, 0, 0) === true) {
           this.lifebloom += 1;
+          this.hotCount += 1;
         }
       });
 
@@ -128,9 +142,13 @@ class Flourish extends Module {
         if (this.hasSpringBlossoms) {
           if (player.hasBuff(SPELLS.SPRING_BLOSSOMS.id, event.timestamp, 0, 0) === true) {
             this.springBlossoms += 1;
+            this.hotCount += 1;
           }
         }
       });
+
+    this.flourishes.push(this.hotCount);
+    this.hotCount = 0;
   }
 
   suggestions(when) {
@@ -163,10 +181,10 @@ class Flourish extends Module {
 
   statistic() {
     return(
-      <StatisticBox
+      <ExpandableStatisticBox
         icon={<SpellIcon id={SPELLS.FLOURISH_TALENT.id} />}
         value={`${((((this.wildGrowth + this.cenarionWard + this.rejuvenation + this.regrowth + this.lifebloom + this.springBlossoms + this.cultivation) * 6) / this.flourishCounter).toFixed(0) | 0)}s`}
-        label="Seconds extended per Flourish"
+        label="Average Flourish usage"
         tooltip={
           `<ul>
               Your ${this.flourishCounter} Flourishes extended:
@@ -194,7 +212,28 @@ class Flourish extends Module {
             }
           </ul>`
         }
-      />
+      >
+        <table className="table table-condensed">
+          <thead>
+            <tr>
+              <th>Cast</th>
+              <th>Duration</th>
+              <th># of HoTs</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              this.flourishes.map((element, index) => (
+                <tr key={index}>
+                  <th scope="row">{ index + 1 }</th>
+                  <td>{ element * FLOURISH_EXTENSION_SECONDS }s</td>
+                  <td>{ element }</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </ExpandableStatisticBox>
     );
   }
   statisticOrder = STATISTIC_ORDER.OPTIONAL();

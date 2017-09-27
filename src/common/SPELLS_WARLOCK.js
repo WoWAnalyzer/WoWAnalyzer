@@ -617,6 +617,16 @@ export default {
     name: 'Shadowflame',
     icon: 'ability_warlock_shadowflame',
   },
+  IMPLOSION_DAMAGE: {
+    id: 196278,
+    name: 'Implosion',
+    icon: 'spell_shadow_shadowandflame',
+  },
+  GRIMOIRE_OF_SYNERGY_BUFF: {
+    id: 171982,
+    name: 'Grimoire of Synergy',
+    icon: 'warlock_grimoireofsacrifice',
+  },
   SUMMON_DARKGLARE: {
     id: 205180,
     name: 'Summon Darkglare',
@@ -671,6 +681,11 @@ export default {
   WARLOCK_DEMO_T19_2P_BONUS: {
     id: 212005,
     name: 'Demonology Warlock T19 2P Bonus',
+    icon: 'inv_helm_cloth_raidwarlock_q_01',
+  },
+  WARLOCK_DEMO_T19_4P_BONUS: {
+    id: 212007,
+    name: 'Demonology Warlock T19 4P Bonus',
     icon: 'inv_helm_cloth_raidwarlock_q_01',
   },
 };
