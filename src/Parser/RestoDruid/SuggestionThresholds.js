@@ -66,5 +66,9 @@ export default {
     regular: 0.15,
     major: 0.10,
   },
-
+  SOTF_WG_USAGE: {
+    minor: 1,
+    regular: 0.80,
+    major: 0.60,
+  },
 };
