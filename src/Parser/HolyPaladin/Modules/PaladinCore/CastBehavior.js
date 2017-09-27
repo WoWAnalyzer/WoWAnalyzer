@@ -13,7 +13,7 @@ import StatisticsListBox, { STATISTIC_ORDER } from 'Main/StatisticsListBox';
 
 import PaladinAbilityTracker from './PaladinAbilityTracker';
 
-const CHART_SIZE = 100;
+const CHART_SIZE = 75;
 
 class CastBehavior extends Module {
   static dependencies = {
@@ -27,7 +27,8 @@ class CastBehavior extends Module {
   }
 
   legend(items, total) {
-    return items.map(({ color, label, tooltip, value, spellId }) => {
+    const numItems = items.length;
+    return items.map(({ color, label, tooltip, value, spellId }, index) => {
       label = tooltip ? (
         <dfn data-tip={tooltip}>{label}</dfn>
       ) : label;
@@ -35,7 +36,7 @@ class CastBehavior extends Module {
         <SpellLink id={spellId}>{label}</SpellLink>
       ) : label;
       return (
-        <div className="flex" style={{ borderBottom: '3px solid rgba(255,255,255,0.1)', marginBottom: 5 }}>
+        <div className="flex" style={{ borderBottom: '3px solid rgba(255,255,255,0.1)', marginBottom: ((numItems - 1) === index) ? 0 : 5 }}>
           <div className="flex-sub">
             <div
               style={{
@@ -76,8 +77,12 @@ class CastBehavior extends Module {
           legend: {
             display: false,
           },
+          tooltips: {
+            bodyFontSize: 8,
+          },
           cutoutPercentage: 45,
           animation: false,
+          responsive: false,
         }}
         width={CHART_SIZE}
         height={CHART_SIZE}
@@ -126,10 +131,10 @@ class CastBehavior extends Module {
 
     return (
       <div className="flex">
-        <div className="flex-sub" style={{ marginLeft: -3, paddingRight: 6 }}>
+        <div className="flex-sub" style={{ paddingRight: 12 }}>
           {this.chart(items)}
         </div>
-        <div className="flex-main" style={{ fontSize: '90%', paddingTop: 9 }}>
+        <div className="flex-main" style={{ fontSize: '80%', paddingTop: 3 }}>
           {this.legend(items, totalIolProcs)}
         </div>
       </div>
@@ -169,10 +174,10 @@ class CastBehavior extends Module {
 
     return (
       <div className="flex">
-        <div className="flex-sub" style={{ marginLeft: -3, paddingRight: 6 }}>
+        <div className="flex-sub" style={{ paddingRight: 12 }}>
           {this.chart(items)}
         </div>
-        <div className="flex-main" style={{ fontSize: '90%', paddingTop: 9 }}>
+        <div className="flex-main" style={{ fontSize: '80%', paddingTop: 3 }}>
           {this.legend(items, totalFillers)}
         </div>
       </div>
@@ -181,14 +186,24 @@ class CastBehavior extends Module {
 
   statistic() {
     return (
-      <StatisticsListBox
-        title="Cast behavior"
-      >
-        <div><SpellLink id={SPELLS.INFUSION_OF_LIGHT.id}>Infusion of Light</SpellLink> usage</div>
-        {this.iolCastRatioChart()}
-        <div>Fillers</div>
-        {this.fillerCastRatioChart()}
-      </StatisticsListBox>
+      <div className="col-lg-4 col-sm-6 col-xs-12">
+        <div className="row">
+          <StatisticsListBox
+            title={<span><SpellLink id={SPELLS.INFUSION_OF_LIGHT.id}>Infusion of Light</SpellLink> usage</span>}
+            containerProps={{ className: 'col-xs-12' }}
+          >
+            {this.iolCastRatioChart()}
+          </StatisticsListBox>
+        </div>
+        <div className="row">
+          <StatisticsListBox
+            title="Fillers"
+            containerProps={{ className: 'col-xs-12' }}
+          >
+            {this.fillerCastRatioChart()}
+          </StatisticsListBox>
+        </div>
+      </div>
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(40);

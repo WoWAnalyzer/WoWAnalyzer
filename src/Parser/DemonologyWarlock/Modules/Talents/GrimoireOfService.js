@@ -4,10 +4,15 @@ import Module from 'Parser/Core/Module';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-import { calculateMaxCasts } from 'Parser/Core/getCastEfficiency';
 import SPELLS from 'common/SPELLS';
+import PETS from 'common/PETS';
+import { calculateMaxCasts } from 'Parser/Core/getCastEfficiency';
+import { formatNumber, formatPercentage } from 'common/format';
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import { formatPercentage } from 'common/format';
+
+import DemoPets from '../WarlockCore/Pets';
 
 const SUMMON_COOLDOWN = 90;
 
@@ -23,6 +28,7 @@ const GRIMOIRE_IDS = [
 class GrimoireOfService extends Module {
   static dependencies = {
     abilityTracker: AbilityTracker,
+    demoPets: DemoPets,
     combatants: Combatants,
   };
 
@@ -43,5 +49,21 @@ class GrimoireOfService extends Module {
           .regular(recommended - 0.1).major(recommended - 0.2);
       });
   }
+
+  statistic() {
+    // TODO: Add other Grimoire pets (but realistically this is enough)
+    const grimoireFelguardDamage = this.demoPets.getTotalPetDamage(PETS.GRIMOIRE_FELGUARD.id);
+    return (
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.GRIMOIRE_OF_SERVICE_TALENT.id} />}
+        value={`${formatNumber(grimoireFelguardDamage / this.owner.fightDuration * 1000)} DPS`}
+        label="Grimoire of Service damage"
+        tooltip={`Your Grimoire of Service: Felguard did ${formatNumber(grimoireFelguardDamage)} damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(grimoireFelguardDamage))} %).`}
+      />
+    );
+  }
+
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(3);
 }
+
 export default GrimoireOfService;

@@ -1,4 +1,7 @@
 export default `
+25-0952017 - Added Netherlight Crucible traits contribution as a common module across specs (by anomoly)
+25-09-2017 - The GitHub repository is now available under WoWAnalyzer/WoWAnalyzer instead of MartijnHols/WoWAnalyzer to give us all the benefits an organization provides on GitHub. (by Zerotorescue)
+25-09-2017 - Separated damage absorbed and healing absorbed in the healing done bar and made the overhealing bar gray to de-emphasize it. (by Zerotorescue)
 23-09-2017 - Changed all Damage Done / Healing Done / Damage Taken modules to use a shared renderer that can easily be improved in one spot. (by Zerotorescue)
 17-09-2017 - Fight parsing now happens in batches allowing the progress bar to function again, in addition the progress bar will slightly move while waiting on a network request to indicate it's doing something. (by Zerotorescue)
 16-09-2017 - Archimonde's Hatred Reborn now shows total damage done % and DPS contribution on it's tooltip. (by Mamtooth)

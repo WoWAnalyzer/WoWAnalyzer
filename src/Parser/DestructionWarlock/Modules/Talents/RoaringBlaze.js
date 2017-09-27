@@ -59,7 +59,7 @@ class RoaringBlaze extends Module {
     if (event.ability.guid === SPELLS.IMMOLATE_DEBUFF.id) {
       // total damage of the tick = base damage * (1.25) ^ number of conflagrates cast while Immolate is up
       // (1.25)^conflag - 1 gives us the total damage multiplier bonus of the base damage, number that getDamageBonus() can work with
-      const bonusMultiplier = (1 + DAMAGE_BONUS_PER_CONFLAG ** this._currentBonus) - 1;
+      const bonusMultiplier = (1 + DAMAGE_BONUS_PER_CONFLAG) ** this._currentBonus - 1;
       debug && console.log('bonus multiplier', bonusMultiplier);
       this.bonusDmg += getDamageBonus(event, bonusMultiplier);
       debug && console.log('current bonus dmg', this.bonusDmg);
