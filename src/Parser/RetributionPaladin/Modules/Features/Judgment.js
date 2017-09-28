@@ -62,7 +62,7 @@ class Judgment extends Module {
 		const unbuffedJudgmentPercentage = this.spenderOutsideJudgment / this.totalSpender;
 		when(unbuffedJudgmentPercentage).isGreaterThan(0.05)
 			.addSuggestion((suggest,actual,recommended) => {
-				return suggest(<span>You're spending Holy Power outisde of the <SpellLink id={SPELLS.JUDGMENT_CAST.id} /> debuff Window too much. Only spending while the enemy has the debuff on them is very important.</span>)
+				return suggest(<span>You're spending Holy Power outisde of the <SpellLink id={SPELLS.JUDGMENT_CAST.id} /> debuff. It is optimal to only spend Holy Power while the enemy is debuffed with <SpellLink id={SPELLS.JUDGMENT_CAST.id} />.</span>)
 					.icon(SPELLS.JUDGMENT_DEBUFF.icon)
 					.actual(`${formatPercentage(actual)}% Holy Power spenders used outside of Judgment.`)
 					.recommended(`>${formatPercentage(recommended)}% is recommened`)

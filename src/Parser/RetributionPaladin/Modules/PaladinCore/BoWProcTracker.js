@@ -23,7 +23,7 @@ class BoWProcTracker extends Module {
 		if(spellId !== SPELLS.BLADE_OF_WRATH_PROC.id){
 			return;
 		}
-		this.totalBoWProcs++;
+		this.totalBoWProcs += 1;
 	}
 
 	on_byPlayer_refreshbuff(event){
@@ -31,8 +31,8 @@ class BoWProcTracker extends Module {
 		if(spellId !== SPELLS.BLADE_OF_WRATH_PROC.id){
 			return;
 		}
-		this.overwrittenBoWProcs++;
-		this.totalBoWProcs++;
+		this.overwrittenBoWProcs += 1;
+		this.totalBoWProcs +=1;
 	}
 
 	suggestions(when) {
