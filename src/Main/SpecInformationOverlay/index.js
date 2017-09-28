@@ -24,7 +24,7 @@ class SpecInformationOverlay extends React.PureComponent {
     const { config, onCloseClick } = this.props;
 
     return (
-      <div id="spec-description-overlay" className="open">
+      <div id="spec-description-overlay">
         <main className="container">
           <div className="close" onClick={onCloseClick}>✕</div>
           <div className="row">

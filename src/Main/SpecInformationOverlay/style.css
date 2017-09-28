@@ -1,9 +1,11 @@
+/* Gets applied to body to disable scrollbar and allow us to blur other elements */
 .spec-information-overlay-active {
   overflow: hidden;
 }
 .spec-information-overlay-active .navbar, .spec-information-overlay-active .results {
   filter: blur(3px);
 }
+
 #spec-description-overlay {
   position: fixed;
   top: 0;
@@ -13,11 +15,7 @@
   background: rgba(228, 90, 87, 0.9);
   color: #000;
   overflow: auto;
-  display: none;
   z-index: 100;
-}
-#spec-description-overlay.open {
-  display: block;
 }
 #spec-description-overlay .container {
   position: relative;
