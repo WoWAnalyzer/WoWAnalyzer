@@ -39,24 +39,24 @@ class EmeraldDreamcatcher extends Module {
   }
 
   suggestions(when) {
-    const buffDropsPerMinute = (this.dreamcatcherBuffDropped * 60) / (this.owner.fightDuration * 1000);
+    const buffDropsPerMinute = Math.round((((this.dreamcatcherBuffDropped) / (this.owner.fightDuration / 1000)) * 60)*10) / 10;
 
     when(buffDropsPerMinute).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span> You shouldnt drop your <SpellLink id={SPELLS.ED_BUFF.id} /> at any time, </span>)
+        return suggest(<span> You dropped your <SpellLink id={SPELLS.ED_BUFF.id} /> buff. Try to maintain it up at all times, you can consult the guide on ED usage <a href='http://goo.gl/mH8NVj' target='_blank' rel='noopener noreferrer'>here</a> </span>)
           .icon(SPELLS.MOONFIRE_BEAR.icon)
-          .actual(`${actual} times the buff dropped`)
-          .recommended(`${recommended} times is recommended`)
-          .regular(recommended + 0.6).major(recommended + 1);
+          .actual(`The buff dropped ${actual} times per minute`)
+          .recommended(`${recommended} times per minute is recommended`)
+          .regular(recommended + 1).major(recommended + 1.5);
       });
   }
 
   statistic() {
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.MOONFIRE_BEAR.id} />}
+        icon={<SpellIcon id={SPELLS.ED_BUFF.id} />}
         value={`${this.dreamcatcherBuffDropped}`}
-        label="ED buff dropped"
+        label="times ED buff dropped"
       />
     );
   }
