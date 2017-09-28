@@ -21,6 +21,8 @@ import LEmpowerment from './Modules/Features/LunarEmpowerment';
 import SEmpowerment from './Modules/Features/SolarEmpowerment';
 import AstralPower from './Modules/Features/AstralPower';
 import UnempoweredLs from './Modules/Spells/UnempoweredLs';
+//Items
+import EmeraldDreamcatcher from './Modules/Items/EmeraldDreamcatcher';
 
 
 class CombatLogParser extends MainCombatLogParser {
@@ -42,6 +44,8 @@ class CombatLogParser extends MainCombatLogParser {
     swempowerment: SEmpowerment,
     astralpower: AstralPower,
     unempoweredLS: UnempoweredLs,
+    //Items
+    emeraldDreamcatcher: EmeraldDreamcatcher,
   };
 
   generateResults() {
