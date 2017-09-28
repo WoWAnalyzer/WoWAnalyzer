@@ -42,26 +42,6 @@ class CelestialBreath extends Module {
     }
   }
 
-  /* Commenting out for now - Removing because of bloat.
-  statistic() {
-    const avgCelestialBreathHealing = this.healingCelestialBreath / this.healsCelestialBreath || 0;
-    const avgCelestialBreathTargets = (this.healsCelestialBreath / this.procsCelestialBreath) / 3 || 0;
-
-    return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.CELESTIAL_BREATH_TRAIT.id} />}
-        value={`${formatNumber(avgCelestialBreathHealing)}`}
-        label={(
-          <dfn data-tip={`You healed an average of ${avgCelestialBreathTargets.toFixed(2)} targets per Celestial Breath cast over your ${this.procsCelestialBreath} casts.`}>
-            Average Healing
-          </dfn>
-          )}
-        />
-      );
-    }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
-  */
-
   on_finished() {
     if (debug) {
       console.log(`Celestial Breath Procs: ${this.procsCelestialBreath}`);
