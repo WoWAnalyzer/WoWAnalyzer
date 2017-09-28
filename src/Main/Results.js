@@ -236,7 +236,7 @@ class Results extends React.Component {
                 borderRadius: '50%',
                 height: '1.2em',
               }}
-            /> {config.spec.specName} {config.spec.className} analyzer is being maintained by {config.maintainer}. <a href="#" onClick={this.handleClickViewSpecInformation}>More information.</a>
+            /> {config.spec.specName} {config.spec.className} analyzer is being maintained by {config.maintainer}. <a href="#spec-information" onClick={this.handleClickViewSpecInformation}>More information.</a>
           </div>
 
           <div className="row">
