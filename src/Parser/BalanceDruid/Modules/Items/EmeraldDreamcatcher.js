@@ -14,7 +14,7 @@ class EmeraldDreamcatcher extends Module {
 
   isEDBuff(event) {
     const spellId = event.ability.guid;
-    return spellId === SPELLS.ED_BUFF.id;
+    return spellId === SPELLS.EMERALD_DREAMCATCHER_BUFF.id;
   }
 
   on_initialized() {
@@ -34,8 +34,8 @@ class EmeraldDreamcatcher extends Module {
 
     when(buffDropsPerMinute).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span> You dropped the <SpellLink id={SPELLS.ED_BUFF.id} /> buff {this.dreamcatcherBuffDropped} times. Try to maintain it up at all times, you can consult the guide on ED usage <a href='http://goo.gl/mH8NVj' target='_blank' rel='noopener noreferrer'>here</a> </span>)
-          .icon(SPELLS.ED_BUFF.icon)
+        return suggest(<span> You dropped the <SpellLink id={SPELLS.EMERALD_DREAMCATCHER_BUFF.id} /> buff {this.dreamcatcherBuffDropped} times. Try to keep it up at all times. For more information consult <a href='http://goo.gl/mH8NVj' target='_blank' rel='noopener noreferrer'>the guide on ED usage</a>.</span>)
+          .icon(SPELLS.EMERALD_DREAMCATCHER_BUFF.icon)
           .actual(`The buff dropped ${actual} times per minute`)
           .recommended(`${recommended} times per minute is recommended`)
           .regular(recommended + 1).major(recommended + 1.5);
@@ -45,9 +45,9 @@ class EmeraldDreamcatcher extends Module {
   statistic() {
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.ED_BUFF.id} />}
-        value={`${this.dreamcatcherBuffDropped}`}
-        label="times ED buff dropped"
+        icon={<SpellIcon id={SPELLS.EMERALD_DREAMCATCHER_BUFF.id} />}
+        value={this.dreamcatcherBuffDropped}
+        label="Times ED buff dropped"
       />
     );
   }

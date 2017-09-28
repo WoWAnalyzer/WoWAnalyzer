@@ -642,7 +642,7 @@ export default {
     name: 'Celestial Alignment',
     icon: 'artifactability_balancedruid_newmoon',
   },
-  ED_BUFF: {    
+  EMERALD_DREAMCATCHER_BUFF: {    
     id: 224706,
     name: 'The Emerald Dreamcatcher',
     icon: 'inv_helmet_81',
