@@ -261,7 +261,25 @@ class Results extends React.Component {
 
             <div className="row">
               <div className="description col-xs-12 col-sm-6 col-sm-offset-3">
-                I don't really have anything to tell you... So ummm hi.
+                {config.description}
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="actions col-xs-12 col-sm-6 col-sm-offset-3">
+                <div className="row">
+                  <div className="col-sm-8">
+                    The entire WoWAnalyzer source is open. Interested how things are calculated or think something should be different?
+                  </div>
+                  <div className="col-sm-4">
+                    <a
+                      href={`https://github.com/WoWAnalyzer/WoWAnalyzer/tree/master/${config.path}`}
+                      className="btn btn-default"
+                    >
+                      View source
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
 

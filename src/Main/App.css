@@ -759,18 +759,21 @@ code.inactive {
   overflow: hidden;
 }
 #spec-description-overlay {
-  display: none;
-}
-#spec-description-overlay.open {
   position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  background: rgba(255, 76, 46, 0.8);
+  background: rgba(228, 90, 87, 0.9);
   color: #000;
   overflow: auto;
+  display: none;
+}
+#spec-description-overlay.open {
   display: block;
+}
+#spec-description-overlay a {
+  color: #f5f5f5;
 }
 #spec-description-overlay > main {
   padding-top: 150px;
@@ -793,9 +796,18 @@ code.inactive {
 }
 #spec-description-overlay .description {
   margin-top: 50px;
+  margin-bottom: 50px;
   font-size: 15px;
   padding: 0 60px;
   text-align: justify;
+}
+#spec-description-overlay .actions {
+  border-top: 1px solid #000;
+  padding-top: 20px;
+}
+#spec-description-overlay .actions .btn {
+  font-size: 26px;
+  color: #000;
 }
 #spec-description-overlay .changelog {
   margin-top: 60px;
@@ -813,15 +825,14 @@ code.inactive {
   height: 100%;
   width: 4px;
   margin-left: -2px;
-  background: #333;
+  background: #222;
 }
 #spec-description-overlay .changelog .log > div:not(.line) {
   position: relative;
-  border: 1px solid #333;
+  border: 1px solid #222;
   border-radius: 5px;
-  background: rgba(213, 79, 54, 0.7);
-  /*background: #d55039;*/
-  box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 1px 1px 2px rgba(0,0,0,0.4);
   padding: 10px;
   margin-bottom: 20px;
   margin-left: 10%;
@@ -835,7 +846,7 @@ code.inactive {
   height: 0;
   border-top: 9px solid transparent;
   border-bottom: 9px solid transparent;
-  border-right: 9px solid #333;
+  border-right: 9px solid #222;
   left: -1px;
   -webkit-transform: translate(-100%,-50%);
   -ms-transform: translate(-100%,-50%);
@@ -847,11 +858,11 @@ code.inactive {
   left: -7%;
   font-size: 2rem;
   line-height: 1;
-  border: 2px solid #333;
+  border: 2px solid #222;
   border-radius: 50%;
   padding: .5rem;
-  color: #333;
-  background: #fff;
+  color: #222;
+  background: #f5f5f5;
   width: 3rem;
   height: 3rem;
   -webkit-box-shadow: rgba(0,0,0,.08) 0 2px 0 inset;
