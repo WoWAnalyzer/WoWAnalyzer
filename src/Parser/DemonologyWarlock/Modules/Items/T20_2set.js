@@ -36,7 +36,7 @@ class T20_2set extends Module {
       id: `spell-${SPELLS.WARLOCK_DEMO_T20_2P_BONUS.id}`,
       icon: <SpellIcon id={SPELLS.WARLOCK_DEMO_T20_2P_BONUS.id} />,
       title: <SpellLink id={SPELLS.WARLOCK_DEMO_T20_2P_BONUS.id} />,
-      result: `${this.procs} resetted cooldowns on Call Dreadstalkers`,
+      result: <span>{this.procs} resets of <SpellLink id={SPELLS.CALL_DREADSTALKERS.id} /> cooldown.</span>,
     };
   }
 }
