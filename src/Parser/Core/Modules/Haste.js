@@ -33,6 +33,7 @@ class Haste extends Module {
     [SPELLS.POWER_INFUSION_TALENT.id]: 0.25,
     [240673]: 800 / 37500, // Shadow Priest artifact trait that's shared with 4 allies: http://www.wowhead.com/spell=240673/mind-quickening
     [SPELLS.WARLOCK_AFFLI_T20_4P_BUFF.id]: 0.15,
+    [SPELLS.WARLOCK_DEMO_T20_4P_BUFF.id]: 0.1,
     [SPELLS.TRUESHOT.id]: 0.4, // MM Hunter main CD
     [SPELLS.LINGERING_INSANITY.id]: 0.01,
     [SPELLS.VOIDFORM_BUFF.id]: 0.01,
