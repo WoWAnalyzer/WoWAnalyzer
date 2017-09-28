@@ -7,12 +7,13 @@ import Masonry from 'react-masonry-component';
 import ItemLink from 'common/ItemLink';
 import ItemIcon from 'common/ItemIcon';
 import getBossName from 'common/getBossName';
-import { getCompletenessLabel, getCompletenessExplanation, getCompletenessColor } from 'common/SPEC_ANALYSIS_COMPLETENESS';
 
 import DevelopmentTab from 'Main/DevelopmentTab';
 import EventsTab from 'Main/EventsTab';
 import Tab from 'Main/Tab';
 import Status from 'Main/Status';
+
+import SpecInformationOverlay from './SpecInformationOverlay';
 
 import './Results.css';
 
@@ -34,8 +35,112 @@ class Results extends React.Component {
     onChangeTab: PropTypes.func.isRequired,
   };
 
+  constructor() {
+    super();
+    this.state = {
+      showSpecInformationOverlay: false,
+    };
+    this.handleClickViewSpecInformation = this.handleClickViewSpecInformation.bind(this);
+    this.handleSpecInformationCloseClick = this.handleSpecInformationCloseClick.bind(this);
+  }
+  handleClickViewSpecInformation() {
+    this.setState({
+      showSpecInformationOverlay: true,
+    });
+  }
+  handleSpecInformationCloseClick() {
+    this.setState({
+      showSpecInformationOverlay: false,
+    });
+  }
+
   componentDidUpdate() {
     ReactTooltip.rebuild();
+  }
+
+  renderStatistics(statistics) {
+    return (
+      <Masonry className="row statistics">
+        {statistics
+          .filter(statistic => !!statistic) // filter optionals
+          .map((statistic, index) => statistic.statistic ? statistic : { statistic, order: index }) // normalize
+          .sort((a, b) => a.order - b.order)
+          .map((statistic, i) => React.cloneElement(statistic.statistic, {
+            key: `${statistic.order}-${i}`,
+          }))}
+      </Masonry>
+    );
+  }
+  renderItems(items, selectedCombatant) {
+    return (
+      <div className="panel items">
+        <div className="panel-heading">
+          <h2><dfn data-tip="The values shown are only for the special equip effects of the items. The passive gain from the stats is <b>not</b> included.">Items</dfn>
+          </h2>
+        </div>
+        <div className="panel-body" style={{ padding: 0 }}>
+          <ul className="list">
+            {items.length === 0 && (
+              <li className="item clearfix" style={{ paddingTop: 20, paddingBottom: 20 }}>
+                No noteworthy items.
+              </li>
+            )}
+            {
+              items
+                .sort((a, b) => {
+                  if (a.item && b.item) {
+                    if (a.item.quality === b.item.quality) {
+                      // Qualities equal = show last added item at bottom
+                      return a.item.id - b.item.id;
+                    }
+                    // Show lowest quality item at bottom
+                    return a.item.quality < b.item.quality;
+                  } else if (a.item) {
+                    return -1;
+                  } else if (b.item) {
+                    return 1;
+                  }
+                  // Neither is an actual item, sort by id so last added effect is shown at bottom
+                  if (a.id < b.id) {
+                    return -1;
+                  } else if (a.id > b.id) {
+                    return 1;
+                  }
+                  return 0;
+                })
+                .map((item) => {
+                  if (!item) {
+                    return null;
+                  }
+
+                  const id = item.id || item.item.id;
+                  const itemDetails = id && selectedCombatant.getItem(id);
+                  const icon = item.icon || <ItemIcon id={item.item.id} details={itemDetails} />;
+                  const title = item.title || <ItemLink id={item.item.id} details={itemDetails} />;
+
+                  return (
+                    <li className="item clearfix" key={id}>
+                      <article>
+                        <figure>
+                          {icon}
+                        </figure>
+                        <div>
+                          <header>
+                            {title}
+                          </header>
+                          <main>
+                            {item.result}
+                          </main>
+                        </div>
+                      </article>
+                    </li>
+                  );
+                })
+            }
+          </ul>
+        </div>
+      </div>
+    );
   }
 
   render() {
@@ -100,7 +205,7 @@ class Results extends React.Component {
 
     return (
       <div style={{ width: '100%' }}>
-        <div className="blurred">
+        <div className="results">
           <div className="row" style={{ marginTop: 20 }}>
             <div className="col-lg-10 col-md-8" style={{ position: 'relative' }}>
               <div className="back-button" style={{ fontSize: 36, width: 20 }}>
@@ -131,89 +236,15 @@ class Results extends React.Component {
                 borderRadius: '50%',
                 height: '1.2em',
               }}
-            /> {config.spec.specName} {config.spec.className} analyzer is being maintained by {config.maintainer}. This spec's completeness is <dfn data-tip={getCompletenessExplanation(config.completeness)} style={{ color: getCompletenessColor(config.completeness) }}>{getCompletenessLabel(config.completeness)}</dfn>.
+          /> {config.spec.specName} {config.spec.className} analyzer is being maintained by {config.maintainer}. <a href="#" onClick={this.handleClickViewSpecInformation}>More information.</a>
           </div>
 
           <div className="row">
             <div className="col-md-8">
-              <Masonry className="row statistics">
-                {results.statistics
-                  .filter(statistic => !!statistic) // filter optionals
-                  .map((statistic, index) => statistic.statistic ? statistic : { statistic, order: index }) // normalize
-                  .sort((a, b) => a.order - b.order)
-                  .map((statistic, i) => React.cloneElement(statistic.statistic, {
-                    key: `${statistic.order}-${i}`,
-                  }))}
-              </Masonry>
+              {this.renderStatistics(results.statistics)}
             </div>
             <div className="col-md-4">
-              <div className="panel items">
-                <div className="panel-heading">
-                  <h2><dfn data-tip="The values shown are only for the special equip effects of the items. The passive gain from the stats is <b>not</b> included.">Items</dfn>
-                  </h2>
-                </div>
-                <div className="panel-body" style={{ padding: 0 }}>
-                  <ul className="list">
-                    {results.items.length === 0 && (
-                      <li className="item clearfix" style={{ paddingTop: 20, paddingBottom: 20 }}>
-                        No noteworthy items.
-                      </li>
-                    )}
-                    {
-                      results.items
-                        .sort((a, b) => {
-                          if (a.item && b.item) {
-                            if (a.item.quality === b.item.quality) {
-                              // Qualities equal = show last added item at bottom
-                              return a.item.id - b.item.id;
-                            }
-                            // Show lowest quality item at bottom
-                            return a.item.quality < b.item.quality;
-                          } else if (a.item) {
-                            return -1;
-                          } else if (b.item) {
-                            return 1;
-                          }
-                          // Neither is an actual item, sort by id so last added effect is shown at bottom
-                          if (a.id < b.id) {
-                            return -1;
-                          } else if (a.id > b.id) {
-                            return 1;
-                          }
-                          return 0;
-                        })
-                        .map((item) => {
-                          if (!item) {
-                            return null;
-                          }
-
-                          const id = item.id || item.item.id;
-                          const itemDetails = id && selectedCombatant.getItem(id);
-                          const icon = item.icon || <ItemIcon id={item.item.id} details={itemDetails} />;
-                          const title = item.title || <ItemLink id={item.item.id} details={itemDetails} />;
-
-                          return (
-                            <li className="item clearfix" key={id}>
-                              <article>
-                                <figure>
-                                  {icon}
-                                </figure>
-                                <div>
-                                  <header>
-                                    {title}
-                                  </header>
-                                  <main>
-                                    {item.result}
-                                  </main>
-                                </div>
-                              </article>
-                            </li>
-                          );
-                        })
-                    }
-                  </ul>
-                </div>
-              </div>
+              {this.renderItems(results.items, selectedCombatant)}
             </div>
           </div>
 
@@ -244,89 +275,9 @@ class Results extends React.Component {
           </div>
         </div>
 
-        <div id="spec-description-overlay" className="open">
-          <main className="container">
-            <div className="row">
-              <div className="spec-name col-xs-12">
-                {config.spec.specName} {config.spec.className} analyzer
-              </div>
-            </div>
-            <div className="row">
-              <div className="maintainer-name col-xs-12 col-sm-8 col-sm-offset-2">
-                by
-                <img src={config.maintainerAvatar} alt="Avatar" />
-                {config.maintainer}
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="description col-xs-12 col-sm-6 col-sm-offset-3">
-                {config.description}
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="actions col-xs-12 col-sm-6 col-sm-offset-3">
-                <div className="row">
-                  <div className="col-sm-4">
-                    <h1>Completeness</h1>
-                    <dfn data-tip={getCompletenessExplanation(config.completeness)} style={{ color: getCompletenessColor(config.completeness) }}>{getCompletenessLabel(config.completeness)}</dfn>
-                  </div>
-                  <div className="col-sm-4">
-                    <h1>Spec discussion</h1>
-                    <a href={config.specDiscussionUrl}>
-                      GitHub issue
-                    </a>
-                  </div>
-                  <div className="col-sm-4">
-                    <h1>Source code</h1>
-                    <a href={`https://github.com/WoWAnalyzer/WoWAnalyzer/tree/master/${config.path}`}>
-                      &lt;SpecSource /&gt;
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/*<div className="row">*/}
-              {/*<div className="actions col-xs-12 col-sm-6 col-sm-offset-3">*/}
-                {/*<div className="row">*/}
-                  {/*<div className="col-sm-8">*/}
-                    {/*The entire WoWAnalyzer source is open. Interested how things are calculated or think something should be different?*/}
-                  {/*</div>*/}
-                  {/*<div className="col-sm-4">*/}
-                    {/*<a*/}
-                      {/*href={`https://github.com/WoWAnalyzer/WoWAnalyzer/tree/master/${config.path}`}*/}
-                      {/*className="btn btn-default"*/}
-                    {/*>*/}
-                      {/*View source*/}
-                    {/*</a>*/}
-                  {/*</div>*/}
-                {/*</div>*/}
-              {/*</div>*/}
-            {/*</div>*/}
-
-            <div className="row">
-              <div className="changelog col-xs-6 col-xs-offset-3">
-                <h1>Changelog</h1>
-                <div className="log">
-                  <div className="line" />
-                  {config.changelog
-                    .trim()
-                    .split('\n')
-                    .map((change, i) => (
-                      <div key={`${i}`}>
-                        <div className="edit">
-                          <img src="/img/pencil-black.png" alt="Edit" />
-                        </div>
-                        <div dangerouslySetInnerHTML={{ __html: change }} />
-                      </div>
-                    ))}
-                </div>
-              </div>
-            </div>
-          </main>
-        </div>
+        {this.state.showSpecInformationOverlay && (
+          <SpecInformationOverlay config={config} onCloseClick={this.handleSpecInformationCloseClick} />
+        )}
       </div>
     );
   }
