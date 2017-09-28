@@ -34,7 +34,7 @@ class SpecInformationOverlay extends React.PureComponent {
           </div>
           <div className="row">
             <div className="maintainer-name col-xs-12 col-sm-8 col-sm-offset-2">
-              by <img src={config.maintainerAvatar} alt="Avatar" /> {config.maintainer}
+              by {config.maintainerAvatar && <img src={config.maintainerAvatar} alt="Avatar" />} {config.maintainer}
             </div>
           </div>
 
@@ -53,9 +53,11 @@ class SpecInformationOverlay extends React.PureComponent {
                 </div>
                 <div className="col-sm-4">
                   <h1>Spec discussion</h1>
-                  <a href={config.specDiscussionUrl}>
-                    GitHub issue
-                  </a>
+                  {config.specDiscussionUrl ? (
+                    <a href={config.specDiscussionUrl}>
+                      GitHub issue
+                    </a>
+                  ) : 'Unavailable'}
                 </div>
                 <div className="col-sm-4">
                   <h1>Source code</h1>
