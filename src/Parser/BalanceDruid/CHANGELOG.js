@@ -1,4 +1,5 @@
 export default `
+28-09-2017 - Added a tracker module for Emerald Dreamcatcher module
 22-09-2017 - Added Overcapped Lunar and Solar empowerments modules
 20-09-2017 - Minor fixes to Unemp LS module
 12-09-2017 - Added a module to track Unempowered LS casts
