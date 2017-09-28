@@ -43,7 +43,7 @@ class EmeraldDreamcatcher extends Module {
 
     when(buffDropsPerMinute).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span> You dropped your <SpellLink id={SPELLS.ED_BUFF.id} /> buff. Try to maintain it up at all times, you can consult the guide on ED usage <a href='http://goo.gl/mH8NVj' target='_blank' rel='noopener noreferrer'>here</a> </span>)
+        return suggest(<span> You dropped your <SpellLink id={SPELLS.ED_BUFF.id} /> buff {this.dreamcatcherBuffDropped} times. Try to maintain it up at all times, you can consult the guide on ED usage <a href='http://goo.gl/mH8NVj' target='_blank' rel='noopener noreferrer'>here</a> </span>)
           .icon(SPELLS.MOONFIRE_BEAR.icon)
           .actual(`The buff dropped ${actual} times per minute`)
           .recommended(`${recommended} times per minute is recommended`)
@@ -60,7 +60,7 @@ class EmeraldDreamcatcher extends Module {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(6);
+  statisticOrder = STATISTIC_ORDER.CORE(11);
 }
 
 export default EmeraldDreamcatcher;
