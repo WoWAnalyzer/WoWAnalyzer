@@ -24,7 +24,7 @@ class HealingTouch extends Module {
         return suggest(<span><SpellLink id={SPELLS.HEALING_TOUCH.id} /> is inefficient and weak, you should trust your HoTs or your co-healer to top people off. If you have nothing else to do, DPS the boss.</span>)
           .icon(SPELLS.HEALING_TOUCH.icon)
           .actual(`${(htsPerMinute).toFixed(1)} CPM`)
-          .recommended(`Not casting HT is recommended`)
+          .recommended(`${(recommended).toFixed(1)} CPM is recommended`)
           .regular(SuggestionThresholds.HTS_PER_MINUTE.regular).major(SuggestionThresholds.HTS_PER_MINUTE.major);
       });
   }
