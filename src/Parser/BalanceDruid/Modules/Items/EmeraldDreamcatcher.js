@@ -1,5 +1,4 @@
 import React from 'react';
-import { formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
@@ -23,19 +22,11 @@ class EmeraldDreamcatcher extends Module {
   }
 
   dreamcatcherBuffDropped = 0;
-  lastEDDropTime = 0;
 
   on_toPlayer_removebuff(event) {
-    if (!this.isEDBuff(event)) { return; }
-
-    if (event.timestamp !== this.lastEDDropTime){
-        this.dreamcatcherBuffDropped++;
-        this.lastEDDropTime = event.timestamp;
+    if (this.isEDBuff(event)) {
+      this.dreamcatcherBuffDropped++;
     }
-  }
-
-  on_finished() {
-    
   }
 
   suggestions(when) {
@@ -44,7 +35,7 @@ class EmeraldDreamcatcher extends Module {
     when(buffDropsPerMinute).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span> You dropped the <SpellLink id={SPELLS.ED_BUFF.id} /> buff {this.dreamcatcherBuffDropped} times. Try to maintain it up at all times, you can consult the guide on ED usage <a href='http://goo.gl/mH8NVj' target='_blank' rel='noopener noreferrer'>here</a> </span>)
-          .icon(SPELLS.MOONFIRE_BEAR.icon)
+          .icon(SPELLS.ED_BUFF.icon)
           .actual(`The buff dropped ${actual} times per minute`)
           .recommended(`${recommended} times per minute is recommended`)
           .regular(recommended + 1).major(recommended + 1.5);
