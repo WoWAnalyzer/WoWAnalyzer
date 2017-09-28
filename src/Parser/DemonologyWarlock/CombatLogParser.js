@@ -37,6 +37,7 @@ import TheMasterHarvester from './Modules/Items/Legendaries/TheMasterHarvester';
 import SoulOfTheNetherlord from './Modules/Items/Legendaries/SoulOfTheNetherlord';
 
 import T20_2set from './Modules/Items/T20_2set';
+import T20_4set from './Modules/Items/T20_4set';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -77,6 +78,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Items
     t20_2set: T20_2set,
+    t20_4set: T20_4set,
   };
 
   generateResults() {
