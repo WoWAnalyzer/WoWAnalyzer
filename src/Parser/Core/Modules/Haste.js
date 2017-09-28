@@ -31,8 +31,8 @@ class Haste extends Module {
     [SPELLS.BERSERKING.id]: 0.15,
     [202842]: 0.1, // Rapid Innervation (Balance Druid trait increasing Haste from Innervate)
     [SPELLS.POWER_INFUSION_TALENT.id]: 0.25,
-    [240673]: 800 / 37500, // Shadow Priest artifact trait that's shared with 4 allies: http://www.wowhead.com/spell=240673/mind-quickening
-    [SPELLS.MARK_OF_THE_CLAW.id]: 1000 / 37500,
+    [240673]: 800 / this.HASTE_RATING_PER_PERCENT, // Shadow Priest artifact trait that's shared with 4 allies: http://www.wowhead.com/spell=240673/mind-quickening
+    [SPELLS.MARK_OF_THE_CLAW.id]: 1000 / this.HASTE_RATING_PER_PERCENT,
     [SPELLS.WARLOCK_AFFLI_T20_4P_BUFF.id]: 0.15,
     [SPELLS.WARLOCK_DEMO_T20_4P_BUFF.id]: 0.1,
     [SPELLS.TRUESHOT.id]: 0.4, // MM Hunter main CD
