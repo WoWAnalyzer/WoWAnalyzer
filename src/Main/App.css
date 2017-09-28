@@ -795,19 +795,24 @@ code.inactive {
   height: 1.2em;
 }
 #spec-description-overlay .description {
-  margin-top: 50px;
-  margin-bottom: 50px;
+  margin-top: 70px;
+  margin-bottom: 80px;
   font-size: 15px;
   padding: 0 60px;
   text-align: justify;
 }
 #spec-description-overlay .actions {
-  border-top: 1px solid #000;
-  padding-top: 20px;
+  font-size: 24px;
+  line-height: 1.2;
+  text-align: center;
 }
-#spec-description-overlay .actions .btn {
-  font-size: 26px;
-  color: #000;
+#spec-description-overlay .actions h1 {
+  font-size: 14px;
+  line-height: 1;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #000;
+  letter-spacing: 1px;
+  font-weight: 400;
 }
 #spec-description-overlay .changelog {
   margin-top: 60px;

@@ -268,20 +268,43 @@ class Results extends React.Component {
             <div className="row">
               <div className="actions col-xs-12 col-sm-6 col-sm-offset-3">
                 <div className="row">
-                  <div className="col-sm-8">
-                    The entire WoWAnalyzer source is open. Interested how things are calculated or think something should be different?
+                  <div className="col-sm-4">
+                    <h1>Completeness</h1>
+                    <dfn data-tip={getCompletenessExplanation(config.completeness)} style={{ color: getCompletenessColor(config.completeness) }}>{getCompletenessLabel(config.completeness)}</dfn>
                   </div>
                   <div className="col-sm-4">
-                    <a
-                      href={`https://github.com/WoWAnalyzer/WoWAnalyzer/tree/master/${config.path}`}
-                      className="btn btn-default"
-                    >
-                      View source
+                    <h1>Spec discussion</h1>
+                    <a href={config.specDiscussionUrl}>
+                      GitHub issue
+                    </a>
+                  </div>
+                  <div className="col-sm-4">
+                    <h1>Source code</h1>
+                    <a href={`https://github.com/WoWAnalyzer/WoWAnalyzer/tree/master/${config.path}`}>
+                      &lt;SpecSource /&gt;
                     </a>
                   </div>
                 </div>
               </div>
             </div>
+
+            {/*<div className="row">*/}
+              {/*<div className="actions col-xs-12 col-sm-6 col-sm-offset-3">*/}
+                {/*<div className="row">*/}
+                  {/*<div className="col-sm-8">*/}
+                    {/*The entire WoWAnalyzer source is open. Interested how things are calculated or think something should be different?*/}
+                  {/*</div>*/}
+                  {/*<div className="col-sm-4">*/}
+                    {/*<a*/}
+                      {/*href={`https://github.com/WoWAnalyzer/WoWAnalyzer/tree/master/${config.path}`}*/}
+                      {/*className="btn btn-default"*/}
+                    {/*>*/}
+                      {/*View source*/}
+                    {/*</a>*/}
+                  {/*</div>*/}
+                {/*</div>*/}
+              {/*</div>*/}
+            {/*</div>*/}
 
             <div className="row">
               <div className="changelog col-xs-6 col-xs-offset-3">
