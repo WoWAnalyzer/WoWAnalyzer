@@ -75,6 +75,11 @@ export default {
     name: 'Ancient Rejuvenation Potion',
     icon: 'inv_alchemy_70_purple',
   },
+  MARK_OF_THE_CLAW: {
+    id: 190909,
+    name: 'Mark of the Claw',
+    icon: 'classicon_druid',
+  },
   // Items buffs:
   JACINS_RUSE: {
     id: 224149,

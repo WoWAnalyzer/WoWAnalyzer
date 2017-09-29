@@ -688,4 +688,19 @@ export default {
     name: 'Demonology Warlock T19 4P Bonus',
     icon: 'inv_helm_cloth_raidwarlock_q_01',
   },
+  WARLOCK_DEMO_T20_2P_BONUS: {
+    id: 242293,
+    name: 'Demonology Warlock T20 2P bonus',
+    icon: 'inv_helm_cloth_raidwarlock_r_01',
+  },
+  WARLOCK_DEMO_T20_4P_BONUS: {
+    id: 242294,
+    name: 'Demonology Warlock T20 4P bonus',
+    icon: 'inv_chest_cloth_raidwarlock_r_01',
+  },
+  WARLOCK_DEMO_T20_4P_BUFF: {
+    id: 246962,
+    name: 'Dreaded Haste',
+    icon: 'spell_shadow_metamorphosis',
+  },
 };
