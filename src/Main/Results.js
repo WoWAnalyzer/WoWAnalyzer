@@ -38,7 +38,7 @@ class Results extends React.Component {
   constructor() {
     super();
     this.state = {
-      showSpecInformationOverlay: true,
+      showSpecInformationOverlay: false,
     };
     this.handleClickViewSpecInformation = this.handleClickViewSpecInformation.bind(this);
     this.handleSpecInformationCloseClick = this.handleSpecInformationCloseClick.bind(this);
