@@ -63,6 +63,7 @@ class CastEfficiency extends CoreCastEfficiency {
         return baseCd * (1 - (cdTrait * 3 / 100));
       },
       noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.SURVIVAL_INSTINCTS,
@@ -75,6 +76,7 @@ class CastEfficiency extends CoreCastEfficiency {
       charges: 3,
       isActive: combatant => combatant.hasFinger(ITEMS.DUAL_DETERMINATION.id),
       noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.SURVIVAL_INSTINCTS,
@@ -87,6 +89,7 @@ class CastEfficiency extends CoreCastEfficiency {
       charges: 2,
       isActive: combatant => !combatant.hasFinger(ITEMS.DUAL_DETERMINATION.id),
       noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.INCARNATION_OF_URSOC,
@@ -133,6 +136,7 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
       getCooldown: (haste, combatant) => (combatant.hasTalent(SPELLS.GUTTURAL_ROARS_TALENT.id) ? 60 : 120),
       noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.GROWL,
