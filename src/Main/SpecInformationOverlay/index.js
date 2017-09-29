@@ -39,56 +39,44 @@ class SpecInformationOverlay extends React.PureComponent {
           </div>
 
           <div className="row">
-            <div className="description col-xs-12 col-sm-6 col-sm-offset-3">
+            <div className="description col-xs-12 col-md-6 col-md-offset-3">
               {config.description}
             </div>
           </div>
 
           <div className="row">
-            <div className="actions col-xs-12 col-sm-6 col-sm-offset-3">
+            <div className="actions col-xs-12 col-md-6 col-md-offset-3">
               <div className="row">
                 <div className="col-sm-4">
                   <h1>Completeness</h1>
-                  <dfn data-tip={getCompletenessExplanation(config.completeness)} style={{ color: getCompletenessColor(config.completeness) }}>{getCompletenessLabel(config.completeness)}</dfn>
+                  <main>
+                    <dfn data-tip={getCompletenessExplanation(config.completeness)} style={{ color: getCompletenessColor(config.completeness) }}>{getCompletenessLabel(config.completeness)}</dfn>
+                  </main>
                 </div>
                 <div className="col-sm-4">
                   <h1>Spec discussion</h1>
-                  {config.specDiscussionUrl ? (
-                    <a href={config.specDiscussionUrl}>
-                      GitHub issue
-                    </a>
-                  ) : 'Unavailable'}
+                  <main>
+                    {config.specDiscussionUrl ? (
+                      <a href={config.specDiscussionUrl}>
+                        GitHub issue
+                      </a>
+                    ) : 'Unavailable'}
+                  </main>
                 </div>
                 <div className="col-sm-4">
                   <h1>Source code</h1>
-                  <a href={`https://github.com/WoWAnalyzer/WoWAnalyzer/tree/master/${config.path}`}>
-                    &lt;SpecSource /&gt;
-                  </a>
+                  <main>
+                    <a href={`https://github.com/WoWAnalyzer/WoWAnalyzer/tree/master/${config.path}`}>
+                      &lt;SpecSource /&gt;
+                    </a>
+                  </main>
                 </div>
               </div>
             </div>
           </div>
 
-          {/*<div className="row">*/}
-          {/*<div className="actions col-xs-12 col-sm-6 col-sm-offset-3">*/}
-          {/*<div className="row">*/}
-          {/*<div className="col-sm-8">*/}
-          {/*The entire WoWAnalyzer source is open. Interested how things are calculated or think something should be different?*/}
-          {/*</div>*/}
-          {/*<div className="col-sm-4">*/}
-          {/*<a*/}
-          {/*href={`https://github.com/WoWAnalyzer/WoWAnalyzer/tree/master/${config.path}`}*/}
-          {/*className="btn btn-default"*/}
-          {/*>*/}
-          {/*View source*/}
-          {/*</a>*/}
-          {/*</div>*/}
-          {/*</div>*/}
-          {/*</div>*/}
-          {/*</div>*/}
-
           <div className="row">
-            <div className="changelog col-xs-6 col-xs-offset-3">
+            <div className="changelog col-md-8 col-md-offset-2">
               <h1>Changelog</h1>
               <div className="log">
                 <div className="line" />
