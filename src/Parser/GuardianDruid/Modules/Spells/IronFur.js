@@ -78,14 +78,14 @@ class IronFur extends Module {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.IRONFUR.id} />}
-        value={`${formatPercentage(totalIronFurTime / this.owner.fightDuration)}%`}
+        value={`${formatPercentage(physicalHitsMitigatedPercent)}%`}
         label="Ironfur uptime"
         tooltip={`Ironfur usage breakdown:
             <ul>
                 <li>You were hit <b>${this.physicalHitsWithIronFur}</b> times with your Ironfur buff (<b>${formatThousands(this.physicalDamageWithIronFur)}</b> damage).</li>
                 <li>You were hit <b>${this.physicalHitsWithoutIronFur}</b> times <b><i>without</i></b> your Ironfur buff (<b>${formatThousands(this.physicalDamageWithoutIronFur)}</b> damage).</li>
             </ul>
-            <b>${formatPercentage(physicalHitsMitigatedPercent)}%</b> of physical attacks were mitigated with Ironfur (<b>${formatPercentage(physicalDamageMitigatedPercent)}%</b> of physical damage taken).`}
+            <b>${formatPercentage(physicalHitsMitigatedPercent)}%</b> of physical attacks were mitigated with Ironfur (<b>${formatPercentage(physicalDamageMitigatedPercent)}%</b> of physical damage taken), and your overall uptime was <b>${formatPercentage(totalIronFurTime / this.owner.fightDuration)}%</b>.`}
       />
     );
   }
