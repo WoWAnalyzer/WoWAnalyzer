@@ -1,5 +1,4 @@
 import Module from 'Parser/Core/Module';
-import CorePets from 'Parser/Core/Modules/Pets';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import PETS from 'common/PETS';
@@ -10,7 +9,6 @@ import SPELLS from 'common/SPELLS';
 class Pets extends Module {
   static dependencies = {
     combatants: Combatants,
-    pets: CorePets,
   };
 
   // Keys are ids in PETS.js

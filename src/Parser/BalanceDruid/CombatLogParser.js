@@ -7,41 +7,44 @@ import DamageDone from 'Parser/Core/Modules/DamageDone';
 
 import Haste from './Modules/Core/Haste';
 
-import CastEfficiency from './Modules/Features/CastEfficiency';
+//Features
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
-
-import Moonfire from './Modules/Spells/Moonfire';
-import Sunfire from './Modules/Spells/Sunfire';
-import NewMoon from './Modules/Spells/NewMoon';
-import HalfMoon from './Modules/Spells/HalfMoon';
-import FullMoon from './Modules/Spells/FullMoon';
-// import SolarUnemp from './Modules/Spells/Empowerments/SolarUnemp';
-// import LunarUnemp from './Modules/Spells/Empowerments/LunarUnemp';
+import AstralPower from './Modules/Features/AstralPower';
+import CastEfficiency from './Modules/Features/CastEfficiency';
 import LEmpowerment from './Modules/Features/LunarEmpowerment';
 import SEmpowerment from './Modules/Features/SolarEmpowerment';
-import AstralPower from './Modules/Features/AstralPower';
+
+//Spells
+import FullMoon from './Modules/Spells/FullMoon';
+import HalfMoon from './Modules/Spells/HalfMoon';
+import Moonfire from './Modules/Spells/Moonfire';
+import NewMoon from './Modules/Spells/NewMoon';
+import Sunfire from './Modules/Spells/Sunfire';
 import UnempoweredLs from './Modules/Spells/UnempoweredLs';
+
+//Items
+import EmeraldDreamcatcher from './Modules/Items/EmeraldDreamcatcher';
 
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
     haste: Haste,
-      // Features
     damageDone: [DamageDone, { showStatistic: true }],
-    castEfficiency: CastEfficiency,
+    // Features
     alwaysBeCasting: AlwaysBeCasting,
-      // Modules made but not loaded in the first PR
-    moonfire: Moonfire,
-    sunfire: Sunfire,
-    newmoon: NewMoon,
-    halfmoon: HalfMoon,
-    fullmoon: FullMoon,
-      // solarunemp: SolarUnemp,
-      // lunarumep: LunarUnemp,
+    astralpower: AstralPower,
+    castEfficiency: CastEfficiency,
     lsempowerment: LEmpowerment,
     swempowerment: SEmpowerment,
-    astralpower: AstralPower,
+    //Spells
+    fullmoon: FullMoon,
+    halfmoon: HalfMoon,
+    moonfire: Moonfire,
+    newmoon: NewMoon,
+    sunfire: Sunfire,
     unempoweredLS: UnempoweredLs,
+    //Items
+    emeraldDreamcatcher: EmeraldDreamcatcher,
   };
 
   generateResults() {
