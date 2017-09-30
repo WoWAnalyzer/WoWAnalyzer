@@ -1,4 +1,5 @@
 export default `
+29-09-2017 - Added a spec analyzer info overlay for maintainers to configure. (by Zerotorescue)
 27-09-2017 - Hot Fix: Add in check to disable Netherlight Crucible statistics box if a user has no Netherlight Crucible traits active (by anomoly)
 25-09-2017 - Added Netherlight Crucible traits contribution as a common module across specs (by anomoly)
 25-09-2017 - The GitHub repository is now available under WoWAnalyzer/WoWAnalyzer instead of MartijnHols/WoWAnalyzer to give us all the benefits an organization provides on GitHub. (by Zerotorescue)

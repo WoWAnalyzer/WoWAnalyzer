@@ -11,6 +11,7 @@ export default {
   completeness: SPEC_ANALYSIS_COMPLETENESS.NEEDS_MORE_WORK, // When changing this please make a PR with ONLY this value changed, we will do a review of your analysis to find out of it is complete enough.
   changelog: CHANGELOG,
   parser: CombatLogParser,
+  path: __dirname, // used for generating a GitHub link directly to your spec
   footer: (
     <div className="panel fade-in" style={{ margin: '15px auto 30px', maxWidth: 400, textAlign: 'center' }}>
       <div className="panel-body text-muted">
