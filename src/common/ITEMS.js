@@ -533,6 +533,18 @@ const ITEMS = {
     icon: 'inv_jewelry_ring_78',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+  WAKENERS_LOYALTY: {
+    id: 144385,
+    name: 'Wakener\'s Loyalty',
+    icon: 'inv_helm_cloth_raidwarlock_p_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  RECURRENT_RITUAL: {
+    id: 132393,
+    name: 'Recurrent Ritual',
+    icon: 'inv_shoulder_cloth_raidwarlock_l_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
   // T20 Trinkets
   ARCHIVE_OF_FAITH: {
     id: 147006,

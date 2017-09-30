@@ -27,7 +27,11 @@ class SindoreiSpite extends Module {
   }
 
   on_byPlayer_damage(event) {
-    if (this.combatants.selected.hasBuff(SPELLS.SINDOREI_SPITE_BUFF.id, event.timestamp)) {
+    if (!this.combatants.selected.hasBuff(SPELLS.SINDOREI_SPITE_BUFF.id, event.timestamp)) {
+      return;
+    }
+    // so friendly TKC damage doesn't get counted
+    if (!event.targetIsFriendly) {
       this.bonusDmg += getDamageBonus(event, SINDOREI_SPITE_DAMAGE_BONUS);
     }
   }
