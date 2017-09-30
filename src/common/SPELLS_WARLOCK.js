@@ -703,4 +703,11 @@ export default {
     name: 'Dreaded Haste',
     icon: 'spell_shadow_metamorphosis',
   },
+
+  // Demonology legendary effects
+  WAKENERS_LOYALTY: {
+    id: 236200,
+    name: 'Wakener\'s Loyalty',
+    icon: 'inv_offhand_1h_artifactskulloferedar_d_01',
+  },
 };
