@@ -34,6 +34,7 @@ import SummonDarkglare from './Modules/Talents/SummonDarkglare';
 import Demonbolt from './Modules/Talents/Demonbolt';
 
 import KazzaksFinalCurse from './Modules/Items/Legendaries/KazzaksFinalCurse';
+import WilfredRing from './Modules/Items/Legendaries/WilfredRing';
 import TheMasterHarvester from './Modules/Items/Legendaries/TheMasterHarvester';
 import SoulOfTheNetherlord from './Modules/Items/Legendaries/SoulOfTheNetherlord';
 
@@ -75,6 +76,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Legendaries
     kazzaksFinalCurse: KazzaksFinalCurse,
+    wilfredRing: WilfredRing,
     masterHarvester: TheMasterHarvester,
     soulOfTheNetherlord: SoulOfTheNetherlord,
 
