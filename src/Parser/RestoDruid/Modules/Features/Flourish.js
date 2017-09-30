@@ -20,7 +20,7 @@ const WG_WEIGHT = 34;
 const CW_WEIGHT = 110;
 const REJUV_WEIGHT = 20 * 1.15; // the +15% from first artifact point
 const REGROWTH_WEIGHT = 5;
-const LB_WEIGHT = 25
+const LB_WEIGHT = 25;
 const SB_WEIGHT = 10;
 
 
