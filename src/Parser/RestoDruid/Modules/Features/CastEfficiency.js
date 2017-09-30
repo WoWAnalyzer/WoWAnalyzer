@@ -57,13 +57,13 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.CENARION_WARD_TALENT,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 30,
-      isActive: combatant => combatant.lv15Talent === SPELLS.CENARION_WARD_TALENT.id,
+      isActive: combatant => combatant.hasTalent(SPELLS.CENARION_WARD_TALENT.id),
     },
     {
       spell: SPELLS.FLOURISH_TALENT,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 60,
-      isActive: combatant => combatant.lv100Talent === SPELLS.FLOURISH_TALENT.id,
+      isActive: combatant => combatant.hasTalent(SPELLS.FLOURISH_TALENT.id),
       recommendedCastEfficiency: 0.80,
     },
     {
@@ -79,7 +79,7 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.INCARNATION_TREE_OF_LIFE_TALENT,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
-      isActive: combatant => combatant.lv75Talent === SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id,
+      isActive: combatant => combatant.hasTalent(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id),
       getCooldown: haste => 180,
     },
     {
@@ -103,6 +103,12 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: (haste, combatant) => combatant.hasTalent(SPELLS.PROSPERITY_TALENT.id) ? 27 : 30,
       importance: ISSUE_IMPORTANCE.MINOR,
+    },
+    {
+      spell: SPELLS.RENEWAL,
+      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
+      isActive: combatant => combatant.hasTalent(SPELLS.RENEWAL_TALENT.id),
+      getCooldown: haste => 90,
     },
   ];
 }
