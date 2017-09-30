@@ -34,6 +34,7 @@ import SummonDarkglare from './Modules/Talents/SummonDarkglare';
 import Demonbolt from './Modules/Talents/Demonbolt';
 
 import WakenersLoyalty from './Modules/Items/Legendaries/WakenersLoyalty';
+import RecurrentRitual from './Modules/Items/Legendaries/RecurrentRitual';
 import TheMasterHarvester from './Modules/Items/Legendaries/TheMasterHarvester';
 import SoulOfTheNetherlord from './Modules/Items/Legendaries/SoulOfTheNetherlord';
 
@@ -75,6 +76,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Legendaries
     wakenersLoyalty: WakenersLoyalty,
+    recurrentRitual: RecurrentRitual,
     masterHarvester: TheMasterHarvester,
     soulOfTheNetherlord: SoulOfTheNetherlord,
 
