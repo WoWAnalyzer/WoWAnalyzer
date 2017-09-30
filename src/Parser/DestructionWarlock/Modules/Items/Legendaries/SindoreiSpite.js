@@ -15,19 +15,11 @@ class SindoreiSpite extends Module {
 
   bonusDmg = 0;
 
-  _petIds = new Set();
-
   on_initialized() {
     this.active = this.combatants.selected.hasWrists(ITEMS.SINDOREI_SPITE.id);
-    this.owner.playerPets.forEach((pet) => {
-      this._petIds.add(pet.id);
-    });
   }
 
-  on_damage(event) {
-    if (!this._petIds.has(event.sourceID)) {
-      return;
-    }
+  on_byPlayerPet_damage(event) {
     if (this.combatants.selected.hasBuff(SPELLS.SINDOREI_SPITE_BUFF.id, event.timestamp)) {
       this.bonusDmg += getDamageBonus(event, SINDOREI_SPITE_DAMAGE_BONUS);
     }
