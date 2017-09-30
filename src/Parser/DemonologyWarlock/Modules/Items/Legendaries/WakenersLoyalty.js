@@ -53,8 +53,8 @@ class WakenersLoyalty extends Module {
     return {
       item: ITEMS.WAKENERS_LOYALTY,
       result: (
-        <dfn data-tip={`Total bonus damage: ${formatNumber(this.bonusDmg)}<br />Average bonus damage per TKC cast: ${formatNumber(this.bonusDmg / tkcCasts)}<br />Average stacks of Wakener's Loyalty per TKC cast: ${(this._totalUsedStacks / tkcCasts).toFixed(2)}`}>
-          {this.owner.formatItemDamageDone(this.bonusDmg)}.
+        <dfn data-tip={`Average bonus damage per TKC cast: ${formatNumber(this.bonusDmg / tkcCasts)}<br />Average stacks of Wakener's Loyalty per TKC cast: ${(this._totalUsedStacks / tkcCasts).toFixed(2)}`}>
+          {formatNumber(this.bonusDmg)} damage contributed - {this.owner.formatItemDamageDone(this.bonusDmg)}.
         </dfn>
       ),
     };
