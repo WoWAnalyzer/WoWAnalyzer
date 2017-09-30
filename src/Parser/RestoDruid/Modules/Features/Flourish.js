@@ -94,8 +94,7 @@ class Flourish extends Module {
   }
 
   _hotCount(hotId, timestamp) {
-    return Object.keys(this.combatants.players)
-        .map(player => this.combatants.players[player])
+    return Object.values(this.combatants.players)
         .reduce((total, player) => total += (player.hasBuff(hotId, timestamp, 0, 0) ? 1 : 0), 0);
   }
 
