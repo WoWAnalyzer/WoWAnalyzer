@@ -33,6 +33,7 @@ import GrimoireOfSynergy from './Modules/Talents/GrimoireOfSynergy';
 import SummonDarkglare from './Modules/Talents/SummonDarkglare';
 import Demonbolt from './Modules/Talents/Demonbolt';
 
+import KazzaksFinalCurse from './Modules/Items/Legendaries/KazzaksFinalCurse';
 import TheMasterHarvester from './Modules/Items/Legendaries/TheMasterHarvester';
 import SoulOfTheNetherlord from './Modules/Items/Legendaries/SoulOfTheNetherlord';
 
@@ -73,6 +74,7 @@ class CombatLogParser extends CoreCombatLogParser {
     demonbolt: Demonbolt,
 
     // Legendaries
+    kazzaksFinalCurse: KazzaksFinalCurse,
     masterHarvester: TheMasterHarvester,
     soulOfTheNetherlord: SoulOfTheNetherlord,
 
