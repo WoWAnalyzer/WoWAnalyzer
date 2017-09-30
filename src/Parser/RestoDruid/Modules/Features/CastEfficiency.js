@@ -15,6 +15,9 @@ class CastEfficiency extends CoreCastEfficiency {
         const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.TRANQUILITY_HEAL.id);
         return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
       },
+      recommendedCastEfficiency: 0.75,
+      avgIssueCastEfficiency: 0.55,
+      majorIssueCastEfficiency: 0.30,
     },
     {
       spell: SPELLS.INNERVATE,
@@ -29,14 +32,16 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.IRONBARK,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
-      getCooldown: haste => 90,
+      getCooldown: (haste, combatant) => combatant.hasTalent(SPELLS.STONEBARK_TALENT.id) ? 60 : 90,
       importance: ISSUE_IMPORTANCE.MINOR,
+      recommendedCastEfficiency: 0.60,
     },
     {
       spell: SPELLS.BARKSKIN,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 60,
       importance: ISSUE_IMPORTANCE.MINOR,
+      recommendedCastEfficiency: 0.60,
     },
     {
       spell: SPELLS.CENARION_WARD_TALENT,
