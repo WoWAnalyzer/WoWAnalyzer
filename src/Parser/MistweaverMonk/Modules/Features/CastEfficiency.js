@@ -25,16 +25,6 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 30,
     },
     {
-      spell: SPELLS.CHI_BURST_TALENT,
-      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
-      getCooldown: haste => 30,
-      isActive: combatant => combatant.hasTalent(SPELLS.CHI_BURST_TALENT.id),
-      getOverhealing: (_, getAbility) => {
-        const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.CHI_BURST_HEAL.id);
-        return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
-      },
-    },
-    {
       spell: SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 180,
@@ -45,6 +35,28 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 90,
       isActive: combatant => combatant.hasTalent(SPELLS.MANA_TEA_TALENT.id),
+    },
+    {
+      spell: SPELLS.CHI_BURST_TALENT,
+      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
+      getCooldown: haste => 30,
+      isActive: combatant => combatant.hasTalent(SPELLS.CHI_BURST_TALENT.id),
+      getOverhealing: (_, getAbility) => {
+        const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.CHI_BURST_HEAL.id);
+        return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
+      },
+    },
+    {
+      spell: SPELLS.ZEN_PULSE_TALENT,
+      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
+      getCooldown: haste => 15,
+      isActive: combatant => combatant.hasTalent(SPELLS.ZEN_PULSE_TALENT.id),
+    },
+    {
+      spell: SPELLS.CHI_WAVE_TALENT,
+      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
+      getCooldown: haste => 15,
+      isActive: combatant => combatant.hasTalent(SPELLS.CHI_WAVE_TALENT.id),
     },
     {
       spell: SPELLS.LIFE_COCOON,
