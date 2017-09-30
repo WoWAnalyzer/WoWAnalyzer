@@ -30,7 +30,7 @@ class WakenersLoyalty extends Module {
   // applybuff is unnecessary - we don't know how many stacks it added (it doesn't produce applybuffstack, directly gives more stacks)
   // and it's highly unlikely that you would cast only one summon during the 45 sec CD of TKC (so applybuffstack wouldn't happen)
   on_toPlayer_applybuffstack(event) {
-    if (event.ability.guid !== SPELLS.WAKENERS_LOYALTY_BUFF.id) {
+    if (event.ability.guid !== SPELLS.WAKENERS_LOYALTY.id) {
       return;
     }
     this._currentBonusMultiplier = (event.stack || 0) * DAMAGE_BONUS_PER_STACK;
@@ -53,8 +53,8 @@ class WakenersLoyalty extends Module {
     return {
       item: ITEMS.WAKENERS_LOYALTY,
       result: (
-        <dfn data-tip={`Average bonus damage per TKC cast: ${formatNumber(this.bonusDmg / tkcCasts)}<br />Average stacks of Wakener's Loyalty per TKC cast: ${(this._totalUsedStacks / tkcCasts).toFixed(2)}`}>
-          {formatNumber(this.bonusDmg)} damage contributed - {this.owner.formatItemDamageDone(this.bonusDmg)}.
+        <dfn data-tip={`Total bonus damage: ${formatNumber(this.bonusDmg)}<br />Average bonus damage per TKC cast: ${formatNumber(this.bonusDmg / tkcCasts)}<br />Average stacks of Wakener's Loyalty per TKC cast: ${(this._totalUsedStacks / tkcCasts).toFixed(2)}`}>
+          {this.owner.formatItemDamageDone(this.bonusDmg)}.
         </dfn>
       ),
     };

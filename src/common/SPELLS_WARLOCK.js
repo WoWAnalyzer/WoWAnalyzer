@@ -705,7 +705,7 @@ export default {
   },
 
   // Demonology legendary effects
-  WAKENERS_LOYALTY_BUFF: {
+  WAKENERS_LOYALTY: {
     id: 236200,
     name: 'Wakener\'s Loyalty',
     icon: 'inv_offhand_1h_artifactskulloferedar_d_01',
