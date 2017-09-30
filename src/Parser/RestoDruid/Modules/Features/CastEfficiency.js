@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import CoreCastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 
@@ -32,7 +33,16 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.IRONBARK,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
-      getCooldown: (haste, combatant) => combatant.hasTalent(SPELLS.STONEBARK_TALENT.id) ? 60 : 90,
+      getCooldown: (_, combatant) => {
+        let cd = 90;
+        if(combatant.hasTalent(SPELLS.STONEBARK_TALENT.id)) {
+          cd -= 30;
+        }
+        if(combatant.hasHands(ITEMS.XONIS_CARESS.id)) {
+          cd *= 0.80;
+        }
+        return cd;
+      },
       importance: ISSUE_IMPORTANCE.MINOR,
       recommendedCastEfficiency: 0.60,
     },
