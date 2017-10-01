@@ -33,6 +33,7 @@ class Demonbolt extends Module {
     const bonusMultiplier = DEMONBOLT_DAMAGE_BONUS_PER_PET * this.demoPets.getPets(event.timestamp).length;
     this.bonusDmg += getDamageBonus(event, bonusMultiplier);
   }
+
   statistic() {
     return (
       <StatisticBox

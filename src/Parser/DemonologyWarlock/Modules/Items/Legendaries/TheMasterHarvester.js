@@ -1,3 +1,5 @@
+import React from 'react';
+
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -20,7 +22,11 @@ class TheMasterHarvester extends Module {
     const bonusDmg = this.soulHarvest.chestBonusDmg;
     return {
       item: ITEMS.THE_MASTER_HARVESTER,
-      result: `${formatNumber(bonusDmg)} damage contributed - ${this.owner.formatItemDamageDone(bonusDmg)}`,
+      result: (
+        <dfn data-tip={`Total bonus damage contributed: ${formatNumber(bonusDmg)}`}>
+          {this.owner.formatItemDamageDone(bonusDmg)}
+        </dfn>
+      ),
     };
   }
 }
