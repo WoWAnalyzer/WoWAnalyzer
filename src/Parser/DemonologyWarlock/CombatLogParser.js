@@ -33,8 +33,14 @@ import GrimoireOfSynergy from './Modules/Talents/GrimoireOfSynergy';
 import SummonDarkglare from './Modules/Talents/SummonDarkglare';
 import Demonbolt from './Modules/Talents/Demonbolt';
 
+import WakenersLoyalty from './Modules/Items/Legendaries/WakenersLoyalty';
+import RecurrentRitual from './Modules/Items/Legendaries/RecurrentRitual';
+import SindoreiSpite from './Modules/Items/Legendaries/SindoreiSpite';
 import TheMasterHarvester from './Modules/Items/Legendaries/TheMasterHarvester';
 import SoulOfTheNetherlord from './Modules/Items/Legendaries/SoulOfTheNetherlord';
+
+import T20_2set from './Modules/Items/T20_2set';
+import T20_4set from './Modules/Items/T20_4set';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -70,10 +76,15 @@ class CombatLogParser extends CoreCombatLogParser {
     demonbolt: Demonbolt,
 
     // Legendaries
+    wakenersLoyalty: WakenersLoyalty,
+    recurrentRitual: RecurrentRitual,
+    sindoreiSpite: SindoreiSpite,
     masterHarvester: TheMasterHarvester,
     soulOfTheNetherlord: SoulOfTheNetherlord,
 
     // Items
+    t20_2set: T20_2set,
+    t20_4set: T20_4set,
   };
 
   generateResults() {
