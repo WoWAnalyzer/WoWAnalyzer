@@ -39,7 +39,7 @@ class CastEfficiency extends Module {
      * optional name {string} the name to use if it is different from the name provided by the `spell` object.
      * required category {string} The name of the category to place this spell in, you should usually use the SPELL_CATEGORIES enum for these values.
      * required getCooldown {func} A function to calculate the cooldown of a spell. Parameters provided: `hastePercentage`, `selectedCombatant`
-     * optional isActive {func} Whether the spell is active (available to the player) and should be displayed. This should only be used for hiding spells that are unavailable, for example due to talents. If you have a spell behaving differently with a legendary for example, you can also add that spell twice and use this property to toggle the one applicable.
+     * optional isActive {func} Whether the spell is active (available to the player) and should be displayed. This should only be used for hiding spells that are unavailable, for example due to talents. If you have a spell behaving differently with a legendary for example, you can also add that spell twice and use this property to toggle the one applicable. Parameters provided: `selectedCombatant`
      * optional charges {number} The amount of charges the spell has by default.
      * optional recommendedCastEfficiency {number} The custom recommended cast efficiency. Default is 80% (0.8).
      * optional noCanBeImproved {bool} If this is set to `true`, the Cast Efficiency tab won't show a "can be improved" next to a spell.
