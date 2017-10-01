@@ -34,8 +34,8 @@ class Tier20_4set extends Module {
       icon: <SpellIcon id={SPELLS.WARLOCK_AFFLI_T20_4P_BONUS.id} />,
       title: <SpellLink id={SPELLS.WARLOCK_AFFLI_T20_4P_BONUS.id} />,
       result: (
-        <dfn data-tip={'This result may be inaccurate as effect of haste buffs is difficult to calculate. This result is based on the premise that 15% haste allows you to do <code>(baseHaste * (100% + 15%) + 15%) - baseHaste</code> more things in the same amount of time, therefore the set bonus is estimated to be technically 15% damage increase for 8 seconds.'}>
-          {`${formatNumber(this.bonusDmg)} damage - ${this.owner.formatItemDamageDone(this.bonusDmg)}`}
+        <dfn data-tip={`Estimated bonus damage contributed: ${formatNumber(this.bonusDmg)}.<br /><br />This result may be inaccurate as effect of haste buffs is difficult to calculate. This result is based on the premise that 15% haste allows you to do <code>(baseHaste * (100% + 15%) + 15%) - baseHaste</code> more things in the same amount of time, therefore the set bonus is estimated to be technically 15% damage increase for 8 seconds.`}>
+          {this.owner.formatItemDamageDone(this.bonusDmg)}
         </dfn>
       ),
     };
