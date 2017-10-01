@@ -17,14 +17,14 @@ class CooldownUsable extends Module {
   _currentCooldowns = {};
 
   /**
-   * Whether the spell can be cast. This is not the opposite of `isOnCooldown`! A spell with 2 charges, 1 available and 1 on cooldown would
+   * Whether the spell can be cast. This is not the opposite of `isOnCooldown`! A spell with 2 charges, 1 available and 1 on cooldown would be both available and on cooldown at the same time.
    */
   isAvailable(spellId) {
     // TODO: Check for stacks
     return !this._currentCooldowns[spellId];
   }
   /**
-   * Whether the spell is on cooldown. If a spell has multiple charges with 1 charge on cooldown and 1 available, this will return `true`. Use `isAvailable` if you just want to know if a spell is castable.
+   * Whether the spell is on cooldown. If a spell has multiple charges with 1 charge on cooldown and 1 available, this will return `true`. Use `isAvailable` if you just want to know if a spell is castable. Use this if you want to know if a spell is current cooling down, regardless of being able to cast it.
    */
   isOnCooldown(spellId) {
     // TODO: Check for stacks
