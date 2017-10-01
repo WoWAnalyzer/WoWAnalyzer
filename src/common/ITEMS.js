@@ -600,6 +600,24 @@ const ITEMS = {
     icon: 'inv_7_0raid_trinket_04a',
     quality: ITEM_QUALITIES.EPIC,
   },
+  INFERNAL_CINDERS: {
+    id: 147009,
+    name: 'Infernal Cinders',
+    icon: 'spell_fire_burnoutgreen',
+    quality: ITEM_QUALITIES.EPIC,
+  },
+  UMBRAL_MOONGLAIVES: {
+    id: 147012,
+    name: 'Umbral Moonglaives',
+    icon: 'ability_upgrademoonglaive',
+    quality: ITEM_QUALITIES.EPIC,
+  },
+  CRADLE_OF_ANGUISH: {
+    id: 147010,
+    name: 'Crade of Anguish',
+    icon: 'inv_wand_36',
+    quality: ITEM_QUALITIES.EPIC,
+  },
   // Guardian legendaries
   ELIZES_EVERLASTING_ENCASEMENT: {
     id: 137067,
