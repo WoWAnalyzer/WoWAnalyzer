@@ -15,10 +15,9 @@ class SoulHarvest extends Module {
   talentBonusDmg = 0;
   chestBonusDmg = 0;
 
-  _petIds = new Set();
   _isFromTalent = false;
 
-  addToCorrectSource(bonusDmg) {
+  _addToCorrectSource(bonusDmg) {
     if (this._isFromTalent) {
       this.talentBonusDmg += bonusDmg;
     } else {
@@ -28,23 +27,17 @@ class SoulHarvest extends Module {
 
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.SOUL_HARVEST_TALENT.id) || this.combatants.selected.hasChest(ITEMS.THE_MASTER_HARVESTER.id);
-    this.owner.playerPets.forEach((pet) => {
-      this._petIds.add(pet.id);
-    });
-  }
-
-  on_damage(event) {
-    if (!this._petIds.has(event.sourceID)) {
-      return;
-    }
-    if (this.combatants.selected.hasBuff(SPELLS.SOUL_HARVEST.id, event.timestamp)) {
-      this.addToCorrectSource(getDamageBonus(event, SOUL_HARVEST_DAMAGE_BONUS));
-    }
   }
 
   on_byPlayer_damage(event) {
     if (this.combatants.selected.hasBuff(SPELLS.SOUL_HARVEST.id, event.timestamp)) {
-      this.addToCorrectSource(getDamageBonus(event, SOUL_HARVEST_DAMAGE_BONUS));
+      this._addToCorrectSource(getDamageBonus(event, SOUL_HARVEST_DAMAGE_BONUS));
+    }
+  }
+
+  on_byPlayerPet_damage(event) {
+    if (this.combatants.selected.hasBuff(SPELLS.SOUL_HARVEST.id, event.timestamp)) {
+      this._addToCorrectSource(getDamageBonus(event, SOUL_HARVEST_DAMAGE_BONUS));
     }
   }
 

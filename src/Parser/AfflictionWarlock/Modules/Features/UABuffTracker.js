@@ -72,7 +72,7 @@ class UABuffTracker extends Module {
   }
 
   suggestions(when) {
-    const unbuffedTicksPercentage = this.unbuffedTicks / this.totalTicks;
+    const unbuffedTicksPercentage = (this.unbuffedTicks / this.totalTicks ) || 1; // if no UAs were cast (totalTicks and unbuffedTicks = 0), it should return NaN and thus be 1 (100% unbuffed ticks)
     when(unbuffedTicksPercentage).isGreaterThan(0.15)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest('Your Unstable Afflictions could be buffed more. Unstable Affliction is your main source of damage so keeping it buffed as much as possible with Reap Souls, Drain Soul (if using the Malefic Grasp talent) or Haunt (if using the talent) is very important.')
@@ -84,7 +84,7 @@ class UABuffTracker extends Module {
   }
 
   statistic() {
-    const buffedTicksPercentage = 1 - (this.unbuffedTicks / this.totalTicks);
+    const buffedTicksPercentage = 1 - ((this.unbuffedTicks / this.totalTicks) || 1); // if no UAs were cast the result should be 0% buffed ticks
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} />}

@@ -19,7 +19,6 @@ class EmpoweredLifeTap extends Module {
   };
 
   bonusDmg = 0;
-  uptime = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.EMPOWERED_LIFE_TAP_TALENT.id);
@@ -31,12 +30,9 @@ class EmpoweredLifeTap extends Module {
     }
   }
 
-  on_finished() {
-    this.uptime = this.combatants.selected.getBuffUptime(SPELLS.EMPOWERED_LIFE_TAP_BUFF.id) / this.owner.fightDuration;
-  }
-
   suggestions(when) {
-    when(this.uptime).isLessThan(0.9)
+    const uptime = this.combatants.selected.getBuffUptime(SPELLS.EMPOWERED_LIFE_TAP_BUFF.id) / this.owner.fightDuration;
+    when(uptime).isLessThan(0.9)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Your uptime on the <SpellLink id={SPELLS.EMPOWERED_LIFE_TAP_BUFF.id} /> buff could be improved. You should cast <SpellLink id={SPELLS.LIFE_TAP.id} /> more often.<br /><br /><small><em>NOTE:</em> If you're getting 0% uptime, it might be wrong if you used <SpellLink id={SPELLS.LIFE_TAP.id} /> before combat started and maintained the buff. Due to technical limitations it's not possible to track the bonus damage nor uptime in this case.</small></span>)
           .icon(SPELLS.EMPOWERED_LIFE_TAP_TALENT.icon)
@@ -47,10 +43,11 @@ class EmpoweredLifeTap extends Module {
   }
 
   statistic() {
+    const uptime = this.combatants.selected.getBuffUptime(SPELLS.EMPOWERED_LIFE_TAP_BUFF.id) / this.owner.fightDuration;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.EMPOWERED_LIFE_TAP_TALENT.id} />}
-        value={`${formatPercentage(this.uptime)} %`}
+        value={`${formatPercentage(uptime)} %`}
         label="Empowered Life Tap uptime"
         tooltip={`Your Empowered Life Tap talent contributed ${formatNumber(this.bonusDmg)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} %)`}
       />
