@@ -23,44 +23,44 @@ const CastEfficiency = ({ categories, abilities }) => {
                 <th />
               </tr>
               {abilities
-            .filter(item => item.ability.category === categories[key])
-            .map(({ ability, cpm, maxCpm, casts, maxCasts, castEfficiency, overhealing, canBeImproved }) => {
-              const name = ability.name || ability.spell.name;
-              return (
-                <tr key={name}>
-                  <td style={{ width: '35%' }}>
-                    <SpellLink id={ability.spell.id} style={{ color: '#fff' }}>
-                      <SpellIcon id={ability.spell.id} noLink /> {name}
-                    </SpellLink>
-                  </td>
-                  <td className="text-center" style={{ minWidth: 80 }}>
-                    {cpm.toFixed(2)}
-                  </td>
-                  <td className="text-right" style={{ minWidth: 100 }}>
-                    {casts}{maxCasts === Infinity ? '' : `/${Math.floor(maxCasts)}`} casts
-                  </td>
-                  <td style={{ width: '20%' }}>
-                    {maxCasts === Infinity ? '' : (
-                      <div
-                        className="performance-bar"
-                        style={{ width: `${castEfficiency * 100}%`, backgroundColor: canBeImproved ? '#ff8000' : '#70b570' }}
-                      />
-                    )}
-                  </td>
-                  <td className="text-right" style={{ minWidth: 50, paddingRight: 5 }}>
-                    {maxCpm !== null ? `${(castEfficiency * 100).toFixed(2)}%` : ''}
-                  </td>
-                  <td className="text-center" style={{ minWidth: 80 }}>
-                    {overhealing !== null ? `${(overhealing * 100).toFixed(2)}%` : '-'}
-                  </td>
-                  <td style={{ width: '25%', color: 'orange' }}>
-                    {canBeImproved && !ability.noCanBeImproved && 'Can be improved.'}
-                  </td>
-                </tr>
-              );
-            })}
+                .filter(item => item.ability.category === categories[key])
+                .map(({ ability, cpm, maxCpm, casts, maxCasts, castEfficiency, overhealing, canBeImproved }) => {
+                  const name = ability.name || ability.spell.name;
+                  return (
+                    <tr key={name}>
+                      <td style={{ width: '35%' }}>
+                        <SpellLink id={ability.spell.id} style={{ color: '#fff' }}>
+                          <SpellIcon id={ability.spell.id} noLink /> {name}
+                        </SpellLink>
+                      </td>
+                      <td className="text-center" style={{ minWidth: 80 }}>
+                        {cpm.toFixed(2)}
+                      </td>
+                      <td className="text-right" style={{ minWidth: 100 }}>
+                        {casts}{maxCasts === Infinity ? '' : `/${Math.floor(maxCasts)}`} casts
+                      </td>
+                      <td style={{ width: '20%' }}>
+                        {maxCasts === Infinity ? '' : (
+                          <div
+                            className="performance-bar"
+                            style={{ width: `${castEfficiency * 100}%`, backgroundColor: canBeImproved ? '#ff8000' : '#70b570' }}
+                          />
+                        )}
+                      </td>
+                      <td className="text-right" style={{ minWidth: 50, paddingRight: 5 }}>
+                        {maxCpm !== null ? `${(castEfficiency * 100).toFixed(2)}%` : ''}
+                      </td>
+                      <td className="text-center" style={{ minWidth: 80 }}>
+                        {overhealing !== null ? `${(overhealing * 100).toFixed(2)}%` : '-'}
+                      </td>
+                      <td style={{ width: '25%', color: 'orange' }}>
+                        {canBeImproved && !ability.noCanBeImproved && 'Can be improved.'}
+                      </td>
+                    </tr>
+                  );
+                })}
             </tbody>
-        ))}
+          ))}
       </table>
     </div>
   );
