@@ -14,8 +14,8 @@ class CastEfficiency extends CoreCastEfficiency {
       importance: ISSUE_IMPORTANCE.MINOR,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 180,
-      noSuggestion: true,
-      noCanBeImproved: true,
+      recommendedCastEfficiency: 0.75,
+      extraSuggestion: <span>A big CD. Use it to negate big hits that last for more than a couple of seconds.</span>,
 
     },
     {
@@ -23,8 +23,8 @@ class CastEfficiency extends CoreCastEfficiency {
       importance: ISSUE_IMPORTANCE.MINOR,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 90,
-      noSuggestion: true,
-      noCanBeImproved: true,
+      recommendedCastEfficiency: 0.75,
+      extraSuggestion: <span>Good self sustain CD. Weave it in regularly to reduce the strain on your healers. Save for a big hit if needed.</span>,
     },
 
     {
@@ -32,8 +32,9 @@ class CastEfficiency extends CoreCastEfficiency {
       importance: ISSUE_IMPORTANCE.MINOR,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 120,
-      noSuggestion: true,
-      noCanBeImproved: true,
+      recommendedCastEfficiency: 0.75,
+      isActive: combatant => combatant.hasTalent(SPELLS.BLOOD_MIRROR_TALENT.id),
+      extraSuggestion: <span>Mostly used as a mix of dps and surviablity CD. Since it reflects damage back used at high damage times.</span>,
     },
 
     {
@@ -55,7 +56,7 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.DANCING_RUNE_WEAPON,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 180,
-      recommendedCastEfficiency: 0.85,
+      recommendedCastEfficiency: 0.75,
       extraSuggestion: <span>Should be used as an openner and used on CD for the dps boost.</span>,
     },
 
@@ -63,11 +64,18 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.BLOODDRINKER,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 30,
-      recommendedCastEfficiency: 0.90,
+      recommendedCastEfficiency: 0.85,
       isActive: combatant => combatant.hasTalent(SPELLS.BLOODDRINKER_TALENT.id),
       extraSuggestion: <span>Mostly used as a dps CD. Should be almost casted on CD. Good to use when your running to the boss or cant melee them.</span>,
     },
 
+
+    {
+      spell: SPELLS.ARCANE_TORRENT,
+      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
+      getCooldown: haste => 90,
+      hideWithZeroCasts: true,
+    },
   ];
 }
 
