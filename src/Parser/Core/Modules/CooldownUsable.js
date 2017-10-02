@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { formatDuration } from 'common/format';
 
 import Module from 'Parser/Core/Module';
 
@@ -30,6 +31,54 @@ class CooldownUsable extends Module {
     // TODO: Check for stacks
     return !!this._currentCooldowns[spellId];
   }
+  /**
+   * Start the cooldown for the provided spell.
+   * @param {number} spellId The ID of the spell.
+   * @param {number|null} durationMs This allows you to override the duration of the cooldown. If this isn't provided, the cooldown is calculated like normal.
+   */
+  startCooldown(spellId, durationMs = null) {
+    const expectedCooldownDuration = durationMs || this.getExpectedCooldownDuration(spellId);
+    if (!expectedCooldownDuration) {
+      debug && console.warn('Spell', SPELLS[spellId] && SPELLS[spellId].name, spellId, 'doesn\'t have a cooldown.');
+      return;
+    }
+    this._currentCooldowns[spellId] = {
+      start: this.owner.currentTimestamp,
+      expectedEnd: this.owner.currentTimestamp + expectedCooldownDuration,
+    };
+  }
+  /**
+   * Resets the cooldown for the provided spell.
+   * @param {number} spellId The ID of the spell.
+   * @param {boolean} resetAllStacks Whether all stacks should be reset or just the last stack. Does nothing for spells with just 1 stack.
+   */
+  resetCooldown(spellId, resetAllStacks = false) {
+    // TODO: If this spell has multiple charges, and more than 1 charge is on cooldown, then we should just start the full CD again unless `resetAllStacks` is true
+    delete this._currentCooldowns[spellId];
+    debug && console.log('Cooldown ended:', SPELLS[spellId] && SPELLS[spellId].name, spellId); // spells should always be set since this is based on CastEfficiency
+    this.owner.triggerEvent('finishcooldown');
+  }
+  /**
+   * Reduces the cooldown for the provided spell by the provided duration.
+   * @param {number} spellId The ID of the spell.
+   * @param {number} durationMs The duration to reduce the cooldown with, in milliseconds.
+   * @returns {*}
+   */
+  reduceCooldown(spellId, durationMs) {
+    if (!this._currentCooldowns[spellId]) {
+      return null;
+    }
+    const now = this.owner.currentTimestamp;
+    const expectedEnd = this._currentCooldowns[spellId].expectedEnd;
+    const cooldownRemaining = expectedEnd - now;
+    if (cooldownRemaining < durationMs) {
+      this.resetCooldown(spellId);
+      return cooldownRemaining;
+    } else {
+      this._currentCooldowns[spellId].expectedEnd -= durationMs;
+      return durationMs;
+    }
+  }
   _getKnownAbilities() {
     return this.castEfficiency.constructor.CPM_ABILITIES;
   }
@@ -42,7 +91,6 @@ class CooldownUsable extends Module {
     });
   }
   getExpectedCooldownDuration(spellId) {
-    // consult CastEfficiency
     const ability = this._getKnownAbility(spellId);
     return ability ? (ability.getCooldown(this.haste.current, this.combatants.selected) * 1000) : undefined;
   }
@@ -50,20 +98,13 @@ class CooldownUsable extends Module {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     if (!this._currentCooldowns[spellId]) {
-      const expectedCooldownDuration = this.getExpectedCooldownDuration(spellId);
-      if (!expectedCooldownDuration) {
-        debug && console.warn('Spell', event.ability.name, event.ability.guid, 'does not have a cooldown.');
-        return;
-      }
-      this._currentCooldowns[spellId] = {
-        start: event.timestamp,
-        expectedEnd: event.timestamp + expectedCooldownDuration,
-      };
+      this.startCooldown(spellId);
       debug && console.log('Cooldown started:', event.ability.name, event.ability.guid);
-      this.owner.triggerEvent('startcooldown', this._fabricateEvent(event));
+      this.owner.triggerEvent('startcooldown');
     } else {
+      const expectedCooldownDuration = this.getExpectedCooldownDuration(spellId);
       // TODO: When we support charges, this should increment chargesOnCooldown (or something like that) by 1. For now it helps debugging to warn.
-      console.error(`${event.ability.name} was cast while already marked as on cooldown, does this have multiple stacks?`);
+      console.error('At', formatDuration((event.timestamp - this.owner.fight.start_time) / 1000), event.ability.name, `was cast while already marked as on cooldown, does this have multiple stacks? expectedCooldownDuration:`, expectedCooldownDuration);
     }
   }
   on_event(_, event) {
@@ -76,21 +117,9 @@ class CooldownUsable extends Module {
       const activeCooldown = this._currentCooldowns[spellId];
       if (timestamp > activeCooldown.expectedEnd) {
         // Using > instead of >= here since most events, when they're at the exact same time, still apply that frame.
-        // TODO: If this spell has multiple charges, and more than 1 charge is on cooldown, then we should just start the full CD again
-        delete this._currentCooldowns[spellId];
-        debug && console.log('Cooldown ended:', event.ability.name, event.ability.guid);
-        this.owner.triggerEvent('finishcooldown', this._fabricateEvent(event));
+        this.resetCooldown(spellId);
       }
     });
-  }
-
-  _fabricateEvent(originalEvent) {
-    return {
-      ability: originalEvent.ability,
-      sourceID: originalEvent.sourceID,
-      targetID: originalEvent.sourceID,
-      originalEvent,
-    };
   }
 }
 
