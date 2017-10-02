@@ -1,4 +1,5 @@
 export default `
+02-10-2017 - Added a <i>help wanted</i> panel to the frontpage. (by Zerotorescue)
 02-10-2017 - The developer only Events tab can now be filtered with JS expressions to be much more powerful. (by Zerotorescue)
 29-09-2017 - Added a spec analyzer info overlay for maintainers to configure. (by Zerotorescue)
 27-09-2017 - Hot Fix: Add in check to disable Netherlight Crucible statistics box if a user has no Netherlight Crucible traits active (by anomoly)
