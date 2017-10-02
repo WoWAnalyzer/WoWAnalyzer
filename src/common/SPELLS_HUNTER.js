@@ -100,8 +100,8 @@ export default {
     name: 'Vulnerable',
     icon: 'ability_hunter_mastermarksman',
   },
-  BULLSEYE: {
-    id: 204089,
+  BULLSEYE_BUFF: {
+    id: 204090,
     name: 'Bullseye',
     icon: 'ability_hunter_focusedaim',
   },
