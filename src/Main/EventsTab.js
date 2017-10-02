@@ -10,13 +10,12 @@ class EventsTab extends React.Component {
     // results: PropTypes.object.isRequired,
   };
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      sourceFilter: null,
-      typeFilter: null,
-      abilityFilter: null,
+      filter: this.filterPlayerOnly,
     };
+    this.handleApplyFilterClick = this.handleApplyFilterClick.bind(this);
   }
 
   findEntity(id) {
@@ -31,18 +30,49 @@ class EventsTab extends React.Component {
     return null;
   }
 
+  filter = null;
+  handleApplyFilterClick() {
+    const value = this.filter.value;
+    const isValid = !value.match(/[^=]=[^=]/);
+    if (isValid) {
+      this.setState({
+        filter: this.filter.value,
+      });
+    } else {
+      alert('Do not use a single "=" for checking equality; you need to use "=="!');
+    }
+  }
+  setFilter(value) {
+    this.filter.value = value;
+  }
+  get playerId() {
+    return this.props.parser.player.id;
+  }
+  get filterByPlayer() {
+    return `event.sourceID==${this.playerId}`;
+  }
+  get filterToPlayer() {
+    return `event.targetID==${this.playerId}`;
+  }
+  get filterPlayerOnly() {
+    return `(${this.filterByPlayer} || ${this.filterToPlayer})`;
+  }
+  get filterBuffs() {
+    return `['applybuff','applybuffstack','removebuff','applydebuff','applydebuffstack','removedebuff'].includes(event.type)`;
+  }
+  get filterAlwaysBeCasting() {
+    return `(${this.filterByPlayer} && ['begincast','cast'].includes(event.type)) || (${this.filterToPlayer} && ${this.filterBuffs})`;
+  }
+
   render() {
     const { parser } = this.props;
-
-    const sourceFilterRegExp = this.state.sourceFilter && new RegExp(this.state.sourceFilter, 'i');
-    const typeFilterRegExp = this.state.typeFilter && new RegExp(this.state.typeFilter, 'i');
-    const abilityFilterRegExp = this.state.abilityFilter && new RegExp(this.state.abilityFilter, 'i');
-    const targetFilterRegExp = this.state.targetFilter && new RegExp(this.state.targetFilter, 'i');
 
     // TODO: Use react-virtualized for performance
     // TODO: Show active buffs like WCL
     // TODO: Allow searching for players by name
     // TODO: Pollish so this can be turned on for everyone
+
+    const testFilter = Function('event', `return (${this.state.filter});`);
 
     return (
       <div>
@@ -50,46 +80,53 @@ class EventsTab extends React.Component {
           <h2>Combatlog Events</h2>
         </div>
         <div className="panel-body">
-          The filters can be regular expressions (e.g. <code>cast|heal</code>). Source/target currently only search by ID. Note: Rendering the list is extremely slow right now.
+          You can access any property of the event object directly. The filter is fully JS enabled, so be extremely careful when copy-pasting a filter from someone else. Note: Rendering the list is extremely slow right now.<br /><br />
+
+          <div className="flex" style={{ marginBottom: '1em' }}>
+            <div className="flex-main">
+              <textarea className="form-control" ref={elem => (this.filter = elem)} defaultValue={this.state.filter || ''} />
+              <button
+                type="button"
+                className="btn btn-default"
+                onClick={() => this.setFilter(this.filterPlayerOnly)}
+              >
+                Default
+              </button>{' '}
+              <button
+                type="button"
+                className="btn btn-default"
+                onClick={() => this.setFilter(this.filterAlwaysBeCasting)}
+                data-tip="Always be casting"
+              >
+                ABC
+              </button>
+
+            </div>
+            <div className="flex-sub">
+              <button
+                type="button"
+                className="btn btn-success"
+                style={{ height: '100%', marginLeft: 10 }}
+                onClick={this.handleApplyFilterClick}
+              >
+                Apply filter
+              </button>
+            </div>
+          </div>
+          <br />
 
           <table className="events">
-            <thead>
-              <tr>
-                <td />
-                <td>
-                  <input type="text" className="form-control" onChange={e => this.setState({ sourceFilter: e.target.value })} value={this.state.sourceFilter || ''} />
-                </td>
-                <td>
-                  <input type="text" className="form-control" onChange={e => this.setState({ typeFilter: e.target.value })} value={this.state.typeFilter || ''} />
-                </td>
-                <td>
-                  <input type="text" className="form-control" onChange={e => this.setState({ abilityFilter: e.target.value })} value={this.state.abilityFilter || ''} />
-                </td>
-                <td>
-                  <input type="text" className="form-control" onChange={e => this.setState({ targetFilter: e.target.value })} value={this.state.targetFilter || ''} />
-                </td>
-                <td />
-              </tr>
-            </thead>
             <tbody>
-              {parser._debugEventHistory
+              {!parser.finished && (
+                <tr>
+                  <td>Waiting for parsing to finish...</td>
+                </tr>
+              )}
+              {parser.finished && parser._debugEventHistory
                 .map((event, i) => ({ ...event, eventUniqueId: i })) // this greatly speeds up rendering
-                .filter((event) => {
-                  if (sourceFilterRegExp && !sourceFilterRegExp.test(event.sourceID)) {
-                    return false;
-                  }
-                  if (typeFilterRegExp && !typeFilterRegExp.test(event.type)) {
-                    return false;
-                  }
-                  if (abilityFilterRegExp && event.ability && !abilityFilterRegExp.test(event.ability.name)) {
-                    return false;
-                  }
-                  if (targetFilterRegExp && !targetFilterRegExp.test(event.targetID)) {
-                    return false;
-                  }
-                  return true;
-                })
-                .map((event) => {
+                // .filter(event => event.eventUniqueId < 200)
+                .filter(event => testFilter(event))
+                .map(event => {
                   const source = event.sourceID ? this.findEntity(event.sourceID) : event.source;
                   const target = event.targetID ? this.findEntity(event.targetID) : event.target;
 
