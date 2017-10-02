@@ -105,7 +105,6 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 5,
       noSuggestion: true,
       noCanBeImproved: true,
-      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.COUNTER_SHOT,
@@ -113,7 +112,6 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 24,
       noSuggestion: true,
       noCanBeImproved: true,
-      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.MISDIRECTION,
@@ -121,7 +119,6 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 30,
       noSuggestion: true,
       noCanBeImproved: true,
-      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.BINDING_SHOT_TALENT,
@@ -129,7 +126,6 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 45,
       noSuggestion: true,
       noCanBeImproved: true,
-      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.ASPECT_OF_THE_TURTLE,
@@ -151,7 +147,6 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 30,
       noSuggestion: true,
       noCanBeImproved: true,
-      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.TAR_TRAP,
@@ -159,7 +154,6 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 30,
       noSuggestion: true,
       noCanBeImproved: true,
-      hideWithZeroCasts: true,
     },
   ];
 }
