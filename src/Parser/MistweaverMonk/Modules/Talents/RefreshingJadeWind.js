@@ -56,25 +56,6 @@ class RefreshingJadeWind extends Module {
       });
   }
 
-  /* Commenting out for now - Removing because of bloat.
-  statistic() {
-    const avgRJWHealing = this.healingRJW / this.castRJW || 0;
-    const avgRJWTargets = this.healsRJW / this.castRJW || 0;
-    return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.REFRESHING_JADE_WIND_TALENT.id} />}
-        value={`${formatNumber(avgRJWHealing)}`}
-        label={(
-          <dfn data-tip={`You hit a total of ${this.healsRJW} targets with Refreshing Jade Wind on ${this.castRJW} casts. (${(avgRJWTargets).toFixed(1)} Average Targets Hit per Cast.)`}>
-            Average Healing
-          </dfn>
-        )}
-      />
-      );
-    }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(61);
-  */
-
   on_finished() {
     if (debug) {
       console.log(`RJW Casts: ${this.castRJW}`);

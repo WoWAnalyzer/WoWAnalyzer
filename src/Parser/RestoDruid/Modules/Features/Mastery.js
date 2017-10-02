@@ -2,6 +2,7 @@ import Module from 'Parser/Core/Module';
 import SPELLS from 'common/SPELLS';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import HealingValue from 'Parser/Core/Modules/HealingValue';
+import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
 import { HEALS_MASTERY_STACK } from '../../Constants';
@@ -72,7 +73,8 @@ class Mastery extends Module {
 
       Object.entries(this.masteryBuffs)
           .filter(entry => this.combatants.selected.hasBuff(entry[0]))
-          .forEach(entry => entry[1].attributableHealing += decomposedHeal.oneRating * entry[1].amount);
+          .forEach(entry => entry[1].attributableHealing +=
+              calculateEffectiveHealing(event, decomposedHeal.relativeBuffBenefit(entry[1].amount)));
     } else {
       this.totalNoMasteryHealing += healVal.effective;
     }
@@ -170,15 +172,16 @@ class Mastery extends Module {
     // if this heal didn't overheal at all, will be the same as hotCount
     const effectiveStackBenefit = effectiveMasteryHealing / oneStackMasteryHealingRaw;
 
-    // FIXME still using the old way to calculate one rating because it's less obvious how to update it
-    const oldNoMasteryHealing = healVal.effective / healMasteryMult;
-    const oneRatingMasteryHealing = oldNoMasteryHealing * MASTERY_BONUS_FROM_ONE_RATING * hotCount;
+    const relativeBuffBenefit = (buffRating => {
+      const buffBonus = MASTERY_BONUS_FROM_ONE_RATING * hotCount * buffRating;
+      return buffBonus / healMasteryMult;
+    });
 
     return {
       noMastery: noMasteryHealing,
       oneStack: oneStackMasteryHealingEffective,
       effectiveStackBenefit: effectiveStackBenefit,
-      oneRating: oneRatingMasteryHealing,
+      relativeBuffBenefit: relativeBuffBenefit,
     };
   }
 

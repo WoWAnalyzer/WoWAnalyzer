@@ -36,7 +36,14 @@ class CastBehavior extends Module {
         <SpellLink id={spellId}>{label}</SpellLink>
       ) : label;
       return (
-        <div className="flex" style={{ borderBottom: '3px solid rgba(255,255,255,0.1)', marginBottom: ((numItems - 1) === index) ? 0 : 5 }}>
+        <div
+          className="flex"
+          style={{
+            borderBottom: '3px solid rgba(255,255,255,0.1)',
+            marginBottom: ((numItems - 1) === index) ? 0 : 5,
+          }}
+          key={index}
+        >
           <div className="flex-sub">
             <div
               style={{
@@ -96,14 +103,16 @@ class CastBehavior extends Module {
 
     const flashOfLight = getAbility(SPELLS.FLASH_OF_LIGHT.id);
     const holyLight = getAbility(SPELLS.HOLY_LIGHT.id);
-    const holyShock = getAbility(SPELLS.HOLY_SHOCK_HEAL.id);
+    const holyShockCast = getAbility(SPELLS.HOLY_SHOCK_CAST.id);
+    const holyShockHeal = getAbility(SPELLS.HOLY_SHOCK_HEAL.id);
+    const holyShockDamage = getAbility(SPELLS.HOLY_SHOCK_DAMAGE.id);
 
     const iolFlashOfLights = flashOfLight.healingIolHits || 0;
     const iolHolyLights = holyLight.healingIolHits || 0;
     const totalIolUsages = iolFlashOfLights + iolHolyLights;
 
-    const holyShockHeals = holyShock.healingHits || 0;
-    const holyShockCrits = holyShock.healingCriticalHits || 0;
+    const holyShockCasts = holyShockCast.casts || 0;
+    const holyShockCrits = (holyShockHeal.healingCriticalHits || 0) + (holyShockDamage.damageCriticalHits || 0);
     const iolProcsPerHolyShockCrit = this.iolProcsPerHolyShockCrit;
     const totalIolProcs = holyShockCrits * iolProcsPerHolyShockCrit;
     const unusedProcs = totalIolProcs - totalIolUsages;
@@ -124,7 +133,7 @@ class CastBehavior extends Module {
       {
         color: '#ff0000',
         label: 'Wasted procs',
-        tooltip: `The amount of Infusion of Lights you did not use out of the total available. You cast ${holyShockHeals} (healing) Holy Shocks with a ${formatPercentage(holyShockCrits / holyShockHeals)}% crit ratio. This gave you ${totalIolProcs} Infusion of Light procs, of which you used ${totalIolUsages}.`,
+        tooltip: `The amount of Infusion of Lights you did not use out of the total available. You cast ${holyShockCasts} Holy Shocks with a ${formatPercentage(holyShockCrits / holyShockCasts)}% crit ratio. This gave you ${totalIolProcs} Infusion of Light procs, of which you used ${totalIolUsages}.`,
         value: unusedProcs,
       },
     ];

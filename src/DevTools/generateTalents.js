@@ -167,7 +167,7 @@ export default {
 ${Object.keys(spells).map((specName) => {
   return `  // ${specName}
 ${Object.keys(spells[specName]).map((talentName) => {
-  return `                                                                                                                                    ${talentName}: { ${Object.keys(spells[specName][talentName]).map(prop => `${prop}: ${JSON.stringify(spells[specName][talentName][prop])}`).join(', ')} },`;
+  return `  ${talentName}: { ${Object.keys(spells[specName][talentName]).map(prop => `${prop}: ${JSON.stringify(spells[specName][talentName][prop])}`).join(', ')} },`;
 }).join('\n')}`;
 }).join('\n')}
 };

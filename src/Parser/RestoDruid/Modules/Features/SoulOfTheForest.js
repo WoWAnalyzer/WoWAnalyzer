@@ -6,9 +6,11 @@ import SpellIcon from 'common/SpellIcon';
 import ITEMS from 'common/ITEMS';
 import Module from 'Parser/Core/Module';
 import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
+import SuggestionThresholds from '../../SuggestionThresholds';
 
 const REGROWTH_HEALING_INCREASE = 2;
 const REJUVENATION_HEALING_INCREASE = 2;
@@ -115,6 +117,20 @@ class SoulOfTheForest extends Module {
         this.wildGrowthHealing += calculateEffectiveHealing(event, WILD_GROWTH_HEALING_INCREASE);
       }
     }
+  }
+
+  suggestions(when) {
+    const wgUsage = this.wildGrowths / this.proccs;
+
+    when(wgUsage).isLessThan(SuggestionThresholds.SOTF_WG_USAGE.minor)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<span>You didn't consume all your <SpellLink id={SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id} /> buffs with <SpellLink id={SPELLS.WILD_GROWTH.id} />.
+          Try to use <SpellLink id={SPELLS.WILD_GROWTH.id} /> every time you get a <SpellLink id={SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id} /> buff.</span>)
+          .icon(SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.icon)
+          .actual(`Wild growth consumed ${formatPercentage(wgUsage)}% of all the buffs.`)
+          .recommended(`${Math.round(formatPercentage(recommended))}% is recommended`)
+          .regular(SuggestionThresholds.SOTF_WG_USAGE.regular).major(SuggestionThresholds.SOTF_WG_USAGE.major);
+      });
   }
 
   statistic() {

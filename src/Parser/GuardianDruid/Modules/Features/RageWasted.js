@@ -73,7 +73,8 @@ class RageWasted extends Module {
         const realRageWasted = Math.floor((this._currentRawRage + RAW_RAGE_GAINED_FROM_MELEE - this._currentMaxRage) / 10);
         this.registerRageWaste(event.ability.guid, realRageWasted);
       }
-      this.totalRageGained += RAW_RAGE_GAINED_FROM_MELEE;
+      // Convert from raw rage to real rage
+      this.totalRageGained += RAW_RAGE_GAINED_FROM_MELEE / 10;
     }
     this.synchronizeRage(event);
   }

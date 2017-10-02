@@ -25,7 +25,7 @@ import AppBackgroundImage from './AppBackgroundImage';
 import makeAnalyzerUrl from './makeAnalyzerUrl';
 
 const toolName = 'WoW Analyzer';
-const githubUrl = 'https://github.com/MartijnHols/WoWAnalyzer';
+const githubUrl = 'https://github.com/WoWAnalyzer/WoWAnalyzer';
 
 const timeAvailable = console.time && console.timeEnd;
 
@@ -34,6 +34,8 @@ const PROGRESS_STEP2_FETCH_EVENTS = 0.13;
 const PROGRESS_STEP3_PARSE_EVENTS = 0.99;
 
 /* eslint-disable no-alert */
+
+let _footerDeprectatedWarningSent = false;
 
 class App extends Component {
   static propTypes = {
@@ -486,6 +488,11 @@ class App extends Component {
     const { report, combatants, parser } = this.state;
 
     const progress = (this.state.progress * 100);
+
+    if (!_footerDeprectatedWarningSent) {
+      console.error('Using `config.footer` is deprectated. You should add the information you want to share to the description property in the config, which is shown on the spec information overlay.');
+      _footerDeprectatedWarningSent = true;
+    }
 
     return (
       <div className={`app ${this.reportCode ? 'has-report' : ''}`}>

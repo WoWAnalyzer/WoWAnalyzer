@@ -1,3 +1,4 @@
+import React from 'react';
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
@@ -15,19 +16,11 @@ class SindoreiSpite extends Module {
 
   bonusDmg = 0;
 
-  _petIds = new Set();
-
   on_initialized() {
     this.active = this.combatants.selected.hasWrists(ITEMS.SINDOREI_SPITE.id);
-    this.owner.playerPets.forEach((pet) => {
-      this._petIds.add(pet.id);
-    });
   }
 
-  on_damage(event) {
-    if (!this._petIds.has(event.sourceID)) {
-      return;
-    }
+  on_byPlayerPet_damage(event) {
     if (this.combatants.selected.hasBuff(SPELLS.SINDOREI_SPITE_BUFF.id, event.timestamp)) {
       this.bonusDmg += getDamageBonus(event, SINDOREI_SPITE_DAMAGE_BONUS);
     }
@@ -42,7 +35,11 @@ class SindoreiSpite extends Module {
   item() {
     return {
       item: ITEMS.SINDOREI_SPITE,
-      result: `${formatNumber(this.bonusDmg)} damage contributed - ${this.owner.formatItemDamageDone(this.bonusDmg)}`,
+      result: (
+        <dfn data-tip={`Total bonus damage contributed: ${formatNumber(this.bonusDmg)}`}>
+          {this.owner.formatItemDamageDone(this.bonusDmg)}
+        </dfn>
+      ),
     };
   }
 }
