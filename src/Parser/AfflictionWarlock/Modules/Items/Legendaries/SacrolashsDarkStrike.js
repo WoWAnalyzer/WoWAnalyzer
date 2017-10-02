@@ -1,3 +1,5 @@
+import React from 'react';
+
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -30,7 +32,11 @@ class SacrolashsDarkStrike extends Module {
   item() {
     return {
       item: ITEMS.SACROLASHS_DARK_STRIKE,
-      result: `${formatNumber(this.bonusDmg)} damage - ${this.owner.formatItemDamageDone(this.bonusDmg)}`,
+      result: (
+        <dfn data-tip={`Total bonus damage contributed: ${formatNumber(this.bonusDmg)}`}>
+          {this.owner.formatItemDamageDone(this.bonusDmg)}
+        </dfn>
+      ),
     };
   }
 }

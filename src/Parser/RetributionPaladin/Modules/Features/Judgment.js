@@ -29,10 +29,10 @@ class Judgment extends Module {
 		if(!enemy) {
 			return;
 		}
-		else if(spellId === SPELLS.TEMPLARS_VERDICT.id || 
+		if(spellId === SPELLS.TEMPLARS_VERDICT.id || 
 			    spellId === SPELLS.DIVINE_STORM.id ||
 			    spellId === SPELLS.JUSTICARS_VENGENANCE_TALENT){
-			if(!(enemy.hasBuff(SPELLS.JUDGMENT_DEBUFF.id))){
+			if(!enemy.hasBuff(SPELLS.JUDGMENT_DEBUFF.id)){
 				this.spenderOutsideJudgment++;
 			}
 			this.totalSpender++;
@@ -43,12 +43,13 @@ class Judgment extends Module {
 		const enemy = this.enemies.getEntity(event);
 		const spellId = event.ability.guid;
 
-		if(!this._hasES)
+		if(!this._hasES){
 			return;
+		}
 		if(!enemy){
 			return;
 		}
-		if(!(enemy.hasBuff(SPELLS.JUDGMENT_DEBUFF.id))){ 
+		if(!enemy.hasBuff(SPELLS.JUDGMENT_DEBUFF.id)){ 
 			if(spellId === SPELLS.EXECUTION_SENTENCE_TALENT.id){
 			this.spenderOutsideJudgment++;
 			}
@@ -58,13 +59,12 @@ class Judgment extends Module {
 
 	suggestions(when) {
 		const unbuffedJudgmentPercentage = this.spenderOutsideJudgment / this.totalSpender;
-		console.log('butts');
 		when(unbuffedJudgmentPercentage).isGreaterThan(0.05)
 			.addSuggestion((suggest,actual,recommended) => {
 				return suggest('You\'re spending Holy Power outisde of the Judgment debuff Window too much. Only spending while the enemy has Judgment on them is very important.')
 					.icon(SPELLS.JUDGMENT_DEBUFF.icon)
 					.actual(`${formatPercentage(actual)}% Holy Power spenders used outside of Judgment.`)
-					.recommended(`${formatPercentage(recommended)}% is recommened`)
+					.recommended(`>${formatPercentage(recommended)}% is recommened`)
 					.regular(recommended + 0.05).major(recommended + 0.1);
 			});
 	}

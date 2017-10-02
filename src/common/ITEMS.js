@@ -520,6 +520,19 @@ const ITEMS = {
     icon: 'inv_bracer_31b',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+  // Demonology legendaries
+  WAKENERS_LOYALTY: {
+    id: 144385,
+    name: 'Wakener\'s Loyalty',
+    icon: 'inv_helm_cloth_raidwarlock_p_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  RECURRENT_RITUAL: {
+    id: 132393,
+    name: 'Recurrent Ritual',
+    icon: 'inv_shoulder_cloth_raidwarlock_l_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
   // T20 Trinkets
   ARCHIVE_OF_FAITH: {
     id: 147006,
@@ -598,6 +611,24 @@ const ITEMS = {
     id: 147002,
     name: 'Charm of the Rising Tide',
     icon: 'inv_7_0raid_trinket_04a',
+    quality: ITEM_QUALITIES.EPIC,
+  },
+  INFERNAL_CINDERS: {
+    id: 147009,
+    name: 'Infernal Cinders',
+    icon: 'spell_fire_burnoutgreen',
+    quality: ITEM_QUALITIES.EPIC,
+  },
+  UMBRAL_MOONGLAIVES: {
+    id: 147012,
+    name: 'Umbral Moonglaives',
+    icon: 'ability_upgrademoonglaive',
+    quality: ITEM_QUALITIES.EPIC,
+  },
+  CRADLE_OF_ANGUISH: {
+    id: 147010,
+    name: 'Crade of Anguish',
+    icon: 'inv_wand_36',
     quality: ITEM_QUALITIES.EPIC,
   },
   // Guardian legendaries

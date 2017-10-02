@@ -1,3 +1,5 @@
+import React from 'react';
+
 import Module from 'Parser/Core/Module';
 import Enemies from 'Parser/Core/Modules/Enemies';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -33,7 +35,11 @@ class StretensSleeplessShackles extends Module {
   item() {
     return {
       item: ITEMS.STRETENS_SLEEPLESS_SHACKLES,
-      result: `${formatNumber(this.bonusDmg)} damage - ${this.owner.formatItemDamageDone(this.bonusDmg)}`,
+      result: (
+        <dfn data-tip={`Total bonus damage contributed: ${formatNumber(this.bonusDmg)}`}>
+          {this.owner.formatItemDamageDone(this.bonusDmg)}
+        </dfn>
+      ),
     };
   }
 }

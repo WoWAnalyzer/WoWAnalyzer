@@ -50,29 +50,46 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
     if (!this.showStatistic) {
       return null;
     }
-    const nonHealingTimePercentage = this.totalHealingTimeWasted / this.owner.fightDuration;
-    const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
+
+    const deadTime = this.totalTimeWasted;
+    const healingTime = this.owner.fightDuration - this.totalHealingTimeWasted;
+    const nonHealCastTime = this.totalHealingTimeWasted - this.totalTimeWasted;
+
+    const deadTimePercentage = deadTime / this.owner.fightDuration;
+    const healingTimePercentage = healingTime / this.owner.fightDuration;
+    const nonHealCastTimePercentage = nonHealCastTime / this.owner.fightDuration;
 
     return (
       <StatisticBox
         icon={<Icon icon="petbattle_health-down" alt="Non healing time" />}
-        value={`${formatPercentage(nonHealingTimePercentage)} %`}
-        label="Non healing time"
-        tooltip={`Non healing time is available casting time not used for a spell that helps you heal. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), DPSing, etc. Any spell casts that did not have a positive healing effect were considered downtime.<br /><br />You spent ${formatPercentage(deadTimePercentage)}% of your time casting nothing at all.`}
+        value={`${formatPercentage(deadTimePercentage)} %`}
+        label="Downtime"
+        tooltip={`Downtime is available time not used to cast anything. This can be caused by delays between casting spells, latency, cast interrupting or just simply not casting anything (e.g. due to movement/stunned).<br/>
+        <li>You spent <b>${formatPercentage(healingTimePercentage)}%</b> of your time casting heals.</li>
+        <li>You spent <b>${formatPercentage(nonHealCastTimePercentage)}%</b> of your time casting non-healing spells.</li>
+        <li>You spent <b>${formatPercentage(deadTimePercentage)}%</b> of your time casting nothing at all.</li>
+        `}
         footer={(
           <div className="statistic-bar">
             <div
-              className="remainder Hunter-bg"
-              data-tip="Amount of time you were active."
+              className="Hunter-bg"
+              style={{ width: `${healingTimePercentage * 100}%` }}
+              data-tip={`You spent <b>${formatPercentage(healingTimePercentage)}%</b> of your time casting heals.`}
             >
-              <img src="/img/play.png" alt="Active time" />
+              <img src="/img/healing.png" alt="Healing time" />
             </div>
             <div
-              className="DeathKnight-bg"
-              style={{ width: `${this.totalHealingTimeWasted / this.owner.fightDuration * 100}%` }}
-              data-tip="Amount of downtime during which you could have been casting something."
+              className="Druid-bg"
+              style={{ width: `${nonHealCastTimePercentage * 100}%` }}
+              data-tip={`You spent <b>${formatPercentage(nonHealCastTimePercentage)}%</b> of your time casting non-healing spells.`}
             >
-              <img src="/img/afk.png" alt="AFK time" />
+              <img src="/img/sword.png" alt="Non-heal cast time" />
+            </div>
+            <div
+              className="remainder DeathKnight-bg"
+              data-tip={`You spent <b>${formatPercentage(deadTimePercentage)}%</b> of your time casting nothing at all.`}
+            >
+              <img src="/img/afk.png" alt="Downtime" />
             </div>
           </div>
         )}

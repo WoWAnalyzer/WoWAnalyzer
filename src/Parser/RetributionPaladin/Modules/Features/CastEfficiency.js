@@ -1,3 +1,5 @@
+import React from 'react';
+
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 
@@ -15,7 +17,7 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 30,
       recommendedCastEfficiency: 0.9,
-      extraSuggestion: 'It has a high damage per execute time and generates a lot of holy power. It is better to waste 1-2 holy power than to hold the ability.',
+      extraSuggestion: 'It has a high damage per execute time and generates a lot of holy power. It is better to waste 1-2 holy power than to hold the ability. Only hold the ability if adds are coming out in less than 3 seconds',
     },
     {
       spell: SPELLS.WAKE_OF_ASHES,
@@ -30,15 +32,16 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 120,
       isActive: combatant => combatant.hasTalent(SPELLS.CRUSADE_TALENT.id),
-      recommendedCastEfficiency: 0.95,
+      recommendedCastEfficiency: 0.9,
       importance: ISSUE_IMPORTANCE.MAJOR,
+      extraSuggestion: <span>This is our only cooldown and where most of our damage comes from. You really want to not lose a cast of this over a fight.<br/>Note: It may be off by one cast if you use wings before the fight starts. You still want to avoid doing this since your first GCD inside wings should be a spender.</span>,
     },
     {
       spell: SPELLS.AVENGING_WRATH,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 120,
       hideWithZeroCasts: true,
-      recommendedCastEfficiency: 0.95,
+      recommendedCastEfficiency: 0.9,
     },
     {
       spell: SPELLS.HOLY_WRATH_TALENT,
@@ -111,7 +114,7 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.SHIELD_OF_VENGEANCE,
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
-      getCooldown: haste => 120, // TODO calculate cd reduction based on artifact
+      getCooldown: (haste, combatant) => 120 - (combatant.traitsBySpellId[SPELLS.DEFLECTION.id] || 0) * 10,
       noCanBeImproved: true,
       importance: ISSUE_IMPORTANCE.MINOR,
     },
@@ -121,6 +124,7 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => null,
       isActive: combatant => combatant.hasTalent(SPELLS.JUSTICARS_VENGEANCE_TALENT.id),
       noSuggestion: true,
+      noCanBeImproved: true,
       hideWithZeroCasts: true,
     },
     {
@@ -129,6 +133,7 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => null,
       isActive: combatant => combatant.hasTalent(SPELLS.EYE_FOR_AN_EYE_TALENT.id),
       noSuggestion: true,
+      noCanBeImproved: true,
       hideWithZeroCasts: true,
     },
     {
@@ -137,6 +142,13 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => null,
       isActive: combatant => combatant.hasTalent(SPELLS.WORD_OF_GLORY_TALENT.id),
       noSuggestion: true,
+      noCanBeImproved: true,
+      hideWithZeroCasts: true,
+    },
+    {
+      spell: SPELLS.ARCANE_TORRENT,
+      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
+      getCooldown: haste => 90,
       hideWithZeroCasts: true,
     },
   ];

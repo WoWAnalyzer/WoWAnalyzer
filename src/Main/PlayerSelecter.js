@@ -56,12 +56,12 @@ class PlayerSelecter extends Component {
           <div className="panel-body">
             <div className="flex">
               <div className="flex-main" style={{ paddingRight: 10 }}>
-                If you're not in the list your spec may not be supported yet. Specs are added by enthusiastic players of the spec themselves. Adding specs is easy if you're familiar with JavaScript, find out more on <a href="https://github.com/MartijnHols/WoWAnalyzer/blob/master/CONTRIBUTING.md">GitHub</a> or <a href="https://discord.gg/AxphPxU" target="_blank" rel="noopener noreferrer">join the WoW Analyzer Discord</a> for additional help.
+                If you're not in the list your spec may not be supported yet. Specs are added by enthusiastic players of the spec themselves. Adding specs is easy if you're familiar with JavaScript, find out more on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/CONTRIBUTING.md">GitHub</a> or <a href="https://discord.gg/AxphPxU" target="_blank" rel="noopener noreferrer">join the WoW Analyzer Discord</a> for additional help.
               </div>
               <div className="flex-sub hidden-xs">
                 <DiscordButton style={{ marginLeft: 20 }} />
                 <PatreonButton style={{ marginLeft: 20 }} />
-                <GithubButton style={{ marginLeft: 20 }} text="Add your spec" href="https://github.com/MartijnHols/WoWAnalyzer/blob/master/CONTRIBUTING.md" />
+                <GithubButton style={{ marginLeft: 20 }} text="Add your spec" href="https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/CONTRIBUTING.md" />
               </div>
             </div>
           </div>

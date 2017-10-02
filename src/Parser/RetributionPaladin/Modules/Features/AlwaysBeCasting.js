@@ -42,7 +42,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     225141, // http://www.wowhead.com/spell=225141/fel-crazed-rage (Draught of Souls)
     SPELLS.DIVINE_STEED.id,
     26573, // Consecration
-    SPELLS.BLINDING_LIGHT_TALENT.id,
     642, // Divine Shield
     SPELLS.LAY_ON_HANDS.id,
     SPELLS.BLESSING_OF_FREEDOM.id,
