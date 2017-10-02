@@ -86,7 +86,7 @@ class CastEfficiency extends CoreCastEfficiency {
     },
     {
       spell: SPELLS.EXHILARATION,
-      category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
+      category: CastEfficiency.SPELL_CATEGORIES.DEFENSIVE,
       getCooldown: haste => 120,
       noSuggestion: true,
       noCanBeImproved: true,
@@ -97,7 +97,6 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 24,
       noSuggestion: true,
       noCanBeImproved: true,
-      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.CONCUSSIVE_SHOT,
@@ -105,7 +104,6 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 5,
       noSuggestion: true,
       noCanBeImproved: true,
-      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.COUNTER_SHOT,
@@ -113,7 +111,6 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 24,
       noSuggestion: true,
       noCanBeImproved: true,
-      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.MISDIRECTION,
@@ -129,11 +126,10 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 45,
       noSuggestion: true,
       noCanBeImproved: true,
-      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.ASPECT_OF_THE_TURTLE,
-      category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
+      category: CastEfficiency.SPELL_CATEGORIES.DEFENSIVE,
       getCooldown: haste => 180,
       noSuggestion: true,
       noCanBeImproved: true,
@@ -151,7 +147,6 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 30,
       noSuggestion: true,
       noCanBeImproved: true,
-      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.TAR_TRAP,
@@ -159,7 +154,6 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 30,
       noSuggestion: true,
       noCanBeImproved: true,
-      hideWithZeroCasts: true,
     },
   ];
 }
