@@ -339,11 +339,17 @@ export default {
     id: 235040,
     name: "X'oni's Caress",
     icon: 'spell_druid_ironbark',
+  },
   //Guardian Druid T19 2set
   GUARDIAN_DRUID_T19_2SET_BONUS_BUFF: {
     id: 211149,
     name: 'T19 2 set bonus',
     icon: 'trade_engineering',
+  },
+  XONIS_CARESS: {
+    id: 235040,
+    name: "X'oni's Caress",
+    icon: 'spell_druid_ironbark',
   },
 
   // Traits:

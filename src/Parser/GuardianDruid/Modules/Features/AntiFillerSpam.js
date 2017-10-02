@@ -1,18 +1,21 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import RESOURCE_TYPES, { getResource } from 'common/RESOURCE_TYPES';
 import { formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticBox from 'Main/StatisticBox';
 
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Enemies from 'Parser/Core/Modules/Enemies';
 import Haste from 'Parser/Core/Modules/Haste';
 
+const debug = false;
+
+// The  amount of time after a proc has occurred before casting a filler is no longer acceptable
 const REACTION_TIME_THRESHOLD = 500;
+
 
 const GCD_SPELLS = {
   // Rotational spells
@@ -46,16 +49,6 @@ const GCD_SPELLS = {
       return pulverizeTalented && targetHasThrashStacks;
     },
   },
-  // [SPELLS.MAUL.id]: {
-  //   isFiller: false,
-  //   baseCD: null,
-  //   condition: ({ classResources }, combatant, targets) => {
-  //     // TODO:generalize this to be available for all resource types
-  //     const currentRage = getResource(classResources, RESOURCE_TYPES.RAGE).amount / 10;
-  //     const rageAvailable = currentRage >= 90;
-  //     return rageAvailable;
-  //   },
-  // },
 
   // "Filler" spells
   [SPELLS.MOONFIRE.id]: {
@@ -128,7 +121,7 @@ class AntiFillerSpam extends Module {
 
       this._totalFillerSpells += 1;
 
-      console.group(`[FILLER SPELL] - ${SPELLS[spellID].name}`, event);
+      debug && console.group(`[FILLER SPELL] - ${SPELLS[spellID].name}`, event);
       const availableSpells = [];
       Object.keys(GCD_SPELLS).forEach((gcdSpellID) => {
         // We have to cast to string here because Object keys are always strings
@@ -146,7 +139,7 @@ class AntiFillerSpam extends Module {
         let isOffCooldown = true;
         if (baseCD !== null) {
           if (hastedCD) {
-            console.log(`[${SPELLS[gcdSpellID].name} ${gcdSpellID}] - lastCast: ${lastCast} - currentTime: ${timestamp}`);
+            debug && console.log(`[${SPELLS[gcdSpellID].name} ${gcdSpellID}] - lastCast: ${lastCast} - currentTime: ${timestamp}`);
             isOffCooldown = this.isHastedAbilityOffCooldown(lastCast, timestamp, baseCD);
           } else {
             isOffCooldown = timestamp - lastCast > baseCD;
@@ -156,15 +149,13 @@ class AntiFillerSpam extends Module {
         const hasProc = proc && ((typeof proc === 'function') ? proc(event, combatant, targets, lastCast) : proc);
         const meetsCondition = condition ? ((typeof condition === 'function') ? condition(event, combatant, targets, lastCast) : condition) : true;
 
-        // console.log(GCD_SPELLS[gcdSpellID]);
 
         if ((isOffCooldown || hasProc) && meetsCondition) {
-          console.warn(`[${SPELLS[gcdSpellID].name} ${gcdSpellID}] - isOffCD: ${isOffCooldown} - proc?: ${hasProc} - condition?: ${meetsCondition}`);
+          debug && console.warn(`[${SPELLS[gcdSpellID].name} ${gcdSpellID}] - isOffCD: ${isOffCooldown} - proc?: ${hasProc} - condition?: ${meetsCondition}`);
           availableSpells.push(gcdSpellID);
         }
       });
-      // console.warn('[NON-FILLER SPELLS AVAILABLE:]', availableSpells.map(id => SPELLS[id].name));
-      console.groupEnd();
+      debug && console.groupEnd();
       if (availableSpells.length > 0) {
         this._unnecessaryFillerSpells += 1;
       }
@@ -173,8 +164,8 @@ class AntiFillerSpam extends Module {
   }
 
   on_finished() {
-    console.log('[haste log]', this._hasteLog);
-    console.log(`[filler spam] ${this._unnecessaryFillerSpells} / ${this._totalGCDSpells} (${formatPercentage(this.fillerSpamPercentage)}%)`);
+    debug && console.log('[haste log]', this._hasteLog);
+    debug && console.log(`[filler spam] ${this._unnecessaryFillerSpells} / ${this._totalGCDSpells} (${formatPercentage(this.fillerSpamPercentage)}%)`);
   }
 
   get fillerSpamPercentage() {
@@ -199,14 +190,13 @@ class AntiFillerSpam extends Module {
      *
      * return false if spell is still on cd
      */
-    console.group(`[${formatTime(this.owner.fight.start_time, timestamp)}] Computing hasted CD - base ${baseCD}`);
     let remainingCD = baseCD * 1000;
     let hasteAtCastIndex = this._hasteLog.findIndex(({ timestamp }) => timestamp > lastCast);
     if (hasteAtCastIndex === -1) {
       hasteAtCastIndex = this._hasteLog.length - 1;
     }
     let nextHasteChange = hasteAtCastIndex + 1;
-    console.log('Last cast: ', formatTime(this.owner.fight.start_time, lastCast), `(${formatTime(lastCast, timestamp)})`);
+    debug && console.log('Last cast: ', formatTime(this.owner.fight.start_time, lastCast), `(${formatTime(lastCast, timestamp)} ago)`);
     do {
       let hasteEnd = timestamp;
       if (nextHasteChange < this._hasteLog.length) {
@@ -215,22 +205,22 @@ class AntiFillerSpam extends Module {
 
       const hasteStart = Math.max(lastCast, this._hasteLog[hasteAtCastIndex].timestamp);
 
-      console.log('Current haste buff:', this._hasteLog[hasteAtCastIndex].haste, '[', formatTime(this.owner.fight.start_time, hasteStart), '-', formatTime(this.owner.fight.start_time, hasteEnd), ']');
+      debug && console.log('Current haste buff:', this._hasteLog[hasteAtCastIndex].haste, '[', formatTime(this.owner.fight.start_time, hasteStart), '-', formatTime(this.owner.fight.start_time, hasteEnd), ']');
       const durationOfHaste = hasteEnd - hasteStart;
       const effectiveCD = durationOfHaste * (1 + this._hasteLog[hasteAtCastIndex].haste);
-      console.log(`Effective CD: ${effectiveCD / 1000}s`);
+      debug && console.log(`Effective CD: ${effectiveCD / 1000}s`);
       remainingCD -= effectiveCD;
-      console.log(`Remaining: ${remainingCD / 1000}s`);
+      debug && console.log(`Remaining: ${remainingCD / 1000}s`);
       if (remainingCD < 0) {
-        console.groupEnd();
+        debug && console.groupEnd();
         return true;
       }
       hasteAtCastIndex += 1;
       nextHasteChange += 1;
     } while(hasteAtCastIndex < this._hasteLog.length);  //&& this._hasteLog[nextHasteChange].timestamp < timestamp);
 
-    console.log('Done')
-    console.groupEnd();
+    debug && console.log('Done')
+    debug && console.groupEnd();
     return false;
   }
 
@@ -259,7 +249,7 @@ class AntiFillerSpam extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.BEAR_SWIPE.id} />}
         value={`${formatPercentage(this.fillerSpamPercentage)}%`}
-        label='Filler Spam'
+        label='Unnecessary Fillers'
         tooltip={`You cast <strong>${this._unnecessaryFillerSpells}</strong> unnecessary filler spells out of <strong>${this._totalGCDSpells}</strong> total GCDs.  Filler spells (Swipe, Moonfire without a GG proc, or Moonfire outside of pandemic if talented into Incarnation) do far less damage than your main rotational spells, and should be minimized whenever possible.`}
       />
     );
