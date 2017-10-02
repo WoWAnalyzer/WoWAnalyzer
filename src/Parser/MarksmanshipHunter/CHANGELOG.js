@@ -1,4 +1,5 @@
 export default `
+<<<<<<< HEAD
 02-10-2017 - Added bullseye buff to hunter_spells for future usage. - Putro
 02-10-2017 - Changed dead time to stricter, and get the player to cast more (should generally always be casting something). - Putro
 02-10-2017 - Added suggestions to Windburst and A Murder of Crows under CastEfficiency. - Putro
