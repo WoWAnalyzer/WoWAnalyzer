@@ -97,7 +97,7 @@ class Home extends Component {
                   WoWAnalyzer is slowly expanding with more specs being added and several specs nearing completion. We need your help to continue expanding and keep everything accurate. Are you a coder or graphic designer? Check our <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub project</a> (hint: see the <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/labels/help-wanted" className="gh-label">help-wanted</a> and <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/labels/good-first-issue" className="gh-label">good-first-issue</a> issues) or <a href="https://discord.gg/AxphPxU">Discord</a> to find out how you could contribute.
                 </div>
 
-                <img src="https://media.giphy.com/media/l1J3vV5lCmv8qx16M/giphy.gif" style={{ width: '100%' }} />
+                <img src="https://media.giphy.com/media/l1J3vV5lCmv8qx16M/giphy.gif" style={{ width: '100%' }} alt="Sharing is caring" />
               </div>
             </div>
           </div>
