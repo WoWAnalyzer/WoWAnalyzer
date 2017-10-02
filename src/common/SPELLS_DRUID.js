@@ -642,6 +642,11 @@ export default {
     name: 'Celestial Alignment',
     icon: 'artifactability_balancedruid_newmoon',
   },
+  EMERALD_DREAMCATCHER_BUFF: {    
+    id: 224706,
+    name: 'The Emerald Dreamcatcher',
+    icon: 'inv_helmet_81',
+  },
   ASTRAL_ACCELERATION: {
     id: 242232,
     name: 'Astral Acceleration',

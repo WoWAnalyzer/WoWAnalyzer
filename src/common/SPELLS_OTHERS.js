@@ -75,6 +75,11 @@ export default {
     name: 'Ancient Rejuvenation Potion',
     icon: 'inv_alchemy_70_purple',
   },
+  MARK_OF_THE_CLAW: {
+    id: 190909,
+    name: 'Mark of the Claw',
+    icon: 'classicon_druid',
+  },
   // Items buffs:
   JACINS_RUSE: {
     id: 224149,
@@ -300,7 +305,16 @@ export default {
     name: 'Melee',
     icon: 'inv_axe_02',
   },
-
+  ASTRAL_VULNERABILITY: {
+    id: 236330,
+    name: 'Astral Vulnerability',
+    icon: 'spell_frost_wisp',
+  },
+  ANNIHILATION_TRILLIAX: {
+    id: 207631,
+    name: 'Annihilation',
+    icon: 'spell_arcane_arcanetorrent',
+  },
   // Netherlight Cruicible Traits
   MURDEROUS_INTENT_TRAIT: {
     id: 252191,

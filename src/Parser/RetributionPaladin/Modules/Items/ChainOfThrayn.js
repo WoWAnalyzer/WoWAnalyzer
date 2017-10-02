@@ -33,7 +33,6 @@ class ChainOfThrayn extends Module {
 			item: ITEMS.CHAIN_OF_THRAYN,
 			result: (<dfn data-tip={`
 				The effective damage contributed by Chain of Thrayn.<br/>
-				Damage: ${this.owner.formatItemDamageDone(this.damageDone)}<br/>
 				Total Damage: ${formatNumber(this.damageDone)}`}>
         		{this.owner.formatItemDamageDone(this.damageDone)}
       		</dfn>),

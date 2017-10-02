@@ -7,7 +7,6 @@ import { formatNumber, formatPercentage } from 'common/format';
 
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import HealingDone from 'Parser/Core/Modules/HealingDone';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
@@ -16,13 +15,13 @@ const debug = false;
 class EssenceFontMastery extends Module {
   static dependencies = {
     combatants: Combatants,
-    healingDone: HealingDone,
   };
 
   healEF = 0;
   healing = 0;
   castEF = 0;
   gustHeal = false;
+  secondGustHealing = 0;
   secondGustOverheal = 0;
 
   on_byPlayer_heal(event) {
@@ -41,6 +40,7 @@ class EssenceFontMastery extends Module {
       } else if (this.combatants.players[targetId].hasBuff(SPELLS.ESSENCE_FONT_BUFF.id, event.timestamp, 0, 0) === true && this.gustHeal) {
         this.healEF += 1;
         this.healing += (event.amount || 0) + (event.absorbed || 0);
+        this.secondGustHealing += (event.amount || 0) + (event.absorbed || 0) + (event.overheal || 0);
         this.secondGustOverheal += (event.overheal || 0);
         this.gustHeal = false;
       }
@@ -62,7 +62,6 @@ class EssenceFontMastery extends Module {
       console.log(`EF Casts: ${this.castEF}`);
       console.log(`EF Targets Hit: ${this.targetsEF}`);
       console.log(`EF Avg Targets Hit per Cast: ${this.targetsEF / this.castEF}`);
-      console.log(`Overhealing?`, this.healingDone.total.overheal);
     }
   }
 
@@ -93,7 +92,7 @@ class EssenceFontMastery extends Module {
         label={(
           <dfn data-tip={`You healed an average of ${avgMasteryCastsPerEF.toFixed(2)} targets per Essence Font cast.<ul>
             <li>${formatNumber(avgEFMasteryHealing)} average healing per cast</li>
-            <li>${formatNumber(this.secondGustOverheal)} Second Gust of Mists overhealing (${formatPercentage(this.secondGustOverheal / this.healingDone.total.overheal)}%)</li>
+            <li>${formatNumber(this.secondGustOverheal)} Second Gust of Mists overhealing (${formatPercentage(this.secondGustOverheal / this.secondGustHealing)}%)</li>
             </ul>`}>
             Mastery Buffs utilized
           </dfn>
