@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Event from './Event';
 import './EventsTab.css';
+import EventsTable from "./EventsTable";
 
 class EventsTab extends React.Component {
   static propTypes = {
@@ -14,8 +14,12 @@ class EventsTab extends React.Component {
     super(props);
     this.state = {
       filter: this.filterPlayerOnly,
+      tester: Function('event', `return (${this.filterPlayerOnly});`), // eslint-disable-line no-new-func
+      newFilterValue: this.filterPlayerOnly,
     };
+    this.handleNewFilterValueChange = this.handleNewFilterValueChange.bind(this);
     this.handleApplyFilterClick = this.handleApplyFilterClick.bind(this);
+    this.findEntity = this.findEntity.bind(this);
   }
 
   findEntity(id) {
@@ -30,20 +34,27 @@ class EventsTab extends React.Component {
     return null;
   }
 
-  filter = null;
+  handleNewFilterValueChange(e) {
+    this.setState({
+      newFilterValue: e.target.value,
+    });
+  }
   handleApplyFilterClick() {
-    const value = this.filter.value;
+    const value = this.state.newFilterValue;
     const isValid = !value.match(/[^=]=[^=]/);
     if (isValid) {
       this.setState({
-        filter: this.filter.value,
+        filter: value,
+        tester: Function('event', `return (${value});`), // eslint-disable-line no-new-func
       });
     } else {
       alert('Do not use a single "=" for checking equality; you need to use "=="!');
     }
   }
   setFilter(value) {
-    this.filter.value = value;
+    this.setState({
+      newFilterValue: value,
+    });
   }
   get playerId() {
     return this.props.parser.player.id;
@@ -72,8 +83,6 @@ class EventsTab extends React.Component {
     // TODO: Allow searching for players by name
     // TODO: Pollish so this can be turned on for everyone
 
-    const testFilter = Function('event', `return (${this.state.filter});`);
-
     return (
       <div>
         <div className="panel-heading">
@@ -84,7 +93,11 @@ class EventsTab extends React.Component {
 
           <div className="flex" style={{ marginBottom: '1em' }}>
             <div className="flex-main">
-              <textarea className="form-control" ref={elem => (this.filter = elem)} defaultValue={this.state.filter || ''} />
+              <textarea
+                className="form-control"
+                value={this.state.newFilterValue || ''}
+                onChange={this.handleNewFilterValueChange}
+              />
               <button
                 type="button"
                 className="btn btn-default"
@@ -95,12 +108,18 @@ class EventsTab extends React.Component {
               <button
                 type="button"
                 className="btn btn-default"
+                onClick={() => this.setFilter('true')}
+              >
+                All
+              </button>{' '}
+              <button
+                type="button"
+                className="btn btn-default"
                 onClick={() => this.setFilter(this.filterAlwaysBeCasting)}
                 data-tip="Always be casting"
               >
                 ABC
               </button>
-
             </div>
             <div className="flex-sub">
               <button
@@ -108,6 +127,7 @@ class EventsTab extends React.Component {
                 className="btn btn-success"
                 style={{ height: '100%', marginLeft: 10 }}
                 onClick={this.handleApplyFilterClick}
+                disabled={this.state.newFilterValue === this.state.filter}
               >
                 Apply filter
               </button>
@@ -115,27 +135,17 @@ class EventsTab extends React.Component {
           </div>
           <br />
 
-          <table className="events">
-            <tbody>
-              {!parser.finished && (
-                <tr>
-                  <td>Waiting for parsing to finish...</td>
-                </tr>
-              )}
-              {parser.finished && parser._debugEventHistory
-                .map((event, i) => ({ ...event, eventUniqueId: i })) // this greatly speeds up rendering
-                // .filter(event => event.eventUniqueId < 200)
-                .filter(event => testFilter(event))
-                .map(event => {
-                  const source = event.sourceID ? this.findEntity(event.sourceID) : event.source;
-                  const target = event.targetID ? this.findEntity(event.targetID) : event.target;
-
-                  return (
-                    <Event key={`${event.eventUniqueId}`} event={event} fightStart={parser.fight.start_time} source={source} target={target} />
-                  );
-                })}
-            </tbody>
-          </table>
+          {!parser.finished && (
+            <div className="alert alert-info">Waiting for parsing to finish...</div>
+          )}
+          {parser.finished && (
+            <EventsTable
+              events={parser._debugEventHistory}
+              filter={this.state.tester}
+              fightStart={parser.fight.start_time}
+              findEntity={this.findEntity}
+            />
+          )}
         </div>
       </div>
     );
