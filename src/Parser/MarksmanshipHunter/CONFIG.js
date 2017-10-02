@@ -28,7 +28,7 @@ export default {
   ),
   // When changing this please make a PR with ONLY this value changed, we will do a review of your analysis to find out of it is complete enough.
   completeness: SPEC_ANALYSIS_COMPLETENESS.NEEDS_MORE_WORK,
-  //Link to GitHub issue with
+  //Link to GitHub issue
   specDiscussionUrl: 'https://github.com/WoWAnalyzer/WoWAnalyzer/issues/418',
 
   // Don't change these:
