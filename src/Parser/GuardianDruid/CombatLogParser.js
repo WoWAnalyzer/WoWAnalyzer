@@ -11,6 +11,7 @@ import DamageTaken from 'Parser/Core/Modules/DamageTaken';
 
 import Cinidaria from 'Parser/Core/Modules/Items/Cinidaria';
 
+import ActiveTargets from './Modules/Features/ActiveTargets';
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import Gore from './Modules/Features/Gore';
 import GalacticGuardian from './Modules/Features/GalacticGuardian';
@@ -40,6 +41,7 @@ class CombatLogParser extends CoreCombatLogParser {
     damageDone: [DamageDone, { showStatistic: true }],
     abilityTracker: AbilityTracker,
     // Features
+    activeTargets: ActiveTargets,
     castEfficiency: CastEfficiency,
     alwaysBeCasting: AlwaysBeCasting,
     goreProcs: Gore,
