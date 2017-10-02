@@ -9,8 +9,6 @@ export default {
   // ...
 
   // Marksmanship:
-  // ...
-
 
   WINDBURST: {
     id: 204147,
@@ -101,6 +99,11 @@ export default {
     id: 187131,
     name: 'Vulnerable',
     icon: 'ability_hunter_mastermarksman',
+  },
+  BULLSEYE: {
+    id: 204089,
+    name: 'Bullseye',
+    icon: 'ability_hunter_focusedaim',
   },
 
   // Survival:
