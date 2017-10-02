@@ -11,7 +11,7 @@ import Module from 'Parser/Core/Module';
 import { formatPercentage, formatDuration } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-class SpiritBomb extends Module {
+class Tier202PBonus extends Module {
   static dependencies = {
     combatants: Combatants,
     enemies: Enemies,
@@ -52,4 +52,4 @@ class SpiritBomb extends Module {
   statisticOrder = STATISTIC_ORDER.CORE(11);
 }
 
-export default SpiritBomb;
+export default Tier202PBonus;

@@ -39,8 +39,8 @@ class FeretoryOfSouls extends Module {
     return {
       item: ITEMS.FERETORY_OF_SOULS,
       result: (
-        <dfn data-tip={`${formatNumber(estimatedChaosBoltDamage)} damage - ${this.owner.formatItemDamageDone(estimatedChaosBoltDamage)} <br />This result is estimated by multiplying number of Soul Shard Fragments gained from this item, divided by 20 and floored down (because Chaos Bolt consumes 20 Soul Shard Fragments) by the average Chaos Bolt damage for the whole fight.`}>
-          {`${fragmentsGained} Soul Shard Fragments gained`}
+        <dfn data-tip={`Estimated bonus damage - ${formatNumber(estimatedChaosBoltDamage)} damage - ${this.owner.formatItemDamageDone(estimatedChaosBoltDamage)} <br />This result is estimated by multiplying number of Soul Shard Fragments gained from this item, divided by 20 and floored down (because Chaos Bolt consumes 20 Soul Shard Fragments) by the average Chaos Bolt damage for the whole fight.`}>
+          {fragmentsGained} Soul Shard Fragments gained
         </dfn>
       ),
     };
