@@ -52,6 +52,7 @@ class CooldownTracker extends Module {
   on_toPlayer_applybuff(event) {
     const spellId = event.ability.guid;
     const cooldownSpell = this.constructor.cooldownSpells.find(cooldownSpell => cooldownSpell.spell.id === spellId);
+    console.log("Cooldown spell", cooldownSpell);
     if (!cooldownSpell) {
       return;
     }

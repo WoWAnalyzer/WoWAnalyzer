@@ -33,8 +33,6 @@ class T20_4pc extends Module {
 
   }
 
-
-
   item() {
     const runicPowerLost = this.deathStrinkeBuffless * GRAVEWARDEN_RUNIC_DISCOUNT;
     return {
