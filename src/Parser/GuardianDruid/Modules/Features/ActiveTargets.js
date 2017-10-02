@@ -12,9 +12,9 @@ class ActiveTargets extends Module {
     enemies: Enemies,
   };
 
-  /* Targets are considered inactive by default.  Once they are part of a combat event,
-   * they become active.  If they are not part of another combat event (source or target)
-   * after a certain amount of time has passed, they are considered inactive again.
+  /* Targets are considered inactive by default.  Once they are part of a damage event,
+   * they become active.  If they are not part of another damage event after a certain
+   * amount of time has passed, they are considered inactive again.
   */
   _targetActivity = {};
 
