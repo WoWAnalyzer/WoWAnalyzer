@@ -15,7 +15,7 @@ export default {
 
   description: (
     <div>
-      Hey, we're working on making this analyzer as good as we can. We hope that the suggestions that will be implemented in the future, will be helpful in improving your overall performance.<br /><br />
+      Hey, we are working on making this analyzer as good as we can. We hope that the suggestions that will be implemented in the future, will be helpful in improving your overall performance.<br /><br />
 
       You might notice that currently there aren't a lot of suggestions, or a lot of stuff generally implemented. This is the reason the spec is still listed as "Needs more work", but we hope to be able to remedy this in the nearest future.<br /><br />
 
