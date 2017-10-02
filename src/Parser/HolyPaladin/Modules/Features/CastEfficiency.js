@@ -13,9 +13,8 @@ class CastEfficiency extends CoreCastEfficiency {
   static CPM_ABILITIES = [
     ...CoreCastEfficiency.CPM_ABILITIES,
     {
-      spell: SPELLS.HOLY_SHOCK_HEAL,
+      spell: SPELLS.HOLY_SHOCK_CAST,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-      getCasts: castCount => castCount.healingHits,
       getCooldown: haste => 9 / (1 + haste),
       extraSuggestion: 'Casting Holy Shock regularly is very important for performing well.',
     },
