@@ -6,10 +6,11 @@ import DamageDone from './Modules/DamageDone';
 import DamageTaken from './Modules/DamageTaken';
 
 import Combatants from './Modules/Combatants';
-import CooldownUsable from './Modules/CooldownUsable';
 import AbilityTracker from './Modules/AbilityTracker';
 import Haste from './Modules/Haste';
 import AlwaysBeCasting from './Modules/AlwaysBeCasting';
+import CastEfficiency from './Modules/CastEfficiency';
+import CooldownUsable from './Modules/CooldownUsable';
 import Enemies from './Modules/Enemies';
 import Pets from './Modules/Pets';
 import HealEventTracker from './Modules/HealEventTracker';
@@ -84,6 +85,7 @@ class CombatLogParser {
     healEventTracker: HealEventTracker,
     haste: Haste,
     alwaysBeCasting: AlwaysBeCasting,
+    castEfficiency: CastEfficiency,
     cooldownUsable: CooldownUsable,
     manaValues: ManaValues,
     vantusRune: VantusRune,
