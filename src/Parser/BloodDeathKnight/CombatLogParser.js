@@ -22,10 +22,6 @@ import BlooddrinkerTicks from './Modules/Features/BlooddrinkerTicks';
 import RunicPowerDetails from './Modules/RunicPower/RunicPowerDetails';
 import RunicPowerTracker from './Modules/RunicPower/RunicPowerTracker';
 
-import IceboundFortitude from './Modules/Core/IceboundFortitude';
-import VampiricBlood from './Modules/Core/VampiricBlood';
-import BloodMirror from './Modules/Core/BloodMirror';
-
 import T20_2pc from './Modules/Items/T20_2pc';
 import T20_4pc from './Modules/Items/T20_4pc';
 
@@ -47,9 +43,7 @@ class CombatLogParser extends CoreCombatLogParser {
     ossuaryUptime: OssuaryUptime,
     wastedDeathAndDecay: WastedDeathAndDecay,
     blooddrinkerTicks: BlooddrinkerTicks,
-    vampiricBlood: VampiricBlood,
-    iceboundFortitude: IceboundFortitude,
-    bloodMirror: BloodMirror,
+
 
 
     // DOT
