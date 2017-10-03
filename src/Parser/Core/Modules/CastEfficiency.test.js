@@ -122,5 +122,12 @@ describe('Core/Modules/CastEfficiency', () => {
 
       expect(instance.getMaxCharges(SPELLS.HOLY_SHOCK_CAST.id)).toBe(charges);
     });
+    it('defaults to 1 charge', () => {
+      instance.getAbility = jest.fn(() => ({
+        spell: SPELLS.HOLY_SHOCK_CAST,
+      }));
+
+      expect(instance.getMaxCharges(SPELLS.HOLY_SHOCK_CAST.id)).toBe(1);
+    });
   });
 });
