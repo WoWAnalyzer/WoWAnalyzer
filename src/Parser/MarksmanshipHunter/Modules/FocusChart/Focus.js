@@ -1,4 +1,4 @@
-// Based on ??? which was based on Main/Mana.js
+//Based on Main/Mana.js
 
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -19,6 +19,8 @@ const formatDuration = (duration) => {
   const seconds = Math.floor(duration % 60);
   return `${Math.floor(duration / 60)}:${seconds < 10 ? `0${seconds}` : seconds}`;
 };
+
+const passiveWasteThreshold = .03 // (wasted passive focus generated) / (total passive focus generated), anything higher will trigger "CAN BE IMPROVED"
 
 class Focus extends React.PureComponent {
   static propTypes = {
@@ -46,7 +48,6 @@ class Focus extends React.PureComponent {
     }
   }
   load(reportCode, actorId, start, end) {
-	  var firstEvent = start + 1;
     const focusPromise = fetch(makeWclUrl(`report/tables/resources/${reportCode}`, {
       start,
       end,
@@ -63,9 +64,9 @@ class Focus extends React.PureComponent {
           });
         }
       });
-	const playerPromise = fetch(makeWclUrl(`report/events/${reportCode}`, {
+	const playerPromise = fetch(makeWclUrl(`report/events/${reportCode}`, { //We really just grab for player stats- I'm sure there's a better way
       start,
-      end: firstEvent,
+      end,
       actorid: actorId,
     }))
       .then(response => response.json())
@@ -107,45 +108,51 @@ class Focus extends React.PureComponent {
         </div>
       );
     }
+	console.log(this.state.playerData.events);
 	
-	const focusGen = 10 + this.state.playerData.events[0].hasteRanged / 4000;
+	const focusGen = 10 + .1 * this.state.playerData.events[0].hasteRanged / 375; //TODO: replace constant passive FocusGen (right now we don't account for lust/hero or Trueshot
 	
     const { start, end } = this.props;
-	var passiveCap = 0;
-	var lastCatch = 0;
+	var passiveCap = 0; //counts time focus capped (in seconds)
+	var lastCatch = 0; //records the timestamp of the last event
 	
     const cappedTimer = {
       0: 130,
     };
+	
     this.state.focusData.series[0].data.forEach((item) => {
       const secIntoFight = (item[0] - start);
 		 cappedTimer[secIntoFight] = item[1];
 		 lastCatch = (item[0] - start);
     });
-	for (var i = 0; i < (lastCatch); i++){
+	for (var i = 0; i < (lastCatch); i++){  //extrapolates focus given passive focus gain (TODO: Update for pulls with Volley)
 		if (!cappedTimer[i]){
-			if (cappedTimer[i] === 130){
+			if (cappedTimer[i - 1] === 130){
 				cappedTimer[i] = 130;
 			}
 			else{
-				cappedTimer[i] = cappedTimer[i-1]+ focusGen/1000;
+				cappedTimer[i] = cappedTimer[i-1] + focusGen/1000;
 			}
 		}
-		if (cappedTimer[i] > 129.999999){
+		if (cappedTimer[i] > 127){
 			passiveCap += 1/1000;
 		}
 	}
 	
+	
+	/* no, you aren't seeing double- this does the same thing as above, but aims to maximize range where-ever possible.
+	This is the graph data- since the graph is just a general point of reference, and I only record 1 data point for
+	every second, this ensures that the range of each section of the graph is accurate, at the cost of exact slope*/
 	var lastCatch = 0;
     const focusBySecond = {
       0: 130,
     };
 	this.state.focusData.series[0].data.forEach((item) => {
-	  const secIntoFight = Math.floor((item[0] - start) / 1000); //weighted
-	  if (focusBySecond[secIntoFight] && item[1] <= 65 && focusBySecond[secIntoFight] > item[1]){
+	  const secIntoFight = Math.floor((item[0] - start) / 1000);
+	  if (focusBySecond[secIntoFight] && item[1] <= 65 && focusBySecond[secIntoFight] > item[1]){ //aims to get highest peak
 		 focusBySecond[secIntoFight] = item[1];
 	  }
-	  else if (focusBySecond[secIntoFight] && item[1] > 65 &&focusBySecond[secIntoFight] < item[1]){
+	  else if (focusBySecond[secIntoFight] && item[1] > 65 &&focusBySecond[secIntoFight] < item[1]){ //aims to get lowest valley
 		 focusBySecond[secIntoFight] = item[1];
 	  }
 	  else if (!focusBySecond[secIntoFight]){
@@ -155,17 +162,16 @@ class Focus extends React.PureComponent {
 	  if(item[1] > 129){
 	  }
 	});
-	for (var i = 0; i < lastCatch; i++){
+	for (var i = 0; i < lastCatch; i++){ //extrapolates for passive focus gain
 		if (!focusBySecond[i]){
-			if (focusBySecond[i] > 130-focusGen){
+			if (focusBySecond[i - 1] > 130-focusGen){
 				focusBySecond[i] = 130;
 			}
 			else{
-				focusBySecond[i] = focusBySecond[i-1]+ focusGen - 3*.67;
+				focusBySecond[i] = focusBySecond[i-1]+ focusGen;
 			}
 		}
 		if (focusBySecond[i] > 129){
-			//passiveCap ++;
 		}
 	}
 		
@@ -204,19 +210,17 @@ class Focus extends React.PureComponent {
     const abilitiesAll = {};
     const categories = {
       generated: 'Focus Generators',
-      spent: 'Focus Spenders',
+      //spent: 'Focus Spenders', //I see no reason to display focus spenders, but leaving this in if someone later wants to add them
     };
 
     const overCapBySecond = {};
-    let lastOverCap;
-    let lastSecFight = start;
-    this.state.focusData.series[0].events.forEach((event) => {
+    this.state.playerData.events.forEach((event) => {
 		const secIntoFight = Math.floor((event.timestamp - start) / 1000);
-		if (event.type === 'energize') {
+		if (event.type === 'energize' && ((event.ability.guid == 187675) || (event.ability.guid == 215107) || (event.ability.guid == 213363))) { //filter non-focus-generator ids
 			if (!abilitiesAll[`${event.ability.guid}_gen`]) {
 			  const spell = SPELLS[event.ability.guid];
 			  var tempSpellID = event.ability.guid;
-			  if(tempSpellID == 187675 || tempSpellID == 215107){
+			  if(tempSpellID == 187675 || tempSpellID == 215107){ //the ids do not align with common/SPELLS, so I manually replace the corresponding ids
 				tempSpellID = 185358;
 			  }
 			  else if(tempSpellID == 213363){
@@ -236,68 +240,10 @@ class Focus extends React.PureComponent {
 			}
 			abilitiesAll[`${event.ability.guid}_gen`].casts += 1;
 			abilitiesAll[`${event.ability.guid}_gen`].created += event.resourceChange;
-			
+			abilitiesAll[`${event.ability.guid}_gen`].wasted += event.waste;
 		  }
-	  /*
-      if (event.type === 'cast') {
-        const spell = SPELLS[event.ability.guid];
-					  
-        if (!abilitiesAll[`${event.ability.guid}_spend`]) {
-
-          abilitiesAll[`${event.ability.guid}_spend`] = {
-			  
-            ability: {
-              category: 'Focus Spenders',
-              name: (spell === undefined) ? event.ability.name : spell.name,
-              spellId: event.ability.guid,
-            },
-            spent: 0,
-            casts: 0,
-            created: 0,
-            wasted: 0,
-          };
-        }
-        abilitiesAll[`${event.ability.guid}_spend`].casts += 1;
-        const lastFocus = lastSecFight === secIntoFight ? focusBySecond[lastSecFight - 1] : focusBySecond[lastSecFight];
-        const spendResource = (spell.focusCost !== undefined) ? spell.focusCost : (spell.max_focus < lastFocus ? spell.max_focus : lastFocus);
-        abilitiesAll[`${event.ability.guid}_spend`].spent += spendResource;
-        abilitiesAll[`${event.ability.guid}_spend`].wasted += spell.max_focus ? spell.max_focus - spendResource : 0;
-      } else if (event.type === 'energize') {
-		  if(event.waste > 0){
-			  console.log("wasted at:" + event.timestamp);
-		  }
-        if (!abilitiesAll[`${event.ability.guid}_gen`]) {
-          const spell = SPELLS[event.ability.guid];
-		  var tempSpellID = event.ability.guid;
-		  if(tempSpellID == 187675 || tempSpellID == 215107){
-			tempSpellID = 185358;
-		  }
-		  else if(tempSpellID == 213363){
-			  console.log("yo: " + event.timestamp);
-			tempSpellID = 2643;
-		  }
-          abilitiesAll[`${event.ability.guid}_gen`] = {
-            ability: {
-              category: 'Focus Generators',
-              name: (spell === undefined) ? event.ability.name : spell.name,
-              spellId: tempSpellID,
-            },
-            spent: 0,
-            casts: 0,
-            created: 0,
-            wasted: 0,
-          };
-        }
-        abilitiesAll[`${event.ability.guid}_gen`].casts += 1;
-        abilitiesAll[`${event.ability.guid}_gen`].created += event.resourceChange;
-        abilitiesAll[`${event.ability.guid}_gen`].wasted += event.waste;
-      }
-	  */
-      if (secIntoFight !== lastSecFight) {
-        lastSecFight = secIntoFight;
-      }
     });
-	const totalWasted = passiveCap;
+
     const abilities = Object.keys(abilitiesAll).map(key => abilitiesAll[key]);
     abilities.sort((a, b) => {
       if (a.created < b.created) {
@@ -320,6 +266,17 @@ class Focus extends React.PureComponent {
       });
       deathsBySecond[i] = deathsBySecond[i] !== undefined ? deathsBySecond[i] : undefined;
     }
+	
+	var wastedFocus = Math.round(passiveCap * focusGen);
+	var totalFocus = Math.round(fightDurationSec * focusGen);
+	var passiveRating = "";
+	if ( passiveCap / totalFocus > passiveWasteThreshold){
+		passiveRating = "CAN BE IMPROVED";
+	}
+	else{
+	}
+	console.log(passiveCap / totalFocus);
+	const totalWasted = [totalFocus,wastedFocus,passiveRating];
 
     const chartData = {
       labels,
@@ -345,7 +302,6 @@ class Focus extends React.PureComponent {
 
     return (
       <div>
-	  {(totalWasted)}
         <ChartistGraph
           data={chartData}
           options={{
@@ -396,6 +352,7 @@ class Focus extends React.PureComponent {
         <FocusComponent
           abilities={abilities}
           categories={categories}
+		  passive = {(totalWasted)}
         />
       </div>
     );
