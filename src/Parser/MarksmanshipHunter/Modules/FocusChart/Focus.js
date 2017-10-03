@@ -110,20 +110,25 @@ class Focus extends React.PureComponent {
     }
 	console.log(this.state.playerData.events);
 	
-	const focusGen = 10 + .1 * this.state.playerData.events[0].hasteRanged / 375; //TODO: replace constant passive FocusGen (right now we don't account for lust/hero or Trueshot
-	
+	const focusGen = Math.round((10 + .1 * this.state.playerData.events[0].hasteRanged / 375)*100)/100; //TODO: replace constant passive FocusGen (right now we don't account for lust/hero or Trueshot
+	console.log(focusGen);
     const { start, end } = this.props;
+	const actorId = this.props.actorId;
 	var passiveCap = 0; //counts time focus capped (in seconds)
 	var lastCatch = 0; //records the timestamp of the last event
 	
     const cappedTimer = {
-      0: 130,
+      0:130
     };
-	
-    this.state.focusData.series[0].data.forEach((item) => {
-      const secIntoFight = (item[0] - start);
-		 cappedTimer[secIntoFight] = item[1];
-		 lastCatch = (item[0] - start);
+	var tst2 = 0;
+	console.log("actor" + actorId);
+    this.state.playerData.events.forEach((events) => {
+		if (events.sourceID === actorId &&(events.type === 'cast' || events.type === 'energize') ){
+			const secIntoFight = (events.timestamp - start);
+			cappedTimer[secIntoFight] = events.classResources[0]['amount'];
+			lastCatch = (events.timestamp - start);
+		}
+
     });
 	for (var i = 0; i < (lastCatch); i++){  //extrapolates focus given passive focus gain (TODO: Update for pulls with Volley)
 		if (!cappedTimer[i]){
@@ -134,11 +139,12 @@ class Focus extends React.PureComponent {
 				cappedTimer[i] = cappedTimer[i-1] + focusGen/1000;
 			}
 		}
-		if (cappedTimer[i] > 127){
+		if (cappedTimer[i] === 130){
 			passiveCap += 1/1000;
 		}
+		tst2 = i;
 	}
-	
+	console.log(tst2 - lastCatch);
 	
 	/* no, you aren't seeing double- this does the same thing as above, but aims to maximize range where-ever possible.
 	This is the graph data- since the graph is just a general point of reference, and I only record 1 data point for
@@ -254,7 +260,7 @@ class Focus extends React.PureComponent {
       return -1;
     });
 
-    const fightDurationSec = Math.ceil((end - start) / 1000);
+    const fightDurationSec = Math.floor((end - start) / 1000);
     const labels = [];
     for (let i = 0; i <= fightDurationSec; i += 1) {
       labels.push(i);
@@ -266,9 +272,10 @@ class Focus extends React.PureComponent {
       });
       deathsBySecond[i] = deathsBySecond[i] !== undefined ? deathsBySecond[i] : undefined;
     }
-	
+	console.log(passiveCap);
 	var wastedFocus = Math.round(passiveCap * focusGen);
-	var totalFocus = Math.round(fightDurationSec * focusGen);
+	console.log("fight" + fightDurationSec);
+	var totalFocus = Math.floor(fightDurationSec * focusGen);
 	var passiveRating = "";
 	if ( passiveCap / totalFocus > passiveWasteThreshold){
 		passiveRating = "CAN BE IMPROVED";
