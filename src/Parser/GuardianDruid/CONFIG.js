@@ -7,7 +7,7 @@ import SpellLink from 'common/SpellLink';
 import CombatLogParser from './CombatLogParser';
 import CHANGELOG from './CHANGELOG';
 
-import FaideAvatar from './Images/faide-avatar.png'
+import FaideAvatar from './Images/faide-avatar.png';
 
 export default {
   spec: SPECS.GUARDIAN_DRUID,
