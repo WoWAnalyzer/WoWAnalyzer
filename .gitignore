@@ -1,8 +1,5 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
-#IDE FIles
-/.idea
-
 # dependencies
 /node_modules
 /browser-extensions/node_modules
