@@ -13,14 +13,12 @@ class T20_2pc extends Module {
     combatants: Combatants,
   };
 
-  uptime=0;
+  get uptime() {
+    return this.combatants.getBuffUptime(SPELLS.GRAVEWARDEN.id) / this.owner.fightDuration;
+  }
 
   on_initialized() {
     this.active = this.combatants.selected.hasBuff(SPELLS.BLOOD_DEATH_KNIGHT_T20_2SET_BONUS_BUFF.id);
-  }
-
-  on_finished() {
-    this.uptime = this.owner.modules.combatants.getBuffUptime(SPELLS.GRAVEWARDEN.id) / (this.owner.fightDuration);
   }
 
   item() {

@@ -27,8 +27,9 @@ class T20_4pc extends Module {
     if (spellId === SPELLS.DEATH_STRIKE.id && !this.combatants.selected.hasBuff(SPELLS.GRAVEWARDEN.id, event.timestamp)) {
       this.deathStrinkeBuffless += 1;
     }else{
-      if (spellId === SPELLS.DEATH_STRIKE.id)
+      if (spellId === SPELLS.DEATH_STRIKE.id) {
         this.deathStrikeTotal += 1;
+      }
     }
 
   }
