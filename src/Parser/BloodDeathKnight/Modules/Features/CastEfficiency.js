@@ -41,7 +41,7 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 7.5 / (1 + haste),
       recommendedCastEfficiency: 0.95,
-      extraSuggestion: <span>Should be casting it so you have atleast one recharging.</span>,
+      extraSuggestion: <span>Should be casting it so you have at least one recharging.</span>,
     },
     {
       spell: SPELLS.CONSUMPTION,
@@ -56,7 +56,7 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 180,
       recommendedCastEfficiency: 0.90,
-      extraSuggestion: <span>Should be used as an openner and used on CD for the dps boost.</span>,
+      extraSuggestion: <span>Should be used as an opener and used on CD for the dps boost.</span>,
     },
 
     {
