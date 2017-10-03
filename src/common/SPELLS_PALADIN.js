@@ -272,6 +272,11 @@ export default {
     name: 'Avenging Wrath',
     icon: 'spell_holy_avenginewrath',
   },
+  BLADE_OF_WRATH_PROC: {
+    id: 231843,
+    name: 'Blade of Wrath',
+    icon: 'ability_paladin_bladeofjusticeblue',
+  },
 
   // Ret Item Effects
   WHISPER_OF_THE_NATHREZIM_BUFF: {

@@ -7,12 +7,15 @@ import Talents from 'Main/Talents';
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 
+import Haste from './Modules/PaladinCore/Haste';
+
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownTracker from './Modules/Features/CooldownTracker';
 import Judgment from './Modules/Features/Judgment';
 
 import DivinePurpose from './Modules/Talents/DivinePurpose';
+import BoWProcTracker from './Modules/PaladinCore/BoWProcTracker';
 
 import HolyPowerTracker from './Modules/HolyPower/HolyPowerTracker';
 import HolyPowerDetails from './Modules/HolyPower/HolyPowerDetails';
@@ -27,8 +30,7 @@ import Tier20_4set from './Modules/Items/Tier20_4set';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
-    // Override the ability tracker so we also get stats for IoL and beacon healing
-
+    haste: Haste,
     // PaladinCore
     damageDone: [DamageDone, { showStatistic: true }],
 
@@ -40,6 +42,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Talents
     divinePurpose: DivinePurpose,
+    boWProcTracker: BoWProcTracker,
 
     // HolyPower
     holyPowerTracker: HolyPowerTracker,
