@@ -1,4 +1,4 @@
-/******************************************************************************************************************
+/** ****************************************************************************************************************
  * This file should not be changed; it only merges all the different spell files into one access point to make it
  * all easier to use.
  *
@@ -10,7 +10,7 @@
  * NOTE: the indexById functions copies all manually added spells under their spell id. So if you defined
  * `MY_SPELL: { id: 1337, ... }`, it will become available under SPELLS.MY_SPELL as well as SPELLS[1337]. You should
  * use the named spell by default, this makes things much more readable.
- *****************************************************************************************************************/
+ **************************************************************************************************************** */
 
 import indexById from './indexById';
 

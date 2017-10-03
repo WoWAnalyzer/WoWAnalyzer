@@ -21,7 +21,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.SOULSTONE.id,
     SPELLS.UNENDING_RESOLVE.id,
     SPELLS.UNSTABLE_AFFLICTION_CAST.id,
-    //talents
+    // talents
     SPELLS.HAUNT.id,
     SPELLS.DEMONIC_CIRCLE_SUMMON.id,
     SPELLS.DEMONIC_CIRCLE_TELEPORT.id,
@@ -30,7 +30,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.SOUL_HARVEST.id,
     SPELLS.BURNING_RUSH.id,
     SPELLS.SIPHON_LIFE.id,
-    //practically unused, for the sake of completeness
+    // practically unused, for the sake of completeness
     SPELLS.SUMMON_DOOMGUARD_TALENTED.id,
     SPELLS.SUMMON_INFERNAL_TALENTED.id,
     SPELLS.DARK_PACT.id,
@@ -42,6 +42,10 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.GRIMOIRE_VOIDWALKER.id,
     SPELLS.GRIMOIRE_FELHUNTER.id,
     SPELLS.GRIMOIRE_SUCCUBUS.id,
+    SPELLS.SUMMON_IMP.id,
+    SPELLS.SUMMON_VOIDWALKER.id,
+    SPELLS.SUMMON_FELHUNTER.id,
+    SPELLS.SUMMON_SUCCUBUS.id,
   ];
 
   suggestions(when) {
@@ -49,7 +53,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
 
     when(deadTimePercentage).isGreaterThan(0.2)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your dead GCD time can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. Even if you have to move, try casting something instant - maybe refresh your dots or replenish your mana with <SpellLink id={SPELLS.LIFE_TAP.id}/></span>)
+        return suggest(<span>Your dead GCD time can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. Even if you have to move, try casting something instant - maybe refresh your dots or replenish your mana with <SpellLink id={SPELLS.LIFE_TAP.id} /></span>)
           .icon('spell_mage_altertime')
           .actual(`${formatPercentage(actual)}% dead GCD time`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
@@ -61,10 +65,10 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
 
     return (
       <StatisticBox
-        icon={<Icon icon='petbattle_health-down' alt='Dead time' />}
+        icon={<Icon icon="petbattle_health-down" alt="Dead time" />}
         value={`${formatPercentage(deadTimePercentage)} %`}
-        label='Dead time'
-        tooltip='Dead time is available casting time not used for casting any spell. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/being stunned), etc.'
+        label="Dead time"
+        tooltip="Dead time is available casting time not used for casting any spell. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/being stunned), etc."
       />
     );
   }

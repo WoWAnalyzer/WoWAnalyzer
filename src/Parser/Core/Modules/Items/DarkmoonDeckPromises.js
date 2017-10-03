@@ -2,10 +2,11 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import { calculatePrimaryStat } from 'common/helpers';
+import { calculatePrimaryStat } from 'common/stats';
 import { formatThousands } from 'common/format';
 
 import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SpellManaCost from '../SpellManaCost';
 
@@ -26,6 +27,7 @@ const BASE_MANA_REDUCTION_PER_CARD = {
 class DarkmoonDeckPromises extends Module {
   static dependencies = {
     spellManaCost: SpellManaCost, // we need this to add `manaCost` to the `event`
+    combatants: Combatants,
   };
 
   MANA_REDUCTION_PER_CARD = {};
@@ -34,7 +36,7 @@ class DarkmoonDeckPromises extends Module {
   manaGained = 0;
 
   on_initialized() {
-    const selectedCombatant = this.owner.selectedCombatant;
+    const selectedCombatant = this.combatants.selected;
     this.active = selectedCombatant.hasTrinket(ITEMS.DARKMOON_DECK_PROMISES.id);
 
     if (this.active) {

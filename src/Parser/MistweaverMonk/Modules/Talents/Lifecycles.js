@@ -3,7 +3,9 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
-import { formatNumber , formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
+
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 import Module from 'Parser/Core/Module';
 
@@ -14,6 +16,10 @@ const debug = false;
 const baseMana = 1100000;
 
 class Lifecycles extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
   manaSaved = 0;
   manaSavedViv = 0;
   manaSavedEnm = 0;
@@ -23,30 +29,30 @@ class Lifecycles extends Module {
   castsNonRedEnm = 0;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasTalent(SPELLS.LIFECYCLES_TALENT.id);
+    this.active = this.combatants.selected.hasTalent(SPELLS.LIFECYCLES_TALENT.id);
   }
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     // Checking to ensure player has cast Vivify and has the mana reduction buff.
-    if(spellId === SPELLS.VIVIFY.id && this.owner.selectedCombatant.hasBuff(SPELLS.LIFECYCLES_VIVIFY_BUFF.id)) {
+    if (spellId === SPELLS.VIVIFY.id && this.combatants.selected.hasBuff(SPELLS.LIFECYCLES_VIVIFY_BUFF.id)) {
       this.manaSaved += (baseMana * SPELLS.VIVIFY.manaPerc) * (SPELLS.LIFECYCLES_VIVIFY_BUFF.manaPercRed);
       this.manaSavedViv += (baseMana * SPELLS.VIVIFY.manaPerc) * (SPELLS.LIFECYCLES_VIVIFY_BUFF.manaPercRed);
-      this.castsRedViv++;
+      this.castsRedViv += 1;
       debug && console.log('Viv Reduced');
     }
-    if(spellId === SPELLS.VIVIFY.id && !this.owner.selectedCombatant.hasBuff(SPELLS.LIFECYCLES_VIVIFY_BUFF.id)) {
-      this.castsNonRedViv++;
+    if (spellId === SPELLS.VIVIFY.id && !this.combatants.selected.hasBuff(SPELLS.LIFECYCLES_VIVIFY_BUFF.id)) {
+      this.castsNonRedViv += 1;
     }
     // Checking to ensure player has cast Enveloping Mists and has the mana reduction buff
-    if(spellId === SPELLS.ENVELOPING_MISTS.id && this.owner.selectedCombatant.hasBuff(SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.id)) {
+    if (spellId === SPELLS.ENVELOPING_MISTS.id && this.combatants.selected.hasBuff(SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.id)) {
       this.manaSaved += (baseMana * SPELLS.ENVELOPING_MISTS.manaPerc) * (SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed);
       this.manaSavedEnm += (baseMana * SPELLS.ENVELOPING_MISTS.manaPerc) * (SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed);
-      this.castsRedEnm++;
+      this.castsRedEnm += 1;
       debug && console.log('ENM Reduced');
     }
-    if(spellId === SPELLS.ENVELOPING_MISTS.id && !this.owner.selectedCombatant.hasBuff(SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.id)) {
-      this.castsNonRedEnm++;
+    if (spellId === SPELLS.ENVELOPING_MISTS.id && !this.combatants.selected.hasBuff(SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.id)) {
+      this.castsNonRedEnm += 1;
     }
   }
 
@@ -72,20 +78,21 @@ class Lifecycles extends Module {
             <li>On ${this.castsRedEnm} Enveloping Mists casts, you saved ${(this.manaSavedEnm / 1000).toFixed(0)}k mana. (${formatPercentage(this.castsRedEnm / (this.castsRedEnm + this.castsNonRedEnm))}%)</li>
             <li>You casted ${this.castsNonRedViv} Vivify's and ${this.castsNonRedEnm} Enveloping Mists at full mana.</li>
             </ul>
-            `}>
+            `}
+          >
             Mana Saved
           </dfn>
         )}
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(70);
 
   on_finished() {
-    if(debug) {
-      console.log("Mana Reduced:" + this.manaSaved);
-      console.log("Viv Mana Reduced:" + this.manaSavedViv);
-      console.log("EnM Mana Reduced:" + this.manaSavedEnm);
+    if (debug) {
+      console.log(`Mana Reduced:${this.manaSaved}`);
+      console.log(`Viv Mana Reduced:${this.manaSavedViv}`);
+      console.log(`EnM Mana Reduced:${this.manaSavedEnm}`);
     }
   }
 }

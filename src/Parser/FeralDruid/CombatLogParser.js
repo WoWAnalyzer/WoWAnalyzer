@@ -5,8 +5,7 @@ import Tab from 'Main/Tab';
 import Talents from 'Main/Talents';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
-
-import DamageDone from './Modules/FeralCore/DamageDone';
+import DamageDone from 'Parser/Core/Modules/DamageDone';
 
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
@@ -14,13 +13,17 @@ import CooldownTracker from './Modules/Features/CooldownTracker';
 import RakeUptime from './Modules/Bleeds/RakeUptime';
 import RipUptime from './Modules/Bleeds/RipUptime';
 
+import ComboPointTracker from './Modules/ComboPoints/ComboPointTracker';
+import ComboPointDetails from './Modules/ComboPoints/ComboPointDetails';
+
 import SavageRoarUptime from './Modules/Talents/SavageRoarUptime';
 import MoonfireUptime from './Modules/Talents/MoonfireUptime';
+import SavageRoarDmg from './Modules/Talents/SavageRoarDmg';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // FeralCore
-    damageDone: DamageDone,
+    damageDone: [DamageDone, { showStatistic: true }],
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -34,6 +37,11 @@ class CombatLogParser extends CoreCombatLogParser {
     // talents
     savageRoarUptime: SavageRoarUptime,
     moonfireUptime: MoonfireUptime,
+    savageRoarDmg: SavageRoarDmg,
+
+    // resources
+    comboPointTracker: ComboPointTracker,
+    comboPointDetails: ComboPointDetails,
   };
 
   generateResults() {

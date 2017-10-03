@@ -1,27 +1,30 @@
 import React from 'react';
 
 import Module from 'Parser/Core/Module';
-import SPELLS from 'common/SPELLS';
-import Icon from 'common/Icon';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
-import { formatPercentage } from 'common/format';
-import { formatDuration } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import SpellIcon from 'common/SpellIcon';
+
+import { formatPercentage, formatDuration } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class EmpowerWards extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
 
   statistic() {
-
-    const empowerWardsUptime = this.owner.modules.combatants.getBuffUptime(SPELLS.EMPOWER_WARDS.id);
+    const empowerWardsUptime = this.combatants.selected.getBuffUptime(SPELLS.EMPOWER_WARDS.id);
 
     const empowerWardsUptimePercentage = empowerWardsUptime / this.owner.fightDuration;
 
     return (
       <StatisticBox
-        icon={<Icon icon="ability_demonhunter_empowerwards" alt="Empower Wards" />}
+        icon={<SpellIcon id={SPELLS.EMPOWER_WARDS.id} />}
         value={`${formatPercentage(empowerWardsUptimePercentage)}%`}
-        label='Empower Wards Uptime'
-        tooltip={`The Empower Wards total uptime was ${formatDuration(empowerWardsUptime / 1000)} seconds.`}
+        label="Empower Wards Uptime"
+        tooltip={`The Empower Wards total uptime was ${formatDuration(empowerWardsUptime / 1000)}.`}
       />
     );
   }

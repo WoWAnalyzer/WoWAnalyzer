@@ -3,16 +3,17 @@ import SPELLS from 'common/SPELLS';
 
 import Module from 'Parser/Core/Module';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
+
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 const debug = false;
-const OVYDS_HEALING_INCREASE = .4;
+const OVYDS_HEALING_INCREASE = 0.4;
 
 const UNAFFECTED_SPELLS = [
-    SPELLS.CRANE_HEAL.id,
-    SPELLS.ZEN_PULSE_TALENT.id,
-    SPELLS.REFRESHING_JADE_WIND_HEAL.id,
-  ];
+  SPELLS.CRANE_HEAL.id,
+  SPELLS.ZEN_PULSE_TALENT.id,
+  SPELLS.REFRESHING_JADE_WIND_HEAL.id,
+];
 
 class OvydsWinterWrap extends Module {
   static dependencies = {
@@ -22,7 +23,7 @@ class OvydsWinterWrap extends Module {
   healing = 0;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasWaist(ITEMS.OVYDS_WINTER_WRAP.id);
+    this.active = this.combatants.selected.hasWaist(ITEMS.OVYDS_WINTER_WRAP.id);
   }
 
   on_byPlayer_heal(event) {
@@ -34,16 +35,16 @@ class OvydsWinterWrap extends Module {
       return;
     }
 
-    if(this.combatants.players[targetId]) {
-      if(this.combatants.players[targetId].hasBuff(SPELLS.OVYDS_WINTER_WRAP_BUFF.id, event.timestamp, 0, 0) === true) {
+    if (this.combatants.players[targetId]) {
+      if (this.combatants.players[targetId].hasBuff(SPELLS.OVYDS_WINTER_WRAP_BUFF.id, event.timestamp, 0, 0) === true) {
         this.healing += calculateEffectiveHealing(event, OVYDS_HEALING_INCREASE);
       }
     }
   }
 
   on_finished() {
-    if(debug) {
-      console.log('Ovyd\'s Healing Contribution: ' + this.healing);
+    if (debug) {
+      console.log(`Ovyd's Healing Contribution: ${this.healing}`);
     }
   }
 

@@ -5,11 +5,16 @@ import SpellLink from 'common/SpellLink';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Module from 'Parser/Core/Module';
 import SPELLS from 'common/SPELLS';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 const GoE_DURATION = 15000;
 const debug = false;
 
 class GuardianOfElune extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
   GoEProcsTotal = 0;
   lastGoEProcTime = 0;
   consumedGoEProc = 0;
@@ -20,7 +25,7 @@ class GuardianOfElune extends Module {
   GoEFRegen = 0;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasTalent(SPELLS.GUARDIAN_OF_ELUNE_TALENT.id);
+    this.active = this.combatants.selected.hasTalent(SPELLS.GUARDIAN_OF_ELUNE_TALENT.id);
   }
 
   on_byPlayer_applybuff(event) {
@@ -28,7 +33,7 @@ class GuardianOfElune extends Module {
     if (SPELLS.GUARDIAN_OF_ELUNE.id === spellId) {
       this.lastGoEProcTime = event.timestamp;
       debug && console.log('Guardian of Elune applied');
-      this.GoEProcsTotal++;
+      this.GoEProcsTotal += 1;
     }
   }
 
@@ -38,8 +43,8 @@ class GuardianOfElune extends Module {
       // Captured Overwritten GoE Buffs for use in wasted buff calculations
       this.lastGoEProcTime = event.timestamp;
       debug && console.log('Guardian of Elune Overwritten');
-      this.GoEProcsTotal++;
-      this.overwrittenGoEProc++;
+      this.GoEProcsTotal += 1;
+      this.overwrittenGoEProc += 1;
     }
   }
 
@@ -48,38 +53,36 @@ class GuardianOfElune extends Module {
     if (SPELLS.IRONFUR.id !== spellId && SPELLS.FRENZIED_REGENERATION.id !== spellId) {
       return;
     }
-    if (SPELLS.IRONFUR.id === spellId)
-    {
-      if(this.lastGoEProcTime !== event.timestamp) {
-        if(this.lastGoEProcTime === null) {
-          this.nonGoEIronFur++;
+    if (SPELLS.IRONFUR.id === spellId) {
+      if (this.lastGoEProcTime !== event.timestamp) {
+        if (this.lastGoEProcTime === null) {
+          this.nonGoEIronFur += 1;
           return;
         }
         const GoETimeframe = this.lastGoEProcTime + GoE_DURATION;
-        if(event.timestamp > GoETimeframe) {
-          this.nonGoEIronFur++;
+        if (event.timestamp > GoETimeframe) {
+          this.nonGoEIronFur += 1;
         } else {
-          this.consumedGoEProc++;
-          this.GoEIronFur++;
-          debug && console.log('Guardian of Elune Proc Consumed / Timestamp: ' + event.timestamp);
+          this.consumedGoEProc += 1;
+          this.GoEIronFur += 1;
+          debug && console.log(`Guardian of Elune Proc Consumed / Timestamp: ${event.timestamp}`);
           this.lastGoEProcTime = null;
         }
       }
     }
-    if (SPELLS.FRENZIED_REGENERATION.id === spellId)
-    {
-      if(this.lastGoEProcTime !== event.timestamp) {
-        if(this.lastGoEProcTime === null) {
-          this.nonGoEFRegen++;
+    if (SPELLS.FRENZIED_REGENERATION.id === spellId) {
+      if (this.lastGoEProcTime !== event.timestamp) {
+        if (this.lastGoEProcTime === null) {
+          this.nonGoEFRegen += 1;
           return;
         }
         const GoETimeframe = this.lastGoEProcTime + GoE_DURATION;
-        if(event.timestamp > GoETimeframe) {
-          this.nonGoEFRegen++;
+        if (event.timestamp > GoETimeframe) {
+          this.nonGoEFRegen += 1;
         } else {
-          this.consumedGoEProc++;
-          this.GoEFRegen++;
-          debug && console.log('Guardian of Elune Proc Consumed / Timestamp: ' + event.timestamp);
+          this.consumedGoEProc += 1;
+          this.GoEFRegen += 1;
+          debug && console.log(`Guardian of Elune Proc Consumed / Timestamp: ${event.timestamp}`);
           this.lastGoEProcTime = null;
         }
       }
@@ -88,7 +91,7 @@ class GuardianOfElune extends Module {
 
   suggestions(when) {
     const unusedGoEProcs = 1 - (this.consumedGoEProc / this.GoEProcsTotal);
-    
+
     when(unusedGoEProcs).isGreaterThan(0.3)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>You wasted {formatPercentage(unusedGoEProcs)}% of your <SpellLink id={SPELLS.GUARDIAN_OF_ELUNE.id} /> procs. Try to use the procs as soon as you get them so they are not overwritten.</span>)
@@ -101,12 +104,12 @@ class GuardianOfElune extends Module {
 
   statistic() {
     const unusedGoEProcs = 1 - (this.consumedGoEProc / this.GoEProcsTotal);
-    
+
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.GUARDIAN_OF_ELUNE.id} />}
         value={`${formatPercentage(unusedGoEProcs)}%`}
-        label='Unused Guardian of Elune'
+        label="Unused Guardian of Elune"
         tooltip={`You got total <b>${this.GoEProcsTotal}</b> guardian of elune procs and <b>used ${this.consumedGoEProc}</b> of them.`}
       />
     );

@@ -16,6 +16,7 @@ import Mana from 'Main/Mana';
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
+import HealingDone from 'Parser/Core/Modules/HealingDone';
 
 import SpellManaCost from './Modules/Core/SpellManaCost';
 import AbilityTracker from './Modules/Core/AbilityTracker';
@@ -25,6 +26,7 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownTracker from './Modules/Features/CooldownTracker';
 import PowerWordShieldWasted from './Modules/Features/PowerWordShieldWasted';
 import AtonementSource from './Modules/Features/AtonementSource';
+import AtonementHealingDone from './Modules/Features/AtonementHealingDone';
 import PowerWordBarrier from './Modules/Features/PowerWordBarrier';
 import LeniencesReward from './Modules/Features/LeniencesReward';
 
@@ -46,10 +48,12 @@ import Evangelism from './Modules/Spells/Evangelism';
 import Penance from './Modules/Spells/Penance';
 import TouchOfTheGrave from './Modules/Spells/TouchOfTheGrave';
 
+import BorrowedTime from './Modules/Spells/Traits/BorrowedTime';
+
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
 function formatThousands(number) {
-  return (Math.round(number || 0) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+  return (`${Math.round(number || 0)}`).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 }
 function formatNumber(number) {
   if (number > 1000000) {
@@ -77,6 +81,8 @@ class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
 
   static specModules = {
+    healingDone: [HealingDone, { showStatistic: true }],
+
     // Override the ability tracker so we also get stats for IoL and beacon healing
     spellManaCost: SpellManaCost,
     abilityTracker: AbilityTracker,
@@ -89,6 +95,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownTracker: CooldownTracker,
     powerWordShieldWasted: PowerWordShieldWasted,
     atonementSource: AtonementSource,
+    atonementHealingDone: AtonementHealingDone,
     powerWordBarrier: PowerWordBarrier,
     leniencesReward: LeniencesReward,
 
@@ -110,13 +117,14 @@ class CombatLogParser extends CoreCombatLogParser {
     atonement: Atonement,
     evangelism: Evangelism,
     touchOfTheGrave: TouchOfTheGrave,
+    borrowedTime: BorrowedTime,
   };
 
   generateResults() {
     const results = super.generateResults();
 
     const fightDuration = this.fightDuration;
-    const hasCastigation = this.selectedCombatant.hasTalent(SPELLS.CASTIGATION_TALENT.id);
+    const hasCastigation = this.modules.combatants.selected.hasTalent(SPELLS.CASTIGATION_TALENT.id);
     const missedPenanceTicks = (this.modules.penance.casts * (3 + (hasCastigation ? 1 : 0))) - this.modules.penance.hits;
     const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
     const owlHealingPercentage = this.getPercentageOfTotalHealingDone(this.modules.tarnishedSentinelMedallion.healing);
@@ -126,11 +134,11 @@ class CombatLogParser extends CoreCombatLogParser {
     const tier19_2setHealingPercentage = this.getPercentageOfTotalHealingDone(this.modules.tier19_2set.healing);
     const tier20_2setHealingPercentage = this.getPercentageOfTotalHealingDone(this.modules.tier20_2set.healing);
 
-    if (improperAtonementRefreshPercentage > .05) {
+    if (improperAtonementRefreshPercentage > 0.05) {
       results.addIssue({
         issue: <span>Your <SpellLink id={SPELLS.ATONEMENT_HEAL_NON_CRIT.id} /> efficiency can be improved ({this.modules.atonement.improperAtonementRefreshes.length}/{this.modules.atonement.totalAtones} applications: {(improperAtonementRefreshPercentage * 100).toFixed(2)}% applied to already buffed players.)</span>,
         icon: SPELLS.ATONEMENT_HEAL_NON_CRIT.icon,
-        importance: getIssueImportance(improperAtonementRefreshPercentage, .07, .1, true),
+        importance: getIssueImportance(improperAtonementRefreshPercentage, 0.07, 0.1, true),
       });
     }
 
@@ -143,20 +151,7 @@ class CombatLogParser extends CoreCombatLogParser {
     }
 
     results.statistics = [
-      <StatisticBox
-        icon={(
-          <img
-            src="/img/healing.png"
-            style={{ border: 0 }}
-            alt="Healing"
-          />)}
-        value={`${formatNumber(this.modules.healingDone.total.effective / fightDuration * 1000)} HPS`}
-        label={(
-          <dfn data-tip={`The total healing done recorded was ${formatThousands(this.modules.healingDone.total.effective)}.`}>
-            Healing done
-          </dfn>
-        )}
-      />,
+      ...results.statistics,
       <StatisticBox
         icon={<Icon icon="petbattle_health-down" alt="Non healing time" />}
         value={`${formatPercentage(deadTimePercentage)} %`}
@@ -171,7 +166,7 @@ class CombatLogParser extends CoreCombatLogParser {
           icon={<SpellIcon id={SPELLS.EVANGELISM_TALENT.id} />}
           value={`${formatNumber(this.modules.evangelism.evangelismStatistics.reduce((p, c) => p += c.healing, 0) / fightDuration * 1000)} HPS`}
           label={(
-            <dfn data-tip={`Evangelism accounted for approximately ${formatPercentage(this.getPercentageOfTotalHealingDone(this.modules.evangelism.evangelismStatistics.reduce((p, c) => p + c.healing, 0)) )}% of your healing.`}>
+            <dfn data-tip={`Evangelism accounted for approximately ${formatPercentage(this.getPercentageOfTotalHealingDone(this.modules.evangelism.evangelismStatistics.reduce((p, c) => p + c.healing, 0)))}% of your healing.`}>
               Evangelism contribution
             </dfn>
           )}
@@ -201,29 +196,27 @@ class CombatLogParser extends CoreCombatLogParser {
           </table>
         </ExpandableStatisticBox>
       ),
-      missedPenanceTicks && (
-        <StatisticBox
-          icon={<SpellIcon id={SPELLS.PENANCE.id} />}
-          value={missedPenanceTicks}
-          label={(
-            <dfn data-tip={`Each Penance cast has 3 bolts (4 if you're using Castigation). You should try to let this channel finish as much as possible. You channeled Penance ${this.modules.penance.casts} times.`}>
-              Wasted Penance bolts
-            </dfn>
-          )}
-        />
-      ),
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.PENANCE.id} />}
+        value={missedPenanceTicks}
+        label={(
+          <dfn data-tip={`Each Penance cast has 3 bolts (4 if you're using Castigation). You should try to let this channel finish as much as possible. You channeled Penance ${this.modules.penance.casts} times.`}>
+            Wasted Penance bolts
+          </dfn>
+        )}
+      />,
       this.modules.atonement.active && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.ATONEMENT_HEAL_NON_CRIT.id} />}
           value={this.modules.atonement.improperAtonementRefreshes.length}
           label={(
-            <dfn data-tip={`The amount of Atonement instances that were refreshed earlier than within 3 seconds of the buff expiring. You applied Atonement ${this.modules.atonement.totalAtones} times in total, ${this.modules.atonement.totalAtonementRefreshes} (${((this.modules.atonement.totalAtonementRefreshes / this.modules.atonement.totalAtones * 100) || 0).toFixed(2)}%) of them were refreshes of existing Atonement instances, and ${this.modules.atonement.improperAtonementRefreshes.length} (${((this.modules.atonement.improperAtonementRefreshes.length / this.modules.atonement.totalAtones * 100) || 0).toFixed(2)}%) of them were considered early.` }>
+            <dfn data-tip={`The amount of Atonement instances that were refreshed earlier than within 3 seconds of the buff expiring. You applied Atonement ${this.modules.atonement.totalAtones} times in total, ${this.modules.atonement.totalAtonementRefreshes} (${((this.modules.atonement.totalAtonementRefreshes / this.modules.atonement.totalAtones * 100) || 0).toFixed(2)}%) of them were refreshes of existing Atonement instances, and ${this.modules.atonement.improperAtonementRefreshes.length} (${((this.modules.atonement.improperAtonementRefreshes.length / this.modules.atonement.totalAtones * 100) || 0).toFixed(2)}%) of them were considered early.`}>
               Early Atonement refreshes
             </dfn>
           )}
         />
       ),
-      this.modules.twistOfFate.active && !this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_HIGH_PRIEST.id) && (
+      this.modules.twistOfFate.active && !this.modules.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_HIGH_PRIEST.id) && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.TWIST_OF_FATE_TALENT.id} />}
           value={`${formatNumber(this.modules.twistOfFate.healing / fightDuration * 1000)} HPS`}
@@ -245,32 +238,30 @@ class CombatLogParser extends CoreCombatLogParser {
           )}
         />
       ),
-      this.selectedCombatant.hasTalent(SPELLS.PURGE_THE_WICKED_TALENT.id) && (
+      this.modules.combatants.selected.hasTalent(SPELLS.PURGE_THE_WICKED_TALENT.id) && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.PURGE_THE_WICKED_BUFF.id} />}
           value={`${formatPercentage(this.modules.enemies.getBuffUptime(SPELLS.PURGE_THE_WICKED_BUFF.id) / this.fightDuration)} %`}
           label="Purge the Wicked uptime"
         />
       ),
-      !this.selectedCombatant.hasTalent(SPELLS.PURGE_THE_WICKED_TALENT.id) && (
+      !this.modules.combatants.selected.hasTalent(SPELLS.PURGE_THE_WICKED_TALENT.id) && (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.SHADOW_WORD_PAIN.id} />}
           value={`${formatPercentage(this.modules.enemies.getBuffUptime(SPELLS.SHADOW_WORD_PAIN.id) / this.fightDuration)} %`}
           label="Shadow Word: Pain uptime"
         />
       ),
-      this.modules.powerWordShieldWasted.wasted && (
-        <StatisticBox
-          icon={<SpellIcon id={SPELLS.POWER_WORD_SHIELD.id} />}
-          value={`${formatNumber(this.modules.powerWordShieldWasted.wasted / fightDuration * 1000)} HPS`}
-          label={(
-            <dfn data-tip={`The amount of shield absorb remaining on Power Word: Shield instances that have expired. There was a total of ${formatNumber(this.modules.powerWordShieldWasted.wasted)} unused Power Word: Shield absorb from ${this.modules.powerWordShieldWasted.count} shields with absorb remaining (a total of ${this.modules.powerWordShieldWasted.totalCount} shields were applied).`}>
-              Unused PW:S absorb
-            </dfn>
-          )}
-        />
-      ),
-      this.modules.touchOfTheGrave.damage > 0 && (
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.POWER_WORD_SHIELD.id} />}
+        value={`${formatNumber(this.modules.powerWordShieldWasted.wasted / fightDuration * 1000)} HPS`}
+        label={(
+          <dfn data-tip={`The amount of shield absorb remaining on Power Word: Shield instances that have expired. There was a total of ${formatNumber(this.modules.powerWordShieldWasted.wasted)} unused Power Word: Shield absorb from ${this.modules.powerWordShieldWasted.count} shields with absorb remaining (a total of ${this.modules.powerWordShieldWasted.totalCount} shields were applied).`}>
+            Unused PW:S absorb
+          </dfn>
+        )}
+      />,
+      this.modules.touchOfTheGrave.damage > 0 && ( // this needs to be optional since there's no other way of determining if you have a racial
         <StatisticBox
           icon={<SpellIcon id={SPELLS.TOUCH_OF_THE_GRAVE.id} />}
           value={`${formatNumber(this.modules.touchOfTheGrave.healing / fightDuration * 1000)} HPS`}
@@ -281,7 +272,6 @@ class CombatLogParser extends CoreCombatLogParser {
           )}
         />
       ),
-      ...results.statistics,
     ];
 
     results.items = [
@@ -344,7 +334,7 @@ class CombatLogParser extends CoreCombatLogParser {
           </span>
         ),
       },
-      this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_HIGH_PRIEST.id) && {
+      this.modules.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_HIGH_PRIEST.id) && {
         item: ITEMS.SOUL_OF_THE_HIGH_PRIEST,
         result: (
           <dfn data-tip={`The effective healing contributed by Twist of Fate (${formatPercentage(this.getPercentageOfTotalHealingDone(this.modules.twistOfFate.healing))}% of total healing done). Twist of Fate also contributed ${formatNumber(this.modules.twistOfFate.damage / fightDuration * 1000)} DPS (${formatPercentage(this.getPercentageOfTotalDamageDone(this.modules.twistOfFate.damage))}% of total damage done), the healing gain of this damage was included in the shown numbers.`}>
@@ -397,7 +387,7 @@ class CombatLogParser extends CoreCombatLogParser {
         url: 'talents',
         render: () => (
           <Tab title="Talents">
-            <Talents combatant={this.selectedCombatant} />
+            <Talents combatant={this.modules.combatants.selected} />
           </Tab>
         ),
       },

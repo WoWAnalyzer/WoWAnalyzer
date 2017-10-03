@@ -11,7 +11,7 @@ class BeaconTargets extends Module {
   static dependencies = {
     combatants: Combatants,
   };
-  
+
   currentBeaconTargets = [];
 
   hasBeacon(playerId) {

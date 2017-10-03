@@ -12,7 +12,7 @@ class Aftershock extends Module {
   refund = 0;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasTalent(SPELLS.AFTERSHOCK_TALENT.id);
+    this.active = this.owner.modules.combatants.selected.hasTalent(SPELLS.AFTERSHOCK_TALENT.id);
   }
 
   on_byPlayer_energize(event) {

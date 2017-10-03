@@ -1,13 +1,8 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import Icon from 'common/Icon';
-import { formatPercentage, formatDuration } from 'common/format';
+import { formatPercentage } from 'common/format';
 
 import CoreAlwaysBeCastingHealing from 'Parser/Core/Modules/AlwaysBeCastingHealing';
-
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 const debug = true;
 
@@ -49,8 +44,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   ];
 
   on_initialized() {
-    super.on_initialized();
-
     const combatant = this.combatants.selected;
 
     if (combatant.hasTalent(SPELLS.CRUSADERS_MIGHT_TALENT.id)) {
@@ -75,16 +68,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
       cast,
       spellId
     );
-    this.verifyCast(begincast, cast, globalCooldown);
-  }
-  verifyCast(begincast, cast, globalCooldown) {
-    if (cast.ability.guid !== SPELLS.FLASH_OF_LIGHT.id) {
-      return;
-    }
-    const castTime = cast.timestamp - begincast.timestamp;
-    if (!this.constructor.inRange(castTime, globalCooldown, 50)) { // cast times seem to fluctuate by 50ms, not sure if it depends on player latency, in that case it could be a lot more flexible
-      console.warn(`Expected Flash of Light cast time (${castTime}) to match GCD (${Math.round(globalCooldown)}) @${formatDuration((cast.timestamp - this.owner.fight.start_time) / 1000)}`, this.combatants.selected.activeBuffs());
-    }
+    this._verifyChannel(SPELLS.FLASH_OF_LIGHT.id, 1500, begincast, cast);
   }
 
   countsAsHealingAbility(cast) {
@@ -94,10 +78,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
       return false;
     }
     return super.countsAsHealingAbility(cast);
-  }
-
-  static inRange(num1, goal, buffer) {
-    return num1 > (goal - buffer) && num1 < (goal + buffer);
   }
 
   suggestions(when) {
@@ -121,20 +101,8 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
           .regular(recommended + 0.15).major(1);
       });
   }
-  statistic() {
-    const nonHealingTimePercentage = this.totalHealingTimeWasted / this.owner.fightDuration;
-    const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
 
-    return (
-      <StatisticBox
-        icon={<Icon icon="petbattle_health-down" alt="Non healing time" />}
-        value={`${formatPercentage(nonHealingTimePercentage)} %`}
-        label="Non healing time"
-        tooltip={`Non healing time is available casting time not used for a spell that helps you heal. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), DPSing, etc. Damaging Holy Shocks are considered non healing time, Crusader Strike is only considered non healing time if you do not have the Crusader's Might talent.<br /><br />You spent ${formatPercentage(deadTimePercentage)}% of your time casting nothing at all.`}
-      />
-    );
-  }
-  statisticOrder = STATISTIC_ORDER.CORE(10);
+  showStatistic = true;
 }
 
 export default AlwaysBeCasting;

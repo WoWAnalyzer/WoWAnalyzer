@@ -3,6 +3,8 @@ import SPELLS from 'common/SPELLS';
 import CoreCastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 import { calculateMaxCasts } from 'Parser/Core/getCastEfficiency';
 
+/* eslint-disable no-unused-vars */
+
 class CastEfficiency extends CoreCastEfficiency {
   static CPM_ABILITIES = [
     ...CoreCastEfficiency.CPM_ABILITIES,
@@ -18,9 +20,7 @@ class CastEfficiency extends CoreCastEfficiency {
       name: 'Light of T\'uure',
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 45,
-      getMaxCasts: (cooldown, fightDuration, getAbility, parser) => {
-        return calculateMaxCasts(cooldown, fightDuration, 2);
-      },
+      getMaxCasts: (cooldown, fightDuration, getAbility, parser) => calculateMaxCasts(cooldown, fightDuration, 2),
       noSuggestion: true,
     },
     {

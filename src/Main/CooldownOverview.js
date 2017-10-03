@@ -6,7 +6,7 @@ import Cooldown from './Cooldown';
 const CooldownOverview = ({ fightStart, fightEnd, cooldowns }) => (
   <div style={{ marginTop: -10, marginBottom: -10 }}>
     <ul className="list">
-      {cooldowns.map((cooldown) => (
+      {cooldowns.map(cooldown => (
         <li key={`${cooldown.spell.id}-${cooldown.start}`} className="item clearfix" style={{ padding: '1em' }}>
           <Cooldown cooldown={cooldown} fightStart={fightStart} fightEnd={fightEnd} />
         </li>

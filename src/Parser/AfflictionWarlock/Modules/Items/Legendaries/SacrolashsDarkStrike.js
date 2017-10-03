@@ -1,3 +1,5 @@
+import React from 'react';
+
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -7,7 +9,7 @@ import { formatNumber } from 'common/format';
 
 import getDamageBonus from '../../WarlockCore/getDamageBonus';
 
-const SACROLASH_DAMAGE_BONUS = .15;
+const SACROLASH_DAMAGE_BONUS = 0.15;
 
 class SacrolashsDarkStrike extends Module {
   static dependencies = {
@@ -17,9 +19,7 @@ class SacrolashsDarkStrike extends Module {
   bonusDmg = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.combatants.selected.hasFinger(ITEMS.SACROLASHS_DARK_STRIKE.id);
-    }
+    this.active = this.combatants.selected.hasFinger(ITEMS.SACROLASHS_DARK_STRIKE.id);
   }
 
   on_byPlayer_damage(event) {
@@ -32,7 +32,11 @@ class SacrolashsDarkStrike extends Module {
   item() {
     return {
       item: ITEMS.SACROLASHS_DARK_STRIKE,
-      result: `${formatNumber(this.bonusDmg)} damage - ${this.owner.formatItemDamageDone(this.bonusDmg)}`,
+      result: (
+        <dfn data-tip={`Total bonus damage contributed: ${formatNumber(this.bonusDmg)}`}>
+          {this.owner.formatItemDamageDone(this.bonusDmg)}
+        </dfn>
+      ),
     };
   }
 }

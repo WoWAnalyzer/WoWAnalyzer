@@ -88,7 +88,7 @@ class HealingDoneGraph extends React.PureComponent {
     let max = 0;
     Object.keys(healingPerFrame)
       .map(k => healingPerFrame[k])
-      .forEach(healingDone => {
+      .forEach((healingDone) => {
         const current = healingDone.effective;
         if (current > max) {
           max = current;
@@ -102,7 +102,7 @@ class HealingDoneGraph extends React.PureComponent {
     const manaLevelPerFrame = {
       0: 100,
     };
-    manaUpdates.forEach(item => {
+    manaUpdates.forEach((item) => {
       const frame = Math.floor((item.timestamp - start) / 1000 / interval);
 
       manaUsagePerFrame[frame] = (manaUsagePerFrame[frame] || 0) + item.used / item.max;
@@ -119,7 +119,7 @@ class HealingDoneGraph extends React.PureComponent {
     }
 
     const chartData = {
-      labels: labels,
+      labels,
       series: [
         {
           className: 'mana',

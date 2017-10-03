@@ -1,5 +1,6 @@
 import querystring from 'querystring';
 import request from 'request-promise-native';
+import Sequelize from 'sequelize';
 
 import models from './models';
 import WclApiError from './WclApiError';
@@ -7,6 +8,8 @@ import WclApiError from './WclApiError';
 const WclApiResponse = models.WclApiResponse;
 
 const WCL_MAINTENANCE_STRING = 'Warcraft Logs is down for maintenance';
+
+/* eslint-disable no-use-before-define */
 
 class ApiController {
   static handle(req, res) {
@@ -89,7 +92,7 @@ class ApiRequestHandler {
           content: jsonString,
           wclResponseTime,
           numAccesses: cachedWclApiResponse.numAccesses + 1,
-          lastAccessedAt: new Date(),
+          lastAccessedAt: Sequelize.fn('NOW'),
         });
       } else {
         WclApiResponse.create({
@@ -104,7 +107,7 @@ class ApiRequestHandler {
     } catch (error) {
       if (error.statusCode >= 400 && error.statusCode < 600) {
         const message = error.error || error.message; // if this is a `request` error, `error` contains the plain JSON while `message` also has the statusCode so is polluted.
-        console.error('WCL Error (' + error.statusCode + '): ' + message);
+        console.error(`WCL Error (${error.statusCode}): ${message}`);
         this.res.status(error.statusCode);
         this.sendJson({
           error: 'WCL API error',

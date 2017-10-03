@@ -3,7 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
-import { formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -20,19 +20,29 @@ class EssenceFontMastery extends Module {
   healEF = 0;
   healing = 0;
   castEF = 0;
+  gustHeal = false;
+  secondGustHealing = 0;
+  secondGustOverheal = 0;
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
 
     const targetId = event.targetID;
-    if(spellId === SPELLS.GUSTS_OF_MISTS.id) {
-      if(!this.combatants.players[targetId]) {
+    if (spellId === SPELLS.GUSTS_OF_MISTS.id) {
+      if (!this.combatants.players[targetId]) {
         return;
       }
-      if(this.combatants.players[targetId].hasBuff(SPELLS.ESSENCE_FONT_BUFF.id, event.timestamp, 0, 0) === true) {
-        debug && console.log('Player ID: ' + event.targetID + '  Timestamp: ' + event.timestamp);
-        this.healEF++;
-        this.healing += (event.amount || 0 ) + (event.absorbed || 0);
+      if (this.combatants.players[targetId].hasBuff(SPELLS.ESSENCE_FONT_BUFF.id, event.timestamp, 0, 0) === true && !this.gustHeal) {
+        debug && console.log(`First Gust Heal: Player ID: ${event.targetID}  Timestamp: ${event.timestamp}`);
+        this.healEF += 1;
+        this.healing += (event.amount || 0) + (event.absorbed || 0);
+        this.gustHeal = true;
+      } else if (this.combatants.players[targetId].hasBuff(SPELLS.ESSENCE_FONT_BUFF.id, event.timestamp, 0, 0) === true && this.gustHeal) {
+        this.healEF += 1;
+        this.healing += (event.amount || 0) + (event.absorbed || 0);
+        this.secondGustHealing += (event.amount || 0) + (event.absorbed || 0) + (event.overheal || 0);
+        this.secondGustOverheal += (event.overheal || 0);
+        this.gustHeal = false;
       }
     }
   }
@@ -40,30 +50,21 @@ class EssenceFontMastery extends Module {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
-    if(spellId === SPELLS.ESSENCE_FONT.id) {
-      this.castEF++;
+    if (spellId === SPELLS.ESSENCE_FONT.id) {
+      this.castEF += 1;
     }
   }
 
   on_finished() {
-    if(debug) {
-      console.log('EF Mastery Hots Casted into: ' + (this.healEF / 2));
-      console.log('EF Mastery Healing Amount: ' + this.healing);
-      console.log('EF Casts: ' + this.castEF);
-      console.log('EF Targets Hit: ' + this.targetsEF);
-      console.log('EF Avg Targets Hit per Cast: ' + (this.targetsEF / this.castEF));
+    if (debug) {
+      console.log(`EF Mastery Hots Casted into: ${this.healEF / 2}`);
+      console.log(`EF Mastery Healing Amount: ${this.healing}`);
+      console.log(`EF Casts: ${this.castEF}`);
+      console.log(`EF Targets Hit: ${this.targetsEF}`);
+      console.log(`EF Avg Targets Hit per Cast: ${this.targetsEF / this.castEF}`);
     }
   }
-  /*
-  // EF Targets Hit
-  if(avgTargetsHitPerEF < 17) {
-    results.addIssue({
-      issue: <span>You are currently using not utilizing your <SpellLink id={SPELLS.ESSENCE_FONT.id} /> effectively. You only hit an average of {(avgTargetsHitPerEF).toFixed(0)} targets over {this.modules.essenceFontMastery.castEF} <SpellLink id={SPELLS.ESSENCE_FONT.id} /> casts. Each <SpellLink id={SPELLS.ESSENCE_FONT.id} /> cast should hit a total of 18 targets. Your missed an average of {(18 - avgTargetsHitPerEF).toFixed(0)} targets.</span>,
-      icon: SPELLS.ESSENCE_FONT.icon,
-      importance: getIssueImportance(avgTargetsHitPerEF, 14, 12),
-    });
-  }
-  */
+
   suggestions(when) {
     const efMasteryCasts = (this.healEF / 2) || 0;
     const avgMasteryCastsPerEF = (efMasteryCasts / this.castEF) || 0;
@@ -89,14 +90,17 @@ class EssenceFontMastery extends Module {
         icon={<SpellIcon id={SPELLS.GUSTS_OF_MISTS.id} />}
         value={`${efMasteryCasts}`}
         label={(
-          <dfn data-tip={`You healed a total of ${efMasteryCasts} targets with the Essence Font buff for ${formatNumber(efMasteryEffectiveHealing)} healing. You also healed an average of ${avgMasteryCastsPerEF.toFixed(2)} targets per Essence Font cast. (${formatNumber(avgEFMasteryHealing)} average healing per cast.)`}>
+          <dfn data-tip={`You healed an average of ${avgMasteryCastsPerEF.toFixed(2)} targets per Essence Font cast.<ul>
+            <li>${formatNumber(avgEFMasteryHealing)} average healing per cast</li>
+            <li>${formatNumber(this.secondGustOverheal)} Second Gust of Mists overhealing (${formatPercentage(this.secondGustOverheal / this.secondGustHealing)}%)</li>
+            </ul>`}>
             Mastery Buffs utilized
           </dfn>
         )}
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(0);
 }
 
 export default EssenceFontMastery;

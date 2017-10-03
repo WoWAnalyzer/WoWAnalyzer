@@ -1,14 +1,14 @@
+import React from 'react';
+
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import ITEMS from 'common/ITEMS';
-import { formatNumber } from 'common/format';
-
-import DeathsEmbrace from '../../Talents/DeathsEmbrace';
+import SpellLink from 'common/SpellLink';
+import SPELLS from 'common/SPELLS';
 
 class SoulOfTheNetherlord extends Module {
   static dependencies = {
-    deathsEmbrace : DeathsEmbrace,
     combatants: Combatants,
   };
 
@@ -17,10 +17,9 @@ class SoulOfTheNetherlord extends Module {
   }
 
   item() {
-    const bonusDmg = this.deathsEmbrace.bonusDmg;
     return {
       item: ITEMS.SOUL_OF_THE_NETHERLORD,
-      result: `${formatNumber(bonusDmg)} damage - ${this.owner.formatItemDamageDone(bonusDmg)}`,
+      result: <span>This gave you the <SpellLink id={SPELLS.DEATHS_EMBRACE_TALENT.id} /> talent.</span>,
     };
   }
 }

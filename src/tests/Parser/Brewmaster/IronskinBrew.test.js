@@ -1,5 +1,5 @@
 import IronSkinBrew from 'Parser/BrewmasterMonk/Modules/Spells/IronSkinBrew';
-import { processEvents } from './Fixtures/processEvents';
+import processEvents from './Fixtures/processEvents';
 import { SimpleFight, incomingDamage } from './Fixtures/SimpleFight';
 
 describe('Brewmaster.IronskinBrew', () => {
@@ -8,6 +8,8 @@ describe('Brewmaster.IronskinBrew', () => {
     isb = new IronSkinBrew({
       toPlayer: () => true,
       byPlayer: () => true,
+      toPlayerPet: () => false,
+      byPlayerPet: () => false,
     });
   });
   it('tracks the number of hits with the ironskin brew buff with no events', () => {

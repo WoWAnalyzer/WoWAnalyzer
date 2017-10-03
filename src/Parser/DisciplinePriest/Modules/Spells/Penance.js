@@ -11,7 +11,8 @@ const PENANCE_MINIMUM_RECAST_TIME = 3500; // Minimum duration from one Penance t
 class Penance extends Module {
   _speedOfThePiousAcquired = false;
   _previousPenanceTimestamp = null;
-  _penanceBoltNumber = 0;
+  _penanceBoltHitNumber = 0;
+  _penanceBoltCastNumber = 0; // Used for the cast event, not the damage or healing ones
   casts = 0;
   hits = 0;
 
@@ -21,15 +22,22 @@ class Penance extends Module {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if ((spellId !== SPELLS.PENANCE.id && spellId !== SPELLS.PENANCE_HEAL.id) || this._speedOfThePiousAcquired) {
+    if ((spellId !== SPELLS.PENANCE.id && spellId !== SPELLS.PENANCE_HEAL.id)) {
       return;
     }
 
-    if (this.isNewPenanceCast(event.timestamp)) {
-      this._previousPenanceTimestamp = event.timestamp;
-      this._penanceBoltNumber = 0;
-      this.casts += 1;
+    if (this._speedOfThePiousAcquired) {
+      this._penanceBoltCastNumber += 1;
+    } else {
+      // Guesstimate based on magic number
+      if (this.isNewPenanceCast(event.timestamp)) {
+        this._previousPenanceTimestamp = event.timestamp;
+        this._penanceBoltCastNumber = 1;
+        this.casts += 1;
+      }
     }
+
+    event.penanceBoltNumber = this._penanceBoltCastNumber;
   }
 
   // Speed of the Pious is applied at the start of Penance
@@ -39,7 +47,8 @@ class Penance extends Module {
     }
     this._speedOfThePiousAcquired = true;
     this.casts += 1;
-    this._penanceBoltNumber = 0;
+    this._penanceBoltHitNumber = 0;
+    this._penanceBoltCastNumber = 0;
   }
 
   on_byPlayer_damage(event) {
@@ -47,8 +56,8 @@ class Penance extends Module {
       return;
     }
 
-    event.penanceBoltNumber = this._penanceBoltNumber;
-    this._penanceBoltNumber += 1;
+    event.penanceBoltNumber = this._penanceBoltHitNumber;
+    this._penanceBoltHitNumber += 1;
     this.hits += 1;
   }
 
@@ -57,8 +66,8 @@ class Penance extends Module {
       return;
     }
 
-    event.penanceBoltNumber = this._penanceBoltNumber;
-    this._penanceBoltNumber += 1;
+    event.penanceBoltNumber = this._penanceBoltHitNumber;
+    this._penanceBoltHitNumber += 1;
     this.hits += 1;
   }
 }

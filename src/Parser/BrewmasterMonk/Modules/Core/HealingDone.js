@@ -1,11 +1,6 @@
-import React from 'react';
-
-import { formatThousands, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 
 import CoreHealingDone from 'Parser/Core/Modules/HealingDone';
-
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class HealingDone extends CoreHealingDone {
   on_toPlayer_absorbed(event) {
@@ -15,27 +10,9 @@ class HealingDone extends CoreHealingDone {
 
     const spellId = event.ability.guid;
     if (spellId === SPELLS.STAGGER.id) {
-      this._subtractHealing(event.timestamp, 0, event.amount, 0);
+      this._subtractHealingByAbsorb(event, event.amount, 0, 0);
     }
   }
-
-  statistic() {
-    return (
-      <StatisticBox
-        icon={(
-          <img
-            src="/img/healing.png"
-            style={{ border: 0 }}
-            alt="Healing"
-          />
-        )}
-        value={`${formatNumber(this.total.effective / this.owner.fightDuration * 1000)} HPS`}
-        label="Healing done"
-        tooltip={`The total healing done was ${formatThousands(this.total.effective)}.`}
-      />
-    );
-  }
-  statisticOrder = STATISTIC_ORDER.CORE(1);
 }
 
 export default HealingDone;

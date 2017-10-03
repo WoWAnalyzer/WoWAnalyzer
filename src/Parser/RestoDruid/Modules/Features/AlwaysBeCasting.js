@@ -1,5 +1,8 @@
 import SPELLS from 'common/SPELLS';
 import CoreAlwaysBeCastingHealing from 'Parser/Core/Modules/AlwaysBeCastingHealing';
+import { formatPercentage } from 'common/format';
+
+import SuggestionThresholds from '../../SuggestionThresholds';
 
 const HEALING_ABILITIES_ON_GCD = [
   SPELLS.REJUVENATION.id,
@@ -49,9 +52,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     // SPELLS.TRASH.id,
     // SPELLS.IRONFUR.id
   ];
-  on_initialized(event) {
-    super.on_initialized(arguments);
-  }
 
   recordCastTime(
     castStartTimestamp,
@@ -60,7 +60,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     cast,
     spellId
   ) {
-
     super.recordCastTime(
       castStartTimestamp,
       globalCooldown,
@@ -73,6 +72,32 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   static inRange(num1, goal, buffer) {
     return num1 > (goal - buffer) && num1 < (goal + buffer);
   }
+
+
+  suggestions(when) {
+    const nonHealingTimePercentage = this.totalHealingTimeWasted / this.owner.fightDuration;
+    const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
+
+    when(nonHealingTimePercentage).isGreaterThan(SuggestionThresholds.ABC_NOT_HEALING.minor)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest('Your non healing time can be improved. Try to reduce the delay between casting spells and try to continue healing when you have to move.')
+          .icon('petbattle_health-down')
+          .actual(`${formatPercentage(actual)}% non healing time`)
+          .recommended(`<${formatPercentage(recommended)}% is recommended`)
+          .regular(SuggestionThresholds.ABC_NOT_HEALING.regular).major(SuggestionThresholds.ABC_NOT_HEALING.major);
+      });
+
+    when(deadTimePercentage).isGreaterThan(SuggestionThresholds.ABC_NOT_CASTING.minor)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest('Your dead GCD time can be improved. Try to Always Be Casting (ABC); try to reduce the delay between casting spells and when you\'re not healing try to contribute some damage.')
+          .icon('spell_mage_altertime')
+          .actual(`${formatPercentage(actual)}% dead GCD time`)
+          .recommended(`<${formatPercentage(recommended)}% is recommended`)
+          .regular(SuggestionThresholds.ABC_NOT_CASTING.regular).major(SuggestionThresholds.ABC_NOT_CASTING.major);
+      });
+  }
+
+  showStatistic = true;
 }
 
 export default AlwaysBeCasting;

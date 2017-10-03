@@ -41,8 +41,7 @@ class Stagger extends Module {
       }
       if (event.extraAbility.type === PHYSICAL_DAMAGE) {
         this.totalPhysicalStaggered += event.amount;
-      }
-      else {
+      } else {
         this.totalMagicalStaggered += event.amount;
       }
     }
@@ -53,8 +52,7 @@ class Stagger extends Module {
       this.totalStaggerTaken += event.amount + (event.absorbed || 0);
       this.lastDamageEventWasStagger = event.timestamp;
       this.lastStaggerValue = event.amount + (event.absorbed || 0);
-    }
-    else {
+    } else {
       this.lastDamageEventNotStagger = event.timestamp;
     }
   }
@@ -68,11 +66,11 @@ class Stagger extends Module {
       this.staggerMissingFromFight = this.lastStaggerValue * Math.max(staggerTicksLeft, 0);
     }
     if (debug) {
-      console.log('Total physical staggered: ' + formatNumber(this.totalPhysicalStaggered));
-      console.log('Total magical staggered: ' + formatNumber(this.totalMagicalStaggered));
-      console.log('Total taken: ' + formatNumber(this.totalStaggerTaken));
-      console.log('Stagger taken after fight: ' + formatNumber(this.staggerMissingFromFight));
-      console.log('Damage avoided: ' + formatNumber(this.totalPhysicalStaggered + this.totalMagicalStaggered - this.totalStaggerTaken));
+      console.log(`Total physical staggered: ${formatNumber(this.totalPhysicalStaggered)}`);
+      console.log(`Total magical staggered: ${formatNumber(this.totalMagicalStaggered)}`);
+      console.log(`Total taken: ${formatNumber(this.totalStaggerTaken)}`);
+      console.log(`Stagger taken after fight: ${formatNumber(this.staggerMissingFromFight)}`);
+      console.log(`Damage avoided: ${formatNumber(this.totalPhysicalStaggered + this.totalMagicalStaggered - this.totalStaggerTaken)}`);
     }
   }
 
@@ -83,7 +81,7 @@ class Stagger extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.IRONSKIN_BREW.id} />}
         value={`${formatNumber(totalStaggered)} `}
-        label='Damage staggered'
+        label="Damage staggered"
         tooltip={`Incoming damage added to stagger:
           <ul>
             <li>Total physical damage added to stagger: ${formatThousands(this.totalPhysicalStaggered)}</li>
@@ -91,8 +89,8 @@ class Stagger extends Module {
           </ul>
           Damage taken from stagger:
           <ul>
-            <li>Total damage from stagger dot: ${formatThousands(this.totalStaggerTaken)} (${formatPercentage(this.totalStaggerTaken/totalStaggered)}% of total staggered)</li>
-            <li>Total damage removed from stagger dot before damaging you: ${formatThousands(damageAvoided)} (${formatPercentage(damageAvoided/totalStaggered)}% of total staggered)</li>
+            <li>Total damage from stagger dot: ${formatThousands(this.totalStaggerTaken)} (${formatPercentage(this.totalStaggerTaken / totalStaggered)}% of total staggered)</li>
+            <li>Total damage removed from stagger dot before damaging you: ${formatThousands(damageAvoided)} (${formatPercentage(damageAvoided / totalStaggered)}% of total staggered)</li>
           </ul>
         `}
       />

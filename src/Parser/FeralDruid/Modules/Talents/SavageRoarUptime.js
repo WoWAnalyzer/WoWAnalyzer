@@ -39,12 +39,12 @@ class savageRoarUptime extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.SAVAGE_ROAR_TALENT.id} />}
         value={`${formatPercentage(savageRoarUptime)} %`}
-        label='Savage Roar uptime'
-    />
+        label="Savage Roar uptime"
+      />
     );
   }
 
-  statisticOrder = STATISTIC_ORDER.CORE(3);
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(0);
 }
 
 export default savageRoarUptime;

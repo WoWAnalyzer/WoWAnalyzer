@@ -3,6 +3,7 @@
 import React from 'react';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
+import DamageDone from 'Parser/Core/Modules/DamageDone';
 
 import SuggestionsTab from 'Main/SuggestionsTab';
 import Tab from 'Main/Tab';
@@ -11,11 +12,10 @@ import Talents from 'Main/Talents';
 // Core
 import HealingDone from './Modules/Core/HealingDone';
 import DamageTaken from './Modules/Core/DamageTaken';
-import DamageDone from './Modules/Core/DamageDone';
 import HealingReceived from './Modules/Core/HealingReceived';
 import Stagger from './Modules/Core/Stagger';
 
-//Spells
+// Spells
 import IronSkinBrew from './Modules/Spells/IronSkinBrew';
 import BlackoutCombo from './Modules/Spells/BlackoutCombo';
 
@@ -31,16 +31,16 @@ import T20_4pc from './Modules/Items/T20_4pc';
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core
-    healingDone: HealingDone,
+    healingDone: [HealingDone, { showStatistic: true }],
     healingReceived: HealingReceived,
-    damageTaken: DamageTaken,
+    damageTaken: [DamageTaken, { showStatistic: true }],
     stagger: Stagger,
-    damageDone: DamageDone,
-    
+    damageDone: [DamageDone, { showStatistic: true }],
+
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     castEfficiency: CastEfficiency,
-    
+
     // Spells
     ironSkinBrew: IronSkinBrew,
     blackoutCombo: BlackoutCombo,
@@ -66,7 +66,7 @@ class CombatLogParser extends CoreCombatLogParser {
         url: 'talents',
         render: () => (
           <Tab title="Talents">
-            <Talents combatant={this.selectedCombatant} />
+            <Talents combatant={this.modules.combatants.selected} />
           </Tab>
         ),
       },

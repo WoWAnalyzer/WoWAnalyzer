@@ -40,7 +40,7 @@ class Mana extends React.PureComponent {
     }
   }
   load(reportCode, actorId, start, end) {
-    const bossHealthPromise = fetch(makeWclUrl(`report/tables/resources/${reportCode}`, {
+    return fetch(makeWclUrl(`report/tables/resources/${reportCode}`, {
       start,
       end,
       sourceclass: 'Boss',
@@ -58,8 +58,6 @@ class Mana extends React.PureComponent {
           });
         }
       });
-
-    return bossHealthPromise;
   }
 
   render() {
@@ -76,7 +74,7 @@ class Mana extends React.PureComponent {
     const manaBySecond = {
       0: 100,
     };
-    manaUpdates.forEach(item => {
+    manaUpdates.forEach((item) => {
       const secIntoFight = Math.floor((item.timestamp - start) / 1000);
 
       manaBySecond[secIntoFight] = item.current / item.max * 100;
@@ -125,7 +123,7 @@ class Mana extends React.PureComponent {
     }
 
     const chartData = {
-      labels: labels,
+      labels,
       series: [
         ...bosses.map((series, index) => ({
           className: `boss-health boss-${index} boss-${series.guid}`,

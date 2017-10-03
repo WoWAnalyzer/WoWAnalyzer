@@ -1,7 +1,8 @@
 import React from 'react';
-import StatisticBox from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import { formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
 
 import SPELLS from 'common/SPELLS';
 import Module from 'Parser/Core/Module';
@@ -41,7 +42,27 @@ class Cultivation extends Module {
       />
     );
   }
+  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 
+  suggestions(when) {
+    const directHealing = this.mastery.getDirectHealing(SPELLS.CULTIVATION.id);
+    const directPercent = this.owner.getPercentageOfTotalHealingDone(directHealing);
+
+    const masteryHealing = this.mastery.getMasteryHealing(SPELLS.CULTIVATION.id);
+    const masteryPercent = this.owner.getPercentageOfTotalHealingDone(masteryHealing);
+
+    const totalPercent = directPercent + masteryPercent;
+
+    when(totalPercent).isLessThan(0.08)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<span>Your healing from <SpellLink id={SPELLS.CULTIVATION.id} /> could be improved. You may have too many healers or doing easy
+          content, thus having low cultivation proc rate. You may considering selecting another talent.</span>)
+          .icon(SPELLS.CULTIVATION.icon)
+          .actual(`${formatPercentage(totalPercent)}% healing`)
+          .recommended(`>${Math.round(formatPercentage(recommended))}% is recommended`)
+          .regular(recommended - 0.02).major(recommended - 0.04);
+      });
+  }
 }
 
 export default Cultivation;

@@ -4,7 +4,7 @@ import CoreSpellManaCost from 'Parser/Core/Modules/SpellManaCost';
 // dependencies
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-import { ABILITIES_AFFECTED_BY_APOTHEOSIS_TALENT } from './../../Constants';
+import { ABILITIES_AFFECTED_BY_APOTHEOSIS_TALENT } from '../../Constants';
 
 const debug = false;
 

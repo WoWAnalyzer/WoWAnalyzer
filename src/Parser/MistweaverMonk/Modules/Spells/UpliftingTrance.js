@@ -26,7 +26,7 @@ class UpliftingTrance extends Module {
     if (SPELLS.UPLIFTING_TRANCE_BUFF.id === spellId) {
       this.lastUTProcTime = event.timestamp;
       debug && console.log('UT Proc Applied');
-      this.UTProcsTotal++;
+      this.UTProcsTotal += 1;
     }
   }
 
@@ -36,8 +36,8 @@ class UpliftingTrance extends Module {
       // Captured Overwritten UT Buffs for use in wasted buff calculations
       this.lastUTProcTime = event.timestamp;
       debug && console.log('UT Proc Overwritten');
-      this.UTProcsTotal++;
-      this.overwrittenUTProc++;
+      this.UTProcsTotal += 1;
+      this.overwrittenUTProc += 1;
     }
   }
 
@@ -47,18 +47,18 @@ class UpliftingTrance extends Module {
       return;
     }
     // Checking to see if non-UT'ed Viv is casted
-    if(this.lastUTProcTime !== event.timestamp) {
-      if(this.lastUTProcTime === null/* && !this.owner.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id)*/) {
+    if (this.lastUTProcTime !== event.timestamp) {
+      if (this.lastUTProcTime === null) {
         // No UT Proc with Vivify
-        this.nonUTVivify++;
+        this.nonUTVivify += 1;
         return;
       }
       const utTimeframe = this.lastUTProcTime + UT_DURATION;
-      if(event.timestamp > utTimeframe/* && !this.owner.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id)*/) {
-        this.nonUTVivify++;
+      if (event.timestamp > utTimeframe) {
+        this.nonUTVivify += 1;
       } else {
-        this.consumedUTProc++;
-        debug && console.log('UT Proc Consumed / Timestamp: ' + event.timestamp);
+        this.consumedUTProc += 1;
+        debug && console.log(`UT Proc Consumed / Timestamp: ${event.timestamp}`);
         this.lastUTProcTime = null;
       }
     }
@@ -66,14 +66,14 @@ class UpliftingTrance extends Module {
 
   suggestions(when) {
     const unusedUTProcs = 1 - (this.consumedUTProc / this.UTProcsTotal);
-    when(unusedUTProcs).isGreaterThan(.3)
+    when(unusedUTProcs).isGreaterThan(0.3)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Your <SpellLink id={SPELLS.UPLIFTING_TRANCE_BUFF.id} /> procs should be used as soon as you get them so they are not overwritten. While some will be overwritten due to the nature of the spell interactions, holding <SpellLink id={SPELLS.UPLIFTING_TRANCE_BUFF.id} /> procs is not optimal.</span>)
           .icon(SPELLS.UPLIFTING_TRANCE_BUFF.icon)
           .actual(`${formatPercentage(unusedUTProcs)}% Unused Uplifting Trance procs`)
           .recommended(`<${formatPercentage(recommended)}% wasted UT Buffs is recommended`)
-          .regular(recommended + .1).major(recommended + .2);
-    });
+          .regular(recommended + 0.1).major(recommended + 0.2);
+      });
   }
 
   statistic() {
@@ -90,7 +90,7 @@ class UpliftingTrance extends Module {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(40);
 }
 
 export default UpliftingTrance;

@@ -1,5 +1,8 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
+#IDE FIles
+/.idea
+
 # dependencies
 /node_modules
 /browser-extensions/node_modules
@@ -25,6 +28,7 @@ temp
 .sass-cache
 
 # Regularly changing or system specific IDE files
+/.idea/vcs.xml
 /.idea/workspace.xml
 /.vscode
 
@@ -33,3 +37,6 @@ temp
 .vs/slnx.sqlite-journal
 .vs/VSWorkspaceState.json
 .vs/WoWAnalyzer/v15/.suo
+.idea/dictionaries/Yajinni.xml
+.idea/inspectionProfiles/Project_Default.xml
+.idea/inspectionProfiles/Project_Default.xml

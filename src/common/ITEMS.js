@@ -58,18 +58,7 @@ const ITEMS = {
     icon: 'inv_70_dungeon_ring6a',
     quality: ITEM_QUALITIES.EPIC,
   },
-  OBSIDIAN_STONE_SPAULDERS: {
-    id: 137076,
-    name: 'Obsidian Stone Spaulders',
-    icon: 'inv_shoulder_plate_pvppaladin_o_01',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
-  ILTERENDI_CROWN_JEWEL_OF_SILVERMOON: {
-    id: 137046,
-    name: 'Ilterendi, Crown Jewel of Silvermoon',
-    icon: 'inv_jewelry_ring_firelandsraid_03a',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
+  // Shared Paladin
   SOUL_OF_THE_HIGHLORD: {
     id: 151644,
     name: 'Soul of the Highlord',
@@ -80,6 +69,19 @@ const ITEMS = {
     id: 137086,
     name: 'Chain of Thrayn',
     icon: 'inv_belt_leather_firelandsdruid_d_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  // Holy Paladin
+  OBSIDIAN_STONE_SPAULDERS: {
+    id: 137076,
+    name: 'Obsidian Stone Spaulders',
+    icon: 'inv_shoulder_plate_pvppaladin_o_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  ILTERENDI_CROWN_JEWEL_OF_SILVERMOON: {
+    id: 137046,
+    name: 'Ilterendi, Crown Jewel of Silvermoon',
+    icon: 'inv_jewelry_ring_firelandsraid_03a',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
   MARAADS_DYING_BREATH: {
@@ -94,6 +96,26 @@ const ITEMS = {
     icon: 'inv_cape_legionendgame_c_03',
     quality: ITEM_QUALITIES.EPIC,
   },
+  // Ret Paladin
+  WHISPER_OF_THE_NATHREZIM: {
+    id: 137020,
+    name: 'Whisper of the Nathrezim',
+    icon: 'inv_cape_pandaria_d_04',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  ASHES_TO_DUST: {
+    id: 144358,
+    name: 'Ashes to Dust',
+    icon: 'inv_plate_firelands_d_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  LIADRINS_FURY_UNLEASHED: {
+    id: 137048,
+    name: 'Liadrin\'s Fury Unleashed',
+    icon: 'inv_jewelry_ring_61',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  // Resto Shammy
   ROOTS_OF_SHALADRASSIL: {
     id: 132466,
     name: 'Roots of Shaladrassil',
@@ -304,8 +326,8 @@ const ITEMS = {
     name: 'Soul of the Archdruid',
     icon: 'inv_70_raid_ring6a',
     quality: ITEM_QUALITIES.LEGENDARY,
-  }, 
-  //Balance Druid Legendaries
+  },
+  // Balance Druid Legendaries
   IMPECCABLE_FEL_ESSENCE: {
     id: 137039,
     name: 'Impeccable Fel Essence',
@@ -463,6 +485,66 @@ const ITEMS = {
     icon: 'inv_cape_pandaria_c_02',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+  FERETORY_OF_SOULS: {
+    id: 132456,
+    name: 'Feretory of Souls',
+    icon: 'inv_belt_cloth_raidwarlock_n_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  ALYTHESSS_PYROGENICS: {
+    id: 132460,
+    name: 'Alythess\'s Pyrogenics',
+    icon: 'inv_jewelry_ring_65',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  SINDOREI_SPITE: {
+    id: 132379,
+    name: 'Sin\'dorei Spite',
+    icon: 'inv_bracer_44',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  LESSONS_OF_SPACETIME: {
+    id: 144369,
+    name: 'Lessons of Space-Time',
+    icon: 'inv_shoulder_robe_pvpwarlock_d_01',
+  },
+  ODR_SHAWL_OF_THE_YMIRJAR: {
+    id: 132375,
+    name: 'Odr, Shawl of the Ymirjar',
+    icon: 'inv_misc_cape_cataclysm_tank_b_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  MAGISTRIKE_RESTRAINTS: {
+    id: 132407,
+    name: 'Magistrike Restraints',
+    icon: 'inv_bracer_31b',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  // Demonology legendaries
+  KAZZAKS_FINAL_CURSE: {
+    id: 132374,
+    name: 'Kazzak\'s Final Curse',
+    icon: 'inv_belt_cloth_raidwarlock_i_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  WILFREDS_SIGIL_OF_SUPERIOR_SUMMONING: {
+    id: 132369,
+    name: 'Wilfred\'s Sigil of Superior Summoning',
+    icon: 'inv_jewelry_ring_78',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  WAKENERS_LOYALTY: {
+    id: 144385,
+    name: 'Wakener\'s Loyalty',
+    icon: 'inv_helm_cloth_raidwarlock_p_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  RECURRENT_RITUAL: {
+    id: 132393,
+    name: 'Recurrent Ritual',
+    icon: 'inv_shoulder_cloth_raidwarlock_l_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
   // T20 Trinkets
   ARCHIVE_OF_FAITH: {
     id: 147006,
@@ -531,6 +613,36 @@ const ITEMS = {
     icon: 'inv_archaeology_70_demon_flayedskinchronicle',
     quality: ITEM_QUALITIES.EPIC,
   },
+  CHALICE_OF_MOONLIGHT: {
+    id: 147005,
+    name: 'Chalice of Moonlight',
+    icon: 'inv_offhand_pvealliance_d_01',
+    quality: ITEM_QUALITIES.EPIC,
+  },
+  CHARM_OF_THE_RISING_TIDE: {
+    id: 147002,
+    name: 'Charm of the Rising Tide',
+    icon: 'inv_7_0raid_trinket_04a',
+    quality: ITEM_QUALITIES.EPIC,
+  },
+  INFERNAL_CINDERS: {
+    id: 147009,
+    name: 'Infernal Cinders',
+    icon: 'spell_fire_burnoutgreen',
+    quality: ITEM_QUALITIES.EPIC,
+  },
+  UMBRAL_MOONGLAIVES: {
+    id: 147012,
+    name: 'Umbral Moonglaives',
+    icon: 'ability_upgrademoonglaive',
+    quality: ITEM_QUALITIES.EPIC,
+  },
+  CRADLE_OF_ANGUISH: {
+    id: 147010,
+    name: 'Crade of Anguish',
+    icon: 'inv_wand_36',
+    quality: ITEM_QUALITIES.EPIC,
+  },
   // Guardian legendaries
   ELIZES_EVERLASTING_ENCASEMENT: {
     id: 137067,
@@ -585,17 +697,24 @@ const ITEMS = {
   FRAGMENT_OF_THE_BETRAYERS_PRISON: {
     id: 138854,
     name: 'Fragment of the Betrayer\'s Prison',
-    icon:'inv_jewelry_ring_134',
+    icon: 'inv_jewelry_ring_134',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  THE_DEFILERS_LOST_VAMBRACES: {
+    id: 137091,
+    name: 'The Defiler\'s Lost Vambraces',
+    icon: 'inv_bracer_plate_pvpdeathknight_c_02',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
 
-  //BrM Legendaries
+  // BrM Legendaries
   JEWEL_OF_THE_LOST_ABBEY: {
     id: 137044,
     name: 'Jewel of the Lost Abbey',
     icon: 'inv_jewelry_ring_138',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+
 };
 
 export default indexById(ITEMS);

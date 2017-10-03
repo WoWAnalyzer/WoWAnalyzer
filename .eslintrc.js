@@ -1,10 +1,17 @@
 module.exports = {
-  "extends": "react-app",
-  "rules": {
-    "comma-dangle": ["warn", "always-multiline"],
+  extends: 'react-app',
+  parser: 'babel-eslint',
+  rules: {
+    // https://github.com/airbnb/javascript#commas--dangling
+    'comma-dangle': ['warn', 'always-multiline'],
+
+    // Objects
+    // https://github.com/airbnb/javascript#objects--no-new
+    'no-new-object': 'warn',
 
     // Semicolons:
     'no-extra-semi': 'warn',
+    // https://github.com/airbnb/javascript#semicolons--required
     semi: ['warn', 'always'],
     'semi-spacing': ['warn', { before: false, after: true }],
 
@@ -16,6 +23,8 @@ module.exports = {
     }],
     'one-var': ['warn', 'never'],
     'one-var-declaration-per-line': ['warn', 'always'],
+    // https://github.com/airbnb/javascript#comparison--switch-blocks
+    'no-case-declarations': 'warn',
 
     // PropTypes:
     'react/prop-types': ['warn', { ignore: [], customValidators: [] }],
@@ -27,5 +36,8 @@ module.exports = {
 
     // Imports:
     'import/first': ['warn', 'absolute-first'],
+
+    // https://github.com/airbnb/javascript#coercion--numbers
+    radix: 'warn',
   },
 };

@@ -7,8 +7,10 @@ import DamageTaken from './Modules/DamageTaken';
 
 import Combatants from './Modules/Combatants';
 import AbilityTracker from './Modules/AbilityTracker';
+import Haste from './Modules/Haste';
 import AlwaysBeCasting from './Modules/AlwaysBeCasting';
 import Enemies from './Modules/Enemies';
+import Pets from './Modules/Pets';
 import HealEventTracker from './Modules/HealEventTracker';
 import ManaValues from './Modules/ManaValues';
 import SpellManaCost from './Modules/SpellManaCost';
@@ -39,16 +41,30 @@ import TarnishedSentinelMedallion from './Modules/Items/TarnishedSentinelMedalli
 import SpectralThurible from './Modules/Items/SpectralThurible';
 import TerrorFromBelow from './Modules/Items/TerrorFromBelow';
 import TomeOfUnravelingSanity from './Modules/Items/TomeOfUnravelingSanity';
+import InfernalCinders from './Modules/Items/InfernalCinders';
+import UmbralMoonglaives from './Modules/Items/UmbralMoonglaives';
 
 // Shared Buffs
 import VantusRune from './Modules/VantusRune';
+
+// Netherlight Crucible Traits
+import DarkSorrows from './Modules/NetherlightCrucibleTraits/DarkSorrows';
+import TormentTheWeak from './Modules/NetherlightCrucibleTraits/TormentTheWeak';
+import ChaoticDarkness from './Modules/NetherlightCrucibleTraits/ChaoticDarkness';
+import Shadowbind from './Modules/NetherlightCrucibleTraits/Shadowbind';
+import LightsEmbrace from './Modules/NetherlightCrucibleTraits/LightsEmbrace';
+import InfusionOfLight from './Modules/NetherlightCrucibleTraits/InfusionOfLight';
+import SecureInTheLight from './Modules/NetherlightCrucibleTraits/SecureInTheLight';
+import Shocklight from './Modules/NetherlightCrucibleTraits/Shocklight';
+import MurderousIntent from './Modules/NetherlightCrucibleTraits/MurderousIntent';
+import RefractiveShell from './Modules/NetherlightCrucibleTraits/RefractiveShell';
+import NLCTraits from './Modules/NetherlightCrucibleTraits/NLCTraits';
 
 import ParseResults from './ParseResults';
 
 const debug = false;
 
 let _modulesDeprectatedWarningSent = false;
-let _selectedCombatantDeprectatedWarningSent = false;
 
 class CombatLogParser {
   static abilitiesAffectedByHealingIncreases = [];
@@ -61,9 +77,11 @@ class CombatLogParser {
 
     combatants: Combatants,
     enemies: Enemies,
+    pets: Pets,
     spellManaCost: SpellManaCost,
     abilityTracker: AbilityTracker,
     healEventTracker: HealEventTracker,
+    haste: Haste,
     alwaysBeCasting: AlwaysBeCasting,
     manaValues: ManaValues,
     vantusRune: VantusRune,
@@ -96,12 +114,29 @@ class CombatLogParser {
     spectralThurible: SpectralThurible,
     terrorFromBelow: TerrorFromBelow,
     tomeOfUnravelingSanity: TomeOfUnravelingSanity,
+
+    // Netherlight Crucible Traits
+    darkSorrows: DarkSorrows,
+    tormentTheWeak: TormentTheWeak,
+    chaoticDarkness: ChaoticDarkness,
+    shadowbind: Shadowbind,
+    lightsEmbrace: LightsEmbrace,
+    infusionOfLight: InfusionOfLight,
+    secureInTheLight: SecureInTheLight,
+    shocklight: Shocklight,
+    refractiveShell: RefractiveShell,
+    murderousIntent: MurderousIntent,
+    nlcTraits: NLCTraits,
+
+    infernalCinders: InfernalCinders,
+    umbralMoonglaives: UmbralMoonglaives,
   };
   // Override this with spec specific modules
   static specModules = {};
 
   report = null;
   player = null;
+  playerPets = null;
   fight = null;
 
   _modules = {};
@@ -122,15 +157,7 @@ class CombatLogParser {
     return this.player.id;
   }
 
-  /** @returns {Combatant} */
-  get selectedCombatant() {
-    if (!_selectedCombatantDeprectatedWarningSent) {
-      console.error('Using `this.owner.selectedCombatant` is deprectated. You should add the `Combatants` module as a dependency and use `this.combatants.selected` instead.');
-      _selectedCombatantDeprectatedWarningSent = true;
-    }
-    return this._modules.combatants.selected;
-  }
-
+  _timestamp = null;
   get currentTimestamp() {
     return this.finished ? this.fight.end_time : this._timestamp;
   }
@@ -148,9 +175,10 @@ class CombatLogParser {
     }, {});
   }
 
-  constructor(report, player, fight) {
+  constructor(report, player, playerPets, fight) {
     this.report = report;
     this.player = player;
+    this.playerPets = playerPets;
     this.fight = fight;
 
     this.initializeModules({
@@ -161,16 +189,25 @@ class CombatLogParser {
 
   initializeModules(modules) {
     const failedModules = [];
-    Object.keys(modules).forEach(desiredModuleName => {
-      const moduleClass = modules[desiredModuleName];
-      if (!moduleClass) {
+    Object.keys(modules).forEach((desiredModuleName) => {
+      const moduleConfig = modules[desiredModuleName];
+      if (!moduleConfig) {
         return;
+      }
+      let moduleClass;
+      let options;
+      if (moduleConfig instanceof Array) {
+        moduleClass = moduleConfig[0];
+        options = moduleConfig[1];
+      } else {
+        moduleClass = moduleConfig;
+        options = null;
       }
 
       const availableDependencies = {};
       const missingDependencies = [];
       if (moduleClass.dependencies) {
-        Object.keys(moduleClass.dependencies).forEach(desiredDependencyName => {
+        Object.keys(moduleClass.dependencies).forEach((desiredDependencyName) => {
           const dependencyClass = moduleClass.dependencies[desiredDependencyName];
 
           const dependencyModule = this.findModule(dependencyClass);
@@ -190,7 +227,14 @@ class CombatLogParser {
             console.log('Loading', moduleClass.name, 'with dependencies:', Object.keys(availableDependencies));
           }
         }
-        this._modules[desiredModuleName] = new moduleClass(this, availableDependencies, Object.keys(this._modules).length);
+        // eslint-disable-next-line new-cap
+        const module = new moduleClass(this, availableDependencies, Object.keys(this._modules).length);
+        // We can't set the options via the constructor since a parent constructor can't override the values of a child's class properties.
+        // See https://github.com/Microsoft/TypeScript/issues/6110 for more info
+        if (options) {
+          Object.keys(options).forEach(key => module[key] = options[key]);
+        }
+        this._modules[desiredModuleName] = module;
       } else {
         debug && console.warn(moduleClass.name, 'could not be loaded, missing dependencies:', missingDependencies.map(d => d.name));
         failedModules.push(desiredModuleName);
@@ -200,7 +244,7 @@ class CombatLogParser {
     if (failedModules.length !== 0) {
       debug && console.warn(`${failedModules.length} modules failed to load, trying again:`, failedModules.map(key => modules[key].name));
       const newBatch = {};
-      failedModules.forEach(key => {
+      failedModules.forEach((key) => {
         newBatch[key] = modules[key];
       });
       this.initializeModules(newBatch);
@@ -214,7 +258,6 @@ class CombatLogParser {
 
   _debugEventHistory = [];
   parseEvents(events) {
-    events = this.reorderEvents(events);
     if (process.env.NODE_ENV === 'development') {
       this._debugEventHistory = [
         ...this._debugEventHistory,
@@ -222,7 +265,7 @@ class CombatLogParser {
       ];
     }
     return new Promise((resolve, reject) => {
-      events.forEach(event => {
+      events.forEach((event) => {
         if (this.error) {
           throw new Error(this.error);
         }
@@ -239,7 +282,7 @@ class CombatLogParser {
   reorderEvents(events) {
     this.activeModules
       .sort((a, b) => a.priority - b.priority) // lowest should go first, as `priority = 0` will have highest prio
-      .forEach(module => {
+      .forEach((module) => {
         if (module.reorderEvents) {
           events = module.reorderEvents(events);
         }
@@ -258,6 +301,12 @@ class CombatLogParser {
   }
   toPlayer(event, playerId = this.player.id) {
     return (event.targetID === playerId);
+  }
+  byPlayerPet(event) {
+    return this.playerPets.some(pet => pet.id === event.sourceID);
+  }
+  toPlayerPet(event) {
+    return this.playerPets.some(pet => pet.id === event.targetID);
   }
 
   // TODO: Damage taken from LOTM
@@ -283,7 +332,7 @@ class CombatLogParser {
 
     this.activeModules
       .sort((a, b) => b.priority - a.priority)
-      .forEach(module => {
+      .forEach((module) => {
         if (module.statistic) {
           const statistic = module.statistic();
           if (statistic) {

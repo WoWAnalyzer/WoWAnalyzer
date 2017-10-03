@@ -14,32 +14,32 @@ class EssenceFontMastery extends Module {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
-    if(spellId === SPELLS.ESSENCE_FONT.id) {
-      this.castEF++;
+    if (spellId === SPELLS.ESSENCE_FONT.id) {
+      this.castEF += 1;
     }
   }
 
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
 
-    if(spellId === SPELLS.ESSENCE_FONT_BUFF.id) {
-      this.targetsEF++;
+    if (spellId === SPELLS.ESSENCE_FONT_BUFF.id) {
+      this.targetsEF += 1;
     }
   }
 
   on_byPlayer_refreshbuff(event) {
     const spellId = event.ability.guid;
 
-    if(spellId === SPELLS.ESSENCE_FONT_BUFF.id) {
-      this.targetsEF++;
+    if (spellId === SPELLS.ESSENCE_FONT_BUFF.id) {
+      this.targetsEF += 1;
     }
   }
 
   on_finished() {
-    if(debug) {
-      console.log('EF Casts: ' + this.castEF);
-      console.log('EF Targets Hit: ' + this.targetsEF);
-      console.log('EF Avg Targets Hit per Cast: ' + (this.targetsEF / this.castEF));
+    if (debug) {
+      console.log(`EF Casts: ${this.castEF}`);
+      console.log(`EF Targets Hit: ${this.targetsEF}`);
+      console.log(`EF Avg Targets Hit per Cast: ${this.targetsEF / this.castEF}`);
     }
   }
 
@@ -54,24 +54,6 @@ class EssenceFontMastery extends Module {
           .regular(recommended - 3).major(recommended - 5);
       });
   }
-
-  /* Commenting out for now - Removing because of bloat.
-  statistic() {
-    const avgTargetsHitPerEF = (this.targetsEF / this.castEF) || 0;
-    return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.ESSENCE_FONT.id} />}
-        value={`${(avgTargetsHitPerEF).toFixed(0)}`}
-        label={(
-          <dfn data-tip={`You healed an average of ${(avgTargetsHitPerEF).toFixed(2)} targets per Essence Font cast over your ${this.castEF} casts.`}>
-            Average Targets hit
-          </dfn>
-        )}
-      />
-    );
-  }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
-  */
 }
 
 export default EssenceFontMastery;

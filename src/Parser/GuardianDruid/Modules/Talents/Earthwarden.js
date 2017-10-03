@@ -3,6 +3,9 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
+import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
+import DamageTaken from 'Parser/Core/Modules/DamageTaken';
 
 import StatisticBox from 'Main/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
@@ -19,12 +22,18 @@ const ABILITIES_THAT_CONSUME_EW = [
 ];
 
 class Earthwarden extends Module {
+  static dependencies = {
+    combatants: Combatants,
+    abilityTracker: AbilityTracker,
+    damageTaken: DamageTaken,
+  };
+
   damageFromMelees = 0;
   swingsMitigated = 0;
   totalSwings = 0;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.lv90Talent === SPELLS.EARTHWARDEN_TALENT.id;
+    this.active = this.combatants.selected.lv90Talent === SPELLS.EARTHWARDEN_TALENT.id;
   }
 
   on_toPlayer_damage(event) {
@@ -46,7 +55,7 @@ class Earthwarden extends Module {
   }
 
   get hps() {
-    const healingDone = this.owner.modules.abilityTracker.getAbility(SPELLS.EARTHWARDEN_BUFF.id).healingEffective;
+    const healingDone = this.abilityTracker.getAbility(SPELLS.EARTHWARDEN_BUFF.id).healingEffective;
     const fightLengthSec = this.owner.fightDuration / 1000;
     return healingDone / fightLengthSec;
   }
@@ -56,7 +65,7 @@ class Earthwarden extends Module {
   }
 
   get meleeDamageContribution() {
-    const totalDamageTaken = this.owner.modules.damageTaken.total.effective;
+    const totalDamageTaken = this.damageTaken.total.effective;
     return this.damageFromMelees / totalDamageTaken;
   }
 
@@ -68,7 +77,7 @@ class Earthwarden extends Module {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.EARTHWARDEN_BUFF.id} />}
-        label='Hits mitigated by Earthwarden'
+        label="Hits mitigated by Earthwarden"
         value={`${formatPercentage(this.percentOfSwingsMitigated)}%`}
         tooltip={`You mitigated ${this.swingsMitigated} out of a possible ${this.totalSwings} attacks (${formatPercentage(this.percentOfSwingsMitigated)}%) with Earthwarden. <br /><br />(${formatPercentage(this.totalMitigation)}% of total damage, ${formatNumber(this.hps)} HPS)`}
       />
@@ -84,7 +93,6 @@ class Earthwarden extends Module {
           .actual(`${formatPercentage(actual)}% of potential damage was mitigated by Earthwarden`)
           .recommended(`${formatPercentage(recommended, 0)}% or more is recommended`)
           .regular(recommended - 0.1).major(recommended - 0.2);
-
       });
 
     // Suggestion 2: Melee damage is not relevant enough for EW to be effective
@@ -95,7 +103,6 @@ class Earthwarden extends Module {
           .actual(`${formatPercentage(actual)}% of total damage is melee attacks`)
           .recommended(`${formatPercentage(recommended, 0)}% or more is recommended`)
           .regular(recommended - 0.05).major(recommended - 0.1);
-
       });
   }
 }

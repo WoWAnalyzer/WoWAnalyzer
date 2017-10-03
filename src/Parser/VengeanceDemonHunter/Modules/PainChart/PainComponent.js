@@ -11,7 +11,7 @@ const PainComponent = ({ categories, abilities }) => {
   return (
     <div style={{ marginTop: -10, marginBottom: -10 }}>
       <table className="data-table" style={{ marginTop: 10, marginBottom: 10 }}>
-        {Object.keys(categories).map((key) => (
+        {Object.keys(categories).map(key => (
           <tbody key={key}>
             <tr>
               <th>{categories[key]}</th>
@@ -19,7 +19,7 @@ const PainComponent = ({ categories, abilities }) => {
               <th className="text-center">{key === 'spent' ? <dfn data-tip="Approximately.">Spent</dfn> : ''}</th>
               <th className="text-center">{key === 'generated' ? <dfn data-tip="Approximately.">Generated</dfn> : ''}</th>
               <th className="text-center"><dfn data-tip="Approximately.">Wasted</dfn></th>
-              <th></th>
+              <th />
             </tr>
             {abilities
               .filter(item => item.ability.category === categories[key])
@@ -36,13 +36,13 @@ const PainComponent = ({ categories, abilities }) => {
                     {casts}
                   </td>
                   <td className="text-center" style={{ minWidth: 80 }}>
-                    {spent ? spent : ''}
+                    {spent || ''}
                   </td>
                   <td className="text-center" style={{ minWidth: 80 }}>
-                    {created ? created : ''}
+                    {created || ''}
                   </td>
                   <td className="text-center" style={{ minWidth: 80 }}>
-                    {wasted ? wasted : '0'}
+                    {wasted || '0'}
                   </td>
                   <td style={{ width: '25%', color: 'orange' }}>
                     {canBeImproved && !ability.noCanBeImproved && 'Can be improved.'}
@@ -56,7 +56,6 @@ const PainComponent = ({ categories, abilities }) => {
     </div>
   );
 };
-
 PainComponent.propTypes = {
   abilities: PropTypes.arrayOf(PropTypes.shape({
     ability: PropTypes.shape({

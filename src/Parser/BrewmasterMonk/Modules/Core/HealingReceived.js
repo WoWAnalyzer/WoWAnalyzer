@@ -4,19 +4,17 @@ import Module from 'Parser/Core/Module';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class HealingReceived extends Module {
-  
   HealingReceivedExternal = 0;
   HealingReceivedSelf = 0;
   on_initialized() {
     // Disabling this module i don't think its right and it might add confusion.
     this.active = false;
   }
- 
+
   on_toPlayer_heal(event) {
     if (event.sourceID === this.owner.playerId) {
       this.HealingReceivedSelf += event.amount;
-    }
-    else {
+    } else {
       this.HealingReceivedExternal += event.amount;
     }
   }

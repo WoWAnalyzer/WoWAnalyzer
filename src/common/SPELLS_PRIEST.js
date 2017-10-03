@@ -122,6 +122,11 @@ export default {
     name: 'Shadowfiend',
     icon: 'spell_shadow_shadowfiend',
   },
+  LIGHTSPAWN: {
+    id: 254224,
+    name: 'Shadowfiend',
+    icon: 'spell_shadow_shadowfiend',
+  },
   SHADOWFIEND_WITH_GLYPH_OF_THE_SHA: {
     id: 132603,
     name: 'Shadowfiend',
@@ -245,6 +250,11 @@ export default {
     id: 197767,
     name: 'Speed of the Pious',
     icon: 'ability_paladin_speedoflight',
+  },
+  BORROWED_TIME: {
+    id: 197763,
+    name: 'Borrowed Time',
+    icon: 'ability_priest_angelicbulwark',
   },
 
 
@@ -387,6 +397,12 @@ export default {
     id: 238063,
     name: 'Lenience\'s Reward',
     icon: 'ability_priest_atonement',
+  },
+
+  BORROWED_TIME_TRAIT: {
+    id: 197762,
+    name: 'Borrowed Time',
+    icon: 'ability_priest_angelicbulwark',
   },
 
   // Buffs
@@ -558,9 +574,6 @@ export default {
     name: 'Fiending Dark',
     icon: 'spell_shadow_shadowfiend',
   },
-
-
-
 
 
 };

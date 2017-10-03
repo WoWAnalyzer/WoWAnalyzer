@@ -46,12 +46,20 @@ class CooldownTracker extends Module {
     },
   ];
 
+  static ignoredSpells = [
+    // general spells that you don't want to see in the Cooldown overview (could be boss mechanics etc.) should belong here
+    // if you want to add some spells specific to your spec, redefine this array in your spec CooldownTracker similarly to cooldownSpells (see Marksmanship Hunter for example)
+    SPELLS.ASTRAL_VULNERABILITY.id,
+    SPELLS.ANNIHILATION_TRILLIAX.id,
+  ];
+
   pastCooldowns = [];
   activeCooldowns = [];
 
   on_toPlayer_applybuff(event) {
     const spellId = event.ability.guid;
     const cooldownSpell = this.constructor.cooldownSpells.find(cooldownSpell => cooldownSpell.spell.id === spellId);
+    console.log("Cooldown spell", cooldownSpell);
     if (!cooldownSpell) {
       return;
     }
@@ -96,6 +104,9 @@ class CooldownTracker extends Module {
     });
   }
   on_byPlayer_cast(event) {
+    if (this.constructor.ignoredSpells.includes(event.ability.guid)) {
+      return;
+    }
     this.trackEvent(event);
   }
   on_byPlayer_heal(event) {

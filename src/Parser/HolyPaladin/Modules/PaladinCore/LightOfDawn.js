@@ -17,7 +17,7 @@ class LightOfDawn extends Module {
         const castTimestamp = event.timestamp;
 
         // Loop through the event history in reverse to detect if there was a `heal` event on the same player that was the result of this cast and thus misordered
-        for (let previousEventIndex = eventIndex; previousEventIndex >= 0; previousEventIndex--) {
+        for (let previousEventIndex = eventIndex; previousEventIndex >= 0; previousEventIndex -= 1) {
           const previousEvent = fixedEvents[previousEventIndex];
           if ((castTimestamp - previousEvent.timestamp) > 50) { // the max delay between the heal and cast events never looks to be more than this.
             break;

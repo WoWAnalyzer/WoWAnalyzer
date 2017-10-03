@@ -1,7 +1,8 @@
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-
 import CoreCastEfficiency from 'Parser/Core/Modules/CastEfficiency';
+
+/* eslint-disable no-unused-vars */
 
 class CastEfficiency extends CoreCastEfficiency {
   static CPM_ABILITIES = [
@@ -11,8 +12,8 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.NEW_MOON,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: (haste, combatant) => {
-        const cd = (combatant.owner.fightDuration / 1000) / (((combatant.owner.fightDuration / 1000) - 2)/45);
-        return cd;
+        const availableCasts = combatant.owner.modules.newmoon.nmAvailableCasts;
+        return (combatant.owner.fightDuration / 1000) / availableCasts;
       },
       noSuggestion: true,
     },
@@ -20,8 +21,8 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.HALF_MOON,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: (haste, combatant) => {
-        const cd = (combatant.owner.fightDuration / 1000) / (((combatant.owner.fightDuration / 1000) - 17)/45);
-        return cd;
+        const availableCasts = combatant.owner.modules.halfmoon.hmAvailableCasts;
+        return (combatant.owner.fightDuration / 1000) / availableCasts;
       },
       noSuggestion: true,
     },
@@ -29,9 +30,8 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.FULL_MOON,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: (haste, combatant) => {
-        const hasMooncloak = combatant.hasBack(ITEMS.RADIANT_MOONLIGHT.id);
-        const cd = (combatant.owner.fightDuration / 1000) / (((combatant.owner.fightDuration / 1000) - 32)/45);
-        return hasMooncloak ? cd*2 : cd;
+        const availableCasts = combatant.owner.modules.fullmoon.fmAvailableCasts;
+        return (combatant.owner.fightDuration / 1000) / availableCasts;
       },
       noSuggestion: true,
     },

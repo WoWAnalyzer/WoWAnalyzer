@@ -1,4 +1,4 @@
-# WoW Analyzer [![Build Status](https://travis-ci.org/MartijnHols/WoWAnalyzer.svg?branch=master)](https://travis-ci.org/MartijnHols/WoWAnalyzer)
+# WoW Analyzer [![Build Status](https://travis-ci.org/WoWAnalyzer/WoWAnalyzer.svg?branch=master)](https://travis-ci.org/WoWAnalyzer/WoWAnalyzer)
 
 Use this tool to analyze your performance based on important metrics for your spec using a Warcraft Logs report.
 
@@ -6,7 +6,7 @@ You will need a Warcraft Logs report with advanced combat logging enabled to sta
 
 Run it: [https://wowanalyzer.com](https://wowanalyzer.com)
 
-Feature requests (and bug reports provided that you're not using one of Microsoft's browsers) are welcome! On our Discord: https://discord.gg/AxphPxU or create an issue [here](https://github.com/MartijnHols/WoWAnalyzer/issues).
+Feature requests (and bug reports provided that you're not using one of Microsoft's browsers) are welcome! On our Discord: https://discord.gg/AxphPxU or create an issue [here](https://github.com/WoWAnalyzer/WoWAnalyzer/issues).
 
 ## Contributing
 
@@ -17,12 +17,22 @@ You don't need to to do anything special to add a spec. The real issue preventin
 
 See the [contributing guidelines](CONTRIBUTING.md) if you want to give it a try.
 
-## Current specs:
+## Vision
 
-See the site for a list of current specs. The following specs bothered to make a custom readme:
- * [Resto Druid](src/Parser/RestoDruid/README.md) (maintained by @blazyb)
- * [Resto Shaman](src/Parser/RestorationShaman/README.md) (maintained by @versaya)
- * [Mistweaver Monk](src/Parser/MistweaverMonk/README.md) (maintained by @anom0ly)
+This project aims to give users tools to analyze their performance. The most important part of this is providing automated suggestions towards improving their performance based on recorded fights. This makes it so users can quickly, without any hassle and at any time consult this tool to find out points of improvement for their next pull.
+
+Our focus:
+ - Focus on one player at a time. A major reason for this is simplicity and giving the user a feeling of importance, but also because the Warcraft Logs API effectively only makes this available.
+ - The priority is raid fights, other environments aren't really supported. While it would be nice to show things like who killed the most Explosive Orbs, we can't really with the API endpoints available to us.
+ - Clear and concise suggestions that allow a user to quickly understand what potential issues and changes they need to make to improve. No hassle.
+
+We also provide more advanced statistics such as item performance displays. These can be used to help pick what item to use or to see how effective certain abilities are that you can't find out elsewhere. These are secondary to suggestions and other tools that can be used to improve one's performance.
+
+## Collaboration
+
+All contributions, big or small, are welcome. You are welcome to contribute to this project with whatever level of contribution you are comfortable with. We have no expectations for the amount or frequency of contributions from anyone.
+
+We want to share ownership and responsibility with the community where possible. To help with this we hand out *write access* when we deem pull requests consistently of sufficient quality.
 
 ## License
 

@@ -4,6 +4,7 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 
 import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
@@ -11,14 +12,16 @@ const FURY_OF_AIR_MAELSTROM_COST = SPELLS.FURY_OF_AIR_TALENT.maelstrom;
 const FURY_ID = SPELLS.FURY_OF_AIR_TALENT.id;
 
 class FuryOfAir extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
   furyUptime = 0;
   maelstromUsed = 0;
   applyTime = 0;
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.owner.selectedCombatant.hasTalent(SPELLS.FURY_OF_AIR_TALENT.id);
-    }
+    this.active = this.combatants.selected.hasTalent(SPELLS.FURY_OF_AIR_TALENT.id);
   }
 
   on_byPlayer_applybuff(event) {
@@ -38,33 +41,34 @@ class FuryOfAir extends Module {
   }
 
   on_finished() {
-    if(this.applyTime !== 0) {
+    if (this.applyTime !== 0) {
       this.furyUptime += Math.floor((this.owner.fight.end_time - this.applyTime) / 1000);
     }
     this.maelstromUsed = this.furyUptime * FURY_OF_AIR_MAELSTROM_COST;
   }
 
   suggestions(when) {
-    const furyofairUptime = this.owner.selectedCombatant.getBuffUptime(FURY_ID) / this.owner.fightDuration;
+    const furyofairUptime = this.combatants.selected.getBuffUptime(FURY_ID) / this.owner.fightDuration;
 
-    when(furyofairUptime).isLessThan(.95)
+    when(furyofairUptime).isLessThan(0.95)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(`Try to make sure the Fury of Air is always up, when it drops you should refresh it as soon as possible`)
+        return suggest('Try to make sure the Fury of Air is always up, when it drops you should refresh it as soon as possible')
           .icon(SPELLS.FURY_OF_AIR_TALENT.icon)
           .actual(`${formatPercentage(actual)}% uptime`)
-          .recommended(`${(formatPercentage(recommended))}% is recommended`)
-          .regular(recommended).major(recommended - 0.05);
+          .recommended(`${(formatPercentage(recommended, 0))}% is recommended`)
+          .regular(recommended)
+          .major(recommended - 0.05);
       });
   }
 
   statistic() {
-    const furyofairUptime = this.owner.selectedCombatant.getBuffUptime(FURY_ID) / this.owner.fightDuration;
+    const furyofairUptime = this.combatants.selected.getBuffUptime(FURY_ID) / this.owner.fightDuration;
     return (
       (<StatisticBox
         icon={<SpellIcon id={FURY_ID} />}
         value={`${formatPercentage(furyofairUptime)} %`}
         label="Fury of Air uptime"
-        tooltip={`One of your highest priorities, get as close to 100% as possible`}
+        tooltip={'One of your highest priorities, get as close to 100% as possible'}
       />)
     );
   }

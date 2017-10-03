@@ -3,9 +3,12 @@ import React from 'react';
 import SuggestionsTab from 'Main/SuggestionsTab';
 import Tab from 'Main/Tab';
 import Talents from 'Main/Talents';
-import Mana from 'Main/Mana';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
+import HealingDone from 'Parser/Core/Modules/HealingDone';
+import DamageDone from 'Parser/Core/Modules/DamageDone';
+import DamageTaken from 'Parser/Core/Modules/DamageTaken';
+
 
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
@@ -14,26 +17,42 @@ import BloodPlagueUptime from './Modules/Features/BloodPlagueUptime';
 import BoneShieldUptime from './Modules/Features/BoneShieldUptime';
 import OssuaryUptime from './Modules/Features/OssuaryUptime';
 import WastedDeathAndDecay from './Modules/Features/WastedDeathAndDecay';
-import RPWasted from './Modules/Features/RunicPowerWasted';
+import BlooddrinkerTicks from './Modules/Features/BlooddrinkerTicks';
+
+import RunicPowerDetails from './Modules/RunicPower/RunicPowerDetails';
+import RunicPowerTracker from './Modules/RunicPower/RunicPowerTracker';
+
+import T20_2pc from './Modules/Items/T20_2pc';
+import T20_4pc from './Modules/Items/T20_4pc';
 
 
 class CombatLogParser extends CoreCombatLogParser {
-
   static specModules = {
+    // Core Statistics
+    damageTaken: [DamageTaken, { showStatistic: true }],
+    damageDone: [DamageDone, { showStatistic: true }],
+    healingDone: [HealingDone, { showStatistic: true }],
 
-    //DeathKnight Core
+    // DeathKnight Core
 
     // Features
     castEfficiency: CastEfficiency,
     alwaysBeCasting: AlwaysBeCasting,
     cooldownTracker: CooldownTracker,
-    BoneShieldUptime: BoneShieldUptime,
-    OssuaryUptime: OssuaryUptime,
-    WastedDeathAndDecay: WastedDeathAndDecay,
-    RunicPowerWasted: RPWasted,
+    boneShieldUptime: BoneShieldUptime,
+    ossuaryUptime: OssuaryUptime,
+    wastedDeathAndDecay: WastedDeathAndDecay,
+    blooddrinkerTicks: BlooddrinkerTicks,
 
-    //DOT
+
+
+    // DOT
     bloodplagueUptime: BloodPlagueUptime,
+
+    // RunicPower
+    runicPowerTracker: RunicPowerTracker,
+    runicPowerDetails: RunicPowerDetails,
+
     // Talents
 
 
@@ -41,16 +60,12 @@ class CombatLogParser extends CoreCombatLogParser {
 
 
     // Items:
-
+    t20_2pc: T20_2pc,
+    t20_4pc: T20_4pc,
   };
 
   generateResults() {
     const results = super.generateResults();
-
-    // TODO: Suggestion for Devo when it didn't prevent enough damage to be worthwhile
-    // TODO: Suggestion for mana
-    // TODO: Suggestion for enchants
-    // TODO: Sanctified Wrath healing contribution
 
     results.tabs = [
       {
@@ -66,15 +81,6 @@ class CombatLogParser extends CoreCombatLogParser {
         render: () => (
           <Tab title="Talents">
             <Talents combatant={this.modules.combatants.selected} />
-          </Tab>
-        ),
-      },
-      {
-        title: 'Mana',
-        url: 'mana',
-        render: () => (
-          <Tab title="Mana" style={{ padding: '15px 22px' }}>
-            <Mana parser={this} />
           </Tab>
         ),
       },

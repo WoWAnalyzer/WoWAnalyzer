@@ -7,11 +7,9 @@ import Mana from 'Main/Mana';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
+import HealingDone from 'Parser/Core/Modules/HealingDone';
 
 import SpellManaCost from './Modules/Core/SpellManaCost';
-
-// General Core
-import HealingDone from './Modules/Core/HealingDone';
 
 // Spell data
 import PrayerOfMending from './Modules/Spells/PrayerOfMending';
@@ -41,7 +39,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
   static specModules = {
     spellManaCost: SpellManaCost,
-    healingDone: HealingDone,
+    healingDone: [HealingDone, { showStatistic: true }],
     castEfficiency: CastEfficiency,
     lowHealthHealing: LowHealthHealing,
 
@@ -52,7 +50,7 @@ class CombatLogParser extends CoreCombatLogParser {
     divinity: Divinity,
     lightOfTuure: LightOfTuure,
     enduringRenewal: EnduringRenewal,
-    MasteryBreakdown: MasteryBreakdown,
+    MasteryBreakdown,
 
     // Spells
     prayerOfMending: PrayerOfMending,
@@ -80,7 +78,7 @@ class CombatLogParser extends CoreCombatLogParser {
         url: 'talents',
         render: () => (
           <Tab title="Talents">
-            <Talents combatant={this.selectedCombatant} />
+            <Talents combatant={this.modules.combatants.selected} />
           </Tab>
         ),
       },

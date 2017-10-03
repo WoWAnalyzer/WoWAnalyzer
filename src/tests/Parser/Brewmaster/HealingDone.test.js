@@ -1,5 +1,5 @@
 import HealingDone from 'Parser/BrewmasterMonk/Modules/Core/HealingDone';
-import { processEvents } from './Fixtures/processEvents';
+import processEvents from './Fixtures/processEvents';
 import { SimpleFight, heal, absorbed, incomingDamage, staggerAbsorbed, staggerTicks } from './Fixtures/SimpleFight';
 
 // Uses the same test structure as damage taken with the healing object.
@@ -10,6 +10,8 @@ describe('Brewmaster.DamageTaken', () => {
     healingDone = new HealingDone({
       toPlayer: () => true,
       byPlayer: () => true,
+      toPlayerPet: () => false,
+      byPlayerPet: () => false,
       fight: { start_time: 0 },
     });
   });
@@ -26,8 +28,8 @@ describe('Brewmaster.DamageTaken', () => {
   });
   it('healing done with only non-stagger absorbs', () => {
     processEvents(absorbed, healingDone);
-    expect(healingDone.total.regular).toBe(0);
-    expect(healingDone.total.absorbed).toBe(16);
+    expect(healingDone.total.regular).toBe(16);
+    expect(healingDone.total.absorbed).toBe(0);
     expect(healingDone.total.overheal).toBe(0);
   });
   it('healing done with only stagger absorbs', () => {
@@ -57,8 +59,8 @@ describe('Brewmaster.DamageTaken', () => {
   });
   it('healing done taken for the fight', () => {
     processEvents(SimpleFight, healingDone);
-    expect(healingDone.total.regular).toBe(10);
-    expect(healingDone.total.absorbed).toBe(16);
+    expect(healingDone.total.regular).toBe(26);
+    expect(healingDone.total.absorbed).toBe(0);
     expect(healingDone.total.overheal).toBe(0);
   });
 });

@@ -52,6 +52,14 @@ hr {
   margin: 15px 0;
   border-top: 1px solid #4f4f4f;
 }
+.gh-label {
+  background-color: #0e8a16;
+  color: #fff;
+  border-radius: 2px;
+  padding: 3px 4px;
+  font-size: 13px;
+  font-weight: 600;
+}
 
 .app > header {
   background-image: url(./Images/header.jpg);
@@ -150,6 +158,13 @@ hr {
   box-shadow: 0 1px 0 0 rgba(255, 255, 255, .1);
   padding: 16px 22px 14px;
 }
+.panel-footer {
+  border-top: 1px solid rgba(0, 0, 0, .4);
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  box-shadow: 0 -1px 0 0 rgba(255, 255, 255, .1);
+  background: transparent;
+}
 .panel-heading h2 {
   font-weight: 400;
   opacity: .9;
@@ -184,11 +199,6 @@ hr {
   outline: none;
 }
 
-.btn-default {
-  border: 1px solid #fff;
-  background: transparent;
-  padding: 8px 30px;
-}
 .btn-primary {
   border: none;
   background: #d84141;
@@ -278,7 +288,7 @@ hr {
   width: 0%;
   height: 100%;
   background: rgba(228, 90, 90, 0.5);
-  transition: opacity 400ms, width 400ms linear;
+  transition: opacity 400ms;
 }
 .navbar-progress + * {
   position: relative;
@@ -501,15 +511,17 @@ table.data-table img {
 }
 table.data-table .performance-bar {
   opacity: .9;
-  height: 1.2em;
+  height: 1.4em;
   min-width: 1px;
   background-color: #ffffff;
-  margin-top: .1em;
 }
 
-.__react_component_tooltip {
+.__react_component_tooltip.show {
+  opacity: 1;
   text-align: left;
   max-width: 600px;
+  padding: 8px 15px;
+  border-radius: 4px;
 }
 .__react_component_tooltip.type-dark {
   background: rgba(10, 10, 10, 0.9) !important;
@@ -552,44 +564,74 @@ table.data-table .performance-bar {
 .kill { color: #1d9c07 !important }
 .wipe { color: #fb6d35 !important }
 
-.stat-health{color:#27cc4e !important}
-.stat-stamina{color:#ff8b2d !important}
-.stat-energy{color:#cb9501 !important}
-.stat-focus{color:#d45719 !important}
-.stat-fury{color:#8400ff !important}
-.stat-insanity{color:#60f !important}
-.stat-maelstrom{color:#008fff !important}
-.stat-mana{color:#1c8aff !important}
-.stat-pain{color:#d45719 !important}
-.stat-rage{color:#ab0000 !important}
-.stat-runicpower{color:#00bcde !important}
-.stat-agility{color:#ffd955 !important}
-.stat-intellect{color:#d26cd1 !important}
-.stat-strength{color:#f33232 !important}
-.stat-criticalstrike{color:#e01c1c !important}
-.stat-haste{color:#0ed59b !important}
-.stat-mastery{color:#9256ff !important}
-.stat-versatility{color:#bfbfbf !important}
+.stat-health { color: #27cc4e !important }
+.stat-stamina { color: #ff8b2d !important }
+.stat-energy { color: #cb9501 !important }
+.stat-focus { color: #d45719 !important }
+.stat-fury { color: #8400ff !important }
+.stat-insanity { color: #60f !important }
+.stat-maelstrom { color: #008fff !important }
+.stat-mana { color: #1c8aff !important }
+.stat-pain { color: #d45719 !important }
+.stat-rage { color: #ab0000 !important }
+.stat-runicpower { color: #00bcde !important }
+.stat-agility { color: #ffd955 !important }
+.stat-intellect { color: #d26cd1 !important }
+.stat-strength { color: #f33232 !important }
+.stat-criticalstrike { color: #e01c1c !important }
+.stat-haste { color: #0ed59b !important }
+.stat-mastery { color: #9256ff !important }
+.stat-versatility { color: #bfbfbf !important }
 
-.stat-health-bg{background-color:#27cc4e !important}
-.stat-stamina-bg{background-color:#ff8b2d !important}
-.stat-energy-bg{background-color:#cb9501 !important}
-.stat-focus-bg{background-color:#d45719 !important}
-.stat-fury-bg{background-color:#8400ff !important}
-.stat-insanity-bg{background-color:#60f !important}
-.stat-maelstrom-bg{background-color:#008fff !important}
-.stat-mana-bg{background-color:#1c8aff !important}
-.stat-pain-bg{background-color:#d45719 !important}
-.stat-rage-bg{background-color:#ab0000 !important}
-.stat-runicpower-bg{background-color:#00bcde !important}
-.stat-agility-bg{background-color:#ffd955 !important}
-.stat-intellect-bg{background-color:#d26cd1 !important}
-.stat-strength-bg{background-color:#f33232 !important}
-.stat-criticalstrike-bg{background-color:#e01c1c !important}
-.stat-haste-bg{background-color:#0ed59b !important}
-.stat-mastery-bg{background-color:#9256ff !important}
-.stat-versatility-bg{background-color:#bfbfbf !important}
+.stat-health-bg, .stat-healing-bg { background-color: #27cc4e !important }
+.stat-healing-absorbs-bg { background-color: #ffd955 !important }
+.stat-negative-absorbs-bg { background-color: #d45719 !important }
+.stat-overhealing-bg { background-color:  #3e3d3d !important }
+.stat-stamina-bg { background-color: #ff8b2d !important }
+.stat-energy-bg { background-color: #cb9501 !important }
+.stat-focus-bg { background-color: #d45719 !important }
+.stat-fury-bg { background-color: #8400ff !important }
+.stat-insanity-bg { background-color: #60f !important }
+.stat-maelstrom-bg { background-color: #008fff !important }
+.stat-mana-bg { background-color: #1c8aff !important }
+.stat-pain-bg { background-color: #d45719 !important }
+.stat-rage-bg { background-color: #ab0000 !important }
+.stat-runicpower-bg { background-color: #00bcde !important }
+.stat-agility-bg { background-color: #ffd955 !important }
+.stat-intellect-bg { background-color: #d26cd1 !important }
+.stat-strength-bg { background-color: #f33232 !important }
+.stat-criticalstrike-bg { background-color: #e01c1c !important }
+.stat-haste-bg { background-color: #0ed59b !important }
+.stat-mastery-bg { background-color: #9256ff !important }
+.stat-versatility-bg { background-color: #bfbfbf !important }
 
+/*https://wow.gamepedia.com/COMBAT_LOG_EVENT*/
+/* Physical */
+.spell-school-1-bg { background-color: #ccb278 !important; }
+/* Holy */
+.spell-school-2-bg { background-color: #ffe680 !important; }
+/* Fire */
+.spell-school-4-bg { background-color: #d84141 !important; }
+/* Nature */
+.spell-school-8-bg { background-color: #4dff4d !important; }
+/* Frost */
+.spell-school-16-bg { background-color: #80ffff !important; }
+/* Shadow */
+.spell-school-32-bg { background-color: #8080ff !important; }
+/* Arcane */
+.spell-school-64-bg { background-color: #ff80ff !important; }
+/* Double schools */
+/* Spellshadow: Arcane + Shadow */
+.spell-school-96-bg { background-image: linear-gradient(to bottom, #ff80ff 0%, #8080ff 100%) !important; }
+/* Triple and multi schools */
+/* Elemental: Frost + Nature + Fire */
+.spell-school-28-bg { background-color: #8cc084 !important; }
+/* Chronomatic: Arcane + Shadow + Frost + Nature + Fire */
+.spell-school-124-bg { background-color: #a1a6b5 !important; }
+/* Magic: Arcane + Shadow + Frost + Nature + Fire + Holy */
+.spell-school-126-bg { background-color: #b1b1ac !important; }
+/* Chaos: Arcane + Shadow + Frost + Nature + Fire + Holy + Physical */
+.spell-school-127-bg { background-color: #b4b1a5 !important; }
 
 .toggle-control {
   margin: -2px 0;
@@ -693,7 +735,8 @@ code.inactive {
   background: #c7254e;
   color: #f9f2f4;
 }
-.graph-container {
+.graph-container, .chart-container {
+  position: relative;
   background: rgba(0,0,0,0.3);
   border-radius: 7px;
   padding: 10px;
@@ -705,10 +748,16 @@ code.inactive {
   line-height: 1em;
   left: 15px;
   top: 66px;
-  width: 600px;
+  width: 700px;
+  z-index: 10;
   max-width: calc(100vw - 45px);
 }
-
 .selectorHeader .panel {
-  background: rgba(0,0,0,0.75);
+  background: rgba(0,0,0,0.9);
+}
+.fight-boss-name {
+  min-width: 30%;
+}
+.selectorHeader .fight-boss-name {
+  min-width: 50%;
 }

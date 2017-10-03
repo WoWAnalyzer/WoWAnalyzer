@@ -75,6 +75,11 @@ export default {
     name: 'Ancient Rejuvenation Potion',
     icon: 'inv_alchemy_70_purple',
   },
+  MARK_OF_THE_CLAW: {
+    id: 190909,
+    name: 'Mark of the Claw',
+    icon: 'classicon_druid',
+  },
   // Items buffs:
   JACINS_RUSE: {
     id: 224149,
@@ -123,7 +128,7 @@ export default {
     name: 'Mark of the Hidden Satyr',
     icon: 'sha_spell_fire_fireball02_nightmare',
   },
-  //Nighthold Trinkets
+  // Nighthold Trinkets
   RECURSIVE_STRIKES: {
     id: 225739,
     name: 'Recursive Strikes',
@@ -175,6 +180,26 @@ export default {
     name: 'Dread Torrent',
     icon: 'spell_warlock_soulburn',
   },
+  INFERNAL_CINDERS: {
+    id: 242218,
+    name: 'Infernal Cinders',
+    icon: 'inv_weapon_shortblade_54',
+  },
+  UMBRAL_GLAIVE_STORM: {
+    id: 242556,
+    name: 'Umbral Glaive Storm',
+    icon: 'ability_upgrademoonglaive',
+  },
+  SHATTERING_UMBRAL_GLAIVES: {
+    id: 242557,
+    name: 'Shattering Umbral Glaives',
+    icon: 'ability_upgrademoonglaive',
+  },
+  STRENGTH_OF_WILL: {
+    id: 242642,
+    name: 'Strength of Will',
+    icon: 'inv_wand_36',
+  },
   // Item Abilities
   SPECTRAL_OWL: {
     id: 242570,
@@ -206,7 +231,17 @@ export default {
     name: 'Insidious Corruption',
     icon: 'inv_archaeology_70_demon_flayedskinchronicle',
   },
-  //Engine of Eradication buff
+  LUNAR_INFUSION: {
+    id: 242543,
+    name: 'Lunar Infusion',
+    icon: 'ability_druid_lunarguidance',
+  },
+  RISING_TIDES: {
+    id: 242458,
+    name: 'Rising Tides',
+    icon: 'inv_7_0raid_trinket_04a',
+  },
+  // Engine of Eradication buff
   DEMONIC_VIGOR: {
     id: 242612,
     name: 'Demonic Vigor',
@@ -232,6 +267,11 @@ export default {
     name: 'Archimonde\'s Hatred Reborn',
     icon: 'spell_nature_elementalshields',
   },
+  ARCHIMONDES_HATRED_REBORN_DAMAGE: {
+    id: 235188,
+    name: 'Archimonde\'s Hatred Reborn',
+    icon: 'spell_nature_elementalshields',
+  },
   DRUMS_OF_FURY: {
     id: 178207,
     name: 'Drums of Fury',
@@ -247,6 +287,12 @@ export default {
     name: 'Drums of the Mountain',
     icon: 'inv_archaeology_70_tauren_drum',
   },
+  // Cinidaria
+  SYMBIOTE_STRIKE: {
+    id: 207694,
+    name: 'Symbiote Strike',
+    icon: 'inv_leather_raiddruid_m_01belt',
+  },
 
   // Encounter mechanics
   RECURSIVE_STRIKES_ENEMY: {
@@ -258,5 +304,131 @@ export default {
     id: -32, // No idea why it's negative, but adds with "magic melee attacks" (eels on Mistress/tank add on KJ melee) cast an ability with this ID
     name: 'Melee',
     icon: 'inv_axe_02',
+  },
+  ASTRAL_VULNERABILITY: {
+    id: 236330,
+    name: 'Astral Vulnerability',
+    icon: 'spell_frost_wisp',
+  },
+  ANNIHILATION_TRILLIAX: {
+    id: 207631,
+    name: 'Annihilation',
+    icon: 'spell_arcane_arcanetorrent',
+  },
+  // Netherlight Cruicible Traits
+  MURDEROUS_INTENT_TRAIT: {
+    id: 252191,
+    name: 'Murderous Intent',
+    icon: 'spell_shadow_charm',
+  },
+  MURDEROUS_INTENT_BUFF: {
+    id: 252202,
+    name: 'Murderous Intent',
+    icon: 'spell_shadow_charm',
+  },
+  REFRACTIVE_SHELL_TRAIT: {
+    id: 252207,
+    name: 'Refractive Shell',
+    icon: 'ability_priest_reflectiveshield',
+  },
+  REFRACTIVE_SHELL_BUFF: {
+    id: 252208,
+    name: 'Refractive Shell',
+    icon: 'ability_priest_reflectiveshield',
+  },
+  SHOCKLIGHT_TRAIT: {
+    id: 252799,
+    name: 'Shocklight',
+    icon: 'paladin_icon_speedoflight',
+  },
+  SHOCKLIGHT_BUFF: {
+    id: 252801,
+    name: 'Shocklight',
+    icon: 'paladin_icon_speedoflight',
+  },
+  SECURE_IN_THE_LIGHT_TRAIT: {
+    id: 253070,
+    name: 'Secure in the Light',
+    icon: 'ability_paladin_toweroflight',
+  },
+  SECURE_IN_THE_LIGHT_DAMAGE: {
+    id: 253073,
+    name: 'Secure in the Light',
+    icon: 'ability_paladin_toweroflight',
+  },
+  HOLY_BULWARK: {
+    id: 253072,
+    name: 'Holy Bulwark',
+    icon: 'ability_paladin_toweroflight',
+  },
+  INFUSION_OF_LIGHT_TRAIT: {
+    id: 253093,
+    name: 'Infusion of Light',
+    icon: 'ability_malkorok_blightofyshaarj_yellow',
+  },
+  INFUSION_OF_LIGHT_DAMAGE: {
+    id: 253098,
+    name: 'Infusion of Light',
+    icon: 'ability_malkorok_blightofyshaarj_yellow',
+  },
+  INFUSION_OF_LIGHT_HEALING: {
+    id: 253099,
+    name: 'Infusion of Light',
+    icon: 'ability_malkorok_blightofyshaarj_yellow',
+  },
+  LIGHTS_EMBRACE_TRAIT: {
+    id: 253111,
+    name: 'Light\'s Embrace',
+    icon: 'achievement_reputation_07',
+  },
+  LIGHTS_EMBRACE_HEALING: {
+    id: 253216,
+    name: 'Light\'s Embrace',
+    icon: 'achievement_reputation_07',
+  },
+  SHADOWBIND_TRAIT: {
+    id: 252875,
+    name: 'Shadowbind',
+    icon: 'spell_shadow_deathpact',
+  },
+  SHADOWBIND_DAMAGE_HEALING: {
+    id: 252879,
+    name: 'Shadowbind',
+    icon: 'spell_shadow_deathpact',
+  },
+  CHAOTIC_DARKNESS_TRAIT: {
+    id: 252888,
+    name: 'Chaotic Darkness',
+    icon: 'inv_artifact_powerofthedarkside',
+  },
+  CHAOTIC_DARKNESS_DAMAGE: {
+    id: 252896,
+    name: 'Chaotic Darkness',
+    icon: 'inv_artifact_powerofthedarkside',
+  },
+  CHAOTIC_DARKNESS_HEALING: {
+    id: 252897,
+    name: 'Chaotic Darkness',
+    icon: 'inv_artifact_powerofthedarkside',
+  },
+  TORMENT_THE_WEAK_TRAIT: {
+    id: 252906,
+    name: 'Torment the Weak',
+    icon: 'warlock_curse_weakness',
+  },
+  TORMENT_THE_WEAK_DAMAGE: {
+    id: 252907,
+    name: 'Torment the Weak',
+    icon: 'warlock_curse_weakness',
+  },
+  DARK_SORROWS_TRAIT: {
+    id: 252922,
+    name: 'Dark Sorrows',
+    icon: 'inv_heart_of_the_thunder-king_icon',
+  },
+  DARK_SORROWS_DAMAGE: {
+    id: 253022,
+    name: 'Dark Sorrows',
+    icon: 'inv_heart_of_the_thunder-king_icon',
   },
 };

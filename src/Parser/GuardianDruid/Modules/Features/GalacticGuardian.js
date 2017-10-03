@@ -5,11 +5,15 @@ import SpellLink from 'common/SpellLink';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Module from 'Parser/Core/Module';
 import SPELLS from 'common/SPELLS';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 const GG_DURATION = 10000;
 const debug = false;
 
 class GalacticGuardian extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
 
   GGProcsTotal = 0;
   lastGGProcTime = 0;
@@ -18,7 +22,7 @@ class GalacticGuardian extends Module {
   nonGGMoonFire = 0;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasTalent(SPELLS.GALACTIC_GUARDIAN_TALENT.id);
+    this.active = this.combatants.selected.hasTalent(SPELLS.GALACTIC_GUARDIAN_TALENT.id);
   }
 
   on_byPlayer_applybuff(event) {
@@ -26,7 +30,7 @@ class GalacticGuardian extends Module {
     if (SPELLS.GALACTIC_GUARDIAN.id === spellId) {
       this.lastGGProcTime = event.timestamp;
       debug && console.log('Galactic Guardian applied');
-      this.GGProcsTotal++;
+      this.GGProcsTotal += 1;
     }
   }
 
@@ -36,8 +40,8 @@ class GalacticGuardian extends Module {
       // Captured Overwritten GG Buffs for use in wasted buff calculations
       this.lastGGProcTime = event.timestamp;
       debug && console.log('Galactic Guardian Overwritten');
-      this.GGProcsTotal++;
-      this.overwrittenGGProc++;
+      this.GGProcsTotal += 1;
+      this.overwrittenGGProc += 1;
     }
   }
 
@@ -46,17 +50,17 @@ class GalacticGuardian extends Module {
     if (SPELLS.MOONFIRE.id !== spellId) {
       return;
     }
-    if(this.lastGGProcTime !== event.timestamp) {
-      if(this.lastGGProcTime === null) {
-        this.nonGGMoonFire++;
+    if (this.lastGGProcTime !== event.timestamp) {
+      if (this.lastGGProcTime === null) {
+        this.nonGGMoonFire += 1;
         return;
       }
       const GGTimeframe = this.lastGGProcTime + GG_DURATION;
-      if(event.timestamp > GGTimeframe) {
-        this.nonGGMoonFire++;
+      if (event.timestamp > GGTimeframe) {
+        this.nonGGMoonFire += 1;
       } else {
-        this.consumedGGProc++;
-        debug && console.log('Galactic Guardian Proc Consumed / Timestamp: ' + event.timestamp);
+        this.consumedGGProc += 1;
+        debug && console.log(`Galactic Guardian Proc Consumed / Timestamp: ${event.timestamp}`);
         this.lastGGProcTime = null;
       }
     }
@@ -76,12 +80,12 @@ class GalacticGuardian extends Module {
 
   statistic() {
     const unusedGGProcs = 1 - (this.consumedGGProc / this.GGProcsTotal);
-    
+
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.GALACTIC_GUARDIAN.id} />}
         value={`${formatPercentage(unusedGGProcs)}%`}
-        label='Unused Galactic Guardian'
+        label="Unused Galactic Guardian"
         tooltip={`You got total <b>${this.GGProcsTotal}</b> galactic guardian procs and <b>used ${this.consumedGGProc}</b> of them.`}
       />
     );

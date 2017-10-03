@@ -7,15 +7,17 @@ import Tab from 'Main/Tab';
 import Talents from 'Main/Talents';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
+import DamageDone from 'Parser/Core/Modules/DamageDone';
 
 import CastEfficiency from './Modules/Main/CastEfficiency';
 import Maelstrom from './Modules/Main/Maelstrom';
 
 import CooldownTracker from './Modules/Features/CooldownTracker';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
-import DamageDone from './Modules/ShamanCore/DamageDone';
-//import ShamanStats from './Modules/ShamanCore/ShamanStats';
+// import ShamanStats from './Modules/ShamanCore/ShamanStats';
+import AlphaWolf from './Modules/ShamanCore/AlphaWolf';
 import Flametongue from './Modules/ShamanCore/Flametongue';
+import FlametongueRefresh from './Modules/ShamanCore/FlametongueRefresh';
 import Landslide from './Modules/ShamanCore/Landslide';
 import Frostbrand from './Modules/ShamanCore/Frostbrand';
 import FuryOfAir from './Modules/ShamanCore/FuryOfAir';
@@ -28,35 +30,37 @@ import Tier20_2set from './Modules/Items/Tier20_2set';
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // ShamanCore
-    damageDone: DamageDone,
-    //shamanStats: ShamanStats,
+    damageDone: [DamageDone, { showStatistic: true }],
+    // shamanStats: ShamanStats,
     flametongue: Flametongue,
     landslide: Landslide,
     frostbrand: Frostbrand,
     furyOfAir: FuryOfAir,
     rockbiter: Rockbiter,
+    flametongueRefresh: FlametongueRefresh,
+    alphaWolf: AlphaWolf,
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     castEfficiency: CastEfficiency,
     cooldownTracker: CooldownTracker,
     // Legendaries:
-    //Tier
+    // Tier
     tier20_2set: Tier20_2set,
   };
 
   generateResults() {
     const results = super.generateResults();
 
-    //first row of talents
+    // first row of talents
     // const hasWindSong = this.selectedCombatant.hasTalent(SPELLS.WINDSONG_TALENT.id);
     // const hasHotHand = this.selectedCombatant.hasTalent(SPELLS.HOT_HAND_TALENT.id);
-    //4th row of talents
-    //5th row of talents
+    // 4th row of talents
+    // 5th row of talents
     // const hasOvercharge = this.selectedCombatant.hasTalent(SPELLS.HAILSTORM_TALENT.id);
-    //6th row of talents
+    // 6th row of talents
     // const hasCrashingStorm = this.selectedCombatant.hasTalent(SPELLS.CRASHING_STORM_TALENT.id);
     // const hasSundering = this.selectedCombatant.hasTalent(SPELLS.SUNDERING_TALENT.id);
-    //last row of talents
+    // last row of talents
     // const hasAscendance = this.selectedCombatant.hasTalent(SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id);
     // const hasEarthenSpike = this.selectedCombatant.hasTalent(SPELLS.EARTHEN_SPIKE_TALENT.id);
     // const hasBoulderfist = this.selectedCombatant.hasTalent(SPELLS.BOULDERFIST_TALENT.id);
@@ -68,7 +72,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // const frostbrand = getAbility(SPELLS.FROSTBRAND.id);
     // const stormBringer = getAbility(SPELLS.STORMBRINGER.id);
 
-    //Legendaries
+    // Legendaries
     // const hasUncertainReminder = this.selectedCombatant.hasHead(ITEMS.UNCERTAIN_REMINDER.id);
     // const hasEmalons = this.selectedCombatant.hasChest(ITEMS.EMALONS_CHARGED_CORE.id);
     // const hasAkainus = this.selectedCombatant.hasWrists(ITEMS.AKAINUS_ABSOLUTE_JUSTICE.id);
@@ -80,7 +84,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // const hasEOTN = this.selectedCombatant.hasFinger(ITEMS.EYE_OF_THE_TWISTING_NETHER.id);
     // const hasSephuz = this.selectedCombatant.hasFinger(ITEMS.SEPHUZS_SECRET.id);
 
-    this.selectedCombatant._combatantInfo.gear.forEach(function (value) {
+    this.modules.combatants.selected._combatantInfo.gear.forEach((value) => {
       const equippedItem = ITEMS[value.id];
 
       if (equippedItem !== undefined && equippedItem.quality === 5) {
@@ -112,7 +116,7 @@ class CombatLogParser extends CoreCombatLogParser {
         url: 'talents',
         render: () => (
           <Tab title="Talents">
-            <Talents combatant={this.selectedCombatant} />
+            <Talents combatant={this.modules.combatants.selected} />
           </Tab>
         ),
       },

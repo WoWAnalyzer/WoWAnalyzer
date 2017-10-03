@@ -3,17 +3,22 @@ import Icon from 'common/Icon';
 import { formatPercentage } from 'common/format';
 
 import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class ShamanStats extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  }
+
   statistic() {
     return (
       <StatisticBox
         icon={<Icon icon="spell_nature_shamanrage" alt="Core Stats" />}
-        value={`${formatPercentage(this.owner.selectedCombatant.masteryPercentage, 0)}% M ${formatPercentage(this.owner.selectedCombatant.hastePercentage, 0)}% H`}
+        value={`${formatPercentage(this.combatants.selected.masteryPercentage, 0)}% M ${formatPercentage(this.combatants.selected.hastePercentage, 0)}% H`}
         label="Core Secondary Stats"
-        tooltip={`Mastery ${formatPercentage(this.owner.selectedCombatant.masteryPercentage)}% and Haste ${formatPercentage(this.owner.selectedCombatant.hastePercentage)}%`}
+        tooltip={`Mastery ${formatPercentage(this.combatants.selected.masteryPercentage)}% and Haste ${formatPercentage(this.combatants.selected.hastePercentage)}%`}
       />
     );
   }

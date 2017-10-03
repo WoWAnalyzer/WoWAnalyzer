@@ -26,7 +26,7 @@ export default {
     name: 'Evasion',
     icon: 'spell_shadow_shadowward',
   },
-  
+
   // General spells
   KICK: {
     id: 1766,
@@ -63,7 +63,7 @@ export default {
     name: 'Kidney Shot',
     icon: 'ability_rogue_kidneyshot',
   },
-  
+
   // Subtlety spells
   // Combo point generating damage ability
   BACKSTAB: {

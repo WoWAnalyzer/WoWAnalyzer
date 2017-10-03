@@ -1,4 +1,5 @@
 import HolyPaladin from './HolyPaladin/CONFIG';
+import RetributionPaladin from './RetributionPaladin/CONFIG';
 
 import RestoDruid from './RestoDruid/CONFIG';
 import GuardianDruid from './GuardianDruid/CONFIG';
@@ -20,12 +21,20 @@ import BrewmasterMonk from './BrewmasterMonk/CONFIG';
 import SubtletyRogue from './SubtletyRogue/CONFIG';
 
 import VengeanceDemonHunter from './VengeanceDemonHunter/CONFIG';
+
 import AfflictionWarlock from './AfflictionWarlock/CONFIG';
 
 import BloodDeathKnight from './BloodDeathKnight/CONFIG';
 
 import DestructionWarlock from './DestructionWarlock/CONFIG';
 
+import MarksmanshipHunter from './MarksmanshipHunter/CONFIG';
+
+import HavocDemonHunter from './HavocDemonHunter/CONFIG';
+
+import DemonologyWarlock from './DemonologyWarlock/CONFIG';
+
+import ProtectionWarrior from './ProtectionWarrior/CONFIG';
 
 // Order of this should be the order in which specs were added to production
 export default [
@@ -51,9 +60,20 @@ export default [
   SubtletyRogue,
 
   VengeanceDemonHunter,
+
   AfflictionWarlock,
 
   BloodDeathKnight,
 
   DestructionWarlock,
+
+  MarksmanshipHunter,
+
+  HavocDemonHunter,
+
+  RetributionPaladin,
+
+  DemonologyWarlock,
+
+  ProtectionWarrior,
 ];

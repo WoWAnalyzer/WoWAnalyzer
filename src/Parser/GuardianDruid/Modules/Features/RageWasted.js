@@ -73,13 +73,16 @@ class RageWasted extends Module {
         const realRageWasted = Math.floor((this._currentRawRage + RAW_RAGE_GAINED_FROM_MELEE - this._currentMaxRage) / 10);
         this.registerRageWaste(event.ability.guid, realRageWasted);
       }
-      this.totalRageGained += RAW_RAGE_GAINED_FROM_MELEE;
+      // Convert from raw rage to real rage
+      this.totalRageGained += RAW_RAGE_GAINED_FROM_MELEE / 10;
     }
     this.synchronizeRage(event);
   }
 
   get totalWastedRage() {
-    return Object.values(this.rageWastedBySpell).reduce((total, waste) => total + waste, 0);
+    return Object.keys(this.rageWastedBySpell)
+      .map(key => this.rageWastedBySpell[key])
+      .reduce((total, waste) => total + waste, 0);
   }
 
   get wastedRageRatio() {
@@ -87,20 +90,18 @@ class RageWasted extends Module {
   }
 
   getWastedRageBreakdown() {
-    const sortedWasteBySpell = [];
-
-    for (const spellID in this.rageWastedBySpell) {
-      if (this.rageWastedBySpell.hasOwnProperty(spellID)) {
+    return Object.keys(this.rageWastedBySpell)
+      .map((spellID) => {
         if (!RAGE_GENERATORS[spellID]) {
           console.warn('Unknown rage generator:', spellID);
         }
-        sortedWasteBySpell.push({ name: RAGE_GENERATORS[spellID], waste: this.rageWastedBySpell[spellID] });
-      }
-    }
-
-    sortedWasteBySpell.sort((a, b) => b.waste - a.waste);
-
-    return sortedWasteBySpell.reduce((str, spell) => `${str}<br />${spell.name}: ${spell.waste}`, 'Rage wasted per spell:');
+        return {
+          name: RAGE_GENERATORS[spellID],
+          waste: this.rageWastedBySpell[spellID],
+        };
+      })
+      .sort((a, b) => b.waste - a.waste)
+      .reduce((str, spell) => `${str}<br />${spell.name}: ${spell.waste}`, 'Rage wasted per spell:');
   }
 
   suggestions(when) {
@@ -118,7 +119,7 @@ class RageWasted extends Module {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.BRISTLING_FUR.id} />}
-        label='Wasted Rage'
+        label="Wasted Rage"
         value={`${formatPercentage(this.wastedRageRatio)}%`}
         tooltip={`
           You wasted <strong>${this.totalWastedRage}</strong> rage out of <strong>${this.totalRageGained}</strong> total rage gained. (<strong>${formatPercentage(this.wastedRageRatio)}%</strong> of total)<br /><br />

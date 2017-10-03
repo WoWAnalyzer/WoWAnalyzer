@@ -2,6 +2,8 @@ import SPELLS from 'common/SPELLS';
 
 import CoreCastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 
+/* eslint-disable no-unused-vars */
+
 class CastEfficiency extends CoreCastEfficiency {
   static CPM_ABILITIES = [
     ...CoreCastEfficiency.CPM_ABILITIES,
@@ -23,16 +25,6 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 30,
     },
     {
-      spell: SPELLS.CHI_BURST_TALENT,
-      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
-      getCooldown: haste => 30,
-      isActive: combatant => combatant.hasTalent(SPELLS.CHI_BURST_TALENT.id),
-      getOverhealing: (_, getAbility) => {
-        const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.CHI_BURST_HEAL.id);
-        return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
-      },
-    },
-    {
       spell: SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 180,
@@ -45,6 +37,28 @@ class CastEfficiency extends CoreCastEfficiency {
       isActive: combatant => combatant.hasTalent(SPELLS.MANA_TEA_TALENT.id),
     },
     {
+      spell: SPELLS.CHI_BURST_TALENT,
+      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
+      getCooldown: haste => 30,
+      isActive: combatant => combatant.hasTalent(SPELLS.CHI_BURST_TALENT.id),
+      getOverhealing: (_, getAbility) => {
+        const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.CHI_BURST_HEAL.id);
+        return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
+      },
+    },
+    {
+      spell: SPELLS.ZEN_PULSE_TALENT,
+      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
+      getCooldown: haste => 15,
+      isActive: combatant => combatant.hasTalent(SPELLS.ZEN_PULSE_TALENT.id),
+    },
+    {
+      spell: SPELLS.CHI_WAVE_TALENT,
+      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
+      getCooldown: haste => 15,
+      isActive: combatant => combatant.hasTalent(SPELLS.CHI_WAVE_TALENT.id),
+    },
+    {
       spell: SPELLS.LIFE_COCOON,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 180,
@@ -54,7 +68,7 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.REVIVAL,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
-      getCooldown: (haste, combatant) => 180 - (combatant.traitsBySpellId[SPELLS.TENDRILS_OF_REVIVAL.id] || 0 ) * 10,
+      getCooldown: (haste, combatant) => 180 - (combatant.traitsBySpellId[SPELLS.TENDRILS_OF_REVIVAL.id] || 0) * 10,
       noSuggestion: true,
       noCanBeImproved: true,
     },

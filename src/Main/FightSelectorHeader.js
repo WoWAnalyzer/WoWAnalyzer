@@ -44,13 +44,13 @@ class FightSelectorHeader extends SelectorBase {
             <div className="panel-heading">
               <div className="row">
                 <div className="col-md-8">
-                  <h2>Select the fight to parse {parser && parser.player ? ' for ' + parser.player.name : ''}</h2>
+                  <h2>Select the fight to parse {parser && parser.player ? ` for ${parser.player.name}` : ''}</h2>
                 </div>
                 <div className="col-md-4 text-right toggle-control action-buttons">
                   <Toggle
                     checked={killsOnly}
                     icons={false}
-                    onChange={(event) => this.setState({ killsOnly: event.currentTarget.checked })}
+                    onChange={event => this.setState({ killsOnly: event.currentTarget.checked })}
                     id="kills-only-toggle"
                   />
                   <label htmlFor="kills-only-toggle">
@@ -60,7 +60,7 @@ class FightSelectorHeader extends SelectorBase {
               </div>
             </div>
             <div className="panel-body" style={{ padding: 0 }} onClick={this.handleClick}>
-            {parser && parser.player &&
+              {parser && parser.player &&
               <FightSelectionList
                 report={report}
                 fights={

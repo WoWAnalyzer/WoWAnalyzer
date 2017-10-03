@@ -31,12 +31,12 @@ module.exports = {
             defaultValue: Sequelize.NOW,
             allowNull: false,
           },
-        },
+        }
       ),
       queryInterface.addIndex('WclApiResponse', ['createdAt']),
     ]);
   },
-  down: (queryInterface, Sequelize) => {
+  down: (queryInterface) => {
     return queryInterface.dropTable('WclApiResponse');
   },
 };

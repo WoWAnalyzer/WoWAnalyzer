@@ -1,15 +1,29 @@
+import React from 'react';
+
+import Combatants from 'Parser/Core/Modules/Combatants';
 import Module from 'Parser/Core/Module';
 import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
+import { formatPercentage } from 'common/format';
 
-export const TEARSTONE_ITEM_ID = 137042;
+import Rejuvenation from '../Features/Rejuvenation';
 
 class Tearstone extends Module {
+  static dependencies = {
+    combatants: Combatants,
+    rejuvenation: Rejuvenation,
+  };
+
   rejuvs = 0;
   rejuvTimestamp = null;
   rejuvTarget = null;
   wildgrowthTimestamp = null;
   wildGrowthTargets = [];
   wildGrowths = 0;
+
+  on_initialized() {
+    this.active = this.combatants.selected.hasFinger(ITEMS.TEARSTONE_OF_ELUNE.id);
+  }
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
@@ -24,7 +38,7 @@ class Tearstone extends Module {
     if (SPELLS.WILD_GROWTH.id === spellId) {
       this.wildgrowthTimestamp = event.timestamp;
       this.wildGrowthTargets = [];
-      if (this.owner.selectedCombatant.hasBuff(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id)) {
+      if (this.owner.modules.combatants.selected.hasBuff(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id)) {
         this.wildGrowths += 8;
       } else {
         this.wildGrowths += 6;
@@ -47,15 +61,30 @@ class Tearstone extends Module {
       // "consume" the rejuv cast we were tracking
       this.rejuvTarget = null;
       this.rejuvTimestamp = null;
-        return;
+      return;
     }
 
     if ((SPELLS.REJUVENATION.id === spellId || SPELLS.REJUVENATION_GERMINATION.id === spellId)
       && (event.timestamp - this.wildgrowthTimestamp) < 200
       && this.wildGrowthTargets.indexOf(event.targetID) !== -1) {
-      this.rejuvs++;
+      this.rejuvs += 1;
     }
   }
+
+  item() {
+    const healing = this.rejuvs * this.rejuvenation.avgRejuvHealing;
+    const procRate = this.rejuvs / this.wildGrowths;
+
+    return {
+      item: ITEMS.TEARSTONE_OF_ELUNE,
+      result: (
+        <dfn data-tip={`You gained <b>${this.rejuvs} bonus rejuvenations</b>, for a <b>proc rate of ${formatPercentage(procRate)}%</b>.`}>
+          {this.owner.formatItemHealingDone(healing)}
+        </dfn>
+      ),
+    };
+  }
+
 }
 
 export default Tearstone;

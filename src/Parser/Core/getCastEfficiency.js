@@ -1,15 +1,16 @@
+// TODO: Move this to the CastEfficiency class
+
 export function calculateMaxCasts(cooldown, fightDuration, charges = 1) {
   return (fightDuration / 1000 / cooldown) + charges - 1;
 }
 
-export default function getCastEfficiency(CPM_ABILITIES, parser) {
+export default function getCastEfficiency(CPM_ABILITIES, abilityTracker, combatants, parser) {
   const fightDuration = parser.fightDuration;
   const minutes = fightDuration / 1000 / 60;
 
-  const abilityTracker = parser.modules.abilityTracker;
   const getAbility = spellId => abilityTracker.getAbility(spellId);
 
-  const selectedCombatant = parser.selectedCombatant;
+  const selectedCombatant = combatants.selected;
   if (!selectedCombatant) {
     return null;
   }
@@ -18,7 +19,7 @@ export default function getCastEfficiency(CPM_ABILITIES, parser) {
 
   return CPM_ABILITIES
     .filter(ability => !ability.isActive || ability.isActive(selectedCombatant))
-    .map((ability) => {
+    .map(ability => {
       const castCount = getAbility(ability.spell.id);
       const casts = (ability.getCasts ? ability.getCasts(castCount, parser) : castCount.casts) || 0;
       if (ability.hideWithZeroCasts && casts === 0) {

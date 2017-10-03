@@ -1,3 +1,5 @@
+import React from 'react';
+
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ITEMS from 'common/ITEMS';
@@ -12,16 +14,18 @@ class TheMasterHarvester extends Module {
   };
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.combatants.selected.hasChest(ITEMS.THE_MASTER_HARVESTER.id);
-    }
+    this.active = this.combatants.selected.hasChest(ITEMS.THE_MASTER_HARVESTER.id);
   }
 
   item() {
     const bonusDmg = this.soulHarvest.chestBonusDmg;
     return {
       item: ITEMS.THE_MASTER_HARVESTER,
-      result: `${formatNumber(bonusDmg)} damage contributed - ${this.owner.formatItemDamageDone(bonusDmg)}`,
+      result: (
+        <dfn data-tip={`Total bonus damage contributed: ${formatNumber(bonusDmg)}`}>
+          {this.owner.formatItemDamageDone(bonusDmg)}
+        </dfn>
+      ),
     };
   }
 }

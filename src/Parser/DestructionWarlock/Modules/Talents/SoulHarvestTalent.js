@@ -17,9 +17,7 @@ class SoulHarvestTalent extends Module {
   };
 
   on_initialized() {
-    if (!this.owner.error) {
-      this.active = this.combatants.selected.hasTalent(SPELLS.SOUL_HARVEST_TALENT.id);
-    }
+    this.active = this.combatants.selected.hasTalent(SPELLS.SOUL_HARVEST_TALENT.id);
   }
 
   statistic() {
@@ -28,13 +26,13 @@ class SoulHarvestTalent extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.SOUL_HARVEST.id} />}
         value={`${formatNumber(bonusDmg / this.owner.fightDuration * 1000)} DPS`}
-        label='Damage contributed'
+        label="Damage contributed"
         tooltip={`Your Soul Harvest contributed ${formatNumber(bonusDmg)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(bonusDmg))} %).`}
       />
     );
   }
 
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(2);
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(4);
 }
 
 export default SoulHarvestTalent;

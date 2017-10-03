@@ -18,21 +18,21 @@ class TotemMastery extends Module {
   casts = 0;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasTalent(SPELLS.TOTEM_MASTERY_TALENT.id);
+    this.active = this.owner.modules.combatants.selected.hasTalent(SPELLS.TOTEM_MASTERY_TALENT.id);
   }
 
   get minUptime() {
     return Math.min(
-      this.owner.selectedCombatant.getBuffUptime(BUFF_TOTEM_RESONANCE_SPELL_ID),
-      this.owner.selectedCombatant.getBuffUptime(BUFF_TOTEM_EMBER_SPELL_ID),
-      this.owner.selectedCombatant.getBuffUptime(BUFF_TOTEM_TAILWIND_SPELL_ID),
-      this.owner.selectedCombatant.getBuffUptime(BUFF_TOTEM_STORM_SPELL_ID),
+      this.owner.modules.combatants.selected.getBuffUptime(BUFF_TOTEM_RESONANCE_SPELL_ID),
+      this.owner.modules.combatants.selected.getBuffUptime(BUFF_TOTEM_EMBER_SPELL_ID),
+      this.owner.modules.combatants.selected.getBuffUptime(BUFF_TOTEM_TAILWIND_SPELL_ID),
+      this.owner.modules.combatants.selected.getBuffUptime(BUFF_TOTEM_STORM_SPELL_ID)
     ) / this.owner.fightDuration;
   }
 
   on_byPlayer_cast(event) {
     if (event.ability.guid === SPELLS.TOTEM_MASTERY_TALENT.id) {
-      this.casts++;
+      this.casts += 1;
     }
   }
 
@@ -52,8 +52,8 @@ class TotemMastery extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.TOTEM_MASTERY_TALENT.id} />}
         value={`${formatPercentage(this.minUptime)} %`}
-        label={`Uptime`}
-        tooltip={`With ${this.casts} infight cast${this.casts > 1 ? 's': ''}.`}
+        label={'Uptime'}
+        tooltip={`With ${this.casts} infight cast${this.casts > 1 ? 's' : ''}.`}
       />
     );
   }

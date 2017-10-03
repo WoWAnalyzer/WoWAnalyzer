@@ -1,4 +1,8 @@
 export default `
+30-09-2017 - Added Zen Pulse and Chi Wave to the Cast Efficiency tab. Updated the Maintainer information (by anomoly)
+27-09-2017 - Clean up some old code and update the Second Gust of Mist Overhealing calculation to show overhealing of the Second Gust proc as a % of the total healing of that second Gust (by anomoly)
+20-09-2017 - Update Essence Font Mastery tooltip to include overhealing of second Gust of Mist proc (by anomoly)
+04-09-2017 - Refactored dependancies to follow new format. No change visible to user (by anomoly)
 31-08-2017 - Initial Extended Healing Trait implementation. Currently estimating the trait as a 5% increase per rank. (by anomoly)
 30-08-2017 - Initial Relic Traits added to statics view. (by anomoly)
 25-08-2017 - Mistweaver Monk: Corrected issue with MonkSpreadsheet tab. Removed / Trimmed some suggestions as this data was redundant when combined with WCL (by anomoly)

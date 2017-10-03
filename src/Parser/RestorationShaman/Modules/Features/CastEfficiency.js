@@ -2,6 +2,8 @@ import SPELLS from 'common/SPELLS';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import CoreCastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 
+/* eslint-disable no-unused-vars */
+
 class CastEfficiency extends CoreCastEfficiency {
   static CPM_ABILITIES = [
     ...CoreCastEfficiency.CPM_ABILITIES,
@@ -38,7 +40,7 @@ class CastEfficiency extends CoreCastEfficiency {
         const reducedCD = 3 * (riptideCasts + chainHealCasts);
         const extraHsts = reducedCD / 30;
 
-        const fightDuration = combatant.owner.fightDuration/1000;
+        const fightDuration = combatant.owner.fightDuration / 1000;
         const potentialHstCasts = fightDuration / 30 + 1;
         const newPotentialHstCasts = potentialHstCasts + extraHsts;
 
@@ -97,11 +99,10 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 60,
       isActive: combatant => combatant.lv75Talent === SPELLS.EARTHEN_SHIELD_TOTEM_TALENT.id,
       getOverhealing: (_, getAbility, parser) => {
-
         const earthenShieldHealing = parser.modules.earthenShieldTotem.healing || 0;
         const earthenShieldPotentialHealing = parser.modules.earthenShieldTotem.potentialHealing || 0;
         const earthenShieldEfficiency = earthenShieldHealing / earthenShieldPotentialHealing;
-        return 1-earthenShieldEfficiency;
+        return 1 - earthenShieldEfficiency;
       },
     },
     {

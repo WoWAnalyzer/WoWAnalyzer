@@ -15,6 +15,7 @@ function formatDuration(duration) {
 class Event extends React.PureComponent {
   static propTypes = {
     event: PropTypes.object.isRequired,
+    id: PropTypes.number.isRequired,
     fightStart: PropTypes.number.isRequired,
     source: PropTypes.object,
     target: PropTypes.object,
@@ -23,6 +24,9 @@ class Event extends React.PureComponent {
   constructor() {
     super();
     this.handleClick = this.handleClick.bind(this);
+  }
+  shouldComponentUpdate(nextProps) {
+    return nextProps.id !== this.props.id;
   }
 
   handleClick() {
@@ -68,6 +72,11 @@ class Event extends React.PureComponent {
           {event.type === 'heal' && (
             <span className={event.type}>
               {formatThousands(event.amount)} {event.absorbed ? <span className="absorbed">(A: {formatThousands(event.absorbed)})</span> : null} {event.overheal ? <span className="overheal">(O: {formatThousands(event.overheal)})</span> : null}
+            </span>
+          )}
+          {event.type === 'absorbed' && (
+            <span className={event.type}>
+              A: {formatThousands(event.amount)}
             </span>
           )}
         </td>
