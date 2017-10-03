@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Event from './Event';
 import './EventsTab.css';
+import EventsTable from "./EventsTable";
 
 class EventsTab extends React.Component {
   static propTypes = {
@@ -10,13 +10,16 @@ class EventsTab extends React.Component {
     // results: PropTypes.object.isRequired,
   };
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      sourceFilter: null,
-      typeFilter: null,
-      abilityFilter: null,
+      filter: this.filterPlayerOnly,
+      tester: Function('event', `return (${this.filterPlayerOnly});`), // eslint-disable-line no-new-func
+      newFilterValue: this.filterPlayerOnly,
     };
+    this.handleNewFilterValueChange = this.handleNewFilterValueChange.bind(this);
+    this.handleApplyFilterClick = this.handleApplyFilterClick.bind(this);
+    this.findEntity = this.findEntity.bind(this);
   }
 
   findEntity(id) {
@@ -31,13 +34,49 @@ class EventsTab extends React.Component {
     return null;
   }
 
+  handleNewFilterValueChange(e) {
+    this.setState({
+      newFilterValue: e.target.value,
+    });
+  }
+  handleApplyFilterClick() {
+    const value = this.state.newFilterValue;
+    const isValid = !value.match(/[^=]=[^=]/);
+    if (isValid) {
+      this.setState({
+        filter: value,
+        tester: Function('event', `return (${value});`), // eslint-disable-line no-new-func
+      });
+    } else {
+      alert('Do not use a single "=" for checking equality; you need to use "=="!');
+    }
+  }
+  setFilter(value) {
+    this.setState({
+      newFilterValue: value,
+    });
+  }
+  get playerId() {
+    return this.props.parser.player.id;
+  }
+  get filterByPlayer() {
+    return `event.sourceID==${this.playerId}`;
+  }
+  get filterToPlayer() {
+    return `event.targetID==${this.playerId}`;
+  }
+  get filterPlayerOnly() {
+    return `(${this.filterByPlayer} || ${this.filterToPlayer})`;
+  }
+  get filterBuffs() {
+    return `['applybuff','applybuffstack','removebuff','applydebuff','applydebuffstack','removedebuff'].includes(event.type)`;
+  }
+  get filterAlwaysBeCasting() {
+    return `(${this.filterByPlayer} && ['begincast','cast'].includes(event.type)) || (${this.filterToPlayer} && ${this.filterBuffs})`;
+  }
+
   render() {
     const { parser } = this.props;
-
-    const sourceFilterRegExp = this.state.sourceFilter && new RegExp(this.state.sourceFilter, 'i');
-    const typeFilterRegExp = this.state.typeFilter && new RegExp(this.state.typeFilter, 'i');
-    const abilityFilterRegExp = this.state.abilityFilter && new RegExp(this.state.abilityFilter, 'i');
-    const targetFilterRegExp = this.state.targetFilter && new RegExp(this.state.targetFilter, 'i');
 
     // TODO: Use react-virtualized for performance
     // TODO: Show active buffs like WCL
@@ -50,55 +89,63 @@ class EventsTab extends React.Component {
           <h2>Combatlog Events</h2>
         </div>
         <div className="panel-body">
-          The filters can be regular expressions (e.g. <code>cast|heal</code>). Source/target currently only search by ID. Note: Rendering the list is extremely slow right now.
+          You can access any property of the event object directly. The filter is fully JS enabled, so be extremely careful when copy-pasting a filter from someone else. Note: Rendering the list is extremely slow right now.<br /><br />
 
-          <table className="events">
-            <thead>
-              <tr>
-                <td />
-                <td>
-                  <input type="text" className="form-control" onChange={e => this.setState({ sourceFilter: e.target.value })} value={this.state.sourceFilter || ''} />
-                </td>
-                <td>
-                  <input type="text" className="form-control" onChange={e => this.setState({ typeFilter: e.target.value })} value={this.state.typeFilter || ''} />
-                </td>
-                <td>
-                  <input type="text" className="form-control" onChange={e => this.setState({ abilityFilter: e.target.value })} value={this.state.abilityFilter || ''} />
-                </td>
-                <td>
-                  <input type="text" className="form-control" onChange={e => this.setState({ targetFilter: e.target.value })} value={this.state.targetFilter || ''} />
-                </td>
-                <td />
-              </tr>
-            </thead>
-            <tbody>
-              {parser._debugEventHistory
-                .map((event, i) => ({ ...event, eventUniqueId: i })) // this greatly speeds up rendering
-                .filter((event) => {
-                  if (sourceFilterRegExp && !sourceFilterRegExp.test(event.sourceID)) {
-                    return false;
-                  }
-                  if (typeFilterRegExp && !typeFilterRegExp.test(event.type)) {
-                    return false;
-                  }
-                  if (abilityFilterRegExp && event.ability && !abilityFilterRegExp.test(event.ability.name)) {
-                    return false;
-                  }
-                  if (targetFilterRegExp && !targetFilterRegExp.test(event.targetID)) {
-                    return false;
-                  }
-                  return true;
-                })
-                .map((event) => {
-                  const source = event.sourceID ? this.findEntity(event.sourceID) : event.source;
-                  const target = event.targetID ? this.findEntity(event.targetID) : event.target;
+          <div className="flex" style={{ marginBottom: '1em' }}>
+            <div className="flex-main">
+              <textarea
+                className="form-control"
+                value={this.state.newFilterValue || ''}
+                onChange={this.handleNewFilterValueChange}
+              />
+              <button
+                type="button"
+                className="btn btn-default"
+                onClick={() => this.setFilter(this.filterPlayerOnly)}
+              >
+                Default
+              </button>{' '}
+              <button
+                type="button"
+                className="btn btn-default"
+                onClick={() => this.setFilter('true')}
+              >
+                All
+              </button>{' '}
+              <button
+                type="button"
+                className="btn btn-default"
+                onClick={() => this.setFilter(this.filterAlwaysBeCasting)}
+                data-tip="Always be casting"
+              >
+                ABC
+              </button>
+            </div>
+            <div className="flex-sub">
+              <button
+                type="button"
+                className="btn btn-success"
+                style={{ height: '100%', marginLeft: 10 }}
+                onClick={this.handleApplyFilterClick}
+                disabled={this.state.newFilterValue === this.state.filter}
+              >
+                Apply filter
+              </button>
+            </div>
+          </div>
+          <br />
 
-                  return (
-                    <Event key={`${event.eventUniqueId}`} event={event} fightStart={parser.fight.start_time} source={source} target={target} />
-                  );
-                })}
-            </tbody>
-          </table>
+          {!parser.finished && (
+            <div className="alert alert-info">Waiting for parsing to finish...</div>
+          )}
+          {parser.finished && (
+            <EventsTable
+              events={parser._debugEventHistory}
+              filter={this.state.tester}
+              fightStart={parser.fight.start_time}
+              findEntity={this.findEntity}
+            />
+          )}
         </div>
       </div>
     );
