@@ -150,6 +150,7 @@ class Focus extends React.PureComponent {
 	This is the graph data- since the graph is just a general point of reference, and I only record 1 data point for
 	every second, this ensures that the range of each section of the graph is accurate, at the cost of exact slope*/
 	var lastCatch = 0;
+	const overCapBySecond = {};
     const focusBySecond = {
       0: 130,
     };
@@ -178,6 +179,7 @@ class Focus extends React.PureComponent {
 			}
 		}
 		if (focusBySecond[i] > 129){
+			overCapBySecond[i] = focusGen;
 		}
 	}
 		
@@ -219,7 +221,6 @@ class Focus extends React.PureComponent {
       //spent: 'Focus Spenders', //I see no reason to display focus spenders, but leaving this in if someone later wants to add them
     };
 
-    const overCapBySecond = {};
     this.state.playerData.events.forEach((event) => {
 		const secIntoFight = Math.floor((event.timestamp - start) / 1000);
 		if (event.type === 'energize' && ((event.ability.guid == 187675) || (event.ability.guid == 215107) || (event.ability.guid == 213363))) { //filter non-focus-generator ids
@@ -247,6 +248,12 @@ class Focus extends React.PureComponent {
 			abilitiesAll[`${event.ability.guid}_gen`].casts += 1;
 			abilitiesAll[`${event.ability.guid}_gen`].created += event.resourceChange;
 			abilitiesAll[`${event.ability.guid}_gen`].wasted += event.waste;
+			if (overCapBySecond[secIntoFight]){
+				overCapBySecond[secIntoFight] += event.waste;
+			}
+			else{
+				overCapBySecond[secIntoFight] = event.waste;
+			}
 		  }
     });
 
