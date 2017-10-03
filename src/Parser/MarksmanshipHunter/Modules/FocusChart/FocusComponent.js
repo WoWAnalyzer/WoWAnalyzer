@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 
-const FocusComponent = ({ categories, abilities }) => {
+const FocusComponent = ({ categories, abilities, passive }) => {
   if (!abilities) {
     return <div>Loading...</div>;
   }
@@ -21,10 +21,28 @@ const FocusComponent = ({ categories, abilities }) => {
               <th className="text-center"><dfn data-tip="Approximately.">Wasted</dfn></th>
               <th />
             </tr>
+			<tr key="Passive">
+                  <td style={{ width: '35%' }}>
+				  Passive Focus Generation
+                  </td>
+                  <td className="text-center" style={{ minWidth: 80 }}>
+                    
+                  </td>
+                  <td className="text-center" style={{ minWidth: 80 }}>
+                    {passive[0]}
+                  </td>
+                  <td className="text-center" style={{ minWidth: 80 }}>
+                    {passive[1]}
+                  </td>
+                  <td style={{ width: '25%', color: 'orange' }}>
+                    {passive[2]}
+                  </td>
+                </tr>
             {abilities
               .filter(item => item.ability.category === categories[key])
             .map(({ ability, casts, created, wasted, canBeImproved }) => {
               const name = ability.name;
+			  
               return (
                 <tr key={name}>
                   <td style={{ width: '35%' }}>
