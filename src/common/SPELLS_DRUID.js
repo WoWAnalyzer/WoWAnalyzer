@@ -346,11 +346,6 @@ export default {
     name: 'T19 2 set bonus',
     icon: 'trade_engineering',
   },
-  XONIS_CARESS: {
-    id: 235040,
-    name: "X'oni's Caress",
-    icon: 'spell_druid_ironbark',
-  },
 
   // Traits:
   POWER_OF_THE_ARCHDRUID: {

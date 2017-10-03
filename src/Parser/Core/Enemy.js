@@ -10,6 +10,9 @@ class Enemy extends Entity {
   get guid() {
     return this._baseInfo.guid;
   }
+  get id() {
+    return this._baseInfo.id;
+  }
 
   _baseInfo = null;
   constructor(owner, baseInfo) {

@@ -11,6 +11,8 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import Enemies from 'Parser/Core/Modules/Enemies';
 import Haste from 'Parser/Core/Modules/Haste';
 
+import ActiveTargets from './ActiveTargets';
+
 const debug = false;
 
 // The  amount of time after a proc has occurred before casting a filler is no longer acceptable
@@ -45,7 +47,12 @@ const GCD_SPELLS = {
       const pulverizeTalented = combatant.lv100Talent === SPELLS.PULVERIZE_TALENT.id;
 
       // TODO: make this stacks deficit
-      const targetHasThrashStacks = targets[targetID] && targets[targetID].hasBuff(SPELLS.THRASH_BEAR_DOT.id, timestamp).stacks >= 2;
+      // const targetHasThrashStacks = targets[targetID] && targets[targetID].hasBuff(SPELLS.THRASH_BEAR_DOT.id, timestamp).stacks >= 2;
+      const target = targets.find(t => t.id === targetID);
+      if (!target) {
+        return false;
+      }
+      const targetHasThrashStacks = target.hasBuff(SPELLS.THRASH_BEAR_DOT.id, timestamp).stacks >= 2;
       return pulverizeTalented && targetHasThrashStacks;
     },
   },
@@ -56,19 +63,20 @@ const GCD_SPELLS = {
       if (combatant.lv75Talent === SPELLS.GALACTIC_GUARDIAN_TALENT.id) {
         return (
           !combatant.hasBuff(SPELLS.GALACTIC_GUARDIAN.id, timestamp - REACTION_TIME_THRESHOLD) && // Account for reaction time
-          Object.keys(targets).every(targetID => targets[targetID].hasBuff(SPELLS.MOONFIRE_BEAR.id, timestamp - 1)) // Moonfire was already ticking
+          targets.every(target => target.hasBuff(SPELLS.MOONFIRE_BEAR.id, timestamp - 1)) // Moonfire was already ticking
         );
       }
 
       return (
-        Object.keys(targets).every(targetID => targets[targetID].hasBuff(SPELLS.MOONFIRE_BEAR.id, timestamp - 1)) // Moonfire was already ticking
+        targets.every(target => target.hasBuff(SPELLS.MOONFIRE_BEAR.id, timestamp - 1)) // Moonfire was already ticking
       );
 
     },
     baseCD: null,
   },
   [SPELLS.BEAR_SWIPE.id]: {
-    isFiller: true,
+    isFiller: (event, combatant, targets) => targets.length > 3,
+    // isFiller: (event, combatant, targets, lastCast) => targets > ,
     baseCD: null,
   },
 
@@ -86,6 +94,7 @@ class AntiFillerSpam extends Module {
     combatants: Combatants,
     enemies: Enemies,
     haste: Haste,
+    activeTargets: ActiveTargets,
   };
 
   _hasteLog = [];
@@ -110,7 +119,10 @@ class AntiFillerSpam extends Module {
       this._totalGCDSpells += 1;
       const timestamp = event.timestamp;
       const spellLastCast = this.abilityLastCasts[spellID] || -Infinity;
-      const targets = this.enemies.enemies;
+      const targets = this.activeTargets.getActiveTargets(event.timestamp).map(enemyID => this.enemies.enemies[enemyID]).filter(enemy => !!enemy);
+      console.log('[enemies]', this.enemies.enemies);
+      console.log('[targetIDs]', this.activeTargets.getActiveTargets(event.timestamp));
+      console.log('[targets]', targets);
       const combatant = this.combatants.selected;
       this.abilityLastCasts[spellID] = timestamp;
 

@@ -3,7 +3,11 @@ import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
-// This will need to be tweaked per spec
+/*
+ * The amount of time elapsed without a combat event before a target is considered inactive.
+ * The ideal size of this window will vary; specs that produce a lot of combat events can
+ * have a lower threshold value.
+ */
 const ACTIVITY_THRESHOLD = 3000;
 
 class ActiveTargets extends Module {
@@ -57,13 +61,9 @@ class ActiveTargets extends Module {
     return this._targetActivity[enemyID].findIndex(activity => activity.start < timestamp && activity.end > timestamp) >= 0;
   }
 
-  on_finished() {
-    console.log('[activity]', this._targetActivity);
+  getActiveTargets(timestamp) {
+    return Object.keys(this._targetActivity).filter(enemyID => this.isTargetActive(enemyID, timestamp));
   }
 }
 
 export default ActiveTargets;
-
-function formatTime(start, timestamp) {
-  return `${((timestamp - start) / 1000).toFixed(2)}s`;
-}
