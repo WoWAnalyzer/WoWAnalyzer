@@ -74,9 +74,9 @@ class ComboStrikes extends Module {
         icon={<SpellIcon id={SPELLS.COMBO_STRIKES.id} />}
         value={`${formatNumber(masteryDropEvents)}`}
         label={(
-          <dfn data-tip={``}
+          <dfn data-tip={`This is the number of times you incorrectly casted the same spell twice in a row. While on its own this may be a minor mistake, if you combine this with the Hit Combo talent, you will also lose all of the damage increase provided by that talent buff.`}
           >
-            Combo Strikes dropped
+            Mastery Benefit Mistakes
           </dfn>
         )}
       >
