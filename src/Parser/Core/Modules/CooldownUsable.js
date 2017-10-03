@@ -64,13 +64,13 @@ class CooldownUsable extends Module {
 
       if (maxCharges > this._currentCooldowns[spellId].charges) {
         this._currentCooldowns[spellId].charges += 1;
-        this.refreshCooldown(spellId, overrideDurationMs);
       } else {
-        console.error(formatDuration(this.owner.fightDuration / 1000), spellName(spellId), spellId, `was cast while already marked as on cooldown. It probably either has multiple charges, can be reset early or reduced, the configured CD is invalid, the Haste is too low, or this is a latency issue. expectedCooldownDuration:`, expectedCooldownDuration, '(if this was cast now, Haste when the cooldown started might have been different)');
+        console.error(formatDuration(this.owner.fightDuration / 1000), spellName(spellId), spellId, `was cast while already marked as on cooldown. It probably either has multiple charges, can be reset early or reduced, the configured CD is invalid, the Haste is too low, or this is a latency issue.`, 'time passed:', (this.owner.currentTimestamp - this._currentCooldowns[spellId].start), 'expectedCooldownDuration:', expectedCooldownDuration, '(if this was cast now, Haste when the cooldown started might have been different)');
+        return;
       }
     }
     debug && console.log(formatDuration(this.owner.fightDuration / 1000), 'Cooldown started:', spellName(spellId), spellId, `(charges on cooldown: ${this._currentCooldowns[spellId].charges})`);
-    this.owner.triggerEvent('startcooldown');
+    this.owner.triggerEvent('startcooldown', spellId);
   }
   /**
    * Finishes the cooldown for the provided spell.
@@ -82,10 +82,10 @@ class CooldownUsable extends Module {
       delete this._currentCooldowns[spellId];
     } else {
       this._currentCooldowns[spellId].charges -= 1;
-      // this.startCooldown(spellId);
+      this.refreshCooldown(spellId);
     }
     debug && console.log(formatDuration(this.owner.fightDuration / 1000), 'Cooldown finished:', spellName(spellId), spellId); // spells should always be set since this is based on CastEfficiency
-    this.owner.triggerEvent('finishcooldown');
+    this.owner.triggerEvent('finishcooldown', spellId);
   }
   /**
    * Refresh (restart) the cooldown for the provided spell.
@@ -103,7 +103,7 @@ class CooldownUsable extends Module {
     }
 
     this._currentCooldowns[spellId].expectedEnd = this.owner.currentTimestamp + expectedCooldownDuration;
-    this.owner.triggerEvent('refreshcooldown');
+    this.owner.triggerEvent('refreshcooldown', spellId);
   }
   /**
    * Reduces the cooldown for the provided spell by the provided duration.
