@@ -14,6 +14,7 @@ import ITEMS from 'common/ITEMS';
 
 import AbilityTracker from './AbilityTracker';
 import Combatants from './Combatants';
+import Haste from './Haste';
 
 /* eslint-disable no-unused-vars */
 
@@ -21,6 +22,7 @@ class CastEfficiency extends Module {
   static dependencies = {
     abilityTracker: AbilityTracker,
     combatants: Combatants,
+    haste: Haste,
   };
   static SPELL_CATEGORIES = {
     ROTATIONAL: 'Rotational Spell',
@@ -124,6 +126,29 @@ class CastEfficiency extends Module {
       isActive: combatant => combatant.hasTrinket(ITEMS.VIAL_OF_CEASELESS_TOXINS.id),
     },
   ];
+
+  getAbility(spellId) {
+    return this.constructor.CPM_ABILITIES.find(ability => {
+      if (ability.spell.id === spellId) {
+        return !ability.isActive || ability.isActive(this.combatants.selected);
+      }
+      return false;
+    });
+  }
+  /**
+   * Get the expected cooldown duration for this spell at this time.
+   */
+  getExpectedCooldownDuration(spellId) {
+    const ability = this.getAbility(spellId);
+    return ability ? (ability.getCooldown(this.haste.current, this.combatants.selected) * 1000) : undefined;
+  }
+  /**
+   * Get the max charges for this spell at this time.
+   */
+  getMaxCharges(spellId) {
+    const ability = this.getAbility(spellId);
+    return ability ? ability.charges || 1 : undefined;
+  }
 
   suggestions(when) {
     const castEfficiency = getCastEfficiency(this.constructor.CPM_ABILITIES, this.abilityTracker, this.combatants, this.owner);
