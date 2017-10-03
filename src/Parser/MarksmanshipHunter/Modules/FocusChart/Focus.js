@@ -118,57 +118,21 @@ class Focus extends React.PureComponent {
       0: 130,
     };
     this.state.focusData.series[0].data.forEach((item) => {
-      const secIntoFight = Math.floor((item[0] - start) / 1000);
-	  if (!cappedTimer[secIntoFight]){
+      const secIntoFight = (item[0] - start);
 		 cappedTimer[secIntoFight] = item[1];
-	  }
-	  else{
-		  	 /*
-			 if ((Math.floor((item[0] - start) / 100)) - secIntoFight * 10 < 6){
-				  //
-			  }
-			  else{
-				  cappedTimer[secIntoFight] = item[1];
-			  }
-			console.log(cappedTimer[secIntoFight]);
-			*/
-			if(cappedTimer[secIntoFight] > 129){
-				if (cappedTimer[secIntoFight] > (item [0] - start)){
-					passiveCap += ((Math.floor((item[0] - start) / 100)) - secIntoFight * 10)/10; 
-					cappedTimer[secIntoFight] = 0;
-				}
-				else{
-					passiveCap +=  1- ((Math.floor((item[0] - start) / 100)) - secIntoFight * 10)/10;
-					cappedTimer[secIntoFight] = 0;
-				} 
-			}
-			else if (item[1] > 129){
-				if (cappedTimer[secIntoFight] > (item [0] - start)){
-					passiveCap += 1- ((Math.floor((item[0] - start) / 100)) - secIntoFight * 10)/10;
-					cappedTimer[secIntoFight] = 0;
-				}
-				else{
-					passiveCap += ((Math.floor((item[0] - start) / 100)) - secIntoFight * 10)/10;
-					cappedTimer[secIntoFight] = 0;
-				} 
-			}
-			 console.log(passiveCap);
-	  }
-	  lastCatch = Math.floor((item[0] - start) / 1000);
-	  if(item[1] > 129){
-	  }
+		 lastCatch = (item[0] - start);
     });
-	for (var i = 0; i < lastCatch; i++){
+	for (var i = 0; i < (lastCatch); i++){
 		if (!cappedTimer[i]){
-			if (cappedTimer[i] > 120){
+			if (cappedTimer[i] === 130){
 				cappedTimer[i] = 130;
 			}
 			else{
-				cappedTimer[i] = cappedTimer[i-1]+focusGen;
+				cappedTimer[i] = cappedTimer[i-1]+ focusGen/1000;
 			}
 		}
-		if (cappedTimer[i] > 129){
-			passiveCap ++;
+		if (cappedTimer[i] > 129.999999){
+			passiveCap += 1/1000;
 		}
 	}
 	
