@@ -20,7 +20,6 @@ class EnemyInstances extends Enemies {
         debug && console.warn('Enemy not noteworthy enough:', targetId, event);
         return null;
       }
-      debugger;
       this.enemies[enemyId] = enemy = new EnemyInstance(this.owner, baseInfo, targetInstance);
     }
     return enemy;
@@ -34,9 +33,6 @@ export function encodeTargetString(id, instance = 0) {
 }
 
 export function decodeTargetString(string) {
-  const components = string.split('.');
-  return {
-    id: components[0],
-    instance: components[1] || 0,
-  };
+  const [ id, instance = 0 ] = string.split('.');
+  return { id, instance };
 }

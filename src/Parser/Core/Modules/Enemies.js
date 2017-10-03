@@ -20,7 +20,6 @@ class Enemies extends Entities {
         debug && console.warn('Enemy not noteworthy enough:', targetId, event);
         return null;
       }
-      debugger;
       this.enemies[targetId] = enemy = new Enemy(this.owner, baseInfo);
     }
     return enemy;
