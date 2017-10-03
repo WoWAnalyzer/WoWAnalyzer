@@ -7,6 +7,8 @@ import Talents from 'Main/Talents';
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 
+import FocusChart from './Modules/FocusChart/Focus';
+
 import CastEfficiency from './Modules/Features/CastEfficiency';
 
 import CooldownTracker from './Modules/Features/CooldownTracker';
@@ -42,6 +44,20 @@ class CombatLogParser extends CoreCombatLogParser {
         render: () => (
           <Tab title="Talents">
             <Talents combatant={this.modules.combatants.selected} />
+          </Tab>
+        ),
+      },
+	  {
+        title: 'Focus Chart',
+        url: 'focus',
+        render: () => (
+          <Tab title="focus" style={{ padding: '15px 22px' }}>
+            <FocusChart
+              reportCode={this.report.code}
+              actorId={this.playerId}
+              start={this.fight.start_time}
+              end={this.fight.end_time}
+            />
           </Tab>
         ),
       },
