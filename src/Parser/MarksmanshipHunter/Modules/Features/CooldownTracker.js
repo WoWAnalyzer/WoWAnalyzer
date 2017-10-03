@@ -20,3 +20,4 @@ class CooldownTracker extends CoreCooldownTracker {
 }
 
 export default CooldownTracker;
+
