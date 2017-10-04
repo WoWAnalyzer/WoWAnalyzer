@@ -80,6 +80,7 @@ FocusComponent.propTypes = {
     }).isRequired,
   })).isRequired,
   categories: PropTypes.object,
+  passive: PropTypes.object,
 };
 
 export default FocusComponent;

@@ -20,7 +20,8 @@ const formatDuration = (duration) => {
   return `${Math.floor(duration / 60)}:${seconds < 10 ? `0${seconds}` : seconds}`;
 };
 
-const passiveWasteThreshold = .03 // (wasted passive focus generated) / (total passive focus generated), anything higher will trigger "CAN BE IMPROVED"
+const passiveWasteThreshold = .03; // (wasted passive focus generated) / (total passive focus generated), anything higher will trigger "CAN BE IMPROVED"
+//TODO: get a "real" number approved by a MMS expert
 
 class Focus extends React.PureComponent {
   static propTypes = {
@@ -53,7 +54,7 @@ class Focus extends React.PureComponent {
       end,
       sourceid: actorId,
       abilityid: 102,
-    }))
+    })) 
       .then(response => response.json())
       .then((json) => {
         if (json.status === 400 || json.status === 401) {
@@ -74,7 +75,7 @@ class Focus extends React.PureComponent {
         if (json.status === 400 || json.status === 401) {
           throw json.error;
         } else {
-          this.setState({
+           this.setState({
             playerData: json,
           });
         }
@@ -114,13 +115,13 @@ class Focus extends React.PureComponent {
 	console.log(focusGen);
     const { start, end } = this.props;
 	const actorId = this.props.actorId;
-	var passiveCap = 0; //counts time focus capped (in seconds)
-	var lastCatch = 0; //records the timestamp of the last event
+	let passiveCap = 0; //counts time focus capped (in seconds)
+	let lastCatch = 0; //records the timestamp of the last event
 	
     const cappedTimer = {
-      0:130
+      0:130,
     };
-	var tst2 = 0;
+	let tst2 = 0;
 	console.log("actor" + actorId);
     this.state.playerData.events.forEach((events) => {
 		if (events.sourceID === actorId &&(events.type === 'cast' || events.type === 'energize') ){
@@ -130,7 +131,7 @@ class Focus extends React.PureComponent {
 		}
 
     });
-	for (var i = 0; i < (lastCatch); i++){  //extrapolates focus given passive focus gain (TODO: Update for pulls with Volley)
+	for (let i = 0; i < (lastCatch); i++){  //extrapolates focus given passive focus gain (TODO: Update for pulls with Volley)
 		if (!cappedTimer[i]){
 			if (cappedTimer[i - 1] === 130){
 				cappedTimer[i] = 130;
@@ -149,7 +150,7 @@ class Focus extends React.PureComponent {
 	/* no, you aren't seeing double- this does the same thing as above, but aims to maximize range where-ever possible.
 	This is the graph data- since the graph is just a general point of reference, and I only record 1 data point for
 	every second, this ensures that the range of each section of the graph is accurate, at the cost of exact slope*/
-	var lastCatch = 0;
+	lastCatch = 0;
 	const overCapBySecond = {};
     const focusBySecond = {
       0: 130,
@@ -169,7 +170,7 @@ class Focus extends React.PureComponent {
 	  if(item[1] > 129){
 	  }
 	});
-	for (var i = 0; i < lastCatch; i++){ //extrapolates for passive focus gain
+	for (let i = 0; i < lastCatch; i++){ //extrapolates for passive focus gain
 		if (!focusBySecond[i]){
 			if (focusBySecond[i - 1] > 130-focusGen){
 				focusBySecond[i] = 130;
@@ -223,14 +224,14 @@ class Focus extends React.PureComponent {
 
     this.state.playerData.events.forEach((event) => {
 		const secIntoFight = Math.floor((event.timestamp - start) / 1000);
-		if (event.type === 'energize' && ((event.ability.guid == 187675) || (event.ability.guid == 215107) || (event.ability.guid == 213363))) { //filter non-focus-generator ids
+		if (event.type === 'energize' && ((event.ability.guid === 187675) || (event.ability.guid === 215107) || (event.ability.guid === 213363))) { //filter non-focus-generator ids
 			if (!abilitiesAll[`${event.ability.guid}_gen`]) {
 			  const spell = SPELLS[event.ability.guid];
-			  var tempSpellID = event.ability.guid;
-			  if(tempSpellID == 187675 || tempSpellID == 215107){ //the ids do not align with common/SPELLS, so I manually replace the corresponding ids
+			  let tempSpellID = event.ability.guid;
+			  if(tempSpellID === 187675 || tempSpellID === 215107){ //the ids do not align with common/SPELLS, so I manually replace the corresponding ids
 				tempSpellID = 185358;
 			  }
-			  else if(tempSpellID == 213363){
+			  else if(tempSpellID === 213363){
 				tempSpellID = 2643;
 			  }
 			  abilitiesAll[`${event.ability.guid}_gen`] = {
@@ -280,10 +281,10 @@ class Focus extends React.PureComponent {
       deathsBySecond[i] = deathsBySecond[i] !== undefined ? deathsBySecond[i] : undefined;
     }
 	console.log(passiveCap);
-	var wastedFocus = Math.round(passiveCap * focusGen);
+	const wastedFocus = Math.round(passiveCap * focusGen);
 	console.log("fight" + fightDurationSec);
-	var totalFocus = Math.floor(fightDurationSec * focusGen);
-	var passiveRating = "";
+	const totalFocus = Math.floor(fightDurationSec * focusGen);
+	let passiveRating = "";
 	if ( passiveCap / totalFocus > passiveWasteThreshold){
 		passiveRating = "CAN BE IMPROVED";
 	}
