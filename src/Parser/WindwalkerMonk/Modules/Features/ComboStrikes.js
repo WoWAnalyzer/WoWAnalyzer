@@ -19,7 +19,7 @@ class ComboStrikes extends Module {
   };
 
   _lastSpellUsed = null;
-  _lastFourSpellsUsed = [];
+  _lastThreeSpellsUsed = [];
   masteryDropSpellSequence = [];
 
   on_byPlayer_cast(event) {
@@ -30,23 +30,22 @@ class ComboStrikes extends Module {
         return;
     }
 
-    // Track Details on the last 3 spells used - Need to populate up to 4 first, then begin to modify the array.
-    if(this._lastFourSpellsUsed.length < 3) {
-        this._lastFourSpellsUsed.push({
+    // Track Details on the last 3 spells used - Need to populate up to 3 first, then begin to modify the array.
+    if(this._lastThreeSpellsUsed.length < 3) {
+        this._lastThreeSpellsUsed.push({
             ability: spellId,
             timestamp: eventTimestamp,
         });
     } else {
-        this._lastFourSpellsUsed = this._lastFourSpellsUsed.slice(1);
-        this._lastFourSpellsUsed.push({
+        this._lastThreeSpellsUsed = this._lastThreeSpellsUsed.slice(1);
+        this._lastThreeSpellsUsed.push({
             ability: spellId,
             timestamp: eventTimestamp,
         });
     }
 
     if(this._lastSpellUsed === spellId) {
-        this.masteryDropSpellSequence.push(this._lastFourSpellsUsed);
-        console.log(`Mastery Dropped - Spell: `, event.ability.name, ` Timestamp: `, event.timestamp, ` Array Contents`, this.masteryDropSpellSequence);
+        this.masteryDropSpellSequence.push(this._lastThreeSpellsUsed);
     }
     this._lastSpellUsed = spellId;
   }
