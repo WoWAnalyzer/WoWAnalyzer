@@ -38,7 +38,7 @@ export default function getCastEfficiency(CPM_ABILITIES, abilityTracker, combata
       const castEfficiency = cooldown === null ? null : Math.min(1, casts / rawMaxCasts);
 
       const recommendedCastEfficiency = ability.recommendedCastEfficiency || 0.8;
-      const avgIssueCastEfficiency = ability.avgIssueCastEfficiency || (recommendedCastEfficiency - 0.05);
+      const averageIssueCastEfficiency = ability.averageIssueCastEfficiency || (recommendedCastEfficiency - 0.05);
       const majorIssueCastEfficiency = ability.majorIssueCastEfficiency || (recommendedCastEfficiency - 0.15);
 
       const canBeImproved = castEfficiency !== null && castEfficiency < recommendedCastEfficiency;
@@ -65,7 +65,7 @@ export default function getCastEfficiency(CPM_ABILITIES, abilityTracker, combata
         overhealing,
         castEfficiency,
         recommendedCastEfficiency,
-        avgIssueCastEfficiency,
+        averageIssueCastEfficiency,
         majorIssueCastEfficiency,
         canBeImproved,
       };

@@ -114,7 +114,7 @@ class CastEfficiency extends Module {
             .icon(cpm.ability.spell.icon)
             .actual(`${cpm.casts} out of ${cpm.maxCasts} possible casts; ${formatPercentage(actual)}% cast efficiency`)
             .recommended(`>${formatPercentage(recommended)}% is recommended`)
-            .regular(cpm.avgIssueCastEfficiency).major(cpm.majorIssueCastEfficiency).staticImportance(cpm.ability.importance);
+            .regular(cpm.averageIssueCastEfficiency).major(cpm.majorIssueCastEfficiency).staticImportance(cpm.ability.importance);
         });
     });
   }
