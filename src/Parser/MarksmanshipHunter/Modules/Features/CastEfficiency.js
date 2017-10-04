@@ -97,7 +97,6 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 24,
       noSuggestion: true,
       noCanBeImproved: true,
-      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.CONCUSSIVE_SHOT,
