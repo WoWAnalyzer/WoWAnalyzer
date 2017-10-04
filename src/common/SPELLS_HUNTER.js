@@ -102,6 +102,28 @@ export default {
     name: 'Vulnerable',
     icon: 'ability_hunter_mastermarksman',
   },
+  
+  //CATEGORY
+  AUTO_SHOT_FOCUSMODULE: {
+	id: 75,
+	name: 'Auto Shot',
+	icon: 'ability_hunter_focusfire',
+  },
+  CRITICAL_FOCUS_FOCUSMODULE: {
+	id: 215107,
+	name: 'Critical Focus',
+	icon: 'ability_druid_replenish',
+  },
+  MULTISHOT_FOCUSMODULE: {
+    id: 213363,
+    name: 'Multi-Shot',
+    icon: 'ability_upgrademoonglaive',
+  },
+  ARCANE_SHOT_FOCUSMODULE: {
+    id: 187675,
+    name: 'Arcane Shot',
+    icon: 'ability_impalingbolt',
+  },
 
   // Survival:
   // ...
