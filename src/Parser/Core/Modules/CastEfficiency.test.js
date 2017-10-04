@@ -1,13 +1,16 @@
 import SPELLS from 'common/SPELLS';
+import getParserMock from 'tests/getParserMock';
 
 import CastEfficiency from './CastEfficiency';
 
 describe('Core/Modules/CastEfficiency', () => {
   let instance;
+  let parserMock;
   let combatantsMock;
   let hasteMock;
   beforeEach(() => {
     // Reset mocks:
+    parserMock = getParserMock();
     combatantsMock = {
       selected: {
 
@@ -17,13 +20,7 @@ describe('Core/Modules/CastEfficiency', () => {
       current: 0,
     };
 
-    instance = new CastEfficiency({
-      // TODO: Extract this into a generic CombatLogParserMock
-      toPlayer: () => true,
-      byPlayer: () => true,
-      toPlayerPet: () => false,
-      byPlayerPet: () => false,
-    }, {
+    instance = new CastEfficiency(parserMock, {
       combatants: combatantsMock,
       haste: hasteMock,
     });
