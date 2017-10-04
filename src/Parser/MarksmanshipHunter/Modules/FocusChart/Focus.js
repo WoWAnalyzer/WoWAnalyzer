@@ -110,16 +110,30 @@ class Focus extends React.PureComponent {
       );
     }
 	console.log(this.state.playerData.events);
+	const actorId = this.props.actorId;
+	
+	let maxFocus = 0;
+	let found = false;
+	var ii = 0;
+	while (!found){ //determine max focus (max focus is variable)
+		if (this.state.playerData.events[ii].sourceID === actorId &&(this.state.playerData.events[ii].type === 'cast' || this.state.playerData.events[ii].type === 'energize') ){
+			maxFocus = this.state.playerData.events[ii].classResources[0]['max'];
+			found = true;
+		}
+		else{
+			ii++;
+		}
+	}
+	console.log(maxFocus);
 	
 	const focusGen = Math.round((10 + .1 * this.state.playerData.events[0].hasteRanged / 375)*100)/100; //TODO: replace constant passive FocusGen (right now we don't account for lust/hero or Trueshot
 	console.log(focusGen);
     const { start, end } = this.props;
-	const actorId = this.props.actorId;
 	let passiveCap = 0; //counts time focus capped (in seconds)
 	let lastCatch = 0; //records the timestamp of the last event
 	
     const cappedTimer = {
-      0:130,
+      0:maxFocus,
     };
 	let tst2 = 0;
 	console.log("actor" + actorId);
@@ -133,14 +147,14 @@ class Focus extends React.PureComponent {
     });
 	for (let i = 0; i < (lastCatch); i++){  //extrapolates focus given passive focus gain (TODO: Update for pulls with Volley)
 		if (!cappedTimer[i]){
-			if (cappedTimer[i - 1] === 130){
-				cappedTimer[i] = 130;
+			if (cappedTimer[i - 1] === maxFocus){
+				cappedTimer[i] = maxFocus;
 			}
 			else{
 				cappedTimer[i] = cappedTimer[i-1] + focusGen/1000;
 			}
 		}
-		if (cappedTimer[i] === 130){
+		if (cappedTimer[i] === maxFocus){
 			passiveCap += 1/1000;
 		}
 		tst2 = i;
@@ -153,7 +167,7 @@ class Focus extends React.PureComponent {
 	lastCatch = 0;
 	const overCapBySecond = {};
     const focusBySecond = {
-      0: 130,
+      0: maxFocus,
     };
 	this.state.focusData.series[0].data.forEach((item) => {
 	  const secIntoFight = Math.floor((item[0] - start) / 1000);
@@ -167,19 +181,19 @@ class Focus extends React.PureComponent {
 		  focusBySecond[secIntoFight] = item[1];
 	  }
 	  lastCatch = Math.floor((item[0] - start) / 1000);
-	  if(item[1] > 129){
+	  if(item[1] > maxFocus - 1){
 	  }
 	});
 	for (let i = 0; i < lastCatch; i++){ //extrapolates for passive focus gain
 		if (!focusBySecond[i]){
-			if (focusBySecond[i - 1] > 130-focusGen){
-				focusBySecond[i] = 130;
+			if (focusBySecond[i - 1] > maxFocus-focusGen){
+				focusBySecond[i] = maxFocus;
 			}
 			else{
 				focusBySecond[i] = focusBySecond[i-1]+ focusGen;
 			}
 		}
-		if (focusBySecond[i] > 129){
+		if (focusBySecond[i] > maxFocus - 1){
 			overCapBySecond[i] = focusGen;
 		}
 	}
@@ -224,21 +238,14 @@ class Focus extends React.PureComponent {
 
     this.state.playerData.events.forEach((event) => {
 		const secIntoFight = Math.floor((event.timestamp - start) / 1000);
-		if (event.type === 'energize' && ((event.ability.guid === 187675) || (event.ability.guid === 215107) || (event.ability.guid === 213363))) { //filter non-focus-generator ids
+		if (event.type === 'energize' && (event.sourceID === actorId)) {
 			if (!abilitiesAll[`${event.ability.guid}_gen`]) {
 			  const spell = SPELLS[event.ability.guid];
-			  let tempSpellID = event.ability.guid;
-			  if(tempSpellID === 187675 || tempSpellID === 215107){ //the ids do not align with common/SPELLS, so I manually replace the corresponding ids
-				tempSpellID = 185358;
-			  }
-			  else if(tempSpellID === 213363){
-				tempSpellID = 2643;
-			  }
 			  abilitiesAll[`${event.ability.guid}_gen`] = {
 				ability: {
 				  category: 'Focus Generators',
 				  name: (spell === undefined) ? event.ability.name : spell.name,
-				  spellId: tempSpellID,
+				  spellId: event.ability.guid,
 				},
 				spent: 0,
 				casts: 0,
