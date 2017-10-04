@@ -4,7 +4,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import { formatPercentage } from "../../../../common/format";
+import { formatPercentage } from "common/format";
 
 class Tier20_4p extends Module {
   static dependencies = {
@@ -12,7 +12,6 @@ class Tier20_4p extends Module {
   };
   totalAimed = 0;
   buffedCastAndFocusAimed = 0;
-  //buffedCastAimed = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.hasBuff(SPELLS.HUNTER_MM_T20_4P_BONUS.id);
@@ -24,23 +23,14 @@ class Tier20_4p extends Module {
     return uptime;
   }
 
-  /*
-  // Irrelevant for now, hoping to find a way to register when a cast is only affected by tier at start of cast, because the way it functions is two-part.
-  on_byPlayer_begincast(event) {
-    if(this.combatants.selected.hasBuff(SPELLS.HUNTER_MM_T20_4P_BONUS_BUFF.id) && (event.ability.guid === SPELLS.AIMED_SHOT.id)) {
-      this.buffedCastAimed += 1;
-    }
-  }*/
-
   on_byPlayer_cast(event) {
-    if(this.combatants.selected.hasBuff(SPELLS.HUNTER_MM_T20_4P_BONUS_BUFF.id) && (event.ability.guid === SPELLS.AIMED_SHOT.id)) {
+    if(event.ability.guid !== SPELLS.AIMED_SHOT.id) {
+      return;
+    }
+    if(this.combatants.selected.hasBuff(SPELLS.HUNTER_MM_T20_4P_BONUS_BUFF.id, event.timestamp)) {
       this.buffedCastAndFocusAimed += 1;
-      this.totalAimed += 1;
     }
-    if(!this.combatants.selected.hasBuff(SPELLS.HUNTER_MM_T20_4P_BONUS_BUFF.id) && (event.ability.guid === SPELLS.AIMED_SHOT.id)) {
       this.totalAimed +=1;
-    }
-
   }
   item() {
     return {
@@ -48,12 +38,9 @@ class Tier20_4p extends Module {
       icon: <SpellIcon id={SPELLS.HUNTER_MM_T20_4P_BONUS_BUFF.id} />,
       title: <SpellLink id={SPELLS.HUNTER_MM_T20_4P_BONUS_BUFF.id} />,
       result: (
-<dfn data-tip={`Your utilization of tier 20 4 piece: <br/>
-Buffed Aimed Shots: ${this.buffedCastAndFocusAimed}.<br/>
-Total Aimed Shot casts:  ${this.totalAimed}.<br/>
-Overall uptime: ${formatPercentage(this.percentUptime)}%`}>
-  Buffed Aimed Shot casts: {formatPercentage(this.buffedCastAndFocusAimed / this.totalAimed)}%
-</dfn>
+        <dfn data-tip={`Your utilization of tier 20 4 piece: <br/> Buffed Aimed Shots: ${this.buffedCastAndFocusAimed}.<br/> Total Aimed Shot casts:  ${this.totalAimed}.<br/> Overall uptime: ${formatPercentage(this.percentUptime)}%`}>
+          Buffed Aimed Shot casts: {formatPercentage(this.buffedCastAndFocusAimed / this.totalAimed)}%
+        </dfn>
       ),
     };
   }
