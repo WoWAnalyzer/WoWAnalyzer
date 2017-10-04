@@ -114,7 +114,7 @@ class Focus extends React.PureComponent {
 	
 	let maxFocus = 0;
 	let found = false;
-	var ii = 0;
+	let ii = 0;
 	while (!found){ //determine max focus (max focus is variable)
 		if (this.state.playerData.events[ii].sourceID === actorId &&(this.state.playerData.events[ii].type === 'cast' || this.state.playerData.events[ii].type === 'energize') ){
 			maxFocus = this.state.playerData.events[ii].classResources[0]['max'];
