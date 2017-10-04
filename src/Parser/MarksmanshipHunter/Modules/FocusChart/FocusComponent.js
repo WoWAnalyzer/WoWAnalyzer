@@ -23,7 +23,7 @@ const FocusComponent = ({ categories, abilities, passive }) => {
             </tr>
 			<tr key="Passive">
                   <td style={{ width: '35%' }}>
-				  Passive Focus Generation
+				  <SpellIcon id={75} noLink /> Passive Focus Generation
                   </td>
                   <td className="text-center" style={{ minWidth: 80 }}>
                     
@@ -80,7 +80,7 @@ FocusComponent.propTypes = {
     }).isRequired,
   })).isRequired,
   categories: PropTypes.object,
-  passive: PropTypes.object,
+  passive: PropTypes.array,
 };
 
 export default FocusComponent;
