@@ -12,10 +12,12 @@ import CastEfficiency from './Modules/Features/CastEfficiency';
 import CooldownTracker from './Modules/Features/CooldownTracker';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import VulnerableUpTime from './Modules/Features/VulnerableUptime';
+import Tier20_2p from './Modules/Items/Tier20_2p';
+import Tier20_4p from './Modules/Items/Tier20_4p';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
-    // MM Core
+    // Marksmanship Core
     damageDone: [DamageDone, { showStatistic: true }],
 
     // Features
@@ -23,6 +25,11 @@ class CombatLogParser extends CoreCombatLogParser {
     castEfficiency: CastEfficiency,
     cooldownTracker: CooldownTracker,
     vulnerabluptime: VulnerableUpTime,
+
+    //Items
+    tier20_2p: Tier20_2p,
+    tier20_4p: Tier20_4p,
+
   };
 
   generateResults() {
