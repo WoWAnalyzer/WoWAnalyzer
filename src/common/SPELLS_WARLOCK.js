@@ -595,6 +595,11 @@ export default {
     name: 'Felstorm',
     icon: 'ability_warrior_bladestorm',
   },
+  WRATHSTORM_BUFF: {
+    id: 115831,
+    name: 'Wrathstorm',
+    icon: 'ability_warrior_bladestorm',
+  },
   SUMMON_FELGUARD: {
     id: 30146,
     name: 'Summon Felguard',

@@ -10,6 +10,7 @@ import AbilityTracker from './Modules/AbilityTracker';
 import Haste from './Modules/Haste';
 import AlwaysBeCasting from './Modules/AlwaysBeCasting';
 import Enemies from './Modules/Enemies';
+import EnemyInstances from './Modules/EnemyInstances';
 import Pets from './Modules/Pets';
 import HealEventTracker from './Modules/HealEventTracker';
 import ManaValues from './Modules/ManaValues';
@@ -77,6 +78,7 @@ class CombatLogParser {
 
     combatants: Combatants,
     enemies: Enemies,
+    enemyInstances: EnemyInstances,
     pets: Pets,
     spellManaCost: SpellManaCost,
     abilityTracker: AbilityTracker,
