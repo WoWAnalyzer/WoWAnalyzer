@@ -1,4 +1,4 @@
-//Based on Main/Mana.js
+//Based on Main/Mana.js and Parser/VengeanceDemonHunter/Modules/PainChart
 
 import React from 'react';
 import PropTypes from 'prop-types';
