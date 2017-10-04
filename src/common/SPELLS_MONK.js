@@ -488,12 +488,12 @@ export default {
   // Windwalk Spells
   COMBO_STRIKES: {
     id: 115636,
-    name: 'Master: Combo Strikes',
+    name: 'Mastery: Combo Strikes',
     icon: 'trade_alchemy_potionb3',
   },
   STORM_EARTH_AND_FIRE: {
     id: 231627,
-    name: '231627',
+    name: 'Storm, Earth, and Fire',
     icon: 'spell_nature_giftofthewild',
   },
   STORM_EARTH_AND_FIRE_CAST: {
