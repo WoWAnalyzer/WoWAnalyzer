@@ -50,6 +50,7 @@ class Pets extends Module {
     const petInfo = this.owner.playerPets.find(pet => pet.id === event.targetID);
     const pet = {
       guid: petInfo.guid,
+      name: (PETS[petInfo.guid]) ? PETS[petInfo.guid].name : "Felguard",
       instance: event.targetInstance,
       summonTimestamp: event.timestamp,
       despawnTimestamp: event.timestamp + this._getCorrectDuration(petInfo.guid) * 1000, // duration is in seconds
@@ -74,6 +75,7 @@ class Pets extends Module {
       // so it artificially pushes it at the beginning of the timeline, meaning it was there when the combat began
       const pet = {
         guid: petInfo.guid,
+        name: (PETS[petInfo.guid]) ? PETS[petInfo.guid].name : "Felguard",
         instance: event.sourceInstance,
         summonTimestamp: this.owner.fight.start_time,
         despawnTimestamp: this.owner.fight.start_time + this._getCorrectDuration(petInfo.guid) * 1000,

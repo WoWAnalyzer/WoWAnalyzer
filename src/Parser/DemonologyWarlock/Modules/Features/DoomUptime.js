@@ -15,8 +15,8 @@ class DoomUptime extends Module {
   };
 
   suggestions(when) {
-    const doomUptime = this.enemies.getBuffUptime(SPELLS.DOOM.id) / this.owner.fightDuration;
-    when(doomUptime).isLessThan(0.95)
+    const uptime = this.enemies.getBuffUptime(SPELLS.DOOM.id) / this.owner.fightDuration;
+    when(uptime).isLessThan(0.95)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Your <SpellLink id={SPELLS.DOOM.id}/> uptime can be improved. Try to pay more attention to your Doom on the boss, as it is one of your Soul Shard generators.</span>)
           .icon(SPELLS.DOOM.icon)
@@ -27,11 +27,11 @@ class DoomUptime extends Module {
   }
 
   statistic() {
-    const doomUptime = this.enemies.getBuffUptime(SPELLS.DOOM.id) / this.owner.fightDuration;
+    const uptime = this.enemies.getBuffUptime(SPELLS.DOOM.id) / this.owner.fightDuration;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.DOOM.id} />}
-        value={`${formatPercentage(doomUptime)} %`}
+        value={`${formatPercentage(uptime)} %`}
         label="Doom uptime"
       />
     );

@@ -46,7 +46,7 @@ class WastedDeathAndDecay extends Module {
         icon={<SpellIcon id={SPELLS.CRIMSON_SCOURGE.id} />}
         value={this.WastedDeathAndDecays}
         label='Wasted Death and Decays'
-        tooltip={'You let a Crimson Scourge Proc expire without casting DnD.'}
+        tooltip='You let a Crimson Scourge proc expire without casting DnD.'
 
       />
 

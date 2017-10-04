@@ -69,9 +69,6 @@ class SuggestionsTab extends React.Component {
                 <div className="suggestion">
                   There are no major issues in this fight. Good job!
                 </div>
-                <div className="importance">
-                  {this.getIssueImportance(ISSUE_IMPORTANCE.MAJOR)}
-                </div>
               </li>
             )}
             {issues

@@ -29,6 +29,7 @@ class ReverseEntropy extends Module {
     }
     this.bonusDmg += getDamageBonus(event, REVERSE_ENTROPY_DAMAGE_BONUS);
   }
+
   statistic() {
     // could show mana returned too, but that's kinda irrelevant for Warlocks anyway
     return (
