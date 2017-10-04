@@ -79,7 +79,7 @@ class AntiFillerSpam extends Module {
       }
 
       const hasProc = proc && ((typeof proc === 'function') ? proc(event, combatant, targets, lastCast) : proc);
-      const meetsCondition = condition ? ((typeof condition === 'function') ? condition(event, combatant, targets, lastCast) : condition) : true;
+      const meetsCondition = (condition !== undefined) ? ((typeof condition === 'function') ? condition(event, combatant, targets, lastCast) : condition) : true;
 
 
       if ((isOffCooldown || hasProc) && meetsCondition) {
@@ -159,6 +159,12 @@ const GCD_SPELLS = {
       const targetHasThrashStacks = target.hasBuff(SPELLS.THRASH_BEAR_DOT.id, timestamp).stacks >= 2;
       return pulverizeTalented && targetHasThrashStacks;
     },
+  },
+  [SPELLS.MAUL.id]: {
+    isFiller: false,
+    baseCD: null,
+    // Maul should never be considered a replacement for filler, but it should be tracked
+    condition: false,
   },
 
   // "Filler" spells
