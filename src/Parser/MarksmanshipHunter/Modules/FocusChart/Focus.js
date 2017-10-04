@@ -11,16 +11,15 @@ import SPELLS from 'common/SPELLS';
 
 import specialEventIndicators from 'Main/Chartist/specialEventIndicators';
 
+import { formatDuration } from 'common/format';
+
 import 'Main/Mana.css';
 
 import FocusComponent from './FocusComponent';
 import './Focus.css';
-const formatDuration = (duration) => {
-  const seconds = Math.floor(duration % 60);
-  return `${Math.floor(duration / 60)}:${seconds < 10 ? `0${seconds}` : seconds}`;
-};
 
-const passiveWasteThreshold = .03; // (wasted passive focus generated) / (total passive focus generated), anything higher will trigger "CAN BE IMPROVED"
+
+const passiveWasteThresholdPercentage = .03; // (wasted passive focus generated) / (total passive focus generated), anything higher will trigger "CAN BE IMPROVED"
 //TODO: get a "real" number approved by a MMS expert
 
 class Focus extends React.PureComponent {
@@ -283,7 +282,7 @@ class Focus extends React.PureComponent {
 	const wastedFocus = Math.round(passiveCap * focusGen);
 	const totalFocus = Math.floor(fightDurationSec * focusGen);
 	let passiveRating = "";
-	if ( passiveCap / totalFocus > passiveWasteThreshold){
+	if ( passiveCap / totalFocus > passiveWasteThresholdPercentage){
 		passiveRating = "CAN BE IMPROVED";
 	}
 	else{
