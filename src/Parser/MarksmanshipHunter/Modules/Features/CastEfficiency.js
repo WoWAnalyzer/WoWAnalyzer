@@ -83,7 +83,6 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.TRUESHOT,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
-     // getCooldown: haste => 180, // TODO calculate cd reduction based on artifact
       getCooldown: (haste, combatant) => {
         const availableCasts = combatant.owner.modules.trueshot.tsAvailableCasts;
         return (combatant.owner.fightDuration / 1000) / availableCasts;
