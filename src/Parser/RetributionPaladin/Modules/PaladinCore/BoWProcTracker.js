@@ -41,8 +41,8 @@ class BoWProcTracker extends Module {
 			.addSuggestion((suggest, actual, recommended) => {
 				return suggest(<span>You wasted {formatPercentage(missedProcsPercent)}% <SpellLink id={SPELLS.BLADE_OF_WRATH_PROC.id} /> procs</span>)
 					.icon(SPELLS.BLADE_OF_WRATH_PROC.icon)
-					.actual(`${formatNumber(this.overwrittenBoWProcs)} missed procs`)
-					.recommended(`Wasting ${formatPercentage(recommended)}% is recommended`)
+					.actual(`${formatNumber(this.overwrittenBoWProcs)} missed proc(s)`)
+					.recommended(`Wasting none is recommended`)
 					.regular(recommended+ 0.05).major(recommended + 0.1);
 			});
 	}
