@@ -10,14 +10,23 @@ import StatisticBox from 'Main/StatisticBox';
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import EnemyInstances from 'Parser/Core/Modules/EnemyInstances';
+import CastEfficiency from './CastEfficiency';
 import DynamicHaste from './DynamicHaste';
 
 import ActiveTargets from './ActiveTargets';
 
 const debug = false;
 
-// The  amount of time after a proc has occurred when casting a filler is no longer acceptable
-const REACTION_TIME_THRESHOLD = 500;
+const gcdSpells = CastEfficiency.CPM_ABILITIES.filter(spell => spell.isOnGCD);
+
+// Determines whether a variable is a function or not, and returns its value
+function resolveValue(maybeFunction, ...args) {
+  if (typeof maybeFunction === 'function') {
+    return maybeFunction(...args);
+  }
+
+  return maybeFunction;
+}
 
 class AntiFillerSpam extends Module {
   static dependencies = {
@@ -34,7 +43,7 @@ class AntiFillerSpam extends Module {
 
   on_byPlayer_cast(event) {
     const spellID = event.ability.guid;
-    const spell = GCD_SPELLS[spellID];
+    const spell = gcdSpells.find(spell => spell.spell.id === spellID);
     if (!spell) {
       return;
     }
@@ -56,16 +65,17 @@ class AntiFillerSpam extends Module {
     this._totalFillerSpells += 1;
 
     const availableSpells = [];
-    Object.keys(GCD_SPELLS).forEach((gcdSpellID) => {
-      // We have to cast to string here because Object keys are always strings
-      if (`${spellID}` === gcdSpellID) {
+    gcdSpells.forEach((gcdSpell) => {
+      if (spell === gcdSpell) {
         return;
       }
 
-      const { isFiller, baseCD, hastedCD, condition, proc, isUtility } = GCD_SPELLS[gcdSpellID];
+      const gcdSpellID = gcdSpell.spell.id;
+
+      const { isFiller, baseCD, hastedCD, condition, proc, category} = gcdSpell;
       const lastCast = this.abilityLastCasts[gcdSpellID] || -Infinity;
       const isFillerEval = (typeof isFiller === 'function') ? isFiller(event, combatant, targets, lastCast) : isFiller;
-      if (isFillerEval || isUtility) {
+      if (isFillerEval || category === CastEfficiency.SPELL_CATEGORIES.UTILITY) {
         return;
       }
 
@@ -78,14 +88,26 @@ class AntiFillerSpam extends Module {
         }
       }
 
-      const hasProc = proc && ((typeof proc === 'function') ? proc(event, combatant, targets, lastCast) : proc);
-      const meetsCondition = (condition !== undefined) ? ((typeof condition === 'function') ? condition(event, combatant, targets, lastCast) : condition) : true;
+      const args = [event, combatant, targets, lastCast];
+      const hasProc = proc && resolveValue(proc, ...args);
+      const meetsCondition = (condition !== undefined) ? resolveValue(condition, ...args) : true;
 
-
-      if ((isOffCooldown || hasProc) && meetsCondition) {
-        debug && console.warn(`[Available non-filler] - ${gcdSpellID} ${SPELLS[gcdSpellID].name} - offCD: ${isOffCooldown} - hasProc: ${hasProc} - canBeCast: ${meetsCondition}`);
-        availableSpells.push(gcdSpellID);
+      if (!meetsCondition) {
+        return;
       }
+
+      if (!isOffCooldown && !hasProc) {
+        return;
+      }
+
+      debug && console.warn(`
+        [Available non-filler]
+        - ${gcdSpellID} ${SPELLS[gcdSpellID].name}
+        - offCD: ${isOffCooldown}
+        - hasProc: ${hasProc}
+        - canBeCast: ${meetsCondition}
+      `);
+      availableSpells.push(gcdSpellID);
     });
 
     if (availableSpells.length > 0) {
@@ -122,78 +144,3 @@ class AntiFillerSpam extends Module {
 }
 
 export default AntiFillerSpam;
-
-const GCD_SPELLS = {
-  // Rotational spells
-  [SPELLS.MANGLE_BEAR.id]: {
-    isFiller: false,
-    baseCD: 6,
-    hastedCD: true,
-    // Specifies a way that the spell can be available outside of its normal CD
-    proc: ({ timestamp }, combatant) => {
-      const hasGoreProc = combatant.hasBuff(SPELLS.GORE_BEAR.id, timestamp);
-      return hasGoreProc;
-    },
-  },
-  [SPELLS.THRASH_BEAR.id]: {
-    isFiller: false,
-    baseCD: 6,
-    hastedCD: true,
-    proc: ({ timestamp }, combatant) => {
-      const isIncarnation = combatant.hasBuff(SPELLS.INCARNATION_OF_URSOC.id, timestamp);
-      return isIncarnation;
-    },
-  },
-  [SPELLS.PULVERIZE_TALENT.id]: {
-    isFiller: false,
-    baseCD: null,
-    // A spell must meet these conditions to be castable
-    condition: ({ timestamp, targetID }, combatant, targets) => {
-      const pulverizeTalented = combatant.lv100Talent === SPELLS.PULVERIZE_TALENT.id;
-
-      const target = targets.find(t => t.id === targetID);
-      if (!target) {
-        return false;
-      }
-
-      const targetHasThrashStacks = target.hasBuff(SPELLS.THRASH_BEAR_DOT.id, timestamp).stacks >= 2;
-      return pulverizeTalented && targetHasThrashStacks;
-    },
-  },
-  [SPELLS.MAUL.id]: {
-    isFiller: false,
-    baseCD: null,
-    // Maul should never be considered a replacement for filler, but it should be tracked
-    condition: false,
-  },
-
-  // "Filler" spells
-  [SPELLS.MOONFIRE.id]: {
-    isFiller: ({ timestamp, targetID }, combatant, targets, lastCast) => {
-      if (combatant.lv75Talent === SPELLS.GALACTIC_GUARDIAN_TALENT.id) {
-        return (
-          // Account for reaction time; the player must have had the proc for at least this long
-          !combatant.hasBuff(SPELLS.GALACTIC_GUARDIAN.id, timestamp - REACTION_TIME_THRESHOLD)
-        );
-      }
-
-      return (
-        targets.every(target => target.hasBuff(SPELLS.MOONFIRE_BEAR.id, timestamp - 1)) // Moonfire was already ticking
-      );
-
-    },
-    baseCD: null,
-  },
-  [SPELLS.BEAR_SWIPE.id]: {
-    isFiller: (event, combatant, targets) => targets.length < 4,
-    baseCD: null,
-  },
-
-  // Utility/other spells
-  [SPELLS.STAMPEDING_ROAR_BEAR.id]: { isFiller: false, isUtility: true },
-  [SPELLS.BEAR_FORM.id]: { isFiller: false, isUtility: true },
-  [SPELLS.CAT_FORM.id]: { isFiller: false, isUtility: true },
-  [SPELLS.TRAVEL_FORM.id]: { isFiller: false, isUtility: true },
-  [SPELLS.MOONKIN_FORM.id]: { isFiller: false, isUtility: true },
-  [SPELLS.REBIRTH.id]: { isFiller: false, isUtility: true },
-};

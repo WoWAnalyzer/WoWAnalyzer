@@ -15,6 +15,9 @@ const GORE_BASE_CHANCE = 0.1;
 const BEAR_HUG_CHANCE = 0.05;
 const T19_2SET_CHANCE = 0.1;
 
+// The  amount of time after a proc has occurred when casting a filler is no longer acceptable
+const REACTION_TIME_THRESHOLD = 500;
+
 class CastEfficiency extends CoreCastEfficiency {
   static CPM_ABILITIES = [
     ...CoreCastEfficiency.CPM_ABILITIES,
@@ -42,18 +45,48 @@ class CastEfficiency extends CoreCastEfficiency {
         return effectiveCD;
       },
       noSuggestion: true,
+
+      isOnGCD: true,
+      isFiller: false,
+      baseCD: 6,
+      hastedCD: true,
+      // Specifies a way that the spell can be available outside of its normal CD
+      proc: ({ timestamp }, combatant) => {
+        const hasGoreProc = combatant.hasBuff(SPELLS.GORE_BEAR.id, timestamp);
+        return hasGoreProc;
+      },
     },
     {
       spell: SPELLS.BEAR_SWIPE,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => null,
       noSuggestion: true,
+
+      isOnGCD: true,
+      isFiller: (event, combatant, targets) => targets.length < 4,
+      baseCD: null,
     },
     {
       spell: SPELLS.MOONFIRE,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => null,
       noSuggestion: true,
+
+      isOnGCD: true,
+      isFiller: ({ timestamp, targetID }, combatant, targets, lastCast) => {
+        if (combatant.hasTalent(SPELLS.GALACTIC_GUARDIAN_TALENT.id)) {
+          return (
+            // Account for reaction time; the player must have had the proc for at least this long
+            !combatant.hasBuff(SPELLS.GALACTIC_GUARDIAN.id, timestamp - REACTION_TIME_THRESHOLD)
+          );
+        }
+
+        return (
+          targets.every(target => target.hasBuff(SPELLS.MOONFIRE_BEAR.id, timestamp - 1)) // Moonfire was already ticking
+        );
+
+      },
+      baseCD: null,
     },
     {
       spell: SPELLS.THRASH_BEAR,
@@ -71,12 +104,27 @@ class CastEfficiency extends CoreCastEfficiency {
         return fightDuration / (castsDuringMight + castsOutsideMight);
       },
       noSuggestion: true,
+
+      isOnGCD: true,
+      isFiller: false,
+      baseCD: 6,
+      hastedCD: true,
+      proc: ({ timestamp }, combatant) => {
+        const isIncarnation = combatant.hasBuff(SPELLS.INCARNATION_OF_URSOC.id, timestamp);
+        return isIncarnation;
+      },
     },
     {
       spell: SPELLS.MAUL,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => null,
       noSuggestion: true,
+
+      isOnGCD: true,
+      isFiller: false,
+      baseCD: null,
+      // Maul should never be considered a replacement for filler, but it should be tracked
+      condition: false,
     },
     // Cooldowns
     {
@@ -155,6 +203,22 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => null,
       isActive: combatant => combatant.hasTalent(SPELLS.PULVERIZE_TALENT.id),
       noSuggestion: true,
+
+      isOnGCD: true,
+      isFiller: false,
+      baseCD: null,
+      // A spell must meet these conditions to be castable
+      condition: ({ timestamp, targetID }, combatant, targets) => {
+        const pulverizeTalented = combatant.hasTalent(SPELLS.PULVERIZE_TALENT.id);
+
+        const target = targets.find(t => t.id === targetID);
+        if (!target) {
+          return false;
+        }
+
+        const targetHasThrashStacks = target.hasBuff(SPELLS.THRASH_BEAR_DOT.id, timestamp).stacks >= 2;
+        return pulverizeTalented && targetHasThrashStacks;
+      },
     },
     // Raid utility
     {
@@ -163,6 +227,8 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: (haste, combatant) => (combatant.hasTalent(SPELLS.GUTTURAL_ROARS_TALENT.id) ? 60 : 120),
       noSuggestion: true,
       noCanBeImproved: true,
+
+      isOnGCD: true,
     },
     {
       spell: SPELLS.GROWL,
@@ -176,7 +242,46 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => null,
       noSuggestion: true,
     },
-
+    {
+      spell: SPELLS.BEAR_FORM,
+      category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
+      getCooldown: haste => null,
+      noSuggestion: true,
+      hideWithZeroCasts: true,
+      isOnGCD: true,
+    },
+    {
+      spell: SPELLS.CAT_FORM,
+      category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
+      getCooldown: haste => null,
+      noSuggestion: true,
+      hideWithZeroCasts: true,
+      isOnGCD: true,
+    },
+    {
+      spell: SPELLS.TRAVEL_FORM,
+      category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
+      getCooldown: haste => null,
+      noSuggestion: true,
+      hideWithZeroCasts: true,
+      isOnGCD: true,
+    },
+    {
+      spell: SPELLS.MOONKIN_FORM,
+      category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
+      getCooldown: haste => null,
+      noSuggestion: true,
+      hideWithZeroCasts: true,
+      isOnGCD: true,
+    },
+    {
+      spell: SPELLS.REBIRTH,
+      category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
+      getCooldown: haste => null,
+      noSuggestion: true,
+      hideWithZeroCasts: true,
+      isOnGCD: true,
+    },
     //To Do: Finish adding spells.
 
   ];
