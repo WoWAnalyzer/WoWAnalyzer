@@ -8,7 +8,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import StatisticBox from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class Judgment extends Module {
 	static dependencies = {
@@ -80,6 +80,7 @@ class Judgment extends Module {
 			/>
 		);
 	}
+	statisticOrder = STATISTIC_ORDER.CORE(2);
 }
 
 export default Judgment;

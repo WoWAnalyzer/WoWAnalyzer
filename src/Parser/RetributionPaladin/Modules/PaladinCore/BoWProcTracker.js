@@ -1,7 +1,9 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
+import SpellIcon from 'common/SpellIcon';
 import { formatPercentage, formatNumber } from 'common/format';
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Module from 'Parser/Core/Module';
 
@@ -46,6 +48,17 @@ class BoWProcTracker extends Module {
 					.regular(recommended+ 0.05).major(recommended + 0.1);
 			});
 	}
+
+	statistic() {
+		return(
+			<StatisticBox
+				icon={<SpellIcon id={SPELLS.BLADE_OF_WRATH_PROC.id} />}
+				value={`${formatNumber(this.totalBoWProcs)}`}
+				label='Blade of Wrath procs'
+			/>
+		);
+	}
+	statisticOrder = STATISTIC_ORDER.OPTIONAL(2);
 }
 
 export default BoWProcTracker;
