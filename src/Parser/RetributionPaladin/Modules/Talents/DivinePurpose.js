@@ -9,7 +9,7 @@ import Module from 'Parser/Core/Module';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-import StatisticBox from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class DivinePurpose extends Module {
 	static dependencies = {
@@ -36,5 +36,6 @@ class DivinePurpose extends Module {
 			/>
 		);
 	}
+	statisticOrder = STATISTIC_ORDER.OPTIONAL(1);
 }
 export default DivinePurpose;
