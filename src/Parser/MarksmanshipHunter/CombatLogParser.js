@@ -11,7 +11,7 @@ import CastEfficiency from './Modules/Features/CastEfficiency';
 
 import CooldownTracker from './Modules/Features/CooldownTracker';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
-import VulnerableUpTime from './Modules/Features/VulnerableUptime';
+import VulnerableUptime from './Modules/Features/VulnerableUptime';
 import VulnerableTracker from './Modules/Features/AimedInVulnerableTracker';
 
 import Tier20_2p from './Modules/Items/Tier20_2p';
@@ -28,7 +28,7 @@ class CombatLogParser extends CoreCombatLogParser {
     castEfficiency: CastEfficiency,
     cooldownTracker: CooldownTracker,
     vulnerableTracker: VulnerableTracker,
-    vulnerabluptime: VulnerableUpTime,
+    vulnerablUptime: VulnerableUptime,
 
     //Items
     tier20_2p: Tier20_2p,

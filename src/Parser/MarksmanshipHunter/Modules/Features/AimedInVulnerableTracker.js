@@ -15,8 +15,8 @@ class AimedInVulnerableTracker extends Module {
     enemies: Enemies,
   };
   totalAimed = 0;
-  inVulnAimed = 0;
-  outsideVulnAimed = 0;
+  inVulnerabilityAimed = 0;
+  outsideVulnerabilityAimed = 0;
 
   on_byPlayer_cast(event) {
     if (event.ability.guid !== SPELLS.AIMED_SHOT.id) {
@@ -24,32 +24,32 @@ class AimedInVulnerableTracker extends Module {
     }
     const enemy = this.enemies.getEntity(event);
     if (enemy.hasBuff(SPELLS.VULNERABLE.id, event.timestamp)) {
-      this.inVulnAimed += 1;
+      this.inVulnerabilityAimed += 1;
     }
-    if (!enemy.hasBuff(SPELLS.VULNERABLE.id, event.timestamp)) {
-      this.outsideVulnAimed += 1;
+    else {
+      this.outsideVulnerabilityAimed += 1;
     }
     this.totalAimed += 1;
   }
   suggestions(when) {
-    const aimedOutsideVuln = this.outsideVulnAimed;
-    when(aimedOutsideVuln).isGreaterThan(0)
+    const percentAimedOutsideVulnerable = 100/this.totalAimed * this.outsideVulnerabilityAimed;
+    when(percentAimedOutsideVulnerable).isGreaterThan(0.02)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span> You have {this.outsideVulnAimed} <SpellLink id={SPELLS.AIMED_SHOT.id} />s outside <SpellLink id={SPELLS.VULNERABLE.id} />. Try and minimize these, as they deal significantly less damage than their vulnerable counterparts. It should be noted that rarely, you will be casting non-vulnerable aimeds due to no procs and/or focus capping. </span>)
+        return suggest(<span> You have casted {this.outsideVulnerabilityAimed} <SpellLink id={SPELLS.AIMED_SHOT.id} />s outside <SpellLink id={SPELLS.VULNERABLE.id} />. Try and minimize these, as they deal significantly less damage than their <SpellLink id={SPELLS.VULNERABLE.id} /> counterparts. It should be noted that rarely, you will be casting non-vulnerable aimeds due to no procs and/or focus capping. </span>)
           .icon(SPELLS.AIMED_SHOT.icon)
-          .actual(`${(actual)} aimed shot(s) outside vulnerable`)
-          .recommended(`${recommended} is recommended`)
-          .regular(recommended + 1).major(recommended + 2);
+          .actual(`${formatPercentage(actual/100)}% of total Aimed Shots were outside Vulnerable`)
+          .recommended(`<${recommended*100}% is recommended, with 0% being the ideal`)
+          .regular(recommended + 0.02).major(recommended + 0.04);
       });
   }
   statistic() {
-    const percentVulnInAimed = this.inVulnAimed / this.totalAimed;
+    const percentAimedInVulnerable = this.inVulnerabilityAimed / this.totalAimed;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.VULNERABLE.id} />}
-        value={`${formatPercentage(percentVulnInAimed)}%`}
-        label="Vulnerable aimed shots"
-        tooltip={`The total amount of aimed shots was: ${this.totalAimed}.<br/> The amount of aimed shots inside vulnerable: ${this.inVulnAimed}.<br/> The amount of aimed shots outside vulnerable: ${this.outsideVulnAimed}. `} />
+        value={`${formatPercentage(percentAimedInVulnerable)}%`}
+        label="Vulnerable Aimed Shots"
+        tooltip={`You cast ${this.totalAimed} Aimed Shots.<br/> The amount of Aimed Shot casts inside Vulnerable: ${this.inVulnerabilityAimed}.<br/> The amount of Aimed Shot casts outside Vulnerable: ${this.outsideVulnerabilityAimed}. `} />
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(2);
