@@ -97,6 +97,7 @@ class App extends Component {
       progress: 0,
       dataVersion: 0,
       bossId: null,
+      config: null,
     };
 
     this.handleReportSelecterSubmit = this.handleReportSelecterSubmit.bind(this);
@@ -489,7 +490,7 @@ class App extends Component {
 
     const progress = (this.state.progress * 100);
 
-    if (!_footerDeprectatedWarningSent) {
+    if (this.state.config && this.state.config.footer && !_footerDeprectatedWarningSent) {
       console.error('Using `config.footer` is deprectated. You should add the information you want to share to the description property in the config, which is shown on the spec information overlay.');
       _footerDeprectatedWarningSent = true;
     }
