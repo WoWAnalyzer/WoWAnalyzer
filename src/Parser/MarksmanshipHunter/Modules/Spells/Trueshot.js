@@ -34,7 +34,7 @@ class QuickShot extends Module {
     }
     const cooldownWithTraits = 180 - this.trueShotCDReduction;
     this.totalFromCD = (this.owner.fightDuration / 1000) / cooldownWithTraits;
-   let tsAvailableCasts = this.totalFromCD;
+   const tsAvailableCasts = this.totalFromCD;
     return tsAvailableCasts;
   }
 }
