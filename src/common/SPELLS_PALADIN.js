@@ -282,7 +282,11 @@ export default {
     name: 'Blade of Wrath',
     icon: 'ability_paladin_bladeofjusticeblue',
   },
-
+  RETRIBUTION_BUFF: {
+    id: 183436,
+    name: 'Retribution',
+    icon: 'spell_holy_crusade',
+  },
   // Ret Item Effects
   WHISPER_OF_THE_NATHREZIM_BUFF: {
     id: 207635,
