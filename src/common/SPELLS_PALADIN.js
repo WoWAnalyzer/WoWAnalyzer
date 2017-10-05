@@ -119,6 +119,11 @@ export default {
     name: 'Tyr\'s Deliverance',
     icon: 'inv_mace_2h_artifactsilverhand_d_01',
   },
+  CONSECRATION: {
+    id: 204242,
+    name: 'Consecration',
+    icon: 'spell_holy_innerfire',
+  },
   JUDGMENT_OF_LIGHT_HEAL: {
     id: 183811,
     name: 'Judgment of Light',
