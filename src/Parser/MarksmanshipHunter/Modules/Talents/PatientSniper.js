@@ -2,6 +2,7 @@ import React from 'react';
 
 import Module from 'Parser/Core/Module';
 import Enemies from 'Parser/Core/Modules/Enemies';
+
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
@@ -16,6 +17,21 @@ class PatientSniper extends Module {
     enemies: Enemies,
     combatants: Combatants,
   };
+
+import SPELLS from 'common/SPELLS';
+import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
+
+class PatientSniper extends Module {
+  static dependencies = {
+    enemies: Enemies,
+  };
+  oneSecondIntoVulnerable = 0;
+  twoSecondsIntoVulnerable = 0;
+  threeSecondsIntoVulnerable = 0;
+  fourSecondsIntoVulnerable = 0;
+  fiveSecondsIntoVulnerable = 0;
+  sixSecondsIntoVulnerable = 0;
 
   /*
   A module to track the effectiveness of the Patient Sniper talent
@@ -41,6 +57,7 @@ class PatientSniper extends Module {
   sixSecondsIntoVulnerable = 0;
   lastVulnerableTimestamp = null;
   timeIntoVulnerable = 0;
+*/
 
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.PATIENT_SNIPER_TALENT.id);
@@ -129,6 +146,26 @@ class PatientSniper extends Module {
 36% increased damage: ${this.sixSecondsIntoVulnerable} Aimed Shots<br/>`} />
     );
   }
+  const
+  enemy = this.enemies.getEntity(event);
+  if(
+!
+  enemy
+.
+  hasBuff(SPELLS
+.
+  VULNERABLE
+.
+  id
+)) {
+  return;
+}
+
+if (enemy.refreshBuff(SPELLS.VULNERABLE.id)) {
+
+}
+
+}
 
 }
 
