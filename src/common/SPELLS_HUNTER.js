@@ -137,9 +137,15 @@ export default {
     name: 'Cyclonic burst',
     icon: 'inv_bow_1h_artifactwindrunner_d_02',
   },
+  QUICK_SHOT_TRAIT: {
+    id: 190462,
+    name: 'Quick shot',
+    icon: 'ability_trueshot',
+  },
 
   // Survival:
   // ...
+
 
   // Shared:
   // ...
