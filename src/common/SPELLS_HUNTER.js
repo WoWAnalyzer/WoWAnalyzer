@@ -132,11 +132,6 @@ export default {
     name: 'Bullseye',
     icon: 'ability_hunter_focusedaim',
   },
-  CYCLONIC_BURST_TRAIT: {
-    id: 238124,
-    name: 'Cyclonic burst',
-    icon: 'inv_bow_1h_artifactwindrunner_d_02',
-  },
   QUICK_SHOT_TRAIT: {
     id: 190462,
     name: 'Quick shot',
