@@ -6,5 +6,8 @@ export default function getParserMock() {
     byPlayerPet: jest.fn(() => true),
     triggerEvent: jest.fn(),
     currentTimestamp: 0,
+    fight: {
+      start_time: 0,
+    },
   };
 }
