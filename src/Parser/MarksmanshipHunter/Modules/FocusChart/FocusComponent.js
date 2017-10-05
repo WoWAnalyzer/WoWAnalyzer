@@ -4,10 +4,11 @@ import PropTypes from 'prop-types';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 
-const FocusComponent = ({ categories, abilities, passive }) => {
+const FocusComponent = ({ categories, abilities, passive}) => {
   if (!abilities) {
     return <div>Loading...</div>;
   }
+
   return (
     <div style={{ marginTop: -10, marginBottom: -10 }}>
       <table className="data-table" style={{ marginTop: 10, marginBottom: 10 }}>

@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import ChartistGraph from 'react-chartist';
 import Chartist from 'chartist';
 import 'chartist-plugin-legend';
+import PassiveFocusWasted from 'Parser/MarksmanshipHunter/Modules/FocusChart/PassiveFocusWasted';
 
 import makeWclUrl from 'common/makeWclUrl';
 import SPELLS from 'common/SPELLS';
@@ -28,26 +29,36 @@ class Focus extends React.PureComponent {
     actorId: PropTypes.number.isRequired,
     start: PropTypes.number.isRequired,
     end: PropTypes.number.isRequired,
+    playerHaste: PropTypes.number.isRequired,
+    focusMax: PropTypes.number,
+    passiveWaste: PropTypes.array,
+    pWTracker : PropTypes.number,
+    activeWaste: PropTypes.array,
+    aWTracker: PropTypes.number,
   };
+
   constructor() {
     super();
+
     this.state = {
       focusData: null,
       bossHealth: null,
     };
 	
   }
-  
 
   componentWillMount() {
-    this.load(this.props.reportCode, this.props.actorId, this.props.start, this.props.end);
-  }
+    this.load(this.props.reportCode, this.props.actorId, this.props.start, this.props.end);      
+    }
+
   componentWillReceiveProps(newProps) {
-    if (newProps.reportCode !== this.props.reportCode || newProps.actorId !== this.props.actorId || newProps.start !== this.props.start || newProps.end !== this.props.end) {
+    if (newProps.reportCode !== this.props.reportCode || this.props.focusMax !== this.props.focusMax || this.props.pWTracker !== this.props.pWTracker || this.props.aWTracker !== this.props.aWTracker || newProps.actorId !== this.props.actorId || newProps.start !== this.props.start || newProps.end !== this.props.end) {
       this.load(newProps.reportCode, newProps.actorId, newProps.start, newProps.end);
     }
   }
   load(reportCode, actorId, start, end) {
+
+ 
     const focusPromise = fetch(makeWclUrl(`report/tables/resources/${reportCode}`, {
       start,
       end,
@@ -64,21 +75,6 @@ class Focus extends React.PureComponent {
           });
         }
       });
-	const playerPromise = fetch(makeWclUrl(`report/events/${reportCode}`, { //We really just grab for player stats- I'm sure there's a better way
-      start,
-      end,
-      actorid: actorId,
-    }))
-      .then(response => response.json())
-      .then((json) => {
-        if (json.status === 400 || json.status === 401) {
-          throw json.error;
-        } else {
-           this.setState({
-            playerData: json,
-          });
-        }
-      });	
     const bossHealthPromise = fetch(makeWclUrl(`report/tables/resources/${reportCode}`, {
       start,
       end,
@@ -97,76 +93,59 @@ class Focus extends React.PureComponent {
         }
       });
 
-    return Promise.all([focusPromise, bossHealthPromise, playerPromise]);
+    return Promise.all([focusPromise, bossHealthPromise]);
   }
 
   render() {
-    if (!this.state.focusData || !this.state.bossHealth || !this.state.playerData) {
+        if (!this.state.focusData || !this.state.bossHealth || !this.props.passiveWaste) {
       return (
         <div>
           Loading...
         </div>
       );
     }
+
 	const actorId = this.props.actorId;
-	
-	let maxFocus = 0;
-	let found = false;
-	let ii = 0;
-	while (!found){ //determine max focus (max focus is variable)
-		if (this.state.playerData.events[ii].sourceID === actorId &&(this.state.playerData.events[ii].type === 'cast' || this.state.playerData.events[ii].type === 'energize') ){
-			maxFocus = this.state.playerData.events[ii].classResources[0]['max'];
-			found = true;
-		}
-		else{
-			ii++;
-		}
-	}
-	
-	const focusGen = Math.round((10 + .1 * this.state.playerData.events[0].hasteRanged / 375)*100)/100; //TODO: replace constant passive FocusGen (right now we don't account for lust/hero or Trueshot)
+  	const maxFocus = this.props.focusMax;
+	const focusGen = Math.round((10 + .1 * this.props.playerHaste / 375)*100)/100; //TODO: replace constant passive FocusGen (right now we don't account for lust/hero or Trueshot)
     const { start, end } = this.props;
 	let passiveCap = 0; //counts time focus capped (in seconds)
 	let lastCatch = 0; //records the timestamp of the last event
-	
-    const cappedTimer = {
-      0:maxFocus,
-    };
-    this.state.playerData.events.forEach((events) => {
-		if (events.sourceID === actorId &&(events.type === 'cast' || events.type === 'energize') ){
-			const secIntoFight = (events.timestamp - start);
-			cappedTimer[secIntoFight] = events.classResources[0]['amount'];
-			lastCatch = (events.timestamp - start);
-		}
+  let cappedTimer = [];
+	if (this.props.passiveWaste){
+    cappedTimer = Array.from(this.props.passiveWaste);
+    cappedTimer[0] = maxFocus;
+  for (let i = 0; i < (this.props.end - this.props.start); i++){  //extrapolates focus given passive focus gain (TODO: Update for pulls with Volley)
+    if (!cappedTimer[i]){
+      if (cappedTimer[i - 1] === maxFocus){
+        cappedTimer[i] = maxFocus;
+      }
+      else{ 
+        cappedTimer[i] = cappedTimer[i-1] + focusGen/1000;
+      }
+    }
+    if (cappedTimer[i] === maxFocus){
+      passiveCap += 1/1000;
+    }
+  }
 
-    });
-	for (let i = 0; i < (lastCatch); i++){  //extrapolates focus given passive focus gain (TODO: Update for pulls with Volley)
-		if (!cappedTimer[i]){
-			if (cappedTimer[i - 1] === maxFocus){
-				cappedTimer[i] = maxFocus;
-			}
-			else{
-				cappedTimer[i] = cappedTimer[i-1] + focusGen/1000;
-			}
-		}
-		if (cappedTimer[i] === maxFocus){
-			passiveCap += 1/1000;
-		}
-	}
+
+
+  }
 	
 	/* no, you aren't seeing double- this does the same thing as above, but aims to maximize range where-ever possible.
 	This is the graph data- since the graph is just a general point of reference, and I only record 1 data point for
 	every second, this ensures that the range of each section of the graph is accurate, at the cost of exact slope*/
 	lastCatch = 0;
-	const overCapBySecond = {};
-    const focusBySecond = {
-      0: maxFocus,
-    };
+	let overCapBySecond = {};
+  let focusBySecond = [];
+  const magicGraphNumber = Math.floor(maxFocus / 2);
 	this.state.focusData.series[0].data.forEach((item) => {
 	  const secIntoFight = Math.floor((item[0] - start) / 1000);
-	  if (focusBySecond[secIntoFight] && item[1] <= 65 && focusBySecond[secIntoFight] > item[1]){ //aims to get highest peak
+	  if (focusBySecond[secIntoFight] && item[1] <= magicGraphNumber && focusBySecond[secIntoFight] > item[1]){ //aims to get highest peak
 		 focusBySecond[secIntoFight] = item[1];
 	  }
-	  else if (focusBySecond[secIntoFight] && item[1] > 65 &&focusBySecond[secIntoFight] < item[1]){ //aims to get lowest valley
+	  else if (focusBySecond[secIntoFight] && item[1] > magicGraphNumber && focusBySecond[secIntoFight] < item[1]){ //aims to get lowest valley
 		 focusBySecond[secIntoFight] = item[1];
 	  }
 	  else if (!focusBySecond[secIntoFight]){
@@ -227,35 +206,37 @@ class Focus extends React.PureComponent {
       generated: 'Focus Generators',
       //spent: 'Focus Spenders', //I see no reason to display focus spenders, but leaving this in if someone later wants to add them
     };
+    if(this.props.activeWaste){
+      this.props.activeWaste.forEach((event) => {
+      const secIntoFight = Math.floor((event.timestamp - start) / 1000);
+      if (event.type === 'energize' && (event.sourceID === actorId)) {
+        if (!abilitiesAll[`${event.ability.guid}_gen`]) {
+          const spell = SPELLS[event.ability.guid];
+          abilitiesAll[`${event.ability.guid}_gen`] = {
+          ability: {
+            category: 'Focus Generators',
+            name: (spell === undefined) ? event.ability.name : spell.name,
+            spellId: event.ability.guid,
+          },
+          spent: 0,
+          casts: 0,
+          created: 0,
+          wasted: 0,
+          };
+        }
+        abilitiesAll[`${event.ability.guid}_gen`].casts += 1;
+        abilitiesAll[`${event.ability.guid}_gen`].created += event.resourceChange;
+        abilitiesAll[`${event.ability.guid}_gen`].wasted += event.waste;
+        if (overCapBySecond[secIntoFight]){
+          overCapBySecond[secIntoFight] += event.waste;
+        }
+        else{
+          overCapBySecond[secIntoFight] = event.waste;
+        }
+        }
+      });
 
-    this.state.playerData.events.forEach((event) => {
-		const secIntoFight = Math.floor((event.timestamp - start) / 1000);
-		if (event.type === 'energize' && (event.sourceID === actorId)) {
-			if (!abilitiesAll[`${event.ability.guid}_gen`]) {
-			  const spell = SPELLS[event.ability.guid];
-			  abilitiesAll[`${event.ability.guid}_gen`] = {
-				ability: {
-				  category: 'Focus Generators',
-				  name: (spell === undefined) ? event.ability.name : spell.name,
-				  spellId: event.ability.guid,
-				},
-				spent: 0,
-				casts: 0,
-				created: 0,
-				wasted: 0,
-			  };
-			}
-			abilitiesAll[`${event.ability.guid}_gen`].casts += 1;
-			abilitiesAll[`${event.ability.guid}_gen`].created += event.resourceChange;
-			abilitiesAll[`${event.ability.guid}_gen`].wasted += event.waste;
-			if (overCapBySecond[secIntoFight]){
-				overCapBySecond[secIntoFight] += event.waste;
-			}
-			else{
-				overCapBySecond[secIntoFight] = event.waste;
-			}
-		  }
-    });
+    }
 
     const abilities = Object.keys(abilitiesAll).map(key => abilitiesAll[key]);
     abilities.sort((a, b) => {
@@ -310,7 +291,6 @@ class Focus extends React.PureComponent {
       ],
     };
     let step = 0;
-
     return (
       <div>
         <ChartistGraph
@@ -363,10 +343,11 @@ class Focus extends React.PureComponent {
         <FocusComponent
           abilities={abilities}
           categories={categories}
-		  passive = {(totalWasted)}
+		      passive = {(totalWasted)}
         />
       </div>
     );
+
   }
 }
 
