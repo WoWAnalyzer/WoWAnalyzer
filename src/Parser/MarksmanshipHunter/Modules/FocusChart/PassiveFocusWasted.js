@@ -1,4 +1,3 @@
-import ITEMS from 'common/ITEMS';
 import Module from 'Parser/Core/Module';
 
 class PassiveFocusWasted extends Module {

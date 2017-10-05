@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import ChartistGraph from 'react-chartist';
 import Chartist from 'chartist';
 import 'chartist-plugin-legend';
-import PassiveFocusWasted from 'Parser/MarksmanshipHunter/Modules/FocusChart/PassiveFocusWasted';
 
 import makeWclUrl from 'common/makeWclUrl';
 import SPELLS from 'common/SPELLS';
@@ -137,8 +136,8 @@ class Focus extends React.PureComponent {
 	This is the graph data- since the graph is just a general point of reference, and I only record 1 data point for
 	every second, this ensures that the range of each section of the graph is accurate, at the cost of exact slope*/
 	lastCatch = 0;
-	let overCapBySecond = {};
-  let focusBySecond = [];
+	const overCapBySecond = {};
+  const focusBySecond = [];
   const magicGraphNumber = Math.floor(maxFocus / 2);
 	this.state.focusData.series[0].data.forEach((item) => {
 	  const secIntoFight = Math.floor((item[0] - start) / 1000);
