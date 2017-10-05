@@ -1,4 +1,3 @@
-//import React from 'react';
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
@@ -33,8 +32,7 @@ class QuickShot extends Module {
       this.trueShotCDReduction = 58;
     }
     const cooldownWithTraits = 180 - this.trueShotCDReduction;
-    this.totalFromCD = (this.owner.fightDuration / 1000) / cooldownWithTraits;
-   const tsAvailableCasts = this.totalFromCD;
+    const tsAvailableCasts = (this.owner.fightDuration / 1000) / cooldownWithTraits;
     return tsAvailableCasts;
   }
 }
