@@ -25,11 +25,12 @@ class CastEfficiency extends Module {
   static SPELL_CATEGORIES = {
     ROTATIONAL: 'Rotational Spell',
     ROTATIONAL_AOE: 'Spell (AOE)',
+    ITEMS: 'Item',
     COOLDOWNS: 'Cooldown',
     DEFENSIVE: 'Defensive Cooldown',
     OTHERS: 'Spell',
     UTILITY: 'Utility',
-    ITEMS: 'Item',
+    HEALER_DAMAGING_SPELL: 'Damaging Spell',
   };
   static CPM_ABILITIES = [
     /**
