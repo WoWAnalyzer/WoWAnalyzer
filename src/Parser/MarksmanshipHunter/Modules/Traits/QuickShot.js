@@ -1,4 +1,4 @@
-import React from 'react';
+//import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 
@@ -13,6 +13,7 @@ class QuickShot extends Module {
   on_initialized() {
     const player = this.combatants.selected;
     const quickShotRank = player.traitsBySpellId[SPELLS.QUICK_SHOT_TRAIT.id];
+    const baselineCD = 180;
 
     if (quickShotRank === 0) {
       return;
@@ -32,6 +33,7 @@ class QuickShot extends Module {
     else if (quickShotRank === 7) {
       this.trueShotCDReduction = 58;
     }
+    const cooldownWithTraits = baselineCD - this.trueShotCDReduction;
   }
 }
 

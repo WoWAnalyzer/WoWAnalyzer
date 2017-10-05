@@ -2,7 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import QuickShot from 'Parser/MarksmanshipHunter/Modules/Traits/QuickShot';
+//import QuickShot from 'Parser/MarksmanshipHunter/Modules/Traits/QuickShot';
 import CoreCastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 
 
@@ -83,7 +83,7 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.TRUESHOT,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
-      getCooldown: haste => 180-QuickShot.trueShotCDReduction, // TODO calculate cd reduction based on artifact
+      getCooldown: haste => 180, // TODO calculate cd reduction based on artifact
       recommendedCastEfficiency: 1.0,
     },
     {
