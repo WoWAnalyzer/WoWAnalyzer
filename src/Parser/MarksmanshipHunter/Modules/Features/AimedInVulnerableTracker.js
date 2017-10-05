@@ -33,13 +33,13 @@ class AimedInVulnerableTracker extends Module {
   }
   suggestions(when) {
     const percentAimedOutsideVulnerable = 100/this.totalAimed * this.outsideVulnerabilityAimed;
-    when(percentAimedOutsideVulnerable).isGreaterThan(0.02)
+    when(percentAimedOutsideVulnerable).isGreaterThan(2)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span> You have casted {this.outsideVulnerabilityAimed} <SpellLink id={SPELLS.AIMED_SHOT.id} />s outside <SpellLink id={SPELLS.VULNERABLE.id} />. Try and minimize these, as they deal significantly less damage than their <SpellLink id={SPELLS.VULNERABLE.id} /> counterparts. It should be noted that rarely, you will be casting non-vulnerable aimeds due to no procs and/or focus capping. </span>)
           .icon(SPELLS.AIMED_SHOT.icon)
           .actual(`${formatPercentage(actual/100)}% of total Aimed Shots were outside Vulnerable`)
-          .recommended(`<${recommended*100}% is recommended, with 0% being the ideal`)
-          .regular(recommended + 0.02).major(recommended + 0.04);
+          .recommended(`<${recommended}% is recommended, with 0% being the ideal`)
+          .regular(recommended + 1).major(recommended + 2);
       });
   }
   statistic() {
