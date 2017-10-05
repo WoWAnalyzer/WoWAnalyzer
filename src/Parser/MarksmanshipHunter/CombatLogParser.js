@@ -28,7 +28,7 @@ class CombatLogParser extends CoreCombatLogParser {
     castEfficiency: CastEfficiency,
     cooldownTracker: CooldownTracker,
     vulnerableTracker: VulnerableTracker,
-    vulnerablUptime: VulnerableUptime,
+    vulnerableUptime: VulnerableUptime,
 
     //Items
     tier20_2p: Tier20_2p,
