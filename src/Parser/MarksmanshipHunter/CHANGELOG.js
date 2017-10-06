@@ -1,4 +1,5 @@
 export default `
+05-10-2017 - Added Artifact Trait cooldown reduction for trueshot. (by Putro) 
 05-10-2017 - remove Cyclonic Burst from Cooldown view. (by Putro) 
 05-10-2017 - Added Artifact Trait cooldown reduction for trueshot. (by Putro) 
 04-10-2017 - Added Aimed Shot and Vulnerable tracker. (by Putro) 

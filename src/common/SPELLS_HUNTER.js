@@ -138,6 +138,12 @@ export default {
     icon: 'ability_trueshot',
   },
 
+  CYCLONIC_BURST_TRAIT: {
+    id: 238124,
+    name: 'Cyclonic burst',
+    icon: 'inv_bow_1h_artifactwindrunner_d_02',
+  },
+
   // Survival:
   // ...
 
