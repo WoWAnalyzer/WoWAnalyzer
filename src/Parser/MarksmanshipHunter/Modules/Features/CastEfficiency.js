@@ -2,9 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-//import QuickShot from 'Parser/MarksmanshipHunter/Modules/Traits/QuickShot';
 import CoreCastEfficiency from 'Parser/Core/Modules/CastEfficiency';
-
 
 /* eslint-disable no-unused-vars */
 
@@ -58,7 +56,7 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 60,
       isActive: combatant => combatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id),
       recommendedCastEfficiency: 1.0,
-      extraSuggestion: <span> The only time <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id}/> should be delayed is when the boss is under 25% hp, as you will then use it to generate <SpellLink id={SPELLS.BULLSEYE_BUFF.id}/> stacks as early on, and as often, as possible. </span>,
+      extraSuggestion: <span> The only time <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> should be delayed is when the boss is under 25% hp, as you will then use it to generate <SpellLink id={SPELLS.BULLSEYE_BUFF.id} /> stacks as early on, and as often, as possible. </span>,
     },
     {
       spell: SPELLS.BARRAGE_TALENT,
@@ -83,9 +81,8 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.TRUESHOT,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
-      getCooldown: (haste, combatant) => {
-        const availableCasts = combatant.owner.modules.trueshot.tsAvailableCasts;
-        return (combatant.owner.fightDuration / 1000) / availableCasts;
+      getCooldown: (_, combatant) => {
+        return combatant.owner.modules.trueshot.reducedCooldownWithTraits;
       },
       recommendedCastEfficiency: 1.0,
     },
