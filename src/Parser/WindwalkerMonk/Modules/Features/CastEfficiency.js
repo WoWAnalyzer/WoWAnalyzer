@@ -20,6 +20,12 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 10,
     },
     {
+      spell: SPELLS.WHIRLING_DRAGON_PUNCH,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => 24,
+      isActive: combatant => combatant.hasTalent(SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id),
+    },
+    {
       spell: SPELLS.BLACKOUT_KICK,
       category: CastEfficiency.SPELL_CATEGORIES.OTHERS,
       getCooldown: haste => null,
