@@ -9,7 +9,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-import GetDamageBonus from '../PaladinCore/GetDamageBonus';
+import getDamageBonus from '../PaladinCore/getDamageBonus';
 
 const WHISPER_OF_THE_NATHREZIM_MODIFIER = 0.15;
 
@@ -27,7 +27,7 @@ class WhisperOfTheNathrezim extends Module {
   on_byPlayer_damage(event) {
     if (this.combatants.selected.hasBuff(SPELLS.WHISPER_OF_THE_NATHREZIM_BUFF.id)) {
       if (event.ability.guid === SPELLS.TEMPLARS_VERDICT_DAMAGE.id || event.ability.guid === SPELLS.DIVINE_STORM_DAMAGE.id) {
-        this.damageDone += GetDamageBonus(event, WHISPER_OF_THE_NATHREZIM_MODIFIER);
+        this.damageDone += getDamageBonus(event, WHISPER_OF_THE_NATHREZIM_MODIFIER);
       }
     }
   }

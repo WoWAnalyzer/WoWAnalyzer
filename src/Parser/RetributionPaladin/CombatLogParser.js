@@ -21,6 +21,9 @@ import Retribution from './Modules/PaladinCore/Retribution';
 import HolyPowerTracker from './Modules/HolyPower/HolyPowerTracker';
 import HolyPowerDetails from './Modules/HolyPower/HolyPowerDetails';
 
+import RelicTraits from './Modules/Traits/RelicTraits';
+import MightOfTheTemplar from './Modules/Traits/MightOfTheTemplar';
+
 import WhisperOfTheNathrezim from './Modules/Items/WhisperOfTheNathrezim';
 import LiadrinsFuryUnleashed from './Modules/Items/LiadrinsFuryUnleashed';
 import SoulOfTheHighlord from './Modules/Items/SoulOfTheHighlord';
@@ -51,6 +54,8 @@ class CombatLogParser extends CoreCombatLogParser {
     holyPowerDetails: HolyPowerDetails,
 
     // Traits
+    relicTraits: RelicTraits,
+    mightOfTheTemplar: MightOfTheTemplar,
 
     // Items:
     whisperOfTheNathrezim: WhisperOfTheNathrezim,
