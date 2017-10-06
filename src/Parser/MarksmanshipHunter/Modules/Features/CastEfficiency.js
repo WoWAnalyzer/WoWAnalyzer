@@ -4,10 +4,10 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import CoreCastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 
-
 /* eslint-disable no-unused-vars */
 
 class CastEfficiency extends CoreCastEfficiency {
+
   static CPM_ABILITIES = [
     ...CoreCastEfficiency.CPM_ABILITIES,
 
@@ -56,7 +56,7 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 60,
       isActive: combatant => combatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id),
       recommendedCastEfficiency: 1.0,
-      extraSuggestion: <span> The only time <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id}/> should be delayed is when the boss is under 25% hp, as you will then use it to generate <SpellLink id={SPELLS.BULLSEYE_BUFF.id}/> stacks as early on, and as often, as possible. </span>,
+      extraSuggestion: <span> The only time <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> should be delayed is when the boss is under 25% hp, as you will then use it to generate <SpellLink id={SPELLS.BULLSEYE_BUFF.id} /> stacks as early on, and as often, as possible. </span>,
     },
     {
       spell: SPELLS.BARRAGE_TALENT,
@@ -81,7 +81,7 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.TRUESHOT,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
-      getCooldown: haste => 180, // TODO calculate cd reduction based on artifact
+      getCooldown: (_, combatant) => combatant.owner.modules.trueshot.reducedCooldownWithTraits,
       recommendedCastEfficiency: 1.0,
     },
     {
