@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import CoreCastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 
@@ -15,6 +16,9 @@ class CastEfficiency extends CoreCastEfficiency {
         const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.TRANQUILITY_HEAL.id);
         return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
       },
+      recommendedCastEfficiency: 0.75,
+      avgIssueCastEfficiency: 0.55,
+      majorIssueCastEfficiency: 0.30,
     },
     {
       spell: SPELLS.INNERVATE,
@@ -29,26 +33,37 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.IRONBARK,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
-      getCooldown: haste => 90,
+      getCooldown: (_, combatant) => {
+        let cd = 90;
+        if(combatant.hasTalent(SPELLS.STONEBARK_TALENT.id)) {
+          cd -= 30;
+        }
+        if(combatant.hasHands(ITEMS.XONIS_CARESS.id)) {
+          cd *= 0.80;
+        }
+        return cd;
+      },
       importance: ISSUE_IMPORTANCE.MINOR,
+      recommendedCastEfficiency: 0.60,
     },
     {
       spell: SPELLS.BARKSKIN,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 60,
       importance: ISSUE_IMPORTANCE.MINOR,
+      recommendedCastEfficiency: 0.60,
     },
     {
       spell: SPELLS.CENARION_WARD_TALENT,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 30,
-      isActive: combatant => combatant.lv15Talent === SPELLS.CENARION_WARD_TALENT.id,
+      isActive: combatant => combatant.hasTalent(SPELLS.CENARION_WARD_TALENT.id),
     },
     {
       spell: SPELLS.FLOURISH_TALENT,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 60,
-      isActive: combatant => combatant.lv100Talent === SPELLS.FLOURISH_TALENT.id,
+      isActive: combatant => combatant.hasTalent(SPELLS.FLOURISH_TALENT.id),
       recommendedCastEfficiency: 0.80,
     },
     {
@@ -64,7 +79,7 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.INCARNATION_TREE_OF_LIFE_TALENT,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
-      isActive: combatant => combatant.lv75Talent === SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id,
+      isActive: combatant => combatant.hasTalent(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id),
       getCooldown: haste => 180,
     },
     {
@@ -88,6 +103,12 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: (haste, combatant) => combatant.hasTalent(SPELLS.PROSPERITY_TALENT.id) ? 27 : 30,
       importance: ISSUE_IMPORTANCE.MINOR,
+    },
+    {
+      spell: SPELLS.RENEWAL,
+      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
+      isActive: combatant => combatant.hasTalent(SPELLS.RENEWAL_TALENT.id),
+      getCooldown: haste => 90,
     },
   ];
 }

@@ -1,3 +1,5 @@
+// TODO: Move this to the CastEfficiency class
+
 export function calculateMaxCasts(cooldown, fightDuration, charges = 1) {
   return (fightDuration / 1000 / cooldown) + charges - 1;
 }
@@ -17,7 +19,7 @@ export default function getCastEfficiency(CPM_ABILITIES, abilityTracker, combata
 
   return CPM_ABILITIES
     .filter(ability => !ability.isActive || ability.isActive(selectedCombatant))
-    .map((ability) => {
+    .map(ability => {
       const castCount = getAbility(ability.spell.id);
       const casts = (ability.getCasts ? ability.getCasts(castCount, parser) : castCount.casts) || 0;
       if (ability.hideWithZeroCasts && casts === 0) {
@@ -38,6 +40,9 @@ export default function getCastEfficiency(CPM_ABILITIES, abilityTracker, combata
       const castEfficiency = cooldown === null ? null : Math.min(1, casts / rawMaxCasts);
 
       const recommendedCastEfficiency = ability.recommendedCastEfficiency || 0.8;
+      const averageIssueCastEfficiency = ability.averageIssueCastEfficiency || (recommendedCastEfficiency - 0.05);
+      const majorIssueCastEfficiency = ability.majorIssueCastEfficiency || (recommendedCastEfficiency - 0.15);
+
       const canBeImproved = castEfficiency !== null && castEfficiency < recommendedCastEfficiency;
 
       let overhealing = null;
@@ -62,6 +67,8 @@ export default function getCastEfficiency(CPM_ABILITIES, abilityTracker, combata
         overhealing,
         castEfficiency,
         recommendedCastEfficiency,
+        averageIssueCastEfficiency,
+        majorIssueCastEfficiency,
         canBeImproved,
       };
     })

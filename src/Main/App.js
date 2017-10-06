@@ -35,6 +35,8 @@ const PROGRESS_STEP3_PARSE_EVENTS = 0.99;
 
 /* eslint-disable no-alert */
 
+let _footerDeprectatedWarningSent = false;
+
 class App extends Component {
   static propTypes = {
     router: PropTypes.shape({
@@ -95,6 +97,7 @@ class App extends Component {
       progress: 0,
       dataVersion: 0,
       bossId: null,
+      config: null,
     };
 
     this.handleReportSelecterSubmit = this.handleReportSelecterSubmit.bind(this);
@@ -486,6 +489,11 @@ class App extends Component {
     const { report, combatants, parser } = this.state;
 
     const progress = (this.state.progress * 100);
+
+    if (this.state.config && this.state.config.footer && !_footerDeprectatedWarningSent) {
+      console.error('Using `config.footer` is deprectated. You should add the information you want to share to the description property in the config, which is shown on the spec information overlay.');
+      _footerDeprectatedWarningSent = true;
+    }
 
     return (
       <div className={`app ${this.reportCode ? 'has-report' : ''}`}>

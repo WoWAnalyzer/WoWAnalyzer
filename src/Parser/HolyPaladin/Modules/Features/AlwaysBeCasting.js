@@ -69,6 +69,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
       spellId
     );
     this._verifyChannel(SPELLS.FLASH_OF_LIGHT.id, 1500, begincast, cast);
+    // Can't really verify Holy Light as it can get a reduced CD from Infusion of Light
   }
 
   countsAsHealingAbility(cast) {

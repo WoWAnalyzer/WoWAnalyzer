@@ -54,24 +54,6 @@ class EssenceFontMastery extends Module {
           .regular(recommended - 3).major(recommended - 5);
       });
   }
-
-  /* Commenting out for now - Removing because of bloat.
-  statistic() {
-    const avgTargetsHitPerEF = (this.targetsEF / this.castEF) || 0;
-    return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.ESSENCE_FONT.id} />}
-        value={`${(avgTargetsHitPerEF).toFixed(0)}`}
-        label={(
-          <dfn data-tip={`You healed an average of ${(avgTargetsHitPerEF).toFixed(2)} targets per Essence Font cast over your ${this.castEF} casts.`}>
-            Average Targets hit
-          </dfn>
-        )}
-      />
-    );
-  }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
-  */
 }
 
 export default EssenceFontMastery;

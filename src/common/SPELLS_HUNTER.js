@@ -7,19 +7,25 @@
 export default {
   // Beast Mastery:
   // ...
-
+  // -------------
   // Marksmanship:
-  // ...
+  // -------------
 
+  // Marksmanship spells
 
   WINDBURST: {
     id: 204147,
     name: 'Windburst',
     icon: 'inv_bow_1h_artifactwindrunner_d_02',
   },
+  WINDBURST_MOVEMENT_SPEED: {
+    id: 204477,
+    name: 'Windburst',
+    icon: 'ability_hunter_focusedaim',
+  },
   AIMED_SHOT: {
     id: 19434,
-    name: 'Aimed Shot',
+    name: 'Aimed Shot', //TODO: T204p cost reduction (46 focus instead of 50)
     icon: 'inv_spear_07',
   },
   ARCANE_SHOT: {
@@ -98,8 +104,49 @@ export default {
     icon: 'ability_hunter_mastermarksman',
   },
 
+  // Marksmanship tier sets
+  HUNTER_MM_T20_2P_BONUS: {
+    id: 242242,
+    name: 'T20 2 set bonus',
+    icon: 'ability_hunter_focusedaim',
+  },
+  HUNTER_MM_T20_2P_BONUS_BUFF: {
+    id: 242243,
+    name: 'T20 2 set bonus',
+    icon: 'inv_misc_ammo_arrow_03',
+  },
+  HUNTER_MM_T20_4P_BONUS: {
+    id: 242241,
+    name: 'T20 4 set bonus',
+    icon: 'ability_hunter_focusedaim',
+  },
+  HUNTER_MM_T20_4P_BONUS_BUFF: {
+    id: 246153,
+    name: 'T20 4 set bonus',
+    icon: 'inv_spear_07',
+  },
+
+  // Marksmanship artifact traits
+  BULLSEYE_BUFF: {
+    id: 204090,
+    name: 'Bullseye',
+    icon: 'ability_hunter_focusedaim',
+  },
+  QUICK_SHOT_TRAIT: {
+    id: 190462,
+    name: 'Quick shot',
+    icon: 'ability_trueshot',
+  },
+
+  CYCLONIC_BURST_TRAIT: {
+    id: 238124,
+    name: 'Cyclonic burst',
+    icon: 'inv_bow_1h_artifactwindrunner_d_02',
+  },
+
   // Survival:
   // ...
+
 
   // Shared:
   // ...

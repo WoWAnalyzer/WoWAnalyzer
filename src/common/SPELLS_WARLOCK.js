@@ -595,6 +595,11 @@ export default {
     name: 'Felstorm',
     icon: 'ability_warrior_bladestorm',
   },
+  WRATHSTORM_BUFF: {
+    id: 115831,
+    name: 'Wrathstorm',
+    icon: 'ability_warrior_bladestorm',
+  },
   SUMMON_FELGUARD: {
     id: 30146,
     name: 'Summon Felguard',
@@ -616,6 +621,16 @@ export default {
     id: 205181,
     name: 'Shadowflame',
     icon: 'ability_warlock_shadowflame',
+  },
+  IMPLOSION_DAMAGE: {
+    id: 196278,
+    name: 'Implosion',
+    icon: 'spell_shadow_shadowandflame',
+  },
+  GRIMOIRE_OF_SYNERGY_BUFF: {
+    id: 171982,
+    name: 'Grimoire of Synergy',
+    icon: 'warlock_grimoireofsacrifice',
   },
   SUMMON_DARKGLARE: {
     id: 205180,
@@ -672,5 +687,32 @@ export default {
     id: 212005,
     name: 'Demonology Warlock T19 2P Bonus',
     icon: 'inv_helm_cloth_raidwarlock_q_01',
+  },
+  WARLOCK_DEMO_T19_4P_BONUS: {
+    id: 212007,
+    name: 'Demonology Warlock T19 4P Bonus',
+    icon: 'inv_helm_cloth_raidwarlock_q_01',
+  },
+  WARLOCK_DEMO_T20_2P_BONUS: {
+    id: 242293,
+    name: 'Demonology Warlock T20 2P bonus',
+    icon: 'inv_helm_cloth_raidwarlock_r_01',
+  },
+  WARLOCK_DEMO_T20_4P_BONUS: {
+    id: 242294,
+    name: 'Demonology Warlock T20 4P bonus',
+    icon: 'inv_chest_cloth_raidwarlock_r_01',
+  },
+  WARLOCK_DEMO_T20_4P_BUFF: {
+    id: 246962,
+    name: 'Dreaded Haste',
+    icon: 'spell_shadow_metamorphosis',
+  },
+
+  // Demonology legendary effects
+  WAKENERS_LOYALTY: {
+    id: 236200,
+    name: 'Wakener\'s Loyalty',
+    icon: 'inv_offhand_1h_artifactskulloferedar_d_01',
   },
 };
