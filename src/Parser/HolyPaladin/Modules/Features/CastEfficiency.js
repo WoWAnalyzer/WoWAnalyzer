@@ -13,9 +13,8 @@ class CastEfficiency extends CoreCastEfficiency {
   static CPM_ABILITIES = [
     ...CoreCastEfficiency.CPM_ABILITIES,
     {
-      spell: SPELLS.HOLY_SHOCK_HEAL,
+      spell: SPELLS.HOLY_SHOCK_CAST,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-      getCasts: castCount => castCount.healingHits,
       getCooldown: haste => 9 / (1 + haste),
       extraSuggestion: 'Casting Holy Shock regularly is very important for performing well.',
     },
@@ -135,6 +134,13 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 180,
     },
+    // TODO: Add LoH accounting for relics
+    // {
+    //   spell: SPELLS.LAY_ON_HANDS,
+    //   category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
+    //   getCooldown: haste => 600 - http://www.wowhead.com/spell=200326/focused-healing,
+    //   recommendedCastEfficiency: 0.5,
+    // },
     {
       spell: SPELLS.LIGHT_OF_THE_MARTYR,
       category: CastEfficiency.SPELL_CATEGORIES.OTHERS,
@@ -171,6 +177,39 @@ class CastEfficiency extends CoreCastEfficiency {
       getCasts: castCount => castCount.healingIolHits || 0,
       getCooldown: haste => null,
       getOverhealing: ({ healingIolHealing, healingIolAbsorbed, healingIolOverheal }) => healingIolOverheal / (healingIolHealing + healingIolAbsorbed + healingIolOverheal),
+    },
+    {
+      spell: SPELLS.DIVINE_STEED,
+      category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
+      getCooldown: haste => 45,
+      isActive: combatant => !combatant.hasTalent(SPELLS.CAVALIER_TALENT.id),
+      recommendedCastEfficiency: 0.5,
+      noSuggestion: true,
+    },
+    {
+      spell: SPELLS.DIVINE_STEED,
+      category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
+      getCooldown: haste => 45,
+      charges: 2,
+      isActive: combatant => combatant.hasTalent(SPELLS.CAVALIER_TALENT.id),
+      recommendedCastEfficiency: 0.5,
+      noSuggestion: true,
+    },
+    {
+      spell: SPELLS.CRUSADER_STRIKE,
+      category: CastEfficiency.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
+      getCooldown: haste => 4.5 / (1 + haste),
+      charges: 2,
+      isActive: combatant => !combatant.hasTalent(SPELLS.CRUSADERS_MIGHT_TALENT.id),
+      noSuggestion: true,
+      noCanBeImproved: true,
+    },
+    {
+      spell: SPELLS.CONSECRATION,
+      category: CastEfficiency.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
+      getCooldown: haste => null,
+      noSuggestion: true,
+      noCanBeImproved: true,
     },
   ];
 }

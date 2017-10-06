@@ -87,6 +87,12 @@ export default {
     icon: 'inv_sword_07',
   },
 
+  DANCING_RUNE_WEAPON_BUFF: {
+    id: 81256,
+    name: 'Dancing Rune Weapon',
+    icon: 'inv_sword_07',
+  },
+
   VAMPIRIC_BLOOD: {
     id: 55233,
     name: 'Vampiric Blood',

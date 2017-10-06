@@ -9,7 +9,9 @@ import Combatants from './Modules/Combatants';
 import AbilityTracker from './Modules/AbilityTracker';
 import Haste from './Modules/Haste';
 import AlwaysBeCasting from './Modules/AlwaysBeCasting';
+import CastEfficiency from './Modules/CastEfficiency';
 import Enemies from './Modules/Enemies';
+import EnemyInstances from './Modules/EnemyInstances';
 import Pets from './Modules/Pets';
 import HealEventTracker from './Modules/HealEventTracker';
 import ManaValues from './Modules/ManaValues';
@@ -47,6 +49,19 @@ import UmbralMoonglaives from './Modules/Items/UmbralMoonglaives';
 // Shared Buffs
 import VantusRune from './Modules/VantusRune';
 
+// Netherlight Crucible Traits
+import DarkSorrows from './Modules/NetherlightCrucibleTraits/DarkSorrows';
+import TormentTheWeak from './Modules/NetherlightCrucibleTraits/TormentTheWeak';
+import ChaoticDarkness from './Modules/NetherlightCrucibleTraits/ChaoticDarkness';
+import Shadowbind from './Modules/NetherlightCrucibleTraits/Shadowbind';
+import LightsEmbrace from './Modules/NetherlightCrucibleTraits/LightsEmbrace';
+import InfusionOfLight from './Modules/NetherlightCrucibleTraits/InfusionOfLight';
+import SecureInTheLight from './Modules/NetherlightCrucibleTraits/SecureInTheLight';
+import Shocklight from './Modules/NetherlightCrucibleTraits/Shocklight';
+import MurderousIntent from './Modules/NetherlightCrucibleTraits/MurderousIntent';
+import RefractiveShell from './Modules/NetherlightCrucibleTraits/RefractiveShell';
+import NLCTraits from './Modules/NetherlightCrucibleTraits/NLCTraits';
+
 import ParseResults from './ParseResults';
 
 const debug = false;
@@ -64,12 +79,14 @@ class CombatLogParser {
 
     combatants: Combatants,
     enemies: Enemies,
+    enemyInstances: EnemyInstances,
     pets: Pets,
     spellManaCost: SpellManaCost,
     abilityTracker: AbilityTracker,
     healEventTracker: HealEventTracker,
     haste: Haste,
     alwaysBeCasting: AlwaysBeCasting,
+    castEfficiency: CastEfficiency,
     manaValues: ManaValues,
     vantusRune: VantusRune,
 
@@ -101,6 +118,20 @@ class CombatLogParser {
     spectralThurible: SpectralThurible,
     terrorFromBelow: TerrorFromBelow,
     tomeOfUnravelingSanity: TomeOfUnravelingSanity,
+
+    // Netherlight Crucible Traits
+    darkSorrows: DarkSorrows,
+    tormentTheWeak: TormentTheWeak,
+    chaoticDarkness: ChaoticDarkness,
+    shadowbind: Shadowbind,
+    lightsEmbrace: LightsEmbrace,
+    infusionOfLight: InfusionOfLight,
+    secureInTheLight: SecureInTheLight,
+    shocklight: Shocklight,
+    refractiveShell: RefractiveShell,
+    murderousIntent: MurderousIntent,
+    nlcTraits: NLCTraits,
+
     infernalCinders: InfernalCinders,
     umbralMoonglaives: UmbralMoonglaives,
   };

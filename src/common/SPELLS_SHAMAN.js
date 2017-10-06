@@ -486,6 +486,12 @@ export default {
     name: 'T20 2 set bonus',
     icon: 'spell_shaman_improvedstormstrike',
   },
+  //Enhancement Traits
+  ALPHA_WOLF_TRAIT: {
+    id: 198434,
+    name: 'Alpha Wolf',
+    icon: 'spell_beastmaster_wolf',
+  },
   // Restoration Shaman
   CHAIN_HEAL: {
     id: 1064,

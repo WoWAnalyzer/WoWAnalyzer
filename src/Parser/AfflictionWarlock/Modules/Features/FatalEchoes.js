@@ -10,6 +10,7 @@ import { formatNumber } from 'common/format';
 import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../Constants';
 
 const UA_IDS_SET = new Set(UNSTABLE_AFFLICTION_DEBUFF_IDS);
+const TICKS_PER_UA = 4;
 
 class FatalEchoes extends Module {
   _playerCasts = 0;
@@ -39,7 +40,6 @@ class FatalEchoes extends Module {
   statistic() {
     const totalProcs = this._uasApplied - this._playerCasts;
     const avgDamage = this.totalDamage / (this._totalTicks > 0 ? this._totalTicks : 1);
-    const TICKS_PER_UA = 4;
     const estimatedUAdamage = totalProcs * TICKS_PER_UA * avgDamage;
     return (
       <StatisticBox

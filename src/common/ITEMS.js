@@ -520,6 +520,31 @@ const ITEMS = {
     icon: 'inv_bracer_31b',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+  // Demonology legendaries
+  KAZZAKS_FINAL_CURSE: {
+    id: 132374,
+    name: 'Kazzak\'s Final Curse',
+    icon: 'inv_belt_cloth_raidwarlock_i_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  WILFREDS_SIGIL_OF_SUPERIOR_SUMMONING: {
+    id: 132369,
+    name: 'Wilfred\'s Sigil of Superior Summoning',
+    icon: 'inv_jewelry_ring_78',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  WAKENERS_LOYALTY: {
+    id: 144385,
+    name: 'Wakener\'s Loyalty',
+    icon: 'inv_helm_cloth_raidwarlock_p_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  RECURRENT_RITUAL: {
+    id: 132393,
+    name: 'Recurrent Ritual',
+    icon: 'inv_shoulder_cloth_raidwarlock_l_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
   // T20 Trinkets
   ARCHIVE_OF_FAITH: {
     id: 147006,

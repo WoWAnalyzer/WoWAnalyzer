@@ -1,4 +1,7 @@
 export default `
+09-05-2017 - (@Hewhosmites) Added a Retribution damage tracker.
+08-28-2017 - (@Hewhosmites) Added a Blade of Wrath proc tracker
+08-22-2017 - (@Hewhosmites) Added a module to check that you're spending inside of Judgment
 08-20-2017 - (@Hewhosmites) Added a Chain of Thrayn Module.
 08-20-2017 - (@Hewhosmites) Made a Divine Purpose Tracker.
 08-20-2017 - (@Hewhosmites) Added a Soul of the Highlord Module.

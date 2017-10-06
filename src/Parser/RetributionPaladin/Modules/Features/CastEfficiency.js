@@ -1,5 +1,9 @@
+import React from 'react';
+
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
+import SpellLink from 'common/SpellLink';
+import ItemLink from 'common/ItemLink';
 
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
@@ -15,7 +19,7 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 30,
       recommendedCastEfficiency: 0.9,
-      extraSuggestion: 'It has a high damage per execute time and generates a lot of holy power. It is better to waste 1-2 holy power than to hold the ability.',
+      extraSuggestion: 'It has a high damage per execute time and generates a lot of holy power. It is better to waste 1-2 holy power than to hold the ability. Only hold the ability if adds are coming out in less than 3 seconds',
     },
     {
       spell: SPELLS.WAKE_OF_ASHES,
@@ -23,22 +27,24 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 30,
       isActive: combatant => combatant.hasShoulder(ITEMS.ASHES_TO_DUST.id),
       recommendedCastEfficiency: 1,
-      extraSuggestion: 'With legendary shoulders it is imperative you cast wake on cooldown to get the damage bonus.',
+      extraSuggestion: <span>With <ItemLink id={ITEMS.ASHES_TO_DUST.id} /> it is imperative you cast this on cooldown to get the damage bonus.</span>,
+      importance: ISSUE_IMPORTANCE.MAJOR,
     },
     {
       spell: SPELLS.CRUSADE_TALENT,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 120,
       isActive: combatant => combatant.hasTalent(SPELLS.CRUSADE_TALENT.id),
-      recommendedCastEfficiency: 0.95,
+      recommendedCastEfficiency: 0.9,
       importance: ISSUE_IMPORTANCE.MAJOR,
+      extraSuggestion: <span>This is our only cooldown and where most of our damage comes from. You really want to not lose a cast of this over a fight.<br/>Note: It may be off by one cast if you use <SpellLink id={SPELLS.CRUSADE_TALENT.id} /> before the fight starts. You want to avoid doing this since your first GCD with the <SpellLink id={SPELLS.CRUSADE_TALENT.id} /> buff should be a spender.</span>,
     },
     {
       spell: SPELLS.AVENGING_WRATH,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 120,
       hideWithZeroCasts: true,
-      recommendedCastEfficiency: 0.95,
+      recommendedCastEfficiency: 0.9,
     },
     {
       spell: SPELLS.HOLY_WRATH_TALENT,
@@ -76,7 +82,7 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 12 / (1 + haste),
       isActive: combatant => combatant.hasBuff(SPELLS.RET_PALADIN_T20_2SET_BONUS_BUFF.id),
       recommendedCastEfficiency: 0.95,
-      extraSuggestion: 'With tier 20 2 peice it is even more imporant to use Judgment on cooldown to keep up the buff',
+      extraSuggestion: <span>With tier 20 2 peice it is even more important to use <SpellLink id={SPELLS.JUDGMENT_CAST.id} /> on cooldown to keep up the buff</span>,
     },
     {
       spell: SPELLS.BLADE_OF_JUSTICE,
@@ -121,6 +127,7 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => null,
       isActive: combatant => combatant.hasTalent(SPELLS.JUSTICARS_VENGEANCE_TALENT.id),
       noSuggestion: true,
+      noCanBeImproved: true,
       hideWithZeroCasts: true,
     },
     {
@@ -129,6 +136,7 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => null,
       isActive: combatant => combatant.hasTalent(SPELLS.EYE_FOR_AN_EYE_TALENT.id),
       noSuggestion: true,
+      noCanBeImproved: true,
       hideWithZeroCasts: true,
     },
     {
@@ -137,6 +145,13 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => null,
       isActive: combatant => combatant.hasTalent(SPELLS.WORD_OF_GLORY_TALENT.id),
       noSuggestion: true,
+      noCanBeImproved: true,
+      hideWithZeroCasts: true,
+    },
+    {
+      spell: SPELLS.ARCANE_TORRENT,
+      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
+      getCooldown: haste => 90,
       hideWithZeroCasts: true,
     },
   ];

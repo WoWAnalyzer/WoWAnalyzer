@@ -15,6 +15,7 @@ import Maelstrom from './Modules/Main/Maelstrom';
 import CooldownTracker from './Modules/Features/CooldownTracker';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 // import ShamanStats from './Modules/ShamanCore/ShamanStats';
+import AlphaWolf from './Modules/ShamanCore/AlphaWolf';
 import Flametongue from './Modules/ShamanCore/Flametongue';
 import FlametongueRefresh from './Modules/ShamanCore/FlametongueRefresh';
 import Landslide from './Modules/ShamanCore/Landslide';
@@ -37,6 +38,7 @@ class CombatLogParser extends CoreCombatLogParser {
     furyOfAir: FuryOfAir,
     rockbiter: Rockbiter,
     flametongueRefresh: FlametongueRefresh,
+    alphaWolf: AlphaWolf,
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     castEfficiency: CastEfficiency,

@@ -6,7 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
 import Module from 'Parser/Core/Module';
-import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
+import calculateEffectiveHealingStacked from 'Parser/Core/calculateEffectiveHealingStacked';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 const JUSTICE_THROUGH_SACRIFICE_HEALING_INCREASE = 0.05;
@@ -33,14 +33,14 @@ class JusticeThroughSacrifice extends Module {
       return;
     }
 
-    this.healing += calculateEffectiveHealing(event, JUSTICE_THROUGH_SACRIFICE_HEALING_INCREASE);
+    this.healing += calculateEffectiveHealingStacked(event, JUSTICE_THROUGH_SACRIFICE_HEALING_INCREASE, this.rank);
   }
   on_beacon_heal(beaconTransferEvent, healEvent) {
     if (healEvent.ability.guid !== SPELLS.LIGHT_OF_THE_MARTYR.id) {
       return;
     }
 
-    this.healing += calculateEffectiveHealing(beaconTransferEvent, JUSTICE_THROUGH_SACRIFICE_HEALING_INCREASE);
+    this.healing += calculateEffectiveHealingStacked(beaconTransferEvent, JUSTICE_THROUGH_SACRIFICE_HEALING_INCREASE, this.rank);
   }
 
   subStatistic() {
