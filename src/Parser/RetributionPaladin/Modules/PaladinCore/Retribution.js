@@ -8,7 +8,7 @@ import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-import getDamageBonus from '../PaladinCore/GetDamageBonus';
+import getDamageBonus from '../PaladinCore/getDamageBonus';
 
 const RETRIBUTION_DAMAGE_BONUS = 0.2;
 
