@@ -22,12 +22,6 @@ class IronFur extends Module {
   _hitsPerStackCounter = [];
   ironfurDuration = IRONFUR_BASE_DURATION; // Base duration
 
-  lastIronfurBuffApplied = 0;
-  physicalHitsWithIronFur = 0;
-  physicalDamageWithIronFur = 0;
-  physicalHitsWithoutIronFur = 0;
-  physicalDamageWithoutIronFur = 0;
-
   on_initialized() {
     const ueRank = this.combatants.selected.traitsBySpellId[SPELLS.URSOCS_ENDURANCE.id];
     this.ironfurDuration += (ueRank * UE_DURATION_PER_RANK);
@@ -105,16 +99,15 @@ class IronFur extends Module {
     if (event.ability.type === SCHOOLS.ids.PHYSICAL) {
       const activeIFStacks = this.getStackCount(event.timestamp);
       this.registerHit(activeIFStacks);
-
-
-      if (activeIFStacks > 0) {
-        this.physicalHitsWithIronFur += 1;
-        this.physicalDamageWithIronFur += event.amount + (event.absorbed || 0) + (event.overkill || 0);
-      } else {
-        this.physicalHitsWithoutIronFur += 1;
-        this.physicalDamageWithoutIronFur += event.amount + (event.absorbed || 0) + (event.overkill || 0);
-      }
     }
+  }
+
+  get physicalHitsWithIronFur() {
+    return this._hitsPerStackCounter.slice(1).reduce((sum, x) => sum + x, 0);
+  }
+
+  get physicalHitsWithoutIronFur() {
+    return this._hitsPerStackCounter[0];
   }
 
   get ironfurStacksApplied() {
@@ -129,6 +122,10 @@ class IronFur extends Module {
     return this.ironfurStacksApplied / this.totalHitsTaken;
   }
 
+  get physicalHitsMitigatedPercent() {
+    return this.physicalHitsWithIronFur / this.totalHitsTaken;
+  }
+
   computeIronfurUptimeArray() {
     const totalHits = this.totalHitsTaken;
     return this._hitsPerStackCounter.map(hits => hits / totalHits);
@@ -139,16 +136,13 @@ class IronFur extends Module {
       console.log(`Hits with ironfur ${this.physicalHitsWithIronFur}`);
       console.log(`Damage with ironfur ${this.physicalDamageWithIronFur}`);
       console.log(`Hits without ironfur ${this.physicalHitsWithoutIronFur}`);
-      console.log(`Damage without ironfur ${this.physicalDamageWithoutIronFur}`);
-      console.log(`Total physical ${this.physicalDamageWithoutIronFur}${this.physicalDamageWithIronFur}`);
       console.log('Ironfur uptimes:', this.computeIronfurUptimeArray());
     }
   }
 
   suggestions(when) {
-    const physicalDamageMitigatedPercent = this.physicalDamageWithIronFur / (this.physicalDamageWithIronFur + this.physicalDamageWithoutIronFur);
 
-    when(physicalDamageMitigatedPercent).isLessThan(0.90)
+    when(this.physicalHitsMitigatedPercent).isLessThan(0.90)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>You only had the <SpellLink id={SPELLS.IRONFUR.id} /> buff for {formatPercentage(actual)}% of physical damage taken. You should have the Ironfur buff up to mitigate as much physical damage as possible.</span>)
           .icon(SPELLS.IRONFUR.icon)
@@ -160,16 +154,14 @@ class IronFur extends Module {
 
   statistic() {
     const totalIronFurTime = this.combatants.selected.getBuffUptime(SPELLS.IRONFUR.id);
-    const physicalHitsMitigatedPercent = this.physicalHitsWithIronFur / (this.physicalHitsWithIronFur + this.physicalHitsWithoutIronFur);
-    const physicalDamageMitigatedPercent = this.physicalDamageWithIronFur / (this.physicalDamageWithIronFur + this.physicalDamageWithoutIronFur);
-    const uptimes = this.computeIronfurUptimeArray().reduce((str, uptime, stackCount) => {
-      return str + `<li>${stackCount} stacks: ${formatPercentage(uptime)}%</li>`
-    }, '');
+    const uptimes = this.computeIronfurUptimeArray().reduce((str, uptime, stackCount) => (
+      str + `<li>${stackCount} stacks: ${formatPercentage(uptime)}%</li>`
+    ), '');
 
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.IRONFUR.id} />}
-        value={`${formatPercentage(physicalHitsMitigatedPercent)}% / ${this.overallIronfurUptime.toFixed(2)}`}
+        value={`${formatPercentage(this.physicalHitsMitigatedPercent)}% / ${this.overallIronfurUptime.toFixed(2)}`}
         label="Hits Mitigated with Ironfur / Average Stacks"
         tooltip={`Ironfur usage breakdown:
             <ul>
@@ -180,7 +172,7 @@ class IronFur extends Module {
             <ul>
               ${uptimes}
             </ul>
-            <b>${formatPercentage(physicalHitsMitigatedPercent)}%</b> of physical attacks were mitigated with Ironfur (<b>${formatPercentage(physicalDamageMitigatedPercent)}%</b> of physical damage taken), and your overall uptime was <b>${formatPercentage(totalIronFurTime / this.owner.fightDuration)}%</b>.`}
+            <b>${formatPercentage(this.physicalHitsMitigatedPercent)}%</b> of physical attacks were mitigated with Ironfur, and your overall uptime was <b>${formatPercentage(totalIronFurTime / this.owner.fightDuration)}%</b>.`}
       />
     );
   }
