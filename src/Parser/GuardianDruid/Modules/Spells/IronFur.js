@@ -20,11 +20,15 @@ class IronFur extends Module {
 
   _stacksTimeline = [];
   _hitsPerStackCounter = [];
-  ironfurDuration = IRONFUR_BASE_DURATION; // Base duration
+  _ironfurDuration = IRONFUR_BASE_DURATION; // Base duration
+
+  get ironfurDuration() {
+    return this._ironfurDuration;
+  }
 
   on_initialized() {
     const ueRank = this.combatants.selected.traitsBySpellId[SPELLS.URSOCS_ENDURANCE.id];
-    this.ironfurDuration += (ueRank * UE_DURATION_PER_RANK);
+    this._ironfurDuration += (ueRank * UE_DURATION_PER_RANK);
   }
 
   getMostRecentStackIndex(timestamp) {
@@ -87,6 +91,8 @@ class IronFur extends Module {
 
   on_byPlayer_removebuff(event) {
     const spellId = event.ability.guid;
+
+    // Bear Form drops all ironfur stacks immediately
     if (SPELLS.BEAR_FORM.id === spellId) {
       const index = this.getMostRecentStackIndex(event.timestamp);
       this._stacksTimeline.length = index + 1;
