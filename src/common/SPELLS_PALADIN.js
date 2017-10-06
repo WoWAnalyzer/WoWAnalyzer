@@ -287,6 +287,11 @@ export default {
     name: 'Retribution',
     icon: 'spell_holy_crusade',
   },
+  RIGHTEOUS_VERDICT_BUFF: {
+    id: 238996,
+    name: 'Righteous Verdict',
+    icon: 'ability_paladin_bladeofjustice',
+  },
   // Ret Item Effects
   WHISPER_OF_THE_NATHREZIM_BUFF: {
     id: 207635,

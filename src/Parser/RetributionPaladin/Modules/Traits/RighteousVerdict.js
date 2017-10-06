@@ -9,15 +9,15 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import getDamageBonusStacked from '../PaladinCore/getDamageBonusStacked';
 
-
-const MIGHT_OF_THE_TEMPLAR_INCREASE = 0.02;
+const RIGHTEOUS_VERDICT_INCREASE = 0.08;
 /**
- * Might of the Templar (Artifact Trait)
- * Increase the damge done by Templar's Verdict by 2%.
+ * Righteous Verdict (Artifact Trait)
+ * After spending Holy Power the damage of your next
+ * Blade of justice/Divine Hammers by 8%.
  */
 
-class MightOfTheTemplar extends Module {
-	static dependencies = {
+ class RighteousVerdict extends Module {
+ 	static dependencies = {
  		combatants: Combatants,
  	};
 
@@ -25,24 +25,25 @@ class MightOfTheTemplar extends Module {
  	damage = 0;
 
  	on_initialized() {
- 		this.rank = this.combatants.selected.traitsBySpellId[SPELLS.MIGHT_OF_THE_TEMPLAR.id];
+ 		this.rank = this.combatants.selected.traitsBySpellId[SPELLS.RIGHTEOUS_VERDICT.id];
  		this.active = this.rank > 0;
  	}
 
  	on_byPlayer_damage(event) {
- 		if(event.ability.guid !== SPELLS.TEMPLARS_VERDICT_DAMAGE.id){
+ 		if(!this.combatants.selected.hasBuff(SPELLS.RIGHTEOUS_VERDICT_BUFF.id)){
  			return;
  		}
-
- 		this.damage += getDamageBonusStacked(event, MIGHT_OF_THE_TEMPLAR_INCREASE, this.rank);
+ 		if(event.ability.guid === SPELLS.BLADE_OF_JUSTICE.id || event.ability.guid === SPELLS.DIVINE_HAMMER_HIT.id){
+ 			this.damage += getDamageBonusStacked(event, RIGHTEOUS_VERDICT_INCREASE, this.rank);
+ 		}
  	}
 
  	subStatistic() {
  		return (
  			<div className='flex'>
  				<div className='flex-main'>
- 					<SpellLink id={SPELLS.MIGHT_OF_THE_TEMPLAR.id}>
- 						<SpellIcon id={SPELLS.MIGHT_OF_THE_TEMPLAR.id} noLink /> Might of the Templar
+ 					<SpellLink id={SPELLS.RIGHTEOUS_VERDICT.id}>
+ 						<SpellIcon id={SPELLS.RIGHTEOUS_VERDICT.id} noLink /> Righteous Verdict
  					</SpellLink>
  				</div>
  				<div className='flex-sub text-right'>
@@ -51,6 +52,6 @@ class MightOfTheTemplar extends Module {
  			</div>
  		);
  	}
-}
+ }
 
-export default MightOfTheTemplar;
+ export default RighteousVerdict;

@@ -9,15 +9,14 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import getDamageBonusStacked from '../PaladinCore/getDamageBonusStacked';
 
-
-const MIGHT_OF_THE_TEMPLAR_INCREASE = 0.02;
+const HIGHLORDS_JUDGMENT_INCREASE = 0.08;
 /**
- * Might of the Templar (Artifact Trait)
- * Increase the damge done by Templar's Verdict by 2%.
+ * Highlord's Judgment (Artifact Trait)
+ * Increase the damge done by Judgment by 8%.
  */
 
-class MightOfTheTemplar extends Module {
-	static dependencies = {
+ class HighlordsJudgment extends Module {
+ 	static dependencies = {
  		combatants: Combatants,
  	};
 
@@ -25,24 +24,23 @@ class MightOfTheTemplar extends Module {
  	damage = 0;
 
  	on_initialized() {
- 		this.rank = this.combatants.selected.traitsBySpellId[SPELLS.MIGHT_OF_THE_TEMPLAR.id];
+ 		this.rank = this.combatants.selected.traitsBySpellId[SPELLS.HIGHLORDS_JUDGMENT.id];
  		this.active = this.rank > 0;
  	}
 
  	on_byPlayer_damage(event) {
- 		if(event.ability.guid !== SPELLS.TEMPLARS_VERDICT_DAMAGE.id){
+ 		if(event.ability.guid !== SPELLS.JUDGMENT_CAST.id){
  			return;
  		}
-
- 		this.damage += getDamageBonusStacked(event, MIGHT_OF_THE_TEMPLAR_INCREASE, this.rank);
+ 		this.damage += getDamageBonusStacked(event, HIGHLORDS_JUDGMENT_INCREASE, this.rank);
  	}
 
  	subStatistic() {
  		return (
  			<div className='flex'>
  				<div className='flex-main'>
- 					<SpellLink id={SPELLS.MIGHT_OF_THE_TEMPLAR.id}>
- 						<SpellIcon id={SPELLS.MIGHT_OF_THE_TEMPLAR.id} noLink /> Might of the Templar
+ 					<SpellLink id={SPELLS.HIGHLORDS_JUDGMENT.id}>
+ 						<SpellIcon id={SPELLS.HIGHLORDS_JUDGMENT.id} noLink /> Highlord's Judgment
  					</SpellLink>
  				</div>
  				<div className='flex-sub text-right'>
@@ -51,6 +49,6 @@ class MightOfTheTemplar extends Module {
  			</div>
  		);
  	}
-}
+ }
 
-export default MightOfTheTemplar;
+ export default HighlordsJudgment;

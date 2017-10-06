@@ -2,6 +2,7 @@ import React from 'react';
 
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
@@ -9,15 +10,14 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import getDamageBonusStacked from '../PaladinCore/getDamageBonusStacked';
 
-
-const MIGHT_OF_THE_TEMPLAR_INCREASE = 0.02;
+const SHARPENED_EDGE_INCREASE = 0.06;
 /**
- * Might of the Templar (Artifact Trait)
- * Increase the damge done by Templar's Verdict by 2%.
+ * Sharpened Blade (Artifact Trait)
+ * Increase the crit chance of Crusaders Strike/Zeal by 6%
  */
 
-class MightOfTheTemplar extends Module {
-	static dependencies = {
+ class SharpenedEdge extends Module {
+ 	static dependencies = {
  		combatants: Combatants,
  	};
 
@@ -25,24 +25,20 @@ class MightOfTheTemplar extends Module {
  	damage = 0;
 
  	on_initialized() {
- 		this.rank = this.combatants.selected.traitsBySpellId[SPELLS.MIGHT_OF_THE_TEMPLAR.id];
+ 		this.rank = this.combatants.selected.traitsBySpellId[SPELLS.SHARPENED_EDGE.id];
  		this.active = this.rank > 0;
  	}
 
  	on_byPlayer_damage(event) {
- 		if(event.ability.guid !== SPELLS.TEMPLARS_VERDICT_DAMAGE.id){
- 			return;
- 		}
 
- 		this.damage += getDamageBonusStacked(event, MIGHT_OF_THE_TEMPLAR_INCREASE, this.rank);
  	}
 
  	subStatistic() {
  		return (
  			<div className='flex'>
  				<div className='flex-main'>
- 					<SpellLink id={SPELLS.MIGHT_OF_THE_TEMPLAR.id}>
- 						<SpellIcon id={SPELLS.MIGHT_OF_THE_TEMPLAR.id} noLink /> Might of the Templar
+ 					<SpellLink id={SPELLS.SHARPENED_EDGE.id}>
+ 						<SpellIcon id={SPELLS.SHARPENED_EDGE.id} noLink /> Sharpened Edge
  					</SpellLink>
  				</div>
  				<div className='flex-sub text-right'>
@@ -51,6 +47,6 @@ class MightOfTheTemplar extends Module {
  			</div>
  		);
  	}
-}
+ }
 
-export default MightOfTheTemplar;
+ export default SharpenedEdge;
