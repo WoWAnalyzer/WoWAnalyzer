@@ -1,4 +1,5 @@
 export default `
+06-10-2017 - Resto Druid: Added Ironbark module. (by Sref)
 29-09-2017 - Resto Druid: More Flourish updates. (by Sref)
 26-09-2017 - Resto Druid: Updated display of flourish. (by Blazyb)
 26-09-2017 - Resto Druid: Added suggestions on Soul of the forest/archdruid on WG usage. (by Blazyb)
