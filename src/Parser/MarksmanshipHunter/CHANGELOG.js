@@ -1,7 +1,5 @@
 export default `
-<<<<<<< HEAD
 05-10-2017 - Added Focus Generation/Waste Tracker Chart Tab and additional supporting modules (By leapis)
-=======
 05-10-2017 - Added Focus Generation/Waste Tracker Chart Tab (By leapis)
 >>>>>>> focusChart
 05-10-2017 - remove Cyclonic Burst from Cooldown view. (by Putro) 
@@ -14,9 +12,4 @@ export default `
 02-10-2017 - Added spec info aswell as spec discussion URL + some basic rotational information while the modules aren't completed. - (by Putro)
 26-09-2017 - Fixed Cooldown to not include windburst movement speed buff. - (by Putro)
 05-09-2017 - added base files for new MM Spec. - (by JLassie82)
-<<<<<<< HEAD
 `;
-=======
-`;
-
->>>>>>> focusChart
