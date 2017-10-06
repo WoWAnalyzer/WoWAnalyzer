@@ -34,13 +34,12 @@ class CombatLogParser extends CoreCombatLogParser {
     castEfficiency: CastEfficiency,
     cooldownTracker: CooldownTracker,
     vulnerabluptime: VulnerableUptime,
+    vulnerableTracker: VulnerableTracker,
     
     //Focus Chart
     maxFocus: MaxFocus,
     passiveFocusWasted: PassiveFocusWasted,
     activeFocusWasted: ActiveFocusWasted,
-    vulnerableTracker: VulnerableTracker,
-    vulnerableUptime: VulnerableUptime,
 
     //Items
     tier20_2p: Tier20_2p,
