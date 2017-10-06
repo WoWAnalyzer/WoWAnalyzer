@@ -20,8 +20,8 @@ class IronFur extends Module {
   };
 
   _stacksTimeline = [];
-  _hitsPerStackCounter = [];
-  _ironfurDuration = IRONFUR_BASE_DURATION; // Base duration
+  _hitsPerStack = [];
+  _ironfurDuration = IRONFUR_BASE_DURATION;
 
   get ironfurDuration() {
     return this._ironfurDuration;
@@ -75,11 +75,11 @@ class IronFur extends Module {
   }
 
   registerHit(stackCount) {
-    if (!this._hitsPerStackCounter[stackCount]) {
-      this._hitsPerStackCounter[stackCount] = 0;
+    if (!this._hitsPerStack[stackCount]) {
+      this._hitsPerStack[stackCount] = 0;
     }
 
-    this._hitsPerStackCounter[stackCount] += 1;
+    this._hitsPerStack[stackCount] += 1;
   }
 
   on_byPlayer_cast(event) {
@@ -114,32 +114,39 @@ class IronFur extends Module {
   }
 
   get hitsMitigated() {
-    return this._hitsPerStackCounter.slice(1).reduce((sum, x) => sum + x, 0);
+    return this._hitsPerStack.slice(1).reduce((sum, x) => sum + x, 0);
   }
 
   get hitsUnmitigated() {
-    return this._hitsPerStackCounter[0];
+    return this._hitsPerStack[0];
   }
 
   get ironfurStacksApplied() {
-    return this._hitsPerStackCounter.slice(1).reduce((sum, x, i) => sum + (x * i), 0);
+    return this._hitsPerStack.slice(1).reduce((sum, x, i) => sum + (x * i), 0);
   }
 
   get totalHitsTaken() {
-    return this._hitsPerStackCounter.reduce((sum, x) => sum + x, 0);
+    return this._hitsPerStack.reduce((sum, x) => sum + x, 0);
   }
 
   get overallIronfurUptime() {
+    // Avoid NaN display errors
+    if (this.totalHitsTaken === 0) {
+      return 0;
+    }
+
     return this.ironfurStacksApplied / this.totalHitsTaken;
   }
 
   get percentOfHitsMitigated() {
+    if (this.totalHitsTaken === 0) {
+      return 0;
+    }
     return this.hitsMitigated / this.totalHitsTaken;
   }
 
   computeIronfurUptimeArray() {
-    const totalHits = this.totalHitsTaken;
-    return this._hitsPerStackCounter.map(hits => hits / totalHits);
+    return this._hitsPerStack.map(hits => hits / this.totalHitsTaken);
   }
 
   on_finished() {
@@ -179,7 +186,7 @@ class IronFur extends Module {
                 <li>You were hit <b>${this.hitsMitigated}</b> times with your Ironfur buff (<b>${formatThousands(this.physicalDamageWithIronFur)}</b> damage).</li>
                 <li>You were hit <b>${this.hitsUnmitigated}</b> times <b><i>without</i></b> your Ironfur buff (<b>${formatThousands(this.physicalDamageWithoutIronFur)}</b> damage).</li>
             </ul>
-            <b>Stack count uptimes</b>
+            <b>Uptimes per stack: </b>
             <ul>
               ${uptimes}
             </ul>
