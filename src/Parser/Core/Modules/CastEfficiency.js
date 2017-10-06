@@ -25,11 +25,12 @@ class CastEfficiency extends Module {
   static SPELL_CATEGORIES = {
     ROTATIONAL: 'Rotational Spell',
     ROTATIONAL_AOE: 'Spell (AOE)',
+    ITEMS: 'Item',
     COOLDOWNS: 'Cooldown',
     DEFENSIVE: 'Defensive Cooldown',
     OTHERS: 'Spell',
     UTILITY: 'Utility',
-    ITEMS: 'Item',
+    HEALER_DAMAGING_SPELL: 'Damaging Spell',
   };
   static CPM_ABILITIES = [
     /**
@@ -136,7 +137,7 @@ class CastEfficiency extends Module {
             .icon(cpm.ability.spell.icon)
             .actual(`${cpm.casts} out of ${cpm.maxCasts} possible casts; ${formatPercentage(actual)}% cast efficiency`)
             .recommended(`>${formatPercentage(recommended)}% is recommended`)
-            .regular(recommended - 0.05).major(recommended - 0.15).staticImportance(cpm.ability.importance);
+            .regular(cpm.averageIssueCastEfficiency).major(cpm.majorIssueCastEfficiency).staticImportance(cpm.ability.importance);
         });
     });
   }

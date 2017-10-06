@@ -36,6 +36,8 @@ import Demonbolt from './Modules/Talents/Demonbolt';
 import WakenersLoyalty from './Modules/Items/Legendaries/WakenersLoyalty';
 import RecurrentRitual from './Modules/Items/Legendaries/RecurrentRitual';
 import SindoreiSpite from './Modules/Items/Legendaries/SindoreiSpite';
+import KazzaksFinalCurse from './Modules/Items/Legendaries/KazzaksFinalCurse';
+import WilfredRing from './Modules/Items/Legendaries/WilfredRing';
 import TheMasterHarvester from './Modules/Items/Legendaries/TheMasterHarvester';
 import SoulOfTheNetherlord from './Modules/Items/Legendaries/SoulOfTheNetherlord';
 
@@ -79,6 +81,8 @@ class CombatLogParser extends CoreCombatLogParser {
     wakenersLoyalty: WakenersLoyalty,
     recurrentRitual: RecurrentRitual,
     sindoreiSpite: SindoreiSpite,
+    kazzaksFinalCurse: KazzaksFinalCurse,
+    wilfredRing: WilfredRing,
     masterHarvester: TheMasterHarvester,
     soulOfTheNetherlord: SoulOfTheNetherlord,
 

@@ -456,7 +456,7 @@ export default {
   },
   RAGE_OF_THE_SLEEPER: {
     id: 200851,
-    name: 'Rage of the sleeper',
+    name: 'Rage of the Sleeper',
     icon: 'inv_hand_1h_artifactursoc_d_01',
   },
   MOONFIRE_BEAR: {
@@ -642,7 +642,7 @@ export default {
     name: 'Celestial Alignment',
     icon: 'artifactability_balancedruid_newmoon',
   },
-  EMERALD_DREAMCATCHER_BUFF: {    
+  EMERALD_DREAMCATCHER_BUFF: {
     id: 224706,
     name: 'The Emerald Dreamcatcher',
     icon: 'inv_helmet_81',

@@ -50,16 +50,16 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.HAND_OF_RECKONING.id,
   ];
 
-  suggestion(when) {
+  suggestions(when) {
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
 
-    when(deadTimePercentage).isGreaterThan(0.2)
+    when(deadTimePercentage).isGreaterThan(0.1)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your dead GCD time can be improved. Try to always be casting (ABC), try to reduce the delay betweeb casting spells. Think about preplanning your movement or using something with ranged like <SpellLink id={SPELLS.DIVINE_STORM.id} /></span>)
-        .icon('spell_mage_altertime')
-        .actual(`${formatPercentage(actual)}% dead GCD time`)
-        .recommended(`<${formatPercentage(recommended)}% is recommended`)
-        .regular(recommended + 0.15).major(recommended + 0.2);
+        return suggest(<span>Your dead GCD time can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. Even if you have to move, try casting something instant with range like <SpellLink id={SPELLS.JUDGMENT_CAST.id} /> or <SpellLink id={SPELLS.DIVINE_STORM.id} /></span>)
+          .icon('spell_mage_altertime')
+          .actual(`${formatPercentage(actual)}% dead GCD time`)
+          .recommended(`<${formatPercentage(recommended)}% is recommended`)
+          .regular(recommended + 0.1).major(recommended + 0.2);
       });
   }
 
@@ -75,7 +75,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(10);
+  statisticOrder = STATISTIC_ORDER.CORE(1);
 }
 
 export default AlwaysBeCasting;

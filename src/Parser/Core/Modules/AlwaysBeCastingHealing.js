@@ -72,7 +72,7 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
         footer={(
           <div className="statistic-bar">
             <div
-              className="Hunter-bg"
+              className="stat-health-bg"
               style={{ width: `${healingTimePercentage * 100}%` }}
               data-tip={`You spent <b>${formatPercentage(healingTimePercentage)}%</b> of your time casting heals.`}
             >

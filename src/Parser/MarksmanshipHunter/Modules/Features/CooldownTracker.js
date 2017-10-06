@@ -16,7 +16,9 @@ class CooldownTracker extends CoreCooldownTracker {
   static ignoredSpells = [
     ...CooldownTracker.ignoredSpells,
     SPELLS.WINDBURST_MOVEMENT_SPEED.id,
+    SPELLS.CYCLONIC_BURST_TRAIT.id,
   ];
 }
 
 export default CooldownTracker;
+
