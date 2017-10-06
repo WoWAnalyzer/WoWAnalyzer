@@ -1,4 +1,5 @@
 export default `
+09-06-2017 = (@Hewhosmites) Added Deliver the Justice/Might of the Templar/Righteous Verdict/Highlord's Judgment relic traits
 09-05-2017 - (@Hewhosmites) Added a Retribution damage tracker.
 08-28-2017 - (@Hewhosmites) Added a Blade of Wrath proc tracker
 08-22-2017 - (@Hewhosmites) Added a module to check that you're spending inside of Judgment
