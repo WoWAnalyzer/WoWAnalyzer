@@ -1,10 +1,9 @@
-// dependencies
-import Combatants from 'Parser/Core/Modules/Combatants';
-
 import SPELLS from 'common/SPELLS';
 import Module from 'Parser/Core/Module';
 
-// CHANGE THIS BETWEEN COPIES
+// dependencies
+import Combatants from 'Parser/Core/Modules/Combatants';
+
 const HOLY_WORD_SPELL_ID = SPELLS.HOLY_WORD_SERENITY.id;
 
 // We are giving a buffer of 75% of CD due to the fact that the large
@@ -54,16 +53,11 @@ class SerenityReduction extends Module {
       this.currentCooldown = event.timestamp + this.maxCooldown;
       this.casts += 1;
 
-      // We are giving a buffer of 75% of CD due to the fact that the large
-      // majority of players would intentionally use spells to push holy words
-      // off cooldown if needed. This is a feelycraft metric that is open for
-      // modification or outright removal depending on opinions.
       this.effectiveFullOvercasts += Math.floor(this._tempOvercast / 1000 / (this.maxCooldown * FULL_OVERCAST_LENIENCE));
       this._tempOvercast = 0.0;
     }
 
-    // const affectedSpellId = this.getAffectedSpell(spellId);
-    if (Object.keys(this.serendipityProccers).indexOf(spellId.toString()) !== -1) {
+    if (spellId.toString() in this.serendipityProccers) {
       const actualSerendipityReduction = this.serendipityReduction * this.serendipityProccers[spellId];
       this.rawReduction += actualSerendipityReduction;
 
@@ -78,8 +72,8 @@ class SerenityReduction extends Module {
       }
 
       // Logic for determining Holy Priest 2P Set Bonus gain
-      if (this.holy_t20_2p_active && difference > (actualSerendipityReduction - SPELLS.HOLY_PRIEST_T20_2SET_BONUS_BUFF.coeff)) {
-        this.holy_t20_2p += Math.min(1000, difference - (actualSerendipityReduction - SPELLS.HOLY_PRIEST_T20_2SET_BONUS_BUFF.coeff * this.serendipityProccers[spellId]));
+      if (this.holy_t20_2p_active && difference > (actualSerendipityReduction - SPELLS.HOLY_PRIEST_T20_2SET_BONUS_BUFF.value)) {
+        this.holy_t20_2p += Math.min(1000, difference - (actualSerendipityReduction - SPELLS.HOLY_PRIEST_T20_2SET_BONUS_BUFF.value * this.serendipityProccers[spellId]));
       }
       this.currentCooldown -= actualSerendipityReduction;
     }

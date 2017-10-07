@@ -403,7 +403,7 @@ export default {
     id: 196429,
     name: 'Hallowed Ground',
     icon: 'spell_holy_divineprovidence',
-    coeff: 3333,
+    valuePerTrait: 3333,
   },
 
   LENIENCES_REWARD_TRAIT: {
@@ -449,7 +449,7 @@ export default {
     id: 242270,
     name: 'Holy Priest T20 2P Bonus',
     icon: 'spell_holy_guardianspirit',
-    coeff: 1000,
+    value: 1000,
   },
 
   HOLY_PRIEST_T20_4SET_BONUS_BUFF: {

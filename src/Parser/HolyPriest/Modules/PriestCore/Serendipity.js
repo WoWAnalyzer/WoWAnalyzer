@@ -28,23 +28,7 @@ class Serendipity extends Module {
   }
 
   statistic() {
-    const formatted = {
-      'serenity': {
-        'wasted': formatNumber(this.serenity.overcast / 1000),
-        'raw': formatNumber(this.serenity.rawReduction / 1000),
-      },
-      'sanctify': {
-        'wasted': formatNumber(this.sanctify.overcast / 1000),
-        'raw': formatNumber(this.sanctify.rawReduction / 1000),
-      },
-      'asCasts': {
-        'serenity': (this.serenity.overcast / 1000) / this.serenity.maxCooldown,
-        'sanctify': (this.sanctify.overcast / 1000) / this.sanctify.maxCooldown,
-      },
-    };
-
     const percWastedVersusTotal = (this.serenity.overcast + this.sanctify.overcast) / (this.serenity.rawReduction + this.sanctify.rawReduction);
-    console.log(percWastedVersusTotal);
 
     return (
       <StatisticBox
@@ -52,8 +36,8 @@ class Serendipity extends Module {
         value={`${formatPercentage(percWastedVersusTotal)}%`}
         label="Wasted Serendipity"
         tooltip={
-          `${formatted.serenity.wasted}s wasted Serenity reduction (of ${formatted.serenity.raw}s total)<br/>
-          ${formatted.sanctify.wasted}s wasted Sanctify redudction (of ${formatted.sanctify.raw}s total)<br/>`
+          `${formatNumber(this.serenity.overcast / 1000)}s wasted Serenity reduction (of ${formatNumber(this.serenity.rawReduction / 1000)}s total)<br/>
+          ${formatNumber(this.sanctify.overcast / 1000)}s wasted Sanctify redudction (of ${formatNumber(this.sanctify.rawReduction / 1000)}s total)<br/>`
         }
       />
     );

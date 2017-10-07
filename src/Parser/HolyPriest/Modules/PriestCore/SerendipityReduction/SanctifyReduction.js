@@ -1,11 +1,9 @@
-// dependencies
-import Combatants from 'Parser/Core/Modules/Combatants';
-
 import SPELLS from 'common/SPELLS';
 import Module from 'Parser/Core/Module';
 
+// dependencies
+import Combatants from 'Parser/Core/Modules/Combatants';
 
-// CHANGE THIS BETWEEN COPIES
 const HOLY_WORD_SPELL_ID = SPELLS.HOLY_WORD_SANCTIFY.id;
 
 // We are giving a buffer of 75% of CD due to the fact that the large
@@ -54,7 +52,7 @@ class SanctifyReduction extends Module {
     }
 
     // Modify Sanctify CD based on trait
-    this.maxCooldown -= ((this.combatants.selected.traitsBySpellId[SPELLS.HALLOWED_GROUND_TRAIT.id] || 0) * SPELLS.HALLOWED_GROUND_TRAIT.coeff);
+    this.maxCooldown -= ((this.combatants.selected.traitsBySpellId[SPELLS.HALLOWED_GROUND_TRAIT.id] || 0) * SPELLS.HALLOWED_GROUND_TRAIT.valuePerTrait);
   }
 
   on_byPlayer_cast(event) {
@@ -67,8 +65,7 @@ class SanctifyReduction extends Module {
       this._tempOvercast = 0.0;
     }
 
-    // const affectedSpellId = this.getAffectedSpell(spellId);
-    if (Object.keys(this.serendipityProccers).indexOf(spellId.toString()) !== -1) {
+    if (spellId.toString() in this.serendipityProccers) {
       const actualSerendipityReduction = this.serendipityReduction * this.serendipityProccers[spellId];
       this.rawReduction += actualSerendipityReduction;
 
@@ -83,8 +80,8 @@ class SanctifyReduction extends Module {
       }
 
       // Logic for determining Holy Priest 2P Set Bonus gain
-      if (this.holy_t20_2p_active && difference > (actualSerendipityReduction - SPELLS.HOLY_PRIEST_T20_2SET_BONUS_BUFF.coeff)) {
-        this.holy_t20_2p += Math.min(1000, difference - (actualSerendipityReduction - SPELLS.HOLY_PRIEST_T20_2SET_BONUS_BUFF.coeff * this.serendipityProccers[spellId]));
+      if (this.holy_t20_2p_active && difference > (actualSerendipityReduction - SPELLS.HOLY_PRIEST_T20_2SET_BONUS_BUFF.value)) {
+        this.holy_t20_2p += Math.min(1000, difference - (actualSerendipityReduction - SPELLS.HOLY_PRIEST_T20_2SET_BONUS_BUFF.value * this.serendipityProccers[spellId]));
       }
       this.currentCooldown -= actualSerendipityReduction;
     }
