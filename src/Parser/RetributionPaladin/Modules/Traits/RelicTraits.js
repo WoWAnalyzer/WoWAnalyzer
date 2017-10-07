@@ -30,7 +30,7 @@ class RelicTraits extends Module {
         {this.mightOfTheTemplar.subStatistic()}
         {this.highlordsJudgment.subStatistic()}
         {this.deliverTheJustice.subStatistic()}
-        {this.righteousVerdict.subStatistic()}}
+        {this.righteousVerdict.subStatistic()}
       </StatisticsListBox>
     );
   }
