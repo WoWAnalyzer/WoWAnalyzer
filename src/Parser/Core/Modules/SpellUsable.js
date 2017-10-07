@@ -168,7 +168,6 @@ class SpellUsable extends Module {
       rechargeTime: this.cooldownRemaining(spellId),
       sourceID: this.owner.playerId,
       targetID: this.owner.playerId,
-      isCustom: true,
       ...cooldown,
       ...others,
     };
@@ -216,7 +215,7 @@ class SpellUsable extends Module {
   _isCheckingCooldowns = false;
   on_event(_, event) {
     if (!this._isCheckingCooldowns) {
-      // This ensures this method isn't called again before it's finished (_checkCooldowns might trigger events).
+      // This ensures this method isn't called again before it's finished executing (_checkCooldowns might trigger events).
       this._isCheckingCooldowns = true;
       this._checkCooldowns((event && event.timestamp) || this.owner.currentTimestamp);
       this._isCheckingCooldowns = false;

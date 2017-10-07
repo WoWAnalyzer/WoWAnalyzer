@@ -39,6 +39,28 @@ describe('Core/Modules/SpellUsable', () => {
     triggerCast(SPELLS.FAKE_SPELL.id);
     expect(instance.isOnCooldown(SPELLS.FAKE_SPELL.id)).toBe(true);
   });
+  it('A new spell going on cooldown triggers an event to indicate the spell going on cooldown', () => {
+    triggerCast(SPELLS.FAKE_SPELL.id);
+
+    expect(parserMock.triggerEvent).toHaveBeenCalledTimes(1);
+    const call = parserMock.triggerEvent.mock.calls[0];
+    expect(call[0]).toBe('updatespellusable');
+    expect(call[1]).toEqual({
+      spellId: SPELLS.FAKE_SPELL.id,
+      timestamp: parserMock.currentTimestamp,
+      start: parserMock.currentTimestamp,
+      expectedEnd: parserMock.currentTimestamp + 7500, // TODO: might be better to turn this into "expectedDuration"
+      trigger: 'begincooldown',
+      isOnCooldown: true,
+      isAvailable: false,
+      chargesAvailable: 0,
+      chargesOnCooldown: 1,
+      maxCharges: 1,
+      rechargeTime: 7500,
+      sourceID: parserMock.playerId,
+      targetID: parserMock.playerId,
+    });
+  });
   it('even if a spell has another charge left it\'s still considered on cooldown', () => {
     castEfficiencyMock.getMaxCharges = jest.fn(() => 2);
     triggerCast(SPELLS.FAKE_SPELL.id);
@@ -120,20 +142,21 @@ describe('Core/Modules/SpellUsable', () => {
   });
   it('reducing a cooldown returns the reduction applied', () => {
     triggerCast(SPELLS.FAKE_SPELL.id);
-    instance.reduceCooldown(SPELLS.FAKE_SPELL.id, 1500);
+    const result = instance.reduceCooldown(SPELLS.FAKE_SPELL.id, 1500);
 
+    expect(result).toBe(1500);
     expect(instance.cooldownRemaining(SPELLS.FAKE_SPELL.id)).toBe(6000); // 7500 - 1500
   });
   it('reducing a cooldown beyond its duration finishes the cooldown', () => {
     triggerCast(SPELLS.FAKE_SPELL.id);
-    instance.reduceCooldown(SPELLS.FAKE_SPELL.id, 8000);
+    const result = instance.reduceCooldown(SPELLS.FAKE_SPELL.id, 8000);
 
+    expect(result).toBe(7500);
     expect(instance.isOnCooldown(SPELLS.FAKE_SPELL.id)).toBe(false);
     expect(instance.cooldownRemaining(SPELLS.FAKE_SPELL.id)).toBe(null);
   });
 
   // TODO: Test event triggers
-
 
   it('a spell with 1 charge going on cooldown triggers an `updatespellusable` event', () => {
     parserMock.triggerEvent = jest.fn();
