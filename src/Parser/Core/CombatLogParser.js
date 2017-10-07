@@ -10,7 +10,7 @@ import AbilityTracker from './Modules/AbilityTracker';
 import Haste from './Modules/Haste';
 import AlwaysBeCasting from './Modules/AlwaysBeCasting';
 import CastEfficiency from './Modules/CastEfficiency';
-import CooldownUsable from './Modules/CooldownUsable';
+import SpellUsable from './Modules/SpellUsable';
 import Enemies from './Modules/Enemies';
 import EnemyInstances from './Modules/EnemyInstances';
 import Pets from './Modules/Pets';
@@ -88,7 +88,7 @@ class CombatLogParser {
     haste: Haste,
     alwaysBeCasting: AlwaysBeCasting,
     castEfficiency: CastEfficiency,
-    cooldownUsable: CooldownUsable,
+    spellUsable: SpellUsable,
     manaValues: ManaValues,
     vantusRune: VantusRune,
 

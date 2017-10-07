@@ -11,7 +11,7 @@ function spellName(spellId) {
   return SPELLS[spellId] ? SPELLS[spellId].name : '???';
 }
 
-class CooldownUsable extends Module {
+class SpellUsable extends Module {
   static dependencies = {
     castEfficiency: CastEfficiency,
   };
@@ -23,7 +23,7 @@ class CooldownUsable extends Module {
   isAvailable(spellId) {
     if (this.isOnCooldown(spellId)) {
       const maxCharges = this.castEfficiency.getMaxCharges(spellId);
-      if (maxCharges > this._currentCooldowns[spellId].charges) {
+      if (maxCharges > this._currentCooldowns[spellId].chargesOnCooldown) {
         return true;
       }
       return false;
@@ -55,7 +55,7 @@ class CooldownUsable extends Module {
    * @param {number|null} overrideDurationMs This allows you to override the duration of the cooldown. If this isn't provided, the cooldown is calculated like normal.
    * @param {number} timestamp Override the timestamp if it may be different from the current timestamp.
    */
-  startCooldown(spellId, overrideDurationMs = null, timestamp = this.owner.currentTimestamp) {
+  beginCooldown(spellId, overrideDurationMs = null, timestamp = this.owner.currentTimestamp) {
     const expectedCooldownDuration = overrideDurationMs || this.castEfficiency.getExpectedCooldownDuration(spellId);
     if (!expectedCooldownDuration) {
       debug && console.warn('Spell', spellName(spellId), spellId, 'doesn\'t have a cooldown.');
@@ -66,14 +66,14 @@ class CooldownUsable extends Module {
       this._currentCooldowns[spellId] = {
         start: timestamp,
         expectedEnd: timestamp + expectedCooldownDuration,
-        charges: 1,
+        chargesOnCooldown: 1,
       };
-      this._triggerEvent('startcooldown', this._makeEvent(spellId, timestamp, this._currentCooldowns[spellId]));
+      this._triggerEvent('updatespellusable', this._makeEvent(spellId, timestamp, 'begincooldown'));
     } else {
       if (this.isAvailable(spellId)) {
         // Another charge is available
-        this._currentCooldowns[spellId].charges += 1;
-        this._triggerEvent('startcooldowncharge', this._makeEvent(spellId, timestamp, this._currentCooldowns[spellId]));
+        this._currentCooldowns[spellId].chargesOnCooldown += 1;
+        this._triggerEvent('updatespellusable', this._makeEvent(spellId, timestamp, 'addcooldowncharge'));
       } else {
         console.error(
           formatDuration(this.owner.fightDuration / 1000),
@@ -82,8 +82,8 @@ class CooldownUsable extends Module {
           'cooldown remaining:', this.cooldownRemaining(spellId, timestamp),
           'expectedCooldownDuration:', (this._currentCooldowns[spellId].expectedEnd - this._currentCooldowns[spellId].start)
         );
-        this.finishCooldown(spellId, false, timestamp);
-        this.startCooldown(spellId, overrideDurationMs, timestamp);
+        this.endCooldown(spellId, false, timestamp);
+        this.beginCooldown(spellId, overrideDurationMs, timestamp);
       }
     }
   }
@@ -93,22 +93,22 @@ class CooldownUsable extends Module {
    * @param {boolean} resetAllCharges Whether all charges should be reset or just the last stack. Does nothing for spells with just 1 stack.
    * @param {number} timestamp Override the timestamp if it may be different from the current timestamp.
    */
-  finishCooldown(spellId, resetAllCharges = false, timestamp = this.owner.currentTimestamp) {
+  endCooldown(spellId, resetAllCharges = false, timestamp = this.owner.currentTimestamp) {
     if (!this.isOnCooldown(spellId)) {
       throw new Error(`Tried to finish the cooldown of ${spellId}, but it's not on cooldown.`);
     }
 
     const cooldown = this._currentCooldowns[spellId];
-    if (cooldown.charges === 1 || resetAllCharges) {
+    if (cooldown.chargesOnCooldown === 1 || resetAllCharges) {
       delete this._currentCooldowns[spellId];
-      this._triggerEvent('finishcooldown', this._makeEvent(spellId, timestamp, {
+      this._triggerEvent('updatespellusable', this._makeEvent(spellId, timestamp, 'endcooldown', {
         ...cooldown,
         end: timestamp,
       }));
     } else {
       // We have another charge ready to go on cooldown, this simply add a charge and then refreshes the cooldown (it doesn't cooldown simultaneously)
-      cooldown.charges -= 1;
-      this._triggerEvent('finishcooldowncharge', this._makeEvent(spellId, timestamp, cooldown));
+      cooldown.chargesOnCooldown -= 1;
+      this._triggerEvent('updatespellusable', this._makeEvent(spellId, timestamp, 'removecooldowncharge', cooldown));
       this.refreshCooldown(spellId, null, timestamp);
     }
   }
@@ -130,7 +130,7 @@ class CooldownUsable extends Module {
     }
 
     this._currentCooldowns[spellId].expectedEnd = timestamp + expectedCooldownDuration;
-    this._triggerEvent('refreshcooldown', this._makeEvent(spellId, timestamp, this._currentCooldowns[spellId]));
+    this._triggerEvent('updatespellusable', this._makeEvent(spellId, timestamp, 'refreshcooldown'));
   }
   /**
    * Reduces the cooldown for the provided spell by the provided duration.
@@ -145,7 +145,7 @@ class CooldownUsable extends Module {
     }
     const cooldownRemaining = this.cooldownRemaining(spellId, timestamp);
     if (cooldownRemaining < durationMs) {
-      this.finishCooldown(spellId, false, timestamp);
+      this.endCooldown(spellId, false, timestamp);
       return cooldownRemaining;
     } else {
       this._currentCooldowns[spellId].expectedEnd -= durationMs;
@@ -153,10 +153,23 @@ class CooldownUsable extends Module {
     }
   }
 
-  _makeEvent(spellId, timestamp, others = {}) {
+  _makeEvent(spellId, timestamp, trigger, others = {}) {
+    const cooldown = this._currentCooldowns[spellId];
+    const chargesOnCooldown = cooldown ? cooldown.chargesOnCooldown : 0;
+    const maxCharges = this.castEfficiency.getMaxCharges(spellId) || 1;
     return {
       spellId,
-      timestamp: timestamp,
+      trigger,
+      timestamp,
+      isOnCooldown: this.isOnCooldown(spellId),
+      isAvailable: this.isAvailable(spellId),
+      chargesAvailable: maxCharges - chargesOnCooldown,
+      maxCharges,
+      rechargeTime: this.cooldownRemaining(spellId),
+      sourceID: this.owner.playerId,
+      targetID: this.owner.playerId,
+      isCustom: true,
+      ...cooldown,
       ...others,
     };
   }
@@ -165,19 +178,19 @@ class CooldownUsable extends Module {
       const spellId = event.spellId;
       const fightDuration = formatDuration((event.timestamp - this.owner.fight.start_time) / 1000);
       switch (eventType) {
-        case 'startcooldown':
-          console.log(fightDuration, 'Cooldown started:', spellName(spellId), spellId, `(charges on cooldown: ${this._currentCooldowns[spellId].charges})`);
+        case 'begincooldown':
+          console.log(fightDuration, 'Cooldown started:', spellName(spellId), spellId, `(charges on cooldown: ${this._currentCooldowns[spellId].chargesOnCooldown})`);
           break;
-        case 'startcooldowncharge':
-          console.log(fightDuration, 'Used another charge:', spellName(spellId), spellId, `(charges on cooldown: ${this._currentCooldowns[spellId].charges})`);
+        case 'begincooldowncharge':
+          console.log(fightDuration, 'Used another charge:', spellName(spellId), spellId, `(charges on cooldown: ${this._currentCooldowns[spellId].chargesOnCooldown})`);
           break;
         case 'refreshcooldown':
           console.log(fightDuration, 'Cooldown refreshed:', spellName(spellId), spellId);
           break;
-        case 'finishcooldowncharge':
-          console.log(fightDuration, 'Charge cooldown finished:', spellName(spellId), spellId, `(charges left on cooldown: ${this._currentCooldowns[spellId].charges})`);
+        case 'restorecooldowncharge':
+          console.log(fightDuration, 'Charge cooldown finished:', spellName(spellId), spellId, `(charges left on cooldown: ${this._currentCooldowns[spellId].chargesOnCooldown})`);
           break;
-        case 'finishcooldown':
+        case 'endcooldown':
           console.log(fightDuration, 'Cooldown finished:', spellName(spellId), spellId);
           break;
         default: break;
@@ -189,18 +202,26 @@ class CooldownUsable extends Module {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    this.startCooldown(spellId, null, event.timestamp);
+    this.beginCooldown(spellId, null, event.timestamp);
   }
-  on_event(_, event) {
-    const timestamp = (event && event.timestamp) || this.owner.currentTimestamp;
+  _checkCooldowns(timestamp) {
     Object.keys(this._currentCooldowns).forEach(spellId => {
       const activeCooldown = this._currentCooldowns[spellId];
       if (timestamp > activeCooldown.expectedEnd) {
         // Using > instead of >= here since most events, when they're at the exact same time, still apply that frame.
-        this.finishCooldown(Number(spellId), false, activeCooldown.expectedEnd);
+        this.endCooldown(Number(spellId), false, activeCooldown.expectedEnd);
       }
     });
   }
+  _isCheckingCooldowns = false;
+  on_event(_, event) {
+    if (!this._isCheckingCooldowns) {
+      // This ensures this method isn't called again before it's finished (_checkCooldowns might trigger events).
+      this._isCheckingCooldowns = true;
+      this._checkCooldowns((event && event.timestamp) || this.owner.currentTimestamp);
+      this._isCheckingCooldowns = false;
+    }
+  }
 }
 
-export default CooldownUsable;
+export default SpellUsable;

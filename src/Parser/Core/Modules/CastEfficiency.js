@@ -147,7 +147,7 @@ class CastEfficiency extends Module {
    */
   getMaxCharges(spellId) {
     const ability = this.getAbility(spellId);
-    return ability ? ability.charges || 1 : undefined;
+    return ability ? (ability.charges || 1) : undefined;
   }
 
   suggestions(when) {

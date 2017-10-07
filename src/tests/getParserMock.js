@@ -9,5 +9,6 @@ export default function getParserMock() {
     fight: {
       start_time: 0,
     },
+    playerId: 1,
   };
 }
