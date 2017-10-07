@@ -45,6 +45,7 @@ import Cultivation from './Modules/Features/Cultivation';
 import SpringBlossoms from './Modules/Features/SpringBlossoms';
 import CenarionWard from './Modules/Features/CenarionWard';
 import NaturesEssence from './Modules/Features/NaturesEssence';
+import Ironbark from './Modules/Features/Ironbark';
 
 import RelicTraits from './Modules/Traits/RelicTraits';
 import ArmorOfTheAncients from './Modules/Traits/ArmorOfTheAncients';
@@ -92,6 +93,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cultivation: Cultivation,
     cenarionWard: CenarionWard,
     naturesEssence: NaturesEssence,
+    ironbark: Ironbark,
 
     // Legendaries:
     ekowraith: Ekowraith,

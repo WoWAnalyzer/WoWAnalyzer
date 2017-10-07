@@ -1,4 +1,7 @@
 export default `
+05-10-2017 - remove Cyclonic Burst from Cooldown view. (by Putro) 
+05-10-2017 - Added Artifact Trait cooldown reduction for trueshot. (by Putro) 
+04-10-2017 - Added Aimed Shot and Vulnerable tracker. (by Putro) 
 03-10-2017 - Added tier20 support. (by Putro)
 02-10-2017 - Added bullseye buff to hunter_spells for future usage. - (by Putro)
 02-10-2017 - Changed dead time to stricter, and get the player to cast more (should generally always be casting something). - (by Putro)

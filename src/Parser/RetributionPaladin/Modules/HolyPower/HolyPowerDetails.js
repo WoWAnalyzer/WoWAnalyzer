@@ -64,7 +64,7 @@ class HolyPowerDetails extends Module {
       ),
     };
   }
-  statisticOrder = STATISTIC_ORDER.CORE(2);
+  statisticOrder = STATISTIC_ORDER.CORE(4);
 }
 
 export default HolyPowerDetails;
