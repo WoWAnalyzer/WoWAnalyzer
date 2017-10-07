@@ -7,7 +7,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import getDamageBonusStacked from '../PaladinCore/getDamageBonusStacked';
+import GetDamageBonusStacked from '../PaladinCore/GetDamageBonusStacked';
 
 const DELIVER_THE_JUSTICE_INCREASE = 0.08;
 /**
@@ -30,7 +30,7 @@ class DeliverTheJustice extends Module {
 
 	on_byPlayer_damage(event) {
 		if(event.ability.guid === SPELLS.BLADE_OF_JUSTICE.id || event.ability.guid === SPELLS.DIVINE_HAMMER_HIT.id){
-			this.damage += getDamageBonusStacked(event, DELIVER_THE_JUSTICE_INCREASE, this.rank);
+			this.damage += GetDamageBonusStacked(event, DELIVER_THE_JUSTICE_INCREASE, this.rank);
 		}
 	}
 

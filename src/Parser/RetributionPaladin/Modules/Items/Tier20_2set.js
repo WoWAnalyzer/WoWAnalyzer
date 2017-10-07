@@ -8,7 +8,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-import getDamageBonus from '../PaladinCore/getDamageBonus';
+import GetDamageBonus from '../PaladinCore/GetDamageBonus';
 
 const RET_PALADIN_T20_2SET_MODIFIER = 0.2;
 
@@ -33,7 +33,7 @@ class Tier20_2set extends Module {
 
   on_byPlayer_damage(event) {
     if (this.combatants.selected.hasBuff(SPELLS.RET_PALADIN_T20_2SET_BONUS_BUFF.id) && (event.ability.guid === SPELLS.BLADE_OF_JUSTICE.id || event.ability.guid === SPELLS.DIVINE_HAMMER_HIT.id)) {
-      this.damageDone += getDamageBonus(event, RET_PALADIN_T20_2SET_MODIFIER);
+      this.damageDone += GetDamageBonus(event, RET_PALADIN_T20_2SET_MODIFIER);
     }
   }
 
