@@ -7,7 +7,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import GetDamageBonusStacked from '../PaladinCore/GetDamageBonusStacked';
+import getDamageBonusStacked from '../PaladinCore/getDamageBonusStacked';
 
 const HIGHLORDS_JUDGMENT_INCREASE = 0.08;
 /**
@@ -32,7 +32,7 @@ const HIGHLORDS_JUDGMENT_INCREASE = 0.08;
  		if(event.ability.guid !== SPELLS.JUDGMENT_CAST.id){
  			return;
  		}
- 		this.damage += GetDamageBonusStacked(event, HIGHLORDS_JUDGMENT_INCREASE, this.rank);
+ 		this.damage += getDamageBonusStacked(event, HIGHLORDS_JUDGMENT_INCREASE, this.rank);
  	}
 
  	subStatistic() {

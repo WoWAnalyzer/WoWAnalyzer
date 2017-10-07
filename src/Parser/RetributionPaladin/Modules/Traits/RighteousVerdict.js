@@ -7,7 +7,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import GetDamageBonusStacked from '../PaladinCore/GetDamageBonusStacked';
+import getDamageBonusStacked from '../PaladinCore/getDamageBonusStacked';
 
 const RIGHTEOUS_VERDICT_INCREASE = 0.08;
 /**
@@ -34,7 +34,7 @@ const RIGHTEOUS_VERDICT_INCREASE = 0.08;
  			return;
  		}
  		if(event.ability.guid === SPELLS.BLADE_OF_JUSTICE.id || event.ability.guid === SPELLS.DIVINE_HAMMER_HIT.id){
- 			this.damage += GetDamageBonusStacked(event, RIGHTEOUS_VERDICT_INCREASE, this.rank);
+ 			this.damage += getDamageBonusStacked(event, RIGHTEOUS_VERDICT_INCREASE, this.rank);
  		}
  	}
 

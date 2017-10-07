@@ -7,7 +7,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import GetDamageBonusStacked from '../PaladinCore/GetDamageBonusStacked';
+import getDamageBonusStacked from '../PaladinCore/getDamageBonusStacked';
 
 
 const MIGHT_OF_THE_TEMPLAR_INCREASE = 0.02;
@@ -34,7 +34,7 @@ class MightOfTheTemplar extends Module {
  			return;
  		}
 
- 		this.damage += GetDamageBonusStacked(event, MIGHT_OF_THE_TEMPLAR_INCREASE, this.rank);
+ 		this.damage += getDamageBonusStacked(event, MIGHT_OF_THE_TEMPLAR_INCREASE, this.rank);
  	}
 
  	subStatistic() {
