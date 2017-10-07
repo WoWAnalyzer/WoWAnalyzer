@@ -413,6 +413,11 @@ export default {
     name:'Knowledge of the Ancients',
     icon: 'ability_druid_manatree',
   },
+  ARMOR_OF_THE_ANCIENTS: {
+    id: 189754,
+    name: 'Armor of the Ancients',
+    icon: 'spell_druid_ironbark',
+  },
 
   // GUARDIAN //
   MANGLE_BEAR: {
