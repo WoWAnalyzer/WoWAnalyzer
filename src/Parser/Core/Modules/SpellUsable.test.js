@@ -39,28 +39,6 @@ describe('Core/Modules/SpellUsable', () => {
     triggerCast(SPELLS.FAKE_SPELL.id);
     expect(instance.isOnCooldown(SPELLS.FAKE_SPELL.id)).toBe(true);
   });
-  it('A new spell going on cooldown triggers an event to indicate the spell going on cooldown', () => {
-    triggerCast(SPELLS.FAKE_SPELL.id);
-
-    expect(parserMock.triggerEvent).toHaveBeenCalledTimes(1);
-    const call = parserMock.triggerEvent.mock.calls[0];
-    expect(call[0]).toBe('updatespellusable');
-    expect(call[1]).toEqual({
-      spellId: SPELLS.FAKE_SPELL.id,
-      timestamp: parserMock.currentTimestamp,
-      start: parserMock.currentTimestamp,
-      expectedEnd: parserMock.currentTimestamp + 7500, // TODO: might be better to turn this into "expectedDuration"
-      trigger: 'begincooldown',
-      isOnCooldown: true,
-      isAvailable: false,
-      chargesAvailable: 0,
-      chargesOnCooldown: 1,
-      maxCharges: 1,
-      rechargeTime: 7500,
-      sourceID: parserMock.playerId,
-      targetID: parserMock.playerId,
-    });
-  });
   it('even if a spell has another charge left it\'s still considered on cooldown', () => {
     castEfficiencyMock.getMaxCharges = jest.fn(() => 2);
     triggerCast(SPELLS.FAKE_SPELL.id);
@@ -156,49 +134,79 @@ describe('Core/Modules/SpellUsable', () => {
     expect(instance.cooldownRemaining(SPELLS.FAKE_SPELL.id)).toBe(null);
   });
 
-  // TODO: Test event triggers
-
-  it('a spell with 1 charge going on cooldown triggers an `updatespellusable` event', () => {
-    parserMock.triggerEvent = jest.fn();
+  // Event handlers are separate to keep the above tests much simpler and cleaner. Their separation isn't *that* weird.
+  it('a new spell going on cooldown triggers an `updatespellusable` event indicating the spell going on cooldown', () => {
     triggerCast(SPELLS.FAKE_SPELL.id);
 
     expect(parserMock.triggerEvent).toHaveBeenCalledTimes(1);
-    expect(parserMock.triggerEvent.mock.calls[0][0]).toBe('updatespellusable');
-    const event = parserMock.triggerEvent.mock.calls[0][1];
-    expect(event.spellId).toBe(SPELLS.FAKE_SPELL.id);
-    expect(event.trigger).toBe('begincooldown');
-    expect(event.timestamp).toBe(0);
-    expect(event.isOnCooldown).toBe(true);
-    expect(event.isAvailable).toBe(false);
-    expect(event.chargesOnCooldown).toBe(1);
-    expect(event.chargesAvailable).toBe(0);
-    expect(event.maxCharges).toBe(1);
-    expect(event.rechargeTime).toBe(7500);
-    expect(event.sourceID).toBe(parserMock.playerId);
-    expect(event.targetID).toBe(parserMock.playerId);
-    expect(event.start).toBe(0);
-    expect(event.expectedEnd).toBe(7500);
+    const call = parserMock.triggerEvent.mock.calls[0];
+    expect(call[0]).toBe('updatespellusable');
+    expect(call[1]).toEqual({
+      spellId: SPELLS.FAKE_SPELL.id,
+      timestamp: parserMock.currentTimestamp,
+      start: parserMock.currentTimestamp,
+      expectedEnd: parserMock.currentTimestamp + 7500, // TODO: might be better to turn this into "expectedDuration"
+      trigger: 'begincooldown',
+      isOnCooldown: true,
+      isAvailable: false,
+      chargesAvailable: 0,
+      chargesOnCooldown: 1,
+      maxCharges: 1,
+      rechargeTime: 7500,
+      sourceID: parserMock.playerId,
+      targetID: parserMock.playerId,
+    });
   });
-  it('a spell with 2 charges going on cooldown triggers an `updatespellusable` event', () => {
-    castEfficiencyMock.getMaxCharges = jest.fn(() => 2);
+  it('casting a spell already on cooldown before the cooldown runs out restarts the cooldown and fires both endcooldown and begincooldown events', () => {
+    triggerCast(SPELLS.FAKE_SPELL.id);
     parserMock.triggerEvent = jest.fn();
     triggerCast(SPELLS.FAKE_SPELL.id);
 
-    expect(parserMock.triggerEvent).toHaveBeenCalledTimes(1);
-    expect(parserMock.triggerEvent.mock.calls[0][0]).toBe('updatespellusable');
-    const event = parserMock.triggerEvent.mock.calls[0][1];
-    expect(event.spellId).toBe(SPELLS.FAKE_SPELL.id);
-    expect(event.trigger).toBe('begincooldown');
-    expect(event.timestamp).toBe(0);
-    expect(event.isOnCooldown).toBe(true);
-    expect(event.isAvailable).toBe(true);
-    expect(event.chargesOnCooldown).toBe(1);
-    expect(event.chargesAvailable).toBe(1);
-    expect(event.maxCharges).toBe(2);
-    expect(event.rechargeTime).toBe(7500);
-    expect(event.sourceID).toBe(parserMock.playerId);
-    expect(event.targetID).toBe(parserMock.playerId);
-    expect(event.start).toBe(0);
-    expect(event.expectedEnd).toBe(7500);
+    expect(parserMock.triggerEvent).toHaveBeenCalledTimes(2);
+    {
+      const call = parserMock.triggerEvent.mock.calls[0];
+      expect(call[0]).toBe('updatespellusable');
+      expect(call[1]).toEqual({
+        spellId: SPELLS.FAKE_SPELL.id,
+        timestamp: parserMock.currentTimestamp,
+        start: parserMock.currentTimestamp,
+        end: parserMock.currentTimestamp,
+        expectedEnd: parserMock.currentTimestamp + 7500, // TODO: might be better to turn this into "expectedDuration"
+        trigger: 'endcooldown',
+        isOnCooldown: false,
+        isAvailable: true,
+        chargesAvailable: 1,
+        chargesOnCooldown: 1,
+        maxCharges: 1,
+        rechargeTime: null,
+        sourceID: parserMock.playerId,
+        targetID: parserMock.playerId,
+      });
+    }
+    {
+      const call = parserMock.triggerEvent.mock.calls[1];
+      expect(call[0]).toBe('updatespellusable');
+      expect(call[1]).toEqual({
+        spellId: SPELLS.FAKE_SPELL.id,
+        timestamp: parserMock.currentTimestamp,
+        start: parserMock.currentTimestamp,
+        expectedEnd: parserMock.currentTimestamp + 7500, // TODO: might be better to turn this into "expectedDuration"
+        trigger: 'begincooldown',
+        isOnCooldown: true,
+        isAvailable: false,
+        chargesAvailable: 0,
+        chargesOnCooldown: 1,
+        maxCharges: 1,
+        rechargeTime: 7500,
+        sourceID: parserMock.playerId,
+        targetID: parserMock.playerId,
+      });
+    }
+  });
+  it('a spell going off cooldown triggers an `updatespellusable` event indicating the spell going off cooldown', () => {
+    fail();
+  });
+  it('a spell having a charge restored while there\'s still another charge recharging, triggers an `updatespellusable` event indicating the charge being available again and another `updatespellusable` event to indicate the cooldown starting to recharge the next charge', () => {
+    fail();
   });
 });
