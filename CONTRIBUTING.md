@@ -25,7 +25,7 @@ To get the code running on your computer you will need a few things. You might a
 <table align="center">
   <tr>
     <td align="center" width="150"><img src="https://www.docker.com/sites/default/files/mono_horizontal_large.png" alt="Docker"></td>
-    <td>There's also a Docker container available so you don't have to install any software other than Git. Follow steps 1-3 and do the <code>.env.local</code> thing and then fire up the Docker container with <code>docker-compose up dev</code>. Just like the regular development environment it will automatically recompile your code and refresh your browser whenever you make changes to the code so long as it is running.</td>
+    <td>There's also a Docker container available so you don't have to install any software other than Git (and your IDE). Follow steps 1-3 and do the <code>.env.local</code> thing and then fire up the Docker container with <code>docker-compose up dev</code> (first start might take a few minutes). Just like the regular development environment it will automatically recompile your code and refresh your browser whenever you make changes to the code so long as it is running.</td>
   </tr>
 </table>
 
@@ -47,6 +47,8 @@ Your command window should now start compiling the application and if all went w
 ## Troubleshooting
 
 If you are currently dealing with some path errors (module not found), instead of running `npm start`, run `NODE_PATH=src/ npm run start`.
+
+If you are getting `Error: Invalid key specified`, ensure your key is correct in `.env.local` and restart `npm start` after changing the file so the new value is loaded (.env files are cached).
 
 # Editing
 
