@@ -340,6 +340,12 @@ export default {
     name: "X'oni's Caress",
     icon: 'spell_druid_ironbark',
   },
+  //Guardian Druid T19 2set
+  GUARDIAN_DRUID_T19_2SET_BONUS_BUFF: {
+    id: 211149,
+    name: 'T19 2 set bonus',
+    icon: 'trade_engineering',
+  },
 
   // Traits:
   POWER_OF_THE_ARCHDRUID: {
@@ -494,6 +500,11 @@ export default {
     name: 'Fleshknitting',
     icon: 'ability_bullrush',
   },
+  BEAR_HUG_TRAIT: {
+    id: 215799,
+    name: 'Bear Hug',
+    icon: 'spell_druid_bearhug',
+  },
   GORE_BEAR: {
     id: 93622,
     name: 'Gore',
@@ -555,7 +566,7 @@ export default {
     icon: 'ability_druid_primaltenacity',
   },
   BRISTLING_FUR: {
-    id: 155835,
+    id: 204031,
     name: 'Bristling Fur',
     icon: 'spell_druid_bristlingfur',
   },
