@@ -247,6 +247,12 @@ export default {
     name: 'Demonic Vigor',
     icon: 'inv_relics_warpring',
   },
+  // Chrono Shard buff
+  ACCELERATION: {
+    id: 137419,
+    name: 'Acceleration',
+    icon: 'inv_7_0raid_trinket_05a',
+  },
   MARCH_OF_THE_LEGION: {
     id: 228446,
     name: 'March of the Legion',
