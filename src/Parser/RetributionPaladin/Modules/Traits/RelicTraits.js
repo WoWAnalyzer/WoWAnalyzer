@@ -8,7 +8,7 @@ import MightOfTheTemplar from './MightOfTheTemplar';
 import HighlordsJudgment from './HighlordsJudgment';
 import DeliverTheJustice from './DeliverTheJustice';
 import RighteousVerdict from './RighteousVerdict';
-import SharpenedEdge from './SharpenedEdge';
+import WrathOfTheAshbringer from './WrathOfTheAshbringer';
 
 class RelicTraits extends Module {
   static dependencies = {
@@ -16,7 +16,7 @@ class RelicTraits extends Module {
     highlordsJudgment: HighlordsJudgment,
     deliverTheJustice: DeliverTheJustice,
     righteousVerdict: RighteousVerdict,
-    sharpenedEdge: SharpenedEdge,
+    wrathOfTheAshbringer: WrathOfTheAshbringer,
   };
 
   statistic() {
@@ -26,11 +26,11 @@ class RelicTraits extends Module {
         tooltip="This only calculates the value of the last point of each relic trait; for you with your gear and only during this fight. The value of an additional point would likely be slightly lower due to increased overhealing."
         style={{ minHeight: 186 }}
       >
+        {this.wrathOfTheAshbringer.subStatistic()}
         {this.mightOfTheTemplar.subStatistic()}
         {this.highlordsJudgment.subStatistic()}
         {this.deliverTheJustice.subStatistic()}
-        {this.righteousVerdict.subStatistic()}
-        {this.sharpenedEdge.subStatistic()}
+        {this.righteousVerdict.subStatistic()}}
       </StatisticsListBox>
     );
   }

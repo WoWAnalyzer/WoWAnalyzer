@@ -26,7 +26,7 @@ import MightOfTheTemplar from './Modules/Traits/MightOfTheTemplar';
 import HighlordsJudgment from './Modules/Traits/HighlordsJudgment';
 import DeliverTheJustice from './Modules/Traits/DeliverTheJustice';
 import RighteousVerdict from './Modules/Traits/RighteousVerdict';
-import SharpenedEdge from './Modules/Traits/SharpenedEdge';
+import WrathOfTheAshbringer from './Modules/Traits/WrathOfTheAshbringer';
 
 import WhisperOfTheNathrezim from './Modules/Items/WhisperOfTheNathrezim';
 import LiadrinsFuryUnleashed from './Modules/Items/LiadrinsFuryUnleashed';
@@ -63,7 +63,7 @@ class CombatLogParser extends CoreCombatLogParser {
     highlordsJudgment: HighlordsJudgment,
     deliverTheJustice: DeliverTheJustice,
     righteousVerdict: RighteousVerdict,
-    sharpenedEdge: SharpenedEdge,
+    wrathOfTheAshbringer: WrathOfTheAshbringer,
 
     // Items:
     whisperOfTheNathrezim: WhisperOfTheNathrezim,
