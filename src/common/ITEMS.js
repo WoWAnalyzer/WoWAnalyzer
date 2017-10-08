@@ -258,6 +258,18 @@ const ITEMS = {
     icon: 'inv_belt_92v4',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+  //Mage
+  SHATTERED_FRAGMENTS_SINDRAGOSA: {
+	  id: 151810,
+	  name: 'Shattered Fragments of Sindragosa',
+	  icon: 'inv_helmet_133',
+  },
+  SHARD_OF_EXODAR: {
+	  id: 132410,
+	  name: 'Shard of the Exodar',
+	  icon: 'inv_6_2raid_ring_2a',
+	  quality: ITEM_QUALITIES.LEGENDARY,
+  },
   // Trinkets
   DARKMOON_DECK_PROMISES: {
     id: 128710,
