@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Chart from 'chart.js';
 
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 
-const FocusComponent = ({ categories, abilities, passive}) => {
+const FocusComponent = ({ categories, abilities, passive, focusBySecondCoord, overCapBySecondCoord}) => {
   if (!abilities) {
     return <div>Loading...</div>;
   }
@@ -82,6 +83,9 @@ FocusComponent.propTypes = {
   })).isRequired,
   categories: PropTypes.object,
   passive: PropTypes.array,
+  focusBySecondCoord: PropTypes.array,
+  overCapBySecondCoord: PropTypes.array,
 };
+
 
 export default FocusComponent;
