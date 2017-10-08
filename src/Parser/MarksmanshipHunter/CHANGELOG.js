@@ -1,5 +1,5 @@
 export default `
-07-10-2017 - Added Focus Generation/Waste Tracker Chart Tab and additional supporting modules (By leapis)
+08-10-2017 - Added FocusTracker Module and FocusTracker Graph module and additional supporting modules (By leapis)
 05-10-2017 - remove Cyclonic Burst from Cooldown view. (by Putro) 
 04-10-2017 - Added Aimed Shot and Vulnerable tracker. (by Putro) 
 03-10-2017 - Added tier20 support. (by Putro)
