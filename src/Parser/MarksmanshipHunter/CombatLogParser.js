@@ -72,7 +72,7 @@ class CombatLogParser extends CoreCombatLogParser {
               end={this.fight.end_time}
               playerHaste={this.modules.combatants.selected.hasteRating}
               focusMax={this.modules.focusTracker._maxFocus}
-              passiveWaste={this.modules.focusTracker.cappedTimer}
+              focusPerSecond={this.modules.focusTracker.focusBySecond}
               tracker={this.modules.focusTracker.tracker}
               secondsCapped={this.modules.focusTracker.secondsCapped}
               activeFocusGenerated={this.modules.focusTracker.activeFocusGenerated}

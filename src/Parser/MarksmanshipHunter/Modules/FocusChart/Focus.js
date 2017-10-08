@@ -23,7 +23,7 @@ class Focus extends React.PureComponent {
     end: PropTypes.number.isRequired,
     playerHaste: PropTypes.number.isRequired,
     focusMax: PropTypes.number,
-    passiveWaste: PropTypes.array,
+    focusPerSecond: PropTypes.array,
     tracker : PropTypes.number,
     secondsCapped: PropTypes.number,
     activeFocusGenerated: PropTypes.object,
@@ -53,8 +53,8 @@ class Focus extends React.PureComponent {
     const focusBySecond = [];
     const magicGraphNumber = Math.floor(maxFocus / 2);
     let passiveWasteIndex = 0;
-    if (this.props.passiveWaste && this.props.activeFocusWastedTimeline){
-      this.props.passiveWaste.forEach((item) => {
+    if (this.props.focusPerSecond && this.props.activeFocusWastedTimeline){
+      this.props.focusPerSecond.forEach((item) => {
         const secIntoFight = Math.floor(passiveWasteIndex / 1000);
         if (Math.max(focusBySecond[secIntoFight], item) >= magicGraphNumber){ //aims to get highest peak
          focusBySecond[secIntoFight] = Math.max(focusBySecond[secIntoFight], item);
@@ -143,20 +143,12 @@ class Focus extends React.PureComponent {
 
     let maxX = 0;
     const myLabels = [];
-    const focusBySecondCoord = [];
     for (maxX = 0; maxX < focusBySecond.length; maxX++){
-      focusBySecondCoord.push({x:formatDuration(maxX),y:focusBySecond[maxX]});
       if (maxX % 30 === 0){
         myLabels[maxX] = (formatDuration(maxX));
       }
     }
     myLabels[maxX-1] = formatDuration(maxX-1);
-    console.log(myLabels);
-    const overCapBySecondCoord = [];
-    for (let i = 0; i < overCapBySecond.length; i++){
-      overCapBySecondCoord.push({x:formatDuration(i),y:overCapBySecond[i]});
-    }
-
 
     const myData = {
       labels: myLabels,
@@ -232,8 +224,6 @@ class Focus extends React.PureComponent {
           abilities={abilities}
           categories={categories}
           passive = {(totalWasted)}
-          overCapBySecondCoord = {overCapBySecondCoord}
-          focusBySecondCoord = {focusBySecondCoord}
         />
       </div>
     );

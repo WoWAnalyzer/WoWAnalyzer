@@ -10,12 +10,12 @@ class FocusTracker extends Module {
 	}
 
 
-	cappedTimer = [];
+	focusBySecond = [];
 	activeFocusWasted = {};
 	activeFocusWastedTimeline = {};
 	generatorCasts = {};
 	activeFocusGenerated = {};
-	tracker = 0; //to tell if cappedTimer prop has updated, since we can't compare arrays
+	tracker = 0; //to tell if any prop has updated, since we can't compare arrays
 	_maxFocus = 0;
 
 
@@ -58,10 +58,10 @@ class FocusTracker extends Module {
 			this.tracker++;
 			const secIntoFight = (event.timestamp - this.owner.fight.start_time);
 			if(event.classResources[0]['cost']){
-				this.cappedTimer[secIntoFight] = (event.classResources[0]['amount'] - event.classResources[0]['cost']);
+				this.focusBySecond[secIntoFight] = (event.classResources[0]['amount'] - event.classResources[0]['cost']);
 			}
 			else{
-				this.cappedTimer[secIntoFight] = (event.classResources[0]['amount']);
+				this.focusBySecond[secIntoFight] = (event.classResources[0]['amount']);
 			}
       this.checkForError(secIntoFight);
 			this.extrapolateFocus(event.timestamp);
@@ -69,8 +69,8 @@ class FocusTracker extends Module {
   }
 
   checkForError(secIntoFight){
-    if (this.cappedTimer[secIntoFight] - this._maxFocus > 0){
-      this.cappedTimer[secIntoFight] = Math.floor(this.cappedTimer[secIntoFight]);
+    if (this.focusBySecond[secIntoFight] - this._maxFocus > 0){
+      this.focusBySecond[secIntoFight] = Math.floor(this.focusBySecond[secIntoFight]);
     }
   }
 
@@ -111,20 +111,20 @@ class FocusTracker extends Module {
   	const focusGenerationPerSecond = Math.round((10 + .1 * this.combatants.selected.hasteRating / 375)*100)/100;
   	this.secondsCapped = 0;
   	const maxFocus = this._maxFocus;
-  	this.cappedTimer[0] = maxFocus;
+  	this.focusBySecond[0] = maxFocus;
     for (let i = 0; i < (event - this.owner.fight.start_time); i++){  //extrapolates focus given passive focus gain (TODO: Update for pulls with Volley)
-      if (!this.cappedTimer[i]){
-        if (this.cappedTimer[i - 1] >= maxFocus){
-          this.cappedTimer[i] = maxFocus;
+      if (!this.focusBySecond[i]){
+        if (this.focusBySecond[i - 1] >= maxFocus){
+          this.focusBySecond[i] = maxFocus;
         }
         else{ 
-          this.cappedTimer[i] = this.cappedTimer[i-1] + focusGenerationPerSecond/1000;
+          this.focusBySecond[i] = this.focusBySecond[i-1] + focusGenerationPerSecond/1000;
         }
       }
-      if(this.cappedTimer[i] - maxFocus > 0){
-        this.cappedTimer[i] = maxFocus;
+      if(this.focusBySecond[i] - maxFocus > 0){
+        this.focusBySecond[i] = maxFocus;
       }
-      if (maxFocus === this.cappedTimer[i]){
+      if (maxFocus === this.focusBySecond[i]){
         this.secondsCapped += 1/1000;
       }
 
