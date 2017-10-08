@@ -68,8 +68,6 @@ class CombatLogParser extends CoreCombatLogParser {
         render: () => (
           <Tab title="focus" style={{ padding: '15px 22px' }}>
             <FocusChart
-              reportCode={this.report.code}
-              actorId={this.playerId}
               start={this.fight.start_time}
               end={this.fight.end_time}
               playerHaste={this.modules.combatants.selected.hasteRating}

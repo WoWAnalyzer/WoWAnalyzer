@@ -2,18 +2,10 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import ChartistGraph from 'react-chartist';
 import {Line} from 'react-chartjs-2';
-import {Scatter} from 'react-chartjs-2';
-import Chartist from 'chartist';
-import 'chartist-plugin-legend';
-import Chart from 'chart.js';
-import makeWclUrl from 'common/makeWclUrl';
 import SPELLS from 'common/SPELLS';
 
-import specialEventIndicators from 'Main/Chartist/specialEventIndicators';
-
-import { formatDuration } from 'common/format';
+//import { formatDuration } from 'common/format';
 
 import 'Main/Mana.css';
 
@@ -26,8 +18,6 @@ const passiveWasteThresholdPercentage = .03; // (wasted passive focus generated)
 
 class Focus extends React.PureComponent {
   static propTypes = {
-    reportCode: PropTypes.string.isRequired,
-    actorId: PropTypes.number.isRequired,
     start: PropTypes.number.isRequired,
     end: PropTypes.number.isRequired,
     playerHaste: PropTypes.number.isRequired,
@@ -159,8 +149,8 @@ class Focus extends React.PureComponent {
     for (let i = 0; i < overCapBySecond.length; i++){
       overCapBySecondCoord.push({x:i,y:overCapBySecond[i]});
     }
-    let step = 0;
-    /* CHARTJS- on hold for now while I learn how to do it better */
+
+
     const myData = {
         datasets: [{
           label: 'Focus',
@@ -171,7 +161,7 @@ class Focus extends React.PureComponent {
           borderColor: [
             'rgba(0,145,255,1)',
           ],
-          borderWidth: 2
+          borderWidth: 2,
         },
         {
           label: 'Wasted Focus',
@@ -182,14 +172,14 @@ class Focus extends React.PureComponent {
           borderColor: [
             'rgba(255,90,160,1)',
           ],
-          borderWidth: 2
+          borderWidth: 2,
         }],
 
       };
     const chartOptions = {
       lineTension: 0,
       elements:{
-          point:{radius:0}
+          point:{radius:0},
         },
       scales: {
         xAxes: [{
@@ -216,27 +206,27 @@ class Focus extends React.PureComponent {
             beginAtZero:true,
             stepSize: 30,
             max: maxFocus,
-          }
-        }]
-      }
-    }
+          },
+        }],
+      },
+    };
 
     return(
       <div>
-            <Line 
-        data = {myData}
-        options = {chartOptions}  
-              />
+        <Line 
+          data = {myData}
+          options = {chartOptions}  
+        />
 
-                      <FocusComponent
+        <FocusComponent
           abilities={abilities}
           categories={categories}
           passive = {(totalWasted)}
           overCapBySecondCoord = {overCapBySecondCoord}
           focusBySecondCoord = {focusBySecondCoord}
         />
-        </div>
-      );
+      </div>
+    );
 
 
   }

@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Chart from 'chart.js';
 
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
