@@ -62,7 +62,7 @@ class CombatLogParser extends CoreCombatLogParser {
           </Tab>
         ),
       },
-	  {
+      {
         title: 'Focus Chart',
         url: 'focus',
         render: () => (

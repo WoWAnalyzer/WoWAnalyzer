@@ -108,7 +108,7 @@ class FocusTracker extends Module {
   }
 
   extrapolateFocus(event){
-  	const focusGenerationPerSecond = Math.round((10 + .1 * 7000 / 375)*100)/100;
+  	const focusGenerationPerSecond = Math.round((10 + .1 * this.combatants.selected.hasteRating / 375)*100)/100;
   	this.secondsCapped = 0;
   	const maxFocus = this._maxFocus;
   	this.cappedTimer[0] = maxFocus;
