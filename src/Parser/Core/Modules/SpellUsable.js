@@ -179,18 +179,18 @@ class SpellUsable extends Module {
     if (debug) {
       const spellId = event.spellId;
       const fightDuration = formatDuration((event.timestamp - this.owner.fight.start_time) / 1000);
-      switch (eventType) {
+      switch (event.trigger) {
         case 'begincooldown':
           console.log(fightDuration, 'Cooldown started:', spellName(spellId), spellId, `(charges on cooldown: ${this._currentCooldowns[spellId].chargesOnCooldown})`);
           break;
-        case 'begincooldowncharge':
+        case 'addcooldowncharge':
           console.log(fightDuration, 'Used another charge:', spellName(spellId), spellId, `(charges on cooldown: ${this._currentCooldowns[spellId].chargesOnCooldown})`);
           break;
         case 'refreshcooldown':
           console.log(fightDuration, 'Cooldown refreshed:', spellName(spellId), spellId);
           break;
-        case 'restorecooldowncharge':
-          console.log(fightDuration, 'Charge cooldown finished:', spellName(spellId), spellId, `(charges left on cooldown: ${this._currentCooldowns[spellId].chargesOnCooldown})`);
+        case 'restorecharge':
+          console.log(fightDuration, 'Charge restored:', spellName(spellId), spellId, `(charges left on cooldown: ${this._currentCooldowns[spellId].chargesOnCooldown})`);
           break;
         case 'endcooldown':
           console.log(fightDuration, 'Cooldown finished:', spellName(spellId), spellId);
