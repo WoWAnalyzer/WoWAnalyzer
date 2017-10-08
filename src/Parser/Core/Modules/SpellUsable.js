@@ -65,7 +65,7 @@ class SpellUsable extends Module {
     if (!this.isOnCooldown(spellId)) {
       this._currentCooldowns[spellId] = {
         start: timestamp,
-        expectedEnd: timestamp + expectedCooldownDuration,
+        expectedEnd: timestamp + expectedCooldownDuration, // TODO: might be better to turn this into "expectedDuration"
         chargesOnCooldown: 1,
       };
       this._triggerEvent('updatespellusable', this._makeEvent(spellId, timestamp, 'begincooldown'));
@@ -95,7 +95,7 @@ class SpellUsable extends Module {
    */
   endCooldown(spellId, resetAllCharges = false, timestamp = this.owner.currentTimestamp) {
     if (!this.isOnCooldown(spellId)) {
-      throw new Error(`Tried to finish the cooldown of ${spellId}, but it's not on cooldown.`);
+      throw new Error(`Tried to end the cooldown of ${spellId}, but it's not on cooldown.`);
     }
 
     const cooldown = this._currentCooldowns[spellId];
@@ -106,9 +106,9 @@ class SpellUsable extends Module {
         end: timestamp,
       }));
     } else {
-      // We have another charge ready to go on cooldown, this simply add a charge and then refreshes the cooldown (it doesn't cooldown simultaneously)
+      // We have another charge ready to go on cooldown, this simply adds a charge and then refreshes the cooldown (spells with charges don't cooldown simultaneously)
       cooldown.chargesOnCooldown -= 1;
-      this._triggerEvent('updatespellusable', this._makeEvent(spellId, timestamp, 'removecooldowncharge', cooldown));
+      this._triggerEvent('updatespellusable', this._makeEvent(spellId, timestamp, 'restorecharge', cooldown));
       this.refreshCooldown(spellId, null, timestamp);
     }
   }
@@ -140,8 +140,8 @@ class SpellUsable extends Module {
    * @returns {*}
    */
   reduceCooldown(spellId, durationMs, timestamp = this.owner.currentTimestamp) {
-    if (!this._currentCooldowns[spellId]) {
-      return null;
+    if (!this.isOnCooldown(spellId)) {
+      throw new Error(`Tried to reduce the cooldown of ${spellId}, but it's not on cooldown.`);
     }
     const cooldownRemaining = this.cooldownRemaining(spellId, timestamp);
     if (cooldownRemaining < durationMs) {
@@ -165,7 +165,7 @@ class SpellUsable extends Module {
       isAvailable: this.isAvailable(spellId),
       chargesAvailable: maxCharges - chargesOnCooldown,
       maxCharges,
-      rechargeTime: this.cooldownRemaining(spellId),
+      rechargeTime: this.cooldownRemaining(spellId, timestamp),
       sourceID: this.owner.playerId,
       targetID: this.owner.playerId,
       ...cooldown,
@@ -203,12 +203,11 @@ class SpellUsable extends Module {
     const spellId = event.ability.guid;
     this.beginCooldown(spellId, null, event.timestamp);
   }
-  _checkCooldowns(timestamp) {
+  _checkCooldownExpiry(timestamp) {
     Object.keys(this._currentCooldowns).forEach(spellId => {
-      const activeCooldown = this._currentCooldowns[spellId];
-      if (timestamp > activeCooldown.expectedEnd) {
-        // Using > instead of >= here since most events, when they're at the exact same time, still apply that frame.
-        this.endCooldown(Number(spellId), false, activeCooldown.expectedEnd);
+      const remainingDuration = this.cooldownRemaining(spellId, timestamp);
+      if (remainingDuration <= 0) {
+        this.endCooldown(Number(spellId), false, this._currentCooldowns[spellId].expectedEnd);
       }
     });
   }
@@ -217,7 +216,7 @@ class SpellUsable extends Module {
     if (!this._isCheckingCooldowns) {
       // This ensures this method isn't called again before it's finished executing (_checkCooldowns might trigger events).
       this._isCheckingCooldowns = true;
-      this._checkCooldowns((event && event.timestamp) || this.owner.currentTimestamp);
+      this._checkCooldownExpiry((event && event.timestamp) || this.owner.currentTimestamp);
       this._isCheckingCooldowns = false;
     }
   }
