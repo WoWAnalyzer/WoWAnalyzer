@@ -41,56 +41,14 @@ class Focus extends React.PureComponent {
     activeFocusWastedTimeline: PropTypes.object,
   };
 
-  constructor() {
-    super();
-
-    this.state = {
-      bossHealth: null,
-    };
-	
-  }
-
-  componentWillMount() {
-    this.load(this.props.reportCode, this.props.actorId, this.props.start, this.props.end);      
-    }
-
-  componentWillReceiveProps(newProps) {
-    if (newProps.reportCode !== this.props.reportCode || this.props.focusMax !== this.props.focusMax || this.props.tracker !== this.props.tracker || newProps.actorId !== this.props.actorId || newProps.start !== this.props.start || newProps.end !== this.props.end) {
-      this.load(newProps.reportCode, newProps.actorId, newProps.start, newProps.end);
-    }
-  }
-  load(reportCode, actorId, start, end) {
-
-    const bossHealthPromise = fetch(makeWclUrl(`report/tables/resources/${reportCode}`, {
-      start,
-      end,
-      sourceclass: 'Boss',
-      hostility: 1,
-      abilityid: 1000,
-    }))
-      .then(response => response.json())
-      .then((json) => {
-        if (json.status === 400 || json.status === 401) {
-          throw json.error;
-        } else {
-          this.setState({
-            bossHealth: json,
-          });
-        }
-      });
-
-    return Promise.all([bossHealthPromise]);
-  }
-
   render() {
-    if (!this.state.bossHealth) {
+    if (!this.props.tracker) {
       return (
         <div>
           Loading...
         </div>
       );
     }
-
 
     const focusGen = Math.round((10 + .1 * this.props.playerHaste / 375)*100)/100; //TODO: replace constant passive FocusGen (right now we don't account for lust/hero or Trueshot)
 
@@ -144,39 +102,6 @@ class Focus extends React.PureComponent {
       }
     }
 
-		
-    const bosses = [];
-    const deadBosses = [];
-    this.state.bossHealth.series.forEach((series) => {
-      const newSeries = {
-        ...series,
-        data: {},
-      };
-
-      series.data.forEach((item) => {
-        const secIntoFight = Math.floor((item[0] - start) / 1000);
-
-        if (deadBosses.indexOf(series.guid) === -1) {
-          const health = item[1];
-          newSeries.data[secIntoFight] = health;
-
-          if (health === 0) {
-            deadBosses.push(series.guid);
-          }
-        }
-      });
-      bosses.push(newSeries);
-    });
-    const deathsBySecond = {};
-    this.state.bossHealth.deaths.forEach((death) => {
-      const secIntoFight = Math.floor((death.timestamp - start) / 1000);
-
-      if (death.targetIsFriendly) {
-        deathsBySecond[secIntoFight] = true;
-      }
-    });
-
-
     const abilitiesAll = {};
     const categories = {
       generated: 'Focus Generators',
@@ -216,10 +141,6 @@ class Focus extends React.PureComponent {
 
       focusBySecond[i] = focusBySecond[i] !== undefined ? focusBySecond[i] : null;
       overCapBySecond[i] = overCapBySecond[i] !== undefined ? overCapBySecond[i] : null;
-      bosses.forEach((series) => {
-        series.data[i] = series.data[i] !== undefined ? series.data[i] : null;
-      });
-      deathsBySecond[i] = deathsBySecond[i] !== undefined ? deathsBySecond[i] : undefined;
     }
 	  const wastedFocus = Math.round(passiveCap * focusGen);
 	  const totalFocus = Math.floor(fightDurationSec * focusGen);
@@ -229,26 +150,6 @@ class Focus extends React.PureComponent {
   	}
 	  const totalWasted = [totalFocus,wastedFocus,ratingOfPassiveWaste];
 
-    const chartData = {
-      labels,
-      series: [
-        ...bosses.map((series, index) => ({
-          className: `boss-health boss-${index} boss-${series.guid}`,
-          name: `${series.name} Health`,
-          data: Object.keys(series.data).map(key => series.data[key]),
-        })),
-        {
-          className: 'pain',
-          name: 'Focus',
-          data: Object.keys(focusBySecond).map(key => (focusBySecond[key])),
-        },
-        {
-          className: 'wasted',
-          name: 'Focus wasted',
-          data: Object.keys(overCapBySecond).map(key => overCapBySecond[key]),
-        },
-      ],
-    };
     let maxX = 0;
     const focusBySecondCoord = [];
     for (maxX = 0; maxX < focusBySecond.length; maxX++){
@@ -320,40 +221,6 @@ class Focus extends React.PureComponent {
       }
     }
 
-      /*
-    }
-    var ctx = "myChart";
-    var scatterChart = new Chart(ctx, {
-      type: 'line',
-      data: myData,
-      options: {
-        elements:{
-          point:{radius:0}
-        },
-        scales: {
-          xAxes: [{
-            gridLines:{
-              color: "#FFFFFF",
-              borderDash: [2, 2],
-            },
-            type: 'linear',
-            position: 'bottom',
-            beginAtZero: true,
-          }],
-          yAxes: [{
-            gridLines:{
-              color: "#FFFFFF",
-              borderDash: [2, 2],
-            },
-            ticks: {
-              beginAtZero:true,
-              stepSize: 25,//stepSize, actually
-            }
-          }]
-        }
-      }
-    });
-*/
     return(
       <div>
             <Line 
@@ -370,64 +237,6 @@ class Focus extends React.PureComponent {
         />
         </div>
       );
-    return (
-      <div> 
-        <ChartistGraph
-          data={chartData}
-          options={{
-            low: 0,
-            high: 125,
-            showArea: true,
-            showPoint: false,
-            fullWidth: true,
-            height: '300px',
-            lineSmooth: Chartist.Interpolation.simple({
-              fillHoles: true,
-            }),
-            axisX: {
-              labelInterpolationFnc: function skipLabels(seconds) {
-                if (seconds < ((step - 1) * 30)) {
-                  step = 0;
-                }
-                if (step === 0 || seconds >= (step * 30)) {
-                  step += 1;
-                  return formatDuration(seconds);
-                }
-                return null;
-              },
-              offset: 20,
-            },
-            axisY: {
-              onlyInteger: true,
-              offset: 35,
-              labelInterpolationFnc: function skipLabels(percentage) {
-                return `${percentage}`;
-              },
-            },
-            plugins: [
-              Chartist.plugins.legend({
-                classNames: [
-                  ...bosses.map((series, index) => `boss-health boss-${index} boss-${series.guid}`),
-                  'pain',
-                  'wasted',
-                ],
-              }),
-              specialEventIndicators({
-                series: ['death'],
-              }),
-            ],
-          }}
-          type="Line"
-        />
-        <FocusComponent
-          abilities={abilities}
-          categories={categories}
-		      passive = {(totalWasted)}
-          overCapBySecondCoord = {overCapBySecondCoord}
-          focusBySecondCoord = {focusBySecondCoord}
-        />
-      </div>
-    );
 
 
   }
