@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import {Line} from 'react-chartjs-2';
 import SPELLS from 'common/SPELLS';
 
-//import { formatDuration } from 'common/format';
+import { formatDuration } from 'common/format';
 
 import 'Main/Mana.css';
 
@@ -141,20 +141,27 @@ class Focus extends React.PureComponent {
 	  const totalWasted = [totalFocus,wastedFocus,ratingOfPassiveWaste];
 
     let maxX = 0;
+    const myLabels = [];
     const focusBySecondCoord = [];
     for (maxX = 0; maxX < focusBySecond.length; maxX++){
-      focusBySecondCoord.push({x:maxX,y:focusBySecond[maxX]});
+      focusBySecondCoord.push({x:formatDuration(maxX),y:focusBySecond[maxX]});
+      if (maxX % 30 === 0){
+        myLabels[maxX] = (formatDuration(maxX));
+      }
     }
+    myLabels[maxX-1] = formatDuration(maxX-1);
+    console.log(myLabels);
     const overCapBySecondCoord = [];
     for (let i = 0; i < overCapBySecond.length; i++){
-      overCapBySecondCoord.push({x:i,y:overCapBySecond[i]});
+      overCapBySecondCoord.push({x:formatDuration(i),y:overCapBySecond[i]});
     }
 
 
     const myData = {
+      labels: myLabels,
         datasets: [{
           label: 'Focus',
-          data: focusBySecondCoord,
+          data: focusBySecond,
           lineTension: 0.4,
           backgroundColor: [
            'rgba(0, 139, 215, 0.2)',
@@ -166,7 +173,7 @@ class Focus extends React.PureComponent {
         },
         {
           label: 'Wasted Focus',
-          data: overCapBySecondCoord,
+          data: overCapBySecond,
           lineTension: 0.4,
           backgroundColor: [
            'rgba(2255,20,147, 0.3)',
@@ -187,14 +194,12 @@ class Focus extends React.PureComponent {
         xAxes: [{
           ticks: {
             beginAtZero:true,
-            stepSize: 30,//stepSize, actually
-            max: maxX - 1,
+            autoSkip: false,
           },
           gridLines:{
             color: 'rgba(255,255,255,0.7)',
             borderDash: [2, 2],
           },
-          type: 'linear',
           position: 'bottom',
           beginAtZero: true,
         }],
