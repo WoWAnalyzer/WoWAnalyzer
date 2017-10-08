@@ -135,16 +135,10 @@ class CastEfficiency extends Module {
       return false;
     });
   }
-  /**
-   * Get the expected cooldown duration for this spell at this time.
-   */
   getExpectedCooldownDuration(spellId) {
     const ability = this.getAbility(spellId);
     return ability ? (ability.getCooldown(this.haste.current, this.combatants.selected) * 1000) : undefined;
   }
-  /**
-   * Get the max charges for this spell at this time.
-   */
   getMaxCharges(spellId) {
     const ability = this.getAbility(spellId);
     return ability ? (ability.charges || 1) : undefined;
