@@ -155,6 +155,7 @@ class Focus extends React.PureComponent {
         datasets: [{
           label: 'Focus',
           data: focusBySecondCoord,
+          lineTension: 0.4,
           backgroundColor: [
            'rgba(0, 139, 215, 0.2)',
            ],
@@ -166,6 +167,7 @@ class Focus extends React.PureComponent {
         {
           label: 'Wasted Focus',
           data: overCapBySecondCoord,
+          lineTension: 0.4,
           backgroundColor: [
            'rgba(2255,20,147, 0.3)',
            ],
