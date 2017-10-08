@@ -217,7 +217,9 @@ class Focus extends React.PureComponent {
       <div>
         <Line 
           data = {myData}
-          options = {chartOptions}  
+          options = {chartOptions}
+          height = {100} 
+          width = {300}
         />
 
         <FocusComponent
