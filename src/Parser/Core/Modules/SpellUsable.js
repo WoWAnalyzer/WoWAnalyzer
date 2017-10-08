@@ -47,7 +47,9 @@ class SpellUsable extends Module {
     if (!this.isOnCooldown(spellId)) {
       return null;
     }
-    return this._currentCooldowns[spellId].expectedEnd - timestamp;
+    const cooldown = this._currentCooldowns[spellId];
+    const expectedEnd = cooldown.start + cooldown.expectedDuration;
+    return expectedEnd - timestamp;
   }
   /**
    * Start the cooldown for the provided spell.
@@ -65,7 +67,7 @@ class SpellUsable extends Module {
     if (!this.isOnCooldown(spellId)) {
       this._currentCooldowns[spellId] = {
         start: timestamp,
-        expectedEnd: timestamp + expectedCooldownDuration, // TODO: might be better to turn this into "expectedDuration"
+        expectedDuration: expectedCooldownDuration,
         chargesOnCooldown: 1,
       };
       this._triggerEvent('updatespellusable', this._makeEvent(spellId, timestamp, 'begincooldown'));
@@ -80,7 +82,7 @@ class SpellUsable extends Module {
           spellName(spellId), spellId, `was cast while already marked as on cooldown. It probably either has multiple charges, can be reset early, cooldown can be reduced, the configured CD is invalid, the Haste is too low, the combatlog records multiple casts per player cast (e.g. ticks of a channel) or this is a latency issue.`,
           'time passed:', (timestamp - this._currentCooldowns[spellId].start),
           'cooldown remaining:', this.cooldownRemaining(spellId, timestamp),
-          'expectedCooldownDuration:', (this._currentCooldowns[spellId].expectedEnd - this._currentCooldowns[spellId].start)
+          'expectedDuration:', this._currentCooldowns[spellId].expectedDuration
         );
         this.endCooldown(spellId, false, timestamp);
         this.beginCooldown(spellId, overrideDurationMs, timestamp);
@@ -129,7 +131,8 @@ class SpellUsable extends Module {
       return;
     }
 
-    this._currentCooldowns[spellId].expectedEnd = timestamp + expectedCooldownDuration;
+    this._currentCooldowns[spellId].start = timestamp;
+    this._currentCooldowns[spellId].expectedDuration = expectedCooldownDuration;
     this._triggerEvent('updatespellusable', this._makeEvent(spellId, timestamp, 'refreshcooldown'));
   }
   /**
@@ -148,7 +151,7 @@ class SpellUsable extends Module {
       this.endCooldown(spellId, false, timestamp);
       return cooldownRemaining;
     } else {
-      this._currentCooldowns[spellId].expectedEnd -= durationMs;
+      this._currentCooldowns[spellId].expectedDuration -= durationMs;
       return durationMs;
     }
   }
@@ -165,7 +168,7 @@ class SpellUsable extends Module {
       isAvailable: this.isAvailable(spellId),
       chargesAvailable: maxCharges - chargesOnCooldown,
       maxCharges,
-      rechargeTime: this.cooldownRemaining(spellId, timestamp),
+      timePassed: cooldown ? timestamp - cooldown.start : undefined,
       sourceID: this.owner.playerId,
       targetID: this.owner.playerId,
       ...cooldown,
@@ -207,7 +210,8 @@ class SpellUsable extends Module {
     Object.keys(this._currentCooldowns).forEach(spellId => {
       const remainingDuration = this.cooldownRemaining(spellId, timestamp);
       if (remainingDuration <= 0) {
-        this.endCooldown(Number(spellId), false, this._currentCooldowns[spellId].expectedEnd);
+        const expectedEnd = this._currentCooldowns[spellId].start + this._currentCooldowns[spellId].expectedDuration;
+        this.endCooldown(Number(spellId), false, expectedEnd);
       }
     });
   }

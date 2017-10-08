@@ -111,7 +111,7 @@ describe('Core/Modules/SpellUsable', () => {
       castEfficiencyMock.getMaxCharges = jest.fn(() => 2);
       triggerCast(SPELLS.FAKE_SPELL.id);
       parserMock.currentTimestamp = 5000;
-      parserMock.triggerEvent = jest.fn(); // Reset the call history
+      parserMock.triggerEvent = jest.fn();
       triggerCast(SPELLS.FAKE_SPELL.id);
 
       // It does NOT report when this happens, as it's normal behavior.
@@ -143,6 +143,14 @@ describe('Core/Modules/SpellUsable', () => {
         instance.reduceCooldown(SPELLS.FAKE_SPELL.id, 1500);
       }).toThrow();
     });
+    it('refreshing a cooldown sets the remaining time back to full', () => {
+      triggerCast(SPELLS.FAKE_SPELL.id);
+      parserMock.currentTimestamp = 5000;
+
+      instance.refreshCooldown(SPELLS.FAKE_SPELL.id);
+
+      expect(instance.cooldownRemaining(SPELLS.FAKE_SPELL.id)).toBe(7500);
+    });
     it('refreshing a cooldown of a spell not on cooldown throws', () => {
       // We throw instead of returning something like null so that implementers *have* to take this into consideration.
       expect(() => {
@@ -167,16 +175,16 @@ describe('Core/Modules/SpellUsable', () => {
       expect(call[0]).toBe('updatespellusable');
       expect(call[1]).toEqual({
         spellId: SPELLS.FAKE_SPELL.id,
-        timestamp: parserMock.currentTimestamp,
-        start: parserMock.currentTimestamp,
-        expectedEnd: parserMock.currentTimestamp + 7500,
+        timestamp: 0,
+        start: 0,
+        expectedDuration: 7500,
         trigger: 'begincooldown',
         isOnCooldown: true,
         isAvailable: false,
         chargesAvailable: 0,
         chargesOnCooldown: 1,
         maxCharges: 1,
-        rechargeTime: 7500,
+        timePassed: 0,
         sourceID: parserMock.playerId,
         targetID: parserMock.playerId,
       });
@@ -192,17 +200,16 @@ describe('Core/Modules/SpellUsable', () => {
         expect(call[0]).toBe('updatespellusable');
         expect(call[1]).toEqual({
           spellId: SPELLS.FAKE_SPELL.id,
-          timestamp: parserMock.currentTimestamp,
-          start: parserMock.currentTimestamp,
-          end: parserMock.currentTimestamp,
-          expectedEnd: parserMock.currentTimestamp + 7500,
+          timestamp: 0,
+          start: 0,
+          end: 0,
+          expectedDuration: 7500,
           trigger: 'endcooldown',
           isOnCooldown: false,
           isAvailable: true,
           chargesAvailable: 1,
           chargesOnCooldown: 1,
           maxCharges: 1,
-          rechargeTime: null,
           sourceID: parserMock.playerId,
           targetID: parserMock.playerId,
         });
@@ -214,14 +221,14 @@ describe('Core/Modules/SpellUsable', () => {
           spellId: SPELLS.FAKE_SPELL.id,
           timestamp: 0,
           start: 0,
-          expectedEnd: 7500,
+          expectedDuration: 7500,
           trigger: 'begincooldown',
           isOnCooldown: true,
           isAvailable: false,
           chargesAvailable: 0,
           chargesOnCooldown: 1,
           maxCharges: 1,
-          rechargeTime: 7500,
+          timePassed: 0,
           sourceID: parserMock.playerId,
           targetID: parserMock.playerId,
         });
@@ -240,14 +247,14 @@ describe('Core/Modules/SpellUsable', () => {
           spellId: SPELLS.FAKE_SPELL.id,
           timestamp: 0,
           start: 0,
-          expectedEnd: 7500,
+          expectedDuration: 7500,
           trigger: 'addcooldowncharge',
           isOnCooldown: true,
           isAvailable: false,
           chargesAvailable: 0,
           chargesOnCooldown: 2,
           maxCharges: 2,
-          rechargeTime: 7500,
+          timePassed: 0,
           sourceID: parserMock.playerId,
           targetID: parserMock.playerId,
         });
@@ -267,14 +274,13 @@ describe('Core/Modules/SpellUsable', () => {
         timestamp: 7500, // it should be simulated at the time of expiry
         start: 0,
         end: 7500,
-        expectedEnd: 7500,
+        expectedDuration: 7500,
         trigger: 'endcooldown',
         isOnCooldown: false,
         isAvailable: true,
         chargesAvailable: 1,
         chargesOnCooldown: 1,
         maxCharges: 1,
-        rechargeTime: null,
         sourceID: parserMock.playerId,
         targetID: parserMock.playerId,
       });
@@ -296,14 +302,14 @@ describe('Core/Modules/SpellUsable', () => {
           spellId: SPELLS.FAKE_SPELL.id,
           timestamp: 7500, // it should be simulated at the time of expiry
           start: 0,
-          expectedEnd: 7500,
+          expectedDuration: 7500,
           trigger: 'restorecharge',
           isOnCooldown: true,
           isAvailable: true,
           chargesAvailable: 1,
           chargesOnCooldown: 1,
           maxCharges: 2,
-          rechargeTime: 0,
+          timePassed: 7500,
           sourceID: parserMock.playerId,
           targetID: parserMock.playerId,
         });
@@ -314,15 +320,15 @@ describe('Core/Modules/SpellUsable', () => {
         expect(call[1]).toEqual({
           spellId: SPELLS.FAKE_SPELL.id,
           timestamp: 7500, // it should be simulated at the time of expiry
-          start: 0,
-          expectedEnd: 15000, // current time is 7500 + the duration is 7500
+          start: 7500,
+          expectedDuration: 7500,
           trigger: 'refreshcooldown',
           isOnCooldown: true,
           isAvailable: true,
           chargesAvailable: 1,
           chargesOnCooldown: 1,
           maxCharges: 2,
-          rechargeTime: 7500,
+          timePassed: 0,
           sourceID: parserMock.playerId,
           targetID: parserMock.playerId,
         });
