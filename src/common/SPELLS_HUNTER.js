@@ -159,6 +159,12 @@ export default {
     name: 'Bullseye',
     icon: 'ability_hunter_focusedaim',
   },
+  QUICK_SHOT_TRAIT: {
+    id: 190462,
+    name: 'Quick shot',
+    icon: 'ability_trueshot',
+  },
+
   CYCLONIC_BURST_TRAIT: {
     id: 238124,
     name: 'Cyclonic burst',
@@ -167,6 +173,7 @@ export default {
 
   // Survival:
   // ...
+
 
   // Shared:
   // ...

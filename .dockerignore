@@ -1,6 +1,7 @@
 .git
-.gitignore
-.gitattributes
+.git*
 .editorconfig
 browser-extensions
 node_modules
+Docker*
+*.md

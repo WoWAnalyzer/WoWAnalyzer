@@ -1,6 +1,7 @@
 import React from 'react';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ITEMS from 'common/ITEMS';
+import SPELLS from 'common/SPELLS';
 import CoreSephuz from 'Parser/Core/Modules/Items/SephuzsSecret';
 
 export const SEPHUZ_ITEM_ID = 132452;
@@ -8,7 +9,6 @@ export const SEPHUZ_ITEM_ID = 132452;
 // 1% Haste is worth 375 haste rating.
 const ONE_PERCENT_HASTE_RATING = 375;
 const SEPHUZ_PROCC_HASTE = 25;
-const SEPHUZ_BUFF_ID = 208052;
 
 class Sephuz extends CoreSephuz {
   static dependencies = {
@@ -29,7 +29,7 @@ class Sephuz extends CoreSephuz {
   on_toPlayer_applybuff(event) {
     const spellId = event.ability.guid;
 
-    if (spellId === SEPHUZ_BUFF_ID) {
+    if (spellId === SPELLS.SEPHUZS_SECRET_BUFF.id) {
       this.uptime += 10000;
       console.log(`Uptime: ${this.uptime}`);
     }

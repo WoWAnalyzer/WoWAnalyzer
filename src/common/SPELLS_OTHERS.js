@@ -113,6 +113,11 @@ export default {
     name: 'Fragile Echo',
     icon: 'spell_warlock_demonsoul',
   },
+  SEPHUZS_SECRET_BUFF: {
+    id: 208052,
+    name: 'Sephuz\'s Secret',
+    icon: 'inv_jewelry_ring_149',
+  },
   XAVARICS_MAGNUM_OPUS_HEAL: {
     id: 207472,
     name: 'Xavaric\'s Magnum Opus',
@@ -246,6 +251,12 @@ export default {
     id: 242612,
     name: 'Demonic Vigor',
     icon: 'inv_relics_warpring',
+  },
+  // Chrono Shard buff
+  ACCELERATION: {
+    id: 137419,
+    name: 'Acceleration',
+    icon: 'inv_7_0raid_trinket_05a',
   },
   MARCH_OF_THE_LEGION: {
     id: 228446,

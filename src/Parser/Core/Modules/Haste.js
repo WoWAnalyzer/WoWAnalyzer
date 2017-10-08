@@ -6,7 +6,7 @@ import { formatPercentage } from 'common/format';
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-const debug = false;
+const debug = true;
 
 class Haste extends Module {
   static dependencies = {
@@ -49,12 +49,16 @@ class Haste extends Module {
       itemId: ITEMS.CHARM_OF_THE_RISING_TIDE.id,
       hastePerStack: (_, item) => calculateSecondaryStatDefault(900, 576, item.itemLevel) / 37500,
     },
+    [SPELLS.SEPHUZS_SECRET_BUFF.id]: 0.25 - 0.02, // 2% is already applied as base
   };
 
   current = null;
+  initialized = false;
   on_initialized() {
     const combatant = this.combatants.selected;
     this.current = combatant.hastePercentage;
+
+    debug && console.log(`Haste: Starting haste: ${formatPercentage(this.current)}%`);
 
     this._triggerChangeHaste(null, null, this.current, null, combatant.hastePercentage);
 
@@ -62,10 +66,22 @@ class Haste extends Module {
       // Sephuz Secret provides a 2% Haste gain on top of its secondary stats
       this._applyHasteGain(null, 0.02);
     }
+    this.initialized = true;
+  }
+  on_byPlayer_combatantinfo(event) {
+    if (!this.initialized) {
+      return;
+    }
+    event.auras.forEach(aura => {
+      const spellId = aura.ability;
+      const hasteGain = this._getBaseHasteGain(spellId);
 
-    // TODO: Determine whether buffs in combatants are already included in Haste. This may be the case for actual Haste buffs, but what about Spell Haste like the Whispers trinket?
+      if (hasteGain) {
+        this._applyHasteGain(event, hasteGain);
 
-    debug && console.log(`Haste: Starting haste: ${formatPercentage(this.current)}%`);
+        debug && console.log(`Haste: Applying pre-combat buff: Current haste: ${formatPercentage(this.current)}% (gained ${formatPercentage(hasteGain)}% from ${SPELLS[spellId] ? SPELLS[spellId].name : spellId})`);
+      }
+    });
   }
   on_toPlayer_applybuff(event) {
     this._applyActiveBuff(event);

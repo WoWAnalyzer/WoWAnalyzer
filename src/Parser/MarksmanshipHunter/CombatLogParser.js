@@ -48,6 +48,8 @@ class CombatLogParser extends CoreCombatLogParser {
     
     //Spells
     trueshot: Trueshot,
+
+
   };
 
   generateResults() {
