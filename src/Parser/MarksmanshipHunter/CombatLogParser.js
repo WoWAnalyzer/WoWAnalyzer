@@ -7,18 +7,23 @@ import Talents from 'Main/Talents';
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 
-import FocusChart from './Modules/FocusChart/Focus';
-import FocusTracker from './Modules/FocusChart/FocusTracker';
-
+//Features
 import CastEfficiency from './Modules/Features/CastEfficiency';
-
 import CooldownTracker from './Modules/Features/CooldownTracker';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import VulnerableUptime from './Modules/Features/VulnerableUptime';
 import VulnerableTracker from './Modules/Features/AimedInVulnerableTracker';
 
+//Focus Chart
+import FocusChart from './Modules/FocusChart/Focus';
+import FocusTracker from './Modules/FocusChart/FocusTracker';
+
+//Tier
 import Tier20_2p from './Modules/Items/Tier20_2p';
 import Tier20_4p from './Modules/Items/Tier20_4p';
+
+//Spells
+import Trueshot from './Modules/Spells/Trueshot';
 
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -40,7 +45,9 @@ class CombatLogParser extends CoreCombatLogParser {
     //Items
     tier20_2p: Tier20_2p,
     tier20_4p: Tier20_4p,
-
+    
+    //Spells
+    trueshot: Trueshot,
   };
 
   generateResults() {
