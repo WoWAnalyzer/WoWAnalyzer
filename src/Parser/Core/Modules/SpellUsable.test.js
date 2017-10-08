@@ -335,4 +335,30 @@ describe('Core/Modules/SpellUsable', () => {
       }
     });
   });
+  it('updates active cooldowns when Haste increases', () => {
+    triggerCast(SPELLS.FAKE_SPELL.id);
+    parserMock.currentTimestamp = 1000;
+    // Simulate Haste increasing which would reduce our spell's cooldown to 6s (down from 7.5sec)
+    castEfficiencyMock.getExpectedCooldownDuration = jest.fn(() => 6000);
+    instance.triggerEvent('changehaste', {
+      // We don't need more; the new Haste is pulled straight from the Haste module
+      timestamp: parserMock.currentTimestamp,
+    });
+
+    // New expected cooldown is `1000 + (6000 * (1 - (1000 / 7500)))=6200`, but we already spent 1000ms on cooldown, so what's remaining is 5200.
+    expect(instance.cooldownRemaining(SPELLS.FAKE_SPELL.id)).toBe(5200);
+  });
+  it('updates active cooldowns when Haste decreases', () => {
+    triggerCast(SPELLS.FAKE_SPELL.id);
+    parserMock.currentTimestamp = 1000;
+    // Simulate Haste decreasing which would increase our spell's cooldown to 9s (up from 7.5sec)
+    castEfficiencyMock.getExpectedCooldownDuration = jest.fn(() => 9000);
+    instance.triggerEvent('changehaste', {
+      // We don't need more; the new Haste is pulled straight from the Haste module
+      timestamp: parserMock.currentTimestamp,
+    });
+
+    // New expected cooldown is `1000 + (6000 * (1 - (1000 / 7500)))=8800`, but we already spent 1000ms on cooldown, so what's remaining is 7800.
+    expect(instance.cooldownRemaining(SPELLS.FAKE_SPELL.id)).toBe(7800);
+  });
 });

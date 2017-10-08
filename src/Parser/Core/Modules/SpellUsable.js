@@ -5,7 +5,7 @@ import Module from 'Parser/Core/Module';
 
 import CastEfficiency from './CastEfficiency';
 
-const debug = true;
+const debug = false;
 
 function spellName(spellId) {
   return SPELLS[spellId] ? SPELLS[spellId].name : '???';
@@ -54,11 +54,10 @@ class SpellUsable extends Module {
   /**
    * Start the cooldown for the provided spell.
    * @param {number} spellId The ID of the spell.
-   * @param {number|null} overrideDurationMs This allows you to override the duration of the cooldown. If this isn't provided, the cooldown is calculated like normal.
    * @param {number} timestamp Override the timestamp if it may be different from the current timestamp.
    */
-  beginCooldown(spellId, overrideDurationMs = null, timestamp = this.owner.currentTimestamp) {
-    const expectedCooldownDuration = overrideDurationMs || this.castEfficiency.getExpectedCooldownDuration(spellId);
+  beginCooldown(spellId, timestamp = this.owner.currentTimestamp) {
+    const expectedCooldownDuration = this.castEfficiency.getExpectedCooldownDuration(spellId);
     if (!expectedCooldownDuration) {
       debug && console.warn('Spell', spellName(spellId), spellId, 'doesn\'t have a cooldown.');
       return;
@@ -85,7 +84,7 @@ class SpellUsable extends Module {
           'expectedDuration:', this._currentCooldowns[spellId].expectedDuration
         );
         this.endCooldown(spellId, false, timestamp);
-        this.beginCooldown(spellId, overrideDurationMs, timestamp);
+        this.beginCooldown(spellId, timestamp);
       }
     }
   }
@@ -111,21 +110,20 @@ class SpellUsable extends Module {
       // We have another charge ready to go on cooldown, this simply adds a charge and then refreshes the cooldown (spells with charges don't cooldown simultaneously)
       cooldown.chargesOnCooldown -= 1;
       this._triggerEvent('updatespellusable', this._makeEvent(spellId, timestamp, 'restorecharge', cooldown));
-      this.refreshCooldown(spellId, null, timestamp);
+      this.refreshCooldown(spellId, timestamp);
     }
   }
   /**
    * Refresh (restart) the cooldown for the provided spell.
    * @param {number} spellId The ID of the spell.
-   * @param {number|null} overrideDurationMs This allows you to override the duration of the cooldown. If this isn't provided, the cooldown is calculated like normal.
    * @param {number} timestamp Override the timestamp if it may be different from the current timestamp.
     calculated like normal.
    */
-  refreshCooldown(spellId, overrideDurationMs = null, timestamp = this.owner.currentTimestamp) {
+  refreshCooldown(spellId, timestamp = this.owner.currentTimestamp) {
     if (!this.isOnCooldown(spellId)) {
       throw new Error(`Tried to refresh the cooldown of ${spellId}, but it's not on cooldown.`);
     }
-    const expectedCooldownDuration = overrideDurationMs || this.castEfficiency.getExpectedCooldownDuration(spellId);
+    const expectedCooldownDuration = this.castEfficiency.getExpectedCooldownDuration(spellId);
     if (!expectedCooldownDuration) {
       debug && console.warn('Spell', spellName(spellId), spellId, 'doesn\'t have a cooldown.');
       return;
@@ -181,7 +179,7 @@ class SpellUsable extends Module {
       const fightDuration = formatDuration((event.timestamp - this.owner.fight.start_time) / 1000);
       switch (event.trigger) {
         case 'begincooldown':
-          console.log(fightDuration, 'Cooldown started:', spellName(spellId), spellId, `(charges on cooldown: ${this._currentCooldowns[spellId].chargesOnCooldown})`);
+          console.log(fightDuration, 'Cooldown started:', spellName(spellId), spellId, 'expected duration:', event.expectedDuration, `(charges on cooldown: ${this._currentCooldowns[spellId].chargesOnCooldown})`);
           break;
         case 'addcooldowncharge':
           console.log(fightDuration, 'Used another charge:', spellName(spellId), spellId, `(charges on cooldown: ${this._currentCooldowns[spellId].chargesOnCooldown})`);
@@ -204,13 +202,15 @@ class SpellUsable extends Module {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    this.beginCooldown(spellId, null, event.timestamp);
+    this.beginCooldown(spellId, event.timestamp);
   }
   _checkCooldownExpiry(timestamp) {
     Object.keys(this._currentCooldowns).forEach(spellId => {
       const remainingDuration = this.cooldownRemaining(spellId, timestamp);
       if (remainingDuration <= 0) {
         const expectedEnd = this._currentCooldowns[spellId].start + this._currentCooldowns[spellId].expectedDuration;
+        const fightDuration = formatDuration((timestamp - this.owner.fight.start_time) / 1000);
+        debug && console.log(fightDuration, 'Clearing', spellName(spellId), spellId, 'due to expiry');
         this.endCooldown(Number(spellId), false, expectedEnd);
       }
     });
@@ -223,6 +223,24 @@ class SpellUsable extends Module {
       this._checkCooldownExpiry((event && event.timestamp) || this.owner.currentTimestamp);
       this._isCheckingCooldowns = false;
     }
+  }
+  // Haste-based cooldowns gets longer/shorter when your Haste changes
+  // `newDuration = timePassed + (newCooldownDuration * (1 - progress))` (where `timePassed` is the time since the spell went on cooldown, `newCooldownDuration` is the full cooldown duration based on the new Haste, `progress` is the percentage of progress cooling down the spell)
+  on_changehaste(event) {
+    Object.keys(this._currentCooldowns).forEach(spellId => {
+      const cooldown = this._currentCooldowns[spellId];
+      const originalExpectedDuration = cooldown.expectedDuration;
+      const remainingDuration = this.cooldownRemaining(spellId, event.timestamp);
+      const timePassed = originalExpectedDuration - remainingDuration;
+      const progress = timePassed / originalExpectedDuration;
+      const cooldownDurationWithCurrentHaste = this.castEfficiency.getExpectedCooldownDuration(Number(spellId));
+      const newExpectedDuration = timePassed + this._calculateNewCooldownDuration(progress, cooldownDurationWithCurrentHaste);
+      debug && console.log('Adjusting cooldown duration due to Haste change; old duration:', originalExpectedDuration, 'progress:', progress, 'cooldown duration with current Haste:', cooldownDurationWithCurrentHaste, 'actual new expected duration:', newExpectedDuration);
+      cooldown.expectedDuration = newExpectedDuration;
+    });
+  }
+  _calculateNewCooldownDuration(progress, newDuration) {
+    return newDuration * (1 - progress);
   }
 }
 
