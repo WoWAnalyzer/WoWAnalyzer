@@ -16,10 +16,11 @@ export default {
   changelog: CHANGELOG,
   description: (
     <div>
-      Work in Progress
+      Hello Everyone! First things first I am by no means a theorycrafter or expert in all things mages, but my mage has been my main ever since Burning Crusade and I have a pretty good idea of how things work. <br /> <br />
+	  Additionally I am not a pro when it comes to programming these modules and analysis. So if something is missing that you think should be added, you run into an issue with something i made, or if you make a module that you think should be added, please send it to me! <br /> <br />
     </div>
   ),
-  specDiscussionUrl: 'https://github.com/WoWAnalyzer/WoWAnalyzer/issues/259',
+  specDiscussionUrl: 'https://github.com/WoWAnalyzer/WoWAnalyzer/issues/467',
   parser: CombatLogParser,
   path: __dirname, // used for generating a GitHub link directly to your spec
 };

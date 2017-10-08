@@ -1,3 +1,3 @@
 export default `
-17-10-2017 - Added Spec. (Sharrq)
+10-8-2017 - Added Spec. (Sharrq)
 `;
