@@ -21,17 +21,14 @@ class PatientSniper extends Module {
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
+import Combatants from "../../../Core/Modules/Combatants";
 
 class PatientSniper extends Module {
+
   static dependencies = {
     enemies: Enemies,
-  };
-  oneSecondIntoVulnerable = 0;
-  twoSecondsIntoVulnerable = 0;
-  threeSecondsIntoVulnerable = 0;
-  fourSecondsIntoVulnerable = 0;
-  fiveSecondsIntoVulnerable = 0;
-  sixSecondsIntoVulnerable = 0;
+    combatants: Combatants,
+  }
 
   /*
   A module to track the effectiveness of the Patient Sniper talent
@@ -48,6 +45,7 @@ class PatientSniper extends Module {
 
   //The various levels of patient sniper
   nonVulnerableAimedShots = 0;
+=======
   zeroSecondsIntoVulnerable = 0;
   oneSecondIntoVulnerable = 0;
   twoSecondsIntoVulnerable = 0;
@@ -120,6 +118,12 @@ class PatientSniper extends Module {
       this.lastVulnerableTimestamp = eventTimestamp;
     }
     else {
+  on_byPlayer_damage(event) {
+    const spellId = event.ability.guid;
+    const eventTimestamp = event.timestamp;
+    const enemy = this.enemies.getEntity(event);
+
+    if (spellId !== SPELLS.WINDBURST.id || spellId !== SPELLS.MARKED_SHOT.id) {
       return;
     }
     return this.lastVulnerableTimestamp;
