@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
-class ComboPointBreakdown extends React.Component {
+class ChiBreakdown extends React.Component {
   static propTypes = {
     pointsGained: PropTypes.object.isRequired,
     pointsSpent: PropTypes.object.isRequired,
@@ -126,4 +126,4 @@ class ComboPointBreakdown extends React.Component {
   }
 }
 
-export default ComboPointBreakdown;
+export default ChiBreakdown;

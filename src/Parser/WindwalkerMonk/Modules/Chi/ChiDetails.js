@@ -5,18 +5,18 @@ import Tab from 'Main/Tab';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import { formatPercentage } from 'common/format';
 
-import ComboPointBreakdown from './ComboPointBreakdown';
-import ComboPointTracker from './ComboPointTracker';
+import ChiBreakdown from './ChiBreakdown';
+import ChiTracker from './ChiTracker';
 
 import WastedPointsIcon from '../Images/feralComboPointIcon.png';
 
-class ComboPointDetails extends Module {
+class ChiDetails extends Module {
     static dependencies = {
-        comboPointTracker: ComboPointTracker,
+        chiTracker: ChiTracker,
     };
 
     suggestions(when) {
-        const pointsWasted = this.comboPointTracker.pointsWasted;
+        const pointsWasted = this.chiTracker.pointsWasted;
         const pointsWastedPerMinute = (pointsWasted / this.owner.fightDuration) * 1000 * 60;
         const MINOR = 5;
         const AVG = 10;
@@ -29,8 +29,8 @@ class ComboPointDetails extends Module {
                     .recommended(`< ${recommended.toFixed(2)} Combo Points per minute wasted are recommended`)
                     .regular(AVG).major(MAJOR);
             });
-        const maxComboPointCasts = this.comboPointTracker.maxCPCasts;
-        const totalCasts = this.comboPointTracker.totalCasts;
+        const maxComboPointCasts = this.chiTracker.maxCPCasts;
+        const totalCasts = this.chiTracker.totalCasts;
         const maxComboPointPercent = maxComboPointCasts / totalCasts;
 
         when(maxComboPointPercent).isLessThan(0.95)
@@ -79,4 +79,4 @@ class ComboPointDetails extends Module {
     statisticOrder = STATISTIC_ORDER.CORE(2);
 }
 
-export default ComboPointDetails;
+export default ChiDetails;

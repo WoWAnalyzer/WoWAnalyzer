@@ -3,7 +3,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 
-class ComboPointTracker extends Module {
+class ChiTracker extends Module {
   static dependencies = {
     combatants: Combatants,
   };
@@ -122,4 +122,4 @@ class ComboPointTracker extends Module {
   }
 }
 
-export default ComboPointTracker;
+export default ChiTracker;
