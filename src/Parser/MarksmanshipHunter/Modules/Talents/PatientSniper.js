@@ -10,8 +10,6 @@ import StatisticBox from "Main/StatisticBox";
 
 import { formatPercentage } from 'common/format';
 
-import VulnerableTracker from 'Parser/MarksmanshipHunter/Modules/Features/AimedInVulnerableTracker';
-
 class PatientSniper extends Module {
 
   static dependencies = {
@@ -53,7 +51,7 @@ class PatientSniper extends Module {
     const eventTimestamp = event.timestamp;
     const enemy = this.enemies.getEntity(event);
 
-    if (spellId !== SPELLS.AIMED_SHOT.id || spellId !== SPELLS.MARKED_SHOT.id) {
+    if (spellId !== SPELLS.AIMED_SHOT.id && spellId !== SPELLS.MARKED_SHOT.id) {
       return;
     }
     if (spellId === SPELLS.MARKED_SHOT.id) {
@@ -109,15 +107,20 @@ class PatientSniper extends Module {
     }
     return this.lastVulnerableTimestamp;
   }
+  suggestions(when) {
 
+  }
   statistic() {
-    const percentGoodAimedShots = (this.threeSecondsIntoVulnerable + this.fourSecondsIntoVulnerable + this.fiveSecondsIntoVulnerable + this.sixSecondsIntoVulnerable) / VulnerableTracker.totalAimed;
+    const totalAimedShotIncrease = (this.nonVulnerableAimedShots * 0) + (this.oneSecondIntoVulnerable * 6) + (this.twoSecondsIntoVulnerable * 12) + (this.threeSecondsIntoVulnerable * 18) + (this.fourSecondsIntoVulnerable * 24) + (this.fiveSecondsIntoVulnerable * 30) + (this.sixSecondsIntoVulnerable * 36);
+    const totalAimedShots = this.nonVulnerableAimedShots + this.oneSecondIntoVulnerable + this.twoSecondsIntoVulnerable + this.threeSecondsIntoVulnerable + this.fourSecondsIntoVulnerable + this.fiveSecondsIntoVulnerable + this.sixSecondsIntoVulnerable;
+    const averageAimedShotDamageIncrease = totalAimedShotIncrease / totalAimedShots / 100;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.PATIENT_SNIPER_TALENT.id} />}
-        value={`${formatPercentage(percentGoodAimedShots)}%`}
-        label="Aimed Shots 3+ seconds into Vulnerable"
-        tooltip={`0% increased damage: ${this.zeroSecondsIntoVulnerable} Aimed Shots <br/>
+        value={`${formatPercentage(averageAimedShotDamageIncrease)}%`}
+        label="Average damage gain"
+        tooltip={`Non-vulnerable aimed shots: ${this.nonVulnerableAimedShots} <br />
+0% increased damage: ${this.zeroSecondsIntoVulnerable} Aimed Shots <br/>
 6% increased damage: ${this.oneSecondIntoVulnerable} Aimed Shots<br/>
 12% increased damage: ${this.twoSecondsIntoVulnerable} Aimed Shots<br/>
 18% increased damage: ${this.threeSecondsIntoVulnerable} Aimed Shots<br/>
