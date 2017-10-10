@@ -240,6 +240,12 @@ export default {
     name: 'Nature\'s Essence',
     icon: 'spell_nature_healingway',
   },
+  // Elemental Pet Spells
+  WIND_GUST: {
+    id: 226180,
+    name: 'Wind Gust',
+    icon: 'spell_nature_cyclone',
+  },
   // Elemental Legendaries
   PRISTINE_PROTOSCALE_GIRDLE: {
     id: 224852,
