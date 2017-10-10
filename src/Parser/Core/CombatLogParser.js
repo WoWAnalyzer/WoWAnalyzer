@@ -19,7 +19,7 @@ import ManaValues from './Modules/ManaValues';
 import SpellManaCost from './Modules/SpellManaCost';
 
 import CritEffectBonus from './Modules/Helpers/CritEffectBonus';
-import Bloodlust from './Modules/Helpers/Bloodlust';
+import ApplyBuffFixer from './Modules/Helpers/ApplyBuffFixer';
 
 // Shared Legendaries
 import Prydaz from './Modules/Items/Prydaz';
@@ -93,7 +93,7 @@ class CombatLogParser {
     vantusRune: VantusRune,
 
     critEffectBonus: CritEffectBonus,
-    bloodlust: Bloodlust,
+    applyBuffFixer: ApplyBuffFixer,
 
     // Items:
     // Legendaries:
