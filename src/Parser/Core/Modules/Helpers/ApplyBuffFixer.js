@@ -41,7 +41,7 @@ class ApplyBuffFixer extends Module {
         }
 
         const fightDuration = formatDuration((event.timestamp - this.owner.fight.start_time) / 1000);
-        console.warn(fightDuration, 'Found a broken buff that was applied pre-combat:', event.ability.name, event.ability.guid, '! Fixing it by fabricating an `applybuff` event.');
+        console.warn(fightDuration, 'Found a buff that was applied pre-combat:', event.ability.name, event.ability.guid, '! Fabricating an `applybuff` event so you don\'t have to do anything special to take this into account.');
         const applybuff = {
           // These are all the properties a normal `applybuff` event would have.
           timestamp: events[firstEventIndex].timestamp,
