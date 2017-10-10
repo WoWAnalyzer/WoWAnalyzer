@@ -287,6 +287,11 @@ export default {
     name: 'Retribution',
     icon: 'spell_holy_crusade',
   },
+  RIGHTEOUS_VERDICT_BUFF: {
+    id: 238996,
+    name: 'Righteous Verdict',
+    icon: 'ability_paladin_bladeofjustice',
+  },
   // Ret Item Effects
   WHISPER_OF_THE_NATHREZIM_BUFF: {
     id: 207635,
@@ -375,5 +380,35 @@ export default {
     id: 184778,
     name: 'Deflection',
     icon: 'ability_paladin_gaurdedbythelight',
+  },
+  HIGHLORDS_JUDGMENT: {
+    id: 186941,
+    name: 'Highlords Judgment',
+    icon: 'spell_holy_righteousfury',
+  },
+  SHARPENED_EDGE: {
+    id: 184759,
+    name: 'Sharpened Edge',
+    icon: 'ability_paladin_empoweredsealstruth',
+  },
+  DELIVER_THE_JUSTICE: {
+    id: 186927,
+    name: 'Deliver the Justice',
+    icon: 'spell_holy_sealofvengeance',
+  },
+  WRATH_OF_THE_ASHBRINGER: {
+    id: 186945,
+    name: 'Wrath of the Ashbringer',
+    icon: 'ability_paladin_sanctifiedwrath',
+  },
+  RIGHTEOUS_VERDICT: {
+    id: 238062,
+    name: 'Righteous Verdict',
+    icon: 'ability_paladin_bladeofjustice',
+  },
+  MIGHT_OF_THE_TEMPLAR: {
+    id: 185368,
+    name: 'Might of the Templar',
+    icon: 'spell_holy_blessedresillience',
   },
 };
