@@ -3,7 +3,7 @@ import { formatDuration } from 'common/format';
 
 import Module from 'Parser/Core/Module';
 
-const debug = true;
+const debug = false;
 
 class ApplyBuffFixer extends Module {
   _getFirstEventIndex(events) {
