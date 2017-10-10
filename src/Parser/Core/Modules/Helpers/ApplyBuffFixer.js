@@ -112,6 +112,7 @@ class ApplyBuffFixer extends Module {
           // Custom properties:
           prepull: true,
           __fabricated: true,
+          __fromCombatantinfo: true,
         };
         events.splice(firstEventIndex, 0, applybuff);
         // It shouldn't happen twice, but better be safe than sorry.
