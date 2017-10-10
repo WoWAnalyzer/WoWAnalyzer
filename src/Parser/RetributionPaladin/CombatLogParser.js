@@ -21,6 +21,13 @@ import Retribution from './Modules/PaladinCore/Retribution';
 import HolyPowerTracker from './Modules/HolyPower/HolyPowerTracker';
 import HolyPowerDetails from './Modules/HolyPower/HolyPowerDetails';
 
+import RelicTraits from './Modules/Traits/RelicTraits';
+import MightOfTheTemplar from './Modules/Traits/MightOfTheTemplar';
+import HighlordsJudgment from './Modules/Traits/HighlordsJudgment';
+import DeliverTheJustice from './Modules/Traits/DeliverTheJustice';
+import RighteousVerdict from './Modules/Traits/RighteousVerdict';
+import WrathOfTheAshbringer from './Modules/Traits/WrathOfTheAshbringer';
+
 import WhisperOfTheNathrezim from './Modules/Items/WhisperOfTheNathrezim';
 import LiadrinsFuryUnleashed from './Modules/Items/LiadrinsFuryUnleashed';
 import SoulOfTheHighlord from './Modules/Items/SoulOfTheHighlord';
@@ -51,6 +58,12 @@ class CombatLogParser extends CoreCombatLogParser {
     holyPowerDetails: HolyPowerDetails,
 
     // Traits
+    relicTraits: RelicTraits,
+    mightOfTheTemplar: MightOfTheTemplar,
+    highlordsJudgment: HighlordsJudgment,
+    deliverTheJustice: DeliverTheJustice,
+    righteousVerdict: RighteousVerdict,
+    wrathOfTheAshbringer: WrathOfTheAshbringer,
 
     // Items:
     whisperOfTheNathrezim: WhisperOfTheNathrezim,

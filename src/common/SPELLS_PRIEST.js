@@ -349,6 +349,12 @@ export default {
     icon: 'spell_holy_divinehymn',
   },
 
+  SERENDIPITY: {
+    id: 63733,
+    name: 'Serendipity',
+    icon: 'spell_holy_serendipity',
+  },
+
   // Trait related spells
   LIGHT_OF_TUURE_TRAIT: {
     id: 208065,
@@ -388,6 +394,13 @@ export default {
     coeff: 0.06,
   },
 
+  HALLOWED_GROUND_TRAIT: {
+    id: 196429,
+    name: 'Hallowed Ground',
+    icon: 'spell_holy_divineprovidence',
+    valuePerTrait: 3333,
+  },
+
   LENIENCES_REWARD_TRAIT: {
     id: 238063,
     name: 'Lenience\'s Reward',
@@ -424,6 +437,20 @@ export default {
     id: 211336,
     name: 'Xan\'shi, Shroud of Archbishop Benedictus',
     icon: 'inv_enchant_essencemagiclarge',
+  },
+
+  // Holy Tier Sets
+  HOLY_PRIEST_T20_2SET_BONUS_BUFF: {
+    id: 242270,
+    name: 'Holy Priest T20 2P Bonus',
+    icon: 'spell_holy_guardianspirit',
+    value: 1000,
+  },
+
+  HOLY_PRIEST_T20_4SET_BONUS_BUFF: {
+    id: 242271,
+    name: 'Holy Priest T20 4P Bonus',
+    icon: 'spell_holy_guardianspirit',
   },
 
   // Shadow Spells
