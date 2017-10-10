@@ -1,3 +1,4 @@
+import SPELLS from 'common/SPELLS';
 import { formatDuration } from 'common/format';
 
 import Module from 'Parser/Core/Module';
@@ -81,7 +82,7 @@ class ApplyBuffFixer extends Module {
             return;
           }
 
-          debug && console.warn('Found a buff on', ((playersById[targetId] && playersById[targetId].name) || '???'), 'in the combatantinfo that was applied before the pull and never dropped:', aura.ability, '! Fabricating an `applybuff` event so you don\'t have to do anything special to take this into account.');
+          debug && console.warn('Found a buff on', ((playersById[targetId] && playersById[targetId].name) || '???'), 'in the combatantinfo that was applied before the pull and never dropped:', (SPELLS[aura.ability] && SPELLS[aura.ability].name) || '???', aura.ability, '! Fabricating an `applybuff` event so you don\'t have to do anything special to take this into account.');
           const applybuff = {
             // These are all the properties a normal `applybuff` event would have.
             timestamp: events[firstEventIndex].timestamp,
