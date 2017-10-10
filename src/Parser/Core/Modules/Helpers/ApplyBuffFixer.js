@@ -82,7 +82,7 @@ class ApplyBuffFixer extends Module {
     // endregion
 
     // region `combatantinfo` based detection
-    // This catches buffs that never drop, such as Flasks and more importantly.
+    // This catches buffs that never drop, such as Flasks and more importantly Atonements and Beacons.
     this._combatantInfoEvents.forEach(event => {
       const targetId = event.sourceID;
       event.auras.forEach(aura => {
