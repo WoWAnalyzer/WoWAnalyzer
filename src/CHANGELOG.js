@@ -1,4 +1,5 @@
 export default `
+10-10-2017 - Changed the buff tracking implementation to be much more developer friendly. This should have no side-effects except to improve accuracy of modules that didn't take this into account in the past. If you notice something strange please let us know. (by Zerotorescue)
 02-10-2017 - Added a <i>help wanted</i> panel to the frontpage. (by Zerotorescue)
 02-10-2017 - The developer only Events tab can now be filtered with JS expressions to be much more powerful. (by Zerotorescue)
 29-09-2017 - Added a spec analyzer info overlay for maintainers to configure. (by Zerotorescue)
