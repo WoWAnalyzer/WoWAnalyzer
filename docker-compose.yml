@@ -10,6 +10,7 @@ services:
      - 35729:35729
     volumes:
       - .:/usr/src/wowanalyzer/
+      - /usr/src/wowanalyzer/node_modules/
   server-dev:
     build:
       context: .

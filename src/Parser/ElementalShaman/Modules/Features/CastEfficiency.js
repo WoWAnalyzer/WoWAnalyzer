@@ -68,6 +68,14 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 60 * 5, // TODO: Add Elementalist -> Lava Burst cast ^= -2 sec cd
       recommendedCastEfficiency: 1.0,
+      isActive: combatant => !combatant.hasTalent(SPELLS.STORM_ELEMENTAL_TALENT.id),
+    },
+    {
+      spell: SPELLS.STORM_ELEMENTAL_TALENT,
+      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
+      getCooldown: haste => 60 * 2.5, // TODO: Add Elementalist -> Lava Burst cast ^= -2 sec cd
+      recommendedCastEfficiency: 1.0,
+      isActive: combatant => combatant.hasTalent(SPELLS.STORM_ELEMENTAL_TALENT.id),
     },
     {
       spell: SPELLS.FLAME_SHOCK,
