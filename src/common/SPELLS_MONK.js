@@ -567,4 +567,35 @@ export default {
     name: 'Strike of the Windlord',
     icon: 'inv_hand_1h_artifactskywall_d_01',
   },
+  // Windwalker Talents
+  CHI_WAVE: {
+    id: 173527,
+    name: 'Chi Wave',
+    icon: 'ability_monk_chiwave',
+  },
+  POWER_STRIKES: {
+    id: 121283,
+    name: 'Power Strikes',
+    icon: 'ability_monk_powerstrikes',
+  },
+  ENERGIZING_ELIXIR: {
+    id: 115288,
+    name: 'Energizing Elixir',
+    icon: 'ability_monk_energizingwine',
+  },
+  CHI_ORBIT: {
+    id: 196743,
+    name: 'Chi Orbit',
+    icon: 'ability_monk_forcesphere',
+  },
+  WHIRLING_DRAGON_PUNCH: {
+    id: 152175,
+    name: 'Whirling Dragon Punch',
+    icon: 'ability_monk_hurricanestrike'
+  },
+  SERENITY: {
+    id: 152173,
+    name: 'Serenity',
+    icon: 'ability_monk_serenity',
+  },
 };

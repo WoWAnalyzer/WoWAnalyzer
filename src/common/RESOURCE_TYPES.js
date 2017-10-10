@@ -19,3 +19,7 @@ export default {
   FURY: 17,
   PAIN: 18,
 };
+
+export function getResource(classResources, type) {
+  return classResources.find(resource => resource.type === type);
+}
