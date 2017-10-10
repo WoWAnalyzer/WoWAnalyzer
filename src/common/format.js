@@ -23,12 +23,16 @@ export function formatNumber(number) {
   return formatThousands(number);
 }
 
+export function formatDecimal(number, precision = 2) {
+  return (Math.round((number || 0) * 100) / 100).toFixed(precision);
+}
+
 /*
  * Formats a number as a percentage with the given precision (default 2), with 0 = 0 percent and 1 = 100 percent.
  * Ex: 0.79832 => 79.83
  */
 export function formatPercentage(percentage, precision = 2) {
-  return (Math.round((percentage || 0) * 10000) / 100).toFixed(precision);
+  return formatDecimal(percentage * 100, precision);
 }
 
 /*
