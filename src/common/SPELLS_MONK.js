@@ -591,7 +591,7 @@ export default {
   WHIRLING_DRAGON_PUNCH: {
     id: 152175,
     name: 'Whirling Dragon Punch',
-    icon: 'ability_monk_hurricanestrike'
+    icon: 'ability_monk_hurricanestrike',
   },
   SERENITY: {
     id: 152173,
