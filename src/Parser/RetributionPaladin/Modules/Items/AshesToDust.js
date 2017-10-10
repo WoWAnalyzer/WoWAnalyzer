@@ -8,7 +8,7 @@ import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
-import getDamageBonus from '../PaladinCore/getDamageBonus';
+import GetDamageBonus from '../PaladinCore/GetDamageBonus';
 
 const ASHES_TO_DUST_MODIFIER = 0.15;
 
@@ -30,7 +30,7 @@ class AshesToDust extends Module {
     		return;
 		}
 		else if(enemy.hasBuff(SPELLS.WAKE_OF_ASHES.id)) {
-			this.damageDone += getDamageBonus(event, ASHES_TO_DUST_MODIFIER);
+			this.damageDone += GetDamageBonus(event, ASHES_TO_DUST_MODIFIER);
 		}
 	}
 
