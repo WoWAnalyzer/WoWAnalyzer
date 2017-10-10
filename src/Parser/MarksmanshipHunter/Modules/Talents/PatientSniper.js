@@ -8,8 +8,9 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import StatisticBox from "Main/StatisticBox";
 
-//import AimedInVulnerableTracker from '/Features/AimedInVulnerableTracker';
 import { formatPercentage } from 'common/format';
+
+import VulnerableTracker from 'Parser/MarksmanshipHunter/Modules/Features/AimedInVulnerableTracker';
 
 class PatientSniper extends Module {
 
@@ -58,11 +59,12 @@ class PatientSniper extends Module {
     if (spellId === SPELLS.MARKED_SHOT.id) {
       //vulnerable is reset, so we get new timestamp
       this.lastVulnerableTimestamp = eventTimestamp;
+      return;
     }
     if (spellId === SPELLS.AIMED_SHOT.id) {
-      if (enemy.hasBuff(SPELLS.VULNERABLE.id, event.timestamp)) {
-        this.timeIntoVulnerable = eventTimestamp - this.lastVulnerableTimestamp;
-        switch (this.timeIntoVulnerable / 1000) {
+      if (enemy.hasBuff(SPELLS.VULNERABLE.id, eventTimestamp)) {
+        this.timeIntoVulnerable = Math.floor((eventTimestamp - this.lastVulnerableTimestamp) / 1000);
+        switch (this.timeIntoVulnerable) {
           case 0:
             this.zeroSecondsIntoVulnerable += 1;
             break;
@@ -98,24 +100,30 @@ class PatientSniper extends Module {
     const eventTimestamp = event.timestamp;
 
     //we're only interested in windburst here
-    if (spellId !== SPELLS.WINDBURST.id) {
-      return;
-    }
-    else {
+    if (spellId === SPELLS.WINDBURST.id) {
       //vulnerable is reset, so we get new timestamp
       this.lastVulnerableTimestamp = eventTimestamp;
+    }
+    else {
+      return;
     }
     return this.lastVulnerableTimestamp;
   }
 
   statistic() {
-    const percentGoodAimedShots = (this.threeSecondsIntoVulnerable+this.fourSecondsIntoVulnerable+this.fiveSecondsIntoVulnerable+this.sixSecondsIntoVulnerable) / 100 //AimedInVulnerableTracker.totalAimed;
+    const percentGoodAimedShots = (this.threeSecondsIntoVulnerable + this.fourSecondsIntoVulnerable + this.fiveSecondsIntoVulnerable + this.sixSecondsIntoVulnerable) / VulnerableTracker.totalAimed;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.PATIENT_SNIPER_TALENT.id} />}
         value={`${formatPercentage(percentGoodAimedShots)}%`}
         label="Aimed Shots 3+ seconds into Vulnerable"
-      tooltip={``}/>
+        tooltip={`0% increased damage: ${this.zeroSecondsIntoVulnerable} Aimed Shots <br/>
+6% increased damage: ${this.oneSecondIntoVulnerable} Aimed Shots<br/>
+12% increased damage: ${this.twoSecondsIntoVulnerable} Aimed Shots<br/>
+18% increased damage: ${this.threeSecondsIntoVulnerable} Aimed Shots<br/>
+24% increased damage: ${this.fourSecondsIntoVulnerable} Aimed Shots<br/>
+30% increased damage: ${this.fiveSecondsIntoVulnerable} Aimed Shots<br/>
+36% increased damage: ${this.sixSecondsIntoVulnerable} Aimed Shots<br/>`} />
     );
   }
 
