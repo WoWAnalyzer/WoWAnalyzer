@@ -73,9 +73,12 @@ describe('HolyPaladin.CombatLogParser', () => {
 
   reorderScenarios.forEach((scenario) => {
     it(scenario.test, () => {
-      const parser = new CombatLogParser({}, {
+      const player = {
         id: 1,
-      });
+      };
+      const parser = new CombatLogParser({
+        friendlies: [player],
+      }, player);
       expect(parser.reorderEvents(scenario.events).map(event => event.testid)).toEqual(scenario.result);
     });
   });
