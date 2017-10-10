@@ -45,7 +45,7 @@ class SpellUsable extends Module {
    */
   cooldownRemaining(spellId, timestamp = this.owner.currentTimestamp) {
     if (!this.isOnCooldown(spellId)) {
-      return null;
+      throw new Error(`Tried to retrieve the remaining cooldown of ${spellId}, but it's not on cooldown.`);
     }
     const cooldown = this._currentCooldowns[spellId];
     const expectedEnd = cooldown.start + cooldown.expectedDuration;

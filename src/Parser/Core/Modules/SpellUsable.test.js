@@ -37,7 +37,6 @@ describe('Core/Modules/SpellUsable', () => {
     it('a spell starts off cooldown', () => {
       expect(instance.isOnCooldown(SPELLS.FAKE_SPELL.id)).toBe(false);
       expect(instance.isAvailable(SPELLS.FAKE_SPELL.id)).toBe(true);
-      expect(instance.cooldownRemaining(SPELLS.FAKE_SPELL.id)).toBe(null);
     });
     it('a cast causes the spell to go on cooldown', () => {
       triggerCast(SPELLS.FAKE_SPELL.id);
@@ -135,9 +134,8 @@ describe('Core/Modules/SpellUsable', () => {
 
       expect(result).toBe(7500);
       expect(instance.isOnCooldown(SPELLS.FAKE_SPELL.id)).toBe(false);
-      expect(instance.cooldownRemaining(SPELLS.FAKE_SPELL.id)).toBe(null);
     });
-    it('reducing a cooldown of a spell not on cooldown throws', () => {
+    it('reduceCooldown on a spell not on cooldown throws', () => {
       // We throw instead of returning something like null so that implementers *have* to take this into consideration.
       expect(() => {
         instance.reduceCooldown(SPELLS.FAKE_SPELL.id, 1500);
@@ -151,16 +149,22 @@ describe('Core/Modules/SpellUsable', () => {
 
       expect(instance.cooldownRemaining(SPELLS.FAKE_SPELL.id)).toBe(7500);
     });
-    it('refreshing a cooldown of a spell not on cooldown throws', () => {
+    it('refreshCooldown on a spell not on cooldown throws', () => {
       // We throw instead of returning something like null so that implementers *have* to take this into consideration.
       expect(() => {
         instance.refreshCooldown(SPELLS.FAKE_SPELL.id);
       }).toThrow();
     });
-    it('ending a cooldown of a spell not on cooldown throws', () => {
+    it('endCooldown on a spell not on cooldown throws', () => {
       // We throw instead of returning something like null so that implementers *have* to take this into consideration.
       expect(() => {
         instance.endCooldown(SPELLS.FAKE_SPELL.id);
+      }).toThrow();
+    });
+    it('cooldownRemaining on a spell not on cooldown throws', () => {
+      // We throw instead of returning something like null so that implementers *have* to take this into consideration.
+      expect(() => {
+        instance.cooldownRemaining(SPELLS.FAKE_SPELL.id);
       }).toThrow();
     });
   });
