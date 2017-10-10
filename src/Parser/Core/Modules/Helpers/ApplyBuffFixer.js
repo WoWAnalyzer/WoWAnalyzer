@@ -3,7 +3,7 @@ import { formatDuration } from 'common/format';
 import Module from 'Parser/Core/Module';
 
 class ApplyBuffFixer extends Module {
-  getFirstEventIndex(events) {
+  _getFirstEventIndex(events) {
     for (let i = 0; i < events.length; i += 1) {
       const event = events[i];
       if (event.type !== 'combatantinfo') {
@@ -11,6 +11,15 @@ class ApplyBuffFixer extends Module {
       }
     }
     throw new Error('Fight doesn\'t have a first event, something must have gone wrong.');
+  }
+  _getSelectedCombatant(events) {
+    for (let i = 0; i < events.length; i += 1) {
+      const event = events[i];
+      if (event.type === 'combatantinfo' && event.sourceID === this.owner.playerId) {
+        return event;
+      }
+    }
+    throw new Error('Fight doesn\'t have a selected combatant, something must have gone wrong.');
   }
 
   _buffsApplied = [];
@@ -21,8 +30,10 @@ class ApplyBuffFixer extends Module {
    * @returns {Array}
    */
   reorderEvents(events) {
-    const firstEventIndex = this.getFirstEventIndex(events);
+    const firstEventIndex = this._getFirstEventIndex(events);
 
+    // region `removebuff` based detection
+    // This catches most relevant buffs and is most accurate.
     for (let i = 0; i < events.length; i += 1) {
       const event = events[i];
 
@@ -36,12 +47,12 @@ class ApplyBuffFixer extends Module {
       }
       if (event.type === 'removebuff') {
         if (this._buffsApplied.includes(event.ability.guid)) {
-          // This buff had an `applybuff` event and so isn't broken :D
+          // This buff has an `applybuff` event and so isn't broken :D
           continue;
         }
 
         const fightDuration = formatDuration((event.timestamp - this.owner.fight.start_time) / 1000);
-        console.warn(fightDuration, 'Found a buff that was applied pre-combat:', event.ability.name, event.ability.guid, '! Fabricating an `applybuff` event so you don\'t have to do anything special to take this into account.');
+        console.warn(fightDuration, 'Found a buff that was applied before the pull:', event.ability.name, event.ability.guid, '! Fabricating an `applybuff` event so you don\'t have to do anything special to take this into account.');
         const applybuff = {
           // These are all the properties a normal `applybuff` event would have.
           timestamp: events[firstEventIndex].timestamp,
@@ -51,6 +62,8 @@ class ApplyBuffFixer extends Module {
           sourceIsFriendly: event.sourceIsFriendly,
           targetID: event.targetID,
           targetIsFriendly: event.targetIsFriendly,
+          // Custom properties:
+          prepull: true,
           __fabricated: true,
         };
         events.splice(firstEventIndex, 0, applybuff);
@@ -58,6 +71,42 @@ class ApplyBuffFixer extends Module {
         this._buffsApplied.push(event.ability.guid);
       }
     }
+    // endregion
+
+    // region `combatantinfo` based detection
+    // This catches buffs that never drop, such as Flasks and more importantly.
+
+    // I do NOT want to rely on the Combatants module to avoid that dependency interfering with the priority of this class. This check is simple enough here so it doesn't matter much and so choosing the more robust solution makes sense.
+    const combatant = this._getSelectedCombatant(events);
+
+    combatant.auras.forEach(aura => {
+      if (this._buffsApplied.includes(aura.ability)) {
+        // This buff has an `applybuff` event and so isn't broken :D
+        return;
+      }
+
+      console.warn('Found a buff in the combatantinfo that was applied before the pull and never dropped:', aura.ability, '! Fabricating an `applybuff` event so you don\'t have to do anything special to take this into account.');
+      const applybuff = {
+        // These are all the properties a normal `applybuff` event would have.
+        timestamp: events[firstEventIndex].timestamp,
+        type: 'applybuff',
+        ability: {
+          id: aura.ability,
+          name: 'Unknown',
+          icon: aura.icon,
+        },
+        sourceID: aura.source,
+        sourceIsFriendly: true,
+        targetID: combatant.sourceID,
+        targetIsFriendly: true,
+        // Custom properties:
+        prepull: true,
+        __fabricated: true,
+      };
+      events.splice(firstEventIndex, 0, applybuff);
+    });
+    // endregion
+
     return events;
   }
 }
