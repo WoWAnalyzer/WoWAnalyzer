@@ -1,4 +1,3 @@
-import SPELLS from 'common/SPELLS';
 import { formatDuration } from 'common/format';
 
 import Module from 'Parser/Core/Module';
