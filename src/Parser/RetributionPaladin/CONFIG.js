@@ -20,7 +20,7 @@ export default {
   		Feel free to message me on discord or post in the spec discussion URL with any bugs or ideas for things I could work on!
   	</div>
   ),
-  completeness: SPEC_ANALYSIS_COMPLETENESS.NEEDS_MORE_WORK, // When changing this please make a PR with ONLY this value changed, we will do a review of your analysis to find out of it is complete enough.
+  completeness: SPEC_ANALYSIS_COMPLETENESS.GOOD, // When changing this please make a PR with ONLY this value changed, we will do a review of your analysis to find out of it is complete enough.
   specDiscussionUrl: 'https://github.com/WoWAnalyzer/WoWAnalyzer/issues/323',
   changelog: CHANGELOG,
   parser: CombatLogParser,
