@@ -8,8 +8,8 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import StatisticBox from "Main/StatisticBox";
 
-import AimedInVulnerableTracker from '/Features/AimedInVulnerableTracker';
-import { formatPercentage } from "../../../../common/format";
+//import AimedInVulnerableTracker from '/Features/AimedInVulnerableTracker';
+import { formatPercentage } from 'common/format';
 
 class PatientSniper extends Module {
 
@@ -109,7 +109,7 @@ class PatientSniper extends Module {
   }
 
   statistic() {
-    const percentGoodAimedShots = (this.threeSecondsIntoVulnerable+this.fourSecondsIntoVulnerable+this.fiveSecondsIntoVulnerable+this.sixSecondsIntoVulnerable) / AimedInVulnerableTracker.totalAimed;
+    const percentGoodAimedShots = (this.threeSecondsIntoVulnerable+this.fourSecondsIntoVulnerable+this.fiveSecondsIntoVulnerable+this.sixSecondsIntoVulnerable) / 100 //AimedInVulnerableTracker.totalAimed;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.PATIENT_SNIPER_TALENT.id} />}
