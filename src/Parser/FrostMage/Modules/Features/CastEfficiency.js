@@ -64,8 +64,8 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.BLIZZARD,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL_AOE,
       getCooldown: haste => null,
-	    noSuggestion: true,
-	    noCanBeImproved: true,
+      noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.RAY_OF_FROST_TALENT,
@@ -93,7 +93,7 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.RUNE_OF_POWER_TALENT,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 40,
-	    charges: 2,
+      charges: 2,
       isActive: combatant => combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id),
     },
 

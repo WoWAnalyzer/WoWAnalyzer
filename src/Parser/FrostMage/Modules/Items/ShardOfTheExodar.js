@@ -4,29 +4,30 @@ import { formatNumber } from 'common/format';
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-class ShardOfTheExodar extends Module {
+const BLOODLUST_BUFFS = [
+  SPELLS.HEROISM.id,
+  SPELLS.BLOODLUST.id,
+  SPELLS.TIME_WARP.id,
+  SPELLS.NETHERWINDS.id,
+  SPELLS.ANCIENT_HYSTERIA.id,
+  SPELLS.DRUMS_OF_FURY.id,
+  SPELLS.DRUMS_OF_RAGE.id,
+  SPELLS.DRUMS_OF_THE_MOUNTAIN.id,
+];
 
-	damage = 0;
+class ShardOfTheExodar extends Module {
 
   static dependencies = {
 		combatants: Combatants,
 	};
+
+	damage = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.hasFinger(ITEMS.SHARD_OF_THE_EXODAR.id);
   }
 
   on_byPlayer_damage(event){
-    const BLOODLUST_BUFFS = [
-      SPELLS.HEROISM.id,
-      SPELLS.BLOODLUST.id,
-      SPELLS.TIME_WARP.id,
-      SPELLS.NETHERWINDS.id,
-      SPELLS.ANCIENT_HYSTERIA.id,
-      SPELLS.DRUMS_OF_FURY.id,
-      SPELLS.DRUMS_OF_RAGE.id,
-      SPELLS.DRUMS_OF_THE_MOUNTAIN.id,
-      ];
     if (BLOODLUST_BUFFS.some(buff => this.combatants.selected.hasBuff(buff, event.timestamp))) {
       this.damage += event.amount;
     }
@@ -35,7 +36,7 @@ class ShardOfTheExodar extends Module {
   item() {
     return {
       item: ITEMS.SHARD_OF_THE_EXODAR,
-      result: `${formatNumber(this.damage)} Total Damage During Lust`,
+      result: `${this.owner.formatItemDamageDone(this.damage)} Total Damage During Lust`,
     };
   }
 }

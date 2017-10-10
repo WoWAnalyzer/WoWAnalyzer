@@ -6,16 +6,14 @@ import { formatNumber } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Module from 'Parser/Core/Module';
-import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 class IcyVeinsDuration extends Module {
 
-  casts = 0;
-
   static dependencies = {
-		combatants: Combatants,
-    abilityTracker: AbilityTracker,
+    combatants: Combatants,
 	}
+
+  casts = 0;
 
   on_initialized() {
 	this.active = this.combatants.selected.hasTalent(SPELLS.THERMAL_VOID_TALENT.id);
@@ -30,9 +28,9 @@ class IcyVeinsDuration extends Module {
   }
 
   suggestions(when) {
-    const icyVeinsDuration = (this.combatants.selected.getBuffUptime(SPELLS.ICY_VEINS.id) / 1000) / this.casts;
+    const averageDuration = (this.combatants.selected.getBuffUptime(SPELLS.ICY_VEINS.id) / 1000) / this.casts;
 
-    when(icyVeinsDuration).isLessThan(45)
+    when(averageDuration).isLessThan(45)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Your <SpellLink id={SPELLS.ICY_VEINS.id}/> duration can be improved. Make sure you use Frozen Orb to get Fingers of Frost Procs</span>)
           .icon(SPELLS.ICY_VEINS.icon)
@@ -43,11 +41,11 @@ class IcyVeinsDuration extends Module {
   }
 
   statistic() {
-    const icyVeinsDuration = (this.combatants.getBuffUptime(SPELLS.ICY_VEINS.id) / 1000) / this.casts;
+    const averageDuration = (this.combatants.getBuffUptime(SPELLS.ICY_VEINS.id) / 1000) / this.casts;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.ICY_VEINS.id} />}
-        value={`${formatNumber(icyVeinsDuration)}s`}
+        value={`${formatNumber(averageDuration)}s`}
         label="Avg Icy Veins Duration"
       />
     );

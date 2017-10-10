@@ -21,8 +21,8 @@ class IcicleTracker extends Module {
   }
 
   on_toPlayer_refreshbuff(event) {
-	  if(event.ability.guid === SPELLS.GLACIAL_SPIKE_BUFF.id) {
-		  this.wasted += 1;
+    if(event.ability.guid === SPELLS.GLACIAL_SPIKE_BUFF.id) {
+      this.wasted += 1;
 	  }
   }
 

@@ -11,12 +11,12 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class WintersChillTracker extends Module {
 
-  winterschill = 0;
-  icelance = 0;
-
   static dependencies = {
     enemies: Enemies,
   };
+
+  wintersChillApplied = 0;
+  iceLanceCasts = 0;
 
   on_byPlayer_damage(event) {
     if (event.ability.guid !== SPELLS.ICE_LANCE.id) {
@@ -24,18 +24,18 @@ class WintersChillTracker extends Module {
     }
     const enemy = this.enemies.getEntity(event);
     if (enemy.hasBuff(SPELLS.WINTERS_CHILL.id, event.timestamp)) {
-      this.icelance += 1;
+      this.iceLanceCasts += 1;
     }
   }
   on_byPlayer_applydebuff(event) {
 	  if(event.ability.guid !== SPELLS.WINTERS_CHILL.id) {
 		  return;
 	  }
-		  this.winterschill += 1;
+		  this.wintersChillApplied += 1;
 	  }
 
   suggestions(when) {
-    const missed = this.winterschill - this.icelance;
+    const missed = this.wintersChillApplied - this.iceLanceCasts;
     when(missed).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span> You failed to Shatter {this.missed} <SpellLink id={SPELLS.WINTERS_CHILL.id}/>.  Make sure you cast <SpellLink id={SPELLS.ICE_LANCE.id}/> after each <SpellLink id={SPELLS.FLURRY.id}/> so Ice Lance can benefit from the <SpellLink id={SPELLS.SHATTER.id}/> Bonus.</span>)
@@ -46,7 +46,7 @@ class WintersChillTracker extends Module {
       });
   }
   statistic() {
-    const missed = this.winterschill - this.icelance;
+    const missed = this.wintersChillApplied - this.iceLanceCasts;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.WINTERS_CHILL.id} />}

@@ -8,20 +8,19 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import Module from 'Parser/Core/Module';
 
 class BrainFreezeTracker extends Module {
-
-	overwrittenprocs = 0;
-	totalprocs = 0;
-
 	static dependencies = {
 		combatants: Combatants,
 	}
+
+	overwrittenProcs = 0;
+	totalProcs = 0;
 
 	on_byPlayer_applybuff(event){
 		const spellId = event.ability.guid;
 		if(spellId !== SPELLS.BRAIN_FREEZE.id){
 			return;
 		}
-		this.totalprocs += 1;
+		this.totalProcs += 1;
 	}
 
 	on_byPlayer_refreshbuff(event){
@@ -29,18 +28,18 @@ class BrainFreezeTracker extends Module {
 		if(spellId !== SPELLS.BRAIN_FREEZE.id){
 			return;
 		}
-		this.overwrittenprocs += 1;
-		this.totalprocs +=1;
+		this.overwrittenProcs += 1;
+		this.totalProcs +=1;
 	}
 
 	suggestions(when) {
-		const missedProcsPercent = this.overwrittenprocs / this.totalprocs;
+		const missedProcsPercent = this.overwrittenProcs / this.totalProcs;
 		if(this.combatants.selected.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id)) {
 			when(missedProcsPercent).isGreaterThan(0)
 				.addSuggestion((suggest, actual, recommended) => {
 					return suggest(<span>You wasted {formatPercentage(missedProcsPercent)}% <SpellLink id={SPELLS.BRAIN_FREEZE.id}/> procs. While this is mostly acceptable when using <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id}/>, try to minimize this by only holding your Brain Freeze Proc if you have 3 or more <SpellLink id={SPELLS.ICICLES.id}/>. If you have less than 3 Icicles then use your Brian Freeze Proc Normally.</span>)
 						.icon(SPELLS.BRAIN_FREEZE.icon)
-						.actual(`${formatNumber(this.overwrittenprocs)} missed proc(s)`)
+						.actual(`${formatNumber(this.overwrittenProcs)} missed proc(s)`)
 						.recommended(`Wasting none is recommended`)
 						.regular(recommended+ 0.1).major(recommended + 0.2);
 				});
@@ -49,7 +48,7 @@ class BrainFreezeTracker extends Module {
 				.addSuggestion((suggest, actual, recommended) => {
 					return suggest(<span>You wasted {formatPercentage(missedProcsPercent)}% <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs. </span>)
 						.icon(SPELLS.BRAIN_FREEZE.icon)
-						.actual(`${formatNumber(this.overwrittenprocs)} missed proc(s)`)
+						.actual(`${formatNumber(this.overwrittenProcs)} missed proc(s)`)
 						.recommended(`Wasting none is recommended`)
 						.regular(recommended+ 0.00).major(recommended + 0.05);
 				});
@@ -60,7 +59,7 @@ class BrainFreezeTracker extends Module {
 		return(
 			<StatisticBox
 				icon={<SpellIcon id={SPELLS.BRAIN_FREEZE.id} />}
-				value={`${formatNumber(this.totalprocs)}`}
+				value={`${formatNumber(this.totalProcs)}`}
 				label='Brain Freeze Procs'
 			/>
 		);
