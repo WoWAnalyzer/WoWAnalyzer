@@ -25,6 +25,9 @@ import Tier20_4p from './Modules/Items/Tier20_4p';
 //Spells
 import Trueshot from './Modules/Spells/Trueshot';
 
+//Talents
+import PatientSniper from './Modules/Talents/PatientSniper';
+
 
 class CombatLogParser extends CoreCombatLogParser {
 
@@ -36,18 +39,21 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     castEfficiency: CastEfficiency,
     cooldownTracker: CooldownTracker,
-    vulnerabluptime: VulnerableUptime,
+    vulnerablUptime: VulnerableUptime,
     vulnerableTracker: VulnerableTracker,
-    
+
     //Focus Chart
     focusTracker: FocusTracker,
 
     //Items
     tier20_2p: Tier20_2p,
     tier20_4p: Tier20_4p,
-    
+
     //Spells
     trueshot: Trueshot,
+
+    //Talents
+    patientSniper: PatientSniper,
 
 
   };
