@@ -264,7 +264,7 @@ const ITEMS = {
 	  name: 'Shattered Fragments of Sindragosa',
 	  icon: 'inv_helmet_133',
   },
-  SHARD_OF_EXODAR: {
+  SHARD_OF_THE_EXODAR: {
 	  id: 132410,
 	  name: 'Shard of the Exodar',
 	  icon: 'inv_6_2raid_ring_2a',

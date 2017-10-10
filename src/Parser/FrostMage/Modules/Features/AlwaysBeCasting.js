@@ -10,17 +10,17 @@ import SpellLink from 'common/SpellLink';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   static ABILITIES_ON_GCD = [
-    SPELLS.FROSTBOLT_CAST.id,
-    SPELLS.ICE_LANCE_CAST.id,
-    SPELLS.FROZEN_ORB_CAST.id,
+    SPELLS.FROSTBOLT.id,
+    SPELLS.ICE_LANCE.id,
+    SPELLS.FROZEN_ORB.id,
     SPELLS.FROST_NOVA.id,
     SPELLS.BLINK.id,
     SPELLS.ICE_BLOCK.id,
-    SPELLS.BLIZZARD_CAST.id,
-    SPELLS.FLURRY_CAST.id,
+    SPELLS.BLIZZARD.id,
+    SPELLS.FLURRY.id,
     SPELLS.ICE_BARRIER.id,
     SPELLS.CONE_OF_COLD.id,
-	SPELLS.EBONBOLT_CAST.id,
+	  SPELLS.EBONBOLT.id,
     // talents
     SPELLS.RAY_OF_FROST_TALENT.id,
     SPELLS.MIRROR_IMAGE_TALENT.id,
@@ -28,8 +28,8 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.ICE_NOVA_TALENT.id,
     SPELLS.RING_OF_FROST_TALENT.id,
     SPELLS.FROST_BOMB_TALENT.id,
-	SPELLS.GLACIAL_SPIKE_TALENT.id,
-	SPELLS.COMET_STORM_TALENT.id,
+	  SPELLS.GLACIAL_SPIKE_TALENT.id,
+	  SPELLS.COMET_STORM_TALENT.id,
   ];
 
   suggestions(when) {

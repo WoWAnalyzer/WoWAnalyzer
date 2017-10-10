@@ -6,47 +6,49 @@ import { formatNumber } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Module from 'Parser/Core/Module';
+import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 class IcyVeinsDuration extends Module {
+
+  casts = 0;
+
   static dependencies = {
 		combatants: Combatants,
+    abilityTracker: AbilityTracker,
 	}
-	
+
   on_initialized() {
-	const hasThermalVoid = this.combatants.selected.hasTalent(SPELLS.THERMAL_VOID_TALENT.id);
-	this.active = hasThermalVoid;
+	this.active = this.combatants.selected.hasTalent(SPELLS.THERMAL_VOID_TALENT.id);
   }
 
-  IcyVeinsCasts = 0;
-	
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.ICY_VEINS.id) {
       return;
     }
-    this.IcyVeinsCasts += 1;
+    this.casts += 1;
   }
 
   suggestions(when) {
-    const IcyVeinsUptime = (this.combatants.selected.getBuffUptime(SPELLS.ICY_VEINS.id) / 1000) / this.IcyVeinsCasts;
+    const icyVeinsDuration = (this.combatants.selected.getBuffUptime(SPELLS.ICY_VEINS.id) / 1000) / this.casts;
 
-    when(IcyVeinsUptime).isLessThan(45)
+    when(icyVeinsDuration).isLessThan(45)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your <SpellLink id={SPELLS.ICY_VEINS.id}/> uptime can be improved. Make sure you use Frozen Orb to get Fingers of Frost Procs</span>)
+        return suggest(<span>Your <SpellLink id={SPELLS.ICY_VEINS.id}/> duration can be improved. Make sure you use Frozen Orb to get Fingers of Frost Procs</span>)
           .icon(SPELLS.ICY_VEINS.icon)
-          .actual(`${formatNumber(actual)} seconds Average Icy Veins Uptime`)
+          .actual(`${formatNumber(actual)} seconds Average Icy Veins Duration`)
           .recommended(`${formatNumber(recommended)} is recommended`)
           .regular(40).major(30);
       });
   }
 
   statistic() {
-    const IcyVeinsUptime = (this.combatants.getBuffUptime(SPELLS.ICY_VEINS.id) / 1000) / this.IcyVeinsCasts;
+    const icyVeinsDuration = (this.combatants.getBuffUptime(SPELLS.ICY_VEINS.id) / 1000) / this.casts;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.ICY_VEINS.id} />}
-        value={`${formatNumber(IcyVeinsUptime)}s`}
-        label="Avg Icy Veins Uptime"
+        value={`${formatNumber(icyVeinsDuration)}s`}
+        label="Avg Icy Veins Duration"
       />
     );
   }

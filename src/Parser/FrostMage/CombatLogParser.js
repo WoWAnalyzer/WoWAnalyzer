@@ -17,7 +17,7 @@ import IcyVeinsDuration from './Modules/Features/IcyVeinsDuration';
 import IcicleTracker from './Modules/Features/IcicleTracker';
 
 import Tier20_2set from './Modules/Items/Tier20_2set';
-import ShardofExodar from './Modules/Items/ShardofExodar';
+import ShardOfTheExodar from './Modules/Items/ShardOfTheExodar';
 
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -26,18 +26,18 @@ class CombatLogParser extends CoreCombatLogParser {
     castEfficiency: CastEfficiency,
     alwaysBeCasting: AlwaysBeCasting,
     cooldownTracker: CooldownTracker,
-	WintersChillTracker: WintersChillTracker,
-	BrainFreeze: BrainFreeze,
-	FingersFrost: FingersFrost,
-	IcyVeinsDuration: IcyVeinsDuration,
-	IcicleTracker: IcicleTracker,
+	  wintersChillTracker: WintersChillTracker,
+	  brainFreeze: BrainFreeze,
+	  fingersFrost: FingersFrost,
+	  icyVeinsDuration: IcyVeinsDuration,
+	  icicleTracker: IcicleTracker,
     damageDone: [DamageDone, { showStatistic: true }],
-	
-	//Cooldowns
-	
-	//Items
-	Tier20_2set: Tier20_2set,
-	ShardofExodar: ShardofExodar,
+
+	  //Cooldowns
+
+	  //Items
+	  tier20_2set: Tier20_2set,
+	  shardOfTheExodar: ShardOfTheExodar,
 
   };
 

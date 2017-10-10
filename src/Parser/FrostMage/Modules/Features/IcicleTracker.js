@@ -9,38 +9,38 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class IcicleTracker extends Module {
+
+  wasted = 0;
+
   static dependencies = {
     combatants: Combatants,
   };
 
-  IciclesWasted = 0;
-
   on_initialized() {
-	const hasGlacialSpike = this.combatants.selected.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id);
-	this.active = hasGlacialSpike;
+	this.active = this.combatants.selected.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id);
   }
-  
-  on_refreshbuff(event) {
+
+  on_toPlayer_refreshbuff(event) {
 	  if(event.ability.guid === SPELLS.GLACIAL_SPIKE_BUFF.id) {
-		  this.IciclesWasted += 1;
+		  this.wasted += 1;
 	  }
   }
-  
+
   suggestions(when) {
-    when(this.IciclesWasted).isGreaterThan(0)
+    when(this.wasted).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span> You wasted {this.IciclesWasted} <SpellLink id={SPELLS.ICICLES.id}/>.  Try to cast <SpellLink id={SPELLS.GLACIAL_SPIKE.id}/> once you get to 5 Icicles to avoid wasting them.</span>)
+        return suggest(<span> You wasted {this.wasted} <SpellLink id={SPELLS.ICICLES.id}/>.  Try to cast <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id}/> once you get to 5 Icicles to avoid wasting them. Getting some wasted Icicles is unavoidable since <SpellLink id={SPELLS.FROSTBOLT.id}/> has a chance to generate 2 Icicles, but you should try and keep this number as low as possible.</span>)
           .icon(SPELLS.ICICLES.icon)
           .actual(`${formatNumber(actual)} Icicles Wasted`)
-          .recommended(`${formatNumber(recommended)} is recommended`)
-          .regular(3).major(10);
+          .recommended(`${formatNumber(5)} is recommended`)
+          .regular(7).major(12);
       });
   }
   statistic() {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.ICICLES.id} />}
-        value={`${formatNumber(this.IciclesWasted)}`}
+        value={`${formatNumber(this.wasted)}`}
         label="Icicles Wasted" />
     );
   }

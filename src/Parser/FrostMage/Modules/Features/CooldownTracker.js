@@ -13,81 +13,19 @@ class CooldownTracker extends CoreCooldownTracker {
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],
     },
-  ];
-
-  static castCooldowns = [
     {
-      spell: SPELLS.FROZEN_ORB_CAST,
-      duration: 15,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.DAMAGE,
-      ],
-    },
-    {
-      spell: SPELLS.RUNE_OF_POWER,
+      spell: SPELLS.RUNE_OF_POWER_TALENT,
       duration: 10,
       summary: [
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],
     },
+  ];
+
+  static castCooldowns = [
+
     {
-      spell: SPELLS.MIRROR_IMAGE,
-      duration: 40,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.DAMAGE,
-      ],
-    },
-    {
-      spell: SPELLS.HEROISM,
-      duration: 40,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.DAMAGE,
-      ],
-    },
-    {
-      spell: SPELLS.BLOODLUST,
-      duration: 40,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.DAMAGE,
-      ],
-    },
-    {
-      spell: SPELLS.TIME_WARP,
-      duration: 40,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.DAMAGE,
-      ],
-    },
-    {
-      spell: SPELLS.NETHERWINDS,
-      duration: 40,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.DAMAGE,
-      ],
-    },
-    {
-      spell: SPELLS.ANCIENT_HYSTERIA,
-      duration: 40,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.DAMAGE,
-      ],
-    },
-    {
-      spell: SPELLS.DRUMS_OF_FURY,
-      duration: 40,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.DAMAGE,
-      ],
-    },
-    {
-      spell: SPELLS.DRUMS_OF_RAGE,
-      duration: 40,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.DAMAGE,
-      ],
-    },
-    {
-      spell: SPELLS.DRUMS_OF_THE_MOUNTAIN,
+      spell: SPELLS.MIRROR_IMAGE_TALENT,
       duration: 40,
       summary: [
         BUILT_IN_SUMMARY_TYPES.DAMAGE,

@@ -10,7 +10,7 @@ export default {
 	  id: 122,
 	  name: 'Frost Nova',
 	  icon: 'spell_frost_frostnova',
-  }, 
+  },
   BLINK: {
 	  id: 1953,
 	  name: 'Blink',
@@ -46,50 +46,30 @@ export default {
     name: 'Time Warp',
     icon: 'ability_mage_timewarp',
   },
-  
+
   //Frost
-  MATSERY_ICICLES: {
+  MASTERY_ICICLES: {
 	  id: 76613,
 	  name: 'Mastery: Icicles',
 	  icon: 'spell_frost_iceshard',
   },
-  FROSTBOLT_CAST: {
+  FROSTBOLT: {
 	  id: 116,
 	  name: 'Frostbolt',
 	  icon: 'spell_frost_frostbolt02',
   },
-  FROSTBOLT_DEBUFF: {
-	  id: 228597,
-	  name: 'Frostbolt',
-	  icon: 'spell_frost_frostbolt02',
-  },
-  ICE_LANCE_CAST: {
-	  id: 30455,
-	  name: 'Ice Lance',
-	  icon: 'spell_frost_frostblast',
-  },
-  ICE_LANCE_DEBUFF: {
+  ICE_LANCE: {
 	  id: 228598,
 	  name: 'Ice Lance',
 	  icon: 'spell_frost_frostblast',
   },
-  BLIZZARD_CAST: {
+  BLIZZARD: {
 	  id: 190356,
 	  name: 'Blizzard',
 	  icon: 'spell_frost_icestorm',
   },
-  BLIZZARD_DEBUFF: {
-	  id: 190357,
-	  name: 'Blizzard',
-	  icon: 'spell_frost_icestorm',
-  },
-  FLURRY_CAST: {
+  FLURRY: {
 	  id: 44614,
-	  name: 'Flurry',
-	  icon: 'ability_warlock_burningembersblue',
-  },
-  FLURRY_DEBUFF: {
-	  id: 228354,
 	  name: 'Flurry',
 	  icon: 'ability_warlock_burningembersblue',
   },
@@ -113,13 +93,8 @@ export default {
 	  name: 'Cold Snap',
 	  icon: 'spell_frost_wizardmark',
   },
-  FROZEN_ORB_CAST: {
+  FROZEN_ORB: {
 	  id: 84714,
-	  name: 'Frozen Orb',
-	  icon: 'spell_frost_frozenorb',
-  },
-  FROZEN_ORB_DEBUFF: {
-	  id: 84721,
 	  name: 'Frozen Orb',
 	  icon: 'spell_frost_frozenorb',
   },
@@ -133,17 +108,12 @@ export default {
 	  name: 'Water Jet',
 	  icon: 'ability_mage_waterjet',
   },
-  EBONBOLT_CAST: {
+  EBONBOLT: {
 	  id: 214634,
 	  name: 'Ebonbolt',
 	  icon: 'artifactability_frostmage_ebonbolt',
   },
-  EBONBOLT_DEBUFF: {
-	  id: 228599,
-	  name: 'Ebonbolt',
-	  icon: 'artifactability_frostmage_ebonbolt',
-  },
-  
+
   //Passives
   SHATTER: {
 	  id: 12982,
@@ -165,65 +135,8 @@ export default {
 	  name: 'Icicle',
 	  icon: 'spell_frost_iceshard',
   },
-  
-  //Abilities From Talents
-  RAY_OF_FROST: {
-	  id: 205021,
-	  name: 'Ray of Frost',
-	  icon: 'ability_mage_rayoffrost',
-  },
-  SHIMMER: {
-	  id: 212653,
-	  name: 'Shimmer',
-	  icon: 'spell_arcane_massdispel',
-  },
-  ICE_FLOES: {
-	  id: 108839,
-	  name: 'Ice Floes',
-	  icon: 'spell_mage_iceflows',
-  },
-  MIRROR_IMAGE: {
-	  id: 55342,
-	  name: 'Mirror Image',
-	  icon: 'spell_magic_lesserinvisibilty',
-  },
-  RUNE_OF_POWER: {
-	  id: 116011,
-	  name: 'Rune of Power',
-	  icon: 'spell_mage_runeofpower',
-  },
-  ICE_NOVA: {
-	  id: 157997,
-	  name: 'Ice Nova',
-	  icon: 'spell_mage_icenova',
-  },
-  RING_OF_FROST: {
-	  id: 113724,
-	  name: 'Ring of Frost',
-	  icon: 'spell_frost_ring-of-frost',
-  },
-  FROST_BOMB: {
-	  id: 112948,
-	  name: 'Frost Bomb',
-	  icon: 'spell_mage_frostbomb',
-  },
-  GLACIAL_SPIKE: {
-	  id: 228600,
-	  name: 'Glacial Spike',
-	  icon: 'spell_frost_frostbolt',
-  },
-  COMET_STORM_CAST: {
-	  id: 153595,
-	  name: 'Comet Storm',
-	  icon: 'spell_mage_cometstorm',
-  },
-  COMET_STORM_DEBUFF: {
-	  id: 153596,
-	  name: 'Comet Storm',
-	  icon: 'spell_mage_cometstorm',
-  },
-  
-  
+
+
   //Buffs
   BONE_CHILLING: {
 	  id: 205027,
@@ -261,6 +174,6 @@ export default {
 	  name: 'T20 2 Set Bonus',
 	  icon: 'spell_frost_frozenorb',
   },
-  
+
 
 };
