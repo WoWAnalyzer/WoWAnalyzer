@@ -26,8 +26,8 @@ class ApplyBuffFixer extends Module {
     const firstEventIndex = this._getFirstEventIndex(events);
     const playersById = this.owner.playersById;
 
-    // region `removebuff` based detection
-    // This catches most relevant buffs and is most accurate.
+    // region Buff event based detection
+    // This catches most relevant buffs and is most accurate. If a player is good at juggling certain buffs they can achieve 100% uptime, if that happens `removebuff` is never called, so we also check for other indicators that are just as reliable, such as `applybuffstack`, `removebuffstack` and `refreshbuff`.
     for (let i = 0; i < events.length; i += 1) {
       const event = events[i];
       const targetId = event.targetID;
@@ -37,7 +37,7 @@ class ApplyBuffFixer extends Module {
       if (event.type === 'applybuff') {
         this._buffsAppliedByPlayerId[targetId].push(event.ability.guid);
       }
-      if (event.type === 'removebuff') {
+      if (['removebuff', 'applybuffstack', 'removebuffstack', 'refreshbuff'].includes(event.type)) {
         if (this._buffsAppliedByPlayerId[targetId].includes(event.ability.guid)) {
           // This buff has an `applybuff` event and so isn't broken :D
           continue;
@@ -65,11 +65,6 @@ class ApplyBuffFixer extends Module {
     }
     // endregion
 
-    // region `refreshbuff` based detection
-    // If a player is good at juggling certian buffs they can achieve 100% uptime, no `removebuff` will be triggered but knowing about them is still important.
-    // TODO: Implement
-    // endregion
-
     // region `combatantinfo` based detection
     // This catches buffs that never drop, such as Flasks and more importantly.
 
@@ -92,9 +87,9 @@ class ApplyBuffFixer extends Module {
             timestamp: events[firstEventIndex].timestamp,
             type: 'applybuff',
             ability: {
-              id: aura.ability,
+              guid: aura.ability,
               name: 'Unknown',
-              icon: aura.icon,
+              abilityIcon: aura.icon,
             },
             sourceID: aura.source,
             sourceIsFriendly: true,
