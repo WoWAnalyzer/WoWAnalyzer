@@ -58,6 +58,7 @@ class CombatLogParser extends CoreCombatLogParser {
     patientSniperTracker: PatientSniperTracker,
     patientSniperDetails: PatientSniperDetails,
 
+
   };
 
   generateResults() {
