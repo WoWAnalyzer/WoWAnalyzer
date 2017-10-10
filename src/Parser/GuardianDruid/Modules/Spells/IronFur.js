@@ -1,5 +1,5 @@
 import React from 'react';
-import { formatPercentage, formatThousands } from 'common/format';
+import { formatPercentage } from 'common/format';
 import SCHOOLS from 'common/MAGIC_SCHOOLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
@@ -122,7 +122,7 @@ class IronFur extends Module {
   }
 
   get ironfurStacksApplied() {
-    return this._hitsPerStack.slice(1).reduce((sum, x, i) => sum + (x * i), 0);
+    return this._hitsPerStack.reduce((sum, x, i) => sum + (x * i), 0);
   }
 
   get totalHitsTaken() {
@@ -152,7 +152,6 @@ class IronFur extends Module {
   on_finished() {
     if (debug) {
       console.log(`Hits with ironfur ${this.hitsMitigated}`);
-      console.log(`Damage with ironfur ${this.physicalDamageWithIronFur}`);
       console.log(`Hits without ironfur ${this.hitsUnmitigated}`);
       console.log('Ironfur uptimes:', this.computeIronfurUptimeArray());
     }
@@ -183,8 +182,8 @@ class IronFur extends Module {
         label="Hits mitigated with Ironfur / Average Stacks"
         tooltip={`Ironfur usage breakdown:
             <ul>
-                <li>You were hit <b>${this.hitsMitigated}</b> times with your Ironfur buff (<b>${formatThousands(this.physicalDamageWithIronFur)}</b> damage).</li>
-                <li>You were hit <b>${this.hitsUnmitigated}</b> times <b><i>without</i></b> your Ironfur buff (<b>${formatThousands(this.physicalDamageWithoutIronFur)}</b> damage).</li>
+                <li>You were hit <b>${this.hitsMitigated}</b> times with your Ironfur buff.</li>
+                <li>You were hit <b>${this.hitsUnmitigated}</b> times <b><i>without</i></b> your Ironfur buff.</li>
             </ul>
             <b>Uptimes per stack: </b>
             <ul>
