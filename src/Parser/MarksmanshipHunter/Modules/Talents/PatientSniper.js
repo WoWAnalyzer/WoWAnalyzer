@@ -2,6 +2,7 @@ import React from 'react';
 
 import Module from 'Parser/Core/Module';
 import Enemies from 'Parser/Core/Modules/Enemies';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -20,9 +21,10 @@ class PatientSniper extends Module {
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-import SpellLink from 'common/SpellLink';
-import Combatants from "../../../Core/Modules/Combatants";
-import StatisticBox from "../../../../Main/StatisticBox";
+import StatisticBox from "Main/StatisticBox";
+
+import AimedInVulnerableTracker from '/Features/AimedInVulnerableTracker';
+import { formatPercentage } from "../../../../common/format";
 
 class PatientSniper extends Module {
 
@@ -183,12 +185,14 @@ class PatientSniper extends Module {
   }
 
   statistic() {
+    const percentGoodAimedShots = (this.threeSecondsIntoVulnerable+this.fourSecondsIntoVulnerable+this.fiveSecondsIntoVulnerable+this.sixSecondsIntoVulnerable) / AimedInVulnerableTracker.totalAimed;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.PATIENT_SNIPER_TALENT.id} />}
-        value={`}
-        label={}/>
-    )
+        value={`${formatPercentage(percentGoodAimedShots)}%`}
+        label="Aimed Shots 3+ seconds into Vulnerable"
+      tooltip={``}/>
+    );
   }
   statistic() {
     const totalAimedShotIncrease = (this.nonVulnerableAimedShots * 0) + (this.oneSecondIntoVulnerable * 6) + (this.twoSecondsIntoVulnerable * 12) + (this.threeSecondsIntoVulnerable * 18) + (this.fourSecondsIntoVulnerable * 24) + (this.fiveSecondsIntoVulnerable * 30) + (this.sixSecondsIntoVulnerable * 36);
