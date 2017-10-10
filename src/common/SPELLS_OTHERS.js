@@ -5,6 +5,11 @@
 
 export default {
   // General:
+  FAKE_SPELL: {
+    id: -100,
+    name: 'Fake Spell',
+    icon: 'spell_super_duper_fake02',
+  },
   MELEE: {
     id: 1,
     name: 'Melee',
@@ -441,5 +446,10 @@ export default {
     id: 253022,
     name: 'Dark Sorrows',
     icon: 'inv_heart_of_the_thunder-king_icon',
+  },
+  CONCORDANCE_OF_THE_LEGIONFALL_INTELLECT: {
+    id: 242586,
+    name: 'Concordance of the Legionfall',
+    icon: 'achievement_faction_legionfall',
   },
 };
