@@ -574,7 +574,7 @@ export default {
     icon: 'ability_monk_chiwave',
   },
   POWER_STRIKES: {
-    id: 121817,
+    id: 121283,
     name: 'Power Strikes',
     icon: 'ability_monk_powerstrikes',
   },
