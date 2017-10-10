@@ -126,7 +126,6 @@ class PatientSniper extends Module {
 36% increased damage: ${this.sixSecondsIntoVulnerable} Aimed Shots<br/>`} />
     );
   }
-
 }
 
 export default PatientSniper;
