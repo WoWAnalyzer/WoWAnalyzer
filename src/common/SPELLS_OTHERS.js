@@ -5,6 +5,11 @@
 
 export default {
   // General:
+  FAKE_SPELL: {
+    id: -100,
+    name: 'Fake Spell',
+    icon: 'spell_super_duper_fake02',
+  },
   MELEE: {
     id: 1,
     name: 'Melee',
