@@ -64,7 +64,7 @@ class FillerLightOfTheMartyrs extends Module {
     const inefficientLotmsPerMinute = this.inefficientCasts / (this.owner.fightDuration / 1000) * 60;
     when(inefficientLotmsPerMinute).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You cast {this.inefficientCasts} <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} />s while <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> was off cooldown. Try to <b>never</b> cast <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> when something else is available.</span>)
+        return suggest(<span>You cast {this.inefficientCasts} <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} />s while <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> was available. Try to <b>never</b> cast <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> when something else is available.</span>)
           .icon(SPELLS.LIGHT_OF_THE_MARTYR.icon)
           .actual(`${this.inefficientCasts} casts while Holy Shock was available`)
           .recommended(`No inefficient casts is recommended`)
