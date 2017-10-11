@@ -6,7 +6,7 @@ import { formatPercentage, formatMilliseconds } from 'common/format';
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-const debug = true;
+const debug = false;
 
 class Haste extends Module {
   static dependencies = {

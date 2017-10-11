@@ -5,7 +5,7 @@ import Module from 'Parser/Core/Module';
 
 import CastEfficiency from './CastEfficiency';
 
-const debug = true;
+const debug = false;
 
 function spellName(spellId) {
   return SPELLS[spellId] ? SPELLS[spellId].name : '???';
