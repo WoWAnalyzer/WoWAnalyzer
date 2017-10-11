@@ -248,7 +248,7 @@ class Results extends React.Component {
             </div>
           </div>
 
-          <div className="panel">
+          <div className="panel" style={{ marginTop: 15 }}>
             <div className="panel-body flex" style={{ padding: '0' }}>
               <div className="navigation" style={{ flex: '0 0 auto', width: 200, minHeight: 400 }}>
                 <div className="panel-heading">
