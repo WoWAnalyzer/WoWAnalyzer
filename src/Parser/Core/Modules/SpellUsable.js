@@ -48,7 +48,7 @@ class SpellUsable extends Module {
       throw new Error(`Tried to retrieve the remaining cooldown of ${spellId}, but it's not on cooldown.`);
     }
     const cooldown = this._currentCooldowns[spellId];
-    const expectedEnd = cooldown.start + cooldown.expectedDuration;
+    const expectedEnd = cooldown.start + cooldown.expectedDuration - cooldown.totalReductionTime;
     return expectedEnd - timestamp;
   }
   /**
@@ -67,6 +67,7 @@ class SpellUsable extends Module {
       this._currentCooldowns[spellId] = {
         start: timestamp,
         expectedDuration: expectedCooldownDuration,
+        totalReductionTime: 0,
         chargesOnCooldown: 1,
       };
       this._triggerEvent('updatespellusable', this._makeEvent(spellId, timestamp, 'begincooldown'));
@@ -132,6 +133,7 @@ class SpellUsable extends Module {
 
     this._currentCooldowns[spellId].start = timestamp;
     this._currentCooldowns[spellId].expectedDuration = expectedCooldownDuration;
+    this._currentCooldowns[spellId].totalReductionTime = 0;
     this._triggerEvent('updatespellusable', this._makeEvent(spellId, timestamp, 'refreshcooldown'));
   }
   /**
@@ -150,9 +152,9 @@ class SpellUsable extends Module {
       this.endCooldown(spellId, false, timestamp);
       return cooldownRemaining;
     } else {
-      this._currentCooldowns[spellId].expectedDuration -= reductionMs;
+      this._currentCooldowns[spellId].totalReductionTime += reductionMs;
       const fightDuration = formatMilliseconds(timestamp - this.owner.fight.start_time);
-      debug && console.log(fightDuration, 'SpellUsable', 'Reduced', spellName(spellId), spellId, 'by', reductionMs, 'remaining:', this.cooldownRemaining(spellId, timestamp), 'old:', cooldownRemaining, 'new expected duration:', this._currentCooldowns[spellId].expectedDuration);
+      debug && console.log(fightDuration, 'SpellUsable', 'Reduced', spellName(spellId), spellId, 'by', reductionMs, 'remaining:', this.cooldownRemaining(spellId, timestamp), 'old:', cooldownRemaining, 'new expected duration:', this._currentCooldowns[spellId].expectedDuration - this._currentCooldowns[spellId].totalReductionTime, 'total CDR:', this._currentCooldowns[spellId].totalReductionTime);
       return reductionMs;
     }
   }
@@ -211,7 +213,8 @@ class SpellUsable extends Module {
     Object.keys(this._currentCooldowns).forEach(spellId => {
       const remainingDuration = this.cooldownRemaining(spellId, timestamp);
       if (remainingDuration <= 0) {
-        const expectedEnd = this._currentCooldowns[spellId].start + this._currentCooldowns[spellId].expectedDuration;
+        const cooldown = this._currentCooldowns[spellId];
+        const expectedEnd = cooldown.start + cooldown.expectedDuration - cooldown.totalReductionTime;
         const fightDuration = formatMilliseconds(timestamp - this.owner.fight.start_time);
         debug && console.log(fightDuration, 'SpellUsable', 'Clearing', spellName(spellId), spellId, 'due to expiry');
         this.endCooldown(Number(spellId), false, expectedEnd);
@@ -233,14 +236,16 @@ class SpellUsable extends Module {
     Object.keys(this._currentCooldowns).forEach(spellId => {
       const cooldown = this._currentCooldowns[spellId];
       const originalExpectedDuration = cooldown.expectedDuration;
-      const remainingDuration = this.cooldownRemaining(spellId, event.timestamp);
-      const timePassed = originalExpectedDuration - remainingDuration;
+      const timePassed = event.timestamp - cooldown.start;
       const progress = timePassed / originalExpectedDuration;
       const cooldownDurationWithCurrentHaste = this.castEfficiency.getExpectedCooldownDuration(Number(spellId));
       const newExpectedDuration = timePassed + this._calculateNewCooldownDuration(progress, cooldownDurationWithCurrentHaste);
       const fightDuration = formatMilliseconds(event.timestamp - this.owner.fight.start_time);
-      debug && console.log(fightDuration, 'SpellUsable', 'Adjusting', spellName(spellId), spellId, 'cooldown duration due to Haste change; old duration:', originalExpectedDuration, 'time expired:', timePassed, 'progress:', `${formatPercentage(progress)}%`, 'cooldown duration with current Haste:', cooldownDurationWithCurrentHaste, 'actual new expected duration:', newExpectedDuration);
+      // NOTE: This does NOT scale any cooldown reductions applicable, their reduction time is static. (confirmed for absolute reductions (1.5 seconds), percentual reductions might differ but it is unlikely)
+
       cooldown.expectedDuration = newExpectedDuration;
+
+      debug && console.log(fightDuration, 'SpellUsable', 'Adjusted', spellName(spellId), spellId, 'cooldown duration due to Haste change; old duration without CDRs:', originalExpectedDuration, 'CDRs:', cooldown.totalReductionTime, 'time expired:', timePassed, 'progress:', `${formatPercentage(progress)}%`, 'cooldown duration with current Haste:', cooldownDurationWithCurrentHaste, '(without CDRs)', 'actual new expected duration:', newExpectedDuration, '(without CDRs)');
     });
   }
   _calculateNewCooldownDuration(progress, newDuration) {
