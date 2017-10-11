@@ -61,6 +61,7 @@ class ApplyBuffFixer extends Module {
 
         const fightDuration = formatDuration((event.timestamp - this.owner.fight.start_time) / 1000);
         debug && console.warn(fightDuration, 'Found a buff on', ((playersById[targetId] && playersById[targetId].name) || '???'), 'that was applied before the pull:', event.ability.name, spellId, '! Fabricating an `applybuff` event so you don\'t have to do anything special to take this into account.');
+        const targetInfo = this._combatantInfoEvents.find(event => event.sourceID === targetId);
         const applybuff = {
           // These are all the properties a normal `applybuff` event would have.
           timestamp: events[firstEventIndex].timestamp,
@@ -73,7 +74,10 @@ class ApplyBuffFixer extends Module {
           // Custom properties:
           prepull: true,
           __fabricated: true,
+          // If we see a prepull buff from both its removebuff and in combatantinfo, we populate fabricated applybuff from the removebuff because this requires us to make up fewer fields. We still need to mark it as in the combatantinfo.
+          __fromCombatantinfo: targetInfo && targetInfo.auras.some(aura => aura.ability === spellId),
         };
+
         events.splice(firstEventIndex, 0, applybuff);
         // It shouldn't happen twice, but better be safe than sorry.
         this._buffsAppliedByPlayerId[targetId].push(spellId);

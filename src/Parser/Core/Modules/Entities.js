@@ -14,10 +14,6 @@ class Entities extends Module {
   }
 
   on_applybuff(event) {
-    if (event.__fromCombatantinfo) {
-      // We already scan the `combatantinfo` auras, so adding it here would be duplicating which causes a lot of issues. We need to use `combatantinfo` so that our buffs are already available when just the `combatantinfo` events are available (for display purposes).
-      return;
-    }
     this.applyBuff(event);
   }
   // TODO: Add a sanity check to the `refreshbuff` event that checks if a buff that's being refreshed was applied, if it wasn't it might be a broken pre-combat applied buff not shown in the combatantinfo event
