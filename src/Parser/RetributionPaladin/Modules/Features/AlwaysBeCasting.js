@@ -43,7 +43,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.DIVINE_STEED.id,
     26573, // Consecration
     642, // Divine Shield
-    SPELLS.LAY_ON_HANDS.id,
     SPELLS.BLESSING_OF_FREEDOM.id,
     1022, // Blessing of Protection
     853, // Hammer of Justice
