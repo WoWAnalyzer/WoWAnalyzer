@@ -74,6 +74,7 @@ class ApplyBuffFixer extends Module {
           // Custom properties:
           prepull: true,
           __fabricated: true,
+          // If we see a prepull buff from both its removebuff and in combatantinfo, we populate fabricated applybuff from the removebuff because this requires us to make up fewer fields. We still need to mark it as in the combatantinfo.
           __fromCombatantinfo: targetInfo && targetInfo.auras.some(aura => aura.ability === spellId),
         };
 
