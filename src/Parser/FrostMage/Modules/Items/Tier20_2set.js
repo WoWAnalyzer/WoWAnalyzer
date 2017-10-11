@@ -5,8 +5,10 @@ import SpellLink from 'common/SpellLink';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import { formatNumber } from 'common/format';
 import Module from 'Parser/Core/Module';
+import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import getDamageBonus from '../MageCore/GetDamageBonus';
 
+const FROZEN_MASS_DAMAGE_BONUS = 0.2;
 
 class Tier20_2set extends Module {
   static dependencies = {
@@ -20,8 +22,11 @@ class Tier20_2set extends Module {
   }
 
   on_byPlayer_damage(event) {
+    if (event.hitType !== HIT_TYPES.CRIT) {
+      return;
+    }
     if (this.combatants.selected.hasBuff(SPELLS.FROZEN_MASS.id)) {
-      this.damage += getDamageBonus(event, 0.2);
+      this.damage += getDamageBonus(event, FROZEN_MASS_DAMAGE_BONUS);
     }
   }
 
