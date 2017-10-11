@@ -228,7 +228,7 @@ class Results extends React.Component {
               </a>
             </div>
           </div>
-          <div className="text-muted" style={{ marginBottom: 25 }}>
+          <div className="text-muted" style={{ marginBottom: 25, fontSize: '1.4em' }}>
             The <img
               src={`/specs/${config.spec.className.replace(' ', '')}-${config.spec.specName.replace(' ', '')}.jpg`}
               alt="Spec logo"
@@ -236,7 +236,7 @@ class Results extends React.Component {
                 borderRadius: '50%',
                 height: '1.2em',
               }}
-            /> {config.spec.specName} {config.spec.className} analyzer is being maintained by {config.maintainer}. <a href="#spec-information" onClick={this.handleClickViewSpecInformation}>More information.</a>
+            /> {config.spec.specName} {config.spec.className} spec implementation is being maintained by {config.maintainer}. <a href="#spec-information" onClick={this.handleClickViewSpecInformation}>More information.</a>
           </div>
 
           <div className="row">
