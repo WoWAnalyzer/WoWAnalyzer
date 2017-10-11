@@ -1,4 +1,5 @@
 export default `
+11-10-2017 - Reduced the recommended cast efficiency for Crusader Strike (with Crusader's Might talent) to 35%. (by Zerotorescue)
 27-09-2017 - Fix relic traits Deliver the Light, Expel the Darkness and Justice through Sacrifice calculations to take into account that the traits are additive with each other. (by Zerotorescue)
 27-09-2017 - Wasted IoL procs now includes Infusion of Lights gained from damaging Holy Shocks so it should only be below 0% when you had a pre-combat IoL. (by Zerotorescue)
 23-09-2017 - Show cast behavior as doughnut charts to create more visual variety. (by Zerotorescue)
