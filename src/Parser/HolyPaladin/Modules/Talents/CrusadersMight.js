@@ -2,7 +2,6 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-import { formatDecimal } from 'common/format';
 
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -57,7 +56,7 @@ class CrusadersMight extends Module {
         icon={<SpellIcon id={SPELLS.CRUSADERS_MIGHT_TALENT.id} />}
         value={(
           <span style={{ fontSize: '75%' }}>
-            {formatDecimal(this.effectiveHolyShockReductionMs / 1000, 1)}s{' '}
+            {(this.effectiveHolyShockReductionMs / 1000).toFixed(1)}s{' '}
             <SpellIcon
               id={SPELLS.HOLY_SHOCK_CAST.id}
               style={{
@@ -66,7 +65,7 @@ class CrusadersMight extends Module {
               }}
             />
             {' '}
-            {formatDecimal(this.effectiveLightOfDawnReductionMs / 1000, 1)}s{' '}
+            {(this.effectiveLightOfDawnReductionMs / 1000).toFixed(1)}s{' '}
             <SpellIcon
               id={SPELLS.LIGHT_OF_DAWN_CAST.id}
               style={{
