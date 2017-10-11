@@ -217,7 +217,7 @@ class Results extends React.Component {
                 {getBossName(fight)} by <span className={config.spec.className.replace(' ', '')}>{selectedCombatant.name}</span>
               </h1>
             </div>
-            <div className="col-lg-2 col-md-4" style={{ paddingTop: 20 }}>
+            <div className="col-lg-2 col-md-4" style={{ paddingTop: 20, fontSize: 20 }}>
               <a
                 href={`https://www.warcraftlogs.com/reports/${report.code}/#fight=${fight.id}&source=${parser.playerId}`}
                 target="_blank"
