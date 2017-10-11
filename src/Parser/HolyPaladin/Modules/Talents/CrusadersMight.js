@@ -39,8 +39,7 @@ class CrusadersMight extends Module {
       this.effectiveHolyShockReductionMs += reductionMs;
       this.wastedHolyShockReductionMs += COOLDOWN_REDUCTION_MS - reductionMs;
     } else {
-      const wastedReductionMs = COOLDOWN_REDUCTION_MS;
-      this.wastedHolyShockReductionMs += wastedReductionMs;
+      this.wastedHolyShockReductionMs += COOLDOWN_REDUCTION_MS;
     }
     const lightOfDawnisOnCooldown = this.spellUsable.isOnCooldown(SPELLS.LIGHT_OF_DAWN_CAST.id);
     if (lightOfDawnisOnCooldown) {
@@ -48,8 +47,7 @@ class CrusadersMight extends Module {
       this.effectiveLightOfDawnReductionMs += reductionMs;
       this.wastedLightOfDawnReductionMs += COOLDOWN_REDUCTION_MS - reductionMs;
     } else {
-      const wastedReductionMs = COOLDOWN_REDUCTION_MS;
-      this.wastedLightOfDawnReductionMs += wastedReductionMs;
+      this.wastedLightOfDawnReductionMs += COOLDOWN_REDUCTION_MS;
     }
   }
 
