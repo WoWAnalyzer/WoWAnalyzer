@@ -8,6 +8,7 @@ describe('Core/Modules/SpellUsable', () => {
   let parserMock;
   let castEfficiencyMock;
   let triggerCast;
+  let triggerHasteChange;
   beforeEach(() => {
     // Reset mocks:
     parserMock = getParserMock();
@@ -26,6 +27,12 @@ describe('Core/Modules/SpellUsable', () => {
         },
         timestamp: parserMock.currentTimestamp,
         ...extra,
+      });
+    };
+    triggerHasteChange = () => {
+      instance.triggerEvent('changehaste', {
+        // We don't need more; the new Haste is pulled straight from the Haste module
+        timestamp: parserMock.currentTimestamp,
       });
     };
   });
@@ -344,10 +351,7 @@ describe('Core/Modules/SpellUsable', () => {
     parserMock.currentTimestamp = 1000;
     // Simulate Haste increasing which would reduce our spell's cooldown to 6s (down from 7.5sec)
     castEfficiencyMock.getExpectedCooldownDuration = jest.fn(() => 6000);
-    instance.triggerEvent('changehaste', {
-      // We don't need more; the new Haste is pulled straight from the Haste module
-      timestamp: parserMock.currentTimestamp,
-    });
+    triggerHasteChange();
 
     // New expected cooldown is `1000 + (6000 * (1 - (1000 / 7500)))=6200`, but we already spent 1000ms on cooldown, so what's remaining is 5200.
     expect(instance.cooldownRemaining(SPELLS.FAKE_SPELL.id)).toBe(5200);
@@ -357,12 +361,24 @@ describe('Core/Modules/SpellUsable', () => {
     parserMock.currentTimestamp = 1000;
     // Simulate Haste decreasing which would increase our spell's cooldown to 9s (up from 7.5sec)
     castEfficiencyMock.getExpectedCooldownDuration = jest.fn(() => 9000);
-    instance.triggerEvent('changehaste', {
-      // We don't need more; the new Haste is pulled straight from the Haste module
-      timestamp: parserMock.currentTimestamp,
-    });
+    triggerHasteChange();
 
     // New expected cooldown is `1000 + (6000 * (1 - (1000 / 7500)))=8800`, but we already spent 1000ms on cooldown, so what's remaining is 7800.
     expect(instance.cooldownRemaining(SPELLS.FAKE_SPELL.id)).toBe(7800);
+  });
+  it('CDRs are static and unaffected by Haste changes', () => {
+    triggerCast(SPELLS.FAKE_SPELL.id); // cooldown is now 7500
+    instance.reduceCooldown(SPELLS.FAKE_SPELL.id, 1500); // cooldown is now 6000
+    castEfficiencyMock.getExpectedCooldownDuration = jest.fn(() => 9000);
+    parserMock.currentTimestamp = 2000;
+    triggerHasteChange();
+
+    // Total expected cooldown:
+    // cd progress = time passed / old CD duration before CDRs
+    // new CD = timePassed + (100% - cd progress) * new CD with new Haste - sum CDRs
+    // new CD = 2000 + (1 - 2000 / 7500) * 9000 - 1500
+    // Remaining: total - 2000 (since current timestamp is 2000).
+    // If this returns 6000 the CDR is applied before the Haste adjusting and therefore invalid.
+    expect(instance.cooldownRemaining(SPELLS.FAKE_SPELL.id)).toBe(5100);
   });
 });
