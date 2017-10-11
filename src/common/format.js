@@ -43,3 +43,9 @@ export function formatDuration(duration) {
   const seconds = Math.floor(duration % 60);
   return `${Math.floor(duration / 60)}:${seconds < 10 ? `0${seconds}` : seconds}`;
 }
+export function formatMilliseconds(duration) {
+  const sumSeconds = duration / 1000;
+  const minutes = Math.floor(sumSeconds / 60);
+  const seconds = (sumSeconds % 60);
+  return `${minutes < 10 ? `0${minutes}` : minutes}:${seconds < 10 ? `0${seconds.toFixed(3)}` : seconds.toFixed(3)}`;
+}
