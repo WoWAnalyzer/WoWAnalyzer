@@ -259,7 +259,7 @@ const ITEMS = {
     quality: ITEM_QUALITIES.LEGENDARY,
   },
   //Mage
-  SHATTERED_FRAGMENTS_SINDRAGOSA: {
+  SHATTERED_FRAGMENTS_OF_SINDRAGOSA: {
 	  id: 151810,
 	  name: 'Shattered Fragments of Sindragosa',
 	  icon: 'inv_helmet_133',

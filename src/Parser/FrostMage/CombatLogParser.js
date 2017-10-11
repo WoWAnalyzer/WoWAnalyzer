@@ -12,8 +12,7 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownTracker from './Modules/Features/CooldownTracker';
 import WintersChillTracker from './Modules/Features/WintersChill';
 import BrainFreeze from './Modules/Features/BrainFreeze';
-import FingersFrost from './Modules/Features/FingersFrost';
-import IcyVeinsDuration from './Modules/Features/IcyVeinsDuration';
+import ThermalVoid from './Modules/Features/ThermalVoid';
 import IcicleTracker from './Modules/Features/IcicleTracker';
 
 import Tier20_2set from './Modules/Items/Tier20_2set';
@@ -28,8 +27,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownTracker: CooldownTracker,
 	  wintersChillTracker: WintersChillTracker,
 	  brainFreeze: BrainFreeze,
-	  fingersFrost: FingersFrost,
-	  icyVeinsDuration: IcyVeinsDuration,
+	  thermalVoid: ThermalVoid,
 	  icicleTracker: IcicleTracker,
     damageDone: [DamageDone, { showStatistic: true }],
 

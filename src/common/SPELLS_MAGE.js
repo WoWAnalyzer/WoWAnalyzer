@@ -168,11 +168,21 @@ export default {
 	  name: 'Icicles',
 	  icon: 'spell_frost_iceshard',
   },
+  FROZEN_MASS: {
+	  id: 242253,
+	  name: 'Frozen Mass',
+	  icon: 'spell_frost_frozenorb',
+  },
   //Tier Sets
   FROST_MAGE_T20_2SET_BONUS_BUFF: {
-	  id: 242253,
-	  name: 'T20 2 Set Bonus',
-	  icon: 'spell_frost_frozenorb',
+    id: 242252,
+    name: 'Tier 20 2 Set Bonus',
+    icon: 'spell_frost_frostbolt02',
+  },
+  FROST_MAGE_T20_4SET_BONUS_BUFF: {
+    id: 242254,
+    name: 'Tier 20 4 Set Bonus',
+    icon: 'spell_frost_frostbolt02',
   },
 
 

@@ -2,10 +2,10 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import { formatPercentage } from 'common/format';
 import Combatants from 'Parser/Core/Modules/Combatants';
-
+import { formatNumber } from 'common/format';
 import Module from 'Parser/Core/Module';
+import getDamageBonus from '../MageCore/GetDamageBonus';
 
 
 class Tier20_2set extends Module {
@@ -13,15 +13,24 @@ class Tier20_2set extends Module {
     combatants: Combatants,
   }
 
+  damage = 0;
+
+  on_initialized() {
+	this.active = this.combatants.selected.hasBuff(SPELLS.FROST_MAGE_T20_2SET_BONUS_BUFF.id);
+  }
+
+  on_byPlayer_damage(event) {
+    if (this.combatants.selected.hasBuff(SPELLS.FROZEN_MASS.id)) {
+      this.damage += getDamageBonus(event, 0.2);
+    }
+  }
+
   item() {
-    const T202setUptime = this.combatants.selected.getBuffUptime(SPELLS.FROST_MAGE_T20_2SET_BONUS_BUFF.id) / this.owner.fightDuration;
     return {
-      id: `spell-${SPELLS.FROST_MAGE_T20_2SET_BONUS_BUFF.id}`,
-      icon: <SpellIcon id={SPELLS.FROST_MAGE_T20_2SET_BONUS_BUFF.id} />,
-      title: <SpellLink id={SPELLS.FROST_MAGE_T20_2SET_BONUS_BUFF.id} />,
-      result: (
-          `${formatPercentage(T202setUptime)}% uptime`
-      ),
+      id: `spell-${SPELLS.FROZEN_MASS.id}`,
+      icon: <SpellIcon id={SPELLS.FROZEN_MASS.id} />,
+      title: <SpellLink id={SPELLS.FROZEN_MASS.id} />,
+      result: `${formatNumber(this.damage)} damage - ${this.owner.formatItemDamageDone(this.damage)}`,
     };
   }
 }

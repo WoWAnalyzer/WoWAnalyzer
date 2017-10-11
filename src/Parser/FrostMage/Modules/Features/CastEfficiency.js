@@ -37,12 +37,6 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => null,
     },
     {
-      spell: SPELLS.FROZEN_ORB,
-      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => 60,
-	    recommendedCastEfficiency: 0.95,
-    },
-    {
       spell: SPELLS.WATER_JET,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 25,
@@ -76,6 +70,12 @@ class CastEfficiency extends CoreCastEfficiency {
 
     // Cooldowns
 
+    {
+      spell: SPELLS.FROZEN_ORB,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => 60,
+	    recommendedCastEfficiency: 0.95,
+    },
     {
       spell: SPELLS.ICY_VEINS,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,

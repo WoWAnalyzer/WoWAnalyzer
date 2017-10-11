@@ -21,22 +21,28 @@ class ShardOfTheExodar extends Module {
 		combatants: Combatants,
 	};
 
-	damage = 0;
+	possibleCasts = 0;
+  actualCasts = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.hasFinger(ITEMS.SHARD_OF_THE_EXODAR.id);
   }
 
-  on_byPlayer_damage(event){
-    if (BLOODLUST_BUFFS.some(buff => this.combatants.selected.hasBuff(buff, event.timestamp))) {
-      this.damage += event.amount;
+  on_toPlayer_applybuff(event) {
+    if (BLOODLUST_BUFFS.some(buff => event.ability.guid === buff)) {
+      this.actualCasts += 1;
     }
   }
 
   item() {
+    if (this.owner.fightDuration / 1000 > 330) {
+      this.possibleCasts = 3;
+    } else {
+      this.possibleCasts = 2;
+    }
     return {
       item: ITEMS.SHARD_OF_THE_EXODAR,
-      result: `${this.owner.formatItemDamageDone(this.damage)} Total Damage During Lust`,
+      result: `Gained Lust ${formatNumber(this.actualCasts)} Times. (${formatNumber(this.possibleCasts)} Possible)`,
     };
   }
 }

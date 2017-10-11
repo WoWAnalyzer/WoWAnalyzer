@@ -7,7 +7,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Module from 'Parser/Core/Module';
 
-class IcyVeinsDuration extends Module {
+class ThermalVoid extends Module {
 
   static dependencies = {
     combatants: Combatants,
@@ -54,4 +54,4 @@ class IcyVeinsDuration extends Module {
   statisticOrder = STATISTIC_ORDER.CORE(3);
 }
 
-export default IcyVeinsDuration;
+export default ThermalVoid;
