@@ -242,6 +242,16 @@ export default {
     name: 'Divine Hammer',
     icon: 'spell_holy_auraoflight',
   },
+  DIVINE_HAMMER_3_HP: {
+    id: 246345,
+    name: 'Divine Hammer',
+    icon: 'classicon_paladin',
+  },
+  DIVINE_HAMMER_2_HP: {
+    id: 228231,
+    name: 'Divine Hammer',
+    icon: 'classicon_paladin',
+  },
   DIVINE_STORM_DAMAGE: {
     id: 224239,
     name: 'Divine Storm',
