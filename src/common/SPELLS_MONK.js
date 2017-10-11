@@ -5,13 +5,19 @@
  */
 
 export default {
+  // Shared
+  BLACKOUT_KICK: { id: 100784, name: 'Blackout Kick', icon: 'ability_monk_roundhousekick' },
+  CRACKLING_JADE_LIGHTNING: { id: 117952, name: 'Crackling Jade Lightning', icon: 'ability_monk_cracklingjadelightning' },
+  EFFUSE: { id: 116694, name: 'Effuse', icon: 'ability_monk_effuse', manaPerc: 0.02 },
+  PARALYSIS: { id: 115078, name: 'Paralysis', icon: 'ability_monk_paralysis' },
+  RISING_SUN_KICK: { id: 107428, name: 'Rising Sun Kick', icon: 'ability_monk_risingsunkick', manaPerc: 0.015 },
+  ROLL: { id: 109132, name: 'Roll', icon: 'ability_monk_roll' },
+  SPEAR_HAND_STRIKE: { id: 116705, name: 'Spear Hand Strike', icon: 'ability_monk_spearhand'},
+  SPINNING_CRANE_KICK: { id: 101546, name: 'Spinning Crane Kick', icon: 'ability-monk-cranekick-new', manaPerc: 0.01 },
+  TIGER_PALM: { id: 100780, name: 'Tiger Palm', icon: 'ability_monk_tigerpalm' },
+  TRANSCENDENCE: { id: 101643, name: 'Trancendance', icon: 'monk_ability_transcendence' },
+  TRANSCENDENCE_TRANSFER: { id: 119996, name: 'Trancendance: Transfer', icon: 'spell_shaman_spectraltransformation' },
   // Mistweaver Monk Spells
-  EFFUSE: {
-    id: 116694,
-    name: 'Effuse',
-    icon: 'ability_monk_effuse',
-    manaPerc: 0.02,
-  },
   ENVELOPING_MISTS: {
     id: 124682,
     name: 'Enveloping Mists',
@@ -130,33 +136,6 @@ export default {
     icon: 'ability_monk_souldance',
   },
   // Damage Abilities
-  BLACKOUT_KICK: {
-    id: 100784,
-    name: 'Blackout Kick',
-    icon: 'ability_monk_roundhousekick',
-  },
-  CRACKLING_JADE_LIGHTNING: {
-    id: 117952,
-    name: 'Crackling Jade Lightning',
-    icon: 'ability_monk_cracklingjadelightning',
-  },
-  RISING_SUN_KICK: {
-    id: 107428,
-    name: 'Rising Sun Kick',
-    icon: 'ability_monk_risingsunkick',
-    manaPerc: 0.015,
-  },
-  SPINNING_CRANE_KICK: {
-    id: 101546,
-    name: 'Spinning Crane Kick',
-    icon: 'ability-monk-cranekick-new',
-    manaPerc: 0.01,
-  },
-  TIGER_PALM: {
-    id: 100780,
-    name: 'Tiger Palm',
-    icon: 'ability_monk_tigerpalm',
-  },
   TEACHINGS_OF_THE_MONASTERY: {
     id: 202090,
     name: 'Teachings of the Monastery',
@@ -177,27 +156,6 @@ export default {
     name: 'Fortifying Brew',
     icon: 'ability_monk_fortifyingelixir',
   },
-  ROLL: {
-    id: 109132,
-    name: 'Roll',
-    icon: 'ability_monk_roll',
-  },
-  TRANSCENDENCE: {
-    id: 101643,
-    name: 'Trancendance',
-    icon: 'monk_ability_transcendence',
-  },
-  TRANSCENDENCE_TRANSFER: {
-    id: 119996,
-    name: 'Trancendance: Transfer',
-    icon: 'spell_shaman_spectraltransformation',
-  },
-  PARALYSIS: {
-    id: 115078,
-    name: 'Paralysis',
-    icon: 'ability_monk_paralysis',
-  },
-
   // Talents:
   REFRESHING_JADE_WIND_TALENT: {
     id: 196725,
@@ -485,7 +443,7 @@ export default {
     icon: 'ability_monk_blackoutkick',
   },
 
-  // Windwalk Spells
+  // Windwalker Spells
   COMBO_STRIKES: {
     id: 115636,
     name: 'Mastery: Combo Strikes',
@@ -511,6 +469,7 @@ export default {
     name: 'Combo Breaker',
     icon: 'pandarenracial_bouncy',
   },
+  COMBO_BREAKER_BUFF: { id: 116768, name: 'Blackout Kick!', icon: 'ability_monk_roundhousekick'},
   TOUCH_OF_DEATH: {
     id: 115080,
     name: 'Touch of Death',
@@ -568,34 +527,5 @@ export default {
     icon: 'inv_hand_1h_artifactskywall_d_01',
   },
   // Windwalker Talents
-  CHI_WAVE: {
-    id: 173527,
-    name: 'Chi Wave',
-    icon: 'ability_monk_chiwave',
-  },
-  POWER_STRIKES: {
-    id: 121283,
-    name: 'Power Strikes',
-    icon: 'ability_monk_powerstrikes',
-  },
-  ENERGIZING_ELIXIR: {
-    id: 115288,
-    name: 'Energizing Elixir',
-    icon: 'ability_monk_energizingwine',
-  },
-  CHI_ORBIT: {
-    id: 196743,
-    name: 'Chi Orbit',
-    icon: 'ability_monk_forcesphere',
-  },
-  WHIRLING_DRAGON_PUNCH: {
-    id: 152175,
-    name: 'Whirling Dragon Punch',
-    icon: 'ability_monk_hurricanestrike'
-  },
-  SERENITY: {
-    id: 152173,
-    name: 'Serenity',
-    icon: 'ability_monk_serenity',
-  },
+  POWER_STRIKES: { id: 121283, name: 'Power Strikes', icon: 'ability_monk_powerstrikes'},
 };

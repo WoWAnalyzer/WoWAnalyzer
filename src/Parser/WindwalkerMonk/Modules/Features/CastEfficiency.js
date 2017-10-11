@@ -20,27 +20,27 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 10,
     },
     {
-        spell: SPELLS.WHIRLING_DRAGON_PUNCH,
-        category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-        getCooldown: haste => 24,
-        isActive: combatant => combatant.hasTalent(SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id),
+      spell: SPELLS.WHIRLING_DRAGON_PUNCH_TALENT,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => 24,
+      isActive: combatant => combatant.hasTalent(SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id),
     },
     // cooldowns
     {
-        spell: SPELLS.TOUCH_OF_KARMA_CAST,
-        category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
-        getCooldown: haste => 90,     
+      spell: SPELLS.TOUCH_OF_KARMA_CAST,
+      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
+      getCooldown: haste => 90,     
     },
     {
-        spell: SPELLS.TOUCH_OF_DEATH,
-        category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
-        getCooldown: haste => 120,
+      spell: SPELLS.TOUCH_OF_DEATH,
+      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
+      getCooldown: haste => 120,
     },
     {
-        spell: SPELLS.SERENITY,
-        category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
-        getCooldown: haste => 70,
-        isActive: combatant => combatant.hasTalent(SPELLS.SERENITY.id),
+      spell: SPELLS.SERENITY_TALENT,
+      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
+      getCooldown: haste => 70,
+        isActive: combatant => combatant.hasTalent(SPELLS.SERENITY_TALENT.id),
     },
     // other spells
     {
@@ -60,9 +60,9 @@ class CastEfficiency extends CoreCastEfficiency {
       isActive: combatant => combatant.hasTalent(SPELLS.CHI_WAVE_TALENT.id),
     },
     {
-        spell: SPELLS.SPINNING_CRANE_KICK,
-        category: CastEfficiency.SPELL_CATEGORIES.OTHERS,
-        getCooldown: haste => null,
+      spell: SPELLS.SPINNING_CRANE_KICK,
+      category: CastEfficiency.SPELL_CATEGORIES.OTHERS,
+      getCooldown: haste => null,
     },
   ];
 }
