@@ -40,7 +40,7 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.SERENITY_TALENT,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 70,
-        isActive: combatant => combatant.hasTalent(SPELLS.SERENITY_TALENT.id),
+      isActive: combatant => combatant.hasTalent(SPELLS.SERENITY_TALENT.id),
     },
     // other spells
     {
