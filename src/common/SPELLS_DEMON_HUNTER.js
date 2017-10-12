@@ -31,12 +31,12 @@ export default {
     icon: 'spell_warlock_soulburn',
   },
 
-  // Racial:
-  ARCANE_TORRENT: {
-    id: 202719,
-    name: 'Arcane Torrent',
-    icon: 'spell_shadow_teleport',
-  },
+	// Racial:
+	ARCANE_TORRENT_DH: {
+		id: 202719,
+		name: 'Arcane Torrent',
+		icon: 'spell_shadow_teleport',
+	},
 
   // Vengeance
 
@@ -93,11 +93,13 @@ export default {
     name: 'Demon Spikes',
     icon: 'ability_demonhunter_demonspikes',
     painCost: 20,
+		charges: 2,
   },
   DEMON_SPIKES_BUFF: {
     id: 203819,
     name: 'Demon Spikes',
     icon: 'ability_demonhunter_demonspikes',
+		charges: 2,
   },
   FIERY_BRAND: {
     id: 204021,
