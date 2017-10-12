@@ -14,7 +14,7 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import VulnerableUptime from './Modules/Features/VulnerableUptime';
 import VulnerableTracker from './Modules/Features/AimedInVulnerableTracker';
 
-//Focus Chart
+//Focus
 import FocusChart from './Modules/FocusChart/Focus';
 import FocusTracker from './Modules/FocusChart/FocusTracker';
 
@@ -26,7 +26,8 @@ import Tier20_4p from './Modules/Items/Tier20_4p';
 import Trueshot from './Modules/Spells/Trueshot';
 
 //Talents
-import PatientSniper from './Modules/Talents/PatientSniper';
+import PatientSniperTracker from './Modules/Talents/PatientSniper/PatientSniperTracker';
+import PatientSniperDetails from './Modules/Talents/PatientSniper/PatientSniperDetails';
 
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -53,8 +54,10 @@ class CombatLogParser extends CoreCombatLogParser {
     trueshot: Trueshot,
 
     //Talents
-    patientSniper: PatientSniper,
-    
+
+    patientSniperTracker: PatientSniperTracker,
+    patientSniperDetails: PatientSniperDetails,
+
   };
 
   generateResults() {
