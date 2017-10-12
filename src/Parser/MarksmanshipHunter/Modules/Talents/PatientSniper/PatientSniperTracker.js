@@ -32,7 +32,7 @@ class PatientSniperTracker extends Module {
   */
 
   //The various levels of patient sniper
-
+/*
   patientSniperLevelsAimedShots = {
     nonVulnerableAimedShots: {
       amount: 0,
@@ -63,7 +63,7 @@ class PatientSniperTracker extends Module {
   patientSniperLevelsPiercingShots = {
 
   };
-
+*//*
   vulnerableGenerators = {
     [SPELLS.WINDBURST.id]: 0,
     [SPELLS.MARKED_SHOT.id]: 0,
@@ -73,7 +73,7 @@ class PatientSniperTracker extends Module {
     [SPELLS.AIMED_SHOT.id]: 0,
     [SPELLS.SPELLS.PIERCING_SHOT_TALENT.id]: 0,
   };
-
+*/
   //Patient Sniper for Aimed Shots
   nonVulnerableAimedShots = 0;
   zeroSecondsIntoVulnerableAimed = 0;

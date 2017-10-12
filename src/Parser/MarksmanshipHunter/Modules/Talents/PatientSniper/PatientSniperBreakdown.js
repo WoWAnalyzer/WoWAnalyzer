@@ -38,7 +38,6 @@ class PatientSniperBreakdown extends React.Component {
               </td>
               <td style={{ width: '30%' }}>
                 <dfn>
-                  {formatPercentage(nonVulnerableAimedShots)};
                 </dfn>
               </td>
 
