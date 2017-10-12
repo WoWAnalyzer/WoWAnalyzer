@@ -118,7 +118,7 @@ class IronFur extends Module {
   }
 
   get hitsUnmitigated() {
-    return this._hitsPerStack[0];
+    return this._hitsPerStack[0] || 0;
   }
 
   get ironfurStacksApplied() {
@@ -172,7 +172,7 @@ class IronFur extends Module {
   statistic() {
     const totalIronFurTime = this.combatants.selected.getBuffUptime(SPELLS.IRONFUR.id);
     const uptimes = this.computeIronfurUptimeArray().reduce((str, uptime, stackCount) => (
-      str + `<li>${stackCount} stacks: ${formatPercentage(uptime)}%</li>`
+      str + `<li>${stackCount} stack${stackCount !== 1 ? 's' : ''}: ${formatPercentage(uptime)}%</li>`
     ), '');
 
     return (
