@@ -236,12 +236,13 @@ export default {
     name: 'Cultivation',
     icon: 'ability_druid_nourish',
   },
-  YSERAS_GIFT_1: {
+  // Ysera's Gift has two heal IDs, one when it heals other players and one when it heals yourself.
+  YSERAS_GIFT_OTHERS: {
     id: 145110,
     name: 'Ysera\'s gift',
     icon: 'spell_nature_healingtouch',
   },
-  YSERAS_GIFT_2: {
+  YSERAS_GIFT_SELF: {
     id: 145109,
     name: 'Ysera\'s gift',
     icon: 'spell_nature_healingtouch',

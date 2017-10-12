@@ -136,21 +136,23 @@ class SpellUsable extends Module {
   /**
    * Reduces the cooldown for the provided spell by the provided duration.
    * @param {number} spellId The ID of the spell.
-   * @param {number} durationMs The duration to reduce the cooldown with, in milliseconds.
+   * @param {number} reductionMs The duration to reduce the cooldown with, in milliseconds.
    * @param {number} timestamp Override the timestamp if it may be different from the current timestamp.
    * @returns {*}
    */
-  reduceCooldown(spellId, durationMs, timestamp = this.owner.currentTimestamp) {
+  reduceCooldown(spellId, reductionMs, timestamp = this.owner.currentTimestamp) {
     if (!this.isOnCooldown(spellId)) {
       throw new Error(`Tried to reduce the cooldown of ${spellId}, but it's not on cooldown.`);
     }
     const cooldownRemaining = this.cooldownRemaining(spellId, timestamp);
-    if (cooldownRemaining < durationMs) {
+    if (cooldownRemaining < reductionMs) {
       this.endCooldown(spellId, false, timestamp);
       return cooldownRemaining;
     } else {
-      this._currentCooldowns[spellId].expectedDuration -= durationMs;
-      return durationMs;
+      this._currentCooldowns[spellId].expectedDuration -= reductionMs;
+      const fightDuration = formatDuration((timestamp - this.owner.fight.start_time) / 1000);
+      console.log(fightDuration, 'Reduced', spellName(spellId), spellId, 'by', reductionMs, 'remaining:', this.cooldownRemaining(spellId, timestamp), 'old:', cooldownRemaining, 'new expected duration:', this._currentCooldowns[spellId].expectedDuration);
+      return reductionMs;
     }
   }
 
@@ -235,7 +237,8 @@ class SpellUsable extends Module {
       const progress = timePassed / originalExpectedDuration;
       const cooldownDurationWithCurrentHaste = this.castEfficiency.getExpectedCooldownDuration(Number(spellId));
       const newExpectedDuration = timePassed + this._calculateNewCooldownDuration(progress, cooldownDurationWithCurrentHaste);
-      debug && console.log('Adjusting cooldown duration due to Haste change; old duration:', originalExpectedDuration, 'progress:', progress, 'cooldown duration with current Haste:', cooldownDurationWithCurrentHaste, 'actual new expected duration:', newExpectedDuration);
+      const fightDuration = formatDuration((event.timestamp - this.owner.fight.start_time) / 1000);
+      debug && console.log(fightDuration, 'Adjusting cooldown duration due to Haste change; old duration:', originalExpectedDuration, 'progress:', progress, 'cooldown duration with current Haste:', cooldownDurationWithCurrentHaste, 'actual new expected duration:', newExpectedDuration);
       cooldown.expectedDuration = newExpectedDuration;
     });
   }
