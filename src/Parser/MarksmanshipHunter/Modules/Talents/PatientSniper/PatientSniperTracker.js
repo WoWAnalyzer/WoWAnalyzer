@@ -31,49 +31,6 @@ class PatientSniperTracker extends Module {
   > Vulnerable fades from the target
   */
 
-  //The various levels of patient sniper
-/*
-  patientSniperLevelsAimedShots = {
-    nonVulnerableAimedShots: {
-      amount: 0,
-    },
-    zeroSecondsIntoVulnerableAimed: {
-      amount: 0,
-    },
-    oneSecondIntoVulnerableAimed: {
-      amount: 0,
-    },
-    twoSecondsIntoVulnerableAimed: {
-      amount: 0,
-    },
-    threeSecondsIntoVulnerableAimed: {
-      amount: 0,
-    },
-    fourSecondsIntoVulnerableAimed: {
-      amount: 0,
-    },
-    fiveSecondsIntoVulnerableAimed: {
-      amount: 0,
-    },
-    sixSecondsIntoVulnerableAimed: {
-      amount: 0,
-    },
-  };
-
-  patientSniperLevelsPiercingShots = {
-
-  };
-*//*
-  vulnerableGenerators = {
-    [SPELLS.WINDBURST.id]: 0,
-    [SPELLS.MARKED_SHOT.id]: 0,
-  };
-
-  shotsAffectByVulnerable = {
-    [SPELLS.AIMED_SHOT.id]: 0,
-    [SPELLS.SPELLS.PIERCING_SHOT_TALENT.id]: 0,
-  };
-*/
   //Patient Sniper for Aimed Shots
   nonVulnerableAimedShots = 0;
   zeroSecondsIntoVulnerableAimed = 0;
