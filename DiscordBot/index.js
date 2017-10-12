@@ -5,15 +5,13 @@ const client = new Discord.Client();
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
-  client.user.setPresence({
-    game: {
-      name: 'WoWAnalyzer.com',
-      type: 0,
-    },
-  });
+  client.user.setGame('WoWAnalyzer.com');
 });
 
 client.on('message', msg => {
+  if (msg.author.bot) {
+    return;
+  }
   const content = msg.content;
   // TODO: create a group for the # part of the WCL URL
   const match = content.trim().match(/^(.*reports\/)?([a-zA-Z0-9]{16})\/?(#.*)?(.*)?$/);
