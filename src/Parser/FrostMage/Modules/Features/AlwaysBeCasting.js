@@ -11,7 +11,7 @@ import SpellLink from 'common/SpellLink';
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   static ABILITIES_ON_GCD = [
     SPELLS.FROSTBOLT.id,
-    SPELLS.ICE_LANCE.id,
+    SPELLS.ICE_LANCE_CAST.id,
     SPELLS.FROZEN_ORB.id,
     SPELLS.FROST_NOVA.id,
     SPELLS.BLINK.id,

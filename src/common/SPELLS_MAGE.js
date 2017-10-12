@@ -58,7 +58,12 @@ export default {
 	  name: 'Frostbolt',
 	  icon: 'spell_frost_frostbolt02',
   },
-  ICE_LANCE: {
+  ICE_LANCE_CAST: {
+    id: 30455,
+    name: 'Ice Lance',
+    icon: 'spell_frost_frostblast',
+  },
+  ICE_LANCE_DAMAGE: {
 	  id: 228598,
 	  name: 'Ice Lance',
 	  icon: 'spell_frost_frostblast',
