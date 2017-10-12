@@ -32,7 +32,7 @@ export default {
   },
 
 	// Racial:
-	ARCANE_TORRENT_DH: {
+	ARCANE_TORRENT_FURY: { // This arcane torrent generates fury/pain for DH only, so it has a different spell id
 		id: 202719,
 		name: 'Arcane Torrent',
 		icon: 'spell_shadow_teleport',
@@ -93,7 +93,6 @@ export default {
     name: 'Demon Spikes',
     icon: 'ability_demonhunter_demonspikes',
     painCost: 20,
-		charges: 2,
   },
   DEMON_SPIKES_BUFF: {
     id: 203819,
