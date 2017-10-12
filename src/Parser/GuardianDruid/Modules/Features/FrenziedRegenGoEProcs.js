@@ -21,7 +21,7 @@ class FrenziedRegenGoEProcs extends Module {
   statistic() {
     const nonGoEFRegen = this.guardianOfElune.nonGoEFRegen;
     const GoEFRegen = this.guardianOfElune.GoEFRegen;
-    if (nonGoEFRegen + GoEFRegen === 0) {
+    if ((nonGoEFRegen + GoEFRegen) === 0) {
       return null;
     }
     return (
