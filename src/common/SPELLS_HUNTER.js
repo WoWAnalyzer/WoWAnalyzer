@@ -103,7 +103,7 @@ export default {
     name: 'Vulnerable',
     icon: 'ability_hunter_mastermarksman',
   },
-  ARCANE_TORRENT: { //hunter version (restores 15 focus)
+  ARCANE_TORRENT_FOCUS: {
     id: 80483,
     name: 'Arcane Torrent',
     icon: 'spell_shadow_teleport',

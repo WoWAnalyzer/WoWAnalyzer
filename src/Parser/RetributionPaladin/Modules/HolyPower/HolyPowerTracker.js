@@ -46,7 +46,7 @@ class HolyPowerTracker extends Module {
   		generated: 0,
   		wasted: 0,
   	},
-  	[SPELLS.ARCANE_TORRENT.id]: {
+  	[SPELLS.ARCANE_TORRENT_MANA.id]: {
   		generated: 0,
   		wasted: 0,
   	},
