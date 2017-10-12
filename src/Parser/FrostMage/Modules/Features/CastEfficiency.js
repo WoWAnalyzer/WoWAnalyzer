@@ -32,7 +32,7 @@ class CastEfficiency extends CoreCastEfficiency {
       noCanBeImproved: true,
     },
     {
-      spell: SPELLS.ICE_LANCE,
+      spell: SPELLS.ICE_LANCE_CAST,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => null,
     },
