@@ -98,7 +98,6 @@ export default {
     id: 203819,
     name: 'Demon Spikes',
     icon: 'ability_demonhunter_demonspikes',
-		charges: 2,
   },
   FIERY_BRAND: {
     id: 204021,
