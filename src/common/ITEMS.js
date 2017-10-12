@@ -715,6 +715,32 @@ const ITEMS = {
     quality: ITEM_QUALITIES.LEGENDARY,
   },
 
+  //Crafted Legendaries
+  CELUMBRA_THE_NIGHTS_DICHOTOMY: {
+    id: 146666,
+    name: 'Celumbra, the Night\'s Dichotomy',
+    icon: 'inv_cloth_raidmage_p_01shoulder',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  RETHUS_INCESSANT_COURAGE: {
+    id: 146667,
+    name: 'Rethu\'s Incessant Courage',
+    icon: 'inv_plate_draenorcrafted_d_01buckle',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  VIGILANCE_PERCH: {
+    id: 146668,
+    name: 'Vigilance Perch',
+    icon: 'inv_glove_mail_vrykuldragonrider_b_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  THE_SENTINTELS_ETERNAL_REFUGE: {
+    id: 146669,
+    name: 'The Sentinel\'s Eternal Refuge',
+    icon: 'inv_leather_raiddemonhuntermythic_q_02boots',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+
 };
 
 export default indexById(ITEMS);
