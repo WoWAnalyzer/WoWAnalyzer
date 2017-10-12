@@ -19,7 +19,7 @@ class WintersChillTracker extends Module {
   iceLanceCasts = 0;
 
   on_byPlayer_damage(event) {
-    if (event.ability.guid !== SPELLS.ICE_LANCE.id) {
+    if (event.ability.guid !== SPELLS.ICE_LANCE2.id) {
       return;
     }
     const enemy = this.enemies.getEntity(event);
