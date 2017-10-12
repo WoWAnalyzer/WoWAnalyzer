@@ -124,13 +124,6 @@ export default {
     name: 'Shadow Nova',
     icon: 'spell_fire_twilightnova',
   },
-  // Abilities form talent
-  DEATH_FROM_ABOVE: {
-    id: 152150,
-    name: 'Death from Above',
-    icon: 'spell_rogue_deathfromabove',
-  },
-
   // Buffs
   SHADOW_DANCE_BUFF: {
     id: 185422,

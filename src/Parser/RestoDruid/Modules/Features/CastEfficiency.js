@@ -105,7 +105,7 @@ class CastEfficiency extends CoreCastEfficiency {
       importance: ISSUE_IMPORTANCE.MINOR,
     },
     {
-      spell: SPELLS.RENEWAL,
+      spell: SPELLS.RENEWAL_TALENT,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       isActive: combatant => combatant.hasTalent(SPELLS.RENEWAL_TALENT.id),
       getCooldown: haste => 90,

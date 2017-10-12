@@ -38,7 +38,7 @@ class Haste extends Module {
     [SPELLS.TRUESHOT.id]: 0.4, // MM Hunter main CD
     [SPELLS.LINGERING_INSANITY.id]: 0.01,
     [SPELLS.VOIDFORM_BUFF.id]: 0.01,
-	[SPELLS.ICY_VEINS.id]: 0.3,
+    [SPELLS.ICY_VEINS.id]: 0.3,
 
     // Boss abilities:
     [209166]: 0.3, // DEBUFF - Fast Time from Elisande
@@ -85,7 +85,6 @@ class Haste extends Module {
   on_toPlayer_removedebuff(event) {
     this._removeActiveBuff(event);
   }
-
 
   _applyActiveBuff(event) {
     const spellId = event.ability.guid;
