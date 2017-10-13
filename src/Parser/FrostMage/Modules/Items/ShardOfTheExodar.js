@@ -15,13 +15,16 @@ const BLOODLUST_BUFFS = [
   SPELLS.DRUMS_OF_THE_MOUNTAIN.id,
 ];
 
+const TEAM_COOLDOWN = 600;
+const PERSONAL_COOLDOWN = 300;
+const DURATION = 40;
+
 class ShardOfTheExodar extends Module {
 
   static dependencies = {
 		combatants: Combatants,
 	};
 
-	possibleCasts = 0;
   actualCasts = 0;
 
   on_initialized() {
@@ -34,15 +37,20 @@ class ShardOfTheExodar extends Module {
     }
   }
 
-  item() {
-    if (this.owner.fightDuration / 1000 > 330) {
-      this.possibleCasts = 3;
-    } else {
-      this.possibleCasts = 2;
+  on_toPlayer_refreshbuff(event) {
+    if (BLOODLUST_BUFFS.some(buff => event.ability.guid === buff)) {
+      this.actualCasts += 1;
     }
+  }
+
+  item() {
+    const fightInSeconds = this.owner.fightDuration / 1000;
+    const teamCasts = 1 + Math.floor(fightInSeconds / TEAM_COOLDOWN);
+    const personalCasts = 1 + Math.floor((fightInSeconds - DURATION) / PERSONAL_COOLDOWN);
+    const possibleCasts = teamCasts + personalCasts;
     return {
       item: ITEMS.SHARD_OF_THE_EXODAR,
-      result: `Gained Lust ${formatNumber(this.actualCasts)} Times. (${formatNumber(this.possibleCasts)} Possible)`,
+      result: `Gained Time Warp effect ${formatNumber(this.actualCasts)} Times. (${formatNumber(possibleCasts)} Possible)`,
     };
   }
 }

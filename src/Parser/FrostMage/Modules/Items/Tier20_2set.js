@@ -3,7 +3,6 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import { formatNumber } from 'common/format';
 import Module from 'Parser/Core/Module';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import getDamageBonus from '../MageCore/GetDamageBonus';
@@ -32,10 +31,10 @@ class Tier20_2set extends Module {
 
   item() {
     return {
-      id: `spell-${SPELLS.FROZEN_MASS.id}`,
+      id: `${SPELLS.FROZEN_MASS.id}`,
       icon: <SpellIcon id={SPELLS.FROZEN_MASS.id} />,
       title: <SpellLink id={SPELLS.FROZEN_MASS.id} />,
-      result: `${formatNumber(this.damage)} damage - ${this.owner.formatItemDamageDone(this.damage)}`,
+      result: `${this.owner.formatItemDamageDone(this.damage)}`,
     };
   }
 }
