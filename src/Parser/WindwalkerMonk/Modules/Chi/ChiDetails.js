@@ -4,11 +4,11 @@ import Module from 'Parser/Core/Module';
 import Tab from 'Main/Tab';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import { formatPercentage } from 'common/format';
+import WastedPointsIcon from 'Parser/FeralDruid/Modules/Images/feralComboPointIcon.png';
 
 import ChiBreakdown from './ChiBreakdown';
 import ChiTracker from './ChiTracker';
 
-// import WastedPointsIcon from '../Images/feralComboPointIcon.png';
 
 class ChiDetails extends Module {
     static dependencies = {
@@ -47,12 +47,12 @@ class ChiDetails extends Module {
         const pointsWasted = this.chiTracker.pointsWasted;
         return (
             <StatisticBox
-               // icon={(
-               //     <img
-               //         src={WastedPointsIcon}
-                //        alt="Wasted Combo Points"
-               //     />
-              //  )}
+                icon={(
+                    <img
+                        src={WastedPointsIcon}
+                        alt="Wasted Combo Points"
+                    />
+                )}
                 value={`${pointsWasted}`}
                 label="Wasted Combo Points"
             />
