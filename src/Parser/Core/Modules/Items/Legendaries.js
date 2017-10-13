@@ -21,7 +21,7 @@ class Legendaries extends Module {
     const slots = this.combatants.selected._gearItemsBySlotId;
     for(let index = 0; index < Object.keys(slots).length; index++) {
       const item = slots[index];
-      if (item.quality < ITEM_QUALITIES.LEGENDARY) {
+      if (item.quality === ITEM_QUALITIES.LEGENDARY) {
         this.legendaries.push(item);
       }
     }
@@ -33,7 +33,7 @@ class Legendaries extends Module {
         console.log(`Legendary ${item.id} is ${item.itemLevel}`);
       }
 
-      when(item.itemLevel === MAX_LEGENDARY_ILVL).isTrue().addSuggestion((suggest) => {
+      when(item.itemLevel < MAX_LEGENDARY_ILVL).isTrue().addSuggestion((suggest) => {
         return suggest(<span>You should consider upgrading <ItemLink id={item.id} /> to the maximum item level for legendaries (currently {MAX_LEGENDARY_ILVL}).</span>)
           .icon(item.icon)
           .staticImportance(SUGGESTION_IMPORTANCE.MAJOR);
