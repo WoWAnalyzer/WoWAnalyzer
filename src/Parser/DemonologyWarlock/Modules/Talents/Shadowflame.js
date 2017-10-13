@@ -22,14 +22,14 @@ class Shadowflame extends Module {
   }
 
   on_byPlayer_damage(event) {
-    if (event.ability.guid !== SPELLS.SHADOWFLAME.id) {
+    if (event.ability.guid !== SPELLS.SHADOWFLAME_TALENT.id) {
       return;
     }
     this.damage += (event.amount || 0) + (event.absorbed || 0);
   }
 
   statistic() {
-    const uptime = this.enemies.getBuffUptime(SPELLS.SHADOWFLAME.id) / this.owner.fightDuration;
+    const uptime = this.enemies.getBuffUptime(SPELLS.SHADOWFLAME_TALENT.id) / this.owner.fightDuration;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.SHADOWFLAME_TALENT.id} />}

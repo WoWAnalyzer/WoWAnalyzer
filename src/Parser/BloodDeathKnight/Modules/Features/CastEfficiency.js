@@ -28,7 +28,7 @@ class CastEfficiency extends CoreCastEfficiency {
     },
 
     {
-      spell: SPELLS.BLOOD_MIRROR,
+      spell: SPELLS.BLOOD_MIRROR_TALENT,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 120,
       recommendedCastEfficiency: 0.75,
@@ -60,7 +60,7 @@ class CastEfficiency extends CoreCastEfficiency {
     },
 
     {
-      spell: SPELLS.BLOODDRINKER,
+      spell: SPELLS.BLOODDRINKER_TALENT,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 30,
       recommendedCastEfficiency: 0.90,
@@ -70,7 +70,7 @@ class CastEfficiency extends CoreCastEfficiency {
 
 
     {
-      spell: SPELLS.ARCANE_TORRENT,
+      spell: SPELLS.ARCANE_TORRENT_MANA,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 90,
       hideWithZeroCasts: true,

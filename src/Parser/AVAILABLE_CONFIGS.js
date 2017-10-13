@@ -11,6 +11,7 @@ import RestoDruid from './RestoDruid/CONFIG';
 import MarksmanshipHunter from './MarksmanshipHunter/CONFIG';
 
 // Mage
+import FrostMage from './FrostMage/CONFIG';
 
 import BrewmasterMonk from './BrewmasterMonk/CONFIG';
 import WindwalkerMonk from './WindwalkerMonk/CONFIG';
@@ -49,6 +50,7 @@ export default [
   MarksmanshipHunter,
 
   // Mage
+  FrostMage,
 
   BrewmasterMonk,
   WindwalkerMonk,

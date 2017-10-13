@@ -42,7 +42,7 @@ class UABuffTracker extends Module {
     this.totalTicks += 1;
     const buffedByReap = this.combatants.selected.hasBuff(SPELLS.DEADWIND_HARVESTER.id, event.timestamp);
     const buffedByDrain = target.hasBuff(SPELLS.DRAIN_SOUL.id, event.timestamp);
-    const buffedByHaunt = target.hasBuff(SPELLS.HAUNT.id, event.timestamp);
+    const buffedByHaunt = target.hasBuff(SPELLS.HAUNT_TALENT.id, event.timestamp);
 
     if (this._hasMG) {
       if (buffedByReap && buffedByDrain) {

@@ -78,7 +78,7 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 4.5 / (1 + haste),
       charges: 2,
       isActive: combatant => combatant.hasTalent(SPELLS.CRUSADERS_MIGHT_TALENT.id),
-      recommendedCastEfficiency: 0.60,
+      recommendedCastEfficiency: 0.35,
       extraSuggestion: <span>When you are using <SpellLink id={SPELLS.CRUSADERS_MIGHT_TALENT.id} /> it is important to use <SpellLink id={SPELLS.CRUSADER_STRIKE.id} /> often enough to benefit from the talent. Use a different talent if you are unable to.</span>,
     },
     {
@@ -103,7 +103,7 @@ class CastEfficiency extends CoreCastEfficiency {
       importance: ISSUE_IMPORTANCE.MINOR,
     },
     {
-      spell: SPELLS.ARCANE_TORRENT,
+      spell: SPELLS.ARCANE_TORRENT_MANA,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 90,
       hideWithZeroCasts: true,

@@ -217,7 +217,7 @@ class Results extends React.Component {
                 {getBossName(fight)} by <span className={config.spec.className.replace(' ', '')}>{selectedCombatant.name}</span>
               </h1>
             </div>
-            <div className="col-lg-2 col-md-4" style={{ paddingTop: 20 }}>
+            <div className="col-lg-2 col-md-4" style={{ paddingTop: 20, fontSize: 20 }}>
               <a
                 href={`https://www.warcraftlogs.com/reports/${report.code}/#fight=${fight.id}&source=${parser.playerId}`}
                 target="_blank"
@@ -228,7 +228,7 @@ class Results extends React.Component {
               </a>
             </div>
           </div>
-          <div className="text-muted" style={{ marginBottom: 25 }}>
+          <div className="text-muted" style={{ marginBottom: 25, fontSize: '1.4em' }}>
             The <img
               src={`/specs/${config.spec.className.replace(' ', '')}-${config.spec.specName.replace(' ', '')}.jpg`}
               alt="Spec logo"
@@ -236,7 +236,7 @@ class Results extends React.Component {
                 borderRadius: '50%',
                 height: '1.2em',
               }}
-            /> {config.spec.specName} {config.spec.className} analyzer is being maintained by {config.maintainer}. <a href="#spec-information" onClick={this.handleClickViewSpecInformation}>More information.</a>
+            /> {config.spec.specName} {config.spec.className} spec implementation is being maintained by {config.maintainer}. <a href="#spec-information" onClick={this.handleClickViewSpecInformation}>More information.</a>
           </div>
 
           <div className="row">
@@ -248,7 +248,7 @@ class Results extends React.Component {
             </div>
           </div>
 
-          <div className="panel">
+          <div className="panel" style={{ marginTop: 15 }}>
             <div className="panel-body flex" style={{ padding: '0' }}>
               <div className="navigation" style={{ flex: '0 0 auto', width: 200, minHeight: 400 }}>
                 <div className="panel-heading">

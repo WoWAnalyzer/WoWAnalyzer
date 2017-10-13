@@ -9,7 +9,7 @@ class CastEfficiency extends CoreCastEfficiency {
     ...CoreCastEfficiency.CPM_ABILITIES,
     // Rotational spells
     {
-      spell: SPELLS.HAUNT,
+      spell: SPELLS.HAUNT_TALENT,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 25,
       isActive: combatant => combatant.hasTalent(SPELLS.HAUNT_TALENT.id),
@@ -17,7 +17,7 @@ class CastEfficiency extends CoreCastEfficiency {
       extraSuggestion: 'This estimate may not be correct sometimes because of Haunt\'s resets. The real amount of possible Haunts will be higher if there were adds on this fight.',
     },
     {
-      spell: SPELLS.PHANTOM_SINGULARITY,
+      spell: SPELLS.PHANTOM_SINGULARITY_TALENT,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 40,
       isActive: combatant => combatant.hasTalent(SPELLS.PHANTOM_SINGULARITY_TALENT.id),
@@ -38,7 +38,7 @@ class CastEfficiency extends CoreCastEfficiency {
       noCanBeImproved: true,
     },
     {
-      spell: SPELLS.SIPHON_LIFE,
+      spell: SPELLS.SIPHON_LIFE_TALENT,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => null,
       isActive: combatant => combatant.hasTalent(SPELLS.SIPHON_LIFE_TALENT.id),
@@ -77,7 +77,7 @@ class CastEfficiency extends CoreCastEfficiency {
 
     // Cooldowns
     {
-      spell: SPELLS.SOUL_HARVEST,
+      spell: SPELLS.SOUL_HARVEST_TALENT,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 120,
       isActive: combatant => combatant.hasTalent(SPELLS.SOUL_HARVEST_TALENT.id),
@@ -123,7 +123,7 @@ class CastEfficiency extends CoreCastEfficiency {
 
     // Utility
     {
-      spell: SPELLS.BURNING_RUSH,
+      spell: SPELLS.BURNING_RUSH_TALENT,
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => null,
       isActive: combatant => combatant.hasTalent(SPELLS.BURNING_RUSH_TALENT.id),
@@ -138,7 +138,7 @@ class CastEfficiency extends CoreCastEfficiency {
       noCanBeImproved: true,
     },
     {
-      spell: SPELLS.DEMONIC_CIRCLE_SUMMON,
+      spell: SPELLS.DEMONIC_CIRCLE_TALENT_SUMMON,
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => null,
       isActive: combatant => combatant.hasTalent(SPELLS.DEMONIC_CIRCLE_TALENT.id),
@@ -146,7 +146,7 @@ class CastEfficiency extends CoreCastEfficiency {
       noCanBeImproved: true,
     },
     {
-      spell: SPELLS.DEMONIC_CIRCLE_TELEPORT,
+      spell: SPELLS.DEMONIC_CIRCLE_TALENT_TELEPORT,
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => 30,
       isActive: combatant => combatant.hasTalent(SPELLS.DEMONIC_CIRCLE_TALENT.id),
@@ -185,7 +185,7 @@ class CastEfficiency extends CoreCastEfficiency {
       noCanBeImproved: true,
     },
     {
-      spell: SPELLS.DARK_PACT,
+      spell: SPELLS.DARK_PACT_TALENT,
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => 60,
       isActive: combatant => combatant.hasTalent(SPELLS.DARK_PACT_TALENT.id),
@@ -193,7 +193,7 @@ class CastEfficiency extends CoreCastEfficiency {
       noCanBeImproved: true,
     },
     {
-      spell: SPELLS.MORTAL_COIL,
+      spell: SPELLS.MORTAL_COIL_TALENT,
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => 45,
       isActive: combatant => combatant.hasTalent(SPELLS.MORTAL_COIL_TALENT.id),
