@@ -17,7 +17,7 @@ class Legendaries extends Module {
 
   suggestions(when) {
     const slots = this.combatants.selected._gearItemsBySlotId;
-    Object.keys(slots).map(key => slots[key]).filter(item => item.quality === ITEM_QUALITIES.LEGENDARY)
+    Object.values(slots).filter(item => item.quality === ITEM_QUALITIES.LEGENDARY)
       .forEach((item) => {
         if (debug) {
           console.log(`Legendary ${item.id} is ${item.itemLevel}`);
