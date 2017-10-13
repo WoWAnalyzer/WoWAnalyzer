@@ -83,7 +83,7 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 180,
     },
     {
-      spell: SPELLS.ARCANE_TORRENT,
+      spell: SPELLS.ARCANE_TORRENT_MANA,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 90,
       hideWithZeroCasts: true,
@@ -105,7 +105,7 @@ class CastEfficiency extends CoreCastEfficiency {
       importance: ISSUE_IMPORTANCE.MINOR,
     },
     {
-      spell: SPELLS.RENEWAL,
+      spell: SPELLS.RENEWAL_TALENT,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       isActive: combatant => combatant.hasTalent(SPELLS.RENEWAL_TALENT.id),
       getCooldown: haste => 90,

@@ -101,8 +101,7 @@ class CombatLogParser extends CoreCombatLogParser {
     const abilityTracker = this.modules.abilityTracker;
     const getAbility = spellId => abilityTracker.getAbility(spellId);
 
-
-    const earthenShieldTotemCast = getAbility(SPELLS.EARTHEN_SHIELD_TOTEM_CAST.id);
+    const earthenShieldTotemCast = getAbility(SPELLS.EARTHEN_SHIELD_TOTEM_TALENT.id);
     const earthenShieldHealing = this.modules.earthenShieldTotem.healing || 0;
     const earthenShieldPotentialHealing = this.modules.earthenShieldTotem.potentialHealing || 0;
     const earthenShieldEfficiency = earthenShieldHealing / earthenShieldPotentialHealing;
@@ -164,16 +163,14 @@ class CombatLogParser extends CoreCombatLogParser {
     if (this.modules.cooldownTracker.cbtFeed[SPELLS.GIFT_OF_THE_QUEEN.id]) {
       giftOfTheQueenCBTFeeding = this.modules.cooldownTracker.cbtFeed[SPELLS.GIFT_OF_THE_QUEEN.id].healing;
     }
-    const hasCBT = this.modules.combatants.selected.hasTalent(SPELLS.CLOUDBURST_TOTEM_CAST.id);
+    const hasCBT = this.modules.combatants.selected.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id);
     const giftOfTheQueenCBTFeedingPercent = giftOfTheQueenCBTFeeding / giftOfTheQueenRawHealing;
-
 
     const totalMasteryHealing = this.modules.masteryEffectiveness.totalMasteryHealing || 0;
     const totalMaxPotentialMasteryHealing = this.modules.masteryEffectiveness.totalMaxPotentialMasteryHealing || 0;
     const masteryEffectivenessPercent = totalMasteryHealing / totalMaxPotentialMasteryHealing;
     const masteryPercent = this.modules.combatants.selected.masteryPercentage;
     const avgEffectiveMasteryPercent = masteryEffectivenessPercent * masteryPercent;
-
 
     const has2PT19 = this.modules.combatants.selected.hasBuff(SPELLS.RESTORATION_SHAMAN_T19_2SET_BONUS_BUFF.id);
     const t19_2PHealingPercentage = this.modules.t19_2Set.healing / totalHealing;
@@ -207,15 +204,15 @@ class CombatLogParser extends CoreCombatLogParser {
     }
     if (hasCBT && giftOfTheQueenCBTFeedingPercent < 0.85) {
       results.addIssue({
-        issue: <span>Try to cast <SpellLink id={SPELLS.GIFT_OF_THE_QUEEN.id} /> while <SpellLink id={SPELLS.CLOUDBURST_TOTEM_CAST.id} /> is up as much as possible ({formatPercentage(giftOfTheQueenCBTFeedingPercent)}% of GotQ healing fed into CBT).</span>,
+        issue: <span>Try to cast <SpellLink id={SPELLS.GIFT_OF_THE_QUEEN.id} /> while <SpellLink id={SPELLS.CLOUDBURST_TOTEM_TALENT.id} /> is up as much as possible ({formatPercentage(giftOfTheQueenCBTFeedingPercent)}% of GotQ healing fed into CBT).</span>,
         icon: SPELLS.GIFT_OF_THE_QUEEN.icon,
         importance: getIssueImportance(giftOfTheQueenCBTFeedingPercent, 0.65, 0.45),
       });
     }
     if (this.modules.earthenShieldTotem.active && earthenShieldEfficiency < 0.75) {
       results.addIssue({
-        issue: <span>Try to cast <SpellLink id={SPELLS.EARTHEN_SHIELD_TOTEM_CAST.id} /> at times- and positions where there will be as many people taking damage possible inside of it to maximize the amount it absorbs (average of {formatPercentage(earthenShieldEfficiency)}% of potential absorb used). </span>,
-        icon: SPELLS.EARTHEN_SHIELD_TOTEM_CAST.icon,
+        issue: <span>Try to cast <SpellLink id={SPELLS.EARTHEN_SHIELD_TOTEM_TALENT.id} /> at times- and positions where there will be as many people taking damage possible inside of it to maximize the amount it absorbs (average of {formatPercentage(earthenShieldEfficiency)}% of potential absorb used). </span>,
+        icon: SPELLS.EARTHEN_SHIELD_TOTEM_TALENT.icon,
         importance: getIssueImportance(earthenShieldEfficiency, 0.60, 0.45),
       });
     }
@@ -233,7 +230,6 @@ class CombatLogParser extends CoreCombatLogParser {
         importance: getIssueImportance(uncertainReminderHealingPercentage, 0.035, 0.025),
       });
     }
-
 
     results.statistics = [
       ...results.statistics,
@@ -297,12 +293,12 @@ class CombatLogParser extends CoreCombatLogParser {
         label={(
           <dfn data-tip={'The percentage of your healing that is caused by High Tide.'}>
 
-          High Tide healing
+            High Tide healing
           </dfn>
         )}
       />,
       this.modules.earthenShieldTotem.active > 0 && <StatisticBox
-        icon={<SpellIcon id={SPELLS.EARTHEN_SHIELD_TOTEM_CAST.id} />}
+        icon={<SpellIcon id={SPELLS.EARTHEN_SHIELD_TOTEM_TALENT.id} />}
         value={`${formatPercentage(earthenShieldEfficiency)} %`}
         label={(
           <dfn data-tip={`The percentage of the potential absorb of Earthen Shield Totem that was actually used. You cast a total of ${earthenShieldCasts} Earthen Shield Totems with a combined health of ${formatNumber(earthenShieldPotentialHealing)}, which absorbed a total of ${formatNumber(earthenShieldHealing)} damage.`}>

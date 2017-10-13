@@ -27,7 +27,7 @@ class EarthenShieldTotem extends Module {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
-    if (!(spellId === SPELLS.EARTHEN_SHIELD_TOTEM_CAST.id)) {
+    if (!(spellId === SPELLS.EARTHEN_SHIELD_TOTEM_TALENT.id)) {
       return;
     }
 
@@ -37,7 +37,7 @@ class EarthenShieldTotem extends Module {
   on_byPlayer_summon(event) {
     const spellId = event.ability.guid;
 
-    if (!(spellId === SPELLS.EARTHEN_SHIELD_TOTEM_CAST.id)) {
+    if (!(spellId === SPELLS.EARTHEN_SHIELD_TOTEM_TALENT.id)) {
       return;
     }
 

@@ -51,7 +51,7 @@ class ShadowyInspiration extends Module {
     const wastedPerMinute = this.wastedInstants / this.owner.fightDuration * 1000 * 60;
     when(wastedPerMinute).isGreaterThan(2)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You should try to use your <SpellLink id={SPELLS.SHADOWY_INSPIRATION_BUFF.id}/> procs more as those instant <SpellLink id={SPELLS.SHADOW_BOLT.id}/> or <SpellLink id={SPELLS.DEMONBOLT.id}/> can be used while having to move or just to provide more Soul Shards.</span>)
+        return suggest(<span>You should try to use your <SpellLink id={SPELLS.SHADOWY_INSPIRATION_BUFF.id}/> procs more as those instant <SpellLink id={SPELLS.SHADOW_BOLT.id}/> or <SpellLink id={SPELLS.DEMONBOLT_TALENT.id}/> can be used while having to move or just to provide more Soul Shards.</span>)
           .icon(SPELLS.SHADOWY_INSPIRATION_TALENT.icon)
           .actual(`${actual.toFixed(2)} wasted procs per minute`)
           .recommended(`< ${recommended} is recommended`)

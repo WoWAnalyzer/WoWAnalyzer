@@ -26,7 +26,7 @@ class Demonbolt extends Module {
   }
 
   on_byPlayer_damage(event) {
-    if (event.ability.guid !== SPELLS.DEMONBOLT.id) {
+    if (event.ability.guid !== SPELLS.DEMONBOLT_TALENT.id) {
       return;
     }
     // Demonbolt has additive bonus for each pet

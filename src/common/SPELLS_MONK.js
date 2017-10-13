@@ -552,9 +552,9 @@ export default {
     icon: 'priest_icon_chakra_green',
   },
   RISING_SUN_KICK_SECOND: {
-  id: 185099,
-  name: 'Rising Sun Kick',
-  icon: 'ability_monk_risingsunkick',
+    id: 185099,
+    name: 'Rising Sun Kick',
+    icon: 'ability_monk_risingsunkick',
   },
   HIT_COMBO_BUFF: {
     id: 196741,
@@ -577,25 +577,5 @@ export default {
     id: 121283,
     name: 'Power Strikes',
     icon: 'ability_monk_powerstrikes',
-  },
-  ENERGIZING_ELIXIR: {
-    id: 115288,
-    name: 'Energizing Elixir',
-    icon: 'ability_monk_energizingwine',
-  },
-  CHI_ORBIT: {
-    id: 196743,
-    name: 'Chi Orbit',
-    icon: 'ability_monk_forcesphere',
-  },
-  WHIRLING_DRAGON_PUNCH: {
-    id: 152175,
-    name: 'Whirling Dragon Punch',
-    icon: 'ability_monk_hurricanestrike',
-  },
-  SERENITY: {
-    id: 152173,
-    name: 'Serenity',
-    icon: 'ability_monk_serenity',
   },
 };

@@ -17,7 +17,7 @@ class Ascendance extends Module {
   numCasts = {
     [SPELLS.LAVA_BURST.id]: 0,
     [SPELLS.EARTH_SHOCK.id]: 0,
-    [SPELLS.ELEMENTAL_BLAST.id]: 0,
+    [SPELLS.ELEMENTAL_BLAST_TALENT.id]: 0,
     [SPELLS.FLAME_SHOCK.id]: 0,
     [SPELLS.LIGHTNING_BOLT.id]: 0,
     others: 0,
@@ -28,7 +28,7 @@ class Ascendance extends Module {
   }
 
   get rawUpdate() {
-    return this.owner.modules.combatants.selected.getBuffUptime(SPELLS.ASCENDANCE.id) / this.owner.fightDuration;
+    return this.owner.modules.combatants.selected.getBuffUptime(SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id) / this.owner.fightDuration;
   }
 
   get AscendanceUptime() {
@@ -36,7 +36,7 @@ class Ascendance extends Module {
   }
 
   on_byPlayer_cast(event) {
-    if (this.owner.modules.combatants.selected.hasBuff(SPELLS.ASCENDANCE.id, event.timestamp)) {
+    if (this.owner.modules.combatants.selected.hasBuff(SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id, event.timestamp)) {
       const spellId = event.ability.guid;
       if (this.numCasts[spellId] !== undefined) {
         this.numCasts[spellId] += 1;
@@ -49,14 +49,14 @@ class Ascendance extends Module {
   statistic() {
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.ASCENDANCE.id} />}
+        icon={<SpellIcon id={SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id} />}
         value={`${this.numCasts[SPELLS.LAVA_BURST.id]}`}
         label={'Lava Burst casts'}
         tooltip={`With a uptime of: ${formatPercentage(this.AscendanceUptime)} %<br>
         Casts while Ascendance was up:<br>
         <ul>
           <li>Earth Shock: ${this.numCasts[SPELLS.EARTH_SHOCK.id]}</li>
-          <li>Elemental Blast: ${this.numCasts[SPELLS.ELEMENTAL_BLAST.id]}</li>
+          <li>Elemental Blast: ${this.numCasts[SPELLS.ELEMENTAL_BLAST_TALENT.id]}</li>
           <li>Flame Shock: ${this.numCasts[SPELLS.FLAME_SHOCK.id]}</li>
           <li>Lightning Bolt: ${this.numCasts[SPELLS.LIGHTNING_BOLT.id]}</li>
           <li>Other Spells: ${this.numCasts.others}</li>

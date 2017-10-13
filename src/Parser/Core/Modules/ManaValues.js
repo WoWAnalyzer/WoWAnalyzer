@@ -9,10 +9,11 @@ class ManaValues extends Module {
 
   on_byPlayer_cast(event) {
     if (event.classResources) {
-      event.classResources.forEach((classResource) => {
-        if (classResource.type === RESOURCE_TYPES.MANA) {
-          const manaValue = classResource.amount;
-          const manaCost = classResource.cost || 0;
+      event.classResources
+        .filter(resource => resource.type === RESOURCE_TYPES.MANA)
+        .forEach(({ amount, cost, max }) => {
+          const manaValue = amount;
+          const manaCost = cost || 0;
           const currentMana = manaValue - manaCost;
           this.endingMana = currentMana;
 
@@ -22,11 +23,10 @@ class ManaValues extends Module {
           this.manaUpdates.push({
             timestamp: event.timestamp,
             current: currentMana,
-            max: classResource.max,
+            max: max,
             used: manaCost,
           });
-        }
-      });
+        });
     }
   }
 }
