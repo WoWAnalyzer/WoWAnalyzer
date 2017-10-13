@@ -13,7 +13,7 @@ export default {
   RISING_SUN_KICK: { id: 107428, name: 'Rising Sun Kick', icon: 'ability_monk_risingsunkick', manaPerc: 0.015 },
   ROLL: { id: 109132, name: 'Roll', icon: 'ability_monk_roll' },
   SPEAR_HAND_STRIKE: { id: 116705, name: 'Spear Hand Strike', icon: 'ability_monk_spearhand'},
-  SPINNING_CRANE_KICK: { id: 101546, name: 'Spinning Crane Kick', icon: 'ability_monk_cranekick-new', manaPerc: 0.01 },
+  SPINNING_CRANE_KICK: { id: 101546, name: 'Spinning Crane Kick', icon: 'ability_monk_cranekick_new', manaPerc: 0.01 },
   TIGER_PALM: { id: 100780, name: 'Tiger Palm', icon: 'ability_monk_tigerpalm' },
   TRANSCENDENCE: { id: 101643, name: 'Trancendance', icon: 'monk_ability_transcendence' },
   TRANSCENDENCE_TRANSFER: { id: 119996, name: 'Trancendance: Transfer', icon: 'spell_shaman_spectraltransformation' },
