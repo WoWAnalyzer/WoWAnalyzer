@@ -62,7 +62,7 @@ export default {
   TRANSCENDENCE_TRANSFER: {
     id: 119996,
     name: 'Trancendance: Transfer',
-    icon: 'spell_shaman_spectraltransformation'
+    icon: 'spell_shaman_spectraltransformation',
   },
   // Mistweaver Monk Spells
   ENVELOPING_MISTS: {
