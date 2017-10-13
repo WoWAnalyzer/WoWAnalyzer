@@ -31,7 +31,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     26573, // Consecration
     SPELLS.BLINDING_LIGHT_TALENT.id,
     642, // Divine Shield
-    SPELLS.LAY_ON_HANDS.id,
     SPELLS.BEACON_OF_FAITH_TALENT.id,
     SPELLS.BEACON_OF_THE_LIGHTBRINGER_TALENT.id, // pretty sure this will be the logged cast when BotLB is reapplied, not the below "Beacon of Light" which is the buff. Not yet tested so leaving both in.
     53563, // Beacon of Light
