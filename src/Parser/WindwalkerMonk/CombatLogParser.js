@@ -13,6 +13,10 @@ import CastEfficiency from './Modules/Features/CastEfficiency';
 import CooldownTracker from './Modules/Features/CooldownTracker';
 import ComboStrikes from './Modules/Features/ComboStrikes';
 
+// Chi 
+import ChiDetails from './Modules/Chi/ChiDetails';
+import ChiTracker from './Modules/Chi/ChiTracker';
+
 // Talents
 import HitCombo from './Modules/Talents/HitCombo';
 
@@ -27,6 +31,10 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Talents:
     hitCombo: HitCombo,
+
+    // Resources
+    chiTracker: ChiTracker,
+    chiDetails: ChiDetails,
 
     // Legendaries:
   };

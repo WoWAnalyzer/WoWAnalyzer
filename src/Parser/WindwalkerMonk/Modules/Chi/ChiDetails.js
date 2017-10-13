@@ -8,7 +8,7 @@ import { formatPercentage } from 'common/format';
 import ChiBreakdown from './ChiBreakdown';
 import ChiTracker from './ChiTracker';
 
-import WastedPointsIcon from '../Images/feralComboPointIcon.png';
+// import WastedPointsIcon from '../Images/feralComboPointIcon.png';
 
 class ChiDetails extends Module {
     static dependencies = {
@@ -44,15 +44,15 @@ class ChiDetails extends Module {
     }
 
     statistic() {
-        const pointsWasted = this.comboPointTracker.pointsWasted;
+        const pointsWasted = this.chiTracker.pointsWasted;
         return (
             <StatisticBox
-                icon={(
-                    <img
-                        src={WastedPointsIcon}
-                        alt="Wasted Combo Points"
-                    />
-                )}
+               // icon={(
+               //     <img
+               //         src={WastedPointsIcon}
+                //        alt="Wasted Combo Points"
+               //     />
+              //  )}
                 value={`${pointsWasted}`}
                 label="Wasted Combo Points"
             />
@@ -64,12 +64,12 @@ class ChiDetails extends Module {
             title: 'Combo Point usage',
             url: 'combo-points',
             render: () => (
-                <Tab title="Combo Point usage breakdown">
-                    <ComboPointBreakdown
-                        pointsGained={this.comboPointTracker.gained}
-                        pointsSpent={this.comboPointTracker.spent}
-                        pointsWasted={this.comboPointTracker.wasted}
-                        pointsCast={this.comboPointTracker.casts}
+              <Tab title="Combo Point usage breakdown">
+                <ChiBreakdown
+                  pointsGained={this.chiTracker.gained}
+                  pointsSpent={this.chiTracker.spent}
+                  pointsWasted={this.chiTracker.wasted}
+                  pointsCast={this.chiTracker.casts}
                     />
                 </Tab>
             ),

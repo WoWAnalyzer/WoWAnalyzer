@@ -29,7 +29,7 @@ class ChiTracker extends Module {
   static POINT_SPENDING_ABILITIES = [
     SPELLS.BLACKOUT_KICK.id,
     SPELLS.RISING_SUN_KICK.id,
-    SPELLS.FISTS_OF_FURY.id,
+    SPELLS.FISTS_OF_FURY_CAST.id,
     SPELLS.SPINNING_CRANE_KICK.id,
     SPELLS.STRIKE_OF_THE_WINDLORD.id,
   ];
@@ -41,7 +41,7 @@ class ChiTracker extends Module {
       this.constructor.POINT_GENERATING_ABILITIES.push(SPELLS.ENERGIZING_ELIXIR_TALENT.id);
     }
     if (combatant.hasTalent(SPELLS.POWER_STRIKES_TALENT.id)) {
-        this.constructor.POINT_GENERATING_ABILITIES.push(SPELLS.POWER_STRIKES_TALENT.id);
+        this.constructor.POINT_GENERATING_ABILITIES.push(SPELLS.POWER_STRIKES.id);
     }
     if (combatant.hasTalent(SPELLS.RUSHING_JADE_WIND.id)) {
       this.constructor.POINT_SPENDING_ABILITIES.push(SPELLS.RUSHING_JADE_WIND_TALENT.id);
