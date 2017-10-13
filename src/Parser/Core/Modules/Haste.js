@@ -1,12 +1,12 @@
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import { calculateSecondaryStatDefault } from 'common/stats';
-import { formatPercentage } from 'common/format';
+import { formatPercentage, formatMilliseconds } from 'common/format';
 
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-const debug = true;
+const debug = false;
 
 class Haste extends Module {
   static dependencies = {
@@ -93,7 +93,9 @@ class Haste extends Module {
     if (hasteGain) {
       this._applyHasteGain(event, hasteGain);
 
-      debug && console.log(`Haste: Current haste: ${formatPercentage(this.current)}% (gained ${formatPercentage(hasteGain)}% from ${SPELLS[spellId] ? SPELLS[spellId].name : spellId})`);
+      debug && console.log(formatMilliseconds(this.owner.fightDuration), 'Haste:', 'Current haste:', `${formatPercentage(this.current)}%`, `(gained ${formatPercentage(hasteGain)}% from ${event.ability.name})`);
+    } else {
+      debug && console.warn(formatMilliseconds(this.owner.fightDuration), 'Haste: Applied not recognized buff:', event.ability.name);
     }
   }
   _removeActiveBuff(event) {
@@ -104,6 +106,8 @@ class Haste extends Module {
       this._applyHasteLoss(event, haste);
 
       debug && console.log(`Haste: Current haste: ${formatPercentage(this.current)}% (lost ${formatPercentage(haste)}% from ${SPELLS[spellId] ? SPELLS[spellId].name : spellId})`);
+    } else {
+      debug && console.warn(formatMilliseconds(this.owner.fightDuration), 'Haste: Removed not recognized buff:', event.ability.name);
     }
   }
   /**
