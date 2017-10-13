@@ -61,12 +61,12 @@ class ComboBreaker extends Module {
 
   suggestions(when) {
    const unusedCBprocs = 1 - (this.consumedCBProc / this.CBProcsTotal);
-    when(unusedCBprocs).isGreatherThan(0.3)
-     .addSuggestion((suggest, actual, recommended) => {
-       return suggest(<span>Your <SpellLink id={SPELLS.UPLIFTING_TRANCE_BUFF.id} /> procs should be used as soon as you get them so they are not overwritten. While some will be overwritten due to the nature of the spell interactions, holding <SpellLink id={SPELLS.UPLIFTING_TRANCE_BUFF.id} /> procs is not optimal.</span>)
-         .icon(SPELLS.UPLIFTING_TRANCE_BUFF.icon)
-         .actual(`${formatPercentage(unusedCBprocs)}% Unused Uplifting Trance procs`)
-         .recommended(`<${formatPercentage(recommended)}% wasted UT Buffs is recommended`)
+    when(unusedCBprocs).isGreaterThan(0.3)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<span>Your <SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} /> procs should be used before you tiger palm again so they are not overwritten. While some will be overwritten due to higher priority of getting Chi for spenders, holding <SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} /> procs is not optimal.</span>)
+          .icon(SPELLS.COMBO_BREAKER_BUFF.icon)
+         .actual(`${formatPercentage(unusedCBprocs)}% Unused Combo Breaker procs`)
+         .recommended(`<${formatPercentage(recommended)}% wasted Combo Breaker Procs is recommended`)
          .regular(recommended + 0.1).major(recommended + 0.2);
     });
   }
