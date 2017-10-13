@@ -55,10 +55,6 @@ class UncertainReminder extends Module {
     this.events = [];
   }
 
-  // See if we have heroism when the boss is engaged (prelust)
-  on_combatantinfo(event) {
-  }
-
   process_events(start, end, combatEnded) {
     const duration = end - start;
     let startExtraHeroTime = null;

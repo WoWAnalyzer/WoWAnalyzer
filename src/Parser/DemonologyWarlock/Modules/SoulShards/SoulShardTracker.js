@@ -26,7 +26,7 @@ class SoulShardTracker extends Module {
       generated: 0,
       wasted: 0,
     },
-    [SPELLS.SHADOWFLAME.id]: {
+    [SPELLS.SHADOWFLAME_TALENT.id]: {
       generated: 0,
       wasted: 0,
     },
@@ -63,7 +63,7 @@ class SoulShardTracker extends Module {
     [SPELLS.GRIMOIRE_FELGUARD.id]: 0,
     [SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id]: 0,
     [SPELLS.SUMMON_INFERNAL_UNTALENTED.id]: 0,
-    [SPELLS.SUMMON_DARKGLARE.id]: 0,
+    [SPELLS.SUMMON_DARKGLARE_TALENT.id]: 0,
     [SPELLS.SUMMON_FELGUARD.id]: 0,
     // unused
     [SPELLS.SUMMON_IMP.id]: 0,

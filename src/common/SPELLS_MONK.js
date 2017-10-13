@@ -557,9 +557,9 @@ export default {
     icon: 'priest_icon_chakra_green',
   },
   RISING_SUN_KICK_SECOND: {
-  id: 185099,
-  name: 'Rising Sun Kick',
-  icon: 'ability_monk_risingsunkick',
+    id: 185099,
+    name: 'Rising Sun Kick',
+    icon: 'ability_monk_risingsunkick',
   },
   HIT_COMBO_BUFF: {
     id: 196741,

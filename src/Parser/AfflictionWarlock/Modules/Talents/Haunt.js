@@ -31,7 +31,7 @@ class Haunt extends Module {
     if (!target) {
       return;
     }
-    const hasHaunt = target.hasBuff(SPELLS.HAUNT.id, event.timestamp);
+    const hasHaunt = target.hasBuff(SPELLS.HAUNT_TALENT.id, event.timestamp);
     if (!hasHaunt) {
       return;
     }
@@ -42,7 +42,7 @@ class Haunt extends Module {
   statistic() {
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.HAUNT.id} />}
+        icon={<SpellIcon id={SPELLS.HAUNT_TALENT.id} />}
         value={`${formatNumber(this.bonusDmg / this.owner.fightDuration * 1000)} DPS`}
         label="Damage contributed"
         tooltip={`Your Haunt talent contributed ${formatNumber(this.bonusDmg)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} %).`}

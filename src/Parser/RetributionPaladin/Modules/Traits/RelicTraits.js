@@ -23,7 +23,7 @@ class RelicTraits extends Module {
     return (
       <StatisticsListBox
         title="Relic traits"
-        tooltip="This only calculates the value of the last point of each relic trait; for you with your gear and only during this fight. The value of an additional point would likely be slightly lower due to increased overhealing."
+        tooltip="This only calculates the value of the last point of each relic trait; for you with your gear and only during this fight."
         style={{ minHeight: 186 }}
       >
         {this.wrathOfTheAshbringer.subStatistic()}

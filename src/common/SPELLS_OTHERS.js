@@ -5,9 +5,20 @@
 
 export default {
   // General:
+  FAKE_SPELL: {
+    id: -100,
+    name: 'Fake Spell',
+    icon: 'spell_super_duper_fake02',
+  },
+  // I think both `Word of Recall (OLD)` and `Melee` may be seen as spell id 1, so this is a bit complicated.
+  // WORD_OF_RECALL_OLD: {
+  //   id: 1,
+  //   name: 'Word of Recall (OLD)',
+  //   icon: 'trade_engineering',
+  // },
   MELEE: {
     id: 1,
-    name: 'Melee',
+    name: 'Melee or Word of Recall, who knows?',
     icon: 'inv_axe_02',
   },
   LEECH: {
@@ -90,13 +101,11 @@ export default {
     id: 228461,
     name: 'Gnawed Thumb Ring',
     icon: 'inv_70_dungeon_ring6a',
-    cooldownType: 'HEALING',
   },
   VELENS_FUTURE_SIGHT: {
     id: 235966,
     name: 'Velen\'s Future Sight',
     icon: 'spell_holy_healingfocus',
-    cooldownType: 'HEALING',
   },
   XAVARICS_MAGNUM_OPUS: {
     id: 207472,
@@ -117,11 +126,6 @@ export default {
     id: 208052,
     name: 'Sephuz\'s Secret',
     icon: 'inv_jewelry_ring_149',
-  },
-  XAVARICS_MAGNUM_OPUS_HEAL: {
-    id: 207472,
-    name: 'Xavaric\'s Magnum Opus',
-    icon: 'ability_vehicle_shellshieldgenerator',
   },
   MARK_OF_THE_ACNIENT_PRIESTESS: {
     id: 228401,

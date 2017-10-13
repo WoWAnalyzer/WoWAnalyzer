@@ -25,6 +25,7 @@ class LightOfDawn extends Module {
           if (previousEvent.type === 'heal' && previousEvent.ability.guid === SPELLS.LIGHT_OF_DAWN_HEAL.id && previousEvent.sourceID === event.sourceID) {
             fixedEvents.splice(previousEventIndex, 1);
             fixedEvents.push(previousEvent);
+            previousEvent.__modified = true;
             break; // I haven't seen a log with multiple `heal` events before the `cast` yet
           }
         }

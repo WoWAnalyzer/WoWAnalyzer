@@ -26,10 +26,14 @@ class HolyPowerTracker extends Module {
   		generated: 0,
   		wasted: 0,
   	},
-  	[SPELLS.DIVINE_HAMMER_TALENT.id]: {
+  	[SPELLS.DIVINE_HAMMER_3_HP.id]: {
   		generated: 0,
   		wasted: 0,
   	},
+    [SPELLS.DIVINE_HAMMER_2_HP.id]: {
+      generated: 0,
+      wasted: 0,
+    },
   	[SPELLS.WAKE_OF_ASHES_HP_GEN.id]: {
   		generated: 0,
   		wasted: 0,
@@ -42,7 +46,7 @@ class HolyPowerTracker extends Module {
   		generated: 0,
   		wasted: 0,
   	},
-  	[SPELLS.ARCANE_TORRENT.id]: {
+  	[SPELLS.ARCANE_TORRENT_MANA.id]: {
   		generated: 0,
   		wasted: 0,
   	},
@@ -55,6 +59,7 @@ class HolyPowerTracker extends Module {
   	[SPELLS.JUSTICARS_VENGEANCE_TALENT.id]: 0,
   	[SPELLS.WORD_OF_GLORY_TALENT.id]: 0,
   };
+
 
   on_toPlayer_energize(event) {
   	const spellId = event.ability.guid;

@@ -57,7 +57,13 @@ class Event extends React.PureComponent {
     const { event, fightStart, source, target } = this.props;
 
     return (
-      <tr onClick={this.handleClick} data-tip={`<pre>${JSON.stringify(event, null, 2)}</pre>`} data-place="left" data-effect="solid">
+      <tr
+        onClick={this.handleClick}
+        data-tip={`<pre>${JSON.stringify(event, null, 2)}</pre>`}
+        data-place="left"
+        data-effect="solid"
+        className={(event.__fabricated || event.__modified) ? 'modified' : undefined}
+      >
         <td>{formatDuration(event.timestamp - fightStart)}</td>
         <td>{this.renderEntity(source)} ({event.sourceID})</td>
         <td className={event.type}>{event.type}</td>
