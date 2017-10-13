@@ -37,6 +37,12 @@ class ShardOfTheExodar extends Module {
     }
   }
 
+  on_toPlayer_refreshbuff(event) {
+    if (BLOODLUST_BUFFS.some(buff => event.ability.guid === buff)) {
+      this.actualCasts += 1;
+    }
+  }
+
   item() {
     const fightInSeconds = this.owner.fightDuration / 1000;
     const teamCasts = 1 + Math.floor(fightInSeconds / TEAM_COOLDOWN);
