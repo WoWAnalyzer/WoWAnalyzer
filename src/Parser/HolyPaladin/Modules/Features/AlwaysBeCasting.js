@@ -4,7 +4,7 @@ import { formatPercentage } from 'common/format';
 
 import CoreAlwaysBeCastingHealing from 'Parser/Core/Modules/AlwaysBeCastingHealing';
 
-const debug = true;
+const debug = false;
 
 const HEALING_ABILITIES_ON_GCD = [
   SPELLS.FLASH_OF_LIGHT.id,

@@ -38,17 +38,16 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownTracker: CooldownTracker,
     vulnerabluptime: VulnerableUptime,
     vulnerableTracker: VulnerableTracker,
-    
+
     //Focus Chart
     focusTracker: FocusTracker,
 
     //Items
     tier20_2p: Tier20_2p,
     tier20_4p: Tier20_4p,
-    
+
     //Spells
     trueshot: Trueshot,
-
 
   };
 

@@ -8,7 +8,7 @@
  * and re-run the talent auto-generator in ../DevTools/generateTalents.js to add them to your talents.
  *
  * NOTE: the indexById functions copies all manually added spells under their spell id. So if you defined
- * `MY_SPELL: { id: 1337, ... }`, it will become available under SPELLS.MY_SPELL as well as SPELLS[1337]. You should
+ * `MY_SPELL: { id: 1337,  }`, it will become available under SPELLS.MY_SPELL as well as SPELLS[1337]. You should
  * use the named spell by default, this makes things much more readable.
  **************************************************************************************************************** */
 
@@ -43,35 +43,54 @@ import SPELLS_SHAMAN from './SPELLS_SHAMAN';
 import SPELLS_WARLOCK from './SPELLS_WARLOCK';
 import SPELLS_WARRIOR from './SPELLS_WARRIOR';
 
+function merge(...args) {
+  const obj = {};
+  args.forEach(arg => {
+    Object.keys(arg).forEach(key => {
+      if (process.env.NODE_ENV === 'development') {
+        if (obj[key]) {
+          throw new Error('A spell with this key already exists:' + key);
+        }
+      }
+      obj[key] = arg[key];
+    });
+  });
+  return obj;
+}
+
 const ABILITIES = {
-  ...SPELLS_OTHERS,
-  ...SPELLS_RACIALS,
-
-  ...TALENTS_DEATH_KNIGHT,
-  ...TALENTS_DEMON_HUNTER,
-  ...TALENTS_DRUID,
-  ...TALENTS_HUNTER,
-  ...TALENTS_MAGE,
-  ...TALENTS_MONK,
-  ...TALENTS_PALADIN,
-  ...TALENTS_PRIEST,
-  ...TALENTS_ROGUE,
-  ...TALENTS_SHAMAN,
-  ...TALENTS_WARLOCK,
-  ...TALENTS_WARRIOR,
-
-  ...SPELLS_DEATH_KNIGHT,
-  ...SPELLS_DEMON_HUNTER,
-  ...SPELLS_DRUID,
-  ...SPELLS_HUNTER,
-  ...SPELLS_MAGE,
-  ...SPELLS_MONK,
-  ...SPELLS_PALADIN,
-  ...SPELLS_PRIEST,
-  ...SPELLS_ROGUE,
-  ...SPELLS_SHAMAN,
-  ...SPELLS_WARLOCK,
-  ...SPELLS_WARRIOR,
+  // Talents are auto generated
+  ...merge(
+    TALENTS_DEATH_KNIGHT,
+    TALENTS_DEMON_HUNTER,
+    TALENTS_DRUID,
+    TALENTS_HUNTER,
+    TALENTS_MAGE,
+    TALENTS_MONK,
+    TALENTS_PALADIN,
+    TALENTS_PRIEST,
+    TALENTS_ROGUE,
+    TALENTS_SHAMAN,
+    TALENTS_WARLOCK,
+    TALENTS_WARRIOR
+  ),
+  // Talents can be overwritten with custom spell objects
+  ...merge(
+    SPELLS_OTHERS,
+    SPELLS_RACIALS,
+    SPELLS_DEATH_KNIGHT,
+    SPELLS_DEMON_HUNTER,
+    SPELLS_DRUID,
+    SPELLS_HUNTER,
+    SPELLS_MAGE,
+    SPELLS_MONK,
+    SPELLS_PALADIN,
+    SPELLS_PRIEST,
+    SPELLS_ROGUE,
+    SPELLS_SHAMAN,
+    SPELLS_WARLOCK,
+    SPELLS_WARRIOR
+  ),
 };
 
 export default indexById(ABILITIES);

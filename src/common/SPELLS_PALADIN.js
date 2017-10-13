@@ -94,6 +94,11 @@ export default {
     icon: 'ability_paladin_lightofthemartyr',
     manaCost: 16500,
   },
+  MARAADS_DYING_BREATH_BUFF: {
+    id: 234862,
+    name: 'Maraad\'s Dying Breath',
+    icon: 'paladin_icon_speedoflight',
+  },
   LIGHT_OF_THE_MARTYR_DAMAGE_TAKEN: {
     id: 196917,
     name: 'Light of the Martyr',
@@ -133,7 +138,6 @@ export default {
     id: 31821,
     name: 'Aura Mastery',
     icon: 'spell_holy_auramastery',
-    cooldownType: 'HEALING',
   },
   AURA_OF_MERCY_HEAL: {
     id: 210291,
@@ -159,7 +163,6 @@ export default {
     id: 31842,
     name: 'Avenging Wrath',
     icon: 'spell_holy_avenginewrath',
-    cooldownType: 'HEALING',
   },
   BEACON_OF_LIGHT_BUFF: {
     id: 53563,
@@ -241,6 +244,16 @@ export default {
     id: 198137,
     name: 'Divine Hammer',
     icon: 'spell_holy_auraoflight',
+  },
+  DIVINE_HAMMER_3_HP: {
+    id: 246345,
+    name: 'Divine Hammer',
+    icon: 'classicon_paladin',
+  },
+  DIVINE_HAMMER_2_HP: {
+    id: 228231,
+    name: 'Divine Hammer',
+    icon: 'classicon_paladin',
   },
   DIVINE_STORM_DAMAGE: {
     id: 224239,

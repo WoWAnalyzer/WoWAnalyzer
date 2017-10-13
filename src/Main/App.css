@@ -697,7 +697,7 @@ table.data-table .performance-bar {
   font-size: 1.6rem;
 }
 .external-links .btn:not(:first-of-type) {
-  margin-left: 20px;
+  margin-left: 3%;
 }
 @media (min-width: 1200px) and (max-width: 1400px) {
   .external-links .btn {

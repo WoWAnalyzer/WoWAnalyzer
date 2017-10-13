@@ -25,7 +25,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
 
     SPELLS.EARTHEN_SPIKE_TALENT.id,
     SPELLS.DOOM_WINDS.id,
-    SPELLS.SUNDERING.id,
+    SPELLS.SUNDERING_TALENT.id,
   ];
 
   suggestions(when) {

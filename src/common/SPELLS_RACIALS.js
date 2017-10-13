@@ -6,7 +6,7 @@
 
 export default {
   // Blood Elf
-  ARCANE_TORRENT: {
+  ARCANE_TORRENT_MANA: {
     id: 155145,
     name: 'Arcane Torrent',
     icon: 'spell_shadow_teleport',

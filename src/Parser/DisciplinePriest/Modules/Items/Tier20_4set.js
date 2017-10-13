@@ -26,13 +26,6 @@ class Tier20_4set extends Module {
     this.active = this.owner.modules.combatants.selected.hasBuff(SPELLS.DISC_PRIEST_T20_4SET_BONUS_PASSIVE.id);
   }
 
-  on_byPlayer_combatantinfo(event) {
-    const fourSetAura = event.auras
-      .filter(aura => aura.ability === SPELLS.DISC_PRIEST_T20_4SET_BONUS_BUFF.id);
-
-    this._procCount += fourSetAura ? 1 : 0;
-  }
-
   on_toPlayer_applybuff(event) {
     if (event.ability.guid === SPELLS.DISC_PRIEST_T20_4SET_BONUS_BUFF.id) {
       this._procCount += 1;

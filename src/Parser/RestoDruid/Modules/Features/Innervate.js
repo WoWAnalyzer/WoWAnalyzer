@@ -45,7 +45,7 @@ class Innervate extends Module {
   depleted = false;
 
   on_initialized() {
-    this.infusionOfNatureTraits = this.owner.modules.combatants.selected.traitsBySpellId[SPELLS.INFUSION_OF_NATURE_TRAIT.id] || 0;
+    this.infusionOfNatureTraits = this.owner.modules.combatants.selected.traitsBySpellId[SPELLS.INFUSION_OF_NATURE.id] || 0;
   }
 
   on_toPlayer_applybuff(event) {
