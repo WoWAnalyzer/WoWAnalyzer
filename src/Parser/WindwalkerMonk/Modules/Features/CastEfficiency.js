@@ -29,7 +29,7 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.TOUCH_OF_KARMA_CAST,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
-      getCooldown: haste => 90,
+      getCooldown: haste => 90,     
     },
     {
       spell: SPELLS.TOUCH_OF_DEATH,

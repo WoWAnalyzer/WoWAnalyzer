@@ -15,7 +15,7 @@ import getDamageBonus from '../WarlockCore/getDamageBonus';
 const AFFECTED_ABILITIES = new Set([
   SPELLS.AGONY.id,
   SPELLS.CORRUPTION_DEBUFF.id,
-  SPELLS.SIPHON_LIFE_TALENT.id,
+  SPELLS.SIPHON_LIFE.id,
   ...UNSTABLE_AFFLICTION_DEBUFF_IDS,
 ]);
 
@@ -58,7 +58,7 @@ class MaleficGrasp extends Module {
       case SPELLS.CORRUPTION_DEBUFF.id:
         this.corruptionBonusDmg += bonus;
         break;
-      case SPELLS.SIPHON_LIFE_TALENT.id:
+      case SPELLS.SIPHON_LIFE.id:
         this.siphonLifeBonusDmg += bonus;
         break;
       case SPELLS.UNSTABLE_AFFLICTION_DEBUFF_1.id:

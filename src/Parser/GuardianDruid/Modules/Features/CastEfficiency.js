@@ -92,7 +92,7 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.THRASH_BEAR,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: (haste, combatant) => {
-        const hasMightBuff = combatant.hasTalent(SPELLS.INCARNATION_GUARDIAN_OF_URSOC_TALENT.id);
+        const hasMightBuff = combatant.hasTalent(SPELLS.INCARNATION_OF_URSOC.id);
         if (!hasMightBuff) {
           return 6 / (1 + haste);
         }
@@ -110,7 +110,7 @@ class CastEfficiency extends CoreCastEfficiency {
       baseCD: 6,
       hastedCD: true,
       proc: ({ timestamp }, combatant) => {
-        const isIncarnation = combatant.hasBuff(SPELLS.INCARNATION_GUARDIAN_OF_URSOC_TALENT.id, timestamp);
+        const isIncarnation = combatant.hasBuff(SPELLS.INCARNATION_OF_URSOC.id, timestamp);
         return isIncarnation;
       },
     },
@@ -166,10 +166,10 @@ class CastEfficiency extends CoreCastEfficiency {
       noCanBeImproved: true,
     },
     {
-      spell: SPELLS.INCARNATION_GUARDIAN_OF_URSOC_TALENT,
+      spell: SPELLS.INCARNATION_OF_URSOC,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 180,
-      isActive: combatant => combatant.hasTalent(SPELLS.INCARNATION_GUARDIAN_OF_URSOC_TALENT.id),
+      isActive: combatant => combatant.hasTalent(SPELLS.INCARNATION_OF_URSOC.id),
       noSuggestion: true,
     },
     {

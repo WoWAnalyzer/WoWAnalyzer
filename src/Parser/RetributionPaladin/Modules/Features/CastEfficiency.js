@@ -55,21 +55,18 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.CRUSADER_STRIKE,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-      charges: 2,
       getCooldown: haste => 3.5 / (1 + haste),
       isActive: combatant => combatant.hasTalent(SPELLS.THE_FIRES_OF_JUSTICE_TALENT.id),
     },
     {
       spell: SPELLS.CRUSADER_STRIKE,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-      charges: 2,
       getCooldown: haste => 4.5 / (1 + haste),
       isActive: combatant => combatant.hasTalent(SPELLS.GREATER_JUDGMENT_TALENT.id),
     },
     {
       spell: SPELLS.ZEAL_TALENT,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-      charges: 2,
       getCooldown: haste => 4.5 / (1 + haste),
       isActive: combatant => combatant.hasTalent(SPELLS.ZEAL_TALENT.id),
     },
@@ -77,7 +74,6 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.JUDGMENT_CAST,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 12 / (1 + haste),
-      isActive: combatant => !combatant.hasBuff(SPELLS.RET_PALADIN_T20_2SET_BONUS_BUFF.id),
     },
     //This is the judgment CE with t20
     {
@@ -153,7 +149,7 @@ class CastEfficiency extends CoreCastEfficiency {
       hideWithZeroCasts: true,
     },
     {
-      spell: SPELLS.ARCANE_TORRENT_MANA,
+      spell: SPELLS.ARCANE_TORRENT,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 90,
       hideWithZeroCasts: true,

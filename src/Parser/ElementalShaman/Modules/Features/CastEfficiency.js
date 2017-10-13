@@ -24,9 +24,9 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => null, // 1.5 / (1 + haste)
     },
     {
-      spell: SPELLS.LIQUID_MAGMA_TOTEM_TALENT,
+      spell: SPELLS.LIQUID_MAGMA_TOTEM,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL_AOE,
-      isActive: combatant => combatant.hasTalent(SPELLS.LIQUID_MAGMA_TOTEM_TALENT.id),
+      isActive: combatant => combatant.hasTalent(SPELLS.LIQUID_MAGMA_TOTEM.id),
       getCooldown: haste => null,
     },
     {
@@ -45,17 +45,17 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => null,
     },
     {
-      spell: SPELLS.ELEMENTAL_BLAST_TALENT,
+      spell: SPELLS.ELEMENTAL_BLAST,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-      isActive: combatant => combatant.hasTalent(SPELLS.ELEMENTAL_BLAST_TALENT.id),
+      isActive: combatant => combatant.hasTalent(SPELLS.ELEMENTAL_BLAST.id),
       getCooldown: haste => 12,
       recommendedCastEfficiency: 0.6,
     },
     {
-      spell: SPELLS.ASCENDANCE_TALENT_ELEMENTAL,
+      spell: SPELLS.ASCENDANCE,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 180,
-      isActive: combatant => combatant.hasTalent(SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id),
+      isActive: combatant => combatant.hasTalent(SPELLS.ASCENDANCE.id),
       recommendedCastEfficiency: 1.0,
     },
     {

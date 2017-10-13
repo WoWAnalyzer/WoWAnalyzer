@@ -12,7 +12,7 @@ import getDamageBonus from '../../WarlockCore/getDamageBonus';
 const ODR_SHAWL_OF_THE_YMIRJAR_DAMAGE_BONUS = 0.15;
 
 const AFFECTED_SPELLS = new Set([
-  SPELLS.SHADOWBURN_TALENT.id,
+  SPELLS.SHADOWBURN.id,
   SPELLS.INCINERATE.id,
   SPELLS.DRAIN_LIFE.id,
   SPELLS.CONFLAGRATE.id,

@@ -6,42 +6,25 @@ import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
 
 import Module from 'Parser/Core/Module';
-import Combatants from 'Parser/Core/Modules/Combatants';
-import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 import AbilityTracker from './PaladinAbilityTracker';
 import MaraadsDyingBreath from '../Items/MaraadsDyingBreath';
 
 class FillerLightOfTheMartyrs extends Module {
   static dependencies = {
-    combatants: Combatants,
     abilityTracker: AbilityTracker,
     maraadsDyingBreath: MaraadsDyingBreath,
-    spellUsable: SpellUsable,
   };
 
-  casts = 0;
-  inefficientCasts = 0;
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.LIGHT_OF_THE_MARTYR.id) {
-      return;
-    }
-    if (this.combatants.selected.hasBuff(SPELLS.MARAADS_DYING_BREATH_BUFF.id, event.timestamp)) {
-      // Not a filler
-      return;
-    }
-
-    this.casts += 1;
-
-    const hasHolyShockAvailable = this.spellUsable.isAvailable(SPELLS.HOLY_SHOCK_CAST.id);
-    if (hasHolyShockAvailable) {
-      this.inefficientCasts += 1;
-    }
-  }
-
   suggestions(when) {
-    const fillerLotms = this.casts;
+    const getAbility = spellId => this.abilityTracker.getAbility(spellId);
+
+    const lightOfTheMartyrs = getAbility(SPELLS.LIGHT_OF_THE_MARTYR.id).casts || 0;
+    let fillerLotms = lightOfTheMartyrs;
+    if (this.maraadsDyingBreath.active) {
+      const lightOfTheDawns = getAbility(SPELLS.LIGHT_OF_DAWN_CAST.id).casts || 0;
+      fillerLotms -= lightOfTheDawns;
+    }
     const fillerLotmsPerMinute = fillerLotms / (this.owner.fightDuration / 1000) * 60;
     when(fillerLotmsPerMinute).isGreaterThan(1.5)
       .addSuggestion((suggest, actual, recommended) => {
@@ -58,16 +41,6 @@ class FillerLightOfTheMartyrs extends Module {
           .icon(SPELLS.LIGHT_OF_THE_MARTYR.icon)
           .actual(actualText)
           .recommended(`<${recommended} Casts Per Minute is recommended`)
-          .regular(recommended + 0.5).major(recommended + 1.5);
-      });
-
-    const inefficientLotmsPerMinute = this.inefficientCasts / (this.owner.fightDuration / 1000) * 60;
-    when(inefficientLotmsPerMinute).isGreaterThan(0)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You cast {this.inefficientCasts} <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} />s while <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> was available. Try to <b>never</b> cast <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> when something else is available.</span>)
-          .icon(SPELLS.LIGHT_OF_THE_MARTYR.icon)
-          .actual(`${this.inefficientCasts} casts while Holy Shock was available`)
-          .recommended(`No inefficient casts is recommended`)
           .regular(recommended + 0.5).major(recommended + 1.5);
       });
   }

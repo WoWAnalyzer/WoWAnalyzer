@@ -51,7 +51,7 @@ class Flourish extends Module {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (SPELLS.FLOURISH_TALENT.id !== spellId) {
+    if (SPELLS.FLOURISH.id !== spellId) {
       return;
     }
 
@@ -106,8 +106,8 @@ class Flourish extends Module {
     const wgsExtended = this.wildGrowthCasts / this.flourishCount;
     when(wgsExtended).isLessThan(SuggestionThresholds.FLOURISH_WG_EXTEND.minor)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your <SpellLink id={SPELLS.FLOURISH_TALENT.id} /> should always aim to extend a <SpellLink id={SPELLS.WILD_GROWTH.id} /></span>)
-          .icon(SPELLS.FLOURISH_TALENT.icon)
+        return suggest(<span>Your <SpellLink id={SPELLS.FLOURISH.id} /> should always aim to extend a <SpellLink id={SPELLS.WILD_GROWTH.id} /></span>)
+          .icon(SPELLS.FLOURISH.icon)
           .actual(`${formatPercentage(this.wildGrowthCasts / this.flourishCount, 0)}% WGs extended.`)
           .recommended(`${formatPercentage(recommended)}% is recommended`)
           .regular(SuggestionThresholds.FLOURISH_WG_EXTEND.regular).major(SuggestionThresholds.FLOURISH_WG_EXTEND.major);
@@ -117,8 +117,8 @@ class Flourish extends Module {
       const cwsExtended = this.cenarionWard / this.flourishCount;
       when(cwsExtended).isLessThan(SuggestionThresholds.FLOURISH_CW_EXTEND.minor)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<span>Your <SpellLink id={SPELLS.FLOURISH_TALENT.id} /> should always aim to extend a <SpellLink id={SPELLS.CENARION_WARD.id} /></span>)
-            .icon(SPELLS.FLOURISH_TALENT.icon)
+          return suggest(<span>Your <SpellLink id={SPELLS.FLOURISH.id} /> should always aim to extend a <SpellLink id={SPELLS.CENARION_WARD.id} /></span>)
+            .icon(SPELLS.FLOURISH.icon)
             .actual(`${this.cenarionWard}/${this.flourishCount} CWs extended.`)
             .recommended(`${formatPercentage(recommended)}% is recommended`)
             .regular(SuggestionThresholds.FLOURISH_CW_EXTEND.regular).major(SuggestionThresholds.FLOURISH_CW_EXTEND.major);

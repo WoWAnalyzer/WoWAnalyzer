@@ -8,7 +8,6 @@ import { formatPercentage } from 'common/format';
 import Module from 'Parser/Core/Module';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
@@ -16,7 +15,6 @@ class DivinePurpose extends Module {
   static dependencies = {
     combatants: Combatants,
     abilityTracker: AbilityTracker,
-    spellUsable: SpellUsable,
   };
 
   on_initialized() {
@@ -25,54 +23,11 @@ class DivinePurpose extends Module {
     this.active = hasDivinePurpose || hasSoulOfTheHighlord;
   }
 
-  holyShockProcs = 0;
-  lightOfDawnProcs = 0;
-  on_toPlayer_applybuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.DIVINE_PURPOSE_HOLY_SHOCK_BUFF.id) {
-      this.holyShockProcs += 1;
-      if (this.spellUsable.isOnCooldown(SPELLS.HOLY_SHOCK_CAST.id)) {
-        this.spellUsable.endCooldown(SPELLS.HOLY_SHOCK_CAST.id);
-      }
-    }
-    if (spellId === SPELLS.DIVINE_PURPOSE_LIGHT_OF_DAWN_BUFF.id) {
-      this.lightOfDawnProcs += 1;
-      if (this.spellUsable.isOnCooldown(SPELLS.LIGHT_OF_DAWN_CAST.id)) {
-        this.spellUsable.endCooldown(SPELLS.LIGHT_OF_DAWN_CAST.id);
-      }
-    }
+  get holyShockProcs() {
+    return this.combatants.selected.getBuffTriggerCount(SPELLS.DIVINE_PURPOSE_HOLY_SHOCK_BUFF.id);
   }
-
-  /**
-   * Divine Purpose procs sometimes are logged before the related cast. This makes dealing with it harder, so reorder it.
-   * @param {Array} events
-   * @returns {Array}
-   */
-  reorderEvents(events) {
-    const fixedEvents = [];
-    events.forEach((event, eventIndex) => {
-      fixedEvents.push(event);
-
-      if (event.type === 'cast' && event.ability.guid === SPELLS.HOLY_SHOCK_CAST.id) {
-        const castTimestamp = event.timestamp;
-
-        // Loop through the event history in reverse to detect if there was a `applybuff` event on the same player that was the result of this cast and thus misordered
-        for (let previousEventIndex = eventIndex; previousEventIndex >= 0; previousEventIndex -= 1) {
-          const previousEvent = fixedEvents[previousEventIndex];
-          if ((castTimestamp - previousEvent.timestamp) > 50) { // the max delay between the heal and cast events never looks to be more than this.
-            break;
-          }
-          if (previousEvent.type === 'applybuff' && previousEvent.ability.guid === SPELLS.DIVINE_PURPOSE_HOLY_SHOCK_BUFF.id && previousEvent.sourceID === event.sourceID) {
-            fixedEvents.splice(previousEventIndex, 1);
-            fixedEvents.push(previousEvent);
-            previousEvent.__modified = true;
-            break;
-          }
-        }
-      }
-    });
-
-    return fixedEvents;
+  get lightOfDawnProcs() {
+    return this.combatants.selected.getBuffTriggerCount(SPELLS.DIVINE_PURPOSE_LIGHT_OF_DAWN_BUFF.id);
   }
 
   statistic() {

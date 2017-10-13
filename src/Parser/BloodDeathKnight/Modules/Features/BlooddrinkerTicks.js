@@ -25,19 +25,19 @@ class BlooddrinkerTicks extends Module {
   }
 
   on_byPlayer_cast(event) {
-    if (event.ability.guid === SPELLS.BLOODDRINKER_TALENT.id) {
+    if (event.ability.guid === SPELLS.BLOODDRINKER.id) {
       this._totalCasts += 1;
     }
   }
 
   on_byPlayer_damage(event) {
-    if (event.ability.guid === SPELLS.BLOODDRINKER_TALENT.id) {
+    if (event.ability.guid === SPELLS.BLOODDRINKER.id) {
       this._currentTicks += 1;
     }
   }
 
   on_byPlayer_removedebuff(event) {
-    if (event.ability.guid === SPELLS.BLOODDRINKER_TALENT.id) {
+    if (event.ability.guid === SPELLS.BLOODDRINKER.id) {
       if (this._currentTicks < BLOODDRINKER_TICKS_PER_CAST) {
         this._wastedTicks += (BLOODDRINKER_TICKS_PER_CAST - this._currentTicks);
         this._ruinedCasts += 1;
@@ -52,7 +52,7 @@ class BlooddrinkerTicks extends Module {
     return (
 
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.BLOODDRINKER_TALENT.id} />}
+        icon={<SpellIcon id={SPELLS.BLOODDRINKER.id} />}
         value={`${this._ruinedCasts} out of ${this._totalCasts}`}
         label='Cancelled Early'
         tooltip={`You lost <strong>${this._wastedTicks}</strong> out of <strong>${this._totalTicks}</strong> ticks.`}

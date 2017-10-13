@@ -14,7 +14,7 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => null,
     },
     {
-      spell: SPELLS.CHANNEL_DEMONFIRE_TALENT,
+      spell: SPELLS.CHANNEL_DEMONFIRE_CAST,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 25 / (1 + haste),
       isActive: combatant => combatant.hasTalent(SPELLS.CHANNEL_DEMONFIRE_TALENT.id),
@@ -26,16 +26,16 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 12 / (1 + haste),
       charges: 2,
       recommendedCastEfficiency: 0.95,
-      isActive: combatant => !combatant.hasTalent(SPELLS.SHADOWBURN_TALENT.id),
+      isActive: combatant => !combatant.hasTalent(SPELLS.SHADOWBURN.id),
       // TODO: T19 4p set bonus grants another charge and reduces CD
     },
     {
-      spell: SPELLS.SHADOWBURN_TALENT,
+      spell: SPELLS.SHADOWBURN,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 12 / (1 + haste),
       charges: 2,
       recommendedCastEfficiency: 0.95,
-      isActive: combatant => combatant.hasTalent(SPELLS.SHADOWBURN_TALENT.id),
+      isActive: combatant => combatant.hasTalent(SPELLS.SHADOWBURN.id),
       // TODO: T19 4p set bonus grants another charge and reduces CD
     },
     {
@@ -75,7 +75,7 @@ class CastEfficiency extends CoreCastEfficiency {
       noCanBeImproved: true,
     },
     {
-      spell: SPELLS.CATACLYSM_TALENT,
+      spell: SPELLS.CATACLYSM,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL_AOE,
       getCooldown: haste => 30,
       isActive: combatant => combatant.hasTalent(SPELLS.CATACLYSM_TALENT.id),
@@ -101,7 +101,7 @@ class CastEfficiency extends CoreCastEfficiency {
       isActive: combatant => combatant.hasTalent(SPELLS.WREAK_HAVOC_TALENT.id),
     },
     {
-      spell: SPELLS.SOUL_HARVEST_TALENT,
+      spell: SPELLS.SOUL_HARVEST,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 120,
       isActive: combatant => combatant.hasTalent(SPELLS.SOUL_HARVEST_TALENT.id),
@@ -154,7 +154,7 @@ class CastEfficiency extends CoreCastEfficiency {
 
     // Utility
     {
-      spell: SPELLS.SHADOWFURY_TALENT,
+      spell: SPELLS.SHADOWFURY,
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => 30,
       isActive: combatant => combatant.hasTalent(SPELLS.SHADOWFURY_TALENT.id),
@@ -162,7 +162,7 @@ class CastEfficiency extends CoreCastEfficiency {
       noCanBeImproved: true,
     },
     {
-      spell: SPELLS.BURNING_RUSH_TALENT,
+      spell: SPELLS.BURNING_RUSH,
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => null,
       isActive: combatant => combatant.hasTalent(SPELLS.BURNING_RUSH_TALENT.id),
@@ -184,7 +184,7 @@ class CastEfficiency extends CoreCastEfficiency {
       noCanBeImproved: true,
     },
     {
-      spell: SPELLS.DEMONIC_CIRCLE_TALENT_SUMMON,
+      spell: SPELLS.DEMONIC_CIRCLE_SUMMON,
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => null,
       isActive: combatant => combatant.hasTalent(SPELLS.DEMONIC_CIRCLE_TALENT.id),
@@ -192,7 +192,7 @@ class CastEfficiency extends CoreCastEfficiency {
       noCanBeImproved: true,
     },
     {
-      spell: SPELLS.DEMONIC_CIRCLE_TALENT_TELEPORT,
+      spell: SPELLS.DEMONIC_CIRCLE_TELEPORT,
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => 30,
       isActive: combatant => combatant.hasTalent(SPELLS.DEMONIC_CIRCLE_TALENT.id),
@@ -233,7 +233,7 @@ class CastEfficiency extends CoreCastEfficiency {
       noCanBeImproved: true,
     },
     {
-      spell: SPELLS.DARK_PACT_TALENT,
+      spell: SPELLS.DARK_PACT,
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => 60,
       isActive: combatant => combatant.hasTalent(SPELLS.DARK_PACT_TALENT.id),
@@ -241,7 +241,7 @@ class CastEfficiency extends CoreCastEfficiency {
       noCanBeImproved: true,
     },
     {
-      spell: SPELLS.MORTAL_COIL_TALENT,
+      spell: SPELLS.MORTAL_COIL,
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => 45,
       isActive: combatant => combatant.hasTalent(SPELLS.MORTAL_COIL_TALENT.id),

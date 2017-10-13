@@ -7,12 +7,6 @@
 .events tr:hover {
   background: rgba(255, 255, 255, 0.2);
 }
-.events tr.modified {
-  background: rgba(255, 118, 0, 0.3);
-}
-.events tr.modified:hover {
-  background: rgba(255, 118, 0, 0.4);
-}
 .events tr td {
   border: 1px solid #000;
   padding: 3px 5px;

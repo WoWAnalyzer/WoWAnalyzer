@@ -33,7 +33,7 @@ class RunicPowerTracker extends Module {
       wasted: 0,
       alternateId: SPELLS.RAPID_DECOMPOSITION_TALENT.id,
     },
-    [SPELLS.BLOODDRINKER_TALENT.id]: {
+    [SPELLS.BLOODDRINKER.id]: {
       generated: 0,
       wasted: 0,
     },
@@ -56,7 +56,7 @@ class RunicPowerTracker extends Module {
   spent = {
     [SPELLS.DEATH_STRIKE.id]: 0,
     [SPELLS.MARK_OF_BLOOD.id]: 0,
-    [SPELLS.BONESTORM_TALENT.id]: 0,
+    [SPELLS.BONESTORM.id]: 0,
   };
 
   on_toPlayer_energize(event) {

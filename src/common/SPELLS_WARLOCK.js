@@ -123,26 +123,45 @@ export default {
   // Shared talents
   // --------------
 
+  BURNING_RUSH: {
+    id: 111400,
+    name: 'Burning Rush',
+    icon: 'ability_deathwing_sealarmorbreachtga',
+  },
   EMPOWERED_LIFE_TAP_BUFF: {
     id: 235156,
     name: 'Empowered Life Tap',
     icon: 'spell_shadow_manafeed',
   },
-  DEMONIC_CIRCLE_TALENT_SUMMON: {
+  DEMONIC_CIRCLE_SUMMON: {
     id: 48018,
-    __ignoreDuplication: true,
     name: 'Demonic Circle Summon',
     icon: 'spell_shadow_demoniccirclesummon',
   },
-  DEMONIC_CIRCLE_TALENT_TELEPORT: {
+  DEMONIC_CIRCLE_TELEPORT: {
     id: 48020,
     name: 'Demonic Circle Teleport',
     icon: 'spell_shadow_demoniccircleteleport',
+  },
+  MORTAL_COIL: {
+    id: 6789,
+    name: 'Mortal Coil',
+    icon: 'ability_warlock_mortalcoil',
   },
   MORTAL_COIL_HEAL: {
     id: 108396,
     name: 'Mortal Coil',
     icon: 'ability_warlock_mortalcoil',
+  },
+  SOUL_HARVEST: {
+    id: 196098,
+    name: 'Soul Harvest',
+    icon: 'spell_warlock_demonsoul',
+  },
+  DARK_PACT: {
+    id: 108416,
+    name: 'Dark Pact',
+    icon: 'warlock_sacrificial_pact',
   },
   SUMMON_DOOMGUARD_TALENTED: {
     id: 157757,
@@ -266,10 +285,25 @@ export default {
   },
 
   // Affliction talents
+  PHANTOM_SINGULARITY: {
+    id: 205179,
+    name: 'Phantom Singularity',
+    icon: 'inv_enchant_voidsphere',
+  },
   PHANTOM_SINGULARITY_HEAL: {
     id: 205246,
     name: 'Phantom Singularity',
     icon: 'inv_enchant_voidsphere',
+  },
+  HAUNT: {
+    id: 48181,
+    name: 'Haunt',
+    icon: 'ability_warlock_haunt',
+  },
+  SIPHON_LIFE: {
+    id: 63106,
+    name: 'Siphon Life',
+    icon: 'spell_shadow_requiem',
   },
 
   // Affliction tier sets
@@ -388,15 +422,36 @@ export default {
     name: 'Backdraft',
     icon: 'ability_warlock_backdraft',
   },
+  SHADOWBURN: {
+    id: 17877,
+    name: 'Shadowburn',
+    icon: 'spell_shadow_scourgebuild',
+  },
   ERADICATION_DEBUFF: {
     id: 196414,
     name: 'Eradication',
     icon: 'ability_warlock_eradication',
   },
+  CATACLYSM: {
+    id: 152108,
+    name: 'Cataclysm',
+    icon: 'achievement_zone_cataclysm',
+  },
+  CHANNEL_DEMONFIRE_CAST: {
+    id: 196447,
+    name: 'Channel Demonfire',
+    icon: 'spell_fire_ragnaros_lavaboltgreen',
+    baseMana: 0.048,
+  },
   CHANNEL_DEMONFIRE_DAMAGE: {
     id: 196448,
     name: 'Channel Demonfire',
     icon: 'spell_fire_ragnaros_lavaboltgreen',
+  },
+  SHADOWFURY: {
+    id: 30283,
+    name: 'Shadowfury',
+    icon: 'ability_warlock_shadowfurytga',
   },
   // Destruction traits
   SOULSNATCHER_FRAGMENT_GEN: {
@@ -562,6 +617,11 @@ export default {
     name: 'Shadowy Inspiration',
     icon: 'warlock_curse_shadow',
   },
+  SHADOWFLAME: {
+    id: 205181,
+    name: 'Shadowflame',
+    icon: 'ability_warlock_shadowflame',
+  },
   IMPLOSION_DAMAGE: {
     id: 196278,
     name: 'Implosion',
@@ -571,6 +631,16 @@ export default {
     id: 171982,
     name: 'Grimoire of Synergy',
     icon: 'warlock_grimoireofsacrifice',
+  },
+  SUMMON_DARKGLARE: {
+    id: 205180,
+    name: 'Summon Darkglare',
+    icon: 'achievement_boss_durumu',
+  },
+  DEMONBOLT: {
+    id: 157695,
+    name: 'Demonbolt',
+    icon: 'spell_warlock_demonbolt',
   },
 
   // Demonology traits

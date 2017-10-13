@@ -135,7 +135,7 @@ class CastEfficiency extends CoreCastEfficiency {
 
     // Utility Spells
     {
-      spell: SPELLS.ARCANE_TORRENT_MANA,
+      spell: SPELLS.ARCANE_TORRENT,
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => 90,
       hideWithZeroCasts: true,

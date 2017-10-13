@@ -11,7 +11,7 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   SPELLS.TIDAL_TOTEM.id,
   SPELLS.GIFT_OF_THE_QUEEN.id,
   SPELLS.HEALING_RAIN_HEAL.id,
-  SPELLS.WELLSPRING_TALENT.id,
+  SPELLS.WELLSPRING.id,
   // While the following spells don't double dip in healing increases, they gain the same percentual bonus from the transfer
   SPELLS.ANCESTRAL_GUIDANCE_HEAL.id,
   SPELLS.CLOUDBURST_TOTEM_HEAL.id,
@@ -20,7 +20,7 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
 ];
 
 export const ABILITIES_AFFECTED_BY_MASTERY = [
-  SPELLS.WELLSPRING_TALENT.id,
+  SPELLS.WELLSPRING.id,
   SPELLS.CHAIN_HEAL.id,
   SPELLS.HEALING_WAVE.id,
   SPELLS.RIPTIDE.id,

@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+// import Toggle from 'react-toggle';
+
 import SPELLS from 'common/SPELLS';
 
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import Icon from 'common/Icon';
-// import Toggle from 'react-toggle';
 
 function formatThousands(number) {
   return (`${Math.round(number || 0)}`).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
@@ -38,23 +39,23 @@ class Feeding extends React.Component {
 
     return (
       <div>
-        {([
+        { ([
           {
             name: 'Cloudburst Totem',
             feed: cooldownTracker.cbtFeed,
-            spell: SPELLS.CLOUDBURST_TOTEM_TALENT,
+            spell: SPELLS.CLOUDBURST_TOTEM_CAST,
             totals: cooldownTracker.cbtTotals,
           },
           {
             name: 'Ancestral Guidance',
             feed: cooldownTracker.agFeed,
-            spell: SPELLS.ANCESTRAL_GUIDANCE_TALENT,
+            spell: SPELLS.ANCESTRAL_GUIDANCE_CAST,
             totals: cooldownTracker.agTotals,
           },
           {
             name: 'Ascendance',
             feed: cooldownTracker.ascFeed,
-            spell: SPELLS.ASCENDANCE_TALENT_RESTORATION,
+            spell: SPELLS.ASCENDANCE_CAST,
             totals: cooldownTracker.ascTotals,
           },
         ]).map((category) => {
@@ -67,10 +68,12 @@ class Feeding extends React.Component {
         })
           .filter(category => category.totals.total > 0)
           .map(category => (
+
             <table className="data-table" key={category.name} style={{ marginTop: 10, marginBottom: 10 }}>
               <thead>
                 <tr>
                   <th style={{ fontSize: '1.25em' }}>
+
                     <SpellLink id={category.spell.id} style={{ color: '#fff' }}>
                       <SpellIcon id={category.spell.id} noLink /> {category.name}
                     </SpellLink>

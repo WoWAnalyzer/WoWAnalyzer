@@ -207,8 +207,8 @@ class TreeOfLife extends Module {
 
     when(treeOfLifeThroughputPercent).isLessThan(SuggestionThresholds.TOL_THROUGHPUT.minor)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your <SpellLink id={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} /> is not providing you much throughput. You may want to plan your CD usage better or pick another talent.</span>)
-          .icon(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.icon)
+        return suggest(<span>Your <SpellLink id={SPELLS.INCARNATION_TREE_OF_LIFE.id} /> is not providing you much throughput. You may want to plan your CD usage better or pick another talent.</span>)
+          .icon(SPELLS.INCARNATION_TREE_OF_LIFE.icon)
           .actual(`${formatPercentage(treeOfLifeThroughputPercent)}% healing`)
           .recommended(`>${Math.round(formatPercentage(recommended))}% is recommended`)
           .regular(SuggestionThresholds.TOL_THROUGHPUT.regular).major(SuggestionThresholds.TOL_THROUGHPUT.major);
@@ -240,7 +240,7 @@ class TreeOfLife extends Module {
 
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} />}
+        icon={<SpellIcon id={SPELLS.INCARNATION_TREE_OF_LIFE.id} />}
         value={`${formatPercentage(treeOfLifeThroughputPercent)} %`}
         label="Tree of Life Healing"
         tooltip={`

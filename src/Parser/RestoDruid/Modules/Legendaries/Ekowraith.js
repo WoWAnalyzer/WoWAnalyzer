@@ -27,7 +27,7 @@ class Ekowraith extends Module {
     const spellId = event.ability.guid;
     const amount = event.amount + (event.absorbed || 0);
 
-    if (spellId === SPELLS.YSERAS_GIFT_OTHERS.id || spellId === SPELLS.YSERAS_GIFT_SELF.id) {
+    if (spellId === SPELLS.YSERAS_GIFT_1.id || spellId === SPELLS.YSERAS_GIFT_2.id) {
       this.healing += (amount - (amount / EKOWRAITH_INCREASED_EFFECT));
     }
   }

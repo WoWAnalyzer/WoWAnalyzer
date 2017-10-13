@@ -18,7 +18,7 @@ class SummonDarkglare extends Module {
   };
 
   on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.SUMMON_DARKGLARE_TALENT.id);
+    this.active = this.combatants.selected.hasTalent(SPELLS.SUMMON_DARKGLARE.id);
   }
 
   statistic() {
