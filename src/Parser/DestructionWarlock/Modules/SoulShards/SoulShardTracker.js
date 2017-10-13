@@ -28,13 +28,13 @@ class SoulShardTracker extends Module {
       generated: 0,
       wasted: 0,
     },
-    [SPELLS.SHADOWBURN_TALENT.name]: {
-      id: SPELLS.SHADOWBURN_TALENT.id,
+    [SPELLS.SHADOWBURN.name]: {
+      id: SPELLS.SHADOWBURN.id,
       generated: 0,
       wasted: 0,
     },
     [SHADOWBURN_KILL]: {
-      id: SPELLS.SHADOWBURN_TALENT.id,
+      id: SPELLS.SHADOWBURN.id,
       generated: 0,
       wasted: 0,
     },
@@ -88,7 +88,7 @@ class SoulShardTracker extends Module {
       // shouldn't happen
       return;
     }
-    if (spellName === SPELLS.SHADOWBURN_TALENT.name && event.isFromShadowburnKill) {
+    if (spellName === SPELLS.SHADOWBURN.name && event.isFromShadowburnKill) {
       this.generatedAndWasted[SHADOWBURN_KILL].wasted += event.waste;
       this.generatedAndWasted[SHADOWBURN_KILL].generated += event.amount;
     } else {

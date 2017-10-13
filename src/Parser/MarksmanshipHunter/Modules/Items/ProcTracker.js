@@ -10,7 +10,7 @@ import CooldownOverview from 'Main/CooldownOverview';
 class ProcTracker extends CoreCooldownTracker {
   static cooldownSpells = [
     {
-      spell: SPELLS.ASCENDANCE_TALENT_ENHANCEMENT,
+      spell: SPELLS.ASCENDANCE_ENHANCE,
       summary: [
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],

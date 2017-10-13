@@ -21,6 +21,7 @@ const HEALING_ABILITIES_ON_GCD = [
   SPELLS.INNERVATE.id,
   SPELLS.EFFLORESCENCE_CAST.id,
   SPELLS.NATURES_CURE.id,
+  SPELLS.RENEWAL.id,
 ];
 
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
@@ -30,10 +31,10 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     SPELLS.BEAR_FORM.id,
     SPELLS.CAT_FORM.id,
     SPELLS.DASH.id,
-    SPELLS.DISPLACER_BEAST_TALENT.id,
+    SPELLS.DISPLACER_BEAST.id,
     SPELLS.FEROCIOUS_BITE.id,
     SPELLS.RAKE.id,
-    SPELLS.MASS_ENTANGLEMENT_TALENT.id,
+    SPELLS.MASS_ENTANGLEMENT.id,
     SPELLS.STAG_FORM.id,
     SPELLS.TRAVEL_FORM.id,
     SPELLS.RIP.id,
@@ -42,8 +43,8 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     SPELLS.CAT_SWIPE.id,
     SPELLS.BEAR_SWIPE.id,
     SPELLS.URSOLS_VORTEX.id,
-    SPELLS.MIGHTY_BASH_TALENT.id,
-    SPELLS.TYPHOON_TALENT.id,
+    SPELLS.MIGHTY_BASH.id,
+    SPELLS.TYPHOON.id,
     SPELLS.MOONKIN_FORM.id,
     SPELLS.STARSURGE.id,
     // SPELLS.LUNAR_STRIKE.id,

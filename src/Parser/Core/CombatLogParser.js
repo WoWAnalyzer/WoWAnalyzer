@@ -10,7 +10,6 @@ import AbilityTracker from './Modules/AbilityTracker';
 import Haste from './Modules/Haste';
 import AlwaysBeCasting from './Modules/AlwaysBeCasting';
 import CastEfficiency from './Modules/CastEfficiency';
-import SpellUsable from './Modules/SpellUsable';
 import Enemies from './Modules/Enemies';
 import EnemyInstances from './Modules/EnemyInstances';
 import Pets from './Modules/Pets';
@@ -19,7 +18,7 @@ import ManaValues from './Modules/ManaValues';
 import SpellManaCost from './Modules/SpellManaCost';
 
 import CritEffectBonus from './Modules/Helpers/CritEffectBonus';
-import ApplyBuffFixer from './Modules/Helpers/ApplyBuffFixer';
+import Bloodlust from './Modules/Helpers/Bloodlust';
 
 // Shared Legendaries
 import Prydaz from './Modules/Items/Prydaz';
@@ -88,12 +87,11 @@ class CombatLogParser {
     haste: Haste,
     alwaysBeCasting: AlwaysBeCasting,
     castEfficiency: CastEfficiency,
-    spellUsable: SpellUsable,
     manaValues: ManaValues,
     vantusRune: VantusRune,
 
     critEffectBonus: CritEffectBonus,
-    applyBuffFixer: ApplyBuffFixer,
+    bloodlust: Bloodlust,
 
     // Items:
     // Legendaries:

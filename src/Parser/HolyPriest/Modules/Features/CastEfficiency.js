@@ -68,7 +68,7 @@ class CastEfficiency extends CoreCastEfficiency {
 
     // Global CPM abilities
     {
-      spell: SPELLS.ARCANE_TORRENT_MANA,
+      spell: SPELLS.ARCANE_TORRENT,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 90,
       hideWithZeroCasts: true,

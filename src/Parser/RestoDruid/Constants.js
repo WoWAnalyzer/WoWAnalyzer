@@ -15,7 +15,7 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   SPELLS.DREAMWALKER.id,
   SPELLS.SWIFTMEND.id,
   SPELLS.NATURES_ESSENCE_DRUID.id,
-  SPELLS.RENEWAL_TALENT.id,
+  SPELLS.RENEWAL.id,
   SPELLS.SPRING_BLOSSOMS.id,
   // The following spells don't double dip in healing increases.
   SPELLS.LEECH.id,

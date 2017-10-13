@@ -61,7 +61,7 @@ class CastEfficiency extends CoreCastEfficiency {
       importance: ISSUE_IMPORTANCE.MINOR,
     },
     {
-      spell: SPELLS.ARCANE_TORRENT_MANA,
+      spell: SPELLS.ARCANE_TORRENT,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 90,
       hideWithZeroCasts: true,
@@ -84,7 +84,7 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 45,
     },
     {
-      spell: SPELLS.CLOUDBURST_TOTEM_TALENT,
+      spell: SPELLS.CLOUDBURST_TOTEM_CAST,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 30,
       isActive: combatant => combatant.lv90Talent === SPELLS.CLOUDBURST_TOTEM_TALENT.id,
@@ -94,7 +94,7 @@ class CastEfficiency extends CoreCastEfficiency {
       },
     },
     {
-      spell: SPELLS.EARTHEN_SHIELD_TOTEM_TALENT,
+      spell: SPELLS.EARTHEN_SHIELD_TOTEM_CAST,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 60,
       isActive: combatant => combatant.lv75Talent === SPELLS.EARTHEN_SHIELD_TOTEM_TALENT.id,
@@ -106,7 +106,7 @@ class CastEfficiency extends CoreCastEfficiency {
       },
     },
     {
-      spell: SPELLS.ANCESTRAL_GUIDANCE_TALENT,
+      spell: SPELLS.ANCESTRAL_GUIDANCE_CAST,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 120,
       isActive: combatant => combatant.lv60Talent === SPELLS.ANCESTRAL_GUIDANCE_TALENT.id,
@@ -116,7 +116,7 @@ class CastEfficiency extends CoreCastEfficiency {
       },
     },
     {
-      spell: SPELLS.ASCENDANCE_TALENT_RESTORATION,
+      spell: SPELLS.ASCENDANCE_CAST,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 180,
       isActive: combatant => combatant.lv100Talent === SPELLS.ASCENDANCE_TALENT_RESTORATION.id,

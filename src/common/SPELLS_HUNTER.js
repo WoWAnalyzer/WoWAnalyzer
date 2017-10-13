@@ -38,6 +38,11 @@ export default {
     name: 'Marked Shot',
     icon: 'ability_hunter_markedshot',
   },
+  DISENGAGE: {
+    id: 781,
+    name: 'Disengage',
+    icon: 'ability_rogue_feint',
+  },
   TRUESHOT: {
     id: 193526,
     name: 'Trueshot',
@@ -98,22 +103,22 @@ export default {
     name: 'Vulnerable',
     icon: 'ability_hunter_mastermarksman',
   },
-  ARCANE_TORRENT_FOCUS: {
+  ARCANE_TORRENT: { //hunter version (restores 15 focus)
     id: 80483,
     name: 'Arcane Torrent',
     icon: 'spell_shadow_teleport',
   },
-
+  
   //CATEGORY
   AUTO_SHOT_FOCUSMODULE: {
-    id: 75,
-    name: 'Auto Shot',
-    icon: 'ability_hunter_focusfire',
+	id: 75,
+	name: 'Auto Shot',
+	icon: 'ability_hunter_focusfire',
   },
   CRITICAL_FOCUS_FOCUSMODULE: {
-    id: 215107,
-    name: 'Critical Focus',
-    icon: 'ability_druid_replenish',
+	id: 215107,
+	name: 'Critical Focus',
+	icon: 'ability_druid_replenish',
   },
   MULTISHOT_FOCUSMODULE: {
     id: 213363,
@@ -168,6 +173,7 @@ export default {
 
   // Survival:
   // ...
+
 
   // Shared:
   // ...

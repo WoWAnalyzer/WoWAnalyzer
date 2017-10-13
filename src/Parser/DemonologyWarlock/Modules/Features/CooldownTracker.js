@@ -8,7 +8,7 @@ class CooldownTracker extends CoreCooldownTracker {
   static cooldownSpells = [
     ...CooldownTracker.cooldownSpells,
     {
-      spell: SPELLS.SOUL_HARVEST_TALENT,
+      spell: SPELLS.SOUL_HARVEST,
       summary: [
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],
@@ -38,7 +38,7 @@ class CooldownTracker extends CoreCooldownTracker {
       ],
     },
     {
-      spell: SPELLS.SUMMON_DARKGLARE_TALENT,
+      spell: SPELLS.SUMMON_DARKGLARE,
       duration: 12,
       summary: [
         BUILT_IN_SUMMARY_TYPES.DAMAGE,

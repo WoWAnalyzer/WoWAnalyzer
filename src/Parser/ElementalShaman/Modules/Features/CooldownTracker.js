@@ -6,7 +6,7 @@ class CooldownTracker extends CoreCooldownTracker {
   static cooldownSpells = [
     ...CooldownTracker.cooldownSpells,
     {
-      spell: SPELLS.ASCENDANCE_TALENT_ELEMENTAL,
+      spell: SPELLS.ASCENDANCE,
       summary: [
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],

@@ -31,26 +31,26 @@ class SoulHarvest extends Module {
   }
 
   on_byPlayer_damage(event) {
-    if (this.combatants.selected.hasBuff(SPELLS.SOUL_HARVEST_TALENT.id, event.timestamp)) {
+    if (this.combatants.selected.hasBuff(SPELLS.SOUL_HARVEST.id, event.timestamp)) {
       this._addToCorrectSource(getDamageBonus(event, SOUL_HARVEST_DAMAGE_BONUS));
     }
   }
 
   on_byPlayerPet_damage(event) {
-    if (this.combatants.selected.hasBuff(SPELLS.SOUL_HARVEST_TALENT.id, event.timestamp)) {
+    if (this.combatants.selected.hasBuff(SPELLS.SOUL_HARVEST.id, event.timestamp)) {
       this._addToCorrectSource(getDamageBonus(event, SOUL_HARVEST_DAMAGE_BONUS));
     }
   }
 
   on_byPlayer_cast(event) {
-    if (event.ability.guid === SPELLS.SOUL_HARVEST_TALENT.id) {
+    if (event.ability.guid === SPELLS.SOUL_HARVEST.id) {
       this._isFromTalent = true;
     }
   }
 
   on_byPlayer_removebuff(event) {
     // Soul Harvest from the talent dropped off, so if any SH is present while this is false, it means it's a legendary proc
-    if (event.ability.guid === SPELLS.SOUL_HARVEST_TALENT.id && this._isFromTalent) {
+    if (event.ability.guid === SPELLS.SOUL_HARVEST.id && this._isFromTalent) {
       this._isFromTalent = false;
     }
   }
@@ -58,7 +58,7 @@ class SoulHarvest extends Module {
   on_byPlayer_refreshbuff(event) {
     // if the buff gets refreshed, it can't happen from the talent itself (it has 2 minute cooldown)
     // therefore the buff is now from the chest (if it prolonged the duration or overwritten it doesn't matter, all I care about is the source)
-    if (event.ability.guid === SPELLS.SOUL_HARVEST_TALENT.id && this._isFromTalent) {
+    if (event.ability.guid === SPELLS.SOUL_HARVEST.id && this._isFromTalent) {
       this._isFromTalent = false;
     }
   }

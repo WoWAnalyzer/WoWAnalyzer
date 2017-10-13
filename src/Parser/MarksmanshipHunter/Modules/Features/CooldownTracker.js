@@ -11,12 +11,6 @@ class CooldownTracker extends CoreCooldownTracker {
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],
     },
-    {
-      spell: SPELLS.BULLSEYE_BUFF,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.DAMAGE,
-      ],
-    },
   ];
 
   static ignoredSpells = [

@@ -27,7 +27,7 @@ class Shadowburn extends Module {
   }
 
   on_byPlayer_applydebuff(event) {
-    if (event.ability.guid === SPELLS.SHADOWBURN_TALENT.id) {
+    if (event.ability.guid === SPELLS.SHADOWBURN.id) {
       this._expectedShadowburnDebuffEnds.push({
         targetID: event.targetID,
         targetInstance: event.targetInstance,
@@ -39,7 +39,7 @@ class Shadowburn extends Module {
   }
 
   on_byPlayer_refreshdebuff(event) {
-    if (event.ability.guid === SPELLS.SHADOWBURN_TALENT.id) {
+    if (event.ability.guid === SPELLS.SHADOWBURN.id) {
       this._expectedShadowburnDebuffEnds.forEach((debuff) => {
         if (debuff.targetID === event.targetID && debuff.targetInstance === event.targetInstance) {
           debug && console.log('found SB, refreshing');
@@ -52,7 +52,7 @@ class Shadowburn extends Module {
   }
 
   on_byPlayer_removedebuff(event) {
-    if (event.ability.guid === SPELLS.SHADOWBURN_TALENT.id) {
+    if (event.ability.guid === SPELLS.SHADOWBURN.id) {
       // find the expected end timestamp for the given debuff
       const debuffTargetIndex = this._expectedShadowburnDebuffEnds.findIndex(debuff => debuff.targetID === event.targetID && debuff.targetInstance === event.targetInstance);
       if (debuffTargetIndex === -1) { // should always exist, if not then panic and bail out
