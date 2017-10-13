@@ -727,7 +727,7 @@ const ITEMS = {
     icon: 'inv_shoulder_cloth_raidwarlock_l_01',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
-  // DEATH KNIGHT LEGENDARIES
+  // SHARED DEATH KNIGHT LEGENDARIES
   ACHERUS_DRAPES: {
     id: 132376,
     name: 'Acherus Drapes',
@@ -740,6 +740,13 @@ const ITEMS = {
     icon: 'inv_70_pvp_ring2b',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+  COLD_HEART: {
+    id: 151796,
+    name: 'Cold Heart',
+    icon: 'inv_chest_plate_raiddeathknight_p_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  // BLOOD DEATH KNIGHT LEGENDARIES
   SHACKLES_OF_BRYNDAOR: {
     id: 132365,
     name: 'Shackles of Bryndaor',
@@ -776,6 +783,7 @@ const ITEMS = {
     icon: 'inv_plate_raidwarrior_o_01chest',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+  // FROST DEATH KNIGHT LEGENDARIES
   SEAL_OF_NECROFANTASIA: {
     id: 137223,
     name: 'Seal of Necrofantasia',
@@ -806,12 +814,7 @@ const ITEMS = {
     icon: 'inv_pants_plate_03',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
-  COLD_HEART: {
-    id: 151796,
-    name: 'Cold Heart',
-    icon: 'inv_chest_plate_raiddeathknight_p_01',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
+  // UNHOLY DEATH KNIGHT LEGENDARIES
   TAKTHERITRIXS_SHOULDERPADS: {
     id: 137075,
     name: 'Tak\'theritrix\'s Shoulderpads',
