@@ -20,7 +20,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.FULL_MOON.id,
 
       // Talents
-    SPELLS.TYPHOON.id,
+    SPELLS.TYPHOON_TALENT.id,
     SPELLS.MASS_ENTANGLEMENT_TALENT.id,
     SPELLS.FORCE_OF_NATURE_TALENT.id,
   ];

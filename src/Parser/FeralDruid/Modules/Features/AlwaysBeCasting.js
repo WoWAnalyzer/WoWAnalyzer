@@ -15,7 +15,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.SHRED.id,
     SPELLS.CAT_SWIPE.id,
     SPELLS.FEROCIOUS_BITE.id,
-    SPELLS.SAVAGE_ROAR.id,
+    SPELLS.SAVAGE_ROAR_TALENT.id,
     SPELLS.ASHAMANES_FRENZY.id,
     SPELLS.REGROWTH.id,
     SPELLS.MAIM.id,

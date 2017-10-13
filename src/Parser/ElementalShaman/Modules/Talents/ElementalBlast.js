@@ -32,7 +32,7 @@ class ElementalBlast extends Module {
   statistic() {
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.ELEMENTAL_BLAST.id} />}
+        icon={<SpellIcon id={SPELLS.ELEMENTAL_BLAST_TALENT.id} />}
         value={`${formatPercentage(this.elementalBlastUptime)} %`}
         label={'Uptime'}
         tooltip={`

@@ -18,12 +18,6 @@ export default {
     icon: 'spell_holy_penance',
     manaCost: 30800,
   },
-  POWER_INFUSION: {
-    id: 10060,
-    name: 'Power Infusion',
-    icon: 'spell_holy_powerinfusion',
-    manaCost: 0,
-  },
   POWER_WORD_SHIELD: {
     id: 17,
     name: 'Power Word: Shield',
@@ -572,30 +566,19 @@ export default {
     name: 'From the Shadows',
     icon: 'spell_shadow_summonvoidwalker',
   },
-
-  CALL_TO_THE_VOID_TRAIT: {
-    id: 193642,
-    name: 'From the Shadows',
-    icon: 'achievement_boss_yoggsaron_01',
-  },
-
   LASH_OF_INSANITY_TRAIT: {
     id: 238137,
     name: 'Lash of Insanity',
     icon: 'achievement_boss_yoggsaron_01',
   },
-
   CALL_TO_THE_VOID_MIND_FLAY: {
     id: 237388,
     name: 'Mind Flay',
     icon: 'spell_shadow_mindshear',
   },
-
   FIENDING_DARK_TRAIT: {
     id: 238065,
     name: 'Fiending Dark',
     icon: 'spell_shadow_shadowfiend',
   },
-
-
 };
