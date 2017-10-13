@@ -307,6 +307,21 @@ export default {
     name: 'Righteous Verdict',
     icon: 'ability_paladin_bladeofjustice',
   },
+  BLESSING_OF_THE_ASHBRINGER_BUFF: {
+    id: 242981,
+    name: 'Blessing Of The Ashbringer',
+    icon: 'inv_sword_2h_artifactashbringer_d_01',
+  },
+  GREATER_BLESSING_OF_KINGS: {
+    id: 203538,
+    name: 'Greater Blessing of Kings',
+    icon: 'spell_magic_greaterblessingofkings',
+  },
+  GREATER_BLESSING_OF_WISDOM: {
+    id: 203539,
+    name: 'Greater Blessing of Wisdom',
+    icon: 'spell_holy_greaterblessingofwisdom',
+  },
   // Ret Item Effects
   WHISPER_OF_THE_NATHREZIM_BUFF: {
     id: 207635,
@@ -425,5 +440,10 @@ export default {
     id: 185368,
     name: 'Might of the Templar',
     icon: 'spell_holy_blessedresillience',
+  },
+  BLESSING_OF_THE_ASHBRINGER: {
+    id: 238098,
+    name: 'Blessing of the Ashbringer',
+    icon: 'inv_sword_2h_artifactashbringer_d_01',
   },
 };
