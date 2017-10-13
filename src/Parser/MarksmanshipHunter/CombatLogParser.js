@@ -27,11 +27,14 @@ import Trueshot from './Modules/Spells/Trueshot';
 
 //Talents
 import PatientSniperTracker from './Modules/Talents/PatientSniper/PatientSniperTracker';
-import PatientSniperDetails from './Modules/Talents/PatientSniper/PatientSniperDetails';
+import PatientSniperBreakdown from "./Modules/Talents/PatientSniper/PatientSniperBreakdown";
 
 
 class CombatLogParser extends CoreCombatLogParser {
-
+  static
+  dependencies = {
+    patientSniperTracker: PatientSniperTracker,
+  };
   static specModules = {
     // Marksmanship Core
     damageDone: [DamageDone, { showStatistic: true }],
@@ -55,7 +58,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Talents
     patientSniperTracker: PatientSniperTracker,
-    patientSniperDetails: PatientSniperDetails,
+    //patientSniperDetails: PatientSniperDetails,
 
 
   };
@@ -100,7 +103,15 @@ class CombatLogParser extends CoreCombatLogParser {
           </Tab>
         ),
       },
-
+      {
+        title: 'Patient Sniper Usage',
+        url: 'patient-sniper',
+        render: () => (
+          <Tab title="Patient Sniper Usage" style={{ padding: '15px 22px 15px 15px' }}>
+            <PatientSniperBreakdown parser={this} />
+          </Tab>
+        ),
+      },
       ...results.tabs,
     ];
 
