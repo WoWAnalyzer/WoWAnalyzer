@@ -1,12 +1,12 @@
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import { calculateSecondaryStatDefault } from 'common/stats';
-import { formatPercentage } from 'common/format';
+import { formatPercentage, formatMilliseconds } from 'common/format';
 
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-const debug = true;
+const debug = false;
 
 class Haste extends Module {
   static dependencies = {
@@ -38,6 +38,7 @@ class Haste extends Module {
     [SPELLS.TRUESHOT.id]: 0.4, // MM Hunter main CD
     [SPELLS.LINGERING_INSANITY.id]: 0.01,
     [SPELLS.VOIDFORM_BUFF.id]: 0.01,
+    [SPELLS.ICY_VEINS.id]: 0.3,
 
     // Boss abilities:
     [209166]: 0.3, // DEBUFF - Fast Time from Elisande
@@ -53,7 +54,6 @@ class Haste extends Module {
   };
 
   current = null;
-  initialized = false;
   on_initialized() {
     const combatant = this.combatants.selected;
     this.current = combatant.hastePercentage;
@@ -66,22 +66,6 @@ class Haste extends Module {
       // Sephuz Secret provides a 2% Haste gain on top of its secondary stats
       this._applyHasteGain(null, 0.02);
     }
-    this.initialized = true;
-  }
-  on_byPlayer_combatantinfo(event) {
-    if (!this.initialized) {
-      return;
-    }
-    event.auras.forEach(aura => {
-      const spellId = aura.ability;
-      const hasteGain = this._getBaseHasteGain(spellId);
-
-      if (hasteGain) {
-        this._applyHasteGain(event, hasteGain);
-
-        debug && console.log(`Haste: Applying pre-combat buff: Current haste: ${formatPercentage(this.current)}% (gained ${formatPercentage(hasteGain)}% from ${SPELLS[spellId] ? SPELLS[spellId].name : spellId})`);
-      }
-    });
   }
   on_toPlayer_applybuff(event) {
     this._applyActiveBuff(event);
@@ -102,7 +86,6 @@ class Haste extends Module {
     this._removeActiveBuff(event);
   }
 
-
   _applyActiveBuff(event) {
     const spellId = event.ability.guid;
     const hasteGain = this._getBaseHasteGain(spellId);
@@ -110,7 +93,9 @@ class Haste extends Module {
     if (hasteGain) {
       this._applyHasteGain(event, hasteGain);
 
-      debug && console.log(`Haste: Current haste: ${formatPercentage(this.current)}% (gained ${formatPercentage(hasteGain)}% from ${SPELLS[spellId] ? SPELLS[spellId].name : spellId})`);
+      debug && console.log(formatMilliseconds(this.owner.fightDuration), 'Haste:', 'Current haste:', `${formatPercentage(this.current)}%`, `(gained ${formatPercentage(hasteGain)}% from ${event.ability.name})`);
+    } else {
+      debug && console.warn(formatMilliseconds(this.owner.fightDuration), 'Haste: Applied not recognized buff:', event.ability.name);
     }
   }
   _removeActiveBuff(event) {
@@ -121,6 +106,8 @@ class Haste extends Module {
       this._applyHasteLoss(event, haste);
 
       debug && console.log(`Haste: Current haste: ${formatPercentage(this.current)}% (lost ${formatPercentage(haste)}% from ${SPELLS[spellId] ? SPELLS[spellId].name : spellId})`);
+    } else {
+      debug && console.warn(formatMilliseconds(this.owner.fightDuration), 'Haste: Removed not recognized buff:', event.ability.name);
     }
   }
   /**

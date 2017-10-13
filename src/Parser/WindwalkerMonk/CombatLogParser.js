@@ -17,6 +17,9 @@ import ComboStrikes from './Modules/Features/ComboStrikes';
 import ChiDetails from './Modules/Chi/ChiDetails';
 import ChiTracker from './Modules/Chi/ChiTracker';
 
+// Spells
+import ComboBreaker from './Modules/Spells/ComboBreaker';
+
 // Talents
 import HitCombo from './Modules/Talents/HitCombo';
 
@@ -35,6 +38,9 @@ class CombatLogParser extends CoreCombatLogParser {
     // Resources
     chiTracker: ChiTracker,
     chiDetails: ChiDetails,
+
+    // Spells;
+    comboBreaker: ComboBreaker,
 
     // Legendaries:
   };

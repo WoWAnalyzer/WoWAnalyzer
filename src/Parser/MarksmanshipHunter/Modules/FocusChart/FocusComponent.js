@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 
-const FocusComponent = ({ categories, abilities, passive, focusBySecondCoord, overCapBySecondCoord}) => {
+const FocusComponent = ({ categories, abilities, passive, focusBySecondCoord, overCapBySecondCoord }) => {
   if (!abilities) {
     return <div>Loading...</div>;
   }
@@ -22,50 +22,50 @@ const FocusComponent = ({ categories, abilities, passive, focusBySecondCoord, ov
               <th className="text-center"><dfn data-tip="Approximately.">Wasted</dfn></th>
               <th />
             </tr>
-			<tr key="Passive">
-                  <td style={{ width: '35%' }}>
-				  <SpellIcon id={75} noLink /> Passive Focus Generation
-                  </td>
-                  <td className="text-center" style={{ minWidth: 80 }}>
-                    
-                  </td>
-                  <td className="text-center" style={{ minWidth: 80 }}>
-                    {passive[0]}
-                  </td>
-                  <td className="text-center" style={{ minWidth: 80 }}>
-                    {passive[1]}
-                  </td>
-                  <td style={{ width: '25%', color: 'orange' }}>
-                    {passive[2]}
-                  </td>
-                </tr>
+            <tr key="Passive">
+              <td style={{ width: '35%' }}>
+                <SpellIcon id={75} noLink /> Passive Focus Generation
+              </td>
+              <td className="text-center" style={{ minWidth: 80 }}>
+
+              </td>
+              <td className="text-center" style={{ minWidth: 80 }}>
+                {passive[0]}
+              </td>
+              <td className="text-center" style={{ minWidth: 80 }}>
+                {passive[1]}
+              </td>
+              <td style={{ width: '25%', color: 'orange' }}>
+                {passive[2]}
+              </td>
+            </tr>
             {abilities
               .filter(item => item.ability.category === categories[key])
-            .map(({ ability, casts, created, wasted, canBeImproved }) => {
-              const name = ability.name;
-			  
-              return (
-                <tr key={name}>
-                  <td style={{ width: '35%' }}>
-                    <SpellLink id={ability.spellId} style={{ color: '#fff' }}>
-                      <SpellIcon id={ability.spellId} noLink /> {name}
-                    </SpellLink>
-                  </td>
-                  <td className="text-center" style={{ minWidth: 80 }}>
-                    {casts}
-                  </td>
-                  <td className="text-center" style={{ minWidth: 80 }}>
-                    {created || ''}
-                  </td>
-                  <td className="text-center" style={{ minWidth: 80 }}>
-                    {wasted || '0'}
-                  </td>
-                  <td style={{ width: '25%', color: 'orange' }}>
-                    {canBeImproved && !ability.noCanBeImproved && 'Can be improved.'}
-                  </td>
-                </tr>
-              );
-            })}
+              .map(({ ability, casts, created, wasted, canBeImproved }) => {
+                const name = ability.name;
+
+                return (
+                  <tr key={name}>
+                    <td style={{ width: '35%' }}>
+                      <SpellLink id={ability.spellId} style={{ color: '#fff' }}>
+                        <SpellIcon id={ability.spellId} noLink /> {name}
+                      </SpellLink>
+                    </td>
+                    <td className="text-center" style={{ minWidth: 80 }}>
+                      {casts}
+                    </td>
+                    <td className="text-center" style={{ minWidth: 80 }}>
+                      {created || ''}
+                    </td>
+                    <td className="text-center" style={{ minWidth: 80 }}>
+                      {wasted || '0'}
+                    </td>
+                    <td style={{ width: '25%', color: 'orange' }}>
+                      {canBeImproved && !ability.noCanBeImproved && 'Can be improved.'}
+                    </td>
+                  </tr>
+                );
+              })}
           </tbody>
         ))}
       </table>
@@ -85,6 +85,5 @@ FocusComponent.propTypes = {
   focusBySecondCoord: PropTypes.array,
   overCapBySecondCoord: PropTypes.array,
 };
-
 
 export default FocusComponent;

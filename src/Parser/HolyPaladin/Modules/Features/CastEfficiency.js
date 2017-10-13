@@ -15,7 +15,10 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.HOLY_SHOCK_CAST,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => 9 / (1 + haste),
+      getCooldown: (haste, combatant) => {
+        const cdr = combatant.hasBuff(SPELLS.AVENGING_WRATH.id) && combatant.hasTalent(SPELLS.SANCTIFIED_WRATH_TALENT.id) ? 0.5 : 0;
+        return 9 / (1 + haste) * (1 - cdr);
+      },
       extraSuggestion: 'Casting Holy Shock regularly is very important for performing well.',
     },
     {
@@ -75,7 +78,7 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 4.5 / (1 + haste),
       charges: 2,
       isActive: combatant => combatant.hasTalent(SPELLS.CRUSADERS_MIGHT_TALENT.id),
-      recommendedCastEfficiency: 0.60,
+      recommendedCastEfficiency: 0.35,
       extraSuggestion: <span>When you are using <SpellLink id={SPELLS.CRUSADERS_MIGHT_TALENT.id} /> it is important to use <SpellLink id={SPELLS.CRUSADER_STRIKE.id} /> often enough to benefit from the talent. Use a different talent if you are unable to.</span>,
     },
     {
@@ -100,7 +103,7 @@ class CastEfficiency extends CoreCastEfficiency {
       importance: ISSUE_IMPORTANCE.MINOR,
     },
     {
-      spell: SPELLS.ARCANE_TORRENT,
+      spell: SPELLS.ARCANE_TORRENT_MANA,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 90,
       hideWithZeroCasts: true,
