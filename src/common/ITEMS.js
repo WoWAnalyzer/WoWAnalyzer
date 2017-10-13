@@ -58,6 +58,12 @@ const ITEMS = {
     icon: 'inv_70_dungeon_ring6a',
     quality: ITEM_QUALITIES.EPIC,
   },
+  AGGRAMARS_STRIDE: {
+    id: 132443,
+    name: 'Aggramar\'s Stride',
+    icon: 'inv_boots_plate_raidpaladin_i_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
   // Shared Paladin
   SOUL_OF_THE_HIGHLORD: {
     id: 151644,
@@ -69,6 +75,12 @@ const ITEMS = {
     id: 137086,
     name: 'Chain of Thrayn',
     icon: 'inv_belt_leather_firelandsdruid_d_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  UTHERS_GUARD: {
+    id: 137105,
+    name: 'Uther\'s Guard',
+    icon: 'inv_bracer_17',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
   // Holy Paladin
@@ -88,6 +100,18 @@ const ITEMS = {
     id: 144273,
     name: 'Maraad\'s Dying Breath',
     icon: 'item_icecrowncape',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  TYRS_HAND_OF_FAITH: {
+    id: 137059,
+    name: 'Tyr\'s Hand of Faith',
+    icon: 'inv_glove_plate_panda_b_01blue',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  THE_TOPLESS_TOWER: {
+    id: 151782,
+    name: 'The Topless Tower',
+    icon: 'inv_helm_plate_raidpaladin_n_01',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
   DRAPE_OF_SHAME: {
@@ -113,6 +137,55 @@ const ITEMS = {
     id: 137048,
     name: 'Liadrin\'s Fury Unleashed',
     icon: 'inv_jewelry_ring_61',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  AEGISJALMUR_THE_ARMGUARDS_OF_AWE: {
+    id: 140846,
+    name: 'Aegisjalmur, the Armguards of Awe',
+    icon: 'inv_bracer_plate_raidpaladin_m_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  JUSTICE_GAZE: {
+    id: 137065,
+    name: 'Justice Gaze',
+    icon: 'inv_helmet_134',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  SCARLET_INQUISITORS_EXPURGATION: {
+    id: 151813,
+    name: 'Scarlet Inquisitor\'s Expurgation',
+    icon: 'inv_chest_plate_raidpaladin_j_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  // Protection Paladin
+  HEATHCLIFFS_IMMORTALITY: {
+    id: 137047,
+    name: 'Heathcliff\'s Immortality',
+    icon: 'inv_jewelry_ring_72',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  TYELCA_FERREN_MARCUSS_STATURE: {
+    id: 137070,
+    name: 'Tyelca, Ferren Marcus\'s Stature',
+    icon: 'inv_pants_plate_raidwarrior_n_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  BREASTPLATE_OF_THE_GOLDEN_VALKYR: {
+    id: 137017,
+    name: 'Breastplate of the Golden Val\'kyr',
+    icon: 'inv_chest_plate_panda_b_01gold',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  SARUANS_RESOLVE: {
+    id: 144275,
+    name: 'Saruan\'s Resolve',
+    icon: 'inv_plate_draenorcrafted_d_01helm',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  PILLARS_OF_INMOST_LIGHT: {
+    id: 151812,
+    name: 'Pillars of Inmost Light',
+    icon: 'inv_shoulder_126',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
   // Resto Shammy
