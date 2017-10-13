@@ -43,7 +43,7 @@ class ChiTracker extends Module {
     if (combatant.hasTalent(SPELLS.POWER_STRIKES_TALENT.id)) {
         this.constructor.POINT_GENERATING_ABILITIES.push(SPELLS.POWER_STRIKES.id);
     }
-    if (combatant.hasTalent(SPELLS.RUSHING_JADE_WIND.id)) {
+    if (combatant.hasTalent(SPELLS.RUSHING_JADE_WIND_TALENT.id)) {
       this.constructor.POINT_SPENDING_ABILITIES.push(SPELLS.RUSHING_JADE_WIND_TALENT.id);
     }
 
