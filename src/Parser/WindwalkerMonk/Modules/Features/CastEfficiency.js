@@ -25,6 +25,24 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 24,
       isActive: combatant => combatant.hasTalent(SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id),
     },
+    // cooldowns
+    {
+      spell: SPELLS.TOUCH_OF_KARMA_CAST,
+      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
+      getCooldown: haste => 90,     
+    },
+    {
+      spell: SPELLS.TOUCH_OF_DEATH,
+      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
+      getCooldown: haste => 120,
+    },
+    {
+      spell: SPELLS.SERENITY_TALENT,
+      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
+      getCooldown: haste => 70,
+      isActive: combatant => combatant.hasTalent(SPELLS.SERENITY_TALENT.id),
+    },
+    // other spells
     {
       spell: SPELLS.BLACKOUT_KICK,
       category: CastEfficiency.SPELL_CATEGORIES.OTHERS,
