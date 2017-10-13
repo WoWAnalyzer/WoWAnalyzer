@@ -44,7 +44,7 @@ class ComboBreaker extends Module {
       return;
     }
     if (this.lastCBProcTime !== event.timestamp) {
-      if (this.lastCBProcTime === null) {
+     if (this.lastCBProcTime === null) {
         this.nonCBBoK += 1;
         return;
       }
@@ -52,37 +52,40 @@ class ComboBreaker extends Module {
       if (event.timestamp > cbTimeframe) {
         this.nonCBBoK += 1;
       } else {
-        this.consumedCBProc += 1;
+       this.consumedCBProc += 1;
         debug && console.log(`CB Proc Consumed / Timestamp: ${event.timestamp}`);
-        this.lastCBProcTime = null;
+       this.lastCBProcTime = null;
       }
     }
   }
+
   suggestions(when) {
-    const unusedCBprocs = 1 - (this.consumedCBProc / this.CBProcsTotal);
-    when(unusedCBprocs).isGreatherThan(0.2).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<span>Your <SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} /> procs should be used as soon as you get them so they are not overwritten. While some will be overwritten due to the nature of the spell interactions, holding <SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} /> procs is not optimal.</span>)
-        .icon(SPELLS.COMBO_BREAKER_BUFF.icon)
-        .actual(`${formatPercentage(unusedCBprocs)}% Unused Combo Breaker procs`)
-        .recommended(`<${formatPercentage(recommended)}% wasted Combo Breaker is recommended`)
-        .regular(recommended + 0.1).major(recommended + 0.2);
+   const unusedCBprocs = 1 - (this.consumedCBProc / this.CBProcsTotal);
+    when(unusedCBprocs).isGreatherThan(0.3)
+     .addSuggestion((suggest, actual, recommended) => {
+       return suggest(<span>Your <SpellLink id={SPELLS.UPLIFTING_TRANCE_BUFF.id} /> procs should be used as soon as you get them so they are not overwritten. While some will be overwritten due to the nature of the spell interactions, holding <SpellLink id={SPELLS.UPLIFTING_TRANCE_BUFF.id} /> procs is not optimal.</span>)
+         .icon(SPELLS.UPLIFTING_TRANCE_BUFF.icon)
+         .actual(`${formatPercentage(unusedCBprocs)}% Unused Uplifting Trance procs`)
+         .recommended(`<${formatPercentage(recommended)}% wasted UT Buffs is recommended`)
+         .regular(recommended + 0.1).major(recommended + 0.2);
     });
   }
+  
   statistic() {
-    const unusedUTProcs = 1 - (this.consumedCBProc / this.CBProcsTotal);
+   const unusedCBProcs = 1 - (this.consumedCBProc / this.CBProcsTotal);
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.COMBO_BREAKER_BUFF.id} />}
-        value={`${formatPercentage(unusedUTProcs)}%`}
+       icon={<SpellIcon id={SPELLS.COMBO_BREAKER_BUFF.id} />}
+        value={`${formatPercentage(unusedCBProcs)}%`}
         label={(
-          <dfn data-tip={`You got total <b>${this.CBProcsTotal} Combo Breaker procs</b> and <b>used ${this.consumedCBProc}</b> of them. ${this.nonCBBoK} of your vivify's were used without an uplifting trance procs.`}>
+         <dfn data-tip={`You got total <b>${this.CBProcsTotal} Combo Breaker procs</b> and <b>used ${this.consumedCBProc}</b> of them. ${this.nonCBBoK} of your Blackout Kicks were used without a Combo Breaker buff.`}>
             Unused Procs
           </dfn>
         )}
       />
-    );
+   );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(40);
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(20);
 }
 
 export default ComboBreaker;

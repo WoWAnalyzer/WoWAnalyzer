@@ -14,7 +14,7 @@ import CooldownTracker from './Modules/Features/CooldownTracker';
 import ComboStrikes from './Modules/Features/ComboStrikes';
 
 // Spells
-import ComboBreaker from '.Modules/Spells/ComboBreaker';
+import ComboBreaker from './Modules/Spells/ComboBreaker';
 
 // Talents
 import HitCombo from './Modules/Talents/HitCombo';
