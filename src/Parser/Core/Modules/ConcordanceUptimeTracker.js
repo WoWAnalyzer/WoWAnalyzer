@@ -21,34 +21,41 @@ class ConcordanceUptimeTracker extends Module {
     combatants: Combatants,
   };
 
-  appliedBuff = null;
   statisticOrder = STATISTIC_ORDER.TRAITS(0);
 
-  statistic() {
-    const rank = this.combatants.selected.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id];
+  get rank () {
+    return this.combatants.selected.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id];
+  }
+  
+  get appliedBuff () {
+    let buff = null;
     Object.values(CONCORDANCE_SPELLS).forEach(item => {
       const uptime = this.combatants.selected.getBuffUptime(item.id) / this.owner.fightDuration;
       if (uptime > 0) {
-        this.appliedBuff = {
+        buff = {
           id: item.id,
           uptime: uptime,
         };
       }
     });
-  
+
+    return buff;
+  }
+
+  statistic() {
     if (!this.appliedBuff) {
       return;
     }
 
     if (debug) {
-      console.log("Concordance: Rank", rank, "; Uptime: ", this.appliedBuff.uptime);
+      console.log("Concordance: Rank", this.rank, "; Uptime: ", this.appliedBuff.uptime);
     }
     return (
       <StatisticBox
       icon={<SpellIcon id={this.appliedBuff.id} />}
       value={`${formatPercentage(this.appliedBuff.uptime)}%`}
       label='Concordance of the Legionfall uptime'
-      tooltip={`Rank ${rank}`}
+      tooltip={`Rank ${this.rank}`}
     />);
   }
 }
