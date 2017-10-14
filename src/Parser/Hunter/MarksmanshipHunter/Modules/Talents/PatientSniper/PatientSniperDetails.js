@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -17,9 +16,6 @@ class PatientSniperDetails extends Module {
     patientSniperTracker: PatientSniperTracker,
     combatants: Combatants,
   };
-  static propTypes = {
-    patientSniper: PropTypes.object.isRequired,
-  };
 
 
 
@@ -36,7 +32,7 @@ class PatientSniperDetails extends Module {
   }
   statistic() {
     //calculates the FLAT increase in dmg on average
-    const averagePatientSniperDmgIncreaseWithTS = this.patientSniper.patientSniper[SPELLS.AIMED_SHOT.id].vulnerableModifierAimed + (this.piercingShotDmgIncreaseWithTS + this.piercingShotDmgIncreaseNoTS + this.aimedShotDmgIncreaseWithTS + this.aimedShotDmgIncreaseNoTS) / (this.aimedShotsNoTS + this.aimedShotsWithTS + this.piercingShotsNoTS + this.piercingShotsWithTS);
+    const averagePatientSniperDmgIncreaseWithTS = this.patientSniperTracker.patientSniper[SPELLS.AIMED_SHOT.id].vulnerableModifierAimed + (this.piercingShotDmgIncreaseWithTS + this.piercingShotDmgIncreaseNoTS + this.aimedShotDmgIncreaseWithTS + this.aimedShotDmgIncreaseNoTS) / (this.aimedShotsNoTS + this.aimedShotsWithTS + this.piercingShotsNoTS + this.piercingShotsWithTS);
     const averagePSDmgIncreaseAimedOnly = (this.aimedShotDmgIncreaseNoTS + this.aimedShotDmgIncreaseWithTS) / (this.aimedShotsWithTS + this.aimedShotsNoTS);
     const averagePSDmgIncreasePiercingOnly = (this.piercingShotDmgIncreaseNoTS + this.piercingShotDmgIncreaseWithTS) / (this.piercingShotsNoTS + this.piercingShotsWithTS);
     //calculates the actual dmg increase compared to not having Patient Sniper with this formula:
