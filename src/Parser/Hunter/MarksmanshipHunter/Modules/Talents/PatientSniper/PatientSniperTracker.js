@@ -42,9 +42,14 @@ class PatientSniperTracker extends Module {
       fourSecondsIntoVulnerableAimedTS: 0,
       fiveSecondsIntoVulnerableAimedTS: 0,
       sixSecondsIntoVulnerableAimedTS: 0,
+      //Count the amount of shots with/without Trueshot
       aimedShotsNoTS: 0,
       aimedShotsWithTS: 0,
+      //Vulnerables base modifier
       vulnerableModifierAimed: 0.3,
+      //Count the increase in dmg with/without Trueshot
+      aimedShotDmgIncreaseNoTS: 0,
+      aimedShotDmgIncreaseWithTS: 0,
     },
     [SPELLS.PIERCING_SHOT_TALENT.id]: {
       nonVulnerablePiercingShots: 0,
@@ -63,17 +68,16 @@ class PatientSniperTracker extends Module {
       fourSecondsIntoVulnerablePiercingTS: 0,
       fiveSecondsIntoVulnerablePiercingTS: 0,
       sixSecondsIntoVulnerablePiercingTS: 0,
+      //Count the amount of shots with/without Trueshot
       piercingShotsNoTS: 0,
       piercingShotsWithTS: 0,
+      //Vulnerables base modifier
       vulnerableModifierPiercing: 0.3,
+      //Count the increase in dmg with/without Trueshot
+      piercingShotDmgIncreaseNoTS: 0,
+      piercingShotDmgIncreaseWithTS: 0,
     },
   };
-
-  //increases from patient sniper
-  aimedShotDmgIncreaseNoTS = 0;
-  aimedShotDmgIncreaseWithTS = 0;
-  piercingShotDmgIncreaseNoTS = 0;
-  piercingShotDmgIncreaseWithTS = 0;
 
   //Vulnerable variables
   lastVulnerableTimestamp = 0;
@@ -112,7 +116,7 @@ class PatientSniperTracker extends Module {
       this.patientSniper[spellId].aimedShotsNoTS += 1;
       if (enemy.hasBuff(SPELLS.VULNERABLE.id, eventTimestamp)) {
         this.timeIntoVulnerable = Math.floor(((eventTimestamp - this.lastVulnerableTimestamp) / 1000));
-        this.aimedShotDmgIncreaseNoTS += (this.timeIntoVulnerable * 0.06);
+        this.patientSniper[spellId].aimedShotDmgIncreaseNoTS += (this.timeIntoVulnerable * 0.06);
         //counts Patient Sniper Aimed WITHOUT Trueshot
         switch (this.timeIntoVulnerable) {
           case 0:
@@ -147,7 +151,7 @@ class PatientSniperTracker extends Module {
       this.patientSniper[spellId].aimedShotsWithTS += 1;
       if (enemy.hasBuff(SPELLS.VULNERABLE.id, eventTimestamp)) {
         this.timeIntoVulnerable = Math.floor(((eventTimestamp - this.lastVulnerableTimestamp) / 1000));
-        this.aimedShotDmgIncreaseWithTS += this.timeIntoVulnerable * 0.06;
+        this.patientSniper[spellId].aimedShotDmgIncreaseWithTS += this.timeIntoVulnerable * 0.06;
         //counts Patient Sniper Aimed WITH Trueshot
         switch (this.timeIntoVulnerable) {
           case 0:
@@ -183,7 +187,7 @@ class PatientSniperTracker extends Module {
       this.patientSniper[spellId].piercingShotsNoTS += 1;
       if (enemy.hasBuff(SPELLS.VULNERABLE.id, eventTimestamp)) {
         this.timeIntoVulnerable = Math.floor((eventTimestamp - this.lastVulnerableTimestamp) / 1000);
-        this.piercingShotDmgIncreaseNoTS += this.timeIntoVulnerable * 0.06;
+        this.patientSniper[spellId].piercingShotDmgIncreaseNoTS += this.timeIntoVulnerable * 0.06;
         //counts Patient Sniper Piercing WITHOUT Trueshot
         switch (this.timeIntoVulnerable) {
           case 0:
@@ -219,7 +223,7 @@ class PatientSniperTracker extends Module {
       this.patientSniper[spellId].piercingShotsWithTS += 1;
       if (enemy.hasBuff(SPELLS.VULNERABLE.id, eventTimestamp)) {
         this.timeIntoVulnerable = Math.floor((eventTimestamp - this.lastVulnerableTimestamp) / 1000);
-        this.piercingShotDmgIncreaseWithTS += this.timeIntoVulnerable * 0.06;
+        this.patientSniper[spellId].piercingShotDmgIncreaseWithTS += this.timeIntoVulnerable * 0.06;
         //counts Patient Sniper Piercing WITH Trueshot
         switch (this.timeIntoVulnerable) {
           case 0:
