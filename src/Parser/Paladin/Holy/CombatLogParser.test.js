@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
-import CombatLogParser from 'Parser/HolyPaladin/CombatLogParser';
+import CombatLogParser from './CombatLogParser';
 
-describe('HolyPaladin.CombatLogParser', () => {
+describe('Paladin/Holy/CombatLogParser', () => {
   const reorderScenarios = [
     {
       test: 'doesn\'t re-order LoD when it\'s already in order',

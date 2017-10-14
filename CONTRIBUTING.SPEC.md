@@ -29,7 +29,7 @@ The most useful things to do are to add information that isn't yet easily availa
 
 # Add an empty spec
 
-1. The easiest way to start is by copy pasting the HolyPaladin folder in `src/Parser`. Name it the full name of the spec you want to work on. I'll call your spec NewSpec from now on.
+1. The easiest way to start is by copy pasting the Holy folder in `src/Parser/Paladin`. Name it the full name of the spec you want to work on. I'll call your spec NewSpec from now on.
 2. Open `src/Parser/NewSpec/CONFIG.js` and change the `spec` property to your spec (in my case `SPECS.NEW_SPEC`), if your IDE is set up properly auto complete should provide you with the available options. Change the maintainer name as desired.
 3. Open `src/Parser/AVAILABLE_CONFIGS.js` and duplicate an import line and add your new spec to the object at the bottom.
 4. When you save your spec should now be supported and shown in the player selection list. Clicking it probably won't work yet though, as the Holy Paladin modules aren't compatible with your spec.

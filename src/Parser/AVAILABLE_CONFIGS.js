@@ -17,7 +17,7 @@ import BrewmasterMonk from './BrewmasterMonk/CONFIG';
 import WindwalkerMonk from './WindwalkerMonk/CONFIG';
 import MistweaverMonk from './MistweaverMonk/CONFIG';
 
-import HolyPaladin from './HolyPaladin/CONFIG';
+import HolyPaladin from './Paladin/Holy/CONFIG';
 import RetributionPaladin from './RetributionPaladin/CONFIG';
 
 import DisciplinePriest from './DisciplinePriest/CONFIG';
