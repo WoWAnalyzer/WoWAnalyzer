@@ -50,8 +50,8 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       <StatisticBox
         icon={<Icon icon="spell_mage_altertime" alt="Dead time" />}
         value={`${formatPercentage(deadTimePercentage)} %`}
-        label="Dead time"
-        tooltip="Dead time is available casting time not used for casting any spell. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/being stunned), etc."
+        label="Downtime"
+        tooltip="Downtime is available casting time not used for casting any spell. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/being stunned), etc."
       />
     );
   }
