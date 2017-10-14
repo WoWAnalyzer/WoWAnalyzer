@@ -60,7 +60,7 @@ class DistanceMoved extends Module {
         return (
             <StatisticBox
             icon={<SpellIcon id={SPELLS.FRENETIC_SPEED_TALENT.id} />}
-            value={`≈${formatNumber(this.totalDistanceMoved)} yards`}
+            value={`≈${formatThousands(this.totalDistanceMoved)} yards`}
             label="Distance moved during fight"
             tooltip="Consider this when analyzing the fight, as some fights require more movement than others. Unnecessary movement can result in a DPS/HPS loss."
             />
