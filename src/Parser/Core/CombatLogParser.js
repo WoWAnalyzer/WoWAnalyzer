@@ -8,6 +8,7 @@ import DamageTaken from './Modules/DamageTaken';
 import Combatants from './Modules/Combatants';
 import AbilityTracker from './Modules/AbilityTracker';
 import Haste from './Modules/Haste';
+import StatTracker from './Modules/StatTracker';
 import AlwaysBeCasting from './Modules/AlwaysBeCasting';
 import CastEfficiency from './Modules/CastEfficiency';
 import SpellUsable from './Modules/SpellUsable';
@@ -87,6 +88,7 @@ class CombatLogParser {
     abilityTracker: AbilityTracker,
     healEventTracker: HealEventTracker,
     haste: Haste,
+    statTracker: StatTracker,
     alwaysBeCasting: AlwaysBeCasting,
     castEfficiency: CastEfficiency,
     spellUsable: SpellUsable,

@@ -1,6 +1,10 @@
+import SPELLS from 'common/SPELLS';
+import { formatMilliseconds } from 'common/format';
 
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
+
+const debug = true;
 
 class StatTracker extends Module {
   static dependencies = {
@@ -27,99 +31,113 @@ class StatTracker extends Module {
 
   on_initialized() {
     this._stats = {
-      str: combtants.selected.strength,
-      agi: combtants.selected.agility,
-      int: combtants.selected.intellect,
-      crit: combtants.selected.critRating,
-      haste: combtants.selected.hasteRating,
-      mastery: combtants.selected.masteryRating,
-      vers: combtants.selected.versatilityRating,
-    }
+      str: this.combatants.selected.strength,
+      agi: this.combatants.selected.agility,
+      int: this.combatants.selected.intellect,
+      crit: this.combatants.selected.critRating,
+      haste: this.combatants.selected.hasteRating,
+      mastery: this.combatants.selected.masteryRating,
+      vers: this.combatants.selected.versatilityRating,
+    };
+    debug && this._debugPrintStats(this._stats);
   }
 
   get currentStrength() {
-    return _stats.str;
+    return this._stats.str;
   }
 
   get currentAgility() {
-    return _stats.agi;
+    return this._stats.agi;
   }
 
   get currentIntellect() {
-    return _stats.int;
+    return this._stats.int;
   }
 
   get currentCrit() {
-    return _stats.crit;
+    return this._stats.crit;
   }
 
   get currentHaste() {
-    return _stats.haste;
+    return this._stats.haste;
   }
 
   get currentMastery() {
-    return _stats.mastery;
+    return this._stats.mastery;
   }
 
   get currentVers() {
-    return _stats.vers;
+    return this._stats.vers;
   }
 
 
 
-  on_toPlayer_applybuff(event) {
-    _applyBuff(event);
-  }
+  //on_toPlayer_applybuff(event) {
+  //  this._applyBuff(event);
+  //}
 
-  on_toPlayer_removebuff(event) {
-    _removeBuff(event);
-  }
+  // on_toPlayer_removebuff(event) {
+  //   this._removeBuff(event);
+  // }
 
   on_toPlayer_changebuffstack(event) {
-    _changeBuffStack(event);
+    this._changeBuffStack(event);
   }
 
-  on_toPlayer_applydebuff(event) {
-    _applyBuff(event);
-  }
+  // on_toPlayer_applydebuff(event) {
+  //   this._applyBuff(event);
+  // }
 
-  on_toPlayer_removedebuff(event) {
-    _removeBuff(event);
-  }
+  // on_toPlayer_removedebuff(event) {
+  //   this._removeBuff(event);
+  // }
 
   on_toPlayer_changedebuffstack(event) {
-    _changeBuffStack(event);
+    this._changeBuffStack(event);
   }
 
-  _applyBuff(event) {
-    const statBuff = STAT_BUFFS[event.ability.guid];
-    if(statBuff) {
-      _changeStats(this._stats, statBuff, 1);
-    }
-  }
+  // _applyBuff(event) {
+  //   const spellId = event.ability.guid;
+  //   const statBuff = this.constructor.STAT_BUFFS[spellId];
+  //   if(statBuff) {
+  //     debug && console.log(`StatTracker: applying ${SPELLS[spellId] ? SPELLS[spellId].name : spellId}`);
+  //     this._changeStats(this._stats, statBuff, 1);
+  //   }
+  // }
 
   _changeBuffStack(event) {
-    const statBuff = STAT_BUFFS[event.ability.guid];
+    const spellId = event.ability.guid;
+    const statBuff = this.constructor.STAT_BUFFS[spellId];
     if(statBuff) {
-      _changeStats(this._stats, statBuff, event.newStacks - event.oldStacks);
+      // ignore prepull buff application, as they're already accounted for in combatantinfo
+      // we have to check the stacks count because Entities incorrectly copies the prepull property onto changes and removal following the application
+      if(event.oldStacks === 0 && event.prepull) {
+        debug && console.log(`StatTracker prepull application IGNORED for ${SPELLS[spellId] ? SPELLS[spellId].name : spellId}`);
+        return;
+      }
+      debug && console.log(`StatTracker: (${event.oldStacks} -> ${event.newStacks}) ${SPELLS[spellId] ? SPELLS[spellId].name : spellId}`);
+      this._changeStats(this._stats, statBuff, event.newStacks - event.oldStacks);
     }
   }
 
-  _removeBuff(event) {
-    const statBuff = STAT_BUFFS[event.ability.guid];
-    if(statBuff) {
-      _changeStats(this._stats, statBuff, -1);
-    }
-  }
+  // _removeBuff(event) {
+  //   const spellId = event.ability.guid;
+  //   const statBuff = this.constructor.STAT_BUFFS[spellId];
+  //   if(statBuff) {
+  //     debug && console.log(`StatTracker: removing ${SPELLS[spellId] ? SPELLS[spellId].name : spellId}`);
+  //     this._changeStats(this._stats, statBuff, -1);
+  //   }
+  // }
 
   _changeStats(orig, change, factor) {
-    orig.str += _getBuffValue(change, change.str) * factor;
-    orig.agi += _getBuffValue(change, change.agi) * factor;
-    orig.int += _getBuffValue(change, change.int) * factor;
-    orig.crit += _getBuffValue(change, change.crit) * factor;
-    orig.haste += _getBuffValue(change, change.haste) * factor;
-    orig.mastery += _getBuffValue(change, change.mastery) * factor;
-    orig.vers += _getBuffValue(change, change.vers) * factor;
+    orig.str += this._getBuffValue(change, change.str) * factor;
+    orig.agi += this._getBuffValue(change, change.agi) * factor;
+    orig.int += this._getBuffValue(change, change.int) * factor;
+    orig.crit += this._getBuffValue(change, change.crit) * factor;
+    orig.haste += this._getBuffValue(change, change.haste) * factor;
+    orig.mastery += this._getBuffValue(change, change.mastery) * factor;
+    orig.vers += this._getBuffValue(change, change.vers) * factor;
+    debug && this._debugPrintStats(orig);
   }
 
   /**
@@ -146,6 +164,10 @@ class StatTracker extends Module {
     }
   }
 
+  _debugPrintStats(stats) {
+    console.log(`StatTracker:`, formatMilliseconds(this.owner.fightDuration),`STR=${stats.str} AGI=${stats.agi} INT=${stats.int} CRT=${stats.crit} HST=${stats.haste} MST=${stats.mastery} VRS=${stats.vers}`);
+  }
+
 }
 
-export default DamageTracker;
+export default StatTracker;
