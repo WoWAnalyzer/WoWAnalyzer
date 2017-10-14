@@ -42,6 +42,9 @@ class PatientSniperTracker extends Module {
       fourSecondsIntoVulnerableAimedTS: 0,
       fiveSecondsIntoVulnerableAimedTS: 0,
       sixSecondsIntoVulnerableAimedTS: 0,
+      aimedShotsNoTS: 0,
+      aimedShotsWithTS: 0,
+      vulnerableModifierAimed: 0.3,
     },
     [SPELLS.PIERCING_SHOT_TALENT.id]: {
       nonVulnerablePiercingShots: 0,
@@ -60,6 +63,9 @@ class PatientSniperTracker extends Module {
       fourSecondsIntoVulnerablePiercingTS: 0,
       fiveSecondsIntoVulnerablePiercingTS: 0,
       sixSecondsIntoVulnerablePiercingTS: 0,
+      piercingShotsNoTS: 0,
+      piercingShotsWithTS: 0,
+      vulnerableModifierPiercing: 0.3,
     },
   };
 
@@ -74,18 +80,12 @@ class PatientSniperTracker extends Module {
   timeIntoVulnerable = 0;
   vulnWindowsNoTS = 0;
   totalVulnWindows = 0;
-  vulnerableModifer = 0.3;
-
-  //Counts for Aimed/Piercing Shots
-  aimedShotsNoTS = 0;
-  aimedShotsWithTS = 0;
-  piercingShotsNoTS = 0;
-  piercingShotsWithTS = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.PATIENT_SNIPER_TALENT.id);
     const unerringArrowsRank = this.combatants.selected.traitsBySpellId[SPELLS.UNERRING_ARROWS_TRAIT.id];
-    this.vulnerableModifier += unerringArrowsRank * 0.03;
+    this.patientSniper[SPELLS.AIMED_SHOT.id].vulnerableModifierAimed += unerringArrowsRank * 0.03;
+    this.patientSniper[SPELLS.PIERCING_SHOT_TALENT.id].vulnerableModifierPiercing += unerringArrowsRank * 0.03;
   }
 
   on_byPlayer_cast(event) {
@@ -109,146 +109,146 @@ class PatientSniperTracker extends Module {
       }
     }
     if (spellId === SPELLS.AIMED_SHOT.id && !this.combatants.selected.hasBuff(SPELLS.TRUESHOT.id)) {
-      this.aimedShotsNoTS += 1;
+      this.patientSniper[spellId].aimedShotsNoTS += 1;
       if (enemy.hasBuff(SPELLS.VULNERABLE.id, eventTimestamp)) {
         this.timeIntoVulnerable = Math.floor(((eventTimestamp - this.lastVulnerableTimestamp) / 1000));
         this.aimedShotDmgIncreaseNoTS += (this.timeIntoVulnerable * 0.06);
         //counts Patient Sniper Aimed WITHOUT Trueshot
         switch (this.timeIntoVulnerable) {
           case 0:
-            this.patientSniper.zeroSecondsIntoVulnerableAimed += 1;
+            this.patientSniper[spellId].zeroSecondsIntoVulnerableAimed += 1;
             break;
           case 1:
-            this.patientSniper.oneSecondIntoVulnerableAimed += 1;
+            this.patientSniper[spellId].oneSecondIntoVulnerableAimed += 1;
             break;
           case 2:
-            this.patientSniper.twoSecondsIntoVulnerableAimed += 1;
+            this.patientSniper[spellId].twoSecondsIntoVulnerableAimed += 1;
             break;
           case 3:
-            this.patientSniper.threeSecondsIntoVulnerableAimed += 1;
+            this.patientSniper[spellId].threeSecondsIntoVulnerableAimed += 1;
             break;
           case 4:
-            this.patientSniper.fourSecondsIntoVulnerableAimed += 1;
+            this.patientSniper[spellId].fourSecondsIntoVulnerableAimed += 1;
             break;
           case 5:
-            this.patientSniper.fiveSecondsIntoVulnerableAimed += 1;
+            this.patientSniper[spellId].fiveSecondsIntoVulnerableAimed += 1;
             break;
           case 6:
-            this.patientSniper.sixSecondsIntoVulnerableAimed += 1;
+            this.patientSniper[spellId].sixSecondsIntoVulnerableAimed += 1;
             break;
           default:
             break;
         }
       } else {
-        this.patientSniper.nonVulnerableAimedShots += 1;
+        this.patientSniper[spellId].nonVulnerableAimedShots += 1;
       }
     }
     if (spellId === SPELLS.AIMED_SHOT.id && this.combatants.selected.hasBuff(SPELLS.TRUESHOT.id)) {
-      this.aimedShotsWithTS += 1;
+      this.patientSniper[spellId].aimedShotsWithTS += 1;
       if (enemy.hasBuff(SPELLS.VULNERABLE.id, eventTimestamp)) {
         this.timeIntoVulnerable = Math.floor(((eventTimestamp - this.lastVulnerableTimestamp) / 1000));
         this.aimedShotDmgIncreaseWithTS += this.timeIntoVulnerable * 0.06;
         //counts Patient Sniper Aimed WITH Trueshot
         switch (this.timeIntoVulnerable) {
           case 0:
-            this.patientSniper.zeroSecondsIntoVulnerableAimedTS += 1;
+            this.patientSniper[spellId].zeroSecondsIntoVulnerableAimedTS += 1;
             break;
           case 1:
-            this.patientSniper.oneSecondIntoVulnerableAimedTS += 1;
+            this.patientSniper[spellId].oneSecondIntoVulnerableAimedTS += 1;
             break;
           case 2:
-            this.patientSniper.twoSecondsIntoVulnerableAimedTS += 1;
+            this.patientSniper[spellId].twoSecondsIntoVulnerableAimedTS += 1;
             break;
           case 3:
-            this.patientSniper.threeSecondsIntoVulnerableAimedTS += 1;
+            this.patientSniper[spellId].threeSecondsIntoVulnerableAimedTS += 1;
             break;
           case 4:
-            this.patientSniper.fourSecondsIntoVulnerableAimedTS += 1;
+            this.patientSniper[spellId].fourSecondsIntoVulnerableAimedTS += 1;
             break;
           case 5:
-            this.patientSniper.fiveSecondsIntoVulnerableAimedTS += 1;
+            this.patientSniper[spellId].fiveSecondsIntoVulnerableAimedTS += 1;
             break;
           case 6:
-            this.patientSniper.sixSecondsIntoVulnerableAimedTS += 1;
+            this.patientSniper[spellId].sixSecondsIntoVulnerableAimedTS += 1;
             break;
           default:
             break;
         }
       } else {
-        this.patientSniper.nonVulnerableAimedShotsTS += 1;
+        this.patientSniper[spellId].nonVulnerableAimedShotsTS += 1;
       }
     }
 
     if (spellId === SPELLS.PIERCING_SHOT_TALENT.id && !this.combatants.selected.hasBuff(SPELLS.TRUESHOT.id)) {
-      this.piercingShotsNoTS += 1;
+      this.patientSniper[spellId].piercingShotsNoTS += 1;
       if (enemy.hasBuff(SPELLS.VULNERABLE.id, eventTimestamp)) {
         this.timeIntoVulnerable = Math.floor((eventTimestamp - this.lastVulnerableTimestamp) / 1000);
         this.piercingShotDmgIncreaseNoTS += this.timeIntoVulnerable * 0.06;
         //counts Patient Sniper Piercing WITHOUT Trueshot
         switch (this.timeIntoVulnerable) {
           case 0:
-            this.patientSniper.zeroSecondsIntoVulnerablePiercing += 1;
+            this.patientSniper[spellId].zeroSecondsIntoVulnerablePiercing += 1;
             break;
           case 1:
-            this.patientSniper.oneSecondIntoVulnerablePiercing += 1;
+            this.patientSniper[spellId].oneSecondIntoVulnerablePiercing += 1;
             break;
           case 2:
-            this.patientSniper.twoSecondsIntoVulnerablePiercing += 1;
+            this.patientSniper[spellId].twoSecondsIntoVulnerablePiercing += 1;
             break;
           case 3:
-            this.patientSniper.threeSecondsIntoVulnerablePiercing += 1;
+            this.patientSniper[spellId].threeSecondsIntoVulnerablePiercing += 1;
             break;
           case 4:
-            this.patientSniper.fourSecondsIntoVulnerablePiercing += 1;
+            this.patientSniper[spellId].fourSecondsIntoVulnerablePiercing += 1;
             break;
           case 5:
-            this.patientSniper.fiveSecondsIntoVulnerablePiercing += 1;
+            this.patientSniper[spellId].fiveSecondsIntoVulnerablePiercing += 1;
             this.piercingShotDmgIncreaseNoTS += this.timeIntoVulnerable * 0.06;
             break;
           case 6:
-            this.patientSniper.sixSecondsIntoVulnerablePiercing += 1;
+            this.patientSniper[spellId].sixSecondsIntoVulnerablePiercing += 1;
             break;
           default:
             break;
         }
       } else {
-        this.patientSniper.nonVulnerablePiercingShots += 1;
+        this.patientSniper[spellId].nonVulnerablePiercingShots += 1;
       }
     }
     if (spellId === SPELLS.PIERCING_SHOT_TALENT.id && this.combatants.selected.hasBuff(SPELLS.TRUESHOT.id)) {
-      this.piercingShotsWithTS += 1;
+      this.patientSniper[spellId].piercingShotsWithTS += 1;
       if (enemy.hasBuff(SPELLS.VULNERABLE.id, eventTimestamp)) {
         this.timeIntoVulnerable = Math.floor((eventTimestamp - this.lastVulnerableTimestamp) / 1000);
         this.piercingShotDmgIncreaseWithTS += this.timeIntoVulnerable * 0.06;
         //counts Patient Sniper Piercing WITH Trueshot
         switch (this.timeIntoVulnerable) {
           case 0:
-            this.patientSniper.zeroSecondsIntoVulnerablePiercingTS += 1;
+            this.patientSniper[spellId].zeroSecondsIntoVulnerablePiercingTS += 1;
             break;
           case 1:
-            this.patientSniper.oneSecondIntoVulnerablePiercingTS += 1;
+            this.patientSniper[spellId].oneSecondIntoVulnerablePiercingTS += 1;
             break;
           case 2:
-            this.patientSniper.twoSecondsIntoVulnerablePiercingTS += 1;
+            this.patientSniper[spellId].twoSecondsIntoVulnerablePiercingTS += 1;
             break;
           case 3:
-            this.patientSniper.threeSecondsIntoVulnerablePiercingTS += 1;
+            this.patientSniper[spellId].threeSecondsIntoVulnerablePiercingTS += 1;
             break;
           case 4:
-            this.patientSniper.fourSecondsIntoVulnerablePiercingTS += 1;
+            this.patientSniper[spellId].fourSecondsIntoVulnerablePiercingTS += 1;
             break;
           case 5:
-            this.patientSniper.fiveSecondsIntoVulnerablePiercingTS += 1;
+            this.patientSniper[spellId].fiveSecondsIntoVulnerablePiercingTS += 1;
             this.piercingShotDmgIncreaseWithTS += this.timeIntoVulnerable * 0.06;
             break;
           case 6:
-            this.patientSniper.sixSecondsIntoVulnerablePiercingTS += 1;
+            this.patientSniper[spellId].sixSecondsIntoVulnerablePiercingTS += 1;
             break;
           default:
             break;
         }
       } else {
-        this.patientSniper.nonVulnerablePiercingShotsTS += 1;
+        this.patientSniper[spellId].nonVulnerablePiercingShotsTS += 1;
       }
     }
   }
