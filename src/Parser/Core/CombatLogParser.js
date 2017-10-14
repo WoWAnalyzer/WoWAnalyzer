@@ -48,6 +48,8 @@ import TomeOfUnravelingSanity from './Modules/Items/TomeOfUnravelingSanity';
 import InfernalCinders from './Modules/Items/InfernalCinders';
 import UmbralMoonglaives from './Modules/Items/UmbralMoonglaives';
 
+import Concordance from './Modules/Concordance';
+
 // Shared Buffs
 import VantusRune from './Modules/VantusRune';
 
@@ -122,7 +124,9 @@ class CombatLogParser {
     spectralThurible: SpectralThurible,
     terrorFromBelow: TerrorFromBelow,
     tomeOfUnravelingSanity: TomeOfUnravelingSanity,
-
+    
+    // Concordance of the Legionfall
+    concordance: Concordance,
     // Netherlight Crucible Traits
     darkSorrows: DarkSorrows,
     tormentTheWeak: TormentTheWeak,

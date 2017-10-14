@@ -287,11 +287,6 @@ export default {
     name: 'Charred Warblades',
     icon: 'spell_fire_incinerate',
   },
-  CONCORDANCE_OF_THE_LEGIONFALL: {
-    id: 239042,
-    name: 'Concordance of the Legionfall',
-    icon: 'trade_archaeology_shark-jaws',
-  },
   DEFENSIVE_SPIKES: {
     id: 212829,
     name: 'Defensive Spikes',
