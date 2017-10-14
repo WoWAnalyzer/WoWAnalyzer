@@ -8,7 +8,7 @@ import FeralDruid from './FeralDruid/CONFIG';
 import GuardianDruid from './GuardianDruid/CONFIG';
 import RestoDruid from './RestoDruid/CONFIG';
 
-import MarksmanshipHunter from './Hunter/Marksmanship/CONFIG';
+import MarksmanshipHunter from './MarksmanshipHunter/CONFIG';
 
 // Mage
 import FrostMage from './FrostMage/CONFIG';
