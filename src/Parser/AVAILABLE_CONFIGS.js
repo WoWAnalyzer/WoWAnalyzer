@@ -34,7 +34,7 @@ import AfflictionWarlock from './Warlock/Affliction/CONFIG';
 import DemonologyWarlock from './Warlock/Demonology/CONFIG';
 import DestructionWarlock from './Warlock/Destruction/CONFIG';
 
-import ProtectionWarrior from './ProtectionWarrior/CONFIG';
+import ProtectionWarrior from './Warrior/Protection/CONFIG';
 
 export default [
   BloodDeathKnight,
