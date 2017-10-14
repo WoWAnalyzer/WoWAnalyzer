@@ -23,8 +23,8 @@ class ZannesuJourney extends Module {
     if (event.ability.guid !== SPELLS.BLIZZARD.id) {
       return;
     }
-    const buff = this.combatants.selected.getBuff(SPELLS.ZANNESU_JOURNEY_BUFF.id,event.timestamp);
-    this.stackCount = buff && buff.stacks || 0;
+    const buff = this.combatants.selected.getBuff(SPELLS.ZANNESU_JOURNEY_BUFF.id);
+    this.stackCount = (buff && buff.stacks) || 0;
   }
 
   on_byPlayer_damage(event) {
