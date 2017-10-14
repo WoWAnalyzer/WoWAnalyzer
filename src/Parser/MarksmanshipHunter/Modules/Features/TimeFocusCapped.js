@@ -39,14 +39,14 @@ class TimeFocusCapped extends Module {
           style={{ width: `${(100-percentCapped)}%` }}
           data-tip={`You spent <b>${100-percentCapped}%</b> of your time, or <b>${Math.round(Math.floor(this.owner.fightDuration/1000) - this.focusTracker.secondsCapped)}s</b> under the focucs cap.`}
         >
-          <img src="/img/sword.png" alt="Non-heal cast time" />
+          <img src="/img/sword.png" alt="Time not focus capped" />
         </div>
           <div
             className="stat-overhealing-bg"
             style={{ width: `${percentCapped}%` }}
             data-tip={`You spent <b>${percentCapped}%</b>, or <b>${Math.round(this.focusTracker.secondsCapped)}s</b> of your time focus Capped.`}
           >
-            <img src="/img/afk.png" alt="Healing time" />
+            <img src="/img/afk.png" alt="Time focus capped" />
           </div>
         </div>
       )}
