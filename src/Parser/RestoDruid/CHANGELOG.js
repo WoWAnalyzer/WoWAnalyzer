@@ -1,4 +1,5 @@
 export default `
+14-10-2017 - Resto Druid: Now uses the base Sephuz's Secret module, which displays average haste gained. (by Sref)
 06-10-2017 - Resto Druid: Added Ironbark module. (by Sref)
 29-09-2017 - Resto Druid: More Flourish updates. (by Sref)
 26-09-2017 - Resto Druid: Updated display of flourish. (by Blazyb)

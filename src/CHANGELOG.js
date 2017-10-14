@@ -1,4 +1,5 @@
 export default `
+14-10-2017 - Sephuz's Secret now displays average haste gain. Uptime still available in tooltip. (by Sref)
 14-10-2017 - Added a suggestion when a legendary haven't been upgraded to the max item level. (by Fyruna)
 10-10-2017 - Changed the buff tracking implementation to be much more developer friendly. This should have no side-effects except to improve accuracy of modules that didn't take this into account in the past. If you notice something strange please let us know. (by Zerotorescue)
 02-10-2017 - Added a <i>help wanted</i> panel to the frontpage. (by Zerotorescue)
