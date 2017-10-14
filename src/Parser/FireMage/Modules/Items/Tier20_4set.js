@@ -18,12 +18,10 @@ class Tier20_4set extends Module {
   damage = 0;
 
   on_initialized() {
-	this.active = this.combatants.selected.hasBuff(SPELLS.FIRE_MAGE_T20_4SET_BONUS_BUFF.id);
+	  this.active = this.combatants.selected.hasBuff(SPELLS.FIRE_MAGE_T20_4SET_BONUS_BUFF.id);
   }
 
   on_byPlayer_damage(event) {
-    if (this.combatants.selected.hasBuff(SPELLS.CRITICAL_MASSIVE.id)) {
-    }
     if (event.ability.guid === SPELLS.PYROBLAST.id || event.ability.guid === SPELLS.FLAMESTRIKE.id) {
       if (this.combatants.selected.hasBuff(SPELLS.CRITICAL_MASSIVE.id)) {
         this.damage += getDamageBonus(event, CRITICAL_MASSIVE_DAMAGE_BONUS);
@@ -33,9 +31,9 @@ class Tier20_4set extends Module {
 
   item() {
     return {
-      id: `${SPELLS.CRITICAL_MASSIVE.id}`,
-      icon: <SpellIcon id={SPELLS.CRITICAL_MASSIVE.id} />,
-      title: <SpellLink id={SPELLS.CRITICAL_MASSIVE.id} />,
+      id: `${SPELLS.FIRE_MAGE_T20_4SET_BONUS_BUFF.id}`,
+      icon: <SpellIcon id={SPELLS.FIRE_MAGE_T20_4SET_BONUS_BUFF.id} />,
+      title: <SpellLink id={SPELLS.FIRE_MAGE_T20_4SET_BONUS_BUFF.id} />,
       result: `${formatNumber(this.damage)} damage - ${this.owner.formatItemDamageDone(this.damage)}`,
     };
   }

@@ -16,8 +16,9 @@ export default {
   changelog: CHANGELOG,
   description: (
     <div>
-      I have been playing Fire for a bit, but usually rely on a guild member of mine to support with Fire knowledge (he has been playing Fire since Vanilla).<br/>
-      I am a JS developer by day and apparently by night as well.
+      Welcome to the Fire Mage analyzer! We hope you find these suggestions and statistics useful.
+      <br /><br />
+      If you want to learn more about Fire Mages, join the Mage community at the <a href="https://discord.gg/alteredtime" target="_blank" rel="noopener noreferrer">Altered Time discord channel</a>. You can also check out the <a href="https://www.altered-time.com/forum/viewforum.php?f=4" target="_blank" rel="noopener noreferrer">Altered Time forum, Fire section</a> for spec specific advice. 
     </div>
   ),
   specDiscussionUrl: 'https://github.com/WoWAnalyzer/WoWAnalyzer/issues/519',
