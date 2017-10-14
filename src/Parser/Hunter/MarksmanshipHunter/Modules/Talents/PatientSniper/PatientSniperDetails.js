@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -8,16 +9,20 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 
-
 import PatientSniperBreakdown from "./PatientSniperBreakdown";
 import PatientSniperTracker from "./PatientSniperTracker";
 
 class PatientSniperDetails extends Module {
-  static
-  dependencies = {
+  static dependencies = {
     patientSniperTracker: PatientSniperTracker,
     combatants: Combatants,
   };
+  static propTypes = {
+    patientSniper: PropTypes.object.isRequired,
+  };
+
+
+
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.PATIENT_SNIPER_TALENT.id);
   }
@@ -31,19 +36,19 @@ class PatientSniperDetails extends Module {
   }
   statistic() {
     //calculates the FLAT increase in dmg on average
-    const averagePatientSniperDmgIncreaseWithTS = (this.piercingShotDmgIncreaseWithTS + this.piercingShotDmgIncreaseNoTS + this.aimedShotDmgIncreaseWithTS + this.aimedShotDmgIncreaseNoTS) / (this.aimedShotsNoTS + this.aimedShotsWithTS + this.piercingShotsNoTS + this.piercingShotsWithTS);
+    const averagePatientSniperDmgIncreaseWithTS = this.patientSniper.patientSniper[SPELLS.AIMED_SHOT.id].vulnerableModifierAimed + (this.piercingShotDmgIncreaseWithTS + this.piercingShotDmgIncreaseNoTS + this.aimedShotDmgIncreaseWithTS + this.aimedShotDmgIncreaseNoTS) / (this.aimedShotsNoTS + this.aimedShotsWithTS + this.piercingShotsNoTS + this.piercingShotsWithTS);
     const averagePSDmgIncreaseAimedOnly = (this.aimedShotDmgIncreaseNoTS + this.aimedShotDmgIncreaseWithTS) / (this.aimedShotsWithTS + this.aimedShotsNoTS);
     const averagePSDmgIncreasePiercingOnly = (this.piercingShotDmgIncreaseNoTS + this.piercingShotDmgIncreaseWithTS) / (this.piercingShotsNoTS + this.piercingShotsWithTS);
     //calculates the actual dmg increase compared to not having Patient Sniper with this formula:
-    // ((1+(UARanks*0.03)+0.3+0.06xPatientSniper"Ranks")/(1+0.3+(UARanks*0.03)))-1
-    const actualDmgIncrease = ((1 + this.vulnerableModifer + averagePatientSniperDmgIncreaseWithTS) / (1 + this.vulnerableModifer)) - 1;
+    // ((1+(UARanks*0.03)+0.3+0.06*PatientSniper"Ranks")/(1+0.3+(UARanks*0.03)))-1
+    const actualAverageDmgIncrease = ((1 + ((this.props.patientSniper[SPELLS.AIMED_SHOT.id].vulnerableModifierAimed + this.props.patientSniper[SPELLS.PIERCING_SHOT_TALENT.id].vulnerableModifierPiercing) / 2) + averagePatientSniperDmgIncreaseWithTS) / (1 + ((this.props.patientSniper[SPELLS.AIMED_SHOT.id].vulnerableModifierAimed + this.props.patientSniper[SPELLS.PIERCING_SHOT_TALENT.id].vulnerableModifierPiercing ) / 2))) - 1;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.PATIENT_SNIPER_TALENT.id} />}
-        value={`+${formatPercentage(actualDmgIncrease)}%`}
+        value={`+${formatPercentage(actualAverageDmgIncrease)}%`}
         label="Avg % dmg change from PS"
         tooltip={` This shows how much your average Aimed Shot and Piercing Shot was increased by compared to how much it would have done without being affected by Patient Sniper. These include Aimed/Piercing Shots fired during Trueshot windows. <br /> Below you'll see them individually, and if you want to see more Patient Sniper information (such as without Trueshot windows), please check the "Patient Sniper Usage" tab in the menu. <br />
-Aimed Shot increase: ${formatPercentage(((1 + this.vulnerableModifer + averagePSDmgIncreaseAimedOnly) / (1 + this.vulnerableModifer)) - 1)}% <br /> Piercing Shot increase: ${formatPercentage(((1 + this.vulnerableModifer + averagePSDmgIncreasePiercingOnly) / (1 + this.vulnerableModifer)) - 1)}% <br />`} />
+Aimed Shot increase: ${formatPercentage(((1 + this.props.patientSniper[SPELLS.AIMED_SHOT.id].vulnerableModifierAimed + averagePSDmgIncreaseAimedOnly) / (1 + this.props.patientSniper[SPELLS.AIMED_SHOT.id].vulnerableModifierAimed)) - 1)}% <br /> Piercing Shot increase: ${formatPercentage(((1 + this.dependencies.patientSniper[SPELLS.PIERCING_SHOT_TALENT.id].vulnerableModifierPiercing + averagePSDmgIncreasePiercingOnly) / (1 + this.props.patientSniper[SPELLS.PIERCING_SHOT_TALENT.id].vulnerableModifierPiercing)) - 1)}% <br />`} />
     );
   }
 
@@ -54,7 +59,7 @@ Aimed Shot increase: ${formatPercentage(((1 + this.vulnerableModifer + averagePS
       render: () => (
         <Tab title="Patient Sniper Usage Breakdown">
           <PatientSniperBreakdown
-          patientSniper={this.patientSniperTracker.patientSniper}
+            patientSniper={this.patientSniperTracker.patientSniper}
           />
         </Tab>
       ),

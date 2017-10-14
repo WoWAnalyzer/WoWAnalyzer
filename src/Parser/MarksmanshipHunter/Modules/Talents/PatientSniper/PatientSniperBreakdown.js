@@ -14,7 +14,7 @@ import SPELLS from 'common/SPELLS';
 class PatientSniperBreakdown extends React.Component {
   static dependencies = {
     patientSniperTracker: PatientSniperTracker,
-  }
+  };
 
   render() {
     return (
