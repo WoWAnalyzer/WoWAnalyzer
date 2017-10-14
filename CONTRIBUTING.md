@@ -76,6 +76,8 @@ Don't forget to update the changelog, but only include changes that users might 
 
 We work on this project on a voluntary basis with busy schedules. Some days we have a lot of time available to work on it, other days we are very limited. This can lead to slower PR review times, so please bear with us. Our goal is to respond to small PRs within 24 hours, and anything else within 48 hours. Larger or more complex PRs may take longer to be reviewed as we wish to be just as thorough. We strife to never leave an action required on our end for more than 7 days. If you haven't heard anything by then, feel free to ping us as you deem appropriate.
 
+If you're curious what GitHub name links to who on Discord see [CONTRIBUTORNAMES.md](CONTRIBUTORNAMES.md).
+
 <table align="center">
   <tr>
     <td align="center" width="100"><img src="https://cdn1.iconfinder.com/data/icons/CrystalClear/48x48/apps/important.png" alt="Important"></td>
