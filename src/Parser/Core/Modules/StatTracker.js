@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
+import SPECS from 'common/SPECS';
 import { calculateSecondaryStatDefault } from 'common/stats';
 import { formatMilliseconds } from 'common/format';
 
@@ -8,6 +9,8 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 const debug = false;
 
+// TODO: add stam, speed, avoidance, leech
+// TODO: stat constants somewhere else? they're largely copied from combatant
 class StatTracker extends Module {
   static dependencies = {
     combatants: Combatants,
@@ -41,10 +44,11 @@ class StatTracker extends Module {
 
   }
 
+  _startingStats = {};
   _stats = {};
 
   on_initialized() {
-    this._stats = {
+    this._startingStats = {
       str: this.combatants.selected.strength,
       agi: this.combatants.selected.agility,
       int: this.combatants.selected.intellect,
@@ -53,71 +57,146 @@ class StatTracker extends Module {
       mastery: this.combatants.selected.masteryRating,
       vers: this.combatants.selected.versatilityRating,
     };
+    this._stats = this._startingStats;
+
     debug && this._debugPrintStats(this._stats);
   }
 
-  get currentStrength() {
+  /*
+   * Stat rating at pull.
+   * Should be identical to what you get from Combatant.
+   */
+  get startingStrengthRating() {
+    return this._startingStats.str;
+  }
+  get startingAgilityRating() {
+    return this._startingStats.agi;
+  }
+  get startingIntellectRating() {
+    return this._startingStats.int;
+  }
+  get startingCritRating() {
+    return this._startingStats.crit;
+  }
+  get startingHasteRating() {
+    return this._startingStats.haste;
+  }
+  get startingMasteryRating() {
+    return this._startingStats.mastery;
+  }
+  get startingVersRating() {
+    return this._startingStats.vers;
+  }
+
+  /*
+   * Current stat rating, as tracked by this module.
+   */
+  get currentStrengthRating() {
     return this._stats.str;
   }
-
-  get currentAgility() {
+  get currentAgilityRating() {
     return this._stats.agi;
   }
-
-  get currentIntellect() {
+  get currentIntellectRating() {
     return this._stats.int;
   }
-
-  get currentCrit() {
+  get currentCritRating() {
     return this._stats.crit;
   }
-
-  get currentHaste() {
+  get currentHasteRating() {
     return this._stats.haste;
   }
-
-  get currentMastery() {
+  get currentMasteryRating() {
     return this._stats.mastery;
   }
-
-  get currentVers() {
+  get currentVersRating() {
     return this._stats.vers;
   }
 
+  /*
+   * For percentage stats, the percentage you'd have with zero rating.
+   * These values don't change.
+   */
+  get baseCritPercentage() {
+    return 0.08;
+  }
+  get baseHastePercentage() {
+    return 0;
+  }
+  get baseMasteryPercentage() {
+    switch (this.combatants.selected.spec) {
+      case SPECS.HOLY_PALADIN:
+        return 0.12;
+      case SPECS.HOLY_PRIEST:
+        return 0.05;
+      case SPECS.RESTORATION_SHAMAN:
+        return 0.24;
+      case SPECS.ENHANCEMENT_SHAMAN:
+        return 0.2;
+	    case SPECS.RESTORATION_DRUID:
+	      return 0.048;
+      default:
+        throw new Error('Mastery hasn\'t been implemented for this spec yet.');
+    }
+  }
+  get baseVersPercentage() {
+    return 0;
+  }
 
+  /*
+   * For percentage stats, this is the multiplier to go from rating to percent (expressed from 0 to 1)
+   * These values don't change.
+   */
+  get critRatingToPercent() {
+    return (1 / 40000);
+  }
+  get hasteRatingToPercent() {
+    return (1 / 37500);
+  }
+  get masteryRatingToPercent() {
+    switch (this.combatants.selected.spec) {
+      case SPECS.HOLY_PALADIN:
+        return (1 / 26667);
+      case SPECS.HOLY_PRIEST:
+        return (1 / 32000);
+      case SPECS.RESTORATION_SHAMAN:
+        return (1 / 13333);
+      case SPECS.ENHANCEMENT_SHAMAN:
+        return (1 / 13333);
+	    case SPECS.RESTORATION_DRUID:
+	      return (1 / 66667);
+      default:
+        throw new Error('Mastery hasn\'t been implemented for this spec yet.');
+    }
+  }
+  get versRatingToPercent() {
+    return (1 / 47500);
+  }
 
-  //on_toPlayer_applybuff(event) {
-  //  this._applyBuff(event);
-  //}
+  /*
+   * For percentage stats, the current stat percentage as tracked by this module.
+   */
+  get currentCritPercentage() {
+    return this.baseCritPercentage + (this.currentCritRating * this.critRatingToPercent);
+  }
+  get currentHastePercentage() {
+    return this.baseHastePercentage + (this.currentHasteRating * this.hasteRatingToPercent);
+  }
+  get currentMasteryPercentage() {
+    return this.baseMasteryPercentage + (this.currentMasteryRating * this.masteryRatingToPercent);
+  }
+  get currentVersPercentage() {
+    return this.baseVersPercentage + (this.currentVersRating * this.versRatingToPercent);
+  }
 
-  // on_toPlayer_removebuff(event) {
-  //   this._removeBuff(event);
-  // }
 
   on_toPlayer_changebuffstack(event) {
     this._changeBuffStack(event);
   }
 
-  // on_toPlayer_applydebuff(event) {
-  //   this._applyBuff(event);
-  // }
-
-  // on_toPlayer_removedebuff(event) {
-  //   this._removeBuff(event);
-  // }
-
   on_toPlayer_changedebuffstack(event) {
     this._changeBuffStack(event);
   }
-
-  // _applyBuff(event) {
-  //   const spellId = event.ability.guid;
-  //   const statBuff = this.constructor.STAT_BUFFS[spellId];
-  //   if(statBuff) {
-  //     debug && console.log(`StatTracker: applying ${SPELLS[spellId] ? SPELLS[spellId].name : spellId}`);
-  //     this._changeStats(this._stats, statBuff, 1);
-  //   }
-  // }
 
   _changeBuffStack(event) {
     const spellId = event.ability.guid;
@@ -133,15 +212,6 @@ class StatTracker extends Module {
       this._changeStats(this._stats, statBuff, event.newStacks - event.oldStacks);
     }
   }
-
-  // _removeBuff(event) {
-  //   const spellId = event.ability.guid;
-  //   const statBuff = this.constructor.STAT_BUFFS[spellId];
-  //   if(statBuff) {
-  //     debug && console.log(`StatTracker: removing ${SPELLS[spellId] ? SPELLS[spellId].name : spellId}`);
-  //     this._changeStats(this._stats, statBuff, -1);
-  //   }
-  // }
 
   _changeStats(orig, change, factor) {
     orig.str += this._getBuffValue(change, change.str) * factor;
