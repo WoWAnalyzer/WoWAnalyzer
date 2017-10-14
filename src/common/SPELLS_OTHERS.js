@@ -137,6 +137,23 @@ export default {
     name: 'Mark of the Hidden Satyr',
     icon: 'sha_spell_fire_fireball02_nightmare',
   },
+  // Dungeon Trinkets
+  SHADOWS_STRIKE: { // Dreadstone of Endless Shadows crit proc
+    id: 238499,
+    name: "Shadow's Strike",
+    icon: 'ability_warlock_shadowfurytga',
+  },
+  SHADOW_MASTER: { // Dreadstone of Endless Shadows mastery proc
+    id: 238500,
+    name: "Shadow Master",
+    icon: 'ability_creature_disease_05',
+  },
+  SWARMING_SHADOWS: { // Dreadstone of Endless Shadows haste proc
+    id: 238501,
+    name: "Swarming Shadows",
+    icon: 'spell_shadow_shadesofdarkness',
+  },
+
   // Nighthold Trinkets
   RECURSIVE_STRIKES: {
     id: 225739,

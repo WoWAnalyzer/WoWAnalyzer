@@ -1,10 +1,12 @@
 import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
+import { calculateSecondaryStatDefault } from 'common/stats';
 import { formatMilliseconds } from 'common/format';
 
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-const debug = true;
+const debug = false;
 
 class StatTracker extends Module {
   static dependencies = {
@@ -12,16 +14,28 @@ class StatTracker extends Module {
   };
 
   static STAT_BUFFS = {
-    // Potions
+    //// POTIONS ////
     [SPELLS.POTION_OF_PROLONGED_POWER.id]: { str: 2500, agi: 2500, int: 2500 },
     // probably no need to add flasks/food because they never fall
 
-    // Trinkets
+    //// TRINKETS ////
+    [SPELLS.SHADOWS_STRIKE.id]: {
+      itemId: ITEMS.DREADSTONE_OF_ENDLESS_SHADOWS.id,
+      crit: (_, item) => calculateSecondaryStatDefault(845, 3480, item.itemLevel),
+    },
+    [SPELLS.SHADOW_MASTER.id]: {
+      itemId: ITEMS.DREADSTONE_OF_ENDLESS_SHADOWS.id,
+      mastery: (_, item) => calculateSecondaryStatDefault(845, 3480, item.itemLevel),
+    },
+    [SPELLS.SWARMING_SHADOWS.id]: {
+      itemId: ITEMS.DREADSTONE_OF_ENDLESS_SHADOWS.id,
+      haste: (_, item) => calculateSecondaryStatDefault(845, 3480, item.itemLevel),
+    },
 
-    // Sets
+    //// MISC ////
     [SPELLS.JACINS_RUSE.id]: { mastery: 3000 },
 
-    // Druid
+    //// DRUID ////
     [SPELLS.ASTRAL_HARMONY.id]: { mastery: 4000 },
 
 
