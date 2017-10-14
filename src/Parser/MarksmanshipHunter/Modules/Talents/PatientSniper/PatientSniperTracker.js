@@ -1,16 +1,8 @@
-import React from 'react';
-
 import Module from 'Parser/Core/Module';
 import Enemies from 'Parser/Core/Modules/Enemies';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
-
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-
-import { formatPercentage } from 'common/format';
-
-const debug = true;
 
 class PatientSniperTracker extends Module {
 
@@ -18,7 +10,6 @@ class PatientSniperTracker extends Module {
     enemies: Enemies,
     combatants: Combatants,
   };
-
   /*
   A module to track the effectiveness of the Patient Sniper talent
   > Apply Vulnerable
@@ -331,9 +322,7 @@ class PatientSniperTracker extends Module {
     const eventTimestamp = event.timestamp;
 
     //we're only interested in windburst here
-    if (spellId !== SPELLS.WINDBURST.id) {
-      return;
-    } else {
+    if (spellId === SPELLS.WINDBURST.id) {
       //vulnerable is reset, so we get new timestamp
       this.lastVulnerableTimestamp = eventTimestamp;
       if (this.combatants.selected.hasBuff(SPELLS.TRUESHOT.id)) {
@@ -344,8 +333,6 @@ class PatientSniperTracker extends Module {
       }
     }
   }
-
-  statisticOrder = STATISTIC_ORDER.CORE(6);
 }
 
 export default PatientSniperTracker;

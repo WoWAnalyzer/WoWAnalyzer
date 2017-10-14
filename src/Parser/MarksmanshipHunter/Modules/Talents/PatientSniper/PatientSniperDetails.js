@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
 import Tab from 'Main/Tab';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
@@ -15,8 +16,11 @@ class PatientSniperDetails extends Module {
   static
   dependencies = {
     patientSniperTracker: PatientSniperTracker,
+    combatants: Combatants,
   };
-
+  on_initialized() {
+    this.active = this.combatants.selected.hasTalent(SPELLS.PATIENT_SNIPER_TALENT.id);
+  }
 
   suggestions(when) {
     /*suggestions(when) {
