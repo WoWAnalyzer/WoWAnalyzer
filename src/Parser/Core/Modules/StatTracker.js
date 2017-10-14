@@ -9,7 +9,6 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 const debug = false;
 
-// TODO: add stam, speed, avoidance, leech
 // TODO: stat constants somewhere else? they're largely copied from combatant
 class StatTracker extends Module {
   static dependencies = {
@@ -52,10 +51,14 @@ class StatTracker extends Module {
       str: this.combatants.selected.strength,
       agi: this.combatants.selected.agility,
       int: this.combatants.selected.intellect,
+      stam: this.combatants.selected.stamina,
       crit: this.combatants.selected.critRating,
       haste: this.combatants.selected.hasteRating,
       mastery: this.combatants.selected.masteryRating,
       vers: this.combatants.selected.versatilityRating,
+      avoidance: this.combatants.selected.avoidanceRating,
+      leech: this.combatants.selected.leechRating,
+      speed: this.combatants.selected.speedRating,
     };
     this._stats = this._startingStats;
 
@@ -75,6 +78,9 @@ class StatTracker extends Module {
   get startingIntellectRating() {
     return this._startingStats.int;
   }
+  get startingStaminaRating() {
+    return this._startingStats.stam;
+  }
   get startingCritRating() {
     return this._startingStats.crit;
   }
@@ -86,6 +92,15 @@ class StatTracker extends Module {
   }
   get startingVersRating() {
     return this._startingStats.vers;
+  }
+  get startingAvoidanceRating() {
+    return this._startingStats.avoidance;
+  }
+  get startingLeechRating() {
+    return this._startingStats.leech;
+  }
+  get startingSpeedRating() {
+    return this._startingStats.speed;
   }
 
   /*
@@ -100,6 +115,9 @@ class StatTracker extends Module {
   get currentIntellectRating() {
     return this._stats.int;
   }
+  get currentStaminaRating() {
+    return this._stats.stam;
+  }
   get currentCritRating() {
     return this._stats.crit;
   }
@@ -112,13 +130,22 @@ class StatTracker extends Module {
   get currentVersRating() {
     return this._stats.vers;
   }
+  get currentAvoidanceRating() {
+    return this._stats.avoidance;
+  }
+  get currentLeechRating() {
+    return this._stats.leech;
+  }
+  get currentSpeedRating() {
+    return this._stats.speed;
+  }
 
   /*
    * For percentage stats, the percentage you'd have with zero rating.
    * These values don't change.
    */
   get baseCritPercentage() {
-    return 0.08;
+    return 0.08; // TODO is this the same for all classes?
   }
   get baseHastePercentage() {
     return 0;
@@ -142,35 +169,53 @@ class StatTracker extends Module {
   get baseVersPercentage() {
     return 0;
   }
+  get baseAvoidancePercentage() {
+    return 0;
+  }
+  get baseLeechPercentage() {
+    return 0;
+  }
+  get baseSpeedPercentage() {
+    return 0;
+  }
 
   /*
    * For percentage stats, this is the multiplier to go from rating to percent (expressed from 0 to 1)
    * These values don't change.
    */
   get critRatingToPercent() {
-    return (1 / 40000);
+    return 1 / 40000;
   }
   get hasteRatingToPercent() {
-    return (1 / 37500);
+    return 1 / 37500;
   }
   get masteryRatingToPercent() {
     switch (this.combatants.selected.spec) {
       case SPECS.HOLY_PALADIN:
-        return (1 / 26667);
+        return 1 / 26667;
       case SPECS.HOLY_PRIEST:
-        return (1 / 32000);
+        return 1 / 32000;
       case SPECS.RESTORATION_SHAMAN:
-        return (1 / 13333);
+        return 1 / 13333;
       case SPECS.ENHANCEMENT_SHAMAN:
-        return (1 / 13333);
+        return 1 / 13333;
 	    case SPECS.RESTORATION_DRUID:
-	      return (1 / 66667);
+	      return 1 / 66667;
       default:
         throw new Error('Mastery hasn\'t been implemented for this spec yet.');
     }
   }
   get versRatingToPercent() {
-    return (1 / 47500);
+    return 1 / 47500;
+  }
+  get avoidanceRatingToPercent() {
+    return 1 / 11000;
+  }
+  get leechRatingToPercent() {
+    return 1 / 23000;
+  }
+  get speedRatingToPercent() {
+    throw new Error('Speed hasn\'t been implemented yet.');
   }
 
   /*
@@ -187,6 +232,15 @@ class StatTracker extends Module {
   }
   get currentVersPercentage() {
     return this.baseVersPercentage + (this.currentVersRating * this.versRatingToPercent);
+  }
+  get currentAvoidancePercentage() {
+    return this.baseAvoidancePercentage + (this.currentAvoidanceRating * this.avoidanceRatingToPercent);
+  }
+  get currentLeechPercentage() {
+    return this.baseLeechPercentage + (this.currentLeechRating * this.leechRatingToPercent);
+  }
+  get currentSpeedPercentage() {
+    return this.baseSpeedPercentage + (this.currentSpeedRating * this.speedRatingToPercent);
   }
 
 
@@ -217,10 +271,14 @@ class StatTracker extends Module {
     orig.str += this._getBuffValue(change, change.str) * factor;
     orig.agi += this._getBuffValue(change, change.agi) * factor;
     orig.int += this._getBuffValue(change, change.int) * factor;
+    orig.stam += this._getBuffValue(change, change.stam) * factor;
     orig.crit += this._getBuffValue(change, change.crit) * factor;
     orig.haste += this._getBuffValue(change, change.haste) * factor;
     orig.mastery += this._getBuffValue(change, change.mastery) * factor;
     orig.vers += this._getBuffValue(change, change.vers) * factor;
+    orig.avoidance += this._getBuffValue(change, change.avoidance) * factor;
+    orig.leech += this._getBuffValue(change, change.leech) * factor;
+    orig.speed += this._getBuffValue(change, change.speed) * factor;
     debug && this._debugPrintStats(orig);
   }
 
@@ -249,7 +307,7 @@ class StatTracker extends Module {
   }
 
   _debugPrintStats(stats) {
-    console.log(`StatTracker:`, formatMilliseconds(this.owner.fightDuration),`STR=${stats.str} AGI=${stats.agi} INT=${stats.int} CRT=${stats.crit} HST=${stats.haste} MST=${stats.mastery} VRS=${stats.vers}`);
+    console.log(`StatTracker:`, formatMilliseconds(this.owner.fightDuration),`STR=${stats.str} AGI=${stats.agi} INT=${stats.int} STM=${stats.stam} CRT=${stats.crit} HST=${stats.haste} MST=${stats.mastery} VRS=${stats.vers} AVD=${stats.avoidance} LCH=${stats.leech} SPD=${stats.speed}`);
   }
 
 }
