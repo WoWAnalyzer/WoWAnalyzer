@@ -1,4 +1,7 @@
+
+
 import SPELLS from 'common/SPELLS';
+
 import CoreCastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 
 class CastEfficiency extends CoreCastEfficiency {
@@ -39,7 +42,7 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.SERENITY_TALENT,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
-      getCooldown: haste => 70,
+      getCooldown: (_, combatant) => combatant.owner.modules.stormEarthAndFire.reducedCooldownWithTraits,
       isActive: combatant => combatant.hasTalent(SPELLS.SERENITY_TALENT.id),
     },
     // other spells
