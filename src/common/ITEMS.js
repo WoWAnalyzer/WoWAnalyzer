@@ -1022,41 +1022,6 @@ const ITEMS = {
     icon: 'inv_cape_pandaria_c_02',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
-  FERETORY_OF_SOULS: {
-    id: 132456,
-    name: 'Feretory of Souls',
-    icon: 'inv_belt_cloth_raidwarlock_n_01',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
-  ALYTHESSS_PYROGENICS: {
-    id: 132460,
-    name: 'Alythess\'s Pyrogenics',
-    icon: 'inv_jewelry_ring_65',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
-  SINDOREI_SPITE: {
-    id: 132379,
-    name: 'Sin\'dorei Spite',
-    icon: 'inv_bracer_44',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
-  LESSONS_OF_SPACETIME: {
-    id: 144369,
-    name: 'Lessons of Space-Time',
-    icon: 'inv_shoulder_robe_pvpwarlock_d_01',
-  },
-  ODR_SHAWL_OF_THE_YMIRJAR: {
-    id: 132375,
-    name: 'Odr, Shawl of the Ymirjar',
-    icon: 'inv_misc_cape_cataclysm_tank_b_01',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
-  MAGISTRIKE_RESTRAINTS: {
-    id: 132407,
-    name: 'Magistrike Restraints',
-    icon: 'inv_bracer_31b',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
   // Demonology legendaries
   KAZZAKS_FINAL_CURSE: {
     id: 132374,
@@ -1082,6 +1047,43 @@ const ITEMS = {
     icon: 'inv_shoulder_cloth_raidwarlock_l_01',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+  SINDOREI_SPITE: {
+    id: 132379,
+    name: 'Sin\'dorei Spite',
+    icon: 'inv_bracer_44',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  // Destruction Legendaries
+  FERETORY_OF_SOULS: {
+    id: 132456,
+    name: 'Feretory of Souls',
+    icon: 'inv_belt_cloth_raidwarlock_n_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  ALYTHESSS_PYROGENICS: {
+    id: 132460,
+    name: 'Alythess\'s Pyrogenics',
+    icon: 'inv_jewelry_ring_65',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  LESSONS_OF_SPACETIME: {
+    id: 144369,
+    name: 'Lessons of Space-Time',
+    icon: 'inv_shoulder_robe_pvpwarlock_d_01',
+  },
+  ODR_SHAWL_OF_THE_YMIRJAR: {
+    id: 132375,
+    name: 'Odr, Shawl of the Ymirjar',
+    icon: 'inv_misc_cape_cataclysm_tank_b_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  MAGISTRIKE_RESTRAINTS: {
+    id: 132407,
+    name: 'Magistrike Restraints',
+    icon: 'inv_bracer_31b',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+
   // SHARED DEATH KNIGHT LEGENDARIES
   ACHERUS_DRAPES: {
     id: 132376,
