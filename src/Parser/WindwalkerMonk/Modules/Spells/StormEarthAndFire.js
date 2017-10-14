@@ -7,7 +7,10 @@ class StormEarthAndFire extends Module{
     combatants: Combatants,
   };
 
-  sefCDReduction = 0;
+  get sefCDReduction() {
+    const sefCDReduction = 0;
+    return sefCDReduction;
+  }
 
   get reducedCooldownWithTraits() {
     const player = this.combatants.selected;
