@@ -8,7 +8,7 @@ class StormEarthAndFire extends Module{
   };
 
   get traitsCDReduction() {
-    const traitsCDReduction = 0;
+    let traitsCDReduction = 0;
     const player = this.combatants.selected;
     const splitPersonalityRank = player.traitsBySpellId[SPELLS.SPLIT_PERSONALITY.id];
     //Calculates the reduction in cooldown/recharge on Serenity/Storm, Earth and Fire, based on the rank of the Personality Trait
@@ -34,7 +34,7 @@ class StormEarthAndFire extends Module{
   }
 
   get reducedCooldownWithTraits() {
-    const reducedCooldownWithTraits = 90 - traitsCDReduction();
+    const reducedCooldownWithTraits = 90 - this.traitsCDReduction();
     return reducedCooldownWithTraits;
   }
 }
