@@ -13,28 +13,16 @@ class BlessingOfTheAshbringer extends Module {
 		combatants: Combatants,
 	};
 
-	blessingOfKingsUptime = 0;
-	blessingOfWisdomUptime = 0;
-
 	on_initialized() {
 		this.active = this.combatants.selected.traitsBySpellId[SPELLS.BLESSING_OF_THE_ASHBRINGER.id] > 0;
 	}
 
+	get wisdom() {
+		return this.combatants.getBuffUptime(SPELLS.GREATER_BLESSING_OF_WISDOM.id) / this.owner.fightDuration;
+	}
 
-	on_byPlayer_applybuff(event) {
-		const spellId = event.ability.guid;
-		const targetId = event.targetID;
-		const playerId = this.owner.playerId;
-		
-		if(spellId === SPELLS.GREATER_BLESSING_OF_WISDOM.id && event.sourceID === playerId){
-			this.blessingOfWisdomUptime = this.combatants.players[targetId].getBuffUptime(spellId) / this.owner.fightDuration;
-			debug && console.log(this.blessingOfWisdomUptime, 'wisdom uptime');
-			
-		}
-		if(spellId === SPELLS.GREATER_BLESSING_OF_KINGS.id && event.sourceID === playerId){
-			this.blessingOfKingsUptime = this.combatants.players[targetId].getBuffUptime(spellId) / this.owner.fightDuration;
-			debug && console.log(this.blessingOfKingsUptime, 'kings uptime');
-		}	
+	get kings() {
+		return this.combatants.getBuffUptime(SPELLS.GREATER_BLESSING_OF_KINGS.id) / this.owner.fightDuration;
 	}
 
 	get uptime() {
@@ -42,7 +30,8 @@ class BlessingOfTheAshbringer extends Module {
 		//If Blessing of the Ashbringer is undef/NaN set it to be 
 		//the lower of the uptimes between Kings and Wisdom
 		if(!uptime){
-			return this.blessingOfWisdomUptime > this.blessingOfKingsUptime ? this.blessingOfKingsUptime : this.blessingOfWisdomUptime;
+			debug && console.log(this.wisdom, 'wis', this.kings, 'kings');
+			return this.wisdom > this.kings ? this.kings : this.wisdom;
 		}
 		debug && console.log(uptime, 'Blessing of the Ashbringer');
 		return uptime;
