@@ -15,17 +15,17 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.FISTS_OF_FURY_CAST,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => 24,
+      getCooldown: haste => 24 /(1 + haste),
     },
     {
       spell: SPELLS.RISING_SUN_KICK,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => 10,
+      getCooldown: haste => 10 / (1 + haste),
     },
     {
       spell: SPELLS.WHIRLING_DRAGON_PUNCH_TALENT,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => 24,
+      getCooldown: haste => 24 / (1 + haste),
       isActive: combatant => combatant.hasTalent(SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id),
     },
     // cooldowns
@@ -44,6 +44,13 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: (_, combatant) => combatant.owner.modules.stormEarthAndFire.reducedCooldownWithTraits,
       isActive: combatant => combatant.hasTalent(SPELLS.SERENITY_TALENT.id),
+    },
+    {
+      spell: SPELLS.STORM_EARTH_AND_FIRE_CAST,
+      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
+      getCooldown: (_, combatant) => combatant.owner.modules.stormEarthAndFire.reducedCooldownWithTraits,
+      isActive: combatant => combatant.hasTalent(SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id),
+      charges: 2,
     },
     // other spells
     {
