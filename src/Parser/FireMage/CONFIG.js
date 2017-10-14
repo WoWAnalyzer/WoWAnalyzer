@@ -16,8 +16,8 @@ export default {
   changelog: CHANGELOG,
   description: (
     <div>
-      I have been playing Fire throughout most of Nighthold and Tomb of Sargeras, but one of my guildies on Draenor (EU) has stuck with Fire every since vanilla and is my usual source for theories and knowledge. <br/><br/>
-      Also the game doesn't want me to have the Sun King bracers.
+      I have been playing Fire for a bit, but usually rely on a guild member of mine to support with Fire knowledge (he has been playing Fire since Vanilla).<br/>
+      I am a JS developer by day and apparently by night as well.
     </div>
   ),
   specDiscussionUrl: 'https://github.com/WoWAnalyzer/WoWAnalyzer/issues/519',
