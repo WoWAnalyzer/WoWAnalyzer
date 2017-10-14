@@ -10,7 +10,7 @@ It may sometimes be unclear who is who because the names on GitHub can be differ
 | @Chizu | [sMteX](https://github.com/sMteX) |
 | @Mamtooth | [ronaldpereira](https://github.com/ronaldpereira) |
 | @Sref | [kfinch](https://github.com/kfinch) |
-|  | [shighman](https://github.com/shighman) |
+| @WOPR | [shighman](https://github.com/shighman) |
 | @Iskalla | [Iskalla](https://github.com/Iskalla) |
 | @HeWhoSmites | [CollCrom](https://github.com/CollCrom) |
 | @Putro | [Pewtro](https://github.com/Pewtro) |
