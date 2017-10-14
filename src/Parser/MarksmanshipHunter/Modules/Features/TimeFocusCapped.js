@@ -1,7 +1,7 @@
 import React from 'react';
-import {HorizontalBar} from 'react-chartjs-2';
 import Module from 'Parser/Core/Module';
-import StatisticsListBox, { STATISTIC_ORDER } from 'Main/StatisticsListBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import Icon from 'common/Icon';
 
 import FocusTracker from '../FocusChart/FocusTracker';
 
@@ -9,91 +9,49 @@ class TimeFocusCapped extends Module {
   static dependencies = {
     focusTracker: FocusTracker,
   };
-  centerStyle = {textAlign:'center'};
 
-  getData(){
-    this.cData = {
-      labels: [''],
-      datasets: [
-        {
-          label: 'Time Not Focus Capped',
-          backgroundColor: 'rgba(127,255,0,1)',
-          borderColor: 'rgba(0,0,0,1)',
-          borderWidth: 2,
+  getTotalWaste(){
+    let waste = this.focusTracker.secondsCapped * this.focusTracker.focusGen;
+    if (this.focusTracker.generatorCasts) {
+      Object.keys(this.focusTracker.activeFocusWasted).forEach((generator) => {
+        waste += this.focusTracker.activeFocusWasted[generator];
 
-          data: [Math.round((this.owner.fightDuration / 1000)-this.focusTracker.secondsCapped)],
-        },
-        {
-          label: 'test2',
-          backgroundColor: 'rgba(255,255,255,1)',
-          borderColor: 'rgba(0,0,0,1)',
-          borderWidth: 2,
-
-          data: [Math.round(this.focusTracker.secondsCapped)],
-        },
-      ],
-    };
-    this.cOptions = {
-      scaleBeginAtZero: true,
-      tooltips:{
-        enabled: false,
-      },
-      legend: {
-        display: false,
-      },
-      scales: {
-        xAxes: [{
-          gridlines:{
-            display:false,
-          },
-          ticks:{
-            display:false,
-            max: Math.ceil(this.owner.fightDuration / 1000),
-          },  
-          barPercentage: 1,
-          categoryPercentage: 1,
-          stacked: true,
-        }],
-        yAxes: [{
-          gridlines:{
-            display:false,
-          },  
-          ticks:{
-            display:false,
-          }, 
-          barPercentage: 1,
-          categoryPercentage: 1,
-          stacked: true,  
-        }],
-      },
-    };
-    
-  }
-
-  chartData(){
-    this.getData();
-    return(
-      <HorizontalBar 
-        data = {this.cData}
-        height = {15}
-        width = {75}
-        options = {this.cOptions}
-      />
-    );
+      });
+    }
+    return Math.round(waste);
   }
 
   statistic() {
-    const tooltipData = "You wasted " + Math.round(this.focusTracker.secondsCapped) + " seconds focus capped. <br /> That's approx. " + Math.round(this.focusTracker.secondsCapped/(this.owner.fightDuration/1000) * 100) + "% of the fight. <br /> For more details, see the Focus Chart tab.";
+    const totalFocusWaste = this.getTotalWaste();
+    const tooltipData = "You wasted <b>" + totalFocusWaste + " </b> focus. <br /> That's <b>" + Math.round(totalFocusWaste/(this.owner.fightDuration/1000 * this.focusTracker.focusGen) * 10000)/100 + "% </b> of your total focus generated. <br /> For more details, see the Focus Chart tab.";
+    const percentCapped = Math.round(this.focusTracker.secondsCapped/(this.owner.fightDuration/1000) * 10000)/100;
     return (
-      <StatisticsListBox
-        title="FOCUS-CAPPED"
+      <StatisticBox
+        icon = {<Icon icon='ability_hunter_focusfire' alt = 'Focus Wasted' />}
+        label = {'Time Focus Capped'}
         tooltip= {tooltipData}
-      >
-      <div style = {this.centerStyle}>
-      Time not Focus-Capped: {Math.round((this.owner.fightDuration / 1000 - this.focusTracker.secondsCapped) * 100) / 100}s / {Math.floor(this.owner.fightDuration / 1000)}s
-      </div>
-      {this.chartData()}
-      </StatisticsListBox>
+        value =  {percentCapped + " %"}
+      //Time not Focus-Capped: {Math.round((this.owner.fightDuration / 1000 - this.focusTracker.secondsCapped) * 100) / 100}s / {Math.floor(this.owner.fightDuration / 1000)}
+      footer={(
+        <div className="statistic-bar">
+        <div
+          className="stat-health-bg"
+          style={{ width: `${(100-percentCapped)}%` }}
+          data-tip={`You spent <b>${100-percentCapped}%</b> of your time, or <b>${Math.round(Math.floor(this.owner.fightDuration/1000) - this.focusTracker.secondsCapped)}s</b> under the focucs cap.`}
+        >
+          <img src="/img/sword.png" alt="Non-heal cast time" />
+        </div>
+          <div
+            className="stat-overhealing-bg"
+            style={{ width: `${percentCapped}%` }}
+            data-tip={`You spent <b>${percentCapped}%</b>, or <b>${Math.round(this.focusTracker.secondsCapped)}s</b> of your time focus Capped.`}
+          >
+            <img src="/img/afk.png" alt="Healing time" />
+          </div>
+        </div>
+      )}
+      footerStyle={{ overflow: 'hidden' }}
+      />
     );
   }
 
