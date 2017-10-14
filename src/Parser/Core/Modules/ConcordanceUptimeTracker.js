@@ -1,12 +1,12 @@
 import React from 'react';
 
-import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
-import SpellLink from 'common/SpellLink';
-import { formatPercentage } from 'common/format';
-
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
+
+import SPELLS from 'common/SPELLS';
+import SpellIcon from 'common/SpellIcon';
+import { formatPercentage } from 'common/format';
+
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 const debug = false;
@@ -16,7 +16,7 @@ const CONCORDANCE_SPELLS = {
   STRENGTH: SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_STRENGTH,
   VERSATILITY: SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_VERSATILITY,
 };
-class Concordance extends Module {
+class ConcordanceUptimeTracker extends Module {
   static dependencies = {
     combatants: Combatants,
   };
@@ -53,4 +53,4 @@ class Concordance extends Module {
   }
 }
 
-export default Concordance;
+export default ConcordanceUptimeTracker;
