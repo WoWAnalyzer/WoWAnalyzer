@@ -15,7 +15,7 @@ import ComboStrikes from './Modules/Features/ComboStrikes';
 
 // Spells
 import ComboBreaker from './Modules/Spells/ComboBreaker';
-import SEF from './Modules/Spells/SEF';
+import StormEarthAndFire from './Modules/Spells/StormEarthAndFire';
 
 // Talents
 import HitCombo from './Modules/Talents/HitCombo';
@@ -34,7 +34,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Spells;
     comboBreaker: ComboBreaker,
-    sef: SEF,
+    stormEarthAndFire: StormEarthAndFire,
 
     // Legendaries:
   };
