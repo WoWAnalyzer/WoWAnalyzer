@@ -24,7 +24,7 @@ import DisciplinePriest from './DisciplinePriest/CONFIG';
 import HolyPriest from './HolyPriest/CONFIG';
 import ShadowPriest from './ShadowPriest/CONFIG';
 
-import SubtletyRogue from './SubtletyRogue/CONFIG';
+import SubtletyRogue from './Rogue/Subtlety/CONFIG';
 
 import ElementalShaman from './ElementalShaman/CONFIG';
 import EnhancementShaman from './EnhancementShaman/CONFIG';
