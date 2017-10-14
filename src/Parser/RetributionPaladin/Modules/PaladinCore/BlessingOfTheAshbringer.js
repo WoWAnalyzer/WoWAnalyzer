@@ -38,13 +38,13 @@ class BlessingOfTheAshbringer extends Module {
 	}
 
 	get uptime() {
-		let uptime = this.combatants.selected.getBuffUptime(SPELLS.BLESSING_OF_THE_ASHBRINGER_BUFF.id) / this.owner.fightDuration;
+		const uptime = this.combatants.selected.getBuffUptime(SPELLS.BLESSING_OF_THE_ASHBRINGER_BUFF.id) / this.owner.fightDuration;
 		//If Blessing of the Ashbringer is undef/NaN set it to be 
 		//the lower of the uptimes between Kings and Wisdom
 		if(!uptime){
-			uptime = this.blessingOfWisdomUptime > this.blessingOfKingsUptime ? this.blessingOfKingsUptime : this.blessingOfWisdomUptime;
-			debug && console.log(uptime, 'Blessing of the Ashbringer');
+			return this.blessingOfWisdomUptime > this.blessingOfKingsUptime ? this.blessingOfKingsUptime : this.blessingOfWisdomUptime;
 		}
+		debug && console.log(uptime, 'Blessing of the Ashbringer');
 		return uptime;
 	}
 
