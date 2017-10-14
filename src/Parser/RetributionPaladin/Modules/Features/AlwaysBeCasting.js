@@ -1,13 +1,12 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import Icon from 'common/Icon';
 
 import { formatPercentage } from 'common/format';
 
 import CoreAlwaysBeCasting from 'Parser/Core/Modules/AlwaysBeCasting';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   static ABILITIES_ON_GCD = [
@@ -62,18 +61,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       });
   }
 
-  statistic() {
-    const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
-
-    return (
-      <StatisticBox
-        icon={<Icon icon="petbattle_health-down" alt="Dead time" />}
-        value={`${formatPercentage(deadTimePercentage)} %`}
-        label="Downtime"
-        tooltip="Downtime is available casting time not used for casting any spell. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/being stunned), etc."
-      />
-    );
-  }
+  showStatistic = true;
   statisticOrder = STATISTIC_ORDER.CORE(1);
 }
 

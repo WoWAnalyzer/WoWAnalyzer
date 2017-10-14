@@ -1,9 +1,8 @@
 import React from 'react';
 
-import Icon from 'common/Icon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import SPELLS from 'common/SPELLS';
 
@@ -70,19 +69,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       });
   }
 
-  statistic() {
-    const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
-    return (<StatisticBox
-      icon={<Icon icon="spell_mage_altertime" alt="Downtime" />}
-      value={`${formatPercentage(deadTimePercentage)} %`}
-      label={(
-        <dfn data-tip="Downtime is available casting time not used. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), etc.">
-          Downtime
-        </dfn>
-      )}
-    />);
-  }
-
+  showStatistic = true;
   statisticOrder = STATISTIC_ORDER.CORE(2);
 }
 

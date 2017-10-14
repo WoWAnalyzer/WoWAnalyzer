@@ -1,13 +1,10 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
-import Icon from 'common/Icon';
 
 import { formatPercentage } from 'common/format';
 
 import CoreAlwaysBeCasting from 'Parser/Core/Modules/AlwaysBeCasting';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   static ABILITIES_ON_GCD = [
@@ -43,18 +40,8 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
           .regular(recommended + 0.05).major(recommended + 0.15);
       });
   }
-  statistic() {
-    const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
 
-    return (
-      <StatisticBox
-        icon={<Icon icon="spell_mage_altertime" alt="Downtime" />}
-        value={`${formatPercentage(deadTimePercentage)} %`}
-        label="Downtime"
-        tooltip={'Downtime is available casting time not used. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), etc.'}
-      />
-    );
-  }
+  showStatistic = true;
   statisticOrder = STATISTIC_ORDER.CORE(2);
 }
 
