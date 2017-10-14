@@ -14,7 +14,7 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import VulnerableUptime from './Modules/Features/VulnerableUptime';
 import VulnerableTracker from './Modules/Features/AimedInVulnerableTracker';
 
-//Focus
+//Focus 
 import FocusChart from './Modules/FocusChart/Focus';
 import FocusTracker from './Modules/FocusChart/FocusTracker';
 

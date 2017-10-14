@@ -10,7 +10,6 @@ import SPELLS from 'common/SPELLS';
 
 import PatientSniperBreakdown from "./PatientSniperBreakdown";
 import PatientSniperTracker from "./PatientSniperTracker";
-import SpellLink from "../../../../../../common/SpellLink";
 
 class PatientSniperDetails extends Module {
   static dependencies = {
