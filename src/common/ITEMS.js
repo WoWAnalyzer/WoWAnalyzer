@@ -331,13 +331,7 @@ const ITEMS = {
     icon: 'inv_belt_92v4',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
-  //Mage
-  SHATTERED_FRAGMENTS_OF_SINDRAGOSA: {
-	  id: 151810,
-	  name: 'Shattered Fragments of Sindragosa',
-	  icon: 'inv_helmet_133',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
+  // Shared Mage
   SHARD_OF_THE_EXODAR: {
 	  id: 132410,
 	  name: 'Shard of the Exodar',
@@ -356,6 +350,8 @@ const ITEMS = {
     icon: 'inv_70_raid_ring2d',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+
+  // Arcane Mage
   RHONINS_ASSAULTING_ARMWRAPS: {
     id: 132413,
     name: 'Rhonin\'s Assaulting Armwraps',
@@ -386,6 +382,8 @@ const ITEMS = {
     icon: 'inv_shoulder_97',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+
+  // Fire Mage
   KORALONS_BURNING_TOUCH: {
     id: 132454,
     name: 'Koralon\'s Burning Touch',
@@ -416,6 +414,8 @@ const ITEMS = {
     icon: 'inv_shoulder_robe_raidpriest_j_01',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+  
+  // Frost Mage
   LADY_VASHJS_GRASP: {
     id: 132411,
     name: 'Lady Vashj\'s Grasp',
@@ -440,6 +440,13 @@ const ITEMS = {
     icon: 'inv_shoulder_110',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+  SHATTERED_FRAGMENTS_OF_SINDRAGOSA: {
+	  id: 151810,
+	  name: 'Shattered Fragments of Sindragosa',
+	  icon: 'inv_helmet_133',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+
   // Trinkets
   DARKMOON_DECK_PROMISES: {
     id: 128710,
