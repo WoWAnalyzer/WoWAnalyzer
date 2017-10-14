@@ -37,10 +37,11 @@ class PatientSniperDetails extends Module {
           .major(MAJOR);
       });
   }
+
   statistic() {
     //calculates the FLAT increase in dmg on average
     const averagePatientSniperDmgIncreaseWithTS = (this.patientSniperTracker.piercingShotDmgIncreaseWithTS + this.patientSniperTracker.piercingShotDmgIncreaseNoTS + this.patientSniperTracker.aimedShotDmgIncreaseWithTS + this.patientSniperTracker.aimedShotDmgIncreaseNoTS) / (this.patientSniperTracker.aimedShotsNoTS + this.patientSniperTracker.aimedShotsWithTS + this.patientSniperTracker.piercingShotsNoTS + this.patientSniperTracker.piercingShotsWithTS);
-    const averagePSDmgIncreaseAimedOnly = (this.patientSniperTracker.aimedShotDmgIncreaseNoTS + this.patientSniperTracker.aimedShotDmgIncreaseWithTS) / (this.patientSniperTracker.aimedShotsWithTS + this.patientSniperTracker.aimedShotsNoTS);
+    const averagePSDmgIncreaseAimedOnly = (this.patientSniperTracker.aimedShotDmgIncreaseNoTS + this.patientSniperTracker.aimedShot) / (this.patientSniperTracker.aimedShotsWithTS + this.patientSniperTracker.aimedShotsNoTS);
     const averagePSDmgIncreasePiercingOnly = (this.patientSniperTracker.piercingShotDmgIncreaseNoTS + this.patientSniperTracker.piercingShotDmgIncreaseWithTS) / (this.patientSniperTracker.piercingShotsNoTS + this.patientSniperTracker.piercingShotsWithTS);
     //calculates the actual dmg increase compared to not having Patient Sniper with this formula:
     // ((1+(UARanks*0.03)+0.3+0.06*PatientSniper"Ranks")/(1+0.3+(UARanks*0.03)))-1
