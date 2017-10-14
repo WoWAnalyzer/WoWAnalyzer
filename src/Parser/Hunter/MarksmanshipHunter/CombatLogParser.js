@@ -43,7 +43,7 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     castEfficiency: CastEfficiency,
     cooldownTracker: CooldownTracker,
-    vulnerablUptime: VulnerableUptime,
+    vulnerableUptime: VulnerableUptime,
     vulnerableTracker: VulnerableTracker,
 
     //Focus Chart
