@@ -30,9 +30,9 @@ import ElementalShaman from './ElementalShaman/CONFIG';
 import EnhancementShaman from './EnhancementShaman/CONFIG';
 import RestorationShaman from './RestorationShaman/CONFIG';
 
-import AfflictionWarlock from './AfflictionWarlock/CONFIG';
-import DemonologyWarlock from './DemonologyWarlock/CONFIG';
-import DestructionWarlock from './DestructionWarlock/CONFIG';
+import AfflictionWarlock from './Warlock/Affliction/CONFIG';
+import DemonologyWarlock from './Warlock/Demonology/CONFIG';
+import DestructionWarlock from './Warlock/Destruction/CONFIG';
 
 import ProtectionWarrior from './ProtectionWarrior/CONFIG';
 
