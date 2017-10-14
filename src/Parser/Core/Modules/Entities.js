@@ -150,45 +150,48 @@ class Entities extends Module {
   }
 
   // Surely this can be done with a couple less loops???
-  getBuffUptime(spellId) {
+  getBuffUptime(spellId, sourceID = this.owner.playerId) {
     const events = [];
 
     const entities = this.getEntities();
-    Object.keys(entities).map(k => entities[k]).forEach((enemy) => {
-      enemy.buffs.forEach((buff) => {
-        if (buff.ability.guid !== spellId) {
-          return;
-        }
-        events.push({
-          timestamp: buff.start,
-          type: APPLY,
-          buff,
-        });
-        events.push({
-          timestamp: buff.end || this.owner.currentTimestamp,
-          type: REMOVE,
-          buff,
-        });
+    Object.values(entities)
+      .forEach(enemy => {
+        enemy.buffs
+          .filter(buff => buff.ability.guid === spellId)
+          .filter(buff => sourceID === null || buff.sourceID === sourceID)
+          .forEach(buff => {
+            events.push({
+              timestamp: buff.start,
+              type: APPLY,
+              buff,
+            });
+            events.push({
+              timestamp: buff.end || this.owner.currentTimestamp, // buff end is empty if it's still active
+              type: REMOVE,
+              buff,
+            });
+          });
       });
-    });
 
     let active = 0;
     let start = null;
-    return events.sort((a, b) => a.timestamp - b.timestamp).reduce((uptime, event) => {
-      if (event.type === APPLY) {
-        if (active === 0) {
-          start = event.timestamp;
+    return events
+      .sort((a, b) => a.timestamp - b.timestamp)
+      .reduce((uptime, event) => {
+        if (event.type === APPLY) {
+          if (active === 0) {
+            start = event.timestamp;
+          }
+          active += 1;
         }
-        active += 1;
-      }
-      if (event.type === REMOVE) {
-        active -= 1;
-        if (active === 0) {
-          uptime += event.timestamp - start;
+        if (event.type === REMOVE) {
+          active -= 1;
+          if (active === 0) {
+            uptime += event.timestamp - start;
+          }
         }
-      }
-      return uptime;
-    }, 0);
+        return uptime;
+      }, 0);
   }
 }
 
