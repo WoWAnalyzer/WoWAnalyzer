@@ -466,13 +466,22 @@ const ITEMS = {
     icon: 'inv_70_dungeon_ring8d',
     quality: ITEM_QUALITIES.EPIC,
   },
-  // Resto Druid legendaries:
+
+  // Shared Druid Legendaries
+  SOUL_OF_THE_ARCHDRUID: {
+    id: 151636,
+    name: 'Soul of the Archdruid',
+    icon: 'inv_70_raid_ring6a',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
   EKOWRAITH_CREATOR_OF_WORLDS: {
     id: 137015,
     name: 'Ekowraith, Creator of Worlds',
     icon: 'inv_chest_leather_13',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+
+  // Resto Druid legendaries:
   XONIS_CARESS: {
     id: 144242,
     name: 'X\'oni\'s Caress',
@@ -503,12 +512,19 @@ const ITEMS = {
     icon: 'inv_helmet_153',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
-  SOUL_OF_THE_ARCHDRUID: {
-    id: 151636,
-    name: 'Soul of the Archdruid',
-    icon: 'inv_70_raid_ring6a',
+  EDRAITH_BONDS_OF_AGLAYA: {
+    id: 137095,
+    name: 'Edraith, Bonds of Aglaya',
+    icon: 'inv_bracer_57',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+  AMANTHULS_WISDOM: {
+    id: 137072,
+    name: 'Aman\'Thul\'s Wisdom',
+    icon: 'inv_shoulder_leather_raidmonk_n_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+
   // Balance Druid Legendaries
   IMPECCABLE_FEL_ESSENCE: {
     id: 137039,
@@ -540,6 +556,45 @@ const ITEMS = {
     icon: 'inv_cape_felfire_raid_d_01',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+  PROMISE_OF_ELUNE: {
+    id: 137023,
+    name: 'Promise of Elune, the Moon Goddess',
+    icon: 'inv_boots_leather_raiddruid_j_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+
+  // Feral Druid Legendaries
+  CHATOYANT_SIGNET: {
+    id: 137040,
+    name: 'Chatoyant Signet',
+    icon: 'inv_misc_ring_firelands_2',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  AILURO_POUNCERS: {
+    id: 137024,
+    name: 'Ailuro Pouncers',
+    icon: 'inv_boots_leather_05red',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  THE_WILDSHAPERS_CLUTCH: {
+    id: 137094,
+    name: 'The Wildshaper\'s Clutch',
+    icon: 'inv_leather_raiddruid_o_01glove',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  FIERY_RED_MAIMERS: {
+    id: 144354,
+    name: 'Fiery Red Maimers',
+    icon: 'inv_pants_leather_40v1',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  BEHEMOTH_HEADDRESS: {
+    id: 151801,
+    name: 'Behemoth Headdress',
+    icon: 'inv_helmet_leather_draenorhonors2_c_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+
   // Monk Legendaries
   EITHAS_LUNAR_GLIDES: {
     id: 137028,
