@@ -18,7 +18,7 @@ class BeaconHealing extends Module {
     abilityTracker: PaladinAbilityTracker,
   };
 
-  getTotalHealsOnBeaconPercentage() {
+  get totalHealsOnBeaconPercentage() {
     const abilityTracker = this.abilityTracker;
     const getCastCount = spellId => abilityTracker.getAbility(spellId);
 
@@ -38,7 +38,7 @@ class BeaconHealing extends Module {
   }
 
   suggestions(when) {
-    const totalHealsOnBeaconPercentage = this.getTotalHealsOnBeaconPercentage();
+    const totalHealsOnBeaconPercentage = this.totalHealsOnBeaconPercentage;
 
     when(totalHealsOnBeaconPercentage).isGreaterThan(0.2)
       .addSuggestion((suggest, actual, recommended) => {
@@ -63,7 +63,7 @@ class BeaconHealing extends Module {
     const beaconFlashOfLights = flashOfLight.healingBeaconHits || 0;
     const beaconHolyLights = holyLight.healingBeaconHits || 0;
     const totalFolsAndHlsOnBeacon = beaconFlashOfLights + beaconHolyLights;
-    const totalHealsOnBeaconPercentage = this.getTotalHealsOnBeaconPercentage();
+    const totalHealsOnBeaconPercentage = this.totalHealsOnBeaconPercentage;
 
     return (
       <StatisticBox
