@@ -50,9 +50,9 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
       });
     when(deadTimePercentage).isGreaterThan(0.4)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest('Your dead GCD time can be improved. Try to Always Be Casting (ABC); try to reduce the delay between casting spells and when you\'re not healing try to contribute some damage.')
+        return suggest('Your downtime can be improved. Try to Always Be Casting (ABC); try to reduce the delay between casting spells and when you\'re not healing try to contribute some damage.')
           .icon('spell_mage_altertime')
-          .actual(`${formatPercentage(actual)}% dead GCD time`)
+          .actual(`${formatPercentage(actual)}% downtime`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
           .regular(recommended + 0.15).major(1);
       });

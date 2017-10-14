@@ -38,9 +38,9 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
 
     when(deadTimePercentage).isGreaterThan(0.2)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest('Your dead GCD time can be improved. Try to Always Be Casting (ABC).')
+        return suggest('Your downtime can be improved. Try to Always Be Casting (ABC).')
           .icon('spell_mage_altertime')
-          .actual(`${formatPercentage(actual)}% dead GCD time`)
+          .actual(`${formatPercentage(actual)}% downtime`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
           .regular(recommended + 0.05).major(recommended + 0.15);
       });
@@ -50,10 +50,10 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
 
     return (
       <StatisticBox
-        icon={<Icon icon="spell_mage_altertime" alt="Dead GCD time" />}
+        icon={<Icon icon="spell_mage_altertime" alt="Downtime" />}
         value={`${formatPercentage(deadTimePercentage)} %`}
-        label="Dead GCD time"
-        tooltip="Dead GCD time is available casting time not used. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), etc."
+        label="Downtime"
+        tooltip="Downtime is available casting time not used. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), etc."
       />
     );
   }

@@ -5,14 +5,14 @@ You don't need to to do anything special to add a spec. The real issue preventin
 2. Know how to program well enough to implement the analysis
 3. Have the time and motivation to actually do it
 
-We have worked hard to provide you with many tools to make step 2 as easy as possible. Things such as calculating the dead gcd time (Always Be Casting) and Cast Efficiency have been worked out so that it's a matter of only a few lines of configuration code to get them to work, but more advanced analysis such as the gains from a spec's specific mastery usually require custom code. But you don't worry about that yet; start small.
+We have worked hard to provide you with many tools to make step 2 as easy as possible. Things such as calculating the downtime (Always Be Casting) and Cast Efficiency have been worked out so that it's a matter of only a few lines of configuration code to get them to work, but more advanced analysis such as the gains from a spec's specific mastery usually require custom code. But you don't worry about that yet; start small.
 
 I recommend adding a new spec in the following order:
 
 1. Add an empty spec (without any analysis)
 2. Add a total damage done / healing done / damage taken statistic
 3. Add Cast Efficiency
-4. Add "Always be Casting" (dead GCD time)
+4. Add "Always be Casting" (downtime)
 4a. Create a pull request
 
 The next steps can be done in no particular order:

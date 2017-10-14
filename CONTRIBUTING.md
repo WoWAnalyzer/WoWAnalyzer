@@ -103,7 +103,7 @@ Please never comment *what* you do, comment *why* you do it. I can read code so 
 Many users parse logs for multiple specs, having everything consistent makes it easier to understand and compare different things between specs. Please try to stay as consistent as possible with other specs and similar statistics.
 
 Examples:
-* The first two statistics are always *Healing/damage done* and *Non healing/dead gcd time*.
+* The first two statistics are always *Healing/damage done* and *Downtime*.
 * When space is limited, show the DPS/HPS amounts instead of percentage of total damage/healing as much as possible. The HPS amounts often have the same results even if someone's total performance is either super high or super low, so they make comparison easier.
 * If you're showing the performance of an item try to use the *X.XX % / XXk HPS* format and show detailed information in the tooltip.
 * Try to keep statististic boxes and item values one liners and if necessary move details to the tooltip.
