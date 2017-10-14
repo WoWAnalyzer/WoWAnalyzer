@@ -48,7 +48,7 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.STORM_EARTH_AND_FIRE_CAST,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
-      getCooldown: (_, combatant) => 90,
+      getCooldown: (_, combatant) => combatant.owner.modules.stormEarthAndFire.reducedCooldownWithTraits,
       isActive: combatant => combatant.hasTalent(SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id),
       charges: 2,
     },
