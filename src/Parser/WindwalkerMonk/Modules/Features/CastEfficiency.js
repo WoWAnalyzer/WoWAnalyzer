@@ -1,7 +1,7 @@
-import React from 'react';
+
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+
 import CoreCastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 
 class CastEfficiency extends CoreCastEfficiency {
