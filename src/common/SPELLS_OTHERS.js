@@ -470,5 +470,5 @@ export default {
     id: 243096,
     name: 'Concordance of the Legionfall',
     icon: 'achievement_faction_legionfall',
-  }
+  },
 };
