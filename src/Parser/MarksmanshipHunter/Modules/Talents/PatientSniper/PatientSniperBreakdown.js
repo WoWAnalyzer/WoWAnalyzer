@@ -8,11 +8,11 @@ import { formatPercentage } from 'common/format';
 
 class PatientSniperBreakdown extends React.Component {
   static propTypes = {
-    parser: PropTypes.object.isRequired,
+    patientSniper: PropTypes.object.isRequired,
   };
 
   render() {
-    const { parser } = this.props;
+    const { patientSniper } = this.props;
     const patientSniperPercentPrRank = 0.06;
 
     const styles = {
@@ -39,73 +39,73 @@ class PatientSniperBreakdown extends React.Component {
                 <SpellIcon id={SPELLS.AIMED_SHOT.id} />{'  '}
                 outside of <SpellLink id={SPELLS.VULNERABLE.id} />
               </td>
-              <td>{formatPercentage((1 / (1 + parser.modules.patientSniperTracker.vulnerableModifer)) - 1)}%</td>
-              <td>{parser.modules.patientSniperTracker.patientSniperAimedShot.fourSecondsIntoVulnerableAimed}</td>
-              <td>{formatPercentage(parser.modules.patientSniperTracker.patientSniperAimedShot.nonVulnerableAimedShots / parser.modules.patientSniperTracker.patientSniperAimedShot.aimedShotsNoTS)}%</td>
+              <td>{formatPercentage((1 / (1 + patientSniper.vulnerableModifer)) - 1)}%</td>
+              <td>{patientSniper.modules.patientSniperTracker.patientSniper.fourSecondsIntoVulnerableAimed}</td>
+              <td>{formatPercentage(patientSniper.modules.patientSniperTracker.patientSniper.nonVulnerableAimedShots / patientSniper.modules.patientSniperTracker.patientSniper.aimedShotsNoTS)}%</td>
             </tr>
             <tr>
               <td>
                 <SpellIcon id={SPELLS.AIMED_SHOT.id} />{'  '}
                 0 sec into <SpellLink id={SPELLS.VULNERABLE.id} />
               </td>
-              <td>{formatPercentage(((1 + parser.modules.patientSniperTracker.vulnerableModifer + (patientSniperPercentPrRank * 0)) / (1 + parser.modules.patientSniperTracker.vulnerableModifer)) - 1)}%</td>
-              <td>{parser.modules.patientSniperTracker.zeroSecondsIntoVulnerableAimed}</td>
+              <td>{formatPercentage(((1 + patientSniper.modules.patientSniperTracker.vulnerableModifer + (patientSniperPercentPrRank * 0)) / (1 + patientSniper.modules.patientSniperTracker.vulnerableModifer)) - 1)}%</td>
+              <td>{patientSniper.modules.patientSniperTracker.zeroSecondsIntoVulnerableAimed}</td>
 
-              <td>{formatPercentage(parser.modules.patientSniperTracker.zeroSecondsIntoVulnerableAimed / parser.modules.patientSniperTracker.totalAimedShots)}%</td>
+              <td>{formatPercentage(patientSniper.modules.patientSniperTracker.zeroSecondsIntoVulnerableAimed / patientSniper.modules.patientSniperTracker.totalAimedShots)}%</td>
             </tr>
             <tr>
               <td>
                 <SpellIcon id={SPELLS.AIMED_SHOT.id} />{'  '}
                 1 sec into <SpellLink id={SPELLS.VULNERABLE.id} />
               </td>
-              <td>{formatPercentage(((1 + parser.modules.patientSniperTracker.vulnerableModifer + (patientSniperPercentPrRank * 1)) / (1 + parser.modules.patientSniperTracker.vulnerableModifer)) - 1)}%</td>
-              <td>{parser.modules.patientSniperTracker.oneSecondIntoVulnerableAimed}</td>
-              <td>{formatPercentage(parser.modules.patientSniperTracker.oneSecondIntoVulnerableAimed / parser.modules.patientSniperTracker.totalAimedShots)}%</td>
+              <td>{formatPercentage(((1 + patientSniper.modules.patientSniperTracker.vulnerableModifer + (patientSniperPercentPrRank * 1)) / (1 + patientSniper.modules.patientSniperTracker.vulnerableModifer)) - 1)}%</td>
+              <td>{patientSniper.modules.patientSniperTracker.oneSecondIntoVulnerableAimed}</td>
+              <td>{formatPercentage(patientSniper.modules.patientSniperTracker.oneSecondIntoVulnerableAimed / patientSniper.modules.patientSniperTracker.totalAimedShots)}%</td>
             </tr>
             <tr>
               <td>
                 <SpellIcon id={SPELLS.AIMED_SHOT.id} />{'  '}
                 2 sec into <SpellLink id={SPELLS.VULNERABLE.id} />
               </td>
-              <td>{formatPercentage(((1 + parser.modules.patientSniperTracker.vulnerableModifer + (patientSniperPercentPrRank * 2)) / (1 + parser.modules.patientSniperTracker.vulnerableModifer)) - 1)}%</td>
-              <td>{parser.modules.patientSniperTracker.twoSecondsIntoVulnerableAimed}</td>
-              <td>{formatPercentage(parser.modules.patientSniperTracker.twoSecondsIntoVulnerableAimed / parser.modules.patientSniperTracker.totalAimedShots)}%</td>
+              <td>{formatPercentage(((1 + patientSniper.modules.patientSniperTracker.vulnerableModifer + (patientSniperPercentPrRank * 2)) / (1 + patientSniper.modules.patientSniperTracker.vulnerableModifer)) - 1)}%</td>
+              <td>{patientSniper.modules.patientSniperTracker.twoSecondsIntoVulnerableAimed}</td>
+              <td>{formatPercentage(patientSniper.modules.patientSniperTracker.twoSecondsIntoVulnerableAimed / patientSniper.modules.patientSniperTracker.totalAimedShots)}%</td>
             </tr>
             <tr>
               <td>
                 <SpellIcon id={SPELLS.AIMED_SHOT.id} />{'  '}
                 3 sec into <SpellLink id={SPELLS.VULNERABLE.id} />
               </td>
-              <td>{formatPercentage(((1 + parser.modules.patientSniperTracker.vulnerableModifer + (patientSniperPercentPrRank * 3)) / (1 + parser.modules.patientSniperTracker.vulnerableModifer)) - 1)}%</td>
-              <td>{parser.modules.patientSniperTracker.threeSecondsIntoVulnerableAimed}</td>
-              <td>{formatPercentage(parser.modules.patientSniperTracker.threeSecondsIntoVulnerableAimed / parser.modules.patientSniperTracker.totalAimedShots)}%</td>
+              <td>{formatPercentage(((1 + patientSniper.modules.patientSniperTracker.vulnerableModifer + (patientSniperPercentPrRank * 3)) / (1 + patientSniper.modules.patientSniperTracker.vulnerableModifer)) - 1)}%</td>
+              <td>{patientSniper.modules.patientSniperTracker.threeSecondsIntoVulnerableAimed}</td>
+              <td>{formatPercentage(patientSniper.modules.patientSniperTracker.threeSecondsIntoVulnerableAimed / patientSniper.modules.patientSniperTracker.totalAimedShots)}%</td>
             </tr>
             <tr>
               <td>
                 <SpellIcon id={SPELLS.AIMED_SHOT.id} />{'  '}
                 4 sec into <SpellLink id={SPELLS.VULNERABLE.id} />
               </td>
-              <td>{formatPercentage(((1 + parser.modules.patientSniperTracker.vulnerableModifer + (patientSniperPercentPrRank * 4)) / (1 + parser.modules.patientSniperTracker.vulnerableModifer)) - 1)}%</td>
-              <td>{parser.modules.patientSniperTracker.fourSecondsIntoVulnerableAimed}</td>
-              <td>{formatPercentage(parser.modules.patientSniperTracker.fourSecondsIntoVulnerableAimed / parser.modules.patientSniperTracker.totalAimedShots)}%</td>
+              <td>{formatPercentage(((1 + patientSniper.modules.patientSniperTracker.vulnerableModifer + (patientSniperPercentPrRank * 4)) / (1 + patientSniper.modules.patientSniperTracker.vulnerableModifer)) - 1)}%</td>
+              <td>{patientSniper.modules.patientSniperTracker.fourSecondsIntoVulnerableAimed}</td>
+              <td>{formatPercentage(patientSniper.modules.patientSniperTracker.fourSecondsIntoVulnerableAimed / patientSniper.modules.patientSniperTracker.totalAimedShots)}%</td>
             </tr>
             <tr>
               <td>
                 <SpellIcon id={SPELLS.AIMED_SHOT.id} />{'  '}
                 5 sec into <SpellLink id={SPELLS.VULNERABLE.id} />
               </td>
-              <td>{formatPercentage(((1 + parser.modules.patientSniperTracker.vulnerableModifer + (patientSniperPercentPrRank * 5)) / (1 + parser.modules.patientSniperTracker.vulnerableModifer)) - 1)}%</td>
-              <td>{parser.modules.patientSniperTracker.fiveSecondsIntoVulnerableAimed}</td>
-              <td>{formatPercentage(parser.modules.patientSniperTracker.fiveSecondsIntoVulnerableAimed / parser.modules.patientSniperTracker.totalAimedShots)}%</td>
+              <td>{formatPercentage(((1 + patientSniper.modules.patientSniperTracker.vulnerableModifer + (patientSniperPercentPrRank * 5)) / (1 + patientSniper.modules.patientSniperTracker.vulnerableModifer)) - 1)}%</td>
+              <td>{patientSniper.modules.patientSniperTracker.fiveSecondsIntoVulnerableAimed}</td>
+              <td>{formatPercentage(patientSniper.modules.patientSniperTracker.fiveSecondsIntoVulnerableAimed / patientSniper.modules.patientSniperTracker.totalAimedShots)}%</td>
             </tr>
             <tr>
               <td>
                 <SpellIcon id={SPELLS.AIMED_SHOT.id} />{'  '}
                 6 sec into <SpellLink id={SPELLS.VULNERABLE.id} />
               </td>
-              <td>{formatPercentage(((1 + parser.modules.patientSniperTracker.vulnerableModifer + (patientSniperPercentPrRank * 6)) / (1 + parser.modules.patientSniperTracker.vulnerableModifer)) - 1)}%</td>
-              <td>{parser.modules.patientSniperTracker.sixSecondsIntoVulnerableAimed}</td>
-              <td>{formatPercentage(parser.modules.patientSniperTracker.sixSecondsIntoVulnerableAimed / parser.modules.patientSniperTracker.totalAimedShots)}%</td>
+              <td>{formatPercentage(((1 + patientSniper.modules.patientSniperTracker.vulnerableModifer + (patientSniperPercentPrRank * 6)) / (1 + patientSniper.modules.patientSniperTracker.vulnerableModifer)) - 1)}%</td>
+              <td>{patientSniper.modules.patientSniperTracker.sixSecondsIntoVulnerableAimed}</td>
+              <td>{formatPercentage(patientSniper.modules.patientSniperTracker.sixSecondsIntoVulnerableAimed / patientSniper.modules.patientSniperTracker.totalAimedShots)}%</td>
             </tr>
             <th>
             </th>
@@ -114,72 +114,72 @@ class PatientSniperBreakdown extends React.Component {
                 <SpellIcon id={SPELLS.PIERCING_SHOT_TALENT.id} />{'  '}
                 outside of <SpellLink id={SPELLS.VULNERABLE.id} />
               </td>
-              <td>{formatPercentage(((1) / (1 + parser.modules.patientSniperTracker.vulnerableModifer)) - 1)}%</td>
-              <td>{parser.modules.patientSniperTracker.nonVulnerablePiercingShots}</td>
-              <td>{formatPercentage(parser.modules.patientSniperTracker.nonVulnerablePiercingShots / parser.modules.patientSniperTracker.totalPiercingShots)}%</td>
+              <td>{formatPercentage(((1) / (1 + patientSniper.modules.patientSniperTracker.vulnerableModifer)) - 1)}%</td>
+              <td>{patientSniper.modules.patientSniperTracker.nonVulnerablePiercingShots}</td>
+              <td>{formatPercentage(patientSniper.modules.patientSniperTracker.nonVulnerablePiercingShots / patientSniper.modules.patientSniperTracker.totalPiercingShots)}%</td>
             </tr>
             <tr>
               <td>
                 <SpellIcon id={SPELLS.PIERCING_SHOT_TALENT.id} />{'  '}
                 0 sec into <SpellLink id={SPELLS.VULNERABLE.id} />
               </td>
-              <td>{formatPercentage(((1 + parser.modules.patientSniperTracker.vulnerableModifer + (patientSniperPercentPrRank * 0)) / (1 + parser.modules.patientSniperTracker.vulnerableModifer)) - 1)}%</td>
-              <td>{parser.modules.patientSniperTracker.zeroSecondsIntoVulnerablePiercing}</td>
-              <td>{formatPercentage(parser.modules.patientSniperTracker.zeroSecondsIntoVulnerablePiercing / parser.modules.patientSniperTracker.totalPiercingShots)}%</td>
+              <td>{formatPercentage(((1 + patientSniper.modules.patientSniperTracker.vulnerableModifer + (patientSniperPercentPrRank * 0)) / (1 + patientSniper.modules.patientSniperTracker.vulnerableModifer)) - 1)}%</td>
+              <td>{patientSniper.modules.patientSniperTracker.zeroSecondsIntoVulnerablePiercing}</td>
+              <td>{formatPercentage(patientSniper.modules.patientSniperTracker.zeroSecondsIntoVulnerablePiercing / patientSniper.modules.patientSniperTracker.totalPiercingShots)}%</td>
             </tr>
             <tr>
               <td>
                 <SpellIcon id={SPELLS.PIERCING_SHOT_TALENT.id} />{'  '}
                 1 sec into <SpellLink id={SPELLS.VULNERABLE.id} />
               </td>
-              <td>{formatPercentage(((1 + parser.modules.patientSniperTracker.vulnerableModifer + (patientSniperPercentPrRank * 1)) / (1 + parser.modules.patientSniperTracker.vulnerableModifer)) - 1)}%</td>
-              <td>{parser.modules.patientSniperTracker.oneSecondIntoVulnerablePiercing}</td>
-              <td>{formatPercentage(parser.modules.patientSniperTracker.oneSecondIntoVulnerablePiercing / parser.modules.patientSniperTracker.totalPiercingShots)}%</td>
+              <td>{formatPercentage(((1 + patientSniper.modules.patientSniperTracker.vulnerableModifer + (patientSniperPercentPrRank * 1)) / (1 + patientSniper.modules.patientSniperTracker.vulnerableModifer)) - 1)}%</td>
+              <td>{patientSniper.modules.patientSniperTracker.oneSecondIntoVulnerablePiercing}</td>
+              <td>{formatPercentage(patientSniper.modules.patientSniperTracker.oneSecondIntoVulnerablePiercing / patientSniper.modules.patientSniperTracker.totalPiercingShots)}%</td>
             </tr>
             <tr>
               <td>
                 <SpellIcon id={SPELLS.PIERCING_SHOT_TALENT.id} />{'  '}
                 2 sec into <SpellLink id={SPELLS.VULNERABLE.id} />
               </td>
-                <td>{formatPercentage(((1 + parser.modules.patientSniperTracker.vulnerableModifer + (patientSniperPercentPrRank * 2)) / (1 + parser.modules.patientSniperTracker.vulnerableModifer)) - 1)}%</td>
-              <td>{parser.modules.patientSniperTracker.twoSecondsIntoVulnerablePiercing}</td>
-              <td>{formatPercentage(parser.modules.patientSniperTracker.twoSecondsIntoVulnerablePiercing / parser.modules.patientSniperTracker.totalPiercingShots)}%</td>
+                <td>{formatPercentage(((1 + patientSniper.modules.patientSniperTracker.vulnerableModifer + (patientSniperPercentPrRank * 2)) / (1 + patientSniper.modules.patientSniperTracker.vulnerableModifer)) - 1)}%</td>
+              <td>{patientSniper.modules.patientSniperTracker.twoSecondsIntoVulnerablePiercing}</td>
+              <td>{formatPercentage(patientSniper.modules.patientSniperTracker.twoSecondsIntoVulnerablePiercing / patientSniper.modules.patientSniperTracker.totalPiercingShots)}%</td>
             </tr>
             <tr>
               <td>
                 <SpellIcon id={SPELLS.PIERCING_SHOT_TALENT.id} />{'  '}
                 3 sec into <SpellLink id={SPELLS.VULNERABLE.id} />
               </td>
-              <td>{formatPercentage(((1 + parser.modules.patientSniperTracker.vulnerableModifer + (patientSniperPercentPrRank * 3)) / (1 + parser.modules.patientSniperTracker.vulnerableModifer)) - 1)}%</td>
-              <td>{parser.modules.patientSniperTracker.threeSecondsIntoVulnerablePiercing}</td>
-              <td>{formatPercentage(parser.modules.patientSniperTracker.threeSecondsIntoVulnerablePiercing / parser.modules.patientSniperTracker.totalPiercingShots)}%</td>
+              <td>{formatPercentage(((1 + patientSniper.modules.patientSniperTracker.vulnerableModifer + (patientSniperPercentPrRank * 3)) / (1 + patientSniper.modules.patientSniperTracker.vulnerableModifer)) - 1)}%</td>
+              <td>{patientSniper.modules.patientSniperTracker.threeSecondsIntoVulnerablePiercing}</td>
+              <td>{formatPercentage(patientSniper.modules.patientSniperTracker.threeSecondsIntoVulnerablePiercing / patientSniper.modules.patientSniperTracker.totalPiercingShots)}%</td>
             </tr>
             <tr>
               <td>
                 <SpellIcon id={SPELLS.PIERCING_SHOT_TALENT.id} />{'  '}
                 4 sec into <SpellLink id={SPELLS.VULNERABLE.id} />
               </td>
-              <td>{formatPercentage(((1 + parser.modules.patientSniperTracker.vulnerableModifer + (patientSniperPercentPrRank * 4)) / (1 + parser.modules.patientSniperTracker.vulnerableModifer)) - 1)}%</td>
-              <td>{parser.modules.patientSniperTracker.fourSecondsIntoVulnerablePiercing}</td>
-              <td>{formatPercentage(parser.modules.patientSniperTracker.fourSecondsIntoVulnerablePiercing / parser.modules.patientSniperTracker.totalPiercingShots)}%</td>
+              <td>{formatPercentage(((1 + patientSniper.modules.patientSniperTracker.vulnerableModifer + (patientSniperPercentPrRank * 4)) / (1 + patientSniper.modules.patientSniperTracker.vulnerableModifer)) - 1)}%</td>
+              <td>{patientSniper.modules.patientSniperTracker.fourSecondsIntoVulnerablePiercing}</td>
+              <td>{formatPercentage(patientSniper.modules.patientSniperTracker.fourSecondsIntoVulnerablePiercing / patientSniper.modules.patientSniperTracker.totalPiercingShots)}%</td>
             </tr>
             <tr>
               <td>
                 <SpellIcon id={SPELLS.PIERCING_SHOT_TALENT.id} />{'  '}
                 5 sec into <SpellLink id={SPELLS.VULNERABLE.id} />
               </td>
-              <td>{formatPercentage(((1 + parser.modules.patientSniperTracker.vulnerableModifer + (patientSniperPercentPrRank * 5)) / (1 + parser.modules.patientSniperTracker.vulnerableModifer)) - 1)}%</td>
-              <td>{parser.modules.patientSniperTracker.fiveSecondsIntoVulnerablePiercing}</td>
-              <td>{formatPercentage(parser.modules.patientSniperTracker.fiveSecondsIntoVulnerablePiercing / parser.modules.patientSniperTracker.totalPiercingShots)}%</td>
+              <td>{formatPercentage(((1 + patientSniper.modules.patientSniperTracker.vulnerableModifer + (patientSniperPercentPrRank * 5)) / (1 + patientSniper.modules.patientSniperTracker.vulnerableModifer)) - 1)}%</td>
+              <td>{patientSniper.modules.patientSniperTracker.fiveSecondsIntoVulnerablePiercing}</td>
+              <td>{formatPercentage(patientSniper.modules.patientSniperTracker.fiveSecondsIntoVulnerablePiercing / patientSniper.modules.patientSniperTracker.totalPiercingShots)}%</td>
             </tr>
             <tr>
               <td>
                 <SpellIcon id={SPELLS.PIERCING_SHOT_TALENT.id} />{'  '}
                 6 sec into <SpellLink id={SPELLS.VULNERABLE.id} />
               </td>
-              <td>{formatPercentage(((1 + parser.modules.patientSniperTracker.vulnerableModifer + (patientSniperPercentPrRank * 6)) / (1 + parser.modules.patientSniperTracker.vulnerableModifer)) - 1)}%</td>
-              <td>{parser.modules.patientSniperTracker.sixSecondsIntoVulnerablePiercing}</td>
-              <td>{formatPercentage(parser.modules.patientSniperTracker.sixSecondsIntoVulnerablePiercing / parser.modules.patientSniperTracker.totalPiercingShots)}%</td>
+              <td>{formatPercentage(((1 + patientSniper.modules.patientSniperTracker.vulnerableModifer + (patientSniperPercentPrRank * 6)) / (1 + patientSniper.modules.patientSniperTracker.vulnerableModifer)) - 1)}%</td>
+              <td>{patientSniper.modules.patientSniperTracker.sixSecondsIntoVulnerablePiercing}</td>
+              <td>{formatPercentage(patientSniper.modules.patientSniperTracker.sixSecondsIntoVulnerablePiercing / patientSniper.modules.patientSniperTracker.totalPiercingShots)}%</td>
             </tr>
           </tbody>
         </table>

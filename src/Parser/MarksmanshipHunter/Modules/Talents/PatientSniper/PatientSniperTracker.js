@@ -5,7 +5,6 @@ import Enemies from 'Parser/Core/Modules/Enemies';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
@@ -34,7 +33,7 @@ class PatientSniperTracker extends Module {
   */
 
   //Patient Sniper for Aimed Shots - Without and With Trueshot
-  patientSniperAimedShot = {
+  patientSniper = {
     [SPELLS.AIMED_SHOT.id]: {
       nonVulnerableAimedShots: 0,
       zeroSecondsIntoVulnerableAimed: 0,
@@ -53,10 +52,6 @@ class PatientSniperTracker extends Module {
       fiveSecondsIntoVulnerableAimedTS: 0,
       sixSecondsIntoVulnerableAimedTS: 0,
     },
-  };
-
-  //Patient Sniper for Piercing Shots - Without and With Trueshot
-  patientSniperPiercingShot = {
     [SPELLS.PIERCING_SHOT_TALENT.id]: {
       nonVulnerablePiercingShots: 0,
       zeroSecondsIntoVulnerablePiercing: 0,
@@ -130,31 +125,31 @@ class PatientSniperTracker extends Module {
         //counts Patient Sniper Aimed WITHOUT Trueshot
         switch (this.timeIntoVulnerable) {
           case 0:
-            this.patientSniperAimedShot.zeroSecondsIntoVulnerableAimed += 1;
+            this.patientSniper.zeroSecondsIntoVulnerableAimed += 1;
             break;
           case 1:
-            this.patientSniperAimedShot.oneSecondIntoVulnerableAimed += 1;
+            this.patientSniper.oneSecondIntoVulnerableAimed += 1;
             break;
           case 2:
-            this.patientSniperAimedShot.twoSecondsIntoVulnerableAimed += 1;
+            this.patientSniper.twoSecondsIntoVulnerableAimed += 1;
             break;
           case 3:
-            this.patientSniperAimedShot.threeSecondsIntoVulnerableAimed += 1;
+            this.patientSniper.threeSecondsIntoVulnerableAimed += 1;
             break;
           case 4:
-            this.patientSniperAimedShot.fourSecondsIntoVulnerableAimed += 1;
+            this.patientSniper.fourSecondsIntoVulnerableAimed += 1;
             break;
           case 5:
-            this.patientSniperAimedShot.fiveSecondsIntoVulnerableAimed += 1;
+            this.patientSniper.fiveSecondsIntoVulnerableAimed += 1;
             break;
           case 6:
-            this.patientSniperAimedShot.sixSecondsIntoVulnerableAimed += 1;
+            this.patientSniper.sixSecondsIntoVulnerableAimed += 1;
             break;
           default:
             break;
         }
       } else {
-        this.patientSniperAimedShot.nonVulnerableAimedShots += 1;
+        this.patientSniper.nonVulnerableAimedShots += 1;
       }
     }
     if (spellId === SPELLS.AIMED_SHOT.id && this.combatants.selected.hasBuff(SPELLS.TRUESHOT.id)) {
@@ -165,31 +160,31 @@ class PatientSniperTracker extends Module {
         //counts Patient Sniper Aimed WITH Trueshot
         switch (this.timeIntoVulnerable) {
           case 0:
-            this.patientSniperAimedShot.zeroSecondsIntoVulnerableAimedTS += 1;
+            this.patientSniper.zeroSecondsIntoVulnerableAimedTS += 1;
             break;
           case 1:
-            this.patientSniperAimedShot.oneSecondIntoVulnerableAimedTS += 1;
+            this.patientSniper.oneSecondIntoVulnerableAimedTS += 1;
             break;
           case 2:
-            this.patientSniperAimedShot.twoSecondsIntoVulnerableAimedTS += 1;
+            this.patientSniper.twoSecondsIntoVulnerableAimedTS += 1;
             break;
           case 3:
-            this.patientSniperAimedShot.threeSecondsIntoVulnerableAimedTS += 1;
+            this.patientSniper.threeSecondsIntoVulnerableAimedTS += 1;
             break;
           case 4:
-            this.patientSniperAimedShot.fourSecondsIntoVulnerableAimedTS += 1;
+            this.patientSniper.fourSecondsIntoVulnerableAimedTS += 1;
             break;
           case 5:
-            this.patientSniperAimedShot.fiveSecondsIntoVulnerableAimedTS += 1;
+            this.patientSniper.fiveSecondsIntoVulnerableAimedTS += 1;
             break;
           case 6:
-            this.patientSniperAimedShot.sixSecondsIntoVulnerableAimedTS += 1;
+            this.patientSniper.sixSecondsIntoVulnerableAimedTS += 1;
             break;
           default:
             break;
         }
       } else {
-        this.patientSniperAimedShot.nonVulnerableAimedShotsTS += 1;
+        this.patientSniper.nonVulnerableAimedShotsTS += 1;
       }
     }
 
@@ -201,32 +196,32 @@ class PatientSniperTracker extends Module {
         //counts Patient Sniper Piercing WITHOUT Trueshot
         switch (this.timeIntoVulnerable) {
           case 0:
-            this.patientSniperPiercingShot.zeroSecondsIntoVulnerablePiercing += 1;
+            this.patientSniper.zeroSecondsIntoVulnerablePiercing += 1;
             break;
           case 1:
-            this.patientSniperPiercingShot.oneSecondIntoVulnerablePiercing += 1;
+            this.patientSniper.oneSecondIntoVulnerablePiercing += 1;
             break;
           case 2:
-            this.patientSniperPiercingShot.twoSecondsIntoVulnerablePiercing += 1;
+            this.patientSniper.twoSecondsIntoVulnerablePiercing += 1;
             break;
           case 3:
-            this.patientSniperPiercingShot.threeSecondsIntoVulnerablePiercing += 1;
+            this.patientSniper.threeSecondsIntoVulnerablePiercing += 1;
             break;
           case 4:
-            this.patientSniperPiercingShot.fourSecondsIntoVulnerablePiercing += 1;
+            this.patientSniper.fourSecondsIntoVulnerablePiercing += 1;
             break;
           case 5:
-            this.patientSniperPiercingShot.fiveSecondsIntoVulnerablePiercing += 1;
+            this.patientSniper.fiveSecondsIntoVulnerablePiercing += 1;
             this.piercingShotDmgIncreaseNoTS += this.timeIntoVulnerable * 0.06;
             break;
           case 6:
-            this.patientSniperPiercingShot.sixSecondsIntoVulnerablePiercing += 1;
+            this.patientSniper.sixSecondsIntoVulnerablePiercing += 1;
             break;
           default:
             break;
         }
       } else {
-        this.patientSniperPiercingShot.nonVulnerablePiercingShots += 1;
+        this.patientSniper.nonVulnerablePiercingShots += 1;
       }
     }
     if (spellId === SPELLS.PIERCING_SHOT_TALENT.id && this.combatants.selected.hasBuff(SPELLS.TRUESHOT.id)) {
@@ -237,32 +232,32 @@ class PatientSniperTracker extends Module {
         //counts Patient Sniper Piercing WITH Trueshot
         switch (this.timeIntoVulnerable) {
           case 0:
-            this.patientSniperPiercingShot.zeroSecondsIntoVulnerablePiercingTS += 1;
+            this.patientSniper.zeroSecondsIntoVulnerablePiercingTS += 1;
             break;
           case 1:
-            this.patientSniperPiercingShot.oneSecondIntoVulnerablePiercingTS += 1;
+            this.patientSniper.oneSecondIntoVulnerablePiercingTS += 1;
             break;
           case 2:
-            this.patientSniperPiercingShot.twoSecondsIntoVulnerablePiercingTS += 1;
+            this.patientSniper.twoSecondsIntoVulnerablePiercingTS += 1;
             break;
           case 3:
-            this.patientSniperPiercingShot.threeSecondsIntoVulnerablePiercingTS += 1;
+            this.patientSniper.threeSecondsIntoVulnerablePiercingTS += 1;
             break;
           case 4:
-            this.patientSniperPiercingShot.fourSecondsIntoVulnerablePiercingTS += 1;
+            this.patientSniper.fourSecondsIntoVulnerablePiercingTS += 1;
             break;
           case 5:
-            this.patientSniperPiercingShot.fiveSecondsIntoVulnerablePiercingTS += 1;
+            this.patientSniper.fiveSecondsIntoVulnerablePiercingTS += 1;
             this.piercingShotDmgIncreaseWithTS += this.timeIntoVulnerable * 0.06;
             break;
           case 6:
-            this.patientSniperPiercingShot.sixSecondsIntoVulnerablePiercingTS += 1;
+            this.patientSniper.sixSecondsIntoVulnerablePiercingTS += 1;
             break;
           default:
             break;
         }
       } else {
-        this.patientSniperPiercingShot.nonVulnerablePiercingShotsTS += 1;
+        this.patientSniper.nonVulnerablePiercingShotsTS += 1;
       }
     }
   }
@@ -284,32 +279,8 @@ class PatientSniperTracker extends Module {
         this.totalVulnWindows += 1;
       }
     }
-    return this.lastVulnerableTimestamp;
   }
 
-  /*suggestions(when) {
-    const MINOR = 0;
-    const AVG = 0;
-    const MAJOR = 0;
-  }*/
-
-  statistic() {
-    //calculates the FLAT increase in dmg on average
-    const averagePatientSniperDmgIncreaseWithTS = (this.piercingShotDmgIncreaseWithTS + this.piercingShotDmgIncreaseNoTS + this.aimedShotDmgIncreaseWithTS + this.aimedShotDmgIncreaseNoTS) / (this.aimedShotsNoTS + this.aimedShotsWithTS + this.piercingShotsNoTS + this.piercingShotsWithTS);
-    const averagePSDmgIncreaseAimedOnly = (this.aimedShotDmgIncreaseNoTS + this.aimedShotDmgIncreaseWithTS) / (this.aimedShotsWithTS + this.aimedShotsNoTS);
-    const averagePSDmgIncreasePiercingOnly = (this.piercingShotDmgIncreaseNoTS + this.piercingShotDmgIncreaseWithTS) / (this.piercingShotsNoTS + this.piercingShotsWithTS);
-    //calculates the actual dmg increase compared to not having Patient Sniper with this formula:
-    // ((1+(UARanks*0.03)+0.3+0.06xPatientSniper"Ranks")/(1+0.3+(UARanks*0.03)))-1
-    const actualDmgIncrease = ((1 + this.vulnerableModifer + averagePatientSniperDmgIncreaseWithTS) / (1 + this.vulnerableModifer)) - 1;
-    return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.PATIENT_SNIPER_TALENT.id} />}
-        value={`+${formatPercentage(actualDmgIncrease)}%`}
-        label="Avg % dmg change from PS"
-        tooltip={` This shows how much your average Aimed Shot and Piercing Shot was increased by compared to how much it would have done without being affected by Patient Sniper. These include Aimed/Piercing Shots fired during Trueshot windows. <br /> Below you'll see them individually, and if you want to see more Patient Sniper information (such as without Trueshot windows), please check the "Patient Sniper Usage" tab in the menu. <br />
-Aimed Shot increase: ${formatPercentage(((1 + this.vulnerableModifer + averagePSDmgIncreaseAimedOnly) / (1 + this.vulnerableModifer)) - 1)}% <br /> Piercing Shot increase: ${formatPercentage(((1 + this.vulnerableModifer + averagePSDmgIncreasePiercingOnly) / (1 + this.vulnerableModifer)) - 1)}% <br />`} />
-    );
-  }
   statisticOrder = STATISTIC_ORDER.CORE(6);
 }
 
