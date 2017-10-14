@@ -971,11 +971,11 @@ const ITEMS = {
     quality: ITEM_QUALITIES.LEGENDARY,
   },
 
-  // Warlock legendaries
-  SACROLASHS_DARK_STRIKE: {
-    id: 132378,
-    name: 'Sacrolash\'s Dark Strike',
-    icon: 'inv_jewelry_ring_66',
+  // Shared Warlock
+  PILLARS_OF_THE_DARK_PORTAL: {
+    id: 132357,
+    name: 'Pillars of the Dark Portal',
+    icon: 'inv_pants_cloth_raidwarlock_i_01',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
   SOUL_OF_THE_NETHERLORD: {
@@ -984,22 +984,36 @@ const ITEMS = {
     icon: 'inv_70_quest_ring7c',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
-  POWER_CORD_OF_LETHTENDRIS: {
-    id: 132457,
-    name: 'Power Cord of Lethtendris',
-    icon: 'inv_belt_30',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
   THE_MASTER_HARVESTER: {
     id: 151821,
     name: 'The Master Harvester',
     icon: 'inv_chest_cloth_raidmage_q_01',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+
+  // Affliction Warlock legendaries
+  SACROLASHS_DARK_STRIKE: {
+    id: 132378,
+    name: 'Sacrolash\'s Dark Strike',
+    icon: 'inv_jewelry_ring_66',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  POWER_CORD_OF_LETHTENDRIS: {
+    id: 132457,
+    name: 'Power Cord of Lethtendris',
+    icon: 'inv_belt_30',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
   STRETENS_SLEEPLESS_SHACKLES: {
     id: 132381,
     name: 'Streten\'s Sleepless Shackles',
     icon: 'inv_bracer_cloth_raidwarlock_p_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  HOOD_OF_ETERNAL_DISDAIN: {
+    id: 132394,
+    name: 'Hood of Eternal Disdain',
+    icon: 'inv_helmet_152',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
   REAP_AND_SOW: {
