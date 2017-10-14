@@ -14,7 +14,6 @@ class ZannesuJourney extends Module {
 
   damage = 0;
   stackCount = 0;
-  previousStackCount = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.hasWaist(ITEMS.ZANNESU_JOURNEY.id);
@@ -24,38 +23,15 @@ class ZannesuJourney extends Module {
     if (event.ability.guid !== SPELLS.BLIZZARD.id) {
       return;
     }
-    this.previousStackCount = this.stackCount;
+    const buff = this.combatants.selected.getBuff(SPELLS.ZANNESU_JOURNEY_BUFF.id,event.timestamp);
+    this.stackCount = buff && buff.stacks || 0;
   }
 
   on_byPlayer_damage(event) {
     if (event.ability.guid !== SPELLS.BLIZZARD_DAMAGE.id) {
       return;
     }
-      this.damage += getDamageBonus(event, DAMAGE_BONUS * this.previousStackCount);
-      console.log('Blizzard Cast');
-      console.log(this.previousStackCount);
-      console.log(this.damage);
-  }
-
-  on_toPlayer_applybuff(event) {
-    if (event.ability.guid !== SPELLS.ZANNESU_JOURNEY_BUFF.id) {
-      return;
-    }
-    this.stackCount += 1;
-  }
-
-  on_toPlayer_applybuffstack(event) {
-    if (event.ability.guid !== SPELLS.ZANNESU_JOURNEY_BUFF.id || this.stackCount === 5) {
-      return;
-    }
-    this.stackCount += 1;
-  }
-
-  on_toPlayer_removebuff(event) {
-    if (event.ability.guid !== SPELLS.ZANNESU_JOURNEY_BUFF.id) {
-      return;
-    }
-    this.stackCount = 0;
+      this.damage += getDamageBonus(event, DAMAGE_BONUS * this.stackCount);
   }
 
   item() {
