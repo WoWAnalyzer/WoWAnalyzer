@@ -13,7 +13,7 @@ import MarksmanshipHunter from './MarksmanshipHunter/CONFIG';
 // Mage
 import FrostMage from './FrostMage/CONFIG';
 
-import BrewmasterMonk from './BrewmasterMonk/CONFIG';
+import BrewmasterMonk from './Monk/Brewmaster/CONFIG';
 import WindwalkerMonk from './WindwalkerMonk/CONFIG';
 import MistweaverMonk from './MistweaverMonk/CONFIG';
 
