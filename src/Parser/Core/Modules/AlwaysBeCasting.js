@@ -106,11 +106,11 @@ class AlwaysBeCasting extends Module {
       const fightDuration = formatMilliseconds(this.owner.fightDuration);
       const num = (value, padding = 4) => Math.floor(value).toString().padStart(padding);
       console.log(`%c${[
-        fightDuration, 
+        fightDuration,
         'ABC:',
         'total:', num(this.totalTimeWasted, 6),
-        'this:', num(timeWasted), 
-        'gcd:', num(globalCooldown), 
+        'this:', num(timeWasted),
+        'gcd:', num(globalCooldown),
         'casttime:', num(cast.timestamp - castStartTimestamp), `(${begincast ? 'channeled' : 'instant'})`.padEnd(11),
         'haste:', `${formatPercentage(this.haste.current).padStart(6)}%`,
         cast.ability.name.padEnd(30), spellId,
