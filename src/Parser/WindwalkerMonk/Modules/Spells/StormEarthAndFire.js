@@ -34,7 +34,7 @@ class StormEarthAndFire extends Module{
   }
 
   get reducedCooldownWithTraits() {
-    const reducedCooldownWithTraits = 90 - this.traitsCDReduction();
+    const reducedCooldownWithTraits = 90 - this.traitsCDReduction;
     return reducedCooldownWithTraits;
   }
 }
