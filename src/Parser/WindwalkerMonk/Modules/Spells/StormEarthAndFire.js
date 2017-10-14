@@ -2,7 +2,7 @@ import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 
-class SEF extends Module{
+class StormEarthAndFire extends Module{
   static dependencies = {
     combatants: Combatants,
   };
@@ -37,4 +37,4 @@ class SEF extends Module{
   }
 }
 
-export default SEF;
+export default StormEarthAndFire;
