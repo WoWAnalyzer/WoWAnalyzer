@@ -8,10 +8,10 @@ export default {
   // Beast Mastery:
   // ...
   // -------------
-  // Marksmanship:
+  // MarksmanshipHunter:
   // -------------
 
-  // Marksmanship spells
+  // MarksmanshipHunter spells
 
   WINDBURST: {
     id: 204147,
@@ -131,7 +131,7 @@ export default {
     icon: 'ability_impalingbolt',
   },
 
-  // Marksmanship tier sets
+  // MarksmanshipHunter tier sets
   HUNTER_MM_T20_2P_BONUS: {
     id: 242242,
     name: 'T20 2 set bonus',
@@ -153,7 +153,7 @@ export default {
     icon: 'inv_spear_07',
   },
 
-  // Marksmanship artifact traits
+  // MarksmanshipHunter artifact traits
   BULLSEYE_BUFF: {
     id: 204090,
     name: 'Bullseye',
