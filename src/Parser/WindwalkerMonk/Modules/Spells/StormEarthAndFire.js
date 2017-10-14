@@ -29,8 +29,7 @@ class StormEarthAndFire extends Module{
         default:
           break;
       }
-      return traitsCDReduction;
-    }
+    } return traitsCDReduction;
   }
 
   get reducedCooldownWithTraits() {
