@@ -48,6 +48,7 @@ class CombatLogParser extends CoreCombatLogParser {
     vulnerableTracker: VulnerableTracker,
     TimeFocusCapped: TimeFocusCapped,
 
+
     //Focus Chart
     focusTracker: FocusTracker,
 
@@ -61,7 +62,6 @@ class CombatLogParser extends CoreCombatLogParser {
     //Talents
     patientSniperTracker: PatientSniperTracker,
     patientSniperDetails: PatientSniperDetails,
-
   };
 
   generateResults() {
