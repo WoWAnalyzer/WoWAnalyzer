@@ -11,7 +11,6 @@ import HealingDone from 'Parser/Core/Modules/HealingDone';
 
 import Ekowraith from './Modules/Legendaries/Ekowraith';
 import XonisCaress from './Modules/Legendaries/XonisCaress';
-import Sephuz from './Modules/Legendaries/Sephuz';
 import DarkTitanAdvice from './Modules/Legendaries/DarkTitanAdvice';
 import EssenceOfInfusion from './Modules/Legendaries/EssenceOfInfusion';
 import Tearstone from './Modules/Legendaries/Tearstone';
@@ -98,7 +97,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Legendaries:
     ekowraith: Ekowraith,
     xonisCaress: XonisCaress,
-    sephuzsSecret: Sephuz,
     darkTitanAdvice: DarkTitanAdvice,
     essenceOfInfusion: EssenceOfInfusion,
     tearstone: Tearstone,

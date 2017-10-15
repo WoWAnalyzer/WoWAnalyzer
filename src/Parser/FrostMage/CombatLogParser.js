@@ -17,6 +17,7 @@ import IcicleTracker from './Modules/Features/IcicleTracker';
 
 import Tier20_2set from './Modules/Items/Tier20_2set';
 import ShardOfTheExodar from './Modules/Items/ShardOfTheExodar';
+import ZannesuJourney from './Modules/Items/ZannesuJourney';
 
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -36,6 +37,7 @@ class CombatLogParser extends CoreCombatLogParser {
 	  //Items
 	  tier20_2set: Tier20_2set,
 	  shardOfTheExodar: ShardOfTheExodar,
+    zannesuJourney: ZannesuJourney,
 
   };
 

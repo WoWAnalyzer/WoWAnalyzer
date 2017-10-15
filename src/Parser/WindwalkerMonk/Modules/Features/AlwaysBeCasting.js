@@ -7,8 +7,9 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.BLACKOUT_KICK.id,
     SPELLS.RISING_SUN_KICK.id,
     SPELLS.TIGER_PALM.id,
-
   ];
+
+  showStatistic = true;
 }
 
 export default AlwaysBeCasting;

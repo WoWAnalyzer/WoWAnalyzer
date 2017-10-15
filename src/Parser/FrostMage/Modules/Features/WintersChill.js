@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Module from 'Parser/Core/Module';
-import Enemies from 'Parser/Core/Modules/Enemies';
+import EnemyInstances from 'Parser/Core/Modules/EnemyInstances';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
@@ -12,7 +12,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 class WintersChillTracker extends Module {
 
   static dependencies = {
-    enemies: Enemies,
+    enemies: EnemyInstances,
   };
 
   wintersChillApplied = 0;
@@ -23,24 +23,25 @@ class WintersChillTracker extends Module {
       return;
     }
     const enemy = this.enemies.getEntity(event);
-    if (enemy.hasBuff(SPELLS.WINTERS_CHILL.id, event.timestamp)) {
+    if (enemy.hasBuff(SPELLS.WINTERS_CHILL.id)) {
       this.iceLanceCasts += 1;
     }
   }
+
   on_byPlayer_applydebuff(event) {
 	  if(event.ability.guid !== SPELLS.WINTERS_CHILL.id) {
 		  return;
 	  }
-		  this.wintersChillApplied += 1;
-	  }
+		this.wintersChillApplied += 1;
+	}
 
   suggestions(when) {
     const missed = this.wintersChillApplied - this.iceLanceCasts;
     when(missed).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span> You failed to Shatter {this.missed} <SpellLink id={SPELLS.WINTERS_CHILL.id}/>.  Make sure you cast <SpellLink id={SPELLS.ICE_LANCE_CAST.id}/> after each <SpellLink id={SPELLS.FLURRY.id}/> so Ice Lance can benefit from the <SpellLink id={SPELLS.SHATTER.id}/> Bonus.</span>)
+        return suggest(<span> You failed to Shatter {missed} <SpellLink id={SPELLS.WINTERS_CHILL.id}/>.  Make sure you cast <SpellLink id={SPELLS.ICE_LANCE_CAST.id}/> after each <SpellLink id={SPELLS.FLURRY.id}/> so Ice Lance can benefit from the <SpellLink id={SPELLS.SHATTER.id}/> Bonus.</span>)
           .icon(SPELLS.ICE_LANCE_CAST.icon)
-          .actual(`${formatNumber(this.missed)} Winter's Chill not Shattered`)
+          .actual(`${formatNumber(missed)} Winter's Chill not Shattered`)
           .recommended(`${formatNumber(recommended)} is recommended`)
           .regular(recommended + 1).major(recommended + 3);
       });

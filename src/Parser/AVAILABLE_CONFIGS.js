@@ -13,28 +13,28 @@ import MarksmanshipHunter from './MarksmanshipHunter/CONFIG';
 // Mage
 import FrostMage from './FrostMage/CONFIG';
 
-import BrewmasterMonk from './BrewmasterMonk/CONFIG';
+import BrewmasterMonk from './Monk/Brewmaster/CONFIG';
 import WindwalkerMonk from './WindwalkerMonk/CONFIG';
 import MistweaverMonk from './MistweaverMonk/CONFIG';
 
-import HolyPaladin from './HolyPaladin/CONFIG';
+import HolyPaladin from './Paladin/Holy/CONFIG';
 import RetributionPaladin from './RetributionPaladin/CONFIG';
 
 import DisciplinePriest from './DisciplinePriest/CONFIG';
 import HolyPriest from './HolyPriest/CONFIG';
 import ShadowPriest from './ShadowPriest/CONFIG';
 
-import SubtletyRogue from './SubtletyRogue/CONFIG';
+import SubtletyRogue from './Rogue/Subtlety/CONFIG';
 
 import ElementalShaman from './ElementalShaman/CONFIG';
 import EnhancementShaman from './EnhancementShaman/CONFIG';
 import RestorationShaman from './RestorationShaman/CONFIG';
 
-import AfflictionWarlock from './AfflictionWarlock/CONFIG';
-import DemonologyWarlock from './DemonologyWarlock/CONFIG';
-import DestructionWarlock from './DestructionWarlock/CONFIG';
+import AfflictionWarlock from './Warlock/Affliction/CONFIG';
+import DemonologyWarlock from './Warlock/Demonology/CONFIG';
+import DestructionWarlock from './Warlock/Destruction/CONFIG';
 
-import ProtectionWarrior from './ProtectionWarrior/CONFIG';
+import ProtectionWarrior from './Warrior/Protection/CONFIG';
 
 export default [
   BloodDeathKnight,

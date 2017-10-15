@@ -1,8 +1,11 @@
-import SPELLS from 'common/SPELLS';
-import { formatDuration } from 'common/format';
+import React from 'react';
 
+import Icon from 'common/Icon';
+import SPELLS from 'common/SPELLS';
+import { formatMilliseconds, formatPercentage } from 'common/format';
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import Haste from './Haste';
 
@@ -74,7 +77,7 @@ class AlwaysBeCasting extends Module {
     // const isFullGcd = this.constructor.FULLGCD_ABILITIES.indexOf(spellId) !== -1;
 
     if (!isOnGcd) {
-      debug && console.log(`%cABC: ${cast.ability.name} (${spellId}) ignored`, 'color: gray');
+      debug && console.log(formatMilliseconds(this.owner.fightDuration), `%cABC: ${cast.ability.name} (${spellId}) ignored`, 'color: gray');
       return;
     }
 
@@ -102,7 +105,20 @@ class AlwaysBeCasting extends Module {
     const timeWasted = castStartTimestamp - (this._lastCastFinishedTimestamp || this.owner.fight.start_time);
     this.totalTimeWasted += timeWasted;
 
-    debug && console.log(`ABC: tot.:${Math.floor(this.totalTimeWasted)}\tthis:${Math.floor(timeWasted)}\t%c${cast.ability.name} (${spellId}): ${begincast ? 'channeled' : 'instant'}\t%cgcd:${Math.floor(globalCooldown)}\t%ccasttime:${cast.timestamp - castStartTimestamp}\tfighttime:${formatDuration((castStartTimestamp - this.owner.fight.start_time) / 1000)}`, 'color:red', 'color:green', 'color:black');
+    if (debug) {
+      const fightDuration = formatMilliseconds(this.owner.fightDuration);
+      const num = (value, padding = 4) => Math.floor(value).toString().padStart(padding);
+      console.log(`%c${[
+        fightDuration,
+        'ABC:',
+        'total:', num(this.totalTimeWasted, 6),
+        'this:', num(timeWasted),
+        'gcd:', num(globalCooldown),
+        'casttime:', num(cast.timestamp - castStartTimestamp), `(${begincast ? 'channeled' : 'instant'})`.padEnd(11),
+        'haste:', `${formatPercentage(this.haste.current).padStart(6)}%`,
+        cast.ability.name.padEnd(30), spellId,
+      ].join('  ')}`, `color: ${timeWasted < 0 ? (timeWasted < -50 ? 'red' : 'orange') : '#000'}`);
+    }
 
     this._lastCastFinishedTimestamp = Math.max(castStartTimestamp + globalCooldown, cast.timestamp);
   }
@@ -128,7 +144,7 @@ class AlwaysBeCasting extends Module {
       const actualCastTime = cast.timestamp - begincast.timestamp;
       const expectedCastTime = Math.round(defaultCastTime / (1 + this.haste.current));
       if (!this.constructor.inRange(actualCastTime, expectedCastTime, 50)) { // cast times seem to fluctuate by 50ms, not sure if it depends on player latency, in that case it could be a lot more flexible
-        console.warn(`ABC: ${SPELLS[spellId].name} channel: Expected actual ${actualCastTime}ms to be expected ${expectedCastTime}ms ± 50ms @ ${formatDuration((cast.timestamp - this.owner.fight.start_time) / 1000)}`, this.combatants.selected.activeBuffs());
+        console.warn(`ABC: ${SPELLS[spellId].name} channel: Expected actual ${actualCastTime}ms to be expected ${expectedCastTime}ms ± 50ms @ ${formatMilliseconds(cast.timestamp - this.owner.fight.start_time)}`, this.combatants.selected.activeBuffs());
       }
     }
   }
@@ -141,6 +157,50 @@ class AlwaysBeCasting extends Module {
   static inRange(num1, goal, buffer) {
     return num1 > (goal - buffer) && num1 < (goal + buffer);
   }
+
+  showStatistic = false;
+  statistic() {
+    if (!this.showStatistic) {
+      return null;
+    }
+
+    const downtime = this.totalTimeWasted;
+    const activeTime = this.owner.fightDuration - downtime;
+
+    const downtimePercentage = downtime / this.owner.fightDuration;
+    const activeTimePercentage = activeTime / this.owner.fightDuration;
+
+    return (
+      <StatisticBox
+        icon={<Icon icon="spell_mage_altertime" alt="Downtime" />}
+        value={`${formatPercentage(downtimePercentage)} %`}
+        label="Downtime"
+        tooltip={`Downtime is available time not used to cast anything (including not having your GCD rolling). This can be caused by delays between casting spells, latency, cast interrupting or just simply not casting anything (e.g. due to movement/stunned).<br/>
+        <li>You spent <b>${formatPercentage(activeTimePercentage)}%</b> of your time casting something.</li>
+        <li>You spent <b>${formatPercentage(downtimePercentage)}%</b> of your time casting nothing at all.</li>
+        `}
+        footer={(
+          <div className="statistic-bar">
+            <div
+              className="stat-health-bg"
+              style={{ width: `${activeTimePercentage * 100}%` }}
+              data-tip={`You spent <b>${formatPercentage(activeTimePercentage)}%</b> of your time casting something.`}
+            >
+              <img src="/img/sword.png" alt="Active time" />
+            </div>
+            <div
+              className="remainder DeathKnight-bg"
+              data-tip={`You spent <b>${formatPercentage(downtimePercentage)}%</b> of your time casting nothing at all.`}
+            >
+              <img src="/img/afk.png" alt="Downtime" />
+            </div>
+          </div>
+        )}
+        footerStyle={{ overflow: 'hidden' }}
+      />
+    );
+  }
+  statisticOrder = STATISTIC_ORDER.CORE(10);
 }
 
 export default AlwaysBeCasting;

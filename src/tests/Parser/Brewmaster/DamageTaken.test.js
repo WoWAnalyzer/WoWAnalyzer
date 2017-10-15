@@ -1,4 +1,4 @@
-import DamageTaken from 'Parser/BrewmasterMonk/Modules/Core/DamageTaken';
+import DamageTaken from 'Parser/Monk/Brewmaster/Modules/Core/DamageTaken';
 import processEvents from './Fixtures/processEvents';
 import { SimpleFight, heal, absorbed, incomingDamage, staggerAbsorbed, staggerTicks } from './Fixtures/SimpleFight';
 
