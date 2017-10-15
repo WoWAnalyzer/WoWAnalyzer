@@ -1,7 +1,7 @@
 import { formatMilliseconds } from 'common/format';
 import Module from 'Parser/Core/Module';
 
-const debug = true;
+const debug = false;
 
 const APPLY = 'apply';
 const REMOVE = 'remove';
