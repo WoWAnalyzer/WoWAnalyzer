@@ -19,7 +19,7 @@ class ShatteredFragmentsOfSindragosa extends Module {
     if (event.ability.guid !== SPELLS.COMET_STORM_DAMAGE.id) {
       return;
     }
-      this.damage += event.amount;
+      this.damage += event.amount + (event.absorbed || 0);
   }
 
   item() {
