@@ -4,8 +4,6 @@ import Module from 'Parser/Core/Module';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-const debug = false;
-
 class Katsuos extends Module {
   static dependencies = {
     combatatants: Combatants,
