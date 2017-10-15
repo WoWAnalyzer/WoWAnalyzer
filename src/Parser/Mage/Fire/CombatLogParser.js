@@ -11,7 +11,7 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownTracker from './Modules/Features/CooldownTracker';
 
 import Tier20_4set from './Modules/Items/Tier20_4set';
-import ShardOfTheExodar from './Modules/Items/ShardOfTheExodar';
+import ShardOfTheExodar from '../Shared/Modules/Items/ShardOfTheExodar';
 
 
 class CombatLogParser extends CoreCombatLogParser {

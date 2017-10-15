@@ -6,7 +6,7 @@ import { formatNumber } from 'common/format';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Module from 'Parser/Core/Module';
-import getDamageBonus from '../MageCore/GetDamageBonus';
+import getDamageBonus from 'Parser/Mage/Shared/Modules/GetDamageBonus';
 
 const CRITICAL_MASSIVE_DAMAGE_BONUS = 0.1;
 

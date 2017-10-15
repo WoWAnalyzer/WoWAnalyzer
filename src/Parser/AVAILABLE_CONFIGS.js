@@ -11,12 +11,8 @@ import RestoDruid from './RestoDruid/CONFIG';
 import MarksmanshipHunter from './MarksmanshipHunter/CONFIG';
 
 // Mage
-<<<<<<< 38d3f67e035a0a4b02f34c7cce8cb24f60c68ce5
 import FrostMage from './Mage/Frost/CONFIG';
-=======
-import FrostMage from './FrostMage/CONFIG';
-import FireMage from './FireMage/CONFIG';
->>>>>>> [Fire Mage] Initial spec setup + ABC
+import FireMage from './Mage/Fire/CONFIG';
 
 import BrewmasterMonk from './Monk/Brewmaster/CONFIG';
 import WindwalkerMonk from './WindwalkerMonk/CONFIG';
