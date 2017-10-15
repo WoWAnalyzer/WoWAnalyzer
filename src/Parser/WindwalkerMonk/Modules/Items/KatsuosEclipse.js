@@ -26,7 +26,7 @@ class KatsuosEclipse extends Module {
   item() {
     return {
       item: ITEMS.KATSUOS_ECLIPSE,
-      result: `Chi saved: ${this.chiSaved}`,
+      result: `${this.chiSaved} Chi saved`,
     };
   }
 }
