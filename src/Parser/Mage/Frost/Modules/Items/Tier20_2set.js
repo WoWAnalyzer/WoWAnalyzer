@@ -5,7 +5,7 @@ import SpellLink from 'common/SpellLink';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Module from 'Parser/Core/Module';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
-import getDamageBonus from '../MageCore/GetDamageBonus';
+import getDamageBonus from 'Parser/Mage/Shared/Modules/GetDamageBonus';
 
 const FROZEN_MASS_DAMAGE_BONUS = 0.2;
 

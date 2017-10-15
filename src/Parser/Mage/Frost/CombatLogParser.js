@@ -15,8 +15,8 @@ import BrainFreeze from './Modules/Features/BrainFreeze';
 import ThermalVoid from './Modules/Features/ThermalVoid';
 import IcicleTracker from './Modules/Features/IcicleTracker';
 
+import ShardOfTheExodar from '../Shared/Modules/Items/ShardOfTheExodar';
 import Tier20_2set from './Modules/Items/Tier20_2set';
-import ShardOfTheExodar from './Modules/Items/ShardOfTheExodar';
 import ZannesuJourney from './Modules/Items/ZannesuJourney';
 
 
