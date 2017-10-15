@@ -34,6 +34,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.EFFUSE.id,
     SPELLS.TRANSCENDENCE.id,
     SPELLS.TRANSCENDENCE_TRANSFER.id,
+    SPELLS.FLYING_SERPENT_KICK.id,
     
   ];
 
