@@ -10,7 +10,8 @@ class Katsuos extends Module {
   static dependencies = {
     combatatants: Combatants,
   };
-  chiSaved = 0;
+  chiSaved = 0; 
+  
 
   on_initialized() {
     this.active = this.combatatants.selected.hasFeet(ITEMS.KATSUOS_ECLIPSE.id);
@@ -19,8 +20,20 @@ class Katsuos extends Module {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
-    if (spellId === SPELLS.FISTS_OF_FURY_CAST.id! & this.combatatants.selected.hasBuff(SPELLS.SERENITY_TALENT.id)) {
-      chiSaved += 1;
+    if (spellId === SPELLS.FISTS_OF_FURY_CAST.id) {
+      this.chiSaved += 1;
+    }
+    if (spellId === SPELLS.FISTS_OF_FURY_CAST.id && this.combatatants.selected.hasBuff(SPELLS.SERENITY_TALENT.id)) {
+      this.chiSaved -= 1;
     }
   }
+
+  item() {
+    return {
+      item: ITEMS.KATSUOS_ECLIPSE,
+      result: `Chi saved: ${this.chiSaved}`,
+    };
+  }
 }
+
+export default Katsuos;
