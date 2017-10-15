@@ -2,7 +2,7 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import getDamageBonus from '../MageCore/GetDamageBonus';
+import getDamageBonus from 'Parser/Mage/SharedModules/GetDamageBonus';
 
 const DAMAGE_BONUS = .35;
 
