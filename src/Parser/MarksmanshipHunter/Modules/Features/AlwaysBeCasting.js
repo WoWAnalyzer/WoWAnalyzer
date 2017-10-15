@@ -10,7 +10,6 @@ import SpellLink from 'common/SpellLink';
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   static ABILITIES_ON_GCD = [
 
-    // MarksmanshipHunter:
     SPELLS.AIMED_SHOT.id,
     SPELLS.WINDBURST.id,
     SPELLS.ARCANE_SHOT.id,
