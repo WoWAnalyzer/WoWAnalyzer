@@ -20,7 +20,7 @@ const SPECS = {
   FROST_DEATH_KNIGHT: { id: 251, className: 'Death Knight', specName: 'Frost', role: ROLES.DPS.MELEE },
   UNHOLY_DEATH_KNIGHT: { id: 252, className: 'Death Knight', specName: 'Unholy', role: ROLES.DPS.MELEE },
   BEAST_MASTERY_HUNTER: { id: 253, className: 'Hunter', specName: 'Beast Mastery', role: ROLES.DPS.RANGED },
-  MARKSMANSHIP_HUNTER: { id: 254, className: 'Hunter', specName: 'MarksmanshipHunter', role: ROLES.DPS.RANGED },
+  MARKSMANSHIP_HUNTER: { id: 254, className: 'Hunter', specName: 'Marksmanship', role: ROLES.DPS.RANGED },
   SURVIVAL_HUNTER: { id: 255, className: 'Hunter', specName: 'Survival', role: ROLES.DPS.MELEE },
   DISCIPLINE_PRIEST: { id: 256, className: 'Priest', specName: 'Discipline', role: ROLES.HEALER },
   HOLY_PRIEST: { id: 257, className: 'Priest', specName: 'Holy', role: ROLES.HEALER },
