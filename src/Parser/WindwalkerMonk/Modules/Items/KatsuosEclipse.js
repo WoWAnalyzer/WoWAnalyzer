@@ -4,7 +4,7 @@ import Module from 'Parser/Core/Module';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-class Katsuos extends Module {
+class KatsuosEclipse extends Module {
   static dependencies = {
     combatatants: Combatants,
   };
@@ -31,4 +31,4 @@ class Katsuos extends Module {
   }
 }
 
-export default Katsuos;
+export default KatsuosEclipse;
