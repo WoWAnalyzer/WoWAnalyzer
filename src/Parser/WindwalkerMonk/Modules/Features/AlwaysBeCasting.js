@@ -53,7 +53,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
   }
 
   showStatistic = true;
-  statisticOrder = STATISTIC_ORDER.CORE(1);
+  statisticOrder = STATISTIC_ORDER.CORE(10);
 }
 
 export default AlwaysBeCasting;
