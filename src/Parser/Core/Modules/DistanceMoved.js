@@ -62,7 +62,7 @@ class DistanceMoved extends Module {
         icon={<SpellIcon id={SPELLS.FRENETIC_SPEED_TALENT.id} />}
         value={`≈${formatThousands(this.totalDistanceMoved)} yards`}
         label="Distance moved during fight"
-        tooltip="Consider this when analyzing the fight, as some fights require more movement than others. Unnecessary movement can result in a DPS/HPS loss."
+        tooltip={`≈${formatThousands(this.totalDistanceMoved / (this.owner.fightDuration / 1000) * 60)} yards per minute. Consider this when analyzing the fight, as some fights require more movement than others. Unnecessary movement can result in a DPS/HPS loss.`}
       />
     );
   }
