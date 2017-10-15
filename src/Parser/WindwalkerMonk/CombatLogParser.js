@@ -13,6 +13,10 @@ import CastEfficiency from './Modules/Features/CastEfficiency';
 import CooldownTracker from './Modules/Features/CooldownTracker';
 import ComboStrikes from './Modules/Features/ComboStrikes';
 
+// Spells
+import ComboBreaker from './Modules/Spells/ComboBreaker';
+import StormEarthAndFire from './Modules/Spells/StormEarthAndFire';
+
 // Talents
 import HitCombo from './Modules/Talents/HitCombo';
 
@@ -27,6 +31,10 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Talents:
     hitCombo: HitCombo,
+
+    // Spells;
+    comboBreaker: ComboBreaker,
+    stormEarthAndFire: StormEarthAndFire,
 
     // Legendaries:
   };

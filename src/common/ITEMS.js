@@ -58,6 +58,12 @@ const ITEMS = {
     icon: 'inv_70_dungeon_ring6a',
     quality: ITEM_QUALITIES.EPIC,
   },
+  AGGRAMARS_STRIDE: {
+    id: 132443,
+    name: 'Aggramar\'s Stride',
+    icon: 'inv_boots_plate_raidpaladin_i_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
   // Shared Paladin
   SOUL_OF_THE_HIGHLORD: {
     id: 151644,
@@ -69,6 +75,12 @@ const ITEMS = {
     id: 137086,
     name: 'Chain of Thrayn',
     icon: 'inv_belt_leather_firelandsdruid_d_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  UTHERS_GUARD: {
+    id: 137105,
+    name: 'Uther\'s Guard',
+    icon: 'inv_bracer_17',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
   // Holy Paladin
@@ -88,6 +100,18 @@ const ITEMS = {
     id: 144273,
     name: 'Maraad\'s Dying Breath',
     icon: 'item_icecrowncape',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  TYRS_HAND_OF_FAITH: {
+    id: 137059,
+    name: 'Tyr\'s Hand of Faith',
+    icon: 'inv_glove_plate_panda_b_01blue',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  THE_TOPLESS_TOWER: {
+    id: 151782,
+    name: 'The Topless Tower',
+    icon: 'inv_helm_plate_raidpaladin_n_01',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
   DRAPE_OF_SHAME: {
@@ -115,41 +139,53 @@ const ITEMS = {
     icon: 'inv_jewelry_ring_61',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
-  // Resto Shammy
-  ROOTS_OF_SHALADRASSIL: {
-    id: 132466,
-    name: 'Roots of Shaladrassil',
-    icon: 'inv_robe_pants_pvpwarlock_c_02',
+  AEGISJALMUR_THE_ARMGUARDS_OF_AWE: {
+    id: 140846,
+    name: 'Aegisjalmur, the Armguards of Awe',
+    icon: 'inv_bracer_plate_raidpaladin_m_01',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
-  PRAETORIANS_TIDECALLERS: {
-    id: 137058,
-    name: 'Praetorian\'s Tidecallers',
-    icon: 'inv_gauntlets_plate_raidpaladin_i_01',
+  JUSTICE_GAZE: {
+    id: 137065,
+    name: 'Justice Gaze',
+    icon: 'inv_helmet_134',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
-  FOCUSER_OF_JONAT: {
-    id: 137051,
-    name: 'Focuser of Jonat, the Elder',
-    icon: 'inv_jewelry_ring_96',
+  SCARLET_INQUISITORS_EXPURGATION: {
+    id: 151813,
+    name: 'Scarlet Inquisitor\'s Expurgation',
+    icon: 'inv_chest_plate_raidpaladin_j_01',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
-  INTACT_NAZJATAR_MOLTING: {
-    id: 137085,
-    name: 'Intact Nazjatar Molting',
-    icon: 'inv_leather_raiddruid_m_01belt',
+  // Protection Paladin
+  HEATHCLIFFS_IMMORTALITY: {
+    id: 137047,
+    name: 'Heathcliff\'s Immortality',
+    icon: 'inv_jewelry_ring_72',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
-  NOBUNDOS_REDEMPTION: {
-    id: 137104,
-    name: 'Nobundo\'s Redemption',
-    icon: 'inv_bracer_leather_cataclysm_b_01',
+  TYELCA_FERREN_MARCUSS_STATURE: {
+    id: 137070,
+    name: 'Tyelca, Ferren Marcus\'s Stature',
+    icon: 'inv_pants_plate_raidwarrior_n_01',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
-  UNCERTAIN_REMINDER: {
-    id: 143732,
-    name: 'Uncertain Reminder',
-    icon: 'inv_helm_mail_korkronshaman_d_01',
+  BREASTPLATE_OF_THE_GOLDEN_VALKYR: {
+    id: 137017,
+    name: 'Breastplate of the Golden Val\'kyr',
+    icon: 'inv_chest_plate_panda_b_01gold',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  SARUANS_RESOLVE: {
+    id: 144275,
+    name: 'Saruan\'s Resolve',
+    icon: 'inv_plate_draenorcrafted_d_01helm',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  PILLARS_OF_INMOST_LIGHT: {
+    id: 151812,
+    name: 'Pillars of Inmost Light',
+    icon: 'inv_shoulder_126',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
 
@@ -160,12 +196,25 @@ const ITEMS = {
     icon: 'sha_spell_fire_bluepyroblast_nightmare',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
-  // ENHANCEMENT SHAMAN LEGENDARIES
-  AKAINUS_ABSOLUTE_JUSTICE: {
-	  id: 137084,
-	  name: 'Akainu\'s Absolute Justice',
-	  icon: 'inv_bracer_mail_pvphunter_c_02',
-	  quality: ITEM_QUALITIES.LEGENDARY,
+  ROOTS_OF_SHALADRASSIL: {
+    id: 132466,
+    name: 'Roots of Shaladrassil',
+    icon: 'inv_robe_pants_pvpwarlock_c_02',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+
+  // Shared Shaman
+  UNCERTAIN_REMINDER: {
+    id: 143732,
+    name: 'Uncertain Reminder',
+    icon: 'inv_helm_mail_korkronshaman_d_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  SOUL_OF_THE_FARSEER: {
+    id: 151647,
+    name: 'Soul of the Farseer',
+    icon: 'inv_70_quest_ring2b',
+    quality: ITEM_QUALITIES.LEGENDARY,
   },
   EYE_OF_THE_TWISTING_NETHER: {
     id: 137050,
@@ -179,16 +228,42 @@ const ITEMS = {
     icon: 'inv_gauntlets_85',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+  // Elemental Shaman
+  THE_DECEIVERS_BLOOD_PACT: {
+    id: 137035,
+    name: 'The Deceiver\'s Blood Pact',
+    icon: 'inv_boots_chain_07',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  ECHOES_OF_THE_GREAT_SUNDERING: {
+    id: 137074,
+    name: 'Echoes of the Great Sundering',
+    icon: 'inv_shoulder_plate_raidwarrior_j_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  PRISTINE_PROTO_SCALE_GIRDLE: {
+    id: 137083,
+    name: 'Pristine Proto-Scale Girdle',
+    icon: 'inv_belt_mail_panda_b_01white',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  ALAKIRS_ACRIMONY: {
+    id: 137102,
+    name: 'Al\'Akir\'s Acrimony',
+    icon: 'inv_bracer_plate_pvpdeathknight_e_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  // ENHANCEMENT SHAMAN LEGENDARIES
+  AKAINUS_ABSOLUTE_JUSTICE: {
+	  id: 137084,
+	  name: 'Akainu\'s Absolute Justice',
+	  icon: 'inv_bracer_mail_pvphunter_c_02',
+	  quality: ITEM_QUALITIES.LEGENDARY,
+  },
   EMALONS_CHARGED_CORE: {
     id: 137616,
     name: 'Emalon\'s Charged Core',
     icon: 'inv_chest_mail_dungeonmail_c_04',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
-  SOUL_OF_THE_FARSEER: {
-    id: 151647,
-    name: 'Soul of the Farseer',
-    icon: 'inv_70_quest_ring2b',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
   STORM_TEMPESTS: {
@@ -203,11 +278,68 @@ const ITEMS = {
     icon: 'inv_boot_mail_raidhunter_m_01',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
-  // PRIEST LEGENDARIES
+  // Resto Shaman
+  FOCUSER_OF_JONAT: {
+    id: 137051,
+    name: 'Focuser of Jonat, the Elder',
+    icon: 'inv_jewelry_ring_96',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  INTACT_NAZJATAR_MOLTING: {
+    id: 137085,
+    name: 'Intact Nazjatar Molting',
+    icon: 'inv_leather_raiddruid_m_01belt',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  ELEMENTAL_REBALANCERS: {
+    id: 137036,
+    name: 'Elemental Rebalancers',
+    icon: 'inv_boots_mail_raidshaman_j_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  PRAETORIANS_TIDECALLERS: {
+    id: 137058,
+    name: 'Praetorian\'s Tidecallers',
+    icon: 'inv_gauntlets_plate_raidpaladin_i_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },  
+  NOBUNDOS_REDEMPTION: {
+    id: 137104,
+    name: 'Nobundo\'s Redemption',
+    icon: 'inv_bracer_leather_cataclysm_b_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  FIRE_IN_THE_DEEP: {
+    id: 151785,
+    name: 'Fire in the Deep',
+    icon: 'inv_chest_mail_raidshaman_m_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+
+  // Shared Priest
+  SOUL_OF_THE_HIGH_PRIEST: {
+    id: 151646,
+    name: 'Soul of the High Priest',
+    icon: 'inv_jewelry_ring_67',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  // Discipline Priest
   CORD_OF_MAIEV_PRIESTESS_OF_THE_MOON: {
     id: 133800,
     name: 'Cord of Maiev, Priestess of the Moon',
     icon: 'inv_belt_leather_panda_b_02_crimson',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  ESTEL_DEJAHNAS_INSPIRATION: {
+    id: 132861,
+    name: 'Estel, Dejahna\'s Inspiration',
+    icon: 'inv_chest_cloth_43',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  NERO_BAND_OF_PROMISES: {
+    id: 137276,
+    name: 'N\'ero, Band of Promises',
+    icon: 'inv_jewelry_ring_54',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
   SKJOLDR_SANCTUARY_OF_IVAGONT: {
@@ -222,28 +354,10 @@ const ITEMS = {
     icon: 'inv_gauntlets_14',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
-  NERO_BAND_OF_PROMISES: {
-    id: 137276,
-    name: 'N\'ero, Band of Promises',
-    icon: 'inv_jewelry_ring_54',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
-  SOUL_OF_THE_HIGH_PRIEST: {
-    id: 151646,
-    name: 'Soul of the High Priest',
-    icon: 'inv_jewelry_ring_67',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
-  ENTRANCING_TROUSERS_OF_ANJUNA: {
-    id: 132447,
-    name: 'Entrancing Trousers of An\'juna',
-    icon: 'inv_pants_robe_raidwarlock_j_01',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
-  XANSHI_CLOAK: { // when XANSHI_SHROUD_OF_ARCHBISHOP_BENEDICTUS is just too long :^)
-    id: 137109,
-    name: 'X\'anshi, Shroud of Archbishop Benedictus',
-    icon: 'inv_misc_cape_20',
+  KAM_XIRAFF: {
+    id: 144244,
+    name: 'Kam Xi\'raff',
+    icon: 'inv_helmet_robe_raidpriest_j_01',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
   INNER_HALLATION: {
@@ -252,19 +366,94 @@ const ITEMS = {
     icon: 'inv_shoulder_robe_raidpriest_k_01',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+  // Holy Priest
+  XANSHI_CLOAK: { // when XANSHI_SHROUD_OF_ARCHBISHOP_BENEDICTUS is just too long :^)
+    id: 137109,
+    name: 'X\'anshi, Shroud of Archbishop Benedictus',
+    icon: 'inv_misc_cape_20',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  MUZES_UNWAVERING_WILL: {
+    id: 132450,
+    name: 'Muze\'s Unwavering Will',
+    icon: 'inv_bracer_cloth_panda_b_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  PHYRIXS_EMBRACE: {
+    id: 132449,
+    name: 'Phyrix\'s Embrace',
+    icon: 'inv_jewelry_ring_94',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  ENTRANCING_TROUSERS_OF_ANJUNA: {
+    id: 132447,
+    name: 'Entrancing Trousers of An\'juna',
+    icon: 'inv_pants_robe_raidwarlock_j_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  ALMAIESH_THE_CORD_OF_HOPE: {
+    id: 132445,
+    name: 'Al\'maiesh, the Cord of Hope',
+    icon: 'inv_belt_51',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  RAMMALS_ULTERIOR_MOTIVE: {
+    id: 144247,
+    name: 'Rammal\'s Ulterior Motive',
+    icon: 'inv_cloth_draenorcrafted_d_01gloves_horde',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  THE_ALABASTER_LADY: {
+    id: 151787,
+    name: 'The Alabaster Lady',
+    icon: 'inv_helmet_136',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  // Shadow Priest
+  ANUNDS_SEARED_SHACKLES: {
+    id: 132409,
+    name: 'Anund\'s Seared Shackles',
+    icon: 'inv_bracer_leather_firelandsdruid_d_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  ZENKARAM_IRIDIS_ANADEM: {
+    id: 133971,
+    name: 'Zenk\'aram, Iridi\'s Anadem',
+    icon: 'inv_helm_robe_raidwarlock_j_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  THE_TWINS_PAINFUL_TOUCH: {
+    id: 133973,
+    name: 'The Twins\' Painful Touch',
+    icon: 'inv_ringwod_d4_2',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
   MANGAZAS_MADNESS: {
     id: 132864,
     name: 'Mangaza\'s Madness',
     icon: 'inv_belt_92v4',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
-  //Mage
-  SHATTERED_FRAGMENTS_OF_SINDRAGOSA: {
-	  id: 151810,
-	  name: 'Shattered Fragments of Sindragosa',
-	  icon: 'inv_helmet_133',
+  MOTHER_SHAHRAZS_SEDUCTION: {
+    id: 132437,
+    name: 'Mother Shahraz\'s Seduction',
+    icon: 'inv_shoulder_53',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+  ZEKS_EXTERMINATUS: {
+    id: 144438,
+    name: 'Zeks Exterminatus',
+    icon: 'inv_cape_pandariapvp_d_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  HEART_OF_THE_VOID: {
+    id: 151814,
+    name: 'Heart of the Void',
+    icon: 'inv_chest_cloth_raidpriestmythic_o_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+
+  // Shared Mage
   SHARD_OF_THE_EXODAR: {
 	  id: 132410,
 	  name: 'Shard of the Exodar',
@@ -283,6 +472,8 @@ const ITEMS = {
     icon: 'inv_70_raid_ring2d',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+
+  // Arcane Mage
   RHONINS_ASSAULTING_ARMWRAPS: {
     id: 132413,
     name: 'Rhonin\'s Assaulting Armwraps',
@@ -313,6 +504,8 @@ const ITEMS = {
     icon: 'inv_shoulder_97',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+
+  // Fire Mage
   KORALONS_BURNING_TOUCH: {
     id: 132454,
     name: 'Koralon\'s Burning Touch',
@@ -343,6 +536,8 @@ const ITEMS = {
     icon: 'inv_shoulder_robe_raidpriest_j_01',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+  
+  // Frost Mage
   LADY_VASHJS_GRASP: {
     id: 132411,
     name: 'Lady Vashj\'s Grasp',
@@ -367,6 +562,13 @@ const ITEMS = {
     icon: 'inv_shoulder_110',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+  SHATTERED_FRAGMENTS_OF_SINDRAGOSA: {
+	  id: 151810,
+	  name: 'Shattered Fragments of Sindragosa',
+	  icon: 'inv_helmet_133',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+
   // Trinkets
   DARKMOON_DECK_PROMISES: {
     id: 128710,
@@ -393,13 +595,22 @@ const ITEMS = {
     icon: 'inv_70_dungeon_ring8d',
     quality: ITEM_QUALITIES.EPIC,
   },
-  // Resto Druid legendaries:
+
+  // Shared Druid Legendaries
+  SOUL_OF_THE_ARCHDRUID: {
+    id: 151636,
+    name: 'Soul of the Archdruid',
+    icon: 'inv_70_raid_ring6a',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
   EKOWRAITH_CREATOR_OF_WORLDS: {
     id: 137015,
     name: 'Ekowraith, Creator of Worlds',
     icon: 'inv_chest_leather_13',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+
+  // Resto Druid legendaries:
   XONIS_CARESS: {
     id: 144242,
     name: 'X\'oni\'s Caress',
@@ -430,12 +641,19 @@ const ITEMS = {
     icon: 'inv_helmet_153',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
-  SOUL_OF_THE_ARCHDRUID: {
-    id: 151636,
-    name: 'Soul of the Archdruid',
-    icon: 'inv_70_raid_ring6a',
+  EDRAITH_BONDS_OF_AGLAYA: {
+    id: 137095,
+    name: 'Edraith, Bonds of Aglaya',
+    icon: 'inv_bracer_57',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+  AMANTHULS_WISDOM: {
+    id: 137072,
+    name: 'Aman\'Thul\'s Wisdom',
+    icon: 'inv_shoulder_leather_raidmonk_n_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+
   // Balance Druid Legendaries
   IMPECCABLE_FEL_ESSENCE: {
     id: 137039,
@@ -467,23 +685,58 @@ const ITEMS = {
     icon: 'inv_cape_felfire_raid_d_01',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
-  // Monk Legendaries
-  EITHAS_LUNAR_GLIDES: {
-    id: 137028,
-    name: 'Ei\'thas, Lunar Glides of Eramas',
-    icon: 'inv_boots_mail_04black',
+  PROMISE_OF_ELUNE: {
+    id: 137023,
+    name: 'Promise of Elune, the Moon Goddess',
+    icon: 'inv_boots_leather_raiddruid_j_01',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
-  DOORWAY_TO_NOWHERE: {
-    id: 151784,
-    name: 'Doorway to Nowhere',
-    icon: 'inv_misc_cape_cataclysm_healer_b_01',
+
+  // Feral Druid Legendaries
+  CHATOYANT_SIGNET: {
+    id: 137040,
+    name: 'Chatoyant Signet',
+    icon: 'inv_misc_ring_firelands_2',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
-  SHELTER_OF_RIN: {
-    id: 144340,
-    name: 'Shelter of Rin',
-    icon: 'inv_chest_plate27v2',
+  AILURO_POUNCERS: {
+    id: 137024,
+    name: 'Ailuro Pouncers',
+    icon: 'inv_boots_leather_05red',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  THE_WILDSHAPERS_CLUTCH: {
+    id: 137094,
+    name: 'The Wildshaper\'s Clutch',
+    icon: 'inv_leather_raiddruid_o_01glove',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  FIERY_RED_MAIMERS: {
+    id: 144354,
+    name: 'Fiery Red Maimers',
+    icon: 'inv_pants_leather_40v1',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  BEHEMOTH_HEADDRESS: {
+    id: 151801,
+    name: 'Behemoth Headdress',
+    icon: 'inv_helmet_leather_draenorhonors2_c_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+
+  // Shared Monk
+  SOUL_OF_THE_GRANDMASTER: {
+    id: 151643,
+    name: 'Soul of the Grandmaster',
+    icon: 'inv_jewelry_ring_119',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+
+  // Mistweaver Monk
+  EYE_OF_COLLIDUS_THE_WARPWATCHER: {
+    id: 137045,
+    name: 'Eye of Collidus the Warp-Watcher',
+    icon: 'inv_jewelry_ring_45',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
   PETRICHOR_LAGNIAPPE: {
@@ -492,13 +745,131 @@ const ITEMS = {
     icon: 'inv_bracer_41',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+  LEGGINGS_OF_THE_BLACK_FLAME: {
+    id: 137068,
+    name: 'Leggings of The Black Flame',
+    icon: 'inv_pants_leather_27',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  UNISON_SPAULDERS: {
+    id: 137073,
+    name: 'Unison Spaulders',
+    icon: 'inv_shoulder_leather_legionquest100_b_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  EITHAS_LUNAR_GLIDES: {
+    id: 137028,
+    name: 'Ei\'thas, Lunar Glides of Eramas',
+    icon: 'inv_boots_mail_04black',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
   OVYDS_WINTER_WRAP: {
     id: 138879,
     name: 'Ovyd\'s Winter Wrap',
     icon: 'inv_belt_leather_raiddruid_i_01',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+  SHELTER_OF_RIN: {
+    id: 144340,
+    name: 'Shelter of Rin',
+    icon: 'inv_chest_plate27v2',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  DOORWAY_TO_NOWHERE: {
+    id: 151784,
+    name: 'Doorway to Nowhere',
+    icon: 'inv_misc_cape_cataclysm_healer_b_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
 
+  // Brewmaster Monk Legendaries
+  FIRESTONE_WALKERS: {
+    id: 137027,
+    name: 'Firestone Walkers',
+    icon: 'inv_boots_leather_13v1',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  SALSALABIMS_LOST_TUNIC: {
+    id: 137016,
+    name: 'Sal\'salabim\'s Lost Tunic',
+    icon: 'inv_chest_leather_raidrogue_j_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  FUNDAMENTAL_OBSERVATION: {
+    id: 137063,
+    name: 'Fundamental Observation',
+    icon: 'inv_helmet_cloth_pvpmage_c_02',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  GAI_PLINS_SOOTHING_SASH: {
+    id: 137079,
+    name: 'Gai Plin\'s Soothing Sash',
+    icon: 'inv_belt_49',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  JEWEL_OF_THE_LOST_ABBEY: {
+    id: 137044,
+    name: 'Jewel of the Lost Abbey',
+    icon: 'inv_jewelry_ring_138',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  ANVIL_HARDENED_WRISTWRAPS: {
+    id: 144277,
+    name: 'Anvil-Hardened Wristwraps',
+    icon: 'inv_bracer_leather_panda_b_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  STORMSTOUTS_LAST_GASP: {
+    id: 151788,
+    name: 'Stormstout\'s Last Gasp',
+    icon: 'inv_shoulder_leather_pvpmonk_g_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  
+  // Windwalker Monk Legendaries
+  CENEDRIL_REFLECTOR_OF_HATRED: {
+    id: 137019,
+    name: 'Cenedril, Reflector of Hatred',
+    icon: 'inv_cape_pandaria_b_02',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  DRINKING_HORN_COVER: {
+    id: 137097,
+    name: 'Drinking Horn Cover',
+    icon: 'inv_bracer_26',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  MARCH_OF_THE_LEGION: {
+    id: 137220,
+    name: 'March of the Legion',
+    icon: 'inv_ringwod_d4_3',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  HIDDEN_MASTERS_FORBIDDEN_TOUCH: {
+    id: 137057,
+    name: 'Hidden Master\'s Forbidden Touch',
+    icon: 'inv_gauntlet_leather_raidrogue_j_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  KATSUOS_ECLIPSE: {
+    id: 137029,
+    name: 'Katsuo\'s Eclipse',
+    icon: 'inv_boots_cloth_33v4',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  THE_EMPERORS_CAPACITOR: {
+    id: 144239,
+    name: 'The Emperor\'s Capacitor',
+    icon: 'inv_chest_leather_raidrogue_l_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  THE_WIND_BLOWS: {
+    id: 151811,
+    name: 'The Wind Blows',
+    icon: 'inv_helmet_leather_raidmonk_l_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  
   // Shared Rogue Legendaries
   CINIDARIA_THE_SYMBIOTE: {
     id: 133976,
@@ -530,12 +901,17 @@ const ITEMS = {
     icon: 'inv_pants_cloth_02',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
-
-  // Subtlety Rogue Legendaries
-  SHADOW_SATYRS_WALK: {
-    id: 137032,
-    name: 'Shadow Satyr\'s Walk',
-    icon: 'inv_boots_mail_dungeonmail_c_04',
+  THE_DREADLORDS_DECEIT: {
+    id: 137021,
+    name: 'The Dreadlord\'s Deceit',
+    icon: 'inv_cape_pandaria_d_03',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  // Assassination Rogue
+  DUSKWALKERS_FOOTPADS: {
+    id: 137030,
+    name: 'Duskwalker\'s Footpads',
+    icon: 'inv_boots_leather_8',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
   ZOLDYCK_FAMILY_TRAINING_SHACKLES: {
@@ -544,24 +920,62 @@ const ITEMS = {
     icon: 'inv_bracer_leather_raiddruid_i_01',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+  THE_EMPTY_CROWN: {
+    id: 151815,
+    name: 'The Empty Crown',
+    icon: 'inv_crown_02',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  // Outlaw Rogue Legendaries
+  THRAXIS_TRICKSY_TREADS: {
+    id: 137031,
+    name: 'Thraxi\'s Tricksy Treads',
+    icon: 'inv_boots_leather_03a',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  GREENSKINS_WATERLOGGED_WRISTCUFFS: {
+    id: 137099,
+    name: 'Greenskin\'s Waterlogged Wristcuffs',
+    icon: 'inv_bracer_leather_raidrogue_k_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  SHIVARRAN_SYMMETRY: {
+    id: 141321,
+    name: 'Shivarran Symmetry',
+    icon: 'inv_gauntlets_83',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  THE_CURSE_OF_RESTLESSNESS: {
+    id: 151817,
+    name: 'The Curse of Restlessness',
+    icon: 'inv_qiraj_draperegal',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  // Subtlety Rogue Legendaries
+  SHADOW_SATYRS_WALK: {
+    id: 137032,
+    name: 'Shadow Satyr\'s Walk',
+    icon: 'inv_boots_mail_dungeonmail_c_04',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  DENIAL_OF_THE_HALF_GIANTS: {
+    id: 137100,
+    name: 'Denial of the Half-Giants',
+    icon: 'inv_bracer_leather_panda_b_02_crimson',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
   THE_FIRST_OF_THE_DEAD: {
     id: 151818,
     name: 'The First of the Dead',
     icon: 'inv_glove_cloth_raidwarlockmythic_q_01',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
-  THE_DREADLORDS_DECEIT: {
-    id: 137021,
-    name: 'The Dreadlord\'s Deceit',
-    icon: 'inv_cape_pandaria_d_03',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
 
-  // Warlock legendaries
-  SACROLASHS_DARK_STRIKE: {
-    id: 132378,
-    name: 'Sacrolash\'s Dark Strike',
-    icon: 'inv_jewelry_ring_66',
+  // Shared Warlock
+  PILLARS_OF_THE_DARK_PORTAL: {
+    id: 132357,
+    name: 'Pillars of the Dark Portal',
+    icon: 'inv_pants_cloth_raidwarlock_i_01',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
   SOUL_OF_THE_NETHERLORD: {
@@ -570,16 +984,24 @@ const ITEMS = {
     icon: 'inv_70_quest_ring7c',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
-  POWER_CORD_OF_LETHTENDRIS: {
-    id: 132457,
-    name: 'Power Cord of Lethtendris',
-    icon: 'inv_belt_30',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
   THE_MASTER_HARVESTER: {
     id: 151821,
     name: 'The Master Harvester',
     icon: 'inv_chest_cloth_raidmage_q_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+
+  // Affliction Warlock legendaries
+  SACROLASHS_DARK_STRIKE: {
+    id: 132378,
+    name: 'Sacrolash\'s Dark Strike',
+    icon: 'inv_jewelry_ring_66',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  POWER_CORD_OF_LETHTENDRIS: {
+    id: 132457,
+    name: 'Power Cord of Lethtendris',
+    icon: 'inv_belt_30',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
   STRETENS_SLEEPLESS_SHACKLES: {
@@ -588,45 +1010,16 @@ const ITEMS = {
     icon: 'inv_bracer_cloth_raidwarlock_p_01',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+  HOOD_OF_ETERNAL_DISDAIN: {
+    id: 132394,
+    name: 'Hood of Eternal Disdain',
+    icon: 'inv_helmet_152',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
   REAP_AND_SOW: {
     id: 144364,
     name: 'Reap and Sow',
     icon: 'inv_cape_pandaria_c_02',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
-  FERETORY_OF_SOULS: {
-    id: 132456,
-    name: 'Feretory of Souls',
-    icon: 'inv_belt_cloth_raidwarlock_n_01',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
-  ALYTHESSS_PYROGENICS: {
-    id: 132460,
-    name: 'Alythess\'s Pyrogenics',
-    icon: 'inv_jewelry_ring_65',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
-  SINDOREI_SPITE: {
-    id: 132379,
-    name: 'Sin\'dorei Spite',
-    icon: 'inv_bracer_44',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
-  LESSONS_OF_SPACETIME: {
-    id: 144369,
-    name: 'Lessons of Space-Time',
-    icon: 'inv_shoulder_robe_pvpwarlock_d_01',
-  },
-  ODR_SHAWL_OF_THE_YMIRJAR: {
-    id: 132375,
-    name: 'Odr, Shawl of the Ymirjar',
-    icon: 'inv_misc_cape_cataclysm_tank_b_01',
-    quality: ITEM_QUALITIES.LEGENDARY,
-  },
-  MAGISTRIKE_RESTRAINTS: {
-    id: 132407,
-    name: 'Magistrike Restraints',
-    icon: 'inv_bracer_31b',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
   // Demonology legendaries
@@ -652,6 +1045,161 @@ const ITEMS = {
     id: 132393,
     name: 'Recurrent Ritual',
     icon: 'inv_shoulder_cloth_raidwarlock_l_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  SINDOREI_SPITE: {
+    id: 132379,
+    name: 'Sin\'dorei Spite',
+    icon: 'inv_bracer_44',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  // Destruction Legendaries
+  FERETORY_OF_SOULS: {
+    id: 132456,
+    name: 'Feretory of Souls',
+    icon: 'inv_belt_cloth_raidwarlock_n_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  ALYTHESSS_PYROGENICS: {
+    id: 132460,
+    name: 'Alythess\'s Pyrogenics',
+    icon: 'inv_jewelry_ring_65',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  LESSONS_OF_SPACETIME: {
+    id: 144369,
+    name: 'Lessons of Space-Time',
+    icon: 'inv_shoulder_robe_pvpwarlock_d_01',
+  },
+  ODR_SHAWL_OF_THE_YMIRJAR: {
+    id: 132375,
+    name: 'Odr, Shawl of the Ymirjar',
+    icon: 'inv_misc_cape_cataclysm_tank_b_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  MAGISTRIKE_RESTRAINTS: {
+    id: 132407,
+    name: 'Magistrike Restraints',
+    icon: 'inv_bracer_31b',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+
+  // SHARED DEATH KNIGHT LEGENDARIES
+  ACHERUS_DRAPES: {
+    id: 132376,
+    name: 'Acherus Drapes',
+    icon: 'inv_cape_pandaria_d_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  SOUL_OF_THE_DEATHLORD: {
+    id: 151640,
+    name: 'Soul of the Deathlord',
+    icon: 'inv_70_pvp_ring2b',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  COLD_HEART: {
+    id: 151796,
+    name: 'Cold Heart',
+    icon: 'inv_chest_plate_raiddeathknight_p_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  // BLOOD DEATH KNIGHT LEGENDARIES
+  SHACKLES_OF_BRYNDAOR: {
+    id: 132365,
+    name: 'Shackles of Bryndaor',
+    icon: 'inv_bracer_plate_pvpdeathknight_o_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  RATTLEGORE_BONE_LEGPLATES: {
+    id: 132453,
+    name: 'Rattlegore Bone Legplates',
+    icon: 'inv_pants_plate_raidwarrior_i_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  SERVICE_OF_GOREFIEND: {
+    id: 132367,
+    name: 'Service of Gorefiend',
+    icon: 'inv_belt_plate_deathknight_m_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  LANATHELS_LAMENT: {
+    id: 133974,
+    name: 'Lanathel\'s Lament',
+    icon: 'inv_jewelry_ring_118',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  SKULLFLOWERS_HAEMOSTASIS: {
+    id: 144281,
+    name: 'Skullflower\'s Haemostasis',
+    icon: 'inv_shoulder_plate_raiddeathknight_l_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  SOULFLAYERS_CORRUPTION: {
+    id: 151795,
+    name: 'Soulflayer\'s Corruption',
+    icon: 'inv_plate_raidwarrior_o_01chest',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  // FROST DEATH KNIGHT LEGENDARIES
+  SEAL_OF_NECROFANTASIA: {
+    id: 137223,
+    name: 'Seal of Necrofantasia',
+    icon: 'inv_jewelry_ring_86',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  KOLTIRAS_NEWFOUND_WILL: {
+    id: 132366,
+    name: 'Koltira\'s Newfound Will',
+    icon: 'inv_belt_14',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  TORAVONS_WHITEOUT_BINDINGS: {
+    id: 132458,
+    name: 'Toravon\'s Whiteout Bindings',
+    icon: 'inv_bracer_plate_raidpaladin_l_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  PERSEVERANCE_OF_THE_EBON_MARTYR: {
+    id: 132459,
+    name: 'Perseverance of the Ebon Martyr',
+    icon: 'inv_helm_plate_raiddeathknight_k_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  CONSORTS_COLD_CORE: {
+    id: 144293,
+    name: 'Consort\'s Cold Core',
+    icon: 'inv_pants_plate_03',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  // UNHOLY DEATH KNIGHT LEGENDARIES
+  TAKTHERITRIXS_SHOULDERPADS: {
+    id: 137075,
+    name: 'Tak\'theritrix\'s Shoulderpads',
+    icon: 'inv_shoulder_plate_deathknight_m_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  DRAUGR_GIRDLE_OF_THE_EVERLASTING_KING: {
+    id: 132441,
+    name: 'Draugr, Girdle of the Everlasting King',
+    icon: 'inv_belt_plate_raiddeathknight_k_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  UVANIMOR_THE_UNBEAUTIFUL: {
+    id: 137037,
+    name: 'Uvanimor, the Unbeautiful',
+    icon: 'inv_jewelry_ring_121',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  THE_INSTRUCTORS_FOURTH_LESSON: {
+    id: 132448,
+    name: 'The Instructor\'s Fourth Lesson',
+    icon: 'inv_bracer_26b',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  DEATH_MARCH: {
+    id: 144280,
+    name: 'Death March',
+    icon: 'inv_helm_plate_pvpdeathknight_c_01',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
   // T20 Trinkets
@@ -790,6 +1338,14 @@ const ITEMS = {
     quality: ITEM_QUALITIES.LEGENDARY,
   },
 
+  // Shared Demon Hunter legendaries
+  SOUL_OF_THE_SLAYER: {
+    id: 151639,
+    name: 'Soul of the Slayer',
+    icon: 'inv_70_dungeon_ring6a',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+
   // Vengeance Demon Hunter legendaries
   KIREL_NARAK: {
     id: 138949,
@@ -815,12 +1371,289 @@ const ITEMS = {
     icon: 'inv_bracer_plate_pvpdeathknight_c_02',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+  RUNEMASTERS_PAULDRONS: {
+    id: 137071,
+    name: 'Runemaster\'s Pauldrons',
+    icon: 'inv_shoulder_105',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  CLOAK_OF_FEL_FLAMES: {
+    id: 137066,
+    name: 'Cloak of Fel Flames',
+    icon: 'inv_misc_cape_09',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  SPIRIT_OF_THE_DARKNESS_FLAME: {
+    id: 144292,
+    name: 'Spirit of the Darkness Flame',
+    icon: 'inv_glove_leather_legionendgame_c_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
 
-  // BrM Legendaries
-  JEWEL_OF_THE_LOST_ABBEY: {
-    id: 137044,
-    name: 'Jewel of the Lost Abbey',
-    icon: 'inv_jewelry_ring_138',
+  // Havoc Demon Hunter Legendaries
+  MOARG_BIONIC_STABILIZERS: {
+    id: 137090,
+    name: 'Mo\'arg Bionic Stabilizers',
+    icon: 'inv_plate_raiddeathknightmythic_o_01bracer',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  RADDONS_CASCADING_EYES: {
+    id: 137061,
+    name: 'Raddon\'s Cascading Eyes',
+    icon: 'inv_misc_bandana_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  ACHOR_THE_ETERNAL_HUNGER: {
+    id: 137014,
+    name: 'Achor, the Eternal Hunger',
+    icon: 'inv_chest_mail_raidhuntermythic_p_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  LORAMUS_THALIPEDES_SACRIFICE: {
+    id: 137022,
+    name: 'Loramus Thalipedes\' Sacrifice',
+    icon: 'inv_boot_leather_raiddruid_k_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  ANGER_OF_THE_HALF_GIANTS: {
+    id: 137038,
+    name: 'Anger of the Half-Giants',
+    icon: 'inv_60pvp_ring1a',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  DELUSIONS_OF_GRANDEUR: {
+    id: 144279,
+    name: 'Delusions of Grandeur',
+    icon: 'inv_shoulder_51',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  CHAOS_THEORY: {
+    id: 151798,
+    name: 'Chaos Theory',
+    icon: 'inv_cape_draenorraid_d_01plate_dk',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+
+  // Hunter Shared Legendaries
+  THE_SHADOW_HUNTERS_VOODOO_MASK: {
+    id: 137064,
+    name: 'The Shadow Hunter\'s Voodoo Mask',
+    icon: 'inv_helmet_116',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  SOUL_OF_THE_HUNTMASTER: {
+    id: 151641,
+    name: 'Soul of the Huntmaster',
+    icon: 'inv_70_quest_ring8a',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  CALL_OF_THE_WILD: {
+    id: 137101,
+    name: 'Call of the Wild',
+    icon: 'inv_bracer_36b',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+
+  // Beast Master Hunter Legendaries
+  ROAR_OF_THE_SEVEN_LIONS: {
+    id: 137080,
+    name: 'Roar of the Seven Lions',
+    icon: 'inv_belt_plate_pvpdeathknight_c_02',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  QAPLA_EREDUN_WAR_ORDER: {
+    id: 137227,
+    name: 'Qa\'pla, Eredun War Order',
+    icon: 'inv_boot_mail_raidhunter_n_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  THE_APEX_PREDATORS_CLAW: {
+    id: 137382,
+    name: 'The Apex Predator\'s Claw',
+    icon: 'inv_jewelry_ring_100',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  THE_MANTLE_OF_COMMAND: {
+    id: 144326,
+    name: 'The Mantle of Command',
+    icon: 'inv_shoulder_mail_raidshaman_m_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  PARSELS_TONGUE: {
+    id: 151805,
+    name: 'Parsel\'s Tongue',
+    icon: 'inv_chest_mail_dungeonmail_c_03',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+
+  // Marksmanship Hunter Legendaries
+  MAGNETIZED_BLASTING_CAP_LAUNCHER: {
+    id: 141353,
+    name: 'Magnetized Blasting Cap Launcher',
+    icon: 'inv_bracer_mail_raidhunter_j_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  ULLRS_FEATHER_SNOWSHOES: {
+    id: 137033,
+    name: 'Ullr\'s Feather Snowshoes',
+    icon: 'inv_boots_mail_08',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  ZEVRIMS_HUNGER: {
+    id: 137055,
+    name: 'Zevrim\'s Hunger',
+    icon: 'inv_jewelry_ring_36',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  WAR_BELT_OF_THE_SENTINEL_ARMY: {
+    id: 137081,
+    name: 'War Belt of the Sentinel Army',
+    icon: 'inv_belt_66green',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  MKII_GYROSCOPIC_STABILIZER: {
+    id: 144303,
+    name: 'MKII Gyroscopic Stabilizer',
+    icon: 'inv_glove_mail_raidshamanmythic_o_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  CELERITY_OF_THE_WINDRUNNERS: {
+    id: 151803,
+    name: 'Celerity of the Windrunners',
+    icon: 'inv_cape_430dungeon_c_04',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  
+  // Survival Hunter Legendaries
+  NESINGWARYS_TRAPPING_TREADS: {
+    id: 137034,
+    name: 'Nesingwary\'s Trapping Treads',
+    icon: 'inv_boots_mail_panda_b_02',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  FRIZZOS_FINGERTRAP: {
+    id: 137043,
+    name: 'Frizzo\'s Fingertrap',
+    icon: 'inv_archaeology_ogres_sorcerer_king_toe_ring',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  HELBRINE_ROPE_OF_THE_MIST_MARAUDER: {
+    id: 137082,
+    name: 'Helbrine, Rope of the Mist Marauder',
+    icon: 'inv_belt_mail_draenordungeon_c_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  BUTCHERS_BONE_APRON: {
+    id: 144361,
+    name: 'Butcher\'s Bone Apron',
+    icon: 'inv_chest_chain_15',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  UNSEEN_PREDATORS_CLOAK: {
+    id: 151807,
+    name: 'Unseen Predator\'s Cloak',
+    icon: 'inv_cape_leather_raiddemonhunter_r_01_long',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+
+  // Shared Warrior
+  MANNOROTHS_BLOODLETTING_MANACLES: {
+    id: 137107,
+    name: 'Mannoroth\'s Bloodletting Manacles',
+    icon: 'inv_bracer_plate_pvpwarrior_d_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  TIMELESS_STRATAGEM: {
+    id: 143728,
+    name: 'Timeless Stratagem',
+    icon: 'inv_shoulder_plate_dungeonplate_c_06',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  SOUL_OF_THE_BATTLELORD: {
+    id: 151650,
+    name: 'Soul of the Battlelord',
+    icon: 'inv_misc_ring_4',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  AYALAS_STONE_HEART: {
+    id: 137052,
+    name: 'Ayala\'s Stone Heart',
+    icon: 'inv_misc_ring_firelands_1',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  NAJENTUSS_VERTEBRAE: {
+    id: 137087,
+    name: 'Naj\'entus\'s Vertebrae',
+    icon: 'inv_misc_bone_03',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  // Arms Warrior
+  WEIGHT_OF_THE_EARTH: {
+    id: 137077,
+    name: 'Weight of the Earth',
+    icon: 'inv_pants_plate_pvpdeathknight_f_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  ARCHAVONS_HEAVY_HAND: {
+    id: 137060,
+    name: 'Archavon\'s Heavy Hand',
+    icon: 'inv_gloves_plate_raidwarrior_m_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  THE_GREAT_STORMS_EYE: {
+    id: 151823,
+    name: 'The Great Storm\'s Eye',
+    icon: 'inv_plate_raiddeathknight_o_01helm',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  // Fury Warrior
+  CEANNAR_CHARGER: {
+    id: 137088,
+    name: 'Ceann-Ar Charger',
+    icon: 'inv_helm_leather_pvpdruid_g_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  KAZZALAX_FUJIEDAS_FURY: {
+    id: 137053,
+    name: 'Kazzalax, Fujieda\'s Fury',
+    icon: 'inv_cape_pandaria_c_04',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  VALARJAR_BESERKERS: {
+    id: 151824,
+    name: 'Valarjar Berserkers',
+    icon: 'inv_pants_plate_raiddeathknight_i_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  // Protection Warrior
+  THUNDERGODS_VIGOR: {
+    id: 137089,
+    name: 'Thundergod\'s Vigor',
+    icon: 'inv_belt_plate_raiddeathknight_j_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  THE_WALLS_FELL: {
+    id: 137054,
+    name: 'The Walls Fell',
+    icon: 'inv_jewelry_ring_142',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  KAKUSHANS_STORMSCALE_GAUNTLETS: {
+    id: 137108,
+    name: 'Kakushan\'s Stormscale Gauntlets',
+    icon: 'inv_gloves_plate_deathknight_m_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  DESTINY_DRIVER: {
+    id: 137018,
+    name: 'Destiny Driver',
+    icon: 'inv_chest_plate_pvpwarrior_c_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
+  ARARATS_BLOODMIRROR: {
+    id: 151822,
+    name: 'Ararat\'s Bloodmirror',
+    icon: 'inv_pants_plate_39v1',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
 

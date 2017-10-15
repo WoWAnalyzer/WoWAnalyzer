@@ -17,7 +17,7 @@ class Ascendance extends Module {
   numCasts = {
     [SPELLS.LAVA_BURST.id]: 0,
     [SPELLS.EARTH_SHOCK.id]: 0,
-    [SPELLS.ELEMENTAL_BLAST.id]: 0,
+    [SPELLS.ELEMENTAL_BLAST_TALENT.id]: 0,
     [SPELLS.FLAME_SHOCK.id]: 0,
     [SPELLS.LIGHTNING_BOLT.id]: 0,
     others: 0,

@@ -13,6 +13,7 @@ import PainChart from './Modules/PainChart/Pain';
 
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CastEfficiency from './Modules/Features/CastEfficiency';
+import CooldownTracker from './Modules/Features/CooldownTracker';
 
 import SoulFragments from './Modules/Statistics/SoulFragments/SoulFragments';
 import SpiritBomb from './Modules/Statistics/SpiritBomb/SpiritBomb';
@@ -35,9 +36,12 @@ class CombatLogParser extends CoreCombatLogParser {
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     castEfficiency: CastEfficiency,
+    cooldownTracker: CooldownTracker,
+
+    // Spirit Bomb Tracker Module (Frailty uptime tracker)
     spiritBomb: SpiritBomb,
 
-    // Soul Fragments
+    // Soul Fragments Tracker module (includes Generated and Wasted)
     soulFragments: SoulFragments,
 
     // Spell Statistics

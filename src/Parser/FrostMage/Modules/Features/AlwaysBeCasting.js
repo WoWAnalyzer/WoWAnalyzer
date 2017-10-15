@@ -3,9 +3,8 @@ import React from 'react';
 import CoreAlwaysBeCasting from 'Parser/Core/Modules/AlwaysBeCasting';
 
 import SPELLS from 'common/SPELLS';
-import Icon from 'common/Icon';
 import { formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellLink from 'common/SpellLink';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
@@ -37,26 +36,15 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
 
     when(deadTimePercentage).isGreaterThan(0.2)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your dead GCD time can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. Even if you have to move, try casting something instant - maybe refresh your dots or replenish your mana with <SpellLink id={SPELLS.LIFE_TAP.id} /></span>)
+        return suggest(<span>Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. Even if you have to move, try casting instants, even unbuffed <SpellLink id={SPELLS.ICE_LANCE_CAST.id} /> spam is better than nothing.</span>)
           .icon('spell_mage_altertime')
-          .actual(`${formatPercentage(actual)}% dead GCD time`)
+          .actual(`${formatPercentage(actual)}% downtime`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
           .regular(recommended + 0.15).major(recommended + 0.2);
       });
   }
-  statistic() {
-    const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
 
-    return (
-      <StatisticBox
-        icon={<Icon icon="petbattle_health-down" alt="Dead time" />}
-        value={`${formatPercentage(deadTimePercentage)} %`}
-        label="Dead time"
-        tooltip="Dead time is available casting time not used for casting any spell. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/being stunned), etc."
-      />
-    );
-  }
-
+  showStatistic = true;
   statisticOrder = STATISTIC_ORDER.CORE(1);
 }
 

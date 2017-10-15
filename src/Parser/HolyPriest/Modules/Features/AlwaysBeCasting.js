@@ -1,6 +1,4 @@
-import React from 'react';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Icon from 'common/Icon';
+import { STATISTIC_ORDER } from 'Main/StatisticBox';
 import { formatPercentage } from 'common/format';
 
 import SPELLS from 'common/SPELLS';
@@ -41,36 +39,21 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     132157, // Holy Nova
   ];
 
-  statistic() {
-    const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
-
-    //
-    return (<StatisticBox
-      icon={<Icon icon="petbattle_health-down" alt="Non healing time" />}
-      value={`${formatPercentage(deadTimePercentage)} %`}
-      label={(
-        <dfn data-tip="Dead GCD time is available casting time not used. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), etc.">
-          Dead GCD time
-        </dfn>
-      )}
-    />);
-    //
-  }
-
-  statisticOrder = STATISTIC_ORDER.CORE(1);
-
   suggestions(when) {
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
 
     when(deadTimePercentage).isGreaterThan(0.15)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest('Your dead GCD time can be improved. Try to Always Be Casting (ABC).')
+        return suggest('Your downtime can be improved. Try to Always Be Casting (ABC).')
           .icon('spell_mage_altertime')
-          .actual(`${formatPercentage(actual)}% dead GCD time`)
+          .actual(`${formatPercentage(actual)}% downtime`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
           .regular(recommended + 0.05).major(recommended + 0.05);
       });
   }
+
+  showStatistic = true;
+  statisticOrder = STATISTIC_ORDER.CORE(1);
 }
 
 export default AlwaysBeCasting;

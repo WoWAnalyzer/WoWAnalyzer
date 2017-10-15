@@ -73,6 +73,11 @@ export default {
     name: 'Blizzard',
     icon: 'spell_frost_icestorm',
   },
+  BLIZZARD_DAMAGE: {
+    id: 190357,
+    name: 'Blizzard',
+    icon: 'spell_frost_icestorm',
+  },
   FLURRY: {
     id: 44614,
     name: 'Flurry',
@@ -171,6 +176,11 @@ export default {
     id: 242253,
     name: 'Frozen Mass',
     icon: 'spell_frost_frozenorb',
+  },
+  ZANNESU_JOURNEY_BUFF: {
+    id: 226852,
+    name: 'Zann\'esu Journey',
+    icon: 'inv_belt_71',
   },
   //Tier Sets
   FROST_MAGE_T20_2SET_BONUS_BUFF: {

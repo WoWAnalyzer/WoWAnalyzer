@@ -1,4 +1,4 @@
-import HealingDone from 'Parser/BrewmasterMonk/Modules/Core/HealingDone';
+import HealingDone from 'Parser/Monk/Brewmaster/Modules/Core/HealingDone';
 import processEvents from './Fixtures/processEvents';
 import { SimpleFight, heal, absorbed, incomingDamage, staggerAbsorbed, staggerTicks } from './Fixtures/SimpleFight';
 

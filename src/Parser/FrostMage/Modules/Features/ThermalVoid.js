@@ -16,7 +16,14 @@ class ThermalVoid extends Module {
   casts = 0;
 
   on_initialized() {
-	this.active = this.combatants.selected.hasTalent(SPELLS.THERMAL_VOID_TALENT.id);
+	   this.active = this.combatants.selected.hasTalent(SPELLS.THERMAL_VOID_TALENT.id);
+  }
+
+  on_toPlayer_applybuff(event) {
+    const spellId = event.ability.guid;
+    if(spellId === SPELLS.ICY_VEINS.id && event.prepull) { // catch prepull cast by buff being present on pull
+      this.casts += 1;
+    }
   }
 
   on_byPlayer_cast(event) {

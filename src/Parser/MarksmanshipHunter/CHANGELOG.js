@@ -1,5 +1,6 @@
 export default `
 14-10-2017 - Added Patient Sniper tracking. (by Putro)
+14-10-2017 - Added Focus Capped Statistic Box (By leapis)
 08-10-2017 - Added FocusTracker Module and FocusTracker Graph module and additional supporting modules (By leapis)
 05-10-2017 - remove Cyclonic Burst from Cooldown view. (by Putro) 
 05-10-2017 - Added Artifact Trait cooldown reduction for trueshot. (by Putro) 

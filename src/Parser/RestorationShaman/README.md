@@ -2,7 +2,7 @@
 | Feature | Note | Accuracy |
 | --- | --- | --- |
 | [Mastery Effectiveness](https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/Parser/RestorationShaman/Modules/Features/MasteryEffectiveness.js) | Tracks how much you benefited from your mastery on average. | 100% |
-| [Always Be Casting](https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/Parser/RestorationShaman/Modules/Features/MasteryEffectiveness.js) | Tracks your casting and healing time to determine your non healing and dead GCD time. May get slightly inaccurate with unaccounted for Haste buffs. | 80%-100% |
+| [Always Be Casting](https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/Parser/RestorationShaman/Modules/Features/MasteryEffectiveness.js) | Tracks your casting and healing time to determine your non healing and downtime. May get slightly inaccurate with unaccounted for Haste buffs. | 80%-100% |
 | [EarthenShieldTotem](https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/Parser/RestorationShaman/Modules/Features/EarthenShieldTotem.js) | Tracks how much damage your Earthen Shield Totems absorbed as a percentage of their maximum potential absorb. . | 100% |
 | [Feeding](https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/Parser/RestorationShaman/Modules/Features/CooldownTracker.js) | Provides a breakdown of the spells feeding into CBT, AG and Ascenance.  | 90% |
 | [Focuser of Jonat, the Elder](https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/Parser/RestorationShaman/Modules/Legendaries/Jonat.js) | Tracks how much extra healing your chain heals did because of Jonat stacks. Does not account for CBT/AG/Asc | 70%-90% |
@@ -25,7 +25,7 @@ This may be outdated.
 | Suggestion | Minor | Average | Major |
 | --- | --- | --- | --- |
 | Non healing time | >30% | >40% | >45% |
-| Dead GCD time | >20% | >35% | >40% |
+| Downtime | >20% | >35% | >40% |
 | Velen's Healing | <4.5% | <4% | <3% |
 | Unbuffed Healing Surge (% of all HW/HS) | >0% | >15% | >30% |
 | Chain Heal Target Efficiency | <97% | <94% | <88% |

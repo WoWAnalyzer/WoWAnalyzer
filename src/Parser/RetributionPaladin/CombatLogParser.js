@@ -17,6 +17,7 @@ import Judgment from './Modules/Features/Judgment';
 import DivinePurpose from './Modules/Talents/DivinePurpose';
 import BoWProcTracker from './Modules/PaladinCore/BoWProcTracker';
 import Retribution from './Modules/PaladinCore/Retribution';
+import BlessingOfTheAshbringer from './Modules/PaladinCore/BlessingOfTheAshbringer';
 
 import HolyPowerTracker from './Modules/HolyPower/HolyPowerTracker';
 import HolyPowerDetails from './Modules/HolyPower/HolyPowerDetails';
@@ -48,7 +49,8 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownTracker: CooldownTracker,
     judgment: Judgment,
     retribution: Retribution,
-
+    blessingOfTheAshbringer: BlessingOfTheAshbringer,
+    
     // Talents
     divinePurpose: DivinePurpose,
     boWProcTracker: BoWProcTracker,
