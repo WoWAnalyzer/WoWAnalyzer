@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import SPECS from 'common/SPECS';
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
+import { getCompletenessColor, getCompletenessExplanation, getCompletenessLabel } from 'common/SPEC_ANALYSIS_COMPLETENESS';
 
 import PatreonButton from './PatreonButton';
 import Changelog from './Changelog';
@@ -124,11 +125,13 @@ class Home extends Component {
                       const className = spec.className.replace(/ /g, '');
                       const config = AVAILABLE_CONFIGS.find(config => config.spec === spec);
                       return (
-                        <li key={spec.id} style={{ marginBottom: 3 }}>
+                        <li key={spec.id} style={{ marginBottom: 3, whiteSpace: 'nowrap', overflow: 'hidden' }}>
                           <img src={`/specs/${className}-${spec.specName.replace(' ', '')}.jpg`} alt="Spec logo" style={{ height: '1.6em', marginRight: 10 }} />{' '}
                           <span className={className}>{spec.specName} {spec.className}</span>{' '}
                           {config ? (
-                            <span>maintained by <span style={{ color: '#fff' }}>{config.maintainer}</span></span>
+                            <span>
+                              by <span style={{ color: '#fff' }}>{config.maintainer}</span> (<dfn data-tip={getCompletenessExplanation(config.completeness)} style={{ color: getCompletenessColor(config.completeness) }}>{getCompletenessLabel(config.completeness)}</dfn>)
+                            </span>
                           ) : (
                             <span>isn't available yet. <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/CONTRIBUTING.md">Add it!</a></span>
                           )}
