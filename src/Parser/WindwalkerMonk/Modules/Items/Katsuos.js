@@ -20,11 +20,8 @@ class Katsuos extends Module {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
-    if (spellId === SPELLS.FISTS_OF_FURY_CAST.id) {
+    if (spellId === SPELLS.FISTS_OF_FURY_CAST.id &&! this.combatatants.selected.hasBuff(SPELLS.SERENITY_TALENT.id)) {
       this.chiSaved += 1;
-    }
-    if (spellId === SPELLS.FISTS_OF_FURY_CAST.id && this.combatatants.selected.hasBuff(SPELLS.SERENITY_TALENT.id)) {
-      this.chiSaved -= 1;
     }
   }
 
