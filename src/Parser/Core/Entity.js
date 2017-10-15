@@ -36,7 +36,7 @@ class Entity {
   getBuffUptime(buffAbilityId) {
     return this.buffs
       .filter(buff => buff.ability.guid === buffAbilityId)
-      .reduce((uptime, buff) => uptime + (buff.end || this.owner.currentTimestamp) - buff.start, 0);
+      .reduce((uptime, buff) => uptime + (buff.end !== null ? buff.end : this.owner.currentTimestamp) - buff.start, 0);
   }
   getBuffTriggerCount(buffAbilityId) {
     return this.buffs

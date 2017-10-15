@@ -1,6 +1,7 @@
+import { formatMilliseconds } from 'common/format';
 import Module from 'Parser/Core/Module';
 
-const debug = false;
+const debug = true;
 
 const APPLY = 'apply';
 const REMOVE = 'remove';
@@ -56,8 +57,8 @@ class Entities extends Module {
     }
 
     if (debug) {
-      const secondsIntoFight = (event.timestamp - this.owner.fight.start_time) / 1000;
-      console.log(secondsIntoFight, event.timestamp, `Apply buff ${event.ability.name} to ${entity.name}`);
+      const fightDuration = formatMilliseconds(event.timestamp - this.owner.fight.start_time);
+      console.log(fightDuration, 'Entities', `Apply buff ${event.ability.name} to ${entity.name}`);
     }
 
     const buff = {
@@ -84,8 +85,8 @@ class Entities extends Module {
     }
 
     if (debug) {
-      const secondsIntoFight = (event.timestamp - this.owner.fight.start_time) / 1000;
-      console.log(secondsIntoFight, event.timestamp, `Apply buff stack ${event.ability.name} to ${entity.name}`);
+      const fightDuration = formatMilliseconds(event.timestamp - this.owner.fight.start_time);
+      console.log(fightDuration, 'Entities', `Apply buff stack ${event.ability.name} to ${entity.name}`);
     }
 
     const existingBuff = entity.buffs.find(item => item.ability.guid === event.ability.guid && item.end === null);
@@ -109,8 +110,8 @@ class Entities extends Module {
     }
 
     if (debug) {
-      const secondsIntoFight = (event.timestamp - this.owner.fight.start_time) / 1000;
-      console.log(secondsIntoFight, event.timestamp, `Remove buff ${event.ability.name} from ${entity.name}`);
+      const fightDuration = formatMilliseconds(event.timestamp - this.owner.fight.start_time);
+      console.log(fightDuration, 'Entities', `Remove buff ${event.ability.name} from ${entity.name}`);
     }
 
     const existingBuff = entity.buffs.find(item => item.ability.guid === event.ability.guid && item.end === null);
@@ -166,7 +167,7 @@ class Entities extends Module {
               buff,
             });
             events.push({
-              timestamp: buff.end || this.owner.currentTimestamp, // buff end is empty if it's still active
+              timestamp: buff.end !== null ? buff.end : this.owner.currentTimestamp, // buff end is null if it's still active, it can also be 0 if buff ended at pull
               type: REMOVE,
               buff,
             });
