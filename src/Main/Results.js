@@ -249,17 +249,18 @@ class Results extends React.Component {
           </div>
 
           <div className="panel" style={{ marginTop: 15 }}>
-            <div className="panel-body flex" style={{ padding: '0' }}>
-              <div className="navigation" style={{ flex: '0 0 auto', width: 200, minHeight: 400 }}>
+            <div className="panel-body flex" style={{flexDirection: 'column', padding: '0' }}>
+              <div className="navigation" style={{minHeight: 100 }}>
                 <div className="panel-heading">
                   <h2>Menu</h2>
                 </div>
                 <div style={{ padding: '10px 0' }}>
-                  <ul>
-                    {results.tabs.map(tab => (
+                  <ul style={{lineHeight: '40px'}}>
+                    {results.tabs.map((tab, index) => (
                       <li
                         key={tab.url}
                         className={activeTab.url === tab.url ? 'active' : ''}
+                        style={{ display: 'inline', marginLeft: index === 0 ? '12px' : '0px', paddingLeft: '10px'}}
                         onClick={() => onChangeTab(tab.url)}
                       >
                         {tab.title}
