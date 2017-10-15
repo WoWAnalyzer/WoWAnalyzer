@@ -102,6 +102,7 @@ export default {
     id: 144369,
     name: 'Lessons of Space-Time',
     icon: 'inv_shoulder_robe_pvpwarlock_d_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
   },
   ODR_SHAWL_OF_THE_YMIRJAR: {
     id: 132375,
