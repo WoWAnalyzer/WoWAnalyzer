@@ -192,6 +192,11 @@ export default {
     name: 'Magtheridon\'s Might',
     icon: 'inv_bracer_64v1',
   },
+  RAGE_OF_THE_FROST_WYRM: {
+    id: 248177,
+    name: 'Rage of the Frost Wyrm',
+    icon: 'spell_frost_ice-shards',
+  },
   //Tier Sets
   FROST_MAGE_T20_2SET_BONUS_BUFF: {
     id: 242252,

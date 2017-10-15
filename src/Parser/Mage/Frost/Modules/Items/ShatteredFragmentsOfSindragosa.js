@@ -10,9 +10,27 @@ class ShatteredFragmentsOfSindragosa extends Module {
 	};
 
   damage = 0;
+  cometStormCasts = 0;
+  legendaryProcs = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.hasHead(ITEMS.SHATTERED_FRAGMENTS_OF_SINDRAGOSA.id);
+  }
+
+  on_byPlayer_cast(event) {
+    const hasCometStormTalent = this.combatants.selected.hasTalent(SPELLS.COMET_STORM_TALENT.id);
+    if (event.ability.guid !== SPELLS.COMET_STORM_TALENT.id || !hasCometStormTalent) {
+      return;
+    }
+    this.cometStormCasts += 1;
+  }
+
+  on_toPlayer_applybuff(event) {
+    if (event.ability.guid !== SPELLS.RAGE_OF_THE_FROST_WYRM.id) {
+      return;
+    }
+    this.legendaryProcs += 1;
+    console.log(this.legendaryProcs);
   }
 
   on_byPlayer_damage(event) {
@@ -23,9 +41,10 @@ class ShatteredFragmentsOfSindragosa extends Module {
   }
 
   item() {
+    const legendaryDamage = (this.damage / (this.cometStormCasts + this.legendaryProcs)) * this.legendaryProcs;
     return {
       item: ITEMS.SHATTERED_FRAGMENTS_OF_SINDRAGOSA,
-      result: `${this.owner.formatItemDamageDone(this.damage)}`,
+      result: `${this.owner.formatItemDamageDone(legendaryDamage)}`,
     };
   }
 }
