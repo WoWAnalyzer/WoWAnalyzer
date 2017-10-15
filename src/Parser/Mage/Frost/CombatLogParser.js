@@ -7,7 +7,7 @@ import Talents from 'Main/Talents';
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 
-import ShardOfTheExodar from 'Parser/Mage/SharedModules/Items/ShardOfTheExodar';
+import ShardOfTheExodar from 'Parser/Mage/Shared/Modules/Items/ShardOfTheExodar';
 
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
