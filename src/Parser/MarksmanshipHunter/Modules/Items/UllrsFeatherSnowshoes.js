@@ -49,7 +49,7 @@ class UllrsFeatherSnowshoes extends Module {
       item: ITEMS.ULLRS_FEATHER_SNOWSHOES,
       result: (
         <dfn data-tip={`You wasted ${formatNumber(this.wastedTrueshotReductionMs / 1000)} seconds of CDR.<br/> `}>
-          You effectively reduced <SpellLink id={SPELLS.TRUESHOT.id} /> CD reduced by {formatNumber(this.effectiveTrueshotReductionMs / 1000)} in total.
+          You effectively reduced <SpellLink id={SPELLS.TRUESHOT.id} />s CD by {formatNumber(this.effectiveTrueshotReductionMs / 1000)}s in total.
         </dfn>
       ),
     };
