@@ -42,7 +42,7 @@ class UllrsFeatherSnowshoes extends Module {
       item: ITEMS.ULLRS_FEATHER_SNOWSHOES,
       result: (
         <dfn data-tip={`You wasted ${formatNumber(this.wastedTrueshotReductionMs / 1000)} seconds of CDR.<br/> `}>
-          You effectively reduced <SpellLink id={SPELLS.TRUESHOT.id} />s cooldown by {formatNumber(this.effectiveTrueshotReductionMs / 1000)} seconds over the course of the fight.
+          You effectively reduced <SpellLink id={SPELLS.TRUESHOT.id} />s cooldown by a total of {formatNumber(this.effectiveTrueshotReductionMs / 1000)} seconds over the course of the fight.
         </dfn>
       ),
     };
