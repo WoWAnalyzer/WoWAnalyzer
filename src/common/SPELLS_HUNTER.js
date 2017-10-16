@@ -127,6 +127,11 @@ export default {
   },
 
   // Marksmanship tier sets
+  HUNTER_MM_T19_2P_BONUS: {
+    id: 211331,
+    name: 'T19 2 set bonus',
+    icon: 'trade_engineering',
+  },
   HUNTER_MM_T20_2P_BONUS: {
     id: 242242,
     name: 'T20 2 set bonus',
