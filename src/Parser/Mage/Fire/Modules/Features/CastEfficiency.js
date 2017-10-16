@@ -28,9 +28,18 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.FIRE_BLAST,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => 12,
+      getCooldown: haste => 12 / (1 + haste),
+      recommendedCastEfficiency: 0.90,
+      charges: 2,
+      isActive: combatant => !combatant.hasTalent(SPELLS.FLAME_ON_TALENT.id),
+    },
+    {
+      spell: SPELLS.FIRE_BLAST,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => 10 / (1 + haste),
       recommendedCastEfficiency: 0.90,
       charges: 3,
+      isActive: combatant => combatant.hasTalent(SPELLS.FLAME_ON_TALENT.id),
     },
     {
       spell: SPELLS.DRAGONS_BREATH,
@@ -49,13 +58,13 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.LIVING_BOMB_TALENT,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => 12,
+      getCooldown: haste => 12 / (1 + haste),
 	    isActive: combatant => combatant.hasTalent(SPELLS.LIVING_BOMB_TALENT.id),
     },
     {
       spell: SPELLS.CINDERSTORM_TALENT,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => 9,
+      getCooldown: haste => 9 / (1 + haste),
 	    isActive: combatant => combatant.hasTalent(SPELLS.CINDERSTORM_TALENT.id),
     },
     {
@@ -112,9 +121,19 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.FROST_NOVA,
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
-      getCooldown: haste => null,
+      getCooldown: haste => 30,
       noSuggestion: true,
       noCanBeImproved: true,
+      isActive: combatant => !combatant.hasTalent(SPELLS.ICE_WARD_TALENT.id),
+    },
+    {
+      spell: SPELLS.FROST_NOVA,
+      category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
+      getCooldown: haste => 30,
+      noSuggestion: true,
+      noCanBeImproved: true,
+      charges: 2,
+      isActive: combatant => combatant.hasTalent(SPELLS.ICE_WARD_TALENT.id),
     },
     {
       spell: SPELLS.BLINK,
@@ -160,6 +179,12 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => null,
       noSuggestion: true,
       noCanBeImproved: true,
+    },
+    {
+      spell: SPELLS.ARCANE_TORRENT_MANA,
+      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
+      getCooldown: haste => 90,
+      hideWithZeroCasts: true,
     },
   ];
 }
