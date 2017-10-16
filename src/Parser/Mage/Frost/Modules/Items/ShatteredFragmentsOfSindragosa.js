@@ -30,7 +30,6 @@ class ShatteredFragmentsOfSindragosa extends Module {
       return;
     }
     this.legendaryProcs += 1;
-    console.log(this.legendaryProcs);
   }
 
   on_byPlayer_damage(event) {
