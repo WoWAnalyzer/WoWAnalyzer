@@ -23,7 +23,7 @@ class Tier20_4set extends Module {
 
   on_byPlayer_damage(event) {
     if (event.ability.guid === SPELLS.PYROBLAST.id || event.ability.guid === SPELLS.FLAMESTRIKE.id) {
-      if (this.combatants.selected.hasBuff(SPELLS.CRITICAL_MASSIVE.id)) {
+      if (this.combatants.selected.hasBuff(SPELLS.CRITICAL_MASSIVE.id, event.timestamp)) {
         this.damage += getDamageBonus(event, CRITICAL_MASSIVE_DAMAGE_BONUS);
       }
     }
