@@ -129,6 +129,48 @@ export default {
     icon: 'spell_mage_cometstorm',
   },
 
+  //Fire
+  FIREBALL: {
+    id: 133,
+    name: 'Fireball',
+    icon: 'spell_fire_flamebolt',
+  },
+  PYROBLAST: {
+    id: 11366,
+    name: 'Pyroblast',
+    icon: 'spell_fire_fireball02',
+  },
+  FIRE_BLAST: {
+    id: 108853,
+    name: 'Fire Blast',
+    icon: 'spell_fire_fireball',
+  },
+  BLAZING_BARRIER: {
+    id: 235313,
+    name: 'Blazing Barrier',
+    icon: 'ability_mage_moltenarmor',
+  },
+  FLAMESTRIKE: {
+    id: 2120,
+    name: 'Flamestrike',
+    icon: 'spell_fire_selfdestruct',
+  },
+  SCORCH: {
+    id: 2948,
+    name: 'Scorch',
+    icon: 'spell_fire_soulburn',
+  },
+  PHOENIXS_FLAMES: {
+    id: 194466,
+    name: 'Phoenix\'s Flames',
+    icon: 'artifactability_firemage_phoenixbolt',
+  },
+  DRAGONS_BREATH: {
+    id: 31661,
+    name: 'Dragon\'s Breath',
+    icon: 'inv_misc_head_dragon_01',
+  },
+
   //Passives
   SHATTER: {
     id: 12982,
@@ -197,6 +239,42 @@ export default {
     name: 'Rage of the Frost Wyrm',
     icon: 'spell_frost_ice-shards',
   },
+  HEATING_UP: {
+    id: 48107,
+    name: 'Heating Up',
+    icon: 'ability_mage_hotstreak',
+  },
+  HOT_STREAK: {
+    id: 195283,
+    name: 'Hot Streak',
+    icon: 'ability_mage_hotstreak',
+  },
+  COMBUSTION: {
+    id: 190319,
+    name: 'Combustion',
+    icon: 'spell_fire_sealoffire',
+  },
+  CAUTERIZE: {
+    id: 108843,
+    name: 'Cauterize',
+    icon: 'spell_fire_burningspeed',
+  },
+  ENHANCED_PYROTECHNICS: {
+    id: 157644,
+    name: 'Enhanced Pyrotechnics',
+    icon: 'spell_fire_firebolt02',
+  },
+  FRENETIC_SPEED: {
+    id: 236060,
+    name: 'Frenetic Speed',
+    icon: 'spell_fire_burningspeed',
+  },
+  CRITICAL_MASSIVE: {
+    id: 242251,
+    name: 'Critical Massive',
+    icon: 'ability_mage_firestarter',
+  },
+
   //Tier Sets
   FROST_MAGE_T20_2SET_BONUS_BUFF: {
     id: 242252,
@@ -207,6 +285,16 @@ export default {
     id: 242254,
     name: 'Tier 20 4 Set Bonus',
     icon: 'spell_frost_frostbolt02',
+  },
+  FIRE_MAGE_T20_2SET_BONUS_BUFF: {
+    id: 242249,
+    name: 'Tier 20 2 Set Bonus',
+    icon: 'spell_fire_firebolt02',
+  },
+  FIRE_MAGE_T20_4SET_BONUS_BUFF: {
+    id: 242250,
+    name: 'Tier 20 4 Set Bonus',
+    icon: 'spell_fire_firebolt02',
   },
 
 };
