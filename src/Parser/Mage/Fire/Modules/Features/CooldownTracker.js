@@ -15,7 +15,6 @@ class CooldownTracker extends CoreCooldownTracker {
     },
     {
       spell: SPELLS.RUNE_OF_POWER_TALENT,
-      duration: 10,
       summary: [
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],
