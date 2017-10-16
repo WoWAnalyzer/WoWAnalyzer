@@ -6,9 +6,8 @@ import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 
-import { formatPercentage } from "common/format";
 import { formatNumber } from "common/format";
-
+import SpellLink from "common/SpellLink";
 
 const COOLDOWN_REDUCTION_MS = 800;
 
@@ -42,8 +41,8 @@ class UllrsFeatherSnowshoes extends Module {
     return {
       item: ITEMS.ULLRS_FEATHER_SNOWSHOES,
       result: (
-        <dfn data-tip={`Your utilization of Ullrs: <br/> You effectively reduced Trueshots cooldown by: ${formatNumber(this.effectiveTrueshotReductionMs / 1000)} seconds.<br/> You wasted   ${formatNumber(this.wastedTrueshotReductionMs / 1000)} seconds of CDR.<br/> `}>
-          Ullrs CDR effectiveness: {formatPercentage(this.effectiveTrueshotReductionMs / (this.effectiveTrueshotReductionMs + this.wastedTrueshotReductionMs))}%
+        <dfn data-tip={`You wasted ${formatNumber(this.wastedTrueshotReductionMs / 1000)} seconds of CDR.<br/> `}>
+          You effectively reduced <SpellLink id={SPELLS.TRUESHOT.id} />s cooldown by {formatNumber(this.effectiveTrueshotReductionMs / 1000)} seconds over the course of the fight.
         </dfn>
       ),
     };
