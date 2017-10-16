@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
 
 import CoreCastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 
@@ -36,7 +37,7 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 12 / (1 + haste),
       recommendedCastEfficiency: 0.90,
       charges: 2,
-      isActive: combatant => !combatant.hasTalent(SPELLS.FLAME_ON_TALENT.id),
+      isActive: combatant => !combatant.hasTalent(SPELLS.FLAME_ON_TALENT.id) && !combatant.hasFinger(ITEMS.SOUL_OF_THE_ARCHMAGE.id),
     },
     {
       spell: SPELLS.FIRE_BLAST,
@@ -44,7 +45,7 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 10 / (1 + haste),
       recommendedCastEfficiency: 0.90,
       charges: 3,
-      isActive: combatant => combatant.hasTalent(SPELLS.FLAME_ON_TALENT.id),
+      isActive: combatant => combatant.hasTalent(SPELLS.FLAME_ON_TALENT.id) || combatant.hasFinger(ITEMS.SOUL_OF_THE_ARCHMAGE.id),
     },
     {
       spell: SPELLS.METEOR_TALENT,
