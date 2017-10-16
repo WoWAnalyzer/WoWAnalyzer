@@ -73,7 +73,7 @@ class Tier19_2p extends Module {
       title: <SpellLink id={SPELLS.HUNTER_MM_T19_2P_BONUS.id} />,
       result: (
         <dfn data-tip={`You wasted ${formatNumber(this.wastedTrueshotReductionMs / 1000)} seconds of CDR.<br/> `}>
-           <SpellLink id={SPELLS.TRUESHOT.id} /> CD reduced by {formatNumber(this.effectiveTrueshotReductionMs / 1000)} seconds in total.
+           <SpellLink id={SPELLS.TRUESHOT.id} />s CD reduced by {formatNumber(this.effectiveTrueshotReductionMs / 1000)}s in total.
         </dfn>
       ),
     };
