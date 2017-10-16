@@ -8,6 +8,7 @@ import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 
 // Features
 import DamageDone from 'Parser/Core/Modules/DamageDone';
+import Cinidaria from 'Parser/Core/Modules/Items/Cinidaria';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import CooldownTracker from './Modules/Features/CooldownTracker';
@@ -22,6 +23,7 @@ import HitCombo from './Modules/Talents/HitCombo';
 
 // Legendaries
 import KatsuosEclipse from './Modules/Items/KatsuosEclipse';
+
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -41,6 +43,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Legendaries / Items:
     katsuosEclipse: KatsuosEclipse,
+    cinidaria: Cinidaria,
 
   };
 
