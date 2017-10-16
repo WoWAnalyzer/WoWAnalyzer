@@ -34,7 +34,6 @@ class Tier19_2p extends Module {
   effectiveTrueshotReductionMs = 0;
   wastedTrueshotReductionMs = 0;
   lastFocusCost = 0;
-  focusUpdates = [];
 
   on_initialized() {
     this.active = this.combatants.selected.hasBuff(SPELLS.HUNTER_MM_T19_2P_BONUS.id);
@@ -63,7 +62,7 @@ class Tier19_2p extends Module {
       title: <SpellLink id={SPELLS.HUNTER_MM_T19_2P_BONUS.id} />,
       result: (
         <dfn data-tip={`You wasted ${formatNumber(this.wastedTrueshotReductionMs / 1000)} seconds of CDR.<br/> `}>
-           <SpellLink id={SPELLS.TRUESHOT.id} /> CD reduced by {formatNumber(this.effectiveTrueshotReductionMs / 1000)}s in total.
+          <SpellLink id={SPELLS.TRUESHOT.id} /> CD reduced by {formatNumber(this.effectiveTrueshotReductionMs / 1000)}s in total.
         </dfn>
       ),
     };
