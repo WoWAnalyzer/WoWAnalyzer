@@ -18,6 +18,8 @@ import IcicleTracker from './Modules/Features/IcicleTracker';
 import ShardOfTheExodar from '../Shared/Modules/Items/ShardOfTheExodar';
 import Tier20_2set from './Modules/Items/Tier20_2set';
 import ZannesuJourney from './Modules/Items/ZannesuJourney';
+import MagtheridonsBanishedBracers from './Modules/Items/MagtheridonsBanishedBracers';
+import ShatteredFragmentsOfSindragosa from './Modules/Items/ShatteredFragmentsOfSindragosa';
 
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -38,6 +40,8 @@ class CombatLogParser extends CoreCombatLogParser {
 	  tier20_2set: Tier20_2set,
 	  shardOfTheExodar: ShardOfTheExodar,
     zannesuJourney: ZannesuJourney,
+    magtheridonsBanishedBracers: MagtheridonsBanishedBracers,
+    shatteredFragmentsOfSindragosa: ShatteredFragmentsOfSindragosa,
 
   };
 

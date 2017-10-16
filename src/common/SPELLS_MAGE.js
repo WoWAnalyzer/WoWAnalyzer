@@ -123,6 +123,11 @@ export default {
     name: 'Ebonbolt',
     icon: 'artifactability_frostmage_ebonbolt',
   },
+  COMET_STORM_DAMAGE: {
+    id: 153596,
+    name: 'Comet Storm',
+    icon: 'spell_mage_cometstorm',
+  },
 
   //Passives
   SHATTER: {
@@ -181,6 +186,16 @@ export default {
     id: 226852,
     name: 'Zann\'esu Journey',
     icon: 'inv_belt_71',
+  },
+  MAGTHERIDONS_MIGHT_BUFF: {
+    id: 214404,
+    name: 'Magtheridon\'s Might',
+    icon: 'inv_bracer_64v1',
+  },
+  RAGE_OF_THE_FROST_WYRM: {
+    id: 248177,
+    name: 'Rage of the Frost Wyrm',
+    icon: 'spell_frost_ice-shards',
   },
   //Tier Sets
   FROST_MAGE_T20_2SET_BONUS_BUFF: {
