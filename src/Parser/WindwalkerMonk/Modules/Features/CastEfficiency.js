@@ -1,5 +1,3 @@
-
-
 import SPELLS from 'common/SPELLS';
 
 import CoreCastEfficiency from 'Parser/Core/Modules/CastEfficiency';
@@ -20,6 +18,8 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.RISING_SUN_KICK,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      // Item - Windwalker T19 2PC Bonus: Reduces the cooldown of Rising Sun Kick by 3.0 seconds.
+      // getCooldown: (combatant, haste) => (10 - (combatant.hasBuff(SPELLS.WW_TIER19_2PC.id) ? 3 : 0)) / (1 + haste),
       getCooldown: haste => 10 / (1 + haste),
     },
     {
