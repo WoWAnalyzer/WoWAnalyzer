@@ -10,9 +10,8 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from "common/format";
 import { formatNumber } from "../../../../common/format";
 
-//1000ms/45focus = 22.2ms/focus
 
-const debug = true;
+const debug = false;
 
 class Tier19_2p extends Module {
   static dependencies = {
@@ -44,6 +43,7 @@ class Tier19_2p extends Module {
         });
     }
     debug && console.log(`focusUpdates is now at: `, this.focusUpdates[0].used);
+    //1000ms/45focus = 22.2ms/focus
     const COOLDOWN_REDUCTION_MS = 22.22222 * this.focusUpdates[0].used;
     const trueshotIsOnCooldown = this.spellUsable.isOnCooldown(SPELLS.TRUESHOT.id);
     if (trueshotIsOnCooldown) {
