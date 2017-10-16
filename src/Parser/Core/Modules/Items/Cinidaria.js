@@ -26,7 +26,7 @@ class Cinidaria extends Module {
       item: ITEMS.CINIDARIA_THE_SYMBIOTE,
       result: (
         <span>
-          {this.owner.formatItemDamageDone(dps)} <br/> {this.owner.formatItemHealingDone(hps)}
+          {this.owner.formatItemDamageDone(damage)} <br/> {this.owner.formatItemHealingDone(healing)}
         </span>
       ),
     };
