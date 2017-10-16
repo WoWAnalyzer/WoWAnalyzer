@@ -19,8 +19,8 @@ class Cinidaria extends Module {
 
   item() {
     const symbioteStrike = this.abilityTracker.getAbility(SPELLS.SYMBIOTE_STRIKE.id);
-    const dps = symbioteStrike.damageEffective;
-    const hps = symbioteStrike.healingEffective;
+    const damage = symbioteStrike.damageEffective;
+    const healing = symbioteStrike.healingEffective;
 
     return {
       item: ITEMS.CINIDARIA_THE_SYMBIOTE,
