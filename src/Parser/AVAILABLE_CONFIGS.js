@@ -11,7 +11,7 @@ import RestoDruid from './RestoDruid/CONFIG';
 import MarksmanshipHunter from './MarksmanshipHunter/CONFIG';
 
 // Mage
-import FrostMage from './FrostMage/CONFIG';
+import FrostMage from './Mage/Frost/CONFIG';
 
 import BrewmasterMonk from './Monk/Brewmaster/CONFIG';
 import WindwalkerMonk from './WindwalkerMonk/CONFIG';

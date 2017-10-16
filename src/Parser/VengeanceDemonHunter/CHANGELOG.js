@@ -1,4 +1,7 @@
 export default `
+13-10-2017 - Pain chart bug fix. (by Mamtooth)
+12-10-2017 - Cooldown tab for Metamorphosis is now implemented. (by Mamtooth)
+12-10-2017 - Updated 'More Information' tab, with introduction text and links. (by Mamtooth)
 23-09-2017 - Tier 20 - 2 and 4 piece bonus is now being tracked. (by Mamtooth)
 16-09-2017 - Created a Soul Fragments tracker (with total generated/spent/wasted/unused) and improvement suggestion for wasted Soul Fragments. (by Mamtooth)
 16-09-2017 - Spirit Bomb is now on statistics boxes too. (by Mamtooth)

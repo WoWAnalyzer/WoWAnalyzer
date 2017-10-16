@@ -20,6 +20,9 @@ import StormEarthAndFire from './Modules/Spells/StormEarthAndFire';
 // Talents
 import HitCombo from './Modules/Talents/HitCombo';
 
+// Legendaries
+import KatsuosEclipse from './Modules/Items/KatsuosEclipse';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Features
@@ -36,7 +39,9 @@ class CombatLogParser extends CoreCombatLogParser {
     comboBreaker: ComboBreaker,
     stormEarthAndFire: StormEarthAndFire,
 
-    // Legendaries:
+    // Legendaries / Items:
+    katsuosEclipse: KatsuosEclipse,
+
   };
 
   generateResults() {
