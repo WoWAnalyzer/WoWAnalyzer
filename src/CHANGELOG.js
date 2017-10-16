@@ -1,4 +1,5 @@
 export default `
+16-10-2017 - Added Cinidaria, the Symbiote damage and healing tracker. (by Juko)
 15-10-2017 - Added a statistic to track total distance moved during the analyzed fight. (by Fyruna)
 14-10-2017 - Sephuz's Secret now displays average haste gain. Uptime still available in tooltip. (by Sref)
 14-10-2017 - Added a suggestion when a legendary haven't been upgraded to the max item level. (by Fyruna)
