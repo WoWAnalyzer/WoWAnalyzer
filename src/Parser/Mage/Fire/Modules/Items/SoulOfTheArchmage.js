@@ -14,7 +14,6 @@ class SoulOfTheArchmage extends Module {
 
   on_initialized() {
     this.active = this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_ARCHMAGE.id);
-    console.log(this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_ARCHMAGE.id));
   }
 
   item() {
