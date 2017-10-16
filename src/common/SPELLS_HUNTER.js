@@ -186,4 +186,10 @@ export default {
     name: 'Ancient Hysteria',
     icon: 'spell_shadow_unholyfrenzy',
   },
+  //The buff given by volley when it's activated
+  VOLLEY_ACTIVATED: {
+    id: 194392,
+    name: 'Volley buff',
+    icon: 'ability_marksmanship',
+  },
 };
