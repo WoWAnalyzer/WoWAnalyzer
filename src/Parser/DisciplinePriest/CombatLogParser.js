@@ -352,16 +352,6 @@ class CombatLogParser extends CoreCombatLogParser {
           </span>
         ),
       },
-      this.modules.tier20_4set.active && {
-        id: `spell-${SPELLS.DISC_PRIEST_T20_4SET_BONUS_PASSIVE.id}`,
-        icon: <SpellIcon id={SPELLS.DISC_PRIEST_T20_4SET_BONUS_BUFF.id} />,
-        title: <SpellLink id={SPELLS.DISC_PRIEST_T20_4SET_BONUS_BUFF.id} />,
-        result: (
-          <span>
-            {(this.modules.tier20_4set.penanceCooldownSaved / 1000).toFixed(1)} seconds off the <SpellLink id={SPELLS.PENANCE.id} /> cooldown, { this.modules.tier20_4set.consumptions } Penances cast earlier.
-          </span>
-        ),
-      },
       this.modules.tier20_2set.active && {
         id: `spell-${SPELLS.DISC_PRIEST_T20_2SET_BONUS_PASSIVE.id}`,
         icon: <SpellIcon id={SPELLS.DISC_PRIEST_T20_2SET_BONUS_PASSIVE.id} />,
