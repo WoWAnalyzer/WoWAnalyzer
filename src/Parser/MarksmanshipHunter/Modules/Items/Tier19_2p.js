@@ -29,23 +29,22 @@ class Tier19_2p extends Module {
     this.active = this.combatants.selected.hasBuff(SPELLS.HUNTER_MM_T19_2P_BONUS.id);
   }
   on_byPlayer_cast(event) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.AIMED_SHOT.id && spellId !== SPELLS.PIERCING_SHOT_TALENT.id && spellId !== SPELLS.BURSTING_SHOT.id && spellId !== SPELLS.MARKED_SHOT.id && spellId !== SPELLS.WINDBURST.id) {
+      return;
+    }
     if (event.classResources) {
       event.classResources
         .filter(resource => resource.type === RESOURCE_TYPES.FOCUS)
         .forEach(({ cost }) => {
           const focusCost = cost || 0;
-
-          this.focusUpdates.push({
+          this.focusUpdates.unshift({
             used: focusCost,
           });
         });
     }
-    debug && console.log(`focusUpdates is now at: `, this.focusUpdates.used);
-    const spellId = event.ability.guid;
-    const COOLDOWN_REDUCTION_MS = 22.22222 * this.focusUpdates[0];
-    if (spellId !== SPELLS.AIMED_SHOT.id && spellId !== SPELLS.PIERCING_SHOT_TALENT.id && spellId !== SPELLS.BURSTING_SHOT.id && spellId !== SPELLS.MARKED_SHOT.id && spellId !== SPELLS.WINDBURST.id) {
-      return;
-    }
+    debug && console.log(`focusUpdates is now at: `, this.focusUpdates[0].used);
+    const COOLDOWN_REDUCTION_MS = 22.22222 * this.focusUpdates[0].used;
     const trueshotIsOnCooldown = this.spellUsable.isOnCooldown(SPELLS.TRUESHOT.id);
     if (trueshotIsOnCooldown) {
       const reductionMs = this.spellUsable.reduceCooldown(SPELLS.TRUESHOT.id, COOLDOWN_REDUCTION_MS);
@@ -54,7 +53,7 @@ class Tier19_2p extends Module {
       this.wastedTrueshotReductionMs += COOLDOWN_REDUCTION_MS;
     }
   }
-
+  a
   item() {
     return {
       id: `spell-${SPELLS.HUNTER_MM_T19_2P_BONUS.id}`,
