@@ -25,7 +25,7 @@ class ShatteredFragmentsOfSindragosa extends Module {
     this.cometStormCasts += 1;
   }
 
-  on_toPlayer_applybuff(event) {
+  on_toPlayer_removebuff(event) {
     if (event.ability.guid !== SPELLS.RAGE_OF_THE_FROST_WYRM.id) {
       return;
     }
