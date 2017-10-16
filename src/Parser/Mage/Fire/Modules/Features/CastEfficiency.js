@@ -19,6 +19,11 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => null,
     },
     {
+      spell: SPELLS.SCORCH,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => null,
+    },
+    {
       spell: SPELLS.PHOENIXS_FLAMES,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 45,
@@ -42,8 +47,15 @@ class CastEfficiency extends CoreCastEfficiency {
       isActive: combatant => combatant.hasTalent(SPELLS.FLAME_ON_TALENT.id),
     },
     {
-      spell: SPELLS.DRAGONS_BREATH,
+      spell: SPELLS.METEOR_TALENT,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => 45,
+      recommendedCastEfficiency: 0.90,
+	    isActive: combatant => combatant.hasTalent(SPELLS.METEOR_TALENT.id),
+    },
+    {
+      spell: SPELLS.DRAGONS_BREATH,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL_AOE,
       getCooldown: haste => 20,
       noSuggestion: true,
       noCanBeImproved: true,
@@ -57,26 +69,19 @@ class CastEfficiency extends CoreCastEfficiency {
     },
     {
       spell: SPELLS.LIVING_BOMB_TALENT,
-      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL_AOE,
       getCooldown: haste => 12 / (1 + haste),
 	    isActive: combatant => combatant.hasTalent(SPELLS.LIVING_BOMB_TALENT.id),
     },
     {
       spell: SPELLS.CINDERSTORM_TALENT,
-      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL_AOE,
       getCooldown: haste => 9 / (1 + haste),
 	    isActive: combatant => combatant.hasTalent(SPELLS.CINDERSTORM_TALENT.id),
     },
     {
-      spell: SPELLS.METEOR_TALENT,
-      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => 45,
-      recommendedCastEfficiency: 0.90,
-	    isActive: combatant => combatant.hasTalent(SPELLS.METEOR_TALENT.id),
-    },
-    {
       spell: SPELLS.BLAST_WAVE_TALENT,
-      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL_AOE,
       getCooldown: haste => 25,
 	    isActive: combatant => combatant.hasTalent(SPELLS.BLAST_WAVE_TALENT.id),
     },
@@ -84,7 +89,7 @@ class CastEfficiency extends CoreCastEfficiency {
     // Cooldowns
     {
       spell: SPELLS.COMBUSTION,
-      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 120,
     },
     {
