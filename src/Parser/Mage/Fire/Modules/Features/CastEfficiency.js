@@ -125,6 +125,7 @@ class CastEfficiency extends CoreCastEfficiency {
       noSuggestion: true,
       noCanBeImproved: true,
       isActive: combatant => !combatant.hasTalent(SPELLS.ICE_WARD_TALENT.id),
+      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.FROST_NOVA,
@@ -134,11 +135,12 @@ class CastEfficiency extends CoreCastEfficiency {
       noCanBeImproved: true,
       charges: 2,
       isActive: combatant => combatant.hasTalent(SPELLS.ICE_WARD_TALENT.id),
+      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.BLINK,
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
-      getCooldown: haste => null,
+      getCooldown: haste => 15,
       noSuggestion: true,
       noCanBeImproved: true,
       isActive: combatant => !combatant.hasTalent(SPELLS.SHIMMER_TALENT.id),
@@ -146,7 +148,7 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.SHIMMER_TALENT,
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
-      getCooldown: haste => null,
+      getCooldown: haste => 15,
       charges: 2,
       noSuggestion: true,
       noCanBeImproved: true,
@@ -155,9 +157,10 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.COUNTERSPELL,
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
-      getCooldown: haste => null,
+      getCooldown: haste => 24,
       noSuggestion: true,
       noCanBeImproved: true,
+      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.SLOW_FALL,
@@ -165,6 +168,7 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => null,
       noSuggestion: true,
       noCanBeImproved: true,
+      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.SPELL_STEAL,
@@ -172,13 +176,15 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => null,
       noSuggestion: true,
       noCanBeImproved: true,
+      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.INVISIBILITY,
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
-      getCooldown: haste => null,
+      getCooldown: haste => 300,
       noSuggestion: true,
       noCanBeImproved: true,
+      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.ARCANE_TORRENT_MANA,
