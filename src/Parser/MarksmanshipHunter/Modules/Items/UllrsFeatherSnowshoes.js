@@ -11,6 +11,13 @@ import SpellLink from "common/SpellLink";
 
 const COOLDOWN_REDUCTION_MS = 800;
 
+const AFFECTED_ABILITIES = [
+  SPELLS.AIMED_SHOT.id,
+  SPELLS.MARKED_SHOT.id,
+  SPELLS.ARCANE_SHOT.id,
+  SPELLS.MULTISHOT.id,
+];
+
 class UllrsFeatherSnowshoes extends Module {
   static dependencies = {
     combatants: Combatants,
@@ -25,7 +32,7 @@ class UllrsFeatherSnowshoes extends Module {
   }
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.AIMED_SHOT.id && spellId !== SPELLS.MARKED_SHOT.id && spellId !== SPELLS.ARCANE_SHOT.id && spellId !== SPELLS.MULTISHOT.id) {
+    if (AFFECTED_ABILITIES.every(id => spellId !== id)) {
       return;
     }
     const trueshotIsOnCooldown = this.spellUsable.isOnCooldown(SPELLS.TRUESHOT.id);
@@ -42,7 +49,7 @@ class UllrsFeatherSnowshoes extends Module {
       item: ITEMS.ULLRS_FEATHER_SNOWSHOES,
       result: (
         <dfn data-tip={`You wasted ${formatNumber(this.wastedTrueshotReductionMs / 1000)} seconds of CDR.<br/> `}>
-          You effectively reduced <SpellLink id={SPELLS.TRUESHOT.id} />s cooldown by a total of {formatNumber(this.effectiveTrueshotReductionMs / 1000)} seconds over the course of the fight.
+          You effectively reduced <SpellLink id={SPELLS.TRUESHOT.id} /> CD reduced by {formatNumber(this.effectiveTrueshotReductionMs / 1000)} in total.
         </dfn>
       ),
     };
