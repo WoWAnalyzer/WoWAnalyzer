@@ -8,6 +8,7 @@ import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
+import CastEfficiency from './Modules/Features/CastEfficiency';
 import CooldownTracker from './Modules/Features/CooldownTracker';
 
 import Tier20_4set from './Modules/Items/Tier20_4set';
@@ -18,6 +19,7 @@ class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Features
     alwaysBeCasting: AlwaysBeCasting,
+    castEfficiency: CastEfficiency,
     cooldownTracker: CooldownTracker,
     damageDone: [DamageDone, { showStatistic: true }],
 
