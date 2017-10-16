@@ -7,11 +7,11 @@ import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import { formatPercentage } from "common/format";
 import { formatNumber } from "../../../../common/format";
 
-
 const debug = false;
+
+const CDR_PER_FOCUS = 22.22222;
 
 class Tier19_2p extends Module {
   static dependencies = {
@@ -44,7 +44,7 @@ class Tier19_2p extends Module {
     }
     debug && console.log(`focusUpdates is now at: `, this.focusUpdates[0].used);
     //1000ms/45focus = 22.2ms/focus
-    const COOLDOWN_REDUCTION_MS = 22.22222 * this.focusUpdates[0].used;
+    const COOLDOWN_REDUCTION_MS = CDR_PER_FOCUS * this.focusUpdates[0].used;
     const trueshotIsOnCooldown = this.spellUsable.isOnCooldown(SPELLS.TRUESHOT.id);
     if (trueshotIsOnCooldown) {
       const reductionMs = this.spellUsable.reduceCooldown(SPELLS.TRUESHOT.id, COOLDOWN_REDUCTION_MS);
@@ -53,15 +53,14 @@ class Tier19_2p extends Module {
       this.wastedTrueshotReductionMs += COOLDOWN_REDUCTION_MS;
     }
   }
-  a
   item() {
     return {
       id: `spell-${SPELLS.HUNTER_MM_T19_2P_BONUS.id}`,
       icon: <SpellIcon id={SPELLS.TRUESHOT.id} />,
       title: <SpellLink id={SPELLS.HUNTER_MM_T19_2P_BONUS.id} />,
       result: (
-        <dfn data-tip={`Your utilization of tier 19 2 piece: <br/> You effectively reduced Trueshots cooldown by: ${formatNumber(this.effectiveTrueshotReductionMs / 1000)} seconds.<br/> You wasted   ${formatNumber(this.wastedTrueshotReductionMs / 1000)} seconds of CDR.<br/> `}>
-          T19 2p CDR effectiveness: {formatPercentage(this.effectiveTrueshotReductionMs / (this.effectiveTrueshotReductionMs + this.wastedTrueshotReductionMs))}%
+        <dfn data-tip={`You wasted ${formatNumber(this.wastedTrueshotReductionMs / 1000)} seconds of CDR.<br/> `}>
+          You reduced <SpellLink id={SPELLS.TRUESHOT.id} /> by {formatNumber(this.effectiveTrueshotReductionMs / 1000)} seconds in total over the course of the fight.
         </dfn>
       ),
     };
