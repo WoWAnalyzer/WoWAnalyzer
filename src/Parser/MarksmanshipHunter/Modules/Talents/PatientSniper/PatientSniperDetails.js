@@ -27,10 +27,10 @@ class PatientSniperDetails extends Module {
   }
 
   get bonusAimedDamage() {
-    return this.patientSniperTracker[SPELLS.AIMED_SHOT.id].bonusDmg;
+    return this.patientSniperTracker.patientSniper[SPELLS.AIMED_SHOT.id].bonusDmg;
   }
   get bonusPiercingDamage() {
-    return this.patientSniperTracker[SPELLS.PIERCING_SHOT_TALENT.id].bonusDmg;
+    return this.patientSniperTracker.patientSniper[SPELLS.PIERCING_SHOT_TALENT.id].bonusDmg;
   }
   get bonusDamage() {
     return this.bonusAimedDamage + this.bonusPiercingDamage;
@@ -58,7 +58,7 @@ class PatientSniperDetails extends Module {
     tooltipText += `Aimed Shot bonus damage: ${formatNumber(this.bonusAimedDamage)} (${formatPercentage(this.bonusAimedDamage / aimed.damageEffective)} %)`;
     if (this.combatants.selected.hasTalent(SPELLS.PIERCING_SHOT_TALENT.id)) {
       const piercing = this.abilityTracker.getAbility(SPELLS.PIERCING_SHOT_TALENT.id);
-      tooltipText += `<br />Piercing Shot bonus damage: ${formatNumber(this.bonusPiercingDamage)} (${formatPercentage(this.bonusPiercingDamage / piercing.damageEffective)} %)`
+      tooltipText += `<br />Piercing Shot bonus damage: ${formatNumber(this.bonusPiercingDamage)} (${formatPercentage(this.bonusPiercingDamage / piercing.damageEffective)} %)`;
     }
     return (
       <StatisticBox
