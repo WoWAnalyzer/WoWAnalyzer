@@ -16,23 +16,34 @@ class DistanceMoved extends Module {
 
   // Events
   on_cast(event) {
-    this.updatePlayerPosition(event);
+    if (this.owner.byPlayer(event)) {
+      this.updatePlayerPosition(event);
+    }
   }
 
   on_damage(event) {
-    this.updatePlayerPosition(event);
+    if (this.owner.toPlayer(event)) {
+      // Damage coordinates are for the target, so they are only accurate when done TO player
+      this.updatePlayerPosition(event);
+    }
   }
 
   on_energize(event) {
-    this.updatePlayerPosition(event);
+    if (this.owner.toPlayer(event)) {
+      this.updatePlayerPosition(event);
+    }
   }
 
   on_heal(event) {
-    this.updatePlayerPosition(event);
+    if (this.owner.toPlayer(event)) {
+      this.updatePlayerPosition(event);
+    }
   }
 
   on_absorbed(event) {
-    this.updatePlayerPosition(event);
+    if (this.owner.toPlayer(event)) {
+      this.updatePlayerPosition(event);
+    }
   }
 
   // Data parsing
@@ -61,7 +72,7 @@ class DistanceMoved extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.FRENETIC_SPEED_TALENT.id} />}
         value={`≈${formatThousands(this.totalDistanceMoved)} yards`}
-        label="Distance moved during fight"
+        label="Distance moved"
         tooltip={`≈${formatThousands(this.totalDistanceMoved / (this.owner.fightDuration / 1000) * 60)} yards per minute. Consider this when analyzing the fight, as some fights require more movement than others. Unnecessary movement can result in a DPS/HPS loss.`}
       />
     );
