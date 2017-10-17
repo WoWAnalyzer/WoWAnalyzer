@@ -1,5 +1,4 @@
 export default `
-17-10-2017 - File structure updates for module. Should be no impact to end user (by anomoly)
 30-09-2017 - Added Zen Pulse and Chi Wave to the Cast Efficiency tab. Updated the Maintainer information (by anomoly)
 27-09-2017 - Clean up some old code and update the Second Gust of Mist Overhealing calculation to show overhealing of the Second Gust proc as a % of the total healing of that second Gust (by anomoly)
 20-09-2017 - Update Essence Font Mastery tooltip to include overhealing of second Gust of Mist proc (by anomoly)
