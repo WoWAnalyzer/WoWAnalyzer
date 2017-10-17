@@ -23,7 +23,7 @@ import HitCombo from './Modules/Talents/HitCombo';
 
 // Legendaries
 import KatsuosEclipse from './Modules/Items/KatsuosEclipse';
-import CenedrilTheReflector from './Modules/Items/CenedrilTheReflector';
+import CenedrilReflectorOfHatred from './Modules/Items/CenedrilReflectorOfHatred';
 import SoulOfTheGrandmaster from './Modules/Items/SoulOfTheGrandmaster';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -45,7 +45,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Legendaries / Items:
     katsuosEclipse: KatsuosEclipse,
     cinidaria: Cinidaria,
-    cenedrilTheReflector: CenedrilTheReflector,
+    cenedrilReflectorOfHatred: CenedrilReflectorOfHatred,
     soulOfTheGrandmaster: SoulOfTheGrandmaster,
 
   };

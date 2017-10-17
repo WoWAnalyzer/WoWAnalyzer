@@ -1,28 +1,28 @@
 import React from 'react';
 
 import ITEMS from 'common/ITEMS';
-import TALENTS_MONK from 'common/talents/TALENTS_MONK';
+import SPELLS_MONK from 'common/SPELLS_MONK';
 import Module from 'Parser/Core/Module';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
-class SoulOfTheGrandmaster extends Module {
+class CenedrilReflectorOfHatred extends Module {
     static dependencies = {
         abilityTracker: AbilityTracker,
         combatants: Combatants,
     };
 
     on_initialized() {
-        this.active = this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_GRANDMASTER.id);
+        this.active = this.combatants.selected.hasBack(ITEMS.CENEDRIL_REFLECTOR_OF_HATRED.id);
     }
 
     item() {
-        const chiOrbit = this.abilityTracker.getAbility(TALENTS_MONK.CHI_ORBIT_TALENT.id);
-        const damage = chiOrbit.damageEffective;
+        const touchOfKarma = this.abilityTracker.getAbility(SPELLS_MONK.TOUCH_OF_KARMA_DAMAGE.id);
+        const damage = touchOfKarma.damageEffective * 0.6;
 
         return {
-            item: ITEMS.SOUL_OF_THE_GRANDMASTER,
+            item: ITEMS.CENEDRIL_REFLECTOR_OF_HATRED,
             result: (
                 <span>
                     {this.owner.formatItemDamageDone(damage)}
@@ -32,4 +32,4 @@ class SoulOfTheGrandmaster extends Module {
     }
 }
 
-export default SoulOfTheGrandmaster;
+export default CenedrilReflectorOfHatred;
