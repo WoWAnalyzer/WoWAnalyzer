@@ -1,7 +1,7 @@
 import React from 'react';
 
 import ITEMS from 'common/ITEMS';
-import TALENTS_MONK from 'common/talents/TALENTS_MONK';
+import SPELLS_MONK from 'common/SPELLS_MONK';
 import Module from 'Parser/Core/Module';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -18,7 +18,7 @@ class SoulOfTheGrandmaster extends Module {
     }
 
     item() {
-        const chiOrbit = this.abilityTracker.getAbility(TALENTS_MONK.CHI_ORBIT_TALENT.id);
+        const chiOrbit = this.abilityTracker.getAbility(SPELLS_MONK.CHI_ORBIT_DAMAGE.id);
         const damage = chiOrbit.damageEffective;
 
         return {
