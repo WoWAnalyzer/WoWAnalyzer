@@ -4,9 +4,9 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
-import SheilunsGift from 'Parser/MistweaverMonk/Modules/Spells/SheilunsGift';
-
 import Module from 'Parser/Core/Module';
+
+import SheilunsGift from '../../Modules/Spells/SheilunsGift';
 
 const debug = false;
 
