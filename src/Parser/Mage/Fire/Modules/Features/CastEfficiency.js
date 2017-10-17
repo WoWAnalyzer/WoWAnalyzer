@@ -73,10 +73,12 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL_AOE,
       getCooldown: haste => 12 / (1 + haste),
 	    isActive: combatant => combatant.hasTalent(SPELLS.LIVING_BOMB_TALENT.id),
+      noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.CINDERSTORM_TALENT,
-      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL_AOE,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 9 / (1 + haste),
 	    isActive: combatant => combatant.hasTalent(SPELLS.CINDERSTORM_TALENT.id),
     },

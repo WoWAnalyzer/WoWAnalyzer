@@ -1,4 +1,5 @@
 export default `
+17-10-2017 - Updated Cast Efficiency - Will now reduce cooldowns on Strike of the Windlord and Rising Sun kick based on legendary head and T19 2p but Serenity implementation isn't working - also added Cenedril and Soul to legendary breakdown (by Juko)
 15-10-2017 - Added tracking of Chi saved by Katsuo's Eclipse (by Juko) - Also finished AlwaysBeCasting (by Juko)
 14-10-2017 - Updated Cast Efficiency - should now track all spells individually correct, but tierbonuses and Serenity CDR is not accounted for (by Juko)
 13-10-2017 - Added Combo Breaker tracking and suggestions (by Juko)

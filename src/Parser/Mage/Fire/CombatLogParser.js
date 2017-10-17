@@ -11,9 +11,11 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import CooldownTracker from './Modules/Features/CooldownTracker';
 
+import MirrorImage from '../Shared/Modules/Features/MirrorImage';
+
 import Tier20_4set from './Modules/Items/Tier20_4set';
 import ShardOfTheExodar from '../Shared/Modules/Items/ShardOfTheExodar';
-
+import SoulOfTheArchmage from './Modules/Items/SoulOfTheArchmage';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -23,10 +25,13 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownTracker: CooldownTracker,
     damageDone: [DamageDone, { showStatistic: true }],
 
+    // Talents
+    mirrorImage: MirrorImage,
+
 	  //Items
 	  tier20_4set: Tier20_4set,
-	  shardOfTheExodar: ShardOfTheExodar,
-
+    shardOfTheExodar: ShardOfTheExodar,
+    soulOfTheArchmage: SoulOfTheArchmage,
   };
 
   generateResults() {
