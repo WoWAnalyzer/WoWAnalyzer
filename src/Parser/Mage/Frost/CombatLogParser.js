@@ -16,6 +16,9 @@ import ThermalVoid from './Modules/Features/ThermalVoid';
 import IcicleTracker from './Modules/Features/IcicleTracker';
 import RuneOfPower from '../Shared/Modules/Features/RuneOfPower';
 
+import FrozenOrb from './Modules/Cooldowns/FrozenOrb';
+import IcyVeins from './Modules/Cooldowns/IcyVeins';
+
 import ShardOfTheExodar from '../Shared/Modules/Items/ShardOfTheExodar';
 import Tier20_2set from './Modules/Items/Tier20_2set';
 import ZannesuJourney from './Modules/Items/ZannesuJourney';
@@ -37,6 +40,8 @@ class CombatLogParser extends CoreCombatLogParser {
     runeOfPower: RuneOfPower,
 
 	  //Cooldowns
+    frozenOrb: FrozenOrb,
+    icyVeins: IcyVeins,
 
 	  //Items
 	  tier20_2set: Tier20_2set,

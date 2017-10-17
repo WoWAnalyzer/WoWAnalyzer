@@ -12,6 +12,7 @@ import MarksmanshipHunter from './MarksmanshipHunter/CONFIG';
 
 // Mage
 import FrostMage from './Mage/Frost/CONFIG';
+import FireMage from './Mage/Fire/CONFIG';
 
 import BrewmasterMonk from './Monk/Brewmaster/CONFIG';
 import WindwalkerMonk from './WindwalkerMonk/CONFIG';
@@ -51,6 +52,7 @@ export default [
 
   // Mage
   FrostMage,
+  FireMage,
 
   BrewmasterMonk,
   WindwalkerMonk,
