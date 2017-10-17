@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
-import SheilunsGift from 'Parser/MistweaverMonk/Modules/Spells/SheilunsGift';
+import SheilunsGift from 'Parser/Monk/Mistweaver/Modules/Spells/SheilunsGift';
 
 import Module from 'Parser/Core/Module';
 
