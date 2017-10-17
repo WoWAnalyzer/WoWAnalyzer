@@ -4,7 +4,6 @@
 .statistics > div {
   padding: 0 10px;
 }
-
 .results .navigation {
   border-bottom: 1px solid rgba(0, 0, 0, .4);
   box-shadow: 0 1px 0 0 rgba(255, 255, 255, .1);
@@ -16,17 +15,15 @@
   color: #aaaaaa;
   outline: none;
   padding: 5px;
+  transition: 300ms border-bottom;
 }
-
 .results .btn-link, .results .btn-link:hover, .results .btn-link:active {
   text-decoration: none;
 }
-
 .results .btn-link:hover {
   color: #eeeeee;
   background-color: rgba(255, 255, 255, 0.1);
 }
-
 .results .btn-link.selected {
   color: #ffffff;
   border-bottom: 4px solid #d84141;

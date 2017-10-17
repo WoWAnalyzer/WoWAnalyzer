@@ -7,52 +7,31 @@ import Talents from 'Main/Talents';
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 
-import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
+import CastEfficiency from './Modules/Features/CastEfficiency';
 import CooldownTracker from './Modules/Features/CooldownTracker';
-import WintersChillTracker from './Modules/Features/WintersChill';
-import BrainFreeze from './Modules/Features/BrainFreeze';
-import ThermalVoid from './Modules/Features/ThermalVoid';
-import IcicleTracker from './Modules/Features/IcicleTracker';
-import RuneOfPower from '../Shared/Modules/Features/RuneOfPower';
+
 import MirrorImage from '../Shared/Modules/Features/MirrorImage';
 
-import FrozenOrb from './Modules/Cooldowns/FrozenOrb';
-import IcyVeins from './Modules/Cooldowns/IcyVeins';
-
+import Tier20_4set from './Modules/Items/Tier20_4set';
 import ShardOfTheExodar from '../Shared/Modules/Items/ShardOfTheExodar';
-import Tier20_2set from './Modules/Items/Tier20_2set';
-import ZannesuJourney from './Modules/Items/ZannesuJourney';
-import MagtheridonsBanishedBracers from './Modules/Items/MagtheridonsBanishedBracers';
-import ShatteredFragmentsOfSindragosa from './Modules/Items/ShatteredFragmentsOfSindragosa';
 import SoulOfTheArchmage from './Modules/Items/SoulOfTheArchmage';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Features
-    castEfficiency: CastEfficiency,
     alwaysBeCasting: AlwaysBeCasting,
+    castEfficiency: CastEfficiency,
     cooldownTracker: CooldownTracker,
-	  wintersChillTracker: WintersChillTracker,
-	  brainFreeze: BrainFreeze,
-	  thermalVoid: ThermalVoid,
-	  icicleTracker: IcicleTracker,
     damageDone: [DamageDone, { showStatistic: true }],
-    runeOfPower: RuneOfPower,
+
+    // Talents
     mirrorImage: MirrorImage,
 
-	  //Cooldowns
-    frozenOrb: FrozenOrb,
-    icyVeins: IcyVeins,
-
 	  //Items
-	  tier20_2set: Tier20_2set,
-	  shardOfTheExodar: ShardOfTheExodar,
-    zannesuJourney: ZannesuJourney,
-    magtheridonsBanishedBracers: MagtheridonsBanishedBracers,
-    shatteredFragmentsOfSindragosa: ShatteredFragmentsOfSindragosa,
+	  tier20_4set: Tier20_4set,
+    shardOfTheExodar: ShardOfTheExodar,
     soulOfTheArchmage: SoulOfTheArchmage,
-
   };
 
   generateResults() {
