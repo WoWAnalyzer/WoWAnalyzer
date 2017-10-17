@@ -620,11 +620,6 @@ export default {
     name: 'The Wind Blows',
     icon: 'inv_hand_1h_artifactskywall_d_01',
   },
-  THE_EMPERORS_CAPACITOR: {
-    id: 235053,
-    name: "The Emperor's Capacitor",
-    icon: 'ability_monk_cracklingjadelightning',
-  },
   THE_EMPERORS_CAPACITOR_STACK: {
     id: 235054,
     name: "The Emperor's Capacitor",
