@@ -34,11 +34,6 @@ class RuneOfPower extends Module {
     }
   }
 
-
-
-  // TODO SUGGESTION if player is moving out of their rune
-
-
   suggestions(when) {
     const damagePercent = this.owner.getPercentageOfTotalDamageDone(this.damage);
     const damageIncreasePercent = damagePercent/(1-damagePercent);
@@ -54,8 +49,7 @@ class RuneOfPower extends Module {
 
       const casts = this.abilityTracker.getAbility(SPELLS.RUNE_OF_POWER_TALENT.id).casts;
       const uptimeMs = this.combatants.selected.getBuffUptime(SPELLS.RUNE_OF_POWER_BUFF.id);
-      const uptimeMsPerCast = uptimeMs / casts;
-      const roundedSecondsPerCast = (uptimeMsPerCast/1000).toFixed(1);
+      const roundedSecondsPerCast = ((uptimeMs / casts) / 1000).toFixed(1);
 
       when(roundedSecondsPerCast).isLessThan(RUNE_DURATION)
         .addSuggestion((suggest, actual, recommended) => {
@@ -75,7 +69,7 @@ class RuneOfPower extends Module {
         icon={<SpellIcon id={SPELLS.RUNE_OF_POWER_TALENT.id} />}
         value={`${formatPercentage(damagePercent)} %`}
         label="Rune of Power damage"
-        tooltip={`This is the portion of your total damage attributable to Rune of Power's boost. Expressed as an increase vs never using RoP, this is a <b>${formatPercentage(damageIncreasePercent)}% damage increase</b>. Note that this number does <i>not</i> factor in the opportunity cost of casting Rune of Power instead of another damaging spell`}
+        tooltip={`This is the portion of your total damage attributable to Rune of Power's boost. Expressed as an increase vs never using Rune of Power, this is a <b>${formatPercentage(damageIncreasePercent)}% damage increase</b>. Note that this number does <i>not</i> factor in the opportunity cost of casting Rune of Power instead of another damaging spell`}
       />
     );
   }
