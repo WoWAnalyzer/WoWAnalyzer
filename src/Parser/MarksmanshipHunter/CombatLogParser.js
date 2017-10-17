@@ -15,7 +15,7 @@ import VulnerableUptime from './Modules/Features/VulnerableUptime';
 import VulnerableTracker from './Modules/Features/AimedInVulnerableTracker';
 import TimeFocusCapped from './Modules/Features/TimeFocusCapped';
 
-//Focus Chart
+//Focus
 import FocusChart from './Modules/FocusChart/Focus';
 import FocusTracker from './Modules/FocusChart/FocusTracker';
 
@@ -26,20 +26,28 @@ import Tier20_4p from './Modules/Items/Tier20_4p';
 //Spells
 import Trueshot from './Modules/Spells/Trueshot';
 
+//Talents
+import PatientSniperTracker from './Modules/Talents/PatientSniper/PatientSniperTracker';
+import PatientSniperDetails from "./Modules/Talents/PatientSniper/PatientSniperDetails";
+
 
 class CombatLogParser extends CoreCombatLogParser {
-
+  static
+  dependencies = {
+    patientSniperTracker: PatientSniperTracker,
+  };
   static specModules = {
-    // Marksmanship Core
+    // Core statistics
     damageDone: [DamageDone, { showStatistic: true }],
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     castEfficiency: CastEfficiency,
     cooldownTracker: CooldownTracker,
-    vulnerabluptime: VulnerableUptime,
+    vulnerableUptime: VulnerableUptime,
     vulnerableTracker: VulnerableTracker,
     TimeFocusCapped: TimeFocusCapped,
+
 
     //Focus Chart
     focusTracker: FocusTracker,
@@ -51,6 +59,9 @@ class CombatLogParser extends CoreCombatLogParser {
     //Spells
     trueshot: Trueshot,
 
+    //Talents
+    patientSniperTracker: PatientSniperTracker,
+    patientSniperDetails: PatientSniperDetails,
   };
 
   generateResults() {
@@ -93,7 +104,6 @@ class CombatLogParser extends CoreCombatLogParser {
           </Tab>
         ),
       },
-
       ...results.tabs,
     ];
 
