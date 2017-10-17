@@ -17,7 +17,7 @@ import Pets from './Modules/Pets';
 import HealEventTracker from './Modules/HealEventTracker';
 import ManaValues from './Modules/ManaValues';
 import SpellManaCost from './Modules/SpellManaCost';
-import DistanceMoved from './Modules/DistanceMoved';
+//import DistanceMoved from './Modules/DistanceMoved';
 
 import CritEffectBonus from './Modules/Helpers/CritEffectBonus';
 import ApplyBuffFixer from './Modules/Helpers/ApplyBuffFixer';
@@ -96,7 +96,7 @@ class CombatLogParser {
     spellUsable: SpellUsable,
     manaValues: ManaValues,
     vantusRune: VantusRune,
-    distanceMoved: DistanceMoved,
+    //distanceMoved: DistanceMoved,
 
     critEffectBonus: CritEffectBonus,
     applyBuffFixer: ApplyBuffFixer,
