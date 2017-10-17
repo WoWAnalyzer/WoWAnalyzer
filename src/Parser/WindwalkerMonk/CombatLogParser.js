@@ -43,7 +43,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Legendaries / Items:
     katsuosEclipse: KatsuosEclipse,
-    cinidaria: Cinidaria,
     cenedrilReflectorOfHatred: CenedrilReflectorOfHatred,
     soulOfTheGrandmaster: SoulOfTheGrandmaster,
     
