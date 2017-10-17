@@ -48,6 +48,10 @@ class RuneOfPower extends Module {
       });
 
       const casts = this.abilityTracker.getAbility(SPELLS.RUNE_OF_POWER_TALENT.id).casts;
+      if(!casts) {
+        return;
+      }
+      
       const uptimeMs = this.combatants.selected.getBuffUptime(SPELLS.RUNE_OF_POWER_BUFF.id);
       const roundedSecondsPerCast = ((uptimeMs / casts) / 1000).toFixed(1);
 
