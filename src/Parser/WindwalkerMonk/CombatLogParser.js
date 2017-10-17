@@ -23,6 +23,7 @@ import HitCombo from './Modules/Talents/HitCombo';
 
 // Legendaries
 import KatsuosEclipse from './Modules/Items/KatsuosEclipse';
+import CenedrilTheReflector from './Modules/Items/KatsuosEclipse';
 
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -44,6 +45,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Legendaries / Items:
     katsuosEclipse: KatsuosEclipse,
     cinidaria: Cinidaria,
+    cenedrilTheReflector: CenedrilTheReflector,
 
   };
 
