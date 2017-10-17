@@ -6,6 +6,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import Module from 'Parser/Core/Module';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
+import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 const FROSTBOLT_CRIT_REDUCTION_MS = 500;
 
@@ -14,39 +15,36 @@ class FrozenOrb extends Module {
 	static dependencies = {
 		combatants: Combatants,
 		spellUsable: SpellUsable,
+		abilityTracker: AbilityTracker,
 	}
 
 	baseCooldown = 180;
 	cooldownReduction = 0;
-	icyVeinsCasts = 0;
+
+	on_initialized() {
+		this.reductionAmount = FROSTBOLT_CRIT_REDUCTION_MS * this.combatants.selected.traitsBySpellId[SPELLS.FROZEN_VEINS_TRAIT.id];
+	}
 
   on_byPlayer_damage(event) {
 		if(event.ability.guid !== SPELLS.FROSTBOLT_DAMAGE.id || event.hitType !== HIT_TYPES.CRIT) {
 			return;
 		}
-		const frozenVeinsRanks = this.combatants.selected.traitsBySpellId[SPELLS.FROZEN_VEINS_TRAIT.id];
 		if (this.spellUsable.isOnCooldown(SPELLS.ICY_VEINS.id)) {
-			this.cooldownReduction += this.spellUsable.reduceCooldown(SPELLS.ICY_VEINS.id,(FROSTBOLT_CRIT_REDUCTION_MS * frozenVeinsRanks));
+			this.cooldownReduction += this.spellUsable.reduceCooldown(SPELLS.ICY_VEINS.id,(this.reductionAmount));
 		}
   }
 
-	on_byPlayer_cast(event) {
-		if (event.ability.guid !== SPELLS.ICY_VEINS.id) {
-			return;
-		}
-		this.icyVeinsCasts += 1;
-	}
-
 	suggestions(when) {
+		const icyVeinsCasts = this.abilityTracker.getAbility(SPELLS.ICY_VEINS.id).casts;
 		const fightDurationSeconds = this.owner.fightDuration / 1000;
-		const icyVeinsUptimeSeconds = ((this.icyVeinsCasts * this.baseCooldown) - (this.cooldownReduction / 1000));
-		const icyVeinsUptimePercentage = icyVeinsUptimeSeconds / fightDurationSeconds;
-		when(icyVeinsUptimePercentage).isLessThan(0.95)
+		const icyVeinsOnCooldownSeconds = ((icyVeinsCasts * this.baseCooldown) - (this.cooldownReduction / 1000));
+		const icyVeinsOnCooldownPercentage = icyVeinsOnCooldownSeconds / fightDurationSeconds;
+		when(icyVeinsOnCooldownPercentage).isLessThan(0.95)
 			.addSuggestion((suggest, actual, recommended) => {
-				return suggest(<span><SpellLink id={SPELLS.ICY_VEINS.id}/> was on Cooldown {formatPercentage(icyVeinsUptimePercentage)}% of the time. Make sure you are casting Icy veins as much as possible. </span>)
+				return suggest(<span><SpellLink id={SPELLS.ICY_VEINS.id}/> was on Cooldown {formatPercentage(icyVeinsOnCooldownPercentage)}% of the time. Make sure you are casting Icy veins as much as possible. </span>)
 					.icon(SPELLS.ICY_VEINS.icon)
-					.actual(`${formatPercentage(icyVeinsUptimePercentage)}%`)
-					.recommended('95% is Recommended')
+					.actual(`${formatPercentage(icyVeinsOnCooldownPercentage)}%`)
+					.recommended(`${formatPercentage(recommended)}% is Recommended`)
 					.regular(0.9).major(0.8);
 			});
 	}

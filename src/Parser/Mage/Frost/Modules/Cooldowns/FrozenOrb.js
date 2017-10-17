@@ -5,6 +5,7 @@ import { formatPercentage } from 'common/format';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Module from 'Parser/Core/Module';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
+import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 const BLIZZARD_REDUCTION_MS = 500;
 const BRAIN_FREEZE_REDUCTION_MS = 5000;
@@ -14,11 +15,15 @@ class FrozenOrb extends Module {
 	static dependencies = {
 		combatants: Combatants,
 		spellUsable: SpellUsable,
+		abilityTracker: AbilityTracker,
 	}
 
 	baseCooldown = 60;
 	cooldownReduction = 0;
-	frozenOrbCasts = 0;
+
+	on_initialized() {
+		this.hasTierBonus = this.combatants.selected.hasBuff(SPELLS.FROST_MAGE_T20_4SET_BONUS_BUFF.id);
+	}
 
   on_byPlayer_damage(event) {
 		if(event.ability.guid !== SPELLS.BLIZZARD_DAMAGE.id) {
@@ -33,28 +38,22 @@ class FrozenOrb extends Module {
 		if (event.ability.guid !== SPELLS.BRAIN_FREEZE.id) {
 			return;
 		}
-		if (this.combatants.selected.hasBuff(SPELLS.FROST_MAGE_T20_4SET_BONUS_BUFF.id) && this.spellUsable.isOnCooldown(SPELLS.FROZEN_ORB.id)) {
+		if (this.hasTierBonus && this.spellUsable.isOnCooldown(SPELLS.FROZEN_ORB.id)) {
 			this.cooldownReduction += this.spellUsable.reduceCooldown(SPELLS.FROZEN_ORB.id,BRAIN_FREEZE_REDUCTION_MS);
 		}
 	}
 
-	on_byPlayer_cast(event) {
-		if (event.ability.guid !== SPELLS.FROZEN_ORB.id) {
-			return;
-		}
-		this.frozenOrbCasts += 1;
-	}
-
 	suggestions(when) {
+		const frozenOrbCasts = this.abilityTracker.getAbility(SPELLS.FROZEN_ORB.id).casts;
 		const fightDurationSeconds = this.owner.fightDuration / 1000;
-		const frozenOrbUptimeSeconds = ((this.frozenOrbCasts * this.baseCooldown) - (this.cooldownReduction / 1000));
-		const frozenOrbUptimePercentage = frozenOrbUptimeSeconds / fightDurationSeconds;
-		when(frozenOrbUptimePercentage).isLessThan(0.95)
+		const frozenOrbOnCooldownSeconds = ((frozenOrbCasts * this.baseCooldown) - (this.cooldownReduction / 1000));
+		const frozenOrbOnCooldownPercentage = frozenOrbOnCooldownSeconds / fightDurationSeconds;
+		when(frozenOrbOnCooldownPercentage).isLessThan(0.95)
 			.addSuggestion((suggest, actual, recommended) => {
-				return suggest(<span><SpellLink id={SPELLS.FROZEN_ORB.id}/> was on Cooldown {formatPercentage(frozenOrbUptimePercentage)}% of the time. Make sure you are casting Frozen Orb as much as possible. </span>)
+				return suggest(<span><SpellLink id={SPELLS.FROZEN_ORB.id}/> was on Cooldown {formatPercentage(frozenOrbOnCooldownPercentage)}% of the time. Make sure you are casting Frozen Orb as much as possible. </span>)
 					.icon(SPELLS.FROZEN_ORB.icon)
-					.actual(`${formatPercentage(frozenOrbUptimePercentage)}%`)
-					.recommended('95% is Recommended')
+					.actual(`${formatPercentage(frozenOrbOnCooldownPercentage)}%`)
+					.recommended(`${formatPercentage(recommended)}% is Recommended`)
 					.regular(0.9).major(0.8);
 			});
 	}
