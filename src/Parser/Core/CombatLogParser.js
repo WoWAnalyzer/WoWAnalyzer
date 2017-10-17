@@ -28,6 +28,7 @@ import Velens from './Modules/Items/Velens';
 import SephuzsSecret from './Modules/Items/SephuzsSecret';
 import KiljaedensBurningWish from './Modules/Items/KiljaedensBurningWish';
 import ArchimondesHatredReborn from './Modules/Items/ArchimondesHatredReborn';
+import Cinidaria from './Modules/Items/Cinidaria';
 // Shared Epics
 import DrapeOfShame from './Modules/Items/DrapeOfShame';
 import DarkmoonDeckPromises from './Modules/Items/DarkmoonDeckPromises';
@@ -107,6 +108,7 @@ class CombatLogParser {
     sephuzsSecret: SephuzsSecret,
     kiljaedensBurningWish: KiljaedensBurningWish,
     archimondesHatredReborn: ArchimondesHatredReborn,
+    cinidaria: Cinidaria,
     // Epics:
     drapeOfShame: DrapeOfShame,
     amalgamsSeventhSpine: AmalgamsSeventhSpine,
@@ -126,7 +128,7 @@ class CombatLogParser {
     spectralThurible: SpectralThurible,
     terrorFromBelow: TerrorFromBelow,
     tomeOfUnravelingSanity: TomeOfUnravelingSanity,
-    
+
     // Concordance of the Legionfall
     concordanceUptimeTracker: ConcordanceUptimeTracker,
     // Netherlight Crucible Traits
