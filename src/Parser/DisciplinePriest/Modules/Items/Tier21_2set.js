@@ -7,11 +7,12 @@ import SpellLink from 'common/SpellLink';
 import Module from 'Parser/Core/Module';
 
 const REGULAR_RADIANCE_COOLDOWN = 18000;
-const T212SET_RADIANCE_COOLDOWN = 16000;
+const T212SET_RADIANCE_COOLDOWN = 15000;
 
 class Tier21_2set extends Module {
 
   timeSpentWithRadianceOnCD = 0;
+  lastRadianceCast = 0;
 
   on_initialized() {
     this.active = this.owner.modules.combatants.selected.hasBuff(SPELLS.DISC_PRIEST_T21_2SET_BONUS_PASSIVE.id);
@@ -22,6 +23,11 @@ class Tier21_2set extends Module {
       return;
     }
     this.timeSpentWithRadianceOnCD += T212SET_RADIANCE_COOLDOWN;
+    this.lastRadianceCast = event.timestamp;
+  }
+
+  on_finished() {
+    console.log("Fin");
   }
 
   item() {
