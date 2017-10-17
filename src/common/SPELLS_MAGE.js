@@ -58,6 +58,11 @@ export default {
     name: 'Frostbolt',
     icon: 'spell_frost_frostbolt02',
   },
+  FROSTBOLT_DAMAGE: {
+    id: 228597,
+    name: 'Frostbolt',
+    icon: 'spell_frost_frostbolt02',
+  },
   ICE_LANCE_CAST: {
     id: 30455,
     name: 'Ice Lance',
@@ -273,6 +278,13 @@ export default {
     id: 242251,
     name: 'Critical Massive',
     icon: 'ability_mage_firestarter',
+  },
+
+  //Artifact Traits
+  FROZEN_VEINS_TRAIT: {
+    id: 195345,
+    name: 'Frozen Veins',
+    icon: 'spell_frost_coldhearted',
   },
 
   //Tier Sets
