@@ -14,6 +14,7 @@ import WintersChillTracker from './Modules/Features/WintersChill';
 import BrainFreeze from './Modules/Features/BrainFreeze';
 import ThermalVoid from './Modules/Features/ThermalVoid';
 import IcicleTracker from './Modules/Features/IcicleTracker';
+import ArcticGale from './Modules/Features/ArcticGale';
 import RuneOfPower from '../Shared/Modules/Features/RuneOfPower';
 import MirrorImage from '../Shared/Modules/Features/MirrorImage';
 import UnstableMagic from '../Shared/Modules/Features/UnstableMagic';
@@ -42,6 +43,7 @@ class CombatLogParser extends CoreCombatLogParser {
     runeOfPower: RuneOfPower,
     mirrorImage: MirrorImage,
     unstableMagic: UnstableMagic,
+    arcticGale: ArcticGale,
 
 	  //Cooldowns
     frozenOrb: FrozenOrb,

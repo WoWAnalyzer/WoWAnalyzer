@@ -4,7 +4,6 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import Module from 'Parser/Core/Module';
 
 // Unstable Magic cleaves don't always hit on identical timestamps, so we're giving a 100ms buffer
@@ -17,10 +16,8 @@ const PROCCERS = [
 ];
 
 class UnstableMagic extends Module {
-
   static dependencies = {
     combatants: Combatants,
-    abilityTracker: AbilityTracker,
 	}
 
   proccerHits = 0;
