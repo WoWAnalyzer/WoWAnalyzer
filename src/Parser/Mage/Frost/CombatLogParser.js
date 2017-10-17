@@ -14,6 +14,7 @@ import WintersChillTracker from './Modules/Features/WintersChill';
 import BrainFreeze from './Modules/Features/BrainFreeze';
 import ThermalVoid from './Modules/Features/ThermalVoid';
 import IcicleTracker from './Modules/Features/IcicleTracker';
+import RuneOfPower from '../Shared/Modules/Features/RuneOfPower';
 
 import ShardOfTheExodar from '../Shared/Modules/Items/ShardOfTheExodar';
 import Tier20_2set from './Modules/Items/Tier20_2set';
@@ -33,6 +34,7 @@ class CombatLogParser extends CoreCombatLogParser {
 	  thermalVoid: ThermalVoid,
 	  icicleTracker: IcicleTracker,
     damageDone: [DamageDone, { showStatistic: true }],
+    runeOfPower: RuneOfPower,
 
 	  //Cooldowns
 
