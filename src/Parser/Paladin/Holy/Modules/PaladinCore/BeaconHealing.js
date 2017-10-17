@@ -73,8 +73,8 @@ class BeaconHealing extends Module {
         tooltip={`The amount of Flash of Lights and Holy Lights cast on beacon targets. You cast ${beaconFlashOfLights} Flash of Lights and ${beaconHolyLights} Holy Lights on beacon targets.<br /><br />
             Your total heals on beacons was <b>${formatPercentage(totalHealsOnBeaconPercentage)}%</b> (this includes spell other than FoL and HL).`}
       />
-    );
-  }
+);
+}
   statisticOrder = STATISTIC_ORDER.CORE(50);
 }
 

@@ -5,51 +5,32 @@ import Tab from 'Main/Tab';
 import Talents from 'Main/Talents';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
-
-// Features
 import DamageDone from 'Parser/Core/Modules/DamageDone';
-import Cinidaria from 'Parser/Core/Modules/Items/Cinidaria';
+
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import CooldownTracker from './Modules/Features/CooldownTracker';
-import ComboStrikes from './Modules/Features/ComboStrikes';
 
-// Spells
-import ComboBreaker from './Modules/Spells/ComboBreaker';
-import StormEarthAndFire from './Modules/Spells/StormEarthAndFire';
-
-// Talents
-import HitCombo from './Modules/Talents/HitCombo';
-
-// Legendaries
-import KatsuosEclipse from './Modules/Items/KatsuosEclipse';
+import Tier20_4set from './Modules/Items/Tier20_4set';
+import ShardOfTheExodar from '../Shared/Modules/Items/ShardOfTheExodar';
 
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Features
-    damageDone: [DamageDone, { showStatistic: true }],
     alwaysBeCasting: AlwaysBeCasting,
     castEfficiency: CastEfficiency,
     cooldownTracker: CooldownTracker,
-    comboStrikes: ComboStrikes,
+    damageDone: [DamageDone, { showStatistic: true }],
 
-    // Talents:
-    hitCombo: HitCombo,
-
-    // Spells;
-    comboBreaker: ComboBreaker,
-    stormEarthAndFire: StormEarthAndFire,
-
-    // Legendaries / Items:
-    katsuosEclipse: KatsuosEclipse,
-    cinidaria: Cinidaria,
+	  //Items
+	  tier20_4set: Tier20_4set,
+	  shardOfTheExodar: ShardOfTheExodar,
 
   };
 
   generateResults() {
     const results = super.generateResults();
-
     results.tabs = [
       {
         title: 'Suggestions',
