@@ -46,6 +46,16 @@ export default {
     name: 'Time Warp',
     icon: 'ability_mage_timewarp',
   },
+  RUNE_OF_POWER_BUFF: {
+    id: 116014,
+    name: 'Rune of Power',
+    icon: 'spell_mage_runeofpower',
+  },
+  MIRROR_IMAGE_SUMMON: {
+    id: 88088,
+    name: 'Mirror Image',
+    icon: 'spell_magic_managain',
+  },
 
   //Frost
   MASTERY_ICICLES: {
