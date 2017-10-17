@@ -37,10 +37,6 @@ import PatientSniperDetails from "./Modules/Talents/PatientSniper/PatientSniperD
 
 
 class CombatLogParser extends CoreCombatLogParser {
-  static
-  dependencies = {
-    patientSniperTracker: PatientSniperTracker,
-  };
   static specModules = {
     // Core statistics
     damageDone: [DamageDone, { showStatistic: true }],
