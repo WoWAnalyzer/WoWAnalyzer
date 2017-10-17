@@ -51,6 +51,11 @@ export default {
     name: 'Rune of Power',
     icon: 'spell_mage_runeofpower',
   },
+  MIRROR_IMAGE_SUMMON: {
+    id: 88088,
+    name: 'Mirror Image',
+    icon: 'spell_magic_managain',
+  },
 
   //Frost
   MASTERY_ICICLES: {

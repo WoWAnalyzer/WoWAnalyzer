@@ -15,6 +15,7 @@ import BrainFreeze from './Modules/Features/BrainFreeze';
 import ThermalVoid from './Modules/Features/ThermalVoid';
 import IcicleTracker from './Modules/Features/IcicleTracker';
 import RuneOfPower from '../Shared/Modules/Features/RuneOfPower';
+import MirrorImage from '../Shared/Modules/Features/MirrorImage';
 
 import FrozenOrb from './Modules/Cooldowns/FrozenOrb';
 import IcyVeins from './Modules/Cooldowns/IcyVeins';
@@ -38,6 +39,7 @@ class CombatLogParser extends CoreCombatLogParser {
 	  icicleTracker: IcicleTracker,
     damageDone: [DamageDone, { showStatistic: true }],
     runeOfPower: RuneOfPower,
+    mirrorImage: MirrorImage,
 
 	  //Cooldowns
     frozenOrb: FrozenOrb,
