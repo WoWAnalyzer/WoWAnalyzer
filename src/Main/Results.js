@@ -230,13 +230,13 @@ class Results extends React.Component {
           </div>
           <div className="text-muted" style={{ marginBottom: 25, fontSize: '1.4em' }}>
             The <img
-              src={`/specs/${config.spec.className.replace(' ', '')}-${config.spec.specName.replace(' ', '')}.jpg`}
-              alt="Spec logo"
-              style={{
-                borderRadius: '50%',
-                height: '1.2em',
-              }}
-            /> {config.spec.specName} {config.spec.className} spec implementation is being maintained by {config.maintainer}. <a href="#spec-information" onClick={this.handleClickViewSpecInformation}>More information.</a>
+            src={`/specs/${config.spec.className.replace(' ', '')}-${config.spec.specName.replace(' ', '')}.jpg`}
+            alt="Spec logo"
+            style={{
+              borderRadius: '50%',
+              height: '1.2em',
+            }}
+          /> {config.spec.specName} {config.spec.className} spec implementation is being maintained by {config.maintainer}. <a href="#spec-information" onClick={this.handleClickViewSpecInformation}>More information.</a>
           </div>
 
           <div className="row">
@@ -249,14 +249,18 @@ class Results extends React.Component {
           </div>
 
           <div className="panel" style={{ marginTop: 15, marginBottom: 100 }}>
-            <div className="panel-body flex" style={{flexDirection: 'column', padding: '0' }}>
-              <div className="navigation" style={{minHeight: 70 }}>
-                <div className="flex" style={{ paddingTop: '10px', flexDirection: 'row', flexWrap: 'wrap'}}>
-                    {results.tabs.map(tab => (
-                      <button className={activeTab.url === tab.url ? 'btn-link selected' : 'btn-link'} onClick={() => onChangeTab(tab.url)}>
+            <div className="panel-body flex" style={{ flexDirection: 'column', padding: '0' }}>
+              <div className="navigation" style={{ minHeight: 70 }}>
+                <div className="flex" style={{ paddingTop: '10px', flexDirection: 'row', flexWrap: 'wrap' }}>
+                  {results.tabs.map(tab => (
+                    <button
+                      key={tab.title}
+                      className={activeTab.url === tab.url ? 'btn-link selected' : 'btn-link'}
+                      onClick={() => onChangeTab(tab.url)}
+                    >
                       {tab.title}
-                      </button>
-                    ))}
+                    </button>
+                  ))}
                 </div>
               </div>
               <div>

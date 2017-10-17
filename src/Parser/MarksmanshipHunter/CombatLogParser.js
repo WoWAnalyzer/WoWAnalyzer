@@ -22,9 +22,14 @@ import FocusTracker from './Modules/FocusChart/FocusTracker';
 //Tier
 import Tier20_2p from './Modules/Items/Tier20_2p';
 import Tier20_4p from './Modules/Items/Tier20_4p';
+import Tier19_2p from "./Modules/Items/Tier19_2p";
+
 
 //Spells
 import Trueshot from './Modules/Spells/Trueshot';
+
+//Items
+import UllrsFeatherSnowshoes from "./Modules/Items/UllrsFeatherSnowshoes";
 
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -45,8 +50,10 @@ class CombatLogParser extends CoreCombatLogParser {
     focusTracker: FocusTracker,
 
     //Items
+    tier19_2P: Tier19_2p,
     tier20_2p: Tier20_2p,
     tier20_4p: Tier20_4p,
+    ullrsFeatherSnowshoes: UllrsFeatherSnowshoes,
 
     //Spells
     trueshot: Trueshot,

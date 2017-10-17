@@ -127,6 +127,11 @@ export default {
   },
 
   // Marksmanship tier sets
+  HUNTER_MM_T19_2P_BONUS: {
+    id: 211331,
+    name: 'T19 2 set bonus',
+    icon: 'trade_engineering',
+  },
   HUNTER_MM_T20_2P_BONUS: {
     id: 242242,
     name: 'T20 2 set bonus',
@@ -180,5 +185,11 @@ export default {
     id: 90355,
     name: 'Ancient Hysteria',
     icon: 'spell_shadow_unholyfrenzy',
+  },
+  //The buff given by volley when it's activated
+  VOLLEY_ACTIVATED: {
+    id: 194392,
+    name: 'Volley buff',
+    icon: 'ability_marksmanship',
   },
 };

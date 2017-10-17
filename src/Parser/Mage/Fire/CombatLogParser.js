@@ -5,53 +5,37 @@ import Tab from 'Main/Tab';
 import Talents from 'Main/Talents';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
-
-// Features
 import DamageDone from 'Parser/Core/Modules/DamageDone';
+
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import CooldownTracker from './Modules/Features/CooldownTracker';
-import ComboStrikes from './Modules/Features/ComboStrikes';
 
-// Spells
-import ComboBreaker from './Modules/Spells/ComboBreaker';
-import StormEarthAndFire from './Modules/Spells/StormEarthAndFire';
+import MirrorImage from '../Shared/Modules/Features/MirrorImage';
 
-// Talents
-import HitCombo from './Modules/Talents/HitCombo';
-
-// Legendaries
-import KatsuosEclipse from './Modules/Items/KatsuosEclipse';
-import CenedrilReflectorOfHatred from './Modules/Items/CenedrilReflectorOfHatred';
-import SoulOfTheGrandmaster from './Modules/Items/SoulOfTheGrandmaster';
+import Tier20_4set from './Modules/Items/Tier20_4set';
+import ShardOfTheExodar from '../Shared/Modules/Items/ShardOfTheExodar';
+import SoulOfTheArchmage from './Modules/Items/SoulOfTheArchmage';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Features
-    damageDone: [DamageDone, { showStatistic: true }],
     alwaysBeCasting: AlwaysBeCasting,
     castEfficiency: CastEfficiency,
     cooldownTracker: CooldownTracker,
-    comboStrikes: ComboStrikes,
+    damageDone: [DamageDone, { showStatistic: true }],
 
-    // Talents:
-    hitCombo: HitCombo,
+    // Talents
+    mirrorImage: MirrorImage,
 
-    // Spells;
-    comboBreaker: ComboBreaker,
-    stormEarthAndFire: StormEarthAndFire,
-
-    // Legendaries / Items:
-    katsuosEclipse: KatsuosEclipse,
-    cinidaria: Cinidaria,
-    cenedrilReflectorOfHatred: CenedrilReflectorOfHatred,
-    soulOfTheGrandmaster: SoulOfTheGrandmaster,
-    
+	  //Items
+	  tier20_4set: Tier20_4set,
+    shardOfTheExodar: ShardOfTheExodar,
+    soulOfTheArchmage: SoulOfTheArchmage,
   };
 
   generateResults() {
     const results = super.generateResults();
-
     results.tabs = [
       {
         title: 'Suggestions',
