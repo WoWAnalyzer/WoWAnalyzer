@@ -23,7 +23,7 @@ import Tier20_2set from './Modules/Items/Tier20_2set';
 import ZannesuJourney from './Modules/Items/ZannesuJourney';
 import MagtheridonsBanishedBracers from './Modules/Items/MagtheridonsBanishedBracers';
 import ShatteredFragmentsOfSindragosa from './Modules/Items/ShatteredFragmentsOfSindragosa';
-
+import SoulOfTheArchmage from './Modules/Items/SoulOfTheArchmage';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -47,6 +47,7 @@ class CombatLogParser extends CoreCombatLogParser {
     zannesuJourney: ZannesuJourney,
     magtheridonsBanishedBracers: MagtheridonsBanishedBracers,
     shatteredFragmentsOfSindragosa: ShatteredFragmentsOfSindragosa,
+    soulOfTheArchmage: SoulOfTheArchmage,
 
   };
 
