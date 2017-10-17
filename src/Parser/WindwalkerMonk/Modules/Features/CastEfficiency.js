@@ -1,6 +1,6 @@
-
-
 import SPELLS from 'common/SPELLS';
+import ITEMS_MONK from 'common/ITEMS_MONK';
+import TALENTS_MONK from 'common/talents/TALENTS_MONK';
 
 import CoreCastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 
@@ -10,17 +10,22 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.STRIKE_OF_THE_WINDLORD,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => 40,
+      // Item - The legendary head reduces SotW cooldown by 20%
+      getCooldown: (haste, combatant) =>
+      40 * (combatant.hasHead(ITEMS_MONK.THE_WIND_BLOWS.id) ? 0.8 : 1) * (combatant.hasBuff(TALENTS_MONK.SERENITY_TALENT.id) ? 0.5 : 1),
     },
     {
       spell: SPELLS.FISTS_OF_FURY_CAST,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => 24 /(1 + haste),
+      getCooldown: (haste, combatant) => 
+      24 / (1 + haste) * (combatant.hasBuff(TALENTS_MONK.SERENITY_TALENT.id) ? 0.5 : 1),    
     },
     {
       spell: SPELLS.RISING_SUN_KICK,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => 10 / (1 + haste),
+      // Item - Windwalker T19 2PC Bonus: Reduces the cooldown of Rising Sun Kick by 3.0 seconds.
+      getCooldown: (haste, combatant) =>
+      (10 - (combatant.hasBuff(SPELLS.WW_TIER19_2PC.id) ? 3 : 0)) / (1 + haste) * (combatant.hasBuff(TALENTS_MONK.SERENITY_TALENT.id) ? 0.5 : 1),
     },
     {
       spell: SPELLS.WHIRLING_DRAGON_PUNCH_TALENT,
