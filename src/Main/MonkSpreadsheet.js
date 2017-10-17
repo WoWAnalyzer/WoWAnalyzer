@@ -92,11 +92,11 @@ class MonkSpreadsheet extends React.Component {
             <tr style={styles.cellBorder}><td>{parser.modules.manaValues.endingMana}</td></tr>
             <tr style={styles.cellBorder}><td>{(parser.modules.damageTaken.total.regular / parser.fightDuration * 1000).toFixed(2)}</td></tr>
             <tr style={styles.cellBorder}><td>{parser.modules.thunderFocusTea.castsTft}</td></tr>
-            <tr><td>{(parser.modules.thunderFocusTea.castsTftEff / parser.modules.thunderFocusTea.castsTft).toFixed(4)}</td></tr>
-            <tr><td>{(parser.modules.thunderFocusTea.castsTftEnm / parser.modules.thunderFocusTea.castsTft).toFixed(4)}</td></tr>
-            <tr><td>{(parser.modules.thunderFocusTea.castsTftEf / parser.modules.thunderFocusTea.castsTft).toFixed(4)}</td></tr>
-            <tr><td>{(parser.modules.thunderFocusTea.castsTftRem / parser.modules.thunderFocusTea.castsTft).toFixed(4)}</td></tr>
-            <tr><td>{(parser.modules.thunderFocusTea.castsTftViv / parser.modules.thunderFocusTea.castsTft).toFixed(4)}</td></tr>
+            <tr><td>{((parser.modules.thunderFocusTea.castsTftEff / parser.modules.thunderFocusTea.castsTft) || 0).toFixed(4)}</td></tr>
+            <tr><td>{((parser.modules.thunderFocusTea.castsTftEnm / parser.modules.thunderFocusTea.castsTft) || 0).toFixed(4)}</td></tr>
+            <tr><td>{((parser.modules.thunderFocusTea.castsTftEf / parser.modules.thunderFocusTea.castsTft) || 0).toFixed(4)}</td></tr>
+            <tr><td>{((parser.modules.thunderFocusTea.castsTftRem / parser.modules.thunderFocusTea.castsTft) || 0).toFixed(4)}</td></tr>
+            <tr><td>{((parser.modules.thunderFocusTea.castsTftViv / parser.modules.thunderFocusTea.castsTft) || 0).toFixed(4)}</td></tr>
             <tr style={styles.cellBorder}><td>{parser.modules.upliftingTrance.UTProcsTotal}</td></tr>
             <tr><td>{(1 - (parser.modules.upliftingTrance.consumedUTProc / parser.modules.upliftingTrance.UTProcsTotal)).toFixed(4)}</td></tr>
             <tr style={styles.cellBorder}><td>{(parser.modules.manaTea.manaSavedMT / parser.fightDuration * 1000 * 5).toFixed(0)}</td></tr>
@@ -105,14 +105,14 @@ class MonkSpreadsheet extends React.Component {
             <tr style={styles.cellBorder}><td>{parser.modules.spiritOfTheCrane.manaReturnSotc}</td></tr>
             <tr style={styles.cellBorder}><td>{(parser.modules.sheilunsGift.stacksTotalSG / SGcasts || 0).toFixed(0)}</td></tr>
             <tr style={styles.cellBorder}><td>{(parser.modules.whispersOfShaohao.countWhispersHeal / ((Math.floor(parser.fightDuration / 10000) + parser.modules.sheilunsGift.countEff))).toFixed(4) || 0}</td></tr>
-            <tr style={styles.cellBorder}><td>{((parser.modules.celestialBreath.healsCelestialBreath / parser.modules.celestialBreath.procsCelestialBreath) / 3).toFixed(2) || 0}</td></tr>
+            <tr style={styles.cellBorder}><td>{(((parser.modules.celestialBreath.healsCelestialBreath / parser.modules.celestialBreath.procsCelestialBreath) / 3) || 0).toFixed(2)}</td></tr>
             <tr style={styles.cellBorder}><td>{parser.modules.mistsOfSheilun.procsMistsOfSheilun}</td></tr>
             <tr><td>{(parser.modules.mistsOfSheilun.healsMistsOfSheilun / parser.modules.mistsOfSheilun.procsMistsOfSheilun).toFixed(2) || 0}</td></tr>
-            <tr style={styles.cellBorder}><td>{(parser.modules.combatants.selected.hasTalent(SPELLS.REFRESHING_JADE_WIND_TALENT.id) && ((parser.modules.refreshingJadeWind.healsRJW / parser.modules.refreshingJadeWind.castRJW) / 78).toFixed(4)) || 0}</td></tr>
+            <tr style={styles.cellBorder}><td>{((parser.modules.combatants.selected.hasTalent(SPELLS.REFRESHING_JADE_WIND_TALENT.id) && ((parser.modules.refreshingJadeWind.healsRJW / parser.modules.refreshingJadeWind.castRJW) / 78)) || 0).toFixed(4)}</td></tr>
             <tr style={styles.cellBorder}><td>{parser.modules.renewingMist.dancingMistHeal}</td></tr>
             <tr style={styles.cellBorder}><td>{(((parser.modules.essenceFontMastery.healEF / 2) / parser.modules.essenceFontMastery.castEF) || 0).toFixed(2)}</td></tr>
-            <tr style={styles.cellBorder}><td>{(parser.modules.essenceFont.targetsEF / parser.modules.essenceFont.castEF).toFixed(2) || 0}</td></tr>
-            <tr><td>{(parser.modules.chiBurst.targetsChiBurst / parser.modules.chiBurst.castChiBurst).toFixed(2) || 0}</td></tr>
+            <tr style={styles.cellBorder}><td>{((parser.modules.essenceFont.targetsEF / parser.modules.essenceFont.castEF) || 0).toFixed(2)}</td></tr>
+            <tr><td>{((parser.modules.chiBurst.targetsChiBurst / parser.modules.chiBurst.castChiBurst) || 0).toFixed(2)}</td></tr>
             <tr style={styles.cellBorder}><td>{((parser.modules.amalgamsSeventhSpine.manaGained / parser.fightDuration * 1000 * 5) || 0) + ((parser.modules.darkmoonDeckPromises.manaGained / parser.fightDuration * 1000 * 5) || 0)}</td></tr>
             <tr>
               <td>
