@@ -2,10 +2,12 @@ import React from 'react';
 
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import Tab from 'Main/Tab';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
-import { formatPercentage } from 'common/format';
+import SpellLink from 'common/SpellLink';
+import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 
 import PatientSniperBreakdown from "./PatientSniperBreakdown";
@@ -15,6 +17,7 @@ class PatientSniperDetails extends Module {
   static dependencies = {
     patientSniperTracker: PatientSniperTracker,
     combatants: Combatants,
+    abilityTracker: AbilityTracker,
   };
 
   actualAverageDmgIncrease = 0;
@@ -23,36 +26,46 @@ class PatientSniperDetails extends Module {
     this.active = this.combatants.selected.hasTalent(SPELLS.PATIENT_SNIPER_TALENT.id);
   }
 
+  get bonusAimedDamage() {
+    return this.patientSniperTracker[SPELLS.AIMED_SHOT.id].bonusDmg;
+  }
+  get bonusPiercingDamage() {
+    return this.patientSniperTracker[SPELLS.PIERCING_SHOT_TALENT.id].bonusDmg;
+  }
+  get bonusDamage() {
+    return this.bonusAimedDamage + this.bonusPiercingDamage;
+  }
+
   suggestions(when) {
+    const bonusDamagePercentage = this.owner.getPercentageOfTotalDamageDone(this.bonusDamage);
     const MINOR = 0.18;
     const AVG = 0.17;
     const MAJOR = 0.15;
-    when(this.actualAverageDmgIncrease).isLessThan(MINOR)
+    when(bonusDamagePercentage).isLessThan(MINOR)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(`Patient Sniper increases your dmg the later you fire your aimed shots, while this isn't worth waiting for, it looks like you're shooting your Aimed/Piercing Shots too soon, try and use Arcane Shot as a filler after applying Vulnerable. If you have enough haste you can fit in two Arcane Shots, and not only one.`)
+        return suggest(<span><SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id}/>increases the damage of your <SpellLink id={SPELLS.AIMED_SHOT.id}/> or <SpellLink id={SPELLS.PIERCING_SHOT_TALENT.id}/> the later you fire them inside <SpellLink id={SPELLS.VULNERABLE.id}/>. While this isn't worth waiting for, it looks like you're shooting your Aimed Shots / Piercing Shots too soon, try and use <SpellLink id={SPELLS.ARCANE_SHOT.id}/> as a filler after applying Vulnerable. If you have enough haste you can fit in two Arcane Shots instead of one.</span>)
           .icon('ability_hunter_snipertraining')
-          .actual(`${formatPercentage(this.actualAverageDmgIncrease)}%`)
-          .recommended(`It is recommended to be gaining ${formatPercentage(recommended)}% damage`)
+          .actual(`${formatPercentage(actual)}% bonus damage`)
+          .recommended(`> ${formatPercentage(recommended)}% bonus damage is recommended`)
           .regular(AVG)
           .major(MAJOR);
       });
   }
 
   statistic() {
-    //calculates the FLAT increase in dmg on average
-    const averagePatientSniperDmgIncreaseWithTS = (this.patientSniperTracker.patientSniper[SPELLS.PIERCING_SHOT_TALENT.id].piercingShotDmgIncreaseWithTS + this.patientSniperTracker.patientSniper[SPELLS.PIERCING_SHOT_TALENT.id].piercingShotDmgIncreaseNoTS + this.patientSniperTracker.patientSniper[SPELLS.AIMED_SHOT.id].aimedShotDmgIncreaseWithTS + this.patientSniperTracker.patientSniper[SPELLS.AIMED_SHOT.id].aimedShotDmgIncreaseNoTS) / (this.patientSniperTracker.patientSniper[SPELLS.AIMED_SHOT.id].aimedShotsNoTS + this.patientSniperTracker.patientSniper[SPELLS.AIMED_SHOT.id].aimedShotsWithTS + this.patientSniperTracker.patientSniper[SPELLS.PIERCING_SHOT_TALENT.id].piercingShotsNoTS + this.patientSniperTracker.patientSniper[SPELLS.PIERCING_SHOT_TALENT.id].piercingShotsWithTS);
-    const averagePSDmgIncreaseAimedOnly = (this.patientSniperTracker.patientSniper[SPELLS.AIMED_SHOT.id].aimedShotDmgIncreaseNoTS + this.patientSniperTracker.patientSniper[SPELLS.AIMED_SHOT.id].aimedShotDmgIncreaseWithTS) / (this.patientSniperTracker.patientSniper[SPELLS.AIMED_SHOT.id].aimedShotsWithTS + this.patientSniperTracker.patientSniper[SPELLS.AIMED_SHOT.id].aimedShotsNoTS);
-    const averagePSDmgIncreasePiercingOnly = (this.patientSniperTracker.patientSniper[SPELLS.PIERCING_SHOT_TALENT.id].piercingShotDmgIncreaseNoTS + this.patientSniperTracker.patientSniper[SPELLS.PIERCING_SHOT_TALENT.id].piercingShotDmgIncreaseWithTS) / (this.patientSniperTracker.patientSniper[SPELLS.PIERCING_SHOT_TALENT.id].piercingShotsNoTS + this.patientSniperTracker.patientSniper[SPELLS.PIERCING_SHOT_TALENT.id].piercingShotsWithTS);
-    //calculates the actual dmg increase compared to not having Patient Sniper with this formula:
-    // ((1+(UARanks*0.03)+0.3+0.06*PatientSniper"Ranks")/(1+0.3+(UARanks*0.03)))-1
-    this.actualAverageDmgIncrease = ((1 + ((this.patientSniperTracker.patientSniper[SPELLS.AIMED_SHOT.id].vulnerableModifierAimed + this.patientSniperTracker.patientSniper[SPELLS.PIERCING_SHOT_TALENT.id].vulnerableModifierPiercing) / 2) + averagePatientSniperDmgIncreaseWithTS) / (1 + ((this.patientSniperTracker.patientSniper[SPELLS.AIMED_SHOT.id].vulnerableModifierAimed + this.patientSniperTracker.patientSniper[SPELLS.PIERCING_SHOT_TALENT.id].vulnerableModifierPiercing ) / 2))) - 1;
+    let tooltipText = `Your Aimed Shots and Piercing Shots did ${formatNumber(this.bonusDamage)} (${this.owner.formatItemDamageDone(this.bonusDamage)}) bonus damage thanks to Patient Sniper talent. Below you'll see them individually, and if you want to see more Patient Sniper information (such as without Trueshot windows), please check the "Patient Sniper Usage" tab in the menu. <br />`;
+    const aimed = this.abilityTracker.getAbility(SPELLS.AIMED_SHOT.id);
+    tooltipText += `Aimed Shot bonus damage: ${formatNumber(this.bonusAimedDamage)} (${formatPercentage(this.bonusAimedDamage / aimed.damageEffective)} %)`;
+    if (this.combatants.selected.hasTalent(SPELLS.PIERCING_SHOT_TALENT.id)) {
+      const piercing = this.abilityTracker.getAbility(SPELLS.PIERCING_SHOT_TALENT.id);
+      tooltipText += `<br />Piercing Shot bonus damage: ${formatNumber(this.bonusPiercingDamage)} (${formatPercentage(this.bonusPiercingDamage / piercing.damageEffective)} %)`
+    }
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.PATIENT_SNIPER_TALENT.id} />}
-        value={`+${formatPercentage(this.actualAverageDmgIncrease)}%`}
-        label="Avg % dmg change from PS"
-        tooltip={` This shows how much your average Aimed Shot and Piercing Shot was increased by compared to how much it would have done without being affected by Patient Sniper. These include Aimed/Piercing Shots fired during Trueshot windows. <br /> Below you'll see them individually, and if you want to see more Patient Sniper information (such as without Trueshot windows), please check the "Patient Sniper Usage" tab in the menu. <br />
-Aimed Shot increase: ${formatPercentage(((1 + this.patientSniperTracker.patientSniper[SPELLS.AIMED_SHOT.id].vulnerableModifierAimed + averagePSDmgIncreaseAimedOnly) / (1 + this.patientSniperTracker.patientSniper[SPELLS.AIMED_SHOT.id].vulnerableModifierAimed)) - 1)}% <br /> Piercing Shot increase: ${formatPercentage(((1 + this.patientSniperTracker.patientSniper[SPELLS.PIERCING_SHOT_TALENT.id].vulnerableModifierPiercing + averagePSDmgIncreasePiercingOnly) / (1 + this.patientSniperTracker.patientSniper[SPELLS.PIERCING_SHOT_TALENT.id].vulnerableModifierPiercing)) - 1)}% <br />`} />
+        value={`${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDamage))}%`}
+        label="Bonus total damage from Patient Sniper"
+        tooltip={tooltipText} />
     );
   }
 
