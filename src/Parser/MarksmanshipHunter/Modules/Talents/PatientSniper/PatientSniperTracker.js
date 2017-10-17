@@ -3,6 +3,7 @@ import Enemies from 'Parser/Core/Modules/Enemies';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
+import getDamageBonus from '../../Core/getDamageBonus';
 
 const UNERRING_ARROWS_BONUS_PER_RANK = 0.03;
 const PATIENT_SNIPER_BONUS_PER_SEC = 0.06;
@@ -29,6 +30,7 @@ class PatientSniperTracker extends Module {
   //Patient Sniper for Aimed Shots - Without and With Trueshot
   patientSniper = {
     [SPELLS.AIMED_SHOT.id]: {
+      bonusDmg: 0,
       vulnerableModifier: 0.3,
       noTS: {
         noVulnerable: 0,
@@ -42,7 +44,6 @@ class PatientSniperTracker extends Module {
           6: 0,
         },
         count: 0,
-        dmgIncrease: 0,
       },
       TS: {
         noVulnerable: 0,
@@ -56,10 +57,10 @@ class PatientSniperTracker extends Module {
           6: 0,
         },
         count: 0,
-        dmgIncrease: 0,
       },
     },
     [SPELLS.PIERCING_SHOT_TALENT.id]: {
+      bonusDmg: 0,
       vulnerableModifier: 0.3,
       noTS: {
         noVulnerable: 0,
@@ -73,7 +74,6 @@ class PatientSniperTracker extends Module {
           6: 0,
         },
         count: 0,
-        dmgIncrease: 0,
       },
       TS: {
         noVulnerable: 0,
@@ -87,7 +87,6 @@ class PatientSniperTracker extends Module {
           6: 0,
         },
         count: 0,
-        dmgIncrease: 0,
       },
     },
   };
@@ -181,26 +180,27 @@ class PatientSniperTracker extends Module {
       this.totalVulnWindows += 1;
     }
     else {  // it's either Aimed Shot or Piercing Shot
-      if (!hasTS) {
-        this.patientSniper[spellId].noTS.count += 1;
-        if (hasVulnerability) {
-          this.timeIntoVulnerable = Math.floor((eventTimestamp - this.lastVulnerableTimestamp) / 1000);
-          this.patientSniper[spellId].noTS.dmgIncrease += (this.timeIntoVulnerable * PATIENT_SNIPER_BONUS_PER_SEC);
+      this.timeIntoVulnerable = Math.floor((eventTimestamp - this.lastVulnerableTimestamp) / 1000);
+      if (hasVulnerability) {
+        this.patientSniper[spellId].bonusDmg += getDamageBonus(event, this.timeIntoVulnerable * PATIENT_SNIPER_BONUS_PER_SEC);
+        if (hasTS) {
+          this.patientSniper[spellId].TS.seconds[this.timeIntoVulnerable] += 1;
+          this.patientSniper[spellId].TS.count += 1;
+        }
+        else {
           this.patientSniper[spellId].noTS.seconds[this.timeIntoVulnerable] += 1;
+          this.patientSniper[spellId].noTS.count += 1;
+        }
+      }
+      else {
+        // No Vulnerable = no bonus damage counted
+        if (hasTS) {
+          this.patientSniper[spellId].TS.noVulnerable += 1;
+          this.patientSniper[spellId].TS.count += 1;
         }
         else {
           this.patientSniper[spellId].noTS.noVulnerable += 1;
-        }
-      }
-      else {  // this branch differs only in the fact that it's with/without Trueshot (noTS / TS)
-        this.patientSniper[spellId].TS.count += 1;
-        if (hasVulnerability) {
-          this.timeIntoVulnerable = Math.floor((eventTimestamp - this.lastVulnerableTimestamp) / 1000);
-          this.patientSniper[spellId].TS.dmgIncrease += (this.timeIntoVulnerable * PATIENT_SNIPER_BONUS_PER_SEC);
-          this.patientSniper[spellId].TS.seconds[this.timeIntoVulnerable] += 1;
-        }
-        else {
-          this.patientSniper[spellId].TS.noVulnerable += 1;
+          this.patientSniper[spellId].noTS.count += 1;
         }
       }
     }
