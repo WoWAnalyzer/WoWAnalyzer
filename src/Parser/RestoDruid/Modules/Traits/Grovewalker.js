@@ -8,7 +8,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import {HEALS_MASTERY_STACK} from '../../Constants';
+import { getSpellInfo } from '../Core/SpellInfo';
 
 
 const GROVEWALKER_HEALING_INCREASE = 0.01;
@@ -32,7 +32,7 @@ class Grovewalker extends Module {
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
-    if(!HEALS_MASTERY_STACK.includes(spellId) || (SPELLS.REGROWTH.id === spellId && !event.tick)) {
+    if(!getSpellInfo(spellId).masteryStack || (SPELLS.REGROWTH.id === spellId && !event.tick)) {
       return;
     }
 
