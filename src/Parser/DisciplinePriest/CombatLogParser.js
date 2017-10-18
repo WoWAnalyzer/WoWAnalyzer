@@ -144,7 +144,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     if (deadTimePercentage > 0.2) {
       results.addIssue({
-        issue: `Your dead GCD time can be improved. Try to Always Be Casting (ABC); when there's nothing to heal try to contribute some damage (${Math.round(deadTimePercentage * 100)}% dead GCD time).`,
+        issue: `Your downtime can be improved. Try to Always Be Casting (ABC); when there's nothing to heal try to contribute some damage (${Math.round(deadTimePercentage * 100)}% downtime).`,
         icon: 'spell_mage_altertime',
         importance: getIssueImportance(deadTimePercentage, 0.35, 0.4, true),
       });
@@ -156,8 +156,8 @@ class CombatLogParser extends CoreCombatLogParser {
         icon={<Icon icon="petbattle_health-down" alt="Non healing time" />}
         value={`${formatPercentage(deadTimePercentage)} %`}
         label={(
-          <dfn data-tip="Dead GCD time is available casting time not used. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), etc.">
-            Dead GCD time
+          <dfn data-tip="Downtime is available casting time not used. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), etc.">
+            Downtime
           </dfn>
         )}
       />,
@@ -349,16 +349,6 @@ class CombatLogParser extends CoreCombatLogParser {
         result: (
           <span>
             {((tier19_2setHealingPercentage * 100) || 0).toFixed(2)} % / {formatNumber(this.modules.tier19_2set.healing / fightDuration * 1000)} HPS
-          </span>
-        ),
-      },
-      this.modules.tier20_4set.active && {
-        id: `spell-${SPELLS.DISC_PRIEST_T20_4SET_BONUS_PASSIVE.id}`,
-        icon: <SpellIcon id={SPELLS.DISC_PRIEST_T20_4SET_BONUS_BUFF.id} />,
-        title: <SpellLink id={SPELLS.DISC_PRIEST_T20_4SET_BONUS_BUFF.id} />,
-        result: (
-          <span>
-            {(this.modules.tier20_4set.penanceCooldownSaved / 1000).toFixed(1)} seconds off the <SpellLink id={SPELLS.PENANCE.id} /> cooldown, { this.modules.tier20_4set.consumptions } Penances cast earlier.
           </span>
         ),
       },

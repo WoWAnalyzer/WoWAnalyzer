@@ -255,24 +255,24 @@ describe('Core/Modules/SpellUsable', () => {
       triggerCast(SPELLS.FAKE_SPELL.id);
 
       expect(parserMock.triggerEvent).toHaveBeenCalledTimes(1);
-        const call = parserMock.triggerEvent.mock.calls[0];
-        expect(call[0]).toBe('updatespellusable');
-        expect(call[1]).toEqual({
-          spellId: SPELLS.FAKE_SPELL.id,
-          timestamp: 0,
-          start: 0,
-          expectedDuration: 7500,
-          totalReductionTime: 0,
-          trigger: 'addcooldowncharge',
-          isOnCooldown: true,
-          isAvailable: false,
-          chargesAvailable: 0,
-          chargesOnCooldown: 2,
-          maxCharges: 2,
-          timePassed: 0,
-          sourceID: parserMock.playerId,
-          targetID: parserMock.playerId,
-        });
+      const call = parserMock.triggerEvent.mock.calls[0];
+      expect(call[0]).toBe('updatespellusable');
+      expect(call[1]).toEqual({
+        spellId: SPELLS.FAKE_SPELL.id,
+        timestamp: 0,
+        start: 0,
+        expectedDuration: 7500,
+        totalReductionTime: 0,
+        trigger: 'addcooldowncharge',
+        isOnCooldown: true,
+        isAvailable: false,
+        chargesAvailable: 0,
+        chargesOnCooldown: 2,
+        maxCharges: 2,
+        timePassed: 0,
+        sourceID: parserMock.playerId,
+        targetID: parserMock.playerId,
+      });
     });
     it('a spell going off cooldown triggers an `updatespellusable` event indicating the spell going off cooldown', () => {
       parserMock.currentTimestamp = 0;

@@ -1,12 +1,18 @@
+import React from 'react';
+
 import SPELLS from 'common/SPELLS';
+import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
+
+import { formatPercentage } from 'common/format';
 
 import Module from 'Parser/Core/Module';
 
-const BUFF_EXPIRATION_BUFFER_MS = 150;
+const BUFF_DURATION = 12000;
 const REGULAR_PENANCE_COOLDOWN_MS = 9000;
 
 class Tier20_4set extends Module {
-  _lastPenanceTimestamp = null;
+  _lastProcTimestamp = null;
   _procCount = 0;
   _consumeCount = 0;
 
@@ -27,23 +33,54 @@ class Tier20_4set extends Module {
   }
 
   on_toPlayer_applybuff(event) {
-    if (event.ability.guid === SPELLS.DISC_PRIEST_T20_4SET_BONUS_BUFF.id) {
-      this._procCount += 1;
+    if (event.ability.guid !== SPELLS.DISC_PRIEST_T20_4SET_BONUS_BUFF.id) {
+      return;
     }
+    this._lastProcTimestamp = event.timestamp;
+    this._procCount += 1;
   }
 
-  on_byPlayer_cast(event) {
-    if (event.ability.guid === SPELLS.PENANCE.id) {
-      this._lastPenanceTimestamp = event.timestamp;
+  on_toPlayer_refreshbuff(event) {
+    if (event.ability.guid !== SPELLS.DISC_PRIEST_T20_4SET_BONUS_BUFF.id) {
+      return;
     }
+    this._lastProcTimestamp = event.timestamp;
+    this._procCount += 1;
   }
 
   on_toPlayer_removebuff(event) {
-    if (event.ability.guid === SPELLS.DISC_PRIEST_T20_4SET_BONUS_BUFF.id) {
-      if ((event.timestamp - BUFF_EXPIRATION_BUFFER_MS) <= this._lastPenanceTimestamp) {
-        this._consumeCount += 1;
-      }
+    if (event.ability.guid !== SPELLS.DISC_PRIEST_T20_4SET_BONUS_BUFF.id) {
+      return;
     }
+    if (event.timestamp < (this._lastProcTimestamp + BUFF_DURATION)) {
+      this._consumeCount += 1;
+    }
+  }
+
+  suggestions(when) {
+    const utilisation =  (this._consumeCount / this._procCount) || 0;
+
+    when(utilisation).isLessThan(0.8)
+        .addSuggestion((suggest, actual, recommended) => {
+          return suggest(<span>You had {this._procCount} <SpellLink id={SPELLS.DISC_PRIEST_T20_4SET_BONUS_BUFF.id}> Penitent </SpellLink> procs, but only used it {this._consumeCount} times. Try to use this proc when it is available.</span>)
+            .icon(SPELLS.PENANCE.icon)
+            .actual(`${formatPercentage(utilisation)}% of procs used`)
+            .recommended('>80.00% recommenaded.')
+            .regular(recommended - 0.05).major(recommended - 0.1);
+        });
+  }
+
+  item() {
+    return {
+      id: `spell-${SPELLS.DISC_PRIEST_T20_4SET_BONUS_PASSIVE.id}`,
+      icon: <SpellIcon id={SPELLS.DISC_PRIEST_T20_4SET_BONUS_BUFF.id} />,
+      title: <SpellLink id={SPELLS.DISC_PRIEST_T20_4SET_BONUS_BUFF.id} />,
+      result: (
+        <span>
+          {(this.penanceCooldownSaved / 1000).toFixed(1)} seconds off the <SpellLink id={SPELLS.PENANCE.id} /> cooldown, {this.consumptions} Penances cast earlier.
+        </span>
+      ),
+    };
   }
 }
 

@@ -1,4 +1,4 @@
-import IronSkinBrew from 'Parser/BrewmasterMonk/Modules/Spells/IronSkinBrew';
+import IronSkinBrew from 'Parser/Monk/Brewmaster/Modules/Spells/IronSkinBrew';
 import processEvents from './Fixtures/processEvents';
 import { SimpleFight, incomingDamage } from './Fixtures/SimpleFight';
 

@@ -36,9 +36,9 @@ class CombatLogParser extends CoreCombatLogParser {
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     castEfficiency: CastEfficiency,
-		cooldownTracker: CooldownTracker,
+    cooldownTracker: CooldownTracker,
 
-		// Spirit Bomb Tracker Module (Frailty uptime tracker)
+    // Spirit Bomb Tracker Module (Frailty uptime tracker)
     spiritBomb: SpiritBomb,
 
     // Soul Fragments Tracker module (includes Generated and Wasted)

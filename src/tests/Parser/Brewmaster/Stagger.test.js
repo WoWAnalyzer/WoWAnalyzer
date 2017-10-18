@@ -1,4 +1,4 @@
-import Stagger from 'Parser/BrewmasterMonk/Modules/Core/Stagger';
+import Stagger from 'Parser/Monk/Brewmaster/Modules/Core/Stagger';
 import processEvents from './Fixtures/processEvents';
 import { SimpleFight, EarlyFinish, incomingDamage } from './Fixtures/SimpleFight';
 

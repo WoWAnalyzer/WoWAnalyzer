@@ -5,14 +5,14 @@ You don't need to to do anything special to add a spec. The real issue preventin
 2. Know how to program well enough to implement the analysis
 3. Have the time and motivation to actually do it
 
-We have worked hard to provide you with many tools to make step 2 as easy as possible. Things such as calculating the dead gcd time (Always Be Casting) and Cast Efficiency have been worked out so that it's a matter of only a few lines of configuration code to get them to work, but more advanced analysis such as the gains from a spec's specific mastery usually require custom code. But you don't worry about that yet; start small.
+We have worked hard to provide you with many tools to make step 2 as easy as possible. Things such as calculating the downtime (Always Be Casting) and Cast Efficiency have been worked out so that it's a matter of only a few lines of configuration code to get them to work, but more advanced analysis such as the gains from a spec's specific mastery usually require custom code. But you don't worry about that yet; start small.
 
 I recommend adding a new spec in the following order:
 
 1. Add an empty spec (without any analysis)
 2. Add a total damage done / healing done / damage taken statistic
 3. Add Cast Efficiency
-4. Add "Always be Casting" (dead GCD time)
+4. Add "Always be Casting" (downtime)
 4a. Create a pull request
 
 The next steps can be done in no particular order:
@@ -29,7 +29,7 @@ The most useful things to do are to add information that isn't yet easily availa
 
 # Add an empty spec
 
-1. The easiest way to start is by copy pasting the HolyPaladin folder in `src/Parser`. Name it the full name of the spec you want to work on. I'll call your spec NewSpec from now on.
+1. The easiest way to start is by copy pasting the Holy folder in `src/Parser/Paladin`. Name it the full name of the spec you want to work on. I'll call your spec NewSpec from now on.
 2. Open `src/Parser/NewSpec/CONFIG.js` and change the `spec` property to your spec (in my case `SPECS.NEW_SPEC`), if your IDE is set up properly auto complete should provide you with the available options. Change the maintainer name as desired.
 3. Open `src/Parser/AVAILABLE_CONFIGS.js` and duplicate an import line and add your new spec to the object at the bottom.
 4. When you save your spec should now be supported and shown in the player selection list. Clicking it probably won't work yet though, as the Holy Paladin modules aren't compatible with your spec.

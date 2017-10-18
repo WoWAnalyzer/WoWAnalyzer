@@ -5,13 +5,66 @@
  */
 
 export default {
-  // Mistweaver Monk Spells
+  // Shared 
+  BLACKOUT_KICK: {
+    id: 100784,
+    name: 'Blackout Kick',
+    icon: 'ability_monk_roundhousekick',
+  },
+  CRACKLING_JADE_LIGHTNING: {
+    id: 117952,
+    name: 'Crackling Jade Lightning',
+    icon: 'ability_monk_cracklingjadelightning',
+  },
   EFFUSE: {
     id: 116694,
     name: 'Effuse',
     icon: 'ability_monk_effuse',
     manaPerc: 0.02,
   },
+  PARALYSIS: {
+    id: 115078,
+    name: 'Paralysis',
+    icon: 'ability_monk_paralysis',
+  },
+  RISING_SUN_KICK: {
+    id: 107428,
+    name: 'Rising Sun Kick',
+    icon: 'ability_monk_risingsunkick',
+    manaPerc: 0.015,
+  },
+  ROLL: {
+    id: 109132,
+    name: 'Roll',
+    icon: 'ability_monk_roll',
+  },
+  SPEAR_HAND_STRIKE: {
+    id: 116705,
+    name: 'Spear Hand Strike',
+    icon: 'ability_monk_spearhand',
+  },
+  SPINNING_CRANE_KICK: {
+    id: 101546,
+    name: 'Spinning Crane Kick',
+    icon: 'ability_monk_cranekick_new',
+    manaPerc: 0.01,
+  },
+  TIGER_PALM: {
+    id: 100780,
+    name: 'Tiger Palm',
+    icon: 'ability_monk_tigerpalm',
+  },
+  TRANSCENDENCE: {
+    id: 101643,
+    name: 'Trancendance',
+    icon: 'monk_ability_transcendence',
+  },
+  TRANSCENDENCE_TRANSFER: {
+    id: 119996,
+    name: 'Trancendance: Transfer',
+    icon: 'spell_shaman_spectraltransformation',
+  },
+  // Mistweaver Monk Spells
   ENVELOPING_MISTS: {
     id: 124682,
     name: 'Enveloping Mists',
@@ -130,33 +183,6 @@ export default {
     icon: 'ability_monk_souldance',
   },
   // Damage Abilities
-  BLACKOUT_KICK: {
-    id: 100784,
-    name: 'Blackout Kick',
-    icon: 'ability_monk_roundhousekick',
-  },
-  CRACKLING_JADE_LIGHTNING: {
-    id: 117952,
-    name: 'Crackling Jade Lightning',
-    icon: 'ability_monk_cracklingjadelightning',
-  },
-  RISING_SUN_KICK: {
-    id: 107428,
-    name: 'Rising Sun Kick',
-    icon: 'ability_monk_risingsunkick',
-    manaPerc: 0.015,
-  },
-  SPINNING_CRANE_KICK: {
-    id: 101546,
-    name: 'Spinning Crane Kick',
-    icon: 'ability-monk-cranekick-new',
-    manaPerc: 0.01,
-  },
-  TIGER_PALM: {
-    id: 100780,
-    name: 'Tiger Palm',
-    icon: 'ability_monk_tigerpalm',
-  },
   TEACHINGS_OF_THE_MONASTERY: {
     id: 202090,
     name: 'Teachings of the Monastery',
@@ -177,27 +203,6 @@ export default {
     name: 'Fortifying Brew',
     icon: 'ability_monk_fortifyingelixir',
   },
-  ROLL: {
-    id: 109132,
-    name: 'Roll',
-    icon: 'ability_monk_roll',
-  },
-  TRANSCENDENCE: {
-    id: 101643,
-    name: 'Trancendance',
-    icon: 'monk_ability_transcendence',
-  },
-  TRANSCENDENCE_TRANSFER: {
-    id: 119996,
-    name: 'Trancendance: Transfer',
-    icon: 'spell_shaman_spectraltransformation',
-  },
-  PARALYSIS: {
-    id: 115078,
-    name: 'Paralysis',
-    icon: 'ability_monk_paralysis',
-  },
-
   // Talents:
   REFRESHING_JADE_WIND_TALENT: {
     id: 196725,
@@ -485,7 +490,7 @@ export default {
     icon: 'ability_monk_blackoutkick',
   },
 
-  // Windwalk Spells
+  // Windwalker Spells
   COMBO_STRIKES: {
     id: 115636,
     name: 'Mastery: Combo Strikes',
@@ -511,6 +516,11 @@ export default {
     name: 'Combo Breaker',
     icon: 'pandarenracial_bouncy',
   },
+  COMBO_BREAKER_BUFF: {
+    id: 116768,
+    name: 'Blackout Kick!',
+    icon: 'ability_monk_roundhousekick',
+  },
   TOUCH_OF_DEATH: {
     id: 115080,
     name: 'Touch of Death',
@@ -530,11 +540,6 @@ export default {
     id: 117418,
     name: 'Fists of Fury',
     icon: 'monk_ability_fistoffury',
-  },
-  CROSSWINDS: {
-    id: 196061,
-    name: 'Crosswinds',
-    icon: 'inv_pandarenserpentgodmount_black',
   },
   TOUCH_OF_KARMA_CAST: {
     id: 122470,
@@ -567,15 +572,103 @@ export default {
     name: 'Strike of the Windlord',
     icon: 'inv_hand_1h_artifactskywall_d_01',
   },
-  // Windwalker Talents
-  CHI_WAVE: {
-    id: 173527,
-    name: 'Chi Wave',
-    icon: 'ability_monk_chiwave',
+  // Windwalker Articfact Traits
+  CROSSWINDS: {
+    id: 196061,
+    name: 'Crosswinds',
+    icon: 'inv_pandarenserpentgodmount_black',
   },
+  SPLIT_PERSONALITY: {
+    id: 238059,
+    name: 'Split Personality',
+    icon: 'spell_nature_giftofthewild',
+  },
+  INNER_PEACE: {
+    id: 195243,
+    name: 'Inner Peace',
+    icon: 'ability_monk_jasminforcetea',
+  },
+  GALE_BURST: {
+    id: 195399,
+    name: 'Gale Burst',
+    icon: 'ability_monk_palmstrike',
+  },
+  GALE_BURST_DAMAGE: {
+    id: 195403,
+    name: 'Gale Burst',
+    icon: 'ability_monk_palmstrike',
+  },
+  // Windwalker Talents
   POWER_STRIKES: {
     id: 121283,
     name: 'Power Strikes',
     icon: 'ability_monk_powerstrikes',
+  },
+  CHI_ORBIT_DAMAGE: {
+      id: 196748,
+      name: 'Chi Orbit',
+      icon: 'ability_monk_forcesphere',
+  },
+  // Windwalker legendaries
+  KATSUOS_ECLIPSE: {
+    id: 208045,
+    name: "Katsuo's Eclipse",
+    icon: 'ability_monk_fistoffury',
+  },
+  THE_WIND_BLOWS: {
+    id: 248101,
+    name: 'The Wind Blows',
+    icon: 'inv_hand_1h_artifactskywall_d_01',
+  },
+  THE_EMPERORS_CAPACITOR_STACK: {
+    id: 235054,
+    name: "The Emperor's Capacitor",
+    icon: 'ability_monk_cracklingjadeligthing',
+  },
+  DRINKING_HORN_COVER: {
+    id: 209256,
+    name: 'Drinking Horn Cover',
+    icon: 'spell_nature_giftofthewild',
+  },
+  HIDDEN_MASTERS_FORBIDDEN_TOUCH: {
+    id: 213112,
+    name: "Hidden Master's Forbidden Touch",
+    icon: 'ability_monk_touchofdeath',
+  },
+  CENEDRIL_REFLECTOR_OF_HATRED: {
+    id: 208842,
+    name: 'Cenedril, Reflector of Hatred',
+    icon: 'ability_monk_touchofkarma',
+  },
+  // Windwalker Tiersets
+  WW_TIER19_2PC: {
+    id: 211427,
+    name: 'Windwalker T19 2PC',
+    icon: 'ability_monk_risingsunkick',
+  },
+  WW_TIER20_2PC: {
+    id: 242260,
+    name: 'Windwalker T20 2PC',
+    icon: 'ability_monk_fistoffury',
+  },
+  WW_TIER20_4PC: {
+    id: 242259,
+    name: 'Windwalker T20 4PC',
+    icon: 'ability_monk_risingsunkick',
+  },
+  PRESSURE_POINT: {
+    id: 247255,
+    name: 'Pressure Point',
+    icon: 'spell_monk_windwalker_spec',
+  },
+  WW_TIER21_2PC: {
+    id: 251821,
+    name: 'Windwalker T21 2PC',
+    icon: 'ability_monk_roundhousekick',
+  },
+  WW_TIER21_4PC: {
+    id: 251823,
+    name: 'Windwalker T21 4pc',
+    icon: 'ability_monk_roundhousekick',
   },
 };
