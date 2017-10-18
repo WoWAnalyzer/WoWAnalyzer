@@ -43,7 +43,7 @@ class PatientSniperDetails extends Module {
     const MAJOR = 0.15;
     when(bonusDamagePercentage).isLessThan(MINOR)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span><SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id}/>increases the damage of your <SpellLink id={SPELLS.AIMED_SHOT.id}/> or <SpellLink id={SPELLS.PIERCING_SHOT_TALENT.id}/> the later you fire them inside <SpellLink id={SPELLS.VULNERABLE.id}/>. While this isn't worth waiting for, it looks like you're shooting your Aimed Shots / Piercing Shots too soon, try and use <SpellLink id={SPELLS.ARCANE_SHOT.id}/> as a filler after applying Vulnerable. If you have enough haste you can fit in two Arcane Shots instead of one.</span>)
+        return suggest(<span><SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id}/> increases the damage of your <SpellLink id={SPELLS.AIMED_SHOT.id}/> or <SpellLink id={SPELLS.PIERCING_SHOT_TALENT.id}/> the later you fire them inside <SpellLink id={SPELLS.VULNERABLE.id}/>. While this isn't worth waiting for, it looks like you're shooting your Aimed Shots / Piercing Shots too soon, try and use <SpellLink id={SPELLS.ARCANE_SHOT.id}/> as a filler after applying Vulnerable. If you have enough haste you can fit in two Arcane Shots instead of one.</span>)
           .icon('ability_hunter_snipertraining')
           .actual(`${formatPercentage(actual)}% bonus damage`)
           .recommended(`> ${formatPercentage(recommended)}% bonus damage is recommended`)

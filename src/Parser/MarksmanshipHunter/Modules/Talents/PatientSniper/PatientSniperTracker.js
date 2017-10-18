@@ -3,8 +3,10 @@ import Enemies from 'Parser/Core/Modules/Enemies';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
+import { formatNumber } from 'common/format';
 import getDamageBonus from '../../Core/getDamageBonus';
 
+const debug = false;
 const UNERRING_ARROWS_BONUS_PER_RANK = 0.03;
 const PATIENT_SNIPER_BONUS_PER_SEC = 0.06;
 
@@ -143,7 +145,6 @@ class PatientSniperTracker extends Module {
 
   //Vulnerable variables
   lastVulnerableTimestamp = 0;
-  timeIntoVulnerable = 0;
   vulnWindowsNoTS = 0;
   totalVulnWindows = 0;
 
@@ -152,6 +153,18 @@ class PatientSniperTracker extends Module {
     const unerringArrowsRank = this.combatants.selected.traitsBySpellId[SPELLS.UNERRING_ARROWS_TRAIT.id];
     this.patientSniper[SPELLS.AIMED_SHOT.id].vulnerableModifier += unerringArrowsRank * UNERRING_ARROWS_BONUS_PER_RANK;
     this.patientSniper[SPELLS.PIERCING_SHOT_TALENT.id].vulnerableModifier += unerringArrowsRank * UNERRING_ARROWS_BONUS_PER_RANK;
+  }
+
+  on_byPlayer_applydebuff(event) {
+    if (event.ability.guid !== SPELLS.VULNERABLE.id) {
+      return;
+    }
+    this.lastVulnerableTimestamp = event.timestamp;
+    const hasTS = this.combatants.selected.hasBuff(SPELLS.TRUESHOT.id, event.timestamp);
+    if (!hasTS) {
+      this.vulnWindowsNoTS += 1;
+    }
+    this.totalVulnWindows += 1;
   }
 
   on_byPlayer_cast(event) {
@@ -165,59 +178,44 @@ class PatientSniperTracker extends Module {
     const hasTS = this.combatants.selected.hasBuff(SPELLS.TRUESHOT.id, event.timestamp);
     const hasVulnerability = enemy.hasBuff(SPELLS.VULNERABLE.id, event.timestamp);
 
-    //We only care about these 3 in casts as Windburst is handled in damage
-    if (spellId !== SPELLS.AIMED_SHOT.id && spellId !== SPELLS.MARKED_SHOT.id && spellId !== SPELLS.PIERCING_SHOT_TALENT.id) {
+    // Vulnerable is taken care of in apply/refreshdebuff
+    if (spellId !== SPELLS.AIMED_SHOT.id && spellId !== SPELLS.PIERCING_SHOT_TALENT.id) {
       return;
     }
 
-    if (spellId === SPELLS.MARKED_SHOT.id) {
-      //vulnerable is reset, so we get new timestamp
-      this.lastVulnerableTimestamp = eventTimestamp;
-      //Ensures we have calculations for all vuln windows, and purely non-TS vuln windows
-      if (!hasTS) {
-        this.vulnWindowsNoTS += 1;
-      }
-      this.totalVulnWindows += 1;
-    }
-    else {  // it's either Aimed Shot or Piercing Shot
-      this.timeIntoVulnerable = Math.floor((eventTimestamp - this.lastVulnerableTimestamp) / 1000);
+    const timeIntoVulnerable = Math.floor((eventTimestamp - this.lastVulnerableTimestamp) / 1000);
+    if (hasTS) {
+      this.patientSniper[spellId].TS.count += 1;
       if (hasVulnerability) {
-        this.patientSniper[spellId].bonusDmg += getDamageBonus(event, this.timeIntoVulnerable * PATIENT_SNIPER_BONUS_PER_SEC);
-        if (hasTS) {
-          this.patientSniper[spellId].TS.seconds[this.timeIntoVulnerable] += 1;
-          this.patientSniper[spellId].TS.count += 1;
-        }
-        else {
-          this.patientSniper[spellId].noTS.seconds[this.timeIntoVulnerable] += 1;
-          this.patientSniper[spellId].noTS.count += 1;
-        }
+        this.patientSniper[spellId].TS.seconds[timeIntoVulnerable] += 1;
       }
       else {
-        // No Vulnerable = no bonus damage counted
-        if (hasTS) {
-          this.patientSniper[spellId].TS.noVulnerable += 1;
-          this.patientSniper[spellId].TS.count += 1;
-        }
-        else {
-          this.patientSniper[spellId].noTS.noVulnerable += 1;
-          this.patientSniper[spellId].noTS.count += 1;
-        }
+        this.patientSniper[spellId].TS.noVulnerable += 1;
+      }
+    }
+    else {
+      this.patientSniper[spellId].noTS.count += 1;
+      if (hasVulnerability) {
+        this.patientSniper[spellId].noTS.seconds[timeIntoVulnerable] += 1;
+      }
+      else {
+        this.patientSniper[spellId].noTS.noVulnerable += 1;
       }
     }
   }
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    const eventTimestamp = event.timestamp;
 
-    //we're only interested in windburst here
-    if (spellId === SPELLS.WINDBURST.id) {
-      //vulnerable is reset, so we get new timestamp
-      this.lastVulnerableTimestamp = eventTimestamp;
-      if (!this.combatants.selected.hasBuff(SPELLS.TRUESHOT.id)) {
-        this.vulnWindowsNoTS += 1;
+    if (spellId === SPELLS.AIMED_SHOT.id || spellId === SPELLS.PIERCING_SHOT_TALENT.id) {
+      const enemy = this.enemies.getEntity(event);
+      if (!enemy || !enemy.hasBuff(SPELLS.VULNERABLE.id, event.timestamp)) {
+        return;
       }
-      this.totalVulnWindows += 1;
+      const timeIntoVulnerable = Math.floor((event.timestamp - this.lastVulnerableTimestamp) / 1000);
+      const bonus = getDamageBonus(event, timeIntoVulnerable * PATIENT_SNIPER_BONUS_PER_SEC);
+      this.patientSniper[spellId].bonusDmg += bonus;
+      debug && console.log(`${SPELLS[spellId].name} dmg: raw = ${formatNumber(event.amount + event.absorbed)}, ${timeIntoVulnerable} sec into Vulnerable = ${timeIntoVulnerable * PATIENT_SNIPER_BONUS_PER_SEC} bonus = ${formatNumber(bonus)}, total bonus dmg = ${formatNumber(this.patientSniper[spellId].bonusDmg)}`);
     }
   }
 }
