@@ -7,7 +7,7 @@ import { formatMilliseconds } from 'common/format';
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-const debug = false;
+const debug = true;
 
 // TODO: stat constants somewhere else? they're largely copied from combatant
 class StatTracker extends Module {
@@ -33,15 +33,24 @@ class StatTracker extends Module {
       itemId: ITEMS.DREADSTONE_OF_ENDLESS_SHADOWS.id,
       haste: (_, item) => calculateSecondaryStatDefault(845, 3480, item.itemLevel),
     },
-    [SPELLS.RISING_TIDES.id]: {
+    [SPELLS.RISING_TIDES.id]: { // TODO this trinket stacks oddly, results won't be quite right
       itemId: ITEMS.CHARM_OF_THE_RISING_TIDE.id,
       haste: (_, item) => calculateSecondaryStatDefault(900, 576, item.itemLevel),
     },
 
     //// MISC ////
-    // [SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_STRENGTH.id]: {
-    //   strength: (combatant, _) =>
-    // }
+    [SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_STRENGTH.id]: { // check numbers
+      str: combatant => 3000 + 200 * (combatant.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id]),
+    },
+    [SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_AGILITY.id]: { // check numbers
+      agi: combatant => 3000 + 200 * (combatant.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id]),
+    },
+    [SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_INTELLECT.id]: { // check numbers
+      int: combatant => 3000 + 200 * (combatant.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id]),
+    },
+    [SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_VERSATILITY.id]: { // check numbers
+      vers: combatant => 1500 + 100 * (combatant.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id]),
+    },
     [SPELLS.JACINS_RUSE.id]: { mastery: 3000 },
     [SPELLS.MARK_OF_THE_CLAW.id]: { crit: 1000, haste: 1000 },
 
