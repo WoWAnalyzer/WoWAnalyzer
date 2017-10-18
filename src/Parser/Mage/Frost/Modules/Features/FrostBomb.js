@@ -4,58 +4,52 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import Module from 'Parser/Core/Module';
 
-// Unstable Magic cleaves don't always hit on identical timestamps, so we're giving a 100ms buffer
+// Frost Bomb cleaves don't always hit on identical timestamps, so we're giving a 100ms buffer
 const PROC_WINDOW_MS = 100;
 
-const PROCCERS = [
-  SPELLS.FROSTBOLT_DAMAGE.id,
-  SPELLS.FIREBALL.id,
-  SPELLS.ARCANE_BLAST.id,
-];
-
-class UnstableMagic extends Module {
+class FrostBomb extends Module {
   static dependencies = {
     combatants: Combatants,
+    abilityTracker: AbilityTracker,
 	}
 
-  proccerHits = 0;
   damage = 0;
   hits = 0;
   procs = 0;
   hitTimestamp;
 
   on_initialized() {
-	   this.active = this.combatants.selected.hasTalent(SPELLS.UNSTABLE_MAGIC_TALENT.id);
+	   this.active = this.combatants.selected.hasTalent(SPELLS.FROST_BOMB_TALENT.id);
   }
 
   on_byPlayer_damage(event) {
-    if(event.ability.guid === SPELLS.UNSTABLE_MAGIC_DAMAGE.id) {
+    if(event.ability.guid === SPELLS.FROST_BOMB_DAMAGE.id) {
       this.damage += event.amount + (event.absorbed || 0);
       this.hits += 1;
       if(!this.hitTimestamp || this.hitTimestamp + PROC_WINDOW_MS < this.owner.currentTimestamp) {
         this.hitTimestamp = this.owner.currentTimestamp;
         this.procs += 1;
       }
-    } else if(PROCCERS.includes(event.ability.guid)) {
-      this.proccerHits += 1;
     }
   }
 
   statistic() {
     const damagePercent = this.owner.getPercentageOfTotalDamageDone(this.damage);
     const averageHits = (this.hits / this.procs) || 0;
-    const procRate = (this.procs / this.proccerHits) || 0;
+    const casts = (this.abilityTracker.getAbility(SPELLS.FROST_BOMB_TALENT.id).casts || 0);
+    const averageProcs = (this.procs / casts) || 0;
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.UNSTABLE_MAGIC_TALENT.id} />}
+        icon={<SpellIcon id={SPELLS.FROST_BOMB_TALENT.id} />}
         value={`${formatPercentage(damagePercent)} %`}
-        label="Unstable Magic damage"
-        tooltip={`This is the portion of your total damage attributable to Unstable Magic.
+        label="Frost Bomb damage"
+        tooltip={`This is the portion of your total damage attributable to Frost Bomb.
           <ul>
+          <li>Procs per Cast: <b>${averageProcs.toFixed(2)}</b></li>
           <li>Targets Hit per Proc: <b>${averageHits.toFixed(2)}</b> (including primary target)</li>
-          <li>Proc Rate: <b>${formatPercentage(procRate)}%</b></li>
           </ul>`}
       />
     );
@@ -63,4 +57,4 @@ class UnstableMagic extends Module {
   statisticOrder = STATISTIC_ORDER.OPTIONAL(0);
 }
 
-export default UnstableMagic;
+export default FrostBomb;

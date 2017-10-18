@@ -148,6 +148,11 @@ export default {
     name: 'Comet Storm',
     icon: 'spell_mage_cometstorm',
   },
+  FROST_BOMB_DAMAGE: {
+    id: 113092,
+    name: 'Frost Bomb',
+    icon: 'spell_mage_frostbomb',
+  },
 
   //Fire
   FIREBALL: {
