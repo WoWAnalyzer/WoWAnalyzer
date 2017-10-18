@@ -1,4 +1,5 @@
 export default `
+18-10-2017 - Added Soul of the huntmaster and MKII Gyroscopic Stabilizer support. (by Putro)
 16-10-2017 - Added Ullrs Trueshot CDR support. (by Putro)
 16-10-2017 - Added Tier192p support. (by Putro)
 14-10-2017 - Added Focus Capped Statistic Box (By leapis)

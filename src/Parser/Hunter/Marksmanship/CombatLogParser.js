@@ -29,7 +29,9 @@ import Tier19_2p from "./Modules/Items/Tier19_2p";
 import Trueshot from './Modules/Spells/Trueshot';
 
 //Items
-import UllrsFeatherSnowshoes from "./Modules/Items/UllrsFeatherSnowshoes";
+import UllrsFeatherSnowshoes from './Modules/Items/UllrsFeatherSnowshoes';
+import SoulOfTheHuntmaster from '../Shared/Items/SoulOfTheHuntmaster';
+import MKIIGyroscopicStabilizer from './Modules/Items/MKIIGyroscopicStabilizer';
 
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -54,6 +56,9 @@ class CombatLogParser extends CoreCombatLogParser {
     tier20_2p: Tier20_2p,
     tier20_4p: Tier20_4p,
     ullrsFeatherSnowshoes: UllrsFeatherSnowshoes,
+    soulOfTheHuntmaster: SoulOfTheHuntmaster,
+    mkiiGyroscopicStabilizer: MKIIGyroscopicStabilizer,
+
 
     //Spells
     trueshot: Trueshot,
