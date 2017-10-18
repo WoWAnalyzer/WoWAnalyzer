@@ -352,6 +352,26 @@ export default {
     name: 'Surge of Mists',
     icon: 'spell_monk_mistweaver_spec',
   },
+  CHIJIS_BATTLEGEAR_2_PIECE_BUFF: {
+    id: 251825,
+    name: 'Monk T21 Mistweaver 2P Bonus',
+    icon: 'ability_monk_surgingmist',
+  },
+  CHIJIS_BATTLEGEAR_4_PIECE_BUFF: {
+    id: 251826,
+    name: 'Monk T21 Mistweaver 4P Bonus',
+    icon: 'ability_monk_effuse',
+  },
+  CHI_BOLT: {
+    id: 253581,
+    name: 'Chi Bolt',
+    icon: 'ability_monk_effuse',
+  },
+  TRANQUIL_MIST: {
+    id: 253448,
+    name: 'Tranquil Mist',
+    icon: 'ability_monk_surgingmist',
+  },
 
   // Brewmaster
   BLACKOUT_STRIKE: {
