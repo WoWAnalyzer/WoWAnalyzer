@@ -33,12 +33,23 @@ class StatTracker extends Module {
       itemId: ITEMS.DREADSTONE_OF_ENDLESS_SHADOWS.id,
       haste: (_, item) => calculateSecondaryStatDefault(845, 3480, item.itemLevel),
     },
+    [SPELLS.RISING_TIDES.id]: {
+      itemId: ITEMS.CHARM_OF_THE_RISING_TIDE.id,
+      haste: (_, item) => calculateSecondaryStatDefault(900, 576, item.itemLevel),
+    },
 
     //// MISC ////
+    // [SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_STRENGTH.id]: {
+    //   strength: (combatant, _) =>
+    // }
     [SPELLS.JACINS_RUSE.id]: { mastery: 3000 },
+    [SPELLS.MARK_OF_THE_CLAW.id]: { crit: 1000, haste: 1000 },
 
     //// DRUID ////
     [SPELLS.ASTRAL_HARMONY.id]: { mastery: 4000 },
+
+    //// PRIEST ////
+    [SPELLS.MIND_QUICKENING.id]: { haste: 800 },
 
 
   }

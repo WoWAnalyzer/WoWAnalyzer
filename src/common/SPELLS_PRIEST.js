@@ -581,4 +581,9 @@ export default {
     name: 'Fiending Dark',
     icon: 'spell_shadow_shadowfiend',
   },
+  MIND_QUICKENING: {
+    id: 240673,
+    name: 'Mind Quickening',
+    icon: 'inv_enchant_voidsphere',
+  },
 };
