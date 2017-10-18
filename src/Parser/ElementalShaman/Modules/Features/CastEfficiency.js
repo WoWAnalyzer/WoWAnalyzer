@@ -24,9 +24,9 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => null, // 1.5 / (1 + haste)
     },
     {
-      spell: SPELLS.LIQUID_MAGMA_TOTEM,
+      spell: SPELLS.LIQUID_MAGMA_TOTEM_TALENT,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL_AOE,
-      isActive: combatant => combatant.hasTalent(SPELLS.LIQUID_MAGMA_TOTEM.id),
+      isActive: combatant => combatant.hasTalent(SPELLS.LIQUID_MAGMA_TOTEM_TALENT.id),
       getCooldown: haste => null,
     },
     {
@@ -45,17 +45,17 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => null,
     },
     {
-      spell: SPELLS.ELEMENTAL_BLAST,
+      spell: SPELLS.ELEMENTAL_BLAST_TALENT,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-      isActive: combatant => combatant.hasTalent(SPELLS.ELEMENTAL_BLAST.id),
+      isActive: combatant => combatant.hasTalent(SPELLS.ELEMENTAL_BLAST_TALENT.id),
       getCooldown: haste => 12,
       recommendedCastEfficiency: 0.6,
     },
     {
-      spell: SPELLS.ASCENDANCE,
+      spell: SPELLS.ASCENDANCE_TALENT_ELEMENTAL,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 180,
-      isActive: combatant => combatant.hasTalent(SPELLS.ASCENDANCE.id),
+      isActive: combatant => combatant.hasTalent(SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id),
       recommendedCastEfficiency: 1.0,
     },
     {
@@ -68,6 +68,14 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 60 * 5, // TODO: Add Elementalist -> Lava Burst cast ^= -2 sec cd
       recommendedCastEfficiency: 1.0,
+      isActive: combatant => !combatant.hasTalent(SPELLS.STORM_ELEMENTAL_TALENT.id),
+    },
+    {
+      spell: SPELLS.STORM_ELEMENTAL_TALENT,
+      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
+      getCooldown: haste => 60 * 2.5, // TODO: Add Elementalist -> Lava Burst cast ^= -2 sec cd
+      recommendedCastEfficiency: 1.0,
+      isActive: combatant => combatant.hasTalent(SPELLS.STORM_ELEMENTAL_TALENT.id),
     },
     {
       spell: SPELLS.FLAME_SHOCK,

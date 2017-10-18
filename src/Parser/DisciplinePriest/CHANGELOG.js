@@ -1,4 +1,5 @@
 export default `
+16-10-2017 - Fixed T20 4pc bug, added a suggestion to utilise the buff. (By Reglitch)
 15-09-2017 - Pet damage is now also taken into consideration for Atonement damage source. (by Zerotorescue)
 14-09-2017 - Fix issue where friendly fire damage was considered a valid Atonement damage source. (by Zerotorescue)
 14-09-2017 - Added atonement sources breakdown. This isn't very accurate yet, it's just showing the way it's assigned right now. Improved accuracy will come later. (by Zerotorescue)

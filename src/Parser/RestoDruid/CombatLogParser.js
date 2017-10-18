@@ -11,7 +11,6 @@ import HealingDone from 'Parser/Core/Modules/HealingDone';
 
 import Ekowraith from './Modules/Legendaries/Ekowraith';
 import XonisCaress from './Modules/Legendaries/XonisCaress';
-import Sephuz from './Modules/Legendaries/Sephuz';
 import DarkTitanAdvice from './Modules/Legendaries/DarkTitanAdvice';
 import EssenceOfInfusion from './Modules/Legendaries/EssenceOfInfusion';
 import Tearstone from './Modules/Legendaries/Tearstone';
@@ -45,6 +44,7 @@ import Cultivation from './Modules/Features/Cultivation';
 import SpringBlossoms from './Modules/Features/SpringBlossoms';
 import CenarionWard from './Modules/Features/CenarionWard';
 import NaturesEssence from './Modules/Features/NaturesEssence';
+import Ironbark from './Modules/Features/Ironbark';
 
 import RelicTraits from './Modules/Traits/RelicTraits';
 import ArmorOfTheAncients from './Modules/Traits/ArmorOfTheAncients';
@@ -92,11 +92,11 @@ class CombatLogParser extends CoreCombatLogParser {
     cultivation: Cultivation,
     cenarionWard: CenarionWard,
     naturesEssence: NaturesEssence,
+    ironbark: Ironbark,
 
     // Legendaries:
     ekowraith: Ekowraith,
     xonisCaress: XonisCaress,
-    sephuzsSecret: Sephuz,
     darkTitanAdvice: DarkTitanAdvice,
     essenceOfInfusion: EssenceOfInfusion,
     tearstone: Tearstone,

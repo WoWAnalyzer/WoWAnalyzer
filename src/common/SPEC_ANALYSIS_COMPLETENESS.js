@@ -17,9 +17,9 @@ export function getCompletenessLabel(completeness) {
 }
 export function getCompletenessColor(completeness) {
   switch (completeness) {
-    case SPEC_ANALYSIS_COMPLETENESS.GREAT: return 'gold';
-    case SPEC_ANALYSIS_COMPLETENESS.GOOD: return '#43fd43';
-    case SPEC_ANALYSIS_COMPLETENESS.NEEDS_MORE_WORK: return '#ffd400';
+    case SPEC_ANALYSIS_COMPLETENESS.GREAT: return '#43fd43';
+    case SPEC_ANALYSIS_COMPLETENESS.GOOD: return '#05f0fd';
+    case SPEC_ANALYSIS_COMPLETENESS.NEEDS_MORE_WORK: return 'rgba(255, 212, 0, 0.5)';
     case SPEC_ANALYSIS_COMPLETENESS.NOT_YET_SUPPORTED: return 'red';
     default: return null;
   }

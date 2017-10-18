@@ -27,6 +27,9 @@ import Divinity from './Modules/PriestCore/Divinity';
 import LightOfTuure from './Modules/PriestCore/LightOfTuure';
 import EnduringRenewal from './Modules/PriestCore/EnduringRenewal';
 import MasteryBreakdown from './Modules/PriestCore/MasteryBreakdown';
+import Serendipity from './Modules/PriestCore/Serendipity';
+import SanctifyReduction from './Modules/PriestCore/SerendipityReduction/SanctifyReduction';
+import SerenityReduction from './Modules/PriestCore/SerendipityReduction/SerenityReduction';
 
 // Items
 import TrousersOfAnjuna from './Modules/Items/TrousersOfAnjuna';
@@ -50,7 +53,10 @@ class CombatLogParser extends CoreCombatLogParser {
     divinity: Divinity,
     lightOfTuure: LightOfTuure,
     enduringRenewal: EnduringRenewal,
-    MasteryBreakdown,
+    masteryBreakdown: MasteryBreakdown,
+    serendipity: Serendipity,
+    sancReduction: SanctifyReduction,
+    sereReduction: SerenityReduction,
 
     // Spells
     prayerOfMending: PrayerOfMending,

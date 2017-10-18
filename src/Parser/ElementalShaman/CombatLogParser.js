@@ -100,7 +100,7 @@ class CombatLogParser extends CoreCombatLogParser {
     }
     if (deadTimePercentage > 0.2) {
       results.addIssue({
-        issue: `Your dead GCD time can be improved. (${Math.round(deadTimePercentage * 100)}% dead GCD time).`,
+        issue: `Your downtime can be improved. (${Math.round(deadTimePercentage * 100)}% downtime).`,
         icon: 'spell_mage_altertime',
         importance: getIssueImportance(deadTimePercentage, 0.35, 0.4, true),
       });
@@ -108,11 +108,11 @@ class CombatLogParser extends CoreCombatLogParser {
 
     results.statistics = [
       <StatisticBox
-        icon={<Icon icon="spell_mage_altertime" alt="Dead GCD time" />}
+        icon={<Icon icon="spell_mage_altertime" alt="Downtime" />}
         value={`${formatPercentage(deadTimePercentage)} %`}
         label={(
-          <dfn data-tip="Dead GCD time is available casting time not used. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), etc.">
-            Dead GCD time
+          <dfn data-tip="Downtime is available casting time not used. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), etc.">
+            Downtime
           </dfn>
         )}
       />,

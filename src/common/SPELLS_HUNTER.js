@@ -7,10 +7,11 @@
 export default {
   // Beast Mastery:
   // ...
-
+  // -------------
   // Marksmanship:
-  // ...
+  // -------------
 
+  // Marksmanship spells
 
   WINDBURST: {
     id: 204147,
@@ -24,7 +25,7 @@ export default {
   },
   AIMED_SHOT: {
     id: 19434,
-    name: 'Aimed Shot',
+    name: 'Aimed Shot', //TODO: T204p cost reduction (46 focus instead of 50)
     icon: 'inv_spear_07',
   },
   ARCANE_SHOT: {
@@ -36,11 +37,6 @@ export default {
     id: 185901,
     name: 'Marked Shot',
     icon: 'ability_hunter_markedshot',
-  },
-  DISENGAGE: {
-    id: 781,
-    name: 'Disengage',
-    icon: 'ability_rogue_feint',
   },
   TRUESHOT: {
     id: 193526,
@@ -102,6 +98,78 @@ export default {
     name: 'Vulnerable',
     icon: 'ability_hunter_mastermarksman',
   },
+  ARCANE_TORRENT_FOCUS: {
+    id: 80483,
+    name: 'Arcane Torrent',
+    icon: 'spell_shadow_teleport',
+  },
+
+  //CATEGORY
+  AUTO_SHOT_FOCUSMODULE: {
+    id: 75,
+    name: 'Auto Shot',
+    icon: 'ability_hunter_focusfire',
+  },
+  CRITICAL_FOCUS_FOCUSMODULE: {
+    id: 215107,
+    name: 'Critical Focus',
+    icon: 'ability_druid_replenish',
+  },
+  MULTISHOT_FOCUSMODULE: {
+    id: 213363,
+    name: 'Multi-Shot',
+    icon: 'ability_upgrademoonglaive',
+  },
+  ARCANE_SHOT_FOCUSMODULE: {
+    id: 187675,
+    name: 'Arcane Shot',
+    icon: 'ability_impalingbolt',
+  },
+
+  // Marksmanship tier sets
+  HUNTER_MM_T19_2P_BONUS: {
+    id: 211331,
+    name: 'T19 2 set bonus',
+    icon: 'trade_engineering',
+  },
+  HUNTER_MM_T20_2P_BONUS: {
+    id: 242242,
+    name: 'T20 2 set bonus',
+    icon: 'ability_hunter_focusedaim',
+  },
+  HUNTER_MM_T20_2P_BONUS_BUFF: {
+    id: 242243,
+    name: 'T20 2 set bonus',
+    icon: 'inv_misc_ammo_arrow_03',
+  },
+  HUNTER_MM_T20_4P_BONUS: {
+    id: 242241,
+    name: 'T20 4 set bonus',
+    icon: 'ability_hunter_focusedaim',
+  },
+  HUNTER_MM_T20_4P_BONUS_BUFF: {
+    id: 246153,
+    name: 'T20 4 set bonus',
+    icon: 'inv_spear_07',
+  },
+
+  // Marksmanship artifact traits
+  BULLSEYE_BUFF: {
+    id: 204090,
+    name: 'Bullseye',
+    icon: 'ability_hunter_focusedaim',
+  },
+  QUICK_SHOT_TRAIT: {
+    id: 190462,
+    name: 'Quick shot',
+    icon: 'ability_trueshot',
+  },
+
+  CYCLONIC_BURST_TRAIT: {
+    id: 238124,
+    name: 'Cyclonic burst',
+    icon: 'inv_bow_1h_artifactwindrunner_d_02',
+  },
 
   // Survival:
   // ...
@@ -117,5 +185,11 @@ export default {
     id: 90355,
     name: 'Ancient Hysteria',
     icon: 'spell_shadow_unholyfrenzy',
+  },
+  //The buff given by volley when it's activated
+  VOLLEY_ACTIVATED: {
+    id: 194392,
+    name: 'Volley buff',
+    icon: 'ability_marksmanship',
   },
 };

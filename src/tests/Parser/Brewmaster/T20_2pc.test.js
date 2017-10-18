@@ -1,4 +1,4 @@
-import T20_2pc from 'Parser/BrewmasterMonk/Modules/Items/T20_2pc';
+import T20_2pc from 'Parser/Monk/Brewmaster/Modules/Items/T20_2pc';
 import processEvents from './Fixtures/processEvents';
 import { SimpleFight } from './Fixtures/SimpleFight';
 

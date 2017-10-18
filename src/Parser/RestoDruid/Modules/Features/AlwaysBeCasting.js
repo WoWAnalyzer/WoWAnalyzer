@@ -21,7 +21,6 @@ const HEALING_ABILITIES_ON_GCD = [
   SPELLS.INNERVATE.id,
   SPELLS.EFFLORESCENCE_CAST.id,
   SPELLS.NATURES_CURE.id,
-  SPELLS.RENEWAL.id,
 ];
 
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
@@ -31,10 +30,10 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     SPELLS.BEAR_FORM.id,
     SPELLS.CAT_FORM.id,
     SPELLS.DASH.id,
-    SPELLS.DISPLACER_BEAST.id,
+    SPELLS.DISPLACER_BEAST_TALENT.id,
     SPELLS.FEROCIOUS_BITE.id,
     SPELLS.RAKE.id,
-    SPELLS.MASS_ENTANGLEMENT.id,
+    SPELLS.MASS_ENTANGLEMENT_TALENT.id,
     SPELLS.STAG_FORM.id,
     SPELLS.TRAVEL_FORM.id,
     SPELLS.RIP.id,
@@ -43,8 +42,8 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     SPELLS.CAT_SWIPE.id,
     SPELLS.BEAR_SWIPE.id,
     SPELLS.URSOLS_VORTEX.id,
-    SPELLS.MIGHTY_BASH.id,
-    SPELLS.TYPHOON.id,
+    SPELLS.MIGHTY_BASH_TALENT.id,
+    SPELLS.TYPHOON_TALENT.id,
     SPELLS.MOONKIN_FORM.id,
     SPELLS.STARSURGE.id,
     // SPELLS.LUNAR_STRIKE.id,
@@ -89,9 +88,9 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
 
     when(deadTimePercentage).isGreaterThan(SuggestionThresholds.ABC_NOT_CASTING.minor)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest('Your dead GCD time can be improved. Try to Always Be Casting (ABC); try to reduce the delay between casting spells and when you\'re not healing try to contribute some damage.')
+        return suggest('Your downtime can be improved. Try to Always Be Casting (ABC); try to reduce the delay between casting spells and when you\'re not healing try to contribute some damage.')
           .icon('spell_mage_altertime')
-          .actual(`${formatPercentage(actual)}% dead GCD time`)
+          .actual(`${formatPercentage(actual)}% downtime`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
           .regular(SuggestionThresholds.ABC_NOT_CASTING.regular).major(SuggestionThresholds.ABC_NOT_CASTING.major);
       });

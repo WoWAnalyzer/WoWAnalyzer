@@ -9,14 +9,18 @@ import Combatants from './Modules/Combatants';
 import AbilityTracker from './Modules/AbilityTracker';
 import Haste from './Modules/Haste';
 import AlwaysBeCasting from './Modules/AlwaysBeCasting';
+import CastEfficiency from './Modules/CastEfficiency';
+import SpellUsable from './Modules/SpellUsable';
 import Enemies from './Modules/Enemies';
+import EnemyInstances from './Modules/EnemyInstances';
 import Pets from './Modules/Pets';
 import HealEventTracker from './Modules/HealEventTracker';
 import ManaValues from './Modules/ManaValues';
 import SpellManaCost from './Modules/SpellManaCost';
+import DistanceMoved from './Modules/DistanceMoved';
 
 import CritEffectBonus from './Modules/Helpers/CritEffectBonus';
-import Bloodlust from './Modules/Helpers/Bloodlust';
+import ApplyBuffFixer from './Modules/Helpers/ApplyBuffFixer';
 
 // Shared Legendaries
 import Prydaz from './Modules/Items/Prydaz';
@@ -24,6 +28,7 @@ import Velens from './Modules/Items/Velens';
 import SephuzsSecret from './Modules/Items/SephuzsSecret';
 import KiljaedensBurningWish from './Modules/Items/KiljaedensBurningWish';
 import ArchimondesHatredReborn from './Modules/Items/ArchimondesHatredReborn';
+import Cinidaria from './Modules/Items/Cinidaria';
 // Shared Epics
 import DrapeOfShame from './Modules/Items/DrapeOfShame';
 import DarkmoonDeckPromises from './Modules/Items/DarkmoonDeckPromises';
@@ -33,6 +38,7 @@ import BarbaricMindslaver from './Modules/Items/BarbaricMindslaver';
 import SeaStar from './Modules/Items/SeaStarOfTheDepthmother';
 import DeceiversGrandDesign from './Modules/Items/DeceiversGrandDesign';
 import PrePotion from './Modules/Items/PrePotion';
+import LegendaryUpgradeChecker from './Modules/Items/LegendaryUpgradeChecker';
 import GnawedThumbRing from './Modules/Items/GnawedThumbRing';
 import VialOfCeaselessToxins from './Modules/Items/VialOfCeaselessToxins';
 import SpecterOfBetrayal from './Modules/Items/SpecterOfBetrayal';
@@ -43,6 +49,8 @@ import TerrorFromBelow from './Modules/Items/TerrorFromBelow';
 import TomeOfUnravelingSanity from './Modules/Items/TomeOfUnravelingSanity';
 import InfernalCinders from './Modules/Items/InfernalCinders';
 import UmbralMoonglaives from './Modules/Items/UmbralMoonglaives';
+
+import ConcordanceUptimeTracker from './Modules/ConcordanceUptimeTracker';
 
 // Shared Buffs
 import VantusRune from './Modules/VantusRune';
@@ -77,17 +85,21 @@ class CombatLogParser {
 
     combatants: Combatants,
     enemies: Enemies,
+    enemyInstances: EnemyInstances,
     pets: Pets,
     spellManaCost: SpellManaCost,
     abilityTracker: AbilityTracker,
     healEventTracker: HealEventTracker,
     haste: Haste,
     alwaysBeCasting: AlwaysBeCasting,
+    castEfficiency: CastEfficiency,
+    spellUsable: SpellUsable,
     manaValues: ManaValues,
     vantusRune: VantusRune,
+    distanceMoved: DistanceMoved,
 
     critEffectBonus: CritEffectBonus,
-    bloodlust: Bloodlust,
+    applyBuffFixer: ApplyBuffFixer,
 
     // Items:
     // Legendaries:
@@ -96,11 +108,13 @@ class CombatLogParser {
     sephuzsSecret: SephuzsSecret,
     kiljaedensBurningWish: KiljaedensBurningWish,
     archimondesHatredReborn: ArchimondesHatredReborn,
+    cinidaria: Cinidaria,
     // Epics:
     drapeOfShame: DrapeOfShame,
     amalgamsSeventhSpine: AmalgamsSeventhSpine,
     darkmoonDeckPromises: DarkmoonDeckPromises,
     prePotion: PrePotion,
+    legendaryUpgradeChecker: LegendaryUpgradeChecker,
     gnawedThumbRing: GnawedThumbRing,
     // Tomb trinkets:
     archiveOfFaith: ArchiveOfFaith,
@@ -115,6 +129,8 @@ class CombatLogParser {
     terrorFromBelow: TerrorFromBelow,
     tomeOfUnravelingSanity: TomeOfUnravelingSanity,
 
+    // Concordance of the Legionfall
+    concordanceUptimeTracker: ConcordanceUptimeTracker,
     // Netherlight Crucible Traits
     darkSorrows: DarkSorrows,
     tormentTheWeak: TormentTheWeak,

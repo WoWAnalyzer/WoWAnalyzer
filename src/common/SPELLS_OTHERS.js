@@ -5,9 +5,20 @@
 
 export default {
   // General:
+  FAKE_SPELL: {
+    id: -100,
+    name: 'Fake Spell',
+    icon: 'spell_super_duper_fake02',
+  },
+  // I think both `Word of Recall (OLD)` and `Melee` may be seen as spell id 1, so this is a bit complicated.
+  // WORD_OF_RECALL_OLD: {
+  //   id: 1,
+  //   name: 'Word of Recall (OLD)',
+  //   icon: 'trade_engineering',
+  // },
   MELEE: {
     id: 1,
-    name: 'Melee',
+    name: 'Melee or Word of Recall, who knows?',
     icon: 'inv_axe_02',
   },
   LEECH: {
@@ -90,13 +101,11 @@ export default {
     id: 228461,
     name: 'Gnawed Thumb Ring',
     icon: 'inv_70_dungeon_ring6a',
-    cooldownType: 'HEALING',
   },
   VELENS_FUTURE_SIGHT: {
     id: 235966,
     name: 'Velen\'s Future Sight',
     icon: 'spell_holy_healingfocus',
-    cooldownType: 'HEALING',
   },
   XAVARICS_MAGNUM_OPUS: {
     id: 207472,
@@ -113,10 +122,10 @@ export default {
     name: 'Fragile Echo',
     icon: 'spell_warlock_demonsoul',
   },
-  XAVARICS_MAGNUM_OPUS_HEAL: {
-    id: 207472,
-    name: 'Xavaric\'s Magnum Opus',
-    icon: 'ability_vehicle_shellshieldgenerator',
+  SEPHUZS_SECRET_BUFF: {
+    id: 208052,
+    name: 'Sephuz\'s Secret',
+    icon: 'inv_jewelry_ring_149',
   },
   MARK_OF_THE_ACNIENT_PRIESTESS: {
     id: 228401,
@@ -246,6 +255,12 @@ export default {
     id: 242612,
     name: 'Demonic Vigor',
     icon: 'inv_relics_warpring',
+  },
+  // Chrono Shard buff
+  ACCELERATION: {
+    id: 137419,
+    name: 'Acceleration',
+    icon: 'inv_7_0raid_trinket_05a',
   },
   MARCH_OF_THE_LEGION: {
     id: 228446,
@@ -430,5 +445,30 @@ export default {
     id: 253022,
     name: 'Dark Sorrows',
     icon: 'inv_heart_of_the_thunder-king_icon',
+  },
+  CONCORDANCE_OF_THE_LEGIONFALL_TRAIT: {
+    id: 239042,
+    name: 'Concordance of the Legionfall',
+    icon: 'trade_archaeology_shark-jaws',
+  },
+  CONCORDANCE_OF_THE_LEGIONFALL_INTELLECT: {
+    id: 242586,
+    name: 'Concordance of the Legionfall',
+    icon: 'achievement_faction_legionfall',
+  },
+  CONCORDANCE_OF_THE_LEGIONFALL_STRENGTH: {
+    id: 242583,
+    name: 'Concordance of the Legionfall',
+    icon: 'achievement_faction_legionfall',
+  },
+  CONCORDANCE_OF_THE_LEGIONFALL_AGILITY: {
+    id: 242584,
+    name: 'Concordance of the Legionfall',
+    icon: 'achievement_faction_legionfall',
+  },
+  CONCORDANCE_OF_THE_LEGIONFALL_VERSATILITY: {
+    id: 243096,
+    name: 'Concordance of the Legionfall',
+    icon: 'achievement_faction_legionfall',
   },
 };

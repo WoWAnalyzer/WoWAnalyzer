@@ -11,7 +11,7 @@ export default {
   maintainer: '@Hewhosmites',
   description: (
   	<div>
-  		I hope you get some use out this analyzer I have been working on. It is kind of hard to determine exactly what seperates the okay from the good and the good from the great (other than getting a Retribution proc on the great ones wings) <br/><br/>
+  		I hope you get some use out this analyzer I have been working on. It is kind of hard to determine exactly what seperates the okay from the good and the good from the great (other than getting a Retribution proc on the great ones wings). <br/><br/>
 
   		Honestly my biggest take away for you is make sure to not waste any Holy Power and always be casting. <br/><br/>
 

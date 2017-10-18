@@ -1,4 +1,7 @@
 export default `
+09-14-2017 - (@Hewhosmites) Added a Blessing of the Ashbringer Module.
+09-06-2017 - (@Hewhosmites) Added in relic traits (Deliver the Justice/Highlord's Judgment/Might of the Templar/Righteous Verdict/Wrath of the Ashbringer).
+09-05-2017 - (@Hewhosmites) Added a Retribution damage tracker.
 08-28-2017 - (@Hewhosmites) Added a Blade of Wrath proc tracker
 08-22-2017 - (@Hewhosmites) Added a module to check that you're spending inside of Judgment
 08-20-2017 - (@Hewhosmites) Added a Chain of Thrayn Module.

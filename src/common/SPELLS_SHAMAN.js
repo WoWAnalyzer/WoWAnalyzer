@@ -67,11 +67,6 @@ export default {
     name: 'Lightning Bolt Overload',
     icon: 'spell_nature_lightning',
   },
-  ELEMENTAL_BLAST: {
-    id: 117014,
-    name: 'Elemental Blast',
-    icon: 'shaman_talent_elementalblast',
-  },
   ELEMENTAL_BLAST_OVERLOAD: {
     id: 120588,
     name: 'Elemental Blast',
@@ -158,22 +153,10 @@ export default {
     name: 'Earthquake',
     icon: 'spell_shaman_earthquake',
   },
-  LIQUID_MAGMA_TOTEM: {
-    id: 192222,
-    name: 'Liquid Magma Totem',
-    icon: 'spell_shaman_spewlava',
-  },
   STORMKEEPER: {
     id: 205495,
     name: 'Stormkeeper',
     icon: 'inv_hand_1h_artifactstormfist_d_01',
-    cooldownType: 'DAMAGE',
-  },
-  ASCENDANCE: {
-    id: 114050,
-    name: 'Ascendance',
-    icon: 'spell_fire_elementaldevastation',
-    cooldownType: 'DAMAGE',
   },
   FIRE_ELEMENTAL: {
     id: 198067,
@@ -201,29 +184,21 @@ export default {
     id: 191877,
     name: 'Power of the Maelstrom',
     icon: 'spell_fire_masterofelements',
-    cooldownType: 'DAMAGE',
   },
   ELEMENTAL_FOCUS: {
     id: 16246,
     name: 'Elemental Focus',
     icon: 'spell_shadow_manaburn',
-    cooldownType: 'DAMAGE',
   },
   LAVA_SURGE: {
     id: 77762,
     name: 'Lava Surge',
     icon: 'spell_shaman_lavasurge',
-    cooldownType: 'DAMAGE',
   },
   AFTERSHOCK: {
     id: 210712,
     name: 'Aftershock',
     icon: 'spell_nature_stormreach',
-  },
-  LIGHTNING_ROD: {
-    id: 210689,
-    name: 'Lightning Rod',
-    icon: 'inv_rod_enchantedcobalt',
   },
   LIGHTNING_ROD_DEBUFF: {
     id: 197209,
@@ -240,6 +215,12 @@ export default {
     name: 'Nature\'s Essence',
     icon: 'spell_nature_healingway',
   },
+  // Elemental Pet Spells
+  WIND_GUST: {
+    id: 226180,
+    name: 'Wind Gust',
+    icon: 'spell_nature_cyclone',
+  },
   // Elemental Legendaries
   PRISTINE_PROTOSCALE_GIRDLE: {
     id: 224852,
@@ -253,7 +234,7 @@ export default {
   },
   // Enhancement Shaman
   ROCKBITER: {
-	  id: 193786,
+    id: 193786,
     name: 'Rockbiter',
     icon: 'spell_nature_rockbiter',
   },
@@ -305,11 +286,6 @@ export default {
     name: 'Doom Winds',
     icon: 'inv_mace_1h_artifactdoomhammer_d_01',
   },
-  SUNDERING: {
-    id: 197214,
-    name: 'Sundering',
-    icon: 'ability_rhyolith_lavapool',
-  },
   STORMBRINGER: {
     id: 201845,
     name: 'Stormbringer',
@@ -330,11 +306,6 @@ export default {
     name: 'Windstrike',
     icon: 'ability_skyreach_four_wind',
     maelstrom: 40,
-  },
-  WORD_OF_RECALL_OLD: {
-    id: 1,
-    name: 'Word of Recall (OLD)',
-    icon: 'trade_engineering',
   },
   DOOM_VORTEX: {
     id: 199116,
@@ -475,12 +446,6 @@ export default {
     name: 'Landslide',
     icon: 'inv_ore_blackrock_nugget',
   },
-  ASCENDANCE_ENHANCE: {
-    id: 114051,
-    name: 'Ascendance',
-    icon: 'spell_fire_elementaldevastation',
-    cooldownType: 'DAMAGE',
-  },
   ENHANCE_SHAMAN_T20_2SET_BONUS_BUFF: {
     id: 242284,
     name: 'T20 2 set bonus',
@@ -548,24 +513,10 @@ export default {
     name: 'Healing Tide Totem',
     icon: 'ability_shaman_healingtide',
   },
-  ANCESTRAL_GUIDANCE_CAST: {
-    id: 108281,
-    name: 'Ancestral Guidance',
-    icon: 'ability_shaman_ancestralguidance',
-    cooldownType: 'HEALING',
-    description: 'The default choice in this tier. Can generate incredible throughput, especially when combined with <a href="http://www.wowhead.com/spell=157153" target="_blank" rel="noopener noreferrer">Cloudburst Totem</a> and/or <a href="http://www.wowhead.com/spell=114052" target="_blank" rel="noopener noreferrer">Ascendance</a>.',
-  },
   ANCESTRAL_GUIDANCE_HEAL: {
     id: 114911,
     name: 'Ancestral Guidance',
     icon: 'ability_shaman_ancestralguidance',
-  },
-  ASCENDANCE_CAST: {
-    id: 114052,
-    name: 'Ascendance',
-    icon: 'spell_fire_elementaldevastation',
-    cooldownType: 'HEALING',
-    description: 'Should almost always be combined with <a href="http://www.wowhead.com/spell=157153" target="_blank" rel="noopener noreferrer">Cloudburst Totem</a>. Provides you with an additional healing cooldown, or when combined with <a href="http://www.wowhead.com/spell=108281" target="_blank" rel="noopener noreferrer">Ancestral Guidance</a> makes for what is probably the strongest healing cooldown in the game. Does require proper planning to get value.',
   },
   ASCENDANCE_HEAL: {
     id: 114083,
@@ -587,23 +538,6 @@ export default {
     name: 'Gift of the Queen',
     icon: 'inv_mace_1h_artifactazshara_d_02',
   },
-  WELLSPRING: {
-    id: 197995,
-    name: 'Wellspring',
-    icon: 'ability_shawaterelemental_split',
-  },
-  UNLEASH_LIFE: {
-    id: 73685,
-    name: 'Unleash Life',
-    icon: 'spell_shaman_unleashweapon_life',
-  },
-  CLOUDBURST_TOTEM_CAST: {
-    id: 157153,
-    name: 'Cloudburst Totem',
-    icon: 'ability_shaman_condensationtotem',
-    cooldownType: 'HEALING',
-    description: 'Cloudburst Totem will in almost all encounters provide the most throughput when used correctly (see the <a href="https://chainheal.com/resto-shaman-guide-on-how-to-maximize-cloudburst-totem-cbt/">cloudburst totem guide</a> on <a href="http://chainheal.com">ChainHeal.com</a>). Extremely strong synergy with <a href="http://www.wowhead.com/spell=108281" target="_blank" rel="noopener noreferrer">Ancestral Guidance</a> and <a href="http://www.wowhead.com/spell=114052" target="_blank" rel="noopener noreferrer">Ascendance</a>.',
-  },
   CLOUDBURST_TOTEM_HEAL: {
     id: 157503,
     name: 'Cloudburst Totem',
@@ -613,12 +547,6 @@ export default {
     id: 201764,
     name: 'Recall Cloudburst Totem',
     icon: 'ability_shaman_condensationtotem',
-  },
-  EARTHEN_SHIELD_TOTEM_CAST: {
-    id: 198838,
-    name: 'Earthen Shield Totem',
-    icon: 'spell_nature_stoneskintotem',
-    description: 'Provides decent throughput, and is very efficient. It\'s unlikely to actually save people from lethal damage, though.',
   },
   EARTHEN_SHIELD_TOTEM_ABSORB: {
     id: 201633,
