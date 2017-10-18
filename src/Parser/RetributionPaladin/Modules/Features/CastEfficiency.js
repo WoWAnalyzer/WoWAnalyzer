@@ -86,7 +86,7 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 12 / (1 + haste),
       isActive: combatant => (combatant.hasBuff(SPELLS.RET_PALADIN_T20_2SET_BONUS.id) || combatant.hasBuff(SPELLS.RET_PALADIN_T21_2SET_BONUS.id)),
       recommendedCastEfficiency: 0.95,
-      extraSuggestion: <span>With tier 20/21 2 peice it is even more important to use <SpellLink id={SPELLS.JUDGMENT_CAST.id} /> on cooldown</span>,
+      extraSuggestion: <span>With tier 20 and tier 21 it is even more important to use <SpellLink id={SPELLS.JUDGMENT_CAST.id} /> on cooldown</span>,
     },
     {
       spell: SPELLS.BLADE_OF_JUSTICE,

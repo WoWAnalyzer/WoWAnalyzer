@@ -37,6 +37,7 @@ import ChainOfThrayn from './Modules/Items/ChainOfThrayn';
 import Tier20_2set from './Modules/Items/Tier20_2set';
 import Tier20_4set from './Modules/Items/Tier20_4set';
 import Tier21_2set from './Modules/Items/Tier21_2set';
+import Tier21_4set from './Modules/Items/Tier21_4set';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -76,7 +77,8 @@ class CombatLogParser extends CoreCombatLogParser {
     chainOfThrayn: ChainOfThrayn,
     tier20_2set: Tier20_2set,
     tier20_4set: Tier20_4set,
-    tier20_2set: Tier21_2set,
+    tier21_2set: Tier21_2set,
+    tier21_4set: Tier21_4set,
   };
 
   generateResults() {

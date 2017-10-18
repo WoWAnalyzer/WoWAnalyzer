@@ -3,7 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatNumber } from 'common/format';
 
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -19,7 +19,7 @@ class Tier21_2set extends Module {
 
 	damageDone = 0;
 
-	on_initalized() {
+	on_initialized() {
 		this.active = this.combatants.selected.hasBuff(SPELLS.RET_PALADIN_T21_2SET_BONUS.id);
 	}
 
@@ -38,7 +38,7 @@ class Tier21_2set extends Module {
       title: <SpellLink id={SPELLS.RET_PALADIN_T21_2SET_BONUS.id} />,
       result: (
         <dfn data-tip={`
-          The effective damage contributed by tier 21 2 peice.<br/>
+          The effective damage contributed by tier 21 2 peice. pooop<br/>
           Damage: ${this.owner.formatItemDamageDone(this.damageDone)}<br/>
           Total Damage: ${formatNumber(this.damageDone)}`}
         >
