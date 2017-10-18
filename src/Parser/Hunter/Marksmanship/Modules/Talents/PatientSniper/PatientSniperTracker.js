@@ -33,26 +33,68 @@ class PatientSniperTracker extends Module {
       noTS: {
         noVulnerable: 0,
         seconds: {
-          0: 0,
-          1: 0,
-          2: 0,
-          3: 0,
-          4: 0,
-          5: 0,
-          6: 0,
+          0: {
+            count: 0,
+            damage: 0,
+          },
+          1: {
+            count: 0,
+            damage: 0,
+          },
+          2: {
+            count: 0,
+            damage: 0,
+          },
+          3: {
+            count: 0,
+            damage: 0,
+          },
+          4: {
+            count: 0,
+            damage: 0,
+          },
+          5: {
+            count: 0,
+            damage: 0,
+          },
+          6: {
+            count: 0,
+            damage: 0,
+          },
         },
         count: 0,
       },
       TS: {
         noVulnerable: 0,
         seconds: {
-          0: 0,
-          1: 0,
-          2: 0,
-          3: 0,
-          4: 0,
-          5: 0,
-          6: 0,
+          0: {
+            count: 0,
+            damage: 0,
+          },
+          1: {
+            count: 0,
+            damage: 0,
+          },
+          2: {
+            count: 0,
+            damage: 0,
+          },
+          3: {
+            count: 0,
+            damage: 0,
+          },
+          4: {
+            count: 0,
+            damage: 0,
+          },
+          5: {
+            count: 0,
+            damage: 0,
+          },
+          6: {
+            count: 0,
+            damage: 0,
+          },
         },
         count: 0,
       },
@@ -62,26 +104,68 @@ class PatientSniperTracker extends Module {
       noTS: {
         noVulnerable: 0,
         seconds: {
-          0: 0,
-          1: 0,
-          2: 0,
-          3: 0,
-          4: 0,
-          5: 0,
-          6: 0,
+          0: {
+            count: 0,
+            damage: 0,
+          },
+          1: {
+            count: 0,
+            damage: 0,
+          },
+          2: {
+            count: 0,
+            damage: 0,
+          },
+          3: {
+            count: 0,
+            damage: 0,
+          },
+          4: {
+            count: 0,
+            damage: 0,
+          },
+          5: {
+            count: 0,
+            damage: 0,
+          },
+          6: {
+            count: 0,
+            damage: 0,
+          },
         },
         count: 0,
       },
       TS: {
         noVulnerable: 0,
         seconds: {
-          0: 0,
-          1: 0,
-          2: 0,
-          3: 0,
-          4: 0,
-          5: 0,
-          6: 0,
+          0: {
+            count: 0,
+            damage: 0,
+          },
+          1: {
+            count: 0,
+            damage: 0,
+          },
+          2: {
+            count: 0,
+            damage: 0,
+          },
+          3: {
+            count: 0,
+            damage: 0,
+          },
+          4: {
+            count: 0,
+            damage: 0,
+          },
+          5: {
+            count: 0,
+            damage: 0,
+          },
+          6: {
+            count: 0,
+            damage: 0,
+          },
         },
         count: 0,
       },
@@ -121,7 +205,7 @@ class PatientSniperTracker extends Module {
     if (hasTS) {
       this.patientSniper[spellId].TS.count += 1;
       if (hasVulnerability) {
-        this.patientSniper[spellId].TS.seconds[timeIntoVulnerable] += 1;
+        this.patientSniper[spellId].TS.seconds[timeIntoVulnerable].count += 1;
       }
       else {
         this.patientSniper[spellId].TS.noVulnerable += 1;
@@ -130,7 +214,7 @@ class PatientSniperTracker extends Module {
     else {
       this.patientSniper[spellId].noTS.count += 1;
       if (hasVulnerability) {
-        this.patientSniper[spellId].noTS.seconds[timeIntoVulnerable] += 1;
+        this.patientSniper[spellId].noTS.seconds[timeIntoVulnerable].count += 1;
       }
       else {
         this.patientSniper[spellId].noTS.noVulnerable += 1;
@@ -149,7 +233,15 @@ class PatientSniperTracker extends Module {
       return;
     }
     const timeIntoVulnerable = Math.floor((event.timestamp - this.lastVulnerableTimestamp) / 1000);
-    this.patientSniper[spellId].bonusDmg += getDamageBonus(event, timeIntoVulnerable * PATIENT_SNIPER_BONUS_PER_SEC);
+    const bonus = getDamageBonus(event, timeIntoVulnerable * PATIENT_SNIPER_BONUS_PER_SEC);
+    this.patientSniper[spellId].bonusDmg += bonus;
+    const hasTS = this.combatants.selected.hasBuff(SPELLS.TRUESHOT.id, event.timestamp);
+    if (hasTS) {
+      this.patientSniper[spellId].TS.seconds[timeIntoVulnerable].damage += bonus;
+    }
+    else {
+      this.patientSniper[spellId].noTS.seconds[timeIntoVulnerable].damage += bonus;
+    }
   }
 }
 

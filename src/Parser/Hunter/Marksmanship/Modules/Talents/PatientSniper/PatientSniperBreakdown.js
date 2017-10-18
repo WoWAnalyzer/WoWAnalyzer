@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
-import { formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 
 const PATIENT_SNIPER_BONUS_PER_SEC = 0.06;
 
@@ -43,6 +43,7 @@ class PatientSniperBreakdown extends React.Component {
                     <th><dfn data-tip="The percentage of your total casts that hit this specific timeframe">% of total casts without <SpellLink id={SPELLS.TRUESHOT.id} /></dfn></th>
                     <th><dfn data-tip="The amount of casts in this timeframe (0 seconds into vulnerable being 0->0.99 into the vulnerable debuff, 1 sec into vulnerable being 1-1.99 into the debuff etc) when you DID have trueshot up">Casts with <SpellLink id={SPELLS.TRUESHOT.id} /></dfn></th>
                     <th><dfn data-tip="The percentage of your total casts that hit this specific timeframe">% of total casts with <SpellLink id={SPELLS.TRUESHOT.id} /></dfn></th>
+                    <th><dfn data-tip="Actual bonus damage done in this timeframe">Bonus damage</dfn></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -51,11 +52,12 @@ class PatientSniperBreakdown extends React.Component {
                       <SpellIcon id={ability} />{'  '}
                       outside of <SpellLink id={SPELLS.VULNERABLE.id} />
                     </td>
-                    <td></td>
+                    <td>{formatPercentage((1 / (1 + vulnerableModifier)) - 1)}%</td>
                     <td>{data.noTS.noVulnerable}</td>
                     <td>{formatPercentage(data.noTS.noVulnerable / data.noTS.count)}%</td>
                     <td>{data.TS.noVulnerable}</td>
                     <td>{formatPercentage(data.TS.noVulnerable / data.TS.count)}%</td>
+                    <td>0</td>
                   </tr>
                   {
                    seconds.map(sec => {
@@ -68,10 +70,11 @@ class PatientSniperBreakdown extends React.Component {
                            {sec} sec into <SpellLink id={SPELLS.VULNERABLE.id} />
                          </td>
                          <td>{formatPercentage(bonus)}%</td>
-                         <td>{data.noTS.seconds[sec]}</td>
-                         <td>{formatPercentage(data.noTS.seconds[sec] / data.noTS.count)}%</td>
-                         <td>{data.TS.seconds[sec]}</td>
-                         <td>{formatPercentage(data.TS.seconds[sec] / data.TS.count)}%</td>
+                         <td>{data.noTS.seconds[sec].count}</td>
+                         <td>{formatPercentage(data.noTS.seconds[sec].count / data.noTS.count)}%</td>
+                         <td>{data.TS.seconds[sec].count}</td>
+                         <td>{formatPercentage(data.TS.seconds[sec].count / data.TS.count)}%</td>
+                         <td>{formatNumber(data.noTS.seconds[sec].damage + data.TS.seconds[sec].damage)}</td>
                        </tr>
                      );
                    })
