@@ -12,9 +12,9 @@ import Module from 'Parser/Core/Module';
 const debug = false;
 
 const BASEMANA = 1100000;
-const TWOPC_MANA_REDUCTION = 0.75;
+const TWOSET_MANA_REDUCTION = 0.75;
 
-class T20_2pc extends Module {
+class T20_2set extends Module {
   static dependencies = {
     combatants: Combatants,
   };
@@ -35,7 +35,7 @@ class T20_2pc extends Module {
     }
     if (this.combatants.selected.hasBuff(SPELLS.SURGE_OF_MISTS.id, event.timestamp)) {
       this.casts += 1;
-      this.manaSaved += (BASEMANA * SPELLS.ENVELOPING_MISTS.manaPerc) * TWOPC_MANA_REDUCTION;
+      this.manaSaved += (BASEMANA * SPELLS.ENVELOPING_MISTS.manaPerc) * TWOSET_MANA_REDUCTION;
     }
   }
 
@@ -91,4 +91,4 @@ class T20_2pc extends Module {
   }
 }
 
-export default T20_2pc;
+export default T20_2set;
