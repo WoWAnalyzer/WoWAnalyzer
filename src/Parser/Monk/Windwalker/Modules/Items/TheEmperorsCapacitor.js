@@ -61,7 +61,7 @@ class TheEmperorsCapacitor extends Module {
     const spellId = event.ability.guid;
 
     if (spellId === SPELLS.CRACKLING_JADE_LIGHTNING.id) {
-      this.damage += event.amount;
+      this.damage += event.amount + (event.absorbed || 0);
     }
   }
 
@@ -80,7 +80,7 @@ class TheEmperorsCapacitor extends Module {
       return suggest(<span> You wasted your <SpellLink id={SPELLS.THE_EMPERORS_CAPACITOR_STACK.id}/> stacks by using chi spenders while at 20 stacks </span>)
         .icon(ITEMS.THE_EMPERORS_CAPACITOR.icon)
         .actual(`${this.stacksWasted} Wasted stacks`)
-        .recommended(`Less than ${(recommended)} Wasted stacks is recommended`)
+        .recommended(`${(recommended)} Wasted stacks is recommended`)
         .regular(recommended + 5).major(recommended + 10);
     });
     when(this.averageStacksUsed).isLessThan(16).addSuggestion((suggest, actual, recommended) => {
