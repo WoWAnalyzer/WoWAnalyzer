@@ -3,7 +3,7 @@ import Enemies from 'Parser/Core/Modules/Enemies';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
-import getDamageBonus from '../../Core/getDamageBonus';
+import getDamageBonus from 'Parser/Hunter/Shared/Core/getDamageBonus'; // relative path would be long and ugly
 
 const PATIENT_SNIPER_BONUS_PER_SEC = 0.06;
 
