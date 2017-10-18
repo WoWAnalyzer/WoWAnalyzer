@@ -39,6 +39,13 @@ class Tier21_4set extends Module {
     if (this.isApplicable(event)) {
       // Purity of Light (Tier 21 4 set) is multiplicative of the crit effect modifier, so with it Drape of Shame's increase becomes 10%. It is known.
       critEffectModifier = (critEffectModifier - BASE_HEALING_PERCENTAGE) * (1 + PURITY_OF_LIGHT_CRITICAL_HEALING_INCREASE) + BASE_HEALING_PERCENTAGE;
+      // The above formula in layman's terms:
+      // base = 100%
+      // existingCritMod = 200% (205% with DoS)
+      // 4setBonus = 100%
+      // newCritEffectModifier = (existingCritMod - base) * (100% + 4setBonus) + base
+      // so: newCritEffectModifier = (existingCritMod - 100%) * 200% + 100%
+      // Verified by comparing crit FoLs with regular FoLs.
     }
     return critEffectModifier;
   }

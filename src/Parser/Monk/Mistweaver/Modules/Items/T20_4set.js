@@ -15,7 +15,7 @@ import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
 
 const XUENS_BATTLEGEAR_4_PIECE_BUFF_HEALING_INCREASE = 0.12;
 
-class T20_4pc extends Module {
+class T20_4set extends Module {
   static dependencies = {
     combatants: Combatants,
   };
@@ -53,4 +53,4 @@ class T20_4pc extends Module {
   }
 }
 
-export default T20_4pc;
+export default T20_4set;

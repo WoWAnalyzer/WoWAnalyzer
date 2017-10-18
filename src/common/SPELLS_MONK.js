@@ -352,6 +352,26 @@ export default {
     name: 'Surge of Mists',
     icon: 'spell_monk_mistweaver_spec',
   },
+  CHIJIS_BATTLEGEAR_2_PIECE_BUFF: {
+    id: 251825,
+    name: 'Monk T21 Mistweaver 2P Bonus',
+    icon: 'ability_monk_surgingmist',
+  },
+  CHIJIS_BATTLEGEAR_4_PIECE_BUFF: {
+    id: 251826,
+    name: 'Monk T21 Mistweaver 4P Bonus',
+    icon: 'ability_monk_effuse',
+  },
+  CHI_BOLT: {
+    id: 253581,
+    name: 'Chi Bolt',
+    icon: 'ability_monk_effuse',
+  },
+  TRANQUIL_MIST: {
+    id: 253448,
+    name: 'Tranquil Mist',
+    icon: 'ability_monk_surgingmist',
+  },
 
   // Brewmaster
   BLACKOUT_STRIKE: {
@@ -619,11 +639,6 @@ export default {
     id: 248101,
     name: 'The Wind Blows',
     icon: 'inv_hand_1h_artifactskywall_d_01',
-  },
-  THE_EMPERORS_CAPACITOR: {
-    id: 235053,
-    name: "The Emperor's Capacitor",
-    icon: 'ability_monk_cracklingjadelightning',
   },
   THE_EMPERORS_CAPACITOR_STACK: {
     id: 235054,
