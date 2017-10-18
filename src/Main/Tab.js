@@ -3,9 +3,6 @@ import PropTypes from 'prop-types';
 
 const Tab = ({ title, children, style }) => (
   <div>
-    <div className="panel-heading">
-      <h2>{title}</h2>
-    </div>
     <div className="panel-body" style={{ padding: '10px 0', ...style }}>
       {children}
     </div>

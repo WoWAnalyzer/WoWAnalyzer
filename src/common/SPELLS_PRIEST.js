@@ -18,12 +18,6 @@ export default {
     icon: 'spell_holy_penance',
     manaCost: 30800,
   },
-  POWER_INFUSION: {
-    id: 10060,
-    name: 'Power Infusion',
-    icon: 'spell_holy_powerinfusion',
-    manaCost: 0,
-  },
   POWER_WORD_SHIELD: {
     id: 17,
     name: 'Power Word: Shield',
@@ -349,6 +343,12 @@ export default {
     icon: 'spell_holy_divinehymn',
   },
 
+  SERENDIPITY: {
+    id: 63733,
+    name: 'Serendipity',
+    icon: 'spell_holy_serendipity',
+  },
+
   // Trait related spells
   LIGHT_OF_TUURE_TRAIT: {
     id: 208065,
@@ -388,6 +388,13 @@ export default {
     coeff: 0.06,
   },
 
+  HALLOWED_GROUND_TRAIT: {
+    id: 196429,
+    name: 'Hallowed Ground',
+    icon: 'spell_holy_divineprovidence',
+    valuePerTrait: 3333,
+  },
+
   LENIENCES_REWARD_TRAIT: {
     id: 238063,
     name: 'Lenience\'s Reward',
@@ -424,6 +431,20 @@ export default {
     id: 211336,
     name: 'Xan\'shi, Shroud of Archbishop Benedictus',
     icon: 'inv_enchant_essencemagiclarge',
+  },
+
+  // Holy Tier Sets
+  HOLY_PRIEST_T20_2SET_BONUS_BUFF: {
+    id: 242270,
+    name: 'Holy Priest T20 2P Bonus',
+    icon: 'spell_holy_guardianspirit',
+    value: 1000,
+  },
+
+  HOLY_PRIEST_T20_4SET_BONUS_BUFF: {
+    id: 242271,
+    name: 'Holy Priest T20 4P Bonus',
+    icon: 'spell_holy_guardianspirit',
   },
 
   // Shadow Spells
@@ -545,30 +566,19 @@ export default {
     name: 'From the Shadows',
     icon: 'spell_shadow_summonvoidwalker',
   },
-
-  CALL_TO_THE_VOID_TRAIT: {
-    id: 193642,
-    name: 'From the Shadows',
-    icon: 'achievement_boss_yoggsaron_01',
-  },
-
   LASH_OF_INSANITY_TRAIT: {
     id: 238137,
     name: 'Lash of Insanity',
     icon: 'achievement_boss_yoggsaron_01',
   },
-
   CALL_TO_THE_VOID_MIND_FLAY: {
     id: 237388,
     name: 'Mind Flay',
     icon: 'spell_shadow_mindshear',
   },
-
   FIENDING_DARK_TRAIT: {
     id: 238065,
     name: 'Fiending Dark',
     icon: 'spell_shadow_shadowfiend',
   },
-
-
 };

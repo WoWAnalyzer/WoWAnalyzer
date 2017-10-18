@@ -94,6 +94,11 @@ export default {
     icon: 'ability_paladin_lightofthemartyr',
     manaCost: 16500,
   },
+  MARAADS_DYING_BREATH_BUFF: {
+    id: 234862,
+    name: 'Maraad\'s Dying Breath',
+    icon: 'paladin_icon_speedoflight',
+  },
   LIGHT_OF_THE_MARTYR_DAMAGE_TAKEN: {
     id: 196917,
     name: 'Light of the Martyr',
@@ -133,7 +138,6 @@ export default {
     id: 31821,
     name: 'Aura Mastery',
     icon: 'spell_holy_auramastery',
-    cooldownType: 'HEALING',
   },
   AURA_OF_MERCY_HEAL: {
     id: 210291,
@@ -159,7 +163,6 @@ export default {
     id: 31842,
     name: 'Avenging Wrath',
     icon: 'spell_holy_avenginewrath',
-    cooldownType: 'HEALING',
   },
   BEACON_OF_LIGHT_BUFF: {
     id: 53563,
@@ -242,6 +245,16 @@ export default {
     name: 'Divine Hammer',
     icon: 'spell_holy_auraoflight',
   },
+  DIVINE_HAMMER_3_HP: {
+    id: 246345,
+    name: 'Divine Hammer',
+    icon: 'classicon_paladin',
+  },
+  DIVINE_HAMMER_2_HP: {
+    id: 228231,
+    name: 'Divine Hammer',
+    icon: 'classicon_paladin',
+  },
   DIVINE_STORM_DAMAGE: {
     id: 224239,
     name: 'Divine Storm',
@@ -286,6 +299,26 @@ export default {
     id: 183436,
     name: 'Retribution',
     icon: 'spell_holy_crusade',
+  },
+  RIGHTEOUS_VERDICT_BUFF: {
+    id: 238996,
+    name: 'Righteous Verdict',
+    icon: 'ability_paladin_bladeofjustice',
+  },
+  BLESSING_OF_THE_ASHBRINGER_BUFF: {
+    id: 242981,
+    name: 'Blessing Of The Ashbringer',
+    icon: 'inv_sword_2h_artifactashbringer_d_01',
+  },
+  GREATER_BLESSING_OF_KINGS: {
+    id: 203538,
+    name: 'Greater Blessing of Kings',
+    icon: 'spell_magic_greaterblessingofkings',
+  },
+  GREATER_BLESSING_OF_WISDOM: {
+    id: 203539,
+    name: 'Greater Blessing of Wisdom',
+    icon: 'spell_holy_greaterblessingofwisdom',
   },
   // Ret Item Effects
   WHISPER_OF_THE_NATHREZIM_BUFF: {
@@ -375,5 +408,40 @@ export default {
     id: 184778,
     name: 'Deflection',
     icon: 'ability_paladin_gaurdedbythelight',
+  },
+  HIGHLORDS_JUDGMENT: {
+    id: 186941,
+    name: 'Highlords Judgment',
+    icon: 'spell_holy_righteousfury',
+  },
+  SHARPENED_EDGE: {
+    id: 184759,
+    name: 'Sharpened Edge',
+    icon: 'ability_paladin_empoweredsealstruth',
+  },
+  DELIVER_THE_JUSTICE: {
+    id: 186927,
+    name: 'Deliver the Justice',
+    icon: 'spell_holy_sealofvengeance',
+  },
+  WRATH_OF_THE_ASHBRINGER: {
+    id: 186945,
+    name: 'Wrath of the Ashbringer',
+    icon: 'ability_paladin_sanctifiedwrath',
+  },
+  RIGHTEOUS_VERDICT: {
+    id: 238062,
+    name: 'Righteous Verdict',
+    icon: 'ability_paladin_bladeofjustice',
+  },
+  MIGHT_OF_THE_TEMPLAR: {
+    id: 185368,
+    name: 'Might of the Templar',
+    icon: 'spell_holy_blessedresillience',
+  },
+  BLESSING_OF_THE_ASHBRINGER: {
+    id: 238098,
+    name: 'Blessing of the Ashbringer',
+    icon: 'inv_sword_2h_artifactashbringer_d_01',
   },
 };

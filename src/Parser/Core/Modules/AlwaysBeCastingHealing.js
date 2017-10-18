@@ -51,23 +51,23 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
       return null;
     }
 
-    const deadTime = this.totalTimeWasted;
+    const downtime = this.totalTimeWasted;
     const healingTime = this.owner.fightDuration - this.totalHealingTimeWasted;
     const nonHealCastTime = this.totalHealingTimeWasted - this.totalTimeWasted;
 
-    const deadTimePercentage = deadTime / this.owner.fightDuration;
+    const downtimePercentage = downtime / this.owner.fightDuration;
     const healingTimePercentage = healingTime / this.owner.fightDuration;
     const nonHealCastTimePercentage = nonHealCastTime / this.owner.fightDuration;
 
     return (
       <StatisticBox
-        icon={<Icon icon="petbattle_health-down" alt="Non healing time" />}
-        value={`${formatPercentage(deadTimePercentage)} %`}
+        icon={<Icon icon="spell_mage_altertime" alt="Downtime" />}
+        value={`${formatPercentage(downtimePercentage)} %`}
         label="Downtime"
-        tooltip={`Downtime is available time not used to cast anything. This can be caused by delays between casting spells, latency, cast interrupting or just simply not casting anything (e.g. due to movement/stunned).<br/>
+        tooltip={`Downtime is available time not used to cast anything (including not having your GCD rolling). This can be caused by delays between casting spells, latency, cast interrupting or just simply not casting anything (e.g. due to movement/stunned).<br/>
         <li>You spent <b>${formatPercentage(healingTimePercentage)}%</b> of your time casting heals.</li>
         <li>You spent <b>${formatPercentage(nonHealCastTimePercentage)}%</b> of your time casting non-healing spells.</li>
-        <li>You spent <b>${formatPercentage(deadTimePercentage)}%</b> of your time casting nothing at all.</li>
+        <li>You spent <b>${formatPercentage(downtimePercentage)}%</b> of your time casting nothing at all.</li>
         `}
         footer={(
           <div className="statistic-bar">
@@ -87,7 +87,7 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
             </div>
             <div
               className="remainder DeathKnight-bg"
-              data-tip={`You spent <b>${formatPercentage(deadTimePercentage)}%</b> of your time casting nothing at all.`}
+              data-tip={`You spent <b>${formatPercentage(downtimePercentage)}%</b> of your time casting nothing at all.`}
             >
               <img src="/img/afk.png" alt="Downtime" />
             </div>

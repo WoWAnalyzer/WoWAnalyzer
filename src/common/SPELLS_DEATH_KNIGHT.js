@@ -44,7 +44,6 @@ export default {
     name: 'Blood Strike',
     icon: 'spell_deathknight_deathstrike',
   },
-
   MARROWREND: {
     id: 195182,
     name: 'Marrowrend',
@@ -55,26 +54,18 @@ export default {
     name: 'Death Strike',
     icon: 'spell_deathknight_butcher2',
   },
-
   BLOOD_PLAGUE: {
     id: 55078,
     name: 'Blood Plague',
     icon: 'spell_deathknight_bloodplague',
   },
-
   DEATHS_CARESS: {
     id: 195292,
     name: 'Death\'s Caress',
     icon: 'ability_deathknight_deathscaress',
   },
 
-  BLOODDRINKER: {
-    id: 206931,
-    name: 'Blooddrinker',
-    icon: 'ability_animusdraw',
-  },
-
-  // Cool Downs
+  // Cooldowns
   ICEBOUND_FORTITUDE: {
     id: 48792,
     name: 'Icebound Fortitude',
@@ -123,22 +114,10 @@ export default {
     icon: 'spell_deathknight_deathstrike',
   },
 
-  BLOOD_MIRROR: {
-    id: 206977,
-    name: 'Blood Mirror',
-    icon: 'inv_misc_gem_bloodstone_01',
-  },
-
   MARK_OF_BLOOD: {
     id: 61606,
     name: 'Mark of Blood',
     icon: 'ability_hunter_rapidkilling',
-  },
-
-  BONESTORM: {
-    id: 194844,
-    name: 'Bonestorm',
-    icon: 'achievement_boss_lordmarrowgar',
   },
 
 // Buffs
@@ -154,32 +133,22 @@ export default {
     icon: 'ability_warrior_bloodnova',
   },
 
-
   // CC
-  ASPHYXIATE: {
-    id: 108194,
-    name: 'ASPHYXIATE',
-    icon: 'ability_deathknight_asphixiate',
-  },
-
   DARK_COMMAND: {
     id: 56222,
     name: 'Dark Command',
     icon: 'spell_nature_shamanrage',
   },
-
   DEATH_GRIP: {
     id: 49576,
     name: 'Death Grip',
     icon: 'spell_deathknight_strangulate',
   },
-
   MIND_FREEZE: {
     id: 47528,
     name: 'Mind Freeze',
     icon: 'spell_deathknight_mindfreeze',
   },
-
   GOREFIENDS_GRASP: {
     id: 108199,
     name: 'Gorefiend\'s Grasp',
@@ -192,7 +161,6 @@ export default {
     name: 'Wraith Walk',
     icon: 'inv_helm_plate_raiddeathknight_p_01',
   },
-
 
   // MISC
   CONTROL_UNDEAD: {

@@ -1,7 +1,6 @@
 import React from 'react';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-import { formatNumber } from 'common/format';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
@@ -19,16 +18,15 @@ class Cinidaria extends Module {
   }
 
   item() {
-    const fightLengthSec = this.owner.fightDuration / 1000;
     const symbioteStrike = this.abilityTracker.getAbility(SPELLS.SYMBIOTE_STRIKE.id);
-    const dps = symbioteStrike.damageEffective / fightLengthSec;
-    const hps = symbioteStrike.healingEffective / fightLengthSec;
+    const damage = symbioteStrike.damageEffective;
+    const healing = symbioteStrike.healingEffective;
 
     return {
       item: ITEMS.CINIDARIA_THE_SYMBIOTE,
       result: (
         <span>
-          {formatNumber(dps)} DPS / {formatNumber(hps)} HPS
+          {this.owner.formatItemDamageDone(damage)} <br/> {this.owner.formatItemHealingDone(healing)}
         </span>
       ),
     };

@@ -3,7 +3,7 @@ import React from 'react';
 import Module from 'Parser/Core/Module';
 import Tab from 'Main/Tab';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import { formatPercentage } from 'common/format';
+import { formatPercentage, formatNumber } from 'common/format';
 
 import HolyPowerBreakdown from './HolyPowerBreakdown';
 import HolyPowerTracker from './HolyPowerTracker';
@@ -44,9 +44,9 @@ class HolyPowerDetails extends Module {
             			alt="Wasted Holy Power"
           			/>
         		)}
-		        value={`${formatPercentage(hpWasted / totalHPGained)} %`}
+		        value={formatNumber(hpWasted)}
 		        label="Holy Power Wasted"
-		        tooltip={`${hpWasted} Holy Power wasted`}
+		        tooltip={`${formatPercentage(hpWasted / totalHPGained)}% wasted`}
       		/>
 		);
 	}

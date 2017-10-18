@@ -76,6 +76,8 @@ Don't forget to update the changelog, but only include changes that users might 
 
 We work on this project on a voluntary basis with busy schedules. Some days we have a lot of time available to work on it, other days we are very limited. This can lead to slower PR review times, so please bear with us. Our goal is to respond to small PRs within 24 hours, and anything else within 48 hours. Larger or more complex PRs may take longer to be reviewed as we wish to be just as thorough. We strife to never leave an action required on our end for more than 7 days. If you haven't heard anything by then, feel free to ping us as you deem appropriate.
 
+If you're curious what GitHub name links to who on Discord see [CONTRIBUTORNAMES.md](CONTRIBUTORNAMES.md).
+
 <table align="center">
   <tr>
     <td align="center" width="100"><img src="https://cdn1.iconfinder.com/data/icons/CrystalClear/48x48/apps/important.png" alt="Important"></td>
@@ -101,7 +103,7 @@ Please never comment *what* you do, comment *why* you do it. I can read code so 
 Many users parse logs for multiple specs, having everything consistent makes it easier to understand and compare different things between specs. Please try to stay as consistent as possible with other specs and similar statistics.
 
 Examples:
-* The first two statistics are always *Healing/damage done* and *Non healing/dead gcd time*.
+* The first two statistics are always *Healing/damage done* and *Downtime*.
 * When space is limited, show the DPS/HPS amounts instead of percentage of total damage/healing as much as possible. The HPS amounts often have the same results even if someone's total performance is either super high or super low, so they make comparison easier.
 * If you're showing the performance of an item try to use the *X.XX % / XXk HPS* format and show detailed information in the tooltip.
 * Try to keep statististic boxes and item values one liners and if necessary move details to the tooltip.

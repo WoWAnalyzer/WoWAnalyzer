@@ -5,6 +5,12 @@
  */
 
 export default {
+  // Shared
+  STARSURGE: { // Balance has a spec specific spell that replaces this, this is the version everyone has access to due to balance affinity
+    id: 197626,
+    name: 'Starsurge',
+    icon: 'spell_arcane_arcane03',
+  },
 
   // RESTO DRUID //
 
@@ -31,17 +37,11 @@ export default {
     id: 29166,
     name: 'Innervate',
     icon: 'spell_nature_lightning',
-    cooldownType: 'HEALING',
   },
   ESSENCE_OF_GHANIR: {
     id: 208253,
     name: 'Essence of G\'Hanir',
     icon: 'inv_staff_2h_artifactnordrassil_d_01',
-  },
-  INCARNATION_TREE_OF_LIFE: {
-    id: 33891,
-    name: 'Incarnation: Tree of Life',
-    icon: 'ability_druid_improvedtreeform',
   },
   IRONBARK: {
     id: 102342,
@@ -136,11 +136,6 @@ export default {
     name: 'Dash',
     icon: 'ability_druid_dash',
   },
-  DISPLACER_BEAST: {
-    id: 102280,
-    name: 'Displacer Beast',
-    icon: 'spell_druid_displacement',
-  },
   FEROCIOUS_BITE: {
     id: 22568,
     name: 'Ferocious Bite',
@@ -155,11 +150,6 @@ export default {
     id: 1822,
     name: 'Rake',
     icon: 'ability_druid_disembowel',
-  },
-  MASS_ENTANGLEMENT: {
-    id: 102359,
-    name: 'Mass Entaglement',
-    icon: 'spell_druid_massentanglement',
   },
   STAG_FORM: {
     id: 210053,
@@ -201,27 +191,7 @@ export default {
     name: 'Ursol\'s Vortex',
     icon: 'spell_druid_ursolsvortex',
   },
-  RENEWAL: {
-    id: 108238,
-    name: 'Renewal',
-    icon: 'spell_nature_natureblessing',
-  },
-  MIGHTY_BASH: {
-    id: 5211,
-    name: 'Mighty Bash',
-    icon: 'ability_druid_bash',
-  },
-  TYPHOON: {
-    id: 132469,
-    name: 'Typhoon',
-    icon: 'ability_druid_typhoon',
-  },
   MOONKIN_FORM: {
-    id: 24858,
-    name: 'Moonkin Form',
-    icon: 'spell_nature_forceofnature',
-  },
-  STARSURGE: {
     id: 24858,
     name: 'Moonkin Form',
     icon: 'spell_nature_forceofnature',
@@ -236,12 +206,13 @@ export default {
     name: 'Cultivation',
     icon: 'ability_druid_nourish',
   },
-  YSERAS_GIFT_1: {
+  // Ysera's Gift has two heal IDs, one when it heals other players and one when it heals yourself.
+  YSERAS_GIFT_OTHERS: {
     id: 145110,
     name: 'Ysera\'s gift',
     icon: 'spell_nature_healingtouch',
   },
-  YSERAS_GIFT_2: {
+  YSERAS_GIFT_SELF: {
     id: 145109,
     name: 'Ysera\'s gift',
     icon: 'spell_nature_healingtouch',
@@ -255,11 +226,6 @@ export default {
     id: 224392,
     name: 'Mark of Shifting',
     icon: 'spell_druid_tirelesspursuit',
-  },
-  FLOURISH: {
-    id: 197721,
-    name: 'Flourish',
-    icon: 'spell_druid_wildburst',
   },
   POWER_OF_THE_ARCHDRUID_BUFF: {
     id: 189877,
@@ -363,54 +329,49 @@ export default {
     name: 'Dreamwalker',
     icon: 'ability_druid_healinginstincts',
   },
-  INFUSION_OF_NATURE_TRAIT: {
-    id: 189757,
-    name: 'Infusion of Nature',
-    icon: 'ability_druid_flourish',
-  },
   PERSISTENCE_TRAIT: {
     id: 186396,
     name: 'Persistence',
     icon: 'spell_nature_starfall',
   },
   GROVEWALKER: {
-    id:186320,
-    name:'Grovewalker',
+    id: 186320,
+    name: 'Grovewalker',
     icon: 'spell_nature_healingtouch',
   },
   NATURAL_MENDING: {
-    id:189749,
-    name:'Natural Mending',
+    id: 189749,
+    name: 'Natural Mending',
     icon: 'inv_relics_idolofrejuvenation',
   },
   ESSENCE_OF_NORDRASSIL: {
-    id:189760,
-    name:'Essence of Norddrassil',
+    id: 189760,
+    name: 'Essence of Norddrassil',
     icon: 'inv_misc_herb_talandrasrose',
   },
   BLESSING_OF_THE_WORLD_TREE: {
-    id:189744,
-    name:'Blessing of the World Tree',
+    id: 189744,
+    name: 'Blessing of the World Tree',
     icon: 'ability_druid_naturalperfection',
   },
   ETERNAL_RESTORATION: {
-    id:238050,
-    name:'Eternal Restoration',
+    id: 238050,
+    name: 'Eternal Restoration',
     icon: 'inv_staff_2h_artifactnordrassil_d_01',
   },
   SEEDS_OF_THE_WORLD_TREE: {
-    id:189768,
-    name:'Seeds of the World Tree',
+    id: 189768,
+    name: 'Seeds of the World Tree',
     icon: 'ability_druid_giftoftheearthmother',
   },
   INFUSION_OF_NATURE: {
-    id:189757,
-    name:'Infusion of Nature',
+    id: 189757,
+    name: 'Infusion of Nature',
     icon: 'ability_druid_flourish',
   },
   KNOWLEDGE_OF_THE_ANCIENTS: {
-    id:189772,
-    name:'Knowledge of the Ancients',
+    id: 189772,
+    name: 'Knowledge of the Ancients',
     icon: 'ability_druid_manatree',
   },
   ARMOR_OF_THE_ANCIENTS: {
@@ -459,11 +420,6 @@ export default {
     id: 99,
     name: 'Incapacitating Roar',
     icon: 'ability_druid_demorolizingroar',
-  },
-  INCARNATION_OF_URSOC: {
-    id: 102558,
-    name: 'Incarnation of Ursoc',
-    icon: 'spell_druid_incarnation',
   },
   RAGE_OF_THE_SLEEPER: {
     id: 200851,
@@ -550,7 +506,7 @@ export default {
     name: 'Guardian Of Elune',
     icon: 'spell_druid_guardianofelune',
   },
-  URSOC_ENDURANCE: {
+  URSOCS_ENDURANCE: {
     id: 200399,
     name: 'Ursoc\'s Endurance',
     icon: 'ability_hunter_pet_bear',
@@ -698,11 +654,6 @@ export default {
     id: 16953,
     name: 'Primal Fury',
     icon: 'ability_racial_cannibalize',
-  },
-  SAVAGE_ROAR: {
-    id: 52610,
-    name: 'Savage Roar',
-    icon: 'ability_druid_skinteeth',
   },
   MAIM: {
     id: 22570,

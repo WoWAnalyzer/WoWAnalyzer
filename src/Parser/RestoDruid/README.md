@@ -1,7 +1,7 @@
 ## Features
 | Feature | Note | Accuracy |
 | --- | --- | --- |
-| [Always Be Casting](https://github.com/buimichael/RestoDruidAnalyzer/blob/master/src/Main/Parser/Modules/Features/AlwaysBeCasting.js) | Tracks your casting and healing time to determine your non healing and dead GCD time. May get slightly inaccurate with unaccounted for Haste buffs. | 0% |
+| [Always Be Casting](https://github.com/buimichael/RestoDruidAnalyzer/blob/master/src/Main/Parser/Modules/Features/AlwaysBeCasting.js) | Tracks your casting and healing time to determine your non healing and downtime. May get slightly inaccurate with unaccounted for Haste buffs. | 0% |
 | [Ability Tracker](https://github.com/buimichael/RestoDruidAnalyzer/blob/master/src/Main/Parser/Modules/Core/AbilityTracker.js) | Tracks ability casts and healing done (damage tracking NYI). | 100% |
 | [Flourish Analyzer](https://github.com/buimichael/RestoDruidAnalyzer/blob/master/src/Main/Parser/Modules/Features/Flourish.js) | Tracks flourish usage | 100% |
 | [Tree of Life throughput calculcation](https://github.com/buimichael/RestoDruidAnalyzer/blob/master/src/Main/Parser/Modules/Features/TreeOfLife.js) | Calculates Tree of Life throughput | 80-90% |
@@ -28,7 +28,7 @@ This may be outdated.
 | Suggestion | Minor | Average | Major |
 | --- | --- | --- | --- |
 | Non healing time | >20% | >40% | >45% |
-| Dead GCD time | >20% | >35% | >40% |
+| Downtime | >20% | >35% | >40% |
 | Velen's Healing | <4.5% | <4% | <3% |
 | Cast Efficiency (see spells*) | <80% | <75% | <65% |
 | Lifebloom uptime | <85% | <70% | <50% |

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import SPECS from 'common/SPECS';
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
+import { getCompletenessColor, getCompletenessExplanation, getCompletenessLabel } from 'common/SPEC_ANALYSIS_COMPLETENESS';
 
 import PatreonButton from './PatreonButton';
 import Changelog from './Changelog';
@@ -94,7 +95,7 @@ class Home extends Component {
               </div>
               <div className="panel-body" style={{ textAlign: 'justify', padding: 0 }}>
                 <div style={{ padding: '15px 20px', marginBottom: 5 }}>
-                  WoWAnalyzer is slowly expanding with more specs being added and several specs nearing completion. We need your help to continue expanding and keep everything accurate. Are you a coder or graphic designer? Check our <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub project</a> (hint: see the <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/labels/help-wanted" className="gh-label">help-wanted</a> and <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/labels/good-first-issue" className="gh-label">good-first-issue</a> issues) or <a href="https://discord.gg/AxphPxU">Discord</a> to find out how you could contribute.
+                  WoWAnalyzer is slowly expanding with more specs being added and several specs nearing completion. We need your help to continue expanding and keep everything accurate. Are you a coder or graphic designer? Check our <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub project</a> (hint: see the <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/labels/help%20wanted" className="gh-label">help-wanted</a> and <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/labels/good%20first%20issue" className="gh-label">good-first-issue</a> issues) or <a href="https://discord.gg/AxphPxU">Discord</a> to find out how you could contribute.
                 </div>
 
                 <img src="https://media.giphy.com/media/l1J3vV5lCmv8qx16M/giphy.gif" style={{ width: '100%' }} alt="Sharing is caring" />
@@ -124,11 +125,13 @@ class Home extends Component {
                       const className = spec.className.replace(/ /g, '');
                       const config = AVAILABLE_CONFIGS.find(config => config.spec === spec);
                       return (
-                        <li key={spec.id} style={{ marginBottom: 3 }}>
+                        <li key={spec.id} style={{ marginBottom: 3, whiteSpace: 'nowrap', overflow: 'hidden' }}>
                           <img src={`/specs/${className}-${spec.specName.replace(' ', '')}.jpg`} alt="Spec logo" style={{ height: '1.6em', marginRight: 10 }} />{' '}
                           <span className={className}>{spec.specName} {spec.className}</span>{' '}
                           {config ? (
-                            <span>maintained by <span style={{ color: '#fff' }}>{config.maintainer}</span></span>
+                            <span>
+                              by <span style={{ color: '#fff' }}>{config.maintainer}</span> (<dfn data-tip={getCompletenessExplanation(config.completeness)} style={{ color: getCompletenessColor(config.completeness) }}>{getCompletenessLabel(config.completeness)}</dfn>)
+                            </span>
                           ) : (
                             <span>isn't available yet. <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/CONTRIBUTING.md">Add it!</a></span>
                           )}

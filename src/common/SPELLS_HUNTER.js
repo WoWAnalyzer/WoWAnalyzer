@@ -38,11 +38,6 @@ export default {
     name: 'Marked Shot',
     icon: 'ability_hunter_markedshot',
   },
-  DISENGAGE: {
-    id: 781,
-    name: 'Disengage',
-    icon: 'ability_rogue_feint',
-  },
   TRUESHOT: {
     id: 193526,
     name: 'Trueshot',
@@ -103,8 +98,40 @@ export default {
     name: 'Vulnerable',
     icon: 'ability_hunter_mastermarksman',
   },
+  ARCANE_TORRENT_FOCUS: {
+    id: 80483,
+    name: 'Arcane Torrent',
+    icon: 'spell_shadow_teleport',
+  },
+
+  //CATEGORY
+  AUTO_SHOT_FOCUSMODULE: {
+    id: 75,
+    name: 'Auto Shot',
+    icon: 'ability_hunter_focusfire',
+  },
+  CRITICAL_FOCUS_FOCUSMODULE: {
+    id: 215107,
+    name: 'Critical Focus',
+    icon: 'ability_druid_replenish',
+  },
+  MULTISHOT_FOCUSMODULE: {
+    id: 213363,
+    name: 'Multi-Shot',
+    icon: 'ability_upgrademoonglaive',
+  },
+  ARCANE_SHOT_FOCUSMODULE: {
+    id: 187675,
+    name: 'Arcane Shot',
+    icon: 'ability_impalingbolt',
+  },
 
   // Marksmanship tier sets
+  HUNTER_MM_T19_2P_BONUS: {
+    id: 211331,
+    name: 'T19 2 set bonus',
+    icon: 'trade_engineering',
+  },
   HUNTER_MM_T20_2P_BONUS: {
     id: 242242,
     name: 'T20 2 set bonus',
@@ -147,7 +174,6 @@ export default {
   // Survival:
   // ...
 
-
   // Shared:
   // ...
   NETHERWINDS: {
@@ -159,5 +185,11 @@ export default {
     id: 90355,
     name: 'Ancient Hysteria',
     icon: 'spell_shadow_unholyfrenzy',
+  },
+  //The buff given by volley when it's activated
+  VOLLEY_ACTIVATED: {
+    id: 194392,
+    name: 'Volley buff',
+    icon: 'ability_marksmanship',
   },
 };

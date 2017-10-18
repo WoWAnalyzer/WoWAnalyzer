@@ -5,11 +5,13 @@ import { formatPercentage, formatNumber, formatThousands } from 'common/format';
 
 import CoreDarkmoonDeckPromises from 'Parser/Core/Modules/Items/DarkmoonDeckPromises';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
+import Rejuvenation from '../Features/Rejuvenation';
 
 class DarkmoonDeckPromises extends CoreDarkmoonDeckPromises {
   static dependencies = {
     ...CoreDarkmoonDeckPromises.dependencies,
     healingDone: HealingDone,
+    rejuvenation: Rejuvenation,
   };
 
   // The actual savings
@@ -35,7 +37,7 @@ class DarkmoonDeckPromises extends CoreDarkmoonDeckPromises {
 
   item() {
     const rejuvenationManaCost = 22000;
-    const oneRejuvenationThroughput = this.owner.getPercentageOfTotalHealingDone(this.owner.modules.treeOfLife.totalHealingFromRejuvenationEncounter) / this.owner.modules.treeOfLife.totalRejuvenationsEncounter;
+    const oneRejuvenationThroughput = this.owner.getPercentageOfTotalHealingDone(this.rejuvenation.avgRejuvHealing);
     const promisesThroughput = (this.savings / rejuvenationManaCost) * oneRejuvenationThroughput;
     return {
       item: ITEMS.DARKMOON_DECK_PROMISES,
