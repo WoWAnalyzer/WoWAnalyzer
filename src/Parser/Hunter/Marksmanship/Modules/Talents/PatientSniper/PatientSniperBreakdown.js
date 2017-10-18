@@ -33,7 +33,7 @@ class PatientSniperBreakdown extends React.Component {
           abilities.map(ability => {
             const data = patientSniper[ability]; // for shortening of the code
             return (
-              <table className="data-table" style={{ borderBottom: '1px solid #dddddd', borderTop: '1px solid #dddddd', align: 'left', padding: '10px', float: 'left', margin: '2px' }}>
+              <table className="data-table" style={{ align: 'left', padding: '10px', float: 'left', margin: '2px' }}>
                 <thead>
                   <tr>
                     <th><dfn data-tip="The time that has passed since Vulnerable was applied to the target">Time into Vulnerable</dfn></th>
