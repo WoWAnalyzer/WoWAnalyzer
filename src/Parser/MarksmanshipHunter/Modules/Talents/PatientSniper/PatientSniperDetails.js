@@ -13,6 +13,9 @@ import SPELLS from 'common/SPELLS';
 import PatientSniperBreakdown from "./PatientSniperBreakdown";
 import PatientSniperTracker from "./PatientSniperTracker";
 
+const VULNERABLE_BONUS = 0.3;
+const UNERRING_ARROWS_BONUS_PER_RANK = 0.03;
+
 class PatientSniperDetails extends Module {
   static dependencies = {
     patientSniperTracker: PatientSniperTracker,
@@ -21,10 +24,13 @@ class PatientSniperDetails extends Module {
   };
 
   hasPiercingShot = false;
+  vulnerableModifier = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.PATIENT_SNIPER_TALENT.id);
     this.hasPiercingShot = this.combatants.selected.hasTalent(SPELLS.PIERCING_SHOT_TALENT.id);
+    const unerringArrowsRank = this.combatants.selected.traitsBySpellId[SPELLS.UNERRING_ARROWS_TRAIT.id];
+    this.vulnerableModifier = VULNERABLE_BONUS + unerringArrowsRank * UNERRING_ARROWS_BONUS_PER_RANK;
   }
 
   get bonusAimedDamage() {
@@ -65,21 +71,19 @@ class PatientSniperDetails extends Module {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.PATIENT_SNIPER_TALENT.id} />}
         value={`${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDamage))}%`}
-        label="Bonus total damage from Patient Sniper"
+        label="Patient Sniper bonus damage"
         tooltip={tooltipText} />
     );
   }
 
   tab() {
-    const unerringArrowsRank = this.combatants.selected.traitsBySpellId[SPELLS.UNERRING_ARROWS_TRAIT.id];
-    const vulnerableModifier = 0.3 + unerringArrowsRank * 0.03;
     return {
       title: 'Patient Sniper Usage',
       url: 'patient-sniper',
       render: () => (
         <Tab title="Patient Sniper Usage Breakdown">
           <PatientSniperBreakdown
-            vulnerableModifier={vulnerableModifier}
+            vulnerableModifier={this.vulnerableModifier}
             patientSniper={this.patientSniperTracker.patientSniper}
             hasPiercingShot={this.hasPiercingShot}
           />

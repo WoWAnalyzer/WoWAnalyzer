@@ -24,6 +24,8 @@ class PatientSniperBreakdown extends React.Component {
     if (hasPiercingShot) {
       abilities.push(SPELLS.PIERCING_SHOT_TALENT.id);
     }
+
+    // renders div with 1 or 2 tables (for Aimed and Piercing Shot if talented), first row shows data outside of Vulnerable, following rows (mapped from seconds) shows data inside each time window of Vulnerable
     return (
       <div>
         {
@@ -35,7 +37,7 @@ class PatientSniperBreakdown extends React.Component {
                 <thead>
                   <tr>
                     <th><dfn data-tip="The time that has passed since Vulnerable was applied to the target">Time into Vulnerable</dfn></th>
-                    <th><dfn data-tip="This showcases how much damage your shots gained compared to hitting at 0s passed of Vulnerable, so this will showcase how much dmg you gained from having the Patient Sniper talent in %">% dmg change</dfn></th>
+                    <th><dfn data-tip="This shows how much damage your shots gained compared to hitting at 0s passed of Vulnerable, so this will show how much dmg you gained from having the Patient Sniper talent in %">% dmg change</dfn></th>
                     <th><dfn data-tip="The amount of casts in this timeframe (0 seconds into vulnerable being 0->0.99 into the vulnerable debuff, 1 sec into vulnerable being 1-1.99 into the debuff etc) when you did NOT have trueshot up">Casts without <SpellLink id={SPELLS.TRUESHOT.id} /> </dfn></th>
 
                     <th><dfn data-tip="The percentage of your total casts that hit this specific timeframe">% of total casts without <SpellLink id={SPELLS.TRUESHOT.id} /></dfn></th>
@@ -49,7 +51,6 @@ class PatientSniperBreakdown extends React.Component {
                       <SpellIcon id={ability} />{'  '}
                       outside of <SpellLink id={SPELLS.VULNERABLE.id} />
                     </td>
-                    {/*<td>{formatPercentage((1 / (1 + this.props.patientSniper[SPELLS.AIMED_SHOT.id].vulnerableModifierAimed)) - 1)}%</td>*/}
                     <td></td>
                     <td>{data.noTS.noVulnerable}</td>
                     <td>{formatPercentage(data.noTS.noVulnerable / data.noTS.count)}%</td>
