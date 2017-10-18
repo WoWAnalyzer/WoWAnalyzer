@@ -20,10 +20,11 @@ class PatientSniperDetails extends Module {
     abilityTracker: AbilityTracker,
   };
 
-  actualAverageDmgIncrease = 0;
+  hasPiercingShot = false;
 
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.PATIENT_SNIPER_TALENT.id);
+    this.hasPiercingShot = this.combatants.selected.hasTalent(SPELLS.PIERCING_SHOT_TALENT.id);
   }
 
   get bonusAimedDamage() {
@@ -56,7 +57,7 @@ class PatientSniperDetails extends Module {
     let tooltipText = `Your Aimed Shots and Piercing Shots did ${formatNumber(this.bonusDamage)} (${this.owner.formatItemDamageDone(this.bonusDamage)}) bonus damage thanks to Patient Sniper talent. Below you'll see them individually, and if you want to see more Patient Sniper information (such as without Trueshot windows), please check the "Patient Sniper Usage" tab in the menu. <br />`;
     const aimed = this.abilityTracker.getAbility(SPELLS.AIMED_SHOT.id);
     tooltipText += `Aimed Shot bonus damage: ${formatNumber(this.bonusAimedDamage)} (${formatPercentage(this.bonusAimedDamage / aimed.damageEffective)} %)`;
-    if (this.combatants.selected.hasTalent(SPELLS.PIERCING_SHOT_TALENT.id)) {
+    if (this.hasPiercingShot) {
       const piercing = this.abilityTracker.getAbility(SPELLS.PIERCING_SHOT_TALENT.id);
       tooltipText += `<br />Piercing Shot bonus damage: ${formatNumber(this.bonusPiercingDamage)} (${formatPercentage(this.bonusPiercingDamage / piercing.damageEffective)} %)`;
     }
@@ -70,13 +71,17 @@ class PatientSniperDetails extends Module {
   }
 
   tab() {
+    const unerringArrowsRank = this.combatants.selected.traitsBySpellId[SPELLS.UNERRING_ARROWS_TRAIT.id];
+    const vulnerableModifier = 0.3 + unerringArrowsRank * 0.03;
     return {
       title: 'Patient Sniper Usage',
       url: 'patient-sniper',
       render: () => (
         <Tab title="Patient Sniper Usage Breakdown">
           <PatientSniperBreakdown
+            vulnerableModifier={vulnerableModifier}
             patientSniper={this.patientSniperTracker.patientSniper}
+            hasPiercingShot={this.hasPiercingShot}
           />
         </Tab>
       ),

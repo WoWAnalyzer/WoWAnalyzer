@@ -7,7 +7,6 @@ import { formatNumber } from 'common/format';
 import getDamageBonus from '../../Core/getDamageBonus';
 
 const debug = false;
-const UNERRING_ARROWS_BONUS_PER_RANK = 0.03;
 const PATIENT_SNIPER_BONUS_PER_SEC = 0.06;
 
 class PatientSniperTracker extends Module {
@@ -33,7 +32,6 @@ class PatientSniperTracker extends Module {
   patientSniper = {
     [SPELLS.AIMED_SHOT.id]: {
       bonusDmg: 0,
-      vulnerableModifier: 0.3,
       noTS: {
         noVulnerable: 0,
         seconds: {
@@ -63,7 +61,6 @@ class PatientSniperTracker extends Module {
     },
     [SPELLS.PIERCING_SHOT_TALENT.id]: {
       bonusDmg: 0,
-      vulnerableModifier: 0.3,
       noTS: {
         noVulnerable: 0,
         seconds: {
@@ -150,9 +147,6 @@ class PatientSniperTracker extends Module {
 
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.PATIENT_SNIPER_TALENT.id);
-    const unerringArrowsRank = this.combatants.selected.traitsBySpellId[SPELLS.UNERRING_ARROWS_TRAIT.id];
-    this.patientSniper[SPELLS.AIMED_SHOT.id].vulnerableModifier += unerringArrowsRank * UNERRING_ARROWS_BONUS_PER_RANK;
-    this.patientSniper[SPELLS.PIERCING_SHOT_TALENT.id].vulnerableModifier += unerringArrowsRank * UNERRING_ARROWS_BONUS_PER_RANK;
   }
 
   on_byPlayer_applydebuff(event) {
