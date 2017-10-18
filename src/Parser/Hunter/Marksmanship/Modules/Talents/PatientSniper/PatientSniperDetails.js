@@ -60,7 +60,7 @@ class PatientSniperDetails extends Module {
   }
 
   statistic() {
-    let tooltipText = `Your Aimed Shots and Piercing Shots did ${formatNumber(this.bonusDamage)} (${this.owner.formatItemDamageDone(this.bonusDamage)}) bonus damage thanks to Patient Sniper talent. Below you'll see them individually, and if you want to see more Patient Sniper information (such as without Trueshot windows), please check the "Patient Sniper Usage" tab in the menu. <br />`;
+    let tooltipText = `Your Aimed Shots ${this.hasPiercingShot ? 'and Piercing Shots ' : ''}did ${formatNumber(this.bonusDamage)} (${this.owner.formatItemDamageDone(this.bonusDamage)}) bonus damage thanks to Patient Sniper talent. Below you'll see them individually, and if you want to see more Patient Sniper information (such as without Trueshot windows), please check the "Patient Sniper Usage" tab in the menu. <br />`;
     const aimed = this.abilityTracker.getAbility(SPELLS.AIMED_SHOT.id);
     tooltipText += `Aimed Shot bonus damage: ${formatNumber(this.bonusAimedDamage)} (${formatPercentage(this.bonusAimedDamage / aimed.damageEffective)} %)`;
     if (this.hasPiercingShot) {
