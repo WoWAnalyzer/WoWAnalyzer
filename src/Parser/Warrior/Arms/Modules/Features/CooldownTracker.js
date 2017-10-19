@@ -6,27 +6,9 @@ class CooldownTracker extends CoreCooldownTracker {
   static cooldownSpells = [
     ...CooldownTracker.cooldownSpells,
     {
-      spell: SPELLS.AVENGING_WRATH,
+      spell: SPELLS.BATTLE_CRY,
       summary: [
-        BUILT_IN_SUMMARY_TYPES.HEALING,
-        BUILT_IN_SUMMARY_TYPES.OVERHEALING,
-        BUILT_IN_SUMMARY_TYPES.MANA,
-      ],
-    },
-    {
-      spell: SPELLS.HOLY_AVENGER_TALENT,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.HEALING,
-        BUILT_IN_SUMMARY_TYPES.OVERHEALING,
-        BUILT_IN_SUMMARY_TYPES.MANA,
-      ],
-    },
-    {
-      spell: SPELLS.AURA_MASTERY,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.HEALING,
-        BUILT_IN_SUMMARY_TYPES.OVERHEALING,
-        BUILT_IN_SUMMARY_TYPES.MANA,
+        BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],
     },
   ];

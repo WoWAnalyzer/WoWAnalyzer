@@ -17,8 +17,6 @@ import ColossusSmashUptime from './Modules/BuffDebuff/ColossusSmashUptime';
 class CombatLogParser extends CoreCombatLogParser {
 
   static specModules = {
-    // Override the ability tracker so we also get stats for IoL and beacon healing
-
     // WarriorCore
     damageDone: [DamageDone, {showStatistic: true}],
 
@@ -40,9 +38,7 @@ class CombatLogParser extends CoreCombatLogParser {
     const results = super.generateResults();
 
     // TODO: Suggestion for Devo when it didn't prevent enough damage to be worthwhile
-    // TODO: Suggestion for mana
     // TODO: Suggestion for enchants
-    // TODO: Sanctified Wrath healing contribution
 
     results.tabs = [
       {
