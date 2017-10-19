@@ -30,7 +30,7 @@ import RetributionPaladin from './RetributionPaladin/CONFIG';
 // Priest
 import DisciplinePriest from './Priest/Discipline/CONFIG';
 import HolyPriest from './HolyPriest/CONFIG';
-import ShadowPriest from './ShadowPriest/CONFIG';
+import ShadowPriest from './Priest/Shadow/CONFIG';
 
 // Rogue
 import SubtletyRogue from './Rogue/Subtlety/CONFIG';
