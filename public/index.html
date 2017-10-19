@@ -48,37 +48,6 @@ Raven.config('https://95bf5a7af57f4a57af1f1be4d0706a91@sentry.io/232829').instal
   color: #e45a5a;
 }
 </style>
-<script type="text/javascript">
-window.onerror = function (message, url, lineNo, colNo, error) {
-  console.log(arguments);
-  Raven && Raven.captureException(error);
-
-  var msg = document.createElement('div');
-  msg.style.color = 'red';
-  msg.style.fontSize = '18px';
-  msg.style.padding = '15px';
-  msg.style.backgroundColor = '#fff';
-  msg.innerText = [
-    'Message: ' + message,
-    'URL: ' + url,
-    'Line: ' + lineNo,
-    'Column: ' + colNo,
-    'Stack: ' + (error && error.stack),
-  ].join('\n');
-
-  var root = document.getElementById('root');
-  if (root) {
-    var splash = document.getElementById('splash');
-    if (splash) {
-      splash.parentNode.removeChild(splash);
-    }
-    root.appendChild(msg);
-  }
-};
-window.onunhandledrejection = function(evt) {
-  Raven.captureException(evt.reason);
-};
-</script>
 
 <title>WoW Analyzer</title>
 </head>
