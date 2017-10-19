@@ -2,7 +2,7 @@
 import BloodDeathKnight from './DeathKnight/Blood/CONFIG';
 
 // Demon Hunter
-import HavocDemonHunter from './HavocDemonHunter/CONFIG';
+import HavocDemonHunter from './DemonHunter/Havoc/CONFIG';
 import VengeanceDemonHunter from './VengeanceDemonHunter/CONFIG';
 
 // Druid
