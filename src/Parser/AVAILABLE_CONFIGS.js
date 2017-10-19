@@ -6,7 +6,7 @@ import HavocDemonHunter from './HavocDemonHunter/CONFIG';
 import VengeanceDemonHunter from './VengeanceDemonHunter/CONFIG';
 
 // Druid
-import BalanceDruid from './BalanceDruid/CONFIG';
+import BalanceDruid from './Druid/Balance/CONFIG';
 import FeralDruid from './FeralDruid/CONFIG';
 import GuardianDruid from './GuardianDruid/CONFIG';
 import RestoDruid from './RestoDruid/CONFIG';
