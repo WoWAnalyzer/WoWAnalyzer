@@ -28,7 +28,7 @@ import HolyPaladin from './Paladin/Holy/CONFIG';
 import RetributionPaladin from './RetributionPaladin/CONFIG';
 
 // Priest
-import DisciplinePriest from './DisciplinePriest/CONFIG';
+import DisciplinePriest from './Priest/Discipline/CONFIG';
 import HolyPriest from './HolyPriest/CONFIG';
 import ShadowPriest from './ShadowPriest/CONFIG';
 
