@@ -4,7 +4,7 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
-import TALENTS from 'common/talents/TALENTS_PALADIN';
+import TALENTS from './TALENTS/PALADIN';
 
 export default {
   // Paladin:
