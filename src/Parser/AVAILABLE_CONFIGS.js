@@ -38,7 +38,7 @@ import SubtletyRogue from './Rogue/Subtlety/CONFIG';
 // Shaman
 import ElementalShaman from './Shaman/Elemental/CONFIG';
 import EnhancementShaman from './Shaman/Enhancement/CONFIG';
-import RestorationShaman from './RestorationShaman/CONFIG';
+import RestorationShaman from './Shaman/Restoration/CONFIG';
 
 // Warlock
 import AfflictionWarlock from './Warlock/Affliction/CONFIG';
