@@ -8,7 +8,7 @@ import VengeanceDemonHunter from './DemonHunter/Vengeance/CONFIG';
 // Druid
 import BalanceDruid from './Druid/Balance/CONFIG';
 import FeralDruid from './Druid/Feral/CONFIG';
-import GuardianDruid from './GuardianDruid/CONFIG';
+import GuardianDruid from './Druid/Guardian/CONFIG';
 import RestoDruid from './RestoDruid/CONFIG';
 
 // Hunt
