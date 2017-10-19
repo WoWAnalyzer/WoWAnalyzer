@@ -169,7 +169,7 @@ export const HEAL_INFO = {
     masteryStack: false,
     vers: true,
   },
-  [SPELLS.YSERAS_GIFT_1.id]: { // TODO does it really scale with nothing (except stam)?
+  [SPELLS.YSERAS_GIFT_OTHERS.id]: { // TODO does it really scale with nothing (except stam)?
     int: false,
     crit: false,
     hasteHpm: false,
@@ -178,7 +178,7 @@ export const HEAL_INFO = {
     masteryStack: false,
     vers: false,
   },
-  [SPELLS.YSERAS_GIFT_2.id]: { // TODO does it really scale with nothing (except stam)?
+  [SPELLS.YSERAS_GIFT_SELF.id]: { // TODO does it really scale with nothing (except stam)?
     int: false,
     crit: false,
     hasteHpm: false,

@@ -44,8 +44,6 @@ class Mastery extends Module {
     Object.values(this.masteryBuffs).forEach(entry => entry.attributableHealing = 0);
   }
 
-  // TODO handle pre proc mastery buffs? Looks like pre-hots are already handled by the system.
-
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
     const target = this.combatants.getEntity(event);
