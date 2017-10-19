@@ -217,7 +217,6 @@ export default {
     manaCost: 39600,
   },
 
-
   // Traits:
   // Disc Priest:
   SHARE_IN_THE_LIGHT: {
@@ -245,7 +244,6 @@ export default {
     name: 'Borrowed Time',
     icon: 'ability_priest_angelicbulwark',
   },
-
 
   // Holy Priest Spells
   GREATER_HEAL: {

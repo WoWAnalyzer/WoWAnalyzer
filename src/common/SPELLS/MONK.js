@@ -625,9 +625,9 @@ export default {
     icon: 'ability_monk_powerstrikes',
   },
   CHI_ORBIT_DAMAGE: {
-      id: 196748,
-      name: 'Chi Orbit',
-      icon: 'ability_monk_forcesphere',
+    id: 196748,
+    name: 'Chi Orbit',
+    icon: 'ability_monk_forcesphere',
   },
   // Windwalker legendaries
   KATSUOS_ECLIPSE: {
