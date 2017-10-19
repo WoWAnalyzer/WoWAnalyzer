@@ -49,20 +49,13 @@ Raven.config('https://95bf5a7af57f4a57af1f1be4d0706a91@sentry.io/232829').instal
 }
 </style>
 <script type="text/javascript">
-var offset = 0;
 window.onerror = function (message, url, lineNo, colNo, error) {
   console.log(arguments);
 
-  var container = document.createElement('div');
-  container.style.position = 'fixed';
-  container.style.background = '#eee';
-  container.style.top = (offset * 200) + 'px';
-  container.style.left = '1em';
-  offset += 1;
-
-  var msg = document.createElement('pre');
+  var msg = document.createElement('div');
   msg.style.color = 'red';
   msg.style.fontSize = '24px';
+  msg.style.padding = '15px';
   msg.innerText = [
     'Message: ' + message,
     'URL: ' + url,
@@ -70,9 +63,8 @@ window.onerror = function (message, url, lineNo, colNo, error) {
     'Column: ' + colNo,
     'Stack: ' + (error && error.stack),
   ].join('\n');
-  container.appendChild(msg);
 
-  document.body.appendChild(container);
+  document.body.appendChild(msg);
 };
 </script>
 
@@ -91,6 +83,7 @@ window.onerror = function (message, url, lineNo, colNo, error) {
     </div>
   </div>
 </div>
+
 
 <script type="text/javascript" src="//wow.zamimg.com/widgets/power.js" crossorigin="anonymous" async></script>
 </body>
