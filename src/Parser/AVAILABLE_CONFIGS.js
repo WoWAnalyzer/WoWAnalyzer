@@ -1,5 +1,5 @@
 // Deathknight
-import BloodDeathKnight from './BloodDeathKnight/CONFIG';
+import BloodDeathKnight from './DeathKnight/Blood/CONFIG';
 
 // Demon Hunter
 import HavocDemonHunter from './HavocDemonHunter/CONFIG';
