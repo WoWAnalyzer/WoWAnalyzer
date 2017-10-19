@@ -36,7 +36,7 @@ import ShadowPriest from './ShadowPriest/CONFIG';
 import SubtletyRogue from './Rogue/Subtlety/CONFIG';
 
 // Shaman
-import ElementalShaman from './ElementalShaman/CONFIG';
+import ElementalShaman from './Shaman/Elemental/CONFIG';
 import EnhancementShaman from './EnhancementShaman/CONFIG';
 import RestorationShaman from './RestorationShaman/CONFIG';
 
