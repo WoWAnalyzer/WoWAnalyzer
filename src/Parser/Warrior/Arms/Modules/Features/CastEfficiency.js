@@ -38,7 +38,7 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 6,
       noSuggestion: true,
       noCanBeImproved: true,
-      extraSuggestion: 'Only used in a combat with AoE'
+      extraSuggestion: 'Only used in a combat with AoE',
     },
     {
       spell: SPELLS.WHIRLWIND,
@@ -46,7 +46,7 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => null,
       noSuggestion: true,
       noCanBeImproved: true,
-      extraSuggestion: 'Only used in a combat with AoE'
+      extraSuggestion: 'Only used in a combat with AoE',
     },
     {
       spell: SPELLS.WARBREAKER,
@@ -54,7 +54,7 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 60,
       noSuggestion: true,
       noCanBeImproved: true,
-      extraSuggestion: 'Only used in a combat with AoE'
+      extraSuggestion: 'Only used in a combat with AoE',
     },
     {
       spell: SPELLS.BATTLE_CRY,
@@ -68,7 +68,7 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 20,
       recommendedCastEfficiency: 0.1,
       noSuggestion: false,
-    }
+    },
   ]
 }
 
