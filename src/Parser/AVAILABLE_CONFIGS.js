@@ -47,6 +47,7 @@ import DestructionWarlock from './Warlock/Destruction/CONFIG';
 
 // Warrior
 import ProtectionWarrior from './Warrior/Protection/CONFIG';
+import ArmsWarrior from './Warrior/Arms/CONFIG';
 
 export default [
   // Deathknight
@@ -98,4 +99,5 @@ export default [
 
   // Warrior
   ProtectionWarrior,
+  ArmsWarrior,
 ];
