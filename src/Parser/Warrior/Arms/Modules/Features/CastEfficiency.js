@@ -12,6 +12,12 @@ import CoreCastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 class CastEfficiency extends CoreCastEfficiency {
   static CPM_ABILITIES = [
     ...CoreCastEfficiency.CPM_ABILITIES,
+    {
+      spell: SPELLS.BATTLE_CRY,
+      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
+      getCooldown: haste => 60,
+      noSuggestion: true,
+    },
   ]
 }
 

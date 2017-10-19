@@ -1,8 +1,6 @@
 import React from 'react';
 
 import SPECS from 'common/SPECS';
-import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
 import SPEC_ANALYSIS_COMPLETENESS from 'common/SPEC_ANALYSIS_COMPLETENESS';
 
 import CombatLogParser from './CombatLogParser';

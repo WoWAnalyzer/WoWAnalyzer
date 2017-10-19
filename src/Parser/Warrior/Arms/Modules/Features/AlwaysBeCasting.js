@@ -3,7 +3,6 @@ import React from 'react';
 import CoreAlwaysBeCasting from 'Parser/Core/Modules/AlwaysBeCasting';
 
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
 import { formatPercentage } from 'common/format';
 import {STATISTIC_ORDER} from 'Main/StatisticBox';
 
