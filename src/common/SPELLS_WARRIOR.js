@@ -25,7 +25,7 @@ export default {
   SLAM: {
     id: 1464,
     name: 'Slam',
-    icon: 'ability_warrior_decisivestrike'
+    icon: 'ability_warrior_decisivestrike',
   },
   CLEAVE: {
     id: 845,
