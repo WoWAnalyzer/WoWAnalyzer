@@ -50,14 +50,15 @@ window.onerror = function (message, url, lineNo, colNo, error) {
   console.log(arguments);
 
   var container = document.createElement('div');
-  container.style.color = 'red';
   container.style.position = 'fixed';
   container.style.background = '#eee';
-  container.style.fontSize = '16px';
   container.style.top = (offset * 200) + 'px';
   container.style.left = '1em';
+  offset += 1;
 
   var msg = document.createElement('pre');
+  msg.style.color = 'red';
+  msg.style.fontSize = '24px';
   msg.innerText = [
     'Message: ' + message,
     'URL: ' + url,
