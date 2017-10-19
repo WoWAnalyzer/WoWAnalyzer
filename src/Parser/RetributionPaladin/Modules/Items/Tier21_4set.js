@@ -34,7 +34,7 @@ class Tier21_4set extends Module {
 			title: <SpellLink id={SPELLS.RET_PALADIN_T21_4SET_BONUS.id} />,
 			result : (<dfn data-tip={`
 				Total Holy Power Gained: ${formatNumber(this.holyPowerGained)}`}>
-				{formatNumber(this.holyPowerGained / this.owner.fightDuration * 60000)} Holy Power gained per minute from Tier 21 4 peice.
+				{formatNumber(this.holyPowerGained / this.owner.fightDuration * 60000)} Holy Power gained per minute.
 			</dfn>
 			),
 		};

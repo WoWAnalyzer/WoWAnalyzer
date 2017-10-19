@@ -23,7 +23,7 @@ class LiadrinsFuryUnleashed extends Module {
 			item: ITEMS.LIADRINS_FURY_UNLEASHED,
 			result: (<dfn data-tip={`
 				Total Holy Power Gained: ${formatNumber(hpGained)}`}>
-				{formatNumber(hpGained / this.owner.fightDuration * 60000)} Holy Power gained per minute from Liadrin's Fury Unleased.
+				{formatNumber(hpGained / this.owner.fightDuration * 60000)} Holy Power gained per minute.
 			</dfn>
 			),
 		};
