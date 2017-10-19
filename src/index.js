@@ -8,6 +8,32 @@ import App from './Main/App';
 
 import { unregister } from './registerServiceWorker';
 
+window.onerror = function (message, url, lineNo, colNo, error) {
+  console.log(arguments);
+
+  const container = document.createElement('div');
+  container.style.color = 'red';
+  container.style.position = 'fixed';
+  container.style.background = '#eee';
+  container.style.padding = '2em';
+  container.style.top = '1em';
+  container.style.left = '1em';
+
+  const msg = document.createElement('pre');
+  msg.innerText = [
+    'Message: ' + message,
+    'URL: ' + url,
+    'Line: ' + lineNo,
+    'Column: ' + colNo,
+    'Stack: ' + (error && error.stack),
+  ].join('\n');
+
+  container.appendChild(msg);
+
+  document.body.appendChild(container);
+};
+
+
 render(
   <Router history={browserHistory}>
     <Route path="/" component={App}>
