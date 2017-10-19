@@ -163,7 +163,7 @@ class Voidform extends Module {
     }
 
     // set end to last voidform of the fight:
-    if (this._voidforms[this._previousVoidformCast.timestamp].ended === undefined) {
+    if (this._previousVoidformCast && this._voidforms[this._previousVoidformCast.timestamp].ended === undefined) {
       this._voidforms[this._previousVoidformCast.timestamp].ended = this.owner._timestamp;
     }
   }
