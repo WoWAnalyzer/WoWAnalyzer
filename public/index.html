@@ -64,7 +64,12 @@ window.onerror = function (message, url, lineNo, colNo, error) {
     'Stack: ' + (error && error.stack),
   ].join('\n');
 
-  document.body.appendChild(msg);
+  var errorLog = document.getElementById('error-log');
+  if (errorLog) {
+    errorLog.appendChild(msg);
+  } else {
+    document.body.appendChild(msg);
+  }
 };
 </script>
 
@@ -80,6 +85,7 @@ window.onerror = function (message, url, lineNo, colNo, error) {
     <div>
       <h1>WoW Analyzer</h1>
       <small>Loading...</small>
+      <div id="error-log"></div>
     </div>
   </div>
 </div>
