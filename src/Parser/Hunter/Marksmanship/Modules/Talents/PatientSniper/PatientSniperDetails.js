@@ -28,7 +28,7 @@ class PatientSniperDetails extends Module {
 
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.PATIENT_SNIPER_TALENT.id);
-    this.hasPiercingShot = this.combatants.selected.hasTalent(SPELLS.PIERCING_SHOT_TALENT.id);
+    this.hasPiercingShot = !!this.combatants.selected.hasTalent(SPELLS.PIERCING_SHOT_TALENT.id);
     const unerringArrowsRank = this.combatants.selected.traitsBySpellId[SPELLS.UNERRING_ARROWS_TRAIT.id];
     this.vulnerableModifier = VULNERABLE_BONUS + unerringArrowsRank * UNERRING_ARROWS_BONUS_PER_RANK;
   }
