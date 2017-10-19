@@ -56,6 +56,7 @@ window.onerror = function (message, url, lineNo, colNo, error) {
   msg.style.color = 'red';
   msg.style.fontSize = '18px';
   msg.style.padding = '15px';
+  msg.style.backgroundColor = '#fff';
   msg.innerText = [
     'Message: ' + message,
     'URL: ' + url,
@@ -64,11 +65,13 @@ window.onerror = function (message, url, lineNo, colNo, error) {
     'Stack: ' + (error && error.stack),
   ].join('\n');
 
-  var errorLog = document.getElementById('error-log');
-  if (errorLog) {
-    errorLog.appendChild(msg);
-  } else {
-    document.body.appendChild(msg);
+  var root = document.getElementById('root');
+  if (root) {
+    var splash = document.getElementById('splash');
+    if (splash) {
+      splash.parentNode.removeChild(splash);
+    }
+    root.appendChild(msg);
   }
 };
 </script>
@@ -87,7 +90,6 @@ window.onerror = function (message, url, lineNo, colNo, error) {
       <small>Loading...</small>
     </div>
   </div>
-  <div id="error-log"></div>
 </div>
 
 
