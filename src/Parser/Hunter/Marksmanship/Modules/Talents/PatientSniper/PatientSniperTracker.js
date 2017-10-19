@@ -1,5 +1,4 @@
 import Module from 'Parser/Core/Module';
-import Enemies from 'Parser/Core/Modules/Enemies';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
@@ -9,9 +8,7 @@ const PATIENT_SNIPER_BONUS_PER_SEC = 0.06;
 const VULNERABLE_DURATION = 7000;
 
 class PatientSniperTracker extends Module {
-
   static dependencies = {
-    enemies: Enemies,
     combatants: Combatants,
   };
   /*
@@ -197,11 +194,13 @@ class PatientSniperTracker extends Module {
       instance: event.targetInstance,
     });
   }
-  // Vulnerable debuff doesn't get refreshed, it's always removed and applied again
+
+  // Vulnerable debuffs don't get refreshed, it's always removed and applied again
   on_byPlayer_removedebuff(event) {
     if (event.ability.guid !== SPELLS.VULNERABLE.id) {
       return;
     }
+    // find Vulnerable on the target, update its end, add to past Vulnerables and remove from current ones
     const index = this.currentVulnerables.findIndex(vulnerable => vulnerable.ID === event.targetID && vulnerable.instance === event.targetInstance);
     const vulnerable = this.currentVulnerables[index];
     vulnerable.end = event.timestamp;
@@ -211,36 +210,37 @@ class PatientSniperTracker extends Module {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    const eventTimestamp = event.timestamp;
-    const enemy = this.enemies.getEntity(event);
-    // sanity check, happens sometimes
-    if (!enemy) {
-      return;
-    }
-    const hasTS = this.combatants.selected.hasBuff(SPELLS.TRUESHOT.id, event.timestamp);
-
-    // Vulnerable is taken care of in apply/refreshdebuff
     if (spellId !== SPELLS.AIMED_SHOT.id && spellId !== SPELLS.PIERCING_SHOT_TALENT.id) {
       return;
     }
 
+    const hasTS = this.combatants.selected.hasBuff(SPELLS.TRUESHOT.id, event.timestamp);
+
     if (spellId === SPELLS.PIERCING_SHOT_TALENT.id) {
       this.lastPiercingShotTimestamp = event.timestamp;
     }
+
+    // find Vulnerable on current target
     const vulnerable = this.currentVulnerables.find(vulnerable => vulnerable.ID === event.targetID && vulnerable.instance === event.targetInstance);
     const hasVulnerability = !!vulnerable;
+    // if Vulnerable isn't present, then vulnerableStart and timeIntoVulnerable don't make sense and are basically unused, it's just so the app doesn't crash from undefineds
+    // I wasn't sure with const vulnerableStart = (vulnerable && vulnerable.start) || 0;
     let vulnerableStart = 0;
     if (vulnerable) {
       vulnerableStart = vulnerable.start;
     }
-    const timeIntoVulnerable = Math.floor((eventTimestamp - vulnerableStart) / 1000);
+    const timeIntoVulnerable = Math.floor((event.timestamp - vulnerableStart) / 1000);
 
+    // this "event" is intended for Aimed Shot only
+    // since Vulnerable and Patient Sniper bonuses are snapshotted at the moment of the cast (and not when the shot lands)
+    // store current target and time passed in Vulnerable (= damage bonus essentially)
     const castEvent = {
       targetID: event.targetID,
       targetInstance: event.targetInstance,
-      timeIntoVulnerable: undefined, // assume outside vulnerable
+      timeIntoVulnerable: undefined, // assume outside Vulnerable
     };
 
+    // correctly count the shots based on Trueshot buff present and Vulnerability on target
     if (hasTS) {
       this.patientSniper[spellId].TS.count += 1;
       if (hasVulnerability) {
@@ -261,6 +261,8 @@ class PatientSniperTracker extends Module {
         this.patientSniper[spellId].noTS.noVulnerable += 1;
       }
     }
+
+    // if it's Aimed Shot, push the event into the queue
     if (spellId === SPELLS.AIMED_SHOT.id) {
       this.aimedShotQueue.push(castEvent);
     }
@@ -274,10 +276,12 @@ class PatientSniperTracker extends Module {
 
     let timeIntoVulnerable;
     if (spellId === SPELLS.AIMED_SHOT.id) {
+      // look at the "oldest" Aimed Shot cast event and try to match it with the damage event (as for the target ID + instance)
+      // this is necessary because of Trick Shot talent which makes the Aimed Shot cleave (for 30 % damage) in certain conditions (and the cleaved shots have same ID as normal shots)
+      // and we only calculate the bonus for the main target (otherwise it would double-dip from the bonus)
       const firstAimed = this.aimedShotQueue[0];
       if (!firstAimed || firstAimed.targetID !== event.targetID || firstAimed.targetInstance !== event.targetInstance) {
-        // if we come across an Aimed Shot damage that wasn't on the primary target of the first Aimed cast, we don't even calculate the damage bonus
-        // that shot is cleaved from Trick Shot talent, and it would double-dip from Patient Sniper bonus
+        // either it's cleaved or it doesn't exist (this can happen if the main target damage arrives sooner than cleaved damage event)
         return;
       }
       else {
@@ -287,11 +291,15 @@ class PatientSniperTracker extends Module {
       }
     }
     else {
+      // for Piercing Shots
       timeIntoVulnerable = this._getTimeIntoVulnerable(this.lastPiercingShotTimestamp, event.targetID, event.targetInstance);
     }
 
+    // here timeIntoVulnerable either is undefined (cast happened outside Vulnerable) or has seconds into the individual Vulnerable window
     const bonus = getDamageBonus(event, (timeIntoVulnerable || 0) * PATIENT_SNIPER_BONUS_PER_SEC);
     this.patientSniper[spellId].bonusDmg += bonus;
+
+    // "categorize" the damage bonus into respective window
     if (timeIntoVulnerable !== undefined) {
       const hasTS = this.combatants.selected.hasBuff(SPELLS.TRUESHOT.id, event.timestamp);
       if (hasTS) {
@@ -305,7 +313,9 @@ class PatientSniperTracker extends Module {
 
   // helper for Piercing Shot
   _getTimeIntoVulnerable(castTimestamp, targetID, targetInstance) {
-    // looks for Vulnerable window (either current or if not present, tries past windows) on a given target+instance when castTimestamp happened, calculates the Patient Sniper bonus from that window or returns 0 if no windows were found
+    // Piercing Shot damages the main target and all targets in the path which can have their own Vulnerables with different times
+    // this helper looks for Vulnerable debuffs (either current or if not present, tries past windows) on a given target+instance when castTimestamp happened
+    // calculates the Patient Sniper bonus from that window or returns undefined if no windows were found
     let vulnerable = this.currentVulnerables.find(v => v.ID === targetID &&
                                                       v.instance === targetInstance &&
                                                       v.start <= castTimestamp  &&
