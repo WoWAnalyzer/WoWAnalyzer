@@ -12,7 +12,7 @@ import GuardianDruid from './GuardianDruid/CONFIG';
 import RestoDruid from './RestoDruid/CONFIG';
 
 // Hunt
-import MarksmanshipHunter from './MarksmanshipHunter/CONFIG';
+import Marksmanship from './Hunter/Marksmanship/CONFIG';
 
 // Mage
 import FrostMage from './Mage/Frost/CONFIG';
@@ -63,7 +63,7 @@ export default [
   RestoDruid,
 
   // Hunter
-  MarksmanshipHunter,
+  Marksmanship,
 
   // Mage
   FrostMage,

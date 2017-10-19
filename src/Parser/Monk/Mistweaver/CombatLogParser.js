@@ -49,12 +49,14 @@ import SpiritOfTheCrane from './Modules/Talents/SpiritOfTheCrane';
 
 // Items
 import Eithas from './Modules/Items/Eithas';
-import T20_4pc from './Modules/Items/T20_4pc';
-import T20_2pc from './Modules/Items/T20_2pc';
+import T20_4set from './Modules/Items/T20_4set';
+import T20_2set from './Modules/Items/T20_2set';
 import ShelterOfRin from './Modules/Items/ShelterOfRin';
 import DoorwayToNowhere from './Modules/Items/DoorwayToNowhere';
 import PetrichorLagniappe from './Modules/Items/PetrichorLagniappe';
 import OvydsWinterWrap from './Modules/Items/OvydsWinterWrap';
+import T21_2set from './Modules/Items/T21_2set';
+import T21_4set from './Modules/Items/T21_4set';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
@@ -104,12 +106,14 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Legendaries / Items:
     eithas: Eithas,
-    t20_4pc: T20_4pc,
-    t20_2pc: T20_2pc,
+    t20_4set: T20_4set,
+    t20_2set: T20_2set,
     shelterOfRin: ShelterOfRin,
     doorwayToNowhere: DoorwayToNowhere,
     petrichorLagniappe: PetrichorLagniappe,
     ovydsWinterWrap: OvydsWinterWrap,
+    t21_2set: T21_2set,
+    t21_4set: T21_4set,
   };
 
   generateResults() {
