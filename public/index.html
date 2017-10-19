@@ -51,6 +51,7 @@ Raven.config('https://95bf5a7af57f4a57af1f1be4d0706a91@sentry.io/232829').instal
 <script type="text/javascript">
 window.onerror = function (message, url, lineNo, colNo, error) {
   console.log(arguments);
+  Raven && Raven.captureException(error);
 
   var msg = document.createElement('div');
   msg.style.color = 'red';
@@ -73,6 +74,9 @@ window.onerror = function (message, url, lineNo, colNo, error) {
     }
     root.appendChild(msg);
   }
+};
+window.onunhandledrejection = function(evt) {
+  Raven.captureException(evt.reason);
 };
 </script>
 
