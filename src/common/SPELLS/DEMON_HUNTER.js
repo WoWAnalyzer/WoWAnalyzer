@@ -208,6 +208,11 @@ export default {
     name: 'Consume Magic',
     icon: 'ability_demonhunter_consumemagic',
   },
+  CONSUME_MAGIC_2: {
+    id: 218903,
+    name: 'Consume Magic',
+    icon: 'ability_demonhunter_consumemagic',
+  },
   VENGEFUL_RETREAT: {
     id: 198793,
     name: 'Vengeful Retreat',
