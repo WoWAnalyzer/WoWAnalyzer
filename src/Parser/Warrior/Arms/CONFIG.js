@@ -18,8 +18,7 @@ export default {
   description: (
     <div>
       Hey I've been hard at work making this analyzer for you. I hope the suggestions give you useful pointers to improve your performance. Remember: focus on improving only one or two important things at a time. Improving isn't easy and will need your full focus until it becomes second nature to you.<br /><br />
-
-      You might have noticed the suggestions focus mostly on improving your cast efficiencies. 
+      </div>
   ),
   // When changing this please make a PR with ONLY this value changed, we will do a review of your analysis to find out of it is complete enough.
   completeness: SPEC_ANALYSIS_COMPLETENESS.GREAT,
