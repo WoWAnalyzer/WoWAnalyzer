@@ -19,8 +19,8 @@ export default {
       </div>
   ),
   // When changing this please make a PR with ONLY this value changed, we will do a review of your analysis to find out of it is complete enough.
-  completeness: SPEC_ANALYSIS_COMPLETENESS.GREAT,
-  specDiscussionUrl: 'https://github.com/WoWAnalyzer/WoWAnalyzer/issues/54',
+  completeness: SPEC_ANALYSIS_COMPLETENESS.NEEDS_MORE_WORK,
+  specDiscussionUrl: 'https://github.com/WoWAnalyzer/WoWAnalyzer/issues/571',
 
   // Shouldn't have to change these:
   changelog: CHANGELOG,

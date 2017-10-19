@@ -19,7 +19,7 @@ class ColossusSmashUptime extends Module {
 
     when(colossusSmashUptime).isLessThan(0.95)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your <SpellLink id={SPELLS.COLOSSUS_SMASH_DEBUFF.id} /> uptime can be improved. Try to pay more attention to your debuff on the Boss</span>)
+        return suggest(<span>Your <SpellLink id={SPELLS.COLOSSUS_SMASH_DEBUFF.id} /> uptime can be improved. Try to pay more attention to your debuff on the Boss since it increases your dealt damage by 15% + Mastery.</span>)
           .icon(SPELLS.COLOSSUS_SMASH_DEBUFF.icon)
           .actual(`${formatPercentage(actual)}% Colossus Smash uptime`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`)
