@@ -56,6 +56,11 @@ export default {
     name: 'Mirror Image',
     icon: 'spell_magic_managain',
   },
+  UNSTABLE_MAGIC_DAMAGE: {
+    id: 157978,
+    name: 'Unstable Magic',
+    icon: 'spell_mage_unstablemagic',
+  },
 
   //Frost
   MASTERY_ICICLES: {
@@ -143,6 +148,11 @@ export default {
     name: 'Comet Storm',
     icon: 'spell_mage_cometstorm',
   },
+  FROST_BOMB_DAMAGE: {
+    id: 113092,
+    name: 'Frost Bomb',
+    icon: 'spell_mage_frostbomb',
+  },
 
   //Fire
   FIREBALL: {
@@ -184,6 +194,13 @@ export default {
     id: 31661,
     name: 'Dragon\'s Breath',
     icon: 'inv_misc_head_dragon_01',
+  },
+
+  //Arcane
+  ARCANE_BLAST: {
+    id: 30451,
+    name: 'Arcane Blast',
+    icon: 'spell_arcane_blast',
   },
 
   //Passives
