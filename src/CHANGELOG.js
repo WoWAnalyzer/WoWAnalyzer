@@ -1,4 +1,5 @@
 export default `
+19-10-2017 - Added Arms Warrior Initial Setup (by TheBadBossy)
 17-10-2017 - Fix issue with <i>distance moved</i> that caused it to include the movement from <b>all</b> players. (by Zerotorescue)
 16-10-2017 - Added Cinidaria, the Symbiote damage and healing tracker. (by Juko)
 15-10-2017 - Added a statistic to track total distance moved during the analyzed fight. (by Fyruna)
