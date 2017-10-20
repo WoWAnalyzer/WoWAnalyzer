@@ -16,4 +16,4 @@ require('whatwg-fetch');
 Object.assign = require('object-assign');
 
 // react-tooltip requires Symbol.iterator
-require('core-js/fn/symbol/iterator.js');
+require('core-js/es6/symbol');
