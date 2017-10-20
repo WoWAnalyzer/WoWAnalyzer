@@ -6,13 +6,16 @@ import SpellLink from 'common/SpellLink';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
 import isAtonement from '../Core/isAtonement';
+import AtonementSource from '../Features/AtonementSource';
 
 import Module from 'Parser/Core/Module';
 
 const TIER_21_FOUR_SET_BONUS = 0.3;
 
 class Tier21_4set extends Module {
-
+  static dependencies = {
+    atonementSource: AtonementSource,
+  };
   healing = 0;
   damage = 0;
   penanceBuffActive = false;
@@ -30,6 +33,18 @@ class Tier21_4set extends Module {
 
   on_initialized() {
     this.active = this.owner.modules.combatants.selected.hasBuff(SPELLS.DISC_PRIEST_T21_4SET_BONUS_PASSIVE.id);
+
+  }
+
+  atonements = [];
+
+  on_applybuff(event) {
+    if(event.ability.guid === 194384)
+      this.atonements.push(event.targetID);
+  }
+
+  on_removebuff(event) {
+      this.atonements = this.atonements.splice(this.atonements.indexOf(event.targetID), 1);
   }
 
   on_byPlayer_applybuff(event) {
@@ -51,7 +66,7 @@ class Tier21_4set extends Module {
   }
 
   on_byPlayer_damage(event) {
-
+    
     if (event.ability.guid !== SPELLS.PENANCE.id) {
       this.lastDamageEventIsPenance = false;
       return;
