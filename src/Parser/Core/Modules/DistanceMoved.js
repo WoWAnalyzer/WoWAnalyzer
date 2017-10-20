@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
+import Icon from 'common/Icon';
 import { formatThousands } from 'common/format';
 
 import Module from 'Parser/Core/Module';
@@ -70,7 +70,7 @@ class DistanceMoved extends Module {
     debug && console.log(`Total distance moved: ${this.totalDistanceMoved} yds`);
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.FRENETIC_SPEED_TALENT.id} />}
+        icon={<Icon icon="spell_fire_burningspeed" />}
         value={`≈${formatThousands(this.totalDistanceMoved)} yards`}
         label="Distance moved"
         tooltip={`≈${formatThousands(this.totalDistanceMoved / (this.owner.fightDuration / 1000) * 60)} yards per minute. Consider this when analyzing the fight, as some fights require more movement than others. Unnecessary movement can result in a DPS/HPS loss.`}
