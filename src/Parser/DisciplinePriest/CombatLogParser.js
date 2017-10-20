@@ -29,6 +29,7 @@ import AtonementSource from './Modules/Features/AtonementSource';
 import AtonementHealingDone from './Modules/Features/AtonementHealingDone';
 import PowerWordBarrier from './Modules/Features/PowerWordBarrier';
 import LeniencesReward from './Modules/Features/LeniencesReward';
+import AtonementAttribution from './Modules/Features/AtonementAttribution';
 
 import Tier19_2set from './Modules/Items/Tier19_2set';
 import CordOfMaiev from './Modules/Items/CordOfMaiev';
@@ -40,8 +41,6 @@ import TarnishedSentinelMedallion from './Modules/Items/TarnishedSentinelMedalli
 import MarchOfTheLegion from './Modules/Items/MarchOfTheLegion';
 import Tier20_2set from './Modules/Items/Tier20_2set';
 import Tier20_4set from './Modules/Items/Tier20_4set';
-import Tier21_2set from './Modules/Items/Tier21_2set';
-import Tier21_4set from './Modules/Items/Tier21_4set';
 
 import TwistOfFate from './Modules/Spells/TwistOfFate';
 import Castigation from './Modules/Spells/Castigation';
@@ -100,6 +99,7 @@ class CombatLogParser extends CoreCombatLogParser {
     atonementHealingDone: AtonementHealingDone,
     powerWordBarrier: PowerWordBarrier,
     leniencesReward: LeniencesReward,
+    atonementAttribution: AtonementAttribution,
 
     // Items:
     tier19_2set: Tier19_2set,
@@ -112,8 +112,6 @@ class CombatLogParser extends CoreCombatLogParser {
     marchOfTheLegion: MarchOfTheLegion,
     tier20_2set: Tier20_2set,
     tier20_4set: Tier20_4set,
-    tier21_2set: Tier21_2set,
-    tier21_4set: Tier21_4set,
 
     // Spells (talents and traits):
     twistOfFate: TwistOfFate,
@@ -256,15 +254,6 @@ class CombatLogParser extends CoreCombatLogParser {
           label="Shadow Word: Pain uptime"
         />
       ),
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.POWER_WORD_SHIELD.id} />}
-        value={`${formatNumber(this.modules.powerWordShieldWasted.wasted / fightDuration * 1000)} HPS`}
-        label={(
-          <dfn data-tip={`The amount of shield absorb remaining on Power Word: Shield instances that have expired. There was a total of ${formatNumber(this.modules.powerWordShieldWasted.wasted)} unused Power Word: Shield absorb from ${this.modules.powerWordShieldWasted.count} shields with absorb remaining (a total of ${this.modules.powerWordShieldWasted.totalCount} shields were applied).`}>
-            Unused PW:S absorb
-          </dfn>
-        )}
-      />,
       this.modules.touchOfTheGrave.damage > 0 && ( // this needs to be optional since there's no other way of determining if you have a racial
         <StatisticBox
           icon={<SpellIcon id={SPELLS.TOUCH_OF_THE_GRAVE.id} />}
