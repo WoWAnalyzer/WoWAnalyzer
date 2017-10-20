@@ -8,8 +8,6 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import { formatNumber } from 'common/format';
 import { formatPercentage } from "../../../../../common/format";
 
-const debug = true;
-
 class WarBeltOfTheSentinelArmy extends Module {
   static dependencies = {
     combatants: Combatants,
