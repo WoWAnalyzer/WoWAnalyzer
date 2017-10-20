@@ -1,7 +1,7 @@
 import React from 'react';
 
 import ITEMS from 'common/ITEMS';
-import SPELLS from 'common/SPELLS_OTHERS';
+import SPELLS from 'common/SPELLS';
 
 import Module from 'Parser/Core/Module';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
