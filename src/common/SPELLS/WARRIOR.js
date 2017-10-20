@@ -54,6 +54,12 @@ WARBREAKER: {
     name: 'Charge',
     icon: 'ability_warrior_charge',
   },
+  // Passives
+  TACTICIAN: {
+    id: 199854,
+    name: 'Tactician',
+    icon: 'ability_warrior_unrelentingassault',
+  },
   // Fury:
   // ...
 

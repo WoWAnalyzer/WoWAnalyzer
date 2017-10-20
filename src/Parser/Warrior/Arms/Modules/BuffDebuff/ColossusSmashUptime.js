@@ -34,6 +34,7 @@ class ColossusSmashUptime extends Module {
         icon={<SpellIcon id={SPELLS.COLOSSUS_SMASH_DEBUFF.id} />}
         value={`${formatPercentage(colossusSmashUptime)} %`}
         label="Colossus Smash uptime"
+        tooltip={`Colossus Smash increases your dealt damage by 15% + Mastery against that debuffed target.`}
       />
     );
   }
