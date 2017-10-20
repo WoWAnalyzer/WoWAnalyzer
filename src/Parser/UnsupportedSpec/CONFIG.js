@@ -19,7 +19,7 @@ export default {
       <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/README.md">https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/README.md</a>
     </div>
   ),
-  completeness: SPEC_ANALYSIS_COMPLETENESS.NOT_YET_SUPPORTED, // When changing this please make a PR with ONLY this value changed, we will do a review of your analysis to find out of it is complete enough.
+  completeness: SPEC_ANALYSIS_COMPLETENESS.NOT_ACTIVELY_MAINTAINED, // When changing this please make a PR with ONLY this value changed, we will do a review of your analysis to find out of it is complete enough.
   parser: CombatLogParser,
   changelog: CHANGELOG,
   path: __dirname, // used for generating a GitHub link directly to your spec

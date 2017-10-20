@@ -9,10 +9,15 @@ const SpellIcon = ({ id, noLink, ...others }) => {
     throw new Error(`Unknown spell: ${id}`);
   }
 
+  const spell = SPELLS[id] || {
+    name: 'Spell not recognized',
+    icon: 'inv_misc_questionmark',
+  };
+
   const icon = (
     <Icon
-      icon={SPELLS[id].icon}
-      alt={SPELLS[id].name}
+      icon={spell.icon}
+      alt={spell.name}
       {...others}
     />
   );

@@ -14,24 +14,12 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<script src="https://ft-polyfill-service.herokuapp.com/v2/polyfill.js?features=es6"></script>
+<script src="https://cdn.ravenjs.com/3.19.1/raven.min.js" crossorigin="anonymous"></script>
+<script type="text/javascript">
+Raven.config('https://95bf5a7af57f4a57af1f1be4d0706a91@sentry.io/232829').install();
+</script>
+<script src="https://ft-polyfill-service.herokuapp.com/v2/polyfill.min.js?features=es6,Object.values&unknown=polyfill" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css" />
-
-<title>WoW Analyzer</title>
-</head>
-
-<body>
-<noscript>
-  You need to enable JavaScript to run this app.
-</noscript>
-<div id="root">
-  <div id="splash">
-    <div>
-      <h1>WoW Analyzer</h1>
-      <small>Loading...</small>
-    </div>
-  </div>
-</div>
 
 <style type="text/css">
 #splash {
@@ -59,9 +47,35 @@
   margin-bottom: 0;
   color: #e45a5a;
 }
+#splash p {
+  color: #aaa;
+}
+#splash p a {
+  color: #e45a5a;
+}
 </style>
 
-<script type="text/javascript" src="//wow.zamimg.com/widgets/power.js"></script>
+<title>WoW Analyzer</title>
+</head>
+
+<body>
+<noscript>
+  You need to enable JavaScript to run this app.
+</noscript>
+<div id="root">
+  <div id="splash">
+    <div>
+      <h1>WoW Analyzer</h1>
+      <small>Loading...</small>
+      <p>
+        If this seems frozen your browser might be shit. To unshit your browser go to <a href="http://outdatedbrowser.com/">outdatedbrowser.com</a>.
+      </p>
+    </div>
+  </div>
+</div>
+
+
+<script type="text/javascript" src="//wow.zamimg.com/widgets/power.js" async></script>
 </body>
 
 </html>

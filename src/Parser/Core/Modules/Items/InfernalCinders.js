@@ -1,6 +1,6 @@
 import React from 'react';
 import ITEMS from 'common/ITEMS';
-import SPELLS from 'common/SPELLS_OTHERS';
+import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
 
 import Module from 'Parser/Core/Module';
@@ -27,9 +27,15 @@ class InfernalCinders extends Module {
   item() {
     return {
       item: ITEMS.INFERNAL_CINDERS,
-      result: (<dfn data-tip={`The effective damage contributed by Infernal Cinders.<br/>Damage: ${this.owner.formatItemDamageDone(this.damageIncreased)}<br/> Total Damage: ${formatNumber(this.damageIncreased)}`}>
-        {this.owner.formatItemDamageDone(this.damageIncreased)}
-      </dfn>),
+      result: (
+        <dfn
+          data-tip={`The effective damage contributed by Infernal Cinders.<br/>
+            Damage: ${this.owner.formatItemDamageDone(this.damageIncreased)}<br/>
+            Total Damage: ${formatNumber(this.damageIncreased)}`}
+        >
+          {this.owner.formatItemDamageDone(this.damageIncreased)}
+        </dfn>
+      ),
     };
   }
 }
