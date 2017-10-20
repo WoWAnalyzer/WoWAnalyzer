@@ -2,7 +2,7 @@ const SPEC_ANALYSIS_COMPLETENESS = {
   GREAT: 'GREAT',
   GOOD: 'GOOD',
   NEEDS_MORE_WORK: 'NEEDS_MORE_WORK',
-  NOT_YET_SUPPORTED: 'NOT_YET_SUPPORTED',
+  NOT_ACTIVELY_MAINTAINED: 'NOT_ACTIVELY_MAINTAINED',
 };
 export default SPEC_ANALYSIS_COMPLETENESS;
 
@@ -14,8 +14,8 @@ export function getCompletenessLabel(completeness) {
       return 'Good';
     case SPEC_ANALYSIS_COMPLETENESS.NEEDS_MORE_WORK:
       return 'Needs more work';
-    case SPEC_ANALYSIS_COMPLETENESS.NOT_YET_SUPPORTED:
-      return 'Not yet supported';
+    case SPEC_ANALYSIS_COMPLETENESS.NOT_ACTIVELY_MAINTAINED:
+      return 'Not actively maintained';
     default:
       return null;
   }
@@ -28,7 +28,7 @@ export function getCompletenessColor(completeness) {
       return '#05f0fd';
     case SPEC_ANALYSIS_COMPLETENESS.NEEDS_MORE_WORK:
       return 'rgba(255, 212, 0, 0.5)';
-    case SPEC_ANALYSIS_COMPLETENESS.NOT_YET_SUPPORTED:
+    case SPEC_ANALYSIS_COMPLETENESS.NOT_ACTIVELY_MAINTAINED:
       return 'red';
     default:
       return null;
@@ -42,8 +42,8 @@ export function getCompletenessExplanation(completeness) {
       return 'This spec\'s analysis is ready for public usage, but some work is still left to be done.';
     case SPEC_ANALYSIS_COMPLETENESS.NEEDS_MORE_WORK:
       return 'This spec\'s analysis needs some more work to be optimally usable.';
-    case SPEC_ANALYSIS_COMPLETENESS.NOT_YET_SUPPORTED:
-      return 'This spec\'s analysis is not yet supported and does not have an active maintainer.';
+    case SPEC_ANALYSIS_COMPLETENESS.NOT_ACTIVELY_MAINTAINED:
+      return 'This spec\'s analysis does not have an active maintainer and may be outdated.';
     default:
       return null;
   }
