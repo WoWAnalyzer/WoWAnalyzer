@@ -1,6 +1,5 @@
 import React from 'react';
 
-import SPELLS from 'common/SPELLS';
 import Icon from 'common/Icon';
 import { formatThousands } from 'common/format';
 
