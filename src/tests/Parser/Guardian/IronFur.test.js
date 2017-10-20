@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import IronFur from 'Parser/GuardianDruid/Modules/Spells/IronFur';
+import IronFur from 'Parser/Druid/Guardian/Modules/Spells/IronFur';
 import { damageTaken, buffsApplied, SimpleFight } from './Fixtures/SimpleFight';
 import processEvents from './Fixtures/processEvents';
 

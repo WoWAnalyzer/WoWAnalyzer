@@ -11,7 +11,7 @@ To get the code running on your computer you will need a few things. You might a
 1. [Make a *fork* of the repo](https://help.github.com/articles/fork-a-repo/); this is your own public copy on GitHub for you to work in before sharing it.
 2. [Get Git.](https://git-scm.com/) You can also consider installing the [GitHub Desktop](https://desktop.github.com/) client to get an interface to work with.
 3. Clone your fork to your computer.
-4. [Get NodeJS (6+).](https://nodejs.org/en/)
+4. [Get NodeJS (6+, it's recommended to get the "current" edition).](https://nodejs.org/en/)
 5. Open a command window to the cloned repo (do this after installing Node).
 6. Run this command: `npm install`, this will take a minute.
 7. Meanwhile:

@@ -1,5 +1,5 @@
 import ITEMS from 'common/ITEMS';
-import SPELLS from 'common/SPELLS_OTHERS';
+import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 
 import Module from 'Parser/Core/Module';
