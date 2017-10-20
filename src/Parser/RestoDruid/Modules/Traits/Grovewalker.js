@@ -8,7 +8,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import { getSpellInfo } from '../Core/SpellInfo';
+import { getSpellInfo } from '../../SpellInfo';
 
 
 const GROVEWALKER_HEALING_INCREASE = 0.01;

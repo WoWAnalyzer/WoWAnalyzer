@@ -4,7 +4,7 @@ import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import HealingValue from 'Parser/Core/Modules/HealingValue';
 
-import { getSpellInfo } from '../Core/SpellInfo';
+import { getSpellInfo } from '../../SpellInfo';
 
 const DEBUG = true;
 

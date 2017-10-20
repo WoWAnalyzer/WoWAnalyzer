@@ -4,7 +4,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import HealingValue from 'Parser/Core/Modules/HealingValue';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
-import { getSpellInfo, HEAL_INFO } from '../Core/SpellInfo';
+import { getSpellInfo, HEAL_INFO } from '../../SpellInfo';
 
 const MASTERY_BONUS_FROM_ONE_RATING = 1 / 66666.6666666;
 const BASE_MASTERY_PERCENT = 0.048;
