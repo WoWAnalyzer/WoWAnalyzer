@@ -91,7 +91,20 @@ class AtonementAttribution extends Module {
       for(j = 0; j < this.atonementDamageEvents[i].HealingEventsAssociated2.length; j++){
         result[this.atonementDamageEvents[i].DamageEvent] += this.atonementDamageEvents[i].Effective[j];
       }
+    }/*
+    var corrected = 0
+    for(i = 0; i < this.atonementDamageEvents.length - 1; i++) {
+
+      if(this.atonementDamageEvents[i].HealingEventsAssociated2.length == 0 &&
+        this.atonementDamageEvents[i +1].HealingEventsAssociated2.length > 0 &&
+        this.atonementDamageEvents[i +1].HealingEventsAssociated2.length == this.atonementDamageEvents[i +1].Atonements * 2) {
+        corrected ++;
+        this.atonementDamageEvents[i].HealingEventsAssociated2 = this.atonementDamageEvents[i +1].HealingEventsAssociated2.splice(0,this.atonementDamageEvents[i +1].Atonements);
+        this.atonementDamageEvents[i].Effective = this.atonementDamageEvents[i +1].Effective.splice(0,this.atonementDamageEvents[i +1].Atonements);
+        this.atonementDamageEvents[i].NonEffective = this.atonementDamageEvents[i +1].NonEffective.splice(0,this.atonementDamageEvents[i +1].Atonements);
+      }
     }
+    console.log(corrected);*/
 
     for(var spell in result) {
       let spellPct = (this.owner.getPercentageOfTotalHealingDone(result[spell]) * 100).toFixed(2);
@@ -101,6 +114,15 @@ class AtonementAttribution extends Module {
     this.healingBreakdown = result;
 
     console.log(this.atonementDamageEvents);
+
+
+    let problems = [];
+    for(i = 0; i < this.atonementDamageEvents.length; i++){
+      if(this.atonementDamageEvents[i].HealingEventsAssociated2.length == 0 && this.atonementDamageEvents[i].Atonements > 0){
+        problems.push({"Event": this.atonementDamageEvents[i], "Before": this.atonementDamageEvents[i -1], "ZAfter": this.atonementDamageEvents[i + 1], "ZBafter": this.atonementDamageEvents[i + 2]});
+      }
+    }
+    console.log(problems);
   }
 
   item() {
