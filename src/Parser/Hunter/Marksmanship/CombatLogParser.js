@@ -32,6 +32,7 @@ import Trueshot from './Modules/Spells/Trueshot';
 import UllrsFeatherSnowshoes from './Modules/Items/UllrsFeatherSnowshoes';
 import SoulOfTheHuntmaster from '../Shared/Items/SoulOfTheHuntmaster';
 import MKIIGyroscopicStabilizer from './Modules/Items/MKIIGyroscopicStabilizer';
+import WarBeltOfTheSentinelArmy from "./Modules/Items/WarBeltOfTheSentinelArmy";
 
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -58,6 +59,7 @@ class CombatLogParser extends CoreCombatLogParser {
     ullrsFeatherSnowshoes: UllrsFeatherSnowshoes,
     soulOfTheHuntmaster: SoulOfTheHuntmaster,
     mkiiGyroscopicStabilizer: MKIIGyroscopicStabilizer,
+    warBeltOfTheSentinelArmy: WarBeltOfTheSentinelArmy,
 
 
     //Spells
