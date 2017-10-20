@@ -1,4 +1,5 @@
 export default `
+20-10-2017 - Added Medallion/TS pairing tooltip
 16-10-2017 - Added Ullrs Trueshot CDR support. (by Putro)
 16-10-2017 - Added Tier192p support. (by Putro)
 14-10-2017 - Added Focus Capped Statistic Box (By leapis)
