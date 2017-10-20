@@ -17,7 +17,7 @@ class VulnerableUpTime extends Module {
   suggestions(when) {
     const vulnerableuptime = this.enemies.getBuffUptime(SPELLS.VULNERABLE.id) / this.owner.fightDuration;
 
-    when(vulnerableuptime).isLessThan(0.85)
+    when(vulnerableuptime).isLessThan(0.80)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Your <SpellLink id={SPELLS.VULNERABLE.id} /> uptime can be improved. Make sure you use Windburst or Marked Shot to open the Vulnerable Window to maximize damage with your Aimed Shots</span>)
           .icon(SPELLS.VULNERABLE.icon)

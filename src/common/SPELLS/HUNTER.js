@@ -48,21 +48,6 @@ export default {
     name: 'Multi-Shot',
     icon: 'ability_upgrademoonglaive',
   },
-  EXHILARATION: {
-    id: 109304,
-    name: 'Exhilaration',
-    icon: 'ability_hunter_onewithnature',
-  },
-  ASPECT_OF_THE_CHEETAH: {
-    id: 186257,
-    name: 'Aspect of the Cheetah',
-    icon: 'ability_mount_jungletiger',
-  },
-  ASPECT_OF_THE_TURTLE: {
-    id: 186265,
-    name: 'Aspect of the Turtle',
-    icon: 'ability_hunter_pet_turtle',
-  },
   BURSTING_SHOT: {
     id: 224729,
     name: 'Bursting Shot',
@@ -83,16 +68,7 @@ export default {
     name: 'Misdrection',
     icon: 'ability_hunter_misdirection',
   },
-  FREEZING_TRAP: {
-    id: 187650,
-    name: 'Freezing Trap',
-    icon: 'spell_frost_chainsofice',
-  },
-  TAR_TRAP: {
-    id: 187698,
-    name: 'Tar Trap',
-    icon: 'spell_yorsahj_bloodboil_black',
-  },
+
   VULNERABLE: {
     id: 187131,
     name: 'Vulnerable',
@@ -154,20 +130,24 @@ export default {
   },
 
   // Marksmanship artifact traits
-  BULLSEYE_BUFF: {
+  BULLSEYE_TRAIT: {
     id: 204090,
     name: 'Bullseye',
     icon: 'ability_hunter_focusedaim',
   },
   QUICK_SHOT_TRAIT: {
     id: 190462,
-    name: 'Quick shot',
+    name: 'Quick Shot',
     icon: 'ability_trueshot',
   },
-
   CYCLONIC_BURST_TRAIT: {
     id: 238124,
     name: 'Cyclonic burst',
+    icon: 'inv_bow_1h_artifactwindrunner_d_02',
+  },
+  CYCLONIC_BURST_IMPACT_TRAIT: {
+    id: 242712,
+    name: 'Cyclonic Burst',
     icon: 'inv_bow_1h_artifactwindrunner_d_02',
   },
 
@@ -191,5 +171,60 @@ export default {
     id: 194392,
     name: 'Volley buff',
     icon: 'ability_marksmanship',
+  },
+  FLARE: {
+    id: 1543,
+    name: 'Flare',
+    icon: 'spell_fire_flare',
+  },
+  FEIGN_DEATH: {
+    id: 5384,
+    name: 'Feign Death',
+    icon: 'ability_rogue_feigndeath',
+  },
+  PLAY_DEAD: {
+    id: 209997,
+    name: 'Play Dead',
+    icon: 'inv_misc_pelt_bear_03',
+  },
+  WAKE_UP: {
+    id: 210000,
+    name: 'Wake Up',
+    icon: 'warrior_disruptingshout',
+  },
+  REVIVE_PET: {
+    id: 982,
+    name: 'Revive Pet',
+    icon: 'ability_hunter_beastsoothe',
+  },
+  EXHILARATION: {
+    id: 109304,
+    name: 'Exhilaration',
+    icon: 'ability_hunter_onewithnature',
+  },
+  ASPECT_OF_THE_CHEETAH: {
+    id: 186257,
+    name: 'Aspect of the Cheetah',
+    icon: 'ability_mount_jungletiger',
+  },
+  ASPECT_OF_THE_TURTLE: {
+    id: 186265,
+    name: 'Aspect of the Turtle',
+    icon: 'ability_hunter_pet_turtle',
+  },
+/*  DISENGAGE: {
+    id: 781,
+    name: 'Disengage',
+    icon: 'ability_rogue_feint',
+  },*/
+  FREEZING_TRAP: {
+    id: 187650,
+    name: 'Freezing Trap',
+    icon: 'spell_frost_chainsofice',
+  },
+  TAR_TRAP: {
+    id: 187698,
+    name: 'Tar Trap',
+    icon: 'spell_yorsahj_bloodboil_black',
   },
 };

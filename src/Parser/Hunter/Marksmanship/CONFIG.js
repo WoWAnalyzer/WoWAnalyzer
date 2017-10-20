@@ -8,10 +8,12 @@ import SPEC_ANALYSIS_COMPLETENESS from 'common/SPEC_ANALYSIS_COMPLETENESS';
 
 import CombatLogParser from './CombatLogParser';
 import CHANGELOG from './CHANGELOG';
+import PutroAvatar from './Images/putro-avatar.png';
 
 export default {
   spec: SPECS.MARKSMANSHIP_HUNTER,
-  maintainer: '@JLassie82',
+  maintainer: '@Putro & @JLassie82',
+  maintainerAvatar: PutroAvatar,
 
   description: (
     <div>

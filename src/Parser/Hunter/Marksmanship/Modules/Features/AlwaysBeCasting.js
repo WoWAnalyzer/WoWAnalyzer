@@ -11,14 +11,25 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
   static ABILITIES_ON_GCD = [
 
     // Marksmanship:
+    //Rotational
     SPELLS.AIMED_SHOT.id,
     SPELLS.WINDBURST.id,
     SPELLS.ARCANE_SHOT.id,
     SPELLS.MULTISHOT.id,
     SPELLS.MARKED_SHOT.id,
+
+
+    //Utility
     SPELLS.TAR_TRAP.id,
     SPELLS.FREEZING_TRAP.id,
+    SPELLS.CONCUSSIVE_SHOT.id,
+    SPELLS.FLARE.id,
+    SPELLS.BURSTING_SHOT.id,
 
+    //Off GCD
+    //SPELLS.DISENGAGE_TALENT.id,
+
+    //Talents
     SPELLS.BLACK_ARROW_TALENT.id,
     SPELLS.EXPLOSIVE_SHOT_TALENT.id,
     SPELLS.SIDEWINDERS_TALENT.id,
@@ -26,6 +37,10 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.TRICK_SHOT_TALENT.id,
     SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id,
     SPELLS.BARRAGE_TALENT.id,
+    SPELLS.SENTINEL_TALENT.id,
+    SPELLS.BINDING_SHOT_TALENT.id,
+    SPELLS.WYVERN_STING_TALENT.id,
+    SPELLS.CAMOUFLAGE_TALENT.id,
 
 
   ];
