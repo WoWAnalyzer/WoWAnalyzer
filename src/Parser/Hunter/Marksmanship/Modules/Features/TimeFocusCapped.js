@@ -3,12 +3,12 @@ import Module from 'Parser/Core/Module';
 
 import SPELLS from 'common/SPELLS';
 
+import SpellLink from "common/SpellLink";
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Icon from 'common/Icon';
 import { formatPercentage } from 'common/format';
 
 import FocusTracker from '../FocusChart/FocusTracker';
-import SpellLink from "common/SpellLink";
 
 const debug = true;
 
