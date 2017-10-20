@@ -10,8 +10,6 @@ import { formatPercentage } from 'common/format';
 
 import FocusTracker from '../FocusChart/FocusTracker';
 
-const debug = true;
-
 class TimeFocusCapped extends Module {
   static dependencies = {
     focusTracker: FocusTracker,
@@ -60,9 +58,7 @@ class TimeFocusCapped extends Module {
   suggestions(when) {
     const totalFocusWaste = this.getTotalWaste;
     const percentCapped = formatPercentage(this.focusTracker.secondsCapped / (this.owner.fightDuration / 1000));
-
-    debug && console.log(percentCapped);
-
+    
     when(percentCapped).isGreaterThan(2.5)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>You're spending a long time focus capping, try and avoid this as it is a significant DPS loss. It's better to shoot a non-vulnerable <SpellLink id={SPELLS.AIMED_SHOT.id} />, than spend time at max focus. You wasted a total of {totalFocusWaste} focus over the course of the fight.</span>)
