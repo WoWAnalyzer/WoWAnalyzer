@@ -16,22 +16,20 @@ class AtonementAttribution extends Module {
 
   healingBreakdown;
 
-  timeSpentWithRadianceOnCD = 0;
-  lastRadianceCast = 0;
-
   atonementDamageEvents = [];
-  atonementHealingEvents = [];
 
   on_byPlayer_heal(event){
     if(!isAtonement(event)) return;
 
     if(this.atonementDamageEvents.length> 0){
-      this.atonementDamageEvents[this.atonementDamageEvents.length -1].HealingEventsAssociated2.push(event);
-      this.atonementDamageEvents[this.atonementDamageEvents.length -1].Effective.push(event.amount);
       var oh = event.overheal ? event.overheal : 0;
-      this.atonementDamageEvents[this.atonementDamageEvents.length -1].NonEffective.push(event.amount + oh);
+      let lastDamageEvent = this.atonementDamageEvents[this.atonementDamageEvents.length -1];
+      lastDamageEvent.HealingEventsAssociated2.push(event);
+      lastDamageEvent.Effective.push(event.amount);
+      lastDamageEvent.NonEffective.push(event.amount + oh);
     }
   }
+
   on_damage(event){
     if(!event.targetIsFriendly)
       this.atonementDamageEvents.push({
@@ -48,7 +46,6 @@ class AtonementAttribution extends Module {
 
     let i;
     let j;
-
     for(i = 0; i < events.length;i++){
       if(events[i].type === "heal" && isAtonement(events[i]) && events[i].sourceID === events[i].targetID){
         for(j = i + 1; j < events.length; j++){
@@ -82,6 +79,7 @@ class AtonementAttribution extends Module {
   }
 
   on_finished(){
+
     var result = {};
     var i;
     var j;
@@ -99,17 +97,19 @@ class AtonementAttribution extends Module {
       let spellPct = (this.owner.getPercentageOfTotalHealingDone(result[spell]) * 100).toFixed(2);
       result[spell] = spellPct;
     }
+
     this.healingBreakdown = result;
+
     console.log(this.atonementDamageEvents);
   }
 
   item() {
 
-    let atonementAttributionHTML = "";
+    let atonementAttribution = "";
     if(this.healingBreakdown){
 
       for(var spell in this.healingBreakdown) {
-         atonementAttributionHTML += spell + ": " + this.healingBreakdown[spell] + "% ";
+         atonementAttribution += spell + ": " + this.healingBreakdown[spell] + "% ";
       }
     }
 
@@ -118,7 +118,7 @@ class AtonementAttribution extends Module {
       icon: <SpellIcon id={SPELLS.ATONEMENT_BUFF.id} />,
       title: <SpellLink id={SPELLS.ATONEMENT_BUFF.id} />,
       result: (
-        atonementAttributionHTML
+        atonementAttribution
       ),
     };
   }

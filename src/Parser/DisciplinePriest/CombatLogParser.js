@@ -254,6 +254,15 @@ class CombatLogParser extends CoreCombatLogParser {
           label="Shadow Word: Pain uptime"
         />
       ),
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.POWER_WORD_SHIELD.id} />}
+        value={`${formatNumber(this.modules.powerWordShieldWasted.wasted / fightDuration * 1000)} HPS`}
+        label={(
+          <dfn data-tip={`The amount of shield absorb remaining on Power Word: Shield instances that have expired. There was a total of ${formatNumber(this.modules.powerWordShieldWasted.wasted)} unused Power Word: Shield absorb from ${this.modules.powerWordShieldWasted.count} shields with absorb remaining (a total of ${this.modules.powerWordShieldWasted.totalCount} shields were applied).`}>
+            Unused PW:S absorb
+          </dfn>
+        )}
+      />,
       this.modules.touchOfTheGrave.damage > 0 && ( // this needs to be optional since there's no other way of determining if you have a racial
         <StatisticBox
           icon={<SpellIcon id={SPELLS.TOUCH_OF_THE_GRAVE.id} />}
