@@ -183,7 +183,7 @@ export const HEAL_INFO = {
     masteryStack: false,
     vers: false,
   },
-  [SPELLS.RENEWAL.id]: { // TODO does it really scale with nothing (except stam)?
+  [SPELLS.RENEWAL_TALENT.id]: { // TODO does it really scale with nothing (except stam)?
     int: false,
     crit: false,
     hasteHpm: false,

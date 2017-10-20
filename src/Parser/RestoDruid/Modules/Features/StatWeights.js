@@ -1,6 +1,7 @@
 import Module from 'Parser/Core/Module';
 import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
+import { formatNumber } from 'common/format';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import HealingValue from 'Parser/Core/Modules/HealingValue';
 
@@ -33,15 +34,20 @@ class StatWeights extends Module {
 
   on_byPlayer_heal(event) {
     const healVal = new HealingValue(event.amount, event.absorbed, event.overheal);
-    _handleHeal(event, healVal);
+    this._handleHeal(event, healVal);
   }
 
   on_byPlayer_absorbed(event) {
     const healVal = new HealingValue(event.amount, 0, 0);
-    _handleHeal(event, healVal);
+    this._handleHeal(event, healVal);
   }
 
   _handleHeal(event, healVal) {
+    const target = this.combatants.getEntity(event);
+    if(target === null) {
+      return;
+    }
+
     const spellInfo = getSpellInfo(event.ability.guid);
     if(spellInfo.ignored) {
       return;
@@ -52,7 +58,7 @@ class StatWeights extends Module {
       return; // if a spell overheals, we know it couldn't have healed for more
     }
 
-    const hotCount = this.combatants.getEntity(event).activeBuffs()
+    const hotCount = target.activeBuffs()
         .map(buffObj => buffObj.ability.guid)
         .filter(buffId => getSpellInfo(buffId).masteryStack)
         .length;
@@ -113,12 +119,12 @@ class StatWeights extends Module {
   }
 
   on_finished() {
-    if(debug) {
+    if(DEBUG) {
       console.log(`Int - ${formatNumber(this.totalOneInt)}`);
-      console.log(`Crit - ${formatNumber(this.totalOneInt)}`);
-      console.log(`Int - ${formatNumber(this.totalOneInt)}`);
-      console.log(`Int - ${formatNumber(this.totalOneInt)}`);
-      console.log(`Int - ${formatNumber(this.totalOneInt)}`);
+      console.log(`Crit - ${formatNumber(this.totalOneCrit)}`);
+      console.log(`Haste - ${formatNumber(this.totalOneHaste)}`);
+      console.log(`Mastery - ${formatNumber(this.totalOneMastery)}`);
+      console.log(`Vers - ${formatNumber(this.totalOneVers)}`);
     }
   }
 
