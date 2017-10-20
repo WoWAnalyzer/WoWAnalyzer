@@ -22,7 +22,8 @@ import FocusTracker from './Modules/FocusChart/FocusTracker';
 //Tier
 import Tier20_2p from './Modules/Items/Tier20_2p';
 import Tier20_4p from './Modules/Items/Tier20_4p';
-import Tier19_2p from "./Modules/Items/Tier19_2p";
+import Tier19_2p from "./Modules/Items/Tier19_2p";  
+import TarnishedSentinelMedallion from "./Modules/Items/TarnishedSentinelMedallion";
 
 
 //Spells
@@ -57,6 +58,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Spells
     trueshot: Trueshot,
+    tarnishedSentinelMedallion: TarnishedSentinelMedallion,
 
   };
 
