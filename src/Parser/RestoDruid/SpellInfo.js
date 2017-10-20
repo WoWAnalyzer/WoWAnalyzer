@@ -1,9 +1,5 @@
 import SPELLS from 'common/SPELLS';
 
-export const getSpellInfo = id => {
-  return HEAL_INFO[id] || DEFAULT_INFO;
-};
-
 const DEFAULT_INFO = { // we assume unlisted spells scale with vers only (this will mostly be trinkets)
   int: false,
   crit: false,
@@ -233,4 +229,8 @@ export const HEAL_INFO = {
     masteryStack: true,
     vers: true,
   },
+};
+
+export const getSpellInfo = id => {
+  return HEAL_INFO[id] || DEFAULT_INFO;
 };
