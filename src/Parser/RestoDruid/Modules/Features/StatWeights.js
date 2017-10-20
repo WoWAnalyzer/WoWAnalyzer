@@ -6,9 +6,9 @@ import HealingValue from 'Parser/Core/Modules/HealingValue';
 
 import { getSpellInfo } from '../Core/SpellInfo';
 
-// 5% int bonus from wearing all leather means each new point of int worth 1.05 vs character sheet int
-const ARMOR_INT_MULTIPLIER = 1.05;
+const DEBUG = true;
 
+const ARMOR_INT_MULTIPLIER = 1.05; // 5% int bonus from wearing all leather means each new point of int worth 1.05 vs character sheet int
 const BASE_CRIT_MULTIPLIER = 2;
 
 class StatWeights extends Module {
@@ -110,6 +110,16 @@ class StatWeights extends Module {
     this.totalOneHasteHpct += oneHasteHpct;
     this.totalOneMastery += oneMastery;
     this.totalOneVers += oneVers;
+  }
+
+  on_finished() {
+    if(debug) {
+      console.log(`Int - ${formatNumber(this.totalOneInt)}`);
+      console.log(`Crit - ${formatNumber(this.totalOneInt)}`);
+      console.log(`Int - ${formatNumber(this.totalOneInt)}`);
+      console.log(`Int - ${formatNumber(this.totalOneInt)}`);
+      console.log(`Int - ${formatNumber(this.totalOneInt)}`);
+    }
   }
 
   // TODO output? Or just expose values and let other module show?
