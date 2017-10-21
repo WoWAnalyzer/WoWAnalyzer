@@ -127,7 +127,7 @@ class CombatLogParser extends CoreCombatLogParser {
     SeedsOfTheWorldTree: SeedsOfTheWorldTree,
     EternalRestoration: EternalRestoration,
 
-    statWeights: StatWeights
+    statWeights: StatWeights,
   };
 
   generateResults() {

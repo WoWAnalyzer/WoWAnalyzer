@@ -1,5 +1,5 @@
+import React from 'react';
 import Module from 'Parser/Core/Module';
-import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import { formatNumber } from 'common/format';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -88,9 +88,31 @@ class StatWeights extends Module {
     }
 
     // HASTE //
+    // FIXME haste hpct calc is a mess and probably wrong
+    const currHastePerc = this.combatants.selected.hastePercentage; // TODO replace when dynamic stats
+    const bonusFromOneHaste = 1 / 37500; // TODO replace when stat constants exist
+    const noHasteHealing = amount / (1 + currHastePerc);
+
     let oneHasteHpm = 0;
     let oneHasteHpct = 0;
-    // TODO pls no
+    if(spellInfo.hasteHpm) {
+      oneHasteHpm = bonusFromOneHaste * noHasteHealing;
+    //  oneHasteHpct = bonusFromOneHaste * noHasteHealing;
+    }
+
+    //if(spellInfo.hasteHpct) {
+      let noHasteHpctHealing = noHasteHealing;
+      if(spellInfo.hasteHpm) {
+        noHasteHpctHealing /= (1 + currHastePerc);
+      }
+
+      let bonusFromOneHasteHpct = bonusFromOneHaste;
+      if(spellInfo.hasteHpm) {
+        bonusFromOneHasteHpct *= (1 + bonusFromOneHaste);
+      }
+
+      oneHasteHpct = bonusFromOneHasteHpct * noHasteHpctHealing;
+  //  }
 
     // MASTERY //
     let oneMastery = 0;
@@ -118,17 +140,91 @@ class StatWeights extends Module {
     this.totalOneVers += oneVers;
   }
 
+  _ratingPerOnePercent(oneRatingHealing) {
+    const onePercentHealing = this.totalNonIgnoredHealing / 100;
+    return onePercentHealing / oneRatingHealing;
+  }
+
   on_finished() {
     if(DEBUG) {
       console.log(`Int - ${formatNumber(this.totalOneInt)}`);
       console.log(`Crit - ${formatNumber(this.totalOneCrit)}`);
-      console.log(`Haste - ${formatNumber(this.totalOneHaste)}`);
+      console.log(`Haste HPM - ${formatNumber(this.totalOneHasteHpm)}`);
+      console.log(`Haste HPCT - ${formatNumber(this.totalOneHasteHpct)}`);
       console.log(`Mastery - ${formatNumber(this.totalOneMastery)}`);
       console.log(`Vers - ${formatNumber(this.totalOneVers)}`);
     }
   }
 
-  // TODO output? Or just expose values and let other module show?
+  //
+  tab() {
+    const intForOnePercent = this._ratingPerOnePercent(this.totalOneInt);
+    const critForOnePercent = this._ratingPerOnePercent(this.totalOneCrit);
+    const hasteHpmForOnePercent = this._ratingPerOnePercent(this.totalOneHasteHpm);
+    const hasteHpctForOnePercent = this._ratingPerOnePercent(this.totalOneHasteHpct);
+    const masteryForOnePercent = this._ratingPerOnePercent(this.totalOneMastery);
+    const versForOnePercent = this._ratingPerOnePercent(this.totalOneVers);
+
+    const intWeight = this.totalOneInt / this.totalOneInt;
+    const critWeight = this.totalOneCrit / this.totalOneInt;
+    const hasteHpmWeight = this.totalOneHasteHpm / this.totalOneInt;
+    const hasteHpctWeight = this.totalOneHasteHpct / this.totalOneInt;
+    const masteryWeight = this.totalOneMastery / this.totalOneInt;
+    const versWeight = this.totalOneVers / this.totalOneInt;
+
+    return {
+      title: 'Stat Weights',
+      url: 'stat-weights',
+      render: () => (
+        <div style={{ marginLeft: 20, marginTop: 20, marginBottom: 10 }}>
+          <h1>Stat Weights</h1>
+          <table className="data-table">
+            <thead>
+              <tr>
+                <th style={{ maxWidth: 60 }}><b>Stat</b></th>
+                <th style={{ maxWidth: 60 }}><dfn data-tip="Normalized on Int's weight"><b>Weight</b></dfn></th>
+                <th style={{ maxWidth: 60 }}><b>Rating per 1%</b></th>
+                <th />
+                <th />
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Int</td>
+                <td>{formatNumber(intWeight)}</td>
+                <td>{formatNumber(intForOnePercent)}</td>
+              </tr>
+              <tr>
+                <td>Crit</td>
+                <td>{formatNumber(critWeight)}</td>
+                <td>{formatNumber(critForOnePercent)}</td>
+              </tr>
+              <tr>
+                <td>Haste HPM</td>
+                <td>{formatNumber(hasteHpmWeight)}</td>
+                <td>{formatNumber(hasteHpmForOnePercent)}</td>
+              </tr>
+              <tr>
+                <td>Haste HPCT</td>
+                <td>{formatNumber(hasteHpctWeight)}</td>
+                <td>{formatNumber(hasteHpctForOnePercent)}</td>
+              </tr>
+              <tr>
+                <td>Mastery</td>
+                <td>{formatNumber(masteryWeight)}</td>
+                <td>{formatNumber(masteryForOnePercent)}</td>
+              </tr>
+              <tr>
+                <td>Versatility</td>
+                <td>{formatNumber(versWeight)}</td>
+                <td>{formatNumber(versForOnePercent)}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      ),
+    };
+  }
 }
 
 export default StatWeights;
