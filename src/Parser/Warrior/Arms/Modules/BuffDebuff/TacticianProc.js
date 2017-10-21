@@ -4,17 +4,12 @@ import SpellIcon from 'common/SpellIcon';
 
 import SPELLS from 'common/SPELLS';
 import Module from 'Parser/Core/Module';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 const debug = false;
 
-class Tactician extends Module {
-  static dependencies = {
-    combatants: Combatants,
-  };
-
-  totalTacticianProccs = 0;
-  lastTacticianTimestamp = 0;
+class TacticianProc extends Module {
+  totalProcs = 0;
+  lastTimestamp = 0;
 
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
@@ -22,9 +17,9 @@ class Tactician extends Module {
       return;
     }
     // Get the applied timestamp
-    this.lastTacticianTimestamp = event.timestamp;
+    this.lastTimestamp = event.timestamp;
     debug && console.log('Tactician was applied');
-    this.totalTacticianProccs += 1;
+    this.totalProcs += 1;
   }
 
   on_byPlayer_refreshbuff(event) {
@@ -33,22 +28,22 @@ class Tactician extends Module {
       return;
     }
     // Get the applied timestamp
-    this.lastTacticianTimestamp = event.timestamp;
+    this.lastTimestamp = event.timestamp;
     debug && console.log('Tactician was refreshed');
-    this.totalTacticianProccs += 1;
+    this.totalProcs += 1;
   }
 
   statistic() {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.TACTICIAN.id} />}
-        value={this.totalTacticianProccs}
-        label="Total Tactician Proccs"
-        tooltip={`Tactician resets the cooldown on Colossus Smash and Mortal Strike. You got ${this.totalTacticianProccs} more Mortal Strike and Colossus Smash.`}
+        value={this.totalProcs}
+        label="Total Tactician Procs"
+        tooltip={`Tactician resets the cooldown on Colossus Smash and Mortal Strike. You got ${this.totalProcs} more Mortal Strike and Colossus Smash.`}
       />
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(20);
 }
 
-export default Tactician;
+export default TacticianProc;
