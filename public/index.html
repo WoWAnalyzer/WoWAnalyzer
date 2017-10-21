@@ -21,23 +21,21 @@ window.onerror = function (message, url, lineNo, colNo, error) {
   var root = document.getElementById('root');
 
   if (root) {
-    const message = document.createElement('pre');
-    message.style.fontSize = '14px';
-    message.style.color = 'red';
-    message.innerText = [
-      'Message: ' + message,
+    const msg = document.createElement('pre');
+    msg.style.fontSize = '14px';
+    msg.style.color = 'red';
+    msg.innerText = [
+      'Message2: ' + message,
       'URL: ' + url,
       'Line: ' + lineNo,
       'Column: ' + colNo,
       'Stack: ' + (error && error.stack)
     ].join('\n');
-
-    root.appendChild(message);
+    root.appendChild(msg);
 
     var splash = document.getElementById('splash');
     splash.style.display = 'none';
   }
-  Raven && Raven.captureException(error);
 };
 </script>
 <script src="https://ft-polyfill-service.herokuapp.com/v2/polyfill.min.js?features=es6&unknown=polyfill" crossorigin="anonymous"></script>
