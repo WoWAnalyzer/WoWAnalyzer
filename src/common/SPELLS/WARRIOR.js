@@ -47,7 +47,7 @@ BLADESTORM: {
   name: 'Bladestorm',
   icon: 'ability_warrior_bladestorm',
 },
-RAVAGER: {
+RAVAGER_CAST: {
   id: 156287,
   name: 'Ravager',
   icon: 'warrior_talent_icon_ravager',
@@ -74,12 +74,6 @@ RAVAGER: {
     id: 199854,
     name: 'Tactician',
     icon: 'ability_warrior_unrelentingassault',
-  },
-  // Talents
-  FERVOR_OF_BATTLE_TALENT: {
-    id: 202316,
-    name: "Fervor of Battle",
-    icon: "ability_rogue_waylay",
   },
   // Fury:
   // ...

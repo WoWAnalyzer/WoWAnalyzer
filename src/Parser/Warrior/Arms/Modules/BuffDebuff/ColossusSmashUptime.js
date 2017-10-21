@@ -18,12 +18,10 @@ class ColossusSmashUptime extends Module {
 
   suggestions(when) {
     const colossusSmashUptime = this.enemies.getBuffUptime(SPELLS.COLOSSUS_SMASH_DEBUFF.id) / this.owner.fightDuration;
-    let threshold;
+    let threshold = 0.50;
 
-    if (this.combatants.selected.hasTalent(SPELLS.FERVOR_OF_BATTLE_TALENT.id)) {
-      threshold = 0.50; // Value needs to be optimized with feedback
-    } else {
-      threshold = 0.95; // Value is valide
+    if (this.combatants.selected.hasTalent(SPELLS.TITANIC_MIGHT_TALENT)) {
+      threshold = 0.95;
     }
 
     when(colossusSmashUptime).isLessThan(threshold)
