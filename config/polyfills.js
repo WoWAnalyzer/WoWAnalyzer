@@ -14,3 +14,8 @@ require('whatwg-fetch');
 // Object.assign() is commonly used with React.
 // It will use the native implementation if it's present and isn't buggy.
 Object.assign = require('object-assign');
+
+// react-tooltip requires Symbol.iterator
+require('core-js/fn/symbol/iterator.js');
+require('core-js/modules/es7.object.values.js');
+require('core-js/modules/es7.object.entries.js');

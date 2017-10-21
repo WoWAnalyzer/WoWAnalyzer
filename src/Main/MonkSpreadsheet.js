@@ -130,7 +130,7 @@ class MonkSpreadsheet extends React.Component {
               (parser.modules.ovydsWinterWrap.healing || 0)) / parser.fightDuration * 1000).toFixed(0)}
               </td>
             </tr>
-            <tr style={styles.cellBorder}><td>{(parser.modules.t20_2pc.manaSaved / parser.fightDuration * 1000 * 5).toFixed(0) || 0}</td></tr>
+            <tr style={styles.cellBorder}><td>{(parser.modules.t20_2set.manaSaved / parser.fightDuration * 1000 * 5).toFixed(0) || 0}</td></tr>
             <tr style={styles.cellBorder}><td>{(parser.modules.combatants.selected.getBuffUptime(SPELLS.DANCE_OF_MISTS.id) / parser.fightDuration).toFixed(4) || 0}</td></tr>
             <tr style={styles.cellBorder}><td>{(parser.modules.combatants.selected.getBuffUptime(SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_INTELLECT.id) / parser.fightDuration).toFixed(4) || 0}</td></tr>
             <tr style={styles.cellBorder}><td>{(this.activeNLCTraits[0]) ? this.activeNLCTraits[0].name : 'N/A'}</td></tr>
