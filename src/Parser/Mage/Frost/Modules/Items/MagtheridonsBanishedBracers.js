@@ -37,7 +37,7 @@ class MagtheridonsBanishedBracers extends Module {
   item() {
     return {
       item: ITEMS.MAGTHERIDONS_BANISHED_BRACERS,
-      result: `${this.owner.formatItemDamageDone(this.damage)}`,
+      result: this.owner.formatItemDamageDone(this.damage),
     };
   }
 }

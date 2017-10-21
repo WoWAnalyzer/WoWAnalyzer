@@ -37,7 +37,7 @@ class ZannesuJourney extends Module {
   item() {
     return {
       item: ITEMS.ZANNESU_JOURNEY,
-      result: `${this.owner.formatItemDamageDone(this.damage)}`,
+      result: this.owner.formatItemDamageDone(this.damage),
     };
   }
 }

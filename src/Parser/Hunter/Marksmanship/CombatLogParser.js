@@ -22,7 +22,7 @@ import FocusTracker from './Modules/FocusChart/FocusTracker';
 //Tier
 import Tier20_2p from './Modules/Items/Tier20_2p';
 import Tier20_4p from './Modules/Items/Tier20_4p';
-import Tier19_2p from "./Modules/Items/Tier19_2p";
+import Tier19_2p from './Modules/Items/Tier19_2p';
 
 
 //Spells
@@ -34,6 +34,9 @@ import SoulOfTheHuntmaster from '../Shared/Items/SoulOfTheHuntmaster';
 import MKIIGyroscopicStabilizer from './Modules/Items/MKIIGyroscopicStabilizer';
 import WarBeltOfTheSentinelArmy from "./Modules/Items/WarBeltOfTheSentinelArmy";
 
+//Talents
+import LockAndLoad from './Modules/Talents/LockAndLoad';
+import TrueAim from './Modules/Talents/TrueAim';
 
 class CombatLogParser extends CoreCombatLogParser {
 
@@ -65,6 +68,10 @@ class CombatLogParser extends CoreCombatLogParser {
     //Spells
     trueshot: Trueshot,
 
+    //Talents
+    lockAndLoad: LockAndLoad,
+    trueAim: TrueAim,
+
   };
 
   generateResults() {
@@ -81,7 +88,7 @@ class CombatLogParser extends CoreCombatLogParser {
         title: 'Talents',
         url: 'talents',
         render: () => (
-          <Tab title="Talents">
+          <Tab title='Talents'>
             <Talents combatant={this.modules.combatants.selected} />
           </Tab>
         ),
@@ -90,7 +97,7 @@ class CombatLogParser extends CoreCombatLogParser {
         title: 'Focus Chart',
         url: 'focus',
         render: () => (
-          <Tab title="focus" style={{ padding: '15px 22px' }}>
+          <Tab title='focus' style={{ padding: '15px 22px' }}>
             <FocusChart
               start={this.fight.start_time}
               end={this.fight.end_time}
