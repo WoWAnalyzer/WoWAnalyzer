@@ -12,14 +12,23 @@ class MKIIGyroscopicStabilizer extends Module {
     combatants: Combatants,
   };
 
+  usedBuffs = 0;
+
   on_initialized() {
     this.active = this.combatants.selected.hasHands(ITEMS.MKII_GYROSCOPIC_STABILIZER.id);
+  }
+  on_byPlayer_removebuff(event) {
+    const buffId = event.ability.guid;
+    if (buffId !== SPELLS.GYROSCOPIC_STABILIZATION.id) {
+      return;
+    }
+    this.usedBuffs += 1;
   }
 
   item() {
     return {
       item: ITEMS.MKII_GYROSCOPIC_STABILIZER,
-      result: <span>This allowed you to move while casting, and increased crit chance of every second <SpellLink id={SPELLS.AIMED_SHOT.id}/>.</span>,
+      result: <span>This allowed you to move while casting {this.usedBuffs} <SpellLink id={SPELLS.AIMED_SHOT.id} />s  throughout the fight, these <SpellLink id={SPELLS.AIMED_SHOT.id} />s also had 15% increased crit chance.</span>,
     };
   }
 }

@@ -28,27 +28,25 @@ class SoulOfTheHuntmaster extends Module {
         this.talentGained = SPELLS.LOCK_AND_LOAD_TALENT.id;
         this.option1 = SPELLS.TRUE_AIM_TALENT.id;
         this.option2 = SPELLS.BLACK_ARROW_TALENT.id;
-        this.hasPickedOtherTalent = this.combatants.selected.hasTalent(this.option1) || this.combatants.selected.hasTalent(this.option2);
         break;
       case SPECS.BEAST_MASTERY_HUNTER:
         debug && console.log('SPEC DETECTED AS BM');
         this.talentGained = SPELLS.BESTIAL_FURY_TALENT.id;
         this.option1 = SPELLS.ONE_WITH_THE_PACK_TALENT.id;
         this.option2 = SPELLS.BLINK_STRIKES_TALENT.id;
-        this.hasPickedOtherTalent = this.combatants.selected.hasTalent(this.option1) || this.combatants.selected.hasTalent(this.option2);
         break;
       case SPECS.SURVIVAL_HUNTER:
         debug && console.log('SPEC DETECTED AS SV');
         this.talentGained = SPELLS.SERPENT_STING_TALENT.id;
         this.option1 = SPELLS.BUTCHERY_TALENT.id;
         this.option2 = SPELLS.DRAGONSFIRE_GRENADE_TALENT.id;
-        this.hasPickedOtherTalent = this.combatants.selected.hasTalent(this.option1) || this.combatants.selected.hasTalent(this.option2);
         break;
       default:
         debug && console.log(' NO SPEC DETECTED');
-
         break;
     }
+    this.hasPickedOtherTalent = this.combatants.selected.hasTalent(this.option1) || this.combatants.selected.hasTalent(this.option2);
+
   }
 
   item() {
@@ -60,7 +58,9 @@ class SoulOfTheHuntmaster extends Module {
 
   suggestions(when) {
     when(this.hasPickedOtherTalent).isFalse().addSuggestion((suggest) => {
-      return suggest(<span>When using <ItemLink id={ITEMS.SOUL_OF_THE_HUNTMASTER.id} /> please make sure to pick another talent in the talent row. Your choices are <SpellLink id={this.option1} /> or <SpellLink id={this.option2} />.</span>).icon(ITEMS.SOUL_OF_THE_HUNTMASTER.icon).staticImportance(SUGGESTION_IMPORTANCE.MAJOR);
+      return suggest(<span>When using <ItemLink id={ITEMS.SOUL_OF_THE_HUNTMASTER.id} /> please make sure to pick another talent in the talent row. Your choices are <SpellLink id={this.option1} /> or <SpellLink id={this.option2} />.</span>)
+        .icon(ITEMS.SOUL_OF_THE_HUNTMASTER.icon)
+        .staticImportance(SUGGESTION_IMPORTANCE.MAJOR);
     });
   }
 }
