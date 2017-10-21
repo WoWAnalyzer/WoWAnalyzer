@@ -65,6 +65,7 @@ export default {
     name: 'Plea',
     icon: 'spell_priest_plea_blue',
     atonementDuration: 15,
+    manaCost: 19800,
   },
   MASS_DISPEL: {
     id: 32375,

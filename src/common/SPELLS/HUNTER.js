@@ -105,10 +105,10 @@ export default {
   },
 
   //CATEGORY
-  AUTO_SHOT_FOCUSMODULE: {
+  AUTO_SHOT: {
     id: 75,
     name: 'Auto Shot',
-    icon: 'ability_hunter_focusfire',
+    icon: 'ability_whirlwind',
   },
   CRITICAL_FOCUS_FOCUSMODULE: {
     id: 215107,
@@ -178,9 +178,20 @@ export default {
     icon: 'inv_belt_66green',
   },
   GYROSCOPIC_STABILIZATION: {
-    id: 235712,
-    name: 'Gyroscopic stabilization',
-    icon: 'inv_glove_mail_raidshamanmythic_o_01',
+  id: 235712,
+  name: 'Gyroscopic stabilization',
+  icon: 'inv_glove_mail_raidshamanmythic_o_01',
+},
+  //Talent buffs/debuffs
+  LOCK_AND_LOAD_BUFF: {
+    id: 194594,
+    name: 'Lock and Load',
+    icon: 'ability_hunter_lockandload',
+  },
+  TRUE_AIM_DEBUFF: {
+    id: 199803,
+    name: 'True Aim',
+    icon: 'spell_hunter_focusingshot',
   },
 
   // Survival:
