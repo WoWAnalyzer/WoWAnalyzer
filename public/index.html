@@ -19,7 +19,8 @@
 Raven.config('https://95bf5a7af57f4a57af1f1be4d0706a91@sentry.io/232829').install();
 </script>
 <!-- We NEED to use a non minified version of the polyfill service as the minified version causes an error in PhantomJS: "Attempting to configurable attribute of unconfigurable property." -->
-<script src="https://ft-polyfill-service.herokuapp.com/v2/polyfill.js?features=es6&unknown=polyfill" crossorigin="anonymous"></script>
+<!-- Do NOT use `unknown=polyfill` as this breaks Googlebot/Headless Chrome -->
+<script src="https://ft-polyfill-service.herokuapp.com/v2/polyfill.js?features=es6" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css" />
 
 <style type="text/css">
