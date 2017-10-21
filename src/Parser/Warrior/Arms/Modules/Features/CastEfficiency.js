@@ -29,7 +29,7 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.SLAM,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => null,
-      noSuggestion: true,
+      noSuggestion: false,
       noCanBeImproved: true,
     },
     {
@@ -46,7 +46,7 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => null,
       noSuggestion: true,
       noCanBeImproved: true,
-      extraSuggestion: 'Only used in a combat with AoE',
+      extraSuggestion: 'Only used in a combat with AoE after using Cleave to increase your Whirlwind Damage',
     },
     {
       spell: SPELLS.WARBREAKER,
@@ -63,11 +63,38 @@ class CastEfficiency extends CoreCastEfficiency {
       noSuggestion: false,
     },
     {
+      spell: SPELLS.COMMANDING_SHOUT,
+      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
+      getCooldown: haste => 180,
+      noSuggestion: false,
+      recommendedCastEfficiency: 0.01,
+      noCanBeImproved: true,
+      extraSuggestion: 'Use it to support your raid party.',
+    },
+    {
       spell: SPELLS.CHARGE,
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
-      getCooldown: haste => 20,
-      recommendedCastEfficiency: 0.1,
+      getCooldown: haste => 17,
       noSuggestion: false,
+      recommendedCastEfficiency: 0.01,
+      noCanBeImproved: true,
+      extraSuggestion: 'Use CHARGE to close the gap',
+    },
+    {
+      spell: SPELLS.HEROIC_LEAP,
+      category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
+      getCooldown: haste => 45,
+      noSuggestion: false,
+      recommendedCastEfficiency: 0.01,
+      noCanBeImproved: true,
+      extraSuggestion: 'Use HEROIC LEAP to close the gap',
+    },
+    {
+      spell: SPELLS.PUMMEL,
+      category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
+      getCooldown: haste => 15,
+      noSuggestion: true,
+      noCanBeImproved: true,
     },
   ]
 }
