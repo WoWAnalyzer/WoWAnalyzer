@@ -182,6 +182,7 @@ export default {
   name: 'Gyroscopic stabilization',
   icon: 'inv_glove_mail_raidshamanmythic_o_01',
 },
+
   //Talent buffs/debuffs
   LOCK_AND_LOAD_BUFF: {
     id: 194594,
