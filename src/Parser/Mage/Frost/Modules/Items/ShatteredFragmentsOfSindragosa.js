@@ -43,7 +43,7 @@ class ShatteredFragmentsOfSindragosa extends Module {
     const legendaryDamage = (this.damage / (this.cometStormCasts + this.legendaryProcs)) * this.legendaryProcs;
     return {
       item: ITEMS.SHATTERED_FRAGMENTS_OF_SINDRAGOSA,
-      result: `${this.owner.formatItemDamageDone(legendaryDamage)}`,
+      result: this.owner.formatItemDamageDone(legendaryDamage),
     };
   }
 }

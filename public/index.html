@@ -18,7 +18,8 @@
 <script type="text/javascript">
 Raven.config('https://95bf5a7af57f4a57af1f1be4d0706a91@sentry.io/232829').install();
 </script>
-<script src="https://ft-polyfill-service.herokuapp.com/v2/polyfill.min.js?features=es6,Object.values&unknown=polyfill" crossorigin="anonymous"></script>
+<!-- We NEED to use a non minified version of the polyfill service as the minified version causes an error in PhantomJS: "Attempting to configurable attribute of unconfigurable property." -->
+<script src="https://ft-polyfill-service.herokuapp.com/v2/polyfill.js?features=es6&unknown=polyfill" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css" />
 
 <style type="text/css">
@@ -47,6 +48,12 @@ Raven.config('https://95bf5a7af57f4a57af1f1be4d0706a91@sentry.io/232829').instal
   margin-bottom: 0;
   color: #e45a5a;
 }
+#splash p {
+  color: #aaa;
+}
+#splash p a {
+  color: #e45a5a;
+}
 </style>
 
 <title>WoW Analyzer</title>
@@ -61,6 +68,9 @@ Raven.config('https://95bf5a7af57f4a57af1f1be4d0706a91@sentry.io/232829').instal
     <div>
       <h1>WoW Analyzer</h1>
       <small>Loading...</small>
+      <p>
+        If this seems frozen your browser might be shit. To unshit your browser go to <a href="http://outdatedbrowser.com/">outdatedbrowser.com</a>.
+      </p>
     </div>
   </div>
 </div>

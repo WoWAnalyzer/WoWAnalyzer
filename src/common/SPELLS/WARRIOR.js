@@ -6,8 +6,60 @@
 
 export default {
   // Arms:
-  // ...
-
+  //Rotational Spells
+  COLOSSUS_SMASH: {
+    id: 167105,
+    name: 'Colossus Smash',
+    icon: 'ability_warrior_colossussmash',
+  },
+  MORTAL_STRIKE: {
+    id: 12294,
+    name: 'Mortal Strike',
+    icon: 'ability_warrior_savageblow',
+  },
+  EXECUTE: {
+    id: 163201,
+    name: 'Execute',
+    icon: 'inv_sword_48',
+  },
+  SLAM: {
+    id: 1464,
+    name: 'Slam',
+    icon: 'ability_warrior_decisivestrike',
+  },
+  CLEAVE: {
+    id: 845,
+    name: 'Cleave',
+    icon: 'ability_warrior_cleave',
+  },
+  WHIRLWIND: {
+    id: 199658,
+    name: 'Whirlwind',
+    icon: 'ability_whirlwind',
+  },
+WARBREAKER: {
+  id: 209577,
+  name: 'Warbreaker',
+  icon: 'inv_sword_2h_artifactarathor_d_01',
+},
+  // Debuffs
+  COLOSSUS_SMASH_DEBUFF: {
+    id: 208086,
+    name: 'Colossus Smash',
+    icon: 'ability_warrior_colossussmash',
+  },
+  // Utility
+  CHARGE: {
+    id: 126664,
+    name: 'Charge',
+    icon: 'ability_warrior_charge',
+  },
+  // Passives
+  TACTICIAN: {
+    id: 199854,
+    name: 'Tactician',
+    icon: 'ability_warrior_unrelentingassault',
+  },
   // Fury:
   // ...
 
