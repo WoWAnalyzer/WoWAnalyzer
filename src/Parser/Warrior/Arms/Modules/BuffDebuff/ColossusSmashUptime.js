@@ -32,7 +32,7 @@ class ColossusSmashUptime extends Module {
           .icon(SPELLS.COLOSSUS_SMASH_DEBUFF.icon)
           .actual(`${formatPercentage(actual)}% Colossus Smash uptime`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`)
-          .regular(recommended - 0.02).major(recommended - 0.5);
+          .regular(recommended - 0.25).major(recommended - 0.5);
       });
   }
 
