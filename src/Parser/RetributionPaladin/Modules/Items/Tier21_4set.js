@@ -8,10 +8,6 @@ import { formatNumber } from 'common/format';
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-const HOLY_POWER_SPENDERS = [
-
-]
-
 class Tier21_4set extends Module {
 	static dependencies ={
 		combatants: Combatants,
@@ -23,11 +19,12 @@ class Tier21_4set extends Module {
 		this.active = this.combatants.selected.hasBuff(SPELLS.RET_PALADIN_T21_4SET_BONUS.id);
 	}
 
-	on_byPlayer_cast(event){
+	on_byPlayer_removebuff(event){
 		const spellId = event.ability.guid;
-		if(!this.combatants.selected.hasBuff(SPELLS.RET_PALADIN_T21_4SET_BONUS.id))
+		if(spellId !== SPELLS.RET_PALADIN_T21_4SET_BONUS_BUFF.id){
 			return;
-		if()
+		}
+		this.holyPowerGained += 1;
 	}
 
 	item() {
