@@ -123,6 +123,7 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
       getCooldown: (haste, combatant) => 120 - (combatant.traitsBySpellId[SPELLS.DEFLECTION.id] || 0) * 10,
       noCanBeImproved: true,
+      recommendedCastEfficiency: .5,
       importance: ISSUE_IMPORTANCE.MINOR,
     },
     {
@@ -156,7 +157,9 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.ARCANE_TORRENT_MANA,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 90,
+      recommendedCastEfficiency: .65,
       hideWithZeroCasts: true,
+
     },
   ];
 }
