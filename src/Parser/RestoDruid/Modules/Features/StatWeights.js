@@ -156,7 +156,7 @@ class StatWeights extends Module {
     return onePercentHealing / oneRatingHealing;
   }
 
-  _prepareAndPackResults() {
+  _prepareResults() {
     const intWeight = this.totalOneInt / this.totalOneInt;
     const critWeight = this.totalOneCrit / this.totalOneInt;
     const hasteHpmWeight = this.totalOneHasteHpm / this.totalOneInt;
@@ -171,18 +171,21 @@ class StatWeights extends Module {
     const masteryForOnePercent = this._ratingPerOnePercent(this.totalOneMastery);
     const versForOnePercent = this._ratingPerOnePercent(this.totalOneVers);
 
+    const hasteHpmTooltip = "HPM stands for 'Healing per Mana'. In valuing Haste, it considers only the faster HoT ticking and not the reduced cast times. Effectively it models haste's bonus to mana efficiency. This is typically the more accurate haste weighting for raid encounters where mana is an issue.";
+    const hasteHpctTooltip = "HPCT stands for 'Healing per Cast Time'. In valuing Haste, it considers both the faster HoT ticking and the ability to cast more spells in the same amount of time. This can be good for modeling a burst of healing over several seconds, but remember that over the course of a fight casting more spells means running out of mana faster.";
+
     return [
       { stat:'Intellect', weight:intWeight, ratingForOne:intForOnePercent },
       { stat:'Crit', weight:critWeight, ratingForOne:critForOnePercent },
-      { stat:'Haste (HPM)', weight:hasteHpmWeight, ratingForOne:hasteHpmForOnePercent },
-      { stat:'Haste (HPCT)', weight:hasteHpctWeight, ratingForOne:hasteHpctForOnePercent },
+      { stat:'Haste (HPM)', weight:hasteHpmWeight, ratingForOne:hasteHpmForOnePercent, tooltip:hasteHpmTooltip },
+      { stat:'Haste (HPCT)', weight:hasteHpctWeight, ratingForOne:hasteHpctForOnePercent, tooltip:hasteHpctTooltip },
       { stat:'Mastery', weight:masteryWeight, ratingForOne:masteryForOnePercent },
       { stat:'Versatility', weight:versWeight, ratingForOne:versForOnePercent },
     ];
   }
 
   item() {
-    const results = this._prepareAndPackResults();
+    const results = this._prepareResults();
     return (
       <div>
         <div style={{ marginLeft: 22, marginTop: 16, marginBottom: 14 }}>
@@ -200,7 +203,7 @@ class StatWeights extends Module {
             <tbody>
               {results.map(row => (
                 <tr>
-                  <td>{row.stat}</td>
+                  {row.tooltip ? (<td><dfn data-tip={row.tooltip}>{row.stat}</dfn></td>) : (<td>{row.stat}</td>)}
                   <td>{row.weight.toFixed(2)}</td>
                   <td>{formatNumber(row.ratingForOne)}</td>
                 </tr>
