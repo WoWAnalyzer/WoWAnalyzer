@@ -7,7 +7,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import { formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class Judgment extends Module {
@@ -64,7 +64,7 @@ class Judgment extends Module {
 			.addSuggestion((suggest,actual,recommended) => {
 				return suggest(<span>You're spending Holy Power outisde of the <SpellLink id={SPELLS.JUDGMENT_CAST.id} /> debuff. It is optimal to only spend Holy Power while the enemy is debuffed with <SpellLink id={SPELLS.JUDGMENT_CAST.id} />.</span>)
 					.icon(SPELLS.JUDGMENT_DEBUFF.icon)
-					.actual(`${formatPercentage(actual)}% Holy Power spenders used outside of Judgment.`)
+					.actual(`${formatNumber(this.spenderOutsideJudgment)} Holy Power spenders used outside of Judgment (${formatPercentage(actual)}%).`)
 					.recommended(`<${formatPercentage(recommended)}% is recommened`)
 					.regular(recommended + 0.05).major(recommended + 0.1);
 			});

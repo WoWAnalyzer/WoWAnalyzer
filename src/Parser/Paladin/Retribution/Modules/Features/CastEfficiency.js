@@ -159,7 +159,6 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 90,
       recommendedCastEfficiency: .65,
       hideWithZeroCasts: true,
-
     },
   ];
 }
