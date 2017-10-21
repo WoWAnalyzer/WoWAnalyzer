@@ -45,9 +45,9 @@ class PatientSniperDetails extends Module {
 
   suggestions(when) {
     const bonusDamagePercentage = this.owner.getPercentageOfTotalDamageDone(this.bonusDamage);
-    const MINOR = 0.18;
-    const AVG = 0.17;
-    const MAJOR = 0.15;
+    const MINOR = 0.09;
+    const AVG = 0.08;
+    const MAJOR = 0.07;
     when(bonusDamagePercentage).isLessThan(MINOR)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span><SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id}/> increases the damage of your <SpellLink id={SPELLS.AIMED_SHOT.id}/> or <SpellLink id={SPELLS.PIERCING_SHOT_TALENT.id}/> the later you fire them inside <SpellLink id={SPELLS.VULNERABLE.id}/>. While this isn't worth waiting for, it looks like you're shooting your Aimed Shots / Piercing Shots too soon, try and use <SpellLink id={SPELLS.ARCANE_SHOT.id}/> as a filler after applying Vulnerable. If you have enough haste you can fit in two Arcane Shots instead of one.</span>)
