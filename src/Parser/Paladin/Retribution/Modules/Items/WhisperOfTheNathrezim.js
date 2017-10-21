@@ -20,6 +20,7 @@ class WhisperOfTheNathrezim extends Module {
 
   damageDone = 0;
   spendersWithBuff = 0;
+  totalSpender = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.hasBack(ITEMS.WHISPER_OF_THE_NATHREZIM.id);
@@ -27,13 +28,15 @@ class WhisperOfTheNathrezim extends Module {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if(!this.combatants.selected.hasBuff(SPELLS.WHISPER_OF_THE_NATHREZIM_BUFF.id)){
-      return;
-    }
     if(spellId === SPELLS.TEMPLARS_VERDICT.id || spellId === SPELLS.DIVINE_STORM.id){
-      this.spendersWithBuff += 1;
+      if(this.combatants.selected.hasBuff(SPELLS.WHISPER_OF_THE_NATHREZIM_BUFF.id)){
+        this.spendersWithBuff++;
+      }
+      this.totalSpender++;
     }
   }
+
+  on
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
     if (!this.combatants.selected.hasBuff(SPELLS.WHISPER_OF_THE_NATHREZIM_BUFF.id)) {
@@ -50,7 +53,7 @@ class WhisperOfTheNathrezim extends Module {
       result: (<dfn data-tip={`
         The effective damage contributed by Whisper of the Nathrezim.<br/>
 				Total Damage: ${formatNumber(this.damageDone)}<br/>
-        Spenders With Buff: ${formatNumber(this.spendersWithBuff)}`}>
+        Spenders With Buff: ${formatPercentage(this.spendersWithBuff/this.totalSpender)}% (${formatNumber(this.spendersWithBuff)} spenders)`}>
         {this.owner.formatItemDamageDone(this.damageDone)}
       </dfn>),
     };
