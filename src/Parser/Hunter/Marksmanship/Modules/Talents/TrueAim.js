@@ -62,13 +62,14 @@ class TrueAim extends Module {
 
   statistic() {
     const percentTimeAtMaxTAStacks = formatPercentage(this.timeAtMaxStacks / this.owner.fightDuration);
+    //only shows if timesDropped is greater than 0, to only show it on encounters where it might matter - we expect full uptime on any ST boss.
     if (this.timesDropped > 0) {
       return (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.TRUE_AIM_DEBUFF.id} />}
           value={`${percentTimeAtMaxTAStacks} %`}
           label="10 stack uptime"
-          tooltip={`You reset your stacks (when they were at 3 stacks or higher) ${this.timesDropped} times over the course of the encounter. <br />Your total amount of resets (including with trickshot cleaving) was: ${this.totalTimesDropped}`}
+          tooltip={`You reset True Aim when you had 3 or more stacks (to exclude trickshot cleaving resets): ${this.timesDropped} times over the course of the encounter. <br />Your total amount of resets (including with trickshot cleaving) was: ${this.totalTimesDropped}.`}
         />
       );
     }
