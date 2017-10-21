@@ -19,27 +19,38 @@ class WhisperOfTheNathrezim extends Module {
   };
 
   damageDone = 0;
+  spendersWithBuff = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.hasBack(ITEMS.WHISPER_OF_THE_NATHREZIM.id);
   }
 
+  on_byPlayer_cast(event) {
+    const spellId = event.ability.guid;
+    if(!this.combatants.selected.hasBuff(SPELLS.WHISPER_OF_THE_NATHREZIM_BUFF.id)){
+      return;
+    }
+    if(spellId === SPELLS.TEMPLARS_VERDICT.id || spellId === SPELLS.DIVINE_STORM.id){
+      this.spendersWithBuff += 1;
+    }
+  }
   on_byPlayer_damage(event) {
-    if (this.combatants.selected.hasBuff(SPELLS.WHISPER_OF_THE_NATHREZIM_BUFF.id)) {
-      if (event.ability.guid === SPELLS.TEMPLARS_VERDICT_DAMAGE.id || event.ability.guid === SPELLS.DIVINE_STORM_DAMAGE.id) {
-        this.damageDone += GetDamageBonus(event, WHISPER_OF_THE_NATHREZIM_MODIFIER);
-      }
+    const spellId = event.ability.guid;
+    if (!this.combatants.selected.hasBuff(SPELLS.WHISPER_OF_THE_NATHREZIM_BUFF.id)) {
+      return;
+    }
+    if (spellId === SPELLS.TEMPLARS_VERDICT_DAMAGE.id || spellId === SPELLS.DIVINE_STORM_DAMAGE.id) {
+      this.damageDone += GetDamageBonus(event, WHISPER_OF_THE_NATHREZIM_MODIFIER);
     }
   }
 
   item() {
-    const uptime = this.combatants.selected.getBuffUptime(SPELLS.WHISPER_OF_THE_NATHREZIM_BUFF.id) / this.owner.fightDuration;
     return {
       item: ITEMS.WHISPER_OF_THE_NATHREZIM,
       result: (<dfn data-tip={`
         The effective damage contributed by Whisper of the Nathrezim.<br/>
 				Total Damage: ${formatNumber(this.damageDone)}<br/>
-				Percent Uptime: ${formatPercentage(uptime)}%`}>
+        Spenders With Buff: ${formatNumber(this.spendersWithBuff)}`}>
         {this.owner.formatItemDamageDone(this.damageDone)}
       </dfn>),
     };
