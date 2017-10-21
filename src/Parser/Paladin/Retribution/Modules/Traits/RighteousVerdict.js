@@ -7,7 +7,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import getDamageBonusStacked from '../PaladinCore/getDamageBonusStacked';
+import getDamageBonusStacked from '../../../Shared/getDamageBonusStacked';
 
 const RIGHTEOUS_VERDICT_INCREASE = 0.08;
 /**

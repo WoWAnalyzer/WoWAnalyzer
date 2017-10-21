@@ -7,16 +7,17 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import getDamageBonusStacked from '../PaladinCore/getDamageBonusStacked';
+import getDamageBonusStacked from '../../../Shared/getDamageBonusStacked';
 
-const HIGHLORDS_JUDGMENT_INCREASE = 0.08;
+
+const MIGHT_OF_THE_TEMPLAR_INCREASE = 0.02;
 /**
- * Highlord's Judgment (Artifact Trait)
- * Increase the damge done by Judgment by 8%.
+ * Might of the Templar (Artifact Trait)
+ * Increase the damge done by Templar's Verdict by 2%.
  */
 
- class HighlordsJudgment extends Module {
- 	static dependencies = {
+class MightOfTheTemplar extends Module {
+	static dependencies = {
  		combatants: Combatants,
  	};
 
@@ -24,23 +25,24 @@ const HIGHLORDS_JUDGMENT_INCREASE = 0.08;
  	damage = 0;
 
  	on_initialized() {
- 		this.rank = this.combatants.selected.traitsBySpellId[SPELLS.HIGHLORDS_JUDGMENT.id];
+ 		this.rank = this.combatants.selected.traitsBySpellId[SPELLS.MIGHT_OF_THE_TEMPLAR.id];
  		this.active = this.rank > 0;
  	}
 
  	on_byPlayer_damage(event) {
- 		if(event.ability.guid !== SPELLS.JUDGMENT_CAST.id){
+ 		if(event.ability.guid !== SPELLS.TEMPLARS_VERDICT_DAMAGE.id){
  			return;
  		}
- 		this.damage += getDamageBonusStacked(event, HIGHLORDS_JUDGMENT_INCREASE, this.rank);
+
+ 		this.damage += getDamageBonusStacked(event, MIGHT_OF_THE_TEMPLAR_INCREASE, this.rank);
  	}
 
  	subStatistic() {
  		return (
  			<div className='flex'>
  				<div className='flex-main'>
- 					<SpellLink id={SPELLS.HIGHLORDS_JUDGMENT.id}>
- 						<SpellIcon id={SPELLS.HIGHLORDS_JUDGMENT.id} noLink /> Highlord's Judgment
+ 					<SpellLink id={SPELLS.MIGHT_OF_THE_TEMPLAR.id}>
+ 						<SpellIcon id={SPELLS.MIGHT_OF_THE_TEMPLAR.id} noLink /> Might of the Templar
  					</SpellLink>
  				</div>
  				<div className='flex-sub text-right'>
@@ -49,6 +51,6 @@ const HIGHLORDS_JUDGMENT_INCREASE = 0.08;
  			</div>
  		);
  	}
- }
+}
 
- export default HighlordsJudgment;
+export default MightOfTheTemplar;
