@@ -21,7 +21,7 @@ class ColossusSmashUptime extends Module {
     let threshold;
 
     if (this.combatants.selected.hasTalent(SPELLS.FERVOR_OF_BATTLE_TALENT.id)) {
-      threshold = 0.60; // Value needs to be optimized with feedback
+      threshold = 0.50; // Value needs to be optimized with feedback
     } else {
       threshold = 0.95; // Value is valide
     }
