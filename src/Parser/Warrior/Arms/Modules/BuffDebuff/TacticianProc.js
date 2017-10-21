@@ -9,15 +9,12 @@ const debug = false;
 
 class TacticianProc extends Module {
   totalProcs = 0;
-  lastTimestamp = 0;
 
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
     if (SPELLS.TACTICIAN.id !== spellId) {
       return;
     }
-    // Get the applied timestamp
-    this.lastTimestamp = event.timestamp;
     debug && console.log('Tactician was applied');
     this.totalProcs += 1;
   }
@@ -27,8 +24,6 @@ class TacticianProc extends Module {
     if (SPELLS.TACTICIAN.id !== spellId) {
       return;
     }
-    // Get the applied timestamp
-    this.lastTimestamp = event.timestamp;
     debug && console.log('Tactician was refreshed');
     this.totalProcs += 1;
   }
