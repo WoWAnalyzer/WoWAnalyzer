@@ -75,6 +75,12 @@ RAVAGER: {
     name: 'Tactician',
     icon: 'ability_warrior_unrelentingassault',
   },
+  // Talents
+  FERVOR_OF_BATTLE_TALENT: {
+    id: 202316,
+    name: "Fervor of Battle",
+    icon: "ability_rogue_waylay",
+  },
   // Fury:
   // ...
 
