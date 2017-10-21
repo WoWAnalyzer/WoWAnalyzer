@@ -9,6 +9,10 @@ import { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellLink from 'common/SpellLink';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
+  static dependencies = {
+    combatants: Combatants,
+    ...CoreAlwaysBeCasting.dependencies,
+  };
   static ABILITIES_ON_GCD = [
 
     // Marksmanship:
@@ -45,9 +49,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
 
 
   suggestions(when) {
-     this.dependencies = {
-      combatants: Combatants,
-    };
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
     //When playing with sidewinders your downtime is significantly different than when you play without, this is due to losing all instant casts
     if (this.combatants.selected.hasTalent(SPELLS.SIDEWINDERS_TALENT.id)) {
