@@ -48,6 +48,7 @@ class Tier20_2set extends Module {
           Damage: ${this.owner.formatItemDamageDone(this.damageDone)}<br/>
           Total Damage: ${formatNumber(this.damageDone)}<br/>
           The percent uptime is your actual uptime over the max uptime based on your haste.<br/>
+          Note: This doesn't take into account for haste procs and therefore may be over 100%.<br/>
           Percent Uptime: ${formatPercentage(this.percentUptime)}%`}
         >
           {this.owner.formatItemDamageDone(this.damageDone)}
