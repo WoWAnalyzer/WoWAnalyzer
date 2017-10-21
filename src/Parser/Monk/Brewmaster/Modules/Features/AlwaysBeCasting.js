@@ -27,9 +27,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.TIGERS_LUST_TALENT.id,
   ];
 
-  // BrM has a fixed 1s GCD
-  static BASE_GCD = 1000;
-  static MINIMUM_GCD = 1000;
+  static MINIMUM_GCD = 1000; // it's capped to 1sec, reduced with haste from player
 
   suggestions(when) {
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;

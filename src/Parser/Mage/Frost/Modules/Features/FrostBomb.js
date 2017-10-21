@@ -14,7 +14,7 @@ class FrostBomb extends Module {
   static dependencies = {
     combatants: Combatants,
     abilityTracker: AbilityTracker,
-	}
+  }
 
   damage = 0;
   hits = 0;
@@ -22,14 +22,14 @@ class FrostBomb extends Module {
   hitTimestamp;
 
   on_initialized() {
-	   this.active = this.combatants.selected.hasTalent(SPELLS.FROST_BOMB_TALENT.id);
+    this.active = this.combatants.selected.hasTalent(SPELLS.FROST_BOMB_TALENT.id);
   }
 
   on_byPlayer_damage(event) {
-    if(event.ability.guid === SPELLS.FROST_BOMB_DAMAGE.id) {
+    if (event.ability.guid === SPELLS.FROST_BOMB_DAMAGE.id) {
       this.damage += event.amount + (event.absorbed || 0);
       this.hits += 1;
-      if(!this.hitTimestamp || this.hitTimestamp + PROC_WINDOW_MS < this.owner.currentTimestamp) {
+      if (!this.hitTimestamp || this.hitTimestamp + PROC_WINDOW_MS < this.owner.currentTimestamp) {
         this.hitTimestamp = this.owner.currentTimestamp;
         this.procs += 1;
       }

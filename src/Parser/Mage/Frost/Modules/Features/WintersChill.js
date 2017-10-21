@@ -51,7 +51,7 @@ class WintersChillTracker extends Module {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.WINTERS_CHILL.id} />}
-        value={`${formatNumber(missed)}`}
+        value={formatNumber(missed)}
         label="Winter's Chill Missed" />
     );
   }
