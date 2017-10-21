@@ -68,7 +68,8 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.SIDEWINDERS_TALENT,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => 10.4, // TODO handle charges correctly
+      getCooldown: haste => 12/(1+haste), // TODO handle charges correctly
+      charges: 2,
       isActive: combatant => combatant.hasTalent(SPELLS.SIDEWINDERS_TALENT.id),
     },
     {
