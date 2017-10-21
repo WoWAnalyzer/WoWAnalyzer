@@ -38,6 +38,7 @@ window.onerror = function (message, url, lineNo, colNo, error) {
   }
 };
 </script>
+<!-- We NEED to use a non minified version of the polyfill service as the minified version causes an error in PhantomJS: "Attempting to configurable attribute of unconfigurable property." -->
 <script src="https://ft-polyfill-service.herokuapp.com/v2/polyfill.js?features=es6&unknown=polyfill" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css" />
 
