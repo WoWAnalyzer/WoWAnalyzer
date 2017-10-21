@@ -8,7 +8,7 @@ import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
-import GetDamageBonus from '../../../Shared/GetDamageBonus';
+import GetDamageBonus from 'Parser/Paladin/Shared/GetDamageBonus';
 
 const ASHES_TO_DUST_MODIFIER = 0.15;
 

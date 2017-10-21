@@ -7,7 +7,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import getDamageBonusStacked from '../../../Shared/getDamageBonusStacked';
+import getDamageBonusStacked from 'Parser/Paladin/Shared/getDamageBonusStacked';
 
 const HIGHLORDS_JUDGMENT_INCREASE = 0.08;
 /**
