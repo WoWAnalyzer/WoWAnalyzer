@@ -140,11 +140,6 @@ class StatWeights extends Module {
     this.totalOneVers += oneVers;
   }
 
-  _ratingPerOnePercent(oneRatingHealing) {
-    const onePercentHealing = this.totalNonIgnoredHealing / 100;
-    return onePercentHealing / oneRatingHealing;
-  }
-
   on_finished() {
     if(DEBUG) {
       console.log(`Int - ${formatNumber(this.totalOneInt)}`);
@@ -156,15 +151,12 @@ class StatWeights extends Module {
     }
   }
 
-  //
-  tab() {
-    const intForOnePercent = this._ratingPerOnePercent(this.totalOneInt);
-    const critForOnePercent = this._ratingPerOnePercent(this.totalOneCrit);
-    const hasteHpmForOnePercent = this._ratingPerOnePercent(this.totalOneHasteHpm);
-    const hasteHpctForOnePercent = this._ratingPerOnePercent(this.totalOneHasteHpct);
-    const masteryForOnePercent = this._ratingPerOnePercent(this.totalOneMastery);
-    const versForOnePercent = this._ratingPerOnePercent(this.totalOneVers);
+  _ratingPerOnePercent(oneRatingHealing) {
+    const onePercentHealing = this.totalNonIgnoredHealing / 100;
+    return onePercentHealing / oneRatingHealing;
+  }
 
+  _prepareAndPackResults() {
     const intWeight = this.totalOneInt / this.totalOneInt;
     const critWeight = this.totalOneCrit / this.totalOneInt;
     const hasteHpmWeight = this.totalOneHasteHpm / this.totalOneInt;
@@ -172,59 +164,54 @@ class StatWeights extends Module {
     const masteryWeight = this.totalOneMastery / this.totalOneInt;
     const versWeight = this.totalOneVers / this.totalOneInt;
 
-    return {
-      title: 'Stat Weights',
-      url: 'stat-weights',
-      render: () => (
-        <div style={{ marginLeft: 20, marginTop: 20, marginBottom: 10 }}>
-          <h1>Stat Weights</h1>
+    const intForOnePercent = this._ratingPerOnePercent(this.totalOneInt);
+    const critForOnePercent = this._ratingPerOnePercent(this.totalOneCrit);
+    const hasteHpmForOnePercent = this._ratingPerOnePercent(this.totalOneHasteHpm);
+    const hasteHpctForOnePercent = this._ratingPerOnePercent(this.totalOneHasteHpct);
+    const masteryForOnePercent = this._ratingPerOnePercent(this.totalOneMastery);
+    const versForOnePercent = this._ratingPerOnePercent(this.totalOneVers);
+
+    return [
+      { stat:'Intellect', weight:intWeight, ratingForOne:intForOnePercent },
+      { stat:'Crit', weight:critWeight, ratingForOne:critForOnePercent },
+      { stat:'Haste (HPM)', weight:hasteHpmWeight, ratingForOne:hasteHpmForOnePercent },
+      { stat:'Haste (HPCT)', weight:hasteHpctWeight, ratingForOne:hasteHpctForOnePercent },
+      { stat:'Mastery', weight:masteryWeight, ratingForOne:masteryForOnePercent },
+      { stat:'Versatility', weight:versWeight, ratingForOne:versForOnePercent },
+    ];
+  }
+
+  item() {
+    const results = this._prepareAndPackResults();
+    return (
+      <div>
+        <div style={{ marginLeft: 22, marginTop: 16, marginBottom: 14 }}>
+          <h4><dfn data-tip="Weights are calculated using your actual items worn, spells cast, and healing done during this encounter. Weights are likely to differ by fight and raid composition.">STAT WEIGHTS</dfn></h4>
+        </div>
+        <div style={{ marginBottom: 10 }}>
           <table className="data-table">
             <thead>
               <tr>
-                <th style={{ maxWidth: 60 }}><b>Stat</b></th>
-                <th style={{ maxWidth: 60 }}><dfn data-tip="Normalized on Int's weight"><b>Weight</b></dfn></th>
-                <th style={{ maxWidth: 60 }}><b>Rating per 1%</b></th>
-                <th />
-                <th />
+                <th style={{ minWidth: 30 }}><b>Stat</b></th>
+                <th style={{ minWidth: 30 }}><dfn data-tip="Normalized so Intellect is always 1.00"><b>Weight</b></dfn></th>
+                <th style={{ minWidth: 30 }}><dfn data-tip="Amount of stat rating required to increase your total healing by 1%"><b>Rating per 1%</b></dfn></th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Int</td>
-                <td>{formatNumber(intWeight)}</td>
-                <td>{formatNumber(intForOnePercent)}</td>
-              </tr>
-              <tr>
-                <td>Crit</td>
-                <td>{formatNumber(critWeight)}</td>
-                <td>{formatNumber(critForOnePercent)}</td>
-              </tr>
-              <tr>
-                <td>Haste HPM</td>
-                <td>{formatNumber(hasteHpmWeight)}</td>
-                <td>{formatNumber(hasteHpmForOnePercent)}</td>
-              </tr>
-              <tr>
-                <td>Haste HPCT</td>
-                <td>{formatNumber(hasteHpctWeight)}</td>
-                <td>{formatNumber(hasteHpctForOnePercent)}</td>
-              </tr>
-              <tr>
-                <td>Mastery</td>
-                <td>{formatNumber(masteryWeight)}</td>
-                <td>{formatNumber(masteryForOnePercent)}</td>
-              </tr>
-              <tr>
-                <td>Versatility</td>
-                <td>{formatNumber(versWeight)}</td>
-                <td>{formatNumber(versForOnePercent)}</td>
-              </tr>
+              {results.map(row => (
+                <tr>
+                  <td>{row.stat}</td>
+                  <td>{row.weight.toFixed(2)}</td>
+                  <td>{formatNumber(row.ratingForOne)}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
-      ),
-    };
+      </div>
+    );
   }
+
 }
 
 export default StatWeights;

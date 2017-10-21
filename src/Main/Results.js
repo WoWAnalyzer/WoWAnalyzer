@@ -88,7 +88,12 @@ class Results extends React.Component {
             {
               items
                 .sort((a, b) => {
-                  if (a.item && b.item) {
+                  // raw elements always rendered last
+                  if (React.isValidElement(a)) {
+                    return 1;
+                  } else if (React.isValidElement(b)) {
+                    return -1;
+                  } else if (a.item && b.item) {
                     if (a.item.quality === b.item.quality) {
                       // Qualities equal = show last added item at bottom
                       return a.item.id - b.item.id;
@@ -111,6 +116,8 @@ class Results extends React.Component {
                 .map((item) => {
                   if (!item) {
                     return null;
+                  } else if (React.isValidElement(item)) {
+                    return item;
                   }
 
                   const id = item.id || item.item.id;
