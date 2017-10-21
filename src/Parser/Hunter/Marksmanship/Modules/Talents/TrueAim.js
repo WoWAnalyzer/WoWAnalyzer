@@ -2,7 +2,6 @@ import React from 'react';
 
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import Enemies from 'Parser/Core/Modules/Enemies';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
@@ -14,7 +13,6 @@ const MAX_STACKS = 10;
 class TrueAim extends Module {
   static dependencies = {
     combatants: Combatants,
-    enemies: Enemies,
   };
 
   _currentStacks = 0;
@@ -63,7 +61,6 @@ class TrueAim extends Module {
   statistic() {
     const percentTimeAtMaxTAStacks = formatPercentage(this.timeAtMaxStacks / this.owner.fightDuration);
     //only shows if timesDropped is greater than 0, to only show it on encounters where it might matter - we expect full uptime on any ST boss.
-    if (this.timesDropped > 0) {
       return (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.TRUE_AIM_DEBUFF.id} />}
@@ -72,7 +69,6 @@ class TrueAim extends Module {
           tooltip={`You reset True Aim when you had 3 or more stacks (to exclude trickshot cleaving resets): ${this.timesDropped} times over the course of the encounter. <br />Your total amount of resets (including with trickshot cleaving) was: ${this.totalTimesDropped}.`}
         />
       );
-    }
   }
 
 }
