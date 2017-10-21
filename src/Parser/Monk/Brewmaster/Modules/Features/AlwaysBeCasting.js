@@ -28,8 +28,8 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
   ];
 
   // BrM has a fixed 1s GCD
-  static BASE_GCD = 1000;
-  static MINIMUM_GCD = 1000;
+  //static BASE_GCD = 1500;
+  //static MINIMUM_GCD = 1000;
 
   suggestions(when) {
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
