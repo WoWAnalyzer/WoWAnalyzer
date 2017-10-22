@@ -33,6 +33,9 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
 
     //Off GCD
     //SPELLS.DISENGAGE_TALENT.id,
+    //SPELLS.ASPECT_OF_THE_TURTLE.id,
+    //SPELLS.ASPECT_OF_THE_CHEETAH.id,
+    //SPELLS.EXHILARATION.id,
 
     //Talents
     SPELLS.BLACK_ARROW_TALENT.id,
