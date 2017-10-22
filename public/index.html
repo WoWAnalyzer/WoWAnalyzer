@@ -16,8 +16,15 @@
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <script src="https://cdn.ravenjs.com/3.19.1/raven.min.js" crossorigin="anonymous"></script>
 <script type="text/javascript">
+Raven.config('https://95bf5a7af57f4a57af1f1be4d0706a91@sentry.io/232829').install();
+</script>
+<script type="text/javascript">
 var index = 0;
 function displayError(error) {
+  if (error.message.indexOf('React is running in production mode, but dead code elimination') !== -1) {
+    return;
+  }
+
   let container = document.createElement('div');
   container.style.position = 'fixed';
   container.style.background = '#eee';
@@ -45,7 +52,6 @@ window.addEventListener('error', displayError);
 window.addEventListener('unhandledrejection', function (error) {
   error.reason ? displayError(error.reason) : displayError(error);
 });
-Raven.config('https://95bf5a7af57f4a57af1f1be4d0706a91@sentry.io/232829').install();
 </script>
 <!-- The minified version of the polyfill service causes an error in PhantomJS: "Attempting to configurable attribute of unconfigurable property.", ~~but we shouldn't need PhantomJS anymore and it's deprecated anyway.~~ Actually it appears Google's "how a visitor sees the page" uses PhantomJS-like rendering so it does need to be unminified (assuming that part is meaningful, it probably is). -->
 <!-- Do NOT use `unknown=polyfill` as this breaks Googlebot/Headless Chrome -->
@@ -89,7 +95,7 @@ Raven.config('https://95bf5a7af57f4a57af1f1be4d0706a91@sentry.io/232829').instal
 <title>WoW Analyzer</title>
 </head>
 
-<body style="min-height:800px">
+<body>
 <noscript>
   You need to enable JavaScript to run this app.
 </noscript>
