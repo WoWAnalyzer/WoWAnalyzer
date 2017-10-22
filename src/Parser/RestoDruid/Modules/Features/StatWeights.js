@@ -204,14 +204,46 @@ class StatWeights extends Module {
     ];
   }
 
-  item() {
+  // item() {
+  //   const results = this._prepareResults();
+  //   return (
+  //     <div>
+  //       <div style={{ marginLeft: 22, marginTop: 16, marginBottom: 14 }}>
+  //         <h4><dfn data-tip="Weights are calculated using your actual items worn, spells cast, and healing done during this encounter. Weights are likely to differ by fight and raid composition.">STAT WEIGHTS</dfn></h4>
+  //       </div>
+  //       <div style={{ marginBottom: 10 }}>
+  //         <table className="data-table">
+  //           <thead>
+  //             <tr>
+  //               <th style={{ minWidth: 30 }}><b>Stat</b></th>
+  //               <th style={{ minWidth: 30 }}><dfn data-tip="Normalized so Intellect is always 1.00"><b>Weight</b></dfn></th>
+  //               <th style={{ minWidth: 30 }}><dfn data-tip="Amount of stat rating required to increase your total healing by 1%"><b>Rating per 1%</b></dfn></th>
+  //             </tr>
+  //           </thead>
+  //           <tbody>
+  //             {results.map(row => (
+  //               <tr>
+  //                 {row.tooltip ? (<td><dfn data-tip={row.tooltip}>{row.stat}</dfn></td>) : (<td>{row.stat}</td>)}
+  //                 <td>{row.weight.toFixed(2)}</td>
+  //                 <td>{formatNumber(row.ratingForOne)}</td>
+  //               </tr>
+  //             ))}
+  //           </tbody>
+  //         </table>
+  //       </div>
+  //     </div>
+  //   );
+  // }
+
+  underItem() {
     const results = this._prepareResults();
     return (
-      <div>
-        <div style={{ marginLeft: 22, marginTop: 16, marginBottom: 14 }}>
-          <h4><dfn data-tip="Weights are calculated using your actual items worn, spells cast, and healing done during this encounter. Weights are likely to differ by fight and raid composition.">STAT WEIGHTS</dfn></h4>
-        </div>
-        <div style={{ marginBottom: 10 }}>
+      <div className="panel items">
+      <div className="panel-heading">
+        <h2><dfn data-tip="Weights are calculated using your actual items worn, spells cast, and healing done during this encounter. Weights are likely to differ by fight and raid composition.">STAT WEIGHTS</dfn>
+        </h2>
+      </div>
+      <div className="panel-body" style={{ padding: 0 }}>
           <table className="data-table">
             <thead>
               <tr>

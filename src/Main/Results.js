@@ -252,6 +252,7 @@ class Results extends React.Component {
             </div>
             <div className="col-md-4">
               {this.renderItems(results.items, selectedCombatant)}
+              {results.underItems ? results.underItems.map(i => i) : ''}
             </div>
           </div>
 
