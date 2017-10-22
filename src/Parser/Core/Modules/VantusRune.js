@@ -5,7 +5,7 @@ import Icon from 'common/Icon';
 import { formatNumber } from 'common/format';
 import bosses from 'common/bosses';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import SmallStatisticBox, { STATISTIC_ORDER } from 'Main/SmallStatisticBox';
 
 import Module from 'Parser/Core/Module';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
@@ -89,7 +89,7 @@ class VantusRune extends Module {
     const damageReduced = (this.damageTaken.total.effective / (1 - VANTUS_RUNE_PERCENTAGE_DAMAGE_REDUCTION)) - this.damageTaken.total.effective;
 
     return (
-      <StatisticBox
+      <SmallStatisticBox
         icon={(
           <SpellLink id={this.activeRune.ability.guid}>
             <Icon icon={this.activeRune.ability.abilityIcon} />
@@ -101,7 +101,7 @@ class VantusRune extends Module {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(999);
+  statisticOrder = STATISTIC_ORDER.UNIMPORTANT();
 }
 
 export default VantusRune;

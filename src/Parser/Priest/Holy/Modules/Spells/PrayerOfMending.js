@@ -68,7 +68,7 @@ class PrayerOfMending extends Module {
     );
   }
 
-  statisticOrder = STATISTIC_ORDER.TRAITS();
+  statisticOrder = STATISTIC_ORDER.UNIMPORTANT();
 }
 
 export default PrayerOfMending;

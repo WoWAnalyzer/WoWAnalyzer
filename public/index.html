@@ -17,35 +17,7 @@
 <script src="https://cdn.ravenjs.com/3.19.1/raven.min.js" crossorigin="anonymous"></script>
 <script type="text/javascript">
 Raven.config('https://95bf5a7af57f4a57af1f1be4d0706a91@sentry.io/232829').install();
-
-var index = 0;
-window.addEventListener('error', function (error) {
-  let container = document.createElement('div');
-  container.style.color = 'red';
-  container.style.position = 'absolute';
-  container.style.background = '#eee';
-  container.style.padding = '2em';
-  container.style.top = (index * 200) + 'px';
-  container.style.left = '1em';
-
-  let msg = document.createElement('pre');
-  msg.innerText = [
-    'Message: ' + error.message,
-    'File: ' + error.filename,
-    'Line: ' + error.lineno,
-    'Column: ' + error.colno,
-    'Stack: ' + (error.error && error.error.stack)
-  ].join('\n');
-
-  container.appendChild(msg);
-
-  document.body.appendChild(container);
-  index += 1;
-});
 </script>
-<!-- The minified version of the polyfill service causes an error in PhantomJS: "Attempting to configurable attribute of unconfigurable property.", but we shouldn't need PhantomJS anymore and it's deprecated anyway. -->
-<!-- Do NOT use `unknown=polyfill` as this breaks Googlebot/Headless Chrome -->
-<script src="https://ft-polyfill-service.herokuapp.com/v2/polyfill.min.js?features=es6" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css" />
 
 <style type="text/css">
@@ -85,7 +57,7 @@ window.addEventListener('error', function (error) {
 <title>WoW Analyzer</title>
 </head>
 
-<body style="min-height:800px">
+<body>
 <noscript>
   You need to enable JavaScript to run this app.
 </noscript>
@@ -100,7 +72,6 @@ window.addEventListener('error', function (error) {
     </div>
   </div>
 </div>
-
 
 <script type="text/javascript" src="//wow.zamimg.com/widgets/power.js" async></script>
 </body>

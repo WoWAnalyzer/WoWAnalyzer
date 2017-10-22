@@ -153,7 +153,7 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 90,
       recommendedCastEfficiency: 0.6,
-      hideWithZeroCasts: true,
+      isUndetectable: true,
     },
   ];
 }
