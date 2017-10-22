@@ -1,3 +1,4 @@
+import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import { formatNumber, formatPercentage } from 'common/format';
@@ -12,8 +13,6 @@ class LiadrinsFuryUnleashed extends Module {
 		combatants: Combatants,
 	};
 
-	totalSpenderDamage = 0;
-
 	on_initialized() {
 		this.active = this.combatants.selected.hasFinger(ITEMS.LIADRINS_FURY_UNLEASHED.id);
 	}
@@ -22,8 +21,10 @@ class LiadrinsFuryUnleashed extends Module {
 		const hpGained = this.holyPowerTracker.generatedAndWasted[SPELLS.LIADRINS_FURY_UNLEASHED_BUFF.id].generated;
 		return {
 			item: ITEMS.LIADRINS_FURY_UNLEASHED,
-			result: (
-				`${formatNumber(hpGained)} Holy Power gained from Liadrin's Fury Unleased.`
+			result: (<dfn data-tip={`
+				Total Holy Power Gained: ${formatNumber(hpGained)}`}>
+				{formatNumber(hpGained / this.owner.fightDuration * 60000)} Holy Power gained per minute.
+			</dfn>
 			),
 		};
 	}
