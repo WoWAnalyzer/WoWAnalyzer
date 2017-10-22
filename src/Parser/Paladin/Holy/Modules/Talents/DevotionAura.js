@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import makeWclUrl from 'common/makeWclUrl';
+import fetchWcl from 'common/fetchWcl';
 import SpellIcon from 'common/SpellIcon';
 import { formatThousands, formatNumber } from 'common/format';
 
@@ -68,19 +68,14 @@ class DevotionAura extends Module {
   }
 
   load() {
-    const amDamageTakenPromise = fetch(makeWclUrl(`report/tables/damage-taken/${this.owner.report.code}`, {
+    const amDamageTakenPromise = fetchWcl(`report/tables/damage-taken/${this.owner.report.code}`, {
       start: this.owner.fight.start_time,
       end: this.owner.fight.end_time,
       filter: `(IN RANGE FROM type='applybuff' AND ability.id=${PROTECTION_OF_TYR_ID} AND source.name='${this.combatants.selected.name}' TO type='removebuff' AND ability.id=${PROTECTION_OF_TYR_ID} AND source.name='${this.combatants.selected.name}' GROUP BY target ON target END)`,
-    }))
-      .then(response => response.json())
-      .then((json) => {
+    })
+      .then(json => {
         console.log('Received AM damage taken', json);
-        if (json.status === 400 || json.status === 401) {
-          throw json.error;
-        } else {
-          this.totalDamageTakenDuringAuraMastery = json.entries.reduce((damageTaken, entry) => damageTaken + entry.total, 0);
-        }
+        this.totalDamageTakenDuringAuraMastery = json.entries.reduce((damageTaken, entry) => damageTaken + entry.total, 0);
       });
 
     return amDamageTakenPromise;
