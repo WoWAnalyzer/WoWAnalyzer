@@ -67,8 +67,9 @@ class PlayerSelectionList extends Component {
             }))
             .filter(player => !!player.combatant)
             .sort((a, b) => {
-              const aSpec = SPECS[a.combatant.specID];
-              const bSpec = SPECS[b.combatant.specID];
+              // The combatlog can error out while would cause the combatant to not have a spec specified, in that case sort them at the bottom.
+              const aSpec = SPECS[a.combatant.specID] || { role: 10 };
+              const bSpec = SPECS[b.combatant.specID] || { role: 10 };
               if (aSpec.role > bSpec.role) {
                 return 1;
               } else if (aSpec.role < bSpec.role) {
@@ -83,6 +84,17 @@ class PlayerSelectionList extends Component {
             })
             .map(({ friendly, combatant }) => {
               const spec = SPECS[combatant.specID];
+
+              if (!spec) {
+                // Spec might not be found if the combatantinfo errored, this happens extremely rarely. Example report: CJBdLf3c2zQXkPtg/13-Heroic+Kil'jaeden+-+Kill+(7:40)
+                return (
+                  <li key={friendly.id} className="item selectable">
+                    <a href="#" onClick={() => alert('The combatlog did not give us any information about this player. This player can not be analyzed.')}>
+                      {friendly.name} (Error - Spec unknown)
+                    </a>
+                  </li>
+                );
+              }
 
               return (
                 <li key={friendly.id} className="item selectable">
