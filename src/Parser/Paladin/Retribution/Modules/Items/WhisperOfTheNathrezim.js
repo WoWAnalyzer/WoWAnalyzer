@@ -9,7 +9,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-import GetDamageBonus from '../PaladinCore/GetDamageBonus';
+import GetDamageBonus from 'Parser/Paladin/Shared/Modules/GetDamageBonus';
 
 const WHISPER_OF_THE_NATHREZIM_MODIFIER = 0.15;
 
