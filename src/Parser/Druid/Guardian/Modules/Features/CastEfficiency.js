@@ -247,7 +247,6 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => null,
       noSuggestion: true,
-      hideWithZeroCasts: true,
       isOnGCD: true,
     },
     {
@@ -255,7 +254,6 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => null,
       noSuggestion: true,
-      hideWithZeroCasts: true,
       isOnGCD: true,
     },
     {
@@ -263,7 +261,6 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => null,
       noSuggestion: true,
-      hideWithZeroCasts: true,
       isOnGCD: true,
     },
     {
@@ -271,7 +268,6 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => null,
       noSuggestion: true,
-      hideWithZeroCasts: true,
       isOnGCD: true,
     },
     {
@@ -279,7 +275,6 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => null,
       noSuggestion: true,
-      hideWithZeroCasts: true,
       isOnGCD: true,
     },
     //To Do: Finish adding spells.

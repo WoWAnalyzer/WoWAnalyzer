@@ -7,7 +7,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import SmallStatisticBox, { STATISTIC_ORDER } from 'Main/SmallStatisticBox';
 
 const debug = false;
 const CONCORDANCE_SPELLS = {
@@ -16,18 +16,17 @@ const CONCORDANCE_SPELLS = {
   STRENGTH: SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_STRENGTH,
   VERSATILITY: SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_VERSATILITY,
 };
+
 class ConcordanceUptimeTracker extends Module {
   static dependencies = {
     combatants: Combatants,
   };
 
-  statisticOrder = STATISTIC_ORDER.TRAITS(0);
-
-  get rank () {
+  get rank() {
     return this.combatants.selected.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id];
   }
-  
-  get appliedBuff () {
+
+  get appliedBuff() {
     let buff = null;
     Object.values(CONCORDANCE_SPELLS).forEach(item => {
       const uptime = this.combatants.selected.getBuffUptime(item.id) / this.owner.fightDuration;
@@ -51,13 +50,15 @@ class ConcordanceUptimeTracker extends Module {
       console.log("Concordance: Rank", this.rank, "; Uptime: ", this.appliedBuff.uptime);
     }
     return (
-      <StatisticBox
-      icon={<SpellIcon id={this.appliedBuff.id} />}
-      value={`${formatPercentage(this.appliedBuff.uptime)}%`}
-      label='Concordance of the Legionfall uptime'
-      tooltip={`Rank ${this.rank}`}
-    />);
+      <SmallStatisticBox
+        icon={<SpellIcon id={this.appliedBuff.id} />}
+        value={`${formatPercentage(this.appliedBuff.uptime)} %`}
+        label="Concordance uptime"
+        tooltip={`Rank ${this.rank}`}
+      />
+    );
   }
+  statisticOrder = STATISTIC_ORDER.UNIMPORTANT();
 }
 
 export default ConcordanceUptimeTracker;
