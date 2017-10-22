@@ -31,13 +31,15 @@ import Trueshot from './Modules/Spells/Trueshot';
 
 //Items
 import UllrsFeatherSnowshoes from './Modules/Items/UllrsFeatherSnowshoes';
+import SoulOfTheHuntmaster from '../Shared/Items/SoulOfTheHuntmaster';
+import MKIIGyroscopicStabilizer from './Modules/Items/MKIIGyroscopicStabilizer';
+import WarBeltOfTheSentinelArmy from "./Modules/Items/WarBeltOfTheSentinelArmy";
 
 //Talents
 import LockAndLoad from './Modules/Talents/LockAndLoad';
 import TrueAim from './Modules/Talents/TrueAim';
 import PatientSniperTracker from './Modules/Talents/PatientSniper/PatientSniperTracker';
 import PatientSniperDetails from "./Modules/Talents/PatientSniper/PatientSniperDetails";
-
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -62,6 +64,10 @@ class CombatLogParser extends CoreCombatLogParser {
     tier20_2p: Tier20_2p,
     tier20_4p: Tier20_4p,
     ullrsFeatherSnowshoes: UllrsFeatherSnowshoes,
+    soulOfTheHuntmaster: SoulOfTheHuntmaster,
+    mkiiGyroscopicStabilizer: MKIIGyroscopicStabilizer,
+    warBeltOfTheSentinelArmy: WarBeltOfTheSentinelArmy,
+
 
     //Spells
     trueshot: Trueshot,

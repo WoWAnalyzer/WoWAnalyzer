@@ -8,7 +8,6 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatNumber } from "common/format";
 
-
 //1000ms/45focus = 22.2ms/focus
 const CDR_PER_FOCUS = 22.22222;
 
@@ -60,7 +59,7 @@ class Tier19_2p extends Module {
       title: <SpellLink id={SPELLS.HUNTER_MM_T19_2P_BONUS.id} />,
       result: (
         <dfn data-tip={`You wasted ${formatNumber(this.wastedTrueshotReductionMs / 1000)} seconds of CDR.<br/> `}>
-          <SpellLink id={SPELLS.TRUESHOT.id} /> CD reduced by {formatNumber(this.effectiveTrueshotReductionMs / 1000)}s in total.
+          reduced <SpellLink id={SPELLS.TRUESHOT.id} /> CD by {formatNumber(this.effectiveTrueshotReductionMs / 1000)}s in total.
         </dfn>
       ),
     };

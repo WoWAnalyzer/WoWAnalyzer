@@ -157,6 +157,18 @@ export default {
     icon: 'creatureportrait_blackrockv2_shieldgong_broken',
   },
 
+  //Marksmanship legendary buffs
+  SENTINELS_SIGHT: {
+    id: 208913,
+    name: 'Sentinel\'s sight',
+    icon: 'inv_belt_66green',
+  },
+  GYROSCOPIC_STABILIZATION: {
+  id: 235712,
+  name: 'Gyroscopic stabilization',
+  icon: 'inv_glove_mail_raidshamanmythic_o_01',
+},
+
   //Talent buffs/debuffs
   LOCK_AND_LOAD_BUFF: {
     id: 194594,
