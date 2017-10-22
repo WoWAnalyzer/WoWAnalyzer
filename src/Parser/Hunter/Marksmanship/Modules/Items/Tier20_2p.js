@@ -43,7 +43,8 @@ class Tier20_2p extends Module {
       title: <SpellLink id={SPELLS.HUNTER_MM_T20_2P_BONUS_BUFF.id} />,
       result: (
         <dfn data-tip={`Your utilization of tier 20 2 piece: <br/> Buffed aimed shots: ${this.buffedAimed}.<br/> Total aimed shots:  ${this.totalAimed}.<br/> `}>
-          Buffed Aimed Shots: {formatPercentage(this.buffedAimed / this.totalAimed)}% <br /> {formatNumber(this.bonusDmg)} - {this.owner.formatItemDamageDone(this.bonusDmg)}
+          Buffed Aimed Shots: {formatPercentage(this.buffedAimed / this.totalAimed)}%<br/>
+          {formatNumber(this.bonusDmg)} - {this.owner.formatItemDamageDone(this.bonusDmg)}
         </dfn>
       ),
     };
