@@ -46,8 +46,8 @@ class Home extends Component {
                 <h2>The WoWAnalyzer Discord bot</h2>
               </div>
               <div className="panel-body" style={{ padding: 0 }}>
-                <div className="flex">
-                  <div className="flex-main" style={{ padding: '25px 15px' }}>
+                <div className="flex wrapable">
+                  <div className="flex-main" style={{ padding: '25px 15px', minWidth: 300 }}>
                     <div className="flex">
                       <div className="flex-sub" style={{ padding: 5 }}>
                         <img src="/favicon.png" alt="Logo" style={{ width: 80, float: 'left' }} />

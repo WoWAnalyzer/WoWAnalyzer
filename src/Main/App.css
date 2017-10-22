@@ -413,6 +413,9 @@ h1 {
 .flex {
   display: flex;
 }
+.flex.wrapable {
+  flex-wrap: wrap;
+}
 .flex > * {
   flex: 1;
 }
@@ -754,10 +757,4 @@ code.inactive {
 }
 .selectorHeader .panel {
   background: rgba(0,0,0,0.9);
-}
-.fight-boss-name {
-  min-width: 30%;
-}
-.selectorHeader .fight-boss-name {
-  min-width: 50%;
 }
