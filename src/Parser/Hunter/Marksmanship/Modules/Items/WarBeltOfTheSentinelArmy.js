@@ -7,8 +7,8 @@ import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import { formatNumber, formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
-
 const MAX_STACKS = 20;
+const WARBELT_OF_THE_SENTINEL_ARMY_DAMAGE_BONUS = 0.1;
 
 class WarBeltOfTheSentinelArmy extends Module {
   static dependencies = {
@@ -52,6 +52,7 @@ class WarBeltOfTheSentinelArmy extends Module {
       return;
     }
     if (spellId === SPELLS.AIMED_SHOT.id) {
+      this.bonusDmg += (event, (WARBELT_OF_THE_SENTINEL_ARMY_DAMAGE_BONUS*this._currentStacks));
       this.usedBeltStacks += this._currentStacks;
       this._currentStacks = 0;
     }
@@ -90,6 +91,7 @@ class WarBeltOfTheSentinelArmy extends Module {
     return {
       item: ITEMS.WAR_BELT_OF_THE_SENTINEL_ARMY,
       result: (<dfn data-tip={`You wasted ${formatNumber(this.cappedBeltStacks)} belt stacks. Try and avoid this if you can, as each stack buffs Aimed Shot damage by 10%, leading you to effectively having lost out on damage equivalent to ${this.cappedBeltStacks / 10} Aimed Shots. <br /> Try and utilise all of your gained belt stacks, so as to not let the buff expire or let the fight end before you can gain the damage benefit, you utilised ${formatPercentage(this.usedBeltStacks / this.totalBeltStacks)}% possible stacks`}>
+          {this.owner.formatItemDamageDone(this.bonusDmg)} <br/>
           You gained {this.unCappedBeltStacks} stacks and wasted {this.cappedBeltStacks} through capping. <br />
           You used {formatPercentage(this.usedBeltStacks / this.totalBeltStacks)}% of gained stacks.
         </dfn>
