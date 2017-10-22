@@ -43,7 +43,7 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.AVENGING_WRATH,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 120,
-      hideWithZeroCasts: true,
+      isActive: combatant => !combatant.hasTalent(SPELLS.CRUSADE_TALENT.id),
       recommendedCastEfficiency: 0.9,
     },
     {
@@ -92,7 +92,7 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.BLADE_OF_JUSTICE,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => null, // 10.5 / (1 + haste)
-      hideWithZeroCasts: true,
+      isActive: combatant => !combatant.hasTalent(SPELLS.DIVINE_HAMMER_TALENT.id),
     },
     {
       spell: SPELLS.DIVINE_HAMMER_TALENT,
@@ -104,13 +104,11 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.TEMPLARS_VERDICT,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => null,
-      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.DIVINE_STORM,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => null,
-      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.EXECUTION_SENTENCE_TALENT,
@@ -122,6 +120,7 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.SHIELD_OF_VENGEANCE,
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
       getCooldown: (haste, combatant) => 120 - (combatant.traitsBySpellId[SPELLS.DEFLECTION.id] || 0) * 10,
+      recommendedCastEfficiency: 0.5,
       noCanBeImproved: true,
       importance: ISSUE_IMPORTANCE.MINOR,
     },
@@ -132,7 +131,6 @@ class CastEfficiency extends CoreCastEfficiency {
       isActive: combatant => combatant.hasTalent(SPELLS.JUSTICARS_VENGEANCE_TALENT.id),
       noSuggestion: true,
       noCanBeImproved: true,
-      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.EYE_FOR_AN_EYE_TALENT,
@@ -141,7 +139,6 @@ class CastEfficiency extends CoreCastEfficiency {
       isActive: combatant => combatant.hasTalent(SPELLS.EYE_FOR_AN_EYE_TALENT.id),
       noSuggestion: true,
       noCanBeImproved: true,
-      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.WORD_OF_GLORY_TALENT,
@@ -150,12 +147,12 @@ class CastEfficiency extends CoreCastEfficiency {
       isActive: combatant => combatant.hasTalent(SPELLS.WORD_OF_GLORY_TALENT.id),
       noSuggestion: true,
       noCanBeImproved: true,
-      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.ARCANE_TORRENT_MANA,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 90,
+      recommendedCastEfficiency: 0.6,
       hideWithZeroCasts: true,
     },
   ];
