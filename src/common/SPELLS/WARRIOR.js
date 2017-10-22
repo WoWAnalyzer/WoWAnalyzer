@@ -42,6 +42,16 @@ WARBREAKER: {
   name: 'Warbreaker',
   icon: 'inv_sword_2h_artifactarathor_d_01',
 },
+BLADESTORM: {
+  id: 227847,
+  name: 'Bladestorm',
+  icon: 'ability_warrior_bladestorm',
+},
+RAVAGER_CAST: {
+  id: 156287,
+  name: 'Ravager',
+  icon: 'warrior_talent_icon_ravager',
+},
   // Debuffs
   COLOSSUS_SMASH_DEBUFF: {
     id: 208086,
@@ -53,6 +63,11 @@ WARBREAKER: {
     id: 126664,
     name: 'Charge',
     icon: 'ability_warrior_charge',
+  },
+  DIE_BY_THE_SWORD: {
+    id: 118038,
+    name: 'Die by the Sword',
+    icon: 'ability_warrior_challange',
   },
   // Passives
   TACTICIAN: {
@@ -177,5 +192,15 @@ WARBREAKER: {
     id: 34428,
     name: 'Victory Rush',
     icon: 'ability_warrior_devastate',
+  },
+  COMMANDING_SHOUT: {
+    id: 97462,
+    name: 'Commanding Shout',
+    icon: 'ability_warrior_rallyingcry',
+  },
+  INTIMIDATING_SHOUT: {
+    id: 5246,
+    name: 'Intimidating Shout',
+    icon: 'ability_golemthunderclap',
   },
 };

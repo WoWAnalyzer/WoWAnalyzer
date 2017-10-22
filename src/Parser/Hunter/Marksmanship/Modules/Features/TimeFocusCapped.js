@@ -26,8 +26,8 @@ class TimeFocusCapped extends Module {
       <StatisticBox
         icon = {<Icon icon='ability_hunter_focusfire' alt = 'Focus Wasted' />}
         label = 'Time Focus Capped'
-        tooltip= {`You wasted <b> ${totalFocusWaste}  </b> focus. <br /> 
-        That's <b>  ${formatPercentage(totalFocusWaste/(this.owner.fightDuration/1000 * this.focusTracker.focusGen))}% </b> of your total focus generated. 
+        tooltip= {`You wasted <b> ${totalFocusWaste}  </b> focus. <br />
+        That's <b>  ${formatPercentage(totalFocusWaste/(this.owner.fightDuration/1000 * this.focusTracker.focusGen))}% </b> of your total focus generated.
         <br /> For more details, see the Focus Chart tab.`}
         value =  {`${percentCapped} %`}
       //Time not Focus-Capped: {Math.round((this.owner.fightDuration / 1000 - this.focusTracker.secondsCapped) * 100) / 100}s / {Math.floor(this.owner.fightDuration / 1000)}
@@ -52,7 +52,7 @@ class TimeFocusCapped extends Module {
     );
   }
 
-  statisticOrder = STATISTIC_ORDER.CORE(4);
+  statisticOrder = STATISTIC_ORDER.CORE(2);
 }
 
 export default TimeFocusCapped;

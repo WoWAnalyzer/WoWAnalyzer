@@ -7,9 +7,10 @@
 export default {
   // Beast Mastery:
   // ...
-  // -------------
-  // Marksmanship:
-  // -------------
+
+
+  // MarksmanshipHunter:
+
 
   // Marksmanship spells
 
@@ -169,6 +170,11 @@ export default {
     id: 238124,
     name: 'Cyclonic burst',
     icon: 'inv_bow_1h_artifactwindrunner_d_02',
+  },
+  UNERRING_ARROWS_TRAIT: {
+    id: 238052,
+    name: 'Unerring Arrows',
+    icon: 'creatureportrait_blackrockv2_shieldgong_broken',
   },
 
   //Talent buffs/debuffs

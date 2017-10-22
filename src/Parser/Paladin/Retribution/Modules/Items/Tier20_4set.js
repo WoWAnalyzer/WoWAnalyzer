@@ -32,9 +32,6 @@ class Tier20_4set extends Module {
 		}
 	}
 
-	
-
-
 	item() {
 
 		this.builderId = SPELLS.BLADE_OF_JUSTICE.id;
@@ -46,8 +43,10 @@ class Tier20_4set extends Module {
 			id: `spell-${SPELLS.RET_PALADIN_T20_4SET_BONUS.id}`,
 			icon: <SpellIcon id ={this.builderId} />,
 			title: <SpellLink id={SPELLS.RET_PALADIN_T20_4SET_BONUS.id} />,
-			result : (
-				`${formatNumber(this.holyPowerGained)} Holy Power gained from Tier 20 4 peice.`
+			result : (<dfn data-tip={`
+				Total Holy Power Gained: ${formatNumber(this.holyPowerGained)}`}>
+				{formatNumber(this.holyPowerGained / this.owner.fightDuration * 60000)} Holy Power gained per minute.
+			</dfn>
 			),
 		};
 	}

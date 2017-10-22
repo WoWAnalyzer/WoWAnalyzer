@@ -15,7 +15,7 @@ import VulnerableUptime from './Modules/Features/VulnerableUptime';
 import VulnerableTracker from './Modules/Features/AimedInVulnerableTracker';
 import TimeFocusCapped from './Modules/Features/TimeFocusCapped';
 
-//Focus Chart
+//Focus
 import FocusChart from './Modules/FocusChart/Focus';
 import FocusTracker from './Modules/FocusChart/FocusTracker';
 
@@ -34,21 +34,23 @@ import UllrsFeatherSnowshoes from './Modules/Items/UllrsFeatherSnowshoes';
 //Talents
 import LockAndLoad from './Modules/Talents/LockAndLoad';
 import TrueAim from './Modules/Talents/TrueAim';
+import PatientSniperTracker from './Modules/Talents/PatientSniper/PatientSniperTracker';
+import PatientSniperDetails from "./Modules/Talents/PatientSniper/PatientSniperDetails";
 
 
 class CombatLogParser extends CoreCombatLogParser {
-
   static specModules = {
-    // Marksmanship Core
+    // Core statistics
     damageDone: [DamageDone, { showStatistic: true }],
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     castEfficiency: CastEfficiency,
     cooldownTracker: CooldownTracker,
-    vulnerabluptime: VulnerableUptime,
+    vulnerableUptime: VulnerableUptime,
     vulnerableTracker: VulnerableTracker,
     TimeFocusCapped: TimeFocusCapped,
+
 
     //Focus Chart
     focusTracker: FocusTracker,
@@ -63,9 +65,10 @@ class CombatLogParser extends CoreCombatLogParser {
     trueshot: Trueshot,
 
     //Talents
+    patientSniperTracker: PatientSniperTracker,
+    patientSniperDetails: PatientSniperDetails,
     lockAndLoad: LockAndLoad,
     trueAim: TrueAim,
-
   };
 
   generateResults() {
@@ -108,7 +111,6 @@ class CombatLogParser extends CoreCombatLogParser {
           </Tab>
         ),
       },
-
       ...results.tabs,
     ];
 
