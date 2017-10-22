@@ -24,7 +24,6 @@ import Tier20_2p from './Modules/Items/Tier20_2p';
 import Tier20_4p from './Modules/Items/Tier20_4p';
 import Tier19_2p from './Modules/Items/Tier19_2p';
 
-
 //Spells
 import Trueshot from './Modules/Spells/Trueshot';
 
@@ -37,6 +36,8 @@ import TrueAim from './Modules/Talents/TrueAim';
 import PatientSniperTracker from './Modules/Talents/PatientSniper/PatientSniperTracker';
 import PatientSniperDetails from "./Modules/Talents/PatientSniper/PatientSniperDetails";
 
+//Traits
+import QuickShot from './Modules/Traits/QuickShot';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -50,7 +51,6 @@ class CombatLogParser extends CoreCombatLogParser {
     vulnerableUptime: VulnerableUptime,
     vulnerableTracker: VulnerableTracker,
     TimeFocusCapped: TimeFocusCapped,
-
 
     //Focus Chart
     focusTracker: FocusTracker,
@@ -69,6 +69,9 @@ class CombatLogParser extends CoreCombatLogParser {
     patientSniperDetails: PatientSniperDetails,
     lockAndLoad: LockAndLoad,
     trueAim: TrueAim,
+
+    //Traits
+    quickShot: QuickShot,
   };
 
   generateResults() {
