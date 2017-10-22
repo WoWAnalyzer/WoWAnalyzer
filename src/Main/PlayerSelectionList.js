@@ -89,9 +89,15 @@ class PlayerSelectionList extends Component {
                 // Spec might not be found if the combatantinfo errored, this happens extremely rarely. Example report: CJBdLf3c2zQXkPtg/13-Heroic+Kil'jaeden+-+Kill+(7:40)
                 return (
                   <li key={friendly.id} className="item selectable">
-                    <a href="#" onClick={() => alert('The combatlog did not give us any information about this player. This player can not be analyzed.')}>
+                    <Link
+                      to={makeAnalyzerUrl(report, fightId, friendly.name)}
+                      onClick={e => {
+                        e.preventDefault();
+                        alert('The combatlog did not give us any information about this player. This player can not be analyzed.');
+                      }}
+                    >
                       {friendly.name} (Error - Spec unknown)
-                    </a>
+                    </Link>
                   </li>
                 );
               }
