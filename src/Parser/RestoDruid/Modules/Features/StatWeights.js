@@ -1,4 +1,5 @@
 import React from 'react';
+import ITEMS from 'common/ITEMS';
 import Module from 'Parser/Core/Module';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import { formatNumber } from 'common/format';
@@ -10,7 +11,9 @@ import { getSpellInfo } from '../../SpellInfo';
 const DEBUG = true;
 
 const ARMOR_INT_MULTIPLIER = 1.05; // 5% int bonus from wearing all leather means each new point of int worth 1.05 vs character sheet int
+// TODO should I be using CritEffectBonus module instead of this stuff?
 const BASE_CRIT_MULTIPLIER = 2;
+const DOS_CRIT_BONUS = 0.05;
 
 class StatWeights extends Module {
   static dependencies = {
@@ -20,16 +23,18 @@ class StatWeights extends Module {
   critMultiplier = BASE_CRIT_MULTIPLIER; // TODO handle Tauren / DoS?
 
   totalNonIgnoredHealing = 0;
-
   totalOneInt = 0;
   totalOneCrit = 0;
   totalOneHasteHpm = 0;
   totalOneHasteHpct = 0;
   totalOneMastery = 0;
   totalOneVers = 0;
+  totalOneLeech = 0;
 
   on_initialized() {
-    // TODO do I have to set anything here?
+    if(this.combatants.selected.hasBack(ITEMS.DRAPE_OF_SHAME.id)) {
+      this.critMultiplier += DOS_CRIT_BONUS;
+    }
   }
 
   on_byPlayer_heal(event) {
@@ -48,7 +53,20 @@ class StatWeights extends Module {
       return;
     }
 
+    const amount = healVal.effective;
     const spellInfo = getSpellInfo(event.ability.guid);
+
+    // LEECH //
+    // We have to calculate leech weight differently depending on if we already have any leech rating.
+    const hasLeech = this.combatants.selected.leechRating > 0; // TODO replace when dynamic stats
+    let oneLeech = 0;
+    if(hasLeech && spellInfo.isLeech && !healVal.overheal) {
+      oneLeech = amount / this.combatants.selected.leechRating; // TODO replace when dynamic stats
+      this.totalOneLeech += oneLeech;
+    } else if(!hasLeech) {
+      // TODO this will be a pain to implement
+    }
+
     if(spellInfo.ignored) {
       return;
     }
@@ -62,8 +80,6 @@ class StatWeights extends Module {
         .map(buffObj => buffObj.ability.guid)
         .filter(buffId => getSpellInfo(buffId).masteryStack)
         .length;
-    //const decomposedHeal = this._decompHeal(spellInfo, healVal.effective, hotCount, (event.hitType === 2));
-    const amount = healVal.effective;
 
     // INT //
     let oneInt = 0;
@@ -148,6 +164,7 @@ class StatWeights extends Module {
       console.log(`Haste HPCT - ${formatNumber(this.totalOneHasteHpct)}`);
       console.log(`Mastery - ${formatNumber(this.totalOneMastery)}`);
       console.log(`Vers - ${formatNumber(this.totalOneVers)}`);
+      console.log(`Leech - ${formatNumber(this.totalOneLeech)}`);
     }
   }
 
@@ -163,6 +180,7 @@ class StatWeights extends Module {
     const hasteHpctWeight = this.totalOneHasteHpct / this.totalOneInt;
     const masteryWeight = this.totalOneMastery / this.totalOneInt;
     const versWeight = this.totalOneVers / this.totalOneInt;
+    const leechWeight = this.totalOneLeech / this.totalOneInt;
 
     const intForOnePercent = this._ratingPerOnePercent(this.totalOneInt);
     const critForOnePercent = this._ratingPerOnePercent(this.totalOneCrit);
@@ -170,6 +188,7 @@ class StatWeights extends Module {
     const hasteHpctForOnePercent = this._ratingPerOnePercent(this.totalOneHasteHpct);
     const masteryForOnePercent = this._ratingPerOnePercent(this.totalOneMastery);
     const versForOnePercent = this._ratingPerOnePercent(this.totalOneVers);
+    const leechForOnePercent = this._ratingPerOnePercent(this.totalOneLeech);
 
     const hasteHpmTooltip = "HPM stands for 'Healing per Mana'. In valuing Haste, it considers only the faster HoT ticking and not the reduced cast times. Effectively it models haste's bonus to mana efficiency. This is typically the more accurate haste weighting for raid encounters where mana is an issue.";
     const hasteHpctTooltip = "HPCT stands for 'Healing per Cast Time'. In valuing Haste, it considers both the faster HoT ticking and the ability to cast more spells in the same amount of time. This can be good for modeling a burst of healing over several seconds, but remember that over the course of a fight casting more spells means running out of mana faster.";
@@ -181,6 +200,7 @@ class StatWeights extends Module {
       { stat:'Haste (HPCT)', weight:hasteHpctWeight, ratingForOne:hasteHpctForOnePercent, tooltip:hasteHpctTooltip },
       { stat:'Mastery', weight:masteryWeight, ratingForOne:masteryForOnePercent },
       { stat:'Versatility', weight:versWeight, ratingForOne:versForOnePercent },
+      { stat: 'Leech', weight:leechWeight, ratingForOne:leechForOnePercent },
     ];
   }
 

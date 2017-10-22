@@ -210,16 +210,6 @@ export const HEAL_INFO = {
     masteryStack: false,
     vers: false,
   },
-  [SPELLS.LEECH.id]: { // after a fashion this scales with everything, but for the purpose of stat weights better to say "nothing"
-    ignored: true,
-    int: false,
-    crit: false,
-    hasteHpm: false,
-    hasteHpct: false,
-    mastery: false,
-    masteryStack: false,
-    vers: false,
-  },
   [SPELLS.DREAMER.id]: { // T21 2pc TODO double check this once its live
     int: true,
     crit: true,
@@ -228,6 +218,13 @@ export const HEAL_INFO = {
     mastery: true,
     masteryStack: true,
     vers: true,
+  },
+  [SPELLS.LEECH.id]: { // after a fashion this scales with everything, but for the purpose of stat weights better to say "nothing"
+    isLeech: true,
+    ignored: true,
+  },
+  [SPELLS.VELENS_FUTURE_SIGHT.id]: {
+    ignored: true,
   },
 };
 
