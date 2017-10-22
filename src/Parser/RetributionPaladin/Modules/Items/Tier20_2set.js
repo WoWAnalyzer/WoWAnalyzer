@@ -39,9 +39,9 @@ class Tier20_2set extends Module {
 
   item() {
     return {
-      id: `spell-${SPELLS.RET_PALADIN_T20_2SET_BONUS_BUFF.id}`,
-      icon: <SpellIcon id={SPELLS.RET_PALADIN_T20_2SET_BONUS_BUFF.id} />,
-      title: <SpellLink id={SPELLS.RET_PALADIN_T20_2SET_BONUS_BUFF.id} />,
+      id: `spell-${SPELLS.RET_PALADIN_T20_2SET_BONUS.id}`,
+      icon: <SpellIcon id={SPELLS.RET_PALADIN_T20_2SET_BONUS.id} />,
+      title: <SpellLink id={SPELLS.RET_PALADIN_T20_2SET_BONUS.id} />,
       result: (
         <dfn data-tip={`
           The effective damage contributed by tier 20 2 peice.<br/>
