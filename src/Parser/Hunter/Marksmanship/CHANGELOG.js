@@ -1,5 +1,6 @@
 export default `
-20-10-2017 - Updated suggestions overall, added avatar, removed Cyclonic Burst Impact from cooldown tracker, added suggestion to TimeFocusCapped, updated AlwaysBeCasting and CastEfficiency. (by Putro)
+22-10-2017 - Updated suggestions overall, added avatar, removed Cyclonic Burst Impact from cooldown tracker, added suggestion to TimeFocusCapped, updated AlwaysBeCasting and CastEfficiency. (by Putro)
+22-10-2017 - Added a graph for applications of vulnerable. (by Putro) 
 20-10-2017 - Added True aim and lock and load support. (by Putro)
 16-10-2017 - Added Ullrs Trueshot CDR support. (by Putro)
 16-10-2017 - Added Tier192p support. (by Putro)

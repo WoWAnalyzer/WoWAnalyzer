@@ -146,13 +146,11 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.DETOX,
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => null,
-      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.EFFUSE,
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => null,
-      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.TIGERS_LUST_TALENT,

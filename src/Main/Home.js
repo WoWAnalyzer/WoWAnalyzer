@@ -46,8 +46,8 @@ class Home extends Component {
                 <h2>The WoWAnalyzer Discord bot</h2>
               </div>
               <div className="panel-body" style={{ padding: 0 }}>
-                <div className="flex">
-                  <div className="flex-main" style={{ padding: '25px 15px' }}>
+                <div className="flex wrapable">
+                  <div className="flex-main" style={{ padding: '25px 15px', minWidth: 300 }}>
                     <div className="flex">
                       <div className="flex-sub" style={{ padding: 5 }}>
                         <img src="/favicon.png" alt="Logo" style={{ width: 80, float: 'left' }} />
@@ -153,7 +153,7 @@ class Home extends Component {
               <div className="panel-body text-muted">
                 <ul className="list-unstyled">
                   {Object.keys(SPECS)
-                    .filter(key => isNaN(key))
+                    .filter(key => isNaN(key)) // since SPECS gets indexed by ids, all entries are doubled. With this we only use the non-numeric values
                     .map(key => SPECS[key])
                     .sort((a, b) => {
                       if (a.className < b.className) {

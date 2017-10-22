@@ -232,7 +232,7 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.ARCANE_TORRENT_MANA,
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => 90,
-      hideWithZeroCasts: true,
+      isUndetectable: true,
     },
 
     {
