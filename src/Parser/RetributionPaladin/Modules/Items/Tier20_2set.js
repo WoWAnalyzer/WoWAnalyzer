@@ -39,15 +39,15 @@ class Tier20_2set extends Module {
 
   item() {
     return {
-      id: `spell-${SPELLS.RET_PALADIN_T20_2SET_BONUS_BUFF.id}`,
-      icon: <SpellIcon id={SPELLS.RET_PALADIN_T20_2SET_BONUS_BUFF.id} />,
-      title: <SpellLink id={SPELLS.RET_PALADIN_T20_2SET_BONUS_BUFF.id} />,
+      id: `spell-${SPELLS.RET_PALADIN_T20_2SET_BONUS.id}`,
+      icon: <SpellIcon id={SPELLS.RET_PALADIN_T20_2SET_BONUS.id} />,
+      title: <SpellLink id={SPELLS.RET_PALADIN_T20_2SET_BONUS.id} />,
       result: (
         <dfn data-tip={`
           The effective damage contributed by tier 20 2 peice.<br/>
-          Damage: ${this.owner.formatItemDamageDone(this.damageDone)}<br/>
           Total Damage: ${formatNumber(this.damageDone)}<br/>
           The percent uptime is your actual uptime over the max uptime based on your haste.<br/>
+          Note: This does not account for haste procs over the fight so it may be over 100%.<br/>
           Percent Uptime: ${formatPercentage(this.percentUptime)}%`}
         >
           {this.owner.formatItemDamageDone(this.damageDone)}

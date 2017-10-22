@@ -152,9 +152,7 @@ class Home extends Component {
               </div>
               <div className="panel-body text-muted">
                 <ul className="list-unstyled">
-                  {Object.keys(SPECS)
-                    .filter(key => isNaN(key))
-                    .map(key => SPECS[key])
+                  {Object.values(SPECS)
                     .sort((a, b) => {
                       if (a.className < b.className) {
                         return -1;
