@@ -7,7 +7,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import getDamageBonusStacked from '../PaladinCore/getDamageBonusStacked';
+import getDamageBonusStacked from 'Parser/Paladin/Shared/getDamageBonusStacked';
 
 
 const MIGHT_OF_THE_TEMPLAR_INCREASE = 0.02;

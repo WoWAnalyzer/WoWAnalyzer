@@ -8,7 +8,7 @@ import { formatNumber } from 'common/format';
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-import GetDamageBonus from '../PaladinCore/GetDamageBonus';
+import GetDamageBonus from 'Parser/Paladin/Shared/GetDamageBonus';
 
 const RET_PALADIN_T21_2SET_MODIFIER = 0.6;
 
