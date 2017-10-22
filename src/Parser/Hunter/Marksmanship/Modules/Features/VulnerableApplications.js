@@ -11,6 +11,8 @@ import StatisticsListBox from 'Main/StatisticsListBox';
 
 const CHART_SIZE = 75;
 
+//code grabbed from Parser/Paladin/Holy/Modules/PaladinCore/CastBehavior.js
+
 class VulnerableApplications extends Module {
   static dependencies = {
     combatants: Combatants,
