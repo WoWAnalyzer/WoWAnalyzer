@@ -152,7 +152,9 @@ class Home extends Component {
               </div>
               <div className="panel-body text-muted">
                 <ul className="list-unstyled">
-                  {Object.values(SPECS)
+                  {Object.keys(SPECS)
+                    .filter(key => isNaN(key)) // since SPECS gets indexed by ids, all entries are doubled. With this we only use the non-numeric values
+                    .map(key => SPECS[key])
                     .sort((a, b) => {
                       if (a.className < b.className) {
                         return -1;
