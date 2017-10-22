@@ -41,10 +41,12 @@ const CastEfficiency = ({ categories, abilities }) => {
                       </td>
                       <td style={{ width: '20%' }}>
                         {maxCasts === Infinity ? '' : (
-                          <div
-                            className="performance-bar"
-                            style={{ width: `${castEfficiency * 100}%`, backgroundColor: canBeImproved ? '#ff8000' : '#70b570' }}
-                          />
+                          <div className="flex performance-bar-container">
+                            <div
+                              className="flex-sub performance-bar"
+                              style={{ width: `${castEfficiency * 100}%`, backgroundColor: canBeImproved ? '#ff8000' : '#70b570' }}
+                            />
+                          </div>
                         )}
                       </td>
                       <td className="text-right" style={{ minWidth: 50, paddingRight: 5 }}>

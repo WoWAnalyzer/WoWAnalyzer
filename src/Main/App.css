@@ -511,6 +511,10 @@ table.data-table img {
   height: 1.6em;
   margin-top: -.1em;
 }
+table.data-table .performance-bar-container {
+  background: rgba(20, 20, 20, 0.3);
+  border: 1px solid #000;
+}
 table.data-table .performance-bar {
   opacity: .9;
   height: 1.4em;
