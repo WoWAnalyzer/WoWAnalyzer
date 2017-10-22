@@ -27,7 +27,7 @@ class ErrorBoundary extends React.Component {
           <h1>Oops.</h1>
           <p>We're sorry — something's gone wrong.</p>
           <p>Our team has been notified. Please note that most crashes can be solved by using a modern browser. See <a href="http://outdatedbrowser.com/">outdatedbrowser.com</a>.</p>
-          <pre style={{ color: 'red'}}>
+          <pre style={{ color: 'red', fontSize: '1.2em' }}>
             {this.state.error.message}
             {this.state.error.stack}
           </pre>
