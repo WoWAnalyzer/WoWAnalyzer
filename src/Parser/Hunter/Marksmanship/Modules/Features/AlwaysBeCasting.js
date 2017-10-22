@@ -9,6 +9,11 @@ import { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellLink from 'common/SpellLink';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
+  static dependencies = {
+    ...CoreAlwaysBeCasting.dependencies,
+    combatants: Combatants,
+  };
+
   static ABILITIES_ON_GCD = [
 
     // Marksmanship:
@@ -46,11 +51,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.WYVERN_STING_TALENT.id,
     SPELLS.CAMOUFLAGE_TALENT.id,
   ];
-  static dependencies = {
-    combatants: Combatants,
-    ...CoreAlwaysBeCasting.dependencies,
-  };
-
 
   suggestions(when) {
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
@@ -58,12 +58,12 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     if (this.combatants.selected.hasTalent(SPELLS.SIDEWINDERS_TALENT.id)) {
       when(deadTimePercentage).isGreaterThan(0.25)
         .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your downtime can be improved. Try and minimise the time spent standing around, even though you are playing with <SpellLink id={SPELLS.SIDEWINDERS_TALENT.id}/>.</span>)
-          .icon('spell_mage_altertime')
-          .actual(`${formatPercentage(actual)}% downtime`)
-          .recommended(`<${formatPercentage(recommended)}% is recommended`)
-          .regular(recommended + 0.03).major(recommended + 0.06);
-    });
+          return suggest(<span>Your downtime can be improved. Try and minimise the time spent standing around, even though you are playing with <SpellLink id={SPELLS.SIDEWINDERS_TALENT.id} />.</span>)
+            .icon('spell_mage_altertime')
+            .actual(`${formatPercentage(actual)}% downtime`)
+            .recommended(`<${formatPercentage(recommended)}% is recommended`)
+            .regular(recommended + 0.03).major(recommended + 0.06);
+        });
     } else {
       when(deadTimePercentage).isGreaterThan(0.02)
         .addSuggestion((suggest, actual, recommended) => {
