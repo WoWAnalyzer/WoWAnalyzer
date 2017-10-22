@@ -6,7 +6,7 @@ export default {
   OPTIONAL(offset = 0) {
     return 1000 + offset;
   },
-  TRAITS(offset = 0) {
+  UNIMPORTANT(offset = 0) {
     return 10000 + offset;
   },
 };
