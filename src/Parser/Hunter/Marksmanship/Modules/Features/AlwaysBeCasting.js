@@ -9,10 +9,6 @@ import { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellLink from 'common/SpellLink';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
-  static dependencies = {
-    combatants: Combatants,
-    ...CoreAlwaysBeCasting.dependencies,
-  };
   static ABILITIES_ON_GCD = [
 
     // Marksmanship:
@@ -50,6 +46,10 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.WYVERN_STING_TALENT.id,
     SPELLS.CAMOUFLAGE_TALENT.id,
   ];
+  static dependencies = {
+    combatants: Combatants,
+    ...CoreAlwaysBeCasting.dependencies,
+  };
 
 
   suggestions(when) {
@@ -67,7 +67,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     } else {
       when(deadTimePercentage).isGreaterThan(0.02)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<span>Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. Even if you have to move, try casting something instant like <SpellLink id={SPELLS.ARCANE_SHOT.id} /> for single target or <SpellLink id={SPELLS.MULTISHOT.id} /> for multiple</span>)
+          return suggest(<span>Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. Even if you have to move, try casting something instant like <SpellLink id={SPELLS.ARCANE_SHOT.id} /> for single target or <SpellLink id={SPELLS.MULTISHOT.id} /> for multiple targets.</span>)
             .icon('spell_mage_altertime')
             .actual(`${formatPercentage(actual)}% downtime`)
             .recommended(`<${formatPercentage(recommended)}% is recommended`)
