@@ -54,10 +54,6 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 40,
       isActive: combatant => combatant.hasTalent(SPELLS.HALO_TALENT.id),
-      getOverhealing: (_, getAbility) => {
-        const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.HALO_HEAL.id);
-        return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
-      },
     },
     {
       spell: SPELLS.CIRCLE_OF_HEALING_TALENT,

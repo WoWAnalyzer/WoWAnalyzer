@@ -12,10 +12,6 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.RENEWING_MIST,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 8,
-      getOverhealing: (_, getAbility) => {
-        const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.RENEWING_MIST_HEAL.id);
-        return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
-      },
       extraSuggestion: 'You need to use this ability as close to on cooldown as possible. Get in the habbit of using this ability as it is our only \'cast on cooldown\' ability.',
     },
     // Cooldowns
@@ -41,10 +37,6 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 30,
       isActive: combatant => combatant.hasTalent(SPELLS.CHI_BURST_TALENT.id),
-      getOverhealing: (_, getAbility) => {
-        const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.CHI_BURST_HEAL.id);
-        return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
-      },
     },
     {
       spell: SPELLS.ZEN_PULSE_TALENT,
@@ -90,47 +82,27 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.VIVIFY,
       category: CastEfficiency.SPELL_CATEGORIES.OTHERS,
       getCooldown: haste => null,
-      getOverhealing: (_, getAbility) => {
-        const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.VIVIFY.id);
-        return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
-      },
     },
     {
       spell: SPELLS.SHEILUNS_GIFT,
       category: CastEfficiency.SPELL_CATEGORIES.OTHERS,
       getCooldown: haste => null,
-      getOverhealing: (_, getAbility) => {
-        const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.SHEILUNS_GIFT.id);
-        return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
-      },
     },
     {
       spell: SPELLS.ESSENCE_FONT,
       category: CastEfficiency.SPELL_CATEGORIES.OTHERS,
       getCooldown: haste => null,
-      getOverhealing: (_, getAbility) => {
-        const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.ESSENCE_FONT_BUFF.id);
-        return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
-      },
     },
     {
       spell: SPELLS.SOOTHING_MIST,
       category: CastEfficiency.SPELL_CATEGORIES.OTHERS,
       getCooldown: haste => null,
-      getOverhealing: (_, getAbility) => {
-        const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.SOOTHING_MIST.id);
-        return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
-      },
     },
     {
       spell: SPELLS.REFRESHING_JADE_WIND_TALENT,
       category: CastEfficiency.SPELL_CATEGORIES.OTHERS,
       getCooldown: haste => null,
       isActive: combatant => combatant.hasTalent(SPELLS.REFRESHING_JADE_WIND_TALENT.id),
-      getOverhealing: (_, getAbility) => {
-        const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.REFRESHING_JADE_WIND_HEAL.id);
-        return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
-      },
     },
 
     // Utility Spells
