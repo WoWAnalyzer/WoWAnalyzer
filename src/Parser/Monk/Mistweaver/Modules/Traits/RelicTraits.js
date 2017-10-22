@@ -43,7 +43,7 @@ class RelicTraits extends Module {
       </StatisticsListBox>
     );
   }
-  statisticOrder = STATISTIC_ORDER.TRAITS(1);
+  statisticOrder = STATISTIC_ORDER.UNIMPORTANT(1);
 }
 
 export default RelicTraits;

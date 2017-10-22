@@ -107,7 +107,6 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => null,
       noSuggestion: true,
       noCanBeImproved: true,
-      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.SHEAR,

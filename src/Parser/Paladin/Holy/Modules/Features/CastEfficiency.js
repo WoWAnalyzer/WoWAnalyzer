@@ -26,10 +26,6 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       // Item - Paladin T20 Holy 2P Bonus: Reduces the cooldown of Light of Dawn by 2.0 sec.
       getCooldown: (haste, combatant) => (12 - (combatant.hasBuff(SPELLS.HOLY_PALADIN_T20_2SET_BONUS_BUFF.id) ? 2 : 0)) / (1 + haste),
-      getOverhealing: (_, getAbility) => {
-        const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.LIGHT_OF_DAWN_HEAL.id);
-        return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
-      },
       extraSuggestion: 'Casting Light of Dawn regularly is very important for performing well.',
     },
     {
@@ -38,10 +34,6 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 12 / (1 + haste),
       isActive: combatant => combatant.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT.id),
       recommendedCastEfficiency: 0.85, // this rarely overheals, so keeping this on cooldown is pretty much always best
-      getOverhealing: (_, getAbility) => {
-        const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.JUDGMENT_OF_LIGHT_HEAL.id);
-        return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
-      },
       extraSuggestion: <span>You should cast it whenever <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_TALENT.id} /> has dropped, which is usually on cooldown without delay. Alternatively you can ignore the debuff and just cast it whenever Judgment is available; there's nothing wrong with ignoring unimportant things to focus on important things.</span>,
     },
     {
@@ -57,20 +49,12 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 60,
       isActive: combatant => combatant.hasTalent(SPELLS.LIGHTS_HAMMER_TALENT.id),
-      getOverhealing: (_, getAbility) => {
-        const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.LIGHTS_HAMMER_HEAL.id);
-        return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
-      },
     },
     {
       spell: SPELLS.BEACON_OF_VIRTUE_TALENT,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 15,
       isActive: combatant => combatant.hasTalent(SPELLS.BEACON_OF_VIRTUE_TALENT.id),
-      getOverhealing: (_, getAbility) => {
-        const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.BEACON_OF_VIRTUE_TALENT.id);
-        return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
-      },
     },
     {
       spell: SPELLS.CRUSADER_STRIKE,
@@ -106,7 +90,7 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.ARCANE_TORRENT_MANA,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 90,
-      hideWithZeroCasts: true,
+      isUndetectable: true,
     },
     {
       spell: SPELLS.TYRS_DELIVERANCE_CAST,
@@ -155,7 +139,6 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.OTHERS,
       getCasts: castCount => (castCount.casts || 0) - (castCount.healingIolHits || 0),
       getCooldown: haste => null,
-      getOverhealing: ({ healingEffective, healingAbsorbed, healingOverheal, healingIolHealing, healingIolAbsorbed, healingIolOverheal }) => (healingOverheal - healingIolOverheal) / ((healingEffective - healingIolHealing) + (healingAbsorbed - healingIolAbsorbed) + (healingOverheal - healingIolOverheal)),
     },
     {
       spell: SPELLS.FLASH_OF_LIGHT,
@@ -163,7 +146,6 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.OTHERS,
       getCasts: castCount => castCount.healingIolHits || 0,
       getCooldown: haste => null,
-      getOverhealing: ({ healingIolHealing, healingIolAbsorbed, healingIolOverheal }) => healingIolOverheal / (healingIolHealing + healingIolAbsorbed + healingIolOverheal),
     },
     {
       spell: SPELLS.HOLY_LIGHT,
@@ -171,7 +153,6 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.OTHERS,
       getCasts: castCount => (castCount.casts || 0) - (castCount.healingIolHits || 0),
       getCooldown: haste => null,
-      getOverhealing: ({ healingEffective, healingAbsorbed, healingOverheal, healingIolHealing, healingIolAbsorbed, healingIolOverheal }) => (healingOverheal - healingIolOverheal) / ((healingEffective - healingIolHealing) + (healingAbsorbed - healingIolAbsorbed) + (healingOverheal - healingIolOverheal)),
     },
     {
       spell: SPELLS.HOLY_LIGHT,
@@ -179,7 +160,6 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.OTHERS,
       getCasts: castCount => castCount.healingIolHits || 0,
       getCooldown: haste => null,
-      getOverhealing: ({ healingIolHealing, healingIolAbsorbed, healingIolOverheal }) => healingIolOverheal / (healingIolHealing + healingIolAbsorbed + healingIolOverheal),
     },
     {
       spell: SPELLS.DIVINE_STEED,
