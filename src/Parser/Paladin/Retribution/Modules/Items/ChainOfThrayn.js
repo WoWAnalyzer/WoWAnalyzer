@@ -7,7 +7,7 @@ import { formatNumber } from 'common/format';
 import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-import GetDamageBonus from '../PaladinCore/GetDamageBonus';
+import GetDamageBonus from 'Parser/Paladin/Shared/Modules/GetDamageBonus';
 
 const CHAIN_OF_THRAYN_INCREASE = 0.1;
 

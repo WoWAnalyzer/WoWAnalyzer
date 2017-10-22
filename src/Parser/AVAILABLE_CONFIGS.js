@@ -18,7 +18,7 @@ import WindwalkerMonk from './Monk/Windwalker/CONFIG';
 import MistweaverMonk from './Monk/Mistweaver/CONFIG';
 
 import HolyPaladin from './Paladin/Holy/CONFIG';
-import RetributionPaladin from './RetributionPaladin/CONFIG';
+import RetributionPaladin from './Paladin/Retribution/CONFIG';
 
 import DisciplinePriest from './Priest/Discipline/CONFIG';
 import HolyPriest from './Priest/Holy/CONFIG';
