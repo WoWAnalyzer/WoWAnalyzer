@@ -26,7 +26,7 @@ class StatWeights extends Module {
   totalOneInt = 0;
   totalOneCrit = 0;
   totalOneHasteHpm = 0;
-  totalOneHasteHpct = 0;
+//  totalOneHasteHpct = 0;
   totalOneMastery = 0;
   totalOneVers = 0;
   totalOneLeech = 0;
@@ -110,24 +110,24 @@ class StatWeights extends Module {
     const noHasteHealing = amount / (1 + currHastePerc);
 
     let oneHasteHpm = 0;
-    let oneHasteHpct = 0;
+  //  let oneHasteHpct = 0;
     if(spellInfo.hasteHpm) {
       oneHasteHpm = bonusFromOneHaste * noHasteHealing;
     //  oneHasteHpct = bonusFromOneHaste * noHasteHealing;
     }
 
     //if(spellInfo.hasteHpct) {
-      let noHasteHpctHealing = noHasteHealing;
-      if(spellInfo.hasteHpm) {
-        noHasteHpctHealing /= (1 + currHastePerc);
-      }
-
-      let bonusFromOneHasteHpct = bonusFromOneHaste;
-      if(spellInfo.hasteHpm) {
-        bonusFromOneHasteHpct *= (1 + bonusFromOneHaste);
-      }
-
-      oneHasteHpct = bonusFromOneHasteHpct * noHasteHpctHealing;
+      // let noHasteHpctHealing = noHasteHealing;
+      // if(spellInfo.hasteHpm) {
+      //   noHasteHpctHealing /= (1 + currHastePerc);
+      // }
+      //
+      // let bonusFromOneHasteHpct = bonusFromOneHaste;
+      // if(spellInfo.hasteHpm) {
+      //   bonusFromOneHasteHpct *= (1 + bonusFromOneHaste);
+      // }
+      //
+      // oneHasteHpct = bonusFromOneHasteHpct * noHasteHpctHealing;
   //  }
 
     // MASTERY //
@@ -151,7 +151,7 @@ class StatWeights extends Module {
     this.totalOneInt += oneInt;
     this.totalOneCrit += oneCrit;
     this.totalOneHasteHpm += oneHasteHpm;
-    this.totalOneHasteHpct += oneHasteHpct;
+    //this.totalOneHasteHpct += oneHasteHpct;
     this.totalOneMastery += oneMastery;
     this.totalOneVers += oneVers;
   }
@@ -161,7 +161,7 @@ class StatWeights extends Module {
       console.log(`Int - ${formatNumber(this.totalOneInt)}`);
       console.log(`Crit - ${formatNumber(this.totalOneCrit)}`);
       console.log(`Haste HPM - ${formatNumber(this.totalOneHasteHpm)}`);
-      console.log(`Haste HPCT - ${formatNumber(this.totalOneHasteHpct)}`);
+  //    console.log(`Haste HPCT - ${formatNumber(this.totalOneHasteHpct)}`);
       console.log(`Mastery - ${formatNumber(this.totalOneMastery)}`);
       console.log(`Vers - ${formatNumber(this.totalOneVers)}`);
       console.log(`Leech - ${formatNumber(this.totalOneLeech)}`);
@@ -177,7 +177,7 @@ class StatWeights extends Module {
     const intWeight = this.totalOneInt / this.totalOneInt;
     const critWeight = this.totalOneCrit / this.totalOneInt;
     const hasteHpmWeight = this.totalOneHasteHpm / this.totalOneInt;
-    const hasteHpctWeight = this.totalOneHasteHpct / this.totalOneInt;
+  //  const hasteHpctWeight = this.totalOneHasteHpct / this.totalOneInt;
     const masteryWeight = this.totalOneMastery / this.totalOneInt;
     const versWeight = this.totalOneVers / this.totalOneInt;
     const leechWeight = this.totalOneLeech / this.totalOneInt;
@@ -185,19 +185,19 @@ class StatWeights extends Module {
     const intForOnePercent = this._ratingPerOnePercent(this.totalOneInt);
     const critForOnePercent = this._ratingPerOnePercent(this.totalOneCrit);
     const hasteHpmForOnePercent = this._ratingPerOnePercent(this.totalOneHasteHpm);
-    const hasteHpctForOnePercent = this._ratingPerOnePercent(this.totalOneHasteHpct);
+  //  const hasteHpctForOnePercent = this._ratingPerOnePercent(this.totalOneHasteHpct);
     const masteryForOnePercent = this._ratingPerOnePercent(this.totalOneMastery);
     const versForOnePercent = this._ratingPerOnePercent(this.totalOneVers);
     const leechForOnePercent = this._ratingPerOnePercent(this.totalOneLeech);
 
-    const hasteHpmTooltip = "HPM stands for 'Healing per Mana'. In valuing Haste, it considers only the faster HoT ticking and not the reduced cast times. Effectively it models haste's bonus to mana efficiency. This is typically the more accurate haste weighting for raid encounters where mana is an issue.";
-    const hasteHpctTooltip = "HPCT stands for 'Healing per Cast Time'. In valuing Haste, it considers both the faster HoT ticking and the ability to cast more spells in the same amount of time. This can be good for modeling a burst of healing over several seconds, but remember that over the course of a fight casting more spells means running out of mana faster.";
+    const hasteHpmTooltip = "HPM stands for 'Healing per Mana'. In valuing Haste, it considers only the faster HoT ticking and not the reduced cast times. Effectively it models haste's bonus to mana efficiency. This is typically the better calculation to use for raid encounters where mana is an issue.";
+//    const hasteHpctTooltip = "HPCT stands for 'Healing per Cast Time'. In valuing Haste, it considers both the faster HoT ticking and the ability to cast more spells in the same amount of time. This can be good for modeling a burst of healing over several seconds, but remember that over the course of a fight casting more spells means running out of mana faster.";
 
     return [
       { stat:'Intellect', weight:intWeight, ratingForOne:intForOnePercent },
       { stat:'Crit', weight:critWeight, ratingForOne:critForOnePercent },
       { stat:'Haste (HPM)', weight:hasteHpmWeight, ratingForOne:hasteHpmForOnePercent, tooltip:hasteHpmTooltip },
-      { stat:'Haste (HPCT)', weight:hasteHpctWeight, ratingForOne:hasteHpctForOnePercent, tooltip:hasteHpctTooltip },
+  //    { stat:'Haste (HPCT)', weight:hasteHpctWeight, ratingForOne:hasteHpctForOnePercent, tooltip:hasteHpctTooltip },
       { stat:'Mastery', weight:masteryWeight, ratingForOne:masteryForOnePercent },
       { stat:'Versatility', weight:versWeight, ratingForOne:versForOnePercent },
       { stat: 'Leech', weight:leechWeight, ratingForOne:leechForOnePercent },
