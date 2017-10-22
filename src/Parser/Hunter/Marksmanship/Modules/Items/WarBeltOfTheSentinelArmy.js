@@ -7,7 +7,7 @@ import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import { formatNumber, formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
-import getDamageBonus from "../../../Shared/Core/getDamageBonus";
+import getDamageBonus from "Parser/Hunter/Shared/Core/getDamageBonus";
 
 
 const MAX_STACKS = 20;

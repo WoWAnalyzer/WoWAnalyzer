@@ -6,7 +6,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import HIT_TYPES from "Parser/Core/HIT_TYPES";
 import { formatPercentage, formatNumber} from "common/format";
-import getDamageBonus from "../../../Shared/Core/getDamageBonus";
+import getDamageBonus from "Parser/Hunter/Shared/Core/getDamageBonus";
 
 const T20_2P_CRIT_DMG_BONUS = 0.15;
 
@@ -24,7 +24,7 @@ class Tier20_2p extends Module {
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
     const isCrit = event.hitType === HIT_TYPES.CRIT;
-    if (this.combatants.selected.hasBuff(SPELLS.HUNTER_MM_T20_2P_BONUS_BUFF.id)) {
+    if (this.combatants.selected.hasBuff(SPELLS.HUNTER_MM_T20_2P_BONUS_BUFF.id, event.timestamp)) {
       if (isCrit) {
         this.bonusDmg += getDamageBonus(event, T20_2P_CRIT_DMG_BONUS);
       }
