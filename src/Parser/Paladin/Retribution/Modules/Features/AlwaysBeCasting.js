@@ -62,6 +62,10 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
   }
 
   showStatistic = true;
+  static icons = {
+    activeTime: '/img/wheelchair.png',
+    downtime: '/img/afk.png',
+  };
   statisticOrder = STATISTIC_ORDER.CORE(1);
 }
 

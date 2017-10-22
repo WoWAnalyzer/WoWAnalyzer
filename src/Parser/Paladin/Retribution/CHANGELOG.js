@@ -1,4 +1,5 @@
 export default `
+22-10-2017 - Changed the active time icon to something more befitting. (by @Zerotorescue)
 09-18-2017 - (@Hewhosmites) Added in the Tier 21 Modules.
 09-14-2017 - (@Hewhosmites) Added a Blessing of the Ashbringer Module.
 09-06-2017 - (@Hewhosmites) Added in relic traits (Deliver the Justice/Highlord's Judgment/Might of the Templar/Righteous Verdict/Wrath of the Ashbringer).
