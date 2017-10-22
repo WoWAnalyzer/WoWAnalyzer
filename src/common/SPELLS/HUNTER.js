@@ -150,10 +150,7 @@ export default {
     id: 242712,
     name: 'Cyclonic Burst',
     icon: 'inv_bow_1h_artifactwindrunner_d_02',
-<<<<<<< HEAD
-=======
-
->>>>>>> 3f728d53a14b7c860c53bbafb63d9089abffa055
+  },
   UNERRING_ARROWS_TRAIT: {
     id: 238052,
     name: 'Unerring Arrows',
