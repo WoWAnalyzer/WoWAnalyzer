@@ -1,4 +1,3 @@
-// eslint-disable-next-line
 import React from 'react';
 import Module from 'Parser/Core/Module';
 import HIT_TYPES from "Parser/Core/HIT_TYPES";
