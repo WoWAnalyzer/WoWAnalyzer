@@ -15,7 +15,6 @@ body {
   background-size: cover;
   background-attachment: fixed;
   color: #fff;
-  min-width: 450px;
 }
 @media (min-width: 1200px) {
   .container {
