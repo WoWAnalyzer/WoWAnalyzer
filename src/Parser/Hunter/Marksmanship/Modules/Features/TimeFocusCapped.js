@@ -70,7 +70,7 @@ class TimeFocusCapped extends Module {
 
   }
 
-  statisticOrder = STATISTIC_ORDER.CORE(4);
+  statisticOrder = STATISTIC_ORDER.CORE(2);
 }
 
 export default TimeFocusCapped;
