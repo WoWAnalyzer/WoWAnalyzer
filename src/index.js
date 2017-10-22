@@ -8,10 +8,10 @@ import App from './Main/App';
 
 import { unregister } from './registerServiceWorker';
 
-window.onunhandledrejection = function(evt) {
+window.addEventListener('unhandledrejection', event => {
   /** @global Raven*/
-  Raven && Raven.captureException(evt.reason); // eslint-disable-line no-undef
-};
+  Raven && Raven.captureException(event.reason); // eslint-disable-line no-undef
+});
 
 render(
   <Router history={browserHistory}>
