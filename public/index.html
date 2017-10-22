@@ -19,7 +19,7 @@
 Raven.config('https://95bf5a7af57f4a57af1f1be4d0706a91@sentry.io/232829').install();
 
 var index = 0;
-window.onerror = function (message, url, lineNo, colNo, error) {
+window.addEventListener('error', function (error) {
   let container = document.createElement('div');
   container.style.color = 'red';
   container.style.position = 'absolute';
@@ -30,18 +30,18 @@ window.onerror = function (message, url, lineNo, colNo, error) {
 
   let msg = document.createElement('pre');
   msg.innerText = [
-    'Message: ' + message,
-    'URL: ' + url,
-    'Line: ' + lineNo,
-    'Column: ' + colNo,
-    'Stack: ' + (error && error.stack)
+    'Message: ' + error.message,
+    'File: ' + error.filename,
+    'Line: ' + error.lineno,
+    'Column: ' + error.colno,
+    'Stack: ' + (error.error && error.error.stack)
   ].join('\n');
 
   container.appendChild(msg);
 
   document.body.appendChild(container);
   index += 1;
-};
+});
 </script>
 <!-- The minified version of the polyfill service causes an error in PhantomJS: "Attempting to configurable attribute of unconfigurable property.", but we shouldn't need PhantomJS anymore and it's deprecated anyway. -->
 <!-- Do NOT use `unknown=polyfill` as this breaks Googlebot/Headless Chrome -->
@@ -85,7 +85,7 @@ window.onerror = function (message, url, lineNo, colNo, error) {
 <title>WoW Analyzer</title>
 </head>
 
-<body>
+<body style="min-height:800px">
 <noscript>
   You need to enable JavaScript to run this app.
 </noscript>
