@@ -1,4 +1,8 @@
+import React from 'react';
+
 import SPELLS from 'common/SPELLS';
+import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
 
 import Module from 'Parser/Core/Module';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
@@ -46,6 +50,23 @@ class Tier20_2set extends Module {
         this.healing += calculateEffectiveHealing(event, TIER_20_TWO_SET_BONUS);
       }
     }
+  }
+
+  item() {
+    const healing = this.healing || 0;
+    const damage = this.damage || 0;
+
+    return {
+      id: `spell-${SPELLS.DISC_PRIEST_T20_2SET_BONUS_PASSIVE.id}`,
+      icon: <SpellIcon id={SPELLS.DISC_PRIEST_T20_2SET_BONUS_PASSIVE.id} />,
+      title: <SpellLink id={SPELLS.DISC_PRIEST_T20_2SET_BONUS_PASSIVE.id} />,
+      result: (
+        <dfn>
+        {this.owner.formatItemHealingDone(healing)} <br/>
+        {this.owner.formatItemDamageDone(damage)}
+        </dfn>
+      ),
+    };
   }
 }
 
