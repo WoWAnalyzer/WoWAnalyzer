@@ -78,7 +78,7 @@ class LightOfTuure extends Module {
     //
   }
 
-  statisticOrder = STATISTIC_ORDER.TRAITS(1);
+  statisticOrder = STATISTIC_ORDER.UNIMPORTANT(1);
 }
 
 

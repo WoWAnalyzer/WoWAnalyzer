@@ -2,6 +2,8 @@ import React from 'react';
 
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
+import SCHOOLS from 'common/MAGIC_SCHOOLS';
+
 
 import Module from 'Parser/Core/Module';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
@@ -33,6 +35,9 @@ class GnawedThumbRing extends Module {
   }
 
   on_byPlayer_damage(event) {
+    if (event.ability.type === SCHOOLS.ids.PHYSICAL) {
+      return;
+    }
     if (this.combatants.selected.hasBuff(SPELLS.GNAWED_THUMB_RING.id)) {
       this.damage += event.amount - (event.amount / (1 + GNAWED_THUMB_RING_DAMAGE_INCREASE));
     }

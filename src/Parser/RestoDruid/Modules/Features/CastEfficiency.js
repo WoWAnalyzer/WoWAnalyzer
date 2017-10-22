@@ -12,10 +12,6 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.TRANQUILITY_CAST,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: (haste, combatant) => combatant.hasTalent(SPELLS.INNER_PEACE_TALENT.id) ? 120 : 180,
-      getOverhealing: (_, getAbility) => {
-        const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.TRANQUILITY_HEAL.id);
-        return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
-      },
       recommendedCastEfficiency: 0.75,
       avgIssueCastEfficiency: 0.55,
       majorIssueCastEfficiency: 0.30,
@@ -86,7 +82,7 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.ARCANE_TORRENT_MANA,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 90,
-      hideWithZeroCasts: true,
+      isUndetectable: true,
     },
     {
       spell: SPELLS.HEALING_TOUCH,

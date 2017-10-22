@@ -55,7 +55,7 @@ class NLCTraits extends Module {
       </StatisticsListBox>
     );
   }
-  statisticOrder = STATISTIC_ORDER.TRAITS(5);
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(2000);
 }
 
 export default NLCTraits;

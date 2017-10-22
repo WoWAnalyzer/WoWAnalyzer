@@ -14,6 +14,7 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import VulnerableUptime from './Modules/Features/VulnerableUptime';
 import VulnerableTracker from './Modules/Features/AimedInVulnerableTracker';
 import TimeFocusCapped from './Modules/Features/TimeFocusCapped';
+import VulnerableApplications from "./Modules/Features/VulnerableApplications";
 
 //Focus
 import FocusChart from './Modules/FocusChart/Focus';
@@ -51,6 +52,7 @@ class CombatLogParser extends CoreCombatLogParser {
     vulnerableUptime: VulnerableUptime,
     vulnerableTracker: VulnerableTracker,
     TimeFocusCapped: TimeFocusCapped,
+    vulnerableApplications: VulnerableApplications,
 
     //Focus Chart
     focusTracker: FocusTracker,

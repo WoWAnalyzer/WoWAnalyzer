@@ -22,7 +22,8 @@ export default function getCastEfficiency(CPM_ABILITIES, abilityTracker, combata
     .map(ability => {
       const castCount = getAbility(ability.spell.id);
       const casts = (ability.getCasts ? ability.getCasts(castCount, parser) : castCount.casts) || 0;
-      if (ability.hideWithZeroCasts && casts === 0) {
+      if (ability.isUndetectable && casts === 0) {
+        // Some spells (most notably Racials) can not be detected if a player has them. This hides those spells if they have 0 casts.
         return null;
       }
       const cpm = casts / minutes;
@@ -45,26 +46,12 @@ export default function getCastEfficiency(CPM_ABILITIES, abilityTracker, combata
 
       const canBeImproved = castEfficiency !== null && castEfficiency < recommendedCastEfficiency;
 
-      let overhealing = null;
-      if (ability.getOverhealing) {
-        overhealing = ability.getOverhealing(castCount, getAbility, parser);
-        if (overhealing !== null) {
-          overhealing = overhealing || 0; // prevent NaN
-        }
-      } else {
-        const rawHealing = castCount.healingEffective + castCount.healingAbsorbed + castCount.healingOverheal;
-        if (rawHealing > 0) {
-          overhealing = castCount.healingOverheal / rawHealing;
-        }
-      }
-
       return {
         ability,
         cpm,
         maxCpm,
         casts,
         maxCasts,
-        overhealing,
         castEfficiency,
         recommendedCastEfficiency,
         averageIssueCastEfficiency,
