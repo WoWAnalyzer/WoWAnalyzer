@@ -16,17 +16,16 @@
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <script src="https://cdn.ravenjs.com/3.19.1/raven.min.js" crossorigin="anonymous"></script>
 <script type="text/javascript">
-Raven.config('https://95bf5a7af57f4a57af1f1be4d0706a91@sentry.io/232829').install();
-
 var index = 0;
 window.addEventListener('error', function (error) {
   let container = document.createElement('div');
-  container.style.color = 'red';
-  container.style.position = 'absolute';
+  container.style.position = 'fixed';
   container.style.background = '#eee';
-  container.style.padding = '2em';
+  container.style.padding = '1em';
   container.style.top = (index * 200) + 'px';
-  container.style.left = '1em';
+  container.style.left = '0px';
+  container.style.width = '100%';
+  container.style.zIndex = 100000;
 
   let msg = document.createElement('pre');
   msg.innerText = [
@@ -42,10 +41,11 @@ window.addEventListener('error', function (error) {
   document.body.appendChild(container);
   index += 1;
 });
+Raven.config('https://95bf5a7af57f4a57af1f1be4d0706a91@sentry.io/232829').install();
 </script>
 <!-- The minified version of the polyfill service causes an error in PhantomJS: "Attempting to configurable attribute of unconfigurable property.", but we shouldn't need PhantomJS anymore and it's deprecated anyway. -->
 <!-- Do NOT use `unknown=polyfill` as this breaks Googlebot/Headless Chrome -->
-<script src="https://ft-polyfill-service.herokuapp.com/v2/polyfill.min.js?features=es6" crossorigin="anonymous"></script>
+<script src="https://ft-polyfill-service.herokuapp.com/v2/polyfill.js?features=es6" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css" />
 
 <style type="text/css">
