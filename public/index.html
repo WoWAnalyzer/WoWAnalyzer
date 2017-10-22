@@ -43,7 +43,7 @@ function displayError(error) {
 }
 window.addEventListener('error', displayError);
 window.addEventListener('unhandledrejection', function (error) {
-  displayError(error.reason);
+  error.reason ? displayError(error.reason) : displayError(error);
 });
 Raven.config('https://95bf5a7af57f4a57af1f1be4d0706a91@sentry.io/232829').install();
 </script>
