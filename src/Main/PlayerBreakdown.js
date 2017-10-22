@@ -71,19 +71,23 @@ class PlayerBreakdown extends React.Component {
                     {(Math.round(player.masteryEffectiveness * 10000) / 100).toFixed(2)}%
                   </td>
                   <td style={{ width: '40%' }}>
-                    <div
-                      className={`performance-bar ${specClassName}-bg`}
-                      style={{ width: `${player.masteryEffectiveness * 100}%` }}
-                    />
+                    <div className="flex performance-bar-container">
+                      <div
+                        className={`flex-sub performance-bar ${specClassName}-bg`}
+                        style={{ width: `${player.masteryEffectiveness * 100}%` }}
+                      />
+                    </div>
                   </td>
                   <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>
                     {(Math.round(actualHealingReceivedPercentage * 10000) / 100).toFixed(2)}%
                   </td>
                   <td style={{ width: '40%' }}>
-                    <div
-                      className={`performance-bar ${specClassName}-bg`}
-                      style={{ width: `${performanceBarHealingReceivedPercentage * 100}%` }}
-                    />
+                    <div className="flex performance-bar-container">
+                      <div
+                        className={`flex-sub performance-bar ${specClassName}-bg`}
+                        style={{ width: `${performanceBarHealingReceivedPercentage * 100}%` }}
+                      />
+                    </div>
                   </td>
                 </tr>
               );

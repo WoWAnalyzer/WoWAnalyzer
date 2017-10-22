@@ -102,13 +102,15 @@ class Mana extends React.PureComponent {
       bosses.push(newSeries);
     });
     const deathsBySecond = {};
-    this.state.bossHealth.deaths.forEach((death) => {
-      const secIntoFight = Math.floor((death.timestamp - start) / 1000);
+    if (this.state.bossHealth.deaths) {
+      this.state.bossHealth.deaths.forEach((death) => {
+        const secIntoFight = Math.floor((death.timestamp - start) / 1000);
 
-      if (death.targetIsFriendly) {
-        deathsBySecond[secIntoFight] = true;
-      }
-    });
+        if (death.targetIsFriendly) {
+          deathsBySecond[secIntoFight] = true;
+        }
+      });
+    }
 
     const fightDurationSec = Math.ceil((end - start) / 1000);
     const labels = [];
