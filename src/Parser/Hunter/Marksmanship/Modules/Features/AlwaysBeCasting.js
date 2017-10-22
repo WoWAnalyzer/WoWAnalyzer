@@ -17,7 +17,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
 
     // Marksmanship:
 
-    //Rotational
+    // Rotational
     SPELLS.AIMED_SHOT.id,
     SPELLS.WINDBURST.id,
     SPELLS.ARCANE_SHOT.id,
