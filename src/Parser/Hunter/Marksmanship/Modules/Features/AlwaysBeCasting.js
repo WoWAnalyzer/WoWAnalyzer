@@ -16,6 +16,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
   static ABILITIES_ON_GCD = [
 
     // Marksmanship:
+
     //Rotational
     SPELLS.AIMED_SHOT.id,
     SPELLS.WINDBURST.id,

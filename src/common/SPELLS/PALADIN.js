@@ -348,18 +348,33 @@ export default {
   },
   RET_PALADIN_T20_2SET_BONUS: {
     id: 242267,
-    name: 'T19 2 set bonus',
+    name: 'T20 2 set bonus',
     icon: 'paladin_retribution',
   },
   RET_PALADIN_T20_2SET_BONUS_BUFF: {
     id: 246973,
-    name: 'T20 2 set bonus',
+    name: 'T20 2 set bonus buff',
     icon: 'paladin_retribution',
   },
   RET_PALADIN_T20_4SET_BONUS: {
     id: 242266,
     name: 'T20 4 set bonus',
     icon: 'paladin_retribution',
+  },
+  RET_PALADIN_T21_2SET_BONUS: {
+    id: 251867,
+    name: 'T21 2 set bonus',
+    icon: 'ability_paladin_conviction',
+  },
+  RET_PALADIN_T21_4SET_BONUS: {
+    id: 251868,
+    name: 'T21 4 set bonus',
+    icon: 'ability_paladin_conviction',
+  },
+  RET_PALADIN_T21_4SET_BONUS_BUFF: {
+    id: 253806,
+    name: 'T21 4 set bonus buff',
+    icon: 'ability_paladin_conviction',
   },
   // Traits:
   // Holy Paladin:
