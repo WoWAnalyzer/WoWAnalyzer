@@ -1,11 +1,19 @@
+import React from 'react';
+
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
+import { formatThousands } from 'common/format';
 
 import Module from 'Parser/Core/Module';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 const debug = false;
 
 class InnerHallation extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
   manaGained = 0;
 
   // timestamp for power infusion if its talented & casted (to exclude mana saved):
@@ -35,6 +43,19 @@ class InnerHallation extends Module {
         debug && console.log('Inner Hallation saved 0 mana on', SPELLS[spellId].name, 'costing', manaCost, 'since Innervate or Symbol of Hope is active (normally ', manaSaved, ' mana)', event);
       }
     }
+  }
+
+  item() {
+    const manaGained = this.manaGained || 0;
+
+    return {
+      item: ITEMS.INNER_HALLATION,
+      result: (
+        <dfn>
+          {formatThousands(manaGained)} mana saved ({formatThousands(manaGained / this.owner.fightDuration * 1000 * 5)} MP5)
+        </dfn>
+      ),
+    };
   }
 }
 
