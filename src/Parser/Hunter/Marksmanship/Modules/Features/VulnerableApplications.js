@@ -6,7 +6,6 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
 import Module from 'Parser/Core/Module';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import StatisticsListBox from 'Main/StatisticsListBox';
 
 const CHART_SIZE = 75;
@@ -14,14 +13,11 @@ const CHART_SIZE = 75;
 //code grabbed from Parser/Paladin/Holy/Modules/PaladinCore/CastBehavior.js
 
 class VulnerableApplications extends Module {
-  static dependencies = {
-    combatants: Combatants,
-  };
 
   windburstCasts = 0;
   markedShotCasts = 0;
 
-  legend(items, total) {
+ legend(items, total) {
     const numItems = items.length;
     return items.map(({ color, label, tooltip, value, spellId }, index) => {
       label = tooltip ? (
