@@ -22,7 +22,8 @@ export default function getCastEfficiency(CPM_ABILITIES, abilityTracker, combata
     .map(ability => {
       const castCount = getAbility(ability.spell.id);
       const casts = (ability.getCasts ? ability.getCasts(castCount, parser) : castCount.casts) || 0;
-      if (ability.hideWithZeroCasts && casts === 0) {
+      if (ability.isUndetectable && casts === 0) {
+        // Some spells (most notably Racials) can not be detected if a player has them. This hides those spells if they have 0 casts.
         return null;
       }
       const cpm = casts / minutes;
