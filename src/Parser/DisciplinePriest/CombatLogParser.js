@@ -97,7 +97,7 @@ class CombatLogParser extends CoreCombatLogParser {
     atonementSource: AtonementSource,
     atonementHealingDone: AtonementHealingDone,
     powerWordBarrier: PowerWordBarrier,
-    leniencesReward: LeniencesReward
+    leniencesReward: LeniencesReward,
 
     // Items:
     tier19_2set: Tier19_2set,

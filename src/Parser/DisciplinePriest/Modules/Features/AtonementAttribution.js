@@ -1,5 +1,3 @@
-import React from 'react';
-
 import Module from 'Parser/Core/Module';
 import isAtonement from '../Core/isAtonement';
 
