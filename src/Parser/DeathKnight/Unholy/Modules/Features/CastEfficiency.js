@@ -35,7 +35,7 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 120, // TODO: needs to account for CoF
       recommendedCastEfficiency: 0.90,
       isActive: combatant => combatant.hasTalent(SPELLS.DARK_ARBITER_TALENT.id),
-      extraSuggestion: <span>This is your main DPS CD.  You should be using this as soon as it comes off CD.</span>,
+      extraSuggestion: 'This is your main DPS CD.  You should be using this as soon as it comes off CD.',
     },
 
     {
@@ -44,7 +44,7 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 180,
       recommendedCastEfficiency: 0.90,
       isActive: combatant => combatant.hasTalent(SPELLS.DEFILE_TALENT.id) || combatant.hasTalent(SPELLS.SOUL_REAPER_TALENT.id),
-      extraSuggestion: <span>This is one your main DPS CDs.  You should be using this as soon as it comes off CD.</span>,
+      extraSuggestion: 'This is one your main DPS CDs.  You should be using this as soon as it comes off CD.',
     },
   ];
 }
