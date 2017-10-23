@@ -20,16 +20,11 @@ describe('DisciplinePriest.Reordering', () => {
     });
   });
 
-  it('Two Succesive Damaging Events with atonement on self between', () => {
+  it('Two Succesive Damaging Events with atonement on self between is reordered', () => {
     let result = atonementAtribution.reorderEvents(TwoSuccesiveDamagingEventsWithAtonementOnSelfBetween);
     expect(result[2].type).toBe("damage");
     expect(result[3].type).toBe("heal");
     expect(result[3].targetID).toBe(result[3].sourceID);
-  });
-
-  it('Two Succesive Damaging Events', () => {
-    let result = atonementAtribution.reorderEvents(TwoSuccesiveDamagingEvents);
-    console.log(result);
   });
 
 });
