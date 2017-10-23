@@ -70,7 +70,7 @@ class Trueshot extends Module {
                 marginTop: '-.1em',
               }}
             />
-            <br />
+            {'  '}
             {averageFocusAtTS}{' '}
             <Icon
               icon='ability_hunter_focusfire'
