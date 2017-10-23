@@ -10,7 +10,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 // Inspired by the penance bolt counter module from Discipline Priest
 
-const FISTS_OF_FURY_MINIMUM_TICK_TIME = 2000; // This is to check that additional ticks aren't just hitting secondary targets
+const FISTS_OF_FURY_MINIMUM_TICK_TIME = 100; // This is to check that additional ticks aren't just hitting secondary targets
 
 class FistsofFury extends Module {
     previousTickTimestamp = null;
@@ -32,9 +32,9 @@ class FistsofFury extends Module {
     }
 
     on_byPlayer_damage(event) {
-        if (event.ability.guid === SPELLS.FISTS_OF_FURY_DAMAGE.id && (event.timestamp) !== this.previousTickTimestamp) {
+        if (event.ability.guid === SPELLS.FISTS_OF_FURY_DAMAGE.id && this.isNewFistsTick(event.timestamp)) {
             this.fistsTickNumber += 1;
-            this.previousTickTimestamp = event.timeStamp;
+            this.previousTickTimestamp = event.timestamp;
             this.averageTicks = this.fistsTickNumber / this.fistsCastNumber;
         }
     }
