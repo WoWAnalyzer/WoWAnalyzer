@@ -2,6 +2,7 @@ import Module from 'Parser/Core/Module';
 import isAtonement from '../Core/isAtonement';
 
 class AtonementAttribution extends Module {
+
   /**
    *  This modules serves as a correction to the ordering in logs
    *  Currently in wlogs, atonement is handled by associating all the
@@ -14,12 +15,20 @@ class AtonementAttribution extends Module {
    * @returns {Array}
    */
   reorderEvents(events) {
+    let fixedEvents = events;
+    fixedEvents = _reorderAtonementEventsBetweenDamagingEvents(fixedEvents);
+    fixedEvents = _reorderAtonementEventsFromSuccesiveDamagingEvents(fixedEvents);
+    return fixedEvents;
+  }
+
+  // Reordering when 2 simultaneous damaging events happen but the
+  // atonement of the first event heals self before since there is
+  // no latency to self heal. We fix this by pushing down the
+  // self atonement to the next atonement healing
+  _reorderAtonementEventsBetweenDamagingEvents(events){
+
     const fixedEvents = [];
 
-    // Reordering when 2 simultaneous damaging events happen but the
-    // atonement of the first event heals self before since there is
-    // no latency to self heal. We fix this by pushing down the
-    // self atonement to the next atonement healing
     let _lastAtonementOnSelf = null;
     events.forEach((event, eventIndex) => {
 
@@ -37,58 +46,57 @@ class AtonementAttribution extends Module {
 
     });
 
-    // Reordering when simultaneous damage events occur. We need to split
-    // the atonement blocks ahead based off the targetIDs not repeating itself
-    // inside an atonement block
-    let _healingEvents = [];
+    return fixedEvents;
+  }
+
+  _reorderAtonementEventsFromSuccesiveDamagingEvents(events) {
+
+    let fixedEvents = [];
+
+    let _atonementBlock = [];
     let _damageEvents = [];
-    let fixedEvents2 = [];
-    let encountered = [];
 
-    fixedEvents.forEach((event, eventIndex) => {
+    let _encounteredTargetIDs = [];
 
-      // This is the first damage after an atonement block
-      // add the previous atonement and this damage event to the list
-      if(event.type == "damage" && event.sourceIsFriendly && _healingEvents.length > 0) {
-        fixedEvents2 = fixedEvents2.concat(_healingEvents);
-        _healingEvents = [];
-        encountered = [];
-        fixedEvents2.push(event);
-        return;
+    events.forEach((event, eventIndex) => {
+
+      // this is a damaging event with previous atonement. This is the general
+      // case
+      if(event.type == "damage" && event.sourceIsFriendly && _atonementBlock.length > 0) {
+
+        fixedEvents = fixedEvents.concat(_atonementBlock);
+        _atonementBlock = [];
+        _encounteredTargetIDs = [];
+
+        fixedEvents.push(event);
       }
 
-      // This is an atonement for a targetID that already has healing since
-      // last damaging event
-      if(event.type == "heal" && isAtonement(event) && encountered.indexOf(event.targetID) >= 0){
-
-        fixedEvents2 = fixedEvents2.concat(_healingEvents);
-        _healingEvents = [];
-        encountered = [];
-        fixedEvents2.push(_damageEvents[0]);
-        _damageEvents.splice(0,1);
+      // We encounter a targetID we already encountered. We need to split
+      // atonement here
+      if(event.type == "heal" && isAtonement(event) && _encounteredTargetIDs.indexOf(event.targetID) >= 0){
+        fixedEvents = fixedEvents.concat(_atonementBlock);
+        fixedEvents.push(_damageEvents[1]);
+        _atonementBlock = [];
+        _encounteredTargetIDs = [];
+        _damageEvents.splice(1,1);
       }
 
-      //
       if(event.type == "damage" && event.sourceIsFriendly) {
         _damageEvents.push(event);
-
       }
 
       if(event.type == "heal" && isAtonement(event)){
-        _healingEvents.push(event);
-        encountered.push(event.targetID);
+        _atonementBlock.push(event);
+        _encounteredTargetIDs.push(event.targetID);
       }
-
-      // End of events, we append the buffered events
-      if(eventIndex == fixedEvents.length - 1){
-        fixedEvents2 = fixedEvents2.concat(_healingEvents);
-        fixedEvents2 = fixedEvents2.concat(_damageEvents);
-      }
-
-
     });
-    return fixedEvents2;
+
+    // Add the last atonements
+    fixedEvents = fixedEvents.concat(_atonementBlock);
+
+    return fixedEvents;
   }
+
 }
 
 export default AtonementAttribution;
