@@ -36,7 +36,7 @@ class TarnishedSentinelMedallion extends ImportTarnishedSentinelMedallion {
     this.medallionUptime.forEach(cast => {
       this.medallionCasts ++;
       this.cooldownTracker.pastCooldowns.forEach(ts =>{
-        if (ts.start > cast.start - 7500 && ts.end < cast.end + 7500 && ts.spell.id === SPELLS.TRUESHOT.id){ //giving 7.5 (as agreed upon with Putro) seconds of leeway
+        if (ts.start > cast.start - 5000 && ts.end < cast.end + 5000 && ts.spell.id === SPELLS.TRUESHOT.id){ //giving 7.5 (as agreed upon with Putro) seconds of leeway
           this.medallionCastsWithTS ++;
         }
       });
