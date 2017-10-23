@@ -85,7 +85,6 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.HEROIC_THROW,
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => null,
-      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.INTERCEPT,

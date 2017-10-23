@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link, browserHistory } from 'react-router';
 import ReactTooltip from 'react-tooltip';
 
-import makeWclUrl from 'common/makeWclUrl';
+import fetchWcl from 'common/fetchWcl';
 import getFightName from 'common/getFightName';
 
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
@@ -259,17 +259,13 @@ class App extends Component {
       report: null,
     });
 
-    const url = makeWclUrl(`report/fights/${code}`, {
+    return fetchWcl(`report/fights/${code}`, {
       _: refresh ? +new Date() : undefined,
       translate: true, // so long as we don't have the entire site localized, it's better to have 1 consistent language
-    });
-    return fetch(url)
-      .then(response => response.json())
-      .then((json) => {
+    })
+      .then(json => {
         // console.log('Received report', code, ':', json);
-        if (json.status === 400 || json.status === 401) {
-          throw json.error;
-        } else if (this.reportCode === code) {
+        if (this.reportCode === code) {
           if (!json.fights) {
             let message = 'Corrupt WCL response received.';
             if (json.error) {
@@ -344,14 +340,13 @@ class App extends Component {
   }
 
   fetchEventsPage(code, start, end, actorId = undefined, filter = undefined) {
-    const url = makeWclUrl(`report/events/${code}`, {
+    return fetchWcl(`report/events/${code}`, {
       start,
       end,
       actorid: actorId,
       filter,
       translate: true, // it's better to have 1 consistent language so long as we don't have the entire site localized
     });
-    return fetch(url).then(response => response.json());
   }
 
   componentWillMount() {

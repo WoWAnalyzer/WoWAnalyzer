@@ -15,7 +15,6 @@ body {
   background-size: cover;
   background-attachment: fixed;
   color: #fff;
-  min-width: 450px;
 }
 @media (min-width: 1200px) {
   .container {
@@ -413,6 +412,9 @@ h1 {
 .flex {
   display: flex;
 }
+.flex.wrapable {
+  flex-wrap: wrap;
+}
 .flex > * {
   flex: 1;
 }
@@ -508,6 +510,10 @@ table.data-table img {
   width: 1.6em;
   height: 1.6em;
   margin-top: -.1em;
+}
+table.data-table .performance-bar-container {
+  background: rgba(20, 20, 20, 0.3);
+  border: 1px solid #000;
 }
 table.data-table .performance-bar {
   opacity: .9;
@@ -754,10 +760,4 @@ code.inactive {
 }
 .selectorHeader .panel {
   background: rgba(0,0,0,0.9);
-}
-.fight-boss-name {
-  min-width: 30%;
-}
-.selectorHeader .fight-boss-name {
-  min-width: 50%;
 }

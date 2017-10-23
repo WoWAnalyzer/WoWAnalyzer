@@ -14,6 +14,7 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import VulnerableUptime from './Modules/Features/VulnerableUptime';
 import VulnerableTracker from './Modules/Features/AimedInVulnerableTracker';
 import TimeFocusCapped from './Modules/Features/TimeFocusCapped';
+import VulnerableApplications from "./Modules/Features/VulnerableApplications";
 
 //Focus
 import FocusChart from './Modules/FocusChart/Focus';
@@ -22,13 +23,17 @@ import FocusTracker from './Modules/FocusChart/FocusTracker';
 //Tier
 import Tier20_2p from './Modules/Items/Tier20_2p';
 import Tier20_4p from './Modules/Items/Tier20_4p';
-import Tier19_2p from './Modules/Items/Tier19_2p';
+import Tier19_2p from "./Modules/Items/Tier19_2p";  
 
 //Spells
 import Trueshot from './Modules/Spells/Trueshot';
 
 //Items
 import UllrsFeatherSnowshoes from './Modules/Items/UllrsFeatherSnowshoes';
+import SoulOfTheHuntmaster from '../Shared/Items/SoulOfTheHuntmaster';
+import MKIIGyroscopicStabilizer from './Modules/Items/MKIIGyroscopicStabilizer';
+import WarBeltOfTheSentinelArmy from "./Modules/Items/WarBeltOfTheSentinelArmy";
+import TarnishedSentinelMedallion from "./Modules/Items/TarnishedSentinelMedallion";
 
 //Talents
 import LockAndLoad from './Modules/Talents/LockAndLoad';
@@ -51,6 +56,7 @@ class CombatLogParser extends CoreCombatLogParser {
     vulnerableUptime: VulnerableUptime,
     vulnerableTracker: VulnerableTracker,
     TimeFocusCapped: TimeFocusCapped,
+    vulnerableApplications: VulnerableApplications,
 
     //Focus Chart
     focusTracker: FocusTracker,
@@ -60,9 +66,14 @@ class CombatLogParser extends CoreCombatLogParser {
     tier20_2p: Tier20_2p,
     tier20_4p: Tier20_4p,
     ullrsFeatherSnowshoes: UllrsFeatherSnowshoes,
+    soulOfTheHuntmaster: SoulOfTheHuntmaster,
+    mkiiGyroscopicStabilizer: MKIIGyroscopicStabilizer,
+    warBeltOfTheSentinelArmy: WarBeltOfTheSentinelArmy,
+
 
     //Spells
     trueshot: Trueshot,
+    tarnishedSentinelMedallion: TarnishedSentinelMedallion,
 
     //Talents
     patientSniperTracker: PatientSniperTracker,

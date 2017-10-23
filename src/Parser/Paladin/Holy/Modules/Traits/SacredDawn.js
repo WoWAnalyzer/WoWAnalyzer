@@ -8,7 +8,7 @@ import Module from 'Parser/Core/Module';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import SmallStatisticBox, { STATISTIC_ORDER } from 'Main/SmallStatisticBox';
 
 const debug = false;
 
@@ -75,14 +75,14 @@ class SacredDawn extends Module {
 
   statistic() {
     return (
-      <StatisticBox
+      <SmallStatisticBox
         icon={<SpellIcon id={SPELLS.SACRED_DAWN.id} />}
-        value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %`}
         label="Sacred Dawn contribution"
+        value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %`}
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.TRAITS(10);
+  statisticOrder = STATISTIC_ORDER.UNIMPORTANT(10);
 }
 
 export default SacredDawn;

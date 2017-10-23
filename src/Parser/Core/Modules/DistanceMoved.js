@@ -5,7 +5,7 @@ import { formatThousands } from 'common/format';
 
 import Module from 'Parser/Core/Module';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import SmallStatisticBox, { STATISTIC_ORDER } from 'Main/SmallStatisticBox';
 
 const debug = false;
 
@@ -68,7 +68,7 @@ class DistanceMoved extends Module {
   statistic() {
     debug && console.log(`Total distance moved: ${this.totalDistanceMoved} yds`);
     return (
-      <StatisticBox
+      <SmallStatisticBox
         icon={<Icon icon="spell_fire_burningspeed" />}
         value={`≈${formatThousands(this.totalDistanceMoved)} yards`}
         label="Distance moved"
@@ -76,9 +76,7 @@ class DistanceMoved extends Module {
       />
     );
   }
-
-  // Move to the very end of the optional statistics
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(99);
+  statisticOrder = STATISTIC_ORDER.UNIMPORTANT();
 }
 
 export default DistanceMoved;
