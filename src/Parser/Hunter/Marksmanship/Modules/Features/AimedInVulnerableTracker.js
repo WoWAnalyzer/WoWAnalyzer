@@ -49,7 +49,7 @@ class AimedInVulnerableTracker extends Module {
         icon={<SpellIcon id={SPELLS.VULNERABLE.id} />}
         value={`${formatPercentage(percentAimedInVulnerable)}%`}
         label="Vulnerable Aimed Shots"
-        tooltip={` You cast ${this.totalAimed} Aimed Shots.<br/> The amount of Aimed Shot casts inside Vulnerable: ${this.inVulnerabilityAimed}.<br/> The amount of Aimed Shot casts outside Vulnerable: ${this.outsideVulnerabilityAimed}. <br/>`} />
+        tooltip={` You cast ${this.totalAimed} Aimed Shots.<br/> The amount of Aimed Shot casts inside Vulnerable: ${this.inVulnerabilityAimed}.<br/> The amount of Aimed Shot casts outside Vulnerable: ${this.outsideVulnerabilityAimed}.`} />
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(2);
