@@ -10,8 +10,8 @@ const enemy = 99;
 
 const timestamp = 1000;
 
-export const DamagingEvent1 = { type: 'damage', sourceID: thisPlayer, targetID: enemy, amount: amount, timestamp: timestamp, ability: { guid: SPELLS.PURGE_THE_WICKED_BUFF.id } };
-export const DamagingEvent2 = { type: 'damage', sourceID: thisPlayer, targetID: enemy, amount: amount, timestamp: timestamp, ability: { guid: SPELLS.SHADOWBIND_TRAIT.id } };
+export const DamagingEvent1 = { type: 'damage', sourceID: thisPlayer, sourceIsFriendly: true, targetID: enemy, amount: amount, timestamp: timestamp, ability: { guid: SPELLS.PURGE_THE_WICKED_BUFF.id } };
+export const DamagingEvent2 = { type: 'damage', sourceID: thisPlayer, sourceIsFriendly: true, targetID: enemy, amount: amount, timestamp: timestamp, ability: { guid: SPELLS.SHADOWBIND_TRAIT.id } };
 
 export const AtonementOnSelf1 =   { type: 'heal',   sourceID: thisPlayer, targetID: thisPlayer,   amount: amount, timestamp: timestamp, ability: { guid: SPELLS.ATONEMENT_HEAL_NON_CRIT.id } };
 export const AtonementOnSelf2 =   { type: 'heal',   sourceID: thisPlayer, targetID: thisPlayer,   amount: amount, timestamp: timestamp, ability: { guid: SPELLS.ATONEMENT_HEAL_NON_CRIT.id } };

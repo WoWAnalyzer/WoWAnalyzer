@@ -2,8 +2,6 @@ import Module from 'Parser/Core/Module';
 import isAtonement from '../Core/isAtonement';
 
 class AtonementAttribution extends Module {
-
-
   /**
    *  This modules serves as a correction to the ordering in logs
    *  Currently in wlogs, atonement is handled by associating all the
@@ -34,11 +32,62 @@ class AtonementAttribution extends Module {
         fixedEvents.push(_lastAtonementOnSelf);
         _lastAtonementOnSelf = null;
       }
-      
+
       fixedEvents.push(event);
 
     });
-    return fixedEvents;
+
+    // Reordering when simultaneous damage events occur. We need to split
+    // the atonement blocks ahead based off the targetIDs not repeating itself
+    // inside an atonement block
+    let _healingEvents = [];
+    let _damageEvents = [];
+    let fixedEvents2 = [];
+    let encountered = [];
+
+    fixedEvents.forEach((event, eventIndex) => {
+
+      // This is the first damage after an atonement block
+      // add the previous atonement and this damage event to the list
+      if(event.type == "damage" && event.sourceIsFriendly && _healingEvents.length > 0) {
+        fixedEvents2 = fixedEvents2.concat(_healingEvents);
+        _healingEvents = [];
+        encountered = [];
+        fixedEvents2.push(event);
+        return;
+      }
+
+      // This is an atonement for a targetID that already has healing since
+      // last damaging event
+      if(event.type == "heal" && isAtonement(event) && encountered.indexOf(event.targetID) >= 0){
+
+        fixedEvents2 = fixedEvents2.concat(_healingEvents);
+        _healingEvents = [];
+        encountered = [];
+        fixedEvents2.push(_damageEvents[0]);
+        _damageEvents.splice(0,1);
+      }
+
+      //
+      if(event.type == "damage" && event.sourceIsFriendly) {
+        _damageEvents.push(event);
+
+      }
+
+      if(event.type == "heal" && isAtonement(event)){
+        _healingEvents.push(event);
+        encountered.push(event.targetID);
+      }
+
+      // End of events, we append the buffered events
+      if(eventIndex == fixedEvents.length - 1){
+        fixedEvents2 = fixedEvents2.concat(_healingEvents);
+        fixedEvents2 = fixedEvents2.concat(_damageEvents);
+      }
+
+
+    });
+    return fixedEvents2;
   }
 }
 

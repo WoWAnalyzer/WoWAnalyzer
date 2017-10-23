@@ -3,7 +3,6 @@ import SPELLS from 'common/SPELLS';
 import processEvents from '../Fixtures/processEvents';
 
 import {
-  // Specific Events
   DamagingEvent1,
   DamagingEvent2,
   AtonementOnSelf1,
@@ -32,27 +31,69 @@ describe('DisciplinePriest.Reordering', () => {
       DamagingEvent1,
       AtonementOnSelf1,
       DamagingEvent2,
-      AtonementOnPlayer1,
-      AtonementOnPlayer2
+      AtonementOnPlayer1
     ];
 
     let result = atonementAtribution.reorderEvents(TwoSuccesiveDamagingEventsWithAtonementOnSelfBetween);
-    expect(result[2]).toBe(DamagingEvent2);
-    expect(result[3]).toBe(AtonementOnSelf1);
+    console.log(result);
+    expect(result[2]).toBe(AtonementOnSelf1);
   });
 
   it('If Atonement on self happens after the damaging events, the order isnt changed', () => {
 
-    const TwoSuccesiveDamagingEventsWithAtonementOnSelfBetween = [
+    const CorrectOrder = [
       DamagingEvent1,
       DamagingEvent2,
       AtonementOnPlayer1,
       AtonementOnPlayer2
     ];
 
-    let result = atonementAtribution.reorderEvents(TwoSuccesiveDamagingEventsWithAtonementOnSelfBetween);
+    let result = atonementAtribution.reorderEvents(CorrectOrder);
+    console.log(result);
     expect(result[2]).toBe(AtonementOnPlayer1);
     expect(result[3]).toBe(AtonementOnPlayer2);
+  });
+
+  it('If an atonement between 2 damaging events occur twice, both events are corrected', () => {
+
+    const AtonementBetweenDamageEventsOccurTwice = [
+      AtonementOnPlayer2,
+      DamagingEvent1,
+      AtonementOnSelf1,
+      DamagingEvent2,
+      AtonementOnPlayer1,
+      AtonementOnPlayer2,
+      DamagingEvent1,
+      AtonementOnSelf1,
+      DamagingEvent2,
+      AtonementOnPlayer1,
+      AtonementOnPlayer2
+    ];
+
+    let result = atonementAtribution.reorderEvents(AtonementBetweenDamageEventsOccurTwice);
+    expect(result[2]).toBe(DamagingEvent2);
+    expect(result[3]).toBe(AtonementOnSelf1);
+    expect(result[7]).toBe(DamagingEvent2);
+    expect(result[8]).toBe(AtonementOnSelf1);
+  });
+
+  it('If 2 damaging events happen simultaneously, the atonement ahead is split in two', () => {
+
+    const AtonementOf2DamingEventsGroupedTogether = [
+      AtonementOnPlayer2,
+      DamagingEvent1,
+      DamagingEvent2,
+      AtonementOnPlayer1,
+      AtonementOnPlayer2,
+      AtonementOnPlayer1,
+      AtonementOnPlayer2,
+      DamagingEvent1,
+    ];
+
+    let result = atonementAtribution.reorderEvents(AtonementOf2DamingEventsGroupedTogether);
+    console.log(result);
+    expect(result[4]).toBe(DamagingEvent2);
+
   });
 
 });
