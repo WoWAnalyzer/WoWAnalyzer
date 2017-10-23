@@ -10,19 +10,13 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 // Inspired by the penance bolt counter module from Discipline Priest
 
-const FISTS_OF_FURY_MINIMUM_RECAST_TIME = 2000; // Minimum duration between FoF casts - It can be completely reset by RSK with heroism and Serenity because of T20
-const FISTS_OF_FURY_MINIMUM_TICK_TIME = 300; // This is to check that additional ticks aren't just hitting secondary targets
+const FISTS_OF_FURY_MINIMUM_TICK_TIME = 2000; // This is to check that additional ticks aren't just hitting secondary targets
 
 class FistsofFury extends Module {
-    previousFistsTimestamp = null;
     previousTickTimestamp = null;
     fistsTickNumber = 0;
     fistsCastNumber = 0;
     averageTicks = 0;
-
-    isNewFistsCast(timestamp) {
-        return !this.previousFistsTimestamp || (timestamp - this.previousFistsTimestamp) > FISTS_OF_FURY_MINIMUM_RECAST_TIME;
-    }
 
     isNewFistsTick(timestamp) {
         return !this.previousTickTimestamp || (timestamp - this.previousTickTimestamp) > FISTS_OF_FURY_MINIMUM_TICK_TIME;
@@ -30,14 +24,15 @@ class FistsofFury extends Module {
 
     on_byPlayer_cast(event) {
         const spellId = event.ability.guid;
-        if (spellId === SPELLS.FISTS_OF_FURY_CAST.id && this.isNewFistsCast(event.timestamp)) {
+        if (spellId === SPELLS.FISTS_OF_FURY_CAST.id) {
             this.fistsCastNumber += 1;
-            this.previousFistsTimestamp = event.timeStamp;
+            // average ticks is calculated here in case you don't hit any ticks during a cast'
+            this.averageTicks = this.fistsTickNumber / this.fistsCastNumber;
         }
     }
 
     on_byPlayer_damage(event) {
-        if (event.ability.guid === SPELLS.FISTS_OF_FURY_DAMAGE.id && this.isNewFistsTick(event.timestamp)) {
+        if (event.ability.guid === SPELLS.FISTS_OF_FURY_DAMAGE.id && (event.timestamp) !== this.previousTickTimestamp) {
             this.fistsTickNumber += 1;
             this.previousTickTimestamp = event.timeStamp;
             this.averageTicks = this.fistsTickNumber / this.fistsCastNumber;
