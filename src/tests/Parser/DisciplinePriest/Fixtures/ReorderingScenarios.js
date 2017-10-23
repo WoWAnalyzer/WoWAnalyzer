@@ -18,3 +18,14 @@ export const TwoSuccesiveDamagingEventsWithAtonementOnSelfBetween = [
   { type: 'heal',   sourceID: thisPlayer, targetID: otherPlayer1, amount: amount, timestamp: timestamp, ability: { guid: SPELLS.ATONEMENT_HEAL_NON_CRIT.id } },
   { type: 'heal',   sourceID: thisPlayer, targetID: otherPlayer2, amount: amount, timestamp: timestamp, ability: { guid: SPELLS.ATONEMENT_HEAL_NON_CRIT.id } },
 ];
+
+export const TwoSuccesiveDamagingEvents = [
+  { type: 'heal',   sourceID: thisPlayer, targetID: otherPlayer1, amount: amount, timestamp: timestamp, ability: { guid: SPELLS.ATONEMENT_HEAL_NON_CRIT.id } },
+  { type: 'damage', sourceID: thisPlayer, targetID: enemy,        amount: amount, timestamp: timestamp, ability: { guid: SPELLS.PURGE_THE_WICKED_BUFF.id } },
+  { type: 'damage', sourceID: thisPlayer, targetID: enemy,        amount: amount, timestamp: timestamp, ability: { guid: SPELLS.SHADOWBIND_TRAIT.id } },
+  { type: 'heal',   sourceID: thisPlayer, targetID: otherPlayer1, amount: amount, timestamp: timestamp, ability: { guid: SPELLS.ATONEMENT_HEAL_NON_CRIT.id } },
+  { type: 'heal',   sourceID: thisPlayer, targetID: otherPlayer2, amount: amount, timestamp: timestamp, ability: { guid: SPELLS.ATONEMENT_HEAL_NON_CRIT.id } },
+  { type: 'heal',   sourceID: thisPlayer, targetID: otherPlayer1, amount: amount, timestamp: timestamp, ability: { guid: SPELLS.ATONEMENT_HEAL_NON_CRIT.id } },
+  { type: 'heal',   sourceID: thisPlayer, targetID: otherPlayer2, amount: amount, timestamp: timestamp, ability: { guid: SPELLS.ATONEMENT_HEAL_NON_CRIT.id } },
+  { type: 'damage', sourceID: thisPlayer, targetID: enemy,        amount: amount, timestamp: timestamp, ability: { guid: SPELLS.SHADOWBIND_TRAIT.id } },
+];
