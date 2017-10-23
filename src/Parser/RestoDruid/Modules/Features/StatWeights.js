@@ -33,7 +33,7 @@ class StatWeights extends Module {
   totalOneLeech = 0;
 
   on_initialized() {
-    this.concordanceAmount = 4000 + (this.combatants.selected.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id] || 0) * 300; // TODO remove when stat tracker added
+    this.concordanceAmount = 3700 + (this.combatants.selected.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id] || 0) * 300; // TODO remove when stat tracker added
   }
 
   on_byPlayer_heal(event) {
