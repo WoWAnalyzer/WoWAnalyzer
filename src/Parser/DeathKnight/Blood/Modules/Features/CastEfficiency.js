@@ -68,12 +68,11 @@ class CastEfficiency extends CoreCastEfficiency {
       extraSuggestion: <span>Mostly used as a dps CD. Should be almost casted on CD. Good to use when your running to the boss or cant melee them.</span>,
     },
 
-
     {
       spell: SPELLS.ARCANE_TORRENT_MANA,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 90,
-      hideWithZeroCasts: true,
+      isUndetectable: true,
     },
   ];
 }

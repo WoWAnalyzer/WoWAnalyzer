@@ -31,10 +31,10 @@ class Tier20_2set extends Module {
 
   item() {
     return {
-      id: `${SPELLS.FROZEN_MASS.id}`,
+      id: SPELLS.FROZEN_MASS.id,
       icon: <SpellIcon id={SPELLS.FROZEN_MASS.id} />,
       title: <SpellLink id={SPELLS.FROZEN_MASS.id} />,
-      result: `${this.owner.formatItemDamageDone(this.damage)}`,
+      result: this.owner.formatItemDamageDone(this.damage),
     };
   }
 }

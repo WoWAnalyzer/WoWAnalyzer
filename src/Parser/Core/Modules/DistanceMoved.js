@@ -1,12 +1,11 @@
 import React from 'react';
 
-import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
+import Icon from 'common/Icon';
 import { formatThousands } from 'common/format';
 
 import Module from 'Parser/Core/Module';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import SmallStatisticBox, { STATISTIC_ORDER } from 'Main/SmallStatisticBox';
 
 const debug = false;
 
@@ -69,17 +68,15 @@ class DistanceMoved extends Module {
   statistic() {
     debug && console.log(`Total distance moved: ${this.totalDistanceMoved} yds`);
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.FRENETIC_SPEED_TALENT.id} />}
+      <SmallStatisticBox
+        icon={<Icon icon="spell_fire_burningspeed" />}
         value={`≈${formatThousands(this.totalDistanceMoved)} yards`}
         label="Distance moved"
         tooltip={`≈${formatThousands(this.totalDistanceMoved / (this.owner.fightDuration / 1000) * 60)} yards per minute. Consider this when analyzing the fight, as some fights require more movement than others. Unnecessary movement can result in a DPS/HPS loss.`}
       />
     );
   }
-
-  // Move to the very end of the optional statistics
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(99);
+  statisticOrder = STATISTIC_ORDER.UNIMPORTANT();
 }
 
 export default DistanceMoved;

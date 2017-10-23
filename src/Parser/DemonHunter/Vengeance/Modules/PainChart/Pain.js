@@ -6,7 +6,7 @@ import ChartistGraph from 'react-chartist';
 import Chartist from 'chartist';
 import 'chartist-plugin-legend';
 
-import makeWclUrl from 'common/makeWclUrl';
+import fetchWcl from 'common/fetchWcl';
 
 import SPELLS from 'common/SPELLS';
 
@@ -47,39 +47,29 @@ class Pain extends React.PureComponent {
     }
   }
   load(reportCode, actorId, start, end) {
-    const painPromise = fetch(makeWclUrl(`report/tables/resources/${reportCode}`, {
+    const painPromise = fetchWcl(`report/tables/resources/${reportCode}`, {
       start,
       end,
       sourceid: actorId,
       abilityid: 118,
-    }))
-      .then(response => response.json())
-      .then((json) => {
-        if (json.status === 400 || json.status === 401) {
-          throw json.error;
-        } else {
-          this.setState({
-            pain: json,
-          });
-        }
+    })
+      .then(json => {
+        this.setState({
+          pain: json,
+        });
       });
 
-    const bossHealthPromise = fetch(makeWclUrl(`report/tables/resources/${reportCode}`, {
+    const bossHealthPromise = fetchWcl(`report/tables/resources/${reportCode}`, {
       start,
       end,
       sourceclass: 'Boss',
       hostility: 1,
       abilityid: 1000,
-    }))
-      .then(response => response.json())
-      .then((json) => {
-        if (json.status === 400 || json.status === 401) {
-          throw json.error;
-        } else {
-          this.setState({
-            bossHealth: json,
-          });
-        }
+    })
+      .then(json => {
+        this.setState({
+          bossHealth: json,
+        });
       });
 
     return Promise.all([painPromise, bossHealthPromise]);
