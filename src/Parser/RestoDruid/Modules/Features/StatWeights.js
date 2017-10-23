@@ -46,6 +46,7 @@ class StatWeights extends Module {
   }
 
   _handleHeal(event, healVal) {
+    const spellId = event.ability.guid;
     const target = this.combatants.getEntity(event);
     if(target === null) {
       return;
@@ -58,7 +59,7 @@ class StatWeights extends Module {
     // We have to calculate leech weight differently depending on if we already have any leech rating.
     // Leech is marked as a 'multplier' heal, so we have to check it before we do the early return below
     const hasLeech = this.combatants.selected.leechRating > 0; // TODO replace when dynamic stats
-    if(hasLeech && spellInfo.isLeech && !healVal.overheal) {
+    if(hasLeech && spellId === SPELLS.LEECH.id && !healVal.overheal) {
       this.totalOneLeech += amount / this.combatants.selected.leechRating; // TODO replace when dynamic stats
     } else if(!hasLeech) {
       // TODO this will be a pain to implement
@@ -85,7 +86,7 @@ class StatWeights extends Module {
     if(spellInfo.crit) {
       const currCritPerc = this.combatants.selected.critPercentage; // TODO replace when dynamic stats
       const bonusFromOneCrit = 1 / 40000; // TODO replace when stat constants exist
-      if(spellInfo.isLivingSeed) {
+      if(spellId === SPELLS.LIVING_SEED.id) {
         // Living Seed doesn't crit, but it procs from crits only. This calculation approximates increased LS frequency due to more crits.
         const additionalLivingSeedChance = bonusFromOneCrit / currCritPerc;
         this.totalOneCrit += additionalLivingSeedChance * amount;

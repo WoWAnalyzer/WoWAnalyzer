@@ -132,7 +132,7 @@ export const HEAL_INFO = {
     masteryStack: false,
     vers: true,
   },
-  [SPELLS.LIVING_SEED.id]: { // an approximation based on what likely procced it
+  [SPELLS.LIVING_SEED.id]: { // an approximation based on what likely procced it. There is special case handling for crit.
     int: true,
     crit: true,
     hasteHpm: false,
@@ -140,7 +140,6 @@ export const HEAL_INFO = {
     mastery: true,
     masteryStack: false,
     vers: true,
-    isLivingSeed: true, // obviously we need special case handling for crit w/ Living Seed
   },
   [SPELLS.TRANQUILITY_HEAL.id]: {
     ignored: true, // Dreamgrove theorycrafters say should be ignored because it always overheals, could unfairly skew weights against Haste if included. I'd like a better solution, but this will do for now.
@@ -234,7 +233,6 @@ export const HEAL_INFO = {
     vers: true,
   },
   [SPELLS.LEECH.id]: { // procs a percent of all your healing, so we ignore for weights and total healing
-    isLeech: true,
     multiplier: true,
   },
   [SPELLS.VELENS_FUTURE_SIGHT.id]: { // while active procs from any healing, so we ignore for weights and total healing
