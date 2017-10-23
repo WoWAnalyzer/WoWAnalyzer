@@ -1,5 +1,18 @@
 import SPELLS from 'common/SPELLS';
 
+/*
+ * Fields:
+ * int: spell scales with Intellect
+ * crit: spell scales with (is able to or procced from) Critical Strike
+ * hasteHpm: spell does more healing due to Haste, e.g. HoTs that gain more ticks
+ * hasteHpct: spell can be cast more frequently due to Haste, basically any spell except for non haste scaling CDs
+ * mastery: spell is boosted by Mastery
+ * masteryStack: spell's HoT counts as a Mastery Stack
+ * vers: spell scales with Versatility
+ * multiplier: spell scales with whatever procs it, should be ignored for purpose of weights and for 'total healing' number
+ * ignored: spell should be ignored for purpose of stat weights
+ */
+
 const DEFAULT_INFO = { // we assume unlisted spells scale with vers only (this will mostly be trinkets)
   int: false,
   crit: false,
@@ -130,6 +143,7 @@ export const HEAL_INFO = {
     isLivingSeed: true, // obviously we need special case handling for crit w/ Living Seed
   },
   [SPELLS.TRANQUILITY_HEAL.id]: {
+    ignored: true, // Dreamgrove theorycrafters say should be ignored because it always overheals, could unfairly skew weights against Haste if included. I'd like a better solution, but this will do for now.
     int: true,
     crit: true,
     hasteHpm: false,
@@ -219,12 +233,12 @@ export const HEAL_INFO = {
     masteryStack: true,
     vers: true,
   },
-  [SPELLS.LEECH.id]: { // after a fashion this scales with everything, but for the purpose of stat weights better to say "nothing"
+  [SPELLS.LEECH.id]: { // procs a percent of all your healing, so we ignore for weights and total healing
     isLeech: true,
-    ignored: true,
+    multiplier: true,
   },
-  [SPELLS.VELENS_FUTURE_SIGHT.id]: {
-    ignored: true,
+  [SPELLS.VELENS_FUTURE_SIGHT.id]: { // while active procs from any healing, so we ignore for weights and total healing
+    multiplier: true,
   },
 };
 
