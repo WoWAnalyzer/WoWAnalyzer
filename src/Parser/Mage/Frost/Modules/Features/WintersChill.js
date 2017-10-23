@@ -20,7 +20,8 @@ class WintersChillTracker extends Module {
   doubleIceLanceHits = 0;
 
   on_byPlayer_damage(event) {
-    if (event.ability.guid !== SPELLS.ICE_LANCE_DAMAGE.id) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.ICE_LANCE_DAMAGE.id) {
       return;
     }
     const enemy = this.enemies.getEntity(event);
@@ -30,14 +31,16 @@ class WintersChillTracker extends Module {
   }
 
   on_byPlayer_applydebuff(event) {
-	  if(event.ability.guid !== SPELLS.WINTERS_CHILL.id) {
+    const spellId = event.ability.guid;
+	  if(spellId !== SPELLS.WINTERS_CHILL.id) {
 		  return;
 	  }
     this.iceLanceHits = 0;
 	}
 
   on_byPlayer_removedebuff(event) {
-    if(event.ability.guid !== SPELLS.WINTERS_CHILL.id) {
+    const spellId = event.ability.guid;
+    if(spellId !== SPELLS.WINTERS_CHILL.id) {
       return;
     }
     if (this.iceLanceHits === 0) {

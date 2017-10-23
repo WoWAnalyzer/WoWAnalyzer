@@ -22,18 +22,11 @@ class ThermalVoid extends Module {
   }
 
   on_toPlayer_applybuff(event) {
-    if(event.ability.guid === SPELLS.ICY_VEINS.id && event.prepull) { // catch prepull cast by buff being present on pull
+    const spellId = event.ability.guid;
+    if(spellId === SPELLS.ICY_VEINS.id) {
       this.casts += 1;
       this.buffApplied = event.timestamp;
     }
-  }
-
-  on_byPlayer_cast(event) {
-    if (event.ability.guid !== SPELLS.ICY_VEINS.id) {
-      return;
-    }
-    this.casts += 1;
-    this.buffApplied = event.timestamp;
   }
 
   on_finished() {
