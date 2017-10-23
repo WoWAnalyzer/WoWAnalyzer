@@ -13,12 +13,6 @@ export default {
     icon: 'inv_axe_2h_artifactmaw_d_01',
   },
   // Damage Dealing
-  DEATH_AND_DECAY: {
-    id: 43265,
-    name: 'Death and Decay',
-    icon: 'spell_shadow_deathanddecay',
-  },
-
   // Provides the 1 RP tick on DnD from Rapid Decomposition Talent
   RAPID_DECOMPOSITION_RP_TICK: {
     id: 188290,
@@ -49,11 +43,6 @@ export default {
     name: 'Marrowrend',
     icon: 'ability_deathknight_marrowrend',
   },
-  DEATH_STRIKE: {
-    id: 49998,
-    name: 'Death Strike',
-    icon: 'spell_deathknight_butcher2',
-  },
   BLOOD_PLAGUE: {
     id: 55078,
     name: 'Blood Plague',
@@ -66,12 +55,6 @@ export default {
   },
 
   // Cooldowns
-  ICEBOUND_FORTITUDE: {
-    id: 48792,
-    name: 'Icebound Fortitude',
-    icon: 'spell_deathknight_iceboundfortitude',
-  },
-
   DANCING_RUNE_WEAPON: {
     id: 49028,
     name: 'Dancing Rune Weapon',
@@ -88,18 +71,6 @@ export default {
     id: 55233,
     name: 'Vampiric Blood',
     icon: 'spell_shadow_lifedrain',
-  },
-
-  ANTI_MAGIC_SHELL: {
-    id: 48707,
-    name: 'Anti-Magic Shell',
-    icon: 'spell_shadow_antimagicshell',
-  },
-
-  ANTI_MAGIC_SHELL_RP_GAINED: {
-    id: 49088,
-    name: 'Anti-Magic Shell RP Gained',
-    icon: 'spell_holy_righteousnessaura',
   },
 
   BONE_SHIELD: {
@@ -134,51 +105,10 @@ export default {
   },
 
   // CC
-  DARK_COMMAND: {
-    id: 56222,
-    name: 'Dark Command',
-    icon: 'spell_nature_shamanrage',
-  },
-  DEATH_GRIP: {
-    id: 49576,
-    name: 'Death Grip',
-    icon: 'spell_deathknight_strangulate',
-  },
-  MIND_FREEZE: {
-    id: 47528,
-    name: 'Mind Freeze',
-    icon: 'spell_deathknight_mindfreeze',
-  },
   GOREFIENDS_GRASP: {
     id: 108199,
     name: 'Gorefiend\'s Grasp',
     icon: 'ability_deathknight_aoedeathgrip',
-  },
-
-  // Movement
-  WRAITH_WALK: {
-    id: 212552,
-    name: 'Wraith Walk',
-    icon: 'inv_helm_plate_raiddeathknight_p_01',
-  },
-
-  // MISC
-  CONTROL_UNDEAD: {
-    id: 111673,
-    name: 'Control Undead',
-    icon: 'inv_misc_bone_skull_01',
-  },
-
-  DEATH_GATE: {
-    id: 50977,
-    name: 'Death Gate',
-    icon: 'spell_arcane_teleportundercity',
-  },
-
-  RAISE_ALLY: {
-    id: 61999,
-    name: 'Raise Ally',
-    icon: 'spell_shadow_deadofnight',
   },
 
   // Blood Tier Sets
@@ -205,8 +135,160 @@ export default {
   // ...
 
   // Unholy:
-  // ...
+  APOCALYPSE: {
+    id: 220143,
+    name: 'Apocalypse',
+    icon: 'artifactability_unholydeathknight_deathsembrace',
+  },
+
+  ARMY_OF_THE_DEAD: {
+    id: 42650,
+    name: 'Army of the Dead',
+    icon: 'spell_deathknight_armyofthedead',
+  },
+
+  DARK_TRANSFORMATION: {
+    id: 63560,
+    name: 'Dark Transformation',
+    icon: 'achievement_boss_festergutrotface',
+  },
+
+  DEATH_COIL: {
+    id: 47541,
+    name: 'Death Coil',
+    icon: 'spell_shadow_deathcoil',
+  },
+
+  FESTERING_STRIKE: {
+    id: 85948,
+    name: 'Festering Strike',
+    icon: 'spell_deathknight_festering_strike',
+  },
+
+  FESTERING_WOUND: {
+    id: 197147,
+    name: 'Festering Wound',
+    icon: 'spell_shadow_deathanddecay',
+  },
+
+  OUTBREAK: {
+    id: 77575,
+    name: 'Outbreak',
+    icon: 'spell_deathvortex',
+  },
+
+  RAISE_DEAD: {
+    id: 46584,
+    name: 'Raise Dead',
+    icon: 'spell_shadow_animatedead',
+  },
+
+  RUNIC_CORRUPTION: {
+    id: 51462,
+    name: 'Runic Corruption',
+    icon: 'spell_shadow_rune',
+  },
+
+  SCOURGE_STRIKE: {
+    id: 55090,
+    name: 'Scourge Strike',
+    icon: 'spell_deathknight_scourgestrike',
+  },
+
+  SUDDEN_DOOM: {
+    id: 49530,
+    name: 'Sudden Doom',
+    icon: 'spell_shadow_painspike',
+  },
+
+  SUMMON_GARGOYLE: {
+    id: 49206,
+    name: 'Summon Gargoyle',
+    icon: 'ability_deathknight_summongargoyle',
+  },
 
   // Shared:
-  // ...
+  ANTI_MAGIC_SHELL: {
+    id: 48707,
+    name: 'Anti-Magic Shell',
+    icon: 'spell_shadow_antimagicshell',
+  },
+
+  ANTI_MAGIC_SHELL_RP_GAINED: {
+    id: 49088,
+    name: 'Anti-Magic Shell RP Gained',
+    icon: 'spell_holy_righteousnessaura',
+  },
+
+  CHAINS_OF_ICE: {
+    id: 45524,
+    name: 'Chains of Ice',
+    icon: 'spell_frost_chainsofice',
+  },
+
+  DARK_COMMAND: {
+    id: 56222,
+    name: 'Dark Command',
+    icon: 'spell_nature_shamanrage',
+  },
+
+  DEATH_GRIP: {
+    id: 49576,
+    name: 'Death Grip',
+    icon: 'spell_deathknight_strangulate',
+  },
+
+  MIND_FREEZE: {
+    id: 47528,
+    name: 'Mind Freeze',
+    icon: 'spell_deathknight_mindfreeze',
+  },
+
+  DEATH_AND_DECAY: {
+    id: 43265,
+    name: 'Death and Decay',
+    icon: 'spell_shadow_deathanddecay',
+  },
+
+  DEATH_STRIKE: {
+    id: 49998,
+    name: 'Death Strike',
+    icon: 'spell_deathknight_butcher2',
+  },
+
+  ICEBOUND_FORTITUDE: {
+    id: 48792,
+    name: 'Icebound Fortitude',
+    icon: 'spell_deathknight_iceboundfortitude',
+  },
+
+  CONTROL_UNDEAD: {
+    id: 111673,
+    name: 'Control Undead',
+    icon: 'inv_misc_bone_skull_01',
+  },
+
+  DEATH_GATE: {
+    id: 50977,
+    name: 'Death Gate',
+    icon: 'spell_arcane_teleportundercity',
+  },
+
+  PATH_OF_FROST: {
+    id: 3714,
+    name: 'Path of Frost',
+    icon: 'spell_deathknight_pathoffrost',
+  },
+
+  RAISE_ALLY: {
+    id: 61999,
+    name: 'Raise Ally',
+    icon: 'spell_shadow_deadofnight',
+  },
+
+  WRAITH_WALK: {
+    id: 212552,
+    name: 'Wraith Walk',
+    icon: 'inv_helm_plate_raiddeathknight_p_01',
+  },
 };

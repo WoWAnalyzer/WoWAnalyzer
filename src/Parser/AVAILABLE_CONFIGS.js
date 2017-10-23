@@ -1,4 +1,5 @@
 import BloodDeathKnight from './DeathKnight/Blood/CONFIG';
+import UnholyDeathKnight from './DeathKnight/Unholy/CONFIG';
 
 import HavocDemonHunter from './DemonHunter/Havoc/CONFIG';
 import VengeanceDemonHunter from './DemonHunter/Vengeance/CONFIG';
@@ -39,6 +40,7 @@ import ArmsWarrior from './Warrior/Arms/CONFIG';
 
 export default [
   BloodDeathKnight,
+  UnholyDeathKnight,
 
   HavocDemonHunter,
   VengeanceDemonHunter,
