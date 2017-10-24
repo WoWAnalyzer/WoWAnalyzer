@@ -277,7 +277,7 @@ class StatWeights extends Module {
     const versDrWeight = (this.totalOneVers + this.totalOneVersDr) / this.totalOneInt;
     let leechWeight = this.totalOneLeech / this.totalOneInt;
     if(!hasLeech) {
-      leechWeight = "NYI";
+      leechWeight = undefined;
     }
 
     const intForOnePercent = this._ratingPerOnePercent(this.totalOneInt);
@@ -288,7 +288,7 @@ class StatWeights extends Module {
     const versDrForOnePercent = this._ratingPerOnePercent(this.totalOneVers + this.totalOneVersDr);
     let leechForOnePercent = this._ratingPerOnePercent(this.totalOneLeech);
     if(!hasLeech) {
-      leechForOnePercent = "NYI";
+      leechForOnePercent = undefined;
     }
 
     const hasteHpmTooltip = "HPM stands for 'Healing per Mana'. In valuing Haste, it considers only the faster HoT ticking and not the reduced cast times. Effectively it models haste's bonus to mana efficiency. This is typically the better calculation to use for raid encounters where mana is an issue.";
@@ -328,8 +328,8 @@ class StatWeights extends Module {
               {results.map(row => (
                 <tr>
                   {row.tooltip ? (<td><dfn data-tip={row.tooltip}>{row.stat}</dfn></td>) : (<td>{row.stat}</td>)}
-                  <td>{row.weight.toFixed ? row.weight.toFixed(2) : row.weight}</td>
-                  <td>{formatNumber(row.ratingForOne)}</td>
+                  <td>{row.weight ? row.weight.toFixed(2) : "NYI"}</td>
+                  <td>{row.ratingForOne ? formatNumber(row.ratingForOne) : "NYI"}</td>
                 </tr>
               ))}
             </tbody>
