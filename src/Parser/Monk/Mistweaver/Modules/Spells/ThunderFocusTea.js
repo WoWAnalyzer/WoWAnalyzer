@@ -1,22 +1,96 @@
 import React from 'react';
+import { Doughnut as DoughnutChart } from 'react-chartjs-2';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import Module from 'Parser/Core/Module';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticsListBox, { STATISTIC_ORDER } from 'Main/StatisticsListBox';
 
 const debug = false;
+
+const CHART_SIZE = 75;
 
 class ThunderFocusTea extends Module {
   static dependencies = {
     combatants: Combatants,
   };
+
+  legend(items, total) {
+    const numItems = items.length;
+    return items.map(({ color, label, tooltip, value, spellId }, index) => {
+      label = tooltip ? (
+        <dfn data-tip={tooltip}>{label}</dfn>
+      ) : label;
+      label = spellId ? (
+        <SpellLink id={spellId}>{label}</SpellLink>
+      ) : label;
+      return (
+        <div
+          className="flex"
+          style={{
+            borderBottom: '3px solid rgba(255,255,255,0.1)',
+            marginBottom: ((numItems - 1) === index) ? 0 : 5,
+          }}
+          key={index}
+        >
+          <div className="flex-sub">
+            <div
+              style={{
+                display: 'inline-block',
+                background: color,
+                borderRadius: '50%',
+                width: 16,
+                height: 16,
+                marginBottom: -3,
+              }}
+            />
+          </div>
+          <div className="flex-main" style={{ paddingLeft: 5 }}>
+            {label}
+          </div>
+          <div className="flex-sub">
+            <dfn data-tip={value}>
+              {formatPercentage(value / total, 0)}%
+            </dfn>
+          </div>
+        </div>
+      );
+    });
+  }
+
+  chart(items) {
+    return (
+      <DoughnutChart
+        data={{
+          datasets: [{
+            data: items.map(item => item.value),
+            backgroundColor: items.map(item => item.color),
+            borderColor: '#666',
+            borderWidth: 1.5,
+          }],
+          labels: items.map(item => item.label),
+        }}
+        options={{
+          legend: {
+            display: false,
+          },
+          tooltips: {
+            bodyFontSize: 8,
+          },
+          cutoutPercentage: 45,
+          animation: false,
+          responsive: false,
+        }}
+        width={CHART_SIZE}
+        height={CHART_SIZE}
+      />
+    );
+  }
 
   castsTftEff = 0;
   castsTftEf = 0;
@@ -80,6 +154,52 @@ class ThunderFocusTea extends Module {
     }
   }
 
+  tftCastRatioChart() {
+    const items = [
+      {
+        color: '#adff00',
+        label: 'Vivify',
+        spellId: SPELLS.VIVIFY.id,
+        value: this.castsTftViv,
+      },
+      {
+        color: '#74d600',
+        label: 'Renewing Mist',
+        spellId: SPELLS.RENEWING_MIST.id,
+        value: this.castsTftRem,
+      },
+      {
+        color: '#028900',
+        label: 'Enveloping Mists',
+        spellId: SPELLS.ENVELOPING_MISTS.id,
+        value: this.castsTftEnm,
+      },
+      {
+        color: '#00d27f',
+        label: 'Effuse',
+        spellId: SPELLS.EFFUSE.id,
+        value: this.castsTftEff,
+      },
+      {
+        color: '#00ff83',
+        label: 'Essence Font',
+        spellId: SPELLS.ESSENCE_FONT.id,
+        value: this.castsTftEf,
+      },
+    ];
+
+    return (
+      <div className="flex">
+        <div className="flex-sub" style={{ paddingRight: 12 }}>
+          {this.chart(items)}
+        </div>
+        <div className="flex-main" style={{ fontSize: '80%', paddingTop: 3 }}>
+          {this.legend(items, this.castsUnderTft)}
+        </div>
+      </div>
+    );
+  }
+
   on_finished() {
     if (this.ftActive) {
       this.castsTft += this.castsTft;
@@ -108,42 +228,19 @@ class ThunderFocusTea extends Module {
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.THUNDER_FOCUS_TEA.id} />}
-        value={`${this.castsTft}`}
-        label={(
-          <dfn data-tip={`With your ${this.castsTft} Thunder Focus Tea casts, you buffed the following spells:
-              <ul>
-                ${this.castsTftViv > 0 ?
-                `<li>${(this.castsTftViv)} Vivify buffed (${formatPercentage(this.castsTftViv / this.castsTft)}%)</li>`
-                : ''
-                }
-                ${this.castsTftRem > 0 ?
-                `<li>${(this.castsTftRem)} Renewing Mist buffed (${formatPercentage(this.castsTftRem / this.castsTft)}%)</li>`
-                : ''
-                }
-                ${this.castsTftEnm > 0 ?
-                `<li>${(this.castsTftEnm)} Enveloping Mists buffed (${formatPercentage(this.castsTftEnm / this.castsTft)}%)</li>`
-                : ''
-                }
-                ${this.castsTftEff > 0 ?
-                `<li>${(this.castsTftEff)} Effuse buffed (${formatPercentage(this.castsTftEff / this.castsTft)}%)</li>`
-                : ''
-                }
-                ${this.castsTftEf > 0 ?
-                `<li>${(this.castsTftEf)} Essence Font buffed (${formatPercentage(this.castsTftEf / this.castsTft)}%)</li>`
-                : ''
-                }
-              </ul>
-              `}
+      <div className="col-lg-4 col-sm-6 col-xs-12">
+        <div className="row">
+          <StatisticsListBox
+            title={<span><SpellLink id={SPELLS.THUNDER_FOCUS_TEA.id}>Thunder Focus Tea</SpellLink> usage</span>}
+            containerProps={{ className: 'col-xs-12' }}
           >
-              Total casts
-            </dfn>
-          )}
-      />
+            {this.tftCastRatioChart()}
+          </StatisticsListBox>
+        </div>
+      </div>
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(30);
+  statisticOrder = STATISTIC_ORDER.CORE(20);
 }
 
 export default ThunderFocusTea;
