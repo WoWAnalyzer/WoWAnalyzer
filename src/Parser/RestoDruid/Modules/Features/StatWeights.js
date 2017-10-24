@@ -328,7 +328,7 @@ class StatWeights extends Module {
               {results.map(row => (
                 <tr>
                   {row.tooltip ? (<td><dfn data-tip={row.tooltip}>{row.stat}</dfn></td>) : (<td>{row.stat}</td>)}
-                  <td>{row.weight.toFixed(2)}</td>
+                  <td>{row.weight !== undefined ? row.weight.toFixed(2) : '???'}</td>
                   <td>{formatNumber(row.ratingForOne)}</td>
                 </tr>
               ))}
