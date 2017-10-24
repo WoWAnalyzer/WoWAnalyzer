@@ -1,4 +1,10 @@
+import React from 'react';
+
 import SPELLS from 'common/SPELLS';
+import SpellIcon from 'common/SpellIcon';
+
+import Combatants from 'Parser/Core/Modules/Combatants';
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import Module from 'Parser/Core/Module';
 
@@ -9,6 +15,10 @@ import Module from 'Parser/Core/Module';
 const PENANCE_MINIMUM_RECAST_TIME = 3500; // Minimum duration from one Penance to Another
 
 class Penance extends Module {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
   _speedOfThePiousAcquired = false;
   _previousPenanceTimestamp = null;
   _penanceBoltHitNumber = 0;
@@ -70,6 +80,26 @@ class Penance extends Module {
     this._penanceBoltHitNumber += 1;
     this.hits += 1;
   }
+
+  statistic() {
+    const hasCastigation = this.combatants.selected.hasTalent(SPELLS.CASTIGATION_TALENT.id);
+    const missedPenanceTicks = (this.casts * (3 + (hasCastigation ? 1 : 0))) - this.hits;
+
+    return(
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.PENANCE.id} />}
+        value={missedPenanceTicks}
+        label={(
+          <dfn data-tip={
+            `Each Penance cast has 3 bolts (4 if you're using Castigation). You should try to let this channel finish as much as possible. You channeled Penance ${this.casts} times.`
+            }>
+            Wasted Penance bolts
+          </dfn>
+        )}
+      />
+    );
+  }
+  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 }
 
 export default Penance;
