@@ -206,6 +206,12 @@ export default {
     name: 'Summon Gargoyle',
     icon: 'ability_deathknight_summongargoyle',
   },
+  
+  VIRULENT_PLAGUE: {
+    id: 191587,
+    name: 'Virulent Plague',
+    icon: 'ability_creature_disease_02',
+  },  
 
   // Shared:
   ANTI_MAGIC_SHELL: {
