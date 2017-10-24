@@ -5,12 +5,12 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 import { formatPercentage, formatDuration } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-class Tier204PBonus extends Module {
+class Tier204PBonus extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

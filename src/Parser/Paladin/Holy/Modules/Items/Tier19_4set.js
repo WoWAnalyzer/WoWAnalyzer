@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -15,7 +15,7 @@ const INFUSION_OF_LIGHT_FOL_HEALING_INCREASE = 0.5;
 
 const debug = false;
 
-class Tier19_4set extends Module {
+class Tier19_4set extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

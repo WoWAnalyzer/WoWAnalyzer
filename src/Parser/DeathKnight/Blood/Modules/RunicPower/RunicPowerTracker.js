@@ -1,11 +1,11 @@
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 
 const DEATH_STRIKE_BASE_COST = 45;
 
-class RunicPowerTracker extends Module {
+class RunicPowerTracker extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

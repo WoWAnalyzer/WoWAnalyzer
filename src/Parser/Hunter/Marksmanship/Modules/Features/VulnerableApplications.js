@@ -5,14 +5,14 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import StatisticsListBox from 'Main/StatisticsListBox';
 
 const CHART_SIZE = 75;
 
 //code grabbed from Parser/Paladin/Holy/Modules/PaladinCore/CastBehavior.js
 
-class VulnerableApplications extends Module {
+class VulnerableApplications extends Analyzer {
 
   windburstCasts = 0;
   markedShotCasts = 0;

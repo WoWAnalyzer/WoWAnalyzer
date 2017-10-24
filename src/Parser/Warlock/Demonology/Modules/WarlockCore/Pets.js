@@ -1,4 +1,4 @@
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import PETS from 'common/PETS';
@@ -6,7 +6,7 @@ import SPELLS from 'common/SPELLS';
 
 // tracks individual pet (as in pet type) damage, summed together across pet instances
 // also tracks pet summons and despawns and provides getPets(timestamp)
-class Pets extends Module {
+class Pets extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

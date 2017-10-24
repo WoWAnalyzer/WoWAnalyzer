@@ -6,14 +6,14 @@ import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
 import { formatNumber, formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import GetDamageBonus from 'Parser/Paladin/Shared/Modules/GetDamageBonus';
 
 const WHISPER_OF_THE_NATHREZIM_MODIFIER = 0.15;
 
-class WhisperOfTheNathrezim extends Module {
+class WhisperOfTheNathrezim extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

@@ -1,11 +1,11 @@
 import SPELLS from 'common/SPELLS';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 import isAtonement from '../Core/isAtonement';
 import Penance from '../Spells/Penance';
 
-class Castigation extends Module {
+class Castigation extends Analyzer {
   static dependencies = {
     penance: Penance, // we need this to add `penanceBoltNumber` to the damage and heal events
   };

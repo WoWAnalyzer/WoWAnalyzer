@@ -7,9 +7,9 @@ import { formatPercentage, formatNumber } from 'common/format';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
-class PrayerOfMending extends Module {
+class PrayerOfMending extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   }

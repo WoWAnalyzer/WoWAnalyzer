@@ -1,7 +1,7 @@
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import isAtonement from '../Core/isAtonement';
@@ -9,7 +9,7 @@ import AtonementSource from '../Features/AtonementSource';
 
 const debug = false;
 
-class TarnishedSentinelMedallion extends Module {
+class TarnishedSentinelMedallion extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     atonementSource: AtonementSource,

@@ -1,5 +1,5 @@
 import React from 'react';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import HIT_TYPES from "Parser/Core/HIT_TYPES";
 import Combatants from "Parser/Core/Modules/Combatants";
 
@@ -11,7 +11,7 @@ import SpellIcon from "common/SpellIcon";
 import Icon from "common/Icon";
 import { formatNumber, formatPercentage } from "common/format";
 
-class Trueshot extends Module {
+class Trueshot extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

@@ -3,13 +3,13 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage, formatThousands } from 'common/format';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 const debug = false;
 
-class IronSkinBrew extends Module {
+class IronSkinBrew extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   }

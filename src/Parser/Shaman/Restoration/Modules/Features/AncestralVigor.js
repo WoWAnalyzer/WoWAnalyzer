@@ -6,12 +6,12 @@ import SpellIcon from 'common/SpellIcon';
 
 import LazyLoadStatisticBox from 'Main/LazyLoadStatisticBox';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 const ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH = 0.1;
 const HP_THRESHOLD = 1 - 1 / (1 + ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH);
 
-class AncestralVigor extends Module {
+class AncestralVigor extends Analyzer {
   loaded = false;
   totalLifeSaved = 0;
   on_initialized() {

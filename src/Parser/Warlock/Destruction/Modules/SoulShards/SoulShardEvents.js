@@ -1,4 +1,4 @@
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
@@ -10,7 +10,7 @@ const debug = false;
 const MAX_FRAGMENTS = 50;
 const FRAGMENTS_PER_SHARD = 10;
 
-class SoulShardEvents extends Module {
+class SoulShardEvents extends Analyzer {
   static dependencies = {
     enemies: Enemies,
     combatants: Combatants,

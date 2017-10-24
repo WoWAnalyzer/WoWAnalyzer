@@ -1,8 +1,8 @@
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
 
-class EarthenShieldTotem extends Module {
+class EarthenShieldTotem extends Analyzer {
   activeEST = null;
   potentialHealing = 0;
   healing = 0;

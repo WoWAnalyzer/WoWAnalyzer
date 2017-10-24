@@ -1,10 +1,10 @@
 import SPELLS from 'common/SPELLS';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import isAtonement from '../Core/isAtonement';
 import AtonementSource from '../Features/AtonementSource';
 
-class TouchOfTheGrave extends Module {
+class TouchOfTheGrave extends Analyzer {
   static dependencies = {
     atonementSource: AtonementSource,
   };

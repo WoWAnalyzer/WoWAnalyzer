@@ -5,9 +5,9 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
-class BrainFreezeTracker extends Module {
+class BrainFreezeTracker extends Analyzer {
 	static dependencies = {
 		combatants: Combatants,
 	}

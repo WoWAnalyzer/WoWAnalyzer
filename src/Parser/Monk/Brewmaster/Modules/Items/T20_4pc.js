@@ -5,7 +5,7 @@ import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatThousands, formatNumber } from 'common/format';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import { GIFT_OF_THE_OX_SPELLS } from '../../Constants';
 
@@ -14,7 +14,7 @@ const JEWEL_OF_THE_LOST_ABBEY_TICKS = 6;
 const T20_4PC_REDUCTION = 0.95;
 const debug = false;
 
-class T20_4pc extends Module {
+class T20_4pc extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   }

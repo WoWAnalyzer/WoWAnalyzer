@@ -7,11 +7,11 @@ import { formatThousands, formatNumber } from 'common/format';
 
 import LazyLoadStatisticBox from 'Main/LazyLoadStatisticBox';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 const POWER_WORD_BARRIER_REDUCTION = 0.25;
 
-class PowerWordBarrier extends Module {
+class PowerWordBarrier extends Analyzer {
   get damageReducedDuringPowerWordBarrier() {
     return this.totalDamageTakenDuringPWB / (1 - POWER_WORD_BARRIER_REDUCTION) * POWER_WORD_BARRIER_REDUCTION;
   }

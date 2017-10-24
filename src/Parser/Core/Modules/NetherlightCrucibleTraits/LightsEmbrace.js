@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 
@@ -13,7 +13,7 @@ import HealingDone from 'Parser/Core/Modules/HealingDone';
  * Light's Embrace
  * When you take damage, you have a chance to generate Light's Embrace, stacking up to 5 times. Light's Embrace heals for 45500damage over 6 sec.
  */
-class LightsEmbrace extends Module {
+class LightsEmbrace extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     healingDone: HealingDone,

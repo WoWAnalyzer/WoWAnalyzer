@@ -5,14 +5,14 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import GetDamageBonus from 'Parser/Paladin/Shared/Modules/GetDamageBonus';
 
 const RET_PALADIN_T20_2SET_MODIFIER = 0.2;
 
-class Tier20_2set extends Module {
+class Tier20_2set extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

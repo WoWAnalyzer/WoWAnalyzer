@@ -5,7 +5,7 @@ import ITEMS from 'common/ITEMS';
 import { calculatePrimaryStat } from 'common/stats';
 import { formatThousands } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SpellManaCost from '../SpellManaCost';
@@ -24,7 +24,7 @@ const BASE_MANA_REDUCTION_PER_CARD = {
   191622: 1680, // 8
 };
 
-class DarkmoonDeckPromises extends Module {
+class DarkmoonDeckPromises extends Analyzer {
   static dependencies = {
     spellManaCost: SpellManaCost, // we need this to add `manaCost` to the `event`
     combatants: Combatants,

@@ -3,12 +3,12 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 const GRAVEWARDEN_RUNIC_DISCOUNT = 5;
 
-class T20_4pc extends Module {
+class T20_4pc extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

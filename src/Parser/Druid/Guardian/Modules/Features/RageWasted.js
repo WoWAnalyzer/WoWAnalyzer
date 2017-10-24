@@ -5,7 +5,7 @@ import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import StatisticBox from 'Main/StatisticBox';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 // NOTE: "Raw" rage is what shows up in combat log events (divided by 10 and rounded to get in-game rage).
 // We deal with raw rage here to prevent accuracy loss.
@@ -26,7 +26,7 @@ const RAGE_GENERATORS = {
   [SPELLS.PURE_RAGE_POTION.id]: 'Pure Rage Potion',
 };
 
-class RageWasted extends Module {
+class RageWasted extends Analyzer {
   rageWastedBySpell = {};
   totalRageGained = 0;
   _currentRawRage = 0;

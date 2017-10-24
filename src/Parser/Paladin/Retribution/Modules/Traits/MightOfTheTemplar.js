@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
@@ -16,7 +16,7 @@ const MIGHT_OF_THE_TEMPLAR_INCREASE = 0.02;
  * Increase the damge done by Templar's Verdict by 2%.
  */
 
-class MightOfTheTemplar extends Module {
+class MightOfTheTemplar extends Analyzer {
 	static dependencies = {
  		combatants: Combatants,
  	};

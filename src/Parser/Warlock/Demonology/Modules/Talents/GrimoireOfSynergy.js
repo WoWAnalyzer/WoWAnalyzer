@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import CorePets from 'Parser/Core/Modules/Pets';
 
@@ -15,7 +15,7 @@ import getDamageBonus from '../WarlockCore/getDamageBonus';
 
 const GRIMOIRE_OF_SYNERGY_DAMAGE_BONUS = 0.25;
 
-class GrimoireOfSynergy extends Module {
+class GrimoireOfSynergy extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     pets: CorePets,

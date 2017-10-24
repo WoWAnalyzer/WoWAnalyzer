@@ -2,7 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import DamageTaken from 'Parser/Core/Modules/DamageTaken';
@@ -21,7 +21,7 @@ const ABILITIES_THAT_CONSUME_EW = [
   SPELLS.RECURSIVE_STRIKES_ENEMY.id,
 ];
 
-class Earthwarden extends Module {
+class Earthwarden extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     abilityTracker: AbilityTracker,

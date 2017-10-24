@@ -1,11 +1,11 @@
 import React from 'react';
 import Icon from 'common/Icon';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import ResourceTypes from 'common/RESOURCE_TYPES';
 
-class LEmpowerment extends Module {
+class LEmpowerment extends Analyzer {
   isLunarStrike(event) {
     const spellId = event.ability.guid;
     return spellId === SPELLS.LUNAR_STRIKE.id;

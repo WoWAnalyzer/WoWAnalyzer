@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import { formatNumber } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
@@ -12,7 +12,7 @@ import GetDamageBonus from 'Parser/Paladin/Shared/Modules/GetDamageBonus';
 
 const ASHES_TO_DUST_MODIFIER = 0.15;
 
-class AshesToDust extends Module {
+class AshesToDust extends Analyzer {
 	static dependencies = {
 		combatants: Combatants,
 		enemies: Enemies,

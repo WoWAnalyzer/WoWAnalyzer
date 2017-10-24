@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
 import SPELLS from 'common/SPELLS';
@@ -9,7 +9,7 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-class VulnerableUpTime extends Module {
+class VulnerableUpTime extends Analyzer {
   static dependencies = {
     enemies: Enemies,
   };
@@ -17,7 +17,7 @@ class VulnerableUpTime extends Module {
   suggestions(when) {
     const vulnerableuptime = this.enemies.getBuffUptime(SPELLS.VULNERABLE.id) / this.owner.fightDuration;
 
-    when(vulnerableuptime).isLessThan(0.85)
+    when(vulnerableuptime).isLessThan(0.80)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Your <SpellLink id={SPELLS.VULNERABLE.id} /> uptime can be improved. Make sure you use Windburst or Marked Shot to open the Vulnerable Window to maximize damage with your Aimed Shots</span>)
           .icon(SPELLS.VULNERABLE.icon)

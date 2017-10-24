@@ -1,12 +1,12 @@
 import React from 'react';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from "common/format";
 
-class Tier20_4p extends Module {
+class Tier20_4p extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

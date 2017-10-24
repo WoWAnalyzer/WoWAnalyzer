@@ -1,11 +1,11 @@
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 const PANDEMIC_THRESHOLD = 11500;//don't refresh with more than 4.5 seconds left on Flametongue buff
 
-class FlametongueRefresh extends Module {
+class FlametongueRefresh extends Analyzer {
   flametongueTimestamp = 0;
   flametongueCasts = 0;
   earlyRefresh = 0;

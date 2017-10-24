@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -10,7 +10,7 @@ const debug = false;
 
 const HEALING_INCREASE = 0.3;
 
-class Tier19_2set extends Module {
+class Tier19_2set extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

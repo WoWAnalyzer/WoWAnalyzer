@@ -4,12 +4,12 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import { formatNumber } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 const debug = false;
 
-class ArchiveOfFaith extends Module {
+class ArchiveOfFaith extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

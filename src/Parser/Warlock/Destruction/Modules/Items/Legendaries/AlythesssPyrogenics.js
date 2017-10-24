@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Enemies from 'Parser/Core/Modules/Enemies';
 import SPELLS from 'common/SPELLS';
@@ -20,7 +20,7 @@ const AFFECTED_SPELLS = new Set([
   SPELLS.RAIN_OF_FIRE_DAMAGE.id,
 ]);
 
-class AlythesssPyrogenics extends Module {
+class AlythesssPyrogenics extends Analyzer {
   static dependencies = {
     enemies: Enemies,
     combatants: Combatants,

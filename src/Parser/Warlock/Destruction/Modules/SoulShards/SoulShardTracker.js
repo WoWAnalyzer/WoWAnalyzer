@@ -1,4 +1,4 @@
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -6,7 +6,7 @@ import SoulShardEvents from './SoulShardEvents';
 
 const SHADOWBURN_KILL = 'Shadowburn kill';
 
-class SoulShardTracker extends Module {
+class SoulShardTracker extends Analyzer {
   static dependencies = {
     soulShardEvents: SoulShardEvents,
     combatants: Combatants,

@@ -4,11 +4,11 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 const debug = false;
 
-class BlessingOfTheAshbringer extends Module {
+class BlessingOfTheAshbringer extends Analyzer {
 	static dependencies = {
 		combatants: Combatants,
 	};

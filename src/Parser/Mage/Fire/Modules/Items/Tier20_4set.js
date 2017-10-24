@@ -5,12 +5,12 @@ import SpellLink from 'common/SpellLink';
 import { formatNumber } from 'common/format';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import getDamageBonus from 'Parser/Mage/Shared/Modules/GetDamageBonus';
 
 const CRITICAL_MASSIVE_DAMAGE_BONUS = 0.1;
 
-class Tier20_4set extends Module {
+class Tier20_4set extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   }

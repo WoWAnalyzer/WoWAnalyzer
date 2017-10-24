@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Tab from 'Main/Tab';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import { formatPercentage, formatNumber } from 'common/format';
@@ -12,7 +12,7 @@ import WastedHPIcon from '../../images/paladin_hp.jpg';
 
 const holyPowerIcon = 'inv_helmet_96';
 
-class HolyPowerDetails extends Module {
+class HolyPowerDetails extends Analyzer {
 	static dependencies = {
 		holyPowerTracker: HolyPowerTracker,
 	};

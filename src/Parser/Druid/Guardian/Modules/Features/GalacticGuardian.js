@@ -3,14 +3,14 @@ import { formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 const GG_DURATION = 10000;
 const debug = false;
 
-class GalacticGuardian extends Module {
+class GalacticGuardian extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -19,7 +19,7 @@ const T21_2SET_AFFECTED_HEALS = [
 /**
  * 2 pieces (Holy) : Flash of Light and Holy Light transfer 40% additional healing to your Beacon of Light target.
  */
-class Tier21_2set extends Module {
+class Tier21_2set extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
