@@ -1,4 +1,5 @@
 export default `
+25-10-2017 - Adjust t202p to account for nerfs 
 22-10-2017 - Added trueshot statistic with average aimed pr trueshot, and average starting focus pr trueshot. (by Putro)
 22-10-2017 - Added tier 202p dmg increase breakdown. (by Putro)
 22-10-2017 - Added Soul of the Huntmaster, MKII Gyroscopic Stabilizer and War Belt of the Sentinel Army support. (by Putro)
