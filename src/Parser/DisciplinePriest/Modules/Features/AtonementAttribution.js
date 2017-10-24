@@ -15,9 +15,11 @@ class AtonementAttribution extends Module {
    * @returns {Array}
    */
   reorderEvents(events) {
+    console.log(events.slice());
     let fixedEvents = events;
-    fixedEvents = _reorderAtonementEventsBetweenDamagingEvents(fixedEvents);
-    fixedEvents = _reorderAtonementEventsFromSuccesiveDamagingEvents(fixedEvents);
+    fixedEvents = this._reorderAtonementEventsBetweenDamagingEvents(fixedEvents);
+    fixedEvents = this._reorderAtonementEventsFromSuccesiveDamagingEvents(fixedEvents);
+    console.log(fixedEvents);
     return fixedEvents;
   }
 
@@ -53,46 +55,45 @@ class AtonementAttribution extends Module {
 
     let fixedEvents = [];
 
-    let _atonementBlock = [];
-    let _damageEvents = [];
+    let _lastEventWasDamage = false;
+
+    let _staggeredEvents = [];
 
     let _encounteredTargetIDs = [];
 
     events.forEach((event, eventIndex) => {
 
-      // this is a damaging event with previous atonement. This is the general
-      // case
-      if(event.type == "damage" && event.sourceIsFriendly && _atonementBlock.length > 0) {
+      fixedEvents.push(event);
 
-        fixedEvents = fixedEvents.concat(_atonementBlock);
-        _atonementBlock = [];
-        _encounteredTargetIDs = [];
-
-        fixedEvents.push(event);
+      //  this event needs to be pushed down to next block
+      //  we remove it from array to be staggered
+      if(event.type == "damage" && event.sourceIsFriendly && _lastEventWasDamage) {
+        _staggeredEvents.push(event);
+        fixedEvents.splice(fixedEvents.length - 1, 1);
+        console.log("staggered event at: " + eventIndex);
       }
 
-      // We encounter a targetID we already encountered. We need to split
-      // atonement here
-      if(event.type == "heal" && isAtonement(event) && _encounteredTargetIDs.indexOf(event.targetID) >= 0){
-        fixedEvents = fixedEvents.concat(_atonementBlock);
-        fixedEvents.push(_damageEvents[1]);
-        _atonementBlock = [];
-        _encounteredTargetIDs = [];
-        _damageEvents.splice(1,1);
+      //
+      if(event.type == "heal" && _encounteredTargetIDs.indexOf(event.targetID) >= 0 && _staggeredEvents.length > 0) {
+        console.log()
+        fixedEvents.splice(fixedEvents.length - 1, 0, _staggeredEvents[0]);
+        _staggeredEvents.splice(0, 1);
       }
+
 
       if(event.type == "damage" && event.sourceIsFriendly) {
-        _damageEvents.push(event);
+        _lastEventWasDamage = true;
+        _encounteredTargetIDs = [];
       }
 
-      if(event.type == "heal" && isAtonement(event)){
-        _atonementBlock.push(event);
+      if(event.type == "heal" && isAtonement(event)) {
+        _lastEventWasDamage = false;
         _encounteredTargetIDs.push(event.targetID);
       }
-    });
 
-    // Add the last atonements
-    fixedEvents = fixedEvents.concat(_atonementBlock);
+
+
+    });
 
     return fixedEvents;
   }

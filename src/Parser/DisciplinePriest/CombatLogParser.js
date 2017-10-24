@@ -29,6 +29,7 @@ import AtonementSource from './Modules/Features/AtonementSource';
 import AtonementHealingDone from './Modules/Features/AtonementHealingDone';
 import PowerWordBarrier from './Modules/Features/PowerWordBarrier';
 import LeniencesReward from './Modules/Features/LeniencesReward';
+import AtonementAttribution from './Modules/Features/AtonementAttribution';
 
 import Tier19_2set from './Modules/Items/Tier19_2set';
 import CordOfMaiev from './Modules/Items/CordOfMaiev';
@@ -98,6 +99,7 @@ class CombatLogParser extends CoreCombatLogParser {
     atonementHealingDone: AtonementHealingDone,
     powerWordBarrier: PowerWordBarrier,
     leniencesReward: LeniencesReward,
+    atonementAttribution: AtonementAttribution,
 
     // Items:
     tier19_2set: Tier19_2set,
