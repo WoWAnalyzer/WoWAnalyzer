@@ -58,6 +58,8 @@ import Persistence from './Modules/Traits/Persistence';
 import SeedsOfTheWorldTree from './Modules/Traits/SeedsOfTheWorldTree';
 import EternalRestoration from './Modules/Traits/EternalRestoration';
 
+import StatWeights from './Modules/Features/StatWeights';
+
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -124,6 +126,8 @@ class CombatLogParser extends CoreCombatLogParser {
     Persistence: Persistence,
     SeedsOfTheWorldTree: SeedsOfTheWorldTree,
     EternalRestoration: EternalRestoration,
+
+    statWeights: StatWeights,
   };
 
   generateResults() {
