@@ -4,7 +4,7 @@ import ChartistGraph from 'react-chartist';
 import Chartist from 'chartist';
 import 'chartist-plugin-legend';
 
-import makeWclUrl from 'common/makeWclUrl';
+import fetchWcl from 'common/fetchWcl';
 
 import specialEventIndicators from './Chartist/specialEventIndicators';
 
@@ -40,23 +40,18 @@ class Mana extends React.PureComponent {
     }
   }
   load(reportCode, actorId, start, end) {
-    return fetch(makeWclUrl(`report/tables/resources/${reportCode}`, {
+    return fetchWcl(`report/tables/resources/${reportCode}`, {
       start,
       end,
       sourceclass: 'Boss',
       hostility: 1,
       abilityid: 1000,
-    }))
-      .then(response => response.json())
-      .then((json) => {
+    })
+      .then(json => {
         console.log('Received boss health', json);
-        if (json.status === 400 || json.status === 401) {
-          throw json.error;
-        } else {
-          this.setState({
-            bossHealth: json,
-          });
-        }
+        this.setState({
+          bossHealth: json,
+        });
       });
   }
 
@@ -102,13 +97,15 @@ class Mana extends React.PureComponent {
       bosses.push(newSeries);
     });
     const deathsBySecond = {};
-    this.state.bossHealth.deaths.forEach((death) => {
-      const secIntoFight = Math.floor((death.timestamp - start) / 1000);
+    if (this.state.bossHealth.deaths) {
+      this.state.bossHealth.deaths.forEach((death) => {
+        const secIntoFight = Math.floor((death.timestamp - start) / 1000);
 
-      if (death.targetIsFriendly) {
-        deathsBySecond[secIntoFight] = true;
-      }
-    });
+        if (death.targetIsFriendly) {
+          deathsBySecond[secIntoFight] = true;
+        }
+      });
+    }
 
     const fightDurationSec = Math.ceil((end - start) / 1000);
     const labels = [];

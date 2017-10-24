@@ -30,13 +30,9 @@ class Status extends React.Component {
       .then(response => response.json())
       .then((json) => {
         console.log('Received status', json);
-        if (json.status === 400 || json.status === 401) {
-          throw json.error;
-        } else {
-          this.setState({
-            status: json,
-          });
-        }
+        this.setState({
+          status: json,
+        });
       });
   }
 
