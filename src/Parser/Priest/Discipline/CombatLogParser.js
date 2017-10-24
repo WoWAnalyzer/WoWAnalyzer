@@ -40,7 +40,6 @@ import TarnishedSentinelMedallion from './Modules/Items/TarnishedSentinelMedalli
 import MarchOfTheLegion from './Modules/Items/MarchOfTheLegion';
 import Tier20_2set from './Modules/Items/Tier20_2set';
 import Tier20_4set from './Modules/Items/Tier20_4set';
-import SoulOfTheHighPriest from './Modules/Items/SoulOfTheHighPriest';
 
 import TwistOfFate from './Modules/Spells/TwistOfFate';
 import Castigation from './Modules/Spells/Castigation';
