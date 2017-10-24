@@ -280,10 +280,11 @@ class CombatLogParser {
   _debugEventHistory = [];
   initialize(combatants) {
     this.initializeNormalizers(combatants);
-    return this.initializeAnalyzers(combatants);
+    this.initializeAnalyzers(combatants);
   }
   initializeAnalyzers(combatants) {
-    return this.parseEvents(combatants).then(() => this.triggerEvent('initialized'));
+    this.parseEvents(combatants);
+    this.triggerEvent('initialized');
   }
   parseEvents(events) {
     if (process.env.NODE_ENV === 'development') {
@@ -292,18 +293,14 @@ class CombatLogParser {
         ...events,
       ];
     }
-    return new Promise((resolve, reject) => {
-      events.forEach((event) => {
-        if (this.error) {
-          throw new Error(this.error);
-        }
-        this._timestamp = event.timestamp;
+    events.forEach((event) => {
+      if (this.error) {
+        throw new Error(this.error);
+      }
+      this._timestamp = event.timestamp;
 
-        // Triggering a lot of events here for development pleasure; does this have a significant performance impact?
-        this.triggerEvent(event.type, event);
-      });
-
-      resolve(events.length);
+      // Triggering a lot of events here for development pleasure; does this have a significant performance impact?
+      this.triggerEvent(event.type, event);
     });
   }
 

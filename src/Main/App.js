@@ -140,15 +140,13 @@ class App extends Component {
     timeAvailable && console.time('full parse');
     const parser = this.createParser(config.parser, report, fight, player);
     // We send combatants already to the analyzer so it can show the results page with the correct items and talents while waiting for the API request
-    parser.initialize(combatants)
-      .then(async () => {
-        await this.setStatePromise({
-          config,
-          parser,
-          progress: PROGRESS_STEP1_INITIALIZATION,
-        });
-        await this.parse(parser, report, player, fight);
-      });
+    parser.initialize(combatants);
+    await this.setStatePromise({
+      config,
+      parser,
+      progress: PROGRESS_STEP1_INITIALIZATION,
+    });
+    await this.parse(parser, report, player, fight);
   }
   async parse(parser, report, player, fight) {
     let events;
@@ -178,7 +176,7 @@ class App extends Component {
     try {
       while (offset < numEvents) {
         const eventsBatch = events.slice(offset, offset + batchSize);
-        await parser.parseEvents(eventsBatch);
+        parser.parseEvents(eventsBatch);
         // await-ing setState does not ensure we wait until a render completed, so instead we wait 1 frame
         const progress = Math.min(1, (offset + batchSize) / numEvents);
         this.setState({
