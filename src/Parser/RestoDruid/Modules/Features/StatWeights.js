@@ -312,7 +312,7 @@ class StatWeights extends Module {
     return (
       <div className="panel items">
       <div className="panel-heading">
-        <h2><dfn data-tip="Weights are calculated using the actual circumstances of this encounter. Weights are likely to differ based on fight, raid size, items used, talents chosen, etc.">STAT WEIGHTS</dfn>
+        <h2><dfn data-tip="Weights are calculated using the actual circumstances of this encounter. Weights are likely to differ based on fight, raid size, items used, talents chosen, etc.">Stat Weights</dfn>
         </h2>
       </div>
       <div className="panel-body" style={{ padding: 0 }}>
