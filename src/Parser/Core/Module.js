@@ -1,5 +1,4 @@
-// Half the reason to name this "BaseModule" is so it doesn't appear in auto completion when typing "Module".
-class BaseModule {
+class Module {
   static dependencies = {};
 
   /** @var CombatLogParser */
@@ -14,8 +13,8 @@ class BaseModule {
    * @param {int} priority
    */
   constructor(parser, dependencies, priority) {
-    if (new.target === BaseModule) {
-      throw new TypeError('The class BaseModule can not be instanced directly');
+    if (new.target === Module) {
+      throw new TypeError('The class Module can not be instanced directly, you probably want to use Analyzer instead.');
     }
 
     this.owner = parser;
@@ -29,4 +28,4 @@ class BaseModule {
   }
 }
 
-export default BaseModule;
+export default Module;

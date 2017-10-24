@@ -1,7 +1,7 @@
 import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
-import BaseModule from './BaseModule';
+import Module from './Module';
 
-class Analyzer extends BaseModule {
+class Analyzer extends Module {
   triggerEvent(eventType, event, ...args) {
     this._callMethod(this._eventHandlerName('event'), eventType, event, ...args);
     this._callMethod(this._eventHandlerName(eventType), event, ...args);
