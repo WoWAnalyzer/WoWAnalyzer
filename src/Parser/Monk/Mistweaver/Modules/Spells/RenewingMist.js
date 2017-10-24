@@ -6,7 +6,7 @@ import { formatNumber } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import SmallStatisticBox, { STATISTIC_ORDER } from 'Main/SmallStatisticBox';
 
 const debug = false;
 
@@ -101,19 +101,17 @@ class RenewingMist extends Analyzer {
   }
 
   statistic() {
+
     return (
-      <StatisticBox
+      <SmallStatisticBox
         icon={<SpellIcon id={SPELLS.DANCING_MISTS.id} />}
         value={`${formatNumber(this.dancingMistHeal)}`}
-        label={(
-          <dfn data-tip={`You had a total of ${(this.dancingMistProc)} procs on ${this.castsREM} REM casts.`}>
-            Total Healing
-          </dfn>
-        )}
+        label="Dancing Mist Healing"
+        tooltip={`You had a total of ${(this.dancingMistProc)} procs on ${this.castsREM} REM casts.`}
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(5);
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(50);
 }
 
 export default RenewingMist;

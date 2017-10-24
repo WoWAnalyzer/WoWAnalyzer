@@ -10,6 +10,7 @@ import DamageDone from 'Parser/Core/Modules/DamageDone';
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownTracker from './Modules/Features/CooldownTracker';
+import VirulentPlagueUptime from './Modules/Features/VirulentPlagueUptime';
 
 class CombatLogParser extends CoreCombatLogParser {
 
@@ -21,6 +22,7 @@ class CombatLogParser extends CoreCombatLogParser {
     castEfficiency: CastEfficiency,
     alwaysBeCasting: AlwaysBeCasting,
     cooldownTracker: CooldownTracker,
+    virulentPlagueUptime: VirulentPlagueUptime, 
   };
 
   generateResults() {

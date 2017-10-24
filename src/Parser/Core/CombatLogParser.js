@@ -364,6 +364,12 @@ class CombatLogParser {
             results.items.push(item);
           }
         }
+        if (module.extraPanel) {
+          const extraPanel = module.extraPanel();
+          if(extraPanel) {
+            results.extraPanels.push(extraPanel);
+          }
+        }
         if (module.tab) {
           const tab = module.tab();
           if (tab) {

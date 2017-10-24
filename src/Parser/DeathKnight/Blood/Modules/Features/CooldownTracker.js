@@ -19,6 +19,15 @@ class CooldownTracker extends CoreCooldownTracker {
     },
 
   ];
+
+  static ignoredSpells = [
+    ...CooldownTracker.ignoredSpells,
+    SPELLS.RAPID_DECOMPOSITION_RP_TICK.id,
+    242556, //Filtering procs from the Umbral Glaive Storm trinket
+    242557, //Filtering procs from the Umbral Glaive Storm trinket
+    242553, //Filtering procs from the Umbral Glaive Storm trinket
+  ];
+
 }
 
 export default CooldownTracker;
