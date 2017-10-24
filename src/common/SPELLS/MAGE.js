@@ -133,11 +133,6 @@ export default {
     name: 'Summon Water Elemental',
     icon: 'spell_frost_summonwaterelemental_2',
   },
-  WATER_JET: {
-    id: 135029,
-    name: 'Water Jet',
-    icon: 'ability_mage_waterjet',
-  },
   EBONBOLT: {
     id: 214634,
     name: 'Ebonbolt',
@@ -152,6 +147,23 @@ export default {
     id: 113092,
     name: 'Frost Bomb',
     icon: 'spell_mage_frostbomb',
+  },
+
+  //Water Elemental
+  WATER_JET: {
+    id: 135029,
+    name: 'Water Jet',
+    icon: 'ability_mage_waterjet',
+  },
+  WATERBOLT: {
+    id: 31707,
+    name: 'Waterbolt',
+    icon: 'spell_frost_frostbolt',
+  },
+  FREEZE: {
+    id: 33395,
+    name: 'Freeze',
+    icon: 'ability_mage_freeze',
   },
 
   //Fire
@@ -207,11 +219,6 @@ export default {
   SHATTER: {
     id: 12982,
     name: 'Shatter',
-    icon: 'spell_frost_frostshock',
-  },
-  FREEZE: {
-    id: 231596,
-    name: 'Freeze',
     icon: 'spell_frost_frostshock',
   },
   GLACIAL_ERUPTION: {
