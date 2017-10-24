@@ -1,11 +1,11 @@
 import SPELLS from 'common/SPELLS';
 import { formatDuration } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 const debug = false;
 
-class ApplyBuffFixer extends Module {
+class ApplyBuffFixer extends Analyzer {
   _getFirstEventIndex(events) {
     for (let i = 0; i < events.length; i += 1) {
       const event = events[i];

@@ -1,4 +1,4 @@
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
@@ -7,7 +7,7 @@ import getDamageBonus from 'Parser/Hunter/Shared/Core/getDamageBonus'; // relati
 const PATIENT_SNIPER_BONUS_PER_SEC = 0.06;
 const VULNERABLE_DURATION = 7000;
 
-class PatientSniperTracker extends Module {
+class PatientSniperTracker extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

@@ -5,7 +5,7 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage, formatNumber } from 'common/format';
 
 import SPELLS from 'common/SPELLS';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 // dependencies
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -20,7 +20,7 @@ import SanctifyReduction from './SerendipityReduction/SanctifyReduction';
 // - "Wasted Serendipity" statistic
 // - "Fully missed holy word casts (via Serendipity)" suggestion
 // - "Holy Priest T20 2P Bonus" item
-class Serendipity extends Module {
+class Serendipity extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     serenity: SerenityReduction,

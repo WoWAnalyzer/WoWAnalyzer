@@ -5,12 +5,12 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
 import SPELLS from 'common/SPELLS';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SuggestionThresholds from '../../SuggestionThresholds';
 
-class Lifebloom extends Module {
+class Lifebloom extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

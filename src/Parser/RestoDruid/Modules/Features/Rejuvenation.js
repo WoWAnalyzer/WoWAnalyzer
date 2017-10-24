@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 
 import Mastery from './Mastery';
@@ -10,7 +10,7 @@ const REJUV_COST = 0.10; // % of base mana
 /*
  * Backend module for calculating things about Rejuvenation, to be used by other modules.
  */
-class Rejuvenation extends Module {
+class Rejuvenation extends Analyzer {
   static dependencies = {
     healingDone: HealingDone,
     mastery: Mastery,

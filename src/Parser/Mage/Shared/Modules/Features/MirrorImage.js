@@ -5,11 +5,11 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 const INCANTERS_FLOW_EXPECTED_BOOST = 0.12;
 
-class MirrorImage extends Module {
+class MirrorImage extends Analyzer {
 
   static dependencies = {
     combatants: Combatants,

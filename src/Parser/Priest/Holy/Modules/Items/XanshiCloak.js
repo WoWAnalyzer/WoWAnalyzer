@@ -7,9 +7,9 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
-class XanshiCloak extends Module {
+class XanshiCloak extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   }

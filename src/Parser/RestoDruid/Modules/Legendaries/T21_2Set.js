@@ -6,12 +6,12 @@ import SpellLink from 'common/SpellLink';
 
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import Mastery from '../Features/Mastery';
 
-class T21_2Set extends Module {
+class T21_2Set extends Analyzer {
   static dependencies = {
     mastery: Mastery,
     combatants: Combatants,

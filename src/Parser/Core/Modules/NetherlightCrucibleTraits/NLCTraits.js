@@ -2,7 +2,7 @@ import React from 'react';
 
 import StatisticsListBox, { STATISTIC_ORDER } from 'Main/StatisticsListBox';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 import MurderousIntent from './MurderousIntent';
 import RefractiveShell from './RefractiveShell';
@@ -15,7 +15,7 @@ import ChaoticDarkness from './ChaoticDarkness';
 import TormentTheWeak from './TormentTheWeak';
 import DarkSorrows from './DarkSorrows';
 
-class NLCTraits extends Module {
+class NLCTraits extends Analyzer {
   static dependencies = {
     murderousIntent: MurderousIntent,
     refractiveShell: RefractiveShell,

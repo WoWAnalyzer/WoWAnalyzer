@@ -2,12 +2,12 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import SecondSunrise from '../Traits/SecondSunrise';
 
-class LightOfDawn extends Module {
+class LightOfDawn extends Analyzer {
   static dependencies = {
     secondSunrise: SecondSunrise,
   };

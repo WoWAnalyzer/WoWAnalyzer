@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
 import SPELLS from 'common/SPELLS';
@@ -9,7 +9,7 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-class VulnerableUpTime extends Module {
+class VulnerableUpTime extends Analyzer {
   static dependencies = {
     enemies: Enemies,
   };

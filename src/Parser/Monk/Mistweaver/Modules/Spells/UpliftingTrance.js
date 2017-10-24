@@ -6,14 +6,14 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 const UT_DURATION = 20000;
 const debug = false;
 
-class UpliftingTrance extends Module {
+class UpliftingTrance extends Analyzer {
   UTProcsTotal = 0;
   lastUTProcTime = 0;
   consumedUTProc = 0;

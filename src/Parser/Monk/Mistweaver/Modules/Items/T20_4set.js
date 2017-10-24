@@ -7,7 +7,7 @@ import { formatNumber } from 'common/format';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
@@ -15,7 +15,7 @@ import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
 
 const XUENS_BATTLEGEAR_4_PIECE_BUFF_HEALING_INCREASE = 0.12;
 
-class T20_4set extends Module {
+class T20_4set extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

@@ -7,9 +7,9 @@ import SpellIcon from 'common/SpellIcon';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
-class T21_4set extends Module {
+class T21_4set extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     abilityTracker: AbilityTracker,

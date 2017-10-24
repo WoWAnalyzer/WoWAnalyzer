@@ -1,11 +1,11 @@
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 const debug = false;
 
-class InnerHallation extends Module {
+class InnerHallation extends Analyzer {
   manaGained = 0;
 
   // timestamp for power infusion if its talented & casted (to exclude mana saved):

@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import CritEffectBonus from 'Parser/Core/Modules/Helpers/CritEffectBonus';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -20,7 +20,7 @@ const PURITY_OF_LIGHT_AFFECTED_HEALS = [
 /**
  * 4 pieces (Holy) : Holy Shock has a 30% chance to increase the critical healing of your Flash of Light, Holy Light, and Light of Dawn by 100% for 10 sec.
  */
-class Tier21_4set extends Module {
+class Tier21_4set extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     critEffectBonus: CritEffectBonus,

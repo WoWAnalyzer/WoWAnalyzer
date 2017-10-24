@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 import Rejuvenation from '../Features/Rejuvenation';
@@ -22,7 +22,7 @@ const INFUSION_OF_NATURE_REDUCTION = 0.02;
  * TODO: Reduce the effect of this trait if we didn't need the extra mana gained.
  * TODO: Look at DarkmoonDeckPromises.js for inspiration
  */
-class InfusionOfNature extends Module {
+class InfusionOfNature extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     healingDone: HealingDone,

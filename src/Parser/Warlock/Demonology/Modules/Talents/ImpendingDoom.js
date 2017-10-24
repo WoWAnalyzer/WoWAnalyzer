@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 
@@ -12,7 +12,7 @@ import SpellIcon from 'common/SpellIcon';
 
 import DemoPets from '../WarlockCore/Pets';
 
-class ImpendingDoom extends Module {
+class ImpendingDoom extends Analyzer {
   static dependencies = {
     damageDone: DamageDone,
     demoPets: DemoPets,

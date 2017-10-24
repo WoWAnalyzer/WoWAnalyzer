@@ -2,14 +2,14 @@ import React from 'react';
 import SpellLink from 'common/SpellLink';
 
 import SPELLS from 'common/SPELLS';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SuggestionThresholds from '../../SuggestionThresholds';
 
 const MS_PER_MINUTE = 60000;
 
-class HealingTouch extends Module {
+class HealingTouch extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

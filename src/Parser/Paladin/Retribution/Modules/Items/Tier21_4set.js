@@ -5,10 +5,10 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatNumber } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-class Tier21_4set extends Module {
+class Tier21_4set extends Analyzer {
 	static dependencies ={
 		combatants: Combatants,
 	};

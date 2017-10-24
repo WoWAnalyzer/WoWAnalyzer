@@ -1,4 +1,4 @@
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
@@ -9,7 +9,7 @@ const BUFF_TIME_PER_SOUL = 6500;
 const BASE_BUFF_TIME_PER_SOUL = 5000;
 const MAX_BUFF_DURATION = 78000;
 
-class ReapAndSow extends Module {
+class ReapAndSow extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

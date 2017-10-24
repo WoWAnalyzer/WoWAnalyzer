@@ -7,7 +7,7 @@ import { formatThousands, formatNumber } from 'common/format';
 
 import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'Main/LazyLoadStatisticBox';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 // Protection of Tyr is applied to everyone that benefits from the AM effect. This is simply the easiest way to see if someone is affected by AM, other more robust solutions take a lot more effort/complexity.
@@ -26,7 +26,7 @@ const DEVOTION_AURA_DAMAGE_REDUCTION = 0.2;
 // const THIS_MIGHT_BE_PURE_ABILITY_TYPE_ID = 1;
 const FALLING_DAMAGE_ABILITY_ID = 3;
 
-class DevotionAura extends Module {
+class DevotionAura extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

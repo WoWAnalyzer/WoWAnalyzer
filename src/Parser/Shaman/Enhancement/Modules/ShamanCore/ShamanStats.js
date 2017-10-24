@@ -2,12 +2,12 @@ import React from 'react';
 import Icon from 'common/Icon';
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-class ShamanStats extends Module {
+class ShamanStats extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   }

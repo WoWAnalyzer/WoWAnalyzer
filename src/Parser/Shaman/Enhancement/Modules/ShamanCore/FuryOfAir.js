@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
@@ -11,7 +11,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 const FURY_OF_AIR_MAELSTROM_COST = SPELLS.FURY_OF_AIR_TALENT.maelstrom;
 const FURY_ID = SPELLS.FURY_OF_AIR_TALENT.id;
 
-class FuryOfAir extends Module {
+class FuryOfAir extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

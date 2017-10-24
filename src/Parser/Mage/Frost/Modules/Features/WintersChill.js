@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import EnemyInstances from 'Parser/Core/Modules/EnemyInstances';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
@@ -9,7 +9,7 @@ import { formatNumber } from 'common/format';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-class WintersChillTracker extends Module {
+class WintersChillTracker extends Analyzer {
 
   static dependencies = {
     enemies: EnemyInstances,

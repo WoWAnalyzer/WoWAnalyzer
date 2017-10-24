@@ -7,7 +7,7 @@ import bosses from 'common/bosses';
 
 import SmallStatisticBox, { STATISTIC_ORDER } from 'Main/SmallStatisticBox';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 import DamageTaken from 'Parser/Core/Modules/DamageTaken';
@@ -54,7 +54,7 @@ const VERSATILITY_PER_PERCENT_DAMAGE_REDUCTION = VERSATILITY_PER_PERCENT_THROUGH
 const VANTUS_RUNE_PERCENTAGE_THROUGHPUT = VANTUS_RUNE_VERSATILITY / VERSATILITY_PER_PERCENT_THROUGHPUT;
 const VANTUS_RUNE_PERCENTAGE_DAMAGE_REDUCTION = VANTUS_RUNE_VERSATILITY / VERSATILITY_PER_PERCENT_DAMAGE_REDUCTION;
 
-class VantusRune extends Module {
+class VantusRune extends Analyzer {
   static dependencies = {
     healingDone: HealingDone,
     damageDone: DamageDone,

@@ -3,13 +3,13 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 const GUARDIAN_DAMAGE_REDUCTION = 0.06;
 const EKOWRAITH_INCREASED_EFFECT = 1.75;
 
-class Ekowraith extends Module {
+class Ekowraith extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

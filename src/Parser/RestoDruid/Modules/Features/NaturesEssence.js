@@ -2,7 +2,7 @@ import React from 'react';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -10,7 +10,7 @@ const MINOR = 0.07;
 const AVERAGE = 0.12;
 const MAJOR = 0.17;
 
-class NaturesEssence extends Module {
+class NaturesEssence extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

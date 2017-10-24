@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
@@ -14,7 +14,7 @@ const BUFF_TOTEM_EMBER_SPELL_ID = 210657;
 const BUFF_TOTEM_TAILWIND_SPELL_ID = 210660;
 const BUFF_TOTEM_STORM_SPELL_ID = 210651;
 
-class TotemMastery extends Module {
+class TotemMastery extends Analyzer {
   casts = 0;
 
   on_initialized() {

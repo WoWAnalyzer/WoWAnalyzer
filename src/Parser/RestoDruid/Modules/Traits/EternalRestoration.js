@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
@@ -15,7 +15,7 @@ const EOG_BASE_DURATION = 8;
  * Eternal Restoration (Artifact Trait)
  * Increases the duration of Essence of G'Hanir by 1 sec
  */
-class EternalRestoration extends Module {
+class EternalRestoration extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

@@ -7,9 +7,9 @@ import SPELLS from 'common/SPELLS';
 // dependencies
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
-class TrousersOfAnjuna extends Module {
+class TrousersOfAnjuna extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   }

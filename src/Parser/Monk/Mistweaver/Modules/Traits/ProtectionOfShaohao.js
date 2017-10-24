@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -15,7 +15,7 @@ const PROTECTION_OF_SHAOHAO_HEALING_INCREASE = 0.05;
  * Protection of Shaohao (Artifact Trait)
  * Increases absorb amount by Life Cocoon by 5%.
  */
-class ProtectionOfShaohao extends Module {
+class ProtectionOfShaohao extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 import Rejuvenation from '../Features/Rejuvenation';
@@ -23,7 +23,7 @@ import Rejuvenation from '../Features/Rejuvenation';
  * TODO: Subtractions for overheals on last tick, subtractions for early refreshes
  * TODO: Include "magic rejuvenations" such as deep rooted.
  */
-class Persistence extends Module {
+class Persistence extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     rejuvenation: Rejuvenation,

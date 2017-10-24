@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -10,7 +10,7 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage, formatThousands, formatDuration } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-class ImmolationAura extends Module {
+class ImmolationAura extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     abilityTracker: AbilityTracker,

@@ -7,12 +7,12 @@ import { formatPercentage, formatNumber } from 'common/format';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
 
-class LightOfTuure extends Module {
+class LightOfTuure extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   }

@@ -2,7 +2,7 @@ import React from 'react';
 
 import StatisticsListBox, { STATISTIC_ORDER } from 'Main/StatisticsListBox';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 import ArmorOfTheAncients from './ArmorOfTheAncients';
 import BlessingOfTheWorldTree from './BlessingOfTheWorldTree';
@@ -15,7 +15,7 @@ import Persistence from './Persistence';
 import SeedsOfTheWorldTree from './SeedsOfTheWorldTree';
 import EternalRestoration from './EternalRestoration';
 
-class RelicTraits extends Module {
+class RelicTraits extends Analyzer {
   static dependencies = {
     armorOfTheAncients: ArmorOfTheAncients,
     blessingOfTheWorldTree: BlessingOfTheWorldTree,

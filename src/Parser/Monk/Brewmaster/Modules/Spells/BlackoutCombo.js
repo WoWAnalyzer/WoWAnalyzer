@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
@@ -12,7 +12,7 @@ import { SPELLS_WHICH_REMOVE_BOC } from '../../Constants';
 const debug = false;
 const BOC_DURATION = 15000;
 
-class BlackoutCombo extends Module {
+class BlackoutCombo extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   }

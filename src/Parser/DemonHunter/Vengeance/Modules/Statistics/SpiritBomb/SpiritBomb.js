@@ -7,12 +7,12 @@ import Enemies from 'Parser/Core/Modules/Enemies';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 import { formatPercentage, formatThousands, formatDuration } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-class SpiritBomb extends Module {
+class SpiritBomb extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
     combatants: Combatants,

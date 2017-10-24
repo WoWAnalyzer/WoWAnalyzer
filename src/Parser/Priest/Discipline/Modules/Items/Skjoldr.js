@@ -1,7 +1,7 @@
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 const debug = false;
 const SKJOLDR_PWS_ABSORB_BONUS = 0.15;
@@ -13,7 +13,7 @@ const SKJOLDR_PWS_ABSORB_BONUS = 0.15;
 // Share in the Light is more than 15% here. It benefits from Will of the Conclave but that is only 10%, and 15% of 690,861 is 103,629, with 10% more it's only 113,992 - still not the 127k seen in the log. There's another 5% from the original paragon and it also double dips from Versatility. The player in the log had 2795 Versatility, making the calculation: `103629 * (1 + 2795 / 47500) * 1.1 * 1.05 = 126,734` which checks out.
 // Thanks to Az and Lob in the Disc Discord for helping me figure this out.
 
-class Skjoldr extends Module {
+class Skjoldr extends Analyzer {
   healing = 0;
 
   on_initialized() {

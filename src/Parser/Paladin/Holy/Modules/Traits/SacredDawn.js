@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -15,7 +15,7 @@ const debug = false;
 const SACRED_DAWN_BUFF_SPELL_ID = 243174;
 const SACRED_DAWN_HEALING_INCREASE = 0.1;
 
-class SacredDawn extends Module {
+class SacredDawn extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

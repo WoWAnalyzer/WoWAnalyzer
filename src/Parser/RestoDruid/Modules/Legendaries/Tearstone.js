@@ -1,14 +1,14 @@
 import React from 'react';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import { formatPercentage } from 'common/format';
 
 import Rejuvenation from '../Features/Rejuvenation';
 
-class Tearstone extends Module {
+class Tearstone extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     rejuvenation: Rejuvenation,

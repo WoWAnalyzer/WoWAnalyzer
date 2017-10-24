@@ -4,13 +4,13 @@ import { formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 
 import SPELLS from 'common/SPELLS';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 import { HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR } from '../../Constants';
 
 // This modules estimates Essence of G'hanir healing. Since the ability increases the tick rate of all HoTs by 100%
 // we can assume that half of all the healing (from the HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR array) is contributed.
-class EssenceOfGhanir extends Module {
+class EssenceOfGhanir extends Analyzer {
 
   total = 0;
 

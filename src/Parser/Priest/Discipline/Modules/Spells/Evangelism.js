@@ -1,13 +1,13 @@
 import SPELLS from 'common/SPELLS';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 import isAtonement from '../Core/isAtonement';
 import Atonement from '../Spells/Atonement';
 
 const EVANGELISM_DURATION = 6;
 
-class Evangelism extends Module {
+class Evangelism extends Analyzer {
   static dependencies = {
     atonementModule: Atonement,
   };

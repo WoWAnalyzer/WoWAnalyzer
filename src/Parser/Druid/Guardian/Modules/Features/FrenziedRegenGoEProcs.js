@@ -3,12 +3,12 @@ import { formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SPELLS from 'common/SPELLS';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import GuardianOfElune from './GuardianOfElune';
 
-class FrenziedRegenGoEProcs extends Module {
+class FrenziedRegenGoEProcs extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     guardianOfElune: GuardianOfElune,

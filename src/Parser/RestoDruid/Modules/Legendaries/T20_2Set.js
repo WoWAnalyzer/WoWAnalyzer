@@ -5,7 +5,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import HealingDone from 'Parser/Core/Modules/HealingDone';
@@ -14,7 +14,7 @@ const MAX_SWIFTMEND_REDUCTION = 0.4;
 
 const debug = false;
 
-class T20_2Set extends Module {
+class T20_2Set extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     healingDone: HealingDone,

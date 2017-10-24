@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealingStacked from 'Parser/Core/calculateEffectiveHealingStacked';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -15,7 +15,7 @@ const EXPEL_THE_DARKNESS_HEALING_INCREASE = 0.03;
  * Expel the Darkness (Artifact Trait)
  * Increases healing done by Light of Dawn by 3%.
  */
-class ExpelTheDarkness extends Module {
+class ExpelTheDarkness extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

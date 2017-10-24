@@ -1,11 +1,11 @@
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
-class CenedrilReflectorOfHatred extends Module {
+class CenedrilReflectorOfHatred extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
     combatants: Combatants,

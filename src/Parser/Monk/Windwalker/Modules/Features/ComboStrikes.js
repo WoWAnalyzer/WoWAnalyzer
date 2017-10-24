@@ -9,11 +9,11 @@ import { formatNumber, formatDuration } from 'common/format';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 import { ABILITIES_AFFECTED_BY_MASTERY } from '../../Constants';
 
-class ComboStrikes extends Module {
+class ComboStrikes extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

@@ -1,7 +1,7 @@
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 
-class Insanity extends Module {
+class Insanity extends Analyzer {
   _insanityEvents = [];
 
   on_toPlayer_energize(event) {

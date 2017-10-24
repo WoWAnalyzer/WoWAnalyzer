@@ -3,11 +3,11 @@ import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 
 import SPELLS from 'common/SPELLS';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 import SuggestionThresholds from '../../SuggestionThresholds';
 
-class WildGrowth extends Module {
+class WildGrowth extends Analyzer {
 
   /**
    * when you cast WG and you yourself are one of the targets the applybuff event will be in the events log before the cast event

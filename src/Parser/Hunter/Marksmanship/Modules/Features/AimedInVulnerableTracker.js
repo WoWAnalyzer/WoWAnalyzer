@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
 import SPELLS from 'common/SPELLS';
@@ -10,7 +10,7 @@ import { formatPercentage } from "common/format";
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-class AimedInVulnerableTracker extends Module {
+class AimedInVulnerableTracker extends Analyzer {
   static dependencies = {
     enemies: Enemies,
   };

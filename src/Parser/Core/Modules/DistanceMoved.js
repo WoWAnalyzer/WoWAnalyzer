@@ -3,13 +3,13 @@ import React from 'react';
 import Icon from 'common/Icon';
 import { formatThousands } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 import SmallStatisticBox, { STATISTIC_ORDER } from 'Main/SmallStatisticBox';
 
 const debug = false;
 
-class DistanceMoved extends Module {
+class DistanceMoved extends Analyzer {
   lastPositionUpdate = null;
   totalDistanceMoved = 0;
 

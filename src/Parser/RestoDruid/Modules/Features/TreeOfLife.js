@@ -6,7 +6,7 @@ import SpellLink from 'common/SpellLink';
 
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 
@@ -25,7 +25,7 @@ const WILD_GROWTH_HEALING_INCREASE = (WG_TARGETS + 2) / WG_TARGETS;
 const TREE_OF_LIFE_COOLDOWN = 180000;
 const TREE_OF_LIFE_DURATION = 30000;
 
-class TreeOfLife extends Module {
+class TreeOfLife extends Analyzer {
   static dependencies = {
     healingDone: HealingDone,
     combatants: Combatants,

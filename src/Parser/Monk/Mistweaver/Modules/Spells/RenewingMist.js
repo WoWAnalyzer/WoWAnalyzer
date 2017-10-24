@@ -4,13 +4,13 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 const debug = false;
 
-class RenewingMist extends Module {
+class RenewingMist extends Analyzer {
   remApplyTimestamp = null;
   remRemoveTimestamp = null;
   remCastTimestamp = null;

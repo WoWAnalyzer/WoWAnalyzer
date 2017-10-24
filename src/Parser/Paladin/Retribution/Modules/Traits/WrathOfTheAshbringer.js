@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
@@ -14,7 +14,7 @@ const WRATH_OF_THE_ASHBRINGER_INCREASE = 2;
  * Increase the duration of Crusade/Avenging Wrath by 2 seconds.
  */
 
-class WrathOfTheAshbringer extends Module {
+class WrathOfTheAshbringer extends Analyzer {
 	static dependencies = {
 		combatants: Combatants,
 	};

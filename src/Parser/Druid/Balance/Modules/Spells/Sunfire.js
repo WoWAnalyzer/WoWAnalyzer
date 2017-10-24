@@ -3,10 +3,10 @@ import { formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 
-class Sunfire extends Module {
+class Sunfire extends Analyzer {
   suggestions(when) {
     const sunfireUptimePercentage = this.owner.modules.enemies.getBuffUptime(SPELLS.SUNFIRE.id) / this.owner.fightDuration;
 

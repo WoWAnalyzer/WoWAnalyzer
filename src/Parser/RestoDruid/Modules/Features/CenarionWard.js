@@ -4,11 +4,11 @@ import { formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 
 import SPELLS from 'common/SPELLS';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Mastery from './Mastery';
 
-class CenarionWard extends Module {
+class CenarionWard extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     mastery: Mastery,

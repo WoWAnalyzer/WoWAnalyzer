@@ -1,4 +1,4 @@
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import HealingValue from 'Parser/Core/Modules/HealingValue';
@@ -10,7 +10,7 @@ import { HEALS_MASTERY_STACK } from '../../Constants';
 const MASTERY_BONUS_FROM_ONE_RATING = 1 / 66666.6666666;
 const BASE_MASTERY_PERCENT = 0.048;
 
-class Mastery extends Module {
+class Mastery extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

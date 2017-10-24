@@ -3,9 +3,9 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 
 import SPELLS from 'common/SPELLS';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
-class Sanctify extends Module {
+class Sanctify extends Analyzer {
   casts = 0
   hits = 0
 

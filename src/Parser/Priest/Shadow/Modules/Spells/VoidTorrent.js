@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -15,7 +15,7 @@ function formatSeconds(seconds) {
 const TIMESTAMP_ERROR_MARGIN = 100;
 const VOID_TORRENT_MAX_TIME = 4000;
 
-class VoidTorrent extends Module {
+class VoidTorrent extends Analyzer {
   _voidTorrents = {};
   _previousVoidTorrentCast = null;
 

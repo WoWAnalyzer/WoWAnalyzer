@@ -3,10 +3,10 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-class XonisCaress extends Module {
+class XonisCaress extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

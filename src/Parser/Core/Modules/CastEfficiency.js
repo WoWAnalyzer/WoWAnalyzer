@@ -3,7 +3,7 @@ import React from 'react';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 
 import Tab from 'Main/Tab';
@@ -18,7 +18,7 @@ import Haste from './Haste';
 
 /* eslint-disable no-unused-vars */
 
-class CastEfficiency extends Module {
+class CastEfficiency extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
     combatants: Combatants,

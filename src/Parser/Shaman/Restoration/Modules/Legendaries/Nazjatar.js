@@ -1,9 +1,9 @@
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
-class Nazjatar extends Module {
+class Nazjatar extends Analyzer {
   resets = 0;
 
   on_initialized() {

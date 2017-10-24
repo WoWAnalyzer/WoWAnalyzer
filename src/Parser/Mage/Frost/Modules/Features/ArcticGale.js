@@ -5,13 +5,13 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 import getDamageBonus from 'Parser/Mage/Shared/Modules/GetDamageBonus';
 
 const DAMAGE_BONUS = 0.3;
 
-class UnstableMagic extends Module {
+class UnstableMagic extends Analyzer {
   static dependencies = {
     combatants: Combatants,
 	}

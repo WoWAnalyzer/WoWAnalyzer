@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
@@ -15,7 +15,7 @@ const BLESSING_OF_THE_WORLD_TREE_HEALING_INCREASE = 0.03;
  * Blessing of the World Tree (Artifact Trait)
  * Increases the healing done by Healing Touch and initial healing done by Regrowth by 3%
  */
-class BlessingOfTheWorldTree extends Module {
+class BlessingOfTheWorldTree extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

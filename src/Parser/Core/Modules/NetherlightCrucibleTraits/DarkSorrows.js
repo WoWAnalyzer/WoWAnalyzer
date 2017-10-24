@@ -5,14 +5,14 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 /**
  * Dark Sorrows
  * Your spells and abilities have a chance to afflict the target with Sorrow, causing it to burst after 8 sec, dealing 133100 Shadow damage.
  */
-class DarkSorrows extends Module {
+class DarkSorrows extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

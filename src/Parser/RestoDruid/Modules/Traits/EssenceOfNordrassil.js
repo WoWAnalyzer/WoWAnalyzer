@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import SPELLS from 'common/SPELLS';
@@ -15,7 +15,7 @@ const ESSENCE_OF_NORDRASSIL_HEALING_INCREASE = 0.05;
  * Essence of Nordrassil (Artifact Trait)
  * Increases healing done by Efflorescence by 5%
  */
-class EssenceOfNordrassil extends Module {
+class EssenceOfNordrassil extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

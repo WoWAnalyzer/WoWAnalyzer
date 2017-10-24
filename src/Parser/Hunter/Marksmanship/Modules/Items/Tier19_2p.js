@@ -1,5 +1,5 @@
 import React from 'react';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
@@ -25,7 +25,7 @@ const AFFECTED_ABILITIES = [
   SPELLS.VOLLEY_ACTIVATED.id,
 ];
 
-class Tier19_2p extends Module {
+class Tier19_2p extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     spellUsable: SpellUsable,

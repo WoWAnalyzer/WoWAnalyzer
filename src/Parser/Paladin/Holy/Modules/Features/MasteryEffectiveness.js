@@ -3,7 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
@@ -16,7 +16,7 @@ import { ABILITIES_AFFECTED_BY_MASTERY, BEACON_TYPES } from '../../Constants';
 
 const debug = false;
 
-class MasteryEffectiveness extends Module {
+class MasteryEffectiveness extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     beaconTargets: BeaconTargets,

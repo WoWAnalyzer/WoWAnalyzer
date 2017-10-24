@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
 import isAtonement from '../Core/isAtonement';
@@ -8,7 +8,7 @@ import Penance from '../Spells/Penance';
 
 const TIER_20_TWO_SET_BONUS = 1;
 
-class Tier20_2set extends Module {
+class Tier20_2set extends Analyzer {
   static dependencies = {
     penance: Penance, // we need this to add `penanceBoltNumber` to the damage and heal events
   };

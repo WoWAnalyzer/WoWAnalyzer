@@ -4,12 +4,12 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 const T21_4SET_YSERAS_BOOST = 5;
 
-class T21_4Set extends Module {
+class T21_4Set extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

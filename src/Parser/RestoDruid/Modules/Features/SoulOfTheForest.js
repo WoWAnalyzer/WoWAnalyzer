@@ -4,7 +4,7 @@ import { formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 
 import ITEMS from 'common/ITEMS';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
@@ -18,7 +18,7 @@ const WILD_GROWTH_HEALING_INCREASE = 0.75;
 const WILD_GROWTH_DURATION = 7000;
 const REJUVENATION_BASE_DURATION = 12000;
 
-class SoulOfTheForest extends Module {
+class SoulOfTheForest extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

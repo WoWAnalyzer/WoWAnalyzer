@@ -6,7 +6,7 @@ import SpellLink from 'common/SpellLink';
 
 import SPECS from 'common/SPECS';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemLink from "common/ItemLink";
 
@@ -14,7 +14,7 @@ import SUGGESTION_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 const debug = false;
 
-class SoulOfTheHuntmaster extends Module {
+class SoulOfTheHuntmaster extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

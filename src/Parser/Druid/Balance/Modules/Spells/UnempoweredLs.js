@@ -1,10 +1,10 @@
 import React from 'react';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatNumber } from 'common/format';
 
-class UnempoweredLS extends Module {
+class UnempoweredLS extends Analyzer {
   _castQueue = {
     empowered: false,
     enemies: 0,

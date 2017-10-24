@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 
@@ -13,7 +13,7 @@ import HealingDone from 'Parser/Core/Modules/HealingDone';
  * Infusion of Light
  * Your harmful spells and abilities have the chance to deal 101000 additional Holy damage. Your helpful spells and abilities have a chance to heal for 101000.
  */
-class InfusionOfLight extends Module {
+class InfusionOfLight extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     healingDone: HealingDone,

@@ -4,7 +4,7 @@ import SCHOOLS from 'common/MAGIC_SCHOOLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 
@@ -14,7 +14,7 @@ const IRONFUR_BASE_DURATION = 6;
 const UE_DURATION_PER_RANK = 0.5;
 const GUARDIAN_OF_ELUNE_DURATION = 2;
 
-class IronFur extends Module {
+class IronFur extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

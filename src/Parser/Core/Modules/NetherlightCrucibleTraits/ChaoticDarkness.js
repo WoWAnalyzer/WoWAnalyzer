@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 
@@ -13,7 +13,7 @@ import HealingDone from 'Parser/Core/Modules/HealingDone';
  * Chaotic Darkness
  * Your spells and abilities have a chance to deal 60000 to 300000 Shadow damage and heal you for 60000 to 300000.
  */
-class ChaoticDarkness extends Module {
+class ChaoticDarkness extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     healingDone: HealingDone,

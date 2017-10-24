@@ -5,13 +5,13 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
 import SPELLS from 'common/SPELLS';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 import SuggestionThresholds from '../../SuggestionThresholds';
 
 const debug = false;
 
-class Efflorescence extends Module {
+class Efflorescence extends Analyzer {
 
   lastCast = null;
   totalUptime = 0;

@@ -2,12 +2,12 @@ import React from 'react';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-class EmeraldDreamcatcher extends Module {
+class EmeraldDreamcatcher extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

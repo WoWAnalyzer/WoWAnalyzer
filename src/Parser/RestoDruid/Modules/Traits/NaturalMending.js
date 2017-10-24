@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import SPELLS from 'common/SPELLS';
@@ -15,7 +15,7 @@ const NATURAL_MENDING_HEALING_INCREASE = 0.1;
  * Natural Mending (Artifact Trait)
  * Increases healing done by Swiftmend by 10%
  */
-class NaturalMending extends Module {
+class NaturalMending extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

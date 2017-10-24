@@ -4,11 +4,11 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-class ElementalBlast extends Module {
+class ElementalBlast extends Analyzer {
   on_initialized() {
     this.active = this.owner.modules.combatants.selected.hasTalent(SPELLS.ELEMENTAL_BLAST_TALENT.id);
   }

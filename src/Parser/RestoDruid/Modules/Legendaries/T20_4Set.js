@@ -6,7 +6,7 @@ import SpellLink from 'common/SpellLink';
 
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import HealingDone from 'Parser/Core/Modules/HealingDone';
@@ -16,7 +16,7 @@ const HEAL_INCREASE = 2;
 
 const debug = false;
 
-class T20_4Set extends Module {
+class T20_4Set extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     healingDone: HealingDone,

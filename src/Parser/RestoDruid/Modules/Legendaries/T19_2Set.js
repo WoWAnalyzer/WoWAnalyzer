@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
@@ -9,7 +9,7 @@ import SpellLink from 'common/SpellLink';
 
 import Mastery from '../Features/Mastery';
 
-class T19_2Set extends Module {
+class T19_2Set extends Analyzer {
   static dependencies = {
     mastery: Mastery,
     combatants: Combatants,

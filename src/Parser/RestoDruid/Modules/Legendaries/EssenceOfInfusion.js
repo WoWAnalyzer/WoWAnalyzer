@@ -1,5 +1,5 @@
 import Combatants from 'Parser/Core/Modules/Combatants';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 
@@ -8,7 +8,7 @@ import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 const HEALING_BREAKPOINT = 0.6;
 const HEALING_INCREASE = 0.6;
 
-class EssenceOfInfusion extends Module {
+class EssenceOfInfusion extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

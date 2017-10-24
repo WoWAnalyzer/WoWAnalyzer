@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
@@ -15,7 +15,7 @@ import getDamageBonus from '../WarlockCore/getDamageBonus';
 const ERADICATION_DAMAGE_BONUS = 0.15;
 
 // only calculates the bonus damage, output depends if we have the talent directly or via legendary finger (then it appears as either a Statistic or Item)
-class Eradication extends Module {
+class Eradication extends Analyzer {
   static dependencies = {
     enemies: Enemies,
     combatants: Combatants,

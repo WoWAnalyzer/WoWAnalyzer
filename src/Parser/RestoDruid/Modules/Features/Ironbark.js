@@ -5,13 +5,13 @@ import SpellIcon from 'common/SpellIcon';
 
 import SPELLS from 'common/SPELLS';
 import fetchWcl from 'common/fetchWcl';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 const IRONBARK_BASE_DR = 0.20;
 const AOTA_BONUS_DR = 0.02;
 
-class Ironbark extends Module {
+class Ironbark extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

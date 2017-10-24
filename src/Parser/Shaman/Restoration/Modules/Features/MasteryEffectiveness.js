@@ -1,8 +1,8 @@
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 import { ABILITIES_AFFECTED_BY_MASTERY } from '../../Constants';
 
-class MasteryEffectiveness extends Module {
+class MasteryEffectiveness extends Analyzer {
   totalMasteryHealing = 0;
   totalMaxPotentialMasteryHealing = 0;
 

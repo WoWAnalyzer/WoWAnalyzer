@@ -6,7 +6,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
 import SPELLS from 'common/SPELLS';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SuggestionThresholds from '../../SuggestionThresholds';
@@ -25,7 +25,7 @@ const SB_WEIGHT = 10;
 
 
 // TODO: Idea - Give suggestions on low amount/duration extended with flourish on other HoTs
-class Flourish extends Module {
+class Flourish extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

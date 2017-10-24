@@ -1,17 +1,17 @@
-import Module from 'Parser/Core/Module';
+import Analyzer from './Analyzer';
 
 describe('Core.CombatLogParser', () => {
   describe('module defining', () => {
     it('owner is availabe as property', () => {
       const myOwner = {};
       // noinspection JSCheckFunctionSignatures
-      const myModule = new Module(myOwner, {}, null);
+      const myModule = new Analyzer(myOwner, {}, null);
 
       expect(myModule.owner).toBe(myOwner);
     });
     it('dependencies are available as properties', () => {
       const myDependency = {};
-      const myModule = new Module(null, {
+      const myModule = new Analyzer(null, {
         myDependency,
       }, null);
 
@@ -19,7 +19,7 @@ describe('Core.CombatLogParser', () => {
     });
     it('priority is availabe as property', () => {
       const priority = 27;
-      const myModule = new Module(null, {}, priority);
+      const myModule = new Analyzer(null, {}, priority);
 
       expect(myModule.priority).toBe(priority);
     });
@@ -27,7 +27,7 @@ describe('Core.CombatLogParser', () => {
   describe('triggerEvent', () => {
     it('calls the event handler on the class if it exists', () => {
       const on_success = jest.fn();
-      class MyModule extends Module {
+      class MyModule extends Analyzer {
         on_success = on_success;
       }
       const myModule = new MyModule();
@@ -35,14 +35,14 @@ describe('Core.CombatLogParser', () => {
       expect(on_success).toBeCalled();
     });
     it('does nothing if the event handler on the class does not exist', () => {
-      class MyModule extends Module {}
+      class MyModule extends Analyzer {}
       const myModule = new MyModule();
       myModule.triggerEvent('success');
       // Ummm how do we test for it doing nothing? I guess it just shouldn't crash...
     });
     it('calls on_event on every event if it exists', () => {
       const on_event = jest.fn();
-      class MyModule extends Module {
+      class MyModule extends Analyzer {
         on_event = on_event;
       }
       const myModule = new MyModule();
@@ -54,7 +54,7 @@ describe('Core.CombatLogParser', () => {
       const on_toPlayer_test = jest.fn();
       const on_byPlayerPet_test = jest.fn();
       const on_toPlayerPet_test = jest.fn();
-      class MyModule extends Module {
+      class MyModule extends Analyzer {
         on_byPlayer_test = on_byPlayer_test;
         on_toPlayer_test = on_toPlayer_test;
         on_byPlayerPet_test = on_byPlayerPet_test;
@@ -74,7 +74,7 @@ describe('Core.CombatLogParser', () => {
     });
     it('doesn\'t call convenience handlers byPlayer when event is by someone else', () => {
       const on_byPlayer_test = jest.fn();
-      class MyModule extends Module {
+      class MyModule extends Analyzer {
         on_byPlayer_test = on_byPlayer_test;
       }
       const myModule = new MyModule({
@@ -88,7 +88,7 @@ describe('Core.CombatLogParser', () => {
     });
     it('doesn\'t call convenience handlers toPlayer when event is to someone else', () => {
       const on_toPlayer_test = jest.fn();
-      class MyModule extends Module {
+      class MyModule extends Analyzer {
         on_toPlayer_test = on_toPlayer_test;
       }
       const myModule = new MyModule({
@@ -102,7 +102,7 @@ describe('Core.CombatLogParser', () => {
     });
     it('doesn\'t call convenience handlers byPlayerPet when event is by someone else', () => {
       const on_byPlayerPet_test = jest.fn();
-      class MyModule extends Module {
+      class MyModule extends Analyzer {
         on_byPlayerPet_test = on_byPlayerPet_test;
       }
       const myModule = new MyModule({
@@ -116,7 +116,7 @@ describe('Core.CombatLogParser', () => {
     });
     it('doesn\'t call convenience handlers toPlayerPet when event is to someone else', () => {
       const on_toPlayerPet_test = jest.fn();
-      class MyModule extends Module {
+      class MyModule extends Analyzer {
         on_toPlayerPet_test = on_toPlayerPet_test;
       }
       const myModule = new MyModule({
@@ -130,7 +130,7 @@ describe('Core.CombatLogParser', () => {
     });
     it('passes all arguments to event handler', () => {
       const on_success = jest.fn();
-      class MyModule extends Module {
+      class MyModule extends Analyzer {
         on_success = on_success;
       }
       const myModule = new MyModule({
@@ -146,7 +146,7 @@ describe('Core.CombatLogParser', () => {
     });
     it('sets `this` to the module', () => {
       const on_success = jest.fn();
-      class MyModule extends Module {
+      class MyModule extends Analyzer {
         on_success = on_success;
       }
       const myModule = new MyModule();

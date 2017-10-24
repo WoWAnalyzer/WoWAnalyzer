@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import HealingValue from 'Parser/Core/Modules/HealingValue';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -18,7 +18,7 @@ const debug = true;
  * Tyr's Munificence (Artifact Trait)
  * Increases the range of Tyr's Deliverance by 2 yards, healing by 5%, and the healing bonus by 5%.
  */
-class TyrsMunificence extends Module {
+class TyrsMunificence extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

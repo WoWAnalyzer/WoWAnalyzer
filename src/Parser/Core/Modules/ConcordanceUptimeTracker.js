@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
@@ -17,7 +17,7 @@ const CONCORDANCE_SPELLS = {
   VERSATILITY: SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_VERSATILITY,
 };
 
-class ConcordanceUptimeTracker extends Module {
+class ConcordanceUptimeTracker extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

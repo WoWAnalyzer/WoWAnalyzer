@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import { formatPercentage } from 'common/format';
@@ -10,7 +10,7 @@ import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
 const DARK_TITAN_FINAL_HEALING_INCREASE = 2;
 
-class DarkTitanAdvice extends Module {
+class DarkTitanAdvice extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

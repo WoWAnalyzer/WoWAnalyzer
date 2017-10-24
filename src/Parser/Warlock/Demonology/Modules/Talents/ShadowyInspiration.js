@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
@@ -10,7 +10,7 @@ import SpellLink from 'common/SpellLink';
 
 const BUFF_DURATION = 15000;
 
-class ShadowyInspiration extends Module {
+class ShadowyInspiration extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

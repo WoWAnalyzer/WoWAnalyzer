@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import SPELLS from 'common/SPELLS';
@@ -15,7 +15,7 @@ const SEEDS_OF_THE_WORLD_TREE_HEALING_INCREASE = 0.08 / 0.25;
  * Seeds of the World Tree (Artifact Trait)
  * Living Seed heals for an additional 8% of the initial heal which planted it.
  */
-class SeedsOfTheWorldTree extends Module {
+class SeedsOfTheWorldTree extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

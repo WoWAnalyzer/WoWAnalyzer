@@ -1,5 +1,5 @@
 import React from 'react';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
@@ -10,7 +10,7 @@ import getDamageBonus from "Parser/Hunter/Shared/Core/getDamageBonus";
 
 const T20_2P_CRIT_DMG_BONUS = 0.15;
 
-class Tier20_2p extends Module {
+class Tier20_2p extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
