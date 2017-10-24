@@ -19,7 +19,8 @@ import Pets from './Modules/Pets';
 import HealEventTracker from './Modules/HealEventTracker';
 import ManaValues from './Modules/ManaValues';
 import SpellManaCost from './Modules/SpellManaCost';
-import DistanceMoved from './Modules/DistanceMoved';
+
+import DistanceMoved from './Modules/Others/DistanceMoved';
 
 import CritEffectBonus from './Modules/Helpers/CritEffectBonus';
 
@@ -51,10 +52,9 @@ import TomeOfUnravelingSanity from './Modules/Items/TomeOfUnravelingSanity';
 import InfernalCinders from './Modules/Items/InfernalCinders';
 import UmbralMoonglaives from './Modules/Items/UmbralMoonglaives';
 
-import ConcordanceUptimeTracker from './Modules/ConcordanceUptimeTracker';
-
 // Shared Buffs
-import VantusRune from './Modules/VantusRune';
+import Concordance from './Modules/Spells/Concordance';
+import VantusRune from './Modules/Spells/VantusRune';
 
 // Netherlight Crucible Traits
 import DarkSorrows from './Modules/NetherlightCrucibleTraits/DarkSorrows';
@@ -136,7 +136,7 @@ class CombatLogParser {
     tomeOfUnravelingSanity: TomeOfUnravelingSanity,
 
     // Concordance of the Legionfall
-    concordanceUptimeTracker: ConcordanceUptimeTracker,
+    concordance: Concordance,
     // Netherlight Crucible Traits
     darkSorrows: DarkSorrows,
     tormentTheWeak: TormentTheWeak,

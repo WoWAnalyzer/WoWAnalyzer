@@ -17,7 +17,7 @@ const CONCORDANCE_SPELLS = {
   VERSATILITY: SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_VERSATILITY,
 };
 
-class ConcordanceUptimeTracker extends Analyzer {
+class Concordance extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
@@ -61,4 +61,4 @@ class ConcordanceUptimeTracker extends Analyzer {
   statisticOrder = STATISTIC_ORDER.UNIMPORTANT();
 }
 
-export default ConcordanceUptimeTracker;
+export default Concordance;
