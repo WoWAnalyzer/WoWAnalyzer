@@ -157,31 +157,31 @@ class ThunderFocusTea extends Module {
   tftCastRatioChart() {
     const items = [
       {
-        color: '#adff00',
+        color: '#00b159',
         label: 'Vivify',
         spellId: SPELLS.VIVIFY.id,
         value: this.castsTftViv,
       },
       {
-        color: '#74d600',
+        color: '#00aedb',
         label: 'Renewing Mist',
         spellId: SPELLS.RENEWING_MIST.id,
         value: this.castsTftRem,
       },
       {
-        color: '#028900',
+        color: '#f37735',
         label: 'Enveloping Mists',
         spellId: SPELLS.ENVELOPING_MISTS.id,
         value: this.castsTftEnm,
       },
       {
-        color: '#00d27f',
+        color: '#ffc425',
         label: 'Effuse',
         spellId: SPELLS.EFFUSE.id,
         value: this.castsTftEff,
       },
       {
-        color: '#00ff83',
+        color: '#d11141',
         label: 'Essence Font',
         spellId: SPELLS.ESSENCE_FONT.id,
         value: this.castsTftEf,
