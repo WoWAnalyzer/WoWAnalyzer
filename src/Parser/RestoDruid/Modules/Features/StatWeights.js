@@ -5,6 +5,7 @@ import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import { formatNumber } from 'common/format';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import HealingValue from 'Parser/Core/Modules/HealingValue';
+import DamageValue from 'Parser/Core/Modules/DamageValue';
 import CritEffectBonus from 'Parser/Core/Modules/Helpers/CritEffectBonus';
 
 import { getSpellInfo } from '../../SpellInfo';
@@ -105,11 +106,12 @@ class StatWeights extends Module {
   totalOneCrit = 0;
   totalOneHasteHpm = 0;
   totalOneMastery = 0;
-  totalOneVers = 0;
+  totalOneVers = 0; // from healing increase only
+  totalOneVersDr = 0;  // from damage reduced only
   totalOneLeech = 0;
 
   on_initialized() {
-    this.concordanceAmount = 3700 + (this.combatants.selected.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id] || 0) * 300; // TODO remove when stat tracker added
+    this.concordanceAmount = 4000 + ((this.combatants.selected.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id] - 1) || 0) * 300; // TODO remove when stat tracker added
   }
 
   on_byPlayer_heal(event) {
@@ -120,6 +122,11 @@ class StatWeights extends Module {
   on_byPlayer_absorbed(event) {
     const healVal = new HealingValue(event.amount, 0, 0);
     this._handleHeal(event, healVal);
+  }
+
+  on_toPlayer_damage(event) {
+    const damageVal = new DamageValue(event.amount, event.absorbed, event.overkill);
+    this._handleDamage(event, damageVal);
   }
 
   _handleHeal(event, healVal) {
@@ -143,10 +150,15 @@ class StatWeights extends Module {
     }
     // endregion
 
+    // Most spells are counted in healing total, but some spells scale not on their own but 'second hand' from other spells
+    // I adjust them out of total healing to preserve some accuracy in the "Rating per 1%" stat.
+    // Good examples of multiplier spells are Leech and Velens.
     if(!spellInfo.multiplier) {
       this.totalAdjustedHealing += healVal.effective;
     }
 
+    // Multiplier spells and explicitly ignored spells aren't counted for weights.
+    // If a spell overheals, it could not have healed for more, so we also don't give it a weight because it can't be increased.
     if(spellInfo.multiplier || spellInfo.ignored || healVal.overheal) {
       return;
     }
@@ -209,6 +221,17 @@ class StatWeights extends Module {
     // endregion
   }
 
+  _handleDamage(event, damageVal) {
+    const amount = damageVal.effective;
+    const currVersPerc = this.combatants.selected.versatilityPercentage; // TODO replace when dynamic stats
+    const currVersDrPerc = currVersPerc / 2;
+    const bonusFromOneVers = 1 / 47500; // TODO replace when stat constants exist
+    const bonusFromOneVersDr = bonusFromOneVers / 2;
+
+    const noVersDamage = amount / (1 - currVersDrPerc);
+    this.totalOneVersDr += noVersDamage * bonusFromOneVersDr;
+  }
+
   // FIXME temporary hacky handler for Concordance until stat tracker is implemented
   _getCurrInt() {
     let currInt = this.combatants.selected.intellect;
@@ -251,6 +274,7 @@ class StatWeights extends Module {
     const hasteHpmWeight = this.totalOneHasteHpm / this.totalOneInt;
     const masteryWeight = this.totalOneMastery / this.totalOneInt;
     const versWeight = this.totalOneVers / this.totalOneInt;
+    const versDrWeight = (this.totalOneVers + this.totalOneVersDr) / this.totalOneInt;
     let leechWeight = this.totalOneLeech / this.totalOneInt;
     if(!hasLeech) {
       leechWeight = "NYI";
@@ -261,20 +285,24 @@ class StatWeights extends Module {
     const hasteHpmForOnePercent = this._ratingPerOnePercent(this.totalOneHasteHpm);
     const masteryForOnePercent = this._ratingPerOnePercent(this.totalOneMastery);
     const versForOnePercent = this._ratingPerOnePercent(this.totalOneVers);
+    const versDrForOnePercent = this._ratingPerOnePercent(this.totalOneVers + this.totalOneVersDr);
     let leechForOnePercent = this._ratingPerOnePercent(this.totalOneLeech);
     if(!hasLeech) {
       leechForOnePercent = "NYI";
     }
 
     const hasteHpmTooltip = "HPM stands for 'Healing per Mana'. In valuing Haste, it considers only the faster HoT ticking and not the reduced cast times. Effectively it models haste's bonus to mana efficiency. This is typically the better calculation to use for raid encounters where mana is an issue.";
-    const leechTooltip = "Leech weight can currently only be calculated when player already has some Leech rating";
+    const versTooltip = "Weight includes only the boost to healing, and does not include damage reduction.";
+    const versDrTooltip = "Weight includes both healing boost and damage reduction, counting damage reduction as additional throughput";
+    const leechTooltip = "Leech weight can currently only be calculated when you already have some Leech rating";
 
     return [
       { stat:'Intellect', weight:intWeight, ratingForOne:intForOnePercent },
       { stat:'Crit', weight:critWeight, ratingForOne:critForOnePercent },
       { stat:'Haste (HPM)', weight:hasteHpmWeight, ratingForOne:hasteHpmForOnePercent, tooltip:hasteHpmTooltip },
       { stat:'Mastery', weight:masteryWeight, ratingForOne:masteryForOnePercent },
-      { stat:'Versatility', weight:versWeight, ratingForOne:versForOnePercent },
+      { stat:'Versatility', weight:versWeight, ratingForOne:versForOnePercent, tooltip:versTooltip },
+      { stat:'Versatility (incl DR)', weight:versDrWeight, ratingForOne:versDrForOnePercent, tooltip:versDrTooltip },
       { stat: 'Leech', weight:leechWeight, ratingForOne:leechForOnePercent, tooltip:leechTooltip },
     ];
   }

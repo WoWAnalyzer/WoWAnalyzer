@@ -87,14 +87,14 @@ export const HEAL_INFO = {
     masteryStack: true,
     vers: true,
   },
-  [SPELLS.FRENZIED_REGENERATION.id]: { // TODO does this actually scale with nothing?
+  [SPELLS.FRENZIED_REGENERATION.id]: { // it's weird this scles with anything, but confirmed on live that it does
     int: false,
     crit: false,
     hasteHpm: false,
     hasteHpct: false,
-    mastery: false,
+    mastery: true,
     masteryStack: true,
-    vers: false,
+    vers: true,
   },
   [SPELLS.LIFEBLOOM_HOT_HEAL.id]: {
     int: true,
