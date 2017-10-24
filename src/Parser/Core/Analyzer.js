@@ -28,16 +28,6 @@ class Analyzer extends Module {
     }
   }
 
-  /**
-   * The combatlog has a lot of issues with the order of events. You can use this to fix this order.
-   * Caution: advanced usage, this should only be used as an exception.
-   * @param {Array} events
-   * @returns {Array}
-   */
-  reorderEvents(events) {
-    return events;
-  }
-
   // Override these with functions that return info about their rendering in the specific slots
   item() { return undefined; }
   extraPanel() { return undefined; }

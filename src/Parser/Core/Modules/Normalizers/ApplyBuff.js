@@ -1,11 +1,11 @@
 import SPELLS from 'common/SPELLS';
 import { formatDuration } from 'common/format';
 
-import Analyzer from 'Parser/Core/Analyzer';
+import EventsNormalizer from 'Parser/Core/EventsNormalizer';
 
 const debug = false;
 
-class ApplyBuffFixer extends Analyzer {
+class ApplyBuff extends EventsNormalizer {
   _getFirstEventIndex(events) {
     for (let i = 0; i < events.length; i += 1) {
       const event = events[i];
@@ -16,17 +16,10 @@ class ApplyBuffFixer extends Analyzer {
     throw new Error('Fight doesn\'t have a first event, something must have gone wrong.');
   }
 
-  _initialized = false;
-  on_initialized() {
-    this._initialized = true;
-  }
-  // We need to track `combatantinfo` events this way since they are included in the `events` passed to `reorderEvents` due to technical reasons (it's a different API call). We still need `combatantinfo` for all players, so cache it manually.
+  // We need to track `combatantinfo` events this way since they are included in the `events` passed to `normalize` due to technical reasons (it's a different API call). We still need `combatantinfo` for all players, so cache it manually.
   _combatantInfoEvents = [];
-  on_combatantinfo(event) {
-    if (!this._initialized) {
-      // Stop after initialization to avoid parsing the player twice, and this fixes a crash since the selected player's `combatantinfo` is received after `reorderEvents()`
-      this._combatantInfoEvents.push(event);
-    }
+  initialize(combatants) {
+    this._combatantInfoEvents = combatants;
   }
 
   _buffsAppliedByPlayerId = {};
@@ -36,7 +29,7 @@ class ApplyBuffFixer extends Analyzer {
    * @param {Array} events
    * @returns {Array}
    */
-  reorderEvents(events) {
+  normalize(events) {
     const firstEventIndex = this._getFirstEventIndex(events);
     const playersById = this.owner.playersById;
 
@@ -132,4 +125,4 @@ class ApplyBuffFixer extends Analyzer {
   }
 }
 
-export default ApplyBuffFixer;
+export default ApplyBuff;

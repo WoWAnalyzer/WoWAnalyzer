@@ -1,7 +1,8 @@
 import SPELLS from 'common/SPELLS';
-import WildGrowth from 'Parser/RestoDruid/Modules/Features/WildGrowth';
 
-describe('RestoDruid/Modules/WildGrowth', () => {
+import WildGrowth from './WildGrowth';
+
+describe('RestoDruid/Modules/Normalizers/WildGrowth', () => {
   const reorderScenarios = [
     {
       // 0: simple test to see if the events aren't touched when they're already in order
@@ -110,7 +111,7 @@ describe('RestoDruid/Modules/WildGrowth', () => {
       const parser = new WildGrowth({
         playerId: scenario.playerId,
       });
-      expect(parser.reorderEvents(scenario.events).map(event => event.testid)).toEqual(scenario.result);
+      expect(parser.normalize(scenario.events).map(event => event.testid)).toEqual(scenario.result);
     });
   });
 });

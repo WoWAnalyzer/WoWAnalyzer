@@ -140,8 +140,7 @@ class App extends Component {
     timeAvailable && console.time('full parse');
     const parser = this.createParser(config.parser, report, fight, player);
     // We send combatants already to the analyzer so it can show the results page with the correct items and talents while waiting for the API request
-    parser.parseEvents(combatants)
-      .then(() => parser.triggerEvent('initialized'))
+    parser.initialize(combatants)
       .then(async () => {
         await this.setStatePromise({
           config,
@@ -167,7 +166,7 @@ class App extends Component {
         console.error(err);
       }
     }
-    events = parser.reorderEvents(events);
+    events = parser.normalize(events);
     await this.setStatePromise({
       progress: PROGRESS_STEP2_FETCH_EVENTS,
     });

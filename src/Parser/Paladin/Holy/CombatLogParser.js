@@ -9,6 +9,9 @@ import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 
+import LightOfDawnNormalizer from './Modules/Normalizers/LightOfDawn';
+import DivinePurposeNormalizer from './Modules/Normalizers/DivinePurpose';
+
 import PaladinAbilityTracker from './Modules/PaladinCore/PaladinAbilityTracker';
 import BeaconHealOriginMatcher from './Modules/PaladinCore/BeaconHealOriginMatcher';
 import BeaconTargets from './Modules/PaladinCore/BeaconTargets';
@@ -58,6 +61,10 @@ class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
 
   static specModules = {
+    // Normalizers
+    lightOfDawnNormalizer: LightOfDawnNormalizer,
+    divinePurposeNormalizer: DivinePurposeNormalizer,
+
     // Override the ability tracker so we also get stats for IoL and beacon healing
     abilityTracker: PaladinAbilityTracker,
     lowHealthHealing: LowHealthHealing,

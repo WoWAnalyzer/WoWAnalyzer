@@ -20,7 +20,7 @@ import SpellManaCost from './Modules/SpellManaCost';
 import DistanceMoved from './Modules/DistanceMoved';
 
 import CritEffectBonus from './Modules/Helpers/CritEffectBonus';
-import ApplyBuffFixer from './Modules/Helpers/ApplyBuffFixer';
+import ApplyBuffNormalizer from './Modules/Normalizers/ApplyBuff';
 
 // Shared Legendaries
 import Prydaz from './Modules/Items/Prydaz';
@@ -69,6 +69,8 @@ import RefractiveShell from './Modules/NetherlightCrucibleTraits/RefractiveShell
 import NLCTraits from './Modules/NetherlightCrucibleTraits/NLCTraits';
 
 import ParseResults from './ParseResults';
+import Analyzer from './Analyzer';
+import EventsNormalizer from './EventsNormalizer';
 
 const debug = false;
 
@@ -78,6 +80,10 @@ class CombatLogParser {
   static abilitiesAffectedByHealingIncreases = [];
 
   static defaultModules = {
+    // Normalizers
+    applyBuffNormalizer: ApplyBuffNormalizer,
+
+    // Analyzers
     status: Status,
     healingDone: HealingDone,
     damageDone: DamageDone,
@@ -99,7 +105,6 @@ class CombatLogParser {
     distanceMoved: DistanceMoved,
 
     critEffectBonus: CritEffectBonus,
-    applyBuffFixer: ApplyBuffFixer,
 
     // Items:
     // Legendaries:
@@ -273,6 +278,13 @@ class CombatLogParser {
   }
 
   _debugEventHistory = [];
+  initialize(combatants) {
+    this.initializeNormalizers(combatants);
+    return this.initializeAnalyzers(combatants);
+  }
+  initializeAnalyzers(combatants) {
+    return this.parseEvents(combatants).then(() => this.triggerEvent('initialized'));
+  }
   parseEvents(events) {
     if (process.env.NODE_ENV === 'development') {
       this._debugEventHistory = [
@@ -295,12 +307,23 @@ class CombatLogParser {
     });
   }
 
-  reorderEvents(events) {
+  initializeNormalizers(combatants) {
     this.activeModules
+      .filter(module => module instanceof EventsNormalizer)
       .sort((a, b) => a.priority - b.priority) // lowest should go first, as `priority = 0` will have highest prio
-      .forEach((module) => {
-        if (module.reorderEvents) {
-          events = module.reorderEvents(events);
+      .forEach(module => {
+        if (module.initialize) {
+          module.initialize(combatants);
+        }
+      });
+  }
+  normalize(events) {
+    this.activeModules
+      .filter(module => module instanceof EventsNormalizer)
+      .sort((a, b) => a.priority - b.priority) // lowest should go first, as `priority = 0` will have highest prio
+      .forEach(module => {
+        if (module.normalize) {
+          events = module.normalize(events);
         }
       });
     return events;
@@ -308,6 +331,7 @@ class CombatLogParser {
 
   triggerEvent(eventType, event, ...args) {
     this.activeModules
+      .filter(module => module instanceof Analyzer)
       .sort((a, b) => a.priority - b.priority) // lowest should go first, as `priority = 0` will have highest prio
       .forEach(module => module.triggerEvent(eventType, event, ...args));
   }

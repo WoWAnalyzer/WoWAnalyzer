@@ -9,6 +9,8 @@ import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 
+import WildGrowthNormalizer from './Modules/Normalizers/WildGrowth';
+
 import Ekowraith from './Modules/Legendaries/Ekowraith';
 import XonisCaress from './Modules/Legendaries/XonisCaress';
 import DarkTitanAdvice from './Modules/Legendaries/DarkTitanAdvice';
@@ -66,6 +68,8 @@ class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
 
   static specModules = {
+    // Normalizers
+    wildGrowthNormalizer: WildGrowthNormalizer,
 
     // Core
     healingDone: [HealingDone, { showStatistic: true }],
