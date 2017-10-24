@@ -39,12 +39,12 @@ class Haste extends Module {
     [SPELLS.LINGERING_INSANITY.id]: 0.01,
     [SPELLS.VOIDFORM_BUFF.id]: 0.01,
     [SPELLS.ICY_VEINS.id]: 0.3,
+    [SPELLS.BONE_SHIELD.id]: 0.1, // Blood BK haste buff from maintaining boneshield
 
     // Boss abilities:
     [209166]: 0.3, // DEBUFF - Fast Time from Elisande
     [209165]: -0.3, // DEBUFF - Slow Time from Elisande
     // [208944]: -Infinity, // DEBUFF - Time Stop from Elisande
-    [SPELLS.BONE_SHIELD.id]: 0.1, // Blood BK haste buff from maintaining boneshield
 
     [SPELLS.RISING_TIDES.id]: {
       itemId: ITEMS.CHARM_OF_THE_RISING_TIDE.id,

@@ -39,6 +39,7 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.BLOOD_BOIL,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      charges: 2,
       getCooldown: haste => 7.5 / (1 + haste),
       recommendedCastEfficiency: 0.95,
       extraSuggestion: <span>Should be casting it so you have at least one recharging.</span>,
@@ -68,6 +69,14 @@ class CastEfficiency extends CoreCastEfficiency {
       extraSuggestion: <span>Mostly used as a dps CD. Should be almost casted on CD. Good to use when your running to the boss or cant melee them.</span>,
     },
 
+    {
+      spell: SPELLS.BONESTORM,
+      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
+      getCooldown: haste => 60,
+      recommendedCastEfficiency: 0.50,
+      isActive: combatant => combatant.hasTalent(SPELLS.BONESTORM_TALENT.id),
+      extraSuggestion: <span>DPS loss on single target, avoid taking on bosses with no adds. Always use with 2+. Best casted at 100+ Runice Power.</span>,
+    },
 
     {
       spell: SPELLS.ARCANE_TORRENT_MANA,

@@ -102,22 +102,16 @@ export default {
     icon: 'spell_holy_righteousnessaura',
   },
 
-  BONE_SHIELD: {
-    id: 195181,
-    name: 'Bone Shield',
-    icon: 'ability_deathknight_boneshield',
-  },
-
-  BLOOD_SHIELD: {
-    id: 77513,
-    name: 'Blood Shield',
-    icon: 'spell_deathknight_deathstrike',
-  },
-
   MARK_OF_BLOOD: {
     id: 61606,
     name: 'Mark of Blood',
     icon: 'ability_hunter_rapidkilling',
+  },
+
+  BONESTORM: {
+    id: 194844,
+    name: 'Bonestorm',
+    icon: 'achievement_boss_lordmarrowgar',
   },
 
 // Buffs
@@ -131,6 +125,18 @@ export default {
     id: 81141,
     name: 'Crimson Scourge',
     icon: 'ability_warrior_bloodnova',
+  },
+
+  BLOOD_SHIELD: {
+    id: 77513,
+    name: 'Blood Shield',
+    icon: 'spell_deathknight_deathstrike',
+  },
+
+  BONE_SHIELD: {
+    id: 195181,
+    name: 'Bone Shield',
+    icon: 'ability_deathknight_boneshield',
   },
 
   // CC
