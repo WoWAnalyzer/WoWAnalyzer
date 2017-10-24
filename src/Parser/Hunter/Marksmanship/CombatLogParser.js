@@ -24,7 +24,6 @@ import FocusTracker from './Modules/FocusChart/FocusTracker';
 import Tier20_2p from './Modules/Items/Tier20_2p';
 import Tier20_4p from './Modules/Items/Tier20_4p';
 import Tier19_2p from "./Modules/Items/Tier19_2p";  
-import TarnishedSentinelMedallion from "./Modules/Items/TarnishedSentinelMedallion";
 
 //Spells
 import Trueshot from './Modules/Spells/Trueshot';
@@ -34,12 +33,16 @@ import UllrsFeatherSnowshoes from './Modules/Items/UllrsFeatherSnowshoes';
 import SoulOfTheHuntmaster from '../Shared/Items/SoulOfTheHuntmaster';
 import MKIIGyroscopicStabilizer from './Modules/Items/MKIIGyroscopicStabilizer';
 import WarBeltOfTheSentinelArmy from "./Modules/Items/WarBeltOfTheSentinelArmy";
+import TarnishedSentinelMedallion from "./Modules/Items/TarnishedSentinelMedallion";
 
 //Talents
 import LockAndLoad from './Modules/Talents/LockAndLoad';
 import TrueAim from './Modules/Talents/TrueAim';
 import PatientSniperTracker from './Modules/Talents/PatientSniper/PatientSniperTracker';
 import PatientSniperDetails from "./Modules/Talents/PatientSniper/PatientSniperDetails";
+
+//Traits
+import QuickShot from './Modules/Traits/QuickShot';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -54,7 +57,6 @@ class CombatLogParser extends CoreCombatLogParser {
     vulnerableTracker: VulnerableTracker,
     TimeFocusCapped: TimeFocusCapped,
     vulnerableApplications: VulnerableApplications,
-
 
     //Focus Chart
     focusTracker: FocusTracker,
@@ -78,6 +80,9 @@ class CombatLogParser extends CoreCombatLogParser {
     patientSniperDetails: PatientSniperDetails,
     lockAndLoad: LockAndLoad,
     trueAim: TrueAim,
+
+    //Traits
+    quickShot: QuickShot,
   };
 
   generateResults() {
