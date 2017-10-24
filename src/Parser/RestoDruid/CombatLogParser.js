@@ -9,7 +9,7 @@ import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 
-import WildGrowthNormalizer from './Modules/Normalizers/WildGrowth';
+import WildGrowthNormalizer from './Normalizers/WildGrowth';
 
 import Ekowraith from './Modules/Legendaries/Ekowraith';
 import XonisCaress from './Modules/Legendaries/XonisCaress';

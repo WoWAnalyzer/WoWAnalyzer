@@ -1,5 +1,7 @@
 import { formatNumber, formatPercentage } from 'common/format';
 
+import ApplyBuffNormalizer from './Normalizers/ApplyBuff';
+
 import Status from './Modules/Status';
 import HealingDone from './Modules/HealingDone';
 import DamageDone from './Modules/DamageDone';
@@ -20,7 +22,6 @@ import SpellManaCost from './Modules/SpellManaCost';
 import DistanceMoved from './Modules/DistanceMoved';
 
 import CritEffectBonus from './Modules/Helpers/CritEffectBonus';
-import ApplyBuffNormalizer from './Modules/Normalizers/ApplyBuff';
 
 // Shared Legendaries
 import Prydaz from './Modules/Items/Prydaz';

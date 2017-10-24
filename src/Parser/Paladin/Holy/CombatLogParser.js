@@ -9,8 +9,8 @@ import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 
-import LightOfDawnNormalizer from './Modules/Normalizers/LightOfDawn';
-import DivinePurposeNormalizer from './Modules/Normalizers/DivinePurpose';
+import LightOfDawnNormalizer from './Normalizers/LightOfDawn';
+import DivinePurposeNormalizer from './Normalizers/DivinePurpose';
 
 import PaladinAbilityTracker from './Modules/PaladinCore/PaladinAbilityTracker';
 import BeaconHealOriginMatcher from './Modules/PaladinCore/BeaconHealOriginMatcher';
