@@ -2,6 +2,8 @@ import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
 import Module from './Module';
 
 class Analyzer extends Module {
+  static __dangerousInvalidUsage = false;
+
   triggerEvent(eventType, event, ...args) {
     this._callMethod(this._eventHandlerName('event'), eventType, event, ...args);
     this._callMethod(this._eventHandlerName(eventType), event, ...args);

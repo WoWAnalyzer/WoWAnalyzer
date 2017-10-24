@@ -1,4 +1,7 @@
 class Module {
+  // This is a flag that should only be overwritten by Core classes that provide some type of module, it informs users they have extended the wrong class. You usually want to use Analyzer instead of directly using Module; Module provides no functionality and does not get fed any events.
+  static __dangerousInvalidUsage = true;
+
   static dependencies = {};
 
   /** @var CombatLogParser */
@@ -13,8 +16,8 @@ class Module {
    * @param {int} priority
    */
   constructor(parser, dependencies, priority) {
-    if (new.target === Module) {
-      throw new TypeError('The class Module can not be instanced directly, you probably want to use Analyzer instead.');
+    if (this.constructor.__dangerousInvalidUsage) {
+      throw new TypeError('The class Module can not be used directly, you probably want to use Analyzer instead.');
     }
 
     this.owner = parser;

@@ -1,6 +1,8 @@
 import Module from './Module';
 
 class EventsNormalizer extends Module {
+  static __dangerousInvalidUsage = false;
+
   initialize(combatants) {
     // Sometimes a normalizer needs the pre-events combatants, in that case extend this method.
   }
