@@ -14,6 +14,8 @@ class ThermalVoid extends Module {
 	}
 
   casts = 0;
+  buffApplied = 0;
+  extraUptime = 0;
 
   on_initialized() {
 	   this.active = this.combatants.selected.hasTalent(SPELLS.THERMAL_VOID_TALENT.id);
@@ -21,22 +23,22 @@ class ThermalVoid extends Module {
 
   on_toPlayer_applybuff(event) {
     const spellId = event.ability.guid;
-    if(spellId === SPELLS.ICY_VEINS.id && event.prepull) { // catch prepull cast by buff being present on pull
+    if(spellId === SPELLS.ICY_VEINS.id) {
       this.casts += 1;
+      this.buffApplied = event.timestamp;
     }
   }
 
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.ICY_VEINS.id) {
-      return;
+  on_finished() {
+    if (this.combatants.selected.hasBuff(SPELLS.ICY_VEINS.id)) {
+      this.casts -= 1;
+      this.extraUptime = this.owner.currentTimestamp - this.buffApplied;
     }
-    this.casts += 1;
   }
 
   suggestions(when) {
-    const averageDuration = (this.combatants.selected.getBuffUptime(SPELLS.ICY_VEINS.id) / 1000) / this.casts;
-
+    const uptime = this.combatants.selected.getBuffUptime(SPELLS.ICY_VEINS.id) - this.extraUptime;
+    const averageDuration = (uptime / this.casts) / 1000;
     when(averageDuration).isLessThan(45)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Your <SpellLink id={SPELLS.ICY_VEINS.id}/> duration can be improved. Make sure you use Frozen Orb to get Fingers of Frost Procs</span>)
@@ -48,12 +50,14 @@ class ThermalVoid extends Module {
   }
 
   statistic() {
-    const averageDuration = (this.combatants.getBuffUptime(SPELLS.ICY_VEINS.id) / 1000) / this.casts;
+    const uptime = this.combatants.selected.getBuffUptime(SPELLS.ICY_VEINS.id) - this.extraUptime;
+    const averageDuration = (uptime / this.casts) / 1000;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.ICY_VEINS.id} />}
         value={`${formatNumber(averageDuration)}s`}
         label="Avg Icy Veins Duration"
+        tooltip={"Icy Veins Casts that do not complete before the fight ends are removed from this statistic"}
       />
     );
   }

@@ -72,11 +72,13 @@ class Judgment extends Module {
 
 	statistic() {
 		const buffedJudgmentPercent = 1 - (this.spenderOutsideJudgment / this.totalSpender);
+		const spendersInsideJudgment = this.totalSpender - this.spenderOutsideJudgment;
 		return (
 			<StatisticBox
 				icon={<SpellIcon id={SPELLS.JUDGMENT_DEBUFF.id} />}
 				value={`${formatPercentage(buffedJudgmentPercent)}%`}
 				label='Spenders inside Judgment'
+				tooltip={`${spendersInsideJudgment} spenders`}
 			/>
 		);
 	}

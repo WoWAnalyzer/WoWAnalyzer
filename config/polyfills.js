@@ -1,5 +1,8 @@
 require('babel-polyfill');
 
+// fetch() polyfill for making API calls.
+require('whatwg-fetch');
+
 /**
  * Previously used the polyfill service in addition with the below code;
  * ```jsx

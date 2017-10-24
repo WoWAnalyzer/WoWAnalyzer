@@ -35,7 +35,7 @@ class AimedInVulnerableTracker extends Module {
     const percentAimedOutsideVulnerable = this.outsideVulnerabilityAimed / this.totalAimed;
     when(percentAimedOutsideVulnerable).isGreaterThan(0.02)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span> You cast {this.outsideVulnerabilityAimed} <SpellLink id={SPELLS.AIMED_SHOT.id} />s outside <SpellLink id={SPELLS.VULNERABLE.id} />. Try and minimize these, as they deal significantly less damage than their <SpellLink id={SPELLS.VULNERABLE.id} /> counterparts. It should be noted that rarely, you will be casting non-vulnerable aimeds due to no procs and/or focus capping. </span>)
+        return suggest(<span> You cast {this.outsideVulnerabilityAimed} <SpellLink id={SPELLS.AIMED_SHOT.id}/>s outside <SpellLink id={SPELLS.VULNERABLE.id} />. Try and minimize these, as they deal significantly less damage than their <SpellLink id={SPELLS.VULNERABLE.id} /> counterparts. It should be noted that rarely, you will be casting non-vulnerable aimeds due to no procs and/or focus capping. <br/> Note: <SpellLink id={SPELLS.VULNERABLE.id}/> damage is calculated on <u><strong>CAST END</strong></u>, so Aimed Shot doesn't have to hit inside the window, for it to register properly - use this knowledge to your advantage to squeeze more <SpellLink id={SPELLS.AIMED_SHOT.id}/>s inside the <SpellLink id={SPELLS.VULNERABLE.id}/> window. </span>)
           .icon(SPELLS.AIMED_SHOT.icon)
           .actual(`${formatPercentage(actual)}% of total Aimed Shots were outside Vulnerable`)
           .recommended(`<${formatPercentage(recommended)}% is recommended, with 0% being the ideal`)
@@ -49,7 +49,7 @@ class AimedInVulnerableTracker extends Module {
         icon={<SpellIcon id={SPELLS.VULNERABLE.id} />}
         value={`${formatPercentage(percentAimedInVulnerable)}%`}
         label="Vulnerable Aimed Shots"
-        tooltip={`You cast ${this.totalAimed} Aimed Shots.<br/> The amount of Aimed Shot casts inside Vulnerable: ${this.inVulnerabilityAimed}.<br/> The amount of Aimed Shot casts outside Vulnerable: ${this.outsideVulnerabilityAimed}. `} />
+        tooltip={` You cast ${this.totalAimed} Aimed Shots.<br/> The amount of Aimed Shot casts inside Vulnerable: ${this.inVulnerabilityAimed}.<br/> The amount of Aimed Shot casts outside Vulnerable: ${this.outsideVulnerabilityAimed}.`} />
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(2);

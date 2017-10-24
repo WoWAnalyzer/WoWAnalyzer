@@ -4,8 +4,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import HealingValue from 'Parser/Core/Modules/HealingValue';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
-import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
-import { HEALS_MASTERY_STACK } from '../../Constants';
+import { getSpellInfo, HEAL_INFO } from '../../SpellInfo';
 
 const MASTERY_BONUS_FROM_ONE_RATING = 1 / 66666.6666666;
 const BASE_MASTERY_PERCENT = 0.048;
@@ -34,7 +33,9 @@ class Mastery extends Module {
   masteryBuffs = {};
 
   on_initialized() {
-    HEALS_MASTERY_STACK.forEach(healId => this.hotHealingAttrib[healId] = { direct: 0, mastery: {} });
+    Object.entries(HEAL_INFO)
+        .filter(infoEntry => infoEntry[1].masteryStack)
+        .forEach(infoEntry => this.hotHealingAttrib[infoEntry[0]] = { direct: 0, mastery: {} });
 
     this.masteryBuffs = {
       [SPELLS.ASTRAL_HARMONY.id]: { amount: 4000 },
@@ -42,8 +43,6 @@ class Mastery extends Module {
     };
     Object.values(this.masteryBuffs).forEach(entry => entry.attributableHealing = 0);
   }
-
-  // TODO handle pre proc mastery buffs? Looks like pre-hots are already handled by the system.
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
@@ -56,10 +55,10 @@ class Mastery extends Module {
 
     if (spellId in this.hotHealingAttrib) { this.hotHealingAttrib[spellId].direct += healVal.effective; }
 
-    if (ABILITIES_AFFECTED_BY_HEALING_INCREASES.includes(spellId)) {
+    if (getSpellInfo(spellId).mastery) {
       const hotsOn = target.activeBuffs()
           .map(buffObj => buffObj.ability.guid)
-          .filter(buffId => HEALS_MASTERY_STACK.includes(buffId));
+          .filter(buffId => getSpellInfo(buffId).masteryStack);
       const numHotsOn = hotsOn.length;
       const decomposedHeal = this._decompHeal(healVal, numHotsOn);
 

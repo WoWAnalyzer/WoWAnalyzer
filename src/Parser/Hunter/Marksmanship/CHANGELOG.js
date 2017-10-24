@@ -1,8 +1,10 @@
 export default `
 22-10-2017 - Updated suggestions overall, added avatar, removed Cyclonic Burst Impact from cooldown tracker, added suggestion to TimeFocusCapped, updated AlwaysBeCasting and CastEfficiency. (by Putro)
+22-10-2017 - Added trueshot statistic with average aimed pr trueshot, and average starting focus pr trueshot. (by Putro)
 22-10-2017 - Added tier 202p dmg increase breakdown. (by Putro)
 22-10-2017 - Added Soul of the Huntmaster, MKII Gyroscopic Stabilizer and War Belt of the Sentinel Army support. (by Putro)
 22-10-2017 - Added a graph for applications of vulnerable. (by Putro) 
+20-10-2017 - Added Medallion/TS pairing tooltip
 20-10-2017 - Added True aim and lock and load support. (by Putro)
 16-10-2017 - Added Ullrs Trueshot CDR support. (by Putro)
 16-10-2017 - Added Tier192p support. (by Putro)
