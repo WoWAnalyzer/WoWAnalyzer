@@ -6,7 +6,7 @@ import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import isAtonement from '../Core/isAtonement';
 import Penance from '../Spells/Penance';
 
-const TIER_20_TWO_SET_BONUS = 1;
+const TIER_20_TWO_SET_BONUS = 0.65;
 
 class Tier20_2set extends Module {
   static dependencies = {
@@ -29,7 +29,7 @@ class Tier20_2set extends Module {
     }
 
     this._secondPenanceBoltLastDamageEvent = true;
-    this.damage += (event.amount / 2);
+    this.damage += (event.amount / (1 + TIER_20_TWO_SET_BONUS));
   }
 
   on_byPlayer_heal(event) {
