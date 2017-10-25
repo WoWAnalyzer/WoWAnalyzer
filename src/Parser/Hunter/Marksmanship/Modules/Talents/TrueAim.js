@@ -5,10 +5,12 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-import { formatPercentage } from 'common/format';
+import { formatPercentage, formatNumber } from 'common/format';
 import StatisticBox from 'Main/StatisticBox';
+import getDamageBonus from "Parser/Hunter/Shared/Core/getDamageBonus";
 
 const MAX_STACKS = 10;
+const TRUE_AIM_MODIFIER = 0.02;
 
 class TrueAim extends Analyzer {
   static dependencies = {
@@ -22,6 +24,7 @@ class TrueAim extends Analyzer {
   //starts -1 because the stacks drop at end of combat, but that shouldn't count as a time where it dropped
   timesDropped = -1;
   totalTimesDropped = -1;
+  bonusDmg = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.TRUE_AIM_TALENT.id);
@@ -58,19 +61,32 @@ class TrueAim extends Analyzer {
     this._currentStacks = 0;
   }
 
-  statistic() {
-    const percentTimeAtMaxTAStacks = formatPercentage(this.timeAtMaxStacks / this.owner.fightDuration);
-    //only shows if timesDropped is greater than 0, to only show it on encounters where it might matter - we expect full uptime on any ST boss.
-      return (
-        <StatisticBox
-          icon={<SpellIcon id={SPELLS.TRUE_AIM_DEBUFF.id} />}
-          value={`${percentTimeAtMaxTAStacks} %`}
-          label="10 stack uptime"
-          tooltip={`You reset True Aim when you had 3 or more stacks (to exclude trickshot cleaving resets): ${this.timesDropped} times over the course of the encounter. <br />Your total amount of resets (including with trickshot cleaving) was: ${this.totalTimesDropped}.`}
-        />
-      );
+  on_byPlayer_damage(event) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.AIMED_SHOT.id && spellId !== SPELLS.ARCANE_SHOT.id) {
+      return;
+    }
+    if (spellId === SPELLS.AIMED_SHOT.id) {
+
+    }
+    if (spellId === SPELLS.ARCANE_SHOT.id) {
+
+    }
+    this.bonusDmg += getDamageBonus(event, (TRUE_AIM_MODIFIER * this._currentStacks));
   }
 
+  statistic() {
+    const percentTimeAtMaxTAStacks = formatPercentage(this.timeAtMaxStacks / this.owner.fightDuration);
+    return (
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.TRUE_AIM_DEBUFF.id} />}
+        value={`${percentTimeAtMaxTAStacks} %`}
+        label="10 stack uptime"
+        tooltip={`You reset True Aim when you had 3 or more stacks (to exclude trickshot cleaving resets): ${this.timesDropped} times over the course of the encounter. <br />Your total amount of resets (including with trickshot cleaving) was: ${this.totalTimesDropped}. <br /> True Aim contributed with           ${formatNumber(this.bonusDmg)} - ${this.owner.formatItemDamageDone(this.bonusDmg)}`}
+      />
+    );
+
+  }
 }
 
 export default TrueAim;
