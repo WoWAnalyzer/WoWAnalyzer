@@ -51,6 +51,7 @@ import TerrorFromBelow from './Modules/Items/TerrorFromBelow';
 import TomeOfUnravelingSanity from './Modules/Items/TomeOfUnravelingSanity';
 import InfernalCinders from './Modules/Items/InfernalCinders';
 import UmbralMoonglaives from './Modules/Items/UmbralMoonglaives';
+import CradleOfAnguish from './Modules/Items/CradleOfAnguish';
 
 // Shared Buffs
 import Concordance from './Modules/Spells/Concordance';
@@ -134,6 +135,7 @@ class CombatLogParser {
     spectralThurible: SpectralThurible,
     terrorFromBelow: TerrorFromBelow,
     tomeOfUnravelingSanity: TomeOfUnravelingSanity,
+    cradeOfAnguish: CradleOfAnguish,
 
     // Concordance of the Legionfall
     concordance: Concordance,
