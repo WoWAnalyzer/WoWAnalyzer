@@ -37,7 +37,7 @@ class Tier20_2set extends Module {
     // Friendly Penance
     const spellId = event.ability.guid;
     if (spellId === SPELLS.PENANCE_HEAL.id) {
-      if (event.penanceBoltNumber === 1) {
+      if (event.penanceBoltNumber === 0) {
         this.healing += calculateEffectiveHealing(event, TIER_20_TWO_SET_BONUS);
       }
     }
