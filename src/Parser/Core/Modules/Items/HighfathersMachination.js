@@ -2,10 +2,10 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-class HighfathersMachination extends Module {
+class HighfathersMachination extends Analyzer {
   static dependencies = {
       combatants: Combatants,
   };
