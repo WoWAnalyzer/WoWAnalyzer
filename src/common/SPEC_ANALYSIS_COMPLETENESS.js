@@ -27,7 +27,7 @@ export function getCompletenessColor(completeness) {
     case SPEC_ANALYSIS_COMPLETENESS.GOOD:
       return '#05f0fd';
     case SPEC_ANALYSIS_COMPLETENESS.NEEDS_MORE_WORK:
-      return 'rgba(255, 212, 0, 0.5)';
+      return 'rgba(255, 212, 0, 0.8)';
     case SPEC_ANALYSIS_COMPLETENESS.NOT_ACTIVELY_MAINTAINED:
       return 'red';
     default:
