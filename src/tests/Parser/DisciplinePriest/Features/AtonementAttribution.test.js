@@ -96,34 +96,4 @@ describe('DisciplinePriest.Reordering', () => {
     expect(result[4]).toBe(DamagingEvent2);
   });
 
-  it('If 3 damaging events happen simultaneously, the atonement ahead is split in three', () => {
-
-    const AtonementOf2DamingEventsGroupedTogether = [
-      AtonementOnPlayer2,
-      DamagingEvent1,
-      DamagingEvent2,
-      DamagingEvent3,
-      AtonementOnPlayer1,
-      AtonementOnPlayer2,
-      AtonementOnPlayer1,
-      AtonementOnPlayer2,
-      AtonementOnPlayer1,
-      AtonementOnPlayer2
-    ];
-
-    let result = atonementAtribution._reorderAtonementEventsFromSuccesiveDamagingEvents(AtonementOf2DamingEventsGroupedTogether);
-    console.log(result);
-    expect(result[0]).toBe(AtonementOnPlayer2);
-    expect(result[1]).toBe(DamagingEvent1);
-    expect(result[2]).toBe(AtonementOnPlayer1);
-    expect(result[3]).toBe(AtonementOnPlayer2);
-    expect(result[4]).toBe(DamagingEvent2);
-    expect(result[5]).toBe(AtonementOnPlayer1);
-    expect(result[6]).toBe(AtonementOnPlayer2);
-    expect(result[7]).toBe(DamagingEvent3);
-    expect(result[8]).toBe(AtonementOnPlayer1);
-    expect(result[9]).toBe(AtonementOnPlayer2);
-
-  });
-
 });
