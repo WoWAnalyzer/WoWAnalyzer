@@ -13,30 +13,27 @@ class AtonementAttribution extends Module {
    * @returns {Array}
    */
   reorderEvents(events) {
-
     let fixedEvents = [];
     let _encounteredTargetIDs = [];
+    let _damageEventIndexes = [];
 
     events.forEach((event, eventIndex) => {
 
       fixedEvents.push(event);
 
       if(event.type == "damage" && event.sourceIsFriendly){
+        _damageEventIndexes.push(eventIndex);
         _encounteredTargetIDs = [];
         return;
       }
 
       if(event.type == "heal" && isAtonement(event)) {
 
+        // We encountered a targetID we already encountered since the last damage
+        // event. We push down the last damage event here
         if(_encounteredTargetIDs.indexOf(event.targetID) >= 0) {
-
-          //  We found a repeating targetID. Move the last damaging event here
-          for(let j = fixedEvents.length - 1; j > 0; j--) {
-            if(fixedEvents[j].type == "damage" && fixedEvents[j].sourceIsFriendly) {
-              fixedEvents.splice(fixedEvents.length - 2, 0, fixedEvents.splice(j, 1)[0]);
-              break;
-            }
-          }
+          let lastDamageEvent = fixedEvents.splice(_damageEventIndexes[_damageEventIndexes.length -1], 1)[0];
+          fixedEvents.splice(fixedEvents.length - 1, 0, lastDamageEvent);
           _encounteredTargetIDs = [];
           return;
         }
