@@ -20,6 +20,7 @@ class AMurderOfCrows extends Analyzer {
     this.active = this.combatants.selected.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id);
   }
 
+  //TODO: Add some sort of HP checker for the casts to ensure it isn't cast at below 25% hp (maybe)
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.A_MURDER_OF_CROWS_SPELL.id) {
