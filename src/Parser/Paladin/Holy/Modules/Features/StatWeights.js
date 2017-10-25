@@ -21,8 +21,8 @@ const ARMOR_INT_MULTIPLIER = 1.05; // 5% int bonus from wearing all leather mean
  *
  * Approach -
  * This module generates the players stat weights using the actual logged events. We keep a listing of all the player's healing spells
- * along with which stats those spells scales with, and for each stat a heal scales with we do some simple math to find out
- * how much more it would have healed if the player had one more of that stat. We compare the total healing increases
+ * along with which stats those spells scales with, and for each stat a heal scales with we do some math to find out
+ * how much the last point of that stat contributed in healing. We compare the total healing increases
  * caused by seperately increasing each stat by one in order to generate weights.
  *
  * Overheal -
@@ -214,6 +214,17 @@ class StatWeights extends Analyzer {
     return { baseCritChance, ratingCritChance };
   }
   _criticalStrikeEffectiveHealing(event, healVal) {
+    // Imagine when you average out a fight this is the result with 33% crit chance (10,000 rating) total:
+    // ```
+    // type effective overheal   raw
+    // hit      1,000        0 1,000
+    // hit      1,000        0 1,000
+    // crit     1,500      500 2,000
+    // ```
+    // This approach would ignore the two hits completely and focus on the crit.
+    // The crit's base healing was `1,000`, the raw crit part `1,000` and `500` of the crit part was effective crit healing. `1` crit rating would be worth `500 / crit rating` if we didn't get a `8%` base crit chance. Doing `500 * (1 - (8% / 33%))` gives us the averaged out value of the crit **rating** alone; `378,79`, dividing this by the crit rating gets us the value per one stat; `378,79 / 10,000 = 0,0379` healing per rating.
+    // If we had 9% crit, the 500 effective healing gained from the rating would be just 55 HP after adjusting for base crit chance, which makes sense as only a fraction of the crit is gained from the rating.
+
     if (event.hitType === HIT_TYPES.CRIT) {
       // This collects the total effective healing contributed by the last 1 point of critical strike rating.
       // We don't make any predictions on normal hits based on crit chance since this would be guess work and we are a log analysis system so we prefer to only work with facts. Actual crit heals are undeniable facts, unlike speculating the chance a normal hit might have crit (and accounting for the potential overhealing of that).
@@ -267,6 +278,9 @@ class StatWeights extends Analyzer {
     }
   }
   _hasteHpct(event, healVal) {
+    // Calculate Haste
+    // my current hypothesis is to consider 1% of all healing done with spells with GCDs/channels affected by Haste to be considered the basis for the value of 1% Haste (since 1% Haste allows you to cast these spells 1% more often), but if someone ran OOM at the end of the fight you'd consider the Haste value to be 0.
+
     // const currHastePerc = this.combatants.selected.hastePercentage; // TODO replace when dynamic stats
     // const bonusFromOneHaste = 1 / 37500; // TODO replace when stat constants exist
     // const noHasteHealing = amount / (1 + currHastePerc);
