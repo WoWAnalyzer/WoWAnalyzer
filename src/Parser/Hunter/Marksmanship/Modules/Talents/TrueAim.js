@@ -72,10 +72,10 @@ class TrueAim extends Analyzer {
       return;
     }
     if (spellId === SPELLS.AIMED_SHOT.id) {
-      this.aimedBonusDmg += getDamageBonus(event, (TRUE_AIM_MODIFIER*this._currentStacks));
+      this.aimedBonusDmg += getDamageBonus(event, (TRUE_AIM_MODIFIER * this._currentStacks));
     }
     if (spellId === SPELLS.ARCANE_SHOT.id) {
-      this.arcaneBonusDmg += getDamageBonus(event, (TRUE_AIM_MODIFIER*this._currentStacks));
+      this.arcaneBonusDmg += getDamageBonus(event, (TRUE_AIM_MODIFIER * this._currentStacks));
     }
     this.bonusDmg += getDamageBonus(event, (TRUE_AIM_MODIFIER * this._currentStacks));
   }
@@ -87,8 +87,12 @@ class TrueAim extends Analyzer {
         icon={<SpellIcon id={SPELLS.TRUE_AIM_DEBUFF.id} />}
         value={`${percentTimeAtMaxTAStacks} %`}
         label="10 stack uptime"
-        tooltip={`You reset True Aim when you had 3 or more stacks (to exclude trickshot cleaving resets): ${this.timesDropped} times over the course of the encounter. <br />Your total amount of resets (including with trickshot cleaving) was: ${this.totalTimesDropped}. <br /> True Aim contributed with           ${formatNumber(this.bonusDmg)} - ${this.owner.formatItemDamageDone(this.bonusDmg)}. <br/> Aimed Shot did ${formatPercentage(
-          this.aimedBonusDmg/this.bonusDmg)}% of that and Arcane Shot did ${formatPercentage(this.arcaneBonusDmg/this.bonusDmg)}%.`}
+        tooltip={`You reset True Aim when you had 3 or more stacks (to exclude trickshot cleaving resets): ${this.timesDropped} times over the course of the encounter. <br />Your total amount of resets (including with trickshot cleaving) was: ${this.totalTimesDropped}. <br />
+True Aim contributed with ${formatNumber(this.bonusDmg)} - ${this.owner.formatItemDamageDone(this.bonusDmg)}.
+<ul>
+<li> Aimed Shot contributed ${formatPercentage(this.aimedBonusDmg / this.bonusDmg)}%.</li>
+<li>Arcane Shot contributed ${formatPercentage(this.arcaneBonusDmg / this.bonusDmg)}%.</li>
+</ul>`}
       />
     );
 
