@@ -18,7 +18,7 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 90,
       recommendedCastEfficiency: 0.95,
-      extraSuggestion: <span>This is one of your main DPS CDs.  It is okay to not use it immediately if you are wearing <ItemLink id={ITEMS.TAKTHERITRIXS_SHOULDERPADS.id}/>, with <SpellLink id={SPELLS.DARK_ARBITER_TALENT.id}/> and <SpellLink id={SPELLS.DARK_TRANSFORMATION.id}/> having less than 10 seconds left on their CDs. However <SpellLink id={SPELLS.DARK_ARBITER_TALENT.id}/> takes priority for being empowered by <ItemLink id={ITEMS.TAKTHERITRIXS_SHOULDERPADS.id}/>. </span>,
+      extraSuggestion: <span>This is one of your main DPS cooldown.  It is okay to not use it immediately if you are wearing <ItemLink id={ITEMS.TAKTHERITRIXS_SHOULDERPADS.id}/>, with <SpellLink id={SPELLS.DARK_ARBITER_TALENT.id}/> and <SpellLink id={SPELLS.DARK_TRANSFORMATION.id}/> having less than 10 seconds left on their CDs. However <SpellLink id={SPELLS.DARK_ARBITER_TALENT.id}/> takes priority for being empowered by <ItemLink id={ITEMS.TAKTHERITRIXS_SHOULDERPADS.id}/>. </span>,
     },
 
     {
@@ -35,7 +35,7 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 120, // TODO: needs to account for CoF
       recommendedCastEfficiency: 0.90,
       isActive: combatant => combatant.hasTalent(SPELLS.DARK_ARBITER_TALENT.id),
-      extraSuggestion: 'This is your main DPS CD. Cast this off cooldown, if you are wearing <ItemLink id={ITEMS.TAKTHERITRIXS_SHOULDERPADS.id}/> make sure <SpellLink id={SPELLS.DARK_TRANSFORMATION.id}/> can be cast immediatly after.',
+      extraSuggestion: 'This is your main DPS cooldown. Cast this off cooldown, and if you are wearing <ItemLink id={ITEMS.TAKTHERITRIXS_SHOULDERPADS.id}/> make sure <SpellLink id={SPELLS.DARK_TRANSFORMATION.id}/> can be cast immediatly after.',
     },
 
     {
@@ -44,7 +44,7 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 180, // TODO: needs to account for CoF
       recommendedCastEfficiency: 0.90,
       isActive: combatant => combatant.hasTalent(SPELLS.DEFILE_TALENT.id) || combatant.hasTalent(SPELLS.SOUL_REAPER_TALENT.id),
-      extraSuggestion: 'This is one your main DPS CDs.  Cast this off cooldown, if you are wearing <ItemLink id={ITEMS.TAKTHERITRIXS_SHOULDERPADS.id}/> make sure <SpellLink id={SPELLS.DARK_TRANSFORMATION.id}/> can be cast immediatly after.',
+      extraSuggestion: 'This is your main DPS cooldown.  Cast this off cooldown, if you are wearing <ItemLink id={ITEMS.TAKTHERITRIXS_SHOULDERPADS.id}/> make sure <SpellLink id={SPELLS.DARK_TRANSFORMATION.id}/> can be cast immediatly after.',
     },
   ];
 }
