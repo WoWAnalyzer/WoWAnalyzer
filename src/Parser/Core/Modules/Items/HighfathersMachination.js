@@ -44,7 +44,7 @@ class HighfathersMachination extends Analyzer {
     return {
       item: ITEMS.HIGHFATHERS_MACHINATION,
       result: (
-        <dfn data-tip={`The trinket applied a total of ${this.totalProc} healing stacks.<br>${procWasted} stacks were wasted and didn\'t contribute to healing.`}>
+        <dfn data-tip={`The trinket applied a total of ${this.totalProc} healing stacks.<br>${procWasted} stacks were wasted and didn't contribute to healing.`}>
         {this.owner.formatItemHealingDone(this.healing)}
         </dfn>),
     };
