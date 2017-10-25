@@ -1,10 +1,10 @@
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-class TarratusKeystone extends Module {
+class TarratusKeystone extends Analyzer {
   static dependencies = {
       combatants: Combatants,
   };
