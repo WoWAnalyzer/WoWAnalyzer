@@ -1,4 +1,5 @@
 export default `
+25-10-2017 - Updated Cast Efficiency because of nerfs to T19 2pc - thanks blizz - also added some rarely used talents(by Juko)
 23-10-2017 - Added tracking of Fists of Fury ticks (by Juko)
 17-10-2017 - Updated Cast Efficiency - Will now reduce cooldowns on Strike of the Windlord and Rising Sun kick based on legendary head and T19 2p but Serenity implementation isn't working - also added Cenedril, Emperors Capacitor and Soul to legendary breakdown (by Juko)
 15-10-2017 - Added tracking of Chi saved by Katsuo's Eclipse (by Juko) - Also finished AlwaysBeCasting (by Juko)
