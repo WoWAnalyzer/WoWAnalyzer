@@ -42,7 +42,6 @@ import PatientSniperTracker from './Modules/Talents/PatientSniper/PatientSniperT
 import PatientSniperDetails from "./Modules/Talents/PatientSniper/PatientSniperDetails";
 import Volley from './Modules/Talents/Volley';
 
-
 //Traits
 import QuickShot from './Modules/Traits/QuickShot';
 import ExplosiveShot from "./Modules/Talents/ExplosiveShot";
@@ -75,7 +74,6 @@ class CombatLogParser extends CoreCombatLogParser {
     soulOfTheHuntmaster: SoulOfTheHuntmaster,
     mkiiGyroscopicStabilizer: MKIIGyroscopicStabilizer,
     warBeltOfTheSentinelArmy: WarBeltOfTheSentinelArmy,
-
 
     //Spells
     trueshot: Trueshot,
