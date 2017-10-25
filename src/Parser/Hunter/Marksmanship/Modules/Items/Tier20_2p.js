@@ -8,7 +8,7 @@ import HIT_TYPES from "Parser/Core/HIT_TYPES";
 import { formatPercentage, formatNumber} from "common/format";
 import getDamageBonus from "Parser/Hunter/Shared/Core/getDamageBonus";
 
-const T20_2P_CRIT_DMG_BONUS = 0.15;
+const T20_2P_CRIT_DMG_BONUS = 0.1;
 
 class Tier20_2p extends Analyzer {
   static dependencies = {
