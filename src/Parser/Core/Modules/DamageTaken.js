@@ -4,13 +4,13 @@ import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import MAGIC_SCHOOLS from 'common/MAGIC_SCHOOLS';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import DamageValue from './DamageValue';
 
-class DamageTaken extends Module {
+class DamageTaken extends Analyzer {
   static IGNORED_ABILITIES = [
     SPELLS.SPIRIT_LINK_TOTEM_REDISTRIBUTE.id,
   ];

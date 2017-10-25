@@ -1,9 +1,9 @@
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 
 import SpellManaCost from './SpellManaCost';
 
-class AbilityTracker extends Module {
+class AbilityTracker extends Analyzer {
   static dependencies = {
     spellManaCost: SpellManaCost,
   };

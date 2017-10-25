@@ -4,11 +4,11 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 import CHI_SPENDERS from 'Parser/Monk/Windwalker/Constants';
 
-class TheEmperorsCapacitor extends Module {
+class TheEmperorsCapacitor extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

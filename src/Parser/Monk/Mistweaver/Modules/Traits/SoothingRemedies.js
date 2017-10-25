@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -15,7 +15,7 @@ const SOOTHING_REMEDIES_HEALING_INCREASE = 0.03;
  * Soothing Remedies (Artifact Trait)
  * Increases healing done by Soothing Mist by 3%.
  */
-class SoothingRemedies extends Module {
+class SoothingRemedies extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

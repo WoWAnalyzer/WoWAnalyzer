@@ -1,11 +1,11 @@
 import ITEMS from 'common/ITEMS';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 const OBSIDIAN_STONE_SPAULDERS_HEAL_SPELL_ID = 210999;
 
-class ObsidianStoneSpaulders extends Module {
+class ObsidianStoneSpaulders extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

@@ -2,12 +2,12 @@ import SPELLS from 'common/SPELLS';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 
 const debug = false;
 
-class CelestialBreath extends Module {
+class CelestialBreath extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

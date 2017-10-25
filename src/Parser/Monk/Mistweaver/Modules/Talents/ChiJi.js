@@ -1,12 +1,12 @@
 import SPELLS from 'common/SPELLS';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 const debug = false;
 
-class ChiJi extends Module {
+class ChiJi extends Analyzer {
   static dependencies = {
     healingDone: HealingDone,
     combatants: Combatants,

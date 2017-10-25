@@ -3,7 +3,7 @@ import React from 'react';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 
 import Tab from 'Main/Tab';
@@ -18,7 +18,7 @@ import Haste from './Haste';
 
 /* eslint-disable no-unused-vars */
 
-class CastEfficiency extends Module {
+class CastEfficiency extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
     combatants: Combatants,
@@ -50,10 +50,9 @@ class CastEfficiency extends Module {
      * optional extraSuggestion {string} Provide additional information in the suggestion.
      *
      * Rarely necessary:
-     * optional hideWithZeroCasts {bool} A boolean to indicate the spell should be hidden when there are 0 casts in the fight. This should only be used for spells that can't be detected if a player has access to them, like racials.
+     * optional isUndetectable {bool} A boolean to indicate it can not be detected whether the player his this spells. This makes it so the spell is hidden when there are 0 casts in the fight. This should only be used for spells that can't be detected if a player has access to them, like racials.
      * optional getCasts {func} A function to get the amount of casts done of a spell. Parameters provided: `castCount`, `parser`
      * optional getMaxCasts {func} A function to get the max amount of casts for a spell. Parameters provided: `cooldown`, `fightDuration`, `getAbility`, `parser`
-     * optional getOverhealing {func} A function to get the overhealing for a spell. Parameters provided: `castCount`, `getAbility`, `parser`
      * optional importance {string} If set, this suggestion will get this static importance value. Use this ISSUE_IMPORTANCE enum for this.
      */
 

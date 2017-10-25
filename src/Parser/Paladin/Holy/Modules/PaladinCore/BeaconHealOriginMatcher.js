@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import BeaconTargets from './BeaconTargets';
@@ -9,7 +9,7 @@ import LightOfDawn from './LightOfDawn';
 
 const debug = false;
 
-class BeaconHealOriginMatcher extends Module {
+class BeaconHealOriginMatcher extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     beaconTargets: BeaconTargets,

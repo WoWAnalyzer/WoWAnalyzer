@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
@@ -12,7 +12,7 @@ import getDamageBonus from '../../WarlockCore/getDamageBonus';
 
 const DAMAGE_BONUS_PER_STACK = 0.03;
 
-class WakenersLoyalty extends Module {
+class WakenersLoyalty extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     abilityTracker: AbilityTracker,

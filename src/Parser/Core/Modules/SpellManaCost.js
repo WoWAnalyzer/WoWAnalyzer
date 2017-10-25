@@ -1,10 +1,10 @@
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-class SpellManaCost extends Module {
+class SpellManaCost extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

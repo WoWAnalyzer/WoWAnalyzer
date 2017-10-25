@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatNumber } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -18,7 +18,7 @@ const LIGHTS_EMBRACE_BEACON_HEAL_INCREASE = 0.4;
 /**
  * 4 pieces (Holy) : For 5 sec after casting Light of Dawn, your healing spells will transfer an additional 40% to your Beacon of Light target.
  */
-class Tier20_4set extends Module {
+class Tier20_4set extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     lightOfDawn: LightOfDawn,

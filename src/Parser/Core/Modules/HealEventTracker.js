@@ -1,6 +1,6 @@
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
-class HealEventTracker extends Module {
+class HealEventTracker extends Analyzer {
   events = [];
   on_byPlayer_heal(event) {
     this.events.push(event);

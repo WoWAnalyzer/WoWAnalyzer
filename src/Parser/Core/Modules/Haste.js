@@ -2,12 +2,12 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import { formatPercentage, formatMilliseconds } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 const debug = false;
 
-class Haste extends Module {
+class Haste extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
@@ -36,6 +36,7 @@ class Haste extends Module {
     [SPELLS.LINGERING_INSANITY.id]: 0.01,
     [SPELLS.VOIDFORM_BUFF.id]: 0.01,
     [SPELLS.ICY_VEINS.id]: 0.3,
+    [SPELLS.BONE_SHIELD.id]: 0.1, // Blood BK haste buff from maintaining boneshield
 
     // Boss abilities:
     [209166]: 0.3, // DEBUFF - Fast Time from Elisande

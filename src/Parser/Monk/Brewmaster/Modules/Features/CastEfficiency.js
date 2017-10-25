@@ -36,6 +36,7 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.RUSHING_JADE_WIND_TALENT,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 6 / (1 + haste),
+      isActive: combatant => combatant.hasTalent(SPELLS.RUSHING_JADE_WIND_TALENT.id),
     },
     {
       spell: SPELLS.CRACKLING_JADE_LIGHTNING,
@@ -145,13 +146,11 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.DETOX,
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => null,
-      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.EFFUSE,
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => null,
-      hideWithZeroCasts: true,
     },
     {
       spell: SPELLS.TIGERS_LUST_TALENT,

@@ -5,7 +5,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ManaValues from 'Parser/Core/Modules/ManaValues';
 
@@ -15,7 +15,7 @@ import PaladinAbilityTracker from './PaladinAbilityTracker';
 
 const CHART_SIZE = 75;
 
-class CastBehavior extends Module {
+class CastBehavior extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     abilityTracker: PaladinAbilityTracker,

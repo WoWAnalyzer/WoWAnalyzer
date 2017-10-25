@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
@@ -11,7 +11,7 @@ import getDamageBonus from '../WarlockCore/getDamageBonus';
 
 const AC_DAMAGE_BONUS = 0.25;
 
-class AbsoluteCorruption extends Module {
+class AbsoluteCorruption extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

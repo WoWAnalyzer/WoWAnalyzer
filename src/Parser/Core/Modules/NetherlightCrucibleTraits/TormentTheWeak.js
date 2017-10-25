@@ -5,14 +5,14 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 /**
  * Torment the Weak
  * Your spells and abilities have a chance to deal 80000 Shadow damage over 15 sec. This effect stacks up to 3 times.
  */
-class TormentTheWeak extends Module {
+class TormentTheWeak extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

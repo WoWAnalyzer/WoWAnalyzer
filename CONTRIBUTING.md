@@ -11,7 +11,7 @@ To get the code running on your computer you will need a few things. You might a
 1. [Make a *fork* of the repo](https://help.github.com/articles/fork-a-repo/); this is your own public copy on GitHub for you to work in before sharing it.
 2. [Get Git.](https://git-scm.com/) You can also consider installing the [GitHub Desktop](https://desktop.github.com/) client to get an interface to work with.
 3. Clone your fork to your computer.
-4. [Get NodeJS (6+).](https://nodejs.org/en/)
+4. [Get NodeJS (6+, it's recommended to get the "current" edition).](https://nodejs.org/en/)
 5. Open a command window to the cloned repo (do this after installing Node).
 6. Run this command: `npm install`, this will take a minute.
 7. Meanwhile:
@@ -63,6 +63,20 @@ How to develop parts of the app is further explained in the following files:
 - [CONTRIBUTING.MODULE.md](CONTRIBUTING.MODULE.md): Information on how to create a module.
 
 Continue reading below for more general contribution information.
+
+# Quick start
+
+The main structure of the project is as follows:
+
+ - `/src` has all code for the front-end analysis
+   - `/src/common` has a lot of utilities, you'll probably have to add to the `SPELLS` and `ITEMS` at some point if you're adding analyzers.
+   - `/src/Main` has core layout stuff, you don't need this at all for analyzers.
+   - `/src/Parser` this has all the combat log parsing and analyzers.
+     - `/src/Parser/Core` "Core" is the name for everything that's shared across most specs. This folder contains most of the shared classes and analyzers.
+     - `/src/Parser/AVAILABLE_CONFIGS.js` this provides a list of all available specs, when adding a new spec you will have to link it here for it to appear.
+   - `/src/tests` **deprecated**, the old test location. Please add new tests next to the file they're testing with the `*.test.js` naming convention.
+   - `src/CHANGELOG.js` the changelog for core features (anything all users might notice).
+ - `/server` has the code for the back-end (the DiscordBot is in another repo, click the organization to find it)
 
 # Sharing your changes
 

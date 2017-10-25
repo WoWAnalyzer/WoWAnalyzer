@@ -4,11 +4,11 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import SmallStatisticBox, { STATISTIC_ORDER } from 'Main/SmallStatisticBox';
 
 import TyrsMunificence from '../Traits/TyrsMunificence';
 
@@ -17,7 +17,7 @@ const debug = true;
 const TYRS_DELIVERANCE_BASE_HEALING_INCREASE = 0.2;
 const TYRS_MUNIFICENCE_POINT_HEALING_INCREASE = 0.05;
 
-class TyrsDeliverance extends Module {
+class TyrsDeliverance extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     tyrsMunificence: TyrsMunificence,
@@ -78,7 +78,7 @@ class TyrsDeliverance extends Module {
     const tyrsDeliverancePercentage = tyrsDeliveranceHealHealingPercentage + tyrsDeliveranceBuffFoLHLHealingPercentage;
 
     return (
-      <StatisticBox
+      <SmallStatisticBox
         icon={<SpellIcon id={SPELLS.TYRS_DELIVERANCE_CAST.id} />}
         value={`${formatPercentage(tyrsDeliverancePercentage)} %`}
         label="Tyr's Deliverance healing"
@@ -86,7 +86,7 @@ class TyrsDeliverance extends Module {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.TRAITS();
+  statisticOrder = STATISTIC_ORDER.UNIMPORTANT();
 }
 
 export default TyrsDeliverance;
