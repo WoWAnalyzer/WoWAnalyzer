@@ -21,6 +21,7 @@ class TrickShot extends Analyzer {
     this.active = this.combatants.selected.hasTalent(SPELLS.TRICK_SHOT_TALENT.id);
   }
 
+  // TODO: Find a good way tracking Trick Shot cleave damage
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
     if(spellId !== SPELLS.AIMED_SHOT.id) {

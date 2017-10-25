@@ -35,10 +35,6 @@ class AimedInVulnerableTracker extends Analyzer {
     } else {
       if (windburstIsOnCooldown && !this.combatants.selected.hasBuff(SPELLS.MARKING_TARGETS.id) && event.classResources[0]['amount'] > 105) {
         this.focusDumpAimed += 1;
-        /*        if(!this.combatants.selected.hasBuff(SPELLS.MARKING_TARGETS.id))
-                  if(event.classResources[0]['amount'] > 105) {
-
-                  }*/
       }
       this.outsideVulnerabilityAimed += 1;
     }
@@ -49,7 +45,7 @@ class AimedInVulnerableTracker extends Analyzer {
     const percentFocusDumpAimed = this.focusDumpAimed / this.totalAimed;
     when(percentAimedOutsideVulnerable).isGreaterThan(0.02)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span> You cast {this.outsideVulnerabilityAimed} <SpellLink id={SPELLS.AIMED_SHOT.id} />s outside <SpellLink id={SPELLS.VULNERABLE.id} />. Try and minimize these, as they deal significantly less damage than their <SpellLink id={SPELLS.VULNERABLE.id} /> counterparts. It should be noted that rarely, you will be casting non-vulnerable aimeds due to no procs and/or focus capping. <br /> Note: <SpellLink id={SPELLS.VULNERABLE.id} /> damage is calculated on <u><strong>CAST END</strong></u>, so Aimed Shot doesn't have to hit inside the window, for it to register properly - use this knowledge to your advantage to squeeze more <SpellLink id={SPELLS.AIMED_SHOT.id} />s inside the <SpellLink id={SPELLS.VULNERABLE.id} /> window. </span>)
+        return suggest(<span> You cast {this.outsideVulnerabilityAimed} <SpellLink id={SPELLS.AIMED_SHOT.id} />s outside <SpellLink id={SPELLS.VULNERABLE.id} />. Try and minimize these, as they deal significantly less damage than their <SpellLink id={SPELLS.VULNERABLE.id} /> counterparts. It should be noted that rarely, you will be casting non-vulnerable aimeds due to no procs and/or focus capping. <br /> Note: <SpellLink id={SPELLS.VULNERABLE.id} /> damage is calculated on <u><strong>CAST END</strong></u>, so Aimed Shot does not have to hit inside the window, for it to register properly - use this knowledge to your advantage to squeeze more <SpellLink id={SPELLS.AIMED_SHOT.id} />s inside the <SpellLink id={SPELLS.VULNERABLE.id} /> window. </span>)
           .icon(SPELLS.AIMED_SHOT.icon)
           .actual(`${formatPercentage(actual)}% of total Aimed Shots were outside Vulnerable, ${formatPercentage(percentFocusDumpAimed/actual)}% of those were to dump focus`)
           .recommended(`<${formatPercentage(recommended)}% outside Vulnerable is recommended, with 0% being the ideal`)

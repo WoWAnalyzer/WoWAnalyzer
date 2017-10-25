@@ -41,13 +41,14 @@ import TrueAim from './Modules/Talents/TrueAim';
 import PatientSniperTracker from './Modules/Talents/PatientSniper/PatientSniperTracker';
 import PatientSniperDetails from "./Modules/Talents/PatientSniper/PatientSniperDetails";
 import Volley from './Modules/Talents/Volley';
-
-//Traits
-import QuickShot from './Modules/Traits/QuickShot';
 import ExplosiveShot from "./Modules/Talents/ExplosiveShot";
 import PiercingShot from "./Modules/Talents/PiercingShot";
 import AMurderOfCrows from "./Modules/Talents/AMurderOfCrows";
 import TrickShot from "./Modules/Talents/TrickShot";
+
+//Traits
+import QuickShot from './Modules/Traits/QuickShot';
+
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
