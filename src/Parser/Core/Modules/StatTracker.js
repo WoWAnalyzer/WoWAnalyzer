@@ -4,13 +4,13 @@ import SPECS from 'common/SPECS';
 import { calculateSecondaryStatDefault } from 'common/stats';
 import { formatMilliseconds } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 const debug = true;
 
 // TODO: stat constants somewhere else? they're largely copied from combatant
-class StatTracker extends Module {
+class StatTracker extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
