@@ -23,7 +23,7 @@ class Tier20_2set extends Module {
   }
 
   on_byPlayer_damage(event) {
-    if (event.ability.guid !== SPELLS.PENANCE.id || event.penanceBoltNumber !== 1) {
+    if (event.ability.guid !== SPELLS.PENANCE.id || event.penanceBoltNumber !== 0) {
       this._secondPenanceBoltLastDamageEvent = false;
       return;
     }
@@ -33,6 +33,8 @@ class Tier20_2set extends Module {
   }
 
   on_byPlayer_heal(event) {
+
+    // Friendly Penance
     const spellId = event.ability.guid;
     if (spellId === SPELLS.PENANCE_HEAL.id) {
       if (event.penanceBoltNumber === 1) {
