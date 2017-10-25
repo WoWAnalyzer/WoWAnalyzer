@@ -1,4 +1,5 @@
 export default `
+25-10-2017 - Added T21 healing trinkets: Tarratus Keystone and Highfather's Machination. (by Dyspho)
 22-10-2017 - Fixed a crash when a player's info errored. Instead the affected player will become unselectable. (by Zerotorescue)
 22-10-2017 - Change a bunch of less important statistics to a smaller statistic box to reduce their emphasis and reduce clutter. (by Zerotorescue)
 22-10-2017 - Fixed a bunch of crashes and improved browser support. (by Zerotorescue)
