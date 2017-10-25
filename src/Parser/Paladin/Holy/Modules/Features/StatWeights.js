@@ -112,37 +112,17 @@ class StatWeights extends Analyzer {
     const healVal = new HealingValue(event.amount, event.absorbed, event.overheal);
     this._handleHeal(event, healVal);
   }
-
   on_byPlayer_absorbed(event) {
     const healVal = new HealingValue(event.amount, 0, 0);
     this._handleHeal(event, healVal);
   }
-
-  on_toPlayer_damage(event) {
-    const damageVal = new DamageValue(event.amount, event.absorbed, event.overkill);
-    this._handleDamage(event, damageVal);
-  }
-
   _handleHeal(event, healVal) {
-    const spellId = event.ability.guid;
     const target = this.combatants.getEntity(event);
     if (target === null) {
       return;
     }
 
-    const amount = healVal.effective;
     const spellInfo = getSpellInfo(event.ability.guid);
-
-    // region LEECH
-    // We have to calculate leech weight differently depending on if we already have any leech rating.
-    // Leech is marked as a 'multplier' heal, so we have to check it before we do the early return below
-    const hasLeech = this.combatants.selected.leechRating > 0; // TODO replace when dynamic stats
-    if (hasLeech && spellId === SPELLS.LEECH.id && !healVal.overheal) {
-      this.totalOneLeech += amount / this.combatants.selected.leechRating; // TODO replace when dynamic stats
-    } else if (!hasLeech) {
-      // TODO this will be a pain to implement
-    }
-    // endregion
 
     // Most spells are counted in healing total, but some spells scale not on their own but 'second hand' from other spells
     // I adjust them out of total healing to preserve some accuracy in the "Rating per 1%" stat.
@@ -151,64 +131,161 @@ class StatWeights extends Analyzer {
       this.totalAdjustedHealing += healVal.effective;
     }
 
-    // Multiplier spells and explicitly ignored spells aren't counted for weights.
-    // If a spell overheals, it could not have healed for more, so we also don't give it a weight because it can't be increased.
-    if (spellInfo.multiplier || spellInfo.ignored || healVal.overheal) {
+    if (spellInfo.ignored) {
+      return;
+    }
+    if (healVal.overheal) {
+      // If a spell overheals, it could not have healed for more, so we also don't give it a weight because it can't be increased.
       return;
     }
 
-    // region INT
+    this._leech(event, healVal);
+    if (spellInfo.multiplier) {
+      // Multiplier spells aren't counted for weights because they don't **directly** benefit from stat weights
+      return;
+    }
+
     if (spellInfo.int) {
-      const currInt = this._getCurrInt(); // TODO replace when dynamic stats
-      const bonusFromOneInt = (1 / currInt) * ARMOR_INT_MULTIPLIER;
-      this.totalOneInt += amount * bonusFromOneInt;
+      this._intellect(event, healVal);
     }
-    // endregion
-
-    // region CRIT
     if (spellInfo.crit) {
-      // const currCritPerc = this.combatants.selected.critPercentage; // TODO replace when dynamic stats
-      const bonusFromOneCrit = 1 / 40000; // TODO replace when stat constants exist
-      // if(spellId === SPELLS.HOLY_SHOCK_HEAL.id) {
-      // Living Seed doesn't crit, but it procs from crits only. This calculation approximates increased LS frequency due to more crits.
-      // const additionalLivingSeedChance = bonusFromOneCrit / currCritPerc;
-      // this.totalOneCrit += additionalLivingSeedChance * amount;
-      // } else {
-      const critMult = this.critEffectBonus.getBonus(event);
-      const noCritHealing = event.hitType === HIT_TYPES.CRIT ? amount / critMult : amount;
-      this.totalOneCrit += noCritHealing * bonusFromOneCrit * (critMult - 1);
-      // }
+      this._criticalStrike(event, healVal);
     }
-    // endregion
-
-    // region HASTE
     if (spellInfo.hasteHpct) {
-      // const currHastePerc = this.combatants.selected.hastePercentage; // TODO replace when dynamic stats
-      // const bonusFromOneHaste = 1 / 37500; // TODO replace when stat constants exist
-      // const noHasteHealing = amount / (1 + currHastePerc);
-      // this.totalOneHasteHpm += bonusFromOneHaste * noHasteHealing;
-      // NYI
+      this._hasteHpct(event, healVal);
     }
-    // endregion
-
-    // region MASTERY
     if (spellInfo.mastery) {
-      // NYI
-      // Get mastery effectiveness for this spell, then do same calculation as vers mult by effectiveness
+      this._mastery(event, healVal);
+    }
+    if (spellInfo.vers) {
+      this._versatility(event, healVal);
+    }
+  }
+  _leech(event, healVal) {
+    const spellId = event.ability.guid;
+    if (healVal.overheal) {
+      return;
+    }
+
+    // We have to calculate leech weight differently depending on if we already have any leech rating.
+    // Leech is marked as a 'multplier' heal, so we have to check it before we do the early return below
+    const hasLeech = this.combatants.selected.leechRating > 0; // TODO replace when dynamic stats
+    if (hasLeech) {
+      // When the user has Leech we can use the actual Leech healing to accuractely calculate its HPS value without having to do any kind of predicting
+      if (spellId === SPELLS.LEECH.id) {
+        this.totalOneLeech += healVal.effective / this.combatants.selected.leechRating; // TODO replace when dynamic stats
+      }
+    } else {
+      // Without Leech we will have to make an estimation so we can still provide the user with a decent value
+      // TODO this will be a pain to implement
+    }
+  }
+  _intellect(event, healVal) {
+    const currInt = this._getCurrInt(); // TODO replace when dynamic stats
+    const bonusFromOneInt = (1 / currInt) * ARMOR_INT_MULTIPLIER;
+    this.totalOneInt += healVal.effective * bonusFromOneInt;
+  }
+  _criticalStrike(event, healVal) {
+    this._criticalStrikeEffectiveHealing(event, healVal);
+    this._criticalStrikeInfusionOfLightProcs(event, healVal);
+  }
+  _getCritRatingPerPercent() {
+    return 40000; // TODO replace when dynamic stats
+  }
+  _getCritChance(event) {
+    const spellId = event.ability.guid;
+
+    const rating = this.combatants.selected.critRating; // TODO replace when dynamic stats
+    let baseCritChance = 0.08; // TODO replace when dynamic stats
+    let ratingCritChance = rating / this._getCritRatingPerPercent();
+
+    // region Spec specific crit chance buffs
+    if (this.combatants.selected.hasBuff(SPELLS.AVENGING_WRATH.id)) {
+      // Avenging Wrath increases the crit chance by 20%, this 20% does not add to the rating contribution since it's unaffected by stats.
+      baseCritChance += 0.2;
+    }
+    if (spellId === SPELLS.HOLY_SHOCK_HEAL.id) {
+      // Holy Shock *doubles* the crit chance, this includes doubling the base.
+      baseCritChance *= 2;
+      ratingCritChance *= 2;
     }
     // endregion
 
-    // region VERS
-    if (spellInfo.vers) {
-      const currVersPerc = this.combatants.selected.versatilityPercentage; // TODO replace when dynamic stats
-      const bonusFromOneVers = 1 / 47500; // TODO replace when stat constants exist
-      const noVersHealing = amount / (1 + currVersPerc);
-      this.totalOneVers += noVersHealing * bonusFromOneVers;
+    return { baseCritChance, ratingCritChance };
+  }
+  _criticalStrikeEffectiveHealing(event, healVal) {
+    if (event.hitType === HIT_TYPES.CRIT) {
+      // This collects the total effective healing contributed by the last 1 point of critical strike rating.
+      // We don't make any predictions on normal hits based on crit chance since this would be guess work and we are a log analysis system so we prefer to only work with facts. Actual crit heals are undeniable facts, unlike speculating the chance a normal hit might have crit (and accounting for the potential overhealing of that).
+
+      const { baseCritChance, ratingCritChance } = this._getCritChance(event);
+
+      const totalCritChance = baseCritChance + ratingCritChance;
+      if (totalCritChance > (1 + 1 / this._getCritRatingPerPercent())) {
+        // If the crit chance was more than 100%+1 rating, then the last rating was over the cap and worth 0.
+        return;
+      }
+      const ratingCritChanceContribution = 1 - baseCritChance / totalCritChance;
+
+      const critMult = this.critEffectBonus.getBonus(event);
+      const rawBaseHealing = healVal.raw / critMult;
+      const effectiveCritHealing = Math.max(0, healVal.effective - rawBaseHealing);
+      const rating = this.combatants.selected.critRating; // TODO replace when dynamic stats
+
+      this.totalOneCrit += effectiveCritHealing * ratingCritChanceContribution / rating;
     }
-    // endregion
+  }
+  _criticalStrikeInfusionOfLightProcs(event, healVal) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.FLASH_OF_LIGHT.id && spellId !== SPELLS.HOLY_LIGHT.id) {
+      return;
+    }
+    if (!this.combatants.selected.hasBuff(SPELLS.INFUSION_OF_LIGHT.id)) {
+      return;
+    }
+
+    if (spellId === SPELLS.FLASH_OF_LIGHT.id) {
+      const infusionOfLightFlashOfLightHealingBoost = 0.5;
+      const regularHeal = healVal.raw / (1 + infusionOfLightFlashOfLightHealingBoost);
+      const effectiveIolHealing = Math.max(0, healVal.effective - regularHeal);
+
+      const { baseCritChance, ratingCritChance } = this._getCritChance(event);
+
+      const totalCritChance = baseCritChance + ratingCritChance;
+      if (totalCritChance > (1 + 1 / this._getCritRatingPerPercent())) {
+        // If the crit chance was more than 100%+1 rating, then the last rating was over the cap and worth 0.
+        return;
+      }
+      const ratingCritChanceContribution = 1 - baseCritChance / totalCritChance;
+
+      const rating = this.combatants.selected.critRating; // TODO replace when dynamic stats
+
+      this.totalOneCrit += effectiveIolHealing * ratingCritChanceContribution / rating;
+    }
+    if (spellId === SPELLS.HOLY_LIGHT.id) {
+      // TODO: We might be able to use the Haste stat weight to value the CDR
+    }
+  }
+  _hasteHpct(event, healVal) {
+    // const currHastePerc = this.combatants.selected.hastePercentage; // TODO replace when dynamic stats
+    // const bonusFromOneHaste = 1 / 37500; // TODO replace when stat constants exist
+    // const noHasteHealing = amount / (1 + currHastePerc);
+    // this.totalOneHasteHpm += bonusFromOneHaste * noHasteHealing;
+    // NYI
+  }
+  _mastery(event, healVal) {
+    // NYI
+    // Get mastery effectiveness for this spell, then do same calculation as vers mult by effectiveness
+  }
+  _versatility(event, healVal) {
+    const currVersPerc = this.combatants.selected.versatilityPercentage; // TODO replace when dynamic stats
+    const bonusFromOneVers = 1 / 47500; // TODO replace when stat constants exist
+    const noVersHealing = healVal.effective / (1 + currVersPerc);
+    this.totalOneVers += noVersHealing * bonusFromOneVers;
   }
 
-  _handleDamage(event, damageVal) {
+  on_toPlayer_damage(event) {
+    const damageVal = new DamageValue(event.amount, event.absorbed, event.overkill);
     const amount = damageVal.effective;
     const currVersPerc = this.combatants.selected.versatilityPercentage; // TODO replace when dynamic stats
     const currVersDrPerc = currVersPerc / 2;

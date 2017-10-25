@@ -102,7 +102,7 @@ export const HEAL_INFO = {
     vers: true,
   },
   [SPELLS.AURA_OF_SACRIFICE_HEAL.id]: {
-    multiplier: true, // I'd like this to be temporary but it's a super hard problem to solve so this is probably going to stay for years
+    multiplier: true, // I'd like this to be temporary but it's a hard problem to solve so this is probably going to stay for many code-years
   },
   [SPELLS.LEECH.id]: { // procs a percent of all your healing, so we ignore for weights and total healing
     multiplier: true,
