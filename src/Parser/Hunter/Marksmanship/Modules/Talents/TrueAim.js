@@ -88,7 +88,7 @@ class TrueAim extends Analyzer {
         value={`${percentTimeAtMaxTAStacks} %`}
         label="10 stack uptime"
         tooltip={`You reset True Aim when you had 3 or more stacks (to exclude trickshot cleaving resets): ${this.timesDropped} times over the course of the encounter. <br />Your total amount of resets (including with trickshot cleaving) was: ${this.totalTimesDropped}. <br /> True Aim contributed with           ${formatNumber(this.bonusDmg)} - ${this.owner.formatItemDamageDone(this.bonusDmg)}. <br/> Aimed Shot did ${formatPercentage(
-          this.aimedBonusDmg/this.bonusDmg)}% and Arcane Shot did ${formatPercentage(this.arcaneBonusDmg/this.bonusDmg)}%.`}
+          this.aimedBonusDmg/this.bonusDmg)}% of that and Arcane Shot did ${formatPercentage(this.arcaneBonusDmg/this.bonusDmg)}%.`}
       />
     );
 
