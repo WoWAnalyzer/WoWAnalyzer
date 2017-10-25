@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import React from 'react';
-
+import { formatNumber } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -44,7 +44,7 @@ class HighfathersMachination extends Analyzer {
     return {
       item: ITEMS.HIGHFATHERS_MACHINATION,
       result: (
-        <dfn data-tip={`The trinket applied a total of ${this.totalProc} healing stacks. ${this.procUsed} stacks were used to heal a total amount of ${this.healing}. ${this.totalProc - this.procUsed} stacks wasted.`}>
+        <dfn data-tip={`The trinket applied a total of ${this.totalProc} healing stacks.<br>${this.procUsed} stacks were used to heal a total amount of ${formatNumber(this.healing)}.<br>${this.totalProc - this.procUsed} stacks wasted.`}>
         {this.owner.formatItemHealingDone(this.healing)}
         </dfn>),
     };
