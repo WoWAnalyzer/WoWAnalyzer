@@ -9,7 +9,6 @@ class TarratusKeystone extends Analyzer {
       combatants: Combatants,
   };
   healing = 0;
-  cast = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.hasTrinket(ITEMS.TARRATUS_KEYSTONE.id);
@@ -19,7 +18,6 @@ class TarratusKeystone extends Analyzer {
     const spellId = event.ability.guid;
 
     if (spellId === SPELLS.TARRATUS_KEYSTONE.id) {
-      this.cast++;
       this.healing += (event.amount || 0) + (event.absorbed || 0);
     }
   }
