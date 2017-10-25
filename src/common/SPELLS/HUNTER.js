@@ -180,6 +180,11 @@ export default {
     name: 'True Aim',
     icon: 'spell_hunter_focusingshot',
   },
+  EXPLOSIVE_SHOT_SHOT: {
+    id: 212680,
+    name: 'Explosive Shot',
+    icon: '6bf_explosive_shard'
+  },
 
   // Survival:
   // ...
@@ -196,7 +201,7 @@ export default {
     name: 'Ancient Hysteria',
     icon: 'spell_shadow_unholyfrenzy',
   },
-  //The buff given by volley when it's activated
+  //The buff given by volley when it's activated (and also what does the damage)
   VOLLEY_ACTIVATED: {
     id: 194392,
     name: 'Volley buff',

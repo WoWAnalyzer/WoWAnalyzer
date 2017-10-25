@@ -82,7 +82,7 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.TRUESHOT,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
-      getCooldown: (_, combatant) => 180-combatant.owner.modules.trueshot.traitCooldownReduction,
+      getCooldown: (_, combatant) => 180-combatant.owner.modules.quickShot.traitCooldownReduction,
       recommendedCastEfficiency: 1.0,
     },
     {

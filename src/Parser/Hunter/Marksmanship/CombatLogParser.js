@@ -23,7 +23,7 @@ import FocusTracker from './Modules/FocusChart/FocusTracker';
 //Tier
 import Tier20_2p from './Modules/Items/Tier20_2p';
 import Tier20_4p from './Modules/Items/Tier20_4p';
-import Tier19_2p from "./Modules/Items/Tier19_2p";  
+import Tier19_2p from "./Modules/Items/Tier19_2p";
 
 //Spells
 import Trueshot from './Modules/Spells/Trueshot';
@@ -40,9 +40,13 @@ import LockAndLoad from './Modules/Talents/LockAndLoad';
 import TrueAim from './Modules/Talents/TrueAim';
 import PatientSniperTracker from './Modules/Talents/PatientSniper/PatientSniperTracker';
 import PatientSniperDetails from "./Modules/Talents/PatientSniper/PatientSniperDetails";
+import Volley from './Modules/Talents/Volley';
+
 
 //Traits
 import QuickShot from './Modules/Traits/QuickShot';
+import ExplosiveShot from "./Modules/Talents/ExplosiveShot";
+import PiercingShot from "./Modules/Talents/PiercingShot";
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -80,6 +84,9 @@ class CombatLogParser extends CoreCombatLogParser {
     patientSniperDetails: PatientSniperDetails,
     lockAndLoad: LockAndLoad,
     trueAim: TrueAim,
+    volley: Volley,
+    explosiveShot: ExplosiveShot,
+    piercingShot: PiercingShot,
 
     //Traits
     quickShot: QuickShot,
