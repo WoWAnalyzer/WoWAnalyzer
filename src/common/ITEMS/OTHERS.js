@@ -180,6 +180,19 @@ export default {
     icon: 'inv_jewelcrafting_starofelune_02',
     quality: ITEM_QUALITIES.EPIC,
   },
+  // T21 Healing Trinkets
+  TARRATUS_KEYSTONE: {
+    id: 151958,
+    name: 'Tarratus Keystone',
+    icon: 'inv_datacrystal06',
+    quality: ITEM_QUALITIES.EPIC,
+  }, 
+  HIGHFATHERS_MACHINATION: {
+    id: 152289,
+    name: 'Highfather\'s Machination',
+    icon: 'spell_nature_astralrecalgroup',
+    quality: ITEM_QUALITIES.EPIC,
+  },
 
   // DPS Trinkets
   TARNISHED_SENTINEL_MEDALLION: {
