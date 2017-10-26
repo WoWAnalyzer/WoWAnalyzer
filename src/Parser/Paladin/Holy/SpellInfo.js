@@ -108,6 +108,20 @@ export const HEAL_INFO = {
     mastery: true,
     vers: true,
   },
+  [SPELLS.LIGHTS_EMBRACE_HEALING.id]: { // Sea Star of the Depthmother
+    int: false,
+    crit: true,
+    hasteHpct: true,
+    mastery: false,
+    vers: true,
+  },
+  [SPELLS.GUIDING_HAND.id]: { // The Deceiver's Grand Design
+    int: false,
+    crit: true,
+    hasteHpct: true,
+    mastery: false,
+    vers: true,
+  },
   [SPELLS.AURA_OF_SACRIFICE_HEAL.id]: {
     ignored: true, // I'd like this to be temporary but it's a hard problem to solve so this is probably going to stay for many code-years
     multiplier: true, // This multiplies heals and is inconsistent. Don't include in the value for rating per 1%
