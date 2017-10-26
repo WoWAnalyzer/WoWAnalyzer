@@ -17,7 +17,7 @@ class StatTracker extends Analyzer {
 
   static STAT_BUFFS = {
     //// POTIONS ////
-    [SPELLS.POTION_OF_PROLONGED_POWER.id]: { str: 2500, agi: 2500, int: 2500 },
+    [SPELLS.POTION_OF_PROLONGED_POWER.id]: { strength: 2500, agility: 2500, intellect: 2500 },
     // probably no need to add flasks/food because they never fall
 
     //// TRINKETS ////
@@ -40,16 +40,16 @@ class StatTracker extends Analyzer {
 
     //// MISC ////
     [SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_STRENGTH.id]: { // check numbers
-      str: combatant => 3000 + 200 * (combatant.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id]),
+      strength: combatant => 4000 + (combatant.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id] - 1) * 300,
     },
     [SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_AGILITY.id]: { // check numbers
-      agi: combatant => 3000 + 200 * (combatant.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id]),
+      agility: combatant => 4000 + (combatant.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id] - 1) * 300,
     },
     [SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_INTELLECT.id]: { // check numbers
-      int: combatant => 3000 + 200 * (combatant.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id]),
+      intellect: combatant => 4000 + (combatant.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id] - 1) * 300,
     },
     [SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_VERSATILITY.id]: { // check numbers
-      vers: combatant => 1500 + 100 * (combatant.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id]),
+      versatility: combatant => 1500 + 100 * (combatant.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id] - 1) * 300,
     },
     [SPELLS.JACINS_RUSE.id]: { mastery: 3000 },
     [SPELLS.MARK_OF_THE_CLAW.id]: { crit: 1000, haste: 1000 },
@@ -68,14 +68,14 @@ class StatTracker extends Analyzer {
 
   on_initialized() {
     this._startingStats = {
-      str: this.combatants.selected.strength,
-      agi: this.combatants.selected.agility,
-      int: this.combatants.selected.intellect,
-      stam: this.combatants.selected.stamina,
+      strength: this.combatants.selected.strength,
+      agility: this.combatants.selected.agility,
+      intellect: this.combatants.selected.intellect,
+      stamina: this.combatants.selected.stamina,
       crit: this.combatants.selected.critRating,
       haste: this.combatants.selected.hasteRating,
       mastery: this.combatants.selected.masteryRating,
-      vers: this.combatants.selected.versatilityRating,
+      versatility: this.combatants.selected.versatilityRating,
       avoidance: this.combatants.selected.avoidanceRating,
       leech: this.combatants.selected.leechRating,
       speed: this.combatants.selected.speedRating,
@@ -90,16 +90,16 @@ class StatTracker extends Analyzer {
    * Should be identical to what you get from Combatant.
    */
   get startingStrengthRating() {
-    return this._startingStats.str;
+    return this._startingStats.strength;
   }
   get startingAgilityRating() {
-    return this._startingStats.agi;
+    return this._startingStats.agility;
   }
   get startingIntellectRating() {
-    return this._startingStats.int;
+    return this._startingStats.intellect;
   }
   get startingStaminaRating() {
-    return this._startingStats.stam;
+    return this._startingStats.stamina;
   }
   get startingCritRating() {
     return this._startingStats.crit;
@@ -110,8 +110,8 @@ class StatTracker extends Analyzer {
   get startingMasteryRating() {
     return this._startingStats.mastery;
   }
-  get startingVersRating() {
-    return this._startingStats.vers;
+  get startingVersatilityRating() {
+    return this._startingStats.versatility;
   }
   get startingAvoidanceRating() {
     return this._startingStats.avoidance;
@@ -127,16 +127,16 @@ class StatTracker extends Analyzer {
    * Current stat rating, as tracked by this module.
    */
   get currentStrengthRating() {
-    return this._stats.str;
+    return this._stats.strength;
   }
   get currentAgilityRating() {
-    return this._stats.agi;
+    return this._stats.agility;
   }
   get currentIntellectRating() {
-    return this._stats.int;
+    return this._stats.intellect;
   }
   get currentStaminaRating() {
-    return this._stats.stam;
+    return this._stats.stamina;
   }
   get currentCritRating() {
     return this._stats.crit;
@@ -147,8 +147,8 @@ class StatTracker extends Analyzer {
   get currentMasteryRating() {
     return this._stats.mastery;
   }
-  get currentVersRating() {
-    return this._stats.vers;
+  get currentVersatilityRating() {
+    return this._stats.versatility;
   }
   get currentAvoidanceRating() {
     return this._stats.avoidance;
@@ -186,7 +186,7 @@ class StatTracker extends Analyzer {
         throw new Error('Mastery hasn\'t been implemented for this spec yet.');
     }
   }
-  get baseVersPercentage() {
+  get baseVersatilityPercentage() {
     return 0;
   }
   get baseAvoidancePercentage() {
@@ -225,7 +225,7 @@ class StatTracker extends Analyzer {
         throw new Error('Mastery hasn\'t been implemented for this spec yet.');
     }
   }
-  get versRatingToPercent() {
+  get versatilityRatingToPercent() {
     return 1 / 47500;
   }
   get avoidanceRatingToPercent() {
@@ -250,8 +250,8 @@ class StatTracker extends Analyzer {
   get currentMasteryPercentage() {
     return this.baseMasteryPercentage + (this.currentMasteryRating * this.masteryRatingToPercent);
   }
-  get currentVersPercentage() {
-    return this.baseVersPercentage + (this.currentVersRating * this.versRatingToPercent);
+  get currentVersatilityPercentage() {
+    return this.baseVersatilityPercentage + (this.currentVersatilityRating * this.versatilityRatingToPercent);
   }
   get currentAvoidancePercentage() {
     return this.baseAvoidancePercentage + (this.currentAvoidanceRating * this.avoidanceRatingToPercent);
@@ -283,23 +283,23 @@ class StatTracker extends Analyzer {
         return;
       }
       debug && console.log(`StatTracker: (${event.oldStacks} -> ${event.newStacks}) ${SPELLS[spellId] ? SPELLS[spellId].name : spellId}`);
-      this._changeStats(this._stats, statBuff, event.newStacks - event.oldStacks);
+      this._changeStats(statBuff, event.newStacks - event.oldStacks);
     }
   }
 
-  _changeStats(orig, change, factor) {
-    orig.str += this._getBuffValue(change, change.str) * factor;
-    orig.agi += this._getBuffValue(change, change.agi) * factor;
-    orig.int += this._getBuffValue(change, change.int) * factor;
-    orig.stam += this._getBuffValue(change, change.stam) * factor;
-    orig.crit += this._getBuffValue(change, change.crit) * factor;
-    orig.haste += this._getBuffValue(change, change.haste) * factor;
-    orig.mastery += this._getBuffValue(change, change.mastery) * factor;
-    orig.vers += this._getBuffValue(change, change.vers) * factor;
-    orig.avoidance += this._getBuffValue(change, change.avoidance) * factor;
-    orig.leech += this._getBuffValue(change, change.leech) * factor;
-    orig.speed += this._getBuffValue(change, change.speed) * factor;
-    debug && this._debugPrintStats(orig);
+  _changeStats(change, factor) {
+    this._stats.strength += this._getBuffValue(change, change.strength) * factor;
+    this._stats.agility += this._getBuffValue(change, change.agility) * factor;
+    this._stats.intellect += this._getBuffValue(change, change.intellect) * factor;
+    this._stats.stamina += this._getBuffValue(change, change.stamina) * factor;
+    this._stats.crit += this._getBuffValue(change, change.crit) * factor;
+    this._stats.haste += this._getBuffValue(change, change.haste) * factor;
+    this._stats.mastery += this._getBuffValue(change, change.mastery) * factor;
+    this._stats.versatility += this._getBuffValue(change, change.versatility) * factor;
+    this._stats.avoidance += this._getBuffValue(change, change.avoidance) * factor;
+    this._stats.leech += this._getBuffValue(change, change.leech) * factor;
+    this._stats.speed += this._getBuffValue(change, change.speed) * factor;
+    debug && this._debugPrintStats();
   }
 
   /**
@@ -327,7 +327,7 @@ class StatTracker extends Analyzer {
   }
 
   _debugPrintStats(stats) {
-    console.log(`StatTracker:`, formatMilliseconds(this.owner.fightDuration),`STR=${stats.str} AGI=${stats.agi} INT=${stats.int} STM=${stats.stam} CRT=${stats.crit} HST=${stats.haste} MST=${stats.mastery} VRS=${stats.vers} AVD=${stats.avoidance} LCH=${stats.leech} SPD=${stats.speed}`);
+    console.log(`StatTracker:`, formatMilliseconds(this.owner.fightDuration),`STR=${this._stats.strength} AGI=${this._stats.agility} INT=${this._stats.intellect} STM=${this._stats.stamina} CRT=${this._stats.crit} HST=${this._stats.haste} MST=${this._stats.mastery} VRS=${this._stats.versatility} AVD=${this._stats.avoidance} LCH=${this._stats.leech} SPD=${this._stats.speed}`);
   }
 
 }
