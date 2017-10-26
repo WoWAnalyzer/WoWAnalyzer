@@ -2,6 +2,7 @@ import SPELLS from 'common/SPELLS';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 import isAtonement from '../Core/isAtonement';
 import Penance from '../Spells/Penance';
@@ -29,7 +30,7 @@ class Tier20_2set extends Analyzer {
     }
 
     this._firstPenanceBoltLastDamageEvent = true;
-    this.damage += (event.amount / 1 + TIER_20_TWO_SET_BONUS);
+    this.damage += calculateEffectiveDamage(event, TIER_20_TWO_SET_BONUS);
   }
 
   on_byPlayer_heal(event) {
