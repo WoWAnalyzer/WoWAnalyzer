@@ -35,7 +35,7 @@ class WintersChillTracker extends Analyzer {
 
     if (spellId === SPELLS.ICE_LANCE_DAMAGE.id) {
       this.iceLanceHits += 1;
-    } else if(spellId === SPELLS.FROSTBOLT_DAMAGE.id) {
+    } else if(spellId === SPELLS.FROSTBOLT_DAMAGE.id || spellId === SPELLS.EBONBOLT_DAMAGE.id) {
       this.frostboltHits += 1;
     }
   }
@@ -90,9 +90,9 @@ class WintersChillTracker extends Analyzer {
     const missedFrostboltsPerMinute = this.missedFrostboltCasts / (this.owner.fightDuration / 1000 / 60);
     when(missedFrostboltsPerMinute).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span> You failed to Frostbolt into {this.missedFrostboltCasts} <SpellLink id={SPELLS.WINTERS_CHILL.id}/> ({missedFrostboltsPerMinute.toFixed(1)} missed per minute).  Make sure you cast <SpellLink id={SPELLS.FROSTBOLT.id}/> just before each instant <SpellLink id={SPELLS.FLURRY.id}/> to benefit from <SpellLink id={SPELLS.SHATTER.id}/>.</span>)
+        return suggest(<span> You failed to Frostbolt or Ebonbolt into {this.missedFrostboltCasts} <SpellLink id={SPELLS.WINTERS_CHILL.id}/> ({missedFrostboltsPerMinute.toFixed(1)} missed per minute).  Make sure you cast <SpellLink id={SPELLS.FROSTBOLT.id}/> just before each instant <SpellLink id={SPELLS.FLURRY.id}/> to benefit from <SpellLink id={SPELLS.SHATTER.id}/>.</span>)
           .icon(SPELLS.FROSTBOLT.icon)
-          .actual(`${formatNumber(this.missedFrostboltCasts)} Winter's Chill not shattered with Frostbolt`)
+          .actual(`${formatNumber(this.missedFrostboltCasts)} Winter's Chill not shattered with Frostbolt or Ebonbolt`)
           .recommended(`${formatNumber(recommended)} is recommended`)
           .regular(0.5).major(1);
       });
@@ -127,7 +127,7 @@ class WintersChillTracker extends Analyzer {
           </span>
         )}
         label="Winter's Chill Utilization"
-        tooltip={`Every Brain Freeze Flurry should be preceded by a Frostbolt and followed by an Ice Lance. <br><br> You were able to double Ice Lance into Winter's Chill ${this.doubleIceLanceCasts} times (${formatPercentage(doubleIcelancePerc, 1)}%). Note this is only possible when close to the target and at very high levels of haste.`}
+        tooltip={`Every Brain Freeze Flurry should be preceded by a Frostbolt or Ebonbolt and followed by an Ice Lance. <br><br> You double Ice Lance'd into Winter's Chill ${this.doubleIceLanceCasts} times (${formatPercentage(doubleIcelancePerc, 1)}%). Note this is usually impossible, but can happen when close to the target and at very high levels of haste.`}
       />
     );
   }
