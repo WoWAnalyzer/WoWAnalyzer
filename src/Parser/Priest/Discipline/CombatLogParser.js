@@ -19,7 +19,6 @@ import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 
 import AtonementSuccessiveDamageNormalizer from './Normalizers/AtonementSuccessiveDamage';
-import AtonementSuccessiveDamageNormalizer2 from './Normalizers/AtonementSuccessiveDamage';
 
 import SpellManaCost from './Modules/Core/SpellManaCost';
 import AbilityTracker from './Modules/Core/AbilityTracker';
@@ -87,7 +86,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Normalizers
     atonementSuccessiveDamage: AtonementSuccessiveDamageNormalizer,
-    atonementSuccessiveDamage2: AtonementSuccessiveDamageNormalizer2,
 
     healingDone: [HealingDone, { showStatistic: true }],
 
