@@ -135,7 +135,7 @@ class CombatLogParser {
     spectralThurible: SpectralThurible,
     terrorFromBelow: TerrorFromBelow,
     tomeOfUnravelingSanity: TomeOfUnravelingSanity,
-    cradeOfAnguish: CradleOfAnguish,
+    cradleOfAnguish: CradleOfAnguish,
 
     // Concordance of the Legionfall
     concordance: Concordance,
