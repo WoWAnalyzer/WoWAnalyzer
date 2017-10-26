@@ -6,7 +6,7 @@ import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import isAtonement from '../Core/isAtonement';
 import Penance from '../Spells/Penance';
 
-const TIER_20_TWO_SET_BONUS = 1;
+const TIER_20_TWO_SET_BONUS = 0.65;
 
 class Tier20_2set extends Analyzer {
   static dependencies = {
@@ -23,19 +23,21 @@ class Tier20_2set extends Analyzer {
   }
 
   on_byPlayer_damage(event) {
-    if (event.ability.guid !== SPELLS.PENANCE.id || event.penanceBoltNumber !== 1) {
+    if (event.ability.guid !== SPELLS.PENANCE.id || event.penanceBoltNumber !== 0) {
       this._secondPenanceBoltLastDamageEvent = false;
       return;
     }
 
     this._secondPenanceBoltLastDamageEvent = true;
-    this.damage += (event.amount / 2);
+    this.damage += (event.amount / (1 + TIER_20_TWO_SET_BONUS));
   }
 
   on_byPlayer_heal(event) {
+
+    // Friendly Penance
     const spellId = event.ability.guid;
     if (spellId === SPELLS.PENANCE_HEAL.id) {
-      if (event.penanceBoltNumber === 1) {
+      if (event.penanceBoltNumber === 0) {
         this.healing += calculateEffectiveHealing(event, TIER_20_TWO_SET_BONUS);
       }
     }
