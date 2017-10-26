@@ -143,6 +143,11 @@ export default {
     name: 'Ebonbolt',
     icon: 'artifactability_frostmage_ebonbolt',
   },
+  EBONBOLT_DAMAGE: {
+    id: 228599,
+    name: 'Ebonbolt',
+    icon: 'artifactability_frostmage_ebonbolt',
+  },
   COMET_STORM_DAMAGE: {
     id: 153596,
     name: 'Comet Storm',
