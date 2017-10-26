@@ -57,6 +57,9 @@ class StatTracker extends Analyzer {
     //// DRUID ////
     [SPELLS.ASTRAL_HARMONY.id]: { mastery: 4000 },
 
+    //// MAGE ////
+    [SPELLS.WARMTH_OF_THE_PHOENIX.id]: { crit: 800 },
+
     //// PRIEST ////
     [SPELLS.MIND_QUICKENING.id]: { haste: 800 },
 

@@ -313,6 +313,11 @@ export default {
     name: 'Frozen Veins',
     icon: 'spell_frost_coldhearted',
   },
+  WARMTH_OF_THE_PHOENIX: {
+    id: 240671,
+    name: 'Warmth of the Phoenix',
+    icon: 'artifactability_firemage_phoenixbolt',
+  },
 
   //Tier Sets
   FROST_MAGE_T20_2SET_BONUS_BUFF: {
