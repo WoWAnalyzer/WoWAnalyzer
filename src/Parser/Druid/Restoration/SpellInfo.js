@@ -214,14 +214,14 @@ export const HEAL_INFO = {
     masteryStack: false,
     vers: false,
   },
-  [SPELLS.XAVARICS_MAGNUM_OPUS.id]: { // TODO does it really scale with nothing (except stam)?
+  [SPELLS.XAVARICS_MAGNUM_OPUS.id]: { // same as default, but included to emphasize it does scale with vers, despite %hp scaling...
     int: false,
     crit: false,
     hasteHpm: false,
     hasteHpct: false,
     mastery: false,
     masteryStack: false,
-    vers: false,
+    vers: true,
   },
   [SPELLS.DREAMER.id]: { // T21 2pc TODO double check this once its live
     int: true,
