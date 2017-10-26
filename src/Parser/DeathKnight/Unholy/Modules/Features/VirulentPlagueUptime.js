@@ -15,13 +15,13 @@ class VirulentPlagueUptime extends Analyzer {
 
   suggestions(when) {
     const vpUptime = this.enemies.getBuffUptime(SPELLS.VIRULENT_PLAGUE.id) / this.owner.fightDuration;
-    when(vpUptime).isLessThan(0.95)
+    when(vpUptime).isLessThan(0.92)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest('Your Virulent Plague uptime can be improved. Try to pay attention to when Virulent Plague is about to fall off the priority target, perhaps use some debuff tracker.')
+          return suggest('Your Virulent Plague uptime can be improved. Try to pay attention to when Virulent Plague is about to fall off the priority target, using Outbreak to refresh Virulent Plague. Using a debuff tracker can help.')
             .icon(SPELLS.VIRULENT_PLAGUE.icon)
             .actual(`${formatPercentage(actual)}% Virulent Plague uptime`)
             .recommended(`>${formatPercentage(recommended)}% is recommended`)
-            .regular(recommended - 0.05).major(recommended - 0.15);
+            .regular(recommended - 0.08).major(recommended - 0.18);
         });
   }
 
@@ -31,7 +31,7 @@ class VirulentPlagueUptime extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.VIRULENT_PLAGUE.id} />}
         value={`${formatPercentage(vpUptime)} %`}
-        label="Virulent Plague uptime"
+        label="Virulent Plague Uptime"
       />
     );
   }

@@ -7,6 +7,7 @@ import Masonry from 'react-masonry-component';
 import ItemLink from 'common/ItemLink';
 import ItemIcon from 'common/ItemIcon';
 import getBossName from 'common/getBossName';
+import { getCompletenessColor, getCompletenessExplanation, getCompletenessLabel } from 'common/SPEC_ANALYSIS_COMPLETENESS';
 
 import DevelopmentTab from 'Main/DevelopmentTab';
 import EventsTab from 'Main/EventsTab';
@@ -243,7 +244,7 @@ class Results extends React.Component {
               borderRadius: '50%',
               height: '1.2em',
             }}
-          /> {config.spec.specName} {config.spec.className} spec implementation is being maintained by {config.maintainer}. <a href="#spec-information" onClick={this.handleClickViewSpecInformation}>More information.</a>
+          /> {config.spec.specName} {config.spec.className} spec implementation is being maintained by {config.maintainer} (status: <dfn data-tip={getCompletenessExplanation(config.completeness)} style={{ color: getCompletenessColor(config.completeness) }}>{getCompletenessLabel(config.completeness).toLowerCase()}</dfn>). <a href="#spec-information" onClick={this.handleClickViewSpecInformation}>More information.</a>
           </div>
 
           <div className="row">

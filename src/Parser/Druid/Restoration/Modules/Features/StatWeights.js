@@ -112,6 +112,8 @@ class StatWeights extends Analyzer {
   totalOneVersDr = 0;  // from damage reduced only
   totalOneLeech = 0;
 
+  playerHealthMissing = 0;
+
   on_initialized() {
     this.concordanceAmount = 4000 + ((this.combatants.selected.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id] - 1) || 0) * 300; // TODO remove when stat tracker added
   }
@@ -129,6 +131,17 @@ class StatWeights extends Analyzer {
   on_toPlayer_damage(event) {
     const damageVal = new DamageValue(event.amount, event.absorbed, event.overkill);
     this._handleDamage(event, damageVal);
+    this._updateMissingHealth(event);
+  }
+
+  on_toPlayer_heal(event) {
+    this._updateMissingHealth(event);
+  }
+
+  _updateMissingHealth(event) {
+    if(event.hitPoints && event.maxHitPoints) { // fields not always populated, don't know why
+      this.playerHealthMissing = event.maxHitPoints - event.hitPoints;
+    }
   }
 
   _handleHeal(event, healVal) {
@@ -147,8 +160,9 @@ class StatWeights extends Analyzer {
     const hasLeech = this.combatants.selected.leechRating > 0; // TODO replace when dynamic stats
     if(hasLeech && spellId === SPELLS.LEECH.id && !healVal.overheal) {
       this.totalOneLeech += amount / this.combatants.selected.leechRating; // TODO replace when dynamic stats
-    } else if(!hasLeech) {
-      // TODO this will be a pain to implement
+    } else if(!hasLeech && this.playerHealthMissing > 0) {
+      const bonusFromOneLeech = 1 / 23000;
+      this.totalOneLeech += healVal.raw * bonusFromOneLeech;
     }
     // endregion
 
@@ -269,18 +283,13 @@ class StatWeights extends Analyzer {
   }
 
   _prepareResults() {
-    const hasLeech = this.combatants.selected.leechRating > 0;
-
     const intWeight = this.totalOneInt / this.totalOneInt;
     const critWeight = this.totalOneCrit / this.totalOneInt;
     const hasteHpmWeight = this.totalOneHasteHpm / this.totalOneInt;
     const masteryWeight = this.totalOneMastery / this.totalOneInt;
     const versWeight = this.totalOneVers / this.totalOneInt;
     const versDrWeight = (this.totalOneVers + this.totalOneVersDr) / this.totalOneInt;
-    let leechWeight = this.totalOneLeech / this.totalOneInt;
-    if(!hasLeech) {
-      leechWeight = undefined;
-    }
+    const leechWeight = this.totalOneLeech / this.totalOneInt;
 
     const intForOnePercent = this._ratingPerOnePercent(this.totalOneInt);
     const critForOnePercent = this._ratingPerOnePercent(this.totalOneCrit);
@@ -288,15 +297,11 @@ class StatWeights extends Analyzer {
     const masteryForOnePercent = this._ratingPerOnePercent(this.totalOneMastery);
     const versForOnePercent = this._ratingPerOnePercent(this.totalOneVers);
     const versDrForOnePercent = this._ratingPerOnePercent(this.totalOneVers + this.totalOneVersDr);
-    let leechForOnePercent = this._ratingPerOnePercent(this.totalOneLeech);
-    if(!hasLeech) {
-      leechForOnePercent = undefined;
-    }
+    const leechForOnePercent = this._ratingPerOnePercent(this.totalOneLeech);
 
     const hasteHpmTooltip = "HPM stands for 'Healing per Mana'. In valuing Haste, it considers only the faster HoT ticking and not the reduced cast times. Effectively it models haste's bonus to mana efficiency. This is typically the better calculation to use for raid encounters where mana is an issue.";
     const versTooltip = "Weight includes only the boost to healing, and does not include damage reduction.";
     const versDrTooltip = "Weight includes both healing boost and damage reduction, counting damage reduction as additional throughput";
-    const leechTooltip = "Leech weight can currently only be calculated when you already have some Leech rating";
 
     return [
       { stat:'Intellect', weight:intWeight, ratingForOne:intForOnePercent },
@@ -305,7 +310,7 @@ class StatWeights extends Analyzer {
       { stat:'Mastery', weight:masteryWeight, ratingForOne:masteryForOnePercent },
       { stat:'Versatility', weight:versWeight, ratingForOne:versForOnePercent, tooltip:versTooltip },
       { stat:'Versatility (incl DR)', weight:versDrWeight, ratingForOne:versDrForOnePercent, tooltip:versDrTooltip },
-      { stat: 'Leech', weight:leechWeight, ratingForOne:leechForOnePercent, tooltip:leechTooltip },
+      { stat: 'Leech', weight:leechWeight, ratingForOne:leechForOnePercent },
     ];
   }
 
@@ -330,8 +335,8 @@ class StatWeights extends Analyzer {
               {results.map(row => (
                 <tr>
                   {row.tooltip ? (<td><dfn data-tip={row.tooltip}>{row.stat}</dfn></td>) : (<td>{row.stat}</td>)}
-                  <td>{row.weight ? row.weight.toFixed(2) : "NYI"}</td>
-                  <td>{row.ratingForOne ? formatNumber(row.ratingForOne) : "NYI"}</td>
+                  <td>{row.weight ? row.weight.toFixed(2) : "???"}</td>
+                  <td>{row.ratingForOne ? formatNumber(row.ratingForOne) : "???"}</td>
                 </tr>
               ))}
             </tbody>

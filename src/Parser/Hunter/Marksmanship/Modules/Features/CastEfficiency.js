@@ -82,7 +82,7 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.TRUESHOT,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
-      getCooldown: (_, combatant) => 180-combatant.owner.modules.trueshot.traitCooldownReduction,
+      getCooldown: (_, combatant) => 180-combatant.owner.modules.quickShot.traitCooldownReduction,
       recommendedCastEfficiency: 1.0,
     },
     {
@@ -96,7 +96,7 @@ class CastEfficiency extends CoreCastEfficiency {
     { //Marking as a defensive because of the damage reduction trait associated with it
       spell: SPELLS.DISENGAGE_TALENT,
       category: CastEfficiency.SPELL_CATEGORIES.DEFENSIVE,
-      getCooldown: haste => 30,
+      getCooldown: haste => 20,
       noSuggestion: true,
       noCanBeImproved: true,
     },

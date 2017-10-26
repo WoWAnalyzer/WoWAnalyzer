@@ -80,6 +80,11 @@ export default {
     name: 'Arcane Torrent',
     icon: 'spell_shadow_teleport',
   },
+  MARKING_TARGETS: {
+    id: 223138,
+    name: 'Marking Targets',
+    icon: 'ability_marksmanship',
+  },
 
   //CATEGORY
   AUTO_SHOT: {
@@ -180,7 +185,16 @@ export default {
     name: 'True Aim',
     icon: 'spell_hunter_focusingshot',
   },
-
+  EXPLOSIVE_SHOT_SHOT: {
+    id: 212680,
+    name: 'Explosive Shot',
+    icon: '6bf_explosive_shard',
+  },
+  TRICK_SHOT_BUFF: {
+    id: 227272,
+    name: 'Trick Shot',
+    icon: 'ability_hunter_runningshot',
+  },
   // Survival:
   // ...
 
@@ -196,7 +210,7 @@ export default {
     name: 'Ancient Hysteria',
     icon: 'spell_shadow_unholyfrenzy',
   },
-  //The buff given by volley when it's activated
+  //The buff given by volley when it's activated (and also what does the damage)
   VOLLEY_ACTIVATED: {
     id: 194392,
     name: 'Volley buff',
@@ -256,5 +270,10 @@ export default {
     id: 187698,
     name: 'Tar Trap',
     icon: 'spell_yorsahj_bloodboil_black',
+  },
+  A_MURDER_OF_CROWS_SPELL: {
+    id: 131900,
+    name: 'A Murder of Crows',
+    icon: 'ability_hunter_murderofcrows',
   },
 };

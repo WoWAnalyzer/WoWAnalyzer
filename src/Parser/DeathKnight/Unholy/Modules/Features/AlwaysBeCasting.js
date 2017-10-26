@@ -50,7 +50,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
 
     when(deadTimePercentage).isGreaterThan(0.2)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells.  Even if you have to move, try casting something ranged like <SpellLink id={SPELLS.OUTBREAK.id}/>.</span>)
+        return suggest(<span>Your downtime can be improved. Try to Always Be Casting (ABC), reducing time away from the boss unless due to mechanics.  If you do have to move, try casting filler spells, such as <SpellLink id={SPELLS.DEATH_COIL.id}/> or <SpellLink id={SPELLS.OUTBREAK.id}/>.</span>)
           .icon('spell_mage_altertime')
           .actual(`${formatPercentage(actual)}% downtime`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
