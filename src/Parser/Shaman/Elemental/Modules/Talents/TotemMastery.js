@@ -12,7 +12,6 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 const BUFF_TOTEM_RESONANCE_SPELL_ID = 202188;
 const BUFF_TOTEM_EMBER_SPELL_ID = 210657;
 const BUFF_TOTEM_TAILWIND_SPELL_ID = 210660;
-const BUFF_TOTEM_STORM_SPELL_ID = 210651;
 
 class TotemMastery extends Analyzer {
   casts = 0;
@@ -25,8 +24,7 @@ class TotemMastery extends Analyzer {
     return Math.min(
       this.owner.modules.combatants.selected.getBuffUptime(BUFF_TOTEM_RESONANCE_SPELL_ID),
       this.owner.modules.combatants.selected.getBuffUptime(BUFF_TOTEM_EMBER_SPELL_ID),
-      this.owner.modules.combatants.selected.getBuffUptime(BUFF_TOTEM_TAILWIND_SPELL_ID),
-      this.owner.modules.combatants.selected.getBuffUptime(BUFF_TOTEM_STORM_SPELL_ID)
+      this.owner.modules.combatants.selected.getBuffUptime(BUFF_TOTEM_TAILWIND_SPELL_ID)
     ) / this.owner.fightDuration;
   }
 
