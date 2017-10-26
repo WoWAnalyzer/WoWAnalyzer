@@ -48,6 +48,7 @@ import TrickShot from "./Modules/Talents/TrickShot";
 
 //Traits
 import QuickShot from './Modules/Traits/QuickShot';
+import Bullseye from './Modules/Traits/Bullseye';
 
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -93,6 +94,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Traits
     quickShot: QuickShot,
+    bullseye: Bullseye,
   };
 
   generateResults() {
