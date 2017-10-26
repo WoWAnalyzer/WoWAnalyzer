@@ -98,7 +98,7 @@ export const HEAL_INFO = {
     int: true,
     crit: true,
     hasteHpct: true,
-    mastery: false,
+    mastery: false, // confirmed many times this doesn't scale with Mastery
     vers: true,
   },
   [SPELLS.LIGHTS_HAMMER_HEAL.id]: {
