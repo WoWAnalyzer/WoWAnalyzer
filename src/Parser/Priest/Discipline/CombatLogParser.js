@@ -1,20 +1,11 @@
 import React from 'react';
 
-import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
-import Icon from 'common/Icon';
-import ITEMS from 'common/ITEMS';
-
-import StatisticBox from 'Main/StatisticBox';
-import ExpandableStatisticBox from 'Main/ExpandableStatisticBox';
 import SuggestionsTab from 'Main/SuggestionsTab';
 import Tab from 'Main/Tab';
 import Talents from 'Main/Talents';
 import Mana from 'Main/Mana';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
-import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 
@@ -29,6 +20,7 @@ import AtonementSource from './Modules/Features/AtonementSource';
 import AtonementHealingDone from './Modules/Features/AtonementHealingDone';
 import PowerWordBarrier from './Modules/Features/PowerWordBarrier';
 import LeniencesReward from './Modules/Features/LeniencesReward';
+import PurgeTheWicked from './Modules/Features/PurgeTheWicked';
 
 import Tier19_2set from './Modules/Items/Tier19_2set';
 import CordOfMaiev from './Modules/Items/CordOfMaiev';
@@ -52,31 +44,6 @@ import BorrowedTime from './Modules/Spells/Traits/BorrowedTime';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
-function formatThousands(number) {
-  return (`${Math.round(number || 0)}`).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-}
-function formatNumber(number) {
-  if (number > 1000000) {
-    return `${(number / 1000000).toFixed(2)}m`;
-  }
-  if (number > 10000) {
-    return `${Math.round(number / 1000)}k`;
-  }
-  return formatThousands(number);
-}
-function getIssueImportance(value, regular, major, higherIsWorse = false) {
-  if (higherIsWorse ? value > major : value < major) {
-    return ISSUE_IMPORTANCE.MAJOR;
-  }
-  if (higherIsWorse ? value > regular : value < regular) {
-    return ISSUE_IMPORTANCE.REGULAR;
-  }
-  return ISSUE_IMPORTANCE.MINOR;
-}
-function formatPercentage(percentage) {
-  return (Math.round((percentage || 0) * 10000) / 100).toFixed(2);
-}
-
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
 
@@ -98,6 +65,7 @@ class CombatLogParser extends CoreCombatLogParser {
     atonementHealingDone: AtonementHealingDone,
     powerWordBarrier: PowerWordBarrier,
     leniencesReward: LeniencesReward,
+    purgeTheWicked: PurgeTheWicked,
 
     // Items:
     tier19_2set: Tier19_2set,
