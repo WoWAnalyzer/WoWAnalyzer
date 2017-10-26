@@ -96,7 +96,7 @@ class CastEfficiency extends CoreCastEfficiency {
     { //Marking as a defensive because of the damage reduction trait associated with it
       spell: SPELLS.DISENGAGE_TALENT,
       category: CastEfficiency.SPELL_CATEGORIES.DEFENSIVE,
-      getCooldown: haste => 30,
+      getCooldown: haste => 20,
       noSuggestion: true,
       noCanBeImproved: true,
     },
