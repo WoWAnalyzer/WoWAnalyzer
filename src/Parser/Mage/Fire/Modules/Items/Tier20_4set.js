@@ -23,11 +23,13 @@ class Tier20_4set extends Analyzer {
     combatants: Combatants,
   }
 
-  lastCastTimestamp;
-  flamestrikeflamestrikeHitTimestamp;
-  boostNextHit = false;
+  lastCastTimestamp; // last cast timestamp of pyroblast or flamestrike... used close to buff falloff indicates proc consumed
+  flamestrikeflamestrikeHitTimestamp; // used to associate multiple hits of same flamestrike cast
+  boostNextHit = false; // set true when a proc has just been consumed, indicating next relevant damage event should be boosted
   totalProcs = 0;
   expiredProcs = 0;
+  pyroblastProcs = 0;
+  flamestrikeProcs = 0;
   damage = 0;
 
   on_initialized() {
@@ -57,11 +59,13 @@ class Tier20_4set extends Analyzer {
     const spellId = event.ability.guid;
     if(spellId === SPELLS.PYROBLAST.id && this.boostNextHit) {
       this.damage += getDamageBonus(event, CRITICAL_MASSIVE_DAMAGE_BONUS);
+      this.pyroblastProcs += 1;
       this.boostNextHit = false;
     } else if(spellId === SPELLS.FLAMESTRIKE.id) {
       if(this.boostNextHit) {
         this.damage += getDamageBonus(event, CRITICAL_MASSIVE_DAMAGE_BONUS);
         this.flamestrikeHitTimestamp = this.owner.currentTimestamp;
+        this.flamestrikeProcs += 1;
         this.boostNextHit = false;
       } else if(this.flamestrikeHitTimestamp && this.flamestrikeHitTimestamp + TOLERANCE_WINDOW_MS > this.owner.currentTimestamp) {
         this.damage += getDamageBonus(event, CRITICAL_MASSIVE_DAMAGE_BONUS);
@@ -71,13 +75,12 @@ class Tier20_4set extends Analyzer {
 
   item() {
     const ppm = this.totalProcs / (this.owner.fightDuration / 1000 / 60);
-    const effectiveProcs = this.totalProcs - this.expiredProcs;
     return {
       id: `${SPELLS.FIRE_MAGE_T20_4SET_BONUS_BUFF.id}`,
       icon: <SpellIcon id={SPELLS.FIRE_MAGE_T20_4SET_BONUS_BUFF.id} />,
       title: <SpellLink id={SPELLS.FIRE_MAGE_T20_4SET_BONUS_BUFF.id} />,
       result: (
-        <dfn data-tip={`You used <b>${effectiveProcs}</b> procs and let <b>${this.expiredProcs}</b> procs expire. You got <b>${ppm.toFixed(1)}</b> procs per minute.<br>This number does <b>not</b> account for the additional Ignite damage from the boosted Pyroblasts.`}>
+        <dfn data-tip={`You got <b>${this.totalProcs}</b> total procs (<b>${ppm.toFixed(1)} PPM</b>), consuming <b>${this.pyroblastProcs}</b> with Pyroblast, <b>${this.flamestrikeProcs}</b> with Flamestrike, and letting <b>${this.expiredProcs}</b> procs expire. The damage numbers do <b>not</b> account for the additional Ignite damage from the boosted Pyroblasts.`}>
         {this.owner.formatItemDamageDone(this.damage)}
         </dfn>
       ),
