@@ -17,6 +17,8 @@ class CradeOfAnguish extends Analyzer{
   }
 
   item() {
+    // If the buff never fell off then getBuffUptime will report 0 due to WCL not tracking precombat buffs that don't drop/reapply
+    // setting uptimePercent to 1 gets around this
     const uptimePercent = (this.combatants.selected.getBuffUptime(SPELLS.STRENGTH_OF_WILL.id) / this.owner.fightDuration) || 1;
     return {
       item: ITEMS.CRADLE_OF_ANGUISH,
