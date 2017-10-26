@@ -104,6 +104,8 @@ class StatWeights extends Analyzer {
   totalOneVersDr = 0;  // from damage reduced only
   totalOneLeech = 0;
 
+  playerHealthMissing = 0;
+
   on_initialized() {
     this.concordanceAmount = 4000 + ((this.combatants.selected.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id] - 1) || 0) * 300; // TODO remove when stat tracker added
   }
@@ -182,21 +184,21 @@ class StatWeights extends Analyzer {
   }
   _leech(event, healVal) {
     const spellId = event.ability.guid;
-    if (healVal.overheal) {
-      return;
-    }
 
     // We have to calculate leech weight differently depending on if we already have any leech rating.
     // Leech is marked as a 'multplier' heal, so we have to check it before we do the early return below
     const hasLeech = this.combatants.selected.leechRating > 0; // TODO replace when dynamic stats
     if (hasLeech) {
       // When the user has Leech we can use the actual Leech healing to accuractely calculate its HPS value without having to do any kind of predicting
-      if (spellId === SPELLS.LEECH.id) {
+      if (!healVal.overheal && spellId === SPELLS.LEECH.id) {
         this.totalOneLeech += healVal.effective / this.combatants.selected.leechRating; // TODO replace when dynamic stats
       }
     } else {
       // Without Leech we will have to make an estimation so we can still provide the user with a decent value
-      // TODO this will be a pain to implement
+      if (this.playerHealthMissing > 0) { // if the player is full HP this would have overhealed.
+        const bonusFromOneLeech = 1 / 23000;
+        this.totalOneLeech += healVal.raw * bonusFromOneLeech;
+      }
     }
   }
   _intellect(event, healVal) {
@@ -327,6 +329,17 @@ class StatWeights extends Analyzer {
 
     const noVersDamage = amount / (1 - currVersDrPerc);
     this.totalOneVersDr += noVersDamage * bonusFromOneVersDr;
+
+    this._updateMissingHealth(event);
+  }
+
+  on_toPlayer_heal(event) {
+    this._updateMissingHealth(event);
+  }
+  _updateMissingHealth(event) {
+    if (event.hitPoints && event.maxHitPoints) { // fields not always populated, don't know why
+      this.playerHealthMissing = event.maxHitPoints - event.hitPoints;
+    }
   }
 
   // FIXME temporary hacky handler for Concordance until stat tracker is implemented
@@ -362,18 +375,13 @@ class StatWeights extends Analyzer {
   }
 
   _prepareResults() {
-    const hasLeech = this.combatants.selected.leechRating > 0;
-
     const intWeight = this.totalOneInt / this.totalOneInt;
     const critWeight = this.totalOneCrit / this.totalOneInt;
     const hasteHpmWeight = this.totalOneHasteHpm / this.totalOneInt;
     const masteryWeight = this.totalOneMastery / this.totalOneInt;
     const versWeight = this.totalOneVers / this.totalOneInt;
     const versDrWeight = (this.totalOneVers + this.totalOneVersDr) / this.totalOneInt;
-    let leechWeight = this.totalOneLeech / this.totalOneInt;
-    if (!hasLeech) {
-      leechWeight = undefined;
-    }
+    const leechWeight = this.totalOneLeech / this.totalOneInt;
 
     const intForOnePercent = this._ratingPerOnePercent(this.totalOneInt);
     const critForOnePercent = this._ratingPerOnePercent(this.totalOneCrit);
@@ -381,15 +389,11 @@ class StatWeights extends Analyzer {
     const masteryForOnePercent = this._ratingPerOnePercent(this.totalOneMastery);
     const versForOnePercent = this._ratingPerOnePercent(this.totalOneVers);
     const versDrForOnePercent = this._ratingPerOnePercent(this.totalOneVers + this.totalOneVersDr);
-    let leechForOnePercent = this._ratingPerOnePercent(this.totalOneLeech);
-    if (!hasLeech) {
-      leechForOnePercent = undefined;
-    }
+    const leechForOnePercent = this._ratingPerOnePercent(this.totalOneLeech);
 
     const hasteHpmTooltip = "HPM stands for 'Healing per Mana'. In valuing Haste, it considers only the faster HoT ticking and not the reduced cast times. Effectively it models haste's bonus to mana efficiency. This is typically the better calculation to use for raid encounters where mana is an issue.";
     const versTooltip = "Weight includes only the boost to healing, and does not include the damage reduction nor the DPS gain.";
     const versDrTooltip = "Weight includes both healing boost and damage reduction, counting damage reduction as additional throughput. The DPS gain is ignored.";
-    const leechTooltip = "Leech weight can currently only be calculated when you already have some Leech rating.";
 
     return [
       { stat: 'Intellect', weight: intWeight, ratingForOne: intForOnePercent },
@@ -398,7 +402,7 @@ class StatWeights extends Analyzer {
       { stat: 'Mastery', weight: masteryWeight, ratingForOne: masteryForOnePercent },
       { stat: 'Versatility', weight: versWeight, ratingForOne: versForOnePercent, tooltip: versTooltip },
       { stat: 'Versatility (incl DR)', weight: versDrWeight, ratingForOne: versDrForOnePercent, tooltip: versDrTooltip },
-      { stat: 'Leech', weight: leechWeight, ratingForOne: leechForOnePercent, tooltip: leechTooltip },
+      { stat: 'Leech', weight: leechWeight, ratingForOne: leechForOnePercent },
     ];
   }
 
