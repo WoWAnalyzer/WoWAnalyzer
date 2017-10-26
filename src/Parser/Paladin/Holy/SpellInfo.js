@@ -38,7 +38,7 @@ export const HEAL_INFO = {
     mastery: true,
     vers: true,
   },
-  [SPELLS.JUDGMENT_OF_LIGHT_TALENT.id]: {
+  [SPELLS.JUDGMENT_OF_LIGHT_HEAL.id]: {
     int: true,
     crit: true,
     hasteHpct: true,
@@ -59,7 +59,7 @@ export const HEAL_INFO = {
     mastery: true,
     vers: true,
   },
-  [SPELLS.HOLY_PRISM_TALENT.id]: {
+  [SPELLS.HOLY_PRISM_HEAL.id]: {
     int: true,
     crit: true,
     hasteHpct: true,
@@ -101,6 +101,13 @@ export const HEAL_INFO = {
     mastery: false,
     vers: true,
   },
+  [SPELLS.LIGHTS_HAMMER_HEAL.id]: {
+    int: true,
+    crit: true,
+    hasteHpct: true,
+    mastery: false,
+    vers: true,
+  },
   [SPELLS.AURA_OF_SACRIFICE_HEAL.id]: {
     multiplier: true, // I'd like this to be temporary but it's a hard problem to solve so this is probably going to stay for many code-years
   },
@@ -110,8 +117,20 @@ export const HEAL_INFO = {
   [SPELLS.VELENS_FUTURE_SIGHT.id]: { // while active procs from any healing, so we ignore for weights and total healing
     multiplier: true,
   },
+  [SPELLS.OBSIDIAN_STONE_SPAULDERS_HEAL.id]: {
+    multiplier: true,
+  },
+  [SPELLS.BEACON_OF_LIGHT.id]: {
+    multiplier: true,
+  },
 };
 
-export const getSpellInfo = id => {
+export function getSpellInfo(id, name = null) {
+  if (process.env.NODE_ENV === 'development') {
+    if (!HEAL_INFO[id]) {
+      console.warn(`Missing spell definition: ${id}: ${name}, assuming it's only affected by Versatility`);
+    }
+  }
+
   return HEAL_INFO[id] || DEFAULT_INFO;
-};
+}

@@ -108,13 +108,25 @@ class StatWeights extends Analyzer {
     this.concordanceAmount = 4000 + ((this.combatants.selected.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id] - 1) || 0) * 300; // TODO remove when stat tracker added
   }
 
-  on_byPlayer_heal(event) {
-    const healVal = new HealingValue(event.amount, event.absorbed, event.overheal);
-    this._handleHeal(event, healVal);
+  on_heal(event) {
+    if (this.owner.byPlayer(event) || this.owner.byPlayerPet(event)) {
+      const healVal = new HealingValue(event.amount, event.absorbed, event.overheal);
+      this._handleHeal(event, healVal);
+    }
   }
-  on_byPlayer_absorbed(event) {
-    const healVal = new HealingValue(event.amount, 0, 0);
-    this._handleHeal(event, healVal);
+  on_absorbed(event) {
+    if (this.owner.byPlayer(event) || this.owner.byPlayerPet(event)) {
+      const healVal = new HealingValue(event.amount, 0, 0);
+      this._handleHeal(event, healVal);
+    }
+  }
+  on_removebuff(event) {
+    if (this.owner.byPlayer(event) || this.owner.byPlayerPet(event)) {
+      if (event.absorb) {
+        const healVal = new HealingValue(0, 0, event.absorb);
+        this._handleHeal(event, healVal);
+      }
+    }
   }
   _handleHeal(event, healVal) {
     const target = this.combatants.getEntity(event);
@@ -122,7 +134,7 @@ class StatWeights extends Analyzer {
       return;
     }
 
-    const spellInfo = getSpellInfo(event.ability.guid);
+    const spellInfo = getSpellInfo(event.ability.guid, event.ability.name);
 
     // Most spells are counted in healing total, but some spells scale not on their own but 'second hand' from other spells
     // I adjust them out of total healing to preserve some accuracy in the "Rating per 1%" stat.
@@ -134,10 +146,6 @@ class StatWeights extends Analyzer {
     if (spellInfo.ignored) {
       return;
     }
-    if (healVal.overheal) {
-      // If a spell overheals, it could not have healed for more, so we also don't give it a weight because it can't be increased.
-      return;
-    }
 
     this._leech(event, healVal);
     if (spellInfo.multiplier) {
@@ -145,11 +153,16 @@ class StatWeights extends Analyzer {
       return;
     }
 
-    if (spellInfo.int) {
-      this._intellect(event, healVal);
-    }
     if (spellInfo.crit) {
       this._criticalStrike(event, healVal);
+    }
+
+    if (healVal.overheal) {
+      // If a spell overheals, it could not have healed for more, so we also don't give it a weight because it can't be increased.
+      return;
+    }
+    if (spellInfo.int) {
+      this._intellect(event, healVal);
     }
     if (spellInfo.hasteHpct) {
       this._hasteHpct(event, healVal);
