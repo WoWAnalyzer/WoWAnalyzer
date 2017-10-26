@@ -3,11 +3,11 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 const debug = false;
 
-class EssenceFontMastery extends Module {
+class EssenceFontMastery extends Analyzer {
   castEF = 0;
   targetsEF = 0;
 

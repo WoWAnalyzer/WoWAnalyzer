@@ -1,12 +1,12 @@
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 const debug = false;
 
-class BarbaricMindslaver extends Module {
+class BarbaricMindslaver extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
@@ -10,7 +10,7 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage, formatThousands, formatDuration } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-class SigilOfFlame extends Module {
+class SigilOfFlame extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
     enemies: Enemies,

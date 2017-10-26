@@ -6,11 +6,11 @@ import { formatPercentage } from 'common/format';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 const debug = false;
 
-class RefreshingJadeWind extends Module {
+class RefreshingJadeWind extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

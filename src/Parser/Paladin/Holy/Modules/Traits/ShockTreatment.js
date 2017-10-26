@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import CritEffectBonus from 'Parser/Core/Modules/Helpers/CritEffectBonus';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -17,7 +17,7 @@ const SHOCK_TREATMENT_CRIT_EFFECT = 0.08 * 2;
  * Shock Treatment (Artifact Trait)
  * Increases critical strike damage and critical healing of Holy Shock by 8%.
  */
-class ShockTreatment extends Module {
+class ShockTreatment extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     critEffectBonus: CritEffectBonus,

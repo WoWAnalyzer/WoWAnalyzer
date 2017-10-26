@@ -140,7 +140,7 @@ class LowHealthHealing extends React.Component {
                         ) : `${formatPercentage(healthPercentage)}% health`}
                       </td>
                       <td style={{ width: '35%' }}>
-                        <div className="flex" style={{ background: 'rgba(255, 255, 255, 0.3)', border: '1px solid #000' }}>
+                        <div className="flex performance-bar-container">
                           <div
                             className={`flex-sub performance-bar ${specClassName}-bg`}
                             style={{ width: `${healthPercentage * 100}%` }}
@@ -149,7 +149,6 @@ class LowHealthHealing extends React.Component {
                             className={'flex-sub performance-bar Hunter-bg'}
                             style={{ width: `${effectiveHealing / event.maxHitPoints * 100}%`, opacity: 0.4 }}
                           />
-                          <div className="flex-main" />
                         </div>
                       </td>
                     </tr>

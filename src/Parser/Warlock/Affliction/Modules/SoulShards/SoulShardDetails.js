@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Tab from 'Main/Tab';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
@@ -15,7 +15,7 @@ const MINOR = 5 / 10; // 5 shards per 10 minutes
 const AVG = 5 / 3; // 5 shards per 3 minutes
 const MAJOR = 10 / 3; // 10 shards per 3 minutes
 
-class SoulShardDetails extends Module {
+class SoulShardDetails extends Analyzer {
   static dependencies = {
     soulShardTracker: SoulShardTracker,
   };

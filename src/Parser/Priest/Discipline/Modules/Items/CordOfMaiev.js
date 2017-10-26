@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 const debug = true;
 
@@ -10,7 +10,7 @@ const PENANCE_COOLDOWN = 9000; // unaffected by Haste
 /** The amount of time during which it's impossible a second Penance could have started */
 const PENANCE_CHANNEL_TIME_BUFFER = 2500;
 
-class CordOfMaiev extends Module {
+class CordOfMaiev extends Analyzer {
   procs = 0;
   procTime = 0;
 

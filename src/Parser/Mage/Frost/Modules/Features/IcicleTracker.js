@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
@@ -8,7 +8,7 @@ import { formatNumber } from 'common/format';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-class IcicleTracker extends Module {
+class IcicleTracker extends Analyzer {
 
   static dependencies = {
     combatants: Combatants,

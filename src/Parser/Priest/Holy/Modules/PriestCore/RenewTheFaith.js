@@ -5,13 +5,13 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage, formatNumber } from 'common/format';
 
 import SPELLS from 'common/SPELLS';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 // dependencies
 import Combatants from 'Parser/Core/Modules/Combatants';
 import DivineHymn from '../Spells/DivineHymn';
 
-class RenewTheFaith extends Module {
+class RenewTheFaith extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     divineHymn: DivineHymn,
@@ -64,7 +64,7 @@ class RenewTheFaith extends Module {
     //
   }
 
-  statisticOrder = STATISTIC_ORDER.TRAITS(1);
+  statisticOrder = STATISTIC_ORDER.UNIMPORTANT(1);
 }
 
 

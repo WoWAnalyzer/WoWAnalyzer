@@ -12,10 +12,10 @@ import { formatPercentage } from 'common/format';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 
-class HitCombo extends Module {
+class HitCombo extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

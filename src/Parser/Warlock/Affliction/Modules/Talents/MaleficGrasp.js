@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -21,7 +21,7 @@ const AFFECTED_ABILITIES = new Set([
 
 const MALEFIC_GRASP_DAMAGE_BONUS = 0.25;
 
-class MaleficGrasp extends Module {
+class MaleficGrasp extends Analyzer {
   static dependencies = {
     enemies: Enemies,
     combatants: Combatants,

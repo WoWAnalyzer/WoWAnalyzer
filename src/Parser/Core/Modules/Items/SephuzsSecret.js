@@ -4,13 +4,13 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 const PASSIVE_HASTE = 0.02;
 const ACTIVE_HASTE = 0.25;
 
-class SephuzsSecret extends Module {
+class SephuzsSecret extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

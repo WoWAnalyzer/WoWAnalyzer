@@ -3,7 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
@@ -11,7 +11,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 const COOLDOWN_REDUCTION_MS = 1500;
 
-class CrusadersMight extends Module {
+class CrusadersMight extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     spellUsable: SpellUsable,

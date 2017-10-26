@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
-class DivineHymn extends Module {
+class DivineHymn extends Analyzer {
   healing = 0;
   ticks = 0;
   overhealing = 0;

@@ -64,6 +64,20 @@ How to develop parts of the app is further explained in the following files:
 
 Continue reading below for more general contribution information.
 
+# Quick start
+
+The main structure of the project is as follows:
+
+ - `/src` has all code for the front-end analysis
+   - `/src/common` has a lot of utilities, you'll probably have to add to the `SPELLS` and `ITEMS` at some point if you're adding analyzers.
+   - `/src/Main` has core layout stuff, you don't need this at all for analyzers.
+   - `/src/Parser` this has all the combat log parsing and analyzers.
+     - `/src/Parser/Core` "Core" is the name for everything that's shared across most specs. This folder contains most of the shared classes and analyzers.
+     - `/src/Parser/AVAILABLE_CONFIGS.js` this provides a list of all available specs, when adding a new spec you will have to link it here for it to appear.
+   - `/src/tests` **deprecated**, the old test location. Please add new tests next to the file they're testing with the `*.test.js` naming convention.
+   - `src/CHANGELOG.js` the changelog for core features (anything all users might notice).
+ - `/server` has the code for the back-end (the DiscordBot is in another repo, click the organization to find it)
+
 # Sharing your changes
 
 When you are done with your changes you need to [commit your work](http://dont-be-afraid-to-commit.readthedocs.io/en/latest/git/commandlinegit.html). When you're finished, push your changes to your fork, then open the GitHub page for your fork and it should show a button to *Create pull request*, this is often the easiest way to make a pull request. Explain why what you did matters and why you did what you did (although if you have to explain why you did what you did then you should probably include that as comments in your code). Your PR will be reviewed to find potential issues.

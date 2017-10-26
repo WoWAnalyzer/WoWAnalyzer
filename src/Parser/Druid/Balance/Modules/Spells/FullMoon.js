@@ -3,11 +3,11 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import { formatPercentage } from 'common/format';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import isMoonMoon from '../Core/isMoonMoon';
 
-class FullMoon extends Module {
+class FullMoon extends Analyzer {
   fullMoonOrder = 0;
   firstMoonTime = 0;
   firstCastTime = 0;

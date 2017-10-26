@@ -5,11 +5,11 @@ import SpellLink from 'common/SpellLink';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 const debug = false;
 
-class SoothingMist extends Module {
+class SoothingMist extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

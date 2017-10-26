@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -15,7 +15,7 @@ const WAY_OF_THE_MISTWEAVER_HEALING_INCREASE = 0.03;
  * Way of the Mistweave (Artifact Trait)
  * Increases healing done by Eveloping Mist by 3%.
  */
-class WayOfTheMistweaver extends Module {
+class WayOfTheMistweaver extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

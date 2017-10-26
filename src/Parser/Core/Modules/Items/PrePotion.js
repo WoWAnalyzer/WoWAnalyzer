@@ -6,7 +6,7 @@ import ITEMS from 'common/ITEMS';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import ItemLink from 'common/ItemLink';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SUGGESTION_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
@@ -40,7 +40,7 @@ const SECOND_POTIONS = [
 
 const ANCIENT_MANA_POTION_AMOUNT = 152000;
 
-class PrePotion extends Module {
+class PrePotion extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

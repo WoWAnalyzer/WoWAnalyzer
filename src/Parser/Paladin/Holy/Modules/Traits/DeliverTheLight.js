@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealingStacked from 'Parser/Core/calculateEffectiveHealingStacked';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -15,7 +15,7 @@ const DELIVER_THE_LIGHT_HEALING_INCREASE = 0.03;
  * Deliver the Light (Artifact Trait)
  * Increases healing done by Holy Light and Flash of Light by 3%.
  */
-class DeliverTheLight extends Module {
+class DeliverTheLight extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -10,7 +10,7 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-class ColossusSmashUptime extends Module {
+class ColossusSmashUptime extends Analyzer {
   static dependencies = {
     enemies: Enemies,
     combatants: Combatants,

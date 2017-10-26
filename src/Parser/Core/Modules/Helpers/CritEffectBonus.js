@@ -1,6 +1,6 @@
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
-class CritEffectBonus extends Module {
+class CritEffectBonus extends Analyzer {
   static BASE_CRIT_EFFECT_MOD = 2;
 
   _hooks = [];

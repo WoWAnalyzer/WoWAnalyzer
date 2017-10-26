@@ -209,6 +209,23 @@ export default {
     name: 'Strength of Will',
     icon: 'inv_wand_36',
   },
+  // T21 Healing trinkets
+  TARRATUS_KEYSTONE: {
+    id: 253282,
+    name: 'Tarratus Keystone',
+    icon: 'inv__wod_arakoa4',
+  },
+ AMANTHULS_PRESENCEBUFF: {
+    id: 253287,
+    name: 'Aman Thul\'s Presence',
+    icon: 'spell_priest_psyfiend',
+  },
+  AMANTHULS_PRESENCEHEAL: {
+    id: 253288,
+    name: 'Aman Thul\'s Presence',
+    icon: 'spell_priest_psyfiend',
+  },
+
   // Item Abilities
   SPECTRAL_OWL: {
     id: 242570,

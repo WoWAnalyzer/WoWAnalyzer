@@ -1,9 +1,9 @@
 import SPELLS from 'common/SPELLS';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
-class AlphaWolf extends Module {
+class AlphaWolf extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   }

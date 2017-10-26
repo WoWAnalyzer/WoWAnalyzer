@@ -7,7 +7,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
@@ -15,7 +15,7 @@ const debug = false;
 
 const baseMana = 1100000;
 
-class Lifecycles extends Module {
+class Lifecycles extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

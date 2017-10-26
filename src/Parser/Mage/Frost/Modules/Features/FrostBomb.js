@@ -5,12 +5,12 @@ import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 // Frost Bomb cleaves don't always hit on identical timestamps, so we're giving a 100ms buffer
 const PROC_WINDOW_MS = 100;
 
-class FrostBomb extends Module {
+class FrostBomb extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     abilityTracker: AbilityTracker,

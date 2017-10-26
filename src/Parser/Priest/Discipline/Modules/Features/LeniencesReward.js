@@ -1,17 +1,17 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import makeWclUrl from 'common/makeWclUrl';
+import fetchWcl from 'common/fetchWcl';
 import SpellIcon from 'common/SpellIcon';
 import { formatThousands, formatNumber } from 'common/format';
 
 import LazyLoadStatisticBox from 'Main/LazyLoadStatisticBox';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 const LENIENCES_REWARD_DR_PER_RANK = 0.005;
 
-class LeniencesReward extends Module {
+class LeniencesReward extends Analyzer {
   _leniencesRewardRank = 0;
   _leniencesRewardDR = 0;
 
@@ -31,19 +31,14 @@ class LeniencesReward extends Module {
   }
 
   load() {
-    return fetch(makeWclUrl(`report/tables/damage-taken/${this.owner.report.code}`, {
+    return fetchWcl(`report/tables/damage-taken/${this.owner.report.code}`, {
       start: this.owner.fight.start_time,
       end: this.owner.fight.end_time,
       filter: `(IN RANGE FROM type='applybuff' AND ability.id=${SPELLS.ATONEMENT_BUFF.id} AND source.name='${this.owner.modules.combatants.selected.name}' TO type='removebuff' AND ability.id=${SPELLS.ATONEMENT_BUFF.id} AND source.name='${this.owner.modules.combatants.selected.name}' GROUP BY target ON target END)`,
-    }))
-      .then(response => response.json())
-      .then((json) => {
+    })
+      .then(json => {
         console.log('Received LR damage taken', json);
-        if (json.status === 400 || json.status === 401) {
-          throw json.error;
-        } else {
-          this.totalDamageTakenDuringAtonement = json.entries.reduce((damageTaken, entry) => damageTaken + entry.total, 0);
-        }
+        this.totalDamageTakenDuringAtonement = json.entries.reduce((damageTaken, entry) => damageTaken + entry.total, 0);
       });
   }
 

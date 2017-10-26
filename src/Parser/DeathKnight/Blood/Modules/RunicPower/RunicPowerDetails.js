@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Tab from 'Main/Tab';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Icon from 'common/Icon';
@@ -9,7 +9,7 @@ import { formatPercentage } from 'common/format';
 import RunicPowerBreakdown from './RunicPowerBreakdown';
 import RunicPowerTracker from './RunicPowerTracker';
 
-class RunicPowerDetails extends Module {
+class RunicPowerDetails extends Analyzer {
   static
   dependencies = {
     runicPowerTracker: RunicPowerTracker,

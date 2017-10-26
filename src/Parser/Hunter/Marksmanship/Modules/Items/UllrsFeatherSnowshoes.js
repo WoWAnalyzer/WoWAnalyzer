@@ -1,5 +1,5 @@
 import React from 'react';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
@@ -18,7 +18,7 @@ const AFFECTED_ABILITIES = [
   SPELLS.MULTISHOT.id,
 ];
 
-class UllrsFeatherSnowshoes extends Module {
+class UllrsFeatherSnowshoes extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     spellUsable: SpellUsable,

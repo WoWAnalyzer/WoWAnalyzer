@@ -1,17 +1,17 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import makeWclUrl from 'common/makeWclUrl';
+import fetchWcl from 'common/fetchWcl';
 import SpellIcon from 'common/SpellIcon';
 import { formatThousands, formatNumber } from 'common/format';
 
 import LazyLoadStatisticBox from 'Main/LazyLoadStatisticBox';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 const POWER_WORD_BARRIER_REDUCTION = 0.25;
 
-class PowerWordBarrier extends Module {
+class PowerWordBarrier extends Analyzer {
   get damageReducedDuringPowerWordBarrier() {
     return this.totalDamageTakenDuringPWB / (1 - POWER_WORD_BARRIER_REDUCTION) * POWER_WORD_BARRIER_REDUCTION;
   }
@@ -23,18 +23,13 @@ class PowerWordBarrier extends Module {
   totalDamageTakenDuringPWB = 0;
 
   load() {
-    return fetch(makeWclUrl(`report/tables/damage-taken/${this.owner.report.code}`, {
+    return fetchWcl(`report/tables/damage-taken/${this.owner.report.code}`, {
       start: this.owner.fight.start_time,
       end: this.owner.fight.end_time,
       filter: `IN RANGE FROM type='applybuff' AND ability.id=${SPELLS.POWER_WORD_BARRIER_BUFF.id} TO type='removebuff' AND ability.id=${SPELLS.POWER_WORD_BARRIER_BUFF.id} GROUP BY target ON target END`,
-    }))
-      .then(response => response.json())
-      .then((json) => {
-        if (json.status === 400 || json.status === 401) {
-          throw json.error;
-        } else {
-          this.totalDamageTakenDuringPWB = json.entries.reduce((damageTaken, entry) => damageTaken + entry.total, 0);
-        }
+    })
+      .then(json => {
+        this.totalDamageTakenDuringPWB = json.entries.reduce((damageTaken, entry) => damageTaken + entry.total, 0);
       });
   }
 

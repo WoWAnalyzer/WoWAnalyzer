@@ -1,12 +1,12 @@
 import { formatMilliseconds } from 'common/format';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 const debug = false;
 
 const APPLY = 'apply';
 const REMOVE = 'remove';
 
-class Entities extends Module {
+class Entities extends Analyzer {
   getEntities() {
     throw new Error('Not implemented');
   }

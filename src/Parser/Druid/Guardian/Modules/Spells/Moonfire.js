@@ -3,11 +3,11 @@ import { formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
 import SPELLS from 'common/SPELLS';
 
-class Moonfire extends Module {
+class Moonfire extends Analyzer {
   static dependencies = {
     enemies: Enemies,
   };

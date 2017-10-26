@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -18,7 +18,7 @@ const EXTENDED_HEALING_HEALING_INCREASE = 0.05;
  * ISSUE: REM can jump to a new target if the current target is at full HP. Also, with Dancing Mist (Artifact Trait) REM can also replicate to a new target either on cast or on jump. Requires tracking potentially multiple splits of the spell. Need to implement a better way to track this.
  */
 
-class ExtendedHealing extends Module {
+class ExtendedHealing extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

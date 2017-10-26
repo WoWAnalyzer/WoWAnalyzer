@@ -1,12 +1,12 @@
 import React from 'react';
 
 import { formatThousands, formatNumber, formatPercentage } from 'common/format';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import HealingValue from './HealingValue';
 
-class HealingDone extends Module {
+class HealingDone extends Analyzer {
   _total = new HealingValue();
   get total() {
     return this._total;

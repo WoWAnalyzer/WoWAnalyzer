@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 const WILDFLESH_MODIFIER_PER_RANK = 0.05;
@@ -14,7 +14,7 @@ const FR_MINIMUM_HP_HEAL = 0.05;
 const HEAL_THRESHOLD = 0.2;
 const HP_THRESHOLD = 0.7;
 
-class FrenziedRegeneration extends Module {
+class FrenziedRegeneration extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

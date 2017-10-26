@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
@@ -19,7 +19,7 @@ const CONSUMERS = new Set([
 
 const BORROWED_TIME_HASTE_PER_RANK = 0.05;
 
-class BorrowedTime extends Module {
+class BorrowedTime extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     penance: Penance,

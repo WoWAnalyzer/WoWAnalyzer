@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import isAtonement from '../Core/isAtonement';
@@ -11,7 +11,7 @@ const debug = false;
 /** The amount of time (in ms) left on a refresh Atonement for it to be considered inefficient. */
 const IMPROPER_REFRESH_TIME = 3000;
 
-class Atonement extends Module {
+class Atonement extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     atonementSource: AtonementSource,

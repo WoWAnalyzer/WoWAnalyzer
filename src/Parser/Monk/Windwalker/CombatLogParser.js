@@ -16,6 +16,7 @@ import ComboStrikes from './Modules/Features/ComboStrikes';
 // Spells
 import ComboBreaker from './Modules/Spells/ComboBreaker';
 import StormEarthAndFire from './Modules/Spells/StormEarthAndFire';
+import FistsofFury from './Modules/Spells/FistsofFury';
 
 // Talents
 import HitCombo from './Modules/Talents/HitCombo';
@@ -41,6 +42,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Spells;
     comboBreaker: ComboBreaker,
     stormEarthAndFire: StormEarthAndFire,
+    fistsofFury: FistsofFury,
 
     // Legendaries / Items:
     katsuosEclipse: KatsuosEclipse,

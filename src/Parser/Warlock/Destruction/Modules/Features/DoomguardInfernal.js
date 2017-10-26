@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -10,7 +10,7 @@ import SpellLink from 'common/SpellLink';
 
 const SUMMON_COOLDOWN = 180;
 
-class DoomguardInfernal extends Module {
+class DoomguardInfernal extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
     combatants: Combatants,

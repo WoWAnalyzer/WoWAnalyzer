@@ -13,29 +13,41 @@ import CooldownTracker from './Modules/Features/CooldownTracker';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import VulnerableUptime from './Modules/Features/VulnerableUptime';
 import VulnerableTracker from './Modules/Features/AimedInVulnerableTracker';
-import TimeFocusCapped from './Modules/Features/TimeFocusCapped';
-
-//Focus
-import FocusChart from './Modules/FocusChart/Focus';
-import FocusTracker from './Modules/FocusChart/FocusTracker';
+import TimeFocusCapped from '../Shared/Modules/TimeFocusCapped';
+import VulnerableApplications from "./Modules/Features/VulnerableApplications";
 
 //Tier
 import Tier20_2p from './Modules/Items/Tier20_2p';
 import Tier20_4p from './Modules/Items/Tier20_4p';
-import Tier19_2p from './Modules/Items/Tier19_2p';
-
+import Tier19_2p from "./Modules/Items/Tier19_2p";
 
 //Spells
 import Trueshot from './Modules/Spells/Trueshot';
 
+//Focus
+import FocusChart from '../Shared/FocusChart/Focus';
+import FocusTracker from '../Shared/FocusChart/FocusTracker';
+
 //Items
 import UllrsFeatherSnowshoes from './Modules/Items/UllrsFeatherSnowshoes';
+import SoulOfTheHuntmaster from '../Shared/Items/SoulOfTheHuntmaster';
+import MKIIGyroscopicStabilizer from './Modules/Items/MKIIGyroscopicStabilizer';
+import WarBeltOfTheSentinelArmy from "./Modules/Items/WarBeltOfTheSentinelArmy";
+import TarnishedSentinelMedallion from "./Modules/Items/TarnishedSentinelMedallion";
 
 //Talents
 import LockAndLoad from './Modules/Talents/LockAndLoad';
 import TrueAim from './Modules/Talents/TrueAim';
 import PatientSniperTracker from './Modules/Talents/PatientSniper/PatientSniperTracker';
 import PatientSniperDetails from "./Modules/Talents/PatientSniper/PatientSniperDetails";
+import Volley from './Modules/Talents/Volley';
+import ExplosiveShot from "./Modules/Talents/ExplosiveShot";
+import PiercingShot from "./Modules/Talents/PiercingShot";
+import AMurderOfCrows from "./Modules/Talents/AMurderOfCrows";
+import TrickShot from "./Modules/Talents/TrickShot";
+
+//Traits
+import QuickShot from './Modules/Traits/QuickShot';
 
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -50,7 +62,7 @@ class CombatLogParser extends CoreCombatLogParser {
     vulnerableUptime: VulnerableUptime,
     vulnerableTracker: VulnerableTracker,
     TimeFocusCapped: TimeFocusCapped,
-
+    vulnerableApplications: VulnerableApplications,
 
     //Focus Chart
     focusTracker: FocusTracker,
@@ -60,15 +72,27 @@ class CombatLogParser extends CoreCombatLogParser {
     tier20_2p: Tier20_2p,
     tier20_4p: Tier20_4p,
     ullrsFeatherSnowshoes: UllrsFeatherSnowshoes,
+    soulOfTheHuntmaster: SoulOfTheHuntmaster,
+    mkiiGyroscopicStabilizer: MKIIGyroscopicStabilizer,
+    warBeltOfTheSentinelArmy: WarBeltOfTheSentinelArmy,
 
     //Spells
     trueshot: Trueshot,
+    tarnishedSentinelMedallion: TarnishedSentinelMedallion,
 
     //Talents
     patientSniperTracker: PatientSniperTracker,
     patientSniperDetails: PatientSniperDetails,
     lockAndLoad: LockAndLoad,
     trueAim: TrueAim,
+    volley: Volley,
+    explosiveShot: ExplosiveShot,
+    piercingShot: PiercingShot,
+    aMurderOfCrows: AMurderOfCrows,
+    trickShot: TrickShot,
+
+    //Traits
+    quickShot: QuickShot,
   };
 
   generateResults() {

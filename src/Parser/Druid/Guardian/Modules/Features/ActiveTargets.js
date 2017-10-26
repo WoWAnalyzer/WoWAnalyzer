@@ -1,4 +1,4 @@
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
 import { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
@@ -10,7 +10,7 @@ import { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
  */
 const ACTIVITY_THRESHOLD = 3000;
 
-class ActiveTargets extends Module {
+class ActiveTargets extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

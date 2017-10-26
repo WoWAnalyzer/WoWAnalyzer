@@ -1,8 +1,8 @@
 import SPELLS from 'common/SPELLS';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
-class RadianceStatistics extends Module {
+class RadianceStatistics extends Analyzer {
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.POWER_WORD_RADIANCE.id) {

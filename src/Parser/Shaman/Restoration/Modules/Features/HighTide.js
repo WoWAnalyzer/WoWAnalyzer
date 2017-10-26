@@ -1,8 +1,8 @@
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
 
-class HighTide extends Module {
+class HighTide extends Analyzer {
   healing = 0;
 
   // const FACTOR_CONTRIBUTED_BY_HT_HIT_1 = 0;

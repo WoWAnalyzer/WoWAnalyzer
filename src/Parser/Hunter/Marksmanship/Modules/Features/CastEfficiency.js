@@ -15,7 +15,7 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.WINDBURST,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 20,
-      recommendedCastEfficiency: 0.9,
+      recommendedCastEfficiency: 0.75,
       extraSuggestion: <span>You should cast it whenever you cannot fit another <SpellLink id={SPELLS.AIMED_SHOT.id} /> in your current <SpellLink id={SPELLS.VULNERABLE.id} /> window, which will generally almost always translate into almost on cooldown. It is your best <SpellLink id={SPELLS.VULNERABLE.id} /> generator, as it allows extra globals to be cast inside the window, allowing you to cast <SpellLink id={SPELLS.WINDBURST.id} /> at almost no focus. </span>,
     },
     {
@@ -55,8 +55,8 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 60,
       isActive: combatant => combatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id),
-      recommendedCastEfficiency: 1.0,
-      extraSuggestion: <span> The only time <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> should be delayed is when the boss is under 25% hp, as you will then use it to generate <SpellLink id={SPELLS.BULLSEYE_BUFF.id} /> stacks as early on, and as often, as possible. </span>,
+      recommendedCastEfficiency: 0.8,
+      extraSuggestion: <span> You should aim to cast <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id}/> on cooldown generally, and the last usage should be as early in the execute window (sub-20%) as possible, to allow for stacking of <SpellLink id={SPELLS.BULLSEYE_TRAIT.id}/> as fast as possible. This can mean delaying it for up to 20-30 seconds sometimes which can lower your cast-efficiency, even though you're playing optimally.</span>,
     },
     {
       spell: SPELLS.BARRAGE_TALENT,
@@ -68,7 +68,8 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.SIDEWINDERS_TALENT,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => 10.4, // TODO handle charges correctly
+      getCooldown: haste => 12/(1+haste),
+      charges: 2,
       isActive: combatant => combatant.hasTalent(SPELLS.SIDEWINDERS_TALENT.id),
     },
     {
@@ -81,13 +82,21 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.TRUESHOT,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
-      getCooldown: (_, combatant) => combatant.owner.modules.trueshot.reducedCooldownWithTraits,
+      getCooldown: (_, combatant) => 180-combatant.owner.modules.quickShot.traitCooldownReduction,
       recommendedCastEfficiency: 1.0,
     },
     {
       spell: SPELLS.EXHILARATION,
       category: CastEfficiency.SPELL_CATEGORIES.DEFENSIVE,
       getCooldown: haste => 120,
+      noSuggestion: true,
+      noCanBeImproved: true,
+    },
+
+    { //Marking as a defensive because of the damage reduction trait associated with it
+      spell: SPELLS.DISENGAGE_TALENT,
+      category: CastEfficiency.SPELL_CATEGORIES.DEFENSIVE,
+      getCooldown: haste => 20,
       noSuggestion: true,
       noCanBeImproved: true,
     },

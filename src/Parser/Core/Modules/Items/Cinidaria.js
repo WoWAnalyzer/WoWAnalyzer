@@ -5,9 +5,9 @@ import SPELLS from 'common/SPELLS';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
-class Cinidaria extends Module {
+class Cinidaria extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
     combatants: Combatants,

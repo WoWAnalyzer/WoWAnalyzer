@@ -1,6 +1,6 @@
 import ITEMS from 'common/ITEMS';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -8,7 +8,7 @@ import CritEffectBonus from '../Helpers/CritEffectBonus';
 
 export const DRAPE_OF_SHAME_CRIT_EFFECT = 0.05;
 
-class DrapeOfShame extends Module {
+class DrapeOfShame extends Analyzer {
   static dependencies = {
     critEffectBonus: CritEffectBonus,
     combatants: Combatants,

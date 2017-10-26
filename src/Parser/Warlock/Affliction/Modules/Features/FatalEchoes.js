@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
@@ -12,7 +12,7 @@ import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../Constants';
 const UA_IDS_SET = new Set(UNSTABLE_AFFLICTION_DEBUFF_IDS);
 const TICKS_PER_UA = 4;
 
-class FatalEchoes extends Module {
+class FatalEchoes extends Analyzer {
   _playerCasts = 0;
   _uasApplied = 0;
 
@@ -51,7 +51,7 @@ class FatalEchoes extends Module {
     );
   }
 
-  statisticOrder = STATISTIC_ORDER.TRAITS(0);
+  statisticOrder = STATISTIC_ORDER.UNIMPORTANT(0);
 }
 
 export default FatalEchoes;
