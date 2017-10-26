@@ -32,7 +32,7 @@ app.get('/report/:reportCode([A-Za-z0-9]+)/:fightId([0-9]+)?:fightName(-[^/]+)?/
   let response = index;
   if (req.params.fightName) {
     const fightName = decodeURI(req.params.fightName.substr(1).replace(/\+/g, ' '));
-    const playerName = decodeURI(req.params.playerName);
+    const playerName = req.params.playerName && decodeURI(req.params.playerName);
 
     let title = '';
     if (playerName) {

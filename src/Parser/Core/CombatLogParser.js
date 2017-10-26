@@ -1,5 +1,7 @@
 import { formatNumber, formatPercentage } from 'common/format';
 
+import ApplyBuffNormalizer from './Normalizers/ApplyBuff';
+
 import Status from './Modules/Status';
 import HealingDone from './Modules/HealingDone';
 import DamageDone from './Modules/DamageDone';
@@ -17,10 +19,10 @@ import Pets from './Modules/Pets';
 import HealEventTracker from './Modules/HealEventTracker';
 import ManaValues from './Modules/ManaValues';
 import SpellManaCost from './Modules/SpellManaCost';
-import DistanceMoved from './Modules/DistanceMoved';
+
+import DistanceMoved from './Modules/Others/DistanceMoved';
 
 import CritEffectBonus from './Modules/Helpers/CritEffectBonus';
-import ApplyBuffFixer from './Modules/Helpers/ApplyBuffFixer';
 
 // Shared Legendaries
 import Prydaz from './Modules/Items/Prydaz';
@@ -28,6 +30,7 @@ import Velens from './Modules/Items/Velens';
 import SephuzsSecret from './Modules/Items/SephuzsSecret';
 import KiljaedensBurningWish from './Modules/Items/KiljaedensBurningWish';
 import ArchimondesHatredReborn from './Modules/Items/ArchimondesHatredReborn';
+import Cinidaria from './Modules/Items/Cinidaria';
 // Shared Epics
 import DrapeOfShame from './Modules/Items/DrapeOfShame';
 import DarkmoonDeckPromises from './Modules/Items/DarkmoonDeckPromises';
@@ -48,11 +51,13 @@ import TerrorFromBelow from './Modules/Items/TerrorFromBelow';
 import TomeOfUnravelingSanity from './Modules/Items/TomeOfUnravelingSanity';
 import InfernalCinders from './Modules/Items/InfernalCinders';
 import UmbralMoonglaives from './Modules/Items/UmbralMoonglaives';
-
-import ConcordanceUptimeTracker from './Modules/ConcordanceUptimeTracker';
+// T21 Healing trinkets
+import TarratusKeystone from './Modules/Items/TarratusKeystone';
+import HighFathersMachination from './Modules/Items/HighfathersMachination';
 
 // Shared Buffs
-import VantusRune from './Modules/VantusRune';
+import Concordance from './Modules/Spells/Concordance';
+import VantusRune from './Modules/Spells/VantusRune';
 
 // Netherlight Crucible Traits
 import DarkSorrows from './Modules/NetherlightCrucibleTraits/DarkSorrows';
@@ -68,6 +73,8 @@ import RefractiveShell from './Modules/NetherlightCrucibleTraits/RefractiveShell
 import NLCTraits from './Modules/NetherlightCrucibleTraits/NLCTraits';
 
 import ParseResults from './ParseResults';
+import Analyzer from './Analyzer';
+import EventsNormalizer from './EventsNormalizer';
 
 const debug = false;
 
@@ -77,6 +84,10 @@ class CombatLogParser {
   static abilitiesAffectedByHealingIncreases = [];
 
   static defaultModules = {
+    // Normalizers
+    applyBuffNormalizer: ApplyBuffNormalizer,
+
+    // Analyzers
     status: Status,
     healingDone: HealingDone,
     damageDone: DamageDone,
@@ -98,7 +109,6 @@ class CombatLogParser {
     distanceMoved: DistanceMoved,
 
     critEffectBonus: CritEffectBonus,
-    applyBuffFixer: ApplyBuffFixer,
 
     // Items:
     // Legendaries:
@@ -107,6 +117,7 @@ class CombatLogParser {
     sephuzsSecret: SephuzsSecret,
     kiljaedensBurningWish: KiljaedensBurningWish,
     archimondesHatredReborn: ArchimondesHatredReborn,
+    cinidaria: Cinidaria,
     // Epics:
     drapeOfShame: DrapeOfShame,
     amalgamsSeventhSpine: AmalgamsSeventhSpine,
@@ -126,9 +137,12 @@ class CombatLogParser {
     spectralThurible: SpectralThurible,
     terrorFromBelow: TerrorFromBelow,
     tomeOfUnravelingSanity: TomeOfUnravelingSanity,
-    
+    // T21 Healing Trinkets
+    tarratusKeystone : TarratusKeystone,
+    highfathersMachinations : HighFathersMachination,
+
     // Concordance of the Legionfall
-    concordanceUptimeTracker: ConcordanceUptimeTracker,
+    concordance: Concordance,
     // Netherlight Crucible Traits
     darkSorrows: DarkSorrows,
     tormentTheWeak: TormentTheWeak,
@@ -271,6 +285,14 @@ class CombatLogParser {
   }
 
   _debugEventHistory = [];
+  initialize(combatants) {
+    this.initializeNormalizers(combatants);
+    this.initializeAnalyzers(combatants);
+  }
+  initializeAnalyzers(combatants) {
+    this.parseEvents(combatants);
+    this.triggerEvent('initialized');
+  }
   parseEvents(events) {
     if (process.env.NODE_ENV === 'development') {
       this._debugEventHistory = [
@@ -278,27 +300,34 @@ class CombatLogParser {
         ...events,
       ];
     }
-    return new Promise((resolve, reject) => {
-      events.forEach((event) => {
-        if (this.error) {
-          throw new Error(this.error);
-        }
-        this._timestamp = event.timestamp;
+    events.forEach((event) => {
+      if (this.error) {
+        throw new Error(this.error);
+      }
+      this._timestamp = event.timestamp;
 
-        // Triggering a lot of events here for development pleasure; does this have a significant performance impact?
-        this.triggerEvent(event.type, event);
-      });
-
-      resolve(events.length);
+      // Triggering a lot of events here for development pleasure; does this have a significant performance impact?
+      this.triggerEvent(event.type, event);
     });
   }
 
-  reorderEvents(events) {
+  initializeNormalizers(combatants) {
     this.activeModules
+      .filter(module => module instanceof EventsNormalizer)
       .sort((a, b) => a.priority - b.priority) // lowest should go first, as `priority = 0` will have highest prio
-      .forEach((module) => {
-        if (module.reorderEvents) {
-          events = module.reorderEvents(events);
+      .forEach(module => {
+        if (module.initialize) {
+          module.initialize(combatants);
+        }
+      });
+  }
+  normalize(events) {
+    this.activeModules
+      .filter(module => module instanceof EventsNormalizer)
+      .sort((a, b) => a.priority - b.priority) // lowest should go first, as `priority = 0` will have highest prio
+      .forEach(module => {
+        if (module.normalize) {
+          events = module.normalize(events);
         }
       });
     return events;
@@ -306,6 +335,7 @@ class CombatLogParser {
 
   triggerEvent(eventType, event, ...args) {
     this.activeModules
+      .filter(module => module instanceof Analyzer)
       .sort((a, b) => a.priority - b.priority) // lowest should go first, as `priority = 0` will have highest prio
       .forEach(module => module.triggerEvent(eventType, event, ...args));
   }
@@ -360,6 +390,12 @@ class CombatLogParser {
           const item = module.item();
           if (item) {
             results.items.push(item);
+          }
+        }
+        if (module.extraPanel) {
+          const extraPanel = module.extraPanel();
+          if(extraPanel) {
+            results.extraPanels.push(extraPanel);
           }
         }
         if (module.tab) {

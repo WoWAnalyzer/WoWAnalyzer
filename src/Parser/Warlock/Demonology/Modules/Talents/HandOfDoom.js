@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
@@ -9,7 +9,7 @@ import SpellIcon from 'common/SpellIcon';
 
 const DOOM_CAST_THRESHOLD = 50;
 
-class HandOfDoom extends Module {
+class HandOfDoom extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

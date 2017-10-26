@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import CritEffectBonus from 'Parser/Core/Modules/Helpers/CritEffectBonus';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -20,7 +20,7 @@ const PURITY_OF_LIGHT_AFFECTED_HEALS = [
 /**
  * 4 pieces (Holy) : Holy Shock has a 30% chance to increase the critical healing of your Flash of Light, Holy Light, and Light of Dawn by 100% for 10 sec.
  */
-class Tier21_4set extends Module {
+class Tier21_4set extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     critEffectBonus: CritEffectBonus,
@@ -39,6 +39,13 @@ class Tier21_4set extends Module {
     if (this.isApplicable(event)) {
       // Purity of Light (Tier 21 4 set) is multiplicative of the crit effect modifier, so with it Drape of Shame's increase becomes 10%. It is known.
       critEffectModifier = (critEffectModifier - BASE_HEALING_PERCENTAGE) * (1 + PURITY_OF_LIGHT_CRITICAL_HEALING_INCREASE) + BASE_HEALING_PERCENTAGE;
+      // The above formula in layman's terms:
+      // base = 100%
+      // existingCritMod = 200% (205% with DoS)
+      // 4setBonus = 100%
+      // newCritEffectModifier = (existingCritMod - base) * (100% + 4setBonus) + base
+      // so: newCritEffectModifier = (existingCritMod - 100%) * 200% + 100%
+      // Verified by comparing crit FoLs with regular FoLs.
     }
     return critEffectModifier;
   }

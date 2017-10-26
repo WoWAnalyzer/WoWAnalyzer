@@ -1,4 +1,4 @@
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import { BEACON_TYPES } from '../../Constants';
@@ -7,7 +7,7 @@ const BEACONS = Object.keys(BEACON_TYPES).map(key => BEACON_TYPES[key]);
 
 const debug = false;
 
-class BeaconTargets extends Module {
+class BeaconTargets extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
@@ -12,7 +12,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import CastEfficiency from '../Features/CastEfficiency';
 import PaladinAbilityTracker from '../PaladinCore/PaladinAbilityTracker';
 
-class BeaconHealing extends Module {
+class BeaconHealing extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     abilityTracker: PaladinAbilityTracker,
@@ -73,8 +73,8 @@ class BeaconHealing extends Module {
         tooltip={`The amount of Flash of Lights and Holy Lights cast on beacon targets. You cast ${beaconFlashOfLights} Flash of Lights and ${beaconHolyLights} Holy Lights on beacon targets.<br /><br />
             Your total heals on beacons was <b>${formatPercentage(totalHealsOnBeaconPercentage)}%</b> (this includes spell other than FoL and HL).`}
       />
-    );
-  }
+);
+}
   statisticOrder = STATISTIC_ORDER.CORE(50);
 }
 

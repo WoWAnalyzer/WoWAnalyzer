@@ -2,7 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 import Tab from 'Main/Tab';
 import CooldownOverview from 'Main/CooldownOverview';
@@ -18,7 +18,7 @@ export const BUILT_IN_SUMMARY_TYPES = {
   DAMAGE: 'DAMAGE',
 };
 
-class CooldownTracker extends Module {
+class CooldownTracker extends Analyzer {
   static cooldownSpells = [
     {
       spell: SPELLS.INNERVATE,

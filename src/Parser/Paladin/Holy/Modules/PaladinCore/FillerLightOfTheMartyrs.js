@@ -5,14 +5,14 @@ import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 import AbilityTracker from './PaladinAbilityTracker';
 import MaraadsDyingBreath from '../Items/MaraadsDyingBreath';
 
-class FillerLightOfTheMartyrs extends Module {
+class FillerLightOfTheMartyrs extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     abilityTracker: AbilityTracker,

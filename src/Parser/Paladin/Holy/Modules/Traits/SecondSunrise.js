@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage, formatThousands } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 /**
@@ -18,13 +18,14 @@ const SECOND_SUNRISE_PROC_CHANCE = 0.05;
  * Second Sunrise (Artifact Trait)
  * Light of Dawn has a 5% chance to cast a second time for no additional mana cost.
  */
-class SecondSunrise extends Module {
+class SecondSunrise extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
 
   rank = 0;
   healing = 0;
+  procs = 0;
 
   get healingFactorOfOnePoint() {
     return SECOND_SUNRISE_PROC_CHANCE / (this.rank * SECOND_SUNRISE_PROC_CHANCE);
@@ -36,11 +37,13 @@ class SecondSunrise extends Module {
   }
 
   _lastCast = null;
+  _pendingProcRecording = false;
   on_byPlayer_cast(event) {
     if (event.ability.guid !== SPELLS.LIGHT_OF_DAWN_CAST.id) {
       return;
     }
     this._lastCast = event.timestamp;
+    this._pendingProcRecording = true;
   }
   on_byPlayer_heal(event) {
     if (event.ability.guid !== SPELLS.LIGHT_OF_DAWN_HEAL.id || this._lastCast === null) {
@@ -48,6 +51,10 @@ class SecondSunrise extends Module {
     }
     const timeSinceLastCast = event.timestamp - this._lastCast;
     if (timeSinceLastCast > SECOND_SUNRISE_MINIMAL_DELAY) {
+      if (this._pendingProcRecording) {
+        this.procs += 1;
+        this._pendingProcRecording = false;
+      }
       this.healing += (event.amount + (event.absorbed || 0));
     }
   }

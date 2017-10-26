@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 
@@ -13,7 +13,7 @@ import HealingDone from 'Parser/Core/Modules/HealingDone';
  * Refractive Shell
  * Your spells and abilities have the chance to cause Refractive Shell, absorbing 300000 damage. Lasts 10 sec.
  */
-class RefractiveShell extends Module {
+class RefractiveShell extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     healingDone: HealingDone,

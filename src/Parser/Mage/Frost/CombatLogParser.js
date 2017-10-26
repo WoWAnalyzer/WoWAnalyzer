@@ -14,13 +14,21 @@ import WintersChillTracker from './Modules/Features/WintersChill';
 import BrainFreeze from './Modules/Features/BrainFreeze';
 import ThermalVoid from './Modules/Features/ThermalVoid';
 import IcicleTracker from './Modules/Features/IcicleTracker';
+import ArcticGale from './Modules/Features/ArcticGale';
+import FrostBomb from './Modules/Features/FrostBomb';
+import RuneOfPower from '../Shared/Modules/Features/RuneOfPower';
+import MirrorImage from '../Shared/Modules/Features/MirrorImage';
+import UnstableMagic from '../Shared/Modules/Features/UnstableMagic';
+
+import FrozenOrb from './Modules/Cooldowns/FrozenOrb';
+import IcyVeins from './Modules/Cooldowns/IcyVeins';
 
 import ShardOfTheExodar from '../Shared/Modules/Items/ShardOfTheExodar';
 import Tier20_2set from './Modules/Items/Tier20_2set';
 import ZannesuJourney from './Modules/Items/ZannesuJourney';
 import MagtheridonsBanishedBracers from './Modules/Items/MagtheridonsBanishedBracers';
 import ShatteredFragmentsOfSindragosa from './Modules/Items/ShatteredFragmentsOfSindragosa';
-
+import SoulOfTheArchmage from './Modules/Items/SoulOfTheArchmage';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -33,8 +41,15 @@ class CombatLogParser extends CoreCombatLogParser {
 	  thermalVoid: ThermalVoid,
 	  icicleTracker: IcicleTracker,
     damageDone: [DamageDone, { showStatistic: true }],
+    runeOfPower: RuneOfPower,
+    mirrorImage: MirrorImage,
+    unstableMagic: UnstableMagic,
+    arcticGale: ArcticGale,
+    frostBomb: FrostBomb,
 
 	  //Cooldowns
+    frozenOrb: FrozenOrb,
+    icyVeins: IcyVeins,
 
 	  //Items
 	  tier20_2set: Tier20_2set,
@@ -42,6 +57,7 @@ class CombatLogParser extends CoreCombatLogParser {
     zannesuJourney: ZannesuJourney,
     magtheridonsBanishedBracers: MagtheridonsBanishedBracers,
     shatteredFragmentsOfSindragosa: ShatteredFragmentsOfSindragosa,
+    soulOfTheArchmage: SoulOfTheArchmage,
 
   };
 

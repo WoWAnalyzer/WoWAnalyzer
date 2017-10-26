@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
-class NotImplementedYet extends Module {
+class NotImplementedYet extends Analyzer {
   statistic() {
     return (
       <div className="col-lg-12">

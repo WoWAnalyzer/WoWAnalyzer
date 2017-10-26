@@ -6,7 +6,7 @@ import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -15,7 +15,7 @@ import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
 const LEGENDARY_ILTERENDI_BUFF_SPELL_ID = 207589;
 const LEGENDARY_ILTERENDI_HEALING_INCREASE = 0.15;
 
-class Ilterendi extends Module {
+class Ilterendi extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

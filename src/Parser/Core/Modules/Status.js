@@ -1,6 +1,6 @@
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
-class Status extends Module {
+class Status extends Analyzer {
   initialized = false;
   on_initialized() {
     this.initialized = true;

@@ -1,5 +1,5 @@
 import React from 'react';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
@@ -9,7 +9,7 @@ import getDamageBonus from '../../WarlockCore/getDamageBonus';
 
 const LESSONS_OF_SPACETIME_DAMAGE_BONUS = 0.1;
 
-class LessonsOfSpaceTime extends Module {
+class LessonsOfSpaceTime extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

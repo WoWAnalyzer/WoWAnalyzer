@@ -5,12 +5,12 @@ import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-class Overhealing extends Module {
+class Overhealing extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     abilityTracker: AbilityTracker,

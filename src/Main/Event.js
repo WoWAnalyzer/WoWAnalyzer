@@ -12,7 +12,7 @@ function formatDuration(duration) {
   return `${minutes < 10 ? `0${minutes}` : minutes}:${seconds < 10 ? `0${seconds.toFixed(3)}` : seconds.toFixed(3)}`;
 }
 
-class Event extends React.PureComponent {
+class Event extends React.Component {
   static propTypes = {
     event: PropTypes.object.isRequired,
     id: PropTypes.number.isRequired,

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
@@ -15,7 +15,7 @@ const debug = false;
 
 const DAMAGE_BONUS_PER_CONFLAG = 0.25;
 
-class RoaringBlaze extends Module {
+class RoaringBlaze extends Analyzer {
   static dependencies = {
     enemies: Enemies,
     combatants: Combatants,

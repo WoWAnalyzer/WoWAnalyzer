@@ -1,4 +1,6 @@
 export default `
+22-10-2017 - Reworded downtime suggestions to avoid suggesting to "always be casting" and instead (as intended) suggest not having <b>high</b> downtime. (by Zerotorescue)
+16-10-2017 - Added a Light of Dawn average players hit statistic. (by Zerotorescue)
 11-10-2017 - Added a suggestion for casting Light of the Martyr while Holy Shock is available. (by Zerotorescue)
 11-10-2017 - Reduced the recommended cast efficiency for Crusader Strike (with Crusader's Might talent) to 35%. (by Zerotorescue)
 27-09-2017 - Fix relic traits Deliver the Light, Expel the Darkness and Justice through Sacrifice calculations to take into account that the traits are additive with each other. (by Zerotorescue)

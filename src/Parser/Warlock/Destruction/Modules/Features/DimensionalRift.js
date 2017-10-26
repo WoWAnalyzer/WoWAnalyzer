@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
@@ -14,7 +14,7 @@ const CHAOS_TEAR = 'Chaos Tear';
 const SHADOWY_TEAR = 'Shadowy Tear';
 const UNSTABLE_TEAR = 'Unstable Tear';
 
-class DimensionalRift extends Module {
+class DimensionalRift extends Analyzer {
   _riftDetails = {
     [FLAME_RIFT]: {
       ...SPELLS.SEARING_BOLT_RIFT,

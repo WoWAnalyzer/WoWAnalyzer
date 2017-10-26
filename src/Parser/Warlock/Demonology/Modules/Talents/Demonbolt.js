@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
@@ -13,7 +13,7 @@ import getDamageBonus from '../WarlockCore/getDamageBonus';
 
 const DEMONBOLT_DAMAGE_BONUS_PER_PET = 0.1;
 
-class Demonbolt extends Module {
+class Demonbolt extends Analyzer {
   static dependencies = {
     demoPets: DemoPets,
     combatants: Combatants,

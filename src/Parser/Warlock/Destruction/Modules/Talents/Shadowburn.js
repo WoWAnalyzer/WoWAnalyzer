@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
@@ -14,7 +14,7 @@ const debug = true;
 const SHADOWBURN_DEBUFF_DURATION = 5000;
 const SHADOWBURN_KILL = 'Shadowburn kill';
 
-class Shadowburn extends Module {
+class Shadowburn extends Analyzer {
   static dependencies = {
     soulShardTracker: SoulShardTracker,
     combatants: Combatants,

@@ -1,10 +1,10 @@
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-class Prydaz extends Module {
+class Prydaz extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

@@ -1,5 +1,5 @@
 import React from 'react';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
@@ -16,7 +16,7 @@ const BUFF_DURATION = 10000;
 // haven't yet found out if it's exactly 10 second delay between application and removal of the buff (or is it few ms earlier), might need to tweak with that to be accurate
 const REMOVEBUFF_TOLERANCE = 20;
 
-class Backdraft extends Module {
+class Backdraft extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

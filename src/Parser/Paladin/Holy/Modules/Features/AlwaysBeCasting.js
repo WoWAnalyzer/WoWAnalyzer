@@ -86,7 +86,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
 
     when(nonHealingTimePercentage).isGreaterThan(0.3)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest('Your non healing time can be improved. Try to reduce the delay between casting spells and try to continue healing when you have to move.')
+        return suggest('Your non healing time can be improved. Try to reduce the amount of time you\'re not healing, for example by reducing the delay between casting spells, moving during the GCD and if you have to move try to continue healing with instant spells.')
           .icon('petbattle_health-down')
           .actual(`${formatPercentage(actual)}% non healing time`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
@@ -94,7 +94,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
       });
     when(deadTimePercentage).isGreaterThan(0.2)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest('Your downtime can be improved. Try to Always Be Casting (ABC); try to reduce the delay between casting spells and when you\'re not healing try to contribute some damage.')
+        return suggest('Your downtime can be improved. Try to reduce your downtime, for example by reducing the delay between casting spells and when you\'re not healing try to contribute some damage.')
           .icon('spell_mage_altertime')
           .actual(`${formatPercentage(actual)}% downtime`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)

@@ -1,7 +1,7 @@
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 const BLOODLUST_BUFFS = [
@@ -19,7 +19,7 @@ const TEAM_COOLDOWN = 600;
 const PERSONAL_COOLDOWN = 300;
 const DURATION = 40;
 
-class ShardOfTheExodar extends Module {
+class ShardOfTheExodar extends Analyzer {
 
   static dependencies = {
 		combatants: Combatants,

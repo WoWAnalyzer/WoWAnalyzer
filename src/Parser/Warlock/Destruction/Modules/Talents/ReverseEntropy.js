@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
@@ -12,7 +12,7 @@ import getDamageBonus from '../WarlockCore/getDamageBonus';
 
 const REVERSE_ENTROPY_DAMAGE_BONUS = 0.1;
 
-class ReverseEntropy extends Module {
+class ReverseEntropy extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
