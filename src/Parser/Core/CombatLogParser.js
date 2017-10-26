@@ -51,9 +51,13 @@ import TerrorFromBelow from './Modules/Items/TerrorFromBelow';
 import TomeOfUnravelingSanity from './Modules/Items/TomeOfUnravelingSanity';
 import InfernalCinders from './Modules/Items/InfernalCinders';
 import UmbralMoonglaives from './Modules/Items/UmbralMoonglaives';
+<<<<<<< HEAD
+import CradleOfAnguish from './Modules/Items/CradleOfAnguish';
+=======
 // T21 Healing trinkets
 import TarratusKeystone from './Modules/Items/TarratusKeystone';
 import HighFathersMachination from './Modules/Items/HighfathersMachination';
+>>>>>>> upstream/master
 
 // Shared Buffs
 import Concordance from './Modules/Spells/Concordance';
@@ -137,9 +141,13 @@ class CombatLogParser {
     spectralThurible: SpectralThurible,
     terrorFromBelow: TerrorFromBelow,
     tomeOfUnravelingSanity: TomeOfUnravelingSanity,
+<<<<<<< HEAD
+    cradleOfAnguish: CradleOfAnguish,
+=======
     // T21 Healing Trinkets
     tarratusKeystone : TarratusKeystone,
     highfathersMachinations : HighFathersMachination,
+>>>>>>> upstream/master
 
     // Concordance of the Legionfall
     concordance: Concordance,
