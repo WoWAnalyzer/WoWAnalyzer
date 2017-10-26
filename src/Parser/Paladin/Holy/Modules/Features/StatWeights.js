@@ -12,7 +12,7 @@ import CritEffectBonus from 'Parser/Core/Modules/Helpers/CritEffectBonus';
 
 import { getSpellInfo } from '../../SpellInfo';
 
-const DEBUG = false;
+const DEBUG = true;
 
 const ARMOR_INT_MULTIPLIER = 1.05; // 5% int bonus from wearing all leather means each new point of int worth 1.05 vs character sheet int
 
@@ -109,33 +109,39 @@ class StatWeights extends Analyzer {
   }
 
   on_heal(event) {
+    if (event.ability.guid === SPELLS.BEACON_OF_LIGHT.id) {
+      // Handle this via the `on_beacon_heal` event
+      return;
+    }
     if (this.owner.byPlayer(event) || this.owner.byPlayerPet(event)) {
       const healVal = new HealingValue(event.amount, event.absorbed, event.overheal);
-      this._handleHeal(event, healVal);
+      this._handleHealEvent(event, healVal);
     }
   }
   on_absorbed(event) {
     if (this.owner.byPlayer(event) || this.owner.byPlayerPet(event)) {
       const healVal = new HealingValue(event.amount, 0, 0);
-      this._handleHeal(event, healVal);
+      this._handleHealEvent(event, healVal);
     }
   }
   on_removebuff(event) {
     if (this.owner.byPlayer(event) || this.owner.byPlayerPet(event)) {
       if (event.absorb) {
         const healVal = new HealingValue(0, 0, event.absorb);
-        this._handleHeal(event, healVal);
+        this._handleHealEvent(event, healVal);
       }
     }
   }
-  _handleHeal(event, healVal) {
-    const target = this.combatants.getEntity(event);
-    if (target === null) {
-      return;
-    }
-
+  on_beacon_heal(event, originalHeal) {
+    const spellInfo = getSpellInfo(originalHeal.ability.guid, originalHeal.ability.name);
+    const healVal = new HealingValue(event.amount, event.absorbed, event.overheal);
+    this._handleHeal(spellInfo, event, healVal);
+  }
+  _handleHealEvent(event, healVal) {
     const spellInfo = getSpellInfo(event.ability.guid, event.ability.name);
-
+    this._handleHeal(spellInfo, event, healVal);
+  }
+  _handleHeal(spellInfo, event, healVal) {
     // Most spells are counted in healing total, but some spells scale not on their own but 'second hand' from other spells
     // I adjust them out of total healing to preserve some accuracy in the "Rating per 1%" stat.
     // Good examples of multiplier spells are Leech and Velens.
@@ -340,6 +346,7 @@ class StatWeights extends Analyzer {
 
   on_finished() {
     if (DEBUG) {
+      console.log('total', formatNumber(this.totalAdjustedHealing));
       console.log(`Int - ${formatNumber(this.totalOneInt)}`);
       console.log(`Crit - ${formatNumber(this.totalOneCrit)}`);
       console.log(`Haste HPM - ${formatNumber(this.totalOneHasteHpm)}`);

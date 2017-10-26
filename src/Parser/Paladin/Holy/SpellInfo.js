@@ -105,11 +105,12 @@ export const HEAL_INFO = {
     int: true,
     crit: true,
     hasteHpct: true,
-    mastery: false,
+    mastery: true,
     vers: true,
   },
   [SPELLS.AURA_OF_SACRIFICE_HEAL.id]: {
-    multiplier: true, // I'd like this to be temporary but it's a hard problem to solve so this is probably going to stay for many code-years
+    ignored: true, // I'd like this to be temporary but it's a hard problem to solve so this is probably going to stay for many code-years
+    multiplier: true, // This multiplies heals and is inconsistent. Don't include in the value for rating per 1%
   },
   [SPELLS.LEECH.id]: { // procs a percent of all your healing, so we ignore for weights and total healing
     multiplier: true,
@@ -118,17 +119,23 @@ export const HEAL_INFO = {
     multiplier: true,
   },
   [SPELLS.OBSIDIAN_STONE_SPAULDERS_HEAL.id]: {
-    multiplier: true,
+    ignored: true,
   },
   [SPELLS.BEACON_OF_LIGHT.id]: {
-    multiplier: true,
+    // This gets special treatment with the `on_beacon_heal` event
+    ignored: true,
+  },
+  [SPELLS.LAY_ON_HANDS.id]: {
+    ignored: true,
   },
 };
 
+const mentioned = [];
 export function getSpellInfo(id, name = null) {
   if (process.env.NODE_ENV === 'development') {
-    if (!HEAL_INFO[id]) {
+    if (!HEAL_INFO[id] && !mentioned.includes(id)) {
       console.warn(`Missing spell definition: ${id}: ${name}, assuming it's only affected by Versatility`);
+      mentioned.push(id);
     }
   }
 
