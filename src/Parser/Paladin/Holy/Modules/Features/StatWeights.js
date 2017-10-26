@@ -162,16 +162,16 @@ class StatWeights extends Analyzer {
     if (spellInfo.crit) {
       this._criticalStrike(event, healVal);
     }
+    if (spellInfo.hasteHpct) {
+      this._hasteHpct(event, healVal);
+    }
 
     if (healVal.overheal) {
-      // If a spell overheals, it could not have healed for more, so we also don't give it a weight because it can't be increased.
+      // If a spell overheals, it could not have healed for more. Seeing as the below stats all only add HP on top of the existing heal we can skip them as their increase will only be more overhealing.
       return;
     }
     if (spellInfo.int) {
       this._intellect(event, healVal);
-    }
-    if (spellInfo.hasteHpct) {
-      this._hasteHpct(event, healVal);
     }
     if (spellInfo.mastery) {
       this._mastery(event, healVal);
