@@ -387,9 +387,9 @@ class StatWeights extends Analyzer {
     }
 
     const hasteHpmTooltip = "HPM stands for 'Healing per Mana'. In valuing Haste, it considers only the faster HoT ticking and not the reduced cast times. Effectively it models haste's bonus to mana efficiency. This is typically the better calculation to use for raid encounters where mana is an issue.";
-    const versTooltip = "Weight includes only the boost to healing, and does not include damage reduction.";
-    const versDrTooltip = "Weight includes both healing boost and damage reduction, counting damage reduction as additional throughput";
-    const leechTooltip = "Leech weight can currently only be calculated when you already have some Leech rating";
+    const versTooltip = "Weight includes only the boost to healing, and does not include the damage reduction nor the DPS gain.";
+    const versDrTooltip = "Weight includes both healing boost and damage reduction, counting damage reduction as additional throughput. The DPS gain is ignored.";
+    const leechTooltip = "Leech weight can currently only be calculated when you already have some Leech rating.";
 
     return [
       { stat: 'Intellect', weight: intWeight, ratingForOne: intForOnePercent },
