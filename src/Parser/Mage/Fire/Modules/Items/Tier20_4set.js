@@ -24,7 +24,7 @@ class Tier20_4set extends Analyzer {
   }
 
   lastCastTimestamp; // last cast timestamp of pyroblast or flamestrike... used close to buff falloff indicates proc consumed
-  flamestrikeflamestrikeHitTimestamp; // used to associate multiple hits of same flamestrike cast
+  flamestrikeHitTimestamp; // used to associate multiple hits of same flamestrike cast
   boostNextHit = false; // set true when a proc has just been consumed, indicating next relevant damage event should be boosted
   totalProcs = 0;
   expiredProcs = 0;
