@@ -56,6 +56,12 @@ const PETS = {
     id: 98167,
     name: 'Void Tendril',
   },
+
+  //Mage
+  WATER_ELEMENTAL: {
+    id: 78116,
+    name: 'Water Elemental',
+  },
 };
 
 export default indexById(PETS);
