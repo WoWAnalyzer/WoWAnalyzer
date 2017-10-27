@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 
@@ -13,7 +13,7 @@ import HealingDone from 'Parser/Core/Modules/HealingDone';
  * Shadowbind
  * Your spells and abilities have a chance to deal 200000 Shadow damage and heal you for the same amount.
  */
-class Shadowbind extends Module {
+class Shadowbind extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     healingDone: HealingDone,

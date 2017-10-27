@@ -8,11 +8,11 @@ import { formatPercentage, formatNumber } from 'common/format';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import isAtonement from '../Core/isAtonement';
 import AtonementSource from '../Features/AtonementSource';
 
-class TouchOfTheGrave extends Module {
+class TouchOfTheGrave extends Analyzer {
   static dependencies = {
     atonementSource: AtonementSource,
     combatants: Combatants,

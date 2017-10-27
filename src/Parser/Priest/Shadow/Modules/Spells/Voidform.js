@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 
@@ -19,7 +19,7 @@ import VoidTorrent from './VoidTorrent';
 import VoidformsTab from './VoidformsTab';
 
 
-class Voidform extends Module {
+class Voidform extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     insanity: Insanity,

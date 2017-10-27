@@ -1,17 +1,17 @@
 import React from 'react';
 
+import fetchWcl from 'common/fetchWcl';
 import SPELLS from 'common/SPELLS';
-import makeWclUrl from 'common/makeWclUrl';
 import SpellIcon from 'common/SpellIcon';
 
 import LazyLoadStatisticBox from 'Main/LazyLoadStatisticBox';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 const ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH = 0.1;
 const HP_THRESHOLD = 1 - 1 / (1 + ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH);
 
-class AncestralVigor extends Module {
+class AncestralVigor extends Analyzer {
   loaded = false;
   totalLifeSaved = 0;
   on_initialized() {
@@ -22,22 +22,13 @@ class AncestralVigor extends Module {
   fetchAll(pathname, query) {
     const self = this;
     async function checkAndFetch(_query) {
-      try {
-        const response = await fetch(makeWclUrl(pathname, _query));
-        const json = await response.json();
-        if (json.status === 400 || json.status === 401) {
-          throw json.error;
-        } else {
-          self.totalLifeSaved += json.events.length;
-          if (json.nextPageTimestamp) {
-            return checkAndFetch(Object.assign(query, { start: json.nextPageTimestamp }));
-          }
-          self.loaded = true;
-        }
-        return null;
-      } catch (err) {
-        throw err;
+      const json = await fetchWcl(pathname, _query);
+      self.totalLifeSaved += json.events.length;
+      if (json.nextPageTimestamp) {
+        return checkAndFetch(Object.assign(query, { start: json.nextPageTimestamp }));
       }
+      self.loaded = true;
+      return null;
     }
 
     return checkAndFetch(query);

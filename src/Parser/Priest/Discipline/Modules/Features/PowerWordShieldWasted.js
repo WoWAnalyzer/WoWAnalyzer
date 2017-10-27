@@ -5,9 +5,9 @@ import { formatNumber } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 
 import SPELLS from 'common/SPELLS';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
-class PowerWordShieldWasted extends Module {
+class PowerWordShieldWasted extends Analyzer {
   wasted = 0;
   count = 0;
   totalCount = 0;

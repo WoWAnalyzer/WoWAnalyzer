@@ -1,4 +1,4 @@
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
@@ -6,8 +6,10 @@ import getDamageBonus from 'Parser/Hunter/Shared/Core/getDamageBonus'; // relati
 
 const PATIENT_SNIPER_BONUS_PER_SEC = 0.06;
 const VULNERABLE_DURATION = 7000;
+const LAG_TOLERANCE = 100;
+const MAX_AIMED_SHOT_TRAVEL_TIME = 1000;
 
-class PatientSniperTracker extends Module {
+class PatientSniperTracker extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
@@ -229,12 +231,18 @@ class PatientSniperTracker extends Module {
     if (vulnerable) {
       vulnerableStart = vulnerable.start;
     }
-    const timeIntoVulnerable = Math.floor((event.timestamp - vulnerableStart) / 1000);
-
+    let timeDifference = event.timestamp - vulnerableStart;
+    if (timeDifference >= VULNERABLE_DURATION && timeDifference <= (VULNERABLE_DURATION + LAG_TOLERANCE)) {
+      // if the difference is [7000, 7100] ms, count it as a 6 second into Vulnerable (this can happen due to slight lag, its 7000ms duration runs out but removedebuff() wasn't yet called
+      // so the buff lingers in currentVulnerables and timeDifference is > 7000ms which produces "7 seconds into vulnerable" which results in error
+      timeDifference = 6500; // set a neutral value halfway past 6000 so dividing and flooring gives correct result
+    }
+    const timeIntoVulnerable = Math.floor(timeDifference / 1000);
     // this "event" is intended for Aimed Shot only
     // since Vulnerable and Patient Sniper bonuses are snapshotted at the moment of the cast (and not when the shot lands)
     // store current target and time passed in Vulnerable (= damage bonus essentially)
     const castEvent = {
+      timestamp: event.timestamp,
       targetID: event.targetID,
       targetInstance: event.targetInstance,
       timeIntoVulnerable: undefined, // assume outside Vulnerable
@@ -279,6 +287,7 @@ class PatientSniperTracker extends Module {
       // look at the "oldest" Aimed Shot cast event and try to match it with the damage event (as for the target ID + instance)
       // this is necessary because of Trick Shot talent which makes the Aimed Shot cleave (for 30 % damage) in certain conditions (and the cleaved shots have same ID as normal shots)
       // and we only calculate the bonus for the main target (otherwise it would double-dip from the bonus)
+      this.aimedShotQueue = this.aimedShotQueue.filter(e => e.timestamp >= (event.timestamp - MAX_AIMED_SHOT_TRAVEL_TIME)); // filter out events too old (can happen at Sisters of the Moon when boss disappears (cast happens, damage never lands))
       const firstAimed = this.aimedShotQueue[0];
       if (!firstAimed || firstAimed.targetID !== event.targetID || firstAimed.targetInstance !== event.targetInstance) {
         // either it's cleaved or it doesn't exist (this can happen if the main target damage arrives sooner than cleaved damage event)

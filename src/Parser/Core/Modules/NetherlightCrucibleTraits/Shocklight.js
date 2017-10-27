@@ -5,14 +5,14 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 /**
  * Shocklight
  * While Concordance of the Legionfall is active, your critical strike is increased by 1500.
  */
-class Shocklight extends Module {
+class Shocklight extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

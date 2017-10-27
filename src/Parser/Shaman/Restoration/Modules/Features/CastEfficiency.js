@@ -48,10 +48,6 @@ class CastEfficiency extends CoreCastEfficiency {
 
         return cooldown;
       },
-      getOverhealing: (_, getAbility) => {
-        const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.HEALING_STREAM_TOTEM_HEAL.id);
-        return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
-      },
     },
     {
       spell: SPELLS.ASTRAL_SHIFT,
@@ -64,7 +60,7 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.ARCANE_TORRENT_MANA,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 90,
-      hideWithZeroCasts: true,
+      isUndetectable: true,
     },
     {
       spell: SPELLS.HEALING_RAIN_CAST,
@@ -72,10 +68,6 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 10,
       recommendedCastEfficiency: 0.6,
       importance: ISSUE_IMPORTANCE.MINOR,
-      getOverhealing: (_, getAbility) => {
-        const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.HEALING_RAIN_HEAL.id);
-        return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
-      },
     },
     {
       spell: SPELLS.GIFT_OF_THE_QUEEN,
@@ -88,51 +80,29 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 30,
       isActive: combatant => combatant.lv90Talent === SPELLS.CLOUDBURST_TOTEM_TALENT.id,
-      getOverhealing: (_, getAbility) => {
-        const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.CLOUDBURST_TOTEM_HEAL.id);
-        return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
-      },
     },
     {
       spell: SPELLS.EARTHEN_SHIELD_TOTEM_TALENT,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 60,
       isActive: combatant => combatant.lv75Talent === SPELLS.EARTHEN_SHIELD_TOTEM_TALENT.id,
-      getOverhealing: (_, getAbility, parser) => {
-        const earthenShieldHealing = parser.modules.earthenShieldTotem.healing || 0;
-        const earthenShieldPotentialHealing = parser.modules.earthenShieldTotem.potentialHealing || 0;
-        const earthenShieldEfficiency = earthenShieldHealing / earthenShieldPotentialHealing;
-        return 1 - earthenShieldEfficiency;
-      },
     },
     {
       spell: SPELLS.ANCESTRAL_GUIDANCE_TALENT,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 120,
       isActive: combatant => combatant.lv60Talent === SPELLS.ANCESTRAL_GUIDANCE_TALENT.id,
-      getOverhealing: (_, getAbility) => {
-        const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.ANCESTRAL_GUIDANCE_HEAL.id);
-        return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
-      },
     },
     {
       spell: SPELLS.ASCENDANCE_TALENT_RESTORATION,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 180,
       isActive: combatant => combatant.lv100Talent === SPELLS.ASCENDANCE_TALENT_RESTORATION.id,
-      getOverhealing: (_, getAbility) => {
-        const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.ASCENDANCE_HEAL.id);
-        return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
-      },
     },
     {
       spell: SPELLS.HEALING_TIDE_TOTEM_CAST,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 180,
-      getOverhealing: (_, getAbility) => {
-        const { healingEffective, healingAbsorbed, healingOverheal } = getAbility(SPELLS.HEALING_TIDE_TOTEM_HEAL.id);
-        return healingOverheal / (healingEffective + healingAbsorbed + healingOverheal);
-      },
     },
     {
       spell: SPELLS.SPIRIT_LINK_TOTEM,
@@ -146,7 +116,6 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.OTHERS,
       getCasts: castCount => (castCount.casts || 0) - (castCount.healingTwHits || 0),
       getCooldown: haste => null,
-      getOverhealing: ({ healingEffective, healingAbsorbed, healingOverheal, healingTwHealing, healingTwAbsorbed, healingTwOverheal }) => ((healingOverheal - healingTwOverheal) / ((healingEffective - healingTwHealing) + (healingAbsorbed - healingTwAbsorbed) + (healingOverheal - healingTwOverheal))) || null,
     },
     {
       spell: SPELLS.HEALING_WAVE,
@@ -154,7 +123,6 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.OTHERS,
       getCasts: castCount => castCount.healingTwHits || 0,
       getCooldown: haste => null,
-      getOverhealing: ({ healingTwHealing, healingTwAbsorbed, healingTwOverheal }) => (healingTwOverheal / (healingTwHealing + healingTwAbsorbed + healingTwOverheal)) || null,
     },
     {
       spell: SPELLS.HEALING_SURGE_RESTORATION,
@@ -162,7 +130,6 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.OTHERS,
       getCasts: castCount => (castCount.casts || 0) - (castCount.healingTwHits || 0),
       getCooldown: haste => null,
-      getOverhealing: ({ healingEffective, healingAbsorbed, healingOverheal, healingTwHealing, healingTwAbsorbed, healingTwOverheal }) => ((healingOverheal - healingTwOverheal) / ((healingEffective - healingTwHealing) + (healingAbsorbed - healingTwAbsorbed) + (healingOverheal - healingTwOverheal))) || null,
     },
     {
       spell: SPELLS.HEALING_SURGE_RESTORATION,
@@ -170,7 +137,6 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.OTHERS,
       getCasts: castCount => castCount.healingTwHits || 0,
       getCooldown: haste => null,
-      getOverhealing: ({ healingTwHealing, healingTwAbsorbed, healingTwOverheal }) => (healingTwOverheal / (healingTwHealing + healingTwAbsorbed + healingTwOverheal)) || null,
     },
   ];
 }

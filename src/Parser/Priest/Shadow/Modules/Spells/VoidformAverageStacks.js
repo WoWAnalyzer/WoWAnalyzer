@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 import { formatNumber } from 'common/format';
 
@@ -12,7 +12,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Voidform from './Voidform';
 
 
-class VoidformAverageStacks extends Module {
+class VoidformAverageStacks extends Analyzer {
   static dependencies = {
     voidform: Voidform,
   };

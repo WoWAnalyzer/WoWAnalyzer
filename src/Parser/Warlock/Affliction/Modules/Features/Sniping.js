@@ -1,5 +1,5 @@
 import React from 'react';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
 import Icon from 'common/Icon';
 import { formatPercentage } from 'common/format';
@@ -14,7 +14,7 @@ import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../Constants';
 const ENERGIZE_REMOVEDEBUFF_THRESHOLD = 100;
 const UA_IDS_SET = new Set(UNSTABLE_AFFLICTION_DEBUFF_IDS);
 
-class Sniping extends Module {
+class Sniping extends Analyzer {
   static dependencies = {
     enemies: Enemies,
     soulShardTracker: SoulShardTracker,

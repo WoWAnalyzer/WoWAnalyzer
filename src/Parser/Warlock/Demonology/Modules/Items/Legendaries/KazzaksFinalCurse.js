@@ -1,5 +1,5 @@
 import React from 'react';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ITEMS from 'common/ITEMS';
 import { formatNumber } from 'common/format';
@@ -12,7 +12,7 @@ import getDamageBonus from '../../WarlockCore/getDamageBonus';
 const DAMAGE_BONUS_PER_PET = 0.05;
 const HAND_OF_DOOM_SUMMON_THRESHOLD = 70;
 
-class KazzaksFinalCurse extends Module {
+class KazzaksFinalCurse extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     demoPets: DemoPets,

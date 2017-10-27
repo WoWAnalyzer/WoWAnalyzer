@@ -3,14 +3,14 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 const FROSTBOLT_CRIT_REDUCTION_MS = 500;
 
-class FrozenOrb extends Module {
+class FrozenOrb extends Analyzer {
 
 	static dependencies = {
 		combatants: Combatants,

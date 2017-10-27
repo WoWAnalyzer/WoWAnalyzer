@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
@@ -12,7 +12,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import CastEfficiency from '../Features/CastEfficiency';
 import PaladinAbilityTracker from '../PaladinCore/PaladinAbilityTracker';
 
-class BeaconHealing extends Module {
+class BeaconHealing extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     abilityTracker: PaladinAbilityTracker,

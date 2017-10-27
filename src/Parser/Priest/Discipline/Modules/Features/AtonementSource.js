@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
-class AtonementSource extends Module {
+class AtonementSource extends Analyzer {
   _previousDamageEvent = null;
   _previousAtonementApplicator = null;
   _previousAtonementApplicatorEvent = null;

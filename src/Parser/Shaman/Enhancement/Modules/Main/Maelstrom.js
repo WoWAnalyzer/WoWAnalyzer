@@ -6,7 +6,7 @@ import ChartistGraph from 'react-chartist';
 import Chartist from 'chartist';
 import 'chartist-plugin-legend';
 
-import makeWclUrl from 'common/makeWclUrl';
+import fetchWcl from 'common/fetchWcl';
 import { formatDuration } from 'common/format';
 
 import SPELLS from 'common/SPELLS';
@@ -43,39 +43,29 @@ class Maelstrom extends React.PureComponent {
     }
   }
   load(reportCode, actorId, start, end) {
-    const manaPromise = fetch(makeWclUrl(`report/tables/resources/${reportCode}`, {
+    const manaPromise = fetchWcl(`report/tables/resources/${reportCode}`, {
       start,
       end,
       sourceid: actorId,
       abilityid: 111,
-    }))
-      .then(response => response.json())
-      .then((json) => {
-        if (json.status === 400 || json.status === 401) {
-          throw json.error;
-        } else {
-          this.setState({
-            mana: json,
-          });
-        }
+    })
+      .then(json => {
+        this.setState({
+          mana: json,
+        });
       });
 
-    const bossHealthPromise = fetch(makeWclUrl(`report/tables/resources/${reportCode}`, {
+    const bossHealthPromise = fetchWcl(`report/tables/resources/${reportCode}`, {
       start,
       end,
       sourceclass: 'Boss',
       hostility: 1,
       abilityid: 1000,
-    }))
-      .then(response => response.json())
-      .then((json) => {
-        if (json.status === 400 || json.status === 401) {
-          throw json.error;
-        } else {
-          this.setState({
-            bossHealth: json,
-          });
-        }
+    })
+      .then(json => {
+        this.setState({
+          bossHealth: json,
+        });
       });
 
     return Promise.all([manaPromise, bossHealthPromise]);

@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 // dependencies
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -12,7 +12,7 @@ const HOLY_WORD_SPELL_ID = SPELLS.HOLY_WORD_SERENITY.id;
 // modification or outright removal depending on opinions.
 const FULL_OVERCAST_LENIENCE = 0.75;
 
-class SerenityReduction extends Module {
+class SerenityReduction extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   }

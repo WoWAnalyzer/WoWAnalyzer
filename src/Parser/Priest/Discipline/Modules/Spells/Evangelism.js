@@ -4,18 +4,18 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
-import Module from 'Parser/Core/Module';
 import ExpandableStatisticBox from 'Main/ExpandableStatisticBox';
 import { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import { formatPercentage, formatNumber } from 'common/format';
+import Analyzer from 'Parser/Core/Analyzer';
 
 import isAtonement from '../Core/isAtonement';
 import Atonement from '../Spells/Atonement';
 
 const EVANGELISM_DURATION = 6;
 
-class Evangelism extends Module {
+class Evangelism extends Analyzer {
   static dependencies = {
     atonementModule: Atonement,
     combatants: Combatants,

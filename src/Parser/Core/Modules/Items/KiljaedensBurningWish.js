@@ -2,10 +2,10 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import { formatNumber } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-class KiljaedensBurningWish extends Module {
+class KiljaedensBurningWish extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

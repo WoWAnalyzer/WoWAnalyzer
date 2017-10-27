@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -13,7 +13,7 @@ import getDamageBonus from '../FeralCore/getDamageBonus';
 
 const SAVAGE_ROAR_DAMAGE_BONUS = 0.15;
 
-class SavageRoar extends Module {
+class SavageRoar extends Analyzer {
   static dependencies = {
     enemies: Enemies,
     combatants: Combatants,

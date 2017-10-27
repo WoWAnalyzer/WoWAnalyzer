@@ -3,16 +3,16 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 
-import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import { formatPercentage, formatNumber } from 'common/format';
+import Analyzer from 'Parser/Core/Analyzer';
 
 import isAtonement from '../Core/isAtonement';
 import Penance from '../Spells/Penance';
 
-class Castigation extends Module {
+class Castigation extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     penance: Penance, // we need this to add `penanceBoltNumber` to the damage and heal events

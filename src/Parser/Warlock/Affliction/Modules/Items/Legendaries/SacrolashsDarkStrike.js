@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
@@ -11,7 +11,7 @@ import getDamageBonus from '../../WarlockCore/getDamageBonus';
 
 const SACROLASH_DAMAGE_BONUS = 0.15;
 
-class SacrolashsDarkStrike extends Module {
+class SacrolashsDarkStrike extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

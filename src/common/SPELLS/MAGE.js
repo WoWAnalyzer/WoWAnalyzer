@@ -56,8 +56,18 @@ export default {
     name: 'Mirror Image',
     icon: 'spell_magic_managain',
   },
-  UNSTABLE_MAGIC_DAMAGE: {
+  UNSTABLE_MAGIC_DAMAGE_FIRE: {
+    id: 157977,
+    name: 'Unstable Magic',
+    icon: 'spell_mage_unstablemagic',
+  },
+  UNSTABLE_MAGIC_DAMAGE_FROST: {
     id: 157978,
+    name: 'Unstable Magic',
+    icon: 'spell_mage_unstablemagic',
+  },
+  UNSTABLE_MAGIC_DAMAGE_ARCANE: {
+    id: 157979,
     name: 'Unstable Magic',
     icon: 'spell_mage_unstablemagic',
   },
@@ -143,6 +153,11 @@ export default {
     name: 'Ebonbolt',
     icon: 'artifactability_frostmage_ebonbolt',
   },
+  EBONBOLT_DAMAGE: {
+    id: 228599,
+    name: 'Ebonbolt',
+    icon: 'artifactability_frostmage_ebonbolt',
+  },
   COMET_STORM_DAMAGE: {
     id: 153596,
     name: 'Comet Storm',
@@ -152,6 +167,11 @@ export default {
     id: 113092,
     name: 'Frost Bomb',
     icon: 'spell_mage_frostbomb',
+  },
+  GLACIAL_SPIKE_DAMAGE: {
+    id: 228600,
+    name: 'Glacial Spike',
+    icon: 'spell_frost_frostbolt',
   },
 
   //Fire
@@ -312,6 +332,11 @@ export default {
     id: 195345,
     name: 'Frozen Veins',
     icon: 'spell_frost_coldhearted',
+  },
+  WARMTH_OF_THE_PHOENIX: {
+    id: 240671,
+    name: 'Warmth of the Phoenix',
+    icon: 'artifactability_firemage_phoenixbolt',
   },
 
   //Tier Sets

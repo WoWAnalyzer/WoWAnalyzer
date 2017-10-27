@@ -4,12 +4,12 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 const debug = false;
 
-class ChiBurst extends Module {
+class ChiBurst extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

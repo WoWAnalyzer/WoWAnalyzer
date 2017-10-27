@@ -5,7 +5,6 @@ import CoreAlwaysBeCasting from 'Parser/Core/Modules/AlwaysBeCasting';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import { STATISTIC_ORDER } from 'Main/StatisticBox';
-import SpellLink from 'common/SpellLink';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   static ABILITIES_ON_GCD = [
@@ -16,15 +15,12 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.MARROWREND.id,
     SPELLS.DEATH_STRIKE.id,
     SPELLS.DEATHS_CARESS.id,
-    SPELLS.BLOODDRINKER_TALENT.id,
     // CDS
     SPELLS.ICEBOUND_FORTITUDE.id,
     SPELLS.DANCING_RUNE_WEAPON.id,
     SPELLS.VAMPIRIC_BLOOD.id,
     SPELLS.ANTI_MAGIC_SHELL.id,
-    SPELLS.BLOOD_MIRROR_TALENT.id,
     // CC
-    SPELLS.ASPHYXIATE_TALENT.id,
     SPELLS.DARK_COMMAND.id,
     SPELLS.DEATH_GRIP.id,
     SPELLS.MIND_FREEZE.id,
@@ -35,7 +31,16 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.CONTROL_UNDEAD.id,
     SPELLS.DEATH_GATE.id,
     SPELLS.RAISE_ALLY.id,
+    //Talents
     SPELLS.BONESTORM_TALENT.id,
+    SPELLS.ASPHYXIATE_TALENT.id,
+    SPELLS.BLOODDRINKER_TALENT.id,
+    SPELLS.BLOOD_MIRROR_TALENT.id,
+    SPELLS.MARK_OF_BLOOD_TALENT.id,
+    SPELLS.BLOOD_TAP_TALENT.id,
+    SPELLS.ANTIMAGIC_BARRIER_TALENT.id,
+    SPELLS.TOMBSTONE_TALENT.id,
+    SPELLS.RUNE_TAP_TALENT.id,
   ];
 
   suggestions(when) {
@@ -43,7 +48,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
 
     when(deadTimePercentage).isGreaterThan(0.2)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. Even if you have to move, try casting something instant - maybe refresh your dots or replenish your mana with <SpellLink id={SPELLS.LIFE_TAP.id} /></span>)
+        return suggest(<span>Your downtime can be improved. Try to Always Be Casting (ABC).</span>)
           .icon('spell_mage_altertime')
           .actual(`${formatPercentage(actual)}% downtime`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)

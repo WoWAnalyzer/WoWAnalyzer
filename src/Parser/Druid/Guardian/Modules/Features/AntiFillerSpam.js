@@ -7,7 +7,7 @@ import SpellLink from 'common/SpellLink';
 
 import StatisticBox from 'Main/StatisticBox';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import EnemyInstances from 'Parser/Core/Modules/EnemyInstances';
 import CastEfficiency from './CastEfficiency';
@@ -28,7 +28,7 @@ function resolveValue(maybeFunction, ...args) {
   return maybeFunction;
 }
 
-class AntiFillerSpam extends Module {
+class AntiFillerSpam extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     enemyInstances: EnemyInstances,

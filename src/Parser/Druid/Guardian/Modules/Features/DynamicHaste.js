@@ -1,9 +1,9 @@
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Haste from 'Parser/Core/Modules/Haste';
 
-class DynamicHaste extends Module {
+class DynamicHaste extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     haste: Haste,

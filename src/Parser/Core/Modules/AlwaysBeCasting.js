@@ -3,7 +3,7 @@ import React from 'react';
 import Icon from 'common/Icon';
 import SPELLS from 'common/SPELLS';
 import { formatMilliseconds, formatPercentage } from 'common/format';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
@@ -11,7 +11,7 @@ import Haste from './Haste';
 
 const debug = false;
 
-class AlwaysBeCasting extends Module {
+class AlwaysBeCasting extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     haste: Haste,
@@ -159,6 +159,10 @@ class AlwaysBeCasting extends Module {
   }
 
   showStatistic = false;
+  static icons = {
+    activeTime: '/img/sword.png',
+    downtime: '/img/afk.png',
+  };
   statistic() {
     if (!this.showStatistic) {
       return null;
@@ -186,13 +190,13 @@ class AlwaysBeCasting extends Module {
               style={{ width: `${activeTimePercentage * 100}%` }}
               data-tip={`You spent <b>${formatPercentage(activeTimePercentage)}%</b> of your time casting something.`}
             >
-              <img src="/img/sword.png" alt="Active time" />
+              <img src={this.constructor.icons.activeTime} alt="Active time" />
             </div>
             <div
               className="remainder DeathKnight-bg"
               data-tip={`You spent <b>${formatPercentage(downtimePercentage)}%</b> of your time casting nothing at all.`}
             >
-              <img src="/img/afk.png" alt="Downtime" />
+              <img src={this.constructor.icons.downtime} alt="Downtime" />
             </div>
           </div>
         )}

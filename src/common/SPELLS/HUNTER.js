@@ -49,21 +49,6 @@ export default {
     name: 'Multi-Shot',
     icon: 'ability_upgrademoonglaive',
   },
-  EXHILARATION: {
-    id: 109304,
-    name: 'Exhilaration',
-    icon: 'ability_hunter_onewithnature',
-  },
-  ASPECT_OF_THE_CHEETAH: {
-    id: 186257,
-    name: 'Aspect of the Cheetah',
-    icon: 'ability_mount_jungletiger',
-  },
-  ASPECT_OF_THE_TURTLE: {
-    id: 186265,
-    name: 'Aspect of the Turtle',
-    icon: 'ability_hunter_pet_turtle',
-  },
   BURSTING_SHOT: {
     id: 224729,
     name: 'Bursting Shot',
@@ -84,16 +69,7 @@ export default {
     name: 'Misdrection',
     icon: 'ability_hunter_misdirection',
   },
-  FREEZING_TRAP: {
-    id: 187650,
-    name: 'Freezing Trap',
-    icon: 'spell_frost_chainsofice',
-  },
-  TAR_TRAP: {
-    id: 187698,
-    name: 'Tar Trap',
-    icon: 'spell_yorsahj_bloodboil_black',
-  },
+
   VULNERABLE: {
     id: 187131,
     name: 'Vulnerable',
@@ -103,6 +79,11 @@ export default {
     id: 80483,
     name: 'Arcane Torrent',
     icon: 'spell_shadow_teleport',
+  },
+  MARKING_TARGETS: {
+    id: 223138,
+    name: 'Marking Targets',
+    icon: 'ability_marksmanship',
   },
 
   //CATEGORY
@@ -155,20 +136,24 @@ export default {
   },
 
   // Marksmanship artifact traits
-  BULLSEYE_BUFF: {
+  BULLSEYE_TRAIT: {
     id: 204090,
     name: 'Bullseye',
     icon: 'ability_hunter_focusedaim',
   },
   QUICK_SHOT_TRAIT: {
     id: 190462,
-    name: 'Quick shot',
+    name: 'Quick Shot',
     icon: 'ability_trueshot',
   },
-
   CYCLONIC_BURST_TRAIT: {
     id: 238124,
     name: 'Cyclonic burst',
+    icon: 'inv_bow_1h_artifactwindrunner_d_02',
+  },
+  CYCLONIC_BURST_IMPACT_TRAIT: {
+    id: 242712,
+    name: 'Cyclonic Burst',
     icon: 'inv_bow_1h_artifactwindrunner_d_02',
   },
   UNERRING_ARROWS_TRAIT: {
@@ -176,6 +161,18 @@ export default {
     name: 'Unerring Arrows',
     icon: 'creatureportrait_blackrockv2_shieldgong_broken',
   },
+
+  //Marksmanship legendary buffs
+  SENTINELS_SIGHT: {
+    id: 208913,
+    name: 'Sentinel\'s sight',
+    icon: 'inv_belt_66green',
+  },
+  GYROSCOPIC_STABILIZATION: {
+  id: 235712,
+  name: 'Gyroscopic stabilization',
+  icon: 'inv_glove_mail_raidshamanmythic_o_01',
+},
 
   //Talent buffs/debuffs
   LOCK_AND_LOAD_BUFF: {
@@ -188,7 +185,16 @@ export default {
     name: 'True Aim',
     icon: 'spell_hunter_focusingshot',
   },
-
+  EXPLOSIVE_SHOT_SHOT: {
+    id: 212680,
+    name: 'Explosive Shot',
+    icon: '6bf_explosive_shard',
+  },
+  TRICK_SHOT_BUFF: {
+    id: 227272,
+    name: 'Trick Shot',
+    icon: 'ability_hunter_runningshot',
+  },
   // Survival:
   // ...
 
@@ -204,10 +210,70 @@ export default {
     name: 'Ancient Hysteria',
     icon: 'spell_shadow_unholyfrenzy',
   },
-  //The buff given by volley when it's activated
+  //The buff given by volley when it's activated (and also what does the damage)
   VOLLEY_ACTIVATED: {
     id: 194392,
     name: 'Volley buff',
     icon: 'ability_marksmanship',
+  },
+  FLARE: {
+    id: 1543,
+    name: 'Flare',
+    icon: 'spell_fire_flare',
+  },
+  FEIGN_DEATH: {
+    id: 5384,
+    name: 'Feign Death',
+    icon: 'ability_rogue_feigndeath',
+  },
+  PLAY_DEAD: {
+    id: 209997,
+    name: 'Play Dead',
+    icon: 'inv_misc_pelt_bear_03',
+  },
+  WAKE_UP: {
+    id: 210000,
+    name: 'Wake Up',
+    icon: 'warrior_disruptingshout',
+  },
+  REVIVE_PET: {
+    id: 982,
+    name: 'Revive Pet',
+    icon: 'ability_hunter_beastsoothe',
+  },
+  EXHILARATION: {
+    id: 109304,
+    name: 'Exhilaration',
+    icon: 'ability_hunter_onewithnature',
+  },
+  ASPECT_OF_THE_CHEETAH: {
+    id: 186257,
+    name: 'Aspect of the Cheetah',
+    icon: 'ability_mount_jungletiger',
+  },
+  ASPECT_OF_THE_TURTLE: {
+    id: 186265,
+    name: 'Aspect of the Turtle',
+    icon: 'ability_hunter_pet_turtle',
+  },
+/*  DISENGAGE: {
+    id: 781,
+    name: 'Disengage',
+    icon: 'ability_rogue_feint',
+  },*/
+  FREEZING_TRAP: {
+    id: 187650,
+    name: 'Freezing Trap',
+    icon: 'spell_frost_chainsofice',
+  },
+  TAR_TRAP: {
+    id: 187698,
+    name: 'Tar Trap',
+    icon: 'spell_yorsahj_bloodboil_black',
+  },
+  A_MURDER_OF_CROWS_SPELL: {
+    id: 131900,
+    name: 'A Murder of Crows',
+    icon: 'ability_hunter_murderofcrows',
   },
 };

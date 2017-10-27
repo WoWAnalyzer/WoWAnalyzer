@@ -42,11 +42,11 @@ class FightSelectorHeader extends SelectorBase {
         <span className="selectorHeader">
           <div className="panel">
             <div className="panel-heading">
-              <div className="row">
-                <div className="col-md-8">
+              <div className="flex wrapable">
+                <div className="flex-main" style={{ minWidth: 200 }}>
                   <h2>Select the fight to parse {parser && parser.player ? ` for ${parser.player.name}` : ''}</h2>
                 </div>
-                <div className="col-md-4 text-right toggle-control action-buttons">
+                <div className="flex-sub text-right toggle-control action-buttons">
                   <Toggle
                     checked={killsOnly}
                     icons={false}

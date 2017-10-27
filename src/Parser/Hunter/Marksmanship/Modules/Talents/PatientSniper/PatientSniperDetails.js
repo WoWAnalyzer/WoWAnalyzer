@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import Tab from 'Main/Tab';
@@ -16,7 +16,7 @@ import PatientSniperTracker from "./PatientSniperTracker";
 const VULNERABLE_BONUS = 0.3;
 const UNERRING_ARROWS_BONUS_PER_RANK = 0.03;
 
-class PatientSniperDetails extends Module {
+class PatientSniperDetails extends Analyzer {
   static dependencies = {
     patientSniperTracker: PatientSniperTracker,
     combatants: Combatants,

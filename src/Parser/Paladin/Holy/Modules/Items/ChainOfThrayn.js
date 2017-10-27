@@ -1,14 +1,14 @@
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES, AVENGING_WRATH_HEALING_INCREASE } from '../../Constants';
 
 const CHAIN_OF_THRAYN_HEALING_INCREASE = 0.25;
 
-class ChainOfThrayn extends Module {
+class ChainOfThrayn extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

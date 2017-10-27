@@ -5,11 +5,11 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SUGGESTION_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
-class SoulOfTheArchmage extends Module {
+class SoulOfTheArchmage extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

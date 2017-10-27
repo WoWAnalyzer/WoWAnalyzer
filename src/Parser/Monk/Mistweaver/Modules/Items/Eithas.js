@@ -1,6 +1,6 @@
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -9,7 +9,7 @@ const debug = false;
 
 const EITHAS_LUNAR_GLIDES_HEALING_INCREASE = 0.1;
 
-class Eithas extends Module {
+class Eithas extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

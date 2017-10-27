@@ -4,12 +4,13 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import { formatThousands } from 'common/format';
 
-import Module from 'Parser/Core/Module';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import Analyzer from 'Parser/Core/Analyzer';
+
 
 const debug = false;
 
-class InnerHallation extends Module {
+class InnerHallation extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

@@ -5,11 +5,11 @@ import ITEMS from 'common/ITEMS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-class Ascendance extends Module {
+class Ascendance extends Analyzer {
   numLavaBurstsCast = 0;
   numLightningBoltsCast = 0;
   numOtherCasts = 0;

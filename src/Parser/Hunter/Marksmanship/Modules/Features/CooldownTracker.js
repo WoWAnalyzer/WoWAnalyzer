@@ -12,7 +12,7 @@ class CooldownTracker extends CoreCooldownTracker {
       ],
     },
     {
-      spell: SPELLS.BULLSEYE_BUFF,
+      spell: SPELLS.BULLSEYE_TRAIT,
       summary: [
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],
@@ -23,6 +23,7 @@ class CooldownTracker extends CoreCooldownTracker {
     ...CooldownTracker.ignoredSpells,
     SPELLS.WINDBURST_MOVEMENT_SPEED.id,
     SPELLS.CYCLONIC_BURST_TRAIT.id,
+    SPELLS.CYCLONIC_BURST_IMPACT_TRAIT.id,
   ];
 }
 

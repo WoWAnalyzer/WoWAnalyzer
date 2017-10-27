@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
 // It seems some ticks of healing rain were logged slightly later than the healing end time. So add a tolerance time to catch these ticks.
@@ -12,7 +12,7 @@ const TOLERANCE = 50;
 const HEALING_RAIN_DURATION = 10 * 1000 + TOLERANCE;
 const T20_4SET_HEALING_INCREASE = 0.5;
 
-class Restoration_Shaman_T20_4Set extends Module {
+class Restoration_Shaman_T20_4Set extends Analyzer {
   healing = 0;
 
   on_initialized() {

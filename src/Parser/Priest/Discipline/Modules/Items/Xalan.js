@@ -1,12 +1,12 @@
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import isAtonement from '../Core/isAtonement';
 
 const debug = false;
 
-class Xalan extends Module {
+class Xalan extends Analyzer {
   healing = 0;
 
   get atonementDuration() {

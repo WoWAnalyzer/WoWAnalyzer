@@ -6,7 +6,7 @@ import SpellIcon from 'common/SpellIcon';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 /* This module will try to use Speed of the Pious to determine new Penance casts
  * If Speed of the Pious is not available, we fallback to an estimate
@@ -14,7 +14,7 @@ import Module from 'Parser/Core/Module';
 
 const PENANCE_MINIMUM_RECAST_TIME = 3500; // Minimum duration from one Penance to Another
 
-class Penance extends Module {
+class Penance extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -12,7 +12,7 @@ import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../../Constants';
 
 const DAMAGE_BONUS_PER_TARGET = 0.04;
 
-class StretensSleeplessShackles extends Module {
+class StretensSleeplessShackles extends Analyzer {
   static dependencies = {
     enemies: Enemies,
     combatants: Combatants,

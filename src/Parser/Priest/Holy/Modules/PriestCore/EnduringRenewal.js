@@ -8,10 +8,10 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import { ABILITIES_THAT_TRIGGER_ENDURING_RENEWAL } from '../../Constants';
 
-class EnduringRenewal extends Module {
+class EnduringRenewal extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   }

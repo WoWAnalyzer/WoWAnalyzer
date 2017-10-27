@@ -6,12 +6,12 @@ import SpellLink from 'common/SpellLink';
 
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 const BUFF_DURATION = 12000;
 const REGULAR_PENANCE_COOLDOWN_MS = 9000;
 
-class Tier20_4set extends Module {
+class Tier20_4set extends Analyzer {
   _lastProcTimestamp = null;
   _procCount = 0;
   _consumeCount = 0;

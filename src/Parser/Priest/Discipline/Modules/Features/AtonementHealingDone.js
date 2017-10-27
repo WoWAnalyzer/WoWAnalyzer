@@ -1,14 +1,14 @@
 import React from 'react';
 
 import Tab from 'Main/Tab';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import HealingValue from 'Parser/Core/Modules/HealingValue';
 
 import isAtonement from '../Core/isAtonement';
 import AtonementSource from './AtonementSource';
 import AtonementHealingBreakdown from './AtonementHealingBreakdown';
 
-class AtonementHealingDone extends Module {
+class AtonementHealingDone extends Analyzer {
   static dependencies = {
     atonementSource: AtonementSource,
   };

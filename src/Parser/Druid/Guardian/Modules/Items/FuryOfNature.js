@@ -4,13 +4,13 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import MAGIC_SCHOOLS from 'common/MAGIC_SCHOOLS';
 import { formatNumber } from 'common/format';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 const FURY_OF_NATURE_DAMAGE_MODIFIER = 0.3;
 
-class FuryOfNature extends Module {
+class FuryOfNature extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     abilityTracker: AbilityTracker,

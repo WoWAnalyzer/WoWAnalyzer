@@ -1,7 +1,7 @@
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-class Pet extends Module {
+class Pet extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

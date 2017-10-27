@@ -4,7 +4,7 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 // Unstable Magic cleaves don't always hit on identical timestamps, so we're giving a 100ms buffer
 const PROC_WINDOW_MS = 100;
@@ -15,7 +15,13 @@ const PROCCERS = [
   SPELLS.ARCANE_BLAST.id,
 ];
 
-class UnstableMagic extends Module {
+const PROCS = [
+  SPELLS.UNSTABLE_MAGIC_DAMAGE_FIRE.id,
+  SPELLS.UNSTABLE_MAGIC_DAMAGE_FROST.id,
+  SPELLS.UNSTABLE_MAGIC_DAMAGE_ARCANE.id,
+];
+
+class UnstableMagic extends Analyzer {
   static dependencies = {
     combatants: Combatants,
 	}
@@ -31,7 +37,7 @@ class UnstableMagic extends Module {
   }
 
   on_byPlayer_damage(event) {
-    if(event.ability.guid === SPELLS.UNSTABLE_MAGIC_DAMAGE.id) {
+    if(PROCS.includes(event.ability.guid)) {
       this.damage += event.amount + (event.absorbed || 0);
       this.hits += 1;
       if(!this.hitTimestamp || this.hitTimestamp + PROC_WINDOW_MS < this.owner.currentTimestamp) {
