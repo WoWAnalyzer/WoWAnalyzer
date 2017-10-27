@@ -192,7 +192,7 @@ export default {
     name: 'Tarratus Keystone',
     icon: 'inv_datacrystal06',
     quality: ITEM_QUALITIES.EPIC,
-  }, 
+  },
   HIGHFATHERS_MACHINATION: {
     id: 152289,
     name: 'Highfather\'s Machination',
@@ -201,6 +201,12 @@ export default {
   },
 
   // DPS Trinkets
+  ERRATIC_METRONOME: {
+    id: 140792,
+    name: 'Erratic Metronome',
+    icon: 'inv_misc_pocketwatch_01',
+    quality: ITEM_QUALITIES.EPIC,
+  },
   TARNISHED_SENTINEL_MEDALLION: {
     id: 147017,
     name: 'Tarnished Sentinel Medallion',
