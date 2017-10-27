@@ -36,8 +36,16 @@ class TarnishedSentinelMedallion extends ImportTarnishedSentinelMedallion {
     this.medallionUptime.forEach(cast => {
       this.medallionCasts ++;
       this.cooldownTracker.pastCooldowns.forEach(ts =>{
-        if (ts.start > cast.start - 5000 && ts.end < cast.end + 5000 && ts.spell.id === SPELLS.TRUESHOT.id){ //giving 7.5 (as agreed upon with Putro) seconds of leeway
+        let tsEnd; //because sometimes ts.end is undefined if the parser hasn't gotten there yet
+        if(!ts.end){
+          tsEnd = ts.start + 15000;
+        }
+        else{
+          tsEnd = ts.end;
+        }
+        if (ts.start > cast.start - 5000 && tsEnd < cast.end + 5000 && ts.spell.id === SPELLS.TRUESHOT.id){ //giving 7.5 (as agreed upon with Putro) seconds of leeway
           this.medallionCastsWithTS ++;
+          console.log(ts.start - this.owner.fight.start_time);
         }
       });
     });
