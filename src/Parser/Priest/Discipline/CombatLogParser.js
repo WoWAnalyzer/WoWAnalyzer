@@ -18,6 +18,8 @@ import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 
+import AtonementSuccessiveDamageNormalizer from './Normalizers/AtonementSuccessiveDamage';
+
 import SpellManaCost from './Modules/Core/SpellManaCost';
 import AbilityTracker from './Modules/Core/AbilityTracker';
 
@@ -81,6 +83,10 @@ class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
 
   static specModules = {
+
+    // Normalizers
+    atonementSuccessiveDamage: AtonementSuccessiveDamageNormalizer,
+
     healingDone: [HealingDone, { showStatistic: true }],
 
     // Override the ability tracker so we also get stats for IoL and beacon healing
