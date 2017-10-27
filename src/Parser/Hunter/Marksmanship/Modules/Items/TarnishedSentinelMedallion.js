@@ -14,6 +14,8 @@ class TarnishedSentinelMedallion extends ImportTarnishedSentinelMedallion {
     combatants: Combatants,
   }
  
+  TS_LENGTH = 15000;
+  PAIRING_LEEWAY = 5000; //giving 5 (as agreed upon with Putro) seconds of leeway (so that half of Medallion has TS)
   medallionEnd = 0;
   medallionUptime = [];
   medallionDuration = 20000;
@@ -38,12 +40,12 @@ class TarnishedSentinelMedallion extends ImportTarnishedSentinelMedallion {
       this.cooldownTracker.pastCooldowns.forEach(ts =>{
         let tsEnd; //because sometimes ts.end is undefined if the parser hasn't gotten there yet
         if(!ts.end){
-          tsEnd = ts.start + 15000;
+          tsEnd = ts.start + this.TS_LENGTH;
         }
         else{
           tsEnd = ts.end;
         }
-        if (ts.start > cast.start - 5000 && tsEnd < cast.end + 5000 && ts.spell.id === SPELLS.TRUESHOT.id){ //giving 7.5 (as agreed upon with Putro) seconds of leeway
+        if (ts.start > cast.start - this.PAIRING_LEEWAY && tsEnd < cast.end + this.PAIRING_LEEWAY && ts.spell.id === SPELLS.TRUESHOT.id){ 
           this.medallionCastsWithTS ++;
         }
       });
