@@ -12,6 +12,7 @@ import CritEffectBonus from 'Parser/Core/Modules/Helpers/CritEffectBonus';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 
 import { getSpellInfo } from '../../SpellInfo';
+import MasteryEffectiveness from './MasteryEffectiveness';
 
 const DEBUG = true;
 
@@ -94,6 +95,7 @@ class StatWeights extends Analyzer {
     combatants: Combatants,
     critEffectBonus: CritEffectBonus,
     statTracker: StatTracker,
+    masteryEffectiveness: MasteryEffectiveness, // this added the `masteryEffectiveness` property to spells that are affected by Mastery
   };
 
   totalAdjustedHealing = 0; // total healing after excluding 'multiplier' spells like Leech / Velens
@@ -308,8 +310,16 @@ class StatWeights extends Analyzer {
       // If a spell overheals, it could not have healed for more. Seeing as Mastery only adds HP on top of the existing heal we can skip it as increasing the power of this heal would only be more overhealing.
       return;
     }
-    // NYI
-    // Get mastery effectiveness for this spell, then do same calculation as vers mult by effectiveness
+    if (event.masteryEffectiveness === undefined) {
+      console.error('This spell does not have a known masteryEffectiveness:', event.ability.guid, event.ability.name);
+      return;
+    }
+
+    const masteryEffectiveness = event.masteryEffectiveness;
+    const healIncreaseFromOneMastery = 1 / this.statTracker.masteryRatingPerPercent * masteryEffectiveness;
+    const baseHeal = healVal.effective / (1 + this.statTracker.currentMasteryPercentage * masteryEffectiveness);
+
+    this.totalOneMastery += baseHeal * healIncreaseFromOneMastery;
   }
   _versatility(event, healVal) {
     if (healVal.overheal) {
@@ -318,8 +328,8 @@ class StatWeights extends Analyzer {
     }
     const currVersPerc = this.statTracker.currentVersatilityPercentage;
     const healIncreaseFromOneVers = 1 / this.statTracker.versatilityRatingPerPercent;
-    const noVersHealing = healVal.effective / (1 + currVersPerc);
-    this.totalOneVers += noVersHealing * healIncreaseFromOneVers;
+    const baseHeal = healVal.effective / (1 + currVersPerc);
+    this.totalOneVers += baseHeal * healIncreaseFromOneVers;
   }
 
   on_toPlayer_damage(event) {
