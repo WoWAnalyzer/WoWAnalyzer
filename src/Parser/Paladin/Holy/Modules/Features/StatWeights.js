@@ -413,8 +413,10 @@ class StatWeights extends Analyzer {
               {results.map(row => (
                 <tr>
                   {row.tooltip ? (<td><dfn data-tip={row.tooltip}>{row.stat}</dfn></td>) : (<td>{row.stat}</td>)}
-                  <td>{row.weight ? row.weight.toFixed(2) : "NYI"}</td>
-                  <td>{row.ratingForOne ? formatNumber(row.ratingForOne) : "NYI"}</td>
+                  <td>{row.weight.toFixed ? row.weight.toFixed(2) : "NYI"}</td>
+                  <td>{row.ratingForOne ? (
+                    row.ratingForOne === Infinity ? '∞' : formatNumber(row.ratingForOne)
+                  ) : 'NYI'}</td>
                 </tr>
               ))}
             </tbody>
