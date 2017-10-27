@@ -7,7 +7,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 
-const debug = true;
+const debug = false;
 
 // Brain Freeze appears to always fall after Flurry cast, but not always on same timestamp. Giving a margin here.
 const PROC_WINDOW_MS = 100;
