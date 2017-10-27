@@ -4,6 +4,7 @@ import SPELLS from 'common/SPELLS';
 import StatisticBox from "Main/StatisticBox";
 import SpellIcon from "common/SpellIcon";
 import { formatNumber, formatPercentage } from "common/format";
+import SpellLink from 'common/SpellLink';
 import CooldownTracker from '../Features/CooldownTracker';
 
 class Bullseye extends Analyzer{
@@ -12,30 +13,31 @@ class Bullseye extends Analyzer{
   bullseyeInstances = [];
   saveForExecuteThreshhold;
   bossIDs = [];
+  MAX_STACKS = 30;
 
   static dependencies = {
     cooldownTracker : CooldownTracker,
-  }
+  };
+
   on_initialized(){
     this.owner.report.enemies.forEach(enemy => {
-      if (enemy.fights[0].id === this.owner.fight.id && enemy.type === "Boss"){ //ensure that we only count Bosses for checking if bullseye was reset during execute
-        this.bossIDs.push(enemy.id);
-      }
+      if (enemy.fights[0].id === this.owner.fight.id && enemy.type === "Boss") this.bossIDs.push(enemy.id);
     });
   }
   on_byPlayer_applybuff(event){
     if (event.ability.guid !== SPELLS.BULLSEYE_TRAIT.id){
       return;
     }
-    this.bullseyeInstances.push({'start':event.timestamp - this.owner.fight.start_time});
+    this.bullseyeInstances.push({"start":event.timestamp - this.owner.fight.start_time});
   }
 
   on_byPlayer_applybuffstack(event) {
     if (event.ability.guid !== SPELLS.BULLSEYE_TRAIT.id){
       return;
     }
-    if (event.stack === 30){
-      this.bullseyeInstances[this.bullseyeInstances.length-1].maxStacksTimestamp = event.timestamp - this.owner.fight.start_time;
+    const lastBullseyeIndex = this.bullseyeInstances.length-1;
+    if (event.stack === this.MAX_STACKS){
+      this.bullseyeInstances[lastBullseyeIndex].maxStacksTimestamp = event.timestamp - this.owner.fight.start_time;
     }
   }
 
@@ -43,30 +45,32 @@ class Bullseye extends Analyzer{
     if (event.ability.guid !== SPELLS.BULLSEYE_TRAIT.id){
       return;
     }
+    const lastBullseyeIndex = this.bullseyeInstances.length-1;
     if (this.executeTimestamp){
       this.bullseyeResets ++;
-      this.bullseyeInstances[this.bullseyeInstances.length-1].duringExecute = true;
+      this.bullseyeInstances[lastBullseyeIndex].duringExecute = true;
     }
-    this.bullseyeInstances[this.bullseyeInstances.length-1].end = event.timestamp - this.owner.fight.start_time;
+    this.bullseyeInstances[lastBullseyeIndex].end = event.timestamp - this.owner.fight.start_time;
   }
 
   on_byPlayer_damage(event){
     if(event.targetInstance === undefined && event.maxHitPoints && this.bossIDs.indexOf(event.targetID) !== -1){
-      if ((event.hitPoints / event.maxHitPoints * 10000)/100 <= 20 && !this.executeTimestamp){
+      if ((event.hitPoints / event.maxHitPoints) <= .2 && !this.executeTimestamp){
         this.executeTimestamp = event.timestamp - this.owner.fight.start_time;
       }
-      if ((event.hitPoints / event.maxHitPoints * 10000)/100 <= 25 && !this.saveForExecuteThreshhold){ //this is unused here, but will be used in the crows module
+      if ((event.hitPoints / event.maxHitPoints) <= .25 && !this.saveForExecuteThreshhold){ //this is unused here, but will be used in the crows module
         this.saveForExecuteThreshhold = event.timestamp - this.owner.fight.start_time; //generally accepted rule is to save crows if boss is below 25% health. I won't calculate whether one "could have" used crows because it's not super applicable unless fight time doesn't change at all
       }
     }
   }
 
   statistic() {
+    const lastBullseyeIndex = this.bullseyeInstances.length-1;
     if (!this.bullseyeInstances[0]){
       return;
     }
-    if (this.bullseyeInstances[this.bullseyeInstances.length-1] && !this.bullseyeInstances[this.bullseyeInstances.length-1].end){
-      this.bullseyeInstances[this.bullseyeInstances.length-1].end = this.owner.fight.end_time - this.owner.fight.start_time;
+    if (this.bullseyeInstances[lastBullseyeIndex] && !this.bullseyeInstances[lastBullseyeIndex].end){
+      this.bullseyeInstances[lastBullseyeIndex].end = this.owner.fight.end_time - this.owner.fight.start_time;
     }
     this.bullseyeUptime = 0;
     this.bullseyeMaxUptime = 0;
@@ -81,17 +85,17 @@ class Bullseye extends Analyzer{
       <StatisticBox
         icon={<SpellIcon id={SPELLS.BULLSEYE_TRAIT.id} />}
         value={`${this.percentBullseyeAtMax} %`}
-        label="% of bullseye at 30 stacks"
-        tooltip={`You reset Bullseye ${this.bullseyeResets} times during the execute phase (boss below 20% health). <br /> You had ${formatNumber(this.bullseyeUptime/1000)} seconds of Bullseye uptime during the fight, and ${formatNumber(this.bullseyeMaxUptime/1000)} seconds of uptime at 30 stacks.`}
+        label={`% of Bullseye at ${this.MAX_STACKS} stacks`}
+        tooltip={`You reset Bullseye ${this.bullseyeResets} times during the execute phase (boss below 20% health). <br /> You had ${formatNumber(this.bullseyeUptime/1000)} seconds of Bullseye uptime during the fight, and ${formatNumber(this.bullseyeMaxUptime/1000)} seconds of uptime at ${this.MAX_STACKS} stacks.`}
       />
-    );  
+    );
   }
 
   suggestions(when) {
 
     when(this.bullseyeResets).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span> You reset your bullseye stacks while the boss was below 20% health. Try and avoid this as it is a significant DPS loss. Make sure you're constantly refreshing and adding to your bullseye stacks on targets below 20% hp.</span>)
+        return suggest(<span> You reset your <SpellLink id={SPELLS.BULLSEYE_TRAIT.id} /> stacks while the boss was below 20% health. Try and avoid this as it is a significant DPS loss. Make sure you're constantly refreshing and adding to your bullseye stacks on targets below 20% hp.</span>)
           .icon('ability_hunter_focusedaim')
           .actual(`${this.bullseyeResets} resets`)
           .recommended(`<1 reset is recommended`)
