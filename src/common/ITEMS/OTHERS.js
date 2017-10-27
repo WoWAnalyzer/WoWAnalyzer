@@ -153,6 +153,12 @@ export default {
     icon: 'inv_70_dungeon_ring8d',
     quality: ITEM_QUALITIES.EPIC,
   },
+  DREADSTONE_OF_ENDLESS_SHADOWS: {
+    id: 144480,
+    name: 'Dreadstone of Endless Shadows',
+    icon: 'inv_jewelcrafting_shadowsongamethyst_01',
+    quality: ITEM_QUALITIES.EPIC,
+  },
 
   // T20 Trinkets
   // Heal Trinkets
