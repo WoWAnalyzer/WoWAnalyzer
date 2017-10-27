@@ -166,9 +166,9 @@ export default {
   },
 
   FESTERING_WOUND: {
-    id: 197147,
+    id: 194310,
     name: 'Festering Wound',
-    icon: 'spell_shadow_deathanddecay',
+    icon: 'spell_yorsahj_bloodboil_purpleoil',
   },
 
   OUTBREAK: {

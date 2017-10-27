@@ -35,7 +35,7 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 120, // TODO: needs to account for CoF
       recommendedCastEfficiency: 0.90,
       isActive: combatant => combatant.hasTalent(SPELLS.DARK_ARBITER_TALENT.id),
-      extraSuggestion: 'This is your main DPS cooldown. Try to cast this off cooldown, keep in mind that if you are wearing <ItemLink id={ITEMS.TAKTHERITRIXS_SHOULDERPADS.id}/> that you make sure <SpellLink id={SPELLS.DARK_TRANSFORMATION.id}/> can be cast immediatly after.',
+      extraSuggestion: <span>This is your main DPS cooldown. Try to cast this off cooldown, keep in mind that if you are wearing <ItemLink id={ITEMS.TAKTHERITRIXS_SHOULDERPADS.id}/> that you make sure <SpellLink id={SPELLS.DARK_TRANSFORMATION.id}/> can be cast immediatly after.'</span>,
     },
 
     {
