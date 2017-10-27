@@ -168,6 +168,11 @@ export default {
     name: 'Frost Bomb',
     icon: 'spell_mage_frostbomb',
   },
+  GLACIAL_SPIKE_DAMAGE: {
+    id: 228600,
+    name: 'Glacial Spike',
+    icon: 'spell_frost_frostbolt',
+  },
 
   //Fire
   FIREBALL: {
