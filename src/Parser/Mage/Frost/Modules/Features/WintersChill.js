@@ -143,7 +143,7 @@ class WintersChillTracker extends Analyzer {
                 marginTop: '-.1em',
               }}
             />
-            {' '}
+            <br />
             {formatPercentage(frostboltUtil, 0)}{'% '}
             <SpellIcon
               id={SPELLS.FROSTBOLT.id}
