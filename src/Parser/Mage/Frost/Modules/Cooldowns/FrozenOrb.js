@@ -8,7 +8,7 @@ import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 const BLIZZARD_REDUCTION_MS = 500;
-const BRAIN_FREEZE_REDUCTION_MS = 5000;
+const BRAIN_FREEZE_REDUCTION_MS = 4000;
 
 class FrozenOrb extends Analyzer {
 
