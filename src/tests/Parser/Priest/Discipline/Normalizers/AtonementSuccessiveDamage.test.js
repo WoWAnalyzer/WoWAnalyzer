@@ -38,13 +38,14 @@ describe('DisciplinePriest.Reordering', () => {
     ];
 
     let result = atonementSuccessiveDamageNormalizer.normalize(AtonementOf2DamingEventsGroupedTogether);
-    expect(result[0]).toBe(AtonementOnPlayer2)
-    expect(result[1]).toBe(DamagingEvent1)
-    expect(result[2]).toBe(AtonementOnPlayer1)
-    expect(result[3]).toBe(AtonementOnPlayer2)
-    expect(result[4]).toBe(DamagingEvent2)
-    expect(result[5]).toBe(AtonementOnPlayer1)
-    expect(result[6]).toBe(AtonementOnPlayer2);
+    expect(result).toEqual([
+      AtonementOnPlayer2,
+      DamagingEvent1,
+      AtonementOnPlayer1,
+      AtonementOnPlayer2,
+      DamagingEvent2,
+      AtonementOnPlayer1,
+      AtonementOnPlayer2]);
   });
 
   it('If the atonement of 2 events is correct, it stays untouched', () => {
@@ -60,13 +61,14 @@ describe('DisciplinePriest.Reordering', () => {
     ];
 
     let result = atonementSuccessiveDamageNormalizer.normalize(AtonementOf2DamingEventsGroupedTogether);
-    expect(result[0]).toBe(AtonementOnPlayer2)
-    expect(result[1]).toBe(DamagingEvent1)
-    expect(result[2]).toBe(AtonementOnPlayer1)
-    expect(result[3]).toBe(AtonementOnPlayer2)
-    expect(result[4]).toBe(DamagingEvent2)
-    expect(result[5]).toBe(AtonementOnPlayer1)
-    expect(result[6]).toBe(AtonementOnPlayer2);
+    expect(result).toEqual([
+      AtonementOnPlayer2,
+      DamagingEvent1,
+      AtonementOnPlayer1,
+      AtonementOnPlayer2,
+      DamagingEvent2,
+      AtonementOnPlayer1,
+      AtonementOnPlayer2]);
   });
 
   it('If the 2 damaging blocks scenario happens twice, both are corrected', () => {
@@ -88,19 +90,20 @@ describe('DisciplinePriest.Reordering', () => {
     ];
 
     let result = atonementSuccessiveDamageNormalizer.normalize(AtonementOf2DamingEventsGroupedTogether);
-    expect(result[0]).toBe(AtonementOnPlayer2)
-    expect(result[1]).toBe(DamagingEvent1)
-    expect(result[2]).toBe(AtonementOnPlayer1)
-    expect(result[3]).toBe(AtonementOnPlayer2)
-    expect(result[4]).toBe(DamagingEvent2)
-    expect(result[5]).toBe(AtonementOnPlayer1)
-    expect(result[6]).toBe(AtonementOnPlayer2);
-    expect(result[7]).toBe(DamagingEvent1)
-    expect(result[8]).toBe(AtonementOnPlayer1)
-    expect(result[9]).toBe(AtonementOnPlayer2)
-    expect(result[10]).toBe(DamagingEvent2)
-    expect(result[11]).toBe(AtonementOnPlayer1)
-    expect(result[12]).toBe(AtonementOnPlayer2);
+    expect(result).toEqual([
+      AtonementOnPlayer2,
+      DamagingEvent1,
+      AtonementOnPlayer1,
+      AtonementOnPlayer2,
+      DamagingEvent2,
+      AtonementOnPlayer1,
+      AtonementOnPlayer2,
+      DamagingEvent1,
+      AtonementOnPlayer1,
+      AtonementOnPlayer2,
+      DamagingEvent2,
+      AtonementOnPlayer1,
+      AtonementOnPlayer2
+    ]);
   });
-
 });

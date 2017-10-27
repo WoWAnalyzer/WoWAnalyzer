@@ -5,6 +5,7 @@ import isAtonement from '../Modules/Core/isAtonement';
 class AtonementSuccessiveDamage extends EventsNormalizer {
 
   normalize(events) {
+
     const fixedEvents = [];
     const _damageEventIndexes = [];
 
@@ -26,13 +27,16 @@ class AtonementSuccessiveDamage extends EventsNormalizer {
         // event. We push down the last damage event here
         if(_encounteredTargetIDs.indexOf(event.targetID) >= 0) {
           const lastDamageEvent = fixedEvents.splice(_damageEventIndexes[_damageEventIndexes.length -1], 1)[0];
+          lastDamageEvent.__modified = true;
           fixedEvents.splice(fixedEvents.length - 1, 0, lastDamageEvent);
           _encounteredTargetIDs = [];
           return;
         }
 
         //  We ignore atonement on self in the handling of repeating targetIDs
-        //  Because of latency issues
+        //  Because of latency issues, the atonement on self does not follow
+        //  the same rules normal atonement does. We will handle these cases
+        //  in another normalizer
         if(event.sourceID !== event.targetID) {
           _encounteredTargetIDs.push(event.targetID);
         }
