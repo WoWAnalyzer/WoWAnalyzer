@@ -15,6 +15,9 @@ import { getSpellInfo } from '../../SpellInfo';
 const DEBUG = true;
 
 const ARMOR_INT_MULTIPLIER = 1.05; // 5% int bonus from wearing all leather means each new point of int worth 1.05 vs character sheet int
+const INFUSION_OF_LIGHT_BUFF_EXPIRATION_BUFFER = 150; // the buff expiration can occur several MS before the heal event is logged, this is the buffer time that an IoL charge may have dropped during which it will still be considered active.
+const INFUSION_OF_LIGHT_BUFF_MINIMAL_ACTIVE_TIME = 200; // if someone heals with FoL and then immediately casts a HS race conditions may occur. This prevents that (although the buff is probably not applied before the FoL).
+const INFUSION_OF_LIGHT_FOL_HEALING_INCREASE = 0.5;
 
 /*
  * Holy Paladin Stat Weights Methodology
@@ -272,13 +275,13 @@ class StatWeights extends Analyzer {
     if (spellId !== SPELLS.FLASH_OF_LIGHT.id && spellId !== SPELLS.HOLY_LIGHT.id) {
       return;
     }
-    if (!this.combatants.selected.hasBuff(SPELLS.INFUSION_OF_LIGHT.id)) {
+    const hasIol = this.combatants.selected.hasBuff(SPELLS.INFUSION_OF_LIGHT.id, event.timestamp, INFUSION_OF_LIGHT_BUFF_EXPIRATION_BUFFER, INFUSION_OF_LIGHT_BUFF_MINIMAL_ACTIVE_TIME);
+    if (!hasIol) {
       return;
     }
 
     if (spellId === SPELLS.FLASH_OF_LIGHT.id) {
-      const infusionOfLightFlashOfLightHealingBoost = 0.5;
-      const regularHeal = healVal.raw / (1 + infusionOfLightFlashOfLightHealingBoost);
+      const regularHeal = healVal.raw / (1 + INFUSION_OF_LIGHT_FOL_HEALING_INCREASE);
       const effectiveIolHealing = Math.max(0, healVal.effective - regularHeal);
 
       const { baseCritChance, ratingCritChance } = this._getCritChance(event);
