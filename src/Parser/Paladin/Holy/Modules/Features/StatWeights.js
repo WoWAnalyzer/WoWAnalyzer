@@ -9,6 +9,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import HealingValue from 'Parser/Core/Modules/HealingValue';
 import DamageValue from 'Parser/Core/Modules/DamageValue';
 import CritEffectBonus from 'Parser/Core/Modules/Helpers/CritEffectBonus';
+import StatTracker from 'Parser/Core/Modules/StatTracker';
 
 import { getSpellInfo } from '../../SpellInfo';
 
@@ -92,9 +93,8 @@ class StatWeights extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     critEffectBonus: CritEffectBonus,
+    statTracker: StatTracker,
   };
-
-  concordanceAmount = 0; // TODO remove when stat tracker added
 
   totalAdjustedHealing = 0; // total healing after excluding 'multiplier' spells like Leech / Velens
 
@@ -108,10 +108,6 @@ class StatWeights extends Analyzer {
   totalOneLeech = 0;
 
   playerHealthMissing = 0;
-
-  on_initialized() {
-    this.concordanceAmount = 4000 + ((this.combatants.selected.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id] - 1) || 0) * 300; // TODO remove when stat tracker added
-  }
 
   on_heal(event) {
     if (event.ability.guid === SPELLS.BEACON_OF_LIGHT.id) {
@@ -159,24 +155,20 @@ class StatWeights extends Analyzer {
     }
 
     this._leech(event, healVal);
+
     if (spellInfo.multiplier) {
       // Multiplier spells aren't counted for weights because they don't **directly** benefit from stat weights
       return;
     }
 
+    if (spellInfo.int) {
+      this._intellect(event, healVal);
+    }
     if (spellInfo.crit) {
       this._criticalStrike(event, healVal);
     }
     if (spellInfo.hasteHpct) {
       this._hasteHpct(event, healVal);
-    }
-
-    if (healVal.overheal) {
-      // If a spell overheals, it could not have healed for more. Seeing as the below stats all only add HP on top of the existing heal we can skip them as their increase will only be more overhealing.
-      return;
-    }
-    if (spellInfo.int) {
-      this._intellect(event, healVal);
     }
     if (spellInfo.mastery) {
       this._mastery(event, healVal);
@@ -190,38 +182,40 @@ class StatWeights extends Analyzer {
 
     // We have to calculate leech weight differently depending on if we already have any leech rating.
     // Leech is marked as a 'multplier' heal, so we have to check it before we do the early return below
-    const hasLeech = this.combatants.selected.leechRating > 0; // TODO replace when dynamic stats
+    const hasLeech = this.statTracker.currentLeechPercentage > 0;
     if (hasLeech) {
       // When the user has Leech we can use the actual Leech healing to accuractely calculate its HPS value without having to do any kind of predicting
       if (!healVal.overheal && spellId === SPELLS.LEECH.id) {
-        this.totalOneLeech += healVal.effective / this.combatants.selected.leechRating; // TODO replace when dynamic stats
+        this.totalOneLeech += healVal.effective / this.statTracker.currentLeechRating; // TODO: Make a generic method to account for base percentage
       }
     } else {
       // Without Leech we will have to make an estimation so we can still provide the user with a decent value
       if (this.playerHealthMissing > 0) { // if the player is full HP this would have overhealed.
-        const bonusFromOneLeech = 1 / 23000;
-        this.totalOneLeech += healVal.raw * bonusFromOneLeech;
+        const healIncreaseFromOneLeech = 1 / 23000;
+        this.totalOneLeech += healVal.raw * healIncreaseFromOneLeech;
       }
     }
   }
   _intellect(event, healVal) {
-    const currInt = this._getCurrInt(); // TODO replace when dynamic stats
-    const bonusFromOneInt = (1 / currInt) * ARMOR_INT_MULTIPLIER;
-    this.totalOneInt += healVal.effective * bonusFromOneInt;
+    if (healVal.overheal) {
+      // If a spell overheals, it could not have healed for more. Seeing as Int only adds HP on top of the existing heal we can skip it as increasing the power of this heal would only be more overhealing.
+      return;
+    }
+    const currInt = this.statTracker.currentIntellectRating;
+    // noinspection PointlessArithmeticExpressionJS
+    const healIncreaseFromOneInt = (1 * ARMOR_INT_MULTIPLIER) / currInt;
+    this.totalOneInt += healVal.effective * healIncreaseFromOneInt;
   }
   _criticalStrike(event, healVal) {
     this._criticalStrikeEffectiveHealing(event, healVal);
     this._criticalStrikeInfusionOfLightProcs(event, healVal);
   }
-  _getCritRatingPerPercent() {
-    return 40000; // TODO replace when dynamic stats
-  }
   _getCritChance(event) {
     const spellId = event.ability.guid;
 
-    const rating = this.combatants.selected.critRating; // TODO replace when dynamic stats
-    let baseCritChance = 0.08; // TODO replace when dynamic stats
-    let ratingCritChance = rating / this._getCritRatingPerPercent();
+    const rating = this.statTracker.currentCritRating;
+    let baseCritChance = this.statTracker.baseCritPercentage;
+    let ratingCritChance = rating / this.statTracker.critRatingPerPercent;
 
     // region Spec specific crit chance buffs
     if (this.combatants.selected.hasBuff(SPELLS.AVENGING_WRATH.id)) {
@@ -256,7 +250,7 @@ class StatWeights extends Analyzer {
       const { baseCritChance, ratingCritChance } = this._getCritChance(event);
 
       const totalCritChance = baseCritChance + ratingCritChance;
-      if (totalCritChance > (1 + 1 / this._getCritRatingPerPercent())) {
+      if (totalCritChance > (1 + 1 / this.statTracker.critRatingPerPercent)) {
         // If the crit chance was more than 100%+1 rating, then the last rating was over the cap and worth 0.
         return;
       }
@@ -265,7 +259,7 @@ class StatWeights extends Analyzer {
       const critMult = this.critEffectBonus.getBonus(event);
       const rawBaseHealing = healVal.raw / critMult;
       const effectiveCritHealing = Math.max(0, healVal.effective - rawBaseHealing);
-      const rating = this.combatants.selected.critRating; // TODO replace when dynamic stats
+      const rating = this.statTracker.currentCritRating;
 
       this.totalOneCrit += effectiveCritHealing * ratingCritChanceContribution / rating;
     }
@@ -287,15 +281,13 @@ class StatWeights extends Analyzer {
       const { baseCritChance, ratingCritChance } = this._getCritChance(event);
 
       const totalCritChance = baseCritChance + ratingCritChance;
-      if (totalCritChance > (1 + 1 / this._getCritRatingPerPercent())) {
+      if (totalCritChance > (1 + 1 / this.statTracker.critRatingPerPercent)) {
         // If the crit chance was more than 100%+1 rating, then the last rating was over the cap and worth 0.
         return;
       }
       const ratingCritChanceContribution = 1 - baseCritChance / totalCritChance;
 
-      const rating = this.combatants.selected.critRating; // TODO replace when dynamic stats
-
-      this.totalOneCrit += effectiveIolHealing * ratingCritChanceContribution / rating;
+      this.totalOneCrit += effectiveIolHealing * ratingCritChanceContribution / this.statTracker.currentCritRating;
     }
     if (spellId === SPELLS.HOLY_LIGHT.id) {
       // TODO: We might be able to use the Haste stat weight to value the CDR
@@ -305,33 +297,39 @@ class StatWeights extends Analyzer {
     // Calculate Haste
     // my current hypothesis is to consider 1% of all healing done with spells with GCDs/channels affected by Haste to be considered the basis for the value of 1% Haste (since 1% Haste allows you to cast these spells 1% more often), but if someone ran OOM at the end of the fight you'd consider the Haste value to be 0.
 
-    // const currHastePerc = this.combatants.selected.hastePercentage; // TODO replace when dynamic stats
-    // const bonusFromOneHaste = 1 / 37500; // TODO replace when stat constants exist
+    // const currHastePerc = this.statTracker.currentHastePercentage;
+    // const healIncreaseFromOneHaste = 1 / this.statTracker.hasteRatingPerPercent;
     // const noHasteHealing = amount / (1 + currHastePerc);
-    // this.totalOneHasteHpm += bonusFromOneHaste * noHasteHealing;
+    // this.totalOneHasteHpm += healIncreaseFromOneHaste * noHasteHealing;
     // NYI
   }
   _mastery(event, healVal) {
+    if (healVal.overheal) {
+      // If a spell overheals, it could not have healed for more. Seeing as Mastery only adds HP on top of the existing heal we can skip it as increasing the power of this heal would only be more overhealing.
+      return;
+    }
     // NYI
     // Get mastery effectiveness for this spell, then do same calculation as vers mult by effectiveness
   }
   _versatility(event, healVal) {
-    const currVersPerc = this.combatants.selected.versatilityPercentage; // TODO replace when dynamic stats
-    const bonusFromOneVers = 1 / 47500; // TODO replace when stat constants exist
+    if (healVal.overheal) {
+      // If a spell overheals, it could not have healed for more. Seeing as Versatility only adds HP on top of the existing heal we can skip it as increasing the power of this heal would only be more overhealing.
+      return;
+    }
+    const currVersPerc = this.statTracker.currentVersatilityPercentage;
+    const healIncreaseFromOneVers = 1 / this.statTracker.versatilityRatingPerPercent;
     const noVersHealing = healVal.effective / (1 + currVersPerc);
-    this.totalOneVers += noVersHealing * bonusFromOneVers;
+    this.totalOneVers += noVersHealing * healIncreaseFromOneVers;
   }
 
   on_toPlayer_damage(event) {
     const damageVal = new DamageValue(event.amount, event.absorbed, event.overkill);
     const amount = damageVal.effective;
-    const currVersPerc = this.combatants.selected.versatilityPercentage; // TODO replace when dynamic stats
-    const currVersDrPerc = currVersPerc / 2;
-    const bonusFromOneVers = 1 / 47500; // TODO replace when stat constants exist
-    const bonusFromOneVersDr = bonusFromOneVers / 2;
+    const currentVersDamageReductionPercentage = this.statTracker.currentVersatilityPercentage / 2;
+    const damageReductionIncreaseFromOneVers = 1 / this.statTracker.versatilityRatingPerPercent / 2; // the DR part is only 50% of the Versa percentage
 
-    const noVersDamage = amount / (1 - currVersDrPerc);
-    this.totalOneVersDr += noVersDamage * bonusFromOneVersDr;
+    const noVersDamage = amount / (1 - currentVersDamageReductionPercentage);
+    this.totalOneVersDr += noVersDamage * damageReductionIncreaseFromOneVers;
 
     this._updateMissingHealth(event);
   }
@@ -343,21 +341,6 @@ class StatWeights extends Analyzer {
     if (event.hitPoints && event.maxHitPoints) { // fields not always populated, don't know why
       this.playerHealthMissing = event.maxHitPoints - event.hitPoints;
     }
-  }
-
-  // FIXME temporary hacky handler for Concordance until stat tracker is implemented
-  _getCurrInt() {
-    let currInt = this.combatants.selected.intellect;
-    if (this.combatants.selected.hasBuff(SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_INTELLECT.id)) {
-      currInt += this.concordanceAmount;
-    }
-    return currInt;
-  }
-
-  // FIXME temporary hacky handler for 2t19 until stat tracker is implemented
-  _getCurrMasteryPerc() {
-    let currMastery = this.combatants.selected.masteryRating;
-    return 0.048 + (currMastery / 66666.6666666);
   }
 
   on_finished() {
