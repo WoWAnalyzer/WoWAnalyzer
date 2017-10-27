@@ -16,7 +16,7 @@ class FesteringStrike extends Analyzer {
     combantants: Combatants,
   };
 
-  // used to track
+  // used to track how many stacks a target has
   targets = {};
 
   totalFesteringStrikeCasts = 0;
@@ -80,7 +80,6 @@ class FesteringStrike extends Analyzer {
         value={`${formatPercentage(strikeEfficiency)} %`}
         label={'Festering Strike Efficiency'}
         tooltip={`${formatPercentage(percentCastsOverFourStacks)}% of Festering Strike casts were on a target with more than four stacks of Festering Wounds.`}
-
       />
     );
   }
