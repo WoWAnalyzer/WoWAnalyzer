@@ -16,11 +16,14 @@ class StatTracker extends Analyzer {
   };
 
   static STAT_BUFFS = {
-    //// POTIONS ////
+    // region Potions
     [SPELLS.POTION_OF_PROLONGED_POWER.id]: { strength: 2500, agility: 2500, intellect: 2500 },
-    // probably no need to add flasks/food because they never fall
+    // endregion
+    // TODO: add flasks
+    // TODO: add food
+    // TODO: add runes
 
-    //// TRINKETS ////
+    // region Trinkets
     [SPELLS.SHADOWS_STRIKE.id]: {
       itemId: ITEMS.DREADSTONE_OF_ENDLESS_SHADOWS.id,
       crit: (_, item) => calculateSecondaryStatDefault(845, 3480, item.itemLevel),
@@ -37,8 +40,9 @@ class StatTracker extends Analyzer {
       itemId: ITEMS.CHARM_OF_THE_RISING_TIDE.id,
       haste: (_, item) => calculateSecondaryStatDefault(900, 576, item.itemLevel),
     },
+    // endregion
 
-    //// MISC ////
+    // region Misc
     [SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_STRENGTH.id]: { // check numbers
       strength: combatant => 4000 + (combatant.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id] - 1) * 300,
     },
@@ -53,18 +57,20 @@ class StatTracker extends Analyzer {
     },
     [SPELLS.JACINS_RUSE.id]: { mastery: 3000 },
     [SPELLS.MARK_OF_THE_CLAW.id]: { crit: 1000, haste: 1000 },
+    // endregion
 
-    //// DRUID ////
+    // region Druid
     [SPELLS.ASTRAL_HARMONY.id]: { mastery: 4000 },
+    // endregion
 
-    //// MAGE ////
+    // region Mage
     [SPELLS.WARMTH_OF_THE_PHOENIX.id]: { crit: 800 },
+    // endregion
 
-    //// PRIEST ////
+    // region Priest
     [SPELLS.MIND_QUICKENING.id]: { haste: 800 },
-
-
-  }
+    // endregion
+  };
 
   _startingStats = {};
   _stats = {};
@@ -183,8 +189,8 @@ class StatTracker extends Analyzer {
         return 0.24;
       case SPECS.ENHANCEMENT_SHAMAN:
         return 0.2;
-	    case SPECS.RESTORATION_DRUID:
-	      return 0.048;
+      case SPECS.RESTORATION_DRUID:
+        return 0.048;
       default:
         throw new Error('Mastery hasn\'t been implemented for this spec yet.');
     }
@@ -222,8 +228,8 @@ class StatTracker extends Analyzer {
         return 13333;
       case SPECS.ENHANCEMENT_SHAMAN:
         return 13333;
-	    case SPECS.RESTORATION_DRUID:
-	      return 66667;
+      case SPECS.RESTORATION_DRUID:
+        return 66667;
       default:
         throw new Error('Mastery hasn\'t been implemented for this spec yet.');
     }
@@ -266,7 +272,6 @@ class StatTracker extends Analyzer {
     return this.baseSpeedPercentage + (this.currentSpeedRating / this.speedRatingPerPercent);
   }
 
-
   on_toPlayer_changebuffstack(event) {
     this._changeBuffStack(event);
   }
@@ -278,10 +283,10 @@ class StatTracker extends Analyzer {
   _changeBuffStack(event) {
     const spellId = event.ability.guid;
     const statBuff = this.constructor.STAT_BUFFS[spellId];
-    if(statBuff) {
+    if (statBuff) {
       // ignore prepull buff application, as they're already accounted for in combatantinfo
       // we have to check the stacks count because Entities incorrectly copies the prepull property onto changes and removal following the application
-      if(event.oldStacks === 0 && event.prepull) {
+      if (event.oldStacks === 0 && event.prepull) {
         debug && console.log(`StatTracker prepull application IGNORED for ${SPELLS[spellId] ? SPELLS[spellId].name : spellId}`);
         return;
       }
@@ -330,7 +335,7 @@ class StatTracker extends Analyzer {
   }
 
   _debugPrintStats(stats) {
-    console.log(`StatTracker:`, formatMilliseconds(this.owner.fightDuration),`STR=${this._stats.strength} AGI=${this._stats.agility} INT=${this._stats.intellect} STM=${this._stats.stamina} CRT=${this._stats.crit} HST=${this._stats.haste} MST=${this._stats.mastery} VRS=${this._stats.versatility} AVD=${this._stats.avoidance} LCH=${this._stats.leech} SPD=${this._stats.speed}`);
+    console.log(`StatTracker:`, formatMilliseconds(this.owner.fightDuration), `STR=${this._stats.strength} AGI=${this._stats.agility} INT=${this._stats.intellect} STM=${this._stats.stamina} CRT=${this._stats.crit} HST=${this._stats.haste} MST=${this._stats.mastery} VRS=${this._stats.versatility} AVD=${this._stats.avoidance} LCH=${this._stats.leech} SPD=${this._stats.speed}`);
   }
 
 }
