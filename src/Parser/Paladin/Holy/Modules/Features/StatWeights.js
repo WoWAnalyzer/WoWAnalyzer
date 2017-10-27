@@ -138,7 +138,7 @@ class StatWeights extends Analyzer {
   on_beacon_heal(event, originalHeal) {
     const spellInfo = getSpellInfo(originalHeal.ability.guid, originalHeal.ability.name);
     const healVal = new HealingValue(event.amount, event.absorbed, event.overheal);
-    this._handleHeal(spellInfo, event, healVal);
+    this._handleHeal(spellInfo, originalHeal, healVal);
   }
   _handleHealEvent(event, healVal) {
     const spellInfo = getSpellInfo(event.ability.guid, event.ability.name);
