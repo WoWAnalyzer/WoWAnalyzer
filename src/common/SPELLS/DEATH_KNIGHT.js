@@ -216,7 +216,7 @@ export default {
   // Unholy Tier Sets
   // T20 2 Piece
   UNHOLY_DEATH_KNIGHT_T20_2SET_BONUS_BUFF: {
-    id: 242064,
+    id: 246995,
     name: 'T20 2 Set Bonus',
     icon: 'spell_deathknight_unholypresence',
   },
