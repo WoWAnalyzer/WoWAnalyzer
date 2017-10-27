@@ -14,7 +14,8 @@ class Bullseye extends Analyzer{
   saveForExecuteThreshhold;
   bossIDs = [];
   MAX_STACKS = 30;
-
+  EXECUTE_PERCENT = .2;
+  CROWS_SAVE_PERCENT = .25;
   static dependencies = {
     cooldownTracker : CooldownTracker,
   };
@@ -55,10 +56,10 @@ class Bullseye extends Analyzer{
 
   on_byPlayer_damage(event){
     if(event.targetInstance === undefined && event.maxHitPoints && this.bossIDs.indexOf(event.targetID) !== -1){
-      if ((event.hitPoints / event.maxHitPoints) <= .2 && !this.executeTimestamp){
+      if ((event.hitPoints / event.maxHitPoints) <= this.EXECUTE_PERCENT && !this.executeTimestamp){
         this.executeTimestamp = event.timestamp - this.owner.fight.start_time;
       }
-      if ((event.hitPoints / event.maxHitPoints) <= .25 && !this.saveForExecuteThreshhold){ //this is unused here, but will be used in the crows module
+      if ((event.hitPoints / event.maxHitPoints) <= this.CROWS_SAVE_PERCENT && !this.saveForExecuteThreshhold){ //this is unused here, but will be used in the crows module
         this.saveForExecuteThreshhold = event.timestamp - this.owner.fight.start_time; //generally accepted rule is to save crows if boss is below 25% health. I won't calculate whether one "could have" used crows because it's not super applicable unless fight time doesn't change at all
       }
     }
