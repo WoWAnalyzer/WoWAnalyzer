@@ -203,41 +203,41 @@ class StatTracker extends Analyzer {
   }
 
   /*
-   * For percentage stats, this is the multiplier to go from rating to percent (expressed from 0 to 1)
+   * For percentage stats, this is the divider to go from rating to percent (expressed from 0 to 1)
    * These values don't change.
    */
-  get critRatingToPercent() {
-    return 1 / 40000;
+  get critRatingPerPercent() {
+    return 40000;
   }
-  get hasteRatingToPercent() {
-    return 1 / 37500;
+  get hasteRatingPerPercent() {
+    return 37500;
   }
-  get masteryRatingToPercent() {
+  get masteryRatingPerPercent() {
     switch (this.combatants.selected.spec) {
       case SPECS.HOLY_PALADIN:
-        return 1 / 26667;
+        return 26667;
       case SPECS.HOLY_PRIEST:
-        return 1 / 32000;
+        return 32000;
       case SPECS.RESTORATION_SHAMAN:
-        return 1 / 13333;
+        return 13333;
       case SPECS.ENHANCEMENT_SHAMAN:
-        return 1 / 13333;
+        return 13333;
 	    case SPECS.RESTORATION_DRUID:
-	      return 1 / 66667;
+	      return 66667;
       default:
         throw new Error('Mastery hasn\'t been implemented for this spec yet.');
     }
   }
-  get versatilityRatingToPercent() {
-    return 1 / 47500;
+  get versatilityRatingPerPercent() {
+    return 47500;
   }
-  get avoidanceRatingToPercent() {
-    return 1 / 11000;
+  get avoidanceRatingPerPercent() {
+    return 11000;
   }
-  get leechRatingToPercent() {
-    return 1 / 23000;
+  get leechRatingPerPercent() {
+    return 23000;
   }
-  get speedRatingToPercent() {
+  get speedRatingPerPercent() {
     throw new Error('Speed hasn\'t been implemented yet.');
   }
 
@@ -245,25 +245,25 @@ class StatTracker extends Analyzer {
    * For percentage stats, the current stat percentage as tracked by this module.
    */
   get currentCritPercentage() {
-    return this.baseCritPercentage + (this.currentCritRating * this.critRatingToPercent);
+    return this.baseCritPercentage + (this.currentCritRating / this.critRatingPerPercent);
   }
   get currentHastePercentage() {
-    return this.baseHastePercentage + (this.currentHasteRating * this.hasteRatingToPercent);
+    return this.baseHastePercentage + (this.currentHasteRating / this.hasteRatingPerPercent);
   }
   get currentMasteryPercentage() {
-    return this.baseMasteryPercentage + (this.currentMasteryRating * this.masteryRatingToPercent);
+    return this.baseMasteryPercentage + (this.currentMasteryRating / this.masteryRatingPerPercent);
   }
   get currentVersatilityPercentage() {
-    return this.baseVersatilityPercentage + (this.currentVersatilityRating * this.versatilityRatingToPercent);
+    return this.baseVersatilityPercentage + (this.currentVersatilityRating / this.versatilityRatingPerPercent);
   }
   get currentAvoidancePercentage() {
-    return this.baseAvoidancePercentage + (this.currentAvoidanceRating * this.avoidanceRatingToPercent);
+    return this.baseAvoidancePercentage + (this.currentAvoidanceRating / this.avoidanceRatingPerPercent);
   }
   get currentLeechPercentage() {
-    return this.baseLeechPercentage + (this.currentLeechRating * this.leechRatingToPercent);
+    return this.baseLeechPercentage + (this.currentLeechRating / this.leechRatingPerPercent);
   }
   get currentSpeedPercentage() {
-    return this.baseSpeedPercentage + (this.currentSpeedRating * this.speedRatingToPercent);
+    return this.baseSpeedPercentage + (this.currentSpeedRating / this.speedRatingPerPercent);
   }
 
 
