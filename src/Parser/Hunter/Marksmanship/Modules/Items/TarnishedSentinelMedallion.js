@@ -45,7 +45,6 @@ class TarnishedSentinelMedallion extends ImportTarnishedSentinelMedallion {
         }
         if (ts.start > cast.start - 5000 && tsEnd < cast.end + 5000 && ts.spell.id === SPELLS.TRUESHOT.id){ //giving 7.5 (as agreed upon with Putro) seconds of leeway
           this.medallionCastsWithTS ++;
-          console.log(ts.start - this.owner.fight.start_time);
         }
       });
     });
