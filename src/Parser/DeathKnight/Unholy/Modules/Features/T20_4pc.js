@@ -14,18 +14,18 @@
  + +  };
  + +
  + +  on_initialized() {
- + +    this.active = this.combatants.selected.hasBuff(SPELLS.DEATH_KNIGHT_UNHOLY_T20_4P_BONUS.id);
+ + +    this.active = this.combatants.selected.hasBuff(SPELLS.DEATH_KNIGHT_UNHOLY_T20_2P_BONUS.id);
  + +  }
  + +
  + +  item() {
- + +    const uptime = this.combatants.selected.getBuffUptime(SPELLS.DEATH_KNIGHT_UNHOLY_T20_4P_BONUS.id) / this.owner.fightDuration;
+ + +    const uptime = this.combatants.selected.getBuffUptime(SPELLS.DEATH_KNIGHT_UNHOLY_T20_2P_BONUS.id) / this.owner.fightDuration;
  + +    return {
  + +      id: `spell-${SPELLS.DEATH_KNIGHT_UNHOLY_T20_4P_BONUS.id}`,
- + +      icon: <SpellIcon id={SPELLS.DEATH_KNIGHT_UNHOLY_T20_4P_BONUS.id} />,
- + +      title: <SpellLink id={SPELLS.DEATH_KNIGHT_UNHOLY_T20_4P_BONUS.id} />,
- + +      result: <span>{formatPercentage(uptime)} % uptime on <SpellLink id={SPELLS.DEATH_KNIGHT_UNHOLY_T20_4P_BONUS.id}/>.</span>,
+ + +      icon: <SpellIcon id={SPELLS.DEATH_KNIGHT_UNHOLY_T20_2P_BONUS.id} />,
+ + +      title: <SpellLink id={SPELLS.DEATH_KNIGHT_UNHOLY_T20_2P_BONUS.id} />,
+ + +      result: <span>{formatPercentage(uptime)} % uptime on <SpellLink id={SPELLS.DEATH_KNIGHT_UNHOLY_T20_2P_BONUS.id}/>.</span>,
  + +    };
  + +  }
  + +}
  + +
- + +export default Tier20_4pc;
+ + +export default Tier20_2pc;
