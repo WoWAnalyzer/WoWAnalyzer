@@ -219,7 +219,7 @@ export default {
     id: 242064,
     name: 'T20 2 Set Bonus',
     icon: 'spell_deathknight_unholypresence',
-
+  },
   // Shared:
   ANTI_MAGIC_SHELL: {
     id: 48707,
