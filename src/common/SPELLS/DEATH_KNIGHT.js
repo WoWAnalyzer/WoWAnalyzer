@@ -212,6 +212,13 @@ export default {
     name: 'Virulent Plague',
     icon: 'ability_creature_disease_02',
   },  
+  
+  // Unholy Tier Sets
+  // T20 2 Piece
+  UNHOLY_DEATH_KNIGHT_T20_2SET_BONUS_BUFF: {
+    id: 242064,
+    name: 'T20 2 Set Bonus',
+    icon: 'spell_deathknight_unholypresence',
 
   // Shared:
   ANTI_MAGIC_SHELL: {
