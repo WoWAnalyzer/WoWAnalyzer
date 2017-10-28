@@ -155,7 +155,7 @@ class StatWeights extends Analyzer {
     // Leech is marked as a 'multplier' heal, so we have to check it before we do the early return below
     const hasLeech = this.statTracker.currentLeechRating > 0;
     if(hasLeech && spellId === SPELLS.LEECH.id && !healVal.overheal) {
-      this.totalOneLeech += amount / this.statTracker.currentLeechPercentage;
+      this.totalOneLeech += amount / this.statTracker.currentLeechRating;
     } else if(!hasLeech && this.playerHealthMissing > 0) {
       const bonusFromOneLeech = 1 / this.statTracker.leechRatingPerPercent;
       this.totalOneLeech += healVal.raw * bonusFromOneLeech;
