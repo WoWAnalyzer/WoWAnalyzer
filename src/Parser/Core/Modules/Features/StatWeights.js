@@ -41,20 +41,22 @@ class StatWeights extends Analyzer {
   spellInfo = {};
 
   mentioned = [];
-  _getSpellInfo(id, name = null) {
-    const specSpecific = this.spellInfo[id];
+  _getSpellInfo(event) {
+    const spellId = event.ability.guid;
+
+    const specSpecific = this.spellInfo[spellId];
     if (specSpecific) {
       return specSpecific;
     }
-    const shared = this.sharedSpellInfo[id];
+    const shared = this.sharedSpellInfo[spellId];
     if (shared) {
       return shared;
     }
 
     if (process.env.NODE_ENV === 'development') {
-      if (!this.mentioned.includes(id)) {
-        console.warn(`Missing spell definition: ${id}: ${name}, using fallback:`, this.fallbackSpellInfo);
-        this.mentioned.push(id);
+      if (!this.mentioned.includes(spellId)) {
+        console.warn(`Missing spell definition: ${spellId}: ${event.ability.name}, using fallback:`, this.fallbackSpellInfo);
+        this.mentioned.push(spellId);
       }
     }
 

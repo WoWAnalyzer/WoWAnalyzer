@@ -3,7 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
 
-import Analyzer from 'Parser/Core/Analyzer';
+import CoreStatWeights from 'Parser/Core/Modules/Features/StatWeights';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import HealingValue from 'Parser/Core/Modules/HealingValue';
@@ -11,7 +11,7 @@ import DamageValue from 'Parser/Core/Modules/DamageValue';
 import CritEffectBonus from 'Parser/Core/Modules/Helpers/CritEffectBonus';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 
-import { getSpellInfo } from '../../SpellInfo';
+import SPELL_INFO from './StatWeightsSpellInfo';
 import MasteryEffectiveness from './MasteryEffectiveness';
 
 const DEBUG = true;
@@ -28,13 +28,15 @@ const INFUSION_OF_LIGHT_FOL_HEALING_INCREASE = 0.5;
  * (but it might be outdated, that's always the risk of documentation)
  * https://github.com/WoWAnalyzer/WoWAnalyzer/issues/657
  */
-class StatWeights extends Analyzer {
+class StatWeights extends CoreStatWeights {
   static dependencies = {
     combatants: Combatants,
     critEffectBonus: CritEffectBonus,
     statTracker: StatTracker,
     masteryEffectiveness: MasteryEffectiveness, // this added the `masteryEffectiveness` property to spells that are affected by Mastery
   };
+
+  spellInfo = SPELL_INFO;
 
   totalAdjustedHealing = 0; // total healing after excluding 'multiplier' spells like Leech / Velens
 
@@ -75,12 +77,12 @@ class StatWeights extends Analyzer {
     }
   }
   on_beacon_heal(event, originalHeal) {
-    const spellInfo = getSpellInfo(originalHeal.ability.guid, originalHeal.ability.name);
+    const spellInfo = this._getSpellInfo(originalHeal);
     const healVal = new HealingValue(event.amount, event.absorbed, event.overheal);
     this._handleHeal(spellInfo, originalHeal, healVal);
   }
   _handleHealEvent(event, healVal) {
-    const spellInfo = getSpellInfo(event.ability.guid, event.ability.name);
+    const spellInfo = this._getSpellInfo(event);
     this._handleHeal(spellInfo, event, healVal);
   }
   _handleHeal(spellInfo, event, healVal) {
