@@ -40,6 +40,10 @@ class StatTracker extends Analyzer {
       itemId: ITEMS.CHARM_OF_THE_RISING_TIDE.id,
       haste: (_, item) => calculateSecondaryStatDefault(900, 576, item.itemLevel),
     },
+    [SPELLS.ACCELERANDO.id]: {
+      itemId: ITEMS.ERRATIC_METRONOME.id,
+      haste: (_, item) => calculateSecondaryStatDefault(870, 657, item.itemLevel),
+    },
     // endregion
 
     // region Misc

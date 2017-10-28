@@ -160,6 +160,11 @@ export default {
     name: 'Recursive Strikes',
     icon: 'sha_ability_mage_firestarter_nightborne',
   },
+  ACCELERANDO: {
+    id: 225719,
+    name: 'Accelerando',
+    icon: 'spell_holy_borrowedtime',
+  },
   // Tomb trinkets
   CLEANSING_MATRIX: {
     id: 242619,
