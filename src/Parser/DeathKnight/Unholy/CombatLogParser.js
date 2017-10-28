@@ -11,6 +11,7 @@ import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownTracker from './Modules/Features/CooldownTracker';
 import VirulentPlagueUptime from './Modules/Features/VirulentPlagueUptime';
+import FesteringStrike from './Modules/Features/FesteringStrike';
 
 class CombatLogParser extends CoreCombatLogParser {
 
@@ -23,6 +24,7 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     cooldownTracker: CooldownTracker,
     virulentPlagueUptime: VirulentPlagueUptime, 
+    festeringStrike: FesteringStrike,
   };
 
   generateResults() {
