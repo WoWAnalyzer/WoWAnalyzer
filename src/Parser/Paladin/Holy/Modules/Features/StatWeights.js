@@ -373,42 +373,21 @@ class StatWeights extends Analyzer {
   }
 
   _prepareResults() {
-    const intWeight = this.totalOneInt / this.totalOneInt;
-    const critWeight = this.totalOneCrit / this.totalOneInt;
-    const hasteHpctWeight = this.totalOneHasteHpct / this.totalOneInt;
-    const hasteHpmWeight = this.totalOneHasteHpm / this.totalOneInt;
-    const masteryWeight = this.totalOneMastery / this.totalOneInt;
-    const versWeight = this.totalOneVers / this.totalOneInt;
-    const versDrWeight = (this.totalOneVers + this.totalOneVersDr) / this.totalOneInt;
-    const leechWeight = this.totalOneLeech / this.totalOneInt;
-
-    const intForOnePercent = this._ratingPerOnePercent(this.totalOneInt);
-    const critForOnePercent = this._ratingPerOnePercent(this.totalOneCrit);
-    const hasteHpctForOnePercent = this._ratingPerOnePercent(this.totalOneHasteHpct);
-    const hasteHpmForOnePercent = this._ratingPerOnePercent(this.totalOneHasteHpm);
-    const masteryForOnePercent = this._ratingPerOnePercent(this.totalOneMastery);
-    const versForOnePercent = this._ratingPerOnePercent(this.totalOneVers);
-    const versDrForOnePercent = this._ratingPerOnePercent(this.totalOneVers + this.totalOneVersDr);
-    const leechForOnePercent = this._ratingPerOnePercent(this.totalOneLeech);
-
     return [
       {
         stat: 'Intellect',
         className: 'stat-intellect',
-        weight: intWeight,
-        ratingForOne: intForOnePercent,
+        gain: this.totalOneInt,
       },
       {
         stat: 'Crit',
         className: 'stat-criticalstrike',
-        weight: critWeight,
-        ratingForOne: critForOnePercent,
+        gain: this.totalOneCrit,
       },
       {
         stat: 'Haste (HPCT)',
         className: 'stat-haste',
-        weight: hasteHpctWeight,
-        ratingForOne: hasteHpctForOnePercent,
+        gain: this.totalOneHasteHpct,
         tooltip: `
           HPCT stands for "Hits per Cast Time". This is the value that 1% Haste would be worth if you would cast everything you are already casting (and that can be casted quicker) 1% faster. Mana is not accounted for in any way and you should consider the Haste stat weight 0 if you run out of mana while doing everything else right.<br /><br />
 
@@ -418,6 +397,7 @@ class StatWeights extends Analyzer {
       // {
       //   stat: 'Haste (HPM)',
       //   className: 'stat-haste',
+      //   gain: this.totalOneHasteHpm,
       //   weight: hasteHpmWeight,
       //   ratingForOne: hasteHpmForOnePercent,
       //   tooltip: 'HPM stands for "Healing per Mana". In valuing Haste, it considers only the faster HoT ticking and not the reduced cast times. Effectively it models haste\'s bonus to mana efficiency. This is typically the better calculation to use for raid encounters where mana is an issue.',
@@ -425,28 +405,24 @@ class StatWeights extends Analyzer {
       {
         stat: 'Mastery',
         className: 'stat-mastery',
-        weight: masteryWeight,
-        ratingForOne: masteryForOnePercent,
+        gain: this.totalOneMastery,
       },
       {
         stat: 'Versatility',
         className: 'stat-versatility',
-        weight: versWeight,
-        ratingForOne: versForOnePercent,
-        tooltip: 'Weight includes only the boost to healing, and does not include the damage reduction nor the DPS gain.',
+        gain: this.totalOneVers,
+        tooltip: 'Weight includes only the boost to healing, and does not include the damage reduction.',
       },
       {
         stat: 'Versatility (incl DR)',
         className: 'stat-versatility',
-        weight: versDrWeight,
-        ratingForOne: versDrForOnePercent,
-        tooltip: 'Weight includes both healing boost and damage reduction, counting damage reduction as additional throughput. The DPS gain is ignored.',
+        gain: this.totalOneVers + this.totalOneVersDr,
+        tooltip: 'Weight includes both healing boost and damage reduction, counting damage reduction as additional throughput.',
       },
       {
         stat: 'Leech',
         className: 'stat-leech',
-        weight: leechWeight,
-        ratingForOne: leechForOnePercent,
+        gain: this.totalOneLeech,
       },
     ];
   }
@@ -456,11 +432,11 @@ class StatWeights extends Analyzer {
     return (
       <div className="panel items">
         <div className="panel-heading">
-          <h2><dfn data-tip="Weights are calculated using the actual circumstances of this encounter. Weights are likely to differ based on fight, raid size, items used, talents chosen, etc.">Stat Weights</dfn>
+          <h2><dfn data-tip="Weights are calculated using the actual circumstances of this encounter. Weights are likely to differ based on fight, raid size, items used, talents chosen, etc.<br /><br />DPS gains are not included in any of the stat weights.">Stat Weights</dfn>
           </h2>
         </div>
         <div className="panel-body" style={{ padding: 0 }}>
-          <table className="data-table">
+          <table className="data-table compact">
             <thead>
               <tr>
                 <th style={{ minWidth: 30 }}><b>Stat</b></th>
@@ -469,26 +445,30 @@ class StatWeights extends Analyzer {
               </tr>
             </thead>
             <tbody>
-              {results.map(row => (
-                <tr>
-                  <td>
-                    <div className={`${row.className}-bg`} style={{ width: '1.6em', height: '1.6em', borderRadius: 5, border: '1px solid rgba(0, 0, 0, 0.6)', display: 'inline-block', marginRight: 5, marginBottom: -5 }} />
+              {results.map(row => {
+                const weight = row.gain / (this.totalOneInt || 1);
+                const ratingForOne = this._ratingPerOnePercent(row.gain);
 
-                    {row.tooltip ? <dfn data-tip={row.tooltip}>{row.stat}</dfn> : row.stat}
+                return (
+                  <tr key={row.stat}>
+                    <td>
+                      <div className={`${row.className}-bg`} style={{ width: '1.6em', height: '1.6em', borderRadius: 5, border: '1px solid rgba(0, 0, 0, 0.6)', display: 'inline-block', marginRight: 5, marginBottom: -5 }} />
+
+                      {row.tooltip ? <dfn data-tip={row.tooltip}>{row.stat}</dfn> : row.stat}
                     </td>
-                  <td>{row.weight.toFixed ? row.weight.toFixed(2) : "NYI"}</td>
-                  <td>{row.ratingForOne ? (
-                    row.ratingForOne === Infinity ? '∞' : formatNumber(row.ratingForOne)
-                  ) : 'NYI'}</td>
-                </tr>
-              ))}
+                    <td>{row.gain !== null ? weight.toFixed(2) : 'NYI'}</td>
+                    <td>{row.gain !== null ? (
+                      ratingForOne === Infinity ? '∞' : formatNumber(ratingForOne)
+                    ) : 'NYI'}</td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
       </div>
     );
   }
-
 }
 
 export default StatWeights;

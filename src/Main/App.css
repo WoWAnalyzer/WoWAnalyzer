@@ -500,6 +500,9 @@ table.data-table tr:nth-child(even) {
 table.data-table tr th, table.data-table tr td {
   padding: 7px;
 }
+table.data-table.compact tr th, table.data-table.compact tr td {
+  padding: 6px;
+}
 table.data-table tr th:first-of-type, table.data-table tr td:first-of-type {
   padding-left: 22px;
 }
