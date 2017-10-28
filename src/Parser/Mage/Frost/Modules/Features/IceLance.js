@@ -48,10 +48,10 @@ class IceLance extends Analyzer {
 		const nonShatteredPercent = (this.nonShatteredCasts / this.abilityTracker.getAbility(SPELLS.ICE_LANCE_CAST.id).casts);
 		when(utilization).isLessThan(0.9)
 			.addSuggestion((suggest, actual, recommended) => {
-				return suggest(<span>You casted <SpellLink id={SPELLS.ICE_LANCE_CAST.id} /> {this.nonShatteredCasts} times ({formatPercentage(nonShatteredPercent)}%) with no procs. Make sure that you are only casting Ice Lance when the target has <SpellLink id={SPELLS.WINTERS_CHILL.id} />, if you have a <SpellLink id={SPELLS.FINGERS_OF_FROST.id} /> proc, or if you are moving and you dont have any procs or any of your movement abilities (Shimmer/Blink/Ice Floes).</span>)
+				return suggest(<span>You casted <SpellLink id={SPELLS.ICE_LANCE_CAST.id} /> {this.nonShatteredCasts} times ({formatPercentage(nonShatteredPercent)}%) with no procs. Make sure that you are only casting Ice Lance when the target has <SpellLink id={SPELLS.WINTERS_CHILL.id} />, if you have a <SpellLink id={SPELLS.FINGERS_OF_FROST.id} /> proc, or if you are moving and you cant cast anything else.</span>)
 					.icon(SPELLS.ICE_LANCE_CAST.icon)
 					.actual(`${formatPercentage(utilization)}% missed`)
-					.recommended(`Wasting none is recommended`)
+					.recommended(`${formatPercentage(recommended)}% is Recommended`)
 					.regular(.9).major(.8);
 			});
 	}
@@ -63,6 +63,7 @@ class IceLance extends Analyzer {
 				icon={<SpellIcon id={SPELLS.ICE_LANCE_CAST.id} />}
 				value={`${formatPercentage(utilization)}%`}
 				label='Ice Lance Utilization'
+				tooltip={'Percentage of Ice Lance casts that were shattered by Fingers of Frost or Winter\'s Chill. You should only be casting Ice Lance with no procs if you are moving and you cant use anything else.'}
 			/>
 		);
 	}
