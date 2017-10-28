@@ -391,20 +391,63 @@ class StatWeights extends Analyzer {
     const versDrForOnePercent = this._ratingPerOnePercent(this.totalOneVers + this.totalOneVersDr);
     const leechForOnePercent = this._ratingPerOnePercent(this.totalOneLeech);
 
-    const hasteHpmTooltip = "HPM stands for 'Healing per Mana'. In valuing Haste, it considers only the faster HoT ticking and not the reduced cast times. Effectively it models haste's bonus to mana efficiency. This is typically the better calculation to use for raid encounters where mana is an issue.";
-    const hasteHpctTooltip = "HPCT stands for 'Hits per Cast Time'. This is the maximum value of Haste without mana being accounted for in any way.";
-    const versTooltip = "Weight includes only the boost to healing, and does not include the damage reduction nor the DPS gain.";
-    const versDrTooltip = "Weight includes both healing boost and damage reduction, counting damage reduction as additional throughput. The DPS gain is ignored.";
-
     return [
-      { stat: 'Intellect', weight: intWeight, ratingForOne: intForOnePercent },
-      { stat: 'Crit', weight: critWeight, ratingForOne: critForOnePercent },
-      { stat: 'Haste (HPCT)', weight: hasteHpctWeight, ratingForOne: hasteHpctForOnePercent, tooltip: hasteHpctTooltip },
-      { stat: 'Haste (HPM)', weight: hasteHpmWeight, ratingForOne: hasteHpmForOnePercent, tooltip: hasteHpmTooltip },
-      { stat: 'Mastery', weight: masteryWeight, ratingForOne: masteryForOnePercent },
-      { stat: 'Versatility', weight: versWeight, ratingForOne: versForOnePercent, tooltip: versTooltip },
-      { stat: 'Versatility (incl DR)', weight: versDrWeight, ratingForOne: versDrForOnePercent, tooltip: versDrTooltip },
-      { stat: 'Leech', weight: leechWeight, ratingForOne: leechForOnePercent },
+      {
+        stat: 'Intellect',
+        className: 'stat-intellect',
+        weight: intWeight,
+        ratingForOne: intForOnePercent,
+      },
+      {
+        stat: 'Crit',
+        className: 'stat-criticalstrike',
+        weight: critWeight,
+        ratingForOne: critForOnePercent,
+      },
+      {
+        stat: 'Haste (HPCT)',
+        className: 'stat-haste',
+        weight: hasteHpctWeight,
+        ratingForOne: hasteHpctForOnePercent,
+        tooltip: `
+          HPCT stands for "Hits per Cast Time". This is the value that 1% Haste would be worth if you would cast everything you are already casting (and that can be casted quicker) 1% faster. Mana is not accounted for in any way and you should consider the Haste stat weight 0 if you run out of mana while doing everything else right.<br /><br />
+
+          The real worth of Haste might be a bit higher when it causes you to fit more things into static buff durations such as Avenging Wrath, Aura Mastery and other buffs.
+        `,
+      },
+      // {
+      //   stat: 'Haste (HPM)',
+      //   className: 'stat-haste',
+      //   weight: hasteHpmWeight,
+      //   ratingForOne: hasteHpmForOnePercent,
+      //   tooltip: 'HPM stands for "Healing per Mana". In valuing Haste, it considers only the faster HoT ticking and not the reduced cast times. Effectively it models haste\'s bonus to mana efficiency. This is typically the better calculation to use for raid encounters where mana is an issue.',
+      // },
+      {
+        stat: 'Mastery',
+        className: 'stat-mastery',
+        weight: masteryWeight,
+        ratingForOne: masteryForOnePercent,
+      },
+      {
+        stat: 'Versatility',
+        className: 'stat-versatility',
+        weight: versWeight,
+        ratingForOne: versForOnePercent,
+        tooltip: 'Weight includes only the boost to healing, and does not include the damage reduction nor the DPS gain.',
+      },
+      {
+        stat: 'Versatility (incl DR)',
+        className: 'stat-versatility',
+        weight: versDrWeight,
+        ratingForOne: versDrForOnePercent,
+        tooltip: 'Weight includes both healing boost and damage reduction, counting damage reduction as additional throughput. The DPS gain is ignored.',
+      },
+      {
+        stat: 'Leech',
+        className: 'stat-leech',
+        weight: leechWeight,
+        ratingForOne: leechForOnePercent,
+      },
     ];
   }
 
@@ -428,7 +471,11 @@ class StatWeights extends Analyzer {
             <tbody>
               {results.map(row => (
                 <tr>
-                  {row.tooltip ? (<td><dfn data-tip={row.tooltip}>{row.stat}</dfn></td>) : (<td>{row.stat}</td>)}
+                  <td>
+                    <div className={`${row.className}-bg`} style={{ width: '1.6em', height: '1.6em', borderRadius: 5, border: '1px solid rgba(0, 0, 0, 0.6)', display: 'inline-block', marginRight: 5, marginBottom: -5 }} />
+
+                    {row.tooltip ? <dfn data-tip={row.tooltip}>{row.stat}</dfn> : row.stat}
+                    </td>
                   <td>{row.weight.toFixed ? row.weight.toFixed(2) : "NYI"}</td>
                   <td>{row.ratingForOne ? (
                     row.ratingForOne === Infinity ? '∞' : formatNumber(row.ratingForOne)
