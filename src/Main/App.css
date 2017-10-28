@@ -500,6 +500,9 @@ table.data-table tr:nth-child(even) {
 table.data-table tr th, table.data-table tr td {
   padding: 7px;
 }
+table.data-table.compact tr th, table.data-table.compact tr td {
+  padding: 6px;
+}
 table.data-table tr th:first-of-type, table.data-table tr td:first-of-type {
   padding-left: 22px;
 }
@@ -541,7 +544,7 @@ table.data-table .performance-bar {
 .Druid { color: #ff7d0a !important }
 .Hunter { color: #abd473 !important }
 .Mage { color: #69ccf0 !important }
-.Monk { color: #2D9B78 !important }
+.Monk { color: #2d9b78 !important }
 .Paladin { color: #f58cba !important }
 .Priest { color: #ffffff !important }
 .Rogue { color: #fff569 !important }
@@ -554,7 +557,7 @@ table.data-table .performance-bar {
 .Druid-bg { background-color: #ff7d0a !important }
 .Hunter-bg { background-color: #9ec76b !important }
 .Mage-bg { background-color: #69ccf0 !important }
-.Monk-bg { background-color: #2D9B78 !important }
+.Monk-bg { background-color: #2d9b78 !important }
 .Paladin-bg { background-color: #f58cba !important }
 .Priest-bg { background-color: #ffffff !important }
 .Rogue-bg { background-color: #fff569 !important }
@@ -588,6 +591,7 @@ table.data-table .performance-bar {
 .stat-haste { color: #0ed59b !important }
 .stat-mastery { color: #9256ff !important }
 .stat-versatility { color: #bfbfbf !important }
+.stat-leech { color: #1d9c07 !important }
 
 .stat-health-bg, .stat-healing-bg { background-color: #27cc4e !important }
 .stat-healing-absorbs-bg { background-color: #ffd955 !important }
@@ -610,6 +614,7 @@ table.data-table .performance-bar {
 .stat-haste-bg { background-color: #0ed59b !important }
 .stat-mastery-bg { background-color: #9256ff !important }
 .stat-versatility-bg { background-color: #bfbfbf !important }
+.stat-leech-bg { background-color: #1d9c07 !important }
 
 /*https://wow.gamepedia.com/COMBAT_LOG_EVENT*/
 /* Physical */
