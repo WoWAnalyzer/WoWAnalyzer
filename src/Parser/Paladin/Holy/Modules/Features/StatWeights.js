@@ -103,6 +103,7 @@ class StatWeights extends Analyzer {
   // These are the total healing that would be gained if their respective stats ratings were increased by one.
   totalOneInt = 0;
   totalOneCrit = 0;
+  totalOneHasteHpct = 0;
   totalOneHasteHpm = 0;
   totalOneMastery = 0;
   totalOneVers = 0; // from healing increase only
@@ -296,14 +297,14 @@ class StatWeights extends Analyzer {
     }
   }
   _hasteHpct(event, healVal) {
-    // Calculate Haste
-    // my current hypothesis is to consider 1% of all healing done with spells with GCDs/channels affected by Haste to be considered the basis for the value of 1% Haste (since 1% Haste allows you to cast these spells 1% more often), but if someone ran OOM at the end of the fight you'd consider the Haste value to be 0.
+    if (healVal.effective === 0) {
+      // While Haste does not directly increase overhealing (or any overhealing in a measurable way), casting a spell that does 0 healing is useless regardless. Being able to cast that one spell more because of the player's Haste gained us no useful output. Note that the (effective) beacon transfer healing caused by this spell will still be added to the Haste value separately.
+      return;
+    }
 
-    // const currHastePerc = this.statTracker.currentHastePercentage;
-    // const healIncreaseFromOneHaste = 1 / this.statTracker.hasteRatingPerPercent;
-    // const noHasteHealing = amount / (1 + currHastePerc);
-    // this.totalOneHasteHpm += healIncreaseFromOneHaste * noHasteHealing;
-    // NYI
+    const healIncreaseFromOneHaste = 1 / this.statTracker.hasteRatingPerPercent;
+
+    this.totalOneHasteHpct += healVal.effective * healIncreaseFromOneHaste;
   }
   _mastery(event, healVal) {
     if (healVal.overheal) {
@@ -358,6 +359,7 @@ class StatWeights extends Analyzer {
       console.log('total', formatNumber(this.totalAdjustedHealing));
       console.log(`Int - ${formatNumber(this.totalOneInt)}`);
       console.log(`Crit - ${formatNumber(this.totalOneCrit)}`);
+      console.log(`Haste HPCT - ${formatNumber(this.totalOneHasteHpct)}`);
       console.log(`Haste HPM - ${formatNumber(this.totalOneHasteHpm)}`);
       console.log(`Mastery - ${formatNumber(this.totalOneMastery)}`);
       console.log(`Vers - ${formatNumber(this.totalOneVers)}`);
@@ -373,6 +375,7 @@ class StatWeights extends Analyzer {
   _prepareResults() {
     const intWeight = this.totalOneInt / this.totalOneInt;
     const critWeight = this.totalOneCrit / this.totalOneInt;
+    const hasteHpctWeight = this.totalOneHasteHpct / this.totalOneInt;
     const hasteHpmWeight = this.totalOneHasteHpm / this.totalOneInt;
     const masteryWeight = this.totalOneMastery / this.totalOneInt;
     const versWeight = this.totalOneVers / this.totalOneInt;
@@ -381,6 +384,7 @@ class StatWeights extends Analyzer {
 
     const intForOnePercent = this._ratingPerOnePercent(this.totalOneInt);
     const critForOnePercent = this._ratingPerOnePercent(this.totalOneCrit);
+    const hasteHpctForOnePercent = this._ratingPerOnePercent(this.totalOneHasteHpct);
     const hasteHpmForOnePercent = this._ratingPerOnePercent(this.totalOneHasteHpm);
     const masteryForOnePercent = this._ratingPerOnePercent(this.totalOneMastery);
     const versForOnePercent = this._ratingPerOnePercent(this.totalOneVers);
@@ -388,12 +392,14 @@ class StatWeights extends Analyzer {
     const leechForOnePercent = this._ratingPerOnePercent(this.totalOneLeech);
 
     const hasteHpmTooltip = "HPM stands for 'Healing per Mana'. In valuing Haste, it considers only the faster HoT ticking and not the reduced cast times. Effectively it models haste's bonus to mana efficiency. This is typically the better calculation to use for raid encounters where mana is an issue.";
+    const hasteHpctTooltip = "HPCT stands for 'Hits per Cast Time'. This is the maximum value of Haste without mana being accounted for in any way.";
     const versTooltip = "Weight includes only the boost to healing, and does not include the damage reduction nor the DPS gain.";
     const versDrTooltip = "Weight includes both healing boost and damage reduction, counting damage reduction as additional throughput. The DPS gain is ignored.";
 
     return [
       { stat: 'Intellect', weight: intWeight, ratingForOne: intForOnePercent },
       { stat: 'Crit', weight: critWeight, ratingForOne: critForOnePercent },
+      { stat: 'Haste (HPCT)', weight: hasteHpctWeight, ratingForOne: hasteHpctForOnePercent, tooltip: hasteHpctTooltip },
       { stat: 'Haste (HPM)', weight: hasteHpmWeight, ratingForOne: hasteHpmForOnePercent, tooltip: hasteHpmTooltip },
       { stat: 'Mastery', weight: masteryWeight, ratingForOne: masteryForOnePercent },
       { stat: 'Versatility', weight: versWeight, ratingForOne: versForOnePercent, tooltip: versTooltip },

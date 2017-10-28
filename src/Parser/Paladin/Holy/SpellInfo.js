@@ -23,6 +23,7 @@ const DEFAULT_INFO = { // we assume unlisted spells scale with vers only (this w
   vers: true,
 };
 
+// This only works with actual healing events; casts are not recognized.
 export const HEAL_INFO = {
   [SPELLS.HOLY_SHOCK_HEAL.id]: {
     int: true,
@@ -48,28 +49,28 @@ export const HEAL_INFO = {
   [SPELLS.BESTOW_FAITH_TALENT.id]: {
     int: true,
     crit: true,
-    hasteHpct: false,
+    hasteHpct: false, // static CD
     mastery: true,
     vers: true,
   },
-  [SPELLS.LIGHTS_HAMMER_TALENT.id]: {
+  [SPELLS.LIGHTS_HAMMER_HEAL.id]: {
     int: true,
     crit: true,
-    hasteHpct: true,
+    hasteHpct: false, // static CD
     mastery: true,
     vers: true,
   },
   [SPELLS.HOLY_PRISM_HEAL.id]: {
     int: true,
     crit: true,
-    hasteHpct: true,
+    hasteHpct: false, // static CD
     mastery: true,
     vers: true,
   },
   [SPELLS.TYRS_DELIVERANCE_HEAL.id]: {
     int: true,
     crit: true,
-    hasteHpct: true,
+    hasteHpct: false, // static CD
     mastery: true,
     vers: true,
   },
@@ -97,28 +98,21 @@ export const HEAL_INFO = {
   [SPELLS.AURA_OF_MERCY_HEAL.id]: {
     int: true,
     crit: true,
-    hasteHpct: true,
+    hasteHpct: false,
     mastery: false, // confirmed many times this doesn't scale with Mastery
-    vers: true,
-  },
-  [SPELLS.LIGHTS_HAMMER_HEAL.id]: {
-    int: true,
-    crit: true,
-    hasteHpct: true,
-    mastery: true,
     vers: true,
   },
   [SPELLS.LIGHTS_EMBRACE_HEALING.id]: { // Sea Star of the Depthmother
     int: false,
     crit: true,
-    hasteHpct: true,
+    hasteHpct: true, // until LoD's CD is below 8 sec, this speeds up the deck cycle time
     mastery: false,
     vers: true,
   },
   [SPELLS.GUIDING_HAND.id]: { // The Deceiver's Grand Design
     int: false,
     crit: true,
-    hasteHpct: true,
+    hasteHpct: false, // static CD
     mastery: false,
     vers: true,
   },
