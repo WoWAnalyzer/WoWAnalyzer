@@ -1,6 +1,7 @@
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 
+import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 
 const debug = false;
@@ -14,6 +15,10 @@ const SKJOLDR_PWS_ABSORB_BONUS = 0.15;
 // Thanks to Az and Lob in the Disc Discord for helping me figure this out.
 
 class Skjoldr extends Analyzer {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
   healing = 0;
 
   on_initialized() {
@@ -59,6 +64,15 @@ class Skjoldr extends Analyzer {
 
       this.shareInTheLight = 0;
     }
+  }
+
+  item() {
+    const healing = this.healing || 0;
+
+    return {
+      item: ITEMS.SKJOLDR_SANCTUARY_OF_IVAGONT,
+      result: this.owner.formatItemHealingDone(healing),
+    };
   }
 }
 
