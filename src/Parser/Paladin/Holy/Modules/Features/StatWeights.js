@@ -97,7 +97,7 @@ class StatWeights extends CoreStatWeights {
       return;
     }
 
-    this._leech(event, healVal);
+    this.totalOneLeech += this._leech(event, healVal);
 
     if (spellInfo.multiplier) {
       // Multiplier spells aren't counted for weights because they don't **directly** benefit from stat weights
@@ -105,19 +105,19 @@ class StatWeights extends CoreStatWeights {
     }
 
     if (spellInfo.int) {
-      this._intellect(event, healVal);
+      this.totalOneInt += this._intellect(event, healVal);
     }
     if (spellInfo.crit) {
-      this._criticalStrike(event, healVal);
+      this.totalOneCrit += this._criticalStrike(event, healVal);
     }
     if (spellInfo.hasteHpct) {
-      this._hasteHpct(event, healVal);
+      this.totalOneHasteHpct += this._hasteHpct(event, healVal);
     }
     if (spellInfo.mastery) {
-      this._mastery(event, healVal);
+      this.totalOneMastery += this._mastery(event, healVal);
     }
     if (spellInfo.vers) {
-      this._versatility(event, healVal);
+      this.totalOneVers += this._versatility(event, healVal);
     }
   }
   _leech(event, healVal) {
@@ -129,29 +129,29 @@ class StatWeights extends CoreStatWeights {
     if (hasLeech) {
       // When the user has Leech we can use the actual Leech healing to accuractely calculate its HPS value without having to do any kind of predicting
       if (!healVal.overheal && spellId === SPELLS.LEECH.id) {
-        this.totalOneLeech += healVal.effective / this.statTracker.currentLeechRating; // TODO: Make a generic method to account for base percentage
+        return healVal.effective / this.statTracker.currentLeechRating; // TODO: Make a generic method to account for base percentage
       }
     } else {
       // Without Leech we will have to make an estimation so we can still provide the user with a decent value
       if (this.playerHealthMissing > 0) { // if the player is full HP this would have overhealed.
         const healIncreaseFromOneLeech = 1 / this.statTracker.leechRatingPerPercent;
-        this.totalOneLeech += healVal.raw * healIncreaseFromOneLeech;
+        return healVal.raw * healIncreaseFromOneLeech;
       }
     }
+    return 0;
   }
   _intellect(event, healVal) {
     if (healVal.overheal) {
       // If a spell overheals, it could not have healed for more. Seeing as Int only adds HP on top of the existing heal we can skip it as increasing the power of this heal would only be more overhealing.
-      return;
+      return 0;
     }
     const currInt = this.statTracker.currentIntellectRating;
     // noinspection PointlessArithmeticExpressionJS
     const healIncreaseFromOneInt = (1 * ARMOR_INT_MULTIPLIER) / currInt;
-    this.totalOneInt += healVal.effective * healIncreaseFromOneInt;
+    return healVal.effective * healIncreaseFromOneInt;
   }
   _criticalStrike(event, healVal) {
-    this._criticalStrikeEffectiveHealing(event, healVal);
-    this._criticalStrikeInfusionOfLightProcs(event, healVal);
+    return this._criticalStrikeEffectiveHealing(event, healVal) + this._criticalStrikeInfusionOfLightProcs(event, healVal);
   }
   _getCritChance(event) {
     const spellId = event.ability.guid;
@@ -184,7 +184,7 @@ class StatWeights extends CoreStatWeights {
       const totalCritChance = baseCritChance + ratingCritChance;
       if (totalCritChance > (1 + 1 / this.statTracker.critRatingPerPercent)) {
         // If the crit chance was more than 100%+1 rating, then the last rating was over the cap and worth 0.
-        return;
+        return 0;
       }
       const ratingCritChanceContribution = 1 - baseCritChance / totalCritChance;
 
@@ -193,17 +193,18 @@ class StatWeights extends CoreStatWeights {
       const effectiveCritHealing = Math.max(0, healVal.effective - rawBaseHealing);
       const rating = this.statTracker.currentCritRating;
 
-      this.totalOneCrit += effectiveCritHealing * ratingCritChanceContribution / rating;
+      return effectiveCritHealing * ratingCritChanceContribution / rating;
     }
+    return 0;
   }
   _criticalStrikeInfusionOfLightProcs(event, healVal) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.FLASH_OF_LIGHT.id && spellId !== SPELLS.HOLY_LIGHT.id) {
-      return;
+      return 0;
     }
     const hasIol = this.combatants.selected.hasBuff(SPELLS.INFUSION_OF_LIGHT.id, event.timestamp, INFUSION_OF_LIGHT_BUFF_EXPIRATION_BUFFER, INFUSION_OF_LIGHT_BUFF_MINIMAL_ACTIVE_TIME);
     if (!hasIol) {
-      return;
+      return 0;
     }
 
     if (spellId === SPELLS.FLASH_OF_LIGHT.id) {
@@ -215,63 +216,67 @@ class StatWeights extends CoreStatWeights {
       const totalCritChance = baseCritChance + ratingCritChance;
       if (totalCritChance > (1 + 1 / this.statTracker.critRatingPerPercent)) {
         // If the crit chance was more than 100%+1 rating, then the last rating was over the cap and worth 0.
-        return;
+        return 0;
       }
       const ratingCritChanceContribution = 1 - baseCritChance / totalCritChance;
 
-      this.totalOneCrit += effectiveIolHealing * ratingCritChanceContribution / this.statTracker.currentCritRating;
+      return effectiveIolHealing * ratingCritChanceContribution / this.statTracker.currentCritRating;
     }
     if (spellId === SPELLS.HOLY_LIGHT.id) {
       // TODO: We might be able to use the Haste stat weight to value the CDR
+      return 0;
     }
   }
   _hasteHpct(event, healVal) {
     if (healVal.effective === 0) {
       // While Haste does not directly increase overhealing (or any overhealing in a measurable way), casting a spell that does 0 healing is useless regardless. Being able to cast that one spell more because of the player's Haste gained us no useful output. Note that the (effective) beacon transfer healing caused by this spell will still be added to the Haste value separately.
-      return;
+      return 0;
     }
 
     const healIncreaseFromOneHaste = 1 / this.statTracker.hasteRatingPerPercent;
 
-    this.totalOneHasteHpct += healVal.effective * healIncreaseFromOneHaste;
+    return healVal.effective * healIncreaseFromOneHaste;
   }
   _mastery(event, healVal) {
     if (healVal.overheal) {
       // If a spell overheals, it could not have healed for more. Seeing as Mastery only adds HP on top of the existing heal we can skip it as increasing the power of this heal would only be more overhealing.
-      return;
+      return 0;
     }
     if (event.masteryEffectiveness === undefined) {
       console.error('This spell does not have a known masteryEffectiveness:', event.ability.guid, event.ability.name);
-      return;
+      return 0;
     }
 
     const masteryEffectiveness = event.masteryEffectiveness;
     const healIncreaseFromOneMastery = 1 / this.statTracker.masteryRatingPerPercent * masteryEffectiveness;
     const baseHeal = healVal.effective / (1 + this.statTracker.currentMasteryPercentage * masteryEffectiveness);
 
-    this.totalOneMastery += baseHeal * healIncreaseFromOneMastery;
+    return baseHeal * healIncreaseFromOneMastery;
   }
   _versatility(event, healVal) {
     if (healVal.overheal) {
       // If a spell overheals, it could not have healed for more. Seeing as Versatility only adds HP on top of the existing heal we can skip it as increasing the power of this heal would only be more overhealing.
-      return;
+      return 0;
     }
     const currVersPerc = this.statTracker.currentVersatilityPercentage;
     const healIncreaseFromOneVers = 1 / this.statTracker.versatilityRatingPerPercent;
     const baseHeal = healVal.effective / (1 + currVersPerc);
-    this.totalOneVers += baseHeal * healIncreaseFromOneVers;
+    return baseHeal * healIncreaseFromOneVers;
   }
 
   on_toPlayer_damage(event) {
+    this._updateMissingHealth(event);
+
     const damageVal = new DamageValue(event.amount, event.absorbed, event.overkill);
+    this.totalOneVersDr += this._versatilityDamageReduction(event, damageVal);
+  }
+  _versatilityDamageReduction(event, damageVal) {
     const amount = damageVal.effective;
     const currentVersDamageReductionPercentage = this.statTracker.currentVersatilityPercentage / 2;
     const damageReductionIncreaseFromOneVers = 1 / this.statTracker.versatilityRatingPerPercent / 2; // the DR part is only 50% of the Versa percentage
 
     const noVersDamage = amount / (1 - currentVersDamageReductionPercentage);
-    this.totalOneVersDr += noVersDamage * damageReductionIncreaseFromOneVers;
-
-    this._updateMissingHealth(event);
+    return noVersDamage * damageReductionIncreaseFromOneVers;
   }
 
   on_toPlayer_heal(event) {
@@ -279,7 +284,7 @@ class StatWeights extends CoreStatWeights {
   }
   _updateMissingHealth(event) {
     if (event.hitPoints && event.maxHitPoints) { // fields not always populated, don't know why
-      this.playerHealthMissing = event.maxHitPoints - event.hitPoints;
+      this.playerHealthMissing = event.maxHitPoints - event.hitPoints; // TODO: Verify if the `amount` is already included, and leave a comment here stating the results
     }
   }
 
@@ -327,8 +332,6 @@ class StatWeights extends CoreStatWeights {
       //   stat: 'Haste (HPM)',
       //   className: 'stat-haste',
       //   gain: this.totalOneHasteHpm,
-      //   weight: hasteHpmWeight,
-      //   ratingForOne: hasteHpmForOnePercent,
       //   tooltip: 'HPM stands for "Healing per Mana". In valuing Haste, it considers only the faster HoT ticking and not the reduced cast times. Effectively it models haste\'s bonus to mana efficiency. This is typically the better calculation to use for raid encounters where mana is an issue.',
       // },
       {
@@ -354,49 +357,6 @@ class StatWeights extends CoreStatWeights {
         gain: this.totalOneLeech,
       },
     ];
-  }
-
-  extraPanel() {
-    const results = this._prepareResults();
-    return (
-      <div className="panel items">
-        <div className="panel-heading">
-          <h2><dfn data-tip="Weights are calculated using the actual circumstances of this encounter. Weights are likely to differ based on fight, raid size, items used, talents chosen, etc.<br /><br />DPS gains are not included in any of the stat weights.">Stat Weights</dfn>
-          </h2>
-        </div>
-        <div className="panel-body" style={{ padding: 0 }}>
-          <table className="data-table compact">
-            <thead>
-              <tr>
-                <th style={{ minWidth: 30 }}><b>Stat</b></th>
-                <th style={{ minWidth: 30 }}><dfn data-tip="Normalized so Intellect is always 1.00"><b>Weight</b></dfn></th>
-                <th style={{ minWidth: 30 }}><dfn data-tip="Amount of stat rating required to increase your total healing by 1%"><b>Rating per 1%</b></dfn></th>
-              </tr>
-            </thead>
-            <tbody>
-              {results.map(row => {
-                const weight = row.gain / (this.totalOneInt || 1);
-                const ratingForOne = this._ratingPerOnePercent(row.gain);
-
-                return (
-                  <tr key={row.stat}>
-                    <td>
-                      <div className={`${row.className}-bg`} style={{ width: '1em', height: '1em', borderRadius: '50%', display: 'inline-block', marginRight: 5, marginBottom: -2 }} />
-
-                      {row.tooltip ? <dfn data-tip={row.tooltip}>{row.stat}</dfn> : row.stat}
-                    </td>
-                    <td>{row.gain !== null ? weight.toFixed(2) : 'NYI'}</td>
-                    <td>{row.gain !== null ? (
-                      ratingForOne === Infinity ? '∞' : formatNumber(ratingForOne)
-                    ) : 'NYI'}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    );
   }
 }
 
