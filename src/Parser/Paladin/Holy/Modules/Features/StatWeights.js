@@ -379,7 +379,7 @@ class StatWeights extends Analyzer {
                 return (
                   <tr key={row.stat}>
                     <td>
-                      <div className={`${row.className}-bg`} style={{ width: '1.6em', height: '1.6em', borderRadius: 5, border: '1px solid rgba(0, 0, 0, 0.6)', display: 'inline-block', marginRight: 5, marginBottom: -5 }} />
+                      <div className={`${row.className}-bg`} style={{ width: '1em', height: '1em', borderRadius: '50%', display: 'inline-block', marginRight: 5, marginBottom: -2 }} />
 
                       {row.tooltip ? <dfn data-tip={row.tooltip}>{row.stat}</dfn> : row.stat}
                     </td>
