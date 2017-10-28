@@ -132,7 +132,7 @@ class StatWeights extends Analyzer {
     } else {
       // Without Leech we will have to make an estimation so we can still provide the user with a decent value
       if (this.playerHealthMissing > 0) { // if the player is full HP this would have overhealed.
-        const healIncreaseFromOneLeech = 1 / 23000;
+        const healIncreaseFromOneLeech = 1 / this.statTracker.leechRatingPerPercent;
         this.totalOneLeech += healVal.raw * healIncreaseFromOneLeech;
       }
     }
