@@ -37,7 +37,7 @@ class BrainFreezeTracker extends Analyzer {
 		if(this.combatants.selected.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id)) {
 			when(missedProcsPercent).isGreaterThan(.05)
 				.addSuggestion((suggest, actual, recommended) => {
-					return suggest(<span>You wasted {formatPercentage(missedProcsPercent)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id}/> procs. While this is mostly acceptable when using <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id}/>, try to minimize this by only holding your Brain Freeze Proc if you have 3 or more <SpellLink id={SPELLS.ICICLES.id}/>. If you have less than 3 Icicles then use your Brian Freeze Proc Normally.</span>)
+					return suggest(<span>You wasted {formatPercentage(missedProcsPercent)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id}/> procs. While this is mostly acceptable when using <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id}/>, try to minimize this by only holding your Brain Freeze Proc if you have 3 or more <SpellLink id={SPELLS.ICICLES_BUFF.id}/>. If you have less than 3 Icicles then use your Brian Freeze Proc Normally.</span>)
 						.icon(SPELLS.BRAIN_FREEZE.icon)
 						.actual(`${formatPercentage(missedProcsPercent)}% missed`)
 						.recommended(`Wasting none is recommended`)
