@@ -4,9 +4,7 @@ import Icon from 'common/Icon';
 import { formatPercentage } from 'common/format';
 
 import StatisticBox from 'Main/StatisticBox';
-import SuggestionsTab from 'Main/SuggestionsTab';
 import Tab from 'Main/Tab';
-import Talents from 'Main/Talents';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
@@ -98,29 +96,9 @@ class CombatLogParser extends CoreCombatLogParser {
       ...results.statistics,
     ];
 
-    results.items = [
-      ...results.items,
-      /*TODO*/
-    ];
-
     results.tabs = [
-      {
-        title: 'Suggestions',
-        url: 'suggestions',
-        render: () => (
-          <SuggestionsTab issues={results.issues} />
-        ),
-      },
-      {
-        title: 'Talents',
-        url: 'talents',
-        render: () => (
-          <Tab title="Talents">
-            <Talents combatant={this.modules.combatants.selected} />
-          </Tab>
-        ),
-      },
-      {
+      ...results.tabs,
+      { // TODO: Move this to an Analyzer module
         title: 'Maelstrom',
         url: 'maelstrom',
         render: () => (
@@ -134,7 +112,6 @@ class CombatLogParser extends CoreCombatLogParser {
           </Tab>
         ),
       },
-      ...results.tabs,
     ];
 
     return results;

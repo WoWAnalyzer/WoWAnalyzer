@@ -7,9 +7,7 @@ import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
 
 import StatisticBox from 'Main/StatisticBox';
-import SuggestionsTab from 'Main/SuggestionsTab';
 import Tab from 'Main/Tab';
-import Talents from 'Main/Talents';
 import Mana from 'Main/Mana';
 import Feeding from 'Main/Feeding';
 
@@ -382,22 +380,7 @@ class CombatLogParser extends CoreCombatLogParser {
     ];
 
     results.tabs = [
-      {
-        title: 'Suggestions',
-        url: 'suggestions',
-        render: () => (
-          <SuggestionsTab issues={results.issues} />
-        ),
-      },
-      {
-        title: 'Talents',
-        url: 'talents',
-        render: () => (
-          <Tab title="Talents">
-            <Talents combatant={this.modules.combatants.selected} />
-          </Tab>
-        ),
-      },
+      ...results.tabs,
       {
         title: 'Mana',
         url: 'mana',
@@ -418,7 +401,6 @@ class CombatLogParser extends CoreCombatLogParser {
           </Tab>
         ),
       },
-      ...results.tabs,
     ];
 
     return results;
