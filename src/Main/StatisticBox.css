@@ -9,8 +9,9 @@
   padding-left: 16px;
 }
 .panel.statistic-box .value {
-  font-size: 1.7em;
+  font-size: 1.8em;
   font-weight: bold;
+  line-height: 1.5;
 }
 .panel.statistic-box .slabel {
   margin-top: -0.3em;
