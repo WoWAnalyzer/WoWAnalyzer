@@ -202,6 +202,11 @@ export default {
     name: 'Purge the Wicked',
     icon: 'ability_mage_firestarter',
   },
+  ESTEL_DEJAHNAS_INSPIRATION_BUFF: {
+    id: 214637,
+    name: 'Dejahna\'s Inspiration',
+    icon: 'spell_holy_heal',
+  },
 
   // Talents:
   // lv90

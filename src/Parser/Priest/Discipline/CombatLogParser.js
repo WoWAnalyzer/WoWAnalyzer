@@ -34,6 +34,7 @@ import TarnishedSentinelMedallion from './Modules/Items/TarnishedSentinelMedalli
 import MarchOfTheLegion from './Modules/Items/MarchOfTheLegion';
 import Tier20_2set from './Modules/Items/Tier20_2set';
 import Tier20_4set from './Modules/Items/Tier20_4set';
+import Estel from './Modules/Items/Estel';
 
 import TwistOfFate from './Modules/Spells/TwistOfFate';
 import Castigation from './Modules/Spells/Castigation';
@@ -84,7 +85,7 @@ class CombatLogParser extends CoreCombatLogParser {
     marchOfTheLegion: MarchOfTheLegion,
     tier20_2set: Tier20_2set,
     tier20_4set: Tier20_4set,
-    // SoulOfTheHighPriest: SoulOfTheHighPriest,
+    estel: Estel,
 
     // Spells (talents and traits):
     twistOfFate: TwistOfFate,
