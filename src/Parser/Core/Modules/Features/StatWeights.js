@@ -97,7 +97,7 @@ class StatWeights extends Analyzer {
                         style={{
                           height: '1.6em',
                           width: '1.6em',
-                          marginRight: 5,
+                          marginRight: 10,
                           marginTop: -3,
                           marginBottom: -2,
                           verticalAlign: 'text-bottom',
