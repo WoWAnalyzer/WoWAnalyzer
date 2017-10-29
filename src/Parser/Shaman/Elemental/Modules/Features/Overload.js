@@ -65,7 +65,9 @@ class Overload extends Analyzer {
             marginTop: '-.1em',
           }}
         />
-        <span style={{width: 'calc(100% - 1.3em)', display: 'inline-block', textAlign: 'center'}}>{` ${spell.overloads} / ${spell.normal}`}</span>
+        <span style={{display: 'inline-block', textAlign: 'left', marginLeft: '0.5em'}}>
+          {`${spell.overloads} / ${spell.normal}`}
+        </span>
       </li>
     );
   }
