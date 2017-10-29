@@ -1,4 +1,5 @@
 export default `
+29-10-2017 - Update layout a bit: <a href="https://imgur.com/a/edymi">comparison</a>. (by Zerotorescue)
 25-10-2017 - Added T21 healing trinkets: Tarratus Keystone and Highfather's Machination. (by Dyspho)
 22-10-2017 - Fixed a crash when a player's info errored. Instead the affected player will become unselectable. (by Zerotorescue)
 22-10-2017 - Change a bunch of less important statistics to a smaller statistic box to reduce their emphasis and reduce clutter. (by Zerotorescue)
