@@ -209,7 +209,7 @@ class BaseHealerStatWeights extends Analyzer {
     return healVal.effective * healIncreaseFromOneHaste;
   }
   _mastery(event, healVal) {
-    return 0;
+    throw new Error('Missing custom Mastery implementation. This is different per spec.');
   }
   _versatility(event, healVal) {
     if (healVal.overheal) {
