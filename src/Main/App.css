@@ -16,14 +16,13 @@ body {
   background-attachment: fixed;
   color: #fff;
 }
+.container {
+  width: 100%;
+  max-width: 1600px;
+}
 @media (min-width: 1200px) {
   .container {
-    width: 1170px;
-  }
-}
-@media (min-width: 1400px) {
-  .container {
-    width: 1370px;
+    padding: 0 60px;
   }
 }
 

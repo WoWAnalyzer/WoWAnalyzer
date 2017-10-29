@@ -24,9 +24,6 @@ import AppBackgroundImage from './AppBackgroundImage';
 
 import makeAnalyzerUrl from './makeAnalyzerUrl';
 
-const toolName = 'WoW Analyzer';
-const githubUrl = 'https://github.com/WoWAnalyzer/WoWAnalyzer';
-
 const timeAvailable = console.time && console.timeEnd;
 
 const PROGRESS_STEP1_INITIALIZATION = 0.02;
@@ -409,7 +406,7 @@ class App extends Component {
   }
 
   updatePageTitle() {
-    let title = toolName;
+    let title = 'WoW Analyzer';
     if (this.reportCode && this.state.report) {
       if (this.playerName) {
         if (this.fight) {
@@ -497,7 +494,7 @@ class App extends Component {
           <div className="container">
             <div className="navbar-header">
               <ol className="breadcrumb">
-                <li className="breadcrumb-item"><Link to={makeAnalyzerUrl()}>{toolName}</Link></li>
+                <li className="breadcrumb-item"><Link to={makeAnalyzerUrl()}>WoW Analyzer</Link></li>
                 {this.reportCode && report && <li className="breadcrumb-item"><Link to={makeAnalyzerUrl(report)}>{report.title}</Link></li>}
                 {this.fight && report && <li className="breadcrumb-item"><FightSelectorHeader report={report} selectedFightName={getFightName(report, this.fight)} parser={parser} /></li>}
                 {this.playerName && report && <li className="breadcrumb-item"><PlayerSelectorHeader report={report} fightId={this.fightId} combatants={combatants || []} selectedPlayerName={this.playerName} /></li>}
@@ -505,7 +502,9 @@ class App extends Component {
             </div>
 
             <ul className="nav navbar-nav navbar-right github-link hidden-xs">
-              <li><a href={githubUrl}><span className="hidden-xs"> View on GitHub </span><img src={GithubLogo} alt="GitHub logo" /></a></li>
+              <li>
+                <a href="https://github.com/WoWAnalyzer/WoWAnalyzer"><span className="hidden-xs"> View on GitHub </span><img src={GithubLogo} alt="GitHub logo" /></a>
+              </li>
             </ul>
           </div>
         </nav>
