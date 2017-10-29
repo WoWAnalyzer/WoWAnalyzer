@@ -41,6 +41,6 @@ render(
       </Route>
     </Router>
   </ErrorBoundary>,
-  document.getElementById('root')
+  document.getElementById('app-mount')
 );
 unregister();

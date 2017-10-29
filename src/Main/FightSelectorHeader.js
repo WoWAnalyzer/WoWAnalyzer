@@ -33,47 +33,48 @@ class FightSelectorHeader extends SelectorBase {
   }
 
   render() {
-    const { report, selectedFightName, parser } = this.props;
+    const { report, selectedFightName, parser, ...others } = this.props;
     const { killsOnly, show } = this.state;
     return (
-      <span ref={this.setRef}>
+      <div ref={this.setRef} {...others}>
         <Link onClick={this.handleClick}>{selectedFightName}</Link>
-        {show && parser && parser.player &&
-        <span className="selectorHeader">
-          <div className="panel">
-            <div className="panel-heading">
-              <div className="flex wrapable">
-                <div className="flex-main" style={{ minWidth: 200 }}>
-                  <h2>Select the fight to parse {parser && parser.player ? ` for ${parser.player.name}` : ''}</h2>
-                </div>
-                <div className="flex-sub text-right toggle-control action-buttons">
-                  <Toggle
-                    checked={killsOnly}
-                    icons={false}
-                    onChange={event => this.setState({ killsOnly: event.currentTarget.checked })}
-                    id="kills-only-toggle"
-                  />
-                  <label htmlFor="kills-only-toggle">
-                    Kills only
-                  </label>
+        {show && parser && parser.player && (
+          <span className="selectorHeader">
+            <div className="panel">
+              <div className="panel-heading">
+                <div className="flex wrapable">
+                  <div className="flex-main" style={{ minWidth: 200 }}>
+                    <h2>Select the fight to parse {parser && parser.player ? ` for ${parser.player.name}` : ''}</h2>
+                  </div>
+                  <div className="flex-sub text-right toggle-control action-buttons">
+                    <Toggle
+                      checked={killsOnly}
+                      icons={false}
+                      onChange={event => this.setState({ killsOnly: event.currentTarget.checked })}
+                      id="kills-only-toggle"
+                    />
+                    <label htmlFor="kills-only-toggle">
+                      Kills only
+                    </label>
+                  </div>
                 </div>
               </div>
+              <div className="panel-body" style={{ padding: 0 }} onClick={this.handleClick}>
+                {parser && parser.player && (
+                  <FightSelectionList
+                    report={report}
+                    fights={
+                      parser.player.fights.map(f => report.fights[f.id - 1]) // TODO: We should check if the id's match!
+                    }
+                    playerName={parser.player.name}
+                    killsOnly={this.state.killsOnly}
+                  />
+                )}
+              </div>
             </div>
-            <div className="panel-body" style={{ padding: 0 }} onClick={this.handleClick}>
-              {parser && parser.player &&
-              <FightSelectionList
-                report={report}
-                fights={
-                  parser.player.fights.map(f => report.fights[f.id - 1]) // TODO: We should check if the id's match!
-                }
-                playerName={parser.player.name}
-                killsOnly={this.state.killsOnly}
-              />
-            }
-            </div>
-          </div>
-        </span>}
-      </span>
+          </span>
+        )}
+      </div>
     );
   }
 }
