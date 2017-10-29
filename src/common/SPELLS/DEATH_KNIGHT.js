@@ -135,12 +135,14 @@ export default {
   // ...
 
   // Unholy:
+  // Aritfact ability
   APOCALYPSE: {
     id: 220143,
     name: 'Apocalypse',
     icon: 'artifactability_unholydeathknight_deathsembrace',
   },
 
+  // Spells
   ARMY_OF_THE_DEAD: {
     id: 42650,
     name: 'Army of the Dead',
@@ -166,9 +168,9 @@ export default {
   },
 
   FESTERING_WOUND: {
-    id: 197147,
+    id: 194310,
     name: 'Festering Wound',
-    icon: 'spell_shadow_deathanddecay',
+    icon: 'spell_yorsahj_bloodboil_purpleoil',
   },
 
   OUTBREAK: {
@@ -194,13 +196,7 @@ export default {
     name: 'Scourge Strike',
     icon: 'spell_deathknight_scourgestrike',
   },
-
-  SUDDEN_DOOM: {
-    id: 49530,
-    name: 'Sudden Doom',
-    icon: 'spell_shadow_painspike',
-  },
-
+  
   SUMMON_GARGOYLE: {
     id: 49206,
     name: 'Summon Gargoyle',
@@ -212,7 +208,28 @@ export default {
     name: 'Virulent Plague',
     icon: 'ability_creature_disease_02',
   },  
+  
+  // Unholy Tier Sets
+  // T20 2 Piece
+  UNHOLY_DEATH_KNIGHT_T20_2SET_BONUS_BUFF: {
+    id: 246995,
+    name: 'T20 2 Set Bonus',
+    icon: 'spell_deathknight_unholypresence',
+  },
+  
+  // Artifact traits:
+  SUDDEN_DOOM: {
+    id: 49530,
+    name: 'Sudden Doom',
+    icon: 'spell_shadow_painspike',
+  },
 
+  ETERNAL_AGONY: {
+    id: 208598,
+    name: 'Eternal Agony',
+    icon: 'achievement_boss_festergutrotface',
+  },
+  
   // Shared:
   ANTI_MAGIC_SHELL: {
     id: 48707,
@@ -298,3 +315,4 @@ export default {
     icon: 'inv_helm_plate_raiddeathknight_p_01',
   },
 };
+	

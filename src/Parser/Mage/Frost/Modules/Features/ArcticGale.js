@@ -11,7 +11,7 @@ import getDamageBonus from 'Parser/Mage/Shared/Modules/GetDamageBonus';
 
 const DAMAGE_BONUS = 0.3;
 
-class UnstableMagic extends Analyzer {
+class ArcticGale extends Analyzer {
   static dependencies = {
     combatants: Combatants,
 	}
@@ -52,4 +52,4 @@ class UnstableMagic extends Analyzer {
   }
 }
 
-export default UnstableMagic;
+export default ArcticGale;

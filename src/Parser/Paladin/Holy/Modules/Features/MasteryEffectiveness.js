@@ -116,7 +116,7 @@ class MasteryEffectiveness extends Analyzer {
       console.error('Received a heal before selected combatant meta data was received.', event);
       return;
     }
-    const isAbilityAffectedByMastery = ABILITIES_AFFECTED_BY_MASTERY.indexOf(event.ability.guid) !== -1;
+    const isAbilityAffectedByMastery = ABILITIES_AFFECTED_BY_MASTERY.includes(event.ability.guid);
 
     const healingDone = event.amount;
 
@@ -145,6 +145,8 @@ class MasteryEffectiveness extends Analyzer {
         masteryHealingDone,
         maxPotentialMasteryHealing,
       });
+      // Update the event information to include the heal's mastery effectiveness in case we want to use this elsewhere (hint: StatWeights)
+      event.masteryEffectiveness = masteryEffectiveness;
     }
   }
   getDistanceForMastery(event) {

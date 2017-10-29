@@ -19,6 +19,7 @@ import FrostBomb from './Modules/Features/FrostBomb';
 import RuneOfPower from '../Shared/Modules/Features/RuneOfPower';
 import MirrorImage from '../Shared/Modules/Features/MirrorImage';
 import UnstableMagic from '../Shared/Modules/Features/UnstableMagic';
+import SplittingIce from './Modules/Features/SplittingIce';
 
 import FrozenOrb from './Modules/Cooldowns/FrozenOrb';
 import IcyVeins from './Modules/Cooldowns/IcyVeins';
@@ -46,6 +47,7 @@ class CombatLogParser extends CoreCombatLogParser {
     unstableMagic: UnstableMagic,
     arcticGale: ArcticGale,
     frostBomb: FrostBomb,
+    splittingIce: SplittingIce,
 
 	  //Cooldowns
     frozenOrb: FrozenOrb,
