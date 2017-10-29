@@ -84,6 +84,8 @@ class BaseHealerStatWeights extends Analyzer {
 
   playerHealthMissing = 0;
 
+  scaleWeightsWithHealth = false;
+
   on_heal(event) {
     if (this.owner.byPlayer(event) || this.owner.byPlayerPet(event)) {
       const healVal = new HealingValue(event.amount, event.absorbed, event.overheal);
@@ -106,21 +108,30 @@ class BaseHealerStatWeights extends Analyzer {
   }
   _handleHealEvent(event, healVal) {
     const spellInfo = this._getSpellInfo(event);
-    this._handleHeal(spellInfo, event, healVal);
+    const targetHealthPercentage = (event.hitPoints - healVal.effective) / event.maxHitPoints; // hitPoints contains HP *after* the heal
+    this._handleHeal(spellInfo, event, healVal, targetHealthPercentage);
   }
-  _handleHeal(spellInfo, event, healVal) {
+  /**
+   * This actually does that stat weights calculations.
+   * @param spellInfo An object containing information about how to treat the spell, like on what stats it scales.
+   * @param eventForWeights The event that uses the stats to scale its healing. If we're tracking a multiplier (like Beacons), this should be the source of the multiplier.
+   * @param {HealingValue} healVal The actual healing done, all child weight calculators should use this instead of the event data as that might be for another event.
+   * @param targetHealthPercentage The percentage of health the target has remaining BEFORE the heal.
+   * @private
+   */
+  _handleHeal(spellInfo, eventForWeights, healVal, targetHealthPercentage) {
     // Most spells are counted in healing total, but some spells scale not on their own but 'second hand' from other spells
     // I adjust them out of total healing to preserve some accuracy in the "Rating per 1%" stat.
     // Good examples of multiplier spells are Leech and Velens.
     if (!spellInfo.multiplier) {
-      this.totalAdjustedHealing += healVal.effective;
+      this.totalAdjustedHealing += this._adjustGain(healVal.effective, targetHealthPercentage);
     }
 
     if (spellInfo.ignored) {
       return;
     }
 
-    this.totalOneLeech += this._leech(event, healVal);
+    this.totalOneLeech += this._adjustGain(this._leech(eventForWeights, healVal), targetHealthPercentage);
 
     if (spellInfo.multiplier) {
       // Multiplier spells aren't counted for weights because they don't **directly** benefit from stat weights
@@ -128,20 +139,26 @@ class BaseHealerStatWeights extends Analyzer {
     }
 
     if (spellInfo.int) {
-      this.totalOneInt += this._intellect(event, healVal);
+      this.totalOneInt += this._adjustGain(this._intellect(eventForWeights, healVal), targetHealthPercentage);
     }
     if (spellInfo.crit) {
-      this.totalOneCrit += this._criticalStrike(event, healVal);
+      this.totalOneCrit += this._adjustGain(this._criticalStrike(eventForWeights, healVal), targetHealthPercentage);
     }
     if (spellInfo.hasteHpct) {
-      this.totalOneHasteHpct += this._hasteHpct(event, healVal);
+      this.totalOneHasteHpct += this._adjustGain(this._hasteHpct(eventForWeights, healVal), targetHealthPercentage);
     }
     if (spellInfo.mastery) {
-      this.totalOneMastery += this._mastery(event, healVal);
+      this.totalOneMastery += this._adjustGain(this._mastery(eventForWeights, healVal), targetHealthPercentage);
     }
     if (spellInfo.vers) {
-      this.totalOneVers += this._versatility(event, healVal);
+      this.totalOneVers += this._adjustGain(this._versatility(eventForWeights, healVal), targetHealthPercentage);
     }
+  }
+  _adjustGain(gain, targetHealthPercentage) {
+    // We want 0-20% health to get value gain, and then linearly decay to 100% health
+    const maxValueHealthPercentage = 0.3;
+    const mult = 1 - Math.max(0, (targetHealthPercentage - maxValueHealthPercentage) / (1 - maxValueHealthPercentage));
+    return this.scaleWeightsWithHealth ? gain * mult : gain;
   }
   _leech(event, healVal) {
     const spellId = event.ability.guid;
@@ -231,7 +248,8 @@ class BaseHealerStatWeights extends Analyzer {
     this._updateMissingHealth(event);
 
     const damageVal = new DamageValue(event.amount, event.absorbed, event.overkill);
-    this.totalOneVersDr += this._versatilityDamageReduction(event, damageVal);
+    const targetHealthPercentage = event.hitPoints / event.maxHitPoints; // hitPoints contains HP *after* the damage taken, which in this case is desirable
+    this.totalOneVersDr += this._adjustGain(this._versatilityDamageReduction(event, damageVal), targetHealthPercentage);
   }
   _versatilityDamageReduction(event, damageVal) {
     const amount = damageVal.effective;
