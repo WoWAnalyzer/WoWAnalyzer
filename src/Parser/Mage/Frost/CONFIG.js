@@ -10,7 +10,7 @@ import SharrqAvatar from './Images/Sharrq_avatar.jpg';
 
 export default {
   spec: SPECS.FROST_MAGE,
-  maintainer: '@Sharrq',
+  maintainer: '@Sharrq and @sref',
   maintainerAvatar: SharrqAvatar,
   completeness: SPEC_ANALYSIS_COMPLETENESS.NEEDS_MORE_WORK, // When changing this please make a PR with ONLY this value changed, we will do a review of your analysis to find out of it is complete enough.
   changelog: CHANGELOG,
