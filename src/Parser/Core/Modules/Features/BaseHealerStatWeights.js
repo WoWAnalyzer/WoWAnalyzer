@@ -242,7 +242,8 @@ class BaseHealerStatWeights extends Analyzer {
   }
   _updateMissingHealth(event) {
     if (event.hitPoints && event.maxHitPoints) { // fields not always populated, don't know why
-      this.playerHealthMissing = event.maxHitPoints - event.hitPoints; // TODO: Verify if the `amount` is already included, and leave a comment here stating the results
+      // `maxHitPoints` is always the value *after* the effect applied
+      this.playerHealthMissing = event.maxHitPoints - event.hitPoints;
     }
   }
 
