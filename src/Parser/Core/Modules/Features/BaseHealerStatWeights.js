@@ -14,7 +14,7 @@ import StatTracker from 'Parser/Core/Modules/StatTracker';
 import CORE_SPELL_INFO from './SpellInfo';
 import STAT, { getName, getClassNameColor, getIcon } from './STAT';
 
-const DEBUG = true;
+const DEBUG = false;
 
 // 5% int bonus from wearing all of the highest armor rating (Leather, Mail, Plate) means each new point of int worth 1.05 vs character sheet int
 export const ARMOR_INT_MULTIPLIER = 1.05;
@@ -204,11 +204,6 @@ class BaseHealerStatWeights extends Analyzer {
     return 0;
   }
   _hasteHpct(event, healVal) {
-    if (healVal.effective === 0) {
-      // While Haste does not directly increase overhealing (or any overhealing in a measurable way), casting a spell that does 0 healing is useless regardless. Being able to cast that one spell more because of the player's Haste gained us no useful output. Note that the (effective) beacon transfer healing caused by this spell will still be added to the Haste value separately.
-      return 0;
-    }
-
     const healIncreaseFromOneHaste = 1 / this.statTracker.hasteRatingPerPercent;
 
     return healVal.effective * healIncreaseFromOneHaste;
