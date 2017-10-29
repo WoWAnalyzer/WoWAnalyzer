@@ -139,8 +139,7 @@ class WintersChillTracker extends Analyzer {
               id={SPELLS.ICE_LANCE_CAST.id}
               style={{
                 height: '1.2em',
-                marginTop: '-.2em',
-                marginBottom: '.2em',
+                marginBottom: '.15em',
               }}
             />
             {' '}{formatPercentage(icelanceUtil, 0)}{' %'}
@@ -149,8 +148,7 @@ class WintersChillTracker extends Analyzer {
               id={SPELLS.FROSTBOLT.id}
               style={{
                 height: '1.2em',
-                marginTop: '-.2em',
-                marginBottom: '.2em',
+                marginBottom: '.15em',
               }}
             />
             {' '}{formatPercentage(frostboltUtil, 0)}{' %'}
