@@ -21,9 +21,9 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.RISING_SUN_KICK,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-      // Item - Windwalker T19 2PC Bonus: Reduces the cooldown of Rising Sun Kick by 3.0 seconds.
+      // Item - Windwalker T19 2PC Bonus: Reduces the cooldown of Rising Sun Kick by 1.0 seconds.
       getCooldown: (haste, combatant) =>
-        (10 - (combatant.hasBuff(SPELLS.WW_TIER19_2PC.id) ? 2 : 0)) / (1 + haste) * (combatant.hasBuff(SPELLS.SERENITY_TALENT.id) ? 0.5 : 1),
+        (10 - (combatant.hasBuff(SPELLS.WW_TIER19_2PC.id) ? 1 : 0)) / (1 + haste) * (combatant.hasBuff(SPELLS.SERENITY_TALENT.id) ? 0.5 : 1),
     },
     {
       spell: SPELLS.WHIRLING_DRAGON_PUNCH_TALENT,

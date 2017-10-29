@@ -25,10 +25,10 @@ class PlayerSelectorHeader extends SelectorBase {
   };
 
   render() {
-    const { report, fightId, combatants, selectedPlayerName } = this.props;
+    const { report, fightId, combatants, selectedPlayerName, ...others } = this.props;
     const { show } = this.state;
     return (
-      <span ref={this.setRef}>
+      <div ref={this.setRef} {...others}>
         <Link onClick={this.handleClick}>{selectedPlayerName}</Link>
         {show && (
           <span className="selectorHeader">
@@ -42,7 +42,7 @@ class PlayerSelectorHeader extends SelectorBase {
             </div>
           </span>
         )}
-      </span>
+      </div>
     );
   }
 }
