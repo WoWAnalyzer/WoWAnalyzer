@@ -5,14 +5,14 @@ import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
 import { formatNumber } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 const debug = false;
 const PROC_EVENT_START_BUFFER = 5000;
 const PROC_EVENT_END_BUFFER = 1000;
 
-class DecieversGrandDesign extends Module {
+class DecieversGrandDesign extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

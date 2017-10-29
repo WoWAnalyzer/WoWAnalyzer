@@ -1,4 +1,4 @@
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
@@ -7,7 +7,7 @@ import getDamageBonus from '../WarlockCore/getDamageBonus';
 
 const SOUL_HARVEST_DAMAGE_BONUS = 0.2;
 
-class SoulHarvest extends Module {
+class SoulHarvest extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

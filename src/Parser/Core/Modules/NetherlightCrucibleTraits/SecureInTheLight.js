@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 
@@ -13,7 +13,7 @@ import HealingDone from 'Parser/Core/Modules/HealingDone';
  * Secure in the Light
  * Your harmful spells and abilities have the chance to deal 135000 additional damage and grant you Holy Bulwark, absorbing up to 135000 damage over 8 sec.
  */
-class SecureInTheLight extends Module {
+class SecureInTheLight extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     healingDone: HealingDone,

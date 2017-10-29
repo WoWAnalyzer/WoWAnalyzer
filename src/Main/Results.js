@@ -7,6 +7,7 @@ import Masonry from 'react-masonry-component';
 import ItemLink from 'common/ItemLink';
 import ItemIcon from 'common/ItemIcon';
 import getBossName from 'common/getBossName';
+import { getCompletenessColor, getCompletenessExplanation, getCompletenessLabel } from 'common/SPEC_ANALYSIS_COMPLETENESS';
 
 import DevelopmentTab from 'Main/DevelopmentTab';
 import EventsTab from 'Main/EventsTab';
@@ -88,7 +89,12 @@ class Results extends React.Component {
             {
               items
                 .sort((a, b) => {
-                  if (a.item && b.item) {
+                  // raw elements always rendered last
+                  if (React.isValidElement(a)) {
+                    return 1;
+                  } else if (React.isValidElement(b)) {
+                    return -1;
+                  } else if (a.item && b.item) {
                     if (a.item.quality === b.item.quality) {
                       // Qualities equal = show last added item at bottom
                       return a.item.id - b.item.id;
@@ -111,6 +117,8 @@ class Results extends React.Component {
                 .map((item) => {
                   if (!item) {
                     return null;
+                  } else if (React.isValidElement(item)) {
+                    return item;
                   }
 
                   const id = item.id || item.item.id;
@@ -206,7 +214,7 @@ class Results extends React.Component {
     return (
       <div style={{ width: '100%' }}>
         <div className="results">
-          <div className="row" style={{ marginTop: 20 }}>
+          <div className="row">
             <div className="col-lg-10 col-md-8" style={{ position: 'relative' }}>
               <div className="back-button" style={{ fontSize: 36, width: 20 }}>
                 <Link to={`/report/${report.code}/${fight.id}`} data-tip="Back to player selection">
@@ -236,7 +244,7 @@ class Results extends React.Component {
               borderRadius: '50%',
               height: '1.2em',
             }}
-          /> {config.spec.specName} {config.spec.className} spec implementation is being maintained by {config.maintainer}. <a href="#spec-information" onClick={this.handleClickViewSpecInformation}>More information.</a>
+          /> {config.spec.specName} {config.spec.className} spec implementation is being maintained by {config.maintainer} (status: <dfn data-tip={getCompletenessExplanation(config.completeness)} style={{ color: getCompletenessColor(config.completeness) }}>{getCompletenessLabel(config.completeness).toLowerCase()}</dfn>). <a href="#spec-information" onClick={this.handleClickViewSpecInformation}>More information.</a>
           </div>
 
           <div className="row">
@@ -245,6 +253,7 @@ class Results extends React.Component {
             </div>
             <div className="col-md-4">
               {this.renderItems(results.items, selectedCombatant)}
+              {results.extraPanels ? results.extraPanels.map(i => i) : ''}
             </div>
           </div>
 

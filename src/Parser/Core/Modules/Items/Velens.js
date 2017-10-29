@@ -5,14 +5,14 @@ import SPELLS from 'common/SPELLS';
 import ItemLink from 'common/ItemLink';
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 const LEGENDARY_VELENS_HEAL_SPELL_ID = 235967;
 const LEGENDARY_VELENS_HEALING_INCREASE = 0.15;
 
-class Velens extends Module {
+class Velens extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

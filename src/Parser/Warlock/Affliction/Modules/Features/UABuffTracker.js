@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -13,7 +13,7 @@ import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../Constants';
 
 const UA_IDS_SET = new Set(UNSTABLE_AFFLICTION_DEBUFF_IDS);
 
-class UABuffTracker extends Module {
+class UABuffTracker extends Analyzer {
   static dependencies = {
     enemies: Enemies,
     combatants: Combatants,

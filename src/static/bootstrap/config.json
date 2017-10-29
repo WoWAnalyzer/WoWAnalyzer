@@ -393,14 +393,10 @@
     "glyphicons.less",
     "button-groups.less",
     "input-groups.less",
-    "navs.less",
-    "navbar.less",
-    "breadcrumbs.less",
     "labels.less",
     "alerts.less",
-    "progress-bars.less",
     "panels.less"
   ],
   "js": [],
-  "customizerUrl": "http://getbootstrap.com/customize/?id=e6187c12ea53bea0c3a297906f9c0c07"
+  "customizerUrl": "http://getbootstrap.com/docs/3.3/customize/?id=8cd3e941a50c2b5a71360543bfc538b5"
 }

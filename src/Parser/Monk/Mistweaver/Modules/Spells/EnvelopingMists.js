@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -17,7 +17,7 @@ const UNAFFECTED_SPELLS = [
   SPELLS.CRANE_HEAL.id,
 ];
 
-class EnvelopingMists extends Module {
+class EnvelopingMists extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

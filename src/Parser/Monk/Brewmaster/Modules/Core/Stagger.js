@@ -4,7 +4,7 @@ import ITEMS from 'common/ITEMS';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage, formatThousands } from 'common/format';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 const debug = false;
@@ -13,7 +13,7 @@ const BASE_STAGGER_TICKS = 20;
 const JEWEL_OF_THE_LOST_ABBEY_TICKS = 6;
 const STAGGER_TICK_FREQUENCY = 500;
 
-class Stagger extends Module {
+class Stagger extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   }

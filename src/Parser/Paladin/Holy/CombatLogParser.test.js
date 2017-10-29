@@ -79,7 +79,7 @@ describe('Paladin/Holy/CombatLogParser', () => {
       const parser = new CombatLogParser({
         friendlies: [player],
       }, player);
-      expect(parser.reorderEvents(scenario.events).map(event => event.testid)).toEqual(scenario.result);
+      expect(parser.normalize(scenario.events).map(event => event.testid)).toEqual(scenario.result);
     });
   });
 });

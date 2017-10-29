@@ -16,6 +16,9 @@ import ManaBreakdownImage from './Images/mana-breakdown.png';
 import OpenSourceImage from './Images/open-source.png';
 import OkHandImage from './Images/ok_hand.png';
 
+import DiscordLogo from './Images/Discord-Logo+Wordmark-White.svg';
+import DiscordBotGif from './Images/discord-bot.gif';
+
 class Home extends Component {
   render() {
     return (
@@ -35,6 +38,45 @@ class Home extends Component {
                 {' '}<i>unlisted</i> privacy option instead.<br /><br />
 
                 Feature requests (<dfn data-tip="Provided that you're not using one of Microsoft's browsers.">and bug reports*</dfn>) are welcome! On <a href="https://discord.gg/AxphPxU">Discord</a> or create an issue <a href={'https://github.com/WoWAnalyzer/WoWAnalyzer/issues'}>here</a>.
+              </div>
+            </div>
+
+            <div className="panel" style={{ overflow: 'hidden' }}>
+              <div className="panel-heading">
+                <h2>The WoWAnalyzer Discord bot</h2>
+              </div>
+              <div className="panel-body" style={{ padding: 0 }}>
+                <div className="flex wrapable">
+                  <div className="flex-main" style={{ padding: '25px 15px', minWidth: 300 }}>
+                    <div className="flex">
+                      <div className="flex-sub" style={{ padding: 5 }}>
+                        <img src="/favicon.png" alt="Logo" style={{ width: 80, float: 'left' }} />
+                      </div>
+                      <div className="flex-main" style={{ fontSize: 24, padding: '5px 15px', lineHeight: 1.4 }}>
+                        Introducing the <b>WoWAnalyzer</b> <img src={DiscordLogo} alt="Discord logo" style={{ height: '2em', marginTop: 3 }} /> bot
+                      </div>
+                    </div>
+                    <div className="text-center">
+                      <div style={{ fontSize: 16, margin: '10px 25px 20px 25px' }}>
+                        Get users to analyze themselves without lifting a finger (even if they don't read the pins).<br />
+                      </div>
+                      <div style={{ marginBottom: 7 }}>
+                        <a
+                          className="btn btn-default btn-lg"
+                          style={{ borderRadius: 0 }}
+                          href="https://discordapp.com/oauth2/authorize?&client_id=368144406181838861&scope=bot&permissions=3072"
+                        >
+                          Add to Discord
+                        </a>
+                      </div>
+
+                      <a href="https://github.com/WoWAnalyzer/DiscordBot#wowanalyzer-discord-bot-">More info</a>
+                    </div>
+                  </div>
+                  <div className="flex-sub">
+                    <img src={DiscordBotGif} alt="Bot example gif" style={{ height: 300 }} />
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -95,7 +137,7 @@ class Home extends Component {
               </div>
               <div className="panel-body" style={{ textAlign: 'justify', padding: 0 }}>
                 <div style={{ padding: '15px 20px', marginBottom: 5 }}>
-                  WoWAnalyzer is slowly expanding with more specs being added and several specs nearing completion. We need your help to continue expanding and keep everything accurate. Are you a coder or graphic designer? Check our <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub project</a> (hint: see the <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/labels/help%20wanted" className="gh-label">help-wanted</a> and <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/labels/good%20first%20issue" className="gh-label">good-first-issue</a> issues) or <a href="https://discord.gg/AxphPxU">Discord</a> to find out how you could contribute.
+                  WoWAnalyzer is slowly expanding with more things being analyzed every day. We need your help to continue expanding and keep everything accurate. Are you a coder or graphic designer? Check our <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub project</a> (hint: see <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/labels/help%20wanted" className="gh-label">help wanted</a> and <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/labels/good%20first%20issue" className="gh-label" style={{ backgroundColor: '#5319e7' }}>good first issue</a>, or maybe <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/labels/%24bounty" className="gh-label" style={{ backgroundColor: '#64f235', color: '#000' }}>$bounty</a> interests you) or <a href="https://discord.gg/AxphPxU">Discord</a> to find out how you could contribute.
                 </div>
 
                 <img src="https://media.giphy.com/media/l1J3vV5lCmv8qx16M/giphy.gif" style={{ width: '100%' }} alt="Sharing is caring" />
@@ -111,7 +153,7 @@ class Home extends Component {
               <div className="panel-body text-muted">
                 <ul className="list-unstyled">
                   {Object.keys(SPECS)
-                    .filter(key => isNaN(key))
+                    .filter(key => isNaN(key)) // since SPECS gets indexed by ids, all entries are doubled. With this we only use the non-numeric values
                     .map(key => SPECS[key])
                     .sort((a, b) => {
                       if (a.className < b.className) {

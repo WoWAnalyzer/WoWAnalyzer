@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealingStacked from 'Parser/Core/calculateEffectiveHealingStacked';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -15,7 +15,7 @@ const JUSTICE_THROUGH_SACRIFICE_HEALING_INCREASE = 0.05;
  * Justice through Sacrifice (Artifact Trait)
  * Increases healing done by Light of the Martyr by 5%.
  */
-class JusticeThroughSacrifice extends Module {
+class JusticeThroughSacrifice extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

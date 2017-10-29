@@ -8,11 +8,11 @@ import ITEMS from 'common/ITEMS';
 import ItemIcon from 'common/ItemIcon';
 import { formatNumber } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-class MyCuteRock extends Module {
+class MyCuteRock extends Analyzer {
   healing = 0;
 
   on_initialized() {

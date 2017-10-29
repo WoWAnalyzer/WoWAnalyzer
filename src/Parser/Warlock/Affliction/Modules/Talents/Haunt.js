@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -13,7 +13,7 @@ import getDamageBonus from '../WarlockCore/getDamageBonus';
 
 const HAUNT_DAMAGE_BONUS = 0.15;
 
-class Haunt extends Module {
+class Haunt extends Analyzer {
   // TODO: test on dummy or in raid on some boss, there are no logs with this talent to test, should work though
   static dependencies = {
     enemies: Enemies,

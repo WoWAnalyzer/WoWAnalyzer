@@ -8,7 +8,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
@@ -21,7 +21,7 @@ function getOverhealingPercentage(ability) {
   return ability.healingOverheal / getRawHealing(ability);
 }
 
-class SheilunsGift extends Module {
+class SheilunsGift extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     abilityTracker: AbilityTracker,

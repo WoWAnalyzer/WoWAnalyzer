@@ -1,8 +1,8 @@
 import SPELLS from 'common/SPELLS';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
-class ShadowDance extends Module {
+class ShadowDance extends Analyzer {
   totalShadowDanceCast = 0;
   totalDamageDoneInShadowDance = 0;
 

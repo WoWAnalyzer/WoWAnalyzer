@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -15,7 +15,7 @@ const INFUSION_OF_LIFE_HEALING_INCREASE = 0.05;
  * Infusion of Life (Artifact Trait)
  * Increases healing done by Vivify by 5%.
  */
-class InfusionOfLife extends Module {
+class InfusionOfLife extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

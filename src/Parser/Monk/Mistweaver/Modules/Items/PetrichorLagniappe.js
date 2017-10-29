@@ -7,12 +7,12 @@ import { formatNumber } from 'common/format';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 const debug = false;
 const PETRICHOR_REDUCTION = 2000;
 
-class PetrichorLagniappe extends Module {
+class PetrichorLagniappe extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     abilityTracker: AbilityTracker,

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link, browserHistory } from 'react-router';
 import ReactTooltip from 'react-tooltip';
 
-import makeWclUrl from 'common/makeWclUrl';
+import fetchWcl from 'common/fetchWcl';
 import getFightName from 'common/getFightName';
 
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
@@ -23,9 +23,6 @@ import ReportSelecter from './ReportSelecter';
 import AppBackgroundImage from './AppBackgroundImage';
 
 import makeAnalyzerUrl from './makeAnalyzerUrl';
-
-const toolName = 'WoW Analyzer';
-const githubUrl = 'https://github.com/WoWAnalyzer/WoWAnalyzer';
 
 const timeAvailable = console.time && console.timeEnd;
 
@@ -140,16 +137,13 @@ class App extends Component {
     timeAvailable && console.time('full parse');
     const parser = this.createParser(config.parser, report, fight, player);
     // We send combatants already to the analyzer so it can show the results page with the correct items and talents while waiting for the API request
-    parser.parseEvents(combatants)
-      .then(() => parser.triggerEvent('initialized'))
-      .then(async () => {
-        await this.setStatePromise({
-          config,
-          parser,
-          progress: PROGRESS_STEP1_INITIALIZATION,
-        });
-        await this.parse(parser, report, player, fight);
-      });
+    parser.initialize(combatants);
+    await this.setStatePromise({
+      config,
+      parser,
+      progress: PROGRESS_STEP1_INITIALIZATION,
+    });
+    await this.parse(parser, report, player, fight);
   }
   async parse(parser, report, player, fight) {
     let events;
@@ -167,7 +161,7 @@ class App extends Component {
         console.error(err);
       }
     }
-    events = parser.reorderEvents(events);
+    events = parser.normalize(events);
     await this.setStatePromise({
       progress: PROGRESS_STEP2_FETCH_EVENTS,
     });
@@ -179,7 +173,7 @@ class App extends Component {
     try {
       while (offset < numEvents) {
         const eventsBatch = events.slice(offset, offset + batchSize);
-        await parser.parseEvents(eventsBatch);
+        parser.parseEvents(eventsBatch);
         // await-ing setState does not ensure we wait until a render completed, so instead we wait 1 frame
         const progress = Math.min(1, (offset + batchSize) / numEvents);
         this.setState({
@@ -259,17 +253,13 @@ class App extends Component {
       report: null,
     });
 
-    const url = makeWclUrl(`report/fights/${code}`, {
+    return fetchWcl(`report/fights/${code}`, {
       _: refresh ? +new Date() : undefined,
       translate: true, // so long as we don't have the entire site localized, it's better to have 1 consistent language
-    });
-    return fetch(url)
-      .then(response => response.json())
-      .then((json) => {
+    })
+      .then(json => {
         // console.log('Received report', code, ':', json);
-        if (json.status === 400 || json.status === 401) {
-          throw json.error;
-        } else if (this.reportCode === code) {
+        if (this.reportCode === code) {
           if (!json.fights) {
             let message = 'Corrupt WCL response received.';
             if (json.error) {
@@ -344,14 +334,13 @@ class App extends Component {
   }
 
   fetchEventsPage(code, start, end, actorId = undefined, filter = undefined) {
-    const url = makeWclUrl(`report/events/${code}`, {
+    return fetchWcl(`report/events/${code}`, {
       start,
       end,
       actorid: actorId,
       filter,
       translate: true, // it's better to have 1 consistent language so long as we don't have the entire site localized
     });
-    return fetch(url).then(response => response.json());
   }
 
   componentWillMount() {
@@ -417,7 +406,7 @@ class App extends Component {
   }
 
   updatePageTitle() {
-    let title = toolName;
+    let title = 'WoW Analyzer';
     if (this.reportCode && this.state.report) {
       if (this.playerName) {
         if (this.fight) {
@@ -500,22 +489,49 @@ class App extends Component {
       <div className={`app ${this.reportCode ? 'has-report' : ''}`}>
         <AppBackgroundImage bossId={this.state.bossId} />
 
-        <nav className="navbar navbar-default">
-          <div className="navbar-progress" style={{ width: `${progress}%`, opacity: progress === 0 || progress >= 100 ? 0 : 1 }} />
-          <div className="container">
-            <div className="navbar-header">
-              <ol className="breadcrumb">
-                <li className="breadcrumb-item"><Link to={makeAnalyzerUrl()}>{toolName}</Link></li>
-                {this.reportCode && report && <li className="breadcrumb-item"><Link to={makeAnalyzerUrl(report)}>{report.title}</Link></li>}
-                {this.fight && report && <li className="breadcrumb-item"><FightSelectorHeader report={report} selectedFightName={getFightName(report, this.fight)} parser={parser} /></li>}
-                {this.playerName && report && <li className="breadcrumb-item"><PlayerSelectorHeader report={report} fightId={this.fightId} combatants={combatants || []} selectedPlayerName={this.playerName} /></li>}
-              </ol>
+        <nav>
+          <div className="container flex wrapable">
+            <div className="flex-main">
+              <div className="menu">
+                <div className="menu-item">
+                  <Link to={makeAnalyzerUrl()}>
+                    <img src="/favicon.png" alt="WoWAnalyzer logo" />
+                  </Link>
+                </div>
+                {this.reportCode && report && (
+                  <div className="menu-item">
+                    <Link to={makeAnalyzerUrl(report)}>{report.title}</Link>
+                  </div>
+                )}
+                {this.fight && report && (
+                  <FightSelectorHeader
+                    className="menu-item"
+                    report={report}
+                    selectedFightName={getFightName(report, this.fight)}
+                    parser={parser}
+                  />
+                )}
+                {this.playerName && report && (
+                  <PlayerSelectorHeader
+                    className="menu-item"
+                    report={report}
+                    fightId={this.fightId}
+                    combatants={combatants || []}
+                    selectedPlayerName={this.playerName}
+                  />
+                )}
+              </div>
             </div>
 
-            <ul className="nav navbar-nav navbar-right github-link hidden-xs">
-              <li><a href={githubUrl}><span className="hidden-xs"> View on GitHub </span><img src={GithubLogo} alt="GitHub logo" /></a></li>
-            </ul>
+            <div className="flex-sub hidden-xs hidden-sm">
+              <div className="menu-item left-line">
+                <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">
+                  <img src={GithubLogo} alt="GitHub logo" style={{ marginRight: 6 }} /> View on GitHub
+                </a>
+              </div>
+            </div>
           </div>
+          <div className="progress" style={{ width: `${progress}%`, opacity: progress === 0 || progress >= 100 ? 0 : 1 }} />
         </nav>
         <header>
           <div className="container hidden-md hidden-sm hidden-xs">
@@ -525,10 +541,10 @@ class App extends Component {
             <ReportSelecter onSubmit={this.handleReportSelecterSubmit} />
           )}
         </header>
-        <div className="container">
+        <main className="container">
           {this.renderContent()}
           {this.state.config && this.state.config.footer}
-        </div>
+        </main>
         <ReactTooltip html place="bottom" />
       </div>
     );

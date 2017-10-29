@@ -3,13 +3,13 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 const MARAADS_HEALING_INCREASE_PER_STACK = 0.1;
 
-class MaraadsDyingBreath extends Module {
+class MaraadsDyingBreath extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

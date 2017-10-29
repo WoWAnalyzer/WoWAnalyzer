@@ -1,4 +1,4 @@
-import GuardianOfElune from 'Parser/GuardianDruid/Modules/Features/GuardianOfElune';
+import GuardianOfElune from 'Parser/Druid/Guardian/Modules/Features/GuardianOfElune';
 import { damageTaken, buffsApplied, SimpleFight } from './Fixtures/SimpleFight';
 import processEvents from './Fixtures/processEvents';
 

@@ -5,14 +5,14 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 /**
  * Murderous Intent
  * Your Versatility is increased by 1500 while Concordance of the Legionfall is active.
  */
-class MurderousIntent extends Module {
+class MurderousIntent extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

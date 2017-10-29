@@ -17,10 +17,12 @@ class SelectorBase extends Component {
 
   componentDidMount() {
     document.body.addEventListener('click', this.handleDocumentClick);
+    document.body.addEventListener('touchend', this.handleDocumentClick);
   }
 
   componentWillUnmount() {
     document.body.removeEventListener('click', this.handleDocumentClick);
+    document.body.removeEventListener('touchend', this.handleDocumentClick);
     ReactTooltip.hide();
   }
 
