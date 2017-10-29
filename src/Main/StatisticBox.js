@@ -12,7 +12,7 @@ const StatisticBox = ({ icon, value, tooltip, label, footer, footerStyle, contai
         <div className="flex-sub" style={{ display: 'flex', alignItems: 'center' }}>
           {icon}
         </div>
-        <div className="flex-main text-right">
+        <div className="flex-main">
           <div className="value">
             {value}
           </div>
