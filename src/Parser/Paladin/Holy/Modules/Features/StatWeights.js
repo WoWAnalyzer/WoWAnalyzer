@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 
-import CoreStatWeights from 'Parser/Core/Modules/Features/StatWeights';
+import BaseHealerStatWeights from 'Parser/Core/Modules/Features/BaseHealerStatWeights';
 import STAT from 'Parser/Core/Modules/Features/STAT';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import HealingValue from 'Parser/Core/Modules/HealingValue';
@@ -21,7 +21,7 @@ const INFUSION_OF_LIGHT_FOL_HEALING_INCREASE = 0.5;
  * (but it might be outdated, that's always the risk of documentation)
  * https://github.com/WoWAnalyzer/WoWAnalyzer/issues/657
  */
-class StatWeights extends CoreStatWeights {
+class StatWeights extends BaseHealerStatWeights {
   static dependencies = {
     combatants: Combatants,
     critEffectBonus: CritEffectBonus,
