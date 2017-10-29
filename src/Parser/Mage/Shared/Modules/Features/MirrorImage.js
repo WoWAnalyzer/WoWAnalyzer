@@ -24,7 +24,8 @@ class MirrorImage extends Analyzer {
   }
 
   on_byPlayer_summon(event) {
-    if(event.ability.guid === SPELLS.MIRROR_IMAGE_SUMMON.id) {
+    // there are a dozen different Mirror Image summon IDs which is used where or why... this is the easy way out
+    if(event.ability.name === SPELLS.MIRROR_IMAGE_SUMMON.name) {
       this.mirrorImagesId = event.targetID;
     }
   }
