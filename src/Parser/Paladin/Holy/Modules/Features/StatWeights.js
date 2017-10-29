@@ -112,47 +112,21 @@ class StatWeights extends BaseHealerStatWeights {
 
   _prepareResults() {
     return [
-      {
-        stat: STAT.INTELLECT,
-        gain: this.totalOneInt,
-      },
-      {
-        stat: STAT.CRITICAL_STRIKE,
-        gain: this.totalOneCrit,
-      },
+      STAT.INTELLECT,
+      STAT.CRITICAL_STRIKE,
       {
         stat: STAT.HASTE_HPCT,
-        gain: this.totalOneHasteHpct,
         tooltip: `
           HPCT stands for "Healing per Cast Time". This is the value that 1% Haste would be worth if you would cast everything you are already casting (and that can be casted quicker) 1% faster. Mana is not accounted for in any way and you should consider the Haste stat weight 0 if you run out of mana while doing everything else right.<br /><br />
 
           The real worth of Haste might be a bit higher when it causes you to fit more things into static buff durations such as Avenging Wrath, Aura Mastery and other buffs.
         `,
       },
-      // {
-      //   stat: STAT.HASTE_HPM,
-      //   className: 'stat-haste',
-      //   gain: this.totalOneHasteHpm,
-      //   tooltip: 'HPM stands for "Healing per Mana". In valuing Haste, it considers only the faster HoT ticking and not the reduced cast times. Effectively it models haste\'s bonus to mana efficiency. This is typically the better calculation to use for raid encounters where mana is an issue.',
-      // },
-      {
-        stat: STAT.MASTERY,
-        gain: this.totalOneMastery,
-      },
-      {
-        stat: STAT.VERSATILITY,
-        gain: this.totalOneVers,
-        tooltip: 'Weight includes only the boost to healing, and does not include the damage reduction.',
-      },
-      {
-        stat: STAT.VERSATILITY_DR,
-        gain: this.totalOneVers + this.totalOneVersDr,
-        tooltip: 'Weight includes both healing boost and damage reduction, counting damage reduction as additional throughput.',
-      },
-      {
-        stat: STAT.LEECH,
-        gain: this.totalOneLeech,
-      },
+      // STAT.HASTE_HPM, this is always 0 for Holy Paladins
+      STAT.MASTERY,
+      STAT.VERSATILITY,
+      STAT.VERSATILITY_DR,
+      STAT.LEECH,
     ];
   }
 }

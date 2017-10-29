@@ -12,7 +12,7 @@ import CritEffectBonus from 'Parser/Core/Modules/Helpers/CritEffectBonus';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 
 import CORE_SPELL_INFO from './SpellInfo';
-import { getName, getClassNameColor, getIcon } from './STAT';
+import STAT, { getName, getClassNameColor, getIcon } from './STAT';
 
 const DEBUG = true;
 
@@ -268,6 +268,32 @@ class BaseHealerStatWeights extends Analyzer {
     const onePercentHealing = this.totalAdjustedHealing / 100;
     return onePercentHealing / oneRatingHealing;
   }
+  _getGain(stat) {
+    switch (stat) {
+      case STAT.INTELLECT: return this.totalOneInt;
+      case STAT.CRITICAL_STRIKE: return this.totalOneCrit;
+      case STAT.HASTE_HPCT: return this.totalOneHasteHpct;
+      case STAT.HASTE_HPM: return this.totalOneHasteHpm;
+      case STAT.MASTERY: return this.totalOneMastery;
+      case STAT.VERSATILITY: return this.totalOneVers;
+      case STAT.VERSATILITY_DR: return this.totalOneVers + this.totalOneVersDr;
+      case STAT.LEECH: return this.totalOneLeech;
+      default: return 0;
+    }
+  }
+  _getTooltip(stat) {
+    switch (stat) {
+      case STAT.HASTE_HPCT:
+        return 'HPCT stands for "Healing per Cast Time". This is the value that 1% Haste would be worth if you would cast everything you are already casting (and that can be casted quicker) 1% faster. Mana is not accounted for in any way and you should consider the Haste stat weight 0 if you run out of mana while doing everything else right.';
+      case STAT.HASTE_HPM:
+        return 'HPM stands for "Healing per Mana". In valuing Haste, it considers only the faster HoT ticking and not the reduced cast times. Effectively it models haste\'s bonus to mana efficiency. This is typically the better calculation to use for raid encounters where mana is an issue.';
+      case STAT.VERSATILITY:
+        return 'Weight includes only the boost to healing, and does not include the damage reduction.';
+      case STAT.VERSATILITY_DR:
+        return 'Weight includes both healing boost and damage reduction, counting damage reduction as additional throughput.';
+      default: return null;
+    }
+  }
   extraPanel() {
     const results = this._prepareResults();
     return (
@@ -287,14 +313,17 @@ class BaseHealerStatWeights extends Analyzer {
             </thead>
             <tbody>
               {results.map(row => {
-                const weight = row.gain / (this.totalOneInt || 1);
-                const ratingForOne = this._ratingPerOnePercent(row.gain);
+                const stat = typeof row === 'object' ? row.stat : row;
+                const tooltip = typeof row === 'object' ? row.tooltip : this._getTooltip(stat);
+                const gain = this._getGain(stat);
+                const weight = gain / (this.totalOneInt || 1);
+                const ratingForOne = this._ratingPerOnePercent(gain);
 
-                const Icon = getIcon(row.stat);
+                const Icon = getIcon(stat);
 
                 return (
-                  <tr key={row.stat}>
-                    <td className={getClassNameColor(row.stat)}>
+                  <tr key={stat}>
+                    <td className={getClassNameColor(stat)}>
                       <Icon
                         style={{
                           height: '1.6em',
@@ -306,10 +335,10 @@ class BaseHealerStatWeights extends Analyzer {
                         }}
                       />
 
-                      {row.tooltip ? <dfn data-tip={row.tooltip}>{getName(row.stat)}</dfn> : getName(row.stat)}
+                      {tooltip ? <dfn data-tip={tooltip}>{getName(stat)}</dfn> : getName(stat)}
                     </td>
-                    <td>{row.gain !== null ? weight.toFixed(2) : 'NYI'}</td>
-                    <td>{row.gain !== null ? (
+                    <td>{gain !== null ? weight.toFixed(2) : 'NYI'}</td>
+                    <td>{gain !== null ? (
                       ratingForOne === Infinity ? '∞' : formatNumber(ratingForOne)
                     ) : 'NYI'}</td>
                   </tr>
