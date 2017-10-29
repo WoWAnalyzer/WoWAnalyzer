@@ -49,7 +49,7 @@ The real worth of Haste might be a bit higher when it causes you to fit more thi
 Mastery is pretty basic; every time a spell is cast we calculate the mastery effectiveness of that spell. The value of Mastery is then the same calculation as for Versatility, but multiplied for the actual mastery effectiveness of that spell. The same overhealing approach counts as well.
 
 ## Versatility
-This is the same calculation as for Mastery without the mastery effectiveness (so Versa is more reliable); `healAmount / (1 + versPercentage) * versPercentageFromOneRating`. In addition to this we show the stat weight from the damage reduced by Versatility by considering the DRPS as HPS.
+This is the same calculation as for Mastery without the mastery effectiveness (so Versa is more consistent); `healAmount / (1 + versPercentage) * versPercentageFromOneRating`. In addition to this we show the stat weight from the damage reduced by Versatility by considering the DRPS as HPS.
 
   Because heals with overhealing are ignored, if every single heal had overhealed the value of Versatility would be 0. This makes sense as adding any health on top of the heal would only be adding to overhealing.
 

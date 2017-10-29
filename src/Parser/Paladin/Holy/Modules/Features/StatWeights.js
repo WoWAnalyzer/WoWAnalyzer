@@ -1,9 +1,8 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
 
 import CoreStatWeights from 'Parser/Core/Modules/Features/StatWeights';
+import STAT from 'Parser/Core/Modules/Features/STAT';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import HealingValue from 'Parser/Core/Modules/HealingValue';
@@ -309,18 +308,15 @@ class StatWeights extends CoreStatWeights {
   _prepareResults() {
     return [
       {
-        stat: 'Intellect',
-        className: 'stat-intellect',
+        stat: STAT.INTELLECT,
         gain: this.totalOneInt,
       },
       {
-        stat: 'Crit',
-        className: 'stat-criticalstrike',
+        stat: STAT.CRITICAL_STRIKE,
         gain: this.totalOneCrit,
       },
       {
-        stat: 'Haste (HPCT)',
-        className: 'stat-haste',
+        stat: STAT.HASTE_HPCT,
         gain: this.totalOneHasteHpct,
         tooltip: `
           HPCT stands for "Healing per Cast Time". This is the value that 1% Haste would be worth if you would cast everything you are already casting (and that can be casted quicker) 1% faster. Mana is not accounted for in any way and you should consider the Haste stat weight 0 if you run out of mana while doing everything else right.<br /><br />
@@ -329,31 +325,27 @@ class StatWeights extends CoreStatWeights {
         `,
       },
       // {
-      //   stat: 'Haste (HPM)',
+      //   stat: STAT.HASTE_HPM,
       //   className: 'stat-haste',
       //   gain: this.totalOneHasteHpm,
       //   tooltip: 'HPM stands for "Healing per Mana". In valuing Haste, it considers only the faster HoT ticking and not the reduced cast times. Effectively it models haste\'s bonus to mana efficiency. This is typically the better calculation to use for raid encounters where mana is an issue.',
       // },
       {
-        stat: 'Mastery',
-        className: 'stat-mastery',
+        stat: STAT.MASTERY,
         gain: this.totalOneMastery,
       },
       {
-        stat: 'Versatility',
-        className: 'stat-versatility',
+        stat: STAT.VERSATILITY,
         gain: this.totalOneVers,
         tooltip: 'Weight includes only the boost to healing, and does not include the damage reduction.',
       },
       {
-        stat: 'Versatility (incl DR)',
-        className: 'stat-versatility',
+        stat: STAT.VERSATILITY_DR,
         gain: this.totalOneVers + this.totalOneVersDr,
         tooltip: 'Weight includes both healing boost and damage reduction, counting damage reduction as additional throughput.',
       },
       {
-        stat: 'Leech',
-        className: 'stat-leech',
+        stat: STAT.LEECH,
         gain: this.totalOneLeech,
       },
     ];

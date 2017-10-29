@@ -12,6 +12,7 @@ import CritEffectBonus from 'Parser/Core/Modules/Helpers/CritEffectBonus';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 
 import CORE_SPELL_INFO from './SpellInfo';
+import { getName, getClassNameColor, getIcon } from './STAT';
 
 // const DEBUG = true;
 //
@@ -87,12 +88,23 @@ class StatWeights extends Analyzer {
                 const weight = row.gain / (this.totalOneInt || 1);
                 const ratingForOne = this._ratingPerOnePercent(row.gain);
 
+                const Icon = getIcon(row.stat);
+
                 return (
                   <tr key={row.stat}>
-                    <td>
-                      <div className={`${row.className}-bg`} style={{ width: '1em', height: '1em', borderRadius: '50%', display: 'inline-block', marginRight: 5, marginBottom: -2 }} />
+                    <td className={getClassNameColor(row.stat)}>
+                      <Icon
+                        style={{
+                          height: '1.6em',
+                          width: '1.6em',
+                          marginRight: 5,
+                          marginTop: -3,
+                          marginBottom: -2,
+                          verticalAlign: 'text-bottom',
+                        }}
+                      />
 
-                      {row.tooltip ? <dfn data-tip={row.tooltip}>{row.stat}</dfn> : row.stat}
+                      {row.tooltip ? <dfn data-tip={row.tooltip}>{getName(row.stat)}</dfn> : getName(row.stat)}
                     </td>
                     <td>{row.gain !== null ? weight.toFixed(2) : 'NYI'}</td>
                     <td>{row.gain !== null ? (
