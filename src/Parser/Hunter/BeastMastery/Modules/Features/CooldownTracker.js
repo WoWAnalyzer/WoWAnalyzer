@@ -11,6 +11,12 @@ class CooldownTracker extends CoreCooldownTracker {
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],
     },
+    {
+      spell: SPELLS.ASPECT_OF_THE_WILD,
+      summary: [
+        BUILT_IN_SUMMARY_TYPES.DAMAGE,
+      ],
+    },
   ];
 }
 
