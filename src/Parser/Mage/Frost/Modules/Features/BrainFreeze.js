@@ -106,7 +106,7 @@ class BrainFreezeTracker extends Analyzer {
 		return(
 			<StatisticBox
 				icon={<SpellIcon id={SPELLS.BRAIN_FREEZE.id} />}
-				value={`${formatPercentage(brainfreezeUtil, 0)}%`}
+				value={`${formatPercentage(brainfreezeUtil, 0)} %`}
 				label='Brain Freeze Utilization'
 				tooltip={`You got ${this.totalProcs} total procs.
 					<ul>
