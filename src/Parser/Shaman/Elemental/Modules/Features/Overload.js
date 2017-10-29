@@ -58,7 +58,6 @@ class Overload extends Analyzer {
     return (
       spell &&
       <li>
-        {`${spell.overloads} / ${spell.normal}` }{' '}
         <SpellIcon
           id={spell.id}
           style={{
@@ -66,6 +65,7 @@ class Overload extends Analyzer {
             marginTop: '-.1em',
           }}
         />
+        <span style={{width: 'calc(100% - 1.3em)', display: 'inline-block', textAlign: 'center'}}>{` ${spell.overloads} / ${spell.normal}`}</span>
       </li>
     );
   }
@@ -76,7 +76,7 @@ class Overload extends Analyzer {
         alignIcon='flex-start'
         icon={<SpellIcon id={SPELLS.ELEMENTAL_MASTERY.id} />}
         value={(
-          <ul style={{listStyle: 'none'}}>
+          <ul style={{listStyle: 'none', paddingLeft: 0}}>
             {
               this.spells.filter(spell => spell && spell.normal > 0).map(spell => {
                 return this.renderOverloads(spell);
