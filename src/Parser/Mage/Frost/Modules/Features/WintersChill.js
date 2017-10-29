@@ -135,23 +135,25 @@ class WintersChillTracker extends Analyzer {
         icon={<SpellIcon id={SPELLS.WINTERS_CHILL.id} />}
         value={(
           <span>
-            {formatPercentage(icelanceUtil, 0)}{'% '}
             <SpellIcon
               id={SPELLS.ICE_LANCE_CAST.id}
               style={{
-                height: '1.3em',
-                marginTop: '-.1em',
+                height: '1.2em',
+                marginTop: '-.2em',
+                marginBottom: '.2em',
               }}
             />
+            {' '}{formatPercentage(icelanceUtil, 0)}{' %'}
             <br />
-            {formatPercentage(frostboltUtil, 0)}{'% '}
             <SpellIcon
               id={SPELLS.FROSTBOLT.id}
               style={{
-                height: '1.3em',
-                marginTop: '-.1em',
+                height: '1.2em',
+                marginTop: '-.2em',
+                marginBottom: '.2em',
               }}
             />
+            {' '}{formatPercentage(frostboltUtil, 0)}{' %'}
           </span>
         )}
         label="Winter's Chill Utilization"
