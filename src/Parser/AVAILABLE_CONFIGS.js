@@ -10,6 +10,7 @@ import GuardianDruid from './Druid/Guardian/CONFIG';
 import RestoDruid from './Druid/Restoration/CONFIG';
 
 import MarksmanshipHunter from './Hunter/Marksmanship/CONFIG';
+import BeastMasteryHunter from './Hunter/BeastMastery/CONFIG';
 
 import FrostMage from './Mage/Frost/CONFIG';
 import FireMage from './Mage/Fire/CONFIG';
@@ -51,6 +52,7 @@ export default [
   RestoDruid,
 
   MarksmanshipHunter,
+  BeastMasteryHunter,
 
   FrostMage,
   FireMage,
