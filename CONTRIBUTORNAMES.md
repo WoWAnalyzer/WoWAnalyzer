@@ -30,5 +30,6 @@ It may sometimes be unclear who is who because the names on GitHub can be differ
 | @Salarissia | [Salarissia](https://github.com/Salarissia) |
 | @Jlassie82 | [Jlassie82](https://github.com/Jlassie82) |
 | @Skamer | [Skamer](https://github.com/Skamer) |
+| @Gao | [awlego](https://github.com/Awlego) |
 
 If you're missing from the table please make a PR to add yourself.

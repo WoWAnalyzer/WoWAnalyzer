@@ -43,6 +43,15 @@ class NeroBandOfPromises extends Analyzer {
 
     this.healing += event.amount + (event.absorbed || 0);
   }
+  
+  item() {
+    const healing = this.healing || 0;
+
+    return {
+      item: ITEMS.NERO_BAND_OF_PROMISES,
+      result: this.owner.formatItemHealingDone(healing),
+    };
+  }
 }
 
 export default NeroBandOfPromises;
