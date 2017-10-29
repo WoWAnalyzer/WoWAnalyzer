@@ -1,4 +1,6 @@
 export default `
+28-10-2017 - Added stat weights. (by Zerotorescue)
+28-10-2017 - Fixed a bug where Shock Treatment's effect was incorrectly doubled one too many times leading to an undervaluation of the Shock Treatment trait. (by Zerotorescue)
 22-10-2017 - Reworded downtime suggestions to avoid suggesting to "always be casting" and instead (as intended) suggest not having <b>high</b> downtime. (by Zerotorescue)
 16-10-2017 - Added a Light of Dawn average players hit statistic. (by Zerotorescue)
 11-10-2017 - Added a suggestion for casting Light of the Martyr while Holy Shock is available. (by Zerotorescue)

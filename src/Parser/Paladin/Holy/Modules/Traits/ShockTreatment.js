@@ -37,7 +37,7 @@ class ShockTreatment extends Analyzer {
 
   getCritEffectBonus(critEffectModifier, event) {
     if (event.ability.guid === SPELLS.HOLY_SHOCK_HEAL.id) {
-      critEffectModifier += this.rank * SHOCK_TREATMENT_CRIT_EFFECT * 2;
+      critEffectModifier += this.rank * SHOCK_TREATMENT_CRIT_EFFECT;
     }
     return critEffectModifier;
   }

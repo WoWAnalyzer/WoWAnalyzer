@@ -9,6 +9,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import HealingValue from 'Parser/Core/Modules/HealingValue';
 import DamageValue from 'Parser/Core/Modules/DamageValue';
 import CritEffectBonus from 'Parser/Core/Modules/Helpers/CritEffectBonus';
+import StatTracker from 'Parser/Core/Modules/StatTracker';
 
 import { getSpellInfo } from '../../SpellInfo';
 
@@ -97,9 +98,8 @@ class StatWeights extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     critEffectBonus: CritEffectBonus,
+    statTracker: StatTracker,
   };
-
-  concordanceAmount = 0; // TODO remove when stat tracker added
 
   totalAdjustedHealing = 0; // total healing after excluding 'multiplier' spells like Leech / Velens
 
@@ -113,10 +113,6 @@ class StatWeights extends Analyzer {
   totalOneLeech = 0;
 
   playerHealthMissing = 0;
-
-  on_initialized() {
-    this.concordanceAmount = 4000 + ((this.combatants.selected.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id] - 1) || 0) * 300; // TODO remove when stat tracker added
-  }
 
   on_byPlayer_heal(event) {
     const healVal = new HealingValue(event.amount, event.absorbed, event.overheal);
@@ -157,11 +153,11 @@ class StatWeights extends Analyzer {
     // region LEECH
     // We have to calculate leech weight differently depending on if we already have any leech rating.
     // Leech is marked as a 'multplier' heal, so we have to check it before we do the early return below
-    const hasLeech = this.combatants.selected.leechRating > 0; // TODO replace when dynamic stats
+    const hasLeech = this.statTracker.currentLeechRating > 0;
     if(hasLeech && spellId === SPELLS.LEECH.id && !healVal.overheal) {
-      this.totalOneLeech += amount / this.combatants.selected.leechRating; // TODO replace when dynamic stats
+      this.totalOneLeech += amount / this.statTracker.currentLeechRating;
     } else if(!hasLeech && this.playerHealthMissing > 0) {
-      const bonusFromOneLeech = 1 / 23000;
+      const bonusFromOneLeech = 1 / this.statTracker.leechRatingPerPercent;
       this.totalOneLeech += healVal.raw * bonusFromOneLeech;
     }
     // endregion
@@ -181,7 +177,7 @@ class StatWeights extends Analyzer {
 
     // region INT
     if(spellInfo.int) {
-      const currInt = this._getCurrInt(); // TODO replace when dynamic stats
+      const currInt = this.statTracker.currentIntellectRating;
       const bonusFromOneInt = (1 / currInt) * ARMOR_INT_MULTIPLIER;
       this.totalOneInt += amount * bonusFromOneInt;
     }
@@ -189,11 +185,10 @@ class StatWeights extends Analyzer {
 
     // region CRIT
     if(spellInfo.crit) {
-      const currCritPerc = this.combatants.selected.critPercentage; // TODO replace when dynamic stats
-      const bonusFromOneCrit = 1 / 40000; // TODO replace when stat constants exist
+      const bonusFromOneCrit = 1 / this.statTracker.critRatingPerPercent;
       if(spellId === SPELLS.LIVING_SEED.id) {
         // Living Seed doesn't crit, but it procs from crits only. This calculation approximates increased LS frequency due to more crits.
-        const additionalLivingSeedChance = bonusFromOneCrit / currCritPerc;
+        const additionalLivingSeedChance = bonusFromOneCrit / this.statTracker.currentCritRating;
         this.totalOneCrit += additionalLivingSeedChance * amount;
       } else {
         const critMult = this.critEffectBonus.getBonus(event);
@@ -205,9 +200,8 @@ class StatWeights extends Analyzer {
 
     // region HASTE
     if(spellInfo.hasteHpm) {
-      const currHastePerc = this.combatants.selected.hastePercentage; // TODO replace when dynamic stats
-      const bonusFromOneHaste = 1 / 37500; // TODO replace when stat constants exist
-      const noHasteHealing = amount / (1 + currHastePerc);
+      const bonusFromOneHaste = 1 / this.statTracker.hasteRatingPerPercent;
+      const noHasteHealing = amount / (1 + this.statTracker.currentHastePercentage);
       this.totalOneHasteHpm += bonusFromOneHaste * noHasteHealing;
     }
     // endregion
@@ -216,22 +210,20 @@ class StatWeights extends Analyzer {
 
     // region MASTERY
     if(spellInfo.mastery) {
-      const currMasteryPerc = this._getCurrMasteryPerc(); // TODO replace when dynamic stats
-      const bonusFromOneMastery = 1 / 66666; // TODO replace when stat constants exist
+      const bonusFromOneMastery = 1 / this.statTracker.masteryRatingPerPercent;
       const hotCount = target.activeBuffs()
           .map(buffObj => buffObj.ability.guid)
           .filter(buffId => getSpellInfo(buffId).masteryStack)
           .length;
-      const noMasteryHealing = amount / (1 + (currMasteryPerc * hotCount));
+      const noMasteryHealing = amount / (1 + (this.statTracker.currentMasteryPercentage * hotCount));
       this.totalOneMastery += noMasteryHealing * bonusFromOneMastery * hotCount;
     }
     // endregion
 
     // region VERS
     if(spellInfo.vers) {
-      const currVersPerc = this.combatants.selected.versatilityPercentage; // TODO replace when dynamic stats
-      const bonusFromOneVers = 1 / 47500; // TODO replace when stat constants exist
-      const noVersHealing = amount / (1 + currVersPerc);
+      const bonusFromOneVers = 1 / this.statTracker.versatilityRatingPerPercent;
+      const noVersHealing = amount / (1 + this.statTracker.currentVersatilityPercentage);
       this.totalOneVers += noVersHealing * bonusFromOneVers;
     }
     // endregion
@@ -239,31 +231,11 @@ class StatWeights extends Analyzer {
 
   _handleDamage(event, damageVal) {
     const amount = damageVal.effective;
-    const currVersPerc = this.combatants.selected.versatilityPercentage; // TODO replace when dynamic stats
-    const currVersDrPerc = currVersPerc / 2;
-    const bonusFromOneVers = 1 / 47500; // TODO replace when stat constants exist
-    const bonusFromOneVersDr = bonusFromOneVers / 2;
+    const currVersDrPerc = this.statTracker.currentVersatilityPercentage / 2;
+    const bonusFromOneVersDr = (1 / this.statTracker.versatilityRatingPerPercent) / 2;
 
     const noVersDamage = amount / (1 - currVersDrPerc);
     this.totalOneVersDr += noVersDamage * bonusFromOneVersDr;
-  }
-
-  // FIXME temporary hacky handler for Concordance until stat tracker is implemented
-  _getCurrInt() {
-    let currInt = this.combatants.selected.intellect;
-    if(this.combatants.selected.hasBuff(SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_INTELLECT.id)) {
-      currInt += this.concordanceAmount;
-    }
-    return currInt;
-  }
-
-  // FIXME temporary hacky handler for 2t19 until stat tracker is implemented
-  _getCurrMasteryPerc() {
-    let currMastery = this.combatants.selected.masteryRating;
-    if(this.combatants.selected.hasBuff(SPELLS.ASTRAL_HARMONY.id)) {
-      currMastery += 4000;
-    }
-    return 0.048 + (currMastery / 66666.6666666);
   }
 
   on_finished() {

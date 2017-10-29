@@ -1,5 +1,13 @@
-import SPELLS from 'common/SPELLS';
+import React from 'react';
 
+import SPELLS from 'common/SPELLS';
+import SpellIcon from 'common/SpellIcon';
+
+import Combatants from 'Parser/Core/Modules/Combatants';
+import ExpandableStatisticBox from 'Main/ExpandableStatisticBox';
+import { STATISTIC_ORDER } from 'Main/StatisticBox';
+
+import { formatPercentage, formatNumber } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 
 import isAtonement from '../Core/isAtonement';
@@ -10,6 +18,7 @@ const EVANGELISM_DURATION = 6;
 class Evangelism extends Analyzer {
   static dependencies = {
     atonementModule: Atonement,
+    combatants: Combatants,
   };
 
   _previousEvangelismCast = null;
@@ -52,6 +61,47 @@ class Evangelism extends Analyzer {
       }
     }
   }
+
+  statistic() {
+    const evangelismStatistics = this.evangelismStatistics;
+
+    return (
+      <ExpandableStatisticBox
+        icon={<SpellIcon id={SPELLS.EVANGELISM_TALENT.id} />}
+        value={`${formatNumber(evangelismStatistics.reduce((p, c) => p += c.healing, 0) / this.owner.fightDuration * 1000)} HPS`}
+        label={(
+          <dfn data-tip={`Evangelism accounted for approximately ${formatPercentage(this.owner.getPercentageOfTotalHealingDone(evangelismStatistics.reduce((p, c) => p + c.healing, 0)))}% of your healing.`}>
+            Evangelism contribution
+          </dfn>
+        )}
+      >
+        <table className="table table-condensed">
+          <thead>
+            <tr>
+              <th>Cast</th>
+              <th>Healing</th>
+              <th>Duration</th>
+              <th>Count</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              this.evangelismStatistics
+                .map((evangelism, index) => (
+                  <tr key={index}>
+                    <th scope="row">{ index + 1 }</th>
+                    <td>{ formatNumber(evangelism.healing) }</td>
+                    <td>{ evangelism.atonementSeconds }s</td>
+                    <td>{ evangelism.count}</td>
+                  </tr>
+                ))
+            }
+          </tbody>
+        </table>
+      </ExpandableStatisticBox>
+    );
+  }
+  statisticOrder = STATISTIC_ORDER.CORE(2);
 }
 
 export default Evangelism;

@@ -1,6 +1,9 @@
+import React from 'react';
+
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 
+import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 
 const debug = true;
@@ -11,11 +14,15 @@ const PENANCE_COOLDOWN = 9000; // unaffected by Haste
 const PENANCE_CHANNEL_TIME_BUFFER = 2500;
 
 class CordOfMaiev extends Analyzer {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
   procs = 0;
   procTime = 0;
 
   on_initialized() {
-    this.active = this.owner.modules.combatants.selected.hasWaist(ITEMS.CORD_OF_MAIEV_PRIESTESS_OF_THE_MOON.id);
+    this.active = this.combatants.selected.hasWaist(ITEMS.CORD_OF_MAIEV_PRIESTESS_OF_THE_MOON.id);
   }
 
   lastPenanceStartTimestamp = null;
@@ -36,6 +43,20 @@ class CordOfMaiev extends Analyzer {
     } else if (spellId === SPELLS.SMITE.id) {
       this.canHaveProcced = true;
     }
+  }
+
+  item() {
+    const procTimeSaved = (this.procTime / 1000).toFixed(1) || 0;
+    const numProcs = this.procs || 0;
+
+    return {
+      item: ITEMS.CORD_OF_MAIEV_PRIESTESS_OF_THE_MOON,
+      result: (
+        <dfn>
+          {procTimeSaved} seconds off the cooldown, {numProcs} Penances cast earlier
+        </dfn>
+      ),
+    };
   }
 }
 

@@ -59,6 +59,15 @@ class Xalan extends Analyzer {
     debug && console.log('Xalan:', event.amount + (event.absorbed || 0), 'healing done');
     this.healing += event.amount + (event.absorbed || 0);
   }
+
+  item() {
+    const healing = this.healing || 0;
+
+    return {
+      item: ITEMS.XALAN_THE_FEAREDS_CLENCH,
+      result: this.owner.formatItemHealingDone(healing),
+    };
+  }
 }
 
 export default Xalan;
