@@ -135,12 +135,14 @@ export default {
   // ...
 
   // Unholy:
+  // Aritfact ability
   APOCALYPSE: {
     id: 220143,
     name: 'Apocalypse',
     icon: 'artifactability_unholydeathknight_deathsembrace',
   },
 
+  // Spells
   ARMY_OF_THE_DEAD: {
     id: 42650,
     name: 'Army of the Dead',
@@ -194,13 +196,7 @@ export default {
     name: 'Scourge Strike',
     icon: 'spell_deathknight_scourgestrike',
   },
-
-  SUDDEN_DOOM: {
-    id: 49530,
-    name: 'Sudden Doom',
-    icon: 'spell_shadow_painspike',
-  },
-
+  
   SUMMON_GARGOYLE: {
     id: 49206,
     name: 'Summon Gargoyle',
@@ -211,8 +207,21 @@ export default {
     id: 191587,
     name: 'Virulent Plague',
     icon: 'ability_creature_disease_02',
-  },  
+  },
+  
+  // Artifact traits:
+  SUDDEN_DOOM: {
+    id: 49530,
+    name: 'Sudden Doom',
+    icon: 'spell_shadow_painspike',
+  },
 
+  ETERNAL_AGONY: {
+    id: 208598,
+    name: 'Eternal Agony',
+    icon: 'achievement_boss_festergutrotface',
+  },
+  
   // Shared:
   ANTI_MAGIC_SHELL: {
     id: 48707,
@@ -298,3 +307,4 @@ export default {
     icon: 'inv_helm_plate_raiddeathknight_p_01',
   },
 };
+	
