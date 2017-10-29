@@ -24,9 +24,6 @@ import AppBackgroundImage from './AppBackgroundImage';
 
 import makeAnalyzerUrl from './makeAnalyzerUrl';
 
-const toolName = 'WoW Analyzer';
-const githubUrl = 'https://github.com/WoWAnalyzer/WoWAnalyzer';
-
 const timeAvailable = console.time && console.timeEnd;
 
 const PROGRESS_STEP1_INITIALIZATION = 0.02;
@@ -409,7 +406,7 @@ class App extends Component {
   }
 
   updatePageTitle() {
-    let title = toolName;
+    let title = 'WoW Analyzer';
     if (this.reportCode && this.state.report) {
       if (this.playerName) {
         if (this.fight) {
@@ -492,22 +489,49 @@ class App extends Component {
       <div className={`app ${this.reportCode ? 'has-report' : ''}`}>
         <AppBackgroundImage bossId={this.state.bossId} />
 
-        <nav className="navbar navbar-default">
-          <div className="navbar-progress" style={{ width: `${progress}%`, opacity: progress === 0 || progress >= 100 ? 0 : 1 }} />
-          <div className="container">
-            <div className="navbar-header">
-              <ol className="breadcrumb">
-                <li className="breadcrumb-item"><Link to={makeAnalyzerUrl()}>{toolName}</Link></li>
-                {this.reportCode && report && <li className="breadcrumb-item"><Link to={makeAnalyzerUrl(report)}>{report.title}</Link></li>}
-                {this.fight && report && <li className="breadcrumb-item"><FightSelectorHeader report={report} selectedFightName={getFightName(report, this.fight)} parser={parser} /></li>}
-                {this.playerName && report && <li className="breadcrumb-item"><PlayerSelectorHeader report={report} fightId={this.fightId} combatants={combatants || []} selectedPlayerName={this.playerName} /></li>}
-              </ol>
+        <nav>
+          <div className="container flex wrapable">
+            <div className="flex-main">
+              <div className="menu">
+                <div className="menu-item">
+                  <Link to={makeAnalyzerUrl()}>
+                    <img src="/favicon.png" alt="WoWAnalyzer logo" />
+                  </Link>
+                </div>
+                {this.reportCode && report && (
+                  <div className="menu-item">
+                    <Link to={makeAnalyzerUrl(report)}>{report.title}</Link>
+                  </div>
+                )}
+                {this.fight && report && (
+                  <FightSelectorHeader
+                    className="menu-item"
+                    report={report}
+                    selectedFightName={getFightName(report, this.fight)}
+                    parser={parser}
+                  />
+                )}
+                {this.playerName && report && (
+                  <PlayerSelectorHeader
+                    className="menu-item"
+                    report={report}
+                    fightId={this.fightId}
+                    combatants={combatants || []}
+                    selectedPlayerName={this.playerName}
+                  />
+                )}
+              </div>
             </div>
 
-            <ul className="nav navbar-nav navbar-right github-link hidden-xs">
-              <li><a href={githubUrl}><span className="hidden-xs"> View on GitHub </span><img src={GithubLogo} alt="GitHub logo" /></a></li>
-            </ul>
+            <div className="flex-sub hidden-xs hidden-sm">
+              <div className="menu-item left-line">
+                <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">
+                  <img src={GithubLogo} alt="GitHub logo" style={{ marginRight: 6 }} /> View on GitHub
+                </a>
+              </div>
+            </div>
           </div>
+          <div className="progress" style={{ width: `${progress}%`, opacity: progress === 0 || progress >= 100 ? 0 : 1 }} />
         </nav>
         <header>
           <div className="container hidden-md hidden-sm hidden-xs">
@@ -517,10 +541,10 @@ class App extends Component {
             <ReportSelecter onSubmit={this.handleReportSelecterSubmit} />
           )}
         </header>
-        <div className="container">
+        <main className="container">
           {this.renderContent()}
           {this.state.config && this.state.config.footer}
-        </div>
+        </main>
         <ReactTooltip html place="bottom" />
       </div>
     );

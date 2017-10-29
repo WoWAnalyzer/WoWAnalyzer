@@ -214,7 +214,7 @@ class Results extends React.Component {
     return (
       <div style={{ width: '100%' }}>
         <div className="results">
-          <div className="row" style={{ marginTop: 20 }}>
+          <div className="row">
             <div className="col-lg-10 col-md-8" style={{ position: 'relative' }}>
               <div className="back-button" style={{ fontSize: 36, width: 20 }}>
                 <Link to={`/report/${report.code}/${fight.id}`} data-tip="Back to player selection">
