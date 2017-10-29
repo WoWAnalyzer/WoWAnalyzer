@@ -17,6 +17,7 @@ class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     damageDone: [DamageDone, { showStatistic: true }],
 
+    //Features
     alwaysBeCasting: AlwaysBeCasting,
     castEfficiency: CastEfficiency,
     cooldownTracker: CooldownTracker,
@@ -42,6 +43,7 @@ class CombatLogParser extends CoreCombatLogParser {
           </Tab>
         ),
       },
+      ...results.tabs,
     ];
 
     return results;
