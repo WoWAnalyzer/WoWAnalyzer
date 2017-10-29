@@ -60,7 +60,7 @@ class BrainFreezeTracker extends Analyzer {
 		return(
 			<StatisticBox
 				icon={<SpellIcon id={SPELLS.BRAIN_FREEZE.id} />}
-				value={`${formatPercentage(missedProcsPercent)}%`}
+				value={`${formatPercentage(missedProcsPercent)} %`}
 				label='Brain Freeze Procs Missed'
 			/>
 		);
