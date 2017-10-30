@@ -6,6 +6,7 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownTracker from './Modules/Features/CooldownTracker';
 import WintersChillTracker from './Modules/Features/WintersChill';
 import BrainFreeze from './Modules/Features/BrainFreeze';
+import IceLance from './Modules/Features/IceLance';
 import ThermalVoid from './Modules/Features/ThermalVoid';
 import IcicleTracker from './Modules/Features/IcicleTracker';
 import ArcticGale from './Modules/Features/ArcticGale';
@@ -33,6 +34,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownTracker: CooldownTracker,
 	  wintersChillTracker: WintersChillTracker,
 	  brainFreeze: BrainFreeze,
+    iceLance: IceLance,
 	  thermalVoid: ThermalVoid,
 	  icicleTracker: IcicleTracker,
     damageDone: [DamageDone, { showStatistic: true }],
