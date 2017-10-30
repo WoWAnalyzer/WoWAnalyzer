@@ -1,3 +1,5 @@
+import React from 'react';
+
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 
@@ -47,6 +49,21 @@ class TarnishedSentinelMedallion extends Analyzer {
     }
 
     this.damage += event.amount;
+  }
+
+  item() {
+    const damage = this.damage || 0;
+    const healing = this.healing || 0;
+
+    return {
+      item: ITEMS.TARNISHED_SENTINEL_MEDALLION,
+      result: (
+        <dfn>
+          {this.owner.formatItemHealingDone(healing)} <br/>
+          {this.owner.formatItemDamageDone(damage)}
+        </dfn>
+      ),
+    };
   }
 }
 

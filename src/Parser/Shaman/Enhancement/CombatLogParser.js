@@ -2,9 +2,7 @@ import React from 'react';
 
 import ITEMS from 'common/ITEMS';
 
-import SuggestionsTab from 'Main/SuggestionsTab';
 import Tab from 'Main/Tab';
-import Talents from 'Main/Talents';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
@@ -99,28 +97,8 @@ class CombatLogParser extends CoreCombatLogParser {
       }
     });
 
-    results.items = [
-      ...results.items,
-    ];
-
     results.tabs = [
-      {
-        title: 'Suggestions',
-        url: 'suggestions',
-        render: () => (
-          <SuggestionsTab issues={results.issues} />
-        ),
-      },
-      {
-        title: 'Talents',
-        url: 'talents',
-        render: () => (
-          <Tab title="Talents">
-            <Talents combatant={this.modules.combatants.selected} />
-          </Tab>
-        ),
-      },
-      {
+      { // TODO: Move this to an Analyzer module
         title: 'Maelstrom',
         url: 'maelstrom',
         render: () => (

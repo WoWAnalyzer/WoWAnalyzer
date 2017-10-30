@@ -10,7 +10,7 @@ const SmallStatisticBox = ({ icon, value, tooltip, label, containerProps, ...oth
     <div className="panel statistic-box small" {...others}>
       <div className="panel-body flex wrapable">
         <div className="flex-main">
-            {icon} {label}
+          {icon} {label}
         </div>
         <div className="flex-sub text-right">
           {tooltip ? <dfn data-tip={tooltip}>{value}</dfn> : value}

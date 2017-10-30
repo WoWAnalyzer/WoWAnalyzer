@@ -1,8 +1,6 @@
 import React from 'react';
 
-import SuggestionsTab from 'Main/SuggestionsTab';
 import Tab from 'Main/Tab';
-import Talents from 'Main/Talents';
 import Mana from 'Main/Mana';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
@@ -26,6 +24,7 @@ import MasteryEffectiveness from './Modules/Features/MasteryEffectiveness';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import TyrsDeliverance from './Modules/Features/TyrsDeliverance';
 import CooldownTracker from './Modules/Features/CooldownTracker';
+import StatWeights from './Modules/Features/StatWeights';
 
 import RuleOfLaw from './Modules/Talents/RuleOfLaw';
 import DevotionAura from './Modules/Talents/DevotionAura';
@@ -85,6 +84,7 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     tyrsDeliverance: TyrsDeliverance,
     cooldownTracker: CooldownTracker,
+    statWeights: StatWeights,
 
     // Talents
     ruleOfLaw: RuleOfLaw,
@@ -121,28 +121,10 @@ class CombatLogParser extends CoreCombatLogParser {
   generateResults() {
     const results = super.generateResults();
 
-    // TODO: Suggestion for Devo when it didn't prevent enough damage to be worthwhile
-    // TODO: Suggestion for mana
     // TODO: Suggestion for enchants
-    // TODO: Sanctified Wrath healing contribution
 
     results.tabs = [
-      {
-        title: 'Suggestions',
-        url: 'suggestions',
-        render: () => (
-          <SuggestionsTab issues={results.issues} />
-        ),
-      },
-      {
-        title: 'Talents',
-        url: 'talents',
-        render: () => (
-          <Tab title="Talents">
-            <Talents combatant={this.modules.combatants.selected} />
-          </Tab>
-        ),
-      },
+      ...results.tabs,
       {
         title: 'Mana',
         url: 'mana',
@@ -152,7 +134,6 @@ class CombatLogParser extends CoreCombatLogParser {
           </Tab>
         ),
       },
-      ...results.tabs,
     ];
 
     return results;

@@ -1,3 +1,9 @@
+import React from 'react';
+
+import SuggestionsTab from 'Main/SuggestionsTab';
+import Tab from 'Main/Tab';
+import Talents from 'Main/Talents';
+
 import { formatNumber, formatPercentage } from 'common/format';
 
 import ApplyBuffNormalizer from './Normalizers/ApplyBuff';
@@ -375,6 +381,25 @@ class CombatLogParser {
 
   generateResults() {
     const results = new ParseResults();
+
+    results.tabs = [
+      {
+        title: 'Suggestions',
+        url: 'suggestions',
+        render: () => (
+          <SuggestionsTab issues={results.issues} />
+        ),
+      },
+      {
+        title: 'Talents',
+        url: 'talents',
+        render: () => (
+          <Tab title="Talents">
+            <Talents combatant={this.modules.combatants.selected} />
+          </Tab>
+        ),
+      },
+    ];
 
     this.activeModules
       .sort((a, b) => b.priority - a.priority)

@@ -1,17 +1,10 @@
 import React from 'react';
 
-import SpellIcon from 'common/SpellIcon';
 import Icon from 'common/Icon';
-// import ITEMS from 'common/ITEMS';
-import SPELLS from 'common/SPELLS';
-// import ItemLink from 'common/ItemLink';
-// import ItemIcon from 'common/ItemIcon';
 import { formatPercentage } from 'common/format';
 
 import StatisticBox from 'Main/StatisticBox';
-import SuggestionsTab from 'Main/SuggestionsTab';
 import Tab from 'Main/Tab';
-import Talents from 'Main/Talents';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
@@ -23,6 +16,7 @@ import CastEfficiency from './Modules/Features/CastEfficiency';
 import CooldownTracker from './Modules/Features/CooldownTracker';
 import ProcTracker from './Modules/Features/ProcTracker';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
+import Overload from './Modules/Features/Overload';
 
 import FlameShock from './Modules/ShamanCore/FlameShock';
 
@@ -54,6 +48,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownTracker: CooldownTracker,
     procTracker: ProcTracker,
     flameShock: FlameShock,
+    overload: Overload,
 
     // Talents
     aftershock: Aftershock,
@@ -68,25 +63,7 @@ class CombatLogParser extends CoreCombatLogParser {
   generateResults() {
     const results = super.generateResults();
 
-    // const hasEchosElements = this.selectedCombatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id);
-    // const hasAscendance = this.selectedCombatant.hasTalent(SPELLS.ASCENDANCE_ELEMENTAL_TALENT.id);
-    // const hasLightningRod = this.selectedCombatant.hasTalent(SPELLS.LIGHTNING_ROD.id);
-    const hasIcefury = this.modules.combatants.selected.hasTalent(SPELLS.ICEFURY_TALENT.id);
-
-    const abilityTracker = this.modules.abilityTracker;
-    const getAbility = spellId => abilityTracker.getAbility(spellId);
-
-    // const lavaBurst = getAbility(SPELLS.LAVA_BURST.id);
-    // const lightningBolt = getAbility(SPELLS.LIGHTNING_BOLT.id);
-    const overloadLavaBurst = getAbility(SPELLS.LAVA_BURST_OVERLOAD.id);
-    const overloadLightningBolt = getAbility(SPELLS.LIGHTNING_BOLT_OVERLOAD_HIT.id);
-    const overloadElementalBlast = getAbility(SPELLS.ELEMENTAL_BLAST_OVERLOAD.id);
-    const overloadChainLightning = getAbility(SPELLS.CHAIN_LIGHTNING_OVERLOAD.id);
-    const overloadIcefury = hasIcefury && getAbility(SPELLS.ICEFURY_OVERLOAD.id);
-
     const fightDuration = this.fightDuration;
-
-    // const flameShockUptime = this.selectedCombatant.getBuffUptime(SPELLS.FLAME_SHOCK.id) / this.fightDuration;
 
     const nonDpsTimePercentage = this.modules.alwaysBeCasting.totalDamagingTimeWasted / fightDuration;
     const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
@@ -116,95 +93,12 @@ class CombatLogParser extends CoreCombatLogParser {
           </dfn>
         )}
       />,
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.ELEMENTAL_MASTERY.id} />}
-        value={(
-          <span className="flexJustify">
-            <span>
-              <SpellIcon
-                id={SPELLS.LAVA_BURST_OVERLOAD.id}
-                style={{
-                  height: '1.3em',
-                  marginTop: '-.1em',
-                }}
-              />
-              {overloadLavaBurst.damageHits}{' '}
-            </span>
-            {' '}
-            <span>
-              <SpellIcon
-                id={SPELLS.LIGHTNING_BOLT_OVERLOAD_HIT.id}
-                style={{
-                  height: '1.3em',
-                  marginTop: '-.1em',
-                }}
-              />
-              {overloadLightningBolt.damageHits}{' '}
-            </span>
-            {' '}
-            <span>
-              <SpellIcon
-                id={SPELLS.ELEMENTAL_BLAST_OVERLOAD.id}
-                style={{
-                  height: '1.3em',
-                  marginTop: '-.1em',
-                }}
-              />
-              {overloadElementalBlast.damageHits}{' '}
-            </span>
-            {' '}
-            <span className="hideWider1200">
-              <SpellIcon
-                id={SPELLS.CHAIN_LIGHTNING_OVERLOAD.id}
-                style={{
-                  height: '1.3em',
-                  marginTop: '-.1em',
-                }}
-              />
-              {overloadChainLightning.damageHits}{' '}
-            </span>
-            { hasIcefury &&
-              <span className="hideWider1200">
-                <SpellIcon
-                  id={SPELLS.ICEFURY_OVERLOAD.id}
-                  style={{
-                    height: '1.3em',
-                    marginTop: '-.1em',
-                  }}
-                />
-                {overloadIcefury ? overloadIcefury.damageHits : '-' }{' '}
-              </span>
-            }
-          </span>
-        )}
-        label={'Overload procs'}
-      />,
       ...results.statistics,
     ];
 
-    results.items = [
-      ...results.items,
-      /*TODO*/
-    ];
-
     results.tabs = [
-      {
-        title: 'Suggestions',
-        url: 'suggestions',
-        render: () => (
-          <SuggestionsTab issues={results.issues} />
-        ),
-      },
-      {
-        title: 'Talents',
-        url: 'talents',
-        render: () => (
-          <Tab title="Talents">
-            <Talents combatant={this.modules.combatants.selected} />
-          </Tab>
-        ),
-      },
-      {
+      ...results.tabs,
+      { // TODO: Move this to an Analyzer module
         title: 'Maelstrom',
         url: 'maelstrom',
         render: () => (
@@ -218,7 +112,6 @@ class CombatLogParser extends CoreCombatLogParser {
           </Tab>
         ),
       },
-      ...results.tabs,
     ];
 
     return results;

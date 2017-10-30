@@ -4,8 +4,6 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import CoreCastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 
-/* eslint-disable no-unused-vars */
-
 class CastEfficiency extends CoreCastEfficiency {
 
   static CPM_ABILITIES = [

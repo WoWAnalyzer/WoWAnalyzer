@@ -1,4 +1,8 @@
+import React from 'react';
+
 import SPELLS from 'common/SPELLS';
+import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
@@ -49,6 +53,17 @@ class Tier19_2set extends Analyzer {
     }
 
     this.healing += calculateEffectiveHealing(event, HEALING_INCREASE);
+  }
+
+  item() {
+    const healing = this.healing || 0;
+
+    return {
+      id: `spell-${SPELLS.DISC_PRIEST_T19_2SET_BONUS_BUFF.id}`,
+      icon: <SpellIcon id={SPELLS.DISC_PRIEST_T19_2SET_BONUS_BUFF.id} />,
+      title: <SpellLink id={SPELLS.DISC_PRIEST_T19_2SET_BONUS_BUFF.id} />,
+      result: this.owner.formatItemHealingDone(healing),
+    };
   }
 }
 

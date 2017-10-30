@@ -1,10 +1,7 @@
-// TODO:
-
 import React from 'react';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 
-import SuggestionsTab from 'Main/SuggestionsTab';
 import Tab from 'Main/Tab';
 import Mana from 'Main/Mana';
 import MonkSpreadsheet from 'Main/MonkSpreadsheet';
@@ -120,13 +117,6 @@ class CombatLogParser extends CoreCombatLogParser {
     const results = super.generateResults();
 
     results.tabs = [
-      {
-        title: 'Suggestions',
-        url: 'suggestions',
-        render: () => (
-          <SuggestionsTab issues={results.issues} />
-        ),
-      },
       ...results.tabs,
       {
         title: 'Mana',

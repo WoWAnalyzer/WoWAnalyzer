@@ -6,11 +6,60 @@
 
 export default {
   // Beast Mastery:
-  // ...
+  ASPECT_OF_THE_WILD: {
+    id: 193530,
+    name: 'Aspect of the Wild',
+    icon: 'spell_nature_protectionformnature',
+  },
+  BESTIAL_WRATH: {
+    id: 19574,
+    name: 'Bestial Wrath',
+    icon: 'ability_druid_ferociousbite',
+  },
+  COBRA_SHOT: {
+    id: 193455,
+    name: 'Cobra Shot',
+    icon: 'ability_hunter_cobrashot',
+  },
+  DIRE_BEAST: {
+    id: 120679,
+    name: 'Dire Beast',
+    icon: 'ability_hunter_longevity',
+  },
+  DIRE_BEAST_BUFF: {
+    id: 120694,
+    name: 'Dire Beast',
+    icon: 'ability_hunter_longevity',
+  },
+  DIRE_FRENZY_TALENT_BUFF: {
+    id:   246152,
+    name: 'Dire Frenzy Buff',
+    icon: 'ability_druid_mangle',
+  },
+  EAGLE_EYE: {
+    id: 6197,
+    name: 'Eagle Eye',
+    icon: 'ability_hunter_eagleeye',
+  },
+  KILL_COMMAND: {
+    id: 34026,
+    name: 'Kill Command',
+    icon: 'ability_hunter_killcommand',
+  },
 
+  //Beast Mastery Artifact Traits
+  TITANS_THUNDER: {
+    id: 207068,
+    name: 'Titans Thunder',
+    icon: 'inv_firearm_2h_artifactlegion_d_01',
+  },
+  BEAST_CLEAVE_BUFF: {
+    id: 118455,
+    name: 'Beast Cleave',
+    icon: 'ability_hunter_sickem',
+  },
 
   // MarksmanshipHunter:
-
 
   // Marksmanship spells
 
@@ -44,32 +93,11 @@ export default {
     name: 'Trueshot',
     icon: 'ability_trueshot',
   },
-  MULTISHOT: {
-    id: 2643,
-    name: 'Multi-Shot',
-    icon: 'ability_upgrademoonglaive',
-  },
   BURSTING_SHOT: {
     id: 224729,
     name: 'Bursting Shot',
     icon: 'ability_hunter_burstingshot',
   },
-  CONCUSSIVE_SHOT: {
-    id: 27634,
-    name: 'Concussive Shot',
-    icon: 'spell_frost_stun',
-  },
-  COUNTER_SHOT: {
-    id: 147362,
-    name: 'Counter Shot',
-    icon: 'inv_ammo_arrow_03',
-  },
-  MISDIRECTION: {
-    id: 34477,
-    name: 'Misdrection',
-    icon: 'ability_hunter_misdirection',
-  },
-
   VULNERABLE: {
     id: 187131,
     name: 'Vulnerable',
@@ -169,10 +197,10 @@ export default {
     icon: 'inv_belt_66green',
   },
   GYROSCOPIC_STABILIZATION: {
-  id: 235712,
-  name: 'Gyroscopic stabilization',
-  icon: 'inv_glove_mail_raidshamanmythic_o_01',
-},
+    id: 235712,
+    name: 'Gyroscopic stabilization',
+    icon: 'inv_glove_mail_raidshamanmythic_o_01',
+  },
 
   //Talent buffs/debuffs
   LOCK_AND_LOAD_BUFF: {
@@ -236,7 +264,7 @@ export default {
     name: 'Wake Up',
     icon: 'warrior_disruptingshout',
   },
-  REVIVE_PET: {
+  REVIVE_PET_AND_MEND_PET: {
     id: 982,
     name: 'Revive Pet',
     icon: 'ability_hunter_beastsoothe',
@@ -256,11 +284,11 @@ export default {
     name: 'Aspect of the Turtle',
     icon: 'ability_hunter_pet_turtle',
   },
-/*  DISENGAGE: {
-    id: 781,
-    name: 'Disengage',
-    icon: 'ability_rogue_feint',
-  },*/
+  /*  DISENGAGE: {
+      id: 781,
+      name: 'Disengage',
+      icon: 'ability_rogue_feint',
+    },*/
   FREEZING_TRAP: {
     id: 187650,
     name: 'Freezing Trap',
@@ -275,5 +303,55 @@ export default {
     id: 131900,
     name: 'A Murder of Crows',
     icon: 'ability_hunter_murderofcrows',
+  },
+  CALL_PET_1: {
+    id: 883,
+    name: 'Call Pet 1',
+    icon: 'ability_hunter_beastcall',
+  },
+  CALL_PET_2: {
+    id: 83242,
+    name: 'Call Pet 2',
+    icon: 'ability_hunter_beastcall',
+  },
+  CALL_PET_3: {
+    id: 83243,
+    name: 'Call Pet 3',
+    icon: 'ability_hunter_beastcall',
+  },
+  CALL_PET_4: {
+    id: 83244,
+    name: 'Call Pet 4',
+    icon: 'ability_hunter_beastcall',
+  },
+  CALL_PET_5: {
+    id: 83245,
+    name: 'Call Pet 5',
+    icon: 'ability_hunter_beastcall',
+  },
+  CONCUSSIVE_SHOT: {
+    id: 27634,
+    name: 'Concussive Shot',
+    icon: 'spell_frost_stun',
+  },
+  COUNTER_SHOT: {
+    id: 147362,
+    name: 'Counter Shot',
+    icon: 'inv_ammo_arrow_03',
+  },
+  MISDIRECTION: {
+    id: 34477,
+    name: 'Misdrection',
+    icon: 'ability_hunter_misdirection',
+  },
+  MULTISHOT: {
+    id: 2643,
+    name: 'Multi-Shot',
+    icon: 'ability_upgrademoonglaive',
+  },
+  DISMISS_PET: {
+    id: 2641,
+    name: 'Dismiss Pet',
+    icon: 'spell_nature_spiritwolf',
   },
 };

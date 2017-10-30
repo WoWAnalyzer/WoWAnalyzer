@@ -30,8 +30,8 @@ class IcicleTracker extends Analyzer {
     const wastedPerMinute = (this.wasted) / (this.owner.fightDuration / 60000);
     when(wastedPerMinute).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span> You wasted {wastedPerMinute.toFixed(2)} <SpellLink id={SPELLS.ICICLES.id}/> Per Minute.  Try to cast <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id}/> once you get to 5 Icicles to avoid wasting them. Getting some wasted Icicles is unavoidable since <SpellLink id={SPELLS.FROSTBOLT.id}/> has a chance to generate 2 Icicles, but you should try and keep this number as low as possible.</span>)
-          .icon(SPELLS.ICICLES.icon)
+        return suggest(<span> You wasted {wastedPerMinute.toFixed(2)} <SpellLink id={SPELLS.ICICLES_BUFF.id}/> Per Minute.  Try to cast <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id}/> once you get to 5 Icicles to avoid wasting them. Getting some wasted Icicles is unavoidable since <SpellLink id={SPELLS.FROSTBOLT.id}/> has a chance to generate 2 Icicles, but you should try and keep this number as low as possible.</span>)
+          .icon(SPELLS.ICICLES_BUFF.icon)
           .actual(`${formatNumber(actual)} Icicles Wasted`)
           .recommended(`${formatNumber(3)} is recommended`)
           .regular(3).major(5);
@@ -41,7 +41,7 @@ class IcicleTracker extends Analyzer {
     const wastedPerMinute = (this.wasted) / (this.owner.fightDuration / 60000);
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.ICICLES.id} />}
+        icon={<SpellIcon id={SPELLS.ICICLES_BUFF.id} />}
         value={`${wastedPerMinute.toFixed(2)}`}
         label="Icicles Wasted Per Minute" />
     );

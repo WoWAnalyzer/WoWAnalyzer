@@ -16,15 +16,20 @@ body {
   background-attachment: fixed;
   color: #fff;
 }
+.container {
+  width: 100%;
+  max-width: 1600px;
+}
 @media (min-width: 1200px) {
   .container {
-    width: 1170px;
+    padding: 0 60px;
   }
 }
-@media (min-width: 1400px) {
-  .container {
-    width: 1370px;
-  }
+.app > main {
+  margin-top: 40px;
+}
+.app.has-report > main {
+  margin-top: 120px;
 }
 
 a {
@@ -70,17 +75,13 @@ hr {
   position: relative;
   margin-bottom: 30px;
   transition: all 600ms;
+  opacity: 1;
 }
 .app.has-report > header {
   margin-top: -600px;
   margin-bottom: 90px;
-}
-.app > .navbar .github-link {
   opacity: 0;
-  transition: opacity 600ms;
-}
-.app.has-report > .navbar .github-link {
-  opacity: 1;
+  pointer-events: none;
 }
 .app > header > .container {
   position: absolute;
@@ -225,74 +226,106 @@ hr {
 
 
 
-/* App specific */
+/* NAVBAR */
 
-.navbar-default {
-  line-height: 66px;
+.app > .navbar .github-link {
+  opacity: 0;
+  transition: opacity 600ms;
+}
+.app.has-report > .navbar .github-link {
+  opacity: 1;
+}
+nav {
+  position: relative;
+  line-height: 40px;
   background: rgba(9, 20, 27, 0.8);
+  background: linear-gradient(to bottom, rgba(14, 34, 41, 0.8) 0%, rgba(9, 20, 27, 0.8) 100%);
   border: 0;
   box-shadow: 2px 0 3px rgba(0,0,0,.5);
   margin-bottom: 24px;
 }
-.navbar-default .navbar-header a {
+nav .menu {
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+}
+@media (min-width: 1200px) {
+  nav .menu {
+    margin-left: -58px; /* This move the logo just left of the content, together with the back arrow that looks quite nice. */
+    font-size: 1.1em;
+  }
+}
+nav .menu > .menu-item {
+  flex: 0 0 auto;
+}
+nav .menu-item {
+  border-right: 1px solid rgba(0, 0, 0, .4);
+  box-shadow: 1px 0 0 0 rgba(255, 255, 255, .1);
+  white-space: nowrap;
+  overflow: hidden;
+}
+nav .left-line {
+  border-left: 1px solid rgba(0, 0, 0, .4);
+  box-shadow: 1px 0 0 0 rgba(255, 255, 255, .1), inset 1px 0 0 0 rgba(255, 255, 255, .1);
+}
+nav .menu-item a {
+  display: inline-block;
+  padding: 4px 12px;
   color: #fff;
 }
-.navbar-default .navbar-header a:hover {
-  text-decoration: none;
+nav .menu-item a:hover {
   color: #e45a5a;
+  text-decoration: none;
 }
-.navbar-right {
-  margin-right: auto;
-  text-align: right;
+nav .menu .menu-item img {
+  height: 2.2em;
+  margin: -0.4em 0 -0.4em 0;
+}
+nav .github-link {
   float: right;
 }
-.navbar-default .navbar-nav > li > a {
-  color: #fff;
-}
-.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
-  color: #e45a5a;
-}
-.navbar-default .navbar-nav > li > a > img {
-  margin-left: 5px;
-}
 
-.breadcrumb {
-  background: none;
-  padding: 0;
-  margin-bottom: 0;
-}
-.breadcrumb > li {
-  float: left;
-}
-.breadcrumb > li:first-of-type {
-  font-size: 24px;
-  font-weight: 600;
-}
-.breadcrumb > li:first-of-type a {
-  color: #e45a5a;
-}
-.breadcrumb > li:first-of-type a:hover {
-  color: #fff;
-}
-.breadcrumb > li:not(:first-of-type) {
-  font-size: 14px;
-}
-.breadcrumb > li + li:before {
-  content: "›";
-}
-.navbar-progress {
+/*noinspection CssRedundantUnit*/
+nav .progress {
   position: absolute;
   left: 0;
-  top: 0;
+  bottom: -5px;
   width: 0%;
-  height: 100%;
-  background: rgba(228, 90, 90, 0.5);
+  height: 5px;
+  background: rgba(183, 76, 75, 0.8);
+  box-shadow: 0 0 5px 1px #000;
   transition: opacity 400ms;
+  pointer-events: none;
 }
-.navbar-progress + * {
-  position: relative;
+nav .container {
+  position: relative; /* make selectorHeaders float within the container box */
+}
+.selectorHeader {
+  position: absolute;
+  line-height: 1.4;
+  left: 15px;
+  top: 66px;
+  width: 700px;
   z-index: 10;
+  max-width: calc(100vw - 45px);
 }
+.selectorHeader .panel {
+  background: rgba(0,0,0,0.9);
+}
+nav .selectorHeader a {
+  color: #e45a5a;
+  display: inline;
+  padding: 0;
+}
+@media (min-width: 1200px) {
+  nav .selectorHeader {
+    font-size: 0.8em;
+  }
+}
+
+
+
+
 
 .list {
   list-style: none;
@@ -500,6 +533,9 @@ table.data-table tr:nth-child(even) {
 table.data-table tr th, table.data-table tr td {
   padding: 7px;
 }
+table.data-table.compact tr th, table.data-table.compact tr td {
+  padding: 6px;
+}
 table.data-table tr th:first-of-type, table.data-table tr td:first-of-type {
   padding-left: 22px;
 }
@@ -541,7 +577,7 @@ table.data-table .performance-bar {
 .Druid { color: #ff7d0a !important }
 .Hunter { color: #abd473 !important }
 .Mage { color: #69ccf0 !important }
-.Monk { color: #2D9B78 !important }
+.Monk { color: #2d9b78 !important }
 .Paladin { color: #f58cba !important }
 .Priest { color: #ffffff !important }
 .Rogue { color: #fff569 !important }
@@ -554,7 +590,7 @@ table.data-table .performance-bar {
 .Druid-bg { background-color: #ff7d0a !important }
 .Hunter-bg { background-color: #9ec76b !important }
 .Mage-bg { background-color: #69ccf0 !important }
-.Monk-bg { background-color: #2D9B78 !important }
+.Monk-bg { background-color: #2d9b78 !important }
 .Paladin-bg { background-color: #f58cba !important }
 .Priest-bg { background-color: #ffffff !important }
 .Rogue-bg { background-color: #fff569 !important }
@@ -588,6 +624,7 @@ table.data-table .performance-bar {
 .stat-haste { color: #0ed59b !important }
 .stat-mastery { color: #9256ff !important }
 .stat-versatility { color: #bfbfbf !important }
+.stat-leech { color: #1d9c07 !important }
 
 .stat-health-bg, .stat-healing-bg { background-color: #27cc4e !important }
 .stat-healing-absorbs-bg { background-color: #ffd955 !important }
@@ -610,6 +647,7 @@ table.data-table .performance-bar {
 .stat-haste-bg { background-color: #0ed59b !important }
 .stat-mastery-bg { background-color: #9256ff !important }
 .stat-versatility-bg { background-color: #bfbfbf !important }
+.stat-leech-bg { background-color: #1d9c07 !important }
 
 /*https://wow.gamepedia.com/COMBAT_LOG_EVENT*/
 /* Physical */
@@ -747,17 +785,4 @@ code.inactive {
   border-radius: 7px;
   padding: 10px;
   margin-bottom: 2rem;
-}
-
-.selectorHeader {
-  position: absolute;
-  line-height: 1em;
-  left: 15px;
-  top: 66px;
-  width: 700px;
-  z-index: 10;
-  max-width: calc(100vw - 45px);
-}
-.selectorHeader .panel {
-  background: rgba(0,0,0,0.9);
 }

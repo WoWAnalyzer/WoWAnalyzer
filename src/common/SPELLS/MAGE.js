@@ -244,7 +244,7 @@ export default {
     name: 'Glacial Eruption',
     icon: 'creatureportrait_creature_iceblock',
   },
-  ICICLES: {
+  ICICLE_DAMAGE: {
     id: 148022,
     name: 'Icicle',
     icon: 'spell_frost_iceshard',
