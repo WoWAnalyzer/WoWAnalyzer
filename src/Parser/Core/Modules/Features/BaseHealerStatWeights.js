@@ -295,7 +295,7 @@ class BaseHealerStatWeights extends Analyzer {
     return (
       <div className="panel items">
         <div className="panel-heading">
-          <h2><dfn data-tip="Weights are calculated using the actual circumstances of this encounter. Weights are likely to differ based on fight, raid size, items used, talents chosen, etc.<br /><br />DPS gains are not included in any of the stat weights.">Stat Weights</dfn>
+          <h2><dfn data-tip="These stat values are calculated using the actual circumstances of this encounter. These values reveal the value of the last 1 rating of each stat, they may not necessarily be the best way to gear. The stat values are likely to differ based on fight, raid size, items used, talents chosen, etc.<br /><br />DPS gains are not included in any of the stat values.">Stat Values</dfn>
           </h2>
         </div>
         <div className="panel-body" style={{ padding: 0 }}>
@@ -303,8 +303,8 @@ class BaseHealerStatWeights extends Analyzer {
             <thead>
               <tr>
                 <th style={{ minWidth: 30 }}><b>Stat</b></th>
-                <th style={{ minWidth: 30 }}><dfn data-tip="Normalized so Intellect is always 1.00"><b>Weight</b></dfn></th>
-                <th style={{ minWidth: 30 }}><dfn data-tip="Amount of stat rating required to increase your total healing by 1%"><b>Rating per 1%</b></dfn></th>
+                <th className="text-right" style={{ minWidth: 30 }}><dfn data-tip="Normalized so Intellect is always 1.00"><b>Value</b></dfn></th>
+                <th className="text-right" style={{ minWidth: 30 }}><dfn data-tip="Amount of stat rating required to increase your total healing by 1%"><b>Rating per 1%</b></dfn></th>
               </tr>
             </thead>
             <tbody>
@@ -329,12 +329,11 @@ class BaseHealerStatWeights extends Analyzer {
                           marginBottom: -2,
                           verticalAlign: 'text-bottom',
                         }}
-                      />
-
+                      />{' '}
                       {tooltip ? <dfn data-tip={tooltip}>{getName(stat)}</dfn> : getName(stat)}
                     </td>
-                    <td>{gain !== null ? weight.toFixed(2) : 'NYI'}</td>
-                    <td>{gain !== null ? (
+                    <td className="text-right">{stat === STAT.HASTE_HPCT && '≈'}{gain !== null ? weight.toFixed(2) : 'NYI'}</td>
+                    <td className="text-right">{gain !== null ? (
                       ratingForOne === Infinity ? '∞' : formatNumber(ratingForOne)
                     ) : 'NYI'}</td>
                   </tr>
