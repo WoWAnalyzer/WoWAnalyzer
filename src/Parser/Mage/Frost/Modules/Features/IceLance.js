@@ -62,8 +62,8 @@ class IceLance extends Analyzer {
 			.addSuggestion((suggest, actual, recommended) => {
 				return suggest(<span>You cast <SpellLink id={SPELLS.ICE_LANCE_CAST.id} /> {this.nonShatteredCasts} times ({formatPercentage(nonShatteredPercent)}%) without <SpellLink id={SPELLS.SHATTER.id} />. Make sure that you are only casting Ice Lance when the target has <SpellLink id={SPELLS.WINTERS_CHILL.id} /> (or other Shatter effects), if you have a <SpellLink id={SPELLS.FINGERS_OF_FROST.id} /> proc, or if you are moving and you cant cast anything else.</span>)
 					.icon(SPELLS.ICE_LANCE_CAST.icon)
-					.actual(`${formatPercentage(shattered)}% missed`)
-					.recommended(`${formatPercentage(recommended)}% is Recommended`)
+					.actual(`${formatPercentage(shattered)}% Ice Lances shattered`)
+					.recommended(`>${formatPercentage(recommended)}% is recommended`)
 					.regular(.9).major(.8);
 			});
 	}
