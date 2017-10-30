@@ -73,7 +73,7 @@ export default {
   },
 
   //Frost
-  MASTERY_ICICLES: {
+  MASTERY_ICICLES: { 
     id: 76613,
     name: 'Mastery: Icicles',
     icon: 'spell_frost_iceshard',
