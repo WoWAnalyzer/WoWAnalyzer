@@ -6,12 +6,14 @@ import { formatThousands } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 
 import SmallStatisticBox, { STATISTIC_ORDER } from 'Main/SmallStatisticBox';
+import { formatPercentage } from "../../../../common/format";
 
 const debug = false;
 
 class DistanceMoved extends Analyzer {
   lastPositionUpdate = null;
   totalDistanceMoved = 0;
+  timeSpendMoving = 0;
 
   // Events
   on_cast(event) {
@@ -54,7 +56,13 @@ class DistanceMoved extends Analyzer {
     if (!this.lastPositionUpdate) {
       return;
     }
-    this.totalDistanceMoved += this.calculateDistance(this.lastPositionUpdate.x, this.lastPositionUpdate.y, event.x, event.y);
+    let distanceMoved = this.calculateDistance(this.lastPositionUpdate.x, this.lastPositionUpdate.y, event.x, event.y);
+    if (distanceMoved !== 0) {
+      this.timeSpendMoving +=  event.timestamp - this.lastPositionUpdate.timestamp;
+      this.totalDistanceMoved += distanceMoved;
+
+    }
+
   }
 
   updatePlayerPosition(event) {
@@ -66,13 +74,13 @@ class DistanceMoved extends Analyzer {
   }
 
   statistic() {
-    debug && console.log(`Total distance moved: ${this.totalDistanceMoved} yds`);
+    debug && console.log(`Time spend moving: ${this.timeSpendMoving / 1000} s, Total distance moved: ${this.totalDistanceMoved} yds`);
     return (
       <SmallStatisticBox
         icon={<Icon icon="spell_fire_burningspeed" />}
-        value={`≈${formatThousands(this.totalDistanceMoved)} yards`}
-        label="Distance moved"
-        tooltip={`≈${formatThousands(this.totalDistanceMoved / (this.owner.fightDuration / 1000) * 60)} yards per minute. Consider this when analyzing the fight, as some fights require more movement than others. Unnecessary movement can result in a DPS/HPS loss.`}
+        value={`≈${formatPercentage(this.timeSpendMoving / (this.owner.fightDuration))}%`}
+        label="Fight spend moving"
+        tooltip={`In ≈${formatThousands(this.timeSpendMoving / 1000)} seconds moved by ≈${formatThousands(this.totalDistanceMoved)} yards. Consider this when analyzing the fight, as some fights require more movement than others. Unnecessary movement can result in a DPS/HPS loss.`}
       />
     );
   }
