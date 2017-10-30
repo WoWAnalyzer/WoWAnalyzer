@@ -173,6 +173,11 @@ export default {
     name: 'Glacial Spike',
     icon: 'spell_frost_frostbolt',
   },
+  RING_OF_FROST_DAMAGE: {
+    id: 82691,
+    name: 'Ring of Frost',
+    icon: 'spell_frost_ring-of-frost',
+  },
 
   //Fire
   FIREBALL: {
@@ -230,7 +235,7 @@ export default {
     icon: 'spell_frost_frostshock',
   },
   FREEZE: {
-    id: 231596,
+    id: 33395,
     name: 'Freeze',
     icon: 'spell_frost_frostshock',
   },
