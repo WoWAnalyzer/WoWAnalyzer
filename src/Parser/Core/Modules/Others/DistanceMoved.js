@@ -2,18 +2,19 @@ import React from 'react';
 
 import Icon from 'common/Icon';
 import { formatThousands } from 'common/format';
+import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
 import SmallStatisticBox, { STATISTIC_ORDER } from 'Main/SmallStatisticBox';
-import { formatPercentage } from "../../../../common/format";
+
 
 const debug = false;
 
 class DistanceMoved extends Analyzer {
   lastPositionUpdate = null;
   totalDistanceMoved = 0;
-  timeSpendMoving = 0;
+  timeSpentMoving = 0;
 
   // Events
   on_cast(event) {
@@ -58,7 +59,7 @@ class DistanceMoved extends Analyzer {
     }
     const distanceMoved = this.calculateDistance(this.lastPositionUpdate.x, this.lastPositionUpdate.y, event.x, event.y);
     if (distanceMoved !== 0) {
-      this.timeSpendMoving += event.timestamp - this.lastPositionUpdate.timestamp;
+      this.timeSpentMoving += event.timestamp - this.lastPositionUpdate.timestamp;
       this.totalDistanceMoved += distanceMoved;
     }
 
@@ -73,13 +74,13 @@ class DistanceMoved extends Analyzer {
   }
 
   statistic() {
-    debug && console.log(`Time spend moving: ${this.timeSpendMoving / 1000} s, Total distance moved: ${this.totalDistanceMoved} yds`);
+    debug && console.log(`Time spent moving: ${this.timeSpentMoving / 1000} s, Total distance moved: ${this.totalDistanceMoved} yds`);
     return (
       <SmallStatisticBox
         icon={<Icon icon="spell_fire_burningspeed" />}
-        value={`≈${formatPercentage(this.timeSpendMoving / (this.owner.fightDuration))}%`}
-        label="Fight spend moving"
-        tooltip={`In ≈${formatThousands(this.timeSpendMoving / 1000)} seconds of movement you moved by ≈${formatThousands(this.totalDistanceMoved)} yards. Consider this when analyzing the fight, as some fights require more movement than others. Unnecessary movement can result in a DPS/HPS loss.`}
+        value={`≈${formatPercentage(this.timeSpentMoving / (this.owner.fightDuration))}%`}
+        label="Fight spent moving"
+        tooltip={`In ≈${formatThousands(this.timeSpentMoving / 1000)} seconds of movement you moved by ≈${formatThousands(this.totalDistanceMoved)} yards. Consider this when analyzing the fight, as some fights require more movement than others. Unnecessary movement can result in a DPS/HPS loss.`}
       />
     );
   }
