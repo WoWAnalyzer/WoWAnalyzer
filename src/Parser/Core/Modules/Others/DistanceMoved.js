@@ -80,7 +80,7 @@ class DistanceMoved extends Analyzer {
         icon={<Icon icon="spell_fire_burningspeed" />}
         value={`≈${formatPercentage(this.timeSpentMoving / (this.owner.fightDuration))}%`}
         label="Fight spent moving"
-        tooltip={`In ≈${formatThousands(this.timeSpentMoving / 1000)} seconds of movement you moved by ≈${formatThousands(this.totalDistanceMoved)} yards. Consider this when analyzing the fight, as some fights require more movement than others. Unnecessary movement can result in a DPS/HPS loss.`}
+        tooltip={`In ≈${formatThousands(this.timeSpentMoving / 1000)} seconds of movement you moved ≈${formatThousands(this.totalDistanceMoved)} yards. Consider this when analyzing the fight, as some fights require more movement than others. Unnecessary movement can result in a DPS/HPS loss.`}
       />
     );
   }
