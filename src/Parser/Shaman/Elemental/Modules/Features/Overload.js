@@ -27,6 +27,10 @@ class Overload extends Analyzer {
 
     this.spells = [
       this.getHits(SPELLS.LAVA_BURST_OVERLOAD.id, SPELLS.LAVA_BURST.id),
+      this.getHits(SPELLS.LIGHTNING_BOLT_OVERLOAD_HIT.id, SPELLS.LIGHTNING_BOLT.id),
+      this.getHits(SPELLS.CHAIN_LIGHTNING_OVERLOAD.id, SPELLS.CHAIN_LIGHTNING.id),
+      this.hasElementalBlast && this.getHits(SPELLS.ELEMENTAL_BLAST_OVERLOAD.id, SPELLS.ELEMENTAL_BLAST_TALENT.id),
+      this.hasIcefury && this.getHits(SPELLS.ICEFURY_OVERLOAD.id, SPELLS.ICEFURY_TALENT.id),
     ];
   }
 
@@ -51,7 +55,7 @@ class Overload extends Analyzer {
       this.getHits(SPELLS.CHAIN_LIGHTNING_OVERLOAD.id, SPELLS.CHAIN_LIGHTNING.id),
       this.hasElementalBlast && this.getHits(SPELLS.ELEMENTAL_BLAST_OVERLOAD.id, SPELLS.ELEMENTAL_BLAST_TALENT.id),
       this.hasIcefury && this.getHits(SPELLS.ICEFURY_OVERLOAD.id, SPELLS.ICEFURY_TALENT.id),
-    ].filter(spell => spell && spell.normal > 0).sort((a,b) => b.overloads - a.overloads);
+    ];
   }
 
   renderOverloads(spell) {
