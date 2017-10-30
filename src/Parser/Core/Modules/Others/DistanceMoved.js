@@ -58,9 +58,8 @@ class DistanceMoved extends Analyzer {
     }
     let distanceMoved = this.calculateDistance(this.lastPositionUpdate.x, this.lastPositionUpdate.y, event.x, event.y);
     if (distanceMoved !== 0) {
-      this.timeSpendMoving +=  event.timestamp - this.lastPositionUpdate.timestamp;
+      this.timeSpendMoving += event.timestamp - this.lastPositionUpdate.timestamp;
       this.totalDistanceMoved += distanceMoved;
-
     }
 
   }
