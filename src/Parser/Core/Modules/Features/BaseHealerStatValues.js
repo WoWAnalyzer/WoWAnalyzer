@@ -22,7 +22,7 @@ export const ARMOR_INT_BONUS = .05;
 /**
  * This is currently completely focussed on Healer stat weights but it should be relatively easy to modify it to work for a DPS, it just requires some work. The only reason no effort was put towards this is that we currently have no DPS interested in implementing this so it would be wasted time. If you do want to implement stat weights for a DPS this should provide you with a very good basis.
  */
-class BaseHealerStatWeights extends Analyzer {
+class BaseHealerStatValues extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     critEffectBonus: CritEffectBonus,
@@ -377,4 +377,4 @@ class BaseHealerStatWeights extends Analyzer {
   }
 }
 
-export default BaseHealerStatWeights;
+export default BaseHealerStatValues;
