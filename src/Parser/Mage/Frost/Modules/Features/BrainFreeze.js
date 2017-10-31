@@ -2,7 +2,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
-import { formatPercentage, formatMilliseconds } from 'common/format';
+import { formatNumber, formatPercentage, formatMilliseconds } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
@@ -22,6 +22,7 @@ class BrainFreezeTracker extends Analyzer {
 	overwrittenProcs = 0;
 	expiredProcs = 0;
 	totalProcs = 0;
+	flurryWithoutProc = 0;
 
 	on_byPlayer_applybuff(event) {
 		const spellId = event.ability.guid;
@@ -47,6 +48,9 @@ class BrainFreezeTracker extends Analyzer {
 			return;
 		}
 		this.lastFlurryTimestamp = this.owner.currentTimestamp;
+		if (!this.combatants.selected.hasBuff(SPELLS.BRAIN_FREEZE.id)) {
+			this.flurryWithoutProc += 1;
+		}
 	}
 
 	on_byPlayer_removebuff(event) {
@@ -98,6 +102,15 @@ class BrainFreezeTracker extends Analyzer {
 					.actual(`${formatPercentage(expiredProcsPercent)}% expired`)
 					.recommended(`Letting none expire is recommended`)
 					.regular(.00).major(.05);
+			});
+
+		when(this.flurryWithoutProc).isGreaterThan(0)
+			.addSuggestion((suggest, actual, recommended) => {
+				return suggest(<span>You cast <SpellLink id={SPELLS.FLURRY.id} /> without <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> {this.flurryWithoutProc} times. You should never hard cast Flurry.</span>)
+					.icon(SPELLS.FLURRY.icon)
+					.actual(`${formatNumber(this.flurryWithoutProc)} casts`)
+					.recommended(`Casting none is recommended`)
+					.regular(0).major(1);
 			});
 	}
 
