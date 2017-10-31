@@ -136,6 +136,9 @@ class BaseHealerStatWeights extends Analyzer {
     if (spellInfo.hasteHpct) {
       this.totalOneHasteHpct += this._hasteHpct(event, healVal);
     }
+    if (spellInfo.hasteHpm) {
+      this.totalOneHasteHpm += this._hasteHpm(event, healVal);
+    }
     if (spellInfo.mastery) {
       this.totalOneMastery += this._mastery(event, healVal);
     }
@@ -207,6 +210,11 @@ class BaseHealerStatWeights extends Analyzer {
     const healIncreaseFromOneHaste = 1 / this.statTracker.hasteRatingPerPercent;
 
     return healVal.effective * healIncreaseFromOneHaste;
+  }
+  _hasteHpm(event, healVal) {
+    const healIncreaseFromOneHaste = 1 / this.statTracker.hasteRatingPerPercent;
+    const noHasteHealing = healVal.effective / (1 + this.statTracker.currentHastePercentage);
+    return noHasteHealing * healIncreaseFromOneHaste;
   }
   _mastery(event, healVal) {
     throw new Error('Missing custom Mastery implementation. This is different per spec.');
