@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import STAT from 'Parser/Core/Modules/Features/STAT';
+import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 
 import BaseHealerStatWeights from 'Parser/Core/Modules/Features/BaseHealerStatWeights';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -98,28 +99,39 @@ class StatWeights extends BaseHealerStatWeights {
 
   _getCritChance(event) {
     const spellId = event.ability.guid;
-
-    let { baseCritChance, ratingCritChance } = super._getCritChance(event);
+    const critChanceBreakdown = super._getCritChance(event);
 
     if (spellId === SPELLS.REGROWTH.id) {
-      baseCritChance += 0.4;
+      critChanceBreakdown.baseCritChance += 0.4;
     }
 
     // TODO handle Abundance
 
-    return { baseCritChance, ratingCritChance };
+    return critChanceBreakdown;
   }
 
   _criticalStrike(event, healVal) {
     const spellId = event.ability.guid;
+    const bonusFromOneCrit = 1 / this.statTracker.critRatingPerPercent;
     if (spellId === SPELLS.LIVING_SEED.id) { // TODO get better Living Seed calcs from a standalone module
-      const bonusFromOneCrit = 1 / this.statTracker.critRatingPerPercent;
       // Living Seed doesn't crit, but it procs from crits only. This calculation approximates increased LS frequency due to more crits.
       const additionalLivingSeedChance = bonusFromOneCrit / this.statTracker.currentCritRating;
       return additionalLivingSeedChance * healVal.effective;
     } else {
-      return super._criticalStrike(event, healVal);
+      if (healVal.overheal) {
+        return 0;
+      }
+      const critMult = this.critEffectBonus.getBonus(event);
+      const noCritHealing = event.hitType === HIT_TYPES.CRIT ? healVal.effective / critMult : healVal.effective;
+      return noCritHealing * bonusFromOneCrit * (critMult - 1);
     }
+  }
+
+  _hasteHpm(event, healVal) {
+    if (healVal.overheal) {
+      return 0;
+    }
+    return super._hasteHpm(event, healVal);
   }
 
   _mastery(event, healVal) {
