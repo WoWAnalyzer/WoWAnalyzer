@@ -1,4 +1,5 @@
 export default `
+30-10-2017 - Added Cancelled Casts Module. (by Sharrq)
 29-10-2017 - Added Ice Lance Utiliztion Module. (by Sharrq)
 28-10-2017 - Enhanced display of Winter's Chill and Brain Freeze statistics. (by Sref)
 28-10-2017 - Added Splitting Ice module. (by Sref)
