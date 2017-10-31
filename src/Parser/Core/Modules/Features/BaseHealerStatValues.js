@@ -320,12 +320,20 @@ class BaseHealerStatValues extends Analyzer {
       default: return null;
     }
   }
+  moreInformationLink = null;
   extraPanel() {
     const results = this._prepareResults();
     return (
       <div className="panel items">
         <div className="panel-heading">
-          <h2><dfn data-tip="These stat values are calculated using the actual circumstances of this encounter. These values reveal the value of the last 1 rating of each stat, they may not necessarily be the best way to gear. The stat values are likely to differ based on fight, raid size, items used, talents chosen, etc.<br /><br />DPS gains are not included in any of the stat values.">Stat Values</dfn>
+          <h2>
+            <dfn data-tip="These stat values are calculated using the actual circumstances of this encounter. These values reveal the value of the last 1 rating of each stat, they may not necessarily be the best way to gear. The stat values are likely to differ based on fight, raid size, items used, talents chosen, etc.<br /><br />DPS gains are not included in any of the stat values.">Stat Values</dfn>
+
+            {this.moreInformationLink && (
+              <a href={this.moreInformationLink} className="pull-right">
+                More info
+              </a>
+            )}
           </h2>
         </div>
         <div className="panel-body" style={{ padding: 0 }}>

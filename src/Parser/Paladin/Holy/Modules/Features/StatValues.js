@@ -111,6 +111,7 @@ class StatValues extends BaseHealerStatValues {
     return baseHeal * healIncreaseFromOneMastery;
   }
 
+  moreInformationLink = 'https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/Parser/Paladin/Holy/Modules/Features/StatValues.md';
   _prepareResults() {
     return [
       STAT.INTELLECT,
