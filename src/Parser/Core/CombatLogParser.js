@@ -85,7 +85,7 @@ import EventsNormalizer from './EventsNormalizer';
 
 const debug = false;
 
-let _modulesDeprectatedWarningSent = false;
+let _modulesDeprecatedWarningSent = false;
 
 class CombatLogParser {
   static abilitiesAffectedByHealingIncreases = [];
@@ -177,9 +177,9 @@ class CombatLogParser {
 
   _modules = {};
   get modules() {
-    if (!_modulesDeprectatedWarningSent) {
-      console.error('Using `this.owner.modules` is deprectated. You should add the module you want to use as a dependency and use the property that\'s added to your module instead.');
-      _modulesDeprectatedWarningSent = true;
+    if (!_modulesDeprecatedWarningSent) {
+      console.error('Using `this.owner.modules` is deprecated. You should add the module you want to use as a dependency and use the property that\'s added to your module instead.');
+      _modulesDeprecatedWarningSent = true;
     }
     return this._modules;
   }
