@@ -20,3 +20,6 @@ export const AtonementOnSelf2 =   { title: 'Atonement on self 2', type: 'heal', 
 export const AtonementOnPlayer1 = { title: 'Atonement on player 1',type: 'heal', sourceID: thisPlayer, targetID: otherPlayer1, amount: amount, timestamp: timestamp, ability: { guid: SPELLS.ATONEMENT_HEAL_NON_CRIT.id } };
 export const AtonementOnPlayer2 = { title: 'Atonement on player 2',type: 'heal', sourceID: thisPlayer, targetID: otherPlayer2, amount: amount, timestamp: timestamp, ability: { guid: SPELLS.ATONEMENT_HEAL_NON_CRIT.id } };
 export const AtonementOnPlayer3 = { title: 'Atonement on player 3',type: 'heal', sourceID: thisPlayer, targetID: otherPlayer3, amount: amount, timestamp: timestamp, ability: { guid: SPELLS.ATONEMENT_HEAL_NON_CRIT.id } };
+
+export const RadianceCast1 = { type: 'cast', sourceid: thisPlayer, targetid: otherPlayer1, timestamp: 0, ability: { guid: SPELLS.POWER_WORD_RADIANCE.id} };
+export const RadianceCast2 = { type: 'cast', sourceid: thisPlayer, targetid: otherPlayer1, timestamp: 0, ability: { guid: SPELLS.POWER_WORD_RADIANCE.id} };

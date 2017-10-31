@@ -10,7 +10,7 @@ import {
   AtonementOnPlayer1,
   AtonementOnPlayer2,
   AtonementOnPlayer3,
-} from './Fixtures/TestingEvents';
+} from '../Fixtures/TestingEvents';
 
 describe('DisciplinePriest.Reordering', () => {
 
