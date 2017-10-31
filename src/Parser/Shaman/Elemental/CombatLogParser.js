@@ -19,6 +19,7 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import Overload from './Modules/Features/Overload';
 
 import FlameShock from './Modules/ShamanCore/FlameShock';
+import ElementalFocus from './Modules/ShamanCore/ElementalFocus';
 
 import Aftershock from './Modules/Talents/Aftershock';
 import ElementalBlast from './Modules/Talents/ElementalBlast';
@@ -49,6 +50,7 @@ class CombatLogParser extends CoreCombatLogParser {
     procTracker: ProcTracker,
     flameShock: FlameShock,
     overload: Overload,
+    elementalFocus: ElementalFocus,
 
     // Talents
     aftershock: Aftershock,
