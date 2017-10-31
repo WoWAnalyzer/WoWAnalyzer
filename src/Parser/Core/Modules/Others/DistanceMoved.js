@@ -6,7 +6,7 @@ import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
-import SmallStatisticBox, { STATISTIC_ORDER } from 'Main/SmallStatisticBox';
+import { STATISTIC_ORDER } from 'Main/SmallStatisticBox';
 
 
 const debug = false;
