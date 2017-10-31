@@ -148,7 +148,7 @@ class BaseHealerStatWeights extends Analyzer {
       this.totalOneHasteHpct += this._adjustGain(this._hasteHpct(eventForWeights, healVal), targetHealthPercentage);
     }
     if (spellInfo.hasteHpm) {
-      this.totalOneHasteHpm += this._hasteHpm(event, healVal);
+      this.totalOneHasteHpm += this._adjustGain(this._hasteHpm(eventForWeights, healVal), targetHealthPercentage);
     }
     if (spellInfo.mastery) {
       this.totalOneMastery += this._adjustGain(this._mastery(eventForWeights, healVal), targetHealthPercentage);
