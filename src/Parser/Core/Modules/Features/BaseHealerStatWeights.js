@@ -145,6 +145,9 @@ class BaseHealerStatWeights extends Analyzer {
   }
   _leech(event, healVal) {
     const spellId = event.ability.guid;
+    if (event.type !== 'heal') {
+      return; // leech doesn't proc from absorbs
+    }
 
     // We have to calculate leech weight differently depending on if we already have any leech rating.
     // Leech is marked as a 'multplier' heal, so we have to check it before we do the early return below
@@ -170,7 +173,7 @@ class BaseHealerStatWeights extends Analyzer {
     }
     const currInt = this.statTracker.currentIntellectRating;
     // noinspection PointlessArithmeticExpressionJS
-    const healIncreaseFromOneInt = (1 * ARMOR_INT_MULTIPLIER) / currInt;
+    const healIncreaseFromOneInt = ARMOR_INT_MULTIPLIER / currInt;
     return healVal.effective * healIncreaseFromOneInt;
   }
   _getCritChance(event) {
@@ -204,9 +207,10 @@ class BaseHealerStatWeights extends Analyzer {
     return 0;
   }
   _hasteHpct(event, healVal) {
+    const currHastePerc = this.statTracker.currentHastePercentage
     const healIncreaseFromOneHaste = 1 / this.statTracker.hasteRatingPerPercent;
-
-    return healVal.effective * healIncreaseFromOneHaste;
+    const baseHeal = healVal.effective / (1 + currHastePerc);
+    return baseHeal * healIncreaseFromOneHaste;
   }
   _mastery(event, healVal) {
     throw new Error('Missing custom Mastery implementation. This is different per spec.');
