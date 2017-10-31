@@ -41,7 +41,8 @@ class StatWeights extends BaseHealerStatWeights {
   on_beacon_heal(event, originalHeal) {
     const spellInfo = this._getSpellInfo(originalHeal);
     const healVal = new HealingValue(event.amount, event.absorbed, event.overheal);
-    this._handleHeal(spellInfo, originalHeal, healVal);
+    const targetHealthPercentage = (event.hitPoints - healVal.effective) / event.maxHitPoints; // hitPoints contains HP *after* the heal
+    this._handleHeal(spellInfo, originalHeal, healVal, targetHealthPercentage);
   }
   _getCritChance(event) {
     const spellId = event.ability.guid;
