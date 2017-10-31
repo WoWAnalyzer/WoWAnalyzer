@@ -116,7 +116,7 @@ class Maelstrom extends React.PureComponent {
       bosses.push(newSeries);
     });
     const deathsBySecond = {};
-    this.state.mana.deaths.forEach((death) => {
+    this.state.mana.deaths && this.state.mana.deaths.forEach((death) => {
       const secIntoFight = Math.floor((death.timestamp - start) / 1000);
 
       if (death.targetIsFriendly) {
