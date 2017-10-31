@@ -1,4 +1,5 @@
 export default `
+31-10-2017 - Fixed the <i>Haste HPCT</i> stat vlaue not taking current Haste into account leading to a slightly overvaluation. (by Sref)
 30-10-2017 - Renamed stat weights to stat values and updated tooltips to be more informative. (by Zerotorescue)
 28-10-2017 - Added stat weights. (by Zerotorescue)
 28-10-2017 - Fixed a bug where Shock Treatment's effect was incorrectly doubled one too many times leading to an undervaluation of the Shock Treatment trait. (by Zerotorescue)
