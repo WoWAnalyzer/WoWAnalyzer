@@ -61,7 +61,7 @@ class Overload extends Analyzer {
   renderOverloads(spell) {
     return (
       spell &&
-      <li>
+      <li key={spell.id}>
         <SpellIcon
           id={spell.id}
           style={{
