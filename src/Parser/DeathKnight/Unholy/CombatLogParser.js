@@ -7,6 +7,9 @@ import CooldownTracker from './Modules/Features/CooldownTracker';
 import VirulentPlagueUptime from './Modules/Features/VirulentPlagueUptime';
 import FesteringStrike from './Modules/Features/FesteringStrike';
 
+import RunicPowerDetails from './Modules/RunicPower/RunicPowerDetails';
+import RunicPowerTracker from './Modules/RunicPower/RunicPowerTracker';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core
@@ -18,6 +21,10 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownTracker: CooldownTracker,
     virulentPlagueUptime: VirulentPlagueUptime, 
     festeringStrike: FesteringStrike,
+
+      // RunicPower
+      runicPowerTracker: RunicPowerTracker,
+      runicPowerDetails: RunicPowerDetails,
   };
 }
 
