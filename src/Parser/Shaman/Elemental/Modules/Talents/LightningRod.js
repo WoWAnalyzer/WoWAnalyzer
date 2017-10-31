@@ -6,6 +6,7 @@ import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
@@ -17,10 +18,11 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 class LightningRod extends Analyzer {
   static dependencies = {
     enemies: Enemies,
+    combatants: Combatants,
   };
 
   on_initialized() {
-    this.active = this.owner.modules.combatants.selected.hasTalent(SPELLS.LIGHTNING_ROD_TALENT.id);
+    this.active = this.combatants.selected.hasTalent(SPELLS.LIGHTNING_ROD_TALENT.id);
   }
 
   get rawUpdate() {

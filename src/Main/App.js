@@ -32,7 +32,7 @@ const PROGRESS_STEP3_PARSE_EVENTS = 0.99;
 
 /* eslint-disable no-alert */
 
-let _footerDeprectatedWarningSent = false;
+let _footerDeprecatedWarningSent = false;
 
 class App extends Component {
   static propTypes = {
@@ -480,9 +480,9 @@ class App extends Component {
 
     const progress = (this.state.progress * 100);
 
-    if (this.state.config && this.state.config.footer && !_footerDeprectatedWarningSent) {
-      console.error('Using `config.footer` is deprectated. You should add the information you want to share to the description property in the config, which is shown on the spec information overlay.');
-      _footerDeprectatedWarningSent = true;
+    if (this.state.config && this.state.config.footer && !_footerDeprecatedWarningSent) {
+      console.error('Using `config.footer` is deprecated. You should add the information you want to share to the description property in the config, which is shown on the spec information overlay.');
+      _footerDeprecatedWarningSent = true;
     }
 
     return (

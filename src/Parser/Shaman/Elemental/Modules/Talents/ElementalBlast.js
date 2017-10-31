@@ -5,24 +5,29 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class ElementalBlast extends Analyzer {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
   on_initialized() {
-    this.active = this.owner.modules.combatants.selected.hasTalent(SPELLS.ELEMENTAL_BLAST_TALENT.id);
+    this.active = this.combatants.selected.hasTalent(SPELLS.ELEMENTAL_BLAST_TALENT.id);
   }
 
   get hasteUptime() {
-    return this.owner.modules.combatants.selected.getBuffUptime(SPELLS.ELEMENTAL_BLAST_HASTE.id) / this.owner.fightDuration;
+    return this.combatants.selected.getBuffUptime(SPELLS.ELEMENTAL_BLAST_HASTE.id) / this.owner.fightDuration;
   }
 
   get critUptime() {
-    return this.owner.modules.combatants.selected.getBuffUptime(SPELLS.ELEMENTAL_BLAST_CRIT.id) / this.owner.fightDuration;
+    return this.combatants.selected.getBuffUptime(SPELLS.ELEMENTAL_BLAST_CRIT.id) / this.owner.fightDuration;
   }
 
   get masteryUptime() {
-    return this.owner.modules.combatants.selected.getBuffUptime(SPELLS.ELEMENTAL_BLAST_MASTERY.id) / this.owner.fightDuration;
+    return this.combatants.selected.getBuffUptime(SPELLS.ELEMENTAL_BLAST_MASTERY.id) / this.owner.fightDuration;
   }
 
   get elementalBlastUptime() {
