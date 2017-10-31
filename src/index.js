@@ -19,7 +19,7 @@ function toStack(x) {
   return isError(x) ? x.stack : undefined;
 }
 
-window.addEventListener('unhandledRejection', event => {
+window.addEventListener('unhandledrejection', event => {
   const message = toMessage(event);
   console.error(`Unhandled rejection: ${message}`);
   Raven && Raven.captureException(new Error('Unhandled promise rejection'), { // eslint-disable-line no-undef
