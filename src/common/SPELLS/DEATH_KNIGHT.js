@@ -173,6 +173,12 @@ export default {
     icon: 'spell_yorsahj_bloodboil_purpleoil',
   },
 
+  FESTERING_WOUND_BURST: {
+    id: 195757,
+    name: 'Festering Wound',
+    icon: 'achievement_halloween_rottenegg_01',
+  },
+
   OUTBREAK: {
     id: 77575,
     name: 'Outbreak',
