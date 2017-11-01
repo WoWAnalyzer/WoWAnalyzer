@@ -22,9 +22,10 @@ function toStack(x) {
 window.addEventListener('unhandledrejection', event => {
   const message = toMessage(event);
   console.error(`Unhandled rejection: ${message}`);
-  Raven && Raven.captureException(new Error('Unhandled promise rejection'), { // eslint-disable-line no-undef
+  Raven && Raven.captureException(event.reason || new Error('Unhandled promise rejection'), { // eslint-disable-line no-undef
     extra: {
       reason: message,
+      originalEvent: event,
       stack: toStack(event),
     },
   });
