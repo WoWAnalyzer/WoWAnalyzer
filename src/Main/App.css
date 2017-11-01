@@ -227,14 +227,6 @@ hr {
 
 
 /* NAVBAR */
-
-.app > .navbar .github-link {
-  opacity: 0;
-  transition: opacity 600ms;
-}
-.app.has-report > .navbar .github-link {
-  opacity: 1;
-}
 nav {
   position: fixed;
   top: 0;
@@ -250,25 +242,26 @@ nav {
 body {
   padding-top: 48px;
 }
-nav .menu {
+nav > div {
   display: flex;
   flex-flow: row;
-  flex-wrap: wrap;
 }
 @media (min-width: 1200px) {
-  nav .menu {
+  nav > div .logo {
     margin-left: -58px; /* This move the logo just left of the content, together with the back arrow that looks quite nice. */
     font-size: 1.1em;
   }
 }
-nav .menu > .menu-item {
-  flex: 0 0 auto;
-}
 nav .menu-item {
+  flex: 0 1 auto;
+  text-overflow: ellipsis;
   border-right: 1px solid rgba(0, 0, 0, .4);
   box-shadow: 1px 0 0 0 rgba(255, 255, 255, .1);
   white-space: nowrap;
   overflow: hidden;
+}
+nav .menu-item.main {
+  flex: 0 0 auto;
 }
 nav .left-line {
   border-left: 1px solid rgba(0, 0, 0, .4);
@@ -283,13 +276,13 @@ nav .menu-item a:hover {
   color: #e45a5a;
   text-decoration: none;
 }
-nav .menu .menu-item img, nav .menu .menu-item .icon {
+nav .menu-item img, nav .menu-item .icon {
   height: 2.2em;
   margin: -0.4em 0 -0.4em 0;
   vertical-align: middle;
 }
-nav .github-link {
-  float: right;
+nav .spacer {
+  flex: 1 1 auto;
 }
 
 /*noinspection CssRedundantUnit*/
@@ -330,7 +323,15 @@ nav .selectorHeader a {
   }
 }
 
-
+/* Mobile nav bar */
+@media (max-width: 600px) {
+  nav > div.container {
+    padding: 0;
+  }
+  nav .optional {
+    display: none;
+  }
+}
 
 
 

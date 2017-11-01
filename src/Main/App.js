@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link, browserHistory } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 import ReactTooltip from 'react-tooltip';
 
 import fetchWcl from 'common/fetchWcl';
@@ -284,7 +284,8 @@ class App extends Component {
                   if (errorMessage.error) {
                     message = errorMessage.error;
                   }
-                } catch (error) {}
+                } catch (error) {
+                }
               }
             }
 
@@ -501,52 +502,44 @@ class App extends Component {
 
     return (
       <nav>
-        <div className="container flex wrapable">
-          <div className="flex-main">
-            <div className="menu">
-              <div className="menu-item">
-                <Link to={makeAnalyzerUrl()}>
-                  <img src="/favicon.png" alt="WoWAnalyzer logo" />
-                </Link>
-              </div>
-              {this.reportCode && report && (
-                <div className="menu-item">
-                  <Link to={makeAnalyzerUrl(report)}>{report.title}</Link>
-                </div>
-              )}
-              {this.fight && report && (
-                <FightSelectorHeader
-                  className="menu-item"
-                  report={report}
-                  selectedFightName={getFightName(report, this.fight)}
-                  parser={parser}
-                />
-              )}
-              {this.playerName && report && (
-                <PlayerSelectorHeader
-                  className="menu-item"
-                  report={report}
-                  fightId={this.fightId}
-                  combatants={combatants || []}
-                  selectedPlayerName={this.playerName}
-                />
-              )}
-            </div>
+        <div className="container">
+          <div className="menu-item logo main">
+            <Link to={makeAnalyzerUrl()}>
+              <img src="/favicon.png" alt="WoWAnalyzer logo" />
+            </Link>
           </div>
-
-          <div className="flex-sub">
-            <div className="menu">
-              <div className="menu-item left-line">
-                <a href="#settings">
-                  <SettingsIcon className="icon" style={{ height: '1.8em' }} /> Settings
-                </a>
-              </div>
-              <div className="menu-item">
-                <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">
-                  <img src={GithubLogo} alt="GitHub logo" style={{ marginRight: 6 }} /> View on GitHub
-                </a>
-              </div>
+          {this.reportCode && report && (
+            <div className="menu-item">
+              <Link to={makeAnalyzerUrl(report)}>{report.title}</Link>
             </div>
+          )}
+          {this.fight && report && (
+            <FightSelectorHeader
+              className="menu-item"
+              report={report}
+              selectedFightName={getFightName(report, this.fight)}
+              parser={parser}
+            />
+          )}
+          {this.playerName && report && (
+            <PlayerSelectorHeader
+              className="menu-item"
+              report={report}
+              fightId={this.fightId}
+              combatants={combatants || []}
+              selectedPlayerName={this.playerName}
+            />
+          )}
+          <div className="spacer" />
+          <div className="menu-item left-line main">
+            <a href="#settings">
+              <SettingsIcon className="icon" style={{ height: '1.8em' }} /><span className="optional"> Settings</span>
+            </a>
+          </div>
+          <div className="menu-item main">
+            <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">
+              <img src={GithubLogo} alt="GitHub logo" /><span className="optional" style={{ paddingLeft: 6 }}> View on GitHub</span>
+            </a>
           </div>
         </div>
         <div className="progress" style={{ width: `${progress * 100}%`, opacity: progress === 0 || progress >= 1 ? 0 : 1 }} />
@@ -555,7 +548,6 @@ class App extends Component {
   }
 
   render() {
-
     if (this.state.config && this.state.config.footer && !_footerDeprecatedWarningSent) {
       console.error('Using `config.footer` is deprecated. You should add the information you want to share to the description property in the config, which is shown on the spec information overlay.');
       _footerDeprecatedWarningSent = true;
