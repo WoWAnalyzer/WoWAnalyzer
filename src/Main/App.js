@@ -531,11 +531,6 @@ class App extends Component {
             />
           )}
           <div className="spacer" />
-          <div className="menu-item left-line main">
-            <a href="#settings">
-              <SettingsIcon className="icon" style={{ height: '1.8em' }} /><span className="optional"> Settings</span>
-            </a>
-          </div>
           <div className="menu-item main">
             <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">
               <img src={GithubLogo} alt="GitHub logo" /><span className="optional" style={{ paddingLeft: 6 }}> View on GitHub</span>
