@@ -37,7 +37,7 @@ class CooldownTracker extends Analyzer {
       ],
     },
     {
-      spell: SPELLS.VELENS_FUTURE_SIGHT,
+      spell: SPELLS.VELENS_FUTURE_SIGHT_BUFF,
       summary: [
         BUILT_IN_SUMMARY_TYPES.HEALING,
         BUILT_IN_SUMMARY_TYPES.OVERHEALING,
