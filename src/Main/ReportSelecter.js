@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import PatreonButton from './PatreonButton';
-import GithubButton from './GithubButton';
 import DiscordButton from './DiscordButton';
 
 class ReportSelecter extends Component {
