@@ -27,7 +27,7 @@ class CancelledCasts extends CoreCancelledCasts {
       });
   }
 
-  statisticOrder = STATISTIC_ORDER.CORE(1);
+  statisticOrder = STATISTIC_ORDER.CORE(2);
 }
 
 export default CancelledCasts;

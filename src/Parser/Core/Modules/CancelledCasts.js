@@ -26,7 +26,7 @@ class CancelledCasts extends Analyzer {
     if (this.constructor.IGNORED_ABILITIES.includes(spellId)) {
       return;
     }
-    if (this.wasCastStarted === true) {
+    if (this.wasCastStarted) {
       this.castsCancelled += 1;
     }
     this.beginCastSpellId = event.ability.guid;
@@ -38,10 +38,10 @@ class CancelledCasts extends Analyzer {
     if (this.constructor.IGNORED_ABILITIES.includes(spellId)) {
       return;
     }
-    if (this.beginCastSpellId !== spellId && this.wasCastStarted === true) {
+    if (this.beginCastSpellId !== spellId && this.wasCastStarted) {
       this.castsCancelled += 1;
     }
-    if (this.beginCastSpellId === spellId && this.wasCastStarted === true) {
+    if (this.beginCastSpellId === spellId && this.wasCastStarted) {
       this.castsFinished += 1;
     }
     this.wasCastStarted = false;
