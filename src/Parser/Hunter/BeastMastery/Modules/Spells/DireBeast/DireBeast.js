@@ -6,7 +6,7 @@ import SPELLS from "common/SPELLS/index";
 import StatisticBox from "Main/StatisticBox";
 import SpellIcon from "common/SpellIcon";
 import { formatNumber } from "common/format";
-import SpellLink from "../../../../../../common/SpellLink";
+import SpellLink from "common/SpellLink";
 
 let COOLDOWN_REDUCTION_MS = 12000;
 

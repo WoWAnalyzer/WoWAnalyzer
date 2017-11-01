@@ -11,7 +11,6 @@ import MarkOfTheClaw from "./Modules/Features/MarkOfTheClaw";
 import SoulOfTheHuntmaster from '../Shared/Items/SoulOfTheHuntmaster';
 import QaplaEredunWarOrder from "./Modules/Items/QaplaEredunWarOrder";
 
-
 //Spells
 import DireBeast from "./Modules/Spells/DireBeast/DireBeast";
 import BestialWrath from "./Modules/Spells/BestialWrath/BestialWrath";
