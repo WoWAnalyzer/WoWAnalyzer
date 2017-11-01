@@ -13,58 +13,61 @@ class CancelledCasts extends Analyzer {
     combatants: Combatants,
   };
 
-  castsStarted = 0;
+  castsCancelled = 0;
   castsFinished = 0;
-  beginCastTimestamp = 0;
-  castTimestamp = 0;
+  beginCastSpellId = 0;
+  wasCastStarted;
 
-  static CANCELABLE_ABILITIES = [
+  static IGNORED_ABILITIES = [
   ];
 
   on_byPlayer_begincast(event) {
     const spellId = event.ability.guid;
-    if (!this.constructor.CANCELABLE_ABILITIES.includes(spellId)) {
+    if (this.constructor.IGNORED_ABILITIES.includes(spellId)) {
       return;
     }
-    this.beginCastTimestamp = event.timestamp;
-    this.castsStarted += 1;
+    if (this.wasCastStarted === true) {
+      this.castsCancelled += 1;
+    }
+    this.beginCastSpellId = event.ability.guid;
+    this.wasCastStarted = true;
   }
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    const castTimestamp = event.timestamp;
-    const castTime = castTimestamp - this.beginCastTimestamp;
-    if (!this.constructor.CANCELABLE_ABILITIES.includes(spellId)) {
+    if (this.constructor.IGNORED_ABILITIES.includes(spellId)) {
       return;
     }
-    if (castTime < 100) {
-      this.castsStarted -= 1;
-    } else {
+    if (this.beginCastSpellId !== spellId && this.wasCastStarted === true) {
+      this.castsCancelled += 1;
+    }
+    if (this.beginCastSpellId === spellId && this.wasCastStarted === true) {
       this.castsFinished += 1;
     }
+    this.wasCastStarted = false;
   }
 
-  get cancelledCasts() {
-    return this.castsStarted - this.castsFinished;
+  get totalCasts() {
+    return this.castsCancelled + this.castsFinished;
   }
 
   on_finished() {
-    debug && console.log(formatMilliseconds(this.owner.fightDuration), 'Casts Started:', `${formatNumber(this.castsStarted)}`);
-    debug && console.log(formatMilliseconds(this.owner.fightDuration), 'Casts Completed:', `${formatNumber(this.castsFinished)}`);
+    debug && console.log(formatMilliseconds(this.owner.fightDuration), 'Casts Finished:', `${formatNumber(this.castsFinished)}`);
+    debug && console.log(formatMilliseconds(this.owner.fightDuration), 'Casts Cancelled:', `${formatNumber(this.castsCancelled)}`);
   }
 
   statistic() {
-    const cancelledPercentage = this.cancelledCasts / this.castsStarted;
+    const cancelledPercentage = this.castsCancelled / this.totalCasts;
 
     return (
       <StatisticBox
         icon={<Icon icon="inv_misc_map_01" alt="Cancelled Casts" />}
         value={`${formatPercentage(cancelledPercentage)} %`}
         label="Casts Cancelled"
-        tooltip={`You cast ${this.castsStarted} spells.
+        tooltip={`You cast ${this.totalCasts} spells.
           <ul>
             <li>${this.castsFinished} casts were completed</li>
-            <li>${this.cancelledCasts} casts were cancelled</li>
+            <li>${this.castsCancelled} casts were cancelled</li>
           </ul>
         `}
       />

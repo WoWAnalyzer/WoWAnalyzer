@@ -7,22 +7,15 @@ import { formatPercentage } from 'common/format';
 import { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class CancelledCasts extends CoreCancelledCasts {
-  static CANCELABLE_ABILITIES = [
-    //Castable/Non Instant Spells that you want to track to see if they were cancelled.
-    //Spells that have a cast time which is sometimes instant can also be included.
-    SPELLS.FROSTBOLT.id,
-    SPELLS.EBONBOLT.id,
-    SPELLS.BLIZZARD.id,
-    //Talents
-    SPELLS.GLACIAL_SPIKE_TALENT.id,
-    SPELLS.RUNE_OF_POWER_TALENT.id,
-    SPELLS.RAY_OF_FROST_TALENT.id,
-    SPELLS.RING_OF_FROST_TALENT.id,
-    SPELLS.FROST_BOMB_TALENT.id,
+  static IGNORED_ABILITIES = [
+    //Include the spells that you do not want to be tracked and spells that are castable while casting (Like Fire Blast, Combustion, or Shimmer)
+    SPELLS.FIRE_BLAST.id,
+    SPELLS.COMBUSTION.id,
+    SPELLS.SHIMMER_TALENT.id,
   ];
 
   suggestions(when) {
-    const cancelledPercentage = this.cancelledCasts / this.castsStarted;
+    const cancelledPercentage = this.castsCancelled / this.totalCasts;
 
     when(cancelledPercentage).isGreaterThan(0.05)
       .addSuggestion((suggest, actual, recommended) => {

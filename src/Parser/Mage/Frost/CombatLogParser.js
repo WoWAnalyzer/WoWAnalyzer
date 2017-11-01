@@ -3,7 +3,6 @@ import DamageDone from 'Parser/Core/Modules/DamageDone';
 
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
-import CancelledCasts from './Modules/Features/CancelledCasts';
 import CooldownTracker from './Modules/Features/CooldownTracker';
 import WintersChillTracker from './Modules/Features/WintersChill';
 import BrainFreeze from './Modules/Features/BrainFreeze';
@@ -16,6 +15,7 @@ import RuneOfPower from '../Shared/Modules/Features/RuneOfPower';
 import MirrorImage from '../Shared/Modules/Features/MirrorImage';
 import UnstableMagic from '../Shared/Modules/Features/UnstableMagic';
 import SplittingIce from './Modules/Features/SplittingIce';
+import CancelledCasts from '../Shared/Modules/Features/CancelledCasts';
 
 import FrozenOrb from './Modules/Cooldowns/FrozenOrb';
 import IcyVeins from './Modules/Cooldowns/IcyVeins';
@@ -26,6 +26,8 @@ import ZannesuJourney from './Modules/Items/ZannesuJourney';
 import MagtheridonsBanishedBracers from './Modules/Items/MagtheridonsBanishedBracers';
 import ShatteredFragmentsOfSindragosa from './Modules/Items/ShatteredFragmentsOfSindragosa';
 import SoulOfTheArchmage from './Modules/Items/SoulOfTheArchmage';
+
+
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
