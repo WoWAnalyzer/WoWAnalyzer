@@ -5,6 +5,24 @@ import DamageDone from 'Parser/Core/Modules/DamageDone';
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import CooldownTracker from './Modules/Features/CooldownTracker';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
+import MarkOfTheClaw from "./Modules/Features/MarkOfTheClaw";
+
+//Items
+import SoulOfTheHuntmaster from '../Shared/Items/SoulOfTheHuntmaster';
+import QaplaEredunWarOrder from "./Modules/Items/QaplaEredunWarOrder";
+
+
+//Spells
+import DireBeast from "./Modules/Spells/DireBeast/DireBeast";
+import BestialWrath from "./Modules/Spells/BestialWrath/BestialWrath";
+import BestialWrathUptime from "./Modules/Spells/BestialWrath/BestialWrathUptime";
+import DireBeastUptime from "./Modules/Spells/DireBeast/DireBeastUptime";
+
+//Talents
+import KillerCobra from "./Modules/Talents/KillerCobra";
+
+//Traits
+import TitansThunder from "./Modules/Traits/TitansThunder";
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -14,6 +32,24 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     castEfficiency: CastEfficiency,
     cooldownTracker: CooldownTracker,
+    markOfTheClaw: MarkOfTheClaw,
+
+    //Spells
+    direBeast: DireBeast,
+    direBeastUptime: DireBeastUptime,
+    bestialWrath: BestialWrath,
+    bestialWrathUptime: BestialWrathUptime,
+
+    //Items
+    soulOfTheHuntmaster: SoulOfTheHuntmaster,
+    qaplaEredunWarOrder: QaplaEredunWarOrder,
+
+    //Talents
+    killerCobra: KillerCobra,
+
+    //Traits
+    titansThunder: TitansThunder,
+
   };
 }
 
