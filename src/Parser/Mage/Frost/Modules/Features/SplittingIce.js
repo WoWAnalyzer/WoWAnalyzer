@@ -82,7 +82,7 @@ class SplittingIce extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(0);
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(10);
 
 }
 
