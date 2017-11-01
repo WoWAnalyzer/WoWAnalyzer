@@ -283,9 +283,10 @@ nav .menu-item a:hover {
   color: #e45a5a;
   text-decoration: none;
 }
-nav .menu .menu-item img {
+nav .menu .menu-item img, nav .menu .menu-item .icon {
   height: 2.2em;
   margin: -0.4em 0 -0.4em 0;
+  vertical-align: middle;
 }
 nav .github-link {
   float: right;

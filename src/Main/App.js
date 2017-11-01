@@ -12,6 +12,7 @@ import UnsupportedSpec from 'Parser/UnsupportedSpec/CONFIG';
 import './App.css';
 
 import GithubLogo from './Images/GitHub-Mark-Light-32px.png';
+import SettingsIcon from './Images/Settings';
 
 import Home from './Home';
 import FightSelecter from './FightSelecter';
@@ -534,10 +535,17 @@ class App extends Component {
           </div>
 
           <div className="flex-sub">
-            <div className="menu-item left-line">
-              <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">
-                <img src={GithubLogo} alt="GitHub logo" style={{ marginRight: 6 }} /> View on GitHub
-              </a>
+            <div className="menu">
+              <div className="menu-item left-line">
+                <a href="#settings">
+                  <SettingsIcon className="icon" style={{ height: '1.8em' }} /> Settings
+                </a>
+              </div>
+              <div className="menu-item">
+                <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">
+                  <img src={GithubLogo} alt="GitHub logo" style={{ marginRight: 6 }} /> View on GitHub
+                </a>
+              </div>
             </div>
           </div>
         </div>
