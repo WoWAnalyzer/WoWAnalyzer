@@ -12,11 +12,11 @@ class HardHowlingBlastCasts extends Analyzer {
     combatants: Combatants,
   };
 
-  rimeprocsCounter = 0;
-  rimedHBCounter = 0;
-  hardHBCounter = 0;
-  HardHowlingBlastCasts = 0;
-  nonrimedHBCounter = 0;
+  rimeProcs = 0;
+  castsWithRime = 0;
+  castsWithoutRime = 0;
+  hardHowlingBlastCasts = 0;
+  nonrimedHB = 0;
 
   on_initialized() {
   }
@@ -27,41 +27,28 @@ class HardHowlingBlastCasts extends Analyzer {
       return;
     }
     if (this.combatants.selected.hasBuff(SPELLS.RIME.id, event.timestamp)) {
-      this.rimedHBCounter += 1;
+      this.castsWithRime += 1;
     } else {
-      this.hardHBCounter += 1;
+      this.castsWithoutRime += 1;
     }
   }
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.RIME.id) {
-      this.rimeprocsCounter += 1;
+      this.rimeProcs += 1;
     }
   }
 
 
   statistic() {
-    this.nonrimedHBCounter = this.hardHBCounter;
+    this.nonrimedHB = this.castsWithoutRime;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.RIME.id} />}
-        value={this.nonrimedHBCounter}
+        value={this.nonrimedHB}
         label='Howling Blasts without Rime proc'
-        tooltip='You should aim to get this at 0.'
-
+        tooltip='You should aim to get this to 0.'
       />
-
-    );
- this.nonrimedHBCounter = this.hardHBCounter - this.rimedHBCounter;
-    return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.HOWLING_BLAST.id} />}
-        value={this.nonrimedHBCounter}
-        label='hard casted Howling Blast'
-        tooltip='You casted a Holwing Blast without a Rime proc.'
-
-      />
-
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(5);

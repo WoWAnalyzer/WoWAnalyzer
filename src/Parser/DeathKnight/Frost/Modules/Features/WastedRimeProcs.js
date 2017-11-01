@@ -2,7 +2,6 @@ import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-import SpellLink from 'common/SpellLink';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -13,10 +12,10 @@ class WastedRimeProcs extends Analyzer {
     combatants: Combatants,
   };
 
-  rimeprocsCounter = 0;
-  rimedHBCounter = 0;
-  hardHBCounter = 0;
-  WastedRimeProcs = 0;
+  rimeProcs = 0;
+  castsWithRime = 0;
+  castsWithoutRime = 0;
+  wastedRimeProcs = 0;
 
   on_initialized() {
   }
@@ -27,30 +26,28 @@ class WastedRimeProcs extends Analyzer {
       return;
     }
     if (this.combatants.selected.hasBuff(SPELLS.RIME.id, event.timestamp)) {
-      this.rimedHBCounter += 1;
+      this.castsWithRime += 1;
     } else {
-      this.hardHBCounter += 1;
+      this.castsWithoutRime += 1;
     }
   }
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.RIME.id) {
-      this.rimeprocsCounter += 1;
+      this.rimeProcs += 1;
     }
   }
 
 
   statistic() {
-    this.WastedRimeProcs = this.rimeprocsCounter - this.rimedHBCounter;
+    this.wastedRimeProcs = this.rimeProcs - this.castsWithRime;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.RIME.id} />}
-        value={this.WastedRimeProcs}
+        value={this.wastedRimeProcs}
         label='Wasted Rime Procs'
-        tooltip='You a rime proc go to waste'
-
+        tooltip='You let a rime proc go to waste'
       />
-
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(5);

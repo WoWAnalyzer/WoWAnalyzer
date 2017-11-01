@@ -20,12 +20,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
 
 
     // frost active talents
-    SPELLS.RUNIC_ATTENUATION_TALENT.id,
-    SPELLS.MURDEROUS_EFFICIENCY_TALENT.id,
-    SPELLS.ICECAP_TALENT.id,
-    SPELLS.WINTER_IS_COMING_TALENT.id,
-    SPELLS.INEXORABLE_ASSAULT_TALENT.id,
-    SPELLS.GATHERING_STORM_TALENT.id,
     SPELLS.OBLITERATION_TALENT.id,
 
     // shared abilities

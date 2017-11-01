@@ -11,7 +11,7 @@ export default {
 
   // When changing this please make a PR with ONLY this value changed, we will do a review of your analysis to find out of it is complete enough.
   completeness: SPEC_ANALYSIS_COMPLETENESS.NEEDS_MORE_WORK,
-  specDiscussionUrl: 'https://github.com/WoWAnalyzer/WoWAnalyzer/issues/601',
+  specDiscussionUrl: 'https://github.com/WoWAnalyzer/WoWAnalyzer/milestone/6',
   
   // Shouldn't have to change these:
   changelog: CHANGELOG,

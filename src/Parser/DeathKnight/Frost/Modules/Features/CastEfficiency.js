@@ -54,19 +54,19 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.OBLITERATE,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => 12/(1+haste), 
+      getCooldown: haste => null, 
       recommendedCastEfficiency: 0.90,
     },
     {
       spell: SPELLS.REMORSELESS_WINTER,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => 7.5 / (1+haste), 
+      getCooldown: haste => 20, 
       recommendedCastEfficiency: 0.90,
     },
     {
       spell: SPELLS.FROST_STRIKE,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => 7.5 / (1+haste), 
+      getCooldown: haste => null, 
       recommendedCastEfficiency: 0.90,
     },
   ];
