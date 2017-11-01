@@ -533,7 +533,7 @@ class App extends Component {
             </div>
           </div>
 
-          <div className="flex-sub hidden-xs hidden-sm">
+          <div className="flex-sub">
             <div className="menu-item left-line">
               <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">
                 <img src={GithubLogo} alt="GitHub logo" style={{ marginRight: 6 }} /> View on GitHub
