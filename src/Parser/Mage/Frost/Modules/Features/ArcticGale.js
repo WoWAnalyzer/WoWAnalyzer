@@ -39,7 +39,7 @@ class ArcticGale extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(0);
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(10);
 
   // TODO suggest when Arctic Gale damage is very low but non-zero?
   suggestions(when) {

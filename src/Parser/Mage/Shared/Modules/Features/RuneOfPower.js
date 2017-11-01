@@ -51,7 +51,7 @@ class RuneOfPower extends Analyzer {
       if(!casts) {
         return;
       }
-      
+
       const uptimeMs = this.combatants.selected.getBuffUptime(SPELLS.RUNE_OF_POWER_BUFF.id);
       const roundedSecondsPerCast = ((uptimeMs / casts) / 1000).toFixed(1);
 
@@ -77,7 +77,7 @@ class RuneOfPower extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(0);
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(100);
 }
 
 export default RuneOfPower;

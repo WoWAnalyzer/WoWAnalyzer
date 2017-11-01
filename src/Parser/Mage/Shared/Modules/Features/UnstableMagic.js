@@ -66,7 +66,7 @@ class UnstableMagic extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(0);
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(100);
 }
 
 export default UnstableMagic;

@@ -46,7 +46,7 @@ class IcicleTracker extends Analyzer {
         label="Icicles Wasted Per Minute" />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(2);
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(0);
 }
 
 export default IcicleTracker;
