@@ -236,13 +236,19 @@ hr {
   opacity: 1;
 }
 nav {
-  position: relative;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 999; /* 1000 is where modals start*/
   line-height: 40px;
   background: rgba(9, 20, 27, 0.8);
   background: linear-gradient(to bottom, rgba(14, 34, 41, 0.8) 0%, rgba(9, 20, 27, 0.8) 100%);
   border: 0;
   box-shadow: 2px 0 3px rgba(0,0,0,.5);
   margin-bottom: 24px;
+}
+body {
+  padding-top: 48px;
 }
 nav .menu {
   display: flex;
