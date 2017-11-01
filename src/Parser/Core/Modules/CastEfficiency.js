@@ -105,7 +105,7 @@ class CastEfficiency extends Analyzer {
       isActive: combatant => combatant.hasTrinket(ITEMS.TOME_OF_UNRAVELING_SANITY.id),
     },
     {
-      spell: SPELLS.VELENS_FUTURE_SIGHT,
+      spell: SPELLS.VELENS_FUTURE_SIGHT_BUFF,
       category: CastEfficiency.SPELL_CATEGORIES.ITEMS,
       getCooldown: haste => 75,
       isActive: combatant => combatant.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT.id),
