@@ -166,7 +166,7 @@ class BaseHealerStatWeights extends Analyzer {
   _leech(event, healVal) {
     const spellId = event.ability.guid;
     if (event.type !== 'heal') {
-      return; // leech doesn't proc from absorbs
+      return 0; // leech doesn't proc from absorbs
     }
 
     // We have to calculate leech weight differently depending on if we already have any leech rating.
