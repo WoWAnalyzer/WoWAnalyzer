@@ -30,6 +30,16 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.CONTROL_UNDEAD.id,
     SPELLS.RAISE_ALLY.id,
     SPELLS.WRAITH_WALK.id,
+
+    /*
+    the follow are off gcd abilities intentionally left out
+    Anti Magic Shell
+    Death Grip
+    Mind Freeze
+    Icebound Fortitude
+    Obliteration
+    Empower/hungering Rune Weapon
+    */
   ];
 
   suggestions(when) {
