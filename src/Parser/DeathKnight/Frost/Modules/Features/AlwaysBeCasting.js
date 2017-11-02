@@ -32,7 +32,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.WRAITH_WALK.id,
 
     /*
-    the follow are off gcd abilities intentionally left out
+    the following are off gcd abilities intentionally left out
     Anti Magic Shell
     Death Grip
     Mind Freeze
