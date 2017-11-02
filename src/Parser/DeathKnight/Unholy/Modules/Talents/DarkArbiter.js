@@ -5,13 +5,9 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class DarkArbiter extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
 
   darkArbiterActive = 0;
   totalDarkArbiterCasts = 0;
