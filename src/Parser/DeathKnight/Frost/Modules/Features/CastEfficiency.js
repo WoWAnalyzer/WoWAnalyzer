@@ -16,7 +16,7 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.SINDRAGOSAS_FURY_ARTIFACT,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
-      getCooldown: haste => 90,
+      getCooldown: haste => 300,
       recommendedCastEfficiency: 0.95,
       extraSuggestion: <span>Making sure to use <SpellLink id={SPELLS.SINDRAGOSAS_FURY_ARTIFACT.id}/> immediately after it's cooldown is up is important and if you have 5 stacks of <SpellLink id={SPELLS.RAZORICE.id}/> use as it is coming off cooldown.</span>,
     },
