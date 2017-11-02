@@ -15,24 +15,31 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.FROST_STRIKE.id,
     SPELLS.OBLITERATE.id,
     SPELLS.HOWLING_BLAST.id,
-    SPELLS.EMPOWER_RUNE_WEAPON.id,
     SPELLS.REMORSELESS_WINTER.id,
 
-
     // frost active talents
-    SPELLS.OBLITERATION_TALENT.id,
+    SPELLS.HORN_OF_WINTER_TALENT.id,
+    SPELLS.GLACIAL_ADVANCE_TALENT.id,
+    SPELLS.BLINDING_SLEET_TALENT.id,
+    SPELLS.FROSTSCYTHE_TALENT.id,
 
     // shared abilities
-    SPELLS.ANTI_MAGIC_SHELL.id,
     SPELLS.CHAINS_OF_ICE.id,
     SPELLS.DARK_COMMAND.id,
-    SPELLS.DEATH_GRIP.id,
-    SPELLS.MIND_FREEZE.id,
     SPELLS.DEATH_STRIKE.id,
-    SPELLS.ICEBOUND_FORTITUDE.id,
     SPELLS.CONTROL_UNDEAD.id,
     SPELLS.RAISE_ALLY.id,
     SPELLS.WRAITH_WALK.id,
+
+    /*
+    the following are off gcd abilities intentionally left out
+    Anti Magic Shell
+    Death Grip
+    Mind Freeze
+    Icebound Fortitude
+    Obliteration
+    Empower/hungering Rune Weapon
+    */
   ];
 
   suggestions(when) {
