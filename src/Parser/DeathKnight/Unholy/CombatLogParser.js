@@ -10,6 +10,8 @@ import FesteringStrike from './Modules/Features/FesteringStrike';
 import RunicPowerDetails from './Modules/RunicPower/RunicPowerDetails';
 import RunicPowerTracker from './Modules/RunicPower/RunicPowerTracker';
 
+import DarkArbiter from './Modules/Talents/DarkArbiter';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core
@@ -22,10 +24,14 @@ class CombatLogParser extends CoreCombatLogParser {
     virulentPlagueUptime: VirulentPlagueUptime, 
     festeringStrike: FesteringStrike,
 
-      // RunicPower
-      runicPowerTracker: RunicPowerTracker,
-      runicPowerDetails: RunicPowerDetails,
+    // RunicPower
+    runicPowerTracker: RunicPowerTracker,
+    runicPowerDetails: RunicPowerDetails,
+
+    // talents
+    darkArbiter: DarkArbiter,
   };
 }
 
 export default CombatLogParser;
+	
