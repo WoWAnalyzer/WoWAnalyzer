@@ -8,6 +8,8 @@ import FrostFeverUptime from './Modules/Features/FrostFeverUptime';
 import WastedRimeProcs from './Modules/Features/WastedRimeProcs';
 import HardHowlingBlastCasts from './Modules/Features/HardHowlingBlastCasts';
 
+import ColdHeart from './Modules/Items/Legendaries/ColdHeart';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core
@@ -24,6 +26,9 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // PROCS
     WastedRimeProcs: WastedRimeProcs,
+
+    //Items
+    coldHeart: ColdHeart,
   };
 }
 
