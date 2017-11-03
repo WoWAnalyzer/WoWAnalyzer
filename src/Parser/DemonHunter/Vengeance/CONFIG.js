@@ -28,7 +28,7 @@ export default {
 		</div>
 	),
   completeness: SPEC_ANALYSIS_COMPLETENESS.GREAT, // When changing this please make a PR with ONLY this value changed, we will do a review of your analysis to find out of it is complete enough.
-	specDiscussionUrl: 'https://github.com/WoWAnalyzer/WoWAnalyzer/issues/230',
+  specDiscussionUrl: 'https://github.com/WoWAnalyzer/WoWAnalyzer/milestone/7',
   changelog: CHANGELOG,
   parser: CombatLogParser,
   path: __dirname, // used for generating a GitHub link directly to your spec
