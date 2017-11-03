@@ -23,6 +23,7 @@ import IcyVeins from './Modules/Cooldowns/IcyVeins';
 import ShardOfTheExodar from '../Shared/Modules/Items/ShardOfTheExodar';
 import Tier20_2set from './Modules/Items/Tier20_2set';
 import ZannesuJourney from './Modules/Items/ZannesuJourney';
+import IceTime from './Modules/Items/IceTime';
 import MagtheridonsBanishedBracers from './Modules/Items/MagtheridonsBanishedBracers';
 import ShatteredFragmentsOfSindragosa from './Modules/Items/ShatteredFragmentsOfSindragosa';
 import SoulOfTheArchmage from './Modules/Items/SoulOfTheArchmage';
@@ -57,6 +58,7 @@ class CombatLogParser extends CoreCombatLogParser {
 	  tier20_2set: Tier20_2set,
 	  shardOfTheExodar: ShardOfTheExodar,
     zannesuJourney: ZannesuJourney,
+    iceTime: IceTime,
     magtheridonsBanishedBracers: MagtheridonsBanishedBracers,
     shatteredFragmentsOfSindragosa: ShatteredFragmentsOfSindragosa,
     soulOfTheArchmage: SoulOfTheArchmage,
