@@ -9,7 +9,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 import Atonement from '../Spells/Atonement';
 
-const DEBUG = true;
+const DEBUG = false;
 
 class Estel extends Analyzer {
   static dependencies = {
@@ -26,8 +26,8 @@ class Estel extends Analyzer {
                              0, 0, 0, 0, 0,
                              0, 0, 0, 0, 0,
                              0, 0, 0, 0, 0];
-  lastBuffTimestampA = 0;
-  lastHasteValueA = 0;
+  lastBuffTimestamp = 0;
+  lastHasteValue = 0;
 
   avgHaste = 0;
 
@@ -44,8 +44,8 @@ class Estel extends Analyzer {
 
     if (spellId === SPELLS.ESTEL_DEJAHNAS_INSPIRATION_BUFF.id) {
       console.log(`num atonements found: ${this.atonementModule.numAtonementsActive}`);
-      this.lastHasteValueA = this.atonementModule.numAtonementsActive;
-      this.lastBuffTimestampA = event.timestamp;
+      this.lastHasteValue = this.atonementModule.numAtonementsActive;
+      this.lastBuffTimestamp = event.timestamp;
     }
   }
 
@@ -53,10 +53,10 @@ class Estel extends Analyzer {
     const spellId = event.ability.guid;
 
     if (spellId === SPELLS.ESTEL_DEJAHNAS_INSPIRATION_BUFF.id) {
-      const oldTime = this._timePerHastePercentage[this.lastHasteValueA];
-      this._timePerHastePercentage[this.lastHasteValueA] = oldTime + (event.timestamp - this.lastBuffTimestampA);
-      this.lastHasteValueA = 0;
-      this.lastBuffTimestampA = event.timestamp;
+      const oldTime = this._timePerHastePercentage[this.lastHasteValue];
+      this._timePerHastePercentage[this.lastHasteValue] = oldTime + (event.timestamp - this.lastBuffTimestamp);
+      this.lastHasteValue = 0;
+      this.lastBuffTimestamp = event.timestamp;
     }
   }
 
