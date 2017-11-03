@@ -80,7 +80,7 @@ class App extends Component {
   getPlayerFromReport(report, playerName) {
     const fetchByNameAttempt = report.friendlies.find(friendly => friendly.name === playerName);
     if (!fetchByNameAttempt) {
-      return report.friendlies.find(friendly => friendly.id === parseInt(playerName, 10));
+      return report.friendlies.find(friendly => friendly.id === Number(playerName, 10));
     }
     return fetchByNameAttempt;
   }
