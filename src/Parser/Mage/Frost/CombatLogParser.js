@@ -3,7 +3,7 @@ import DamageDone from 'Parser/Core/Modules/DamageDone';
 
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
-import CooldownTracker from './Modules/Features/CooldownTracker';
+import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import WintersChillTracker from './Modules/Features/WintersChill';
 import BrainFreeze from './Modules/Features/BrainFreeze';
 import IceLance from './Modules/Features/IceLance';
@@ -35,7 +35,7 @@ class CombatLogParser extends CoreCombatLogParser {
     castEfficiency: CastEfficiency,
     alwaysBeCasting: AlwaysBeCasting,
     cancelledCasts: CancelledCasts,
-    cooldownTracker: CooldownTracker,
+    cooldownThroughputTracker: CooldownThroughputTracker,
 	  wintersChillTracker: WintersChillTracker,
 	  brainFreeze: BrainFreeze,
     iceLance: IceLance,

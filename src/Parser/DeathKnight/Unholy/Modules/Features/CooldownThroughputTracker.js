@@ -1,32 +1,21 @@
-import CoreCooldownTracker, { BUILT_IN_SUMMARY_TYPES } from 'Parser/Core/Modules/CooldownTracker';
+import CoreCooldownThroughputTracker, { BUILT_IN_SUMMARY_TYPES } from 'Parser/Core/Modules/CooldownThroughputTracker';
 
 import SPELLS from 'common/SPELLS';
 
 const debug = false;
 
-class CooldownTracker extends CoreCooldownTracker {
+class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
-    ...CooldownTracker.cooldownSpells,
-    {
-      spell: SPELLS.ICY_VEINS,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.DAMAGE,
-      ],
-    },
-    {
-      spell: SPELLS.RUNE_OF_POWER_TALENT,
-      duration: 10,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.DAMAGE,
-      ],
-    },
+    ...CooldownThroughputTracker.cooldownSpells,
+    // if im understanding correctly CooldownThroughputTracker tracks all abilities cast during the duration of some CD that buffs you in some way, (ex Battle Cry, Pillar of Frost)
+    // Unholy's CDs are all based around summons so nothing goes here
   ];
 
   static castCooldowns = [
-
     {
-      spell: SPELLS.MIRROR_IMAGE_TALENT,
-      duration: 40,
+      spell: SPELLS.DARK_ARBITER_TALENT,
+      // tooltip duration is 20 seconds but with the way she works we want to capture 22 seconds
+      duration: 22,
       summary: [
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],
@@ -68,4 +57,4 @@ class CooldownTracker extends CoreCooldownTracker {
   }
 }
 
-export default CooldownTracker;
+export default CooldownThroughputTracker;

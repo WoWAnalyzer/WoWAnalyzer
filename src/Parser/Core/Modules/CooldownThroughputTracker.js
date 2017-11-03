@@ -18,7 +18,7 @@ export const BUILT_IN_SUMMARY_TYPES = {
   DAMAGE: 'DAMAGE',
 };
 
-class CooldownTracker extends Analyzer {
+class CooldownThroughputTracker extends Analyzer {
   static cooldownSpells = [
     {
       spell: SPELLS.INNERVATE,
@@ -48,7 +48,7 @@ class CooldownTracker extends Analyzer {
 
   static ignoredSpells = [
     // general spells that you don't want to see in the Cooldown overview (could be boss mechanics etc.) should belong here
-    // if you want to add some spells specific to your spec, redefine this array in your spec CooldownTracker similarly to cooldownSpells (see Marksmanship Hunter for example)
+    // if you want to add some spells specific to your spec, redefine this array in your spec CooldownThroughputTracker similarly to cooldownSpells (see Marksmanship Hunter for example)
     SPELLS.ASTRAL_VULNERABILITY.id,
     SPELLS.ANNIHILATION_TRILLIAX.id,
   ];
@@ -139,4 +139,4 @@ class CooldownTracker extends Analyzer {
   }
 }
 
-export default CooldownTracker;
+export default CooldownThroughputTracker;
