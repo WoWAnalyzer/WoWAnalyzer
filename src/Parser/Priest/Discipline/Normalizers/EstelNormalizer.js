@@ -2,61 +2,45 @@ import EventsNormalizer from 'Parser/Core/EventsNormalizer';
 
 import SPELLS from 'common/SPELLS';
 
-const MAX_DELAY = 50;
-
 class EstelNormalizer extends EventsNormalizer {
 
   normalize(events) {
 
     const fixedEvents = [];
-    const _buffEventIndexes = [];
+    const _pendingBuffEvents = [];
+
+    let haveOpenBuff = false;
 
     events.forEach((event, eventIndex) => {
 
-      fixedEvents.push(event);
+      if ((event.sourceID === event.targetID) 
+          && (event.ability.guid === SPELLS.ESTEL_DEJAHNAS_INSPIRATION_BUFF.id)) {
 
-      // if ((event.sourceID === event.targetID) 
-      //     && (event.ability.guid === SPELLS.ESTEL_DEJAHNAS_INSPIRATION_BUFF.id)
-      //     && (event.type === "applybuff")) {
-      //   _buffEventIndexes.push(eventIndex);
-      //   return;
-      // }
-
-      // if we haven't closed the buff-removal pair, push the new one down the line
-      if ((_buffEventIndexes.length > 0) 
-          && (event.sourceID === event.targetID) 
-          && (event.ability.guid === SPELLS.ESTEL_DEJAHNAS_INSPIRATION_BUFF.id)
-          && (event.type === "removebuff")) {
-
-        const castTimestamp = event.timestamp;
-        
-        // Loop through the event history in reverse to detect if there was buff application just before it's removal
-        for (let previousEventIndex = eventIndex; previousEventIndex >= 0; previousEventIndex -= 1) {
-          const previousEvent = fixedEvents[previousEventIndex];
-          if ((castTimestamp - previousEvent.timestamp) > MAX_DELAY) {
-            break;
+        if (haveOpenBuff) {
+          if ((event.type) === "applybuff") {
+            _pendingBuffEvents.push(event);
+          } else if ((event.type === "removebuff") && (_pendingBuffEvents.length > 0)) {   
+            const oldestBuffEvent = _pendingBuffEvents.splice(0, 1)[0];
+            fixedEvents.push(event);
+            fixedEvents.push(oldestBuffEvent);
+            if (_pendingBuffEvents.length === 0) {
+              haveOpenBuff = false;
+            } 
+          } else if (event.type === "removebuff") {
+            haveOpenBuff = false;
+            fixedEvents.push(event);
           }
-          if (previousEvent.type === 'applybuff' && previousEvent.ability.guid === SPELLS.ESTEL_DEJAHNAS_INSPIRATION_BUFF.id && previousEvent.sourceID === event.sourceID) {
-            fixedEvents.splice(previousEventIndex, 1);
-            fixedEvents.push(previousEvent);
-            previousEvent.__modified = true;
-            break; // I haven't seen a log with multiple `heal` events before the `cast` yet
+        } else {
+          if ((event.type) === "applybuff") {
+            haveOpenBuff = true;
+            fixedEvents.push(event);
+          } else if (event.type === "removebuff") {
+            // I have never seen this case.
           }
         }
+      } else {
+        fixedEvents.push(event);
       }
-
-      // if ((event.sourceID === event.targetID) 
-      //     && (event.ability.guid === SPELLS.ESTEL_DEJAHNAS_INSPIRATION_BUFF.id)
-      //     && (event.type === "removebuff")) {
-      //   if ((_buffEventIndexes.length > 0)) {
-      //     const e = _buffEventIndexes.splice(0, 1);
-      //     fixedEvents.splice(fixedEvents.length - 1, 0, e)
-      //   } else {
-      //     // if we get a remove buff with no application.... kick it down the line?
-      //     // fixedEvents.splice(fixedEvents.length - 1, 0, event.)
-      //   }
-      //   return;
-      // }
 
     });
     return fixedEvents;
