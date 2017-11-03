@@ -1,9 +1,3 @@
-import React from 'react';
-
-import SuggestionsTab from 'Main/SuggestionsTab';
-import Tab from 'Main/Tab';
-import Talents from 'Main/Talents';
-
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
@@ -63,32 +57,6 @@ class CombatLogParser extends CoreCombatLogParser {
     t20_2pc: T20_2pc,
     t20_4pc: T20_4pc,
   };
-
-  generateResults() {
-    const results = super.generateResults();
-
-    results.tabs = [
-      {
-        title: 'Suggestions',
-        url: 'suggestions',
-        render: () => (
-          <SuggestionsTab issues={results.issues} />
-        ),
-      },
-      {
-        title: 'Talents',
-        url: 'talents',
-        render: () => (
-          <Tab title="Talents">
-            <Talents combatant={this.modules.combatants.selected} />
-          </Tab>
-        ),
-      },
-      ...results.tabs,
-    ];
-
-    return results;
-  }
 }
 
 export default CombatLogParser;

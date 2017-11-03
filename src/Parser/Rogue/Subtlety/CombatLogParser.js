@@ -5,13 +5,9 @@ import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import StatisticBox from 'Main/StatisticBox';
-import SuggestionsTab from 'Main/SuggestionsTab';
-import Tab from 'Main/Tab';
-import Talents from 'Main/Talents';
 
 import ShadowDance from './Modules/Features/ShadowDance';
 import CastEfficiency from './Modules/Features/CastEfficiency';
-
 
 function formatThousands(number) {
   return (`${Math.round(number || 0)}`).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
@@ -42,27 +38,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     const fightDuration = this.fightDuration;
 
-
-    results.tabs = [
-      {
-        title: 'Suggestions',
-        url: 'suggestions',
-        render: () => (
-          <SuggestionsTab issues={results.issues} />
-        ),
-      },
-      {
-        title: 'Talents',
-        url: 'talents',
-        render: () => (
-          <Tab title="Talents">
-            <Talents combatant={this.modules.combatants.selected} />
-          </Tab>
-        ),
-      },
-      ...results.tabs,
-    ];
-
     results.statistics = [
       <StatisticBox
         icon={<Icon icon="class_rogue" alt="Damage Per Second" />}
@@ -73,7 +48,6 @@ class CombatLogParser extends CoreCombatLogParser {
           </dfn>
         )}
       />,
-
       <StatisticBox
         icon={<SpellIcon id={SPELLS.SHADOW_BLADES.id} />}
         value={`${formatPercentage((this.modules.combatants.selected.getBuffUptime(SPELLS.SHADOW_BLADES.id) / this.fightDuration))} %`}

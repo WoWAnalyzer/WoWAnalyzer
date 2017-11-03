@@ -1,3 +1,9 @@
+import React from 'react';
+
+import SuggestionsTab from 'Main/SuggestionsTab';
+import Tab from 'Main/Tab';
+import Talents from 'Main/Talents';
+
 import { formatNumber, formatPercentage } from 'common/format';
 
 import ApplyBuffNormalizer from './Normalizers/ApplyBuff';
@@ -79,7 +85,7 @@ import EventsNormalizer from './EventsNormalizer';
 
 const debug = false;
 
-let _modulesDeprectatedWarningSent = false;
+let _modulesDeprecatedWarningSent = false;
 
 class CombatLogParser {
   static abilitiesAffectedByHealingIncreases = [];
@@ -171,9 +177,9 @@ class CombatLogParser {
 
   _modules = {};
   get modules() {
-    if (!_modulesDeprectatedWarningSent) {
-      console.error('Using `this.owner.modules` is deprectated. You should add the module you want to use as a dependency and use the property that\'s added to your module instead.');
-      _modulesDeprectatedWarningSent = true;
+    if (!_modulesDeprecatedWarningSent) {
+      console.error('Using `this.owner.modules` is deprecated. You should add the module you want to use as a dependency and use the property that\'s added to your module instead.');
+      _modulesDeprecatedWarningSent = true;
     }
     return this._modules;
   }
@@ -375,6 +381,25 @@ class CombatLogParser {
 
   generateResults() {
     const results = new ParseResults();
+
+    results.tabs = [
+      {
+        title: 'Suggestions',
+        url: 'suggestions',
+        render: () => (
+          <SuggestionsTab issues={results.issues} />
+        ),
+      },
+      {
+        title: 'Talents',
+        url: 'talents',
+        render: () => (
+          <Tab title="Talents">
+            <Talents combatant={this.modules.combatants.selected} />
+          </Tab>
+        ),
+      },
+    ];
 
     this.activeModules
       .sort((a, b) => b.priority - a.priority)

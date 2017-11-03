@@ -27,6 +27,10 @@ class Overload extends Analyzer {
 
     this.spells = [
       this.getHits(SPELLS.LAVA_BURST_OVERLOAD.id, SPELLS.LAVA_BURST.id),
+      this.getHits(SPELLS.LIGHTNING_BOLT_OVERLOAD_HIT.id, SPELLS.LIGHTNING_BOLT.id),
+      this.getHits(SPELLS.CHAIN_LIGHTNING_OVERLOAD.id, SPELLS.CHAIN_LIGHTNING.id),
+      this.hasElementalBlast && this.getHits(SPELLS.ELEMENTAL_BLAST_OVERLOAD.id, SPELLS.ELEMENTAL_BLAST_TALENT.id),
+      this.hasIcefury && this.getHits(SPELLS.ICEFURY_OVERLOAD.id, SPELLS.ICEFURY_TALENT.id),
     ];
   }
 
@@ -57,8 +61,7 @@ class Overload extends Analyzer {
   renderOverloads(spell) {
     return (
       spell &&
-      <li>
-        {`${spell.overloads} / ${spell.normal}` }{' '}
+      <li key={spell.id}>
         <SpellIcon
           id={spell.id}
           style={{
@@ -66,6 +69,9 @@ class Overload extends Analyzer {
             marginTop: '-.1em',
           }}
         />
+        <span style={{display: 'inline-block', textAlign: 'left', marginLeft: '0.5em'}}>
+          {`${spell.overloads} / ${spell.normal}`}
+        </span>
       </li>
     );
   }
@@ -76,9 +82,9 @@ class Overload extends Analyzer {
         alignIcon='flex-start'
         icon={<SpellIcon id={SPELLS.ELEMENTAL_MASTERY.id} />}
         value={(
-          <ul style={{listStyle: 'none'}}>
+          <ul style={{listStyle: 'none', paddingLeft: 0}}>
             {
-              this.spells.filter(spell => spell && spell.normal > 0).map(spell => {
+              this.spells.map(spell => {
                 return this.renderOverloads(spell);
               })
             }

@@ -55,7 +55,7 @@ class ExpandableStatisticBox extends React.PureComponent {
               <div className="flex-sub">
                 {this.state.icon}
               </div>
-              <div className="flex-main text-right">
+              <div className="flex-main" style={{ paddingLeft: 16 }}>
                 <div className="value">
                   {this.state.value}
                 </div>

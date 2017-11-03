@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import PatreonButton from './PatreonButton';
-import GithubButton from './GithubButton';
 import DiscordButton from './DiscordButton';
 
 class ReportSelecter extends Component {
@@ -78,10 +77,9 @@ class ReportSelecter extends Component {
                   Analyze <span className="glyphicon glyphicon-chevron-right" aria-hidden />
                 </button>
               </div>
-              <div className="col-md-12 col-lg-4 external-links">
+              <div className="col-md-12 col-lg-4 external-links text-right">
                 <DiscordButton />
                 <PatreonButton />
-                <GithubButton />
               </div>
             </div>
           </div>

@@ -13,18 +13,8 @@ import SPELLS from 'common/SPELLS';
  * ignored: spell should be ignored for purpose of stat weights
  */
 
-const DEFAULT_INFO = { // we assume unlisted spells scale with vers only (this will mostly be trinkets)
-  int: false,
-  crit: false,
-  hasteHpm: false,
-  hasteHpct: false,
-  mastery: false,
-  masteryStack: false,
-  vers: true,
-};
-
 // This only works with actual healing events; casts are not recognized.
-export const HEAL_INFO = {
+export default {
   [SPELLS.HOLY_SHOCK_HEAL.id]: {
     int: true,
     crit: true,
@@ -102,29 +92,9 @@ export const HEAL_INFO = {
     mastery: false, // confirmed many times this doesn't scale with Mastery
     vers: true,
   },
-  [SPELLS.LIGHTS_EMBRACE_HEALING.id]: { // Sea Star of the Depthmother
-    int: false,
-    crit: true,
-    hasteHpct: true, // until LoD's CD is below 8 sec, this speeds up the deck cycle time
-    mastery: false,
-    vers: true,
-  },
-  [SPELLS.GUIDING_HAND.id]: { // The Deceiver's Grand Design
-    int: false,
-    crit: true,
-    hasteHpct: false, // static CD
-    mastery: false,
-    vers: true,
-  },
   [SPELLS.AURA_OF_SACRIFICE_HEAL.id]: {
     ignored: true, // I'd like this to be temporary but it's a hard problem to solve so this is probably going to stay for many code-years
     multiplier: true, // This multiplies heals and is inconsistent. Don't include in the value for rating per 1%
-  },
-  [SPELLS.LEECH.id]: { // procs a percent of all your healing, so we ignore for weights and total healing
-    multiplier: true,
-  },
-  [SPELLS.VELENS_FUTURE_SIGHT.id]: { // while active procs from any healing, so we ignore for weights and total healing
-    multiplier: true,
   },
   [SPELLS.OBSIDIAN_STONE_SPAULDERS_HEAL.id]: {
     ignored: true,
@@ -137,15 +107,3 @@ export const HEAL_INFO = {
     ignored: true,
   },
 };
-
-const mentioned = [];
-export function getSpellInfo(id, name = null) {
-  if (process.env.NODE_ENV === 'development') {
-    if (!HEAL_INFO[id] && !mentioned.includes(id)) {
-      console.warn(`Missing spell definition: ${id}: ${name}, assuming it's only affected by Versatility`);
-      mentioned.push(id);
-    }
-  }
-
-  return HEAL_INFO[id] || DEFAULT_INFO;
-}

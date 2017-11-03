@@ -1,8 +1,6 @@
 import React from 'react';
 
-import SuggestionsTab from 'Main/SuggestionsTab';
 import Tab from 'Main/Tab';
-import Talents from 'Main/Talents';
 import Mana from 'Main/Mana';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
@@ -35,6 +33,7 @@ import TarnishedSentinelMedallion from './Modules/Items/TarnishedSentinelMedalli
 import MarchOfTheLegion from './Modules/Items/MarchOfTheLegion';
 import Tier20_2set from './Modules/Items/Tier20_2set';
 import Tier20_4set from './Modules/Items/Tier20_4set';
+import Tier21_2set from './Modules/Items/Tier21_2set';
 import Estel from './Modules/Items/Estel';
 
 import TwistOfFate from './Modules/Spells/TwistOfFate';
@@ -87,6 +86,7 @@ class CombatLogParser extends CoreCombatLogParser {
     marchOfTheLegion: MarchOfTheLegion,
     tier20_2set: Tier20_2set,
     tier20_4set: Tier20_4set,
+    tier21_2set: Tier21_2set,
     estel: Estel,
 
     // Spells (talents and traits):
@@ -102,22 +102,7 @@ class CombatLogParser extends CoreCombatLogParser {
     const results = super.generateResults();
 
     results.tabs = [
-      {
-        title: 'Suggestions',
-        url: 'suggestions',
-        render: () => (
-          <SuggestionsTab issues={results.issues} />
-        ),
-      },
-      {
-        title: 'Talents',
-        url: 'talents',
-        render: () => (
-          <Tab title="Talents">
-            <Talents combatant={this.modules.combatants.selected} />
-          </Tab>
-        ),
-      },
+      ...results.tabs,
       {
         title: 'Mana',
         url: 'mana',
@@ -127,7 +112,6 @@ class CombatLogParser extends CoreCombatLogParser {
           </Tab>
         ),
       },
-      ...results.tabs,
     ];
 
     return results;

@@ -1,7 +1,7 @@
 export default [
   '',
+  'LFR', // confirmed
   '',
-  'LFR',
   'Normal',
   'Heroic',
   'Mythic',

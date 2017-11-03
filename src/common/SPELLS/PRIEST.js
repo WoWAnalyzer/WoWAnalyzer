@@ -187,6 +187,11 @@ export default {
     name: 'T20 4 Set Bonus',
     icon: 'spell_holy_penance',
   },
+  DISC_PRIEST_T21_2SET_BONUS_PASSIVE: {
+    id: 251843,
+    name: 'T21 2 Set Bonus',
+    icon: 'ability_priest_ascension',
+  },  
   KAM_XIRAFF_BUFF: {
     id: 233997,
     name: 'Kam Xi\'raff',

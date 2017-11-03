@@ -23,26 +23,30 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
 
     // unholy active talents
     SPELLS.EPIDEMIC_TALENT.id,
-    SPELLS.BLIGHTED_RUNE_WEAPON_TALENT.id,
     SPELLS.CLAWING_SHADOWS_TALENT.id,
     SPELLS.ASPHYXIATE_TALENT.id,
-    SPELLS.CORPSE_SHIELD_TALENT.id,
     SPELLS.DARK_ARBITER_TALENT.id,
     SPELLS.DEFILE_TALENT.id,
     SPELLS.SOUL_REAPER_TALENT.id,
 
     // shared abilities
-    SPELLS.ANTI_MAGIC_SHELL.id,
     SPELLS.CHAINS_OF_ICE.id,
     SPELLS.DARK_COMMAND.id,
-    SPELLS.DEATH_GRIP.id,
-    SPELLS.MIND_FREEZE.id,
     SPELLS.DEATH_AND_DECAY.id,
     SPELLS.DEATH_STRIKE.id,
-    SPELLS.ICEBOUND_FORTITUDE.id,
     SPELLS.CONTROL_UNDEAD.id,
     SPELLS.RAISE_ALLY.id,
     SPELLS.WRAITH_WALK.id,
+
+    /*
+    the following are off gcd abilities intentionally left out
+    Anti Magic Shell
+    Death Grip
+    Mind Freeze
+    Icebound Fortitude
+    Blighted Rune Weapon
+    Corpse Shield
+    */
   ];
 
   suggestions(when) {

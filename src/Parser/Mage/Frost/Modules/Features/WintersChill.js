@@ -135,23 +135,23 @@ class WintersChillTracker extends Analyzer {
         icon={<SpellIcon id={SPELLS.WINTERS_CHILL.id} />}
         value={(
           <span>
-            {formatPercentage(icelanceUtil, 0)}{'% '}
             <SpellIcon
               id={SPELLS.ICE_LANCE_CAST.id}
               style={{
-                height: '1.3em',
-                marginTop: '-.1em',
+                height: '1.2em',
+                marginBottom: '.15em',
               }}
             />
-            {' '}
-            {formatPercentage(frostboltUtil, 0)}{'% '}
+            {' '}{formatPercentage(icelanceUtil, 0)}{' %'}
+            <br />
             <SpellIcon
               id={SPELLS.FROSTBOLT.id}
               style={{
-                height: '1.3em',
-                marginTop: '-.1em',
+                height: '1.2em',
+                marginBottom: '.15em',
               }}
             />
+            {' '}{formatPercentage(frostboltUtil, 0)}{' %'}
           </span>
         )}
         label="Winter's Chill Utilization"
@@ -159,7 +159,7 @@ class WintersChillTracker extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(2);
+  statisticOrder = STATISTIC_ORDER.CORE(14);
 }
 
 export default WintersChillTracker;
