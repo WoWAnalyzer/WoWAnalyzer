@@ -1,12 +1,12 @@
-import CoreCooldownTracker, { BUILT_IN_SUMMARY_TYPES } from 'Parser/Core/Modules/CooldownTracker';
+import CoreCooldownThroughputTracker, { BUILT_IN_SUMMARY_TYPES } from 'Parser/Core/Modules/CooldownThroughputTracker';
 
 import SPELLS from 'common/SPELLS';
 
 const debug = false;
 
-class CooldownTracker extends CoreCooldownTracker {
+class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
-    ...CooldownTracker.cooldownSpells,
+    ...CooldownThroughputTracker.cooldownSpells,
     {
       spell: SPELLS.COMBUSTION,
       summary: [
@@ -22,7 +22,6 @@ class CooldownTracker extends CoreCooldownTracker {
   ];
 
   static castCooldowns = [
-
     {
       spell: SPELLS.MIRROR_IMAGE_TALENT,
       duration: 40,
@@ -67,4 +66,4 @@ class CooldownTracker extends CoreCooldownTracker {
   }
 }
 
-export default CooldownTracker;
+export default CooldownThroughputTracker;

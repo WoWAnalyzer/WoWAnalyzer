@@ -78,7 +78,11 @@ class App extends Component {
   }
 
   getPlayerFromReport(report, playerName) {
-    return report.friendlies.find(friendly => friendly.name === playerName);
+    const fetchByNameAttempt = report.friendlies.find(friendly => friendly.name === playerName);
+    if (!fetchByNameAttempt) {
+      return report.friendlies.find(friendly => friendly.id === Number(playerName, 10));
+    }
+    return fetchByNameAttempt;
   }
   getPlayerPetsFromReport(report, playerId) {
     return report.friendlyPets.filter(pet => pet.petOwner === playerId);
@@ -108,11 +112,26 @@ class App extends Component {
     };
   }
 
-  handleReportSelecterSubmit(code) {
-    console.log('Selected report:', code);
+  handleReportSelecterSubmit(reportInfo) {
+    console.log('Selected report:', reportInfo['code']);
+    console.log('Selected fight:', reportInfo['fight']);
+    console.log('Selected player:', reportInfo['player']);
 
-    this.props.router.push(`report/${code}`);
+    if (reportInfo['code']) {
+      let constructedUrl = `report/${reportInfo['code']}`;
+      
+      if (reportInfo['fight']) {
+        constructedUrl += `/${reportInfo['fight']}`;
+        
+        if (reportInfo['player']) {
+          constructedUrl += `/${reportInfo['player']}`;
+        }
+      }
+
+      this.props.router.push(constructedUrl);
+    }
   }
+
   handleRefresh() {
     this.fetchReport(this.reportCode, true);
   }

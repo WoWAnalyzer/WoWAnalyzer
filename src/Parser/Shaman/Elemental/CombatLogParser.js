@@ -13,7 +13,7 @@ import DamageDone from 'Parser/Core/Modules/DamageDone';
 import Maelstrom from './Modules/Features/Maelstrom/Maelstrom';
 
 import CastEfficiency from './Modules/Features/CastEfficiency';
-import CooldownTracker from './Modules/Features/CooldownTracker';
+import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import ProcTracker from './Modules/Features/ProcTracker';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import Overload from './Modules/Features/Overload';
@@ -46,7 +46,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Features
     castEfficiency: CastEfficiency,
     alwaysBeCasting: AlwaysBeCasting,
-    cooldownTracker: CooldownTracker,
+    cooldownThroughputTracker: CooldownThroughputTracker,
     procTracker: ProcTracker,
     flameShock: FlameShock,
     overload: Overload,

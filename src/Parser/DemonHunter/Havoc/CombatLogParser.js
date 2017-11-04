@@ -3,7 +3,7 @@ import DamageDone from 'Parser/Core/Modules/DamageDone';
 
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CastEfficiency from './Modules/Features/CastEfficiency';
-import CooldownTracker from './Modules/Features/CooldownTracker';
+import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 
 import Momentum from './Modules/Statistics/Spells/Momentum';
 import Nemesis from './Modules/Statistics/Spells/Nemesis';
@@ -16,7 +16,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     castEfficiency: CastEfficiency,
-    cooldownTracker: CooldownTracker,
+    cooldownThroughputTracker: CooldownThroughputTracker,
 
     // Spells
     momentum: Momentum,

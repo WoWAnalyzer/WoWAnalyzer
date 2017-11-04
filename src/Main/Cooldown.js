@@ -6,7 +6,7 @@ import SpellIcon from 'common/SpellIcon';
 import Icon from 'common/Icon';
 import { formatThousands, formatNumber, formatPercentage, formatDuration } from 'common/format';
 
-import { BUILT_IN_SUMMARY_TYPES } from 'Parser/Core/Modules/CooldownTracker';
+import { BUILT_IN_SUMMARY_TYPES } from 'Parser/Core/Modules/CooldownThroughputTracker';
 
 import './Cooldown.css';
 

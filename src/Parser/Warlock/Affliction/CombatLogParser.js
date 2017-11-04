@@ -3,7 +3,7 @@ import DamageDone from 'Parser/Core/Modules/DamageDone';
 
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
-import CooldownTracker from './Modules/Features/CooldownTracker';
+import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 
 import AgonyUptime from './Modules/Features/AgonyUptime';
 import CorruptionUptime from './Modules/Features/CorruptionUptime';
@@ -39,7 +39,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Features
     castEfficiency: CastEfficiency,
     alwaysBeCasting: AlwaysBeCasting,
-    cooldownTracker: CooldownTracker,
+    cooldownThroughputTracker: CooldownThroughputTracker,
     damageDone: [DamageDone, { showStatistic: true }],
     fatalEchoes: FatalEchoes,
     sniping: Sniping,
