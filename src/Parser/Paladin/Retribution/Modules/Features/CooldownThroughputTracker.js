@@ -1,11 +1,11 @@
 import SPELLS from 'common/SPELLS';
-import CoreCooldownTracker, { BUILT_IN_SUMMARY_TYPES } from 'Parser/Core/Modules/CooldownTracker';
+import CoreCooldownThroughputTracker, { BUILT_IN_SUMMARY_TYPES } from 'Parser/Core/Modules/CooldownThroughputTracker';
 
 const debug = false;
 
-class CooldownTracker extends CoreCooldownTracker {
+class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
-    ...CooldownTracker.cooldownSpells,
+    ...CooldownThroughputTracker.cooldownSpells,
     {
       spell: SPELLS.AVENGING_WRATH,
       summary: [
@@ -26,7 +26,7 @@ class CooldownTracker extends CoreCooldownTracker {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (this.castEventSpells.indexOf(spellId) !== -1) {
+    if (this.castEventSpells.includes(spellId)) {
       debug && console.log('Exiting');
       return;
     }
@@ -34,4 +34,4 @@ class CooldownTracker extends CoreCooldownTracker {
   }
 }
 
-export default CooldownTracker;
+export default CooldownThroughputTracker;

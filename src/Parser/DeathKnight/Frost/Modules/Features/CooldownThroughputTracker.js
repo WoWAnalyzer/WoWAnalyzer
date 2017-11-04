@@ -1,60 +1,21 @@
-import CoreCooldownTracker, { BUILT_IN_SUMMARY_TYPES } from 'Parser/Core/Modules/CooldownTracker';
+import CoreCooldownThroughputTracker, { BUILT_IN_SUMMARY_TYPES } from 'Parser/Core/Modules/CooldownThroughputTracker';
 
 import SPELLS from 'common/SPELLS';
 
 const debug = false;
 
-class CooldownTracker extends CoreCooldownTracker {
+class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
-    ...CooldownTracker.cooldownSpells,
-    {
-      spell: SPELLS.SOUL_HARVEST_TALENT,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.DAMAGE,
-      ],
-    },
+    ...CooldownThroughputTracker.cooldownSpells,
+    // if im understanding correctly CooldownThroughputTracker tracks all abilities cast during the duration of some CD that buffs you in some way, (ex Battle Cry, Pillar of Frost)
+    // Unholy's CDs are all based around summons so nothing goes here
   ];
 
-  //for the sake of completeness, typically none of these are used
   static castCooldowns = [
     {
-      spell: SPELLS.SUMMON_INFERNAL_UNTALENTED,
-      duration: 25,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.DAMAGE,
-      ],
-    },
-    {
-      spell: SPELLS.SUMMON_DOOMGUARD_UNTALENTED,
-      duration: 25,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.DAMAGE,
-      ],
-    },
-    {
-      spell: SPELLS.GRIMOIRE_IMP,
-      duration: 25,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.DAMAGE,
-      ],
-    },
-    {
-      spell: SPELLS.GRIMOIRE_VOIDWALKER,
-      duration: 25,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.DAMAGE,
-      ],
-    },
-    {
-      spell: SPELLS.GRIMOIRE_SUCCUBUS,
-      duration: 25,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.DAMAGE,
-      ],
-    },
-    {
-      spell: SPELLS.GRIMOIRE_FELHUNTER,
-      duration: 25,
+      spell: SPELLS.PILLAR_OF_FROST,
+      // tooltip duration is 20 seconds but with the way she works we want to capture 22 seconds
+      duration: 60,
       summary: [
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],
@@ -96,4 +57,4 @@ class CooldownTracker extends CoreCooldownTracker {
   }
 }
 
-export default CooldownTracker;
+export default CooldownThroughputTracker;

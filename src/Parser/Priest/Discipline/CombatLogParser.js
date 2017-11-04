@@ -14,7 +14,7 @@ import AbilityTracker from './Modules/Core/AbilityTracker';
 
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
-import CooldownTracker from './Modules/Features/CooldownTracker';
+import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import PowerWordShieldWasted from './Modules/Features/PowerWordShieldWasted';
 import AtonementSource from './Modules/Features/AtonementSource';
 import AtonementHealingDone from './Modules/Features/AtonementHealingDone';
@@ -64,7 +64,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Abilities
     penance: Penance,
     alwaysBeCasting: AlwaysBeCasting,
-    cooldownTracker: CooldownTracker,
+    cooldownThroughputTracker: CooldownThroughputTracker,
     powerWordShieldWasted: PowerWordShieldWasted,
     atonementSource: AtonementSource,
     atonementHealingDone: AtonementHealingDone,

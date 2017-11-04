@@ -3,7 +3,7 @@ import DamageDone from 'Parser/Core/Modules/DamageDone';
 
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
-import CooldownTracker from './Modules/Features/CooldownTracker';
+import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import WintersChillTracker from './Modules/Features/WintersChill';
 import BrainFreeze from './Modules/Features/BrainFreeze';
 import IceLance from './Modules/Features/IceLance';
@@ -24,8 +24,10 @@ import ShardOfTheExodar from '../Shared/Modules/Items/ShardOfTheExodar';
 import Tier20_2set from './Modules/Items/Tier20_2set';
 import Tier20_4set from './Modules/Items/Tier20_4set';
 import ZannesuJourney from './Modules/Items/ZannesuJourney';
+import IceTime from './Modules/Items/IceTime';
 import MagtheridonsBanishedBracers from './Modules/Items/MagtheridonsBanishedBracers';
 import ShatteredFragmentsOfSindragosa from './Modules/Items/ShatteredFragmentsOfSindragosa';
+import LadyVashjsGrasp from './Modules/Items/LadyVashjsGrasp';
 import SoulOfTheArchmage from './Modules/Items/SoulOfTheArchmage';
 
 
@@ -36,7 +38,7 @@ class CombatLogParser extends CoreCombatLogParser {
     castEfficiency: CastEfficiency,
     alwaysBeCasting: AlwaysBeCasting,
     cancelledCasts: CancelledCasts,
-    cooldownTracker: CooldownTracker,
+    cooldownThroughputTracker: CooldownThroughputTracker,
 	  wintersChillTracker: WintersChillTracker,
 	  brainFreeze: BrainFreeze,
     iceLance: IceLance,
@@ -59,8 +61,10 @@ class CombatLogParser extends CoreCombatLogParser {
     tier20_4set: Tier20_4set,
 	  shardOfTheExodar: ShardOfTheExodar,
     zannesuJourney: ZannesuJourney,
+    iceTime: IceTime,
     magtheridonsBanishedBracers: MagtheridonsBanishedBracers,
     shatteredFragmentsOfSindragosa: ShatteredFragmentsOfSindragosa,
+    ladyVashjsGrasp: LadyVashjsGrasp,
     soulOfTheArchmage: SoulOfTheArchmage,
   };
 }

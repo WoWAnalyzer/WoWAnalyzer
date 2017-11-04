@@ -178,6 +178,11 @@ export default {
     name: 'Ring of Frost',
     icon: 'spell_frost_ring-of-frost',
   },
+  ICE_TIME_FROST_NOVA: { // proc from Ice Time, which is called "Frost Nova" for some reason
+    id: 235235,
+    name: 'Frost Nova',
+    icon: 'spell_frost_frostnova',
+  },
 
   //Fire
   FIREBALL: {
