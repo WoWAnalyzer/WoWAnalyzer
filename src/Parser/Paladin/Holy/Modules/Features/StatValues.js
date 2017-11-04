@@ -119,7 +119,7 @@ class StatValues extends BaseHealerStatValues {
       {
         stat: STAT.HASTE_HPCT,
         tooltip: `
-          HPCT stands for "Healing per Cast Time". This is the max value that 1% Haste would be worth if you would cast everything you are already casting and that can be casted quicker 1% faster. Mana is not accounted for in any way and you should consider the Haste stat value 0 if you ran out of mana while doing everything else right.<br /><b r />
+          HPCT stands for "Healing per Cast Time". This is the max value that 1% Haste would be worth if you would cast everything you are already casting and that can be casted quicker 1% faster. Mana is not accounted for in any way and you should consider the Haste stat value 0 if you ran out of mana while doing everything else right.<br /><br />
           
           <h3>You should generally go for the amount of Haste you feel comfortable with.</h3>
         `,
