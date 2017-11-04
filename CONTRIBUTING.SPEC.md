@@ -1,8 +1,8 @@
 # Table of Contents
 * [Adding a new spec](#adding-a-new-spec)
 * [Add an empty spec](#add-an-empty-spec)
-* [Add a total damage done / healing done / damage taken statistic](#add-a-total-damage-done---healing-done---damage-taken-statistic)
-* [Add cast efficiency](#add-cast-efficiency)
+* [Add a total damage done / healing done / damage taken statistic](#add-a-total-damage-done--healing-done--damage-taken-statistic)
+* [Add Cast Efficiency](#add-cast-efficiency)
 * [Add Always be Casting](#add-always-be-casting)
 * [Create a pull request](#create-a-pull-request)
 * [Suggestions](#suggestions)
@@ -56,7 +56,7 @@ ps. Tests can be added in the `src/tests` folder. Automated tests are recommende
 
 See Holy Paladin's healing done. (more docs coming)
 
-# Add cast efficiency
+# Add Cast Efficiency
 Cast Efficiency is a tab below the statistic boxes that shows stats concerning the number of ability uses and includes suggestions for spellcasts that are below preferred thresholds. 
 
 To create and show this tab, in your class-specialization's `CombatParser.js` add two lines of code:
