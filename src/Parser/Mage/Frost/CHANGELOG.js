@@ -1,4 +1,5 @@
 export default `
+04-11-2017 - Added support for T20 4set. (by Sref)
 30-10-2017 - Added Cancelled Casts Module. (by Sharrq)
 29-10-2017 - Added Ice Lance Utiliztion Module. (by Sharrq)
 28-10-2017 - Enhanced display of Winter's Chill and Brain Freeze statistics. (by Sref)
