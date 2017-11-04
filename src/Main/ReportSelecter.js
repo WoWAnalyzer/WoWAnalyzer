@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import PatreonButton from './PatreonButton';
-import GithubButton from './GithubButton';
 import DiscordButton from './DiscordButton';
 
 class ReportSelecter extends Component {
@@ -14,6 +13,18 @@ class ReportSelecter extends Component {
     const match = input.trim().match(/^(.*reports\/)?([a-zA-Z0-9]{16})\/?(#.*)?$/);
 
     return match && match[2];
+  }
+
+  static getFight(input) {
+    const match = input.trim().match(/fight=([^&]*)/);
+
+    return match && match[1];
+  }
+
+  static getPlayer(input) {
+    const match = input.trim().match(/source=([^&]*)/);
+
+    return match && match[1];
   }
 
   codeInput = null;
@@ -46,8 +57,13 @@ class ReportSelecter extends Component {
   }
   handleCodeInputChange(value) {
     const code = this.constructor.getCode(value);
+    const fight = this.constructor.getFight(value);
+    const player = this.constructor.getPlayer(value);
+
+    const reportInfo = {code, fight, player};
+
     if (code) {
-      this.props.onSubmit(code);
+      this.props.onSubmit(reportInfo);
     }
   }
 
@@ -78,10 +94,9 @@ class ReportSelecter extends Component {
                   Analyze <span className="glyphicon glyphicon-chevron-right" aria-hidden />
                 </button>
               </div>
-              <div className="col-md-12 col-lg-4 external-links">
+              <div className="col-md-12 col-lg-4 external-links text-right">
                 <DiscordButton />
                 <PatreonButton />
-                <GithubButton />
               </div>
             </div>
           </div>

@@ -9,7 +9,6 @@ import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-const LEGENDARY_VELENS_HEAL_SPELL_ID = 235967;
 const LEGENDARY_VELENS_HEALING_INCREASE = 0.15;
 
 class Velens extends Analyzer {
@@ -17,7 +16,7 @@ class Velens extends Analyzer {
     combatants: Combatants,
   };
 
-  static SUGGESTION_VELENS_BREAKPOINT = 0.045;
+  static SUGGESTION_VELENS_BREAKPOINT = 0.04;
 
   healingIncreaseHealing = 0;
   overhealHealing = 0;
@@ -37,17 +36,16 @@ class Velens extends Analyzer {
   }
   registerHeal(event) {
     const spellId = event.ability.guid;
-    if (this.owner.constructor.abilitiesAffectedByHealingIncreases.indexOf(spellId) === -1 && spellId !== LEGENDARY_VELENS_HEAL_SPELL_ID) {
-      return;
-    }
-
-    if (spellId === LEGENDARY_VELENS_HEAL_SPELL_ID) {
+    if (spellId === SPELLS.VELENS_FUTURE_SIGHT_HEAL.id) {
       // This is the overhealing part of Velen's Future Sight, just include its amount and we're done
       this.overhealHealing += event.amount;
       return;
     }
 
-    if (!this.combatants.selected.hasBuff(SPELLS.VELENS_FUTURE_SIGHT.id, event.timestamp)) {
+    if (!this.owner.constructor.abilitiesAffectedByHealingIncreases.includes(spellId)) {
+      return;
+    }
+    if (!this.combatants.selected.hasBuff(SPELLS.VELENS_FUTURE_SIGHT_BUFF.id, event.timestamp)) {
       return;
     }
 

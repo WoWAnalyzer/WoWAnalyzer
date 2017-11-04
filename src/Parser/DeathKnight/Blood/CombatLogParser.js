@@ -6,7 +6,7 @@ import DamageTaken from 'Parser/Core/Modules/DamageTaken';
 
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
-import CooldownTracker from './Modules/Features/CooldownTracker';
+import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import BloodPlagueUptime from './Modules/Features/BloodPlagueUptime';
 import BoneShieldUptime from './Modules/Features/BoneShieldUptime';
 import OssuaryUptime from './Modules/Features/OssuaryUptime';
@@ -32,7 +32,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Features
     castEfficiency: CastEfficiency,
     alwaysBeCasting: AlwaysBeCasting,
-    cooldownTracker: CooldownTracker,
+    cooldownThroughputTracker: CooldownThroughputTracker,
     boneShieldUptime: BoneShieldUptime,
     ossuaryUptime: OssuaryUptime,
     wastedDeathAndDecay: WastedDeathAndDecay,

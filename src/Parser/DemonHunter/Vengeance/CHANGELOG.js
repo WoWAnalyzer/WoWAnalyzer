@@ -1,4 +1,6 @@
 export default `
+03-09-2017 - Changed the Github link for the issues of Vengeance spec. (by Mamtooth)
+02-09-2017 - Pain chart now displays a error message for corrupted logs. (by Mamtooth)
 13-10-2017 - Pain chart bug fix. (by Mamtooth)
 12-10-2017 - Cooldown tab for Metamorphosis is now implemented. (by Mamtooth)
 12-10-2017 - Updated 'More Information' tab, with introduction text and links. (by Mamtooth)

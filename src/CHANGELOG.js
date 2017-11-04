@@ -1,4 +1,6 @@
 export default `
+02-11-2017 - Changed the <i>default</i> recommended <a href="http://www.wowhead.com/item=144258" target="_blank" rel="noopener noreferrer" class="legendary">Velen's Future Sight</a> healing contribution to be at least 4% (down from 4.5%). (by Zerotorescue)
+01-11-2017 - Always show the navigation bar and stick it to the top of the window. (by Zerotorescue)
 29-10-2017 - Update layout a bit: <a href="https://imgur.com/a/edymi">comparison</a>. (by Zerotorescue)
 25-10-2017 - Added T21 healing trinkets: Tarratus Keystone and Highfather's Machination. (by Dyspho)
 22-10-2017 - Fixed a crash when a player's info errored. Instead the affected player will become unselectable. (by Zerotorescue)

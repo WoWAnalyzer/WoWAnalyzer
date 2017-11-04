@@ -32,7 +32,7 @@ export default {
   [SPELLS.LEECH.id]: { // procs a percent of all your healing, so we ignore for weights and total healing
     multiplier: true,
   },
-  [SPELLS.VELENS_FUTURE_SIGHT.id]: { // while active procs from any healing, so we ignore for weights and total healing
+  [SPELLS.VELENS_FUTURE_SIGHT_HEAL.id]: { // while active procs from any healing, so we ignore for weights and total healing
     multiplier: true,
   },
 };
