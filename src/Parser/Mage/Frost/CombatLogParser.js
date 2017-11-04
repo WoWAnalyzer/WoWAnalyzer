@@ -26,6 +26,7 @@ import ZannesuJourney from './Modules/Items/ZannesuJourney';
 import IceTime from './Modules/Items/IceTime';
 import MagtheridonsBanishedBracers from './Modules/Items/MagtheridonsBanishedBracers';
 import ShatteredFragmentsOfSindragosa from './Modules/Items/ShatteredFragmentsOfSindragosa';
+import LadyVashjsGrasp from './Modules/Items/LadyVashjsGrasp';
 import SoulOfTheArchmage from './Modules/Items/SoulOfTheArchmage';
 
 
@@ -61,6 +62,7 @@ class CombatLogParser extends CoreCombatLogParser {
     iceTime: IceTime,
     magtheridonsBanishedBracers: MagtheridonsBanishedBracers,
     shatteredFragmentsOfSindragosa: ShatteredFragmentsOfSindragosa,
+    ladyVashjsGrasp: LadyVashjsGrasp,
     soulOfTheArchmage: SoulOfTheArchmage,
   };
 }
