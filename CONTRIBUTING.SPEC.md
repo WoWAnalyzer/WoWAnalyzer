@@ -1,3 +1,14 @@
+# Table of Contents
+* [Adding a new spec](#adding-a-new-spec)
+* [Add an empty spec](#add-an-empty-spec)
+* [Add a total damage done / healing done / damage taken statistic](#add-a-total-damage-done---healing-done---damage-taken-statistic)
+* [Add cast efficiency](#add-cast-efficiency)
+* [Add Always be Casting](#add-always-be-casting)
+* [Create a pull request](#create-a-pull-request)
+* [Suggestions](#suggestions)
+  * [Suggestion texts](#suggestion-texts)
+  * [Suggestion thresholds](#suggestion-thresholds)
+
 # Adding a new spec
 
 You don't need to to do anything special to add a spec. The real issue preventing specs from being added is that in order to add a spec, you need to have the following 3 properties:
@@ -46,11 +57,11 @@ ps. Tests can be added in the `src/tests` folder. Automated tests are recommende
 See Holy Paladin's healing done. (more docs coming)
 
 # Add cast efficiency
-Cast Efficiency is a tab below the statistic boxes that shows stats on the number of casts per spell and can include suggestions for spell casts that are below preferred thresholds. 
+Cast Efficiency is a tab below the statistic boxes that shows stats concerning the number of ability uses and includes suggestions for spellcasts that are below preferred thresholds. 
 
 To create and show this tab, in your class-specialization's `CombatParser.js` add two lines of code:
-* `import CastEfficiency from './Modules/Features/CastEfficiency';`
-* `castEfficiency: CastEfficiency,` in the specModules
+* `import CastEfficiency from './Modules/Features/CastEfficiency';` in the list of imports at the top
+* `castEfficiency: CastEfficiency,` in the specModules block
 
 **Note**: Enhancement Shaman currently has its CastEfficiency in `./Modules/Main/` instead of Features.
 
@@ -85,24 +96,27 @@ export default CastEfficiency;
 
 Optional import modules:
 ```javascript
-// use for referring to spells in <span></span> suggestions
+// used for referring to spells in <span></span> suggestions
 import SpellLink from 'common/SpellLink';
 
-// using the (optional) importance {string} property in a spell block
+// used for the optional importance property in a spell block
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE'; 
 ```
 
 The spell categories appear in the tab in the same order as the [CoreCastEfficiency](src/Parser/Core/Modules/CastEfficiency.js) SPELL_CATEGORIES. Within each category, the spells appear in order as entered in the code. Shared trinkets and items are included in [CoreCastEfficiency.CPM_ABILITIES](src/Parser/Core/Modules/CastEfficiency.js) and do not need to be duplicated here.
 
-`spell: ` & `getCooldown: ` are required for the page to load without errors. `category: ` is additionally required for the spell to appear in the Cast Efficiency tab. A full list of available properties are commented in the beginning of [CoreCastEfficiency.CPM_ABILITIES](src/Parser/Core/Modules/CastEfficiency.js), and most are self-explanatory.
+`spell: ` & `getCooldown: ` are required for the page to load without errors. `category: ` is additionally required for the spell to appear in the Cast Efficiency tab. A full list of available properties are commented in the beginning of [CoreCastEfficiency.CPM_ABILITIES](src/Parser/Core/Modules/CastEfficiency.js) and are generally self-explanatory.
 
 ### getCooldown 
-Simply, the property lists the length of the cooldown in seconds:
-* **No cooldown**:  `haste => null,` e.g. [FIREBALL](src/Parser/Mage/Fire/Modules/Features/CastEfficiency.js)
-* **Static cooldown**:  `haste => 120,` e.g. [SOUL_HARVEST](src/Parser/Warlock/Affliction/Modules/Features/CastEfficiency.js)
-* **Hasted cooldown**: `haste => 15 / (1 + haste),` e.g. [DEMON_SPIKES](src/Parser/DemonHunter/Vengeance/Modules/Features/CastEfficiency.js)
+This property can be set a number of ways. Simply, the property lists the length of the cooldown in seconds:
+* **No cooldown**:  `haste => null,` 
+    * example: [FIREBALL](src/Parser/Mage/Fire/Modules/Features/CastEfficiency.js)
+* **Static cooldown**:  `haste => 120,` 
+    * example: [SOUL_HARVEST](src/Parser/Warlock/Affliction/Modules/Features/CastEfficiency.js)
+* **Hasted cooldown**: `haste => 15 / (1 + haste),` 
+    * example: [DEMON_SPIKES](src/Parser/DemonHunter/Vengeance/Modules/Features/CastEfficiency.js)
 
-A **dynamic cooldown** might require a custom function `(haste, combatants) = { ... },` to define the potential cast efficiency. Examples include:
+A **dynamic cooldown** may require a custom function `(haste, combatants) = { ... },` to define the potential cast efficiency. Examples include:
 * [METAMORPHOSIS_HAVOC](src/Parser/DemonHunter/Havoc/Modules/Features/CastEfficiency.js) - artifact relic trait reduces cooldown
 * [SWIFTMEND](src/Parser/Druid/Restoration/Modules/Features/CastEfficiency.js) - passive talent reduces cooldown
 * [FISTS_OF_FURY_CAST](src/Parser/Monk/Windwalker/Modules/Features/CastEfficiency.js) - active talent buff further reduces hasted cooldown
