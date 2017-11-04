@@ -102,8 +102,13 @@ export default {
     name: 'Gnawed Thumb Ring',
     icon: 'inv_70_dungeon_ring6a',
   },
-  VELENS_FUTURE_SIGHT: {
+  VELENS_FUTURE_SIGHT_BUFF: {
     id: 235966,
+    name: 'Velen\'s Future Sight',
+    icon: 'spell_holy_healingfocus',
+  },
+  VELENS_FUTURE_SIGHT_HEAL: {
+    id: 235967,
     name: 'Velen\'s Future Sight',
     icon: 'spell_holy_healingfocus',
   },

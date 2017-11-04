@@ -42,7 +42,7 @@ class LockAndLoad extends Analyzer {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (!this.combatants.selected.hasBuff(SPELLS.LOCK_AND_LOAD_BUFF.id, event.timestamp)){
+    if (!this.combatants.selected.hasBuff(SPELLS.LOCK_AND_LOAD_BUFF.id, event.timestamp)) {
       return;
     }
     if (spellId !== SPELLS.AIMED_SHOT.id) {
@@ -79,11 +79,11 @@ class LockAndLoad extends Analyzer {
   }
 
   statistic() {
-    const expectedProcs = Math.round(this.autoShots * 0.08);
+    const expectedProcs = this.autoShots * 0.08;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.LOCK_AND_LOAD_TALENT.id} />}
-        value={`${this.wastedInstants} (${formatPercentage(this.wastedInstants/(this.totalProcs*2))}%)`}
+        value={`${this.wastedInstants} (${formatPercentage(this.wastedInstants / (this.totalProcs * 2))}%)`}
         label={`lost instant casts`}
         tooltip={`You had ${formatPercentage(this.totalProcs / expectedProcs, 1)}% procs of what you could expect to get over the encounter. <br /> You had a total of ${this.totalProcs} procs, and your expected amount of procs was ${expectedProcs}. <br /> You had ${this.noGainLNLProcs} procs with 2 lnl stacks remaining and ${this.halfLNLProcs} while you had 1 stack remaining.`}
       />

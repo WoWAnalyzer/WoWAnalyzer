@@ -131,7 +131,7 @@ class BaseHealerStatValues extends Analyzer {
       return;
     }
 
-    this.totalOneLeech += this._adjustGain(this._leech(eventForWeights, healVal), targetHealthPercentage);
+    this.totalOneLeech += this._adjustGain(this._leech(eventForWeights, healVal, spellInfo), targetHealthPercentage);
 
     if (spellInfo.multiplier) {
       // Multiplier spells aren't counted for weights because they don't **directly** benefit from stat weights
@@ -163,10 +163,10 @@ class BaseHealerStatValues extends Analyzer {
     const mult = 1 - Math.max(0, (targetHealthPercentage - maxValueHealthPercentage) / (1 - maxValueHealthPercentage));
     return this.scaleWeightsWithHealth ? gain * mult : gain;
   }
-  _leech(event, healVal) {
+  _leech(event, healVal, spellInfo) {
     const spellId = event.ability.guid;
     if (event.type !== 'heal') {
-      return; // leech doesn't proc from absorbs
+      return 0; // leech doesn't proc from absorbs
     }
 
     // We have to calculate leech weight differently depending on if we already have any leech rating.
@@ -178,6 +178,12 @@ class BaseHealerStatValues extends Analyzer {
         return healVal.effective / this.statTracker.currentLeechRating; // TODO: Make a generic method to account for base percentage
       }
     } else {
+      if (this.owner.toPlayer(event)) {
+        return 0; // Leech doesn't proc from self-healing
+      }
+      if (spellInfo.multiplier) {
+        return 0; // Leech doesn't proc from multipliers such as Velen's Future Sight
+      }
       // Without Leech we will have to make an estimation so we can still provide the user with a decent value
       if (this.playerHealthMissing > 0) { // if the player is full HP this would have overhealed.
         const healIncreaseFromOneLeech = 1 / this.statTracker.leechRatingPerPercent;

@@ -17,7 +17,7 @@ import Sanctify from './Modules/Spells/Sanctify';
 // Features
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
-import CooldownTracker from './Modules/Features/CooldownTracker';
+import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 
 // Priest Core
 import RenewTheFaith from './Modules/PriestCore/RenewTheFaith';
@@ -46,7 +46,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
-    cooldownTracker: CooldownTracker,
+    cooldownThroughputTracker: CooldownThroughputTracker,
     renewTheFaith: RenewTheFaith,
     divinity: Divinity,
     lightOfTuure: LightOfTuure,

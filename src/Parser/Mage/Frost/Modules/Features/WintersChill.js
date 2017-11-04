@@ -159,7 +159,7 @@ class WintersChillTracker extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(2);
+  statisticOrder = STATISTIC_ORDER.CORE(14);
 }
 
 export default WintersChillTracker;

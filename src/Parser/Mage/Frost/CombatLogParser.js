@@ -3,7 +3,7 @@ import DamageDone from 'Parser/Core/Modules/DamageDone';
 
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
-import CooldownTracker from './Modules/Features/CooldownTracker';
+import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import WintersChillTracker from './Modules/Features/WintersChill';
 import BrainFreeze from './Modules/Features/BrainFreeze';
 import IceLance from './Modules/Features/IceLance';
@@ -15,6 +15,7 @@ import RuneOfPower from '../Shared/Modules/Features/RuneOfPower';
 import MirrorImage from '../Shared/Modules/Features/MirrorImage';
 import UnstableMagic from '../Shared/Modules/Features/UnstableMagic';
 import SplittingIce from './Modules/Features/SplittingIce';
+import CancelledCasts from '../Shared/Modules/Features/CancelledCasts';
 
 import FrozenOrb from './Modules/Cooldowns/FrozenOrb';
 import IcyVeins from './Modules/Cooldowns/IcyVeins';
@@ -26,12 +27,15 @@ import MagtheridonsBanishedBracers from './Modules/Items/MagtheridonsBanishedBra
 import ShatteredFragmentsOfSindragosa from './Modules/Items/ShatteredFragmentsOfSindragosa';
 import SoulOfTheArchmage from './Modules/Items/SoulOfTheArchmage';
 
+
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Features
     castEfficiency: CastEfficiency,
     alwaysBeCasting: AlwaysBeCasting,
-    cooldownTracker: CooldownTracker,
+    cancelledCasts: CancelledCasts,
+    cooldownThroughputTracker: CooldownThroughputTracker,
 	  wintersChillTracker: WintersChillTracker,
 	  brainFreeze: BrainFreeze,
     iceLance: IceLance,
