@@ -8,7 +8,7 @@ import WintersChillTracker from './Modules/Features/WintersChill';
 import BrainFreeze from './Modules/Features/BrainFreeze';
 import IceLance from './Modules/Features/IceLance';
 import ThermalVoid from './Modules/Features/ThermalVoid';
-import IcicleTracker from './Modules/Features/IcicleTracker';
+import GlacialSpike from './Modules/Features/GlacialSpike';
 import ArcticGale from './Modules/Features/ArcticGale';
 import FrostBomb from './Modules/Features/FrostBomb';
 import RuneOfPower from '../Shared/Modules/Features/RuneOfPower';
@@ -43,7 +43,7 @@ class CombatLogParser extends CoreCombatLogParser {
 	  brainFreeze: BrainFreeze,
     iceLance: IceLance,
 	  thermalVoid: ThermalVoid,
-	  icicleTracker: IcicleTracker,
+	  glacialSpike: GlacialSpike,
     damageDone: [DamageDone, { showStatistic: true }],
     runeOfPower: RuneOfPower,
     mirrorImage: MirrorImage,

@@ -343,6 +343,11 @@ export default {
     name: 'Frozen Veins',
     icon: 'spell_frost_coldhearted',
   },
+  ICE_NINE: {
+    id: 214664,
+    name: 'Ice Nine',
+    icon: 'spell_frost_iceshard',
+  },
   WARMTH_OF_THE_PHOENIX: {
     id: 240671,
     name: 'Warmth of the Phoenix',
