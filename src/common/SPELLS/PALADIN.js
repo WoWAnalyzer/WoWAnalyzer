@@ -46,6 +46,16 @@ export default {
     manaCost: 39600,
     baseMana: 0.18,
   },
+  AVENGING_WRATH: {
+    id: 31842,
+    name: 'Avenging Wrath',
+    icon: 'spell_holy_avenginewrath',
+  },
+  HAMMER_OF_JUSTICE: {
+    id: 853,
+    name: 'Hammer of Justice',
+    icon: 'spell_holy_sealofmight',
+  },
 
   // Holy Paladin:
   // Fix talent mana costs (due to rounding errors)
@@ -158,11 +168,6 @@ export default {
     id: 6940,
     name: 'Blessing of Sacrifice',
     icon: 'spell_holy_sealofsacrifice',
-  },
-  AVENGING_WRATH: {
-    id: 31842,
-    name: 'Avenging Wrath',
-    icon: 'spell_holy_avenginewrath',
   },
   BEACON_OF_LIGHT_BUFF: {
     id: 53563,
@@ -470,11 +475,6 @@ export default {
     id: 31935,
     name: 'Avenger\'s Shield',
     icon: 'spell_holy_avengersshield',
-  },
-  AVENGING_WRATH_PROT: {
-    id: 31884,
-    name: 'Avenging Wrath',
-    icon: 'spell_holy_avenginewrath',
   },
   GUARDIAN_OF_ANCIENT_KINGS: {
     id: 86659,
