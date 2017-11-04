@@ -459,4 +459,137 @@ export default {
     name: 'Blessing of the Ashbringer',
     icon: 'inv_sword_2h_artifactashbringer_d_01',
   },
+
+	// Protection
+  ARDENT_DEFENDER: {
+    id: 31850,
+    name: 'Ardent Defender',
+    icon: 'spell_holy_ardentdefender',
+  },
+  AVENGERS_SHIELD: {
+    id: 31935,
+    name: 'Avenger\'s Shield',
+    icon: 'spell_holy_avengersshield',
+  },
+  AVENGING_WRATH_PROT: {
+    id: 31884,
+    name: 'Avenging Wrath',
+    icon: 'spell_holy_avenginewrath',
+  },
+  GUARDIAN_OF_ANCIENT_KINGS: {
+    id: 86659,
+    name: 'Guardian of Ancient Kings',
+    icon: 'spell_holy_heroism',
+  },
+  HAMMER_OF_THE_RIGHTEOUS: {
+    id: 53595,
+    name: 'Hammer of the Righteous',
+    icon: 'ability_paladin_hammeroftherighteous',
+  },
+  LIGHT_OF_THE_PROTECTOR: {
+    id: 184092,
+    name: 'Light of the Protector',
+    icon: 'ability_paladin_lightoftheprotector',
+  },
+  SHIELD_OF_THE_RIGHTEOUS: {
+    id: 53600,
+    name: 'Shield of the Righteous',
+    icon: 'ability_paladin_shieldofvengeance',
+  },
+  //artifact
+  EYE_OF_TYR: {
+    id: 209202,
+    name: 'Eye of Tyr',
+    icon: 'inv_shield_1h_artifactnorgannon_d_01',
+  },
+	//Talents that become spells
+  AEGIS_OF_LIGHT_TALENT: {
+    id: 204150,
+    name: 'Aegis of Light',
+    icon: 'spell_holy_greaterblessingoflight',
+  },
+  BASTION_OF_LIGHT_TALENT: {
+    id: 204035,
+    name: 'Bastion of Light',
+    icon: 'paladin_protection',
+  },
+  BLESSED_HAMMER_TALENT: {
+    id: 204019,
+    name: 'Blessed Hammer',
+    icon: 'paladin_retribution',
+  },
+  BLESSING_OF_SPELLWARDING_TALENT: {
+    id: 204018,
+    name: 'Blessing of Spellwarding',
+    icon: 'spell_holy_blessingofprotection',
+  },
+  HAND_OF_THE_PROTECTOR_TALENT: {
+    id: 213652,
+    name: 'Hand of the Protector',
+    icon: 'ability_paladin_blessedhands',
+  },
+  SERAPHIM_TALENT: {
+    id: 152262,
+    name: 'Seraphim',
+    icon: 'ability_paladin_seraphim',
+  },
+	// Buffs
+  SHIELD_OF_THE_RIGHTEOUS_BUFF: {
+    id: 132403,
+    name: 'Shield of the Righteous',
+    icon: 'ability_paladin_shieldofvengeance',
+  },
+  CONSECRATION_BUFF: {
+    id: 188370,
+    name: 'Consecration',
+    icon: 'spell_holy_innerfire',
+  },
+  BLESSED_STALWART_BUFF: {
+    id: 242869,
+    name: 'Blessed Stalwart',
+    icon: 'ability_paladin_shieldofvengeance',
+  },
+  FAITHS_ARMOR_BUFF: {
+    id: 211903,
+    name: 'Faith\'s Armor',
+    icon: 'inv_misc_armorkit_23',
+  },
+	// Bonus set tiers
+  PROTECTION_PALADIN_T19_2SET_BONUS_BUFF: {
+    id: 211553,
+    name: 'T19 2 Set Bonus',
+    icon: 'trade_engineering',
+  },
+  PROTECTION_PALADIN_T19_4SET_BONUS_BUFF: {
+    id: 211554,
+    name: 'T19 4 Set Bonus',
+    icon: 'trade_engineering',
+  },
+  PROTECTION_PALADIN_T20_2SET_BONUS_BUFF: {
+    id: 242263,
+    name: 'T20 2 Set Bonus',
+    icon: 'ability_paladin_shieldofthetemplar',
+  },
+  PROTECTION_PALADIN_T20_4SET_BONUS_BUFF: {
+    id: 242264,
+    name: 'T20 4 Set Bonus',
+    icon: 'ability_paladin_shieldofthetemplar',
+  },
+	//DEBUFFS
+  AVENGERS_PROTECTION_DEBUFF: {
+    id: 242265,
+    name: 'Avenger\'s Protection',
+    icon: 'ability_paladin_shieldofthetemplar',
+  },
+  BLESSED_HAMMER_DEBUFF: {
+    id: 204301,
+    name: 'Blessed Hammer',
+    icon: 'paladin_retribution',
+  },
+  JUDGMENT_OF_LIGHT_DEBUFF: {
+    id: 196941,
+    name: 'Judgement of Light',
+    icon: 'spell_holy_divineprovidence',
+  },
+
 };
