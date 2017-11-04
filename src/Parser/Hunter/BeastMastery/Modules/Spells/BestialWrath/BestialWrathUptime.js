@@ -8,7 +8,7 @@ import StatisticBox from "Main/StatisticBox";
 import SpellIcon from "common/SpellIcon";
 import { formatPercentage, formatNumber } from "common/format";
 import Icon from "common/Icon";
-import SpellLink from "../../../../../../common/SpellLink";
+import SpellLink from "common/SpellLink";
 
 class BestialWrathUptime extends Analyzer {
   static dependencies = {
