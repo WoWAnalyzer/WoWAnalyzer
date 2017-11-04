@@ -18,7 +18,7 @@ I recommend adding a new spec in the following order:
 The next steps can be done in no particular order:
 * Add something that can not be analyzed yet that people are interested in (e.g. the value of your mastery)
 * Add suggestions for common issues
-	* Look at what other people look for when analyzing logs, and copy that analysis into the analyzer with appropriate suggestions
+    * Look at what other people look for when analyzing logs, and copy that analysis into the analyzer with appropriate suggestions
 * Tune suggestion thresholds to give better advice (on-going)
 * Add legendary performance modules
 * Add set bonus modules
@@ -46,8 +46,68 @@ ps. Tests can be added in the `src/tests` folder. Automated tests are recommende
 See Holy Paladin's healing done. (more docs coming)
 
 # Add cast efficiency
+Cast Efficiency is a tab below the statistic boxes that shows stats on the number of casts per spell and can include suggestions for spell casts that are below preferred thresholds. 
 
-See Holy Paladin. (more docs coming)
+To create and show this tab, in your class-specialization's `CombatParser.js` add two lines of code:
+* `import CastEfficiency from './Modules/Features/CastEfficiency';`
+* `castEfficiency: CastEfficiency,` in the specModules
+
+**Note**: Enhancement Shaman currently has its CastEfficiency in `./Modules/Main/` instead of Features.
+
+In `src/Parser/CLASS/SPECIALIZATION/Modules/Features`, create or edit the `CastEfficiency.js`. Here is a skeleton for `CastEfficiency.js`, if none exists:
+```javascript
+import SPELLS from 'common/SPELLS';
+import CoreCastEfficiency from 'Parser/Core/Modules/CastEfficiency';
+
+/* eslint-disable no-unused-vars */
+
+class CastEfficiency extends CoreCastEfficiency {
+  static CPM_ABILITIES = [
+    ...CoreCastEfficiency.CPM_ABILITIES,
+    // Category
+    {
+      spell: SPELLS.SPELL_NAME,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => 120,
+    },
+
+    // Second category
+    {
+      spell: SPELLS.SPELL_NAME_2,
+      category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
+      getCooldown: haste => null,
+    },
+  ];
+}
+
+export default CastEfficiency;
+```
+
+Optional import modules:
+```javascript
+// use for referring to spells in <span></span> suggestions
+import SpellLink from 'common/SpellLink';
+
+// using the (optional) importance {string} property in a spell block
+import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE'; 
+```
+
+The spell categories appear in the tab in the same order as the [CoreCastEfficiency](src/Parser/Core/Modules/CastEfficiency.js) SPELL_CATEGORIES. Within each category, the spells appear in order as entered in the code. Shared trinkets and items are included in [CoreCastEfficiency.CPM_ABILITIES](src/Parser/Core/Modules/CastEfficiency.js) and do not need to be duplicated here.
+
+`spell: ` & `getCooldown: ` are required for the page to load without errors. `category: ` is additionally required for the spell to appear in the Cast Efficiency tab. A full list of available properties are commented in the beginning of [CoreCastEfficiency.CPM_ABILITIES](src/Parser/Core/Modules/CastEfficiency.js), and most are self-explanatory.
+
+### getCooldown 
+Simply, the property lists the length of the cooldown in seconds:
+* **No cooldown**:  `haste => null,` e.g. [FIREBALL](src/Parser/Mage/Fire/Modules/Features/CastEfficiency.js)
+* **Static cooldown**:  `haste => 120,` e.g. [SOUL_HARVEST](src/Parser/Warlock/Affliction/Modules/Features/CastEfficiency.js)
+* **Hasted cooldown**: `haste => 15 / (1 + haste),` e.g. [DEMON_SPIKES](src/Parser/DemonHunter/Vengeance/Modules/Features/CastEfficiency.js)
+
+A **dynamic cooldown** might require a custom function `(haste, combatants) = { ... },` to define the potential cast efficiency. Examples include:
+* [METAMORPHOSIS_HAVOC](src/Parser/DemonHunter/Havoc/Modules/Features/CastEfficiency.js) - artifact relic trait reduces cooldown
+* [SWIFTMEND](src/Parser/Druid/Restoration/Modules/Features/CastEfficiency.js) - passive talent reduces cooldown
+* [FISTS_OF_FURY_CAST](src/Parser/Monk/Windwalker/Modules/Features/CastEfficiency.js) - active talent buff further reduces hasted cooldown
+* [HEALING_STREAM_TOTEM_CAST](src/Parser/Shaman/Restoration/Modules/Features/CastEfficiency.js) - other spell interactions with tier bonus reduces cooldown
+* [MANGLE_BEAR](src/Parser/Druid/Guardian/Modules/Features/CastEfficiency.js) - multiple procs reset cooldown 
 
 # Add Always be Casting
 
