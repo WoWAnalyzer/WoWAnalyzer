@@ -45,6 +45,42 @@ class SpellTimeline extends React.PureComponent {
     ReactTooltip.rebuild();
   }
 
+  /**
+   * Make cooldowns that haven't ended yet appear like they run until the end of the fight (without this these abilities would appear to have no cooldown).
+   * @param {Array} events
+   * @returns {Array}
+   */
+  fabricateEndCooldown(events) {
+    // Find all the spells without enough `endcooldown` events
+    const missingEndCooldowns = [];
+    events.forEach(event => {
+      if (event.type !== 'updatespellusable') {
+        return;
+      }
+      if (event.trigger === 'begincooldown') {
+        missingEndCooldowns.push(event);
+      }
+      if (event.trigger === 'endcooldown') {
+        const index = missingEndCooldowns.findIndex(beginCooldownEvent => beginCooldownEvent.spellId === event.spellId);
+        if (index !== -1) {
+          missingEndCooldowns.splice(index, 1);
+        }
+      }
+    });
+
+    const fixedEvents = [...events];
+    // Fabricate events for the missing `endcooldown` events
+    missingEndCooldowns.forEach(beginCooldownEvent => {
+      fixedEvents.push({
+        ...beginCooldownEvent,
+        trigger: 'endcooldown',
+        end: beginCooldownEvent.start + beginCooldownEvent.expectedDuration,
+      });
+    });
+
+    return fixedEvents;
+  }
+
   gemini = null;
   render() {
     const { start, end, events } = this.props;
@@ -52,6 +88,8 @@ class SpellTimeline extends React.PureComponent {
     const seconds = Math.ceil(duration / 1000);
 
     const secondWidth = 50;
+
+    const fixedEvents = this.fabricateEndCooldown(events);
 
     return (
       <GeminiScrollbar
@@ -67,7 +105,7 @@ class SpellTimeline extends React.PureComponent {
           ))}
         </div>
         <div className="events">
-          {events.map(event => {
+          {fixedEvents.map(event => {
             if (event.type === 'cast') {
               return (
                 <SpellIcon
@@ -80,11 +118,14 @@ class SpellTimeline extends React.PureComponent {
               );
             }
             if (event.type === 'updatespellusable' && event.trigger === 'endcooldown') {
+              const left = (event.start - start) / 1000 * secondWidth;
+              const maxWidth = seconds * secondWidth - left; // don't expand beyond the container width
+              const width = Math.min(maxWidth, left + (event.end - event.start) / 1000 * secondWidth);
               return (
                 <div
                   style={{
-                    left: (event.start - start) / 1000 * secondWidth,
-                    width: (event.end - event.start) / 1000 * secondWidth,
+                    left,
+                    width,
                     background: 'rgba(255, 255, 255, 0.2)',
                     zIndex: 1,
                   }}
