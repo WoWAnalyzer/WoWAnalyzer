@@ -41,7 +41,7 @@ class BestialWrath extends Analyzer {
         BESTIAL_WRATH_TOTAL_MODIFIER = BESTIAL_WRATH_BASE_MODIFIER;
       }
     }
-    if (AFFECTED_ABILITIES.every(id => spellId !== id)) {
+    if (spellId !== SPELLS.KILL_COMMAND.id || spellId !== SPELLS.COBRA_SHOT.id || spellId !== SPELLS.MULTISHOT.id) {
       return;
     }
     if (this.combatants.selected.hasBuff(SPELLS.HUNTER_BM_T20_2P_BONUS.id) && this.combatants.selecteded.hasBuff(SPELLS.BESTIAL_WRATH.id)) {
