@@ -1,10 +1,10 @@
 import SPELLS from 'common/SPELLS';
 
-import CoreCooldownTracker, { BUILT_IN_SUMMARY_TYPES } from 'Parser/Core/Modules/CooldownTracker';
+import CoreCooldownThroughputTracker, { BUILT_IN_SUMMARY_TYPES } from 'Parser/Core/Modules/CooldownThroughputTracker';
 
-class CooldownTracker extends CoreCooldownTracker {
+class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
-    ...CooldownTracker.cooldownSpells,
+    ...CooldownThroughputTracker.cooldownSpells,
     {
       spell: SPELLS.MANA_TEA_TALENT,
       summary: [
@@ -16,7 +16,7 @@ class CooldownTracker extends CoreCooldownTracker {
   ];
 
   static ignoredSpells = [
-    ...CooldownTracker.ignoredSpells,
+    ...CooldownThroughputTracker.ignoredSpells,
     SPELLS.CHI_BURST_HEAL.id,
     SPELLS.REFRESHING_JADE_WIND_HEAL.id,
     SPELLS.SPIRIT_TETHER.id,
@@ -25,4 +25,4 @@ class CooldownTracker extends CoreCooldownTracker {
   ];
 }
 
-export default CooldownTracker;
+export default CooldownThroughputTracker;

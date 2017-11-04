@@ -10,7 +10,7 @@ import DamageDone from 'Parser/Core/Modules/DamageDone';
 import CastEfficiency from './Modules/Main/CastEfficiency';
 import Maelstrom from './Modules/Main/Maelstrom';
 
-import CooldownTracker from './Modules/Features/CooldownTracker';
+import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 // import ShamanStats from './Modules/ShamanCore/ShamanStats';
 import AlphaWolf from './Modules/ShamanCore/AlphaWolf';
@@ -40,7 +40,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     castEfficiency: CastEfficiency,
-    cooldownTracker: CooldownTracker,
+    cooldownThroughputTracker: CooldownThroughputTracker,
     // Legendaries:
     // Tier
     tier20_2set: Tier20_2set,

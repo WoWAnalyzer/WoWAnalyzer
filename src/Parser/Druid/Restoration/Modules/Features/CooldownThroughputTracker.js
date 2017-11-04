@@ -1,12 +1,12 @@
 import SPELLS from 'common/SPELLS';
 
-import CoreCooldownTracker, { BUILT_IN_SUMMARY_TYPES } from 'Parser/Core/Modules/CooldownTracker';
+import CoreCooldownThroughputTracker, { BUILT_IN_SUMMARY_TYPES } from 'Parser/Core/Modules/CooldownThroughputTracker';
 
-class CooldownTracker extends CoreCooldownTracker {
+class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
-    ...CooldownTracker.cooldownSpells,
+    ...CooldownThroughputTracker.cooldownSpells,
     {
-      spell: SPELLS.APOTHEOSIS_TALENT,
+      spell: SPELLS.INCARNATION_TREE_OF_LIFE_TALENT,
       summary: [
         BUILT_IN_SUMMARY_TYPES.HEALING,
         BUILT_IN_SUMMARY_TYPES.OVERHEALING,
@@ -14,7 +14,7 @@ class CooldownTracker extends CoreCooldownTracker {
       ],
     },
     {
-      spell: SPELLS.XANSHI_CLOAK_BUFF,
+      spell: SPELLS.ESSENCE_OF_GHANIR,
       summary: [
         BUILT_IN_SUMMARY_TYPES.HEALING,
         BUILT_IN_SUMMARY_TYPES.OVERHEALING,
@@ -24,4 +24,4 @@ class CooldownTracker extends CoreCooldownTracker {
   ];
 }
 
-export default CooldownTracker;
+export default CooldownThroughputTracker;
