@@ -5,12 +5,14 @@ import SpellLink from 'common/SpellLink';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
-import HIT_TYPES from 'Parser/Core/HIT_TYPES';
-import getDamageBonus from 'Parser/Mage/Shared/Modules/GetDamageBonus';
 
 const FROZEN_ORB_CDR_MS = 4000;
 
-class Tier20_2set extends Analyzer {
+/**
+ * Frost Mage Tier20 4set
+ * The cooldown of Frozen Orb is reduced by 4.0 sec whenever you gain Brain Freeze.
+ */
+class Tier20_4set extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     spellUsable: SpellUsable,
@@ -49,4 +51,4 @@ class Tier20_2set extends Analyzer {
   }
 }
 
-export default Tier20_2set;
+export default Tier20_4set;

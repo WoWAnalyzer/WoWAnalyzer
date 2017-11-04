@@ -9,6 +9,10 @@ import getDamageBonus from 'Parser/Mage/Shared/Modules/GetDamageBonus';
 
 const FROZEN_MASS_DAMAGE_BONUS = 0.2;
 
+/**
+ * Frost Mage Tier20 2set
+ * Frozen Orb increases your critical strike damage by 20% for 10 sec.
+ */
 class Tier20_2set extends Analyzer {
   static dependencies = {
     combatants: Combatants,
