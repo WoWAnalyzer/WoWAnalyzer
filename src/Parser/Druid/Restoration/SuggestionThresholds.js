@@ -71,4 +71,9 @@ export default {
     regular: 0.80,
     major: 0.60,
   },
+  WG_TOO_FEW_TARGETS: {
+    minor: 0.00,
+    regular: 0.10,
+    major: 0.30,
+  },
 };
