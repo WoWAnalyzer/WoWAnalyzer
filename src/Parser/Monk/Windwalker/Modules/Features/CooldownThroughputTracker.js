@@ -1,12 +1,12 @@
 import SPELLS from 'common/SPELLS';
 
-import CoreCooldownTracker, { BUILT_IN_SUMMARY_TYPES } from 'Parser/Core/Modules/CooldownTracker';
+import CoreCooldownThroughputTracker, { BUILT_IN_SUMMARY_TYPES } from 'Parser/Core/Modules/CooldownThroughputTracker';
 
 const debug = false;
 
-class CooldownTracker extends CoreCooldownTracker {
+class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
-    ...CooldownTracker.cooldownSpells,
+    ...CooldownThroughputTracker.cooldownSpells,
     {
       spell: SPELLS.SERENITY_TALENT,
       summary: [
@@ -63,4 +63,4 @@ class CooldownTracker extends CoreCooldownTracker {
   }
 }
 
-export default CooldownTracker;
+export default CooldownThroughputTracker;

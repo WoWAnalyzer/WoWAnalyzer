@@ -26,7 +26,7 @@ import HealingTouch from './Modules/Features/HealingTouch';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import AverageHots from './Modules/Features/AverageHots';
 import CastEfficiency from './Modules/Features/CastEfficiency';
-import CooldownTracker from './Modules/Features/CooldownTracker';
+import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import Rejuvenation from './Modules/Features/Rejuvenation';
 import WildGrowth from './Modules/Features/WildGrowth';
 import Lifebloom from './Modules/Features/Lifebloom';
@@ -77,7 +77,7 @@ class CombatLogParser extends CoreCombatLogParser {
     lowHealthHealing: LowHealthHealing,
     alwaysBeCasting: AlwaysBeCasting,
     averageHots: AverageHots,
-    cooldownTracker: CooldownTracker,
+    cooldownThroughputTracker: CooldownThroughputTracker,
     castEfficiency: CastEfficiency,
     rejuvenation: Rejuvenation,
     wildGrowth: WildGrowth,

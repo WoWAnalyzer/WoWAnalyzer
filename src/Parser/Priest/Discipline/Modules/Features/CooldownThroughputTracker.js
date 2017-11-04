@@ -1,19 +1,19 @@
 import SPELLS from 'common/SPELLS';
 
-import CoreCooldownTracker, { BUILT_IN_SUMMARY_TYPES } from 'Parser/Core/Modules/CooldownTracker';
+import CoreCooldownThroughputTracker, { BUILT_IN_SUMMARY_TYPES } from 'Parser/Core/Modules/CooldownThroughputTracker';
 
 import isAtonement from '../Core/isAtonement';
 import Atonement from '../Spells/Atonement';
 
 const EVANGELISM_ADDED_DURATION = 6000;
 
-class CooldownTracker extends CoreCooldownTracker {
+class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static dependencies = {
     atonementModule: Atonement,
   };
 
   static cooldownSpells = [
-    ...CooldownTracker.cooldownSpells,
+    ...CooldownThroughputTracker.cooldownSpells,
     {
       spell: SPELLS.RAPTURE,
       summary: [
@@ -80,4 +80,4 @@ class CooldownTracker extends CoreCooldownTracker {
   }
 }
 
-export default CooldownTracker;
+export default CooldownThroughputTracker;

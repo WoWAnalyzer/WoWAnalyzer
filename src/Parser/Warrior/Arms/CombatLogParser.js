@@ -3,7 +3,7 @@ import DamageDone from 'Parser/Core/Modules/DamageDone';
 
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
-import CooldownTracker from './Modules/Features/CooldownTracker';
+import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import ColossusSmashUptime from './Modules/BuffDebuff/ColossusSmashUptime';
 import TacticianProc from './Modules/BuffDebuff/TacticianProc';
 
@@ -18,7 +18,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Features
     castEfficiency: CastEfficiency,
     alwaysBeCasting: AlwaysBeCasting,
-    cooldownTracker: CooldownTracker,
+    cooldownThroughputTracker: CooldownThroughputTracker,
     colossusSmashUptime: ColossusSmashUptime,
     tacticianProc: TacticianProc,
 

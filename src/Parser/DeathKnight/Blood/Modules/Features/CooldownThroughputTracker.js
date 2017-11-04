@@ -1,9 +1,9 @@
 import SPELLS from 'common/SPELLS';
-import CoreCooldownTracker, { BUILT_IN_SUMMARY_TYPES } from 'Parser/Core/Modules/CooldownTracker';
+import CoreCooldownThroughputTracker, { BUILT_IN_SUMMARY_TYPES } from 'Parser/Core/Modules/CooldownThroughputTracker';
 
-class CooldownTracker extends CoreCooldownTracker {
+class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
-    ...CooldownTracker.cooldownSpells,
+    ...CooldownThroughputTracker.cooldownSpells,
     {
       spell: SPELLS.DANCING_RUNE_WEAPON_BUFF,
       summary: [
@@ -21,7 +21,7 @@ class CooldownTracker extends CoreCooldownTracker {
   ];
 
   static ignoredSpells = [
-    ...CooldownTracker.ignoredSpells,
+    ...CooldownThroughputTracker.ignoredSpells,
     SPELLS.RAPID_DECOMPOSITION_RP_TICK.id,
     242556, //Filtering procs from the Umbral Glaive Storm trinket
     242557, //Filtering procs from the Umbral Glaive Storm trinket
@@ -30,4 +30,4 @@ class CooldownTracker extends CoreCooldownTracker {
 
 }
 
-export default CooldownTracker;
+export default CooldownThroughputTracker;

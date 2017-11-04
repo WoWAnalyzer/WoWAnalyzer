@@ -2,12 +2,12 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 
-import CoreCooldownTracker, { BUILT_IN_SUMMARY_TYPES } from 'Parser/Core/Modules/CooldownTracker';
+import CoreCooldownThroughputTracker, { BUILT_IN_SUMMARY_TYPES } from 'Parser/Core/Modules/CooldownThroughputTracker';
 
 import Tab from 'Main/Tab';
 import CooldownOverview from 'Main/CooldownOverview';
 
-class ProcTracker extends CoreCooldownTracker {
+class ProcTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
     {
       spell: SPELLS.ASCENDANCE_TALENT_ENHANCEMENT,

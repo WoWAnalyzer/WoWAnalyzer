@@ -1,10 +1,10 @@
 import SPELLS from 'common/SPELLS';
 
-import CoreCooldownTracker, { BUILT_IN_SUMMARY_TYPES } from 'Parser/Core/Modules/CooldownTracker';
+import CoreCooldownThroughputTracker, { BUILT_IN_SUMMARY_TYPES } from 'Parser/Core/Modules/CooldownThroughputTracker';
 
-class CooldownTracker extends CoreCooldownTracker {
+class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
-    ...CooldownTracker.cooldownSpells,
+    ...CooldownThroughputTracker.cooldownSpells,
     {
       spell: SPELLS.TRUESHOT,
       summary: [
@@ -20,12 +20,12 @@ class CooldownTracker extends CoreCooldownTracker {
   ];
 
   static ignoredSpells = [
-    ...CooldownTracker.ignoredSpells,
+    ...CooldownThroughputTracker.ignoredSpells,
     SPELLS.WINDBURST_MOVEMENT_SPEED.id,
     SPELLS.CYCLONIC_BURST_TRAIT.id,
     SPELLS.CYCLONIC_BURST_IMPACT_TRAIT.id,
   ];
 }
 
-export default CooldownTracker;
+export default CooldownThroughputTracker;
 

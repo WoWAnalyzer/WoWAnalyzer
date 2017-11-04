@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 
-import CoreCooldownTracker, { BUILT_IN_SUMMARY_TYPES } from 'Parser/Core/Modules/CooldownTracker';
+import CoreCooldownThroughputTracker, { BUILT_IN_SUMMARY_TYPES } from 'Parser/Core/Modules/CooldownThroughputTracker';
 
 import { ABILITIES_NOT_FEEDING_INTO_AG, ABILITIES_NOT_FEEDING_INTO_ASCENDANCE, ABILITIES_NOT_FEEDING_INTO_CBT } from '../../Constants';
 
@@ -21,9 +21,9 @@ import { ABILITIES_NOT_FEEDING_INTO_AG, ABILITIES_NOT_FEEDING_INTO_ASCENDANCE, A
 // getIndirectHealing can be used to query for one spellId how much healing it provided
 // through AG/CBT/Asc.
 
-class CooldownTracker extends CoreCooldownTracker {
+class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
-    ...CooldownTracker.cooldownSpells,
+    ...CooldownThroughputTracker.cooldownSpells,
     {
       spell: SPELLS.ANCESTRAL_GUIDANCE_TALENT,
       summary: [
@@ -328,4 +328,4 @@ class CooldownTracker extends CoreCooldownTracker {
   }
 }
 
-export default CooldownTracker;
+export default CooldownThroughputTracker;
