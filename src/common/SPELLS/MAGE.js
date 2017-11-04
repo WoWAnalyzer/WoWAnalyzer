@@ -73,7 +73,7 @@ export default {
   },
 
   //Frost
-  MASTERY_ICICLES: { 
+  MASTERY_ICICLES: {
     id: 76613,
     name: 'Mastery: Icicles',
     icon: 'spell_frost_iceshard',
@@ -337,6 +337,11 @@ export default {
     id: 195345,
     name: 'Frozen Veins',
     icon: 'spell_frost_coldhearted',
+  },
+  ICE_NINE: {
+    id: 214664,
+    name: 'Ice Nine',
+    icon: 'spell_frost_iceshard',
   },
   WARMTH_OF_THE_PHOENIX: {
     id: 240671,
