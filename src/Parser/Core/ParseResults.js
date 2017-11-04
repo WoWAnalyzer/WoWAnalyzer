@@ -85,6 +85,7 @@ class SuggestionAssertion {
         stat: suggestion._actualText ? `${suggestion._actualText} (${suggestion._recommendedText})` : null,
         icon: suggestion._icon,
         importance: this._getIssueImportance(suggestion),
+        details: suggestion._details,
       });
     }
   }
@@ -97,6 +98,7 @@ class Suggestion {
   _breakpointRegular = null;
   _breakpointMajor = null;
   _staticImportance = null;
+  _details = null;
 
   constructor(text) {
     this._text = text;
@@ -123,6 +125,10 @@ class Suggestion {
   }
   staticImportance(value) {
     this._staticImportance = value;
+    return this;
+  }
+  details(value) {
+    this._details = value;
     return this;
   }
 }
