@@ -18,7 +18,7 @@ PatreonButton.propTypes = {
   text: PropTypes.string,
 };
 PatreonButton.defaultProps = {
-  text: 'Patreon',
+  text: 'Become a Patron',
 };
 
 export default PatreonButton;

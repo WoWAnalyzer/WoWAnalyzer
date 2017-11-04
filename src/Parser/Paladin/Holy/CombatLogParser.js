@@ -23,7 +23,7 @@ import CastEfficiency from './Modules/Features/CastEfficiency';
 import MasteryEffectiveness from './Modules/Features/MasteryEffectiveness';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import TyrsDeliverance from './Modules/Features/TyrsDeliverance';
-import CooldownTracker from './Modules/Features/CooldownTracker';
+import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import StatWeights from './Modules/Features/StatWeights';
 
 import RuleOfLaw from './Modules/Talents/RuleOfLaw';
@@ -83,7 +83,7 @@ class CombatLogParser extends CoreCombatLogParser {
     masteryEffectiveness: MasteryEffectiveness,
     alwaysBeCasting: AlwaysBeCasting,
     tyrsDeliverance: TyrsDeliverance,
-    cooldownTracker: CooldownTracker,
+    cooldownThroughputTracker: CooldownThroughputTracker,
     statWeights: StatWeights,
 
     // Talents

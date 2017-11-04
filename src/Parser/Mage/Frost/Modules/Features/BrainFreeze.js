@@ -131,7 +131,7 @@ class BrainFreezeTracker extends Analyzer {
 			/>
 		);
 	}
-	statisticOrder = STATISTIC_ORDER.OPTIONAL(2);
+	statisticOrder = STATISTIC_ORDER.CORE(12);
 }
 
 export default BrainFreezeTracker;
