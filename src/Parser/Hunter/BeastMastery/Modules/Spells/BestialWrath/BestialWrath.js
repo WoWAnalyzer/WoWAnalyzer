@@ -31,25 +31,19 @@ class BestialWrath extends Analyzer {
 
   bonusDmg = 0;
 
-  get bestialWrathInitialModifier() {
-    if (this.combatants.selected.hasTalent(SPELLS.BESTIAL_FURY_TALENT) || this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_HUNTMASTER.id)) {
-      BESTIAL_WRATH_TOTAL_MODIFIER = BESTIAL_FURY_MODIFIER + BESTIAL_WRATH_BASE_MODIFIER;
-    } else {
-      BESTIAL_WRATH_TOTAL_MODIFIER = BESTIAL_WRATH_BASE_MODIFIER;
-    }
-    return BESTIAL_WRATH_TOTAL_MODIFIER;
-  }
-
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     //resets the strength of bestial wrath every time it's cast and adjust for Bestial Fury talent.
     if (spellId === SPELLS.BESTIAL_WRATH.id) {
-      this.bestialWrathInitialModifier();
+      if (this.combatants.selected.hasTalent(SPELLS.BESTIAL_FURY_TALENT) || this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_HUNTMASTER.id)) {
+        BESTIAL_WRATH_TOTAL_MODIFIER = BESTIAL_FURY_MODIFIER + BESTIAL_WRATH_BASE_MODIFIER;
+      } else {
+        BESTIAL_WRATH_TOTAL_MODIFIER = BESTIAL_WRATH_BASE_MODIFIER;
+      }
     }
     if (AFFECTED_ABILITIES.every(id => spellId !== id)) {
       return;
     }
-
     if (this.combatants.selected.hasBuff(SPELLS.HUNTER_BM_T20_2P_BONUS.id) && this.combatants.selecteded.hasBuff(SPELLS.BESTIAL_WRATH.id)) {
       BESTIAL_WRATH_TOTAL_MODIFIER += T20_2P_MODIFIER_PR_STACK;
     }
