@@ -6,6 +6,10 @@ import { formatNumber } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
+/**
+ * Ice Time:
+ * Your Frozen Orb explodes into a Frost Nova that deals (600% of Spell power) damage.
+ */
 class IceTime extends Analyzer {
 
   static dependencies = {
