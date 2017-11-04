@@ -246,7 +246,6 @@ class MasteryEffectiveness extends Analyzer {
         icon={<img src={MasteryRadiusImage} style={{ border: 0 }} alt="Mastery effectiveness" />}
         value={`${formatPercentage(totalMasteryEffectiveness)} %`}
         label="Mastery effectiveness"
-        tooltip="Effects that temporarily increase your mastery are currently not supported and will skew results."
       />
     );
   }
