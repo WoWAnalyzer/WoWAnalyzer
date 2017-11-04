@@ -73,7 +73,7 @@ export default {
   },
 
   //Frost
-  MASTERY_ICICLES: { 
+  MASTERY_ICICLES: {
     id: 76613,
     name: 'Mastery: Icicles',
     icon: 'spell_frost_iceshard',
@@ -347,22 +347,22 @@ export default {
   //Tier Sets
   FROST_MAGE_T20_2SET_BONUS_BUFF: {
     id: 242252,
-    name: 'Tier 20 2 Set Bonus',
+    name: 'T20 2 set bonus',
     icon: 'spell_frost_frostbolt02',
   },
   FROST_MAGE_T20_4SET_BONUS_BUFF: {
     id: 242254,
-    name: 'Tier 20 4 Set Bonus',
+    name: 'T20 4 set bonus',
     icon: 'spell_frost_frostbolt02',
   },
   FIRE_MAGE_T20_2SET_BONUS_BUFF: {
     id: 242249,
-    name: 'Tier 20 2 Set Bonus',
+    name: 'T20 2 set bonus',
     icon: 'spell_fire_firebolt02',
   },
   FIRE_MAGE_T20_4SET_BONUS_BUFF: {
     id: 242250,
-    name: 'Tier 20 4 Set Bonus',
+    name: 'T20 4 set bonus',
     icon: 'spell_fire_firebolt02',
   },
 

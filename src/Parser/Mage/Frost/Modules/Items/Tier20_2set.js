@@ -31,9 +31,9 @@ class Tier20_2set extends Analyzer {
 
   item() {
     return {
-      id: SPELLS.FROZEN_MASS.id,
-      icon: <SpellIcon id={SPELLS.FROZEN_MASS.id} />,
-      title: <SpellLink id={SPELLS.FROZEN_MASS.id} />,
+      id: SPELLS.FROST_MAGE_T20_2SET_BONUS_BUFF.id,
+      icon: <SpellIcon id={SPELLS.FROST_MAGE_T20_2SET_BONUS_BUFF.id} />,
+      title: <SpellLink id={SPELLS.FROST_MAGE_T20_2SET_BONUS_BUFF.id} />,
       result: this.owner.formatItemDamageDone(this.damage),
     };
   }
