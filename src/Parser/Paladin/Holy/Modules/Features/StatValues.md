@@ -46,12 +46,16 @@ If we had 9% crit, the 500 effective healing gained from the rating would be jus
 
 If at the heal-event the critical strike chance was more than 100% for that spell, it is completely ignored and not included in the value of this spell. We take into account Holy Shock's double crit chance as well as crit buffs such as Avenging Wrath.
 
-## Haste
-HPCT stands for "Healing per Cast Time". This is the value that 1% Haste would be worth if you would cast everything you are already casting (and that can be casted quicker) 1% faster. Since you don't always actually do this (and there might not always be enough health missing to use this), you might have to manually reduce the value of this stat value to account for this. Mana is also not accounted for in any way and you should consider the Haste stat value 0 if you run out of mana while doing everything else right.
+## Haste (HPCT)
+HPCT stands for "Healing per Cast Time". This is the max value that 1% Haste would be worth if you would cast everything you are already casting and that can be casted quicker 1% faster. Mana and overhealing are not accounted for in any way.
 
-The real worth of Haste might be a bit higher when it causes you to fit more things into static buff durations such as Avenging Wrath, Aura Mastery and other buffs.
+If your spell's cooldown scales with Haste that speeds up your entire "rotation", e.g. HS -> FoL -> LoD -> BF -> FoL -> J -> HS stays the same you just cast them quicker after each other This isn't the kind of rotation you repeat exactly as after the second HS LoD and BF will be on CD, but imagine that those spells are available to you then that's how you'd cast it, with 10% Haste you'd cast the exact same thing only 10% faster. The result is that you cast everything that's limited by a Hasted cooldown 10% faster.
 
-If your spell's cooldown scales with Haste that speeds up your entire "rotation", e.g. HS -> FoL -> LoD -> BF -> FoL -> J -> HS stays the same you just cast them quicker after each other This isn't the kind of rotation you repeat exactly as after the second HS LoD and BF will be on CD, but imagine that those spells are available to you then that's how you'd cast it, with 10% Haste you'd cast the exact same thing only 10% faster.
+The real value of Haste (HPCT) will be between 0 and the shown value. It depends on if you have the mana left to spend, if the gained casts would overheal and how well you are at casting spells limited by Hasted cooldowns end-to-end. If you are going OOM before the end of the fight you might instead want to drop some Haste or cast less bad heals. If you had mana left-over, Haste could help you convert that into healing. If your Haste usage is optimal Haste will then be worth the shown max value.
+
+If there are intense moments of damage taken where people are dying due to lack of healing and you're GCD capped, Haste might also help increase your throughput during this period saving lifes and helping you kill the boss.
+
+**The easiest advice here is to get Haste to a point you're comfortable at. This is usually around 5-9%.**
 
 ## Mastery
 Mastery is pretty basic; every time a spell is cast we calculate the mastery effectiveness of that spell. The value of Mastery is then the same calculation as for Versatility, but multiplied for the actual mastery effectiveness of that spell. The same overhealing approach counts as well.
@@ -69,23 +73,3 @@ Calculating this is different depending on if the player does or does not alread
 Leech, Velens, Aura of Sacrifice, Obsidian Stone Spaulders and Lay on Hands healing is disregarded for the purpose of the main stat's values, as they scale with whatever procced them. It's easiest to just not count them.
 
 If a heal is not in the database of heals, it's assumed to scale only with Versatility. This is generally a good assumption, and this is how most trinket heals behave.
-
-## TODO
-
-- [x] Int
-- [x] Critical Strike - **hard**
-- [x] Based on crit healing
-- [x] Contribution from IoL FoL
-- [ ] Contribution from IoL HL **hard** (also not as important)
-- [x] Haste - **hard**
-- [x] Mastery
-- [x] Versatility
-- [x] Versatility DR
-- [x] Leech when user already has Leech
-- [x] Leech prediction
-- [x] Implement stat tracker
-- [x] Do a complete accuracy review
-- [x] Layout
-- [x] Refactoring
-- [ ] Tests
-- [x] It would be nice if SpellInfo was part of CastEfficiency's abilities array
