@@ -1,6 +1,8 @@
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 
+import ColdHeart from 'Parser/DeathKnight/Shared/Items/ColdHeart';
+
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
@@ -11,6 +13,9 @@ import RunicPowerDetails from './Modules/RunicPower/RunicPowerDetails';
 import RunicPowerTracker from './Modules/RunicPower/RunicPowerTracker';
 
 import DarkArbiter from './Modules/Talents/DarkArbiter';
+import UnholyFrenzy from './Modules/Talents/UnholyFrenzy';
+
+import ScourgeOfWorlds from './Modules/Traits/ScourgeOfWorlds';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -30,6 +35,13 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // talents
     darkArbiter: DarkArbiter,
+    unholyFrenzy: UnholyFrenzy,
+
+    // items
+    coldHeart: ColdHeart,
+
+    // traits
+    scourgeOfWorlds: ScourgeOfWorlds,
   };
 }
 
