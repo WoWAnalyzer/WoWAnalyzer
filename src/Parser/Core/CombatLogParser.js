@@ -2,6 +2,7 @@ import React from 'react';
 
 import SuggestionsTab from 'Main/SuggestionsTab';
 import ChangelogTab from 'Main/ChangelogTab';
+import ChangelogTabTitle from 'Main/ChangelogTabTitle';
 import Tab from 'Main/Tab';
 import Talents from 'Main/Talents';
 
@@ -403,7 +404,7 @@ class CombatLogParser {
         ),
       },
       {
-        title: 'Changelog',
+        title: <ChangelogTabTitle />,
         url: 'changelog',
         order: 1000,
         render: () => <ChangelogTab />,
