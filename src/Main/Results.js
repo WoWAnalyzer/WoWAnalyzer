@@ -181,6 +181,7 @@ class Results extends React.Component {
       results.tabs.push({
         title: 'Development',
         url: 'development',
+        order: 100000,
         render: () => (
           <DevelopmentTab
             parser={parser}
@@ -191,6 +192,7 @@ class Results extends React.Component {
       results.tabs.push({
         title: 'Events',
         url: 'events',
+        order: 100001,
         render: () => (
           <EventsTab
             parser={parser}
@@ -200,6 +202,7 @@ class Results extends React.Component {
       results.tabs.push({
         title: 'Status',
         url: 'status',
+        order: 100002,
         render: () => (
           <Tab title="Status" style={{ padding: '15px 22px' }}>
             <Status />
@@ -261,7 +264,14 @@ class Results extends React.Component {
             <div className="panel-body flex" style={{ flexDirection: 'column', padding: '0' }}>
               <div className="navigation" style={{ minHeight: 70 }}>
                 <div className="flex" style={{ paddingTop: '10px', flexDirection: 'row', flexWrap: 'wrap' }}>
-                  {results.tabs.map(tab => (
+                  {results.tabs
+                    .sort((a, b) => {
+                      const aOrder = a.order !== undefined ? a.order : 100;
+                      const bOrder = b.order !== undefined ? b.order : 100;
+
+                      return aOrder - bOrder;
+                    })
+                    .map(tab => (
                     <button
                       key={tab.title}
                       className={activeTab.url === tab.url ? 'btn-link selected' : 'btn-link'}

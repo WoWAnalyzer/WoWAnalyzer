@@ -386,6 +386,7 @@ class CombatLogParser {
       {
         title: 'Suggestions',
         url: 'suggestions',
+        order: 0,
         render: () => (
           <SuggestionsTab issues={results.issues} />
         ),
@@ -393,6 +394,7 @@ class CombatLogParser {
       {
         title: 'Talents',
         url: 'talents',
+        order: 1,
         render: () => (
           <Tab title="Talents">
             <Talents combatant={this.modules.combatants.selected} />
