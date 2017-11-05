@@ -9,8 +9,6 @@ import SPELLS from 'common/SPELLS';
 
 import Haste from '../Core/Haste';
 
-const debug = false;
-
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   static dependencies = {

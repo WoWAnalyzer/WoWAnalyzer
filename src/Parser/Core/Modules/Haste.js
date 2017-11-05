@@ -37,7 +37,6 @@ class Haste extends Analyzer {
     [SPELLS.VOIDFORM_BUFF.id]: 0.01,
     [SPELLS.ICY_VEINS.id]: 0.3,
     [SPELLS.BONE_SHIELD.id]: 0.1, // Blood BK haste buff from maintaining boneshield
-    [SPELLS.MIND_QUICKENING.id]: (800 / 37500), // shadow priest trait
 
     // Boss abilities:
     [209166]: 0.3, // DEBUFF - Fast Time from Elisande
