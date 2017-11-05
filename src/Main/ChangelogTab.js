@@ -2,9 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Wrapper from "../common/Wrapper";
 
+let _stringChangelogDeprecatedWarningSent = false;
+
 const ChangelogTab = (_, { config }) => {
   const changelog = config.changelog;
   if (typeof changelog === 'string') {
+    if (!_stringChangelogDeprecatedWarningSent) {
+      console.error('String based changelogs are deprecated. Convert the changelog to an array basis for more features, see the Holy Paladin changelog for an example.');
+      _stringChangelogDeprecatedWarningSent = true;
+    }
     return (
       <div style={{ padding: 0 }}>
         <ul className="list text">
