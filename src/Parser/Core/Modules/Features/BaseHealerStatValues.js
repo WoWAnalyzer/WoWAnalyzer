@@ -376,7 +376,7 @@ class BaseHealerStatValues extends Analyzer {
                       />{' '}
                       {tooltip ? <dfn data-tip={tooltip}>{getName(stat)}</dfn> : getName(stat)}
                     </td>
-                    <td className="text-right">{stat === STAT.HASTE_HPCT && '≈'}{gain !== null ? weight.toFixed(2) : 'NYI'}</td>
+                    <td className="text-right">{stat === STAT.HASTE_HPCT && '0.00 - '}{gain !== null ? weight.toFixed(2) : 'NYI'}</td>
                     <td className="text-right">{gain !== null ? (
                       ratingForOne === Infinity ? '∞' : formatNumber(ratingForOne)
                     ) : 'NYI'}</td>

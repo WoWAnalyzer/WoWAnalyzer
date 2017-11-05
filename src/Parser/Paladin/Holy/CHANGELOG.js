@@ -1,4 +1,5 @@
 export default `
+05-11-2017 - Reworded haste tooltip and changed the display to be 0.00 - value to be more obvious it's a max. (by Zerotorescue)
 02-11-2017 - Changed the recommended <a href="http://www.wowhead.com/item=137046" target="_blank" rel="noopener noreferrer" class="legendary">Ilterendi, Crown Jewel of Silvermoon</a> healing contribution to be at least 4% (down from 4.5%). (by Zerotorescue)
 01-11-2017 - Fixed Leech stat value when someone doesn't have any Leech to no longer include self-healing or healing from Velen's Future Sight. (by Zerotorescue)
 31-10-2017 - Fixed the <i>Haste HPCT</i> stat vlaue not taking current Haste into account leading to a slightly overvaluation. (by Sref)
