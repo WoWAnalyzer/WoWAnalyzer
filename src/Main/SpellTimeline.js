@@ -120,13 +120,13 @@ class SpellTimeline extends React.PureComponent {
             if (event.type === 'updatespellusable' && event.trigger === 'endcooldown') {
               const left = (event.start - start) / 1000 * secondWidth;
               const maxWidth = seconds * secondWidth - left; // don't expand beyond the container width
-              const width = Math.min(maxWidth, left + (event.end - event.start) / 1000 * secondWidth);
+              const width = Math.min(maxWidth, (event.end - event.start) / 1000 * secondWidth);
               return (
                 <div
                   style={{
                     left,
                     width,
-                    background: 'rgba(187, 100, 100, 0.4)',
+                    background: 'rgba(100, 100, 100, 0.4)',
                     zIndex: 1,
                   }}
                   data-tip={`Cooldown: ${formatMilliseconds(event.end - event.start, false)}s`}
