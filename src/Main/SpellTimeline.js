@@ -133,7 +133,7 @@ class SpellTimeline extends React.PureComponent {
                   style={{
                     left,
                     width,
-                    background: 'rgba(100, 100, 100, 0.4)',
+                    background: 'rgba(150, 150, 150, 0.4)',
                     zIndex: 1,
                   }}
                   data-tip={`Cooldown: ${((event.end - event.start) / 1000).toFixed(1)}s`}
