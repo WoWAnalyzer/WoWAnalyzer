@@ -3,11 +3,9 @@
 * [Add an empty spec](#add-an-empty-spec)
 * [Add a total damage done / healing done / damage taken statistic](#add-a-total-damage-done--healing-done--damage-taken-statistic)
 * [Add Cast Efficiency](#add-cast-efficiency)
-* [Add Always be Casting](#add-always-be-casting)
+* [Add Always Be Casting](#add-always-be-casting)
   * [Code skeleton](#general-code-skeleton)
-  * [Optional code](#optional-code)
   * [Code skeleton: Healers](#code-skeleton-healers)
-  * [Optional code: Healers](#optional-code-healers)
 * [Create a pull request](#create-a-pull-request)
 * [Suggestions](#suggestions)
   * [Suggestion texts](#suggestion-texts)
@@ -133,7 +131,7 @@ To create and show this tab, in your class-specialization's `CombatLogParser.js`
 * `import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';` in the list of imports at the top
 * `alwaysBeCasting: AlwaysBeCasting,` in the specModules block
 
-In `src/Parser/CLASS/SPECIALIZATION/Modules/Features`, create or edit the `CastEfficiency.js`. The damage dealing/tanks AlwaysBeCasting is the basic code skeleton. Healers use a specific healing version and have additional code options.
+In `src/Parser/CLASS/SPECIALIZATION/Modules/Features`, create or edit the `AlwaysBeCasting.js`. The damage dealing/tanks AlwaysBeCasting is the basic code skeleton. Healers use a specific healing version and some healer specs have used additional optional code.
 
 ### General code skeleton
 ```javascript
@@ -174,9 +172,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
 export default AlwaysBeCasting;
 ```
 
-### Optional code
-
-**Import modules**
+**Optional import modules**
 ```javascript
 // used for trinket abilities
 // used if items convert non-healing abilities to healing abilities
@@ -190,54 +186,13 @@ import { STATISTIC_ORDER } from 'Main/StatisticBox';
   // at the bottom of the class, after showStatistic = true
   // change the number to change the position order
   statisticOrder = STATISTIC_ORDER.CORE(0);
-  
-// ?? 
-import SuggestionThresholds from '../../SuggestionThresholds';
 ```
 
-**Suggestions messages**
-*See the [Suggestions](#suggestions) section below for more specific suggestion guidelines.*
+**Optional suggestions messages**
+
+See the [Suggestions](#suggestions) section below for more specific suggestion guidelines.
 
 To include particular spell suggestions, use the SpellLink import and a <span></span> message in the suggest() instead of a string. (example: [Retribution Paladin](../src/Parser/Paladin/Retribution/Modules/Features/AlwaysBeCasting.js))
-```
-'Your downtime can be improved. Try to reduce your downtime, for example by reducing the delay between casting spells and when you\'re not healing try to contribute some damage.'
-
-...becomes...
-
-<span>Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. Even if you have to move, try casting something instant with range like <SpellLink id={SPELLS.JUDGMENT_CAST.id} /> or <SpellLink id={SPELLS.DIVINE_STORM.id} /></span>
-```
-
-**Verifying cast times** -- Optional / Custom code
-This code appears particularly if the maintainer wants to verify haste tracking on a cast or channel ([CoreAlwaysBeCasting, ln~137](../src/Parser/Core/Modules/AlwaysBeCasting.js)), though there are limitations.
-
-Occurrences:
-* [Balance Druid](../src/Parser/Druid/Balance/Modules/Features/AlwaysBeCasting.js) - verifying New/Half/Full Moon casts
-* [Holy Paladin](../src/Parser/Paladin/Holy/Modules/Features/AlwaysBeCasting.js) - verifying Flash of Light's short cast
-* [Discipline Priest](../src/Parser/Priest/Discipline/Modules/Features/AlwaysBeCasting.js) - additional code regarding Penance's channel
-
-```javascript
-  recordCastTime(
-    castStartTimestamp,
-    globalCooldown,
-    begincast,
-    cast,
-    spellId
-  ) {
-
-    // additional code if needed
-
-    super.recordCastTime(
-      castStartTimestamp,
-      globalCooldown,
-      begincast,
-      cast,
-      spellId
-    );
-
-    // #### = cast time in milliseconds
-    this._verifyChannel(SPELLS.SPELL_NAME.id, ####, begincast, cast);
-  }
-```
 
 ### Code skeleton: Healers
 Healer modules can differentiate between healing downtime (casting non-healing spells) and overall downtime (not casting anything). So, instead they extend from a special Healing version of the Core AlwaysBeCasting, and they include different code bits to deal with the distinction of healing versus other spells.
@@ -249,22 +204,25 @@ import { formatPercentage } from 'common/format';
 import CoreAlwaysBeCastingHealing from 'Parser/Core/Modules/AlwaysBeCastingHealing';
 
 const HEALING_ABILITIES_ON_GCD = [
-   SPELLS.HEALING_DIRECT_NAME.id,
-   SPELLS.HEALING_HOT_NAME.id,
-   SPELLS.HEALING_AOE_NAME.id,
+   SPELLS.HEALING_SPELL_NAME.id,
+   SPELLS.HEALING_SPELL_NAME.id,
+   SPELLS.HEALING_SPELL_NAME.id,
 ];
 
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   static HEALING_ABILITIES_ON_GCD = HEALING_ABILITIES_ON_GCD;
   static ABILITES_ON_GCD = [
+    // healing abilities
     ...HEALING_ABILITIES_ON_GCD,
+
+    // damage abilities
     SPELLS.SPELL_NAME.id,
     ######, // if using spellid, please inline comment what it is
     SPELLS.SPELL_NAME.id,
 
-    // Useless or extremely minor abilities have two options:
-    // 1. Include them anyway for sake of completion in a specific 'extra' category
-    // 2. Comment them out with a note
+    // Useless/extremely minor abilities
+      // either include them anyway for sake of completion
+      // or comment each out & note why
   ];
  
   suggestions(when) { 
@@ -295,35 +253,13 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
 export default AlwaysBeCasting;
 ```
 
-### Optional code: healers
+**Optional code: healers**
 
-**Talents/items convert a non-healing ability to a healing-oriented ability**
-Example: [Holy Paladin](../src/Parser/Paladin/Holy/Modules/Features/AlwaysBeCasting.js)
-```javascript
-on_initialized() {
-  const combatant = this.combatants.selected;
+[Holy Paladin](../src/Parser/Paladin/Holy/Modules/Features/AlwaysBeCasting.js) has some extra code for distinguishing when a damage ability can be counted as a healing ability due to talents, items, or target selection.
 
-  // reason:
-  // talent: combatant.hasTalent(SPELLS.TALENT_NAME.id)
-  // item: combatant.hasSlot(ITEMS.ITEM_NAME.id)
-  if (reason) { 
-    this.constructor.HEALING_ABILITIES_ON_GCD.push(SPELLS.SPELL_NAME,id);
-  }
-}
-```
+[Discipline Priest](../src/Parser/Priest/Discipline/Modules/Features/AlwaysBeCasting.js) only needs one downtime suggestion box, since its damage spells are also healing through Atonement.
 
-**Dual healing/damage abilities**
-Example: [Holy Paladin](../src/Parser/Paladin/Holy/Modules/Features/AlwaysBeCasting.js)
-```javascript 
-countsAsHealingAbility(cast) {
-  const spellId = cast.ability.guid;
-  if (spellId === SPELLS.HOLY_SHOCK_CAST.id && !cast.targetIsFriendly) {
-    debug && console.log(`%cABC: ${cast.ability.name} (${spellId}) skipped for healing time; target is not friendly`, 'color: orange');
-    return false;
-  }
-  return super.countsAsHealingAbility(cast);
-}
-```
+Although also seen in [Balance Druid](../src/Parser/Druid/Balance/Modules/Features/AlwaysBeCasting.js), verification of cast times is primarily seen in both Holy Paladin (basic verifyChannel for Flash of Light) and Discipline Priest (custom code for determining Penance channel).
 
 # Create a pull request
 
