@@ -1,13 +1,13 @@
 import SPELLS from 'common/SPELLS';
 
-import BaseHealerStatWeights from 'Parser/Core/Modules/Features/BaseHealerStatWeights';
+import BaseHealerStatValues from 'Parser/Core/Modules/Features/BaseHealerStatValues';
 import STAT from 'Parser/Core/Modules/Features/STAT';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import HealingValue from 'Parser/Core/Modules/HealingValue';
 import CritEffectBonus from 'Parser/Core/Modules/Helpers/CritEffectBonus';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 
-import SPELL_INFO from './StatWeightsSpellInfo';
+import SPELL_INFO from './StatValuesSpellInfo';
 import MasteryEffectiveness from './MasteryEffectiveness';
 
 const INFUSION_OF_LIGHT_BUFF_EXPIRATION_BUFFER = 150; // the buff expiration can occur several MS before the heal event is logged, this is the buffer time that an IoL charge may have dropped during which it will still be considered active.
@@ -15,13 +15,13 @@ const INFUSION_OF_LIGHT_BUFF_MINIMAL_ACTIVE_TIME = 200; // if someone heals with
 const INFUSION_OF_LIGHT_FOL_HEALING_INCREASE = 0.5;
 
 /**
- * Holy Paladin Stat Weights Methodology
+ * Holy Paladin Stat Values Methodology
  *
  * A full explanation of this approach can be read in the issue linked below. This was written for theorycrafters without needing to understand code.
  * (but it might be outdated, that's always the risk of documentation)
  * https://github.com/WoWAnalyzer/WoWAnalyzer/issues/657
  */
-class StatWeights extends BaseHealerStatWeights {
+class StatValues extends BaseHealerStatValues {
   static dependencies = {
     combatants: Combatants,
     critEffectBonus: CritEffectBonus,
@@ -90,7 +90,7 @@ class StatWeights extends BaseHealerStatWeights {
       return effectiveIolHealing * ratingCritChanceContribution / this.statTracker.currentCritRating;
     }
     if (spellId === SPELLS.HOLY_LIGHT.id) {
-      // TODO: We might be able to use the Haste stat weight to value the CDR
+      // TODO: We might be able to use the Haste stat value to value the CDR
       return 0;
     }
   }
@@ -111,6 +111,7 @@ class StatWeights extends BaseHealerStatWeights {
     return baseHeal * healIncreaseFromOneMastery;
   }
 
+  moreInformationLink = 'https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/Parser/Paladin/Holy/Modules/Features/StatValues.md';
   _prepareResults() {
     return [
       STAT.INTELLECT,
@@ -118,7 +119,7 @@ class StatWeights extends BaseHealerStatWeights {
       {
         stat: STAT.HASTE_HPCT,
         tooltip: `
-          HPCT stands for "Healing per Cast Time". This is the max value that 1% Haste would be worth if you would cast everything you are already casting and that can be casted quicker 1% faster. Mana is not accounted for in any way and you should consider the Haste stat weight 0 if you run out of mana while doing everything else right.<br /><br />
+          HPCT stands for "Healing per Cast Time". This is the max value that 1% Haste would be worth if you would cast everything you are already casting and that can be casted quicker 1% faster. Mana is not accounted for in any way and you should consider the Haste stat value 0 if you ran out of mana while doing everything else right.<br /><br />
           
           <h3>You should generally go for the amount of Haste you feel comfortable with.</h3>
         `,
@@ -132,4 +133,4 @@ class StatWeights extends BaseHealerStatWeights {
   }
 }
 
-export default StatWeights;
+export default StatValues;

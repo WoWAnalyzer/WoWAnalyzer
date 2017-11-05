@@ -145,7 +145,7 @@ class MasteryEffectiveness extends Analyzer {
         masteryHealingDone,
         maxPotentialMasteryHealing,
       });
-      // Update the event information to include the heal's mastery effectiveness in case we want to use this elsewhere (hint: StatWeights)
+      // Update the event information to include the heal's mastery effectiveness in case we want to use this elsewhere (hint: StatValues)
       event.masteryEffectiveness = masteryEffectiveness;
     }
   }
