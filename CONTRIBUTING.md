@@ -3,7 +3,9 @@
 <img align="right" src="http://i.imgur.com/k8NZMmV.gif">
 
 Hey, welcome! Awesome you're interested in helping out! This should help get you started. If you have any questions the WoW Analyzer Discord is the place to ask: https://discord.gg/AxphPxU
-<br /><br /><br />
+
+
+
 # Installing
 
 To get the code running on your computer you will need a few things. You might already have a bunch of things, feel free to skip ahead.
@@ -66,13 +68,17 @@ Continue reading below for more general contribution information.
 
 # Quick start
 
+We're using *EcmaScript 6* for code, this is a modern version of JavaScript. Code is transpiled from ES6 to JS with the `npm start` command whenever you make changes to anything, and the browser then automatically refreshes. This usually takes 1 to 3 seconds. If you want to learn (modern) JavaScript these book series are recommended: https://github.com/getify/You-Dont-Know-JS
+
 The main structure of the project is as follows:
 
  - `/src` has all code for the front-end analysis
    - `/src/common` has a lot of utilities, you'll probably have to add to the `SPELLS` and `ITEMS` at some point if you're adding analyzers.
-   - `/src/Main` has core layout stuff, you don't need this at all for analyzers.
+   - `/src/Main` has core layout stuff, you don't need to enter this at all for analyzers.
    - `/src/Parser` this has all the combat log parsing and analyzers.
-     - `/src/Parser/Core` "Core" is the name for everything that's shared across most specs. This folder contains most of the shared classes and analyzers.
+     - `/src/Parser/Core` "Core" is the name for everything that's shared across most specs. This folder contains most of the shared JS classes and analyzers.
+     - `src/Parser/Paladin` Paladin specific code is here.
+     - `src/Parser/Paladin/Holy` Holy Paladin specific code is here, including Holy Paladin "CombatLogParser" which is like a mission control for modules (you enable/disable modules here).
      - `/src/Parser/AVAILABLE_CONFIGS.js` this provides a list of all available specs, when adding a new spec you will have to link it here for it to appear.
    - `/src/tests` **deprecated**, the old test location. Please add new tests next to the file they're testing with the `*.test.js` naming convention.
    - `src/CHANGELOG.js` the changelog for core features (anything all users might notice).
@@ -95,36 +101,10 @@ If you're curious what GitHub name links to who on Discord see [CONTRIBUTORNAMES
 <table align="center">
   <tr>
     <td align="center" width="100"><img src="https://cdn1.iconfinder.com/data/icons/CrystalClear/48x48/apps/important.png" alt="Important"></td>
-    <td>Please make small Pull Requests. For example one PR when you got your spec working with Cast Efficiency set up and maybe ABC, and then preferably 1 PR per additional module. Larger PRs may take a long time to be reviewed and merged.</td>
+    <td>Please make small Pull Requests. One pull request per feature is preferred, which generally means 1 PR per module. Larger PRs may take a longer time to be reviewed and merged.</td>
   </tr>
 </table>
 
-# Code style
+# Code review
 
-<table align="center">
-  <tr>
-    <td align="center" width="100"><img src="https://cdn1.iconfinder.com/data/icons/CrystalClear/48x48/apps/important.png" alt="Important"></td>
-    <td>The sections below need to be worked out more.</td>
-  </tr>
-</table>
-
-The eslint rules must be followed to have your PR pass the automatic TravisCI check. These are mostly checks to reveal issues that might indicate bugs. There are no hard code style rules to allow you to develop without worrying about this. If you are in doubt, check the Holy Paladin spec for how things are solved.
-
-Please never comment *what* you do, comment *why* you do it. I can read code so I know that `hasBuff` checks if someone has a buff, but if it's not obvious why that buff is relevant then include it as a comment (you're free to assume anyone reading your code knows the spec, so this example would have to be pretty weird to warrant a comment).
-
-## Consistency
-
-Many users parse logs for multiple specs, having everything consistent makes it easier to understand and compare different things between specs. Please try to stay as consistent as possible with other specs and similar statistics.
-
-Examples:
-* The first two statistics are always *Healing/damage done* and *Downtime*.
-* When space is limited, show the DPS/HPS amounts instead of percentage of total damage/healing as much as possible. The HPS amounts often have the same results even if someone's total performance is either super high or super low, so they make comparison easier.
-* If you're showing the performance of an item try to use the *X.XX % / XXk HPS* format and show detailed information in the tooltip.
-* Try to keep statististic boxes and item values one liners and if necessary move details to the tooltip.
-* Don't add useless tooltips; only add tooltips for necessary or additional information. If tooltips are always useful they're more likely to be read.
-* Don't show "intellect" (primary stat) amounts as if they're some sort of indication of something's performance. This is too inaccurate and vague.
-
-If you're planning on working on a radical idea I recommend discussing it before you invest a lot of time. It would be a shame if your idea does not fit the project and your work was for naught. Example:
-* Don't convert primary/secondary stats into DPS/HPS values. I'm open to giving this a try, but it needs to be thought through extensively and you'll need to convince it's accurate enough. The buff uptime or average stat gain is probably the most accurate information you could show. This also goes for resources such as mana.
-
-![](https://media.giphy.com/media/J1WCiEDZ74RvW/giphy.gif)
+Our code review guidelines can be found [here](docs/code-reviews.md). TL;DR: Fix errors in the `npm start` window, make sure your code is maintainable and doesn't have anything that could result in a bug or incorrect results.
