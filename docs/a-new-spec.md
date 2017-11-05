@@ -137,6 +137,7 @@ In `src/Parser/CLASS/SPECIALIZATION/Modules/Features`, create or edit the `Alway
 ```javascript
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
+import { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import CoreAlwaysBeCasting from 'Parser/Core/Modules/AlwaysBeCasting';
 
@@ -166,7 +167,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
   }
 
   showStatistic = true;
-  statisticOrder = STATISTIC_ORDER.CORE(1);
+  statisticOrder = STATISTIC_ORDER.CORE(0); // change the number to change the position order
 }
 
 export default AlwaysBeCasting;
@@ -176,12 +177,6 @@ export default AlwaysBeCasting;
 ```javascript
 // used for referring to spells in <span></span> suggestions 
 import SpellLink from 'common/SpellLink';
-
-// used for altering the box's order in the page
-import { STATISTIC_ORDER } from 'Main/StatisticBox';
-  // at the bottom of the class, after showStatistic = true
-  // change the number to change the position order
-  statisticOrder = STATISTIC_ORDER.CORE(0);
 ```
 
 **Optional suggestions messages**
@@ -196,6 +191,7 @@ Healer modules can differentiate between healing downtime (casting non-healing s
 ```javascript
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
+import { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import CoreAlwaysBeCastingHealing from 'Parser/Core/Modules/AlwaysBeCastingHealing';
 
@@ -244,6 +240,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   }
 
   showStatistic = true;
+  statisticOrder = STATISTIC_ORDER.CORE(0); // change the number to change the position order
 }
 
 export default AlwaysBeCasting;
