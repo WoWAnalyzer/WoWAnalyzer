@@ -39,19 +39,18 @@ export function formatDuration(duration) {
   const seconds = Math.floor(duration % 60);
   return `${Math.floor(duration / 60)}:${seconds < 10 ? `0${seconds}` : seconds}`;
 }
-export function formatMilliseconds(duration, withMinutes = true) {
+export function formatMilliseconds(duration) {
   const sumSeconds = duration / 1000;
-  const minutes = withMinutes ? Math.floor(sumSeconds / 60) : 0;
-  const seconds = withMinutes ? (sumSeconds % 60) : sumSeconds;
+  const minutes = Math.floor(sumSeconds / 60);
+  const seconds = sumSeconds % 60;
 
   let response = '';
-  if (withMinutes) {
-    if (minutes < 10) {
-      response += '0';
-    }
-    response += `${minutes}:`;
+  if (minutes < 10) {
+    response += '0';
   }
-  if (seconds < 10 && withMinutes) {
+  response += minutes;
+  response += ':';
+  if (seconds < 10) {
     response += '0';
   }
   response += seconds.toFixed(3);
