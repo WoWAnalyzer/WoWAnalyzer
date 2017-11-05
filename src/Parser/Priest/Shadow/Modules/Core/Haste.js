@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 const debug = false;
 
 const VOIDFORM_HASTE_PER_STACK = 0.01;
-const LINGERING_INSANITY_HASTE_PER_STACK = 0.01;
 
 
 class Haste extends CoreHaste {
@@ -55,9 +54,9 @@ class Haste extends CoreHaste {
   on_toPlayer_removebuffstack(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.LINGERING_INSANITY.id) {
-      this._applyHasteLoss(event, this._highestLingeringStack * LINGERING_INSANITY_HASTE_PER_STACK);
+      this._applyHasteLoss(event, this._highestLingeringStack * VOIDFORM_HASTE_PER_STACK);
       this._highestLingeringStack = event.stack;
-      this._applyHasteGain(event, this._highestLingeringStack * LINGERING_INSANITY_HASTE_PER_STACK);
+      this._applyHasteGain(event, this._highestLingeringStack * VOIDFORM_HASTE_PER_STACK);
 
       debug && console.log(`ABC: Current haste: ${this.current} (lost 0.02 from LINGERING_INSANITY)`);
       return;
