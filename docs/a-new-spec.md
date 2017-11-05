@@ -101,24 +101,24 @@ import SpellLink from 'common/SpellLink';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE'; 
 ```
 
-The spell categories appear in the tab in the same order as the [CoreCastEfficiency](src/Parser/Core/Modules/CastEfficiency.js) SPELL_CATEGORIES. Within each category, the spells appear in order as entered in the code. Shared trinkets and items are included in [CoreCastEfficiency.CPM_ABILITIES](src/Parser/Core/Modules/CastEfficiency.js) and do not need to be duplicated here.
+The spell categories appear in the tab in the same order as the [CoreCastEfficiency](../src/Parser/Core/Modules/CastEfficiency.js) SPELL_CATEGORIES. Within each category, the spells appear in order as entered in the code. Shared trinkets and items are included in [CoreCastEfficiency.CPM_ABILITIES](../src/Parser/Core/Modules/CastEfficiency.js) and do not need to be duplicated here.
 
-`spell: ` & `getCooldown: ` are required for the page to load without errors. `category: ` is additionally required for the spell to appear in the Cast Efficiency tab. A full list of available properties are commented in the beginning of [CoreCastEfficiency.CPM_ABILITIES](src/Parser/Core/Modules/CastEfficiency.js) and are generally self-explanatory.
+`spell: ` & `getCooldown: ` are required for the page to load without errors. `category: ` is additionally required for the spell to appear in the Cast Efficiency tab. A full list of available properties are commented in the beginning of [CoreCastEfficiency.CPM_ABILITIES](../src/Parser/Core/Modules/CastEfficiency.js) and are generally self-explanatory.
 
 ### getCooldown 
 This property can be set a number of ways. Simply, the property lists the length of the cooldown in seconds.
 * **No cooldown**:  `haste => null,` 
-    * Example: [FIREBALL](src/Parser/Mage/Fire/Modules/Features/CastEfficiency.js)
+    * Example: [FIREBALL](../src/Parser/Mage/Fire/Modules/Features/CastEfficiency.js)
 * **Static cooldown**:  `haste => 120,` 
-    * Example: [SOUL_HARVEST](src/Parser/Warlock/Affliction/Modules/Features/CastEfficiency.js)
+    * Example: [SOUL_HARVEST](../src/Parser/Warlock/Affliction/Modules/Features/CastEfficiency.js)
 * **Hasted cooldown**: `haste => 15 / (1 + haste),` 
-    * Example: [DEMON_SPIKES](src/Parser/DemonHunter/Vengeance/Modules/Features/CastEfficiency.js)
+    * Example: [DEMON_SPIKES](../src/Parser/DemonHunter/Vengeance/Modules/Features/CastEfficiency.js)
 * A **dynamic cooldown** may require a custom function to define the potential cast efficiency. Examples:
-    * [METAMORPHOSIS_HAVOC](src/Parser/DemonHunter/Havoc/Modules/Features/CastEfficiency.js) - artifact relic trait reduces cooldown
-    * [SWIFTMEND](src/Parser/Druid/Restoration/Modules/Features/CastEfficiency.js) - passive talent reduces cooldown
-    * [FISTS_OF_FURY_CAST](src/Parser/Monk/Windwalker/Modules/Features/CastEfficiency.js) - active talent buff further reduces hasted cooldown
-    * [HEALING_STREAM_TOTEM_CAST](src/Parser/Shaman/Restoration/Modules/Features/CastEfficiency.js) - other spell interactions with tier bonus reduces cooldown
-    * [MANGLE_BEAR](src/Parser/Druid/Guardian/Modules/Features/CastEfficiency.js) - estimated cooldown resets from a proc, but proc's chance is determined by multiple factors
+    * [METAMORPHOSIS_HAVOC](../src/Parser/DemonHunter/Havoc/Modules/Features/CastEfficiency.js) - artifact relic trait reduces cooldown
+    * [SWIFTMEND](../src/Parser/Druid/Restoration/Modules/Features/CastEfficiency.js) - passive talent reduces cooldown
+    * [FISTS_OF_FURY_CAST](../src/Parser/Monk/Windwalker/Modules/Features/CastEfficiency.js) - active talent buff further reduces hasted cooldown
+    * [HEALING_STREAM_TOTEM_CAST](../src/Parser/Shaman/Restoration/Modules/Features/CastEfficiency.js) - other spell interactions with tier bonus reduces cooldown
+    * [MANGLE_BEAR](../src/Parser/Druid/Guardian/Modules/Features/CastEfficiency.js) - estimated cooldown resets from a proc, but proc's chance is determined by multiple factors
 
 # Add Always be Casting
 
@@ -126,7 +126,7 @@ See Holy Paladin. (more docs coming)
 
 # Create a pull request
 
-See [CONTRIBUTING.md](doc/README.md#sharing-your-changes).
+See [CONTRIBUTING.md](README.md#sharing-your-changes).
 
 # Suggestions
 
