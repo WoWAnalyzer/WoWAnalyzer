@@ -49,7 +49,7 @@ class SoulOfTheForest extends Analyzer {
     this.hasSota = this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_ARCHDRUID.id);
     this.active = this.hasSotf || this.hasSota;
 
-    const persistenceTraits = this.owner.modules.combatants.selected.traitsBySpellId[SPELLS.PERSISTENCE_TRAIT.id] || 0;
+    const persistenceTraits = this.combatants.selected.traitsBySpellId[SPELLS.PERSISTENCE_TRAIT.id] || 0;
     this.rejuvenationDuration += persistenceTraits * 1000;
   }
 
@@ -73,7 +73,7 @@ class SoulOfTheForest extends Analyzer {
     const spellId = event.ability.guid;
 
     // proccConsumsed it used because WG and RG has a cast time. So whenever you queue cast WG + rejuv they will happen at the exact same timestamp.
-    if (this.owner.modules.combatants.selected.hasBuff(SPELLS.SOUL_OF_THE_FOREST_BUFF.id) && this.proccConsumed === false) {
+    if (this.combatants.selected.hasBuff(SPELLS.SOUL_OF_THE_FOREST_BUFF.id) && this.proccConsumed === false) {
       if (SPELLS.REJUVENATION.id === spellId || SPELLS.REJUVENATION_GERMINATION === spellId) {
         this.rejuvenations += 1;
         this.rejuvenationProccTimestamp = event.timestamp;
