@@ -144,12 +144,12 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
   static ABILITIES_ON_GCD = [
     // Category
     SPELLS.SPELL_NAME.id,
-    ######, // if using spellid, please inline comment what it is
+    123456, // if using spellid, please inline comment what it is
     SPELLS.SPELL_NAME.id,
 
-    // Useless or extremely minor abilities have two options:
-    // 1. Include them anyway for sake of completion in a specific 'extra' category
-    // 2. Comment them out with a note
+    // Useless/extremely minor abilities
+      // either include them anyway for sake of completion
+      // or comment each out & note why
   ];
 
   suggestions(when) {
@@ -192,7 +192,7 @@ import { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 See the [Suggestions](#suggestions) section below for more specific suggestion guidelines.
 
-To include particular spell suggestions, use the SpellLink import and a <span></span> message in the suggest() instead of a string. (example: [Retribution Paladin](../src/Parser/Paladin/Retribution/Modules/Features/AlwaysBeCasting.js))
+To include particular spell suggestions, use the SpellLink import and a `<span></span>` message in the suggest() instead of a string (example: [Retribution Paladin](../src/Parser/Paladin/Retribution/Modules/Features/AlwaysBeCasting.js)).
 
 ### Code skeleton: Healers
 Healer modules can differentiate between healing downtime (casting non-healing spells) and overall downtime (not casting anything). So, instead they extend from a special Healing version of the Core AlwaysBeCasting, and they include different code bits to deal with the distinction of healing versus other spells.
@@ -217,7 +217,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
 
     // damage abilities
     SPELLS.SPELL_NAME.id,
-    ######, // if using spellid, please inline comment what it is
+    123456, // if using spellid, please inline comment what it is
     SPELLS.SPELL_NAME.id,
 
     // Useless/extremely minor abilities
@@ -259,7 +259,7 @@ export default AlwaysBeCasting;
 
 [Discipline Priest](../src/Parser/Priest/Discipline/Modules/Features/AlwaysBeCasting.js) only needs one downtime suggestion box, since its damage spells are also healing through Atonement.
 
-Although also seen in [Balance Druid](../src/Parser/Druid/Balance/Modules/Features/AlwaysBeCasting.js), verification of cast times is primarily seen in both Holy Paladin (basic verifyChannel for Flash of Light) and Discipline Priest (custom code for determining Penance channel).
+Although also seen in [Balance Druid](../src/Parser/Druid/Balance/Modules/Features/AlwaysBeCasting.js), verification of cast times is primarily seen in Holy Paladin (`_verifyChannel()` for Flash of Light) and Discipline Priest (custom code for distinguishing consecutive Penance channels).
 
 # Create a pull request
 
