@@ -3,7 +3,9 @@
 * [Add an empty spec](#add-an-empty-spec)
 * [Add a total damage done / healing done / damage taken statistic](#add-a-total-damage-done--healing-done--damage-taken-statistic)
 * [Add Cast Efficiency](#add-cast-efficiency)
-* [Add Always be Casting](#add-always-be-casting)
+* [Add Always Be Casting](#add-always-be-casting)
+  * [Code skeleton](#general-code-skeleton)
+  * [Code skeleton: Healers](#code-skeleton-healers)
 * [Create a pull request](#create-a-pull-request)
 * [Suggestions](#suggestions)
   * [Suggestion texts](#suggestion-texts)
@@ -57,9 +59,10 @@ ps. Tests can be added in the `src/tests` folder. Automated tests are recommende
 See Holy Paladin's healing done. (more docs coming)
 
 # Add Cast Efficiency
+
 Cast Efficiency is a tab that shows stats concerning the number of ability uses and includes suggestions for spellcasts that are below preferred thresholds. 
 
-To create and show this tab, in your class-specialization's `CombatParser.js` add two lines of code:
+To create and show this tab, in your class-specialization's `CombatLogParser.js` add two lines of code:
 * `import CastEfficiency from './Modules/Features/CastEfficiency';` in the list of imports at the top
 * `castEfficiency: CastEfficiency,` in the specModules block
 
@@ -101,32 +104,159 @@ import SpellLink from 'common/SpellLink';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE'; 
 ```
 
-The spell categories appear in the tab in the same order as the [CoreCastEfficiency](src/Parser/Core/Modules/CastEfficiency.js) SPELL_CATEGORIES. Within each category, the spells appear in order as entered in the code. Shared trinkets and items are included in [CoreCastEfficiency.CPM_ABILITIES](src/Parser/Core/Modules/CastEfficiency.js) and do not need to be duplicated here.
+The spell categories appear in the tab in the same order as the [CoreCastEfficiency](../src/Parser/Core/Modules/CastEfficiency.js) SPELL_CATEGORIES. Within each category, the spells appear in order as entered in the code. Shared trinkets and items are included in [CoreCastEfficiency.CPM_ABILITIES](../src/Parser/Core/Modules/CastEfficiency.js) and do not need to be duplicated here.
 
-`spell: ` & `getCooldown: ` are required for the page to load without errors. `category: ` is additionally required for the spell to appear in the Cast Efficiency tab. A full list of available properties are commented in the beginning of [CoreCastEfficiency.CPM_ABILITIES](src/Parser/Core/Modules/CastEfficiency.js) and are generally self-explanatory.
+`spell: ` & `getCooldown: ` are required for the page to load without errors. `category: ` is additionally required for the spell to appear in the Cast Efficiency tab. A full list of available properties are commented in the beginning of [CoreCastEfficiency.CPM_ABILITIES](../src/Parser/Core/Modules/CastEfficiency.js) and are generally self-explanatory.
 
 ### getCooldown 
 This property can be set a number of ways. Simply, the property lists the length of the cooldown in seconds.
 * **No cooldown**:  `haste => null,` 
-    * Example: [FIREBALL](src/Parser/Mage/Fire/Modules/Features/CastEfficiency.js)
+    * Example: [FIREBALL](../src/Parser/Mage/Fire/Modules/Features/CastEfficiency.js)
 * **Static cooldown**:  `haste => 120,` 
-    * Example: [SOUL_HARVEST](src/Parser/Warlock/Affliction/Modules/Features/CastEfficiency.js)
+    * Example: [SOUL_HARVEST](../src/Parser/Warlock/Affliction/Modules/Features/CastEfficiency.js)
 * **Hasted cooldown**: `haste => 15 / (1 + haste),` 
-    * Example: [DEMON_SPIKES](src/Parser/DemonHunter/Vengeance/Modules/Features/CastEfficiency.js)
+    * Example: [DEMON_SPIKES](../src/Parser/DemonHunter/Vengeance/Modules/Features/CastEfficiency.js)
 * A **dynamic cooldown** may require a custom function to define the potential cast efficiency. Examples:
-    * [METAMORPHOSIS_HAVOC](src/Parser/DemonHunter/Havoc/Modules/Features/CastEfficiency.js) - artifact relic trait reduces cooldown
-    * [SWIFTMEND](src/Parser/Druid/Restoration/Modules/Features/CastEfficiency.js) - passive talent reduces cooldown
-    * [FISTS_OF_FURY_CAST](src/Parser/Monk/Windwalker/Modules/Features/CastEfficiency.js) - active talent buff further reduces hasted cooldown
-    * [HEALING_STREAM_TOTEM_CAST](src/Parser/Shaman/Restoration/Modules/Features/CastEfficiency.js) - other spell interactions with tier bonus reduces cooldown
-    * [MANGLE_BEAR](src/Parser/Druid/Guardian/Modules/Features/CastEfficiency.js) - estimated cooldown resets from a proc, but proc's chance is determined by multiple factors
+    * [METAMORPHOSIS_HAVOC](../src/Parser/DemonHunter/Havoc/Modules/Features/CastEfficiency.js) - artifact relic trait reduces cooldown
+    * [SWIFTMEND](../src/Parser/Druid/Restoration/Modules/Features/CastEfficiency.js) - passive talent reduces cooldown
+    * [FISTS_OF_FURY_CAST](../src/Parser/Monk/Windwalker/Modules/Features/CastEfficiency.js) - active talent buff further reduces hasted cooldown
+    * [HEALING_STREAM_TOTEM_CAST](../src/Parser/Shaman/Restoration/Modules/Features/CastEfficiency.js) - other spell interactions with tier bonus reduces cooldown
+    * [MANGLE_BEAR](../src/Parser/Druid/Guardian/Modules/Features/CastEfficiency.js) - estimated cooldown resets from a proc, but proc's chance is determined by multiple factors
 
-# Add Always be Casting
+# Add Always Be Casting
 
-See Holy Paladin. (more docs coming)
+AlwaysBeCasting.js is the Downtime statistic module box, commonly the first or second box on a player's WoWAnalyzer report. It also controls downtime suggestions for the player in the Suggestions tab.
+
+To create and show this tab, in your class-specialization's `CombatLogParser.js` add two lines of code:
+* `import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';` in the list of imports at the top
+* `alwaysBeCasting: AlwaysBeCasting,` in the specModules block
+
+In `src/Parser/CLASS/SPECIALIZATION/Modules/Features`, create or edit the `AlwaysBeCasting.js`. The damage dealing/tanks AlwaysBeCasting is the basic code skeleton. Healers use a specific healing version and some healer specs have used additional optional code.
+
+### General code skeleton
+```javascript
+import SPELLS from 'common/SPELLS';
+import { formatPercentage } from 'common/format';
+import { STATISTIC_ORDER } from 'Main/StatisticBox';
+
+import CoreAlwaysBeCasting from 'Parser/Core/Modules/AlwaysBeCasting';
+
+class AlwaysBeCasting extends CoreAlwaysBeCasting {
+  static ABILITIES_ON_GCD = [
+    // Category
+    SPELLS.SPELL_NAME.id,
+    123456, // if using spellid, please comment what it is
+    SPELLS.SPELL_NAME.id,
+
+    // Useless/extremely minor abilities
+      // either include them anyway for sake of completion
+      // or comment each out & note categorically why
+  ];
+
+  suggestions(when) {
+    const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
+
+    when(deadTimePercentage).isGreaterThan(0.2)
+      .addSuggestiong((suggest, actual, recommended) => {
+        return suggest('Your downtime can be improved. Try to reduce your downtime, for example by reducing the delay between casting spells and when you\'re not healing try to contribute some damage.')
+          .icon('spell_mage_altertime')
+          .actual('${formatPercentage(actual)}% downtime')
+          .recommended(`<${formatPercentage(recommended)}% is recommended`)
+          .regular(recommended + 0.15).major(recommended + 0.2);
+      });
+  }
+
+  showStatistic = true;
+  statisticOrder = STATISTIC_ORDER.CORE(0); // change the number to change the position order
+}
+
+export default AlwaysBeCasting;
+```
+
+**Optional import modules**
+```javascript
+// used for referring to spells in <span></span> suggestions 
+import SpellLink from 'common/SpellLink';
+```
+
+**Optional suggestions messages**
+
+See the [Suggestions](#suggestions) section below for more specific suggestion guidelines.
+
+To include particular spell suggestions, use the SpellLink import and a `<span></span>` message in the suggest() instead of a string (example: [Retribution Paladin](../src/Parser/Paladin/Retribution/Modules/Features/AlwaysBeCasting.js)).
+
+### Code skeleton: Healers
+Healer modules can differentiate between healing downtime (casting non-healing spells) and overall downtime (not casting anything). So, instead they extend from a special Healing version of the Core AlwaysBeCasting, and they include different code bits to deal with the distinction of healing versus other spells.
+
+```javascript
+import SPELLS from 'common/SPELLS';
+import { formatPercentage } from 'common/format';
+import { STATISTIC_ORDER } from 'Main/StatisticBox';
+
+import CoreAlwaysBeCastingHealing from 'Parser/Core/Modules/AlwaysBeCastingHealing';
+
+const HEALING_ABILITIES_ON_GCD = [
+   SPELLS.HEALING_SPELL_NAME.id,
+   SPELLS.HEALING_SPELL_NAME.id,
+   SPELLS.HEALING_SPELL_NAME.id,
+];
+
+class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
+  static HEALING_ABILITIES_ON_GCD = HEALING_ABILITIES_ON_GCD;
+  static ABILITES_ON_GCD = [
+    // healing abilities
+    ...HEALING_ABILITIES_ON_GCD,
+
+    // damage abilities
+    SPELLS.SPELL_NAME.id,
+    123456, // if using spellid, please comment what it is
+    SPELLS.SPELL_NAME.id,
+
+    // Useless/extremely minor abilities
+      // either include them anyway for sake of completion
+      // or comment each out & ntoe categorically why
+  ];
+ 
+  suggestions(when) { 
+    const nonHealingTimePercentage = this.totalHealingTimeWaste / this.owner.fightDuration;
+    const deadTimePercentage = this.totalTimeWasted / this owner.fightDuration;
+
+    when(nonHealingTimePercentage).isGreaterThan(0.3)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest('Your non healing time can be improved. Try to reduce the delay between casting spells and try to continue healing when you have to move.')
+          .icon('petbattle_health-down')
+          .actual(`${formatPercentage(actual)}% non healing time`)
+          .recommended(`<${formatPercentage(recommended)}% is recommended`)
+          .regular(recommended + 0.1).major(recommended + 0.15);
+      });
+    when(deadTimePercentage).isGreaterThan(0.2)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest('Your downtime can be improved. Try to Always Be Casting (ABC); try to reduce the delay between casting spells and when you\'re not healing try to contribute some damage.')
+          .icon('spell_mage_altertime')
+          .actual(`${formatPercentage(actual)}% downtime`)
+          .recommended(`<${formatPercentage(recommended)}% is recommended`)
+          .regular(recommended + 0.15).major(1);
+      });
+  }
+
+  showStatistic = true;
+  statisticOrder = STATISTIC_ORDER.CORE(0); // change the number to change the position order
+}
+
+export default AlwaysBeCasting;
+```
+
+**Optional code: healers**
+
+[Holy Paladin](../src/Parser/Paladin/Holy/Modules/Features/AlwaysBeCasting.js) has some extra code (including `import ITEMS from 'common/ITEMS';`) for distinguishing when a damage ability can be counted as a healing ability due to talents, items, or target selection.
+
+[Discipline Priest](../src/Parser/Priest/Discipline/Modules/Features/AlwaysBeCasting.js) only needs one downtime suggestion box, since its damage spells are also healing through Atonement.
+
+Although also seen in [Balance Druid](../src/Parser/Druid/Balance/Modules/Features/AlwaysBeCasting.js), verification of cast times is primarily seen in Holy Paladin (`_verifyChannel()` for Flash of Light) and Discipline Priest (custom code for distinguishing consecutive Penance channels).
 
 # Create a pull request
 
-See [CONTRIBUTING.md](CONTRIBUTING.md#sharing-your-changes).
+See [CONTRIBUTING.md](README.md#sharing-your-changes).
 
 # Suggestions
 
