@@ -5,4 +5,4 @@
 Hey, welcome! Awesome you're interested in helping out! This should help get you started. If you have any questions the WoW Analyzer Discord is the place to ask: https://discord.gg/AxphPxU
 
 
-You can find our documentation [here](docs).
+You can find our documentation [here](docs/README.md).
