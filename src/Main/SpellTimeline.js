@@ -87,7 +87,7 @@ class SpellTimeline extends React.PureComponent {
     const duration = end - start;
     const seconds = Math.ceil(duration / 1000);
 
-    const secondWidth = 50;
+    const secondWidth = 40;
 
     const fixedEvents = this.fabricateEndCooldown(events);
 
@@ -99,7 +99,7 @@ class SpellTimeline extends React.PureComponent {
       >
         <div className="ruler">
           {[...Array(seconds)].map((_, second) => (
-            <div key={second}>
+            <div key={second} style={{ width: secondWidth }}>
               {formatDuration(second)}
             </div>
           ))}
