@@ -126,7 +126,7 @@ class SpellTimeline extends React.PureComponent {
                   style={{
                     left,
                     width,
-                    background: 'rgba(255, 255, 255, 0.2)',
+                    background: 'rgba(187, 100, 100, 0.4)',
                     zIndex: 1,
                   }}
                   data-tip={`Cooldown: ${formatMilliseconds(event.end - event.start, false)}s`}
