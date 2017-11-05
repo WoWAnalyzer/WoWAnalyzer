@@ -1,42 +1,42 @@
-.events {
+.events-tab {
   width: 100%;
 }
-.events tr:nth-child(2n) {
+.events-tab tr:nth-child(2n) {
   background: rgba(255, 255, 255, 0.1);
 }
-.events tr:hover {
+.events-tab tr:hover {
   background: rgba(255, 255, 255, 0.2);
 }
-.events tr.modified {
+.events-tab tr.modified {
   background: rgba(255, 118, 0, 0.3);
 }
-.events tr.modified:hover {
+.events-tab tr.modified:hover {
   background: rgba(255, 118, 0, 0.4);
 }
-.events tr td {
+.events-tab tr td {
   border: 1px solid #000;
   padding: 3px 5px;
 }
-.events .exists {
+.events-tab .exists {
   color: green;
 }
-.events .cast {
+.events-tab .cast {
   color: brown;
 }
-.events .damage {
+.events-tab .damage {
   color: red;
 }
-.events .heal {
+.events-tab .heal {
   color: green;
 }
-.events .absorbed {
+.events-tab .absorbed {
   color: orange;
 }
-.events .overheal, .events .NPC, .events .combatantinfo {
+.events-tab .overheal, .events-tab .NPC, .events-tab .combatantinfo {
   color: gray;
 }
 
-.events a img {
+.events-tab a img {
   height: 1.6em;
   border-radius: 3px;
   border: 1px solid #000;

@@ -783,10 +783,12 @@ table.data-table .performance-bar {
   100%   { opacity: 1; }
 }
 
+.clickable {
+  cursor: pointer;
+}
 code.clickable:hover {
   background: #fff;
   color: #c7254e;
-  cursor: pointer;
 }
 code.inactive {
   background: #c7254e;

@@ -185,6 +185,7 @@ describe('Core/Modules/SpellUsable', () => {
       const call = parserMock.triggerEvent.mock.calls[0];
       expect(call[0]).toBe('updatespellusable');
       expect(call[1]).toEqual({
+        type: 'updatespellusable',
         spellId: SPELLS.FAKE_SPELL.id,
         timestamp: 0,
         start: 0,
@@ -211,6 +212,7 @@ describe('Core/Modules/SpellUsable', () => {
         const call = parserMock.triggerEvent.mock.calls[0];
         expect(call[0]).toBe('updatespellusable');
         expect(call[1]).toEqual({
+          type: 'updatespellusable',
           spellId: SPELLS.FAKE_SPELL.id,
           timestamp: 0,
           start: 0,
@@ -231,6 +233,7 @@ describe('Core/Modules/SpellUsable', () => {
         const call = parserMock.triggerEvent.mock.calls[1];
         expect(call[0]).toBe('updatespellusable');
         expect(call[1]).toEqual({
+          type: 'updatespellusable',
           spellId: SPELLS.FAKE_SPELL.id,
           timestamp: 0,
           start: 0,
@@ -258,6 +261,7 @@ describe('Core/Modules/SpellUsable', () => {
       const call = parserMock.triggerEvent.mock.calls[0];
       expect(call[0]).toBe('updatespellusable');
       expect(call[1]).toEqual({
+        type: 'updatespellusable',
         spellId: SPELLS.FAKE_SPELL.id,
         timestamp: 0,
         start: 0,
@@ -285,6 +289,7 @@ describe('Core/Modules/SpellUsable', () => {
       const call = parserMock.triggerEvent.mock.calls[0];
       expect(call[0]).toBe('updatespellusable');
       expect(call[1]).toEqual({
+        type: 'updatespellusable',
         spellId: SPELLS.FAKE_SPELL.id,
         timestamp: 7500, // it should be simulated at the time of expiry
         start: 0,
@@ -315,6 +320,7 @@ describe('Core/Modules/SpellUsable', () => {
         const call = parserMock.triggerEvent.mock.calls[0];
         expect(call[0]).toBe('updatespellusable');
         expect(call[1]).toEqual({
+          type: 'updatespellusable',
           spellId: SPELLS.FAKE_SPELL.id,
           timestamp: 7500, // it should be simulated at the time of expiry
           start: 0,
@@ -335,6 +341,7 @@ describe('Core/Modules/SpellUsable', () => {
         const call = parserMock.triggerEvent.mock.calls[1];
         expect(call[0]).toBe('updatespellusable');
         expect(call[1]).toEqual({
+          type: 'updatespellusable',
           spellId: SPELLS.FAKE_SPELL.id,
           timestamp: 7500, // it should be simulated at the time of expiry
           start: 7500,
