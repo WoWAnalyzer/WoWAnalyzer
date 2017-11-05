@@ -18,8 +18,8 @@ The guidelines are written in *do*s and *don't*s to be concise and clear, but mo
 
 ### Functional guidelines
 
-- **Don't** show multiple statistic boxes from 1 module (analyzer).
-- **Don't** add tooltips that do not reveal any new information. This is to avoid having a tooltip on everything so that users do not stop reading them because they don't contain anything interesting most of the time.
+- Please **don't** show multiple statistic boxes from 1 module (analyzer).
+- Please **don't** add tooltips that do not reveal any new information. This is to avoid having a tooltip on everything so that users do not stop reading them because they don't contain anything interesting most of the time.
 
 ### Technical guidelines
 
