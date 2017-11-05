@@ -144,12 +144,12 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
   static ABILITIES_ON_GCD = [
     // Category
     SPELLS.SPELL_NAME.id,
-    123456, // if using spellid, please inline comment what it is
+    123456, // if using spellid, please comment what it is
     SPELLS.SPELL_NAME.id,
 
     // Useless/extremely minor abilities
       // either include them anyway for sake of completion
-      // or comment each out & note why
+      // or comment each out & note categorically why
   ];
 
   suggestions(when) {
@@ -174,10 +174,6 @@ export default AlwaysBeCasting;
 
 **Optional import modules**
 ```javascript
-// used for trinket abilities
-// used if items convert non-healing abilities to healing abilities
-import ITEMS from 'common/ITEMS';
-
 // used for referring to spells in <span></span> suggestions 
 import SpellLink from 'common/SpellLink';
 
@@ -217,12 +213,12 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
 
     // damage abilities
     SPELLS.SPELL_NAME.id,
-    123456, // if using spellid, please inline comment what it is
+    123456, // if using spellid, please comment what it is
     SPELLS.SPELL_NAME.id,
 
     // Useless/extremely minor abilities
       // either include them anyway for sake of completion
-      // or comment each out & note why
+      // or comment each out & ntoe categorically why
   ];
  
   suggestions(when) { 
@@ -255,7 +251,7 @@ export default AlwaysBeCasting;
 
 **Optional code: healers**
 
-[Holy Paladin](../src/Parser/Paladin/Holy/Modules/Features/AlwaysBeCasting.js) has some extra code for distinguishing when a damage ability can be counted as a healing ability due to talents, items, or target selection.
+[Holy Paladin](../src/Parser/Paladin/Holy/Modules/Features/AlwaysBeCasting.js) has some extra code (including `import ITEMS from 'common/ITEMS';`) for distinguishing when a damage ability can be counted as a healing ability due to talents, items, or target selection.
 
 [Discipline Priest](../src/Parser/Priest/Discipline/Modules/Features/AlwaysBeCasting.js) only needs one downtime suggestion box, since its damage spells are also healing through Atonement.
 
