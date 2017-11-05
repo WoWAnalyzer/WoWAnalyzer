@@ -27,7 +27,11 @@ We're using *EcmaScript 6* for code, this is a modern version of JavaScript. Cod
 
 If you want to learn (modern) JavaScript these book series are recommended: https://github.com/getify/You-Dont-Know-JS
 
-The main structure of the project is as follows:
+The below image attempts to give you an overview of the app setup. If you're going to be working on a spec specific analysis you will only be working on the blue boxes shown in the image for that specific spec. Each "Analyzer" (a module that does some sort of analysis) is an isolated class, usually found in the "Modules" folder. Most Analyzers have dependencies on other Analyzers, most commonly `Combatants` which contains information about the selected player, such as equipped gear and talents.
+
+![App overview](app-overview.png)
+
+The main folder structure of the project is as follows:
 
  - `/src` has all code for the front-end analysis
    - `/src/common` has a lot of utilities, you'll probably have to add to the `SPELLS` and `ITEMS` at some point if you're adding analyzers.
