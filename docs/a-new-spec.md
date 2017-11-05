@@ -126,7 +126,7 @@ See Holy Paladin. (more docs coming)
 
 # Create a pull request
 
-See [CONTRIBUTING.md](CONTRIBUTING.md#sharing-your-changes).
+See [CONTRIBUTING.md](doc/README.md#sharing-your-changes).
 
 # Suggestions
 
