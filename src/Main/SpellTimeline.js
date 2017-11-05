@@ -5,7 +5,7 @@ import ReactTooltip from 'react-tooltip';
 import 'gemini-scrollbar/gemini-scrollbar.css';
 
 import SpellIcon from 'common/SpellIcon';
-import { formatDuration, formatMilliseconds } from 'common/format';
+import { formatDuration } from 'common/format';
 
 import './SpellTimeline.css';
 
