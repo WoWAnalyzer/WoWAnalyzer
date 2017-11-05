@@ -63,8 +63,6 @@ To create and show this tab, in your class-specialization's `CombatParser.js` ad
 * `import CastEfficiency from './Modules/Features/CastEfficiency';` in the list of imports at the top
 * `castEfficiency: CastEfficiency,` in the specModules block
 
-**Note**: Enhancement Shaman currently has its CastEfficiency in `./Modules/Main/` instead of Features.
-
 In `src/Parser/CLASS/SPECIALIZATION/Modules/Features`, create or edit the `CastEfficiency.js`. Here is a code skeleton, if none exists:
 ```javascript
 import SPELLS from 'common/SPELLS';
@@ -108,7 +106,7 @@ The spell categories appear in the tab in the same order as the [CoreCastEfficie
 `spell: ` & `getCooldown: ` are required for the page to load without errors. `category: ` is additionally required for the spell to appear in the Cast Efficiency tab. A full list of available properties are commented in the beginning of [CoreCastEfficiency.CPM_ABILITIES](src/Parser/Core/Modules/CastEfficiency.js) and are generally self-explanatory.
 
 ### getCooldown 
-This property can be set a number of ways. Simply, the property lists the length of the cooldown in seconds:
+This property can be set a number of ways. Simply, the property lists the length of the cooldown in seconds.
 * **No cooldown**:  `haste => null,` 
     * Example: [FIREBALL](src/Parser/Mage/Fire/Modules/Features/CastEfficiency.js)
 * **Static cooldown**:  `haste => 120,` 
@@ -120,7 +118,7 @@ This property can be set a number of ways. Simply, the property lists the length
     * [SWIFTMEND](src/Parser/Druid/Restoration/Modules/Features/CastEfficiency.js) - passive talent reduces cooldown
     * [FISTS_OF_FURY_CAST](src/Parser/Monk/Windwalker/Modules/Features/CastEfficiency.js) - active talent buff further reduces hasted cooldown
     * [HEALING_STREAM_TOTEM_CAST](src/Parser/Shaman/Restoration/Modules/Features/CastEfficiency.js) - other spell interactions with tier bonus reduces cooldown
-    * [MANGLE_BEAR](src/Parser/Druid/Guardian/Modules/Features/CastEfficiency.js) - multiple procs reset cooldown 
+    * [MANGLE_BEAR](src/Parser/Druid/Guardian/Modules/Features/CastEfficiency.js) - estimated cooldown resets from a proc, but proc's chance is determined by multiple factors
 
 # Add Always be Casting
 
