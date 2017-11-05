@@ -9,7 +9,11 @@ const Zerotorescue = ['Zerotorescue', ZerotorescueAvatar];
 
 export default [
   [new Date('2017-11-05'), 'Reworded haste tooltip and changed the display to be 0.00 - value to be more obvious it\'s a max.', [Zerotorescue]],
-  [new Date('2017-11-02'), <Wrapper>Changed the recommended <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON} /> healing contribution to be at least 4% (down from 4.5%).</Wrapper>, [Zerotorescue]],
+  {
+    date: new Date('2017-11-02'),
+    changes: <Wrapper>Changed the recommended <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON} /> healing contribution to be at least 4% (down from 4.5%).</Wrapper>,
+    contributors: [Zerotorescue],
+  },
   [new Date('2017-11-01'), 'Fixed Leech stat value when someone doesn\'t have any Leech to no longer include self-healing or healing from Velen\'s Future Sight.', [Zerotorescue]],
   [new Date('2017-10-31'), <Wrapper>Fixed the <i>Haste HPCT</i> stat value not taking current Haste into account leading to a slightly overvaluation.</Wrapper>, 'Sref'],
   [new Date('2017-10-30'), 'Renamed stat weights to stat values and updated tooltips to be more informative.', [Zerotorescue]],
