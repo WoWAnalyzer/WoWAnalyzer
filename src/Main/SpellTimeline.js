@@ -87,7 +87,8 @@ class SpellTimeline extends React.PureComponent {
     const duration = end - start;
     const seconds = Math.ceil(duration / 1000);
 
-    const secondWidth = 40;
+    const secondWidth = 20;
+    const textDoesntFit = secondWidth < 40;
 
     const fixedEvents = this.fabricateEndCooldown(events);
 
@@ -98,11 +99,17 @@ class SpellTimeline extends React.PureComponent {
         ref={comp => (this.gemini = comp)}
       >
         <div className="ruler">
-          {[...Array(seconds)].map((_, second) => (
-            <div key={second} style={{ width: secondWidth }}>
-              {formatDuration(second)}
-            </div>
-          ))}
+          {[...Array(seconds)].map((_, second) => {
+            if (textDoesntFit && second % 2 === 1) {
+              // Skip every second second when the text width becomes larger than the container
+              return null;
+            }
+            return (
+              <div key={second} style={{ width: secondWidth * (textDoesntFit ? 2 : 1) }}>
+                {formatDuration(second)}
+              </div>
+            );
+          })}
         </div>
         <div className="events">
           {fixedEvents.map(event => {

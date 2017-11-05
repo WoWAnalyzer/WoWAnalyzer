@@ -157,11 +157,13 @@ class CastEfficiency extends Analyzer {
             .actual(`${cpm.casts} out of ${cpm.maxCasts} possible casts; ${formatPercentage(actual)}% cast efficiency`)
             .recommended(`>${formatPercentage(recommended)}% is recommended`)
             .details(() => (
-              <SpellTimeline
-                events={this.owner.modules.spellHistory.historyBySpellId[cpm.ability.spell.id] || []}
-                start={this.owner.fight.start_time}
-                end={this.owner.currentTimestamp}
-              />
+              <div style={{ margin: '0 -22px' }}>
+                <SpellTimeline
+                  events={this.owner.modules.spellHistory.historyBySpellId[cpm.ability.spell.id] || []}
+                  start={this.owner.fight.start_time}
+                  end={this.owner.currentTimestamp}
+                />
+              </div>
             ))
             .regular(cpm.averageIssueCastEfficiency).major(cpm.majorIssueCastEfficiency).staticImportance(cpm.ability.importance);
         });
