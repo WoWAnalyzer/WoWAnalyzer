@@ -1,3 +1,5 @@
+# Events
+
 The following events are available:
 
 * `begincast` triggered when player starts casting any **channeled** spell
@@ -27,7 +29,7 @@ The following events are available:
 * `interrupt` ???
 * `steal` ???
 * `leech` ???
-* `energize` ???
+* `energize` triggered when a buff gives mana (e.g. Blessing of Wisdom).
 * `drain` ???
 * `resurrect` ???
 * `encounterstart` never triggered as we filter by selected player's actor id and this has no actor id. Use `on_initialized()` instead.

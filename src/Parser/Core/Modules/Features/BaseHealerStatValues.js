@@ -22,7 +22,7 @@ export const ARMOR_INT_BONUS = .05;
 /**
  * This is currently completely focussed on Healer stat weights but it should be relatively easy to modify it to work for a DPS, it just requires some work. The only reason no effort was put towards this is that we currently have no DPS interested in implementing this so it would be wasted time. If you do want to implement stat weights for a DPS this should provide you with a very good basis.
  */
-class BaseHealerStatWeights extends Analyzer {
+class BaseHealerStatValues extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     critEffectBonus: CritEffectBonus,
@@ -326,12 +326,20 @@ class BaseHealerStatWeights extends Analyzer {
       default: return null;
     }
   }
+  moreInformationLink = null;
   extraPanel() {
     const results = this._prepareResults();
     return (
       <div className="panel items">
         <div className="panel-heading">
-          <h2><dfn data-tip="These stat values are calculated using the actual circumstances of this encounter. These values reveal the value of the last 1 rating of each stat, they may not necessarily be the best way to gear. The stat values are likely to differ based on fight, raid size, items used, talents chosen, etc.<br /><br />DPS gains are not included in any of the stat values.">Stat Values</dfn>
+          <h2>
+            <dfn data-tip="These stat values are calculated using the actual circumstances of this encounter. These values reveal the value of the last 1 rating of each stat, they may not necessarily be the best way to gear. The stat values are likely to differ based on fight, raid size, items used, talents chosen, etc.<br /><br />DPS gains are not included in any of the stat values.">Stat Values</dfn>
+
+            {this.moreInformationLink && (
+              <a href={this.moreInformationLink} className="pull-right">
+                More info
+              </a>
+            )}
           </h2>
         </div>
         <div className="panel-body" style={{ padding: 0 }}>
@@ -368,7 +376,7 @@ class BaseHealerStatWeights extends Analyzer {
                       />{' '}
                       {tooltip ? <dfn data-tip={tooltip}>{getName(stat)}</dfn> : getName(stat)}
                     </td>
-                    <td className="text-right">{stat === STAT.HASTE_HPCT && '≈'}{gain !== null ? weight.toFixed(2) : 'NYI'}</td>
+                    <td className="text-right">{stat === STAT.HASTE_HPCT && '0.00 - '}{gain !== null ? weight.toFixed(2) : 'NYI'}</td>
                     <td className="text-right">{gain !== null ? (
                       ratingForOne === Infinity ? '∞' : formatNumber(ratingForOne)
                     ) : 'NYI'}</td>
@@ -383,4 +391,4 @@ class BaseHealerStatWeights extends Analyzer {
   }
 }
 
-export default BaseHealerStatWeights;
+export default BaseHealerStatValues;

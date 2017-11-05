@@ -31,11 +31,11 @@ class Home extends Component {
               </div>
               <div className="panel-body">
                 <img src={MasteryRadiusImage} alt="Mastery radius" className="pull-right" style={{ margin: 15 }} />
-                Use this tool to analyze your performance based on important metrics for the spec.<br /><br />
+                WoW Analyzer is a comprehensive tool for analyzing your performance based on important metrics for your spec. You will need a Warcraft Logs report with advanced combat logging enabled to start. Private logs can not be used, if your guild has private logs you will have to <a href="https://www.warcraftlogs.com/help/start/">upload your own logs</a> or change the existing logs to the <i>unlisted</i> privacy option instead.<br /><br />
 
-                You will need a Warcraft Logs report with advanced combat logging enabled to start. Private logs can not be used, if your guild has private logs you will have to
-                {' '}<a href="https://www.warcraftlogs.com/help/start/">upload your own logs</a> or change the existing logs to the
-                {' '}<i>unlisted</i> privacy option instead.<br /><br />
+                Here are some interesting examples: <a href="/report/LRchdHVAmWtNQ8Fj/22-Mythic+Harjatan+-+Kill+(5:54)/Zerotorescue" className="Paladin">Holy Paladin</a>, <a href="/report/KbQnkMHZmqWgtXwz/33-Heroic+Krosus+-+Kill+(2:55)/Zerotorescue" className="Priest">Discipline Priest</a> and <a href="/report/dcDkhfMR6nG2XxVr/35-Normal+Gul'dan+-+Kill+(5:56)/Zerotorescue" className="Monk">Brewmaster Monk</a>.
+                {/* Your logs are welcome. Do note they shouldn't be top logs, they're generally not *that* interesting. They're mostly just my logs since I have permission to use those :') */}
+                <br /><br />
 
                 Feature requests (<dfn data-tip="Provided that you're not using one of Microsoft's browsers.">and bug reports*</dfn>) are welcome! On <a href="https://discord.gg/AxphPxU">Discord</a> or create an issue <a href={'https://github.com/WoWAnalyzer/WoWAnalyzer/issues'}>here</a>.
               </div>

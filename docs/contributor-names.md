@@ -32,4 +32,4 @@ It may sometimes be unclear who is who because the names on GitHub can be differ
 | @Skamer | [Skamer](https://github.com/Skamer) |
 | @Gao | [awlego](https://github.com/Awlego) |
 
-If you're missing from the table please make a PR to add yourself.
+If you're missing from the table please add yourself in a PR.
