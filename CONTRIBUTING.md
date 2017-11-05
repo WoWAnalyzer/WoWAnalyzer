@@ -68,7 +68,9 @@ Continue reading below for more general contribution information.
 
 # Quick start
 
-We're using *EcmaScript 6* for code, this is a modern version of JavaScript. Code is transpiled from ES6 to JS with the `npm start` command whenever you make changes to anything, and the browser then automatically refreshes. This usually takes 1 to 3 seconds. If you want to learn (modern) JavaScript these book series are recommended: https://github.com/getify/You-Dont-Know-JS
+We're using *EcmaScript 6* for code, this is a modern version of JavaScript. Code is transpiled from ES6 to JS with the `npm start` command whenever you make changes to anything, and the browser then automatically refreshes. This usually takes 1 to 3 seconds. If you want to know more about the DevOps for the front-end see the [Create React App readme](cra-README.md).
+
+If you want to learn (modern) JavaScript these book series are recommended: https://github.com/getify/You-Dont-Know-JS
 
 The main structure of the project is as follows:
 
