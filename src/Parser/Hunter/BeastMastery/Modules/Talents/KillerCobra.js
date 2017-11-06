@@ -9,8 +9,6 @@ import Haste from 'Parser/Core/Modules/Haste';
 import StatisticBox from "Main/StatisticBox";
 import SpellIcon from "common/SpellIcon";
 
-//Setting it to base cooldown of Kill Command - this works as Killer Cobra gives a total reset regardless of remaining CD.
-const COOLDOWN_REDUCTION_MS = 7500;
 
 class KillerCobra extends Analyzer {
   static dependencies = {
@@ -36,7 +34,7 @@ class KillerCobra extends Analyzer {
     }
     const killCommandIsOnCooldown = this.spellUsable.isOnCooldown(SPELLS.KILL_COMMAND.id);
     if (killCommandIsOnCooldown) {
-      this.spellUsable.reduceCooldown(SPELLS.KILL_COMMAND.id, COOLDOWN_REDUCTION_MS);
+      this.spellUsable.endCooldown(SPELLS.KILL_COMMAND.id);
       this.effectiveKillCommandResets += 1;
     } else {
       this.wastedKillerCobraCobraShots += 1;

@@ -7,7 +7,9 @@ import StatisticBox from "Main/StatisticBox";
 import SpellIcon from "common/SpellIcon";
 import SpellLink from "common/SpellLink";
 
-const debug = true;
+const debug = false;
+
+const TITANS_THUNDER_USE_REGARDLESS_THRESHHOLD = 30;
 
 class TitansThunder extends Analyzer {
   static dependencies = {
@@ -44,9 +46,8 @@ class TitansThunder extends Analyzer {
     }
     debug && console.log(`stacks:`, this._currentStacks);
     this.totalTTCasts += 1;
-    if (this.spellUsable.cooldownRemaining(SPELLS.BESTIAL_WRATH.id) < 30) {
+    if (this.spellUsable.cooldownRemaining(SPELLS.BESTIAL_WRATH.id) < TITANS_THUNDER_USE_REGARDLESS_THRESHHOLD) {
       this.shouldHaveSavedTT += 1;
-      this.badTTCasts += 1;
       return;
     }
     if (!this.combatants.selected.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id)) {
@@ -66,22 +67,11 @@ class TitansThunder extends Analyzer {
     }
   }
   statistic() {
-    const averageDBPrTT = this.stacksOnTTCast / this.totalTTCasts;
-
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.TITANS_THUNDER.id} />}
         value={(
           <span>
-            {averageDBPrTT.toFixed(2)}{'  '}
-            <SpellIcon
-              id={SPELLS.DIRE_BEAST_BUFF.id}
-              style={{
-                height: '1.3em',
-                marginTop: '-.1em',
-              }}
-            />
-            <br />
             {this.goodTTCasts}{'  '}
             <SpellIcon
               id={SPELLS.TITANS_THUNDER.id}
@@ -90,7 +80,7 @@ class TitansThunder extends Analyzer {
                 marginTop: '-.1em',
               }}
             />
-            {'  '}
+            <br />
             {this.badTTCasts}{'  '}
             <SpellIcon
               id={SPELLS.TITANS_THUNDER.id}
@@ -104,7 +94,7 @@ class TitansThunder extends Analyzer {
 
         )}
         label={`Titan's Thunder information`}
-        tooltip={`You cast Titan's Thunder ${this.totalTTCasts} times, of which ${this.badTTCasts} were bad casts. <br/> Bad casts indicate that they were used without Dire Beasts up, or if using Dire Frenzy it was used without Bestial Wrath up. <br/> You cast Titan's Thunder ${this.shouldHaveSavedTT} times where you should have delayed casting it, this occurs when you cast Titan's Thunder when there is less than 30 seconds remaning on Bestial Wrath cooldown.`}
+        tooltip={`You cast Titan's Thunder ${this.totalTTCasts} times, of which ${this.badTTCasts} were bad casts. <br/> Bad casts indicate that they were used without Dire Beasts up, or if you are using Dire Frenzy, then Titan's Thunder was used without Bestial Wrath up. <br/> You cast Titan's Thunder ${this.shouldHaveSavedTT} times where you should have delayed casting it, this occurs when you cast Titan's Thunder when there is less than 30 seconds remaning on Bestial Wrath cooldown.`}
       />
     );
   }

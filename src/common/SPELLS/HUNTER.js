@@ -61,6 +61,11 @@ export default {
     name: 'Kill Command',
     icon: 'ability_hunter_killcommand',
   },
+  KILL_COMMAND_PET: {
+    id: 83381,
+    name: 'Kill Command',
+    icon: 'ability_hunter_killcommand',
+  },
   WILD_CALL: {
     id: 185789,
     name: 'Wild Call',
