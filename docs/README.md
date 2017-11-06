@@ -68,4 +68,4 @@ If you're curious what GitHub name links to who on Discord see [contributor-name
 
 # Code review
 
-Our code review guidelines can be found [here](docs/code-reviews.md). TL;DR: Fix errors in the `npm start` window, make sure your code is maintainable and doesn't have anything that could result in a bug or incorrect results.
+Our code review guidelines can be found [here](code-reviews.md). TL;DR: Fix errors in the `npm start` window, make sure your code is maintainable and doesn't have anything that could result in a bug or incorrect results.
