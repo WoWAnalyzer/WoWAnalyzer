@@ -1,5 +1,6 @@
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import ResourceTypes from 'common/RESOURCE_TYPES';
 
 import SPELLS from 'common/SPELLS';
 
@@ -12,7 +13,6 @@ class ChiTracker extends Analyzer {
   pointsWasted = 0;
   pointsSpent = 0;
   currentPoints = 0;
-  maxCPCasts = 0;
   totalCasts = 0;
   maxPoints = 5;
 
@@ -46,6 +46,9 @@ class ChiTracker extends Analyzer {
     if (combatant.hasTalent(SPELLS.RUSHING_JADE_WIND_TALENT.id)) {
       this.constructor.POINT_SPENDING_ABILITIES.push(SPELLS.RUSHING_JADE_WIND_TALENT.id);
     }
+    if (combatant.hasTalent(SPELLS.ASCENSION_TALENT.id)) {
+      this.maxPoints = 6;
+    }
 
     // initialize abilties
     this.constructor.POINT_GENERATING_ABILITIES.forEach((x) => {
@@ -66,7 +69,9 @@ class ChiTracker extends Analyzer {
     if (this.constructor.POINT_GENERATING_ABILITIES.indexOf(spellId) === -1) {
       return;
     }
-
+    if (event.resourceChangeType !== ResourceTypes.CHI) {
+      return;
+    }
     if (waste !== 0) {
       this.wasted[spellId].points += waste;
       this.pointsWasted += waste;
@@ -91,7 +96,7 @@ class ChiTracker extends Analyzer {
     // checking for free no CP procs, classResources seems to be the only difference
     if (!event.classResources[1]) {
 
-    } else if (event.classResources[1].amount) {
+    } else if (event.resourceChangeType === ResourceTypes.CHI) {
       this.processPointSpenders(event, spellId);
     }
   }
@@ -108,14 +113,10 @@ class ChiTracker extends Analyzer {
 
   processPointSpenders(event, spellId) {
     // each finisher uses all available points, varying from 1 to 5
-    const pointsInCast = event.classResources[1].amount;
+    const pointsInCast = this.currentPoints;
 
     this.spent[spellId].points += pointsInCast;
     this.pointsSpent += pointsInCast;
-    if (pointsInCast === 5){
-      this.casts[spellId].maxCP += 1;
-      this.maxCPCasts += 1;
-    }
     this.casts[spellId].total += 1;
     this.totalCasts += 1;
     this.currentPoints = 0;

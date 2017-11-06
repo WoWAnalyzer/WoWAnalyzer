@@ -91,33 +91,33 @@ class ChiBreakdown extends React.Component {
         </table>
         <table className="data-table">
           <thead>
-          <tr>
-            <th>Ability</th>
-            <th colSpan='2'>Points spent</th>
-            <th colSpan='2'>5 CP uses</th>
-          </tr>
+            <tr>
+              <th>Ability</th>
+              <th colSpan='2'>Points spent</th>
+              <th colSpan='2'>5 CP uses</th>
+            </tr>
           </thead>
           <tbody>
             {spent && spent
-            .map(ability => (
-              <tr>
-                <td style={{ width: '30%' }}>
-                  <SpellIcon id={ability.abilityId} />{' '}
-                  <SpellLink id={ability.abilityId} />
-                </td>
-                <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>
-                  <dfn data-tip={`${formatPercentage(ability.spent / totalGenerated)} %`}>{ability.spent}</dfn>
-                </td>
-                <td style={{ width: '35%' }}>
-                  <div
-                    className={'performance-bar'}
-                    style={{ width: `${(ability.spent / totalSpent) * 100}%` }}
-                  />
-                </td>
-                <td style={{ width: 150, textAlign: 'center' }}>{ability.maxCP} / {ability.total}</td>
-                <td style={{ width: '25%' }} />
-              </tr>
-            ))}
+              .map(ability => (
+                <tr>
+                  <td style={{ width: '30%' }}>
+                    <SpellIcon id={ability.abilityId} />{' '}
+                    <SpellLink id={ability.abilityId} />
+                  </td>
+                  <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>
+                    <dfn data-tip={`${formatPercentage(ability.spent / totalGenerated)} %`}>{ability.spent}</dfn>
+                  </td>
+                  <td style={{ width: '35%' }}>
+                    <div
+                      className={'performance-bar'}
+                      style={{ width: `${(ability.spent / totalSpent) * 100}%` }}
+                    />
+                  </td>
+                  <td style={{ width: 150, textAlign: 'center' }}>{ability.maxCP} / {ability.total}</td>
+                  <td style={{ width: '25%' }} />
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>
