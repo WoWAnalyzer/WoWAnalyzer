@@ -9,7 +9,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import Haste from './Haste';
 
-const debug = true;
+const debug = false;
 
 class AlwaysBeCasting extends Analyzer {
   static dependencies = {
