@@ -26,19 +26,17 @@ class GainedBestialWraths extends Analyzer {
   }
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.DIRE_BEAST.id && spellId !== SPELLS.BESTIAL_WRATH.id) {
+    if (spellId !== SPELLS.DIRE_BEAST.id && spellId !== SPELLS.DIRE_FRENZY_TALENT.id) {
       return;
     }
-    if (spellId === SPELLS.DIRE_BEAST.id || spellId === SPELLS.DIRE_FRENZY_TALENT.id) {
-      this.casts += 1;
-      const bestialWrathIsOnCooldown = this.spellUsable.isOnCooldown(SPELLS.BESTIAL_WRATH.id);
-      if (bestialWrathIsOnCooldown) {
-        const reductionMs = this.spellUsable.reduceCooldown(SPELLS.BESTIAL_WRATH.id, COOLDOWN_REDUCTION_MS);
-        this.effectiveBWReduction += reductionMs;
-        this.wastedBWReduction += (COOLDOWN_REDUCTION_MS - reductionMs);
-      } else {
-        this.wastedBWReduction += COOLDOWN_REDUCTION_MS;
-      }
+    this.casts += 1;
+    const bestialWrathIsOnCooldown = this.spellUsable.isOnCooldown(SPELLS.BESTIAL_WRATH.id);
+    if (bestialWrathIsOnCooldown) {
+      const reductionMs = this.spellUsable.reduceCooldown(SPELLS.BESTIAL_WRATH.id, COOLDOWN_REDUCTION_MS);
+      this.effectiveBWReduction += reductionMs;
+      this.wastedBWReduction += (COOLDOWN_REDUCTION_MS - reductionMs);
+    } else {
+      this.wastedBWReduction += COOLDOWN_REDUCTION_MS;
     }
   }
 
