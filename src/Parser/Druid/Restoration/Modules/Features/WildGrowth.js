@@ -1,6 +1,7 @@
 import React from 'react';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
+import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
@@ -8,10 +9,13 @@ import Analyzer from 'Parser/Core/Analyzer';
 import SuggestionThresholds from '../../SuggestionThresholds';
 
 class WildGrowth extends Analyzer {
+  static dependencies = {
+    abilityTracker: AbilityTracker,
+  };
+
   suggestions(when) {
-    const abilityTracker = this.owner.modules.abilityTracker;
-    const rejuvs = abilityTracker.getAbility(SPELLS.REJUVENATION.id).casts || 0;
-    const wgs = abilityTracker.getAbility(SPELLS.WILD_GROWTH.id).casts || 0;
+    const rejuvs = this.abilityTracker.getAbility(SPELLS.REJUVENATION.id).casts || 0;
+    const wgs = this.abilityTracker.getAbility(SPELLS.WILD_GROWTH.id).casts || 0;
     const wgsPerRejuv = (wgs / rejuvs) || 0;
 
     when(wgsPerRejuv).isLessThan(SuggestionThresholds.WGS_PER_REJUV.minor)

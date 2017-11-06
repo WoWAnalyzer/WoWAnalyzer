@@ -168,8 +168,8 @@ class SpellUsable extends Analyzer {
     const chargesOnCooldown = cooldown ? cooldown.chargesOnCooldown : 0;
     const maxCharges = this.castEfficiency.getMaxCharges(spellId) || 1;
     return {
-      spellId,
       type: 'updatespellusable',
+      spellId,
       trigger,
       timestamp,
       isOnCooldown: this.isOnCooldown(spellId),

@@ -2,6 +2,7 @@ import React from 'react';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import { formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
@@ -11,6 +12,9 @@ import { HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR } from '../../Constants';
 // This modules estimates Essence of G'hanir healing. Since the ability increases the tick rate of all HoTs by 100%
 // we can assume that half of all the healing (from the HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR array) is contributed.
 class EssenceOfGhanir extends Analyzer {
+  static dependencies = {
+    combatants: Combatants,
+  };
 
   total = 0;
 
@@ -26,7 +30,7 @@ class EssenceOfGhanir extends Analyzer {
     const spellId = event.ability.guid;
     const amount = event.amount + (event.absorbed || 0);
 
-    if (this.owner.modules.combatants.selected.hasBuff(SPELLS.ESSENCE_OF_GHANIR.id) && HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR.indexOf(spellId) !== -1) {
+    if (this.combatants.selected.hasBuff(SPELLS.ESSENCE_OF_GHANIR.id) && HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR.includes(spellId)) {
       switch (spellId) {
         case SPELLS.REJUVENATION.id:
           this.rejuvenation += amount / 2;
