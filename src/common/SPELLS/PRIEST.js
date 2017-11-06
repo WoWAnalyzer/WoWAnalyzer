@@ -452,9 +452,9 @@ export default {
     icon: 'ability_priest_ascension',
   },
 
- HOLY_PRIEST_T21_2SET_BUFF: {
+ HOLY_PRIEST_ANSWERED_PRAYERS: {
     id: 253437,
-    name: 'Holy Priest T21 2P Bonus',
+    name: 'Answered Prayers',
     icon: 'spell_holy_divinespirit',
   },
 
@@ -464,9 +464,9 @@ export default {
     icon: 'ability_priest_ascension',
   },
 
-  HOLY_PRIEST_T21_4SET_BUFF: {
+  HOLY_PRIEST_EVERLASTING_HOPE: {
     id: 253443,
-    name: 'Holy Priest T21 4P Bonus',
+    name: 'Everlasting Hope',
     icon: 'ability_priest_rayofhope',
   },
 
