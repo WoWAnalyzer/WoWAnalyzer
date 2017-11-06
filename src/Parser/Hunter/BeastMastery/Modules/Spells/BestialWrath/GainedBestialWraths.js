@@ -10,7 +10,7 @@ import { formatNumber } from "common/format";
 let COOLDOWN_REDUCTION_MS = 12000;
 const BESTIAL_WRATH_BASE_CD = 90000;
 
-class GainedBestialWrathsThroughDireBeast extends Analyzer {
+class GainedBestialWraths extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     spellUsable: SpellUsable,
@@ -20,7 +20,6 @@ class GainedBestialWrathsThroughDireBeast extends Analyzer {
   wastedBWReduction = 0;
 
   on_initialized() {
-    this.active = !this.combatants.selected.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id);
     if (this.combatants.selected.hasBuff(SPELLS.HUNTER_BM_T19_4P_BONUS.id)) {
       COOLDOWN_REDUCTION_MS = 16000;
     }
@@ -30,7 +29,7 @@ class GainedBestialWrathsThroughDireBeast extends Analyzer {
     if (spellId !== SPELLS.DIRE_BEAST.id && spellId !== SPELLS.BESTIAL_WRATH.id) {
       return;
     }
-    if (spellId === SPELLS.DIRE_BEAST.id) {
+    if (spellId === SPELLS.DIRE_BEAST.id || spellId === SPELLS.DIRE_FRENZY_TALENT.id) {
       this.casts += 1;
       const bestialWrathIsOnCooldown = this.spellUsable.isOnCooldown(SPELLS.BESTIAL_WRATH.id);
       if (bestialWrathIsOnCooldown) {
@@ -50,11 +49,11 @@ class GainedBestialWrathsThroughDireBeast extends Analyzer {
         icon={<SpellIcon id={SPELLS.BESTIAL_WRATH.id} />}
         value={formatNumber(gainedBestialWraths)}
         label={`extra Bestial Wraths`}
-        tooltip={`<ul><li>You reduced Bestial Wraths cooldown by ${(this.effectiveBWReduction / 1000).toFixed(1)} seconds in total, which resulted in you gaining ${formatNumber(gainedBestialWraths, 2)} extra Bestial Wrath casts. </li> <li>You lost out on ${this.wastedBWReduction / 1000} seconds of CD reduction by casting Dire Beast while Bestial Wrath wasn't on cooldown or while cooldown had less than ${COOLDOWN_REDUCTION_MS / 1000} seconds remaining. </li></ul>`}
+        tooltip={`<ul><li>You reduced Bestial Wraths cooldown by ${(this.effectiveBWReduction / 1000).toFixed(1)} seconds in total, which resulted in you gaining ${formatNumber(gainedBestialWraths, 2)} extra Bestial Wrath casts. </li> <li>You lost out on ${this.wastedBWReduction / 1000} seconds of CD reduction by casting Dire Beast/Dire Frenzy while Bestial Wrath wasn't on cooldown or while the cooldown had less than ${COOLDOWN_REDUCTION_MS / 1000} seconds remaining. </li></ul>`}
       />
     );
   }
 
 }
 
-export default GainedBestialWrathsThroughDireBeast;
+export default GainedBestialWraths;

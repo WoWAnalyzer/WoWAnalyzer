@@ -15,7 +15,7 @@ import Tier20_2p from "./Modules/Items/Tier20_2p";
 import DireBeast from "./Modules/Spells/DireBeast/DireBeast";
 import BestialWrathAverageFocus from "./Modules/Spells/BestialWrath/BestialWrathAverageFocus";
 import BestialWrathUptime from "./Modules/Spells/BestialWrath/BestialWrathUptime";
-import GainedBestialWrathsThroughDireBeast from "./Modules/Spells/BestialWrath/GainedBestialWrathsThroughDireBeast";
+import GainedBestialWraths from "./Modules/Spells/BestialWrath/GainedBestialWraths";
 import DireBeastUptime from "./Modules/Spells/DireBeast/DireBeastUptime";
 
 //Talents
@@ -39,7 +39,7 @@ class CombatLogParser extends CoreCombatLogParser {
     direBeastUptime: DireBeastUptime,
     bestialWrathAverageFocus: BestialWrathAverageFocus,
     bestialWrathUptime: BestialWrathUptime,
-    gainedBestialWrathsThroughDireBeast: GainedBestialWrathsThroughDireBeast,
+    gainedBestialWrathst: GainedBestialWraths,
 
     //Items
     soulOfTheHuntmaster: SoulOfTheHuntmaster,
