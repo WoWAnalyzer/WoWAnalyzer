@@ -5,14 +5,14 @@ import './StatisticBox.css';
 
 export { default as STATISTIC_ORDER } from './STATISTIC_ORDER';
 
-const StatisticBox = ({ icon, value, tooltip, label, footer, footerStyle, containerProps, ...others }) => (
+const StatisticBox = ({ icon, value, tooltip, label, footer, footerStyle, containerProps, alignIcon, ...others }) => (
   <div className="col-lg-4 col-sm-6 col-xs-12" {...containerProps}>
     <div className="panel statistic-box" {...others}>
       <div className="panel-body flex">
-        <div className="flex-sub" style={{ display: 'flex', alignItems: 'center' }}>
+        <div className="flex-sub" style={{ display: 'flex', alignItems: alignIcon }}>
           {icon}
         </div>
-        <div className="flex-main text-right">
+        <div className="flex-main">
           <div className="value">
             {value}
           </div>
@@ -37,6 +37,11 @@ StatisticBox.propTypes = {
   footer: PropTypes.node,
   footerStyle: PropTypes.object,
   containerProps: PropTypes.object,
+  alignIcon: PropTypes.string,
+};
+
+StatisticBox.defaultProps = {
+  alignIcon: 'center',
 };
 
 export default StatisticBox;

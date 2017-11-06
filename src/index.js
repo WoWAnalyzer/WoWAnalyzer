@@ -6,17 +6,42 @@ import './static/bootstrap/css/bootstrap.css';
 
 import App from './Main/App';
 
+import ErrorBoundary from './Main/ErrorBoundary';
 import { unregister } from './registerServiceWorker';
 
+function isError(x) {
+  return x instanceof Error;
+}
+function toMessage(x) {
+  return isError(x) ? x.message : x;
+}
+function toStack(x) {
+  return isError(x) ? x.stack : undefined;
+}
+
+window.addEventListener('unhandledrejection', event => {
+  const message = toMessage(event);
+  console.error(`Unhandled rejection: ${message}`);
+  Raven && Raven.captureException(event.reason || new Error('Unhandled promise rejection'), { // eslint-disable-line no-undef
+    extra: {
+      reason: message,
+      originalEvent: event,
+      stack: toStack(event),
+    },
+  });
+});
+
 render(
-  <Router history={browserHistory}>
-    <Route path="/" component={App}>
-      <Route path="report/:reportCode" />
-      <Route path="report/:reportCode/:fightId" />
-      <Route path="report/:reportCode/:fightId/:playerName" />
-      <Route path="report/:reportCode/:fightId/:playerName/:resultTab" />
-    </Route>
-  </Router>,
-  document.getElementById('root')
+  <ErrorBoundary>
+    <Router history={browserHistory}>
+      <Route path="/" component={App}>
+        <Route path="report/:reportCode" />
+        <Route path="report/:reportCode/:fightId" />
+        <Route path="report/:reportCode/:fightId/:playerName" />
+        <Route path="report/:reportCode/:fightId/:playerName/:resultTab" />
+      </Route>
+    </Router>
+  </ErrorBoundary>,
+  document.getElementById('app-mount')
 );
 unregister();

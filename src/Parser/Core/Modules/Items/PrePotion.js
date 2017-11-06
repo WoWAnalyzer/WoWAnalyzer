@@ -6,7 +6,7 @@ import ITEMS from 'common/ITEMS';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import ItemLink from 'common/ItemLink';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SUGGESTION_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
@@ -38,11 +38,9 @@ const SECOND_POTIONS = [
   SPELLS.SPIRIT_BERRIES.id,
 ];
 
-const DURATION = 30000;
-const DURATION_PROLONGED = 60000;
 const ANCIENT_MANA_POTION_AMOUNT = 152000;
 
-class PrePotion extends Module {
+class PrePotion extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
@@ -50,16 +48,9 @@ class PrePotion extends Module {
   usedSecondPotion = false;
   neededManaSecondPotion = false;
 
-  on_toPlayer_removebuff(event) {
+  on_toPlayer_applybuff(event) {
     const spellId = event.ability.guid;
-    if (PRE_POTIONS.indexOf(spellId) === -1) {
-      return;
-    }
-    if (SPELLS.POTION_OF_PROLONGED_POWER.id === spellId) {
-      if ((this.owner.fight.start_time + DURATION_PROLONGED) > event.timestamp) {
-        this.usedPrePotion = true;
-      }
-    } else if ((this.owner.fight.start_time + DURATION) > event.timestamp) {
+    if(PRE_POTIONS.includes(spellId) && event.prepull) {
       this.usedPrePotion = true;
     }
   }

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link, browserHistory } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 import ReactTooltip from 'react-tooltip';
 
-import makeWclUrl from 'common/makeWclUrl';
+import fetchWcl from 'common/fetchWcl';
 import getFightName from 'common/getFightName';
 
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
@@ -24,9 +24,6 @@ import AppBackgroundImage from './AppBackgroundImage';
 
 import makeAnalyzerUrl from './makeAnalyzerUrl';
 
-const toolName = 'WoW Analyzer';
-const githubUrl = 'https://github.com/WoWAnalyzer/WoWAnalyzer';
-
 const timeAvailable = console.time && console.timeEnd;
 
 const PROGRESS_STEP1_INITIALIZATION = 0.02;
@@ -35,7 +32,7 @@ const PROGRESS_STEP3_PARSE_EVENTS = 0.99;
 
 /* eslint-disable no-alert */
 
-let _footerDeprectatedWarningSent = false;
+let _footerDeprecatedWarningSent = false;
 
 class App extends Component {
   static propTypes = {
@@ -56,6 +53,8 @@ class App extends Component {
     config: PropTypes.object,
   };
 
+  // Parsing a fight for a player is a "job", if the selected player or fight changes we want to stop parsing it. This integer gives each job an id that if it mismatches stops the job.
+  _jobId = 0;
   get reportCode() {
     return this.props.params.reportCode;
   }
@@ -79,7 +78,11 @@ class App extends Component {
   }
 
   getPlayerFromReport(report, playerName) {
-    return report.friendlies.find(friendly => friendly.name === playerName);
+    const fetchByNameAttempt = report.friendlies.find(friendly => friendly.name === playerName);
+    if (!fetchByNameAttempt) {
+      return report.friendlies.find(friendly => friendly.id === Number(playerName, 10));
+    }
+    return fetchByNameAttempt;
   }
   getPlayerPetsFromReport(report, playerId) {
     return report.friendlyPets.filter(pet => pet.petOwner === playerId);
@@ -109,11 +112,26 @@ class App extends Component {
     };
   }
 
-  handleReportSelecterSubmit(code) {
-    console.log('Selected report:', code);
+  handleReportSelecterSubmit(reportInfo) {
+    console.log('Selected report:', reportInfo['code']);
+    console.log('Selected fight:', reportInfo['fight']);
+    console.log('Selected player:', reportInfo['player']);
 
-    this.props.router.push(`report/${code}`);
+    if (reportInfo['code']) {
+      let constructedUrl = `report/${reportInfo['code']}`;
+      
+      if (reportInfo['fight']) {
+        constructedUrl += `/${reportInfo['fight']}`;
+        
+        if (reportInfo['player']) {
+          constructedUrl += `/${reportInfo['player']}`;
+        }
+      }
+
+      this.props.router.push(constructedUrl);
+    }
   }
+
   handleRefresh() {
     this.fetchReport(this.reportCode, true);
   }
@@ -140,18 +158,17 @@ class App extends Component {
     timeAvailable && console.time('full parse');
     const parser = this.createParser(config.parser, report, fight, player);
     // We send combatants already to the analyzer so it can show the results page with the correct items and talents while waiting for the API request
-    parser.parseEvents(combatants)
-      .then(() => parser.triggerEvent('initialized'))
-      .then(async () => {
-        await this.setStatePromise({
-          config,
-          parser,
-          progress: PROGRESS_STEP1_INITIALIZATION,
-        });
-        await this.parse(parser, report, player, fight);
-      });
+    parser.initialize(combatants);
+    await this.setStatePromise({
+      config,
+      parser,
+      progress: PROGRESS_STEP1_INITIALIZATION,
+    });
+    await this.parse(parser, report, player, fight);
   }
   async parse(parser, report, player, fight) {
+    this._jobId += 1;
+    const jobId = this._jobId;
     let events;
     try {
       this.startFakeNetworkProgress();
@@ -167,7 +184,7 @@ class App extends Component {
         console.error(err);
       }
     }
-    events = parser.reorderEvents(events);
+    events = parser.normalize(events);
     await this.setStatePromise({
       progress: PROGRESS_STEP2_FETCH_EVENTS,
     });
@@ -178,8 +195,11 @@ class App extends Component {
 
     try {
       while (offset < numEvents) {
+        if (this._jobId !== jobId) {
+          return;
+        }
         const eventsBatch = events.slice(offset, offset + batchSize);
-        await parser.parseEvents(eventsBatch);
+        parser.parseEvents(eventsBatch);
         // await-ing setState does not ensure we wait until a render completed, so instead we wait 1 frame
         const progress = Math.min(1, (offset + batchSize) / numEvents);
         this.setState({
@@ -212,8 +232,14 @@ class App extends Component {
     const expectedDuration = 5000;
     const stepInterval = 50;
 
+    const jobId = this._jobId;
+
     let step = 1;
     while (this._isFakeNetworking) {
+      if (this._jobId !== jobId) {
+        // This could happen when switching players/fights while still loading another one
+        break;
+      }
       const progress = Math.min(1, step * stepInterval / expectedDuration);
       this.setState({
         progress: PROGRESS_STEP1_INITIALIZATION + ((PROGRESS_STEP2_FETCH_EVENTS - PROGRESS_STEP1_INITIALIZATION) * progress),
@@ -259,17 +285,13 @@ class App extends Component {
       report: null,
     });
 
-    const url = makeWclUrl(`report/fights/${code}`, {
+    return fetchWcl(`report/fights/${code}`, {
       _: refresh ? +new Date() : undefined,
       translate: true, // so long as we don't have the entire site localized, it's better to have 1 consistent language
-    });
-    return fetch(url)
-      .then(response => response.json())
-      .then((json) => {
+    })
+      .then(json => {
         // console.log('Received report', code, ':', json);
-        if (json.status === 400 || json.status === 401) {
-          throw json.error;
-        } else if (this.reportCode === code) {
+        if (this.reportCode === code) {
           if (!json.fights) {
             let message = 'Corrupt WCL response received.';
             if (json.error) {
@@ -280,7 +302,8 @@ class App extends Component {
                   if (errorMessage.error) {
                     message = errorMessage.error;
                   }
-                } catch (error) {}
+                } catch (error) {
+                }
               }
             }
 
@@ -336,22 +359,23 @@ class App extends Component {
   }
 
   reset() {
+    this._jobId += 1;
     this.setState({
       config: null,
       parser: null,
       progress: 0,
     });
+    this.stopFakeNetworkProgress();
   }
 
   fetchEventsPage(code, start, end, actorId = undefined, filter = undefined) {
-    const url = makeWclUrl(`report/events/${code}`, {
+    return fetchWcl(`report/events/${code}`, {
       start,
       end,
       actorid: actorId,
       filter,
       translate: true, // it's better to have 1 consistent language so long as we don't have the entire site localized
     });
-    return fetch(url).then(response => response.json());
   }
 
   componentWillMount() {
@@ -386,13 +410,18 @@ class App extends Component {
   fetchEventsAndParseIfNecessary(prevProps, prevState) {
     const curParams = this.props.params;
     const prevParams = prevProps.params;
-    if (this.state.report !== prevState.report || this.state.combatants !== prevState.combatants || curParams.fightId !== prevParams.fightId || this.playerName !== prevParams.playerName) {
+    const changed = this.state.report !== prevState.report
+      || this.state.combatants !== prevState.combatants
+      || curParams.fightId !== prevParams.fightId
+      || this.playerName !== prevParams.playerName;
+    if (changed) {
       this.reset();
 
       const report = this.state.report;
       const combatants = this.state.combatants;
       const playerName = this.playerName;
-      if (report && combatants && this.fightId && playerName) {
+      const valid = report && combatants && this.fightId && playerName;
+      if (valid) {
         const player = this.getPlayerFromReport(report, playerName);
         if (!player) {
           alert(`Unknown player: ${playerName}`);
@@ -417,7 +446,7 @@ class App extends Component {
   }
 
   updatePageTitle() {
-    let title = toolName;
+    let title = 'WoW Analyzer';
     if (this.reportCode && this.state.report) {
       if (this.playerName) {
         if (this.fight) {
@@ -486,37 +515,62 @@ class App extends Component {
     });
   }
 
+  renderNavigationBar() {
+    const { report, combatants, parser, progress } = this.state;
+
+    return (
+      <nav>
+        <div className="container">
+          <div className="menu-item logo main">
+            <Link to={makeAnalyzerUrl()}>
+              <img src="/favicon.png" alt="WoWAnalyzer logo" />
+            </Link>
+          </div>
+          {this.reportCode && report && (
+            <div className="menu-item">
+              <Link to={makeAnalyzerUrl(report)}>{report.title}</Link>
+            </div>
+          )}
+          {this.fight && report && (
+            <FightSelectorHeader
+              className="menu-item"
+              report={report}
+              selectedFightName={getFightName(report, this.fight)}
+              parser={parser}
+            />
+          )}
+          {this.playerName && report && (
+            <PlayerSelectorHeader
+              className="menu-item"
+              report={report}
+              fightId={this.fightId}
+              combatants={combatants || []}
+              selectedPlayerName={this.playerName}
+            />
+          )}
+          <div className="spacer" />
+          <div className="menu-item main">
+            <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">
+              <img src={GithubLogo} alt="GitHub logo" /><span className="optional" style={{ paddingLeft: 6 }}> View on GitHub</span>
+            </a>
+          </div>
+        </div>
+        <div className="progress" style={{ width: `${progress * 100}%`, opacity: progress === 0 || progress >= 1 ? 0 : 1 }} />
+      </nav>
+    );
+  }
+
   render() {
-    const { report, combatants, parser } = this.state;
-
-    const progress = (this.state.progress * 100);
-
-    if (this.state.config && this.state.config.footer && !_footerDeprectatedWarningSent) {
-      console.error('Using `config.footer` is deprectated. You should add the information you want to share to the description property in the config, which is shown on the spec information overlay.');
-      _footerDeprectatedWarningSent = true;
+    if (this.state.config && this.state.config.footer && !_footerDeprecatedWarningSent) {
+      console.error('Using `config.footer` is deprecated. You should add the information you want to share to the description property in the config, which is shown on the spec information overlay.');
+      _footerDeprecatedWarningSent = true;
     }
 
     return (
       <div className={`app ${this.reportCode ? 'has-report' : ''}`}>
         <AppBackgroundImage bossId={this.state.bossId} />
 
-        <nav className="navbar navbar-default">
-          <div className="navbar-progress" style={{ width: `${progress}%`, opacity: progress === 0 || progress >= 100 ? 0 : 1 }} />
-          <div className="container">
-            <div className="navbar-header">
-              <ol className="breadcrumb">
-                <li className="breadcrumb-item"><Link to={makeAnalyzerUrl()}>{toolName}</Link></li>
-                {this.reportCode && report && <li className="breadcrumb-item"><Link to={makeAnalyzerUrl(report)}>{report.title}</Link></li>}
-                {this.fight && report && <li className="breadcrumb-item"><FightSelectorHeader report={report} selectedFightName={getFightName(report, this.fight)} parser={parser} /></li>}
-                {this.playerName && report && <li className="breadcrumb-item"><PlayerSelectorHeader report={report} fightId={this.fightId} combatants={combatants || []} selectedPlayerName={this.playerName} /></li>}
-              </ol>
-            </div>
-
-            <ul className="nav navbar-nav navbar-right github-link hidden-xs">
-              <li><a href={githubUrl}><span className="hidden-xs"> View on GitHub </span><img src={GithubLogo} alt="GitHub logo" /></a></li>
-            </ul>
-          </div>
-        </nav>
+        {this.renderNavigationBar()}
         <header>
           <div className="container hidden-md hidden-sm hidden-xs">
             Analyze your performance
@@ -525,10 +579,10 @@ class App extends Component {
             <ReportSelecter onSubmit={this.handleReportSelecterSubmit} />
           )}
         </header>
-        <div className="container">
+        <main className="container">
           {this.renderContent()}
           {this.state.config && this.state.config.footer}
-        </div>
+        </main>
         <ReactTooltip html place="bottom" />
       </div>
     );

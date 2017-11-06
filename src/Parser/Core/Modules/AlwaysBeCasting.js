@@ -1,14 +1,17 @@
+import React from 'react';
+
+import Icon from 'common/Icon';
 import SPELLS from 'common/SPELLS';
 import { formatMilliseconds, formatPercentage } from 'common/format';
-
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import Haste from './Haste';
 
 const debug = false;
 
-class AlwaysBeCasting extends Module {
+class AlwaysBeCasting extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     haste: Haste,
@@ -154,6 +157,54 @@ class AlwaysBeCasting extends Module {
   static inRange(num1, goal, buffer) {
     return num1 > (goal - buffer) && num1 < (goal + buffer);
   }
+
+  showStatistic = false;
+  static icons = {
+    activeTime: '/img/sword.png',
+    downtime: '/img/afk.png',
+  };
+  statistic() {
+    if (!this.showStatistic) {
+      return null;
+    }
+
+    const downtime = this.totalTimeWasted;
+    const activeTime = this.owner.fightDuration - downtime;
+
+    const downtimePercentage = downtime / this.owner.fightDuration;
+    const activeTimePercentage = activeTime / this.owner.fightDuration;
+
+    return (
+      <StatisticBox
+        icon={<Icon icon="spell_mage_altertime" alt="Downtime" />}
+        value={`${formatPercentage(downtimePercentage)} %`}
+        label="Downtime"
+        tooltip={`Downtime is available time not used to cast anything (including not having your GCD rolling). This can be caused by delays between casting spells, latency, cast interrupting or just simply not casting anything (e.g. due to movement/stunned).<br/>
+        <li>You spent <b>${formatPercentage(activeTimePercentage)}%</b> of your time casting something.</li>
+        <li>You spent <b>${formatPercentage(downtimePercentage)}%</b> of your time casting nothing at all.</li>
+        `}
+        footer={(
+          <div className="statistic-bar">
+            <div
+              className="stat-health-bg"
+              style={{ width: `${activeTimePercentage * 100}%` }}
+              data-tip={`You spent <b>${formatPercentage(activeTimePercentage)}%</b> of your time casting something.`}
+            >
+              <img src={this.constructor.icons.activeTime} alt="Active time" />
+            </div>
+            <div
+              className="remainder DeathKnight-bg"
+              data-tip={`You spent <b>${formatPercentage(downtimePercentage)}%</b> of your time casting nothing at all.`}
+            >
+              <img src={this.constructor.icons.downtime} alt="Downtime" />
+            </div>
+          </div>
+        )}
+        footerStyle={{ overflow: 'hidden' }}
+      />
+    );
+  }
+  statisticOrder = STATISTIC_ORDER.CORE(10);
 }
 
 export default AlwaysBeCasting;

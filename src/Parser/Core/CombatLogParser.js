@@ -1,4 +1,14 @@
+import React from 'react';
+
+import SuggestionsTab from 'Main/SuggestionsTab';
+import ChangelogTab from 'Main/ChangelogTab';
+import ChangelogTabTitle from 'Main/ChangelogTabTitle';
+import Tab from 'Main/Tab';
+import Talents from 'Main/Talents';
+
 import { formatNumber, formatPercentage } from 'common/format';
+
+import ApplyBuffNormalizer from './Normalizers/ApplyBuff';
 
 import Status from './Modules/Status';
 import HealingDone from './Modules/HealingDone';
@@ -8,9 +18,11 @@ import DamageTaken from './Modules/DamageTaken';
 import Combatants from './Modules/Combatants';
 import AbilityTracker from './Modules/AbilityTracker';
 import Haste from './Modules/Haste';
+import StatTracker from './Modules/StatTracker';
 import AlwaysBeCasting from './Modules/AlwaysBeCasting';
 import CastEfficiency from './Modules/CastEfficiency';
 import SpellUsable from './Modules/SpellUsable';
+import SpellHistory from './Modules/SpellHistory';
 import Enemies from './Modules/Enemies';
 import EnemyInstances from './Modules/EnemyInstances';
 import Pets from './Modules/Pets';
@@ -18,8 +30,9 @@ import HealEventTracker from './Modules/HealEventTracker';
 import ManaValues from './Modules/ManaValues';
 import SpellManaCost from './Modules/SpellManaCost';
 
+import DistanceMoved from './Modules/Others/DistanceMoved';
+
 import CritEffectBonus from './Modules/Helpers/CritEffectBonus';
-import ApplyBuffFixer from './Modules/Helpers/ApplyBuffFixer';
 
 // Shared Legendaries
 import Prydaz from './Modules/Items/Prydaz';
@@ -27,6 +40,7 @@ import Velens from './Modules/Items/Velens';
 import SephuzsSecret from './Modules/Items/SephuzsSecret';
 import KiljaedensBurningWish from './Modules/Items/KiljaedensBurningWish';
 import ArchimondesHatredReborn from './Modules/Items/ArchimondesHatredReborn';
+import Cinidaria from './Modules/Items/Cinidaria';
 // Shared Epics
 import DrapeOfShame from './Modules/Items/DrapeOfShame';
 import DarkmoonDeckPromises from './Modules/Items/DarkmoonDeckPromises';
@@ -36,6 +50,7 @@ import BarbaricMindslaver from './Modules/Items/BarbaricMindslaver';
 import SeaStar from './Modules/Items/SeaStarOfTheDepthmother';
 import DeceiversGrandDesign from './Modules/Items/DeceiversGrandDesign';
 import PrePotion from './Modules/Items/PrePotion';
+import LegendaryUpgradeChecker from './Modules/Items/LegendaryUpgradeChecker';
 import GnawedThumbRing from './Modules/Items/GnawedThumbRing';
 import VialOfCeaselessToxins from './Modules/Items/VialOfCeaselessToxins';
 import SpecterOfBetrayal from './Modules/Items/SpecterOfBetrayal';
@@ -46,9 +61,13 @@ import TerrorFromBelow from './Modules/Items/TerrorFromBelow';
 import TomeOfUnravelingSanity from './Modules/Items/TomeOfUnravelingSanity';
 import InfernalCinders from './Modules/Items/InfernalCinders';
 import UmbralMoonglaives from './Modules/Items/UmbralMoonglaives';
+// T21 Healing trinkets
+import TarratusKeystone from './Modules/Items/TarratusKeystone';
+import HighFathersMachination from './Modules/Items/HighfathersMachination';
 
 // Shared Buffs
-import VantusRune from './Modules/VantusRune';
+import Concordance from './Modules/Spells/Concordance';
+import VantusRune from './Modules/Spells/VantusRune';
 
 // Netherlight Crucible Traits
 import DarkSorrows from './Modules/NetherlightCrucibleTraits/DarkSorrows';
@@ -64,15 +83,21 @@ import RefractiveShell from './Modules/NetherlightCrucibleTraits/RefractiveShell
 import NLCTraits from './Modules/NetherlightCrucibleTraits/NLCTraits';
 
 import ParseResults from './ParseResults';
+import Analyzer from './Analyzer';
+import EventsNormalizer from './EventsNormalizer';
 
 const debug = false;
 
-let _modulesDeprectatedWarningSent = false;
+let _modulesDeprecatedWarningSent = false;
 
 class CombatLogParser {
   static abilitiesAffectedByHealingIncreases = [];
 
   static defaultModules = {
+    // Normalizers
+    applyBuffNormalizer: ApplyBuffNormalizer,
+
+    // Analyzers
     status: Status,
     healingDone: HealingDone,
     damageDone: DamageDone,
@@ -86,14 +111,16 @@ class CombatLogParser {
     abilityTracker: AbilityTracker,
     healEventTracker: HealEventTracker,
     haste: Haste,
+    statTracker: StatTracker,
     alwaysBeCasting: AlwaysBeCasting,
     castEfficiency: CastEfficiency,
     spellUsable: SpellUsable,
+    spellHistory: SpellHistory,
     manaValues: ManaValues,
     vantusRune: VantusRune,
+    distanceMoved: DistanceMoved,
 
     critEffectBonus: CritEffectBonus,
-    applyBuffFixer: ApplyBuffFixer,
 
     // Items:
     // Legendaries:
@@ -102,11 +129,13 @@ class CombatLogParser {
     sephuzsSecret: SephuzsSecret,
     kiljaedensBurningWish: KiljaedensBurningWish,
     archimondesHatredReborn: ArchimondesHatredReborn,
+    cinidaria: Cinidaria,
     // Epics:
     drapeOfShame: DrapeOfShame,
     amalgamsSeventhSpine: AmalgamsSeventhSpine,
     darkmoonDeckPromises: DarkmoonDeckPromises,
     prePotion: PrePotion,
+    legendaryUpgradeChecker: LegendaryUpgradeChecker,
     gnawedThumbRing: GnawedThumbRing,
     // Tomb trinkets:
     archiveOfFaith: ArchiveOfFaith,
@@ -120,7 +149,12 @@ class CombatLogParser {
     spectralThurible: SpectralThurible,
     terrorFromBelow: TerrorFromBelow,
     tomeOfUnravelingSanity: TomeOfUnravelingSanity,
+    // T21 Healing Trinkets
+    tarratusKeystone : TarratusKeystone,
+    highfathersMachinations : HighFathersMachination,
 
+    // Concordance of the Legionfall
+    concordance: Concordance,
     // Netherlight Crucible Traits
     darkSorrows: DarkSorrows,
     tormentTheWeak: TormentTheWeak,
@@ -147,9 +181,9 @@ class CombatLogParser {
 
   _modules = {};
   get modules() {
-    if (!_modulesDeprectatedWarningSent) {
-      console.error('Using `this.owner.modules` is deprectated. You should add the module you want to use as a dependency and use the property that\'s added to your module instead.');
-      _modulesDeprectatedWarningSent = true;
+    if (!_modulesDeprecatedWarningSent) {
+      console.error('Using `this.owner.modules` is deprecated. You should add the module you want to use as a dependency and use the property that\'s added to your module instead.');
+      _modulesDeprecatedWarningSent = true;
     }
     return this._modules;
   }
@@ -263,6 +297,14 @@ class CombatLogParser {
   }
 
   _debugEventHistory = [];
+  initialize(combatants) {
+    this.initializeNormalizers(combatants);
+    this.initializeAnalyzers(combatants);
+  }
+  initializeAnalyzers(combatants) {
+    this.parseEvents(combatants);
+    this.triggerEvent('initialized');
+  }
   parseEvents(events) {
     if (process.env.NODE_ENV === 'development') {
       this._debugEventHistory = [
@@ -270,27 +312,34 @@ class CombatLogParser {
         ...events,
       ];
     }
-    return new Promise((resolve, reject) => {
-      events.forEach((event) => {
-        if (this.error) {
-          throw new Error(this.error);
-        }
-        this._timestamp = event.timestamp;
+    events.forEach((event) => {
+      if (this.error) {
+        throw new Error(this.error);
+      }
+      this._timestamp = event.timestamp;
 
-        // Triggering a lot of events here for development pleasure; does this have a significant performance impact?
-        this.triggerEvent(event.type, event);
-      });
-
-      resolve(events.length);
+      // Triggering a lot of events here for development pleasure; does this have a significant performance impact?
+      this.triggerEvent(event.type, event);
     });
   }
 
-  reorderEvents(events) {
+  initializeNormalizers(combatants) {
     this.activeModules
+      .filter(module => module instanceof EventsNormalizer)
       .sort((a, b) => a.priority - b.priority) // lowest should go first, as `priority = 0` will have highest prio
-      .forEach((module) => {
-        if (module.reorderEvents) {
-          events = module.reorderEvents(events);
+      .forEach(module => {
+        if (module.initialize) {
+          module.initialize(combatants);
+        }
+      });
+  }
+  normalize(events) {
+    this.activeModules
+      .filter(module => module instanceof EventsNormalizer)
+      .sort((a, b) => a.priority - b.priority) // lowest should go first, as `priority = 0` will have highest prio
+      .forEach(module => {
+        if (module.normalize) {
+          events = module.normalize(events);
         }
       });
     return events;
@@ -298,6 +347,7 @@ class CombatLogParser {
 
   triggerEvent(eventType, event, ...args) {
     this.activeModules
+      .filter(module => module instanceof Analyzer)
       .sort((a, b) => a.priority - b.priority) // lowest should go first, as `priority = 0` will have highest prio
       .forEach(module => module.triggerEvent(eventType, event, ...args));
   }
@@ -336,6 +386,31 @@ class CombatLogParser {
   generateResults() {
     const results = new ParseResults();
 
+    results.tabs = [
+      {
+        title: 'Suggestions',
+        url: 'suggestions',
+        order: 0,
+        render: () => <SuggestionsTab issues={results.issues} />,
+      },
+      {
+        title: 'Talents',
+        url: 'talents',
+        order: 1,
+        render: () => (
+          <Tab title="Talents">
+            <Talents combatant={this.modules.combatants.selected} />
+          </Tab>
+        ),
+      },
+      {
+        title: <ChangelogTabTitle />,
+        url: 'changelog',
+        order: 1000,
+        render: () => <ChangelogTab />,
+      },
+    ];
+
     this.activeModules
       .sort((a, b) => b.priority - a.priority)
       .forEach((module) => {
@@ -352,6 +427,12 @@ class CombatLogParser {
           const item = module.item();
           if (item) {
             results.items.push(item);
+          }
+        }
+        if (module.extraPanel) {
+          const extraPanel = module.extraPanel();
+          if(extraPanel) {
+            results.extraPanels.push(extraPanel);
           }
         }
         if (module.tab) {

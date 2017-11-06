@@ -3,7 +3,7 @@
   overflow: hidden;
 }
 /* We need to blur the background so it doesn't bleed through the background opacity which would make things a lot harder to read. */
-.spec-information-overlay-active .navbar, .spec-information-overlay-active .results {
+.spec-information-overlay-active nav, .spec-information-overlay-active .results {
   filter: blur(3px);
 }
 
