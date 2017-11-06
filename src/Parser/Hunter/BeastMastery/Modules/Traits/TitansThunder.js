@@ -93,7 +93,7 @@ class TitansThunder extends Analyzer {
           </span>
 
         )}
-        label={`Titan's Thunder information`}
+        label={`Titan's Thunder`}
         tooltip={`You cast Titan's Thunder ${this.totalTTCasts} times, of which ${this.badTTCasts} were bad casts. <br/> Bad casts indicate that they were used without Dire Beasts up, or if you are using Dire Frenzy, then Titan's Thunder was used without Bestial Wrath up. <br/> You cast Titan's Thunder ${this.shouldHaveSavedTT} times where you should have delayed casting it, this occurs when you cast Titan's Thunder when there is less than 30 seconds remaning on Bestial Wrath cooldown.`}
       />
     );
