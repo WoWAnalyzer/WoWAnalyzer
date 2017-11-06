@@ -11,7 +11,7 @@ import SpellIcon from "common/SpellIcon";
 import ITEMS from "common/ITEMS/HUNTER";
 
 //Calculates the actual % increase in damage from Bestial Fury
-const BESTIAL_FURY_MODIFIER = 1 - (1 / 1.4 * 1.25);
+const BESTIAL_FURY_MODIFIER = (1.4/1.25)-1;
 
 const debug = false;
 
