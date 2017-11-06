@@ -20,8 +20,7 @@ class EnergizingElixir extends Analyzer {
   eeCasts = 0;
 
   on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.ENERGIZING_ELIXIR_TALENT
-      .id);
+    this.active = this.combatants.selected.hasTalent(SPELLS.ENERGIZING_ELIXIR_TALENT.id);
   }
 
   on_byPlayer_cast(event) {
@@ -52,10 +51,10 @@ class EnergizingElixir extends Analyzer {
 
   statistic() {
     return (<StatisticBox icon={<SpellIcon id={SPELLS.ENERGIZING_ELIXIR_TALENT.id }/>}
-      value={`${this.energyGained} Energy gained`}
+      value={this.energyGained}
       label={(
-        <dfn>
-          from {this.eeCasts} Energizing Elixir Casts 
+        <dfn data-tip={`from ${this.eeCasts} Energizing Elixir Casts`}>
+          Energy gained
         </dfn>
         )}
         />
