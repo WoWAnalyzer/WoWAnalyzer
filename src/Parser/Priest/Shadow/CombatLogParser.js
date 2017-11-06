@@ -1,6 +1,7 @@
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 
+import Haste from './Modules/Core/Haste';
 import AbilityTracker from './Modules/Core/AbilityTracker';
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
@@ -18,6 +19,8 @@ import CallToTheVoid from './Modules/Spells/CallToTheVoid';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
+    haste: Haste,
+
     damageDone: [DamageDone, { showStatistic: true }],
     alwaysBeCasting: AlwaysBeCasting,
     abilityTracker: AbilityTracker,

@@ -4,11 +4,18 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import { STATISTIC_ORDER } from 'Main/StatisticBox';
 
+import CoreAlwaysBeCasting from 'Parser/Core/Modules/AlwaysBeCasting';
 import SPELLS from 'common/SPELLS';
 
-import CoreAlwaysBeCasting from 'Parser/Core/Modules/AlwaysBeCasting';
+import Haste from '../Core/Haste';
+
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
+  static dependencies = {
+    haste: Haste,
+  };
+
+
   static ABILITIES_ON_GCD = [
     // handled in _removebuff
     // SPELLS.VOID_TORRENT.id,
