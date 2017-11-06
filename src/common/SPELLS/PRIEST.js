@@ -187,6 +187,11 @@ export default {
     name: 'T20 4 Set Bonus',
     icon: 'spell_holy_penance',
   },
+  DISC_PRIEST_T21_2SET_BONUS_PASSIVE: {
+    id: 251843,
+    name: 'T21 2 Set Bonus',
+    icon: 'ability_priest_ascension',
+  },  
   KAM_XIRAFF_BUFF: {
     id: 233997,
     name: 'Kam Xi\'raff',
@@ -201,6 +206,11 @@ export default {
     id: 204213,
     name: 'Purge the Wicked',
     icon: 'ability_mage_firestarter',
+  },
+  ESTEL_DEJAHNAS_INSPIRATION_BUFF: {
+    id: 214637,
+    name: 'Dejahna\'s Inspiration',
+    icon: 'spell_holy_heal',
   },
 
   // Talents:
@@ -579,5 +589,10 @@ export default {
     id: 238065,
     name: 'Fiending Dark',
     icon: 'spell_shadow_shadowfiend',
+  },
+  MIND_QUICKENING: {
+    id: 240673,
+    name: 'Mind Quickening',
+    icon: 'inv_enchant_voidsphere',
   },
 };

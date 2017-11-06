@@ -132,15 +132,197 @@ export default {
   },
 
   // Frost:
-  // ...
-
+  // Artifact
+  SINDRAGOSAS_FURY_ARTIFACT: {
+    id: 190778,
+    name: 'Sindragosa\'s Fury',
+    icon: 'spell_deathknight_frostfever',
+  },
+  // Damage Dealing
+  FROST_FEVER: {
+    id: 55095,
+    name: 'Frost Fever',
+    icon: 'spell_deathknight_frostfever',
+  },
+  FROST_STRIKE: {
+    id: 49143,
+    name: 'Frost Strike',
+    icon: 'spell_deathknight_empowerruneblade2',
+  },
+  OBLITERATE: {
+    id: 49020,
+    name: 'Obliterate',
+    icon: 'spell_deathknight_classicon',
+  },
+  HOWLING_BLAST: {
+    id: 49184,
+    name: 'Howling Blast',
+    icon: 'spell_frost_arcticwinds',
+  },
+  REMORSELESS_WINTER_STACKS: {
+    id: 196771,
+    name: 'Remorseless Winter',
+    icon: 'ability_deathknight_remorselesswinters2',
+  }, 
+  REMORSELESS_WINTER: {
+    id: 196770,
+    name: 'Remorseless Winter',
+    icon: 'ability_deathknight_remorselesswinters2',
+  },
+  // Buffs
+  EMPOWER_RUNE_WEAPON: {
+    id: 47568,
+    name: 'Empower Rune Weapon',
+    icon: 'inv_sword_62',
+  },
+  PILLAR_OF_FROST: {
+    id: 51271,
+    name: 'Pillar of Frost',
+    icon: 'ability_deathknight_pillaroffrost',
+  },
+  // Procs
+  RIME: {
+    id: 59052,
+    name: 'Rime',
+    icon: 'spell_frost_arcticwinds',
+  },  
+  KILLING_MACHINE: {
+    id: 51128,
+    name: 'Killing Machine',
+    icon: 'inv_sword_122',
+  },
+  RAZORICE: {
+    id: 50401,
+    name: 'Razorice',
+    icon: 'spell_deathknight_frozenruneweapon',
+  },
+  // T20 2P
+  FROST_DEATH_KNIGHT_T20_2SET_BONUS_BUFF: {
+    id: 242058,
+    name: 'T20 2 Set Bonus',
+    icon: 'spell_deathknight_frostpresence',
+  },
+  // T20 4P
+  FROST_DEATH_KNIGHT_T20_4SET_BONUS_BUFF: {
+    id: 242063,
+    name: 'T20 4 Set Bonus',
+    icon: 'spell_deathknight_frostpresence',
+  },
+  // Talents
+  RUNIC_ATTENUATION_TALENT: {
+    id: 207104,
+    name: 'Runic Attenuation',
+    icon: 'Boss_odunrunes_blue',
+  },
+  ABOMINATIONS_MIGHT_TALENT: {
+    id: 207161,
+    name: 'Abomination\'s Might',
+    icon: 'spell_deathknight_icetouch',
+  },
+  AVALANCHE_TALENT: {
+    id: 207142,
+    name: 'Avalanche',
+    icon: 'spell-frost-icestorm',
+  },
+  BLINDING_SLEET_TALENT: {
+    id: 207167,
+    name: 'Blinding Sleet',
+    icon: 'spell-frost-chillingblast',
+  },
+  BREATH_OF_SINDRAGOSA_TALENT: {
+    id: 152279,
+    name: 'Breath of Sindragosa',
+    icon: 'spell_deathknight_breathofsindragosa',
+  },
+  FREEZING_FOG_TALENT: {
+    id: 207060,
+    name: 'Freezing Fog',
+    icon: 'spell_frost_arcticwinds',
+  },
+  FROSTSCYTHE_TALENT: {
+    id: 207230,
+    name: 'Frostscythe',
+    icon: 'inv_misc_2h_farmscythe_a_01',
+  },
+  FROZEN_PULSE_TALENT: {
+    id: 194909,
+    name: 'Frozen Pulse',
+    icon: 'inv_misc_permafrostshard',
+  },
+  GATHERING_STORM_TALENT: {
+    id: 194912,
+    name: 'Gathering Storm',
+    icon: 'spell_frost_ice-shards',
+  },
+  GLACIAL_ADVANCE_TALENT: {
+    id: 194913,
+    name: 'Glacial Advance',
+    icon: 'ability_hunter_glacialtrap',
+  },
+  HORN_OF_WINTER_TALENT: {
+    id: 57330,
+    name: 'Horn of Winter',
+    icon: 'inv_misc_horn_02',
+  },
+  HUNGERING_RUNE_WEAPON_TALENT: {
+    id: 207127,
+    name: 'Hungering Rune Weapon',
+    icon: 'ability_deathknight_hungeringruneblade',
+  },
+  ICECAP_TALENT: {
+    id: 207126,
+    name: 'Icecap',
+    icon: 'inv_misc_herb_icecap',
+  },
+  ICY_TALONS_TALENT: {
+    id: 194878,
+    name: 'Icy Talons',
+    icon: 'spell_deathknight_icytalon',
+  },
+  INEXORABLE_ASSAULT_TALENT: {
+    id: 253597,
+    name: 'Inexorable Assault',
+    icon: 'achievement_dungeon_icecrown_frostmourne',
+  },
+  MURDEROUS_EFFICIENCY_TALENT: {
+    id: 207061,
+    name: 'Murderous Efficiency',
+    icon: 'spell_frost_frostarmor',
+  },
+  OBLITERATION_TALENT: {
+    id: 207256,
+    name: 'Obliteration',
+    icon: 'inv_axe_114',
+  },
+  PERMAFROST_TALENT: {
+    id: 207200,
+    name: 'Permafrost',
+    icon: 'achievement_zone_frostfire',
+  },
+  SHATTERING_STRIKES_TALENT: {
+    id: 207057,
+    name: 'Shattering Strikes',
+    icon: 'ability_warrior_shatteringthrow',
+  },
+  VOLATILE_SHIELDING_TALENT: {
+    id: 207188,
+    name: 'Volatile Shielding',
+    icon: 'ability_mage_shattershield',
+  },
+  WINTER_IS_COMING_TALENT: {
+    id: 207170,
+    name: 'Winter is Coming',
+    icon: 'inv_wolfdraenormountfrost',
+  },
   // Unholy:
+  // Aritfact ability
   APOCALYPSE: {
     id: 220143,
     name: 'Apocalypse',
     icon: 'artifactability_unholydeathknight_deathsembrace',
   },
 
+  // Spells
   ARMY_OF_THE_DEAD: {
     id: 42650,
     name: 'Army of the Dead',
@@ -166,9 +348,15 @@ export default {
   },
 
   FESTERING_WOUND: {
-    id: 197147,
+    id: 194310,
     name: 'Festering Wound',
-    icon: 'spell_shadow_deathanddecay',
+    icon: 'spell_yorsahj_bloodboil_purpleoil',
+  },
+
+  FESTERING_WOUND_BURST: {
+    id: 195757,
+    name: 'Festering Wound',
+    icon: 'achievement_halloween_rottenegg_01',
   },
 
   OUTBREAK: {
@@ -189,18 +377,20 @@ export default {
     icon: 'spell_shadow_rune',
   },
 
+  // scourge strike has one cast event but two damage events, the cast and physical 
+  // damage happen on id 55090, the shadow damage is on id 70890
   SCOURGE_STRIKE: {
     id: 55090,
     name: 'Scourge Strike',
     icon: 'spell_deathknight_scourgestrike',
   },
 
-  SUDDEN_DOOM: {
-    id: 49530,
-    name: 'Sudden Doom',
-    icon: 'spell_shadow_painspike',
+  SCOURGE_STRIKE_SHADOW_DAMAGE: {
+    id: 70890,
+    name: 'Scourge Strike',
+    icon: 'spell_deathknight_scourgestrike',
   },
-
+  
   SUMMON_GARGOYLE: {
     id: 49206,
     name: 'Summon Gargoyle',
@@ -213,6 +403,45 @@ export default {
     icon: 'ability_creature_disease_02',
   },  
 
+  UNHOLY_FRENZY_BUFF: {
+    id: 207290,
+    name: 'Unholy Frenzy',
+    icon: 'spell_shadow_unholyfrenzy',
+  },
+  
+  // Unholy Tier Sets
+  // T20 2 Piece
+  UNHOLY_DEATH_KNIGHT_T20_2SET_BONUS_BUFF: {
+    id: 246995,
+    name: 'T20 2 Set Bonus',
+    icon: 'spell_deathknight_unholypresence',
+  },
+  
+  // Artifact traits:
+  SUDDEN_DOOM: {
+    id: 49530,
+    name: 'Sudden Doom',
+    icon: 'spell_shadow_painspike',
+  },
+
+  ETERNAL_AGONY: {
+    id: 208598,
+    name: 'Eternal Agony',
+    icon: 'achievement_boss_festergutrotface',
+  },
+
+  SCOURGE_OF_WORLDS: {
+    id: 191747,
+    name: 'Scourge of Worlds',
+    icon: 'artifactability_unholydeathknight_flagellation',
+  },
+
+  SCOURGE_OF_WORLDS_DEBUFF: {
+    id: 191748,
+    name: 'Scourge of Worlds',
+    icon: 'artifactability_unholydeathknight_flagellation',
+  },
+  
   // Shared:
   ANTI_MAGIC_SHELL: {
     id: 48707,
@@ -297,4 +526,11 @@ export default {
     name: 'Wraith Walk',
     icon: 'inv_helm_plate_raiddeathknight_p_01',
   },
+
+  COLD_HEART_BUFF: {
+    id: 248397,
+    name: 'Cold Heart',
+    icon: 'spell_frost_chainsofice',
+  },
 };
+	

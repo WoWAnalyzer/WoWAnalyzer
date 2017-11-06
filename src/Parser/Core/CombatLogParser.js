@@ -1,3 +1,11 @@
+import React from 'react';
+
+import SuggestionsTab from 'Main/SuggestionsTab';
+import ChangelogTab from 'Main/ChangelogTab';
+import ChangelogTabTitle from 'Main/ChangelogTabTitle';
+import Tab from 'Main/Tab';
+import Talents from 'Main/Talents';
+
 import { formatNumber, formatPercentage } from 'common/format';
 
 import ApplyBuffNormalizer from './Normalizers/ApplyBuff';
@@ -10,9 +18,11 @@ import DamageTaken from './Modules/DamageTaken';
 import Combatants from './Modules/Combatants';
 import AbilityTracker from './Modules/AbilityTracker';
 import Haste from './Modules/Haste';
+import StatTracker from './Modules/StatTracker';
 import AlwaysBeCasting from './Modules/AlwaysBeCasting';
 import CastEfficiency from './Modules/CastEfficiency';
 import SpellUsable from './Modules/SpellUsable';
+import SpellHistory from './Modules/SpellHistory';
 import Enemies from './Modules/Enemies';
 import EnemyInstances from './Modules/EnemyInstances';
 import Pets from './Modules/Pets';
@@ -51,6 +61,9 @@ import TerrorFromBelow from './Modules/Items/TerrorFromBelow';
 import TomeOfUnravelingSanity from './Modules/Items/TomeOfUnravelingSanity';
 import InfernalCinders from './Modules/Items/InfernalCinders';
 import UmbralMoonglaives from './Modules/Items/UmbralMoonglaives';
+// T21 Healing trinkets
+import TarratusKeystone from './Modules/Items/TarratusKeystone';
+import HighFathersMachination from './Modules/Items/HighfathersMachination';
 
 // Shared Buffs
 import Concordance from './Modules/Spells/Concordance';
@@ -75,7 +88,7 @@ import EventsNormalizer from './EventsNormalizer';
 
 const debug = false;
 
-let _modulesDeprectatedWarningSent = false;
+let _modulesDeprecatedWarningSent = false;
 
 class CombatLogParser {
   static abilitiesAffectedByHealingIncreases = [];
@@ -98,9 +111,11 @@ class CombatLogParser {
     abilityTracker: AbilityTracker,
     healEventTracker: HealEventTracker,
     haste: Haste,
+    statTracker: StatTracker,
     alwaysBeCasting: AlwaysBeCasting,
     castEfficiency: CastEfficiency,
     spellUsable: SpellUsable,
+    spellHistory: SpellHistory,
     manaValues: ManaValues,
     vantusRune: VantusRune,
     distanceMoved: DistanceMoved,
@@ -134,6 +149,9 @@ class CombatLogParser {
     spectralThurible: SpectralThurible,
     terrorFromBelow: TerrorFromBelow,
     tomeOfUnravelingSanity: TomeOfUnravelingSanity,
+    // T21 Healing Trinkets
+    tarratusKeystone : TarratusKeystone,
+    highfathersMachinations : HighFathersMachination,
 
     // Concordance of the Legionfall
     concordance: Concordance,
@@ -163,9 +181,9 @@ class CombatLogParser {
 
   _modules = {};
   get modules() {
-    if (!_modulesDeprectatedWarningSent) {
-      console.error('Using `this.owner.modules` is deprectated. You should add the module you want to use as a dependency and use the property that\'s added to your module instead.');
-      _modulesDeprectatedWarningSent = true;
+    if (!_modulesDeprecatedWarningSent) {
+      console.error('Using `this.owner.modules` is deprecated. You should add the module you want to use as a dependency and use the property that\'s added to your module instead.');
+      _modulesDeprecatedWarningSent = true;
     }
     return this._modules;
   }
@@ -367,6 +385,31 @@ class CombatLogParser {
 
   generateResults() {
     const results = new ParseResults();
+
+    results.tabs = [
+      {
+        title: 'Suggestions',
+        url: 'suggestions',
+        order: 0,
+        render: () => <SuggestionsTab issues={results.issues} />,
+      },
+      {
+        title: 'Talents',
+        url: 'talents',
+        order: 1,
+        render: () => (
+          <Tab title="Talents">
+            <Talents combatant={this.modules.combatants.selected} />
+          </Tab>
+        ),
+      },
+      {
+        title: <ChangelogTabTitle />,
+        url: 'changelog',
+        order: 1000,
+        render: () => <ChangelogTab />,
+      },
+    ];
 
     this.activeModules
       .sort((a, b) => b.priority - a.priority)

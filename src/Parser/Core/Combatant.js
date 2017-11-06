@@ -123,7 +123,8 @@ class Combatant extends Entity {
 
     const playerInfo = parser.playersById[combatantInfo.sourceID];
     this._combatantInfo = {
-      name: playerInfo.name,
+      // In super rare cases `playerInfo` can be undefined, not taking this into account would cause the log to be unparsable
+      name: playerInfo && playerInfo.name,
       ...combatantInfo,
     };
 

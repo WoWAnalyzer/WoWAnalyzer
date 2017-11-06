@@ -8,6 +8,7 @@ import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 
 import Tab from 'Main/Tab';
 import CastEfficiencyComponent from 'Main/CastEfficiency';
+import SpellTimeline from 'Main/SpellTimeline';
 
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
@@ -105,7 +106,7 @@ class CastEfficiency extends Analyzer {
       isActive: combatant => combatant.hasTrinket(ITEMS.TOME_OF_UNRAVELING_SANITY.id),
     },
     {
-      spell: SPELLS.VELENS_FUTURE_SIGHT,
+      spell: SPELLS.VELENS_FUTURE_SIGHT_BUFF,
       category: CastEfficiency.SPELL_CATEGORIES.ITEMS,
       getCooldown: haste => 75,
       isActive: combatant => combatant.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT.id),
@@ -151,10 +152,19 @@ class CastEfficiency extends Analyzer {
       }
       when(cpm.castEfficiency).isLessThan(cpm.recommendedCastEfficiency)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<span>Try to cast <SpellLink id={cpm.ability.spell.id} /> more often. {cpm.ability.extraSuggestion || ''}</span>)
+          return suggest(<span>Try to cast <SpellLink id={cpm.ability.spell.id} /> more often. {cpm.ability.extraSuggestion || ''} <a href="#spell-timeline">View timeline</a>.</span>)
             .icon(cpm.ability.spell.icon)
             .actual(`${cpm.casts} out of ${cpm.maxCasts} possible casts; ${formatPercentage(actual)}% cast efficiency`)
             .recommended(`>${formatPercentage(recommended)}% is recommended`)
+            .details(() => (
+              <div style={{ margin: '0 -22px' }}>
+                <SpellTimeline
+                  events={this.owner.modules.spellHistory.historyBySpellId[cpm.ability.spell.id] || []}
+                  start={this.owner.fight.start_time}
+                  end={this.owner.currentTimestamp}
+                />
+              </div>
+            ))
             .regular(cpm.averageIssueCastEfficiency).major(cpm.majorIssueCastEfficiency).staticImportance(cpm.ability.importance);
         });
     });

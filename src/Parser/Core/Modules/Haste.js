@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import { calculateSecondaryStatDefault } from 'common/stats';
 import { formatPercentage, formatMilliseconds } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
@@ -31,8 +30,6 @@ class Haste extends Analyzer {
     [SPELLS.BERSERKING.id]: 0.15,
     [202842]: 0.1, // Rapid Innervation (Balance Druid trait increasing Haste from Innervate)
     [SPELLS.POWER_INFUSION_TALENT.id]: 0.25,
-    [240673]: 800 / 37500, // Shadow Priest artifact trait that's shared with 4 allies: http://www.wowhead.com/spell=240673/mind-quickening
-    [SPELLS.MARK_OF_THE_CLAW.id]: 1000 / 37500,
     [SPELLS.WARLOCK_AFFLI_T20_4P_BUFF.id]: 0.15,
     [SPELLS.WARLOCK_DEMO_T20_4P_BUFF.id]: 0.1,
     [SPELLS.TRUESHOT.id]: 0.4, // MM Hunter main CD
@@ -45,11 +42,7 @@ class Haste extends Analyzer {
     [209166]: 0.3, // DEBUFF - Fast Time from Elisande
     [209165]: -0.3, // DEBUFF - Slow Time from Elisande
     // [208944]: -Infinity, // DEBUFF - Time Stop from Elisande
-
-    [SPELLS.RISING_TIDES.id]: {
-      itemId: ITEMS.CHARM_OF_THE_RISING_TIDE.id,
-      hastePerStack: (_, item) => calculateSecondaryStatDefault(900, 576, item.itemLevel) / 37500,
-    },
+    [SPELLS.BONE_SHIELD.id]: 0.1, // Blood BK haste buff from maintaining boneshield
     [SPELLS.SEPHUZS_SECRET_BUFF.id]: 0.25 - 0.02, // 2% is already applied as base
   };
 

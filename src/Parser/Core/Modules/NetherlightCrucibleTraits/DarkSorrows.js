@@ -42,7 +42,7 @@ class DarkSorrows extends Analyzer {
           </SpellLink>
         </div>
         <div className="flex-sub text-right">
-        Damage: {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % 
+        {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % damage
         </div>
       </div>
     );

@@ -1,8 +1,6 @@
 import React from 'react';
 
-import SuggestionsTab from 'Main/SuggestionsTab';
 import Tab from 'Main/Tab';
-import Talents from 'Main/Talents';
 import Mana from 'Main/Mana';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
@@ -19,7 +17,7 @@ import Sanctify from './Modules/Spells/Sanctify';
 // Features
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
-import CooldownTracker from './Modules/Features/CooldownTracker';
+import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 
 // Priest Core
 import RenewTheFaith from './Modules/PriestCore/RenewTheFaith';
@@ -48,7 +46,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
-    cooldownTracker: CooldownTracker,
+    cooldownThroughputTracker: CooldownThroughputTracker,
     renewTheFaith: RenewTheFaith,
     divinity: Divinity,
     lightOfTuure: LightOfTuure,
@@ -72,22 +70,7 @@ class CombatLogParser extends CoreCombatLogParser {
     const results = super.generateResults();
 
     results.tabs = [
-      {
-        title: 'Suggestions',
-        url: 'suggestions',
-        render: () => (
-          <SuggestionsTab issues={results.issues} />
-        ),
-      },
-      {
-        title: 'Talents',
-        url: 'talents',
-        render: () => (
-          <Tab title="Talents">
-            <Talents combatant={this.modules.combatants.selected} />
-          </Tab>
-        ),
-      },
+      ...results.tabs,
       {
         title: 'Mana',
         url: 'mana',
@@ -97,7 +80,6 @@ class CombatLogParser extends CoreCombatLogParser {
           </Tab>
         ),
       },
-      ...results.tabs,
     ];
 
     return results;

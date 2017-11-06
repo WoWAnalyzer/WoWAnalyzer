@@ -23,7 +23,7 @@ const DEFAULT_INFO = { // we assume unlisted spells scale with vers only (this w
   vers: true,
 };
 
-export const HEAL_INFO = {
+export const DRUID_HEAL_INFO = {
   [SPELLS.REJUVENATION.id]: {
     int: true,
     crit: true,
@@ -214,15 +214,6 @@ export const HEAL_INFO = {
     masteryStack: false,
     vers: false,
   },
-  [SPELLS.XAVARICS_MAGNUM_OPUS.id]: { // TODO does it really scale with nothing (except stam)?
-    int: false,
-    crit: false,
-    hasteHpm: false,
-    hasteHpct: false,
-    mastery: false,
-    masteryStack: false,
-    vers: false,
-  },
   [SPELLS.DREAMER.id]: { // T21 2pc TODO double check this once its live
     int: true,
     crit: true,
@@ -232,14 +223,8 @@ export const HEAL_INFO = {
     masteryStack: true,
     vers: true,
   },
-  [SPELLS.LEECH.id]: { // procs a percent of all your healing, so we ignore for weights and total healing
-    multiplier: true,
-  },
-  [SPELLS.VELENS_FUTURE_SIGHT.id]: { // while active procs from any healing, so we ignore for weights and total healing
-    multiplier: true,
-  },
 };
 
 export const getSpellInfo = id => {
-  return HEAL_INFO[id] || DEFAULT_INFO;
+  return DRUID_HEAL_INFO[id] || DEFAULT_INFO;
 };

@@ -4,7 +4,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import HealingValue from 'Parser/Core/Modules/HealingValue';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
-import { getSpellInfo, HEAL_INFO } from '../../SpellInfo';
+import { getSpellInfo, DRUID_HEAL_INFO } from '../../SpellInfo';
 
 const MASTERY_BONUS_FROM_ONE_RATING = 1 / 66666.6666666;
 const BASE_MASTERY_PERCENT = 0.048;
@@ -33,7 +33,7 @@ class Mastery extends Analyzer {
   masteryBuffs = {};
 
   on_initialized() {
-    Object.entries(HEAL_INFO)
+    Object.entries(DRUID_HEAL_INFO)
         .filter(infoEntry => infoEntry[1].masteryStack)
         .forEach(infoEntry => this.hotHealingAttrib[infoEntry[0]] = { direct: 0, mastery: {} });
 
@@ -56,9 +56,7 @@ class Mastery extends Analyzer {
     if (spellId in this.hotHealingAttrib) { this.hotHealingAttrib[spellId].direct += healVal.effective; }
 
     if (getSpellInfo(spellId).mastery) {
-      const hotsOn = target.activeBuffs()
-          .map(buffObj => buffObj.ability.guid)
-          .filter(buffId => getSpellInfo(buffId).masteryStack);
+      const hotsOn = this.getHotsOn(target);
       const numHotsOn = hotsOn.length;
       const decomposedHeal = this._decompHeal(healVal, numHotsOn);
 
@@ -143,6 +141,22 @@ class Mastery extends Analyzer {
    */
   getAverageDruidSpellMasteryStacks() {
     return this.masteryTimesHealing / this.druidSpellNoMasteryHealing;
+  }
+
+  /**
+   * Given an Entity object, returns an array of the spell IDs of the Mastery boosting HoTs the Druid currently has on that target.
+   */
+  getHotsOn(target) {
+    return target.activeBuffs()
+        .map(buffObj => buffObj.ability.guid)
+        .filter(buffId => getSpellInfo(buffId).masteryStack);
+  }
+
+  /**
+   * Given an Entity object, returns the number of Mastery boosting HoTs the Druid currently has on that target.
+   */
+  getHotCount(target) {
+    return this.getHotsOn(target).length;
   }
 
   _tallyMasteryBenefit(hotId, healId, amount) {

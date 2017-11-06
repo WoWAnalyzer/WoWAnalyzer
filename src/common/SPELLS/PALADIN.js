@@ -219,6 +219,11 @@ export default {
     name: 'Divine Purpose',
     icon: 'spell_holy_divinepurpose',
   },
+  OBSIDIAN_STONE_SPAULDERS_HEAL: {
+    id: 210999,
+    name: 'Obsidian Stone Spaulders',
+    icon: 'inv_shoulder_plate_pvppaladin_o_01',
+  },
   // Retribution Paladin:
   JUDGMENT_DEBUFF: {
     id: 197277,

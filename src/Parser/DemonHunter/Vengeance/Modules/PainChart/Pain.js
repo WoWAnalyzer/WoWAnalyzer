@@ -84,15 +84,24 @@ class Pain extends React.PureComponent {
       );
     }
 
-    const { start, end } = this.props;
+		if(!this.state.pain.series[0]) {
+			return (
+				<div>
+					This pain chart data from Warcraft Logs is corrupted and it cannot be parsed.
+				</div>
+			);
+		}
 
+    const { start, end } = this.props;
     const painBySecond = {
       0: 0,
     };
+
     this.state.pain.series[0].data.forEach((item) => {
       const secIntoFight = Math.floor((item[0] - start) / 1000);
       painBySecond[secIntoFight] = item[1];
     });
+
     const bosses = [];
     const deadBosses = [];
     this.state.bossHealth.series.forEach((series) => {

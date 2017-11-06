@@ -1,20 +1,14 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
-import { formatNumber } from 'common/format';
-
-import Analyzer from 'Parser/Core/Analyzer';
+import STAT from 'Parser/Core/Modules/Features/STAT';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
+
+import BaseHealerStatValues from 'Parser/Core/Modules/Features/BaseHealerStatValues';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import HealingValue from 'Parser/Core/Modules/HealingValue';
-import DamageValue from 'Parser/Core/Modules/DamageValue';
 import CritEffectBonus from 'Parser/Core/Modules/Helpers/CritEffectBonus';
+import StatTracker from 'Parser/Core/Modules/StatTracker';
+import Mastery from './Mastery';
 
-import { getSpellInfo } from '../../SpellInfo';
-
-const DEBUG = false;
-
-const ARMOR_INT_MULTIPLIER = 1.05; // 5% int bonus from wearing all leather means each new point of int worth 1.05 vs character sheet int
+import { DRUID_HEAL_INFO } from '../../SpellInfo';
 
 /*
  * Resto Druid Stat Weights Methodology
@@ -93,252 +87,78 @@ const ARMOR_INT_MULTIPLIER = 1.05; // 5% int bonus from wearing all leather mean
  * If a heal is not in the database of heals, it's assumed to scale only with Vers. This is generally a good assumption,
  * and this is how most trinket heals behave.
  */
-class StatWeights extends Analyzer {
+class StatWeights extends BaseHealerStatValues {
   static dependencies = {
     combatants: Combatants,
     critEffectBonus: CritEffectBonus,
+    statTracker: StatTracker,
+    mastery: Mastery,
   };
 
-  concordanceAmount = 0; // TODO remove when stat tracker added
+  spellInfo = DRUID_HEAL_INFO;
 
-  totalAdjustedHealing = 0; // total healing after excluding 'multiplier' spells like Leech / Velens
-
-  // These are the total healing that would be gained if their respective stats ratings were increased by one.
-  totalOneInt = 0;
-  totalOneCrit = 0;
-  totalOneHasteHpm = 0;
-  totalOneMastery = 0;
-  totalOneVers = 0; // from healing increase only
-  totalOneVersDr = 0;  // from damage reduced only
-  totalOneLeech = 0;
-
-  on_initialized() {
-    this.concordanceAmount = 4000 + ((this.combatants.selected.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id] - 1) || 0) * 300; // TODO remove when stat tracker added
-  }
-
-  on_byPlayer_heal(event) {
-    const healVal = new HealingValue(event.amount, event.absorbed, event.overheal);
-    this._handleHeal(event, healVal);
-  }
-
-  on_byPlayer_absorbed(event) {
-    const healVal = new HealingValue(event.amount, 0, 0);
-    this._handleHeal(event, healVal);
-  }
-
-  on_toPlayer_damage(event) {
-    const damageVal = new DamageValue(event.amount, event.absorbed, event.overkill);
-    this._handleDamage(event, damageVal);
-  }
-
-  _handleHeal(event, healVal) {
+  _getCritChance(event) {
     const spellId = event.ability.guid;
+    const critChanceBreakdown = super._getCritChance(event);
+
+    if (spellId === SPELLS.REGROWTH.id) {
+      critChanceBreakdown.baseCritChance += 0.4;
+    }
+
+    // TODO handle Abundance
+
+    return critChanceBreakdown;
+  }
+
+  _criticalStrike(event, healVal) {
+    const spellId = event.ability.guid;
+    const bonusFromOneCrit = 1 / this.statTracker.critRatingPerPercent;
+    if (spellId === SPELLS.LIVING_SEED.id) { // TODO get better Living Seed calcs from a standalone module
+      // Living Seed doesn't crit, but it procs from crits only. This calculation approximates increased LS frequency due to more crits.
+      const additionalLivingSeedChance = bonusFromOneCrit / this.statTracker.currentCritRating;
+      return additionalLivingSeedChance * healVal.effective;
+    } else {
+      if (healVal.overheal) {
+        return 0;
+      }
+      const critMult = this.critEffectBonus.getBonus(event);
+      const noCritHealing = event.hitType === HIT_TYPES.CRIT ? healVal.effective / critMult : healVal.effective;
+      return noCritHealing * bonusFromOneCrit * (critMult - 1);
+    }
+  }
+
+  _hasteHpm(event, healVal) {
+    if (healVal.overheal) {
+      return 0;
+    }
+    return super._hasteHpm(event, healVal);
+  }
+
+  _mastery(event, healVal) {
+    if (healVal.overheal) {
+      return 0;
+    }
     const target = this.combatants.getEntity(event);
     if(target === null) {
-      return;
+      return 0;
     }
-
-    const amount = healVal.effective;
-    const spellInfo = getSpellInfo(event.ability.guid);
-
-    // region LEECH
-    // We have to calculate leech weight differently depending on if we already have any leech rating.
-    // Leech is marked as a 'multplier' heal, so we have to check it before we do the early return below
-    const hasLeech = this.combatants.selected.leechRating > 0; // TODO replace when dynamic stats
-    if(hasLeech && spellId === SPELLS.LEECH.id && !healVal.overheal) {
-      this.totalOneLeech += amount / this.combatants.selected.leechRating; // TODO replace when dynamic stats
-    } else if(!hasLeech) {
-      // TODO this will be a pain to implement
-    }
-    // endregion
-
-    // Most spells are counted in healing total, but some spells scale not on their own but 'second hand' from other spells
-    // I adjust them out of total healing to preserve some accuracy in the "Rating per 1%" stat.
-    // Good examples of multiplier spells are Leech and Velens.
-    if(!spellInfo.multiplier) {
-      this.totalAdjustedHealing += healVal.effective;
-    }
-
-    // Multiplier spells and explicitly ignored spells aren't counted for weights.
-    // If a spell overheals, it could not have healed for more, so we also don't give it a weight because it can't be increased.
-    if(spellInfo.multiplier || spellInfo.ignored || healVal.overheal) {
-      return;
-    }
-
-    // region INT
-    if(spellInfo.int) {
-      const currInt = this._getCurrInt(); // TODO replace when dynamic stats
-      const bonusFromOneInt = (1 / currInt) * ARMOR_INT_MULTIPLIER;
-      this.totalOneInt += amount * bonusFromOneInt;
-    }
-    // endregion
-
-    // region CRIT
-    if(spellInfo.crit) {
-      const currCritPerc = this.combatants.selected.critPercentage; // TODO replace when dynamic stats
-      const bonusFromOneCrit = 1 / 40000; // TODO replace when stat constants exist
-      if(spellId === SPELLS.LIVING_SEED.id) {
-        // Living Seed doesn't crit, but it procs from crits only. This calculation approximates increased LS frequency due to more crits.
-        const additionalLivingSeedChance = bonusFromOneCrit / currCritPerc;
-        this.totalOneCrit += additionalLivingSeedChance * amount;
-      } else {
-        const critMult = this.critEffectBonus.getBonus(event);
-        const noCritHealing = event.hitType === HIT_TYPES.CRIT ? amount / critMult : amount;
-        this.totalOneCrit += noCritHealing * bonusFromOneCrit * (critMult - 1);
-      }
-    }
-    // endregion
-
-    // region HASTE
-    if(spellInfo.hasteHpm) {
-      const currHastePerc = this.combatants.selected.hastePercentage; // TODO replace when dynamic stats
-      const bonusFromOneHaste = 1 / 37500; // TODO replace when stat constants exist
-      const noHasteHealing = amount / (1 + currHastePerc);
-      this.totalOneHasteHpm += bonusFromOneHaste * noHasteHealing;
-    }
-    // endregion
-
-    // FIXME Previous hasteHpct calculation was unsatisfactory. Excluding entirely for now.
-
-    // region MASTERY
-    if(spellInfo.mastery) {
-      const currMasteryPerc = this._getCurrMasteryPerc(); // TODO replace when dynamic stats
-      const bonusFromOneMastery = 1 / 66666; // TODO replace when stat constants exist
-      const hotCount = target.activeBuffs()
-          .map(buffObj => buffObj.ability.guid)
-          .filter(buffId => getSpellInfo(buffId).masteryStack)
-          .length;
-      const noMasteryHealing = amount / (1 + (currMasteryPerc * hotCount));
-      this.totalOneMastery += noMasteryHealing * bonusFromOneMastery * hotCount;
-    }
-    // endregion
-
-    // region VERS
-    if(spellInfo.vers) {
-      const currVersPerc = this.combatants.selected.versatilityPercentage; // TODO replace when dynamic stats
-      const bonusFromOneVers = 1 / 47500; // TODO replace when stat constants exist
-      const noVersHealing = amount / (1 + currVersPerc);
-      this.totalOneVers += noVersHealing * bonusFromOneVers;
-    }
-    // endregion
-  }
-
-  _handleDamage(event, damageVal) {
-    const amount = damageVal.effective;
-    const currVersPerc = this.combatants.selected.versatilityPercentage; // TODO replace when dynamic stats
-    const currVersDrPerc = currVersPerc / 2;
-    const bonusFromOneVers = 1 / 47500; // TODO replace when stat constants exist
-    const bonusFromOneVersDr = bonusFromOneVers / 2;
-
-    const noVersDamage = amount / (1 - currVersDrPerc);
-    this.totalOneVersDr += noVersDamage * bonusFromOneVersDr;
-  }
-
-  // FIXME temporary hacky handler for Concordance until stat tracker is implemented
-  _getCurrInt() {
-    let currInt = this.combatants.selected.intellect;
-    if(this.combatants.selected.hasBuff(SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_INTELLECT.id)) {
-      currInt += this.concordanceAmount;
-    }
-    return currInt;
-  }
-
-  // FIXME temporary hacky handler for 2t19 until stat tracker is implemented
-  _getCurrMasteryPerc() {
-    let currMastery = this.combatants.selected.masteryRating;
-    if(this.combatants.selected.hasBuff(SPELLS.ASTRAL_HARMONY.id)) {
-      currMastery += 4000;
-    }
-    return 0.048 + (currMastery / 66666.6666666);
-  }
-
-  on_finished() {
-    if(DEBUG) {
-      console.log(`Int - ${formatNumber(this.totalOneInt)}`);
-      console.log(`Crit - ${formatNumber(this.totalOneCrit)}`);
-      console.log(`Haste HPM - ${formatNumber(this.totalOneHasteHpm)}`);
-      console.log(`Mastery - ${formatNumber(this.totalOneMastery)}`);
-      console.log(`Vers - ${formatNumber(this.totalOneVers)}`);
-      console.log(`Leech - ${formatNumber(this.totalOneLeech)}`);
-    }
-  }
-
-  _ratingPerOnePercent(oneRatingHealing) {
-    const onePercentHealing = this.totalAdjustedHealing / 100;
-    return onePercentHealing / oneRatingHealing;
+    const bonusFromOneMastery = 1 / this.statTracker.masteryRatingPerPercent;
+    const hotCount = this.mastery.getHotCount(target);
+    const noMasteryHealing = healVal.effective / (1 + (this.statTracker.currentMasteryPercentage * hotCount));
+    return noMasteryHealing * bonusFromOneMastery * hotCount;
   }
 
   _prepareResults() {
-    const hasLeech = this.combatants.selected.leechRating > 0;
-
-    const intWeight = this.totalOneInt / this.totalOneInt;
-    const critWeight = this.totalOneCrit / this.totalOneInt;
-    const hasteHpmWeight = this.totalOneHasteHpm / this.totalOneInt;
-    const masteryWeight = this.totalOneMastery / this.totalOneInt;
-    const versWeight = this.totalOneVers / this.totalOneInt;
-    const versDrWeight = (this.totalOneVers + this.totalOneVersDr) / this.totalOneInt;
-    let leechWeight = this.totalOneLeech / this.totalOneInt;
-    if(!hasLeech) {
-      leechWeight = undefined;
-    }
-
-    const intForOnePercent = this._ratingPerOnePercent(this.totalOneInt);
-    const critForOnePercent = this._ratingPerOnePercent(this.totalOneCrit);
-    const hasteHpmForOnePercent = this._ratingPerOnePercent(this.totalOneHasteHpm);
-    const masteryForOnePercent = this._ratingPerOnePercent(this.totalOneMastery);
-    const versForOnePercent = this._ratingPerOnePercent(this.totalOneVers);
-    const versDrForOnePercent = this._ratingPerOnePercent(this.totalOneVers + this.totalOneVersDr);
-    let leechForOnePercent = this._ratingPerOnePercent(this.totalOneLeech);
-    if(!hasLeech) {
-      leechForOnePercent = undefined;
-    }
-
-    const hasteHpmTooltip = "HPM stands for 'Healing per Mana'. In valuing Haste, it considers only the faster HoT ticking and not the reduced cast times. Effectively it models haste's bonus to mana efficiency. This is typically the better calculation to use for raid encounters where mana is an issue.";
-    const versTooltip = "Weight includes only the boost to healing, and does not include damage reduction.";
-    const versDrTooltip = "Weight includes both healing boost and damage reduction, counting damage reduction as additional throughput";
-    const leechTooltip = "Leech weight can currently only be calculated when you already have some Leech rating";
-
     return [
-      { stat:'Intellect', weight:intWeight, ratingForOne:intForOnePercent },
-      { stat:'Crit', weight:critWeight, ratingForOne:critForOnePercent },
-      { stat:'Haste (HPM)', weight:hasteHpmWeight, ratingForOne:hasteHpmForOnePercent, tooltip:hasteHpmTooltip },
-      { stat:'Mastery', weight:masteryWeight, ratingForOne:masteryForOnePercent },
-      { stat:'Versatility', weight:versWeight, ratingForOne:versForOnePercent, tooltip:versTooltip },
-      { stat:'Versatility (incl DR)', weight:versDrWeight, ratingForOne:versDrForOnePercent, tooltip:versDrTooltip },
-      { stat: 'Leech', weight:leechWeight, ratingForOne:leechForOnePercent, tooltip:leechTooltip },
+      STAT.INTELLECT,
+      STAT.CRITICAL_STRIKE,
+      // STAT.HASTE_HPCT, // TODO implement
+      STAT.HASTE_HPM,
+      STAT.MASTERY,
+      STAT.VERSATILITY,
+      STAT.VERSATILITY_DR,
+      STAT.LEECH,
     ];
-  }
-
-  extraPanel() {
-    const results = this._prepareResults();
-    return (
-      <div className="panel items">
-      <div className="panel-heading">
-        <h2><dfn data-tip="Weights are calculated using the actual circumstances of this encounter. Weights are likely to differ based on fight, raid size, items used, talents chosen, etc.">Stat Weights</dfn>
-        </h2>
-      </div>
-      <div className="panel-body" style={{ padding: 0 }}>
-          <table className="data-table">
-            <thead>
-              <tr>
-                <th style={{ minWidth: 30 }}><b>Stat</b></th>
-                <th style={{ minWidth: 30 }}><dfn data-tip="Normalized so Intellect is always 1.00"><b>Weight</b></dfn></th>
-                <th style={{ minWidth: 30 }}><dfn data-tip="Amount of stat rating required to increase your total healing by 1%"><b>Rating per 1%</b></dfn></th>
-              </tr>
-            </thead>
-            <tbody>
-              {results.map(row => (
-                <tr>
-                  {row.tooltip ? (<td><dfn data-tip={row.tooltip}>{row.stat}</dfn></td>) : (<td>{row.stat}</td>)}
-                  <td>{row.weight ? row.weight.toFixed(2) : "NYI"}</td>
-                  <td>{row.ratingForOne ? formatNumber(row.ratingForOne) : "NYI"}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    );
   }
 
 }

@@ -102,8 +102,13 @@ export default {
     name: 'Gnawed Thumb Ring',
     icon: 'inv_70_dungeon_ring6a',
   },
-  VELENS_FUTURE_SIGHT: {
+  VELENS_FUTURE_SIGHT_BUFF: {
     id: 235966,
+    name: 'Velen\'s Future Sight',
+    icon: 'spell_holy_healingfocus',
+  },
+  VELENS_FUTURE_SIGHT_HEAL: {
+    id: 235967,
     name: 'Velen\'s Future Sight',
     icon: 'spell_holy_healingfocus',
   },
@@ -137,11 +142,33 @@ export default {
     name: 'Mark of the Hidden Satyr',
     icon: 'sha_spell_fire_fireball02_nightmare',
   },
+  // Dungeon Trinkets
+  SHADOWS_STRIKE: { // Dreadstone of Endless Shadows crit proc
+    id: 238499,
+    name: "Shadow's Strike",
+    icon: 'ability_warlock_shadowfurytga',
+  },
+  SHADOW_MASTER: { // Dreadstone of Endless Shadows mastery proc
+    id: 238500,
+    name: "Shadow Master",
+    icon: 'ability_creature_disease_05',
+  },
+  SWARMING_SHADOWS: { // Dreadstone of Endless Shadows haste proc
+    id: 238501,
+    name: "Swarming Shadows",
+    icon: 'spell_shadow_shadesofdarkness',
+  },
+
   // Nighthold Trinkets
   RECURSIVE_STRIKES: {
     id: 225739,
     name: 'Recursive Strikes',
     icon: 'sha_ability_mage_firestarter_nightborne',
+  },
+  ACCELERANDO: {
+    id: 225719,
+    name: 'Accelerando',
+    icon: 'spell_holy_borrowedtime',
   },
   // Tomb trinkets
   CLEANSING_MATRIX: {
@@ -209,6 +236,23 @@ export default {
     name: 'Strength of Will',
     icon: 'inv_wand_36',
   },
+  // T21 Healing trinkets
+  TARRATUS_KEYSTONE: {
+    id: 253282,
+    name: 'Tarratus Keystone',
+    icon: 'inv__wod_arakoa4',
+  },
+ AMANTHULS_PRESENCEBUFF: {
+    id: 253287,
+    name: 'Aman Thul\'s Presence',
+    icon: 'spell_priest_psyfiend',
+  },
+  AMANTHULS_PRESENCEHEAL: {
+    id: 253288,
+    name: 'Aman Thul\'s Presence',
+    icon: 'spell_priest_psyfiend',
+  },
+
   // Item Abilities
   SPECTRAL_OWL: {
     id: 242570,

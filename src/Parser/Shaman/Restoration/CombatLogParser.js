@@ -7,9 +7,7 @@ import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
 
 import StatisticBox from 'Main/StatisticBox';
-import SuggestionsTab from 'Main/SuggestionsTab';
 import Tab from 'Main/Tab';
-import Talents from 'Main/Talents';
 import Mana from 'Main/Mana';
 import Feeding from 'Main/Feeding';
 
@@ -24,7 +22,7 @@ import MasteryEffectiveness from './Modules/Features/MasteryEffectiveness';
 import EarthenShieldTotem from './Modules/Features/EarthenShieldTotem';
 import HighTide from './Modules/Features/HighTide';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
-import CooldownTracker from './Modules/Features/CooldownTracker';
+import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import CastEfficiency from './Modules/Features/CastEfficiency';
 
 import Nazjatar from './Modules/Legendaries/Nazjatar';
@@ -79,7 +77,7 @@ class CombatLogParser extends CoreCombatLogParser {
     masteryEffectiveness: MasteryEffectiveness,
     earthenShieldTotem: EarthenShieldTotem,
     highTide: HighTide,
-    cooldownTracker: CooldownTracker,
+    cooldownThroughputTracker: CooldownThroughputTracker,
     ancestralVigor: AncestralVigor,
     castEfficiency: CastEfficiency,
 
@@ -123,7 +121,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     const rootsRawHealing = getAbility(208981).healingEffective;
     const rootsRawHealingPercentage = rootsRawHealing / totalHealing;
-    const rootsInteractionHealing = this.modules.cooldownTracker.getIndirectHealing(208981);
+    const rootsInteractionHealing = this.modules.cooldownThroughputTracker.getIndirectHealing(208981);
     const rootsInteractionHealingPercentage = rootsInteractionHealing / totalHealing;
     const rootsHealingPercentage = rootsRawHealingPercentage + rootsInteractionHealingPercentage;
 
@@ -160,8 +158,8 @@ class CombatLogParser extends CoreCombatLogParser {
 
     const giftOfTheQueenRawHealing = giftOfTheQueen.healingEffective + giftOfTheQueen.healingOverheal;
     let giftOfTheQueenCBTFeeding = 0;
-    if (this.modules.cooldownTracker.cbtFeed[SPELLS.GIFT_OF_THE_QUEEN.id]) {
-      giftOfTheQueenCBTFeeding = this.modules.cooldownTracker.cbtFeed[SPELLS.GIFT_OF_THE_QUEEN.id].healing;
+    if (this.modules.cooldownThroughputTracker.cbtFeed[SPELLS.GIFT_OF_THE_QUEEN.id]) {
+      giftOfTheQueenCBTFeeding = this.modules.cooldownThroughputTracker.cbtFeed[SPELLS.GIFT_OF_THE_QUEEN.id].healing;
     }
     const hasCBT = this.modules.combatants.selected.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id);
     const giftOfTheQueenCBTFeedingPercent = giftOfTheQueenCBTFeeding / giftOfTheQueenRawHealing;
@@ -177,7 +175,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     const t20_4PHealingPercentage = this.modules.t20_4Set.healing / totalHealing;
 
-    this.modules.cooldownTracker.processAll();
+    this.modules.cooldownThroughputTracker.processAll();
 
     const unusedTwRate = 1 - totalTwUsed / totalTwGenerated;
 
@@ -382,22 +380,7 @@ class CombatLogParser extends CoreCombatLogParser {
     ];
 
     results.tabs = [
-      {
-        title: 'Suggestions',
-        url: 'suggestions',
-        render: () => (
-          <SuggestionsTab issues={results.issues} />
-        ),
-      },
-      {
-        title: 'Talents',
-        url: 'talents',
-        render: () => (
-          <Tab title="Talents">
-            <Talents combatant={this.modules.combatants.selected} />
-          </Tab>
-        ),
-      },
+      ...results.tabs,
       {
         title: 'Mana',
         url: 'mana',
@@ -413,12 +396,11 @@ class CombatLogParser extends CoreCombatLogParser {
         render: () => (
           <Tab title="Feeding" style={{ padding: 0 }}>
             <Feeding
-              cooldownTracker={this.modules.cooldownTracker}
+              cooldownThroughputTracker={this.modules.cooldownThroughputTracker}
             />
           </Tab>
         ),
       },
-      ...results.tabs,
     ];
 
     return results;

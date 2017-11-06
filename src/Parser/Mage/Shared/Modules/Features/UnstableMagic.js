@@ -15,6 +15,12 @@ const PROCCERS = [
   SPELLS.ARCANE_BLAST.id,
 ];
 
+const PROCS = [
+  SPELLS.UNSTABLE_MAGIC_DAMAGE_FIRE.id,
+  SPELLS.UNSTABLE_MAGIC_DAMAGE_FROST.id,
+  SPELLS.UNSTABLE_MAGIC_DAMAGE_ARCANE.id,
+];
+
 class UnstableMagic extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -31,7 +37,7 @@ class UnstableMagic extends Analyzer {
   }
 
   on_byPlayer_damage(event) {
-    if(event.ability.guid === SPELLS.UNSTABLE_MAGIC_DAMAGE.id) {
+    if(PROCS.includes(event.ability.guid)) {
       this.damage += event.amount + (event.absorbed || 0);
       this.hits += 1;
       if(!this.hitTimestamp || this.hitTimestamp + PROC_WINDOW_MS < this.owner.currentTimestamp) {
@@ -60,7 +66,7 @@ class UnstableMagic extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(0);
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(100);
 }
 
 export default UnstableMagic;

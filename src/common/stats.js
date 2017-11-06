@@ -8,6 +8,7 @@ Take the stat of an item at a given iLvL (for example, 300 Crit at 850 iLvL).
 To figure out how much crit that would have at 860 iLvL, you'd do: `300 * 1.15 ^ ((860 - 850) / 15) * 0.994435486 ^(860-850)` for 311 Crit.
 Once the stat at a given iLvL is found, the only variable that needs to be changed is `iLvL`
 */
+// can confirm this formula works if given ilevel/stat other than whatever the "base" is. - kfinch
 
 export function calculatePrimaryStat(baseItemLevel, baseStat, itemLevel) {
   // Blizzard looks to be rounding this up always

@@ -7,6 +7,7 @@ import Masonry from 'react-masonry-component';
 import ItemLink from 'common/ItemLink';
 import ItemIcon from 'common/ItemIcon';
 import getBossName from 'common/getBossName';
+import { getCompletenessColor, getCompletenessExplanation, getCompletenessLabel } from 'common/SPEC_ANALYSIS_COMPLETENESS';
 
 import DevelopmentTab from 'Main/DevelopmentTab';
 import EventsTab from 'Main/EventsTab';
@@ -180,6 +181,7 @@ class Results extends React.Component {
       results.tabs.push({
         title: 'Development',
         url: 'development',
+        order: 100000,
         render: () => (
           <DevelopmentTab
             parser={parser}
@@ -190,6 +192,7 @@ class Results extends React.Component {
       results.tabs.push({
         title: 'Events',
         url: 'events',
+        order: 100001,
         render: () => (
           <EventsTab
             parser={parser}
@@ -199,6 +202,7 @@ class Results extends React.Component {
       results.tabs.push({
         title: 'Status',
         url: 'status',
+        order: 100002,
         render: () => (
           <Tab title="Status" style={{ padding: '15px 22px' }}>
             <Status />
@@ -213,7 +217,7 @@ class Results extends React.Component {
     return (
       <div style={{ width: '100%' }}>
         <div className="results">
-          <div className="row" style={{ marginTop: 20 }}>
+          <div className="row">
             <div className="col-lg-10 col-md-8" style={{ position: 'relative' }}>
               <div className="back-button" style={{ fontSize: 36, width: 20 }}>
                 <Link to={`/report/${report.code}/${fight.id}`} data-tip="Back to player selection">
@@ -243,7 +247,7 @@ class Results extends React.Component {
               borderRadius: '50%',
               height: '1.2em',
             }}
-          /> {config.spec.specName} {config.spec.className} spec implementation is being maintained by {config.maintainer}. <a href="#spec-information" onClick={this.handleClickViewSpecInformation}>More information.</a>
+          /> {config.spec.specName} {config.spec.className} spec implementation is being maintained by {config.maintainer} (status: <dfn data-tip={getCompletenessExplanation(config.completeness)} style={{ color: getCompletenessColor(config.completeness) }}>{getCompletenessLabel(config.completeness).toLowerCase()}</dfn>). <a href="#spec-information" onClick={this.handleClickViewSpecInformation}>More information.</a>
           </div>
 
           <div className="row">
@@ -260,7 +264,14 @@ class Results extends React.Component {
             <div className="panel-body flex" style={{ flexDirection: 'column', padding: '0' }}>
               <div className="navigation" style={{ minHeight: 70 }}>
                 <div className="flex" style={{ paddingTop: '10px', flexDirection: 'row', flexWrap: 'wrap' }}>
-                  {results.tabs.map(tab => (
+                  {results.tabs
+                    .sort((a, b) => {
+                      const aOrder = a.order !== undefined ? a.order : 100;
+                      const bOrder = b.order !== undefined ? b.order : 100;
+
+                      return aOrder - bOrder;
+                    })
+                    .map(tab => (
                     <button
                       key={tab.title}
                       className={activeTab.url === tab.url ? 'btn-link selected' : 'btn-link'}

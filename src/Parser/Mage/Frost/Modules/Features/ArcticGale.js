@@ -11,7 +11,7 @@ import getDamageBonus from 'Parser/Mage/Shared/Modules/GetDamageBonus';
 
 const DAMAGE_BONUS = 0.3;
 
-class UnstableMagic extends Analyzer {
+class ArcticGale extends Analyzer {
   static dependencies = {
     combatants: Combatants,
 	}
@@ -39,7 +39,7 @@ class UnstableMagic extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(0);
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(10);
 
   // TODO suggest when Arctic Gale damage is very low but non-zero?
   suggestions(when) {
@@ -52,4 +52,4 @@ class UnstableMagic extends Analyzer {
   }
 }
 
-export default UnstableMagic;
+export default ArcticGale;

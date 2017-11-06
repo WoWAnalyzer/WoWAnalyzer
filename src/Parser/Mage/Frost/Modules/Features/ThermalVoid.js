@@ -62,7 +62,7 @@ class ThermalVoid extends Analyzer {
     );
   }
 
-  statisticOrder = STATISTIC_ORDER.CORE(3);
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(0);
 }
 
 export default ThermalVoid;

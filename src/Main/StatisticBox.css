@@ -5,15 +5,21 @@
 .panel.statistic-box > .panel-body:hover {
   background-color: rgba(255, 255, 255, 0.1);
 }
+.panel.statistic-box > .panel-body > .flex-main {
+  padding-left: 16px;
+}
 .panel.statistic-box .value {
-  font-size: 2em;
+  font-size: 1.8em;
+  font-weight: bold;
+  line-height: 1.5;
 }
 .panel.statistic-box .slabel {
   margin-top: -0.3em;
+  color: #bbb;
 }
 .panel.statistic-box img {
-  height: 63px;
-  border-radius: 5px;
+  height: 4em;
+  border-radius: 3px;
   border: 1px solid rgba(0, 0, 0, 0.6);
 }
 .panel.statistic-box.statistic-list .panel-heading {
@@ -69,4 +75,7 @@
 .panel.statistic-box.small img {
   height: 1.6em;
   margin-top: -0.2em;
+}
+.statistic-box.small > .panel-body > .flex-main {
+  padding-left: 0;
 }

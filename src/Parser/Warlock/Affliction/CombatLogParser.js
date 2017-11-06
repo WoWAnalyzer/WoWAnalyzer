@@ -1,15 +1,9 @@
-import React from 'react';
-
-import SuggestionsTab from 'Main/SuggestionsTab';
-import Tab from 'Main/Tab';
-import Talents from 'Main/Talents';
-
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
-import CooldownTracker from './Modules/Features/CooldownTracker';
+import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 
 import AgonyUptime from './Modules/Features/AgonyUptime';
 import CorruptionUptime from './Modules/Features/CorruptionUptime';
@@ -45,7 +39,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Features
     castEfficiency: CastEfficiency,
     alwaysBeCasting: AlwaysBeCasting,
-    cooldownTracker: CooldownTracker,
+    cooldownThroughputTracker: CooldownThroughputTracker,
     damageDone: [DamageDone, { showStatistic: true }],
     fatalEchoes: FatalEchoes,
     sniping: Sniping,
@@ -82,31 +76,6 @@ class CombatLogParser extends CoreCombatLogParser {
     tier20_2set: Tier20_2set,
     tier20_4set: Tier20_4set,
   };
-
-  generateResults() {
-    const results = super.generateResults();
-    results.tabs = [
-      {
-        title: 'Suggestions',
-        url: 'suggestions',
-        render: () => (
-          <SuggestionsTab issues={results.issues} />
-        ),
-      },
-      {
-        title: 'Talents',
-        url: 'talents',
-        render: () => (
-          <Tab title="Talents">
-            <Talents combatant={this.modules.combatants.selected} />
-          </Tab>
-        ),
-      },
-      ...results.tabs,
-    ];
-
-    return results;
-  }
 }
 
 export default CombatLogParser;
