@@ -1,6 +1,8 @@
 import React from 'react';
 
 import SuggestionsTab from 'Main/SuggestionsTab';
+import ChangelogTab from 'Main/ChangelogTab';
+import ChangelogTabTitle from 'Main/ChangelogTabTitle';
 import Tab from 'Main/Tab';
 import Talents from 'Main/Talents';
 
@@ -388,18 +390,24 @@ class CombatLogParser {
       {
         title: 'Suggestions',
         url: 'suggestions',
-        render: () => (
-          <SuggestionsTab issues={results.issues} />
-        ),
+        order: 0,
+        render: () => <SuggestionsTab issues={results.issues} />,
       },
       {
         title: 'Talents',
         url: 'talents',
+        order: 1,
         render: () => (
           <Tab title="Talents">
             <Talents combatant={this.modules.combatants.selected} />
           </Tab>
         ),
+      },
+      {
+        title: <ChangelogTabTitle />,
+        url: 'changelog',
+        order: 1000,
+        render: () => <ChangelogTab />,
       },
     ];
 
