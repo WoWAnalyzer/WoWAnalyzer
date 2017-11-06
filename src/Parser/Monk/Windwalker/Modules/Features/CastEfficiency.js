@@ -61,6 +61,13 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 180,
       isActive: combatant => combatant.hasTalent(SPELLS.INVOKE_XUEN_THE_WHITE_TIGER_TALENT.id),
     },
+    {
+  spell: SPELLS.ENERGIZING_ELIXIR_TALENT,
+  category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
+  getCooldown: haste => 60,
+  isActive: combatant => combatant.hasTalent(SPELLS.ENERGIZING_ELIXIR_TALENT.id),
+  noSuggestion: true,
+},
     // other spells
     {
       spell: SPELLS.BLACKOUT_KICK,
@@ -87,6 +94,7 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.RUSHING_JADE_WIND_TALENT,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL_AOE,
       getCooldown: haste => 6 / (1 + haste),
+      isActive: combatant => combatant.hasTalent(SPELLS.RUSHING_JADE_WIND_TALENT.id),
       noSuggestion: true,
     },
   ];
