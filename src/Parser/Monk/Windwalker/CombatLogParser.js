@@ -7,6 +7,10 @@ import CastEfficiency from './Modules/Features/CastEfficiency';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import ComboStrikes from './Modules/Features/ComboStrikes';
 
+// Chi 
+import ChiDetails from './Modules/Chi/ChiDetails';
+import ChiTracker from './Modules/Chi/ChiTracker';
+
 // Spells
 import ComboBreaker from './Modules/Spells/ComboBreaker';
 import StormEarthAndFire from './Modules/Spells/StormEarthAndFire';
@@ -29,6 +33,11 @@ class CombatLogParser extends CoreCombatLogParser {
     castEfficiency: CastEfficiency,
     cooldownThroughputTracker: CooldownThroughputTracker,
     comboStrikes: ComboStrikes,
+
+
+    // Resources
+    chiTracker: ChiTracker,
+    chiDetails: ChiDetails,
 
     // Talents:
     hitCombo: HitCombo,
