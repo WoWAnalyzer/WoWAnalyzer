@@ -1,41 +1,70 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
-import CORE_CHANGELOG from '../CHANGELOG';
+import Wrapper from 'common/Wrapper';
 
-class Changelog extends React.PureComponent {
-  constructor() {
-    super();
-    this.state = {
-      expanded: false,
-      changelogType: 0,
-    };
-  }
+let _stringChangelogDeprecatedWarningSent = false;
 
-  render() {
-    const limit = this.state.expanded ? null : 10;
-
+const Changelog = ({ changelog, limit }) => {
+  if (typeof changelog === 'string') {
+    if (!_stringChangelogDeprecatedWarningSent) {
+      console.error('String based changelogs are deprecated. Convert the changelog to an array basis for more features, see the Holy Paladin changelog for an example.');
+      _stringChangelogDeprecatedWarningSent = true;
+    }
     return (
-      <div className="form-group">
-        <select className="form-control" value={this.state.changelogType} onChange={e => this.setState({ changelogType: Number(e.target.value) })}>
-          <option value={0}>Core</option>
-          {AVAILABLE_CONFIGS.map(config => (
-            <option value={config.spec.id} key={config.spec.id}>{config.spec.specName} {config.spec.className}</option>
-          ))}
-        </select>
-
-        {(this.state.changelogType ? AVAILABLE_CONFIGS.find(config => config.spec.id === this.state.changelogType).changelog : CORE_CHANGELOG)
-          .split('\n')
-          .filter((_, i) => limit === null || i <= limit)
-          .map((change, i) => (
-            <div key={`${i}`} dangerouslySetInnerHTML={{ __html: change }} />
-          ))}
-        {limit !== null && (
-          <a onClick={() => this.setState({ expanded: true })}>More</a>
-        )}
+      <div style={{ padding: 0 }}>
+        <ul className="list text">
+          {changelog
+            .trim()
+            .split('\n')
+            .filter((_, i) => !limit || i < limit)
+            .map((change, i) => (
+              <li key={`${i}`} dangerouslySetInnerHTML={{ __html: change }} />
+            ))}
+        </ul>
       </div>
     );
   }
-}
+  if (changelog instanceof Array) {
+    return (
+      <div style={{ padding: 0 }}>
+        <ul className="list text">
+          {changelog
+            .filter((_, i) => !limit || i < limit)
+            .map(({ date, changes, contributors }, i) => (
+              <li key={i} className="flex">
+                <div className="flex-sub" style={{ minWidth: 100, paddingRight: 15 }}>
+                  {date.toLocaleDateString()}
+                </div>
+                <div className="flex-main">
+                  {changes}
+                </div>
+                <div className="flex-sub" style={{ minWidth: 150, paddingLeft: 15, textAlign: 'right' }}>
+                  {contributors.map(contributor => {
+                    if (typeof contributor === 'string') {
+                      return contributor;
+                    }
+                    if (contributor instanceof Array) {
+                      return (
+                        <Wrapper key={contributor[0]}>
+                          <img src={contributor[1]} alt="Avatar" style={{ height: '1.6em', borderRadius: '50%' }} /> {contributor[0]}
+                        </Wrapper>
+                      );
+                    }
+                    return null;
+                  })}
+                </div>
+              </li>
+            ))}
+        </ul>
+      </div>
+    );
+  }
+  return null;
+};
+Changelog.propTypes = {
+  changelog: PropTypes.oneOfType([PropTypes.array, PropTypes.string]).isRequired,
+  limit: PropTypes.number,
+};
 
 export default Changelog;
