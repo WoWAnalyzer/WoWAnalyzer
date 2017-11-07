@@ -9,8 +9,13 @@ const Zerotorescue = ['Zerotorescue', ZerotorescueAvatar];
 
 export default [
   {
+    date: new Date('2017-11-08'),
+    changes: 'Changed the API is down error to be more amazing.',
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2017-11-06'),
-    changes: 'Add a changelog tab to results page and changed the layout of changelogs.',
+    changes: 'Added a changelog tab to results page and changed the layout of changelogs.',
     contributors: [Zerotorescue],
   },
   {
