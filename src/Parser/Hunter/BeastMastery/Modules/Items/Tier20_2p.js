@@ -51,14 +51,14 @@ class Tier20_2p extends Analyzer {
     if (!this.combatants.selected.hasBuff(SPELLS.BESTIAL_WRATH.id, event.timestamp)) {
       return;
     }
-    this.bonusDmg += getDamageBonus(event, (1 + this.bestialWrathBaseModifier + (this.currentStacks * T20_2P_MODIFIER_PR_STACK)) / (1 + this.bestialWrathBaseModifier));
+    this.bonusDmg += getDamageBonus(event, (this.currentStacks * T20_2P_MODIFIER_PR_STACK) / (1 + this.bestialWrathBaseModifier));
   }
 
   on_byPlayerPet_damage(event) {
     if (!this.combatants.selected.hasBuff(SPELLS.BESTIAL_WRATH.id, event.timestamp)) {
       return;
     }
-    this.bonusDmg += getDamageBonus(event, (1 + this.bestialWrathBaseModifier + (this.currentStacks * T20_2P_MODIFIER_PR_STACK)) / (1 + this.bestialWrathBaseModifier));
+    this.bonusDmg += getDamageBonus(event, (this.currentStacks * T20_2P_MODIFIER_PR_STACK) / (1 + this.bestialWrathBaseModifier));
   }
 
   item() {
