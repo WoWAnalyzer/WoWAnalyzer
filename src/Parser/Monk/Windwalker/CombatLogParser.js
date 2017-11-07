@@ -18,6 +18,7 @@ import FistsofFury from './Modules/Spells/FistsofFury';
 
 // Talents
 import HitCombo from './Modules/Talents/HitCombo';
+import EnergizingElixir from './Modules/Talents/EnergizingElixir';
 
 // Legendaries
 import KatsuosEclipse from './Modules/Items/KatsuosEclipse';
@@ -41,6 +42,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Talents:
     hitCombo: HitCombo,
+    energizingElixir: EnergizingElixir,
 
     // Spells;
     comboBreaker: ComboBreaker,

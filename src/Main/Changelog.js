@@ -46,7 +46,7 @@ const Changelog = ({ changelog, limit }) => {
                     }
                     if (contributor instanceof Array) {
                       return (
-                        <Wrapper>
+                        <Wrapper key={contributor[0]}>
                           <img src={contributor[1]} alt="Avatar" style={{ height: '1.6em', borderRadius: '50%' }} /> {contributor[0]}
                         </Wrapper>
                       );
