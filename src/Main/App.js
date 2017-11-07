@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { browserHistory, Link } from 'react-router';
 import ReactTooltip from 'react-tooltip';
 
-import fetchWcl from 'common/fetchWcl';
+import fetchWcl, { ApiDownError } from 'common/fetchWcl';
 import getFightName from 'common/getFightName';
 
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
@@ -12,6 +12,7 @@ import UnsupportedSpec from 'Parser/UnsupportedSpec/CONFIG';
 import './App.css';
 
 import GithubLogo from './Images/GitHub-Mark-Light-32px.png';
+import ApiDownBackground from './Images/api-down-background.gif';
 
 import Home from './Home';
 import FightSelecter from './FightSelecter';
@@ -101,6 +102,7 @@ class App extends Component {
       dataVersion: 0,
       bossId: null,
       config: null,
+      isApiDown: false,
     };
 
     this.handleReportSelecterSubmit = this.handleReportSelecterSubmit.bind(this);
@@ -278,54 +280,61 @@ class App extends Component {
     return events;
   }
 
-  fetchReport(code, refresh = false) {
+  async fetchReport(code, refresh = false) {
     // console.log('Fetching report:', code);
 
     this.setState({
       report: null,
     });
 
-    return fetchWcl(`report/fights/${code}`, {
-      _: refresh ? +new Date() : undefined,
-      translate: true, // so long as we don't have the entire site localized, it's better to have 1 consistent language
-    })
-      .then(json => {
-        // console.log('Received report', code, ':', json);
-        if (this.reportCode === code) {
-          if (!json.fights) {
-            let message = 'Corrupt WCL response received.';
-            if (json.error) {
-              message = json.error;
-              if (json.message) {
-                try {
-                  const errorMessage = JSON.parse(json.message);
-                  if (errorMessage.error) {
-                    message = errorMessage.error;
-                  }
-                } catch (error) {
+    try {
+      const json = await fetchWcl(`report/fights/${code}`, {
+        _: refresh ? +new Date() : undefined,
+        translate: true, // so long as we don't have the entire site localized, it's better to have 1 consistent language
+      });
+      // console.log('Received report', code, ':', json);
+      if (this.reportCode === code) {
+        if (!json.fights) {
+          let message = 'Corrupt WCL response received.';
+          if (json.error) {
+            message = json.error;
+            if (json.message) {
+              try {
+                const errorMessage = JSON.parse(json.message);
+                if (errorMessage.error) {
+                  message = errorMessage.error;
                 }
+              } catch (error) {
               }
             }
-
-            throw new Error(message);
           }
 
-          this.setState({
-            report: {
-              ...json,
-              code,
-            },
-          });
+          throw new Error(message);
         }
-      })
-      .catch((err) => {
+
+        this.setState({
+          report: {
+            ...json,
+            code,
+          },
+        });
+      }
+    } catch (err) {
+      if (err instanceof ApiDownError) {
+        this.reset();
+        this.setState({
+          isApiDown: true,
+        });
+      } else {
         alert(`I'm so terribly sorry, an error occured. Try again later, in an updated Google Chrome and make sure that Warcraft Logs is up and functioning properly. Please let us know on Discord if the problem persists.\n\n${err}`);
         console.error(err);
-        this.setState({
-          report: null,
-        });
-        this.reset();
+        Raven && Raven.captureException(err); // eslint-disable-line no-undef
+      }
+      this.setState({
+        report: null,
       });
+      this.reset();
+    }
   }
   fetchCombatantsForFight(report, fightId) {
     // console.log('Fetching combatants:', report, fightId);
@@ -341,7 +350,7 @@ class App extends Component {
     }
 
     return this.fetchEvents(report.code, fight.start_time, fight.end_time, undefined, 'type="combatantinfo"')
-      .then((events) => {
+      .then(events => {
         // console.log('Received combatants', report.code, ':', json);
         if (this.reportCode === report.code && this.fightId === fightId) {
           this.setState({
@@ -356,6 +365,7 @@ class App extends Component {
           alert('I\'m so terribly sorry, an error occured. Try again later or in an updated Google Chrome. (Is Warcraft Logs up?)');
         }
         console.error(err);
+        Raven && Raven.captureException(err); // eslint-disable-line no-undef
         this.setState({
           report: null,
         });
@@ -473,9 +483,25 @@ class App extends Component {
 
   renderContent() {
     const { report, combatants, parser } = this.state;
+    if (this.state.isApiDown) {
+      // I want this to permanently block rendering since we need people to refresh to load the new version. If they don't refresh they might try requests that may not work anymore.
+      // Do note there's another part to this page; below at AppBackgroundImage we're overriding the background image as well.
+      return (
+        <div>
+          <h1 style={{ fontSize: '9em', marginBottom: 0, marginTop: '1em' }}>The API is down.</h1>
+          <div style={{ fontSize: '3em' }}>
+            This is usually because we're leveling up with another patch.
+          </div>
+          <div className="text-muted" style={{ fontSize: '2em' }}>
+            Aside from the great news that you'll be the first to experience something new that is probably going to pretty amazing, you'll probably also enjoy knowing that our updates usually only take about 10 seconds. So just <a href={window.location.href}>give it another try</a>.
+          </div>
+        </div>
+      );
+    }
     if (!this.reportCode) {
       return <Home />;
     }
+
     if (!report) {
       return (
         <div>
@@ -573,7 +599,7 @@ class App extends Component {
 
     return (
       <div className={`app ${this.reportCode ? 'has-report' : ''}`}>
-        <AppBackgroundImage bossId={this.state.bossId} />
+        <AppBackgroundImage bossId={this.state.bossId} override={this.state.isApiDown && ApiDownBackground} />
 
         {this.renderNavigationBar()}
         <header>
