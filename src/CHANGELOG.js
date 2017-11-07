@@ -10,7 +10,7 @@ const Zerotorescue = ['Zerotorescue', ZerotorescueAvatar];
 export default [
   {
     date: new Date('2017-11-08'),
-    changes: 'Changed the API is down error to be more amazing.',
+    changes: 'Changed the API is down and rendering errors to be more amazing.',
     contributors: [Zerotorescue],
   },
   {
