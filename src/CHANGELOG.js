@@ -11,7 +11,7 @@ export default [
   {
     date: new Date('2017-11-07'),
     changes: 'Added a suggestion for healers if their mana percentage is too high at the end of an encounter.',
-    contributors: 'Blazyb',
+    contributors: ['Blazyb'],
   },
   {
     date: new Date('2017-11-06'),
