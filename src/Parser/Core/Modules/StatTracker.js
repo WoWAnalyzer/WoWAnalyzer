@@ -252,28 +252,55 @@ class StatTracker extends Analyzer {
   }
 
   /*
-   * For percentage stats, the current stat percentage as tracked by this module.
+   * Helpers to get stat percentage from an arbitrary rating.
    */
+   getCritPercentage(rating) {
+     return this.baseCritPercentage + (rating / this.critRatingPerPercent);
+   }
+   getHastePercentage(rating) {
+     return this.baseHastePercentage + (rating / this.hasteRatingPerPercent);
+   }
+   getMasteryPercentage(rating) {
+     return this.baseMasteryPercentage + (rating / this.masteryRatingPerPercent);
+   }
+   getVersatilityPercentage(rating) {
+     return this.baseVersatilityPercentage + (rating / this.versatilityRatingPerPercent);
+   }
+   getAvoidancePercentage(rating) {
+     return this.baseAvoidancePercentage + (rating / this.avoidanceRatingPerPercent);
+   }
+   getLeechPercentage(rating) {
+     return this.baseLeechPercentage + (rating / this.leechRatingPerPercent);
+   }
+   getSpeedPercentage(rating) {
+     return this.baseSpeedPercentage + (rating / this.speedRatingPerPercent);
+   }
+
+  /*
+   * For percentage stats, the current stat percentage as tracked by this module.
+   * Also includes helpers for getting stat percentage from an arbitrary rating.
+   */
+
   get currentCritPercentage() {
-    return this.baseCritPercentage + (this.currentCritRating / this.critRatingPerPercent);
+    return this.getCritPercentage(this.currentCritRating);
   }
   get currentHastePercentage() {
-    return this.baseHastePercentage + (this.currentHasteRating / this.hasteRatingPerPercent);
+    return this.getHastePercentage(this.currentHasteRating);
   }
   get currentMasteryPercentage() {
-    return this.baseMasteryPercentage + (this.currentMasteryRating / this.masteryRatingPerPercent);
+    return this.getMasteryPercentage(this.currentMasteryRating);
   }
   get currentVersatilityPercentage() {
-    return this.baseVersatilityPercentage + (this.currentVersatilityRating / this.versatilityRatingPerPercent);
+    return this.getVersatilityPercentage(this.currentVersatilityRating);
   }
   get currentAvoidancePercentage() {
-    return this.baseAvoidancePercentage + (this.currentAvoidanceRating / this.avoidanceRatingPerPercent);
+    return this.getAvoidancePercentage(this.currentAvoidanceRating);
   }
   get currentLeechPercentage() {
-    return this.baseLeechPercentage + (this.currentLeechRating / this.leechRatingPerPercent);
+    return this.getLeechPercentage(this.currentLeechRating);
   }
   get currentSpeedPercentage() {
-    return this.baseSpeedPercentage + (this.currentSpeedRating / this.speedRatingPerPercent);
+    return this.getSpeedPercentage(this.currentSpeedRating);
   }
 
   on_toPlayer_changebuffstack(event) {
@@ -295,9 +322,9 @@ class StatTracker extends Analyzer {
         return;
       }
 
-      const before = this._stats;
+      const before = Object.assign({}, this._stats);
       const delta = this._changeStats(statBuff, event.newStacks - event.oldStacks);
-      const after = this._stats;
+      const after = Object.assign({}, this._stats);
       this._triggerChangeStats(event, before, delta, after);
       debug && console.log(`StatTracker: (${event.oldStacks} -> ${event.newStacks}) ${SPELLS[spellId] ? SPELLS[spellId].name : spellId} - Change: ${this._statPrint(delta)}`);
       debug && this._debugPrintStats(this._stats);
