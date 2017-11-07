@@ -1,4 +1,5 @@
 export default `
+07-11-2017 - Added a suggestion for healers if their mana percentage is too high at the end of an encounter. (By Blazyb)
 04-11-2017 - Added a spell cooldown timeline to cast efficiency suggestions. (by Zerotorescue)
 02-11-2017 - Changed the <i>default</i> recommended <a href="http://www.wowhead.com/item=144258" target="_blank" rel="noopener noreferrer" class="legendary">Velen's Future Sight</a> healing contribution to be at least 4% (down from 4.5%). (by Zerotorescue)
 01-11-2017 - Always show the navigation bar and stick it to the top of the window. (by Zerotorescue)
