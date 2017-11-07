@@ -334,6 +334,11 @@ class App extends Component {
       combatants: null,
     });
     const fight = this.getFightFromReport(report, fightId);
+    if (!fight) { // if this fight id doesn't exist the fight might be null
+      alert('Couldn\'t find the selected fight. If you are live-logging you will have to manually refresh the fight list.');
+      browserHistory.push(makeAnalyzerUrl(report));
+      return null;
+    }
 
     return this.fetchEvents(report.code, fight.start_time, fight.end_time, undefined, 'type="combatantinfo"')
       .then((events) => {
