@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 
 import { getCompletenessColor, getCompletenessExplanation, getCompletenessLabel } from 'common/SPEC_ANALYSIS_COMPLETENESS';
 
-import PencilBlack from './Images/pencil-black.png';
-
 import './style.css';
 
 class SpecInformationOverlay extends React.PureComponent {
@@ -71,26 +69,6 @@ class SpecInformationOverlay extends React.PureComponent {
                     </a>
                   </main>
                 </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="row">
-            <div className="changelog col-md-8 col-md-offset-2">
-              <h1>Changelog</h1>
-              <div className="log">
-                <div className="line" />
-                {config.changelog
-                  .trim()
-                  .split('\n')
-                  .map((change, i) => (
-                    <div key={`${i}`}>
-                      <div className="edit">
-                        <img src={PencilBlack} alt="Edit" />
-                      </div>
-                      <div dangerouslySetInnerHTML={{ __html: change }} />
-                    </div>
-                  ))}
               </div>
             </div>
           </div>
