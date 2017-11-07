@@ -311,6 +311,25 @@ class StatTracker extends Analyzer {
     this._changeBuffStack(event);
   }
 
+  /*
+   * This interface allows an external analyzer to force a stat change.
+   * It should ONLY be used if a stat buff is so non-standard that it can't be handled by the buff format in this module.
+   * change is a stat buff object just like those in the STAT_BUFFS structure above, it is required.
+   * eventReason is the WCL event object that caused this change, it is not required.
+   */
+   // For an example of how / why this function would be used, see the CharmOfTheRisingTide module.
+  forceChangeStats(change, eventReason) {
+    const before = Object.assign({}, this._stats);
+    const delta = this._changeStats(change, 1);
+    const after = Object.assign({}, this._stats);
+    this._triggerChangeStats(eventReason, before, delta, after);
+    if(debug) {
+      const spellName = eventReason && eventReason.ability ? eventReason.ability.name : 'unspecified';
+      console.log(`StatTracker: FORCED CHANGE from ${spellName} - Change: ${this._statPrint(delta)}`);
+      this._debugPrintStats(this._stats);
+    }
+  }
+
   _changeBuffStack(event) {
     const spellId = event.ability.guid;
     const statBuff = this.constructor.STAT_BUFFS[spellId];
