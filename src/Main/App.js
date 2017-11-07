@@ -13,6 +13,7 @@ import './App.css';
 
 import GithubLogo from './Images/GitHub-Mark-Light-32px.png';
 import ApiDownBackground from './Images/api-down-background.gif';
+import ThunderSoundEffect from './Audio/Thunder Sound effect.mp3';
 
 import Home from './Home';
 import FightSelecter from './FightSelecter';
@@ -495,6 +496,10 @@ class App extends Component {
           <div className="text-muted" style={{ fontSize: '2em' }}>
             Aside from the great news that you'll be the first to experience something new that is probably going to pretty amazing, you'll probably also enjoy knowing that our updates usually only take about 10 seconds. So just <a href={window.location.href}>give it another try</a>.
           </div>
+          {/* I couldn't resist */}
+          <audio autoPlay>
+            <source src={ThunderSoundEffect} />
+          </audio>
         </div>
       );
     }
