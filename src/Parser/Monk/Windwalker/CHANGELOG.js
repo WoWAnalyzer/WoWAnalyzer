@@ -1,4 +1,5 @@
 export default `
+06-11-2017 - Added Energizing Elixir Energy gained calculation and statistics box (Coryn)
 05-11-2017 - Added basic display for Invoke Xuen, The White Tiger to Cooldown Throughput with plans for refinement (Talby)
 05-11-2017 - Added WindwalkerCore for future feature at request of Bablyonius (Talby)
 05-11-2017 - Added basic display Energizing Elixir to Cast Efficiency (Talby)

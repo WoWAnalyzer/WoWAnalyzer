@@ -33,7 +33,6 @@ import SpellManaCost from './Modules/SpellManaCost';
 import DistanceMoved from './Modules/Others/DistanceMoved';
 
 import CritEffectBonus from './Modules/Helpers/CritEffectBonus';
-
 // Shared Legendaries
 import Prydaz from './Modules/Items/Prydaz';
 import Velens from './Modules/Items/Velens';
@@ -64,11 +63,9 @@ import UmbralMoonglaives from './Modules/Items/UmbralMoonglaives';
 // T21 Healing trinkets
 import TarratusKeystone from './Modules/Items/TarratusKeystone';
 import HighFathersMachination from './Modules/Items/HighfathersMachination';
-
 // Shared Buffs
 import Concordance from './Modules/Spells/Concordance';
 import VantusRune from './Modules/Spells/VantusRune';
-
 // Netherlight Crucible Traits
 import DarkSorrows from './Modules/NetherlightCrucibleTraits/DarkSorrows';
 import TormentTheWeak from './Modules/NetherlightCrucibleTraits/TormentTheWeak';
@@ -150,8 +147,8 @@ class CombatLogParser {
     terrorFromBelow: TerrorFromBelow,
     tomeOfUnravelingSanity: TomeOfUnravelingSanity,
     // T21 Healing Trinkets
-    tarratusKeystone : TarratusKeystone,
-    highfathersMachinations : HighFathersMachination,
+    tarratusKeystone: TarratusKeystone,
+    highfathersMachinations: HighFathersMachination,
 
     // Concordance of the Legionfall
     concordance: Concordance,
@@ -431,7 +428,7 @@ class CombatLogParser {
         }
         if (module.extraPanel) {
           const extraPanel = module.extraPanel();
-          if(extraPanel) {
+          if (extraPanel) {
             results.extraPanels.push(extraPanel);
           }
         }
