@@ -1,6 +1,8 @@
 import React from 'react';
 
 import SuggestionsTab from 'Main/SuggestionsTab';
+import ChangelogTab from 'Main/ChangelogTab';
+import ChangelogTabTitle from 'Main/ChangelogTabTitle';
 import Tab from 'Main/Tab';
 import Talents from 'Main/Talents';
 
@@ -31,7 +33,6 @@ import SpellManaCost from './Modules/SpellManaCost';
 import DistanceMoved from './Modules/Others/DistanceMoved';
 
 import CritEffectBonus from './Modules/Helpers/CritEffectBonus';
-
 // Shared Legendaries
 import Prydaz from './Modules/Items/Prydaz';
 import Velens from './Modules/Items/Velens';
@@ -62,11 +63,9 @@ import UmbralMoonglaives from './Modules/Items/UmbralMoonglaives';
 // T21 Healing trinkets
 import TarratusKeystone from './Modules/Items/TarratusKeystone';
 import HighFathersMachination from './Modules/Items/HighfathersMachination';
-
 // Shared Buffs
 import Concordance from './Modules/Spells/Concordance';
 import VantusRune from './Modules/Spells/VantusRune';
-
 // Netherlight Crucible Traits
 import DarkSorrows from './Modules/NetherlightCrucibleTraits/DarkSorrows';
 import TormentTheWeak from './Modules/NetherlightCrucibleTraits/TormentTheWeak';
@@ -148,8 +147,8 @@ class CombatLogParser {
     terrorFromBelow: TerrorFromBelow,
     tomeOfUnravelingSanity: TomeOfUnravelingSanity,
     // T21 Healing Trinkets
-    tarratusKeystone : TarratusKeystone,
-    highfathersMachinations : HighFathersMachination,
+    tarratusKeystone: TarratusKeystone,
+    highfathersMachinations: HighFathersMachination,
 
     // Concordance of the Legionfall
     concordance: Concordance,
@@ -388,18 +387,24 @@ class CombatLogParser {
       {
         title: 'Suggestions',
         url: 'suggestions',
-        render: () => (
-          <SuggestionsTab issues={results.issues} />
-        ),
+        order: 0,
+        render: () => <SuggestionsTab issues={results.issues} />,
       },
       {
         title: 'Talents',
         url: 'talents',
+        order: 1,
         render: () => (
           <Tab title="Talents">
             <Talents combatant={this.modules.combatants.selected} />
           </Tab>
         ),
+      },
+      {
+        title: <ChangelogTabTitle />,
+        url: 'changelog',
+        order: 1000,
+        render: () => <ChangelogTab />,
       },
     ];
 
@@ -423,7 +428,7 @@ class CombatLogParser {
         }
         if (module.extraPanel) {
           const extraPanel = module.extraPanel();
-          if(extraPanel) {
+          if (extraPanel) {
             results.extraPanels.push(extraPanel);
           }
         }

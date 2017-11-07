@@ -170,7 +170,6 @@ class SpellUsable extends Analyzer {
     return {
       type: 'updatespellusable',
       spellId,
-      type: 'updatespellusable',
       trigger,
       timestamp,
       isOnCooldown: this.isOnCooldown(spellId),

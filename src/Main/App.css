@@ -352,6 +352,11 @@ nav .selectorHeader a {
   background-color: rgba(255, 255, 255, 0.0);
   transition: background-color 0.1s ease-in-out;
 }
+.list.text > li {
+  padding: 5px 22px;
+  border-bottom: 1px solid rgba(0, 0, 0, .4);
+  box-shadow: 0 1px 0 0 rgba(255, 255, 255, .1);
+}
 .list.selection > li.selectable a {
   display: block;
   padding: 10px 0;
@@ -442,12 +447,14 @@ h1 {
 .panel-body > .navigation ul > li.active:hover {
   background: rgba(0, 0, 0, .4);
 }
-.panel-body > .navigation ul > li .badge {
-  float: right;
+.badge {
+  display: inline-block;
+  margin-left: 0.3em;
   border-radius: 50%;
   background: #c9312c;
   width: 1.5em;
   height: 1.5em;
+  line-height: 1.5;
   text-align: center;
 }
 .flex {

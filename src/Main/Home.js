@@ -5,7 +5,7 @@ import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
 import { getCompletenessColor, getCompletenessExplanation, getCompletenessLabel } from 'common/SPEC_ANALYSIS_COMPLETENESS';
 
 import PatreonButton from './PatreonButton';
-import Changelog from './Changelog';
+import ChangelogPanel from './ChangelogPanel';
 
 import MasteryRadiusImage from './Images/mastery-radius.png';
 import ItemsImage from './Images/items.png';
@@ -124,8 +124,8 @@ class Home extends Component {
               <div className="panel-heading">
                 <h2>Changes</h2>
               </div>
-              <div className="panel-body text-muted">
-                <Changelog />
+              <div className="panel-body">
+                <ChangelogPanel />
               </div>
             </div>
           </div>
