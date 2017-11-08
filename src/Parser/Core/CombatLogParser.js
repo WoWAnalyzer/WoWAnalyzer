@@ -46,6 +46,7 @@ import DarkmoonDeckPromises from './Modules/Items/DarkmoonDeckPromises';
 import AmalgamsSeventhSpine from './Modules/Items/AmalgamsSeventhSpine';
 import ArchiveOfFaith from './Modules/Items/ArchiveOfFaith';
 import BarbaricMindslaver from './Modules/Items/BarbaricMindslaver';
+import CharmOfTheRisingTide from './Modules/Items/CharmOfTheRisingTide';
 import SeaStar from './Modules/Items/SeaStarOfTheDepthmother';
 import DeceiversGrandDesign from './Modules/Items/DeceiversGrandDesign';
 import PrePotion from './Modules/Items/PrePotion';
@@ -137,6 +138,7 @@ class CombatLogParser {
     // Tomb trinkets:
     archiveOfFaith: ArchiveOfFaith,
     barbaricMindslaver: BarbaricMindslaver,
+    charmOfTheRisingTide: CharmOfTheRisingTide,
     seaStar: SeaStar,
     deceiversGrandDesign: DeceiversGrandDesign,
     vialCeaslessToxins: VialOfCeaselessToxins,

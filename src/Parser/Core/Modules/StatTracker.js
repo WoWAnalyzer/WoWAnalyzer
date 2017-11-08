@@ -7,7 +7,7 @@ import { formatMilliseconds } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-const debug = false;
+const debug = true;
 
 // TODO: stat constants somewhere else? they're largely copied from combatant
 class StatTracker extends Analyzer {
@@ -36,10 +36,11 @@ class StatTracker extends Analyzer {
       itemId: ITEMS.DREADSTONE_OF_ENDLESS_SHADOWS.id,
       haste: (_, item) => calculateSecondaryStatDefault(845, 3480, item.itemLevel),
     },
-    [SPELLS.RISING_TIDES.id]: { // TODO this trinket stacks oddly, results won't be quite right
-      itemId: ITEMS.CHARM_OF_THE_RISING_TIDE.id,
-      haste: (_, item) => calculateSecondaryStatDefault(900, 576, item.itemLevel),
-    },
+    // Event weirdness makes it impossible to handle CotRT normally, it's handled instead by the CharmOfTheRisingTide module
+    //[SPELLS.RISING_TIDES.id]: {
+    //  itemId: ITEMS.CHARM_OF_THE_RISING_TIDE.id,
+    //  haste: (_, item) => calculateSecondaryStatDefault(900, 576, item.itemLevel),
+    //},
     [SPELLS.ACCELERANDO.id]: {
       itemId: ITEMS.ERRATIC_METRONOME.id,
       haste: (_, item) => calculateSecondaryStatDefault(870, 657, item.itemLevel),
@@ -345,7 +346,7 @@ class StatTracker extends Analyzer {
       const delta = this._changeStats(statBuff, event.newStacks - event.oldStacks);
       const after = Object.assign({}, this._stats);
       this._triggerChangeStats(event, before, delta, after);
-      debug && console.log(`StatTracker: (${event.oldStacks} -> ${event.newStacks}) ${SPELLS[spellId] ? SPELLS[spellId].name : spellId} - Change: ${this._statPrint(delta)}`);
+      debug && console.log(`StatTracker: (${event.oldStacks} -> ${event.newStacks}) ${SPELLS[spellId] ? SPELLS[spellId].name : spellId} @ ${formatMilliseconds(this.owner.currentTimestamp)} - Change: ${this._statPrint(delta)}`);
       debug && this._debugPrintStats(this._stats);
     }
   }
