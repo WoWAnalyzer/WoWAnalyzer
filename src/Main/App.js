@@ -292,38 +292,31 @@ class App extends Component {
     });
 
     try {
-      const json = await fetchWcl(`report/fights/${code}`, {
+      let json = await fetchWcl(`report/fights/${code}`, {
         _: refresh ? +new Date() : undefined,
         translate: true, // so long as we don't have the entire site localized, it's better to have 1 consistent language
       });
-      // console.log('Received report', code, ':', json);
-      if (this.reportCode === code) {
-        if (!json.fights) {
-          let message = 'Corrupt WCL response received.';
-          if (json.error) {
-            message = json.error;
-            if (json.message) {
-              try {
-                const errorMessage = JSON.parse(json.message);
-                if (errorMessage.error) {
-                  message = errorMessage.error;
-                }
-              } catch (error) {
-                // We don't care about an error parsing the error, message's default value is fine
-              }
-            }
-          }
-
-          throw new Error(message);
-        }
-
-        this.setState({
-          report: {
-            ...json,
-            code,
-          },
+      if (this.reportCode !== code) {
+        return;
+      }
+      if (!json.fights) {
+        // Give it one more try with cache busting on, usually hits the spot.
+        json = await fetchWcl(`report/fights/${code}`, {
+          _: +new Date(),
+          translate: true, // so long as we don't have the entire site localized, it's better to have 1 consistent language
         });
       }
+
+      if (!json.fights) {
+        throw new Error('Corrupt WCL response received.');
+      }
+
+      this.setState({
+        report: {
+          ...json,
+          code,
+        },
+      });
     } catch (err) {
       if (err instanceof ApiDownError || err instanceof LogNotFoundError) {
         this.reset();
