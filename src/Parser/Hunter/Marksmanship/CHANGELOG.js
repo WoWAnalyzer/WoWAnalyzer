@@ -1,4 +1,5 @@
 export default `
+08-11-2017 - Fixed large FocusChart performance bugs
 25-10-2017 - Added 5 new talent modules, fixed trueshot CD, added Focus Dump Checker
 25-10-2017 - Updated True Aim to include damage contributed information
 25-10-2017 - Adjust t202p to account for nerfs 
