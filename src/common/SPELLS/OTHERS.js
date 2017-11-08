@@ -132,7 +132,7 @@ export default {
     name: 'Sephuz\'s Secret',
     icon: 'inv_jewelry_ring_149',
   },
-  MARK_OF_THE_ACNIENT_PRIESTESS: {
+  MARK_OF_THE_ANCIENT_PRIESTESS: {
     id: 228401,
     name: 'Mark of the Ancient Priestess',
     icon: 'ability_priest_ascension',
