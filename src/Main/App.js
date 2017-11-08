@@ -23,9 +23,7 @@ import PlayerSelectorHeader from './PlayerSelectorHeader';
 import Results from './Results';
 import ReportSelecter from './ReportSelecter';
 import AppBackgroundImage from './AppBackgroundImage';
-import DiscordButton from './DiscordButton';
-import PatreonButton from './PatreonButton';
-import GithubButton from './GithubButton';
+import FullscreenError from './FullscreenError';
 
 import makeAnalyzerUrl from './makeAnalyzerUrl';
 
@@ -491,27 +489,20 @@ class App extends Component {
   renderContent() {
     const { report, combatants, parser } = this.state;
     if (this.state.isApiDown) {
-      // I want this to permanently block rendering since we need people to refresh to load the new version. If they don't refresh they might try requests that may not work anymore.
-      // Do note there's another part to this page; below at AppBackgroundImage we're overriding the background image as well.
       return (
-        <div>
-          <h1 style={{ fontSize: '9em', marginBottom: 0, marginTop: '1em' }}>The API is down.</h1>
-          <div style={{ fontSize: '3em' }}>
-            This is usually because we're leveling up with another patch.
-          </div>
-          <div className="text-muted" style={{ fontSize: '2em' }}>
+        <FullscreenError
+          error="The API is down."
+          details="This is usually because we're leveling up with another patch."
+          background={ApiDownBackground}
+        >
+          <div className="text-muted">
             Aside from the great news that you'll be the first to experience something new that is probably going to pretty amazing, you'll probably also enjoy knowing that our updates usually only take about 10 seconds. So just <a href={window.location.href}>give it another try</a>.
-          </div>
-          <div style={{ marginTop: 30 }}>
-            <DiscordButton />
-            <PatreonButton style={{ marginLeft: 20 }} />
-            <GithubButton style={{ marginLeft: 20 }} />
           </div>
           {/* I couldn't resist */}
           <audio autoPlay>
             <source src={ThunderSoundEffect} />
           </audio>
-        </div>
+        </FullscreenError>
       );
     }
     if (!this.reportCode) {
@@ -615,7 +606,7 @@ class App extends Component {
 
     return (
       <div className={`app ${this.reportCode ? 'has-report' : ''}`}>
-        <AppBackgroundImage bossId={this.state.bossId} override={this.state.isApiDown ? ApiDownBackground : undefined} />
+        <AppBackgroundImage bossId={this.state.bossId} />
 
         {this.renderNavigationBar()}
         <header>
