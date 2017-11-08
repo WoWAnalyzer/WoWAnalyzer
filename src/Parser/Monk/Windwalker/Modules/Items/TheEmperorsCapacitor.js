@@ -2,10 +2,8 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import PETS from 'common/PETS';
 import SpellLink from 'common/SpellLink';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import CorePets from 'Parser/Core/Modules/Pets';
 import Analyzer from 'Parser/Core/Analyzer';
 
 import CHI_SPENDERS from 'Parser/Monk/Windwalker/Constants';
@@ -13,7 +11,6 @@ import CHI_SPENDERS from 'Parser/Monk/Windwalker/Constants';
 class TheEmperorsCapacitor extends Analyzer {
   static dependencies = {
       combatants: Combatants,
-      pets: CorePets,
   };
   totalStacks = 0;
   currentStacks = 0;
@@ -68,16 +65,8 @@ class TheEmperorsCapacitor extends Analyzer {
     }
   }
 
-  _isPermanentPet(guid) {
-      return Object.keys(PETS).map(key => PETS[key]).every(pet => pet.id !== guid);
-  }
-
   on_byPlayerPet_damage(event) {
-      const pet = this.pets.getSourceEntity(event);
       const spellId = event.ability.guid;
-      if (!this._isPermanentPet(pet.guid)) {
-         return;
-      }
       if (spellId === SPELLS.CRACKLING_JADE_LIGHTNING.id) {
           this.damage += event.amount + (event.absorbed || 0);
       }
