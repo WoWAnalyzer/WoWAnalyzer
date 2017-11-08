@@ -5,7 +5,7 @@ import StatisticBox from "Main/StatisticBox";
 import SpellIcon from "common/SpellIcon";
 import { formatNumber, formatPercentage } from "common/format";
 import SpellLink from 'common/SpellLink';
-import CooldownTracker from 'Parser/Hunter/Marksmanship/Features/CooldownTracker';
+import CooldownTracker from 'Parser/Hunter/Marksmanship/Modules/Features/CooldownTracker';
 
 class Bullseye extends Analyzer{
   executeTimestamp;
