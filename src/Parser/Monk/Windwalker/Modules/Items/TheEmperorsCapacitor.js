@@ -2,10 +2,8 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import PETS from 'common/PETS';
 import SpellLink from 'common/SpellLink';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import CorePets from 'Parser/Core/Modules/Pets';
 import Analyzer from 'Parser/Core/Analyzer';
 
 import CHI_SPENDERS from 'Parser/Monk/Windwalker/Constants';
@@ -13,7 +11,6 @@ import CHI_SPENDERS from 'Parser/Monk/Windwalker/Constants';
 class TheEmperorsCapacitor extends Analyzer {
   static dependencies = {
       combatants: Combatants,
-      pets: CorePets,
   };
   totalStacks = 0;
   currentStacks = 0;
