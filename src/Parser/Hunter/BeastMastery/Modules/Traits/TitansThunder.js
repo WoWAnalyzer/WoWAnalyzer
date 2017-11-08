@@ -7,7 +7,7 @@ import StatisticBox from "Main/StatisticBox";
 import SpellIcon from "common/SpellIcon";
 import SpellLink from "common/SpellLink";
 
-const debug = true;
+const debug = false;
 
 const TITANS_THUNDER_USE_REGARDLESS_THRESHHOLD = 30;
 
