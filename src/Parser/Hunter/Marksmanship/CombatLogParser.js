@@ -114,7 +114,6 @@ class CombatLogParser extends CoreCombatLogParser {
               activeFocusWasted={this.modules.focusTracker.activeFocusWasted}
               generatorCasts={this.modules.focusTracker.generatorCasts}
               activeFocusWastedTimeline={this.modules.focusTracker.activeFocusWastedTimeline}
-              isFinished={this.modules.focusTracker.isFinished}
             />
           </Tab>
         ),

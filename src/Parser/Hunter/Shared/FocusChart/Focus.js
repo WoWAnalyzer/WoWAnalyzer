@@ -29,11 +29,10 @@ class Focus extends React.PureComponent {
     activeFocusWasted: PropTypes.object,
     generatorCasts: PropTypes.object,
     activeFocusWastedTimeline: PropTypes.object,
-    isFinished : PropTypes.number,
   };
 
   render() {
-    if (!this.props.tracker || this.props.isFinished === false) {
+    if (!this.props.tracker) {
       return (
         <div>
           Loading...

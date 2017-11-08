@@ -8,6 +8,7 @@ class FocusTracker extends Analyzer {
     combatants: Combatants,
   }
 
+  lastEventTimestamp = 0;
   isFinished = false;
   focusBySecond = [];
   activeFocusWasted = {};
@@ -16,6 +17,10 @@ class FocusTracker extends Analyzer {
   activeFocusGenerated = {};
   tracker = 0; //to tell if any prop has updated, since we can't compare arrays
   _maxFocus = 0;
+
+  on_initialized(){
+    this.lastEventTimestamp = this.owner.fight.start_time;
+  }
 
   on_byPlayer_cast(event) {
     this.checkPassiveWaste(event);
@@ -36,11 +41,6 @@ class FocusTracker extends Analyzer {
   on_byPlayer_energize(event) {
     this.checkPassiveWaste(event);
     this.checkActiveWaste(event);
-  }
-
-  on_finished(){
-    this.extrapolateFocus();
-    this.isFinished = true;
   }
 
   checkForMaxFocus(event) {
@@ -66,6 +66,7 @@ class FocusTracker extends Analyzer {
         this.focusBySecond[secIntoFight] = (event.classResources[0]['amount']);
       }
       this.checkForError(secIntoFight);
+      this.extrapolateFocus(event.timestamp);
     }
   }
 
@@ -108,12 +109,12 @@ class FocusTracker extends Analyzer {
     }
   }
 
-  extrapolateFocus() {
+  extrapolateFocus(eventTimestamp) {
     this.focusGen = Math.round((10 + .1 * this.combatants.selected.hasteRating / 375) * 100) / 100;
     this.secondsCapped = 0;
     const maxFocus = this._maxFocus;
     this.focusBySecond[0] = maxFocus;
-    for (let i = 0; i < (this.owner.fight.end_time - this.owner.fight.start_time); i++) {  //extrapolates focus given passive focus gain (TODO: Update for pulls with Volley)
+    for (let i = this.lastEventTimestamp - this.owner.fight.start_time; i < (eventTimestamp - this.owner.fight.start_time); i++) {  //extrapolates focus given passive focus gain (TODO: Update for pulls with Volley)
       if (!this.focusBySecond[i]) {
         if (this.focusBySecond[i - 1] >= maxFocus) {
           this.focusBySecond[i] = maxFocus;
@@ -130,6 +131,7 @@ class FocusTracker extends Analyzer {
       }
 
     }
+    this.lastEventTimestamp = eventTimestamp;
   }
 
 }
