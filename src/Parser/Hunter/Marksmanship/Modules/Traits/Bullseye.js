@@ -22,7 +22,9 @@ class Bullseye extends Analyzer{
 
   on_initialized(){
     this.owner.report.enemies.forEach(enemy => {
-      if (enemy.fights[0].id === this.owner.fight.id && enemy.type === "Boss") this.bossIDs.push(enemy.id);
+      enemy.fights.forEach(fight => {
+        if (fight.id === this.owner.fight.id && enemy.type === "Boss") this.bossIDs.push(enemy.id);
+      });
     });
   }
   on_byPlayer_applybuff(event){
