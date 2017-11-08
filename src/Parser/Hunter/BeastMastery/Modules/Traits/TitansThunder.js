@@ -23,6 +23,7 @@ class TitansThunder extends Analyzer {
   totalTTCasts = 0;
   stacksOnTTCast = 0;
   shouldHaveSavedTT = 0;
+  weirdCast = 0;
 
   on_toPlayer_applybuff(event) {
     const buffId = event.ability.guid;
@@ -31,6 +32,7 @@ class TitansThunder extends Analyzer {
     }
     this._currentStacks += 1;
   }
+
   on_toPlayer_removebuff(event) {
     const buffId = event.ability.guid;
     if (buffId !== SPELLS.DIRE_BEAST_BUFF.id) {
@@ -46,9 +48,15 @@ class TitansThunder extends Analyzer {
     }
     debug && console.log(`stacks:`, this._currentStacks);
     this.totalTTCasts += 1;
-    if (this.spellUsable.cooldownRemaining(SPELLS.BESTIAL_WRATH.id) < TITANS_THUNDER_USE_REGARDLESS_THRESHHOLD) {
-      this.shouldHaveSavedTT += 1;
-      return;
+    const bestialWrathIsOnCooldown = this.spellUsable.isOnCooldown(SPELLS.BESTIAL_WRATH.id);
+    if (bestialWrathIsOnCooldown) {
+      if (this.spellUsable.cooldownRemaining(SPELLS.BESTIAL_WRATH.id) < TITANS_THUNDER_USE_REGARDLESS_THRESHHOLD) {
+        this.shouldHaveSavedTT += 1;
+        return;
+      } else if (!this.combatants.selected.hasBuff(SPELLS.BESTIAL_WRATH.id) && (this.spellUsable.cooldownRemaining(SPELLS.BESTIAL_WRATH.id) > TITANS_THUNDER_USE_REGARDLESS_THRESHHOLD)) {
+        this.goodTTCasts += 1;
+        return;
+      }
     }
     if (!this.combatants.selected.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id)) {
       if (this.combatants.selected.hasBuff(SPELLS.DIRE_BEAST_BUFF.id)) {
@@ -65,6 +73,8 @@ class TitansThunder extends Analyzer {
         this.badTTCasts += 1;
       }
     }
+
+    debug && console.log('good tt casts:', this.goodTTCasts, ' and bad tt casts: ', this.badTTCasts, ' and total casts is: ', this.totalTTCasts, ' and weird casts: ', this.weirdCast);
   }
   statistic() {
     return (

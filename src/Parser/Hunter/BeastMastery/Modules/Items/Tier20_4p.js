@@ -12,7 +12,7 @@ import SpellLink from "common/SpellLink";
 
 const T204P_MODIFIER = 0.15;
 
-const debug = true;
+const debug = false;
 
 class Tier20_4p extends Analyzer {
   static dependencies = {
