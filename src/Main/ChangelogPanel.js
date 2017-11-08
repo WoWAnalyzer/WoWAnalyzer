@@ -29,6 +29,7 @@ class ChangelogPanel extends React.PureComponent {
           <Changelog
             changelog={this.state.changelogType ? AVAILABLE_CONFIGS.find(config => config.spec.id === this.state.changelogType).changelog : CORE_CHANGELOG}
             limit={limit}
+            includeCore={!!this.state.changelogType}
           />
         </div>
         {limit !== null && (

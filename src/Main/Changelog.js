@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 
 import Wrapper from 'common/Wrapper';
 
+import CORE_CHANGELOG from '../CHANGELOG';
+
 let _stringChangelogDeprecatedWarningSent = false;
 
-const Changelog = ({ changelog, limit }) => {
+const Changelog = ({ changelog, limit, includeCore }) => {
   if (typeof changelog === 'string') {
     if (!_stringChangelogDeprecatedWarningSent) {
       console.error('String based changelogs are deprecated. Convert the changelog to an array basis for more features, see the Holy Paladin changelog for an example.');
@@ -26,10 +28,11 @@ const Changelog = ({ changelog, limit }) => {
     );
   }
   if (changelog instanceof Array) {
+    const mergedChangelog = includeCore ? [ ...CORE_CHANGELOG, ...changelog ].sort((a, b) => b.date - a.date) : changelog;
     return (
       <div style={{ padding: 0 }}>
         <ul className="list text">
-          {changelog
+          {mergedChangelog
             .filter((_, i) => !limit || i < limit)
             .map(({ date, changes, contributors }, i) => (
               <li key={i} className="flex">
@@ -65,6 +68,10 @@ const Changelog = ({ changelog, limit }) => {
 Changelog.propTypes = {
   changelog: PropTypes.oneOfType([PropTypes.array, PropTypes.string]).isRequired,
   limit: PropTypes.number,
+  includeCore: PropTypes.bool,
+};
+Changelog.defaultProps = {
+  includeCore: true,
 };
 
 export default Changelog;

@@ -9,6 +9,11 @@ const Zerotorescue = ['Zerotorescue', ZerotorescueAvatar];
 
 export default [
   {
+    date: new Date('2017-11-08'),
+    changes: 'The changelog tab now includes entries in the shared changelog.',
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2017-11-06'),
     changes: 'Add a changelog tab to results page and changed the layout of changelogs.',
     contributors: [Zerotorescue],
