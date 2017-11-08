@@ -280,7 +280,7 @@ export default {
     icon: 'spell_deathknight_icytalon',
   },
   INEXORABLE_ASSAULT_TALENT: {
-    id: 253597,
+    id: 253593,
     name: 'Inexorable Assault',
     icon: 'achievement_dungeon_icecrown_frostmourne',
   },
