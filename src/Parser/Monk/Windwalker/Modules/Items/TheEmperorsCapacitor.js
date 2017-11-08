@@ -68,16 +68,8 @@ class TheEmperorsCapacitor extends Analyzer {
     }
   }
 
-  _isPermanentPet(guid) {
-      return Object.keys(PETS).map(key => PETS[key]).every(pet => pet.id !== guid);
-  }
-
   on_byPlayerPet_damage(event) {
-      const pet = this.pets.getSourceEntity(event);
       const spellId = event.ability.guid;
-      if (!this._isPermanentPet(pet.guid)) {
-         return;
-      }
       if (spellId === SPELLS.CRACKLING_JADE_LIGHTNING.id) {
           this.damage += event.amount + (event.absorbed || 0);
       }
