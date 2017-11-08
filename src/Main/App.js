@@ -23,6 +23,9 @@ import PlayerSelectorHeader from './PlayerSelectorHeader';
 import Results from './Results';
 import ReportSelecter from './ReportSelecter';
 import AppBackgroundImage from './AppBackgroundImage';
+import DiscordButton from './DiscordButton';
+import PatreonButton from './PatreonButton';
+import GithubButton from './GithubButton';
 
 import makeAnalyzerUrl from './makeAnalyzerUrl';
 
@@ -498,6 +501,11 @@ class App extends Component {
           </div>
           <div className="text-muted" style={{ fontSize: '2em' }}>
             Aside from the great news that you'll be the first to experience something new that is probably going to pretty amazing, you'll probably also enjoy knowing that our updates usually only take about 10 seconds. So just <a href={window.location.href}>give it another try</a>.
+          </div>
+          <div style={{ marginTop: 30 }}>
+            <DiscordButton />
+            <PatreonButton style={{ marginLeft: 20 }} />
+            <GithubButton style={{ marginLeft: 20 }} />
           </div>
           {/* I couldn't resist */}
           <audio autoPlay>
