@@ -6,6 +6,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 
+const FULL_POWER_STACKS = 10;
 // max window in ms after Rising Tides drops that I consider a new application to be a "full power" application
 // Because the trinket has a 90s CD, I can be very generous with this window,
 // I've made it large in case there's anything weird with the events, though looking at logs I haven't seen anything odd yet.
@@ -54,7 +55,7 @@ class CharmOfTheRisingTide extends Analyzer {
     if (event.newStacks === 0) {
       this._stacksFallTimestamp = this.owner.currentTimestamp;
       if(this._fullPowerActive) {
-        this._makeHasteChange(-10, event); // full power falling off
+        this._makeHasteChange(-1 * FULL_POWER_STACKS, event); // full power falling off
         this._fullPowerActive = false;
         return;
       }
@@ -62,7 +63,7 @@ class CharmOfTheRisingTide extends Analyzer {
 
     if (event.oldStacks === 0 && this._stacksFallTimestamp &&
         this._stacksFallTimestamp + FULL_POWER_APPLY_WINDOW_MS > this.owner.currentTimestamp) {
-      this._makeHasteChange(10, event); // full power activated
+      this._makeHasteChange(FULL_POWER_STACKS, event); // full power activated
       this._fullPowerActive = true;
       return;
     }
