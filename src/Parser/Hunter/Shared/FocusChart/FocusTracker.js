@@ -9,7 +9,6 @@ class FocusTracker extends Analyzer {
   }
 
   lastEventTimestamp = 0;
-  isFinished = false;
   focusBySecond = [];
   activeFocusWasted = {};
   activeFocusWastedTimeline = {};
@@ -20,6 +19,10 @@ class FocusTracker extends Analyzer {
 
   on_initialized(){
     this.lastEventTimestamp = this.owner.fight.start_time;
+    this.secondsCapped = 0;
+  }
+  on_finished(){
+    console.log("g" + this.secondsCapped);
   }
 
   on_byPlayer_cast(event) {
@@ -111,7 +114,6 @@ class FocusTracker extends Analyzer {
 
   extrapolateFocus(eventTimestamp) {
     this.focusGen = Math.round((10 + .1 * this.combatants.selected.hasteRating / 375) * 100) / 100;
-    this.secondsCapped = 0;
     const maxFocus = this._maxFocus;
     this.focusBySecond[0] = maxFocus;
     for (let i = this.lastEventTimestamp - this.owner.fight.start_time; i < (eventTimestamp - this.owner.fight.start_time); i++) {  //extrapolates focus given passive focus gain (TODO: Update for pulls with Volley)
