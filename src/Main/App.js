@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { browserHistory, Link } from 'react-router';
 import ReactTooltip from 'react-tooltip';
 
-import fetchWcl, { ApiDownError } from 'common/fetchWcl';
+import fetchWcl, { ApiDownError, LogNotFoundError } from 'common/fetchWcl';
 import getFightName from 'common/getFightName';
 
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
@@ -104,7 +104,7 @@ class App extends Component {
       dataVersion: 0,
       bossId: null,
       config: null,
-      isApiDown: false,
+      fatalError: null,
     };
 
     this.handleReportSelecterSubmit = this.handleReportSelecterSubmit.bind(this);
@@ -325,10 +325,10 @@ class App extends Component {
         });
       }
     } catch (err) {
-      if (err instanceof ApiDownError) {
+      if (err instanceof ApiDownError || err instanceof LogNotFoundError) {
         this.reset();
         this.setState({
-          isApiDown: true,
+          fatalError: err,
         });
       } else {
         Raven && Raven.captureException(err); // eslint-disable-line no-undef
@@ -488,22 +488,45 @@ class App extends Component {
 
   renderContent() {
     const { report, combatants, parser } = this.state;
-    if (this.state.isApiDown) {
-      return (
-        <FullscreenError
-          error="The API is down."
-          details="This is usually because we're leveling up with another patch."
-          background={ApiDownBackground}
-        >
-          <div className="text-muted">
-            Aside from the great news that you'll be the first to experience something new that is probably going to pretty amazing, you'll probably also enjoy knowing that our updates usually only take about 10 seconds. So just <a href={window.location.href}>give it another try</a>.
-          </div>
-          {/* I couldn't resist */}
-          <audio autoPlay>
-            <source src={ThunderSoundEffect} />
-          </audio>
-        </FullscreenError>
-      );
+    if (this.state.fatalError) {
+      if (this.state.fatalError instanceof ApiDownError) {
+        return (
+          <FullscreenError
+            error="The API is down."
+            details="This is usually because we're leveling up with another patch."
+            background={ApiDownBackground}
+          >
+            <div className="text-muted">
+              Aside from the great news that you'll be the first to experience something new that is probably going to pretty amazing, you'll probably also enjoy knowing that our updates usually only take about 10 seconds. So just <a href={window.location.href}>give it another try</a>.
+            </div>
+            {/* I couldn't resist */}
+            <audio autoPlay>
+              <source src={ThunderSoundEffect} />
+            </audio>
+          </FullscreenError>
+        );
+      }
+      if (this.state.fatalError instanceof LogNotFoundError) {
+        return (
+          <FullscreenError
+            error="Log not found."
+            details="Either you entered a wrong report, or it is private."
+            background="https://media.giphy.com/media/DAgxA6qRfa5La/giphy.gif"
+          >
+            <div className="text-muted">
+              Private logs can not be used, if your guild has private logs you will have to <a href="https://www.warcraftlogs.com/help/start/">upload your own logs</a> or change the existing logs to the <i>unlisted</i> privacy option instead.
+            </div>
+            <div>
+              <button type="button" className="btn btn-primary" onClick={() => {
+                this.setState({ fatalError: null });
+                browserHistory.push(makeAnalyzerUrl());
+              }}>
+                &lt; Back
+              </button>
+            </div>
+          </FullscreenError>
+        );
+      }
     }
     if (!this.reportCode) {
       return <Home />;
