@@ -1,5 +1,7 @@
 import bosses from 'common/bosses';
 
+import TheDesolateHost from 'Main/Images/the-desolate-host.jpg';
+
 // Want to contribute a screenshot? Add your own and make a pull request!
 // Screenshots with no boss names are preferred. Screenshots with a player character is only permitted if the player is barely visible.
 
@@ -27,7 +29,7 @@ export default {
     'http://wow.zamimg.com/uploads/screenshots/normal/608540-tomb-of-sargeras.jpg', // empty, looking at boss room from far
   ],
   [bosses.TombOfSargeras.THE_DESOLATE_HOST]: [
-    'http://wow.zamimg.com/uploads/screenshots/normal/608584.jpg', // empty
+    TheDesolateHost, // with bosses
   ],
   [bosses.TombOfSargeras.MAIDEN_OF_VIGILANCE]: [
     'http://wow.zamimg.com/uploads/guide/seo/5215.jpg', // boss close

@@ -1,4 +1,5 @@
 export default `
+06-11-2017 - Added support for T21 (by Dyspho)
 03-09-2017 - Added Echo of Light (Mastery) breakdown (by enragednuke)
 22-07-2017 - Added Holy Word: Sanctify efficiency metric and fixed an issue with Prayer of Mending cast efficiency (by enragednuke)
 05-07-2017 - Added Enduring Renewal, Light of Tuure (incl. buff) and fixed a bug that greatly overvalued Divinity (by enragednuke)

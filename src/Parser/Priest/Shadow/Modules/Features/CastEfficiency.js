@@ -47,6 +47,7 @@ class CastEfficiency extends CoreCastEfficiency {
 
         return maxCastsInVoidform + maxCastsOutsideVoidform;
       },
+      charges: 2,
     },
 
     {
@@ -87,6 +88,7 @@ class CastEfficiency extends CoreCastEfficiency {
       noCanBeImproved: true,
       noSuggestion: true,
       getCooldown: haste => 9,
+      charges: 2,
     },
 
     {

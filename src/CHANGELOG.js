@@ -14,6 +14,16 @@ export default [
     contributors: [Zerotorescue],
   },
   {
+    date: new Date('2017-11-08'),
+    changes: 'The changelog tab now includes entries in the shared changelog.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-11-08'),
+    changes: 'Added a suggestion for healers if their mana percentage is too high at the end of an encounter.',
+    contributors: ['Blazyb'],
+  },
+  {
     date: new Date('2017-11-06'),
     changes: 'Added a changelog tab to results page and changed the layout of changelogs.',
     contributors: [Zerotorescue],

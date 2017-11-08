@@ -24,13 +24,13 @@ class Tier20_4p extends Analyzer {
   }
 
   on_byPlayer_cast(event) {
-    if(event.ability.guid !== SPELLS.AIMED_SHOT.id) {
+    if (event.ability.guid !== SPELLS.AIMED_SHOT.id) {
       return;
     }
-    if(this.combatants.selected.hasBuff(SPELLS.HUNTER_MM_T20_4P_BONUS_BUFF.id, event.timestamp)) {
+    if (this.combatants.selected.hasBuff(SPELLS.HUNTER_MM_T20_4P_BONUS_BUFF.id, event.timestamp)) {
       this.buffedCastAndFocusAimed += 1;
     }
-      this.totalAimed +=1;
+    this.totalAimed += 1;
   }
   item() {
     return {

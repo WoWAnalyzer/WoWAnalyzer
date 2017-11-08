@@ -84,6 +84,7 @@ import Analyzer from './Analyzer';
 import EventsNormalizer from './EventsNormalizer';
 
 const debug = false;
+const IS_DEVELOPMENT = process.env.NODE_ENV === 'development';
 
 let _modulesDeprecatedWarningSent = false;
 
@@ -342,11 +343,24 @@ class CombatLogParser {
     return events;
   }
 
+  _moduleTime = {};
   triggerEvent(eventType, event, ...args) {
-    this.activeModules
-      .filter(module => module instanceof Analyzer)
-      .sort((a, b) => a.priority - b.priority) // lowest should go first, as `priority = 0` will have highest prio
-      .forEach(module => module.triggerEvent(eventType, event, ...args));
+    Object.keys(this._modules)
+      .filter(key => this._modules[key].active)
+      .filter(key => this._modules[key] instanceof Analyzer)
+      .sort((a, b) => this._modules[a].priority - this._modules[b].priority) // lowest should go first, as `priority = 0` will have highest prio
+      .forEach(key => {
+        const module = this._modules[key];
+        if (IS_DEVELOPMENT) {
+          const start = +new Date();
+          module.triggerEvent(eventType, event, ...args);
+          const duration = +new Date() - start;
+          this._moduleTime[key] = this._moduleTime[key] || 0;
+          this._moduleTime[key] += duration;
+        } else {
+          module.triggerEvent(eventType, event, ...args);
+        }
+      });
   }
 
   byPlayer(event, playerId = this.player.id) {

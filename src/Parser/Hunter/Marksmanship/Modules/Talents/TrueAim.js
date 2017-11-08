@@ -7,7 +7,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage, formatNumber } from 'common/format';
 import StatisticBox from 'Main/StatisticBox';
-import getDamageBonus from "Parser/Hunter/Shared/Core/getDamageBonus";
+import getDamageBonus from "Parser/Hunter/Shared/Modules/getDamageBonus";
 
 const MAX_STACKS = 10;
 const TRUE_AIM_MODIFIER = 0.02;
