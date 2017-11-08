@@ -1,7 +1,7 @@
 import React from 'react';
 
-import ITEMS from 'common/ITEMS';
-import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS/index';
+import SPELLS from 'common/SPELLS/index';
 import SpellLink from 'common/SpellLink';
 
 import SPECS from 'common/SPECS';

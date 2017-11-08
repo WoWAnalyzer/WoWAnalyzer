@@ -7,7 +7,7 @@ import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTrac
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 
 //Items
-import SoulOfTheHuntmaster from '../Shared/Items/SoulOfTheHuntmaster';
+import SoulOfTheHuntmaster from '../Shared/Modules/Items/SoulOfTheHuntmaster';
 import QaplaEredunWarOrder from "./Modules/Items/QaplaEredunWarOrder";
 import Tier20_2p from "./Modules/Items/Tier20_2p";
 
