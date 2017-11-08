@@ -10,6 +10,11 @@ const Zerotorescue = ['Zerotorescue', ZerotorescueAvatar];
 export default [
   {
     date: new Date('2017-11-08'),
+    changes: 'Automatically try again when WCL sends a corrupt fights response.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-11-08'),
     changes: 'Changed the API is down and rendering errors to be more amazing.',
     contributors: [Zerotorescue],
   },
