@@ -9,6 +9,11 @@ const Zerotorescue = ['Zerotorescue', ZerotorescueAvatar];
 
 export default [
   {
+    date: new Date('2017-11-07'),
+    changes: 'Added a suggestion for healers if their mana percentage is too high at the end of an encounter.',
+    contributors: ['Blazyb'],
+  },
+  {
     date: new Date('2017-11-06'),
     changes: 'Add a changelog tab to results page and changed the layout of changelogs.',
     contributors: [Zerotorescue],
