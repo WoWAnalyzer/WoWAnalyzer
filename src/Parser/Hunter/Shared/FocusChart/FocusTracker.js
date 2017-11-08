@@ -8,6 +8,7 @@ class FocusTracker extends Analyzer {
     combatants: Combatants,
   }
 
+  isFinished = false;
   focusBySecond = [];
   activeFocusWasted = {};
   activeFocusWastedTimeline = {};
@@ -37,6 +38,11 @@ class FocusTracker extends Analyzer {
     this.checkActiveWaste(event);
   }
 
+  on_finished(){
+    this.extrapolateFocus();
+    this.isFinished = true;
+  }
+
   checkForMaxFocus(event) {
     if (event.sourceID === this.owner.player.id) {
       event.classResources.forEach(classResource => {
@@ -60,7 +66,6 @@ class FocusTracker extends Analyzer {
         this.focusBySecond[secIntoFight] = (event.classResources[0]['amount']);
       }
       this.checkForError(secIntoFight);
-      this.extrapolateFocus(event.timestamp);
     }
   }
 
@@ -103,12 +108,12 @@ class FocusTracker extends Analyzer {
     }
   }
 
-  extrapolateFocus(event) {
+  extrapolateFocus() {
     this.focusGen = Math.round((10 + .1 * this.combatants.selected.hasteRating / 375) * 100) / 100;
     this.secondsCapped = 0;
     const maxFocus = this._maxFocus;
     this.focusBySecond[0] = maxFocus;
-    for (let i = 0; i < (event - this.owner.fight.start_time); i++) {  //extrapolates focus given passive focus gain (TODO: Update for pulls with Volley)
+    for (let i = 0; i < (this.owner.fight.end_time - this.owner.fight.start_time); i++) {  //extrapolates focus given passive focus gain (TODO: Update for pulls with Volley)
       if (!this.focusBySecond[i]) {
         if (this.focusBySecond[i - 1] >= maxFocus) {
           this.focusBySecond[i] = maxFocus;
