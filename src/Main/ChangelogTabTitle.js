@@ -34,8 +34,6 @@ class ChangelogTabTitle extends React.PureComponent {
       }, 0);
     }
 
-    console.log('render')
-
     return (
       <Wrapper>
         Changelog {recentChanges > 0 && <span className="badge">{recentChanges}</span>}

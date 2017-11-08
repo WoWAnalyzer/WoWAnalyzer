@@ -10,7 +10,7 @@ import ErrorBoundary from './Main/ErrorBoundary';
 import { unregister } from './registerServiceWorker';
 
 // Source: https://docs.sentry.io/clients/javascript/usage/#promises
-window.onunhandledrejection = function(evt) {
+window.onunhandledrejection = function (evt) {
   Raven && Raven.captureException(evt.reason); // eslint-disable-line no-undef
 };
 
