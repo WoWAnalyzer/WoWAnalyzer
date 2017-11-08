@@ -620,8 +620,11 @@ class App extends Component {
       _footerDeprecatedWarningSent = true;
     }
 
+    // Treat `fatalError` like it's a report so the header doesn't pop over the shown error
+    const hasReport = this.reportCode || this.state.fatalError;
+
     return (
-      <div className={`app ${this.reportCode ? 'has-report' : ''}`}>
+      <div className={`app ${hasReport ? 'has-report' : ''}`}>
         <AppBackgroundImage bossId={this.state.bossId} />
 
         {this.renderNavigationBar()}
