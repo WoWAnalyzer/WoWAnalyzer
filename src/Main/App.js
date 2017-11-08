@@ -615,7 +615,7 @@ class App extends Component {
 
     return (
       <div className={`app ${this.reportCode ? 'has-report' : ''}`}>
-        <AppBackgroundImage bossId={this.state.bossId} override={this.state.isApiDown && ApiDownBackground} />
+        <AppBackgroundImage bossId={this.state.bossId} override={this.state.isApiDown ? ApiDownBackground : undefined} />
 
         {this.renderNavigationBar()}
         <header>
