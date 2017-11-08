@@ -21,9 +21,6 @@ class FocusTracker extends Analyzer {
     this.lastEventTimestamp = this.owner.fight.start_time;
     this.secondsCapped = 0;
   }
-  on_finished(){
-    console.log("g" + this.secondsCapped);
-  }
 
   on_byPlayer_cast(event) {
     this.checkPassiveWaste(event);
