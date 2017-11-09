@@ -356,7 +356,7 @@ class StatTracker extends Analyzer {
   /*
    * Fabricates an event indicating when stats change
    */
-  _triggerChangeStats(event, before, change, after) {
+  _triggerChangeStats(event, before, delta, after) {
     this.owner.triggerEvent('changestats', {
       timestamp: event ? event.timestamp : this.owner.currentTimestamp,
       type: 'changestats',
@@ -364,7 +364,7 @@ class StatTracker extends Analyzer {
       targetID: this.owner.playerId,
       reason: event,
       before,
-      change,
+      delta,
       after,
     });
   }

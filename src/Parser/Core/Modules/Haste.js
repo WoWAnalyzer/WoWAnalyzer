@@ -80,7 +80,7 @@ class Haste extends Analyzer {
   }
 
   on_toPlayer_changestats(event) { // fabbed event from StatTracker
-    if(!event.change.haste) {
+    if(!event.delta.haste) {
       return;
     }
 
