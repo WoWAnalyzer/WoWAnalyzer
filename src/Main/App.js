@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { browserHistory, Link } from 'react-router';
 import ReactTooltip from 'react-tooltip';
 
 import fetchWcl, { ApiDownError, LogNotFoundError } from 'common/fetchWcl';
 import getFightName from 'common/getFightName';
-
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
 import UnsupportedSpec from 'Parser/UnsupportedSpec/CONFIG';
+
+import { fetchReport as fetchReportAction } from 'actions/report';
+import { getReport } from 'selectors/report';
 
 import './App.css';
 
@@ -48,6 +51,10 @@ class App extends Component {
       fightId: PropTypes.string,
       resultTab: PropTypes.string,
     }),
+    report: PropTypes.shape({
+      code: PropTypes.string,
+    }),
+    fetchReport: PropTypes.func,
   };
   static defaultProps = {
     params: {},
@@ -62,7 +69,7 @@ class App extends Component {
     return this.props.params.reportCode;
   }
   get isReportValid() {
-    return this.state.report && this.state.report.code === this.reportCode;
+    return this.props.report && this.props.report.code === this.reportCode;
   }
   get playerName() {
     return this.props.params.playerName;
@@ -74,7 +81,7 @@ class App extends Component {
     return null;
   }
   get fight() {
-    return this.fightId && this.state.report && this.getFightFromReport(this.state.report, this.fightId);
+    return this.fightId && this.props.report && this.getFightFromReport(this.props.report, this.fightId);
   }
   get resultTab() {
     return this.props.params.resultTab;
@@ -83,7 +90,7 @@ class App extends Component {
   getPlayerFromReport(report, playerName) {
     const fetchByNameAttempt = report.friendlies.find(friendly => friendly.name === playerName);
     if (!fetchByNameAttempt) {
-      return report.friendlies.find(friendly => friendly.id === Number(playerName, 10));
+      return report.friendlies.find(friendly => friendly.id === Number(playerName));
     }
     return fetchByNameAttempt;
   }
@@ -97,7 +104,6 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      report: null,
       combatants: null,
       selectedSpec: null,
       progress: 0,
@@ -137,7 +143,7 @@ class App extends Component {
   }
 
   handleRefresh() {
-    this.fetchReport(this.reportCode, true);
+    this.props.fetchReport(this.reportCode, true);
   }
 
   getConfig(specId) {
@@ -284,56 +290,6 @@ class App extends Component {
     return events;
   }
 
-  async fetchReport(code, refresh = false) {
-    // console.log('Fetching report:', code);
-
-    this.setState({
-      report: null,
-    });
-
-    try {
-      let json = await fetchWcl(`report/fights/${code}`, {
-        _: refresh ? +new Date() : undefined,
-        translate: true, // so long as we don't have the entire site localized, it's better to have 1 consistent language
-      });
-      if (this.reportCode !== code) {
-        return;
-      }
-      if (!json.fights) {
-        // Give it one more try with cache busting on, usually hits the spot.
-        json = await fetchWcl(`report/fights/${code}`, {
-          _: +new Date(),
-          translate: true, // so long as we don't have the entire site localized, it's better to have 1 consistent language
-        });
-      }
-
-      if (!json.fights) {
-        throw new Error('Corrupt WCL response received.');
-      }
-
-      this.setState({
-        report: {
-          ...json,
-          code,
-        },
-      });
-    } catch (err) {
-      if (err instanceof ApiDownError || err instanceof LogNotFoundError) {
-        this.reset();
-        this.setState({
-          fatalError: err,
-        });
-      } else {
-        Raven && Raven.captureException(err); // eslint-disable-line no-undef
-        alert(`I'm so terribly sorry, an error occured. Try again later, in an updated Google Chrome and make sure that Warcraft Logs is up and functioning properly. Please let us know on Discord if the problem persists.\n\n${err}`);
-        console.error(err);
-      }
-      this.setState({
-        report: null,
-      });
-      this.reset();
-    }
-  }
   fetchCombatantsForFight(report, fightId) {
     // console.log('Fetching combatants:', report, fightId);
 
@@ -393,7 +349,7 @@ class App extends Component {
 
   componentWillMount() {
     if (this.reportCode) {
-      this.fetchReport(this.reportCode);
+      this.props.fetchReport(this.reportCode);
     }
   }
   componentDidUpdate(prevProps, prevState) {
@@ -409,28 +365,28 @@ class App extends Component {
     const curParams = this.props.params;
     const prevParams = prevProps.params;
     if (curParams.reportCode && curParams.reportCode !== prevParams.reportCode) {
-      this.fetchReport(curParams.reportCode);
+      this.props.fetchReport(curParams.reportCode);
     }
   }
   fetchCombatantsIfNecessary(prevProps, prevState) {
     const curParams = this.props.params;
     const prevParams = prevProps.params;
-    if (this.isReportValid && this.fightId && (this.state.report !== prevState.report || curParams.fightId !== prevParams.fightId)) {
+    if (this.isReportValid && this.fightId && (this.props.report !== prevState.report || curParams.fightId !== prevParams.fightId)) {
       // A report has been loaded, it is the report the user wants (this can be a mismatch if a new report is still loading), a fight was selected, and one of the fight-relevant things was changed
-      this.fetchCombatantsForFight(this.state.report, this.fightId);
+      this.fetchCombatantsForFight(this.props.report, this.fightId);
     }
   }
   fetchEventsAndParseIfNecessary(prevProps, prevState) {
     const curParams = this.props.params;
     const prevParams = prevProps.params;
-    const changed = this.state.report !== prevState.report
+    const changed = this.props.report !== prevProps.report
       || this.state.combatants !== prevState.combatants
       || curParams.fightId !== prevParams.fightId
       || this.playerName !== prevParams.playerName;
     if (changed) {
       this.reset();
 
-      const report = this.state.report;
+      const report = this.props.report;
       const combatants = this.state.combatants;
       const playerName = this.playerName;
       const valid = report && combatants && this.fightId && playerName;
@@ -453,22 +409,22 @@ class App extends Component {
   updateBossIdIfNecessary(prevProps, prevState) {
     const curParams = this.props.params;
     const prevParams = prevProps.params;
-    if (curParams.reportCode !== prevParams.reportCode || this.state.report !== prevState.report || curParams.fightId !== prevParams.fightId) {
+    if (curParams.reportCode !== prevParams.reportCode || this.props.report !== prevProps.report || curParams.fightId !== prevParams.fightId) {
       this.updateBossId();
     }
   }
 
   updatePageTitle() {
     let title = 'WoW Analyzer';
-    if (this.reportCode && this.state.report) {
+    if (this.reportCode && this.props.report) {
       if (this.playerName) {
         if (this.fight) {
-          title = `${getFightName(this.state.report, this.fight)} by ${this.playerName} in ${this.state.report.title} - ${title}`;
+          title = `${getFightName(this.props.report, this.fight)} by ${this.playerName} in ${this.props.report.title} - ${title}`;
         } else {
-          title = `${this.playerName} in ${this.state.report.title} - ${title}`;
+          title = `${this.playerName} in ${this.props.report.title} - ${title}`;
         }
       } else {
-        title = `${this.state.report.title} - ${title}`;
+        title = `${this.props.report.title} - ${title}`;
       }
     }
     document.title = title;
@@ -480,7 +436,9 @@ class App extends Component {
   }
 
   renderContent() {
-    const { report, combatants, parser } = this.state;
+    const { combatants, parser } = this.state;
+    const { report } = this.props;
+
     if (this.state.fatalError) {
       if (this.state.fatalError instanceof ApiDownError) {
         return (
@@ -646,4 +604,13 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = state => ({
+  report: getReport(state),
+});
+
+export default connect(
+  mapStateToProps,
+  {
+    fetchReport: fetchReportAction,
+  }
+)(App);
