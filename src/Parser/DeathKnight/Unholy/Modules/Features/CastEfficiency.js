@@ -104,7 +104,7 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 60,
       isActive: combatant => combatant.hasTalent(SPELLS.BLIGHTED_RUNE_WEAPON_TALENT),
-      recommendedCastEfficiency: .90,
+      recommendedCastEfficiency: 0.90,
     },
 
     {
@@ -113,7 +113,7 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 10 / (1 + haste),
       isActive: combatant => combatant.hasTalent(SPELLS.EPIDEMIC_TALENT),
       charges: 3,
-      recommendedCastEfficiency: .90,
+      recommendedCastEfficiency: 0.90,
     },
   ];
 }
