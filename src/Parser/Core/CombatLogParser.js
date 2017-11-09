@@ -63,6 +63,7 @@ import UmbralMoonglaives from './Modules/Items/UmbralMoonglaives';
 // T21 Healing trinkets
 import TarratusKeystone from './Modules/Items/TarratusKeystone';
 import HighFathersMachination from './Modules/Items/HighfathersMachination';
+import EonarsCompassion from './Modules/Items/EonarsCompassion';
 // Shared Buffs
 import Concordance from './Modules/Spells/Concordance';
 import VantusRune from './Modules/Spells/VantusRune';
@@ -150,6 +151,7 @@ class CombatLogParser {
     // T21 Healing Trinkets
     tarratusKeystone: TarratusKeystone,
     highfathersMachinations: HighFathersMachination,
+    eonarsCompassion : EonarsCompassion,
 
     // Concordance of the Legionfall
     concordance: Concordance,
