@@ -1,4 +1,5 @@
 export default `
+08-11-2017 - Added Suggestion for casting Blizzard on AoE fights. (by Sharrq)
 04-11-2017 - Reworked and updated Glacial Spike module. (by Sref)
 04-11-2017 - Added support for T20 4set. (by Sref)
 04-11-2017 - Added support for Ice Time and Lady Vashj's Grasp. (by Sref)
