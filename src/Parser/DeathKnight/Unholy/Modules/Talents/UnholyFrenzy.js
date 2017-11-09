@@ -15,7 +15,7 @@ class UnholyFrenzyUptime extends Analyzer {
   };
 
   on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.DARK_ARBITER_TALENT.id);
+    this.active = this.combatants.selected.hasTalent(SPELLS.UNHOLY_FRENZY_TALENT.id);
   }
 
   suggestions(when) {
