@@ -22,6 +22,8 @@ const FULL_POWER_APPLY_WINDOW_MS = 2000;
  * Naturally this new buff has the same ID and is totally indistinguishable from the stacking variant.
  *
  * The Solution: When the buff is gained quickly after it's lost, we know this is the max-stacks version.
+ * There is one special case where this won't work right, which is if for some reason the 'max power' buff is active on pull.
+ * I won't be handling this case because if the player activates CotRT 10+ seconds prepull, they deserve to get wrong results.
  */
 class CharmOfTheRisingTide extends Analyzer {
   static dependencies = {
