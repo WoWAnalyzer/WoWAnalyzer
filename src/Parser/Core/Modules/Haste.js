@@ -80,19 +80,19 @@ class Haste extends Analyzer {
   }
 
   on_toPlayer_changestats(event) { // fabbed event from StatTracker
-    if(!event.change.haste) {
+    if(!event.delta.haste) {
       return;
     }
 
     // as haste rating stacks additively with itself, changing rating works similar to changing buff stack
-    const oldHastePercentage = this.statTracker.getHastePercentage(event.before.haste);
+    const oldHastePercentage = this.statTracker.baseHastePercentage + (event.before.haste / this.statTracker.hasteRatingPerPercent);
     this._applyHasteLoss(event.reason, oldHastePercentage);
-    const newHastePercentage = this.statTracker.getHastePercentage(event.after.haste);
+    const newHastePercentage = this.statTracker.baseHastePercentage + (event.after.haste / this.statTracker.hasteRatingPerPercent);
     this._applyHasteGain(event.reason, newHastePercentage);
 
     if(debug) {
       const spellName = event.reason.ability ? event.reason.ability.name : 'unknown';
-      console.log(`Haste: Current haste: ${formatPercentage(this.current)}% (haste RATING changed by ${event.change.haste} from ${spellName})`);
+      console.log(`Haste: Current haste: ${formatPercentage(this.current)}% (haste RATING changed by ${event.delta.haste} from ${spellName})`);
     }
   }
 
