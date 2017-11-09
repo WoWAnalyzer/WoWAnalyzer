@@ -36,10 +36,11 @@ class StatTracker extends Analyzer {
       itemId: ITEMS.DREADSTONE_OF_ENDLESS_SHADOWS.id,
       haste: (_, item) => calculateSecondaryStatDefault(845, 3480, item.itemLevel),
     },
-    [SPELLS.RISING_TIDES.id]: { // TODO this trinket stacks oddly, results won't be quite right
-      itemId: ITEMS.CHARM_OF_THE_RISING_TIDE.id,
-      haste: (_, item) => calculateSecondaryStatDefault(900, 576, item.itemLevel),
-    },
+    // Event weirdness makes it impossible to handle CotRT normally, it's handled instead by the CharmOfTheRisingTide module
+    //[SPELLS.RISING_TIDES.id]: {
+    //  itemId: ITEMS.CHARM_OF_THE_RISING_TIDE.id,
+    //  haste: (_, item) => calculateSecondaryStatDefault(900, 576, item.itemLevel),
+    //},
     [SPELLS.ACCELERANDO.id]: {
       itemId: ITEMS.ERRATIC_METRONOME.id,
       haste: (_, item) => calculateSecondaryStatDefault(870, 657, item.itemLevel),
@@ -284,6 +285,25 @@ class StatTracker extends Analyzer {
     this._changeBuffStack(event);
   }
 
+  /*
+   * This interface allows an external analyzer to force a stat change.
+   * It should ONLY be used if a stat buff is so non-standard that it can't be handled by the buff format in this module.
+   * change is a stat buff object just like those in the STAT_BUFFS structure above, it is required.
+   * eventReason is the WCL event object that caused this change, it is not required.
+   */
+   // For an example of how / why this function would be used, see the CharmOfTheRisingTide module.
+  forceChangeStats(change, eventReason) {
+    const before = Object.assign({}, this._stats);
+    const delta = this._changeStats(change, 1);
+    const after = Object.assign({}, this._stats);
+    this._triggerChangeStats(eventReason, before, delta, after);
+    if(debug) {
+      const spellName = eventReason && eventReason.ability ? eventReason.ability.name : 'unspecified';
+      console.log(`StatTracker: FORCED CHANGE from ${spellName} - Change: ${this._statPrint(delta)}`);
+      this._debugPrintStats(this._stats);
+    }
+  }
+
   _changeBuffStack(event) {
     const spellId = event.ability.guid;
     const statBuff = this.constructor.STAT_BUFFS[spellId];
@@ -299,7 +319,7 @@ class StatTracker extends Analyzer {
       const delta = this._changeStats(statBuff, event.newStacks - event.oldStacks);
       const after = Object.assign({}, this._stats);
       this._triggerChangeStats(event, before, delta, after);
-      debug && console.log(`StatTracker: (${event.oldStacks} -> ${event.newStacks}) ${SPELLS[spellId] ? SPELLS[spellId].name : spellId} - Change: ${this._statPrint(delta)}`);
+      debug && console.log(`StatTracker: (${event.oldStacks} -> ${event.newStacks}) ${SPELLS[spellId] ? SPELLS[spellId].name : spellId} @ ${formatMilliseconds(this.owner.currentTimestamp)} - Change: ${this._statPrint(delta)}`);
       debug && this._debugPrintStats(this._stats);
     }
   }
