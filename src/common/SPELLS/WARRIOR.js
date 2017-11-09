@@ -37,21 +37,21 @@ export default {
     name: 'Whirlwind',
     icon: 'ability_whirlwind',
   },
-WARBREAKER: {
-  id: 209577,
-  name: 'Warbreaker',
-  icon: 'inv_sword_2h_artifactarathor_d_01',
-},
-BLADESTORM: {
-  id: 227847,
-  name: 'Bladestorm',
-  icon: 'ability_warrior_bladestorm',
-},
-RAVAGER_CAST: {
-  id: 156287,
-  name: 'Ravager',
-  icon: 'warrior_talent_icon_ravager',
-},
+  WARBREAKER: {
+    id: 209577,
+    name: 'Warbreaker',
+    icon: 'inv_sword_2h_artifactarathor_d_01',
+  },
+  BLADESTORM: {
+    id: 227847,
+    name: 'Bladestorm',
+    icon: 'ability_warrior_bladestorm',
+  },
+  RAVAGER_CAST: {
+    id: 156287,
+    name: 'Ravager',
+    icon: 'warrior_talent_icon_ravager',
+  },
   // Debuffs
   COLOSSUS_SMASH_DEBUFF: {
     id: 208086,
@@ -75,8 +75,62 @@ RAVAGER_CAST: {
     name: 'Tactician',
     icon: 'ability_warrior_unrelentingassault',
   },
+
   // Fury:
-  // ...
+  //Rotational Spells
+  BLOODTHIRST: {
+    id: 23881,
+    name: 'Bloodthirst',
+    icon: 'spell_nature_bloodlust',
+  },
+  EXECUTE_FURY: {
+    id: 5308,
+    name: 'Execute',
+    icon: 'inv_sword_48',
+  },
+  FURIOUS_SLASH: {
+    id: 100130,
+    name: 'Furious Slash',
+    icon: 'ability_warrior_weaponmastery',
+  },
+  ODYNS_FURY: {
+    id: 205545,
+    name: 'Odyn\'s Fury',
+    icon: 'inv_sword_1h_artifactvigfus_d_01',
+  },
+  RAGING_BLOW: {
+    id: 85288,
+    name: 'Raging Blow',
+    icon: 'warrior_wild_strike',
+  },
+  RAMPAGE: {
+    id: 184367,
+    name: 'Rampage',
+    icon: 'ability_warrior_rampage',
+  },
+  WHIRLWIND_FURY: {
+    id: 190411,
+    name: 'Whirlwind',
+    icon: 'ability_whirlwind',
+  },
+  //Mitigation Spells
+  ENRAGED_REGENERATION: {
+    id: 184364,
+    name: 'Enraged Regeneration',
+    icon: 'ability_warrior_focusedrage',
+  },
+  //Cooldown Spells
+  PIERCING_HOWL: {
+    id: 12323,
+    name: 'Piercing Howl',
+    icon: 'spell_shadow_deathscream',
+  },
+  //Passives
+  ENRAGE: {
+    id: 184361,
+    name: 'Enrage',
+    icon: 'spell_shadow_unholyfrenzy',
+  },
 
   // Protection:
   //Rotational Spells
@@ -166,7 +220,7 @@ RAVAGER_CAST: {
   //Passives
   DEEP_WOUNDS: {
     id: 115767,
-    name: 'Deep WOunds',
+    name: 'Deep Wounds',
     icon: 'ability_backstab',
   },
   //Relics
