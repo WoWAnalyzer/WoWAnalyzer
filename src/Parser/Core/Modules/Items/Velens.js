@@ -16,7 +16,7 @@ class Velens extends Analyzer {
     combatants: Combatants,
   };
 
-  static SUGGESTION_VELENS_BREAKPOINT = 0.045;
+  static SUGGESTION_VELENS_BREAKPOINT = 0.04;
 
   healingIncreaseHealing = 0;
   overhealHealing = 0;

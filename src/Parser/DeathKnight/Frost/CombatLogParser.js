@@ -3,10 +3,12 @@ import DamageDone from 'Parser/Core/Modules/DamageDone';
 
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
-//import CooldownTracker from './Modules/Features/CooldownTracker';
+//import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import FrostFeverUptime from './Modules/Features/FrostFeverUptime';
 import WastedRimeProcs from './Modules/Features/WastedRimeProcs';
 import HardHowlingBlastCasts from './Modules/Features/HardHowlingBlastCasts';
+
+import ColdHeart from './Modules/Items/Legendaries/ColdHeart';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -16,7 +18,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Features
     castEfficiency: CastEfficiency,
     alwaysBeCasting: AlwaysBeCasting,
-    //cooldownTracker: CooldownTracker,
+    //cooldownThroughputTracker: CooldownThroughputTracker,
     HardHowlingBlastCasts: HardHowlingBlastCasts,
 
     // DOT
@@ -24,6 +26,9 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // PROCS
     WastedRimeProcs: WastedRimeProcs,
+
+    //Items
+    coldHeart: ColdHeart,
   };
 }
 

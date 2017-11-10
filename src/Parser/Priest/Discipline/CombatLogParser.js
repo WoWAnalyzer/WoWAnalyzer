@@ -8,13 +8,14 @@ import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 
 import AtonementSuccessiveDamageNormalizer from './Normalizers/AtonementSuccessiveDamage';
+import EstelNormalizer from './Normalizers/EstelNormalizer';
 
 import SpellManaCost from './Modules/Core/SpellManaCost';
 import AbilityTracker from './Modules/Core/AbilityTracker';
 
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
-import CooldownTracker from './Modules/Features/CooldownTracker';
+import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import PowerWordShieldWasted from './Modules/Features/PowerWordShieldWasted';
 import AtonementSource from './Modules/Features/AtonementSource';
 import AtonementHealingDone from './Modules/Features/AtonementHealingDone';
@@ -34,6 +35,7 @@ import Tier20_2set from './Modules/Items/Tier20_2set';
 import Tier20_4set from './Modules/Items/Tier20_4set';
 import Tier21_2set from './Modules/Items/Tier21_2set';
 import Tier21_4set from './Modules/Items/Tier21_4set';
+import Estel from './Modules/Items/Estel';
 
 import TwistOfFate from './Modules/Spells/TwistOfFate';
 import Castigation from './Modules/Spells/Castigation';
@@ -53,6 +55,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Normalizers
     atonementSuccessiveDamage: AtonementSuccessiveDamageNormalizer,
+    estelNormalizer: EstelNormalizer,
 
     healingDone: [HealingDone, { showStatistic: true }],
 
@@ -65,7 +68,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Abilities
     penance: Penance,
     alwaysBeCasting: AlwaysBeCasting,
-    cooldownTracker: CooldownTracker,
+    cooldownThroughputTracker: CooldownThroughputTracker,
     powerWordShieldWasted: PowerWordShieldWasted,
     atonementSource: AtonementSource,
     atonementHealingDone: AtonementHealingDone,
@@ -87,6 +90,7 @@ class CombatLogParser extends CoreCombatLogParser {
     tier21_2set: Tier21_2set,
     tier21_4set: Tier21_4set,
     // SoulOfTheHighPriest: SoulOfTheHighPriest,
+    estel: Estel,
 
     // Spells (talents and traits):
     twistOfFate: TwistOfFate,

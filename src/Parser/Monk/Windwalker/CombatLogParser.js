@@ -4,7 +4,7 @@ import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CastEfficiency from './Modules/Features/CastEfficiency';
-import CooldownTracker from './Modules/Features/CooldownTracker';
+import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import ComboStrikes from './Modules/Features/ComboStrikes';
 
 // Spells
@@ -14,6 +14,7 @@ import FistsofFury from './Modules/Spells/FistsofFury';
 
 // Talents
 import HitCombo from './Modules/Talents/HitCombo';
+import EnergizingElixir from './Modules/Talents/EnergizingElixir';
 
 // Legendaries
 import KatsuosEclipse from './Modules/Items/KatsuosEclipse';
@@ -27,11 +28,12 @@ class CombatLogParser extends CoreCombatLogParser {
     damageDone: [DamageDone, { showStatistic: true }],
     alwaysBeCasting: AlwaysBeCasting,
     castEfficiency: CastEfficiency,
-    cooldownTracker: CooldownTracker,
+    cooldownThroughputTracker: CooldownThroughputTracker,
     comboStrikes: ComboStrikes,
 
     // Talents:
     hitCombo: HitCombo,
+    energizingElixir: EnergizingElixir,
 
     // Spells;
     comboBreaker: ComboBreaker,

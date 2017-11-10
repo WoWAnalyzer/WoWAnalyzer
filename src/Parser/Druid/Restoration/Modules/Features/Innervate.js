@@ -3,6 +3,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import { formatNumber } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
@@ -25,6 +26,10 @@ const TOL_REJUVENATION_REDUCTION = 0.3;
 const debug = false;
 
 class Innervate extends Analyzer {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
   manaSaved = 0;
   wildGrowths = 0;
   efflorescences = 0;
@@ -45,7 +50,7 @@ class Innervate extends Analyzer {
   depleted = false;
 
   on_initialized() {
-    this.infusionOfNatureTraits = this.owner.modules.combatants.selected.traitsBySpellId[SPELLS.INFUSION_OF_NATURE.id] || 0;
+    this.infusionOfNatureTraits = this.combatants.selected.traitsBySpellId[SPELLS.INFUSION_OF_NATURE.id] || 0;
   }
 
   on_toPlayer_applybuff(event) {
@@ -65,7 +70,7 @@ class Innervate extends Analyzer {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
-    if (this.owner.modules.combatants.selected.hasBuff(SPELLS.INNERVATE.id)) {
+    if (this.combatants.selected.hasBuff(SPELLS.INNERVATE.id)) {
       // Checking if the player is mana capped during an innervate.
       // This is not 100% accuarate because we trigger the calculation on the first heal during an innervate.
       // Realistically the seconds mana capped is higher.
@@ -124,9 +129,9 @@ class Innervate extends Analyzer {
   addToManaSaved(spellBaseMana) {
     if (spellBaseMana === WILD_GROWTH_BASE_MANA) {
       this.manaSaved += ((BASE_MANA * spellBaseMana) * (1 - (this.infusionOfNatureTraits * INFUSION_OF_NATURE_REDUCTION)));
-    } else if (this.owner.modules.combatants.selected.hasBuff(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) && spellBaseMana === REJUVENATION_BASE_MANA) {
+    } else if (this.combatants.selected.hasBuff(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) && spellBaseMana === REJUVENATION_BASE_MANA) {
       this.manaSaved += ((BASE_MANA * spellBaseMana) * (1 - TOL_REJUVENATION_REDUCTION));
-    } else if (this.owner.modules.combatants.selected.hasBuff(SPELLS.CLEARCASTING_BUFF.id) && spellBaseMana === REGROWTH_BASE_MANA) {
+    } else if (this.combatants.selected.hasBuff(SPELLS.CLEARCASTING_BUFF.id) && spellBaseMana === REGROWTH_BASE_MANA) {
       this.freeRegrowths += 1;
     } else {
       this.manaSaved += (BASE_MANA * spellBaseMana);

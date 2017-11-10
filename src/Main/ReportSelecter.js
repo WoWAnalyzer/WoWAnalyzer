@@ -15,6 +15,18 @@ class ReportSelecter extends Component {
     return match && match[2];
   }
 
+  static getFight(input) {
+    const match = input.trim().match(/fight=([^&]*)/);
+
+    return match && match[1];
+  }
+
+  static getPlayer(input) {
+    const match = input.trim().match(/source=([^&]*)/);
+
+    return match && match[1];
+  }
+
   codeInput = null;
 
   constructor() {
@@ -45,8 +57,13 @@ class ReportSelecter extends Component {
   }
   handleCodeInputChange(value) {
     const code = this.constructor.getCode(value);
+    const fight = this.constructor.getFight(value);
+    const player = this.constructor.getPlayer(value);
+
+    const reportInfo = {code, fight, player};
+
     if (code) {
-      this.props.onSubmit(code);
+      this.props.onSubmit(reportInfo);
     }
   }
 

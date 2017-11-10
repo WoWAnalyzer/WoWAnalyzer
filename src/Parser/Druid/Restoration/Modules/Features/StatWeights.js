@@ -2,11 +2,11 @@ import SPELLS from 'common/SPELLS';
 import STAT from 'Parser/Core/Modules/Features/STAT';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 
-import BaseHealerStatWeights from 'Parser/Core/Modules/Features/BaseHealerStatWeights';
+import BaseHealerStatValues from 'Parser/Core/Modules/Features/BaseHealerStatValues';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import CritEffectBonus from 'Parser/Core/Modules/Helpers/CritEffectBonus';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
-import Mastery from './Mastery';
+import Mastery from '../Core/Mastery';
 
 import { DRUID_HEAL_INFO } from '../../SpellInfo';
 
@@ -87,7 +87,7 @@ import { DRUID_HEAL_INFO } from '../../SpellInfo';
  * If a heal is not in the database of heals, it's assumed to scale only with Vers. This is generally a good assumption,
  * and this is how most trinket heals behave.
  */
-class StatWeights extends BaseHealerStatWeights {
+class StatWeights extends BaseHealerStatValues {
   static dependencies = {
     combatants: Combatants,
     critEffectBonus: CritEffectBonus,

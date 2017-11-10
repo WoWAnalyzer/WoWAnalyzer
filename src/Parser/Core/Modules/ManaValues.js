@@ -1,11 +1,26 @@
+import React from 'react';
+
 import Analyzer from 'Parser/Core/Analyzer';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
+import { formatPercentage, formatNumber } from 'common/format';
+import Combatants from 'Parser/Core/Modules/Combatants';
+import ROLES from 'common/ROLES';
 
 class ManaValues extends Analyzer {
+  static dependencies = {
+    combatants: Combatants,
+  }
+  static SUGGESTION_MANA_BREAKPOINT = 0.1;
+
   lowestMana = null; // start at `null` and fill it with the first value to account for users starting at a non-default amount for whatever reason
   endingMana = 0;
 
+  maxMana = 110000;
   manaUpdates = [];
+
+  on_initialized() {
+    this.active = this.combatants.selected.spec.role === ROLES.HEALER;
+  }
 
   on_byPlayer_cast(event) {
     if (event.classResources) {
@@ -26,8 +41,25 @@ class ManaValues extends Analyzer {
             max: max,
             used: manaCost,
           });
+          // The variable 'max' is constant but can differentiate by racial/items.
+          this.maxMana = max;
         });
     }
+  }
+
+  suggestions(when) {
+    const manaPercentageLeft = this.endingMana/this.maxMana;
+
+    when(manaPercentageLeft).isGreaterThan(this.constructor.SUGGESTION_MANA_BREAKPOINT)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<span>You had mana left at the end of the fight. A good rule of thumb is having the same mana percentage as the bosses health percentage.
+          Mana is indirectly tied with healing throughput and should be optimized. </span>)
+          .icon('inv_elemental_mote_mana')
+          .actual(`${formatPercentage(manaPercentageLeft)}% (${formatNumber(this.endingMana)}) mana left`)
+          .recommended(`<${formatPercentage(recommended)}% is recommended`)
+          .regular(recommended + 0.1)
+          .major(recommended + 0.2);
+      });
   }
 }
 

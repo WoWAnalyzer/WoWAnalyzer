@@ -1,14 +1,21 @@
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 
+import ColdHeart from 'Parser/DeathKnight/Shared/Items/ColdHeart';
+
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
-import CooldownTracker from './Modules/Features/CooldownTracker';
+import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import VirulentPlagueUptime from './Modules/Features/VirulentPlagueUptime';
 import FesteringStrike from './Modules/Features/FesteringStrike';
 
 import RunicPowerDetails from './Modules/RunicPower/RunicPowerDetails';
 import RunicPowerTracker from './Modules/RunicPower/RunicPowerTracker';
+
+import DarkArbiter from './Modules/Talents/DarkArbiter';
+import UnholyFrenzy from './Modules/Talents/UnholyFrenzy';
+
+import ScourgeOfWorlds from './Modules/Traits/ScourgeOfWorlds';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -18,14 +25,25 @@ class CombatLogParser extends CoreCombatLogParser {
     // Features
     castEfficiency: CastEfficiency,
     alwaysBeCasting: AlwaysBeCasting,
-    cooldownTracker: CooldownTracker,
+    cooldownThroughputTracker: CooldownThroughputTracker,
     virulentPlagueUptime: VirulentPlagueUptime, 
     festeringStrike: FesteringStrike,
 
-      // RunicPower
-      runicPowerTracker: RunicPowerTracker,
-      runicPowerDetails: RunicPowerDetails,
+    // RunicPower
+    runicPowerTracker: RunicPowerTracker,
+    runicPowerDetails: RunicPowerDetails,
+
+    // talents
+    darkArbiter: DarkArbiter,
+    unholyFrenzy: UnholyFrenzy,
+
+    // items
+    coldHeart: ColdHeart,
+
+    // traits
+    scourgeOfWorlds: ScourgeOfWorlds,
   };
 }
 
 export default CombatLogParser;
+	

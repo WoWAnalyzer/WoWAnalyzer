@@ -280,7 +280,7 @@ export default {
     icon: 'spell_deathknight_icytalon',
   },
   INEXORABLE_ASSAULT_TALENT: {
-    id: 253597,
+    id: 253593,
     name: 'Inexorable Assault',
     icon: 'achievement_dungeon_icecrown_frostmourne',
   },
@@ -377,8 +377,16 @@ export default {
     icon: 'spell_shadow_rune',
   },
 
+  // scourge strike has one cast event but two damage events, the cast and physical 
+  // damage happen on id 55090, the shadow damage is on id 70890
   SCOURGE_STRIKE: {
     id: 55090,
+    name: 'Scourge Strike',
+    icon: 'spell_deathknight_scourgestrike',
+  },
+
+  SCOURGE_STRIKE_SHADOW_DAMAGE: {
+    id: 70890,
     name: 'Scourge Strike',
     icon: 'spell_deathknight_scourgestrike',
   },
@@ -394,6 +402,12 @@ export default {
     name: 'Virulent Plague',
     icon: 'ability_creature_disease_02',
   },  
+
+  UNHOLY_FRENZY_BUFF: {
+    id: 207290,
+    name: 'Unholy Frenzy',
+    icon: 'spell_shadow_unholyfrenzy',
+  },
   
   // Unholy Tier Sets
   // T20 2 Piece
@@ -414,6 +428,18 @@ export default {
     id: 208598,
     name: 'Eternal Agony',
     icon: 'achievement_boss_festergutrotface',
+  },
+
+  SCOURGE_OF_WORLDS: {
+    id: 191747,
+    name: 'Scourge of Worlds',
+    icon: 'artifactability_unholydeathknight_flagellation',
+  },
+
+  SCOURGE_OF_WORLDS_DEBUFF: {
+    id: 191748,
+    name: 'Scourge of Worlds',
+    icon: 'artifactability_unholydeathknight_flagellation',
   },
   
   // Shared:
@@ -499,6 +525,12 @@ export default {
     id: 212552,
     name: 'Wraith Walk',
     icon: 'inv_helm_plate_raiddeathknight_p_01',
+  },
+
+  COLD_HEART_BUFF: {
+    id: 248397,
+    name: 'Cold Heart',
+    icon: 'spell_frost_chainsofice',
   },
 };
 	

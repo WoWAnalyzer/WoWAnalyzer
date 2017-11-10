@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import Sequelize from 'sequelize';
 
-import sequelize from '../sequelize';
+import sequelize from '../config/sequelize';
 
 const basename = path.basename(module.filename);
 const db = {};

@@ -1,6 +1,8 @@
 import React from 'react';
 
 import SuggestionsTab from 'Main/SuggestionsTab';
+import ChangelogTab from 'Main/ChangelogTab';
+import ChangelogTabTitle from 'Main/ChangelogTabTitle';
 import Tab from 'Main/Tab';
 import Talents from 'Main/Talents';
 
@@ -20,6 +22,7 @@ import StatTracker from './Modules/StatTracker';
 import AlwaysBeCasting from './Modules/AlwaysBeCasting';
 import CastEfficiency from './Modules/CastEfficiency';
 import SpellUsable from './Modules/SpellUsable';
+import SpellHistory from './Modules/SpellHistory';
 import Enemies from './Modules/Enemies';
 import EnemyInstances from './Modules/EnemyInstances';
 import Pets from './Modules/Pets';
@@ -30,7 +33,6 @@ import SpellManaCost from './Modules/SpellManaCost';
 import DistanceMoved from './Modules/Others/DistanceMoved';
 
 import CritEffectBonus from './Modules/Helpers/CritEffectBonus';
-
 // Shared Legendaries
 import Prydaz from './Modules/Items/Prydaz';
 import Velens from './Modules/Items/Velens';
@@ -44,6 +46,7 @@ import DarkmoonDeckPromises from './Modules/Items/DarkmoonDeckPromises';
 import AmalgamsSeventhSpine from './Modules/Items/AmalgamsSeventhSpine';
 import ArchiveOfFaith from './Modules/Items/ArchiveOfFaith';
 import BarbaricMindslaver from './Modules/Items/BarbaricMindslaver';
+import CharmOfTheRisingTide from './Modules/Items/CharmOfTheRisingTide';
 import SeaStar from './Modules/Items/SeaStarOfTheDepthmother';
 import DeceiversGrandDesign from './Modules/Items/DeceiversGrandDesign';
 import PrePotion from './Modules/Items/PrePotion';
@@ -61,11 +64,9 @@ import UmbralMoonglaives from './Modules/Items/UmbralMoonglaives';
 // T21 Healing trinkets
 import TarratusKeystone from './Modules/Items/TarratusKeystone';
 import HighFathersMachination from './Modules/Items/HighfathersMachination';
-
 // Shared Buffs
 import Concordance from './Modules/Spells/Concordance';
 import VantusRune from './Modules/Spells/VantusRune';
-
 // Netherlight Crucible Traits
 import DarkSorrows from './Modules/NetherlightCrucibleTraits/DarkSorrows';
 import TormentTheWeak from './Modules/NetherlightCrucibleTraits/TormentTheWeak';
@@ -84,6 +85,7 @@ import Analyzer from './Analyzer';
 import EventsNormalizer from './EventsNormalizer';
 
 const debug = false;
+const IS_DEVELOPMENT = process.env.NODE_ENV === 'development';
 
 let _modulesDeprecatedWarningSent = false;
 
@@ -112,6 +114,7 @@ class CombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     castEfficiency: CastEfficiency,
     spellUsable: SpellUsable,
+    spellHistory: SpellHistory,
     manaValues: ManaValues,
     vantusRune: VantusRune,
     distanceMoved: DistanceMoved,
@@ -136,6 +139,7 @@ class CombatLogParser {
     // Tomb trinkets:
     archiveOfFaith: ArchiveOfFaith,
     barbaricMindslaver: BarbaricMindslaver,
+    charmOfTheRisingTide: CharmOfTheRisingTide,
     seaStar: SeaStar,
     deceiversGrandDesign: DeceiversGrandDesign,
     vialCeaslessToxins: VialOfCeaselessToxins,
@@ -146,8 +150,8 @@ class CombatLogParser {
     terrorFromBelow: TerrorFromBelow,
     tomeOfUnravelingSanity: TomeOfUnravelingSanity,
     // T21 Healing Trinkets
-    tarratusKeystone : TarratusKeystone,
-    highfathersMachinations : HighFathersMachination,
+    tarratusKeystone: TarratusKeystone,
+    highfathersMachinations: HighFathersMachination,
 
     // Concordance of the Legionfall
     concordance: Concordance,
@@ -341,11 +345,24 @@ class CombatLogParser {
     return events;
   }
 
+  _moduleTime = {};
   triggerEvent(eventType, event, ...args) {
-    this.activeModules
-      .filter(module => module instanceof Analyzer)
-      .sort((a, b) => a.priority - b.priority) // lowest should go first, as `priority = 0` will have highest prio
-      .forEach(module => module.triggerEvent(eventType, event, ...args));
+    Object.keys(this._modules)
+      .filter(key => this._modules[key].active)
+      .filter(key => this._modules[key] instanceof Analyzer)
+      .sort((a, b) => this._modules[a].priority - this._modules[b].priority) // lowest should go first, as `priority = 0` will have highest prio
+      .forEach(key => {
+        const module = this._modules[key];
+        if (IS_DEVELOPMENT) {
+          const start = +new Date();
+          module.triggerEvent(eventType, event, ...args);
+          const duration = +new Date() - start;
+          this._moduleTime[key] = this._moduleTime[key] || 0;
+          this._moduleTime[key] += duration;
+        } else {
+          module.triggerEvent(eventType, event, ...args);
+        }
+      });
   }
 
   byPlayer(event, playerId = this.player.id) {
@@ -386,18 +403,24 @@ class CombatLogParser {
       {
         title: 'Suggestions',
         url: 'suggestions',
-        render: () => (
-          <SuggestionsTab issues={results.issues} />
-        ),
+        order: 0,
+        render: () => <SuggestionsTab issues={results.issues} />,
       },
       {
         title: 'Talents',
         url: 'talents',
+        order: 1,
         render: () => (
           <Tab title="Talents">
             <Talents combatant={this.modules.combatants.selected} />
           </Tab>
         ),
+      },
+      {
+        title: <ChangelogTabTitle />,
+        url: 'changelog',
+        order: 1000,
+        render: () => <ChangelogTab />,
       },
     ];
 
@@ -421,7 +444,7 @@ class CombatLogParser {
         }
         if (module.extraPanel) {
           const extraPanel = module.extraPanel();
-          if(extraPanel) {
+          if (extraPanel) {
             results.extraPanels.push(extraPanel);
           }
         }

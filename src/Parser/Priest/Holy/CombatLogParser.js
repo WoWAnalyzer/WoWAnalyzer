@@ -17,7 +17,7 @@ import Sanctify from './Modules/Spells/Sanctify';
 // Features
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
-import CooldownTracker from './Modules/Features/CooldownTracker';
+import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 
 // Priest Core
 import RenewTheFaith from './Modules/PriestCore/RenewTheFaith';
@@ -32,6 +32,8 @@ import SerenityReduction from './Modules/PriestCore/SerendipityReduction/Serenit
 // Items
 import TrousersOfAnjuna from './Modules/Items/TrousersOfAnjuna';
 import XanshiCloak from './Modules/Items/XanshiCloak';
+import Tier21_2set from './Modules/Items/Tier21_2set';
+import Tier21_4set from './Modules/Items/Tier21_4set';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
@@ -46,7 +48,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
-    cooldownTracker: CooldownTracker,
+    cooldownThroughputTracker: CooldownThroughputTracker,
     renewTheFaith: RenewTheFaith,
     divinity: Divinity,
     lightOfTuure: LightOfTuure,
@@ -64,6 +66,8 @@ class CombatLogParser extends CoreCombatLogParser {
     // Items
     trousersOfAnjuna: TrousersOfAnjuna,
     xanshiCloak: XanshiCloak,
+    tier21_2set: Tier21_2set,
+    tier21_4set: Tier21_4set,
   };
 
   generateResults() {
