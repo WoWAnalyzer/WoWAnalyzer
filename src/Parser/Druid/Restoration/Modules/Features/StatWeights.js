@@ -6,7 +6,7 @@ import BaseHealerStatValues from 'Parser/Core/Modules/Features/BaseHealerStatVal
 import Combatants from 'Parser/Core/Modules/Combatants';
 import CritEffectBonus from 'Parser/Core/Modules/Helpers/CritEffectBonus';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
-import Mastery from './Mastery';
+import Mastery from '../Core/Mastery';
 
 import { DRUID_HEAL_INFO } from '../../SpellInfo';
 

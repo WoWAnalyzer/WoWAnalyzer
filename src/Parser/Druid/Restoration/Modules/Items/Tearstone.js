@@ -6,7 +6,7 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import { formatPercentage } from 'common/format';
 
-import Rejuvenation from '../Features/Rejuvenation';
+import Rejuvenation from '../Core/Rejuvenation';
 
 class Tearstone extends Analyzer {
   static dependencies = {
