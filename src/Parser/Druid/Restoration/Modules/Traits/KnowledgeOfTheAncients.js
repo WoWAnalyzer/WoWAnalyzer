@@ -8,7 +8,7 @@ import { formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
-import Rejuvenation from '../Features/Rejuvenation';
+import Rejuvenation from '../Core/Rejuvenation';
 
 
 const KNOWLEDGE_OF_THE_ANCIENT_MANA_GAIN = 880;

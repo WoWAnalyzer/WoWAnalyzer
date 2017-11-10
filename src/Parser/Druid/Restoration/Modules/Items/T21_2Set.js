@@ -9,7 +9,7 @@ import { formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-import Mastery from '../Features/Mastery';
+import Mastery from '../Core/Mastery';
 
 class T21_2Set extends Analyzer {
   static dependencies = {
