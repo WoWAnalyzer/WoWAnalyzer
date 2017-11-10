@@ -7,7 +7,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
-import Mastery from '../Features/Mastery';
+import Mastery from '../Core/Mastery';
 
 class T19_2Set extends Analyzer {
   static dependencies = {
