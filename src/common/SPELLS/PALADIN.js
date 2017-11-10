@@ -512,37 +512,7 @@ export default {
     name: 'Eye of Tyr',
     icon: 'inv_shield_1h_artifactnorgannon_d_01',
   },
-	//Talents that become spells
-  AEGIS_OF_LIGHT_TALENT: {
-    id: 204150,
-    name: 'Aegis of Light',
-    icon: 'spell_holy_greaterblessingoflight',
-  },
-  BASTION_OF_LIGHT_TALENT: {
-    id: 204035,
-    name: 'Bastion of Light',
-    icon: 'paladin_protection',
-  },
-  BLESSED_HAMMER_TALENT: {
-    id: 204019,
-    name: 'Blessed Hammer',
-    icon: 'paladin_retribution',
-  },
-  BLESSING_OF_SPELLWARDING_TALENT: {
-    id: 204018,
-    name: 'Blessing of Spellwarding',
-    icon: 'spell_holy_blessingofprotection',
-  },
-  HAND_OF_THE_PROTECTOR_TALENT: {
-    id: 213652,
-    name: 'Hand of the Protector',
-    icon: 'ability_paladin_blessedhands',
-  },
-  SERAPHIM_TALENT: {
-    id: 152262,
-    name: 'Seraphim',
-    icon: 'ability_paladin_seraphim',
-  },
+
 	// Buffs
   SHIELD_OF_THE_RIGHTEOUS_BUFF: {
     id: 132403,

@@ -8,7 +8,6 @@ import { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   static ABILITIES_ON_GCD = [
-    SPELLS.ARDENT_DEFENDER.id,
     SPELLS.AVENGERS_SHIELD.id,
     SPELLS.CONSECRATION_CAST.id,
     SPELLS.DIVINE_STEED.id,

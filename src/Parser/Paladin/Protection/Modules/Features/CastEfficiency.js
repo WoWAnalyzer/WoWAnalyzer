@@ -15,8 +15,7 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.CONSECRATION_CAST,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 9 / (1 + haste),
-      recommendedCastEfficiency: 0.8,
-      importance: ISSUE_IMPORTANCE.MINOR,
+      recommendedCastEfficiency: 0.9,
 	},
 	  // work on CD
     {
@@ -24,8 +23,8 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 4.5 / (1 + haste),
       charges: 3,
-      recommendedCastEfficiency: 0.8,
-      importance: ISSUE_IMPORTANCE.MINOR,
+      isActive: combatant => combatant.hasTalent(SPELLS.BLESSED_HAMMER_TALENT.id),
+      recommendedCastEfficiency: 0.9,
 	},
 	  // Probably useless to try to count the number of casts
     {
@@ -33,7 +32,7 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => null,
       isActive: combatant => combatant.hasTalent(SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id),
-      recommendedCastEfficiency: 0.8,
+      recommendedCastEfficiency: 0.6,
       importance: ISSUE_IMPORTANCE.MINOR,
 	},
 	  // Probably useless to try to count the number of casts
@@ -43,15 +42,13 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => null,
       charges: 3,
       recommendedCastEfficiency: 0.8,
-      importance: ISSUE_IMPORTANCE.MINOR,
 	},
 	  //COOLDOWNS
     {
       spell: SPELLS.EYE_OF_TYR,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: (haste, combatant) => (combatant.hasShoulder(ITEMS.PILLARS_OF_INMOST_LIGHT.id) ? 45 : 60),
-      recommendedCastEfficiency: 0.8,
-      importance: ISSUE_IMPORTANCE.MAJOR,
+      recommendedCastEfficiency: 0.85,
 	},
 
   ];
