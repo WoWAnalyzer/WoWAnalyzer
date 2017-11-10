@@ -481,6 +481,11 @@ export default {
     name: 'Avenger\'s Shield',
     icon: 'spell_holy_avengersshield',
   },
+  CONSECRATION_CAST: {
+    id: 26573,
+    name: 'Consecration',
+    icon: 'spell_holy_innerfire',
+  },
   GUARDIAN_OF_ANCIENT_KINGS: {
     id: 86659,
     name: 'Guardian of Ancient Kings',
