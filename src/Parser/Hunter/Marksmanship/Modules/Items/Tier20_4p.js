@@ -1,12 +1,12 @@
 import React from 'react';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from "common/format";
 
-class Tier20_4p extends Module {
+class Tier20_4p extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
@@ -24,13 +24,13 @@ class Tier20_4p extends Module {
   }
 
   on_byPlayer_cast(event) {
-    if(event.ability.guid !== SPELLS.AIMED_SHOT.id) {
+    if (event.ability.guid !== SPELLS.AIMED_SHOT.id) {
       return;
     }
-    if(this.combatants.selected.hasBuff(SPELLS.HUNTER_MM_T20_4P_BONUS_BUFF.id, event.timestamp)) {
+    if (this.combatants.selected.hasBuff(SPELLS.HUNTER_MM_T20_4P_BONUS_BUFF.id, event.timestamp)) {
       this.buffedCastAndFocusAimed += 1;
     }
-      this.totalAimed +=1;
+    this.totalAimed += 1;
   }
   item() {
     return {

@@ -1,5 +1,5 @@
 import React from 'react';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
@@ -8,7 +8,7 @@ import SpellIcon from 'common/SpellIcon';
 
 const BLOODDRINKER_TICKS_PER_CAST = 4;
 
-class BlooddrinkerTicks extends Module {
+class BlooddrinkerTicks extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
     combatants: Combatants,

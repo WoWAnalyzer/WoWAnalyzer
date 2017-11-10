@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -14,7 +14,7 @@ import getDamageBonus from '../WarlockCore/getDamageBonus';
 
 const CONTAGION_DAMAGE_BONUS = 0.15;
 
-class Contagion extends Module {
+class Contagion extends Analyzer {
   static dependencies = {
     enemies: Enemies,
     combatants: Combatants,

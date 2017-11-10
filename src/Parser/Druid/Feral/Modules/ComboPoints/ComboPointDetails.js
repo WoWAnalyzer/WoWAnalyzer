@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Tab from 'Main/Tab';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import { formatPercentage } from 'common/format';
@@ -10,7 +10,7 @@ import ComboPointTracker from './ComboPointTracker';
 
 import WastedPointsIcon from '../Images/feralComboPointIcon.png';
 
-class ComboPointDetails extends Module {
+class ComboPointDetails extends Analyzer {
   static dependencies = {
     comboPointTracker: ComboPointTracker,
   };

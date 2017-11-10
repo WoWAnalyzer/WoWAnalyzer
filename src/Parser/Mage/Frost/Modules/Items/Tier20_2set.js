@@ -3,13 +3,17 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import getDamageBonus from 'Parser/Mage/Shared/Modules/GetDamageBonus';
 
 const FROZEN_MASS_DAMAGE_BONUS = 0.2;
 
-class Tier20_2set extends Module {
+/**
+ * Frost Mage Tier20 2set
+ * Frozen Orb increases your critical strike damage by 20% for 10 sec.
+ */
+class Tier20_2set extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   }
@@ -31,9 +35,9 @@ class Tier20_2set extends Module {
 
   item() {
     return {
-      id: SPELLS.FROZEN_MASS.id,
-      icon: <SpellIcon id={SPELLS.FROZEN_MASS.id} />,
-      title: <SpellLink id={SPELLS.FROZEN_MASS.id} />,
+      id: SPELLS.FROST_MAGE_T20_2SET_BONUS_BUFF.id,
+      icon: <SpellIcon id={SPELLS.FROST_MAGE_T20_2SET_BONUS_BUFF.id} />,
+      title: <SpellLink id={SPELLS.FROST_MAGE_T20_2SET_BONUS_BUFF.id} />,
       result: this.owner.formatItemDamageDone(this.damage),
     };
   }

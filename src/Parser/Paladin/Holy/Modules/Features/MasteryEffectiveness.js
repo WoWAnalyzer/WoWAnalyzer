@@ -3,7 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
@@ -16,7 +16,7 @@ import { ABILITIES_AFFECTED_BY_MASTERY, BEACON_TYPES } from '../../Constants';
 
 const debug = false;
 
-class MasteryEffectiveness extends Module {
+class MasteryEffectiveness extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     beaconTargets: BeaconTargets,
@@ -116,7 +116,7 @@ class MasteryEffectiveness extends Module {
       console.error('Received a heal before selected combatant meta data was received.', event);
       return;
     }
-    const isAbilityAffectedByMastery = ABILITIES_AFFECTED_BY_MASTERY.indexOf(event.ability.guid) !== -1;
+    const isAbilityAffectedByMastery = ABILITIES_AFFECTED_BY_MASTERY.includes(event.ability.guid);
 
     const healingDone = event.amount;
 
@@ -145,6 +145,8 @@ class MasteryEffectiveness extends Module {
         masteryHealingDone,
         maxPotentialMasteryHealing,
       });
+      // Update the event information to include the heal's mastery effectiveness in case we want to use this elsewhere (hint: StatValues)
+      event.masteryEffectiveness = masteryEffectiveness;
     }
   }
   getDistanceForMastery(event) {
@@ -244,7 +246,6 @@ class MasteryEffectiveness extends Module {
         icon={<img src={MasteryRadiusImage} style={{ border: 0 }} alt="Mastery effectiveness" />}
         value={`${formatPercentage(totalMasteryEffectiveness)} %`}
         label="Mastery effectiveness"
-        tooltip="Effects that temporarily increase your mastery are currently not supported and will skew results."
       />
     );
   }

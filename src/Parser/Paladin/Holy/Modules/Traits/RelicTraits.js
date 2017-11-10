@@ -2,7 +2,7 @@ import React from 'react';
 
 import StatisticsListBox, { STATISTIC_ORDER } from 'Main/StatisticsListBox';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 import DeliverTheLight from './DeliverTheLight';
 import ExpelTheDarkness from './ExpelTheDarkness';
@@ -11,7 +11,7 @@ import ShockTreatment from './ShockTreatment';
 import TyrsMunificence from './TyrsMunificence';
 import JusticeThroughSacrifice from './JusticeThroughSacrifice';
 
-class RelicTraits extends Module {
+class RelicTraits extends Analyzer {
   static dependencies = {
     deliverTheLight: DeliverTheLight,
     expelTheDarkness: ExpelTheDarkness,

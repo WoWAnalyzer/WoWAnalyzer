@@ -1,5 +1,5 @@
 import React from 'react';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
@@ -27,7 +27,7 @@ const AFFECTED_SPELLS = new Set([
   // some sources suggest that pet damage (unfortunately including rifts as those are technically pets) isn't buffed
 ]);
 
-class OdrShawlOfTheYmirjar extends Module {
+class OdrShawlOfTheYmirjar extends Analyzer {
   static dependencies = {
     enemies: Enemies,
     combatants: Combatants,

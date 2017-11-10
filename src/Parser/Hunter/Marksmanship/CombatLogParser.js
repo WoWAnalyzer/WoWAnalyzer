@@ -1,45 +1,53 @@
 import React from 'react';
 
-import SuggestionsTab from 'Main/SuggestionsTab';
 import Tab from 'Main/Tab';
-import Talents from 'Main/Talents';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 
 //Features
 import CastEfficiency from './Modules/Features/CastEfficiency';
-import CooldownTracker from './Modules/Features/CooldownTracker';
+import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import VulnerableUptime from './Modules/Features/VulnerableUptime';
 import VulnerableTracker from './Modules/Features/AimedInVulnerableTracker';
-import TimeFocusCapped from './Modules/Features/TimeFocusCapped';
+import TimeFocusCapped from '../Shared/Modules/Features/TimeFocusCapped';
 import VulnerableApplications from "./Modules/Features/VulnerableApplications";
-
-//Focus
-import FocusChart from './Modules/FocusChart/Focus';
-import FocusTracker from './Modules/FocusChart/FocusTracker';
+import CancelledCasts from "../Shared/Modules/Features/CancelledCasts";
 
 //Tier
 import Tier20_2p from './Modules/Items/Tier20_2p';
 import Tier20_4p from './Modules/Items/Tier20_4p';
-import Tier19_2p from "./Modules/Items/Tier19_2p";  
-import TarnishedSentinelMedallion from "./Modules/Items/TarnishedSentinelMedallion";
+import Tier19_2p from "./Modules/Items/Tier19_2p";
 
 //Spells
 import Trueshot from './Modules/Spells/Trueshot';
 
+//Focus
+import FocusChart from '../Shared/FocusChart/Focus';
+import FocusTracker from '../Shared/FocusChart/FocusTracker';
+
 //Items
 import UllrsFeatherSnowshoes from './Modules/Items/UllrsFeatherSnowshoes';
-import SoulOfTheHuntmaster from '../Shared/Items/SoulOfTheHuntmaster';
+import SoulOfTheHuntmaster from '../Shared/Modules/Items/SoulOfTheHuntmaster';
 import MKIIGyroscopicStabilizer from './Modules/Items/MKIIGyroscopicStabilizer';
 import WarBeltOfTheSentinelArmy from "./Modules/Items/WarBeltOfTheSentinelArmy";
+import TarnishedSentinelMedallion from "./Modules/Items/TarnishedSentinelMedallion";
 
 //Talents
 import LockAndLoad from './Modules/Talents/LockAndLoad';
 import TrueAim from './Modules/Talents/TrueAim';
 import PatientSniperTracker from './Modules/Talents/PatientSniper/PatientSniperTracker';
 import PatientSniperDetails from "./Modules/Talents/PatientSniper/PatientSniperDetails";
+import Volley from './Modules/Talents/Volley';
+import ExplosiveShot from "./Modules/Talents/ExplosiveShot";
+import PiercingShot from "./Modules/Talents/PiercingShot";
+import AMurderOfCrows from "./Modules/Talents/AMurderOfCrows";
+import TrickShot from "./Modules/Talents/TrickShot";
+
+//Traits
+import QuickShot from './Modules/Traits/QuickShot';
+import Bullseye from './Modules/Traits/Bullseye';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -49,12 +57,12 @@ class CombatLogParser extends CoreCombatLogParser {
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     castEfficiency: CastEfficiency,
-    cooldownTracker: CooldownTracker,
+    cooldownThroughputTracker: CooldownThroughputTracker,
     vulnerableUptime: VulnerableUptime,
     vulnerableTracker: VulnerableTracker,
     TimeFocusCapped: TimeFocusCapped,
     vulnerableApplications: VulnerableApplications,
-
+    cancelledCasts: CancelledCasts,
 
     //Focus Chart
     focusTracker: FocusTracker,
@@ -68,7 +76,6 @@ class CombatLogParser extends CoreCombatLogParser {
     mkiiGyroscopicStabilizer: MKIIGyroscopicStabilizer,
     warBeltOfTheSentinelArmy: WarBeltOfTheSentinelArmy,
 
-
     //Spells
     trueshot: Trueshot,
     tarnishedSentinelMedallion: TarnishedSentinelMedallion,
@@ -78,28 +85,22 @@ class CombatLogParser extends CoreCombatLogParser {
     patientSniperDetails: PatientSniperDetails,
     lockAndLoad: LockAndLoad,
     trueAim: TrueAim,
+    volley: Volley,
+    explosiveShot: ExplosiveShot,
+    piercingShot: PiercingShot,
+    aMurderOfCrows: AMurderOfCrows,
+    trickShot: TrickShot,
+
+    //Traits
+    quickShot: QuickShot,
+    bullseye: Bullseye,
   };
 
   generateResults() {
     const results = super.generateResults();
     results.tabs = [
-      {
-        title: 'Suggestions',
-        url: 'suggestions',
-        render: () => (
-          <SuggestionsTab issues={results.issues} />
-        ),
-      },
-      {
-        title: 'Talents',
-        url: 'talents',
-        render: () => (
-          <Tab title='Talents'>
-            <Talents combatant={this.modules.combatants.selected} />
-          </Tab>
-        ),
-      },
-      {
+      ...results.tabs,
+      { // TODO: Move this to an Analyzer module
         title: 'Focus Chart',
         url: 'focus',
         render: () => (
@@ -120,7 +121,6 @@ class CombatLogParser extends CoreCombatLogParser {
           </Tab>
         ),
       },
-      ...results.tabs,
     ];
 
     return results;

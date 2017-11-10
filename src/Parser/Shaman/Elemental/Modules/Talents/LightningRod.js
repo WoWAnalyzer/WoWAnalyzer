@@ -4,8 +4,9 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
@@ -14,13 +15,14 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
  * - Lightning Rod damage
  * - Number of enemys with debuff
  */
-class LightningRod extends Module {
+class LightningRod extends Analyzer {
   static dependencies = {
     enemies: Enemies,
+    combatants: Combatants,
   };
 
   on_initialized() {
-    this.active = this.owner.modules.combatants.selected.hasTalent(SPELLS.LIGHTNING_ROD_TALENT.id);
+    this.active = this.combatants.selected.hasTalent(SPELLS.LIGHTNING_ROD_TALENT.id);
   }
 
   get rawUpdate() {

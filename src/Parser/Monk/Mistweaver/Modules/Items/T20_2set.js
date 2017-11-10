@@ -7,14 +7,14 @@ import { formatNumber } from 'common/format';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 const debug = false;
 
 const BASEMANA = 1100000;
 const TWOSET_MANA_REDUCTION = 0.75;
 
-class T20_2set extends Module {
+class T20_2set extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

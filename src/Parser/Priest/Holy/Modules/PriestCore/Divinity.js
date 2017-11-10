@@ -7,14 +7,14 @@ import { formatPercentage, formatNumber, formatThousands } from 'common/format';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
 
 const DIVINITY_HEALING_INCREASE = 0.15;
 
-class Divinity extends Module {
+class Divinity extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   }

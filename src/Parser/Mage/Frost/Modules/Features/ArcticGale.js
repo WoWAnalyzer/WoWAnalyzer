@@ -5,13 +5,13 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 import getDamageBonus from 'Parser/Mage/Shared/Modules/GetDamageBonus';
 
 const DAMAGE_BONUS = 0.3;
 
-class UnstableMagic extends Module {
+class ArcticGale extends Analyzer {
   static dependencies = {
     combatants: Combatants,
 	}
@@ -39,7 +39,7 @@ class UnstableMagic extends Module {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(0);
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(10);
 
   // TODO suggest when Arctic Gale damage is very low but non-zero?
   suggestions(when) {
@@ -52,4 +52,4 @@ class UnstableMagic extends Module {
   }
 }
 
-export default UnstableMagic;
+export default ArcticGale;

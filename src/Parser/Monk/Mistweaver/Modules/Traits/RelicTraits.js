@@ -2,7 +2,7 @@ import React from 'react';
 
 import StatisticsListBox, { STATISTIC_ORDER } from 'Main/StatisticsListBox';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 // TODO:
 // Improve Extended Healing Relic Module
@@ -15,7 +15,7 @@ import InfusionOfLife from './InfusionOfLife';
 import ProtectionOfShaohao from './ProtectionOfShaohao';
 import ExtendedHealing from './ExtendedHealing';
 
-class RelicTraits extends Module {
+class RelicTraits extends Analyzer {
   static dependencies = {
     coalescingMists: CoalescingMists,
     soothingRemedies: SoothingRemedies,

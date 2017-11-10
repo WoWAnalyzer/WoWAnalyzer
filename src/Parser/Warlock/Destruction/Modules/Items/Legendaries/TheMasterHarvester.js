@@ -1,13 +1,13 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ITEMS from 'common/ITEMS';
 import { formatNumber } from 'common/format';
 
 import SoulHarvest from '../../Talents/SoulHarvest';
 
-class TheMasterHarvester extends Module {
+class TheMasterHarvester extends Analyzer {
   static dependencies = {
     soulHarvest: SoulHarvest,
     combatants: Combatants,

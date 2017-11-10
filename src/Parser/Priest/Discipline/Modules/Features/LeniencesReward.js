@@ -7,11 +7,11 @@ import { formatThousands, formatNumber } from 'common/format';
 
 import LazyLoadStatisticBox from 'Main/LazyLoadStatisticBox';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 const LENIENCES_REWARD_DR_PER_RANK = 0.005;
 
-class LeniencesReward extends Module {
+class LeniencesReward extends Analyzer {
   _leniencesRewardRank = 0;
   _leniencesRewardDR = 0;
 

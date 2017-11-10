@@ -23,7 +23,7 @@ function formatNumber(number) {
 
 class Feeding extends React.Component {
   static propTypes = {
-    cooldownTracker: PropTypes.object,
+    cooldownThroughputTracker: PropTypes.object,
   };
 
   constructor() {
@@ -34,28 +34,28 @@ class Feeding extends React.Component {
   }
 
   render() {
-    const { cooldownTracker } = this.props;
+    const { cooldownThroughputTracker } = this.props;
 
     return (
       <div>
         {([
           {
             name: 'Cloudburst Totem',
-            feed: cooldownTracker.cbtFeed,
+            feed: cooldownThroughputTracker.cbtFeed,
             spell: SPELLS.CLOUDBURST_TOTEM_TALENT,
-            totals: cooldownTracker.cbtTotals,
+            totals: cooldownThroughputTracker.cbtTotals,
           },
           {
             name: 'Ancestral Guidance',
-            feed: cooldownTracker.agFeed,
+            feed: cooldownThroughputTracker.agFeed,
             spell: SPELLS.ANCESTRAL_GUIDANCE_TALENT,
-            totals: cooldownTracker.agTotals,
+            totals: cooldownThroughputTracker.agTotals,
           },
           {
             name: 'Ascendance',
-            feed: cooldownTracker.ascFeed,
+            feed: cooldownThroughputTracker.ascFeed,
             spell: SPELLS.ASCENDANCE_TALENT_RESTORATION,
-            totals: cooldownTracker.ascTotals,
+            totals: cooldownThroughputTracker.ascTotals,
           },
         ]).map((category) => {
           category.max = category.feed.reduce((a, b) => {

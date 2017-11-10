@@ -1,5 +1,6 @@
 import BloodDeathKnight from './DeathKnight/Blood/CONFIG';
 import UnholyDeathKnight from './DeathKnight/Unholy/CONFIG';
+import FrostDeathKnight from './DeathKnight/Frost/CONFIG';
 
 import HavocDemonHunter from './DemonHunter/Havoc/CONFIG';
 import VengeanceDemonHunter from './DemonHunter/Vengeance/CONFIG';
@@ -7,9 +8,10 @@ import VengeanceDemonHunter from './DemonHunter/Vengeance/CONFIG';
 import BalanceDruid from './Druid/Balance/CONFIG';
 import FeralDruid from './Druid/Feral/CONFIG';
 import GuardianDruid from './Druid/Guardian/CONFIG';
-import RestoDruid from './RestoDruid/CONFIG';
+import RestoDruid from './Druid/Restoration/CONFIG';
 
 import MarksmanshipHunter from './Hunter/Marksmanship/CONFIG';
+import BeastMasteryHunter from './Hunter/BeastMastery/CONFIG';
 
 import FrostMage from './Mage/Frost/CONFIG';
 import FireMage from './Mage/Fire/CONFIG';
@@ -43,6 +45,7 @@ import ArmsWarrior from './Warrior/Arms/CONFIG';
 export default [
   BloodDeathKnight,
   UnholyDeathKnight,
+  FrostDeathKnight,
 
   HavocDemonHunter,
   VengeanceDemonHunter,
@@ -53,6 +56,7 @@ export default [
   RestoDruid,
 
   MarksmanshipHunter,
+  BeastMasteryHunter,
 
   FrostMage,
   FireMage,

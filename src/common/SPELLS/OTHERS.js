@@ -102,8 +102,13 @@ export default {
     name: 'Gnawed Thumb Ring',
     icon: 'inv_70_dungeon_ring6a',
   },
-  VELENS_FUTURE_SIGHT: {
+  VELENS_FUTURE_SIGHT_BUFF: {
     id: 235966,
+    name: 'Velen\'s Future Sight',
+    icon: 'spell_holy_healingfocus',
+  },
+  VELENS_FUTURE_SIGHT_HEAL: {
+    id: 235967,
     name: 'Velen\'s Future Sight',
     icon: 'spell_holy_healingfocus',
   },
@@ -127,7 +132,7 @@ export default {
     name: 'Sephuz\'s Secret',
     icon: 'inv_jewelry_ring_149',
   },
-  MARK_OF_THE_ACNIENT_PRIESTESS: {
+  MARK_OF_THE_ANCIENT_PRIESTESS: {
     id: 228401,
     name: 'Mark of the Ancient Priestess',
     icon: 'ability_priest_ascension',
@@ -137,11 +142,33 @@ export default {
     name: 'Mark of the Hidden Satyr',
     icon: 'sha_spell_fire_fireball02_nightmare',
   },
+  // Dungeon Trinkets
+  SHADOWS_STRIKE: { // Dreadstone of Endless Shadows crit proc
+    id: 238499,
+    name: "Shadow's Strike",
+    icon: 'ability_warlock_shadowfurytga',
+  },
+  SHADOW_MASTER: { // Dreadstone of Endless Shadows mastery proc
+    id: 238500,
+    name: "Shadow Master",
+    icon: 'ability_creature_disease_05',
+  },
+  SWARMING_SHADOWS: { // Dreadstone of Endless Shadows haste proc
+    id: 238501,
+    name: "Swarming Shadows",
+    icon: 'spell_shadow_shadesofdarkness',
+  },
+
   // Nighthold Trinkets
   RECURSIVE_STRIKES: {
     id: 225739,
     name: 'Recursive Strikes',
     icon: 'sha_ability_mage_firestarter_nightborne',
+  },
+  ACCELERANDO: {
+    id: 225719,
+    name: 'Accelerando',
+    icon: 'spell_holy_borrowedtime',
   },
   // Tomb trinkets
   CLEANSING_MATRIX: {
@@ -209,6 +236,68 @@ export default {
     name: 'Strength of Will',
     icon: 'inv_wand_36',
   },
+  // T21 Healing trinkets
+  TARRATUS_KEYSTONE: {
+    id: 253282,
+    name: 'Tarratus Keystone',
+    icon: 'inv__wod_arakoa4',
+  },
+ AMANTHULS_PRESENCEBUFF: {
+    id: 253287,
+    name: 'Aman Thul\'s Presence',
+    icon: 'spell_priest_psyfiend',
+  },
+  AMANTHULS_PRESENCEHEAL: {
+    id: 253288,
+    name: 'Aman Thul\'s Presence',
+    icon: 'spell_priest_psyfiend',
+  },
+  EONARS_COMPASSION_HEAL: {
+    id: 257442,
+    name: 'Emerald Blossom',
+    icon: 'inv_antorus_green',
+  },
+  EONARS_COMPASSION_PROCBUFF: {
+    id: 256824,
+    name: 'Mark of Eonar',
+    icon: 'inv_antorus_green',
+  },
+  EONARS_COMPASSION_PANTHEONSHIELD: {
+    id: 257444,
+    name: 'Verdant Embrace',
+    icon: 'talentspec_druid_restoration',
+  },
+  EONARS_COMPASSION_PANTHEONBUFF_RDRUID: {
+    id: 257470,
+    name: 'Eonar\'s Verdant Embrace',
+    icon: 'talentspec_druid_restoration',
+  },
+  EONARS_COMPASSION_PANTHEONBUFF_RMONK: {
+    id: 257471,
+    name: 'Eonar\'s Verdant Embrace',
+    icon: 'talentspec_druid_restoration',
+  },
+  EONARS_COMPASSION_PANTHEONBUFF_HPALADIN: {
+    id: 257472,
+    name: 'Eonar\'s Verdant Embrace',
+    icon: 'talentspec_druid_restoration',
+  },
+  EONARS_COMPASSION_PANTHEONBUFF_DPRIEST: {
+    id: 257473,
+    name: 'Eonar\'s Verdant Embrace',
+    icon: 'talentspec_druid_restoration',
+  },
+  EONARS_COMPASSION_PANTHEONBUFF_HPRIEST: {
+    id: 257474,
+    name: 'Eonar\'s Verdant Embrace',
+    icon: 'talentspec_druid_restoration',
+  },
+  EONARS_COMPASSION_PANTHEONBUFF_RSHAMAN: {
+    id: 257475,
+    name: 'Eonar\'s Verdant Embrace',
+    icon: 'talentspec_druid_restoration',
+  },
+
   // Item Abilities
   SPECTRAL_OWL: {
     id: 242570,

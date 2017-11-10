@@ -1,20 +1,19 @@
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import { calculateSecondaryStatDefault } from 'common/stats';
 import { formatPercentage, formatMilliseconds } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import StatTracker from 'Parser/Core/Modules/StatTracker';
 
 const debug = false;
 
-class Haste extends Module {
+class Haste extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+    statTracker: StatTracker,
   };
 
-  // It would be nice to have this point to a value in the Combatant class, but that would be tricky since this is `static`.
-  static HASTE_RATING_PER_PERCENT = 37500;
   // TODO: Maybe extract "time" changing abilities since they also scale the minimum GCD cap? Probably better to dive into the tooltips to find out how the stat that does that is actually called. Spell Haste, Casting Speed, Attack Speed, Haste, ... are all different variants that look like Haste but act different.
   // TODO: Support time freeze kinda effects, like Elisande's Time Stop or unavoidable stuns?
   /* eslint-disable no-useless-computed-key */
@@ -31,8 +30,6 @@ class Haste extends Module {
     [SPELLS.BERSERKING.id]: 0.15,
     [202842]: 0.1, // Rapid Innervation (Balance Druid trait increasing Haste from Innervate)
     [SPELLS.POWER_INFUSION_TALENT.id]: 0.25,
-    [240673]: 800 / 37500, // Shadow Priest artifact trait that's shared with 4 allies: http://www.wowhead.com/spell=240673/mind-quickening
-    [SPELLS.MARK_OF_THE_CLAW.id]: 1000 / 37500,
     [SPELLS.WARLOCK_AFFLI_T20_4P_BUFF.id]: 0.15,
     [SPELLS.WARLOCK_DEMO_T20_4P_BUFF.id]: 0.1,
     [SPELLS.TRUESHOT.id]: 0.4, // MM Hunter main CD
@@ -45,11 +42,7 @@ class Haste extends Module {
     [209166]: 0.3, // DEBUFF - Fast Time from Elisande
     [209165]: -0.3, // DEBUFF - Slow Time from Elisande
     // [208944]: -Infinity, // DEBUFF - Time Stop from Elisande
-
-    [SPELLS.RISING_TIDES.id]: {
-      itemId: ITEMS.CHARM_OF_THE_RISING_TIDE.id,
-      hastePerStack: (_, item) => calculateSecondaryStatDefault(900, 576, item.itemLevel) / 37500,
-    },
+    [SPELLS.BONE_SHIELD.id]: 0.1, // Blood BK haste buff from maintaining boneshield
     [SPELLS.SEPHUZS_SECRET_BUFF.id]: 0.25 - 0.02, // 2% is already applied as base
   };
 
@@ -84,6 +77,23 @@ class Haste extends Module {
   }
   on_toPlayer_removedebuff(event) {
     this._removeActiveBuff(event);
+  }
+
+  on_toPlayer_changestats(event) { // fabbed event from StatTracker
+    if(!event.delta.haste) {
+      return;
+    }
+
+    // as haste rating stacks additively with itself, changing rating works similar to changing buff stack
+    const oldHastePercentage = this.statTracker.baseHastePercentage + (event.before.haste / this.statTracker.hasteRatingPerPercent);
+    this._applyHasteLoss(event.reason, oldHastePercentage);
+    const newHastePercentage = this.statTracker.baseHastePercentage + (event.after.haste / this.statTracker.hasteRatingPerPercent);
+    this._applyHasteGain(event.reason, newHastePercentage);
+
+    if(debug) {
+      const spellName = event.reason.ability ? event.reason.ability.name : 'unknown';
+      console.log(`Haste: Current haste: ${formatPercentage(this.current)}% (haste RATING changed by ${event.delta.haste} from ${spellName})`);
+    }
   }
 
   _applyActiveBuff(event) {

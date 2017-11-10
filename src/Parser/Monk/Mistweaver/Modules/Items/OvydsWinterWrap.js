@@ -1,7 +1,7 @@
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -15,7 +15,7 @@ const UNAFFECTED_SPELLS = [
   SPELLS.REFRESHING_JADE_WIND_HEAL.id,
 ];
 
-class OvydsWinterWrap extends Module {
+class OvydsWinterWrap extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

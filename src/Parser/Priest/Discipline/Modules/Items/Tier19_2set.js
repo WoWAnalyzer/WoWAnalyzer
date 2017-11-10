@@ -1,6 +1,10 @@
-import SPELLS from 'common/SPELLS';
+import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import SPELLS from 'common/SPELLS';
+import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
+
+import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -10,7 +14,7 @@ const debug = false;
 
 const HEALING_INCREASE = 0.3;
 
-class Tier19_2set extends Module {
+class Tier19_2set extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
@@ -49,6 +53,17 @@ class Tier19_2set extends Module {
     }
 
     this.healing += calculateEffectiveHealing(event, HEALING_INCREASE);
+  }
+
+  item() {
+    const healing = this.healing || 0;
+
+    return {
+      id: `spell-${SPELLS.DISC_PRIEST_T19_2SET_BONUS_BUFF.id}`,
+      icon: <SpellIcon id={SPELLS.DISC_PRIEST_T19_2SET_BONUS_BUFF.id} />,
+      title: <SpellLink id={SPELLS.DISC_PRIEST_T19_2SET_BONUS_BUFF.id} />,
+      result: this.owner.formatItemHealingDone(healing),
+    };
   }
 }
 

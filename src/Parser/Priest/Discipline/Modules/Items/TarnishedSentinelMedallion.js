@@ -1,7 +1,9 @@
+import React from 'react';
+
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import isAtonement from '../Core/isAtonement';
@@ -9,7 +11,7 @@ import AtonementSource from '../Features/AtonementSource';
 
 const debug = false;
 
-class TarnishedSentinelMedallion extends Module {
+class TarnishedSentinelMedallion extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     atonementSource: AtonementSource,
@@ -47,6 +49,21 @@ class TarnishedSentinelMedallion extends Module {
     }
 
     this.damage += event.amount;
+  }
+
+  item() {
+    const damage = this.damage || 0;
+    const healing = this.healing || 0;
+
+    return {
+      item: ITEMS.TARNISHED_SENTINEL_MEDALLION,
+      result: (
+        <dfn>
+          {this.owner.formatItemHealingDone(healing)} <br/>
+          {this.owner.formatItemDamageDone(damage)}
+        </dfn>
+      ),
+    };
   }
 }
 

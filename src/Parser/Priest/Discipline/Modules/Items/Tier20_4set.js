@@ -6,12 +6,12 @@ import SpellLink from 'common/SpellLink';
 
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 const BUFF_DURATION = 12000;
 const REGULAR_PENANCE_COOLDOWN_MS = 9000;
 
-class Tier20_4set extends Module {
+class Tier20_4set extends Analyzer {
   _lastProcTimestamp = null;
   _procCount = 0;
   _consumeCount = 0;
@@ -71,14 +71,17 @@ class Tier20_4set extends Module {
   }
 
   item() {
+    const penanceCooldownSaved = (this.penanceCooldownSaved / 1000) || 0;
+    const consumptions = this.consumptions || 0;
+
     return {
       id: `spell-${SPELLS.DISC_PRIEST_T20_4SET_BONUS_PASSIVE.id}`,
       icon: <SpellIcon id={SPELLS.DISC_PRIEST_T20_4SET_BONUS_BUFF.id} />,
       title: <SpellLink id={SPELLS.DISC_PRIEST_T20_4SET_BONUS_BUFF.id} />,
       result: (
-        <span>
-          {(this.penanceCooldownSaved / 1000).toFixed(1)} seconds off the <SpellLink id={SPELLS.PENANCE.id} /> cooldown, {this.consumptions} Penances cast earlier.
-        </span>
+        <dfn>
+          {penanceCooldownSaved} seconds off the cooldown, {consumptions} Penances cast earlier
+        </dfn>
       ),
     };
   }

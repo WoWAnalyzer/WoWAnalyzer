@@ -1,12 +1,12 @@
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import isAtonement from '../Core/isAtonement';
 
 const debug = false;
 
-class Xalan extends Module {
+class Xalan extends Analyzer {
   healing = 0;
 
   get atonementDuration() {
@@ -58,6 +58,15 @@ class Xalan extends Module {
 
     debug && console.log('Xalan:', event.amount + (event.absorbed || 0), 'healing done');
     this.healing += event.amount + (event.absorbed || 0);
+  }
+
+  item() {
+    const healing = this.healing || 0;
+
+    return {
+      item: ITEMS.XALAN_THE_FEAREDS_CLENCH,
+      result: this.owner.formatItemHealingDone(healing),
+    };
   }
 }
 

@@ -1,16 +1,16 @@
 import React from 'react';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import HIT_TYPES from "Parser/Core/HIT_TYPES";
 import { formatPercentage, formatNumber} from "common/format";
-import getDamageBonus from "Parser/Hunter/Shared/Core/getDamageBonus";
+import getDamageBonus from "Parser/Hunter/Shared/Modules/getDamageBonus";
 
-const T20_2P_CRIT_DMG_BONUS = 0.15;
+const T20_2P_CRIT_DMG_BONUS = 0.1;
 
-class Tier20_2p extends Module {
+class Tier20_2p extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

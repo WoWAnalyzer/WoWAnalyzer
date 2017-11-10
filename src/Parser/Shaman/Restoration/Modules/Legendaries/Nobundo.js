@@ -1,12 +1,12 @@
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 const LEGENDARY_NOBUNDO_BUFF = 208764;
 const LEGENDARY_NOBUNDO_BUFF_EXPIRATION_BUFFER = 50; // the buff expiration can occur several MS before the heal event is logged, this is the buffer time that an IoL charge may have dropped during which it will still be considered active.
 
-class Nobundo extends Module {
+class Nobundo extends Analyzer {
   discounts = 0;
 
   on_initialized() {

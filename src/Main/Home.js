@@ -5,7 +5,7 @@ import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
 import { getCompletenessColor, getCompletenessExplanation, getCompletenessLabel } from 'common/SPEC_ANALYSIS_COMPLETENESS';
 
 import PatreonButton from './PatreonButton';
-import Changelog from './Changelog';
+import ChangelogPanel from './ChangelogPanel';
 
 import MasteryRadiusImage from './Images/mastery-radius.png';
 import ItemsImage from './Images/items.png';
@@ -31,11 +31,11 @@ class Home extends Component {
               </div>
               <div className="panel-body">
                 <img src={MasteryRadiusImage} alt="Mastery radius" className="pull-right" style={{ margin: 15 }} />
-                Use this tool to analyze your performance based on important metrics for the spec.<br /><br />
+                WoW Analyzer is a comprehensive tool for analyzing your performance based on important metrics for your spec. You will need a Warcraft Logs report with advanced combat logging enabled to start. Private logs can not be used, if your guild has private logs you will have to <a href="https://www.warcraftlogs.com/help/start/">upload your own logs</a> or change the existing logs to the <i>unlisted</i> privacy option instead.<br /><br />
 
-                You will need a Warcraft Logs report with advanced combat logging enabled to start. Private logs can not be used, if your guild has private logs you will have to
-                {' '}<a href="https://www.warcraftlogs.com/help/start/">upload your own logs</a> or change the existing logs to the
-                {' '}<i>unlisted</i> privacy option instead.<br /><br />
+                Here are some interesting examples: <a href="/report/LRchdHVAmWtNQ8Fj/22-Mythic+Harjatan+-+Kill+(5:54)/Zerotorescue" className="Paladin">Holy Paladin</a>, <a href="/report/KbQnkMHZmqWgtXwz/33-Heroic+Krosus+-+Kill+(2:55)/Zerotorescue" className="Priest">Discipline Priest</a> and <a href="/report/dcDkhfMR6nG2XxVr/35-Normal+Gul'dan+-+Kill+(5:56)/Zerotorescue" className="Monk">Brewmaster Monk</a>.
+                {/* Your logs are welcome. Do note they shouldn't be top logs, they're generally not *that* interesting. They're mostly just my logs since I have permission to use those :') */}
+                <br /><br />
 
                 Feature requests (<dfn data-tip="Provided that you're not using one of Microsoft's browsers.">and bug reports*</dfn>) are welcome! On <a href="https://discord.gg/AxphPxU">Discord</a> or create an issue <a href={'https://github.com/WoWAnalyzer/WoWAnalyzer/issues'}>here</a>.
               </div>
@@ -124,8 +124,8 @@ class Home extends Component {
               <div className="panel-heading">
                 <h2>Changes</h2>
               </div>
-              <div className="panel-body text-muted">
-                <Changelog />
+              <div className="panel-body">
+                <ChangelogPanel />
               </div>
             </div>
           </div>
@@ -137,10 +137,11 @@ class Home extends Component {
               </div>
               <div className="panel-body" style={{ textAlign: 'justify', padding: 0 }}>
                 <div style={{ padding: '15px 20px', marginBottom: 5 }}>
-                  WoWAnalyzer is slowly expanding with more specs being added and several specs nearing completion. We need your help to continue expanding and keep everything accurate. Are you a coder or graphic designer? Check our <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub project</a> (hint: see the <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/labels/help%20wanted" className="gh-label">help-wanted</a> and <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/labels/good%20first%20issue" className="gh-label">good-first-issue</a> issues) or <a href="https://discord.gg/AxphPxU">Discord</a> to find out how you could contribute.
+                  WoWAnalyzer is slowly expanding with more things being analyzed every day. We need your help to continue expanding and keep everything accurate. Are you a coder or graphic designer? Check our <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub project</a> (hint: see <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/labels/help%20wanted" className="gh-label">help wanted</a> and <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/labels/good%20first%20issue" className="gh-label" style={{ backgroundColor: '#5319e7' }}>good first issue</a>, or maybe <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/labels/%24bounty" className="gh-label" style={{ backgroundColor: '#64f235', color: '#000' }}>$bounty</a> interests you) or <a href="https://discord.gg/AxphPxU">Discord</a> to find out how you could contribute.
                 </div>
 
-                <img src="https://media.giphy.com/media/l1J3vV5lCmv8qx16M/giphy.gif" style={{ width: '100%' }} alt="Sharing is caring" />
+                {/* old: https://media.giphy.com/media/l1J3vV5lCmv8qx16M/giphy.gif */}
+                <img src="https://media.giphy.com/media/N56zWre4o5UlO/source.gif" style={{ width: '100%' }} alt="Sharing is caring" />
               </div>
             </div>
           </div>

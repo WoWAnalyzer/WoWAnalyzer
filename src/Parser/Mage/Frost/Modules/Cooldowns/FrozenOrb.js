@@ -3,17 +3,18 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
+import Tier20_4set from '../Items/Tier20_4set';
 
 const BLIZZARD_REDUCTION_MS = 500;
-const BRAIN_FREEZE_REDUCTION_MS = 5000;
 
-class FrozenOrb extends Module {
+class FrozenOrb extends Analyzer {
 
 	static dependencies = {
 		combatants: Combatants,
+		tier20_4set: Tier20_4set,
 		spellUsable: SpellUsable,
 		abilityTracker: AbilityTracker,
 	}
@@ -30,23 +31,15 @@ class FrozenOrb extends Module {
 			return;
 		}
 		if (this.spellUsable.isOnCooldown(SPELLS.FROZEN_ORB.id)) {
-			this.cooldownReduction += this.spellUsable.reduceCooldown(SPELLS.FROZEN_ORB.id,BLIZZARD_REDUCTION_MS);
+			this.cooldownReduction += this.spellUsable.reduceCooldown(SPELLS.FROZEN_ORB.id, BLIZZARD_REDUCTION_MS);
 		}
   }
 
-	on_toPlayer_applybuff(event) {
-		if (event.ability.guid !== SPELLS.BRAIN_FREEZE.id) {
-			return;
-		}
-		if (this.hasTierBonus && this.spellUsable.isOnCooldown(SPELLS.FROZEN_ORB.id)) {
-			this.cooldownReduction += this.spellUsable.reduceCooldown(SPELLS.FROZEN_ORB.id,BRAIN_FREEZE_REDUCTION_MS);
-		}
-	}
-
 	suggestions(when) {
+		const totalCdr = this.cooldownReduction + this.tier20_4set.totalCdr;
 		const frozenOrbCasts = this.abilityTracker.getAbility(SPELLS.FROZEN_ORB.id).casts;
 		const fightDurationSeconds = this.owner.fightDuration / 1000;
-		const frozenOrbOnCooldownSeconds = ((frozenOrbCasts * this.baseCooldown) - (this.cooldownReduction / 1000));
+		const frozenOrbOnCooldownSeconds = ((frozenOrbCasts * this.baseCooldown) - (totalCdr / 1000));
 		const frozenOrbOnCooldownPercentage = frozenOrbOnCooldownSeconds / fightDurationSeconds;
 		when(frozenOrbOnCooldownPercentage).isLessThan(0.95)
 			.addSuggestion((suggest, actual, recommended) => {

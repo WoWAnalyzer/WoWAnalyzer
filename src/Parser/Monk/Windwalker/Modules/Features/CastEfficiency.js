@@ -21,9 +21,9 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.RISING_SUN_KICK,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-      // Item - Windwalker T19 2PC Bonus: Reduces the cooldown of Rising Sun Kick by 3.0 seconds.
+      // Item - Windwalker T19 2PC Bonus: Reduces the cooldown of Rising Sun Kick by 1.0 seconds.
       getCooldown: (haste, combatant) =>
-        (10 - (combatant.hasBuff(SPELLS.WW_TIER19_2PC.id) ? 3 : 0)) / (1 + haste) * (combatant.hasBuff(SPELLS.SERENITY_TALENT.id) ? 0.5 : 1),
+        (10 - (combatant.hasBuff(SPELLS.WW_TIER19_2PC.id) ? 1 : 0)) / (1 + haste) * (combatant.hasBuff(SPELLS.SERENITY_TALENT.id) ? 0.5 : 1),
     },
     {
       spell: SPELLS.WHIRLING_DRAGON_PUNCH_TALENT,
@@ -55,6 +55,19 @@ class CastEfficiency extends CoreCastEfficiency {
       isActive: combatant => combatant.hasTalent(SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id),
       charges: 2,
     },
+    {
+      spell: SPELLS.INVOKE_XUEN_THE_WHITE_TIGER_TALENT,
+      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
+      getCooldown: haste => 180,
+      isActive: combatant => combatant.hasTalent(SPELLS.INVOKE_XUEN_THE_WHITE_TIGER_TALENT.id),
+    },
+    {
+  spell: SPELLS.ENERGIZING_ELIXIR_TALENT,
+  category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
+  getCooldown: haste => 60,
+  isActive: combatant => combatant.hasTalent(SPELLS.ENERGIZING_ELIXIR_TALENT.id),
+  noSuggestion: true,
+},
     // other spells
     {
       spell: SPELLS.BLACKOUT_KICK,
@@ -76,6 +89,13 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.SPINNING_CRANE_KICK,
       category: CastEfficiency.SPELL_CATEGORIES.OTHERS,
       getCooldown: haste => null,
+    },
+    {
+      spell: SPELLS.RUSHING_JADE_WIND_TALENT,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL_AOE,
+      getCooldown: haste => 6 / (1 + haste),
+      isActive: combatant => combatant.hasTalent(SPELLS.RUSHING_JADE_WIND_TALENT.id),
+      noSuggestion: true,
     },
   ];
 }

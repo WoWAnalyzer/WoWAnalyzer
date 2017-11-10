@@ -5,7 +5,7 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
@@ -13,7 +13,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 const FISTS_OF_FURY_MINIMUM_TICK_TIME = 100; // This is to check that additional ticks aren't just hitting secondary targets
 
-class FistsofFury extends Module {
+class FistsofFury extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

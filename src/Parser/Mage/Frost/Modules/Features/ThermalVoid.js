@@ -5,9 +5,9 @@ import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
-class ThermalVoid extends Module {
+class ThermalVoid extends Analyzer {
 
   static dependencies = {
     combatants: Combatants,
@@ -62,7 +62,7 @@ class ThermalVoid extends Module {
     );
   }
 
-  statisticOrder = STATISTIC_ORDER.CORE(3);
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(0);
 }
 
 export default ThermalVoid;

@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import { formatMilliseconds, formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 import CastEfficiency from './CastEfficiency';
 
@@ -11,7 +11,7 @@ function spellName(spellId) {
   return SPELLS[spellId] ? SPELLS[spellId].name : '???';
 }
 
-class SpellUsable extends Module {
+class SpellUsable extends Analyzer {
   static dependencies = {
     castEfficiency: CastEfficiency,
   };
@@ -168,6 +168,7 @@ class SpellUsable extends Module {
     const chargesOnCooldown = cooldown ? cooldown.chargesOnCooldown : 0;
     const maxCharges = this.castEfficiency.getMaxCharges(spellId) || 1;
     return {
+      type: 'updatespellusable',
       spellId,
       trigger,
       timestamp,

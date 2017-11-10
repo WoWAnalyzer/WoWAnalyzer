@@ -5,14 +5,14 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 const CB_DURATION = 15000;
 const debug = false;
 
-class ComboBreaker extends Module {
+class ComboBreaker extends Analyzer {
   CBProcsTotal = 0;
   lastCBProcTime = 0;
   consumedCBProc = 0;

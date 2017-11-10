@@ -9,7 +9,7 @@ import { formatNumber, formatThousands } from 'common/format';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
@@ -18,7 +18,7 @@ const debug = false;
 const baseMana = 1100000;
 const manaTeaReduction = 0.5;
 
-class ManaTea extends Module {
+class ManaTea extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     abilityTracker: AbilityTracker,

@@ -1,7 +1,3 @@
-import React from 'react';
-
-import SuggestionsTab from 'Main/SuggestionsTab';
-
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 
@@ -46,23 +42,6 @@ class CombatLogParser extends MainCombatLogParser {
     //Items
     emeraldDreamcatcher: EmeraldDreamcatcher,
   };
-
-  generateResults() {
-    const results = super.generateResults();
-
-    results.tabs = [
-      {
-        title: 'Suggestions',
-        url: 'suggestions',
-        render: () => (
-          <SuggestionsTab issues={results.issues} />
-          ),
-      },
-      ...results.tabs,
-    ];
-
-    return results;
-  }
 }
 
 export default CombatLogParser;

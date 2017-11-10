@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
@@ -12,7 +12,7 @@ import GetDamageBonus from 'Parser/Paladin/Shared/Modules/GetDamageBonus';
 
 const RETRIBUTION_DAMAGE_BONUS = 0.2;
 
-class Retribution extends Module {
+class Retribution extends Analyzer {
 	static dependencies = {
 		combatants: Combatants,
 	};

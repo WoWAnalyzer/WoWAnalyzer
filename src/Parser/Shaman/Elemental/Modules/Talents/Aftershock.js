@@ -4,15 +4,20 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-class Aftershock extends Module {
+class Aftershock extends Analyzer {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
   refund = 0;
 
   on_initialized() {
-    this.active = this.owner.modules.combatants.selected.hasTalent(SPELLS.AFTERSHOCK_TALENT.id);
+    this.active = this.combatants.selected.hasTalent(SPELLS.AFTERSHOCK_TALENT.id);
   }
 
   on_byPlayer_energize(event) {

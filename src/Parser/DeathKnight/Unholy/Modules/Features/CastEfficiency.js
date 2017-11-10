@@ -13,20 +13,73 @@ class CastEfficiency extends CoreCastEfficiency {
   static CPM_ABILITIES = [
     ...CoreCastEfficiency.CPM_ABILITIES,
 
+    // roational
     {
-      spell: SPELLS.APOCALYPSE,
-      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
-      getCooldown: haste => 90,
+      spell: SPELLS.FESTERING_STRIKE,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => null,
+      noExtraSuggestion: true,
+      noCanBeImproved: true,
+    },
+
+    {
+      spell: SPELLS.SCOURGE_STRIKE,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => null,
+      noExtraSuggestion: true,
+      noCanBeImproved: true,
+    },
+
+    {
+      spell: SPELLS.DEATH_COIL,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => null,
+      noExtraSuggestion: true,
+      noCanBeImproved: true,
+    },
+
+    {
+      spell: SPELLS.CHAINS_OF_ICE,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => 40,
+      isActive: combatant => combatant.hasChest(ITEMS.COLD_HEART.id),
       recommendedCastEfficiency: 0.90,
-      extraSuggestion: <span>This is one of your main DPS CDs.  It is okay to not use it immediately if you are wearing <ItemLink id={ITEMS.TAKTHERITRIXS_SHOULDERPADS.id}/>, and <SpellLink id={SPELLS.DARK_ARBITER_TALENT.id}/> and <SpellLink id={SPELLS.DARK_TRANSFORMATION.id}/> have less than 10 seconds left on their CDs.</span>,
+      extraSuggestion: <span>You should be casting Chains of Ice whenever you have 20 stacks of <SpellLink id={SPELLS.COLD_HEART_BUFF.id}/>.</span>,
     },
 
     {
       spell: SPELLS.DARK_TRANSFORMATION,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => 60, // TODO: add support for shadow infusion - adding suggestion note to account for difference between Infected Claws and Shadow Infusion as well
+      recommendedCastEfficiency: 0.90,
+      extraSuggestion: <span>Normally you should be using this off CD, but if you are wearing <ItemLink id={ITEMS.TAKTHERITRIXS_SHOULDERPADS.id}/> it is okay to hold if <SpellLink id={SPELLS.DARK_ARBITER_TALENT.id}/>'s CD has less than 30 seconds remaining.</span>,
+    },
+
+    // cooldowns
+    {
+      spell: SPELLS.APOCALYPSE,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
-      getCooldown: haste => 60, // TODO: add support for shadow infusion
-      recommendedCastEfficiency: 0.80,
-      extraSuggestion: <span>You should normally be using this off CD, but if you are wearing <ItemLink id={ITEMS.TAKTHERITRIXS_SHOULDERPADS.id}/> it is okay to hold if <SpellLink id={SPELLS.DARK_ARBITER_TALENT.id}/>'s CD has less than 30 seconds left.</span>,
+      getCooldown: haste => 90,
+      recommendedCastEfficiency: 0.95,
+      extraSuggestion: <span>Making sure to use <SpellLink id={SPELLS.APOCALYPSE.id}/> immediately after it's cooldown is up is important, try to plan for it's use as it is coming off cooldown. If you are wearing <ItemLink id={ITEMS.TAKTHERITRIXS_SHOULDERPADS.id}/>, empowering <SpellLink id={SPELLS.DARK_ARBITER_TALENT.id}/> with <SpellLink id={SPELLS.DARK_TRANSFORMATION.id}/> takes priority, so do not worry if an <SpellLink id={SPELLS.APOCALYPSE.id}/> cast is not empowered. </span>,
+    },
+
+    {
+      spell: SPELLS.SUMMON_GARGOYLE,
+      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
+      getCooldown: haste => 180, // TODO: needs to account for CoF
+      recommendedCastEfficiency: 0.90,
+      isActive: combatant => combatant.hasTalent(SPELLS.DEFILE_TALENT.id) || combatant.hasTalent(SPELLS.SOUL_REAPER_TALENT.id),
+      extraSuggestion: <span>This is your main DPS cooldown.  Try to cast this off cooldown, keep in mind that if you are wearing <ItemLink id={ITEMS.TAKTHERITRIXS_SHOULDERPADS.id}/> that you make sure <SpellLink id={SPELLS.DARK_TRANSFORMATION.id}/> can be cast immediatly after.</span>,
+    },
+
+    // talents
+    {
+      spell: SPELLS.DEFILE_TALENT,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => 30,
+      isActive: combatant => combatant.hasTalent(SPELLS.DEFILE_TALENT.id),
+      recommendedCastEfficiency: 0.90,
     },
 
     {
@@ -35,16 +88,32 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 120, // TODO: needs to account for CoF
       recommendedCastEfficiency: 0.90,
       isActive: combatant => combatant.hasTalent(SPELLS.DARK_ARBITER_TALENT.id),
-      extraSuggestion: 'This is your main DPS CD.  You should be using this as soon as it comes off CD.',
+      extraSuggestion: <span>This is your main DPS cooldown. Try to cast this off cooldown, keep in mind that if you are wearing <ItemLink id={ITEMS.TAKTHERITRIXS_SHOULDERPADS.id}/> that you make sure <SpellLink id={SPELLS.DARK_TRANSFORMATION.id}/> can be cast immediatly after.'</span>,
     },
 
     {
-      spell: SPELLS.SUMMON_GARGOYLE,
-      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
-      getCooldown: haste => 180,
+      spell: SPELLS.SOUL_REAPER_TALENT,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => 45,
+      isActive: combatant => combatant.hasTalent(SPELLS.SOUL_REAPER_TALENT),
       recommendedCastEfficiency: 0.90,
-      isActive: combatant => combatant.hasTalent(SPELLS.DEFILE_TALENT.id) || combatant.hasTalent(SPELLS.SOUL_REAPER_TALENT.id),
-      extraSuggestion: 'This is one your main DPS CDs.  You should be using this as soon as it comes off CD.',
+    },
+
+    {
+      spell: SPELLS.BLIGHTED_RUNE_WEAPON_TALENT,
+      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
+      getCooldown: haste => 60,
+      isActive: combatant => combatant.hasTalent(SPELLS.BLIGHTED_RUNE_WEAPON_TALENT),
+      recommendedCastEfficiency: 0.90,
+    },
+
+    {
+      spell: SPELLS.EPIDEMIC_TALENT,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => 10 / (1 + haste),
+      isActive: combatant => combatant.hasTalent(SPELLS.EPIDEMIC_TALENT),
+      charges: 3,
+      recommendedCastEfficiency: 0.90,
     },
   ];
 }

@@ -6,12 +6,137 @@
 
 export default {
   // Beast Mastery:
-  // ...
+  ASPECT_OF_THE_WILD: {
+    id: 193530,
+    name: 'Aspect of the Wild',
+    icon: 'spell_nature_protectionformnature',
+  },
+  BESTIAL_WRATH: {
+    id: 19574,
+    name: 'Bestial Wrath',
+    icon: 'ability_druid_ferociousbite',
+  },
+  BESTIAL_WRATH_BUFF_HATI: {
+    id: 207033,
+    name: 'Bestial Wrath Buff',
+    icon: 'ability_druid_ferociousbite',
+  },
+  BESTIAL_WRATH_BUFF_MAIN_PET: {
+    id: 186254,
+    name: 'Bestial Wrath Buff',
+    icon: 'ability_druid_ferociousbite',
+  },
+  DIRE_BEAST_SUMMON: {
+    id: 224573,
+    name: 'Dire Beast Summon',
+    icon: 'ability_hunter_sickem',
+  },
+  COBRA_SHOT: {
+    id: 193455,
+    name: 'Cobra Shot',
+    icon: 'ability_hunter_cobrashot',
+  },
+  DIRE_BEAST: {
+    id: 120679,
+    name: 'Dire Beast',
+    icon: 'ability_hunter_longevity',
+  },
+  DIRE_BEAST_BUFF: {
+    id: 120694,
+    name: 'Dire Beast',
+    icon: 'ability_hunter_longevity',
+  },
+  DIRE_FRENZY_TALENT_BUFF: {
+    id: 246152,
+    name: 'Dire Frenzy Buff',
+    icon: 'ability_druid_mangle',
+  },
+  EAGLE_EYE: {
+    id: 6197,
+    name: 'Eagle Eye',
+    icon: 'ability_hunter_eagleeye',
+  },
+  KILL_COMMAND: {
+    id: 34026,
+    name: 'Kill Command',
+    icon: 'ability_hunter_killcommand',
+  },
+  KILL_COMMAND_PET: {
+    id: 83381,
+    name: 'Kill Command',
+    icon: 'ability_hunter_killcommand',
+  },
+  WILD_CALL: {
+    id: 185789,
+    name: 'Wild Call',
+    icon: 'ability_hunter_masterscall',
+  },
+  WILD_CALL_PROC: {
+    id: 185791,
+    name: 'Wild Call Proc',
+    icon: 'ability_hunter_masterscall',
+  },
 
+  //Beast Mastery Artifact Traits
+  TITANS_THUNDER: {
+    id: 207068,
+    name: 'Titan\'s Thunder',
+    icon: 'inv_firearm_2h_artifactlegion_d_01',
+  },
+  TITANS_THUNDER_BUFF: {
+    id: 207094,
+    name: 'Titans Thunder Buff',
+    icon: 'inv_firearm_2h_artifactlegion_d_01',
+  },
+  BEAST_CLEAVE_BUFF: {
+    id: 118455,
+    name: 'Beast Cleave',
+    icon: 'ability_hunter_sickem',
+  },
+  COBRA_COMMANDER: {
+    id: 243042,
+    name: 'Cobra Commander',
+    icon: 'inv_waepon_bow_zulgrub_d_01',
+  },
+
+  //Beast Mastery Tier
+  HUNTER_BM_T19_2P_BONUS: {
+    id: 211181, //WoWHead has this as 4p, but it's actually the 2p
+    name: 'T19 2 set bonus',
+    icon: 'trade_engineering',
+  },
+  HUNTER_BM_T19_2P_BONUS_BUFF: {
+    id: 211183,
+    name: 'T19 2 set bonus',
+    icon: 'ability_druid_ferociousbite',
+  },
+  HUNTER_BM_T19_4P_BONUS: {
+    id: 211172,
+    name: 'T19 2 set bonus',
+    icon: 'trade_engineering',
+  },
+  HUNTER_BM_T20_2P_BONUS: {
+    id: 242239,
+    name: 'T20 2 set bonus',
+    icon: 'ability_hunter_bestialdiscipline',
+  },
+  HUNTER_BM_T20_2P_BONUS_BUFF: {
+    id: 246126,
+    name: 'T20 2 set bonus',
+    icon: 'ability_hunter_bestialdiscipline',
+  },
+  HUNTER_BM_T20_4P_BONUS: {
+    id: 242240,
+    name: 'T20 4 set bonus',
+    icon: 'ability_hunter_bestialdiscipline',
+  },
+  HUNTER_BM_T20_4P_BONUS_BUFF: {
+    id: 246116,
+    name: 'T20 4 set bonus',
+    icon: 'ability_hunter_fervor',
+  },
 
   // MarksmanshipHunter:
-
-
   // Marksmanship spells
 
   WINDBURST: {
@@ -44,55 +169,10 @@ export default {
     name: 'Trueshot',
     icon: 'ability_trueshot',
   },
-  MULTISHOT: {
-    id: 2643,
-    name: 'Multi-Shot',
-    icon: 'ability_upgrademoonglaive',
-  },
-  EXHILARATION: {
-    id: 109304,
-    name: 'Exhilaration',
-    icon: 'ability_hunter_onewithnature',
-  },
-  ASPECT_OF_THE_CHEETAH: {
-    id: 186257,
-    name: 'Aspect of the Cheetah',
-    icon: 'ability_mount_jungletiger',
-  },
-  ASPECT_OF_THE_TURTLE: {
-    id: 186265,
-    name: 'Aspect of the Turtle',
-    icon: 'ability_hunter_pet_turtle',
-  },
   BURSTING_SHOT: {
     id: 224729,
     name: 'Bursting Shot',
     icon: 'ability_hunter_burstingshot',
-  },
-  CONCUSSIVE_SHOT: {
-    id: 27634,
-    name: 'Concussive Shot',
-    icon: 'spell_frost_stun',
-  },
-  COUNTER_SHOT: {
-    id: 147362,
-    name: 'Counter Shot',
-    icon: 'inv_ammo_arrow_03',
-  },
-  MISDIRECTION: {
-    id: 34477,
-    name: 'Misdrection',
-    icon: 'ability_hunter_misdirection',
-  },
-  FREEZING_TRAP: {
-    id: 187650,
-    name: 'Freezing Trap',
-    icon: 'spell_frost_chainsofice',
-  },
-  TAR_TRAP: {
-    id: 187698,
-    name: 'Tar Trap',
-    icon: 'spell_yorsahj_bloodboil_black',
   },
   VULNERABLE: {
     id: 187131,
@@ -103,6 +183,11 @@ export default {
     id: 80483,
     name: 'Arcane Torrent',
     icon: 'spell_shadow_teleport',
+  },
+  MARKING_TARGETS: {
+    id: 223138,
+    name: 'Marking Targets',
+    icon: 'ability_marksmanship',
   },
 
   //CATEGORY
@@ -155,20 +240,24 @@ export default {
   },
 
   // Marksmanship artifact traits
-  BULLSEYE_BUFF: {
+  BULLSEYE_TRAIT: {
     id: 204090,
     name: 'Bullseye',
     icon: 'ability_hunter_focusedaim',
   },
   QUICK_SHOT_TRAIT: {
     id: 190462,
-    name: 'Quick shot',
+    name: 'Quick Shot',
     icon: 'ability_trueshot',
   },
-
   CYCLONIC_BURST_TRAIT: {
     id: 238124,
     name: 'Cyclonic burst',
+    icon: 'inv_bow_1h_artifactwindrunner_d_02',
+  },
+  CYCLONIC_BURST_IMPACT_TRAIT: {
+    id: 242712,
+    name: 'Cyclonic Burst',
     icon: 'inv_bow_1h_artifactwindrunner_d_02',
   },
   UNERRING_ARROWS_TRAIT: {
@@ -184,10 +273,10 @@ export default {
     icon: 'inv_belt_66green',
   },
   GYROSCOPIC_STABILIZATION: {
-  id: 235712,
-  name: 'Gyroscopic stabilization',
-  icon: 'inv_glove_mail_raidshamanmythic_o_01',
-},
+    id: 235712,
+    name: 'Gyroscopic stabilization',
+    icon: 'inv_glove_mail_raidshamanmythic_o_01',
+  },
 
   //Talent buffs/debuffs
   LOCK_AND_LOAD_BUFF: {
@@ -200,7 +289,16 @@ export default {
     name: 'True Aim',
     icon: 'spell_hunter_focusingshot',
   },
-
+  EXPLOSIVE_SHOT_SHOT: {
+    id: 212680,
+    name: 'Explosive Shot',
+    icon: '6bf_explosive_shard',
+  },
+  TRICK_SHOT_BUFF: {
+    id: 227272,
+    name: 'Trick Shot',
+    icon: 'ability_hunter_runningshot',
+  },
   // Survival:
   // ...
 
@@ -216,10 +314,120 @@ export default {
     name: 'Ancient Hysteria',
     icon: 'spell_shadow_unholyfrenzy',
   },
-  //The buff given by volley when it's activated
+  //The buff given by volley when it's activated (and also what does the damage)
   VOLLEY_ACTIVATED: {
     id: 194392,
     name: 'Volley buff',
     icon: 'ability_marksmanship',
+  },
+  FLARE: {
+    id: 1543,
+    name: 'Flare',
+    icon: 'spell_fire_flare',
+  },
+  FEIGN_DEATH: {
+    id: 5384,
+    name: 'Feign Death',
+    icon: 'ability_rogue_feigndeath',
+  },
+  PLAY_DEAD: {
+    id: 209997,
+    name: 'Play Dead',
+    icon: 'inv_misc_pelt_bear_03',
+  },
+  WAKE_UP: {
+    id: 210000,
+    name: 'Wake Up',
+    icon: 'warrior_disruptingshout',
+  },
+  REVIVE_PET_AND_MEND_PET: {
+    id: 982,
+    name: 'Revive Pet',
+    icon: 'ability_hunter_beastsoothe',
+  },
+  EXHILARATION: {
+    id: 109304,
+    name: 'Exhilaration',
+    icon: 'ability_hunter_onewithnature',
+  },
+  ASPECT_OF_THE_CHEETAH: {
+    id: 186257,
+    name: 'Aspect of the Cheetah',
+    icon: 'ability_mount_jungletiger',
+  },
+  ASPECT_OF_THE_TURTLE: {
+    id: 186265,
+    name: 'Aspect of the Turtle',
+    icon: 'ability_hunter_pet_turtle',
+  },
+  /*  DISENGAGE: {
+      id: 781,
+      name: 'Disengage',
+      icon: 'ability_rogue_feint',
+    },*/
+  FREEZING_TRAP: {
+    id: 187650,
+    name: 'Freezing Trap',
+    icon: 'spell_frost_chainsofice',
+  },
+  TAR_TRAP: {
+    id: 187698,
+    name: 'Tar Trap',
+    icon: 'spell_yorsahj_bloodboil_black',
+  },
+  A_MURDER_OF_CROWS_SPELL: {
+    id: 131900,
+    name: 'A Murder of Crows',
+    icon: 'ability_hunter_murderofcrows',
+  },
+  CALL_PET_1: {
+    id: 883,
+    name: 'Call Pet 1',
+    icon: 'ability_hunter_beastcall',
+  },
+  CALL_PET_2: {
+    id: 83242,
+    name: 'Call Pet 2',
+    icon: 'ability_hunter_beastcall',
+  },
+  CALL_PET_3: {
+    id: 83243,
+    name: 'Call Pet 3',
+    icon: 'ability_hunter_beastcall',
+  },
+  CALL_PET_4: {
+    id: 83244,
+    name: 'Call Pet 4',
+    icon: 'ability_hunter_beastcall',
+  },
+  CALL_PET_5: {
+    id: 83245,
+    name: 'Call Pet 5',
+    icon: 'ability_hunter_beastcall',
+  },
+  CONCUSSIVE_SHOT: {
+    id: 27634,
+    name: 'Concussive Shot',
+    icon: 'spell_frost_stun',
+  },
+  COUNTER_SHOT: {
+    id: 147362,
+    name: 'Counter Shot',
+    icon: 'inv_ammo_arrow_03',
+  },
+  MISDIRECTION: {
+    id: 34477,
+    name: 'Misdrection',
+    icon: 'ability_hunter_misdirection',
+  },
+  MULTISHOT: {
+    id: 2643,
+    name: 'Multi-Shot',
+    icon: 'ability_upgrademoonglaive',
+  },
+  DISMISS_PET: {
+    id: 2641,
+    name: 'Dismiss Pet',
+    icon: 'spell_nature_spiritwolf',
   },
 };

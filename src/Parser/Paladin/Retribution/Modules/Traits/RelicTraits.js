@@ -2,7 +2,7 @@ import React from 'react';
 
 import StatisticsListBox, { STATISTIC_ORDER } from 'Main/StatisticsListBox';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 import MightOfTheTemplar from './MightOfTheTemplar';
 import HighlordsJudgment from './HighlordsJudgment';
@@ -10,7 +10,7 @@ import DeliverTheJustice from './DeliverTheJustice';
 import RighteousVerdict from './RighteousVerdict';
 import WrathOfTheAshbringer from './WrathOfTheAshbringer';
 
-class RelicTraits extends Module {
+class RelicTraits extends Analyzer {
   static dependencies = {
     mightOfTheTemplar: MightOfTheTemplar,
     highlordsJudgment: HighlordsJudgment,

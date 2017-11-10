@@ -3,7 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import { formatPercentage, formatNumber } from 'common/format';
@@ -20,7 +20,7 @@ const SKYSECS_HOLD_HP_PER_CAST = 0.12;
  * Skysec's Hold from the total healing done by Skysec's, and shows the "effective HPS" of the
  * boots.
  */
-class SkysecsHold extends Module {
+class SkysecsHold extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

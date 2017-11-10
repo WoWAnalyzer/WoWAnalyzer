@@ -1,9 +1,3 @@
-import React from 'react';
-
-import SuggestionsTab from 'Main/SuggestionsTab';
-import Tab from 'Main/Tab';
-import Talents from 'Main/Talents';
-
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 
@@ -11,7 +5,7 @@ import Haste from './Modules/PaladinCore/Haste';
 
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
-import CooldownTracker from './Modules/Features/CooldownTracker';
+import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import Judgment from './Modules/Features/Judgment';
 
 import DivinePurpose from './Modules/Talents/DivinePurpose';
@@ -48,7 +42,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Features
     castEfficiency: CastEfficiency,
     alwaysBeCasting: AlwaysBeCasting,
-    cooldownTracker: CooldownTracker,
+    cooldownThroughputTracker: CooldownThroughputTracker,
     judgment: Judgment,
     retribution: Retribution,
     blessingOfTheAshbringer: BlessingOfTheAshbringer,
@@ -80,32 +74,6 @@ class CombatLogParser extends CoreCombatLogParser {
     tier21_2set: Tier21_2set,
     tier21_4set: Tier21_4set,
   };
-
-  generateResults() {
-    const results = super.generateResults();
-
-    results.tabs = [
-      {
-        title: 'Suggestions',
-        url: 'suggestions',
-        render: () => (
-          <SuggestionsTab issues={results.issues} />
-        ),
-      },
-      {
-        title: 'Talents',
-        url: 'talents',
-        render: () => (
-          <Tab title="Talents">
-            <Talents combatant={this.modules.combatants.selected} />
-          </Tab>
-        ),
-      },
-      ...results.tabs,
-    ];
-
-    return results;
-  }
 }
 
 export default CombatLogParser;

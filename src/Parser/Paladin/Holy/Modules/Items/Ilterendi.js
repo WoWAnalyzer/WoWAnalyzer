@@ -6,7 +6,7 @@ import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -15,7 +15,7 @@ import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
 const LEGENDARY_ILTERENDI_BUFF_SPELL_ID = 207589;
 const LEGENDARY_ILTERENDI_HEALING_INCREASE = 0.15;
 
-class Ilterendi extends Module {
+class Ilterendi extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
@@ -47,7 +47,7 @@ class Ilterendi extends Module {
     };
   }
   suggestions(when) {
-    when(this.owner.getPercentageOfTotalHealingDone(this.healing)).isLessThan(0.045)
+    when(this.owner.getPercentageOfTotalHealingDone(this.healing)).isLessThan(0.04)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Your usage of <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} /> can be improved. Try to line up <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} /> and <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> with the buff or consider using an easier legendary.</span>)
           .icon(ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.icon)

@@ -1,51 +1,56 @@
-import React from 'react';
-
-import SuggestionsTab from 'Main/SuggestionsTab';
-import Tab from 'Main/Tab';
-import Talents from 'Main/Talents';
-
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
-import CooldownTracker from './Modules/Features/CooldownTracker';
+import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import WintersChillTracker from './Modules/Features/WintersChill';
 import BrainFreeze from './Modules/Features/BrainFreeze';
+import IceLance from './Modules/Features/IceLance';
 import ThermalVoid from './Modules/Features/ThermalVoid';
-import IcicleTracker from './Modules/Features/IcicleTracker';
+import GlacialSpike from './Modules/Features/GlacialSpike';
 import ArcticGale from './Modules/Features/ArcticGale';
 import FrostBomb from './Modules/Features/FrostBomb';
 import RuneOfPower from '../Shared/Modules/Features/RuneOfPower';
 import MirrorImage from '../Shared/Modules/Features/MirrorImage';
 import UnstableMagic from '../Shared/Modules/Features/UnstableMagic';
+import SplittingIce from './Modules/Features/SplittingIce';
+import CancelledCasts from '../Shared/Modules/Features/CancelledCasts';
 
 import FrozenOrb from './Modules/Cooldowns/FrozenOrb';
 import IcyVeins from './Modules/Cooldowns/IcyVeins';
 
 import ShardOfTheExodar from '../Shared/Modules/Items/ShardOfTheExodar';
 import Tier20_2set from './Modules/Items/Tier20_2set';
+import Tier20_4set from './Modules/Items/Tier20_4set';
 import ZannesuJourney from './Modules/Items/ZannesuJourney';
+import IceTime from './Modules/Items/IceTime';
 import MagtheridonsBanishedBracers from './Modules/Items/MagtheridonsBanishedBracers';
 import ShatteredFragmentsOfSindragosa from './Modules/Items/ShatteredFragmentsOfSindragosa';
+import LadyVashjsGrasp from './Modules/Items/LadyVashjsGrasp';
 import SoulOfTheArchmage from './Modules/Items/SoulOfTheArchmage';
+
+
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Features
     castEfficiency: CastEfficiency,
     alwaysBeCasting: AlwaysBeCasting,
-    cooldownTracker: CooldownTracker,
+    cancelledCasts: CancelledCasts,
+    cooldownThroughputTracker: CooldownThroughputTracker,
 	  wintersChillTracker: WintersChillTracker,
 	  brainFreeze: BrainFreeze,
+    iceLance: IceLance,
 	  thermalVoid: ThermalVoid,
-	  icicleTracker: IcicleTracker,
+	  glacialSpike: GlacialSpike,
     damageDone: [DamageDone, { showStatistic: true }],
     runeOfPower: RuneOfPower,
     mirrorImage: MirrorImage,
     unstableMagic: UnstableMagic,
     arcticGale: ArcticGale,
     frostBomb: FrostBomb,
+    splittingIce: SplittingIce,
 
 	  //Cooldowns
     frozenOrb: FrozenOrb,
@@ -53,38 +58,15 @@ class CombatLogParser extends CoreCombatLogParser {
 
 	  //Items
 	  tier20_2set: Tier20_2set,
+    tier20_4set: Tier20_4set,
 	  shardOfTheExodar: ShardOfTheExodar,
     zannesuJourney: ZannesuJourney,
+    iceTime: IceTime,
     magtheridonsBanishedBracers: MagtheridonsBanishedBracers,
     shatteredFragmentsOfSindragosa: ShatteredFragmentsOfSindragosa,
+    ladyVashjsGrasp: LadyVashjsGrasp,
     soulOfTheArchmage: SoulOfTheArchmage,
-
   };
-
-  generateResults() {
-    const results = super.generateResults();
-    results.tabs = [
-      {
-        title: 'Suggestions',
-        url: 'suggestions',
-        render: () => (
-          <SuggestionsTab issues={results.issues} />
-        ),
-      },
-      {
-        title: 'Talents',
-        url: 'talents',
-        render: () => (
-          <Tab title="Talents">
-            <Talents combatant={this.modules.combatants.selected} />
-          </Tab>
-        ),
-      },
-      ...results.tabs,
-    ];
-
-    return results;
-  }
 }
 
 export default CombatLogParser;

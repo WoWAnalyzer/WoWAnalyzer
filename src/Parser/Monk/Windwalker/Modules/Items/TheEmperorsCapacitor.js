@@ -4,13 +4,13 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 import CHI_SPENDERS from 'Parser/Monk/Windwalker/Constants';
 
-class TheEmperorsCapacitor extends Module {
+class TheEmperorsCapacitor extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
+      combatants: Combatants,
   };
   totalStacks = 0;
   currentStacks = 0;
@@ -63,6 +63,13 @@ class TheEmperorsCapacitor extends Module {
     if (spellId === SPELLS.CRACKLING_JADE_LIGHTNING.id) {
       this.damage += event.amount + (event.absorbed || 0);
     }
+  }
+
+  on_byPlayerPet_damage(event) {
+      const spellId = event.ability.guid;
+      if (spellId === SPELLS.CRACKLING_JADE_LIGHTNING.id) {
+          this.damage += event.amount + (event.absorbed || 0);
+      }
   }
 
   item() {

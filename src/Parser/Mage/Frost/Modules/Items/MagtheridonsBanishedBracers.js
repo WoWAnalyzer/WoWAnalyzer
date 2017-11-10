@@ -1,12 +1,12 @@
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import getDamageBonus from 'Parser/Mage/Shared/Modules/GetDamageBonus';
 
 const DAMAGE_BONUS = .03;
 
-class MagtheridonsBanishedBracers extends Module {
+class MagtheridonsBanishedBracers extends Analyzer {
 
   static dependencies = {
 		combatants: Combatants,

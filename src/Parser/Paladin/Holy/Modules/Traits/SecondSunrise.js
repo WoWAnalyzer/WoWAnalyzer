@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage, formatThousands } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 /**
@@ -18,7 +18,7 @@ const SECOND_SUNRISE_PROC_CHANCE = 0.05;
  * Second Sunrise (Artifact Trait)
  * Light of Dawn has a 5% chance to cast a second time for no additional mana cost.
  */
-class SecondSunrise extends Module {
+class SecondSunrise extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

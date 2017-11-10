@@ -56,8 +56,18 @@ export default {
     name: 'Mirror Image',
     icon: 'spell_magic_managain',
   },
-  UNSTABLE_MAGIC_DAMAGE: {
+  UNSTABLE_MAGIC_DAMAGE_FIRE: {
+    id: 157977,
+    name: 'Unstable Magic',
+    icon: 'spell_mage_unstablemagic',
+  },
+  UNSTABLE_MAGIC_DAMAGE_FROST: {
     id: 157978,
+    name: 'Unstable Magic',
+    icon: 'spell_mage_unstablemagic',
+  },
+  UNSTABLE_MAGIC_DAMAGE_ARCANE: {
+    id: 157979,
     name: 'Unstable Magic',
     icon: 'spell_mage_unstablemagic',
   },
@@ -143,6 +153,11 @@ export default {
     name: 'Ebonbolt',
     icon: 'artifactability_frostmage_ebonbolt',
   },
+  EBONBOLT_DAMAGE: {
+    id: 228599,
+    name: 'Ebonbolt',
+    icon: 'artifactability_frostmage_ebonbolt',
+  },
   COMET_STORM_DAMAGE: {
     id: 153596,
     name: 'Comet Storm',
@@ -152,6 +167,21 @@ export default {
     id: 113092,
     name: 'Frost Bomb',
     icon: 'spell_mage_frostbomb',
+  },
+  GLACIAL_SPIKE_DAMAGE: {
+    id: 228600,
+    name: 'Glacial Spike',
+    icon: 'spell_frost_frostbolt',
+  },
+  RING_OF_FROST_DAMAGE: {
+    id: 82691,
+    name: 'Ring of Frost',
+    icon: 'spell_frost_ring-of-frost',
+  },
+  ICE_TIME_FROST_NOVA: { // proc from Ice Time, which is called "Frost Nova" for some reason
+    id: 235235,
+    name: 'Frost Nova',
+    icon: 'spell_frost_frostnova',
   },
 
   //Fire
@@ -210,7 +240,7 @@ export default {
     icon: 'spell_frost_frostshock',
   },
   FREEZE: {
-    id: 231596,
+    id: 33395,
     name: 'Freeze',
     icon: 'spell_frost_frostshock',
   },
@@ -219,7 +249,7 @@ export default {
     name: 'Glacial Eruption',
     icon: 'creatureportrait_creature_iceblock',
   },
-  ICICLES: {
+  ICICLE_DAMAGE: {
     id: 148022,
     name: 'Icicle',
     icon: 'spell_frost_iceshard',
@@ -313,26 +343,36 @@ export default {
     name: 'Frozen Veins',
     icon: 'spell_frost_coldhearted',
   },
+  ICE_NINE: {
+    id: 214664,
+    name: 'Ice Nine',
+    icon: 'spell_frost_iceshard',
+  },
+  WARMTH_OF_THE_PHOENIX: {
+    id: 240671,
+    name: 'Warmth of the Phoenix',
+    icon: 'artifactability_firemage_phoenixbolt',
+  },
 
   //Tier Sets
   FROST_MAGE_T20_2SET_BONUS_BUFF: {
     id: 242252,
-    name: 'Tier 20 2 Set Bonus',
+    name: 'T20 2 set bonus',
     icon: 'spell_frost_frostbolt02',
   },
   FROST_MAGE_T20_4SET_BONUS_BUFF: {
     id: 242254,
-    name: 'Tier 20 4 Set Bonus',
+    name: 'T20 4 set bonus',
     icon: 'spell_frost_frostbolt02',
   },
   FIRE_MAGE_T20_2SET_BONUS_BUFF: {
     id: 242249,
-    name: 'Tier 20 2 Set Bonus',
+    name: 'T20 2 set bonus',
     icon: 'spell_fire_firebolt02',
   },
   FIRE_MAGE_T20_4SET_BONUS_BUFF: {
     id: 242250,
-    name: 'Tier 20 4 Set Bonus',
+    name: 'T20 4 set bonus',
     icon: 'spell_fire_firebolt02',
   },
 

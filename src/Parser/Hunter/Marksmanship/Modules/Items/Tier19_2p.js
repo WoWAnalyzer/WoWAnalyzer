@@ -1,5 +1,5 @@
 import React from 'react';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
@@ -7,8 +7,6 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatNumber } from "common/format";
-
-const debug = false;
 
 //1000ms/45focus = 22.2ms/focus
 const CDR_PER_FOCUS = 22.22222;
@@ -25,7 +23,7 @@ const AFFECTED_ABILITIES = [
   SPELLS.VOLLEY_ACTIVATED.id,
 ];
 
-class Tier19_2p extends Module {
+class Tier19_2p extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     spellUsable: SpellUsable,
@@ -45,7 +43,6 @@ class Tier19_2p extends Module {
     }
     //the added || 0 ensures we don't get any undefined
     this.lastFocusCost = event.classResources[0]['cost'] || 0;
-    debug && console.log(`lastFocusCost is at`, this.lastFocusCost);
     const COOLDOWN_REDUCTION_MS = CDR_PER_FOCUS * this.lastFocusCost;
     const trueshotIsOnCooldown = this.spellUsable.isOnCooldown(SPELLS.TRUESHOT.id);
     if (trueshotIsOnCooldown) {

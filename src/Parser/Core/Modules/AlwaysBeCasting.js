@@ -3,7 +3,7 @@ import React from 'react';
 import Icon from 'common/Icon';
 import SPELLS from 'common/SPELLS';
 import { formatMilliseconds, formatPercentage } from 'common/format';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
@@ -11,7 +11,7 @@ import Haste from './Haste';
 
 const debug = false;
 
-class AlwaysBeCasting extends Module {
+class AlwaysBeCasting extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     haste: Haste,

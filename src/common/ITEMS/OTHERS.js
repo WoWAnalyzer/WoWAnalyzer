@@ -153,6 +153,12 @@ export default {
     icon: 'inv_70_dungeon_ring8d',
     quality: ITEM_QUALITIES.EPIC,
   },
+  DREADSTONE_OF_ENDLESS_SHADOWS: {
+    id: 144480,
+    name: 'Dreadstone of Endless Shadows',
+    icon: 'inv_jewelcrafting_shadowsongamethyst_01',
+    quality: ITEM_QUALITIES.EPIC,
+  },
 
   // T20 Trinkets
   // Heal Trinkets
@@ -180,8 +186,33 @@ export default {
     icon: 'inv_jewelcrafting_starofelune_02',
     quality: ITEM_QUALITIES.EPIC,
   },
+  // T21 Healing Trinkets
+  TARRATUS_KEYSTONE: {
+    id: 151958,
+    name: 'Tarratus Keystone',
+    icon: 'inv_datacrystal06',
+    quality: ITEM_QUALITIES.EPIC,
+  },
+  HIGHFATHERS_MACHINATION: {
+    id: 152289,
+    name: 'Highfather\'s Machination',
+    icon: 'spell_nature_astralrecalgroup',
+    quality: ITEM_QUALITIES.EPIC,
+  },
+  EONARS_COMPASSION: {
+    id: 154175,
+    name: 'Eonar\'s Compassion',
+    icon: 'inv_antorus_green',
+    quality: ITEM_QUALITIES.EPIC,
+  },
 
   // DPS Trinkets
+  ERRATIC_METRONOME: {
+    id: 140792,
+    name: 'Erratic Metronome',
+    icon: 'inv_misc_pocketwatch_01',
+    quality: ITEM_QUALITIES.EPIC,
+  },
   TARNISHED_SENTINEL_MEDALLION: {
     id: 147017,
     name: 'Tarnished Sentinel Medallion',

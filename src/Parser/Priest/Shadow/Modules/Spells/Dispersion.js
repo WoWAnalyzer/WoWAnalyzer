@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 import SpellLink from 'common/SpellLink';
 
@@ -13,7 +13,7 @@ const DISPERSION_BASE_CD = 90;
 const DISPERSION_REDUCTION_CD_PER_TRAIT = 10;
 const DISPERSION_UPTIME_MS = 6000;
 
-class Disperion extends Module {
+class Disperion extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

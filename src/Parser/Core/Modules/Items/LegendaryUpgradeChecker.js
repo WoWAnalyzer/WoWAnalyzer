@@ -2,7 +2,7 @@ import React from 'react';
 import ItemLink from 'common/ItemLink';
 import ITEM_QUALITIES from 'common/ITEM_QUALITIES';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SUGGESTION_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
@@ -10,7 +10,7 @@ import SUGGESTION_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 const MAX_LEGENDARY_ILVL = 970;
 const debug = false;
 
-class LegendaryUpgradeChecker extends Module {
+class LegendaryUpgradeChecker extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

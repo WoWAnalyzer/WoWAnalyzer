@@ -7,10 +7,10 @@ import { formatNumber, formatPercentage } from 'common/format';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import { ABILITIES_THAT_TRIGGER_MASTERY } from '../../Constants';
 
-class MasteryBreakdown extends Module {
+class MasteryBreakdown extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

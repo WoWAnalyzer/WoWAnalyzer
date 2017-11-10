@@ -3,17 +3,17 @@ import React from 'react';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import { formatNumber, formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
-import getDamageBonus from "Parser/Hunter/Shared/Core/getDamageBonus";
+import getDamageBonus from "Parser/Hunter/Shared/Modules/getDamageBonus";
 
 
 const MAX_STACKS = 20;
 const WARBELT_OF_THE_SENTINEL_ARMY_DAMAGE_BONUS = 0.1;
 
-class WarBeltOfTheSentinelArmy extends Module {
+class WarBeltOfTheSentinelArmy extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };

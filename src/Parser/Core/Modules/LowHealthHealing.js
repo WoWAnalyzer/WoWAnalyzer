@@ -1,11 +1,11 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 import Tab from 'Main/Tab';
 import LowHealthHealingComponent from 'Main/LowHealthHealing';
 
-class LowHealthHealing extends Module {
+class LowHealthHealing extends Analyzer {
   tab() {
     return {
       title: 'Low health healing',

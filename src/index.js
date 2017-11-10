@@ -9,26 +9,10 @@ import App from './Main/App';
 import ErrorBoundary from './Main/ErrorBoundary';
 import { unregister } from './registerServiceWorker';
 
-function isError(x) {
-  return x instanceof Error;
-}
-function toMessage(x) {
-  return isError(x) ? x.message : x;
-}
-function toStack(x) {
-  return isError(x) ? x.stack : undefined;
-}
-
-window.addEventListener('unhandledRejection', event => {
-  const message = toMessage(event);
-  console.error(`Unhandled rejection: ${message}`);
-  Raven && Raven.captureException(new Error('Unhandled promise rejection'), { // eslint-disable-line no-undef
-    extra: {
-      reason: message,
-      stack: toStack(event),
-    },
-  });
-});
+// Source: https://docs.sentry.io/clients/javascript/usage/#promises
+window.onunhandledrejection = function (evt) {
+  Raven && Raven.captureException(evt.reason); // eslint-disable-line no-undef
+};
 
 render(
   <ErrorBoundary>
@@ -41,6 +25,6 @@ render(
       </Route>
     </Router>
   </ErrorBoundary>,
-  document.getElementById('root')
+  document.getElementById('app-mount')
 );
 unregister();

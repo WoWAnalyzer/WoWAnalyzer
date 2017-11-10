@@ -1,10 +1,7 @@
-import React from 'react';
-
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 
-import SuggestionsTab from 'Main/SuggestionsTab';
-
+import Haste from './Modules/Core/Haste';
 import AbilityTracker from './Modules/Core/AbilityTracker';
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
@@ -22,6 +19,8 @@ import CallToTheVoid from './Modules/Spells/CallToTheVoid';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
+    haste: Haste,
+
     damageDone: [DamageDone, { showStatistic: true }],
     alwaysBeCasting: AlwaysBeCasting,
     abilityTracker: AbilityTracker,
@@ -39,40 +38,6 @@ class CombatLogParser extends MainCombatLogParser {
     dispersion: Dispersion,
     callToTheVoid: CallToTheVoid,
   };
-
-  generateResults() {
-    const results = super.generateResults();
-
-    results.statistics = [
-      ...results.statistics,
-    ];
-
-    results.items = [
-      ...results.items,
-    ];
-
-    results.tabs = [
-      {
-        title: 'Suggestions',
-        url: 'suggestions',
-        render: () => (
-          <SuggestionsTab issues={results.issues} />
-        ),
-      },
-      ...results.tabs,
-      // {
-      //   title: 'Talents',
-      //   url: 'talents',
-      //   render: () => (
-      //     <Tab title="Talents">
-      //       <Talents combatant={this.selectedCombatant} />
-      //     </Tab>
-      //   ),
-      // },
-    ];
-
-    return results;
-  }
 }
 
 export default CombatLogParser;

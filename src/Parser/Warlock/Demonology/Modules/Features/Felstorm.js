@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
 import { calculateMaxCasts } from 'Parser/Core/getCastEfficiency';
@@ -9,7 +9,7 @@ import { formatPercentage } from 'common/format';
 
 const FELSTORM_COOLDOWN = 45;
 
-class Felstorm extends Module {
+class Felstorm extends Analyzer {
   _felstormGuid = undefined;
   mainPetFelstormCount = 0;
 

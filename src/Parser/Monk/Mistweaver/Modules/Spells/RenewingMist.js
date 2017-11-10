@@ -4,13 +4,20 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
+import Combatants from 'Parser/Core/Modules/Combatants';
+import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import SmallStatisticBox, { STATISTIC_ORDER } from 'Main/SmallStatisticBox';
 
 const debug = false;
 
-class RenewingMist extends Module {
+class RenewingMist extends Analyzer {
+  static dependencies = {
+    combatants: Combatants,
+    spellUsable: SpellUsable,
+  };
+
   remApplyTimestamp = null;
   remRemoveTimestamp = null;
   remCastTimestamp = null;
@@ -65,6 +72,13 @@ class RenewingMist extends Module {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
+    // Thunder Focus Tea allows you to cast Renewing Mist without triggering its cooldown.
+    if (this.combatants.selected.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id)) {
+      if (this.spellUsable.isOnCooldown(SPELLS.RENEWING_MIST.id)) {
+        this.spellUsable.endCooldown(SPELLS.RENEWING_MIST.id);
+      }
+    }
+
     if (spellId === SPELLS.RENEWING_MIST.id || spellId === SPELLS.LIFE_COCOON.id) {
       // Added because the buff application for REM can occur either before or after the cast.
       if (event.timestamp === this.remApplyTimestamp) {
@@ -101,19 +115,17 @@ class RenewingMist extends Module {
   }
 
   statistic() {
+
     return (
-      <StatisticBox
+      <SmallStatisticBox
         icon={<SpellIcon id={SPELLS.DANCING_MISTS.id} />}
         value={`${formatNumber(this.dancingMistHeal)}`}
-        label={(
-          <dfn data-tip={`You had a total of ${(this.dancingMistProc)} procs on ${this.castsREM} REM casts.`}>
-            Total Healing
-          </dfn>
-        )}
+        label="Dancing Mist Healing"
+        tooltip={`You had a total of ${(this.dancingMistProc)} procs on ${this.castsREM} REM casts.`}
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(5);
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(50);
 }
 
 export default RenewingMist;

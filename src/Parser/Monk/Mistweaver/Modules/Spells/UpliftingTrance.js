@@ -6,14 +6,14 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 const UT_DURATION = 20000;
 const debug = false;
 
-class UpliftingTrance extends Module {
+class UpliftingTrance extends Analyzer {
   UTProcsTotal = 0;
   lastUTProcTime = 0;
   consumedUTProc = 0;
@@ -77,20 +77,40 @@ class UpliftingTrance extends Module {
   }
 
   statistic() {
-    const unusedUTProcs = 1 - (this.consumedUTProc / this.UTProcsTotal);
+    const unusedUTProcsPerc = 1 - (this.consumedUTProc / this.UTProcsTotal);
+    const unusedUTProc = this.UTProcsTotal - this.consumedUTProc;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.UPLIFTING_TRANCE_BUFF.id} />}
-        value={`${formatPercentage(unusedUTProcs)}%`}
+        value={`${formatPercentage(unusedUTProcsPerc)}%`}
         label={(
-          <dfn data-tip={`You got total <b>${this.UTProcsTotal} uplifting trance procs</b> and <b>used ${this.consumedUTProc}</b> of them. ${this.nonUTVivify} of your vivify's were used without an uplifting trance procs.`}>
+          <dfn data-tip={`${this.nonUTVivify} of your vivify's were used without an uplifting trance procs.`}>
             Unused Procs
           </dfn>
         )}
+        footer={(
+          <div className="statistic-bar">
+            <div
+              className="stat-healing-bg"
+              style={{ width: `${this.consumedUTProc / this.UTProcsTotal * 100}%` }}
+              data-tip={`You consumed a total of ${this.consumedUTProc} procs.`}
+            >
+              <img src="/img/healing.png" alt="Healing" />
+            </div>
+            
+            <div
+              className="remainder stat-overhealing-bg"
+              data-tip={`You missed a total of ${unusedUTProc} procs.`}
+            >
+              <img src="/img/overhealing.png" alt="Overhealing" />
+            </div>
+          </div>
+        )}
+        footerStyle={{ overflow: 'hidden' }}
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(40);
+  statisticOrder = STATISTIC_ORDER.CORE(15);
 }
 
 export default UpliftingTrance;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 import SpellLink from 'common/SpellLink';
@@ -12,7 +12,7 @@ import { calculateMaxCasts } from 'Parser/Core/getCastEfficiency';
 // making Summon Infernal basically a 12 minute CD (because without the buff it's worse than Doomguard)
 const LORD_OF_FLAMES_COOLDOWN = 180 * 4;
 
-class UnusedLordOfFlames extends Module {
+class UnusedLordOfFlames extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
   };

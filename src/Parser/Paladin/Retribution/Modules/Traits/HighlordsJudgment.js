@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
@@ -15,7 +15,7 @@ const HIGHLORDS_JUDGMENT_INCREASE = 0.08;
  * Increase the damge done by Judgment by 8%.
  */
 
- class HighlordsJudgment extends Module {
+ class HighlordsJudgment extends Analyzer {
  	static dependencies = {
  		combatants: Combatants,
  	};

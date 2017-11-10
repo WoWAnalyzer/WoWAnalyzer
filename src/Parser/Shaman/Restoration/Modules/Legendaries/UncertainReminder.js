@@ -1,7 +1,7 @@
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
@@ -37,7 +37,7 @@ const SPELLS_SCALING_WITH_HASTE = [
   SPELLS.TIDAL_TOTEM.id,
 ];
 
-class UncertainReminder extends Module {
+class UncertainReminder extends Analyzer {
   heroismStart = null;
   hastePercent = null;
   events = [];

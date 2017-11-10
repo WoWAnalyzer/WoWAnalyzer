@@ -1,12 +1,12 @@
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 const MAELSTROM_THRESHOLD = 95;//120 is threshold, but energize event values are after the 25 Maelstrom increase is applied
 const debug = false;
 
-class Rockbiter extends Module {
+class Rockbiter extends Analyzer {
   rockbiterOveruse = 0;
   rockbiterTotalCasts = 0;
   maelstromWasted = 0;

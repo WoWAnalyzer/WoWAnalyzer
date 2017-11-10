@@ -6,7 +6,7 @@ import { formatPercentage, formatNumber } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 
 import getDamageBonus from '../GetDamageBonus';
 
@@ -15,7 +15,7 @@ const RUNE_DURATION = 10;
 const INCANTERS_FLOW_EXPECTED_BOOST = 0.12;
 
 // FIXME due to interactions with Ignite, the damage boost number will be underrated for Fire Mages. Still fine for Arcane and Frost.
-class RuneOfPower extends Module {
+class RuneOfPower extends Analyzer {
 
   static dependencies = {
     combatants: Combatants,
@@ -51,7 +51,7 @@ class RuneOfPower extends Module {
       if(!casts) {
         return;
       }
-      
+
       const uptimeMs = this.combatants.selected.getBuffUptime(SPELLS.RUNE_OF_POWER_BUFF.id);
       const roundedSecondsPerCast = ((uptimeMs / casts) / 1000).toFixed(1);
 
@@ -77,7 +77,7 @@ class RuneOfPower extends Module {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(0);
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(100);
 }
 
 export default RuneOfPower;

@@ -1,7 +1,7 @@
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 
-import Module from 'Parser/Core/Module';
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import isAtonement from '../Core/isAtonement';
@@ -9,7 +9,7 @@ import AtonementSource from '../Features/AtonementSource';
 
 const debug = true;
 
-class NeroBandOfPromises extends Module {
+class NeroBandOfPromises extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     atonementSource: AtonementSource,
@@ -42,6 +42,15 @@ class NeroBandOfPromises extends Module {
     }
 
     this.healing += event.amount + (event.absorbed || 0);
+  }
+  
+  item() {
+    const healing = this.healing || 0;
+
+    return {
+      item: ITEMS.NERO_BAND_OF_PROMISES,
+      result: this.owner.formatItemHealingDone(healing),
+    };
   }
 }
 
