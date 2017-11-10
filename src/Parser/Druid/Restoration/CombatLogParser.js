@@ -34,7 +34,6 @@ import WildGrowth from './Modules/Features/WildGrowth';
 import Lifebloom from './Modules/Features/Lifebloom';
 import Efflorescence from './Modules/Features/Efflorescence';
 import Clearcasting from './Modules/Features/Clearcasting';
-import Flourish from './Modules/Features/Flourish';
 import Innervate from './Modules/Features/Innervate';
 import PowerOfTheArchdruid from './Modules/Features/PowerOfTheArchdruid';
 import Dreamwalker from './Modules/Features/Dreamwalker';
@@ -44,6 +43,7 @@ import Ironbark from './Modules/Features/Ironbark';
 
 import CenarionWard from './Modules/Talents/CenarionWard';
 import Cultivation from './Modules/Talents/Cultivation';
+import Flourish from './Modules/Talents/Flourish';
 import SpringBlossoms from './Modules/Talents/SpringBlossoms';
 import SoulOfTheForest from './Modules/Talents/SoulOfTheForest';
 import TreeOfLife from './Modules/Talents/TreeOfLife';
