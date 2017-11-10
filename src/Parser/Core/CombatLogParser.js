@@ -51,6 +51,7 @@ import SeaStar from './Modules/Items/SeaStarOfTheDepthmother';
 import DeceiversGrandDesign from './Modules/Items/DeceiversGrandDesign';
 import PrePotion from './Modules/Items/PrePotion';
 import LegendaryUpgradeChecker from './Modules/Items/LegendaryUpgradeChecker';
+import LegendaryCountChecker from './Modules/Items/LegendaryCountChecker';
 import GnawedThumbRing from './Modules/Items/GnawedThumbRing';
 import VialOfCeaselessToxins from './Modules/Items/VialOfCeaselessToxins';
 import SpecterOfBetrayal from './Modules/Items/SpecterOfBetrayal';
@@ -135,6 +136,7 @@ class CombatLogParser {
     darkmoonDeckPromises: DarkmoonDeckPromises,
     prePotion: PrePotion,
     legendaryUpgradeChecker: LegendaryUpgradeChecker,
+    legendaryCountChecker: LegendaryCountChecker,
     gnawedThumbRing: GnawedThumbRing,
     // Tomb trinkets:
     archiveOfFaith: ArchiveOfFaith,
