@@ -191,7 +191,17 @@ export default {
     id: 251843,
     name: 'T21 2 Set Bonus',
     icon: 'ability_priest_ascension',
-  },  
+  },
+  DISC_PRIEST_T21_4SET_BONUS_PASSIVE: {
+    id: 251844,
+    name: 'T21 4 Set Bonus',
+    icon: 'spell_holy_searinglightpriest',
+  },
+  DISC_PRIEST_T21_4SET_BONUS_BUFF: {
+    id: 252848,
+    name: 'T21 4 Set Buff',
+    icon: 'spell_holy_searinglightpriest',
+  },
   KAM_XIRAFF_BUFF: {
     id: 233997,
     name: 'Kam Xi\'raff',
