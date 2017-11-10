@@ -7,7 +7,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SUGGESTION_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
-const MAX_NUMBER_OF_LEGENDARIES = 3;
+const MAX_NUMBER_OF_LEGENDARIES = 2;
 
 class LegendaryCountChecker extends Analyzer {
   static dependencies = {
