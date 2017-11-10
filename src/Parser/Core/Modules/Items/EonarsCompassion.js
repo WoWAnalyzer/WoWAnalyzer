@@ -18,7 +18,7 @@ class EonarsCompassion extends Analyzer {
   pantheonShieldCast = 0;
 
   triggerBuffs = [
-    SPELLS.EONARS_COMPASSION_PANTHEONBUFF_RDROOD.id,
+    SPELLS.EONARS_COMPASSION_PANTHEONBUFF_RDRUID.id,
     SPELLS.EONARS_COMPASSION_PANTHEONBUFF_RMONK.id,
     SPELLS.EONARS_COMPASSION_PANTHEONBUFF_HPALADIN.id,
     SPELLS.EONARS_COMPASSION_PANTHEONBUFF_DPRIEST.id,
@@ -40,7 +40,7 @@ class EonarsCompassion extends Analyzer {
   on_byPlayer_absorbed(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.EONARS_COMPASSION_PANTHEONSHIELD.id) {
-      this.pantheonShieldHealing += (event.amount || 0) + (event.absorbed || 0);
+      this.pantheonShieldHealing += (event.amount || 0);
     }
   }
 

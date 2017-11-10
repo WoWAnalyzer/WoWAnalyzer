@@ -267,7 +267,7 @@ export default {
     name: 'Verdant Embrace',
     icon: 'talentspec_druid_restoration',
   },
-  EONARS_COMPASSION_PANTHEONBUFF_RDROOD: {
+  EONARS_COMPASSION_PANTHEONBUFF_RDRUID: {
     id: 257470,
     name: 'Eonar\'s Verdant Embrace',
     icon: 'talentspec_druid_restoration',
