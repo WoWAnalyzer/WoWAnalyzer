@@ -89,7 +89,6 @@ class CombatLogParser extends CoreCombatLogParser {
     tier20_4set: Tier20_4set,
     tier21_2set: Tier21_2set,
     tier21_4set: Tier21_4set,
-    // SoulOfTheHighPriest: SoulOfTheHighPriest,
     estel: Estel,
 
     // Spells (talents and traits):
