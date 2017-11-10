@@ -1,5 +1,4 @@
 import React from 'react';
-import ItemLink from 'common/ItemLink';
 import ITEM_QUALITIES from 'common/ITEM_QUALITIES';
 import SPELLS from 'common/SPELLS';
 
