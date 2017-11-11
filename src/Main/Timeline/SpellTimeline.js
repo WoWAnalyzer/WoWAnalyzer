@@ -24,6 +24,9 @@ class SpellTimeline extends React.PureComponent {
   constructor() {
     super();
     this.handleMouseWheel = this.handleMouseWheel.bind(this);
+    this.state = {
+      zoom: 2,
+    };
   }
 
   handleMouseWheel(e) {
@@ -68,8 +71,8 @@ class SpellTimeline extends React.PureComponent {
     const duration = end - start;
     const seconds = Math.ceil(duration / 1000);
 
-    const secondWidth = 20;
-    const textDoesntFit = secondWidth < 40;
+    const secondWidth = 40 / this.state.zoom;
+    const skipInterval = Math.ceil(40 / secondWidth);
 
     // 12 for the scrollbar height
     // 36 for the ruler
@@ -81,7 +84,13 @@ class SpellTimeline extends React.PureComponent {
     return (
       <div className="spell-timeline flex">
         <div className="flex-sub legend">
-          <div className="lane ruler-lane">Time into fight</div>
+          <div className="lane ruler-lane">
+            <div className="btn-group">
+              {[1, 2, 3, 5].map(zoom => (
+                <button className={`btn btn-default btn-xs ${zoom === this.state.zoom ? 'active' : ''}`} onClick={() => this.setState({ zoom })}>{zoom}x</button>
+              ))}
+            </div>
+          </div>
           {this.spells.map(spellId => (
             <div className="lane">
               <SpellIcon id={spellId} noLink /> <SpellLink id={spellId} />
@@ -94,14 +103,14 @@ class SpellTimeline extends React.PureComponent {
           onWheel={this.handleMouseWheel}
           ref={comp => (this.gemini = comp)}
         >
-          <div className="ruler" style={{ width: totalWidth }}>
+          <div className={`ruler interval-${skipInterval}`} style={{ width: totalWidth }}>
             {[...Array(seconds)].map((_, second) => {
-              if (textDoesntFit && second % 2 === 1) {
+              if (second % skipInterval !== 0) {
                 // Skip every second second when the text width becomes larger than the container
                 return null;
               }
               return (
-                <div key={second} className="lane" style={{ width: secondWidth * (textDoesntFit ? 2 : 1) }}>
+                <div key={second} className="lane" style={{ width: secondWidth * skipInterval }}>
                   {formatDuration(second)}
                 </div>
               );
