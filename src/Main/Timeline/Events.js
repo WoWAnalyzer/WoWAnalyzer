@@ -55,10 +55,11 @@ class Events extends React.PureComponent {
 
     return (
       <div className="events">
-        {fixedEvents.map(event => {
+        {fixedEvents.map((event, index) => {
           if (event.type === 'cast') {
             return (
               <SpellIcon
+                key={index}
                 id={event.ability.guid}
                 style={{
                   left: (event.timestamp - start) / 1000 * secondWidth,
@@ -73,6 +74,7 @@ class Events extends React.PureComponent {
             const width = Math.min(maxWidth, (event.end - event.start) / 1000 * secondWidth);
             return (
               <div
+                key={index}
                 style={{
                   left,
                   width,
