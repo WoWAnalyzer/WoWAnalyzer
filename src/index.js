@@ -8,7 +8,7 @@ import { unregister } from './registerServiceWorker';
 
 // Source: https://docs.sentry.io/clients/javascript/usage/#promises
 window.onunhandledrejection = function (evt) {
-  Raven && Raven.captureException(evt.reason); // eslint-disable-line no-undef
+  window.Raven && window.Raven.captureException(evt.reason);
 };
 
 render(<Root />, document.getElementById('app-mount'));

@@ -1,0 +1,3293 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Root matches snapshot 1`] = `<Root />`;
+
+exports[`Root matches snapshot 2`] = `
+<div
+  className="app "
+>
+  <div
+    style={
+      Object {
+        "background": "#000",
+        "bottom": 0,
+        "left": 0,
+        "opacity": 0,
+        "position": "fixed",
+        "right": 0,
+        "top": 0,
+        "transition": "opacity 1s",
+        "zIndex": -10,
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "backgroundAttachment": "fixed",
+          "backgroundImage": null,
+          "backgroundPosition": "center",
+          "backgroundRepeat": "no-repeat",
+          "backgroundSize": "cover",
+          "bottom": 0,
+          "left": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+          "zIndex": 0,
+        }
+      }
+    />
+    <div
+      style={
+        Object {
+          "backgroundImage": "url(background-overlay.png)",
+          "bottom": 0,
+          "left": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+          "zIndex": 1,
+        }
+      }
+    />
+  </div>
+  <nav>
+    <div
+      className="container"
+    >
+      <div
+        className="menu-item logo main"
+      >
+        <a
+          href="/"
+          onClick={[Function]}
+        >
+          <img
+            alt="WoWAnalyzer logo"
+            src="/favicon.png"
+          />
+        </a>
+      </div>
+      <div
+        className="spacer"
+      />
+      <div
+        className="menu-item main"
+      >
+        <a
+          href="https://github.com/WoWAnalyzer/WoWAnalyzer"
+        >
+          <img
+            alt="GitHub logo"
+            src="GitHub-Mark-Light-32px.png"
+          />
+          <span
+            className="optional"
+            style={
+              Object {
+                "paddingLeft": 6,
+              }
+            }
+          >
+             View on GitHub
+          </span>
+        </a>
+      </div>
+    </div>
+    <div
+      className="progress"
+      style={
+        Object {
+          "opacity": 0,
+          "width": "0%",
+        }
+      }
+    />
+  </nav>
+  <header>
+    <div
+      className="container hidden-md hidden-sm hidden-xs"
+    >
+      Analyze your performance
+    </div>
+    <div
+      className="report-selector"
+    >
+      <form
+        className="form-inline"
+        onSubmit={[Function]}
+      >
+        <div
+          className="container"
+        >
+          <div
+            className="row"
+          >
+            <div
+              className="col-md-12 col-lg-8 report-code-box"
+            >
+              <span
+                className="hidden-xs"
+              >
+                Enter a WCL report link:
+                 
+              </span>
+              <input
+                autoCapitalize="off"
+                autoCorrect="off"
+                className="form-control"
+                name="code"
+                onChange={[Function]}
+                placeholder="https://www.warcraftlogs.com/reports/<report code>"
+                spellCheck="false"
+                style={
+                  Object {
+                    "width": 360,
+                  }
+                }
+                type="text"
+              />
+              <button
+                className="btn btn-primary analyze"
+                type="submit"
+              >
+                Analyze 
+                <span
+                  aria-hidden={true}
+                  className="glyphicon glyphicon-chevron-right"
+                />
+              </button>
+            </div>
+            <div
+              className="col-md-12 col-lg-4 external-links text-right"
+            >
+              <a
+                className="btn discord"
+                href="https://discord.gg/AxphPxU"
+                role="button"
+                style={undefined}
+              >
+                <img
+                  alt="Discord logo"
+                  src="Discord-Logo+Wordmark-White.svg"
+                  style={
+                    Object {
+                      "height": "2em",
+                      "marginTop": -1,
+                    }
+                  }
+                />
+              </a>
+              <a
+                className="btn patreon"
+                href="https://www.patreon.com/wowanalyzer"
+                role="button"
+              >
+                <span>
+                  <svg
+                    fill="#fff"
+                    height="22px"
+                    viewBox="0 0 8 8"
+                    width="22px"
+                  >
+                    <path
+                      d="M2.32061871,0.367894189 C3.18961652,-0.0376047918 4.20711396,-0.109604611 5.12711165,0.16039471 C5.93360962,0.39539412 6.6591078,0.894392865 7.17010651,1.55889119 C7.67510524,2.21138955 7.96860451,3.02288751 7.99660444,3.84638544 C8.03210435,4.6978833 7.78560497,5.55788114 7.30110618,6.25987938 C6.59110797,7.31187673 5.35311108,7.98687503 4.07861429,7.999375 C3.44061589,8.000375 2.80261749,7.999875 2.1651191,7.999375 C2.17011908,6.65887837 2.1656191,5.31838174 2.16811909,3.97788511 C2.17011908,3.47138639 2.39811851,2.97288764 2.77711756,2.63638849 C3.13911665,2.30838931 3.6371154,2.13588974 4.12461417,2.17238965 C4.6291129,2.20338957 5.11311169,2.45838893 5.42761089,2.85238794 C5.75061008,3.24938694 5.89160973,3.7853856 5.80860994,4.29038433 C5.72761014,4.82138299 5.39511098,5.30638177 4.93061214,5.57838109 C4.39361349,5.90388027 3.69011526,5.91288025 3.13711665,5.61888099 C3.13761665,6.05337989 3.13661665,6.4883788 3.13761665,6.92337771 C3.63111541,7.06737734 4.15961408,7.09187728 4.66161282,6.97737757 C5.40461095,6.81487798 6.07610926,6.35987912 6.50610818,5.73538069 C6.91610715,5.14988217 7.10560668,4.41738401 7.03460685,3.70738579 C6.97460701,3.05588743 6.69410771,2.42788901 6.25160882,1.94539022 C5.84160985,1.49439136 5.29311123,1.16939217 4.69811273,1.03189252 C4.01411445,0.869392928 3.27411631,0.952892718 2.64611789,1.26789193 C1.6451204,1.7543907 0.962622121,2.82088802 0.952122147,3.93238523 C0.950122152,5.28788182 0.951622148,6.64337841 0.95112215,7.999375 C0.634622945,8.000375 0.317623743,7.999875 0.000124540763,7.999875 C0.000124540763,6.67387833 0.000624539506,5.34838167 0.000124540763,4.022885 C-0.00437544792,3.45688642 0.113124257,2.89038785 0.344123676,2.37338915 C0.7321227,1.49639135 1.4476209,0.769393179 2.32061871,0.367894189"
+                    />
+                  </svg>
+                </span>
+                 
+                Become a Patron
+              </a>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </header>
+  <main
+    className="container"
+  >
+    <div>
+      <div
+        className="row"
+      >
+        <div
+          className="col-lg-8 col-md-7"
+        >
+          <div
+            className="panel"
+          >
+            <div
+              className="panel-heading"
+            >
+              <h2>
+                The World of Warcraft Analyzer
+              </h2>
+            </div>
+            <div
+              className="panel-body"
+            >
+              <img
+                alt="Mastery radius"
+                className="pull-right"
+                src="mastery-radius.png"
+                style={
+                  Object {
+                    "margin": 15,
+                  }
+                }
+              />
+              WoW Analyzer is a comprehensive tool for analyzing your performance based on important metrics for your spec. You will need a Warcraft Logs report with advanced combat logging enabled to start. Private logs can not be used, if your guild has private logs you will have to 
+              <a
+                href="https://www.warcraftlogs.com/help/start/"
+              >
+                upload your own logs
+              </a>
+               or change the existing logs to the 
+              <i>
+                unlisted
+              </i>
+               privacy option instead.
+              <br />
+              <br />
+              Here are some interesting examples: 
+              <a
+                className="Paladin"
+                href="/report/LRchdHVAmWtNQ8Fj/22-Mythic+Harjatan+-+Kill+(5:54)/Zerotorescue"
+              >
+                Holy Paladin
+              </a>
+              , 
+              <a
+                className="Priest"
+                href="/report/KbQnkMHZmqWgtXwz/33-Heroic+Krosus+-+Kill+(2:55)/Zerotorescue"
+              >
+                Discipline Priest
+              </a>
+               and 
+              <a
+                className="Monk"
+                href="/report/dcDkhfMR6nG2XxVr/35-Normal+Gul'dan+-+Kill+(5:56)/Zerotorescue"
+              >
+                Brewmaster Monk
+              </a>
+              .
+              <br />
+              <br />
+              Feature requests (
+              <dfn
+                data-tip="Provided that you're not using one of Microsoft's browsers."
+              >
+                and bug reports*
+              </dfn>
+              ) are welcome! On 
+              <a
+                href="https://discord.gg/AxphPxU"
+              >
+                Discord
+              </a>
+               or create an issue 
+              <a
+                href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues"
+              >
+                here
+              </a>
+              .
+            </div>
+          </div>
+          <div
+            className="panel"
+            style={
+              Object {
+                "overflow": "hidden",
+              }
+            }
+          >
+            <div
+              className="panel-heading"
+            >
+              <h2>
+                The WoWAnalyzer Discord bot
+              </h2>
+            </div>
+            <div
+              className="panel-body"
+              style={
+                Object {
+                  "padding": 0,
+                }
+              }
+            >
+              <div
+                className="flex wrapable"
+              >
+                <div
+                  className="flex-main"
+                  style={
+                    Object {
+                      "minWidth": 300,
+                      "padding": "25px 15px",
+                    }
+                  }
+                >
+                  <div
+                    className="flex"
+                  >
+                    <div
+                      className="flex-sub"
+                      style={
+                        Object {
+                          "padding": 5,
+                        }
+                      }
+                    >
+                      <img
+                        alt="Logo"
+                        src="/favicon.png"
+                        style={
+                          Object {
+                            "float": "left",
+                            "width": 80,
+                          }
+                        }
+                      />
+                    </div>
+                    <div
+                      className="flex-main"
+                      style={
+                        Object {
+                          "fontSize": 24,
+                          "lineHeight": 1.4,
+                          "padding": "5px 15px",
+                        }
+                      }
+                    >
+                      Introducing the 
+                      <b>
+                        WoWAnalyzer
+                      </b>
+                       
+                      <img
+                        alt="Discord logo"
+                        src="Discord-Logo+Wordmark-White.svg"
+                        style={
+                          Object {
+                            "height": "2em",
+                            "marginTop": 3,
+                          }
+                        }
+                      />
+                       bot
+                    </div>
+                  </div>
+                  <div
+                    className="text-center"
+                  >
+                    <div
+                      style={
+                        Object {
+                          "fontSize": 16,
+                          "margin": "10px 25px 20px 25px",
+                        }
+                      }
+                    >
+                      Get users to analyze themselves without lifting a finger (even if they don't read the pins).
+                      <br />
+                    </div>
+                    <div
+                      style={
+                        Object {
+                          "marginBottom": 7,
+                        }
+                      }
+                    >
+                      <a
+                        className="btn btn-default btn-lg"
+                        href="https://discordapp.com/oauth2/authorize?&client_id=368144406181838861&scope=bot&permissions=3072"
+                        style={
+                          Object {
+                            "borderRadius": 0,
+                          }
+                        }
+                      >
+                        Add to Discord
+                      </a>
+                    </div>
+                    <a
+                      href="https://github.com/WoWAnalyzer/DiscordBot#wowanalyzer-discord-bot-"
+                    >
+                      More info
+                    </a>
+                  </div>
+                </div>
+                <div
+                  className="flex-sub"
+                >
+                  <img
+                    alt="Bot example gif"
+                    src="discord-bot.gif"
+                    style={
+                      Object {
+                        "height": 300,
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="panel"
+          >
+            <div
+              className="panel-heading"
+            >
+              <h2>
+                Features
+              </h2>
+            </div>
+            <div
+              className="panel-body text-muted"
+            >
+              <div
+                className="row"
+              >
+                <div
+                  className="col-md-6 text-center"
+                >
+                  <img
+                    alt="Item performance breakdowns"
+                    src="items.png"
+                    style={
+                      Object {
+                        "border": "1px solid black",
+                        "borderRadius": 5,
+                        "maxWidth": "100%",
+                      }
+                    }
+                  />
+                  <br />
+                  Item performance breakdowns
+                </div>
+                <div
+                  className="col-md-6 text-center"
+                >
+                  <img
+                    alt="Suggestions for improvement"
+                    src="suggestions.png"
+                    style={
+                      Object {
+                        "border": "1px solid black",
+                        "borderRadius": 5,
+                        "maxWidth": "100%",
+                      }
+                    }
+                  />
+                  <br />
+                  Suggestions for improvement
+                </div>
+              </div>
+              <div
+                className="row"
+                style={
+                  Object {
+                    "marginTop": 15,
+                  }
+                }
+              >
+                <div
+                  className="col-md-6 text-center"
+                >
+                  <img
+                    alt="Important metrics"
+                    src="important-metrics.png"
+                    style={
+                      Object {
+                        "border": "1px solid black",
+                        "borderRadius": 5,
+                        "maxWidth": "100%",
+                      }
+                    }
+                  />
+                  <br />
+                  Important spec specific metrics
+                </div>
+                <div
+                  className="col-md-6 text-center"
+                >
+                  <img
+                    alt="Cooldown usages"
+                    src="cooldownusages.png"
+                    style={
+                      Object {
+                        "border": "1px solid black",
+                        "borderRadius": 5,
+                        "maxWidth": "100%",
+                      }
+                    }
+                  />
+                  <br />
+                  Cooldown usage details
+                </div>
+              </div>
+              <div
+                className="row"
+                style={
+                  Object {
+                    "marginTop": 15,
+                  }
+                }
+              >
+                <div
+                  className="col-md-6 text-center"
+                >
+                  <img
+                    alt="Mana breakdown"
+                    src="mana-breakdown.png"
+                    style={
+                      Object {
+                        "border": "1px solid black",
+                        "borderRadius": 5,
+                        "maxWidth": "100%",
+                      }
+                    }
+                  />
+                  <br />
+                  Mana breakdown
+                </div>
+                <div
+                  className="col-md-6 text-center"
+                >
+                  <img
+                    alt="Open source"
+                    src="open-source.png"
+                    style={
+                      Object {
+                        "border": "1px solid black",
+                        "borderRadius": 5,
+                        "maxWidth": "100%",
+                      }
+                    }
+                  />
+                  <br />
+                  Open source
+                </div>
+              </div>
+              <br />
+              Full source is available on 
+              <a
+                href="https://github.com/WoWAnalyzer/WoWAnalyzer"
+              >
+                GitHub
+              </a>
+              . Contributions are extremely welcome! Add your own module or spec if you want to be able to analyze something not yet available. The repository contains information on how to contribute, if you need any more information please join our Discord (link further below).
+            </div>
+          </div>
+          <div
+            className="panel"
+          >
+            <div
+              className="panel-heading"
+            >
+              <h2>
+                Changes
+              </h2>
+            </div>
+            <div
+              className="panel-body"
+            >
+              <div
+                className="form-group"
+              >
+                <select
+                  className="form-control"
+                  onChange={[Function]}
+                  value={0}
+                >
+                  <option
+                    value={0}
+                  >
+                    Core
+                  </option>
+                  <option
+                    value={250}
+                  >
+                    Blood
+                     
+                    Death Knight
+                  </option>
+                  <option
+                    value={252}
+                  >
+                    Unholy
+                     
+                    Death Knight
+                  </option>
+                  <option
+                    value={251}
+                  >
+                    Frost
+                     
+                    Death Knight
+                  </option>
+                  <option
+                    value={577}
+                  >
+                    Havoc
+                     
+                    Demon Hunter
+                  </option>
+                  <option
+                    value={581}
+                  >
+                    Vengeance
+                     
+                    Demon Hunter
+                  </option>
+                  <option
+                    value={102}
+                  >
+                    Balance
+                     
+                    Druid
+                  </option>
+                  <option
+                    value={103}
+                  >
+                    Feral
+                     
+                    Druid
+                  </option>
+                  <option
+                    value={104}
+                  >
+                    Guardian
+                     
+                    Druid
+                  </option>
+                  <option
+                    value={105}
+                  >
+                    Restoration
+                     
+                    Druid
+                  </option>
+                  <option
+                    value={254}
+                  >
+                    Marksmanship
+                     
+                    Hunter
+                  </option>
+                  <option
+                    value={253}
+                  >
+                    Beast Mastery
+                     
+                    Hunter
+                  </option>
+                  <option
+                    value={64}
+                  >
+                    Frost
+                     
+                    Mage
+                  </option>
+                  <option
+                    value={63}
+                  >
+                    Fire
+                     
+                    Mage
+                  </option>
+                  <option
+                    value={268}
+                  >
+                    Brewmaster
+                     
+                    Monk
+                  </option>
+                  <option
+                    value={269}
+                  >
+                    Windwalker
+                     
+                    Monk
+                  </option>
+                  <option
+                    value={270}
+                  >
+                    Mistweaver
+                     
+                    Monk
+                  </option>
+                  <option
+                    value={65}
+                  >
+                    Holy
+                     
+                    Paladin
+                  </option>
+                  <option
+                    value={70}
+                  >
+                    Retribution
+                     
+                    Paladin
+                  </option>
+                  <option
+                    value={256}
+                  >
+                    Discipline
+                     
+                    Priest
+                  </option>
+                  <option
+                    value={257}
+                  >
+                    Holy
+                     
+                    Priest
+                  </option>
+                  <option
+                    value={258}
+                  >
+                    Shadow
+                     
+                    Priest
+                  </option>
+                  <option
+                    value={261}
+                  >
+                    Subtlety
+                     
+                    Rogue
+                  </option>
+                  <option
+                    value={262}
+                  >
+                    Elemental
+                     
+                    Shaman
+                  </option>
+                  <option
+                    value={263}
+                  >
+                    Enhancement
+                     
+                    Shaman
+                  </option>
+                  <option
+                    value={264}
+                  >
+                    Restoration
+                     
+                    Shaman
+                  </option>
+                  <option
+                    value={265}
+                  >
+                    Affliction
+                     
+                    Warlock
+                  </option>
+                  <option
+                    value={266}
+                  >
+                    Demonology
+                     
+                    Warlock
+                  </option>
+                  <option
+                    value={267}
+                  >
+                    Destruction
+                     
+                    Warlock
+                  </option>
+                  <option
+                    value={73}
+                  >
+                    Protection
+                     
+                    Warrior
+                  </option>
+                  <option
+                    value={71}
+                  >
+                    Arms
+                     
+                    Warrior
+                  </option>
+                </select>
+                <div
+                  style={
+                    Object {
+                      "margin": "0 -22px",
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "padding": 0,
+                      }
+                    }
+                  >
+                    <ul
+                      className="list text"
+                    >
+                      <li
+                        className="flex"
+                      >
+                        <div
+                          className="flex-sub"
+                          style={
+                            Object {
+                              "minWidth": 100,
+                              "paddingRight": 15,
+                            }
+                          }
+                        >
+                          2017-11-8
+                        </div>
+                        <div
+                          className="flex-main"
+                        >
+                          Automatically try again when WCL sends a corrupt fights response.
+                        </div>
+                        <div
+                          className="flex-sub"
+                          style={
+                            Object {
+                              "minWidth": 150,
+                              "paddingLeft": 15,
+                              "textAlign": "right",
+                            }
+                          }
+                        >
+                          <img
+                            alt="Avatar"
+                            src="zerotorescue-avatar.png"
+                            style={
+                              Object {
+                                "borderRadius": "50%",
+                                "height": "1.6em",
+                              }
+                            }
+                          />
+                           
+                          Zerotorescue
+                        </div>
+                      </li>
+                      <li
+                        className="flex"
+                      >
+                        <div
+                          className="flex-sub"
+                          style={
+                            Object {
+                              "minWidth": 100,
+                              "paddingRight": 15,
+                            }
+                          }
+                        >
+                          2017-11-8
+                        </div>
+                        <div
+                          className="flex-main"
+                        >
+                          Changed the API is down and rendering errors to be more amazing.
+                        </div>
+                        <div
+                          className="flex-sub"
+                          style={
+                            Object {
+                              "minWidth": 150,
+                              "paddingLeft": 15,
+                              "textAlign": "right",
+                            }
+                          }
+                        >
+                          <img
+                            alt="Avatar"
+                            src="zerotorescue-avatar.png"
+                            style={
+                              Object {
+                                "borderRadius": "50%",
+                                "height": "1.6em",
+                              }
+                            }
+                          />
+                           
+                          Zerotorescue
+                        </div>
+                      </li>
+                      <li
+                        className="flex"
+                      >
+                        <div
+                          className="flex-sub"
+                          style={
+                            Object {
+                              "minWidth": 100,
+                              "paddingRight": 15,
+                            }
+                          }
+                        >
+                          2017-11-8
+                        </div>
+                        <div
+                          className="flex-main"
+                        >
+                          The changelog tab now includes entries in the shared changelog.
+                        </div>
+                        <div
+                          className="flex-sub"
+                          style={
+                            Object {
+                              "minWidth": 150,
+                              "paddingLeft": 15,
+                              "textAlign": "right",
+                            }
+                          }
+                        >
+                          <img
+                            alt="Avatar"
+                            src="zerotorescue-avatar.png"
+                            style={
+                              Object {
+                                "borderRadius": "50%",
+                                "height": "1.6em",
+                              }
+                            }
+                          />
+                           
+                          Zerotorescue
+                        </div>
+                      </li>
+                      <li
+                        className="flex"
+                      >
+                        <div
+                          className="flex-sub"
+                          style={
+                            Object {
+                              "minWidth": 100,
+                              "paddingRight": 15,
+                            }
+                          }
+                        >
+                          2017-11-8
+                        </div>
+                        <div
+                          className="flex-main"
+                        >
+                          Added a suggestion for healers if their mana percentage is too high at the end of an encounter.
+                        </div>
+                        <div
+                          className="flex-sub"
+                          style={
+                            Object {
+                              "minWidth": 150,
+                              "paddingLeft": 15,
+                              "textAlign": "right",
+                            }
+                          }
+                        >
+                          Blazyb
+                        </div>
+                      </li>
+                      <li
+                        className="flex"
+                      >
+                        <div
+                          className="flex-sub"
+                          style={
+                            Object {
+                              "minWidth": 100,
+                              "paddingRight": 15,
+                            }
+                          }
+                        >
+                          2017-11-6
+                        </div>
+                        <div
+                          className="flex-main"
+                        >
+                          Added a changelog tab to results page and changed the layout of changelogs.
+                        </div>
+                        <div
+                          className="flex-sub"
+                          style={
+                            Object {
+                              "minWidth": 150,
+                              "paddingLeft": 15,
+                              "textAlign": "right",
+                            }
+                          }
+                        >
+                          <img
+                            alt="Avatar"
+                            src="zerotorescue-avatar.png"
+                            style={
+                              Object {
+                                "borderRadius": "50%",
+                                "height": "1.6em",
+                              }
+                            }
+                          />
+                           
+                          Zerotorescue
+                        </div>
+                      </li>
+                      <li
+                        className="flex"
+                      >
+                        <div
+                          className="flex-sub"
+                          style={
+                            Object {
+                              "minWidth": 100,
+                              "paddingRight": 15,
+                            }
+                          }
+                        >
+                          2017-11-5
+                        </div>
+                        <div
+                          className="flex-main"
+                        >
+                          Added a spell cooldown timeline to cast efficiency suggestions.
+                        </div>
+                        <div
+                          className="flex-sub"
+                          style={
+                            Object {
+                              "minWidth": 150,
+                              "paddingLeft": 15,
+                              "textAlign": "right",
+                            }
+                          }
+                        >
+                          <img
+                            alt="Avatar"
+                            src="zerotorescue-avatar.png"
+                            style={
+                              Object {
+                                "borderRadius": "50%",
+                                "height": "1.6em",
+                              }
+                            }
+                          />
+                           
+                          Zerotorescue
+                        </div>
+                      </li>
+                      <li
+                        className="flex"
+                      >
+                        <div
+                          className="flex-sub"
+                          style={
+                            Object {
+                              "minWidth": 100,
+                              "paddingRight": 15,
+                            }
+                          }
+                        >
+                          2017-11-2
+                        </div>
+                        <div
+                          className="flex-main"
+                        >
+                          Changed the 
+                          <i>
+                            default
+                          </i>
+                           recommended 
+                          <a
+                            className="legendary"
+                            href="http://www.wowhead.com/item=144258"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                          >
+                            Velen's Future Sight
+                          </a>
+                           healing contribution to be at least 4% (down from 4.5%).
+                        </div>
+                        <div
+                          className="flex-sub"
+                          style={
+                            Object {
+                              "minWidth": 150,
+                              "paddingLeft": 15,
+                              "textAlign": "right",
+                            }
+                          }
+                        >
+                          <img
+                            alt="Avatar"
+                            src="zerotorescue-avatar.png"
+                            style={
+                              Object {
+                                "borderRadius": "50%",
+                                "height": "1.6em",
+                              }
+                            }
+                          />
+                           
+                          Zerotorescue
+                        </div>
+                      </li>
+                      <li
+                        className="flex"
+                      >
+                        <div
+                          className="flex-sub"
+                          style={
+                            Object {
+                              "minWidth": 100,
+                              "paddingRight": 15,
+                            }
+                          }
+                        >
+                          2017-11-1
+                        </div>
+                        <div
+                          className="flex-main"
+                        >
+                          Always show the navigation bar and stick it to the top of the window.
+                        </div>
+                        <div
+                          className="flex-sub"
+                          style={
+                            Object {
+                              "minWidth": 150,
+                              "paddingLeft": 15,
+                              "textAlign": "right",
+                            }
+                          }
+                        >
+                          <img
+                            alt="Avatar"
+                            src="zerotorescue-avatar.png"
+                            style={
+                              Object {
+                                "borderRadius": "50%",
+                                "height": "1.6em",
+                              }
+                            }
+                          />
+                           
+                          Zerotorescue
+                        </div>
+                      </li>
+                      <li
+                        className="flex"
+                      >
+                        <div
+                          className="flex-sub"
+                          style={
+                            Object {
+                              "minWidth": 100,
+                              "paddingRight": 15,
+                            }
+                          }
+                        >
+                          2017-10-29
+                        </div>
+                        <div
+                          className="flex-main"
+                        >
+                          Update layout a bit: 
+                          <a
+                            href="https://imgur.com/a/edymi"
+                          >
+                            comparison
+                          </a>
+                          .
+                        </div>
+                        <div
+                          className="flex-sub"
+                          style={
+                            Object {
+                              "minWidth": 150,
+                              "paddingLeft": 15,
+                              "textAlign": "right",
+                            }
+                          }
+                        >
+                          <img
+                            alt="Avatar"
+                            src="zerotorescue-avatar.png"
+                            style={
+                              Object {
+                                "borderRadius": "50%",
+                                "height": "1.6em",
+                              }
+                            }
+                          />
+                           
+                          Zerotorescue
+                        </div>
+                      </li>
+                      <li
+                        className="flex"
+                      >
+                        <div
+                          className="flex-sub"
+                          style={
+                            Object {
+                              "minWidth": 100,
+                              "paddingRight": 15,
+                            }
+                          }
+                        >
+                          2017-10-25
+                        </div>
+                        <div
+                          className="flex-main"
+                        >
+                          Added T21 healing trinkets: Tarratus Keystone and Highfather's Machination.
+                        </div>
+                        <div
+                          className="flex-sub"
+                          style={
+                            Object {
+                              "minWidth": 150,
+                              "paddingLeft": 15,
+                              "textAlign": "right",
+                            }
+                          }
+                        >
+                          Dyspho
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <a
+                  onClick={[Function]}
+                >
+                  More
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-lg-4 col-md-5"
+        >
+          <div
+            className="panel"
+            style={
+              Object {
+                "overflow": "hidden",
+              }
+            }
+          >
+            <div
+              className="panel-heading"
+            >
+              <h2>
+                Help wanted
+              </h2>
+            </div>
+            <div
+              className="panel-body"
+              style={
+                Object {
+                  "padding": 0,
+                  "textAlign": "justify",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "marginBottom": 5,
+                    "padding": "15px 20px",
+                  }
+                }
+              >
+                WoWAnalyzer is slowly expanding with more things being analyzed every day. We need your help to continue expanding and keep everything accurate. Are you a coder or graphic designer? Check our 
+                <a
+                  href="https://github.com/WoWAnalyzer/WoWAnalyzer"
+                >
+                  GitHub project
+                </a>
+                 (hint: see 
+                <a
+                  className="gh-label"
+                  href="https://github.com/WoWAnalyzer/WoWAnalyzer/labels/help%20wanted"
+                >
+                  help wanted
+                </a>
+                 and 
+                <a
+                  className="gh-label"
+                  href="https://github.com/WoWAnalyzer/WoWAnalyzer/labels/good%20first%20issue"
+                  style={
+                    Object {
+                      "backgroundColor": "#5319e7",
+                    }
+                  }
+                >
+                  good first issue
+                </a>
+                , or maybe 
+                <a
+                  className="gh-label"
+                  href="https://github.com/WoWAnalyzer/WoWAnalyzer/labels/%24bounty"
+                  style={
+                    Object {
+                      "backgroundColor": "#64f235",
+                      "color": "#000",
+                    }
+                  }
+                >
+                  $bounty
+                </a>
+                 interests you) or 
+                <a
+                  href="https://discord.gg/AxphPxU"
+                >
+                  Discord
+                </a>
+                 to find out how you could contribute.
+              </div>
+              <img
+                alt="Sharing is caring"
+                src="https://media.giphy.com/media/N56zWre4o5UlO/source.gif"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-lg-4 col-md-5"
+        >
+          <div
+            className="panel"
+          >
+            <div
+              className="panel-heading"
+            >
+              <h2>
+                Available specs
+              </h2>
+            </div>
+            <div
+              className="panel-body text-muted"
+            >
+              <ul
+                className="list-unstyled"
+              >
+                <li
+                  style={
+                    Object {
+                      "marginBottom": 3,
+                      "overflow": "hidden",
+                      "whiteSpace": "nowrap",
+                    }
+                  }
+                >
+                  <img
+                    alt="Spec logo"
+                    src="/specs/DeathKnight-Blood.jpg"
+                    style={
+                      Object {
+                        "height": "1.6em",
+                        "marginRight": 10,
+                      }
+                    }
+                  />
+                   
+                  <span
+                    className="DeathKnight"
+                  >
+                    Blood
+                     
+                    Death Knight
+                  </span>
+                   
+                  <span>
+                    by 
+                    <span
+                      style={
+                        Object {
+                          "color": "#fff",
+                        }
+                      }
+                    >
+                      @Yajinni
+                    </span>
+                     (
+                    <dfn
+                      data-tip="This spec's analysis needs some more work to be optimally usable."
+                      style={
+                        Object {
+                          "color": "rgba(255, 212, 0, 0.8)",
+                        }
+                      }
+                    >
+                      Needs more work
+                    </dfn>
+                    )
+                  </span>
+                </li>
+                <li
+                  style={
+                    Object {
+                      "marginBottom": 3,
+                      "overflow": "hidden",
+                      "whiteSpace": "nowrap",
+                    }
+                  }
+                >
+                  <img
+                    alt="Spec logo"
+                    src="/specs/DeathKnight-Frost.jpg"
+                    style={
+                      Object {
+                        "height": "1.6em",
+                        "marginRight": 10,
+                      }
+                    }
+                  />
+                   
+                  <span
+                    className="DeathKnight"
+                  >
+                    Frost
+                     
+                    Death Knight
+                  </span>
+                   
+                  <span>
+                    by 
+                    <span
+                      style={
+                        Object {
+                          "color": "#fff",
+                        }
+                      }
+                    >
+                      @Bonebasher
+                    </span>
+                     (
+                    <dfn
+                      data-tip="This spec's analysis needs some more work to be optimally usable."
+                      style={
+                        Object {
+                          "color": "rgba(255, 212, 0, 0.8)",
+                        }
+                      }
+                    >
+                      Needs more work
+                    </dfn>
+                    )
+                  </span>
+                </li>
+                <li
+                  style={
+                    Object {
+                      "marginBottom": 3,
+                      "overflow": "hidden",
+                      "whiteSpace": "nowrap",
+                    }
+                  }
+                >
+                  <img
+                    alt="Spec logo"
+                    src="/specs/DeathKnight-Unholy.jpg"
+                    style={
+                      Object {
+                        "height": "1.6em",
+                        "marginRight": 10,
+                      }
+                    }
+                  />
+                   
+                  <span
+                    className="DeathKnight"
+                  >
+                    Unholy
+                     
+                    Death Knight
+                  </span>
+                   
+                  <span>
+                    by 
+                    <span
+                      style={
+                        Object {
+                          "color": "#fff",
+                        }
+                      }
+                    >
+                      @Khazak
+                    </span>
+                     (
+                    <dfn
+                      data-tip="This spec's analysis needs some more work to be optimally usable."
+                      style={
+                        Object {
+                          "color": "rgba(255, 212, 0, 0.8)",
+                        }
+                      }
+                    >
+                      Needs more work
+                    </dfn>
+                    )
+                  </span>
+                </li>
+                <li
+                  style={
+                    Object {
+                      "marginBottom": 3,
+                      "overflow": "hidden",
+                      "whiteSpace": "nowrap",
+                    }
+                  }
+                >
+                  <img
+                    alt="Spec logo"
+                    src="/specs/DemonHunter-Havoc.jpg"
+                    style={
+                      Object {
+                        "height": "1.6em",
+                        "marginRight": 10,
+                      }
+                    }
+                  />
+                   
+                  <span
+                    className="DemonHunter"
+                  >
+                    Havoc
+                     
+                    Demon Hunter
+                  </span>
+                   
+                  <span>
+                    by 
+                    <span
+                      style={
+                        Object {
+                          "color": "#fff",
+                        }
+                      }
+                    >
+                      @Mamtooth
+                    </span>
+                     (
+                    <dfn
+                      data-tip="This spec's analysis needs some more work to be optimally usable."
+                      style={
+                        Object {
+                          "color": "rgba(255, 212, 0, 0.8)",
+                        }
+                      }
+                    >
+                      Needs more work
+                    </dfn>
+                    )
+                  </span>
+                </li>
+                <li
+                  style={
+                    Object {
+                      "marginBottom": 3,
+                      "overflow": "hidden",
+                      "whiteSpace": "nowrap",
+                    }
+                  }
+                >
+                  <img
+                    alt="Spec logo"
+                    src="/specs/DemonHunter-Vengeance.jpg"
+                    style={
+                      Object {
+                        "height": "1.6em",
+                        "marginRight": 10,
+                      }
+                    }
+                  />
+                   
+                  <span
+                    className="DemonHunter"
+                  >
+                    Vengeance
+                     
+                    Demon Hunter
+                  </span>
+                   
+                  <span>
+                    by 
+                    <span
+                      style={
+                        Object {
+                          "color": "#fff",
+                        }
+                      }
+                    >
+                      @Mamtooth
+                    </span>
+                     (
+                    <dfn
+                      data-tip="This spec's analysis is (almost) complete and actively being maintained."
+                      style={
+                        Object {
+                          "color": "#43fd43",
+                        }
+                      }
+                    >
+                      Great!
+                    </dfn>
+                    )
+                  </span>
+                </li>
+                <li
+                  style={
+                    Object {
+                      "marginBottom": 3,
+                      "overflow": "hidden",
+                      "whiteSpace": "nowrap",
+                    }
+                  }
+                >
+                  <img
+                    alt="Spec logo"
+                    src="/specs/Druid-Balance.jpg"
+                    style={
+                      Object {
+                        "height": "1.6em",
+                        "marginRight": 10,
+                      }
+                    }
+                  />
+                   
+                  <span
+                    className="Druid"
+                  >
+                    Balance
+                     
+                    Druid
+                  </span>
+                   
+                  <span>
+                    by 
+                    <span
+                      style={
+                        Object {
+                          "color": "#fff",
+                        }
+                      }
+                    >
+                      @Iskalla
+                    </span>
+                     (
+                    <dfn
+                      data-tip="This spec's analysis is ready for public usage, but some work is still left to be done."
+                      style={
+                        Object {
+                          "color": "#05f0fd",
+                        }
+                      }
+                    >
+                      Good
+                    </dfn>
+                    )
+                  </span>
+                </li>
+                <li
+                  style={
+                    Object {
+                      "marginBottom": 3,
+                      "overflow": "hidden",
+                      "whiteSpace": "nowrap",
+                    }
+                  }
+                >
+                  <img
+                    alt="Spec logo"
+                    src="/specs/Druid-Feral.jpg"
+                    style={
+                      Object {
+                        "height": "1.6em",
+                        "marginRight": 10,
+                      }
+                    }
+                  />
+                   
+                  <span
+                    className="Druid"
+                  >
+                    Feral
+                     
+                    Druid
+                  </span>
+                   
+                  <span>
+                    by 
+                    <span
+                      style={
+                        Object {
+                          "color": "#fff",
+                        }
+                      }
+                    >
+                      @Thieseract
+                    </span>
+                     (
+                    <dfn
+                      data-tip="This spec's analysis needs some more work to be optimally usable."
+                      style={
+                        Object {
+                          "color": "rgba(255, 212, 0, 0.8)",
+                        }
+                      }
+                    >
+                      Needs more work
+                    </dfn>
+                    )
+                  </span>
+                </li>
+                <li
+                  style={
+                    Object {
+                      "marginBottom": 3,
+                      "overflow": "hidden",
+                      "whiteSpace": "nowrap",
+                    }
+                  }
+                >
+                  <img
+                    alt="Spec logo"
+                    src="/specs/Druid-Guardian.jpg"
+                    style={
+                      Object {
+                        "height": "1.6em",
+                        "marginRight": 10,
+                      }
+                    }
+                  />
+                   
+                  <span
+                    className="Druid"
+                  >
+                    Guardian
+                     
+                    Druid
+                  </span>
+                   
+                  <span>
+                    by 
+                    <span
+                      style={
+                        Object {
+                          "color": "#fff",
+                        }
+                      }
+                    >
+                      @faide
+                    </span>
+                     (
+                    <dfn
+                      data-tip="This spec's analysis is (almost) complete and actively being maintained."
+                      style={
+                        Object {
+                          "color": "#43fd43",
+                        }
+                      }
+                    >
+                      Great!
+                    </dfn>
+                    )
+                  </span>
+                </li>
+                <li
+                  style={
+                    Object {
+                      "marginBottom": 3,
+                      "overflow": "hidden",
+                      "whiteSpace": "nowrap",
+                    }
+                  }
+                >
+                  <img
+                    alt="Spec logo"
+                    src="/specs/Druid-Restoration.jpg"
+                    style={
+                      Object {
+                        "height": "1.6em",
+                        "marginRight": 10,
+                      }
+                    }
+                  />
+                   
+                  <span
+                    className="Druid"
+                  >
+                    Restoration
+                     
+                    Druid
+                  </span>
+                   
+                  <span>
+                    by 
+                    <span
+                      style={
+                        Object {
+                          "color": "#fff",
+                        }
+                      }
+                    >
+                      @blazyb and @sref
+                    </span>
+                     (
+                    <dfn
+                      data-tip="This spec's analysis is (almost) complete and actively being maintained."
+                      style={
+                        Object {
+                          "color": "#43fd43",
+                        }
+                      }
+                    >
+                      Great!
+                    </dfn>
+                    )
+                  </span>
+                </li>
+                <li
+                  style={
+                    Object {
+                      "marginBottom": 3,
+                      "overflow": "hidden",
+                      "whiteSpace": "nowrap",
+                    }
+                  }
+                >
+                  <img
+                    alt="Spec logo"
+                    src="/specs/Hunter-BeastMastery.jpg"
+                    style={
+                      Object {
+                        "height": "1.6em",
+                        "marginRight": 10,
+                      }
+                    }
+                  />
+                   
+                  <span
+                    className="Hunter"
+                  >
+                    Beast Mastery
+                     
+                    Hunter
+                  </span>
+                   
+                  <span>
+                    by 
+                    <span
+                      style={
+                        Object {
+                          "color": "#fff",
+                        }
+                      }
+                    >
+                      @Putro
+                    </span>
+                     (
+                    <dfn
+                      data-tip="This spec's analysis needs some more work to be optimally usable."
+                      style={
+                        Object {
+                          "color": "rgba(255, 212, 0, 0.8)",
+                        }
+                      }
+                    >
+                      Needs more work
+                    </dfn>
+                    )
+                  </span>
+                </li>
+                <li
+                  style={
+                    Object {
+                      "marginBottom": 3,
+                      "overflow": "hidden",
+                      "whiteSpace": "nowrap",
+                    }
+                  }
+                >
+                  <img
+                    alt="Spec logo"
+                    src="/specs/Hunter-Marksmanship.jpg"
+                    style={
+                      Object {
+                        "height": "1.6em",
+                        "marginRight": 10,
+                      }
+                    }
+                  />
+                   
+                  <span
+                    className="Hunter"
+                  >
+                    Marksmanship
+                     
+                    Hunter
+                  </span>
+                   
+                  <span>
+                    by 
+                    <span
+                      style={
+                        Object {
+                          "color": "#fff",
+                        }
+                      }
+                    >
+                      @Putro & @JLassie82
+                    </span>
+                     (
+                    <dfn
+                      data-tip="This spec's analysis needs some more work to be optimally usable."
+                      style={
+                        Object {
+                          "color": "rgba(255, 212, 0, 0.8)",
+                        }
+                      }
+                    >
+                      Needs more work
+                    </dfn>
+                    )
+                  </span>
+                </li>
+                <li
+                  style={
+                    Object {
+                      "marginBottom": 3,
+                      "overflow": "hidden",
+                      "whiteSpace": "nowrap",
+                    }
+                  }
+                >
+                  <img
+                    alt="Spec logo"
+                    src="/specs/Hunter-Survival.jpg"
+                    style={
+                      Object {
+                        "height": "1.6em",
+                        "marginRight": 10,
+                      }
+                    }
+                  />
+                   
+                  <span
+                    className="Hunter"
+                  >
+                    Survival
+                     
+                    Hunter
+                  </span>
+                   
+                  <span>
+                    isn't available yet. 
+                    <a
+                      href="https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/CONTRIBUTING.md"
+                    >
+                      Add it!
+                    </a>
+                  </span>
+                </li>
+                <li
+                  style={
+                    Object {
+                      "marginBottom": 3,
+                      "overflow": "hidden",
+                      "whiteSpace": "nowrap",
+                    }
+                  }
+                >
+                  <img
+                    alt="Spec logo"
+                    src="/specs/Mage-Arcane.jpg"
+                    style={
+                      Object {
+                        "height": "1.6em",
+                        "marginRight": 10,
+                      }
+                    }
+                  />
+                   
+                  <span
+                    className="Mage"
+                  >
+                    Arcane
+                     
+                    Mage
+                  </span>
+                   
+                  <span>
+                    isn't available yet. 
+                    <a
+                      href="https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/CONTRIBUTING.md"
+                    >
+                      Add it!
+                    </a>
+                  </span>
+                </li>
+                <li
+                  style={
+                    Object {
+                      "marginBottom": 3,
+                      "overflow": "hidden",
+                      "whiteSpace": "nowrap",
+                    }
+                  }
+                >
+                  <img
+                    alt="Spec logo"
+                    src="/specs/Mage-Fire.jpg"
+                    style={
+                      Object {
+                        "height": "1.6em",
+                        "marginRight": 10,
+                      }
+                    }
+                  />
+                   
+                  <span
+                    className="Mage"
+                  >
+                    Fire
+                     
+                    Mage
+                  </span>
+                   
+                  <span>
+                    by 
+                    <span
+                      style={
+                        Object {
+                          "color": "#fff",
+                        }
+                      }
+                    >
+                      @Fyruna
+                    </span>
+                     (
+                    <dfn
+                      data-tip="This spec's analysis needs some more work to be optimally usable."
+                      style={
+                        Object {
+                          "color": "rgba(255, 212, 0, 0.8)",
+                        }
+                      }
+                    >
+                      Needs more work
+                    </dfn>
+                    )
+                  </span>
+                </li>
+                <li
+                  style={
+                    Object {
+                      "marginBottom": 3,
+                      "overflow": "hidden",
+                      "whiteSpace": "nowrap",
+                    }
+                  }
+                >
+                  <img
+                    alt="Spec logo"
+                    src="/specs/Mage-Frost.jpg"
+                    style={
+                      Object {
+                        "height": "1.6em",
+                        "marginRight": 10,
+                      }
+                    }
+                  />
+                   
+                  <span
+                    className="Mage"
+                  >
+                    Frost
+                     
+                    Mage
+                  </span>
+                   
+                  <span>
+                    by 
+                    <span
+                      style={
+                        Object {
+                          "color": "#fff",
+                        }
+                      }
+                    >
+                      @Sharrq and @sref
+                    </span>
+                     (
+                    <dfn
+                      data-tip="This spec's analysis is ready for public usage, but some work is still left to be done."
+                      style={
+                        Object {
+                          "color": "#05f0fd",
+                        }
+                      }
+                    >
+                      Good
+                    </dfn>
+                    )
+                  </span>
+                </li>
+                <li
+                  style={
+                    Object {
+                      "marginBottom": 3,
+                      "overflow": "hidden",
+                      "whiteSpace": "nowrap",
+                    }
+                  }
+                >
+                  <img
+                    alt="Spec logo"
+                    src="/specs/Monk-Brewmaster.jpg"
+                    style={
+                      Object {
+                        "height": "1.6em",
+                        "marginRight": 10,
+                      }
+                    }
+                  />
+                   
+                  <span
+                    className="Monk"
+                  >
+                    Brewmaster
+                     
+                    Monk
+                  </span>
+                   
+                  <span>
+                    by 
+                    <span
+                      style={
+                        Object {
+                          "color": "#fff",
+                        }
+                      }
+                    >
+                      previously @WOPR
+                    </span>
+                     (
+                    <dfn
+                      data-tip="This spec's analysis does not have an active maintainer and may be outdated."
+                      style={
+                        Object {
+                          "color": "red",
+                        }
+                      }
+                    >
+                      Not actively maintained
+                    </dfn>
+                    )
+                  </span>
+                </li>
+                <li
+                  style={
+                    Object {
+                      "marginBottom": 3,
+                      "overflow": "hidden",
+                      "whiteSpace": "nowrap",
+                    }
+                  }
+                >
+                  <img
+                    alt="Spec logo"
+                    src="/specs/Monk-Windwalker.jpg"
+                    style={
+                      Object {
+                        "height": "1.6em",
+                        "marginRight": 10,
+                      }
+                    }
+                  />
+                   
+                  <span
+                    className="Monk"
+                  >
+                    Windwalker
+                     
+                    Monk
+                  </span>
+                   
+                  <span>
+                    by 
+                    <span
+                      style={
+                        Object {
+                          "color": "#fff",
+                        }
+                      }
+                    >
+                      @Juko8
+                    </span>
+                     (
+                    <dfn
+                      data-tip="This spec's analysis needs some more work to be optimally usable."
+                      style={
+                        Object {
+                          "color": "rgba(255, 212, 0, 0.8)",
+                        }
+                      }
+                    >
+                      Needs more work
+                    </dfn>
+                    )
+                  </span>
+                </li>
+                <li
+                  style={
+                    Object {
+                      "marginBottom": 3,
+                      "overflow": "hidden",
+                      "whiteSpace": "nowrap",
+                    }
+                  }
+                >
+                  <img
+                    alt="Spec logo"
+                    src="/specs/Monk-Mistweaver.jpg"
+                    style={
+                      Object {
+                        "height": "1.6em",
+                        "marginRight": 10,
+                      }
+                    }
+                  />
+                   
+                  <span
+                    className="Monk"
+                  >
+                    Mistweaver
+                     
+                    Monk
+                  </span>
+                   
+                  <span>
+                    by 
+                    <span
+                      style={
+                        Object {
+                          "color": "#fff",
+                        }
+                      }
+                    >
+                      @anomoly
+                    </span>
+                     (
+                    <dfn
+                      data-tip="This spec's analysis is (almost) complete and actively being maintained."
+                      style={
+                        Object {
+                          "color": "#43fd43",
+                        }
+                      }
+                    >
+                      Great!
+                    </dfn>
+                    )
+                  </span>
+                </li>
+                <li
+                  style={
+                    Object {
+                      "marginBottom": 3,
+                      "overflow": "hidden",
+                      "whiteSpace": "nowrap",
+                    }
+                  }
+                >
+                  <img
+                    alt="Spec logo"
+                    src="/specs/Paladin-Holy.jpg"
+                    style={
+                      Object {
+                        "height": "1.6em",
+                        "marginRight": 10,
+                      }
+                    }
+                  />
+                   
+                  <span
+                    className="Paladin"
+                  >
+                    Holy
+                     
+                    Paladin
+                  </span>
+                   
+                  <span>
+                    by 
+                    <span
+                      style={
+                        Object {
+                          "color": "#fff",
+                        }
+                      }
+                    >
+                      @Zerotorescue
+                    </span>
+                     (
+                    <dfn
+                      data-tip="This spec's analysis is (almost) complete and actively being maintained."
+                      style={
+                        Object {
+                          "color": "#43fd43",
+                        }
+                      }
+                    >
+                      Great!
+                    </dfn>
+                    )
+                  </span>
+                </li>
+                <li
+                  style={
+                    Object {
+                      "marginBottom": 3,
+                      "overflow": "hidden",
+                      "whiteSpace": "nowrap",
+                    }
+                  }
+                >
+                  <img
+                    alt="Spec logo"
+                    src="/specs/Paladin-Protection.jpg"
+                    style={
+                      Object {
+                        "height": "1.6em",
+                        "marginRight": 10,
+                      }
+                    }
+                  />
+                   
+                  <span
+                    className="Paladin"
+                  >
+                    Protection
+                     
+                    Paladin
+                  </span>
+                   
+                  <span>
+                    isn't available yet. 
+                    <a
+                      href="https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/CONTRIBUTING.md"
+                    >
+                      Add it!
+                    </a>
+                  </span>
+                </li>
+                <li
+                  style={
+                    Object {
+                      "marginBottom": 3,
+                      "overflow": "hidden",
+                      "whiteSpace": "nowrap",
+                    }
+                  }
+                >
+                  <img
+                    alt="Spec logo"
+                    src="/specs/Paladin-Retribution.jpg"
+                    style={
+                      Object {
+                        "height": "1.6em",
+                        "marginRight": 10,
+                      }
+                    }
+                  />
+                   
+                  <span
+                    className="Paladin"
+                  >
+                    Retribution
+                     
+                    Paladin
+                  </span>
+                   
+                  <span>
+                    by 
+                    <span
+                      style={
+                        Object {
+                          "color": "#fff",
+                        }
+                      }
+                    >
+                      @Hewhosmites
+                    </span>
+                     (
+                    <dfn
+                      data-tip="This spec's analysis is ready for public usage, but some work is still left to be done."
+                      style={
+                        Object {
+                          "color": "#05f0fd",
+                        }
+                      }
+                    >
+                      Good
+                    </dfn>
+                    )
+                  </span>
+                </li>
+                <li
+                  style={
+                    Object {
+                      "marginBottom": 3,
+                      "overflow": "hidden",
+                      "whiteSpace": "nowrap",
+                    }
+                  }
+                >
+                  <img
+                    alt="Spec logo"
+                    src="/specs/Priest-Discipline.jpg"
+                    style={
+                      Object {
+                        "height": "1.6em",
+                        "marginRight": 10,
+                      }
+                    }
+                  />
+                   
+                  <span
+                    className="Priest"
+                  >
+                    Discipline
+                     
+                    Priest
+                  </span>
+                   
+                  <span>
+                    by 
+                    <span
+                      style={
+                        Object {
+                          "color": "#fff",
+                        }
+                      }
+                    >
+                      @Reglitch and @Gao
+                    </span>
+                     (
+                    <dfn
+                      data-tip="This spec's analysis is ready for public usage, but some work is still left to be done."
+                      style={
+                        Object {
+                          "color": "#05f0fd",
+                        }
+                      }
+                    >
+                      Good
+                    </dfn>
+                    )
+                  </span>
+                </li>
+                <li
+                  style={
+                    Object {
+                      "marginBottom": 3,
+                      "overflow": "hidden",
+                      "whiteSpace": "nowrap",
+                    }
+                  }
+                >
+                  <img
+                    alt="Spec logo"
+                    src="/specs/Priest-Holy.jpg"
+                    style={
+                      Object {
+                        "height": "1.6em",
+                        "marginRight": 10,
+                      }
+                    }
+                  />
+                   
+                  <span
+                    className="Priest"
+                  >
+                    Holy
+                     
+                    Priest
+                  </span>
+                   
+                  <span>
+                    by 
+                    <span
+                      style={
+                        Object {
+                          "color": "#fff",
+                        }
+                      }
+                    >
+                      @enragednuke
+                    </span>
+                     (
+                    <dfn
+                      data-tip="This spec's analysis is ready for public usage, but some work is still left to be done."
+                      style={
+                        Object {
+                          "color": "#05f0fd",
+                        }
+                      }
+                    >
+                      Good
+                    </dfn>
+                    )
+                  </span>
+                </li>
+                <li
+                  style={
+                    Object {
+                      "marginBottom": 3,
+                      "overflow": "hidden",
+                      "whiteSpace": "nowrap",
+                    }
+                  }
+                >
+                  <img
+                    alt="Spec logo"
+                    src="/specs/Priest-Shadow.jpg"
+                    style={
+                      Object {
+                        "height": "1.6em",
+                        "marginRight": 10,
+                      }
+                    }
+                  />
+                   
+                  <span
+                    className="Priest"
+                  >
+                    Shadow
+                     
+                    Priest
+                  </span>
+                   
+                  <span>
+                    by 
+                    <span
+                      style={
+                        Object {
+                          "color": "#fff",
+                        }
+                      }
+                    >
+                      @hassebewlen
+                    </span>
+                     (
+                    <dfn
+                      data-tip="This spec's analysis does not have an active maintainer and may be outdated."
+                      style={
+                        Object {
+                          "color": "red",
+                        }
+                      }
+                    >
+                      Not actively maintained
+                    </dfn>
+                    )
+                  </span>
+                </li>
+                <li
+                  style={
+                    Object {
+                      "marginBottom": 3,
+                      "overflow": "hidden",
+                      "whiteSpace": "nowrap",
+                    }
+                  }
+                >
+                  <img
+                    alt="Spec logo"
+                    src="/specs/Rogue-Assassination.jpg"
+                    style={
+                      Object {
+                        "height": "1.6em",
+                        "marginRight": 10,
+                      }
+                    }
+                  />
+                   
+                  <span
+                    className="Rogue"
+                  >
+                    Assassination
+                     
+                    Rogue
+                  </span>
+                   
+                  <span>
+                    isn't available yet. 
+                    <a
+                      href="https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/CONTRIBUTING.md"
+                    >
+                      Add it!
+                    </a>
+                  </span>
+                </li>
+                <li
+                  style={
+                    Object {
+                      "marginBottom": 3,
+                      "overflow": "hidden",
+                      "whiteSpace": "nowrap",
+                    }
+                  }
+                >
+                  <img
+                    alt="Spec logo"
+                    src="/specs/Rogue-Outlaw.jpg"
+                    style={
+                      Object {
+                        "height": "1.6em",
+                        "marginRight": 10,
+                      }
+                    }
+                  />
+                   
+                  <span
+                    className="Rogue"
+                  >
+                    Outlaw
+                     
+                    Rogue
+                  </span>
+                   
+                  <span>
+                    isn't available yet. 
+                    <a
+                      href="https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/CONTRIBUTING.md"
+                    >
+                      Add it!
+                    </a>
+                  </span>
+                </li>
+                <li
+                  style={
+                    Object {
+                      "marginBottom": 3,
+                      "overflow": "hidden",
+                      "whiteSpace": "nowrap",
+                    }
+                  }
+                >
+                  <img
+                    alt="Spec logo"
+                    src="/specs/Rogue-Subtlety.jpg"
+                    style={
+                      Object {
+                        "height": "1.6em",
+                        "marginRight": 10,
+                      }
+                    }
+                  />
+                   
+                  <span
+                    className="Rogue"
+                  >
+                    Subtlety
+                     
+                    Rogue
+                  </span>
+                   
+                  <span>
+                    by 
+                    <span
+                      style={
+                        Object {
+                          "color": "#fff",
+                        }
+                      }
+                    >
+                      @zealk
+                    </span>
+                     (
+                    <dfn
+                      data-tip="This spec's analysis does not have an active maintainer and may be outdated."
+                      style={
+                        Object {
+                          "color": "red",
+                        }
+                      }
+                    >
+                      Not actively maintained
+                    </dfn>
+                    )
+                  </span>
+                </li>
+                <li
+                  style={
+                    Object {
+                      "marginBottom": 3,
+                      "overflow": "hidden",
+                      "whiteSpace": "nowrap",
+                    }
+                  }
+                >
+                  <img
+                    alt="Spec logo"
+                    src="/specs/Shaman-Elemental.jpg"
+                    style={
+                      Object {
+                        "height": "1.6em",
+                        "marginRight": 10,
+                      }
+                    }
+                  />
+                   
+                  <span
+                    className="Shaman"
+                  >
+                    Elemental
+                     
+                    Shaman
+                  </span>
+                   
+                  <span>
+                    by 
+                    <span
+                      style={
+                        Object {
+                          "color": "#fff",
+                        }
+                      }
+                    >
+                      @fasib
+                    </span>
+                     (
+                    <dfn
+                      data-tip="This spec's analysis needs some more work to be optimally usable."
+                      style={
+                        Object {
+                          "color": "rgba(255, 212, 0, 0.8)",
+                        }
+                      }
+                    >
+                      Needs more work
+                    </dfn>
+                    )
+                  </span>
+                </li>
+                <li
+                  style={
+                    Object {
+                      "marginBottom": 3,
+                      "overflow": "hidden",
+                      "whiteSpace": "nowrap",
+                    }
+                  }
+                >
+                  <img
+                    alt="Spec logo"
+                    src="/specs/Shaman-Enhancement.jpg"
+                    style={
+                      Object {
+                        "height": "1.6em",
+                        "marginRight": 10,
+                      }
+                    }
+                  />
+                   
+                  <span
+                    className="Shaman"
+                  >
+                    Enhancement
+                     
+                    Shaman
+                  </span>
+                   
+                  <span>
+                    by 
+                    <span
+                      style={
+                        Object {
+                          "color": "#fff",
+                        }
+                      }
+                    >
+                      @Nighteyez07
+                    </span>
+                     (
+                    <dfn
+                      data-tip="This spec's analysis needs some more work to be optimally usable."
+                      style={
+                        Object {
+                          "color": "rgba(255, 212, 0, 0.8)",
+                        }
+                      }
+                    >
+                      Needs more work
+                    </dfn>
+                    )
+                  </span>
+                </li>
+                <li
+                  style={
+                    Object {
+                      "marginBottom": 3,
+                      "overflow": "hidden",
+                      "whiteSpace": "nowrap",
+                    }
+                  }
+                >
+                  <img
+                    alt="Spec logo"
+                    src="/specs/Shaman-Restoration.jpg"
+                    style={
+                      Object {
+                        "height": "1.6em",
+                        "marginRight": 10,
+                      }
+                    }
+                  />
+                   
+                  <span
+                    className="Shaman"
+                  >
+                    Restoration
+                     
+                    Shaman
+                  </span>
+                   
+                  <span>
+                    by 
+                    <span
+                      style={
+                        Object {
+                          "color": "#fff",
+                        }
+                      }
+                    >
+                      @Versaya
+                    </span>
+                     (
+                    <dfn
+                      data-tip="This spec's analysis needs some more work to be optimally usable."
+                      style={
+                        Object {
+                          "color": "rgba(255, 212, 0, 0.8)",
+                        }
+                      }
+                    >
+                      Needs more work
+                    </dfn>
+                    )
+                  </span>
+                </li>
+                <li
+                  style={
+                    Object {
+                      "marginBottom": 3,
+                      "overflow": "hidden",
+                      "whiteSpace": "nowrap",
+                    }
+                  }
+                >
+                  <img
+                    alt="Spec logo"
+                    src="/specs/Warlock-Affliction.jpg"
+                    style={
+                      Object {
+                        "height": "1.6em",
+                        "marginRight": 10,
+                      }
+                    }
+                  />
+                   
+                  <span
+                    className="Warlock"
+                  >
+                    Affliction
+                     
+                    Warlock
+                  </span>
+                   
+                  <span>
+                    by 
+                    <span
+                      style={
+                        Object {
+                          "color": "#fff",
+                        }
+                      }
+                    >
+                      @Chizu
+                    </span>
+                     (
+                    <dfn
+                      data-tip="This spec's analysis needs some more work to be optimally usable."
+                      style={
+                        Object {
+                          "color": "rgba(255, 212, 0, 0.8)",
+                        }
+                      }
+                    >
+                      Needs more work
+                    </dfn>
+                    )
+                  </span>
+                </li>
+                <li
+                  style={
+                    Object {
+                      "marginBottom": 3,
+                      "overflow": "hidden",
+                      "whiteSpace": "nowrap",
+                    }
+                  }
+                >
+                  <img
+                    alt="Spec logo"
+                    src="/specs/Warlock-Demonology.jpg"
+                    style={
+                      Object {
+                        "height": "1.6em",
+                        "marginRight": 10,
+                      }
+                    }
+                  />
+                   
+                  <span
+                    className="Warlock"
+                  >
+                    Demonology
+                     
+                    Warlock
+                  </span>
+                   
+                  <span>
+                    by 
+                    <span
+                      style={
+                        Object {
+                          "color": "#fff",
+                        }
+                      }
+                    >
+                      @Chizu
+                    </span>
+                     (
+                    <dfn
+                      data-tip="This spec's analysis needs some more work to be optimally usable."
+                      style={
+                        Object {
+                          "color": "rgba(255, 212, 0, 0.8)",
+                        }
+                      }
+                    >
+                      Needs more work
+                    </dfn>
+                    )
+                  </span>
+                </li>
+                <li
+                  style={
+                    Object {
+                      "marginBottom": 3,
+                      "overflow": "hidden",
+                      "whiteSpace": "nowrap",
+                    }
+                  }
+                >
+                  <img
+                    alt="Spec logo"
+                    src="/specs/Warlock-Destruction.jpg"
+                    style={
+                      Object {
+                        "height": "1.6em",
+                        "marginRight": 10,
+                      }
+                    }
+                  />
+                   
+                  <span
+                    className="Warlock"
+                  >
+                    Destruction
+                     
+                    Warlock
+                  </span>
+                   
+                  <span>
+                    by 
+                    <span
+                      style={
+                        Object {
+                          "color": "#fff",
+                        }
+                      }
+                    >
+                      @Chizu
+                    </span>
+                     (
+                    <dfn
+                      data-tip="This spec's analysis needs some more work to be optimally usable."
+                      style={
+                        Object {
+                          "color": "rgba(255, 212, 0, 0.8)",
+                        }
+                      }
+                    >
+                      Needs more work
+                    </dfn>
+                    )
+                  </span>
+                </li>
+                <li
+                  style={
+                    Object {
+                      "marginBottom": 3,
+                      "overflow": "hidden",
+                      "whiteSpace": "nowrap",
+                    }
+                  }
+                >
+                  <img
+                    alt="Spec logo"
+                    src="/specs/Warrior-Arms.jpg"
+                    style={
+                      Object {
+                        "height": "1.6em",
+                        "marginRight": 10,
+                      }
+                    }
+                  />
+                   
+                  <span
+                    className="Warrior"
+                  >
+                    Arms
+                     
+                    Warrior
+                  </span>
+                   
+                  <span>
+                    by 
+                    <span
+                      style={
+                        Object {
+                          "color": "#fff",
+                        }
+                      }
+                    >
+                      @TheBadBossy
+                    </span>
+                     (
+                    <dfn
+                      data-tip="This spec's analysis needs some more work to be optimally usable."
+                      style={
+                        Object {
+                          "color": "rgba(255, 212, 0, 0.8)",
+                        }
+                      }
+                    >
+                      Needs more work
+                    </dfn>
+                    )
+                  </span>
+                </li>
+                <li
+                  style={
+                    Object {
+                      "marginBottom": 3,
+                      "overflow": "hidden",
+                      "whiteSpace": "nowrap",
+                    }
+                  }
+                >
+                  <img
+                    alt="Spec logo"
+                    src="/specs/Warrior-Fury.jpg"
+                    style={
+                      Object {
+                        "height": "1.6em",
+                        "marginRight": 10,
+                      }
+                    }
+                  />
+                   
+                  <span
+                    className="Warrior"
+                  >
+                    Fury
+                     
+                    Warrior
+                  </span>
+                   
+                  <span>
+                    isn't available yet. 
+                    <a
+                      href="https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/CONTRIBUTING.md"
+                    >
+                      Add it!
+                    </a>
+                  </span>
+                </li>
+                <li
+                  style={
+                    Object {
+                      "marginBottom": 3,
+                      "overflow": "hidden",
+                      "whiteSpace": "nowrap",
+                    }
+                  }
+                >
+                  <img
+                    alt="Spec logo"
+                    src="/specs/Warrior-Protection.jpg"
+                    style={
+                      Object {
+                        "height": "1.6em",
+                        "marginRight": 10,
+                      }
+                    }
+                  />
+                   
+                  <span
+                    className="Warrior"
+                  >
+                    Protection
+                     
+                    Warrior
+                  </span>
+                   
+                  <span>
+                    by 
+                    <span
+                      style={
+                        Object {
+                          "color": "#fff",
+                        }
+                      }
+                    >
+                      @Salarissia
+                    </span>
+                     (
+                    <dfn
+                      data-tip="This spec's analysis needs some more work to be optimally usable."
+                      style={
+                        Object {
+                          "color": "rgba(255, 212, 0, 0.8)",
+                        }
+                      }
+                    >
+                      Needs more work
+                    </dfn>
+                    )
+                  </span>
+                </li>
+              </ul>
+              If your spec isn't in the list it's not yet supported. Specs are added by enthusiastic players of the spec themselves. Adding specs is easy if you're familiar with JavaScript, find out more on 
+              <a
+                href="https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/CONTRIBUTING.md"
+              >
+                GitHub
+              </a>
+               or 
+              <a
+                href="https://discord.gg/AxphPxU"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                join the WoW Analyzer Discord
+              </a>
+               for additional help.
+              <br />
+              <br />
+              If you're looking to help out in other ways please consider donating.
+              <br />
+              <a
+                className="btn patreon"
+                href="https://www.patreon.com/wowanalyzer"
+                role="button"
+              >
+                <span>
+                  <svg
+                    fill="#fff"
+                    height="22px"
+                    viewBox="0 0 8 8"
+                    width="22px"
+                  >
+                    <path
+                      d="M2.32061871,0.367894189 C3.18961652,-0.0376047918 4.20711396,-0.109604611 5.12711165,0.16039471 C5.93360962,0.39539412 6.6591078,0.894392865 7.17010651,1.55889119 C7.67510524,2.21138955 7.96860451,3.02288751 7.99660444,3.84638544 C8.03210435,4.6978833 7.78560497,5.55788114 7.30110618,6.25987938 C6.59110797,7.31187673 5.35311108,7.98687503 4.07861429,7.999375 C3.44061589,8.000375 2.80261749,7.999875 2.1651191,7.999375 C2.17011908,6.65887837 2.1656191,5.31838174 2.16811909,3.97788511 C2.17011908,3.47138639 2.39811851,2.97288764 2.77711756,2.63638849 C3.13911665,2.30838931 3.6371154,2.13588974 4.12461417,2.17238965 C4.6291129,2.20338957 5.11311169,2.45838893 5.42761089,2.85238794 C5.75061008,3.24938694 5.89160973,3.7853856 5.80860994,4.29038433 C5.72761014,4.82138299 5.39511098,5.30638177 4.93061214,5.57838109 C4.39361349,5.90388027 3.69011526,5.91288025 3.13711665,5.61888099 C3.13761665,6.05337989 3.13661665,6.4883788 3.13761665,6.92337771 C3.63111541,7.06737734 4.15961408,7.09187728 4.66161282,6.97737757 C5.40461095,6.81487798 6.07610926,6.35987912 6.50610818,5.73538069 C6.91610715,5.14988217 7.10560668,4.41738401 7.03460685,3.70738579 C6.97460701,3.05588743 6.69410771,2.42788901 6.25160882,1.94539022 C5.84160985,1.49439136 5.29311123,1.16939217 4.69811273,1.03189252 C4.01411445,0.869392928 3.27411631,0.952892718 2.64611789,1.26789193 C1.6451204,1.7543907 0.962622121,2.82088802 0.952122147,3.93238523 C0.950122152,5.28788182 0.951622148,6.64337841 0.95112215,7.999375 C0.634622945,8.000375 0.317623743,7.999875 0.000124540763,7.999875 C0.000124540763,6.67387833 0.000624539506,5.34838167 0.000124540763,4.022885 C-0.00437544792,3.45688642 0.113124257,2.89038785 0.344123676,2.37338915 C0.7321227,1.49639135 1.4476209,0.769393179 2.32061871,0.367894189"
+                    />
+                  </svg>
+                </span>
+                 
+                Become a Patron
+              </a>
+            </div>
+          </div>
+          <div
+            className="panel"
+          >
+            <div
+              className="panel-heading"
+            >
+              <h2>
+                Discord
+              </h2>
+            </div>
+            <div
+              className="panel-body text-muted"
+            >
+              I believe it's important to keep class discussion as much in class Discords as possible, so if you have spec specific questions and/or suggestions please try to discuss them in your class Discord (class Discords mods approve of this message 
+              <img
+                alt=":ok_hand:"
+                src="ok_hand.png"
+                style={
+                  Object {
+                    "height": "1.5em",
+                  }
+                }
+              />
+              ). The WoW Analyzer Discord is for more general questions and developers looking to contribute.
+              <br />
+              <br />
+              <iframe
+                allowTransparency="true"
+                frameBorder="0"
+                height="300"
+                src="https://discordapp.com/widget?id=316864121536512000&theme=dark"
+                title="Discord Widget"
+                width="100%"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <div
+    className="__react_component_tooltip place-top type-dark "
+    data-id="tooltip"
+  >
+    
+  </div>
+</div>
+`;

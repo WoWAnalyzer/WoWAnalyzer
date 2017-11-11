@@ -48,6 +48,7 @@
     "react-gemini-scrollbar": "^2.3.4",
     "react-masonry-component": "^5.0.7",
     "react-router-dom": "^4.2.2",
+    "react-test-renderer": "^16.1.0",
     "react-toggle": "^4.0.2",
     "react-tooltip": "^3.4.0",
     "style-loader": "0.19.0",

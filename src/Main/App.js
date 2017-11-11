@@ -183,7 +183,7 @@ class App extends Component {
       events = await this.fetchEvents(report.code, fight.start_time, fight.end_time, player.id);
       this.stopFakeNetworkProgress();
     } catch (err) {
-      Raven && Raven.captureException(err); // eslint-disable-line no-undef
+      window.Raven && window.Raven.captureException(err); // eslint-disable-line no-undef
       this.stopFakeNetworkProgress();
       if (process.env.NODE_ENV === 'development') {
         // Something went wrong while fetching the events, this usually doesn't have anything to do with a spec analyzer but is a core issue.
@@ -226,7 +226,7 @@ class App extends Component {
         progress: 1.0,
       });
     } catch (err) {
-      Raven && Raven.captureException(err); // eslint-disable-line no-undef
+      window.Raven && window.Raven.captureException(err);
       if (process.env.NODE_ENV === 'development') {
         // Something went wrong during the analysis of the log, there's probably an issue in your analyzer or one of its modules.
         throw err;
@@ -328,7 +328,7 @@ class App extends Component {
           fatalError: err,
         });
       } else {
-        Raven && Raven.captureException(err); // eslint-disable-line no-undef
+        window.Raven && window.Raven.captureException(err);
         alert(`I'm so terribly sorry, an error occured. Try again later, in an updated Google Chrome and make sure that Warcraft Logs is up and functioning properly. Please let us know on Discord if the problem persists.\n\n${err}`);
         console.error(err);
       }
@@ -362,7 +362,7 @@ class App extends Component {
       })
       .catch(err => {
         if (err) {
-          Raven && Raven.captureException(err); // eslint-disable-line no-undef
+          window.Raven && window.Raven.captureException(err);
           alert(err);
         } else {
           alert('I\'m so terribly sorry, an error occured. Try again later or in an updated Google Chrome. (Is Warcraft Logs up?)');
