@@ -48,9 +48,6 @@ class WintersChillTracker extends Analyzer {
     if (!enemy || !enemy.hasBuff(SPELLS.WINTERS_CHILL.id)) {
       return;
     }
-    if (this.iceLanceHits > 0) {
-      this.doubleIceLanceDamage += event.amount + (event.absorbed || 0);
-    }
 
     if (spellId === SPELLS.ICE_LANCE_DAMAGE.id) {
       this.iceLanceHits += 1;
@@ -58,6 +55,9 @@ class WintersChillTracker extends Analyzer {
     } else if(HARDCAST_HITS.includes(spellId)) {
       this.hardcastHits += 1;
       if(debug) { console.log(`${event.ability.name} into Winter's Chill`); }
+    }
+    if (this.iceLanceHits > 1) {
+      this.doubleIceLanceDamage += event.amount + (event.absorbed || 0);
     }
   }
 
