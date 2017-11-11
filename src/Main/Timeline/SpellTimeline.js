@@ -5,6 +5,8 @@ import ReactTooltip from 'react-tooltip';
 import 'gemini-scrollbar/gemini-scrollbar.css';
 
 import { formatDuration } from 'common/format';
+import SpellLink from 'common/SpellLink';
+import SpellIcon from 'common/SpellIcon';
 
 import Events from './Events';
 
@@ -48,56 +50,68 @@ class SpellTimeline extends React.PureComponent {
     ReactTooltip.rebuild();
   }
 
-  renderEvents(secondWidth) {
-    const { start, end, historyBySpellId, spellId, castEfficiency } = this.props;
-    if (spellId) {
-      return (
-        <Events events={historyBySpellId[spellId] || []} start={start} end={end} secondWidth={secondWidth} />
-      );
-    } else {
-      return Object.keys(historyBySpellId)
-        .sort((a, b) => {
-          const aCooldown = castEfficiency.getExpectedCooldownDuration(Number(a));
-          const bCooldown = castEfficiency.getExpectedCooldownDuration(Number(b));
+  get spells() {
+    const { spellId, historyBySpellId, castEfficiency } = this.props;
+    const spellIds = spellId ? [spellId] : Object.keys(historyBySpellId);
 
-          return aCooldown - bCooldown;
-        })
-        .map(spellId => (
-          <Events key={spellId} events={historyBySpellId[spellId] || []} start={start} end={end} secondWidth={secondWidth} />
-        ));
-    }
+    return spellIds.sort((a, b) => {
+      const aCooldown = castEfficiency.getExpectedCooldownDuration(Number(a));
+      const bCooldown = castEfficiency.getExpectedCooldownDuration(Number(b));
+
+      return aCooldown - bCooldown;
+    });
   }
+
   gemini = null;
   render() {
-    const { start, end, historyBySpellId, spellId } = this.props;
+    const { start, end, historyBySpellId } = this.props;
     const duration = end - start;
     const seconds = Math.ceil(duration / 1000);
 
     const secondWidth = 20;
     const textDoesntFit = secondWidth < 40;
 
+    // 12 for the scrollbar height
+    // 36 for the ruler
+    // 28 for each spell
+    const totalHeight = 9 + 2 + 36 + 28 * this.spells.length;
+
+    const totalWidth = seconds * secondWidth;
+
     return (
-      <GeminiScrollbar
-        className="spell-timeline"
-        style={{ height: 12 + 28 + 28 * (spellId ? 1 : Object.keys(historyBySpellId).length) }}
-        onWheel={this.handleMouseWheel}
-        ref={comp => (this.gemini = comp)}
-      >
-        <div className="ruler">
-          {[...Array(seconds)].map((_, second) => {
-            if (textDoesntFit && second % 2 === 1) {
-              // Skip every second second when the text width becomes larger than the container
-              return null;
-            }
-            return (
-              <div key={second} style={{ width: secondWidth * (textDoesntFit ? 2 : 1) }}>
-                {formatDuration(second)}
-              </div>
-            );
-          })}
+      <div className="spell-timeline flex">
+        <div className="flex-sub legend">
+          <div className="lane ruler-lane">Time into fight</div>
+          {this.spells.map(spellId => (
+            <div className="lane">
+              <SpellIcon id={spellId} noLink /> <SpellLink id={spellId} />
+            </div>
+          ))}
         </div>
-        {this.renderEvents(secondWidth)}
-      </GeminiScrollbar>
+        <GeminiScrollbar
+          className="timeline flex-main"
+          style={{ height: totalHeight }}
+          onWheel={this.handleMouseWheel}
+          ref={comp => (this.gemini = comp)}
+        >
+          <div className="ruler" style={{ width: totalWidth }}>
+            {[...Array(seconds)].map((_, second) => {
+              if (textDoesntFit && second % 2 === 1) {
+                // Skip every second second when the text width becomes larger than the container
+                return null;
+              }
+              return (
+                <div key={second} className="lane" style={{ width: secondWidth * (textDoesntFit ? 2 : 1) }}>
+                  {formatDuration(second)}
+                </div>
+              );
+            })}
+          </div>
+          {this.spells.map(spellId => (
+            <Events key={spellId} className="lane" events={historyBySpellId[spellId] || []} start={start} totalWidth={totalWidth} secondWidth={secondWidth} />
+          ))}
+        </GeminiScrollbar>
+      </div>
     );
   }
 }

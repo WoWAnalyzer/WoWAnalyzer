@@ -7,8 +7,9 @@ class Events extends React.PureComponent {
   static propTypes = {
     events: PropTypes.array,
     start: PropTypes.number.isRequired,
-    end: PropTypes.number.isRequired,
+    totalWidth: PropTypes.number.isRequired,
     secondWidth: PropTypes.number.isRequired,
+    className: PropTypes.string,
   };
 
   /**
@@ -48,29 +49,28 @@ class Events extends React.PureComponent {
   }
 
   render() {
-    const { events, start, end, secondWidth } = this.props;
-    const duration = end - start;
-    const seconds = Math.ceil(duration / 1000);
+    const { events, start, totalWidth, secondWidth, className } = this.props;
     const fixedEvents = this.fabricateEndCooldown(events);
 
     return (
-      <div className="events">
+      <div className={`events ${className || ''}`} style={{ width: totalWidth }}>
         {fixedEvents.map((event, index) => {
           if (event.type === 'cast') {
             return (
-              <SpellIcon
+              <div
                 key={index}
-                id={event.ability.guid}
                 style={{
                   left: (event.timestamp - start) / 1000 * secondWidth,
                   zIndex: 10,
                 }}
-              />
+              >
+                <SpellIcon id={event.ability.guid} />
+              </div>
             );
           }
           if (event.type === 'updatespellusable' && event.trigger === 'endcooldown') {
             const left = (event.start - start) / 1000 * secondWidth;
-            const maxWidth = seconds * secondWidth - left; // don't expand beyond the container width
+            const maxWidth = totalWidth - left; // don't expand beyond the container width
             const width = Math.min(maxWidth, (event.end - event.start) / 1000 * secondWidth);
             return (
               <div
