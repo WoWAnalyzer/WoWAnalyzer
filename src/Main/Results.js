@@ -224,7 +224,7 @@ class Results extends React.Component {
                   <span className="glyphicon glyphicon-chevron-left" aria-hidden />
                 </Link>
               </div>
-              <h1 style={{ marginBottom: 0, fontSize: 48, textTransform: 'none' }}>
+              <h1 style={{ marginBottom: 0, fontSize: 48, textTransform: 'none', fontVariant: 'none' }}>
                 {getBossName(fight)} by <span className={config.spec.className.replace(' ', '')}>{selectedCombatant.name}</span>
               </h1>
             </div>
