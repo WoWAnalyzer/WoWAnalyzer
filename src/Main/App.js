@@ -39,9 +39,6 @@ let _footerDeprecatedWarningSent = false;
 
 class App extends Component {
   static propTypes = {
-    router: PropTypes.shape({
-      push: PropTypes.func.isRequired,
-    }),
     match: PropTypes.shape({
       params: PropTypes.shape({
         reportCode: PropTypes.string,
