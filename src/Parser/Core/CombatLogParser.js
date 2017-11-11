@@ -5,6 +5,7 @@ import ChangelogTab from 'Main/ChangelogTab';
 import ChangelogTabTitle from 'Main/ChangelogTabTitle';
 import Tab from 'Main/Tab';
 import Talents from 'Main/Talents';
+import TimelineTab from 'Main/Timeline/TimelineTab';
 
 import { formatNumber, formatPercentage } from 'common/format';
 
@@ -413,6 +414,21 @@ class CombatLogParser {
         render: () => (
           <Tab title="Talents">
             <Talents combatant={this.modules.combatants.selected} />
+          </Tab>
+        ),
+      },
+      {
+        title: 'Timeline',
+        url: 'timeline',
+        order: 2,
+        render: () => (
+          <Tab title="Timeline">
+            <TimelineTab
+              start={this.fight.start_time}
+              end={this.currentTimestamp}
+              historyBySpellId={this.modules.spellHistory.historyBySpellId}
+              castEfficiency={this.modules.castEfficiency}
+            />
           </Tab>
         ),
       },

@@ -12,7 +12,9 @@ import './SpellTimeline.css';
 
 class SpellTimeline extends React.PureComponent {
   static propTypes = {
-    events: PropTypes.array.isRequired,
+    historyBySpellId: PropTypes.object.isRequired,
+    castEfficiency: PropTypes.object.isRequired,
+    spellId: PropTypes.number,
     start: PropTypes.number.isRequired,
     end: PropTypes.number.isRequired,
   };
@@ -46,9 +48,28 @@ class SpellTimeline extends React.PureComponent {
     ReactTooltip.rebuild();
   }
 
+  renderEvents(secondWidth) {
+    const { start, end, historyBySpellId, spellId, castEfficiency } = this.props;
+    if (spellId) {
+      return (
+        <Events events={historyBySpellId[spellId] || []} start={start} end={end} secondWidth={secondWidth} />
+      );
+    } else {
+      return Object.keys(historyBySpellId)
+        .sort((a, b) => {
+          const aCooldown = castEfficiency.getExpectedCooldownDuration(Number(a));
+          const bCooldown = castEfficiency.getExpectedCooldownDuration(Number(b));
+
+          return aCooldown - bCooldown;
+        })
+        .map(spellId => (
+          <Events key={spellId} events={historyBySpellId[spellId] || []} start={start} end={end} secondWidth={secondWidth} />
+        ));
+    }
+  }
   gemini = null;
   render() {
-    const { start, end, events } = this.props;
+    const { start, end, historyBySpellId, spellId } = this.props;
     const duration = end - start;
     const seconds = Math.ceil(duration / 1000);
 
@@ -58,6 +79,7 @@ class SpellTimeline extends React.PureComponent {
     return (
       <GeminiScrollbar
         className="spell-timeline"
+        style={{ height: 12 + 28 + 28 * (spellId ? 1 : Object.keys(historyBySpellId).length) }}
         onWheel={this.handleMouseWheel}
         ref={comp => (this.gemini = comp)}
       >
@@ -74,7 +96,7 @@ class SpellTimeline extends React.PureComponent {
             );
           })}
         </div>
-        <Events events={events} start={start} end={end} secondWidth={secondWidth} />
+        {this.renderEvents(secondWidth)}
       </GeminiScrollbar>
     );
   }

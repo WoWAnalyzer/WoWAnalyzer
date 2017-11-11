@@ -159,7 +159,9 @@ class CastEfficiency extends Analyzer {
             .details(() => (
               <div style={{ margin: '0 -22px' }}>
                 <SpellTimeline
-                  events={this.owner.modules.spellHistory.historyBySpellId[cpm.ability.spell.id] || []}
+                  historyBySpellId={this.owner.modules.spellHistory.historyBySpellId}
+                  castEfficiency={this}
+                  spellId={cpm.ability.spell.id}
                   start={this.owner.fight.start_time}
                   end={this.owner.currentTimestamp}
                 />
