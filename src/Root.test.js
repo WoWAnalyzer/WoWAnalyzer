@@ -1,19 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import renderer from 'react-test-renderer';
+import { mount } from 'enzyme';
 import Root from './Root';
 
 describe('Root', () => {
   it('renders without crashing', () => {
     const div = document.createElement('div');
     ReactDOM.render(<Root />, div);
-  });
-  it('matches snapshot', () => {
-    expect(<Root />).toMatchSnapshot();
-    const tree = renderer.create(
-      <Root />
-    ).toJSON();
-    expect(tree).toMatchSnapshot();
-  });
 
+    // At least the code input field should be visible
+    const tree = mount(
+      <Root />
+    );
+    expect(tree.find('input[name="code"]').exists()).toBeTruthy();
+  });
 });
