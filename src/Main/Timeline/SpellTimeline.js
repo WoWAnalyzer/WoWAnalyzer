@@ -25,7 +25,7 @@ class SpellTimeline extends React.PureComponent {
     super();
     this.handleMouseWheel = this.handleMouseWheel.bind(this);
     this.state = {
-      zoom: 2,
+      zoom: 1,
     };
   }
 
@@ -74,10 +74,11 @@ class SpellTimeline extends React.PureComponent {
     const secondWidth = 40 / this.state.zoom;
     const skipInterval = Math.ceil(40 / secondWidth);
 
-    // 12 for the scrollbar height
+    // 9 for the scrollbar height
+    // 4 for margin
     // 36 for the ruler
     // 28 for each spell
-    const totalHeight = 9 + 2 + 36 + 28 * this.spells.length;
+    const totalHeight = 9 + 4 + 36 + 28 * this.spells.length;
 
     const totalWidth = seconds * secondWidth;
 
