@@ -16,7 +16,7 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.EBONBOLT,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => 45,
+      getCooldown: haste => 45 + (3 / (1+haste)),
       recommendedCastEfficiency: 0.90,
     },
     {
