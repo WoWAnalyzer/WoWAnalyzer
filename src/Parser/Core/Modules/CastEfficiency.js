@@ -8,7 +8,7 @@ import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 
 import Tab from 'Main/Tab';
 import CastEfficiencyComponent from 'Main/CastEfficiency';
-import SpellTimeline from 'Main/SpellTimeline';
+import SpellTimeline from 'Main/Timeline/SpellTimeline';
 
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
