@@ -16,6 +16,7 @@ import MirrorImage from '../Shared/Modules/Features/MirrorImage';
 import UnstableMagic from '../Shared/Modules/Features/UnstableMagic';
 import SplittingIce from './Modules/Features/SplittingIce';
 import CancelledCasts from '../Shared/Modules/Features/CancelledCasts';
+import Blizzard from './Modules/Features/Blizzard';
 
 import FrozenOrb from './Modules/Cooldowns/FrozenOrb';
 import IcyVeins from './Modules/Cooldowns/IcyVeins';
@@ -51,6 +52,7 @@ class CombatLogParser extends CoreCombatLogParser {
     arcticGale: ArcticGale,
     frostBomb: FrostBomb,
     splittingIce: SplittingIce,
+    blizzard: Blizzard,
 
 	  //Cooldowns
     frozenOrb: FrozenOrb,
