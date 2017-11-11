@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Wrapper from 'common/Wrapper';
 import ZerotorescueAvatar from 'Parser/Paladin/Holy/Images/zerotorescue-avatar.png';
 
 const Zerotorescue = ['Zerotorescue', ZerotorescueAvatar];
