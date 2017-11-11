@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Router, Route, browserHistory } from 'react-router';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import './static/bootstrap/css/bootstrap.css';
 
@@ -16,14 +16,15 @@ window.onunhandledrejection = function (evt) {
 
 render(
   <ErrorBoundary>
-    <Router history={browserHistory}>
-      <Route path="/" component={App}>
-        <Route path="report/:reportCode" />
-        <Route path="report/:reportCode/:fightId" />
-        <Route path="report/:reportCode/:fightId/:playerName" />
-        <Route path="report/:reportCode/:fightId/:playerName/:resultTab" />
-      </Route>
-    </Router>
+    <BrowserRouter>
+      <Switch>
+        <Route path="/report/:reportCode/:fightId/:playerName/:resultTab" component={App} />
+        <Route path="/report/:reportCode/:fightId/:playerName" component={App} />
+        <Route path="/report/:reportCode/:fightId" component={App} />
+        <Route path="/report/:reportCode" component={App} />
+        <Route path="/" component={App} />
+      </Switch>
+    </BrowserRouter>
   </ErrorBoundary>,
   document.getElementById('app-mount')
 );

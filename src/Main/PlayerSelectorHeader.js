@@ -1,7 +1,6 @@
 // Note: Based on PlayerSelecter
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
 
 import SelectorBase from './SelectorBase';
 import PlayerSelectionList from './PlayerSelectionList';
@@ -29,7 +28,7 @@ class PlayerSelectorHeader extends SelectorBase {
     const { show } = this.state;
     return (
       <div ref={this.setRef} {...others}>
-        <Link onClick={this.handleClick}>{selectedPlayerName}</Link>
+        <a onClick={this.handleClick}>{selectedPlayerName}</a>
         {show && (
           <span className="selectorHeader">
             <div className="panel">
