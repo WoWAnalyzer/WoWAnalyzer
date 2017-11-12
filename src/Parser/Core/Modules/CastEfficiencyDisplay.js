@@ -12,9 +12,6 @@ import Tab from 'Main/Tab';
 import CastEfficiencyComponent from 'Main/CastEfficiency';
 import SpellTimeline from 'Main/Timeline/SpellTimeline';
 
-import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
-
 import AbilityTracker from './AbilityTracker';
 import Combatants from './Combatants';
 import Haste from './Haste';
@@ -52,8 +49,11 @@ class CastEfficiencyDisplay extends Analyzer {
             lastBeginTimestamp = event.timestamp;
             return acc;
           } else if(event.trigger === 'endcooldown') {
+            const timeSinceBegin = (event.timestamp - lastBeginTimestamp) || this.owner.start_time;
             lastBeginTimestamp = null;
-            return acc + event.timePassed;
+            return acc + timeSinceBegin;
+          } else {
+            return acc;
           }
         }, 0);
     const endTimeOnCd = (!lastBeginTimestamp) ? 0 : this.owner.currentTimestamp - lastBeginTimestamp;

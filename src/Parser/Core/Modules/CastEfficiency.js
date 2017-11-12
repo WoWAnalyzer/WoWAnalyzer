@@ -1,14 +1,4 @@
-import React from 'react';
-
-import SpellLink from 'common/SpellLink';
-import { formatPercentage } from 'common/format';
-
 import Analyzer from 'Parser/Core/Analyzer';
-import getCastEfficiency from 'Parser/Core/getCastEfficiency';
-
-import Tab from 'Main/Tab';
-import CastEfficiencyComponent from 'Main/CastEfficiency';
-import SpellTimeline from 'Main/Timeline/SpellTimeline';
 
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
