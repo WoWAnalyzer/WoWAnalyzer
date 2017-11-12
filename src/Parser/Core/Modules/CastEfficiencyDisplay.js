@@ -49,15 +49,54 @@ class CastEfficiencyDisplay extends Analyzer {
             lastBeginTimestamp = event.timestamp;
             return acc;
           } else if(event.trigger === 'endcooldown') {
-            const timeSinceBegin = (event.timestamp - lastBeginTimestamp) || this.owner.start_time;
+            const timeOnCd = (event.timestamp - lastBeginTimestamp) || 0;
             lastBeginTimestamp = null;
-            return acc + timeSinceBegin;
+            return acc + timeOnCd;
           } else {
             return acc;
           }
         }, 0);
     const endTimeOnCd = (!lastBeginTimestamp) ? 0 : this.owner.currentTimestamp - lastBeginTimestamp;
     return nonEndTimeOnCd + endTimeOnCd;
+  }
+
+  /*
+   * Gets the average number of ms the given spell took to cooldown (or generate a charge)
+   * Only works on spells entered into CastEfficiency list.
+   */
+  _getAverageCooldown(spellId) {
+    const history = this.spellHistory.historyBySpellId[spellId];
+    if(!history) {
+      return;
+    }
+
+    let lastStartChargeTimestamp = null;
+    let recharges = 0;
+    const totalRechargingTime = history
+        .filter(event => event.type === 'updatespellusable')
+        .reduce((acc, event) => {
+          if(event.trigger === 'begincooldown') {
+            lastStartChargeTimestamp = event.timestamp;
+            return acc;
+          } else if(event.trigger === 'endcooldown') {
+            const rechargingTime = (event.timestamp - lastStartChargeTimestamp) || 0;
+            recharges += 1;
+            lastStartChargeTimestamp = null;
+            return acc + rechargingTime;
+          } else if(event.trigger === 'restorecharge') { // TODO will this cause problems when there is external charge restoration?
+            const rechargingTime = (event.timestamp - lastStartChargeTimestamp) || 0;
+            recharges += 1;
+            lastStartChargeTimestamp = event.timestamp;
+            return acc + rechargingTime;
+          } else {
+            return acc;
+          }
+        }, 0);
+    if(recharges === 0) {
+      return null;
+    } else {
+      return totalRechargingTime / recharges;
+    }
   }
 
   suggestions(when) {
@@ -79,7 +118,18 @@ class CastEfficiencyDisplay extends Analyzer {
         return null;
       }
 
-      const maxCasts = 0; // TODO implement
+      const averageCooldown = this._getAverageCooldown(spellId);
+      let rawMaxCasts;
+      if(averageCooldown) {
+        rawMaxCasts = (this.owner.fightDuration / averageCooldown) + (ability.charges || 1) - 1;
+        // TODO what is this for, when is this legit
+        // if (ability.getMaxCasts) {
+        //   rawMaxCasts = ability.getMaxCasts(cooldown, fightDuration, getAbility, parser);
+        // }
+      } else {
+        rawMaxCasts = 0;
+      }
+      const maxCasts = Math.ceil(rawMaxCasts) || 0;
 
       const minorSuggest = ability.recommendedCastEfficiency || DEFAULT_MINOR_SUGGEST;
       const averageSuggest = ability.averageIssueCastEfficiency || DEFAULT_AVERAGE_SUGGEST;
