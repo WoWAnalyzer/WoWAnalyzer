@@ -318,11 +318,10 @@ class App extends Component {
       }
     } catch (err) {
       window.Raven && window.Raven.captureException(err);
+      // TODO: Redirect to homepage
+      // TODO: Show proper error page
       alert(err);
       console.error(err);
-      this.setState({
-        report: null,
-      });
       this.reset();
     }
   }
@@ -379,7 +378,7 @@ class App extends Component {
   fetchEventsAndParseIfNecessary(prevProps, prevState) {
     const curParams = this.props.match.params;
     const prevParams = prevProps.match.params;
-    const changed = this.state.report !== prevState.report
+    const changed = this.props.report !== prevProps.report
       || this.state.combatants !== prevState.combatants
       || curParams.fightId !== prevParams.fightId
       || this.playerName !== prevParams.playerName;
@@ -409,7 +408,7 @@ class App extends Component {
   updateBossIdIfNecessary(prevProps, prevState) {
     const curParams = this.props.match.params;
     const prevParams = prevProps.match.params;
-    if (curParams.reportCode !== prevParams.reportCode || this.state.report !== prevState.report || curParams.fightId !== prevParams.fightId) {
+    if (curParams.reportCode !== prevParams.reportCode || this.props.report !== prevProps.report || curParams.fightId !== prevParams.fightId) {
       this.updateBossId();
     }
   }
@@ -528,7 +527,8 @@ class App extends Component {
   }
 
   renderNavigationBar() {
-    const { report, combatants, parser, progress } = this.state;
+    const { combatants, parser, progress } = this.state;
+    const { report } = this.props;
 
     return (
       <nav>
