@@ -27,7 +27,7 @@ class Mastery extends Analyzer {
   hotHealingAttrib = {};
 
   /*
-   * Tracks common Mastery buff IDs, their strength, and the healing attributed to them over an encounter.
+   * Tracks healing attributable to mastery buffs
    */
   masteryBuffs = {};
 
@@ -36,6 +36,7 @@ class Mastery extends Analyzer {
         .filter(infoEntry => infoEntry[1].masteryStack)
         .forEach(infoEntry => this.hotHealingAttrib[infoEntry[0]] = { direct: 0, mastery: {} });
 
+    // TODO hook in StatTracker buff list somehow, so new Mastery buffs auto handled?
     this.masteryBuffs = {
       [SPELLS.ASTRAL_HARMONY.id]: { amount: 4000 },
       [SPELLS.JACINS_RUSE.id]: { amount: 3000 },
