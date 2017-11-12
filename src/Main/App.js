@@ -348,7 +348,19 @@ class App extends Component {
 
   componentWillMount() {
     if (this.reportCode) {
-      this.props.fetchReport(this.reportCode);
+      this.props.fetchReport(this.reportCode)
+        .catch(err => {
+          if (err instanceof ApiDownError || err instanceof LogNotFoundError) {
+            this.reset();
+            this.setState({
+              fatalError: err,
+            });
+          } else {
+            Raven && Raven.captureException(err); // eslint-disable-line no-undef
+            alert(`I'm so terribly sorry, an error occured. Try again later, in an updated Google Chrome and make sure that Warcraft Logs is up and functioning properly. Please let us know on Discord if the problem persists.\n\n${err}`);
+            console.error(err);
+          }
+        });
     }
   }
   componentDidUpdate(prevProps, prevState) {
