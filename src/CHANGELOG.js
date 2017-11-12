@@ -9,6 +9,11 @@ const Zerotorescue = ['Zerotorescue', ZerotorescueAvatar];
 
 export default [
   {
+    date: new Date('2017-11-11'),
+    changes: 'Added a timeline tab. Right now this only shows spell casts and their cooldowns so you can see what you cast and could have cast.',
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2017-11-08'),
     changes: 'Automatically try again when WCL sends a corrupt fights response.',
     contributors: [Zerotorescue],

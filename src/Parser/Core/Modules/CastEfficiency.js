@@ -8,7 +8,7 @@ import getCastEfficiency from 'Parser/Core/getCastEfficiency';
 
 import Tab from 'Main/Tab';
 import CastEfficiencyComponent from 'Main/CastEfficiency';
-import SpellTimeline from 'Main/SpellTimeline';
+import SpellTimeline from 'Main/Timeline/SpellTimeline';
 
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
@@ -159,7 +159,9 @@ class CastEfficiency extends Analyzer {
             .details(() => (
               <div style={{ margin: '0 -22px' }}>
                 <SpellTimeline
-                  events={this.owner.modules.spellHistory.historyBySpellId[cpm.ability.spell.id] || []}
+                  historyBySpellId={this.owner.modules.spellHistory.historyBySpellId}
+                  castEfficiency={this}
+                  spellId={cpm.ability.spell.id}
                   start={this.owner.fight.start_time}
                   end={this.owner.currentTimestamp}
                 />
