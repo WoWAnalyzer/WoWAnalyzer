@@ -144,47 +144,47 @@ class CastEfficiency extends Analyzer {
     return ability ? (ability.charges || 1) : undefined;
   }
 
-  suggestions(when) {
-    const castEfficiency = getCastEfficiency(this.constructor.CPM_ABILITIES, this.abilityTracker, this.combatants, this.owner);
-    castEfficiency.forEach(cpm => {
-      if (cpm.ability.noSuggestion || cpm.castEfficiency === null) {
-        return;
-      }
-      when(cpm.castEfficiency).isLessThan(cpm.recommendedCastEfficiency)
-        .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<span>Try to cast <SpellLink id={cpm.ability.spell.id} /> more often. {cpm.ability.extraSuggestion || ''} <a href="#spell-timeline">View timeline</a>.</span>)
-            .icon(cpm.ability.spell.icon)
-            .actual(`${cpm.casts} out of ${cpm.maxCasts} possible casts; ${formatPercentage(actual)}% cast efficiency`)
-            .recommended(`>${formatPercentage(recommended)}% is recommended`)
-            .details(() => (
-              <div style={{ margin: '0 -22px' }}>
-                <SpellTimeline
-                  historyBySpellId={this.owner.modules.spellHistory.historyBySpellId}
-                  castEfficiency={this}
-                  spellId={cpm.ability.spell.id}
-                  start={this.owner.fight.start_time}
-                  end={this.owner.currentTimestamp}
-                />
-              </div>
-            ))
-            .regular(cpm.averageIssueCastEfficiency).major(cpm.majorIssueCastEfficiency).staticImportance(cpm.ability.importance);
-        });
-    });
-  }
-  tab() {
-    return {
-      title: 'Cast efficiency',
-      url: 'cast-efficiency',
-      render: () => (
-        <Tab title="Cast efficiency">
-          <CastEfficiencyComponent
-            categories={this.constructor.SPELL_CATEGORIES}
-            abilities={getCastEfficiency(this.constructor.CPM_ABILITIES, this.abilityTracker, this.combatants, this.owner)}
-          />
-        </Tab>
-      ),
-    };
-  }
+  // suggestions(when) {
+  //   const castEfficiency = getCastEfficiency(this.constructor.CPM_ABILITIES, this.abilityTracker, this.combatants, this.owner);
+  //   castEfficiency.forEach(cpm => {
+  //     if (cpm.ability.noSuggestion || cpm.castEfficiency === null) {
+  //       return;
+  //     }
+  //     when(cpm.castEfficiency).isLessThan(cpm.recommendedCastEfficiency)
+  //       .addSuggestion((suggest, actual, recommended) => {
+  //         return suggest(<span>Try to cast <SpellLink id={cpm.ability.spell.id} /> more often. {cpm.ability.extraSuggestion || ''} <a href="#spell-timeline">View timeline</a>.</span>)
+  //           .icon(cpm.ability.spell.icon)
+  //           .actual(`${cpm.casts} out of ${cpm.maxCasts} possible casts; ${formatPercentage(actual)}% cast efficiency`)
+  //           .recommended(`>${formatPercentage(recommended)}% is recommended`)
+  //           .details(() => (
+  //             <div style={{ margin: '0 -22px' }}>
+  //               <SpellTimeline
+  //                 historyBySpellId={this.owner.modules.spellHistory.historyBySpellId}
+  //                 castEfficiency={this}
+  //                 spellId={cpm.ability.spell.id}
+  //                 start={this.owner.fight.start_time}
+  //                 end={this.owner.currentTimestamp}
+  //               />
+  //             </div>
+  //           ))
+  //           .regular(cpm.averageIssueCastEfficiency).major(cpm.majorIssueCastEfficiency).staticImportance(cpm.ability.importance);
+  //       });
+  //   });
+  // }
+  // tab() {
+  //   return {
+  //     title: 'Cast efficiency',
+  //     url: 'cast-efficiency',
+  //     render: () => (
+  //       <Tab title="Cast efficiency">
+  //         <CastEfficiencyComponent
+  //           categories={this.constructor.SPELL_CATEGORIES}
+  //           abilities={getCastEfficiency(this.constructor.CPM_ABILITIES, this.abilityTracker, this.combatants, this.owner)}
+  //         />
+  //       </Tab>
+  //     ),
+  //   };
+  // }
 }
 
 export default CastEfficiency;
