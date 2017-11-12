@@ -1,4 +1,5 @@
 export default `
+12-11-2017 - Upgraded spec completeness to good (by Putro)
 08-11-2017 - Fixed large FocusChart performance bugs
 25-10-2017 - Added 5 new talent modules, fixed trueshot CD, added Focus Dump Checker
 25-10-2017 - Updated True Aim to include damage contributed information

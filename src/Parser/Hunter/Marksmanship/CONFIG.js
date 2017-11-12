@@ -29,7 +29,7 @@ export default {
     </div>
   ),
   // When changing this please make a PR with ONLY this value changed, we will do a review of your analysis to find out of it is complete enough.
-  completeness: SPEC_ANALYSIS_COMPLETENESS.NEEDS_MORE_WORK,
+  completeness: SPEC_ANALYSIS_COMPLETENESS.GOOD,
   //Link to GitHub issue
   specDiscussionUrl: 'https://github.com/WoWAnalyzer/WoWAnalyzer/issues/418',
 
