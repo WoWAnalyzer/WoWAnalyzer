@@ -36,7 +36,6 @@ class WintersChillTracker extends Analyzer {
   missedIceLanceCasts = 0;
   singleIceLanceCasts = 0;
   doubleIceLanceCasts = 0;
-  doubleIceLanceDamage = 0;
 
   on_initialized() {
     this.hasGlacialSpike = this.combatants.selected.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id);
@@ -55,9 +54,6 @@ class WintersChillTracker extends Analyzer {
     } else if(HARDCAST_HITS.includes(spellId)) {
       this.hardcastHits += 1;
       if(debug) { console.log(`${event.ability.name} into Winter's Chill`); }
-    }
-    if (this.iceLanceHits > 1) {
-      this.doubleIceLanceDamage += event.amount + (event.absorbed || 0);
     }
   }
 
@@ -159,7 +155,7 @@ class WintersChillTracker extends Analyzer {
           </span>
         )}
         label="Winter's Chill Utilization"
-        tooltip={`Every Brain Freeze Flurry should be preceded by a Frostbolt${this.hasGlacialSpike ? `, Glacial Spike, ` : ` `}or Ebonbolt and followed by an Ice Lance, so that both the preceding and following spells benefit from Shatter. <br><br> You double Ice Lance'd into Winter's Chill ${this.doubleIceLanceCasts} times (${formatPercentage(doubleIcelancePerc, 1)}% - ${formatNumber(this.doubleIceLanceDamage,2)} Extra Damage). Note this is usually impossible, it can only be done with strong haste buffs active and by moving towards the target while casting. It should mostly be considered 'extra credit'.`}
+        tooltip={`Every Brain Freeze Flurry should be preceded by a Frostbolt${this.hasGlacialSpike ? `, Glacial Spike, ` : ` `}or Ebonbolt and followed by an Ice Lance, so that both the preceding and following spells benefit from Shatter. <br><br> You double Ice Lance'd into Winter's Chill ${this.doubleIceLanceCasts} times (${formatPercentage(doubleIcelancePerc, 1)}%). Note this is usually impossible, it can only be done with strong haste buffs active and by moving towards the target while casting. It should mostly be considered 'extra credit'.`}
       />
     );
   }
