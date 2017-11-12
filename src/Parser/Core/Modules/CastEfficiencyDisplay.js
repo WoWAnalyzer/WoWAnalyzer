@@ -112,6 +112,9 @@ class CastEfficiencyDisplay extends Analyzer {
       const percentOnCd = (timeOnCd / this.owner.fightDuration) || 0;
 
       const trackedAbility = this.abilityTracker.getAbility(spellId);
+
+      // TODO ability.getCasts is for special case spells that show the wrong number of cast events, like Penance
+      // TODO does the above method track cast effic right in these cases?
       const casts = (ability.getCasts ? ability.getCasts(trackedAbility, this.owner) : trackedAbility.casts) || 0; // TODO what the fuck does this do
       if (ability.isUndetectable && casts === 0) {
         // Some spells (most notably Racials) can not be detected if a player has them. This hides those spells if they have 0 casts.
@@ -122,7 +125,8 @@ class CastEfficiencyDisplay extends Analyzer {
       let rawMaxCasts;
       if(averageCooldown) {
         rawMaxCasts = (this.owner.fightDuration / averageCooldown) + (ability.charges || 1) - 1;
-        // TODO what is this for, when is this legit
+        // TODO ability.getMaxCasts is for special case spells that can only sometimes be cast, like Void Bolt for Spriest..
+        // TODO How handle here, as cast effic will be wrong unless we use this.
         // if (ability.getMaxCasts) {
         //   rawMaxCasts = ability.getMaxCasts(cooldown, fightDuration, getAbility, parser);
         // }
@@ -131,7 +135,8 @@ class CastEfficiencyDisplay extends Analyzer {
       }
       const maxCasts = Math.ceil(rawMaxCasts) || 0;
 
-      const minorSuggest = ability.recommendedCastEfficiency || DEFAULT_MINOR_SUGGEST;
+      const minorSuggest = 1; // TODO remove debug
+      //const minorSuggest = ability.recommendedCastEfficiency || DEFAULT_MINOR_SUGGEST;
       const averageSuggest = ability.averageIssueCastEfficiency || DEFAULT_AVERAGE_SUGGEST;
       const majorSuggest = ability.majorIssueCastEfficiency || DEFAULT_MAJOR_SUGGEST;
 
