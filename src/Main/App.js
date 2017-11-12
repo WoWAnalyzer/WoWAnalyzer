@@ -189,16 +189,16 @@ class App extends Component {
         console.error(err);
       }
     }
-    events = parser.normalize(events);
-    await this.setStatePromise({
-      progress: PROGRESS_STEP2_FETCH_EVENTS,
-    });
-
-    const batchSize = 300;
-    const numEvents = events.length;
-    let offset = 0;
-
     try {
+      events = parser.normalize(events);
+      await this.setStatePromise({
+        progress: PROGRESS_STEP2_FETCH_EVENTS,
+      });
+
+      const batchSize = 300;
+      const numEvents = events.length;
+      let offset = 0;
+
       while (offset < numEvents) {
         if (this._jobId !== jobId) {
           return;
