@@ -51,7 +51,8 @@ class App extends Component {
       }),
     }),
     report: PropTypes.shape({
-      code: PropTypes.string,
+      title: PropTypes.string.isRequired,
+      code: PropTypes.string.isRequired,
     }),
     fetchReport: PropTypes.func,
     history: PropTypes.shape({
@@ -294,7 +295,7 @@ class App extends Component {
     return events;
   }
 
-  fetchCombatantsForFight(report, fightId) {
+  async fetchCombatantsForFight(report, fightId) {
     // console.log('Fetching combatants:', report, fightId);
 
     this.setState({
@@ -307,28 +308,23 @@ class App extends Component {
       return null;
     }
 
-    return this.fetchEvents(report.code, fight.start_time, fight.end_time, undefined, 'type="combatantinfo"')
-      .then(events => {
-        // console.log('Received combatants', report.code, ':', json);
-        if (this.reportCode === report.code && this.fightId === fightId) {
-          this.setState({
-            combatants: events,
-          });
-        }
-      })
-      .catch(err => {
-        if (err) {
-          window.Raven && window.Raven.captureException(err);
-          alert(err);
-        } else {
-          alert('I\'m so terribly sorry, an error occured. Try again later or in an updated Google Chrome. (Is Warcraft Logs up?)');
-        }
-        console.error(err);
+    try {
+      const combatants = await this.fetchEvents(report.code, fight.start_time, fight.end_time, undefined, 'type="combatantinfo"');
+      console.log('Received combatants', report.code, ':', combatants);
+      if (this.reportCode === report.code && this.fightId === fightId) {
         this.setState({
-          report: null,
+          combatants,
         });
-        this.reset();
+      }
+    } catch (err) {
+      window.Raven && window.Raven.captureException(err);
+      alert(err);
+      console.error(err);
+      this.setState({
+        report: null,
       });
+      this.reset();
+    }
   }
 
   reset() {
@@ -375,7 +371,7 @@ class App extends Component {
   fetchCombatantsIfNecessary(prevProps, prevState) {
     const curParams = this.props.match.params;
     const prevParams = prevProps.match.params;
-    if (this.isReportValid && this.fightId && (this.state.report !== prevState.report || curParams.fightId !== prevParams.fightId)) {
+    if (this.isReportValid && this.fightId && (this.props.report !== prevProps.report || curParams.fightId !== prevParams.fightId)) {
       // A report has been loaded, it is the report the user wants (this can be a mismatch if a new report is still loading), a fight was selected, and one of the fight-relevant things was changed
       this.fetchCombatantsForFight(this.props.report, this.fightId);
     }

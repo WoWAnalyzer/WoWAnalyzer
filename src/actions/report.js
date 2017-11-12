@@ -24,11 +24,7 @@ export function fetchReport(code, refresh = false) {
           translate: true, // so long as we don't have the entire site localized, it's better to have 1 consistent language
         });
       }
-      const currentReportCode = getReportCode(getState());
-      if (currentReportCode !== code) {
-        // If the user already changed his mind and wants another report ignore this result.
-        return;
-      }
+      // TODO: Verify the current code is still the one we want by comparing it with the currently requested code in the store
 
       if (!json.fights) {
         throw new Error('Corrupt WCL response received.');
