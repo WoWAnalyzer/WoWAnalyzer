@@ -502,7 +502,7 @@ dfn[data-tip] {
   border-radius: 0;
 }
 .alert-danger a {
-  text-decoration: underline;
+  color: #fff;
 }
 .text-muted {
   color: #999;
