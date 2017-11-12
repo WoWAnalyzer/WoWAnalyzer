@@ -17,6 +17,7 @@ import Status from 'Main/Status';
 import SpecInformationOverlay from './SpecInformationOverlay';
 
 import './Results.css';
+import SPEC_ANALYSIS_COMPLETENESS from "../common/SPEC_ANALYSIS_COMPLETENESS";
 
 class Results extends React.Component {
   static childContextTypes = {
@@ -249,6 +250,11 @@ class Results extends React.Component {
             }}
           /> {config.spec.specName} {config.spec.className} spec implementation is being maintained by {config.maintainer} (status: <dfn data-tip={getCompletenessExplanation(config.completeness)} style={{ color: getCompletenessColor(config.completeness) }}>{getCompletenessLabel(config.completeness).toLowerCase()}</dfn>). <a href="#spec-information" onClick={this.handleClickViewSpecInformation}>More information.</a>
           </div>
+          {config.completeness === SPEC_ANALYSIS_COMPLETENESS.NOT_ACTIVELY_MAINTAINED && (
+            <div className="alert alert-danger" style={{ fontSize: '1.5em' }}>
+              This spec is not actively being maintained. In order to continue providing useful and accurate information we are looking for an active maintainer for this spec. See our <a href="https://github.com/WoWAnalyzer/WoWAnalyzer#contributing">GitHub page</a> or <a href="https://discord.gg/AxphPxU">join Discord</a> for more information.
+            </div>
+          )}
 
           <div className="row">
             <div className="col-md-8">
