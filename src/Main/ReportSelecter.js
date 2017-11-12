@@ -36,7 +36,9 @@ class ReportSelecter extends Component {
   }
 
   componentDidMount() {
-    this.codeInput.focus();
+    if (this.codeInput) {
+      this.codeInput.focus();
+    }
   }
 
   handleSubmit(e) {

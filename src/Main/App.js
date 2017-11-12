@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { browserHistory, Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 
 import fetchWcl, { ApiDownError, LogNotFoundError } from 'common/fetchWcl';
@@ -42,22 +42,26 @@ let _footerDeprecatedWarningSent = false;
 
 class App extends Component {
   static propTypes = {
-    router: PropTypes.shape({
-      push: PropTypes.func.isRequired,
-    }),
-    params: PropTypes.shape({
-      reportCode: PropTypes.string,
-      playerName: PropTypes.string,
-      fightId: PropTypes.string,
-      resultTab: PropTypes.string,
+    match: PropTypes.shape({
+      params: PropTypes.shape({
+        reportCode: PropTypes.string,
+        playerName: PropTypes.string,
+        fightId: PropTypes.string,
+        resultTab: PropTypes.string,
+      }),
     }),
     report: PropTypes.shape({
       code: PropTypes.string,
     }),
     fetchReport: PropTypes.func,
+    history: PropTypes.shape({
+      push: PropTypes.func.isRequired,
+    }).isRequired,
   };
   static defaultProps = {
-    params: {},
+    match: {
+      params: {},
+    },
   };
   static childContextTypes = {
     config: PropTypes.object,
@@ -66,17 +70,17 @@ class App extends Component {
   // Parsing a fight for a player is a "job", if the selected player or fight changes we want to stop parsing it. This integer gives each job an id that if it mismatches stops the job.
   _jobId = 0;
   get reportCode() {
-    return this.props.params.reportCode;
+    return this.props.match.params.reportCode;
   }
   get isReportValid() {
     return this.props.report && this.props.report.code === this.reportCode;
   }
   get playerName() {
-    return this.props.params.playerName;
+    return this.props.match.params.playerName;
   }
   get fightId() {
-    if (this.props.params.fightId) {
-      return Number(this.props.params.fightId.split('-')[0]);
+    if (this.props.match.params.fightId) {
+      return Number(this.props.match.params.fightId.split('-')[0]);
     }
     return null;
   }
@@ -84,7 +88,7 @@ class App extends Component {
     return this.fightId && this.props.report && this.getFightFromReport(this.props.report, this.fightId);
   }
   get resultTab() {
-    return this.props.params.resultTab;
+    return this.props.match.params.resultTab;
   }
 
   getPlayerFromReport(report, playerName) {
@@ -138,7 +142,7 @@ class App extends Component {
         }
       }
 
-      this.props.router.push(constructedUrl);
+      this.props.history.push(constructedUrl);
     }
   }
 
@@ -185,7 +189,7 @@ class App extends Component {
       events = await this.fetchEvents(report.code, fight.start_time, fight.end_time, player.id);
       this.stopFakeNetworkProgress();
     } catch (err) {
-      Raven && Raven.captureException(err); // eslint-disable-line no-undef
+      window.Raven && window.Raven.captureException(err); // eslint-disable-line no-undef
       this.stopFakeNetworkProgress();
       if (process.env.NODE_ENV === 'development') {
         // Something went wrong while fetching the events, this usually doesn't have anything to do with a spec analyzer but is a core issue.
@@ -228,7 +232,7 @@ class App extends Component {
         progress: 1.0,
       });
     } catch (err) {
-      Raven && Raven.captureException(err); // eslint-disable-line no-undef
+      window.Raven && window.Raven.captureException(err);
       if (process.env.NODE_ENV === 'development') {
         // Something went wrong during the analysis of the log, there's probably an issue in your analyzer or one of its modules.
         throw err;
@@ -299,7 +303,7 @@ class App extends Component {
     const fight = this.getFightFromReport(report, fightId);
     if (!fight) { // if this fight id doesn't exist the fight might be null
       alert('Couldn\'t find the selected fight. If you are live-logging you will have to manually refresh the fight list.');
-      browserHistory.push(makeAnalyzerUrl(report));
+      this.props.history.push(makeAnalyzerUrl(report));
       return null;
     }
 
@@ -314,7 +318,7 @@ class App extends Component {
       })
       .catch(err => {
         if (err) {
-          Raven && Raven.captureException(err); // eslint-disable-line no-undef
+          window.Raven && window.Raven.captureException(err);
           alert(err);
         } else {
           alert('I\'m so terribly sorry, an error occured. Try again later or in an updated Google Chrome. (Is Warcraft Logs up?)');
@@ -362,24 +366,24 @@ class App extends Component {
     this.updateBossIdIfNecessary(prevProps, prevState);
   }
   fetchReportIfNecessary(prevProps) {
-    const curParams = this.props.params;
-    const prevParams = prevProps.params;
+    const curParams = this.props.match.params;
+    const prevParams = prevProps.match.params;
     if (curParams.reportCode && curParams.reportCode !== prevParams.reportCode) {
       this.props.fetchReport(curParams.reportCode);
     }
   }
   fetchCombatantsIfNecessary(prevProps, prevState) {
-    const curParams = this.props.params;
-    const prevParams = prevProps.params;
-    if (this.isReportValid && this.fightId && (this.props.report !== prevState.report || curParams.fightId !== prevParams.fightId)) {
+    const curParams = this.props.match.params;
+    const prevParams = prevProps.match.params;
+    if (this.isReportValid && this.fightId && (this.state.report !== prevState.report || curParams.fightId !== prevParams.fightId)) {
       // A report has been loaded, it is the report the user wants (this can be a mismatch if a new report is still loading), a fight was selected, and one of the fight-relevant things was changed
       this.fetchCombatantsForFight(this.props.report, this.fightId);
     }
   }
   fetchEventsAndParseIfNecessary(prevProps, prevState) {
-    const curParams = this.props.params;
-    const prevParams = prevProps.params;
-    const changed = this.props.report !== prevProps.report
+    const curParams = this.props.match.params;
+    const prevParams = prevProps.match.params;
+    const changed = this.state.report !== prevState.report
       || this.state.combatants !== prevState.combatants
       || curParams.fightId !== prevParams.fightId
       || this.playerName !== prevParams.playerName;
@@ -407,9 +411,9 @@ class App extends Component {
     }
   }
   updateBossIdIfNecessary(prevProps, prevState) {
-    const curParams = this.props.params;
-    const prevParams = prevProps.params;
-    if (curParams.reportCode !== prevParams.reportCode || this.props.report !== prevProps.report || curParams.fightId !== prevParams.fightId) {
+    const curParams = this.props.match.params;
+    const prevParams = prevProps.match.params;
+    if (curParams.reportCode !== prevParams.reportCode || this.state.report !== prevState.report || curParams.fightId !== prevParams.fightId) {
       this.updateBossId();
     }
   }
@@ -470,7 +474,7 @@ class App extends Component {
             <div>
               <button type="button" className="btn btn-primary" onClick={() => {
                 this.setState({ fatalError: null });
-                browserHistory.push(makeAnalyzerUrl());
+                this.props.history.push(makeAnalyzerUrl());
               }}>
                 &lt; Back
               </button>
@@ -516,7 +520,7 @@ class App extends Component {
         parser={parser}
         dataVersion={this.state.dataVersion}
         tab={this.resultTab}
-        onChangeTab={newTab => browserHistory.push(makeAnalyzerUrl(report, this.fightId, this.playerName, newTab))}
+        onChangeTab={newTab => this.props.history.push(makeAnalyzerUrl(report, this.fightId, this.playerName, newTab))}
       />
     );
   }

@@ -1,8 +1,6 @@
 import fetchWcl, { ApiDownError, LogNotFoundError } from 'common/fetchWcl';
-import { getReportCode } from 'selectors/reportCode';
 
 import { setError } from './error';
-import { setReportCode } from './reportCode';
 
 export const SET_REPORT = 'SET_REPORT';
 export function setReport(report) {
@@ -13,7 +11,7 @@ export function setReport(report) {
 }
 export function fetchReport(code, refresh = false) {
   return async (dispatch, getState) => {
-    dispatch(setReportCode(code));
+    dispatch(setReport(null));
     try {
       let json = await fetchWcl(`report/fights/${code}`, {
         _: refresh ? +new Date() : undefined,
@@ -48,7 +46,6 @@ export function fetchReport(code, refresh = false) {
         alert(`I'm so terribly sorry, an error occured. Try again later, in an updated Google Chrome and make sure that Warcraft Logs is up and functioning properly. Please let us know on Discord if the problem persists.\n\n${err}`);
         console.error(err);
       }
-      dispatch(setReportCode(null));
     }
   };
 }
