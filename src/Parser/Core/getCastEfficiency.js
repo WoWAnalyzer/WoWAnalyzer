@@ -1,4 +1,5 @@
-// TODO: Move this to the CastEfficiency class
+// TODO: Would like to REMOVE this... I've extricated its functionality from CastEfficiency suggestion,
+//       but not yet from the CastEfficiency tab...
 
 export function calculateMaxCasts(cooldown, fightDuration, charges = 1) {
   return (fightDuration / 1000 / cooldown) + charges - 1;
