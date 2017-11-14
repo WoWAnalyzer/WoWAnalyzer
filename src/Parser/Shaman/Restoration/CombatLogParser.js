@@ -114,7 +114,6 @@ class CombatLogParser extends CoreCombatLogParser {
     const healingSurge = getAbility(SPELLS.HEALING_SURGE_RESTORATION.id);
     const chainHeal = getAbility(SPELLS.CHAIN_HEAL.id);
     const giftOfTheQueen = getAbility(SPELLS.GIFT_OF_THE_QUEEN.id);
-    const giftOfTheQueenEcho = getAbility(SPELLS.GIFT_OF_THE_QUEEN_ECHO.id);
 
     const nazjatarRiptideResets = this.modules.nazjatar.resets;
     const nobundoDiscountedHealingSurges = this.modules.nobundo.discounts;
@@ -153,14 +152,14 @@ class CombatLogParser extends CoreCombatLogParser {
     const chainHealTargetEfficiency = chainHealAvgHits / maxChainHealTargets;
 
     const hasDeepWaters = this.modules.combatants.selected.traitsBySpellId[SPELLS.DEEP_WATERS.id] > 0;
-    const giftOfTheQueenHits = (giftOfTheQueen.healingHits || 0) + (giftOfTheQueenEcho.healingHits || 0);
-    const giftOfTheQueenAvgHits = giftOfTheQueenHits / giftOfTheQueenCasts;
-    const giftOfTheQueenTargetEfficiency = giftOfTheQueenAvgHits / (hasDeepWaters ? 12 : 6);
+    const giftOfTheQueenHits = giftOfTheQueen.healingHits || 0;
+    const giftOfTheQueenAvgHits = giftOfTheQueenHits / giftOfTheQueenCasts / (hasDeepWaters ? 2 : 1);
+    const giftOfTheQueenTargetEfficiency = giftOfTheQueenAvgHits / 6;
 
-    const giftOfTheQueenRawHealing = (giftOfTheQueen.healingEffective + giftOfTheQueen.healingOverheal) + (giftOfTheQueenEcho.healingEffective + giftOfTheQueenEcho.healingOverheal);
+    const giftOfTheQueenRawHealing = giftOfTheQueen.healingEffective + giftOfTheQueen.healingOverheal;
     let giftOfTheQueenCBTFeeding = 0;
     if (this.modules.cooldownThroughputTracker.cbtFeed[SPELLS.GIFT_OF_THE_QUEEN.id]) {
-      giftOfTheQueenCBTFeeding = this.modules.cooldownThroughputTracker.cbtFeed[SPELLS.GIFT_OF_THE_QUEEN.id].healing + this.modules.cooldownThroughputTracker.cbtFeed[SPELLS.GIFT_OF_THE_QUEEN_ECHO.id].healing;
+      giftOfTheQueenCBTFeeding = this.modules.cooldownThroughputTracker.cbtFeed[SPELLS.GIFT_OF_THE_QUEEN.id].healing;
     }
     const hasCBT = this.modules.combatants.selected.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id);
     const giftOfTheQueenCBTFeedingPercent = giftOfTheQueenCBTFeeding / giftOfTheQueenRawHealing;
@@ -280,7 +279,7 @@ class CombatLogParser extends CoreCombatLogParser {
         icon={<SpellIcon id={SPELLS.GIFT_OF_THE_QUEEN.id} />}
         value={`${formatPercentage(giftOfTheQueenTargetEfficiency)} %`}
         label={(
-          <dfn data-tip={`The average percentage of targets healed by Gift of the Queen out of the maximum amount of targets. You cast a total of ${giftOfTheQueenCasts} Gift of the Queens, which healed an average of ${giftOfTheQueenAvgHits.toFixed(2)} out of ${(hasDeepWaters ? `12` : `6`)} targets.`}>
+          <dfn data-tip={`The average percentage of targets healed by Gift of the Queen out of the maximum amount of targets. You cast a total of ${giftOfTheQueenCasts} Gift of the Queens, which healed an average of ${giftOfTheQueenAvgHits.toFixed(2)} out of 6 targets.`}>
 
             GotQ target efficiency
           </dfn>
