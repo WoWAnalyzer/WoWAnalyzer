@@ -28,6 +28,7 @@ class AtonementHealingDone extends Analyzer {
   on_byPlayer_heal(event) {
 
     this._total += event.amount || 0;
+    this._total += event.absorbed || 0;
 
     if (!isAtonement(event)) {
       return;
