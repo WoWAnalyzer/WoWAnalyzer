@@ -146,16 +146,16 @@ class CombatLogParser extends CoreCombatLogParser {
     const unbuffedHealingSurges = healingSurges - twHealingSurges;
     const totalTwUsed = twHealingWaves + twHealingSurges;
     const giftOfTheQueenCasts = giftOfTheQueen.casts || 0;
-    const giftOfTheQueenDuplicateCasts = giftOfTheQueenDuplicate.casts || 0;
 
     const chainHealHits = chainHeal.healingHits || 0;
     const chainHealAvgHits = chainHealHits / chainHealCasts;
     const maxChainHealTargets = this.modules.combatants.selected.hasTalent(SPELLS.HIGH_TIDE_TALENT.id) ? 5 : 4;
     const chainHealTargetEfficiency = chainHealAvgHits / maxChainHealTargets;
 
+    const hasDeepWaters = this.modules.combatants.selected.traitsBySpellId[SPELLS.DEEP_WATERS.id] > 0;
     const giftOfTheQueenHits = giftOfTheQueen.healingHits || 0;
     const giftOfTheQueenDuplicateHits = giftOfTheQueenDuplicate.healingHits || 0;
-    const giftOfTheQueenAvgHits = (giftOfTheQueenHits+giftOfTheQueenDuplicateHits) / (giftOfTheQueenCasts+giftOfTheQueenDuplicateCasts);
+    const giftOfTheQueenAvgHits = (giftOfTheQueenHits+giftOfTheQueenDuplicateHits) / giftOfTheQueenCasts /(hasDeepWaters ? 2 : 1);
     const giftOfTheQueenTargetEfficiency = giftOfTheQueenAvgHits / 6;
 
     const giftOfTheQueenRawHealing = giftOfTheQueen.healingEffective + giftOfTheQueen.healingOverheal;
