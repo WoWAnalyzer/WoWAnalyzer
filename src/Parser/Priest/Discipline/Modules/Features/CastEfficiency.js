@@ -20,7 +20,7 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 18,
       getCasts: castCount => castCount.casts,
-      getMaxCasts: (cooldown, fightDuration, getAbility, parser) => calculateMaxCasts(cooldown, fightDuration, 2),
+      charges: 2,
     },
     {
       spell: SPELLS.EVANGELISM_TALENT,
@@ -58,6 +58,18 @@ class CastEfficiency extends CoreCastEfficiency {
         return maxRaptureCasts;
       },
     },
+    // TODO this should work, but is being quite harsh due to max casts calc ...
+    // {
+    //   spell: SPELLS.POWER_WORD_SHIELD,
+    //   category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+    //   getCooldown: (haste, combatant) => {
+    //     if(combatant.hasBuff(SPELLS.RAPTURE.id)) {
+    //       return 1.5 / (1 + haste); // TODO should there be an external 'GCD getter' ?
+    //     } else {
+    //       return 9 / (1 + haste);
+    //     }
+    //   },
+    // },
     {
       spell: SPELLS.SCHISM_TALENT,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
