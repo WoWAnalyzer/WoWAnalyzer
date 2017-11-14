@@ -17,6 +17,7 @@ class TarnishedSentinelMedallion extends ImportTarnishedSentinelMedallion {
   medallionEnd = 0;
   medallionUptime = [];
   medallionDuration = 20000;
+  medallionCasts = 0;
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
@@ -30,11 +31,18 @@ class TarnishedSentinelMedallion extends ImportTarnishedSentinelMedallion {
     }
   }
 
+  on_byPlayer_cast(event){
+    const buffId = event.ability.guid;
+    if(buffId !== SPELLS.SPECTRAL_OWL.id) {
+      return;
+    }
+    this.medallionCasts += 1;
+  }
+
+
   checkOverlap() {
-    this.medallionCasts = 0;
     this.medallionCastsWithTS = 0;
     this.medallionUptime.forEach(cast => {
-      this.medallionCasts++;
       this.cooldownThroughputTracker.pastCooldowns.forEach(ts => {
         let tsEnd; //because sometimes ts.end is undefined if the parser hasn't gotten there yet
         if (!ts.end) {
