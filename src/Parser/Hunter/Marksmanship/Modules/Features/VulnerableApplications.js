@@ -9,7 +9,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import StatisticsListBox from 'Main/StatisticsListBox';
 import STATISTIC_ORDER from "Main/STATISTIC_ORDER";
 
-const CHART_SIZE = 700;
+const CHART_SIZE = 50;
 
 //code grabbed from Parser/Paladin/Holy/Modules/PaladinCore/CastBehavior.js
 
