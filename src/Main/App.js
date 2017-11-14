@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
+import { createMatchSelector } from 'react-router-redux';
 
 import fetchWcl, { ApiDownError, LogNotFoundError } from 'common/fetchWcl';
 import getFightName from 'common/getFightName';
@@ -42,14 +43,10 @@ let _footerDeprecatedWarningSent = false;
 
 class App extends Component {
   static propTypes = {
-    match: PropTypes.shape({
-      params: PropTypes.shape({
-        reportCode: PropTypes.string,
-        playerName: PropTypes.string,
-        fightId: PropTypes.string,
-        resultTab: PropTypes.string,
-      }),
-    }),
+    reportCode: PropTypes.string,
+    playerName: PropTypes.string,
+    fightId: PropTypes.number,
+    resultTab: PropTypes.string,
     report: PropTypes.shape({
       title: PropTypes.string.isRequired,
       code: PropTypes.string.isRequired,
@@ -59,37 +56,17 @@ class App extends Component {
       push: PropTypes.func.isRequired,
     }).isRequired,
   };
-  static defaultProps = {
-    match: {
-      params: {},
-    },
-  };
   static childContextTypes = {
     config: PropTypes.object,
   };
 
   // Parsing a fight for a player is a "job", if the selected player or fight changes we want to stop parsing it. This integer gives each job an id that if it mismatches stops the job.
   _jobId = 0;
-  get reportCode() {
-    return this.props.match.params.reportCode;
-  }
   get isReportValid() {
-    return this.props.report && this.props.report.code === this.reportCode;
-  }
-  get playerName() {
-    return this.props.match.params.playerName;
-  }
-  get fightId() {
-    if (this.props.match.params.fightId) {
-      return Number(this.props.match.params.fightId.split('-')[0]);
-    }
-    return null;
+    return this.props.report && this.props.report.code === this.props.reportCode;
   }
   get fight() {
-    return this.fightId && this.props.report && this.getFightFromReport(this.props.report, this.fightId);
-  }
-  get resultTab() {
-    return this.props.match.params.resultTab;
+    return this.props.fightId && this.props.report && this.getFightFromReport(this.props.report, this.props.fightId);
   }
 
   getPlayerFromReport(report, playerName) {
@@ -148,7 +125,7 @@ class App extends Component {
   }
 
   handleRefresh() {
-    this.props.fetchReport(this.reportCode, true);
+    this.props.fetchReport(this.props.reportCode, true);
   }
 
   getConfig(specId) {
@@ -311,7 +288,7 @@ class App extends Component {
     try {
       const combatants = await this.fetchEvents(report.code, fight.start_time, fight.end_time, undefined, 'type="combatantinfo"');
       console.log('Received combatants', report.code, ':', combatants);
-      if (this.reportCode === report.code && this.fightId === fightId) {
+      if (this.props.reportCode === report.code && this.props.fightId === fightId) {
         this.setState({
           combatants,
         });
@@ -347,8 +324,8 @@ class App extends Component {
   }
 
   componentWillMount() {
-    if (this.reportCode) {
-      this.props.fetchReport(this.reportCode)
+    if (this.props.reportCode) {
+      this.props.fetchReport(this.props.reportCode)
         .catch(err => {
           if (err instanceof ApiDownError || err instanceof LogNotFoundError) {
             this.reset();
@@ -373,34 +350,28 @@ class App extends Component {
     this.updateBossIdIfNecessary(prevProps, prevState);
   }
   fetchReportIfNecessary(prevProps) {
-    const curParams = this.props.match.params;
-    const prevParams = prevProps.match.params;
-    if (curParams.reportCode && curParams.reportCode !== prevParams.reportCode) {
-      this.props.fetchReport(curParams.reportCode);
+    if (this.props.reportCode && this.props.reportCode !== prevProps.reportCode) {
+      this.props.fetchReport(this.props.reportCode);
     }
   }
   fetchCombatantsIfNecessary(prevProps, prevState) {
-    const curParams = this.props.match.params;
-    const prevParams = prevProps.match.params;
-    if (this.isReportValid && this.fightId && (this.props.report !== prevProps.report || curParams.fightId !== prevParams.fightId)) {
+    if (this.isReportValid && this.props.fightId && (this.props.report !== prevProps.report || this.props.fightId !== prevProps.fightId)) {
       // A report has been loaded, it is the report the user wants (this can be a mismatch if a new report is still loading), a fight was selected, and one of the fight-relevant things was changed
-      this.fetchCombatantsForFight(this.props.report, this.fightId);
+      this.fetchCombatantsForFight(this.props.report, this.props.fightId);
     }
   }
   fetchEventsAndParseIfNecessary(prevProps, prevState) {
-    const curParams = this.props.match.params;
-    const prevParams = prevProps.match.params;
     const changed = this.props.report !== prevProps.report
       || this.state.combatants !== prevState.combatants
-      || curParams.fightId !== prevParams.fightId
-      || this.playerName !== prevParams.playerName;
+      || this.props.fightId !== prevProps.fightId
+      || this.props.playerName !== prevProps.playerName;
     if (changed) {
       this.reset();
 
       const report = this.props.report;
       const combatants = this.state.combatants;
-      const playerName = this.playerName;
-      const valid = report && combatants && this.fightId && playerName;
+      const playerName = this.props.playerName;
+      const valid = report && combatants && this.props.fightId && playerName;
       if (valid) {
         const player = this.getPlayerFromReport(report, playerName);
         if (!player) {
@@ -412,27 +383,25 @@ class App extends Component {
           alert('This player does not seem to be in this fight.');
           return;
         }
-        const fight = this.getFightFromReport(report, this.fightId);
+        const fight = this.getFightFromReport(report, this.props.fightId);
         this.fetchEventsAndParse(report, fight, combatants, combatant, player);
       }
     }
   }
   updateBossIdIfNecessary(prevProps, prevState) {
-    const curParams = this.props.match.params;
-    const prevParams = prevProps.match.params;
-    if (curParams.reportCode !== prevParams.reportCode || this.props.report !== prevProps.report || curParams.fightId !== prevParams.fightId) {
+    if (this.props.reportCode !== prevProps.reportCode || this.props.report !== prevProps.report || this.props.fightId !== prevProps.fightId) {
       this.updateBossId();
     }
   }
 
   updatePageTitle() {
     let title = 'WoW Analyzer';
-    if (this.reportCode && this.props.report) {
-      if (this.playerName) {
+    if (this.props.reportCode && this.props.report) {
+      if (this.props.playerName) {
         if (this.fight) {
-          title = `${getFightName(this.props.report, this.fight)} by ${this.playerName} in ${this.props.report.title} - ${title}`;
+          title = `${getFightName(this.props.report, this.fight)} by ${this.props.playerName} in ${this.props.report.title} - ${title}`;
         } else {
-          title = `${this.playerName} in ${this.props.report.title} - ${title}`;
+          title = `${this.props.playerName} in ${this.props.report.title} - ${title}`;
         }
       } else {
         title = `${this.props.report.title} - ${title}`;
@@ -442,7 +411,7 @@ class App extends Component {
   }
   updateBossId() {
     this.setState({
-      bossId: (this.reportCode && this.isReportValid && this.fight && this.fight.boss) || null,
+      bossId: (this.props.reportCode && this.isReportValid && this.fight && this.fight.boss) || null,
     });
   }
 
@@ -490,7 +459,7 @@ class App extends Component {
         );
       }
     }
-    if (!this.reportCode) {
+    if (!this.props.reportCode) {
       return <Home />;
     }
 
@@ -503,7 +472,7 @@ class App extends Component {
         </div>
       );
     }
-    if (!this.fightId) {
+    if (!this.props.fightId) {
       return <FightSelecter report={report} onRefresh={this.handleRefresh} />;
     }
     if (!combatants) {
@@ -515,8 +484,8 @@ class App extends Component {
         </div>
       );
     }
-    if (!this.playerName) {
-      return <PlayerSelecter report={report} fightId={this.fightId} combatants={combatants} />;
+    if (!this.props.playerName) {
+      return <PlayerSelecter report={report} fightId={this.props.fightId} combatants={combatants} />;
     }
     if (!parser) {
       return null;
@@ -526,8 +495,8 @@ class App extends Component {
       <Results
         parser={parser}
         dataVersion={this.state.dataVersion}
-        tab={this.resultTab}
-        onChangeTab={newTab => this.props.history.push(makeAnalyzerUrl(report, this.fightId, this.playerName, newTab))}
+        tab={this.props.resultTab}
+        onChangeTab={newTab => this.props.history.push(makeAnalyzerUrl(report, this.props.fightId, this.props.playerName, newTab))}
       />
     );
   }
@@ -550,7 +519,7 @@ class App extends Component {
               <img src="/favicon.png" alt="WoWAnalyzer logo" />
             </Link>
           </div>
-          {this.reportCode && report && (
+          {this.props.reportCode && report && (
             <div className="menu-item">
               <Link to={makeAnalyzerUrl(report)}>{report.title}</Link>
             </div>
@@ -563,13 +532,13 @@ class App extends Component {
               parser={parser}
             />
           )}
-          {this.playerName && report && (
+          {this.props.playerName && report && (
             <PlayerSelectorHeader
               className="menu-item"
               report={report}
-              fightId={this.fightId}
+              fightId={this.props.fightId}
               combatants={combatants || []}
-              selectedPlayerName={this.playerName}
+              selectedPlayerName={this.props.playerName}
             />
           )}
           <div className="spacer" />
@@ -591,7 +560,7 @@ class App extends Component {
     }
 
     // Treat `fatalError` like it's a report so the header doesn't pop over the shown error
-    const hasReport = this.reportCode || this.state.fatalError;
+    const hasReport = this.props.reportCode || this.state.fatalError;
 
     return (
       <div className={`app ${hasReport ? 'has-report' : ''}`}>
@@ -602,7 +571,7 @@ class App extends Component {
           <div className="container hidden-md hidden-sm hidden-xs">
             Analyze your performance
           </div>
-          {!this.reportCode && (
+          {!this.props.reportCode && (
             <ReportSelecter onSubmit={this.handleReportSelecterSubmit} />
           )}
         </header>
@@ -616,9 +585,23 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  report: getReport(state),
-});
+const routerMatcher = createMatchSelector('/report/:reportCode?/:fightId?/:playerName?/:resultTab?');
+
+const mapStateToProps = state => {
+  const match = routerMatcher(state);
+  const reportCode = match ? match.params.reportCode : null;  
+  const fightId = match ? Number(match.params.fightId.split('-')[0]) : null;  
+  const playerName = match ? match.params.playerName : null;  
+  const resultTab = match ? match.params.resultTab : null;  
+
+  return ({
+    report: getReport(state),
+    reportCode,
+    fightId,
+    playerName,
+    resultTab,
+  });
+};
 
 export default connect(
   mapStateToProps,
