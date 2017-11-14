@@ -31,14 +31,13 @@ class TarnishedSentinelMedallion extends ImportTarnishedSentinelMedallion {
     }
   }
 
-  on_byPlayer_cast(event){
+  on_byPlayer_cast(event) {
     const buffId = event.ability.guid;
-    if(buffId !== SPELLS.SPECTRAL_OWL.id) {
+    if (buffId !== SPELLS.SPECTRAL_OWL.id) {
       return;
     }
     this.medallionCasts += 1;
   }
-
 
   checkOverlap() {
     this.medallionCastsWithTS = 0;

@@ -191,7 +191,7 @@ class PatientSniperTracker extends Analyzer {
     }
     this.currentVulnerables.push({
       start: event.timestamp,
-      end:  event.timestamp + VULNERABLE_DURATION,
+      end: event.timestamp + VULNERABLE_DURATION,
       ID: event.targetID,
       instance: event.targetInstance,
     });
@@ -326,14 +326,14 @@ class PatientSniperTracker extends Analyzer {
     // this helper looks for Vulnerable debuffs (either current or if not present, tries past windows) on a given target+instance when castTimestamp happened
     // calculates the Patient Sniper bonus from that window or returns undefined if no windows were found
     let vulnerable = this.currentVulnerables.find(v => v.ID === targetID &&
-                                                      v.instance === targetInstance &&
-                                                      v.start <= castTimestamp  &&
-                                                      castTimestamp <= v.end);
+      v.instance === targetInstance &&
+      v.start <= castTimestamp &&
+      castTimestamp <= v.end);
     if (!vulnerable) {
       vulnerable = this.pastVulnerables.find(v => v.ID === targetID &&
-                                                  v.instance === targetInstance &&
-                                                  v.start <= castTimestamp  &&
-                                                  castTimestamp <= v.end);
+        v.instance === targetInstance &&
+        v.start <= castTimestamp &&
+        castTimestamp <= v.end);
     }
     // consistent with what I queue from Aimed Shot cast events - undefined if shot outside of Vulnerable, otherwise seconds into Vulnerable
     return (!vulnerable) ? undefined : Math.floor((castTimestamp - vulnerable.start) / 1000);

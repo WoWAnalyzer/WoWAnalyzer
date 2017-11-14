@@ -9,7 +9,6 @@ import { formatNumber, formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import getDamageBonus from "Parser/Hunter/Shared/Modules/getDamageBonus";
 
-
 const MAX_STACKS = 20;
 const WARBELT_OF_THE_SENTINEL_ARMY_DAMAGE_BONUS = 0.1;
 
