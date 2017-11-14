@@ -71,7 +71,7 @@ class AMurderOfCrows extends Analyzer {
           .icon(SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.icon)
           .actual(`You cast crows while boss ${formatPercentage(this.bossHP)}% HP.`)
           .recommended(`0 casts when boss has between 20 and 25% hp is recommended`)
-          .average(recommended);
+          .regular(recommended);
       });
 
   }

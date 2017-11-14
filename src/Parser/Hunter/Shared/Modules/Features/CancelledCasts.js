@@ -35,7 +35,7 @@ class CancelledCasts extends CoreCancelledCasts {
         icon={<Icon icon={'inv_misc_map_01'} />}
         value={`${formatPercentage(this.cancelledPercentage)}%`}
         label={`Cancelled Casts`}
-        tooltip={`You started casting a total of ${this.totalCasts} spells with a cast timer, and out of these ${this.castsCancelled} casts were cancelled.`}
+        tooltip={`You started casting a total of ${this.totalCasts} spells with a cast timer. <ul> <li> You cancelled ${this.castsCancelled} of those casts. </li> </ul>`}
       />
     );
   }
