@@ -115,7 +115,7 @@ class Trueshot extends Analyzer {
       });
     when(this.executeTrueshots).isLessThan(1)
       .addSuggestion((suggest, actual, recommended) => {
-      return suggest(<span>You should make sure to have atleast 1 <SpellLink id={SPELLS.TRUESHOT.id}/> cast during execute (where you are buffed by <SpellLink id={SPELLS.BULLSEYE_TRAIT.id}/>) to get the most out of <SpellLink id={SPELLS.TRUESHOT.id}/> as possible.</span>)
+      return suggest(<span>You should make sure to have atleast 1 <SpellLink id={SPELLS.TRUESHOT.id}/> cast during execute (where you are buffed by <SpellLink id={SPELLS.BULLSEYE_TRAIT.id}/>) to get as much out of <SpellLink id={SPELLS.TRUESHOT.id}/> as possible.</span>)
         .icon(SPELLS.TRUESHOT.icon)
         .actual(`You had ${this.executeTrueshots} trueshot casts during Bullseye`)
         .recommended(`casting atleast 1 trueshot in execute is recommended`)

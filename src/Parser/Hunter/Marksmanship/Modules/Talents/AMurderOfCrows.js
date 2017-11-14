@@ -8,6 +8,7 @@ import StatisticBox from "Main/StatisticBox";
 import SpellIcon from "common/SpellIcon";
 import { formatNumber } from "common/format";
 import SpellLink from "common/SpellLink";
+import { formatPercentage } from "../../../../../common/format";
 
 //generally accepted rule is to save crows if boss is below 25% health.
 const CROWS_SAVE_PERCENT = 0.25;
@@ -22,6 +23,7 @@ class AMurderOfCrows extends Analyzer {
   bossIDs = [];
   damage = 0;
   shouldHaveSaved = 0;
+  bossHP = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id);
@@ -45,9 +47,10 @@ class AMurderOfCrows extends Analyzer {
     if (spellId !== SPELLS.A_MURDER_OF_CROWS_SPELL.id) {
       return;
     }
-    if (event.targetInstance === undefined && event.maxHitPoints && this.bossIDs.indexOf(event.targetID) !== -1) {
+    if (event.maxHitPoints && this.bossIDs.includes(event.targetID)) {
       if ((event.hitPoints / event.maxHitPoints) <= CROWS_SAVE_PERCENT && (event.hitPoints / event.maxHitPoints) > EXECUTE_PERCENT) {
         this.shouldHaveSaved += 1;
+        this.bossHP = (event.hitPoints/event.maxHitPoints);
       }
     }
   }
@@ -64,11 +67,11 @@ class AMurderOfCrows extends Analyzer {
   suggestions(when) {
     when(this.shouldHaveSaved).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You should generally save <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> when the boss has under 25% hp so that it is ready to use when the boss hits 20% and you can start getting <SpellLink id={SPELLS.BULLSEYE_TRAIT.id}/> quicker.</span>)
+        return suggest(<span>You should <b>generally</b> save <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> when the boss has under 25% hp so that it is ready to use when the boss hits 20% and you can start getting <SpellLink id={SPELLS.BULLSEYE_TRAIT.id}/> quicker.</span>)
           .icon(SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.icon)
-          .actual(`${this.shouldHaveSaved} casts below 25% before reaching execute`)
+          .actual(`You cast crows while boss ${formatPercentage(this.bossHP)}% HP.`)
           .recommended(`0 casts when boss has between 20 and 25% hp is recommended`)
-          .major(recommended);
+          .average(recommended);
       });
 
   }
