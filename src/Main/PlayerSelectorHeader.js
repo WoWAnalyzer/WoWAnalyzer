@@ -8,15 +8,6 @@ import PlayerSelectionList from './PlayerSelectionList';
 class PlayerSelectorHeader extends SelectorBase {
   static propTypes = {
     selectedPlayerName: PropTypes.string.isRequired,
-    report: PropTypes.shape({
-      code: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-      friendlies: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        type: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-      })),
-    }).isRequired,
     fightId: PropTypes.number.isRequired,
     combatants: PropTypes.arrayOf(PropTypes.shape({
 
@@ -24,7 +15,7 @@ class PlayerSelectorHeader extends SelectorBase {
   };
 
   render() {
-    const { report, fightId, combatants, selectedPlayerName, ...others } = this.props;
+    const { fightId, combatants, selectedPlayerName, ...others } = this.props;
     const { show } = this.state;
     return (
       <div ref={this.setRef} {...others}>
@@ -36,7 +27,7 @@ class PlayerSelectorHeader extends SelectorBase {
                 <h2>Select the player you wish to analyze</h2>
               </div>
               <div className="panel-body" style={{ padding: 0 }} onClick={this.handleClick}>
-                <PlayerSelectionList report={report} fightId={fightId} combatants={combatants} />
+                <PlayerSelectionList fightId={fightId} combatants={combatants} />
               </div>
             </div>
           </span>

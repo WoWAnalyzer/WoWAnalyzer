@@ -1,7 +1,7 @@
-import { Component } from 'react';
+import React from 'react';
 import ReactTooltip from 'react-tooltip';
 
-class SelectorBase extends Component {
+class SelectorBase extends React.PureComponent {
   static propTypes = {
   };
 

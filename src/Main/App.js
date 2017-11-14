@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 import { createMatchSelector } from 'react-router-redux';
 
@@ -12,22 +11,21 @@ import UnsupportedSpec from 'Parser/UnsupportedSpec/CONFIG';
 
 import { fetchReport as fetchReportAction } from 'actions/report';
 import { getReport } from 'selectors/report';
+import { getFightById } from 'selectors/fight';
 
 import './App.css';
 
-import GithubLogo from './Images/GitHub-Mark-Light-32px.png';
 import ApiDownBackground from './Images/api-down-background.gif';
 import ThunderSoundEffect from './Audio/Thunder Sound effect.mp3';
 
 import Home from './Home';
 import FightSelecter from './FightSelecter';
-import FightSelectorHeader from './FightSelectorHeader';
 import PlayerSelecter from './PlayerSelecter';
-import PlayerSelectorHeader from './PlayerSelectorHeader';
 import Results from './Results';
 import ReportSelecter from './ReportSelecter';
 import AppBackgroundImage from './AppBackgroundImage';
 import FullscreenError from './FullscreenError';
+import NavigationBar from './Layout/NavigationBar';
 
 import makeAnalyzerUrl from './makeAnalyzerUrl';
 
@@ -507,71 +505,34 @@ class App extends Component {
     });
   }
 
-  renderNavigationBar() {
-    const { combatants, parser, progress } = this.state;
-    const { report } = this.props;
-
-    return (
-      <nav>
-        <div className="container">
-          <div className="menu-item logo main">
-            <Link to={makeAnalyzerUrl()}>
-              <img src="/favicon.png" alt="WoWAnalyzer logo" />
-            </Link>
-          </div>
-          {this.props.reportCode && report && (
-            <div className="menu-item">
-              <Link to={makeAnalyzerUrl(report)}>{report.title}</Link>
-            </div>
-          )}
-          {this.fight && report && (
-            <FightSelectorHeader
-              className="menu-item"
-              report={report}
-              selectedFightName={getFightName(report, this.fight)}
-              parser={parser}
-            />
-          )}
-          {this.props.playerName && report && (
-            <PlayerSelectorHeader
-              className="menu-item"
-              report={report}
-              fightId={this.props.fightId}
-              combatants={combatants || []}
-              selectedPlayerName={this.props.playerName}
-            />
-          )}
-          <div className="spacer" />
-          <div className="menu-item main">
-            <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">
-              <img src={GithubLogo} alt="GitHub logo" /><span className="optional" style={{ paddingLeft: 6 }}> View on GitHub</span>
-            </a>
-          </div>
-        </div>
-        <div className="progress" style={{ width: `${progress * 100}%`, opacity: progress === 0 || progress >= 1 ? 0 : 1 }} />
-      </nav>
-    );
-  }
-
   render() {
     if (this.state.config && this.state.config.footer && !_footerDeprecatedWarningSent) {
       console.error('Using `config.footer` is deprecated. You should add the information you want to share to the description property in the config, which is shown on the spec information overlay.');
       _footerDeprecatedWarningSent = true;
     }
 
+    const { reportCode, fightId, playerName } = this.props;
+    const { combatants, parser, progress } = this.state;
+
     // Treat `fatalError` like it's a report so the header doesn't pop over the shown error
-    const hasReport = this.props.reportCode || this.state.fatalError;
+    const hasReport = reportCode || this.state.fatalError;
 
     return (
       <div className={`app ${hasReport ? 'has-report' : ''}`}>
         <AppBackgroundImage bossId={this.state.bossId} />
 
-        {this.renderNavigationBar()}
+        <NavigationBar
+          fightId={fightId}
+          playerName={playerName}
+          combatants={combatants}
+          parser={parser}
+          progress={progress}
+        />
         <header>
           <div className="container hidden-md hidden-sm hidden-xs">
             Analyze your performance
           </div>
-          {!this.props.reportCode && (
+          {!reportCode && (
             <ReportSelecter onSubmit={this.handleReportSelecterSubmit} />
           )}
         </header>
@@ -595,11 +556,13 @@ const mapStateToProps = state => {
   const resultTab = match ? match.params.resultTab : null;  
 
   return ({
-    report: getReport(state),
     reportCode,
     fightId,
     playerName,
     resultTab,
+
+    report: getReport(state),
+    fight: getFightById(state, fightId),
   });
 };
 

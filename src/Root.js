@@ -1,5 +1,4 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
@@ -27,17 +26,11 @@ const store = createStore(
 
 const Root = () => (
   <Provider store={store}>
-    <ErrorBoundary>
-      <ConnectedRouter history={history}>
-        <Switch>
-          <Route path="/report/:reportCode/:fightId/:playerName/:resultTab" component={App} />
-          <Route path="/report/:reportCode/:fightId/:playerName" component={App} />
-          <Route path="/report/:reportCode/:fightId" component={App} />
-          <Route path="/report/:reportCode" component={App} />
-          <Route path="/" component={App} />
-        </Switch>
-      </ConnectedRouter>
-    </ErrorBoundary>
+    <ConnectedRouter history={history}>
+      <ErrorBoundary>
+        <App />
+      </ErrorBoundary>
+    </ConnectedRouter>
   </Provider>
 );
 

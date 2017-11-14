@@ -1,14 +1,17 @@
-import React, { Component } from 'react';
+import React  from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 
+import { getReport } from 'selectors/report';
+import { getFightById } from 'selectors/fight';
 import SPECS from 'common/SPECS';
 import ROLES from 'common/ROLES';
 
 import makeAnalyzerUrl from './makeAnalyzerUrl';
 
-class PlayerSelectionList extends Component {
+class PlayerSelectionList extends React.PureComponent {
   static propTypes = {
     report: PropTypes.shape({
       code: PropTypes.string.isRequired,
@@ -118,4 +121,11 @@ class PlayerSelectionList extends Component {
   }
 }
 
-export default PlayerSelectionList;
+const mapStateToProps = (state, { fightId }) => ({
+  report: getReport(state),
+  fight: getFightById(state, fightId),
+});
+
+export default connect(
+  mapStateToProps
+)(PlayerSelectionList);
