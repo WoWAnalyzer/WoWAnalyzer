@@ -12,6 +12,7 @@ import { formatPercentage } from "../../../../../common/format";
 
 //generally accepted rule is to save crows if boss is below 25% health.
 const CROWS_SAVE_PERCENT = 0.25;
+//when we enter execute and Bullseye starts racking up
 const EXECUTE_PERCENT = 0.2;
 
 class AMurderOfCrows extends Analyzer {
