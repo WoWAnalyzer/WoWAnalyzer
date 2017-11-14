@@ -1,5 +1,9 @@
 export default `
+10-11-2017 - Added T21 4pc bonus. (By Oratio)
+01-11-2017 - Added T21 2pc bonus. (By Oratio)
 27-10-2017 - Refactored disc module. (Gao)
+27-10-2017 - Added an atonement normalizer to fix atonement ordering issues. (By Oratio)
+26-10-2017 - Adjusted the T20 2pc bonus for the recent nerfs. (By Oratio)
 16-10-2017 - Fixed T20 4pc bug, added a suggestion to utilise the buff. (By Reglitch)
 15-09-2017 - Pet damage is now also taken into consideration for Atonement damage source. (by Zerotorescue)
 14-09-2017 - Fix issue where friendly fire damage was considered a valid Atonement damage source. (by Zerotorescue)
