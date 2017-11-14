@@ -8,7 +8,7 @@ import StatisticBox from "Main/StatisticBox";
 import SpellIcon from "common/SpellIcon";
 import { formatNumber } from "common/format";
 import SpellLink from "common/SpellLink";
-import { formatPercentage } from "../../../../../common/format";
+import { formatPercentage } from "common/format";
 
 //generally accepted rule is to save crows if boss is below 25% health.
 const CROWS_SAVE_PERCENT = 0.25;
