@@ -153,7 +153,6 @@ class CombatLogParser extends CoreCombatLogParser {
     const maxChainHealTargets = this.modules.combatants.selected.hasTalent(SPELLS.HIGH_TIDE_TALENT.id) ? 5 : 4;
     const chainHealTargetEfficiency = chainHealAvgHits / maxChainHealTargets;
 
-    const hasDeepWaters = this.modules.combatants.selected.traitsBySpellId[SPELLS.DEEP_WATERS.id] > 0;
     const giftOfTheQueenHits = giftOfTheQueen.healingHits || 0;
     const giftOfTheQueenDuplicateHits = giftOfTheQueenDuplicate.healingHits || 0;
     const giftOfTheQueenAvgHits = (giftOfTheQueenHits+giftOfTheQueenDuplicateHits) / (giftOfTheQueenCasts+giftOfTheQueenDuplicateCasts);
