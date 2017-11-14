@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
-import { createMatchSelector } from 'react-router-redux';
+import { createMatchSelector, push as pushAction } from 'react-router-redux';
 
 import fetchWcl, { ApiDownError, LogNotFoundError } from 'common/fetchWcl';
 import getFightName from 'common/getFightName';
@@ -50,9 +50,6 @@ class App extends Component {
       code: PropTypes.string.isRequired,
     }),
     fetchReport: PropTypes.func,
-    history: PropTypes.shape({
-      push: PropTypes.func.isRequired,
-    }).isRequired,
   };
   static childContextTypes = {
     config: PropTypes.object,
@@ -118,7 +115,7 @@ class App extends Component {
         }
       }
 
-      this.props.history.push(constructedUrl);
+      this.props.push(constructedUrl);
     }
   }
 
@@ -279,7 +276,7 @@ class App extends Component {
     const fight = this.getFightFromReport(report, fightId);
     if (!fight) { // if this fight id doesn't exist the fight might be null
       alert('Couldn\'t find the selected fight. If you are live-logging you will have to manually refresh the fight list.');
-      this.props.history.push(makeAnalyzerUrl(report));
+      this.props.push(makeAnalyzerUrl(report));
       return null;
     }
 
@@ -448,7 +445,7 @@ class App extends Component {
             <div>
               <button type="button" className="btn btn-primary" onClick={() => {
                 this.setState({ fatalError: null });
-                this.props.history.push(makeAnalyzerUrl());
+                this.props.push(makeAnalyzerUrl());
               }}>
                 &lt; Back
               </button>
@@ -494,7 +491,7 @@ class App extends Component {
         parser={parser}
         dataVersion={this.state.dataVersion}
         tab={this.props.resultTab}
-        onChangeTab={newTab => this.props.history.push(makeAnalyzerUrl(report, this.props.fightId, this.props.playerName, newTab))}
+        onChangeTab={newTab => this.props.push(makeAnalyzerUrl(report, this.props.fightId, this.props.playerName, newTab))}
       />
     );
   }
@@ -570,5 +567,6 @@ export default connect(
   mapStateToProps,
   {
     fetchReport: fetchReportAction,
+    push: pushAction,
   }
 )(App);
