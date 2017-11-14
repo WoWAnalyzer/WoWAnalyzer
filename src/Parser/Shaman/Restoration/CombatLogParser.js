@@ -146,7 +146,7 @@ class CombatLogParser extends CoreCombatLogParser {
     const unbuffedHealingSurges = healingSurges - twHealingSurges;
     const totalTwUsed = twHealingWaves + twHealingSurges;
     const giftOfTheQueenCasts = giftOfTheQueen.casts || 0;
-    const giftOfTheQueenDuplicateCasts = giftOfTheQueen.casts || 0;
+    const giftOfTheQueenDuplicateCasts = giftOfTheQueenDuplicate.casts || 0;
 
     const chainHealHits = chainHeal.healingHits || 0;
     const chainHealAvgHits = chainHealHits / chainHealCasts;
