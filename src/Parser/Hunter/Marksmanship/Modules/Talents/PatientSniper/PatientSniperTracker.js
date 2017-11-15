@@ -6,7 +6,7 @@ import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus'; // rel
 
 const PATIENT_SNIPER_BONUS_PER_SEC = 0.06;
 const VULNERABLE_DURATION = 7000;
-const LAG_TOLERANCE = 100;
+const LAG_TOLERANCE = 300;
 const MAX_AIMED_SHOT_TRAVEL_TIME = 1000;
 
 const debug = false;
@@ -242,6 +242,7 @@ class PatientSniperTracker extends Analyzer {
     let timeIntoVulnerable = Math.floor(timeDifference / 1000);
     //if our LAG_TOLERANCE didn't work, or the log somehow is missing a APPLYDEBUFF or REMOVEDEBUFF event for vulnerable, this will hardcode it into max value (as it will be in-game in majority of cases as it later checks if vulnerable is still on the target)
     if(timeIntoVulnerable>6) {
+      debug && console.log('emergency fix had to be used', event.timestamp);
       timeIntoVulnerable = 6;
     }
     debug &&  console.log('timestamp: ', event.timestamp, '. Time into vulnerable: ', timeIntoVulnerable, '. TargetID: ', event.targetID);
