@@ -12,6 +12,7 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.PENANCE,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCasts: (_, parser) => parser.modules.penance.casts,
+      getMaxCasts: (cooldown, fightDuration, getAbility, parser) => calculateMaxCasts(cooldown, fightDuration), // temp until bolts past first can be ignored by cast checker
       getCooldown: haste => 9,
     },
     {
