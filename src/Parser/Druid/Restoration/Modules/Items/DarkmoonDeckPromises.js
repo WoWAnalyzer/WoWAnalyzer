@@ -5,7 +5,7 @@ import { formatPercentage, formatNumber, formatThousands } from 'common/format';
 
 import CoreDarkmoonDeckPromises from 'Parser/Core/Modules/Items/DarkmoonDeckPromises';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
-import Rejuvenation from '../Features/Rejuvenation';
+import Rejuvenation from '../Core/Rejuvenation';
 
 class DarkmoonDeckPromises extends CoreDarkmoonDeckPromises {
   static dependencies = {

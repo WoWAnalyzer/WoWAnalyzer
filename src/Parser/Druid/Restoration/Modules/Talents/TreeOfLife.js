@@ -9,10 +9,11 @@ import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
+import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
 import SuggestionThresholds from '../../SuggestionThresholds';
-import Rejuvenation from './Rejuvenation';
+import Rejuvenation from '../Core/Rejuvenation';
 
 const debug = false;
 
@@ -29,6 +30,7 @@ class TreeOfLife extends Analyzer {
   static dependencies = {
     healingDone: HealingDone,
     combatants: Combatants,
+    abilityTracker: AbilityTracker,
     rejuvenation: Rejuvenation,
   };
 
@@ -80,7 +82,7 @@ class TreeOfLife extends Analyzer {
     }
 
     // Get total healing from rejuv + germ (if specced) during ToL
-    if (this.owner.modules.combatants.selected.hasBuff(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id)) {
+    if (this.combatants.selected.hasBuff(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id)) {
       if (this.tolManualApplyTimestamp !== null && event.timestamp <= this.tolManualApplyTimestamp + TREE_OF_LIFE_DURATION) {
         if (SPELLS.REJUVENATION.id === spellId) {
           this.totalHealingFromRejuvenationDuringToL += amount;
@@ -111,7 +113,7 @@ class TreeOfLife extends Analyzer {
       this.totalRejuvenationsEncounter += 1;
     }
 
-    if (this.owner.modules.combatants.selected.hasBuff(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id)) {
+    if (this.combatants.selected.hasBuff(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id)) {
       if (this.tolManualApplyTimestamp !== null && event.timestamp <= this.tolManualApplyTimestamp + TREE_OF_LIFE_DURATION) {
         if (SPELLS.REJUVENATION.id === spellId) {
           this.totalRejuvenationsDuringToL += 1;
@@ -175,7 +177,7 @@ class TreeOfLife extends Analyzer {
 
     // Total throughput from using Tree of Life
     this.throughput = rejuvenationIncreasedEffect + tolIncreasedHealingDone + rejuvenationMana + wildGrowthIncreasedEffect;
-    debug && console.log(`uptime: ${((this.owner.modules.combatants.selected.getBuffUptime(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) / this.owner.fightDuration) * 100).toFixed(2)}%`);
+    debug && console.log(`uptime: ${((this.combatants.selected.getBuffUptime(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) / this.owner.fightDuration) * 100).toFixed(2)}%`);
     debug && console.log(`throughput: ${(this.throughput * 100).toFixed(2)}%`);
 
     // Chameleon song
@@ -188,7 +190,7 @@ class TreeOfLife extends Analyzer {
     const wildGrowthIncreasedEffectHelmet = this.owner.getPercentageOfTotalHealingDone(this.totalHealingFromWildgrowthsDuringToLHelmet / HEALING_INCREASE - this.totalHealingFromWildgrowthsDuringToLHelmet / (HEALING_INCREASE * WILD_GROWTH_HEALING_INCREASE));
     debug && console.log(`wildGrowthIncreasedEffectHelmet: ${(wildGrowthIncreasedEffectHelmet * 100).toFixed(2)}%`);
     this.throughputHelmet = rejuvenationIncreasedEffectHelmet + tolIncreasedHealingDoneHelmet + rejuvenationManaHelmet + wildGrowthIncreasedEffectHelmet;
-    debug && console.log(`uptimeHelmet: ${(((this.owner.modules.combatants.selected.getBuffUptime(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) - (this.tolCasts * TREE_OF_LIFE_DURATION)) / this.owner.fightDuration) * 100).toFixed(2)}%`);
+    debug && console.log(`uptimeHelmet: ${(((this.combatants.selected.getBuffUptime(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) - (this.tolCasts * TREE_OF_LIFE_DURATION)) / this.owner.fightDuration) * 100).toFixed(2)}%`);
     debug && console.log(`throughputHelmet: ${(this.throughputHelmet * 100).toFixed(2)}%`);
     debug && console.log(`tolcasts: ${this.tolCasts}`);
   }
@@ -276,7 +278,7 @@ class TreeOfLife extends Analyzer {
 
     const chameleonSongUptime = (this.combatants.selected.getBuffUptime(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) - (this.tolCasts * 30000) + this.adjustHelmetUptime) / this.owner.fightDuration;
 
-    const wildGrowths = this.owner.modules.abilityTracker.getAbility(SPELLS.WILD_GROWTH.id).casts || 0;
+    const wildGrowths = this.abilityTracker.getAbility(SPELLS.WILD_GROWTH.id).casts || 0;
     const treeOfLifeProcHelmet = this.proccs / wildGrowths;
 
     return {

@@ -132,7 +132,7 @@ export default {
     name: 'Sephuz\'s Secret',
     icon: 'inv_jewelry_ring_149',
   },
-  MARK_OF_THE_ACNIENT_PRIESTESS: {
+  MARK_OF_THE_ANCIENT_PRIESTESS: {
     id: 228401,
     name: 'Mark of the Ancient Priestess',
     icon: 'ability_priest_ascension',
@@ -251,6 +251,51 @@ export default {
     id: 253288,
     name: 'Aman Thul\'s Presence',
     icon: 'spell_priest_psyfiend',
+  },
+  EONARS_COMPASSION_HEAL: {
+    id: 257442,
+    name: 'Emerald Blossom',
+    icon: 'inv_antorus_green',
+  },
+  EONARS_COMPASSION_PROCBUFF: {
+    id: 256824,
+    name: 'Mark of Eonar',
+    icon: 'inv_antorus_green',
+  },
+  EONARS_COMPASSION_PANTHEONSHIELD: {
+    id: 257444,
+    name: 'Verdant Embrace',
+    icon: 'talentspec_druid_restoration',
+  },
+  EONARS_COMPASSION_PANTHEONBUFF_RDRUID: {
+    id: 257470,
+    name: 'Eonar\'s Verdant Embrace',
+    icon: 'talentspec_druid_restoration',
+  },
+  EONARS_COMPASSION_PANTHEONBUFF_RMONK: {
+    id: 257471,
+    name: 'Eonar\'s Verdant Embrace',
+    icon: 'talentspec_druid_restoration',
+  },
+  EONARS_COMPASSION_PANTHEONBUFF_HPALADIN: {
+    id: 257472,
+    name: 'Eonar\'s Verdant Embrace',
+    icon: 'talentspec_druid_restoration',
+  },
+  EONARS_COMPASSION_PANTHEONBUFF_DPRIEST: {
+    id: 257473,
+    name: 'Eonar\'s Verdant Embrace',
+    icon: 'talentspec_druid_restoration',
+  },
+  EONARS_COMPASSION_PANTHEONBUFF_HPRIEST: {
+    id: 257474,
+    name: 'Eonar\'s Verdant Embrace',
+    icon: 'talentspec_druid_restoration',
+  },
+  EONARS_COMPASSION_PANTHEONBUFF_RSHAMAN: {
+    id: 257475,
+    name: 'Eonar\'s Verdant Embrace',
+    icon: 'talentspec_druid_restoration',
   },
 
   // Item Abilities

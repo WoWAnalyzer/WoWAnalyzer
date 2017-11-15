@@ -42,6 +42,18 @@ export function formatDuration(duration) {
 export function formatMilliseconds(duration) {
   const sumSeconds = duration / 1000;
   const minutes = Math.floor(sumSeconds / 60);
-  const seconds = (sumSeconds % 60);
-  return `${minutes < 10 ? `0${minutes}` : minutes}:${seconds < 10 ? `0${seconds.toFixed(3)}` : seconds.toFixed(3)}`;
+  const seconds = sumSeconds % 60;
+
+  let response = '';
+  if (minutes < 10) {
+    response += '0';
+  }
+  response += minutes;
+  response += ':';
+  if (seconds < 10) {
+    response += '0';
+  }
+  response += seconds.toFixed(3);
+
+  return response;
 }

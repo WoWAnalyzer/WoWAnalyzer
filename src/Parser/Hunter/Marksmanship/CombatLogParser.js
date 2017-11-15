@@ -11,8 +11,9 @@ import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTrac
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import VulnerableUptime from './Modules/Features/VulnerableUptime';
 import VulnerableTracker from './Modules/Features/AimedInVulnerableTracker';
-import TimeFocusCapped from '../Shared/Modules/TimeFocusCapped';
+import TimeFocusCapped from '../Shared/Modules/Features/TimeFocusCapped';
 import VulnerableApplications from "./Modules/Features/VulnerableApplications";
+import CancelledCasts from "../Shared/Modules/Features/CancelledCasts";
 
 //Tier
 import Tier20_2p from './Modules/Items/Tier20_2p';
@@ -28,7 +29,7 @@ import FocusTracker from '../Shared/FocusChart/FocusTracker';
 
 //Items
 import UllrsFeatherSnowshoes from './Modules/Items/UllrsFeatherSnowshoes';
-import SoulOfTheHuntmaster from '../Shared/Items/SoulOfTheHuntmaster';
+import SoulOfTheHuntmaster from '../Shared/Modules/Items/SoulOfTheHuntmaster';
 import MKIIGyroscopicStabilizer from './Modules/Items/MKIIGyroscopicStabilizer';
 import WarBeltOfTheSentinelArmy from "./Modules/Items/WarBeltOfTheSentinelArmy";
 import TarnishedSentinelMedallion from "./Modules/Items/TarnishedSentinelMedallion";
@@ -46,7 +47,7 @@ import TrickShot from "./Modules/Talents/TrickShot";
 
 //Traits
 import QuickShot from './Modules/Traits/QuickShot';
-
+import Bullseye from './Modules/Traits/Bullseye';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -61,6 +62,7 @@ class CombatLogParser extends CoreCombatLogParser {
     vulnerableTracker: VulnerableTracker,
     TimeFocusCapped: TimeFocusCapped,
     vulnerableApplications: VulnerableApplications,
+    cancelledCasts: CancelledCasts,
 
     //Focus Chart
     focusTracker: FocusTracker,
@@ -91,6 +93,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Traits
     quickShot: QuickShot,
+    bullseye: Bullseye,
   };
 
   generateResults() {

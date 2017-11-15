@@ -6,7 +6,7 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import { formatPercentage } from 'common/format';
 
-import Rejuvenation from '../Features/Rejuvenation';
+import Rejuvenation from '../Core/Rejuvenation';
 
 class Tearstone extends Analyzer {
   static dependencies = {
@@ -38,7 +38,7 @@ class Tearstone extends Analyzer {
     if (SPELLS.WILD_GROWTH.id === spellId) {
       this.wildgrowthTimestamp = event.timestamp;
       this.wildGrowthTargets = [];
-      if (this.owner.modules.combatants.selected.hasBuff(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id)) {
+      if (this.combatants.selected.hasBuff(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id)) {
         this.wildGrowths += 8;
       } else {
         this.wildGrowths += 6;

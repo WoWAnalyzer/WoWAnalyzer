@@ -10,7 +10,7 @@ import CHI_SPENDERS from 'Parser/Monk/Windwalker/Constants';
 
 class TheEmperorsCapacitor extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
+      combatants: Combatants,
   };
   totalStacks = 0;
   currentStacks = 0;
@@ -63,6 +63,13 @@ class TheEmperorsCapacitor extends Analyzer {
     if (spellId === SPELLS.CRACKLING_JADE_LIGHTNING.id) {
       this.damage += event.amount + (event.absorbed || 0);
     }
+  }
+
+  on_byPlayerPet_damage(event) {
+      const spellId = event.ability.guid;
+      if (spellId === SPELLS.CRACKLING_JADE_LIGHTNING.id) {
+          this.damage += event.amount + (event.absorbed || 0);
+      }
   }
 
   item() {

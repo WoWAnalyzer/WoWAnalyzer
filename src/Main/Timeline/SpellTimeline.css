@@ -1,0 +1,98 @@
+.spell-timeline .timeline {
+  background: rgba(12, 22, 29, 0.79);
+  box-shadow: inset 0 0 16px 3px #000;
+  border: 1px solid #000;
+  width: 100%;
+  height: 68px;
+  overflow: auto;
+}
+.spell-timeline .lane {
+  height: 28px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.spell-timeline .legend .lane {
+  min-width: 200px;
+  padding-top: 1px;
+  padding-left: 6px;
+  padding-right: 15px;
+}
+.spell-timeline .legend img {
+  height: 23px;
+}
+.spell-timeline .ruler {
+  white-space: nowrap;
+  height: 33px;
+  margin-bottom: 3px;
+}
+.spell-timeline .ruler-lane {
+  border-bottom: 1px solid #fff;
+  height: 36px;
+}
+.spell-timeline .ruler > * {
+  display: inline-block;
+  border-left: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+  padding-left: 3px;
+  line-height: 1;
+  font-size: 12px;
+  position: relative;
+}
+.spell-timeline .ruler > *:before, .spell-timeline .ruler > *:after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  height: 8px;
+  border-left: 1px solid #fff;
+}
+.spell-timeline .ruler.interval-3 > *:before {
+  left: 33%;
+}
+.spell-timeline .ruler.interval-3 > *:after {
+  left: 66%;
+}
+.spell-timeline .ruler:not(.interval-3) > *:after {
+  display: none;
+}
+
+.spell-timeline .events {
+  position: relative;
+  height: 2em;
+}
+.spell-timeline .events > * {
+  position: absolute;
+  display: block;
+  top: 1px;
+  height: 25px;
+}
+.spell-timeline .events > * a {
+  display: inline-block;
+}
+.spell-timeline .events > * img {
+  height: 25px;
+}
+
+/* vertical scrollbar track */
+.gm-scrollbar.-vertical {
+  display: none;
+}
+
+/* horizontal scrollbar track */
+.gm-scrollbar.-horizontal {
+  background-color: rgba(50, 52, 53, 1);
+  border-radius: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 9px;
+}
+
+/* scrollbar thumb */
+.gm-scrollbar .thumb {
+  background-color: #F8F8F8;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2), 1px 0 1px rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+}
+.gm-scrollbar .thumb:hover, .gm-scrollbar .thumb:active {
+  background-color: #dedede;
+}
