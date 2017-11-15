@@ -20,9 +20,9 @@ class PurgeTheWicked extends Analyzer {
 
   on_initialized() {
     if(this.owner.modules.combatants.selected.hasTalent(SPELLS.PURGE_THE_WICKED_TALENT.id)) {
-      this.dotSpell = SPELLS.PURGE_THE_WICKED_BUFF
+      this.dotSpell = SPELLS.PURGE_THE_WICKED_BUFF;
     } else {
-      this.dotSpell = SPELLS.SHADOW_WORD_PAIN
+      this.dotSpell = SPELLS.SHADOW_WORD_PAIN;
     }
   }
 
