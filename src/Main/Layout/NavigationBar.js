@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import { getFightId, getPlayerName } from 'selectors/routing';
 import { getReport } from 'selectors/report';
 import { getFightById } from 'selectors/fight';
 
@@ -15,20 +16,19 @@ import makeAnalyzerUrl from '../makeAnalyzerUrl';
 
 class NavigationBar extends React.PureComponent {
   static propTypes = {
-    fightId: PropTypes.number,
     playerName: PropTypes.string,
 
     report: PropTypes.shape({
       title: PropTypes.string.isRequired,
     }),
     fight: PropTypes.object,
+    combatants: PropTypes.array,
+    parser: PropTypes.object,
+    progress: PropTypes.number,
   };
 
   render() {
-    const {
-      fightId, playerName,
-      report, fight, combatants, parser, progress,
-    } = this.props;
+    const { playerName, report, fight, combatants, parser, progress } = this.props;
 
     return (
       <nav>
@@ -46,16 +46,13 @@ class NavigationBar extends React.PureComponent {
           {report && fight && (
             <FightSelectorHeader
               className="menu-item"
-              fightId={fightId}
               parser={parser}
             />
           )}
           {report && playerName && (
             <PlayerSelectorHeader
               className="menu-item"
-              fightId={fightId}
               combatants={combatants || []}
-              selectedPlayerName={playerName}
             />
           )}
           <div className="spacer" />
@@ -71,9 +68,11 @@ class NavigationBar extends React.PureComponent {
   }
 }
 
-const mapStateToProps = (state, { fightId }) => ({
+const mapStateToProps = (state) => ({
+  playerName: getPlayerName(state),
+
   report: getReport(state),
-  fight: getFightById(state, fightId),
+  fight: getFightById(state, getFightId(state)),
 });
 
 export default connect(

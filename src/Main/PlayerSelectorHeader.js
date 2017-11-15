@@ -1,6 +1,9 @@
 // Note: Based on PlayerSelecter
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
+import { getPlayerName } from 'selectors/routing';
 
 import SelectorBase from './SelectorBase';
 import PlayerSelectionList from './PlayerSelectionList';
@@ -8,14 +11,13 @@ import PlayerSelectionList from './PlayerSelectionList';
 class PlayerSelectorHeader extends SelectorBase {
   static propTypes = {
     selectedPlayerName: PropTypes.string.isRequired,
-    fightId: PropTypes.number.isRequired,
     combatants: PropTypes.arrayOf(PropTypes.shape({
-
     })).isRequired,
   };
 
   render() {
-    const { fightId, combatants, selectedPlayerName, ...others } = this.props;
+    const { combatants, selectedPlayerName, ...others } = this.props;
+    delete others.dispatch;
     const { show } = this.state;
     return (
       <div ref={this.setRef} {...others}>
@@ -27,7 +29,7 @@ class PlayerSelectorHeader extends SelectorBase {
                 <h2>Select the player you wish to analyze</h2>
               </div>
               <div className="panel-body" style={{ padding: 0 }} onClick={this.handleClick}>
-                <PlayerSelectionList fightId={fightId} combatants={combatants} />
+                <PlayerSelectionList combatants={combatants} />
               </div>
             </div>
           </span>
@@ -37,4 +39,10 @@ class PlayerSelectorHeader extends SelectorBase {
   }
 }
 
-export default PlayerSelectorHeader;
+const mapStateToProps = state => ({
+  selectedPlayerName: getPlayerName(state),
+});
+
+export default connect(
+  mapStateToProps
+)(PlayerSelectorHeader);

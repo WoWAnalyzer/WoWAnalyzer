@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 
+import { getFightId } from 'selectors/routing';
 import { getReport } from 'selectors/report';
 import { getFightById } from 'selectors/fight';
 import SPECS from 'common/SPECS';
@@ -121,10 +122,14 @@ class PlayerSelectionList extends React.PureComponent {
   }
 }
 
-const mapStateToProps = (state, { fightId }) => ({
-  report: getReport(state),
-  fight: getFightById(state, fightId),
-});
+const mapStateToProps = state => {
+  const fightId = getFightId(state);
+
+  return ({
+    report: getReport(state),
+    fight: getFightById(state, fightId),
+  });
+};
 
 export default connect(
   mapStateToProps

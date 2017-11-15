@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Toggle from 'react-toggle';
 
+import { getFightId } from 'selectors/routing';
 import { getReport } from 'selectors/report';
 import { getFightById } from 'selectors/fight';
 import getFightName from 'common/getFightName';
@@ -38,7 +39,7 @@ class FightSelectorHeader extends SelectorBase {
 
   render() {
     const { report, fight, parser, ...others } = this.props;
-    delete others.fightId;
+    delete others.dispatch;
     const { killsOnly, show } = this.state;
     return (
       <div ref={this.setRef} {...others}>
@@ -84,11 +85,9 @@ class FightSelectorHeader extends SelectorBase {
   }
 }
 
-const mapStateToProps = (state, { fightId }) => ({
+const mapStateToProps = state => ({
   report: getReport(state),
-  fight: getFightById(state, fightId),
+  fight: getFightById(state, getFightId(state)),
 });
 
-export default connect(
-  mapStateToProps
-)(FightSelectorHeader);
+export default connect(mapStateToProps)(FightSelectorHeader);

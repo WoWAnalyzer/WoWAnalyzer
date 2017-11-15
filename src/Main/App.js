@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
-import { createMatchSelector, push as pushAction } from 'react-router-redux';
+import { push as pushAction } from 'react-router-redux';
 
 import fetchWcl, { ApiDownError, LogNotFoundError } from 'common/fetchWcl';
 import getFightName from 'common/getFightName';
@@ -10,6 +10,7 @@ import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
 import UnsupportedSpec from 'Parser/UnsupportedSpec/CONFIG';
 
 import { fetchReport as fetchReportAction } from 'actions/report';
+import { getReportCode, getFightId, getPlayerName } from 'selectors/routing';
 import { getReport } from 'selectors/report';
 import { getFightById } from 'selectors/fight';
 
@@ -44,7 +45,6 @@ class App extends Component {
     reportCode: PropTypes.string,
     playerName: PropTypes.string,
     fightId: PropTypes.number,
-    resultTab: PropTypes.string,
     report: PropTypes.shape({
       title: PropTypes.string.isRequired,
       code: PropTypes.string.isRequired,
@@ -490,7 +490,6 @@ class App extends Component {
       <Results
         parser={parser}
         dataVersion={this.state.dataVersion}
-        tab={this.props.resultTab}
         onChangeTab={newTab => this.props.push(makeAnalyzerUrl(report, this.props.fightId, this.props.playerName, newTab))}
       />
     );
@@ -508,7 +507,7 @@ class App extends Component {
       _footerDeprecatedWarningSent = true;
     }
 
-    const { reportCode, fightId, playerName } = this.props;
+    const { reportCode } = this.props;
     const { combatants, parser, progress } = this.state;
 
     // Treat `fatalError` like it's a report so the header doesn't pop over the shown error
@@ -519,8 +518,6 @@ class App extends Component {
         <AppBackgroundImage bossId={this.state.bossId} />
 
         <NavigationBar
-          fightId={fightId}
-          playerName={playerName}
           combatants={combatants}
           parser={parser}
           progress={progress}
@@ -543,20 +540,13 @@ class App extends Component {
   }
 }
 
-const routerMatcher = createMatchSelector('/report/:reportCode?/:fightId?/:playerName?/:resultTab?');
-
 const mapStateToProps = state => {
-  const match = routerMatcher(state);
-  const reportCode = match ? match.params.reportCode : null;  
-  const fightId = match ? Number(match.params.fightId.split('-')[0]) : null;  
-  const playerName = match ? match.params.playerName : null;  
-  const resultTab = match ? match.params.resultTab : null;  
+  const fightId = getFightId(state);
 
   return ({
-    reportCode,
+    reportCode: getReportCode(state),
     fightId,
-    playerName,
-    resultTab,
+    playerName: getPlayerName(state),
 
     report: getReport(state),
     fight: getFightById(state, fightId),
