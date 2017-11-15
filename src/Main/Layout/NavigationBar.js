@@ -22,13 +22,12 @@ class NavigationBar extends React.PureComponent {
       title: PropTypes.string.isRequired,
     }),
     fight: PropTypes.object,
-    combatants: PropTypes.array,
     parser: PropTypes.object,
     progress: PropTypes.number,
   };
 
   render() {
-    const { playerName, report, fight, combatants, parser, progress } = this.props;
+    const { playerName, report, fight, parser, progress } = this.props;
 
     return (
       <nav>
@@ -52,7 +51,6 @@ class NavigationBar extends React.PureComponent {
           {report && playerName && (
             <PlayerSelectorHeader
               className="menu-item"
-              combatants={combatants || []}
             />
           )}
           <div className="spacer" />
@@ -68,7 +66,7 @@ class NavigationBar extends React.PureComponent {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   playerName: getPlayerName(state),
 
   report: getReport(state),

@@ -4,15 +4,18 @@ import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
 import { push as pushAction } from 'react-router-redux';
 
-import fetchWcl, { ApiDownError, LogNotFoundError } from 'common/fetchWcl';
+import { ApiDownError, LogNotFoundError } from 'common/fetchWcl';
+import fetchEvents from 'common/fetchEvents';
 import getFightName from 'common/getFightName';
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
 import UnsupportedSpec from 'Parser/UnsupportedSpec/CONFIG';
 
 import { fetchReport as fetchReportAction } from 'actions/report';
+import { fetchCombatants as fetchCombatantsAction } from 'actions/combatants';
 import { getReportCode, getFightId, getPlayerName } from 'selectors/routing';
 import { getReport } from 'selectors/report';
 import { getFightById } from 'selectors/fight';
+import { getCombatants } from 'selectors/combatants';
 
 import './App.css';
 
@@ -49,7 +52,12 @@ class App extends Component {
       title: PropTypes.string.isRequired,
       code: PropTypes.string.isRequired,
     }),
+    combatants: PropTypes.arrayOf(PropTypes.shape({
+      sourceID: PropTypes.number.isRequired,
+    })),
     fetchReport: PropTypes.func,
+    fetchCombatants: PropTypes.func,
+    push: PropTypes.func,
   };
   static childContextTypes = {
     config: PropTypes.object,
@@ -81,7 +89,6 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      combatants: null,
       selectedSpec: null,
       progress: 0,
       dataVersion: 0,
@@ -159,7 +166,7 @@ class App extends Component {
     let events;
     try {
       this.startFakeNetworkProgress();
-      events = await this.fetchEvents(report.code, fight.start_time, fight.end_time, player.id);
+      events = await fetchEvents(report.code, fight.start_time, fight.end_time, player.id);
       this.stopFakeNetworkProgress();
     } catch (err) {
       window.Raven && window.Raven.captureException(err); // eslint-disable-line no-undef
@@ -243,36 +250,8 @@ class App extends Component {
   timeout(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
-  async fetchEvents(reportCode, fightStart, fightEnd, actorId = undefined, filter = undefined) {
-    let pageStartTimestamp = fightStart;
-
-    let events = [];
-    while (true) {
-      timeAvailable && console.time('WCL events');
-      const json = await this.fetchEventsPage(reportCode, pageStartTimestamp, fightEnd, actorId, filter);
-      timeAvailable && console.timeEnd('WCL events');
-      events = [
-        ...events,
-        ...json.events,
-      ];
-      if (json.nextPageTimestamp) {
-        if (json.nextPageTimestamp > fightEnd) {
-          console.error('nextPageTimestamp is after fightEnd, do we need to manually filter too?');
-        }
-        pageStartTimestamp = json.nextPageTimestamp;
-      } else {
-        break;
-      }
-    }
-    return events;
-  }
 
   async fetchCombatantsForFight(report, fightId) {
-    // console.log('Fetching combatants:', report, fightId);
-
-    this.setState({
-      combatants: null,
-    });
     const fight = this.getFightFromReport(report, fightId);
     if (!fight) { // if this fight id doesn't exist the fight might be null
       alert('Couldn\'t find the selected fight. If you are live-logging you will have to manually refresh the fight list.');
@@ -281,13 +260,7 @@ class App extends Component {
     }
 
     try {
-      const combatants = await this.fetchEvents(report.code, fight.start_time, fight.end_time, undefined, 'type="combatantinfo"');
-      console.log('Received combatants', report.code, ':', combatants);
-      if (this.props.reportCode === report.code && this.props.fightId === fightId) {
-        this.setState({
-          combatants,
-        });
-      }
+      return this.props.fetchCombatants(report.code, fight.start_time, fight.end_time);
     } catch (err) {
       window.Raven && window.Raven.captureException(err);
       // TODO: Redirect to homepage
@@ -306,16 +279,6 @@ class App extends Component {
       progress: 0,
     });
     this.stopFakeNetworkProgress();
-  }
-
-  fetchEventsPage(code, start, end, actorId = undefined, filter = undefined) {
-    return fetchWcl(`report/events/${code}`, {
-      start,
-      end,
-      actorid: actorId,
-      filter,
-      translate: true, // it's better to have 1 consistent language so long as we don't have the entire site localized
-    });
   }
 
   componentWillMount() {
@@ -357,14 +320,14 @@ class App extends Component {
   }
   fetchEventsAndParseIfNecessary(prevProps, prevState) {
     const changed = this.props.report !== prevProps.report
-      || this.state.combatants !== prevState.combatants
+      || this.props.combatants !== prevProps.combatants
       || this.props.fightId !== prevProps.fightId
       || this.props.playerName !== prevProps.playerName;
     if (changed) {
       this.reset();
 
       const report = this.props.report;
-      const combatants = this.state.combatants;
+      const combatants = this.props.combatants;
       const playerName = this.props.playerName;
       const valid = report && combatants && this.props.fightId && playerName;
       if (valid) {
@@ -411,7 +374,7 @@ class App extends Component {
   }
 
   renderContent() {
-    const { combatants, parser } = this.state;
+    const { parser } = this.state;
     const { report } = this.props;
 
     if (this.state.fatalError) {
@@ -470,17 +433,8 @@ class App extends Component {
     if (!this.props.fightId) {
       return <FightSelecter report={report} onRefresh={this.handleRefresh} />;
     }
-    if (!combatants) {
-      return (
-        <div>
-          <h1>Fetching players...</h1>
-
-          <div className="spinner" />
-        </div>
-      );
-    }
     if (!this.props.playerName) {
-      return <PlayerSelecter report={report} fightId={this.props.fightId} combatants={combatants} />;
+      return <PlayerSelecter />;
     }
     if (!parser) {
       return null;
@@ -508,7 +462,7 @@ class App extends Component {
     }
 
     const { reportCode } = this.props;
-    const { combatants, parser, progress } = this.state;
+    const { parser, progress } = this.state;
 
     // Treat `fatalError` like it's a report so the header doesn't pop over the shown error
     const hasReport = reportCode || this.state.fatalError;
@@ -518,7 +472,6 @@ class App extends Component {
         <AppBackgroundImage bossId={this.state.bossId} />
 
         <NavigationBar
-          combatants={combatants}
           parser={parser}
           progress={progress}
         />
@@ -550,6 +503,7 @@ const mapStateToProps = state => {
 
     report: getReport(state),
     fight: getFightById(state, fightId),
+    combatants: getCombatants(state),
   });
 };
 
@@ -557,6 +511,7 @@ export default connect(
   mapStateToProps,
   {
     fetchReport: fetchReportAction,
+    fetchCombatants: fetchCombatantsAction,
     push: pushAction,
   }
 )(App);

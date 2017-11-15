@@ -7,6 +7,7 @@ import ReactTooltip from 'react-tooltip';
 import { getFightId } from 'selectors/routing';
 import { getReport } from 'selectors/report';
 import { getFightById } from 'selectors/fight';
+import { getCombatants } from 'selectors/combatants';
 import SPECS from 'common/SPECS';
 import ROLES from 'common/ROLES';
 
@@ -25,7 +26,7 @@ class PlayerSelectionList extends React.PureComponent {
     }).isRequired,
     fightId: PropTypes.number.isRequired,
     combatants: PropTypes.arrayOf(PropTypes.shape({
-
+      sourceID: PropTypes.number.isRequired,
     })).isRequired,
   };
 
@@ -126,8 +127,11 @@ const mapStateToProps = state => {
   const fightId = getFightId(state);
 
   return ({
+    fightId,
+
     report: getReport(state),
     fight: getFightById(state, fightId),
+    combatants: getCombatants(state),
   });
 };
 

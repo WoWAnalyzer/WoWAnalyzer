@@ -8,4 +8,5 @@ export default combineReducers({
 
   // App
   report: require('./report').default,
+  combatants: require('./combatants').default,
 });

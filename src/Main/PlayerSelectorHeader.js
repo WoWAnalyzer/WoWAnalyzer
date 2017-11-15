@@ -16,20 +16,19 @@ class PlayerSelectorHeader extends SelectorBase {
   };
 
   render() {
-    const { combatants, selectedPlayerName, ...others } = this.props;
+    const { selectedPlayerName, ...others } = this.props;
     delete others.dispatch;
-    const { show } = this.state;
     return (
       <div ref={this.setRef} {...others}>
         <a onClick={this.handleClick}>{selectedPlayerName}</a>
-        {show && (
+        {this.state.show && (
           <span className="selectorHeader">
             <div className="panel">
               <div className="panel-heading">
                 <h2>Select the player you wish to analyze</h2>
               </div>
               <div className="panel-body" style={{ padding: 0 }} onClick={this.handleClick}>
-                <PlayerSelectionList combatants={combatants} />
+                <PlayerSelectionList />
               </div>
             </div>
           </span>
