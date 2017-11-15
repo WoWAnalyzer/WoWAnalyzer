@@ -1,5 +1,5 @@
 export default `
-14-11-2017 - Added a column for absolute healing in atonement sources (By Oratio)
+14-11-2017 - Added a toggle absolute healing in atonement sources (By Oratio)
 10-11-2017 - Added T21 4pc bonus. (By Oratio)
 01-11-2017 - Added T21 2pc bonus. (By Oratio)
 27-10-2017 - Refactored disc module. (Gao)
