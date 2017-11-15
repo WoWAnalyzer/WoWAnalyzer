@@ -2,12 +2,24 @@ import compression from 'compression';
 import express from 'express';
 import path from 'path';
 import fs from 'fs';
+import Raven from 'raven';
 
 import api from './api';
 import status from './status';
 
+Raven.config('https://f9b55775efbe4c0ab9a0d23236123364:99a7618f90104600b67e64e05106c535@sentry.io/242066', {
+  captureUnhandledRejections: true,
+}).install();
+
 const app = express();
+
+// The Raven request handler must be the first middleware on the app
+app.use(Raven.requestHandler());
+// The error handler must be before any other error middleware
+app.use(Raven.errorHandler());
+
 app.use(compression());
+
 // Any files that exist can be accessed directly.
 // If the server has been compiled, the path will be different.
 const buildFolder = path.basename(__dirname) === 'build' ? path.join(__dirname, '..', '..', 'build') : path.join(__dirname, '..', 'build');

@@ -192,6 +192,16 @@ export default {
     name: 'T21 2 Set Bonus',
     icon: 'ability_priest_ascension',
   },
+  DISC_PRIEST_T21_4SET_BONUS_PASSIVE: {
+    id: 251844,
+    name: 'T21 4 Set Bonus',
+    icon: 'spell_holy_searinglightpriest',
+  },
+  DISC_PRIEST_T21_4SET_BONUS_BUFF: {
+    id: 252848,
+    name: 'T21 4 Set Buff',
+    icon: 'spell_holy_searinglightpriest',
+  },
   KAM_XIRAFF_BUFF: {
     id: 233997,
     name: 'Kam Xi\'raff',
@@ -454,6 +464,30 @@ export default {
     id: 242271,
     name: 'Holy Priest T20 4P Bonus',
     icon: 'spell_holy_guardianspirit',
+  },
+
+  HOLY_PRIEST_T21_2SET_BONUS_BUFF: {
+    id: 251831,
+    name: 'Holy Priest T21 2P Bonus',
+    icon: 'ability_priest_ascension',
+  },
+
+ HOLY_PRIEST_ANSWERED_PRAYERS: {
+    id: 253437,
+    name: 'Answered Prayers',
+    icon: 'spell_holy_divinespirit',
+  },
+
+ HOLY_PRIEST_T21_4SET_BONUS_BUFF: {
+    id: 251842,
+    name: 'Holy Priest T21 4P Bonus',
+    icon: 'ability_priest_ascension',
+  },
+
+  HOLY_PRIEST_EVERLASTING_HOPE: {
+    id: 253443,
+    name: 'Everlasting Hope',
+    icon: 'ability_priest_rayofhope',
   },
 
   // Shadow Spells

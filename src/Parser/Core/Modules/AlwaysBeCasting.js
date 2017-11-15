@@ -123,7 +123,8 @@ class AlwaysBeCasting extends Analyzer {
     this._lastCastFinishedTimestamp = Math.max(castStartTimestamp + globalCooldown, cast.timestamp);
   }
   on_finished() {
-    const timeWasted = this.owner.fight.end_time - (this._lastCastFinishedTimestamp || this.owner.fight.start_time);
+    // If the player cast something just before fight end `_lastCastFinishedTimestamp` might be in the future resulting in negative downtime. The Math.max takes care of that.
+    const timeWasted = Math.max(0, this.owner.fight.end_time - (this._lastCastFinishedTimestamp || this.owner.fight.start_time));
     this.totalTimeWasted += timeWasted;
   }
 

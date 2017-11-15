@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { browserHistory, Link } from 'react-router';
 import ReactTooltip from 'react-tooltip';
 
-import fetchWcl from 'common/fetchWcl';
+import fetchWcl, { ApiDownError, LogNotFoundError } from 'common/fetchWcl';
 import getFightName from 'common/getFightName';
 
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
@@ -12,6 +12,8 @@ import UnsupportedSpec from 'Parser/UnsupportedSpec/CONFIG';
 import './App.css';
 
 import GithubLogo from './Images/GitHub-Mark-Light-32px.png';
+import ApiDownBackground from './Images/api-down-background.gif';
+import ThunderSoundEffect from './Audio/Thunder Sound effect.mp3';
 
 import Home from './Home';
 import FightSelecter from './FightSelecter';
@@ -21,6 +23,7 @@ import PlayerSelectorHeader from './PlayerSelectorHeader';
 import Results from './Results';
 import ReportSelecter from './ReportSelecter';
 import AppBackgroundImage from './AppBackgroundImage';
+import FullscreenError from './FullscreenError';
 
 import makeAnalyzerUrl from './makeAnalyzerUrl';
 
@@ -101,6 +104,7 @@ class App extends Component {
       dataVersion: 0,
       bossId: null,
       config: null,
+      fatalError: null,
     };
 
     this.handleReportSelecterSubmit = this.handleReportSelecterSubmit.bind(this);
@@ -175,6 +179,7 @@ class App extends Component {
       events = await this.fetchEvents(report.code, fight.start_time, fight.end_time, player.id);
       this.stopFakeNetworkProgress();
     } catch (err) {
+      Raven && Raven.captureException(err); // eslint-disable-line no-undef
       this.stopFakeNetworkProgress();
       if (process.env.NODE_ENV === 'development') {
         // Something went wrong while fetching the events, this usually doesn't have anything to do with a spec analyzer but is a core issue.
@@ -184,16 +189,16 @@ class App extends Component {
         console.error(err);
       }
     }
-    events = parser.normalize(events);
-    await this.setStatePromise({
-      progress: PROGRESS_STEP2_FETCH_EVENTS,
-    });
-
-    const batchSize = 300;
-    const numEvents = events.length;
-    let offset = 0;
-
     try {
+      events = parser.normalize(events);
+      await this.setStatePromise({
+        progress: PROGRESS_STEP2_FETCH_EVENTS,
+      });
+
+      const batchSize = 300;
+      const numEvents = events.length;
+      let offset = 0;
+
       while (offset < numEvents) {
         if (this._jobId !== jobId) {
           return;
@@ -217,6 +222,7 @@ class App extends Component {
         progress: 1.0,
       });
     } catch (err) {
+      Raven && Raven.captureException(err); // eslint-disable-line no-undef
       if (process.env.NODE_ENV === 'development') {
         // Something went wrong during the analysis of the log, there's probably an issue in your analyzer or one of its modules.
         throw err;
@@ -278,54 +284,55 @@ class App extends Component {
     return events;
   }
 
-  fetchReport(code, refresh = false) {
+  async fetchReport(code, refresh = false) {
     // console.log('Fetching report:', code);
 
     this.setState({
       report: null,
     });
 
-    return fetchWcl(`report/fights/${code}`, {
-      _: refresh ? +new Date() : undefined,
-      translate: true, // so long as we don't have the entire site localized, it's better to have 1 consistent language
-    })
-      .then(json => {
-        // console.log('Received report', code, ':', json);
-        if (this.reportCode === code) {
-          if (!json.fights) {
-            let message = 'Corrupt WCL response received.';
-            if (json.error) {
-              message = json.error;
-              if (json.message) {
-                try {
-                  const errorMessage = JSON.parse(json.message);
-                  if (errorMessage.error) {
-                    message = errorMessage.error;
-                  }
-                } catch (error) {
-                }
-              }
-            }
+    try {
+      let json = await fetchWcl(`report/fights/${code}`, {
+        _: refresh ? +new Date() : undefined,
+        translate: true, // so long as we don't have the entire site localized, it's better to have 1 consistent language
+      });
+      if (this.reportCode !== code) {
+        return;
+      }
+      if (!json.fights) {
+        // Give it one more try with cache busting on, usually hits the spot.
+        json = await fetchWcl(`report/fights/${code}`, {
+          _: +new Date(),
+          translate: true, // so long as we don't have the entire site localized, it's better to have 1 consistent language
+        });
+      }
 
-            throw new Error(message);
-          }
+      if (!json.fights) {
+        throw new Error('Corrupt WCL response received.');
+      }
 
-          this.setState({
-            report: {
-              ...json,
-              code,
-            },
-          });
-        }
-      })
-      .catch((err) => {
+      this.setState({
+        report: {
+          ...json,
+          code,
+        },
+      });
+    } catch (err) {
+      if (err instanceof ApiDownError || err instanceof LogNotFoundError) {
+        this.reset();
+        this.setState({
+          fatalError: err,
+        });
+      } else {
+        Raven && Raven.captureException(err); // eslint-disable-line no-undef
         alert(`I'm so terribly sorry, an error occured. Try again later, in an updated Google Chrome and make sure that Warcraft Logs is up and functioning properly. Please let us know on Discord if the problem persists.\n\n${err}`);
         console.error(err);
-        this.setState({
-          report: null,
-        });
-        this.reset();
+      }
+      this.setState({
+        report: null,
       });
+      this.reset();
+    }
   }
   fetchCombatantsForFight(report, fightId) {
     // console.log('Fetching combatants:', report, fightId);
@@ -334,9 +341,14 @@ class App extends Component {
       combatants: null,
     });
     const fight = this.getFightFromReport(report, fightId);
+    if (!fight) { // if this fight id doesn't exist the fight might be null
+      alert('Couldn\'t find the selected fight. If you are live-logging you will have to manually refresh the fight list.');
+      browserHistory.push(makeAnalyzerUrl(report));
+      return null;
+    }
 
     return this.fetchEvents(report.code, fight.start_time, fight.end_time, undefined, 'type="combatantinfo"')
-      .then((events) => {
+      .then(events => {
         // console.log('Received combatants', report.code, ':', json);
         if (this.reportCode === report.code && this.fightId === fightId) {
           this.setState({
@@ -344,8 +356,9 @@ class App extends Component {
           });
         }
       })
-      .catch((err) => {
+      .catch(err => {
         if (err) {
+          Raven && Raven.captureException(err); // eslint-disable-line no-undef
           alert(err);
         } else {
           alert('I\'m so terribly sorry, an error occured. Try again later or in an updated Google Chrome. (Is Warcraft Logs up?)');
@@ -468,9 +481,50 @@ class App extends Component {
 
   renderContent() {
     const { report, combatants, parser } = this.state;
+    if (this.state.fatalError) {
+      if (this.state.fatalError instanceof ApiDownError) {
+        return (
+          <FullscreenError
+            error="The API is down."
+            details="This is usually because we're leveling up with another patch."
+            background={ApiDownBackground}
+          >
+            <div className="text-muted">
+              Aside from the great news that you'll be the first to experience something new that is probably going to pretty amazing, you'll probably also enjoy knowing that our updates usually only take about 10 seconds. So just <a href={window.location.href}>give it another try</a>.
+            </div>
+            {/* I couldn't resist */}
+            <audio autoPlay>
+              <source src={ThunderSoundEffect} />
+            </audio>
+          </FullscreenError>
+        );
+      }
+      if (this.state.fatalError instanceof LogNotFoundError) {
+        return (
+          <FullscreenError
+            error="Log not found."
+            details="Either you entered a wrong report, or it is private."
+            background="https://media.giphy.com/media/DAgxA6qRfa5La/giphy.gif"
+          >
+            <div className="text-muted">
+              Private logs can not be used, if your guild has private logs you will have to <a href="https://www.warcraftlogs.com/help/start/">upload your own logs</a> or change the existing logs to the <i>unlisted</i> privacy option instead.
+            </div>
+            <div>
+              <button type="button" className="btn btn-primary" onClick={() => {
+                this.setState({ fatalError: null });
+                browserHistory.push(makeAnalyzerUrl());
+              }}>
+                &lt; Back
+              </button>
+            </div>
+          </FullscreenError>
+        );
+      }
+    }
     if (!this.reportCode) {
       return <Home />;
     }
+
     if (!report) {
       return (
         <div>
@@ -566,8 +620,11 @@ class App extends Component {
       _footerDeprecatedWarningSent = true;
     }
 
+    // Treat `fatalError` like it's a report so the header doesn't pop over the shown error
+    const hasReport = this.reportCode || this.state.fatalError;
+
     return (
-      <div className={`app ${this.reportCode ? 'has-report' : ''}`}>
+      <div className={`app ${hasReport ? 'has-report' : ''}`}>
         <AppBackgroundImage bossId={this.state.bossId} />
 
         {this.renderNavigationBar()}

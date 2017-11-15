@@ -114,6 +114,7 @@ class CombatLogParser extends CoreCombatLogParser {
     const healingSurge = getAbility(SPELLS.HEALING_SURGE_RESTORATION.id);
     const chainHeal = getAbility(SPELLS.CHAIN_HEAL.id);
     const giftOfTheQueen = getAbility(SPELLS.GIFT_OF_THE_QUEEN.id);
+    const giftOfTheQueenDuplicate = getAbility(SPELLS.GIFT_OF_THE_QUEEN_DUPLICATE.id);
 
     const nazjatarRiptideResets = this.modules.nazjatar.resets;
     const nobundoDiscountedHealingSurges = this.modules.nobundo.discounts;
@@ -153,16 +154,21 @@ class CombatLogParser extends CoreCombatLogParser {
 
     const hasDeepWaters = this.modules.combatants.selected.traitsBySpellId[SPELLS.DEEP_WATERS.id] > 0;
     const giftOfTheQueenHits = giftOfTheQueen.healingHits || 0;
-    const giftOfTheQueenAvgHits = giftOfTheQueenHits / giftOfTheQueenCasts / (hasDeepWaters ? 2 : 1);
+    const giftOfTheQueenDuplicateHits = giftOfTheQueenDuplicate.healingHits || 0;
+    const giftOfTheQueenAvgHits = (giftOfTheQueenHits+giftOfTheQueenDuplicateHits) / giftOfTheQueenCasts /(hasDeepWaters ? 2 : 1);
     const giftOfTheQueenTargetEfficiency = giftOfTheQueenAvgHits / 6;
 
     const giftOfTheQueenRawHealing = giftOfTheQueen.healingEffective + giftOfTheQueen.healingOverheal;
+    const giftOfTheQueenDuplicateRawHealing = giftOfTheQueenDuplicate.healingEffective + giftOfTheQueenDuplicate.healingOverheal;
     let giftOfTheQueenCBTFeeding = 0;
     if (this.modules.cooldownThroughputTracker.cbtFeed[SPELLS.GIFT_OF_THE_QUEEN.id]) {
-      giftOfTheQueenCBTFeeding = this.modules.cooldownThroughputTracker.cbtFeed[SPELLS.GIFT_OF_THE_QUEEN.id].healing;
+      giftOfTheQueenCBTFeeding += this.modules.cooldownThroughputTracker.cbtFeed[SPELLS.GIFT_OF_THE_QUEEN.id].healing;
+    }
+    if (this.modules.cooldownThroughputTracker.cbtFeed[SPELLS.GIFT_OF_THE_QUEEN_DUPLICATE.id]) {
+      giftOfTheQueenCBTFeeding += this.modules.cooldownThroughputTracker.cbtFeed[SPELLS.GIFT_OF_THE_QUEEN_DUPLICATE.id].healing;
     }
     const hasCBT = this.modules.combatants.selected.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id);
-    const giftOfTheQueenCBTFeedingPercent = giftOfTheQueenCBTFeeding / giftOfTheQueenRawHealing;
+    const giftOfTheQueenCBTFeedingPercent = giftOfTheQueenCBTFeeding / (giftOfTheQueenRawHealing+giftOfTheQueenDuplicateRawHealing);
 
     const totalMasteryHealing = this.modules.masteryEffectiveness.totalMasteryHealing || 0;
     const totalMaxPotentialMasteryHealing = this.modules.masteryEffectiveness.totalMaxPotentialMasteryHealing || 0;

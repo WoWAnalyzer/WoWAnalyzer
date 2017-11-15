@@ -2,16 +2,15 @@ import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import HealingValue from 'Parser/Core/Modules/HealingValue';
+import StatTracker from 'Parser/Core/Modules/StatTracker';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
 import { getSpellInfo, DRUID_HEAL_INFO } from '../../SpellInfo';
 
-const MASTERY_BONUS_FROM_ONE_RATING = 1 / 66666.6666666;
-const BASE_MASTERY_PERCENT = 0.048;
-
 class Mastery extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+    statTracker: StatTracker,
   };
 
   totalNoMasteryHealing = 0;
@@ -28,7 +27,7 @@ class Mastery extends Analyzer {
   hotHealingAttrib = {};
 
   /*
-   * Tracks common Mastery buff IDs, their strength, and the healing attributed to them over an encounter.
+   * Tracks healing attributable to mastery buffs
    */
   masteryBuffs = {};
 
@@ -37,6 +36,7 @@ class Mastery extends Analyzer {
         .filter(infoEntry => infoEntry[1].masteryStack)
         .forEach(infoEntry => this.hotHealingAttrib[infoEntry[0]] = { direct: 0, mastery: {} });
 
+    // TODO hook in StatTracker buff list somehow, so new Mastery buffs auto handled?
     this.masteryBuffs = {
       [SPELLS.ASTRAL_HARMONY.id]: { amount: 4000 },
       [SPELLS.JACINS_RUSE.id]: { amount: 3000 },
@@ -169,7 +169,7 @@ class Mastery extends Analyzer {
   }
 
   _decompHeal(healVal, hotCount) {
-    const masteryBonus = this._getCurrMasteryBonus();
+    const masteryBonus = this.statTracker.currentMasteryPercentage;
     const healMasteryMult = 1 + (hotCount * masteryBonus);
 
     const rawNoMasteryHealing = healVal.raw / healMasteryMult;
@@ -186,7 +186,7 @@ class Mastery extends Analyzer {
     const effectiveStackBenefit = effectiveMasteryHealing / oneStackMasteryHealingRaw;
 
     const relativeBuffBenefit = (buffRating => {
-      const buffBonus = MASTERY_BONUS_FROM_ONE_RATING * hotCount * buffRating;
+      const buffBonus = hotCount * buffRating / this.statTracker.masteryRatingPerPercent;
       return buffBonus / healMasteryMult;
     });
 
@@ -196,14 +196,6 @@ class Mastery extends Analyzer {
       effectiveStackBenefit: effectiveStackBenefit,
       relativeBuffBenefit: relativeBuffBenefit,
     };
-  }
-
-  _getCurrMasteryBonus() {
-    let currMasteryRating = this.combatants.selected.masteryRating;
-    Object.entries(this.masteryBuffs)
-        .filter(entry => this.combatants.selected.hasBuff(entry[0]))
-        .forEach(entry => currMasteryRating += entry[1].amount);
-    return BASE_MASTERY_PERCENT + (currMasteryRating * MASTERY_BONUS_FROM_ONE_RATING);
   }
 }
 

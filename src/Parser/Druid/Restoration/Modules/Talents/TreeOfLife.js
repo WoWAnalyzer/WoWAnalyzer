@@ -13,7 +13,7 @@ import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
 import SuggestionThresholds from '../../SuggestionThresholds';
-import Rejuvenation from './Rejuvenation';
+import Rejuvenation from '../Core/Rejuvenation';
 
 const debug = false;
 

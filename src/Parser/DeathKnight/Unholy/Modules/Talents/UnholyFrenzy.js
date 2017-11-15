@@ -14,6 +14,10 @@ class UnholyFrenzyUptime extends Analyzer {
     combatants: Combatants,
   };
 
+  on_initialized() {
+    this.active = this.combatants.selected.hasTalent(SPELLS.UNHOLY_FRENZY_TALENT.id);
+  }
+
   suggestions(when) {
     const ufUptime = this.combatants.selected.getBuffUptime(SPELLS.UNHOLY_FRENZY_BUFF.id) / this.owner.fightDuration;
     when(ufUptime).isLessThan(0.80)

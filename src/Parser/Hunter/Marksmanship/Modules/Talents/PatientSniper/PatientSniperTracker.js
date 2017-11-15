@@ -2,7 +2,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
-import getDamageBonus from 'Parser/Hunter/Shared/Core/getDamageBonus'; // relative path would be long and ugly
+import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus'; // relative path would be long and ugly
 
 const PATIENT_SNIPER_BONUS_PER_SEC = 0.06;
 const VULNERABLE_DURATION = 7000;
