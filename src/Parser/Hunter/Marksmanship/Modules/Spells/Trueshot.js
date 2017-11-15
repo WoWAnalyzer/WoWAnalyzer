@@ -22,6 +22,7 @@ class Trueshot extends Analyzer {
   aimedCritsInTS = 0;
   totalCritsInTS = 0;
   totalCastsPrTS = 0;
+  executeTrueshots = 0;
 
   on_byPlayer_cast(event) {
     const buffId = event.ability.guid;
@@ -30,6 +31,9 @@ class Trueshot extends Analyzer {
     }
     this.trueshotCasts += 1;
     this.accumulatedFocusAtTSCast += event.classResources[0]['amount'] || 0;
+    if(this.combatants.selected.hasBuff(SPELLS.BULLSEYE_TRAIT.id, event.timestamp)) {
+      this.executeTrueshots += 1;
+    }
 
   }
 
@@ -108,6 +112,14 @@ class Trueshot extends Analyzer {
           .recommended(`>${recommended} is recommended`)
           .regular(recommended - 10)
           .major(recommended - 20);
+      });
+    when(this.executeTrueshots).isLessThan(1)
+      .addSuggestion((suggest, actual, recommended) => {
+      return suggest(<span>You should make sure to have atleast 1 <SpellLink id={SPELLS.TRUESHOT.id}/> cast during execute (where you are buffed by <SpellLink id={SPELLS.BULLSEYE_TRAIT.id}/>) to get as much out of <SpellLink id={SPELLS.TRUESHOT.id}/> as possible.</span>)
+        .icon(SPELLS.TRUESHOT.icon)
+        .actual(`You had ${this.executeTrueshots} trueshot casts during Bullseye`)
+        .recommended(`casting atleast 1 trueshot in execute is recommended`)
+        .major(recommended);
       });
   }
 }

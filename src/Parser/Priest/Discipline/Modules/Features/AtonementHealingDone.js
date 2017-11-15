@@ -35,7 +35,9 @@ class AtonementHealingDone extends Analyzer {
     }
 
     const source = this.atonementSource.atonementDamageSource;
-    this._addHealing(source, event.amount, event.absorbed, event.overheal);
+    if (source) {
+      this._addHealing(source, event.amount, event.absorbed, event.overheal);
+    }
   }
   // FIXME: 'byAbility()' added to HealingDone, this should no longer require custom code
   _addHealing(source, amount = 0, absorbed = 0, overheal = 0) {

@@ -8,6 +8,11 @@ import ZerotorescueAvatar from 'Parser/Paladin/Holy/Images/zerotorescue-avatar.p
 const Zerotorescue = ['Zerotorescue', ZerotorescueAvatar];
 
 export default [
+    {
+    date: new Date('2017-11-11'),
+    changes: <Wrapper>Changed the Changelog tab to mark <i>shared changes</i> as grey and provided a toggle to hide them.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
   {
     date: new Date('2017-11-11'),
     changes: 'Added a larger call for help for specs that are marked "Not actively maintained".',
