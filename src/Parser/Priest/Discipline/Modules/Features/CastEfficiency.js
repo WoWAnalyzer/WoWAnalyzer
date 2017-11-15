@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 
 import CoreCastEfficiency from 'Parser/Core/Modules/CastEfficiency';
-import { calculateMaxCasts } from 'Parser/Core/getCastEfficiency';
+import calculateMaxCasts from 'Parser/Core/calculateMaxCasts';
 
 /* eslint-disable no-unused-vars */
 

@@ -8,7 +8,6 @@ import Combatants from './Combatants';
 import Haste from './Haste';
 
 /* eslint-disable no-unused-vars */
-
 class CastEfficiency extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
@@ -117,6 +116,7 @@ class CastEfficiency extends Analyzer {
     },
   ];
 
+  // TODO move these helpers out somewhere?
   getAbility(spellId) {
     return this.constructor.CPM_ABILITIES.find(ability => {
       if (ability.spell.id === spellId) {
