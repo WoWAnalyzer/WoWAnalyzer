@@ -50,6 +50,11 @@ class App extends Component {
       title: PropTypes.string.isRequired,
       code: PropTypes.string.isRequired,
     }),
+    fight: PropTypes.shape({
+      start_time: PropTypes.number.isRequired,
+      end_time: PropTypes.number.isRequired,
+      boss: PropTypes.number.isRequired,
+    }),
     combatants: PropTypes.arrayOf(PropTypes.shape({
       sourceID: PropTypes.number.isRequired,
     })),
@@ -66,9 +71,6 @@ class App extends Component {
   get isReportValid() {
     return this.props.report && this.props.report.code === this.props.reportCode;
   }
-  get fight() {
-    return this.props.fightId && this.props.report && this.getFightFromReport(this.props.report, this.props.fightId);
-  }
 
   getPlayerFromReport(report, playerName) {
     const fetchByNameAttempt = report.friendlies.find(friendly => friendly.name === playerName);
@@ -79,9 +81,6 @@ class App extends Component {
   }
   getPlayerPetsFromReport(report, playerId) {
     return report.friendlyPets.filter(pet => pet.petOwner === playerId);
-  }
-  getFightFromReport(report, fightId) {
-    return report.fights.find(fight => fight.id === fightId);
   }
 
   constructor() {
@@ -249,14 +248,7 @@ class App extends Component {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
-  async fetchCombatantsForFight(report, fightId) {
-    const fight = this.getFightFromReport(report, fightId);
-    if (!fight) { // if this fight id doesn't exist the fight might be null
-      alert('Couldn\'t find the selected fight. If you are live-logging you will have to manually refresh the fight list.');
-      this.props.push(makeAnalyzerUrl(report));
-      return null;
-    }
-
+  async fetchCombatantsForFight(report, fight) {
     try {
       return this.props.fetchCombatants(report.code, fight.start_time, fight.end_time);
     } catch (err) {
@@ -311,9 +303,9 @@ class App extends Component {
     }
   }
   fetchCombatantsIfNecessary(prevProps, prevState) {
-    if (this.isReportValid && this.props.fightId && (this.props.report !== prevProps.report || this.props.fightId !== prevProps.fightId)) {
+    if (this.isReportValid && this.props.fight && (this.props.report !== prevProps.report || this.props.fight !== prevProps.fight)) {
       // A report has been loaded, it is the report the user wants (this can be a mismatch if a new report is still loading), a fight was selected, and one of the fight-relevant things was changed
-      this.fetchCombatantsForFight(this.props.report, this.props.fightId);
+      this.fetchCombatantsForFight(this.props.report, this.props.fight);
     }
   }
   fetchEventsAndParseIfNecessary(prevProps, prevState) {
@@ -325,9 +317,10 @@ class App extends Component {
       this.reset();
 
       const report = this.props.report;
+      const fight = this.props.fight;
       const combatants = this.props.combatants;
       const playerName = this.props.playerName;
-      const valid = report && combatants && this.props.fightId && playerName;
+      const valid = report && fight && combatants && playerName;
       if (valid) {
         const player = this.getPlayerFromReport(report, playerName);
         if (!player) {
@@ -339,7 +332,6 @@ class App extends Component {
           alert('This player does not seem to be in this fight.');
           return;
         }
-        const fight = this.getFightFromReport(report, this.props.fightId);
         this.fetchEventsAndParse(report, fight, combatants, combatant, player);
       }
     }
@@ -351,23 +343,25 @@ class App extends Component {
   }
 
   updatePageTitle() {
+    const { reportCode, playerName, report, fight } = this.props;
+
     let title = 'WoW Analyzer';
-    if (this.props.reportCode && this.props.report) {
-      if (this.props.playerName) {
-        if (this.fight) {
-          title = `${getFightName(this.props.report, this.fight)} by ${this.props.playerName} in ${this.props.report.title} - ${title}`;
+    if (reportCode && report) {
+      if (playerName) {
+        if (fight) {
+          title = `${getFightName(report, fight)} by ${playerName} in ${report.title} - ${title}`;
         } else {
-          title = `${this.props.playerName} in ${this.props.report.title} - ${title}`;
+          title = `${playerName} in ${report.title} - ${title}`;
         }
       } else {
-        title = `${this.props.report.title} - ${title}`;
+        title = `${report.title} - ${title}`;
       }
     }
     document.title = title;
   }
   updateBossId() {
     this.setState({
-      bossId: (this.props.reportCode && this.isReportValid && this.fight && this.fight.boss) || null,
+      bossId: (this.props.reportCode && this.isReportValid && this.props.fight && this.props.fight.boss) || null,
     });
   }
 
