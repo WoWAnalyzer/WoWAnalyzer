@@ -1,4 +1,5 @@
 export default `
+15-11-2017 - Added a toggle absolute healing in atonement sources (By Oratio)
 10-13-2017 - Fixed a bug with some trinket damage events causing a crash. (By Gao)
 10-11-2017 - Added T21 4pc bonus. (By Oratio)
 01-11-2017 - Added T21 2pc bonus. (By Oratio)

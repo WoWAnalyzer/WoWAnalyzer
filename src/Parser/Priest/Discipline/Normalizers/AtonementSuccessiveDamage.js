@@ -21,7 +21,7 @@ class AtonementSuccessiveDamage extends EventsNormalizer {
         return;
       }
 
-      if(event.type === "heal" && isAtonement(event) && event.sourceID === this.owner.playerId) {
+      if(event.type === "heal" && isAtonement(event)) {
 
         // We encountered a targetID we already encountered since the last damage
         // event. We push down the last damage event here
