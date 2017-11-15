@@ -24,6 +24,6 @@ export default {
   TWIST_OF_FATE_LEGO_PERCENT: {
     minor: 0.03,
     regular: 0.025,
-    major: 0.2,
+    major: 0.02,
   },
 };
