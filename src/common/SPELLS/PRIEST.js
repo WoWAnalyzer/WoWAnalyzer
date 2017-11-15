@@ -528,6 +528,20 @@ export default {
     icon: 'spell_priest_void-blast',
   },
 
+  // From shadow word pain/vampiric touch:
+  VOID_ERUPTION_DAMAGE_1: {
+    id: 228360,
+    name: 'Void Eruption',
+    icon: 'spell_priest_void-blast',
+  },
+
+  // From shadow word pain/vampiric touch:
+  VOID_ERUPTION_DAMAGE_2: {
+    id: 228361,
+    name: 'Void Eruption',
+    icon: 'spell_priest_void-blast',
+  },
+
   VOID_BOLT: {
     id: 205448,
     name: 'Void Bolt',
@@ -542,6 +556,12 @@ export default {
 
   VAMPIRIC_EMBRACE: {
     id: 15286,
+    name: 'Vampiric Embrace',
+    icon: 'spell_shadow_unsummonbuilding',
+  },
+
+  VAMPIRIC_EMBRACE_HEAL: {
+    id: 15290,
     name: 'Vampiric Embrace',
     icon: 'spell_shadow_unsummonbuilding',
   },
@@ -596,11 +616,35 @@ export default {
     icon: 'spell_shadow_twistedfaith',
   },
 
+  // Shadow items:
+
   SHADOW_PRIEST_T20_4SET_BONUS_PASSIVE: {
     id: 242273,
     name: 'T20 4 Set Bonus',
     icon: 'spell_shadow_shadowwordpain',
   },
+
+  ANUNDS_SEARED_SHACKLES_BUFF: {
+    id: 215210,
+    name: "Anund's Last Breath",
+    icon: 'ability_ironmaidens_convulsiveshadows',
+  },
+
+  HEART_OF_THE_VOID_HEAL: {
+    id: 248219,
+    name: "Heart of the Void",
+    icon: 'spell_priest_void-blast',
+  },
+
+  THE_TWINS_PAINFUL_TOUCH: {
+    id: 207724,
+    name: "The Twins' Painful Touch",
+    icon: "spell_shadow_mindflay",
+  },
+
+
+
+
 
   // Shadow traits
 
