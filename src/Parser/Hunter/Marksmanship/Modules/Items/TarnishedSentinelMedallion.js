@@ -54,7 +54,7 @@ class TarnishedSentinelMedallion extends ImportTarnishedSentinelMedallion {
     return {
       item: ITEMS.TARNISHED_SENTINEL_MEDALLION,
       result: (
-        <dfn data-tip={`You cast <b> ${formatNumber(this.medallionCastsWithTS)} out of ${formatNumber(this.medallionCasts)} </b> Medallion casts with trueshot.`}>
+        <dfn data-tip={`<b> ${formatNumber(this.medallionCastsWithTS)} out of ${formatNumber(this.medallionCasts)} </b> Medallion casts were combined with Trueshot.`}>
           {formatNumber(this.damage)} damage - {this.owner.formatItemDamageDone(this.damage)}
         </dfn>
       ),
