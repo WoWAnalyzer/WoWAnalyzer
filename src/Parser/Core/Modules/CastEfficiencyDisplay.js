@@ -113,7 +113,8 @@ class CastEfficiencyDisplay extends Analyzer {
         const spellId = ability.spell.id;
         // TODO better way than 'cooldown === null' to detect that I shouldn't be making a suggestion
         // TODO not even sure what problems this use of getting CD from haste on pull will create...
-        const cooldown = this.castEfficiency.getExpectedCooldownDuration(spellId);
+        const cooldown = ability.getCooldown(this.combatants.hastePercentage, this.combatants.selected);
+        const cooldownMs = (cooldown === null) ? null : cooldown * 1000;
         const trackedAbility = this.abilityTracker.getAbility(spellId);
 
         // ability.getCasts is used for special cases that show the wrong number of cast events, like Penance
@@ -135,28 +136,28 @@ class CastEfficiencyDisplay extends Analyzer {
         const averageCooldown = this._getAverageCooldown(spellId);
         if (ability.getMaxCasts) {
           // getMaxCasts expects cooldown in seconds, not millis
-          const cooldownInSeconds = cooldown / 1000;
-          rawMaxCasts = ability.getMaxCasts(cooldownInSeconds, this.owner.fightDuration, this.abilityTracker.getAbility, this.owner);
+          rawMaxCasts = ability.getMaxCasts(cooldown, this.owner.fightDuration, this.abilityTracker.getAbility, this.owner);
         } else if (averageCooldown) { // no average CD if spell hasn't been cast
           // FIXME using the average effective cooldown to calculate max casts is a bit of an extrapolation when CD can be randomly reduced...
           rawMaxCasts = (this.owner.fightDuration / averageCooldown) + (ability.charges || 1) - 1;
         } else {
-          rawMaxCasts = (this.owner.fightDuration / cooldown) + (ability.charges || 1) - 1;
+          rawMaxCasts = (this.owner.fightDuration / cooldownMs) + (ability.charges || 1) - 1;
         }
         const maxCasts = Math.ceil(rawMaxCasts) || 0;
-        const maxCpm = cooldown === null ? null : maxCasts / fightDurationMinutes;
+        const maxCpm = (cooldown === null) ? null : maxCasts / fightDurationMinutes;
 
-        let castEfficiency;
-        if(ability.getMaxCasts) { // legacy support for custom getMaxCasts
-          castEfficiency = Math.min(1, casts / rawMaxCasts);
-        } else { // cast efficiency from SpellUsable (which doesn't use casts or maxCasts in the calculation)
-          // FIXME this isn't truly cast efficiency... it's possible to get the maximum possible casts but still occasionally have spell off CD..
-          //      For example, consider a 2 minute CD during a 3 minute duration fight, where player casts spell at 0:10 and 2:30...
-          //      Spell was off CD from 0:00 to 0:10 and also from 2:10 to 2:30, which would be ~18% off CD, yet it wasn't possible for player to cast more than 2 times.
-          //      How do we handle / display this?
-          const timeOnCd = this._getTimeOnCooldown(spellId);
-          castEfficiency = (timeOnCd / this.owner.fightDuration) || 0;
-        }
+        const castEfficiency = (cooldown === null) ? null : Math.min(1, casts / rawMaxCasts);
+        // let castEfficiency;
+        // if(ability.getMaxCasts) { // legacy support for custom getMaxCasts
+        //   castEfficiency = Math.min(1, casts / rawMaxCasts);
+        // } else { // cast efficiency from SpellUsable (which doesn't use casts or maxCasts in the calculation)
+        //   // FIXME this isn't truly cast efficiency... it's possible to get the maximum possible casts but still occasionally have spell off CD..
+        //   //      For example, consider a 2 minute CD during a 3 minute duration fight, where player casts spell at 0:10 and 2:30...
+        //   //      Spell was off CD from 0:00 to 0:10 and also from 2:10 to 2:30, which would be ~18% off CD, yet it wasn't possible for player to cast more than 2 times.
+        //   //      How do we handle / display this?
+        //   const timeOnCd = this._getTimeOnCooldown(spellId);
+        //   castEfficiency = (timeOnCd / this.owner.fightDuration) || 0;
+        // }
 
         const recommendedCastEfficiency = ability.recommendedCastEfficiency || DEFAULT_MINOR_SUGGEST;
         const averageIssueCastEfficiency = ability.averageIssueCastEfficiency || DEFAULT_AVERAGE_SUGGEST;
