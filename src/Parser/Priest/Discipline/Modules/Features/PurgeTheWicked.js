@@ -16,8 +16,18 @@ class PurgeTheWicked extends Analyzer {
     enemies: Enemies,
   };
 
+  dotSpell;
+
+  on_initialized() {
+    if(this.owner.modules.combatants.selected.hasTalent(SPELLS.PURGE_THE_WICKED_TALENT.id)) {
+      this.dotSpell = SPELLS.PURGE_THE_WICKED_BUFF;
+    } else {
+      this.dotSpell = SPELLS.SHADOW_WORD_PAIN;
+    }
+  }
+
   get uptime() {
-    return this.enemies.getBuffUptime(SPELLS.PURGE_THE_WICKED_BUFF.id) / this.owner.fightDuration;
+    return this.enemies.getBuffUptime(this.dotSpell.id) / this.owner.fightDuration;
   }
 
   suggestions(when) {
@@ -25,8 +35,8 @@ class PurgeTheWicked extends Analyzer {
 
     when(uptime).isLessThan(SuggestionThresholds.PURGE_THE_WICKED_UPTIME.minor)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your <SpellLink id={SPELLS.PURGE_THE_WICKED_BUFF.id} /> uptime can be improved.</span>)
-          .icon(SPELLS.PURGE_THE_WICKED_BUFF.icon)
+        return suggest(<span>Your <SpellLink id={this.dotSpell.id} /> uptime can be improved.</span>)
+          .icon(this.dotSpell.icon)
           .actual(`${formatPercentage(uptime)}% uptime`)
           .recommended(`>${Math.round(formatPercentage(recommended))}% is recommended`)
           .regular(SuggestionThresholds.PURGE_THE_WICKED_UPTIME.regular).major(SuggestionThresholds.PURGE_THE_WICKED_UPTIME.major);
@@ -38,9 +48,9 @@ class PurgeTheWicked extends Analyzer {
 
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.PURGE_THE_WICKED_BUFF.id} />}
+        icon={<SpellIcon id={this.dotSpell.id} />}
         value={`${formatPercentage(uptime)} %`}
-        label="Purge the Wicked Uptime"
+        label={`${this.dotSpell.name} Uptime`}
       />
     );
   }
