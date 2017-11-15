@@ -20,7 +20,6 @@ class CastEfficiency extends CoreCastEfficiency {
       recommendedCastEfficiency: 0.95,
       extraSuggestion: <span>Making sure to use <SpellLink id={SPELLS.SINDRAGOSAS_FURY_ARTIFACT.id}/> immediately after it's cooldown is up is important and if you have 5 stacks of <SpellLink id={SPELLS.RAZORICE.id}/> use as it is coming off cooldown.</span>,
     },
-
     {
       spell: SPELLS.OBLITERATION_TALENT,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
@@ -28,11 +27,19 @@ class CastEfficiency extends CoreCastEfficiency {
       recommendedCastEfficiency: 0.90,
       isActive: combatant => combatant.hasTalent(SPELLS.OBLITERATION_TALENT.id),
       extraSuggestion: <span>Normally you should be using this off CD.</span>,
+    },   
+    {
+      spell: SPELLS.BREATH_OF_SINDRAGOSA_TALENT,
+      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
+      getCooldown: haste => 120,
+      recommendedCastEfficiency: 0.90,
+      isActive: combatant => combatant.hasTalent(SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id),
+      extraSuggestion: <span>Normally you should be using this off CD.</span>,
     },
     {
-      spell: SPELLS.PILLAR_OF_FROST, // TO DO: Add support for Gravewarden extension bonus
+      spell: SPELLS.PILLAR_OF_FROST, // TO DO: Add support for Gravewarden extension bonus, Ice Cap reduction
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
-      getCooldown: haste => 60,
+      getCooldown:  (haste, combatant) => (60 - (combatant.hasBuff(SPELLS.ICECAP_TALENT.id) ? 3 : 0)),
       recommendedCastEfficiency: 0.90,
       extraSuggestion: <span>Normally you should be using this off CD.</span>,
     },

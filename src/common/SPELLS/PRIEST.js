@@ -456,6 +456,30 @@ export default {
     icon: 'spell_holy_guardianspirit',
   },
 
+  HOLY_PRIEST_T21_2SET_BONUS_BUFF: {
+    id: 251831,
+    name: 'Holy Priest T21 2P Bonus',
+    icon: 'ability_priest_ascension',
+  },
+
+ HOLY_PRIEST_ANSWERED_PRAYERS: {
+    id: 253437,
+    name: 'Answered Prayers',
+    icon: 'spell_holy_divinespirit',
+  },
+
+ HOLY_PRIEST_T21_4SET_BONUS_BUFF: {
+    id: 251842,
+    name: 'Holy Priest T21 4P Bonus',
+    icon: 'ability_priest_ascension',
+  },
+
+  HOLY_PRIEST_EVERLASTING_HOPE: {
+    id: 253443,
+    name: 'Everlasting Hope',
+    icon: 'ability_priest_rayofhope',
+  },
+
   // Shadow Spells
 
   VOID_TORRENT: {

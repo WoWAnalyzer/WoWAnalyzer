@@ -2,6 +2,7 @@ import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 
 import ColdHeart from 'Parser/DeathKnight/Shared/Items/ColdHeart';
+import Tier20_2p from './Modules/Items/Tier20_2p';
 
 import CastEfficiency from './Modules/Features/CastEfficiency';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
@@ -39,6 +40,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // items
     coldHeart: ColdHeart,
+    tier20_2p: Tier20_2p,
 
     // traits
     scourgeOfWorlds: ScourgeOfWorlds,

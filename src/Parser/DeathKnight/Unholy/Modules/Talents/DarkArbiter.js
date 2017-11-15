@@ -5,16 +5,24 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
 import Analyzer from 'Parser/Core/Analyzer';
+import Combatants from 'Parser/Core/Modules/Combatants';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class DarkArbiter extends Analyzer {
+  static dependencies = {
+    combatants: Combatants,
+  };
 
   darkArbiterActive = 0;
   totalDarkArbiterCasts = 0;
   totalRpSpent = 0;
   castTimestamp = 0;
 
-  on_byPlayer_cast(event){
+  on_initialized() {
+    this.active = this.combatants.selected.hasTalent(SPELLS.DARK_ARBITER_TALENT.id);
+  }
+
+  on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     const timestamp = event.timestamp;
 
@@ -24,20 +32,20 @@ class DarkArbiter extends Analyzer {
       this.totalDarkArbiterCasts++;
     }
 
-    else if(this.darkArbiterActive && (this.castTimestamp + 22000) < timestamp){
+    else if(this.darkArbiterActive && (this.castTimestamp + 22000) < timestamp) {
       this.darkArbiterActive = 0;
     }
 
-    else if(this.darkArbiterActive){
-      if(spellId === SPELLS.DEATH_COIL.id || spellId === SPELLS.DEATH_STRIKE.id){
+    else if(this.darkArbiterActive) {
+      if(spellId === SPELLS.DEATH_COIL.id || spellId === SPELLS.DEATH_STRIKE.id) {
         // both count the same towards the DA buff
         this.totalRpSpent += 45;
       }
     }
-    
+
   }
 
-  suggestions(when){
+  suggestions(when) {
     const avgRpPerCast = this.totalRpSpent / this.totalDarkArbiterCasts;
     when(avgRpPerCast).isLessThan(360)
       .addSuggestion((suggest, actual, recommended) => {
