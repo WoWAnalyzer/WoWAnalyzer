@@ -28,22 +28,24 @@ class AtonementHealingBreakdown extends React.Component {
 
     return (
       <div>
-      <div className="col-md-12 text-right toggle-control">
-        <Toggle
-          defaultChecked={false}
-          icons={false}
-          onChange={event => this.setState({ absolute: event.target.checked })}
-          id="absolute-toggle"
-        />
-        <label htmlFor="absolute-toggle">
-          Relative to total healing
-        </label>
-      </div>
       <table className="data-table">
         <thead>
           <tr>
             <th>Name</th>
-            <th colSpan="2">Healing done</th>
+            <th>Healing</th>
+              <th>
+              <div className="text-right toggle-control">
+                <Toggle
+                  defaultChecked={false}
+                  icons={false}
+                  onChange={event => this.setState({ absolute: event.target.checked })}
+                  id="absolute-toggle"
+                />
+                <label htmlFor="absolute-toggle">
+                  Relative to total healing
+                </label>
+              </div>
+              </th>
           </tr>
         </thead>
         <tbody>
