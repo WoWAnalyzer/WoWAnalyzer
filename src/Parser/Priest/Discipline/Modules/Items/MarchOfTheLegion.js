@@ -35,11 +35,12 @@ class MarchOfTheLegion extends Analyzer {
       debug && console.log('Skipping Atonement heal event since combatant couldn\'t be found:', event);
       return;
     }
-    if (this.atonementSource.atonementDamageSource.ability.guid !== SPELLS.MARCH_OF_THE_LEGION.id) {
-      return;
+    if (this.atonementSource.atonementDamageSource) {
+      if (this.atonementSource.atonementDamageSource.ability.guid !== SPELLS.MARCH_OF_THE_LEGION.id) {
+        return;
+      }
+      this.healing += event.amount + (event.absorbed || 0);
     }
-
-    this.healing += event.amount + (event.absorbed || 0);
   }
 
   item() {
