@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import getFightName from 'common/getFightName';
-import { getFightId, getPlayerName, getReportCode } from 'selectors/url';
+import { getFightId, getPlayerName, getReportCode } from 'selectors/url/report';
 import { getFightById } from 'selectors/fight';
 import { getReport } from 'selectors/report';
 
