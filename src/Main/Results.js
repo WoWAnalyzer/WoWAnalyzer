@@ -9,7 +9,7 @@ import ItemLink from 'common/ItemLink';
 import ItemIcon from 'common/ItemIcon';
 import getBossName from 'common/getBossName';
 import { getCompletenessColor, getCompletenessExplanation, getCompletenessLabel } from 'common/SPEC_ANALYSIS_COMPLETENESS';
-import { getResultTab } from 'selectors/routing';
+import { getResultTab } from 'selectors/url';
 import DevelopmentTab from 'Main/DevelopmentTab';
 import EventsTab from 'Main/EventsTab';
 import Tab from 'Main/Tab';

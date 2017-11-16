@@ -11,7 +11,7 @@ import UnsupportedSpec from 'Parser/UnsupportedSpec/CONFIG';
 
 import { fetchReport as fetchReportAction } from 'actions/report';
 import { fetchCombatants as fetchCombatantsAction } from 'actions/combatants';
-import { getReportCode, getFightId, getPlayerName } from 'selectors/routing';
+import { getReportCode, getFightId, getPlayerName } from 'selectors/url';
 import { getReport } from 'selectors/report';
 import { getFightById } from 'selectors/fight';
 import { getCombatants } from 'selectors/combatants';

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Toggle from 'react-toggle';
 
-import { getFightId } from 'selectors/routing';
+import { getFightId } from 'selectors/url';
 import { getReport } from 'selectors/report';
 import { getFightById } from 'selectors/fight';
 import getFightName from 'common/getFightName';
