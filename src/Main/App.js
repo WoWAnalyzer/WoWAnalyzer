@@ -6,7 +6,6 @@ import { push as pushAction } from 'react-router-redux';
 
 import { ApiDownError, LogNotFoundError } from 'common/fetchWcl';
 import fetchEvents from 'common/fetchEvents';
-import getFightName from 'common/getFightName';
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
 import UnsupportedSpec from 'Parser/UnsupportedSpec/CONFIG';
 
@@ -30,6 +29,7 @@ import ReportSelecter from './ReportSelecter';
 import AppBackgroundImage from './AppBackgroundImage';
 import FullscreenError from './FullscreenError';
 import NavigationBar from './Layout/NavigationBar';
+import DocumentTitleUpdater from './Layout/DocumentTitleUpdater';
 
 import makeAnalyzerUrl from './makeAnalyzerUrl';
 
@@ -294,7 +294,6 @@ class App extends Component {
     this.fetchReportIfNecessary(prevProps);
     this.fetchCombatantsIfNecessary(prevProps, prevState);
     this.fetchEventsAndParseIfNecessary(prevProps, prevState);
-    this.updatePageTitle();
     this.updateBossIdIfNecessary(prevProps, prevState);
   }
   fetchReportIfNecessary(prevProps) {
@@ -342,23 +341,6 @@ class App extends Component {
     }
   }
 
-  updatePageTitle() {
-    const { reportCode, playerName, report, fight } = this.props;
-
-    let title = 'WoW Analyzer';
-    if (reportCode && report) {
-      if (playerName) {
-        if (fight) {
-          title = `${getFightName(report, fight)} by ${playerName} in ${report.title} - ${title}`;
-        } else {
-          title = `${playerName} in ${report.title} - ${title}`;
-        }
-      } else {
-        title = `${report.title} - ${title}`;
-      }
-    }
-    document.title = title;
-  }
   updateBossId() {
     this.setState({
       bossId: (this.props.reportCode && this.isReportValid && this.props.fight && this.props.fight.boss) || null,
@@ -474,6 +456,7 @@ class App extends Component {
           {this.renderContent()}
         </main>
         <ReactTooltip html place="bottom" />
+        <DocumentTitleUpdater />
       </div>
     );
   }
