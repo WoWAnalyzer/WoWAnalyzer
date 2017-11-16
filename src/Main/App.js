@@ -423,7 +423,7 @@ class App extends Component {
       );
     }
     if (!this.props.fightId) {
-      return <FightSelecter report={report} onRefresh={this.handleRefresh} />;
+      return <FightSelecter onRefresh={this.handleRefresh} />;
     }
     if (!this.props.playerName) {
       return <PlayerSelecter />;

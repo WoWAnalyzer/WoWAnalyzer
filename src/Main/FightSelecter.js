@@ -1,13 +1,16 @@
-import React, { Component } from 'react';
+import React  from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 import Toggle from 'react-toggle';
 
+import { getReport } from 'selectors/report';
+
 import FightSelectionList from './FightSelectionList';
 import makeAnalyzerUrl from './makeAnalyzerUrl';
 
-class FightSelecter extends Component {
+class FightSelecter extends React.PureComponent {
   static propTypes = {
     report: PropTypes.shape({
       code: PropTypes.string.isRequired,
@@ -86,4 +89,8 @@ class FightSelecter extends Component {
   }
 }
 
-export default FightSelecter;
+const mapStateToProps = state => ({
+  report: getReport(state),
+});
+
+export default connect(mapStateToProps)(FightSelecter);
