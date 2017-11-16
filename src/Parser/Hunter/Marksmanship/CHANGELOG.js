@@ -1,4 +1,5 @@
 export default `
+12-11-2017 - Upgraded spec completeness to good (by Putro)
 12-11-2017 - Updated config information (by Putro)
 12-11-2017 - Added a suggestion for execute trueshots and a A Murder of Crows suggestion when boss has between 25 and 20% hp (by Putro)
 08-11-2017 - Added cancelled cast module (by Putro)

@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
 import Toggle from 'react-toggle';
 
 import SelectorBase from './SelectorBase';
@@ -37,7 +36,7 @@ class FightSelectorHeader extends SelectorBase {
     const { killsOnly, show } = this.state;
     return (
       <div ref={this.setRef} {...others}>
-        <Link onClick={this.handleClick}>{selectedFightName}</Link>
+        <a onClick={this.handleClick}>{selectedFightName}</a>
         {show && parser && parser.player && (
           <span className="selectorHeader">
             <div className="panel">

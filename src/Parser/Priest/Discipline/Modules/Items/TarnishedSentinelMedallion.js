@@ -35,11 +35,12 @@ class TarnishedSentinelMedallion extends Analyzer {
       debug && console.log('Skipping Atonement heal event since combatant couldn\'t be found:', event);
       return;
     }
-    if (!this.damageAbilities.has(this.atonementSource.atonementDamageSource.ability.guid)) {
-      return;
+    if (this.atonementSource.atonementDamageSource) {
+      if (!this.damageAbilities.has(this.atonementSource.atonementDamageSource.ability.guid)) {
+        return;
+      }
+      this.healing += event.amount + (event.absorbed || 0);
     }
-
-    this.healing += event.amount + (event.absorbed || 0);
   }
 
   on_byPlayer_damage(event) {

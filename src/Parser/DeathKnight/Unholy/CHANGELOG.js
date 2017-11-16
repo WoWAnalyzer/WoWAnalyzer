@@ -1,5 +1,10 @@
 export default  [
   {
+    date: new Date('11-14-2017'),
+    changes: 'Added T20 2 piece bonus tracking',
+    contributors: ['Khazak'],
+  },
+  {
     date: new Date('11-04-2017'),
     changes: 'Scourge of Worlds, Cold Heart, and Unholy Frenzy trackers added',
     contributors: ['Khazak'],
