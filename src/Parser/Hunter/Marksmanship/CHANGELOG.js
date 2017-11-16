@@ -1,20 +1,25 @@
 export default `
-08-11-2017 - Fixed large FocusChart performance bugs
-25-10-2017 - Added 5 new talent modules, fixed trueshot CD, added Focus Dump Checker
-25-10-2017 - Updated True Aim to include damage contributed information
-25-10-2017 - Adjust t202p to account for nerfs 
+12-11-2017 - Upgraded spec completeness to good (by Putro)
+12-11-2017 - Updated config information (by Putro)
+12-11-2017 - Added a suggestion for execute trueshots and a A Murder of Crows suggestion when boss has between 25 and 20% hp (by Putro)
+08-11-2017 - Added cancelled cast module (by Putro)
+08-11-2017 - Fixed large FocusChart performance bugs (by Leapis)
+03-11-2017 - Minor update to the LnL modules calculation of expected procs (by Putro)
+25-10-2017 - Added 5 new talent modules, fixed trueshot CD, added Focus Dump Checker (by Putro)
+25-10-2017 - Updated True Aim to include damage contributed information (by Putro)
+25-10-2017 - Adjust t202p to account for nerfs (by Putro)
 22-10-2017 - Updated suggestions overall, added avatar, removed Cyclonic Burst Impact from cooldown tracker, added suggestion to TimeFocusCapped, updated AlwaysBeCasting and CastEfficiency. (by Putro)
 22-10-2017 - Added trueshot statistic with average aimed pr trueshot, and average starting focus pr trueshot. (by Putro)
 22-10-2017 - Added tier 202p dmg increase breakdown. (by Putro)
 22-10-2017 - Added Soul of the Huntmaster, MKII Gyroscopic Stabilizer and War Belt of the Sentinel Army support. (by Putro)
 22-10-2017 - Added a graph for applications of vulnerable. (by Putro) 
-20-10-2017 - Added Medallion/TS pairing tooltip
+20-10-2017 - Added Medallion/TS pairing tooltip (by Leapis)
 20-10-2017 - Added True aim and lock and load support. (by Putro)
 16-10-2017 - Added Ullrs Trueshot CDR support. (by Putro)
 16-10-2017 - Added Tier192p support. (by Putro)
 14-10-2017 - Added Patient Sniper tracking. (by Putro)
 14-10-2017 - Added Focus Capped Statistic Box (By leapis)
-08-10-2017 - Added FocusTracker Module and FocusTracker Graph module and additional supporting modules (By leapis)
+08-10-2017 - Added FocusTracker Module and FocusTracker Graph module and additional supporting modules (By Leapis)
 05-10-2017 - remove Cyclonic Burst from Cooldown view. (by Putro) 
 05-10-2017 - Added Artifact Trait cooldown reduction for trueshot. (by Putro) 
 04-10-2017 - Added Aimed Shot and Vulnerable tracker. (by Putro) 
