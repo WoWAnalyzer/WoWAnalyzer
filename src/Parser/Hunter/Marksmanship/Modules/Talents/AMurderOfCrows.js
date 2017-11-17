@@ -4,7 +4,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
-import StatisticBox from "Main/StatisticBox";
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellIcon from "common/SpellIcon";
 import { formatNumber, formatPercentage } from "common/format";
 import SpellLink from "common/SpellLink";
@@ -50,7 +50,7 @@ class AMurderOfCrows extends Analyzer {
     if (event.maxHitPoints && this.bossIDs.includes(event.targetID)) {
       if ((event.hitPoints / event.maxHitPoints) <= CROWS_SAVE_PERCENT && (event.hitPoints / event.maxHitPoints) > EXECUTE_PERCENT) {
         this.shouldHaveSaved += 1;
-        this.bossHP = (event.hitPoints/event.maxHitPoints);
+        this.bossHP = (event.hitPoints / event.maxHitPoints);
       }
     }
   }
@@ -67,14 +67,14 @@ class AMurderOfCrows extends Analyzer {
   suggestions(when) {
     when(this.shouldHaveSaved).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You should <b>generally</b> save <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> when the boss has under 25% hp so that it is ready to use when the boss hits 20% and you can start getting <SpellLink id={SPELLS.BULLSEYE_TRAIT.id}/> quicker.</span>)
+        return suggest(<span>You should <b>generally</b> save <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> when the boss has under 25% hp so that it is ready to use when the boss hits 20% and you can start getting <SpellLink id={SPELLS.BULLSEYE_TRAIT.id} /> quicker.</span>)
           .icon(SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.icon)
           .actual(`You cast crows while boss ${formatPercentage(this.bossHP)}% HP.`)
           .recommended(`0 casts when boss has between 20 and 25% hp is recommended`)
-          .average(recommended);
+          .regular(recommended);
       });
-
   }
+  statisticOrder = STATISTIC_ORDER.CORE(12);
 }
 
 export default AMurderOfCrows;
