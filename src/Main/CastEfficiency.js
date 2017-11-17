@@ -16,9 +16,9 @@ const CastEfficiency = ({ categories, abilities }) => {
           .map(key => (
             <tbody key={key}>
               <tr>
-                <th>{categories[key]}</th>
+                <th><b>{categories[key]}</b></th>
                 <th className="text-center"><dfn data-tip="Casts Per Minute">CPM</dfn></th>
-                <th colSpan="3"><dfn data-tip="The max possible casts is a super simplified calculation based on the Haste you get from your gear alone. Any Haste increasers such as from talents, Bloodlust and boss abilities are not taken into consideration, so this is <b>always</b> lower than actually possible for abilities affected by Haste.">Cast efficiency</dfn></th>
+                <th colSpan="3"><dfn data-tip="Efficiency percentage is the percentage of time the ability was kept on cooldown. Maximum possible casts are based on the abilities cooldown and the fight duration. For spells with long cooldowns, it's possible to get the maximum casts while still having a cast efficiency rating well below 100%">Cast efficiency</dfn></th>
                 <th />
               </tr>
               {abilities
