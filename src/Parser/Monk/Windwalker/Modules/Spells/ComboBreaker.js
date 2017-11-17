@@ -14,7 +14,7 @@ const debug = false;
 
 class ComboBreaker extends Analyzer {
   CBProcsTotal = 0;
-  lastCBProcTime = 0;
+  lastCBProcTime = null;
   consumedCBProc = 0;
   overwrittenCBProc = 0;
   nonCBBoK = 0;
