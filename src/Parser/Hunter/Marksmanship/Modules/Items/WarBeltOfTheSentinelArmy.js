@@ -86,8 +86,8 @@ class WarBeltOfTheSentinelArmy extends Analyzer {
           .icon(ITEMS.WAR_BELT_OF_THE_SENTINEL_ARMY.icon)
           .actual(`${formatPercentage(percentUnusedStacks)}% of total stacks were unused`)
           .recommended(`${formatPercentage(recommended, 0)}% unused stacks is recommended`)
-          .regular(recommended - 0.02)
-          .major(recommended - 0.05);
+          .regular(recommended + 0.01)
+          .major(recommended + 0.02);
       });
   }
 
