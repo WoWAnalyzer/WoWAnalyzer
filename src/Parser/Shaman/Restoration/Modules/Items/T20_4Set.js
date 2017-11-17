@@ -2,6 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
+import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
@@ -67,6 +68,15 @@ class Restoration_Shaman_T20_4Set extends Analyzer {
             .regular(recommended + 0.15).major(recommended + 0.3)
         );
     }
+  }
+
+  item() {
+    return {
+      id: `spell-${SPELLS.RESTORATION_SHAMAN_T20_4SET_BONUS_BUFF.id}`,
+      icon: <SpellIcon id={SPELLS.RESTORATION_SHAMAN_T20_4SET_BONUS_BUFF.id} />,
+      title: <SpellLink id={SPELLS.RESTORATION_SHAMAN_T20_4SET_BONUS_BUFF.id} />,
+      result: this.owner.formatItemHealingDone(this.healing),
+    };
   }
 }
 

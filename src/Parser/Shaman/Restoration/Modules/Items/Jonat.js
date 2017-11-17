@@ -34,6 +34,14 @@ class Jonat extends Analyzer {
       this.healing += calculateEffectiveHealing(event, healingIncrease);
     }
   }
+
+  item() {
+    return {
+      item: ITEMS.ITEMS.FOCUSER_OF_JONAT,
+      result: this.owner.formatItemHealingDone(this.healing),
+    };
+  }
+
 }
 
 export default Jonat;
